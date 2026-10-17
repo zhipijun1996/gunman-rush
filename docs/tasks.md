@@ -427,3 +427,9 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | --- | --- | --- | --- | --- |
 | SPATIAL-PRODUCTION-01 | 空间创作执行根因修复 | — | review | 核心规则保护与授权几何实验分开；首黄金像素独审前置，非新增质量框架 |
 | SPATIAL-GOLDEN-01 | 草海联合可玩黄金与有限组件复用 | SPATIAL-PRODUCTION-01 | blocked | 首空间真实去返/实片已交，艺术REWORK未准入；预算停止，第二结构及多Seed未执行，见quality/spatial_golden.md |
+
+## P1-NATIVE-01
+
+| ID | 阶段 | 依赖 | 状态 | 交付与验收 |
+| --- | --- | --- | --- | --- |
+| P1-NATIVE-01 | P1实际平原美术转译 | ART-DIRECTION-02 | review | 两轮真实1116tick：首REWORK、次ACCEPT_SCOPED单首空间；同源B对照与原负例通过，未达概念同等精美/全G2/用户/设备/随机迁移 |

@@ -1,0 +1,2344 @@
+{
+  "schema_version": 1,
+  "objective": "改善平原美术",
+  "workflow": "visual_golden",
+  "scope": "offline_production_plan_not_executed",
+  "max_calls": 10,
+  "max_rounds": 2,
+  "call_timeout_seconds": 1800,
+  "tasks": [
+    {
+      "id": "visual-windchime-plains-a10fd9a1-audit",
+      "goal": "改善平原美术 — Read actual gameplay pixels and continuous footage; audit asset consumer/semantic gaps, measured scale/roots/layers; propose one original spatial silhouette.",
+      "skills": [
+        "visual-director",
+        "art-director",
+        "scene-composer"
+      ],
+      "checks": [
+        "visual-director-tests"
+      ],
+      "depends_on": [],
+      "read_only": true,
+      "allowed_paths": [
+        "scripts/art/",
+        "assets/visual_development/",
+        "resources/visual_development/",
+        "tools/visual_director.py",
+        "tools/level_formal_capture.gd",
+        "tools/spatial_golden_preview.gd",
+        "docs/quality/records/",
+        "docs/evidence/painted_terrain/",
+        "docs/tasks.md"
+      ],
+      "quality_record": "docs/quality/records/visual-windchime-plains-a10fd9a1-golden.json",
+      "completion": "scope",
+      "feedback_context": "compact"
+    },
+    {
+      "id": "visual-windchime-plains-a10fd9a1-golden",
+      "goal": "改善平原美术 — Register G0 visual design/family contract; implement ONE static golden in the real consumer, then wind/light; capture actual same-condition footage, inspect, compare and request independent pixel review. Fix actual observed defects with bounded attempts; never change core gameplay. Use the current P1 candidate visual recipe and its actual native review, not the historical B painting as style authority. Compose the whole real camera/actor/hazard relationship first; preserve broad readable value masses at actual game scale. Reuse the functional continuous top/root-shoulder/quiet-deep-soil section and separate left/right turned ends; draw or edit only a proven missing functional source. Measure source_surface_profile, outer_profile, alpha, foot and muzzle anchors from actual pixels; use finite arc-length mapping on actual contours, never repeated texture or whole-source compression. Keep quiet middle-distance behind actor trajectories, calibrating layer scale/anchor/opacity rather than hiding terrain joins. Independently review actual full-screen pixels and continuous action before expansion; no copying the first placement coordinates as a universal recipe.",
+      "skills": [
+        "visual-director",
+        "art-director",
+        "scene-composer",
+        "animation-vfx"
+      ],
+      "checks": [
+        "visual-director-tests",
+        "art-art",
+        "capture-tests",
+        "visual-director-terrain"
+      ],
+      "depends_on": [
+        "visual-windchime-plains-a10fd9a1-audit"
+      ],
+      "read_only": false,
+      "allowed_paths": [
+        "scripts/art/",
+        "assets/visual_development/",
+        "resources/visual_development/",
+        "tools/visual_director.py",
+        "tools/level_formal_capture.gd",
+        "tools/spatial_golden_preview.gd",
+        "docs/quality/records/",
+        "docs/evidence/painted_terrain/",
+        "docs/tasks.md"
+      ],
+      "quality_record": "docs/quality/records/visual-windchime-plains-a10fd9a1-golden.json",
+      "completion": "stage",
+      "required_gates": [
+        "G0",
+        "G1"
+      ],
+      "quality_task_id": "visual-windchime-plains-a10fd9a1-golden",
+      "feedback_context": "compact"
+    },
+    {
+      "id": "visual-windchime-plains-a10fd9a1-review",
+      "goal": "改善平原美术 — Independently view actual PNG pixels and continuous normal-speed game footage; bind exact observed refs. Reject semantic misuse, visible cuts/unsupported roots, dangerous occlusion and weak composition. Technical pass never grants commercial quality/user/device acceptance.",
+      "skills": [
+        "visual-director",
+        "gameplay-reviewer",
+        "art-director",
+        "scene-composer"
+      ],
+      "checks": [
+        "visual-director-tests"
+      ],
+      "depends_on": [
+        "visual-windchime-plains-a10fd9a1-golden"
+      ],
+      "read_only": true,
+      "allowed_paths": [
+        "scripts/art/",
+        "assets/visual_development/",
+        "resources/visual_development/",
+        "tools/visual_director.py",
+        "tools/level_formal_capture.gd",
+        "tools/spatial_golden_preview.gd",
+        "docs/quality/records/",
+        "docs/evidence/painted_terrain/",
+        "docs/tasks.md"
+      ],
+      "quality_record": "docs/quality/records/visual-windchime-plains-a10fd9a1-golden.json",
+      "completion": "scope",
+      "feedback_context": "compact"
+    }
+  ],
+  "preparation": {
+    "region_context": {
+      "schema_version": 1,
+      "kind": "extracted_design_input_not_runtime_configuration",
+      "region_id": "windchime_plains",
+      "name": "风铃平原",
+      "authority_precedence": [
+        "latest_user_instruction",
+        "docs/design/player_actions/README.md",
+        "latest_revised_contracts",
+        "docs/design/player_actions/regions_v0.3.md",
+        "docs/design/player_actions/weapons_v0.8.md",
+        "docs/world_regions.json"
+      ],
+      "design": {
+        "stage": {
+          "value": "S1",
+          "status": "LOCKED_STAGE_PRINCIPLE",
+          "source": {
+            "path": "docs/design/player_actions/regions_v0.3.md",
+            "version": "V0.3",
+            "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+            "line_start": 98,
+            "line_end": 98
+          }
+        },
+        "gate": {
+          "expression": "基础跳跃 + R",
+          "alternatives": [
+            [
+              "base_jump",
+              "base_recoil"
+            ]
+          ],
+          "status": "PROPOSED_MATRIX_SUBJECT_TO_LOCKED_PRINCIPLES",
+          "source": {
+            "path": "docs/design/player_actions/regions_v0.3.md",
+            "version": "V0.3",
+            "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+            "line_start": 98,
+            "line_end": 98
+          }
+        },
+        "optional_gate": {
+          "text": "仅基础跳跃 + R 的熟练应用",
+          "status": "PROPOSED_MATRIX_SUBJECT_TO_LOCKED_PRINCIPLES",
+          "source": {
+            "path": "docs/design/player_actions/regions_v0.3.md",
+            "version": "V0.3",
+            "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+            "line_start": 98,
+            "line_end": 98
+          }
+        },
+        "identity": {
+          "text": "反冲方向、落点与制动教学",
+          "status": "PROPOSED",
+          "source": {
+            "path": "docs/design/player_actions/regions_v0.3.md",
+            "version": "V0.3",
+            "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+            "line_start": 98,
+            "line_end": 98
+          }
+        },
+        "learning": [
+          {
+            "label": "地形",
+            "text": "开阔草坡、断桥、风车桥、缓坡和低钟塔；视觉明快、童话手绘。",
+            "status": "PROPOSED",
+            "source": {
+              "path": "docs/design/player_actions/regions_v0.3.md",
+              "version": "V0.3",
+              "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+              "line_start": 165,
+              "line_end": 165
+            }
+          },
+          {
+            "label": "独特机制",
+            "text": "基础反冲推进/制动、风铃开关、宽安全台、简单移动渡台。",
+            "status": "PROPOSED",
+            "source": {
+              "path": "docs/design/player_actions/regions_v0.3.md",
+              "version": "V0.3",
+              "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+              "line_start": 166,
+              "line_end": 166
+            }
+          },
+          {
+            "label": "I",
+            "text": "「断桥试射」——无害跨度，向后/向下射击学会改变落点。",
+            "status": "PROPOSED",
+            "source": {
+              "path": "docs/design/player_actions/regions_v0.3.md",
+              "version": "V0.3",
+              "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+              "line_start": 167,
+              "line_end": 167
+            }
+          },
+          {
+            "label": "C",
+            "text": "「草坡风车」——跑跳→空中反冲→短时机关平台→稳定落点，体验横向与向上两种反冲。",
+            "status": "PROPOSED",
+            "source": {
+              "path": "docs/design/player_actions/regions_v0.3.md",
+              "version": "V0.3",
+              "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+              "line_start": 168,
+              "line_end": 168
+            }
+          },
+          {
+            "label": "X",
+            "text": "「风铃回廊」——短跳、转身反冲、及时落台的连续动作；仍不需要 H/W/D/U1/U2。",
+            "status": "PROPOSED",
+            "source": {
+              "path": "docs/design/player_actions/regions_v0.3.md",
+              "version": "V0.3",
+              "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+              "line_start": 169,
+              "line_end": 169
+            }
+          },
+          {
+            "label": "Boss侧重点",
+            "text": "躲避/攻击窗口与射击反冲基本功；完成整个平原地区后 S1 三选一。",
+            "status": "PROPOSED",
+            "source": {
+              "path": "docs/design/player_actions/regions_v0.3.md",
+              "version": "V0.3",
+              "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+              "line_start": 170,
+              "line_end": 170
+            }
+          }
+        ],
+        "region_blueprint": {
+          "status": "PROPOSED",
+          "text": "### S1 风铃平原｜R 与基础跳跃\n\n- **地形**：开阔草坡、断桥、风车桥、缓坡和低钟塔；视觉明快、童话手绘。\n- **独特机制**：基础反冲推进/制动、风铃开关、宽安全台、简单移动渡台。\n- **I**：「断桥试射」——无害跨度，向后/向下射击学会改变落点。\n- **C**：「草坡风车」——跑跳→空中反冲→短时机关平台→稳定落点，体验横向与向上两种反冲。\n- **X**：「风铃回廊」——短跳、转身反冲、及时落台的连续动作；仍不需要 H/W/D/U1/U2。\n- **Boss侧重点**：躲避/攻击窗口与射击反冲基本功；完成整个平原地区后 S1 三选一。",
+          "source": {
+            "path": "docs/design/player_actions/regions_v0.3.md",
+            "version": "V0.3",
+            "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+            "line_start": 163,
+            "line_end": 171
+          }
+        },
+        "world_location": {
+          "stage": "S1",
+          "incoming": [],
+          "outgoing": [
+            "thorn_forest",
+            "firefly_marsh",
+            "windswept_canyon"
+          ],
+          "additional_candidate_edges": [],
+          "status": "PROPOSED_TOPOLOGY_NOT_REACHABILITY",
+          "sources": [
+            {
+              "path": "docs/world_regions.json",
+              "version": "content_sha256",
+              "sha256": "8d31538a5e7e33c093dc1e70739102c73359de6ea0848d99f0294659cfd2c656",
+              "line_start": 1,
+              "line_end": 406
+            },
+            {
+              "path": "docs/design/player_actions/regions_v0.3.md",
+              "version": "V0.3",
+              "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+              "line_start": 117,
+              "line_end": 156
+            }
+          ]
+        },
+        "art": {
+          "status": "PROPOSED",
+          "source": {
+            "path": "docs/world_regions.json",
+            "version": "content_sha256",
+            "sha256": "8d31538a5e7e33c093dc1e70739102c73359de6ea0848d99f0294659cfd2c656",
+            "line_start": 19,
+            "line_end": 38
+          },
+          "visual_anchor": "嫩绿草甸、木桥、风车、风铃花与柔和阳光",
+          "story_anchor": "时间仍较正常，但部分花朵已停止生长",
+          "scene_introduction": "草甸向远山和低矮云层展开，木桥跨过被雨水切开的浅谷。风车仍缓慢运转，吊在维修站檐下的风铃却有几枚停在半空。阳光穿过薄云落在旧桥和花瓣上，发光花只在阴影处留下克制的微光。这里先让玩家感到世界值得探索，再通过一簇停止生长的花暗示时间的裂缝。",
+          "scene_mood": "醒来的风，停住的花",
+          "material_and_light": "嫩草绿、麦金与天空蓝；石灰岩、旧木和少量磨损黄铜；暖日光、冷远山与低对比云影。",
+          "module_art_notes": "草坡、断桥、风车吊台、维修站四种场景族；落脚边整洁，远景风车不能误作可交互机关。",
+          "art_brief_status": "proposal_awaiting_visual_sample"
+        }
+      },
+      "locked_principles": [
+        {
+          "status": "LOCKED",
+          "text": "### 0.1 用户已明确确认的要求（必须执行）\n\n1. 一局按 **S1→S2→S3→S4→S5→S6** 六个阶段，从 16 个候选地区中每层选一个；**S1 固定风铃平原，S6 固定世界钟心**。前五阶段各完成后获得一个核心能力，进入 S6 时获得全部核心能力（能力选择的可行性见第2章）。\n2. 核心能力：**钩索 H**、**攀壁/爬墙跳 W**、**二段跳 D**、**武器进化 I（U1）**、**武器进化 II（U2）**。\n3. **S2 只拥有 S1 奖励的一个新能力**。S2 的入门、标准、高阶、隐藏挑战都只能要求“该地区对应的一项能力 + 基础跳跃/初始武器反冲的连续灵活应用”；**不允许在 S2 的任何必做或可选路径强制要求第二种后续核心能力**。以后跨局回访属于另一个未来系统，不列为当前 S2 方案。\n4. **W 不只是缓降**：可贴墙缓降，可从墙上向外斜上蹬跳、空中修正并重新贴回同一面墙，借此反复向上攀登；也能在左右两墙之间交替蹬跳，爬升很高的竖井。不能将 W 实现为“一次墙跳后本次腾空绝对无法再墙跳”。\n5. **凡以 U1 为门槛的场景，所有 Lv.2 武器分支必须具备不同的真实解法**；具体行为、资源及操作演示以[武器文档](weapons_v0.8.md)为准。\n6. **S4 允许不同能力解法**：如 `W OR D`、`H OR W`、`任意两种移动能力`。必须构建并验证各自真实可通关的路线/模块，而非用标签声明通关。\n7. **S5 三种地区采用各自双移动能力硬锁 + U1 共通要求；第三种移动能力用于高级挑战/隐藏奖励**。不把三种移动能力都作为 S5 主路硬要求。\n8. **终极天赋机制暂不设计**。最后一次能力获得应按合法性规则完成；若只剩一个核心能力，不得伪装“三选一”。\n9. 游戏主要乐趣是**开火产生反作用力的位移 + 精确平台跳跃 + 大地图随机探索**，战斗、敌人和 Boss 应服务于位移、机关及路线决策；不是把普通武器 DPS 叠数值的战斗游戏。",
+          "source": {
+            "path": "docs/design/player_actions/regions_v0.3.md",
+            "version": "V0.3",
+            "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+            "line_start": 15,
+            "line_end": 26
+          }
+        },
+        {
+          "status": "LOCKED_DIRECTION",
+          "text": "### 2.1 核心成长流程\n\n1. 一局进入平原时只有基础跳跃和当前基础武器（Lv.1）；开局武器种类按角色或开局选择决定，**具体开局解锁方式待后续确认**，但每局的 `base_weapon_id` 必须确定。\n2. **S1 最后一场 Boss 通关后**，提供恰好三个核心能力候选：`H`、`W`、`U1`。取得 `H→森林`、`W→峡谷`、`U1→沼泽`；取得 U1 时立即选择该武器的 Lv.2 A/B 分支。\n3. 完成 S2、S3、S4、S5 时，原则上授予五个核心能力中**尚未拥有的一项**，最后进入 S6 全部齐备。**U2 不能在 S2 结束时发放，最早允许在 S3 结束时出现**；U2 还必须已拥有 U1。\n4. S2 通关后获得第二项核心能力，才能进入 S3。**进入和游玩 S2 时始终只有刚从平原拿到的一项核心能力**，该地区各层次挑战均禁止依赖第二项。\n5. S3、S4 的候选能力与目的地应由合法性搜索生成：候选能力必须有至少一个实际可进入的下一地区，并且之后存在至少一条进入世界钟心的完整合法链。\n6. S5 完成后，若按五核心能力必得机制只剩最后一项，应**直接授予最后缺失能力并清晰展示**。不要伪造三选一，也不要在这版引入尚未设计的终极天赋。\n7. 局内取得的核心能力随本局持续，死亡后的持久解锁政策属于另一个 Meta 设计议题；当前文档不私自改成永久携带所有能力。",
+          "source": {
+            "path": "docs/design/player_actions/regions_v0.3.md",
+            "version": "V0.3",
+            "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+            "line_start": 76,
+            "line_end": 85
+          }
+        },
+        {
+          "status": "REQUIRED_VALIDATION_NOT_PROOF",
+          "text": "### 5.1 地区侧必须自动验证的规则\n\n1. `S2_entry_core_count == 1`；S2 的 I/C/X 路线全部满足 `requires ⊆ {S1_award, base_jump, base_recoil}`，不能隐藏要求第二个核心能力。\n2. 同墙 W 在真实有效分离并重新接触后可连续多次攀高；双墙交替可持续爬升；接触墙壁不恢复普通 D/射击次数/精力。\n3. U2 必须依赖 U1 且不得在 S2 通关后提供；每次能力候选必须存在后续完整合法路线；S6 入场五项齐备。\n4. S4 冰川 `only W`、`only D`，熔火 `only H`、`only W`，浮岛 `H+W`、`H+D`、`W+D`，分别用真实物理证明完整主路；若某能力组合不符合该阶段的合法历史，仍在专门测试环境验证其几何解法。\n5. S5 三个地区在各自 `双移动能力+U1` 条件下可完整过 Boss；第三移动能力只开启额外挑战，不准暗中成为主路前置。\n6. 所有地图须完成不同武器轨迹／资源测试，且不能依赖未保证命中回能、随机必出道具、损血强闯、被卡死的回程。\n7. 固定 Seed／内容版本／选择可复现；提供失败反例、回退与旧存档兼容；真实手感、美术、真机验收未做则标 `unverified`。",
+          "source": {
+            "path": "docs/design/player_actions/regions_v0.3.md",
+            "version": "V0.3",
+            "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+            "line_start": 382,
+            "line_end": 391
+          }
+        }
+      ],
+      "capability_ids": {
+        "values": {
+          "H": "grapple",
+          "W": "wall_climb",
+          "D": "double_jump",
+          "U1": "weapon_evolution_1",
+          "U2": "weapon_evolution_2"
+        },
+        "status": "PROPOSED_PERSISTENCE_IDS_RUNTIME_CHECK_REQUIRED",
+        "source": {
+          "path": "docs/design/player_actions/regions_v0.3.md",
+          "version": "V0.3",
+          "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+          "line_start": 38,
+          "line_end": 73
+        }
+      },
+      "overrides": [
+        {
+          "status": "LOCKED_DIRECTION_WITH_PROPOSED_PARAMETERS",
+          "text": "## 最新位移预算与收束（2026-10-14）\n\n[八项合同](../../quality/action_budget_spec.md)覆盖旧同主题行为。回旋首段改瞬闪/停顿，Lv2预算1.5D或D按分支区分；激光普攻首帧停住再限时加速，Lv3大招仍瞬间炮击；空中遥控炸弹即时爆，钩索辅助/吸附/来路45°与技能复用主瞄准。",
+          "source": {
+            "path": "docs/design/player_actions/README.md",
+            "version": "content_sha256",
+            "sha256": "26b46fcf4be3440f0d4c6563d59af7dc5595f65ea3cb1e6f5a612eae1fb92618",
+            "line_start": 16,
+            "line_end": 19
+          },
+          "linked_sources": [
+            {
+              "path": "docs/quality/action_budget_spec.md",
+              "version": "content_sha256",
+              "sha256": "6e1b9fe47f6cf61d680ae2c842cdb7e4b6954383a3f5fc848f1353d253eaabab",
+              "line_start": 1,
+              "line_end": 26
+            }
+          ]
+        },
+        {
+          "status": "LOCKED_DIRECTION_WITH_PROPOSED_PARAMETERS",
+          "text": "## 最新手感反馈（2026-10-14）\n\n用户六项要求以[手感返工合同](../../quality/weapon_feel_spec.md)为最新依据：Lv1统一位移距离、手里剑清速瞬闪、基础炸弹即时爆炸、激光持续累积速度、二闪延迟、回旋镖慢速远投/自动返航/瞬间召回与空中控刃慢时。覆盖旧高速持续反闪、定时基础炸弹和仅高速返航描述；数值仍为候选。",
+          "source": {
+            "path": "docs/design/player_actions/README.md",
+            "version": "content_sha256",
+            "sha256": "26b46fcf4be3440f0d4c6563d59af7dc5595f65ea3cb1e6f5a612eae1fb92618",
+            "line_start": 20,
+            "line_end": 23
+          },
+          "linked_sources": [
+            {
+              "path": "docs/quality/weapon_feel_spec.md",
+              "version": "content_sha256",
+              "sha256": "6c3c89a82ccbe9d118ca2452f4ee57a68ec24424ee2fb9203d68f708169c0723",
+              "line_start": 1,
+              "line_end": 14
+            }
+          ]
+        },
+        {
+          "status": "LOCKED_DIRECTION_WITH_PROPOSED_PARAMETERS",
+          "text": "## 最新用户补充（2026-10-14）\n\n钩索按瞄准方向360°发射，覆盖附件旧横向限制；命中后的拉近/踢腿/斜上弹出期间和有限离开宽限不受同一怪物身体接触伤害，其他来源仍正常。用户授权实现剩余全部武器，三Lv.1/六Lv.2/六Lv.3可玩候选正在按 [最新合同](../../quality/all_weapons_spec.md) 完成。六个主动技具体方案及平衡不因授权实现而写最终认可；普通攻击保持Lv.2。正式地区/成长仍按当前状态，不把练习切换当局中自由换分支。",
+          "source": {
+            "path": "docs/design/player_actions/README.md",
+            "version": "content_sha256",
+            "sha256": "26b46fcf4be3440f0d4c6563d59af7dc5595f65ea3cb1e6f5a612eae1fb92618",
+            "line_start": 24,
+            "line_end": 27
+          },
+          "linked_sources": [
+            {
+              "path": "docs/quality/all_weapons_spec.md",
+              "version": "content_sha256",
+              "sha256": "bd1487595a25d1931fee9637bb5bd42c41dfd948ead14b576a0215366174ddfb",
+              "line_start": 1,
+              "line_end": 38
+            }
+          ]
+        },
+        {
+          "status": "LOCKED_DIRECTION_WITH_PROPOSED_PARAMETERS",
+          "text": "## 最新用户补充：单武器\n\n2026-10-13 用户原话：“现在的武器，同一时刻只会有一种。”\n\n- 任一时刻仅一种当前装备/使用的武器家族及其当前等级/分支；不设计双持、并行武器槽或跨武器同时攻击。\n- 同一武器可能具有多枚飞刃、三连段序、光束或布置物；它们属于同一个 WeaponRuntime，数量遵守该分支的攻击包和实例上限。单武器不等于只能存在一个弹体。\n- H/W/D 为独立能力，可按动作仲裁与当前武器衔接；钩索不占第二武器槽。Lv.3 技能属于当前武器，普通攻击保持 Lv.2 行为。\n- 武器是否可在局中切换、切换时机、开局解锁/选型仍未确定，不因“只有一种”自行增加换枪功能。U1/U2 已确定的分支选择与沿分支进化继续适用。\n- 若后续存在更换/撤销/进化，必须验证旧攻击、布置物和回调的退出，具体清理/继承策略先进入设计卡；禁止旧飞刃、旧雷与新武器并行运行或污染新动作。当前阶段不擅自定所有进化阶段的中断政策。",
+          "source": {
+            "path": "docs/design/player_actions/README.md",
+            "version": "content_sha256",
+            "sha256": "26b46fcf4be3440f0d4c6563d59af7dc5595f65ea3cb1e6f5a612eae1fb92618",
+            "line_start": 28,
+            "line_end": 37
+          },
+          "linked_sources": []
+        }
+      ],
+      "weapon_context": {
+        "source_inventory": [
+          {
+            "id": "pulse_gun",
+            "display_name": "脉冲枪",
+            "tier": 1,
+            "branch": "",
+            "skill_name": "",
+            "implementation_status": "source_present_not_execution_proof",
+            "source": {
+              "path": "resources/weapons/pulse_gun.tres",
+              "version": "content_sha256",
+              "sha256": "d9c7341e1ae5bacb74740996215fac8e1173a1053a6d492333a8593adddb5b6a",
+              "line_start": 1,
+              "line_end": 5
+            }
+          },
+          {
+            "id": "shadow_shuriken",
+            "display_name": "影步手里剑",
+            "tier": 1,
+            "branch": "",
+            "skill_name": "",
+            "implementation_status": "source_present_not_execution_proof",
+            "source": {
+              "path": "resources/weapons/shadow_shuriken.tres",
+              "version": "content_sha256",
+              "sha256": "daa39868c480f9750eb692d7a86a922e7900c42fffd1143f4923e113859f6272",
+              "line_start": 1,
+              "line_end": 10
+            }
+          },
+          {
+            "id": "recoil_bomb",
+            "display_name": "反冲炸弹",
+            "tier": 1,
+            "branch": "",
+            "skill_name": "",
+            "implementation_status": "source_present_not_execution_proof",
+            "source": {
+              "path": "resources/weapons/recoil_bomb.tres",
+              "version": "content_sha256",
+              "sha256": "7aac77c9cc7e455c2eb3900e9f7eace3b8c4c8532cc36fb448c2100d23d29407",
+              "line_start": 1,
+              "line_end": 10
+            }
+          },
+          {
+            "id": "triple_machine_gun",
+            "display_name": "三连机关枪",
+            "tier": 2,
+            "branch": "machine_gun",
+            "skill_name": "",
+            "implementation_status": "source_present_not_execution_proof",
+            "source": {
+              "path": "resources/weapons/triple_machine_gun.tres",
+              "version": "content_sha256",
+              "sha256": "61c6ff329059a3d7fc3aefb8c466664fef81705f8a05635dc0e3959e787b5958",
+              "line_start": 1,
+              "line_end": 13
+            }
+          },
+          {
+            "id": "sustained_laser",
+            "display_name": "恒流激光枪",
+            "tier": 2,
+            "branch": "laser",
+            "skill_name": "",
+            "implementation_status": "source_present_not_execution_proof",
+            "source": {
+              "path": "resources/weapons/sustained_laser.tres",
+              "version": "content_sha256",
+              "sha256": "6a63ac28c26f3271c602fb0ea41d7fa935c9d2818e48b6c4ce5f6648c0321641",
+              "line_start": 1,
+              "line_end": 10
+            }
+          },
+          {
+            "id": "fan_shuriken",
+            "display_name": "散华手里剑",
+            "tier": 2,
+            "branch": "fan",
+            "skill_name": "",
+            "implementation_status": "source_present_not_execution_proof",
+            "source": {
+              "path": "resources/weapons/fan_shuriken.tres",
+              "version": "content_sha256",
+              "sha256": "00aaa1d562856d9dc5088a2f5a8683079f389e1eb567719b794bad2e83b5b22c",
+              "line_start": 1,
+              "line_end": 10
+            }
+          },
+          {
+            "id": "remote_boomerang",
+            "display_name": "遥控回旋刃",
+            "tier": 2,
+            "branch": "boomerang",
+            "skill_name": "",
+            "implementation_status": "source_present_not_execution_proof",
+            "source": {
+              "path": "resources/weapons/remote_boomerang.tres",
+              "version": "content_sha256",
+              "sha256": "0bcd5f6088fc70a53e75af43161e7916f262b140ce27566d8d96601397898e41",
+              "line_start": 1,
+              "line_end": 12
+            }
+          },
+          {
+            "id": "magnetic_mine",
+            "display_name": "磁吸遥爆雷",
+            "tier": 2,
+            "branch": "mine",
+            "skill_name": "",
+            "implementation_status": "source_present_not_execution_proof",
+            "source": {
+              "path": "resources/weapons/magnetic_mine.tres",
+              "version": "content_sha256",
+              "sha256": "a907dd39ac725df0bd66ecd5ebd9c6e6e8e6247b460e37b00ea20c7f54959f77",
+              "line_start": 1,
+              "line_end": 10
+            }
+          },
+          {
+            "id": "collapse_singularity",
+            "display_name": "坍缩奇点",
+            "tier": 2,
+            "branch": "singularity",
+            "skill_name": "",
+            "implementation_status": "source_present_not_execution_proof",
+            "source": {
+              "path": "resources/weapons/collapse_singularity.tres",
+              "version": "content_sha256",
+              "sha256": "7b39a71b017ad0810ed54b09b3a96d6405174ddf38a7edf55ac64284b34fe3fc",
+              "line_start": 1,
+              "line_end": 10
+            }
+          },
+          {
+            "id": "machine_storm",
+            "display_name": "三连机关枪",
+            "tier": 3,
+            "branch": "machine_gun",
+            "skill_name": "弹幕风暴",
+            "implementation_status": "source_present_not_execution_proof",
+            "source": {
+              "path": "resources/weapons/machine_storm.tres",
+              "version": "content_sha256",
+              "sha256": "daf62fe0acdc0a52886140d4bc4eab1f5caa63e7efca4464f8b74fe91f81ce2e",
+              "line_start": 1,
+              "line_end": 11
+            }
+          },
+          {
+            "id": "laser_cannon",
+            "display_name": "恒流激光枪",
+            "tier": 3,
+            "branch": "laser",
+            "skill_name": "日晷贯穿炮",
+            "implementation_status": "source_present_not_execution_proof",
+            "source": {
+              "path": "resources/weapons/laser_cannon.tres",
+              "version": "content_sha256",
+              "sha256": "b529bbdf56cbc9e9a5a854ec99b684262405711d6735ae2e892ed6e4118b12c6",
+              "line_start": 1,
+              "line_end": 11
+            }
+          },
+          {
+            "id": "blade_bloom",
+            "display_name": "散华手里剑",
+            "tier": 3,
+            "branch": "fan",
+            "skill_name": "千刃绽放",
+            "implementation_status": "source_present_not_execution_proof",
+            "source": {
+              "path": "resources/weapons/blade_bloom.tres",
+              "version": "content_sha256",
+              "sha256": "ffb4be5302daeba74674d8556dcfd253e7402dba1fe68248db422249c19f7d18",
+              "line_start": 1,
+              "line_end": 11
+            }
+          },
+          {
+            "id": "moon_boomerang",
+            "display_name": "遥控回旋刃",
+            "tier": 3,
+            "branch": "boomerang",
+            "skill_name": "噬月回刃",
+            "implementation_status": "source_present_not_execution_proof",
+            "source": {
+              "path": "resources/weapons/moon_boomerang.tres",
+              "version": "content_sha256",
+              "sha256": "56cbdba1f68adbe9a4fbe6b4b1f051993d867d132412194baca34c3ad49bbbc0",
+              "line_start": 1,
+              "line_end": 13
+            }
+          },
+          {
+            "id": "magnetic_storm",
+            "display_name": "磁吸遥爆雷",
+            "tier": 3,
+            "branch": "mine",
+            "skill_name": "磁暴猎杀雷",
+            "implementation_status": "source_present_not_execution_proof",
+            "source": {
+              "path": "resources/weapons/magnetic_storm.tres",
+              "version": "content_sha256",
+              "sha256": "4cadb7c90c15239cda3d1eb69592caeb2b6e0dbde69e3fc899f9664f4d2e9f20",
+              "line_start": 1,
+              "line_end": 11
+            }
+          },
+          {
+            "id": "star_collapse",
+            "display_name": "坍缩奇点",
+            "tier": 3,
+            "branch": "singularity",
+            "skill_name": "吞星坍缩",
+            "implementation_status": "source_present_not_execution_proof",
+            "source": {
+              "path": "resources/weapons/star_collapse.tres",
+              "version": "content_sha256",
+              "sha256": "6246dc3bd4f47690c2b0dc0ef8b82c575c0e3290cd3d9cc0ec3fd55774a52c36",
+              "line_start": 1,
+              "line_end": 11
+            }
+          }
+        ],
+        "selection": "one_current_weapon_no_combined_branch_capabilities",
+        "evolution_tree": {
+          "status": "LOCKED_EVOLUTION_DIRECTION_LV3_DETAILS_PROPOSED",
+          "text": "## 1. 武器进化树总览\n\n```text\nLv.1 脉冲枪 ────────┬─ Lv.2 三连机关枪 ─── Lv.3 A（主动技：弹幕风暴）\n                    └─ Lv.2 恒流激光枪 ─── Lv.3 B（主动技：日晷贯穿炮）\n\nLv.1 影步手里剑 ───┬─ Lv.2 散华手里剑 ─── Lv.3 A（主动技：千刃绽放）\n                    └─ Lv.2 遥控回旋手里剑 ─ Lv.3 B（主动技：噬月回刃）\n\nLv.1 反冲炸弹 ─────┬─ Lv.2 磁吸遥爆雷 ─── Lv.3 A（主动技：磁暴猎杀雷）\n                    └─ Lv.2 坍缩奇点 ───── Lv.3 B（主动技：吞星坍缩）\n```\n\n六种武器运动语法：\n\n| 分支 | 玩家实际在操作什么 | 爽点 | Lv.2 最容易失败的设计 |\n|---|---|---|---|\n| 三连机关枪 | **三次离散推力**之间改向 | 之字折线飞行 | 自动播三枪而不能改向 |\n| 恒流激光 | **持续微推力**与递增精力消耗 | 平滑托举和精细制动 | 只剩灼烧 DPS，反冲不明显 |\n| 散华手里剑 | **两段立即闪步**与清惯性 | 急停、短闪、折线落点 | 只是多三枚刃，没有分段位移 |\n| 遥控回旋手里剑 | **飞刃空间位置决定召回反冲方向** | 远程控刃后借收刃弹走 | 回程只造成伤害、接刃无位移 |\n| 磁吸遥爆雷 | **爆炸点留在世界，人物重新站位** | 布置、诱敌、遥爆、借力 | 只远程炸怪，不把爆炸用来移动 |\n| 坍缩奇点 | **人物原地固定，承担等待后任意定向弹射** | 急停、聚拢、发射、重新选择运动方向 | 可任意远处施放；无限悬停/免费飞行 |\n\n### 1.1 Lv.1 保留与升级继承\n\n- 枪 Lv.1：沿枪口发出弹体；玩家沿**射击反方向**短暂爆发位移。\n- 手里剑 Lv.1：向前投掷；自身清除先前速度并沿**投掷反方向**短闪。闪步必须扫掠碰撞，无穿墙权限。\n- 炸弹 Lv.1：近身放置爆弹并快速爆炸，造成范围高伤；自身被**背离爆心**推动。自身借爆默认不扣血，危险地形/怪物仍正常结算伤害。\n- Lv.2 不保证每一次远距离攻击都推到玩家——磁吸雷远距遥爆可只炸目标，这是主动战术取舍；但每条分支必须能在无敌人的测试环境中主动制造实用的自身运动。",
+          "source": {
+            "path": "docs/design/player_actions/weapons_v0.8.md",
+            "version": "V0.8",
+            "sha256": "0d2b908637a85270e46ede7cbb17fb8d5d8f353d901a3bda79665291c450e852",
+            "line_start": 45,
+            "line_end": 75
+          }
+        },
+        "rules": [
+          {
+            "status": "LOCKED_DIRECTION",
+            "text": "### 0.1 已确认（LOCKED：保留方向，不代表操作/数值全定）\n\n- **基础武器三家族**：枪、手里剑、炸弹。每种 Lv.1 攻击本身都产生独特的反作用力位移，不依赖攻击命中敌人才能移动。\n- **U1/Lv.2 在每家族二选一，且选定分支后不在该局随意切换；U2/Lv.3 沿已有分支升级。**\n- **枪 A 三连机关枪**：一次开火连续三发，每发产生一段短反冲，第二、第三发允许改变方向。**枪 B 恒流激光枪**：连续照射形成柔和的持续反作用力，照射越久精力消耗越快。\n- **手里剑 A 散华手里剑**：一次发出三枚扇形飞刃，两段反向短闪，第二段更短且可以改向。**手里剑 B 遥控回旋手里剑**：投出时人物清速度并向后位移；飞刃飞出后右摇杆控制飞刃移动；按召回键，飞刃立刻沿当前位置与人物之间的**直线高速返回**；成功收回时**沿返回飞行方向**推动人物产生一段位移。\n- **炸弹 A 磁吸遥爆雷**：可放置在地形或合适的敌人表面，玩家继续移动并选择引爆时机；玩家只有真实处于爆心有效范围内时才受到按相对方位计算的爆炸反冲。**炸弹 B 坍缩奇点**：只能在**玩家当时所在的位置**生成；生成后玩家短暂固定在奇点，奇点吸引附近可受影响目标；固定期结束发生爆炸，玩家以**右摇杆预先选择的任意方向**获得一次定向速度。不得远处点击投放奇点。\n- **同一场景目标，各 Lv.2 分支都要有真实且不同的操作解法**；S2 沼泽只有基础跳跃 + 已选 Lv.2 武器，不得暗中要求 H/W/D。多武器通过的“同一任务”不意味着所有分支必须走完全相同的运动轨迹。\n- **反冲是游戏核心**：不能为了让装备更强，逐渐变成只攻击、无自身运动的武器；不能让一个武器对所有 H/W/D 硬锁无条件越权。\n- 玩家已否定：**弹跳炸弹、连环炸弹、踏爆弹射雷、爆震回弹器、旧黏附两响/三响雷**作为当前二级分支方案。避免在后续实现中沿用 V0.4 旧草案。",
+            "source": {
+              "path": "docs/design/player_actions/weapons_v0.8.md",
+              "version": "V0.8",
+              "sha256": "0d2b908637a85270e46ede7cbb17fb8d5d8f353d901a3bda79665291c450e852",
+              "line_start": 17,
+              "line_end": 27
+            }
+          },
+          {
+            "status": "LOCKED_DIRECTION",
+            "text": "### 0.2 Lv.3 已确认升级规则（LOCKED DIRECTION）\n\n- **只有一个新增主动技能。** 升至 Lv.3 后，原 Lv.2 的普通攻击、攻击阶段、位移轨迹与已有操作全部保留；不增加普通攻击的隐藏第三段或被动性能改造。\n- **技能面向战斗。** 六个主动技能必须有真实的怪物对抗价值，并与本分支原本的攻击特征相关；不能仅赠送一个更好用的万能位移键。\n- **主动技能同时带更强的位移。** 通过真实攻击或爆炸动作带动角色；强推力仍遵守移动碰撞、精力与行动次数，不能穿门、无限滞空或取代 H/W/D 能力锁。\n- **具体六个主动技能尚未定稿。** 第 4 节中的技能名称、群攻形态、反冲强度等均为下一轮讨论候选。\n- **新增共鸣能量（已确认）**：只有对真实敌人的有效攻击可获得共鸣能量；共鸣能量在 Lv.1 就可积累，Lv.3 技能与指定肉鸽道具共享花费；它不替代现有射击精力，普通移动/无目标环境不应自动产能。\n- V0.5 的「普攻延拍」「断流释压」「散华收势微调」「回旋停刃」「常驻双雷」「普通奇点提前坍缩」不纳入 Lv.3 常规攻击实现。",
+            "source": {
+              "path": "docs/design/player_actions/weapons_v0.8.md",
+              "version": "V0.8",
+              "sha256": "0d2b908637a85270e46ede7cbb17fb8d5d8f353d901a3bda79665291c450e852",
+              "line_start": 28,
+              "line_end": 36
+            }
+          },
+          {
+            "status": "OPEN",
+            "text": "### 0.3 尚未确认（OPEN）\n\n- 六个 Lv.3 **专属主动技能的具体实现**见第 4 节，均属于讨论候选；Lv.3 **不改变普通攻击**已确认。\n- 输入装置映射：保留现行右摇杆松手发射作为需兼容的基线；新增持续照射、控刃、召回、引爆、奇点发射方向与 Lv.3 技能，需要触屏/键鼠/手柄黄金样板比较。\n- 共鸣能量的容量、各攻击包/持续命中的产能效率、技能和道具消耗值、跨图保留与掉落方式均待实测；**能量来源与消费方向已确认**。\n- 精力数值、冷却、空中动作次数、爆心半径、控刃速度、奇点锁定时长、奇点可吸对象、敌人碰撞/无敌窗等均待调。\n- “召回失败如何处理”“奇点固定时受伤与碰撞”“右摇杆无方向输入时的安全落点政策”，必须在真实状态机中定规，不能留给玩家被莫名传送/卡死。",
+            "source": {
+              "path": "docs/design/player_actions/weapons_v0.8.md",
+              "version": "V0.8",
+              "sha256": "0d2b908637a85270e46ede7cbb17fb8d5d8f353d901a3bda79665291c450e852",
+              "line_start": 37,
+              "line_end": 44
+            }
+          },
+          {
+            "status": "PROPOSED_ENCOUNTERS_REQUIRE_PHYSICS_PROOF",
+            "text": "## 5. Lv.2 六分支相同目标的实际不同解法（S2 不可借 H/W/D）\n\n### 5.1 S2 萤雾沼泽「双生水钟」\n\n**共同目标**：通过真实机关作用使两个水钟达到激活条件→改变水位→抵达相同出口。关卡只授予**基础跳跃+该 Lv.2 武器**。钟核可有「弹体撞击／短持续充能／投刃进出／范围爆破／轻型机关质量移动」等具体物理/交互机制，不可根据武器分支 ID 自动通过。分支若需要不同物件位置，可采用**同目标、同风险、分别验证的几何变体**，不是简单给一条安全捷径。\n\n| 分支 | 不同操作解法（需要 Godot 真实物理实现） |\n|---|---|\n| 三连机关枪 | 第一枪打左钟并反冲换位，后两枪中途转瞄打右钟，利用三段微位移落回台面。 |\n| 恒流激光 | 先短时照亮/充能左钟，沿途转向扫到右钟；持续推力托住自身，结束照射并落到桥台。 |\n| 散华手里剑 | 调整发散角使不同刀刃触及左右钟核，人物两闪在不掉进泥水的情况下换到安全点。 |\n| 遥控回旋手里剑 | 右摇杆控刃经过第一钟，移至第二钟附近再召回使回程接触第二钟；收刃入射方向给人物一次可用于越沟的反冲。 |\n| 磁吸遥爆雷 | 在两个钟核影响区域的共同合法表面放雷，走到足够接近自身借爆的位置再引爆；范围冲击同时触发两钟。不能保证任意远距离同样生效。 |\n| 坍缩奇点 | 玩家进入中央安全平台，在自己位置开启奇点；把两个允许牵引的钟锤吸入共鸣区，爆炸推/击它们使双钟有效，同时朝出口方向定向弹射。**钟锤需要实际可牵引，不能假激活。** |\n\n**验证要点**：每个方案要有真实可执行的输入轨迹、机关相位、资源成本、受伤风险。磁雷必须存在能同时影响两钟的合法几何；奇点需要能在中央站位吸到具体物件。若唯一几何不适配，允许**有界的武器适配布局**，任务目标与挑战档次仍一致。\n\n### 5.2 「无敌人断桥」：反冲不许失效\n\n无敌人、无命中回能靶、无额外能力，依赖自己的已装备武器＋基础跳跃，在同等难度的起落点环境完成跨越。不同分支可以有等价版型但必须具备可观察的玩家自运动。\n\n- 三连机关枪：三次短推力改变飞行方向，不能自动瞬间打包成一次位移。\n- 恒流激光：连续推力持续抬升/横移，主动停止避免过冲。\n- 散华手里剑：两次碰撞验证的反向闪步接力。\n- 遥控回旋手里剑：初始后闪＋把回旋刃放在适合的方位后召回，让入射方向提供第二段推进；若只靠第一闪过桥，未证明该分支升级趣味。\n- 磁吸遥爆雷：在起跳点身后或身下合法地形贴雷，跳出后择时引爆把自己送向另一平台。\n- 坍缩奇点：在已合法到达的位置原地固定短时，选定朝缺口的爆发方向并射出，不能在远方先放置一个空中弹射台。\n\n### 5.3 「移动弱点 Boss」：不是比谁 DPS 高\n\nBoss 有可观察的弱点窗口和安全落点；六分支均需通过自身位移赢得攻击角度：三连折线、激光持续托举、散华双闪、控刃绕位收回、磁雷预放与借爆躲招、奇点定住诱敌再择向冲出。Boss 不能用单次高伤省略全部移动平台挑战。",
+            "source": {
+              "path": "docs/design/player_actions/weapons_v0.8.md",
+              "version": "V0.8",
+              "sha256": "0d2b908637a85270e46ede7cbb17fb8d5d8f353d901a3bda79665291c450e852",
+              "line_start": 408,
+              "line_end": 439
+            }
+          }
+        ]
+      },
+      "implementation": {
+        "formal_region": "consumer_present_in_source",
+        "runtime_available": null,
+        "runtime_available_reason": "static_extraction_does_not_run_or_grant_anything",
+        "catalog_runtime_available": false,
+        "catalog_flag_is_authoritative": false,
+        "formal_consumer_sources": [
+          {
+            "path": "scripts/demo/demo_app.gd",
+            "version": "content_sha256",
+            "sha256": "d9beb99ce75b7ba049871a706aef37a79f2f17ca998d7a6c8b66c0d596cd95a8",
+            "line_start": 1,
+            "line_end": 1785
+          },
+          {
+            "path": "scripts/run/run_profile.gd",
+            "version": "content_sha256",
+            "sha256": "d5a9019cb5dc55b0b511e0aed3c4e57f3df72ca2a87dcf40586ba836b8c8912b",
+            "line_start": 1,
+            "line_end": 34
+          }
+        ],
+        "current_state_source": {
+          "path": "docs/current_state.md",
+          "version": "content_sha256",
+          "sha256": "6bbe91dfed4afad78b25bdcae12d6bb561e45efae7bae35a3041ff5477b3d0f5",
+          "line_start": 1,
+          "line_end": 45
+        },
+        "abilities": {
+          "H": {
+            "id": "grapple",
+            "status": "grant_handler_present",
+            "studio_grant_call_present": true,
+            "formal_grant": "not_inferred",
+            "source": {
+              "path": "scripts/player/traversal_ability.gd",
+              "version": "content_sha256",
+              "sha256": "d30033d4f07566c6a6917b8d82407f5cbef5e873415e59082ddf844880ddb4ea",
+              "line_start": 1,
+              "line_end": 278
+            },
+            "studio_source": {
+              "path": "scripts/demo/action_studio.gd",
+              "version": "content_sha256",
+              "sha256": "a739d4c307cf45838c53bb77a93bd5ee21986cb9e15812a51869143b639a6965",
+              "line_start": 1,
+              "line_end": 339
+            }
+          },
+          "W": {
+            "id": "wall_climb",
+            "status": "grant_handler_present",
+            "studio_grant_call_present": true,
+            "formal_grant": "not_inferred",
+            "source": {
+              "path": "scripts/player/traversal_ability.gd",
+              "version": "content_sha256",
+              "sha256": "d30033d4f07566c6a6917b8d82407f5cbef5e873415e59082ddf844880ddb4ea",
+              "line_start": 1,
+              "line_end": 278
+            },
+            "studio_source": {
+              "path": "scripts/demo/action_studio.gd",
+              "version": "content_sha256",
+              "sha256": "a739d4c307cf45838c53bb77a93bd5ee21986cb9e15812a51869143b639a6965",
+              "line_start": 1,
+              "line_end": 339
+            }
+          },
+          "D": {
+            "id": "double_jump",
+            "status": "grant_handler_present",
+            "studio_grant_call_present": true,
+            "formal_grant": "not_inferred",
+            "source": {
+              "path": "scripts/player/traversal_ability.gd",
+              "version": "content_sha256",
+              "sha256": "d30033d4f07566c6a6917b8d82407f5cbef5e873415e59082ddf844880ddb4ea",
+              "line_start": 1,
+              "line_end": 278
+            },
+            "studio_source": {
+              "path": "scripts/demo/action_studio.gd",
+              "version": "content_sha256",
+              "sha256": "a739d4c307cf45838c53bb77a93bd5ee21986cb9e15812a51869143b639a6965",
+              "line_start": 1,
+              "line_end": 339
+            }
+          },
+          "U1": {
+            "id": "weapon_evolution_1",
+            "status": "no_independent_grant_handler_observed",
+            "studio_grant_call_present": false,
+            "formal_grant": "not_inferred",
+            "source": {
+              "path": "scripts/player/traversal_ability.gd",
+              "version": "content_sha256",
+              "sha256": "d30033d4f07566c6a6917b8d82407f5cbef5e873415e59082ddf844880ddb4ea",
+              "line_start": 1,
+              "line_end": 278
+            },
+            "studio_source": {
+              "path": "scripts/demo/action_studio.gd",
+              "version": "content_sha256",
+              "sha256": "a739d4c307cf45838c53bb77a93bd5ee21986cb9e15812a51869143b639a6965",
+              "line_start": 1,
+              "line_end": 339
+            }
+          },
+          "U2": {
+            "id": "weapon_evolution_2",
+            "status": "no_independent_grant_handler_observed",
+            "studio_grant_call_present": false,
+            "formal_grant": "not_inferred",
+            "source": {
+              "path": "scripts/player/traversal_ability.gd",
+              "version": "content_sha256",
+              "sha256": "d30033d4f07566c6a6917b8d82407f5cbef5e873415e59082ddf844880ddb4ea",
+              "line_start": 1,
+              "line_end": 278
+            },
+            "studio_source": {
+              "path": "scripts/demo/action_studio.gd",
+              "version": "content_sha256",
+              "sha256": "a739d4c307cf45838c53bb77a93bd5ee21986cb9e15812a51869143b639a6965",
+              "line_start": 1,
+              "line_end": 339
+            }
+          }
+        },
+        "resource_and_state_sources": [
+          {
+            "status": "source_present_not_actor_snapshot",
+            "source": {
+              "path": "scripts/resources/definitions/shot_energy_definition.gd",
+              "version": "content_sha256",
+              "sha256": "a2bc142334add1b2f0bc4059ae3392559460e71c4cd4f2c879b97aeea19770a4",
+              "line_start": 1,
+              "line_end": 10
+            }
+          },
+          {
+            "status": "source_present_not_actor_snapshot",
+            "source": {
+              "path": "scripts/resources/definitions/combat_energy_definition.gd",
+              "version": "content_sha256",
+              "sha256": "7b2db3eac8310754ad8de0f9234074c285249ea401f78ca683cec544cd11a2c3",
+              "line_start": 1,
+              "line_end": 8
+            }
+          },
+          {
+            "status": "source_present_not_actor_snapshot",
+            "source": {
+              "path": "scripts/resources/state/combat_energy_state.gd",
+              "version": "content_sha256",
+              "sha256": "183f77dc86b98493773e0d604a200f430497202806786f1896c6eb5ffc6bf0e6",
+              "line_start": 1,
+              "line_end": 30
+            }
+          },
+          {
+            "status": "source_present_not_actor_snapshot",
+            "source": {
+              "path": "scripts/combat/shot_energy_policy.gd",
+              "version": "content_sha256",
+              "sha256": "446602eb4991970b7ae8b84226f9243af34a2c0f113415bba0344f5c8ad9dbbe",
+              "line_start": 1,
+              "line_end": 54
+            }
+          },
+          {
+            "status": "source_present_not_actor_snapshot",
+            "source": {
+              "path": "scripts/player/jump_ability.gd",
+              "version": "content_sha256",
+              "sha256": "013f58557b92de0929cc8ea6d4a41fd42d2becdbee94ca2d30b714567a58004a",
+              "line_start": 1,
+              "line_end": 147
+            }
+          },
+          {
+            "status": "source_present_not_actor_snapshot",
+            "source": {
+              "path": "scripts/builds/build_state.gd",
+              "version": "content_sha256",
+              "sha256": "a9726e7b891823b8f18fc6641ec2be2c46f42396bbbde59e9613d51744e25db1",
+              "line_start": 1,
+              "line_end": 153
+            }
+          },
+          {
+            "status": "source_present_not_actor_snapshot",
+            "source": {
+              "path": "resources/player/plains_shot_energy.tres",
+              "version": "content_sha256",
+              "sha256": "c4f5570999639b349a5568db095cccad18a38be67d88dc3456a6ec2acf291770",
+              "line_start": 1,
+              "line_end": 9
+            }
+          },
+          {
+            "status": "source_present_not_actor_snapshot",
+            "source": {
+              "path": "resources/player/combat_energy.tres",
+              "version": "content_sha256",
+              "sha256": "f454cecd12532df56121b01c6d98cc1032bdd3b215377ea8d14eaee821b24fd7",
+              "line_start": 1,
+              "line_end": 4
+            }
+          },
+          {
+            "status": "source_present_not_actor_snapshot",
+            "source": {
+              "path": "resources/player/traversal.tres",
+              "version": "content_sha256",
+              "sha256": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+              "line_start": 1,
+              "line_end": 9
+            }
+          },
+          {
+            "status": "source_present_not_actor_snapshot",
+            "source": {
+              "path": "resources/weapons/motion.tres",
+              "version": "content_sha256",
+              "sha256": "745e34841342f71402bcc7a41f32e092d60cca475e560820943aa81b3dfefc10",
+              "line_start": 1,
+              "line_end": 4
+            }
+          }
+        ],
+        "validation_status": "unverified",
+        "equipment_capacity": "one_current_weapon_inventory_capacity_not_inferred"
+      },
+      "sources": [
+        {
+          "path": "docs/current_state.md",
+          "version": "content_sha256",
+          "sha256": "6bbe91dfed4afad78b25bdcae12d6bb561e45efae7bae35a3041ff5477b3d0f5",
+          "line_start": 1,
+          "line_end": 45
+        },
+        {
+          "path": "docs/design/player_actions/README.md",
+          "version": "content_sha256",
+          "sha256": "26b46fcf4be3440f0d4c6563d59af7dc5595f65ea3cb1e6f5a612eae1fb92618",
+          "line_start": 1,
+          "line_end": 44
+        },
+        {
+          "path": "docs/design/player_actions/regions_v0.3.md",
+          "version": "V0.3",
+          "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4",
+          "line_start": 1,
+          "line_end": 419
+        },
+        {
+          "path": "docs/design/player_actions/weapons_v0.8.md",
+          "version": "V0.8",
+          "sha256": "0d2b908637a85270e46ede7cbb17fb8d5d8f353d901a3bda79665291c450e852",
+          "line_start": 1,
+          "line_end": 499
+        },
+        {
+          "path": "docs/quality/action_budget_spec.md",
+          "version": "content_sha256",
+          "sha256": "6e1b9fe47f6cf61d680ae2c842cdb7e4b6954383a3f5fc848f1353d253eaabab",
+          "line_start": 1,
+          "line_end": 26
+        },
+        {
+          "path": "docs/quality/all_weapons_spec.md",
+          "version": "content_sha256",
+          "sha256": "bd1487595a25d1931fee9637bb5bd42c41dfd948ead14b576a0215366174ddfb",
+          "line_start": 1,
+          "line_end": 38
+        },
+        {
+          "path": "docs/quality/weapon_feel_spec.md",
+          "version": "content_sha256",
+          "sha256": "6c3c89a82ccbe9d118ca2452f4ee57a68ec24424ee2fb9203d68f708169c0723",
+          "line_start": 1,
+          "line_end": 14
+        },
+        {
+          "path": "docs/world_regions.json",
+          "version": "content_sha256",
+          "sha256": "8d31538a5e7e33c093dc1e70739102c73359de6ea0848d99f0294659cfd2c656",
+          "line_start": 1,
+          "line_end": 406
+        },
+        {
+          "path": "resources/player/combat_energy.tres",
+          "version": "content_sha256",
+          "sha256": "f454cecd12532df56121b01c6d98cc1032bdd3b215377ea8d14eaee821b24fd7",
+          "line_start": 1,
+          "line_end": 4
+        },
+        {
+          "path": "resources/player/plains_shot_energy.tres",
+          "version": "content_sha256",
+          "sha256": "c4f5570999639b349a5568db095cccad18a38be67d88dc3456a6ec2acf291770",
+          "line_start": 1,
+          "line_end": 9
+        },
+        {
+          "path": "resources/player/traversal.tres",
+          "version": "content_sha256",
+          "sha256": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+          "line_start": 1,
+          "line_end": 9
+        },
+        {
+          "path": "resources/weapons/blade_bloom.tres",
+          "version": "content_sha256",
+          "sha256": "ffb4be5302daeba74674d8556dcfd253e7402dba1fe68248db422249c19f7d18",
+          "line_start": 1,
+          "line_end": 11
+        },
+        {
+          "path": "resources/weapons/collapse_singularity.tres",
+          "version": "content_sha256",
+          "sha256": "7b39a71b017ad0810ed54b09b3a96d6405174ddf38a7edf55ac64284b34fe3fc",
+          "line_start": 1,
+          "line_end": 10
+        },
+        {
+          "path": "resources/weapons/fan_shuriken.tres",
+          "version": "content_sha256",
+          "sha256": "00aaa1d562856d9dc5088a2f5a8683079f389e1eb567719b794bad2e83b5b22c",
+          "line_start": 1,
+          "line_end": 10
+        },
+        {
+          "path": "resources/weapons/laser_cannon.tres",
+          "version": "content_sha256",
+          "sha256": "b529bbdf56cbc9e9a5a854ec99b684262405711d6735ae2e892ed6e4118b12c6",
+          "line_start": 1,
+          "line_end": 11
+        },
+        {
+          "path": "resources/weapons/machine_storm.tres",
+          "version": "content_sha256",
+          "sha256": "daf62fe0acdc0a52886140d4bc4eab1f5caa63e7efca4464f8b74fe91f81ce2e",
+          "line_start": 1,
+          "line_end": 11
+        },
+        {
+          "path": "resources/weapons/magnetic_mine.tres",
+          "version": "content_sha256",
+          "sha256": "a907dd39ac725df0bd66ecd5ebd9c6e6e8e6247b460e37b00ea20c7f54959f77",
+          "line_start": 1,
+          "line_end": 10
+        },
+        {
+          "path": "resources/weapons/magnetic_storm.tres",
+          "version": "content_sha256",
+          "sha256": "4cadb7c90c15239cda3d1eb69592caeb2b6e0dbde69e3fc899f9664f4d2e9f20",
+          "line_start": 1,
+          "line_end": 11
+        },
+        {
+          "path": "resources/weapons/moon_boomerang.tres",
+          "version": "content_sha256",
+          "sha256": "56cbdba1f68adbe9a4fbe6b4b1f051993d867d132412194baca34c3ad49bbbc0",
+          "line_start": 1,
+          "line_end": 13
+        },
+        {
+          "path": "resources/weapons/motion.tres",
+          "version": "content_sha256",
+          "sha256": "745e34841342f71402bcc7a41f32e092d60cca475e560820943aa81b3dfefc10",
+          "line_start": 1,
+          "line_end": 4
+        },
+        {
+          "path": "resources/weapons/pulse_gun.tres",
+          "version": "content_sha256",
+          "sha256": "d9c7341e1ae5bacb74740996215fac8e1173a1053a6d492333a8593adddb5b6a",
+          "line_start": 1,
+          "line_end": 5
+        },
+        {
+          "path": "resources/weapons/recoil_bomb.tres",
+          "version": "content_sha256",
+          "sha256": "7aac77c9cc7e455c2eb3900e9f7eace3b8c4c8532cc36fb448c2100d23d29407",
+          "line_start": 1,
+          "line_end": 10
+        },
+        {
+          "path": "resources/weapons/remote_boomerang.tres",
+          "version": "content_sha256",
+          "sha256": "0bcd5f6088fc70a53e75af43161e7916f262b140ce27566d8d96601397898e41",
+          "line_start": 1,
+          "line_end": 12
+        },
+        {
+          "path": "resources/weapons/shadow_shuriken.tres",
+          "version": "content_sha256",
+          "sha256": "daa39868c480f9750eb692d7a86a922e7900c42fffd1143f4923e113859f6272",
+          "line_start": 1,
+          "line_end": 10
+        },
+        {
+          "path": "resources/weapons/star_collapse.tres",
+          "version": "content_sha256",
+          "sha256": "6246dc3bd4f47690c2b0dc0ef8b82c575c0e3290cd3d9cc0ec3fd55774a52c36",
+          "line_start": 1,
+          "line_end": 11
+        },
+        {
+          "path": "resources/weapons/sustained_laser.tres",
+          "version": "content_sha256",
+          "sha256": "6a63ac28c26f3271c602fb0ea41d7fa935c9d2818e48b6c4ce5f6648c0321641",
+          "line_start": 1,
+          "line_end": 10
+        },
+        {
+          "path": "resources/weapons/triple_machine_gun.tres",
+          "version": "content_sha256",
+          "sha256": "61c6ff329059a3d7fc3aefb8c466664fef81705f8a05635dc0e3959e787b5958",
+          "line_start": 1,
+          "line_end": 13
+        },
+        {
+          "path": "scripts/builds/build_state.gd",
+          "version": "content_sha256",
+          "sha256": "a9726e7b891823b8f18fc6641ec2be2c46f42396bbbde59e9613d51744e25db1",
+          "line_start": 1,
+          "line_end": 153
+        },
+        {
+          "path": "scripts/combat/shot_energy_policy.gd",
+          "version": "content_sha256",
+          "sha256": "446602eb4991970b7ae8b84226f9243af34a2c0f113415bba0344f5c8ad9dbbe",
+          "line_start": 1,
+          "line_end": 54
+        },
+        {
+          "path": "scripts/combat/weapon_catalog.gd",
+          "version": "content_sha256",
+          "sha256": "efd5300898afb95bc8e1d93f060db940b04d4ba75b52f7fe7dee6ea0023dd3b4",
+          "line_start": 1,
+          "line_end": 5
+        },
+        {
+          "path": "scripts/combat/weapon_definition.gd",
+          "version": "content_sha256",
+          "sha256": "76d52bf44579fa57ccd14851e46b2db925068ae7b00b4021604dabc16e991c8d",
+          "line_start": 1,
+          "line_end": 69
+        },
+        {
+          "path": "scripts/demo/action_studio.gd",
+          "version": "content_sha256",
+          "sha256": "a739d4c307cf45838c53bb77a93bd5ee21986cb9e15812a51869143b639a6965",
+          "line_start": 1,
+          "line_end": 339
+        },
+        {
+          "path": "scripts/demo/demo_app.gd",
+          "version": "content_sha256",
+          "sha256": "d9beb99ce75b7ba049871a706aef37a79f2f17ca998d7a6c8b66c0d596cd95a8",
+          "line_start": 1,
+          "line_end": 1785
+        },
+        {
+          "path": "scripts/player/jump_ability.gd",
+          "version": "content_sha256",
+          "sha256": "013f58557b92de0929cc8ea6d4a41fd42d2becdbee94ca2d30b714567a58004a",
+          "line_start": 1,
+          "line_end": 147
+        },
+        {
+          "path": "scripts/player/traversal_ability.gd",
+          "version": "content_sha256",
+          "sha256": "d30033d4f07566c6a6917b8d82407f5cbef5e873415e59082ddf844880ddb4ea",
+          "line_start": 1,
+          "line_end": 278
+        },
+        {
+          "path": "scripts/resources/definitions/combat_energy_definition.gd",
+          "version": "content_sha256",
+          "sha256": "7b2db3eac8310754ad8de0f9234074c285249ea401f78ca683cec544cd11a2c3",
+          "line_start": 1,
+          "line_end": 8
+        },
+        {
+          "path": "scripts/resources/definitions/shot_energy_definition.gd",
+          "version": "content_sha256",
+          "sha256": "a2bc142334add1b2f0bc4059ae3392559460e71c4cd4f2c879b97aeea19770a4",
+          "line_start": 1,
+          "line_end": 10
+        },
+        {
+          "path": "scripts/resources/state/combat_energy_state.gd",
+          "version": "content_sha256",
+          "sha256": "183f77dc86b98493773e0d604a200f430497202806786f1896c6eb5ffc6bf0e6",
+          "line_start": 1,
+          "line_end": 30
+        },
+        {
+          "path": "scripts/run/run_profile.gd",
+          "version": "content_sha256",
+          "sha256": "d5a9019cb5dc55b0b511e0aed3c4e57f3df72ca2a87dcf40586ba836b8c8912b",
+          "line_start": 1,
+          "line_end": 34
+        }
+      ],
+      "required_next_steps": [
+        "apply_latest_overrides_before_authored_blueprints",
+        "capture_actual_entry_capabilities_and_single_weapon",
+        "prove_each_gate_alternative_with_real_motor_and_resources",
+        "review_scene_composition_and_device_inputs",
+        "keep_future_region_out_of_formal_runtime_until_admission"
+      ]
+    },
+    "lessons": [
+      {
+        "id": "plains-v2-grounded-scenery-gap",
+        "source_kind": "engine_fact",
+        "source_commit": "7c981ee77bedc238ca003212d93d10ec461ffeb3",
+        "region_ids": [
+          "windchime_plains"
+        ],
+        "capability_scope": "Formal intro/advanced, initial single pulse gun Lv1, jump+recoil; baseline observer hash receipt governs actual tool state",
+        "claim": "All 80 observed cases instantiate no textured regional landmark props although eligible roles are authored. Static support filtering must be verified against actual solid supports and normal camera.",
+        "limits": [
+          "Applies to this recorded source cohort only; not a global style rule.",
+          "Does not prove player boredom or imply every junction needs more decoration.",
+          "AI review and actual graphics must decide composition and visibility."
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/level_autonomy/baseline_summary.json",
+            "sha256": "3fc96f740ee19cfd030c03b15dd05afc9c615249dc431700e4e94e7ec198003a"
+          }
+        ]
+      },
+      {
+        "id": "plains-v9-input-duration-matters",
+        "source_kind": "engine_fact",
+        "source_commit": "b6337d7b51385eb4fb6d57b3e44c3ed59cfe2040",
+        "region_ids": [
+          "windchime_plains"
+        ],
+        "capability_scope": "Confirmed PulseLv1 single-current, base jump/recoil; actual current/frozen source receipts govern scope",
+        "claim": "Same two jump/landing event types hid the actual hold43/43→43/7 and air42/42→42/20 control change; compare accepted frames/input durations, not only event-kind signature.",
+        "limits": [
+          "Only selected Seed02/map2/deep and this recipe/source cohort; not subjective fun acceptance",
+          "Both segments retain one enemy contact HP2→1; do not claim combat fixed"
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/level_autonomy/action_control_comparison.json",
+            "sha256": "bc03457f9af73a25d58c54426ab703b75584686920e7f4fb9335a3070634922a"
+          }
+        ]
+      },
+      {
+        "id": "plains-v9-thin-join-support",
+        "source_kind": "engine_fact",
+        "source_commit": "b6337d7b51385eb4fb6d57b3e44c3ed59cfe2040",
+        "region_ids": [
+          "windchime_plains"
+        ],
+        "capability_scope": "Confirmed PulseLv1 single-current, base jump/recoil; actual current/frozen source receipts govern scope",
+        "claim": "20-unit tail had insufficient whole-body support; width40 needed distinct hydrated ports with explicit16standing margin, and one-way destination required left solid-bank collar rather than flattening terrain.",
+        "limits": [
+          "Only exact thorn_gap/bridge+arch join predicate; no global platform widening",
+          "Immutable body/collision/port assertions retained; failed candidates and deleted-bank counterexample archived"
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/level_autonomy/final_validation/review.json",
+            "sha256": "536cbee1c9669be0f8a99b62e7a65c3d4f019c663bbd9d77af64636e3d9e1dc3"
+          }
+        ]
+      },
+      {
+        "id": "motor-low-energy-must-observe",
+        "source_kind": "engine_fact",
+        "source_commit": "b6337d7b51385eb4fb6d57b3e44c3ed59cfe2040",
+        "region_ids": [
+          "windchime_plains"
+        ],
+        "capability_scope": "Confirmed PulseLv1 single-current, base jump/recoil; actual current/frozen source receipts govern scope",
+        "claim": "Assigning a getter did not change runtime energy: alleged zero still100. Legal consumption at a sequence boundary plus observed energy0 was required for actual low-resource evidence.",
+        "limits": [
+          "Only this observed test bug; never authorize forced resources mid-route",
+          "Original rejected review retained; no new region ability grant"
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/level_autonomy/final_validation/review.json",
+            "sha256": "536cbee1c9669be0f8a99b62e7a65c3d4f019c663bbd9d77af64636e3d9e1dc3"
+          }
+        ]
+      },
+      {
+        "id": "plains-v10-whole-route-promise",
+        "source_kind": "engine_fact",
+        "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+        "region_ids": [
+          "windchime_plains"
+        ],
+        "capability_scope": "Pre-Scene v10 authored macros; base single PulseLv1. Not an arbitrary-embedding claim.",
+        "claim": "Pruning, gate and direction changes must preserve every step of declared discovery and return routes; protecting only their first edge was independently rejected.",
+        "limits": [
+          "Applies to declared route promises, not a requirement that every biome use these three paths.",
+          "Later source must rerun semantics and real Motor; graph validity alone is insufficient."
+        ],
+        "evidence": [
+          {
+            "path": "docs/quality/plains_redesign_spatial.md",
+            "sha256": "a03f10efb86d03013515716b383c4fa1d6124d818da130f7affb59292fb30c22"
+          }
+        ],
+        "version_basis": "Historical dirty source is bound by retained raw/source archives, not relabeled as later Git commit."
+      },
+      {
+        "id": "plains-v10-local-input-tolerance",
+        "source_kind": "engine_fact",
+        "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+        "region_ids": [
+          "windchime_plains"
+        ],
+        "capability_scope": "Specific low-arch Definition v1→v2, real base jump/recoil, bounded 18-case sample.",
+        "claim": "The same release/entry/direction sample had12 danger contacts in18 before and0 after a local saw-position change; preserve walking danger and roof while changing obstacle relationships, not Motor.",
+        "limits": [
+          "Not a player success rate or universal timing budget.",
+          "Does not establish touch/gamepad feel or justify globally lowering hazards."
+        ],
+        "evidence": [
+          {
+            "path": "docs/quality/plains_redesign_experience.md",
+            "sha256": "ec20d5ba33d79d971883f607c89b95ee5d669e081990da00d3e72b39237cba77"
+          }
+        ],
+        "version_basis": "Historical dirty source is bound by retained raw/source archives, not relabeled as later Git commit."
+      },
+      {
+        "id": "plains-v10-declared-entity-evidence",
+        "source_kind": "design_review",
+        "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+        "region_ids": [
+          "windchime_plains"
+        ],
+        "capability_scope": "HIGH B reward entrance and existing native evidence contract; unchanged single weapon, resources and AI.",
+        "claim": "Expected encounter identity must come from the actual challenge entrance and Manifest, not a self-reported guard_id; coherent deletion plus unknown ID fooled the original22 validator.",
+        "limits": [
+          "Only local recorded-consistency proof, not external authentication.",
+          "Legitimate generated entrances without a generic guard must remain valid; raw traces and independent rejection are retained."
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/plains_redesign/reward_entry/README.md",
+            "sha256": "b0f6f4e29a305dd9e8111b5aed1e3aa2d86f4aa954382aa5503343a2e325c200"
+          }
+        ],
+        "version_basis": "Historical dirty source is bound by retained raw/source archives, not relabeled as later Git commit."
+      },
+      {
+        "id": "normal-exploration-order-before-high",
+        "source_kind": "design_review",
+        "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+        "region_ids": [
+          "windchime_plains",
+          "thorn_forest"
+        ],
+        "capability_scope": "Heuristic from pre-Scene Plains B and current real state frames; forest remains a design input without formal runtime/granted H.",
+        "claim": "Review both main-first/high-later and high-first orders:5of10 advanced samples repeated the same full-resource double-bell after a step, and a700-rise tail lacked a commensurate purpose. Prefer real decision/return changes over new names or arbitrary coins.",
+        "limits": [
+          "Candidates in this report were not executed by its author. Future content must verify its own geometry/resources and exploration value.",
+          "No rule that every leaf needs loot or every repeated module is bad; calm reward approach and alive-enemy bypass were counterevidence."
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/plains_redesign/design_midreview/report.md",
+            "sha256": "c802ab7ab8978f0adfe32866dbdc169e2bf3a662a8cb9a6b545d9f9e8204294e"
+          }
+        ],
+        "version_basis": "Historical dirty source is bound by retained raw/source archives, not relabeled as later Git commit."
+      },
+      {
+        "id": "offline-movie-real-input-age",
+        "source_kind": "engine_fact",
+        "source_commit": "30f6a825712fbb30e607791c996de142c6757a79",
+        "region_ids": [
+          "windchime_plains",
+          "thorn_forest"
+        ],
+        "capability_scope": "Original Router wall-clock TTL; actual Linux software-GPU controlled recording. Forest has no formal consumer proof.",
+        "claim": "A real140ms delayed Router request expired silently; one isolated LP_NUM_THREADS1 recording completed the original high-return case2287ticks with no unacknowledged shoot requests. Keep heavy checks and recordings serial without changing TTL.",
+        "limits": [
+          "Missing requests in older movies do not individually prove TTL expiry because original per-input ages were not recorded.",
+          "This is not physical-device performance, ordinary-player success or subjective acceptance.",
+          "C4 original live-PNG outer movie failed7/1 at3007ticks; same-source headless matched states through3000 then tick3001 jump request lacked acceptance only in movie. One same-script no-live-PNG control later passed8/0 at6528ticks. This supports observer-condition association only: original trace lacks enqueue age/drop reason, TTL root cause remains UNKNOWN. Original failed capture stays failed; no Router timestamp/resource/physics or assertion changed. Post-extracted MP4 frame/time is not an exact native physical tick."
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/plains_redesign/render_timing_diagnosis/report.md",
+            "sha256": "6d85b2ad94224505222df885098afe07b9f836571ad6c79d21348b4ae8b37a96"
+          },
+          {
+            "path": "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/final_regression_review/c4/outer_render_failure_review.md.source",
+            "sha256": "699d176c0b636805fe3292d64d4b32c7177267d816d6d0e5ef89fc12d96a3fa1"
+          },
+          {
+            "path": "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/outer_no_live_png_movie/receipt.json.gz",
+            "sha256": "f12f60f338fae881f6a0f51f1b1563f68b32f7fa3e58855b32bde257ccbdb04b"
+          },
+          {
+            "path": "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/final_outer_movie/receipt.json.gz",
+            "sha256": "3923f328374092696ffd68770664814e2b9561752a77e262200f281a185b4c9b"
+          }
+        ],
+        "version_basis": "Historical dirty source is bound by retained raw/source archives, not relabeled as later Git commit."
+      },
+      {
+        "id": "visible-functional-targets-with-compound-ui",
+        "source_kind": "engine_fact",
+        "source_commit": "0f868c290ac3e250cd09375450399f4da4dc0e23",
+        "region_ids": [
+          "windchime_plains",
+          "thorn_forest"
+        ],
+        "capability_scope": "Current Plains Pulse1, actual enabled TouchOverlay plus presentation-only toast and two legal upward recoil shots; transferable review method only",
+        "claim": "The real combination revealed toast covering an onscreen receiver and then actor even though separate states passed. Protect actual visible functional areas, actor and control geometry together; rerun the combined state and retain failed evidence.",
+        "limits": [
+          "Recorded source is HEAD0f plus exact working-tree source archive, not a claim all bytes were committed then.",
+          "Only observed camera/viewport/control states; not all future UI sizes, arbitrary trajectories or physical devices.",
+          "Toast is a presentation fixture, no AirMagazine was granted; no resource/ability expansion.",
+          "Observed elective high-ascent samples can lose the old distant bank; this is not universal landing-visibility approval."
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/plains_redesign/scene/completion_r1/scene_completion/current2_extra_touch/capture.json.gz",
+            "sha256": "b4cdf60e035b9dd9ba6d2d87cda6103963b6c3dfb6b653dbf178e41ea2f766fa"
+          },
+          {
+            "path": "docs/evidence/plains_redesign/scene/completion_r1/scene/run_lo0a897t/positive.json.gz",
+            "sha256": "a93bb00fee8ae8f6d30175619b297038dbcf2ad00aad5f73bc853453ae1d9f13"
+          },
+          {
+            "path": "docs/evidence/plains_redesign/scene/completion_r1/scene/run_us9izlj2/receipt.json.gz",
+            "sha256": "4904e73627576e1880271a585e95a1b3f0840e4106ce3379da48536bd2d83d3a"
+          },
+          {
+            "path": "docs/evidence/plains_redesign/scene/completion_r1/scene_completion/current3_extra_touch/receipt.json.gz",
+            "sha256": "a30c242cff2d3996ee8c8f1e67e3f07a95e25e9184d7d5950ca783152ebe7492"
+          }
+        ]
+      },
+      {
+        "id": "directed-exploration-circuit-needs-real-return",
+        "source_kind": "engine_fact",
+        "source_commit": "0f868c290ac3e250cd09375450399f4da4dc0e23",
+        "region_ids": [
+          "windchime_plains",
+          "thorn_forest"
+        ],
+        "capability_scope": "Actual Plains map2 base jump+recoil; no H/W/D grant and no new region proof",
+        "claim": "New lower ferry and old upper route have different observed action burden, but two clockwise return policies failed at an uncleared fan+sentry bank. The opposite upper-out/lower-back circuit passed with the same body. Preserve direction/enemy-state/strategy and actual collision provenance; a connected cycle or one success does not prove every return fair.",
+        "limits": [
+          "Only recorded seed/map/timing/policies; policy failure is not proof all human strategies are impossible.",
+          "Passed return segment HP3→3 does not erase full-prefix HP5→3.",
+          "No claim new route is faster, has unique ferry mechanics, or is a human-approved shortcut."
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/plains_redesign/scene/completion_r1/scene/run_16jp0xow/positive.json.gz",
+            "sha256": "ec3fc2f68836d21400c4b17f4d83629b77334f58fc8797e6f7da77ca0fd78435"
+          },
+          {
+            "path": "docs/evidence/plains_redesign/scene/completion_r1/scene/run_gayoppet/positive.json.gz",
+            "sha256": "852a4093f4766f0cb86c4e85733c7b8897590c47abd1019b03a4f19b85eb4eb3"
+          },
+          {
+            "path": "docs/evidence/plains_redesign/scene/completion_r1/scene/run_us9izlj2/positive.json.gz",
+            "sha256": "bc192773137b63dfc964001abf4a26239fa6e7739cc59fb651b24b1d4b57063b"
+          }
+        ]
+      },
+      {
+        "id": "review-ui-in-global-coordinates",
+        "source_kind": "design_review",
+        "source_commit": "0f868c290ac3e250cd09375450399f4da4dc0e23",
+        "region_ids": [
+          "windchime_plains",
+          "thorn_forest"
+        ],
+        "capability_scope": "Actual CanvasLayer/HUD parent-child geometry; transferable auditing method, not a level rule",
+        "claim": "The reviewer initially treated INFO local position as a fixed screen rectangle. Actual parent linkage and6742 global observations showed it moved inside HUD. Retract disproven findings, inspect global rectangles and hierarchy, then test a genuine bad node; do not change working layout to satisfy an incorrect audit.",
+        "limits": [
+          "INFO originally had parent-frame coverage; adding explicit inventory strengthens evidence, not a repaired production movement bug.",
+          "This does not dismiss the separate confirmed toast/receiver defect."
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/plains_redesign/scene/completion_r1/ui_parent_coordinates.json",
+            "sha256": "43dad8387581254b22788273a8c71525bf20a0b61a64dbf6a2ef8493239fd74f"
+          },
+          {
+            "path": "docs/evidence/plains_redesign/scene/completion_r1/scene/run_us9izlj2/info_actor.json.gz",
+            "sha256": "57a9eae8fef9375d7170bcb30bfc757bbe4b2879820840a8cffcfeb16da28725"
+          }
+        ]
+      },
+      {
+        "id": "asset-semantic-scale-and-preintegration-alpha",
+        "source_kind": "design_review",
+        "source_commit": "20f9b21d7e092348dd9de146267c46540a88d9cb",
+        "region_ids": [
+          "windchime_plains",
+          "thorn_forest"
+        ],
+        "capability_scope": "Transferable asset-production audit only; no action/ability or future-region grant",
+        "claim": "Actual two Plains golden variants show isolated small flower-stone props do not become credible sidewalls by enlargement. One actual generated atlas then failed its frozen transparency/gutter/padding specification before runtime integration. Check semantic role, hero-relative scale, real roots and original PNG before expanding; keep failure provenance and stop within budget.",
+        "limits": [
+          "Actual current Plains candidates only; not a claim every reused small asset or all AI images fail.",
+          "The31px/2percent gutter belongs solely to this frozen atlas specification, not all regions/assets.",
+          "Image contains genuine transparency but insufficient continuous gutter/padding; do not misreport wholly opaque.",
+          "No new PNG was integrated, no new runtime consumer or new rendered golden was produced for that failed atlas.",
+          "Source commit is the actual unchanged C2 basis plus separately archived failed dirty candidates; not a claim all failed bytes were committed as20f.",
+          "Independent C4 read-only calibration of the unchanged rejected PNG found alpha>=2 gutter79px and alpha>=128 gutter84px, with outer-edge alpha<=4/255. The original alpha>0 frozen contract still failed; no actual GPU halo/matte/seam is proven, and hidden RGB previews are not rendering evidence. Calibrate any future sampling rule against its real consumer before production, never retroactively pass this image."
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/plains_redesign/scene_q6_rework/asset_gap.md.source",
+            "sha256": "8a42dde334cd068f03874240ff4176ca65951f441519aa655fb0fca6014432cb"
+          },
+          {
+            "path": "docs/evidence/plains_redesign/q6_cliff_asset/atlas_measurements.json.gz",
+            "sha256": "d6db8b141f5811e840bf54c51aef6b0191392e4e521eb0b80c582dd6e444f428"
+          },
+          {
+            "path": "docs/evidence/plains_redesign/q6_cliff_asset/rejected_asset_provenance.json",
+            "sha256": "81e2b30402bae65ccbc9ed04cb6d3da33a708e105137dadee5b7275308c6788c"
+          },
+          {
+            "path": "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/asset_contract_calibration/report.md.source",
+            "sha256": "fe922726c32ed53d22cb554ff9fd56ed5f05c33bb8fa36db0a91095fea84b261"
+          },
+          {
+            "path": "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/asset_contract_calibration/metrics.json.gz",
+            "sha256": "af7f86cca136decfc6b337c36b829894693ad0de7d0a379126d39152fb34effc"
+          }
+        ]
+      },
+      {
+        "id": "plains-v3-failed-family-dependency-boundary",
+        "source_kind": "design_review",
+        "source_commit": "41cab3ef503aa9aaae86ab74dc55afaaf21655bc",
+        "region_ids": [
+          "windchime_plains",
+          "thorn_forest"
+        ],
+        "capability_scope": "Recorded Plains visual-family production and dependency/gate review only. Forest may reuse dependency isolation after loading its own region authority and legal S2/H contract; no ability grant, weapon/resource/physics change or formal forest opening.",
+        "claim": "The retained creek mother remained G2 REJECT while the independently sourced CLOCK received only G0 preflight acceptance and WOODLAND separately failed its original G0 specification. Preserve each verdict and stop consumers that require that failed family/gate; an unrelated family can continue through its own prerequisites and bounded review instead of inheriting a global visual-production stop.",
+        "limits": [
+          "Dependency isolation is a scoped production-review lesson, not proof that any family is beautiful, fun, GPU-safe or commercially admitted.",
+          "A genuine shared failed prerequisite still blocks all of its descendants. Independence must follow the actual source/consumer contract; renaming the rejected asset does not create a separate family.",
+          "WOODLAND remains REJECT for its original specification; a separately authorized alternate-role technical pilot cannot retroactively pass that mother. CLOCK G0 is not G2 or mass-promotion approval.",
+          "Forest receives only the dependency-review method; Plains silhouettes, thresholds, layout and capability assumptions do not become forest design authority."
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/visual_director/recovery_checkpoint/static_v4_fixed_review.json",
+            "sha256": "15a0d33f37fbec00551665737bd492c5f443df634eaca704bac511720e2f554c"
+          },
+          {
+            "path": "docs/evidence/region_production_v3/art/clock_regulator_court_v1/independent/review.json",
+            "sha256": "edfc823ba04e4817857935aae56663982fb7d78ffd593633ce992e379d07447d"
+          },
+          {
+            "path": "docs/evidence/region_production_v3/art/woodland_two_depth_ridges_v1/independent/review.json",
+            "sha256": "9057ce18d8843f3ce2603e5be9b7175842446a9030ed4b5dc6f6f80ee9169989"
+          }
+        ],
+        "version_basis": "source_commit identifies the ROOT commit packaging these immutable portable records; original reviewed commits, dirty-source inventories, leases and native commands remain authoritative inside each cited record. It does not relabel those executions as fresh on this ROOT source."
+      },
+      {
+        "id": "plains-v3-semantic-role-real-solid-support",
+        "source_kind": "design_review",
+        "source_commit": "41cab3ef503aa9aaae86ab74dc55afaaf21655bc",
+        "region_ids": [
+          "windchime_plains",
+          "thorn_forest"
+        ],
+        "capability_scope": "Actual map2 Plains technical landscape pilot and unchanged original asset specifications, with the original recorded single-current-weapon/capability snapshot. Forest reuse is limited to semantic-role/support auditing under its own authority; no new H/D/W grant or collision/Motor/resource change.",
+        "claim": "The retained limited pilot supported the complete workshop toes on verified solid shore and used the unchanged rock as a receding rear escarpment; near-bank use and full commercial composition remained unadmitted. Choose the intended asset role and verify its real static-support union and camera view before scaling or expanding it. WOODLAND gap21 at alpha2 versus required80 and lower height236.413 at width950 versus required280..310 remain original-spec failures; metadata fitting or stretching an old prop is not evidence that it serves a new wall, shore or rooted-landmark role.",
+        "limits": [
+          "The sampled rear-rock/workshop acceptance covers only the recorded map2 technical pilot; the visible shore/rock join finding and incomplete workshop viewing window remain, with G2 unverified.",
+          "The woodland numbers are frozen source-contract measurements, not universal alpha-gap or tree-height rules. An alternate role requires a separate explicit contract, unchanged provenance and actual GPU/camera evidence.",
+          "Decorative self-contained ridge/root parallax is a different physical promise from a building grounded on gameplay solid support. Do not infer support from a one-way platform, sprite rectangle or root-like pixels.",
+          "No blanket ban on reusing small props, no mandatory landmark density and no assertion that every scene needs the Plains support widths. Forest must inspect its own legal support semantics and real consumer."
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/region_production_v3/scene/closure/raw/build/region_production_v3/independent/V3-SCENE-01_review.json",
+            "sha256": "519530aed853214e654285bcb0e1098b83c89c484bdd99e3cd6a244784d70913"
+          },
+          {
+            "path": "docs/evidence/region_production_v3/art/woodland_two_depth_ridges_v1/independent/review.json",
+            "sha256": "9057ce18d8843f3ce2603e5be9b7175842446a9030ed4b5dc6f6f80ee9169989"
+          }
+        ],
+        "version_basis": "source_commit identifies the ROOT commit packaging these immutable portable records; original reviewed commits, dirty-source inventories, leases and native commands remain authoritative inside each cited record. It does not relabel those executions as fresh on this ROOT source."
+      },
+      {
+        "id": "plains-v3-cross-worktree-evidence-keeps-native-binding",
+        "source_kind": "engine_fact",
+        "source_commit": "41cab3ef503aa9aaae86ab74dc55afaaf21655bc",
+        "region_ids": [
+          "windchime_plains",
+          "thorn_forest"
+        ],
+        "capability_scope": "Portable restoration and integration evidence for the recorded Plains static pilot and root-bell sample only. Transferable evidence method for a future forest consumer; no ability/progression grant, native rerun claim or gameplay acceptance.",
+        "claim": "The committed scene closure reconstructs the frozen964-file movie inventory from exact Git bytes and six archived runtime deltas, retaining the original command/native log and waiting controller state. Copying it into ROOT changes whole-worktree quality binding and does not make its movie fresh for integrated content. The enemy archive likewise distinguishes the original623-frame movie from the later unique-output producer; early overwritten failed-frame carriers are explicitly unrecovered. Preserve original invocation, native log, source/asset inventory and portable bytes, then bind each integration claim to its actual source instead of treating a copied PASS as new execution.",
+        "limits": [
+          "The scene closure is selected portable evidence and source reconstruction, with an external Godot toolchain; its local full-project fallback is not a committed portable archive. Check closure completeness against the claimed recovery scope.",
+          "Exact reconstructed wrapper bytes were verified against the original movie fingerprint, but that does not mean the wrapper had been archived before modification. Missing failed carriers stay missing; surviving logs do not recreate them.",
+          "SHA/path/nonce consistency is not external authentication of a named agent or a real host interruption. Native logs, real host records and current-source acceptance remain separate evidence requirements.",
+          "This records reproducibility and provenance facts only, not aesthetic quality, normal-speed audio review, target-device performance, full formal-region coverage or content completion."
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/region_production_v3/scene/closure/portable_closure.json",
+            "sha256": "8fea5d7cfd28f3522d5f57f43b0cc8dea75040c0a96c2f37d52693a7c88e3ae3"
+          },
+          {
+            "path": "docs/evidence/region_production_v3/scene/closure/raw/build/region_production_v3/pilot_map2_growth_v1/visual_capture.json",
+            "sha256": "b8fad8ffc7a02538bd10334670a84ec98bd458609fb8265b28204a06d560796c"
+          },
+          {
+            "path": "docs/evidence/region_production_v3/scene/closure/raw/build/region_production_v3/pilot_map2_growth_v1/capture.log",
+            "sha256": "4ee68d324bc906bf4f02608f3616a6ab196b78d3707cfafb7850f584e4027d38"
+          },
+          {
+            "path": "docs/evidence/region_production_v3/enemy/producer_scope_bridge.json",
+            "sha256": "613e77d90a4dccddfb0f3533d315d1343faf413bf15e91edcb99cf72007e19e3"
+          },
+          {
+            "path": "docs/evidence/region_production_v3/enemy/movie_source_v1.json",
+            "sha256": "70e0adfaaa8bbee16e30237561a3ff538ba246359782fbb796614ccf15a0e736"
+          }
+        ],
+        "version_basis": "source_commit identifies the ROOT commit packaging these immutable portable records; original reviewed commits, dirty-source inventories, leases and native commands remain authoritative inside each cited record. It does not relabel those executions as fresh on this ROOT source."
+      },
+      {
+        "id": "v3-sparse-check-inputs-before-model",
+        "source_kind": "engine_fact",
+        "source_commit": "a01a71ae781fabb39eb9dbd67549698a3d3730e6",
+        "region_ids": [
+          "windchime_plains",
+          "thorn_forest"
+        ],
+        "capability_scope": "Offline production tooling; not a biome mechanic or new capability grant",
+        "claim": "Actual missing/symlink/unreadable tracked dependencies and shared Harness entry omissions caused wasted calls; current preflight blocks them before worker with calls0 and resolves actual selected argv.",
+        "limits": [
+          "Only tracked required inputs are infrastructure; intended new outputs are not automatically missing evidence.",
+          "Existing interrupted source drift is not silently recoverable; original failures remain."
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/region_production_v3/check_preflight/independent/review.final.json",
+            "sha256": "ebcc3ea12716455dbfa1914b00fb9030b940e4fa65addc864b48899d9d07ef8b"
+          }
+        ],
+        "version_basis": "Packaging commit and frozen exact producer/source records distinguish actual historical execution from current-source validation; never relabel an old run as fresh."
+      },
+      {
+        "id": "v3-coherent-energy-replay-needs-hit-grant-bijection",
+        "source_kind": "engine_fact",
+        "source_commit": "a01a71ae781fabb39eb9dbd67549698a3d3730e6",
+        "region_ids": [
+          "windchime_plains",
+          "thorn_forest"
+        ],
+        "capability_scope": "Formal PulseLv1 observed resource transactions; future abilities need their own Definition/receipt bindings",
+        "claim": "A coherent fake could delete real hit recovery and replay the remaining resource curve to the same final energy. The repaired actual full consumer rejects it through first-hit, unique grant and accepted recovery event identity bindings.",
+        "limits": [
+          "Frozen actual native5145 frames plus27+9 explicit Python counterexamples; synthetic process transport is not new native execution.",
+          "Do not hardcode recorded shot/hit IDs,620px or Plains geometry as another biome rule."
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/region_production_v3/enemy_parent_integration/strict_review/review_report.md",
+            "sha256": "93957d9eca81e5386ae8957931fae543c30ab7d1b6f000041fcb4a1bd3cd20ff"
+          }
+        ],
+        "version_basis": "Packaging commit and frozen exact producer/source records distinguish actual historical execution from current-source validation; never relabel an old run as fresh."
+      },
+      {
+        "id": "v3-limited-use-does-not-admit-failed-whole-asset",
+        "source_kind": "design_review",
+        "source_commit": "a01a71ae781fabb39eb9dbd67549698a3d3730e6",
+        "region_ids": [
+          "windchime_plains",
+          "thorn_forest"
+        ],
+        "capability_scope": "Visual family/consumer contract only; not collision or weapon rules",
+        "claim": "New natural bottom-edge/panel consumers showed a local improvement without rehabilitating original rejected whole-image contracts. Whole-region commercial quality remains rejected; failed Boss direction stopped.",
+        "limits": [
+          "The new consumer needs its own actual scale/anchor/pixels and negative cases, not a new name for the same failed purpose.",
+          "Original 420x152 and suspended-panel full-fit failures stay failed."
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/region_production_v3/terrain_parent_integration/independent/review.json",
+            "sha256": "572cb7958fae0a264ed0c94436284de693d902ff02b35ea7d22c23d5eb6ab315"
+          }
+        ],
+        "version_basis": "Packaging commit and frozen exact producer/source records distinguish actual historical execution from current-source validation; never relabel an old run as fresh."
+      },
+      {
+        "id": "v3-fullscreen-sampling-needs-render-budget",
+        "source_kind": "computed_proxy",
+        "source_commit": "a01a71ae781fabb39eb9dbd67549698a3d3730e6",
+        "region_ids": [
+          "windchime_plains",
+          "thorn_forest"
+        ],
+        "capability_scope": "llvmpipe fixed-camera1280x720 visual benchmark; not player traversal or target-device performance",
+        "claim": "Actual three-window ABBA540-frame sampling found a zero-softness sky path reduced static GPU medians about10.8–14.4%, while real A/B maximum channel difference was4/255. It does not establish overall game FPS or repair input TTL.",
+        "limits": [
+          "Current sky/ridge source,shader and three exact windows only; another family/renderer needs remeasurement.",
+          "Only before snapshot and current matching219 source files exist; do not invent an after capture snapshot."
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/region_production_v3/shared_environment_parent_review/sky_optimization_addendum.json",
+            "sha256": "91d58a21dc4ab4226017252f64bb48f27e682d85e39e0e89c96bb4fcce1397dc"
+          }
+        ],
+        "version_basis": "Packaging commit and frozen exact producer/source records distinguish actual historical execution from current-source validation; never relabel an old run as fresh."
+      },
+      {
+        "id": "visible-capture-real-input-clock",
+        "source_kind": "engine_fact",
+        "source_commit": "1fd969ab755fad334500d9d8798212ab91b58686",
+        "region_ids": [
+          "windchime_plains",
+          "thorn_forest"
+        ],
+        "capability_scope": "Visible fixed-step recording, real InputRouter100ms TTL; no physics/resource changes",
+        "claim": "Actual130ms stall rejected legacy and deliberately delayed post-draw input, while a newly generated post-draw request was accepted. Preserve real timestamps and distinguish observer-boundary age from exact consume receipt.",
+        "limits": [
+          "Does not establish root cause of old timestamp-free failed movies.",
+          "Does not establish human timing tolerance or device performance."
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/region_production_v3/capture_input_timing/independent/review.final.json",
+            "sha256": "cea23f765a7e940b1bdc5afdf28f27664ae4caf29e325b376024c15b46d85a7e"
+          }
+        ]
+      },
+      {
+        "id": "hanging-scenery-real-attachment",
+        "source_kind": "engine_fact",
+        "source_commit": "1d1ccadc2649b145b58c1489a439ffc687b5877c",
+        "region_ids": [
+          "windchime_plains",
+          "thorn_forest"
+        ],
+        "capability_scope": "Plains real static RectangleShape2D platforms, complete ivy atlas, actual protected routes and dynamic sweeps",
+        "claim": "Actual20maps yielded76 supported ivy placements and66 explicit omissions; ground-foot decorative placement was replaced with an opaque top anchor attached to measured platform underside.",
+        "limits": [
+          "Current static support adapter only; no arbitrary shape or moving-support claim.",
+          "Independent static pixel acceptance does not establish whole-region commercial art."
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/region_production_v3/ivy_attachment_independent/review.json",
+            "sha256": "c7158e40781b356b2848277a7f448cd0a2ef9b10a128dab9ecfffc0fe78938ae"
+          }
+        ]
+      },
+      {
+        "id": "tracked-fixture-prefix-preflight",
+        "source_kind": "engine_fact",
+        "source_commit": "54972c4147d09dac7fad45661c6f603e4768b37d",
+        "region_ids": [
+          "windchime_plains",
+          "thorn_forest"
+        ],
+        "capability_scope": "Offline selected-check preflight in sparse Git worktrees; no runtime ability grant",
+        "claim": "A declared fixture directory must expand existing tracked members before worker allocation; actual missing nested history now blocks at calls0, while unknown future prefixes remain explicit warnings.",
+        "limits": [
+          "Bounded literal tracked prefixes, not whole-program dependency inference.",
+          "Original forest sparse failures remain historical failures, not retroactively passed."
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/region_production_v3/forest_fixture_preflight_independent/review.json",
+            "sha256": "41c69cbb73b411eae66fc6045528f2f610fe6d327713a48aa56b1864248dffe3"
+          }
+        ]
+      },
+      {
+        "id": "bank-asset-union-cross-section-before-generation",
+        "source_kind": "engine_fact",
+        "source_commit": "9eef7a88003deaf924f895d585cb7e5de0cb48b0",
+        "region_ids": [
+          "windchime_plains",
+          "thorn_forest"
+        ],
+        "capability_scope": "Actual baseline/map2 rooted solid union, initial single-current PulseLv1; image tool has no size parameter",
+        "claim": "A420x152 union bbox hid240x152 +160x144 +20x32 thin overhang. Complete rectangular artwork would paint traversable air. Freeze actual occupied boundary/cross-sections before source generation; prompt-only pixel dimensions are not a tool guarantee. One actual shape-guided edit still failed necessary thickness/standing coverage and was stopped without runtime use.",
+        "limits": [
+          "This exact union and image14 output only; not proof all image tools cannot meet geometry.",
+          "Original failed whole420 contract remains failed; a new real overhang contract does not retroactively pass it.",
+          "Do not alpha-repair, stretch or lower clearance merely to claim whole-source admission."
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/region_production_v3/supported_bank_failed_02/candidate_family/production/formal_manifest_solids_inventory.json",
+            "sha256": "cbbe1275c7e8fab141f8859a8487dd7612e434fbd16a50dc71a1477b5d40e4eb"
+          }
+        ]
+      },
+      {
+        "id": "region-content-version-must-replay-whole-run",
+        "source_kind": "engine_fact",
+        "source_commit": "7e253830129770fa8f9b4caaabd0b76c3ef275b5",
+        "region_ids": [
+          "windchime_plains",
+          "thorn_forest"
+        ],
+        "capability_scope": "Implemented v10/v11 formal DemoApp/RunManifest generation and lawful brake_boots modifier fixture; no future ability grant",
+        "claim": "A valid stage Manifest and enemy audit did not prove whole RunManifest compatibility: the real original two-map suite rejected all three native/JSON replay cases after v11 admission because its root version remained v10. Bind the first map to the actual known content version and verify every stage version plus exact regeneration; reject mixed/unknown versions and unearned resources.",
+        "limits": [
+          "Only known current v10/v11 are implemented; no automatic admission of future regions or versions.",
+          "Actual mini-Boss outcome and lawful modifier fixture prove serialization/replay, not input-only campaign combat, reward acquisition, cold-disk saves or devices.",
+          "Historical explicit map2 capture is a traversal slice, not automatically a complete lawful campaign RunManifest."
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/region_production_v3/root_bell_run_replay_independent/review.json",
+            "sha256": "4644a486cbbb3085f5d704aa3da648ae8841be3dabba187908bd3f23219385a9"
+          }
+        ]
+      },
+      {
+        "id": "fileaccess-png-requires-real-exported-raw-bytes",
+        "source_kind": "engine_fact",
+        "source_commit": "7e253830129770fa8f9b4caaabd0b76c3ef275b5",
+        "region_ids": [
+          "windchime_plains",
+          "thorn_forest"
+        ],
+        "capability_scope": "Offline Godot4.7.2 editor export and existing finite raw-PNG runtime contracts; exact dirty source overlay in independent evidence",
+        "claim": "include_filter listed PNGs but the real Godot4.7.2 pack only retained texture import mappings/derivatives, breaking actual Image/FileAccess source consumers. The source-bound EditorExportPlugin adds the preset-declared family PNG bytes without skipping normal imports. Inspect the actual PCK and reject removed raw directory entries; declarations or imported textures alone are insufficient.",
+        "limits": [
+          "Actual Web export/7requiredraw/12textures/8JSON and7missingraw variants only. Three preset lists are statically equal, not three actual platform exports.",
+          "No game-pixel quality, performance, browser or device approval follows from a complete pack.",
+          "Only finite existing source-PNG family contracts; new dynamic consumers must extend the runtime contract and automated tests."
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/region_production_v3/web_raw_closure_independent/review.json",
+            "sha256": "c894ded837ae31a1fd5646dcafdada13acbe0f2ce4e88f7e2c594c5cf22a1d02"
+          }
+        ]
+      },
+      {
+        "id": "generation-version-must-update-real-analysis-consumers",
+        "source_kind": "engine_fact",
+        "source_commit": "91f65cc66e1eccead72b73fdf31b2047c1da28d6",
+        "region_ids": [
+          "windchime_plains",
+          "thorn_forest"
+        ],
+        "capability_scope": "Finite actual formal RunManifest and assembler trace adapters; exact v11 consumer dirty overlay retained in evidence, no enemy combat claim",
+        "claim": "A valid new generation version failed the real registered analysis CLI because its consumer accepted only older labels. Add an explicit schema and RunManifest identity adapter, reject future/mixed/downgraded or unbound records, test the current literal producer version, and re-capture under the changed consumer source rather than rewriting old provenance.",
+        "limits": [
+          "Supported versions remain finite; no automatic future capability or region admission.",
+          "Assembler traces are explicitly without enemies/Boss and cannot prove combat or player enjoyment.",
+          "Actual older native receipts correctly reject changed downstream source; preserve them and obtain a fresh original CLI receipt."
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/region_production_v3/v11_analysis_consumer_independent/fresh_current_r3_acceptance.json",
+            "sha256": "6e466989c46e072197a1d9ca39ba927137290acf11ab983088dae45e6cbaddba"
+          }
+        ]
+      },
+      {
+        "id": "plains-v3-wrapper-failure-originals",
+        "source_kind": "engine_fact",
+        "source_commit": "50fb10c749871cb555f24fab84b3f539abde49fb",
+        "region_ids": [
+          "windchime_plains"
+        ],
+        "capability_scope": "CI wrapper observability only; no ability/difficulty/resource rule. Actual logging repair is D plus exact two-file dirty overlay hashes in evidence.",
+        "claim": "Latest same-source remote terrain check failed while earlier local/full CI passed, but its inner native originals were not uploaded. Preserve later failure and unknown cause. Existing wrapper now prints bounded inner diagnostics and existing artifact includes its original directory; actual default45/0 was still rejected on resourceERROR while separate allmaps418/0+negative46/1 passed.",
+        "limits": [
+          "Logging repair and source-bound local verification do not resolve remote root cause or clear deployment gates.",
+          "Do not turn one local resource exit into a universal or remote diagnosis; do not reuse an old green result to bypass a newer failure."
+        ],
+        "evidence": [
+          {
+            "path": "docs/evidence/region_production_v3/final_delivery_50fb10c/independent/terrain_logging_patch.final_review.json",
+            "sha256": "76f84bdf5ed38444801fbbf7dd4bf8ac5f3a9a7c84f5e6ff0d3445fba63c41a7"
+          }
+        ]
+      }
+    ],
+    "visual_recipe": {
+      "status": "candidate_with_native_evidence_not_automatic_admission",
+      "scope": "P1 candidate pilot only; not automatic acceptance, no user, device, commercial or formal-production admission",
+      "sources": [
+        {
+          "path": "resources/visual_development/p1_candidate.json",
+          "sha256": "9b1c52058fdc8bcf6e2e4e913e1b83688233cb8bf727446f6771df8ed05c9e7d"
+        },
+        {
+          "path": "resources/visual_development/p1_actor_calibration.json",
+          "sha256": "a3934ea8bba87f2cbda28c4906f057cb8ee06e88b88ce61fa95b912eec4749a3"
+        },
+        {
+          "path": "docs/visual_development/directions_20261017/p1-board.png",
+          "sha256": "8a458893f753cf6180842b4d027880ce5c459268140c820a56ebcb140bc034c6"
+        },
+        {
+          "path": "docs/visual_development/directions_20261017/p1-scene.png",
+          "sha256": "5863f4602906c7803b8ff2a82de2638e059b14beb1e6967354538b1ba5a4315c"
+        },
+        {
+          "path": "scripts/art/painted_terrain_grammar.gd",
+          "sha256": "c87ca06e464e5734cb270ba00c9f190413bb58e4debd96b20f0c636872307a30"
+        },
+        {
+          "path": "scripts/art/visual_language_sample.gd",
+          "sha256": "0a4a1fbaba487433e3c391d6e8515fdfdfb334cfbd9bfcb198744dad7c0ca82b"
+        },
+        {
+          "path": "docs/evidence/p1_native/recipe.md",
+          "sha256": "c2c38356fcd14de5d06a847c5c4109865775ee0ca70bccd62fbb95cf54faf532"
+        },
+        {
+          "path": "docs/quality/records/P1-NATIVE-01.json",
+          "sha256": "cd83ff13245d39969f28e93232b31cbd68b9696685c85a67eb04bfcec406c3cb"
+        },
+        {
+          "path": "assets/visual_development/p1_native/terrain_section.png",
+          "sha256": "008ba4ed763235e30ff4e89391a9cba6927d535cf205257c41a9030ad6ba1488"
+        },
+        {
+          "path": "assets/visual_development/p1_native/left_end.png",
+          "sha256": "ba3dd93b0e4e00fc442b25b34d1e3526e99e5d193cd545a811464c5171a8dbc8"
+        },
+        {
+          "path": "assets/visual_development/p1_native/right_end.png",
+          "sha256": "5e74256b09fced794954e5dc67e918bf907f8728a5a59cc00f144cb791bf14c1"
+        },
+        {
+          "path": "assets/visual_development/p1_native/tree.png",
+          "sha256": "97eb18400c8e722b7873fcd6a5c81f3f69ce52241723daa1db91289040113bc6"
+        },
+        {
+          "path": "assets/visual_development/p1_native/shelter.png",
+          "sha256": "4bce48047326447812d78d088f276ba8227b6874757284b0a8b318ebc624062d"
+        },
+        {
+          "path": "assets/visual_development/p1_native/device.png",
+          "sha256": "802abc8ee5857bf83f87e87166d352c51b17dff26d51e6eea3e049a75ef34c1a"
+        },
+        {
+          "path": "assets/visual_development/p1_native/distant.png",
+          "sha256": "5017ca3fb03c76a54d5142375dbbe17405aff96957a062e20ba2aa9746050dd6"
+        },
+        {
+          "path": "assets/visual_development/p1_native/meadow.png",
+          "sha256": "b53fc8d14d29e65d5dbdad2b900720ac8eeb5c3d8db90bb64c03b6f3abb0b68a"
+        },
+        {
+          "path": "assets/visual_development/p1_native/hero_actions.png",
+          "sha256": "f14951c643fb33fe788fb524a3b82a5973f75eff808907e37a27dff98691bc7c"
+        },
+        {
+          "path": "assets/visual_development/p1_native/enemy_actions.png",
+          "sha256": "fda75f611584417fad03ed9983fb7273388c8d9199d90095cdada2638df1b60f"
+        },
+        {
+          "path": "assets/visual_development/p1_native/saw.png",
+          "sha256": "70aafd43e7a1808a49dd33490d36850c69cd6ca505dec141b8521ddbdcafe84d"
+        },
+        {
+          "path": "assets/visual_development/p1_native/terrain_section.record.json",
+          "sha256": "ff4858fcccdf5d11545645e39444c29c71d5a2672b4a7e2d91b4b0de9c0916e4"
+        },
+        {
+          "path": "assets/visual_development/p1_native/left_end.record.json",
+          "sha256": "61beacc425a8f7b4e01227981955ca90f9316f70ec37681a731173522a10c8c5"
+        },
+        {
+          "path": "assets/visual_development/p1_native/right_end.record.json",
+          "sha256": "fd7490e776686612dfa00b51ec89ae225a4d93556064b213018d52e41a356153"
+        },
+        {
+          "path": "assets/visual_development/p1_native/tree.record.json",
+          "sha256": "d4e928568862648543205c1135afd1b98d7016884e5d3e3e5e1392b3d4fc7916"
+        },
+        {
+          "path": "assets/visual_development/p1_native/shelter.record.json",
+          "sha256": "8b4d5a4056a8f76d301db8fbfe11b4e55a4719fe350588d13d2f111bf8a85ba4"
+        },
+        {
+          "path": "assets/visual_development/p1_native/device.record.json",
+          "sha256": "612a99d9341b671811f687e3b2342ebabb67f2a3cb2afe77ddef873d6f8e4a78"
+        },
+        {
+          "path": "assets/visual_development/p1_native/distant.record.json",
+          "sha256": "d89c47e47a1d2d2472278fc487524844ab0f3eae8f4cfe5a8b69e1a974ab6c8d"
+        },
+        {
+          "path": "assets/visual_development/p1_native/meadow.record.json",
+          "sha256": "42131b87748052811d0fbe8ad6421622743487bcc1f5c5c58e5af58f46eb9cb3"
+        },
+        {
+          "path": "assets/visual_development/p1_native/hero_actions.record.json",
+          "sha256": "2bbb7a3b8851c97e1c1fc9e5803b22e8de1137be21d3169906223c242142a71b"
+        },
+        {
+          "path": "assets/visual_development/p1_native/enemy_actions.record.json",
+          "sha256": "9660ef4a7d5888e2c96d5cc347840ca60a0f1f90727d25c7ed0e34b45622bb81"
+        },
+        {
+          "path": "assets/visual_development/p1_native/saw.record.json",
+          "sha256": "4804ac19e4e333cc4ba0c2e5369d9b91dcec387e73e279c06e026e63d6411023"
+        }
+      ],
+      "profile": {
+        "texture": "res://assets/visual_development/p1_native/terrain_section.png",
+        "source_surface_profile": [
+          [
+            0,
+            526
+          ],
+          [
+            150,
+            528
+          ],
+          [
+            300,
+            531
+          ],
+          [
+            450,
+            535
+          ],
+          [
+            600,
+            544
+          ],
+          [
+            750,
+            537
+          ],
+          [
+            900,
+            545
+          ],
+          [
+            1050,
+            540
+          ],
+          [
+            1200,
+            548
+          ],
+          [
+            1253,
+            542
+          ]
+        ],
+        "source_x_offsets": {
+          "entry_shore": 40,
+          "recovery_shore": 60,
+          "lookback_shore": 960
+        },
+        "ends": {
+          "left": {
+            "texture": "res://assets/visual_development/p1_native/left_end.png",
+            "source_surface_y": 325,
+            "outer_profile": [
+              [
+                225,
+                331
+              ],
+              [
+                250,
+                274
+              ],
+              [
+                275,
+                173
+              ],
+              [
+                300,
+                143
+              ],
+              [
+                325,
+                103
+              ],
+              [
+                350,
+                91
+              ],
+              [
+                400,
+                95
+              ],
+              [
+                450,
+                135
+              ],
+              [
+                500,
+                173
+              ],
+              [
+                600,
+                172
+              ],
+              [
+                700,
+                219
+              ],
+              [
+                800,
+                297
+              ],
+              [
+                900,
+                289
+              ],
+              [
+                1000,
+                287
+              ],
+              [
+                1100,
+                243
+              ],
+              [
+                1200,
+                276
+              ],
+              [
+                1300,
+                265
+              ],
+              [
+                1400,
+                260
+              ],
+              [
+                1500,
+                240
+              ],
+              [
+                1535,
+                224
+              ]
+            ],
+            "source_width": 200,
+            "world_width": 56,
+            "blend_start": 0.4,
+            "source_dimensions": [
+              1024,
+              1536
+            ],
+            "source_sha256": "ba3dd93b0e4e00fc442b25b34d1e3526e99e5d193cd545a811464c5171a8dbc8",
+            "calibration": "Actual current-source alpha>=128 exposed profile; pale foot-plane visual hinge; independent inward turn socket, GPU joint/color alignment pending. Hidden low-alpha RGB is not included as physical material."
+          },
+          "right": {
+            "texture": "res://assets/visual_development/p1_native/right_end.png",
+            "source_surface_y": 245,
+            "outer_profile": [
+              [
+                145,
+                729
+              ],
+              [
+                170,
+                817
+              ],
+              [
+                195,
+                860
+              ],
+              [
+                220,
+                861
+              ],
+              [
+                245,
+                914
+              ],
+              [
+                350,
+                907
+              ],
+              [
+                400,
+                883
+              ],
+              [
+                450,
+                857
+              ],
+              [
+                500,
+                823
+              ],
+              [
+                600,
+                807
+              ],
+              [
+                700,
+                821
+              ],
+              [
+                800,
+                827
+              ],
+              [
+                900,
+                796
+              ],
+              [
+                1000,
+                797
+              ],
+              [
+                1100,
+                801
+              ],
+              [
+                1200,
+                800
+              ],
+              [
+                1300,
+                776
+              ],
+              [
+                1400,
+                807
+              ],
+              [
+                1500,
+                843
+              ],
+              [
+                1535,
+                849
+              ]
+            ],
+            "source_width": 200,
+            "world_width": 56,
+            "blend_start": 0.4,
+            "source_dimensions": [
+              1024,
+              1536
+            ],
+            "source_sha256": "5e74256b09fced794954e5dc67e918bf907f8728a5a59cc00f144cb791bf14c1",
+            "calibration": "Actual current-source alpha>=128 exposed profile; pale foot-plane visual hinge; independent inward turn socket, GPU joint/color alignment pending. Hidden low-alpha RGB is not included as physical material."
+          }
+        },
+        "face_patches": [],
+        "status": "P1_original_section_and_independent_ends_measured_initial_GPU_pending",
+        "source_pixels_per_world_unit": 1.4,
+        "back_world_depth": 24,
+        "back_source_depth": 100,
+        "lip_world_depth": 22,
+        "lip_source_depth": 70,
+        "upper_side_world_depth": 180,
+        "upper_side_source_depth": 260,
+        "source_measurements": {
+          "sha256": "008ba4ed763235e30ff4e89391a9cba6927d535cf205257c41a9030ad6ba1488",
+          "dimensions": [
+            1254,
+            1254
+          ],
+          "standing_profile_method": "Initial P1 pale walking-plane center from actual original pixels/visual inspection, not alpha vegetation outline; GPU footline alignment pending",
+          "band_method": "Top vegetation/back100src to24world; first70src lip to22world; selective-root shoulder to source+260src/180world; quiet lower planes continue to source1253 without repeat"
+        }
+      },
+      "method": {
+        "id": "p1_finite_contour_cross_section_pilot",
+        "scope": "ONE unchanged existing open-meadow representative stage; no geometry/RNG/gameplay change, second-space production or formal promotion",
+        "source_mapping": "Finite per-source calibrated arc-length full-depth section; source profile and bands measured from P1 original images before native use",
+        "art_direction": "P1 wind-eroded song pages: watercolor low-frequency planes, selective lines, slender seed wings and open skeletal wooden architecture; no inherited B material/color requirement"
+      },
+      "recipe": "docs/evidence/p1_native/recipe.md",
+      "quality_record": "docs/quality/records/P1-NATIVE-01.json",
+      "reviews": [
+        "docs/evidence/p1_native/independent-first-01.md"
+      ],
+      "technical_history_on_demand": "docs/evidence/painted_terrain/recipe.md"
+    },
+    "creative_direction": {
+      "path": "docs/creative_direction/windchime_plains.json",
+      "sha256": "8f07e1c3d8fdd3553f7bf373075a52b2b900aac703b4789cead2cc5ebeeb0fa4",
+      "region_id": "windchime_plains",
+      "version": "creative-v2"
+    }
+  },
+  "constraints": [
+    "Freeze Motor, weapons/resources/progression, RNG, actual collision geometry/route and saves; within the authorized art scope visual mesh, source profiles and UV mapping may be redesigned, not collision or gameplay",
+    "P1 is the user-preferred candidate, not final user approval or formal-pool admission. Read the current P1 quality record and actual native review before deciding expansion; old B scoped acceptance does not admit P1. First-space whole-image art and motion readability must be independently admitted before a second structure; no batch expansion or full G2 claim from a plan. A rejected unrelated mother does not block independently qualified units.",
+    "No conceptual image posing as actual gameplay; no subjective score from hashes",
+    "Two no-progress visual rounds stop. Preserve every failed native/model/review attempt.",
+    "Host mode needs an active real Codex host, distinct implementation/review agents; otherwise block with original Harness lease/timeout",
+    "Use existing G0–G5/eleven quality dimensions; G0/G1 stage is not G2 beauty approval or full content completion"
+  ],
+  "native_import_preflight": true,
+  "context_mode": "compact"
+}

@@ -58,9 +58,9 @@ V3实战检查点：开始昂贵worker前，原production_loop会物化核对所
 
 用原production_timing记录生成、实施、集成、独审、返工、验证、等待和发布实际区间，未知token/价格写not_exposed；宿主包络不称纯模型compute。廉价接口先于昂贵回归；只复用source/argv/consumer/artifact一致回执。恢复核真实lease/checkpoint/controller，发布绑定repo/ref/SHA/run/attempt及公开PCK指纹；保留原红，不另dispatch掩盖。
 
-## B方向首整屏先于扩产
+## 当前候选首整屏先于扩产
 
-简短平原美术任务读取route preparation.visual_recipe绑定的当前母版、catalog、源记录/profile、实际消费者与[制作范例](../../../docs/evidence/painted_terrain/recipe.md)，先复用已有section_v2/端面/meadow_v2建立第二真实结构，缺功能连接才画，不只填审查清单。04首整屏已获静态/运动抽帧ACCEPT_SCOPED，只允许一次第二结构验证；第二空间须独立实机审查，不能宣称完整G2、批量扩产、用户或商业画质。
+简短平原美术任务读route preparation.visual_recipe绑定的当前候选、源记录/profile、质量卡和[实际制作范例](../../../docs/evidence/p1_native/recipe.md)。旧B艺术接受不能传递给P1；先看新候选完整真实画面和运动可读性，首样板未准入不自动制作第二。P1首片的有效关系是浅切面/纸白空气/细骨棚，失败是主体细碎与近草抢焦点；创作者必须给出实际画法/层深答案，独审只读评价实现，不替创作者补规范。真实同条件重录后再决定是否推进，不以route、源数量、旧电影或工程绿灯签新风格。
 
 ## 共同创作契约
 

@@ -304,10 +304,11 @@ class VisualDirectorTests(unittest.TestCase):
             elif mutation == 'wrong_type': report['request']['visual_sample'] = 1
             with self.subTest(mutation=mutation): self.assertTrue(relevant(data, report))
 
-    def test_pr75_baseline_and_painted_terrain_bind_distinct_catalog_treatments(self):
-        # Both use the same observer; only the explicitly bound skin treatment differs.
+    def test_baseline_painted_and_p1_bind_distinct_catalog_treatments(self):
+        # All three use the same observer; only the explicitly bound skin treatment differs.
         self.assertEqual(vd.VISUAL_SAMPLE_CATALOGS[0], vd.VISUAL_SAMPLE_CATALOG)
-        self.assertEqual(len(vd.VISUAL_SAMPLE_CATALOGS), 2)
+        self.assertEqual(vd.VISUAL_SAMPLE_CATALOGS, (vd.VISUAL_SAMPLE_CATALOG, "res://resources/visual_development/painted_terrain_candidate.json", "res://resources/visual_development/p1_candidate.json"))
+        self.assertFalse(vd.valid_visual_sample("tools/painted_formal_capture.gd", vd.VISUAL_SAMPLE_CATALOGS[2]))
         for catalog in vd.VISUAL_SAMPLE_CATALOGS:
             with self.subTest(catalog=catalog):
                 report, data = copy.deepcopy(self.report), copy.deepcopy(self.data)
@@ -346,13 +347,12 @@ class VisualDirectorTests(unittest.TestCase):
         self.assertIn('art-art',mission['tasks'][1]['checks'])
         self.assertIn('visual-director-terrain',mission['tasks'][1]['checks'])
         recipe=mission['preparation']['visual_recipe']
-        self.assertEqual(recipe['status'],'first_space_static_accept_scoped')
+        self.assertEqual(recipe['status'],'candidate_with_native_evidence_not_automatic_admission')
         self.assertIn('not automatic acceptance',recipe['scope'])
-        for key in ('summary','movie'):
-            evidence=recipe['first_space_evidence'][key]
-            self.assertTrue(evidence['path'].startswith('docs/evidence/'))
-            self.assertEqual(evidence['sha256'],vd.file_hash(vd.ROOT/evidence['path']))
-        catalog=vd.read(vd.ROOT/'resources/visual_development/painted_terrain_candidate.json')
+        self.assertNotIn('first_space_evidence',recipe)
+        self.assertTrue(any('old B scoped acceptance does not admit P1' in item for item in mission['constraints']))
+        self.assertFalse(any('b1_master' in source['path'] or '/failed/' in source['path'] or '/revisions/' in source['path'] for source in recipe['sources']))
+        catalog=vd.read(vd.ROOT/'resources/visual_development/p1_candidate.json')
         self.assertEqual(recipe['profile'],catalog['terrain']['grammar'])
         self.assertEqual(recipe['method'],catalog['terrain_method'])
         for source in recipe['sources']:

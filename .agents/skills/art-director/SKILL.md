@@ -115,9 +115,9 @@ V3的整体CLIFF、悬浮PANEL、Boss两版原规格失败不因新用途而改�
 
 按[共同契约](../../../docs/creative_direction/README.md)记录原十一维、版本/SHA、消费者、实机证据和未验范围；缺审查/用户/设备不宣称完成，旧证据保留原来源。
 
-## B方向实际制作范例
+## 当前候选的实际制作范例
 
-按[当前截面制作范例](../../../docs/evidence/painted_terrain/recipe.md)优先复用[04限定接受家族](../../../docs/evidence/painted_terrain/independent-05-first-space-art-sample.md)，仅缺少实际功能件时绘制；初建家族先画功能截面：可见顶面→根肩→安静深土，再从同源截面编辑独立左右转面与维护补片；不是先找repeat纹理覆矩形。保持母版/方向板与真实生成来源，实测source_surface_profile、outer_profile及内接边；绘画工具返回不等于实景准入。
+简短任务读route的`preparation.visual_recipe`与[当前P1原生范例](../../../docs/evidence/p1_native/recipe.md)，不把旧B限定接受当新画风权威。连续截面/独立转面技术可以继承，具体画法与来源必须跟随当前候选。先画顶面→根肩→安静深土，再量测profile/内接边；同时把角色/敌/危险按实际40world/当前镜头缩小检查大明暗。P1首片已证明精细源在实机可碎成灰团，返工应实际重画主体色块/轮廓而非统一滤镜；真实alpha与隐藏RGB分开取样，查看器棕底不自动证明GPU渗色。源图返回与旧家族准入都不签本候选实景通过。
 
 ## 共同创作契约
 

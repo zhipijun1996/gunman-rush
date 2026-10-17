@@ -1,0 +1,473 @@
+{
+  "schema_version": 1,
+  "task_id": "P1-NATIVE-01",
+  "task_type": "art",
+  "workflow": "review",
+  "baseline_commit": "d549ad9daa17b0397b893f923760d379b75167de",
+  "reviewed_commit": "2be5e1f6f9a87cfa644b0c52b6ce8ff311c9a51b",
+  "content_version": "p1-native-round02-first-space-only",
+  "owner": "root",
+  "purpose": "将用户偏好候选P1实际转译进未改核心/几何的Godot首平原空间，比较概念画面感",
+  "player_experience": "正常操作下轻盈白气、浅切面、风向结构与清晰危险共同成立",
+  "constraints": [
+    "不改核心操作/能力/武器/资源/RNG/保存/碰撞与相机",
+    "不改森林会话",
+    "P1未获用户最终认可且不进默认资源池",
+    "首空间艺术准入前不扩产第二空间",
+    "原严格断言不降级"
+  ],
+  "affected_paths": [
+    "assets/visual_development/p1_native/",
+    "resources/visual_development/p1_candidate.json",
+    "scripts/art/visual_language_sample.gd",
+    "tools/visual_director.py",
+    "tools/spatial_golden_capture.gd",
+    "tools/spatial_golden_preview.gd"
+  ],
+  "deliverables": [
+    "实际Godot同条件画面与正常速度电影",
+    "有限功能源图/校准/真实消费者",
+    "独立整体艺术审查与准确未通过项",
+    "可取得本地试玩与版本"
+  ],
+  "creative_decisions": [
+    {
+      "status": "proposed",
+      "decision": "P1为用户偏好候选，不继承被拒B画法或旧艺术准入；继承PR77有限截面/转面技术",
+      "basis": "User authorized P1 candidate experiment; exact native/readonly evidence, not final user art approval"
+    },
+    {
+      "status": "not_required",
+      "decision": "首原生整屏REWORK后实际重画三张主体大明暗并让中景退后，第二独审仅ACCEPT_SCOPED",
+      "basis": "User authorized P1 candidate experiment; exact native/readonly evidence, not final user art approval"
+    },
+    {
+      "status": "not_required",
+      "decision": "保留真实几何/相机/核心契约，不扩第二/Seed/森林/默认资源池；本地候选包不称正式发布",
+      "basis": "User authorized P1 candidate experiment; exact native/readonly evidence, not final user art approval"
+    }
+  ],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "有限P1实验范围与预算已冻结",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "passed",
+      "reason": "真实原生输入/消费者与物理保护有证据",
+      "evidence": [
+        "native",
+        "comparison",
+        "physics"
+      ]
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "首空间有限候选证据不等于完整G2/正式晋级/全回归/最终设备与用户认可",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "首空间有限候选证据不等于完整G2/正式晋级/全回归/最终设备与用户认可",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "首空间有限候选证据不等于完整G2/正式晋级/全回归/最终设备与用户认可",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "首空间有限候选证据不等于完整G2/正式晋级/全回归/最终设备与用户认可",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "有限P1候选已真实制作，非商业设计验证",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "原生路线/strict/对照/负例与四项针对性检查passed，不是全CI",
+      "evidence": [
+        "native",
+        "harness",
+        "comparison",
+        "package"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "超出本次单首候选实际证明：完整正式晋级/全态/音频/设备/用户尚未验证",
+      "evidence": []
+    },
+    "visual": {
+      "status": "passed",
+      "reason": "只限首空间静态/运动抽帧ACCEPT_SCOPED，仍未达到概念同等完成度",
+      "evidence": [
+        "pixels",
+        "art-review"
+      ]
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "超出本次单首候选实际证明：完整正式晋级/全态/音频/设备/用户尚未验证",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "超出本次单首候选实际证明：完整正式晋级/全态/音频/设备/用户尚未验证",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "真实原Motor路线技术验证passed，但没有真人体验反馈，不能签玩法主观品质",
+      "evidence": [
+        "native",
+        "physics",
+        "no_gun",
+        "remove_bank"
+      ]
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "超出本次单首候选实际证明：完整正式晋级/全态/音频/设备/用户尚未验证",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "真实不同只读审查者，明确有限范围",
+      "evidence": [
+        "art-review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "超出本次单首候选实际证明：完整正式晋级/全态/音频/设备/用户尚未验证",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "超出本次单首候选实际证明：完整正式晋级/全态/音频/设备/用户尚未验证",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "bounded-scope",
+      "status": "passed",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "bounded-scope",
+      "method": "Actual source-bound native/retained evidence and independent readonly art judgement",
+      "expected": "P1首实际候选与保护边界/预算已冻结",
+      "failure": "Missing actual consumer, source mismatch, illegible play/danger, invalid physics or claim beyond reviewed scope",
+      "reason": "P1首实际候选与保护边界/预算已冻结",
+      "evidence": [
+        "scope"
+      ]
+    },
+    {
+      "id": "actual-native-input",
+      "status": "passed",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "actual-native-input",
+      "method": "Actual source-bound native/retained evidence and independent readonly art judgement",
+      "expected": "原133核心/真实路线与严格退出保持",
+      "failure": "Missing actual consumer, source mismatch, illegible play/danger, invalid physics or claim beyond reviewed scope",
+      "reason": "原133核心/真实路线与严格退出保持",
+      "evidence": [
+        "native",
+        "comparison",
+        "physics",
+        "no_gun",
+        "remove_bank",
+        "harness"
+      ]
+    },
+    {
+      "id": "first-pictorial-candidate",
+      "status": "passed",
+      "gate": "G2",
+      "dimension": "visual",
+      "scenario": "first-pictorial-candidate",
+      "method": "Actual source-bound native/retained evidence and independent readonly art judgement",
+      "expected": "仅单首空间静态与运动抽帧，非概念同等精美",
+      "failure": "Missing actual consumer, source mismatch, illegible play/danger, invalid physics or claim beyond reviewed scope",
+      "reason": "仅单首空间静态与运动抽帧，非概念同等精美",
+      "evidence": [
+        "pixels",
+        "movie",
+        "art-review"
+      ]
+    },
+    {
+      "id": "independent-first-review",
+      "status": "passed",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "scenario": "independent-first-review",
+      "method": "Actual source-bound native/retained evidence and independent readonly art judgement",
+      "expected": "首REWORK到第二限定接受，不代签用户",
+      "failure": "Missing actual consumer, source mismatch, illegible play/danger, invalid physics or claim beyond reviewed scope",
+      "reason": "首REWORK到第二限定接受，不代签用户",
+      "evidence": [
+        "art-review"
+      ]
+    },
+    {
+      "id": "original-route-gameplay",
+      "status": "passed",
+      "gate": "G3",
+      "dimension": "technical",
+      "scenario": "original-route-gameplay",
+      "method": "Actual source-bound native/retained evidence and independent readonly art judgement",
+      "expected": "1116tick原Motor去返，保原负例；非真人手感",
+      "failure": "Missing actual consumer, source mismatch, illegible play/danger, invalid physics or claim beyond reviewed scope",
+      "reason": "1116tick原Motor去返，保原负例；非真人手感",
+      "evidence": [
+        "native",
+        "physics",
+        "no_gun",
+        "remove_bank"
+      ]
+    },
+    {
+      "id": "full-animation",
+      "status": "unverified",
+      "gate": "G2",
+      "dimension": "animation",
+      "scenario": "full-animation",
+      "method": "Actual source-bound native/retained evidence and independent readonly art judgement",
+      "expected": "9/27状态有源，未完整逐帧/全态采集",
+      "failure": "Missing actual consumer, source mismatch, illegible play/danger, invalid physics or claim beyond reviewed scope",
+      "reason": "9/27状态有源，未完整逐帧/全态采集",
+      "evidence": [
+        "actor-calibration"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/evidence/p1_native/brief.md",
+      "sha256": "f84c2d89f59f1d43105e5a4e2f346a123530ee1c7a8a4bccce3947175e310ad0",
+      "kind": "spec",
+      "method": "Actual retained artifact; exact source and scope, not a subjective score",
+      "observed": "P1有限首空间、核心保护与预算",
+      "producer": "root/team",
+      "source_commit": "2be5e1f6f9a87cfa644b0c52b6ce8ff311c9a51b",
+      "content_version": "p1-native-round02-first-space-only"
+    },
+    {
+      "id": "actor-calibration",
+      "path": "resources/visual_development/p1_actor_calibration.json",
+      "sha256": "a3934ea8bba87f2cbda28c4906f057cb8ee06e88b88ce61fa95b912eec4749a3",
+      "kind": "measurement",
+      "method": "Actual retained artifact; exact source and scope, not a subjective score",
+      "observed": "真实9hero状态/6enemy姿态，18hero状态缺失、69/51/111邻片像素风险保留",
+      "producer": "root/team",
+      "source_commit": "2be5e1f6f9a87cfa644b0c52b6ce8ff311c9a51b",
+      "content_version": "p1-native-round02-first-space-only",
+      "device": "Linux source-analysis / Godot4.7.2 llvmpipe for native comparison",
+      "environment": "Pillow RGBA source measurements and retained same-environment native receipts",
+      "scenario": "真实9hero状态/6enemy姿态，18hero状态缺失、69/51/111邻片像素风险保留",
+      "budget_source": "Actual source dimensions and original same-route invariance; no performance claim"
+    },
+    {
+      "id": "native",
+      "path": "docs/evidence/p1_native/second_01/visual_capture.json",
+      "sha256": "8a1bd6b6ad477fd3e32d7238b37398d52fab454e9bb5b2c3f6a16fbb4c1c6d0c",
+      "kind": "runtime_trace",
+      "method": "Actual retained artifact; exact source and scope, not a subjective score",
+      "observed": "真实P1正常1116tick/HP5/4枪/0return/严格退出/sourceguard",
+      "producer": "root/team",
+      "source_commit": "2be5e1f6f9a87cfa644b0c52b6ce8ff311c9a51b",
+      "content_version": "p1-native-round02-first-space-only"
+    },
+    {
+      "id": "movie",
+      "path": "docs/evidence/p1_native/second_01/gameplay.mp4",
+      "sha256": "7daabe54bee8e7164a47d2286df3850acdc519931ea10ace65c09a9819e218e8",
+      "kind": "video",
+      "method": "Actual retained artifact; exact source and scope, not a subjective score",
+      "observed": "实际Godot1280x720/60fps18.683秒正常电影，固定采集非设备FPS",
+      "producer": "root/team",
+      "source_commit": "2be5e1f6f9a87cfa644b0c52b6ce8ff311c9a51b",
+      "content_version": "p1-native-round02-first-space-only"
+    },
+    {
+      "id": "pixels",
+      "path": "docs/evidence/p1_native/second_01/video_frames/video_frame_000600.png",
+      "sha256": "775a8c4447df8b0b1845548889480a35df15e604431dc978bd832b067f1a8be1",
+      "kind": "screenshot",
+      "method": "Actual retained artifact; exact source and scope, not a subjective score",
+      "observed": "实际视频600帧正常镜头，真实角色敌锯HUD",
+      "producer": "root/team",
+      "source_commit": "2be5e1f6f9a87cfa644b0c52b6ce8ff311c9a51b",
+      "content_version": "p1-native-round02-first-space-only"
+    },
+    {
+      "id": "art-review",
+      "path": "docs/evidence/p1_native/independent-second-01.md",
+      "sha256": "9a27d683c0b6eea335598e9ca19a99cc58112f284177e8ce6f35de953220474f",
+      "kind": "review",
+      "method": "Actual retained artifact; exact source and scope, not a subjective score",
+      "observed": "限定首空间静态/运动抽帧ACCEPT_SCOPED；非概念同等精美/完整G2/商业/用户认可",
+      "producer": "/root/pr_cost_audit",
+      "source_commit": "2be5e1f6f9a87cfa644b0c52b6ce8ff311c9a51b",
+      "content_version": "p1-native-round02-first-space-only",
+      "reviewer": "/root/pr_cost_audit",
+      "implementers": [
+        "/root",
+        "/root/painted_reuse",
+        "/root/plains_slice",
+        "/root/observer_fix"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "不同只读作者实看八全屏与11帧联系表，无生产写入；未亲听/全片观看",
+      "scope": "Single first space static/sampled P1 candidate only"
+    },
+    {
+      "id": "first-rework",
+      "path": "docs/evidence/p1_native/independent-first-01.md",
+      "sha256": "767b755f6f174d64193dd18806d1b7df0bf441678318dbe4e9887f6c47f883e1",
+      "kind": "review",
+      "method": "Actual retained artifact; exact source and scope, not a subjective score",
+      "observed": "首1116tick艺术REWORK保留",
+      "producer": "/root/pr_cost_audit",
+      "source_commit": "7472637c754c213b7c0ef0e7fa02925b0a5331d3",
+      "content_version": "p1-native-round02-first-space-only",
+      "reviewer": "/root/pr_cost_audit",
+      "implementers": [
+        "/root",
+        "/root/painted_reuse",
+        "/root/plains_slice",
+        "/root/observer_fix"
+      ],
+      "verdict": "REJECT",
+      "independent": true,
+      "independence_basis": "不同只读作者实看首片整屏，未修改生产",
+      "scope": "First art candidate readability REWORK, not physics failure"
+    },
+    {
+      "id": "harness",
+      "path": "docs/evidence/p1_native/verification/targeted-harness/report.json",
+      "sha256": "0e5dd4233cbdf7ae8b0173186262e1a8ae363e72c9d0f0c8da88aa62384af4e5",
+      "kind": "command",
+      "method": "Actual retained artifact; exact source and scope, not a subjective score",
+      "observed": "四项fresh通过docs/art-art/capture-tests/visual-director-tests；非fullCI",
+      "producer": "root/team",
+      "source_commit": "2be5e1f6f9a87cfa644b0c52b6ce8ff311c9a51b",
+      "content_version": "p1-native-round02-first-space-only",
+      "command": "python3 tools/harness.py --check docs --check art-art --check capture-tests --check visual-director-tests --jobs 1 --release",
+      "exit_code": 0,
+      "environment": "Managed Linux workspace; exact check environments in retained report"
+    },
+    {
+      "id": "comparison",
+      "path": "docs/evidence/p1_native/verification/final_a_p1_compare.json",
+      "sha256": "34a5696481324b20b6724fbf04e1daed76f3ce63fc44c5cb86169d5d6b98f5f7",
+      "kind": "measurement",
+      "method": "Actual retained artifact; exact source and scope, not a subjective score",
+      "observed": "原比较器同源sameconditions；不是主观美感PASS",
+      "producer": "root/team",
+      "source_commit": "2be5e1f6f9a87cfa644b0c52b6ce8ff311c9a51b",
+      "content_version": "p1-native-round02-first-space-only",
+      "device": "Linux source-analysis / Godot4.7.2 llvmpipe for native comparison",
+      "environment": "Pillow RGBA source measurements and retained same-environment native receipts",
+      "scenario": "原比较器同源sameconditions；不是主观美感PASS",
+      "budget_source": "Actual source dimensions and original same-route invariance; no performance claim"
+    },
+    {
+      "id": "physics",
+      "path": "docs/evidence/p1_native/verification/final_a_p1_physics.json",
+      "sha256": "7facd04c38c00d874f13c39cc01504ba7220ab2e2c5f5bc3f5d224901e253bec",
+      "kind": "measurement",
+      "method": "Actual retained artifact; exact source and scope, not a subjective score",
+      "observed": "逐tick数值相同，保留22处输入绝对墙钟时间差",
+      "producer": "root/team",
+      "source_commit": "2be5e1f6f9a87cfa644b0c52b6ce8ff311c9a51b",
+      "content_version": "p1-native-round02-first-space-only",
+      "device": "Linux source-analysis / Godot4.7.2 llvmpipe for native comparison",
+      "environment": "Pillow RGBA source measurements and retained same-environment native receipts",
+      "scenario": "逐tick数值相同，保留22处输入绝对墙钟时间差",
+      "budget_source": "Actual source dimensions and original same-route invariance; no performance claim"
+    },
+    {
+      "id": "no_gun",
+      "path": "docs/evidence/p1_native/verification/final_no_gun_01/receipt.json",
+      "sha256": "5c1df357371bc754eb8672a105144e01b2e6e12a37d525965bd17f7b8e091a07",
+      "kind": "runtime_trace",
+      "method": "Actual retained artifact; exact source and scope, not a subjective score",
+      "observed": "原物理负例真实路线失败且严格退出通过",
+      "producer": "root/team",
+      "source_commit": "2be5e1f6f9a87cfa644b0c52b6ce8ff311c9a51b",
+      "content_version": "p1-native-round02-first-space-only"
+    },
+    {
+      "id": "remove_bank",
+      "path": "docs/evidence/p1_native/verification/final_remove_bank_01/receipt.json",
+      "sha256": "863df2969ed778614adc62243d9a5f673cbe5092139c29fb26e6ab247c36becb",
+      "kind": "runtime_trace",
+      "method": "Actual retained artifact; exact source and scope, not a subjective score",
+      "observed": "原物理负例真实路线失败且严格退出通过",
+      "producer": "root/team",
+      "source_commit": "2be5e1f6f9a87cfa644b0c52b6ce8ff311c9a51b",
+      "content_version": "p1-native-round02-first-space-only"
+    },
+    {
+      "id": "package",
+      "path": "docs/evidence/p1_native/delivery/build_receipt.json",
+      "sha256": "a005913256a75cceb3b822b76bbb1d0ddc669b9a57c6955fc64f08f86b2bf3a7",
+      "kind": "command",
+      "method": "Actual retained artifact; exact source and scope, not a subjective score",
+      "observed": "11texture实际PCK闭包、空cwd headless/GUI P1 READY与严格清退通过，非发布",
+      "producer": "root/team",
+      "source_commit": "2be5e1f6f9a87cfa644b0c52b6ce8ff311c9a51b",
+      "content_version": "p1-native-round02-first-space-only",
+      "command": "python3 build/p1_native/prepare_local_review_bundle.py --execute --expected-commit 2be5e1f6f9a87cfa644b0c52b6ce8ff311c9a51b --expected-capture build/p1_native/second_01/visual_capture.json --output-dir build/p1_native/local_review_01",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Standard Linux x86_64, llvmpipe/Xvfb, isolated empty cwd"
+    },
+    {
+      "id": "package-gui",
+      "path": "docs/evidence/p1_native/delivery/first_actual_gui.png",
+      "sha256": "5a646427a1bd6cb1a50bed1a7efb206c16a458dc726b1b7da0f04386537b534d",
+      "kind": "gui",
+      "method": "Actual retained artifact; exact source and scope, not a subjective score",
+      "observed": "从实际PCK加载P1，而非工作区回退或概念图",
+      "producer": "root/team",
+      "source_commit": "2be5e1f6f9a87cfa644b0c52b6ce8ff311c9a51b",
+      "content_version": "p1-native-round02-first-space-only"
+    }
+  ],
+  "consumer_coverage": {
+    "actual_consumer": "DemoApp original systems + explicit open-meadow polygon stage + VisualLanguageSample + PaintedTerrainGrammar",
+    "actual_banks": 3,
+    "distinct_spaces": 1,
+    "unique_current_p1_textures": 11,
+    "normal_camera_and_geometry_unchanged": true,
+    "default_formal_pool_promoted": false,
+    "second_space_random_cross_region": "unverified, not executed",
+    "artifact": "docs/evidence/p1_native/delivery/build_receipt.json"
+  },
+  "unverified_items": [
+    "概念同等精美/商业黄金/用户定稿",
+    "第二空间/真正随机结构与最差Seed/跨区迁移",
+    "18缺失主角状态、全动画/邻片边界逐帧",
+    "UI叶片造型/端面与根线密度/树大形/全程景深",
+    "完整连续播放/亲听/真人/手机手柄实体设备/性能",
+    "fullCI与正式Web/商店发布；本地评审包不代签"
+  ]
+}
