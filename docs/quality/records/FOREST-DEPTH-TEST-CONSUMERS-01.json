@@ -2,9 +2,9 @@
   "schema_version": 1,
   "task_id": "FOREST-DEPTH-TEST-CONSUMERS-01",
   "task_type": "small_fix",
-  "workflow": "planned",
+  "workflow": "review",
   "baseline_commit": "51e594b38465326655ae0c8515d686241415ade8",
-  "reviewed_commit": "51e594b38465326655ae0c8515d686241415ade8",
+  "reviewed_commit": "9fdf7fad08550ea0da46b59ef7126fa721571f28",
   "content_version": "forest-depth-test-consumers-v1",
   "owner": "/root",
   "purpose": "Preserve complete test checks while repairing real App ownership, asynchronous test Script lifetimes, capture error-exit propagation and fresh-output provenance.",
@@ -115,9 +115,11 @@
       "evidence": []
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "Await actual exact-S evidence; this draft makes no PASS claim.",
-      "evidence": []
+      "status": "passed",
+      "reason": "Bounded independent acceptance of only the exact-S test-consumer guard/fixture/lifecycle changes; no current-source native, region fun or G5 approval.",
+      "evidence": [
+        "bounded-review-S"
+      ]
     },
     "device": {
       "status": "not_applicable",
@@ -159,61 +161,44 @@
       "id": "bounded-independent-guard-review",
       "gate": "G4",
       "dimension": "independent_review",
-      "status": "unverified",
-      "reason": "runtime_review will independently audit frozen S; no review issued in this draft.",
-      "evidence": [],
+      "status": "passed",
+      "reason": "Actual different-author exact-S review accepted the explicitly limited scope; original rejected and failed evidence preserved.",
+      "evidence": [
+        "bounded-review-S"
+      ],
       "scenario": "Review exact old/current guards and helper extraction, static annotation, sticky exit and unchanged wrapper outcome/caps.",
       "method": "Different author reads all changed consumers and actual original/negative evidence, recomputes body/line equivalence and precise scope.",
       "expected": "Genuine bounded ACCEPT with reviewer outside owner/implementers and explicit exclusions.",
       "failure": "Own-review, generic whole-region approval, stale source retag or unexplained removed checks cannot authorize guard changes."
     }
   ],
-  "evidence": [],
-  "consumer_coverage": null,
-  "unverified_items": [
-    "This schema-valid draft has no evidence and no acceptance. S/source paths/reviewer/command paths still require actual binding.",
-    "No whole-region, current full84, production/Boss, art/audio/device or human fun/G5 claim.",
-    "Existing capability review did not approve the later capture extraction/static annotation/sticky line; those require the new independent exact-S review."
-  ],
-  "test_change_justification": "DRAFT pending exact-S independent review. App capability fixture preserves old complete assertions through real App setup; capability/capture move complete logic into owned Node helpers and return before Script exit; capture static-local annotation changes only a reference type to the same tuning object; sticky exit uses maxi(exit_code,code) so an output failure cannot be overwritten by finish(0). Campaign evidence writer preserves unchanged payload and checks directory/file errors. Harness check_token expands only the literal output placeholder and keeps all caps/strict/selection; profiles scope is precise fresh-output argv lines only. Enemy wrapper row metadata gains return_strategy while original per-case240/native run/case outcome/error paths remain reviewed; unrelated new scenario implementation is excluded and remains region scope. Version label wording does not change the boolean expression. Do not mark independent_review passed until real reviewer binds S.",
-  "draft_binding_instructions": {
-    "observed_head_only_not_final_S": "51e594b38465326655ae0c8515d686241415ade8",
-    "reviewed_commit": "Replace current observed HEAD with real frozen implementation S; this draft has no PASS evidence.",
-    "baseline_commit": "Choose actual review baseline (bee for PR scope and/or51e for recent deltas), do not fabricate ancestry.",
-    "future_scope_path": "docs/evidence/forest_depth_v2/test_consumers_final01/SCOPE.md",
-    "future_review_path": "Bind actual runtime_review durable report path after reviewer produces it.",
-    "future_command_paths": "Bind exact source-attributed original wrapper/negative receipts, or final CI report scoped to these actual checks.",
-    "profile_scope": "Review exact output check_token argv lines and unchanged memberships/caps. No claim this repair authors or certifies all84 scenario implementations."
-  },
-  "pending_evidence_templates_NOT_ACTUAL_EVIDENCE": [
-    {
-      "id": "bounded-spec-S",
-      "kind": "spec",
-      "path": "BIND_ACTUAL_COMMITTED_SCOPE_PATH",
-      "source_commit": "BIND_REAL_FULL_S",
-      "content_version": "forest-depth-test-consumers-v1"
-    },
-    {
-      "id": "bounded-command-S",
-      "kind": "command",
-      "path": "BIND_ACTUAL_RECEIPT_PATH",
-      "source_commit": "BIND_REAL_FULL_S",
-      "content_version": "forest-depth-test-consumers-v1",
-      "exit_code": "BIND_REAL_INTEGER_RESULT"
-    },
+  "evidence": [
     {
       "id": "bounded-review-S",
       "kind": "review",
-      "path": "BIND_RUNTIME_REVIEW_ACTUAL_PATH",
-      "source_commit": "BIND_REAL_FULL_S",
+      "path": "docs/evidence/forest_depth_v2/reviews/frozen-S-test-consumers/REVIEW.md",
+      "sha256": "7f0f7842987bf423e169e32bd910156eefbed6b3f9e4f5238b501623a8b0d771",
+      "producer": "/root/forest_runtime_review",
+      "source_commit": "9fdf7fad08550ea0da46b59ef7126fa721571f28",
       "content_version": "forest-depth-test-consumers-v1",
+      "method": "Read immutable Git objects, reconstruct original entire executable bodies, verify original strict wrappers/caps, and hash source-attributed historical native and negative artifacts. No engine execution at S.",
+      "observed": "All five principal bodies preserve reviewed checks;26-file exact Git binding; historical failure and corrected exits remain separate; original strict/caps/12-check selection preserved.",
+      "verdict": "ACCEPT",
+      "independent": true,
       "reviewer": "/root/forest_runtime_review",
       "implementers": [
-        "/root"
+        "/root",
+        "/root/forest_progression",
+        "/root/forest_ecology"
       ],
-      "verdict": "BIND_REAL_VERDICT",
-      "independent": true,
-      "independence_basis": "BIND_ACTUAL_AUTHORSHIP_DISCLOSURE"
+      "independence_basis": "Reviewer authored earlier base formal-region driving logic, which is explicitly excluded. Reviewer did not implement these test-output/App-fixture/Node-lifecycle/Harness fixes and did not change reviewed source."
     }
-  ]
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Current final-source CI is pending; historical final04 normal and sticky error controls retain their own exact overlays, not a fabricated S native PASS.",
+    "No whole-region, Boss, art/audio/device or human fun/G5 approval.",
+    "Any later change to the reviewed consumers requires new source-bound review; unrelated Queen candidate changes remain FOREST-DEPTH-02 scope."
+  ],
+  "test_change_justification": "Actual exact-S bounded independent review: docs/evidence/forest_depth_v2/reviews/frozen-S-test-consumers/REVIEW.md. App capability fixture preserves old complete assertions through real App setup; capability/capture move complete logic into owned Node helpers and return before Script exit; capture static-local annotation changes only a reference type to the same tuning object; sticky exit uses maxi(exit_code,code) so an output failure cannot be overwritten by finish(0). Campaign evidence writer preserves unchanged payload and checks directory/file errors. Harness check_token expands only the literal output placeholder and keeps all caps/strict/selection; profiles scope is precise fresh-output argv lines only. Enemy wrapper row metadata gains return_strategy while original per-case240/native run/case outcome/error paths remain reviewed; unrelated new scenario implementation is excluded and remains region scope. Version label wording does not change the boolean expression. The real reviewer bound S; this authorizes only these guard-preserving test changes, not the region design or fresh final-source execution."
 }
