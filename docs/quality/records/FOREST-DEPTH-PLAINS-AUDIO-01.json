@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "task_id": "FOREST-DEPTH-PLAINS-AUDIO-01",
+  "task_type": "small_fix",
+  "workflow": "review",
+  "baseline_commit": "89dccfeaf7764428102cb06a59f9a634fe964ace",
+  "reviewed_commit": "0213ba5d574253153cc5318e72ed61f31054cf93",
+  "content_version": "plains-deleted-bank-audio-v1",
+  "owner": "/root",
+  "purpose": "Repair owned fallback audio teardown in the existing Plains Golden test fixture while preserving geometry rejection, every original assertion and the exact execution budgets.",
+  "player_experience": "Infrastructure-only limited review; no game content, movement, Boss, fun or device acceptance.",
+  "constraints": [
+    "Only three reviewed test/Harness files; no production game/physics/body/weapon/resources changed.",
+    "All33 original GD check calls,11 Router statements,23 loop headers and94 Python assert ASTs remain. Original180 child/240 parent and1000ms cleanup caps stay exact.",
+    "An expected geometry rejection may never excuse cleanup failure: exact cleanup_ok true is additionally mandatory for both paths.",
+    "Native results retain original89dcc dirty-overlay metadata. Git0213 binding is byte equivalence, not invented re-execution or oldCI PASS."
+  ],
+  "affected_paths": [
+    "tests/plains_redesign_golden_runner.gd",
+    "tools/run_plains_redesign_golden_tests.py",
+    "tools/harness/profiles.json",
+    "docs/quality/records/FOREST-DEPTH-PLAINS-AUDIO-01.json"
+  ],
+  "deliverables": [
+    "Original remote outer failure and local actual verbose Ogg leak retained.",
+    "Existing bounded helper lifecycle repair and strict new cleanup receipt, with original guards retained.",
+    "Independent current immutableGit binding of the exact reviewed three-file overlay; final full CI remains separate."
+  ],
+  "creative_decisions": [
+    {
+      "status": "not_required",
+      "decision": "Test-consumer repairs have no new creative/gameplay decision.",
+      "basis": "No production game behavior or subjective quality is approved by this small_fix record."
+    }
+  ],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "No whole-source content or final CI signoff by this limited review record.",
+      "evidence": []
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "Not applicable to this non-production small_fix; no region G5/human acceptance implied.",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "Not applicable to this non-production small_fix; no region G5/human acceptance implied.",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "Not applicable to this non-production small_fix; no region G5/human acceptance implied.",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "No whole-source content or final CI signoff by this limited review record.",
+      "evidence": []
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "Not applicable to this non-production small_fix; no region G5/human acceptance implied.",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Native historical overlay remains source-bound; final committed-source whole CI is separate.",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Native historical overlay remains source-bound; final committed-source whole CI is separate.",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "Outside this infrastructure-only small_fix; no forest quality, human/device or G5 signoff.",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "Outside this infrastructure-only small_fix; no forest quality, human/device or G5 signoff.",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "Outside this infrastructure-only small_fix; no forest quality, human/device or G5 signoff.",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "Outside this infrastructure-only small_fix; no forest quality, human/device or G5 signoff.",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "Outside this infrastructure-only small_fix; no forest quality, human/device or G5 signoff.",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "Outside this infrastructure-only small_fix; no forest quality, human/device or G5 signoff.",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Different-author bounded audit of exact committed three-file cleanup/guard/output preservation; no full CI or region approval.",
+      "evidence": [
+        "bounded-git-cleanup-review"
+      ]
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "Outside this infrastructure-only small_fix; no forest quality, human/device or G5 signoff.",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "not_applicable",
+      "reason": "Outside this infrastructure-only small_fix; no forest quality, human/device or G5 signoff.",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "bounded-cleanup-independent-review",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "status": "passed",
+      "reason": "Exact committed three-file byte binding verified independently after original source-bound native proof.",
+      "evidence": [
+        "bounded-git-cleanup-review"
+      ],
+      "scenario": "Audit immutableGit0213 against exact reviewed overlay and captured native source inventories.",
+      "method": "Read Git blob bytes, compare complete old assertions/inputs/budgets and actual old/new evidence; preserve originalCI FAIL and native dirty-source metadata.",
+      "expected": "Only owned audio lifecycle/strict cleanup metadata/artifact collection change; all old guards remain.",
+      "failure": "Any movement injection, removed assertion, weakened cap, accepted cleanup failure or falsely re-signed old execution invalidates scope."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "bounded-git-cleanup-review",
+      "kind": "review",
+      "path": "docs/evidence/forest_depth_v2/plains_audio_teardown01/independent/GIT_BINDING.md",
+      "sha256": "90fd98c00a28a598dab14566536ec89f00ea771257cec84823faa3bb9ca5a7f0",
+      "producer": "/root/forest_runtime_review",
+      "source_commit": "0213ba5d574253153cc5318e72ed61f31054cf93",
+      "content_version": "plains-deleted-bank-audio-v1",
+      "method": "Independent exact immutable Git object audit of all three reviewed files and923 selected native sources against original source-bound target inventory; keeps original review/raw metadata unchanged.",
+      "observed": "No missing/mismatched Git blobs. Original assertions/inputs/caps preserved, cleanup boolean strict, artifact collection only. Native remains original89dcc dirty run, not a fabricated C execution; final CI separate.",
+      "verdict": "ACCEPT",
+      "reported_verdict": "ACCEPT",
+      "reviewer": "/root/forest_runtime_review",
+      "independent": true,
+      "implementers": [
+        "/root"
+      ],
+      "independence_basis": "Reviewer authored no cleanup/reader/profile implementation, only independently audited review/binding files."
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Final latest-source full CI/build/public browser is pending; original89dcc CI failed and later forest-specific checks were not reached.",
+    "Local target original Harness pass belongs to its exact89dcc dirty overlay. Git0213 equivalence does not re-execute it or rewrite that metadata.",
+    "No overall region, Boss, art/audio perception, player/device/commercial or G5 approval."
+  ],
+  "test_change_justification": "The original recorded main JSON line adds only cleanup_ok; all earlier data stays. Original33 GD check calls/11 Router/23 loops and94 Python assert ASTs preserve complete behavior. Existing1000ms AudioTeardown now precedes replacement/quit; mandatory boolean cleanup_ok true prevents expected-negative exit1 from hiding cleanup failure. A profile artifact_paths addition preserves inner raw/log after realCI omitted them; no membership, budgets or success marker change. Independent exactGit review and actual fresh target sources remain distinct from whole CI. See bounded-git-cleanup-review; not an expansion of historic S review."
+}

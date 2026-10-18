@@ -1,6 +1,6 @@
 # 开发任务
 
-FOREST-DEPTH-02：in_progress，feature/thorn-forest-depth，PR76/bee850c6基线；v6共享巨木／水平与下降转折孔，A2四局部策略及580帧正式路线；四组正式生态出返、两Boss完整影片与正式App链已有有界独审。上层活锚候选被强普通反证DROP并删除，改验图2真实取奖异口回冠。默认v2候选已接入并有106／49／50专项，固定80原路线已过；图2生态整路、最终全回归／当前GUI及电影／准确HTTPS预览未交付。见[当前状态](current_state.md)。
+FOREST-DEPTH-02：in_progress，feature/thorn-forest-depth，PR76/bee850c6基线。当前v10／Canopy-v3正式可玩候选，三种女王完整黄金、两部正常影片、App03保存恢复／24HP击杀与奖励Home闭环、新N回程1013帧已有源绑定证据。整体H核心、跨Seed探索与主路生态仍REVISE。一轮CI89dcc已通过前置core／generated／region，但在既有平原删除落岸负例失败，原件保留；本地复现并修复测试Ogg清理，原专项严格通过。最终同源CI／公开GUI结果以实际构建元数据为准，本页不预签。最新以[当前状态](current_state.md)及分支检查为准。
 
 FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试入口已实现，最新完整CI51pass+1fail+16未执行；退出依赖多次有界候选无修复而停止，未部署。下一步须新根因事实后重开原验证，见[检查点](evidence/forest_playable/final/README.md)。
 
@@ -8,8 +8,9 @@ FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试�
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
-| FOREST-DEPTH-02 | 森林动作空间／非同构探索／生态／Boss重构及生产流程修正 | FOREST-PLAYABLE-01 | in_progress | 实际黄金与同条件便宜策略／消融先评审；默认v2试玩候选，固定80路线已过；图2新增生态完整前缀、最终同源回归／影片／GUI／HTTPS预览仍待验 |
+| FOREST-DEPTH-02 | 森林动作空间／探索／生态／两Boss重构及现有流程改进 | FOREST-PLAYABLE-01 | in_progress | v10可玩候选，Canopy黄金／App03／N回程已采；整体设计REVISE，最终同源结果以PR／分支检查与实际构建元数据为准，原失败保留 |
 | FOREST-DEPTH-TEST-CONSUMERS-01 | 测试消费者真实App／Node生命周期／严格退出与证据修复 | FOREST-DEPTH-02 | review | [有界质量记录](quality/records/FOREST-DEPTH-TEST-CONSUMERS-01.json)；原断言／预算／strict守卫不减，精确S已获不同作者限定独审，fresh完整CI仍待验 |
+| FOREST-DEPTH-PLAINS-AUDIO-01 | 旧平原黄金测试的真实回退音频清理与负例严格性 | FOREST-DEPTH-02 | review | [限定小修复记录](quality/records/FOREST-DEPTH-PLAINS-AUDIO-01.json)；原断言／输入／预算保留，实际专项与精确Git绑定有界独审，非整区或最终CI通过 |
 | FOREST-PLAYABLE-01 | 森林两图／能力和地区选择／调试直选 | FOREST-DESIGN-01 | review | 原host七项全过／两轮60路线／不同作者原生ACCEPT／真实Web鼠标触摸8入口通过；完整旧回归和发布仍阻塞，艺术／玩家／设备未验 |
 | FOREST-DESIGN-01 | 荆棘森林随机区域／怪物G0设计 | GRAPPLE-FIX-01 | review | [设计卡](design/thorn_forest_region.md)：短H／两图三骨架／地块端口／活锚生态／三策略返程；仅候选设计，不签物理或开放 |
 | GRAPPLE-FIX-01 | 钩索射程、小跳与移动敌人一致性修复 | ACTION-BUDGET-01 | review | 最新9ffe8e7基线；231px射程/24px小跳、同帧抵达结算、真实移动目标回归与独审；用户/真机手感待验 |
