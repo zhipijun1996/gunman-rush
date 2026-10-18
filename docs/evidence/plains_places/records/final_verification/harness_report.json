@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "started_at": "20261018T033638.760620Z",
+  "profiles": [
+    "docs",
+    "art",
+    "gameplay"
+  ],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "docs",
+      "argv": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "9d2bced07cc199b52082c3f986195d3c8d2b6d6876566a1df487f28df46269a7",
+      "log": "docs.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792294612.7729597,
+      "ended_at_unix": 1792294612.943167,
+      "duration_seconds": 0.17,
+      "artifact_directory": "/workspace/art-direction-exploration/build/verification/harness/20261018T033638.760620Z/artifacts/docs",
+      "reused": false
+    },
+    {
+      "id": "quality",
+      "argv": [
+        "python3",
+        "tools/check_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "21cdbfbb241b9c76c161f41aa73bdbb678851367b5ca9c2067ed5603e7920f06",
+      "log": "quality.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792294623.1196291,
+      "ended_at_unix": 1792294623.9400644,
+      "duration_seconds": 0.82,
+      "artifact_directory": "/workspace/art-direction-exploration/build/verification/harness/20261018T033638.760620Z/artifacts/quality",
+      "reused": false
+    },
+    {
+      "id": "art-art",
+      "argv": [
+        "python3",
+        "tools/check_art.py"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "d5d4dbf2163cc5db417f0ff077ee2d18dce881229fb0328a00fdf76f67ed8766",
+      "log": "art-art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792294634.2441292,
+      "ended_at_unix": 1792294634.3623106,
+      "duration_seconds": 0.118,
+      "artifact_directory": "/workspace/art-direction-exploration/build/verification/harness/20261018T033638.760620Z/artifacts/art-art",
+      "reused": false
+    },
+    {
+      "id": "visual-director-tests",
+      "argv": [
+        "python3",
+        "tests/test_visual_director.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "eb41f5a93d73161f1c564d245276d427cec97ed13edd883499ab47df1cefc6fa",
+      "log": "visual-director-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792294644.4786263,
+      "ended_at_unix": 1792294651.6651804,
+      "duration_seconds": 7.187,
+      "artifact_directory": "/workspace/art-direction-exploration/build/verification/harness/20261018T033638.760620Z/artifacts/visual-director-tests",
+      "reused": false
+    },
+    {
+      "id": "level-design-routing",
+      "argv": [
+        "python3",
+        "tests/test_level_design_routing.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "011452c15cfb0d5ec3e34b66290cd94c090884adf511113eec4ba758388d3baf",
+      "log": "level-design-routing.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792294661.790303,
+      "ended_at_unix": 1792294662.662668,
+      "duration_seconds": 0.872,
+      "artifact_directory": "/workspace/art-direction-exploration/build/verification/harness/20261018T033638.760620Z/artifacts/level-design-routing",
+      "reused": false
+    },
+    {
+      "id": "plains-places-contract",
+      "argv": [
+        "python3",
+        "tools/run_plains_places_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "input_digest": "7672566135ae45bc62555411685b7cea7524d8bc7c89d229de5fe688bc6b7a35",
+      "log": "plains-places-contract.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792294684.8076987,
+      "ended_at_unix": 1792294696.2078276,
+      "duration_seconds": 11.4,
+      "artifact_directory": "/workspace/art-direction-exploration/build/verification/harness/20261018T033638.760620Z/artifacts/plains-places-contract",
+      "reused": false
+    },
+    {
+      "id": "plains-places-capture-tests",
+      "argv": [
+        "python3",
+        "tests/test_plains_places_capture.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "9fc324b0bc24f1ea968682fc0751ebf72f7a381493448409e6ebc247b1b1d2fb",
+      "log": "plains-places-capture-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792294673.091124,
+      "ended_at_unix": 1792294674.613239,
+      "duration_seconds": 1.522,
+      "artifact_directory": "/workspace/art-direction-exploration/build/verification/harness/20261018T033638.760620Z/artifacts/plains-places-capture-tests",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "f01edb96e56930c12e2b5fc077416c1a1768214bd15e4bf45e97b36e27f595fc",
+  "working_files": {},
+  "commit": "fc9a01dbe46c1d80784039cd0ddb4172e6c85109",
+  "git_status": "",
+  "diff": "",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 108.457,
+  "jobs": 1,
+  "release": false
+}

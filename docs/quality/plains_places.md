@@ -60,3 +60,9 @@
 **扩产判断**：允许继续使用这三个已看候选做有界组合研究；不准入正式池、大规模Seed生产、新资产用途或全地区量产。商业黄金、风格用户定稿、完整动画/听音、真人操作、PC/手机/手柄设备、正式两图/保存/全CI及Web发布均未验证或未通过本轮门槛。历史encounter/复杂GUI阻塞未修、未豁免，未借本轮扩大维修。森林风格迁移未执行。下一关键实验是以一个简短场所需求自主派生第三种地形家族、完成接口和真实准入，再验证受控形体参数变化；当前只证明有限策展场所重排，不能用这些电影宣称已经学会自主设计任意新场所。
 
 [真实时间账](../evidence/plains_places/timings.json)保留原记录；4次图像调用（含1次中景重绘与1次院岸返工），价格/token/模型未披露；生成资产商用许可unknown。不能把AI限定接受或测试通过当市场事实。
+
+## 最终相关验证
+
+冻结提交`fc9a01db`上，原Harness明确选择的7项全部fresh通过，墙钟108.457秒（含源码指纹开销）：docs、quality、art-art、visual-director-tests、level-design-routing、plains-places-contract、plains-places-capture-tests。原生contract118断言；12预登记Seed纯数值投影9种结构，排除名称/Hash/机关相位；48项Python测试通过。[原回执及日志](../evidence/plains_places/records/final_verification/harness_report.json)保留明确`targeted_checks=true`、`release=false`。这不是整个profile、完整G4、全CI或设备验收。
+
+另外，提交范围检查首次因质量卡将目录误作精确文件覆盖而拒绝14项源/导入/UID；保留失败日志，改为实际变更文件清单，不修改检查器或运行代码。最终范围检查结果单独归档。
