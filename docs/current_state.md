@@ -1,6 +1,6 @@
 # 当前：环境先于关卡投影已落地，后地层表示法实机RETHINK
 
-分支`feature/plains-landform-first`，基线PR87/16e98690，运行冻结`2c615d3d4762c51edfe1bc1e970f28f60807a1f8`。先看[同Seed真实前后与最弱接口](evidence/plains_landform/gallery.html)、[实际根因](evidence/plains_landform/findings.md)、[最终独审](evidence/plains_landform/independent-art-03.md)、[恢复命令](evidence/plains_landform/recipe.md)。这是正式随机地图内一处上层岩脊＋下层溪廊的显式候选；其余为legacy remainder，非整区黄金，不进正式池，不改森林与核心规则。
+[草稿PR88](https://github.com/zhipijun1996/gunman-rush/pull/88)，分支`feature/plains-landform-first`，基线PR87/16e98690，运行冻结`2c615d3d4762c51edfe1bc1e970f28f60807a1f8`。先看[同Seed真实前后与最弱接口](evidence/plains_landform/gallery.html)、[实际根因](evidence/plains_landform/findings.md)、[最终独审](evidence/plains_landform/independent-art-03.md)、[恢复命令](evidence/plains_landform/recipe.md)。这是正式随机地图内一处上层岩脊＋下层溪廊的显式候选；其余为legacy remainder，非整区黄金，不进正式池，不改森林与核心规则。
 
 现有生成器先选环境/操作/支承/开口/源绘画接口，再确定跨度和Definition；同源驱动4实体、6旧slab权属转移、后地层和完整登记岩拱。短Prompt联合请求使用原production_loop与精确平原写集；纯调色仍冻结碰撞。246原生合同（含JSON、实际接触与负例）、原1310分支库及24VD/22路由检查通过。最终实际8段路线4530tick/13枪/零回退、HP最低4最终5；正常影片75.583秒/60FPS，采集编码抽帧405.819秒，不能签设备性能。
 
