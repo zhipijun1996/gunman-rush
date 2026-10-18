@@ -146,11 +146,18 @@ def required_input_preflight(task):
     warnings = []
     uncertain = []
 
+    lexical_paths = {}
+    relative_names = {}
+
     def file_state(name):
-        path = ROOT / name
+        key = (ROOT, name)
+        if key not in lexical_paths:
+            path = ROOT / name
+            lexical_paths[key] = (path, tuple(parent for parent in [path, *path.parents]
+                                              if parent == ROOT or parent.is_relative_to(ROOT)))
+        path, parents = lexical_paths[key]
         try:
-            if any(parent.is_symlink() for parent in [path, *path.parents]
-                   if parent == ROOT or parent.is_relative_to(ROOT)):
+            if any(parent.is_symlink() for parent in parents):
                 return "symlink_input"
             path.stat()
             if not path.is_file():
@@ -168,11 +175,13 @@ def required_input_preflight(task):
             return
         # Preserve the Git index identity before touching the filesystem. resolve
         # would erase a broken/external symlink from the tracked dependency set.
-        path = Path(os.path.abspath(ROOT / name))
-        if path.is_relative_to(ROOT):
-            relative = path.relative_to(ROOT).as_posix()
-            if relative in tracked:
-                required.setdefault(relative, set()).add(source)
+        key = (ROOT, name)
+        if key not in relative_names:
+            path = Path(os.path.abspath(ROOT / name))
+            relative_names[key] = path.relative_to(ROOT).as_posix() if path.is_relative_to(ROOT) else None
+        relative = relative_names[key]
+        if relative in tracked:
+            required.setdefault(relative, set()).add(source)
 
     def json_index(name):
         require(name, "selected quality index")

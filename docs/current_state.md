@@ -1,5 +1,8 @@
 # FOREST-DEPTH-02：新版森林试玩候选
 
+最新有界跟进：[G真实FAIL与依赖／词法计算收口](evidence/forest_depth_v2/G_bounded_followup01/README.md)。G整轮为failure非cancel：serial16PASS后旧asset缺失、parallel11PASS后原87超时60.041秒；Web／Windows／两docs成功，准确CI包浏览器72/72（build30220a607325）不代全CI。补两真实bee旧raw后原历史matrix60与formal27/0一次严格PASS；单次词法memo保FS每次新读，原87本地24.368秒PASS获限定独审。历史与局部成功不重签G失败，H完整同源CI／HTTPS仍待，整体REVISE不升。
+
+
 最新限定修复：[F旧平原体验夹具实际退出泄漏](evidence/forest_depth_v2/plains_experience_release01/README.md)。F serial负例8/2之外真实6对象／2资源泄漏被原严格拒绝；whole run终态cancelled，Web／parallel等取消、Windows成功，core缺lane失败。复用原AudioTeardown的两文件修复后唯一原CLI49.675秒PASS、292/0与9/2／cleanup真／无leak获限定独审；原动作／180和900预算不变。F PRdocs87dots／60timeout与同FpushdocsPASS分列，1.432秒preflight不证根因；E未知仍未知。新源完整CI／部署／浏览器／HTTPS待，整体REVISE不变。
 
 

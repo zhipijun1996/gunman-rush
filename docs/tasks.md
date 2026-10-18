@@ -1,5 +1,8 @@
 # 开发任务
 
+最新有界跟进：[G真实FAIL与依赖／词法计算收口](evidence/forest_depth_v2/G_bounded_followup01/README.md)。G整轮为failure非cancel：serial16PASS后旧asset缺失、parallel11PASS后原87超时60.041秒；Web／Windows／两docs成功，准确CI包浏览器72/72（build30220a607325）不代全CI。补两真实bee旧raw后原历史matrix60与formal27/0一次严格PASS；单次词法memo保FS每次新读，原87本地24.368秒PASS获限定独审。历史与局部成功不重签G失败，H完整同源CI／HTTPS仍待，整体REVISE不升。
+
+
 最新限定修复：[F旧平原体验夹具实际退出泄漏](evidence/forest_depth_v2/plains_experience_release01/README.md)。F serial负例8/2之外真实6对象／2资源泄漏被原严格拒绝；whole run终态cancelled，Web／parallel等取消、Windows成功，core缺lane失败。复用原AudioTeardown的两文件修复后唯一原CLI49.675秒PASS、292/0与9/2／cleanup真／无leak获限定独审；原动作／180和900预算不变。F PRdocs87dots／60timeout与同FpushdocsPASS分列，1.432秒preflight不证根因；E未知仍未知。新源完整CI／部署／浏览器／HTTPS待，整体REVISE不变。
 
 
@@ -35,6 +38,7 @@ FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试�
 | FOREST-DEPTH-TEST-CONSUMERS-01 | 测试消费者真实App／Node生命周期／严格退出与证据修复 | FOREST-DEPTH-02 | review | [有界质量记录](quality/records/FOREST-DEPTH-TEST-CONSUMERS-01.json)；原断言／预算／strict守卫不减，精确S已获不同作者限定独审，fresh完整CI仍待验 |
 | FOREST-DEPTH-PLAINS-AUDIO-01 | 旧平原黄金测试的真实回退音频清理与负例严格性 | FOREST-DEPTH-02 | review | [限定小修复记录](quality/records/FOREST-DEPTH-PLAINS-AUDIO-01.json)；原断言／输入／预算保留，实际专项与精确Git绑定有界独审，非整区或最终CI通过 |
 | FOREST-DEPTH-CANOPY-READER-01 | Guardian奖励后当前Canopy图2的版本身份读取器迁移 | FOREST-DEPTH-02 | review | [限定记录](quality/records/FOREST-DEPTH-CANOPY-READER-01.json)；精确Git独审／原44负例／定向7通过，原失败保留，不签整区或最终CI |
+| FOREST-DEPTH-PREFLIGHT-ASSET-CLOSURE-01 | G依赖闭包／preflight词法复用 | FOREST-DEPTH-02 | review | [原FAIL／历史双check／87与限定独审](evidence/forest_depth_v2/G_bounded_followup01/README.md)；不签H全CI或游戏质量 |
 | FOREST-DEPTH-PLAINS-EXPERIENCE-RELEASE-01 | F实际负例泄漏与原夹具release | FOREST-DEPTH-02 | review | [原FAIL／取消／唯一CLI／限定独审](evidence/forest_depth_v2/plains_experience_release01/README.md)；不签远端CI、E根因或整体质量 |
 | FOREST-DEPTH-PLAINS-EXPERIENCE-FOLLOWUP | E失败分账与inner原件收集 | FOREST-DEPTH-02 | review | [E取消／serialFAIL／localPASS／限定独审](evidence/forest_depth_v2/plains_experience_artifacts01/README.md)；原因UNKNOWN，仅收集改善，新CI待验 |
 | FOREST-DEPTH-GIT-FIXTURE-FOLLOWUP | 原CI清理失败与本地夹具隔离 | FOREST-DEPTH-02 | review | [原失败／取消／原87与独审](evidence/forest_depth_v2/git_fixture_lifecycle01/README.md)；限定fixture ACCEPT，不签新远端CI或游戏质量 |
