@@ -356,23 +356,39 @@ def load_spatial_experiment(path, region_id, root=ROOT):
     return data, {'path': relative.as_posix(), 'sha256': file_hash(target), 'region_id': region_id, 'allowed_paths': paths}
 
 
+def joint_landform_request(request, region_id):
+    """Explicit shared art/level intent; surface-only requests grant no geometry."""
+    visual_words = re.search(r"美术|画面|视觉|调色|纹理|\bart\b|visual|palette|texture", request, re.I)
+    joint_words = re.search(r"联合|共同|协同|joint|co.design", request, re.I)
+    level_words = re.search(r"关卡|玩法|碰撞|地形|level|collision", request, re.I)
+    surface_only = re.search(r"调色|换纹理|更换纹理|贴图|palette|retexture", request, re.I)
+    landform_words = re.search(r"地貌|地形语言|模块语言|环境构造|landform|module.language", request, re.I)
+    protected_change = re.search(r"解锁|新机制|武器规则|能力规则|物理参数", request, re.I)
+    return (region_id == "windchime_plains" and not protected_change
+        and ((joint_words and level_words and visual_words)
+             or (landform_words and not surface_only)))
+
+
 def route_request(request, mode=None, phase="auto", direction=None, spatial_experiment=None):
     """The public short-prompt entry starts creative work before content production."""
     from level_region_context import resolve_region_id
     from region_creative_direction import load_direction
     region_id = resolve_region_id(request)
-    # A short art-only improvement should use the existing art execution loop,
-    # not restart biome design or lose the actual image/consumer recipe.
-    art_improvement = (region_id == "windchime_plains"
-        and re.search(r"优化|改善|改进|制作|重做|绘制|improve|optimi[sz]e|create", request, re.I)
-        and re.search(r"美术|画面|视觉|\bart\b|visual", request, re.I)
-        and not re.search(r"玩法|碰撞|物理|解锁|新机制|武器规则|能力规则", request))
-    if art_improvement and mode is None and phase == "auto" and direction is None and spatial_experiment is None:
+    # Surface treatments retain their frozen geometry lease. Explicit joint
+    # landform work uses this same production loop with a finite source lease.
+    visual_words = re.search(r"美术|画面|视觉|调色|纹理|\bart\b|visual|palette|texture", request, re.I)
+    surface_only = re.search(r"调色|换纹理|更换纹理|贴图|palette|retexture", request, re.I)
+    protected_change = re.search(r"解锁|新机制|武器规则|能力规则|物理参数", request, re.I)
+    joint_art = joint_landform_request(request, region_id)
+    art_improvement = (region_id == "windchime_plains" and not protected_change
+        and re.search(r"优化|改善|改进|制作|重做|绘制|设计|improve|optimi[sz]e|create|design|retexture", request, re.I)
+        and visual_words
+        and (not re.search(r"玩法|碰撞|物理", request) or surface_only))
+    if (art_improvement or joint_art) and mode is None and phase == "auto" and direction is None and spatial_experiment is None:
         from visual_director import route as art_route
         task_id = "visual-windchime-plains-" + hashlib.sha256(request.encode()).hexdigest()[:8]
         quality_record = "docs/quality/records/" + task_id + "-golden.json"
-        plan = art_route(request, task_id, quality_record,
-            ["scripts/art/", "assets/visual_development/", "resources/visual_development/",
+        allowed_paths = ["scripts/art/", "assets/visual_development/", "resources/visual_development/",
              "tools/visual_director.py", "tools/level_formal_capture.gd",
              "tools/plains_environment_preview.gd", "tools/plains_environment_capture.gd",
              "tests/plains_environment_trace.gd", "docs/quality/records/",
@@ -381,7 +397,24 @@ def route_request(request, mode=None, phase="auto", direction=None, spatial_expe
              "tools/plains_regional_art_preview.gd", "tools/plains_regional_art_capture.gd",
              "tools/plains_regional_art_overview.gd", "tools/plains_regional_art_map.py",
              "tests/plains_regional_art_trace.gd", "tests/plains_regional_art_plan_runner.gd",
-             "docs/evidence/plains_regional/", "docs/evidence/plains_places/", "docs/tasks.md"])
+             "docs/evidence/plains_regional/", "docs/evidence/plains_places/", "docs/tasks.md"]
+        if joint_art:
+            allowed_paths = [
+                "scripts/generation/plains_joint_recoil_plan.gd",
+                "scripts/generation/plains_region_generator.gd",
+                "scripts/generation/plains_region_art_plan.gd",
+                "scripts/art/plains_joint_recoil_composer.gd",
+                "shaders/plains_landform_material.gdshader",
+                "resources/visual_development/p1_landform_assets.json",
+                "resources/visual_development/p1_joint_recoil_assets.json",
+                "assets/visual_development/p1_landform/",
+                "tools/plains_joint_recoil_preview.gd", "tools/plains_joint_recoil_capture.gd",
+                "tools/plains_joint_recoil_overview.gd", "tools/run_plains_joint_recoil_tests.py",
+                "tests/plains_joint_recoil_trace.gd", "tests/plains_joint_recoil_runner.gd",
+                "tests/plains_joint_recoil_scan.gd",
+                "docs/evidence/plains_landform/", "docs/quality/records/", "docs/tasks.md"]
+        plan = art_route(request, task_id, quality_record, allowed_paths)
+        plan["preparation"]["art_scope"] = "joint_landform" if joint_art else "surface_only_frozen_geometry"
         _, binding = load_direction("docs/creative_direction/windchime_plains.json", region_id)
         plan["native_import_preflight"] = True
         plan["context_mode"] = "compact"

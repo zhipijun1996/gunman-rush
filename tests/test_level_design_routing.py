@@ -39,6 +39,57 @@ class RoutingTests(unittest.TestCase):
         mixed = level_design.route_request('改善风铃平原的美术和玩法')
         self.assertEqual(mixed['creative_phase'], 'preproduction')
 
+    def test_joint_landform_short_requests_use_existing_loop_with_exact_geometry_lease(self):
+        generation = {
+            'scripts/generation/plains_joint_recoil_plan.gd',
+            'scripts/generation/plains_region_generator.gd',
+            'scripts/generation/plains_region_art_plan.gd'}
+        for request in ('联合设计风铃平原关卡与美术，包括碰撞',
+                        '改善风铃平原地貌', '设计风铃平原模块语言',
+                        '重做风铃平原环境构造'):
+            with self.subTest(request=request):
+                mission = level_design.route_request(request)
+                production_loop.validate(mission)
+                self.assertEqual(mission['workflow'], 'visual_golden')
+                self.assertEqual(mission['scope'], 'offline_production_plan_not_executed')
+                self.assertEqual(mission['preparation']['art_scope'], 'joint_landform')
+                recipe = mission['preparation']['visual_recipe']
+                self.assertEqual(recipe['profile'], 'scripts/art/plains_joint_recoil_composer.gd')
+                self.assertEqual(recipe['recipe'], 'docs/evidence/plains_landform/recipe.md')
+                self.assertEqual(recipe['capture_script'], 'tools/plains_joint_recoil_capture.gd')
+                self.assertEqual(recipe['quality_record'], 'docs/quality/records/PLAINS-LANDFORM-01.json')
+                self.assertEqual(recipe['expansion'], 'blocked_until_actual_art_and_operation_admission')
+                self.assertIn('plains-landform-contract', mission['tasks'][1]['checks'])
+                paths = {p for t in mission['tasks'] for p in t['allowed_paths']}
+                self.assertEqual({p for p in paths if p.startswith('scripts/generation/')}, generation)
+                self.assertIn('scripts/art/plains_joint_recoil_composer.gd', paths)
+                self.assertIn('shaders/plains_landform_material.gdshader', paths)
+                self.assertIn('tools/plains_joint_recoil_capture.gd', paths)
+                for path in paths:
+                    self.assertFalse(any(word in path for word in ('forest', 'player_motor', '/weapons/', '/save/', 'player_tuning')))
+                self.assertNotIn('scripts/art/', paths)
+                self.assertNotIn('resources/generation/', paths)
+
+    def test_surface_only_and_core_requests_do_not_inherit_joint_geometry_authorization(self):
+        for request in ('改善风铃平原调色，保持碰撞不变',
+                        '重做风铃平原地貌调色', '改善风铃平原换纹理'):
+            with self.subTest(request=request):
+                mission = level_design.route_request(request)
+                self.assertEqual(mission['workflow'], 'visual_golden')
+                self.assertEqual(mission['preparation']['art_scope'], 'surface_only_frozen_geometry')
+                self.assertEqual(mission['preparation']['visual_recipe']['capture_script'], 'tools/plains_regional_art_capture.gd')
+                self.assertTrue(mission['constraints'][0].startswith('Freeze Motor'))
+                paths = {p for t in mission['tasks'] for p in t['allowed_paths']}
+                self.assertFalse(any(p.startswith(('scripts/generation/', 'resources/generation/')) for p in paths))
+                self.assertTrue(any('collision' in c and 'Freeze' in c for c in mission['constraints']))
+        for request in ('优化风铃平原联合关卡与美术并修改武器规则',
+                        '改善风铃平原美术和玩法',
+                        '优化风铃平原地貌与物理参数'):
+            with self.subTest(request=request):
+                mission = level_design.route_request(request)
+                self.assertEqual(mission['creative_phase'], 'preproduction')
+                self.assertNotIn('art_scope', mission.get('preparation', {}))
+
     def test_short_forest_default_auto_is_bounded_native_prototype_with_full_plan_retained(self):
         mission=level_design.content_plan('制作荆棘森林')
         production_loop.validate(mission)

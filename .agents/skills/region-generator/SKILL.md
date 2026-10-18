@@ -7,7 +7,7 @@ description: 规划新地区或优化已有地区；统一拓扑、空间身份�
 
 ## V3实际生产依赖
 
-短地区任务继续通过现有 `tools/level_design.py route` 读取权威阶段、单武器/能力与有来源经验，再由现有 `harness --mission --execute` 和真实活跃宿主执行。当前平原按[当前场所制作范例](../../../docs/evidence/plains_joint/recipe.md)与 `PLAINS-JOINT-01` 尝试完整场所生产，尚未准入，旧端肩带方法不作为当前推荐。先核正式消费者及已有失败，不重画已有效资产、不把未来能力当已授予。地区设计必须同时派生态/Boss差距审查与视觉家族审查；未发现实质缺口不强制增加敌人或重做Boss，失败空间不阻塞无依赖的合格家族。
+短地区任务继续通过现有 `tools/level_design.py route` 读取权威阶段、单武器/能力与有来源经验，再由现有 `harness --mission --execute` 和真实活跃宿主执行。当前平原先读[环境构造先行的实际入口与失败](../../../docs/evidence/plains_landform/recipe.md)：配方与共同环境语句先于跨度/坐标/Definition，物理和表现消费同一实体/空腔/接口。局部环境只是完整区域中的语义，不生成独立美术房间链。当前美术未准入，旧端肩带、孤立岸体与通用岩纹裁孔都不作为成功模板。先核正式消费者及已有失败，不重画已有效资产、不把未来能力当已授予。地区设计必须同时派生态/Boss差距审查与视觉家族审查；未发现实质缺口不强制增加敌人或重做Boss，失败空间不阻塞无依赖的合格家族。
 
 实施租约前运行原预检并核真实检查argv、sparse证据和冷import潜在写路径；不可把缺证据当内容失败浪费模型。普通feature整合遵循逐文件basis/child/target SHA、冲突停止、独立scope与原失败并存。当前原生/过程入口包括 `harness --check terrain-family-tests --check root-bell-tests --check forest-h-slice --release --jobs 1`；真实完整遭遇可调用 `python3 tools/run_root_bell_formal.py --default`（仅已准入的当前平原类，不是跨地区通用能力）。原样板/副本的通过不能代签修改后源码；最终另做正式镜头与Web预览。
 

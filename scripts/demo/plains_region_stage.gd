@@ -146,7 +146,22 @@ func get_joint_recoil_snapshot() -> Dictionary:
 		collisions = assembler.call("joint_collision_snapshot")
 	result["joint_collisions"] = collisions
 	result["joint_candidate"] = generated.manifest.get("joint_recoil_profile",false)
-	result["joint_ready"] = result.ready and result.joint_candidate and collisions.size() == 2 and result.art.get("joint_terrain",[]).size() == 2
+	var expected: Array[String] = []
+	for program: Dictionary in result.art_plan.get("joint_modules",[]):
+		for volume: Dictionary in program.get("terrain_bodies",[]):
+			expected.append(str(program.node_id).replace("/","_")+":"+str(volume.source_role))
+	var physical: Array[String] = []
+	for collider: Dictionary in collisions:
+		if collider.get("disabled",true) or collider.get("one_way",true) or collider.get("collision_layer",0)!=1 or collider.get("build_mode",-1)!=CollisionPolygon2D.BUILD_SOLIDS:
+			continue
+		physical.append(str(collider.module)+":"+str(collider.source.get("source_role","")))
+	var painted: Array[String] = []
+	for volume: Dictionary in result.art.get("joint_terrain",[]):
+		painted.append(str(volume.module_id).replace("/","_")+":"+str(volume.source_role))
+	expected.sort(); physical.sort(); painted.sort()
+	var unique: Dictionary = {}
+	for identity: String in expected: unique[identity]=true
+	result["joint_ready"] = result.ready and result.joint_candidate and not expected.is_empty() and unique.size()==expected.size() and physical==expected and painted==expected
 	return result
 
 func _physics_process(delta: float) -> void:

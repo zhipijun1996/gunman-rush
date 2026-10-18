@@ -1,200 +1,279 @@
 class_name PlainsJointRecoilPlan
 extends RefCounted
-## One semantic challenge source. Collision planes, whole bank volume, visual
-## interfaces and protected action space all derive from this source, not Tiles.
-const VERSION := "plains-joint-recoil-v4-owned-receiving-mass"
-const SOURCE_SHA256 := "7e36f24789d104b23e1c2a33a1ae88e761f24ac978d56170dbb79d812fecb314"
-const SOURCE_TEXTURE := "res://assets/visual_development/p1_joint_recoil/whole_banks.png"
+## Environment construction precedes its platform projection. A ridge, its
+## fissure and the creek gallery share physical and painted world coordinates.
+const VERSION := "plains-joint-recoil-v6-ridge-and-creek-child"
 const MODULE_ID := "plains_recoil_span"
 const BANK_DEPTH := 260.0
+const RENDER_METHOD := "landform_world_material_v1"
 
-static func _base_spec() -> Dictionary:
-	return {"version":VERSION,"module_id":MODULE_ID,"landing_planes":[{"id":"departure","bank":"bank_left","a":[0.0,600.0],"b":[300.0,600.0],"minimum_solid_depth":40.0},{"id":"receiving","bank":"bank_right","a":[560.0,600.0],"b":[800.0,600.0],"minimum_solid_depth":40.0}],"inner_cliff_shoulders":{"bank_left":[[300.0,600.0],[300.0,650.0],[296.0,675.0],[284.0,701.0],[263.0,722.0],[252.0,751.0]],"bank_right":[[560.0,600.0],[560.0,650.0],[564.0,686.0],[572.0,722.0],[584.0,758.0]]},"lower_contours":{"bank_left":[[252.0,751.0],[226.0,778.0],[180.0,802.0],[116.0,819.0],[62.0,842.0],[0.0,860.0]],"bank_right":[[584.0,758.0],[610.0,788.0],[652.0,814.0],[702.0,823.0],[756.0,844.0],[800.0,860.0]]},"outer_connections":[{"id":"entry_bank_seam","bank":"bank_left","standing_point":[0.0,600.0],"root_point":[0.0,860.0],"direction":[-1.0,0.0]},{"id":"exit_bank_seam","bank":"bank_right","standing_point":[800.0,600.0],"root_point":[800.0,860.0],"direction":[1.0,0.0]}],"ports":{"entry":[20.0,582.0],"exit":[780.0,582.0]},"protected_action_gap":{"rect":[300.0,0.0,260.0,720.0],"minimum_clear_width":120.0,"actual_clear_width":260.0,"meaning":"original standing gap and full upper flight space; no new support within gap"},"ownership_rect":[0.0,600.0,800.0,260.0],"material_coordinates":{"space":"continuous_world","world_origin":[0.0,0.0],"horizontal_period":780.0,"bank_depth":BANK_DEPTH,"surface_y":600.0}}
+static func program_for_recipe(recipe: Dictionary, identity: String, edge_id: String, seed_value: String) -> Dictionary:
+	var stream:=RunRandomStream.new(seed_value,"region_landform",edge_id,VERSION)
+	var fissure:=str(recipe.get("id",""))=="recoil_crossing"
+	return {"version":VERSION,"id":edge_id+"/environment","module_id":MODULE_ID,"recipe_id":recipe.get("id",""),"actions":recipe.get("actions",""),"identity":identity,"kind":"meadow_ridge_fissure" if fissure else "rooted_connection","implemented":fissure,"asset_grammar":_vault_grammar() if fissure else {},"source_order":"actions_and_environment_before_span_embedding_and_platform_definition","construction":[{"kind":"meadow_ridge_fissure","material":"grass_over_continuous_bedrock","support":"rear_substrate"},{"kind":"creek_gallery","purpose":"lower_phase_route_without_new_rescue_floor"},{"kind":"rooted_connection","interfaces":"solid_cross_section_and_gallery_opening"}] if fissure else [{"kind":"rooted_connection","implementation":"legacy_remainder_not_converted"}],"ridge_id":"plains/main_bedrock","standing_y":600.0,"launch_length":300.0,"gap_width":260.0,"landing_length":240.0,"projected_cap_depth":24.0,"module_width":800.0,"contour_variant":stream.next_int(3),"material_space":{"space":"world","origin":[0.0,0.0],"pixels_per_world_unit":2.0},"composition":{"sky_fissure":"open_above_recoil","creek":"recessed_arched_gallery","focus":"opposite_sunlit_meadow_lip","quiet_landing":true,"vault_anchor_bias":0.62}}
 
-static func source_spec(region_context: Dictionary = {}) -> Dictionary:
-	var spec:=_base_spec()
-	# Actual final source measurements, sealed to the unaltered PNG. Only
-	# non-standing contour/paint registration is calibrated; the original
-	# complete 40px slabs, 260px action gap and outer seams stay invariant.
-	var samples: Array=[[110,803,1156],[150,800,1155],[190,799,1155],[219,788,1166],[250,715,1227],[300,634,1299],[340,598,1327],[380,571,1361],[420,547,1385],[460,526,1415],[500,507,1426],[540,493,1464],[580,485,1483],[620,507,1472],[660,525,1462],[700,560,1443],[740,578,1422],[780,615,1388],[820,645,1367]]
-	var refs: Dictionary={"bank_left":[49.0,110.0,754.0,710.0],"bank_right":[1156.0,110.0,613.0,710.0]}
-	var curves: Dictionary={}
-	for role: String in ["bank_left"]:
-		var ref: Array=refs[role]
-		var left:=0.0 if role=="bank_left" else 560.0
-		var width:=300.0 if role=="bank_left" else 240.0
-		var top_inner:=left+width if role=="bank_left" else left
-		var source_inner:=float(ref[0])+float(ref[2]) if role=="bank_left" else float(ref[0])
-		var source_outer:=float(ref[0]) if role=="bank_left" else float(ref[0])+float(ref[2])
-		var inner: Array=[[top_inner,600.0],[top_inner,640.0]]
-		# Keep the original solid's complete inner face visible. The 219px
-		# painted edge is registered to the 40px end through an explicit UV
-		# control, rather than transparently cutting six world pixels away.
-		var inner_uv: Array=[[source_inner,110.0],[788.0 if role=="bank_left" else 1166.0,219.0]]
-		for row: Array in samples:
-			if int(row[0])<=219: continue
-			var source_x:=float(row[1] if role=="bank_left" else row[2])
-			var world_y:=600.0+(float(row[0])-110.0)/710.0*BANK_DEPTH
-			var source_at_solid_end:=788.0 if role=="bank_left" else 1166.0
-			var upper_correction:=top_inner-(left+(source_at_solid_end-float(ref[0]))/float(ref[2])*width)
-			# Distribute the <=6 world-pixel original-slab correction over the
-			# complete lower depth, avoiding a high-shear UV triangle directly
-			# below the preserved slab. The measured bottom flare stays exact.
-			var recovery:=clampf((860.0-world_y)/220.0,0.0,1.0)
-			inner.append([left+(source_x-float(ref[0]))/float(ref[2])*width+upper_correction*recovery,world_y])
-			inner_uv.append([source_x,float(row[0])])
-		var points: Array=[]
-		var visual: Array=[]
-		var uv: Array=[]
-		var grass_top:=600.0+(10.0-110.0)/710.0*BANK_DEPTH
-		if role=="bank_left":
-			points.append([left,600.0]);points.append_array(inner.duplicate(true));points.append([left,860.0])
-			visual.append([left,grass_top]);uv.append([source_outer,10.0])
-			visual.append([top_inner,grass_top]);uv.append([source_inner,10.0])
-			visual.append_array(inner.duplicate(true));uv.append_array(inner_uv.duplicate(true))
-			visual.append([left,860.0]);uv.append([source_outer,820.0])
-		else:
-			points.append([left,600.0]);points.append([left+width,600.0]);points.append([left+width,860.0])
-			var reverse_inner: Array=inner.duplicate(true);reverse_inner.reverse()
-			var reverse_uv: Array=inner_uv.duplicate(true);reverse_uv.reverse()
-			points.append_array(reverse_inner.slice(0,reverse_inner.size()-1))
-			visual.append([left,grass_top]);uv.append([source_inner,10.0])
-			visual.append([left+width,grass_top]);uv.append([source_outer,10.0])
-			visual.append([left+width,860.0]);uv.append([source_outer,820.0])
-			visual.append_array(reverse_inner);uv.append_array(reverse_uv)
-		curves[role]={"physical_points":points,"local_visual_points":visual,"source_uv_px":uv,"physical_reference_rect_px":ref.duplicate(),"source_sha256":SOURCE_SHA256,"source_texture":SOURCE_TEXTURE,"render_mesh":_row_mesh(visual,uv,role)}
-		spec.inner_cliff_shoulders[role]=inner.slice(0,5)
-		spec.lower_contours[role]=inner.slice(4)
-	if not region_context.is_empty():
-		curves.bank_right=_receiving_curve(region_context)
-		spec.ownership_rects=[spec.ownership_rect.duplicate(),[560.0,600.0,float(region_context.receiving_width),float(region_context.root_depth)]]
-		spec.outer_connections[1].standing_point=[560.0+float(region_context.receiving_width),600.0]
-		spec.outer_connections[1].root_point=[560.0+float(region_context.receiving_width),600.0+float(region_context.root_depth)]
-		spec.outer_connections[1].neighbor_join_node=region_context.neighbor_join_node
-		spec.receiving_region_context=region_context.duplicate(true)
-	spec.bank_contours=curves
-	spec.paint_registration={"source_sha256":SOURCE_SHA256,"source_texture":SOURCE_TEXTURE,"source_dimensions":[1816,866],"physical_reference_rects_px":refs,"measured_inner_contour_samples_px":samples,"source_standing_y_px":110.0,"source_visual_top_y_px":10.0,"original_solid_depth_world":40.0,"method":"source-measured lower flare plus explicit upper-cliff UV correspondence; physical planes and action gap unchanged"}
-	if not region_context.is_empty(): spec.paint_registration.scope="bank_left"
-	return spec
+static func _vault_grammar() -> Dictionary:
+	var path:="res://resources/visual_development/p1_landform_assets.json"
+	var raw: Variant=JSON.parse_string(FileAccess.get_file_as_string(path))
+	if not raw is Dictionary:return {"ok":false,"error":"Actual vault family catalog unavailable"}
+	var grammar: Dictionary=raw.get("structural_assets",{}).get("rock_vault",{}).duplicate(true)
+	if grammar.is_empty() or FileAccess.get_sha256(str(grammar.get("texture","")))!=str(grammar.get("source_sha256","")):return {"ok":false,"error":"Registered vault source unavailable or changed"}
+	grammar.family_kind="open_bottom_rock_vault"
+	var max_y:=-INF
+	for point: Array in grammar.negative_contour_px:max_y=maxf(max_y,float(point[1]))
+	var mouth: Array=[]
+	for index: int in grammar.negative_contour_px.size():
+		if float(grammar.negative_contour_px[index][1])==max_y:mouth.append(index)
+	if mouth.size()!=2:return {"ok":false,"error":"Open-bottom vault requires two registered lower mouth interfaces"}
+	grammar.open_bottom_port_px={"left_index":mouth[0],"right_index":mouth[1],"left":grammar.negative_contour_px[int(mouth[0])].duplicate(),"right":grammar.negative_contour_px[int(mouth[1])].duplicate(),"direction":[0.0,1.0],"meaning":"open downward exterior interface, not a painted sill"}
+	grammar.ok=true
+	grammar.catalog_path=path
+	grammar.catalog_sha256=FileAccess.get_sha256(path)
+	grammar.expression="fixed uniform painted crown/piers and registered negative core; geometry must respect these interfaces"
+	return grammar
 
-static func _receiving_curve(context: Dictionary) -> Dictionary:
-	# Explicitly owned replacement of generated fill, not a fit to its obsolete
-	# rectangular silhouette. Source pixels now generate BOTH the actual root
-	# polygon and the complete painting mesh. Original caps remain contained.
-	var deep: bool=context.variant=="deep_root"
-	var ref: Array=[48.0,110.0,854.0,715.0] if deep else [992.0,110.0,782.0,455.0]
-	var samples: Array=[[110,48,901],[160,48,901],[210,48,901],[240,48,901],[260,89,900],[280,100,900],[300,105,900],[340,133,900],[380,142,900],[420,175,900],[460,189,890],[500,207,889],[540,254,899],[580,272,898],[620,277,897],[660,255,894],[700,243,900],[740,198,900],[780,172,900],[820,158,900]] if deep else [[110,992,1774],[160,992,1774],[210,992,1774],[240,1001,1774],[260,1076,1774],[280,1094,1774],[300,1163,1774],[340,1215,1772],[380,1288,1772],[420,1324,1774],[460,1351,1774],[500,1430,1774],[540,1451,1774],[550,1455,1774],[560,1460,1773],[565,1465,1773]]
-	var width:=float(context.receiving_width)
-	var depth:=float(context.root_depth)
-	var left_rows: Array=[];var right_rows: Array=[]
-	var left_uv: Array=[];var right_uv: Array=[]
-	for row: Array in samples:
-		var y:=600.0+(float(row[0])-float(ref[1]))/float(ref[3])*depth
-		left_rows.append([560.0+(float(row[1])-float(ref[0]))/float(ref[2])*width,y])
-		var right_x:=560.0+width if float(row[0])<=240.0 else 560.0+(float(row[2])-float(ref[0]))/float(ref[2])*width
-		right_rows.append([right_x,y])
-		left_uv.append([float(row[1]),float(row[0])]);right_uv.append([float(row[2]),float(row[0])])
-	var physical: Array=[left_rows[0].duplicate()]
-	physical.append_array(right_rows.duplicate(true))
-	for index: int in range(left_rows.size()-1,0,-1): physical.append(left_rows[index].duplicate())
-	var grass_y:=600.0+(10.0-float(ref[1]))/float(ref[3])*depth
-	var visual: Array=[[560.0,grass_y],[560.0+width,grass_y]]
-	var boundary_uv: Array=[[float(ref[0]),10.0],[float(ref[0])+float(ref[2]),10.0]]
-	visual.append_array(right_rows.duplicate(true));boundary_uv.append_array(right_uv.duplicate(true))
-	for index: int in range(left_rows.size()-1,-1,-1): visual.append(left_rows[index].duplicate());boundary_uv.append(left_uv[index].duplicate())
-	var vertices: Array=[[560.0,grass_y],[560.0+width,grass_y]]
-	var uv: Array=boundary_uv.slice(0,2).duplicate(true)
-	var indices: Array=[]
-	for index: int in left_rows.size():
-		vertices.append(left_rows[index].duplicate());vertices.append(right_rows[index].duplicate())
-		uv.append(left_uv[index].duplicate());uv.append(right_uv[index].duplicate())
-		var previous:=index*2
-		indices.append_array([previous,previous+1,previous+2,previous+1,previous+3,previous+2])
-	return {"physical_points":physical,"local_visual_points":visual,"source_uv_px":boundary_uv,"physical_reference_rect_px":ref,"source_sha256":"306f21e3e0239327ab68bb279b6bf5895b03606f318aaa7a12c07912b23a3c57","source_texture":"res://assets/visual_development/p1_joint_recoil/connected_receiving_banks_v2.png","variant":context.variant,"material_coordinates":{"space":"source_registered_whole_mass","world_origin":[0.0,0.0],"bank_depth":depth,"surface_y":600.0},"surface_profile":[[560.0,600.0],[560.0+width,600.0]],"source_contour_samples_px":samples,"render_mesh":{"method":"owned_source_contour_cross_section_mesh","vertices":vertices,"source_uv_px":uv,"indices":indices,"row_count":left_rows.size()+1,"source_generates_collision":true}}
+static func bind_vertical_programs(manifest: Dictionary) -> void:
+	manifest.environment_world={"id":"plains/main_bedrock","kind":"continuous_regional_rear_substrate","physics":false,"surface_horizon_rule":"main_meadow_standing_plus_36_world_units","surface_horizon_world_y":54.0,"coverage":"entire_formal_region_bounds_plus_normal_camera_overdraw","camera_overdraw_world":1024.0,"openings":"only_explicit_sky_fissures_and_daylight_outlets","layer_relation":"distant_rear_bedrock_behind_independent_front_traversal_air","material_space":{"space":"world","origin":[0.0,0.0],"pixels_per_world_unit":2.0}}
+	# Pair action/environment sentences by topology BEFORE any spans, positions
+	# or module Definitions. IDs and Seed-specific coordinates do not select it.
+	for upper: Dictionary in manifest.connections:
+		if upper.get("design_recipe",{}).get("id","")!="recoil_crossing":continue
+		var upper_area: Dictionary={}
+		for area: Dictionary in manifest.areas:
+			if area.id==upper.a:upper_area=area;break
+		for lower: Dictionary in manifest.connections:
+			if lower.get("design_recipe",{}).get("id","")!="controlled_ferry":continue
+			var lower_area: Dictionary={}
+			for area: Dictionary in manifest.areas:
+				if area.id==lower.a:lower_area=area;break
+			if lower_area.is_empty() or int(lower_area.col)!=int(upper_area.col) or int(lower_area.row)!=int(upper_area.row)+1:continue
+			manifest.environment_target_edge=upper.id
+			upper.environment_program.regional_substrate_id=manifest.environment_world.id
+			upper.environment_program.children=[{"edge_id":lower.id,"kind":"creek_gallery","relation":"below_same_ridge","topology_delta":[0,1]}]
+			lower.environment_program={"version":VERSION,"id":lower.id+"/creek_environment","parent_program_id":upper.environment_program.id,"module_id":"plains_bell_ferry_control","recipe_id":"controlled_ferry","actions":lower.design_recipe.actions,"kind":"creek_gallery","implemented":true,"ridge_id":upper.environment_program.ridge_id,"standing_y":300.0,"launch_length":200.0,"gap_width":400.0,"landing_length":200.0,"projected_cap_depth":32.0,"module_width":800.0,"material_space":upper.environment_program.material_space.duplicate(true),"construction":[{"kind":"grounded_creek_banks","no_gap_floor":true},{"kind":"existing_controlled_ferry","preserve_mechanism":true}],"source_order":"paired_topology_environment_before_span_and_definition"}
+			return
 
-static func _row_mesh(visual: Array, source_uv: Array, role: String) -> Dictionary:
-	# The same measured boundary and source coordinates, with wide cross-bank
-	# sections instead of skinny boundary ears. No physics or UV is changed.
-	var rows: Array=[]
-	var row_uv: Array=[]
-	var outer_x:=float(visual[0][0] if role=="bank_left" else visual[1][0])
-	var outer_uv_x:=float(source_uv[0][0] if role=="bank_left" else source_uv[1][0])
-	if role=="bank_left":
-		rows=visual.slice(1,visual.size()-1)
-		row_uv=source_uv.slice(1,source_uv.size()-1)
-	else:
-		rows=[visual[0].duplicate()]
-		row_uv=[source_uv[0].duplicate()]
-		var reversed_rows: Array=visual.slice(3);reversed_rows.reverse()
-		var reversed_uv: Array=source_uv.slice(3);reversed_uv.reverse()
-		rows.append_array(reversed_rows);row_uv.append_array(reversed_uv)
-	var vertices: Array=[]
-	var uv: Array=[]
-	var indices: Array=[]
-	for index: int in rows.size():
-		var inner: Array=rows[index]
-		var inner_uv: Array=row_uv[index]
-		var outer: Array=[outer_x,inner[1]]
-		var outer_uv: Array=[outer_uv_x,inner_uv[1]]
-		if role=="bank_left":
-			vertices.append(outer);vertices.append(inner.duplicate())
-			uv.append(outer_uv);uv.append(inner_uv.duplicate())
-		else:
-			vertices.append(inner.duplicate());vertices.append(outer)
-			uv.append(inner_uv.duplicate());uv.append(outer_uv)
-		if index>0:
-			var previous: int=(index-1)*2
-			indices.append_array([previous,previous+1,previous+2,previous+1,previous+3,previous+2])
-	return {"method":"versioned_cross_bank_row_mesh","vertices":vertices,"source_uv_px":uv,"indices":indices,"row_count":rows.size(),"boundary_unchanged":true,"physics_unchanged":true}
-
-static func definition_from_spec(spec: Dictionary) -> PlatformingModuleDefinition:
-	var original:=RandomStageGenerator.new().definition_for(MODULE_ID,false,false)
-	var result:=original.duplicate(true) as PlatformingModuleDefinition
+static func definition_from_program(program: Dictionary) -> PlatformingModuleDefinition:
+	var result:=RandomStageGenerator.new().definition_for(str(program.get("module_id",MODULE_ID)),false,false).duplicate(true) as PlatformingModuleDefinition
 	result.platforms.clear()
-	for plane: Dictionary in spec.landing_planes:
-		var a:=_point(plane.a);var b:=_point(plane.b)
-		result.platforms.append(Rect2(a,Vector2(b.x-a.x,float(plane.minimum_solid_depth))))
-	# All non-geometric challenge requirements, damage, ports and timing remain
-	# the original admitted resource. No tuning or capability is invented here.
+	var y:=float(program.standing_y)
+	var launch:=float(program.launch_length)
+	var receiving:=launch+float(program.gap_width)
+	result.platforms.append(Rect2(0.0,y,launch,float(program.projected_cap_depth)))
+	result.platforms.append(Rect2(receiving,y,float(program.landing_length),float(program.projected_cap_depth)))
+	result.definition_version=6
 	return result
 
-static func build_local(region_context: Dictionary = {}) -> Dictionary:
-	if region_context.is_empty(): return {"ok":false,"error":"A joint receiving mass requires its actual neighboring standing surfaces and lower-route context"}
-	var spec:=source_spec(region_context)
-	var bodies: Array=[]
-	for plane: Dictionary in spec.landing_planes:
-		var curve: Dictionary=spec.bank_contours[plane.bank]
-		bodies.append({"id":plane.bank,"source_role":plane.bank,"points":curve.physical_points.duplicate(true),"local_visual_points":curve.local_visual_points.duplicate(true),"source_uv_px":curve.source_uv_px.duplicate(true),"source_sha256":curve.source_sha256,"source_texture":curve.source_texture,"variant":curve.get("variant",""),"source_contour_samples_px":curve.get("source_contour_samples_px",[]),"physical_reference_rect_px":curve.physical_reference_rect_px.duplicate(),"render_mesh":curve.render_mesh.duplicate(true),"surface_profile":curve.get("surface_profile",[plane.a.duplicate(),plane.b.duplicate()]).duplicate(true),"neighbor_interfaces":spec.outer_connections.filter(func(row: Dictionary)->bool:return row.bank==plane.bank).duplicate(true),"material_coordinates":curve.get("material_coordinates",spec.material_coordinates).duplicate(true)})
-	return {"version":VERSION,"module_id":MODULE_ID,"region_context":region_context.duplicate(true),"semantic_source":spec,"terrain_bodies":bodies,"cutout_rects":spec.get("ownership_rects",[spec.ownership_rect.duplicate()]).duplicate(true),"keep_clear":[{"kind":"protected_joint_recoil_action_gap","rect":spec.protected_action_gap.rect.duplicate()}],"platforms":definition_from_spec(spec).platforms.map(func(r: Rect2)->Array:return [r.position.x,r.position.y,r.size.x,r.size.y])}
+static func definition_from_spec(spec: Dictionary) -> PlatformingModuleDefinition:
+	return definition_from_program(spec.environment_program)
+
+static func source_spec(context: Dictionary = {}) -> Dictionary:
+	var program: Dictionary=context.get("environment_program",{}).duplicate(true)
+	if program.is_empty():return {}
+	var y:=float(program.standing_y)
+	var launch:=float(program.launch_length)
+	var receive:=launch+float(program.gap_width)
+	var end:=receive+float(context.receiving_width)
+	# The gallery and front ridge thickness are authored together. Lower-route
+	# clearance bounds the arch; no source PNG or old slab chooses this contour.
+	var depth:=minf(float(context.available_root_depth)-10.0,245.0+float(program.contour_variant)*16.0)
+	depth=maxf(110.0,depth)
+	var left: Array=[[0.0,y],[launch,y],[launch,y+30.0],[launch-9.0,y+61.0],[launch-31.0,y+91.0],[launch-59.0,y+depth*0.62],[launch-97.0,y+depth*0.78],[launch-151.0,y+depth*0.91],[0.0,y+depth]]
+	var width:=end-receive
+	var right: Array=[[receive,y],[end,y],[end,y+depth*0.94],[end-width*0.18,y+depth],[end-width*0.39,y+depth*0.91],[end-width*0.62,y+depth*0.78],[receive+width*0.23,y+depth*0.58],[receive+39.0,y+95.0],[receive+13.0,y+56.0],[receive,y+29.0]]
+	var fronts: Array=[]
+	for row: Dictionary in [{"id":"ridge_left","source_role":"meadow_ridge_left","points":left,"surface":[[0.0,y],[launch,y]]},{"id":"ridge_right","source_role":"meadow_ridge_right","points":right,"surface":[[receive,y],[end,y]]}]:
+		var faces: Array=[]
+		for index: int in row.points.size():
+			var kind:="standing" if index==0 else "outer_connection" if (row.id=="ridge_left" and index==row.points.size()-1) or (row.id=="ridge_right" and index==1) else "shoulder" if index in [1,2,3,row.points.size()-1] else "cave_roof"
+			faces.append({"a":row.points[index].duplicate(),"b":row.points[(index+1)%row.points.size()].duplicate(),"kind":kind,"volume_id":row.id})
+		fronts.append({"id":row.id,"volume_id":row.id,"source_role":row.source_role,"points":row.points,"local_points":row.points.duplicate(true),"local_visual_points":row.points.duplicate(true),"surface_profile":row.surface,"exposed_faces":faces,"geometry_source":"environment_program","material_space":program.material_space.duplicate(true),"material_coordinates":program.material_space.duplicate(true),"neighbor_interfaces":[{"id":row.id+"/outer","standing_point":[0.0 if row.id=="ridge_left" else end,y],"root_point":[0.0 if row.id=="ridge_left" else end,y+depth],"direction":[-1.0 if row.id=="ridge_left" else 1.0,0.0],"kind":"continuous_bedrock_section"}]})
+	var lower_y:=float(context.get("lower_standing_local_y",y+float(context.available_root_depth)+float(context.lower_action_headroom)))
+	var bottom:=float(context.get("world_base_local_y",lower_y+550.0))
+	fronts.append_array(_creek_fronts(context,program,bottom))
+	var regional: Dictionary=context.regional_substrate
+	var rear_left:=float(regional.bounds_local[0])
+	var rear_right:=rear_left+float(regional.bounds_local[2])
+	var rear_top:=float(regional.surface_horizon_local_y)
+	var rear_polygon: Array=[[rear_left,rear_top],[rear_right,rear_top],[rear_right,bottom],[rear_left,bottom]]
+	var roof:=y+depth*0.86
+	var child: Dictionary=context.creek_children[0]
+	var child_program: Dictionary=child.program
+	var child_origin:=_point(child.offset_local)
+	var water_left:=child_origin.x+float(child_program.launch_length)
+	var water_right:=water_left+float(child_program.gap_width)
+	var creek: Array=[[-180.0,roof+40.0],[80.0,roof],[launch,roof+38.0],[receive,roof+24.0],[end-100.0,roof],[end+180.0,roof+55.0],[end+180.0,lower_y],[water_right,lower_y],[water_right,bottom],[water_left,bottom],[water_left,lower_y],[-180.0,lower_y]]
+	var sky: Array=[[launch-4.0,y-40.0],[receive+4.0,y-40.0],[receive+22.0,roof+75.0],[launch-22.0,roof+75.0]]
+	var grammar: Dictionary=program.asset_grammar
+	var source_anchor:=_point(grammar.source_anchor)
+	var scale:=float(grammar.allowed_scale[0])
+	# Constrain the shared composition by the ACTUAL painted foot interfaces.
+	# The vault is not squeezed onto an already chosen octagonal window.
+	var feet: Array=grammar.bottom_connections_px
+	var dx_left:=(float(feet[0][0])-source_anchor.x)*scale
+	var dx_right:=(float(feet[1][0])-source_anchor.x)*scale
+	var low:=maxf(child_origin.x+16.0-dx_left,water_right+16.0-dx_right)
+	var high:=minf(water_left-16.0-dx_left,child_origin.x+float(child_program.module_width)+float(child.receiving_extension)-16.0-dx_right)
+	var window_center:=roundf(lerpf(low,high,float(program.composition.vault_anchor_bias)))
+	var vault_anchor:=Vector2(window_center,lower_y+minf(70.0,float(child.front_root_depth)*0.45+5.0))
+	var registered_core:=_map_source_points(grammar.negative_contour_px,source_anchor,vault_anchor,scale)
+	var left_mouth: Array=registered_core[int(grammar.open_bottom_port_px.left_index)]
+	var right_mouth: Array=registered_core[int(grammar.open_bottom_port_px.right_index)]
+	var terminal_y:=bottom+64.0
+	var lower_left: Array=[left_mouth[0],terminal_y]
+	var lower_right: Array=[right_mouth[0],terminal_y]
+	var extension: Array=[left_mouth.duplicate(),lower_left,lower_right,right_mouth.duplicate()]
+	var daylight: Array=registered_core.slice(0,int(grammar.open_bottom_port_px.left_index)+1)
+	daylight.append(lower_left);daylight.append(lower_right)
+	daylight.append_array(registered_core.slice(int(grammar.open_bottom_port_px.right_index)))
+	var open_port: Dictionary={"left":left_mouth.duplicate(),"right":right_mouth.duplicate(),"direction":[0.0,1.0],"destination":"regional_creek_valley_exterior","terminal_y":terminal_y,"regional_bottom_y":bottom,"collision":false,"source_left_px":grammar.open_bottom_port_px.left.duplicate(),"source_right_px":grammar.open_bottom_port_px.right.duplicate()}
+	var connections: Array=[]
+	for index: int in feet.size():
+		var point:=(_point(feet[index])-source_anchor)*scale+vault_anchor
+		var volume:="creek_left" if index==0 else "creek_right"
+		var connected:=false
+		for front: Dictionary in fronts:
+			if front.volume_id==volume:connected=Geometry2D.is_point_in_polygon(point,_packed(front.points))
+		connections.append({"source_px":feet[index].duplicate(),"local_anchor":[point.x,point.y],"volume_id":volume,"kind":"painted_vault_pier_into_owned_creek_bedrock","valid":connected})
+	var structural_pieces: Array=[{"id":"creek_rock_vault","asset_role":"rock_vault","source_anchor":grammar.source_anchor.duplicate(),"local_anchor":[vault_anchor.x,vault_anchor.y],"uniform_scale":scale,"negative_contour_px":grammar.negative_contour_px.duplicate(true),"negative_topology":"open_bottom_exterior_port","source_outline_px":grammar.source_outline_px.duplicate(true),"connection_interfaces":connections,"volume_id":"plains/main_bedrock","layer":"rear_vault","source_sha256":grammar.source_sha256,"placement_feasible":low<=high,"feasible_anchor_interval":[low,high]}]
+	var openings: Array=[{"id":"sky_fissure","kind":"sky_fissure","points":sky,"collision":false},{"id":"creek_daylight_arch","kind":"open_bottom_daylight_exit","points":daylight,"registered_negative_core":registered_core,"open_bottom_port":open_port,"extension_polygon":extension,"collision":false}]
+	# Front walkable air is NOT a hole through the rear substrate. Split the
+	# substrate at the daylight window before clipping, yielding simple pieces
+	# rather than misinterpreting a clockwise hole loop as another solid.
+	var pieces: Array[PackedVector2Array]=[_packed([rear_polygon[0],[window_center,rear_top],[window_center,bottom],rear_polygon[3]]),_packed([[window_center,rear_top],rear_polygon[1],rear_polygon[2],[window_center,bottom]])]
+	for opening: Dictionary in openings:
+		var next: Array[PackedVector2Array]=[]
+		for piece: PackedVector2Array in pieces:next.append_array(Geometry2D.clip_polygons(piece,_packed(opening.points)))
+		pieces=next
+	var walls: Array=[]
+	for piece: PackedVector2Array in pieces:
+		var root_contact:=0.0
+		for index: int in piece.size():
+			var a:=piece[index];var b:=piece[(index+1)%piece.size()]
+			if absf(a.y-bottom)<0.01 and absf(b.y-bottom)<0.01:root_contact+=absf(b.x-a.x)
+		walls.append({"id":"rear_substrate/"+str(walls.size()),"volume_id":"plains/main_bedrock","points":_arrays(piece),"root_y":bottom,"root_contact_length":root_contact,"anchored_to_root":root_contact>0.0,"collision":false,"layer":"rear_substrate","depth_role":"distant_low_contrast_regional_bedrock","regional_substrate_id":regional.id,"surface_horizon_local_y":rear_top,"coverage_policy":regional.coverage,"material_space":program.material_space.duplicate(true),"geometry_source":"environment_program_ridge_minus_gallery_and_fissure"})
+	var supports: Array=[]
+	for front: Dictionary in fronts:
+		var overlap_area:=0.0
+		var overlaps: Array=[]
+		for wall: Dictionary in walls:
+			if not wall.anchored_to_root:continue
+			for polygon: PackedVector2Array in Geometry2D.intersect_polygons(_packed(front.points),_packed(wall.points)):
+				var area:=absf(_area(polygon))
+				overlap_area+=area
+				overlaps.append(_arrays(polygon))
+		front.support_id="plains/main_bedrock"
+		supports.append({"from_volume":front.volume_id,"to_volume":"plains/main_bedrock","kind":"rear_bedrock_overlap","overlap_polygons":overlaps,"overlap_area":overlap_area,"valid":overlap_area>100.0,"rear_roots_at_world_base":overlap_area>100.0})
+	var ownership: Array=[[0.0,y,launch,depth],[receive,y,width,depth]]
+	for front: Dictionary in fronts:
+		if not str(front.source_role).begins_with("creek_"):continue
+		var bounds_min:=Vector2(INF,INF);var bounds_max:=Vector2(-INF,-INF)
+		for point: Array in front.points:bounds_min=bounds_min.min(_point(point));bounds_max=bounds_max.max(_point(point))
+		ownership.append([bounds_min.x,bounds_min.y,bounds_max.x-bounds_min.x,bounds_max.y-bounds_min.y])
+	return {"version":VERSION,"module_id":MODULE_ID,"environment_program":program,"landing_planes":[{"id":"departure","bank":"ridge_left","a":[0.0,y],"b":[launch,y],"minimum_solid_depth":program.projected_cap_depth},{"id":"receiving","bank":"ridge_right","a":[receive,y],"b":[receive+float(program.landing_length),y],"minimum_solid_depth":program.projected_cap_depth}],"ports":{"entry":[20.0,y-18.0],"exit":[780.0,y-18.0]},"protected_action_gap":{"rect":[launch,0.0,float(program.gap_width),720.0],"minimum_clear_width":120.0,"actual_clear_width":program.gap_width},"regional_substrate":regional,"front_volumes":fronts,"front_voids":[{"id":"creek_gallery","kind":"creek_gallery","points":creek,"collision":false,"meaning":"foreground_traversal_air_with_continuous_rear_bedrock"}],"rear_walls":walls,"rear_openings":openings,"structural_pieces":structural_pieces,"support_relations":supports,"ownership_rects":ownership,"material_coordinates":program.material_space.duplicate(true)}
+
+static func _creek_fronts(context: Dictionary, parent: Dictionary, bottom: float) -> Array:
+	var result: Array=[]
+	for child: Dictionary in context.creek_children:
+		var program: Dictionary=child.program
+		var origin:=_point(child.offset_local)
+		var y:=origin.y+float(program.standing_y)
+		var left:=origin.x
+		var gap_left:=left+float(program.launch_length)
+		var gap_right:=gap_left+float(program.gap_width)
+		var end:=origin.x+float(program.module_width)+float(child.receiving_extension)
+		var depth:=float(child.get("front_root_depth",190.0))
+		var span:=end-gap_right
+		var shapes: Array=[{"side":"left","points":[[left,y],[gap_left,y],[gap_left,y+32.0],[gap_left-48.0,y+32.0],[gap_left-55.0,y+depth*0.43],[gap_left-65.0,y+depth*0.69],[gap_left-80.0,y+depth*0.88],[left+60.0,y+depth],[left,y+depth*0.92]],"surface":[[left,y],[gap_left,y]]},{"side":"right","points":[[gap_right,y],[end,y],[end,y+depth*0.89],[end-span*0.18,y+depth],[end-span*0.43,y+depth*0.94],[gap_right+span*0.28,y+depth*0.73],[gap_right+57.0,y+depth*0.42],[gap_right+48.0,y+32.0],[gap_right,y+32.0]],"surface":[[gap_right,y],[end,y]]}]
+		for shape: Dictionary in shapes:
+			var id:="creek_"+str(shape.side)
+			var faces: Array=[]
+			for index: int in shape.points.size():
+				var kind:="standing" if index==0 else "outer_connection" if (shape.side=="left" and index==shape.points.size()-1) or (shape.side=="right" and index==1) or (absf(float(shape.points[index][1])-bottom)<0.01 and absf(float(shape.points[(index+1)%shape.points.size()][1])-bottom)<0.01) else "shoulder"
+				faces.append({"a":shape.points[index],"b":shape.points[(index+1)%shape.points.size()],"kind":kind,"volume_id":id})
+			result.append({"id":id,"volume_id":id,"source_role":id,"child_node_id":child.node_id,"parent_program_id":parent.id,"points":shape.points,"local_points":shape.points.duplicate(true),"local_visual_points":shape.points.duplicate(true),"surface_profile":shape.surface,"exposed_faces":faces,"geometry_source":"paired_creek_program_before_definition","material_space":parent.material_space.duplicate(true),"material_coordinates":parent.material_space.duplicate(true),"neighbor_interfaces":[{"id":id+"/ground_root","standing_point":shape.surface[0],"root_point":[left if shape.side=="left" else end,y+depth*0.92],"direction":[-1.0 if shape.side=="left" else 1.0,0.0],"kind":"grounded_creek_substrate"}]})
+	return result
+
+static func build_local(context: Dictionary = {}) -> Dictionary:
+	if context.is_empty() or context.get("environment_program",{}).is_empty():return {"ok":false,"error":"Environment program must exist before the platform projection"}
+	var spec:=source_spec(context)
+	var platforms: Array=[]
+	for plane: Dictionary in spec.landing_planes:platforms.append([plane.a[0],plane.a[1],float(plane.b[0])-float(plane.a[0]),plane.minimum_solid_depth])
+	return {"version":VERSION,"module_id":MODULE_ID,"render_method":RENDER_METHOD,"environment_program":spec.environment_program,"region_context":context.duplicate(true),"semantic_source":spec,"terrain_bodies":spec.front_volumes,"front_voids":spec.front_voids,"rear_walls":spec.rear_walls,"rear_openings":spec.rear_openings,"structural_pieces":spec.structural_pieces,"support_relations":spec.support_relations,"cutout_rects":spec.ownership_rects,"keep_clear":[{"kind":"protected_joint_recoil_action_gap","rect":spec.protected_action_gap.rect}],"platforms":platforms}
 
 static func instantiate(node: Dictionary) -> Dictionary:
-	# Replay derives world coordinates from the admitted source, not from JSON-rounded
-	# intermediate local curves (which otherwise accumulate a second rounding).
-	var local: Dictionary=build_local(node.joint_recoil.get("region_context",{}))
+	var local:=build_local(node.joint_recoil.get("region_context",{}))
 	var offset:=_point(node.offset)
 	var bodies: Array=[]
-	for body: Dictionary in local.terrain_bodies:
-		var result: Dictionary=body.duplicate(true)
-		result.local_points=body.points.duplicate(true)
-		result.points=_translate_points(body.points,offset)
-		result.visual_points=_translate_points(body.local_visual_points,offset)
-		result.local_render_mesh=body.render_mesh.duplicate(true)
-		result.render_mesh.vertices=_translate_points(body.render_mesh.vertices,offset)
-		result.surface_profile=_translate_points(body.surface_profile,offset)
-		for seam: Dictionary in result.neighbor_interfaces:
-			seam.standing_point=_translate_point(seam.standing_point,offset)
-			seam.root_point=_translate_point(seam.root_point,offset)
-		result.material_coordinates.world_origin=[0.0,0.0]
-		result.material_coordinates.surface_y=600.0+offset.y
-		result.id=str(node.id)+"/"+str(body.id)
-		bodies.append(result)
+	for raw: Dictionary in local.terrain_bodies:
+		var body:=raw.duplicate(true)
+		body.local_points=raw.points.duplicate(true)
+		body.points=_translate_points(raw.points,offset)
+		body.visual_points=body.points.duplicate(true)
+		body.surface_profile=_translate_points(raw.surface_profile,offset)
+		for face: Dictionary in body.exposed_faces:
+			face.a=_translate_point(face.a,offset);face.b=_translate_point(face.b,offset)
+		for seam: Dictionary in body.neighbor_interfaces:
+			seam.standing_point=_translate_point(seam.standing_point,offset);seam.root_point=_translate_point(seam.root_point,offset)
+		body.id=str(node.id)+"/"+str(raw.id)
+		bodies.append(body)
+	var voids: Array=[]
+	for raw: Dictionary in local.front_voids:
+		var air:=raw.duplicate(true);air.points=_translate_points(raw.points,offset);voids.append(air)
+	var walls: Array=[]
+	for raw: Dictionary in local.rear_walls:
+		var wall:=raw.duplicate(true);wall.local_points=raw.points.duplicate(true);wall.points=_translate_points(raw.points,offset);wall.root_y=float(raw.root_y)+offset.y;walls.append(wall)
+	var openings: Array=[]
+	for raw: Dictionary in local.rear_openings:
+		var opening:=raw.duplicate(true)
+		opening.local_points=raw.points.duplicate(true);opening.points=_translate_points(raw.points,offset)
+		if raw.has("registered_negative_core"):
+			opening.registered_negative_core=_translate_points(raw.registered_negative_core,offset)
+			opening.extension_polygon=_translate_points(raw.extension_polygon,offset)
+			opening.open_bottom_port.left=_translate_point(raw.open_bottom_port.left,offset)
+			opening.open_bottom_port.right=_translate_point(raw.open_bottom_port.right,offset)
+			opening.open_bottom_port.terminal_y=float(raw.open_bottom_port.terminal_y)+offset.y
+			opening.open_bottom_port.regional_bottom_y=float(raw.open_bottom_port.regional_bottom_y)+offset.y
+		openings.append(opening)
+	var pieces: Array=[]
+	for raw: Dictionary in local.structural_pieces:
+		var piece:=raw.duplicate(true)
+		piece.world_anchor=_translate_point(raw.local_anchor,offset)
+		for contact: Dictionary in piece.connection_interfaces:
+			contact.world_anchor=_translate_point(contact.local_anchor,offset)
+		pieces.append(piece)
+	var supports: Array=[]
+	for raw: Dictionary in local.support_relations:
+		var relation:=raw.duplicate(true);relation.overlap_polygons=[]
+		for polygon: Array in raw.overlap_polygons:relation.overlap_polygons.append(_translate_points(polygon,offset))
+		supports.append(relation)
 	var cutouts: Array=[]
-	for r: Array in local.cutout_rects: cutouts.append([float(r[0])+offset.x,float(r[1])+offset.y,r[2],r[3]])
+	for r: Array in local.cutout_rects:cutouts.append([float(r[0])+offset.x,float(r[1])+offset.y,r[2],r[3]])
 	var clear: Array=[]
 	for row: Dictionary in local.keep_clear:
 		var r: Array=row.rect
 		clear.append({"kind":row.kind,"owner":node.id,"rect":[float(r[0])+offset.x,float(r[1])+offset.y,r[2],r[3]]})
-	return {"version":VERSION,"node_id":node.id,"module_id":MODULE_ID,"offset":node.offset.duplicate(),"region_context":local.get("region_context",{}).duplicate(true),"semantic_source":local.semantic_source,"terrain_bodies":bodies,"cutout_rects":cutouts,"keep_clear":clear+local.get("region_context",{}).get("protected_actual_airspace",[]).duplicate(true),"derived_platforms":local.platforms,"physics_owner":"actual_joint_bank_polygons_and_authorized_receiving_mass_in_region_assembler","production_pool":false}
+	return {"version":VERSION,"render_method":RENDER_METHOD,"node_id":node.id,"module_id":MODULE_ID,"offset":node.offset.duplicate(),"region_context":local.region_context,"environment_program":local.environment_program,"semantic_source":local.semantic_source,"terrain_bodies":bodies,"front_voids":voids,"rear_walls":walls,"rear_openings":openings,"structural_pieces":pieces,"support_relations":supports,"cutout_rects":cutouts,"keep_clear":clear+local.region_context.get("protected_actual_airspace",[]).duplicate(true),"derived_platforms":local.platforms,"physics_owner":"actual_environment_program_polygons","production_pool":false}
+
+static func _map_source_points(values: Array, source_anchor: Vector2, anchor: Vector2, scale: float) -> Array:
+	var result: Array=[]
+	for value: Array in values:
+		var point:=(_point(value)-source_anchor)*scale+anchor
+		result.append([point.x,point.y])
+	return result
+
+static func _packed(values: Array) -> PackedVector2Array:
+	var result:=PackedVector2Array()
+	for value: Array in values:result.append(_point(value))
+	return result
+static func _arrays(values: PackedVector2Array) -> Array:
+	var result: Array=[]
+	for value: Vector2 in values:result.append([value.x,value.y])
+	return result
+static func _area(values: PackedVector2Array) -> float:
+	var area:=0.0
+	for index: int in values.size():area+=values[index].cross(values[(index+1)%values.size()])
+	return area*0.5
 
 static func context_for_region(manifest: Dictionary, node: Dictionary) -> Dictionary:
 	var offset:=_point(node.offset)
@@ -216,7 +295,39 @@ static func context_for_region(manifest: Dictionary, node: Dictionary) -> Dictio
 	var definition:=PlainsRegionGenerator.definition(neighbor)
 	var original_join: Rect2=definition.platforms[neighbor_index]
 	var width:=240.0+original_join.size.x
-	if not is_equal_approx(width,600.0) or not is_equal_approx(original_join.size.y,32.0): return {"ok":false,"error":"Actual receiving standing span cannot be expressed by the bounded 600-wide source family"}
+	if width<300.0 or width>900.0:return {"ok":false,"error":"Environment receiving span outside its bounded ridge construction range"}
+	var children: Array=[]
+	var owned: Array=[{"node_id":node.id,"platform_index":0},{"node_id":node.id,"platform_index":1},{"node_id":neighbor.id,"platform_index":neighbor_index}]
+	var child_ids: Array[String]=[]
+	for child: Dictionary in manifest.nodes:
+		var child_program: Dictionary=child.get("environment_program",{})
+		if child_program.get("parent_program_id","")!=node.get("environment_program",{}).get("id","missing"):continue
+		var child_offset:=_point(child.offset)-offset
+		var child_definition:=PlainsRegionGenerator.definition(child)
+		var extension:=0.0
+		var join_id:=""
+		var join_index:=-1
+		var child_seam:=_point(child.offset)+Vector2(float(child_program.module_width),float(child_program.standing_y))
+		for candidate: Dictionary in manifest.nodes:
+			if str(candidate.module_id)!="region_connection":continue
+			var d:=PlainsRegionGenerator.definition(candidate)
+			for index: int in d.platforms.size():
+				var rect:=Rect2(_point(candidate.offset)+d.platforms[index].position,d.platforms[index].size)
+				if index not in d.one_way_platform_indices and rect.position.is_equal_approx(child_seam):
+					extension=rect.size.x;join_id=candidate.id;join_index=index;break
+			if not join_id.is_empty():break
+		var original_slabs: Array=[]
+		for index: int in child_definition.platforms.size():
+			owned.append({"node_id":child.id,"platform_index":index})
+			var rect: Rect2=child_definition.platforms[index]
+			original_slabs.append([child_offset.x+rect.position.x,child_offset.y+rect.position.y,rect.size.x,rect.size.y])
+		if not join_id.is_empty():owned.append({"node_id":join_id,"platform_index":join_index})
+		var dangers: Array=[]
+		for rect: Rect2 in child_definition.danger_bounds:dangers.append([child_offset.x+rect.position.x,child_offset.y+rect.position.y,rect.size.x,rect.size.y])
+		children.append({"node_id":child.id,"program":child_program.duplicate(true),"offset_local":[child_offset.x,child_offset.y],"receiving_extension":extension,"neighbor_join_node":join_id,"original_slabs":original_slabs,"danger_bounds":dangers,"clear_gap":{"rect":[child_offset.x+float(child_program.launch_length),child_offset.y+float(child_program.standing_y),float(child_program.gap_width),float(manifest.world_bounds[1])+float(manifest.world_bounds[3])-offset.y-child_offset.y-float(child_program.standing_y)],"meaning":"original ferry water gap; no new static rescue floor"}})
+		child_ids.append(str(child.id))
+	if children.is_empty():return {"ok":false,"error":"Ridge must own its topology-paired lower creek child before embedding"}
+	if not node.environment_program.get("asset_grammar",{}).get("ok",false):return {"ok":false,"error":"No registered vault expression grammar before embedding"}
 	var left:=offset.x+560.0
 	var right:=left+width
 	var lower_ceiling:=float(manifest.world_bounds[1])+float(manifest.world_bounds[3])
@@ -252,10 +363,50 @@ static func context_for_region(manifest: Dictionary, node: Dictionary) -> Dictio
 			var a:=_point(path[index]);var b:=_point(path[index+1])
 			var rect:=Rect2(a.min(b)-Vector2(24.0,72.0),(a-b).abs()+Vector2(48.0,108.0))
 			protected.append({"kind":"actual_shaft_player_path_clearance","owner":edge.id,"rect":[rect.position.x,rect.position.y,rect.size.x,rect.size.y]})
+	for child: Dictionary in children:
+		var child_program: Dictionary=child.program
+		var child_origin:=_point(child.offset_local)+offset
+		var child_standing:=child_origin.y+float(child_program.standing_y)
+		var room:=190.0
+		for space: Dictionary in protected:
+			var r: Array=space.rect
+			if float(r[1])<=child_standing+32.0:continue
+			var x:=float(r[0]);var finish:=x+float(r[2])
+			var left_hit:=x<child_origin.x+float(child_program.launch_length) and finish>child_origin.x
+			var right_hit:=x<child_origin.x+float(child_program.module_width)+float(child.receiving_extension) and finish>child_origin.x+float(child_program.launch_length)+float(child_program.gap_width)
+			if left_hit or right_hit:room=minf(room,float(r[1])-child_standing-8.0)
+		if room<70.0:return {"ok":false,"error":"Creek front thickness cannot respect the next actual lower route"}
+		child.front_root_depth=room
+		child.root_policy="curved_foreground_stratum_with_actual_rear_bedrock_overlap_above_next_route_void"
+	var grammar: Dictionary=node.environment_program.asset_grammar
+	var source_anchor:=_point(grammar.source_anchor)
+	var scale:=float(grammar.allowed_scale[0])
+	for child: Dictionary in children:
+		var p: Dictionary=child.program
+		var feet: Array=grammar.bottom_connections_px
+		var left_dx:=(float(feet[0][0])-source_anchor.x)*scale
+		var right_dx:=(float(feet[1][0])-source_anchor.x)*scale
+		var low:=maxf(16.0-left_dx,float(p.launch_length)+float(p.gap_width)+16.0-right_dx)
+		var high:=minf(float(p.launch_length)-16.0-left_dx,float(p.module_width)+float(child.receiving_extension)-16.0-right_dx)
+		if low>high:return {"ok":false,"error":"Registered painted vault feet cannot join the legal creek banks at fixed family scale"}
+	var original_domains: Array=[]
+	for owner: Dictionary in owned:
+		for original_node: Dictionary in manifest.nodes:
+			if original_node.id!=owner.node_id:continue
+			var d:=PlainsRegionGenerator.definition(original_node)
+			var rect: Rect2=d.platforms[int(owner.platform_index)]
+			var origin:=_point(original_node.offset)
+			original_domains.append({"node_id":owner.node_id,"platform_index":owner.platform_index,"rect":[origin.x+rect.position.x,origin.y+rect.position.y,rect.size.x,rect.size.y]})
+			break
+	var world: Dictionary=manifest.get("environment_world",{})
+	var margin:=float(world.get("camera_overdraw_world",1024.0))
+	var regional_substrate:=world.duplicate(true)
+	regional_substrate.bounds_local=[float(manifest.world_bounds[0])-margin-offset.x,float(manifest.world_bounds[1])-offset.y,float(manifest.world_bounds[2])+margin*2.0,float(manifest.world_bounds[3])]
+	regional_substrate.surface_horizon_local_y=float(world.get("surface_horizon_world_y",54.0))-offset.y
 	var available:=lower_ceiling-standing
-	var variant:="deep_root" if available>=498.0 else "shallow_root" if available>=308.0 else ""
+	var variant:="deep_root" if available>=420.0 else "shallow_root" if available>=230.0 else ""
 	if variant.is_empty(): return {"ok":false,"error":"No complete receiving source fits the actual lower-route clearance"}
-	return {"ok":true,"context":{"neighbor_join_node":neighbor.id,"neighbor_join_platform_index":neighbor_index,"owned_slabs":[{"node_id":node.id,"platform_index":0},{"node_id":node.id,"platform_index":1},{"node_id":neighbor.id,"platform_index":neighbor_index}],"receiving_width":width,"available_root_depth":available,"lower_action_headroom":headroom,"movement_capability":capability,"root_depth":498.0 if variant=="deep_root" else 308.0,"variant":variant,"protected_actual_airspace":protected,"lower_clearance_policy":"actual lower standing surfaces minus measured full held-jump height, 36px actor and 12px margin; actual dynamics/path and input trace independently verified"}}
+	return {"ok":true,"context":{"neighbor_join_node":neighbor.id,"neighbor_join_platform_index":neighbor_index,"regional_substrate":regional_substrate,"owned_slabs":owned,"original_owned_static_domains":original_domains,"child_node_ids":child_ids,"creek_children":children,"receiving_width":width,"available_root_depth":available,"lower_action_headroom":headroom,"movement_capability":capability,"environment_program":node.get("environment_program",{}).duplicate(true),"lower_standing_local_y":lower_ceiling+headroom-offset.y,"world_base_local_y":float(manifest.world_bounds[1])+float(manifest.world_bounds[3])-offset.y,"root_depth":minf(available-10.0,277.0),"variant":variant,"protected_actual_airspace":protected,"lower_clearance_policy":"actual lower standing surfaces minus measured full held-jump height, 36px actor and 12px margin; actual dynamics/path and input trace independently verified"}}
 
 static func clip_supports(supports: Array, cutouts: Array) -> Array:
 	var output: Array=[]
@@ -283,7 +434,12 @@ static func errors(recorded: Dictionary) -> Array[String]:
 	return failures
 
 static func _point(value: Array) -> Vector2:return Vector2(float(value[0]),float(value[1]))
-static func _translate_point(value: Array, offset: Vector2)->Array:return [float(value[0])+offset.x,float(value[1])+offset.y]
+static func _translate_point(value: Array, offset: Vector2)->Array:
+	# Physics and the actual ArrayMesh both store Vector2 float32 coordinates.
+	# Seal the world source through that SAME operation; do not compare a
+	# float64 JSON sum against an engine float32 transform with a tolerance.
+	var world:=_point(value)+offset
+	return [world.x,world.y]
 static func _translate_points(values: Array, offset: Vector2)->Array:
 	var output: Array=[]
 	for value: Array in values: output.append(_translate_point(value,offset))

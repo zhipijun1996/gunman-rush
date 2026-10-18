@@ -1,3 +1,15 @@
+# 当前：环境先于关卡投影已落地，后地层表示法实机RETHINK
+
+[草稿PR88](https://github.com/zhipijun1996/gunman-rush/pull/88)，分支`feature/plains-landform-first`，基线PR87/16e98690，运行冻结`2c615d3d4762c51edfe1bc1e970f28f60807a1f8`。先看[同Seed真实前后与最弱接口](evidence/plains_landform/gallery.html)、[实际根因](evidence/plains_landform/findings.md)、[最终独审](evidence/plains_landform/independent-art-03.md)、[恢复命令](evidence/plains_landform/recipe.md)。这是正式随机地图内一处上层岩脊＋下层溪廊的显式候选；其余为legacy remainder，非整区黄金，不进正式池，不改森林与核心规则。
+
+现有生成器先选环境/操作/支承/开口/源绘画接口，再确定跨度和Definition；同源驱动4实体、6旧slab权属转移、后地层和完整登记岩拱。短Prompt联合请求使用原production_loop与精确平原写集；纯调色仍冻结碰撞。246原生合同（含JSON、实际接触与负例）、原1310分支库及24VD/22路由检查通过。最终实际8段路线4530tick/13枪/零回退、HP最低4最终5；正常影片75.583秒/60FPS，采集编码抽帧405.819秒，不能签设备性能。
+
+**艺术未完成，停止本方法扩产。** 首方法花墙RETHINK；第二方法岩拱/曲岸改善但整体仍失败：全区域灰矩形后基质减孔产生直边天空槽，灰墙平铺、新旧接口与背景拱的近景强度仍割裂。独审03要求RETHINK后地层数据/消费者，不能继续换纹理补洞或扩Seed07。下一关键实验是连续坡脊—开敞溪谷的外界空气、有限后山轮廓和跨屏连接先行，不再全屏填岩后挖孔。本轮没有实现该替代，也不宣称自动化成熟。
+
+首次来源谓词失败、艺术失败与原始影音/日志均保留。影片严格通过不代签用户风格、全片播放听音、真人、设备、全CI/Web或正式发布；本地候选交付状态见recipe/delivery。下方历史仅按需读取。
+
+---
+
 # 当前：反冲挑战联合体积已进入实机，世界语义缺口使艺术准入失败
 
 [草稿PR87](https://github.com/zhipijun1996/gunman-rush/pull/87)，分支 `feature/plains-joint-challenge`，母PR86/b5fc；运行源冻结 `3188a5a088d1fdb2989ae0a3d439b24c2a536cb0`。先看[真实前后与最弱帧](evidence/plains_joint_recoil/gallery.html)、[失败与根因](quality/plains_joint_recoil.md)、[恢复入口](evidence/plains_joint_recoil/recipe.md)、[独审](evidence/plains_joint_recoil/independent-art-02.md)。单挑战显式候选，不是整区黄金，不进正式池，不改森林/核心契约。

@@ -1,0 +1,319 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAINS-LANDFORM-01",
+  "production_pool": false,
+  "status": "candidate_actual_sources_not_art_admitted",
+  "mapping": "uniform_world_paint_density_with_source_owned_exposed_faces",
+  "pixels_per_world_unit": 2.0,
+  "materials": {
+    "rock_core": {
+      "texture": "res://assets/visual_development/p1_landform/rock_core.png",
+      "source_sha256": "8b3414b09536877bea9e6f059b1b612c28a68b0003ce2a8fc0d3f30b735055b2",
+      "source_dimensions": [
+        1254,
+        1254
+      ],
+      "region_px": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "original": "/workspace/generated_images/exec-10ecf9c7-aeb1-46b9-bb7f-3483fb2f9dd6.png",
+      "pixel_world_density": 2.0,
+      "processing": "unaltered bytes; PIL used to inspect size/alpha only, no image edits"
+    },
+    "meadow_transition": {
+      "texture": "res://assets/visual_development/p1_landform/meadow_transition.png",
+      "source_sha256": "b28aef110bb0cc6dd2bc88824e107b99bffde512455daf0202bf8c963365b176",
+      "source_dimensions": [
+        2172,
+        724
+      ],
+      "region_px": [
+        0,
+        0,
+        2172,
+        724
+      ],
+      "original": "/workspace/generated_images/exec-a96d87d6-851f-4abd-aa2f-b287d42c977b.png",
+      "pixel_world_density": 2.0,
+      "processing": "unaltered bytes; PIL used to inspect size/alpha only, no image edits",
+      "face_projection": {
+        "source_depth_offset_px": 0,
+        "valid_depth_px": 280,
+        "pigment_fade_start_px": 200,
+        "registration": "Visual registration of existing painting: full grass/soil shoulder retained at 2px/world; source rows beyond280 do not become a whole-bank skin. Source PNG bytes unchanged."
+      }
+    },
+    "cave_transition": {
+      "texture": "res://assets/visual_development/p1_landform/cave_transition.png",
+      "source_sha256": "17fd9e285aa301454ea232239563512b23f7424c294ce536b08f6c7b1d98af26",
+      "source_dimensions": [
+        2172,
+        724
+      ],
+      "region_px": [
+        0,
+        0,
+        2172,
+        724
+      ],
+      "original": "/workspace/generated_images/exec-60a89100-040c-40a9-b0c8-2151898fd3a1.png",
+      "pixel_world_density": 2.0,
+      "processing": "unaltered bytes; PIL used to inspect size/alpha only, no image edits",
+      "face_projection": {
+        "source_depth_offset_px": 96,
+        "valid_depth_px": 160,
+        "pigment_fade_start_px": 64,
+        "registration": "Visual registration of original inner turning-plane rows96..256 at 2px/world; finite side/intrados pigment coverage, no short-edge rotation or source-image scaling. Source PNG bytes unchanged."
+      }
+    },
+    "rear_substrate": {
+      "texture": "res://assets/visual_development/p1_landform/rear_substrate.png",
+      "source_sha256": "8b35b38f97899669c7f76158f923b72ec18340575f844fe5b0ba0c171bf630dd",
+      "source_dimensions": [
+        1254,
+        1254
+      ],
+      "region_px": [
+        0,
+        0,
+        1254,
+        1254
+      ],
+      "original": "/workspace/generated_images/exec-d8459e02-4e86-48ed-bfb1-68e8c38c17d0.png",
+      "pixel_world_density": 2.0,
+      "processing": "unaltered bytes; PIL used to inspect size/alpha only, no image edits"
+    }
+  },
+  "source_derivation": {
+    "model": "unknown",
+    "commercial_license_status": "unknown",
+    "note": "No placeholder painting is admitted. Runtime explicitly omits landform art until actual source PNGs and hashes are bound."
+  },
+  "structural_assets": {
+    "rock_vault": {
+      "texture": "res://assets/visual_development/p1_landform/rock_vault_structure.png",
+      "source_sha256": "91bf8e6d103bf2c755a5b08d46b27b7c676188df1586be552a15f5d716ff82e6",
+      "source_dimensions": [
+        1536,
+        1024
+      ],
+      "source_anchor": [
+        840,
+        1000
+      ],
+      "allowed_scale": [
+        0.5,
+        0.5
+      ],
+      "negative_contour_px": [
+        [
+          685,
+          300
+        ],
+        [
+          639,
+          340
+        ],
+        [
+          627,
+          400
+        ],
+        [
+          588,
+          500
+        ],
+        [
+          484,
+          600
+        ],
+        [
+          530,
+          700
+        ],
+        [
+          597,
+          800
+        ],
+        [
+          614,
+          900
+        ],
+        [
+          666,
+          1000
+        ],
+        [
+          1034,
+          1000
+        ],
+        [
+          1077,
+          900
+        ],
+        [
+          1111,
+          800
+        ],
+        [
+          1154,
+          700
+        ],
+        [
+          1144,
+          600
+        ],
+        [
+          1105,
+          500
+        ],
+        [
+          997,
+          400
+        ],
+        [
+          970,
+          340
+        ],
+        [
+          895,
+          300
+        ]
+      ],
+      "source_outline_px": [
+        [
+          550,
+          20
+        ],
+        [
+          484,
+          40
+        ],
+        [
+          402,
+          80
+        ],
+        [
+          258,
+          120
+        ],
+        [
+          93,
+          180
+        ],
+        [
+          30,
+          240
+        ],
+        [
+          23,
+          300
+        ],
+        [
+          45,
+          400
+        ],
+        [
+          22,
+          500
+        ],
+        [
+          12,
+          600
+        ],
+        [
+          26,
+          700
+        ],
+        [
+          5,
+          800
+        ],
+        [
+          16,
+          900
+        ],
+        [
+          11,
+          1000
+        ],
+        [
+          1526,
+          1000
+        ],
+        [
+          1520,
+          900
+        ],
+        [
+          1530,
+          800
+        ],
+        [
+          1520,
+          700
+        ],
+        [
+          1523,
+          600
+        ],
+        [
+          1508,
+          500
+        ],
+        [
+          1517,
+          400
+        ],
+        [
+          1483,
+          300
+        ],
+        [
+          1356,
+          240
+        ],
+        [
+          1190,
+          180
+        ],
+        [
+          1179,
+          120
+        ],
+        [
+          930,
+          80
+        ],
+        [
+          729,
+          40
+        ],
+        [
+          659,
+          20
+        ]
+      ],
+      "bottom_connections_px": [
+        [
+          20,
+          990
+        ],
+        [
+          1520,
+          990
+        ]
+      ],
+      "source_registration": "Measured alpha<16 longest inner runs at listed rows; logical conservative daylight core, not a physical collision outline. Outer>=200 sampled envelope. No image editing. Exact uniform2px/world; no warp.",
+      "purpose": "Reusable rock-vault structure with painted crown, inner turning planes and supported piers. No scenery, actors, UI or playable surfaces.",
+      "original": "/workspace/generated_images/exec-2291b237-86b2-4e2d-bc95-681c4b115fb5.png"
+    }
+  },
+  "rear_projection": {
+    "contrast": 0.55,
+    "saturation": 0.85,
+    "mist": 0.08
+  }
+}

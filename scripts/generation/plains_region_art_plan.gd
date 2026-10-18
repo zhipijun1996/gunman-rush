@@ -3,7 +3,7 @@ extends RefCounted
 ## Candidate-only companion to the actual complete formal region Manifest.
 ## Physics, content, resources and replay remain owned by the formal generator.
 const VERSION := "plains-regional-art-v2"
-const JOINT_VERSION := "plains-regional-art-v3-joint-recoil"
+const JOINT_VERSION := "plains-regional-art-v4-environment-program"
 const ASSET_CATALOG := "res://resources/visual_development/p1_regional_assets.json"
 const ATTEMPTS := 4
 const MAX_WORLD_WIDTH := 22000.0
@@ -56,13 +56,27 @@ static func compile(manifest: Dictionary) -> Dictionary:
 				joint_modules.append(PlainsJointRecoilPlan.instantiate(node))
 		if joint_modules.size()!=1 or str(joint_modules[0].node_id).begins_with("tutorial"): return {"ok":false,"error":"Joint experiment requires exactly one actual non-tutorial recoil challenge"}
 		for joint: Dictionary in joint_modules:
+			for piece: Dictionary in joint.get("structural_pieces",[]):
+				if not piece.get("placement_feasible",false):return {"ok":false,"error":"Painted vault has no legal common bank interface"}
+				for connection: Dictionary in piece.connection_interfaces:
+					if not connection.get("valid",false):return {"ok":false,"error":"Painted vault support foot does not intersect its actual owned creek mass"}
 			for body: Dictionary in joint.terrain_bodies:
 				var polygon:=PackedVector2Array()
 				for point: Array in body.points: polygon.append(_point(point))
 				for space: Dictionary in joint.region_context.get("protected_actual_airspace",[]):
 					var r:=_rect(space.rect)
 					var obstacle:=PackedVector2Array([r.position,Vector2(r.end.x,r.position.y),r.end,Vector2(r.position.x,r.end.y)])
-					if not Geometry2D.intersect_polygons(polygon,obstacle).is_empty(): return {"ok":false,"error":"Joint receiving source intersects actual protected movement: "+str(space.owner)}
+					var intrusion: Array[PackedVector2Array]=Geometry2D.intersect_polygons(polygon,obstacle)
+					# The old dock may legitimately touch its existing ferry/actor
+					# clearance envelope. Protect ALL newly occupied air, preserving
+					# only the exact already-owned original static contact domains.
+					for domain: Dictionary in joint.region_context.get("original_owned_static_domains",[]):
+						var old_rect:=_rect(domain.rect)
+						var old_polygon:=PackedVector2Array([old_rect.position,Vector2(old_rect.end.x,old_rect.position.y),old_rect.end,Vector2(old_rect.position.x,old_rect.end.y)])
+						var remaining: Array[PackedVector2Array]=[]
+						for piece: PackedVector2Array in intrusion:remaining.append_array(Geometry2D.clip_polygons(piece,old_polygon))
+						intrusion=remaining
+					if not intrusion.is_empty(): return {"ok":false,"error":"Joint environment introduces solid into protected movement: "+str(space.owner)+" kind="+str(space.get("kind",""))+" source_role="+str(body.get("source_role",""))}
 	var values: Array = manifest.get("world_bounds",[])
 	if values.size()!=4: return {"ok":false,"error":"Missing formal full-region bounds"}
 	var bounds := _rect(values)
@@ -147,7 +161,16 @@ static func compile(manifest: Dictionary) -> Dictionary:
 	var belts := _global_belts(manifest,bounds)
 	var topology := {"family":manifest.family,"recipe":manifest.topology.recipe,"areas":manifest.areas.duplicate(true),"connections":manifest.connections.duplicate(true),"cycle_count":manifest.connections.size()-manifest.areas.size()+1,"semantic_routes":manifest.topology.semantic_routes.duplicate(true),"signature":topology_signature(manifest)}
 	var plan := {"version":JOINT_VERSION if not joint_modules.is_empty() else VERSION,"schema_version":1,"seed":manifest.seed,"manifest_hash":manifest.manifest_hash,"production_pool":false,"layout_source":"formal_full_region","assets_catalog":ASSET_CATALOG,"assets_catalog_sha256":asset_result.catalog_sha256,"bounds":values.duplicate(),"topology":topology,"solids":solids,"one_way_platforms":one_way,"terrain_edges":contours,"geological_bodies":geological_bodies,"surfaces":surfaces,"dynamic_surfaces":dynamic_surfaces,"keep_clear":keep_clear,"places":places,"landmarks":landmarks,"layer_belts":belts,"global_art":{"world_origin":[0.0,0.0],"light_direction":[-0.7,-0.5],"wind_direction":[-1.0,0.0],"material_coordinate_space":"world","camera_reference":"one_continuous_player_camera","background_policy":"global_belts_not_per_place_reset"},"metrics":{"source_solid_rectangles":solids.size(),"exposed_contour_edges":contours.size(),"actual_surfaces":surfaces.size(),"continuous_bodies":geological_bodies.size(),"union_area":actual_area,"places":places.size(),"landmarks":landmarks.size()}}
-	if not joint_modules.is_empty(): plan.joint_modules=joint_modules
+	if not joint_modules.is_empty():
+		plan.joint_modules=joint_modules
+		plan.environment_coverage=manifest.get("environment_coverage",{}).duplicate(true)
+		plan.environment_world=manifest.get("environment_world",{}).duplicate(true)
+		plan.production_method="environment_program_before_platform_projection_with_legacy_remainder"
+		plan.rear_walls=[];plan.rear_openings=[];plan.support_relations=[]
+		for joint: Dictionary in joint_modules:
+			plan.rear_walls.append_array(joint.rear_walls)
+			plan.rear_openings.append_array(joint.rear_openings)
+			plan.support_relations.append_array(joint.support_relations)
 	plan.plan_hash = plan_hash(plan)
 	return {"ok":true,"plan":plan}
 
