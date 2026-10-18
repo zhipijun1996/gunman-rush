@@ -1,0 +1,70 @@
+{
+  "scope": "offline raw only, no new execution/design admission",
+  "facts": [
+    {
+      "case": "01",
+      "assertions": 18,
+      "summary": [
+        {
+          "attack_tick": -1.0,
+          "boss_hp": 24.0,
+          "energy": 100.0,
+          "id": "twin_port",
+          "initial_boss_hp": 24.0,
+          "initial_energy": 100.0,
+          "initial_player_hp": 5.0,
+          "lower_arrival": -1.0,
+          "lower_exit": -1.0,
+          "player_hp": 5.0,
+          "right_support_tick": -1.0,
+          "route_ok": false,
+          "scope": "stage1_only_spatial_roundtrip_not_full_boss",
+          "support12": 0.0,
+          "ticks": 163.0,
+          "upper_arrival": -1.0,
+          "upper_exit": -1.0
+        }
+      ],
+      "failures": [
+        "twin_port/actual upper H full-body passage, kick and natural exit",
+        "twin_port/real normal projectile damages moving Queen only after entering other chamber",
+        "twin_port/actual lower reverse H passage after the real attack",
+        "twin_port/normal return to unchanged wide low shore12 alive"
+      ],
+      "raw_sha256": "62c65801f1d45497ecbb6749d12696935e2d8d7fd033d1370364cc4ba725af0e",
+      "scope": "experimental_twin_port_stage1_only_no_full_boss_admission"
+    },
+    {
+      "case": "02",
+      "assertions": 19,
+      "summary": [
+        {
+          "attack_tick": 154.0,
+          "boss_hp": 23.0,
+          "energy": 100.0,
+          "id": "twin_port",
+          "initial_boss_hp": 24.0,
+          "initial_energy": 100.0,
+          "initial_player_hp": 5.0,
+          "lower_arrival": -1.0,
+          "lower_exit": -1.0,
+          "player_hp": 5.0,
+          "right_support_tick": 225.0,
+          "route_ok": false,
+          "scope": "stage1_only_spatial_roundtrip_not_full_boss",
+          "support12": 0.0,
+          "ticks": 362.0,
+          "upper_arrival": 137.0,
+          "upper_exit": 153.0
+        }
+      ],
+      "failures": [
+        "twin_port/actual lower reverse H passage after the real attack",
+        "twin_port/normal return to unchanged wide low shore12 alive"
+      ],
+      "raw_sha256": "630f12f305ae81347a4631ff20dcf33310b0994193d7250a425fb50e5fcf70b3",
+      "scope": "experimental_twin_port_stage1_only_no_full_boss_admission"
+    }
+  ],
+  "interpretation": "01 head contact is not body passage;02 upper passage/one projectile/rightbank12 are partial facts, not lower return/fullfight. Queen688460 still lower hole, no exclusive shooting-angle assertion. No third driver revision authorized."
+}

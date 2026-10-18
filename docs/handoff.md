@@ -1,5 +1,8 @@
 # FOREST-DEPTH-02：实现与验证交接
 
+当前交付边界：[Twin01–02停止档案](evidence/forest_depth_v2/twin_port_rejected01/README.md)。真实上H／一弹／右岸12只属局部进展，两整段仍FAIL；独审DROP且不做第三驾驶修。生产Boss几何未改，实验fixture／CLI已恢复e840，runner／UID已封后删除。本轮有实据淘汰，尚未填平QueenH核心、随机探索与密度缺口；仍是可玩候选／整体REVISE，非商业完成。最终同源CI／Web／浏览器／HTTPS及真人设备认可仍待，不标done；原电影仅可按0cf游戏字节绑定复用，不冒新片。
+
+
 最新探索取舍：[root11入口v11退休档案](evidence/forest_depth_v2/root11_entry_rejected01/README.md)。四路线JSON／原生PASS及兼容126/0保留；新growth比旧W多527帧且末少1HP，自动拾心并非主动claim，冠路短327帧不等于整体探索改进。root据独审决定DROP此扩展，六源已精确恢复6b132007，默认仍v10。新女王双洞黄金另行准备，整体REVISE／未商业完成，不关闭whole任务。
 
 
