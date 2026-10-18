@@ -27,7 +27,9 @@ bindings = {
     'plains-environment-candidate-linux-x86_64': 'plains-regional-candidate-linux-x86_64',
     'Failed whole-environment art candidate (REWORK), golden not admitted; local manual review only, not formal release or artistic/user/device acceptance': 'Experimental complete randomized region; local manual review only, not golden, formal release, user preference, commercial or device acceptance',
     '风铃平原整体环境失败候选评审': '风铃平原完整随机区域候选评审',
-    '完整空间艺术独审结论为REWORK，黄金未准入；本轮已停止当前端肩接法，没有扩不同结构或多Seed。这是原样失败候选手动试玩': '这是完整正式拓扑上的联合美术候选，艺术黄金未准入；默认regional-art-01，可加--seed=regional-art-02。真实整区路线与艺术独审另见本轮报告。本包是同冻结源的手动试玩',
+    '完整空间艺术独审结论为REWORK，黄金未准入；本轮已停止当前端肩接法，没有扩不同结构或多Seed。这是原样失败候选手动试玩': '这是完整正式探索拓扑的第一张大地图（原HUD Map1/2），艺术黄金未准入；默认regional-art-01，可加--seed=' + ('regional-art-01' if smoke_seed == 'regional-art-02' else 'regional-art-02') + '切换另一预登记Seed。真实路线与艺术独审另见本轮报告。本包是同冻结运行源的手动试玩',
+    "'art_verdict': 'REWORK'": "'art_verdict': 'REJECT'",
+    '非正式发布、完整地区、艺术定稿或设备认可': '非正式发布，不代表两图campaign通关、Boss击败、艺术定稿、真人或设备认可',
     '游戏资产沿原项目来源，不新增商店发布授权': '新图像模型与商用许可未知，保留源与派生记录，不声称获得商店发行授权',
 }
 for old,new in bindings.items():

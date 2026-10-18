@@ -1,3 +1,9 @@
+# 当前隔离实验：完整随机区域与同源地貌
+
+当前`46c3c099`/计划v2显式regional art候选（旧首片仍是e450/v1）复用下方正式整区链，profile在嵌入前预算空间，伴随计划消费真正拓扑、碰撞支撑、地貌边界、空腔、景层和附件；默认生成无profile保持原件一致。当前两种地貌制作方法均艺术REJECT，并非正式池升级或成熟自动美术。真实全图、动作、失败和下一关键实验见[报告](quality/plains_regional.md)，最小执行入口见[范例](evidence/plains_regional/recipe.md)。PR85场所链仅保留局部语义，不是完整区域。下方为正式生成能力及历史按需说明。
+
+---
+
 # 最新收口：平原可玩候选，完整品质目标未完成
 
 2026-10-15；独立分支 `feature/plains-designed-exploration`，[草稿PR67](https://github.com/zhipijun1996/gunman-rush/pull/67)依赖PR66，未合并main、未发布。C4运行/观察冻结 `a39ea373105c24b09c59b9d51b7c440440bc0a17`；最后提交只收口文档、知识、质量元数据和证据，不冒充全局fresh原生检查。

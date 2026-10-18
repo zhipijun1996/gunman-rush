@@ -33,3 +33,12 @@ The empty pale upper field now contains an actual painted sky; the old floating 
 The critical replacement experiment is to derive walkable edges and route embedding *within a deliberately structured regional mass-and-void field*, then assign constrained challenge phrases to those edges. Existing full graph can supply exploration relations; its row/column coordinates need not remain the immutable shape of the world. A grounded ridge with a crossable cut and an actual traversable side/underpass would discriminate this from yet another shelf reskin. Its feasible terrain/structure family must be designed together with that field and tested at normal camera and whole-map scale before any full-region expansion.
 
 This is an identified missing production capability, not a recommendation to discard original Motor/resources/save or modify forest. P1 style approval remains with user. Source-bound route movies may establish real full-region technical playability, but they should be labelled failed-art candidate evidence if these defects remain. Formal pool, whole-region golden, stable high-quality random art and market/user/device approval are all **not granted**.
+
+## Same method, second topology checked
+
+Also opened actual original1280×720 second-Seed normal start and world overview:
+
+- `docs/evidence/plains_regional/frames/method2_seed02_normal_start.png`, SHA256`99b2feaf7aa5ccf9d3f4cef165a492222fbfbef5d89b8f347ea86962e6850c56`.
+- `docs/evidence/plains_regional/frames/method2_seed02_actual_world_overview.png`, SHA256`ca81422438b07f5e2c296542139d29b0d9176aa11fa21c17256ff97591a80197`.
+
+The changed layout is real, but its grass-topped masses remain vertical columns with repetitive core and orthogonal gaps. The normal-camera background is substantially occluded by a large low-contrast wall band, making the open-air plains character inconsistent between Seeds. This reinforces the regional composition/embedding rejection rather than establishing style variation. No route or movie claim added by these two stills.

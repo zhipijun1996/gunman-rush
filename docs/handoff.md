@@ -1,3 +1,15 @@
+# 当前交接：完整随机区域技术已接通，区域艺术两种方法均失败
+
+PR85/148d9251基线，分支`feature/plains-regional-synthesis`；当前运行冻结`46c3c0993b2ea69293f60161a1c2a95cc6677942`，计划v2；历史首片仍为e450/v1。先看[实际结果与边界](quality/plains_regional.md)、[整区作品](evidence/plains_regional/gallery.html)、[独审](evidence/plains_regional/independent-native-02.md)、[最小恢复入口](evidence/plains_regional/recipe.md)。首片208.25秒已恢复原始录像，但保留v1缺失完整脚距保护的失败；5cb第二片发现该回归后中止，原件保留失败。v2已恢复实际四脚/真实碰撞守门，第二片已完成15631帧/260.516667秒、17/17节点、干净退出，精确源46c；精确46c Linux评审包build ac57d1be87f8已完成空cwd headless/GUI与CRC验证，见[交付](evidence/plains_regional/delivery/README.md)。艺术仍拒绝，非正式发布。
+
+新显式候选真正复用正式完整探索拓扑/Assembler/奖励/商店/敌人/Boss，不是场所重排。6Seed有5个真实无标签非同构连通类；193原生合同含默认6Manifest与PR85原件完全相同；52项实际节点正反例验证脚距守门。51项冻结Python检查另有不同作者独立复跑。两个不同拓扑区域已实际17/17落地访问；headless路线通过不签商业美术、真人和设备。
+
+薄裙边合并法与深岩体减路线空腔法两次实机艺术REJECT。当前主要失败是行列布局先定、填土后补，形成规则货架/岩柱；停止局部圆角/纹理/装饰修补和扩正式池。下一不同实验需要联合地貌场与路线嵌入，尚未完成。核心契约、森林生产和存档未写；无正式发布。短“制作风铃平原美术”绑定整区候选和RETHINK，明确局部任务才走旧场所链。下方按需历史。
+
+原level-design-contracts在CPU空闲/全仓写入冻结下仍按原60秒超时，完整docs/CI/Web未通过；不改历史断言/超时。额外包内Seed01 headless已实测，非完整PCK路线。手动入口：`bash tools/godot.sh --path . --script res://tools/plains_regional_art_preview.gd -- --seed=regional-art-02`。
+
+---
+
 # 当前交接：同源场所联合推导已实施，整体艺术未突破
 
 独立分支`feature/plains-joint-place-synthesis`，母PR84/f8dead08；实际运行、两条正常影片和最新PCK冻结`f959e4a9`，后续Skills/证据提交不重标电影。先看[实际作品与边界](quality/plains_joint.md)、[画面/电影](evidence/plains_joint/gallery.html)、[最弱帧与独审](evidence/plains_joint/independent-seeds.md)、[当前制作范例](evidence/plains_joint/recipe.md)。

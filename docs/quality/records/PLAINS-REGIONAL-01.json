@@ -2,10 +2,10 @@
   "schema_version": 1,
   "task_id": "PLAINS-REGIONAL-01",
   "task_type": "region",
-  "workflow": "in_progress",
+  "workflow": "blocked",
   "baseline_commit": "148d9251da2a457944213ba73b082525edf5e729",
-  "reviewed_commit": "148d9251da2a457944213ba73b082525edf5e729",
-  "content_version": "plains-regional-art-v1",
+  "reviewed_commit": "46c3c0993b2ea69293f60161a1c2a95cc6677942",
+  "content_version": "plains-regional-art-v2",
   "owner": "root",
   "purpose": "Generate one complete contiguous randomized Plains region from the actual formal topology, joint terrain and art plan; test against real whole-region Godot evidence.",
   "player_experience": "Explore connected main/alternate/cyclic routes and real rewards, merchant, hazards and Boss entrance inside one coherent landscape.",
@@ -13,12 +13,218 @@
     "Candidate-only opt-in; no formal art pool admission.",
     "Preserve core Motor, weapons, abilities, RNG implementation, resources and save contracts.",
     "No forest production writes.",
-    "First failed union-and-material method archived; next method must change actual landmass production, not add decoration.",
+    "Both materially different landform methods rejected by actual independent art review; stop expansion and local texture/rounding/decor retries.",
     "Small preregistered six-Seed corpus; first two genuinely nonisomorphic graphs used for full-region actual evidence. AI art review cannot sign user preference."
   ],
-  "affected_paths": [],
-  "deliverables": [],
-  "creative_decisions": [],
+  "affected_paths": [
+    ".agents/skills/region-generator/SKILL.md",
+    ".agents/skills/scene-composer/SKILL.md",
+    ".agents/skills/visual-director/SKILL.md",
+    "assets/visual_development/p1_regional/geological_volume.png",
+    "assets/visual_development/p1_regional/geological_volume.png.import",
+    "assets/visual_development/p1_regional/geological_volume.prompt.txt",
+    "assets/visual_development/p1_regional/geological_volume.record.json",
+    "docs/current_state.md",
+    "docs/evidence/plains_regional/checkpoint.json",
+    "docs/evidence/plains_regional/delivery/README.md",
+    "docs/evidence/plains_regional/delivery/README.txt",
+    "docs/evidence/plains_regional/delivery/actual_packed_gui.png",
+    "docs/evidence/plains_regional/delivery/alternate_seed01.json",
+    "docs/evidence/plains_regional/delivery/alternate_seed01.log",
+    "docs/evidence/plains_regional/delivery/alternate_seed01_process.log",
+    "docs/evidence/plains_regional/delivery/build_receipt.json",
+    "docs/evidence/plains_regional/delivery/download.json",
+    "docs/evidence/plains_regional/delivery/pack_inputs.json",
+    "docs/evidence/plains_regional/delivery/pack_sources.gd",
+    "docs/evidence/plains_regional/delivery/package_logs.tar.gz",
+    "docs/evidence/plains_regional/delivery/play.sh",
+    "docs/evidence/plains_regional/delivery/producer.py",
+    "docs/evidence/plains_regional/delivery/review_smoke.gd",
+    "docs/evidence/plains_regional/delivery/version.json",
+    "docs/evidence/plains_regional/failed-method-01-source.json",
+    "docs/evidence/plains_regional/failed-method-01-source.tar.gz",
+    "docs/evidence/plains_regional/frames/film01_bindings.json",
+    "docs/evidence/plains_regional/frames/film01_video_frame_000000.png",
+    "docs/evidence/plains_regional/frames/film01_video_frame_000600.png",
+    "docs/evidence/plains_regional/frames/film01_video_frame_001200.png",
+    "docs/evidence/plains_regional/frames/film01_video_frame_001800.png",
+    "docs/evidence/plains_regional/frames/film01_video_frame_002400.png",
+    "docs/evidence/plains_regional/frames/film01_video_frame_003000.png",
+    "docs/evidence/plains_regional/frames/film01_video_frame_003600.png",
+    "docs/evidence/plains_regional/frames/film01_video_frame_004200.png",
+    "docs/evidence/plains_regional/frames/film01_video_frame_004800.png",
+    "docs/evidence/plains_regional/frames/film01_video_frame_005400.png",
+    "docs/evidence/plains_regional/frames/film01_video_frame_006000.png",
+    "docs/evidence/plains_regional/frames/film01_video_frame_006600.png",
+    "docs/evidence/plains_regional/frames/film01_video_frame_007200.png",
+    "docs/evidence/plains_regional/frames/film01_video_frame_007800.png",
+    "docs/evidence/plains_regional/frames/film01_video_frame_008400.png",
+    "docs/evidence/plains_regional/frames/film01_video_frame_009000.png",
+    "docs/evidence/plains_regional/frames/film01_video_frame_009600.png",
+    "docs/evidence/plains_regional/frames/film01_video_frame_010200.png",
+    "docs/evidence/plains_regional/frames/film01_video_frame_010800.png",
+    "docs/evidence/plains_regional/frames/film01_video_frame_011400.png",
+    "docs/evidence/plains_regional/frames/film01_video_frame_012000.png",
+    "docs/evidence/plains_regional/frames/film01_video_frame_012494.png",
+    "docs/evidence/plains_regional/frames/film02_bindings.json",
+    "docs/evidence/plains_regional/frames/film02_video_frame_000000.png",
+    "docs/evidence/plains_regional/frames/film02_video_frame_000600.png",
+    "docs/evidence/plains_regional/frames/film02_video_frame_001200.png",
+    "docs/evidence/plains_regional/frames/film02_video_frame_001800.png",
+    "docs/evidence/plains_regional/frames/film02_video_frame_002400.png",
+    "docs/evidence/plains_regional/frames/film02_video_frame_003000.png",
+    "docs/evidence/plains_regional/frames/film02_video_frame_003600.png",
+    "docs/evidence/plains_regional/frames/film02_video_frame_004200.png",
+    "docs/evidence/plains_regional/frames/film02_video_frame_004800.png",
+    "docs/evidence/plains_regional/frames/film02_video_frame_005400.png",
+    "docs/evidence/plains_regional/frames/film02_video_frame_006000.png",
+    "docs/evidence/plains_regional/frames/film02_video_frame_006600.png",
+    "docs/evidence/plains_regional/frames/film02_video_frame_007200.png",
+    "docs/evidence/plains_regional/frames/film02_video_frame_007800.png",
+    "docs/evidence/plains_regional/frames/film02_video_frame_008400.png",
+    "docs/evidence/plains_regional/frames/film02_video_frame_009000.png",
+    "docs/evidence/plains_regional/frames/film02_video_frame_009600.png",
+    "docs/evidence/plains_regional/frames/film02_video_frame_010200.png",
+    "docs/evidence/plains_regional/frames/film02_video_frame_010800.png",
+    "docs/evidence/plains_regional/frames/film02_video_frame_011400.png",
+    "docs/evidence/plains_regional/frames/film02_video_frame_012000.png",
+    "docs/evidence/plains_regional/frames/film02_video_frame_012600.png",
+    "docs/evidence/plains_regional/frames/film02_video_frame_013200.png",
+    "docs/evidence/plains_regional/frames/film02_video_frame_013800.png",
+    "docs/evidence/plains_regional/frames/film02_video_frame_014400.png",
+    "docs/evidence/plains_regional/frames/film02_video_frame_015000.png",
+    "docs/evidence/plains_regional/frames/film02_video_frame_015600.png",
+    "docs/evidence/plains_regional/frames/film02_video_frame_015630.png",
+    "docs/evidence/plains_regional/frames/guarded_seed01_actual_world_overview.png",
+    "docs/evidence/plains_regional/frames/guarded_seed01_constraints.svg",
+    "docs/evidence/plains_regional/frames/guarded_seed01_normal_start.png",
+    "docs/evidence/plains_regional/frames/guarded_seed02_actual_world_overview.png",
+    "docs/evidence/plains_regional/frames/guarded_seed02_constraints.svg",
+    "docs/evidence/plains_regional/frames/guarded_seed02_normal_start.png",
+    "docs/evidence/plains_regional/frames/method1_seed01_actual_world_overview.png",
+    "docs/evidence/plains_regional/frames/method1_seed01_normal_start.png",
+    "docs/evidence/plains_regional/frames/method1_seed02_actual_world_overview.png",
+    "docs/evidence/plains_regional/frames/method1_seed02_normal_start.png",
+    "docs/evidence/plains_regional/frames/method2_seed01_actual_world_overview.png",
+    "docs/evidence/plains_regional/frames/method2_seed01_normal_start.png",
+    "docs/evidence/plains_regional/frames/method2_seed02_actual_world_overview.png",
+    "docs/evidence/plains_regional/frames/method2_seed02_normal_start.png",
+    "docs/evidence/plains_regional/frames/seed01_constraints.svg",
+    "docs/evidence/plains_regional/frames/seed02_constraints.svg",
+    "docs/evidence/plains_regional/gallery.html",
+    "docs/evidence/plains_regional/independent-foundation-failure.md",
+    "docs/evidence/plains_regional/independent-foundation-fix.md",
+    "docs/evidence/plains_regional/independent-native-01.md",
+    "docs/evidence/plains_regional/independent-native-02.md",
+    "docs/evidence/plains_regional/independent-projection-limit.md",
+    "docs/evidence/plains_regional/independent-seed02.md",
+    "docs/evidence/plains_regional/independent-seeds.md",
+    "docs/evidence/plains_regional/independent-source-01.md",
+    "docs/evidence/plains_regional/independent-tooling-final.md",
+    "docs/evidence/plains_regional/independent-tooling-fix.md",
+    "docs/evidence/plains_regional/independent-tooling.md",
+    "docs/evidence/plains_regional/recipe.md",
+    "docs/evidence/plains_regional/records/cancelled_full_02/cancelled.json",
+    "docs/evidence/plains_regional/records/cancelled_full_02/capture.log",
+    "docs/evidence/plains_regional/records/cancelled_full_02/display.log",
+    "docs/evidence/plains_regional/records/cancelled_full_02/index.json",
+    "docs/evidence/plains_regional/records/cancelled_full_02/visual_capture.json",
+    "docs/evidence/plains_regional/records/costs.json",
+    "docs/evidence/plains_regional/records/development-index.json",
+    "docs/evidence/plains_regional/records/docs_contract_retry/level-design-contracts.log",
+    "docs/evidence/plains_regional/records/docs_contract_retry/report.json",
+    "docs/evidence/plains_regional/records/docs_contract_retry/wrapper.log",
+    "docs/evidence/plains_regional/records/final_native/20261018T113649Z.tar.gz",
+    "docs/evidence/plains_regional/records/final_native/contract_actual.json",
+    "docs/evidence/plains_regional/records/final_native/contract_report.json",
+    "docs/evidence/plains_regional/records/final_native/foundation_actual.json",
+    "docs/evidence/plains_regional/records/final_native/foundation_final_46c.tar.gz",
+    "docs/evidence/plains_regional/records/final_native/foundation_report.json",
+    "docs/evidence/plains_regional/records/foundation-and-frozen-preflight-index.json",
+    "docs/evidence/plains_regional/records/foundation-and-frozen-preflight-records.tar.gz",
+    "docs/evidence/plains_regional/records/frozen_overview_01/receipt.json",
+    "docs/evidence/plains_regional/records/frozen_overview_02/receipt.json",
+    "docs/evidence/plains_regional/records/full_01/adapter_source.py",
+    "docs/evidence/plains_regional/records/full_01/encode.log",
+    "docs/evidence/plains_regional/records/full_01/extract.log",
+    "docs/evidence/plains_regional/records/full_01/original_failed/capture.log",
+    "docs/evidence/plains_regional/records/full_01/original_failed/visual_capture.json",
+    "docs/evidence/plains_regional/records/full_01/original_native.tar.gz",
+    "docs/evidence/plains_regional/records/full_01/visual_capture.json",
+    "docs/evidence/plains_regional/records/full_02_guarded/capture.log",
+    "docs/evidence/plains_regional/records/full_02_guarded/display.log",
+    "docs/evidence/plains_regional/records/full_02_guarded/encode.log",
+    "docs/evidence/plains_regional/records/full_02_guarded/extract.log",
+    "docs/evidence/plains_regional/records/full_02_guarded/native_capture.tar.gz",
+    "docs/evidence/plains_regional/records/full_02_guarded/visual_capture.json",
+    "docs/evidence/plains_regional/records/method2_overview_01/receipt.json",
+    "docs/evidence/plains_regional/records/method2_overview_02/receipt.json",
+    "docs/evidence/plains_regional/records/native-development-records.tar.gz",
+    "docs/evidence/plains_regional/records/overview_01/receipt.json",
+    "docs/evidence/plains_regional/records/overview_02/receipt.json",
+    "docs/evidence/plains_regional/records/runtime-version-bridge.json",
+    "docs/evidence/plains_regional/records/tool_checks_46c3c099/0.log",
+    "docs/evidence/plains_regional/records/tool_checks_46c3c099/1.log",
+    "docs/evidence/plains_regional/records/tool_checks_46c3c099/2.log",
+    "docs/evidence/plains_regional/records/tool_checks_46c3c099/3.log",
+    "docs/evidence/plains_regional/records/tool_checks_46c3c099/report.json",
+    "docs/evidence/plains_regional/records/tool_checks_frozen/0.log",
+    "docs/evidence/plains_regional/records/tool_checks_frozen/1.log",
+    "docs/evidence/plains_regional/records/tool_checks_frozen/2.log",
+    "docs/evidence/plains_regional/records/tool_checks_frozen/3.log",
+    "docs/evidence/plains_regional/records/tool_checks_frozen/report.json",
+    "docs/generation_current.md",
+    "docs/handoff.md",
+    "docs/harness.md",
+    "docs/quality/asset_records/plains-regional-volume.json",
+    "docs/quality/plains_regional.md",
+    "docs/quality/records/PLAINS-REGIONAL-01.json",
+    "docs/tasks.md",
+    "resources/visual_development/p1_regional_assets.json",
+    "scripts/art/plains_regional_composer.gd",
+    "scripts/art/plains_regional_composer.gd.uid",
+    "scripts/demo/demo_app.gd",
+    "scripts/demo/plains_region_stage.gd",
+    "scripts/generation/plains_region_art_plan.gd",
+    "scripts/generation/plains_region_art_plan.gd.uid",
+    "scripts/generation/plains_region_generator.gd",
+    "shaders/plains_regional_ground.gdshader",
+    "shaders/plains_regional_ground.gdshader.uid",
+    "tests/plains_regional_art_capture_test.py",
+    "tests/plains_regional_art_foundation_runner.gd",
+    "tests/plains_regional_art_foundation_runner.gd.uid",
+    "tests/plains_regional_art_graph_test.py",
+    "tests/plains_regional_art_plan_runner.gd",
+    "tests/plains_regional_art_plan_runner.gd.uid",
+    "tests/plains_regional_art_trace.gd",
+    "tests/plains_regional_art_trace.gd.uid",
+    "tests/test_level_design_routing.py",
+    "tools/harness/profiles.json",
+    "tools/level_design.py",
+    "tools/plains_regional_art_capture.gd",
+    "tools/plains_regional_art_capture.gd.uid",
+    "tools/plains_regional_art_map.py",
+    "tools/plains_regional_art_overview.gd",
+    "tools/plains_regional_art_overview.gd.uid",
+    "tools/plains_regional_art_preview.gd",
+    "tools/plains_regional_art_preview.gd.uid",
+    "tools/prepare_plains_regional_review.py",
+    "tools/run_plains_regional_art_tests.py",
+    "tools/visual_director.py"
+  ],
+  "deliverables": [
+    "Actual isolated formal-region generator/art-plan/consumer implementation and one real painted geological source.",
+    "Two same-Seed normal/whole-map actual development comparisons, two native full-region route traces, preregistered6Seed contract.",
+    "Two complete normal-speed source-bound movies:01 e450/v1 still failed and missing later footguard;02 corrected46c/v2 strict captured. Exact46c Linux review package built and independently headless/GUI booted, no art admission.",
+    "Original failures, independent art rejection and scoped tooling review, actual short-task corrected consumer binding."
+  ],
+  "creative_decisions": [
+    {
+      "status": "proposed",
+      "decision": "P1 remains an experimental preference, never final user artistic approval.",
+      "basis": "User previously preferredP1, then requested whole-environment quality; no approval of this actual regional art."
+    }
+  ],
   "formal_impact": false,
   "gates": {
     "G0": {
@@ -32,9 +238,12 @@
       "evidence": []
     },
     "G2": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "failed",
+      "reason": "Actual native whole-region art rejected, stop current production method.",
+      "evidence": [
+        "art-review-02",
+        "normal-method2"
+      ]
     },
     "G3": {
       "status": "unverified",
@@ -43,8 +252,11 @@
     },
     "G4": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "Tooling accepted only; overall artistic admission rejected.",
+      "evidence": [
+        "review-tooling",
+        "art-review-02"
+      ]
     },
     "G5": {
       "status": "unverified",
@@ -55,13 +267,17 @@
   "dimensions": {
     "design": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "Joint technical region contract exists but actual natural whole-map design remains unresolved.",
+      "evidence": [
+        "recipe"
+      ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Scoped51 frozen Python cases and different-author rerun passed at46c; actual native foot/route proofs are separately versioned. This does not imply complete CI, art or device acceptance.",
+      "evidence": [
+        "python-frozen"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
@@ -69,9 +285,12 @@
       "evidence": []
     },
     "visual": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "failed",
+      "reason": "Both actual methods retain manufactured columns/shelves/repetition; no golden or expansion admission.",
+      "evidence": [
+        "normal-method2",
+        "art-review-02"
+      ]
     },
     "animation": {
       "status": "unverified",
@@ -94,9 +313,11 @@
       "evidence": []
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Different author accepts only current tooling and restored foundation guard; actual whole-region art REJECT persists, no G2/G4 acceptance.",
+      "evidence": [
+        "review-tooling"
+      ]
     },
     "device": {
       "status": "unverified",
@@ -109,11 +330,127 @@
       "evidence": []
     }
   },
-  "criteria": [],
-  "evidence": [],
+  "criteria": [
+    {
+      "id": "regional-art",
+      "gate": "G2",
+      "dimension": "visual",
+      "scenario": "Actual complete-map normal-camera and diagnostic screens",
+      "method": "Different-author opening actual Godot pixels of two methods",
+      "expected": "Continuous intentional landforms and distinct coherent depth, no repeated columns or scenery reset",
+      "failure": "Actual columns/shelves/mirrored core and parallel layer bands remain",
+      "status": "failed",
+      "reason": "RETHINK macro embedding/landform/asset grammar, not more local dressing",
+      "evidence": [
+        "normal-method2",
+        "art-review-02"
+      ]
+    },
+    {
+      "id": "tool-guard",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "Default full-region versus explicit local routing and malformed real coverage receipts",
+      "method": "51 frozen actual Python cases plus different-author independent rerun",
+      "expected": "Regional consumer for short region task; original strict evidence cannot accept forgeries",
+      "failure": "Finite place capture as region or forged visits/omissions accepted",
+      "status": "passed",
+      "reason": "Actual51 passed at46c, engineering/tooling scope only",
+      "evidence": [
+        "python-frozen",
+        "review-tooling"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "recipe",
+      "path": "docs/evidence/plains_regional/recipe.md",
+      "sha256": "de3c319590a81a015b96ccf8979c9abd3867fd2f083e7d22b7cca8cd623b7eea",
+      "kind": "spec",
+      "producer": "root",
+      "source_commit": "46c3c0993b2ea69293f60161a1c2a95cc6677942",
+      "content_version": "plains-regional-art-v2",
+      "method": "Actual file / archived original producer evidence; scope stated, no user or art acceptance inferred.",
+      "observed": "Actual full formal-region entry and bounded two-method failure, no mature production claim."
+    },
+    {
+      "id": "python-frozen",
+      "path": "docs/evidence/plains_regional/records/tool_checks_46c3c099/report.json",
+      "sha256": "0245661a46339b49c83fca15103a929d6aad6d4d82f2e0463cef4cc8970d480a",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "46c3c0993b2ea69293f60161a1c2a95cc6677942",
+      "content_version": "plains-regional-art-v2",
+      "method": "Actual file / archived original producer evidence; scope stated, no user or art acceptance inferred.",
+      "observed": "51 actual frozen Python cases; before/after actual regional runtime fingerprints equal. No art/player/device/full-CI acceptance.",
+      "command": "20 routing +24 original visual-director +4 capture +3 graph cases; exact argv/logs in report",
+      "exit_code": 0,
+      "environment": "Python3/Linux; no engine"
+    },
+    {
+      "id": "review-tooling",
+      "path": "docs/evidence/plains_regional/independent-tooling-final.md",
+      "sha256": "aa2ce201108994ffd716173242fe7a35fb0cbdd34cfa81498e2ad6398507c02b",
+      "kind": "review",
+      "producer": "regional_review",
+      "source_commit": "46c3c0993b2ea69293f60161a1c2a95cc6677942",
+      "content_version": "plains-regional-art-v2",
+      "method": "Actual file / archived original producer evidence; scope stated, no user or art acceptance inferred.",
+      "observed": "ACCEPT_SCOPED tooling, actual guard admission and old routing-test migration only; art remains REJECT.",
+      "reviewer": "regional_review",
+      "implementers": [
+        "root",
+        "regional_generation",
+        "regional_renderer",
+        "regional_native"
+      ],
+      "independent": true,
+      "independence_basis": "Different read-only agent authored no production code/assets/tests and independently reran51cases; actual preflight receipts inspected.",
+      "verdict": "ACCEPT",
+      "original_verdict": "ACCEPT_SCOPED"
+    },
+    {
+      "id": "art-review-02",
+      "path": "docs/evidence/plains_regional/independent-native-02.md",
+      "sha256": "c22b2deef77b31f8b81bba28ee079baeddac4174fe46c74d038ec8af69b17a0f",
+      "kind": "review",
+      "producer": "regional_review",
+      "source_commit": "148d9251da2a457944213ba73b082525edf5e729",
+      "content_version": "plains-regional-art-v1",
+      "method": "Actual file / archived original producer evidence; scope stated, no user or art acceptance inferred.",
+      "observed": "Actual method2 art REJECT; development source inventories in review, not a frozen movie review.",
+      "reviewer": "regional_review",
+      "implementers": [
+        "root",
+        "regional_generation",
+        "regional_renderer",
+        "regional_native"
+      ],
+      "independent": true,
+      "independence_basis": "Different actual read-only agent opened both real Godot normal and diagnostic images; no production edits.",
+      "verdict": "REJECT"
+    },
+    {
+      "id": "normal-method2",
+      "path": "docs/evidence/plains_regional/frames/method2_seed01_normal_start.png",
+      "sha256": "27b6dabdcbf65485bf493e14e466f79a6b02cf86c865df68a18c7600be8be2b5",
+      "kind": "screenshot",
+      "producer": "regional_native",
+      "source_commit": "148d9251da2a457944213ba73b082525edf5e729",
+      "content_version": "plains-regional-art-v1",
+      "method": "Actual file / archived original producer evidence; scope stated, no user or art acceptance inferred.",
+      "observed": "Actual development normal game camera, not a concept; root and different reviewer rejected art."
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
-    "Full-region art admission failed first actual method; second physical landmass method in progress.",
-    "Visible full-route movies, second method coverage, local playable package, devices and user approval remain pending."
-  ]
+    "Natural whole-region landform/route joint embedding is NOT implemented; current row/column-first mass methods failed actual art.",
+    "Movies differ in source version:01 e450/v1 misses laterfootguard;02 corrected46c/v2 completed. No two corrected-version full movie claim; PCK verification is startup, not full PCK route.",
+    "Commercial art, final user style, arbitrary Seeds, all-edge or Boss combat, actual listening, manual player/device/performance, formal CI/Web release.",
+    "Observed positive generation attempts did not prove naturally rejected candidates then successful reselection.",
+    "Only bounded whole-candidate hard-feasibility rejection exists; no whole-map art soft-constraint optimizer or local landform resynthesis implemented.",
+    "Original level-design-contracts still timed out at unchanged60s after CPU-idle/all-writer-freeze retry. Full docs/CI/Web not passed; no historical repair expansion."
+  ],
+  "test_change_justification": "Different-author independent-tooling.md accepted exact short-region routing expectation migration from place-only to actual regional capture. Existing local/forest/no-generation-authority, source/HP/physical/exit checks retained; added RE THINK and regional/absence-of-place-contract assertions. No deleted valid tests or relaxed runtime guards."
 }

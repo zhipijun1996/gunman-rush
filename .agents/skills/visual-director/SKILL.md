@@ -68,4 +68,6 @@ V3实战检查点：开始昂贵worker前，原production_loop会物化核对所
 
 历史复现按需读取[原始Skill与迁移索引](../../../docs/archive/skill_history/README.md)，不默认加载旧轮授权、PR实录或失败数字。
 
-当前“制作风铃平原美术”等区域短任务默认绑定[完整区域候选](../../../docs/evidence/plains_regional/recipe.md)及真实RETHINK，明确局部/场所请求保留旧入口。检查actual full-region Manifest、非同构Seed、全域地貌/路线/景层诊断、完整正常速度路线与实际消费者；诊断缩放图不冒充正常相机。当前两个制作方法均艺术REJECT，不因100项合同和完整Motor路线通过而扩产。原地质/空腔技术可复用，下一实验需要改宏观地貌与路线生成顺序。route只出计划，艺术任务不自动授权碰撞改动，用户审美/设备认可独立。
+当前“制作风铃平原美术”等区域短任务默认绑定[完整区域候选](../../../docs/evidence/plains_regional/recipe.md)及真实RETHINK，明确局部/场所请求保留旧入口。检查actual full-region Manifest、非同构Seed、全域地貌/路线/景层诊断、完整正常速度路线与实际消费者；诊断缩放图不冒充正常相机。当前两个制作方法均艺术REJECT，不因193项合同和完整Motor路线通过而扩产。原地质/空腔技术可复用，下一实验需要改宏观地貌与路线生成顺序。route只出计划，艺术任务不自动授权碰撞改动，用户审美/设备认可独立。
+
+整区实录暴露了廉价预检缺口：headless路线和另行GUI启动并不验证电影适配器的准入路径。昂贵长片前先用**同一真实MovieWriter入口**做60tick有界采集，核源码/原生退出/实际目录与素材/人物/影音封装；`frame_budget_exhausted`只签采集完整性，不冒充路线通过。区域入口不支持旧visual_sample/layout，非空请求要拒绝；使用实际regional catalog和初末素材/人物SHA，而非伪造旧样板标签。原生已通过而后处理失败时沿原finalize-existing在新目录恢复并保留旧失败，禁止重标源码；首片e450与观察器修复版本之间的实际差异见本轮范例。
