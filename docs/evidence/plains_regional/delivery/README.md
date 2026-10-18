@@ -7,3 +7,5 @@
 生产沿用原严格打包器，本地[adapter原件](producer.py)只绑定区域消费者及准确元数据，未改变PCK字节/素材/原生错误/音频/释放守门。新绘画的工具模型、价格、商用许可未知。原失败、取消AVI与源版本保留。不自动准入正式池，不合main。
 
 附加包内Seed01仅headless启动实测通过：完整计划/Manifest与冻结源一致，61模块/13敌人/4宝箱/真实Boss及v2脚距有效，PCK/ZIP前后SHA不变，见[实际记录](alternate_seed01.json)。默认Seed02才执行包内GUI。原level-design-contracts在CPU空闲、所有仓库写入暂停时仍按原60秒超时；未降低门槛，未再扩历史修复。完整CI/Web未通过。
+
+源码与精选证据已推送[草稿PR86](https://github.com/zhipijun1996/gunman-rush/pull/86)，基于PR85开发树，未合main。大文件草稿附件上传返回HTTP401，未成功上传；空草稿已删除并确认404，见[真实失败](remote_attempt.json)。本地MP4/ZIP路径保留于索引；不要把暂不存在的远端附件当成下载成功。493e704f的Git树证据可携带性检查通过，仅检查证据归属，不是完整CI/艺术/发布门槛通过；GitHub自动CI状态以PR实际结果为准。

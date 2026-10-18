@@ -8,6 +8,8 @@ PR85/148d9251基线，分支`feature/plains-regional-synthesis`；当前运行�
 
 原level-design-contracts在CPU空闲/全仓写入冻结下仍按原60秒超时，完整docs/CI/Web未通过；不改历史断言/超时。额外包内Seed01 headless已实测，非完整PCK路线。手动入口：`bash tools/godot.sh --path . --script res://tools/plains_regional_art_preview.gd -- --seed=regional-art-02`。
 
+[草稿PR86](https://github.com/zhipijun1996/gunman-rush/pull/86)已建立；未合main。大影音/ZIP远端草稿附件上传HTTP401，原本地文件完好，空草稿已清理；下载路径与SHA见delivery。GitHub自动CI未等待全量完成，不签通过。
+
 ---
 
 # 当前：同源场所联合推导已实施，整体艺术未突破
