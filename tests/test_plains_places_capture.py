@@ -3,7 +3,7 @@ import copy
 import re
 import unittest
 import test_visual_director as fixture
-from run_plains_places_tests import numeric_shape
+from run_plains_places_tests import numeric_shape, numeric_local_shape
 
 vd = fixture.vd
 
@@ -23,6 +23,29 @@ class PlainsPlacesCaptureTests(unittest.TestCase):
             broken = copy.deepcopy(row)
             broken['place_instances'][0]['translation'][0] = invalid
             with self.subTest(invalid=invalid), self.assertRaises(ValueError): numeric_shape(broken)
+
+    def test_local_variation_requires_geometry_not_place_order_or_identity(self):
+        row = {'local_terrain': [[[[0, 0], [100, 0], [100, 80], [0, 80]]],
+                                 [[[0, 0], [50, 0], [25, 40]]]]}
+        renamed = copy.deepcopy(row)
+        renamed['local_terrain'].reverse()
+        for place in renamed['local_terrain']:
+            for polygon in place:
+                polygon.reverse()
+                polygon[:] = polygon[1:] + polygon[:1]
+        renamed['place_instances'] = [{'id': 'labels_do_not_count', 'translation': [10000, 20000]}]
+        self.assertEqual(numeric_local_shape(row), numeric_local_shape(renamed))
+        changed = copy.deepcopy(row)
+        changed['local_terrain'][0][0][1][0] += 30
+        self.assertNotEqual(numeric_local_shape(row), numeric_local_shape(changed))
+        for invalid in (float('nan'), True, '100'):
+            broken = copy.deepcopy(row)
+            broken['local_terrain'][0][0][1][0] = invalid
+            with self.subTest(invalid=invalid), self.assertRaises(ValueError):
+                numeric_local_shape(broken)
+        for missing in ({}, {'local_terrain': []}, {'local_terrain': [[]]}):
+            with self.subTest(missing=missing), self.assertRaises((ValueError, KeyError)):
+                numeric_local_shape(missing)
 
     def setUp(self):
         fixture.VisualDirectorTests.setUp(self)

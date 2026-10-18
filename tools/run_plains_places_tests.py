@@ -28,6 +28,32 @@ def numeric_shape(row):
     return json.dumps({'translations': translations, 'connections': connections}, sort_keys=True)
 
 
+def numeric_local_shape(row):
+    """Compare actual within-place polygons; disregard world placement and labels."""
+    def number(value):
+        if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value):
+            raise ValueError('Non-finite/non-numeric local terrain coordinate')
+        return round(float(value), 5)
+    places = []
+    for polygons in row['local_terrain']:
+        normalized = []
+        for polygon in polygons:
+            points = [tuple(number(value) for value in point) for point in polygon]
+            if len(points) < 3 or any(len(point) != 2 for point in points):
+                raise ValueError('Local terrain requires actual polygon coordinates')
+            # Start vertex and traversal direction are irrelevant to occupied shape.
+            cycles = [points[i:] + points[:i] for i in range(len(points))]
+            reverse = list(reversed(points))
+            cycles += [reverse[i:] + reverse[:i] for i in range(len(reverse))]
+            normalized.append(min(cycles))
+        if not normalized:
+            raise ValueError('Missing actual local terrain polygons')
+        places.append(sorted(normalized))
+    if not places:
+        raise ValueError('Missing actual local terrain corpus')
+    return json.dumps(sorted(places), sort_keys=True)
+
+
 def main():
     folder = ROOT / 'build/plains_places/contract' / time.strftime('%Y%m%dT%H%M%SZ', time.gmtime())
     folder.mkdir(parents=True, exist_ok=False)
@@ -58,6 +84,12 @@ def main():
                                           'claim': 'Physical arrangement differences only, not art or gameplay variety'}
             if len(shapes) != len(actual['preregistered_seeds']) or len(set(shapes)) < 2:
                 raise RuntimeError('Actual corpus did not prove numeric structural variation')
+            local_shapes = [numeric_local_shape(row) for row in actual['actual']]
+            report['numeric_local_structure'] = {'distinct': len(set(local_shapes)), 'sample_count': len(local_shapes),
+                                                 'projection': 'actual collision polygons minus place translation, normalized vertex order; excludes IDs, phase and place ordering',
+                                                 'claim': 'Within-place physical shape differences only; not art acceptance'}
+            if len(set(local_shapes)) < 2:
+                raise RuntimeError('Actual corpus only rearranged fixed local terrain')
             report['source_before'] = before
             report['source_after'] = source_files()
             if report['source_after'] != before:
