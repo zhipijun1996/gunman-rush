@@ -364,7 +364,13 @@ static func _joint_measurement(prototype: Dictionary, variant_index: int, mutati
 	return {"ok":true,"measurement":m,"joint":{"version":1,"variant_id":variant.id,"geometry_from":"measured_source_polygon","scale_by_body":variant.scales.duplicate(true),"semantic_bindings":true}}
 
 static func _source_world(transform: Dictionary, point: Array) -> Vector2:
-	return Vector2(transform.world_anchor[0],transform.world_anchor[1])+(Vector2(point[0],point[1])-Vector2(transform.source_anchor_px[0],transform.source_anchor_px[1]))*float(transform.uniform_scale)
+	# Source arithmetic stays scalar float64 until the final engine Vector2.
+	# Multiplying a Vector2 by .3 first rounds 1320*.3 to396.0000305,
+	# which makes a genuinely500-unit bridge fail its exact discrete-span guard.
+	var factor := float(transform.uniform_scale)
+	var x := float(transform.world_anchor[0])+(float(point[0])-float(transform.source_anchor_px[0]))*factor
+	var y := float(transform.world_anchor[1])+(float(point[1])-float(transform.source_anchor_px[1]))*factor
+	return Vector2(x,y)
 
 static func _semantic_point(measurement: Dictionary, binding: Dictionary) -> Vector2:
 	var line := _line(measurement,str(binding.get("surface_id","")))

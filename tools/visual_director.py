@@ -335,10 +335,60 @@ def formal_source_projection(inventory):
     return {k:v for k,v in inventory.items() if not k.startswith(runtime_folders) or Path(k).suffix in suffixes}
 
 
+def _validate_place_art_consumers(data, plan):
+    """A completed film/route must not admit missing actual art consumers."""
+    errors = []
+    for key in ('environment_initial_physics', 'environment_final_physics'):
+        snapshot = data.get(key, {})
+        art = snapshot.get('art') if isinstance(snapshot, dict) else None
+        if not isinstance(art, dict) or art.get('omitted') != []:
+            errors.append('places actual art missing/omitted/' + key)
+            continue
+        if not plan.get('joint_synthesis'):
+            continue
+        bodies = plan.get('terrain_instances', [])
+        receipt = art.get('joint_consumer', {})
+        bindings = receipt.get('bindings') if isinstance(receipt, dict) else None
+        if not isinstance(receipt, dict) or receipt.get('version') != plan['joint_synthesis'].get('version'):
+            errors.append('places actual joint consumer version missing/' + key)
+        if not isinstance(bindings, list) or not bodies or len(bindings) != len(bodies) or not all(isinstance(row, dict) for row in bindings):
+            errors.append('places actual joint bindings missing/' + key)
+            continue
+        expected = {body['id']: body for body in bodies}
+        if len({row.get('body_id') for row in bindings}) != len(bodies):
+            errors.append('places actual joint bindings duplicated/' + key)
+        for row in bindings:
+            body = expected.get(row.get('body_id'))
+            error = row.get('max_display_to_collision_error_world')
+            count = row.get('installed_profile_points')
+            if (not body or row.get('solid_id') != body['solid_id'] or row.get('agrees') is not True
+                    or type(error) not in (int, float) or not math.isfinite(error) or error < 0
+                    or error > max(0.0001, float(body.get('uniform_scale', 0)))
+                    or type(count) is not int or count != len(body.get('source_profile_px', []))):
+                errors.append('places actual joint source/collision mismatch/' + key)
+        terrain = art.get('terrain', [])
+        objects = art.get('objects', [])
+        layers = art.get('layers', [])
+        if not isinstance(terrain, list) or not isinstance(objects, list) or not isinstance(layers, list) or not all(isinstance(row, dict) for row in terrain + objects + layers):
+            errors.append('places actual joint scenery inventory missing/' + key)
+            continue
+        if {row.get('solid_id') for row in terrain} != {body['solid_id'] for body in bodies}:
+            errors.append('places actual joint terrain missing/' + key)
+        if {row.get('id') for row in layers} != {row['id'] for row in plan.get('layer_instances', [])}:
+            errors.append('places actual joint layer missing/' + key)
+        bridges = {row['id'] for row in plan.get('surfaces', []) if row.get('semantic') == 'bridge' or row.get('kind') == 'bridge'}
+        if {row.get('surface_id') for row in objects if row.get('role') == 'bridge'} != bridges:
+            errors.append('places actual joint bridge missing/' + key)
+        attachments = {row['id'] for row in plan.get('attachments', []) if row.get('role') != 'bridge_abutment'}
+        if {row.get('attachment_id') for row in objects if row.get('attachment_id')} != attachments:
+            errors.append('places actual joint attachment missing/' + key)
+    return errors
+
+
 def validate_places_observations(data, plan):
     """Bind the finite three-prototype experiment to real inherited route cases."""
-    errors = []
     if not isinstance(plan, dict): return ['places shared plan missing']
+    errors = _validate_place_art_consumers(data, plan)
     instances = plan.get('place_instances')
     if not isinstance(instances, list) or len(instances) != 3 or not all(isinstance(row, dict) for row in instances):
         return ['places three realized instances missing']

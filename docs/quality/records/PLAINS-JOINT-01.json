@@ -15,8 +15,21 @@
     "Do not resurrect thin strips/alpha shoulders; original complete handpainted sources retained.",
     "At most two art rounds; expand only if native scoped art improvement exists."
   ],
-  "affected_paths": [],
-  "deliverables": [],
+  "affected_paths": [
+    "resources/generation/environment_grammar/places_v1.json",
+    "scripts/generation/plains_place_plan.gd",
+    "scripts/art/plains_place_composer.gd",
+    "tests/plains_places_plan_runner.gd",
+    "tools/run_plains_places_tests.py",
+    "tests/test_plains_places_capture.py",
+    "docs/quality/records/PLAINS-JOINT-01.json",
+    "docs/tasks.md"
+  ],
+  "deliverables": [
+    "Actual source-derived candidate joint plan with same authoritative geometry and rendering transforms.",
+    "Preserved baseline, bounded structural corpus and actual native before/after evidence.",
+    "Independent pixel and code review; production promotion only if the observed benefit is supported."
+  ],
   "creative_decisions": [],
   "formal_impact": false,
   "gates": {
