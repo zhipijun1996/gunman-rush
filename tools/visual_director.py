@@ -828,7 +828,7 @@ def route(request,task_id,quality_record,allowed_paths,max_calls=10,max_rounds=2
         paths = list(dict.fromkeys(paths))
         m['constraints'][1] = ('P1 is the user-preferred candidate, not final user approval or formal-pool admission. Read the current P1 quality record and actual native review before deciding expansion; old B scoped acceptance does not admit P1. First-space whole-image art and motion readability must be independently admitted before a second structure; no batch expansion or full G2 claim from a plan. A rejected unrelated mother does not block independently qualified units.')
         m['preparation']['visual_recipe'] = {
-            'status': 'whole_volume_candidate_native_pending',
+            'status': 'candidate_not_automatic_admission',
             'scope': 'P1 three-place whole-volume development candidate; not automatic acceptance, no user, device, commercial or formal-production admission',
             'sources': [{'path': path, 'sha256': file_hash(ROOT / path)} for path in paths],
             'profile': 'scripts/art/plains_place_composer.gd',

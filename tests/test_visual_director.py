@@ -448,7 +448,7 @@ class VisualDirectorTests(unittest.TestCase):
         self.assertNotIn('visual-director-terrain',mission['tasks'][1]['checks'])
         self.assertEqual(mission['preparation']['visual_recipe']['capture_script'],vd.PLACES_CAPTURE)
         recipe=mission['preparation']['visual_recipe']
-        self.assertEqual(recipe['status'],'whole_volume_candidate_native_pending')
+        self.assertEqual(recipe['status'],'candidate_not_automatic_admission')
         self.assertIn('not automatic acceptance',recipe['scope'])
         self.assertNotIn('first_space_evidence',recipe)
         self.assertTrue(any('old B scoped acceptance does not admit P1' in item for item in mission['constraints']))

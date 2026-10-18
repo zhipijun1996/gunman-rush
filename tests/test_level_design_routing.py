@@ -19,7 +19,7 @@ class RoutingTests(unittest.TestCase):
         production_loop.validate(mission)
         self.assertEqual(mission['workflow'], 'visual_golden')
         self.assertEqual(mission['scope'], 'offline_production_plan_not_executed')
-        self.assertEqual(mission['preparation']['visual_recipe']['status'], 'whole_volume_candidate_native_pending')
+        self.assertEqual(mission['preparation']['visual_recipe']['status'], 'candidate_not_automatic_admission')
         self.assertEqual(mission['preparation']['visual_recipe']['quality_record'],'docs/quality/records/PLAINS-PLACES-01.json')
         created = level_design.route_request('制作风铃平原美术')
         self.assertEqual(created['workflow'],'visual_golden')
