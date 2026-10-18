@@ -601,6 +601,14 @@ def validate_joint_recoil_observations(data, report):
         modules = snap.get('art_plan', {}).get('joint_modules', [])
         collisions = snap.get('joint_collisions', [])
         banks = art.get('joint_terrain', [])
+        if modules and all(m.get('render_method') == 'landform_world_material_v1' for m in modules):
+            errors.extend(validate_landform_consumers(snap, report, phase))
+            if data.get('joint_decoration_collisions_' + phase) != []:
+                errors.append('joint decoration gained physical collision/' + phase)
+            avatar = data.get('joint_avatar_' + phase, {})
+            if avatar.get('selected_id') != 'p1_girl' or avatar.get('painted_owner_count') != 1 or avatar.get('gameplay_changed') is not False:
+                errors.append('joint actual avatar missing/duplicated/' + phase)
+            continue
         if (snap.get('joint_ready') is not True or snap.get('production_pool') is not False
                 or len(modules) != 1 or len(collisions) != 2 or len(banks) != 2 or art.get('omitted') != []):
             errors.append('joint actual complete banks/collision consumer missing/' + phase)
@@ -638,6 +646,91 @@ def validate_joint_recoil_observations(data, report):
         avatar = data.get('joint_avatar_' + phase, {})
         if avatar.get('selected_id') != 'p1_girl' or avatar.get('painted_owner_count') != 1 or avatar.get('gameplay_changed') is not False:
             errors.append('joint actual avatar missing/duplicated/' + phase)
+    return errors
+
+
+
+def validate_landform_consumers(snap, report, phase):
+    """V5 actual material/solid/rear consumers; art and whole-map admission separate."""
+    errors = []
+    art = snap.get('art', {})
+    modules = snap.get('art_plan', {}).get('joint_modules', [])
+    if len(modules) != 1:
+        return ['landform capture requires one actual source-owned experimental program/' + phase]
+    program = modules[0]
+    bodies = program.get('terrain_bodies', [])
+    physical = snap.get('joint_collisions', [])
+    painted = art.get('joint_terrain', [])
+    catalog = 'resources/visual_development/p1_landform_assets.json'
+    bound = report.get('source_before', {})
+    if (snap.get('joint_ready') is not True or snap.get('production_pool') is not False
+            or not bodies or len(physical) != len(bodies) or len(painted) != len(bodies) or art.get('omitted') != []):
+        errors.append('landform actual complete source consumer missing/' + phase)
+    if not bound.get(catalog) or art.get('joint_catalog_sha256') != bound.get(catalog):
+        errors.append('landform actual catalog not source-bound/' + phase)
+    def f32(value):
+        return struct.unpack('f', struct.pack('f', value))[0]
+    def points(values):
+        return [[f32(x), f32(y)] for x, y in values]
+    def source_ok(item):
+        path = item.get('source', '').removeprefix('res://')
+        return bool(path and bound.get(path) and item.get('source_sha256') == bound[path])
+    def identity_map(rows, nested=False):
+        result = {}
+        for row in rows:
+            role = row.get('source', {}).get('source_role') if nested else row.get('source_role')
+            if not role or role in result:
+                errors.append('landform duplicated/missing volume identity/' + phase)
+            result[role] = row
+        return result
+    expected = identity_map(bodies)
+    actual_physics = identity_map(physical, True)
+    actual_paint = identity_map(painted)
+    if set(expected) != set(actual_physics) or set(expected) != set(actual_paint):
+        errors.append('landform volume ownership incomplete/' + phase)
+    owned = program.get('region_context', {}).get('owned_slabs', [])
+    for role, body in expected.items():
+        collision, mesh = actual_physics.get(role, {}), actual_paint.get(role, {})
+        expected_world = points(body.get('points', []))
+        if points(collision.get('world_points', [])) != expected_world:
+            errors.append('landform actual collision differs from shared source/' + phase)
+        if (collision.get('disabled') is not False or collision.get('one_way') is not False
+                or collision.get('collision_layer') != 1 or collision.get('build_mode') != 0):
+            errors.append('landform source solid disabled or altered/' + phase)
+        originals = collision.get('replaced_slabs', [])
+        if (not owned or len(originals) != len(owned) or len({o.get('path') for o in originals}) != len(owned)
+                or any(o.get('disabled') is not True or o.get('one_way') is not False for o in originals)
+                or any(not any(o.get('path', '').endswith('/' + str(spec['node_id']).replace('/', '_') + '/Platform' + str(spec['platform_index']) + '/CollisionShape2D') for o in originals) for spec in owned)):
+            errors.append('landform original collision ownership transfer incomplete/' + phase)
+        paints = mesh.get('paint_sources', [])
+        if ({p.get('role') for p in paints} != {'rock_core', 'meadow_transition', 'cave_transition'}
+                or len(paints) != 3 or not all(source_ok(p) for p in paints)
+                or mesh.get('mapping') != 'landform_world_material_v1' or mesh.get('collision_written') is not False):
+            errors.append('landform actual painting sources/mapping missing/' + phase)
+        if (points(mesh.get('actual_world_polygon', [])) != expected_world
+                or points(mesh.get('actual_mesh_vertices', [])) != expected_world
+                or mesh.get('material_space') != body.get('material_space')
+                or mesh.get('source_exposed_faces') != body.get('exposed_faces')
+                or not mesh.get('actual_mesh_indices')):
+            errors.append('landform installed mesh/material differs from shared source/' + phase)
+        if body.get('geometry_source') != 'environment_program' or not body.get('support_id'):
+            errors.append('landform missing actual environmental source/support/' + phase)
+    expected_rear = {w.get('id'): w for w in program.get('rear_walls', [])}
+    actual_rear = {w.get('id'): w for w in art.get('joint_rear_walls', [])}
+    if (not expected_rear or set(expected_rear) != set(actual_rear)
+            or len(actual_rear) != len(art.get('joint_rear_walls', []))):
+        errors.append('landform actual cave rear substrate incomplete/' + phase)
+    for key, rear in expected_rear.items():
+        installed = actual_rear.get(key, {})
+        if (not source_ok(installed) or installed.get('collision_written') is not False
+                or points(installed.get('actual_world_polygon', [])) != points(rear.get('points', []))
+                or installed.get('material_space') != rear.get('material_space')):
+            errors.append('landform actual rear wall/source mismatch/' + phase)
+    if art.get('joint_rear_openings') != program.get('rear_openings'):
+        errors.append('landform actual rear opening declaration differs/' + phase)
+    relations = program.get('support_relations', [])
+    if (len(relations) != len(bodies) or any(r.get('valid') is not True or not r.get('overlap_polygons') or r.get('overlap_area', 0) <= 100 for r in relations)):
+        errors.append('landform source lacks rooted rear overlap/' + phase)
     return errors
 
 

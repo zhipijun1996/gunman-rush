@@ -80,34 +80,55 @@ func _draw() -> void:
 		var rect := (shape.shape as RectangleShape2D).size
 		PlainsTerrainSkin.draw_moving_platform(self,Rect2(body.position-rect/2,rect))
 
-# Explicit opt-in semantic bank volumes. The ordinary authored landing rectangles
-# remain contract data but own no parallel collision after polygon installation.
+# Environment-first entities own their derived physics. Definition rectangles
+# are compatibility contacts only; source ownership explicitly retires them.
 func _install_joint_banks(module: PlatformingModule, local: Dictionary) -> bool:
-	if local.get("module_id","")!="plains_recoil_span" or local.get("terrain_bodies",[]).size()!=2: return false
-	var originals: Array[CollisionShape2D]=[]
-	for index: int in 2:
-		var original := module.get_node_or_null("Platform%d/CollisionShape2D" % index) as CollisionShape2D
-		if original==null or original.one_way_collision: return false
+	if local.get("module_id", "") != str(module.definition.module_id): return false
+	var bodies: Array = local.get("terrain_bodies", [])
+	var context: Dictionary = local.get("region_context", {})
+	var ownership: Array = context.get("owned_slabs", [])
+	if bodies.is_empty() or ownership.is_empty(): return false
+	var originals: Array[CollisionShape2D] = []
+	var original_paths: Array[String] = []
+	for owned: Dictionary in ownership:
+		var node_id := str(owned.get("node_id", ""))
+		var platform_index := int(owned.get("platform_index", -1))
+		if node_id.is_empty() or platform_index < 0: return false
+		var owner_module := get_node_or_null(node_id.replace("/", "_")) as PlatformingModule
+		if owner_module == null: return false
+		var original := owner_module.get_node_or_null("Platform%d/CollisionShape2D" % platform_index) as CollisionShape2D
+		if original == null or original.disabled or original.one_way_collision: return false
+		var original_path := str(original.get_path())
+		if original_path in original_paths: return false
 		originals.append(original)
-	var context: Dictionary=local.get("region_context",{})
-	if not context.is_empty():
-		var neighbor_id:=str(context.get("neighbor_join_node",""))
-		var neighbor:=get_node_or_null(neighbor_id.replace("/","_").path_join("Platform0/CollisionShape2D")) as CollisionShape2D
-		if neighbor==null or neighbor.one_way_collision:return false
-		originals.append(neighbor)
-	for original:CollisionShape2D in originals:original.disabled=true
-	for bank: Dictionary in local.terrain_bodies:
-		var body := StaticBody2D.new()
-		body.name="JointBank_"+str(bank.source_role)
-		body.collision_layer=1
-		body.set_meta("joint_bank_source",bank.duplicate(true))
-		body.set_meta("joint_owned_originals",originals.map(func(item:CollisionShape2D)->String:return str(item.get_path())))
-		var shape := CollisionPolygon2D.new()
-		shape.name="JointBankCollision"
+		original_paths.append(original_path)
+	# Validate the complete source before changing any live collision owner.
+	var prepared: Array[Dictionary] = []
+	var roles: Array[String] = []
+	for entity: Dictionary in bodies:
+		var role := str(entity.get("source_role", ""))
+		if role.is_empty() or role in roles or not role.is_valid_identifier(): return false
+		roles.append(role)
 		var points := PackedVector2Array()
-		for point: Array in bank.points: points.append(Vector2(point[0],point[1]))
-		if points.size()<3 or Geometry2D.triangulate_polygon(points).is_empty(): return false
-		shape.polygon=points
+		for point: Array in entity.get("points", []):
+			if point.size() != 2: return false
+			var vector := Vector2(float(point[0]), float(point[1]))
+			if not vector.is_finite(): return false
+			points.append(vector)
+		if points.size() < 3 or Geometry2D.triangulate_polygon(points).is_empty(): return false
+		prepared.append({"source": entity, "points": points})
+	for original: CollisionShape2D in originals: original.disabled = true
+	for item: Dictionary in prepared:
+		var entity: Dictionary = item.source
+		var body := StaticBody2D.new()
+		body.name = "JointBank_" + str(entity.source_role)
+		body.collision_layer = 1
+		body.set_meta("joint_bank_source", entity.duplicate(true))
+		body.set_meta("joint_owned_originals", original_paths.duplicate())
+		var shape := CollisionPolygon2D.new()
+		shape.name = "JointBankCollision"
+		shape.build_mode = CollisionPolygon2D.BUILD_SOLIDS
+		shape.polygon = item.points
 		body.add_child(shape)
 		module.add_child(body)
 	return true

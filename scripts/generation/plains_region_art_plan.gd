@@ -3,7 +3,7 @@ extends RefCounted
 ## Candidate-only companion to the actual complete formal region Manifest.
 ## Physics, content, resources and replay remain owned by the formal generator.
 const VERSION := "plains-regional-art-v2"
-const JOINT_VERSION := "plains-regional-art-v3-joint-recoil"
+const JOINT_VERSION := "plains-regional-art-v4-environment-program"
 const ASSET_CATALOG := "res://resources/visual_development/p1_regional_assets.json"
 const ATTEMPTS := 4
 const MAX_WORLD_WIDTH := 22000.0
@@ -147,7 +147,15 @@ static func compile(manifest: Dictionary) -> Dictionary:
 	var belts := _global_belts(manifest,bounds)
 	var topology := {"family":manifest.family,"recipe":manifest.topology.recipe,"areas":manifest.areas.duplicate(true),"connections":manifest.connections.duplicate(true),"cycle_count":manifest.connections.size()-manifest.areas.size()+1,"semantic_routes":manifest.topology.semantic_routes.duplicate(true),"signature":topology_signature(manifest)}
 	var plan := {"version":JOINT_VERSION if not joint_modules.is_empty() else VERSION,"schema_version":1,"seed":manifest.seed,"manifest_hash":manifest.manifest_hash,"production_pool":false,"layout_source":"formal_full_region","assets_catalog":ASSET_CATALOG,"assets_catalog_sha256":asset_result.catalog_sha256,"bounds":values.duplicate(),"topology":topology,"solids":solids,"one_way_platforms":one_way,"terrain_edges":contours,"geological_bodies":geological_bodies,"surfaces":surfaces,"dynamic_surfaces":dynamic_surfaces,"keep_clear":keep_clear,"places":places,"landmarks":landmarks,"layer_belts":belts,"global_art":{"world_origin":[0.0,0.0],"light_direction":[-0.7,-0.5],"wind_direction":[-1.0,0.0],"material_coordinate_space":"world","camera_reference":"one_continuous_player_camera","background_policy":"global_belts_not_per_place_reset"},"metrics":{"source_solid_rectangles":solids.size(),"exposed_contour_edges":contours.size(),"actual_surfaces":surfaces.size(),"continuous_bodies":geological_bodies.size(),"union_area":actual_area,"places":places.size(),"landmarks":landmarks.size()}}
-	if not joint_modules.is_empty(): plan.joint_modules=joint_modules
+	if not joint_modules.is_empty():
+		plan.joint_modules=joint_modules
+		plan.environment_coverage=manifest.get("environment_coverage",{}).duplicate(true)
+		plan.production_method="environment_program_before_platform_projection_with_legacy_remainder"
+		plan.rear_walls=[];plan.rear_openings=[];plan.support_relations=[]
+		for joint: Dictionary in joint_modules:
+			plan.rear_walls.append_array(joint.rear_walls)
+			plan.rear_openings.append_array(joint.rear_openings)
+			plan.support_relations.append_array(joint.support_relations)
 	plan.plan_hash = plan_hash(plan)
 	return {"ok":true,"plan":plan}
 

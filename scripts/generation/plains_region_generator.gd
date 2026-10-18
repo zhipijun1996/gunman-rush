@@ -152,8 +152,16 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 			var area: Dictionary=_area(m,e.a)
 			e.purpose="outer_return" if e.get("outer_return",false) else "creek_discovery" if e.a=="area_1_2" and e.b=="area_2_2" else "first_short_chain" if e.a=="area_0_1" else "rejoin_repair_camp" if e.b==m.merchant_id else "explore_creek_return" if area.identity=="creek_well" else "learn_clock_sightline" if area.identity=="clock_court" else "meadow_crossing"
 			e.design_recipe=PlainsRouteRecipes.choose(content,m.recipe_history,difficulty=="intro",e.purpose,str(area.identity))
+			if joint_recoil_profile:
+				# A world construction sentence exists BEFORE any Definition or
+				# column/span embedding is allocated. Unimplemented sentences are
+				# explicitly counted, never reported as converted environment.
+				e.environment_program=PlainsJointRecoilPlan.program_for_recipe(e.design_recipe,str(area.identity),str(e.id),seed_value)
 			var width:=0.0
-			for module_id: String in e.design_recipe.modules: width+=RandomStageGenerator.new().definition_for(module_id,false,false).world_bounds.size.x
+			for module_id: String in e.design_recipe.modules:
+				if joint_recoil_profile and module_id==PlainsJointRecoilPlan.MODULE_ID:
+					width+=float(e.environment_program.module_width)
+				else:width+=RandomStageGenerator.new().definition_for(module_id,false,false).world_bounds.size.x
 			var quiet_width:=180.0 if regional_art_profile!="" else 0.0
 			if regional_art_profile!="": e.art_clearance={"quiet_arrival_width":quiet_width,"purpose":"land_read_next_route_before_reentering_pressure","source":"continuous_plains_v1"}
 			spans[int(area.col)]=maxf(float(spans[int(area.col)]),width+HALF*2.0+80.0+quiet_width)
@@ -352,13 +360,20 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 	geometry_bounds=geometry_bounds.grow(320.0)
 	m.world_bounds = [geometry_bounds.position.x,geometry_bounds.position.y,geometry_bounds.size.x,geometry_bounds.size.y]
 	if not sample:
-		m.ground_supports = _regional_landmass_supports(m) if regional_art_profile=="continuous_plains_v1" else PlainsGroundSupports.region_plan(m)
-		if regional_art_profile=="continuous_plains_v1": m.art_layout.landmass_method="world_base_mass_minus_actual_lower_route_voids_v2"
+		m.ground_supports = _regional_landmass_supports(m) if regional_art_profile=="continuous_plains_v1" and not joint_recoil_profile else PlainsGroundSupports.region_plan(m)
+		if regional_art_profile=="continuous_plains_v1": m.art_layout.landmass_method="landform_first_joint_with_explicit_legacy_remainder" if joint_recoil_profile else "world_base_mass_minus_actual_lower_route_voids_v2"
+	if joint_recoil_profile:
+		var programs:=0
+		for edge: Dictionary in m.connections:
+			if edge.has("environment_program"):programs+=1
+		m.environment_coverage={"programmed_horizontal_edges":programs,"converted_challenges":0,"total_nodes":m.nodes.size(),"legacy_remainder":true,"whole_region_landform_first":false,"support_baseline":"formal_shallow_supports","physics_scope":"whole_region_support_baseline_plus_owned_landform","unconverted_nodes":m.nodes.map(func(n:Dictionary)->String:return str(n.id))}
 	if joint_recoil_profile and m.has("joint_recoil_target"):
 		var joint_node: Dictionary=m.nodes.filter(func(n:Dictionary)->bool:return n.id==m.joint_recoil_target)[0]
 		var context:=PlainsJointRecoilPlan.context_for_region(m,joint_node)
 		if context.ok:
 			joint_node.joint_recoil=PlainsJointRecoilPlan.build_local(context.context)
+			m.environment_coverage.converted_challenges=1
+			m.environment_coverage.unconverted_nodes.erase(str(joint_node.id))
 			var joint:=PlainsJointRecoilPlan.instantiate(joint_node)
 			m.ground_supports=PlainsJointRecoilPlan.clip_supports(m.ground_supports,joint.cutout_rects)
 		else: m.joint_recoil_error=context.error
@@ -616,8 +631,9 @@ func _fill_edge(m: Dictionary, e: Dictionary, rng: RunRandomStream) -> void:
 	var x := a.x + HALF
 	e.modules = []
 	for id: String in ids:
-		var d := RandomStageGenerator.new().definition_for(id, false, false)
-		_add_existing(m, e.id + "_%s" % e.modules.size(), id, Vector2(x, a.y))
+		var program: Dictionary=e.get("environment_program",{}) if joint_recoil_profile and id==PlainsJointRecoilPlan.MODULE_ID and not m.has("joint_recoil_target") else {}
+		var d := PlainsJointRecoilPlan.definition_from_program(program) if not program.is_empty() else RandomStageGenerator.new().definition_for(id, false, false)
+		_add_existing(m, e.id + "_%s" % e.modules.size(), id, Vector2(x, a.y),program)
 		e.modules.append(m.nodes.size()-1)
 		x += d.world_bounds.size.x
 	if x < b.x - HALF:
@@ -670,14 +686,15 @@ func _port(id: String, p: Vector2) -> PlatformingModulePort:
 	port.position = p
 	return port
 
-func _add_existing(m: Dictionary, id: String, module_id: String, entry: Vector2) -> void:
-	var d := RandomStageGenerator.new().definition_for(module_id, false, false)
+func _add_existing(m: Dictionary, id: String, module_id: String, entry: Vector2, environment_program: Dictionary = {}) -> void:
+	var d := PlainsJointRecoilPlan.definition_from_program(environment_program) if not environment_program.is_empty() else RandomStageGenerator.new().definition_for(module_id, false, false)
 	var phase_stream := RunRandomStream.new(str(m.seed), "region_phases", id, RNG_VERSION)
 	var phases: Array = []
 	for saw: ModuleSawDefinition in d.saws: phases.append({"id":str(saw.source_id),"phase":float(phase_stream.next_int(4))/4.0})
 	for ferry: ModuleMovingPlatformDefinition in d.ferries: phases.append({"id":str(ferry.platform_id),"phase":float(phase_stream.next_int(4))/4.0})
 	var offset := entry - Vector2(0, d.entry_port.position.y)
 	var node := {"id": id, "module_id": module_id, "offset": [offset.x,offset.y], "mirrored": false, "reverse_traversal": false, "initial_phases": phases, "definition_version":d.definition_version,"definition_hash":JSON.stringify(_definition_data(d),"",true).sha256_text()}
+	if not environment_program.is_empty():node.environment_program=environment_program.duplicate(true)
 	if joint_recoil_profile and module_id==PlainsJointRecoilPlan.MODULE_ID and not id.begins_with("tutorial") and not m.has("joint_recoil_target"):
 		m.joint_recoil_target=id
 	m.nodes.append(node)
@@ -691,7 +708,7 @@ func _add_inline(m: Dictionary, id: String, p: Vector2, d: PlatformingModuleDefi
 
 static func definition(node: Dictionary) -> PlatformingModuleDefinition:
 	if not node.has("geometry"):
-		var authored := PlainsJointRecoilPlan.definition_from_spec(node.joint_recoil.semantic_source) if node.has("joint_recoil") else RandomStageGenerator.new().definition_for(str(node.module_id),false,false).duplicate(true) as PlatformingModuleDefinition
+		var authored := PlainsJointRecoilPlan.definition_from_program(node.environment_program) if node.has("environment_program") else PlainsJointRecoilPlan.definition_from_spec(node.joint_recoil.semantic_source) if node.has("joint_recoil") else RandomStageGenerator.new().definition_for(str(node.module_id),false,false).duplicate(true) as PlatformingModuleDefinition
 		for phase: Dictionary in node.initial_phases:
 			for saw: ModuleSawDefinition in authored.saws:
 				if str(saw.source_id)==phase.id: saw.initial_phase=float(phase.phase)
