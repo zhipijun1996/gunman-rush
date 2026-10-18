@@ -1,5 +1,7 @@
 # FOREST-DEPTH-02：实现与验证交接
 
+CI基础设施跟进：0cf旧身份reader失败后，A/df3f定向7通过；实测单core60分钟风险后，原85项按67/18分机、原预算不增。C路径独审REVISE保留；C2（`5ec5e9e3`）仅基础设施独审ACCEPT。新CI待运行；原浏览器4项FAIL／未证根因和整体体验REVISE不变。[限定记录](quality/records/FOREST-DEPTH-CI-LANES-01.json)。
+
 最新验证跟进：[原CI失败与限定修复](evidence/forest_depth_v2/release_followup01/README.md)。0cf完整CI49项通过（含当前固定80路线），Guardian原生25/0后因旧map2身份reader失败；df3f版本严格迁移已获独审，干净源原Harness定向7实际通过，非最终完整CI。当前0cf正常影片的16px结标记已获实景限定接受，“岸”正式objective未展示；原浏览器首20/24与唯一诊断24/24分账，首发根因仍未证，另两组48/48不消除原FAIL。整体仍REVISE，最新完整CI／部署以PR与元数据实际终态为准。
 
 2026-10-18，`/workspace/gunman-rush-design`，分支 `feature/thorn-forest-depth`。PR76仍OPEN/DRAFT，基线 `bee850c66b2f402d644d7daa4c13db91c8abe8f8`；实现历史 `9fdf7fad08550ea0da46b59ef7126fa721571f28` 与生态检查点 `dd214dde`保留，不改写／压掉。当前实际实现见[当前状态](current_state.md)，以最新源与独立证据为准。

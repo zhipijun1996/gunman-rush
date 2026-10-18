@@ -1,0 +1,106 @@
+{
+  "scope": "Real inline-collector filesystem tests only; no native/CI/commit/push",
+  "before_workflow_sha256": "32a08fed3a537b957db97295b1a0ed3acc2a8c4023adc4f7f8e08e1e01f7751a",
+  "after_workflow_sha256": "84f9bea700bb6160657502a6aa7619e4ea35d5bba2ce779267020c7e09c4b4ea",
+  "only_original_inline_collector_changed": true,
+  "root_anchor": "Canonical repository cwd; inspect each lexical descendant with is_symlink before lstat, never inspect system ancestors",
+  "profile_counts": {
+    "total": 85,
+    "parallel": 67,
+    "serial": 18
+  },
+  "all_existing_other_workflow_bytes_unchanged": true,
+  "cases": [
+    {
+      "case": "valid",
+      "accepted": true,
+      "expected_accepted": true,
+      "exit_code": 0,
+      "diagnostic": ""
+    },
+    {
+      "case": "missing_report",
+      "accepted": false,
+      "expected_accepted": false,
+      "exit_code": 1,
+      "diagnostic": "Expected exactly one original Harness phase report"
+    },
+    {
+      "case": "two_reports",
+      "accepted": false,
+      "expected_accepted": false,
+      "exit_code": 1,
+      "diagnostic": "Expected exactly one original Harness phase report"
+    },
+    {
+      "case": "missing_log",
+      "accepted": false,
+      "expected_accepted": false,
+      "exit_code": 1,
+      "diagnostic": "Traceback (most recent call last):\n  File \"<string>\", line 36, in <module>\n  File \"<string>\", line 19, in regular\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py\", line 847, in lstat\n    return self.stat(follow_symlinks=False)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py\", line 840, in stat\n    return os.stat(self, follow_symlinks=follow_symlinks)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/ci-lanes02-ocxy3ra_/repo/build/verification/harness/run/first.log'"
+    },
+    {
+      "case": "escape_log",
+      "accepted": false,
+      "expected_accepted": false,
+      "exit_code": 1,
+      "diagnostic": "Invalid or repeated original check log path"
+    },
+    {
+      "case": "report_symlink",
+      "accepted": false,
+      "expected_accepted": false,
+      "exit_code": 1,
+      "diagnostic": "Proof path or repository ancestor is a symlink"
+    },
+    {
+      "case": "report_directory_symlink",
+      "accepted": false,
+      "expected_accepted": false,
+      "exit_code": 1,
+      "diagnostic": "Proof path or repository ancestor is a symlink"
+    },
+    {
+      "case": "harness_ancestor_symlink",
+      "accepted": false,
+      "expected_accepted": false,
+      "exit_code": 1,
+      "diagnostic": "Proof path or repository ancestor is a symlink"
+    },
+    {
+      "case": "log_symlink",
+      "accepted": false,
+      "expected_accepted": false,
+      "exit_code": 1,
+      "diagnostic": "Proof path or repository ancestor is a symlink"
+    },
+    {
+      "case": "log_parent_symlink",
+      "accepted": false,
+      "expected_accepted": false,
+      "exit_code": 1,
+      "diagnostic": "Proof path or repository ancestor is a symlink"
+    },
+    {
+      "case": "proof_parent_symlink",
+      "accepted": false,
+      "expected_accepted": false,
+      "exit_code": 1,
+      "diagnostic": "Proof path or repository ancestor is a symlink"
+    },
+    {
+      "case": "report_not_regular",
+      "accepted": false,
+      "expected_accepted": false,
+      "exit_code": 1,
+      "diagnostic": "Original proof input must be a regular file"
+    },
+    {
+      "case": "repo_via_alias",
+      "accepted": true,
+      "expected_accepted": true,
+      "exit_code": 0,
+      "diagnostic": ""
+    }
+  ]
+}

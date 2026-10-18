@@ -1,0 +1,162 @@
+{
+  "status": "REVISE",
+  "scope": "bounded infrastructure source review; no actual GitHubCI/native/browser/fullprofile/fun/device approval",
+  "commit": "5e61afa6233018125ef0fb1d23129d7bc9522f9c",
+  "bindings": {
+    "tools/harness.py": {
+      "git_blob": "5030fa1d9c0694e466723aee92991c5369719f0c",
+      "sha256": "a22cb78d31847b84fb71c936b26410ce9e92f1d39e7ffae89ffc3f84f269bbb5",
+      "matches_commit": true
+    },
+    "tests/test_harness.py": {
+      "git_blob": "b0b7c6037eb316d5634380a6678d27ad1b60a6c7",
+      "sha256": "76250dd98d924afd3531ca143ce7405f5e52db3113f1650f22b02954d27eb8cf",
+      "matches_commit": true
+    },
+    ".github/workflows/environment.yml": {
+      "git_blob": "6728ded9a8081791f0ac198f7d6e0c5a60f97191",
+      "sha256": "32a08fed3a537b957db97295b1a0ed3acc2a8c4023adc4f7f8e08e1e01f7751a",
+      "matches_commit": true
+    }
+  },
+  "coverage": {
+    "total": 85,
+    "parallel": 67,
+    "serial": 18,
+    "unique": true,
+    "parallel_ids": [
+      "docs",
+      "world",
+      "world-design-tests",
+      "structure",
+      "harness-tests",
+      "quality-drills",
+      "quality-tests",
+      "quality",
+      "core",
+      "generated-consumers",
+      "region",
+      "production-loop-tests",
+      "quality-review-engine",
+      "terrain-tile-tests",
+      "terrain-production",
+      "consumer-coverage-tests",
+      "wood-platforms",
+      "actor-actions",
+      "all-weapons",
+      "studio-input",
+      "weapon-feel",
+      "action-budget",
+      "capture-tests",
+      "level-design-contracts",
+      "mechanism-comparisons",
+      "level-design-analysis",
+      "level-design-routing",
+      "level-design-golden-tests",
+      "level-region-context",
+      "level-experience",
+      "level-formal-receipts",
+      "plains-action-golden",
+      "plains-redesign-golden",
+      "visual-director-tests",
+      "visual-director-space",
+      "directed-space-tests",
+      "root-bell-tests",
+      "root-bell-spaces",
+      "root-bell-ecology",
+      "connected-family-tests",
+      "forest-depth-guardian",
+      "forest-depth-guardian-tolerance",
+      "forest-depth-enemies",
+      "forest-depth-versions",
+      "forest-depth-restore",
+      "forest-depth-queen",
+      "forest-depth-cavity",
+      "forest-depth-cavity-controls",
+      "forest-depth-region",
+      "forest-depth-campaign-guardian",
+      "forest-depth-campaign-queen",
+      "forest-depth-ecology-expedition",
+      "forest-depth-root-entry",
+      "forest-depth-crossbranch-lifecycle",
+      "forest-depth-queen-canopy",
+      "forest-depth-campaign-canopy",
+      "art-art",
+      "art-painterly_pack",
+      "art-plains_v3",
+      "art-meadow_enemy_art",
+      "art-plains_ground_art",
+      "art-windkeeper_art",
+      "art-plains_spatial_art",
+      "art-plains_item_art",
+      "web-resource-contract-tests",
+      "runtime-raw-export-tests",
+      "asset-family-tests"
+    ],
+    "serial_ids": [
+      "environment",
+      "level-design-runtime",
+      "level-design-golden",
+      "level-formal-runtime",
+      "plains-autonomy-golden",
+      "plains-redesign-spatial",
+      "plains-experience-golden",
+      "plains-encounter-policy",
+      "plains-redesign-scene",
+      "terrain-family-tests",
+      "forest-h-slice",
+      "forest-ecology",
+      "forest-progression",
+      "forest-campaign",
+      "forest-debug",
+      "forest-traversal",
+      "forest-region-matrix",
+      "forest-formal-combat"
+    ]
+  },
+  "old_execute_checks_ast_unchanged": true,
+  "old_run_check_ast_unchanged": true,
+  "old_test_classes_ast_unchanged": {
+    "HarnessTests": true,
+    "ProductionTimingTests": true
+  },
+  "noncore_jobs_exact": true,
+  "five_extras_exact_except_serial_condition": true,
+  "original_perjobcap60": true,
+  "author_unit_hashes": {
+    "docs/evidence/forest_depth_v2/ci_lanes01/harness/unit.log": "4a0a27787abd8253ebaff76c46bf87a4b7ff34ab0ec6b21f95e8f7afb39a6e5a",
+    "docs/evidence/forest_depth_v2/ci_lanes01/harness/unit-final.log": "c11d514ff05c4e9a041d175936408c1622a51d830b0a73100325602099f2bf51"
+  },
+  "current_C_unit_execution": {
+    "argv": [
+      "python3",
+      "-B",
+      "tests/test_harness.py"
+    ],
+    "cap": 60,
+    "seconds": 7.201387525004975,
+    "exit_code": 0,
+    "before": {
+      "tools/harness.py": "a22cb78d31847b84fb71c936b26410ce9e92f1d39e7ffae89ffc3f84f269bbb5",
+      "tests/test_harness.py": "76250dd98d924afd3531ca143ce7405f5e52db3113f1650f22b02954d27eb8cf",
+      ".github/workflows/environment.yml": "32a08fed3a537b957db97295b1a0ed3acc2a8c4023adc4f7f8e08e1e01f7751a",
+      "tools/harness/profiles.json": "a7788c1e84daa9eadfd249fc509491b28e478182cdd711cc3e9cfc7c12e11c74"
+    },
+    "after": {
+      "tools/harness.py": "a22cb78d31847b84fb71c936b26410ce9e92f1d39e7ffae89ffc3f84f269bbb5",
+      "tests/test_harness.py": "76250dd98d924afd3531ca143ce7405f5e52db3113f1650f22b02954d27eb8cf",
+      ".github/workflows/environment.yml": "32a08fed3a537b957db97295b1a0ed3acc2a8c4023adc4f7f8e08e1e01f7751a",
+      "tools/harness/profiles.json": "a7788c1e84daa9eadfd249fc509491b28e478182cdd711cc3e9cfc7c12e11c74"
+    },
+    "source_stable": true,
+    "log_sha256": "0b11279656c41dc216637e10415bc1aca670dc9440bd6c7dd0605efc4e84ab4b"
+  },
+  "actual_negative": {
+    "scope": "actual tiny Python checks; ignored build ancestor swap, metadata unchanged",
+    "ancestor_symlink_rejected": false,
+    "accepted": true,
+    "path": "/tmp/tmpt8taeq79/build/verification/harness/20261018T033757.704022Z/report.json",
+    "realpath": "/tmp/tmpt8taeq79/build/outside-proof-dir/report.json"
+  },
+  "git_clean_after": true
+}

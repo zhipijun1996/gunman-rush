@@ -1,0 +1,210 @@
+{
+  "scope": "YAML parse plus bash -n only, GitHub expressions substituted; no workflow/native execution",
+  "workflow_sha256": "32a08fed3a537b957db97295b1a0ed3acc2a8c4023adc4f7f8e08e1e01f7751a",
+  "run_steps": [
+    {
+      "job": "prepare",
+      "step_index": 1,
+      "name": "Select absolute external toolchain path",
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "prepare",
+      "step_index": 3,
+      "name": "Check committed quality evidence before toolchain work",
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "prepare",
+      "step_index": 4,
+      "name": "Check exact portable frozen assets before toolchain work",
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "prepare",
+      "step_index": 7,
+      "name": "Exercise real downloader recovery and terminal failures",
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "prepare",
+      "step_index": 8,
+      "name": "Install verified toolchain (resumable bounded downloads)",
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "prepare",
+      "step_index": 12,
+      "name": null,
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "prepare",
+      "step_index": 13,
+      "name": null,
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "core_checks",
+      "step_index": 1,
+      "name": "Select absolute external toolchain path",
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "core_checks",
+      "step_index": 5,
+      "name": "Install verified toolchain (resumable bounded downloads)",
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "core_checks",
+      "step_index": 10,
+      "name": null,
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "core_checks",
+      "step_index": 11,
+      "name": null,
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "core_checks",
+      "step_index": 12,
+      "name": "Collect the unique original phase report and check stdout logs",
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "core_checks",
+      "step_index": 14,
+      "name": "Show failed Harness checks without requiring artifact download",
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "core_checks",
+      "step_index": 15,
+      "name": "Check actual platform pixels (software GPU, not device approval)",
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "core_checks",
+      "step_index": 16,
+      "name": null,
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "core_checks",
+      "step_index": 17,
+      "name": null,
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "core_checks",
+      "step_index": 18,
+      "name": null,
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "core_checks",
+      "step_index": 19,
+      "name": null,
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "core",
+      "step_index": 0,
+      "name": "Require both matrix lanes to have succeeded",
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "core",
+      "step_index": 6,
+      "name": "Verify exact same-source complete fresh check coverage and original logs",
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "windows",
+      "step_index": 1,
+      "name": "Select absolute external toolchain path",
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "windows",
+      "step_index": 5,
+      "name": "Install verified toolchain (resumable bounded downloads)",
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "windows",
+      "step_index": 10,
+      "name": null,
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "web",
+      "step_index": 1,
+      "name": "Select absolute external toolchain path",
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "web",
+      "step_index": 5,
+      "name": "Install verified toolchain (resumable bounded downloads)",
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "web",
+      "step_index": 10,
+      "name": null,
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "web",
+      "step_index": 11,
+      "name": null,
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "web",
+      "step_index": 12,
+      "name": "Show failed Harness checks without requiring artifact download",
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "web",
+      "step_index": 13,
+      "name": null,
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "android",
+      "step_index": 1,
+      "name": "Select absolute external toolchain path",
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "android",
+      "step_index": 3,
+      "name": null,
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "android",
+      "step_index": 4,
+      "name": null,
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "verify_public",
+      "step_index": 1,
+      "name": "Select absolute external toolchain path",
+      "bash_syntax_exit": 0
+    },
+    {
+      "job": "verify_public",
+      "step_index": 3,
+      "name": "Verify public metadata and pack against the tested export",
+      "bash_syntax_exit": 0
+    }
+  ]
+}

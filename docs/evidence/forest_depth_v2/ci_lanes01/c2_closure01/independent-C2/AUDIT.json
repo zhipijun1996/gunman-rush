@@ -1,0 +1,198 @@
+{
+  "status": "ACCEPT",
+  "scope": "bounded source/offline infrastructure only; not actual GitHubCI/native/browser/fullprofile/forest/fun/device",
+  "commit": "5ec5e9e3b45bf0ff158c76e8d74f7002837a6b67",
+  "bindings": {
+    "tools/harness.py": {
+      "git_blob": "220e7708c440fccccd6350f6232e12f76fa4bf03",
+      "sha256": "e7e136915675674c2bd7e6ac7db4dcc0aa971542a8812b216d547c978bce9ff5",
+      "matches_commit": true
+    },
+    "tests/test_harness.py": {
+      "git_blob": "ccb41f62bbe67e5a27009527a9e65de7125f6c70",
+      "sha256": "085869bf47a560af758b0ed0fa7ae3e9f67c31c32331268f191bf517bf1fa50d",
+      "matches_commit": true
+    },
+    ".github/workflows/environment.yml": {
+      "git_blob": "5785496098533697ed6b43414e2675aad69444ea",
+      "sha256": "84f9bea700bb6160657502a6aa7619e4ea35d5bba2ce779267020c7e09c4b4ea",
+      "matches_commit": true
+    }
+  },
+  "profile_manifest_sha256": "a7788c1e84daa9eadfd249fc509491b28e478182cdd711cc3e9cfc7c12e11c74",
+  "coverage": {
+    "total": 85,
+    "parallel": 67,
+    "serial": 18,
+    "unique": true
+  },
+  "old25classes_ast_exact": {
+    "HarnessTests": true,
+    "ProductionTimingTests": true
+  },
+  "old33_test_methods_preserved": true,
+  "old_execute_checks_ast_exact": true,
+  "old_run_check_ast_exact": true,
+  "other_workflow_jobs_exact": true,
+  "five_extras_exact_except_serial_condition": true,
+  "original_manifest_caps_argv_exact": true,
+  "author_logs_and_receipt_sha256": {
+    "build/verification/harness_lanes01/C2/unit.log": "851b3f805dc26623d21c95d91b197cc6b52bf145e159c8a01c4dd6ee71afb496",
+    "build/verification/harness_lanes01/C2/receipt.json": "e6c5f879546d8bebc56f7eeac0c1b5f4a2be9f1b0e40fed7cc283737d943380a",
+    "build/verification/ci_lanes02/result.json": "4ba745e408ed25c6393a5e298659972898ae305b0c9c145a005042e92b67ea53"
+  },
+  "C2_independent_unit_execution": {
+    "argv": [
+      "python3",
+      "-B",
+      "tests/test_harness.py"
+    ],
+    "cap": 60,
+    "seconds": 7.855534432004788,
+    "exit_code": 0,
+    "before": {
+      "tools/harness.py": "e7e136915675674c2bd7e6ac7db4dcc0aa971542a8812b216d547c978bce9ff5",
+      "tests/test_harness.py": "085869bf47a560af758b0ed0fa7ae3e9f67c31c32331268f191bf517bf1fa50d",
+      ".github/workflows/environment.yml": "84f9bea700bb6160657502a6aa7619e4ea35d5bba2ce779267020c7e09c4b4ea",
+      "tools/harness/profiles.json": "a7788c1e84daa9eadfd249fc509491b28e478182cdd711cc3e9cfc7c12e11c74"
+    },
+    "after": {
+      "tools/harness.py": "e7e136915675674c2bd7e6ac7db4dcc0aa971542a8812b216d547c978bce9ff5",
+      "tests/test_harness.py": "085869bf47a560af758b0ed0fa7ae3e9f67c31c32331268f191bf517bf1fa50d",
+      ".github/workflows/environment.yml": "84f9bea700bb6160657502a6aa7619e4ea35d5bba2ce779267020c7e09c4b4ea",
+      "tools/harness/profiles.json": "a7788c1e84daa9eadfd249fc509491b28e478182cdd711cc3e9cfc7c12e11c74"
+    },
+    "source_stable": true,
+    "log_sha256": "9061a103ffbf567e72105daa5bcef56574bedd15a9643558134a2a675eebf388"
+  },
+  "original_negative_old_accept_new_reject": {
+    "scope": "Exact original ancestor-directory symlink attack, actual tiny Python phase checks; no engine/browser.",
+    "old_commit": "5e61afa6233018125ef0fb1d23129d7bc9522f9c",
+    "old_validator_sha256": "a22cb78d31847b84fb71c936b26410ce9e92f1d39e7ffae89ffc3f84f269bbb5",
+    "new_validator_sha256": "e7e136915675674c2bd7e6ac7db4dcc0aa971542a8812b216d547c978bce9ff5",
+    "old_accepted": true,
+    "new_rejected": true,
+    "new_error": "Linked phase proof path",
+    "report_path": "/tmp/tmpbcd3pzro/build/verification/harness/20261018T034701.978680Z/report.json",
+    "realpath": "/tmp/tmpbcd3pzro/build/outside-proof-dir/report.json",
+    "original_report_sha256": "f10818f265c93deaab5e0a7b4262dcac478e7452c75a477adc585be967c67a75",
+    "unchanged_report_bytes": true,
+    "unchanged_git_metadata": true,
+    "unchanged_full_source_inventory": true,
+    "original_independent_negative": {
+      "scope": "actual tiny Python checks; ignored build ancestor swap, metadata unchanged",
+      "ancestor_symlink_rejected": false,
+      "accepted": true,
+      "path": "/tmp/tmpt8taeq79/build/verification/harness/20261018T033757.704022Z/report.json",
+      "realpath": "/tmp/tmpt8taeq79/build/outside-proof-dir/report.json"
+    }
+  },
+  "independent_collector_13_actual_cases": {
+    "scope": "Real inline-collector filesystem tests only; no native/CI/commit/push",
+    "before_workflow_sha256": "32a08fed3a537b957db97295b1a0ed3acc2a8c4023adc4f7f8e08e1e01f7751a",
+    "after_workflow_sha256": "84f9bea700bb6160657502a6aa7619e4ea35d5bba2ce779267020c7e09c4b4ea",
+    "only_original_inline_collector_changed": true,
+    "root_anchor": "Canonical repository cwd; inspect each lexical descendant with is_symlink before lstat, never inspect system ancestors",
+    "profile_counts": {
+      "total": 85,
+      "parallel": 67,
+      "serial": 18
+    },
+    "all_existing_other_workflow_bytes_unchanged": true,
+    "cases": [
+      {
+        "case": "valid",
+        "accepted": true,
+        "expected_accepted": true,
+        "exit_code": 0,
+        "diagnostic": ""
+      },
+      {
+        "case": "missing_report",
+        "accepted": false,
+        "expected_accepted": false,
+        "exit_code": 1,
+        "diagnostic": "Expected exactly one original Harness phase report"
+      },
+      {
+        "case": "two_reports",
+        "accepted": false,
+        "expected_accepted": false,
+        "exit_code": 1,
+        "diagnostic": "Expected exactly one original Harness phase report"
+      },
+      {
+        "case": "missing_log",
+        "accepted": false,
+        "expected_accepted": false,
+        "exit_code": 1,
+        "diagnostic": "Traceback (most recent call last):\n  File \"<string>\", line 36, in <module>\n  File \"<string>\", line 19, in regular\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py\", line 847, in lstat\n    return self.stat(follow_symlinks=False)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py\", line 840, in stat\n    return os.stat(self, follow_symlinks=follow_symlinks)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: '/tmp/ci-lanes02-ocxy3ra_/repo/build/verification/harness/run/first.log'"
+      },
+      {
+        "case": "escape_log",
+        "accepted": false,
+        "expected_accepted": false,
+        "exit_code": 1,
+        "diagnostic": "Invalid or repeated original check log path"
+      },
+      {
+        "case": "report_symlink",
+        "accepted": false,
+        "expected_accepted": false,
+        "exit_code": 1,
+        "diagnostic": "Proof path or repository ancestor is a symlink"
+      },
+      {
+        "case": "report_directory_symlink",
+        "accepted": false,
+        "expected_accepted": false,
+        "exit_code": 1,
+        "diagnostic": "Proof path or repository ancestor is a symlink"
+      },
+      {
+        "case": "harness_ancestor_symlink",
+        "accepted": false,
+        "expected_accepted": false,
+        "exit_code": 1,
+        "diagnostic": "Proof path or repository ancestor is a symlink"
+      },
+      {
+        "case": "log_symlink",
+        "accepted": false,
+        "expected_accepted": false,
+        "exit_code": 1,
+        "diagnostic": "Proof path or repository ancestor is a symlink"
+      },
+      {
+        "case": "log_parent_symlink",
+        "accepted": false,
+        "expected_accepted": false,
+        "exit_code": 1,
+        "diagnostic": "Proof path or repository ancestor is a symlink"
+      },
+      {
+        "case": "proof_parent_symlink",
+        "accepted": false,
+        "expected_accepted": false,
+        "exit_code": 1,
+        "diagnostic": "Proof path or repository ancestor is a symlink"
+      },
+      {
+        "case": "report_not_regular",
+        "accepted": false,
+        "expected_accepted": false,
+        "exit_code": 1,
+        "diagnostic": "Original proof input must be a regular file"
+      },
+      {
+        "case": "repo_via_alias",
+        "accepted": true,
+        "expected_accepted": true,
+        "exit_code": 0,
+        "diagnostic": ""
+      }
+    ]
+  },
+  "old_C_REVISE_retained": "build/forest_depth/review/ci_lanes01/REVIEW.md",
+  "git_clean_after": true
+}
