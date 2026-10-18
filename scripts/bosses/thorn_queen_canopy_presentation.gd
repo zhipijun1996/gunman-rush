@@ -11,8 +11,6 @@ func _draw() -> void:
 	draw_circle(Vector2.ZERO,9,color)
 	for index: int in 3: draw_line(Vector2(-14+14*index,-18),Vector2(-22+22*index,-36),color,3,true)
 	if not encounter.active: return
-	if encounter.mobile_anchor_enabled():
-		draw_arc(Vector2.ZERO,32,0,TAU,32,Color("9ed8bf"),2,true)
 	# Living knots retain their original collisions/health; expose the remaining
 	# cut decision at gameplay scale rather than relying on two-pixel dots.
 	for knot: ThornQueenWeaveKnot in encounter.knots:

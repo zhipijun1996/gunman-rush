@@ -27,14 +27,6 @@ func _ready() -> void:
 	motor.collision_mask=1
 	core_open=true
 	knots.resize(2);bands.resize(2)
-	_sync_mobile_anchor()
-func mobile_anchor_enabled() -> bool:
-	return _bound and active and not health.terminal and motion_mode!="intro" and combat_target_active() and _life!=null and _life.active
-func _sync_mobile_anchor() -> void:
-	if not is_instance_valid(motor): return
-	var enabled := mobile_anchor_enabled()
-	if enabled and not motor.is_in_group(&"grapple_target"): motor.add_to_group(&"grapple_target")
-	elif not enabled and motor.is_in_group(&"grapple_target"): motor.remove_from_group(&"grapple_target")
 func bind_duel(data: Dictionary,controller: PlayerController,policy: FrameDamagePolicy,lifetime: DemoLifetime) -> bool:
 	if config()==null or controller==null or policy==null or lifetime==null: return false
 	if _bound:
@@ -64,7 +56,6 @@ func activate() -> bool:
 		mode=StringName(motion_mode);_restored=false
 	for field: ThornQueenWeaveBand in bands:
 		if is_instance_valid(field): field.resume_restored()
-	_sync_mobile_anchor()
 	return true
 func motion_path() -> Array[Vector2]:
 	var result: Array[Vector2]=[]
@@ -113,7 +104,6 @@ func _start_phase(next: int) -> void:
 	phase_changed.emit(next)
 	weave_event.emit({"event":"canopy_phase_started","phase":next,"boss_hp":health.current,"body_flight_unchanged":true})
 func physics_tick(delta: float) -> void:
-	_sync_mobile_anchor()
 	if not _bound or not active or health.terminal or not is_finite(delta) or delta<=0: return
 	if not combat_target_active() or not _life.active: motor.stop();return
 	core_open=true
@@ -138,7 +128,6 @@ func physics_tick(delta: float) -> void:
 				motion_section=(motion_section+1)%geometry.motion_paths.size()
 				if motion_section==0: motion_cycles+=1
 				_preview()
-	_sync_mobile_anchor()
 func accepts_core_direction(context: Dictionary) -> bool:
 	return active and not health.terminal and typeof(context.get("amount")) in [TYPE_INT,TYPE_FLOAT] and float(context.amount)>0
 func body_contact_enabled() -> bool:
@@ -155,7 +144,6 @@ func cancel_pending_attacks() -> void:
 func cancel() -> void:
 	cancel_pending_attacks()
 	super.cancel()
-	_sync_mobile_anchor()
 func reward_stand_position() -> Vector2:
 	return _point(geometry.reward_position) if _bound else Vector2.ZERO
 func combat_snapshot() -> Dictionary:
