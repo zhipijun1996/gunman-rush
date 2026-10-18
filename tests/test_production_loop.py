@@ -842,6 +842,8 @@ class CompletedReviewCollectionTests(unittest.TestCase):
         self.main.mkdir()
         self.repo = Path(__file__).resolve().parents[1]
         self.git('init', '-q')
+        self.git('config', 'maintenance.auto', 'false')
+        self.git('config', 'gc.auto', '0')
         self.git('config', 'user.name', 'SIMULATED contract fixture')
         self.git('config', 'user.email', 'fixture@example.invalid')
         (self.main / 'tools').mkdir()
