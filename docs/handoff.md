@@ -1,3 +1,13 @@
+# STORY-WORKFLOW-01 剧情方法交接
+
+2026-10-18，分支 `docs/disordered-clock-story` / 草稿PR80；本轮基线 `36805d3`。新增[故事速读](design/story/story_overview.md)、[Codex写作方法](design/story/codex_workflow.md)、[任务模板](design/story/story_templates.md)及仓库Skill `$story-writer`（[说明](../.agents/skills/story-writer/SKILL.md)），AGENTS与剧情README可发现。只整理后续工作方法，不改V0.3规则/故事源稿、不新增运行内容，也不将提案升级为用户定案。
+
+检查与独立审查见[质量记录](quality/records/STORY-WORKFLOW-01.json)。完整docs因稀疏工作区缺历史素材/证据未通过；不据局部检查冒称全仓通过。下一步可用新Skill补一个平原可选剧情房的文档，先核对角色知识与当日日程，再经授权接入真实样板。复验命令：`python3 tools/harness.py --profile docs --jobs 1`（需完整历史文件）。
+
+以下为历史记录；当前故事仍以V0.3为准。
+
+---
+
 # STORY-DESIGN-03 V0.3统一循环剧情交接
 
 - 分支：`docs/disordered-clock-story` / 草稿PR80；基线 `3e2a96c7dce1108d4dcf7be535688a2ef677296f`，main复核仍e8ee344。
