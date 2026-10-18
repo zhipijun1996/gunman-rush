@@ -76,11 +76,16 @@ func fixture_spawn(hazard_probe: bool,body_probe: bool) -> Vector2:
 	if false: return Vector2(180,382)
 	return Vector2(geometry.player_spawn[0],geometry.player_spawn[1])
 
+func queen_definition() -> ThornQueenCanopyDefinition:
+	return load("res://resources/bosses/thorn_queen_canopy.tres") as ThornQueenCanopyDefinition
+func make_queen_motor() -> BossMotor:
+	return load("res://scenes/bosses/thorn_queen_canopy.tscn").instantiate() as BossMotor
+
 func fixture(id: String,h_enabled := true,hazard_probe := false,body_probe := false) -> void:
 	await cleanup()
 	current=id;tick=0
 	world=Node2D.new();root.add_child(world)
-	geometry=(load("res://resources/bosses/thorn_queen_canopy.tres") as ThornQueenCanopyDefinition).build_geometry(Vector2.ZERO)
+	geometry=queen_definition().build_geometry(Vector2.ZERO)
 	check(bool(geometry.get("ok",false)),"factory contract")
 	var ink := Ink.new();ink.geometry=geometry;world.add_child(ink)
 	for row: Dictionary in geometry.platforms: slab(row)
@@ -105,7 +110,7 @@ func fixture(id: String,h_enabled := true,hazard_probe := false,body_probe := fa
 	policy.batch_resolved.connect(func(results: Array[DamageResult]) -> void:
 		for result: DamageResult in results:
 			events.append({"case":current,"tick":tick+1,"event":"policy_result","target":String(result.request.target_id),"source":String(result.request.source_id),"id":String(result.request.event_id),"amount":result.request.amount,"hp":result.health.current}))
-	var motor := load("res://scenes/bosses/thorn_queen_canopy.tscn").instantiate() as BossMotor
+	var motor := make_queen_motor()
 	motor.position=Vector2(geometry.boss_position[0],geometry.boss_position[1]);world.add_child(motor)
 	queen=motor.get_node("Encounter") as ThornQueenCanopyEncounter
 	check(policy.bind_damageable(&"boss",queen.damageable,queen.health),"one boss policy bound")
