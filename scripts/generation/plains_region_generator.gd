@@ -157,9 +157,13 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 				# column/span embedding is allocated. Unimplemented sentences are
 				# explicitly counted, never reported as converted environment.
 				e.environment_program=PlainsJointRecoilPlan.program_for_recipe(e.design_recipe,str(area.identity),str(e.id),seed_value)
+		if joint_recoil_profile:PlainsJointRecoilPlan.bind_vertical_programs(m)
+		for e: Dictionary in m.connections:
+			if e.kind!="horizontal":continue
+			var area: Dictionary=_area(m,e.a)
 			var width:=0.0
 			for module_id: String in e.design_recipe.modules:
-				if joint_recoil_profile and module_id==PlainsJointRecoilPlan.MODULE_ID:
+				if joint_recoil_profile and e.get("environment_program",{}).get("implemented",false) and module_id==e.environment_program.get("module_id",""):
 					width+=float(e.environment_program.module_width)
 				else:width+=RandomStageGenerator.new().definition_for(module_id,false,false).world_bounds.size.x
 			var quiet_width:=180.0 if regional_art_profile!="" else 0.0
@@ -372,8 +376,12 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 		var context:=PlainsJointRecoilPlan.context_for_region(m,joint_node)
 		if context.ok:
 			joint_node.joint_recoil=PlainsJointRecoilPlan.build_local(context.context)
-			m.environment_coverage.converted_challenges=1
+			m.environment_coverage.converted_challenges=2
 			m.environment_coverage.unconverted_nodes.erase(str(joint_node.id))
+			m.environment_coverage.owned_node_ids=[]
+			for owned: Dictionary in context.context.owned_slabs:
+				m.environment_coverage.unconverted_nodes.erase(str(owned.node_id))
+				if str(owned.node_id) not in m.environment_coverage.owned_node_ids:m.environment_coverage.owned_node_ids.append(str(owned.node_id))
 			var joint:=PlainsJointRecoilPlan.instantiate(joint_node)
 			m.ground_supports=PlainsJointRecoilPlan.clip_supports(m.ground_supports,joint.cutout_rects)
 		else: m.joint_recoil_error=context.error
@@ -631,7 +639,7 @@ func _fill_edge(m: Dictionary, e: Dictionary, rng: RunRandomStream) -> void:
 	var x := a.x + HALF
 	e.modules = []
 	for id: String in ids:
-		var program: Dictionary=e.get("environment_program",{}) if joint_recoil_profile and id==PlainsJointRecoilPlan.MODULE_ID and not m.has("joint_recoil_target") else {}
+		var program: Dictionary=e.get("environment_program",{}) if joint_recoil_profile and e.get("environment_program",{}).get("implemented",false) and id==e.environment_program.get("module_id","") and (e.id==m.get("environment_target_edge","") or e.environment_program.has("parent_program_id")) else {}
 		var d := PlainsJointRecoilPlan.definition_from_program(program) if not program.is_empty() else RandomStageGenerator.new().definition_for(id, false, false)
 		_add_existing(m, e.id + "_%s" % e.modules.size(), id, Vector2(x, a.y),program)
 		e.modules.append(m.nodes.size()-1)
@@ -695,7 +703,7 @@ func _add_existing(m: Dictionary, id: String, module_id: String, entry: Vector2,
 	var offset := entry - Vector2(0, d.entry_port.position.y)
 	var node := {"id": id, "module_id": module_id, "offset": [offset.x,offset.y], "mirrored": false, "reverse_traversal": false, "initial_phases": phases, "definition_version":d.definition_version,"definition_hash":JSON.stringify(_definition_data(d),"",true).sha256_text()}
 	if not environment_program.is_empty():node.environment_program=environment_program.duplicate(true)
-	if joint_recoil_profile and module_id==PlainsJointRecoilPlan.MODULE_ID and not id.begins_with("tutorial") and not m.has("joint_recoil_target"):
+	if joint_recoil_profile and module_id==PlainsJointRecoilPlan.MODULE_ID and not environment_program.is_empty() and not id.begins_with("tutorial") and not m.has("joint_recoil_target"):
 		m.joint_recoil_target=id
 	m.nodes.append(node)
 

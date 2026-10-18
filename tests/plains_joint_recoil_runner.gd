@@ -5,6 +5,10 @@ const PRIOR_MANIFESTS:Dictionary={
 	"joint-recoil-01":{"default":"98a71fc9d52471dfbc8ec6b25dfb09d1a1326d158cd9dbc71367966ef0ec2a51","deep":"a8e7bf5fffeb893539711577b0fb7c0809e42c9d425e7f20c48f673e5576d5f8"},
 	"joint-recoil-07":{"default":"d5c548f7d177852e42b52cfed73146096e3439ee93162784e2640b5e1f280da3","deep":"29f81cfa36891e15a06e9006c0353d0473a1343106514228f0ff90d3682e5e6d"}
 }
+class NativeArtStage:
+	extends Node2D
+	var assembler:PlainsRegionAssembler
+
 var assertions:=0
 var failures: Array[String]=[]
 var negative_motor:PlayerMotor
@@ -31,10 +35,43 @@ func polygon_area(points:PackedVector2Array)->float:
 	var area:=0.0
 	for index:int in points.size():area+=points[index].cross(points[(index+1)%points.size()])
 	return absf(area)*0.5
+func newly_added_overlap(points:PackedVector2Array,rect:Rect2,prior_solids:Array[Rect2])->float:
+	var rectangle:=PackedVector2Array([rect.position,Vector2(rect.end.x,rect.position.y),rect.end,Vector2(rect.position.x,rect.end.y)])
+	var pieces:Array[PackedVector2Array]=Geometry2D.intersect_polygons(points,rectangle)
+	for original:Rect2 in prior_solids:
+		var old_polygon:=PackedVector2Array([original.position,Vector2(original.end.x,original.position.y),original.end,Vector2(original.position.x,original.end.y)])
+		var remaining:Array[PackedVector2Array]=[]
+		for piece:PackedVector2Array in pieces:remaining.append_array(Geometry2D.clip_polygons(piece,old_polygon))
+		pieces=remaining
+	var area:=0.0
+	for piece:PackedVector2Array in pieces:area+=polygon_area(piece)
+	return area
 func verify_environment_support(local:Dictionary)->void:
 	var spec:Dictionary=local.semantic_source
 	check(spec.environment_program.source_order=="actions_and_environment_before_span_embedding_and_platform_definition","Environment program exists before module geometry projection")
 	check(not spec.get("front_voids",[]).is_empty() and spec.front_voids[0].kind=="creek_gallery" and spec.rear_openings.all(func(opening:Dictionary)->bool:return opening.kind!="creek_gallery"),"Traversable creek foreground air is distinct from rear sky opening")
+	for opening:Dictionary in spec.rear_openings:
+		if opening.get("kind","")!="open_bottom_daylight_exit":continue
+		var port:Dictionary=opening.open_bottom_port
+		var grammar:Dictionary=spec.environment_program.asset_grammar
+		var piece:Dictionary=spec.structural_pieces[0]
+		var core:Array=[]
+		for point:Array in grammar.negative_contour_px:
+			var mapped:Vector2=(Vector2(point[0],point[1])-Vector2(piece.source_anchor[0],piece.source_anchor[1]))*float(piece.uniform_scale)+Vector2(piece.local_anchor[0],piece.local_anchor[1])
+			core.append([mapped.x,mapped.y])
+		check(opening.collision==false and core==opening.registered_negative_core,"Open-bottom outlet preserves actual registered painted negative contour at uniform scale")
+		check(port.collision==false and port.direction==[0.0,1.0] and float(port.left[0])<float(port.right[0]) and float(port.terminal_y)>float(port.regional_bottom_y),"Open-bottom side interfaces connect downward beyond actual regional rear extent without collision")
+		var extension:Array=[port.left,[port.left[0],port.terminal_y],[port.right[0],port.terminal_y],port.right]
+		check(extension==opening.extension_polygon and port.left==core[int(grammar.open_bottom_port_px.left_index)] and port.right==core[int(grammar.open_bottom_port_px.right_index)],"Exterior extension starts at both exact registered mouth ports rather than a guessed window rectangle")
+		for wall:Dictionary in spec.rear_walls:
+			var occlusion:=0.0
+			for overlap:PackedVector2Array in Geometry2D.intersect_polygons(packed(wall.points),packed(extension)):occlusion+=polygon_area(overlap)
+			check(occlusion<0.01,"Actual rear stratum cannot close the open-bottom passage with a painted sill")
+		var closed_port:Dictionary=local.duplicate(true)
+		for altered:Dictionary in closed_port.rear_openings:
+			if altered.kind=="open_bottom_daylight_exit":altered.open_bottom_port.terminal_y=altered.open_bottom_port.left[1]
+		check(not PlainsJointRecoilPlan.errors(closed_port).is_empty(),"Reclosed downward outlet is rejected while retaining original painted core")
+
 	var rooted_walls:Array=[]
 	for wall:Dictionary in spec.rear_walls:
 		var points:=packed(wall.points)
@@ -60,17 +97,43 @@ func verify_environment_support(local:Dictionary)->void:
 	broken.rear_walls[0].points=broken.rear_walls[0].points.map(func(point:Array)->Array:return [float(point[0])+10000.0,point[1]])
 	check(not PlainsJointRecoilPlan.errors(broken).is_empty(),"Detached backing geometry is rejected even when support labels remain unchanged")
 
+func verify_actual_paint_registration(world:Node2D,plan:Dictionary)->Dictionary:
+	var composer:=PlainsJointRecoilComposer.new()
+	world.add_child(composer)
+	composer.install(world,plan)
+	var facts:Dictionary=composer.measured_nodes()
+	check(facts.get("omitted",[]).is_empty(),"Actual first-context consumer installs complete registered paint without omissions")
+	var catalog:Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://resources/visual_development/p1_landform_assets.json"))
+	for volume:Dictionary in facts.get("joint_terrain",[]):
+		var mesh:=composer.get_node(str(volume.node_path)) as MeshInstance2D
+		var material:=mesh.material as ShaderMaterial if mesh!=null else null
+		check(material!=null,"Actual source-owned painted volume has an installed ShaderMaterial")
+		if material==null:continue
+		for request:Dictionary in [{"role":"meadow_transition","parameter":"surface_depth_registration","receipt":"standing"},{"role":"cave_transition","parameter":"wall_depth_registration","receipt":"side_and_intrados"}]:
+			var source:Dictionary=catalog.materials[request.role].face_projection
+			var expected:=Vector3(float(source.source_depth_offset_px),float(source.valid_depth_px),float(source.pigment_fade_start_px))
+			var actual:Vector3=material.get_shader_parameter(request.parameter)
+			check(actual==expected and volume.actual_paint_depth_registration[request.receipt]==[actual.x,actual.y,actual.z],"Real ShaderMaterial depth registration readback matches source catalog and runtime facts exactly")
+	return {"scope":"Actual native first-context consumer/material objects; headless checks do not establish rendered pixels or art approval","joint_terrain":facts.get("joint_terrain",[]),"omitted":facts.get("omitted",[])}
+
 func actual_solid_at(world:Node2D,point:Vector2)->bool:
 	var query:=PhysicsPointQueryParameters2D.new()
 	query.position=point;query.collision_mask=1
 	for hit:Dictionary in world.get_world_2d().direct_space_state.intersect_point(query,32):
 		var body:=hit.collider as StaticBody2D
-		if body==null:continue
+		if body==null or body is AnimatableBody2D:continue
 		var owner_id:=body.shape_find_owner(int(hit.shape))
 		var owner:=body.shape_owner_get_owner(owner_id)
 		if owner is CollisionShape2D and not owner.disabled and not owner.one_way_collision:return true
 		if owner is CollisionPolygon2D and not owner.disabled and not owner.one_way_collision:return true
 	return false
+func actual_point_hits(world:Node2D,point:Vector2)->Array:
+	var query:=PhysicsPointQueryParameters2D.new();query.position=point;query.collision_mask=1
+	var rows:Array=[]
+	for hit:Dictionary in world.get_world_2d().direct_space_state.intersect_point(query,32):
+		var collider:=hit.collider as Node
+		rows.append({"path":str(collider.get_path()),"class":collider.get_class(),"moving":collider is AnimatableBody2D,"joint_source":collider.has_meta("joint_bank_source")})
+	return rows
 func negative_tick(count:int=1)->void:
 	for unused:int in count:
 		await physics_frame
@@ -109,7 +172,10 @@ func run()->void:
 		check(plain.get("ok",false) and plain.manifest.manifest_hash==PRIOR_MANIFESTS[root_seed].deep,root_seed+": frozen PR87 nonjoint deep-profile Manifest unchanged")
 		var joint:=PlainsRegionArtPlan.generate(seed,tuning,"intro","",true)
 		check(plain.get("ok",false) and joint.get("ok",false),root_seed+": actual candidate generation")
-		if not plain.get("ok",false) or not joint.get("ok",false):continue
+		if not plain.get("ok",false) or not joint.get("ok",false):
+			rows.append({"root_seed":root_seed,"generation_refusal":joint})
+			print("JOINT GENERATION REFUSAL: ",JSON.stringify(joint))
+			continue
 		var m:Dictionary=joint.manifest
 		var replay:Dictionary=JSON.parse_string(JSON.stringify(m))
 		check(PlainsRegionGenerator.new().validate(replay,tuning),root_seed+": original formal JSON Manifest replay")
@@ -128,16 +194,42 @@ func run()->void:
 			if node.id==m.joint_recoil_target:baseline_target=node
 		check(not target.is_empty() and not str(target.id).begins_with("tutorial"),"One non-tutorial target")
 		check(target.offset==baseline_target.offset,"Same geometry location before/after")
+		var context:Dictionary=target.joint_recoil.region_context
+		var owned_ids:Array=[]
+		for owned:Dictionary in context.owned_slabs:
+			if owned.node_id not in owned_ids:owned_ids.append(owned.node_id)
+		var prior_owned_solids:Array[Rect2]=[]
+		var prior_owned_dangers:Array[Rect2]=[]
 		var outside_nodes_unchanged:=true
 		for index:int in m.nodes.size():
-			if m.nodes[index].id!=target.id:outside_nodes_unchanged=outside_nodes_unchanged and m.nodes[index]==plain.manifest.nodes[index]
-		check(outside_nodes_unchanged,"Every non-target module and recorded phase unchanged")
-		var context:Dictionary=target.joint_recoil.region_context
+			var candidate_node:Dictionary=m.nodes[index]
+			var prior_node:Dictionary=plain.manifest.nodes[index]
+			if candidate_node.id not in owned_ids:
+				outside_nodes_unchanged=outside_nodes_unchanged and candidate_node==prior_node
+				continue
+			var candidate_metadata:Dictionary=candidate_node.duplicate(true)
+			var prior_metadata:Dictionary=prior_node.duplicate(true)
+			for field:String in ["environment_program","joint_recoil","definition_version","definition_hash"]:
+				candidate_metadata.erase(field);prior_metadata.erase(field)
+			check(candidate_metadata==prior_metadata,"Owned module preserves offsets, phases, recorded geometry and original identity")
+			var serializer:=PlainsRegionGenerator.new()
+			var prior_definition:=PlainsRegionGenerator.definition(prior_node)
+			for danger:Rect2 in prior_definition.static_dangers():prior_owned_dangers.append(Rect2(Vector2(prior_node.offset[0],prior_node.offset[1])+danger.position,danger.size))
+			var prior_contract:Dictionary=serializer._definition_data(prior_definition)
+			var candidate_contract:Dictionary=serializer._definition_data(PlainsRegionGenerator.definition(candidate_node))
+			for field:String in ["platforms","definition_version"]:
+				prior_contract.erase(field);candidate_contract.erase(field)
+			check(prior_contract==candidate_contract,"Owned module retains exact original mechanisms, dangers, ability/resource/ports contracts")
+			for owned:Dictionary in context.owned_slabs:
+				if owned.node_id!=prior_node.id:continue
+				var slab:Rect2=prior_definition.platforms[int(owned.platform_index)]
+				prior_owned_solids.append(Rect2(Vector2(prior_node.offset[0],prior_node.offset[1])+slab.position,slab.size))
+		check(outside_nodes_unchanged,"Every non-owned module and recorded phase unchanged")
 		verify_environment_support(target.joint_recoil)
 		var physical_ownership:Array=PlainsJointRecoilPlan.instantiate(target).cutout_rects
 		check(PlainsJointRecoilPlan.instantiate(target).cutout_rects==target.joint_recoil.cutout_rects.map(func(r:Array)->Array:return [float(r[0])+float(target.offset[0]),float(r[1])+float(target.offset[1]),r[2],r[3]]),"Versioned environment source owns exact world physics domains")
 		check(float(context.receiving_width)>0.0 and float(context.root_depth)>0.0 and float(context.root_depth)<=float(context.available_root_depth),"Environment source fits actual authorized route clearance")
-		check(context.owned_slabs==[{"node_id":target.id,"platform_index":0},{"node_id":target.id,"platform_index":1},{"node_id":context.neighbor_join_node,"platform_index":0}],"Exactly two target caps and one original32px join transfer ownership")
+		check(context.owned_slabs.size()==prior_owned_solids.size() and owned_ids.has(target.id),"Every explicit transferred slab resolves to one original solid in the same embedded region")
 		var formal_shallow:=PlainsGroundSupports.region_plan(m)
 		check(PlainsJointRecoilPlan.clip_supports(formal_shallow,physical_ownership)==m.ground_supports,"v5 explicit whole-region shallow-support baseline is exact formal consumer output minus source ownership")
 		check(m.environment_coverage.support_baseline=="formal_shallow_supports" and m.environment_coverage.physics_scope=="whole_region_support_baseline_plus_owned_landform","v5 declares expanded support physics scope instead of claiming local-only replacement")
@@ -158,11 +250,14 @@ func run()->void:
 		var rejector:=PlainsRegionAssembler.new();negative_world.add_child(rejector)
 		check(not rejector.build(damaged,tuning).get("ok",false) and rejector.modules.is_empty(),"Actual consumer rejects rehashed source alteration before installing collision")
 		negative_world.queue_free();await process_frame
-		var world:=Node2D.new();root.add_child(world)
-		var assembler:=PlainsRegionAssembler.new();assembler.region_state=PlainsRegionState.new();world.add_child(assembler)
+		var world:=NativeArtStage.new();root.add_child(world)
+		var assembler:=PlainsRegionAssembler.new();assembler.region_state=PlainsRegionState.new();world.assembler=assembler;world.add_child(assembler)
 		check(assembler.build(m,tuning).get("ok",false),"Actual full formal assembler builds joint polygon banks")
 		await physics_frame;await process_frame
 		var facts:=assembler.joint_collision_snapshot()
+		var actual_gap_queries:Array=[]
+		var paint_readback:Dictionary={}
+		if root_seed=="joint-recoil-01":paint_readback=verify_actual_paint_registration(world,joint.regional_art_plan)
 		check(facts.size()==target.joint_recoil.terrain_bodies.size(),"Exactly one actual polygon owner per environment source entity")
 		for fact:Dictionary in facts:
 			check(not fact.disabled and not fact.one_way and fact.collision_layer==1,"Actual bank solid collision enabled on original floor layer")
@@ -172,13 +267,17 @@ func run()->void:
 			var original_gap:=Rect2(Vector2(float(target.offset[0])+300.0,float(target.offset[1])),Vector2(260.0,720.0))
 			check(overlap_area(world_polygon,original_gap)==0.0,"Actual full bank polygon does not narrow original260px protected action gap")
 			var dangers_clear:=true
-			for danger:Rect2 in original.danger_bounds:dangers_clear=dangers_clear and overlap_area(world_polygon,Rect2(Vector2(target.offset[0],target.offset[1])+danger.position,danger.size))==0.0
+			for danger:Rect2 in prior_owned_dangers:dangers_clear=dangers_clear and overlap_area(world_polygon,danger)==0.0
 			check(dangers_clear,"Actual full bank polygon does not fill original lower damage volume")
 			var protected_clear:=true
 			for space:Dictionary in context.protected_actual_airspace:
 				var raw:Array=space.rect
-				protected_clear=protected_clear and overlap_area(world_polygon,Rect2(raw[0],raw[1],raw[2],raw[3]))==0.0
-			check(protected_clear,"Actual bank preserves original ferry/saw envelopes and shaft player-path clearance")
+				protected_clear=protected_clear and newly_added_overlap(world_polygon,Rect2(raw[0],raw[1],raw[2],raw[3]),prior_owned_solids)==0.0
+			check(protected_clear,"No newly added solid enters original ferry/saw/player airspace; exact preexisting dock contact is retained")
+			for child:Dictionary in context.get("creek_children",[]):
+				var clear_rect:Array=child.clear_gap.rect
+				var clear_gap:=Rect2(float(target.offset[0])+float(clear_rect[0]),float(target.offset[1])+float(clear_rect[1]),float(clear_rect[2]),float(clear_rect[3]))
+				check(overlap_area(world_polygon,clear_gap)==0.0,"No new source entity becomes a static rescue floor anywhere below original ferry gap")
 			var triangles:=Geometry2D.triangulate_polygon(world_polygon)
 			var filled:=not triangles.is_empty()
 			for index:int in range(0,triangles.size(),3):
@@ -197,7 +296,8 @@ func run()->void:
 		var player_shape:=(player.get_node("CollisionShape2D") as CollisionShape2D).shape
 		check(player_shape is RectangleShape2D and (player_shape as RectangleShape2D).size==Vector2(24,36),"Actual player collision resource is24x36 rectangle, not an invented capsule")
 		var half_height:float=(player_shape as RectangleShape2D).size.y*0.5
-		for plane:Dictionary in target.joint_recoil.semantic_source.landing_planes:
+		for source_body:Dictionary in target.joint_recoil.terrain_bodies:
+			var plane:Dictionary={"a":source_body.surface_profile[0],"b":source_body.surface_profile[-1]}
 			for ratio:float in [0.05,0.5,0.95]:
 				var center:=Vector2(float(target.offset[0])+lerpf(float(plane.a[0]),float(plane.b[0]),ratio),float(target.offset[1])+float(plane.a[1])-half_height)
 				var query:=PhysicsShapeQueryParameters2D.new()
@@ -229,8 +329,27 @@ func run()->void:
 			join_top_solid=join_top_solid and actual_solid_at(world,Vector2(lerpf(join_rect.position.x,join_rect.end.x,ratio),join_rect.position.y+0.01))
 		check(join_top_solid,"Original receiving join standing line is supported by actual new environment solids")
 
+		for child:Dictionary in context.get("creek_children",[]):
+			check(child.program.parent_program_id==context.environment_program.id and child.program.kind=="creek_gallery","Lower creek is a topology-bound child of the same ridge program")
+			var actual_child:=assembler.get_node(str(child.node_id).replace("/","_")) as PlatformingModule
+			var prior_node:Dictionary={}
+			for previous:Dictionary in plain.manifest.nodes:
+				if previous.id==child.node_id:prior_node=previous
+			var prior_child:=PlainsRegionGenerator.definition(prior_node)
+			check(actual_child!=null and actual_child.moving_platforms.size()==prior_child.ferries.size(),"Actual original controlled ferry nodes remain installed in the joint creek")
+			if actual_child!=null:
+				for ferry_index:int in actual_child.moving_platforms.size():
+					var serializer:=PlainsRegionGenerator.new()
+					check(serializer._definition_data(actual_child.moving_platforms[ferry_index].definition)==serializer._definition_data(prior_child.ferries[ferry_index]),"Actual controlled-ferry path, size, timing and recorded phase match original resource")
+			var gap:Array=child.clear_gap.rect
+			var center:=Vector2(float(target.offset[0])+float(gap[0])+float(gap[2])*0.5,float(target.offset[1])+float(gap[1]))
+			for drop:float in [1.0,64.0,100.0]:
+				var point:=center+Vector2(0,drop)
+				actual_gap_queries.append({"point":[point.x,point.y],"hits":actual_point_hits(world,point)})
+				check(not actual_solid_at(world,point),"Actual static-body queries exclude original moving ferry and find no static rescue floor through original challenge/drop")
+
 		if module!=null:await verify_no_shot(world,module)
-		rows.append({"root_seed":root_seed,"baseline_manifest":plain.manifest,"candidate_manifest":m,"plan":joint.regional_art_plan,"actual_collisions":facts,"support_scope_change":{"prior_deep":plain.manifest.ground_supports,"formal_shallow_before_owned_cutout":formal_shallow,"candidate":m.ground_supports,"scope":m.environment_coverage.physics_scope}})
+		rows.append({"root_seed":root_seed,"baseline_manifest":plain.manifest,"candidate_manifest":m,"plan":joint.regional_art_plan,"actual_collisions":facts,"actual_gap_queries":actual_gap_queries,"actual_paint_readback":paint_readback,"support_scope_change":{"prior_deep":plain.manifest.ground_supports,"formal_shallow_before_owned_cutout":formal_shallow,"candidate":m.ground_supports,"scope":m.environment_coverage.physics_scope}})
 		world.queue_free();await process_frame;await process_frame
 	var cut:Array=PlainsJointRecoilPlan.clip_supports([[-1.0,600.0,802.0,260.0]],[[0.0,600.0,800.0,260.0]])
 	check(cut.size()==2 and float(cut[0][2])==1.0 and float(cut[1][2])==1.0,"Exact clipping preserves both 1px outside ownership strips")

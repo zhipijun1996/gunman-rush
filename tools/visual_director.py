@@ -713,8 +713,40 @@ def validate_landform_consumers(snap, report, phase):
                 or mesh.get('source_exposed_faces') != body.get('exposed_faces')
                 or not mesh.get('actual_mesh_indices')):
             errors.append('landform installed mesh/material differs from shared source/' + phase)
-        if body.get('geometry_source') != 'environment_program' or not body.get('support_id'):
+        vertices, indices = mesh.get('actual_mesh_vertices', []), mesh.get('actual_mesh_indices', [])
+        if not vertices or not indices or len(indices) % 3 or any(type(i) is not int or i < 0 or i >= len(vertices) for i in indices):
+            errors.append('landform installed mesh indices invalid/' + phase)
+        else:
+            def cross(a, b, c):
+                return (b[0]-a[0])*(c[1]-a[1])-(b[1]-a[1])*(c[0]-a[0])
+            origin = vertices[0]
+            boundary_area = abs(sum(cross(origin, vertices[i], vertices[(i+1) % len(vertices)]) for i in range(len(vertices)))) * .5
+            triangle_area = sum(abs(cross(vertices[indices[i]], vertices[indices[i+1]], vertices[indices[i+2]])) * .5 for i in range(0, len(indices), 3))
+            if abs(triangle_area-boundary_area) > max(.05, boundary_area * .00001):
+                errors.append('landform actual complete-volume mesh coverage differs/' + phase)
+        parent = program.get('environment_program', {})
+        provenance_ok = body.get('geometry_source') == 'environment_program'
+        if body.get('geometry_source') == 'paired_creek_program_before_definition':
+            children = program.get('region_context', {}).get('creek_children', [])
+            provenance_ok = any(
+                child.get('node_id') == body.get('child_node_id')
+                and child.get('program', {}).get('parent_program_id') == parent.get('id') == body.get('parent_program_id')
+                and child.get('program', {}).get('source_order') == 'paired_topology_environment_before_span_and_definition'
+                and child.get('program', {}).get('kind') == 'creek_gallery'
+                and child.get('node_id') in program.get('region_context', {}).get('child_node_ids', [])
+                for child in children)
+        if not provenance_ok or not body.get('support_id') or body.get('support_id') != parent.get('regional_substrate_id'):
             errors.append('landform missing actual environmental source/support/' + phase)
+    if any(p.get('negative_topology') == 'open_bottom_exterior_port' for p in program.get('structural_pieces', [])):
+        for mesh in painted:
+            registrations = mesh.get('actual_paint_depth_registration', {})
+            paint_by_role = {p.get('role'): p for p in mesh.get('paint_sources', [])}
+            for role, key in (('meadow_transition', 'standing'), ('cave_transition', 'side_and_intrados')):
+                source = paint_by_role.get(role, {}).get('source_face_projection', {})
+                expected_registration = [source.get(k) for k in ('source_depth_offset_px', 'valid_depth_px', 'pigment_fade_start_px')]
+                if (any(type(v) not in (int, float) for v in expected_registration)
+                        or registrations.get(key) != expected_registration):
+                    errors.append('landform actual material depth differs from source registration/' + phase)
     expected_rear = {w.get('id'): w for w in program.get('rear_walls', [])}
     actual_rear = {w.get('id'): w for w in art.get('joint_rear_walls', [])}
     if (not expected_rear or set(expected_rear) != set(actual_rear)
@@ -728,6 +760,56 @@ def validate_landform_consumers(snap, report, phase):
             errors.append('landform actual rear wall/source mismatch/' + phase)
     if art.get('joint_rear_openings') != program.get('rear_openings'):
         errors.append('landform actual rear opening declaration differs/' + phase)
+    structures = program.get('structural_pieces', [])
+    installed_structures = art.get('joint_structural_pieces', [])
+    actual_structures = {p.get('id'): p for p in installed_structures}
+    if ('v6' in str(program.get('version', '')) and not structures
+            or len(structures) != len(installed_structures)
+            or len(actual_structures) != len(installed_structures)):
+        errors.append('landform painted structural family incomplete/' + phase)
+    for piece in structures:
+        actual = actual_structures.get(piece.get('id'), {})
+        anchor, source_anchor = piece.get('world_anchor', []), piece.get('source_anchor', [])
+        scale = piece.get('uniform_scale', 0)
+        def projected(values):
+            if len(anchor) != 2 or len(source_anchor) != 2 or scale <= 0:
+                return []
+            origin = [f32(f32(a) - f32(f32(sa) * f32(scale))) for a, sa in zip(anchor, source_anchor)]
+            return [[f32(f32(f32(pv) * f32(scale)) + o) for pv, o in zip(point, origin)] for point in values]
+        negative = projected(piece.get('negative_contour_px', []))
+        outline = projected(piece.get('source_outline_px', []))
+        if (not source_ok(actual) or actual.get('collision_written') is not False
+                or actual.get('asset_role') != piece.get('asset_role')
+                or actual.get('actual_world_anchor') != anchor
+                or actual.get('actual_uniform_scale') != [scale, scale]
+                or actual.get('actual_rotation') != 0
+                or actual.get('actual_z_index') != -8
+                or actual.get('actual_world_negative_contour') != negative
+                or actual.get('actual_world_outline') != outline
+                or actual.get('connection_interfaces') != piece.get('connection_interfaces')
+                or not any(points(o.get('registered_negative_core', o.get('points', []))) == negative for o in program.get('rear_openings', []))):
+            errors.append('landform painted structure/negative space differs from source grammar/' + phase)
+        if piece.get('negative_topology') == 'open_bottom_exterior_port':
+            opening = next((o for o in program.get('rear_openings', []) if points(o.get('registered_negative_core', [])) == negative), {})
+            port = opening.get('open_bottom_port', {})
+            bottom = max((v[1] for v in negative), default=None)
+            bottom_indices = [i for i, v in enumerate(negative) if v[1] == bottom]
+            valid = len(bottom_indices) == 2 and bottom_indices[1] == bottom_indices[0] + 1
+            if valid:
+                li, ri = bottom_indices
+                left, right = negative[li], negative[ri]
+                terminal = port.get('terminal_y', 0)
+                extension = [left, [left[0], terminal], [right[0], terminal], right]
+                expected_opening = negative[:li+1] + extension[1:3] + negative[ri:]
+                valid = (port.get('left') == left and port.get('right') == right
+                    and port.get('direction') == [0, 1] and port.get('collision') is False
+                    and port.get('destination') == 'regional_creek_valley_exterior'
+                    and terminal == f32(port.get('regional_bottom_y', terminal) + 64)
+                    and terminal > bottom
+                    and points(opening.get('extension_polygon', [])) == extension
+                    and points(opening.get('points', [])) == expected_opening)
+            if not valid:
+                errors.append('landform open-bottom daylight exit differs from registered source/continuation/' + phase)
     relations = program.get('support_relations', [])
     if (len(relations) != len(bodies) or any(r.get('valid') is not True or not r.get('overlap_polygons') or r.get('overlap_area', 0) <= 100 for r in relations)):
         errors.append('landform source lacks rooted rear overlap/' + phase)
@@ -1139,7 +1221,32 @@ def route(request,task_id,quality_record,allowed_paths,max_calls=10,max_rounds=2
        'preparation':{'region_context':build_region_context(region_id) if region_id else {'status':'unregistered','runtime_available':None},'lessons':load_lessons(region_id)},
        'constraints':['Freeze Motor, weapons/resources/progression, RNG, actual collision geometry/route and saves; within the authorized art scope visual mesh, source profiles and UV mapping may be redesigned, not collision or gameplay','Admission is scoped to this family and actual consumer: independently evidenced actual-pixel G2 is required before its descendants expand; a rejected unrelated mother does not block independently qualified units. Preserve rejected contracts; a different limited pilot role requires its own actual-pixel review, never retroactive approval','No conceptual image posing as actual gameplay; no subjective score from hashes','Two no-progress visual rounds stop. Preserve every failed native/model/review attempt.','Host mode needs an active real Codex host, distinct implementation/review agents; otherwise block with original Harness lease/timeout','Use existing G0–G5/eleven quality dimensions; G0/G1 stage is not G2 beauty approval or full content completion']}
     regional_request = region_id == 'windchime_plains' and not re.search(r'场所|局部|另一段|钟庭|\blocal\b|\bplace\b', request, re.I)
-    if regional_request:
+    from level_design import joint_landform_request
+    joint_request = joint_landform_request(request, region_id)
+    if joint_request:
+        paths = ['scripts/generation/plains_joint_recoil_plan.gd', 'scripts/generation/plains_region_generator.gd',
+                 'scripts/generation/plains_region_art_plan.gd', 'scripts/art/plains_joint_recoil_composer.gd',
+                 'shaders/plains_landform_material.gdshader', 'resources/visual_development/p1_landform_assets.json',
+                 'docs/evidence/plains_landform/recipe.md', 'docs/evidence/plains_landform/independent-art-02.md']
+        m['workflow'] = 'visual_golden'
+        m['constraints'][0] = ('Joint candidate: environment purpose, support, exposed faces, voids and painted-family interfaces precede span embedding and platform Definition. Authorized isolated geometry redesign must be versioned and replay actual Motor, unchanged mechanisms and original negative cases. Freeze Motor, weapons, abilities, resources, RNG implementation, saves and forest. Pure surface tasks still freeze actual collision geometry/route.')
+        m['preparation']['visual_recipe'] = {
+            'status': 'candidate_not_automatic_admission',
+            'scope': 'One source-owned ridge/creek program inside the formal region; legacy remainder, not full-region art success',
+            'sources': [{'path': path, 'sha256': file_hash(ROOT / path)} for path in paths],
+            'profile': 'scripts/art/plains_joint_recoil_composer.gd',
+            'recipe': 'docs/evidence/plains_landform/recipe.md',
+            'quality_record': 'docs/quality/records/PLAINS-LANDFORM-01.json',
+            'capture_script': 'tools/plains_joint_recoil_capture.gd',
+            'preview_script': 'tools/plains_joint_recoil_preview.gd',
+            'method': 'Environment before Definition; registered complete painted structure and continuous solids, not independent thin bands. First material method rejected; current actual candidate REWORK, not golden.',
+            'expansion': 'blocked_until_actual_art_and_operation_admission'}
+        for task in tasks:
+            task['skills'] = list(dict.fromkeys(task['skills'] + ['level-module-creator', 'region-generator']))
+            task['goal'] += ' Jointly author actions and environmental construction before geometry. One source feeds actual solid, complete terrain, interfaces and depth. Read current source-bound failed pixels, produce a visual answer, implement and independently review normal-camera playback. Do not expand or claim the full region transformed before first scoped art admission.'
+            if not task['read_only']:
+                task['checks'] = list(dict.fromkeys([c for c in task['checks'] if c not in ('visual-director-terrain', 'visual-director-space')] + ['plains-landform-contract']))
+    elif regional_request:
         paths = ['scripts/generation/plains_region_art_plan.gd', 'scripts/generation/plains_region_generator.gd',
                  'scripts/art/plains_regional_composer.gd', 'shaders/plains_regional_ground.gdshader',
                  'resources/visual_development/p1_regional_assets.json', REGIONAL_CAPTURE,

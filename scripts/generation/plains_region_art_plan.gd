@@ -56,13 +56,27 @@ static func compile(manifest: Dictionary) -> Dictionary:
 				joint_modules.append(PlainsJointRecoilPlan.instantiate(node))
 		if joint_modules.size()!=1 or str(joint_modules[0].node_id).begins_with("tutorial"): return {"ok":false,"error":"Joint experiment requires exactly one actual non-tutorial recoil challenge"}
 		for joint: Dictionary in joint_modules:
+			for piece: Dictionary in joint.get("structural_pieces",[]):
+				if not piece.get("placement_feasible",false):return {"ok":false,"error":"Painted vault has no legal common bank interface"}
+				for connection: Dictionary in piece.connection_interfaces:
+					if not connection.get("valid",false):return {"ok":false,"error":"Painted vault support foot does not intersect its actual owned creek mass"}
 			for body: Dictionary in joint.terrain_bodies:
 				var polygon:=PackedVector2Array()
 				for point: Array in body.points: polygon.append(_point(point))
 				for space: Dictionary in joint.region_context.get("protected_actual_airspace",[]):
 					var r:=_rect(space.rect)
 					var obstacle:=PackedVector2Array([r.position,Vector2(r.end.x,r.position.y),r.end,Vector2(r.position.x,r.end.y)])
-					if not Geometry2D.intersect_polygons(polygon,obstacle).is_empty(): return {"ok":false,"error":"Joint receiving source intersects actual protected movement: "+str(space.owner)}
+					var intrusion: Array[PackedVector2Array]=Geometry2D.intersect_polygons(polygon,obstacle)
+					# The old dock may legitimately touch its existing ferry/actor
+					# clearance envelope. Protect ALL newly occupied air, preserving
+					# only the exact already-owned original static contact domains.
+					for domain: Dictionary in joint.region_context.get("original_owned_static_domains",[]):
+						var old_rect:=_rect(domain.rect)
+						var old_polygon:=PackedVector2Array([old_rect.position,Vector2(old_rect.end.x,old_rect.position.y),old_rect.end,Vector2(old_rect.position.x,old_rect.end.y)])
+						var remaining: Array[PackedVector2Array]=[]
+						for piece: PackedVector2Array in intrusion:remaining.append_array(Geometry2D.clip_polygons(piece,old_polygon))
+						intrusion=remaining
+					if not intrusion.is_empty(): return {"ok":false,"error":"Joint environment introduces solid into protected movement: "+str(space.owner)+" kind="+str(space.get("kind",""))+" source_role="+str(body.get("source_role",""))}
 	var values: Array = manifest.get("world_bounds",[])
 	if values.size()!=4: return {"ok":false,"error":"Missing formal full-region bounds"}
 	var bounds := _rect(values)
@@ -150,6 +164,7 @@ static func compile(manifest: Dictionary) -> Dictionary:
 	if not joint_modules.is_empty():
 		plan.joint_modules=joint_modules
 		plan.environment_coverage=manifest.get("environment_coverage",{}).duplicate(true)
+		plan.environment_world=manifest.get("environment_world",{}).duplicate(true)
 		plan.production_method="environment_program_before_platform_projection_with_legacy_remainder"
 		plan.rear_walls=[];plan.rear_openings=[];plan.support_relations=[]
 		for joint: Dictionary in joint_modules:

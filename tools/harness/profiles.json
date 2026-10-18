@@ -981,6 +981,30 @@
       "timeout_seconds": 60,
       "success_pattern": "^OK$",
       "weight_seconds": 0.1
+    },
+    "plains-landform-contract": {
+      "argv": [
+        "python3",
+        "tools/run_plains_joint_recoil_tests.py"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PLAINS JOINT RECOIL CONTRACT: [1-9][0-9]* assertions, 0 failures$",
+      "weight_seconds": 20,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "shaders",
+        "tests/plains_joint_recoil_runner.gd",
+        "tools"
+      ],
+      "artifact_paths": [
+        "build/plains_joint_recoil/contracts"
+      ]
     }
   },
   "profiles": {

@@ -7,7 +7,7 @@ description: 负责资产、地区视觉母版、模块化美术系列、AI 风�
 
 ## 触发与边界
 
-新增资产、地区视觉母版或风格精修，以及合屏与来源质量审查。当前平原先按[当前场所制作范例](../../../docs/evidence/plains_places/recipe.md)制作完整绘画体积；`PLAINS-PLACES-01` 是未准入实验，不继承旧候选的艺术接受。 从仓库根目录调用 `$art-director`。使用 [总门槛](../../../docs/development_quality.md)；重要内容由 game-quality-gate 建立一次任务，专业技能补充同一记录，不重复执行共用阶段。
+新增资产、地区视觉母版或风格精修，以及合屏与来源质量审查。当前平原先读[实际联合制作入口](../../../docs/evidence/plains_landform/recipe.md)，与模块创作者在Definition前共同设计环境构造和可表达绘画家族；完整转面/支座/负形的实际画尺和接口参与构造选择。通用岩纹填体与背景裁孔已实机RETHINK，当前候选尚未艺术准入，不继承旧场所或源图的接受。 从仓库根目录调用 `$art-director`。使用 [总门槛](../../../docs/development_quality.md)；重要内容由 game-quality-gate 建立一次任务，专业技能补充同一记录，不重复执行共用阶段。
 
 ## 输入与依赖
 
