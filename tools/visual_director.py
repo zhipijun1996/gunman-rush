@@ -1227,7 +1227,7 @@ def route(request,task_id,quality_record,allowed_paths,max_calls=10,max_rounds=2
         paths = ['scripts/generation/plains_joint_recoil_plan.gd', 'scripts/generation/plains_region_generator.gd',
                  'scripts/generation/plains_region_art_plan.gd', 'scripts/art/plains_joint_recoil_composer.gd',
                  'shaders/plains_landform_material.gdshader', 'resources/visual_development/p1_landform_assets.json',
-                 'docs/evidence/plains_landform/recipe.md', 'docs/evidence/plains_landform/independent-art-02.md']
+                 'docs/evidence/plains_landform/recipe.md', 'docs/evidence/plains_landform/independent-art-03.md']
         m['workflow'] = 'visual_golden'
         m['constraints'][0] = ('Joint candidate: environment purpose, support, exposed faces, voids and painted-family interfaces precede span embedding and platform Definition. Authorized isolated geometry redesign must be versioned and replay actual Motor, unchanged mechanisms and original negative cases. Freeze Motor, weapons, abilities, resources, RNG implementation, saves and forest. Pure surface tasks still freeze actual collision geometry/route.')
         m['preparation']['visual_recipe'] = {
@@ -1239,7 +1239,7 @@ def route(request,task_id,quality_record,allowed_paths,max_calls=10,max_rounds=2
             'quality_record': 'docs/quality/records/PLAINS-LANDFORM-01.json',
             'capture_script': 'tools/plains_joint_recoil_capture.gd',
             'preview_script': 'tools/plains_joint_recoil_preview.gd',
-            'method': 'Environment before Definition; registered complete painted structure and continuous solids, not independent thin bands. First material method rejected; current actual candidate REWORK, not golden.',
+            'method': 'Environment before Definition and registered whole structures are retained. Actual final candidate REQUIRES RETHINK: full rectangular rear substrate minus local openings produced a straight sky slot and flat wallpaper. Replace its exterior-air/finite-mountain/cross-screen representation before any expansion; do not resume texture polishing. See final independent-art-03.',
             'expansion': 'blocked_until_actual_art_and_operation_admission'}
         for task in tasks:
             task['skills'] = list(dict.fromkeys(task['skills'] + ['level-module-creator', 'region-generator']))
