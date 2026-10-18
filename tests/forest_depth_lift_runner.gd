@@ -21,6 +21,8 @@ func _initialize() -> void:
 	run.call_deferred()
 func run() -> void:
 	var trace:=TRACE.new()
+	# Exact historical coordinate regressions; current default has its own corpus.
+	if root_entry_mode or expedition_mode: trace.recorded_layout_version=ThornForestRegionGenerator.DEPTH_LAYOUT_CANOPY
 	trace.root_entry_enabled=root_entry_mode
 	trace.expedition_enabled=expedition_mode
 	trace.lift_strategy=strategy_name

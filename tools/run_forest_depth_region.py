@@ -103,6 +103,7 @@ def expected_itinerary(manifest,route):
                 if i==0:row.update({k:edge[k] for k in ('claim_before_edge','claim_area','claim_id') if k in edge})
                 result.append(row)
             result.append({'kind':'walk','edge_id':id,'landing':edge['path'][-1],'step_index':len(edge['steps'])})
+            if manifest.get('layout_version')=='forest-expedition-airborne-v11':result[-1]['b']=edge['b']
         else:
             result.append({**edge,'edge_id':id,'landing':edge.get('landing',edge['path'][-1])})
             for i,step in enumerate(edge.get('post_landing_steps',[])):result.append({**step,'edge_id':id,'step_index':i,'post_landing':True})
@@ -344,6 +345,333 @@ def validate_cavity_elbow_leg(data,leg,completion,frames,events,requests,platfor
     need(all(by.get(t) and full(by[t],ids[nodes['C']['support_id']]) and abs(by[t]['position'][0]-goal[0])<=8 and abs(by[t]['position'][1]-goal[1])<=2 for t in range(end-11,end+1)),'elbow_actual_C_node_position_full12')
     return list(dict.fromkeys(errors))
 
+def _air_chain_authoritative_factory(layout,regional=False):
+    """Read this data-only factory's current literal geometry, fail on unknown edits.
+
+    No runtime source execution, defaults, or captured self-reported geometry.
+    The old arch geometry remains the original literal authoritative factory.
+    """
+    source=(ROOT/'scripts/generation/forest_air_chain_geometry.gd').read_text()
+    version=re.search(r'const VERSION := "([^"]+)"',source).group(1)
+    decoder=json.JSONDecoder()
+    if layout=='bridge_five':
+        literal=source.split('static func _build_bridge_five() -> Dictionary:',1)[1].strip().removeprefix('return ')
+        return_data=decoder.raw_decode(literal.replace('"version":VERSION','"version":'+json.dumps(version)))[0]
+        data=return_data
+    elif layout=='arch_four':
+        old=(ROOT/'scripts/generation/forest_directional_geometry.gd').read_text()
+        old_version=re.search(r'const VERSION := "([^"]+)"',old).group(1)
+        literal=old.split('static func build() -> Dictionary:',1)[1].split('\nstatic func ',1)[0].strip().removeprefix('return ')
+        data=decoder.raw_decode(literal.replace('"version":VERSION','"version":'+json.dumps(old_version)))[0]
+        block=source.split('if layout == "arch_four":',1)[1].split('\n\telse:',1)[0]
+        value=block.split('data["action_program"] = ',1)[1]
+        data['action_program']=decoder.raw_decode(value)[0]
+    elif layout in ('hook_hook','recoil_hook'):
+        literal=source.split('\n\telse:',1)[1].split('data = ',1)[1]
+        data=decoder.raw_decode(literal)[0]
+        start='if layout == "recoil_hook":' if layout=='recoil_hook' else 'elif layout == "hook_hook":'
+        block=source.split(start,1)[1].split('\n\t\telif ',1)[0].split('\n\t\telse:',1)[0]
+        for line in block.splitlines():
+            line=line.strip()
+            if not line or line.startswith('#'):continue
+            match=re.fullmatch(r'data\.([a-z_]+)(?:\[(\d+)\])? = (.+)',line)
+            if match is None:raise ValueError('unknown air chain data statement')
+            field,index,value=match.groups();parsed=decoder.decode(value)
+            if index is None:data[field]=parsed
+            else:data[field][int(index)]=parsed
+    else:raise ValueError('unknown air chain factory layout')
+    data['version']=version;data['id']=layout
+    for field in (() if layout=='bridge_five' else ('scene_language','chain_contract')):
+        literal=source.split('data["'+field+'"] = ',1)[1]
+        data[field]=decoder.raw_decode(literal)[0]
+    if regional and layout in ('hook_hook','recoil_hook','bridge_five'):
+        omitted=decoder.decode(re.search(r'(?m)^const REGIONAL_OMITTED_SUPPORTS := (.+)$',source).group(1))
+        contract=decoder.decode(re.search(r'(?m)^const REGIONAL_RECOVERY := (.+)$',source).group(1))
+        if omitted!=['recovery','recovery_step'] or contract!='shared-regional-roots-v1':
+            raise ValueError('unrecognized regional recovery derivation')
+        data['platforms']=[p for p in data['platforms'] if p['id'] not in omitted]
+        data['regional_recovery']=contract
+    return data
+
+def validate_airborne_chain_leg(data,leg,completion,frames,events,requests,platforms,full):
+    """All accepted actions and body/resource transitions in one real air phrase."""
+    errors=[]
+    def need(ok,reason):
+        if not ok and reason not in errors:errors.append(reason)
+        return bool(ok)
+    def xy(value):return isinstance(value,list) and len(value)==2 and all(type(v) in (int,float) and math.isfinite(v) for v in value)
+    def near(a,b,tolerance=.2):return xy(a) and xy(b) and math.dist(a,b)<=tolerance
+    def intersects(body,rect,tolerance=.1):
+        return min(body[0]+body[2],rect[0]+rect[2])-max(body[0],rect[0])>tolerance and min(body[1]+body[3],rect[1]+rect[3])-max(body[1],rect[1])>tolerance
+    tuning=json.loads((ROOT/'config/player_tuning.json').read_text());resource=(ROOT/'resources/player/traversal.tres').read_text();definition=(ROOT/'scripts/player/traversal_definition.gd').read_text()
+    def number(name,source=resource,defaults=definition):
+        match=re.search(r'(?m)^'+name+r'\s*=\s*([-\d.]+)',source) or re.search(r'var '+name+r'\s*:?=\s*([-\d.]+)',defaults)
+        if match is None:raise ValueError('missing real '+name)
+        return float(match.group(1))
+    manifest=data['manifest'];instances=[g for g in manifest.get('geometry_instances',[]) if g.get('id')==leg.get('geometry_instance')]
+    if len(instances)!=1:return ['air_chain_actual_instance_missing']
+    instance=instances[0];raw=instance.get('local_geometry',{});translation=instance.get('translation');ids=instance.get('platform_id_map',{});anchors=instance.get('anchor_id_map',{})
+    if not isinstance(raw,dict) or not xy(translation) or not isinstance(ids,dict) or not isinstance(anchors,dict):return ['air_chain_actual_geometry_malformed']
+    try:factory=_air_chain_authoritative_factory(raw.get('id'),regional=True)
+    except (OSError,KeyError,IndexError,TypeError,ValueError,AttributeError):return ['air_chain_authoritative_factory_unreadable']
+    need(raw==factory,'air_chain_local_geometry_not_current_factory')
+    need(instance.get('factory')=='res://scripts/generation/forest_air_chain_geometry.gd' and instance.get('geometry_version')==factory['version'],'air_chain_actual_factory_identity')
+    def world(point):return [point[0]+translation[0],point[1]+translation[1]]
+    actual_platforms={p['id']:p for p in manifest.get('platforms',[])};actual_anchors={a['id']:a for a in manifest.get('hook_anchors',[])}
+    need(set(ids)=={p['id'] for p in factory['platforms']} and len(set(ids.values()))==len(ids),'air_chain_exact_platform_mapping')
+    need(set(anchors)=={a['id'] for a in factory['hook_anchors']} and len(set(anchors.values()))==len(anchors),'air_chain_exact_anchor_mapping')
+    for p in factory['platforms']:
+        expected=world(p['rect'][:2])+p['rect'][2:];actual=actual_platforms.get(ids.get(p['id']),{})
+        need(actual.get('rect')==expected and actual.get('one_way') is p['one_way'],'air_chain_translated_actual_platform')
+    for a in factory['hook_anchors']:
+        need(actual_anchors.get(anchors.get(a['id']),{}).get('position')==world(a['position']),'air_chain_translated_actual_anchor')
+    danger_indices=instance.get('danger_indices',[])
+    need(isinstance(danger_indices,list) and len(danger_indices)==len(factory['dangers']),'air_chain_actual_danger_indices')
+    for index,danger in zip(danger_indices,factory['dangers']):
+        need(type(index) is int and 0<=index<len(manifest.get('dangers',[])) and manifest['dangers'][index]==world(danger[:2])+danger[2:],'air_chain_translated_actual_danger')
+    program=leg.get('action_program',raw.get('action_program'))
+    if not need(program==factory['action_program'],'air_chain_program_not_factory'):return errors
+    entry=ids.get('entry');exit=ids.get('crown');start,end=completion['start_tick'],completion['tick'];leg_index=completion.get('leg')
+    need(leg.get('landing')==world(factory['goal']) and leg.get('landing_support_id')==exit and leg.get('from_support_id',entry)==entry,'air_chain_actual_port_contract')
+    by={f['tick']:f for f in frames};path=[f for f in frames if start<=f['tick']<=end];actual=[e for e in events if start<=e.get('tick',-1)<=end and e.get('leg')==leg_index];inputs=[r for r in requests if start<=r.get('tick',-1)<=end and r.get('leg')==leg_index]
+    if not path:return errors+['air_chain_actual_frames_missing']
+    need([f['tick'] for f in path]==list(range(start,end+1)),'air_chain_leg_frames_noncontinuous')
+    departures=[e for e in actual if e.get('kind')=='air_chain_departure' and e.get('geometry_instance')==instance['id']]
+    arrivals=[e for e in actual if e.get('kind')=='air_chain_arrival' and e.get('geometry_instance')==instance['id']]
+    jumps=[e for e in actual if e.get('kind')=='jumped']
+    need(len(departures)==len(arrivals)==len(jumps)==1,'air_chain_unique_departure_jump_arrival')
+    if departures:
+        d=departures[0];need(d.get('entry_support')==entry and d.get('program')==program,'air_chain_actual_departure_identity')
+        need(all(by.get(t) and full(by[t],entry) for t in range(d['tick']-12,d['tick'])),'air_chain_observation_entry_fullsupport12')
+        need(near(d.get('position'),world(factory['spawn']),.2),'air_chain_actual_takeoff_position')
+    need(all(by.get(t) and full(by[t],exit) for t in range(end-11,end+1)),'air_chain_exit_fullsupport12')
+    if arrivals:need(arrivals[0]['tick']==end and arrivals[0].get('exit_support')==exit and arrivals[0].get('program_steps')==len(program),'air_chain_actual_arrival_identity')
+    first_floor=None;takeoff=None
+    if jumps:
+        jump=jumps[0];takeoff=jump['tick'];previous=by.get(takeoff-1,{})
+        need(full(previous,entry) and by.get(takeoff,{}).get('grounded') is False,'air_chain_actual_grounded_takeoff')
+        need(any(r.get('kind')=='jump_held' and r.get('held') is True and r.get('tick')==takeoff for r in inputs),'air_chain_actual_jump_intent')
+        first_floor=next((f['tick'] for f in path if f['tick']>takeoff and f.get('grounded')),None)
+        # A physical edge reception is legal before the player walks fully in.
+        # Require the actual receiver collision and descending feet, then keep
+        # the unchanged final twelve full-foot frames above as stable arrival.
+        landed=by.get(first_floor,{}) if first_floor is not None else {}
+        prior=by.get(first_floor-1,{}) if first_floor is not None else {}
+        receiver=actual_platforms.get(exit,{}).get('rect',[])
+        position=landed.get('position',[]);previous_position=prior.get('position',[])
+        contact=(len(receiver)==4 and xy(position) and xy(previous_position)
+                 and landed.get('grounded') is True and exit in landed.get('supports',[])
+                 and min(position[0]+12,receiver[0]+receiver[2])-max(position[0]-12,receiver[0])>0
+                 and abs(position[1]+18-receiver[1])<1
+                 and prior.get('grounded') is False and xy(prior.get('velocity')) and prior['velocity'][1]>=0
+                 and previous_position[1]+18<=receiver[1]+.1)
+        need(first_floor is not None and contact,'air_chain_first_landing_not_exit')
+        if first_floor:
+            air=[by[t] for t in range(takeoff,first_floor) if t in by]
+            need(len(air)==first_floor-takeoff and all(f.get('grounded') is False for f in air),'air_chain_midair_landing')
+    # Actual body must remain outside every real solid and environment region,
+    # including neighboring structures, rather than just this factory's drawing.
+    for f in path:
+        if not xy(f.get('position')) or not xy(f.get('velocity')):need(False,'air_chain_frame_body_malformed');continue
+        x,y=f['position'];body=[x-12,y-18,24,36]
+        need(isinstance(f.get('body'),list) and len(f['body'])==4 and all(type(v) in (int,float) for v in f['body']) and all(abs(a-b)<.001 for a,b in zip(f['body'],body)),'air_chain_real_body_volume_missing')
+        for p in actual_platforms.values():
+            if p.get('one_way') is False:need(not intersects(body,p['rect'],.2),'air_chain_body_inside_actual_solid')
+        for danger in manifest.get('dangers',[]):need(not intersects(body,danger,.01),'air_chain_body_inside_actual_thorn')
+        previous=by.get(f['tick']-1)
+        if previous and xy(previous.get('position')):need(math.dist(f['position'],previous['position'])<=max(number('hook_pull_speed'),tuning['shot_burst_speed'],math.hypot(tuning['ground_speed'],tuning['max_normal_fall_speed']))/tuning['physics_hz']+.3,'air_chain_unexplained_displacement')
+    need(not any(e.get('kind')=='committed_damage' and e.get('target')=='player' for e in actual),'air_chain_player_damaged_or_returned')
+    # A direct success requires the entire ordered H/R sequence before the first
+    # real landing. Phase labels and self-reported step counters are not proof.
+    accepted=[e for e in actual if e.get('kind') in ('hook_contact_kick','shot_fired')]
+    need([('H' if e['kind']=='hook_contact_kick' else 'R') for e in accepted]==[p['action'] for p in program],'air_chain_accepted_action_sequence')
+    if takeoff and first_floor:need(all(takeoff<=e['tick']<first_floor for e in accepted),'air_chain_action_outside_air_window')
+    casts=[e for e in actual if e.get('kind')=='hook_cast'];shots=[e for e in actual if e.get('kind')=='shot_fired'];need(len(casts)==sum(p['action']=='H' for p in program),'air_chain_actual_H_count')
+    states=('hook_cast','hook_fly','hook_pull','hook_contact_kick','hook_kick','free')
+    last_end=takeoff-1 if takeoff else start-1;h_index=0
+    for action,accepted_event in zip(program,accepted):
+        if action['action']=='R':
+            shot=accepted_event;tick=shot['tick'];aim=action['direction'];length=math.hypot(*aim);aim=[n/length for n in aim]
+            need(shot.get('kind')=='shot_fired' and near(shot.get('aim'),aim,.001) and tick>last_end,'air_chain_R_actual_order_direction')
+            matching=[r for r in inputs if r.get('kind')=='shoot_release' and r.get('tick')==tick and r.get('queued') is True and r.get('aim')==shot.get('aim')]
+            need(len(matching)==1,'air_chain_R_actual_router_packet')
+            # Full unobstructed burst, including fractional last tick. Ordinary
+            # input cannot secretly supply the claimed recoil displacement.
+            previous=by.get(tick-1);burst=math.ceil(tuning['shot_burst_duration']*tuning['physics_hz'])
+            if not previous:need(False,'air_chain_R_previous_body_missing');continue
+            for j in range(burst):
+                f=by.get(tick+j,{});seconds=min((j+1)/tuning['physics_hz'],tuning['shot_burst_duration']);position=[previous['position'][k]-aim[k]*tuning['shot_burst_speed']*seconds for k in (0,1)]
+                need(near(f.get('position'),position,.25),'air_chain_R_real_full_burst')
+            last_end=tick+burst-1
+        else:
+            if h_index>=len(casts):need(False,'air_chain_H_cast_missing');continue
+            cast=casts[h_index];next_cast=casts[h_index+1]['tick'] if h_index+1<len(casts) else end+1;h_index+=1
+            group=[e for e in actual if cast['tick']<=e.get('tick',-1)<next_cast];chain=[]
+            for state in states:
+                found=[e for e in group if e.get('kind')==state];need(len(found)==1,'air_chain_H_unique_'+state)
+                if len(found)==1:chain.append(found[0])
+            target=anchors.get(action['anchor']);anchor=actual_anchors.get(target,{}).get('position')
+            if len(chain)!=6:continue
+            c,fly,pull,contact,kick,free=chain;need([e['tick'] for e in chain]==sorted(set(e['tick'] for e in chain)) and c['tick']>last_end,'air_chain_H_state_order')
+            need(contact is accepted_event and all(e.get('target')==target for e in chain[2:]),'air_chain_H_actual_mapped_target')
+            origin=[c['position'][0],c['position'][1]-6]
+            need(xy(anchor) and math.dist(origin,anchor)<=number('hook_range')+12.01,'air_chain_H_real_origin_range')
+            aim=[anchor[k]-origin[k] for k in (0,1)] if xy(anchor) else [0,0];length=math.hypot(*aim);aim=[v/length for v in aim] if length else [0,0]
+            matching=[r for r in inputs if r.get('kind')=='grapple' and r.get('tick')==c['tick'] and r.get('queued') is True and near(r.get('aim'),aim,.002)]
+            need(len(matching)==1 and near(by.get(c['tick'],{}).get('hook_start'),origin,.05),'air_chain_H_actual_router_origin_direction')
+            for a,b,state in zip(chain,chain[1:],states):
+                need(all(by.get(t,{}).get('hook_state')==state for t in range(a['tick'],b['tick'])),'air_chain_H_live_state_interval')
+            need(near(contact.get('hook_tip'),by.get(contact['tick'],{}).get('hook_tip'),.05) and xy(contact.get('hook_tip')) and math.dist(contact['position'],contact['hook_tip'])<=number('hook_stop_distance')+.1,'air_chain_H_actual_body_stop')
+            need(xy(contact.get('hook_tip')) and xy(anchor) and math.dist(contact['hook_tip'],anchor)<=12.1,'air_chain_H_tip_actual_anchor_surface')
+            need(contact.get('hook_used_at_event') is True and kick.get('hook_used_at_event') is False and by.get(kick['tick'],{}).get('hook_used') is False,'air_chain_H_actual_contact_restoration')
+            if takeoff is not None and c['tick']>takeoff:need(by.get(c['tick']-1,{}).get('hook_used') is False,'air_chain_H_requires_restored_token')
+            need((kick['tick']-contact['tick'])/tuning['physics_hz']>=number('hook_contact_seconds')-1e-8,'air_chain_H_actual_contact_duration')
+            for e in chain:
+                candidates=[by.get(e['tick'],{}).get('position'),by.get(e['tick']-1,{}).get('position')]
+                need(any(near(e.get('position'),p,.25) for p in candidates),'air_chain_H_event_actual_body')
+            last_end=free['tick']
+    # Real per-tick shot/energy ledger. The observation shore gives a genuine
+    # resource phase; a previous leg need not have this new optional vocabulary.
+    previous=by.get(start-1)
+    if not previous or 'shot_energy_delay' not in previous:
+        previous=path[0];replay=path[1:]
+        need(full(previous,entry) and not any(e['tick']==previous['tick'] and e.get('kind') in ('shot_fired','hook_cast') for e in actual),'air_chain_initial_resource_observation')
+    else:replay=path
+    if 'shot_energy_delay' not in previous:return errors+['air_chain_initial_resource_phase_missing']
+    src=(ROOT/'resources/player/plains_shot_energy.tres').read_text();defs=(ROOT/'scripts/resources/definitions/shot_energy_definition.gd').read_text()
+    capacity=number('capacity',src,defs);cost=number('shot_energy_cost',src,defs);recover=number('ground_recovery',src,defs);delay_limit=number('recovery_delay',src,defs);hit_recovery=number('hit_energy_recovery',src,defs)
+    target_gain=number('target_gain',(ROOT/'resources/player/combat_energy.tres').read_text(),(ROOT/'scripts/resources/definitions/combat_energy_definition.gd').read_text())
+    energy=previous['energy'];delay=previous['shot_energy_delay'];charges=previous['shots'];grounded=previous['grounded'];hook_used=previous['hook_used'];dt=1/tuning['physics_hz']
+    if previous is path[0]:
+        first_credits,credit_errors=actual_projectile_energy_credits(data,previous,by.get(previous['tick']-1,{}),events,dt,target_gain);errors.extend(credit_errors)
+        need(previous.get('pending_air_grants')==[{'amount':1,'session_id':previous.get('shot_economy',{}).get('session_id')} for c in first_credits if c.get('fired_airborne') is True],'air_chain_initial_pending_grant_receipts')
+    for f in replay:
+        tick=f['tick'];recovery=max(0,dt-delay);delay=max(0,delay-dt)
+        if grounded:energy=min(capacity,energy+recover*recovery)
+        old=by.get(tick-1,{})
+        pending=old.get('pending_air_grants',[])
+        need(isinstance(pending,list) and all(isinstance(g,dict) and g.get('amount')==1 and g.get('session_id')==old.get('shot_economy',{}).get('session_id') for g in pending),'air_chain_actual_pending_round_grant')
+        charges=min(tuning['max_air_shots'],charges+len(pending))
+        fired=[e for e in shots if e['tick']==tick]
+        for e in fired:energy-=cost;delay=delay_limit;charges-=1
+        credits,credit_errors=actual_projectile_energy_credits(data,f,by.get(tick-1,{}),events,dt,target_gain);errors.extend(credit_errors)
+        for credit in credits:
+            applied=min(hit_recovery,max(0,capacity-energy));need(abs(credit['amount']-applied)<.001 and abs(credit.get('energy',-1)-(energy+applied))<.001,'air_chain_real_projectile_credit_amount');energy+=applied
+        # Projectile callbacks run after the normal Controller in this consumer.
+        # They queue an air-round credit, consumed at next tick's grant phase.
+        expected_pending=[{'amount':1,'session_id':f.get('shot_economy',{}).get('session_id')} for c in credits if c.get('fired_airborne') is True]
+        need(f.get('pending_air_grants')==expected_pending,'air_chain_real_queued_round_grant_phase')
+        if f['grounded']:charges=tuning['max_air_shots']
+        for e in actual:
+            if e['tick']!=tick:continue
+            if e.get('kind')=='hook_cast':hook_used=True
+            elif e.get('kind')=='hook_kick':hook_used=False
+            elif e.get('kind')=='actual_shot_energy_credit' and any(c is e and c.get('fired_airborne') is True for c in credits):hook_used=False
+        if f['grounded']:hook_used=False
+        need(f.get('hook_used') is hook_used,'air_chain_H_token_without_real_cause')
+        need(0<=f['energy']<=capacity and abs(f['energy']-energy)<.001 and abs(f.get('shot_energy_delay',-1)-delay)<.001,'air_chain_real_energy_cost_delay_and_recovery')
+        need(f['shots']==charges,'air_chain_real_air_shot_charge_ledger')
+        grounded=f['grounded']
+    return errors
+
+
+def completed_forest_encounter_jump_ticks(data):
+    """Classify only proven, fully returned v11 combat jumps, never route jumps.
+
+    Incomplete/malformed encounters return no exclusions. Original callers keep
+    their independent route jump count, timing, held-input and clearance checks.
+    """
+    if not isinstance(data, dict):
+        return set()
+    manifest = data.get('manifest', {})
+    if not isinstance(manifest, dict):
+        return set()
+    if manifest.get('version') != VERSION or manifest.get('layout_version') != 'forest-expedition-airborne-v11' or data.get('manual_motor_step') is not False or data.get('position_or_resource_injection') is not False:
+        return set()
+    events, frames, requests = data.get('events', []), data.get('frames', []), data.get('requests', [])
+    if not all(isinstance(rows, list) and all(isinstance(row, dict) for row in rows) for rows in (events, frames, requests)):
+        return set()
+    def vector(value):
+        return isinstance(value, list) and len(value) == 2 and all(type(n) in (int, float) and math.isfinite(n) for n in value)
+    by = {f.get('tick'): f for f in frames if isinstance(f, dict) and type(f.get('tick')) is int}
+    if len(by) != len(frames):
+        return set()
+    platforms = {p.get('id'): p.get('rect') for p in manifest.get('platforms', [])}
+    enemies = {e.get('id') for e in manifest.get('enemies', [])}
+    def full(frame, support):
+        rect, pos = platforms.get(support), frame.get('position')
+        return isinstance(rect, list) and len(rect) == 4 and vector(pos) and frame.get('grounded') is True and support in frame.get('supports', []) and pos[0]-12 >= rect[0]-.1 and pos[0]+12 <= rect[0]+rect[2]+.1 and abs(pos[1]+18-rect[1]) < 1
+    def actor(frame, enemy):
+        matches = [row for row in frame.get('enemies', []) if row.get('id') == enemy]
+        return matches[0] if len(matches) == 1 else {}
+    def same(row, start):
+        return all(row.get(key) == start.get(key) for key in ('enemy_id', 'leg', 'saved_leg', 'saved_phase', 'origin'))
+    result = set()
+    starts = [e for e in events if e.get('kind') == 'forest_encounter_start']
+    for start in starts:
+        try:
+            begin, leg, enemy, origin = start['tick'], start['leg'], start['enemy_id'], start['origin']
+            if type(begin) is not int or begin < 1 or type(leg) is not int or type(start.get('saved_leg')) is not int or leg != start.get('saved_leg') or not isinstance(start.get('saved_phase'), str) or not start['saved_phase'] or enemy not in enemies or not vector(origin):
+                continue
+            if not 0 <= leg < len(data.get('itinerary', [])) or data['itinerary'][leg].get('kind') not in ('walk', 'drop', 'drop_through', 'jump_gap', 'jump_rise', 'jump_rise_through_gap'):
+                continue
+            ends = [e for e in events if e.get('kind') == 'forest_encounter_return' and same(e, start) and type(e.get('tick')) is int and begin <= e['tick'] <= begin+600]
+            if len(ends) != 1:
+                continue
+            end, finish = ends[0], ends[0]['tick']
+            terminal = [e for e in events if e.get('kind') == 'forest_encounter_terminal' and same(e, start) and begin <= e.get('tick', -1) <= finish]
+            overlapping = [e for e in starts if begin <= e.get('tick', -1) <= finish]
+            if len(terminal) != 1 or len(overlapping) != 1 or end.get('enemy_hp') != 0 or terminal[0].get('enemy_hp') != 0 or end.get('full_foot_frames') != 12:
+                continue
+            if not all(vector(e.get('position')) and any(t in by and vector(by[t].get('position')) and math.dist(e['position'], by[t]['position']) < .2 for t in (e['tick']-1, e['tick'])) for e in (start, terminal[0], end)):
+                continue
+            support = end.get('support')
+            entry = [by[t] for t in (begin-1, begin) if t in by and vector(by[t].get('position')) and math.dist(by[t]['position'], origin) < .2 and full(by[t], support)]
+            window = [by.get(t, {}) for t in range(finish-11, finish+1)]
+            if not entry or not all(full(f, support) and math.dist(f['position'], origin) < 8 and type(actor(f, enemy).get('health')) in (int, float) and actor(f, enemy).get('health') == 0 and actor(f, enemy).get('terminal') is True for f in window):
+                continue
+            initial = actor(entry[0], enemy)
+            if type(initial.get('health')) not in (int, float) or initial['health'] <= 0 or initial.get('terminal') is not False or start.get('enemy_hp') != initial['health']:
+                continue
+            interval = [by.get(t, {}) for t in range(begin, finish+1)]
+            if not all(f.get('leg') == leg and f.get('phase') == start.get('saved_phase') and f.get('actor_epoch') == entry[0].get('actor_epoch') for f in interval):
+                continue
+            observed = [e for e in events if begin <= e.get('tick', -1) <= finish and e.get('leg') == leg]
+            hits = [e for e in observed if e.get('kind') == 'committed_damage' and e.get('target') == enemy]
+            if not hits or len({e.get('event_id') for e in hits}) != len(hits) or not any(e.get('lethal') is True and e.get('health_after') == 0 for e in hits):
+                continue
+            tuning = json.loads((ROOT/'config/player_tuning.json').read_text())
+            resource = (ROOT/'resources/player/combat_energy.tres').read_text()
+            definition = (ROOT/'scripts/resources/definitions/combat_energy_definition.gd').read_text()
+            gain = re.search(r'(?m)^target_gain\s*=\s*([\d.]+)', resource) or re.search(r'var target_gain\s*:?=\s*([\d.]+)', definition)
+            if not gain:
+                continue
+            causal = True
+            for hit in hits:
+                tick = hit.get('tick')
+                if hit.get('damage_kind') != 0 or not str(hit.get('source', '')).startswith('player_projectile:') or tick > terminal[0]['tick'] or tick not in by or tick-1 not in by:
+                    causal = False; break
+                credits, errors = actual_projectile_energy_credits(data, by[tick], by[tick-1], events, 1/tuning['physics_hz'], float(gain.group(1)))
+                if errors or not credits:
+                    causal = False; break
+            if not causal or not any(e.get('lethal') is True and actor(by[terminal[0]['tick']], enemy).get('terminal') is True for e in hits):
+                continue
+            jumps = [e for e in observed if e.get('kind') == 'jumped']
+            actual_ticks = set()
+            for jump in jumps:
+                tick = jump.get('tick')
+                held = [r for r in requests if r.get('tick') == tick and r.get('leg') == leg and r.get('kind') == 'jump_held' and r.get('held') is True]
+                before, after = by.get(tick-1, {}), by.get(tick, {})
+                if len(held) != 1 or before.get('grounded') is not True or after.get('grounded') is not False or not vector(jump.get('position')) or not vector(after.get('velocity')) or after['velocity'][1] >= 0 or math.dist(jump['position'], before.get('position', [])) > .2:
+                    actual_ticks = set(); break
+                actual_ticks.add(tick)
+            result.update(actual_ticks)
+        except (KeyError, TypeError, ValueError, ZeroDivisionError):
+            # Invalid evidence cannot turn a route's extra jump into an exemption.
+            continue
+    return result
+
+
 def validate(data):
     if data.get('route')=='upper_noH':return validate_upper_noH(data)
     errors=list(data.get('failures',[]));frames=data.get('frames',[]);manifest=data.get('manifest',{});events=data.get('events',[]);requests=data.get('requests',[])
@@ -377,6 +705,8 @@ def validate(data):
         target=leg.get('landing')
         if not target or any(abs(f['position'][0]-target[0])>8 or abs(f['position'][1]-target[1])>2 for f in window):fail(f'leg_{i}_actual_destination')
         actual=[e for e in events if row['start_tick']<=e.get('tick',-1)<=row['tick']]
+        if leg['kind']=='airborne_chain':
+            for reason in validate_airborne_chain_leg(data,leg,row,frames,events,requests,platforms,full):fail(f'leg_{i}_'+reason)
         if leg['kind']=='hollow_cavity':
             is_elbow=leg.get('motion')=='descending_elbow' or any(g.get('id')==leg.get('geometry_instance') and g.get('local_geometry',{}).get('cavity_contract',{}).get('variant')=='horizontal_then_airborne_descending_elbow' for g in manifest.get('geometry_instances',[]))
             checker=validate_cavity_elbow_leg if is_elbow else validate_cavity_leg
@@ -492,6 +822,7 @@ def validate(data):
                 if not any(e['kind']==kind for e in actual):fail(f'leg_{i}_actual_{kind}')
         if leg['kind'] in ('directional_phrase','directional_return','narrow_reward','ecology_choice') and not any(e['kind']=='shot_fired' for e in actual):fail(f'leg_{i}_actual_R')
     by_tick={f['tick']:f for f in frames}
+    encounter_jumps=completed_forest_encounter_jump_ticks(data) if manifest.get('layout_version')=='forest-expedition-airborne-v11' else set()
     for e in events:
         if e.get('kind')=='jump_gap_vertical_clearance_release':
             rect=platforms.get(e.get('support_id'));position=e.get('position',[]);foot=e.get('foot',[]);velocity=e.get('velocity',[])
@@ -499,6 +830,7 @@ def validate(data):
             expected_hold=math.ceil(json.loads((ROOT/'config/player_tuning.json').read_text())['jump_hold_duration']*json.loads((ROOT/'config/player_tuning.json').read_text())['physics_hz'])
             actual_leg=expected[leg_index] if isinstance(leg_index,int) and 0<=leg_index<len(expected) else {}
             jump_events=[j for j in events if j.get('kind')=='jumped' and j.get('leg')==leg_index and j.get('tick',0)<=e.get('tick',-1)]
+            if manifest.get('layout_version')=='forest-expedition-airborne-v11':jump_events=[j for j in jump_events if j.get('tick') not in encounter_jumps]
             if not rect or actual_leg.get('kind')!='jump_gap' or actual_leg.get('support_id')!=e.get('support_id') or e.get('target_rect')!=rect or len(position)!=2 or len(foot)!=2 or len(velocity)!=2:
                 fail('gap_vertical_release_missing_actual_geometry')
             elif math.dist(foot,[position[0],position[1]+18])>1e-6 or foot[1]>rect[1]-1 or velocity[1]>=0 or e.get('minimum_hold_ticks')!=expected_hold or e.get('held_ticks',0)<expected_hold or len(jump_events)!=1 or e['tick']-jump_events[0]['tick']!=e['held_ticks']:
@@ -553,7 +885,7 @@ def validate(data):
     return errors
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,required=True);parser.add_argument('--seed',default='forest-depth-00');parser.add_argument('--map',type=int,choices=(1,2),default=1);parser.add_argument('--route',choices=ROUTES+('all',),default='all');parser.add_argument('--routes',nargs='+',choices=ROUTES[:4]+('borer',),help='Finite explicit unique route group, sharing one import');parser.add_argument('--matrix',action='store_true',help='Explicit finite4representatives (two seeds x two maps) x4routes; requires actual map2 entry contract');parser.add_argument('--corpus',action='store_true',help='Fixed10roots00..09 x2maps x4originalroutes; original matrix16 first; one import90/native240 each, stop on first failure');parser.add_argument('--validate-only',type=Path);parser.add_argument('--movie',action='store_true',help='One explicit original route, real GL 60fps AVI; same import90/native240 and validation');args=parser.parse_args()
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,required=True);parser.add_argument('--seed',default='forest-depth-00');parser.add_argument('--map',type=int,choices=(1,2),default=1);parser.add_argument('--route',choices=ROUTES+('all',),default='all');parser.add_argument('--routes',nargs='+',choices=ROUTES[:4]+('borer',),help='Finite explicit unique route group, sharing one import');parser.add_argument('--matrix',action='store_true',help='Explicit finite4representatives (two seeds x two maps) x4routes; requires actual map2 entry contract');parser.add_argument('--corpus',action='store_true',help='Fixed10roots00..09 x2maps x4originalroutes; original matrix16 first; one import90/native240 each, stop on first failure');parser.add_argument('--validate-only',type=Path);parser.add_argument('--movie',action='store_true',help='One explicit original route, real GL 60fps AVI; same import90/native240 and validation');parser.add_argument("--layout",choices=("shared-tree-directional-cavities-v7","shared-tree-living-detour-v9","shared-tree-canopy-hunt-v10","forest-expedition-airborne-v11"),default="",help="Explicit registered layout for exact historical replay or new candidate validation");args=parser.parse_args()
     if args.validate_only:
         errors=validate(json.loads(args.validate_only.read_text()));print(json.dumps({'errors':errors}));return int(bool(errors))
     if args.corpus and (args.matrix or args.routes or args.route!='all'):parser.error('--corpus is the fixed80 requests and cannot combine with --matrix/--routes/a specific --route')
@@ -590,6 +922,7 @@ def main():
         for i,(seed,index,route) in enumerate(cases):
             path=output/f'{i:02d}-map{index}-{route}';path.mkdir();capture=path/'capture.json';log=path/'native.log'
             argv=['bash','tools/godot.sh','--headless','--fixed-fps','60','--path','.','--script','tests/forest_depth_region_runner.gd','--',f'--seed={seed}',f'--map={index}',f'--route={route}',f'--output={capture}']
+            if args.layout:argv.append('--layout='+args.layout)
             if args.movie:
                 argv=['bash','tools/godot.sh','--rendering-method','gl_compatibility','--audio-driver','Dummy','--write-movie',str(path/'gameplay.avi')]+argv[3:]+['--capture-movie']
             start=time.monotonic();row={'seed':seed,'map':index,'route':route,'argv':argv}
@@ -599,6 +932,7 @@ def main():
                 with movie_display(env,path,args.movie) as native_env:
                     with log.open('w') as stream:result=subprocess.run(argv,cwd=ROOT,env=native_env,stdout=stream,stderr=subprocess.STDOUT,timeout=240)
                 text=log.read_text();data=json.loads(capture.read_text()) if capture.exists() else {};errors=validate(data) if capture.exists() else ['capture_absent']
+                if args.layout and data.get('manifest',{}).get('layout_version')!=args.layout:errors.append('actual_layout_does_not_match_explicit_request')
                 if args.movie:
                     row['movie']=inspect_movie(path/'gameplay.avi',data);errors.extend(row['movie']['errors'])
                     if 'OpenGL API' not in text:errors.append('movie_actual_GL_context_missing')

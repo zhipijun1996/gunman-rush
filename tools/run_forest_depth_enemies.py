@@ -445,6 +445,8 @@ def _validate_lift_motion(data, row, entry, initial, frames, observed, begin, en
 
 
 def validate_expedition(data):
+    if data.get("manifest", {}).get("layout_version") != "shared-tree-canopy-hunt-v10":
+        raise ValueError("Historical expedition requires exact frozen v10 coordinates; current default is separately verified")
     from run_forest_depth_region import validate as validate_actual_route, expected_itinerary
     errors = validate_actual_route(data)
     if errors:
@@ -642,6 +644,8 @@ def validate_crossbranch(data):
     c=data.get('candidate_overlay',{})
     formal=data.get('crossbranch_formal') is True
     if data.get('ecology_strategy')=='crossbranch_lifecycle':
+        if data.get("manifest", {}).get("layout_version") != "shared-tree-canopy-hunt-v10":
+            raise ValueError("Historical crossbranch lifecycle requires exact frozen v10 coordinates")
         checks=data.get('lifecycle',[])
         required={'real_flight_save_entry','real_menu_pause_freezes_actor','real_App_rebinds_recorded_actor','actual_App_reload_preserves_midair_phase_velocity_HP','restored_actor_resumes_real_motion','real_App_cancel_retains_physical_velocity','cancel_lands_on_real_support_and_resumes_cycle','actual_ordinary_projectile_death','dead_App_actor_rebind','dead_Actor_reload_never_restarts_migration'}
         if not formal or c.get('scope')!='actual_generated_crossbranch_contract' or not checks or any(r.get('passed') is not True for r in checks) or not required.issubset({r.get('check') for r in checks}) or len([r for r in checks if r.get('check','').startswith('atomic_reject_')])!=16:
@@ -788,7 +792,7 @@ def validate_root_entry(data):
     if errors:raise ValueError('Actual base route rejected: '+','.join(errors))
     validate_router_observation(data)
     m=data['manifest'];frames=data['frames'];events=data['events'];completed=data['completed_legs']
-    current_layout=re.search(r'const LAYOUT_VERSION := "([^"]+)"',(region.ROOT/'scripts/generation/thorn_forest_region_v2.gd').read_text()).group(1)
+    current_layout="shared-tree-canopy-hunt-v10"  # Independent exact historical coordinate contract.
     if (data.get('root_entry_scope')!='actual_R_spawn_then_live_R_E_ordinary_E_C_gate_not_reward_expedition'
             or data.get('route')!='crown_entry' or data.get('map_index')!=2 or m.get('layout_version')!=current_layout
             or m['choices'].get('root_entry') is not True or m.get('entry_contract',{}).get('selected')!='R'
@@ -941,6 +945,62 @@ def run_formal_choices(out, args, receipt):
     receipt['passed'] = True
 
 
+# Additional two-behavior consumer. Existing golden/formal assertions above
+# remain unchanged; the default scenario appends this same-import native run.
+FEEDBACK_CHECK_LABELS = ('beetle authored definition and real dispatcher', 'actual front projectile is stopped by bark shield', 'front control includes accepted Router shot', 'eligible front block emits exactly one shield response', 'duplicate blocked packet emits no second shield response', 'same blocked event cannot replay from rear to bypass shield', 'stale epoch produces neither damage nor shield feedback', 'same-faction packet produces no shield feedback', 'negative amount produces no shield feedback', 'self-source packet produces no shield feedback', 'wrong target actor produces no shield feedback', 'empty event produces no shield feedback', 'nonfinite amount produces no shield feedback', 'blocked and invalid packets create no health or committed recovery transaction', 'owned world audio backend actually released', 'fresh observation sees beetle preannounce real committed charge', 'observed telegraph leads to actual fixed-goal charge, not patrol movement', 'owned world audio backend actually released', 'actual rear projectiles kill same full-health bark beetle', 'rear ordinary shooting is not armored', 'owned world audio backend actually released', 'actual descending projectile damages unplated top', 'owned world audio backend actually released', 'swing pod authored definition and real dispatcher', 'physical pendulum traverses broad curved orbit without collision snapping', 'slow readable turn phases provide catch windows', 'pause retains moving anchor phase', 'swing phase round-trip uses existing local persistence interface', 'invalid nonfinite swing save rejected atomically', 'owned world audio backend actually released', 'real grapple projectile catches moving pendulum body as live anchor', 'owned world audio backend actually released', 'real trunk obstruction stops swing on near side', 'blocked pendulum never teleports or retries through trunk', 'owned world audio backend actually released')
+
+
+def validate_feedback(data):
+    if type(data.get('assertions')) is not int or data['assertions'] != 35 or type(data.get('failures')) is not int or data['failures'] != 0:
+        raise ValueError('All 35 feedback assertions must actually execute and pass')
+    checks = data.get('checks')
+    if not isinstance(checks, list) or len(checks) != 35:
+        raise ValueError('Complete ordered feedback check ledger required')
+    for index, (row, label) in enumerate(zip(checks, FEEDBACK_CHECK_LABELS), 1):
+        if not isinstance(row, dict) or type(row.get('index')) is not int or row['index'] != index or row.get('label') != label or row.get('passed') is not True:
+            raise ValueError(f'Feedback assertion {index} missing, changed or failed')
+    diagnostic = data.get('diagnostic', {})
+    shield = diagnostic.get('shield_contract', {})
+    if shield.get('feedback') != ['shield-contract-valid'] or type(shield.get('commits')) is not int or shield['commits'] != 0 or shield.get('hp_before') != 3 or shield.get('hp_after') != 3:
+        raise ValueError('Shield malformed/replay controls must yield one response and no committed damage')
+    preview = diagnostic.get('preview', {})
+    if preview.get('seen') is not True or preview.get('attack_seen') is not True or not preview.get('ledger'):
+        raise ValueError('Actual telegraph, commitment and attack observations required')
+    events = data.get('events', [])
+    if not any(e.get('kind') == 'policy_result' and e.get('target') == 'forest_bark_beetle' and e.get('hp') == 0 and str(e.get('source', '')).startswith('player_projectile:') for e in events):
+        raise ValueError('Actual rear projectile lethal policy result required')
+    if not any(e.get('kind') == 'policy_result' and e.get('target') == 'forest_swing_pod' and str(e.get('event_id', '')).startswith('hook/') for e in events):
+        raise ValueError('Actual live-anchor grapple policy event required')
+    frames = data.get('swing_frames')
+    if not isinstance(frames, list) or len(frames) != 288:
+        raise ValueError('Complete pendulum orbit observations required')
+    for index, row in enumerate(frames):
+        position = row.get('position', [])
+        if type(row.get('frame')) is not int or row['frame'] != index or not isinstance(position, list) or len(position) != 2 or any(type(value) not in (int, float) or not math.isfinite(value) for value in position):
+            raise ValueError('Finite continuous pendulum frame sequence required')
+    if max(row['position'][0] for row in frames) - min(row['position'][0] for row in frames) <= 198:
+        raise ValueError('Actual broad pendulum movement required')
+
+
+def run_feedback(out):
+    feedback = out / 'feedback'
+    feedback.mkdir()
+    with (feedback / 'native.log').open('w') as log, contextlib.redirect_stdout(log):
+        text = run_engine(['--headless', '--fixed-fps', '60', '--path', '.', '--script',
+                           'tests/forest_feedback_enemy_runner.gd', '--',
+                           f'--output-dir=res://{feedback.relative_to(ROOT)}'], 180)
+    if not re.search(r'^FOREST FEEDBACK ENEMIES: 35 assertions, 0 failures$', text, re.M):
+        raise RuntimeError('Complete feedback native summary missing')
+    if re.search(r'(^|\n)(?:SCRIPT )?(?:ERROR|WARNING):', text):
+        raise RuntimeError('Unexpected feedback native error or warning')
+    data = json.loads((feedback / 'capture.json').read_text())
+    validate_feedback(data)
+    summary = {'passed': True, 'assertions': data['assertions'], 'failures': data['failures'],
+               'ordered_checks': len(data['checks']), 'scope': 'Local actual enemies and shield lifecycle; not full map or fun acceptance'}
+    (feedback / 'reader.json').write_text(json.dumps(summary, indent=2) + '\n')
+    return summary
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--output-dir', default='build/forest_depth/ecology/native')
@@ -972,7 +1032,7 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
     before = level_formal.source_files()
     verifier = {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
-                for p in (Path(__file__).resolve(), ROOT / 'tests/forest_depth_enemy_runner.gd', ROOT / 'tests/forest_depth_ecology_trace.gd', ROOT / 'tests/forest_depth_ecology_runner.gd', ROOT / 'tests/forest_depth_lift_trace.gd', ROOT / 'tests/forest_depth_lift_runner.gd', ROOT / 'tests/forest_depth_region_trace.gd', ROOT / 'tools/run_forest_depth_region.py')}
+                for p in (Path(__file__).resolve(), ROOT / 'tests/forest_depth_enemy_runner.gd', ROOT / 'tests/forest_depth_ecology_trace.gd', ROOT / 'tests/forest_depth_ecology_runner.gd', ROOT / 'tests/forest_depth_lift_trace.gd', ROOT / 'tests/forest_depth_lift_runner.gd', ROOT / 'tests/forest_depth_region_trace.gd', ROOT / 'tools/run_forest_depth_region.py', ROOT / 'tests/forest_feedback_enemy_runner.gd')}
     receipt = {'scope': 'Local actors, four spider actor cases, seven spatial controls and twenty causal/phase/dead/low-resource controls; rejected badger prototype retired. Mechanics value remains subject to actual comparison; not formal forest admission',
                'source_before': before, 'verifier_before': verifier, 'passed': False}
     if args.scenario in ('formal', 'lift', 'expedition', 'crossbranch', 'root_entry'):
@@ -990,6 +1050,16 @@ def main():
     if args.include_map2_expedition:
         receipt['scope'] += '; appended actual map2 lower-reward-to-R live/two-R return to the real gate, without an invented camp detour'
         receipt['included_map2_expedition'] = True
+    # Declare only explicitly pinned specialist modes; generic current routes,
+    # actual restore, campaigns and debug consumers are never pinned here.
+    historical_modes = ([args.scenario] if args.scenario in ('expedition', 'root_entry')
+                        else ['crossbranch_lifecycle'] if args.scenario == 'crossbranch'
+                        and 'lifecycle' in args.crossbranch_strategies else [])
+    if historical_modes:
+        receipt['historical_coordinate_regression'] = {
+            'layout_version': 'shared-tree-canopy-hunt-v10', 'modes': historical_modes,
+            'current_default_admission': False,
+            'current_default_evidence': 'separate actual current routes, formal encounters and restore'}
     receipt['scenario'] = args.scenario
     started = time.monotonic()
     try:
@@ -1027,6 +1097,7 @@ def main():
         data = json.loads((out / 'capture.json').read_text())
         validate(data)
         (out / 'stress-summary.json').write_text(json.dumps(summarize_stress(data), indent=2) + '\n')
+        receipt['feedback'] = run_feedback(out)
         receipt['passed'] = True
     finally:
         receipt['source_after'] = level_formal.source_files()

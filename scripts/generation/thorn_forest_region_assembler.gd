@@ -69,13 +69,13 @@ func _support_groups() -> Array[Dictionary]:
 		var rect := ThornForestRegionGenerator._rect(row.rect)
 		var current := {"rect":rect,"one_way":bool(row.one_way),"members":[row]}
 		var changed := true
-		while changed and bool(current.one_way):
+		while changed and (bool(current.one_way) or manifest.get("scene_language_version")==ForestSceneLanguage.VERSION):
 			changed = false
 			for i: int in range(groups.size()-1,-1,-1):
 				var other: Dictionary = groups[i]
 				var a: Rect2 = current.rect
 				var b: Rect2 = other.rect
-				if not bool(other.one_way) or absf(a.position.y-b.position.y) > 0.001: continue
+				if bool(other.one_way)!=bool(current.one_way) or absf(a.position.y-b.position.y) > 0.001: continue
 				if a.position.x > b.end.x+0.001 or b.position.x > a.end.x+0.001: continue
 				current.rect = a.merge(b)
 				current.members.append_array(other.members)
@@ -118,6 +118,8 @@ func module_index_at(point: Vector2) -> int:
 	return -1
 
 func _draw() -> void:
+	if manifest.get("scene_language_version", 0) == ForestSceneLanguage.VERSION:
+		ForestSceneLanguage.draw_structure_backdrops(self, manifest)
 	if is_instance_valid(vine_shape) and not vine_shape.disabled:
 		var gate := ThornForestRegionGenerator._rect(manifest.vine_gate.rect)
 		draw_rect(gate,Color("5c5542"))
@@ -125,6 +127,9 @@ func _draw() -> void:
 			var at := gate.position+Vector2(8,i*32)
 			draw_line(at+Vector2(-15,0),at+Vector2(15,18),Color("ca9670"),5,true)
 	for row: Dictionary in forest_platforms:
+		if manifest.get("scene_language_version", 0) == ForestSceneLanguage.VERSION and row.has("scene_kind"):
+			ForestSceneLanguage.draw_surface(self, row)
+			continue
 		var rect := ThornForestRegionGenerator._rect(row.rect)
 		var one_way: bool = row.one_way
 		draw_rect(rect, Color("586544") if one_way else Color("394e38"))

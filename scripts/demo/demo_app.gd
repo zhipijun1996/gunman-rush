@@ -594,7 +594,7 @@ func _load_stage() -> void:
 		# restore have succeeded; an accepted menu request alone proves none of it.
 		var actual_manifest: Dictionary=(stage as GeneratedDemoStage).generated.manifest
 		var actual_boss: BossEncounter=stage.boss.get_node("Encounter") as BossEncounter
-		print("FOREST_UI_EVENT " + JSON.stringify({"event":"region_assembled","region":String(active_region_id),"map_index":director.region_map_index,"seed":_region_seed(),"content_version":actual_manifest.version,"manifest_hash":actual_manifest.manifest_hash,"boss_definition":actual_boss.definition.resource_path,"boss_scene":stage.boss.scene_file_path,"abilities":Array(campaign.abilities),"debug_entry":campaign.debug_entry}))
+		print("FOREST_UI_EVENT " + JSON.stringify({"event":"region_assembled","region":String(active_region_id),"map_index":director.region_map_index,"seed":_region_seed(),"content_version":actual_manifest.version,"layout_version":actual_manifest.get("layout_version", ""),"manifest_hash":actual_manifest.manifest_hash,"boss_definition":actual_boss.definition.resource_path,"boss_scene":stage.boss.scene_file_path,"abilities":Array(campaign.abilities),"debug_entry":campaign.debug_entry}))
 
 func _physics_process(_delta: float) -> void:
 	if get_tree().paused or _stage_pending or not lifetime.active or not is_instance_valid(stage) or not is_instance_valid(controller):

@@ -59,6 +59,7 @@ func run() -> void:
 	cases.append({"id":"v2_map2_experimental","ok":queen.ok,"returned_version":queen.get("manifest",{}).get("version",""),"production_pool":queen.get("production_pool"),"boss_contract":queen_contract.duplicate(true)})
 	check_recorded_layouts(registry,tuning)
 	check_canopy_contract(registry,tuning)
+	check_expedition_contract(registry,tuning)
 	for map_index: int in [1,2]:
 		await app_case(map_index)
 	# A bounded lifecycle hypothesis: the long async run() previously quit while
@@ -83,7 +84,7 @@ func deferred_finish() -> void:
 		if argument.begins_with("--output="): output=argument.trim_prefix("--output=")
 	DirAccess.make_dir_recursive_absolute(output.get_base_dir())
 	var file := FileAccess.open(output,FileAccess.WRITE)
-	file.store_string(JSON.stringify({"capture_schema":2,"scope":"runtime version compatibility only; v2 gameplay not covered","assertions":assertions,"failures":failures,"engine":Engine.get_version_info(),"cases":cases,"checks":checks,"exit_lifecycle":exit_observations},"\t"))
+	file.store_string(JSON.stringify({"capture_schema":3,"scope":"runtime version compatibility only; v2 gameplay not covered","assertions":assertions,"failures":failures,"engine":Engine.get_version_info(),"cases":cases,"checks":checks,"exit_lifecycle":exit_observations},"\t"))
 	file.close()
 	file=null
 	print("FOREST DEPTH VERSIONS: %s assertions, %s failures" % [assertions,failures])
@@ -144,3 +145,55 @@ func check_canopy_contract(registry: ThornForestRegionGenerator,tuning: PlayerTu
 	missing.erase("boss_content");missing.manifest_hash=ThornForestRegionGenerator._hash(missing)
 	check(not registry.validate(missing,tuning) and ThornForestRegionGenerator.boss_definition_path(m.version,2,missing).is_empty(),"new layout without explicit Boss content cannot silently fall back")
 	cases.append({"id":"canopy_content_contract","manifest":m,"geometry_from_resource":config.build_geometry(origin,true),"boss_scene":ThornForestRegionGenerator.boss_scene_path(m.version,2,m),"boss_resource":ThornForestRegionGenerator.boss_definition_path(m.version,2,m)})
+
+func check_expedition_contract(registry: ThornForestRegionGenerator,tuning: PlayerTuning) -> void:
+	# Independent expected identity: never derive the expected layout from producer.
+	var expected_layout := "forest-expedition-airborne-v11"
+	var equality := RandomStageGenerator.new()
+	for map_index: int in [1,2]:
+		var seed_value := "version-expedition-map-%s" % map_index
+		var capabilities := {"grapple":true,"abilities":["grapple"]}
+		var explicit_capabilities := capabilities.duplicate(true)
+		explicit_capabilities.forest_layout_version=expected_layout
+		var explicit := registry.generate_version("thorn-forest-region-v2",seed_value,tuning,map_index,explicit_capabilities)
+		var current := registry.generate(seed_value,tuning,map_index,capabilities)
+		check(explicit.get("ok",false) and current.get("ok",false),"explicit and default expedition generation succeeds map%s" % map_index)
+		if not explicit.get("ok",false) or not current.get("ok",false): continue
+		var m: Dictionary=explicit.manifest
+		var expected_scene := "res://scenes/bosses/rootbell_guardian_v2.tscn" if map_index==1 else "res://scenes/bosses/thorn_queen_canopy.tscn"
+		var expected_resource := "res://resources/bosses/rootbell_guardian_v2.tres" if map_index==1 else "res://resources/bosses/thorn_queen_canopy.tres"
+		check(m.version=="thorn-forest-region-v2" and m.layout_version==expected_layout and m.seed==seed_value and m.map_index==map_index and not m.production_pool,"explicit exact expedition identity and pending admission map%s" % map_index)
+		check(equality._same_data(explicit,current) and current.manifest.layout_version==expected_layout,"actual unversioned default equals explicit expedition complete output map%s" % map_index)
+		check(registry.validate(m,tuning) and registry.validate(current.manifest,tuning) and m.manifest_hash==ThornForestRegionGenerator._hash(m),"expedition complete output roundtrip/hash validates map%s" % map_index)
+		var actual_scene := ThornForestRegionGenerator.boss_scene_path(m.version,map_index,m)
+		var actual_resource := ThornForestRegionGenerator.boss_definition_path(m.version,map_index,m)
+		check(actual_scene==expected_scene and actual_resource==expected_resource,"exact expedition map Boss scene/resource map%s" % map_index)
+		var negatives: Array[Dictionary]=[]
+		for layout: String in ["forest-expedition-airborne-v999","shared-tree-canopy-hunt-v10"]:
+			var edited:=m.duplicate(true)
+			edited.layout_version=layout;edited.manifest_hash=ThornForestRegionGenerator._hash(edited)
+			var rejected:=not registry.validate(edited,tuning)
+			check(rejected,"rehashing cannot relabel expedition as future or old geometry map%s/%s" % [map_index,layout])
+			negatives.append({"kind":"relabeled/"+layout,"rejected":rejected})
+		var future:=registry.generate_version("thorn-forest-region-v2",seed_value,tuning,map_index,{"grapple":true,"abilities":["grapple"],"forest_layout_version":"forest-expedition-airborne-v999"})
+		var future_rejected: bool=not future.get("ok",false) and not future.has("manifest")
+		check(future_rejected,"unknown expedition layout refuses without fallback map%s" % map_index)
+		negatives.append({"kind":"future_generation","rejected":future_rejected})
+		var corrupt:=m.duplicate(true)
+		corrupt.manifest_hash="unrecognized"
+		var hash_rejected:=not registry.validate(corrupt,tuning)
+		check(hash_rejected,"corrupt expedition hash refuses map%s" % map_index)
+		negatives.append({"kind":"corrupt_hash","rejected":hash_rejected})
+		if map_index==2:
+			for field: String in ["scene","resource","contract"]:
+				var edited:=m.duplicate(true)
+				edited.boss_content[field]="unrecognized";edited.manifest_hash=ThornForestRegionGenerator._hash(edited)
+				var rejected:=not registry.validate(edited,tuning) and ThornForestRegionGenerator.boss_scene_path(m.version,map_index,edited).is_empty()
+				check(rejected,"expedition rejects coherent wrong Boss mapping: "+field)
+				negatives.append({"kind":"boss/"+field,"rejected":rejected})
+			var missing:=m.duplicate(true)
+			missing.erase("boss_content");missing.manifest_hash=ThornForestRegionGenerator._hash(missing)
+			var rejected:=not registry.validate(missing,tuning) and ThornForestRegionGenerator.boss_definition_path(m.version,map_index,missing).is_empty()
+			check(rejected,"expedition without explicit Canopy mapping cannot fall back")
+			negatives.append({"kind":"missing_boss","rejected":rejected})
+		cases.append({"id":"expedition_content_contract","map":map_index,"manifest":m,"default_manifest":current.manifest,"complete_output_equal":equality._same_data(explicit,current),"boss_scene":actual_scene,"boss_resource":actual_resource,"negative_cases":negatives})

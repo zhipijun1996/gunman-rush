@@ -3,16 +3,19 @@ const TRACE := preload("res://tests/forest_depth_region_trace.gd")
 var seed_value := "forest-depth-00"
 var map_index := 1
 var route_name := "fast"
+var layout_version := ""
 var output := "res://build/forest_depth/region/capture.json"
 func _initialize() -> void:
 	for arg: String in OS.get_cmdline_user_args():
 		if arg.begins_with("--seed="): seed_value=arg.trim_prefix("--seed=")
 		elif arg.begins_with("--map="): map_index=int(arg.trim_prefix("--map="))
 		elif arg.begins_with("--route="): route_name=arg.trim_prefix("--route=")
+		elif arg.begins_with("--layout="): layout_version=arg.trim_prefix("--layout=")
 		elif arg.begins_with("--output="): output=arg.trim_prefix("--output=")
 	run.call_deferred()
 func run() -> void:
 	var trace:=TRACE.new()
+	trace.recorded_layout_version=layout_version
 	trace.seed_value=seed_value;trace.map_index=map_index;trace.route_name=route_name
 	root.add_child(trace)
 	while not trace.finished or not trace.setup_done: await process_frame

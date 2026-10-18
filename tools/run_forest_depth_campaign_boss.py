@@ -98,7 +98,7 @@ def validate_pointer_and_map2(data):
         require(finite(frame.get('hp')) and 0<frame['hp']<=after['capacity'] and frame['hp']<=after['hp'],'Every map2 coast observation must be alive within captured entry health/capacity')
         require(frame.get('map')==after['map']==2 and frame.get('session')==after['session'] and vector(frame.get('position')) and type(frame.get('grounded')) is bool,'Every coast observation must belong to actual second-map actor with finite position')
 
-CANOPY_LAYOUT = 'shared-tree-canopy-hunt-v10'
+CANOPY_LAYOUTS = frozenset({'shared-tree-canopy-hunt-v10', 'forest-expedition-airborne-v11'})
 CANOPY_CONTENT = {'contract':'forest-queen-canopy-v3',
                   'scene':'res://scenes/bosses/thorn_queen_canopy.tscn',
                   'resource':'res://resources/bosses/thorn_queen_canopy.tres'}
@@ -116,7 +116,7 @@ def validate_map2_boss_identity(manifest, *, allow_legacy=False):
     contract=manifest.get('boss_contract')
     require(isinstance(contract,dict) and contract.get('ok') is True,
             'Actual successful typed Boss contract required')
-    if manifest.get('layout_version')==CANOPY_LAYOUT:
+    if isinstance(manifest.get('layout_version'), str) and manifest['layout_version'] in CANOPY_LAYOUTS:
         require(manifest.get('boss_content')==CANOPY_CONTENT,
                 'Exact current canopy contract/scene/resource declaration required')
         require(contract.get('version')==CANOPY_CONTENT['contract']

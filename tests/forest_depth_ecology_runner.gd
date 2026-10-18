@@ -15,6 +15,8 @@ func _initialize() -> void:
 	run.call_deferred()
 func run() -> void:
 	var trace:=TRACE.new()
+	# The lifecycle fixture observes its frozen v10 two-leg approach and shores.
+	if strategy_name=="crossbranch_lifecycle": trace.recorded_layout_version=ThornForestRegionGenerator.DEPTH_LAYOUT_CANOPY
 	trace.ecology_strategy=strategy_name
 	trace.seed_value=seed_value;trace.map_index=map_index;trace.route_name=route_name
 	root.add_child(trace)

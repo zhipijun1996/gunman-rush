@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="ForestEnemyDefinition" load_steps=4 format=3]
+[ext_resource type="Script" path="res://scripts/enemies/forest_enemy_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/resources/definitions/health_definition.gd" id="2"]
+[sub_resource type="Resource" id="health"]
+script = ExtResource("2")
+resource_id = &"forest_bark_beetle_health"
+max_health = 3.0
+initial_current = 3.0
+[resource]
+script = ExtResource("1")
+stable_id = &"forest_bark_beetle"
+definition_version = 1
+health_definition = SubResource("health")
+behavior_id = &"forest_bark_beetle"
+collision_size = Vector2(36, 24)
+patrol_speed = 32.0
+patrol_half_width = 100.0
+protected_radius = 45.0
+attack_duration = 0.45
+attack_speed = 180.0
+telegraph_duration = 0.9
+recovery_duration = 1.2
+activation_range = 220.0
+bark_rest_seconds = 1.8
+bark_shield_half_angle_degrees = 55.0

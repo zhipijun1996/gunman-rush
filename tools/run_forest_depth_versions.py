@@ -74,7 +74,7 @@ def validate(data):
         raise ValueError('Unexpected/missing native cases')
 
 
-def validate_current(data):
+def validate_recorded_current(data):
     """Keep the original legacy reader intact; current CLI also requires new evidence."""
     if data.get('capture_schema') != 2:
         raise ValueError('Current recorded-layout and canopy evidence schema required')
@@ -154,6 +154,47 @@ def validate_current(data):
                     and min(y + 18, ry + height) - max(y - 18, ry) > .001):
                 raise ValueError('Entry/reward body intersects solid terrain: ' + key)
 
+
+
+def validate_current(data):
+    """Exact original recorded rows plus independently expected v11/default rows."""
+    if data.get('capture_schema') != 3:
+        raise ValueError('Explicit current expedition capture schema required')
+    if type(data.get('assertions')) is not int or data['assertions'] < 148:
+        raise ValueError('Original 126 and at least 22 added native expedition assertions required')
+    cases = data.get('cases', [])
+    rows = [row for row in cases if row.get('id') == 'expedition_content_contract']
+    if len(cases) != 16 or len(rows) != 2 or {row.get('map') for row in rows} != {1, 2}:
+        raise ValueError('Exact original fourteen and two expedition rows required')
+    recorded = dict(data)
+    recorded['capture_schema'] = 2
+    recorded['cases'] = [row for row in cases if row.get('id') != 'expedition_content_contract']
+    validate_recorded_current(recorded)
+    for row in rows:
+        index = row['map']
+        m = row.get('manifest', {})
+        boss = 'rootbell_guardian_v2' if index == 1 else 'thorn_queen_canopy'
+        if (type(index) is not int or m.get('version') != 'thorn-forest-region-v2'
+                or m.get('layout_version') != 'forest-expedition-airborne-v11'
+                or m.get('region') != 'thorn_forest' or type(m.get('map_index')) is not int
+                or m['map_index'] != index or m.get('seed') != f'version-expedition-map-{index}'
+                or m.get('production_pool') is not False or m.get('requires') != ['grapple']
+                or not re.fullmatch(r'[0-9a-f]{64}', str(m.get('manifest_hash', '')))
+                or row.get('complete_output_equal') is not True or row.get('default_manifest') != m
+                or row.get('boss_scene') != f'res://scenes/bosses/{boss}.tscn'
+                or row.get('boss_resource') != f'res://resources/bosses/{boss}.tres'):
+            raise ValueError('Exact independently expected expedition/default identity required')
+        if index == 2:
+            from run_forest_depth_campaign_boss import validate_map2_boss_identity
+            validate_map2_boss_identity(m)
+        expected = {'relabeled/forest-expedition-airborne-v999',
+                    'relabeled/shared-tree-canopy-hunt-v10', 'future_generation', 'corrupt_hash'}
+        if index == 2:
+            expected |= {'boss/scene', 'boss/resource', 'boss/contract', 'missing_boss'}
+        negatives = row.get('negative_cases', [])
+        if (len(negatives) != len(expected) or {n.get('kind') for n in negatives} != expected
+                or not all(n.get('rejected') is True for n in negatives)):
+            raise ValueError('Every typed current-layout negative must actually reject')
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)

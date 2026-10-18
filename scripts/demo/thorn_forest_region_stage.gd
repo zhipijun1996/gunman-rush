@@ -44,7 +44,7 @@ func _ready() -> void:
 	supply_position = merchant_position
 	encounter_plan = generated.encounter_plan
 	for row: Dictionary in encounter_plan.enemies:
-		var sources := {"forest_crossbranch":"res://scenes/enemies/forest_crossbranch.tscn","forest_lantern":"res://scenes/enemies/forest_lantern.tscn","forest_seed_sentry":"res://scenes/enemies/forest_seed_sentry.tscn","forest_thread_spider":"res://scenes/enemies/forest_thread_spider.tscn","charger":"res://scenes/enemies/patrol_drone.tscn"}
+		var sources := {"forest_bark_beetle":"res://scenes/enemies/forest_bark_beetle.tscn","forest_swing_pod":"res://scenes/enemies/forest_swing_pod.tscn","forest_crossbranch":"res://scenes/enemies/forest_crossbranch.tscn","forest_lantern":"res://scenes/enemies/forest_lantern.tscn","forest_seed_sentry":"res://scenes/enemies/forest_seed_sentry.tscn","forest_thread_spider":"res://scenes/enemies/forest_thread_spider.tscn","charger":"res://scenes/enemies/patrol_drone.tscn"}
 		if not sources.has(row.behavior_id):
 			assembly_ok = false
 			push_error("Unknown recorded forest enemy behavior")
@@ -54,16 +54,29 @@ func _ready() -> void:
 		creature.position = Vector2(row.position[0],row.position[1])
 		var actor := creature.get_node("Actor") as EnemyActor
 		actor.definition = preload("res://resources/enemies/plains_charger.tres").duplicate(true) if row.behavior_id == "charger" else actor.definition.duplicate(true)
+		if row.behavior_id=="forest_bark_beetle" and row.has("initial_direction"):
+			if not row.initial_direction is int or row.initial_direction not in [-1,1]:
+				assembly_ok=false;push_error("Recorded bark facing rejected");return
+			actor.definition.initial_direction=int(row.initial_direction)
 		actor.definition.patrol_half_width = float(row.patrol_radius)
 		add_child(creature)
 		if region_state.actors.has(row.id):
-			if row.behavior_id=="forest_crossbranch":
+			if row.behavior_id in ["forest_crossbranch","forest_bark_beetle","forest_swing_pod"]:
 				var record: Variant=region_state.actors[row.id]
 				if not record is Dictionary or not record.get("depth_state") is Dictionary or not record.get("position") is Array or record.position.size()!=2:
 					assembly_ok=false;push_error("Recorded migration actor shape rejected");return
 				for value: Variant in [record.get("health")]+record.position:
 					if not (value is int or value is float) or not is_finite(float(value)):
 						assembly_ok=false;push_error("Recorded migration actor number rejected");return
+			if row.behavior_id in ["forest_bark_beetle","forest_swing_pod"]:
+				var record: Dictionary=region_state.actors[row.id]
+				if not record.get("state") is String or not record.get("home") is Array or record.home.size()!=2 or record.get("direction") not in [-1,1] or not record.get("serial") is int or record.serial<0:
+					assembly_ok=false;push_error("Recorded rooted actor phase rejected");return
+				for value: Variant in [record.get("state_time"),record.get("cooldown")]+record.home:
+					if not (value is int or value is float) or not is_finite(float(value)):
+						assembly_ok=false;push_error("Recorded rooted actor phase number rejected");return
+				if record.state_time<0 or record.cooldown<0:
+					assembly_ok=false;push_error("Recorded rooted actor phase debt rejected");return
 			var saved: Dictionary = region_state.actors[row.id]
 			if not actor.restore_instance_health(float(saved.health)): assembly_ok = false
 			creature.position = Vector2(saved.position[0],saved.position[1])
@@ -117,6 +130,8 @@ func _ready() -> void:
 	map_view.position = Vector2(1098,14)
 	map_layer.add_child(map_view)
 	_context_sign(spawn+Vector2(-90,-82),"THORN FOREST / AIM + GRAPPLE\nPull near, kick away, recoil to change lane",290)
+	for hint: Dictionary in generated.manifest.get("expedition_hints",[]):
+		_context_sign(Vector2(hint.position[0],hint.position[1]),str(hint.text),float(hint.radius))
 	_context_sign(merchant_position+Vector2(-100,-82),"ROOT CAMP / INTERACT TO TRADE",180)
 	# This old sign describes v1's branch fork. On the shared v2 trunk it also
 	# covers the upper thorn boundary; the cache has its own real prompt/map icon.
@@ -210,7 +225,8 @@ func _draw() -> void:
 	for area: Dictionary in generated.manifest.areas:
 		if area.role == "boss": continue
 		var at := Vector2(area.position[0],area.position[1])
-		draw_arc(at+Vector2(0,70),160,PI,TAU,30,Color("254c3b"),25,true)
+		if not generated.manifest.has("scene_language_version"):
+			draw_arc(at+Vector2(0,70),160,PI,TAU,30,Color("254c3b"),25,true)
 		if area.role == "merchant":
 			draw_circle(at+Vector2(20,-42),38,Color("638063"))
 			draw_circle(at+Vector2(20,-42),28,Color("203c2c"))

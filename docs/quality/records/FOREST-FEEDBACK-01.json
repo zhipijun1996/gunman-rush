@@ -1,0 +1,295 @@
+{
+  "schema_version": 1,
+  "task_id": "FOREST-FEEDBACK-01",
+  "task_type": "region",
+  "workflow": "in_progress",
+  "baseline_commit": "d3ba6b57ae0315f6c13573a9f303b9b9f5314b8e",
+  "reviewed_commit": "d3ba6b57ae0315f6c13573a9f303b9b9f5314b8e",
+  "content_version": "forest-expedition-feedback-v1",
+  "owner": "/root",
+  "purpose": "Address actual user feedback: larger explorable forest, continuous airborne H/R chains, differentiated ecology and per-block forest scene language",
+  "player_experience": "Explore rootland, broken trunks, hollows and canopy; read a chain before committing, relay successful hooks/recoil without landing, recover below and choose another return",
+  "constraints": [
+    "Preserve PlayerMotor/body/input/231pxHrange/resources/ability grants",
+    "Preserve old forest layout manifests/hashes/save consumers",
+    "No landing disguised as continuous aerial sequence",
+    "Existing Harness/Skills and independent review; no fun score"
+  ],
+  "affected_paths": [
+    "scripts/generation/**",
+    "scripts/enemies/**",
+    "scripts/demo/thorn_forest_region_stage.gd",
+    "resources/enemies/**",
+    "scenes/enemies/**",
+    "tests/forest_air_chain_runner.gd",
+    "tools/run_forest_air_chain.py",
+    "docs/design/**"
+  ],
+  "deliverables": [
+    "Versioned expanded two-map forest candidate",
+    "Real continuous airborne chain evidence",
+    "Seven-behavior ecology with new differentiated enemies",
+    "Per-block scene language consumed by formal assembler"
+  ],
+  "creative_decisions": [
+    {
+      "status": "proposed",
+      "decision": "connected river, hollow, underbridge roots, fallen giant and canopy rather than wider empty bounds",
+      "basis": "Actual routes share upper commitments and lower recovery; fixed20 maps support span5630 versus1330–2510"
+    },
+    {
+      "status": "proposed",
+      "decision": "bark armor and swinging living anchor, reject another seed-spitter",
+      "basis": "Adds attack-angle and moving-anchor decisions instead of HP or projectile count"
+    },
+    {
+      "status": "proposed",
+      "decision": "move low-ceiling beetle encounter to open fallen log and remove same-shore sentry",
+      "basis": "Actual formal07 top attack hit overhead thorns; content composition was wrong, not Player physics"
+    },
+    {
+      "status": "proposed",
+      "decision": "move the same cache to western bough in some map2 seeds",
+      "basis": "Provide an actual reason to explore the west without adding economy; discovery order and return differ"
+    }
+  ],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Specification and implementation exist; whole-region creative admission remains unproven, including meaningful living-anchor placement",
+      "evidence": [
+        "feedback-spec-1",
+        "feedback-spec-2",
+        "feedback-spec-3"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Real golden/air9/enemy35 and80 same-source formal routes observed; original600s Harness timed out and final CI pending",
+      "evidence": [
+        "feedback-golden",
+        "feedback-corpus",
+        "feedback-air9"
+      ]
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Scoped actual local coverage exists; original600s full check failed timeout, final CI and release pending",
+      "evidence": [
+        "feedback-corpus",
+        "feedback-air9",
+        "feedback-golden"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Two actual normal-speed captures and bounded pixel review; structural vocabulary visible but rectangular graybox trees/floating thorn strips remain REVISE",
+      "evidence": [
+        "feedback-movie-1",
+        "feedback-movie-2",
+        "feedback-pixels-review"
+      ]
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Real movement/actions/encounters verified within recorded pilots; fun and wide strategic value unproven",
+      "evidence": [
+        "feedback-golden",
+        "feedback-corpus"
+      ]
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Independent80 technical audit and bounded pilot reviews exist; overall design acceptance remains UNVERIFIED/REVISE",
+      "evidence": [
+        "feedback-corpus",
+        "feedback-golden",
+        "feedback-pixels-review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [
+    {
+      "id": "feedback-spec-1",
+      "path": "docs/design/forest_feedback_expedition.md",
+      "sha256": "b1083f3a7397bebf4c5dbb21938338fdfe6678e241b7b5ff0b9873b0fd75b0a6",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "d3ba6b57ae0315f6c13573a9f303b9b9f5314b8e",
+      "content_version": "forest-expedition-airborne-v11 dirty overlay; specification only",
+      "method": "Actual baseline diagnosis, different gameplay candidates and explicit physical constraints",
+      "observed": "Expanded connected forest, airborne H/R chains, differentiated ecology and consumed scene semantics; experience admission remains incomplete"
+    },
+    {
+      "id": "feedback-spec-2",
+      "path": "docs/design/forest_feedback_ecology.md",
+      "sha256": "8a915f5e02a2c74f2a0061bd209dcf867d3db79f8a332190081db42d966a053a",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "d3ba6b57ae0315f6c13573a9f303b9b9f5314b8e",
+      "content_version": "forest-expedition-airborne-v11 dirty overlay; specification only",
+      "method": "Actual baseline diagnosis, different gameplay candidates and explicit physical constraints",
+      "observed": "Expanded connected forest, airborne H/R chains, differentiated ecology and consumed scene semantics; experience admission remains incomplete"
+    },
+    {
+      "id": "feedback-spec-3",
+      "path": "docs/design/forest_scene_language.md",
+      "sha256": "dd0f28f2b2f5a05397fbf4eca9fbf2520acb854ce9192a79a42ca8297955f2dd",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "d3ba6b57ae0315f6c13573a9f303b9b9f5314b8e",
+      "content_version": "forest-expedition-airborne-v11 dirty overlay; specification only",
+      "method": "Actual baseline diagnosis, different gameplay candidates and explicit physical constraints",
+      "observed": "Expanded connected forest, airborne H/R chains, differentiated ecology and consumed scene semantics; experience admission remains incomplete"
+    },
+    {
+      "id": "feedback-golden",
+      "path": "docs/evidence/forest_depth_v2/forest_feedback01/golden-enemy-and-revisions.zip",
+      "sha256": "7cf1dbe7d702b0613909d56f0b8b953dcb40458e1da986fcf6bdb6003f176478",
+      "kind": "runtime_trace",
+      "producer": "/root and independent reviewers",
+      "source_commit": "d3ba6b57ae0315f6c13573a9f303b9b9f5314b8e",
+      "content_version": "forest-expedition-airborne-v11 exact dirty runtime inventory in archive",
+      "method": "Original real-input golden/enemy captures, strict reader mutations and independent scoped reviews",
+      "observed": "Air chains and enemy35 passed locally; original failed and misleading six-hook claims retained/revoked"
+    },
+    {
+      "id": "feedback-corpus",
+      "path": "docs/evidence/forest_depth_v2/forest_feedback01/corpus80/corpus80-evidence.zip",
+      "sha256": "9add1f7ea6eca24b941f7805716b9dd9b6a3de1614d9495aad3914db146033e5",
+      "kind": "runtime_trace",
+      "producer": "/root and independent reviewers",
+      "source_commit": "d3ba6b57ae0315f6c13573a9f303b9b9f5314b8e",
+      "content_version": "forest-expedition-airborne-v11 exact dirty runtime inventory in archive",
+      "method": "Independent exact ordered80 audit of raw/log SHA, unchanged strict reader and2096 runtime inventory",
+      "observed": "80/80 actual same-source split coverage; original Harness600.135s timeout remains failure"
+    },
+    {
+      "id": "feedback-air9",
+      "path": "docs/evidence/forest_depth_v2/forest_feedback01/registered-air9.zip",
+      "sha256": "dbf549a4f2fe77778b8161c0affc4356e55b30dcc7ac168ce3973feeb238d52b",
+      "kind": "runtime_trace",
+      "producer": "/root and independent reviewers",
+      "source_commit": "d3ba6b57ae0315f6c13573a9f303b9b9f5314b8e",
+      "content_version": "forest-expedition-airborne-v11 exact dirty runtime inventory in archive",
+      "method": "Registered original Harness air-chain nine native cases with actual body movement and action ablations",
+      "observed": "Nine actual cases passed; parent targeted Harness later failed and cannot be signed passed"
+    },
+    {
+      "id": "feedback-movie-1",
+      "path": "docs/evidence/forest_depth_v2/forest_feedback01/movies/map1-fast.mp4",
+      "sha256": "8456555fa1da2f473961c65a8814d02d71729b8e2f6016e9d22630c9011e5493",
+      "kind": "video",
+      "producer": "/root actual native GL App",
+      "source_commit": "d3ba6b57ae0315f6c13573a9f303b9b9f5314b8e",
+      "content_version": "forest-expedition-airborne-v11 exact frozen runtime inventory in movie receipt",
+      "method": "Actual original route movie60fps; independentffprobe actual frame count and physics/draw index alignment; normal-speed MP4 transcode",
+      "observed": "Actual region movement and full route; not human first-play/fun/audio/device/commercial acceptance"
+    },
+    {
+      "id": "feedback-movie-2",
+      "path": "docs/evidence/forest_depth_v2/forest_feedback01/movies/map2-fast.mp4",
+      "sha256": "2cdbda7f7f9a8a37d298cdeb0e57e31eceb652ce748b7319bf26cb78f6cfd376",
+      "kind": "video",
+      "producer": "/root actual native GL App",
+      "source_commit": "d3ba6b57ae0315f6c13573a9f303b9b9f5314b8e",
+      "content_version": "forest-expedition-airborne-v11 exact frozen runtime inventory in movie receipt",
+      "method": "Actual original route movie60fps; independentffprobe actual frame count and physics/draw index alignment; normal-speed MP4 transcode",
+      "observed": "Actual region movement and full route; not human first-play/fun/audio/device/commercial acceptance"
+    },
+    {
+      "id": "feedback-pixels-review",
+      "path": "docs/evidence/forest_depth_v2/forest_feedback01/reviews/movie-pixels10.json",
+      "sha256": "132a468205068dd81999acc4eab9800c3181c8a8a75578eca7db138dda91431c",
+      "kind": "review",
+      "producer": "/root/forest_feedback_content_review",
+      "reviewer": "/root/forest_feedback_content_review",
+      "implementers": [
+        "/root",
+        "/root/forest_feedback_enemy_impl",
+        "/root/forest_scene_ecology_audit"
+      ],
+      "verdict": "UNVERIFIED",
+      "source_commit": "d3ba6b57ae0315f6c13573a9f303b9b9f5314b8e",
+      "content_version": "v11 frozen runtime inventory; normal-speed movies01 and03",
+      "method": "Actual view_image of28 fullsize samples plus27+31 everysecond sequence samples, aligned to actual native traces; not realtime full playback or audio",
+      "observed": "Limited readability accepted; overall REVISE for floating thorn hosts, rectangular structures and unconsumed living anchor; human/device/fun unverified"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Original600s whole Harness failed timeout; final same-source CI/Web/public GUI pending",
+    "Swing pod meaningful regional hook route benefit FF-R06 remains unproven",
+    "Complete shared-recovery mishap tolerance and broad effective decision/encounter quality",
+    "Two normal-speed movies observed, independent frame review limited acceptance; graybox silhouettes and thorn hosts remain REVISE; no commercial art claim",
+    "Queen H core value remains unresolved in parent task",
+    "Human first-play fun, audio quality, physical devices and commercial quality"
+  ],
+  "working_evidence_notes": [
+    "build/forest_feedback/mission.json (planning only; not executed production-loop proof)",
+    "build/forest_feedback/contracts01.json (one original span failure retained)",
+    "build/forest_feedback/contracts02/capture.json (data200/0 before optional west cache)",
+    "build/forest_feedback/v10-freeze-inverse.json",
+    "build/forest_feedback/enemies01/native03/receipt.json",
+    "build/forest_feedback/review01/western03.json"
+  ]
+}

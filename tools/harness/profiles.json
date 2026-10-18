@@ -1319,6 +1319,21 @@
       "artifact_paths": [
         "build/forest_depth/campaign"
       ]
+    },
+    "forest-air-chain": {
+      "argv": [
+        "python3",
+        "tools/run_forest_air_chain.py",
+        "--suite",
+        "--output-dir",
+        "build/forest_feedback/air/harness-{check_token}"
+      ],
+      "timeout_seconds": 600,
+      "success_pattern": "^FOREST AIR CHAIN SUITE: passed / 9 cases$",
+      "weight_seconds": 60,
+      "artifact_paths": [
+        "build/forest_feedback/air"
+      ]
     }
   },
   "profiles": {
@@ -1444,7 +1459,8 @@
       "forest-depth-root-entry",
       "forest-depth-crossbranch-lifecycle",
       "forest-depth-queen-canopy",
-      "forest-depth-campaign-canopy"
+      "forest-depth-campaign-canopy",
+      "forest-air-chain"
     ],
     "art": [
       "docs",
@@ -1613,7 +1629,8 @@
       "forest-depth-root-entry",
       "forest-depth-crossbranch-lifecycle",
       "forest-depth-queen-canopy",
-      "forest-depth-campaign-canopy"
+      "forest-depth-campaign-canopy",
+      "forest-air-chain"
     ]
   }
 }

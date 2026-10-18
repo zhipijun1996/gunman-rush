@@ -50,6 +50,8 @@ var duplicate_checked := false
 var claim_local_id := "crown_cache"
 var goal_changed := false
 var cavity_cell := 0
+var air_chain_case := preload("res://tests/forest_depth_air_chain_case.gd").new()
+var grove_combat_case := preload("res://tests/forest_depth_grove_combat_case.gd").new()
 var movie_capture := OS.get_cmdline_user_args().has("--capture-movie")
 func _ready() -> void:
 	process_mode=Node.PROCESS_MODE_ALWAYS
@@ -82,6 +84,7 @@ func begin() -> void:
 						if edge.has(key): step[key]=edge[key]
 				itinerary.append(step)
 			itinerary.append({"kind":"walk","edge_id":id,"landing":edge.path[-1].duplicate(),"step_index":edge.steps.size()})
+			if manifest.get("layout_version")=="forest-expedition-airborne-v11":itinerary[-1].b=edge.b
 		else:
 			edge.edge_id=id;edge.landing=edge.get("landing",edge.path[-1]).duplicate();itinerary.append(edge)
 			if edge.has("post_landing_steps"):
@@ -176,6 +179,8 @@ func _hook_event(state: StringName) -> void:
 	var target:=controller.traversal.hook_target
 	last_hook=String(state)
 	event(String(state),{"target":String(target.name) if is_instance_valid(target) else ""})
+	if leg_index<itinerary.size() and str(itinerary[leg_index].kind)=="airborne_chain":
+		events[-1].merge({"hook_tip":pair(controller.traversal.hook_tip),"hook_used_at_event":controller.traversal.hook_used})
 func set_phase(next: String) -> void:
 	event("phase",{"from":phase,"to":next});phase=next;age=0;stable=0;jump_released=false
 func fail(reason: String) -> void:
@@ -205,6 +210,7 @@ func _physics_process(_delta: float) -> void:
 	var leg: Dictionary=itinerary[leg_index]
 	if (leg.kind=="narrow_return" or bool(leg.get("claim_before_edge",false))) and not duplicate_checked:
 		claim_local_id=str(leg.get("claim_id","crown_cache"));drive_cache();return
+	if manifest.get("layout_version")=="forest-expedition-airborne-v11" and grove_combat_case.drive(self,leg):return
 	match str(leg.kind):
 		"walk": drive_walk(point(leg.landing))
 		"drop","drop_through": drive_drop(leg)
@@ -214,6 +220,7 @@ func _physics_process(_delta: float) -> void:
 			if route_name=="upper_noH": drive_upper_noH(leg)
 			else: drive_hollow(leg)
 		"hollow_cavity": drive_cavity_kind(leg)
+		"airborne_chain": air_chain_case.drive(self,leg)
 		"candidate_hook_relay": drive_candidate_relay(leg)
 		"gate_hook": drive_gate(leg)
 		"ecology_choice","ecology_return": drive_ecology(leg)
@@ -266,7 +273,8 @@ func drive_jump(leg: Dictionary) -> void:
 		controller.router.set_move_axis(clampf((landing.x-player.global_position.x)/12,-1,1))
 		if leg.kind=="jump_gap":
 			release_gap_before_ceiling(str(leg.support_id))
-			release_gap_after_vertical_clearance(str(leg.support_id))
+			if not (manifest.get("layout_version")=="forest-expedition-airborne-v11" and leg.get("hold_to_receiver",false)):
+				release_gap_after_vertical_clearance(str(leg.support_id))
 		release_jump_after_clearance(str(leg.support_id))
 		stable=stable+1 if at_destination(landing,str(leg.support_id)) else 0
 		if stable>=12: complete_leg()
@@ -783,6 +791,12 @@ func observe() -> void:
 		cavity_sample=str(itinerary[int(completed[-1].leg)].kind)=="hollow_cavity"
 	if cavity_sample:
 		frames[-1].merge({"body":[player.global_position.x-12,player.global_position.y-18,24,36],"hook_start":pair(controller.traversal.hook_start),"hook_tip":pair(controller.traversal.hook_tip),"shot_energy_delay":controller.shot_energy._delay,"burst_remaining":player.recoil_burst_remaining,"burst_velocity":pair(player.recoil_velocity)})
+	var air_chain_sample: bool=leg_index<itinerary.size() and str(itinerary[leg_index].kind)=="airborne_chain"
+	if not air_chain_sample and not completed.is_empty() and int(completed[-1].tick)==tick:
+		air_chain_sample=str(itinerary[int(completed[-1].leg)].kind)=="airborne_chain"
+	if air_chain_sample:
+		frames[-1].merge({"body":[player.global_position.x-12,player.global_position.y-18,24,36],"hook_start":pair(controller.traversal.hook_start),"hook_tip":pair(controller.traversal.hook_tip),"shot_energy_delay":controller.shot_energy._delay,"burst_remaining":player.recoil_burst_remaining,"burst_velocity":pair(player.recoil_velocity)})
+		frames[-1].pending_air_grants=controller.received_resource_grants.map(func(grant: Dictionary) -> Dictionary: return {"amount":int(grant.amount),"session_id":int(grant.session_id)})
 	if finish_pending: finished=true
 func snapshot() -> Dictionary:
 	if not is_instance_valid(controller): return {}
