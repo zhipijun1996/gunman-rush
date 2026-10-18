@@ -5,7 +5,7 @@ description: 为程序化地区设计空间轮廓、焦点地标、前中背景�
 
 # scene-composer
 
-先按当前任务的实际场所计划联合设计站面、地貌体量、建筑连接与镜头留白。当前平原从[当前场所制作范例](../../../docs/evidence/plains_places/recipe.md)与 `PLAINS-PLACES-01` 的完整场所候选进入：整顶肩侧底共画、源图实测语义碰撞等比接入，不继续独立端肩带拼接。该方法未准入；旧邮桥/路线通过只保留原范围，不能代签当前整屏或Seed。
+先按当前任务的实际场所计划联合设计站面、地貌体量、建筑连接与镜头留白。当前平原从[当前场所制作范例](../../../docs/evidence/plains_joint/recipe.md)与 `PLAINS-JOINT-01` 的完整场所候选进入：整顶肩侧底共画、源图实测语义碰撞等比接入，不继续独立端肩带拼接。该方法未准入；旧邮桥/路线通过只保留原范围，不能代签当前整屏或Seed。
 
 ## 触发与边界
 
@@ -108,7 +108,7 @@ AI返回后先实测原PNG的alpha、外padding、跨全高透明沟槽、region
 
 ## 从原生paintover落实到真实空间
 
-按route绑定的[当前场所制作范例](../../../docs/evidence/plains_places/recipe.md)落实三个局部场所原型；实际 `PlainsPlacePlan` 消费 `resources/generation/environment_grammar/places_v1.json`，`PlainsPlaceComposer` 用完整原PNG、单一等比尺度与source/world锚点呈现，不裁肩、不UV拼侧底。站面、对象根脚、观察与跳跃负空间须和源图实测轮廓共同设计；新几何仅限显式授权实验，不能继承旧Motor路线通过。原型通过后才允许Seed顺序/端口重排；不支持的scale/ports/source拒绝重选，不能靠拉伸/补地形或移动核心规则挽救。远中近层统一使用全局camera_reference与depth_factor跨图协调，不能进每个place就把景层重置屏幕坐标；核连续穿越和回望的根基、遮挡与焦点。源码已有这些入口不等于方法已被实机独审准入。
+按route绑定的[当前联合制作范例](../../../docs/evidence/plains_joint/recipe.md)，由同一源轮廓、体块依附和支持面语义联合推导碰撞、完整PNG、路线、根脚、焦点及景层，不分别维护重复世界坐标。`PlainsPlacePlan`消费`places_v1.json`，`PlainsPlaceComposer`只消费结果并核实际显示站面与碰撞节点；保持单一等比尺度、不裁肩、不UV拼侧底。具体动作保护距离和四脚支撑须实际求解；保护矩形与设计相机目标本身不代表通用构图能力。共享全局camera_reference/depth_factor，连续穿越与回望另看实际像素。新几何只在授权实验重验，非法source/scale/ports必须拒绝，不能移动核心规则挽救。有限内部复现通过不是黄金准入；未通过整体艺术不扩正式池或量产，保留失败和未看范围。
 
 ## 共同创作契约
 

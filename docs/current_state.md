@@ -1,3 +1,13 @@
+# 当前：同源场所联合推导已实施，整体艺术未突破
+
+独立分支`feature/plains-joint-place-synthesis`，母PR84/f8dead08；实际运行、两条正常影片和最新PCK冻结`f959e4a9`，后续Skills/证据提交不重标电影。先看[实际作品与边界](quality/plains_joint.md)、[画面/电影](evidence/plains_joint/gallery.html)、[最弱帧与独审](evidence/plains_joint/independent-seeds.md)、[当前制作范例](evidence/plains_joint/recipe.md)。
+
+旧重复world测量已从默认JSON移到按需原件，源轮廓/依附/支持面语义共同推导碰撞、体块、路线/根脚/焦点/景层。175原生断言；12Seed7种有限局部数值组合；两实际不同链35点各HP5零恢复；12实际startup消费者通过。首浮点跨度缺桥失败保留，修源运算并补真实初末消费者守门，原500断言不改。
+
+仅局部入口和联合机制复现成立，非商业黄金/用户定稿：同岛轮廓、高频材质/景层和短时落地对比仍弱，clear_rect不是通用构图求解器，实际camera仍原玩家跟随。停止更多Seed/素材扩产，不入正式池。最新[Linux包](evidence/plains_joint/delivery/download.json)build4a966ef57d75、源f959；正式CI/Web/听音/人机设备未验。森林和核心契约未写。下方只作按需历史。
+
+---
+
 # 当前：随机场所三候选有限实证，非商业黄金
 
 分支 `feature/plains-place-grammar`，母PR82 `4a4b3fd7`，实际运行冻结 `ef6a8b4f1d06406b6b5f0a3db658902c15c1084e`。先看[真实作品与准确边界](quality/plains_places.md)、[原帧/正常电影](evidence/plains_places/gallery.html)、[独立Seed审查](evidence/plains_places/independent-seeds.md)。完整顶肩侧底原图及共同院岸替代PR82带面接肩；3场所、3实际排列及160/200连接真实去返均35点/HP5/零恢复；AI仅限定接受已看窗口。

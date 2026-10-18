@@ -1,11 +1,11 @@
 class_name PlainsPlacePlan
 extends RefCounted
-## Three measured whole-body places; only translations are applied at assembly.
-const VERSION := "plains-places-candidate-v1"
+## Joint source/semantic place synthesis; collision and art consume one solution.
+const VERSION := "plains-joint-places-candidate-v2"
 const CONTRACT_PATH := "res://resources/generation/environment_grammar/places_v1.json"
 const ATTEMPTS := 4
 const ORDERS := [["wind_meadow","postal_valley","lee_court"],["wind_meadow","lee_court","postal_valley"],["postal_valley","wind_meadow","lee_court"],["postal_valley","lee_court","wind_meadow"],["lee_court","wind_meadow","postal_valley"],["lee_court","postal_valley","wind_meadow"]]
-const MUTATIONS := ["", "missing-body-art", "invalid-scale", "break-port", "overlap-places", "source-sha-mismatch"]
+const MUTATIONS := ["", "missing-body-art", "invalid-scale", "break-port", "overlap-places", "source-sha-mismatch", "composition-blocked"]
 
 static func generate(seed_value: String, tuning: PlayerTuning, variant: String = "seeded", mutation: String = "") -> Dictionary:
 	if seed_value.is_empty() or tuning == null or tuning.max_jumps < 1 or tuning.max_air_shots < 2:
@@ -58,35 +58,44 @@ static func _catalog_errors(catalog: Dictionary) -> Array[String]:
 		return errors
 	for id: String in ORDERS[0]:
 		var prototype: Dictionary = catalog.prototypes.get(id,{})
-		if not prototype.get("measurement") is Dictionary:
-			errors.append(id+": actual source measurement unavailable")
+		if not prototype.get("joint_synthesis") is Dictionary or prototype.joint_synthesis.get("version") != 1:
+			errors.append(id+": actual joint source/semantic contract unavailable")
 			continue
-		var m: Dictionary = prototype.measurement
-		for field: String in ["solid_polygons","surfaces","safe_stands","terrain_instances","route_waypoints","route_forward","route_return"]:
-			if not m.get(field) is Array or m[field].is_empty(): errors.append(id+": missing measured "+field)
-		for key: String in ["entry_port","exit_port"]:
-			if not m.get(key) is Dictionary or not _pair_ok(m[key].get("position")) or _line(m,str(m[key].get("surface_id",""))).size()<2:
-				errors.append(id+": invalid measured "+key)
-		for body: Dictionary in m.get("terrain_instances",[]):
-			errors.append_array(_body_errors(body,m.get("solid_polygons",[])))
-			if not _pair_ok(body.get("source_anchor_px")) or not _pair_ok(body.get("world_anchor")) or float(body.get("uniform_scale",0))<=0 or float(body.get("uniform_scale",0))>1:
-				errors.append(id+": invalid whole-body scale or anchor")
-			if not FileAccess.file_exists(str(body.get("texture",""))): errors.append(id+": whole-body art missing")
+		var j: Dictionary = prototype.joint_synthesis
+		for field: String in ["volumes","surfaces","safe_stands","route_waypoints","route_forward","route_return","variants"]:
+			if not j.get(field) is Array or j[field].is_empty(): errors.append(id+": missing joint "+field)
+		for volume: Dictionary in j.get("volumes",[]):
+			var family: Dictionary = catalog.get("source_families",{}).get(volume.get("source_family",""),{})
+			if family.is_empty() or not family.get("source_polygon_px") is Array or not family.get("source_profile_px") is Array:
+				errors.append(id+": measured source family unavailable")
+				continue
+			var path := str(family.get("texture",""))
+			if not FileAccess.file_exists(path): errors.append(id+": whole source art missing")
+			elif str(family.get("source_sha256","")) != FileAccess.get_sha256(path): errors.append(id+": actual source hash differs")
+			for variant: Dictionary in j.get("variants",[]):
+				var scale := float(variant.get("scales",{}).get(volume.id,family.get("fixed_scale",0)))
+				if not is_finite(scale) or scale<=0 or scale>1 or (bool(family.get("render_body",false)) and scale not in [0.3,0.4,0.6]): errors.append(id+": invalid joint source scale")
 	for recipe: Dictionary in catalog.connection_recipes:
 		if float(recipe.get("gap_world",0)) not in [160.0,200.0] or float(recipe.get("rise_world",0)) not in [0.0,40.0]: errors.append("Unadmitted connection dimensions")
 	return errors
 
 static func _compile(catalog: Dictionary, seed_value: String, order: Array, recipes: Array, attempt: int, mutation: String) -> Dictionary:
-	var plan := {"schema_version":1,"version":VERSION,"seed":seed_value,"mutation":mutation,"task_id":"PLAINS-PLACES-01","production_pool":false,"structure_variant":"seeded","contract_sha256":FileAccess.get_sha256(CONTRACT_PATH),"assets_catalog":str(catalog.assets_catalog),"places":[],"place_instances":[],"place_order":[],"prototype_order":order.duplicate(),"solid_polygons":[],"surfaces":[],"attachments":[],"mechanisms":[],"enemies":[],"terrain_instances":[],"layer_instances":[],"route_waypoints":[],"route_forward":[],"route_return":[],"keep_clear":[],"connections":[],"camera":{"zoom":1.25}}
+	var plan := {"schema_version":1,"version":VERSION,"seed":seed_value,"mutation":mutation,"task_id":"PLAINS-JOINT-01","production_pool":false,"structure_variant":"seeded","contract_sha256":FileAccess.get_sha256(CONTRACT_PATH),"assets_catalog":str(catalog.assets_catalog),"places":[],"place_instances":[],"place_order":[],"prototype_order":order.duplicate(),"solid_polygons":[],"surfaces":[],"attachments":[],"mechanisms":[],"enemies":[],"terrain_instances":[],"layer_instances":[],"route_waypoints":[],"route_forward":[],"route_return":[],"keep_clear":[],"connections":[],"camera":{"zoom":1.25}}
 	var offset := Vector2.ZERO
 	var previous: Dictionary = {}
 	var previous_offset := Vector2.ZERO
 	var phase_rng := RunRandomStream.new(seed_value,"plains_places_phases","mechanisms",VERSION)
+	var joint_rng := RunRandomStream.new(seed_value,"plains_places_joint","layout",VERSION)
+	var assets: Variant = JSON.parse_string(FileAccess.get_file_as_string(str(catalog.assets_catalog)))
+	if not assets is Dictionary: return {"ok":false,"error":"Joint asset source catalog unavailable"}
+	plan.joint_synthesis = {"version":1,"stream":"plains_places_joint","same_source_contract":true,"authority":"source polygons + semantic relationships"}
 	var local_measurements: Array[Dictionary] = []
 	var extent := Rect2()
 	for index: int in order.size():
 		var prototype_id: String = order[index]
-		var measurement: Dictionary = catalog.prototypes[prototype_id].measurement.duplicate(true)
+		var joint_result := _joint_measurement(catalog.prototypes[prototype_id],joint_rng.next_int(2147483647)+attempt,mutation,assets,catalog.source_families)
+		if not joint_result.ok: return joint_result
+		var measurement: Dictionary = joint_result.measurement
 		var instance_id := "place_%d_%s" % [index,prototype_id]
 		if index>0:
 			var exit_line := _line(previous,str(previous.exit_port.surface_id))
@@ -95,9 +104,10 @@ static func _compile(catalog: Dictionary, seed_value: String, order: Array, reci
 			offset = previous_offset + exit_line[-1] - entry_line[0] + Vector2(float(recipe.gap_world),-float(recipe.rise_world))
 			if mutation=="overlap-places": offset.x -= float(recipe.gap_world)+400.0
 		var prefix := instance_id+"/"
-		plan.place_instances.append({"id":instance_id,"prototype_id":prototype_id,"translation":[offset.x,offset.y],"source_measurement_sha256":JSON.stringify(measurement,"",true).sha256_text()})
+		plan.place_instances.append({"id":instance_id,"prototype_id":prototype_id,"translation":[offset.x,offset.y],"source_measurement_sha256":JSON.stringify(measurement,"",true).sha256_text(),"joint":joint_result.joint})
 		plan.place_order.append(instance_id)
-		var place := {"id":instance_id,"prototype_id":prototype_id,"label":str(catalog.prototypes[prototype_id].label),"bounds":_rect_move(measurement.bounds,offset),"entry_port":{"id":prefix+"entry","position":_move(measurement.entry_port.position,offset)},"exit_port":{"id":prefix+"exit","position":_move(measurement.exit_port.position,offset)},"safe_stands":[],"focal_anchors":[],"layer_anchors":[],"composition":measurement.get("composition",{}).duplicate(true)}
+		var place := {"id":instance_id,"prototype_id":prototype_id,"label":str(catalog.prototypes[prototype_id].label),"bounds":_rect_move(measurement.bounds,offset),"entry_port":{"id":prefix+"entry","position":_move(measurement.entry_port.position,offset)},"exit_port":{"id":prefix+"exit","position":_move(measurement.exit_port.position,offset)},"safe_stands":[],"focal_anchors":[],"layer_anchors":[],"composition":measurement.get("composition",{}).duplicate(true),"composition_solution":_solution_move(measurement.get("composition_solution",{}),offset),"keep_clear":[]}
+		place.composition.camera_center = _move(measurement.composition.camera_center,offset)
 		for solid: Dictionary in measurement.solid_polygons:
 			var item := solid.duplicate(true)
 			item.id = prefix+str(solid.id)
@@ -150,7 +160,9 @@ static func _compile(catalog: Dictionary, seed_value: String, order: Array, reci
 			item.position = _move(waypoint.position,offset)
 			plan.route_waypoints.append(item)
 		for clear: Dictionary in measurement.get("keep_clear",[]):
-			plan.keep_clear.append({"id":prefix+str(clear.id),"bounds":_rect_move(clear.bounds,offset)})
+			var resolved_clear := {"id":prefix+str(clear.id),"bounds":_rect_move(clear.bounds,offset)}
+			plan.keep_clear.append(resolved_clear)
+			place.keep_clear.append(resolved_clear)
 		plan.places.append(place)
 		var r: Array = place.bounds
 		var bounds := Rect2(r[0],r[1],r[2],r[3])
@@ -198,7 +210,7 @@ static func _compile(catalog: Dictionary, seed_value: String, order: Array, reci
 			item.world_anchor = [anchor.x,anchor.y]
 			item.camera_reference = [reference.x,reference.y]
 			plan.layer_instances.append(item)
-	var m := {"version":VERSION,"seed":seed_value,"region":"plains","layout_id":"measured_place_grammar_candidate","family":"places_seeded","production_pool":false,"world_bounds":plan.bounds,"spawn":plan.spawn,"areas":[],"nodes":[],"connections":plan.connections,"ground_supports":[],"terminal_exits":[],"rewards":[],"pickups":[],"enemies":plan.enemies,"enemy_drops":{},"merchant_id":"","merchant_position":[1000000,1000000],"boss_arena":[-2000,-2000,1,1],"shot_latch_plan":{"version":"places_no_latches_v1","latches":[]},"environment_plan":plan,"streams":{"order":"plains_places_order","connections":"plains_places_connections","phases":"plains_places_phases","phase_position":phase_rng.position(),"algorithm":RunRandomStream.ALGORITHM}}
+	var m := {"version":VERSION,"seed":seed_value,"region":"plains","layout_id":"measured_place_grammar_candidate","family":"places_seeded","production_pool":false,"world_bounds":plan.bounds,"spawn":plan.spawn,"areas":[],"nodes":[],"connections":plan.connections,"ground_supports":[],"terminal_exits":[],"rewards":[],"pickups":[],"enemies":plan.enemies,"enemy_drops":{},"merchant_id":"","merchant_position":[1000000,1000000],"boss_arena":[-2000,-2000,1,1],"shot_latch_plan":{"version":"places_no_latches_v1","latches":[]},"environment_plan":plan,"streams":{"order":"plains_places_order","connections":"plains_places_connections","phases":"plains_places_phases","phase_position":phase_rng.position(),"joint":"plains_places_joint","joint_position":joint_rng.position(),"algorithm":RunRandomStream.ALGORITHM}}
 	var placement_points: Array[Vector2] = []
 	for place: Dictionary in plan.places:
 		m.areas.append({"id":place.id,"position":place.entry_port.position,"role":"junction","identity":place.prototype_id,"label":place.label})
@@ -208,6 +220,185 @@ static func _compile(catalog: Dictionary, seed_value: String, order: Array, reci
 	if not drops.configure(seed_value,"plains_region"): return {"ok":false,"error":"Original drop service rejected seed"}
 	for enemy: Dictionary in plan.enemies: m.enemy_drops[enemy.id] = drops.settle(StringName(enemy.id))
 	return {"ok":true,"manifest":m,"environment_plan":plan,"placement_points":placement_points,"boss_arena":Rect2(-2000,-2000,1,1),"stage_generator_version":VERSION,"encounter_plan":{"version":VERSION,"enemies":plan.enemies},"shot_latch_plan":m.shot_latch_plan}
+
+# Joint input owns source shapes and semantic relationships. Legacy world-space
+# measurements are deliberately not read here and cannot rescue a failed solve.
+static func _joint_measurement(prototype: Dictionary, variant_index: int, mutation: String, assets: Dictionary, families: Dictionary) -> Dictionary:
+	var j: Dictionary = prototype.get("joint_synthesis",{})
+	if j.get("version") != 1 or not j.get("variants") is Array or j.variants.is_empty():
+		return {"ok":false,"error":"Missing joint source/semantic contract"}
+	var variant: Dictionary = j.variants[variant_index % j.variants.size()]
+	var m := {"solid_polygons":[],"surfaces":j.surfaces.duplicate(true),"terrain_instances":[],"safe_stands":[],"route_waypoints":[],"attachments":[],"mechanisms":[],"enemies":[],"focal_anchors":[],"layer_anchors":[],"layer_instances":[],"keep_clear":[],"route_forward":j.route_forward.duplicate(),"route_return":j.route_return.duplicate()}
+	var transforms: Dictionary = {}
+	var geometry_bounds := Rect2()
+	var have_bounds := false
+	for relation_spec: Dictionary in j.volumes:
+		var volume: Dictionary = families.get(relation_spec.source_family,{}).duplicate(true)
+		volume.merge(relation_spec,true)
+		var factor := float(variant.scales.get(volume.id,volume.get("fixed_scale",0)))
+		if factor <= 0 or not is_finite(factor): return {"ok":false,"error":"joint source has invalid scale"}
+		var anchor := Vector2.ZERO
+		if volume.has("anchor_relation"):
+			var relation: Dictionary = volume.anchor_relation
+			if not transforms.has(relation.volume): return {"ok":false,"error":"joint source relation is not topologically ordered"}
+			var parent: Dictionary = transforms[relation.volume]
+			anchor = _source_world(parent,relation.source_point_px)+Vector2(relation.offset_world[0],relation.offset_world[1])
+		else:
+			anchor = Vector2(volume.root_anchor_world[0],volume.root_anchor_world[1])
+		var transform := {"source_anchor_px":volume.source_anchor_px,"world_anchor":[anchor.x,anchor.y],"uniform_scale":factor}
+		transforms[volume.id] = transform
+		var solid := {"id":volume.id,"material":volume.material,"points":[]}
+		for key: String in ["presentation_owner","presentation_owner_surface_id"]:
+			if volume.has(key): solid[key] = volume[key]
+		for point: Array in volume.source_polygon_px:
+			var world := _source_world(transform,point)
+			solid.points.append([world.x,world.y])
+			if not have_bounds:
+				geometry_bounds = Rect2(world,Vector2.ZERO)
+				have_bounds = true
+			else: geometry_bounds = geometry_bounds.expand(world)
+		m.solid_polygons.append(solid)
+		if bool(volume.render_body):
+			var body := transform.duplicate(true)
+			body.merge({"id":str(volume.id)+"/body","solid_id":volume.id,"texture":volume.texture,"source_sha256":volume.source_sha256,"source_profile_px":volume.source_profile_px,"admitted_scales":[]})
+			for choice: Dictionary in j.variants:
+				var admitted := float(choice.scales[volume.id])
+				if admitted not in body.admitted_scales: body.admitted_scales.append(admitted)
+			m.terrain_instances.append(body)
+	for key: String in ["safe_stands","route_waypoints","mechanisms","enemies"]:
+		for source: Dictionary in j.get(key,[]):
+			var item := source.duplicate(true)
+			var point := _semantic_point(m,item.binding)
+			if not point.is_finite(): return {"ok":false,"error":"Invalid joint semantic binding: "+str(item.id)}
+			item.erase("binding")
+			item["origin" if key=="mechanisms" else "position"] = [point.x,point.y]
+			m[key].append(item)
+	for key: String in ["entry_port","exit_port"]:
+		var port: Dictionary = j[key].duplicate(true)
+		var point := _semantic_point(m,port.binding)
+		port.erase("binding")
+		port.position = [point.x,point.y]
+		m[key] = port
+	var attachment_solutions: Array = []
+	var protected: Array = []
+	for source: Dictionary in j.attachments:
+		var item := source.duplicate(true)
+		var line := _line(m,str(item.surface_id))
+		var raw: Array = []
+		for point: Vector2 in line: raw.append([point.x,point.y])
+		var candidates: Array = item.get("candidate_t",[item.get("t",0.5)])
+		if mutation=="composition-blocked" and item.role=="tree": candidates = [0.06]
+		var found := false
+		var chosen := Vector2.ZERO
+		for candidate: Variant in candidates:
+			var point_raw: Array = PlainsEnvironmentPlan._surface_point(raw,float(candidate))
+			var point := Vector2(point_raw[0],point_raw[1])
+			var safe := true
+			for waypoint_id: String in item.get("protected_waypoints",[]):
+				var waypoint := _local_waypoint(m,waypoint_id)
+				if waypoint.is_empty(): return {"ok":false,"error":"joint protected waypoint is missing"}
+				var margin := float(item.minimum_clearance_world)
+				if absf(point.x-float(waypoint.position[0])) < margin: safe = false
+			if safe:
+				item.t = float(candidate)
+				chosen = point
+				found = true
+				break
+		if not found: return {"ok":false,"error":"composition-blocked: no root placement outside protected arrival/rest/departure intervals"}
+		item.erase("candidate_t")
+		item.position = [chosen.x,chosen.y]
+		# Match the actual renderer's source-foot test before accepting geometry.
+		var object_spec: Dictionary = assets.get("objects",{}).get(item.role,{})
+		if bool(object_spec.get("require_all_feet_supported",false)):
+			var source_file := FileAccess.open(str(object_spec.texture),FileAccess.READ)
+			if source_file == null: return {"ok":false,"error":"joint attachment source unavailable"}
+			source_file.big_endian = true
+			source_file.seek(20)
+			var source_height := source_file.get_32()
+			if source_height <= 0: return {"ok":false,"error":"joint attachment PNG height invalid"}
+			var object_scale := float(object_spec.world_height)/source_height
+			for foot: Array in object_spec.foundation_px:
+				var foot_world := chosen+(Vector2(foot[0],foot[1])-Vector2(object_spec.pivot_px[0],object_spec.pivot_px[1]))*object_scale
+				var y := _line_y(line,foot_world.x)
+				if not is_finite(y) or absf(y-foot_world.y)>float(object_spec.foot_tolerance_world):
+					return {"ok":false,"error":"joint attachment foundation cannot fit source-derived standing surface"}
+		m.attachments.append(item)
+		attachment_solutions.append({"id":item.id,"surface_id":item.surface_id,"position":item.position,"t":item.t,"protected_waypoints":item.get("protected_waypoints",[]),"minimum_clearance_world":item.get("minimum_clearance_world",0)})
+	for source: Dictionary in j.focal_anchors:
+		var item := source.duplicate(true)
+		var point := Vector2.ZERO
+		if item.has("attachment_id"):
+			for attachment: Dictionary in m.attachments:
+				if attachment.id==item.attachment_id: point = Vector2(attachment.position[0],attachment.position[1])
+		else: point = _semantic_point(m,item.binding)
+		item.erase("binding")
+		item.position = [point.x,point.y]
+		m.focal_anchors.append(item)
+	var camera := _semantic_point(m,j.camera_binding)
+	m.composition = {"intent":j.composition_intent,"camera_center":[camera.x,camera.y],"camera_center_status":"joint source/route-derived design target; actual camera remains PlayerMotor consumer","joint_variant_id":variant.id}
+	for source: Dictionary in j.layer_instances:
+		var item := source.duplicate(true)
+		var point := _semantic_point(m,item.binding)
+		item.erase("binding")
+		item.world_anchor = [point.x,point.y]
+		item.camera_reference = [camera.x,camera.y]
+		m.layer_instances.append(item)
+		m.layer_anchors.append({"id":str(item.id)+"/anchor","position":item.world_anchor,"role":"source_surface_relative_ridge"})
+	for region: Dictionary in j.clear_regions:
+		var bounds: Array = []
+		if region.has("surface_id"):
+			var line := _line(m,region.surface_id)
+			bounds = [line[0].x+float(region.inset_world),maxf(line[0].y,line[-1].y)+float(region.drop_start),line[-1].x-line[0].x-2*float(region.inset_world),float(region.height)]
+		else:
+			var first := _local_waypoint(m,region.from_waypoint)
+			var a := Vector2(first.position[0],first.position[1])
+			if region.has("to_waypoint"):
+				var last := _local_waypoint(m,region.to_waypoint)
+				var b := Vector2(last.position[0],last.position[1])
+				bounds = [minf(a.x,b.x)-float(region.padding),minf(a.y,b.y)-float(region.height),absf(a.x-b.x)+2*float(region.padding),absf(a.y-b.y)+float(region.height)]
+			else: bounds = [a.x-float(region.half_width),a.y-float(region.height),2*float(region.half_width),float(region.height)+18]
+		m.keep_clear.append({"id":region.id,"bounds":bounds})
+		protected.append({"id":region.id,"bounds":bounds})
+	m.bounds = [geometry_bounds.position.x-40,geometry_bounds.position.y-400,geometry_bounds.size.x+80,geometry_bounds.size.y+500]
+	m.composition_solution = {"version":1,"view_center":m.composition.camera_center,"protected_regions":protected,"chosen_attachments":attachment_solutions,"layer_anchors":m.layer_anchors.duplicate(true),"constraint_facts":{"source_polygon_drives_collision_and_art":true,"source_uniform_scale_only":true,"protected_roots_checked":true,"multi_foot_foundations_checked":true}}
+	return {"ok":true,"measurement":m,"joint":{"version":1,"variant_id":variant.id,"geometry_from":"measured_source_polygon","scale_by_body":variant.scales.duplicate(true),"semantic_bindings":true}}
+
+static func _source_world(transform: Dictionary, point: Array) -> Vector2:
+	# Source arithmetic stays scalar float64 until the final engine Vector2.
+	# Multiplying a Vector2 by .3 first rounds 1320*.3 to396.0000305,
+	# which makes a genuinely500-unit bridge fail its exact discrete-span guard.
+	var factor := float(transform.uniform_scale)
+	var x := float(transform.world_anchor[0])+(float(point[0])-float(transform.source_anchor_px[0]))*factor
+	var y := float(transform.world_anchor[1])+(float(point[1])-float(transform.source_anchor_px[1]))*factor
+	return Vector2(x,y)
+
+static func _semantic_point(measurement: Dictionary, binding: Dictionary) -> Vector2:
+	var line := _line(measurement,str(binding.get("surface_id","")))
+	if line.size()<2: return Vector2(INF,INF)
+	var x := lerpf(line[0].x,line[-1].x,float(binding.x_fraction))
+	return Vector2(x,_line_y(line,x)+float(binding.get("height_offset",0)))
+
+static func _line_y(line: PackedVector2Array, x: float) -> float:
+	for index: int in line.size()-1:
+		var a := line[index]
+		var b := line[index+1]
+		if x>=minf(a.x,b.x)-0.00001 and x<=maxf(a.x,b.x)+0.00001 and absf(a.x-b.x)>0.00001:
+			return lerpf(a.y,b.y,(x-a.x)/(b.x-a.x))
+	return INF
+
+static func _local_waypoint(measurement: Dictionary, id: String) -> Dictionary:
+	for point: Dictionary in measurement.route_waypoints:
+		if point.id==id: return point
+	return {}
+
+static func _solution_move(source: Dictionary, offset: Vector2) -> Dictionary:
+	var result := source.duplicate(true)
+	if result.is_empty(): return result
+	result.view_center = _move(result.view_center,offset)
+	for item: Dictionary in result.protected_regions: item.bounds = _rect_move(item.bounds,offset)
+	for item: Dictionary in result.chosen_attachments: item.position = _move(item.position,offset)
+	for item: Dictionary in result.layer_anchors: item.position = _move(item.position,offset)
+	return result
 
 static func _resolved_errors(plan: Dictionary) -> Array[String]:
 	var errors: Array[String] = []

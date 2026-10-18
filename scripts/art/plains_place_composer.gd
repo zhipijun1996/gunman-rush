@@ -3,6 +3,49 @@ extends "res://scripts/art/plains_environment_composer.gd"
 ## Whole painted place bodies. Pixels, outline and shoulder stay one original
 ## image at one uniform scale; there is no terrain UV or alpha-join pipeline.
 
+func install(stage: Node2D, plan: Dictionary) -> void:
+	super.install(stage, plan)
+	if not plan.has("joint_synthesis"):
+		return
+	# Compare the installed physics nodes with the actual displayed source
+	# transform. A compiler declaration alone cannot establish this agreement.
+	var installed: Dictionary = {}
+	var assembler := stage.get("assembler") as Node
+	if assembler != null:
+		for module: Node in assembler.get("modules"):
+			var solids: Array = module.get("solids")
+			var shapes: Array = module.get("collision_nodes")
+			for index: int in mini(solids.size(), shapes.size()):
+				var shape := shapes[index] as CollisionPolygon2D
+				var points: Array = []
+				for point: Vector2 in shape.polygon:
+					var world := shape.global_transform * point
+					points.append([world.x, world.y])
+				installed[str(solids[index].id)] = points
+	var bindings: Array = []
+	for body: Dictionary in plan.get("terrain_instances", []):
+		var actual: Dictionary = {}
+		for item: Dictionary in _facts.terrain:
+			if str(item.instance_id) == str(body.id):
+				actual = item
+		var maximum_error := 0.0
+		var count := 0
+		var points: Array = installed.get(str(body.solid_id), [])
+		var node := get_node_or_null(str(actual.get("node_path", ""))) as Sprite2D
+		var profile: Array = body.get("source_profile_px", [])
+		var ok := node != null and profile.size() >= 2 and points.size() >= profile.size()
+		if ok:
+			for index: int in profile.size():
+				var displayed := node.global_transform * _pair(profile[index])
+				maximum_error = maxf(maximum_error, displayed.distance_to(_pair(points[index])))
+				count += 1
+			ok = maximum_error <= maxf(0.0001, float(body.uniform_scale))
+		bindings.append({"body_id":body.id, "solid_id":body.solid_id, "installed_profile_points":count, "max_display_to_collision_error_world":maximum_error, "agrees":ok})
+		if not ok:
+			_facts.omitted.append({"terrain_instance_id":body.id, "reason":"installed_joint_geometry_and_display_disagree"})
+	_facts["joint_consumer"] = {"version":plan.joint_synthesis.get("version", ""), "source":"actual Sprite2D global transforms and actual CollisionPolygon2D global points", "bindings":bindings, "renderer_authored_geometry":false, "renderer_authored_layout":false, "art_acceptance":"not_inferred"}
+	publish_facts()
+
 func _build_terrain() -> void:
 	_facts["terrain_method"] = "complete original Sprite2D, one uniform scale, no crop or shoulder layers"
 	var solids: Dictionary = {}

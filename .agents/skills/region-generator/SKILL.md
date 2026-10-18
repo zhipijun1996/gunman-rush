@@ -7,7 +7,7 @@ description: 规划新地区或优化已有地区；统一拓扑、空间身份�
 
 ## V3实际生产依赖
 
-短地区任务继续通过现有 `tools/level_design.py route` 读取权威阶段、单武器/能力与有来源经验，再由现有 `harness --mission --execute` 和真实活跃宿主执行。当前平原按[当前场所制作范例](../../../docs/evidence/plains_places/recipe.md)与 `PLAINS-PLACES-01` 尝试完整场所生产，尚未准入，旧端肩带方法不作为当前推荐。先核正式消费者及已有失败，不重画已有效资产、不把未来能力当已授予。地区设计必须同时派生态/Boss差距审查与视觉家族审查；未发现实质缺口不强制增加敌人或重做Boss，失败空间不阻塞无依赖的合格家族。
+短地区任务继续通过现有 `tools/level_design.py route` 读取权威阶段、单武器/能力与有来源经验，再由现有 `harness --mission --execute` 和真实活跃宿主执行。当前平原按[当前场所制作范例](../../../docs/evidence/plains_joint/recipe.md)与 `PLAINS-JOINT-01` 尝试完整场所生产，尚未准入，旧端肩带方法不作为当前推荐。先核正式消费者及已有失败，不重画已有效资产、不把未来能力当已授予。地区设计必须同时派生态/Boss差距审查与视觉家族审查；未发现实质缺口不强制增加敌人或重做Boss，失败空间不阻塞无依赖的合格家族。
 
 实施租约前运行原预检并核真实检查argv、sparse证据和冷import潜在写路径；不可把缺证据当内容失败浪费模型。普通feature整合遵循逐文件basis/child/target SHA、冲突停止、独立scope与原失败并存。当前原生/过程入口包括 `harness --check terrain-family-tests --check root-bell-tests --check forest-h-slice --release --jobs 1`；真实完整遭遇可调用 `python3 tools/run_root_bell_formal.py --default`（仅已准入的当前平原类，不是跨地区通用能力）。原样板/副本的通过不能代签修改后源码；最终另做正式镜头与Web预览。
 
@@ -17,7 +17,7 @@ description: 规划新地区或优化已有地区；统一拓扑、空间身份�
 
 主要诉求为画面品质、景深或空间身份时，交 [visual-director](../visual-director/SKILL.md) 统筹像素闭环，本技能仍提供真实区域身份/Manifest/连接语义/支持面及正式消费者。若任务冻结玩法生成，仅开放表现分支，不重新抽Seed、移动平台、重排敌人或改能力资源迁就构图；大结构视觉可跨多个模块，但不能制造新的碰撞承诺。
 
-先与scene-composer、art-director联合设计围合、大轮廓、负空间、路线和观看顺序。当前隔离平原实验由整块绘画体积及源图实测语义碰撞共同确定三个局部场所原型，再由 `scripts/generation/plains_place_plan.gd` 消费 `resources/generation/environment_grammar/places_v1.json` 做Seed顺序与连接重排；不是给既成矩形逐个贴外皮。超出源尺度、端口或连接适用范围须拒绝并有界重选，不改变核心或正式随机流救候选。首样板独审未准入不启动后续原型扩产/Seed验证；预列原型与代码不是通过证据。区域图节点不自动代表固定矩形美术房间；禁止每格套同一背景/拱门，用种子/Hash差异冒充空间身份。读取真实运行分支，单幅全景的默认消费者不能因为源码还有未启用多层而宣称已有景深。
+先与scene-composer、art-director联合设计围合、大轮廓、负空间、路线和观看顺序。当前隔离平原实验由 `scripts/generation/plains_place_plan.gd` 消费同一 `places_v1.json` 的共享源轮廓和语义关系，联合推导实际碰撞、完整体块、路线/端口、根脚/焦点和景层；不分别填写重复世界坐标。有限等轴变体、声明路点避树和四脚支撑已真实实施，旧坐标按需归档，不作失败回退；这不是任意地形/自动构图能力。超出源尺度、端口或连接适用范围须拒绝并有界重选，不改变核心或正式随机流救候选。首样板独审未准入不启动后续原型扩产/Seed验证；预列原型与代码不是通过证据。区域图节点不自动代表固定矩形美术房间；禁止每格套同一背景/拱门，用种子/Hash差异冒充空间身份。读取真实运行分支，单幅全景的默认消费者不能因为源码还有未启用多层而宣称已有景深。
 
 提供跨纵横移动、回程、镜像、长通道及不同尺度节点的覆盖清单，保持玩法层/敌预告/船/奖励/HUD优先，根基/连接/植生挂点有来源。使用 `python3 tools/visual_director.py route --help` 生成共用原production_loop的任务，再按 `run --help` 真正执行；计划文件不算专业worker已执行。`capture --help`、`inspect --help`、`compare --help` 关联同Seed/路线/能力/相位的实机前后证据，详见 [视觉合同](../../../docs/quality/visual_director_contract.md)。
 

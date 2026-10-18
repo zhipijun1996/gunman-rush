@@ -1,3 +1,17 @@
+# 当前交接：同源场所联合推导已实施，整体艺术未突破
+
+独立分支`feature/plains-joint-place-synthesis`，母PR84/f8dead08；实际运行、两条正常影片和最新PCK冻结`f959e4a9`，后续Skills/证据提交不重标电影。先看[实际作品与边界](quality/plains_joint.md)、[画面/电影](evidence/plains_joint/gallery.html)、[最弱帧与独审](evidence/plains_joint/independent-seeds.md)、[当前制作范例](evidence/plains_joint/recipe.md)。
+
+旧重复world测量已从默认JSON移到按需原件，源轮廓/依附/支持面语义共同推导碰撞、体块、路线/根脚/焦点/景层。175原生断言；12Seed7种有限局部数值组合；两实际不同链35点各HP5零恢复；12实际startup消费者通过。首浮点跨度缺桥失败保留，修源运算并补真实初末消费者守门，原500断言不改。
+
+仅局部入口和联合机制复现成立，非商业黄金/用户定稿：同岛轮廓、高频材质/景层和短时落地对比仍弱，clear_rect不是通用构图求解器，实际camera仍原玩家跟随。停止更多Seed/素材扩产，不入正式池。最新[Linux包](evidence/plains_joint/delivery/download.json)build4a966ef57d75、源f959；正式CI/Web/听音/人机设备未验。森林和核心契约未写。下方只作按需历史。
+
+---
+
+下一关键实验：不同的连续地形与中尺度围合家族，实际整屏母场所成立后再提炼可变关系。不要继续给现有三岛新增比例或装饰。当前短任务沿原route的稳定recipe文档入口解析新范例；route仍是计划而非自动创作完成。手动：`bash tools/godot.sh --path . --script res://tools/plains_places_preview.gd -- --seed=places-contract-01`。恢复producer见delivery/README；失败/版本/实际consumer不能覆盖。
+
+---
+
 # 当前交接：PLAINS-PLACES-01有限组合成立，等待用户与后续关键实验
 
 独立分支 `feature/plains-place-grammar`，实际运行/全部最终电影/本地PCK冻结 `ef6a8b4f1d06406b6b5f0a3db658902c15c1084e`，母PR82；后续非runtime工具/证据提交不重标电影源码。先读[作品与限制](quality/plains_places.md)、[当前短范例](evidence/plains_places/recipe.md)、[独立审查](evidence/plains_places/independent-seeds.md)，不默认读全部PR实录。
