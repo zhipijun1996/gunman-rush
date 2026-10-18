@@ -1,3 +1,11 @@
+# 正在制作：整体体块与随机场所候选 PLAINS-PLACES-01
+
+独立分支 `feature/plains-place-grammar`，基于最新PR82 `4a4b3fd7`。当前入口[制作检查点](evidence/plains_places/checkpoint.md)、[实际候选配方](evidence/plains_places/recipe.md)。完整源画已生成，三种局部场所及真实Seed排列已编译；结构检查118项、Python47项通过，均不是艺术准入。首原生启动被原安全门拒绝（安全锚处于坡转平面拐点），保留失败并正在修正测量，不降断言。
+
+首完整实机与独审未完成，不扩Seed电影、不进入正式池。森林工作树/源码不改，核心契约不改。下方各阶段是历史状态，按需读取，不作为当前制作方法。
+
+---
+
 # 当前：完整环境候选三轮REWORK，停止端肩带接法
 
 分支`feature/plains-environment-grammar`，母PR81/e545b05e；实际运行冻结`4d4803773d21dbe9e9443b42bc0a87dbc35137c6`。先看[真实作品与失败报告](quality/p1_environment.md)、[原图对照](evidence/p1_environment/gallery.html)、[最终独审](evidence/p1_environment/independent-native-03.md)。本轮实际整体母版/六环境源/桥源重绘已进Godot，但**精美黄金和精美随机平原仍未完成**。
