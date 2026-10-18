@@ -1,3 +1,15 @@
+# 当前交接：反冲挑战联合体积已进入实机，世界语义缺口使艺术准入失败
+
+分支 `feature/plains-joint-challenge`，母PR86/b5fc；运行源冻结 `3188a5a088d1fdb2989ae0a3d439b24c2a536cb0`。先看[真实前后与最弱帧](evidence/plains_joint_recoil/gallery.html)、[失败与根因](quality/plains_joint_recoil.md)、[恢复入口](evidence/plains_joint_recoil/recipe.md)、[独审](evidence/plains_joint_recoil/independent-art-02.md)。单挑战显式候选，不是整区黄金，不进正式池，不改森林/核心契约。
+
+实际同源安装2个完整绘画体与2个实体多边形，显式退出目标及接收岸3个旧矩形。01真实8段路线包含岸下摆渡双向，4529tick/13枪/零回退、最低HP4最终5；07仅实际结构合同，首样板未准入故不扩美术。最新93原生合同含JSON往返；原1310分支断言及正常/镜像无枪负例保持通过。当前两轮艺术均REWORK：v4消除接缝，但画尺不一、可见下沿裁切，世界仍割裂。新增图板未接入，不冒充实机改善。
+
+最新用户指出的根因成立：模块有操作属性但缺少地形所属、母岩/背接与支持关系；area.identity虽影响挑战/支撑深度，仍不足以决定地貌。joint左右岸同样没有世界根基。停止孤立岸体适配，不把失败方法写为Skills成功模板。下一不同实验是把反冲裂隙和下层溪洞作为连续草坡岩脊截面共同设计，先确定实体/空腔/连接再派生操作与绘画。40px完整旧矩形厚度是实验兼容选择，非用户不可改变要求；允许显式版本化局部重设并重新真验，不能静默删断言。
+
+本轮只做相关验证；未签全CI/Web、用户风格、真人设备、听音或整区稳定生产。影片/包的准确状态以recipe与delivery记录为准。下方历史按需。
+
+---
+
 # 当前交接：完整随机区域技术已接通，区域艺术两种方法均失败
 
 PR85/148d9251基线，分支`feature/plains-regional-synthesis`；当前运行冻结`46c3c0993b2ea69293f60161a1c2a95cc6677942`，计划v2；历史首片仍为e450/v1。先看[实际结果与边界](quality/plains_regional.md)、[整区作品](evidence/plains_regional/gallery.html)、[独审](evidence/plains_regional/independent-native-02.md)、[最小恢复入口](evidence/plains_regional/recipe.md)。首片208.25秒已恢复原始录像，但保留v1缺失完整脚距保护的失败；5cb第二片发现该回归后中止，原件保留失败。v2已恢复实际四脚/真实碰撞守门，第二片已完成15631帧/260.516667秒、17/17节点、干净退出，精确源46c；精确46c Linux评审包build ac57d1be87f8已完成空cwd headless/GUI与CRC验证，见[交付](evidence/plains_regional/delivery/README.md)。艺术仍拒绝，非正式发布。
