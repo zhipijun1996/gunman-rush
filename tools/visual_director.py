@@ -16,6 +16,7 @@ import shutil
 import subprocess
 import sys
 import time
+import tempfile
 
 import harness
 import level_formal
@@ -25,8 +26,9 @@ from level_design import ROOT, read, write, file_hash
 # Explicit experimental capture adapter; arbitrary script execution is not a CLI option.
 ENVIRONMENT_CAPTURE = "tools/plains_environment_capture.gd"
 PLACES_CAPTURE = "tools/plains_places_capture.gd"
+REGIONAL_CAPTURE = "tools/plains_regional_art_capture.gd"
 ENVIRONMENT_CAPTURES = (ENVIRONMENT_CAPTURE, PLACES_CAPTURE)
-CAPTURE_SCRIPTS = {"tools/spatial_golden_capture.gd", "tools/painted_formal_capture.gd", "tools/p1_random_capture.gd", *ENVIRONMENT_CAPTURES}
+CAPTURE_SCRIPTS = {"tools/spatial_golden_capture.gd", "tools/painted_formal_capture.gd", "tools/p1_random_capture.gd", REGIONAL_CAPTURE, *ENVIRONMENT_CAPTURES}
 VISUAL_SAMPLE_CATALOG = "res://resources/visual_development/candidate.json"
 VISUAL_SAMPLE_CATALOGS = (VISUAL_SAMPLE_CATALOG, "res://resources/visual_development/painted_terrain_candidate.json", "res://resources/visual_development/p1_candidate.json")
 
@@ -48,6 +50,8 @@ def capture_extension_sources(script):
         pending.append("tools/plains_environment_preview.gd")
     if script == PLACES_CAPTURE:
         pending.append("tools/plains_places_preview.gd")
+    if script == REGIONAL_CAPTURE:
+        pending.append("tools/plains_regional_art_preview.gd")
     result = {}
     while pending:
         relative_path = pending.pop()
@@ -84,7 +88,8 @@ def capture(seed, map_index, strategy, folder, max_ticks=6000, timeout=900,
     folder = Path(folder).resolve()
     if not folder.is_relative_to(ROOT / 'build') or folder.exists():
         raise ValueError('Use a NEW build/ directory; failed attempts are immutable')
-    if not (1 <= max_ticks <= 18000 and 0 <= phase_wait_ticks <= 600 and 1 <= frame_stride <= 3600 and 1 <= timeout <= 3600):
+    tick_limit = 36000 if capture_script == REGIONAL_CAPTURE else 18000
+    if not (1 <= max_ticks <= tick_limit and 0 <= phase_wait_ticks <= 600 and 1 <= frame_stride <= 3600 and 1 <= timeout <= 3600):
         raise ValueError('Unbounded capture request')
     if map_index not in (1, 2) or strategy not in ('fast', 'growth', 'deep', 'return') or encounter_policy not in level_formal.ENCOUNTER_POLICIES:
         raise ValueError('Unknown formal driver request')
@@ -131,7 +136,16 @@ def capture(seed, map_index, strategy, folder, max_ticks=6000, timeout=900,
     env = os.environ.copy()
     env.update(LIBGL_ALWAYS_SOFTWARE='1', LP_NUM_THREADS='1')
     output, avi, movie = folder/'capture.json', folder/'gameplay.avi', folder/'gameplay.mp4'
+    scratch_avi = None
     try:
+        if capture_script == REGIONAL_CAPTURE:
+            # Full-region raw movies can exceed the workspace disk. Keep the
+            # bounded producer destination unchanged and explicitly record the
+            # unique system-temp backing file. Failed originals stay available.
+            scratch_avi = Path(tempfile.mkdtemp(prefix='gunman-regional-movie-'))/'gameplay.avi'
+            scratch_avi.touch(exist_ok=False)
+            avi.symlink_to(scratch_avi)
+            report['temporary_movie_storage'] = {'logical_path':str(avi),'backing_file':str(scratch_avi),'scope':'raw AVI only; final MP4/source/log/frame evidence stays in build; failure retained'}
         if not env.get('DISPLAY'):
             binary = shutil.which('Xvfb') or str(ROOT.parent/'toolchains/xvfb/usr/bin/Xvfb')
             display_log = (folder/'display.log').open('wb')
@@ -166,7 +180,7 @@ def capture(seed, map_index, strategy, folder, max_ticks=6000, timeout=900,
             else:
                 report['composition_observation_status']='unverified_missing_raw'
         with (folder/'encode.log').open('w') as log:
-            subprocess.run(['ffmpeg','-n','-i',str(avi),'-c:v','libx264','-crf','21','-pix_fmt','yuv420p','-c:a','aac',str(movie)], stdout=log, stderr=subprocess.STDOUT, timeout=180, check=True)
+            subprocess.run(['ffmpeg','-n','-i',str(avi),'-c:v','libx264','-crf','21','-pix_fmt','yuv420p','-c:a','aac',str(movie)], stdout=log, stderr=subprocess.STDOUT, timeout=600 if capture_script == REGIONAL_CAPTURE else 180, check=True)
         media = json.loads(subprocess.check_output(['ffprobe','-v','error','-show_streams','-show_format','-of','json',str(movie)],timeout=30))
         video = next(s for s in media['streams'] if s['codec_type']=='video')
         audio = next(s for s in media['streams'] if s['codec_type']=='audio')
@@ -177,7 +191,7 @@ def capture(seed, map_index, strategy, folder, max_ticks=6000, timeout=900,
         images = folder/'video_frames'; images.mkdir()
         select = 'select=' + '+'.join('eq(n\\,'+str(n)+')' for n in numbers)
         with (folder/'extract.log').open('w') as log:
-            subprocess.run(['ffmpeg','-n','-i',str(movie),'-vf',select,'-vsync','0',str(images/'extracted_%06d.png')],stdout=log,stderr=subprocess.STDOUT,timeout=180,check=True)
+            subprocess.run(['ffmpeg','-n','-i',str(movie),'-vf',select,'-vsync','0',str(images/'extracted_%06d.png')],stdout=log,stderr=subprocess.STDOUT,timeout=600 if capture_script == REGIONAL_CAPTURE else 180,check=True)
         outputs = sorted(images.glob('extracted_*.png'))
         if len(outputs) != len(numbers): raise RuntimeError('Video frame extraction incomplete')
         frames = []
@@ -190,6 +204,9 @@ def capture(seed, map_index, strategy, folder, max_ticks=6000, timeout=900,
         if report['source_after'] != before: raise RuntimeError('Source drift during media finalization')
         # Keep native trace and validated complete MP4. Failed temporary AVI is never removed.
         avi.unlink()
+        if scratch_avi is not None:
+            scratch_avi.unlink()
+            scratch_avi.parent.rmdir()
     except Exception as exc:
         report['status'] = 'failed'; report['errors'].append(type(exc).__name__+': '+str(exc))
     finally:
@@ -537,6 +554,8 @@ def validate_native(data, report, log):
                     errors.append('environment actual avatar source mismatch/' + key + '/' + path_key)
         if script == PLACES_CAPTURE:
             errors.extend(validate_places_observations(data, plan))
+    if script == REGIONAL_CAPTURE:
+        errors.extend(validate_regional_observations(data))
     scope=data.get('captured_scope',{})
     for k in ('enemies_instantiated','enemy_attacks_enabled','enemy_contacts_enabled','production_rewards_enabled','production_camera_enabled'):
         if scope.get(k) is not True: errors.append('missing formal runtime/'+k)
@@ -550,6 +569,39 @@ def validate_native(data, report, log):
     if re.search(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script|ObjectDB.*leaked|resources? still in use at exit',log): errors.append('engine script error')
     if not level_formal.engine_log_matches(data.get('engine'),log): errors.append('engine identity mismatch')
     if data.get('route_reached') is not (data.get('outcome')=='route_target_reached'): errors.append('route outcome mismatch')
+    return errors
+
+
+def validate_regional_observations(data):
+    """Whole-region coverage is separate from movie capture and local art."""
+    errors = []
+    manifest = data.get('manifest', {})
+    expected = {area['id'] for area in manifest.get('areas', []) if area.get('role') not in ('boss', 'tutorial')}
+    coverage = data.get('regional_coverage', {})
+    if not expected or set(coverage.get('expected_area_ids', [])) != expected:
+        errors.append('regional actual full-area denominator missing/changed')
+    visits = coverage.get('actual_grounded_visits', {})
+    positions = {area['id']: area['position'] for area in manifest.get('areas', [])}
+    for area_id, row in visits.items():
+        point, target = row.get('position'), positions.get(area_id)
+        if (not isinstance(point, list) or len(point) != 2 or target is None
+                or any(type(v) not in (int, float) or not math.isfinite(v) for v in point)
+                or math.dist(point, target) > 3.00001 or row.get('grounded') is not True):
+            errors.append('regional unsupported/forged area visit')
+    if data.get('route_reached') and (coverage.get('missing_area_ids') != [] or not expected <= set(visits)):
+        errors.append('regional route success without complete actual area visits')
+    if data.get('route_reached') and (not data.get('regional_cases') or not all(case.get('passed') is True for case in data['regional_cases'])):
+        errors.append('regional incomplete actual itinerary cases')
+    for key in ('regional_art_initial', 'regional_art_final'):
+        observed = data.get(key, {})
+        plan, art = observed.get('art_plan', {}), observed.get('art', {})
+        if (observed.get('ready') is not True or observed.get('production_pool') is not False
+                or observed.get('manifest_hash') != data.get('manifest_hash')
+                or plan.get('layout_source') != 'formal_full_region' or manifest.get('sample') is not False
+                or not art.get('terrain') or art.get('omitted') != []
+                or art.get('plan_hash') != plan.get('plan_hash')
+                or not observed.get('actual_boss') or observed.get('actual_chests', 0) < 1):
+            errors.append('regional actual full-map art/content consumer missing/' + key)
     return errors
 
 
@@ -852,7 +904,35 @@ def route(request,task_id,quality_record,allowed_paths,max_calls=10,max_rounds=2
        'max_calls':max_calls,'max_rounds':max_rounds,'call_timeout_seconds':call_timeout,'tasks':tasks,
        'preparation':{'region_context':build_region_context(region_id) if region_id else {'status':'unregistered','runtime_available':None},'lessons':load_lessons(region_id)},
        'constraints':['Freeze Motor, weapons/resources/progression, RNG, actual collision geometry/route and saves; within the authorized art scope visual mesh, source profiles and UV mapping may be redesigned, not collision or gameplay','Admission is scoped to this family and actual consumer: independently evidenced actual-pixel G2 is required before its descendants expand; a rejected unrelated mother does not block independently qualified units. Preserve rejected contracts; a different limited pilot role requires its own actual-pixel review, never retroactive approval','No conceptual image posing as actual gameplay; no subjective score from hashes','Two no-progress visual rounds stop. Preserve every failed native/model/review attempt.','Host mode needs an active real Codex host, distinct implementation/review agents; otherwise block with original Harness lease/timeout','Use existing G0–G5/eleven quality dimensions; G0/G1 stage is not G2 beauty approval or full content completion']}
-    if region_id == 'windchime_plains':
+    regional_request = region_id == 'windchime_plains' and not re.search(r'场所|局部|另一段|钟庭|\blocal\b|\bplace\b', request, re.I)
+    if regional_request:
+        paths = ['scripts/generation/plains_region_art_plan.gd', 'scripts/generation/plains_region_generator.gd',
+                 'scripts/art/plains_regional_composer.gd', 'shaders/plains_regional_ground.gdshader',
+                 'resources/visual_development/p1_regional_assets.json', REGIONAL_CAPTURE,
+                 'tools/plains_regional_art_preview.gd', 'tools/run_plains_regional_art_tests.py',
+                 'tools/plains_regional_art_map.py', 'docs/evidence/plains_regional/recipe.md',
+                 'docs/quality/records/PLAINS-REGIONAL-01.json',
+                 'docs/evidence/plains_regional/independent-native-02.md']
+        recipe = {'status': 'candidate_not_automatic_admission',
+                  'scope': 'Actual complete formal randomized-region candidate; not automatic acceptance, golden, user, commercial or device approval',
+                  'sources': [{'path': path, 'sha256': file_hash(ROOT / path)} for path in paths],
+                  'profile': 'scripts/art/plains_regional_composer.gd',
+                  'method': 'RETHINK: both collision-union painting and deep mass-minus-void prototypes failed actual whole-region art. Reuse full topology, actual shared plan/consumer and evidence tools; next art experiment must jointly embed landforms and routes rather than extrude the old row/column layout or resume place permutations.',
+                  'recipe': 'docs/evidence/plains_regional/recipe.md',
+                  'quality_record': 'docs/quality/records/PLAINS-REGIONAL-01.json',
+                  'reviews': ['docs/evidence/plains_regional/independent-native-02.md'],
+                  'capture_script': REGIONAL_CAPTURE,
+                  'preview_script': 'tools/plains_regional_art_preview.gd',
+                  'geometry_authority': 'Art-only task grants no new collision edits. Existing isolated full-region profile may be run; changed gameplay geometry requires an explicitly authorized joint experiment and actual Motor revalidation.',
+                  'expansion': 'blocked_art_RETHINK_not_mature_production',
+                  'technical_history_on_demand': 'docs/evidence/plains_joint/recipe.md'}
+        m['preparation']['visual_recipe'] = recipe
+        m['constraints'][1] = ('P1 remains a user preference, not final style approval. Actual regional art failed both methods; do not expand their descendants or label a local scene chain a complete region. A rejected unrelated mother does not block independently qualified units.')
+        for task in tasks:
+            if not task['read_only']:
+                task['checks'] = list(dict.fromkeys([c for c in task['checks'] if c not in ('visual-director-terrain', 'visual-director-space')] + ['plains-regional-art-contract', 'plains-regional-art-counterexamples', 'plains-regional-art-graph-counterexamples']))
+            task['goal'] += ' Read the current full-region recipe and actual independent rejection first. Use the formal complete map, not fixed place reordering. Structural checks cannot sign art. Show whole-world terrain/routes/layers plus normal-camera actual full-route footage; preserve failed Seeds. Do not repeat the two rejected landmass methods or silently change collision in an art-only task.'
+    elif region_id == 'windchime_plains':
         catalog_path = 'resources/visual_development/p1_places_assets.json'
         catalog = read(ROOT / catalog_path)
         paths = [catalog_path, catalog['master'],

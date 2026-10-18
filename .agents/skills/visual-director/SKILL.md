@@ -67,3 +67,5 @@ V3实战检查点：开始昂贵worker前，原production_loop会物化核对所
 [预制作→制作→验收及版本总谱](../../../docs/creative_direction/README.md)是共同执行依据。总谱SHA变更须RETHINK并复验；交付写贡献、协作、新行为/视觉、主题冲突和实机验证。REWORK局部修复，DISCARD隔离候选；ACCEPT只限真实已验范围，审美不绕过工程红灯。
 
 历史复现按需读取[原始Skill与迁移索引](../../../docs/archive/skill_history/README.md)，不默认加载旧轮授权、PR实录或失败数字。
+
+当前“制作风铃平原美术”等区域短任务默认绑定[完整区域候选](../../../docs/evidence/plains_regional/recipe.md)及真实RETHINK，明确局部/场所请求保留旧入口。检查actual full-region Manifest、非同构Seed、全域地貌/路线/景层诊断、完整正常速度路线与实际消费者；诊断缩放图不冒充正常相机。当前两个制作方法均艺术REJECT，不因100项合同和完整Motor路线通过而扩产。原地质/空腔技术可复用，下一实验需要改宏观地貌与路线生成顺序。route只出计划，艺术任务不自动授权碰撞改动，用户审美/设备认可独立。

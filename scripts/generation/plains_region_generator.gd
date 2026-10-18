@@ -9,9 +9,11 @@ const SAMPLE_DY := 700.0 # Formal macros use measured phrase intervals and terra
 const HALF := 200.0
 const ATTEMPTS := 4
 # A run pins content mode; legacy generation remains byte-identical.
+var regional_art_profile := "" # Candidate-only; empty preserves the exact formal map.
 var root_bell_mode := "legacy_v10" # Preserve the old generator API; DemoApp explicitly pins admitted content.
 
 func generate(seed_value: String, tuning: PlayerTuning, sample := false, force_family := "", difficulty := "advanced") -> Dictionary:
+	if regional_art_profile not in ["","continuous_plains_v1"]: return {"ok":false,"error":"Unknown regional art profile"}
 	if difficulty not in ["intro","advanced"] or seed_value.is_empty() or tuning.max_jumps < 1 or tuning.max_air_shots < 1:
 		return {"ok": false, "error": "Plains requires the existing base jump and recoil shot"}
 	for attempt: int in ATTEMPTS:
@@ -20,6 +22,7 @@ func generate(seed_value: String, tuning: PlayerTuning, sample := false, force_f
 	return verified_fallback(seed_value,tuning,difficulty)
 
 func verified_fallback(seed_value: String,tuning: PlayerTuning,difficulty := "advanced") -> Dictionary:
+	if regional_art_profile != "": return {"ok":false,"error":"Regional art profile has no separately verified fallback"}
 	var fallback := _candidate("region-woven_layers", false, "woven_layers", 0,difficulty)
 	fallback.seed = seed_value
 	fallback.fallback_id = "verified_exploration_region"
@@ -36,6 +39,9 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 	if difficulty=="intro" and not sample: cols=5
 	var prep_row := 1 if sample else topology.next_int(3)
 	var m := {"version": PlainsRootBellEncounterV3.CONTENT_VERSION if root_bell_mode == "v3" else PlainsRootBellEncounterV2.CONTENT_VERSION if root_bell_mode == "v2" else VERSION, "difficulty":difficulty, "player_tuning_hash":FileAccess.get_sha256("res://config/player_tuning.json"), "seed": seed_value, "region": "plains", "layout_id": "connected_region", "family": family, "attempt": attempt, "fallback_id": "", "sample": sample, "areas": [], "connections": [], "nodes": [], "rewards": [], "pickups": [], "enemies": [], "terminal_exits": [], "budget": {"ordinary_coins": 24, "medium": 2, "high": 1, "region_top": 1, "finite_hearts": 3,"cache_coin_limit":122,"cache_heart_limit":11,"cache_note_limit":8}, "streams": {"topology": "region_topology", "content": "region_content", "reward": "region_reward", "phases": "region_phases", "generation_seed": seed_value,"derivation_version":RNG_VERSION}}
+	if regional_art_profile != "":
+		m.regional_art_profile=regional_art_profile
+		m.art_layout={"minimum_column_span":1400.0,"quiet_arrival_width":180.0,"maximum_phrase_width":2200.0,"support_depth_policy":"original_collision_supports_and_preserved_lower_route_voids"}
 	var footprint: Dictionary={"cells":[],"recipe":"fixed_sample"}
 	if sample:
 		for row: int in 3:
@@ -146,9 +152,11 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 			e.design_recipe=PlainsRouteRecipes.choose(content,m.recipe_history,difficulty=="intro",e.purpose,str(area.identity))
 			var width:=0.0
 			for module_id: String in e.design_recipe.modules: width+=RandomStageGenerator.new().definition_for(module_id,false,false).world_bounds.size.x
-			spans[int(area.col)]=maxf(float(spans[int(area.col)]),width+HALF*2.0+80.0)
+			var quiet_width:=180.0 if regional_art_profile!="" else 0.0
+			if regional_art_profile!="": e.art_clearance={"quiet_arrival_width":quiet_width,"purpose":"land_read_next_route_before_reentering_pressure","source":"continuous_plains_v1"}
+			spans[int(area.col)]=maxf(float(spans[int(area.col)]),width+HALF*2.0+80.0+quiet_width)
 		var xs: Array=[0.0]
-		for span: float in spans: xs.append(float(xs[-1])+maxf(1080.0,span))
+		for span: float in spans: xs.append(float(xs[-1])+maxf(1400.0 if regional_art_profile!="" else 1080.0,span))
 		for a: Dictionary in m.areas: a.position=[xs[int(a.col)],footprint.terrace_heights[int(a.row)]]
 		m.topology.column_positions=xs
 		m.topology.embedding="phrase_clearance_and_authored_terraces"
@@ -341,7 +349,9 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 		geometry_bounds=geometry_bounds.merge(Rect2(_point(node.offset)+d.world_bounds.position,d.world_bounds.size))
 	geometry_bounds=geometry_bounds.grow(320.0)
 	m.world_bounds = [geometry_bounds.position.x,geometry_bounds.position.y,geometry_bounds.size.x,geometry_bounds.size.y]
-	if not sample: m.ground_supports = PlainsGroundSupports.region_plan(m)
+	if not sample:
+		m.ground_supports = _regional_landmass_supports(m) if regional_art_profile=="continuous_plains_v1" else PlainsGroundSupports.region_plan(m)
+		if regional_art_profile=="continuous_plains_v1": m.art_layout.landmass_method="world_base_mass_minus_actual_lower_route_voids_v2"
 	m.shot_latch_plan = PlainsShotLatchPlanner.recorded_plan(m)
 	m.stream_positions={"topology":topology.position(),"content":content.position(),"reward":reward.position()}
 	var shop_rng:=RunRandomStream.new(seed_value,"region_shop",str(attempt),RNG_VERSION)
@@ -353,6 +363,123 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 	m.shot_energy_version="plains-shot-energy-v1"
 	m.manifest_hash = _hash(m)
 	return m
+
+# Candidate-only second production method. The formal empty-profile path above
+# continues to use its original shallow supports byte for byte.
+func _regional_landmass_supports(m: Dictionary) -> Array:
+	var sources: Array = []
+	var obstacles: Array[Rect2] = []
+	var definitions: Array = []
+	var protected_air: Array = []
+	var base := float(m.world_bounds[1])+float(m.world_bounds[3])+PlainsGroundSupports.EXTRA_DEPTH
+	for node: Dictionary in m.nodes:
+		var d := definition(node)
+		var offset := _point(node.offset)
+		definitions.append({"id":node.id,"definition":d,"offset":offset})
+		# A newly continuous underground must not become a rescue floor below
+		# an original jump gap or a shaft. Retain those fall columns to the
+		# original region kill boundary, independently of successful route tests.
+		var coverage: Array = []
+		for index: int in d.platforms.size():
+			if index in d.one_way_platform_indices: continue
+			coverage.append([offset.x+d.platforms[index].position.x,offset.x+d.platforms[index].end.x])
+		coverage.sort_custom(func(a: Array,b: Array)->bool:return float(a[0])<float(b[0]))
+		var cursor:=offset.x+minf(d.entry_port.position.x,d.exit_port.position.x)
+		var finish:=offset.x+maxf(d.entry_port.position.x,d.exit_port.position.x)
+		for span: Array in coverage:
+			if float(span[0])>cursor+8.0:
+				var gap:=Rect2(cursor,offset.y+d.world_bounds.position.y,float(span[0])-cursor,base-(offset.y+d.world_bounds.position.y))
+				protected_air.append({"owner":node.id,"kind":"original_gap_or_shaft_fall_column","standing_y":offset.y+maxf(d.entry_port.position.y,d.exit_port.position.y)+18.0,"rect":[gap.position.x,gap.position.y,gap.size.x,gap.size.y]})
+			cursor=maxf(cursor,float(span[1]))
+		if finish>cursor+8.0:
+			var gap:=Rect2(cursor,offset.y+d.world_bounds.position.y,finish-cursor,base-(offset.y+d.world_bounds.position.y))
+			protected_air.append({"owner":node.id,"kind":"original_gap_or_shaft_fall_column","standing_y":offset.y+maxf(d.entry_port.position.y,d.exit_port.position.y)+18.0,"rect":[gap.position.x,gap.position.y,gap.size.x,gap.size.y]})
+		for slab: Rect2 in d.platforms: obstacles.append(Rect2(offset+slab.position,slab.size))
+		for danger: Rect2 in d.danger_bounds: obstacles.append(Rect2(offset+danger.position,danger.size).grow(28.0))
+		for ferry: ModuleMovingPlatformDefinition in d.ferries:
+			var envelope:=ferry.envelope()
+			obstacles.append(Rect2(offset+envelope.position,envelope.size).grow(28.0))
+		for saw: ModuleSawDefinition in d.saws:
+			var envelope:=saw.envelope()
+			obstacles.append(Rect2(offset+envelope.position,envelope.size).grow(28.0))
+		if str(node.module_id).begins_with("region_deep") or str(node.module_id).begins_with("region_drop"): continue
+		for index: int in d.platforms.size():
+			var slab:=d.platforms[index]
+			# One-way ledges retain actual drop semantics; vertical walls and
+			# narrow suspended stepping stones cannot seed an earth column.
+			if index in d.one_way_platform_indices or slab.size.x<160.0 or slab.size.y<24.0: continue
+			var start:=offset+Vector2(slab.position.x,slab.end.y)
+			if start.y>=base: continue
+			sources.append({"id":node.id,"rect":Rect2(start,Vector2(slab.size.x,base-start.y))})
+	# A fall column ends only at an already existing complete SOLID receiving
+	# floor, never at invented earth or a droppable one-way stepping stone.
+	for space: Dictionary in protected_air:
+		var raw: Array=space.rect
+		var gap:=Rect2(raw[0],raw[1],raw[2],raw[3])
+		var stop:=base
+		for entry: Dictionary in definitions:
+			var d: PlatformingModuleDefinition=entry.definition
+			var offset: Vector2=entry.offset
+			for index: int in d.platforms.size():
+				if index in d.one_way_platform_indices: continue
+				var floor:=Rect2(offset+d.platforms[index].position,d.platforms[index].size)
+				if floor.position.y>float(space.standing_y)+2.0 and floor.position.x<=gap.position.x and floor.end.x>=gap.end.x:
+					stop=minf(stop,floor.position.y)
+		gap.size.y=maxf(0.0,stop-gap.position.y)
+		space.rect=[gap.position.x,gap.position.y,gap.size.x,gap.size.y]
+		obstacles.append(gap)
+	# Explicit reward evacuation paths are as authoritative as authored modules.
+	for edge: Dictionary in m.connections:
+		var path: Array=edge.get("return_polyline",[])
+		for index: int in maxi(0,path.size()-1):
+			var a:=_point(path[index]);var b:=_point(path[index+1])
+			obstacles.append(Rect2(a.min(b)-Vector2(58.0,48.0),(a-b).abs()+Vector2(116.0,96.0)))
+	var result: Array[Rect2] = []
+	for source: Dictionary in sources:
+		var column: Rect2=source.rect
+		var protected: Array[Rect2]=obstacles.duplicate()
+		for entry: Dictionary in definitions:
+			var d: PlatformingModuleDefinition=entry.definition
+			var offset: Vector2=entry.offset
+			# Preserve the complete lower room, including presently empty jump
+			# and recoil air, not just its platform rectangles. Full shafts and
+			# ferry wells remain void. Same-level solid neighbours may unify.
+			if entry.id!=source.id and PlainsGroundSupports._has_lower_route(d,offset,column.position.y):
+				protected.append(Rect2(offset+d.world_bounds.position,d.world_bounds.size).grow(24.0))
+		var pieces: Array[Rect2]=[column]
+		for obstacle: Rect2 in protected:
+			var next: Array[Rect2]=[]
+			for piece: Rect2 in pieces: next.append_array(_regional_rect_difference(piece,obstacle))
+			pieces=next
+			if pieces.size()>1400:
+				m.art_layout.landmass_budget_failed=true
+				return []
+			if pieces.is_empty(): break
+		result.append_array(pieces)
+	m.art_layout.protected_airspaces=protected_air
+	var unique: Array[Rect2]=[]
+	var seen: Dictionary={}
+	for support: Rect2 in result:
+		var key:=str(support)
+		if not seen.has(key): unique.append(support);seen[key]=true
+	var values: Array=[]
+	for support: Rect2 in PlainsGroundSupports._merge_columns(unique): values.append([support.position.x,support.position.y,support.size.x,support.size.y])
+	return values
+
+static func _regional_rect_difference(source: Rect2, obstacle: Rect2) -> Array[Rect2]:
+	if not source.intersects(obstacle): return [source]
+	var cut:=source.intersection(obstacle)
+	var result: Array[Rect2]=[]
+	# Four disjoint pieces preserve earth BELOW a carved room as well as
+	# either side; the old horizontal-only split discarded that whole column.
+	var pieces: Array[Rect2]=[
+		Rect2(source.position,Vector2(cut.position.x-source.position.x,source.size.y)),
+		Rect2(Vector2(cut.end.x,source.position.y),Vector2(source.end.x-cut.end.x,source.size.y)),
+		Rect2(Vector2(cut.position.x,source.position.y),Vector2(cut.size.x,cut.position.y-source.position.y)),
+		Rect2(Vector2(cut.position.x,cut.end.y),Vector2(cut.size.x,source.end.y-cut.end.y))]
+	for piece: Rect2 in pieces:
+		if piece.size.x>=12.0 and piece.size.y>=12.0: result.append(piece)
+	return result
 
 func _trial_observation_bank(m:Dictionary,a:Dictionary) -> bool:
 	for edge:Dictionary in m.connections:
@@ -659,6 +786,7 @@ func semantic_route_errors(m: Dictionary) -> Array[String]:
 	return errors
 
 func validate(m: Dictionary, tuning: PlayerTuning) -> bool:
+	if m.get("regional_art_profile","") not in ["","continuous_plains_v1"]: return false
 	if m.get("version") not in [VERSION, PlainsRootBellEncounterV2.CONTENT_VERSION, PlainsRootBellEncounterV3.CONTENT_VERSION] or m.get("manifest_hash") != _hash(m) or not _connected(m) or _cycles(m) < 3 or not semantic_route_errors(m).is_empty(): return false
 	if m.areas.size() < 12 or m.areas.size() > 24 or _degree(m, m.prep_id) < 2: return false
 	if m.connections.filter(func(e: Dictionary) -> bool: return e.condition == "backside").size() < 2: return false
@@ -673,9 +801,12 @@ func validate(m: Dictionary, tuning: PlayerTuning) -> bool:
 	# Rehashed removals, fake connections/rewards and changed geometry cannot
 	# pass replay validation. Generation is bounded and each namespace is separate.
 	var previous_mode := root_bell_mode
+	var previous_art_profile := regional_art_profile
+	regional_art_profile = str(m.get("regional_art_profile",""))
 	root_bell_mode = "v3" if m.version == PlainsRootBellEncounterV3.CONTENT_VERSION else "v2" if m.version == PlainsRootBellEncounterV2.CONTENT_VERSION else "legacy_v10"
 	var expected := _candidate("region-woven_layers" if m.fallback_id != "" else str(m.seed),bool(m.get("sample",false)),str(m.family),int(m.attempt),str(m.get("difficulty","advanced")))
 	root_bell_mode = previous_mode
+	regional_art_profile = previous_art_profile
 	if m.fallback_id != "":
 		expected.seed = m.seed
 		expected.fallback_id = m.fallback_id

@@ -10,6 +10,7 @@ var map_view: PlainsRegionMap
 var terrain_art: PlainsTerrainStudy
 var context_signs: Array[Dictionary] = []
 var boss_seal:BossArenaSeal
+var regional_art_renderer: Node2D
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -79,9 +80,10 @@ func _ready() -> void:
 		chest.claimed = region_state.claimed.has(chest.id)
 		chests.append(chest)
 	install_visual_layer(VISUAL_LAYER.new())
-	var scenery:=PlainsRegionScenery.new()
-	scenery.configure(generated.manifest, PlainsRegionScenery.solid_supports(self), PlainsRegionScenery.protection(self))
-	add_child(scenery)
+	if not generated.has("regional_art_plan"):
+		var scenery:=PlainsRegionScenery.new()
+		scenery.configure(generated.manifest, PlainsRegionScenery.solid_supports(self), PlainsRegionScenery.protection(self))
+		add_child(scenery)
 	_context_sign(spawn+Vector2(20,-100), "HOLD JUMP  ·  AIM BACK TO RECOIL", 220)
 	_context_sign(merchant_position+Vector2(-115,-112), "REPAIR CAMP  ·  INTERACT", 220)
 	var creek: Dictionary = generated.manifest.get("creek_discovery", {})
@@ -119,10 +121,22 @@ func _ready() -> void:
 	map.region_chip = true
 	map.position=Vector2(1098,14)
 	map_layer.add_child(map)
-	terrain_art = PlainsTerrainStudy.new()
-	terrain_art.stage = self
-	add_child(terrain_art)
+	if generated.has("regional_art_plan"):
+		var script := load("res://scripts/art/plains_regional_composer.gd") as Script
+		regional_art_renderer = script.new() as Node2D
+		add_child(regional_art_renderer)
+		regional_art_renderer.call("install",self,generated.regional_art_plan)
+	else:
+		terrain_art = PlainsTerrainStudy.new()
+		terrain_art.stage = self
+		add_child(terrain_art)
 	queue_redraw()
+
+func get_regional_art_snapshot() -> Dictionary:
+	var art: Dictionary = {}
+	if is_instance_valid(regional_art_renderer):
+		art = regional_art_renderer.call("measured_nodes")
+	return {"ready":assembly_ok and not art.is_empty() and art.get("omitted",[]).is_empty(),"manifest_hash":generated.manifest.get("manifest_hash",""),"art_plan":generated.get("regional_art_plan",{}),"art":art,"production_pool":false,"actual_modules":assembler.modules.size() if assembler!=null else 0,"actual_enemies":enemies.size(),"actual_chests":chests.size(),"actual_boss":is_instance_valid(boss)}
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
