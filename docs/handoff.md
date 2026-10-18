@@ -1,5 +1,8 @@
 # FOREST-DEPTH-02：实现与验证交接
 
+最新玩法返工：[whole-body实验淘汰档案](evidence/forest_depth_v2/mobile_anchor_rejected01/README.md)。9ca／5bd真实普通、H-only与mixed-chase对照后独审DROP；技术PASS不改设计淘汰，原context／partial-foot／死亡FAIL保留。内容未商业完成，整体REVISE；trailing-bud仅opt-in G0准备，非当前v10。生产body-group移除由对应作者执行，此处不预称已删。
+
+
 CI基础设施跟进：0cf旧身份reader失败后，A/df3f定向7通过；实测单core60分钟风险后，原85项按67/18分机、原预算不增。C路径独审REVISE保留；C2（`5ec5e9e3`）仅基础设施独审ACCEPT。新CI待运行；原浏览器4项FAIL／未证根因和整体体验REVISE不变。[限定记录](quality/records/FOREST-DEPTH-CI-LANES-01.json)。
 
 最新验证跟进：[原CI失败与限定修复](evidence/forest_depth_v2/release_followup01/README.md)。0cf完整CI49项通过（含当前固定80路线），Guardian原生25/0后因旧map2身份reader失败；df3f版本严格迁移已获独审，干净源原Harness定向7实际通过，非最终完整CI。当前0cf正常影片的16px结标记已获实景限定接受，“岸”正式objective未展示；原浏览器首20/24与唯一诊断24/24分账，首发根因仍未证，另两组48/48不消除原FAIL。整体仍REVISE，最新完整CI／部署以PR与元数据实际终态为准。

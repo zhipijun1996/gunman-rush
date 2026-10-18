@@ -1,0 +1,330 @@
+{
+  "scope": "independent fixed9ca actualraw design review; no native/movie/browser/newruntime evidence",
+  "verdict": "DROP current whole-body constant mobile-anchor promotion",
+  "commit": "9ca8fdb00bcc451c0e7b99d2bd8febc99deb2af5",
+  "binding": {
+    "scripts/bosses/thorn_queen_canopy_encounter.gd": {
+      "sha256": "e16ac8e272a1821307d23a105f98fbb3f907702cf9733c7b53b849cc656d9218",
+      "batch_before_match": true,
+      "blob": "6b9f14163328ddd820f9f714881832e1064c668a"
+    },
+    "scripts/bosses/thorn_queen_canopy_presentation.gd": {
+      "sha256": "73c55121fea29526f3a9475f14c6b2f87545a4fe9485d0a58616d2794a417935",
+      "batch_before_match": true,
+      "blob": "ba48cbeb2d3fd53daeaa4a2905efd803f587dfee"
+    },
+    "tests/thorn_queen_canopy_mobile_anchor_runner.gd": {
+      "sha256": "b2004c8ba5d8ab01fb2889ca08e11dcd0738b6a49906ce7d6edf73638e1577c0",
+      "batch_before_match": true,
+      "blob": "cdbcce4a358bca324c702e7fb0a9a4636633da0e"
+    },
+    "tests/thorn_queen_canopy_mobile_anchor_runner.gd.uid": {
+      "sha256": "ac54f4f9b78b049b85dd1e9f821a2c518d420be82c265ca995d6f0f2af307db9",
+      "batch_before_match": "not in batch source_before (uid)",
+      "blob": "3bdfa15ffb39edda9e91fdfb20cf6def038baf58"
+    },
+    "tools/run_thorn_queen_canopy.py": {
+      "sha256": "fd3c2439a551cb100f300539d27727bd9e8666171ccba98cf8e7cd1ecbb9a400",
+      "batch_before_match": true,
+      "blob": "bc5177f9b73b5bcfb59797e0c2f27ff28d4a8478"
+    }
+  },
+  "cases": {
+    "mobile-anchor02": {
+      "raw_sha256": "8b22f9ff49a775163319b307408a2486a85a8beb014b18d32418d1469266eeb9",
+      "receipt_sha256": "94c7eb31ae0f82132ec6cefc37f7383e44466fb947dc9d911602f066ed0c6dcf",
+      "summary": {
+        "arrival_tick": 161.0,
+        "boss_hp": 0.0,
+        "cast_tick": 152.0,
+        "departure_tick": 151.0,
+        "energy": 100.0,
+        "follow_shot_tick": 169.0,
+        "id": "mobile_anchor",
+        "initial_boss_hp": 24.0,
+        "initial_energy": 100.0,
+        "initial_player_hp": 5.0,
+        "kick_tick": 168.0,
+        "kill_tick": 526.0,
+        "player_hp": 5.0,
+        "support12": 12.0,
+        "target_contact_tick": 159.0,
+        "ticks": 577.0
+      },
+      "failures": [],
+      "frame_count": 577,
+      "ticks_continuous": true,
+      "Motor_one_step_all": false,
+      "damage_context_types": {
+        "grapple": 1,
+        "projectile": 23
+      },
+      "boss_Policy_count": 24,
+      "boss_policy_exact24": true,
+      "contexts_policy_idmatch": true,
+      "player_Policy_count": 0,
+      "accepted_shot_count": 23,
+      "H_requests": 1,
+      "protected_alive_frames": 25,
+      "longest_protection_run": 25,
+      "sampled_body_overlap_frames": 0,
+      "sampled_overlap_protected": 0,
+      "separate_band_protected": 0,
+      "phase_changes": [
+        [
+          282.0,
+          2.0
+        ],
+        [
+          349.0,
+          3.0
+        ]
+      ],
+      "final_grounded": true,
+      "final_player": [
+        412.075012207031,
+        341.930725097656
+      ],
+      "final_slabs": [
+        {
+          "id": "central_rib",
+          "foot_overlap": 24.0,
+          "full24": true
+        }
+      ],
+      "source_before_after_equal": true,
+      "source_guard": true,
+      "verifier_guard": true,
+      "original_passed": true,
+      "final_fields": [
+        {
+          "health": 2.0,
+          "spawned": true,
+          "weave": {
+            "age": 4.06666666666666,
+            "growth": 1.0,
+            "initial_angle": 0.0,
+            "next_damage_in": 0.0,
+            "pulse": 0.0,
+            "severed": false,
+            "suspended": false
+          }
+        },
+        {
+          "health": 2.0,
+          "spawned": true,
+          "weave": {
+            "age": 2.94999999999999,
+            "growth": 1.0,
+            "initial_angle": 0.0,
+            "next_damage_in": 0.0,
+            "pulse": 0.0,
+            "severed": false,
+            "suspended": false
+          }
+        }
+      ],
+      "ceiling_contacts_before_kill": 84
+    },
+    "mobile-ordinary02": {
+      "raw_sha256": "4ecdf92ca7a509053f8a890823ac36d57f2abdc02b6aa2287c48dcd2fb6cc94f",
+      "receipt_sha256": "dd8b418e8746e18b1057705d0914c0cd15bf514be66def8f78388d1b009daa8a",
+      "summary": {
+        "arrival_tick": -1.0,
+        "boss_hp": 0.0,
+        "cast_tick": -1.0,
+        "departure_tick": 151.0,
+        "energy": 100.0,
+        "follow_shot_tick": -1.0,
+        "id": "mobile_ordinary",
+        "initial_boss_hp": 24.0,
+        "initial_energy": 100.0,
+        "initial_player_hp": 5.0,
+        "kick_tick": -1.0,
+        "kill_tick": 526.0,
+        "player_hp": 5.0,
+        "support12": 12.0,
+        "target_contact_tick": -1.0,
+        "ticks": 576.0
+      },
+      "failures": [],
+      "frame_count": 576,
+      "ticks_continuous": true,
+      "Motor_one_step_all": false,
+      "damage_context_types": {
+        "projectile": 24
+      },
+      "boss_Policy_count": 24,
+      "boss_policy_exact24": true,
+      "contexts_policy_idmatch": true,
+      "player_Policy_count": 0,
+      "accepted_shot_count": 24,
+      "H_requests": 0,
+      "protected_alive_frames": 0,
+      "longest_protection_run": 0,
+      "sampled_body_overlap_frames": 0,
+      "sampled_overlap_protected": 0,
+      "separate_band_protected": 0,
+      "phase_changes": [
+        [
+          281.0,
+          2.0
+        ],
+        [
+          348.0,
+          3.0
+        ]
+      ],
+      "final_grounded": true,
+      "final_player": [
+        412.074798583984,
+        341.940155029297
+      ],
+      "final_slabs": [
+        {
+          "id": "central_rib",
+          "foot_overlap": 24.0,
+          "full24": true
+        }
+      ],
+      "source_before_after_equal": true,
+      "source_guard": true,
+      "verifier_guard": true,
+      "original_passed": true,
+      "final_fields": [
+        {
+          "health": 2.0,
+          "spawned": true,
+          "weave": {
+            "age": 4.08333333333332,
+            "growth": 1.0,
+            "initial_angle": 0.0,
+            "next_damage_in": 0.0,
+            "pulse": 0.0,
+            "severed": false,
+            "suspended": false
+          }
+        },
+        {
+          "health": 2.0,
+          "spawned": true,
+          "weave": {
+            "age": 2.96666666666666,
+            "growth": 1.0,
+            "initial_angle": 0.0,
+            "next_damage_in": 0.0,
+            "pulse": 0.0,
+            "severed": false,
+            "suspended": false
+          }
+        }
+      ],
+      "ceiling_contacts_before_kill": 97
+    },
+    "mobile-hook-only01": {
+      "raw_sha256": "9548afc60a26b9fcee7d9afad31a095ee0ff7d21a42d5d1ef88342e4110cb71e",
+      "receipt_sha256": "f9bd9d7c945ec09d2e96245b3ff7a627b84932b423769fa64a73b70b6d40d772",
+      "summary": {
+        "arrival_tick": 161.0,
+        "boss_hp": 0.0,
+        "cast_tick": 152.0,
+        "departure_tick": 151.0,
+        "energy": 100.0,
+        "follow_shot_tick": -1.0,
+        "id": "mobile_hook_only",
+        "initial_boss_hp": 24.0,
+        "initial_energy": 100.0,
+        "initial_player_hp": 5.0,
+        "kick_tick": 168.0,
+        "kill_tick": 867.0,
+        "player_hp": 5.0,
+        "support12": 0.0,
+        "target_contact_tick": 159.0,
+        "ticks": 1968.0
+      },
+      "failures": [
+        "mobile_hook_only/full24HP natural fight ends alive with actual support12"
+      ],
+      "frame_count": 1968,
+      "ticks_continuous": true,
+      "Motor_one_step_all": false,
+      "damage_context_types": {
+        "grapple": 24
+      },
+      "boss_Policy_count": 24,
+      "boss_policy_exact24": true,
+      "contexts_policy_idmatch": true,
+      "player_Policy_count": 0,
+      "accepted_shot_count": 0,
+      "H_requests": 28,
+      "protected_alive_frames": 618,
+      "longest_protection_run": 112,
+      "sampled_body_overlap_frames": 50,
+      "sampled_overlap_protected": 50,
+      "separate_band_protected": 0,
+      "phase_changes": [
+        [
+          398.0,
+          2.0
+        ],
+        [
+          497.0,
+          3.0
+        ]
+      ],
+      "final_grounded": true,
+      "final_player": [
+        660.880432128906,
+        241.994216918945
+      ],
+      "final_slabs": [
+        {
+          "id": "right_rib",
+          "foot_overlap": 22.880432128906023,
+          "full24": false
+        }
+      ],
+      "source_before_after_equal": true,
+      "source_guard": true,
+      "verifier_guard": true,
+      "original_passed": false,
+      "final_fields": [
+        {
+          "health": 2.0,
+          "spawned": true,
+          "weave": {
+            "age": 7.81666666666664,
+            "growth": 1.0,
+            "initial_angle": 0.0,
+            "next_damage_in": 0.0,
+            "pulse": 0.0,
+            "severed": false,
+            "suspended": false
+          }
+        },
+        {
+          "health": 2.0,
+          "spawned": true,
+          "weave": {
+            "age": 6.16666666666665,
+            "growth": 1.0,
+            "initial_angle": 0.0,
+            "next_damage_in": 0.0,
+            "pulse": 0.0,
+            "severed": false,
+            "suspended": false
+          }
+        }
+      ],
+      "ceiling_contacts_before_kill": 5
+    }
+  },
+  "shared_full151_prefix_except_case": {
+    "mobile-anchor02": true,
+    "mobile-ordinary02": true,
+    "mobile-hook-only01": true
+  },
+  "old_validate_AST_exact": true,
+  "original_normal_runner_byte_exact": true,
+  "source_note": "Current main contains later experiment; evidence is only fixed9ca git blobs and actual batch02 receipts, not mutable main."
+}
