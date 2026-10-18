@@ -1,0 +1,24 @@
+{
+  "verdict": "BLOCKED_NETWORK public GUI, 0/20 executed",
+  "source_commit": "367b7c1a594beaa99df60c3cd8fc7e5ebe73d7e0",
+  "build_id": "ab99155b1b88",
+  "failure": "APIRequestContext.get: connect ENETUNREACH 2606:50c0:8000::153:443 - Local (:::0)\nCall log:\n  - \u2192 GET https://zhipijun1996.github.io/gunman-rush/build-info.json\n    - user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/154.0.0.0 Safari/537.36\n    - accept: */*\n    - accept-encoding: gzip,deflate,br\n    - Cache-Control: no-cache\n",
+  "zero_execution_collections": [
+    "checks",
+    "events",
+    "errors",
+    "gestures",
+    "identities"
+  ],
+  "publisher_identity_verified": true,
+  "deploy_web_verify_public_success": true,
+  "initial_transport_error_preserved": "permission_or_policy",
+  "receipt_SHA256": {
+    "build/verification/367b7c1a-public-forest01/report.json": "31cd7710968c367852e5e49f959dee818385ea76b1059bce8bc9c3171870d62a",
+    "build/verification/publish-playtest/367b7c1a594beaa99df60c3cd8fc7e5ebe73d7e0/checkpoint.json": "7d51602066d064c55a09ebfd6afbd0bcd21e495f03b3b6590f0db7e2552b8745",
+    "build/verification/367b7c1a-public-forest01.log": "00b046772ae39192c3a201177416651d2f2f26cac714292d44632b4950987d47",
+    "build/verification/publish-367b7c1a-resume01.log": "9663c4d8360085976a3097afbed6718b446ec2aad38aee62028085aeea1a4d63"
+  },
+  "no_additional_execution": true,
+  "limits": "Public build metadata/network identity is not GUI gesture/function acceptance; content REVISE and human/device gaps remain"
+}

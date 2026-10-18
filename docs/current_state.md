@@ -1,5 +1,8 @@
 # FOREST-DEPTH-02：新版森林试玩候选
 
+2026-10-18最新交付：[H技术发布原件与边界](evidence/forest_depth_v2/H_release01/README.md)。H `367b7c1a`／CI39105617804实际SUCCESS：85=67+18及serial5附加，Web／Windows／两docs22／deploy／verify_public通过；准确原包72/72、errors0、359.125秒。publisher verified，试玩[build ab99155b1b88](https://zhipijun1996.github.io/gunman-rush/?v=ab99155b1b88)。额外公开森林GUI因IPv6网络不可达0/20执行，属blocked_network，既非20通过也非玩法失败。独审仅技术ACCEPT，整体REVISE／in_progress及QueenH、探索密度、真人设备缺口保持。旧pending段为当时快照，最新段只覆盖对应已实证技术结果；bare1481=0cf不等于prepared56Foundry同旧版。
+
+
 最新有界跟进：[G真实FAIL与依赖／词法计算收口](evidence/forest_depth_v2/G_bounded_followup01/README.md)。G整轮为failure非cancel：serial16PASS后旧asset缺失、parallel11PASS后原87超时60.041秒；Web／Windows／两docs成功，准确CI包浏览器72/72（build30220a607325）不代全CI。补两真实bee旧raw后原历史matrix60与formal27/0一次严格PASS；单次词法memo保FS每次新读，原87本地24.368秒PASS获限定独审。历史与局部成功不重签G失败，H完整同源CI／HTTPS仍待，整体REVISE不升。
 
 

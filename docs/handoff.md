@@ -1,5 +1,10 @@
 # FOREST-DEPTH-02：实现与验证交接
 
+交接身份：分支 `feature/thorn-forest-depth`；实际可玩源 `367b7c1a594beaa99df60c3cd8fc7e5ebe73d7e0`，build `ab99155b1b88`。[源／包／部署边界](evidence/forest_depth_v2/H_release01/README.md)。
+
+2026-10-18最新交付：[H技术发布原件与边界](evidence/forest_depth_v2/H_release01/README.md)。H `367b7c1a`／CI39105617804实际SUCCESS：85=67+18及serial5附加，Web／Windows／两docs22／deploy／verify_public通过；准确原包72/72、errors0、359.125秒。publisher verified，试玩[build ab99155b1b88](https://zhipijun1996.github.io/gunman-rush/?v=ab99155b1b88)。额外公开森林GUI因IPv6网络不可达0/20执行，属blocked_network，既非20通过也非玩法失败。独审仅技术ACCEPT，整体REVISE／in_progress及QueenH、探索密度、真人设备缺口保持。旧pending段为当时快照，最新段只覆盖对应已实证技术结果；bare1481=0cf不等于prepared56Foundry同旧版。
+
+
 最新有界跟进：[G真实FAIL与依赖／词法计算收口](evidence/forest_depth_v2/G_bounded_followup01/README.md)。G整轮为failure非cancel：serial16PASS后旧asset缺失、parallel11PASS后原87超时60.041秒；Web／Windows／两docs成功，准确CI包浏览器72/72（build30220a607325）不代全CI。补两真实bee旧raw后原历史matrix60与formal27/0一次严格PASS；单次词法memo保FS每次新读，原87本地24.368秒PASS获限定独审。历史与局部成功不重签G失败，H完整同源CI／HTTPS仍待，整体REVISE不升。
 
 
@@ -34,7 +39,7 @@ CI基础设施跟进：0cf旧身份reader失败后，A/df3f定向7通过；实�
 
 新N推荐回程已由单root00／map2／growth真实1013帧严格通过；最初1ULP方向误比较失败保留，修复只观测真实Router队列，不改输入、Player或原exact断言。旧V7／V9整Manifest与原哈希重建126/0；旧版本、旧Queen194／schema13 App强回归仍必跑，当前默认另验精确Canopy scene/resource／v10，不能互相代签。
 
-完整现有Harness为88项，最终固定80路线及其余正式回归由本提交CI执行。随后使用原publisher交付Web／Windows／HTTPS预览，准确核对源commit和build_id；[分支运行](https://github.com/zhipijun1996/gunman-rush/actions?query=branch%3Afeature%2Fthorn-forest-depth)与最终PR记录实际结果。本文不预签尚未产生的CI结果；勿为纯文档记录重复整套原生长跑。PR基于`feature/playable-thorn-forest`保持draft，不合main。
+H已实际完成适用gameplay/art85项（67+18）及serial5额外、两docs各22检查，Web／Windows／deploy／verify_public成功。实际源H与build_id见顶部最新交付；不因本次文档记录重跑H整套原生长测。公开森林GUI额外20项因网络0执行，待可用网络；内容／玩家／设备仍未认可。PR基于`feature/playable-thorn-forest`保持draft，不合main。
 
 质量记录仍in_progress／整体REVISE：H核心与大部分区域的体验价值、广泛探索差异、有效遭遇密度、高结保留／诱导收益、初见可读性、音频、玩家与真机均未认证。普通快解保留，不靠加血、缩台、加刺或禁普通策略突出钩索。新16px活结文字后补0cf正常片／密帧获限定接受，headless不签像素，正式“岸”目标未展示。技术回归不能签商业品质。
 
