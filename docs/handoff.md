@@ -1,6 +1,12 @@
 # FOREST-DEPTH-02：实现与验证交接
 
-最新玩法返工：[whole-body实验淘汰档案](evidence/forest_depth_v2/mobile_anchor_rejected01/README.md)。9ca／5bd真实普通、H-only与mixed-chase对照后独审DROP；技术PASS不改设计淘汰，原context／partial-foot／死亡FAIL保留。内容未商业完成，整体REVISE；trailing-bud仅opt-in G0准备，非当前v10。生产body-group移除由对应作者执行，此处不预称已删。
+最新探索取舍：[root11入口v11退休档案](evidence/forest_depth_v2/root11_entry_rejected01/README.md)。四路线JSON／原生PASS及兼容126/0保留；新growth比旧W多527帧且末少1HP，自动拾心并非主动claim，冠路短327帧不等于整体探索改进。root据独审决定DROP此扩展，六源已精确恢复6b132007，默认仍v10。新女王双洞黄金另行准备，整体REVISE／未商业完成，不关闭whole任务。
+
+
+最新黄金结论：[trailing-bud01–03停止档案](evidence/forest_depth_v2/trailing_bud_rejected01/README.md)。03真实cast／fly后miss，未到达且整体3FAIL；固定对照935击杀／HP5保持。独审DROP当前120px方案，不等于物理不可能。已封927成员实际源，生产／消费者指定文件恢复0cf原字节，whole-body与尾苞实验组件已删除；不重签旧CI或体验。未来root11探索黄金另行准备，非当前已验内容。
+
+
+最新玩法返工：[whole-body实验淘汰档案](evidence/forest_depth_v2/mobile_anchor_rejected01/README.md)。9ca／5bd真实普通、H-only与mixed-chase对照后独审DROP；技术PASS不改设计淘汰，原context／partial-foot／死亡FAIL保留。内容未商业完成，整体REVISE；该时点trailing-bud仅opt-in G0；后续03已停止，非当前v10。后续实际移除与尾苞停止结果见最新段。
 
 
 CI基础设施跟进：0cf旧身份reader失败后，A/df3f定向7通过；实测单core60分钟风险后，原85项按67/18分机、原预算不增。C路径独审REVISE保留；C2（`5ec5e9e3`）仅基础设施独审ACCEPT。新CI待运行；原浏览器4项FAIL／未证根因和整体体验REVISE不变。[限定记录](quality/records/FOREST-DEPTH-CI-LANES-01.json)。

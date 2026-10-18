@@ -1,6 +1,12 @@
 # 开发任务
 
-最新玩法返工：[whole-body实验淘汰档案](evidence/forest_depth_v2/mobile_anchor_rejected01/README.md)。9ca／5bd真实普通、H-only与mixed-chase对照后独审DROP；技术PASS不改设计淘汰，原context／partial-foot／死亡FAIL保留。内容未商业完成，整体REVISE；trailing-bud仅opt-in G0准备，非当前v10。生产body-group移除由对应作者执行，此处不预称已删。
+最新探索取舍：[root11入口v11退休档案](evidence/forest_depth_v2/root11_entry_rejected01/README.md)。四路线JSON／原生PASS及兼容126/0保留；新growth比旧W多527帧且末少1HP，自动拾心并非主动claim，冠路短327帧不等于整体探索改进。root据独审决定DROP此扩展，六源已精确恢复6b132007，默认仍v10。新女王双洞黄金另行准备，整体REVISE／未商业完成，不关闭whole任务。
+
+
+最新黄金结论：[trailing-bud01–03停止档案](evidence/forest_depth_v2/trailing_bud_rejected01/README.md)。03真实cast／fly后miss，未到达且整体3FAIL；固定对照935击杀／HP5保持。独审DROP当前120px方案，不等于物理不可能。已封927成员实际源，生产／消费者指定文件恢复0cf原字节，whole-body与尾苞实验组件已删除；不重签旧CI或体验。未来root11探索黄金另行准备，非当前已验内容。
+
+
+最新玩法返工：[whole-body实验淘汰档案](evidence/forest_depth_v2/mobile_anchor_rejected01/README.md)。9ca／5bd真实普通、H-only与mixed-chase对照后独审DROP；技术PASS不改设计淘汰，原context／partial-foot／死亡FAIL保留。内容未商业完成，整体REVISE；该时点trailing-bud仅opt-in G0；后续03已停止，非当前v10。后续实际移除与尾苞停止结果见最新段。
 
 
 CI基础设施跟进：0cf旧身份reader失败后，A/df3f定向7通过；实测单core60分钟风险后，原85项按67/18分机、原预算不增。C路径独审REVISE保留；C2（`5ec5e9e3`）仅基础设施独审ACCEPT。新CI待运行；原浏览器4项FAIL／未证根因和整体体验REVISE不变。[限定记录](quality/records/FOREST-DEPTH-CI-LANES-01.json)。
@@ -17,6 +23,8 @@ FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试�
 | FOREST-DEPTH-TEST-CONSUMERS-01 | 测试消费者真实App／Node生命周期／严格退出与证据修复 | FOREST-DEPTH-02 | review | [有界质量记录](quality/records/FOREST-DEPTH-TEST-CONSUMERS-01.json)；原断言／预算／strict守卫不减，精确S已获不同作者限定独审，fresh完整CI仍待验 |
 | FOREST-DEPTH-PLAINS-AUDIO-01 | 旧平原黄金测试的真实回退音频清理与负例严格性 | FOREST-DEPTH-02 | review | [限定小修复记录](quality/records/FOREST-DEPTH-PLAINS-AUDIO-01.json)；原断言／输入／预算保留，实际专项与精确Git绑定有界独审，非整区或最终CI通过 |
 | FOREST-DEPTH-CANOPY-READER-01 | Guardian奖励后当前Canopy图2的版本身份读取器迁移 | FOREST-DEPTH-02 | review | [限定记录](quality/records/FOREST-DEPTH-CANOPY-READER-01.json)；精确Git独审／原44负例／定向7通过，原失败保留，不签整区或最终CI |
+| FOREST-DEPTH-ROOT11-ENTRY-REVIEW | v11入口扩展退休与原件保留 | FOREST-DEPTH-02 | review | [四路线／兼容／独审／清理](evidence/forest_depth_v2/root11_entry_rejected01/README.md)；技术PASS分账，产品DROP，不签默认或完整体验 |
+| FOREST-DEPTH-TRAILING-BUD-REVIEW | 尾苞01–03停止与封存 | FOREST-DEPTH-02 | review | [失败／对照／DROP与实际清理](evidence/forest_depth_v2/trailing_bud_rejected01/README.md)；不签v10、存档或未来探索 |
 | FOREST-DEPTH-MOBILE-ANCHOR-REVIEW | Whole-body黄金淘汰与证据保存 | FOREST-DEPTH-02 | review | [原件与DROP](evidence/forest_depth_v2/mobile_anchor_rejected01/README.md)；9ca/5bd独审REJECT（reported DROP），非内容完成；后继trailing-bud仅G0准备 |
 | FOREST-DEPTH-CI-LANES-01 | CI两lane覆盖与同源证明收口 | FOREST-DEPTH-02 | review | [限定记录](quality/records/FOREST-DEPTH-CI-LANES-01.json)；C REVISE保留，C2仅infra独审ACCEPT；新CI待验，不签整区 |
 | FOREST-PLAYABLE-01 | 森林两图／能力和地区选择／调试直选 | FOREST-DESIGN-01 | review | 原host七项全过／两轮60路线／不同作者原生ACCEPT／真实Web鼠标触摸8入口通过；完整旧回归和发布仍阻塞，艺术／玩家／设备未验 |
