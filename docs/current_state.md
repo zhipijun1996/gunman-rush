@@ -1,10 +1,12 @@
 # FOREST-DEPTH-02：新版森林试玩候选
 
+最新验证跟进：[原CI失败与限定修复](evidence/forest_depth_v2/release_followup01/README.md)。0cf完整CI49项通过（含当前固定80路线），Guardian原生25/0后因旧map2身份reader失败；df3f版本严格迁移已获独审，干净源原Harness定向7实际通过，非最终完整CI。当前0cf正常影片的16px结标记已获实景限定接受，“岸”正式objective未展示；原浏览器首20/24与唯一诊断24/24分账，首发根因仍未证，另两组48/48不消除原FAIL。整体仍REVISE，最新完整CI／部署以PR与元数据实际终态为准。
+
 2026-10-18。分支 `feature/thorn-forest-depth` 基于PR76的 `bee850c66b2f402d644d7daa4c13db91c8abe8f8`，当前默认布局 `shared-tree-canopy-hunt-v10`，区域版本仍 `thorn-forest-region-v2`、`production_pool=false`。新版已做成正式可玩消费者，整体H核心价值、丰富度、真人／设备与商业品质仍未通过；[质量记录](quality/records/FOREST-DEPTH-02.json)保持in_progress。
 
 [整体设计](design/forest_depth_v2/README.md)、[探索语法](design/forest_exploration_v2.md)、[敌人生态](design/forest_enemy_ecology_v2.md)、[根铃守卫](design/rootbell_guardian_v2.md)、[新棘冠女王](design/thorn_queen_canopy_v3.md)分别记录实际实现与边界。v10继承v9共享巨木、R／W入口、可选西侧活锚奖励环路及N回程，只替换第二Boss与真实自然入口，不把Boss换版冒称新探索拓扑。
 
-守卫为移动实体铃的真实H夺取返撞、打断及独立身体跨场；新女王为持续可伤的实体巡视、高活结留剪、按最近真实全脚落岸选择一片持续网。新女王02满血24HP实战：H反枪614帧／HP4，普通留网500／HP4，先换岸再压血876／HP3；01普通剪网626／HP5仅属01源。原件及限定独审见[黄金档案](evidence/forest_depth_v2/queen_canopy_v3/README.md)。[两部正常60fps完整片](evidence/forest_depth_v2/queen_canopy_movies/README.md)和独立抽帧审查已保存，不签全速人类手感或听音。电影后只给新女王结补16px剩余次数标记，该新像素仍未由headless证据认证。
+守卫为移动实体铃的真实H夺取返撞、打断及独立身体跨场；新女王为持续可伤的实体巡视、高活结留剪、按最近真实全脚落岸选择一片持续网。新女王02满血24HP实战：H反枪614帧／HP4，普通留网500／HP4，先换岸再压血876／HP3；01普通剪网626／HP5仅属01源。原件及限定独审见[黄金档案](evidence/forest_depth_v2/queen_canopy_v3/README.md)。[两部正常60fps完整片](evidence/forest_depth_v2/queen_canopy_movies/README.md)和独立抽帧审查已保存，不签全速人类手感或听音。新女王16px剩余次数标记后补正常影片／实景密帧获限定接受；headless和旧电影均不代签该像素。
 
 [Canopy App03](evidence/forest_depth_v2/canopy_app03/README.md)实际46/0、严格退出干净、30.884秒：正常路线与完整封门预告、phase2活结暂停保存、新Stage／Boss恢复、旧token拒绝、9个畸形状态原子拒绝、24次正常弹体击杀、GOLD／D／开发边界／Home及实际弱引用／音频清理。保存Boss15、结1、年龄0.516667；玩家HP4／E80／上限5保持，按既有规则从空中回S检查点、空枪恢复2。该场战斗HP4→4，路上受伤与黄金战斗受伤分列。GOLD上限5→7、HP4与金币0不变。01提前查封门、02保存条件未触发均保原FAIL；后续读取器补强只离线复核原raw与变造负例，不倒签03原读取器。
 

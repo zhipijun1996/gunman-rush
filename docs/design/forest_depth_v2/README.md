@@ -1,5 +1,7 @@
 # FOREST-DEPTH-02：织隙换位的森林
 
+最新验证跟进：[原CI失败与限定修复](../../evidence/forest_depth_v2/release_followup01/README.md)。0cf完整CI49项通过（含当前固定80路线），Guardian原生25/0后因旧map2身份reader失败；df3f版本严格迁移已获独审，干净源原Harness定向7实际通过，非最终完整CI。当前0cf正常影片的16px结标记已获实景限定接受，“岸”正式objective未展示；原浏览器首20/24与唯一诊断24/24分账，首发根因仍未证，另两组48/48不消除原FAIL。整体仍REVISE，最新完整CI／部署以PR与元数据实际终态为准。
+
 2026-10-18，基于PR76实际最新 `bee850c66b2f402d644d7daa4c13db91c8abe8f8`，工作分支 `feature/thorn-forest-depth`。当前默认布局为 `shared-tree-canopy-hunt-v10`，区域版本仍为 `thorn-forest-region-v2`，`production_pool=false`。这是已接入正式可玩流程的试玩候选，整体体验审查仍为 **REVISE**；不以技术可达性、自动断言或AI局部认可代替玩家认可。
 
 ## 诊断与体验目标
@@ -16,7 +18,7 @@
 
 [根铃守卫](../rootbell_guardian_v2.md)为32HP常态可伤实体，移动铃可被真实H夺取、返撞4伤并打断，P2身体跨场与铃攻击并行。六种完整策略、返击消融、有限输入时机与正常影片均有源绑定证据；普通躲铃后射击仍可能更快。守卫不是定时开放弱点的固定靶。
 
-[棘冠女王Canopy-v3](../thorn_queen_canopy_v3.md)为独立24HP持续可伤巡视实体。P2新增可留可剪的高活结和持续网，P3按最近真实全脚落岸选择危险区，阶段不重置已承诺的飞行。H接触和普通射击都可剪网，留网、预先换岸、追射和控制压血时点均合法。[黄金02](../../evidence/forest_depth_v2/queen_canopy_v3/README.md)满血三打法：H反枪614帧／HP4，普通留网500／HP4，换岸后压血876／HP3；[两部正常60fps完整片](../../evidence/forest_depth_v2/queen_canopy_movies/README.md)和独立抽帧评审已保存，不宣称人类全速手感或听音认可。电影后补16px剩余次数标签与“岸”字覆盖；旧电影不认证新增HUD像素。
+[棘冠女王Canopy-v3](../thorn_queen_canopy_v3.md)为独立24HP持续可伤巡视实体。P2新增可留可剪的高活结和持续网，P3按最近真实全脚落岸选择危险区，阶段不重置已承诺的飞行。H接触和普通射击都可剪网，留网、预先换岸、追射和控制压血时点均合法。[黄金02](../../evidence/forest_depth_v2/queen_canopy_v3/README.md)满血三打法：H反枪614帧／HP4，普通留网500／HP4，换岸后压血876／HP3；[两部正常60fps完整片](../../evidence/forest_depth_v2/queen_canopy_movies/README.md)和独立抽帧评审已保存，不宣称人类全速手感或听音认可。16px标签后补0cf正常片已获限定实景接受；旧电影不认证新增像素，“岸”正式objective在该fixture未展示。
 
 [正式App03](../../evidence/forest_depth_v2/canopy_app03/README.md)实际46/0：正常入场、封门、phase2 MENU保存、新Stage／Boss恢复、9个畸形状态原子拒绝、旧token拒绝、真实24次弹体击杀、GOLD／D／开发边界／Home与资源清理。恢复依原合同返回S检查点，不保留空中位置；HP／精力／上限保持。原01／02失败保留，后续reader离线补强与原生证据分账。旧V7／V9整Manifest、原哈希、旧Boss资源保留，新资源显式白名单；[版本重建证据](../../evidence/forest_depth_v2/layout_replay01/README.md)不重签原外层案例数失败。
 

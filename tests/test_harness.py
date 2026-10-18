@@ -314,6 +314,173 @@ class HarnessTests(unittest.TestCase):
                 self.assertEqual(next(r['status'] for r in result if r['id']=='bad'), 'failed')
 
 
+class HarnessLaneTests(unittest.TestCase):
+    """Real tiny Python checks and Git sources; no native/profile approval."""
+    def setUp(self):
+        import copy
+        self.copy = copy.deepcopy
+        self.temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temporary.cleanup)
+        self.root = Path(self.temporary.name)
+        def git(*args):
+            return subprocess.run(["git", *args], cwd=self.root, check=True, capture_output=True)
+        self.git = git
+        git("init", "-q"); git("config", "user.email", "proof@example.invalid"); git("config", "user.name", "Proof")
+        (self.root / ".gitignore").write_text("build/\n")
+        (self.root / "tests").mkdir(); (self.root / "tools/harness").mkdir(parents=True)
+        (self.root / "assets/foundry").mkdir(parents=True)
+        (self.root / "assets/foundry/prepared.json").write_text('{"basis":"original"}\n')
+        for name in ("a", "b"):
+            (self.root / f"tests/{name}.py").write_text(f"print('COMPLETE {name}')\n")
+        self.data = {"schema_version": 1, "checks": {
+            name: {"argv": ["python3", f"tests/{name}.py"], "timeout_seconds": 5,
+                   "success_pattern": f"^COMPLETE {name}$", **({"serial": True} if name == "b" else {})}
+            for name in ("a", "b")}, "profiles": {"gameplay": ["a", "b"], "art": ["a"]}}
+        self.manifest = self.root / "tools/harness/profiles.json"
+        self.manifest.write_text(json.dumps(self.data))
+        git("add", "."); git("commit", "-qm", "SIMULATED harness source")
+        # Real dirty prepared data must be present identically in both phases
+        # and in the verifier, rather than being ignored as generated content.
+        (self.root / "assets/foundry/prepared.json").write_text('{"basis":"prepared"}\n')
+        self.identity = {"python": sys.version, "platform": sys.platform,
+                         "godot": {"exit_code": 0, "version": "SIMULATED 4.7.2 identity; no engine"},
+                         "node": {"exit_code": 0, "version": "SIMULATED node identity"}}
+        self.addCleanup(patch.stopall)
+        patch.object(h, "ROOT", self.root).start()
+        patch.object(h, "MANIFEST", self.manifest).start()
+        self.toolchain = patch.object(h, "toolchain_identity", return_value=self.identity).start()
+
+    def cli(self, *args):
+        with patch.object(sys, "argv", ["harness.py", *args]):
+            return h.main()
+
+    def phases(self):
+        paths = []
+        for lane in ("parallel", "serial"):
+            self.assertEqual(self.cli("--profile", "gameplay", "--profile", "art", "--release", "--lane", lane), 0)
+            paths.append(max((self.root / "build/verification/harness").glob("*/report.json"), key=lambda p: p.parent.name))
+        return paths
+
+    def verify(self, paths):
+        return h.verify_lane_reports(self.data, ["gameplay", "art"], paths, h.git_metadata(), h.source_inventory())
+
+    def test_real_phases_and_merge_cover_complete_dirty_prepared_source(self):
+        paths = self.phases()
+        self.assertEqual([json.loads(p.read_text())["checks"][0]["id"] for p in paths], ["a", "b"])
+        before_calls = self.toolchain.call_count
+        with patch.object(h, "execute_checks", side_effect=AssertionError("Merge must not execute checks")):
+            self.assertEqual(self.cli("--verify-lanes", *map(str, paths), "--profile", "gameplay", "--profile", "art"), 0)
+        self.assertEqual(self.toolchain.call_count, before_calls, "Merge must not launch toolchain version probes")
+        merged = json.loads(max((self.root / "build/verification/harness").glob("*/report.json"), key=lambda p:p.parent.name).read_text())
+        self.assertFalse(merged["partial"]); self.assertEqual(merged["status"], "passed")
+        self.assertEqual([x["id"] for x in merged["checks"]], ["a", "b"])
+        self.assertEqual(merged["approval_scope"], "selected_profiles_technical")
+        self.assertEqual(merged["device_acceptance"], "unverified")
+        self.assertEqual(merged["fun_acceptance"], "unverified")
+        self.assertIn("assets/foundry/prepared.json", merged["source_files"])
+        self.assertIn("assets/foundry/prepared.json", merged["working_files"])
+        merged_path = max((self.root / "build/verification/harness").glob("*/report.json"), key=lambda p:p.parent.name)
+        self.assertEqual((merged_path.parent / "a.log").read_text(), "COMPLETE a\n")
+        self.assertEqual((merged_path.parent / "b.log").read_text(), "COMPLETE b\n")
+
+    def test_phase_option_combinations_fail_before_execution(self):
+        for args in [("--lane", "parallel"), ("--profile", "auto", "--release", "--lane", "parallel"),
+                     ("--profile", "gameplay", "--lane", "parallel"),
+                     ("--profile", "gameplay", "--release", "--lane", "parallel", "--reuse"),
+                     ("--profile", "gameplay", "--release", "--lane", "parallel", "--jobs", "2"),
+                     ("--profile", "gameplay", "--release", "--lane", "parallel", "--check", "a"),
+                     ("--verify-lanes", "one", "two"),
+                     ("--profile", "gameplay", "--verify-lanes", "one", "two", "--plan")]:
+            with self.subTest(args=args), patch.object(h, "execute_checks") as execute:
+                with self.assertRaises(SystemExit): self.cli(*args)
+                execute.assert_not_called()
+
+    def test_failed_phase_stays_partial_and_cannot_merge(self):
+        (self.root / "tests/a.py").write_text("print('COMPLETE a'); raise SystemExit(3)\n")
+        self.assertEqual(self.cli("--profile", "gameplay", "--release", "--lane", "parallel"), 1)
+        report = json.loads(next((self.root / "build/verification/harness").glob("*/report.json")).read_text())
+        self.assertTrue(report["partial"]); self.assertEqual(report["status"], "failed")
+        self.assertEqual(report["checks"][0]["exit_code"], 3)
+
+    def test_phase_rejects_source_change_even_outside_check_input_filter(self):
+        original = h.execute_checks
+        def mutate(*args, **kwargs):
+            result = original(*args, **kwargs)
+            (self.root / "assets/foundry/prepared.json").write_text("changed after last check")
+            return result
+        with patch.object(h, "execute_checks", side_effect=mutate):
+            with self.assertRaisesRegex(RuntimeError, "changed during phase"):
+                self.cli("--profile", "gameplay", "--release", "--lane", "parallel")
+
+    def test_merge_rejects_mixed_commit_dirty_metadata_and_current_source_changes(self):
+        paths = self.phases(); original = json.loads(paths[0].read_text())
+        for key, value in [("commit", "f" * 40), ("git_status", ""), ("diff", ""), ("working_files", {}),
+                           ("source_files_after", {}), ("source_files", {})]:
+            with self.subTest(key=key):
+                changed = self.copy(original); changed[key] = value; paths[0].write_text(json.dumps(changed))
+                with self.assertRaises(ValueError): self.verify(paths)
+        paths[0].write_text(json.dumps(original))
+        for change in ("modify", "add", "delete"):
+            with self.subTest(change=change):
+                p = self.root / "assets/foundry/prepared.json"; old = p.read_bytes()
+                if change == "modify": p.write_text("wrong prepared basis")
+                elif change == "add": (self.root / "unexpected.gd").write_text("extends Node")
+                else: p.unlink()
+                with self.assertRaises(ValueError): self.verify(paths)
+                p.write_bytes(old)
+                (self.root / "unexpected.gd").unlink(missing_ok=True)
+
+    def test_merge_rejects_scope_set_order_reuse_unknowns_and_budget_mutations(self):
+        paths = self.phases(); original = json.loads(paths[0].read_text())
+        mutations = [lambda r:r.update(profiles=["gameplay"]), lambda r:r.update(requested_checks=["a"]),
+                     lambda r:r.update(manifest_sha256="0" * 64), lambda r:r.update(release=False),
+                     lambda r:r.update(jobs=2), lambda r:r.update(targeted_checks=True),
+                     lambda r:r.update(status="failed"), lambda r:r.update(status="unknown"),
+                     lambda r:r.update(partial=False), lambda r:r.update(lane="serial"),
+                     lambda r:r.update(checks=[]), lambda r:r["checks"].append(self.copy(r["checks"][0])),
+                     lambda r:r["checks"][0].update(id="unknown"),
+                     lambda r:r["checks"][0].update(timeout_seconds=999),
+                     lambda r:r["checks"][0].update(argv=["python3", "tests/b.py"]),
+                     lambda r:r["checks"][0].update(success_pattern=".*"),
+                     lambda r:r["checks"][0].update(input_digest="0" * 64),
+                     lambda r:r["checks"][0].update(reused=True),
+                     lambda r:r["checks"][0].update(exit_code=1),
+                     lambda r:r["checks"][0].update(exit_code=False),
+                     lambda r:r["checks"][0].update(status="timeout"),
+                     lambda r:r["checks"][0].update(expanded_argv=["/bin/true"]),
+                     lambda r:r["checks"][0].update(duration_seconds=float("nan")),
+                     lambda r:r["checks"][0].update(ended_at_unix=r["checks"][0]["started_at_unix"]+100)]
+        for i, mutation in enumerate(mutations):
+            with self.subTest(mutation=i):
+                changed=self.copy(original);mutation(changed);paths[0].write_text(json.dumps(changed))
+                with self.assertRaises(ValueError): self.verify(paths)
+        paths[0].write_text(json.dumps(original))
+        with self.assertRaises(ValueError): self.verify([paths[0], paths[0]])
+
+    def test_merge_rejects_toolchain_change_failed_probe_and_postphase_change(self):
+        paths = self.phases(); original = json.loads(paths[0].read_text())
+        for key in ("toolchain", "toolchain_after"):
+            changed=self.copy(original);changed[key]["godot"]["version"]="other";paths[0].write_text(json.dumps(changed))
+            with self.assertRaises(ValueError): self.verify(paths)
+        changed=self.copy(original)
+        for key in ("toolchain", "toolchain_after"):changed[key]["godot"]["exit_code"]=1
+        paths[0].write_text(json.dumps(changed))
+        with self.assertRaises(ValueError): self.verify(paths)
+
+    def test_merge_rechecks_original_completion_errors_missing_changed_and_linked_logs(self):
+        import hashlib
+        paths=self.phases();original=json.loads(paths[0].read_text());log=paths[0].parent/"a.log";old=log.read_bytes()
+        for text in ("wrong marker\n", "COMPLETE a\nSCRIPT ERROR: original guard\n", "COMPLETE a\nObjectDB instances leaked\n"):
+            changed=self.copy(original);log.write_text(text);changed["checks"][0]["log_sha256"]=hashlib.sha256(log.read_bytes()).hexdigest();paths[0].write_text(json.dumps(changed))
+            with self.assertRaises(ValueError):self.verify(paths)
+        paths[0].write_text(json.dumps(original));log.write_text("tampered")
+        with self.assertRaises(ValueError):self.verify(paths)
+        log.unlink()
+        with self.assertRaises(ValueError):self.verify(paths)
+        outside=self.root/"original-log.txt";outside.write_bytes(old);log.symlink_to(outside)
+        with self.assertRaises(ValueError):self.verify(paths)
+
+
 SPEC = importlib.util.spec_from_file_location("production_timing", Path(__file__).resolve().parents[1] / "tools/production_timing.py")
 timing = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(timing)

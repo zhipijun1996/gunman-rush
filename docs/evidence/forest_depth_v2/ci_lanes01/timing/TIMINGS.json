@@ -1,0 +1,534 @@
+{
+  "scope": "read-only historical timing inventory, not present-source execution prediction or full approval",
+  "prefix_wall": 2569.618,
+  "prefix_commands": 2138.968,
+  "prefix_other_wall": 430.65,
+  "current7_wall": 257.517,
+  "current7_commands": 95.0,
+  "sum_selected_remaining_observations": 1304.3058157200005,
+  "prefix_wall_plus_selected_remaining": 3873.9238157200007,
+  "remaining_unmeasured": [
+    "environment",
+    "level-design-runtime",
+    "level-design-golden",
+    "level-formal-runtime",
+    "plains-autonomy-golden",
+    "plains-redesign-spatial",
+    "plains-experience-golden",
+    "terrain-family-tests",
+    "forest-h-slice",
+    "art-art",
+    "art-painterly_pack",
+    "art-plains_v3",
+    "art-meadow_enemy_art",
+    "art-plains_ground_art",
+    "art-windkeeper_art",
+    "art-plains_spatial_art",
+    "art-plains_item_art",
+    "web-resource-contract-tests",
+    "runtime-raw-export-tests"
+  ],
+  "rows": [
+    {
+      "id": "environment",
+      "argv": [
+        "bash",
+        "tools/cloud_start.sh",
+        "--godot-only"
+      ],
+      "cap": 60,
+      "serial": true,
+      "measurement": "unverified"
+    },
+    {
+      "id": "level-design-runtime",
+      "argv": [
+        "python3",
+        "tools/run_level_design_tests.py"
+      ],
+      "cap": 720,
+      "serial": true,
+      "measurement": "unverified"
+    },
+    {
+      "id": "level-design-golden",
+      "argv": [
+        "python3",
+        "tools/foundry.py",
+        "experience",
+        "--output",
+        "build/level_design_v2/golden"
+      ],
+      "cap": 720,
+      "serial": true,
+      "measurement": "unverified"
+    },
+    {
+      "id": "level-formal-runtime",
+      "argv": [
+        "python3",
+        "tools/run_level_formal_tests.py"
+      ],
+      "cap": 360,
+      "serial": true,
+      "measurement": "unverified"
+    },
+    {
+      "id": "plains-autonomy-golden",
+      "argv": [
+        "python3",
+        "tools/run_plains_autonomy_tests.py"
+      ],
+      "cap": 480,
+      "serial": true,
+      "measurement": "unverified"
+    },
+    {
+      "id": "plains-redesign-spatial",
+      "argv": [
+        "python3",
+        "tools/run_plains_redesign_spatial_tests.py"
+      ],
+      "cap": 900,
+      "serial": true,
+      "measurement": "unverified"
+    },
+    {
+      "id": "plains-experience-golden",
+      "argv": [
+        "python3",
+        "tools/run_plains_experience_golden_tests.py"
+      ],
+      "cap": 900,
+      "serial": true,
+      "measurement": "unverified"
+    },
+    {
+      "id": "plains-encounter-policy",
+      "argv": [
+        "python3",
+        "tools/run_plains_encounter_policy_tests.py"
+      ],
+      "cap": 600,
+      "serial": true,
+      "measurement": "historical full original600s wrapper",
+      "seconds": 442.29381572000057,
+      "source": "whole05 exact before/after source inventories; not enclosing Git label",
+      "evidence": "docs/evidence/forest_playable/final/encounter_whole05_summary.json"
+    },
+    {
+      "id": "plains-redesign-scene",
+      "argv": [
+        "python3",
+        "tools/run_plains_redesign_scene_tests.py"
+      ],
+      "cap": 900,
+      "serial": true,
+      "measurement": "historical full original900s wrapper",
+      "seconds": 264.498,
+      "source": "8103190 + recorded3 dirty test/owner files",
+      "evidence": "docs/evidence/forest_playable/final/scene_owner_cancel_actual_final_review.json"
+    },
+    {
+      "id": "terrain-family-tests",
+      "argv": [
+        "python3",
+        "tools/run_plains_terrain_family_tests.py",
+        "--all-maps"
+      ],
+      "cap": 720,
+      "serial": true,
+      "measurement": "unverified"
+    },
+    {
+      "id": "forest-h-slice",
+      "argv": [
+        "python3",
+        "tools/run_forest_h_slice_tests.py"
+      ],
+      "cap": 360,
+      "serial": true,
+      "measurement": "unverified"
+    },
+    {
+      "id": "forest-ecology",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_ecology_runner.gd"
+      ],
+      "cap": 180,
+      "serial": true,
+      "measurement": "historical original host command; not current runtime/wrapper timing",
+      "seconds": 3.279,
+      "source": "0ed19bb2f9b50b5fcc191ded67b077b81b1fadea",
+      "evidence": "build/verification/forest_playable_acceptance_final/FOREST-PLAYABLE-ACCEPTANCE-01/1/checkpoint.json"
+    },
+    {
+      "id": "forest-progression",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_progression_runner.gd"
+      ],
+      "cap": 90,
+      "serial": true,
+      "measurement": "historical original host command; not current runtime/wrapper timing",
+      "seconds": 1.706,
+      "source": "0ed19bb2f9b50b5fcc191ded67b077b81b1fadea",
+      "evidence": "build/verification/forest_playable_acceptance_final/FOREST-PLAYABLE-ACCEPTANCE-01/1/checkpoint.json"
+    },
+    {
+      "id": "forest-campaign",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_campaign_runner.gd"
+      ],
+      "cap": 180,
+      "serial": true,
+      "measurement": "historical original host command; not current runtime/wrapper timing",
+      "seconds": 7.887,
+      "source": "0ed19bb2f9b50b5fcc191ded67b077b81b1fadea",
+      "evidence": "build/verification/forest_playable_acceptance_final/FOREST-PLAYABLE-ACCEPTANCE-01/1/checkpoint.json"
+    },
+    {
+      "id": "forest-debug",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_progression_debug_runner.gd"
+      ],
+      "cap": 180,
+      "serial": true,
+      "measurement": "historical original host command; not current runtime/wrapper timing",
+      "seconds": 8.247,
+      "source": "0ed19bb2f9b50b5fcc191ded67b077b81b1fadea",
+      "evidence": "build/verification/forest_playable_acceptance_final/FOREST-PLAYABLE-ACCEPTANCE-01/1/checkpoint.json"
+    },
+    {
+      "id": "forest-traversal",
+      "argv": [
+        "python3",
+        "tools/run_forest_region_tests.py",
+        "--skip-import"
+      ],
+      "cap": 180,
+      "serial": true,
+      "measurement": "historical original host command; not current runtime/wrapper timing",
+      "seconds": 12.224,
+      "source": "0ed19bb2f9b50b5fcc191ded67b077b81b1fadea",
+      "evidence": "build/verification/forest_playable_acceptance_final/FOREST-PLAYABLE-ACCEPTANCE-01/1/checkpoint.json"
+    },
+    {
+      "id": "forest-region-matrix",
+      "argv": [
+        "python3",
+        "tools/run_forest_v1_regressions.py",
+        "--check",
+        "forest-region-matrix",
+        "--output",
+        "build/forest_depth/legacy-runs/forest-region-matrix-{check_token}",
+        "--evidence-output",
+        "build/forest_depth/legacy-evidence/forest-region-matrix-{check_token}"
+      ],
+      "cap": 600,
+      "serial": true,
+      "measurement": "historical original host command; not current runtime/wrapper timing",
+      "seconds": 455.91,
+      "source": "0ed19bb2f9b50b5fcc191ded67b077b81b1fadea",
+      "evidence": "build/verification/forest_playable_acceptance_final/FOREST-PLAYABLE-ACCEPTANCE-01/1/checkpoint.json"
+    },
+    {
+      "id": "forest-formal-combat",
+      "argv": [
+        "python3",
+        "tools/run_forest_v1_regressions.py",
+        "--check",
+        "forest-formal-combat",
+        "--output",
+        "build/forest_depth/legacy-runs/forest-formal-combat-{check_token}",
+        "--evidence-output",
+        "build/forest_depth/legacy-evidence/forest-formal-combat-{check_token}"
+      ],
+      "cap": 360,
+      "serial": true,
+      "measurement": "historical original host command; not current runtime/wrapper timing",
+      "seconds": 12.789,
+      "source": "0ed19bb2f9b50b5fcc191ded67b077b81b1fadea",
+      "evidence": "build/verification/forest_playable_acceptance_final/FOREST-PLAYABLE-ACCEPTANCE-01/1/checkpoint.json"
+    },
+    {
+      "id": "forest-depth-campaign-guardian",
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_campaign_boss.py",
+        "--boss",
+        "guardian",
+        "--output-dir",
+        "build/forest_depth/campaign/harness-guardian/harness-{check_token}"
+      ],
+      "cap": 300,
+      "serial": false,
+      "measurement": "actual current targeted command",
+      "seconds": 12.916,
+      "source": "df3f162ac7c49f0bcdfe56c3d4093a3f49d289aa",
+      "evidence": "build/verification/harness/20261018T030615.758607Z/report.json"
+    },
+    {
+      "id": "forest-depth-campaign-queen",
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_campaign_boss.py",
+        "--boss",
+        "queen",
+        "--output-dir",
+        "build/forest_depth/campaign/harness-queen/harness-{check_token}"
+      ],
+      "cap": 300,
+      "serial": false,
+      "measurement": "actual current targeted command",
+      "seconds": 12.767,
+      "source": "df3f162ac7c49f0bcdfe56c3d4093a3f49d289aa",
+      "evidence": "build/verification/harness/20261018T030615.758607Z/report.json"
+    },
+    {
+      "id": "forest-depth-ecology-expedition",
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_enemies.py",
+        "--scenario",
+        "expedition",
+        "--include-map2-expedition",
+        "--expedition-strategies",
+        "alive_lift",
+        "jump_two_R",
+        "--output-dir",
+        "build/forest_depth/ecology/expedition/harness-{check_token}"
+      ],
+      "cap": 300,
+      "serial": false,
+      "measurement": "actual current targeted command",
+      "seconds": 24.626,
+      "source": "df3f162ac7c49f0bcdfe56c3d4093a3f49d289aa",
+      "evidence": "build/verification/harness/20261018T030615.758607Z/report.json"
+    },
+    {
+      "id": "forest-depth-root-entry",
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_enemies.py",
+        "--scenario",
+        "root_entry",
+        "--map",
+        "2",
+        "--seed",
+        "forest-depth-hollow-08",
+        "--output-dir",
+        "build/forest_depth/ecology/root-entry/harness-{check_token}"
+      ],
+      "cap": 300,
+      "serial": false,
+      "measurement": "actual current targeted command",
+      "seconds": 9.56,
+      "source": "df3f162ac7c49f0bcdfe56c3d4093a3f49d289aa",
+      "evidence": "build/verification/harness/20261018T030615.758607Z/report.json"
+    },
+    {
+      "id": "forest-depth-crossbranch-lifecycle",
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_enemies.py",
+        "--scenario",
+        "crossbranch",
+        "--map",
+        "2",
+        "--seed",
+        "forest-depth-hollow-00",
+        "--formal-route",
+        "growth",
+        "--crossbranch-strategies",
+        "lifecycle",
+        "--output-dir",
+        "build/forest_depth/ecology/crossbranch-lifecycle/harness-{check_token}"
+      ],
+      "cap": 300,
+      "serial": false,
+      "measurement": "actual current targeted command",
+      "seconds": 10.973,
+      "source": "df3f162ac7c49f0bcdfe56c3d4093a3f49d289aa",
+      "evidence": "build/verification/harness/20261018T030615.758607Z/report.json"
+    },
+    {
+      "id": "forest-depth-queen-canopy",
+      "argv": [
+        "python3",
+        "tools/run_thorn_queen_canopy.py",
+        "--case",
+        "all",
+        "--output-dir",
+        "build/forest_depth/queen/harness-canopy/harness-{check_token}"
+      ],
+      "cap": 240,
+      "serial": false,
+      "measurement": "actual current targeted command",
+      "seconds": 11.6,
+      "source": "df3f162ac7c49f0bcdfe56c3d4093a3f49d289aa",
+      "evidence": "build/verification/harness/20261018T030615.758607Z/report.json"
+    },
+    {
+      "id": "forest-depth-campaign-canopy",
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_campaign_boss.py",
+        "--boss",
+        "canopy",
+        "--output-dir",
+        "build/forest_depth/campaign/harness-canopy/harness-{check_token}"
+      ],
+      "cap": 300,
+      "serial": false,
+      "measurement": "actual current targeted command",
+      "seconds": 12.558,
+      "source": "df3f162ac7c49f0bcdfe56c3d4093a3f49d289aa",
+      "evidence": "build/verification/harness/20261018T030615.758607Z/report.json"
+    },
+    {
+      "id": "art-art",
+      "argv": [
+        "python3",
+        "tools/check_art.py"
+      ],
+      "cap": 120,
+      "serial": false,
+      "measurement": "unverified"
+    },
+    {
+      "id": "art-painterly_pack",
+      "argv": [
+        "python3",
+        "tools/check_painterly_pack.py"
+      ],
+      "cap": 120,
+      "serial": false,
+      "measurement": "unverified"
+    },
+    {
+      "id": "art-plains_v3",
+      "argv": [
+        "python3",
+        "tools/check_plains_v3.py"
+      ],
+      "cap": 120,
+      "serial": false,
+      "measurement": "unverified"
+    },
+    {
+      "id": "art-meadow_enemy_art",
+      "argv": [
+        "python3",
+        "tools/check_meadow_enemy_art.py"
+      ],
+      "cap": 120,
+      "serial": false,
+      "measurement": "unverified"
+    },
+    {
+      "id": "art-plains_ground_art",
+      "argv": [
+        "python3",
+        "tools/check_plains_ground_art.py"
+      ],
+      "cap": 120,
+      "serial": false,
+      "measurement": "unverified"
+    },
+    {
+      "id": "art-windkeeper_art",
+      "argv": [
+        "python3",
+        "tools/check_windkeeper_art.py"
+      ],
+      "cap": 120,
+      "serial": false,
+      "measurement": "unverified"
+    },
+    {
+      "id": "art-plains_spatial_art",
+      "argv": [
+        "python3",
+        "tools/check_plains_spatial_art.py"
+      ],
+      "cap": 120,
+      "serial": false,
+      "measurement": "unverified"
+    },
+    {
+      "id": "art-plains_item_art",
+      "argv": [
+        "python3",
+        "tools/check_plains_item_art.py"
+      ],
+      "cap": 120,
+      "serial": false,
+      "measurement": "unverified"
+    },
+    {
+      "id": "web-resource-contract-tests",
+      "argv": [
+        "python3",
+        "tests/test_web_bundle.py"
+      ],
+      "cap": 60,
+      "serial": false,
+      "measurement": "unverified"
+    },
+    {
+      "id": "runtime-raw-export-tests",
+      "argv": [
+        "python3",
+        "tests/test_runtime_raw_export.py"
+      ],
+      "cap": 60,
+      "serial": false,
+      "measurement": "unverified"
+    },
+    {
+      "id": "asset-family-tests",
+      "argv": [
+        "python3",
+        "tests/test_asset_family.py"
+      ],
+      "cap": 60,
+      "serial": false,
+      "measurement": "historical Harness command",
+      "seconds": 0.472,
+      "source": "cda8c30ed375a97a53de27d8348a79f137199427",
+      "evidence": "build/verification/harness/20261016T232239.952658Z/report.json"
+    }
+  ]
+}
