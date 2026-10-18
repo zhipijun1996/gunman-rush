@@ -480,6 +480,53 @@ class HarnessLaneTests(unittest.TestCase):
         outside=self.root/"original-log.txt";outside.write_bytes(old);log.symlink_to(outside)
         with self.assertRaises(ValueError):self.verify(paths)
 
+    def test_merge_rejects_real_report_and_ancestor_symlink_swaps(self):
+        paths = self.phases()
+        # Same real report/log bytes and unchanged ignored-build source metadata:
+        # swapping the directory itself must not bypass the leaf-file checks.
+        for directory in (paths[0].parent, paths[0].parent.parent, self.root / "build"):
+            with self.subTest(directory=directory):
+                saved = self.root / ".git/proof-directory-held"
+                directory.rename(saved)
+                directory.symlink_to(saved, target_is_directory=True)
+                try:
+                    with self.assertRaisesRegex(ValueError, "Linked phase proof"):
+                        self.verify(paths)
+                finally:
+                    directory.unlink(); saved.rename(directory)
+        report = paths[0]; saved = report.with_suffix(".held")
+        report.rename(saved); report.symlink_to(saved)
+        try:
+            with self.assertRaisesRegex(ValueError, "Linked phase proof"):
+                self.verify(paths)
+        finally:
+            report.unlink(); saved.rename(report)
+
+    def test_proof_paths_reject_nonregular_external_and_parent_traversal(self):
+        paths = self.phases(); report = paths[0]; saved = report.with_suffix(".held")
+        report.rename(saved); report.mkdir()
+        try:
+            with self.assertRaisesRegex(ValueError, "non-regular"):
+                self.verify(paths)
+        finally:
+            report.rmdir(); saved.rename(report)
+        for path in (self.root / "elsewhere.json", self.root / "build/../elsewhere.json", Path("/outside/proof.json")):
+            with self.subTest(path=path), self.assertRaisesRegex(ValueError, "ROOT/build|traverse parents"):
+                h.proof_file(path)
+
+    def test_proof_root_system_alias_is_allowed_without_resolving_evidence_links(self):
+        paths = self.phases()
+        alias = self.root.parent / (self.root.name + "-workspace-alias")
+        alias.symlink_to(self.root, target_is_directory=True)
+        try:
+            with patch.object(h, "ROOT", alias):
+                aliased = [alias / p.relative_to(self.root) for p in paths]
+                result = self.verify(aliased)
+                self.assertEqual([item["id"] for item in result["checks"]], ["a", "b"])
+                self.assertEqual(h.proof_file(paths[0].relative_to(self.root)), paths[0])
+        finally:
+            alias.unlink()
+
 
 SPEC = importlib.util.spec_from_file_location("production_timing", Path(__file__).resolve().parents[1] / "tools/production_timing.py")
 timing = importlib.util.module_from_spec(SPEC)

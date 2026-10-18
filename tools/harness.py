@@ -8,6 +8,7 @@ import os
 from pathlib import Path
 import re
 import signal
+import stat
 import subprocess
 import sys
 import time
@@ -414,6 +415,41 @@ def bind_lane_logs(data, checks, folder):
         item["log_sha256"] = hashlib.sha256((folder / item["log"]).read_bytes()).hexdigest()
 
 
+def proof_file(path):
+    """Keep evidence inside ROOT/build; inspect links before resolving evidence.
+
+    ROOT itself may be reached through an OS/workspace alias. Only its trusted
+    root is resolved; every evidence component below it must be unlinked.
+    """
+    root = ROOT.resolve()
+    path = Path(path)
+    if ".." in path.parts:
+        raise ValueError("Phase proof path must not traverse parents")
+    if not path.is_absolute():
+        path = ROOT.absolute() / path
+    try:
+        relative = path.relative_to(ROOT.absolute())
+    except ValueError:
+        try:
+            relative = path.relative_to(root)
+        except ValueError as error:
+            raise ValueError("Phase proof path must be inside ROOT/build") from error
+    if not relative.parts or relative.parts[0] != "build":
+        raise ValueError("Phase proof path must be inside ROOT/build")
+    current = root
+    for part in relative.parts:
+        current = current / part
+        if current.is_symlink():
+            raise ValueError("Linked phase proof path")
+    try:
+        regular = stat.S_ISREG(current.lstat().st_mode)
+    except OSError as error:
+        raise ValueError("Missing or non-regular phase proof file") from error
+    if not regular:
+        raise ValueError("Missing or non-regular phase proof file")
+    return current
+
+
 def verify_lane_reports(data, profiles, paths, metadata, inventory):
     """Verify two fresh phase proofs against this checkout; never execute checks."""
     ids = resolve_checks(data, profiles)
@@ -422,7 +458,7 @@ def verify_lane_reports(data, profiles, paths, metadata, inventory):
     identity = None
     tokens = set()
     for path in paths:
-        path = Path(path)
+        path = proof_file(path)
         raw = path.read_bytes()
         report = json.loads(raw)
         if not isinstance(report, dict):
@@ -500,9 +536,7 @@ def verify_lane_reports(data, profiles, paths, metadata, inventory):
             log_name = item.get("log")
             if not isinstance(log_name, str) or log_name != name + ".log":
                 raise ValueError("Invalid phase log path")
-            log = path.parent / log_name
-            if log.is_symlink() or not log.is_file():
-                raise ValueError("Missing or linked phase check log")
+            log = proof_file(path.parent / log_name)
             contents = log.read_bytes()
             text = contents.decode(errors="replace")
             if (hashlib.sha256(contents).hexdigest() != item.get("log_sha256")
@@ -579,14 +613,14 @@ def main():
             if args.verify_lanes:
                 report.update(verify_lane_reports(data, profiles, args.verify_lanes, metadata, inventory))
                 for reference in report["lane_reports"]:
-                    phase_path = Path(reference["path"])
+                    phase_path = proof_file(reference["path"])
                     for name in lane_checks(data, requested_ids, reference["lane"]):
                         destination = folder / (name + ".log")
-                        shutil.copy2(phase_path.parent / (name + ".log"), destination)
+                        shutil.copy2(proof_file(phase_path.parent / (name + ".log")), destination)
                         item = next(item for item in report["checks"] if item["id"] == name)
                         if hashlib.sha256(destination.read_bytes()).hexdigest() != item["log_sha256"]:
                             raise RuntimeError("Phase log changed during verification")
-                    if hashlib.sha256(phase_path.read_bytes()).hexdigest() != reference["sha256"]:
+                    if hashlib.sha256(proof_file(phase_path).read_bytes()).hexdigest() != reference["sha256"]:
                         raise RuntimeError("Phase report changed during verification")
                 report.update(source_files_after=source_inventory(), jobs=1, release=True)
                 if report["source_files_after"] != inventory or git_metadata() != metadata:
