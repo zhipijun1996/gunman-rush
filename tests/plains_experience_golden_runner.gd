@@ -5,6 +5,7 @@ var assertions := 0
 var failures := 0
 var output := ""
 var broken_bank := false
+var cleanup_ok := true
 var smoke := false
 var observations: Array[Dictionary] = []
 var controls: Array[Dictionary] = []
@@ -52,6 +53,7 @@ class RecordedTrace extends "res://tests/plains_region_trace.gd":
 			await super.tick(1) # Retains strict original whole-body and relative hazard sweeps.
 			frames.append(state())
 	func install(kind: String, forward: bool, low: bool, phase: float) -> bool:
+		if audio_teardown == null: audio_teardown = load("res://tests/audio_teardown.gd")
 		world = Node2D.new(); tree.root.add_child(world)
 		stage = PlainsRegionAssembler.new(); world.add_child(stage)
 		manifest = {"layout_id":"connected_region","nodes":[],"fixture_version":"plains-redesign-golden-v1","production_pool":false}
@@ -185,12 +187,13 @@ func run() -> void:
 					check(passed,"native "+kind+" reaches receiving dock")
 					check(trace.safe_trace and trace.continuous_trace,"native complete swept body and input continuity")
 					observations.append({"kind":kind,"forward":forward,"low":low,"phase":phase,"passed":passed,"visits":visits,"frames":trace.frames,"events":trace.events,"enemy_scope":"no enemies; formal four-state proof is separate","claim_scope":"grounded callback only; no formal chest award claimed"})
-					trace.world.free()
+					var released: bool = await trace.release_test_world()
+					cleanup_ok = released and cleanup_ok
 	if not broken_bank:
 		await tolerance_cases()
 		await arch_space_controls()
 		if not tolerance_only:await upper_first_case()
-	var data: Dictionary={"space_controls":space_controls,"tolerance":tolerance,"exploration_first":exploration_first,"version":"plains-experience-golden-v1","assertions":assertions,"failures":failures,"deleted_island":broken_bank,"observations":observations}
+	var data: Dictionary={"space_controls":space_controls,"tolerance":tolerance,"exploration_first":exploration_first,"version":"plains-experience-golden-v1","cleanup_ok":cleanup_ok,"assertions":assertions,"failures":failures,"deleted_island":broken_bank,"observations":observations}
 	if not output.is_empty():var f:=FileAccess.open(output,FileAccess.WRITE);f.store_string(JSON.stringify(data));f.close()
 	print("PLAINS EXPERIENCE NATIVE: %s assertions, %s failures"%[assertions,failures]);quit(1 if failures else 0)
 
@@ -215,7 +218,8 @@ func tolerance_cases() -> void:
 				var passed: bool=approach and await driver.move_to((module.world_exit() if forward else module.world_entry()).x) and trace.safe_trace and trace.continuous_trace
 				check(passed,"main short-hop complete input envelope release%s offset%s forward%s"%[release,offset,forward])
 				tolerance.append({"forward":forward,"release_ticks":release,"takeoff_offset":offset,"passed":passed,"definition_version":module.definition.definition_version,"definition_sha256":FileAccess.get_sha256("res://resources/generation/modules/plains_low_arch.tres"),"platforms":module.definition.platforms.map(func(r:Rect2):return [r.position.x,r.position.y,r.size.x,r.size.y]),"saw_origin":[module.definition.saws[0].origin.x,module.definition.saws[0].origin.y],"saw_radius":module.definition.saws[0].radius,"frames":trace.frames,"events":trace.events,"scope":"bounded 3x3 actual input envelope both directions; no ordinary-player/device acceptance"})
-				trace.world.free()
+				var released: bool = await trace.release_test_world()
+				cleanup_ok = released and cleanup_ok
 func follow(trace: RecordedTrace,path: Array) -> bool:
 	for i: int in range(path.size()-1):
 		var found:=false
@@ -246,7 +250,8 @@ func upper_first_case() -> void:
 	var actual_shots: Array=trace.events.filter(func(e:Dictionary):return e.kind=="accepted_shot" and e.tick>start)
 	check(actual_shots.size()==2,"closed right-side return consumes two actual accepted projectiles")
 	exploration_first.append({"seed":m.seed,"manifest_hash":m.manifest_hash,"upper":upper,"main_untouched":untouched,"latch_index":trace.shot_latch_encounter.latches.find(trace.shot_latch_encounter.for_module(trace.stage.modules[int(edge.modules[0])])),"start_tick":start,"end_tick":trace.trace_ticks,"returned":returned,"shots":actual_shots,"frames":trace.frames,"events":trace.events,"scope":"actual full generated geometry; no instantiated enemies, modal or formal rewards"})
-	trace.world.free()
+	var released: bool = await trace.release_test_world()
+	cleanup_ok = released and cleanup_ok
 
 func arch_space_controls() -> void:
 	for kind: String in ["walk_without_jump","held_jump_bonks_ceiling"]:
@@ -266,4 +271,5 @@ func arch_space_controls() -> void:
 		if kind=="walk_without_jump":check(not trace.safe_trace,"real unchanged-radius recessed wheel still rejects walking through")
 		else:check(ceiling_contact,"held jump really contacts low ceiling; short release has smoother clearance")
 		space_controls.append({"kind":kind,"exit_reached":exit_reached,"ceiling_contact":ceiling_contact,"safe":trace.safe_trace,"frames":trace.frames,"events":trace.events,"scope":"real hazard persistence and headroom observation, not claim all long holds fail"})
-		trace.world.free()
+		var released: bool = await trace.release_test_world()
+		cleanup_ok = released and cleanup_ok

@@ -1,0 +1,265 @@
+{
+  "verdict": "ACCEPT bounded fixture owned-world cleanup",
+  "static": {
+    "scope": "static exact inverse independently recomputed; actual CLI result pending",
+    "GD_entire_inverse_exact": true,
+    "Python_entire_inverse_exact": true,
+    "old_python_assert_AST_preserved": 106,
+    "new_assert_count": 107,
+    "old_GD_check_lines_exact": true,
+    "four_owner_paths_use_existing_release1000": true,
+    "source_sha256": {
+      "tests/plains_experience_golden_runner.gd": "1e9f52eca7484d038d653ffc9fcba07858dadecb0413e145f33b31781f38836f",
+      "tools/run_plains_experience_golden_tests.py": "27d34fe4eded38c1ca9924e24a8b99aa9d047986b9fd0be3cac4fa74562d7dc4"
+    },
+    "base": "3f2066b30efbfbfb849818d1be6613d40df9d6b3"
+  },
+  "local_cli": {
+    "head": "3f2066b30efbfbfb849818d1be6613d40df9d6b3",
+    "argv": [
+      "python3",
+      "tools/run_plains_experience_golden_tests.py"
+    ],
+    "timeout_seconds": 900,
+    "elapsed_seconds": 49.675359066000055,
+    "exit_code": 0,
+    "timed_out": false,
+    "source_guard": true
+  },
+  "positive": {
+    "assertions": 292,
+    "failures": 0,
+    "cleanup_ok": true
+  },
+  "negative": {
+    "assertions": 9,
+    "failures": 2,
+    "cleanup_ok": true
+  },
+  "original42_refusals": [
+    {
+      "case": "empty_frames",
+      "refused": true
+    },
+    {
+      "case": "missing_stop",
+      "refused": true
+    },
+    {
+      "case": "missing_restart",
+      "refused": true
+    },
+    {
+      "case": "missing_island",
+      "refused": true
+    },
+    {
+      "case": "forged_island",
+      "refused": true
+    },
+    {
+      "case": "missing_shot",
+      "refused": true
+    },
+    {
+      "case": "wrong_sightline",
+      "refused": true
+    },
+    {
+      "case": "empty_return",
+      "refused": true
+    },
+    {
+      "case": "teleport",
+      "refused": true
+    },
+    {
+      "case": "missing_upper_return",
+      "refused": true
+    },
+    {
+      "case": "forged_tolerance",
+      "refused": true
+    },
+    {
+      "case": "missing_tolerance_corner",
+      "refused": true
+    },
+    {
+      "case": "missing_tolerance_release",
+      "refused": true
+    },
+    {
+      "case": "old_definition",
+      "refused": true
+    },
+    {
+      "case": "missing_walk_hazard",
+      "refused": true
+    },
+    {
+      "case": "remove_jump_receipts",
+      "refused": true
+    },
+    {
+      "case": "remove_landing_receipts",
+      "refused": true
+    },
+    {
+      "case": "remove_drop_inputs",
+      "refused": true
+    },
+    {
+      "case": "callback_at_tick_zero",
+      "refused": true
+    },
+    {
+      "case": "remove_remote_health",
+      "refused": true
+    },
+    {
+      "case": "jump_wrong_position",
+      "refused": true
+    },
+    {
+      "case": "jump_wrong_tick",
+      "refused": true
+    },
+    {
+      "case": "landing_wrong_position",
+      "refused": true
+    },
+    {
+      "case": "landing_wrong_tick",
+      "refused": true
+    },
+    {
+      "case": "duplicate_jump",
+      "refused": true
+    },
+    {
+      "case": "duplicate_landing",
+      "refused": true
+    },
+    {
+      "case": "duplicate_drop",
+      "refused": true
+    },
+    {
+      "case": "drop_wrong_position",
+      "refused": true
+    },
+    {
+      "case": "drop_after_reboard",
+      "refused": true
+    },
+    {
+      "case": "callback_wrong_position",
+      "refused": true
+    },
+    {
+      "case": "callback_at_start_bank",
+      "refused": true
+    },
+    {
+      "case": "callback_after_restart",
+      "refused": true
+    },
+    {
+      "case": "duplicate_callback",
+      "refused": true
+    },
+    {
+      "case": "health_wrong_id",
+      "refused": true
+    },
+    {
+      "case": "health_wrong_tick",
+      "refused": true
+    },
+    {
+      "case": "duplicate_health",
+      "refused": true
+    },
+    {
+      "case": "health_wrong_amount",
+      "refused": true
+    },
+    {
+      "case": "impact_wrong_direction",
+      "refused": true
+    },
+    {
+      "case": "remove_impact",
+      "refused": true
+    },
+    {
+      "case": "missing_resource_recovery",
+      "refused": true
+    },
+    {
+      "case": "shot_resource_wrong_id",
+      "refused": true
+    },
+    {
+      "case": "restart_motion_lie",
+      "refused": true
+    }
+  ],
+  "reviewer_offline_replayed_rejections": [
+    "remove_jump_receipts",
+    "remove_landing_receipts",
+    "remove_drop_inputs",
+    "callback_at_tick_zero",
+    "remove_remote_health",
+    "jump_wrong_position",
+    "jump_wrong_tick",
+    "landing_wrong_position",
+    "landing_wrong_tick",
+    "duplicate_jump",
+    "duplicate_landing",
+    "duplicate_drop",
+    "drop_wrong_position",
+    "drop_after_reboard",
+    "callback_wrong_position",
+    "callback_at_start_bank",
+    "callback_after_restart",
+    "duplicate_callback",
+    "health_wrong_id",
+    "health_wrong_tick",
+    "duplicate_health",
+    "health_wrong_amount",
+    "impact_wrong_direction",
+    "remove_impact",
+    "missing_resource_recovery",
+    "shot_resource_wrong_id",
+    "restart_motion_lie",
+    "positive/cleanup/False",
+    "positive/cleanup/0",
+    "positive/cleanup/None",
+    "positive/cleanup/true",
+    "positive/cleanup/missing",
+    "negative/cleanup/False",
+    "negative/cleanup/0",
+    "negative/cleanup/None",
+    "negative/cleanup/true",
+    "negative/cleanup/missing"
+  ],
+  "native_execution_by_reviewer": false,
+  "evidence_sha256": {
+    "build/verification/plains-experience-audio-fix01/audio-release-actual.json": "ad43c2207fbcf7036a21286b6c6de60ececf464d0c513062ade4c333dc576272",
+    "build/verification/plains-experience-audio-fix01/cleanup-raw-negatives.json": "c1ee13d8938c6c0c079f251b710b287e23ee9bde0ce1125863ed59ef4a5a183b",
+    "build/verification/plains-experience-audio-fix01/artifact-index.json": "656bb9e3f313cbf94cf419782def5643a937972e2b513ce94d97de8507579d20",
+    "build/verification/plains-experience-audio-fix01/patch-proof.json": "fde823420380da58a1eeb047561c36571ef014607ee97f2a13d16e2491fd12cb",
+    "build/verification/plains-experience-audio-fix01/receipt.json": "1bacb5b32070d42aa8dc026c74380f2d7d41b4d2308e49d99fed6235caeb9bfd",
+    "build/verification/plains-experience-audio-fix01/source-after.json": "5cd029904b70ab06ca45c6dd02f446836bb8549d97ac55232242e35305f43942",
+    "build/verification/plains-experience-audio-fix01/source-before.json": "5cd029904b70ab06ca45c6dd02f446836bb8549d97ac55232242e35305f43942",
+    "build/verification/plains-experience-audio-fix01/cli.log": "415a3255fc4fe29550726013b0a37b9864b5238fff2189f1ff95f1883a172659",
+    "build/plains_redesign/experience/run_z4em80_r/positive.json": "f5d9bec945fd708dc4b8cd8bfee9d4ae0d9443ec9b9d72c265cfd592c463eb3a",
+    "build/plains_redesign/experience/run_z4em80_r/deleted_island.json": "0cd207c06873c9828ebd2c041c48d6c34cf60898c09c9c1a17511d1feea0be78",
+    "build/plains_redesign/experience/run_z4em80_r/positive.log": "4b5cdf7d5fbccb9085894d0e75eb690f26af47f6852540214cdd1a4b14863c20",
+    "build/plains_redesign/experience/run_z4em80_r/deleted_island.log": "01dfcbdb8c50ccf063feba3e44709cff4261f4833a4bb8ebf73d005cb067a628",
+    "build/plains_redesign/experience/run_z4em80_r/receipt.json": "415dd71b237b2af53e8ae0275a3baa9e7b8460da4ef1c1dc4399a3b65fd3141e",
+    "build/plains_redesign/experience/run_z4em80_r/validator_refusals.json": "2702ea743a3fe9af4c9abe0762fd6cc91495811bb8bc2cd6d680f656c01ea792"
+  }
+}

@@ -136,6 +136,7 @@ def encounter_causality(observation):
 
 def valid(data, negative=False):
     try:
+        assert data['cleanup_ok'] is True, 'owned fallback backend cleanup must succeed even for expected geometry rejection'
         assert data['version']=='plains-experience-golden-v1' and data['deleted_island'] is negative
         obs=data['observations']
         if negative:
