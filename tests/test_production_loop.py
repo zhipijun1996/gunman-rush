@@ -1301,7 +1301,8 @@ class SelectedInputPreflightTests(unittest.TestCase):
                           'agent_id':'/root/SIMULATED_command_fixture','result':{'status':'ready_for_review',
                           'summary':'SIMULATED transport; no AI or native execution','findings':[]}}
                 original_save(folder/'host_response.json',response)
-            with patch.object(loop.time,'sleep',side_effect=respond):
+            # Keep the fake host poll local: subprocess waits use stdlib time.sleep.
+            with patch.object(loop,'time',wraps=loop.time),patch.object(loop.time,'sleep',side_effect=respond):
                 loop.invoke_host(task,self.mission,'implement',folder,'{}')
             request=json.loads((folder/'host_request.json').read_text())
             contract=request['resolved_checks'];entry=contract['checks'][0]
