@@ -578,7 +578,10 @@
         "tools/run_plains_redesign_golden_tests.py"
       ],
       "timeout_seconds": 240,
-      "success_pattern": "^PLAINS REDESIGN GOLDEN: real positive and negative cases validated$"
+      "success_pattern": "^PLAINS REDESIGN GOLDEN: real positive and negative cases validated$",
+      "artifact_paths": [
+        "build/plains_redesign/golden"
+      ]
     },
     "plains-redesign-spatial": {
       "argv": [

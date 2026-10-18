@@ -6,6 +6,7 @@ var failures := 0
 var output := ""
 var broken_bank := false
 var smoke := false
+var cleanup_ok := true
 var observations: Array[Dictionary] = []
 var controls: Array[Dictionary] = []
 
@@ -48,6 +49,7 @@ class RecordedTrace extends "res://tests/plains_region_trace.gd":
 			await super.tick(1) # Retains strict original whole-body and relative hazard sweeps.
 			frames.append(state())
 	func install(kind: String, forward: bool, low: bool, phase: float) -> bool:
+		if audio_teardown == null: audio_teardown = load("res://tests/audio_teardown.gd")
 		world = Node2D.new(); tree.root.add_child(world)
 		stage = PlainsRegionAssembler.new(); world.add_child(stage)
 		manifest = {"layout_id":"connected_region","nodes":[],"fixture_version":"plains-redesign-golden-v1","production_pool":false}
@@ -214,7 +216,8 @@ func run_case(kind: String, forward: bool, low: bool, phase: float) -> void:
 		legs.append({"forward":direction,"reached":reached,"phrases":phrases})
 		if not reached: break
 	observations.append({"kind":kind,"forward_entry":forward,"low_initial_energy":low,"phase":phase,"manifest":trace.manifest,"initial":trace.frames[0],"final":trace.state(),"legs":legs,"frames":trace.frames,"events":trace.events,"shots":trace.shots,"enemy_scope":"No enemies instantiated; formal enemy four-state/live encounter proof remains unverified"})
-	trace.world.free()
+	var released: bool = await trace.release_test_world()
+	cleanup_ok = released and cleanup_ok
 func resource_controls() -> void:
 	for low: bool in [true,false]:
 		var trace:=RecordedTrace.new();trace.tree=self;trace.check=check
@@ -237,7 +240,8 @@ func resource_controls() -> void:
 		check(not trace.shot_latch_encounter.latches[0].is_open,"unhit bell keeps physical gate closed")
 		check(trace.safe_trace and trace.continuous_trace,"resource guard full-body trace safe")
 		controls.append({"kind":trace.phrase,"initial":trace.frames[0],"final":trace.state(),"events":trace.events,"frames":trace.frames})
-		trace.world.free()
+		var released: bool = await trace.release_test_world()
+		cleanup_ok = released and cleanup_ok
 func run() -> void:
 	for kind: String in ["main","high"]:
 		for forward: bool in [true,false]:
@@ -251,6 +255,6 @@ func finish() -> void:
 	if output.is_empty() or FileAccess.file_exists(output): printerr("Unique --output required"); quit(2); return
 	DirAccess.make_dir_recursive_absolute(output.get_base_dir())
 	var file:=FileAccess.open(output,FileAccess.WRITE)
-	file.store_string(JSON.stringify({"engine":Engine.get_version_info().string,"fixture_version":"plains-redesign-golden-v1","production_pool":false,"observations":observations,"controls":controls,"broken_bank":broken_bank,"smoke":smoke,"assertions":assertions,"failures":failures})+"\n");file.close()
+	file.store_string(JSON.stringify({"engine":Engine.get_version_info().string,"fixture_version":"plains-redesign-golden-v1","production_pool":false,"observations":observations,"controls":controls,"broken_bank":broken_bank,"cleanup_ok":cleanup_ok,"smoke":smoke,"assertions":assertions,"failures":failures})+"\n");file.close()
 	print("PLAINS REDESIGN GOLDEN: %d assertions, %d failures"%[assertions,failures])
 	quit(0 if failures==0 else 1)
