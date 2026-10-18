@@ -22,6 +22,9 @@ func _ready() -> void:
 	spawn = assembler.world_entry()
 	anchors = assembler.world_anchors()
 	anchor_position = Vector2(environment_plan.places[1].entry_port.position[0],environment_plan.places[1].entry_port.position[1])
+	if generated.manifest.get("version") == PlainsPlacePlan.VERSION:
+		var recovery: Array = environment_plan.places[1].safe_stands[0].position
+		anchor_position = Vector2(recovery[0],recovery[1])
 	merchant_position = Vector2.INF
 	supply_position = spawn
 	reward_position = Vector2(environment_plan.places.back().exit_port.position[0],environment_plan.places.back().exit_port.position[1])
@@ -54,6 +57,8 @@ func _ready() -> void:
 	actor_presentation.call("configure",self,{"presentation_scope":"formal_second_space"})
 	add_child(actor_presentation)
 	var renderer_path := "res://scripts/art/plains_environment_composer.gd"
+	if generated.manifest.get("version") == PlainsPlacePlan.VERSION:
+		renderer_path = "res://scripts/art/plains_place_composer.gd"
 	if ResourceLoader.exists(renderer_path):
 		var script := load(renderer_path) as Script
 		if script != null:
@@ -98,7 +103,7 @@ func get_environment_snapshot() -> Dictionary:
 	var art: Dictionary = {}
 	if is_instance_valid(environment_renderer) and environment_renderer.has_method("measured_nodes"):
 		art = environment_renderer.call("measured_nodes")
-	return {"environment_plan":environment_plan,"manifest_hash":generated.manifest.manifest_hash,"solid_polygons":actual,"saws":saws,"art":art,"production_pool":false,"scope":"Five-place development candidate through original DemoApp systems"}
+	return {"environment_plan":environment_plan,"manifest_hash":generated.manifest.manifest_hash,"solid_polygons":actual,"saws":saws,"art":art,"production_pool":false,"scope":"Explicit development places through original DemoApp systems; not admitted campaign content"}
 
 func _draw() -> void:
 	# Original actors, hazards, HUD and contacts remain their actual consumers.

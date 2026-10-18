@@ -910,6 +910,35 @@
         "resources/visual_development/painted_terrain_candidate.json",
         "assets/visual_development/painted_terrain/**"
       ]
+    },
+    "plains-places-contract": {
+      "argv": [
+        "python3",
+        "tools/run_plains_places_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PLAINS PLACES SUITE: passed",
+      "serial": true,
+      "weight_seconds": 25,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "resources",
+        "assets",
+        "config",
+        "tests/plains_places_plan_runner.gd",
+        "project.godot",
+        "tools"
+      ]
+    },
+    "plains-places-capture-tests": {
+      "argv": [
+        "python3",
+        "tests/test_plains_places_capture.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 3
     }
   },
   "profiles": {

@@ -7,7 +7,7 @@ description: 负责资产、地区视觉母版、模块化美术系列、AI 风�
 
 ## 触发与边界
 
-新增资产、地区视觉母版或风格精修，以及合屏与来源质量审查。 从仓库根目录调用 `$art-director`。使用 [总门槛](../../../docs/development_quality.md)；重要内容由 game-quality-gate 建立一次任务，专业技能补充同一记录，不重复执行共用阶段。
+新增资产、地区视觉母版或风格精修，以及合屏与来源质量审查。当前平原先按[当前场所制作范例](../../../docs/evidence/plains_places/recipe.md)制作完整绘画体积；`PLAINS-PLACES-01` 是未准入实验，不继承旧候选的艺术接受。 从仓库根目录调用 `$art-director`。使用 [总门槛](../../../docs/development_quality.md)；重要内容由 game-quality-gate 建立一次任务，专业技能补充同一记录，不重复执行共用阶段。
 
 ## 输入与依赖
 
@@ -117,7 +117,7 @@ V3的整体CLIFF、悬浮PANEL、Boss两版原规格失败不因新用途而改�
 
 ## 当前候选的实际制作范例
 
-简短任务读route的`preparation.visual_recipe`与[当前完整环境实验](../../../docs/evidence/p1_environment/recipe.md)，不把旧B限定接受当新画风权威。连续截面/独立转面技术可以继承，具体画法与来源必须跟随当前候选。先画顶面→根肩→安静深土，再量测profile/内接边；同时把角色/敌/危险按实际40world/当前镜头缩小检查大明暗。P1首片已证明精细源在实机可碎成灰团，返工应实际重画主体色块/轮廓而非统一滤镜；真实alpha与隐藏RGB分开取样，查看器棕底不自动证明GPU渗色。源图返回与旧家族准入都不签本候选实景通过。
+简短任务读route的`preparation.visual_recipe`与[当前场所制作范例](../../../docs/evidence/plains_places/recipe.md)，使用同一 `PLAINS-PLACES-01` 质量记录。实际源 `assets/visual_development/p1_places/whole_bank.png` 把顶面、转肩、侧壁、底部作为同一体积共画，不再推荐已三轮REWORK的独立薄肩/深壁/端alpha拼接。先保留原图、实际prompt/reference/SHA与未知许可，再实测源图可站面、语义碰撞轮廓与锚点，以一个等比尺度进入局部场所；不是把每个alpha毛边都变碰撞，也不拉伸原图服从旧矩形。联合关卡专业验证实际动作，超范围重画或重选原型，不能程序画补肩/滤镜掩接缝。源图返回、量测和技术通过仍不证明整屏艺术成立；三个原型和Seed生产按首样板门槛逐阶段推进。
 
 ## 共同创作契约
 

@@ -1,3 +1,15 @@
+# 当前交接：PLAINS-PLACES-01有限组合成立，等待用户与后续关键实验
+
+独立分支 `feature/plains-place-grammar`，实际运行/全部最终电影/本地PCK冻结 `ef6a8b4f1d06406b6b5f0a3db658902c15c1084e`，母PR82；后续非runtime工具/证据提交不重标电影源码。先读[作品与限制](quality/plains_places.md)、[当前短范例](evidence/plains_places/recipe.md)、[独立审查](evidence/plains_places/independent-seeds.md)，不默认读全部PR实录。
+
+已真做：3场所、同6环境源、3实际排列/160与200gap、每条35点去返/HP5/6枪/零恢复；完整正常速度3片及旧失败同存。新共同院岸修复首浮饼拼接，内部限定准入，非完整G2/商业黄金/用户定稿。最弱窗口树根人物对比、同源梯台重复，未验全排列/分叉/高差连接/自然成功重选/全相位/设备/全CI。森林与核心契约保持。
+
+试玩源码：`bash tools/godot.sh --path . --script res://tools/plains_places_preview.gd -- --seed=places-contract-02`。Linux包/准确SHA/build_id见[delivery](evidence/plains_places/delivery/delivery.json)，包验证与源路线验证分别记录。新任务短入口 `python3 tools/level_design.py route --request '制作风铃平原美术' --output build/next_plains_art.json` 只生成原Harness计划；须真实工具制作/采集/不同作者审查，普通覆材不获generation写授权。
+
+下一关键实验：简短场所题目自主派生新完整地形家族/源测量/组合接口，再真验不同形体参数，不能把3固定策展场所的排列当完整自主设计成熟。未获新准入不扩正式池；旧薄带/alpha与浮饼失败不复活。图像模型/商用许可/价格unknown，音频与真人设备未验。不合main/不强推/不覆盖森林会话。
+
+---
+
 # 当前：完整环境候选三轮REWORK，停止端肩带接法
 
 分支`feature/plains-environment-grammar`，母PR81/e545b05e；实际运行冻结`4d4803773d21dbe9e9443b42bc0a87dbc35137c6`。先看[真实作品与失败报告](quality/p1_environment.md)、[原图对照](evidence/p1_environment/gallery.html)、[最终独审](evidence/p1_environment/independent-native-03.md)。本轮实际整体母版/六环境源/桥源重绘已进Godot，但**精美黄金和精美随机平原仍未完成**。

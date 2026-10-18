@@ -1,3 +1,13 @@
+# 当前：随机场所三候选有限实证，非商业黄金
+
+分支 `feature/plains-place-grammar`，母PR82 `4a4b3fd7`，实际运行冻结 `ef6a8b4f1d06406b6b5f0a3db658902c15c1084e`。先看[真实作品与准确边界](quality/plains_places.md)、[原帧/正常电影](evidence/plains_places/gallery.html)、[独立Seed审查](evidence/plains_places/independent-seeds.md)。完整顶肩侧底原图及共同院岸替代PR82带面接肩；3场所、3实际排列及160/200连接真实去返均35点/HP5/零恢复；AI仅限定接受已看窗口。
+
+相同6张环境主图被3条真实链消费；Seed改实际顺序/坐标/连接，未逐Seed出图。首浮饼组合REWORK保留，新共同院岸fresh重验后才扩2Seed。当前最弱是树根附近人物对比，重复梯台限制扩产；未证明全6排列/任意随机地图/自主新家族/完整G2或商业黄金。P1是用户偏好候选，未成为强制艺术定稿。
+
+[Linux本地评审包](evidence/plains_places/delivery/delivery.json) build_id9386ee72ce48，空cwd/GUI/1485条源闭包/退出/CRC已验，非正式CI/Web发布或用户设备认可。首缺far包被拒并保留。核心/森林未写，候选不入正式池；四现有Skills与真实路由改用当前范例。当前相关专项最后冻结复验结果见报告与质量卡，不将计划当执行。下方为按需历史状态。
+
+---
+
 # 当前：完整环境候选三轮REWORK，停止端肩带接法
 
 分支`feature/plains-environment-grammar`，母PR81/e545b05e；实际运行冻结`4d4803773d21dbe9e9443b42bc0a87dbc35137c6`。先看[真实作品与失败报告](quality/p1_environment.md)、[原图对照](evidence/p1_environment/gallery.html)、[最终独审](evidence/p1_environment/independent-native-03.md)。本轮实际整体母版/六环境源/桥源重绘已进Godot，但**精美黄金和精美随机平原仍未完成**。

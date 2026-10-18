@@ -24,7 +24,9 @@ from level_design import ROOT, read, write, file_hash
 
 # Explicit experimental capture adapter; arbitrary script execution is not a CLI option.
 ENVIRONMENT_CAPTURE = "tools/plains_environment_capture.gd"
-CAPTURE_SCRIPTS = {"tools/spatial_golden_capture.gd", "tools/painted_formal_capture.gd", "tools/p1_random_capture.gd", ENVIRONMENT_CAPTURE}
+PLACES_CAPTURE = "tools/plains_places_capture.gd"
+ENVIRONMENT_CAPTURES = (ENVIRONMENT_CAPTURE, PLACES_CAPTURE)
+CAPTURE_SCRIPTS = {"tools/spatial_golden_capture.gd", "tools/painted_formal_capture.gd", "tools/p1_random_capture.gd", *ENVIRONMENT_CAPTURES}
 VISUAL_SAMPLE_CATALOG = "res://resources/visual_development/candidate.json"
 VISUAL_SAMPLE_CATALOGS = (VISUAL_SAMPLE_CATALOG, "res://resources/visual_development/painted_terrain_candidate.json", "res://resources/visual_development/p1_candidate.json")
 
@@ -44,6 +46,8 @@ def capture_extension_sources(script):
         pending.append("tools/spatial_golden_preview.gd")
     if script == ENVIRONMENT_CAPTURE:
         pending.append("tools/plains_environment_preview.gd")
+    if script == PLACES_CAPTURE:
+        pending.append("tools/plains_places_preview.gd")
     result = {}
     while pending:
         relative_path = pending.pop()
@@ -85,9 +89,9 @@ def capture(seed, map_index, strategy, folder, max_ticks=6000, timeout=900,
     if map_index not in (1, 2) or strategy not in ('fast', 'growth', 'deep', 'return') or encounter_policy not in level_formal.ENCOUNTER_POLICIES:
         raise ValueError('Unknown formal driver request')
     extension_sources = capture_extension_sources(capture_script)
-    if environment_phase not in ('probe', 'full') or environment_mutation not in ('', 'no-gun') or ((environment_phase != 'full' or environment_mutation) and capture_script != ENVIRONMENT_CAPTURE):
+    if environment_phase not in ('probe', 'full') or environment_mutation not in ('', 'no-gun') or ((environment_phase != 'full' or environment_mutation) and capture_script not in ENVIRONMENT_CAPTURES):
         raise ValueError('Unsupported explicit environment request')
-    if capture_script == ENVIRONMENT_CAPTURE and (map_index != 1 or strategy != 'fast' or encounter_policy != 'blind_legacy'):
+    if capture_script in ENVIRONMENT_CAPTURES and (map_index != 1 or strategy != 'fast' or encounter_policy != 'blind_legacy'):
         raise ValueError('Environment candidate requires independent map1/fast/blind_legacy; its route policy is explicit')
     if visual_sample and not valid_visual_sample(capture_script, visual_sample):
         raise ValueError('Unsupported explicit visual sample catalog')
@@ -106,7 +110,7 @@ def capture(seed, map_index, strategy, folder, max_ticks=6000, timeout=900,
         request['capture_script'] = capture_script
         request['visual_sample'] = visual_sample
         request['visual_layout'] = visual_layout
-    if capture_script == ENVIRONMENT_CAPTURE:
+    if capture_script in ENVIRONMENT_CAPTURES:
         request.update(environment_phase=environment_phase, environment_mutation=environment_mutation)
     report = dict(schema_version=1, artifact_kind='actual_formal_visual_capture', status='running', producer_root=str(ROOT),
                   request=request, source_before=before, source_after=None, errors=[],
@@ -212,7 +216,7 @@ def native_command(report, output, avi):
         if script not in CAPTURE_SCRIPTS:
             raise ValueError('Unsupported capture script')
         command[command.index('--script') + 1] = script
-    if script == ENVIRONMENT_CAPTURE:
+    if script in ENVIRONMENT_CAPTURES:
         phase = report['request'].get('environment_phase')
         mutation = report['request'].get('environment_mutation')
         if phase not in ('probe', 'full') or mutation not in ('', 'no-gun'):
@@ -331,6 +335,59 @@ def formal_source_projection(inventory):
     return {k:v for k,v in inventory.items() if not k.startswith(runtime_folders) or Path(k).suffix in suffixes}
 
 
+def validate_places_observations(data, plan):
+    """Bind the finite three-prototype experiment to real inherited route cases."""
+    errors = []
+    if not isinstance(plan, dict): return ['places shared plan missing']
+    instances = plan.get('place_instances')
+    if not isinstance(instances, list) or len(instances) != 3 or not all(isinstance(row, dict) for row in instances):
+        return ['places three realized instances missing']
+    identities = [row.get('id') for row in instances]
+    prototypes = [row.get('prototype_id') for row in instances]
+    if not all(isinstance(value, str) and value for value in identities) or len(set(identities)) != 3:
+        return ['places instance identities missing/duplicated']
+    if not all(isinstance(value, str) for value in prototypes) or set(prototypes) != {'wind_meadow', 'postal_valley', 'lee_court'}:
+        errors.append('places three distinct prototypes missing')
+    if plan.get('place_order') != identities or plan.get('prototype_order') != prototypes:
+        errors.append('places actual order mismatch')
+    for row in instances:
+        offset = row.get('translation')
+        if not isinstance(offset, list) or len(offset) != 2 or any(type(value) not in (int, float) or not math.isfinite(value) for value in offset):
+            errors.append('places realized translation invalid')
+        if not re.fullmatch(r'[0-9a-f]{64}', str(row.get('source_measurement_sha256', ''))):
+            errors.append('places measurement source identity missing')
+    contract = data.get('places_route_contract')
+    if not isinstance(contract, dict) or any(contract.get(key) != plan.get(key) for key in ('place_instances', 'place_order', 'prototype_order')):
+        errors.append('places actual route contract mismatch')
+    observed = data.get('places_waypoint_observations')
+    if not isinstance(observed, list) or not all(isinstance(row, dict) for row in observed):
+        return errors + ['places actual waypoint observations missing']
+    cases = {case.get('id'): case for case in data.get('environment_cases', []) if isinstance(case, dict)}
+    by_id = {row['id']: row for row in instances}
+    visited = set()
+    forward_order = []
+    for row in observed:
+        if not isinstance(row.get('place_instance_id'), str) or not isinstance(row.get('waypoint_id'), str) or type(row.get('passed')) is not bool or type(row.get('supported')) is not bool:
+            errors.append('places observation identity/state malformed')
+            continue
+        place = by_id.get(row.get('place_instance_id'))
+        case = cases.get(row.get('waypoint_id'))
+        if not place or not case or row.get('prototype_id') != place['prototype_id'] or not str(row.get('waypoint_id', '')).startswith(place['id'] + '/'):
+            errors.append('places observation identity differs from real case')
+            continue
+        if any(row.get(key) != case.get(key) for key in ('passed', 'start_tick', 'end_tick', 'position', 'supported')):
+            errors.append('places observation changed actual Motor case')
+        if row.get('passed') is True and row.get('supported') is True:
+            visited.add(place['id'])
+            if row['waypoint_id'] in plan.get('route_forward', []) and place['id'] not in forward_order:
+                forward_order.append(place['id'])
+    if data.get('route_reached') and visited != set(identities):
+        errors.append('places route success lacks actual three-prototype visits')
+    if data.get('route_reached') and forward_order != identities:
+        errors.append('places actual forward visits differ from realized order')
+    return errors
+
+
 def validate_native(data, report, log):
     errors=[]
     if data.get('artifact_kind') != 'formal_level_capture' or data.get('schema_version') != 1 or data.get('capture_contract_version') != 3: errors.append('not actual current formal capture')
@@ -383,7 +440,7 @@ def validate_native(data, report, log):
                 errors.append('formal random actual avatar mismatch/' + key)
         if selected and (not data.get('p1_random_initial', {}).get('selected') or not data.get('p1_random_final', {}).get('selected')):
             errors.append('formal random actual terrain consumer missing')
-    if script == ENVIRONMENT_CAPTURE:
+    if script in ENVIRONMENT_CAPTURES:
         contract = data.get('environment_route_contract', {})
         if not isinstance(contract, dict):
             errors.append('environment actual route contract malformed')
@@ -399,7 +456,8 @@ def validate_native(data, report, log):
             errors.append('environment actual route policy mismatch')
         if not isinstance(plan, dict) or not plan.get('route_waypoints') or not plan.get('safe_stands') or contract.get('plan') != plan:
             errors.append('environment actual shared plan missing/changed')
-        if data.get('captured_scope', {}).get('plains_environment_candidate') is not True or data.get('captured_scope', {}).get('pure_art_comparison_eligible') is not False:
+        candidate_scope = 'plains_places_candidate' if script == PLACES_CAPTURE else 'plains_environment_candidate'
+        if data.get('captured_scope', {}).get(candidate_scope) is not True or data.get('captured_scope', {}).get('pure_art_comparison_eligible') is not False:
             errors.append('environment candidate scope missing')
         if not data.get('environment_initial_physics') or not data.get('environment_final_physics') or not data.get('environment_cases'):
             errors.append('environment actual observations missing')
@@ -427,6 +485,8 @@ def validate_native(data, report, log):
                 expected = report.get('source_before', {}).get(path.removeprefix('res://')) if isinstance(path, str) else None
                 if not expected or avatar.get(sha_key) != expected:
                     errors.append('environment actual avatar source mismatch/' + key + '/' + path_key)
+        if script == PLACES_CAPTURE:
+            errors.extend(validate_places_observations(data, plan))
     scope=data.get('captured_scope',{})
     for k in ('enemies_instantiated','enemy_attacks_enabled','enemy_contacts_enabled','production_rewards_enabled','production_camera_enabled'):
         if scope.get(k) is not True: errors.append('missing formal runtime/'+k)
@@ -743,14 +803,15 @@ def route(request,task_id,quality_record,allowed_paths,max_calls=10,max_rounds=2
        'preparation':{'region_context':build_region_context(region_id) if region_id else {'status':'unregistered','runtime_available':None},'lessons':load_lessons(region_id)},
        'constraints':['Freeze Motor, weapons/resources/progression, RNG, actual collision geometry/route and saves; within the authorized art scope visual mesh, source profiles and UV mapping may be redesigned, not collision or gameplay','Admission is scoped to this family and actual consumer: independently evidenced actual-pixel G2 is required before its descendants expand; a rejected unrelated mother does not block independently qualified units. Preserve rejected contracts; a different limited pilot role requires its own actual-pixel review, never retroactive approval','No conceptual image posing as actual gameplay; no subjective score from hashes','Two no-progress visual rounds stop. Preserve every failed native/model/review attempt.','Host mode needs an active real Codex host, distinct implementation/review agents; otherwise block with original Harness lease/timeout','Use existing G0–G5/eleven quality dimensions; G0/G1 stage is not G2 beauty approval or full content completion']}
     if region_id == 'windchime_plains':
-        catalog_path = 'resources/visual_development/p1_environment_assets.json'
+        catalog_path = 'resources/visual_development/p1_places_assets.json'
         catalog = read(ROOT / catalog_path)
         paths = [catalog_path, catalog['master'],
-                 'resources/generation/environment_grammar/lee_post_v1.json',
-                 'scripts/art/plains_environment_terrain.gd', 'scripts/art/plains_environment_composer.gd',
-                 'scripts/generation/plains_environment_plan.gd', 'resources/art/avatars.json',
-                 'docs/evidence/p1_environment/recipe.md', 'docs/quality/records/P1-ENV-01.json',
-                 'docs/evidence/p1_environment/independent-native-01.md']
+                 'resources/generation/environment_grammar/places_v1.json',
+                 'scripts/art/plains_place_composer.gd', 'scripts/generation/plains_place_plan.gd',
+                 PLACES_CAPTURE, 'tools/plains_places_preview.gd', 'tests/plains_places_trace.gd',
+                 'resources/art/avatars.json', 'docs/evidence/plains_places/recipe.md',
+                 'docs/quality/records/PLAINS-PLACES-01.json',
+                 'docs/evidence/plains_places/independent-01.md']
         def source_textures(value):
             if isinstance(value, dict):
                 for key, child in value.items():
@@ -767,24 +828,24 @@ def route(request,task_id,quality_record,allowed_paths,max_calls=10,max_rounds=2
         paths = list(dict.fromkeys(paths))
         m['constraints'][1] = ('P1 is the user-preferred candidate, not final user approval or formal-pool admission. Read the current P1 quality record and actual native review before deciding expansion; old B scoped acceptance does not admit P1. First-space whole-image art and motion readability must be independently admitted before a second structure; no batch expansion or full G2 claim from a plan. A rejected unrelated mother does not block independently qualified units.')
         m['preparation']['visual_recipe'] = {
-            'status': 'candidate_with_native_evidence_not_automatic_admission',
-            'scope': 'P1 shared-environment development candidate; not automatic acceptance, no user, device, commercial or formal-production admission',
+            'status': 'candidate_not_automatic_admission',
+            'scope': 'P1 three-place whole-volume development candidate; not automatic acceptance, no user, device, commercial or formal-production admission',
             'sources': [{'path': path, 'sha256': file_hash(ROOT / path)} for path in paths],
-            'profile': 'scripts/art/plains_environment_terrain.gd',
-            'method': 'One resolved place plan drives actual surfaces, rooted objects and depth layers. Thin shoulder, finite deep body and measured turned ends require actual native review; first implementation was REWORK, not a validated art recipe.',
-            'recipe': 'docs/evidence/p1_environment/recipe.md',
-            'quality_record': 'docs/quality/records/P1-ENV-01.json',
-            'reviews': ['docs/evidence/p1_environment/independent-native-01.md'],
-            'capture_script': ENVIRONMENT_CAPTURE,
-            'preview_script': 'tools/plains_environment_preview.gd',
+            'profile': 'scripts/art/plains_place_composer.gd',
+            'method': 'STOP the PR82 shoulder-band/turned-end method after REWORK. Whole painted volumes use equal axis scale with measured interfaces; one resolved plan drives actual surfaces, place order and depth layers. Interface rejection and seeded structural execution provide limited technical evidence; actual whole-screen art remains pending independent native review.',
+            'recipe': 'docs/evidence/plains_places/recipe.md',
+            'quality_record': 'docs/quality/records/PLAINS-PLACES-01.json',
+            'reviews': ['docs/evidence/plains_places/independent-01.md'],
+            'capture_script': PLACES_CAPTURE,
+            'preview_script': 'tools/plains_places_preview.gd',
             'geometry_authority': 'Existing candidate only. This art route grants no new collision edits; joint geometry redesign requires a separately authorized spatial experiment and real operation revalidation.',
             'technical_history_on_demand': 'docs/evidence/p1_native/recipe.md'}
         for task in tasks:
             if not task['read_only']:
                 # The historical painted-terrain fixture remains available, but
                 # cannot certify this different actual candidate consumer.
-                task['checks'] = [c for c in task['checks'] if c != 'visual-director-terrain']
-                task['goal'] += (' Read the current whole-environment recipe and its actual REWORK evidence before choosing a method. Design the continuous multi-screen terrain, rooted construction, actor path and negative space jointly; never map independent images one-to-one onto collision rectangles. Use the explicit candidate consumer and capture adapter, preserving original core contracts. Inspect real-size sources and finite arc-length shoulder mapping with left/right turned ends; preserve deep volume rather than shearing all strata with the top. Retain source/prompt/reference and native before/after records. Independently judge the whole actual screen before local polish or expansion. A plan is not execution, a strict route pass is not art admission, and changing Seed phase is not structural variation.')
+                task['checks'] = list(dict.fromkeys([c for c in task['checks'] if c != 'visual-director-terrain'] + ['plains-places-contract', 'plains-places-capture-tests']))
+                task['goal'] += (' Read the current whole-volume place recipe and preserved PR82 REWORK evidence before choosing a method. Design the continuous multi-screen terrain, rooted construction, actor path and negative space jointly; never map independent images one-to-one onto collision rectangles. Use the explicit candidate consumer and capture adapter, preserving original core contracts. STOP the rejected PR82 shoulder-band/turned-end method. Inspect whole source volumes at equal axis scale, measured source ports and actual place transitions. Run bounded interface rejection and seeded structure checks; these checks cannot admit art. Retain source/prompt/reference and native before/after records. Independently judge the whole actual screen before local polish or expansion. A plan is not execution, a strict route pass is not art admission, and changing Seed phase is not structural variation.')
     production_loop.validate(m)
     return m
 

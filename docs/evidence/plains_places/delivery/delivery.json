@@ -1,0 +1,83 @@
+{
+  "artifact_kind": "strict_local_places_candidate_delivery",
+  "status": "strict_local_candidate_smoke_passed_not_release",
+  "source_commit": "ef6a8b4f1d06406b6b5f0a3db658902c15c1084e",
+  "build_id": "9386ee72ce48",
+  "archive": {
+    "path": "build/plains_environment/places_review_02/plains-environment-candidate-linux-x86_64.zip",
+    "sha256": "d9cd647a59716d053ab76c19df4d2279842692d7e88a90f0bf0c88bc5a59ae8a",
+    "bytes": 237132766
+  },
+  "archive_crc_test": {
+    "first_bad_member": null,
+    "entries": 11,
+    "passed": true
+  },
+  "pck_sha256": "9386ee72ce48cda7aca94b4937e56d496425e1805c27a2542ad38b8162da215d",
+  "pck_bytes": 165690640,
+  "build_receipt": {
+    "path": "build/plains_environment/places_review_02/build_receipt.json",
+    "sha256": "d18a440784d1f790beb708868786c547c08577bad5ab0d2104efaebe149fcdec",
+    "bytes": 384950
+  },
+  "actual_packed_gui": {
+    "path": "build/plains_environment/places_review_02/plains-environment-candidate-linux-x86_64/actual_packed_gui.png",
+    "sha256": "1135b50e1b9aaf0e6cc665eec6e315c04842eb325b61bff7d8066b8fde8daa9e",
+    "bytes": 1607365
+  },
+  "producer": {
+    "path": "build/plains_places/prepare_places_review.py",
+    "sha256": "c62703244cacd73d9f4f89be568699fefda42c1fcbc446c9c40a211db16fc760",
+    "bytes": 3335
+  },
+  "shared_preserved_strict_producer": {
+    "path": "docs/evidence/p1_environment/delivery/producers/prepare_local_review_bundle.py",
+    "sha256": "b8b7d752cfe920b26221486aabdf74ecb0642eedfbf9e1cead049739dca1fcbd",
+    "bytes": 20001
+  },
+  "actual_consumer": {
+    "entry": "tools/plains_places_preview.gd",
+    "empty_cwd": true,
+    "manual_entry_no_driver_no_save": true,
+    "terrain": 4,
+    "objects": 5,
+    "layers": 3,
+    "omitted": [],
+    "selected_avatar": "p1_girl",
+    "painted_owner_count": 1,
+    "avatar_texture_sha256": "4007aeb23e37a2ecf92947f86a0cd33b38deac8b6b2fe506ba3d803f94b34752"
+  },
+  "steps": {
+    "pack": {
+      "status": "passed",
+      "exit_code": 0,
+      "log_sha256": "2c897e105cf10801f8d4b5d6e63f1efa61b2d34236bb311ca4339d0117ff5f4b"
+    },
+    "isolated_headless": {
+      "status": "passed",
+      "exit_code": 0,
+      "log_sha256": "c93fcacb84f0bef4c72cb5a9b2b9d7e16cc8db63bd6a8f593e4e9e029f328cdb"
+    },
+    "isolated_gui": {
+      "status": "passed",
+      "exit_code": 0,
+      "log_sha256": "87ed9e17412037042e04c5696d8033013a21255d1c34cd013b480d104d915737"
+    }
+  },
+  "preserved_failed_attempts": [
+    {
+      "receipt": {
+        "path": "build/plains_environment/places_review_01/build_receipt.json",
+        "sha256": "6f64ccdeff10b2e1e6b163647616f51d2d881af62f3e275d75b05ca0c37d4dd3",
+        "bytes": 167926
+      },
+      "status": "blocked",
+      "error": "ValueError: Packed actual art consumer count differs: layers",
+      "actual_failure": "Required shared_far_world was missing from actual packed renderer: layers 2 vs captured 3, omitted far_world.png source_texture_missing. Strict gate refused delivery.",
+      "fix": "Added actual places_v1.json as a recursive closure root in the build adapter. No count/omission/sourceSHA/ERROR/teardown checks changed.",
+      "history": "Original failed PCK, log and receipt retained unchanged; no ZIP claimed."
+    }
+  ],
+  "scope": "Measured-place candidate: three prototypes scoped AI accepted, limited actual Seed traversal; not formal release, final golden or user/device/commercial acceptance",
+  "limits": "Startup/actual consumer/strict cleanup only; no route replay, visual acceptance, listening or physical device acceptance inferred"
+}

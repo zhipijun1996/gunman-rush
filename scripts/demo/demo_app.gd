@@ -82,6 +82,8 @@ var _reward_token: DemoToken
 
 func _ready() -> void:
 	plains_environment_candidate_requested = plains_environment_candidate_requested or "--plains-environment-candidate" in OS.get_cmdline_user_args()
+	plains_places_candidate_requested = plains_places_candidate_requested or "--plains-places-candidate" in OS.get_cmdline_user_args()
+	if plains_places_candidate_requested: plains_environment_candidate_requested = true
 	if plains_environment_candidate_requested: meta_persistence_enabled = false
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(GameAudio.new())
@@ -114,6 +116,7 @@ var visual_language_sample_path := "" # Explicit candidate only; ordinary consum
 var avatar_selection_id := "courier" # Session appearance, never a save/stat/ability field.
 var p1_random_plains_requested := false # Ordinary generated map presentation only; no golden geometry.
 var plains_environment_candidate_requested := false
+var plains_places_candidate_requested := false
 var plains_environment_variant := "A"
 var plains_environment_mutation := ""
 var spatial_golden_requested := false
@@ -236,12 +239,13 @@ func _load_stage() -> void:
 		_gold_claimed=false
 	var loading_token := lifetime.token()
 	if plains_environment_candidate_requested:
-		var candidate := PlainsEnvironmentPlan.generate(director.seed,controller.motor.tuning,plains_environment_variant,plains_environment_mutation)
+		var generator: Script = load("res://scripts/generation/plains_place_plan.gd") if plains_places_candidate_requested else load("res://scripts/generation/plains_environment_plan.gd")
+		var candidate: Dictionary = generator.generate(director.seed,controller.motor.tuning,plains_environment_variant,plains_environment_mutation)
 		if not candidate.ok:
 			push_error(str(candidate.error))
 			abandon_run()
 			return
-		stage = PlainsEnvironmentPlan.create_stage()
+		stage = generator.create_stage()
 		(stage as PlainsRegionStage).region_state = region_state
 		(stage as PlainsRegionStage).map_index = director.stage_index
 		(stage as GeneratedDemoStage).configure_generated(candidate,controller.motor.tuning)

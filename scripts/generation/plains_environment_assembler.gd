@@ -2,7 +2,8 @@ class_name PlainsEnvironmentAssembler
 extends PlainsRegionAssembler
 
 func build(recorded: Dictionary, tuning: PlayerTuning) -> Dictionary:
-	if not is_inside_tree() or not modules.is_empty() or not PlainsEnvironmentPlan.validate_recorded(recorded,tuning):
+	var replay_ok := PlainsPlacePlan.validate_recorded(recorded,tuning) if recorded.get("version") == PlainsPlacePlan.VERSION else PlainsEnvironmentPlan.validate_recorded(recorded,tuning)
+	if not is_inside_tree() or not modules.is_empty() or not replay_ok:
 		return {"ok": false, "error": "Environment candidate failed exact source replay"}
 	manifest = recorded.duplicate(true)
 	var plan: Dictionary = manifest.environment_plan
