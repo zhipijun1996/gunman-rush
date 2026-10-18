@@ -98,6 +98,41 @@ def validate_pointer_and_map2(data):
         require(finite(frame.get('hp')) and 0<frame['hp']<=after['capacity'] and frame['hp']<=after['hp'],'Every map2 coast observation must be alive within captured entry health/capacity')
         require(frame.get('map')==after['map']==2 and frame.get('session')==after['session'] and vector(frame.get('position')) and type(frame.get('grounded')) is bool,'Every coast observation must belong to actual second-map actor with finite position')
 
+CANOPY_LAYOUT = 'shared-tree-canopy-hunt-v10'
+CANOPY_CONTENT = {'contract':'forest-queen-canopy-v3',
+                  'scene':'res://scenes/bosses/thorn_queen_canopy.tscn',
+                  'resource':'res://resources/bosses/thorn_queen_canopy.tres'}
+LEGACY_QUEEN_LAYOUTS = frozenset({'hollow-clearing-upper-thorn-candidate-v2',
+    'shared-tree-borer-final-approach-v4', 'shared-tree-directional-cavities-v7',
+    'shared-tree-living-detour-v9'})
+
+def validate_map2_boss_identity(manifest, *, allow_legacy=False):
+    """Version-bound identity only; does not admit Queen content or replay geometry."""
+    require(isinstance(manifest,dict), 'Typed map2 manifest required')
+    require(manifest.get('version')=='thorn-forest-region-v2'
+            and manifest.get('region')=='thorn_forest'
+            and type(manifest.get('map_index')) is int and manifest['map_index']==2,
+            'Exact forest version/region/map2 identity required')
+    contract=manifest.get('boss_contract')
+    require(isinstance(contract,dict) and contract.get('ok') is True,
+            'Actual successful typed Boss contract required')
+    if manifest.get('layout_version')==CANOPY_LAYOUT:
+        require(manifest.get('boss_content')==CANOPY_CONTENT,
+                'Exact current canopy contract/scene/resource declaration required')
+        require(contract.get('version')==CANOPY_CONTENT['contract']
+                and contract.get('boss_contract')==CANOPY_CONTENT['contract']
+                and contract.get('admission')=='candidate_whole_boss_pending',
+                'Exact canopy contract version and candidate admission required')
+    else:
+        require(allow_legacy and isinstance(manifest.get('layout_version'),str)
+                and manifest['layout_version'] in LEGACY_QUEEN_LAYOUTS,
+                'Unsupported Queen layout; no legacy fallback for unknown versions')
+        require('boss_content' not in manifest
+                and contract.get('version')=='forest-queen-weave-golden-v2'
+                and contract.get('boss_contract')=='queen-weave-region-experimental'
+                and contract.get('admission')=='experimental_whole_boss_pending',
+                'Exact historical weave contract and experimental admission required')
+
 def validate(data):
     assert data['scope']=='actual_DemoApp_v2_map1_route_Guardian_fullfight_pointer_reward_map2_entry'
     assert data['failures']==[] and len(data['checks'])>=20 and all(r['passed'] is True for r in data['checks'])
@@ -129,7 +164,7 @@ def validate(data):
     assert after['hp']==min(data['before_reward']['capacity'], data['before_reward']['hp']+data['reward_declaration']['heal'])
     manifest=data['map2_manifest']
     assert manifest['version']=='thorn-forest-region-v2' and manifest['map_index']==2 and manifest['seed']==data['seed']+'/thorn_forest/map_2'
-    assert manifest['boss_contract']['ok'] is True and manifest['boss_contract']['admission']=='experimental_whole_boss_pending'
+    validate_map2_boss_identity(manifest, allow_legacy=True)
     assert data['queen_whole_boss_admission'] is False and len(data['map2_normal_frames'])==30
     run=data['run_manifest'];assert data['run_manifest_compatible'] is True and run['schema_version']==2 and len(run['stages'])==2
     assert [s['stage_index'] for s in run['stages']]==[1,2] and [s['outputs']['region_map']['map_index'] for s in run['stages']]==[1,2]
@@ -263,8 +298,7 @@ def validate_canopy(data):
     route=data['route'];manifest=route['manifest']
     require(route['failures']==[] and len(route['completed'])==len(route['itinerary'])>0 and route['frames'],'Complete real App fast route required')
     require(all(row['motor_steps']==1 for row in route['frames']),'Every actual route observation requires one Motor step')
-    require(manifest['map_index']==2 and manifest['layout_version']=='shared-tree-canopy-hunt-v10','Unpinned latest canopy layout on map2 required')
-    require(manifest.get('boss_content')=={'contract':'forest-queen-canopy-v3','scene':'res://scenes/bosses/thorn_queen_canopy.tscn','resource':'res://resources/bosses/thorn_queen_canopy.tres'},'Exact current canopy contract/scene/resource declaration required')
+    validate_map2_boss_identity(manifest)
     initial=data['initial'];entry=data['after_entry'];geometry=data['geometry']
     require(initial['boss_hp']==24 and initial['active'] is False and initial['app_boss_started'] is False and initial['boss']['canopy_schema']==1,'Natural untouched current-schema Boss before actual connector')
     require(entry['active'] is True and entry['app_boss_started'] is True and entry['seal_closed'] is True and entry['boss_hp']==24,'Actual connector must trigger physical seal before damage')
