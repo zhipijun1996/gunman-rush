@@ -122,7 +122,8 @@ func _ready() -> void:
 	map.position=Vector2(1098,14)
 	map_layer.add_child(map)
 	if generated.has("regional_art_plan"):
-		var script := load("res://scripts/art/plains_regional_composer.gd") as Script
+		var joint := not (generated.regional_art_plan.get("joint_modules",[]) as Array).is_empty()
+		var script := load("res://scripts/art/plains_joint_recoil_composer.gd" if joint else "res://scripts/art/plains_regional_composer.gd") as Script
 		regional_art_renderer = script.new() as Node2D
 		add_child(regional_art_renderer)
 		regional_art_renderer.call("install",self,generated.regional_art_plan)
@@ -137,6 +138,16 @@ func get_regional_art_snapshot() -> Dictionary:
 	if is_instance_valid(regional_art_renderer):
 		art = regional_art_renderer.call("measured_nodes")
 	return {"ready":assembly_ok and not art.is_empty() and art.get("omitted",[]).is_empty() and art.get("installed_foundations_valid",false),"manifest_hash":generated.manifest.get("manifest_hash",""),"art_plan":generated.get("regional_art_plan",{}),"art":art,"production_pool":false,"actual_modules":assembler.modules.size() if assembler!=null else 0,"actual_enemies":enemies.size(),"actual_chests":chests.size(),"actual_boss":is_instance_valid(boss)}
+
+func get_joint_recoil_snapshot() -> Dictionary:
+	var result := get_regional_art_snapshot()
+	var collisions: Array = []
+	if assembler != null and assembler.has_method("joint_collision_snapshot"):
+		collisions = assembler.call("joint_collision_snapshot")
+	result["joint_collisions"] = collisions
+	result["joint_candidate"] = generated.manifest.get("joint_recoil_profile",false)
+	result["joint_ready"] = result.ready and result.joint_candidate and collisions.size() == 2 and result.art.get("joint_terrain",[]).size() == 2
+	return result
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)

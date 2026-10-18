@@ -83,6 +83,10 @@ var _reward_token: DemoToken
 func _ready() -> void:
 	plains_environment_candidate_requested = plains_environment_candidate_requested or "--plains-environment-candidate" in OS.get_cmdline_user_args()
 	plains_places_candidate_requested = plains_places_candidate_requested or "--plains-places-candidate" in OS.get_cmdline_user_args()
+	plains_joint_recoil_candidate_requested = plains_joint_recoil_candidate_requested or "--plains-joint-recoil-candidate" in OS.get_cmdline_user_args()
+	if plains_joint_recoil_candidate_requested:
+		plains_regional_art_candidate_requested = true
+		meta_persistence_enabled = false
 	if plains_places_candidate_requested: plains_environment_candidate_requested = true
 	if plains_environment_candidate_requested: meta_persistence_enabled = false
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -118,6 +122,7 @@ var p1_random_plains_requested := false # Ordinary generated map presentation on
 var plains_environment_candidate_requested := false
 var plains_places_candidate_requested := false
 var plains_regional_art_candidate_requested := false
+var plains_joint_recoil_candidate_requested := false
 var plains_environment_variant := "A"
 var plains_environment_mutation := ""
 var spatial_golden_requested := false
@@ -242,7 +247,7 @@ func _load_stage() -> void:
 	if plains_regional_art_candidate_requested:
 		var planner := load("res://scripts/generation/plains_region_art_plan.gd") as Script
 		var actual_seed := PlainsRegionCampaign.seed_for(director.seed,director.stage_index)
-		var candidate: Dictionary = planner.generate(actual_seed,controller.motor.tuning,"intro" if director.stage_index==1 else "advanced")
+		var candidate: Dictionary = planner.generate(actual_seed,controller.motor.tuning,"intro" if director.stage_index==1 else "advanced","",plains_joint_recoil_candidate_requested)
 		if not candidate.get("ok",false):
 			push_error(str(candidate.get("error","Regional art generation failed")))
 			abandon_run()

@@ -12,6 +12,7 @@ import os
 from pathlib import Path
 import re
 import selectors
+import struct
 import shutil
 import subprocess
 import sys
@@ -27,8 +28,9 @@ from level_design import ROOT, read, write, file_hash
 ENVIRONMENT_CAPTURE = "tools/plains_environment_capture.gd"
 PLACES_CAPTURE = "tools/plains_places_capture.gd"
 REGIONAL_CAPTURE = "tools/plains_regional_art_capture.gd"
+JOINT_RECOIL_CAPTURE = "tools/plains_joint_recoil_capture.gd"
 ENVIRONMENT_CAPTURES = (ENVIRONMENT_CAPTURE, PLACES_CAPTURE)
-CAPTURE_SCRIPTS = {"tools/spatial_golden_capture.gd", "tools/painted_formal_capture.gd", "tools/p1_random_capture.gd", REGIONAL_CAPTURE, *ENVIRONMENT_CAPTURES}
+CAPTURE_SCRIPTS = {"tools/spatial_golden_capture.gd", "tools/painted_formal_capture.gd", "tools/p1_random_capture.gd", REGIONAL_CAPTURE, JOINT_RECOIL_CAPTURE, *ENVIRONMENT_CAPTURES}
 VISUAL_SAMPLE_CATALOG = "res://resources/visual_development/candidate.json"
 VISUAL_SAMPLE_CATALOGS = (VISUAL_SAMPLE_CATALOG, "res://resources/visual_development/painted_terrain_candidate.json", "res://resources/visual_development/p1_candidate.json")
 
@@ -52,6 +54,8 @@ def capture_extension_sources(script):
         pending.append("tools/plains_places_preview.gd")
     if script == REGIONAL_CAPTURE:
         pending.append("tools/plains_regional_art_preview.gd")
+    if script == JOINT_RECOIL_CAPTURE:
+        pending.append("tools/plains_joint_recoil_preview.gd")
     result = {}
     while pending:
         relative_path = pending.pop()
@@ -138,7 +142,7 @@ def capture(seed, map_index, strategy, folder, max_ticks=6000, timeout=900,
     output, avi, movie = folder/'capture.json', folder/'gameplay.avi', folder/'gameplay.mp4'
     scratch_avi = None
     try:
-        if capture_script == REGIONAL_CAPTURE:
+        if capture_script in (REGIONAL_CAPTURE, JOINT_RECOIL_CAPTURE):
             # Full-region raw movies can exceed the workspace disk. Keep the
             # bounded producer destination unchanged and explicitly record the
             # unique system-temp backing file. Failed originals stay available.
@@ -478,7 +482,7 @@ def validate_native(data, report, log):
                 errors.append('capture extension absent from source guard')
     elif extension is not None or data.get('capture_extension_sources'):
         errors.append('unexpected capture extension')
-    if 'visual_sample' in report['request'] and script != REGIONAL_CAPTURE:
+    if 'visual_sample' in report['request'] and script not in (REGIONAL_CAPTURE, JOINT_RECOIL_CAPTURE):
         selected = report['request']['visual_sample']
         treatment = data.get('visual_sample_treatment', {})
         valid = isinstance(selected, str) and selected in ('', *VISUAL_SAMPLE_CATALOGS)
@@ -488,7 +492,7 @@ def validate_native(data, report, log):
         expected = report.get('source_before', {}).get(selected.removeprefix('res://')) if valid and selected else ''
         if treatment.get('catalog_sha256') != expected or (selected and not expected):
             errors.append('explicit visual sample catalog source mismatch')
-    if 'visual_layout' in report['request'] and script != REGIONAL_CAPTURE:
+    if 'visual_layout' in report['request'] and script not in (REGIONAL_CAPTURE, JOINT_RECOIL_CAPTURE):
         layout = report['request']['visual_layout']
         if layout not in ('', 'open-meadow') or data.get('visual_layout_treatment') != (layout or 'original'):
             errors.append('explicit visual layout treatment mismatch')
@@ -557,6 +561,8 @@ def validate_native(data, report, log):
     if script == REGIONAL_CAPTURE:
         errors.extend(validate_regional_observations(data))
         errors.extend(validate_regional_bindings(data,report))
+    if script == JOINT_RECOIL_CAPTURE:
+        errors.extend(validate_joint_recoil_observations(data, report))
     scope=data.get('captured_scope',{})
     for k in ('enemies_instantiated','enemy_attacks_enabled','enemy_contacts_enabled','production_rewards_enabled','production_camera_enabled'):
         if scope.get(k) is not True: errors.append('missing formal runtime/'+k)
@@ -570,6 +576,68 @@ def validate_native(data, report, log):
     if re.search(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script|ObjectDB.*leaked|resources? still in use at exit',log): errors.append('engine script error')
     if not level_formal.engine_log_matches(data.get('engine'),log): errors.append('engine identity mismatch')
     if data.get('route_reached') is not (data.get('outcome')=='route_target_reached'): errors.append('route outcome mismatch')
+    return errors
+
+
+
+def validate_joint_recoil_observations(data, report):
+    """One input-driven challenge in a full region; never whole-region admission."""
+    errors = []
+    request = report.get('request', {})
+    if request.get('visual_sample', '') or request.get('visual_layout', '') or data.get('joint_baseline') is not False:
+        errors.append('joint capture requires the actual opt-in candidate')
+    expected_cases = ['original_tutorial', 'actual_adjacent_entry', 'target_edge_forward',
+                      'actual_lower_neighbor_descent', 'actual_underbank_ferry_reverse',
+                      'actual_underbank_ferry_forward', 'actual_lower_neighbor_return', 'target_edge_return']
+    coverage = data.get('joint_coverage', {})
+    cases = coverage.get('cases', [])
+    if data.get('route_reached') and (coverage.get('complete') is not True or not isinstance(cases, list)
+            or [c.get('id') for c in cases if isinstance(c, dict)] != expected_cases
+            or not all(c.get('passed') is True and c.get('grounded') is True and c.get('recovery_count') == 0 for c in cases)):
+        errors.append('joint route lacks actual grounded forward/return cases')
+    for phase in ('initial', 'final'):
+        snap = data.get('joint_' + phase, {})
+        art = snap.get('art', {})
+        modules = snap.get('art_plan', {}).get('joint_modules', [])
+        collisions = snap.get('joint_collisions', [])
+        banks = art.get('joint_terrain', [])
+        if (snap.get('joint_ready') is not True or snap.get('production_pool') is not False
+                or len(modules) != 1 or len(collisions) != 2 or len(banks) != 2 or art.get('omitted') != []):
+            errors.append('joint actual complete banks/collision consumer missing/' + phase)
+        catalog = 'resources/visual_development/p1_joint_recoil_assets.json'
+        if not report.get('source_before', {}).get(catalog) or art.get('joint_catalog_sha256') != report.get('source_before', {}).get(catalog):
+            errors.append('joint actual catalog not source-bound/' + phase)
+        planned = modules[0].get('terrain_bodies', []) if len(modules) == 1 else []
+        if {b.get('source_role') for b in banks} != {'bank_left', 'bank_right'}:
+            errors.append('joint bank roles missing/duplicated/' + phase)
+        # Godot Vector2 stores float32: reproduce the actual local->world
+        # conversion, rather than compare its JSON to plan float64 arithmetic.
+        def f32(value):
+            return struct.unpack('f', struct.pack('f', value))[0]
+        offset = modules[0].get('offset', [0, 0]) if len(modules) == 1 else [0, 0]
+        expected_points = [[[f32(f32(v) + f32(o)) for v, o in zip(point, offset)]
+                            for point in bank.get('local_points', [])] for bank in planned]
+        actual_points = [[[f32(v) for v in point] for point in c.get('world_points', [])] for c in collisions]
+        if sorted(actual_points, key=str) != sorted(expected_points, key=str):
+            errors.append('joint actual collision differs from shared plan/' + phase)
+        if any(c.get('disabled') is not False or c.get('one_way') is not False or c.get('collision_layer') != 1 or c.get('build_mode') != 0 for c in collisions):
+            errors.append('joint solid bank collision disabled or altered/' + phase)
+        for collider in collisions:
+            originals = collider.get('replaced_slabs', [])
+            if (len(originals) != 3 or len({o.get('path') for o in originals}) != 3
+                    or any(o.get('disabled') is not True or o.get('one_way') is not False or not o.get('size') for o in originals)):
+                errors.append('joint original slabs not explicitly transferred to polygon ownership/' + phase)
+        for bank in banks:
+            source = bank.get('source', '').removeprefix('res://')
+            if (not source or bank.get('source_sha256') != report.get('source_before', {}).get(source)
+                    or not bank.get('actual_mesh_vertices') or not bank.get('actual_mesh_indices')
+                    or bank.get('collision_written') is not False):
+                errors.append('joint actual whole-bank mesh/source missing/' + phase)
+        if data.get('joint_decoration_collisions_' + phase) != []:
+            errors.append('joint decoration gained physical collision/' + phase)
+        avatar = data.get('joint_avatar_' + phase, {})
+        if avatar.get('selected_id') != 'p1_girl' or avatar.get('painted_owner_count') != 1 or avatar.get('gameplay_changed') is not False:
+            errors.append('joint actual avatar missing/duplicated/' + phase)
     return errors
 
 

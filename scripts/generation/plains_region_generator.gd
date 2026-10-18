@@ -9,6 +9,7 @@ const SAMPLE_DY := 700.0 # Formal macros use measured phrase intervals and terra
 const HALF := 200.0
 const ATTEMPTS := 4
 # A run pins content mode; legacy generation remains byte-identical.
+var joint_recoil_profile := false # Explicit one-challenge semantic experiment; normal maps unchanged.
 var regional_art_profile := "" # Candidate-only; empty preserves the exact formal map.
 var root_bell_mode := "legacy_v10" # Preserve the old generator API; DemoApp explicitly pins admitted content.
 
@@ -22,7 +23,7 @@ func generate(seed_value: String, tuning: PlayerTuning, sample := false, force_f
 	return verified_fallback(seed_value,tuning,difficulty)
 
 func verified_fallback(seed_value: String,tuning: PlayerTuning,difficulty := "advanced") -> Dictionary:
-	if regional_art_profile != "": return {"ok":false,"error":"Regional art profile has no separately verified fallback"}
+	if regional_art_profile != "" or joint_recoil_profile: return {"ok":false,"error":"Regional art profile has no separately verified fallback"}
 	var fallback := _candidate("region-woven_layers", false, "woven_layers", 0,difficulty)
 	fallback.seed = seed_value
 	fallback.fallback_id = "verified_exploration_region"
@@ -39,6 +40,7 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 	if difficulty=="intro" and not sample: cols=5
 	var prep_row := 1 if sample else topology.next_int(3)
 	var m := {"version": PlainsRootBellEncounterV3.CONTENT_VERSION if root_bell_mode == "v3" else PlainsRootBellEncounterV2.CONTENT_VERSION if root_bell_mode == "v2" else VERSION, "difficulty":difficulty, "player_tuning_hash":FileAccess.get_sha256("res://config/player_tuning.json"), "seed": seed_value, "region": "plains", "layout_id": "connected_region", "family": family, "attempt": attempt, "fallback_id": "", "sample": sample, "areas": [], "connections": [], "nodes": [], "rewards": [], "pickups": [], "enemies": [], "terminal_exits": [], "budget": {"ordinary_coins": 24, "medium": 2, "high": 1, "region_top": 1, "finite_hearts": 3,"cache_coin_limit":122,"cache_heart_limit":11,"cache_note_limit":8}, "streams": {"topology": "region_topology", "content": "region_content", "reward": "region_reward", "phases": "region_phases", "generation_seed": seed_value,"derivation_version":RNG_VERSION}}
+	if joint_recoil_profile: m.joint_recoil_profile=true
 	if regional_art_profile != "":
 		m.regional_art_profile=regional_art_profile
 		m.art_layout={"minimum_column_span":1400.0,"quiet_arrival_width":180.0,"maximum_phrase_width":2200.0,"support_depth_policy":"original_collision_supports_and_preserved_lower_route_voids"}
@@ -352,6 +354,14 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 	if not sample:
 		m.ground_supports = _regional_landmass_supports(m) if regional_art_profile=="continuous_plains_v1" else PlainsGroundSupports.region_plan(m)
 		if regional_art_profile=="continuous_plains_v1": m.art_layout.landmass_method="world_base_mass_minus_actual_lower_route_voids_v2"
+	if joint_recoil_profile and m.has("joint_recoil_target"):
+		var joint_node: Dictionary=m.nodes.filter(func(n:Dictionary)->bool:return n.id==m.joint_recoil_target)[0]
+		var context:=PlainsJointRecoilPlan.context_for_region(m,joint_node)
+		if context.ok:
+			joint_node.joint_recoil=PlainsJointRecoilPlan.build_local(context.context)
+			var joint:=PlainsJointRecoilPlan.instantiate(joint_node)
+			m.ground_supports=PlainsJointRecoilPlan.clip_supports(m.ground_supports,joint.cutout_rects)
+		else: m.joint_recoil_error=context.error
 	m.shot_latch_plan = PlainsShotLatchPlanner.recorded_plan(m)
 	m.stream_positions={"topology":topology.position(),"content":content.position(),"reward":reward.position()}
 	var shop_rng:=RunRandomStream.new(seed_value,"region_shop",str(attempt),RNG_VERSION)
@@ -667,7 +677,10 @@ func _add_existing(m: Dictionary, id: String, module_id: String, entry: Vector2)
 	for saw: ModuleSawDefinition in d.saws: phases.append({"id":str(saw.source_id),"phase":float(phase_stream.next_int(4))/4.0})
 	for ferry: ModuleMovingPlatformDefinition in d.ferries: phases.append({"id":str(ferry.platform_id),"phase":float(phase_stream.next_int(4))/4.0})
 	var offset := entry - Vector2(0, d.entry_port.position.y)
-	m.nodes.append({"id": id, "module_id": module_id, "offset": [offset.x,offset.y], "mirrored": false, "reverse_traversal": false, "initial_phases": phases, "definition_version":d.definition_version,"definition_hash":JSON.stringify(_definition_data(d),"",true).sha256_text()})
+	var node := {"id": id, "module_id": module_id, "offset": [offset.x,offset.y], "mirrored": false, "reverse_traversal": false, "initial_phases": phases, "definition_version":d.definition_version,"definition_hash":JSON.stringify(_definition_data(d),"",true).sha256_text()}
+	if joint_recoil_profile and module_id==PlainsJointRecoilPlan.MODULE_ID and not id.begins_with("tutorial") and not m.has("joint_recoil_target"):
+		m.joint_recoil_target=id
+	m.nodes.append(node)
 
 func _add_inline(m: Dictionary, id: String, p: Vector2, d: PlatformingModuleDefinition) -> void:
 	var slabs: Array = []
@@ -678,7 +691,7 @@ func _add_inline(m: Dictionary, id: String, p: Vector2, d: PlatformingModuleDefi
 
 static func definition(node: Dictionary) -> PlatformingModuleDefinition:
 	if not node.has("geometry"):
-		var authored := RandomStageGenerator.new().definition_for(str(node.module_id),false,false).duplicate(true) as PlatformingModuleDefinition
+		var authored := PlainsJointRecoilPlan.definition_from_spec(node.joint_recoil.semantic_source) if node.has("joint_recoil") else RandomStageGenerator.new().definition_for(str(node.module_id),false,false).duplicate(true) as PlatformingModuleDefinition
 		for phase: Dictionary in node.initial_phases:
 			for saw: ModuleSawDefinition in authored.saws:
 				if str(saw.source_id)==phase.id: saw.initial_phase=float(phase.phase)
@@ -802,11 +815,14 @@ func validate(m: Dictionary, tuning: PlayerTuning) -> bool:
 	# pass replay validation. Generation is bounded and each namespace is separate.
 	var previous_mode := root_bell_mode
 	var previous_art_profile := regional_art_profile
+	var previous_joint_profile := joint_recoil_profile
+	joint_recoil_profile = bool(m.get("joint_recoil_profile",false))
 	regional_art_profile = str(m.get("regional_art_profile",""))
 	root_bell_mode = "v3" if m.version == PlainsRootBellEncounterV3.CONTENT_VERSION else "v2" if m.version == PlainsRootBellEncounterV2.CONTENT_VERSION else "legacy_v10"
 	var expected := _candidate("region-woven_layers" if m.fallback_id != "" else str(m.seed),bool(m.get("sample",false)),str(m.family),int(m.attempt),str(m.get("difficulty","advanced")))
 	root_bell_mode = previous_mode
 	regional_art_profile = previous_art_profile
+	joint_recoil_profile = previous_joint_profile
 	if m.fallback_id != "":
 		expected.seed = m.seed
 		expected.fallback_id = m.fallback_id
