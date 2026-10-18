@@ -939,6 +939,48 @@
       "timeout_seconds": 60,
       "success_pattern": "^OK$",
       "weight_seconds": 3
+    },
+    "plains-regional-art-contract": {
+      "argv": [
+        "python3",
+        "tools/run_plains_regional_art_tests.py"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PLAINS REGIONAL ART SUITE: passed ",
+      "weight_seconds": 14,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "shaders",
+        "tests/plains_regional_art_plan_runner.gd",
+        "tools"
+      ],
+      "artifact_paths": [
+        "build/plains_regional_art/contract"
+      ]
+    },
+    "plains-regional-art-counterexamples": {
+      "argv": [
+        "python3",
+        "tests/plains_regional_art_capture_test.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 0.1
+    },
+    "plains-regional-art-graph-counterexamples": {
+      "argv": [
+        "python3",
+        "tests/plains_regional_art_graph_test.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 0.1
     }
   },
   "profiles": {
@@ -1215,6 +1257,12 @@
       "creative-direction",
       "creative-direction-tests",
       "forest-current-slice"
+    ],
+    "regional-art-feedback": [
+      "docs",
+      "plains-regional-art-counterexamples",
+      "plains-regional-art-graph-counterexamples",
+      "plains-regional-art-contract"
     ]
   }
 }

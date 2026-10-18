@@ -117,6 +117,7 @@ var avatar_selection_id := "courier" # Session appearance, never a save/stat/abi
 var p1_random_plains_requested := false # Ordinary generated map presentation only; no golden geometry.
 var plains_environment_candidate_requested := false
 var plains_places_candidate_requested := false
+var plains_regional_art_candidate_requested := false
 var plains_environment_variant := "A"
 var plains_environment_mutation := ""
 var spatial_golden_requested := false
@@ -137,7 +138,7 @@ var _shop_offer: ShopOffer
 var _shop_token: DemoToken
 
 func _explicit_plains_candidate() -> bool:
-	return spatial_golden_requested or plains_environment_candidate_requested
+	return spatial_golden_requested or plains_environment_candidate_requested or plains_regional_art_candidate_requested
 
 func start_plains(seed_value: String = "plains-run") -> bool:
 	return start_demo(seed_value, true)
@@ -146,7 +147,7 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 	if director.state != DemoRunDirector.State.HOME or seed_value.is_empty() or is_instance_valid(_lab) or is_instance_valid(_preview) or is_instance_valid(_foundry):
 		return false
 	if _explicit_plains_candidate(): meta_persistence_enabled = false
-	if plains_environment_candidate_requested:
+	if plains_environment_candidate_requested or plains_regional_art_candidate_requested:
 		region_map = true
 		# A candidate property set after home startup must also isolate its Meta service.
 		meta = MetaProgression.new()
@@ -238,7 +239,19 @@ func _load_stage() -> void:
 		_region_offer=null
 		_gold_claimed=false
 	var loading_token := lifetime.token()
-	if plains_environment_candidate_requested:
+	if plains_regional_art_candidate_requested:
+		var planner := load("res://scripts/generation/plains_region_art_plan.gd") as Script
+		var actual_seed := PlainsRegionCampaign.seed_for(director.seed,director.stage_index)
+		var candidate: Dictionary = planner.generate(actual_seed,controller.motor.tuning,"intro" if director.stage_index==1 else "advanced")
+		if not candidate.get("ok",false):
+			push_error(str(candidate.get("error","Regional art generation failed")))
+			abandon_run()
+			return
+		stage = PlainsRegionStage.new()
+		(stage as PlainsRegionStage).region_state = region_state
+		(stage as PlainsRegionStage).map_index = director.stage_index
+		(stage as GeneratedDemoStage).configure_generated(candidate,controller.motor.tuning)
+	elif plains_environment_candidate_requested:
 		var generator: Script = load("res://scripts/generation/plains_place_plan.gd") if plains_places_candidate_requested else load("res://scripts/generation/plains_environment_plan.gd")
 		var candidate: Dictionary = generator.generate(director.seed,controller.motor.tuning,plains_environment_variant,plains_environment_mutation)
 		if not candidate.ok:
@@ -298,7 +311,7 @@ func _load_stage() -> void:
 	if director.stage_index == 1:
 		if generated_plains:
 			if connected_region:
-				if not _explicit_plains_candidate() and not director.manifest.enable_plains_region((stage as GeneratedDemoStage).generated.stage_generator_version):
+				if (not _explicit_plains_candidate() or plains_regional_art_candidate_requested) and not director.manifest.enable_plains_region((stage as GeneratedDemoStage).generated.stage_generator_version):
 					_status = "UNSUPPORTED REGION CONTENT VERSION"
 					abandon_run()
 					return
@@ -347,6 +360,8 @@ func _load_stage() -> void:
 		_run_camera.region_composition = connected_region and not _explicit_plains_candidate()
 		if plains_environment_candidate_requested:
 			_run_camera.viewing_zoom = float(random_stage.generated.environment_plan.camera.zoom)
+		if plains_regional_art_candidate_requested:
+			_run_camera.viewing_zoom = 1.25
 		if spatial_golden_requested:
 			_run_camera.viewing_zoom = float(random_stage.generated.golden_manifest.camera.zoom)
 			_run_camera.dead_zone.y = float(random_stage.generated.golden_manifest.camera.dead_zone_y)
@@ -509,14 +524,14 @@ func _load_stage() -> void:
 	if director.stage_type_id == &"shop":
 		var initial_quote := shop.quote(_stage_id("shop_jump"))
 		director.manifest.record_output(director.stage_index, &"shop_stock", {"offer": String(initial_quote.offer_id), "item": String(initial_quote.item.stable_id), "price": initial_quote.price, "stock": initial_quote.stock, "quote_version": initial_quote.quote_version})
-	if connected_region and not _explicit_plains_candidate():
+	if connected_region and (not _explicit_plains_candidate() or plains_regional_art_candidate_requested):
 		var stock: Dictionary=(stage as PlainsRegionStage).generated.manifest.shop
 		shop.add_offer(_region_shop_id(),load("res://resources/items/%s.tres" % stock.item) as ItemDefinition,int(stock.price),int(stock.stock))
 		director.manifest.record_output(director.stage_index,&"region_map",{"version":PlainsRegionCampaign.VERSION,"map_index":director.stage_index,"seed":PlainsRegionCampaign.seed_for(director.seed,director.stage_index),"instance_prefix":PlainsRegionCampaign.prefix(director.stage_index),"boss_role":PlainsRegionCampaign.role(director.stage_index)})
-	if connected_region and not _explicit_plains_candidate():
+	if connected_region and (not _explicit_plains_candidate() or plains_regional_art_candidate_requested):
 		var boss_definition: BossDefinition=(stage.boss.get_node("Encounter") as BossEncounter).definition
 		director.manifest.record_output(director.stage_index,&"boss_layout",{"id":String(boss_definition.stable_id),"version":boss_definition.definition_version,"health":boss_definition.health_definition.max_health})
-	_status = "风铃平原 / DEVELOPMENT ENVIRONMENT CANDIDATE" if plains_environment_candidate_requested else "逆风送钟 / Jump and aim back to cross" if spatial_golden_requested else "Explore freely / gold flags lead to Windkeeper / no enemy-clear requirement" if connected_region else "Room %s: %s. Reach markers and use Interact." % [director.stage_index, director.stage_type_id]
+	_status = "风铃平原 / FULL REGION ART CANDIDATE" if plains_regional_art_candidate_requested else "风铃平原 / DEVELOPMENT ENVIRONMENT CANDIDATE" if plains_environment_candidate_requested else "逆风送钟 / Jump and aim back to cross" if spatial_golden_requested else "Explore freely / gold flags lead to Windkeeper / no enemy-clear requirement" if connected_region else "Room %s: %s. Reach markers and use Interact." % [director.stage_index, director.stage_type_id]
 	_shown_actions = ""
 	_stage_pending = false
 

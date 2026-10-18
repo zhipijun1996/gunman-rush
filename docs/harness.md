@@ -70,3 +70,5 @@ python3 tools/harness.py --mission build/level_design_v2/forest-mission.json
 ```
 
 mission默认只规划；`--execute`才调用现有生产循环。诊断候选不是趣味评分，设计fixture不是正式森林，合屏/录像/真机/玩家认可另行留证。
+
+整区平原候选的短反馈入口为 `python3 tools/harness.py --profile regional-art-feedback`，复用docs与原检查调度，运行实际整区生成/默认Manifest对PR85原件比较、无标签图同构及伪造覆盖反例。真实电影仍走原`visual_director.py capture`和新增regional适配器；完整源码、正常输入、伤害/HP、清理退出门槛保留。长电影临时AVI允许保存在明确唯一的系统临时目录，经原始SHA验证后成功清理，失败保留；MP4/日志/回执仍在build。当前仅技术候选，艺术失败见[实录](evidence/plains_regional/recipe.md)。

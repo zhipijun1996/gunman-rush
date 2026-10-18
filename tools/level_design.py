@@ -378,7 +378,10 @@ def route_request(request, mode=None, phase="auto", direction=None, spatial_expe
              "tests/plains_environment_trace.gd", "docs/quality/records/",
              "tools/plains_places_preview.gd", "tools/plains_places_capture.gd",
              "tests/plains_places_trace.gd", "tests/plains_places_plan_runner.gd",
-             "docs/evidence/plains_places/", "docs/tasks.md"])
+             "tools/plains_regional_art_preview.gd", "tools/plains_regional_art_capture.gd",
+             "tools/plains_regional_art_overview.gd", "tools/plains_regional_art_map.py",
+             "tests/plains_regional_art_trace.gd", "tests/plains_regional_art_plan_runner.gd",
+             "docs/evidence/plains_regional/", "docs/evidence/plains_places/", "docs/tasks.md"])
         _, binding = load_direction("docs/creative_direction/windchime_plains.json", region_id)
         plan["native_import_preflight"] = True
         plan["context_mode"] = "compact"
