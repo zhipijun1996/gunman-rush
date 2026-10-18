@@ -1,0 +1,36 @@
+{
+  "source_commit": "3188a5a088d1fdb2989ae0a3d439b24c2a536cb0",
+  "actual_capture_sha256": "4e61edc90cb7645c7c10232f6d2424dac840335ea971b2638a788c1e5c205889",
+  "actual_valid": true,
+  "negative_cases": [
+    {
+      "tamper": "collision_1px_mismatch",
+      "rejected": true,
+      "observed_errors": [
+        "joint actual collision differs from shared plan/initial"
+      ]
+    },
+    {
+      "tamper": "solid_changed_to_one_way",
+      "rejected": true,
+      "observed_errors": [
+        "joint solid bank collision disabled or altered/initial"
+      ]
+    },
+    {
+      "tamper": "decoration_collision",
+      "rejected": true,
+      "observed_errors": [
+        "joint decoration gained physical collision/initial"
+      ]
+    },
+    {
+      "tamper": "missing_actual_ferry_return",
+      "rejected": true,
+      "observed_errors": [
+        "joint route lacks actual grounded forward/return cases"
+      ]
+    }
+  ],
+  "scope": "Actual observer contract only; not visual beauty or whole-region acceptance."
+}

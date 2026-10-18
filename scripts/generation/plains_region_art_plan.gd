@@ -3,18 +3,20 @@ extends RefCounted
 ## Candidate-only companion to the actual complete formal region Manifest.
 ## Physics, content, resources and replay remain owned by the formal generator.
 const VERSION := "plains-regional-art-v2"
+const JOINT_VERSION := "plains-regional-art-v3-joint-recoil"
 const ASSET_CATALOG := "res://resources/visual_development/p1_regional_assets.json"
 const ATTEMPTS := 4
 const MAX_WORLD_WIDTH := 22000.0
 const MAX_WORLD_HEIGHT := 6500.0
 const MIN_SURFACE_WIDTH := 20.0
 
-static func generate(seed_value: String, tuning: PlayerTuning, difficulty := "intro", force_family := "") -> Dictionary:
+static func generate(seed_value: String, tuning: PlayerTuning, difficulty := "intro", force_family := "", joint_recoil_profile := false) -> Dictionary:
 	if seed_value.is_empty() or difficulty not in ["intro","advanced"]:
 		return {"ok":false,"error":"Invalid regional art generation input","rejections":[]}
 	var generator := PlainsRegionGenerator.new()
 	generator.root_bell_mode = "v3"
 	generator.regional_art_profile = "continuous_plains_v1"
+	generator.joint_recoil_profile = joint_recoil_profile
 	var rejections: Array = []
 	for attempt: int in ATTEMPTS:
 		# Reuse the formal topology, semantic routes, recipe allocator, geometry,
@@ -45,6 +47,22 @@ static func compile(manifest: Dictionary) -> Dictionary:
 		if width>2200.0: return {"ok":false,"error":"Horizontal phrase exceeds source expression width budget"}
 	if manifest.art_layout.get("landmass_budget_failed",false) or manifest.ground_supports.size()>600:
 		return {"ok":false,"error":"Continuous landmass carve exceeds bounded support projection budget"}
+	if manifest.has("joint_recoil_error"): return {"ok":false,"error":manifest.joint_recoil_error}
+	var joint_modules: Array=[]
+	if manifest.get("joint_recoil_profile",false):
+		for node: Dictionary in manifest.nodes:
+			if node.has("joint_recoil"):
+				if not PlainsJointRecoilPlan.errors(node.joint_recoil).is_empty(): return {"ok":false,"error":"Joint recoil semantic source drift"}
+				joint_modules.append(PlainsJointRecoilPlan.instantiate(node))
+		if joint_modules.size()!=1 or str(joint_modules[0].node_id).begins_with("tutorial"): return {"ok":false,"error":"Joint experiment requires exactly one actual non-tutorial recoil challenge"}
+		for joint: Dictionary in joint_modules:
+			for body: Dictionary in joint.terrain_bodies:
+				var polygon:=PackedVector2Array()
+				for point: Array in body.points: polygon.append(_point(point))
+				for space: Dictionary in joint.region_context.get("protected_actual_airspace",[]):
+					var r:=_rect(space.rect)
+					var obstacle:=PackedVector2Array([r.position,Vector2(r.end.x,r.position.y),r.end,Vector2(r.position.x,r.end.y)])
+					if not Geometry2D.intersect_polygons(polygon,obstacle).is_empty(): return {"ok":false,"error":"Joint receiving source intersects actual protected movement: "+str(space.owner)}
 	var values: Array = manifest.get("world_bounds",[])
 	if values.size()!=4: return {"ok":false,"error":"Missing formal full-region bounds"}
 	var bounds := _rect(values)
@@ -53,6 +71,7 @@ static func compile(manifest: Dictionary) -> Dictionary:
 	var solids: Array = []
 	var one_way: Array = []
 	var keep_clear: Array = []
+	for joint: Dictionary in joint_modules: keep_clear.append_array(joint.keep_clear.duplicate(true))
 	var dynamic_surfaces: Array = []
 	for space: Dictionary in manifest.get("art_layout",{}).get("protected_airspaces",[]): keep_clear.append(space.duplicate(true))
 	for node: Dictionary in manifest.nodes:
@@ -127,7 +146,8 @@ static func compile(manifest: Dictionary) -> Dictionary:
 			landmarks.append(attachment)
 	var belts := _global_belts(manifest,bounds)
 	var topology := {"family":manifest.family,"recipe":manifest.topology.recipe,"areas":manifest.areas.duplicate(true),"connections":manifest.connections.duplicate(true),"cycle_count":manifest.connections.size()-manifest.areas.size()+1,"semantic_routes":manifest.topology.semantic_routes.duplicate(true),"signature":topology_signature(manifest)}
-	var plan := {"version":VERSION,"schema_version":1,"seed":manifest.seed,"manifest_hash":manifest.manifest_hash,"production_pool":false,"layout_source":"formal_full_region","assets_catalog":ASSET_CATALOG,"assets_catalog_sha256":asset_result.catalog_sha256,"bounds":values.duplicate(),"topology":topology,"solids":solids,"one_way_platforms":one_way,"terrain_edges":contours,"geological_bodies":geological_bodies,"surfaces":surfaces,"dynamic_surfaces":dynamic_surfaces,"keep_clear":keep_clear,"places":places,"landmarks":landmarks,"layer_belts":belts,"global_art":{"world_origin":[0.0,0.0],"light_direction":[-0.7,-0.5],"wind_direction":[-1.0,0.0],"material_coordinate_space":"world","camera_reference":"one_continuous_player_camera","background_policy":"global_belts_not_per_place_reset"},"metrics":{"source_solid_rectangles":solids.size(),"exposed_contour_edges":contours.size(),"actual_surfaces":surfaces.size(),"continuous_bodies":geological_bodies.size(),"union_area":actual_area,"places":places.size(),"landmarks":landmarks.size()}}
+	var plan := {"version":JOINT_VERSION if not joint_modules.is_empty() else VERSION,"schema_version":1,"seed":manifest.seed,"manifest_hash":manifest.manifest_hash,"production_pool":false,"layout_source":"formal_full_region","assets_catalog":ASSET_CATALOG,"assets_catalog_sha256":asset_result.catalog_sha256,"bounds":values.duplicate(),"topology":topology,"solids":solids,"one_way_platforms":one_way,"terrain_edges":contours,"geological_bodies":geological_bodies,"surfaces":surfaces,"dynamic_surfaces":dynamic_surfaces,"keep_clear":keep_clear,"places":places,"landmarks":landmarks,"layer_belts":belts,"global_art":{"world_origin":[0.0,0.0],"light_direction":[-0.7,-0.5],"wind_direction":[-1.0,0.0],"material_coordinate_space":"world","camera_reference":"one_continuous_player_camera","background_policy":"global_belts_not_per_place_reset"},"metrics":{"source_solid_rectangles":solids.size(),"exposed_contour_edges":contours.size(),"actual_surfaces":surfaces.size(),"continuous_bodies":geological_bodies.size(),"union_area":actual_area,"places":places.size(),"landmarks":landmarks.size()}}
+	if not joint_modules.is_empty(): plan.joint_modules=joint_modules
 	plan.plan_hash = plan_hash(plan)
 	return {"ok":true,"plan":plan}
 
@@ -212,15 +232,18 @@ static func landmark_support_errors(landmark: Dictionary, surfaces: Array) -> Ar
 static func plan_hash(plan: Dictionary) -> String:
 	var source := plan.duplicate(true)
 	source.erase("plan_hash")
+	if source.get("version")==JOINT_VERSION: source=RandomStageGenerator.new()._canonical(source)
 	return JSON.stringify(source,"",true).sha256_text()
 
 static func validate_recorded(plan: Dictionary, manifest: Dictionary) -> bool:
-	if plan.get("version")!=VERSION or plan.get("manifest_hash")!=manifest.get("manifest_hash") or plan.get("plan_hash")!=plan_hash(plan): return false
+	if plan.get("version") not in [VERSION,JOINT_VERSION] or plan.get("manifest_hash")!=manifest.get("manifest_hash") or plan.get("plan_hash")!=plan_hash(plan): return false
 	var rebuilt := compile(manifest)
 	if not rebuilt.ok: return false
 	var a: Dictionary = plan.duplicate(true)
 	var b: Dictionary = rebuilt.plan.duplicate(true)
 	a.erase("generation");a.erase("plan_hash");b.erase("plan_hash")
+	if plan.get("version")==JOINT_VERSION:
+		a=RandomStageGenerator.new()._canonical(a);b=RandomStageGenerator.new()._canonical(b)
 	return JSON.stringify(a,"",true)==JSON.stringify(b,"",true)
 
 static func topology_signature(manifest: Dictionary) -> String:
