@@ -1281,6 +1281,38 @@
       "artifact_paths": [
         "build/forest_depth/ecology"
       ]
+    },
+    "forest-depth-queen-canopy": {
+      "argv": [
+        "python3",
+        "tools/run_thorn_queen_canopy.py",
+        "--case",
+        "all",
+        "--output-dir",
+        "build/forest_depth/queen/harness-canopy/harness-{check_token}"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 40,
+      "artifact_paths": [
+        "build/forest_depth/queen"
+      ]
+    },
+    "forest-depth-campaign-canopy": {
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_campaign_boss.py",
+        "--boss",
+        "canopy",
+        "--output-dir",
+        "build/forest_depth/campaign/harness-canopy/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 35,
+      "artifact_paths": [
+        "build/forest_depth/campaign"
+      ]
     }
   },
   "profiles": {
@@ -1404,7 +1436,9 @@
       "forest-depth-campaign-queen",
       "forest-depth-ecology-expedition",
       "forest-depth-root-entry",
-      "forest-depth-crossbranch-lifecycle"
+      "forest-depth-crossbranch-lifecycle",
+      "forest-depth-queen-canopy",
+      "forest-depth-campaign-canopy"
     ],
     "art": [
       "docs",
@@ -1571,7 +1605,9 @@
       "forest-depth-campaign-queen",
       "forest-depth-ecology-expedition",
       "forest-depth-root-entry",
-      "forest-depth-crossbranch-lifecycle"
+      "forest-depth-crossbranch-lifecycle",
+      "forest-depth-queen-canopy",
+      "forest-depth-campaign-canopy"
     ]
   }
 }

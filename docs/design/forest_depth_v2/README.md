@@ -1,5 +1,7 @@
 # FOREST-DEPTH-02：织隙换位的森林
 
+最新工作源覆盖（2026-10-18）：默认布局为 `shared-tree-canopy-hunt-v10`，继承v9真实R／W入口、可选D活锚异口环路和N回程；第二Boss替换为独立 `forest-queen-canopy-v3`。下文Queen36/Def6/schema13仅历史候选，不是当前新女王。新战斗以持续实体巡视、留结或剪网、根据真实落岸选择危险区为语法，已实际满血比较三种打法并录制两段正常影片；正式App/save与独评仍在收尾，不签整体品质。旧V7／V9完整Manifest、原哈希与旧Boss资源按版本保存；新内容不重写历史存档。
+
 最新工作实现为 `shared-tree-living-detour-v9`：真实根口入口与西岸活锚奖励回环改变发现／返回关系。正式NPC生命周期和正常探索片已通过[13／14限定验证](../../evidence/forest_depth_v2/ecology/formal_crossbranch13_14/README.md)，[R入口另一条真实路线](../../evidence/forest_depth_v2/root_entry01/README.md)也已走通。它们支持可选运动和路径表达，尚不支持整区随机丰富度或H占核心。最新推荐N回程未采，最终矩阵未跑。
 
 Queen空中换向04仅两次真实武器命中黄金，第二枪落地前仅1帧；仍需强普通持续输出、全路径安全站位和恢复对照。主Queen依然旧S，原整体REVISE继续生效。下述旧版本数字限各自冻结源。

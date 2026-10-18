@@ -1,0 +1,53 @@
+"""Build-only normal60fps GL observation of one immutable Queen whole-fight scenario."""
+from pathlib import Path
+import argparse,fcntl,hashlib,json,os,re,selectors,subprocess,sys,time
+R=Path('/workspace/gunman-rush-design');p=argparse.ArgumentParser();p.add_argument('--case',choices=['purpose','ordinary_keep'],required=True);p.add_argument('--output-dir',required=True);a=p.parse_args()
+S=R/'build/forest_depth/snapshots/queen-canopy-v3-02';O=(R/a.output_dir).resolve();assert O.is_relative_to(R/'build/forest_depth/queen');assert __import__('shutil').disk_usage(R).free>=700*1024**2,'At least700MiB free required before native/movie';O.mkdir(exist_ok=False,parents=True)
+sys.path.insert(0,str(S/'tools'));import level_formal,run_thorn_queen_canopy
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+env={**os.environ,'GUNMAN_TOOLCHAIN_ROOT':'/workspace/toolchains','GUNMAN_DATA_HOME':str(O/'userdata'),'XDG_CONFIG_HOME':str(O/'userconfig'),'XDG_CACHE_HOME':str(O/'usercache'),'LIBGL_ALWAYS_SOFTWARE':'1','LP_NUM_THREADS':'1','OMP_NUM_THREADS':'1'}
+r={'snapshot':str(S),'case':a.case,'scope':'Normal complete canopy-v3/schema1 24HP purpose or strongest ordinary keep, same frozen02 content/input; not player/device/audio acceptance','producer_sha256':sha(Path(__file__)),'source_before':level_formal.source_files(),'runner_sha256':sha(S/'tests/thorn_queen_canopy_runner.gd'),'native_budget_seconds':60,'budget_contract_change':'Root explicitly authorized purpose then ordinary_keep, single60s softwareGL cap each; original nativeCLI120 unchanged; old45 failures preserved; snapshot02 cache reused','status':'running'}
+snapshot_sources=json.loads((S/'build/snapshot-receipt.json').read_text())['source_files']
+def current_snapshot_hashes():return {p:sha(S/p) for p in snapshot_sources}
+r['all_snapshot_source_before']=current_snapshot_hashes();assert r['all_snapshot_source_before']==snapshot_sources
+def save():(O/'receipt.json').write_text(json.dumps(r,indent=2)+'\n')
+save()
+try:
+ with (R/'build/verification/engine.lock').open('a') as lock:
+  fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+  with (O/'display.log').open('wb') as log:
+   display=subprocess.Popen(['/workspace/toolchains/xvfb/usr/bin/Xvfb','-displayfd','1','-screen','0','1280x720x24','-nolisten','tcp','-ac'],stdout=subprocess.PIPE,stderr=log)
+   try:
+    with selectors.DefaultSelector() as selector:
+     selector.register(display.stdout,selectors.EVENT_READ);assert selector.select(15)
+     number=display.stdout.readline().decode().strip();assert number.isdigit()
+    env['DISPLAY']=':'+number
+    argv=['bash','tools/godot.sh','--rendering-method','gl_compatibility','--audio-driver','Dummy','--fixed-fps','60','--write-movie',str(O/'gameplay.avi'),'--path','.','--script','tests/thorn_queen_canopy_runner.gd','--','--case='+a.case,'--output-dir='+str(O)]
+    r['argv']=argv;save();t=time.monotonic()
+    with (O/'native.log').open('w') as log:result=subprocess.run(argv,cwd=S,env=env,stdout=log,stderr=subprocess.STDOUT,timeout=60)
+    r.update(native_exit_code=result.returncode,native_seconds=time.monotonic()-t)
+   finally:
+    display.terminate();display.wait(timeout=5);display.stdout.close()
+  r['all_snapshot_source_after']=current_snapshot_hashes();r['all_snapshot_source_guard']=r['all_snapshot_source_before']==r['all_snapshot_source_after'];assert r['all_snapshot_source_guard']
+  r['source_after']=level_formal.source_files();r['source_guard']=r['source_before']==r['source_after'];r['runner_guard']=r['runner_sha256']==sha(S/'tests/thorn_queen_canopy_runner.gd')
+  text=(O/'native.log').read_text();assert result.returncode==0 and r['source_guard'] and r['runner_guard']
+  assert 'OpenGL API' in text and re.search(r'^CANOPY QUEEN GOLDEN: [1-9]\d* assertions, 0 failures$',text,re.M)
+  assert not re.search(r'(^|\n)(?:SCRIPT )?ERROR:|Parse Error:|ObjectDB.*leaked|resources? still in use at exit',text)
+  d=json.loads((O/'capture.json').read_text());run_thorn_queen_canopy.validate(d,a.case);assert len(d['cases'])==1
+  c=d['cases'][0];assert c['initial_boss_hp']==24 and c['initial_player_hp']==5 and c['boss_hp']==0 and c['player_hp']>0 and c['support12']>=12;r['actual_case']=c
+  if a.case=='purpose':
+   assert c['high_attempted'] and c['receiver_attempted'] and c['receiver_field']['health']==0
+  else:
+   assert c['shore_arrived'] and c['shore_departure_tick']>c['shore_lock_tick'] and c['shore_crossing_R']>0
+  probe=json.loads(subprocess.check_output(['ffprobe','-v','error','-count_frames','-show_streams','-show_format','-of','json',str(O/'gameplay.avi')]))
+  video=next(x for x in probe['streams'] if x['codec_type']=='video');n,den=map(int,video['avg_frame_rate'].split('/'));assert n/den==60 and video['width']==1280 and video['height']==720
+  total=int(video['nb_read_frames']);r.update(movie_frames=total,movie_fps=60,movie_seconds=total/60,ffprobe=probe)
+  indices=sorted(set(range(0,total,30))|{total-1});filt='select='+'+'.join('eq(n\\,%d)'%i for i in indices)
+  subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-i',str(O/'gameplay.avi'),'-vf',filt,'-vsync','vfr',str(O/'frame-%02d.png')],check=True,timeout=45)
+  keyframes=[{'image':'frame-%02d.png'%(i+1),'video_frame':n,'video_seconds':n/60,'physics_tick':None,'note':'Read actual tick caption; no producer frame-to-physics mapping claimed','sha256':sha(O/('frame-%02d.png'%(i+1)))} for i,n in enumerate(indices)]
+  (O/'keyframe-index.json').write_text(json.dumps({'movie_fps':60,'frames':keyframes},indent=2)+'\n')
+  subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-i',str(O/'gameplay.avi'),'-c:v','libx264','-threads','1','-preset','veryfast','-crf','20','-pix_fmt','yuv420p','-c:a','aac','-movflags','+faststart',str(O/'gameplay.mp4')],check=True,timeout=45)
+  r['hashes']={x.name:sha(x) for x in [O/'gameplay.avi',O/'gameplay.mp4',O/'capture.json',O/'native.log',O/'keyframe-index.json']};r['status']='passed same-source complete normal GL observation, value review pending';save()
+except BaseException as e:r['status']='failed';r['failure']=repr(e);raise
+finally:save()
+print('QUEEN COMPLETE GL:',a.case,r['movie_frames'],r['movie_seconds'])

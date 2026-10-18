@@ -1,0 +1,49 @@
+{
+  "reader_sha256": "97522ac81a957ce5c05904d97b0f54ad38b1443147cb34848b4408df56ea16ad",
+  "baseline_accepted": true,
+  "actual_input": {
+    "action": "shoot_release",
+    "case": "actual_app_canopy",
+    "direction": [
+      -0.293051511049271,
+      0.956096708774567
+    ],
+    "event": "actual_queued_input",
+    "motor_id": 156497873165,
+    "physics_frame": 777,
+    "segment": "before_reload",
+    "session": 2,
+    "tick": 151
+  },
+  "actual_shot": {
+    "aim": [
+      -0.293051511049271,
+      0.956096708774567
+    ],
+    "case": "actual_app_canopy",
+    "event": "accepted_shot",
+    "motor_id": 156497873165,
+    "physics_frame": 777,
+    "segment": "before_reload",
+    "serial": 3,
+    "session": 2,
+    "tick": 151
+  },
+  "mutants": [
+    {
+      "case": "Router_wrong_motor",
+      "accepted": true,
+      "error": null
+    },
+    {
+      "case": "Router_wrong_physics_frame",
+      "accepted": true,
+      "error": null
+    },
+    {
+      "case": "after_resume_inactive",
+      "accepted": true,
+      "error": null
+    }
+  ]
+}

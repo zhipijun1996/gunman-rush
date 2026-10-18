@@ -219,17 +219,140 @@ def validate_queen(data):
     require(outputs['reward_claim']['item']=='forest_heart_gold' and outputs['core_ability_reward']['ability']=='double_jump','Actual manifest must record independent GOLD and core reward receipts')
     require(home['state']==0 and home['wallet']==0 and home['items']==[] and home['abilities']==[],'Actual boundary must return HOME and clear this run')
 
+def validate_canopy_policy_ledger(data):
+    """Actual input/actor ownership and per-commit health; usable on failed lifecycle receipts too."""
+    fight=data['combat'];frames=fight['frames'];events=fight['events'];initial=data['initial']
+    by_frame={(row['segment'],row['physics_frame']):row for row in frames}
+    require(len(by_frame)==len(frames),'Unique actual segment/physics observations required')
+    shots=[row for row in events if row.get('event')=='accepted_shot'];keys=set()
+    for shot in shots:
+        key=(shot['motor_id'],shot['session'],shot['serial'])
+        require(key not in keys,'Unique actual accepted shot owner/session/serial');keys.add(key)
+        owner=by_frame.get((shot['segment'],shot['physics_frame']))
+        require(owner is not None and shot['motor_id']==owner['player_instance'] and shot['session']==owner['session'],'Accepted gun must bind to the actual sampled actor/session at that Engine frame')
+    results=[row for row in events if row.get('event')=='policy_result']
+    for result in results:
+        owner=by_frame.get((result['segment'],result['physics_frame']))
+        require(owner is not None and result['actor_epoch']==owner['actor_epoch'],'Every Policy commit requires its actual segment/physics frame and actor epoch')
+        require(finite(result['amount']) and result['amount']>0 and finite(result['hp']) and result['hp']>=0 and type(result['lethal']) is bool,'Finite positive Policy amounts and typed actual health/lethality required')
+        health_key='boss_health_epoch' if result['target']=='boss' else 'player_health_epoch' if result['target']=='player' else None
+        if health_key is not None and health_key in owner:
+            require(result['health_epoch']==owner[health_key],'Policy result must bind to its actual target HealthState epoch')
+        if result['target']=='boss':
+            parts=result['event_id'].split(':')
+            require(len(parts)==3 and all(part.isdigit() for part in parts) and tuple(map(int,parts)) in keys and result['source']=='player_projectile:'+parts[0],'Normal Boss commit source owner must exactly match its accepted projectile actor/session/serial')
+            require(int(parts[0])==owner['player_instance'] and int(parts[1])==owner['session'],'Boss commit projectile must belong to its current sampled actor/session, never a cancelled pre-reload shot')
+    for target,start,final_key in [('boss',24,'boss_hp'),('player',initial['player_hp'],'player_hp')]:
+        rows=[row for row in results if row.get('target')==target]
+        require(len({row['event_id'] for row in rows})==len(rows),'Unique actual target damage identities required')
+        hp=start
+        for row in rows:
+            hp=max(0,hp-row['amount'])
+            require(close(row['hp'],hp) and row['lethal'] is (hp==0),'Every '+target+' commit must reconcile actual ordered HP/lethality')
+        require(close(fight['final'][final_key],hp),'Final '+target+' health must match each actual commit')
+        for frame in frames:
+            expected=max(0,start-sum(row['amount'] for row in rows if row['physics_frame']<=frame['physics_frame']))
+            require(close(frame[final_key],expected),'Every '+target+' frame must reconcile actual commit time')
+
+def validate_canopy(data):
+    """Current default canopy only; independent of both frozen legacy consumers."""
+    require(data.get('scope')=='actual_current_default_canopy_App_route_pause_freshload_fullfight_pointer_boundary','Actual default canopy App scope required')
+    require(data.get('failures')==[] and data.get('checks') and all(row.get('passed') is True for row in data['checks']),'All actual canopy App assertions must pass')
+    require(data.get('manual_motor_step') is False and data.get('position_health_phase_resource_injection') is False and data.get('world_constructor_called') is False,'No fixture construction, injection or manual Motor stepping')
+    validate_canopy_policy_ledger(data)
+    route=data['route'];manifest=route['manifest']
+    require(route['failures']==[] and len(route['completed'])==len(route['itinerary'])>0 and route['frames'],'Complete real App fast route required')
+    require(all(row['motor_steps']==1 for row in route['frames']),'Every actual route observation requires one Motor step')
+    require(manifest['map_index']==2 and manifest['layout_version']=='shared-tree-canopy-hunt-v10','Unpinned latest canopy layout on map2 required')
+    require(manifest.get('boss_content')=={'contract':'forest-queen-canopy-v3','scene':'res://scenes/bosses/thorn_queen_canopy.tscn','resource':'res://resources/bosses/thorn_queen_canopy.tres'},'Exact current canopy contract/scene/resource declaration required')
+    initial=data['initial'];entry=data['after_entry'];geometry=data['geometry']
+    require(initial['boss_hp']==24 and initial['active'] is False and initial['app_boss_started'] is False and initial['boss']['canopy_schema']==1,'Natural untouched current-schema Boss before actual connector')
+    require(entry['active'] is True and entry['app_boss_started'] is True and entry['seal_closed'] is True and entry['boss_hp']==24,'Actual connector must trigger physical seal before damage')
+    fight=data['combat'];frames=fight['frames'];events=fight['events'];final=fight['final'];start=fight['initial']
+    require(fight['reloaded'] is True and fight['defeats']==1 and final['boss_hp']==0 and final['player_hp']>0,'Real midfight reload and unique24HP defeat required')
+    require(frames and all(row['motor_steps']==1 and row['actual_time_scale']==1 and vector(row['player']) and finite(row['player_hp']) and row['player_hp']>0 for row in frames),'Every actual observation requires live finite state, natural time and one Motor step')
+    require({row['segment'] for row in frames}=={'before_reload','after_reload'} and {row['stage_phase'] for row in frames}>={1,2,3},'Both real reload segments and all earned network phases required')
+    for segment in ['before_reload','after_reload']:
+        rows=[row for row in frames if row['segment']==segment]
+        require(rows and all(b['physics_frame']==a['physics_frame']+1 for a,b in zip(rows,rows[1:])),'No missing observed Motor frames inside each uninterrupted ownership segment')
+    inputs=[row for row in events if row.get('event')=='actual_queued_input']
+    shots=[row for row in events if row.get('event')=='accepted_shot']
+    require(inputs and shots,'Actual Router and accepted shot ledgers required')
+    keys=set()
+    for shot in shots:
+        key=(shot['motor_id'],shot['session'],shot['serial'])
+        require(key not in keys,'Unique accepted actor/session/serial required');keys.add(key)
+        require(any(row['action']=='shoot_release' and row['motor_id']==shot['motor_id'] and row['physics_frame']==shot['physics_frame'] and row['session']==shot['session'] and row['tick']==shot['tick'] and row['segment']==shot['segment'] and same_aim(row['direction'],shot['aim']) for row in inputs),'Each accepted gun requires its real same-session Router request and aim')
+    require(any(row['action']=='grapple' for row in inputs) and any(row.get('event')=='actual_hook_target_contact' and row.get('target_id',0)>0 for row in events),'Actual H requests and real physical target contacts required')
+    results=[row for row in events if row.get('event')=='policy_result']
+    boss_results=[row for row in results if row.get('target')=='boss']
+    require(len(boss_results)==24 and len({row['event_id'] for row in boss_results})==24,'Full actual24HP normal Policy ledger required')
+    hp=24
+    for result in boss_results:
+        parts=result['event_id'].split(':')
+        require(str(result['source']).startswith('player_projectile:') and len(parts)==3 and all(part.isdigit() for part in parts) and tuple(map(int,parts)) in keys,'Boss damage must resolve an actually accepted projectile identity')
+        require(close(result['amount'],1),'Actual single Pulse Boss damage required')
+        hp-=result['amount']
+        require(close(result['hp'],hp) and result['lethal'] is (hp==0),'Actual Boss HP/lethal ledger must reconcile across reload')
+    require(sum(row['lethal'] is True for row in boss_results)==1,'Exactly one real lethal commit')
+    player_results=[row for row in results if row.get('target')=='player']
+    require(len({row['event_id'] for row in player_results})==len(player_results),'Unique actual Player damage identities')
+    for frame in frames:
+        bhp=24-sum(row['amount'] for row in boss_results if row['physics_frame']<=frame['physics_frame'])
+        php=initial['player_hp']-sum(row['amount'] for row in player_results if row['physics_frame']<=frame['physics_frame'])
+        require(close(frame['boss_hp'],max(0,bhp)) and close(frame['player_hp'],max(0,php)),'Every actual HP observation reconciles without reload healing or synthetic damage')
+    require(close(final['player_hp'],initial['player_hp']-sum(row['amount'] for row in player_results)),'Final Player HP equals real Policy ledger')
+    arena=geometry['boss_arena'];ox,oy,w,h=arena
+    sealed=[row for row in frames if row['tick']>=fight['fight_start_tick']]
+    require(sealed and all(ox-0.001<=row['player'][0]-12 and row['player'][0]+12<=ox+w+0.001 and oy-0.001<=row['player'][1]-18 and row['player'][1]+18<=oy+h+0.001 for row in sealed),'Actual full24x36 body stays inside sealed arena during fight')
+    require(fight['cases'] and fight['cases'][0]['support12']>=12,'Fight ends with real stable support12')
+    reload=data['reload'];saved=reload['saved'];bound=reload['after_bound'];before=reload['before']
+    require(saved['canopy_schema']==1 and 0<saved['health']<24 and saved['stage_phase']>=2 and saved['fields'][0]['spawned'] and saved['fields'][0]['health']>0 and saved['fields'][0]['weave']['age']>.15,'Actual nondefault aged live field save required')
+    require(bound['last_restore_accepted'] is True and bound['boss_instance']!=before['boss_instance'] and bound['stage_instance']!=before['stage_instance'] and bound['actor_epoch']>before['actor_epoch'] and bound['manifest_hash']==before['manifest_hash'] and reload['old_token_rejected'] is True,'Fresh actor binding and actual stale-token rejection required')
+    require(bound['boss_hp']==saved['health'] and bound['player_hp']==before['player_hp'] and close(bound['energy'],before['energy']) and close(bound['capacity'],before['capacity']),'Reload preserves actual damaged actors health')
+    for key in ['body_position','mode','motion_clock','stage_phase','section','leg','cycles','last_receiver','locked_receiver','sampled_player','intro_seen','intro_duration','fields']:
+        require(bound['boss'][key]==saved[key],'Fresh bind must preserve actual saved '+key)
+    resumed=reload['after_resume']
+    require(resumed['active'] is True and resumed['app_boss_started'] is True and resumed['seal_closed'] is True and resumed['boss']['canopy_schema']==1 and resumed['boss']['stage_phase']==saved['stage_phase'],'Actual resumed App must activate the restored current phase behind its real seal')
+    require(close(resumed['boss_hp'],saved['health']) and close(resumed['player_hp'],before['player_hp']) and close(resumed['energy'],before['energy']) and close(resumed['capacity'],before['capacity']),'Resume preserves actual damaged HP/stamina/capacity under the checkpoint contract')
+    require(all(resumed[key]==bound[key] for key in ['session','actor_epoch','stage_epoch','player_instance','boss_instance','stage_instance']),'Resume uses the actual fresh-bound ownership, not the retired actors')
+    require(same_aim(bound['player'],geometry['safe_return']),'Actual reload returns Player to its declared S checkpoint, not saved airborne position')
+    for segment,owner in [('before_reload',before),('after_reload',bound)]:
+        rows=[row for row in frames if row['segment']==segment]
+        require(all(row['session']==owner['session'] and row['actor_epoch']==owner['actor_epoch'] and row['stage_epoch']==owner['stage_epoch'] for row in rows),'Every frame must belong to the actual session/actor/stage ownership segment')
+    expected={'unknown_schema','wrong_clock_type','nan_clock','off_path_body','invalid_leg','future_field','unknown_receiver','severed_hp','age_growth'}
+    negatives=data['schema_negatives']
+    require({row['id'] for row in negatives}==expected and len(negatives)==len(expected),'All real schema mutation probes required')
+    require(all(row['valid_accepted'] is False and row['restore_accepted'] is False and row['atomic'] is True and row['before']==row['after'] and row['hp_before']==row['hp_after'] for row in negatives),'Both real validators must reject each mutation atomically')
+    pairs=data['pointer_events'];phases=['pause','resume','reward','gold','ability','finish']
+    require([row['phase'] for row in pairs]==[phase for phase in phases for _ in range(2)],'Full actual Viewport pointer transaction required')
+    for a,b in zip(pairs[::2],pairs[1::2]):
+        require(a['pressed'] is True and b['pressed'] is False and a['point']==b['point'] and a['actual_button_rect']==b['actual_button_rect'],'Matched actual pointer press/release required')
+        r=a['actual_button_rect'];p=a['point']
+        require(vector(p) and len(r)==4 and all(finite(v) for v in r) and r[2]>0 and r[3]>0 and r[0]<=p[0]<r[0]+r[2] and r[1]<=p[1]<r[1]+r[3],'Pointer must hit actual finite Button rectangle')
+    gold=data['gold_definition'];before_gold=data['before_gold'];after_gold=data['after_gold']
+    require(gold['id']=='forest_heart_gold' and before_gold['count']==0 and after_gold['count']==1 and after_gold['hp']==before_gold['hp'] and after_gold['wallet']==before_gold['wallet'],'Actual GOLD claim unique, with no invented coin/heal settlement')
+    declaration=json.loads(gold['fingerprint']);additions=[effect[2] for effect in declaration[-1] if effect[0]=='max_health' and effect[1]==1]
+    require(len(additions)==1 and close(after_gold['capacity'],before_gold['capacity']+additions[0]),'Actual item-declared maxHP delta required')
+    boundary=data['before_boundary'];home=data['after_boundary']
+    require(boundary['double'] is True and 'double_jump' in boundary['abilities'] and boundary['phase']==3 and boundary['map']==2 and boundary['manifest_compatible'] is True,'Real D ability/compatible run boundary required')
+    require(any('Next regions are in development' in row for row in data['boundary_ui_text']),'Truthful current development boundary text required')
+    outputs=boundary['manifest']['stages'][-1]['outputs']
+    require(outputs['reward_claim']['item']=='forest_heart_gold' and outputs['core_ability_reward']['ability']=='double_jump','Real reward/core manifest receipts required')
+    require(home['state']==0 and home['wallet']==0 and home['items']==[] and home['abilities']==[],'Actual HOME clears run')
+    require(data['teardown']['observed_actors_alive']==[],'Actually observed actor/source WeakRefs must clear after teardown')
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output-dir',default='build/forest_depth/campaign/native')
     parser.add_argument('--seed',default='forest-depth-hollow-00')
-    parser.add_argument('--boss',choices=['guardian','queen'],default='guardian')
+    parser.add_argument('--boss',choices=['guardian','queen','canopy'],default='guardian')
     parser.add_argument('--verbose',action='store_true',help='Preserve real native leak owner/resource identities without changing checks or budgets')
     args=parser.parse_args();out=(ROOT/args.output_dir).resolve()
     if not out.is_relative_to(ROOT/'build/forest_depth/campaign') or out.exists(): parser.error('Fresh output below build/forest_depth/campaign required')
     out.mkdir(parents=True)
     before=level_formal.source_files()
-    paths=[Path(__file__).resolve(),ROOT/'tests/forest_depth_campaign_boss_runner.gd',ROOT/'tests/forest_depth_guardian_pilot.gd',ROOT/'tests/forest_depth_guardian_campaign_case.gd',ROOT/'tests/support/forest_queen_gameplay_fixture.gd']
+    paths=[Path(__file__).resolve(),ROOT/'tests/forest_depth_campaign_boss_runner.gd',ROOT/'tests/forest_depth_guardian_pilot.gd',ROOT/'tests/forest_depth_guardian_campaign_case.gd',ROOT/'tests/support/forest_queen_gameplay_fixture.gd',ROOT/'tests/forest_depth_canopy_campaign_case.gd',ROOT/'tests/forest_depth_canopy_campaign_pilot.gd']
     verifier={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}
     receipt={'native_verbose':args.verbose,'scope':__doc__,'source_before':before,'verifier_before':verifier,'passed':False,'base_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'native_budget_seconds':180,'import_budget_seconds':90,'boss_scenario':args.boss}
     snapshot=ROOT/'build/snapshot-receipt.json'
@@ -243,7 +366,7 @@ def main():
             text=run_engine((['--verbose'] if args.verbose else [])+['--headless','--fixed-fps','60','--path','.','--script','tests/forest_depth_campaign_boss_runner.gd','--','--boss='+args.boss,'--seed='+args.seed,'--output=res://'+(out/'capture.json').relative_to(ROOT).as_posix()],180)
         if ERRORS.search(text):raise RuntimeError('Native runtime ERROR')
         if not re.search(r'^FOREST DEPTH CAMPAIGN: [1-9]\d* assertions / 0 failures$',text,re.M):raise RuntimeError('Complete native campaign marker required')
-        (validate if args.boss=='guardian' else validate_queen)(json.loads((out/'capture.json').read_text()));receipt['passed']=True
+        ({'guardian':validate,'queen':validate_queen,'canopy':validate_canopy}[args.boss])(json.loads((out/'capture.json').read_text()));receipt['passed']=True
     finally:
         receipt['source_after']=level_formal.source_files()
         receipt['verifier_after']={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in verifier}
@@ -252,5 +375,8 @@ def main():
         receipt['logs']={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in out.iterdir() if p.is_file()}
         (out/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
         if not receipt['source_guard']:raise RuntimeError('Source changed during actual App campaign')
+    if args.boss=='canopy':
+        print('PASS: actual App current canopy natural route, schema1 reload, full24HP and pointer GOLD/D/boundary; design/device admission NOT covered')
+        return
     print('PASS: actual App v2 natural Guardian full fight, pointer reward and experimental map2 entry; Queen admission NOT covered' if args.boss=='guardian' else 'PASS: actual App v2 natural Queen route, reload, full fight and pointer rewards/boundary; design and device admission NOT covered')
 if __name__=='__main__':main()

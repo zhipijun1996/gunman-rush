@@ -1,24 +1,24 @@
-# FOREST-DEPTH-02：活动状态，整区仍在验收
+# FOREST-DEPTH-02：新版森林试玩候选
 
-工作区为 `shared-tree-living-detour-v9`：图2增加真实R／W入口和北庭→西侧活锚取奖→异路返西庭的关系抽样；同一cache搬位，不增加免费资源。正式跨枝敌人已接入接触伤害、物理受阻恢复、镜头观察和保存消费者。[13生命周期／14正常影片](evidence/forest_depth_v2/ecology/formal_crossbranch13_14/README.md)实际严格通过：26项含16个畸形快照原子拒绝，完整探索1152物理帧／1168视频帧，无伤到门。不同作者只允许保留为**可选探索表达**，不签H更快、更省资源或整区优秀。
+2026-10-18。分支 `feature/thorn-forest-depth` 基于PR76的 `bee850c66b2f402d644d7daa4c13db91c8abe8f8`，当前默认布局 `shared-tree-canopy-hunt-v10`，区域版本仍 `thorn-forest-region-v2`、`production_pool=false`。新版已做成正式可玩消费者，整体H核心价值、丰富度、真人／设备与商业品质仍未通过；[质量记录](quality/records/FOREST-DEPTH-02.json)保持in_progress。
 
-[真实R入口替代路线](evidence/forest_depth_v2/root_entry01/README.md)实际281帧／5段完成R→活萤→E→普通反冲→C→门；已合回现有CLI及Harness，原远征断言保留。最新推荐成长路线在西庭回北庭、取代再次爬同一中枝，尚未原生重采；最终当前源80路线和86项完整Harness仍待执行。原12生命周期失败完整保留，13仅修正未激活Queen场的出生角初始化，原restore严格校验未改，获[限定独审](evidence/forest_depth_v2/reviews/queen_inactive_save13/REVIEW.md)。
+[整体设计](design/forest_depth_v2/README.md)、[探索语法](design/forest_exploration_v2.md)、[敌人生态](design/forest_enemy_ecology_v2.md)、[根铃守卫](design/rootbell_guardian_v2.md)、[新棘冠女王](design/thorn_queen_canopy_v3.md)分别记录实际实现与边界。v10继承v9共享巨木、R／W入口、可选西侧活锚奖励环路及N回程，只替换第二Boss与真实自然入口，不把Boss换版冒称新探索拓扑。
 
-**主Queen仍旧S，整区G0失败。** 新空中换向黄金04只证明真实连续移动中完成H→反冲→侧H→换角射击并恢复宽岸；第二枪仅比落地早1帧，还需强普通连续输出、安全站位和错误时机对照，不是新三阶段Boss或趣味认可。以下旧v8／D候选段落保留历史来源，不覆盖本节最新事实。
+守卫为移动实体铃的真实H夺取返撞、打断及独立身体跨场；新女王为持续可伤的实体巡视、高活结留剪、按最近真实全脚落岸选择一片持续网。新女王02满血24HP实战：H反枪614帧／HP4，普通留网500／HP4，先换岸再压血876／HP3；01普通剪网626／HP5仅属01源。原件及限定独审见[黄金档案](evidence/forest_depth_v2/queen_canopy_v3/README.md)。[两部正常60fps完整片](evidence/forest_depth_v2/queen_canopy_movies/README.md)和独立抽帧审查已保存，不签全速人类手感或听音。电影后只给新女王结补16px剩余次数标记，该新像素仍未由headless证据认证。
 
-实现检查点 `9fdf7fad08550ea0da46b59ef7126fa721571f28` 与限定测试收据提交 `1c8e619f5843bfde09a7514c675fa95aa767ae5a` 均不是最终交付。全新[独立整体体验审查](evidence/forest_depth_v2/reviews/final-experience-v7/REVIEW.md)结论为 **REVISE**：女王第三网永久低于中枝、图2代表成长路线三只敌人全程未启动、随机探索关系仍不足。最终CI与发布已暂停，继续返工；不将局部技术通过改签整区设计通过。
+[Canopy App03](evidence/forest_depth_v2/canopy_app03/README.md)实际46/0、严格退出干净、30.884秒：正常路线与完整封门预告、phase2活结暂停保存、新Stage／Boss恢复、旧token拒绝、9个畸形状态原子拒绝、24次正常弹体击杀、GOLD／D／开发边界／Home及实际弱引用／音频清理。保存Boss15、结1、年龄0.516667；玩家HP4／E80／上限5保持，按既有规则从空中回S检查点、空枪恢复2。该场战斗HP4→4，路上受伤与黄金战斗受伤分列。GOLD上限5→7、HP4与金币0不变。01提前查封门、02保存条件未触发均保原FAIL；后续读取器补强只离线复核原raw与变造负例，不倒签03原读取器。
 
-女王37–41证明单改升网／同缺口移动钩点没有足够H价值。新活巢枝45／46仅build黄金：H真实借结与普通反向圆弹均移动节点并选择下一轮近巢，首次Boss命中及宽岸恢复都为838帧／HP5／E80.5；两枪剪网后合法远路1026帧／HP4／E100。它有真实路由因果，但H目前只更方便，暂停三阶段／保存扩产，等待独立体验判断及另一空中换位假设。43编译、44未满跳、45 cut驾驶失败原件均保留；主运行Queen仍旧S。
+[旧版本重建](evidence/forest_depth_v2/layout_replay01/README.md)原生126/0：V7与V9整份原Manifest／原哈希／旧Boss资源保留，新内容走显式三键白名单。原外层11／14案例数不匹配FAIL保留；新增读者经过独立身份／类型／几何负例复审，只比较固定原生样本，不另算Godot哈希。
 
-跨枝D仍未准入。06强普通双R997帧、旧H1044帧，同绝对tick普通已领奖且精力更高；旧H收益主张REVISE。07另一侧迎截确实完成真实锁左／身体命中／左踢／反冲，随后NPC被真实碰撞阻挡，215帧严格失败。root又发现并经作者确认候选NPC漏接正式接触伤害源；故撤回04／06完整敌人无伤／等风险结论，仅保其实际动作、目的及独立退款专项范围。先补正式绑定与被阻后的重力／真实支撑恢复，再比较允许提前起跳避碰的强普通。详见[原件与纠正](evidence/forest_depth_v2/crossbranch01_06_controls/README.md)；旧raw不改、05不倒签。
+[生态生命周期13／正常片14](evidence/forest_depth_v2/ecology/formal_crossbranch13_14/README.md)含正式接触伤害、受阻后的真实重力与支撑恢复、26项检查／16个原子拒绝、1152物理帧完整探索。另[真实R入口替代](evidence/forest_depth_v2/root_entry01/README.md)281帧／5段。不同作者确认F2／F3有实质局部改善，尚不证明整区密度与探索丰富度；D为可选运动表达，普通解更快，不宣称H效率垄断。
 
-最新D10／11完整接触合同复核：真实受伤／碰撞后的组件恢复747帧，保实际坐标回原岸并再次往返；H1044帧与普通969帧共享逐字段相同107帧前缀，均无伤返W并在后继拾心后到门。不同作者允许保留为**可选运动表达**，不签更快、更省资源、更容易或地区核心。普通也从宽N正常起跳，不能沿用旧coyote负担结论。10外层误将组件混入共同前缀而FAIL保留；只补尚未执行的11普通，不重跑已完成两条。
+新推荐W→N→S回程已在当前完整源root00／图2／成长原路线实际严格通过：1013帧、HP5／E100／余空枪2，全路3次实际射击。原首次完整native虽走到门，但读者把输入意图与实际Router归一方向混比较而FAIL；新观测保原输入与真实入队包，原exact射击断言未变，原FAIL不重签。该单路线不替代最终固定80路线。
 
-主生成器新工作布局为 `shared-tree-root-entry-v8`：原骨架／奖励／洞形三次抽样后另抽真实入口，只在图2水平外奖共边关系选择W或R；R出生、arrival边、敌人保护及发现信息同源。root08实际R入口两原完整路线fast759帧／growth1398帧严格通过，根冲刺与外冠哨确有预警／攻击，不再全idle；仍只代表两条路线，随机丰富度／无伤舒适度／整区未验。Queen主运行仍旧S；新双实体肋方案必须先有真实扫岸攻击与运动中换面反击，未做成三阶段。
+原Harness新增检查而未替换历史女王194／V7 App及其余回归，共88项（玩法74）。本提交CI负责最终同源全回归、Web／Windows与公开试玩，结果以[分支检查](https://github.com/zhipijun1996/gunman-rush/actions?query=branch%3Afeature%2Fthorn-forest-depth)及实际构建元数据为准，本页不预签。PR保持draft、不合main；最终试玩应核对源SHA和build_id。
 
-原v7活锚奖励回程719对普通736帧、守卫返铃整战及限定测试消费者修复证据继续有效，仅限各自冻结源与机制；不能证明上述三项缺陷已关闭。采用既有地区／动作编排／遭遇／敌人／Boss／独审／质量Skills，同一个Harness与G0–G5。Player、输入、枪械基础参数未改；暂停与领奖不补空中枪。
+沿现有15 Skills、production_loop、G0–G5与十一维改进，新增最强普通持续输出对照、真实动作包络、前缀／回程／恢复与淘汰决策；补齐输入通道和真实Router命令观测经验。未改Player物理、身体、射程、无敌或基础资源。尚需确认：高结保留与诱导换岸的实际收益、H创造独有进攻机会的程度、主路生态与跨Seed探索差异、初见可读性、完整视听和玩家／设备体验。下方保留旧阶段背景，不覆盖以上最新事实。
 
-工作区 `/workspace/gunman-rush-design`，分支 `feature/thorn-forest-depth`，PR76核对基线 `bee850c66b2f402d644d7daa4c13db91c8abe8f8`。本轮尚未推送／发布，HTTPS仍不是本轮版本。registry默认为v2试玩候选，production_pool=false。[整体设计](design/forest_depth_v2/README.md)、[探索设计](design/forest_exploration_v2.md)、[质量记录](quality/records/FOREST-DEPTH-02.json)。以下为先前阶段与历史证据，不覆盖本节实际结论。
+## 历史样本与阶段背景
 
 历史v7布局 `shared-tree-directional-cavities-v7` 为共享实体巨木、双窗与双孔。图1保留水平H→kick→R教学；图2独立抽样水平孔或下降转折，必须先离B檐再下瞄H，真实下落后侧接低90px宽岸。左营地直返树腹、西庭直落营地、北庭中继直入S去除无新判断的重复攀爬；下行支线仍保留。A2四局部策略与[独审](evidence/forest_depth_v2/reviews/elbow_A2/REVIEW.md)限定CONTINUE；普通3R最快、H可保资源／改善到岸位置，部分身体合法接岸不被人为禁止。旧A1埋刺已REVISE、修正突出刺边后重采，失败不改签。
 

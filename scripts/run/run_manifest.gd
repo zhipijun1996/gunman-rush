@@ -287,7 +287,9 @@ static func _campaign_compatible(data: Dictionary) -> bool:
 			if not FOREST_GENERATOR.new().validate(m,tuning): return false
 			var tuning_keys: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://config/player_tuning.json"))
 			var checker := RandomStageGenerator.new()
-			var boss_definition: BossDefinition = load(FOREST_GENERATOR.boss_definition_path(version,map_index))
+			var boss_path: String = FOREST_GENERATOR.boss_definition_path(version,map_index,m)
+			if boss_path.is_empty(): return false
+			var boss_definition: BossDefinition = load(boss_path)
 			if not checker._same_data(output.get("boss_layout"),{"id":String(boss_definition.stable_id),"version":boss_definition.definition_version,"health":boss_definition.health_definition.max_health}): return false
 			if not checker._same_data(output.get("enemy_layout"),{"version":version,"enemies":m.enemies}): return false
 			if not checker._same_data(output.get("shot_latch_layout"),m.shot_latch_plan): return false

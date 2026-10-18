@@ -1,0 +1,87 @@
+{
+  "status": "BOUNDED_PRODUCTION_COMPATIBILITY_CONTINUE_NEW_READER_IDENTITY_REVISE",
+  "scope": "Version/hash dispatch and compatibility plumbing only, not new Queen mechanics/App seams",
+  "native_run": false,
+  "original_native": {
+    "capture_sha256": "00a0cfe82d4b1b2165025a155b6a6746999e00319eaf02cd82dd295fbdf4cf84",
+    "actual126_ledger14cases": true,
+    "strictclean4_7_2": true,
+    "complete2063_snapshot_SHA_verified": true,
+    "outer_exit1_preserved": true,
+    "old_original_reader_rejects14": true,
+    "current_reader_accepts_same_raw_offline_only": true,
+    "seconds": 35.448431968688965
+  },
+  "old_full_manifest_rebuilds": {
+    "v7_exact_inverse": true,
+    "v9_exact_inverse_only_known_switch": true,
+    "fixtures": [
+      {
+        "fixture": "tests/fixtures/forest_recorded_layouts/v7_root00_map2.json",
+        "actual_raw_sha256": "0ce48fd69922290e731b1803d05634ab565c24b7ee318caca6150d02e98e5070",
+        "entire_raw_manifest_equal": true,
+        "original_hash_retained": "1574654473154392741010f48a3dcd10f3a2b41d4621f7be91c3296e46f9bdc7"
+      },
+      {
+        "fixture": "tests/fixtures/forest_recorded_layouts/v9_root00_map2_before_north.json",
+        "actual_raw_sha256": "470e685a59d8b868315c194c402b4ef6a23a4956e7a98ef733ee3b948cfac2bd",
+        "entire_raw_manifest_equal": true,
+        "original_hash_retained": "eac6d406b3d3d5fbedcbda5f00b6aa3a96e833b4725958aba662ebc7fa19d055"
+      }
+    ]
+  },
+  "old_validate_AST_exact": true,
+  "old_failure_and_missing_case_controls": [
+    {
+      "case": "deleted_new_case",
+      "rejected": true,
+      "error": "Exact old eleven and new three cases required; no ignored rows"
+    },
+    {
+      "case": "old_case_failure_ledger",
+      "rejected": true,
+      "error": "Full native assertion ledger required"
+    },
+    {
+      "case": "changed_full_old_manifest_hash",
+      "rejected": true,
+      "error": "Actual entire old layout/hash/Boss changed: v7_root00_map2.json"
+    },
+    {
+      "case": "duplicate_old_fixture",
+      "rejected": true,
+      "error": "Both actual recorded v7/v9 layouts required"
+    }
+  ],
+  "reader_identity_holes": [
+    {
+      "field": "version",
+      "accepted": true
+    },
+    {
+      "field": "map_index",
+      "accepted": true
+    },
+    {
+      "field": "manifest_hash",
+      "accepted": true
+    }
+  ],
+  "reviewed_reader_sha256": "afc34dc74825d983bfcd1cb9b4e3254707f981f598538244599ea234584219ef",
+  "source_bindings": {
+    "scripts/generation/thorn_forest_region_v2_v7.gd": "0fd8dc1a6d962537d4f14d017dac956a202c308b747ded26a6724d96c9b0c21f",
+    "scripts/generation/thorn_forest_region_v2_v9.gd": "95541c993f9ce3e47732f9cd934ae49699e5f0a29d549679c24ca61a8090b1f5",
+    "scripts/generation/thorn_forest_region_generator.gd": "0592c93a2162ba7fecc11e2741c8662bd25bd1adba52604020ba18d14d4280b5",
+    "scripts/demo/demo_app.gd": "5e445584db314e6d0c6aa3481cea65998f4467b9670e1936e04f1827aea424b6",
+    "scripts/demo/thorn_forest_region_stage.gd": "bf4e1ab4c6199f4eab6b2bf792d9d878cf41c0f47aa69f2f41cb96685401feff",
+    "scripts/run/run_manifest.gd": "eef42d311459dd81f61a576d68bf7fc629c0b33b8e9d6341d10314f89f1b0376",
+    "scripts/generation/forest_boss_arena_factory.gd": "b406f489c5e6ab0b93d2a8150897ee02da97d6b71f3afec099a89718c0b7e4ef",
+    "scripts/generation/thorn_forest_region_v2.gd": "cf6c425d9a211e0b21c66376e4c29c5fbfe1ec3b65bd75fc9c044730a818cc0c"
+  },
+  "limits": [
+    "Old actual manifest generation reconstruction is not actual old-v7/v9 App reload",
+    "New canopy entry/reward supports are offline data checks, not natural App walk/closed-seal reload",
+    "Default remains registryv9; privatev10 not promoted",
+    "No 194/fullCI/fun or new Queen save mechanics approval"
+  ]
+}

@@ -1,3 +1,5 @@
+> 历史版本：本文保留旧 Queen／迁巢织场的原始设计与验证范围。
+> 新 Canopy v3 设计及其未验边界见[棘冠女王 Canopy v3](thorn_queen_canopy_v3.md)，不以新黄金追签本文旧结论。
 # 棘冠女王：迁巢织场
 
 **当前整体设计未通过。** [最新独立整体验证](../evidence/forest_depth_v2/reviews/final-experience-v7/REVIEW.md)发现第三网覆盖不到中枝，允许长期安全输出；下文31／36的局部CONTINUE不关闭该缺陷。旧网调位和路线结43–46均未晋升最终Boss核心，当前另做实体遮挡、真实横扫和连续H／反冲换射击面的黄金。主运行Queen仍是此处旧版本，不能把实验方案写成已完成三阶段。

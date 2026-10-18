@@ -56,6 +56,14 @@ func _queen_region_entry(prep: Vector2) -> Dictionary:
 	result["admission"] = "experimental_whole_boss_pending"
 	result["entry_mapping"] = {"prep":_point(prep),"origin":_point(origin),"existing_floor_y":floor_y,"observation":_point(origin+observation),"new_high_bridge":false}
 	return result
+func queen_canopy_from_prep(prep: Vector2) -> Dictionary:
+	# The approach walks into the existing wide S root at its actual height.
+	# Legacy queen_golden/from_prep keep their exact recorded bottom entrance.
+	var config := load("res://resources/bosses/thorn_queen_canopy.tres") as ThornQueenCanopyDefinition
+	if config==null or not config.is_valid() or not prep.is_finite(): return {"ok":false,"reason":"Invalid canopy definition/prep"}
+	var local_prep := Vector2(config.canopy_arena.position.x-config.entry_gap,config.canopy_spawn.y)
+	return config.build_geometry(prep-local_prep,true)
+
 func _platform(id: String, rect: Rect2, one_way: bool) -> Dictionary:
 	return {"id":id,"rect":_rect(rect),"one_way":one_way}
 func _point(point: Vector2) -> Array: return [point.x,point.y]

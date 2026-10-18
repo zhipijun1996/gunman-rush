@@ -7,6 +7,7 @@ import argparse
 import contextlib
 import hashlib
 import json
+import math
 from pathlib import Path
 import re
 import subprocess
@@ -73,6 +74,87 @@ def validate(data):
         raise ValueError('Unexpected/missing native cases')
 
 
+def validate_current(data):
+    """Keep the original legacy reader intact; current CLI also requires new evidence."""
+    if data.get('capture_schema') != 2:
+        raise ValueError('Current recorded-layout and canopy evidence schema required')
+    cases = data.get('cases', [])
+    counts = {name: sum(row.get('id') == name for row in cases)
+              for name in ('delegate', 'v2_map2_experimental', 'app_legacy',
+                           'recorded_depth_layout', 'canopy_content_contract')}
+    if counts != {'delegate': 8, 'v2_map2_experimental': 1, 'app_legacy': 2,
+                  'recorded_depth_layout': 2, 'canopy_content_contract': 1} or len(cases) != 14:
+        raise ValueError('Exact old eleven and new three cases required; no ignored rows')
+    # Original reader deliberately rejects anything beyond its eleven cases.
+    # Feed that exact domain, then independently require every new row below.
+    legacy = dict(data)
+    legacy['cases'] = [row for row in cases if row.get('id') in
+                       ('delegate', 'v2_map2_experimental', 'app_legacy')]
+    validate(legacy)
+    fixtures = {
+        'v7_root00_map2.json': '7c61e9c844c36d021630ae6614d5521b602fb49d8c43c17bcfe6e66e5b2499fd',
+        'v9_root00_map2_before_north.json': '843c85d5be23f04a340e0f8d604af48be7fa42c8c079b462112e33316bfecca6',
+    }
+    rows = [row for row in data.get('cases', []) if row.get('id') == 'recorded_depth_layout']
+    if len(rows) != 2 or {row.get('fixture') for row in rows} != set(fixtures):
+        raise ValueError('Both actual recorded v7/v9 layouts required')
+    for row in rows:
+        path = ROOT / 'tests/fixtures/forest_recorded_layouts' / row['fixture']
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        original = json.loads(path.read_text())
+        if (digest != fixtures[row['fixture']] or row.get('fixture_sha256') != digest
+                or row.get('original') != original or row.get('rebuilt') != original
+                or row.get('boss_resource') != 'res://resources/bosses/thorn_queen_v2.tres'):
+            raise ValueError('Actual entire old layout/hash/Boss changed: ' + row['fixture'])
+    current = [row for row in data.get('cases', []) if row.get('id') == 'canopy_content_contract']
+    if len(current) != 1:
+        raise ValueError('One explicit new canopy contract required')
+    row = current[0]
+    manifest = row.get('manifest', {})
+    fixed_path = ROOT / 'tests/fixtures/forest_recorded_layouts/expected_canopy_v10.json'
+    if (hashlib.sha256(fixed_path.read_bytes()).hexdigest() != '06b98b7e95ae39ffa23a4dcd6cf6a64d794e51ce5ef50f1048a3b8b6f700686c'
+            or json.dumps(manifest, sort_keys=True, allow_nan=False, separators=(',', ':'))
+            != json.dumps(json.loads(fixed_path.read_text()), sort_keys=True, allow_nan=False, separators=(',', ':'))
+            or manifest.get('region') != 'thorn_forest'
+            or manifest.get('version') != 'thorn-forest-region-v2'
+            or manifest.get('map_index') != 2
+            or manifest.get('seed') != 'version-canopy-current'):
+        raise ValueError('Exact fixed native canopy manifest identity/hash/content required')
+    expected = {'contract': 'forest-queen-canopy-v3',
+                'scene': 'res://scenes/bosses/thorn_queen_canopy.tscn',
+                'resource': 'res://resources/bosses/thorn_queen_canopy.tres'}
+    if (manifest.get('layout_version') != 'shared-tree-canopy-hunt-v10'
+            or manifest.get('boss_content') != expected
+            or manifest.get('production_pool') is not False
+            or row.get('boss_scene') != expected['scene']
+            or row.get('boss_resource') != expected['resource']
+            or json.dumps(manifest.get('boss_geometry'), sort_keys=True, allow_nan=False, separators=(',', ':'))
+            != json.dumps(row.get('geometry_from_resource'), sort_keys=True, allow_nan=False, separators=(',', ':'))
+            or manifest.get('boss_geometry', {}).get('version') != expected['contract']):
+        raise ValueError('Exact single-source canopy contract required; no legacy fallback')
+    geometry = manifest['boss_geometry']
+    platforms = geometry.get('platforms', [])
+    if len({item.get('id') for item in platforms}) != len(platforms):
+        raise ValueError('Unique physical canopy supports required')
+    supports = {item['id']: item['rect'] for item in platforms}
+    for key, support in (('safe_return', 'central_rib'), ('reward_position', 'floor')):
+        point = geometry.get(key, [])
+        rect = supports.get(support, [])
+        if len(point) != 2 or len(rect) != 4:
+            raise ValueError('Explicit physical entry/reward support required')
+        if not all(type(value) in (int, float) and math.isfinite(value) for value in point + rect):
+            raise ValueError('Finite physical entry/reward geometry required')
+        x, y = point
+        if (abs(y + 18 - rect[1]) > .001 or x - 12 < rect[0] - .001
+                or x + 12 > rect[0] + rect[2] + .001):
+            raise ValueError('Full Player body is unsupported: ' + key)
+        for item in platforms:
+            rx, ry, width, height = item['rect']
+            if (min(x + 12, rx + width) - max(x - 12, rx) > .001
+                    and min(y + 18, ry + height) - max(y - 18, ry) > .001):
+                raise ValueError('Entry/reward body intersects solid terrain: ' + key)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output-dir', default='build/forest_depth/versions/native')
@@ -105,7 +187,7 @@ def main():
             raise RuntimeError('Complete native version result missing')
         if re.search(r'(^|\n)(?:SCRIPT )?ERROR:', text):
             raise RuntimeError('Unexpected native engine ERROR')
-        validate(json.loads((out / 'capture.json').read_text()))
+        validate_current(json.loads((out / 'capture.json').read_text()))
         receipt['passed'] = True
     finally:
         receipt['source_after'] = level_formal.source_files()

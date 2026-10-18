@@ -110,7 +110,10 @@ var root_bell_space_pilot_requested := false
 var root_bell_pilot_requested := false
 var _root_bell_run_mode := "legacy_v10"
 var forest_content_version := ThornForestRegionGenerator.VERSION
+var _forest_layout_version := ThornForestRegionGenerator.CURRENT_DEPTH_LAYOUT
+var _forest_v9_north_return := true
 var _requested_forest_version := ""
+var _requested_forest_layout := ""
 var region_state: PlainsRegionState
 var region_states: Dictionary = {}
 var _region_loaded_map := 0
@@ -129,14 +132,16 @@ func start_plains(seed_value: String = "plains-run") -> bool:
 	_debug_region = &""
 	return start_demo(seed_value, true)
 
-func start_debug_region(region: StringName, map_index: int, seed_value: String, content_version: String = "") -> bool:
+func start_debug_region(region: StringName, map_index: int, seed_value: String, content_version: String = "", layout_version: String = "") -> bool:
 	if region not in [&"plains", &"thorn_forest"] or map_index not in [1,2]: return false
 	if not content_version.is_empty() and (region != &"thorn_forest" or not ThornForestRegionGenerator.supported(content_version)): return false
+	if not layout_version.is_empty() and (region != &"thorn_forest" or content_version != ThornForestRegionGenerator.DEPTH_VERSION or not ThornForestRegionGenerator.DEPTH_LAYOUT_SCRIPTS.has(layout_version)): return false
 	# Rejected entries must not replace the next run's region/version request.
 	if director.state != DemoRunDirector.State.HOME or seed_value.is_empty() or is_instance_valid(_lab) or is_instance_valid(_preview) or is_instance_valid(_foundry): return false
 	_debug_region = region
 	_debug_map = map_index
 	_requested_forest_version = content_version
+	_requested_forest_layout = layout_version
 	var accepted := start_demo(seed_value,true)
 	if accepted: print("FOREST_UI_EVENT " + JSON.stringify({"event":"debug_entry","region":String(region),"map_index":map_index,"seed":seed_value,"natural_progression":false}))
 	return accepted
@@ -156,7 +161,10 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 	_remove_home_scene()
 	active_region_id = _debug_region if region_map and not _debug_region.is_empty() else &"plains"
 	forest_content_version = _requested_forest_version if not _requested_forest_version.is_empty() else ThornForestRegionGenerator.VERSION
+	_forest_layout_version = _requested_forest_layout if not _requested_forest_layout.is_empty() else ThornForestRegionGenerator.CURRENT_DEPTH_LAYOUT
+	_forest_v9_north_return = true
 	_requested_forest_version = ""
+	_requested_forest_layout = ""
 	campaign = RunCampaignProgression.new()
 	campaign.debug_entry = region_map and not _debug_region.is_empty()
 	if active_region_id == &"thorn_forest": campaign.abilities.append(&"grapple")
@@ -257,21 +265,30 @@ func _load_stage() -> void:
 		region_generator.root_bell_mode = _root_bell_run_mode
 		var actual_seed := _region_seed()
 		var difficulty := "intro" if director.region_map_index==1 else "advanced"
-		var forest_capability := {"grapple":controller.traversal.hook_enabled,"weapon_id":"pulse_gun","abilities":Array(campaign.abilities),"items":build.item_ids(),"forest_content_version":forest_content_version}
+		var forest_capability := {"grapple":controller.traversal.hook_enabled,"weapon_id":"pulse_gun","abilities":Array(campaign.abilities),"items":build.item_ids(),"forest_content_version":forest_content_version,"forest_layout_version":_forest_layout_version,"forest_v9_north_return":_forest_v9_north_return}
 		var generated := ThornForestRegionGenerator.new().generate(actual_seed,controller.motor.tuning,director.region_map_index,forest_capability) if active_region_id == &"thorn_forest" else region_generator.generate(actual_seed, controller.motor.tuning,false,"",difficulty)
 		# A pre-existing map owns its content version. Match the actual old hash;
 		# never overwrite old actors/claims with a new layout or silently clear it.
 		if active_region_id == &"thorn_forest" and region_state != null and not region_state.manifest_hash.is_empty() and generated.ok and region_state.manifest_hash != generated.manifest.manifest_hash:
 			var recorded_version := ""
-			for prior_version: String in [ThornForestRegionGenerator.LEGACY_VERSION,ThornForestRegionGenerator.DEPTH_VERSION]:
-				var prior := ThornForestRegionGenerator.new().generate_version(prior_version,actual_seed,controller.motor.tuning,director.region_map_index,forest_capability)
+			for recorded: Dictionary in ThornForestRegionGenerator.recorded_variants():
+				var prior_capability := forest_capability.duplicate(true)
+				prior_capability.forest_layout_version = recorded.layout
+				prior_capability.forest_v9_north_return = recorded.get("north_return",true)
+				var prior := ThornForestRegionGenerator.new().generate_version(recorded.version,actual_seed,controller.motor.tuning,director.region_map_index,prior_capability)
 				if prior.ok and prior.manifest.manifest_hash == region_state.manifest_hash:
 					generated = prior
-					recorded_version = prior_version
+					recorded_version = recorded.version
+					_forest_layout_version = str(prior.manifest.get("layout_version",ThornForestRegionGenerator.CURRENT_DEPTH_LAYOUT))
+					_forest_v9_north_return = bool(prior_capability.forest_v9_north_return)
+					forest_capability.forest_layout_version = _forest_layout_version
+					forest_capability.forest_v9_north_return = _forest_v9_north_return
 					break
 			if recorded_version.is_empty():
 				generated = {"ok":false,"error":"Recorded forest hash does not match a supported content version"}
-			else: forest_content_version = recorded_version
+			else:
+				forest_content_version = recorded_version
+				forest_capability.forest_content_version = recorded_version
 		# Hash-bound replay of both prior admitted versions; no save rewrite.
 		if active_region_id == &"plains" and region_state != null and not region_state.manifest_hash.is_empty() and generated.ok and region_state.manifest_hash != generated.manifest.manifest_hash:
 			for prior_mode: String in ["v2", "legacy_v10"]:
@@ -514,7 +531,8 @@ func _load_stage() -> void:
 			region.boss_seal=BossArenaSeal.new();region.add_child(region.boss_seal)
 			region.boss_seal.setup(region.boss_arena,region.bounds,controller,encounter,lifetime)
 			region.boss_seal.restore_closed(bool(region.restored_boss.get("seal_closed",false)))
-			segment.add_anchor(&"boss_enter",Vector2(region.boss_arena.position.x+70,region.boss_arena.end.y-18))
+			var boss_entry := (region as ThornForestRegionStage).forest_boss_entry_position() if region is ThornForestRegionStage else Vector2(region.boss_arena.position.x+70,region.boss_arena.end.y-18)
+			segment.add_anchor(&"boss_enter",boss_entry)
 			if region.boss_seal.closed:segment.activate_anchor(&"boss_enter")
 		encounter.projectile_created.connect(_boss_projectile_created)
 		if not generated_plains:

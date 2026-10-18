@@ -8,7 +8,7 @@ const EXPECTED_FOREST_BOSSES := {
 		2: {"definition":"res://resources/bosses/thorn_queen.tres","scene":"res://scenes/bosses/thorn_queen.tscn"}},
 	"thorn-forest-region-v2": {
 		1: {"definition":"res://resources/bosses/rootbell_guardian_v2.tres","scene":"res://scenes/bosses/rootbell_guardian_v2.tscn"},
-		2: {"definition":"res://resources/bosses/thorn_queen_v2.tres","scene":"res://scenes/bosses/thorn_queen_v2.tscn"}}
+		2: {"definition":"res://resources/bosses/thorn_queen_canopy.tres","scene":"res://scenes/bosses/thorn_queen_canopy.tscn"}}
 }
 var assertions := 0
 var failures := 0
@@ -69,6 +69,7 @@ func check_default_forest_identity(map_index: int) -> void:
 	check(app.forest_content_version==EXPECTED_PUBLIC_FOREST and app.stage.generated.manifest.version==EXPECTED_PUBLIC_FOREST and app.stage.generated.manifest.map_index==map_index,"natural region selection retains independently expected public forest version map%s"%map_index)
 	check(encounter!=null and encounter.definition!=null and encounter.definition.resource_path==expected.definition,"natural default forest actual Boss Definition matches selected version map%s"%map_index)
 	check(app.stage.boss.scene_file_path==expected.scene,"natural default forest actual Boss scene matches selected version map%s"%map_index)
+	check(app.stage.generated.manifest.layout_version=="shared-tree-canopy-hunt-v10","fresh default uses independently expected canopy layout; historical replay is separately mandatory")
 func run() -> void:
 	app=DemoApp.new()
 	app.meta_persistence_enabled=false

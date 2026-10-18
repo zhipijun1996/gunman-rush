@@ -10,6 +10,7 @@ var controller: PlayerController
 var seed_value := "forest-depth-00"
 var map_index := 1
 var route_name := "fast"
+var recorded_layout_version := ""
 var manifest: Dictionary = {}
 var itinerary: Array[Dictionary] = []
 var frames: Array[Dictionary] = []
@@ -58,7 +59,7 @@ func begin() -> void:
 	var script: Script=load("res://scripts/demo/demo_app.gd")
 	if script==null or not script.can_instantiate(): fail("DemoApp_compile_failed");setup_done=true;return
 	app=script.new();app.meta_persistence_enabled=false;add_child(app)
-	if not app.start_debug_region(&"thorn_forest",map_index,seed_value,ThornForestRegionGenerator.DEPTH_VERSION): fail("formal_debug_entry_rejected");setup_done=true;return
+	if not app.start_debug_region(&"thorn_forest",map_index,seed_value,ThornForestRegionGenerator.DEPTH_VERSION,recorded_layout_version): fail("formal_debug_entry_rejected");setup_done=true;return
 	for unused: int in 8: await get_tree().physics_frame
 	stage=app.stage
 	if not is_instance_valid(stage) or not stage.assembly_ok: fail("formal_v2_assembly_failed");setup_done=true;return
@@ -146,7 +147,18 @@ func movie_stamp(row: Dictionary) -> void:
 		row.presentation_frame=Engine.get_frames_drawn()
 		row.process_frame=Engine.get_process_frames()
 func request(kind: StringName, aim:=Vector2.ZERO) -> void:
-	requests.append({"tick":tick,"leg":leg_index,"phase":phase,"kind":String(kind),"aim":pair(aim),"queued":controller.router.request_action(kind,aim)})
+	# Preserve caller intent separately from the actual normalized Router packet.
+	var input_aim := pair(aim)
+	var queued := controller.router.request_action(kind,aim)
+	var row := {"tick":tick,"leg":leg_index,"phase":phase,"kind":String(kind),"input_aim":input_aim,"aim":input_aim,"queued":queued}
+	if queued:
+		if controller.router._queue.is_empty(): fail("queued_action_missing_actual_router_packet");return
+		var actual: Dictionary=controller.router._queue.back()
+		row.aim=pair(actual.direction)
+		row.router_type=String(actual.type)
+		row.router_sequence=int(actual.sequence)
+		row.router_epoch=int(actual.epoch)
+	requests.append(row)
 	movie_stamp(requests[-1])
 	if leg_index<itinerary.size() and itinerary[leg_index].kind=="hollow_cavity" and itinerary[leg_index].get("motion","")=="descending_elbow":
 		requests[-1].merge({"body_before":pair(player.global_position),"velocity_before":pair(player.velocity),"grounded_before":player.is_on_floor(),"hook_origin_before":pair(player.global_position+Vector2(0,-6))})

@@ -1,0 +1,196 @@
+{
+  "assertions": 18,
+  "failures": [
+    "air_ordinary/actual whole Player remains in sealed arena on every captured frame",
+    "air_ordinary/ordinary truly defeats full24HP and recovers whole-foot12 within bound; death/timeout is retained failure"
+  ],
+  "rows": [
+    {
+      "air_cycles": 3,
+      "boss_commits": 18,
+      "boss_defeated": false,
+      "boss_hp": 6.0,
+      "charges": 2,
+      "elapsed": 1800,
+      "energy": 100.0,
+      "explicit_initial_probe": true,
+      "final_position": [
+        387.990814208984,
+        801.998229980469
+      ],
+      "grapple_inputs": 0,
+      "id": "air_ordinary",
+      "initial_boss_hp": 24,
+      "initial_energy": 100,
+      "initial_fields": [],
+      "initial_player_hp": 5,
+      "kill_tick": -1,
+      "player_commits": 0,
+      "player_dead": false,
+      "player_hp": 5.0,
+      "scope": "1800-frame genuine continuous ordinary attack; no fixed shot limit; real hit refunds",
+      "support": "floor",
+      "ticks": 1850,
+      "wide_support_frames": 0
+    }
+  ],
+  "first_containment_failure": {
+    "actual_focus": false,
+    "actual_last_muzzle": [
+      226.896560668945,
+      105.284858703613
+    ],
+    "actual_time_scale": 1.0,
+    "air_clock": 0.0,
+    "air_cycles": 0,
+    "air_leg": 0,
+    "air_section": 0,
+    "air_shots": 1,
+    "axis": 1.0,
+    "boss_hp": 21.0,
+    "boss_position": [
+      550.0,
+      326.0
+    ],
+    "case": "air_ordinary",
+    "core_open": true,
+    "energy": 80.0,
+    "fields": [],
+    "grounded": false,
+    "growth": 0.0,
+    "hook": "free",
+    "hook_start": [
+      0.0,
+      0.0
+    ],
+    "hook_target_name": "",
+    "hook_tip": [
+      0.0,
+      0.0
+    ],
+    "hook_used": false,
+    "hp": 5.0,
+    "knot_hp": null,
+    "migrations": 0,
+    "motion_mode": "flight",
+    "motor_steps": 155,
+    "normal_velocity": [
+      260.0,
+      0.0
+    ],
+    "pending_actual_grants": [],
+    "perch": 0,
+    "physics_frame": 156,
+    "player": [
+      90.8606033325195,
+      12.3030691146851
+    ],
+    "queen_motor_id": 89556780854,
+    "recoil_remaining": 0.0066666666666667,
+    "recoil_velocity": [
+      -891.085876464844,
+      -644.954284667969
+    ],
+    "route_phase": 1,
+    "sampled_player": [
+      0.0,
+      0.0
+    ],
+    "sampled_shore": 0,
+    "severed": false,
+    "tick": 155,
+    "velocity": [
+      -891.085876464844,
+      -644.954284667969
+    ],
+    "weapon_apex_remaining": 0.0
+  },
+  "outside_frames": 62,
+  "min_player_center_y": -78.2778396606445,
+  "late_floor_window": {
+    "first": 300,
+    "last": 1850,
+    "player_hp_values": [
+      5.0
+    ],
+    "body_inside_all": true,
+    "x_range": [
+      386.054779052734,
+      387.999450683594
+    ],
+    "y_range": [
+      801.924011230469,
+      801.998229980469
+    ],
+    "hit_ticks": [
+      545,
+      559,
+      575,
+      591,
+      1122,
+      1136,
+      1152,
+      1168,
+      1699,
+      1713,
+      1729,
+      1745
+    ],
+    "boss_positions_on_actual_hits": [
+      [
+        420.0,
+        110.0
+      ],
+      [
+        336.0,
+        110.0
+      ],
+      [
+        288.0,
+        110.0
+      ],
+      [
+        384.0,
+        110.0
+      ],
+      [
+        420.0,
+        110.0
+      ],
+      [
+        336.0,
+        110.0
+      ],
+      [
+        288.0,
+        110.0
+      ],
+      [
+        384.0,
+        110.0
+      ],
+      [
+        420.0,
+        110.0
+      ],
+      [
+        336.0,
+        110.0
+      ],
+      [
+        288.0,
+        110.0
+      ],
+      [
+        384.0,
+        110.0
+      ]
+    ]
+  },
+  "unexecuted": [
+    "air_camp",
+    "air_wrong"
+  ],
+  "classification": "strong ordinary bounded strategy failure + actual whole-body containment failure; never H superiority; permanent safe floor output independently supported by later entirely-in-bounds repeat hits",
+  "no_DPS_comparison_to_two_shot_purpose04": true
+}

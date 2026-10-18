@@ -2,7 +2,7 @@ class_name ThornForestRegionV2
 extends RefCounted
 ## Forest depth playtest candidate. Default selection is owned by the registry; data is not Motor proof.
 const VERSION := "thorn-forest-region-v2"
-const LAYOUT_VERSION := "shared-tree-living-detour-v9"
+const LAYOUT_VERSION := "shared-tree-canopy-hunt-v10"
 const FAMILIES := ["hollow_inner_first","hollow_root_first","clearing_shared_edge","clearing_shared_node"]
 const HOLLOW := preload("res://scripts/generation/forest_hollow_trunk_geometry.gd")
 const ARENA_FACTORY_PATH := "res://scripts/generation/forest_boss_arena_factory.gd"
@@ -438,7 +438,10 @@ func _install_boss(m: Dictionary,p: Dictionary) -> void:
 	m.hook_anchors.append({"id":"crown_approach_ring_0","position":[1380.0,floor_center_y-90]})
 	m.connections[-1].anchor_id="crown_approach_ring_0";m.connections[-1].support_id="boss_approach"
 	var approach:=Vector2(1460,floor_center_y)
-	var contract: Dictionary=load(ARENA_FACTORY_PATH).new().call("from_prep",approach,int(m.map_index))
+	var factory: RefCounted=load(ARENA_FACTORY_PATH).new()
+	var contract: Dictionary=factory.call("queen_canopy_from_prep",approach) if upper_exit else factory.call("from_prep",approach,int(m.map_index))
+	if upper_exit:
+		m.boss_content={"contract":"forest-queen-canopy-v3","scene":"res://scenes/bosses/thorn_queen_canopy.tscn","resource":"res://resources/bosses/thorn_queen_canopy.tres"}
 	m.boss_contract=contract.duplicate(true);m.boss_geometry=contract.duplicate(true);m.boss_approach_origin=_pair(approach)
 	m.boss_arena=contract.get("boss_arena",[1484.0,floor_center_y-502,0.0,0.0])
 	if contract.get("ok",false):

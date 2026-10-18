@@ -1,5 +1,7 @@
 # 森林探索 V2：同一棵树，不同接近与接收方式
 
+最新工作布局为 `shared-tree-canopy-hunt-v10`：继承本页v9探索关系，只替换图2Boss内容与同高自然入口，不冒称新增一套探索拓扑。新推荐W→N→S回程已在当前完整源root00／图2成长原路线实际严格通过；单路线不替代10root×两图×四路线的最终CI。历史V7／V9按原完整Manifest和哈希恢复，不强制更新旧地图。
+
 任务 `FOREST-DEPTH-02`。当前工作布局为 `shared-tree-living-detour-v9` 未准入候选；其共享树与双孔继承v6，删除被普通解支配的侧环，保留普通反冲回程跨联。已验证主体布局为 `shared-tree-directional-cavities-v6`，仍使用既有 `ThornForestRegionGenerator`、RunRandomStream、版本化 Manifest 和实际 DemoApp。registry默认已切到v2试玩候选，真实入口专项106／49／50已过，最终同源回归仍待执行；不代表整区准入。本文覆盖旧macroA、单上窗荆棘与v4的现行设计描述，失败原件不改签。
 
 最新整体体验独评仍为REVISE，详见[当前状态](../current_state.md)。v9已将D跨枝奖励环接入有资格的图2北庭关系：第五次独立拓扑抽样改变原cache的位置、出程和低层异路返回；真实R入口为第四次抽样。两者改变玩家起点或奖励目标关系，并非只改变驾驶顺序。[D13／14正式消费者](../evidence/forest_depth_v2/ecology/formal_crossbranch13_14/README.md)和[R入口另一条路线](../evidence/forest_depth_v2/root_entry01/README.md)已有实际证据，仅限其冻结源和有限审查。旧D06漏接正式接触伤害的结论撤回，原件仍见[纠正](../evidence/forest_depth_v2/crossbranch01_06_controls/CONTACT-CONTRACT-CORRECTION.md)。最新推荐D成长路线由W重访N取未拾心，再进入S，避免重复中枝攀爬；该最后行程调整未原生采样，80全矩阵仍待。

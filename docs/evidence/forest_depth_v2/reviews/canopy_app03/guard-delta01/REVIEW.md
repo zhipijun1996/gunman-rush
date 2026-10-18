@@ -1,0 +1,13 @@
+# Canopy default identity and legacy guards — delta01
+
+**CONTINUE this limited test-guard change at the exact hashes in review.json.** This is separate from the older S-scoped TEST-CONSUMERS review. It does not approve the new validate_canopy, native Appcase, new Boss mechanics or default promotion readiness.
+
+Independent whole-file inverses prove that the two default campaign/debug tests change only the literalv2 map2 scene/resource expectation to canopy plus one additional independently literalv10 layout assertion per default map. All original executable behavior and checks, including the earlier37 campaign behavior assertions, are otherwise byte-identical to dd214ddec4394758d3d3efb71d604b86b7fdb7a3. v1 and Guardian expectations are untouched. These are stricter current-default identity checks, not a relaxed old-or-new alternative.
+
+The browser verifier changes only thev2 map2 Boss-name string; reversing that literal yields the entire previous file exactly. All exact resource/scene, compiledPCK identity, entry/pause/resume, mouse/CDPtouch, error and source expectations remain. No browser was executed by this review.
+
+All existing campaign reader/helper function ASTs (validate, validate_queen and their helpers) are unchanged. Reversing the new canopy branch, explicit recordedv7 pin and added pin assertion recovers the entire previous runner. The old schema13 case retains its choreography and reader; it now requests the actual recordedv7 generator explicitly rather than accidentally consuming the new default. The shared trace forwards that layout through the actual App debug API. This pin is a historical consumer, not a result from a bare replacement world.
+
+The current registry default is explicitly canopyv10. Profiles full and gameplay still mandatorily include versions (which requires the two whole old manifest fixtures), the old Queen campaign and the separate new canopy campaign. This source-level presence does not prove those checks or all194 were freshly executed. Newdefault correctness and legacy preservation now have separate consumers, not deleted checks.
+
+New App/pilot/reader source hashes are included only as observed context. Static Policy source-owner/frame/epoch gaps were reported separately and the author is preparing their newreader correction. Native02's normal24HP kill did not trigger the required reload; it remains overallFAIL, and no whole-reader baseline/mutant acceptance is asserted for that incomplete raw. Future03 actual source and raw need separate review. No original base-driver implementation, fun/device/audio, fullCI or G5 approval is made here; reviewer authored that early base driver and excludes it.

@@ -1,0 +1,11 @@
+# N02 actual：窄 telemetry 修复后的单路线复核
+
+承接独立静态 `recommended-growth-v10-02-telemetry-REVIEW.md`，**此单seed/map/route technical证据可CONTINUE引用**，不倒签原N01 FAIL，不签80样本/全区域趣味/最终源CI。只读新实际raw与冻结源，并调用冻结reader离线validate，未启动引擎。
+
+新actual root00/map2/growth：外层35.085s、source2068前后exact，内层native5.229s/exit0、CLI status passed/errors=[]；本次独立冻结reader离线结果也为[]。冻结TRACE逐byte等于已静态审的after，冻结reader逐byte等于当前及原01未变reader，exact==shot断言未改。
+
+232同一物理tick：caller input_aim为A `[.70710676908493,.70710676908493]`，真实Router包aim为B `[.707106828689575,.707106828689575]`、type=shoot_release/sequence7/epoch3/queued=true；shot_fired serial1 aim=B，actual_projectile_spawned serial1 direction=B。同帧实际owner/session2/weapon_epoch0与shot_economy一致，queued epoch3与actor_epoch3一致，但不把Router epoch和weapon epoch混称同一合同。真实后果因此由独立事件链支持，不是只改日志数值让一条断言通过。
+
+完整路线实际支持/完成：W起点→N107、营地往返119/131→西奖岸281/箱321→异路W534→重新N629→中层680/S704及观察716→C876→门前949/gate1013。全部14条完成记录存在，末HP5/E100/枪2，cache已领与gate已开/去碰撞原严格检查通过。W→N→S是真实回程后再入干，不是仅声明manifest边。
+
+这证明本次真实Router telemetry观测修复没有靠容差/改驾驶掩盖原45度1ULP：原输入保留、B真实入队且真实生成同向弹体。它不把queued等同accepted的一般语义；本帧接受另有shot/projectile证据。完整SHA、方向与身份、路径记录见独立actual-audit.json。没有电影可读性或新趣味结论，也未新增native运行/矩阵统计。

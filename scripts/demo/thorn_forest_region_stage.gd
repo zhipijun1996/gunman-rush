@@ -3,6 +3,22 @@ extends PlainsRegionStage
 ## Forest formal consumer, retaining shared reward/ledger/map/respawn contracts.
 var _forest_draw_clock := 0.0
 
+func _has_canopy_boss() -> bool:
+	var content: Variant=generated.manifest.get("boss_content")
+	return content is Dictionary and content.get("contract")=="forest-queen-canopy-v3"
+
+func _canopy_point(key: String) -> Vector2:
+	var geometry: Variant=generated.manifest.get("boss_geometry")
+	if not geometry is Dictionary: return Vector2.INF
+	var value: Variant=geometry.get(key)
+	if not value is Array or value.size()!=2: return Vector2.INF
+	for number: Variant in value:
+		if not (number is int or number is float) or not is_finite(float(number)): return Vector2.INF
+	return Vector2(value[0],value[1])
+
+func forest_boss_entry_position() -> Vector2:
+	return _canopy_point("safe_return") if _has_canopy_boss() else Vector2(boss_arena.position.x+70,boss_arena.end.y-18)
+
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	if region_state == null: region_state = PlainsRegionState.new()
@@ -56,7 +72,12 @@ func _ready() -> void:
 		enemy_manifest.append(row.duplicate(true))
 	if not enemies.is_empty(): enemy = enemies[0]
 	var forest_version: String = generated.manifest.version
-	var boss_scene: PackedScene = load(ThornForestRegionGenerator.boss_scene_path(forest_version,map_index))
+	if _has_canopy_boss() and (not _canopy_point("safe_return").is_finite() or not _canopy_point("reward_position").is_finite()):
+		assembly_ok=false;push_error("Recorded canopy entry or reward point rejected");return
+	var boss_path := ThornForestRegionGenerator.boss_scene_path(forest_version,map_index,generated.manifest)
+	if boss_path.is_empty():
+		assembly_ok=false;push_error("Recorded forest Boss content is not in the version whitelist");return
+	var boss_scene: PackedScene = load(boss_path)
 	boss = boss_scene.instantiate()
 	var boss_point: Array = generated.manifest.get("boss_geometry",{}).get("boss_position",[boss_arena.get_center().x,boss_arena.end.y-100])
 	boss.position = Vector2(boss_point[0],boss_point[1])
@@ -73,8 +94,8 @@ func _ready() -> void:
 			encounter.damageable.bind_health(encounter.health)
 			encounter.restore_combat_state(restored_boss)
 	if bool(restored_boss.get("seal_closed",false)) and encounter.health.current > 0:
-		spawn = Vector2(boss_arena.position.x+70,boss_arena.end.y-18)
-	reward_position = Vector2(boss_arena.get_center().x,boss_arena.end.y-18)
+		spawn = forest_boss_entry_position()
+	reward_position = _canopy_point("reward_position") if _has_canopy_boss() else Vector2(boss_arena.get_center().x,boss_arena.end.y-18)
 	for row: Dictionary in generated.manifest.pickups:
 		pickups.append({"id":row.id,"kind":row.kind,"amount":int(row.amount),"position":Vector2(row.position[0],row.position[1]),"claimed":region_state.claimed.has(row.id)})
 	for id: String in region_state.drops:

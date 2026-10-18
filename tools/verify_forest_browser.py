@@ -200,7 +200,7 @@ async def verify(url: str, folder: Path, expected_commit: str, expected_build_id
                         assembled=[e for e in report["events"] if e.get("device")==device and e.get("event")=="region_assembled" and e.get("region")==region and e.get("map_index")==map_index and e.get("debug_entry") is True]
                         if len(assembled)!=1: raise AssertionError(f"{prefix}: one actually assembled forest consumer required")
                         actual=assembled[0]
-                        boss_names={"thorn-forest-region-v1":("thorn_guardian","thorn_queen"),"thorn-forest-region-v2":("rootbell_guardian_v2","thorn_queen_v2")}
+                        boss_names={"thorn-forest-region-v1":("thorn_guardian","thorn_queen"),"thorn-forest-region-v2":("rootbell_guardian_v2","thorn_queen_canopy")}
                         boss=boss_names[expected_forest_version][map_index-1]
                         if actual.get("content_version")!=expected_forest_version or not re.fullmatch(r"[0-9a-f]{64}",str(actual.get("manifest_hash",""))) or actual.get("boss_definition")!=f"res://resources/bosses/{boss}.tres" or actual.get("boss_scene")!=f"res://scenes/bosses/{boss}.tscn" or actual.get("abilities")!=["grapple"]:
                             raise AssertionError(f"{prefix}: actual forest manifest/Boss/H-only build differs from selected default: {actual}")

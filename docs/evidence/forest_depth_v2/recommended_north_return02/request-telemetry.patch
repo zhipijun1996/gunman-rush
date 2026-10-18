@@ -1,0 +1,24 @@
+diff --git a/build/forest_depth/region/recommended-growth-v10-02-preparation/forest_depth_region_trace.before.gd.txt b/build/forest_depth/region/recommended-growth-v10-02-preparation/forest_depth_region_trace.after.gd.txt
+index fe6a1c49..e93cbf96 100644
+--- a/build/forest_depth/region/recommended-growth-v10-02-preparation/forest_depth_region_trace.before.gd.txt
++++ b/build/forest_depth/region/recommended-growth-v10-02-preparation/forest_depth_region_trace.after.gd.txt
+@@ -147,7 +147,18 @@ func movie_stamp(row: Dictionary) -> void:
+ 		row.presentation_frame=Engine.get_frames_drawn()
+ 		row.process_frame=Engine.get_process_frames()
+ func request(kind: StringName, aim:=Vector2.ZERO) -> void:
+-	requests.append({"tick":tick,"leg":leg_index,"phase":phase,"kind":String(kind),"aim":pair(aim),"queued":controller.router.request_action(kind,aim)})
++	# Preserve caller intent separately from the actual normalized Router packet.
++	var input_aim := pair(aim)
++	var queued := controller.router.request_action(kind,aim)
++	var row := {"tick":tick,"leg":leg_index,"phase":phase,"kind":String(kind),"input_aim":input_aim,"aim":input_aim,"queued":queued}
++	if queued:
++		if controller.router._queue.is_empty(): fail("queued_action_missing_actual_router_packet");return
++		var actual: Dictionary=controller.router._queue.back()
++		row.aim=pair(actual.direction)
++		row.router_type=String(actual.type)
++		row.router_sequence=int(actual.sequence)
++		row.router_epoch=int(actual.epoch)
++	requests.append(row)
+ 	movie_stamp(requests[-1])
+ 	if leg_index<itinerary.size() and itinerary[leg_index].kind=="hollow_cavity" and itinerary[leg_index].get("motion","")=="descending_elbow":
+ 		requests[-1].merge({"body_before":pair(player.global_position),"velocity_before":pair(player.velocity),"grounded_before":player.is_on_floor(),"hook_origin_before":pair(player.global_position+Vector2(0,-6))})
