@@ -37,7 +37,7 @@ FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试�
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
-| FOREST-FEEDBACK-01 | 扩大森林／真实空中连续动作／生态与地块场景语言 | FOREST-DEPTH-02 | in_progress | [质量记录](quality/records/FOREST-FEEDBACK-01.json)；用户四项反馈续轮，真实黄金先于两图推广 |
+| FOREST-FEEDBACK-01 | 扩大森林／真实空中连续动作／生态与地块场景语言 | FOREST-DEPTH-02 | in_progress | [质量记录](quality/records/FOREST-FEEDBACK-01.json)；用户四项反馈续轮；v11已发布5fd40a31c4be，CI86/GUI20通过，体验仍REVISE；[发布证据](evidence/forest_depth_v2/forest_feedback01/release01/README.md) |
 | FOREST-DEPTH-02 | 森林动作空间／探索／生态／两Boss重构及现有流程改进 | FOREST-PLAYABLE-01 | in_progress | v10可玩候选，Canopy黄金／App03／N回程已采；整体设计REVISE，最终同源结果以PR／分支检查与实际构建元数据为准，原失败保留 |
 | FOREST-DEPTH-TEST-CONSUMERS-01 | 测试消费者真实App／Node生命周期／严格退出与证据修复 | FOREST-DEPTH-02 | review | [有界质量记录](quality/records/FOREST-DEPTH-TEST-CONSUMERS-01.json)；原断言／预算／strict守卫不减，精确S已获不同作者限定独审，fresh完整CI仍待验 |
 | FOREST-DEPTH-PLAINS-AUDIO-01 | 旧平原黄金测试的真实回退音频清理与负例严格性 | FOREST-DEPTH-02 | review | [限定小修复记录](quality/records/FOREST-DEPTH-PLAINS-AUDIO-01.json)；原断言／输入／预算保留，实际专项与精确Git绑定有界独审，非整区或最终CI通过 |

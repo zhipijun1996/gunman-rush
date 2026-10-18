@@ -1,5 +1,7 @@
 # FOREST-DEPTH-02：织隙换位的森林
 
+2026-10-18最新续轮覆盖本文同主题旧v10当前性描述：试玩默认已为 `forest-expedition-airborne-v11`，旧V10冻结重建保留。扩大的共享森林、连续空中两/四/五连、七行为生态与显式结构语义见[四项反馈设计](../forest_feedback_expedition.md)，实际CI/公开build/影片/原失败见[续轮证据](../../evidence/forest_depth_v2/forest_feedback01/README.md)。整体仍REVISE，本文此前Boss设计、历史证据与未通过项继续有效；新地图不把旧Boss影片冒充重新录制。
+
 最新验证跟进：[原CI失败与限定修复](../../evidence/forest_depth_v2/release_followup01/README.md)。0cf完整CI49项通过（含当前固定80路线），Guardian原生25/0后因旧map2身份reader失败；df3f版本严格迁移已获独审，干净源原Harness定向7实际通过，非最终完整CI。当前0cf正常影片的16px结标记已获实景限定接受，“岸”正式objective未展示；原浏览器首20/24与唯一诊断24/24分账，首发根因仍未证，另两组48/48不消除原FAIL。整体仍REVISE，最新完整CI／部署以PR与元数据实际终态为准。
 
 2026-10-18，基于PR76实际最新 `bee850c66b2f402d644d7daa4c13db91c8abe8f8`，工作分支 `feature/thorn-forest-depth`。当前默认布局为 `shared-tree-canopy-hunt-v10`，区域版本仍为 `thorn-forest-region-v2`，`production_pool=false`。这是已接入正式可玩流程的试玩候选，整体体验审查仍为 **REVISE**；不以技术可达性、自动断言或AI局部认可代替玩家认可。

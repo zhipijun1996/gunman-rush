@@ -1,0 +1,203 @@
+{
+  "scope": "all_four_region_map_entries_with_actual_mouse_and_emulated_DOM_touch; GUI_only",
+  "url": "https://zhipijun1996.github.io/gunman-rush/?v=5fd40a31c4be",
+  "checks": [
+    "touch-plains-map1: actual rendered debug menu enters selected map once; native capability proof is separate",
+    "touch-plains-map1: actual touch pause and resume buttons remain usable",
+    "touch-plains-map2: actual rendered debug menu enters selected map once; native capability proof is separate",
+    "touch-plains-map2: actual touch pause and resume buttons remain usable",
+    "touch-thorn_forest-map1: actual assembled forest version, manifest, Boss scene/resource and H-only build",
+    "touch-thorn_forest-map1: actual rendered debug menu enters selected map once; native capability proof is separate",
+    "touch-thorn_forest-map1: actual touch pause and resume buttons remain usable",
+    "touch-thorn_forest-map2: actual assembled forest version, manifest, Boss scene/resource and H-only build",
+    "touch-thorn_forest-map2: actual rendered debug menu enters selected map once; native capability proof is separate",
+    "touch-thorn_forest-map2: actual touch pause and resume buttons remain usable",
+    "mouse-plains-map1: actual rendered debug menu enters selected map once; native capability proof is separate"
+  ],
+  "events": [
+    {
+      "device": "touch",
+      "event": "debug_entry",
+      "map_index": 1,
+      "natural_progression": false,
+      "region": "plains",
+      "seed": "plains-a31f07077d0c0fed53e2d761299b88fb"
+    },
+    {
+      "device": "touch",
+      "abilities": [],
+      "boss_definition": "res://resources/bosses/bellstrider.tres",
+      "boss_scene": "res://scenes/bosses/bellstrider.tscn",
+      "content_version": "plains-region-v12-root-bell-spaces",
+      "debug_entry": true,
+      "event": "region_assembled",
+      "layout_version": "",
+      "manifest_hash": "6dc23fce8d8ff9d01cb3059f3c395c1c0441a645cd051580a52a3ace32ff2914",
+      "map_index": 1,
+      "region": "plains",
+      "seed": "plains-a31f07077d0c0fed53e2d761299b88fb"
+    },
+    {
+      "device": "touch",
+      "event": "debug_entry",
+      "map_index": 2,
+      "natural_progression": false,
+      "region": "plains",
+      "seed": "plains-7d34c398af48437cccdcc3e501d62d2e"
+    },
+    {
+      "device": "touch",
+      "abilities": [],
+      "boss_definition": "res://resources/bosses/windkeeper_storm.tres",
+      "boss_scene": "res://scenes/bosses/windkeeper.tscn",
+      "content_version": "plains-region-v12-root-bell-spaces",
+      "debug_entry": true,
+      "event": "region_assembled",
+      "layout_version": "",
+      "manifest_hash": "0a701932488747ed1ee1a0a2079879043ba80a9a6162ad8033c461ce99f8bdef",
+      "map_index": 2,
+      "region": "plains",
+      "seed": "plains-7d34c398af48437cccdcc3e501d62d2e/plains/map_2"
+    },
+    {
+      "device": "touch",
+      "event": "debug_entry",
+      "map_index": 1,
+      "natural_progression": false,
+      "region": "thorn_forest",
+      "seed": "plains-d086f6ffb3b980f974130bdc41cf7113"
+    },
+    {
+      "device": "touch",
+      "abilities": [
+        "grapple"
+      ],
+      "boss_definition": "res://resources/bosses/rootbell_guardian_v2.tres",
+      "boss_scene": "res://scenes/bosses/rootbell_guardian_v2.tscn",
+      "content_version": "thorn-forest-region-v2",
+      "debug_entry": true,
+      "event": "region_assembled",
+      "layout_version": "forest-expedition-airborne-v11",
+      "manifest_hash": "0e5fbffc25f1b3acdd9ae1b941911f2e26bf0998f677a3958857aedae8f66e53",
+      "map_index": 1,
+      "region": "thorn_forest",
+      "seed": "plains-d086f6ffb3b980f974130bdc41cf7113/thorn_forest/map_1"
+    },
+    {
+      "device": "touch",
+      "event": "debug_entry",
+      "map_index": 2,
+      "natural_progression": false,
+      "region": "thorn_forest",
+      "seed": "plains-6a5de016dcf8c2ee40d9b6eaeaed7125"
+    },
+    {
+      "device": "touch",
+      "abilities": [
+        "grapple"
+      ],
+      "boss_definition": "res://resources/bosses/thorn_queen_canopy.tres",
+      "boss_scene": "res://scenes/bosses/thorn_queen_canopy.tscn",
+      "content_version": "thorn-forest-region-v2",
+      "debug_entry": true,
+      "event": "region_assembled",
+      "layout_version": "forest-expedition-airborne-v11",
+      "manifest_hash": "f42a3752ee2e3ebbc6530d773e208be932afc8c4f829d68d120cf0f40e54673d",
+      "map_index": 2,
+      "region": "thorn_forest",
+      "seed": "plains-6a5de016dcf8c2ee40d9b6eaeaed7125/thorn_forest/map_2"
+    },
+    {
+      "device": "mouse",
+      "event": "debug_entry",
+      "map_index": 1,
+      "natural_progression": false,
+      "region": "plains",
+      "seed": "plains-742656b659dcd08eefb36a640ed6c330"
+    },
+    {
+      "device": "mouse",
+      "abilities": [],
+      "boss_definition": "res://resources/bosses/bellstrider.tres",
+      "boss_scene": "res://scenes/bosses/bellstrider.tscn",
+      "content_version": "plains-region-v12-root-bell-spaces",
+      "debug_entry": true,
+      "event": "region_assembled",
+      "layout_version": "",
+      "manifest_hash": "777b3e93644f15dc59e7524b265f5b2f7687695f28cf5ffd3d9a9e908246ba6c",
+      "map_index": 1,
+      "region": "plains",
+      "seed": "plains-742656b659dcd08eefb36a640ed6c330"
+    }
+  ],
+  "errors": [],
+  "gestures": [],
+  "identities": [
+    {
+      "case": "touch-plains-map1",
+      "identity": {
+        "source_commit": "5a9f4bdaf846a635eb2659080d563b865758ab87",
+        "build_id": "5fd40a31c4be",
+        "pack": "index.5fd40a31c4be.pck",
+        "pack_sha256": "5fd40a31c4be5282534775dc3026007f8dbbcfb964f5363c07266b52cb590de1",
+        "pack_bytes": 90357852
+      }
+    },
+    {
+      "case": "touch-plains-map2",
+      "identity": {
+        "source_commit": "5a9f4bdaf846a635eb2659080d563b865758ab87",
+        "build_id": "5fd40a31c4be",
+        "pack": "index.5fd40a31c4be.pck",
+        "pack_sha256": "5fd40a31c4be5282534775dc3026007f8dbbcfb964f5363c07266b52cb590de1",
+        "pack_bytes": 90357852
+      }
+    },
+    {
+      "case": "touch-thorn_forest-map1",
+      "identity": {
+        "source_commit": "5a9f4bdaf846a635eb2659080d563b865758ab87",
+        "build_id": "5fd40a31c4be",
+        "pack": "index.5fd40a31c4be.pck",
+        "pack_sha256": "5fd40a31c4be5282534775dc3026007f8dbbcfb964f5363c07266b52cb590de1",
+        "pack_bytes": 90357852
+      }
+    },
+    {
+      "case": "touch-thorn_forest-map2",
+      "identity": {
+        "source_commit": "5a9f4bdaf846a635eb2659080d563b865758ab87",
+        "build_id": "5fd40a31c4be",
+        "pack": "index.5fd40a31c4be.pck",
+        "pack_sha256": "5fd40a31c4be5282534775dc3026007f8dbbcfb964f5363c07266b52cb590de1",
+        "pack_bytes": 90357852
+      }
+    },
+    {
+      "case": "mouse-plains-map1",
+      "identity": {
+        "source_commit": "5a9f4bdaf846a635eb2659080d563b865758ab87",
+        "build_id": "5fd40a31c4be",
+        "pack": "index.5fd40a31c4be.pck",
+        "pack_sha256": "5fd40a31c4be5282534775dc3026007f8dbbcfb964f5363c07266b52cb590de1",
+        "pack_bytes": 90357852
+      }
+    }
+  ],
+  "expected_commit": "5a9f4bdaf846a635eb2659080d563b865758ab87",
+  "expected_build_id": "5fd40a31c4be",
+  "physical_devices": "unverified",
+  "natural_reward_and_next_region_gui": "unverified; native actual progression evidence is separate",
+  "whole_browser_route": "unverified",
+  "expected_forest_version": "thorn-forest-region-v2",
+  "expected_forest_layout": "forest-expedition-airborne-v11",
+  "proxy": {
+    "enabled": true,
+    "hostname": "proxy"
+  },
+  "build_id": "5fd40a31c4be",
+  "pack_sha256": "5fd40a31c4be5282534775dc3026007f8dbbcfb964f5363c07266b52cb590de1",
+  "source_commit": "5a9f4bdaf846a635eb2659080d563b865758ab87",
+  "status": "failed",
+  "failure": "Actual MENU text not found in original canvas or enlarged HUD pixels"
+}

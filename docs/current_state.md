@@ -1,5 +1,8 @@
 # FOREST-DEPTH-02：新版森林试玩候选
 
+2026-10-18最新可试玩交付：[build5fd40a31c4be](https://zhipijun1996.github.io/gunman-rush/?v=5fd40a31c4be)，游戏源码 `5a9f4bdaf846a635eb2659080d563b865758ab87`，默认 `forest-expedition-airborne-v11`。[实际证据及边界](evidence/forest_depth_v2/forest_feedback01/release01/README.md)。选定CI39160856629完整SUCCESS：86项gameplay/art同源汇总、Web/Windows/deploy/verify_public通过；公开PCK校验与GUI02八入口20/20通过，森林两图实际v11。原GUI01 OCR失败、原本机600秒/长片240秒失败不覆盖；仅浏览器采证工具窗口后修并独审负例，不冒称后续工具/文档HEAD重新构建游戏。CI ZIP受proxy403阻断，publisher live_verified仍false，原包72未执行。原质量记录glob漏覆盖已doc-only修正且push/PR两docs通过。整体REVISE/in_progress，摆荚价值、QueenH、巨木轮廓/荆棘宿主、真人/设备/商业仍未认可。以下H与其他旧交付段仅为历史。
+
+
 2026-10-18四项反馈续轮：默认布局已改为 `forest-expedition-airborne-v11`；扩大实际探索到5630px，接入H→H、R→H、四连和经删动作对照保留的五连，新增方向盾甲虫与摆荚，所有实际支持面消费森林结构/材质身份。详见[本轮设计](design/forest_feedback_expedition.md)和[证据及未通过项](evidence/forest_depth_v2/forest_feedback01/README.md)。原固定80案例已同源分组实测且独审逐原raw通过；原整组Harness600秒仍超时失败，不由分组覆盖改签。实际原速两图影片、最终CI/Web发布与浏览器以证据页最新结果为准。质量记录FOREST-FEEDBACK-01及父任务保持in_progress／REVISE，尤其摆荚实际路线收益、QueenH、初见手感、真人／真机与商业品质仍未认证。以下旧v10与H交付段为历史检查点，不覆盖此默认布局，也不冒充新版已发布。
 
 

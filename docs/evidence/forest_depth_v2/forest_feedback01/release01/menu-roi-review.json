@@ -1,0 +1,110 @@
+{
+  "reviewer": "/root/forest_feedback_content_review",
+  "scope": "Actual static screenshot OCR locator only. No browser/engine/network/fullGUI rerun or production edit. Original failure-directory files untouched.",
+  "timestamp_utc": "2026-10-18T20:55:52.147752+00:00",
+  "source": {
+    "old_sha256": "eef8ca2727f085ad3f6f40a30ca5e594895f73d383fe320cd6df21ce163f2c23",
+    "new_sha256": "07691b5cab72035a68f94d246df320eed5bd57a9f0babe072e5b957544790478",
+    "new_ROI": "(int(width * 0.899), int(height * 0.104), int(width * 0.985), int(height * 0.171))",
+    "AST_inverse_only_new_first_ROI_removal_equals_original_whole_script": true,
+    "all_original_boxes_preserved": true,
+    "recognizer": "Original actualimage4x + Tesseract psm6 TSV exact norm(word)==MENU; originalfullimagepsm11 retained"
+  },
+  "failure_input": {
+    "path": "build/forest_feedback/release5a9f/public-forest01/mouse-plains-map1-pause-button-0.png",
+    "sha256": "f473d6816ef1dc592132e25acf17d94a8f11bfeda57b46605d8ade8a93b753f4",
+    "all_failure_directory_files_before_after_identical": true,
+    "count": 47
+  },
+  "cases": [
+    {
+      "case": "actual-old",
+      "input": "build/forest_feedback/release5a9f/menu-roi-audit/actual-old.png",
+      "sha256": "5f22e8697eb12abd467c2d56f8d1b055adf99a2131ac49bcc16315c5ebd88c1c",
+      "expected_accept": false,
+      "accepted": false,
+      "point": null,
+      "inside_actual_menu_glyph": false,
+      "error": "Actual MENU text not found in original canvas or enlarged HUD pixels",
+      "seconds": 1.426160371996957
+    },
+    {
+      "case": "actual-new",
+      "input": "build/forest_feedback/release5a9f/menu-roi-audit/actual-new.png",
+      "sha256": "5f22e8697eb12abd467c2d56f8d1b055adf99a2131ac49bcc16315c5ebd88c1c",
+      "expected_accept": true,
+      "accepted": true,
+      "point": [
+        1203.0,
+        98.0
+      ],
+      "inside_actual_menu_glyph": true,
+      "error": null,
+      "seconds": 0.43997812000088743
+    },
+    {
+      "case": "blank",
+      "input": "build/forest_feedback/release5a9f/menu-roi-audit/blank.png",
+      "sha256": "a7b3e8fcf166a57608274ac90281b72e66e45e8d338f64921e03601f4cdfc73a",
+      "expected_accept": false,
+      "accepted": false,
+      "point": null,
+      "inside_actual_menu_glyph": false,
+      "error": "Actual MENU text not found in original canvas or enlarged HUD pixels",
+      "seconds": 1.4914750169991748
+    },
+    {
+      "case": "menu-removed",
+      "input": "build/forest_feedback/release5a9f/menu-roi-audit/menu-removed.png",
+      "sha256": "643425d6507a96ead66b2b0e98d2f890e32caa40af8d0c207e01ddb44474d8ee",
+      "expected_accept": false,
+      "accepted": false,
+      "point": null,
+      "inside_actual_menu_glyph": false,
+      "error": "Actual MENU text not found in original canvas or enlarged HUD pixels",
+      "seconds": 2.1267464519987698
+    },
+    {
+      "case": "other-text",
+      "input": "build/forest_feedback/release5a9f/menu-roi-audit/other-text.png",
+      "sha256": "c6e98989d15fc9e630fab80356110a12735d78cd89e62f0c8d180056abffc42a",
+      "expected_accept": false,
+      "accepted": false,
+      "point": null,
+      "inside_actual_menu_glyph": false,
+      "error": "Actual MENU text not found in original canvas or enlarged HUD pixels",
+      "seconds": 2.08424963500147
+    },
+    {
+      "case": "map1-only",
+      "input": "build/forest_feedback/release5a9f/menu-roi-audit/map1-only.png",
+      "sha256": "56c17808b015bd802035d77fb20573651c0024d98c3faebaf8538c8d63c8cc6f",
+      "expected_accept": false,
+      "accepted": false,
+      "point": null,
+      "inside_actual_menu_glyph": false,
+      "error": "Actual MENU text not found in original canvas or enlarged HUD pixels",
+      "seconds": 2.2057462369994028
+    },
+    {
+      "case": "shape-only",
+      "input": "build/forest_feedback/release5a9f/menu-roi-audit/shape-only.png",
+      "sha256": "4a8e27267fbed618aa56470cb6bd2e8e084046fd44d42e52474e5078bd09a2ea",
+      "expected_accept": false,
+      "accepted": false,
+      "point": null,
+      "inside_actual_menu_glyph": false,
+      "error": "Actual MENU text not found in original canvas or enlarged HUD pixels",
+      "seconds": 2.0007943989985506
+    }
+  ],
+  "all_expected_results": true,
+  "positive_is_actual_text_center": true,
+  "limitations": [
+    "Only finiteactual image and five synthetic negativecontrols, not universalOCR correctness.",
+    "No complete publicGUI outcome signed; old public-forest01 failed receipt remains failed.",
+    "No gamecode/build change verified by this OCR audit; release source identity remains separate.",
+    "No gamefun/device/commercial acceptance."
+  ],
+  "verdict": "ACCEPT_LIMITED_ACTUAL_MENU_ROI_FIX"
+}

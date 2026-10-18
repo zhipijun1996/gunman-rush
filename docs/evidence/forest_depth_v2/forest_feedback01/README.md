@@ -30,3 +30,7 @@
 新版最终结构合同200/0；调试地图1/2直接进入与生命周期原生52/0通过，[原日志](debug-final-native.log)。干净运行副本包含真实文档/preview后，原check_docs通过[链接](clean-check-docs.log)。根工作区check_docs扫描旧ignored build快照报历史断链，不能冒充新版源通过；首次干净副本缺preview的运行失败也不冒签。后续完整docs Harness曾在无checkout副本的Git源指纹阶段30秒超时，另次定向debug Harness因验证lane与冻结快照不同在引擎前失败，见[失败原件](validation-failures.zip)；direct52不改签该Harness。最终准确提交CI仍需执行。
 
 独立实际像素/时序审查：[地图1](reviews/movie-pixels09-README.md)、[地图2与总评](reviews/movie-pixels10-README.md)。两图共28张原尺寸关键帧、27+31个每秒序列点结合完整实际轨迹核对；有限认可所看锚点、身体、绳索、宽落岸及甲虫预告/绕背可读。不是全帧实时播放或听音，不签真人认可。悬空荆棘条、矩形巨木与未消费摆荚明确REVISE；未录完整growth/Boss片，原父Boss影片不能冒作新版地图片。
+
+## 最新实际发布（覆盖上方待发布段）
+
+[公开试玩 build5fd40a31c4be](https://zhipijun1996.github.io/gunman-rush/?v=5fd40a31c4be)，游戏源码5a9f4bda。[完整发布证据与边界](release01/README.md)：CI86项同源汇总/Web/Windows/部署/公开PCK均通过，GUI02实际20/20、八个触屏/鼠标入口，森林两图实际v11。原GUI01的11/20后MENU OCR失败、原local600/growth录像240失败仍保留；仅采证工具新增严格文字OCR窗口，原五种负例拒绝，不重建游戏。Azure CI ZIP下载403、publisher未verified及未跑原包72也不改签。默认v11可通过 DEBUG / SELECT REGION + MAP 选择森林MAP1/2直接进入。整体REVISE/in_progress和上方体验缺口不变。

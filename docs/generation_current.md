@@ -1,6 +1,8 @@
 # 当前森林生成候选（FOREST-DEPTH-02）
 
-registry已选择 `thorn-forest-region-v2` 试玩默认，布局 `shared-tree-directional-cavities-v6`：同一实体巨木、水平与下降双孔、共享根／庭环路、独立奖励和生态流；版本随局pin，显式v1与旧存档算法保留。真实默认专项已采版本106／自然流程49／四调试入口50，不等于完整profile通过。最终固定80路线、新源CI／GUI和HTTPS预览仍待实际终态，见[当前状态](current_state.md)、[探索设计](design/forest_exploration_v2.md)。
+2026-10-18四项反馈续轮：registry正式试玩默认仍为 `thorn-forest-region-v2`，布局现为 `forest-expedition-airborne-v11`。河岸、西空心巨木、连续空中桥、倒木、树冠与根下回廊连通；HH/RH/四连/五连、新盾甲虫/摆荚和每块场景语义均进入实际App。旧V7/V9/V10冻结重建保留，旧v6描述只属历史。有效支持面跨度5630px；每图14–16敌实例不代遭遇质量。详情见[续轮设计](design/forest_feedback_expedition.md)。
+
+实际游戏源码 `5a9f4bdaf846a635eb2659080d563b865758ab87`、[CI39160856629](https://github.com/zhipijun1996/gunman-rush/actions/runs/39160856629)完整成功：gameplay/art86项同源汇总、Web/Windows/deploy/verify_public通过，公开[build5fd40a31c4be](https://zhipijun1996.github.io/gunman-rush/?v=5fd40a31c4be)。原本机600秒超时、长growth录像240秒超时、公开GUI首轮OCR失败仍单列；新GUI后续结果、ZIP代理403和体验缺口见[本轮证据](evidence/forest_depth_v2/forest_feedback01/README.md)。技术通过不签摆荚价值、QueenH、灰盒精美、真人与设备，整体REVISE/in_progress。
 
 下面平原与早期plan_only描述是其冻结轮次历史，不覆盖现在已实现的森林候选，也不代表商业／玩家准入。
 
