@@ -2,7 +2,8 @@ class_name PlainsRegionArtPlan
 extends RefCounted
 ## Candidate-only companion to the actual complete formal region Manifest.
 ## Physics, content, resources and replay remain owned by the formal generator.
-const VERSION := "plains-regional-art-v1"
+const VERSION := "plains-regional-art-v2"
+const ASSET_CATALOG := "res://resources/visual_development/p1_regional_assets.json"
 const ATTEMPTS := 4
 const MAX_WORLD_WIDTH := 22000.0
 const MAX_WORLD_HEIGHT := 6500.0
@@ -107,6 +108,8 @@ static func compile(manifest: Dictionary) -> Dictionary:
 		var a := _point(surface.a)
 		var b := _point(surface.b)
 		keep_clear.append({"owner":surface.id,"kind":"surface_action_window","rect":[a.x,a.y-72.0,b.x-a.x,72.0]})
+	var asset_result := _asset_specs()
+	if not asset_result.ok: return asset_result
 	var places: Array = []
 	var landmarks: Array = []
 	for area: Dictionary in manifest.areas:
@@ -115,21 +118,96 @@ static func compile(manifest: Dictionary) -> Dictionary:
 		var place := {"id":area.id,"position":area.position.duplicate(),"identity":identity,"role":area.role,"ports":area.ports.duplicate(true),"composition":{"focus":[p.x,p.y-90.0],"quiet_action_rect":[p.x-240.0,p.y-170.0,480.0,190.0],"view_radius":660.0,"enclosure":"open" if identity=="windmill_plateau" else "sheltered" if identity=="repair_gallery" else "recessed","grounding":"actual_world_support_only"}}
 		places.append(place)
 		if area.role in ["merchant","prep","boss"] or (int(area.get("row",-1))==0 and int(area.get("col",-1)) in [0,3]):
-			var root_surface: Dictionary = {}
-			var root_position := Vector2.ZERO
-			var nearest:=INF
-			for surface: Dictionary in surfaces:
-				if surface.one_way or float(surface.b[0])-float(surface.a[0])<90.0: continue
-				var root := Vector2(clampf(p.x,float(surface.a[0])+30.0,float(surface.b[0])-30.0),float(surface.a[1]))
-				var distance:=root.distance_squared_to(p)
-				if distance<nearest: nearest=distance;root_surface=surface;root_position=root
-			if not root_surface.is_empty() and nearest<320.0*320.0:
-				landmarks.append({"id":"landmark/"+str(area.id),"owner":area.id,"surface_id":root_surface.id,"position":[root_position.x,root_position.y],"identity":identity,"role":area.role,"asset_role":"shelter" if area.role=="merchant" else "wind_tree" if identity=="windmill_plateau" else "shelter","priority":3 if area.role=="boss" else 2,"support_required":true})
+			var asset_role := "tree" if identity=="windmill_plateau" and area.role!="merchant" else "shelter"
+			var spec: Dictionary=asset_result.specs[asset_role]
+			var solution:=_landmark_solution(spec,surfaces,p,float(place.composition.view_radius))
+			if not solution.ok: return {"ok":false,"error":"No whole-footprint supported "+asset_role+" placement within actual composition view radius for "+str(area.id)}
+			var attachment: Dictionary=solution.attachment
+			attachment.merge({"id":"landmark/"+str(area.id),"owner":area.id,"identity":identity,"role":area.role,"asset_role":asset_role,"priority":3 if area.role=="boss" else 2,"support_required":true})
+			landmarks.append(attachment)
 	var belts := _global_belts(manifest,bounds)
 	var topology := {"family":manifest.family,"recipe":manifest.topology.recipe,"areas":manifest.areas.duplicate(true),"connections":manifest.connections.duplicate(true),"cycle_count":manifest.connections.size()-manifest.areas.size()+1,"semantic_routes":manifest.topology.semantic_routes.duplicate(true),"signature":topology_signature(manifest)}
-	var plan := {"version":VERSION,"schema_version":1,"seed":manifest.seed,"manifest_hash":manifest.manifest_hash,"production_pool":false,"layout_source":"formal_full_region","bounds":values.duplicate(),"topology":topology,"solids":solids,"one_way_platforms":one_way,"terrain_edges":contours,"geological_bodies":geological_bodies,"surfaces":surfaces,"dynamic_surfaces":dynamic_surfaces,"keep_clear":keep_clear,"places":places,"landmarks":landmarks,"layer_belts":belts,"global_art":{"world_origin":[0.0,0.0],"light_direction":[-0.7,-0.5],"wind_direction":[-1.0,0.0],"material_coordinate_space":"world","camera_reference":"one_continuous_player_camera","background_policy":"global_belts_not_per_place_reset"},"metrics":{"source_solid_rectangles":solids.size(),"exposed_contour_edges":contours.size(),"actual_surfaces":surfaces.size(),"continuous_bodies":geological_bodies.size(),"union_area":actual_area,"places":places.size(),"landmarks":landmarks.size()}}
+	var plan := {"version":VERSION,"schema_version":1,"seed":manifest.seed,"manifest_hash":manifest.manifest_hash,"production_pool":false,"layout_source":"formal_full_region","assets_catalog":ASSET_CATALOG,"assets_catalog_sha256":asset_result.catalog_sha256,"bounds":values.duplicate(),"topology":topology,"solids":solids,"one_way_platforms":one_way,"terrain_edges":contours,"geological_bodies":geological_bodies,"surfaces":surfaces,"dynamic_surfaces":dynamic_surfaces,"keep_clear":keep_clear,"places":places,"landmarks":landmarks,"layer_belts":belts,"global_art":{"world_origin":[0.0,0.0],"light_direction":[-0.7,-0.5],"wind_direction":[-1.0,0.0],"material_coordinate_space":"world","camera_reference":"one_continuous_player_camera","background_policy":"global_belts_not_per_place_reset"},"metrics":{"source_solid_rectangles":solids.size(),"exposed_contour_edges":contours.size(),"actual_surfaces":surfaces.size(),"continuous_bodies":geological_bodies.size(),"union_area":actual_area,"places":places.size(),"landmarks":landmarks.size()}}
 	plan.plan_hash = plan_hash(plan)
 	return {"ok":true,"plan":plan}
+
+static func _asset_specs() -> Dictionary:
+	if not FileAccess.file_exists(ASSET_CATALOG): return {"ok":false,"error":"Regional attachment source catalog unavailable"}
+	var parsed: Variant=JSON.parse_string(FileAccess.get_file_as_string(ASSET_CATALOG))
+	if not parsed is Dictionary or not parsed.get("objects") is Dictionary: return {"ok":false,"error":"Regional attachment catalog invalid"}
+	var specs: Dictionary={}
+	for role: String in ["tree","shelter"]:
+		var raw: Variant=parsed.objects.get(role)
+		if not raw is Dictionary: return {"ok":false,"error":"Actual attachment role unavailable: "+role}
+		var spec: Dictionary=raw.duplicate(true)
+		var path:=str(spec.get("texture",""))
+		if not FileAccess.file_exists(path) or FileAccess.get_sha256(path)!=str(spec.get("source_sha256","")): return {"ok":false,"error":"Actual attachment source hash mismatch: "+role}
+		var source:=FileAccess.open(path,FileAccess.READ)
+		if source==null or source.get_length()<24: return {"ok":false,"error":"Actual attachment PNG source unavailable"}
+		source.big_endian=true;source.seek(16)
+		var width:=source.get_32();var height:=source.get_32()
+		if width<=0 or height<=0 or not spec.get("foundation_px") is Array or spec.foundation_px.is_empty(): return {"ok":false,"error":"Actual attachment dimensions or measured foundation unavailable"}
+		spec.source_dimensions=[width,height]
+		spec.uniform_scale=float(spec.world_height)/float(height)
+		specs[role]=spec
+	return {"ok":true,"specs":specs,"catalog_sha256":FileAccess.get_sha256(ASSET_CATALOG)}
+
+static func _landmark_solution(spec: Dictionary, surfaces: Array, desired: Vector2, radius: float) -> Dictionary:
+	var scale:=float(spec.uniform_scale)
+	var pivot:=_point(spec.pivot_px)
+	var min_dx:=INF;var max_dx:=-INF
+	var tolerance:=float(spec.get("foot_tolerance_world",3.0))
+	for value: Array in spec.foundation_px:
+		var delta:=(_point(value)-pivot)*scale
+		min_dx=minf(min_dx,delta.x);max_dx=maxf(max_dx,delta.x)
+	var best: Dictionary={}
+	var nearest:=INF
+	for surface: Dictionary in surfaces:
+		if bool(surface.get("one_way",true)): continue
+		var a:=_point(surface.a);var b:=_point(surface.b)
+		if not is_equal_approx(a.y,b.y): continue
+		# Strict horizontal containment of EVERY measured foot on ONE real
+		# surface. The old 3-world-unit tolerance is vertical only.
+		var low:=a.x-min_dx;var high:=b.x-max_dx
+		if low>high: continue
+		var low_y:=-INF;var high_y:=INF
+		for value: Array in spec.foundation_px:
+			var dy:=(_point(value)-pivot).y*scale
+			low_y=maxf(low_y,a.y-dy-tolerance)
+			high_y=minf(high_y,a.y-dy+tolerance)
+		if low_y>high_y: continue
+		var inset:=minf(0.01,(high-low)*0.25)
+		var y_inset:=(high_y-low_y)*0.0001
+		var root:=Vector2(clampf(desired.x,low+inset,high-inset),clampf(a.y,low_y+y_inset,high_y-y_inset))
+		var distance:=root.distance_squared_to(desired)
+		if distance>radius*radius or distance>=nearest: continue
+		var feet: Array=[]
+		var extent_min:=Vector2(INF,INF);var extent_max:=Vector2(-INF,-INF)
+		for value: Array in spec.foundation_px:
+			var foot:=root+(_point(value)-pivot)*scale
+			feet.append([foot.x,foot.y]);extent_min=extent_min.min(foot);extent_max=extent_max.max(foot)
+		nearest=distance
+		best={"surface_id":surface.id,"position":[root.x,root.y],"source_texture":spec.texture,"source_sha256":spec.source_sha256,"source_dimensions":spec.source_dimensions.duplicate(),"pivot_px":spec.pivot_px.duplicate(),"uniform_scale":scale,"foundation_world":feet,"foundation_extent_world":[extent_min.x,extent_min.y,extent_max.x,extent_max.y],"feasible_anchor_interval_world":[low,high],"foot_tolerance_world":tolerance,"require_all_feet_supported":bool(spec.get("require_all_feet_supported",false)),"placement_radius_world":radius}
+	return {"ok":not best.is_empty(),"attachment":best}
+
+static func landmark_support_errors(landmark: Dictionary, surfaces: Array) -> Array[String]:
+	var errors: Array[String]=[]
+	var assets:=_asset_specs()
+	if not assets.ok: errors.append(str(assets.error));return errors
+	var role:=str(landmark.get("asset_role",""))
+	if not assets.specs.has(role): errors.append("Unknown actual attachment asset role");return errors
+	var spec: Dictionary=assets.specs[role]
+	var surface: Dictionary={}
+	for row: Dictionary in surfaces:
+		if row.id==landmark.get("surface_id",""): surface=row;break
+	if surface.is_empty() or bool(surface.get("one_way",true)): errors.append("Actual solid attachment surface unavailable");return errors
+	var root:=_point(landmark.position)
+	var pivot:=_point(spec.pivot_px)
+	var tolerance:=float(spec.get("foot_tolerance_world",3.0))
+	for value: Array in spec.foundation_px:
+		var foot:=root+(_point(value)-pivot)*float(spec.uniform_scale)
+		if foot.x<float(surface.a[0]) or foot.x>float(surface.b[0]) or absf(foot.y-float(surface.a[1]))>tolerance: errors.append("Actual measured attachment foot unsupported")
+	return errors
 
 static func plan_hash(plan: Dictionary) -> String:
 	var source := plan.duplicate(true)

@@ -136,7 +136,7 @@ func get_regional_art_snapshot() -> Dictionary:
 	var art: Dictionary = {}
 	if is_instance_valid(regional_art_renderer):
 		art = regional_art_renderer.call("measured_nodes")
-	return {"ready":assembly_ok and not art.is_empty() and art.get("omitted",[]).is_empty(),"manifest_hash":generated.manifest.get("manifest_hash",""),"art_plan":generated.get("regional_art_plan",{}),"art":art,"production_pool":false,"actual_modules":assembler.modules.size() if assembler!=null else 0,"actual_enemies":enemies.size(),"actual_chests":chests.size(),"actual_boss":is_instance_valid(boss)}
+	return {"ready":assembly_ok and not art.is_empty() and art.get("omitted",[]).is_empty() and art.get("installed_foundations_valid",false),"manifest_hash":generated.manifest.get("manifest_hash",""),"art_plan":generated.get("regional_art_plan",{}),"art":art,"production_pool":false,"actual_modules":assembler.modules.size() if assembler!=null else 0,"actual_enemies":enemies.size(),"actual_chests":chests.size(),"actual_boss":is_instance_valid(boss)}
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)

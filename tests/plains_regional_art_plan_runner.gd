@@ -27,6 +27,14 @@ func run() -> void:
 		check(not manifest.sample and manifest.layout_id=="connected_region" and manifest.areas.size()>=15,root_seed+": actual full map, not places chain")
 		check(PlainsRegionGenerator.new().validate(manifest,tuning),root_seed+": original physics/topology validator")
 		check(Plan.validate_recorded(plan,manifest),root_seed+": exact authoritative art replay")
+		for landmark: Dictionary in plan.landmarks:
+			check(Plan.landmark_support_errors(landmark,plan.surfaces).is_empty(),root_seed+": actual catalog-derived full-footprint feasible placement")
+			var interval: Array = landmark.feasible_anchor_interval_world
+			check(float(landmark.position[0])>=float(interval[0]) and float(landmark.position[0])<=float(interval[1]),"Actual root belongs to all-feet feasible interval")
+			if landmark.asset_role=="shelter": check(landmark.foundation_world.size()==4 and landmark.require_all_feet_supported,"Pavilion requires all four measured feet")
+			var overhang: Dictionary = landmark.duplicate(true)
+			overhang.position[0] = float(interval[1])+100000.0
+			check(not Plan.landmark_support_errors(overhang,plan.surfaces).is_empty(),"Actual source footprint overhang is refused without new support")
 		check(Plan.generate(seed_value,tuning)==result,root_seed+": exact seeded determinism")
 		check(plan.generation.attempt>=0 and plan.generation.attempt<Plan.ATTEMPTS and plan.generation.fallback_id=="",root_seed+": bounded candidates, no unverified fallback")
 		check(not plan.production_pool and plan.layout_source=="formal_full_region",root_seed+": explicitly isolated full formal consumer")

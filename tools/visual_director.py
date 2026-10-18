@@ -632,6 +632,8 @@ def validate_regional_observations(data):
     for key in ('regional_art_initial', 'regional_art_final'):
         observed = data.get(key, {})
         plan, art = observed.get('art_plan', {}), observed.get('art', {})
+        if plan.get('version') == 'plains-regional-art-v2':
+            errors.extend(validate_regional_foundations(observed))
         if (observed.get('ready') is not True or observed.get('production_pool') is not False
                 or observed.get('manifest_hash') != data.get('manifest_hash')
                 or plan.get('layout_source') != 'formal_full_region' or manifest.get('sample') is not False
@@ -639,6 +641,40 @@ def validate_regional_observations(data):
                 or art.get('plan_hash') != plan.get('plan_hash')
                 or not observed.get('actual_boss') or observed.get('actual_chests', 0) < 1):
             errors.append('regional actual full-map art/content consumer missing/' + key)
+    return errors
+
+
+def validate_regional_foundations(observed):
+    """V2 actual installed pavilion support; V1 media keeps its original limited scope."""
+    errors = []
+    plan, art = observed.get('art_plan', {}), observed.get('art', {})
+    if art.get('installed_foundations_valid') is not True:
+        errors.append('regional v2 actual foundation guard missing/failed')
+    expected = {row.get('id'): row for row in plan.get('landmarks', [])}
+    objects = art.get('objects', [])
+    if not expected or len(objects) != len(expected) or {row.get('id') for row in objects} != set(expected):
+        errors.append('regional v2 actual rooted consumer denominator missing')
+    for obj in objects:
+        if obj.get('role') != expected.get(obj.get('id'), {}).get('asset_role'):
+            errors.append('regional v2 actual attachment family mismatch')
+        if obj.get('role') != 'shelter':
+            continue
+        foundation = obj.get('foundation', {})
+        feet = foundation.get('feet', [])
+        if (obj.get('visible_in_tree') is not True or foundation.get('ok') is not True
+                or foundation.get('required') is not True or foundation.get('tolerance_world') != 3.0
+                or len(feet) != 4 or foundation.get('surface_id') != expected.get(obj.get('id'), {}).get('surface_id')):
+            errors.append('regional v2 actual four-foot pavilion support incomplete')
+        for foot in feet:
+            point = foot.get('world')
+            if (foot.get('supported') is not True or not foot.get('installed_collision_node')
+                    or not isinstance(point, list) or len(point) != 2
+                    or any(type(v) not in (int, float) or not math.isfinite(v) for v in point)):
+                errors.append('regional v2 actual installed foundation foot missing')
+            for key in ('declared_surface_error_world', 'installed_collision_error_world'):
+                value = foot.get(key)
+                if type(value) not in (int, float) or not math.isfinite(value) or not 0.0 <= value <= 3.0:
+                    errors.append('regional v2 unsupported installed pavilion foot')
     return errors
 
 

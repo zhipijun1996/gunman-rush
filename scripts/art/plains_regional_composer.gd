@@ -10,6 +10,7 @@ var _plan: Dictionary
 var _catalog: Dictionary
 var _facts: Dictionary = {}
 var _layers: Array[Dictionary] = []
+var _foundation_nodes: Array[Dictionary]=[]
 var _old_background: CanvasLayer
 var _background_was_visible := false
 var _background_panels: Array[Sprite2D]=[]
@@ -34,6 +35,7 @@ func install(stage: Node2D, plan: Dictionary) -> void:
 	_build_layers()
 	_build_terrain()
 	_build_landmarks()
+	validate_installed_foundations()
 	_retire_original_terrain()
 	publish_facts()
 
@@ -230,7 +232,79 @@ func _build_landmarks() -> void:
 		node.scale=Vector2.ONE*factor
 		node.z_index=-5
 		add_child(node)
+		_foundation_nodes.append({"node":node,"spec":spec.duplicate(true),"surface_id":support_id,"receipt_index":_facts.objects.size()})
 		_facts.objects.append({"id":attachment.id,"role":role,"source":spec.texture,"source_sha256":FileAccess.get_sha256(str(spec.texture)),"node_path":str(node.get_path()),"surface_id":support_id,"world_anchor":[root.x,root.y],"uniform_scale":factor,"root_owned_by_plan":true})
+
+func validate_installed_foundations() -> bool:
+	# Independently measure the installed display transform and installed real
+	# collision nodes. Compiler-provided foot positions are never accepted here.
+	var retained: Array=[]
+	for issue: Dictionary in _facts.get("omitted",[]):
+		if issue.get("reason","")!="landmark_foundation_unsupported":retained.append(issue)
+	_facts.omitted=retained
+	var actual_edges:=_installed_solid_top_edges()
+	var all_ok:=true
+	for binding: Dictionary in _foundation_nodes:
+		var node:=binding.node as Polygon2D
+		if not is_instance_valid(node):continue
+		var spec: Dictionary=binding.spec
+		var required:=bool(spec.get("require_all_feet_supported",false))
+		var result: Dictionary={"ok":true,"required":required,"surface_id":binding.surface_id,"feet":[],"scope":"single declared root; multiple natural tree roots not claimed"}
+		var actual_anchor:=node.global_transform*_pair(spec.pivot_px)
+		var receipt: Dictionary=_facts.objects[int(binding.receipt_index)]
+		receipt.actual_world_anchor=[actual_anchor.x,actual_anchor.y]
+		if required:
+			var declared: Dictionary={}
+			for surface: Dictionary in _plan.get("surfaces",[]):
+				if str(surface.id)==str(binding.surface_id):declared=surface;break
+			var tolerance:=float(spec.get("foot_tolerance_world",3.0))
+			var feet: Array=spec.get("foundation_px",[])
+			result.tolerance_world=tolerance
+			result.scope="all measured source feet against the same declared non-one-way exposed surface and independently installed real solid collision tops"
+			result.ok=feet.size()==4 and not declared.is_empty() and not bool(declared.get("one_way",true)) and tolerance==3.0
+			for pixel: Array in feet:
+				var world:=node.global_transform*_pair(pixel)
+				var declared_error:=INF
+				if not declared.is_empty() and not bool(declared.get("one_way",true)):
+					declared_error=_top_edge_error(world,_stage.to_global(_pair(declared.a)),_stage.to_global(_pair(declared.b)))
+				var installed_error:=INF
+				var installed_path:=""
+				for edge: Dictionary in actual_edges:
+					var error:=_top_edge_error(world,edge.a,edge.b)
+					if error<installed_error:
+						installed_error=error;installed_path=edge.node_path
+				var supported:=declared_error<=tolerance and installed_error<=tolerance
+				result.ok=bool(result.ok) and supported
+				result.feet.append({"source_px":pixel,"world":[world.x,world.y],"declared_surface_error_world":declared_error if is_finite(declared_error) else -1.0,"installed_collision_error_world":installed_error if is_finite(installed_error) else -1.0,"installed_collision_node":installed_path,"supported":supported})
+			node.visible=bool(result.ok)
+			if not bool(result.ok):
+				all_ok=false
+				_facts.omitted.append({"reason":"landmark_foundation_unsupported","id":receipt.id,"surface_id":binding.surface_id,"foundation":result.duplicate(true)})
+		receipt.foundation=result
+		receipt.visible_in_tree=node.is_visible_in_tree()
+	_facts.installed_foundations_valid=all_ok
+	publish_facts()
+	return all_ok
+
+func _installed_solid_top_edges() -> Array:
+	var edges: Array=[]
+	var assembler:=_stage.get("assembler") as Node
+	if assembler==null:return edges
+	for candidate: Node in assembler.find_children("*","CollisionShape2D",true,false):
+		var shape:=candidate as CollisionShape2D
+		var body_owner:=shape.get_parent() as StaticBody2D
+		if body_owner==null or (body_owner.collision_layer & 1)==0 or shape.disabled or shape.one_way_collision:continue
+		var rectangle:=shape.shape as RectangleShape2D
+		if rectangle==null:continue
+		var a:=shape.global_transform*Vector2(-rectangle.size.x*0.5,-rectangle.size.y*0.5)
+		var b:=shape.global_transform*Vector2(rectangle.size.x*0.5,-rectangle.size.y*0.5)
+		edges.append({"a":a,"b":b,"node_path":str(shape.get_path())})
+	return edges
+
+static func _top_edge_error(point: Vector2,a: Vector2,b: Vector2) -> float:
+	if point.x<minf(a.x,b.x) or point.x>maxf(a.x,b.x) or absf(b.x-a.x)<0.00001:return INF
+	var y:=lerpf(a.y,b.y,(point.x-a.x)/(b.x-a.x))
+	return absf(point.y-y)
 
 func _retire_original_terrain() -> void:
 	if _facts.terrain.is_empty():return
@@ -267,7 +341,9 @@ func publish_facts() -> void:
 	set_meta("environment_composition",_facts)
 	if is_instance_valid(_stage):_stage.set_meta("environment_composition",_facts)
 
-func measured_nodes() -> Dictionary:return _facts.duplicate(true)
+func measured_nodes() -> Dictionary:
+	validate_installed_foundations()
+	return _facts.duplicate(true)
 static func _pair(value: Array) -> Vector2:return Vector2(float(value[0]),float(value[1]))
 static func _rect(value: Array) -> Rect2:return Rect2(float(value[0]),float(value[1]),float(value[2]),float(value[3]))
 static func _points(values: Array) -> PackedVector2Array:

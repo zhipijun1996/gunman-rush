@@ -75,6 +75,28 @@ class RegionalEvidenceCounterexamples(unittest.TestCase):
             elif fault=='avatar_hash':broken['regional_avatar_final']['texture_sha256']='0'*64
             with self.subTest(fault=fault):self.assertTrue(vd.validate_regional_bindings(broken,bound))
 
+    def test_v2_requires_four_actual_installed_contacts_not_just_a_root_flag(self):
+        observed={'art_plan':{'version':'plains-regional-art-v2','landmarks':[{'id':'pavilion','surface_id':'bank','asset_role':'shelter'}]},
+                  'art':{'installed_foundations_valid':True,'objects':[{'id':'pavilion','role':'shelter','visible_in_tree':True,
+                    'foundation':{'ok':True,'required':True,'tolerance_world':3.0,'surface_id':'bank','feet':[
+                      {'world':[x,0],'supported':True,'installed_collision_node':'fixture/actual_collider',
+                       'declared_surface_error_world':0.0,'installed_collision_error_world':0.0} for x in [10,20,30,40]]}}]}}
+        self.assertEqual(vd.validate_regional_foundations(observed),[])
+        for fault in ('guard','missing_object','role','foot_count','tolerance','hidden','wrong_surface','unsupported','missing_collider','negative_error','nan'):
+            data=copy.deepcopy(observed);art=data['art'];obj=art['objects'][0];foundation=obj['foundation']
+            if fault=='guard':del art['installed_foundations_valid']
+            elif fault=='missing_object':art['objects']=[]
+            elif fault=='role':obj['role']='tree'
+            elif fault=='foot_count':foundation['feet'].pop()
+            elif fault=='tolerance':foundation['tolerance_world']=10.0
+            elif fault=='hidden':obj['visible_in_tree']=False
+            elif fault=='wrong_surface':foundation['surface_id']='other'
+            elif fault=='unsupported':foundation['feet'][0]['supported']=False
+            elif fault=='missing_collider':foundation['feet'][0]['installed_collision_node']=''
+            elif fault=='negative_error':foundation['feet'][0]['installed_collision_error_world']=-1.0
+            elif fault=='nan':foundation['feet'][0]['world'][0]=float('nan')
+            with self.subTest(fault=fault):self.assertTrue(vd.validate_regional_foundations(data))
+
 
 if __name__ == '__main__':
     unittest.main()
