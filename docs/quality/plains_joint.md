@@ -54,3 +54,7 @@
 [最新Linux本地试玩回执](../evidence/plains_joint/delivery/download.json)：build`4a966ef57d75`，ZIP236923754字节，SHA256 `befb6386dea4dca495edc1168dccbc9bf40157f3151e2e5530ba1c215942cc61`，源`f959e4a9`。1485条源PCK逐SHA、空cwd headless/GUI、原退出守门、11成员CRC通过。默认Seed01，可用`--seed=places-contract-02`；包未重新驾驶完整两路线。原package CLI曾因expected-commit拼写错误预检拒绝，保留原log，不重标成功。
 
 图生/编辑调用0；沿原手绘源，不靠新素材数量改善。原生合同175断言复验约14秒，两次实际有效录像采集各约163/171秒，首缺桥失败电影约161秒；阶段可能与代理工作重叠，不相加伪称总成本。Agent模型/token/价格及完整实施墙钟未统一仪表记录，未知不补造。
+
+## 最终相关检查
+
+干净提交`608fed61`上，原Harness明确选择的7项全部fresh通过，110.231秒：docs、quality、art-art、visual-director-tests、level-design-routing、plains-places-contract、plains-places-capture-tests。包含50项Python和175原生断言；[原报告](../evidence/plains_joint/records/final_verification/report.json)明确targeted_checks=true、release=false。不是完整profile、完整G4或全CI。最终质量卡仍overall UNVERIFIED/task_complete=false，G2–G5及视觉/玩家/设备不自动通过。范围检查和旧测试守门保持检查另行通过；本次未运行正式Web/全量发布门槛。
