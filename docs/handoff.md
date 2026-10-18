@@ -1,6 +1,6 @@
 # 当前交接：反冲挑战联合体积已进入实机，世界语义缺口使艺术准入失败
 
-分支 `feature/plains-joint-challenge`，母PR86/b5fc；运行源冻结 `3188a5a088d1fdb2989ae0a3d439b24c2a536cb0`。先看[真实前后与最弱帧](evidence/plains_joint_recoil/gallery.html)、[失败与根因](quality/plains_joint_recoil.md)、[恢复入口](evidence/plains_joint_recoil/recipe.md)、[独审](evidence/plains_joint_recoil/independent-art-02.md)。单挑战显式候选，不是整区黄金，不进正式池，不改森林/核心契约。
+[草稿PR87](https://github.com/zhipijun1996/gunman-rush/pull/87)，分支 `feature/plains-joint-challenge`，母PR86/b5fc；运行源冻结 `3188a5a088d1fdb2989ae0a3d439b24c2a536cb0`。先看[真实前后与最弱帧](evidence/plains_joint_recoil/gallery.html)、[失败与根因](quality/plains_joint_recoil.md)、[恢复入口](evidence/plains_joint_recoil/recipe.md)、[独审](evidence/plains_joint_recoil/independent-art-02.md)。单挑战显式候选，不是整区黄金，不进正式池，不改森林/核心契约。
 
 实际同源安装2个完整绘画体与2个实体多边形，显式退出目标及接收岸3个旧矩形。01真实8段路线包含岸下摆渡双向，4529tick/13枪/零回退、最低HP4最终5；07仅实际结构合同，首样板未准入故不扩美术。最新93原生合同含JSON往返；原1310分支断言及正常/镜像无枪负例保持通过。当前两轮艺术均REWORK：v4消除接缝，但画尺不一、可见下沿裁切，世界仍割裂。新增图板未接入，不冒充实机改善。
 
