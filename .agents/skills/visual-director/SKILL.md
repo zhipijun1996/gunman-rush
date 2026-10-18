@@ -7,7 +7,7 @@ description: 统筹真实游戏像素驱动的空间美术生产，路由资产�
 
 ## 触发与边界
 
-用户要求提升正式场景美术、建立美术生产能力，或反馈空间空、贴片感、缺景深/身份时自动使用。不接管art-director的风格与资产责任、scene-composer的空间实现、animation-vfx的动态制作；本Skill负责从实机证据定位责任、组织顺序和决定下一次实际返工。复用[原生产循环](../../../docs/quality/production_loop.md)、原G0–G5/十一维，不能用新总分代签美感。
+用户要求提升正式场景美术、建立美术生产能力，或反馈空间空、贴片感、缺景深/身份时自动使用。当前平原从[当前场所制作范例](../../../docs/evidence/plains_places/recipe.md)与 `PLAINS-PLACES-01` 进入完整场所实验，未准入；停止把失败的薄肩带接法派给下一轮。不接管art-director的风格与资产责任、scene-composer的空间实现、animation-vfx的动态制作；本Skill负责从实机证据定位责任、组织顺序和决定下一次实际返工。复用[原生产循环](../../../docs/quality/production_loop.md)、原G0–G5/十一维，不能用新总分代签美感。
 
 ## 输入与依赖
 
@@ -60,7 +60,7 @@ V3实战检查点：开始昂贵worker前，原production_loop会物化核对所
 
 ## 当前候选首整屏先于扩产
 
-简短平原美术任务读route preparation.visual_recipe绑定的当前候选、源记录/profile、质量卡和[当前完整环境实验](../../../docs/evidence/p1_environment/recipe.md)。旧B艺术接受不能传递给P1；先看新候选完整真实画面和运动可读性，首样板未准入不自动制作第二。P1首片的有效关系是浅切面/纸白空气/细骨棚，失败是主体细碎与近草抢焦点；创作者必须给出实际画法/层深答案，独审只读评价实现，不替创作者补规范。真实同条件重录后再决定是否推进，不以route、源数量、旧电影或工程绿灯签新风格。
+简短平原任务核route的 `preparation.visual_recipe` 是否指向[当前场所制作范例](../../../docs/evidence/plains_places/recipe.md)和 `PLAINS-PLACES-01`；若仍推荐旧thin shoulder/端alpha，纠正当期任务方法，不能让旧路由覆盖真实失败。顺序是整块PNG共画顶肩侧底 → 实测源图语义轮廓、站面及等比锚点 → 联合设计三个局部place原型 → 首样板实机/独审准入后验证第二场所和Seed结构重排 → 用全局camera协调跨场所景深。预列三个原型不是放行扩产。实际路径为 `plains_place_plan.gd` / `places_v1.json` 与 `plains_place_composer.gd`，当前均为隔离候选，不是正式生成器升级完成。独审要看完整屏幕、连续穿越/回望及对象动作；局部图、相位Seed差异、工程绿灯或旧B/P1接受不能证明这条方法成功。
 
 ## 共同创作契约
 

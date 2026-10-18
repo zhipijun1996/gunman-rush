@@ -5,7 +5,7 @@ description: 为程序化地区设计空间轮廓、焦点地标、前中背景�
 
 # scene-composer
 
-先按当前任务的实际场所计划联合设计站面、地貌体量、建筑连接与镜头留白，再派生表现组件。挂点读取真实支撑边/表面及完整源根脚；碰撞矩形只是现有支撑的一种表达，不是视觉模块边界。当前平原从[完整环境实验](../../../docs/evidence/p1_environment/recipe.md)进入：邮桥双socket与7点实桥面已真实去返，地形首轮仍REWORK。读该实验最新原生审查再选制作方法，不自动推广其中失败外皮。历史V3挂点证据仅按需恢复。
+先按当前任务的实际场所计划联合设计站面、地貌体量、建筑连接与镜头留白。当前平原从[当前场所制作范例](../../../docs/evidence/plains_places/recipe.md)与 `PLAINS-PLACES-01` 的完整场所候选进入：整顶肩侧底共画、源图实测语义碰撞等比接入，不继续独立端肩带拼接。该方法未准入；旧邮桥/路线通过只保留原范围，不能代签当前整屏或Seed。
 
 ## 触发与边界
 
@@ -108,7 +108,7 @@ AI返回后先实测原PNG的alpha、外padding、跨全高透明沟槽、region
 
 ## 从原生paintover落实到真实空间
 
-按route绑定的[当前完整环境实验](../../../docs/evidence/p1_environment/recipe.md)落实整屏关系，历史PR77只按需复用地形技术。连续截面沿真实顶边有限采样，端转面按侧边与源outer_profile衔接；根肩保尺度、深部转安静体块，不repeat/整片压缩/用雾遮连接。把主体整条跳跃弧后方留给低频景层；远中景分别用真实源尺度、锚点、视差和可选opacity校准，先验实际镜头全程有限覆盖，不靠复制装饰填空。P1首片的巨草/花与主体同密，说明漂亮层图也会压垮整屏；修层深与绘画明暗，而不是只叠更多景层。新候选须自己的整屏准入，不复用旧B接受或首空间坐标签另一结构。
+按route绑定的[当前场所制作范例](../../../docs/evidence/plains_places/recipe.md)落实三个局部场所原型；实际 `PlainsPlacePlan` 消费 `resources/generation/environment_grammar/places_v1.json`，`PlainsPlaceComposer` 用完整原PNG、单一等比尺度与source/world锚点呈现，不裁肩、不UV拼侧底。站面、对象根脚、观察与跳跃负空间须和源图实测轮廓共同设计；新几何仅限显式授权实验，不能继承旧Motor路线通过。原型通过后才允许Seed顺序/端口重排；不支持的scale/ports/source拒绝重选，不能靠拉伸/补地形或移动核心规则挽救。远中近层统一使用全局camera_reference与depth_factor跨图协调，不能进每个place就把景层重置屏幕坐标；核连续穿越和回望的根基、遮挡与焦点。源码已有这些入口不等于方法已被实机独审准入。
 
 ## 共同创作契约
 
