@@ -478,7 +478,7 @@ def validate_native(data, report, log):
                 errors.append('capture extension absent from source guard')
     elif extension is not None or data.get('capture_extension_sources'):
         errors.append('unexpected capture extension')
-    if 'visual_sample' in report['request']:
+    if 'visual_sample' in report['request'] and script != REGIONAL_CAPTURE:
         selected = report['request']['visual_sample']
         treatment = data.get('visual_sample_treatment', {})
         valid = isinstance(selected, str) and selected in ('', *VISUAL_SAMPLE_CATALOGS)
@@ -488,7 +488,7 @@ def validate_native(data, report, log):
         expected = report.get('source_before', {}).get(selected.removeprefix('res://')) if valid and selected else ''
         if treatment.get('catalog_sha256') != expected or (selected and not expected):
             errors.append('explicit visual sample catalog source mismatch')
-    if 'visual_layout' in report['request']:
+    if 'visual_layout' in report['request'] and script != REGIONAL_CAPTURE:
         layout = report['request']['visual_layout']
         if layout not in ('', 'open-meadow') or data.get('visual_layout_treatment') != (layout or 'original'):
             errors.append('explicit visual layout treatment mismatch')
@@ -556,6 +556,7 @@ def validate_native(data, report, log):
             errors.extend(validate_places_observations(data, plan))
     if script == REGIONAL_CAPTURE:
         errors.extend(validate_regional_observations(data))
+        errors.extend(validate_regional_bindings(data,report))
     scope=data.get('captured_scope',{})
     for k in ('enemies_instantiated','enemy_attacks_enabled','enemy_contacts_enabled','production_rewards_enabled','production_camera_enabled'):
         if scope.get(k) is not True: errors.append('missing formal runtime/'+k)
@@ -569,6 +570,42 @@ def validate_native(data, report, log):
     if re.search(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script|ObjectDB.*leaked|resources? still in use at exit',log): errors.append('engine script error')
     if not level_formal.engine_log_matches(data.get('engine'),log): errors.append('engine identity mismatch')
     if data.get('route_reached') is not (data.get('outcome')=='route_target_reached'): errors.append('route outcome mismatch')
+    return errors
+
+
+def validate_regional_bindings(data, report):
+    """Regional entry has its own actual catalog; legacy sample flags are unsupported."""
+    errors = []
+    request = report.get('request', {})
+    if request.get('visual_sample', '') or request.get('visual_layout', ''):
+        errors.append('regional entry does not support legacy visual sample/layout flags')
+    sources_before = report.get('source_before', {})
+    catalog = 'resources/visual_development/p1_regional_assets.json'
+    for key in ('regional_art_initial', 'regional_art_final'):
+        art = data.get(key, {}).get('art', {})
+        if (art.get('catalog_path') != 'res://' + catalog or not sources_before.get(catalog)
+                or art.get('catalog_sha256') != sources_before.get(catalog)):
+            errors.append('regional actual catalog source binding missing/' + key)
+        def check_sources(value):
+            if isinstance(value, dict):
+                if 'source' in value:
+                    path = value['source']
+                    expected = sources_before.get(path.removeprefix('res://')) if isinstance(path, str) else None
+                    if not expected or value.get('source_sha256') != expected:
+                        errors.append('regional actual painted source binding missing/' + key)
+                for child in value.values(): check_sources(child)
+            elif isinstance(value, list):
+                for child in value: check_sources(child)
+        check_sources(art)
+    for key in ('regional_avatar_initial', 'regional_avatar_final'):
+        avatar = data.get(key, {})
+        if avatar.get('selected_id') != 'p1_girl' or avatar.get('painted_owner_count') != 1 or not avatar.get('hero_states') or avatar.get('gameplay_changed') is not False:
+            errors.append('regional actual avatar missing/duplicated/' + key)
+        for path_key, sha_key in (('source_calibration', 'source_sha256'), ('texture_source', 'texture_sha256')):
+            path = avatar.get(path_key, '')
+            expected = sources_before.get(path.removeprefix('res://')) if isinstance(path, str) else None
+            if not expected or avatar.get(sha_key) != expected:
+                errors.append('regional actual avatar source mismatch/' + key + '/' + path_key)
     return errors
 
 
@@ -648,7 +685,7 @@ def finalize_existing(original_receipt,folder,frame_stride=120):
             report['adaptation']['original_composition_raw']=raw_receipt
         avi_hash=file_hash(avi)
         with (folder/'encode.log').open('w') as out:
-            subprocess.run(['ffmpeg','-n','-i',str(avi),'-c:v','libx264','-crf','21','-pix_fmt','yuv420p','-c:a','aac',str(movie)],stdout=out,stderr=subprocess.STDOUT,timeout=180,check=True)
+            subprocess.run(['ffmpeg','-n','-i',str(avi),'-c:v','libx264','-crf','21','-pix_fmt','yuv420p','-c:a','aac',str(movie)],stdout=out,stderr=subprocess.STDOUT,timeout=600 if original['request'].get('capture_script') == REGIONAL_CAPTURE else 180,check=True)
         media=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_streams','-show_format','-of','json',str(movie)],timeout=30))
         video=next(s for s in media['streams'] if s['codec_type']=='video');audio=next(s for s in media['streams'] if s['codec_type']=='audio');count=int(video['nb_frames'])
         if (video['width'],video['height'],video['avg_frame_rate'],int(audio['sample_rate']),audio['channels'])!=(1280,720,'60/1',48000,2) or count<data['tick_count']:
@@ -657,7 +694,7 @@ def finalize_existing(original_receipt,folder,frame_stride=120):
         images=folder/'video_frames';images.mkdir()
         select='select='+'+'.join('eq(n\\,'+str(n)+')' for n in numbers)
         with (folder/'extract.log').open('w') as out:
-            subprocess.run(['ffmpeg','-n','-i',str(movie),'-vf',select,'-vsync','0',str(images/'extracted_%06d.png')],stdout=out,stderr=subprocess.STDOUT,timeout=180,check=True)
+            subprocess.run(['ffmpeg','-n','-i',str(movie),'-vf',select,'-vsync','0',str(images/'extracted_%06d.png')],stdout=out,stderr=subprocess.STDOUT,timeout=600 if original['request'].get('capture_script') == REGIONAL_CAPTURE else 180,check=True)
         outputs=sorted(images.glob('extracted_*.png'))
         if len(outputs)!=len(numbers):raise RuntimeError('Video extraction incomplete')
         frames=[]
@@ -931,7 +968,7 @@ def route(request,task_id,quality_record,allowed_paths,max_calls=10,max_rounds=2
         for task in tasks:
             if not task['read_only']:
                 task['checks'] = list(dict.fromkeys([c for c in task['checks'] if c not in ('visual-director-terrain', 'visual-director-space')] + ['plains-regional-art-contract', 'plains-regional-art-counterexamples', 'plains-regional-art-graph-counterexamples']))
-            task['goal'] += ' Read the current full-region recipe and actual independent rejection first. Use the formal complete map, not fixed place reordering. Structural checks cannot sign art. Show whole-world terrain/routes/layers plus normal-camera actual full-route footage; preserve failed Seeds. Do not repeat the two rejected landmass methods or silently change collision in an art-only task.'
+            task['goal'] += ' Before a long movie, execute this same MovieWriter adapter with max_ticks=60; require capture integrity and label frame_budget_exhausted as a bounded preflight, never route acceptance. Read the current full-region recipe and actual independent rejection first. Use the formal complete map, not fixed place reordering. Structural checks cannot sign art. Show whole-world terrain/routes/layers plus normal-camera actual full-route footage; preserve failed Seeds. Do not repeat the two rejected landmass methods or silently change collision in an art-only task.'
     elif region_id == 'windchime_plains':
         catalog_path = 'resources/visual_development/p1_places_assets.json'
         catalog = read(ROOT / catalog_path)

@@ -5,6 +5,13 @@ import hashlib
 import json
 import sys
 
+smoke_seed = "regional-art-01"
+if "--expected-capture" in sys.argv:
+    capture_path = Path(sys.argv[sys.argv.index("--expected-capture") + 1])
+    smoke_seed = json.loads(capture_path.read_text())["request"]["root_seed"]
+    if smoke_seed not in ["regional-art-%02d" % i for i in range(1, 7)]:
+        raise ValueError("Package preflight requires a preregistered regional Seed")
+
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 BASE = ROOT / 'docs/evidence/p1_environment/delivery/producers/prepare_local_review_bundle.py'
@@ -46,11 +53,12 @@ new = """        expected = native['regional_art_initial']
 if source.count(old)!=1:
     raise RuntimeError('Preserved actual-consumer interface changed')
 source=source.replace(old,new)
+source=source.replace('默认regional-art-01', '默认'+smoke_seed)
 namespace={'__name__':'_regional_pack_producer','__file__':str(Path(__file__).resolve())}
 exec(compile(source,str(BASE),'exec'),namespace)
 # Seed is the actual root input, not a cosmetic label. CLI may override manual play.
-namespace['SMOKE']=namespace['SMOKE'].replace('\tawait super.run()','\treview_seed = "regional-art-01"\n\tawait super.run()',1)
-namespace['PLAY']=namespace['PLAY'].replace(' -- "$@"',' -- --seed=regional-art-01 "$@"')
+namespace['SMOKE']=namespace['SMOKE'].replace('\tawait super.run()', '\treview_seed = '+json.dumps(smoke_seed)+'\n\tawait super.run()',1)
+namespace['PLAY']=namespace['PLAY'].replace(' -- "$@"',' -- --seed='+smoke_seed+' "$@"')
 if __name__=='__main__':
     print(json.dumps({'shared_producer':str(BASE.relative_to(ROOT)),'sha256':hashlib.sha256(BASE.read_bytes()).hexdigest(),'bindings':bindings,'checks':'Original byte-exact PCK, source/capture, empty-cwd GUI/headless, raw resource closure, logs/audio/teardown preserved; only actual regional snapshot fields rebound.'}))
     raise SystemExit(namespace['main']())
