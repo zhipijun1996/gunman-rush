@@ -2,9 +2,9 @@
   "schema_version": 1,
   "task_id": "PLAINS-JOINT-01",
   "task_type": "region",
-  "workflow": "in_progress",
+  "workflow": "review",
   "baseline_commit": "f8dead080f2195c5c3b332966ec76fe4ba2181e3",
-  "reviewed_commit": "f8dead080f2195c5c3b332966ec76fe4ba2181e3",
+  "reviewed_commit": "f959e4a9591f3fec28d81ab8205b5fcf775f0db0",
   "content_version": "plains-joint-places-candidate-v2",
   "owner": "root",
   "purpose": "Test actual joint source-derived place synthesis and native art, not a new framework or mature automatic region claim.",
@@ -16,14 +16,24 @@
     "At most two art rounds; expand only if native scoped art improvement exists."
   ],
   "affected_paths": [
-    "resources/generation/environment_grammar/places_v1.json",
-    "scripts/generation/plains_place_plan.gd",
-    "scripts/art/plains_place_composer.gd",
-    "tests/plains_places_plan_runner.gd",
-    "tools/run_plains_places_tests.py",
-    "tests/test_plains_places_capture.py",
+    ".agents/skills/region-generator/SKILL.md",
+    ".agents/skills/scene-composer/SKILL.md",
+    ".agents/skills/visual-director/SKILL.md",
+    "docs/evidence/plains_joint/baseline_places_v1.json",
+    "docs/evidence/plains_joint/checkpoint.json",
+    "docs/evidence/plains_joint/independent-baseline.md",
+    "docs/evidence/plains_joint/independent-native-01.md",
+    "docs/evidence/plains_places/recipe.md",
     "docs/quality/records/PLAINS-JOINT-01.json",
-    "docs/tasks.md"
+    "docs/quality/records/PLAINS-PLACES-01.json",
+    "docs/tasks.md",
+    "resources/generation/environment_grammar/places_v1.json",
+    "scripts/art/plains_place_composer.gd",
+    "scripts/generation/plains_place_plan.gd",
+    "tests/plains_places_plan_runner.gd",
+    "tests/test_plains_places_capture.py",
+    "tools/run_plains_places_tests.py",
+    "tools/visual_director.py"
   ],
   "deliverables": [
     "Actual source-derived candidate joint plan with same authoritative geometry and rendering transforms.",
@@ -34,46 +44,62 @@
   "formal_impact": false,
   "gates": {
     "G0": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Concrete joint source/semantic authority and explicit finite experiment.",
+      "evidence": [
+        "joint-contract",
+        "review-tooling"
+      ]
     },
     "G1": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Two original Motor complete outward-return routes35cases each with strict initial/final actual consumer checks.",
+      "evidence": [
+        "full_02-native",
+        "full_02-trace",
+        "seed_02-native",
+        "seed_02-trace"
+      ]
     },
     "G2": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Whole artistic-golden/animation/listening not achieved; only scoped local readability.",
       "evidence": []
     },
     "G3": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Candidate real DemoApp/PCK consumed; default campaign/formal pool not admitted.",
       "evidence": []
     },
     "G4": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Relevant checks tracked separately; full applicable regression and prerequisite G2/G3 remain unverified.",
       "evidence": []
     },
     "G5": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "No user final style, human, physical device or market acceptance.",
       "evidence": []
     }
   },
   "dimensions": {
     "design": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Actual source-derived joint outputs; not arbitrary new place creation.",
+      "evidence": [
+        "joint-contract",
+        "review-tooling"
+      ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Strict actual live routes, finite consumer corpus and source-bound local package.",
+      "evidence": [
+        "full_02-native",
+        "seed_02-native",
+        "startup-corpus",
+        "local-bundle"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
@@ -82,8 +108,11 @@
     },
     "visual": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "Protected entry improved but no significant whole-screen artistic leap; same islands/highfrequency and transient landing contrast remain.",
+      "evidence": [
+        "review-native-02",
+        "review-seeds"
+      ]
     },
     "animation": {
       "status": "unverified",
@@ -106,9 +135,13 @@
       "evidence": []
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Different-author limited actual pixel and technical review; first failure preserved.",
+      "evidence": [
+        "review-native-02",
+        "review-seeds",
+        "review-tooling"
+      ]
     },
     "device": {
       "status": "unverified",
@@ -121,10 +154,212 @@
       "evidence": []
     }
   },
-  "criteria": [],
-  "evidence": [],
+  "criteria": [
+    {
+      "id": "joint-real-route",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "Two actual joint variant chains with actual original player/enemy/hazard/UI.",
+      "method": "Original strict visible Router/Motor complete outward and return routes.",
+      "expected": "35grounded cases each, HP5, zero recovery, all required actual art consumers installed.",
+      "failure": "Missing bridge/body/layer, unsupported case, source drift or ERROR/leak.",
+      "status": "passed",
+      "reason": "Observed both frozen-source chains; original initial failed consumer rejected separately.",
+      "evidence": [
+        "full_02-native",
+        "seed_02-native"
+      ]
+    },
+    {
+      "id": "joint-golden-art",
+      "gate": "G2",
+      "dimension": "visual",
+      "scenario": "Normal game camera/scale, source-derived local variants and movement.",
+      "method": "Different-author native-pixel inspection with exact viewed frames.",
+      "expected": "Distinct expressive coherent whole places and readable action moments.",
+      "failure": "Repeated islands dominating composition or actor merging with landing texture.",
+      "status": "unverified",
+      "reason": "Local entry/assembly benefit only, no major artistic-golden proof.",
+      "evidence": [
+        "review-native-02",
+        "review-seeds"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "joint-contract",
+      "path": "resources/generation/environment_grammar/places_v1.json",
+      "sha256": "976b79f6288ce744e6cc3f0d4dc45df0278b30799b7e98f309a3b2c6406dc027",
+      "kind": "spec",
+      "producer": "root",
+      "source_commit": "f959e4a9591f3fec28d81ab8205b5fcf775f0db0",
+      "content_version": "plains-joint-places-candidate-v2",
+      "method": "Actual default joint source/relationship input consumed by Plan and original assembler/composer.",
+      "observed": "Shared source polygons/surfaces, actual semantic point and attachment/layer derivation; not full creative solver."
+    },
+    {
+      "id": "full_02-native",
+      "path": "docs/evidence/plains_joint/records/full_02/visual_capture.json",
+      "sha256": "2e3cbf14e680a1b5d2c528890e003eb762bea7c6fed4f5d94ed4f6ba15bedd69",
+      "kind": "command",
+      "producer": "joint_native",
+      "source_commit": "f959e4a9591f3fec28d81ab8205b5fcf775f0db0",
+      "content_version": "plains-joint-places-candidate-v2",
+      "method": "Original strict source-bound visible capture and actual art consumer admission.",
+      "observed": "35actual cases,HP5,6acceptedshots,0recovery; actual bridge/body/layer installed, omitted[]; normal60fps media.",
+      "exit_code": 0,
+      "command": "Exact original argv retained in linked receipt/log.",
+      "environment": "Godot4.7.2 Standard/Linux software renderer; not physical device acceptance"
+    },
+    {
+      "id": "full_02-trace",
+      "path": "docs/evidence/plains_joint/records/full_02/capture.json",
+      "sha256": "370dc43638b33ec0b9fd77a7e9a5a551e25bf172db8e7eaa288b6052397359e8",
+      "kind": "runtime_trace",
+      "producer": "joint_native",
+      "source_commit": "f959e4a9591f3fec28d81ab8205b5fcf775f0db0",
+      "content_version": "plains-joint-places-candidate-v2",
+      "method": "Actual original Router/Motor route and initial/final scene nodes.",
+      "observed": "Real joint plan and exact live nodes; no teleport, no resource injection."
+    },
+    {
+      "id": "seed_02-native",
+      "path": "docs/evidence/plains_joint/records/seed_02/visual_capture.json",
+      "sha256": "df67945ca256fc6c41e61d0c25c2fe45bd93c5880cc58b371052886146968886",
+      "kind": "command",
+      "producer": "joint_native",
+      "source_commit": "f959e4a9591f3fec28d81ab8205b5fcf775f0db0",
+      "content_version": "plains-joint-places-candidate-v2",
+      "method": "Original strict source-bound visible capture and actual art consumer admission.",
+      "observed": "35actual cases,HP5,6acceptedshots,0recovery; actual bridge/body/layer installed, omitted[]; normal60fps media.",
+      "exit_code": 0,
+      "command": "Exact original argv retained in linked receipt/log.",
+      "environment": "Godot4.7.2 Standard/Linux software renderer; not physical device acceptance"
+    },
+    {
+      "id": "seed_02-trace",
+      "path": "docs/evidence/plains_joint/records/seed_02/capture.json",
+      "sha256": "e2eb61b40174612c478ec641cc47ea3db92935533ff9ffeb1d9b88eafd721cf1",
+      "kind": "runtime_trace",
+      "producer": "joint_native",
+      "source_commit": "f959e4a9591f3fec28d81ab8205b5fcf775f0db0",
+      "content_version": "plains-joint-places-candidate-v2",
+      "method": "Actual original Router/Motor route and initial/final scene nodes.",
+      "observed": "Real joint plan and exact live nodes; no teleport, no resource injection."
+    },
+    {
+      "id": "contract-native",
+      "path": "docs/evidence/plains_joint/records/fixed_contract/report.json",
+      "sha256": "3e02d12bf5a65013a91463092447bbb8f2d4e2ef2ee165cfa7a096d0c923af56",
+      "kind": "command",
+      "producer": "joint_native",
+      "source_commit": "f959e4a9591f3fec28d81ab8205b5fcf775f0db0",
+      "content_version": "plains-joint-places-candidate-v2",
+      "method": "Actual native compile/replay and refusal runner.",
+      "observed": "175assertions,12registeredSeeds,7finite localnumericvariantcombinations.",
+      "exit_code": 0,
+      "command": "Exact original argv retained in linked receipt/log.",
+      "environment": "Godot4.7.2 Standard/Linux software renderer; not physical device acceptance"
+    },
+    {
+      "id": "startup-corpus",
+      "path": "docs/evidence/plains_joint/records/consumer_startups_01/report.json",
+      "sha256": "fa90ebbd61085bbd9f550df1621f4b3f90c56930f939a88c020428583aea9ff9",
+      "kind": "command",
+      "producer": "joint_native",
+      "source_commit": "f959e4a9591f3fec28d81ab8205b5fcf775f0db0",
+      "content_version": "plains-joint-places-candidate-v2",
+      "method": "12 actual original preview single startups with strict shared consumer validation and source equality.",
+      "observed": "12/12pass; not full route or visual acceptance.",
+      "exit_code": 0,
+      "command": "Exact original argv retained in linked receipt/log.",
+      "environment": "Godot4.7.2 Standard/Linux software renderer; not physical device acceptance"
+    },
+    {
+      "id": "local-bundle",
+      "path": "docs/evidence/plains_joint/delivery/build_receipt.json",
+      "sha256": "16d62270b0b6ce2a746da155822fb162af376808ddc04beaa33f832db5b5f0ea",
+      "kind": "command",
+      "producer": "joint_native",
+      "source_commit": "f959e4a9591f3fec28d81ab8205b5fcf775f0db0",
+      "content_version": "plains-joint-places-candidate-v2",
+      "method": "Preserved strict source/PCK/emptycwd/GUI/cleanup package producer.",
+      "observed": "build4a966ef57d75; local manual candidate, no PCKfullroute or formal release.",
+      "exit_code": 0,
+      "command": "Exact original argv retained in linked receipt/log.",
+      "environment": "Godot4.7.2 Standard/Linux software renderer; not physical device acceptance"
+    },
+    {
+      "id": "review-native-02",
+      "path": "docs/evidence/plains_joint/independent-native-02.md",
+      "sha256": "8dd2f4f698dbbda09b4d749a8e59e3533412a2266fc25ef579248cf394bc9249",
+      "kind": "review",
+      "producer": "joint_review",
+      "source_commit": "f959e4a9591f3fec28d81ab8205b5fcf775f0db0",
+      "content_version": "plains-joint-places-candidate-v2",
+      "method": "Different actual agent, read-only; explicit viewed frames/reviewed hashes and scope.",
+      "observed": "Limited mechanism/readability/tooling review; no whole artistic-golden or user/device acceptance.",
+      "reviewer": "joint_review",
+      "implementers": [
+        "root",
+        "joint_plan",
+        "joint_native"
+      ],
+      "independent": true,
+      "independence_basis": "Different actual agent, read-only production; no assets/code/tests authored by reviewer. Six validator tests independently executed; native results attributed to producer.",
+      "verdict": "ACCEPT",
+      "original_verdict": "ACCEPT_SCOPED"
+    },
+    {
+      "id": "review-seeds",
+      "path": "docs/evidence/plains_joint/independent-seeds.md",
+      "sha256": "5cfaa55441f5cdcff26b76c3c898772bc8c4f1819c0fc3b7b9cc1fc69505a9cb",
+      "kind": "review",
+      "producer": "joint_review",
+      "source_commit": "f959e4a9591f3fec28d81ab8205b5fcf775f0db0",
+      "content_version": "plains-joint-places-candidate-v2",
+      "method": "Different actual agent, read-only; explicit viewed frames/reviewed hashes and scope.",
+      "observed": "Limited mechanism/readability/tooling review; no whole artistic-golden or user/device acceptance.",
+      "reviewer": "joint_review",
+      "implementers": [
+        "root",
+        "joint_plan",
+        "joint_native"
+      ],
+      "independent": true,
+      "independence_basis": "Different actual agent, read-only production; no assets/code/tests authored by reviewer. Six validator tests independently executed; native results attributed to producer.",
+      "verdict": "ACCEPT",
+      "original_verdict": "ACCEPT_SCOPED"
+    },
+    {
+      "id": "review-tooling",
+      "path": "docs/evidence/plains_joint/independent-tooling.md",
+      "sha256": "5e6a641c292d5450238960d4ade6debf0b27dbbc3edea037c837476f2892693b",
+      "kind": "review",
+      "producer": "joint_review",
+      "source_commit": "f959e4a9591f3fec28d81ab8205b5fcf775f0db0",
+      "content_version": "plains-joint-places-candidate-v2",
+      "method": "Different actual agent, read-only; explicit viewed frames/reviewed hashes and scope.",
+      "observed": "Limited mechanism/readability/tooling review; no whole artistic-golden or user/device acceptance.",
+      "reviewer": "joint_review",
+      "implementers": [
+        "root",
+        "joint_plan",
+        "joint_native"
+      ],
+      "independent": true,
+      "independence_basis": "Different actual agent, read-only production; no assets/code/tests authored by reviewer. Six validator tests independently executed; native results attributed to producer.",
+      "verdict": "ACCEPT",
+      "original_verdict": "ACCEPT_SCOPED"
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
-    "Design and all relevant acceptance remain unverified"
-  ]
+    "Commercial-golden whole-screen art, user-final style, arbitrary new landforms/branching, generalized pixel/clearspace optimization.",
+    "Natural rejection then successful reselection/fallback; all observed positive seeds first-attempt.",
+    "Complete animation/audio listening/human/device/fullCI/Web and formal pool admission.",
+    "The raw initial film was recorded but bridge consumer failed; old producer receipt not relabelled."
+  ],
+  "test_change_justification": "Preserve original118 functional scope,5negative mutations,replay/rehash/unsafe/HP/input/ERROR/leak/exact500 span. Retired measurement faults now target actual joint source schema; add local numeric diversity and actual consumed-art omission/binding counterexamples. Independent different-author source/test review in review-tooling; first actual missing bridge failure preserved."
 }

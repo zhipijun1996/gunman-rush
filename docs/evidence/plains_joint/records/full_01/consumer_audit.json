@@ -1,0 +1,342 @@
+{
+  "scope": "Original producer finalized this trace; subsequent actual-consumer audit FAILED missing bridge. Not artistic or full consumer admission. No modifications to original receipt.",
+  "source_commit": "e09f87f75b3b73509acc17ece0e3a536402fa3e4",
+  "seed": "places-contract-01",
+  "movie": {
+    "path": "build/plains_joint/full_01/gameplay.mp4",
+    "sha256": "bbc724f89ee1e22c3bb9102825b136a3ffa523535106d83b53038e88d28a330c"
+  },
+  "original_status": "captured",
+  "consumer_verdict": "FAILED",
+  "omissions": {
+    "environment_initial_physics": [
+      {
+        "reason": "bridge_outside_declared_discrete_span",
+        "surface_id": "place_0_postal_valley/bridge_deck/top"
+      }
+    ],
+    "environment_final_physics": [
+      {
+        "reason": "bridge_outside_declared_discrete_span",
+        "surface_id": "place_0_postal_valley/bridge_deck/top"
+      }
+    ]
+  },
+  "joint_body_bindings": [
+    {
+      "agrees": true,
+      "body_id": "place_0_postal_valley/west_bank/body",
+      "installed_profile_points": 9,
+      "max_display_to_collision_error_world": 3.0517578125e-05,
+      "solid_id": "place_0_postal_valley/west_bank"
+    },
+    {
+      "agrees": true,
+      "body_id": "place_0_postal_valley/east_bank/body",
+      "installed_profile_points": 9,
+      "max_display_to_collision_error_world": 0.0,
+      "solid_id": "place_0_postal_valley/east_bank"
+    },
+    {
+      "agrees": true,
+      "body_id": "place_1_wind_meadow/meadow_bank/body",
+      "installed_profile_points": 9,
+      "max_display_to_collision_error_world": 0.0,
+      "solid_id": "place_1_wind_meadow/meadow_bank"
+    },
+    {
+      "agrees": true,
+      "body_id": "place_2_lee_court/stepped_court/body",
+      "installed_profile_points": 14,
+      "max_display_to_collision_error_world": 0.0,
+      "solid_id": "place_2_lee_court/stepped_court"
+    }
+  ],
+  "cases": [
+    {
+      "id": "place_0_postal_valley/arrival",
+      "start_tick": 31,
+      "end_tick": 76,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "place_0_postal_valley/west_rest",
+      "start_tick": 77,
+      "end_tick": 113,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "place_0_postal_valley/gear_wait",
+      "start_tick": 114,
+      "end_tick": 309,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "place_0_postal_valley/gear_clear",
+      "start_tick": 310,
+      "end_tick": 365,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "place_0_postal_valley/east_rest",
+      "start_tick": 366,
+      "end_tick": 419,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "place_0_postal_valley/departure",
+      "start_tick": 420,
+      "end_tick": 489,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "edge_0/forward",
+      "start_tick": 490,
+      "end_tick": 567,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "place_1_wind_meadow/arrival",
+      "start_tick": 568,
+      "end_tick": 581,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "place_1_wind_meadow/open_rest",
+      "start_tick": 582,
+      "end_tick": 644,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "place_1_wind_meadow/departure",
+      "start_tick": 645,
+      "end_tick": 732,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "edge_1/forward",
+      "start_tick": 733,
+      "end_tick": 810,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "place_2_lee_court/arrival",
+      "start_tick": 811,
+      "end_tick": 824,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "place_2_lee_court/lower_rest",
+      "start_tick": 825,
+      "end_tick": 885,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "place_2_lee_court/climb_takeoff",
+      "start_tick": 886,
+      "end_tick": 899,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "place_2_lee_court/upper_receiver",
+      "start_tick": 900,
+      "end_tick": 970,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "place_2_lee_court/upper_rest",
+      "start_tick": 971,
+      "end_tick": 998,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "place_2_lee_court/departure",
+      "start_tick": 999,
+      "end_tick": 1028,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "place_2_lee_court/back_departure",
+      "start_tick": 1029,
+      "end_tick": 1042,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "place_2_lee_court/back_upper_rest",
+      "start_tick": 1043,
+      "end_tick": 1072,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "place_2_lee_court/back_takeoff",
+      "start_tick": 1073,
+      "end_tick": 1100,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "place_2_lee_court/back_lower",
+      "start_tick": 1101,
+      "end_tick": 1184,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "place_2_lee_court/back_rest",
+      "start_tick": 1185,
+      "end_tick": 1198,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "place_2_lee_court/back_arrival",
+      "start_tick": 1199,
+      "end_tick": 1242,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "edge_1/return",
+      "start_tick": 1243,
+      "end_tick": 1320,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "place_1_wind_meadow/back_departure",
+      "start_tick": 1321,
+      "end_tick": 1334,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "place_1_wind_meadow/back_rest",
+      "start_tick": 1335,
+      "end_tick": 1421,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "place_1_wind_meadow/back_arrival",
+      "start_tick": 1422,
+      "end_tick": 1467,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "edge_0/return",
+      "start_tick": 1468,
+      "end_tick": 1545,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "place_0_postal_valley/back_departure",
+      "start_tick": 1546,
+      "end_tick": 1559,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "place_0_postal_valley/back_east_rest",
+      "start_tick": 1560,
+      "end_tick": 1628,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "place_0_postal_valley/back_bridge",
+      "start_tick": 1629,
+      "end_tick": 1683,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "place_0_postal_valley/back_gear",
+      "start_tick": 1684,
+      "end_tick": 1741,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "place_0_postal_valley/back_west_rest",
+      "start_tick": 1742,
+      "end_tick": 1878,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "place_0_postal_valley/back_arrival",
+      "start_tick": 1879,
+      "end_tick": 1916,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    },
+    {
+      "id": "place_0_postal_valley/return_spawn",
+      "start_tick": 1917,
+      "end_tick": 1961,
+      "health": 5.0,
+      "passed": true,
+      "supported": true
+    }
+  ],
+  "new_admission_guard_actual_refusals": [
+    "places actual art missing/omitted/environment_initial_physics",
+    "places actual art missing/omitted/environment_final_physics"
+  ],
+  "original_producer_receipt_preserved": true
+}
