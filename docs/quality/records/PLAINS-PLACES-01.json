@@ -2,18 +2,19 @@
   "schema_version": 1,
   "task_id": "PLAINS-PLACES-01",
   "task_type": "region",
-  "workflow": "in_progress",
+  "workflow": "review",
   "baseline_commit": "4a4b3fd7d3ce8ae1ca0808ecb725935d0dd50e45",
-  "reviewed_commit": "4a4b3fd7d3ce8ae1ca0808ecb725935d0dd50e45",
-  "content_version": "plains-places-candidate-v1",
+  "reviewed_commit": "ef6a8b4f1d06406b6b5f0a3db658902c15c1084e",
+  "content_version": "plains-places-candidate-v1-scoped",
   "owner": "root",
-  "purpose": "Replace PR82 fixed-position art assembly with measured complete-volume place grammar and real seeded arrangement; art admission remains pending.",
+  "purpose": "Actual complete-volume places, three seeded arrangements and strict local playable proof; not commercial-golden or autonomous arbitrary-region completion.",
   "player_experience": "Distinct open meadow, bridge ravine and enclosed lee court, original recoil traversal and readable supports.",
   "constraints": [
     "No forest writes; no core Motor/weapon/ability/resource/RNG/save changes.",
     "Candidate-only explicit entry; no unadmitted assets in formal content pool.",
     "No thin shoulder/alpha repair of the stopped PR82 method.",
-    "Failed sources and native attempts retained; no art claim from engineering."
+    "Failed sources and native attempts retained; no art claim from engineering.",
+    "PR82 is the factual failed baseline, not a completed-art prerequisite for this authorized replacement experiment."
   ],
   "affected_paths": [
     "scripts/demo/demo_app.gd",
@@ -38,106 +39,402 @@
     "docs/evidence/plains_places/",
     "docs/current_state.md",
     "docs/handoff.md",
-    "docs/tasks.md"
+    "docs/tasks.md",
+    "tests/test_visual_director.py",
+    "tests/test_level_design_routing.py",
+    "tests/test_plains_places_capture.py",
+    "docs/quality/plains_places.md",
+    "docs/quality/records/PLAINS-PLACES-01.json"
   ],
   "deliverables": [
-    "Actual playable place prototypes and source-bound normal-speed film, art review and explicit expansion status."
+    "Three actual playable place prototypes, three genuinely different seeded chains, full normal-speed movies and worst observed frame.",
+    "Same six major environment PNGs actually consumed across all three chains, no per-seed images.",
+    "Strict Linux local review bundle build9386ee72ce48; not formal release.",
+    "Necessary existing Skills/route/check changes and preserved failures."
   ],
   "creative_decisions": [],
   "formal_impact": false,
   "gates": {
     "G0": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Actual P1 candidate direction, measured body families, joint place contracts and bounded expansion.",
+      "evidence": [
+        "place-contract",
+        "art-reuse"
+      ]
     },
     "G1": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Three source-bound complete Router/Motor outward-return routes:35cases each,HP5,0recovery,6accepted shots,strict native closure.",
+      "evidence": [
+        "live-first",
+        "live-seed01",
+        "live-seed02",
+        "trace-first",
+        "trace-seed01",
+        "trace-seed02"
+      ]
     },
     "G2": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Internal scoped art acceptance for actual viewed windows only; whole animation/audio/fullG2 not certified.",
       "evidence": []
     },
     "G3": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Actual DemoApp candidate and isolated PCK consumer verified; formal campaign/default pool integration intentionally not admitted.",
       "evidence": []
     },
     "G4": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "Pending final frozen relevant Harness checks; different-author limited art and tool reviews already exist.",
+      "evidence": [
+        "review-native02",
+        "review-seeds",
+        "review-tools"
+      ]
     },
     "G5": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "No user style finalization, human/device/market acceptance.",
       "evidence": []
     }
   },
   "dimensions": {
     "design": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Three distinct finite place structures and explicit real seeded arrangement; arbitrary topology/new-family autonomy not established.",
+      "evidence": [
+        "place-contract",
+        "review-seeds"
+      ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Actual original Motor, controls,actors/hazard/HUD; full three-chain clean routes and strict package startup/closure.",
+      "evidence": [
+        "live-first",
+        "live-seed01",
+        "live-seed02",
+        "local-delivery"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Explicit candidate via original live DemoApp; not admitted to default two-map pool/CI/Webrelease.",
       "evidence": []
     },
     "visual": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "ACCEPT_SCOPED actual full-screen/discrete movement windows for these three prototypes and sampled chains; not user/commercial golden.",
+      "evidence": [
+        "review-native02",
+        "review-seeds",
+        "frame-court",
+        "frame-worst"
+      ]
     },
     "animation": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Actual girl/enemy/saw actions in normal movie, not exhaustive animation state review or full playback.",
       "evidence": []
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Original actual audio lifecycle passed; no personal listening or full audiovisual appraisal.",
       "evidence": []
     },
     "gameplay": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Actual Motor traversal passed in technical evidence; no user_feedback proving fun or gameplay acceptance.",
       "evidence": []
     },
     "performance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Software capture wall times measured; no target-device performance budget proof.",
       "evidence": []
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Different non-producing art reviewer and independent tool reviewer limited acceptances; old REWORK retained.",
+      "evidence": [
+        "review-native02",
+        "review-seeds",
+        "review-tools"
+      ]
     },
     "device": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Cloud Linux GUI only; no physical PC/phone/controller tests.",
       "evidence": []
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "P1 preference is not approval of current game art or market evidence.",
       "evidence": []
     }
   },
-  "criteria": [],
-  "evidence": [],
+  "criteria": [
+    {
+      "id": "real-three-chain-traversal",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "Three actual orders and160/200 connections.",
+      "method": "Original strict visible Router/Motor full out-return.",
+      "expected": "All35cases perchain,HP5,0recovery,6shots,source stable,cleanexit.",
+      "failure": "Any missing/unsupported case,damage/recovery,source drift or native error.",
+      "status": "passed",
+      "reason": "Observed on all three frozen-source chains.",
+      "evidence": [
+        "live-first",
+        "live-seed01",
+        "live-seed02"
+      ]
+    },
+    {
+      "id": "whole-place-art",
+      "gate": "G2",
+      "dimension": "visual",
+      "scenario": "Native normal-camera joint bodies and place connections.",
+      "method": "Different-author actual original-size frames and fullnormal media artifacts.",
+      "expected": "Credible shared volume and distinct coherent places.",
+      "failure": "Faded square cap,stacked floating island,rootless assets or unreadable unique landing.",
+      "status": "passed",
+      "reason": "Scoped viewed-window admission after initialcourtREWORK; fullG2/user/market not signed.",
+      "evidence": [
+        "review-native02",
+        "review-seeds"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "place-contract",
+      "path": "resources/generation/environment_grammar/places_v1.json",
+      "sha256": "3d95f170a4f8f60aacaac5906215f830cf6da385e9be57e3bf5fb7747a8996be",
+      "kind": "spec",
+      "producer": "root",
+      "source_commit": "ef6a8b4f1d06406b6b5f0a3db658902c15c1084e",
+      "content_version": "plains-places-candidate-v1-scoped",
+      "method": "Actual source used by compiled places and current colliders.",
+      "observed": "Three local measured prototypes and shared interface; candidate only."
+    },
+    {
+      "id": "art-reuse",
+      "path": "docs/evidence/plains_places/asset_reuse.json",
+      "sha256": "8520074fcbbc3db2eb4c2b20a3a16a6a6a19cf9cb92c321d096070e91c7321eb",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "ef6a8b4f1d06406b6b5f0a3db658902c15c1084e",
+      "content_version": "plains-places-candidate-v1-scoped",
+      "method": "Extract source paths/SHA from each actual consumer snapshot.",
+      "observed": "Same six major environment source set in all3 actual chains."
+    },
+    {
+      "id": "live-first",
+      "path": "docs/evidence/plains_places/records/full_03/visual_capture.json",
+      "sha256": "5da97eb554da0494cd5653e5f4b839f7717846c96308a1933b520177b04ce1bd",
+      "kind": "command",
+      "producer": "environment_native",
+      "source_commit": "ef6a8b4f1d06406b6b5f0a3db658902c15c1084e",
+      "content_version": "plains-places-candidate-v1-scoped",
+      "method": "Original strict visible capture pipeline with actual input and media/source closure.",
+      "observed": "Full35cases,HP5,0recoveries,6acceptedshots; normal60fps media; actual arrangement differs.",
+      "exit_code": 0,
+      "command": "Original argv retained in capture receipt.",
+      "environment": "Godot4.7.2 Standard/Linux llvmpipe1280x720; not device performance"
+    },
+    {
+      "id": "live-seed01",
+      "path": "docs/evidence/plains_places/records/seed_01/visual_capture.json",
+      "sha256": "6007b3312c1890e4832b2a1002aab64ab622809d0e4f21244f31c1a346b3ee86",
+      "kind": "command",
+      "producer": "environment_native",
+      "source_commit": "ef6a8b4f1d06406b6b5f0a3db658902c15c1084e",
+      "content_version": "plains-places-candidate-v1-scoped",
+      "method": "Original strict visible capture pipeline with actual input and media/source closure.",
+      "observed": "Full35cases,HP5,0recoveries,6acceptedshots; normal60fps media; actual arrangement differs.",
+      "exit_code": 0,
+      "command": "Original argv retained in capture receipt.",
+      "environment": "Godot4.7.2 Standard/Linux llvmpipe1280x720; not device performance"
+    },
+    {
+      "id": "live-seed02",
+      "path": "docs/evidence/plains_places/records/seed_02/visual_capture.json",
+      "sha256": "87cddc107601aeccdc06e6d936ebc43721d814ffcf22dd300da562cac72bd942",
+      "kind": "command",
+      "producer": "environment_native",
+      "source_commit": "ef6a8b4f1d06406b6b5f0a3db658902c15c1084e",
+      "content_version": "plains-places-candidate-v1-scoped",
+      "method": "Original strict visible capture pipeline with actual input and media/source closure.",
+      "observed": "Full35cases,HP5,0recoveries,6acceptedshots; normal60fps media; actual arrangement differs.",
+      "exit_code": 0,
+      "command": "Original argv retained in capture receipt.",
+      "environment": "Godot4.7.2 Standard/Linux llvmpipe1280x720; not device performance"
+    },
+    {
+      "id": "review-native01",
+      "path": "docs/evidence/plains_places/independent-native-01.md",
+      "sha256": "4c098286d9b1e05bcf90fdd2ad5d4919ada2333f85a774f63364cc7c618e92ce",
+      "kind": "review",
+      "producer": "environment_art_review",
+      "source_commit": "ac5419a742723574e2ba3aa053eb857bfffc9231",
+      "content_version": "plains-places-round01-rework",
+      "method": "Read-only different-author review with explicit scope and source hashes.",
+      "observed": "Scoped actual evidence; no user,market,device or exhaustive motion signature.",
+      "reviewer": "environment_art_review",
+      "implementers": [
+        "root",
+        "environment_plan",
+        "environment_renderer",
+        "environment_native"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer did not create images or edit the production under this review; tool reviewer only reviews tools/tests authored by others.",
+      "verdict": "REJECT",
+      "original_verdict": "REWORK"
+    },
+    {
+      "id": "review-native02",
+      "path": "docs/evidence/plains_places/independent-native-02.md",
+      "sha256": "e506e85e7a438198b1a75f5b559ca8ff97eff5c17e8ca70ae3a9967f840ded64",
+      "kind": "review",
+      "producer": "environment_art_review",
+      "source_commit": "ef6a8b4f1d06406b6b5f0a3db658902c15c1084e",
+      "content_version": "plains-places-candidate-v1-scoped",
+      "method": "Read-only different-author review with explicit scope and source hashes.",
+      "observed": "Scoped actual evidence; no user,market,device or exhaustive motion signature.",
+      "reviewer": "environment_art_review",
+      "implementers": [
+        "root",
+        "environment_plan",
+        "environment_renderer",
+        "environment_native"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer did not create images or edit the production under this review; tool reviewer only reviews tools/tests authored by others.",
+      "verdict": "ACCEPT",
+      "original_verdict": "ACCEPT_SCOPED"
+    },
+    {
+      "id": "review-seeds",
+      "path": "docs/evidence/plains_places/independent-seeds.md",
+      "sha256": "b919e10cc0788baed949ca47d51df1ad33b4f3e59dc0a7151c2bf385509740b5",
+      "kind": "review",
+      "producer": "environment_art_review",
+      "source_commit": "ef6a8b4f1d06406b6b5f0a3db658902c15c1084e",
+      "content_version": "plains-places-candidate-v1-scoped",
+      "method": "Read-only different-author review with explicit scope and source hashes.",
+      "observed": "Scoped actual evidence; no user,market,device or exhaustive motion signature.",
+      "reviewer": "environment_art_review",
+      "implementers": [
+        "root",
+        "environment_plan",
+        "environment_renderer",
+        "environment_native"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer did not create images or edit the production under this review; tool reviewer only reviews tools/tests authored by others.",
+      "verdict": "ACCEPT",
+      "original_verdict": "ACCEPT_SCOPED"
+    },
+    {
+      "id": "review-tools",
+      "path": "docs/evidence/plains_places/independent-tooling.md",
+      "sha256": "71b26185004af3fbdcaa1b4a863e1b4e8767cdd573ace2dae0b0168619f885b6",
+      "kind": "review",
+      "producer": "creative_loop",
+      "source_commit": "ef6a8b4f1d06406b6b5f0a3db658902c15c1084e",
+      "content_version": "plains-places-candidate-v1-scoped",
+      "method": "Read-only different-author review with explicit scope and source hashes. Tooling working-tree patch was based on runtime HEAD ef6; exact reviewed tool file SHA are preserved in report, not misrepresented as game changes.",
+      "observed": "Scoped actual evidence; no user,market,device or exhaustive motion signature.",
+      "reviewer": "creative_loop",
+      "implementers": [
+        "root",
+        "environment_native"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer did not create images or edit the production under this review; tool reviewer only reviews tools/tests authored by others.",
+      "verdict": "ACCEPT",
+      "original_verdict": "ACCEPT_SCOPED"
+    },
+    {
+      "id": "frame-court",
+      "path": "docs/evidence/plains_places/frames/round02_court_entry.png",
+      "sha256": "21ecc8a086135bfa4641e117d658f3f239f097f7abef72a857d10a3cea82db1d",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "ef6a8b4f1d06406b6b5f0a3db658902c15c1084e",
+      "content_version": "plains-places-candidate-v1-scoped",
+      "method": "Unmodified native movieframe120 /2s, original1280x720.",
+      "observed": "Joint low/high terrain, actual actor/enemy/HUD."
+    },
+    {
+      "id": "frame-worst",
+      "path": "docs/evidence/plains_places/frames/seed_01_entry.png",
+      "sha256": "b677885e98111d8730b29670851f0006029b8babb4b38fcf3f1cd1dc356d62d0",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "ef6a8b4f1d06406b6b5f0a3db658902c15c1084e",
+      "content_version": "plains-places-candidate-v1-scoped",
+      "method": "Unmodified Seed01frame120 /2s, limited independent observed worst window.",
+      "observed": "Root/actor low contrast; other240frame clearer, not global worst guarantee."
+    },
+    {
+      "id": "local-delivery",
+      "path": "docs/evidence/plains_places/delivery/delivery.json",
+      "sha256": "e2a30cfbe1ee54f55f53c1f91e933ae67dcb483efc37e1c82f0a3e15be109781",
+      "kind": "command",
+      "producer": "environment_native",
+      "source_commit": "ef6a8b4f1d06406b6b5f0a3db658902c15c1084e",
+      "content_version": "plains-places-candidate-v1-scoped",
+      "method": "Shared strict producer, all1485 entries SHA, emptycwd headless/GUI/consumer/source/cleanup+11member CRC.",
+      "observed": "Local manual review package9386ee72ce48; first missingfar failure retained.",
+      "exit_code": 0,
+      "command": "Exact producer/argv bound in original delivery artifacts.",
+      "environment": "Linux x86_64 Godot4.7.2; cloud AL̄SA null smoke; no listening/device claim"
+    },
+    {
+      "id": "trace-first",
+      "path": "docs/evidence/plains_places/records/full_03/capture.json",
+      "sha256": "c635e7b142fe4128f24c17ca3a9a632cf160346efe83d6fddee0adeefeb8c1bb",
+      "kind": "runtime_trace",
+      "producer": "environment_native",
+      "source_commit": "ef6a8b4f1d06406b6b5f0a3db658902c15c1084e",
+      "content_version": "plains-places-candidate-v1-scoped",
+      "method": "Actual original native per-tick input/Motor/collision/accepted events plus place cases.",
+      "observed": "35case complete out-return,HP5,0recovery,6acceptedshot,actualplan/art snapshot."
+    },
+    {
+      "id": "trace-seed01",
+      "path": "docs/evidence/plains_places/records/seed_01/capture.json",
+      "sha256": "d991c80b20af770d0ffac8d3c03a51dbea95bfec65acd46dc1ed051ebae8629e",
+      "kind": "runtime_trace",
+      "producer": "environment_native",
+      "source_commit": "ef6a8b4f1d06406b6b5f0a3db658902c15c1084e",
+      "content_version": "plains-places-candidate-v1-scoped",
+      "method": "Actual original native per-tick input/Motor/collision/accepted events plus place cases.",
+      "observed": "35case complete out-return,HP5,0recovery,6acceptedshot,actualplan/art snapshot."
+    },
+    {
+      "id": "trace-seed02",
+      "path": "docs/evidence/plains_places/records/seed_02/capture.json",
+      "sha256": "52bc89c8c193f60ae0b9827b2fd61fc0e6afa429e8b29af8c905af8f3124940b",
+      "kind": "runtime_trace",
+      "producer": "environment_native",
+      "source_commit": "ef6a8b4f1d06406b6b5f0a3db658902c15c1084e",
+      "content_version": "plains-places-candidate-v1-scoped",
+      "method": "Actual original native per-tick input/Motor/collision/accepted events plus place cases.",
+      "observed": "35case complete out-return,HP5,0recovery,6acceptedshot,actualplan/art snapshot."
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
-    "Design and all relevant acceptance remain unverified"
-  ]
+    "No arbitrary/new-place shortPrompt production proof; route remains a plan requiring actual existing host execution.",
+    "No full six-order/24recipe/cross-region/branching/rise40/allphase coverage or successful natural resampling proof.",
+    "No full animation listening/human/device/market/fullCI/Webrelease acceptance.",
+    "Original historicalencounter/complexGUI blockers not repaired or waived.",
+    "Generated source model/license/price not exposed; commercial license unknown."
+  ],
+  "test_change_justification": "Update only active candidate bindings from stopped PR82 method; preserve old source/ERROR/leak/physics/core/ordinary-art-no-generation guards. Add actual generator/refusal tests and numeric-only structure proof with rename counterexample; close tool cache inputs. Distinct-author review in review-tools."
 }

@@ -1,0 +1,185 @@
+.........................E.EEEE.EE.EE.EEF......
+======================================================================
+ERROR: test_ambiguous_and_empty_do_not_silently_authorize_new_region (tests.test_level_design_routing.RoutingTests.test_ambiguous_and_empty_do_not_silently_authorize_new_region)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/art-direction-exploration/tests/test_level_design_routing.py", line 253, in test_ambiguous_and_empty_do_not_silently_authorize_new_region
+    self.assertEqual(level_design.content_plan("看看地图", "optimize")["workflow"], "optimize")
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/art-direction-exploration/tools/level_design.py", line 240, in content_plan
+    final_checks = harness.resolve_checks(harness.load_manifest(), ["gameplay", "art", "web"])
+                                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/art-direction-exploration/tools/harness.py", line 32, in load_manifest
+    raise ValueError(f"Missing check entry: {name}")
+ValueError: Missing check entry: plains-places-capture-tests
+
+======================================================================
+ERROR: test_existing_region_uses_shared_skills_and_checks (tests.test_level_design_routing.RoutingTests.test_existing_region_uses_shared_skills_and_checks)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/art-direction-exploration/tests/test_level_design_routing.py", line 227, in test_existing_region_uses_shared_skills_and_checks
+    mission = level_design.content_plan("优化风铃平原，这里无聊且重复")
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/art-direction-exploration/tools/level_design.py", line 240, in content_plan
+    final_checks = harness.resolve_checks(harness.load_manifest(), ["gameplay", "art", "web"])
+                                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/art-direction-exploration/tools/harness.py", line 32, in load_manifest
+    raise ValueError(f"Missing check entry: {name}")
+ValueError: Missing check entry: plains-places-capture-tests
+
+======================================================================
+ERROR: test_forest_professional_prework_has_real_independent_dependencies (tests.test_level_design_routing.RoutingTests.test_forest_professional_prework_has_real_independent_dependencies)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/art-direction-exploration/tests/test_level_design_routing.py", line 176, in test_forest_professional_prework_has_real_independent_dependencies
+    mission=level_design.content_plan('制作荆棘森林',phase='production')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/art-direction-exploration/tools/level_design.py", line 240, in content_plan
+    final_checks = harness.resolve_checks(harness.load_manifest(), ["gameplay", "art", "web"])
+                                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/art-direction-exploration/tools/harness.py", line 32, in load_manifest
+    raise ValueError(f"Missing check entry: {name}")
+ValueError: Missing check entry: plains-places-capture-tests
+
+======================================================================
+ERROR: test_forest_proof_boundary_preserves_authority_without_formal_grant (tests.test_level_design_routing.RoutingTests.test_forest_proof_boundary_preserves_authority_without_formal_grant)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/art-direction-exploration/tests/test_level_design_routing.py", line 194, in test_forest_proof_boundary_preserves_authority_without_formal_grant
+    mission=level_design.content_plan('制作荆棘森林',phase='production')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/art-direction-exploration/tools/level_design.py", line 240, in content_plan
+    final_checks = harness.resolve_checks(harness.load_manifest(), ["gameplay", "art", "web"])
+                                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/art-direction-exploration/tools/harness.py", line 32, in load_manifest
+    raise ValueError(f"Missing check entry: {name}")
+ValueError: Missing check entry: plains-places-capture-tests
+
+======================================================================
+ERROR: test_invalid_skill_or_check_cannot_pass_routing (tests.test_level_design_routing.RoutingTests.test_invalid_skill_or_check_cannot_pass_routing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/art-direction-exploration/tests/test_level_design_routing.py", line 256, in test_invalid_skill_or_check_cannot_pass_routing
+    mission = level_design.content_plan("优化风铃平原")
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/art-direction-exploration/tools/level_design.py", line 240, in content_plan
+    final_checks = harness.resolve_checks(harness.load_manifest(), ["gameplay", "art", "web"])
+                                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/art-direction-exploration/tools/harness.py", line 32, in load_manifest
+    raise ValueError(f"Missing check entry: {name}")
+ValueError: Missing check entry: plains-places-capture-tests
+
+======================================================================
+ERROR: test_mutable_design_registers_new_tasks_before_quality_profiles (tests.test_level_design_routing.RoutingTests.test_mutable_design_registers_new_tasks_before_quality_profiles)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/art-direction-exploration/tests/test_level_design_routing.py", line 213, in test_mutable_design_registers_new_tasks_before_quality_profiles
+    mission=level_design.content_plan(request,phase="production")
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/art-direction-exploration/tools/level_design.py", line 240, in content_plan
+    final_checks = harness.resolve_checks(harness.load_manifest(), ["gameplay", "art", "web"])
+                                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/art-direction-exploration/tools/harness.py", line 32, in load_manifest
+    raise ValueError(f"Missing check entry: {name}")
+ValueError: Missing check entry: plains-places-capture-tests
+
+======================================================================
+ERROR: test_new_biome_routes_full_pipeline_without_region_constants (tests.test_level_design_routing.RoutingTests.test_new_biome_routes_full_pipeline_without_region_constants)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/art-direction-exploration/tests/test_level_design_routing.py", line 236, in test_new_biome_routes_full_pipeline_without_region_constants
+    mission = level_design.content_plan(request,phase="production")
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/art-direction-exploration/tools/level_design.py", line 240, in content_plan
+    final_checks = harness.resolve_checks(harness.load_manifest(), ["gameplay", "art", "web"])
+                                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/art-direction-exploration/tools/harness.py", line 32, in load_manifest
+    raise ValueError(f"Missing check entry: {name}")
+ValueError: Missing check entry: plains-places-capture-tests
+
+======================================================================
+ERROR: test_public_production_golden_requires_joint_visual_admission_but_legacy_stays_explicit (tests.test_level_design_routing.RoutingTests.test_public_production_golden_requires_joint_visual_admission_but_legacy_stays_explicit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/art-direction-exploration/tests/test_level_design_routing.py", line 61, in test_public_production_golden_requires_joint_visual_admission_but_legacy_stays_explicit
+    legacy = level_design.content_plan('优化风铃平原', phase='production')
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/art-direction-exploration/tools/level_design.py", line 240, in content_plan
+    final_checks = harness.resolve_checks(harness.load_manifest(), ["gameplay", "art", "web"])
+                                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/art-direction-exploration/tools/harness.py", line 32, in load_manifest
+    raise ValueError(f"Missing check entry: {name}")
+ValueError: Missing check entry: plains-places-capture-tests
+
+======================================================================
+ERROR: test_public_spatial_experiment_cli_binds_design_and_removes_broad_source_leases (tests.test_level_design_routing.RoutingTests.test_public_spatial_experiment_cli_binds_design_and_removes_broad_source_leases)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/art-direction-exploration/tests/test_level_design_routing.py", line 108, in test_public_spatial_experiment_cli_binds_design_and_removes_broad_source_leases
+    self.assertEqual(level_design.main(['route', '--request', '优化风铃平原', '--direction',
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/art-direction-exploration/tools/level_design.py", line 500, in main
+    mission = route_request(args.request, args.mode, args.phase, args.direction, args.spatial_experiment)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/art-direction-exploration/tools/level_design.py", line 394, in route_request
+    plan = content_plan(request, mode, "production" if phase in {"auto", "preproduction"} else phase)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/art-direction-exploration/tools/level_design.py", line 240, in content_plan
+    final_checks = harness.resolve_checks(harness.load_manifest(), ["gameplay", "art", "web"])
+                                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/art-direction-exploration/tools/harness.py", line 32, in load_manifest
+    raise ValueError(f"Missing check entry: {name}")
+ValueError: Missing check entry: plains-places-capture-tests
+
+======================================================================
+ERROR: test_real_short_route_cli_needs_no_prototype_flag (tests.test_level_design_routing.RoutingTests.test_real_short_route_cli_needs_no_prototype_flag)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/art-direction-exploration/tests/test_level_design_routing.py", line 169, in test_real_short_route_cli_needs_no_prototype_flag
+    self.assertEqual(level_design.main(['route','--request','制作荆棘森林','--output',str(output)]),0)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/art-direction-exploration/tools/level_design.py", line 500, in main
+    mission = route_request(args.request, args.mode, args.phase, args.direction, args.spatial_experiment)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/art-direction-exploration/tools/level_design.py", line 394, in route_request
+    plan = content_plan(request, mode, "production" if phase in {"auto", "preproduction"} else phase)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/art-direction-exploration/tools/level_design.py", line 240, in content_plan
+    final_checks = harness.resolve_checks(harness.load_manifest(), ["gameplay", "art", "web"])
+                                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/art-direction-exploration/tools/harness.py", line 32, in load_manifest
+    raise ValueError(f"Missing check entry: {name}")
+ValueError: Missing check entry: plains-places-capture-tests
+
+======================================================================
+ERROR: test_short_forest_default_auto_is_bounded_native_prototype_with_full_plan_retained (tests.test_level_design_routing.RoutingTests.test_short_forest_default_auto_is_bounded_native_prototype_with_full_plan_retained)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/art-direction-exploration/tests/test_level_design_routing.py", line 39, in test_short_forest_default_auto_is_bounded_native_prototype_with_full_plan_retained
+    mission=level_design.content_plan('制作荆棘森林')
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/art-direction-exploration/tools/level_design.py", line 240, in content_plan
+    final_checks = harness.resolve_checks(harness.load_manifest(), ["gameplay", "art", "web"])
+                                          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/art-direction-exploration/tools/harness.py", line 32, in load_manifest
+    raise ValueError(f"Missing check entry: {name}")
+ValueError: Missing check entry: plains-places-capture-tests
+
+======================================================================
+FAIL: test_short_plains_art_uses_actual_existing_visual_recipe_without_mode_flags (tests.test_level_design_routing.RoutingTests.test_short_plains_art_uses_actual_existing_visual_recipe_without_mode_flags)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/art-direction-exploration/tests/test_level_design_routing.py", line 22, in test_short_plains_art_uses_actual_existing_visual_recipe_without_mode_flags
+    self.assertEqual(mission['preparation']['visual_recipe']['status'], 'candidate_with_native_evidence_not_automatic_admission')
+AssertionError: 'whole_volume_candidate_native_pending' != 'candidate_with_native_evidence_not_automatic_admission'
+- whole_volume_candidate_native_pending
++ candidate_with_native_evidence_not_automatic_admission
+
+
+----------------------------------------------------------------------
+Ran 47 tests in 8.600s
+
+FAILED (failures=1, errors=11)
+Level experience report: /tmp/tmpg07gwfo8/report.json; REVIEW; subjective/device unverified
+Comparison: /tmp/tmpg07gwfo8/comparison.json
+Level experience report: /tmp/tmpg07gwfo8/report.json; REJECT; subjective/device unverified

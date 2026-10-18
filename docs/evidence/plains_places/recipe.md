@@ -1,6 +1,6 @@
-# 随机场所候选：尚未艺术准入
+# 随机场所候选：三原型有限内部准入
 
-任务 `PLAINS-PLACES-01`，PR82 为基线。先看[当前检查点](checkpoint.md)与[独立源画审查](independent-01.md)。这是一项真实制作实验，不是已经验证的精美随机地区配方。P1仍只是用户偏好方向。
+任务 `PLAINS-PLACES-01`，PR82 为基线，实际运行源 `ef6a8b4f`。当前先看[作品与边界](../../quality/plains_places.md)、[跨Seed独审](independent-seeds.md)。先看[当前检查点](checkpoint.md)与[独立源画审查](independent-01.md)。三原型与三实际排列已真实去返、获得限定窗口接受；这不是已经验证任意地图的精美随机地区配方。P1仍只是用户偏好方向。
 
 实际入口：`tools/plains_places_preview.gd`；原 `DemoApp`、控制器、Motor、资源、敌人与HUD继续消费候选。`tools/plains_places_capture.gd` 沿原严格捕获生命周期记录正常速度电影；`tests/plains_places_trace.gd` 沿原输入驱动逐点落稳，不赋角色位置。
 

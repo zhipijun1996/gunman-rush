@@ -1,0 +1,23 @@
+........................................F......
+======================================================================
+FAIL: test_short_plains_art_uses_actual_existing_visual_recipe_without_mode_flags (tests.test_level_design_routing.RoutingTests.test_short_plains_art_uses_actual_existing_visual_recipe_without_mode_flags)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/art-direction-exploration/tests/test_level_design_routing.py", line 23, in test_short_plains_art_uses_actual_existing_visual_recipe_without_mode_flags
+    self.assertEqual(mission['preparation']['visual_recipe']['quality_record'],'docs/quality/records/P1-ENV-01.json')
+AssertionError: 'docs/quality/records/PLAINS-PLACES-01.json' != 'docs/quality/records/P1-ENV-01.json'
+- docs/quality/records/PLAINS-PLACES-01.json
+?                       ^^^ ^^^^^^^^
++ docs/quality/records/P1-ENV-01.json
+?                       ^^^ ^
+
+
+----------------------------------------------------------------------
+Ran 47 tests in 8.586s
+
+FAILED (failures=1)
+PASS: optimize routed to existing harness --mission /workspace/art-direction-exploration/build/tmpoo846qpa/mission.json; plan only
+PASS: new_region routed to existing harness --mission /tmp/tmpm39zfcwd/forest.json; plan only
+Level experience report: /tmp/tmpnhoq2fo5/report.json; REVIEW; subjective/device unverified
+Comparison: /tmp/tmpnhoq2fo5/comparison.json
+Level experience report: /tmp/tmpnhoq2fo5/report.json; REJECT; subjective/device unverified

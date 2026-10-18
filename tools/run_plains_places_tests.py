@@ -2,6 +2,7 @@
 import fcntl
 import hashlib
 import json
+import math
 import re
 import subprocess
 import time
@@ -12,6 +13,19 @@ from run_root_bell_ecology import godot_lock_path
 from run_tests import run_engine
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def numeric_shape(row):
+    """Identity renames cannot count as a different physical arrangement."""
+    def number(value):
+        if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value):
+            raise ValueError('Non-finite/non-numeric structural coordinate')
+        return float(value)
+    translations = [[number(v) for v in item['translation']] for item in row['place_instances']]
+    connections = [{'path': [[number(v) for v in point] for point in edge['path']],
+                    'gap': number(edge['gap_world']), 'rise': number(edge['rise_world'])}
+                   for edge in row['connections']]
+    return json.dumps({'translations': translations, 'connections': connections}, sort_keys=True)
 
 
 def main():
@@ -37,13 +51,20 @@ def main():
             report['runs'].append({'argv': ['bash', 'tools/godot.sh', *args], 'exit_code': 0, 'log': str((folder / 'contract.log').relative_to(ROOT)), 'log_sha256': hashlib.sha256(output.encode()).hexdigest()})
             if not re.search(r'^PLAINS PLACES CONTRACT: [1-9]\d* assertions, 0 failures$', output, re.M) or re.search(r'(^|\n)ERROR:', output):
                 raise RuntimeError('Missing complete contract success or native error')
+            actual = json.loads((folder / 'actual.json').read_text())
+            shapes = [numeric_shape(row) for row in actual['actual']]
+            report['numeric_structure'] = {'distinct': len(set(shapes)), 'sample_count': len(shapes),
+                                          'projection': 'finite numeric world translations, actual connection paths, gap and rise; no names, hashes, phases or decoration',
+                                          'claim': 'Physical arrangement differences only, not art or gameplay variety'}
+            if len(shapes) != len(actual['preregistered_seeds']) or len(set(shapes)) < 2:
+                raise RuntimeError('Actual corpus did not prove numeric structural variation')
             report['source_before'] = before
             report['source_after'] = source_files()
             if report['source_after'] != before:
                 raise RuntimeError('Source changed during frozen contract check')
             report['status'] = 'passed'
-    except (OSError, RuntimeError, subprocess.SubprocessError) as error:
-        report['error'] = str(error)
+    except (OSError, RuntimeError, ValueError, KeyError, TypeError, subprocess.SubprocessError) as error:
+        report['error'] = type(error).__name__ + ': ' + str(error)
     report['elapsed_seconds'] = time.monotonic() - started
     (folder / 'report.json').write_text(json.dumps(report, indent=2) + '\n')
     print('PLAINS PLACES SUITE: ' + report['status'] + ' ' + str(folder.relative_to(ROOT)))

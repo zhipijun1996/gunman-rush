@@ -1,0 +1,696 @@
+{
+  "source_commit": "ef6a8b4f1d06406b6b5f0a3db658902c15c1084e",
+  "root_seed": "places-contract-02",
+  "prototype_order": [
+    "postal_valley",
+    "wind_meadow",
+    "lee_court"
+  ],
+  "place_instances": [
+    {
+      "id": "place_0_postal_valley",
+      "prototype_id": "postal_valley",
+      "source_measurement_sha256": "d59b3d59caaa9b6723ca3df2b0ac2ffd44a495335504a87efcad01178787a02a",
+      "translation": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "id": "place_1_wind_meadow",
+      "prototype_id": "wind_meadow",
+      "source_measurement_sha256": "e7ca4d01ac1350b504356548912f06ad69dd32f0e647f3b16205069090c03df2",
+      "translation": [
+        1716.0,
+        8.0
+      ]
+    },
+    {
+      "id": "place_2_lee_court",
+      "prototype_id": "lee_court",
+      "source_measurement_sha256": "abbdd0e589f0d25ae60937726dad9a633f1772d593bf2ff307d6d25f13031081",
+      "translation": [
+        2668.0,
+        14.0
+      ]
+    }
+  ],
+  "actual_place_ports": [
+    {
+      "id": "place_0_postal_valley",
+      "entry": {
+        "id": "place_0_postal_valley/entry",
+        "position": [
+          32.0,
+          704.0
+        ]
+      },
+      "exit": {
+        "id": "place_0_postal_valley/exit",
+        "position": [
+          1516.0,
+          706.0
+        ]
+      }
+    },
+    {
+      "id": "place_1_wind_meadow",
+      "entry": {
+        "id": "place_1_wind_meadow/entry",
+        "position": [
+          1764.0,
+          714.0
+        ]
+      },
+      "exit": {
+        "id": "place_1_wind_meadow/exit",
+        "position": [
+          2448.0,
+          711.0
+        ]
+      }
+    },
+    {
+      "id": "place_2_lee_court",
+      "entry": {
+        "id": "place_2_lee_court/entry",
+        "position": [
+          2700.0,
+          716.1333
+        ]
+      },
+      "exit": {
+        "id": "place_2_lee_court/exit",
+        "position": [
+          3176.0,
+          632.7692
+        ]
+      }
+    }
+  ],
+  "actual_connections": [
+    {
+      "a": "place_0_postal_valley",
+      "b": "place_1_wind_meadow",
+      "bidirectional": true,
+      "condition": "open",
+      "gap_world": 160.0,
+      "id": "edge_0",
+      "kind": "horizontal",
+      "modules": [
+        0,
+        1
+      ],
+      "path": [
+        [
+          1516.0,
+          706.0
+        ],
+        [
+          1764.0,
+          714.0
+        ]
+      ],
+      "recipe_id": "gap160_level",
+      "rise_world": 0.0
+    },
+    {
+      "a": "place_1_wind_meadow",
+      "b": "place_2_lee_court",
+      "bidirectional": true,
+      "condition": "open",
+      "gap_world": 160.0,
+      "id": "edge_1",
+      "kind": "horizontal",
+      "modules": [
+        1,
+        2
+      ],
+      "path": [
+        [
+          2448.0,
+          711.0
+        ],
+        [
+          2700.0,
+          716.1333
+        ]
+      ],
+      "recipe_id": "gap160_level",
+      "rise_world": 0.0
+    }
+  ],
+  "movie": {
+    "path": "build/plains_places/seed_02/gameplay.mp4",
+    "sha256": "491078e9a2f8756b4e61a59a41a886f0de5d9ecde3cad4f7f8f2ea4481320ca1"
+  },
+  "capture_receipt": {
+    "path": "build/plains_places/seed_02/visual_capture.json",
+    "sha256": "87cddc107601aeccdc06e6d936ebc43721d814ffcf22dd300da562cac72bd942"
+  },
+  "windows": [
+    {
+      "space": "postal_valley",
+      "frames": [
+        {
+          "path": "build/plains_places/seed_02/video_frames/video_frame_000120.png",
+          "sha256": "877d439551d56545fd0782295606ccb7c7e73999e1c59d1e3e3698073666a0e2",
+          "video_frame_index_zero_based": 120,
+          "video_time_seconds": 2.0,
+          "scope": "post-extracted actual MP4 frame; not physics tick"
+        },
+        {
+          "path": "build/plains_places/seed_02/video_frames/video_frame_000240.png",
+          "sha256": "244499bc7b310fa60f255b86bdaa73b7c181cf4eb82b31dd1fa05e93fb77aab1",
+          "video_frame_index_zero_based": 240,
+          "video_time_seconds": 4.0,
+          "scope": "post-extracted actual MP4 frame; not physics tick"
+        },
+        {
+          "path": "build/plains_places/seed_02/video_frames/video_frame_000360.png",
+          "sha256": "b92fa6a7a02ba69f86edd2a8fb7e87c11a33f3d1565f661d3a8ae532dced5241",
+          "video_frame_index_zero_based": 360,
+          "video_time_seconds": 6.0,
+          "scope": "post-extracted actual MP4 frame; not physics tick"
+        },
+        {
+          "path": "build/plains_places/seed_02/video_frames/video_frame_000480.png",
+          "sha256": "91789ed0fdacd1f3f03484a0e83982ae9905e73b151c60147fb63e9b08c0f7ed",
+          "video_frame_index_zero_based": 480,
+          "video_time_seconds": 8.0,
+          "scope": "post-extracted actual MP4 frame; not physics tick"
+        }
+      ],
+      "movie_time_window_seconds": [
+        2.0,
+        8.0
+      ]
+    },
+    {
+      "space": "postal_to_meadow",
+      "frames": [
+        {
+          "path": "build/plains_places/seed_02/video_frames/video_frame_000480.png",
+          "sha256": "91789ed0fdacd1f3f03484a0e83982ae9905e73b151c60147fb63e9b08c0f7ed",
+          "video_frame_index_zero_based": 480,
+          "video_time_seconds": 8.0,
+          "scope": "post-extracted actual MP4 frame; not physics tick"
+        },
+        {
+          "path": "build/plains_places/seed_02/video_frames/video_frame_000600.png",
+          "sha256": "8c6d72360d9be89dbf54805c0e629699e2547864b35c6f7ce741b7f1af7e26f8",
+          "video_frame_index_zero_based": 600,
+          "video_time_seconds": 10.0,
+          "scope": "post-extracted actual MP4 frame; not physics tick"
+        },
+        {
+          "path": "build/plains_places/seed_02/video_frames/video_frame_000720.png",
+          "sha256": "6425eb54b97a4d399d62c73006fe075470282208b570bc41c00cac1af9adbec6",
+          "video_frame_index_zero_based": 720,
+          "video_time_seconds": 12.0,
+          "scope": "post-extracted actual MP4 frame; not physics tick"
+        }
+      ],
+      "movie_time_window_seconds": [
+        8.0,
+        12.0
+      ]
+    },
+    {
+      "space": "wind_meadow",
+      "frames": [
+        {
+          "path": "build/plains_places/seed_02/video_frames/video_frame_000720.png",
+          "sha256": "6425eb54b97a4d399d62c73006fe075470282208b570bc41c00cac1af9adbec6",
+          "video_frame_index_zero_based": 720,
+          "video_time_seconds": 12.0,
+          "scope": "post-extracted actual MP4 frame; not physics tick"
+        },
+        {
+          "path": "build/plains_places/seed_02/video_frames/video_frame_000840.png",
+          "sha256": "ecc1ff2a38a281f9773a01feaa39f339fcbf9b0ce58c62fa0b228d10bb861ff5",
+          "video_frame_index_zero_based": 840,
+          "video_time_seconds": 14.0,
+          "scope": "post-extracted actual MP4 frame; not physics tick"
+        }
+      ],
+      "movie_time_window_seconds": [
+        12.0,
+        14.0
+      ]
+    },
+    {
+      "space": "meadow_to_court",
+      "frames": [
+        {
+          "path": "build/plains_places/seed_02/video_frames/video_frame_000840.png",
+          "sha256": "ecc1ff2a38a281f9773a01feaa39f339fcbf9b0ce58c62fa0b228d10bb861ff5",
+          "video_frame_index_zero_based": 840,
+          "video_time_seconds": 14.0,
+          "scope": "post-extracted actual MP4 frame; not physics tick"
+        },
+        {
+          "path": "build/plains_places/seed_02/video_frames/video_frame_000960.png",
+          "sha256": "40f07702962119f3327375617280f59d4a22f674bfe7bc45222b7b8022329e49",
+          "video_frame_index_zero_based": 960,
+          "video_time_seconds": 16.0,
+          "scope": "post-extracted actual MP4 frame; not physics tick"
+        }
+      ],
+      "movie_time_window_seconds": [
+        14.0,
+        16.0
+      ]
+    },
+    {
+      "space": "lee_court",
+      "frames": [
+        {
+          "path": "build/plains_places/seed_02/video_frames/video_frame_000960.png",
+          "sha256": "40f07702962119f3327375617280f59d4a22f674bfe7bc45222b7b8022329e49",
+          "video_frame_index_zero_based": 960,
+          "video_time_seconds": 16.0,
+          "scope": "post-extracted actual MP4 frame; not physics tick"
+        },
+        {
+          "path": "build/plains_places/seed_02/video_frames/video_frame_001080.png",
+          "sha256": "2e3d4853d2b3e8874183cfdb19e1b72860392568d8a7307e14d321189c6cd857",
+          "video_frame_index_zero_based": 1080,
+          "video_time_seconds": 18.0,
+          "scope": "post-extracted actual MP4 frame; not physics tick"
+        },
+        {
+          "path": "build/plains_places/seed_02/video_frames/video_frame_001200.png",
+          "sha256": "1046d6de1c9e69dbe43a52b8de8210b884b580dfb8f4f4385eb603963c23a0fe",
+          "video_frame_index_zero_based": 1200,
+          "video_time_seconds": 20.0,
+          "scope": "post-extracted actual MP4 frame; not physics tick"
+        }
+      ],
+      "movie_time_window_seconds": [
+        16.0,
+        20.0
+      ]
+    }
+  ],
+  "native_cases": [
+    {
+      "id": "place_0_postal_valley/arrival",
+      "start_tick": 31,
+      "end_tick": 87,
+      "passed": true,
+      "position": [
+        32.2535934448242,
+        702.465026855469
+      ],
+      "supported": true
+    },
+    {
+      "id": "place_0_postal_valley/west_rest",
+      "start_tick": 88,
+      "end_tick": 132,
+      "passed": true,
+      "position": [
+        167.858825683594,
+        715.630249023438
+      ],
+      "supported": true
+    },
+    {
+      "id": "place_0_postal_valley/gear_wait",
+      "start_tick": 133,
+      "end_tick": 348,
+      "passed": true,
+      "position": [
+        837.46875,
+        719.862854003906
+      ],
+      "supported": true
+    },
+    {
+      "id": "place_0_postal_valley/gear_clear",
+      "start_tick": 349,
+      "end_tick": 404,
+      "passed": true,
+      "position": [
+        978.0,
+        708.188232421875
+      ],
+      "supported": true
+    },
+    {
+      "id": "place_0_postal_valley/east_rest",
+      "start_tick": 405,
+      "end_tick": 468,
+      "passed": true,
+      "position": [
+        1195.84326171875,
+        719.629760742188
+      ],
+      "supported": true
+    },
+    {
+      "id": "place_0_postal_valley/departure",
+      "start_tick": 469,
+      "end_tick": 556,
+      "passed": true,
+      "position": [
+        1515.59912109375,
+        705.933532714844
+      ],
+      "supported": true
+    },
+    {
+      "id": "edge_0/forward",
+      "start_tick": 557,
+      "end_tick": 634,
+      "passed": true,
+      "position": [
+        1764.0,
+        712.449035644531
+      ],
+      "supported": true
+    },
+    {
+      "id": "place_1_wind_meadow/arrival",
+      "start_tick": 635,
+      "end_tick": 648,
+      "passed": true,
+      "position": [
+        1764.0,
+        712.449035644531
+      ],
+      "supported": true
+    },
+    {
+      "id": "place_1_wind_meadow/open_rest",
+      "start_tick": 649,
+      "end_tick": 726,
+      "passed": true,
+      "position": [
+        1967.67065429688,
+        731.625854492188
+      ],
+      "supported": true
+    },
+    {
+      "id": "place_1_wind_meadow/departure",
+      "start_tick": 727,
+      "end_tick": 851,
+      "passed": true,
+      "position": [
+        2447.40600585938,
+        710.933532714844
+      ],
+      "supported": true
+    },
+    {
+      "id": "edge_1/forward",
+      "start_tick": 852,
+      "end_tick": 929,
+      "passed": true,
+      "position": [
+        2700.0,
+        715.313598632812
+      ],
+      "supported": true
+    },
+    {
+      "id": "place_2_lee_court/arrival",
+      "start_tick": 930,
+      "end_tick": 943,
+      "passed": true,
+      "position": [
+        2700.0,
+        715.313598632812
+      ],
+      "supported": true
+    },
+    {
+      "id": "place_2_lee_court/lower_rest",
+      "start_tick": 944,
+      "end_tick": 1004,
+      "passed": true,
+      "position": [
+        2827.6015625,
+        717.925231933594
+      ],
+      "supported": true
+    },
+    {
+      "id": "place_2_lee_court/climb_takeoff",
+      "start_tick": 1005,
+      "end_tick": 1018,
+      "passed": true,
+      "position": [
+        2827.91552734375,
+        717.925231933594
+      ],
+      "supported": true
+    },
+    {
+      "id": "place_2_lee_court/upper_receiver",
+      "start_tick": 1019,
+      "end_tick": 1089,
+      "passed": true,
+      "position": [
+        3048.0,
+        631.972900390625
+      ],
+      "supported": true
+    },
+    {
+      "id": "place_2_lee_court/upper_rest",
+      "start_tick": 1090,
+      "end_tick": 1117,
+      "passed": true,
+      "position": [
+        3107.83520507812,
+        631.925231933594
+      ],
+      "supported": true
+    },
+    {
+      "id": "place_2_lee_court/departure",
+      "start_tick": 1118,
+      "end_tick": 1147,
+      "passed": true,
+      "position": [
+        3175.89526367188,
+        632.237121582031
+      ],
+      "supported": true
+    },
+    {
+      "id": "place_2_lee_court/back_departure",
+      "start_tick": 1148,
+      "end_tick": 1161,
+      "passed": true,
+      "position": [
+        3176.00610351562,
+        632.241455078125
+      ],
+      "supported": true
+    },
+    {
+      "id": "place_2_lee_court/back_upper_rest",
+      "start_tick": 1162,
+      "end_tick": 1191,
+      "passed": true,
+      "position": [
+        3108.13793945312,
+        631.925231933594
+      ],
+      "supported": true
+    },
+    {
+      "id": "place_2_lee_court/back_takeoff",
+      "start_tick": 1192,
+      "end_tick": 1219,
+      "passed": true,
+      "position": [
+        3048.17114257812,
+        631.925231933594
+      ],
+      "supported": true
+    },
+    {
+      "id": "place_2_lee_court/back_lower",
+      "start_tick": 1220,
+      "end_tick": 1303,
+      "passed": true,
+      "position": [
+        2828.0,
+        717.977966308594
+      ],
+      "supported": true
+    },
+    {
+      "id": "place_2_lee_court/back_rest",
+      "start_tick": 1304,
+      "end_tick": 1317,
+      "passed": true,
+      "position": [
+        2828.0,
+        717.977966308594
+      ],
+      "supported": true
+    },
+    {
+      "id": "place_2_lee_court/back_arrival",
+      "start_tick": 1318,
+      "end_tick": 1361,
+      "passed": true,
+      "position": [
+        2700.17504882812,
+        715.278137207031
+      ],
+      "supported": true
+    },
+    {
+      "id": "edge_1/return",
+      "start_tick": 1362,
+      "end_tick": 1439,
+      "passed": true,
+      "position": [
+        2448.0,
+        710.986694335938
+      ],
+      "supported": true
+    },
+    {
+      "id": "place_1_wind_meadow/back_departure",
+      "start_tick": 1440,
+      "end_tick": 1453,
+      "passed": true,
+      "position": [
+        2448.0,
+        710.986694335938
+      ],
+      "supported": true
+    },
+    {
+      "id": "place_1_wind_meadow/back_rest",
+      "start_tick": 1454,
+      "end_tick": 1577,
+      "passed": true,
+      "position": [
+        1968.216796875,
+        731.638549804688
+      ],
+      "supported": true
+    },
+    {
+      "id": "place_1_wind_meadow/back_arrival",
+      "start_tick": 1578,
+      "end_tick": 1639,
+      "passed": true,
+      "position": [
+        1764.24035644531,
+        712.462951660156
+      ],
+      "supported": true
+    },
+    {
+      "id": "edge_0/return",
+      "start_tick": 1640,
+      "end_tick": 1716,
+      "passed": true,
+      "position": [
+        1516.0,
+        705.958129882812
+      ],
+      "supported": true
+    },
+    {
+      "id": "place_0_postal_valley/back_departure",
+      "start_tick": 1717,
+      "end_tick": 1730,
+      "passed": true,
+      "position": [
+        1516.0,
+        705.958129882812
+      ],
+      "supported": true
+    },
+    {
+      "id": "place_0_postal_valley/back_east_rest",
+      "start_tick": 1731,
+      "end_tick": 1817,
+      "passed": true,
+      "position": [
+        1196.34838867188,
+        719.642761230469
+      ],
+      "supported": true
+    },
+    {
+      "id": "place_0_postal_valley/back_bridge",
+      "start_tick": 1818,
+      "end_tick": 1882,
+      "passed": true,
+      "position": [
+        978.040954589844,
+        708.150695800781
+      ],
+      "supported": true
+    },
+    {
+      "id": "place_0_postal_valley/back_gear",
+      "start_tick": 1883,
+      "end_tick": 1940,
+      "passed": true,
+      "position": [
+        788.109558105469,
+        721.152465820312
+      ],
+      "supported": true
+    },
+    {
+      "id": "place_0_postal_valley/back_west_rest",
+      "start_tick": 1941,
+      "end_tick": 2097,
+      "passed": true,
+      "position": [
+        168.352355957031,
+        715.642517089844
+      ],
+      "supported": true
+    },
+    {
+      "id": "place_0_postal_valley/back_arrival",
+      "start_tick": 2098,
+      "end_tick": 2143,
+      "passed": true,
+      "position": [
+        32.2530899047852,
+        702.464660644531
+      ],
+      "supported": true
+    },
+    {
+      "id": "place_0_postal_valley/return_spawn",
+      "start_tick": 2144,
+      "end_tick": 2199,
+      "passed": true,
+      "position": [
+        215.823471069336,
+        715.925231933594
+      ],
+      "supported": true
+    }
+  ],
+  "technical_summary": {
+    "ticks": 2199,
+    "completed_cases": 35,
+    "health_values": [
+      5.0
+    ],
+    "max_recovery_count": 0,
+    "accepted_shots": 6,
+    "source_guard_equal": true,
+    "frozen_source_inventory_equal_first_live": true,
+    "art_omissions": []
+  },
+  "scope": "Actual different resolved place order/positions/connection widths under identical frozen sources, not a pure-art same-layout comparison. Movie frames/times exact; native case ticks kept separately without claiming exact synchronization. Art review and formal/campaign/device admission remain separate."
+}

@@ -4,6 +4,7 @@
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
+| PLAINS-PLACES-01 | 完整体块与随机场所艺术生产 | — | review | 3实际场所/同6图源/3实际排列/160与200连接完整去返、35点各HP5零回退；独审限定接受，4图生含共同院岸返工；Linux严格包9386ee72ce48。非商业黄金/全地区/用户或设备准入；报告quality/plains_places.md |
 | P1-ENV-ROUTING-01 | 当前美术入口与测试绑定迁移 | P1-ENV-01 | done | 44工具/路由case与不同作者迁移审查；只签route/测试绑定与原强验保留，不签艺术/native自动生产 |
 | P1-ENV-01 | 平原完整环境与随机场所共同生产 | ART-DIRECTION-02 | blocked | 三轮真实原生完整路线通过，艺术均REWORK；停当前端肩接法，不B/Seed/正式池；源4d480377，本地失败候选包严格可启动，报告quality/p1_environment.md |
 | ART-DIRECTION-02 | 四方向重新探索，等待用户选择 | PAINTED-TERRAIN-01 | review | PR77/75为技术与失败参考；暂停B生产；四组同题概念/对象/HUD，无引擎或资产池晋级、无森林改动 |

@@ -1,0 +1,18 @@
+........................................F......
+======================================================================
+FAIL: test_short_plains_art_uses_actual_existing_visual_recipe_without_mode_flags (tests.test_level_design_routing.RoutingTests.test_short_plains_art_uses_actual_existing_visual_recipe_without_mode_flags)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/art-direction-exploration/tests/test_level_design_routing.py", line 33, in test_short_plains_art_uses_actual_existing_visual_recipe_without_mode_flags
+    self.assertFalse(any('scripts/generation/' in p for t in mission['tasks'] for p in t['allowed_paths']))
+AssertionError: True is not false
+
+----------------------------------------------------------------------
+Ran 47 tests in 10.262s
+
+FAILED (failures=1)
+PASS: optimize routed to existing harness --mission /workspace/art-direction-exploration/build/tmpztfx7y68/mission.json; plan only
+PASS: new_region routed to existing harness --mission /tmp/tmplkds86d7/forest.json; plan only
+Level experience report: /tmp/tmpi7zslols/report.json; REVIEW; subjective/device unverified
+Comparison: /tmp/tmpi7zslols/comparison.json
+Level experience report: /tmp/tmpi7zslols/report.json; REJECT; subjective/device unverified

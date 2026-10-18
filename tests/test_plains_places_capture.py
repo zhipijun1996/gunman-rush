@@ -3,11 +3,27 @@ import copy
 import re
 import unittest
 import test_visual_director as fixture
+from run_plains_places_tests import numeric_shape
 
 vd = fixture.vd
 
 
 class PlainsPlacesCaptureTests(unittest.TestCase):
+    def test_numeric_variation_ignores_identity_and_rejects_invalid_coordinates(self):
+        row = {'place_instances': [{'id': 'A', 'translation': [0, 0]}],
+               'connections': [{'id': 'edge', 'path': [[10, 20], [200, 20]], 'gap_world': 160, 'rise_world': 0}]}
+        renamed = copy.deepcopy(row)
+        renamed['place_instances'][0]['id'] = 'renamed'
+        renamed['connections'][0]['id'] = 'different-name-only'
+        self.assertEqual(numeric_shape(row), numeric_shape(renamed))
+        moved = copy.deepcopy(row)
+        moved['connections'][0]['path'][1][0] += 40
+        self.assertNotEqual(numeric_shape(row), numeric_shape(moved))
+        for invalid in (float('nan'), True, '200'):
+            broken = copy.deepcopy(row)
+            broken['place_instances'][0]['translation'][0] = invalid
+            with self.subTest(invalid=invalid), self.assertRaises(ValueError): numeric_shape(broken)
+
     def setUp(self):
         fixture.VisualDirectorTests.setUp(self)
         script = vd.PLACES_CAPTURE
