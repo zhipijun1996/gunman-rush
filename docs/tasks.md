@@ -1,5 +1,8 @@
 # 开发任务
 
+最新CI跟进：[E旧平原体验检查与原件收集](evidence/forest_depth_v2/plains_experience_artifacts01/README.md)。E的serial原plains-experience-golden实际FAIL且inner未收；root取消余下parallel，整轮terminal cancelled／core不完整，Web／Windows／docs实际PASS。唯一原CLI本地53.483秒PASS与255/0、预期negative8/2、42变造拒绝分账，CI原因UNKNOWN。仅profile三行artifact_paths补收inner获限定独审，不是已证根因修复；publisher exit1／ci_failed，无部署或E浏览器。新源最终CI待运行，整体REVISE不变。
+
+
 交付验证跟进：[Git临时夹具生命周期隔离](evidence/forest_depth_v2/git_fixture_lifecycle01/README.md)。D的PR docs／选定Web job实际清理FAIL，随后root停止其余长core，整轮为cancelled／非完整CI；同D先前pushdocs与Windows成功。两行本地Git配置后原87测试32.892秒PASS、342断言／清理／60秒预算不变，独审仅限定ACCEPT；原CI写入者未证。pubcheckpoint为ci_failed，未部署／无新D Web包或浏览器验证；仍待修后最终同源验证，整体REVISE。
 
 
@@ -29,6 +32,7 @@ FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试�
 | FOREST-DEPTH-TEST-CONSUMERS-01 | 测试消费者真实App／Node生命周期／严格退出与证据修复 | FOREST-DEPTH-02 | review | [有界质量记录](quality/records/FOREST-DEPTH-TEST-CONSUMERS-01.json)；原断言／预算／strict守卫不减，精确S已获不同作者限定独审，fresh完整CI仍待验 |
 | FOREST-DEPTH-PLAINS-AUDIO-01 | 旧平原黄金测试的真实回退音频清理与负例严格性 | FOREST-DEPTH-02 | review | [限定小修复记录](quality/records/FOREST-DEPTH-PLAINS-AUDIO-01.json)；原断言／输入／预算保留，实际专项与精确Git绑定有界独审，非整区或最终CI通过 |
 | FOREST-DEPTH-CANOPY-READER-01 | Guardian奖励后当前Canopy图2的版本身份读取器迁移 | FOREST-DEPTH-02 | review | [限定记录](quality/records/FOREST-DEPTH-CANOPY-READER-01.json)；精确Git独审／原44负例／定向7通过，原失败保留，不签整区或最终CI |
+| FOREST-DEPTH-PLAINS-EXPERIENCE-FOLLOWUP | E失败分账与inner原件收集 | FOREST-DEPTH-02 | review | [E取消／serialFAIL／localPASS／限定独审](evidence/forest_depth_v2/plains_experience_artifacts01/README.md)；原因UNKNOWN，仅收集改善，新CI待验 |
 | FOREST-DEPTH-GIT-FIXTURE-FOLLOWUP | 原CI清理失败与本地夹具隔离 | FOREST-DEPTH-02 | review | [原失败／取消／原87与独审](evidence/forest_depth_v2/git_fixture_lifecycle01/README.md)；限定fixture ACCEPT，不签新远端CI或游戏质量 |
 | FOREST-DEPTH-TWIN-PORT-REVIEW | 双洞隔离黄金淘汰与清理 | FOREST-DEPTH-02 | review | [两FAIL／局部事实／独审DROP](evidence/forest_depth_v2/twin_port_rejected01/README.md)；生产未改，完整内容仍REVISE，不标done |
 | FOREST-DEPTH-ROOT11-ENTRY-REVIEW | v11入口扩展退休与原件保留 | FOREST-DEPTH-02 | review | [四路线／兼容／独审／清理](evidence/forest_depth_v2/root11_entry_rejected01/README.md)；技术PASS分账，产品DROP，不签默认或完整体验 |

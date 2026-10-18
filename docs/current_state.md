@@ -1,5 +1,8 @@
 # FOREST-DEPTH-02：新版森林试玩候选
 
+最新CI跟进：[E旧平原体验检查与原件收集](evidence/forest_depth_v2/plains_experience_artifacts01/README.md)。E的serial原plains-experience-golden实际FAIL且inner未收；root取消余下parallel，整轮terminal cancelled／core不完整，Web／Windows／docs实际PASS。唯一原CLI本地53.483秒PASS与255/0、预期negative8/2、42变造拒绝分账，CI原因UNKNOWN。仅profile三行artifact_paths补收inner获限定独审，不是已证根因修复；publisher exit1／ci_failed，无部署或E浏览器。新源最终CI待运行，整体REVISE不变。
+
+
 交付验证跟进：[Git临时夹具生命周期隔离](evidence/forest_depth_v2/git_fixture_lifecycle01/README.md)。D的PR docs／选定Web job实际清理FAIL，随后root停止其余长core，整轮为cancelled／非完整CI；同D先前pushdocs与Windows成功。两行本地Git配置后原87测试32.892秒PASS、342断言／清理／60秒预算不变，独审仅限定ACCEPT；原CI写入者未证。pubcheckpoint为ci_failed，未部署／无新D Web包或浏览器验证；仍待修后最终同源验证，整体REVISE。
 
 
