@@ -1,0 +1,22 @@
+RUN tests/home_app_runner.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PLAINS REGION: family=woven_layers areas=20 fallback=
+TERRAIN STUDY: solids=80 pieces=303 setup_ms=79
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/PlayableDemo/@Node@2","played":{"confirm":1,"death":1,"land":3,"step":17},"service":"GameAudio"}],"released":true,"seconds":0.047}
+HOME APP: 19 assertions, 0 failures
+RUN tests/home_ui_tests.gd
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+HOME UI TESTS: 27 assertions, 0 failures
+WARNING: 285 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 197 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)
+ERROR: Pages in use exist at exit in PagedAllocator: N12VariantPools11BucketSmallE
+   at: ~PagedAllocator (./core/templates/paged_allocator.h:170)
+ERROR: 1 RID allocations of type 'N13RendererDummy15MaterialStorage11DummyShaderE' were leaked at exit.
+ERROR: 45 RID allocations of type 'PN13RendererDummy14TextureStorage12DummyTextureE' were leaked at exit.
+ERROR: 1 RID allocations of type 'PN18TextServerAdvanced12FontAdvancedE' were leaked at exit.
+STRICT FAILURE Godot leaked ObjectDB instances or live resources at exit
+[{'script': 'tests/home_app_runner.gd', 'strict_status': 'passed'}, {'script': 'tests/home_ui_tests.gd', 'strict_status': 'failed', 'reason': 'Godot leaked ObjectDB instances or live resources at exit'}]

@@ -1,3 +1,21 @@
+# 最新：Underworld六项返工已部署，待试玩审阅
+
+任务 `UNDERWORLD-PLAINS-01` 保持 **review**，未合main。运行源 `c65a111015d032211bb8c54aaae9b322401349d4`（G），Web build `6b3093b929c0`；[直接试玩](https://zhipijun1996.github.io/gunman-rush/?v=6b3093b929c0)，标题进入平原或家园。[六项结果、截图与录像](evidence/underworld_plains/revision2/README.md)、[实际画面对照](evidence/underworld_plains/revision2/overview.png)、[准确交付](evidence/underworld_plains/delivery/source_G_c65a/final_delivery_G.json)。
+
+人物20个真实关键帧/双向8帧跑动；移动平台与功能风铃统一材质；商人与人物同为44wu实际站姿身高；家园同族Tile/三层视差，四原功能入口及八预留站位；标题、HUD、菜单/商店/地图共用主题与中文字体。修复Home新旧身体叠画与GPU平台纹理纯白。16区保持统一画法、分别配色/材料，本轮未开放其他地区。
+
+最新12项专项fresh全部通过（source I `8972f92f`，380.153秒，无缓存），覆盖原七项、新人物/机关/Home/UI与core；HomeApp原19/0干净。G GPU机制1254/0、Home101/0、UI隔离265/0；H正式实际键鼠影片18/0、Home十二站往返52/0。H仅修改采样长度/录影时限，I仅Harness时限/依赖，游戏运行文件均与G逐字节相同，原执行标签保留。公开完整PCK139618488字节/SHA、12许可与G一致，本地7/公开8项GUI通过；Pages39263060977/1成功。
+
+**未全绿：** 原独立HomeUI27条功能断言通过但退出197资源/285对象泄漏，strict FAIL；UI首次GPU地图点击失败，原命令隔离复试通过，原因未证；G完整CI的generated-consumers失败，自动部署跳过，新预览使用既有prepared发布与严格包闭包。全部原失败保留。纵屏、实体设备、完整Boss/全部朝向/听音和最终用户审美手感未验，不能称商业成品或完整80项通过。
+
+下一步先试玩新平原与Home；后续工程修复独立HomeUI生命周期与地图间歇失败，保留原断言及严格退出守门。验证命令 `python3 tools/harness.py --check underworld-player-animation --check underworld-mechanisms --check underworld-home --check underworld-ui --release --jobs 1`；完整适用回归另跑并如实保留失败。证据打包提交不冒称新导出。
+
+文档profile最新22/22项通过（整体passed，串行fresh）；最初并行克隆promisor对象缺失失败已保留。差异审计仍阻于旧production_repair目录引用，未改守门。逐文件来源记录与准确affected_paths已补齐。
+
+以下F及更早内容均为历史，不覆盖上文。
+
+---
+
 # 最新：Underworld六项试玩反馈返工中
 
 任务UNDERWORLD-PLAINS-01继续，未合main。用户要求补足真实角色动作及向左走、统一移动平台/功能风铃、商人与玩家同尺度，重做同族可走家园并预留NPC功能位置，以及整套UI/菜单适配。当前工作区未冻结；下文F build4b01de439c24是返工前对照，不能称已包含这六项修复。

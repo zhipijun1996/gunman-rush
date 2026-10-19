@@ -1,0 +1,34 @@
+--- build-only/centerocr.py
++++ build-only/public_G.py
+@@ -406,6 +406,31 @@
+             if "UNDERWORLD" not in text:
+                 raise ValueError("Original experimental style lab no longer accessible: " + text)
+             report["checks"].append({"action": "preserved ?styles entry and style4", "ocr": text})
++            # Separate safe Home sequence; never change the proven character
++            # approach or inject Actor/resources. Key hold includes screenshot.
++            await load(args.url)
++            path = await capture("08a-home-direction-title")
++            words, text = ocr(path)
++            await click_observed(words, r"\bENTER\s+HOME\b", "ordinary title re-enters Home for safe direction evidence")
++            await page.wait_for_timeout(1200)
++            await capture("08b-home-direction-neutral")
++            await page.mouse.move(1050, 360)
++            dispatches = []
++            for key, name in (("KeyD", "09-home-keyD-right"), ("KeyA", "10-home-keyA-left")):
++                start = asyncio.get_running_loop().time()
++                await page.keyboard.down(key)
++                await page.wait_for_timeout(300)
++                await capture(name)
++                await page.keyboard.up(key)
++                released = asyncio.get_running_loop().time()
++                await page.wait_for_timeout(80)
++                await capture(name + "-released-neutral")
++                dispatches.append({"key": key, "requested_wait_before_screenshot_ms": 300,
++                                   "actual_hold_including_screenshot_ms": round((released - start) * 1000, 2),
++                                   "released": True, "neutral_wait_ms": 80})
++            report["home_direction_input_dispatches"] = dispatches
++            report["checks"].append({"action": "separate safe Home actual KeyD then KeyA sequence captured",
++                                     "limit": "actual dispatched inputs and original rendered Actor/building media; no private state injection or full-route claim"})
+             errors = [line for line in report["console"] if any(token in line for token in
+                 ("SCRIPT ERROR:", "Parse Error:", "SHADER ERROR:", "PAGE ERROR:", "Resource file not found:", "Failed to load script"))]
+             if errors:

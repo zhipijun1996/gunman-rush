@@ -1,6 +1,6 @@
 # Underworld 正式风铃平原生产结果
 
-> 下文记录冻结F版本；用户随后提出的六项反馈正在revision2中实施。F试玩地址不包含新动作、家园与UI返工。当前工作进度见[revision2规格](evidence/underworld_plains/revision2/spec.md)，新结果将以新运行源与build另列。
+> 六项返工已部署：运行源G `c65a1110`，build `6b3093b929c0`。[新版试玩](https://zhipijun1996.github.io/gunman-rush/?v=6b3093b929c0)、[六项实际结果/截图/录像及已知失败](evidence/underworld_plains/revision2/README.md)。最新专项12/12通过，整体仍review。下文冻结F版本为返工前历史，不能当作新动作、家园与UI证据。
 
 任务 `UNDERWORLD-PLAINS-01`；开发基线 `8382a41cb0ccf9a8e2e56075ade9edaceb4ff67a`，最终运行源 `a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2`，Web build `4b01de439c24`。分支 `feature/underworld-plains-production`；本轮不合并main。后续证据/文档提交不冒称重新导出。
 

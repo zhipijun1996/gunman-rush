@@ -1,0 +1,97 @@
+{
+  "source_F": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+  "source_G": "c65a111015d032211bb8c54aaae9b322401349d4",
+  "scope": "Read-only frozen commit source audit, no G actual scene acceptance inferred",
+  "core_rule_scopes": [
+    "scripts/player",
+    "scripts/input",
+    "scripts/combat",
+    "scripts/damage",
+    "scripts/resources",
+    "scripts/actors",
+    "scripts/builds",
+    "scripts/meta",
+    "scripts/rewards",
+    "scripts/shops",
+    "scripts/save",
+    "scripts/run",
+    "scripts/generation/plains_region_generator.gd",
+    "scripts/generation/plains_region_campaign.gd",
+    "scenes",
+    "config",
+    "resources/items",
+    "resources/weapons",
+    "resources/actors",
+    "project.godot"
+  ],
+  "core_rule_changed_paths": [],
+  "unchanged_gameplay_functions": {
+    "scripts/generation/module_moving_platform.gd::_ready": true,
+    "scripts/generation/module_moving_platform.gd::_physics_process": true,
+    "scripts/generation/module_moving_platform.gd::bind_bell_control": true,
+    "scripts/generation/module_moving_platform.gd::set_motion_running": true,
+    "scripts/generation/module_moving_platform.gd::restore_motion": true,
+    "scripts/world/shot_latch.gd::setup": true,
+    "scripts/world/shot_latch.gd::_register_shot": true,
+    "scripts/world/shot_latch.gd::_receive_projectile": true,
+    "scripts/world/shot_latch.gd::_commit_open": true,
+    "scripts/world/shot_latch.gd::cancel_pending": true,
+    "scripts/world/shot_latch.gd::cancel": true
+  },
+  "old_assertions_exactly_preserved": [
+    {
+      "path": "tests/home_ui_tests.gd",
+      "sha256": "664df9ae500828caf1541ccc9a121a5001b66736776d6140e088d7adf3c5d75f",
+      "F_G_exact_equal": true
+    },
+    {
+      "path": "tests/menu_tests.gd",
+      "sha256": "c598b434657db6615dc6fd9293644c63ead12e60e2d6b8a58d82bc85d6550500",
+      "F_G_exact_equal": true
+    },
+    {
+      "path": "tests/shot_latch_tests.gd",
+      "sha256": "57492ee6c6ed7b663b69fe9ecac7decab34e824b88008bbaa5a8b21b19ceff31",
+      "F_G_exact_equal": true
+    },
+    {
+      "path": "tests/dynamic_module_tests.gd",
+      "sha256": "eec0fd95271bc73ddeafb0e5275d3958d1a3e24b48c3054e5d43f77bf88149db",
+      "F_G_exact_equal": true
+    },
+    {
+      "path": "tests/actor_actions_runner.gd",
+      "sha256": "4e5d10db6353ac390235c5f2dadd487f87cf2708c13e2ff2cd8a25a390532adf",
+      "F_G_exact_equal": true
+    },
+    {
+      "path": "tests/home_app_runner.gd",
+      "sha256": "9c69f3992deb9480378c476df3729e2ef979fa2cad561f14b293c0441e6ac834",
+      "F_G_exact_equal": true
+    }
+  ],
+  "Home_authorized_geometry_change": {
+    "old_world": "oldfloor-100..1380 andrightwall1280",
+    "new_world": "floor-100..3620 andrightwall3520",
+    "floor_y": 432,
+    "reason": "User explicitly asked new walkable settlement andfuture service sockets; fixed levelgeometry changed, coremovementphysics rulesdidnot",
+    "old4functionIDs_preserved": true,
+    "new_reserved_slots": 8,
+    "reserved_emitfunction_or_grant": "none permitted"
+  },
+  "Home_duplicate_body_fix_present": true,
+  "remaining_changed_integration": {
+    "DemoApp": "SingleUnderworldUI.style_canvas(_canvas) explicitpresentationhook",
+    "PlainsRegionStage": "Merchant sourceaspect/shared44wu placement",
+    "ModuleMovingPlatform": "ReplaceoldvisualoverlaywhenUnderworldenabled; bodyphase/step/restore unchanged",
+    "ShotLatch": "Main/second/access sourcefamily andacceptedlocalfeedback; _physics addedonlySprite2D rotation/modulate, policy funcsbyteequal",
+    "resources/foundry": "Regenerated batch/export_basis/replay evidence; notnewitem/weaponparameters",
+    "test_work": "Newcomponent/keyboardcapturefixtures andpreviouslyreviewedwoodcompatibilityadapter; originallistedassertionsnotchanged"
+  },
+  "source_identity_limits": [
+    "F anddirtyFcomponentmovies retaintheirlabels",
+    "G finalactualkeyboard/UI/Home/merchant/consumer inventory pending",
+    "UnresolvedoriginalstandaloneHomeUIresourceleak remainsfailure, notwaived",
+    "Full acceptance/portrait/audio/device/useraesthetic notgranted"
+  ]
+}
