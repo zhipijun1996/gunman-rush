@@ -1,6 +1,6 @@
 # 当前：源画构造先行，两种连续地貌布局获得内部限定准入
 
-分支 `feature/plains-world-rebuild`，母PR89/`28236ef9`；冻结运行 `ba787df7261dba40f75409a3b99457dd9bbef985`。先看[实机作品与正常电影](evidence/plains_world_rebuild/gallery.html)、[实际根因](evidence/plains_world_rebuild/findings.md)、[恢复入口](evidence/plains_world_rebuild/recipe.md)、[独审03](evidence/plains_world_rebuild/independent-art-03.md)/[04](evidence/plains_world_rebuild/independent-art-04.md)、[Linux试玩](evidence/plains_world_rebuild/delivery/README.md)。森林与核心契约未写，候选不进正式池。
+[草稿PR90](https://github.com/zhipijun1996/gunman-rush/pull/90)，分支 `feature/plains-world-rebuild`，母PR89/`28236ef9`；冻结运行 `ba787df7261dba40f75409a3b99457dd9bbef985`。先看[实机作品与正常电影](evidence/plains_world_rebuild/gallery.html)、[实际根因](evidence/plains_world_rebuild/findings.md)、[恢复入口](evidence/plains_world_rebuild/recipe.md)、[独审03](evidence/plains_world_rebuild/independent-art-03.md)/[04](evidence/plains_world_rebuild/independent-art-04.md)、[Linux试玩](evidence/plains_world_rebuild/delivery/README.md)。森林与核心契约未写，候选不进正式池。
 
 本轮停止任意多边形适配画源：v1归一UV和v2逆边界UV实图失败原件保留，v3完整源画截面/可信站面/frame共同派生实际碰撞、路线、树棚依附与直接等比Sprite。首构造97703a8f获得ACCEPT_SCOPED后，同四张源图改变东岸高差/溪宽与下溪攀岸主路，第二布局ba787df7也获限定接受。首片17.2秒/9点/3枪，第二22.9667秒/11点/9枪，最低/最终HP5；首片保持真实977来源。最终原生124/138项、原模块1310项通过；包内1529资源逐字节、空cwd headless/GUI与完整snapshot及严格退出通过。
 
