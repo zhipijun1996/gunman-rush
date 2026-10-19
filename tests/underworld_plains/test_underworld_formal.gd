@@ -7,6 +7,17 @@ func _initialize() -> void:run.call_deferred()
 func check(ok: bool, label: String) -> void:
 	checks+=1
 	if not ok:failures.append(label);printerr("FAIL: ",label)
+func opaque_height(texture: Texture2D, region: Rect2i = Rect2i()) -> int:
+	var image := texture.get_image()
+	if image == null: return 0
+	if region.size == Vector2i.ZERO: region = Rect2i(Vector2i.ZERO,image.get_size())
+	var top := region.end.y
+	var bottom := region.position.y-1
+	for y: int in range(region.position.y,region.end.y):
+		for x: int in range(region.position.x,region.end.x):
+			if image.get_pixel(x,y).a >= .5:
+				top=mini(top,y);bottom=maxi(bottom,y)
+	return maxi(0,bottom-top+1)
 func run() -> void:
 	var tuning_hash:=FileAccess.get_sha256("res://config/player_tuning.json")
 	var app:=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
@@ -21,6 +32,23 @@ func run() -> void:
 		check(UnderworldActors.enabled(stage),"formal style bound before module ready")
 		check(stage.terrain_art.art is UnderworldTerrain,"real default terrain")
 		check(app.player.get_node("PixelPlainsActor") is UnderworldPlayer,"real player visual replacement")
+		var player_art := app.player.get_node("PixelPlainsActor") as UnderworldPlayer
+		var merchant := stage.get_node_or_null("UnderworldMerchant") as Sprite2D
+		check(merchant != null and merchant.texture==UnderworldActors.icon_texture(&"merchant"),"actual formal merchant consumes the matching human image")
+		if merchant != null:
+			var idle: Dictionary = player_art._frames_by_state.idle[0]
+			var r: Array = idle.rect
+			var idle_pixels := opaque_height(UnderworldPlayer.STATES_SHEET,Rect2i(r[0],r[1],r[2],r[3]))
+			check(is_equal_approx(float(idle_pixels),float(player_art._build.standing_body_source_height)),"actual opaque standing frame agrees with the human scale calibration")
+			var player_height := idle_pixels*UnderworldActors.HUMANOID_HEIGHT/float(player_art._build.standing_body_source_height)
+			var merchant_height := opaque_height(merchant.texture)*absf(merchant.global_scale.y)
+			check(absf(merchant_height-player_height)<1.0,"actual merchant and courier standing bodies have matching world stature")
+			check(is_equal_approx(merchant.scale.x,merchant.scale.y),"merchant source aspect ratio is preserved")
+			var merchant_bounds := merchant.global_transform*merchant.get_rect()
+			var foot := Vector2(merchant_bounds.get_center().x,merchant_bounds.end.y)
+			check(foot.is_equal_approx(stage.merchant_position+Vector2(0,18)),"actual merchant feet remain at the unchanged interaction ground anchor")
+			var hit := stage.get_world_2d().direct_space_state.intersect_ray(PhysicsRayQueryParameters2D.create(foot-Vector2(0,1),foot+Vector2(0,3),1))
+			check(not hit.is_empty() and hit.collider is StaticBody2D,"merchant foot is supported by real formal terrain")
 		var bg:=app.get_node("PixelPlainsParallax") as UnderworldParallax
 		check(bg!=null and bg.measured_nodes().size()==3,"actual compatible parallax consumer")
 		var scene:=stage.get_node("PixelRegionScenery") as UnderworldScenery

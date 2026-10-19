@@ -110,9 +110,9 @@ func _ready() -> void:
 		add_child(sprite)
 		c.sprite=sprite
 	var merchant:=Sprite2D.new()
+	merchant.name = "UnderworldMerchant"
 	merchant.texture=UnderworldActors.icon_texture(&"merchant")
-	merchant.scale=Vector2(58,76)/merchant.texture.get_size()
-	merchant.position=merchant_position+Vector2(0,-22)
+	UnderworldActors.place_humanoid(merchant, merchant_position + Vector2(0,18))
 	add_child(merchant)
 	var map_layer:=CanvasLayer.new()
 	map_layer.layer=1

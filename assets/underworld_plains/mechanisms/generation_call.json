@@ -1,0 +1,31 @@
+{
+  "task_id": "UNDERWORLD-PLAINS-01-USER-REWORK",
+  "tool": "image_gen.imagegen",
+  "call_count": 1,
+  "model": "unknown; tool did not expose model identifier",
+  "prompt": "Create ONE orthographic side-view reusable moving-platform material master for the same 2D pixel art game as the attached Underworld mossy ruins assets. Match the reference's nearly-black blue-gray stone, ancient dark wooden beams, muted tarnished brass, tiny olive moss clusters, restrained amber edge highlights. This is a solid physical rectangular moving carrier, NOT a boat, raft, building, hanging object or perspective view. Draw one single perfectly horizontal rectangular long platform slab with completely flat straight collision top and straight vertical left and right ends. Its logical sprite resolution is 96 pixels wide by 16 pixels high, shown large with crisp square pixel blocks, transparent background outside the rectangle. Entire rectangle interior must be opaque material: a flat 2-pixel dark weathered wood walking rim on top, an 11-pixel-high dark timber and blue-gray stone inset body with very sparse pixel grain, and a 3-pixel dull brass reinforced bottom rim. Only the leftmost and rightmost 8-pixel end caps have small brass bands and two tiny rivets, while the central long 80 pixels must be plain seamlessly repeatable material with NO objects or end caps. Do not draw ropes, chains, poles, glow, shadow, icons, text, flowers or decorations outside or on top of the rectangular slab. Minimal moss stays as tiny spots within the rectangle. No gradients or antialiasing. Keep material marks simple and very dark so it matches the small grass-edged Underworld tiles at gameplay scale. Provide only this single whole flat rectangular side-view sprite in an otherwise transparent image.",
+  "transparent_background": true,
+  "references": [
+    {
+      "path": "assets/underworld_plains/decor/identity_props.png",
+      "sha256": "f13c4e0c9f699f3c53625649159c0852aacc097861d1772f1784fec500b94f11"
+    },
+    {
+      "path": "assets/underworld_plains/terrain/source.png",
+      "sha256": "a369175ccef5fca5ab363f140252d1f0f38b5eafb5d541605c601ea4ac56f88c"
+    }
+  ],
+  "raw_output": "assets/underworld_plains/mechanisms/source_carrier.png",
+  "tool_output_hint": "/workspace/generated_images/exec-11d17809-0ac4-4a32-b937-b786612e1071.png",
+  "original_size_px": [
+    2172,
+    724
+  ],
+  "measured_alpha128_bbox_px": [
+    70,
+    272,
+    2105,
+    504
+  ],
+  "inspection": "Single orthographic slab; logical requested96x16 layout not exact, aspect retained in prepared96x11 source. Final GPU/user judgment pending."
+}

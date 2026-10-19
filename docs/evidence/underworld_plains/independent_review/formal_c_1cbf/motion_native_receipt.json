@@ -1,0 +1,90 @@
+{
+  "reviewed_commit": "1cbf49663ecfa24769aeaea320be2801fa446917",
+  "reviewer": "/root/production_review",
+  "phase": "formal final actual motion",
+  "source_after": "1cbf49663ecfa24769aeaea320be2801fa446917",
+  "runs": [
+    {
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--fixed-fps",
+        "60",
+        "--resolution",
+        "1280x720",
+        "--write-movie",
+        "build/underworld_plains/independent_review/final_motion_map1_merchant.avi",
+        "--path",
+        ".",
+        "--script",
+        "build/underworld_plains/independent_review/capture_final_motion.gd",
+        "--",
+        "--map=1",
+        "--point=merchant"
+      ],
+      "exit_code": 0,
+      "seconds": 49.59735106900007,
+      "log": "build/underworld_plains/independent_review/final_motion_map1_merchant.log",
+      "log_sha256": "d9c13dbd14e90378db67b28ab92e5139c9bca1e864f88a9f2cea5a2cc7d5336a"
+    },
+    {
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--fixed-fps",
+        "60",
+        "--resolution",
+        "1280x720",
+        "--write-movie",
+        "build/underworld_plains/independent_review/final_motion_map1_boss.avi",
+        "--path",
+        ".",
+        "--script",
+        "build/underworld_plains/independent_review/capture_final_motion.gd",
+        "--",
+        "--map=1",
+        "--point=boss"
+      ],
+      "exit_code": 0,
+      "seconds": 59.930442431999836,
+      "log": "build/underworld_plains/independent_review/final_motion_map1_boss.log",
+      "log_sha256": "ed3f49d37daef8b6fb7915e39fa028b4fa18a23d657ba80acdb4bb8c9c4641b3"
+    },
+    {
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--fixed-fps",
+        "60",
+        "--resolution",
+        "1280x720",
+        "--write-movie",
+        "build/underworld_plains/independent_review/final_motion_map2_boss.avi",
+        "--path",
+        ".",
+        "--script",
+        "build/underworld_plains/independent_review/capture_final_motion.gd",
+        "--",
+        "--map=2",
+        "--point=boss"
+      ],
+      "exit_code": 0,
+      "seconds": 44.32425678900108,
+      "log": "build/underworld_plains/independent_review/final_motion_map2_boss.log",
+      "log_sha256": "1ee5c41a1bd4d0fb0177f5effef8704415f8a3df43312623d3dab29c54aaede4"
+    }
+  ],
+  "scope": "Accepted Router into actual Motor, optional one positioned merchant/boss entry, no route completion claim"
+}

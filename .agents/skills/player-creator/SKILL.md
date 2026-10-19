@@ -49,3 +49,7 @@ player 类型记录全部十一维，遵守 [总门槛](../../../docs/developmen
 读取 [设计入口](../../../docs/design/player_actions/README.md)、[动作与harness规划](../../../docs/quality/player_action_plan.md)，使用 [动作覆盖卡](../../../docs/templates/player_action_coverage.md)。
 
 先建立实际角色与正式场景inventory，填写动作覆盖卡；逐角色列身体、上身/武器、能力附件的叠加/覆盖与中断恢复。每个角色仅一个当前武器运行实例；敌人/Boss按自身动作盘点，不复制玩家武器能力矩阵。先黄金样板后扩产，禁止将Courier通过外推所有人物。
+
+## Underworld试玩反馈生产补充
+
+当前Underworld实际身体帧见 `assets/underworld_plains/player_animation/animation_build.json`：校准实际alpha身体高度与脚底锚点，不按画布尺寸缩放；移动朝向跟随Motor，与武器瞄准分层。以 `underworld-player-animation` 检查真实左右Motor/状态/枪口/epoch，正式平原与家园连续操作另验。

@@ -1,0 +1,84 @@
+{
+  "reviewer": "production_review independent read-only",
+  "source_HEAD": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+  "status": "Original wrapper retry PASSED; original full failure preserved FAILED; rootcause UNVERIFIED",
+  "original_full_failure": {
+    "log": "original_full_failure.log",
+    "summary": "ACTOR ACTIONS: 2871 assertions, 2 failures",
+    "failed_assertions": [
+      "refill setup spends actual ground and air jump",
+      "miss spends hook and never restores air jump"
+    ],
+    "no_hz_state_trace_in_original_log": true
+  },
+  "actual_retry": {
+    "argv": [
+      "python3",
+      "tools/run_actor_action_tests.py"
+    ],
+    "engine_argv": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--path",
+      ".",
+      "--max-fps",
+      "120",
+      "--script",
+      "tests/actor_actions_runner.gd"
+    ],
+    "original_import_before_run": [
+      "--headless",
+      "--path",
+      ".",
+      "--editor",
+      "--quit"
+    ],
+    "engine_timeout_seconds": 180,
+    "exit_code": 0,
+    "assertions": 2871,
+    "failures": 0,
+    "completion": "PASS: actor actions runtime and input",
+    "log": "original_wrapper_retry.log",
+    "script_shader_or_exit_resource_error": false
+  },
+  "scope_proof": {
+    "baseline_commit": "8382a41 (parent of formal Underworld game/art integration)",
+    "scopes_compared": [
+      "tests/actor_actions_runner.gd",
+      "tools/run_actor_action_tests.py",
+      "scripts/player",
+      "scripts/input",
+      "scenes/player",
+      "resources/player",
+      "config/player_tuning.json",
+      "config/input_profile.json",
+      "scripts/art/player_visual_adapter.gd"
+    ],
+    "baseline_to_HEAD_changed_paths": [],
+    "HEAD_to_working_changed_paths": [],
+    "runner_sha256": "4e5d10db6353ac390235c5f2dadd487f87cf2708c13e2ff2cd8a25a390532adf",
+    "wrapper_sha256": "fc68f75c2371b76ef1d6b8510ebe7f19fb7d40ec28d8dbfcea13e2e6766b7d1b",
+    "runner_timing_assertions_or_parameters_changed": false
+  },
+  "diagnostic_observations": [
+    "Original failure is in isolated shared-player fixture, before Plains/Underworld map art; fixture starts at(100,682) overfloor700, awaits3manualticks then grantsdoublejump and submitsjump/release/jump viaactualrouter",
+    "The two failing assertions shareused_jumps==2 prerequisite; secondfailurealone does not establishincorrectgrapplerefill, lateractualcommittedhit/pullkick contract hasnotfailedinrecord",
+    "Originalrunnerhas30/60/120Hz refillcases butfailedlabelsomitHz, so original logcannotidentifywhichHz/state",
+    "An unchanged original-command retry passed all2871 assertions. This establishes failurewasnotreproducedinthatoneexecution, not deterministic correctness or proven schedulingcause",
+    "Relevant player/control/input scene/config source and runner/wrapper bytes matchpreUnderworld baseline andcurrentF; no gameplay patch justified by this observation"
+  ],
+  "instrumentation": {
+    "probe_created": false,
+    "reason": "Parent authorized print-only buildcopy only if original rerunfailed; original retry passed, so no probe and no state/tick changes"
+  },
+  "classification": {
+    "new_gameplay_regression": "UNVERIFIED notestablished; relevantcoreconsumerbytesunchanged",
+    "preexisting_bug": "UNVERIFIED nooriginalbaselinefailingrunperformed",
+    "timing_or_fixture_race": "UNVERIFIED candidateonly, nofailingstateinstrumentation",
+    "original_full_status": "FAILED remainsFAILED",
+    "whole_full_green_claim": false
+  },
+  "next_authorized_action": "Parent will separately execute remaining44 originalchecks; do not conflate with fresh full76 PASS",
+  "physical_device_audio_user_handfeel": "UNVERIFIED"
+}

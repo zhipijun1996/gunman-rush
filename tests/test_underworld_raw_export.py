@@ -4,7 +4,9 @@ import hashlib
 import importlib.util
 import json
 from pathlib import Path
+import tempfile
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location("underworld_delivery", ROOT / "tools/underworld_delivery.py")
@@ -61,6 +63,29 @@ class UnderworldRawExportTests(unittest.TestCase):
             delivery.check_parallax_hashes(["PIXEL_INSPECT " + json.dumps({"parallax": layers})])
         with self.assertRaisesRegex(ValueError, "all three"):
             delivery.check_parallax_hashes([])
+
+    def test_cooked_font_requires_matching_fontfile_mapping_and_bytes(self):
+        name = "assets/fonts/fixture.otf"
+        target = ".godot/imported/fixture.otf.fontdata"
+        mapping = f'[remap]\ntype="FontFile"\npath="res://{target}"\n'
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            source = root / name
+            source.parent.mkdir(parents=True)
+            source.write_bytes(b"unit-source-font")
+            source.with_suffix(".otf.import").write_text(mapping)
+            cooked = root / target
+            cooked.parent.mkdir(parents=True)
+            cooked.write_bytes(b"unit-cooked-font")
+            with patch.object(delivery, "ROOT", root):
+                values = {name + ".import": mapping.encode(), target: cooked.read_bytes()}
+                self.assertEqual(delivery.check_imported_font(RawPack(values), name)["imported_target"], target)
+                values[target] += b"changed"
+                with self.assertRaisesRegex(ValueError, "cooked bytes differ"):
+                    delivery.check_imported_font(RawPack(values), name)
+                values[name + ".import"] = mapping.replace("FontFile", "Texture2D").encode()
+                with self.assertRaisesRegex(ValueError, "not FontFile"):
+                    delivery.check_imported_font(RawPack(values), name)
 
 
 if __name__ == "__main__":

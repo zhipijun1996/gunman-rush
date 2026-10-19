@@ -14,6 +14,8 @@ func show_offer(offer: RewardOffer, next_label: String) -> void:
 	close()
 	opened = true
 	_root = Control.new()
+	_root.theme=UnderworldUI.create_theme()
+	_root.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
 	_root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_root.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(_root)
@@ -39,7 +41,7 @@ func show_offer(offer: RewardOffer, next_label: String) -> void:
 	title.text = "GOLD REWARD / BIOME COMPLETE" if offer.gold else "CHOOSE ONE REWARD"
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.add_theme_font_size_override("font_size", 28)
-	title.add_theme_color_override("font_color",Color("25372f"))
+	title.add_theme_color_override("font_color",UnderworldUI.TEXT)
 	rows.add_child(title)
 	var options := HBoxContainer.new()
 	options.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -54,13 +56,13 @@ func show_offer(offer: RewardOffer, next_label: String) -> void:
 	var footer := Label.new();_footer=footer
 	footer.text = "One choice only. Continue to " + next_label
 	footer.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	footer.add_theme_color_override("font_color",Color("25372f"))
+	footer.add_theme_color_override("font_color",UnderworldUI.TEXT)
 	rows.add_child(footer)
 
 func show_error(message: String) -> void:
 	if opened and is_instance_valid(_footer):
 		_footer.text=message+" / RETRY SAME OPTION"
-		_footer.add_theme_color_override("font_color",Color("803b24"))
+		_footer.add_theme_color_override("font_color",UnderworldUI.HURT)
 
 func close() -> void:
 	opened = false

@@ -1,0 +1,22 @@
+{
+  "argv": [
+    "bash",
+    "tools/godot.sh",
+    "--rendering-method",
+    "gl_compatibility",
+    "--audio-driver",
+    "Dummy",
+    "--path",
+    ".",
+    "--script",
+    "tests/wood_platform_runner.gd",
+    "--",
+    "--capture",
+    "--legacy-strip"
+  ],
+  "DISPLAY": ":98",
+  "exit_code": 1,
+  "expected_nonzero": true,
+  "elapsed_seconds": 11.88007353499961,
+  "log": "build/underworld_plains/wood_legacy_strip_negative.log"
+}

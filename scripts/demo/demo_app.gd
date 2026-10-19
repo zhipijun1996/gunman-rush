@@ -1309,6 +1309,7 @@ func _make_ui() -> void:
 		_reduced_effects = reduced
 		AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"),muted))
 	menu.menu_opened.connect(_pause_for_menu)
+	UnderworldUI.style_canvas(_canvas)
 
 func _label(location: Vector2, font_size: int) -> Label:
 	var label := Label.new()

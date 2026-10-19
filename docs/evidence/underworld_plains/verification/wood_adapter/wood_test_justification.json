@@ -1,0 +1,23 @@
+{
+  "runtime_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+  "test_path": "tests/wood_platform_runner.gd",
+  "test_sha256": "f3129579bc3eb5606e7b7b6145b4d557c4ec82a425a7193642dbf6173d358b8f",
+  "game_art_export_changes": false,
+  "scope": "PostF test-only workingdiff; oldE->committedF947common equality stays historical, not currentworkingtree equality",
+  "original_gpu_assertion_block_verbatim_preserved": true,
+  "legacy_strip_negative_block_verbatim_preserved": true,
+  "original_widths_preserved": true,
+  "shader_scale_threshold_preserved": true,
+  "translation_tolerance_preserved": true,
+  "formal_default_instances": [
+    68,
+    64
+  ],
+  "formal_legacy_replay_instances": [
+    68,
+    64
+  ],
+  "width_legacy_instances": 9,
+  "width_default_pixel_instances": 9,
+  "justification": "Originalrunner assumed everydefault paint is legacyColorRect ShaderMaterial. Actual default is PixelOneWayPaint. Validate that real Underworld branch and exactbounds withoutcollider ownership; replay every actualformalsurface through explicit existinglegacybuilder while preserving body/collider/shape IDs andproductionflag; oldlegacywidth/GPU contract remains intact. Nullmaterial andunknownrenderer mustcountfail withcompletion."
+}

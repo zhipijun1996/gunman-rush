@@ -1,8 +1,20 @@
-# 当前：Underworld正式平原整体迁移
+# 最新：Underworld六项试玩反馈返工中
 
-任务 `UNDERWORLD-PLAINS-01`，分支 `feature/underworld-plains-production`，基线8382a41。用户选择Underworld并授权整体正式两图及Harness/Skills整理、三独立景层、装饰和融合危险材质。实现已接普通正式入口，物理/原伤害矩形/RNG/保存不改；正在冻结运行源、动态独审与准确版本Web交付。当前公开d2d469仍是上轮实验，不能当成本轮新版。
+任务UNDERWORLD-PLAINS-01继续，未合main。用户要求补足真实角色动作及向左走、统一移动平台/功能风铃、商人与玩家同尺度，重做同族可走家园并预留NPC功能位置，以及整套UI/菜单适配。当前工作区未冻结；下文F build4b01de439c24是返工前对照，不能称已包含这六项修复。
 
-实际生产流程见[Underworld Tile流程](underworld_tile_production.md)，旧五风格实验保留。完整原回归、用户审美和实体设备状态分别记录，缺项不签。以下为历史，不覆盖本节。
+[本轮具体范围](evidence/underworld_plains/revision2/spec.md)、[用户原话](evidence/underworld_plains/revision2/user_feedback_F.txt)。原F媒体/质量记录、完整检查失败/原命令复测均保留；新玩家多帧、Home/UI与机关须新版本实际验证，不沿用F有限ACCEPT。正式碰撞/物理/资源/RNG/保存不改，Home空间按新授权重设计，未来地区仍未开放。
+
+以下是返工前版本与历史记录。
+
+---
+
+# 当前：Underworld正式平原可试玩候选
+
+任务 `UNDERWORLD-PLAINS-01`，分支 `feature/underworld-plains-production`，基线8382a41。用户选择Underworld；普通入口两张正式地图已迁移，真实TileMap内核+非整格精确边界、3张独立不同速率景层、整体演员物件、四空间身份和融合平台的危险材质已接入，物理/原伤害矩形/RNG/保存不改。
+
+准确运行源 `a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2`、Web build `4b01de439c24`；[直接试玩](https://zhipijun1996.github.io/gunman-rush/?plains=1&v=4b01de439c24)。公开PCK完整SHA/12许可/3层原始PNG SHA与源核对通过，真实浏览器普通入口/移动/原地起跳回台/两图定位及保留Lab通过，未合main。F七专项fresh全部通过，完整76项前30项已通过，旧wood测试默认renderer空引用已按原门槛适配并单独通过，最终完整复试另列。当前为可试玩候选，不签最终商业视觉/完整Boss音画或实体设备。
+
+[生产结果](underworld_plains_report.md)、[Tile生产流程与5份Skills](underworld_tile_production.md)、[全部证据](evidence/underworld_plains/README.md)。16区统一像素/接口/光向，各自产材料、色域、生态和地标；本轮只正式改造平原，森林/工城仍为实验，不自动开放未来地区。以下为历史，不覆盖本节。
 
 ---
 

@@ -24,7 +24,7 @@ class UnderworldPipelineTest(unittest.TestCase):
             raise AssertionError('Actual runtime production inputs fail baseline: ' + json.dumps(failures, ensure_ascii=False))
         cls.manifest = json.loads((ROOT / DEFAULT_MANIFEST).read_text())
         cls.fragments = {}
-        for name in ['terrain','scenery','hazards']:
+        for name in ['terrain','scenery','hazards','player_animation','mechanisms','home','ui']:
             rel = cls.manifest.get(name + '_manifest', cls.manifest.get(name))
             if isinstance(rel, dict):
                 rel = rel['path']
@@ -218,6 +218,181 @@ class UnderworldPipelineTest(unittest.TestCase):
 
     def test_local_architecture_cannot_accept_all_samples_hidden(self):
         self.reject('scenery', lambda v: v['decor']['local_composition'].update(maximum_solid_hidden_samples=v['decor']['local_composition']['total_visibility_samples']), 'local.visibility_budget')
+
+
+    def reject_text(self, path, old, new, expected):
+        source = (ROOT / path).read_text()
+        self.assertIn(old, source, 'Negative fixture must mutate actual current code')
+        result = audit(text_overrides={path: source.replace(old,new)})
+        self.assertFalse(result['passed'])
+        self.assertIn(expected, {item['code'] for item in result['checks'] if not item['passed']})
+
+    def test_new_four_real_consumer_sections(self):
+        self.assertEqual(self.baseline['measurements']['player_animation']['body_frames'],20)
+        self.assertEqual(self.baseline['measurements']['player_animation']['distinct_run_pixels'],8)
+        self.assertEqual(self.baseline['measurements']['home']['slots'],12)
+        self.assertEqual(self.baseline['measurements']['ui']['icons'],18)
+        self.assertEqual(self.baseline['measurements']['ui']['ui_roots'],13)
+
+    def test_missing_real_player_manifest(self):
+        self.reject_json(DEFAULT_MANIFEST,lambda v:v.pop('player_animation_manifest'),'player_animation.manifest')
+
+    def test_new_sections_must_reach_real_json_consumers(self):
+        for key in ['player_animation','mechanisms','home','ui']:
+            with self.subTest(key=key):
+                self.reject_json(DEFAULT_MANIFEST,lambda v,k=key:v['consumers'].update({k:['scripts/art_foundation/pixel_formal_terrain.gd']}),key+'.read_by_runtime')
+
+    def test_consumer_png_is_rejected_as_non_script_without_crashing(self):
+        self.reject_json(DEFAULT_MANIFEST,lambda v:v['consumers'].update(player_animation=['assets/underworld_plains/player_animation/run_sheet.png']),'player_animation.consumer.decode')
+
+    def test_player_missing_required_state(self):
+        self.reject('player_animation',lambda v:v['animations'].pop('land'),'player.states')
+
+    def test_player_missing_generated_frame(self):
+        self.reject('player_animation',lambda v:v['frames'].pop(),'player.frame_count')
+
+    def test_player_wrong_actual_frame_hash(self):
+        self.reject('player_animation',lambda v:v['frames'][0].update(pixel_sha256='0'*64),'player.frame.0.pixel_sha256')
+
+    def test_player_duplicate_body_frames_are_not_a_run_cycle(self):
+        def mutate(v):
+            first=copy.deepcopy(v['frames'][0])
+            for i in range(8):
+                v['frames'][i]=copy.deepcopy(first)
+                v['frames'][i]['index']=i
+        self.reject('player_animation',mutate,'player.real_run_cycle')
+
+    def test_player_duplicate_indices(self):
+        self.reject('player_animation',lambda v:v['frames'][0].update(index=1),'player.contiguous_frames')
+
+    def test_player_bad_frame_crop(self):
+        self.reject('player_animation',lambda v:v['frames'][0].update(rect=[100000,0,80,64]),'player.frame.0.bounds')
+
+    def test_player_padded_canvas_is_not_body_height(self):
+        self.reject('player_animation',lambda v:v.update(standing_body_source_height=64),'player.standing_opaque_height')
+
+    def test_player_terminal_animation_cannot_loop(self):
+        self.reject('player_animation',lambda v:v['animations']['death'].update(loop=True),'player.loop_semantics')
+
+    def test_player_frame_anchor_must_match_recipe(self):
+        self.reject('player_animation',lambda v:v.update(anchor=[40,10]),'player.recipe_anchor')
+
+    def test_player_generated_source_hash_required(self):
+        self.reject_json('assets/underworld_plains/player_animation/recipe.json',lambda v:v['pages'][0].update(source_sha256='0'*64),'player.page.0.source.sha256')
+
+    def test_player_source_png_cannot_disappear(self):
+        self.reject_json('assets/underworld_plains/player_animation/recipe.json',lambda v:v['pages'][1].update(source='generated/missing.png'),'player.page.1.source.exists')
+
+    def test_player_generated_prompt_cannot_be_empty(self):
+        self.reject_json('assets/underworld_plains/player_animation/generated/run_call.json',lambda v:v.update(prompt=''),'player.call.0.prompt')
+
+    def test_player_packing_must_replay_actual_source_pixels(self):
+        self.reject_json('assets/underworld_plains/player_animation/recipe.json',lambda v:v['pages'][0]['frames'][0].update(pivot_x=0),'player.source_reconstruction.run_sheet.png')
+
+    def test_player_missing_runtime_left_mirror_is_rejected(self):
+        self.reject_text('scripts/underworld_plains/underworld_player.gd','Vector2(facing,1.0)','Vector2.ONE','player.left_mirror')
+
+    def test_player_aim_must_not_replace_move_facing(self):
+        self.reject_text('scripts/underworld_plains/underworld_player.gd','facing = signf(motor.normal_velocity.x)','facing = signf(controller.router.aim_direction.x)','player.move_facing')
+
+    def test_mechanism_source_hash_required(self):
+        self.reject('mechanisms',lambda v:v['carrier'].pop('source_sha256'),'mechanisms.carrier.source.sha256')
+
+    def test_mechanism_missing_source_rejected(self):
+        self.reject('mechanisms',lambda v:v['carrier'].update(source='missing_carrier.png'),'mechanisms.carrier.source.exists')
+
+    def test_mechanism_actual_texture_hash_required(self):
+        self.reject('mechanisms',lambda v:v['carrier'].update(sha256='0'*64),'mechanisms.carrier.image.sha256')
+
+    def test_mechanism_cap_source_bounds(self):
+        self.reject('mechanisms',lambda v:v['carrier'].update(middle_x_px=95),'mechanisms.carrier.patch_bounds')
+
+    def test_mechanism_no_fake_new_colliders(self):
+        self.reject('mechanisms',lambda v:v.update(physics_mutation=True),'mechanisms.physics_unchanged')
+
+    def test_mechanism_bell_aspect_required(self):
+        self.reject('mechanisms',lambda v:v['bell'].update(sampling='stretch independent axes'),'mechanisms.bell.aspect')
+
+    def test_mechanism_runtime_aspect_cannot_be_an_unused_label(self):
+        self.reject_text('scripts/underworld_plains/underworld_terrain.gd','source * minf(','source * maxf(','mechanisms.runtime_bell_aspect')
+
+    def test_mechanism_generation_record_is_real(self):
+        self.reject_json('assets/underworld_plains/mechanisms/generation_call.json',lambda v:v.update(prompt=''),'mechanisms.generation.prompt')
+
+    def test_mechanism_real_crop_reconstruction(self):
+        self.reject_json('assets/underworld_plains/mechanisms/generation_call.json',lambda v:v.update(measured_alpha128_bbox_px=[0,0,96,16]),'mechanisms.carrier.source_reconstruction')
+
+    def test_home_actual_generation_source_hash(self):
+        self.reject_json('assets/underworld_plains/home/generation_record.json',lambda v:v.update(source_sha256='0'*64),'home.generation.raw_source.sha256')
+
+    def test_home_asset_crop_must_be_inside_original(self):
+        self.reject('home',lambda v:v['assets']['tailor'].update(region=[0,0,99999,1]),'home.asset.tailor.bounds')
+
+    def test_home_foot_uses_actual_opaque_body(self):
+        self.reject('home',lambda v:v['assets']['tailor'].update(foot=[93.5,1]),'home.asset.tailor.actual_opaque_foot')
+
+    def test_home_height_uses_actual_opaque_body(self):
+        self.reject('home',lambda v:v['assets']['tailor'].update(opaque_height=344),'home.asset.tailor.opaque_height')
+
+    def test_home_reserved_plot_is_not_a_fake_active_service(self):
+        self.reject('home',lambda v:v['slots'][4].update(active=True),'home.active_services')
+
+    def test_home_duplicate_slot_ids(self):
+        self.reject('home',lambda v:v['slots'][4].update(id='character'),'home.unique_slots')
+
+    def test_home_slot_cannot_reference_nonexistent_source(self):
+        self.reject('home',lambda v:v['slots'][4].update(building='missing_house'),'home.slot.arms.source')
+
+    def test_home_slots_within_actual_world(self):
+        self.reject('home',lambda v:v['slots'][4].update(x=99999),'home.slot_bounds')
+
+    def test_home_world_uses_shared_real_actor_height(self):
+        self.reject('home',lambda v:v.update(player_height_source='104px_guess'),'home.safe_shared_height')
+
+    def test_home_actual_uniform_scale_code(self):
+        self.reject_text('scripts/underworld_plains/underworld_home_world.gd','sprite.scale=Vector2.ONE*factor','sprite.scale=Vector2(2,1)*factor','home.runtime_uniform_aspect')
+
+    def test_ui_generated_source_missing(self):
+        self.reject_json('assets/underworld_plains/ui/provenance.json',lambda v:v.update(original='missing_ui_source.png'),'ui.generated_original.exists')
+
+    def test_ui_generated_source_hash_corrupt(self):
+        self.reject_json('assets/underworld_plains/ui/provenance.json',lambda v:v.update(original_sha256='0'*64),'ui.generated_original.sha256')
+
+    def test_ui_generated_prompt_cannot_be_a_template(self):
+        self.reject_json('assets/underworld_plains/ui/provenance.json',lambda v:v.update(prompt=''),'ui.generation.prompt')
+
+    def test_ui_runtime_atlas_hash_required(self):
+        self.reject_json('assets/underworld_plains/ui/icon_regions.json',lambda v:v.update(sha256='0'*64),'ui.icons.atlas.sha256')
+
+    def test_ui_missing_real_item_key(self):
+        self.reject_json('assets/underworld_plains/ui/icon_regions.json',lambda v:v['regions'].pop('boots'),'ui.complete_item_keys')
+
+    def test_ui_whole_object_crop_with_padding(self):
+        self.reject_json('assets/underworld_plains/ui/icon_regions.json',lambda v:v['regions'].update(boots=[1189,93,257,219]),'ui.icon.boots.whole_object_padding')
+
+    def test_ui_actual_source_measurement(self):
+        self.reject_json('assets/underworld_plains/ui/icon_regions.json',lambda v:v['measurements']['boots'].update(native_body_alpha16=[0,0,2,2]),'ui.icon.boots.actual_source_bounds')
+
+    def test_ui_panel_patch_corners_fit_source(self):
+        self.reject('ui',lambda v:v['panel'].update(slice_margin=100),'ui.panel.slice_margin')
+
+    def test_ui_panel_permission_label_cannot_cover_unrelated_pixels(self):
+        self.reject('ui',lambda v:v['panel'].update(texture='assets/underworld_plains/mechanisms/source_carrier.png'),'ui.panel.native_reference')
+
+    def test_ui_no_fake_cc0_reference(self):
+        self.reject('ui',lambda v:v['panel'].update(source_license='CC0'),'ui.panel.custom_license')
+
+    def test_ui_root_inventory_must_resolve_real_consumers(self):
+        self.reject('ui',lambda v:v['production_roots'].__setitem__(0,'NonexistentMenu'),'ui.root.NonexistentMenu.actual_theme')
+
+    def test_ui_aspect_is_actual_code(self):
+        self.reject_text('scripts/ui/item_card.gd','STRETCH_KEEP_ASPECT_CENTERED','STRETCH_SCALE','ui.aspect.ItemCard')
+
+    def test_ui_real_item_source_dispatch(self):
+        self.reject_text('scripts/ui/item_presentation.gd','return UnderworldUI.icon(key)','return null','ui.actual_item_dispatch')
+
+    def test_actual_entry_inventory_is_not_empty(self):
+        self.reject_json(DEFAULT_MANIFEST,lambda v:v.update(runtime_entries=[]),'production.runtime_entries')
 
 
 if __name__ == '__main__':

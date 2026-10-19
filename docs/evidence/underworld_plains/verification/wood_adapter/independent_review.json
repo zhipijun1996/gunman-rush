@@ -1,0 +1,82 @@
+{
+  "task": "UNDERWORLD-PLAINS-01",
+  "reviewer": "production_review independent read-only production/test reviewer",
+  "verdict": "ACCEPT test-only compatibility adapter; original legacy renderer/GPU contracts retained and current default independently selected",
+  "source_HEAD": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+  "working_test_path": "tests/wood_platform_runner.gd",
+  "working_test_sha256": "f3129579bc3eb5606e7b7b6145b4d557c4ec82a425a7193642dbf6173d358b8f",
+  "HEAD_test_sha256": "77288ed3fba539f4c6ef84f5fe484834aa1702ec69637d7cabc9e7ac89f370df",
+  "test_worktree_diff_present": true,
+  "runtime_art_export_diff_empty": true,
+  "web_build_not_reexported": "F 4b01de439c24 unchanged; these modified tests are not claimed to be committed F tests",
+  "original_failure_preserved": "../full_f_before_wood_adapter/wood-platforms.log: defaultPixel node materialnull caused originalshader assertionandSCRIPT ERROR",
+  "diff_findings": [
+    "Defaultformalmap1/map2 actualPixelOneWayPaint type/bounds/identitytransform and real Underworldstage/terrain are checked before anylegacyreplacement/capture",
+    "Originalshaderownership,terminalawarematerial,horizontaloutline,art_scale290cap andonewaycollision assertions executeperactualformalinstance through explicitlegacyvisualreplay:68map1/64map2",
+    "Replay removes onlypaint children, retains actualauthoreddefinitions,moduleflag,StaticBody/CollisionShape/shapeResourceIDs; explicit false selects original _legacy_build",
+    "Originalvariablelengths8,24,60,96,192,383.5,1000 andtwostacked680 remain; GPUtestblock andlegacystripnegativeblock independently proved byteidentical",
+    "Addedphysicalbodycenter/shapeoffset/group/layer/nocollisiondescendants checks; malformedmaterial/unknownnode countfailurewithoutnull.scriptabort",
+    "DefaultPixelFormal fallback additionally checked inisolatedsweep; no productionstyle selection amended"
+  ],
+  "proof": {
+    "original_GPU_assertion_block_byteidentical": true,
+    "original_legacy_strip_negative_block_byteidentical": true,
+    "formal_instances": {
+      "formal-map-1": 68,
+      "formal-map-2": 64,
+      "formal-map-1-legacy-replay": 68,
+      "formal-map-2-legacy-replay": 64,
+      "production-module-width-sweep": 9,
+      "default-pixel-module-width-sweep": 9
+    },
+    "independent_PNG_translation_changed_channels": 15,
+    "independent_PNG_max_channel_delta_8bit": 1,
+    "original_threshold": "1.001/255 per RGBA channel",
+    "legacy_strip_negative_expected_exit": 1,
+    "legacy_strip_failures": 7,
+    "malformed_negative_expected_exit": 1,
+    "malformed_failures": 2
+  },
+  "reviewed_real_executions": [
+    {
+      "command": "python3 tools/run_wood_platform_tests.py",
+      "assertions": 4533,
+      "failures": 0,
+      "log": "wood_headless_final.log",
+      "independently_reran_engine": false
+    },
+    {
+      "command": "DISPLAY=:98 python3 tools/run_wood_platform_tests.py --capture",
+      "assertions": 4546,
+      "failures": 0,
+      "log": "wood_gpu_final.log",
+      "independently_reran_engine": false
+    },
+    {
+      "argv_record": "wood_legacy_strip_negative.json",
+      "assertions": 4546,
+      "failures": 7,
+      "exit": 1
+    },
+    {
+      "argv_record": "wood_malformed_negative.json",
+      "assertions": 4528,
+      "failures": 2,
+      "exit": 1,
+      "script_abort": false
+    }
+  ],
+  "viewed_actual_GPU_images": [
+    "positive/formal-one-way.png",
+    "positive/formal-map-2.png",
+    "positive/width-sweep.png",
+    "positive/translated.png",
+    "negative/width-sweep.png"
+  ],
+  "observed_pixels": "Both defaultformal stills render existinggreenonewaytop/Underworld stone; legacypositivewidthbody continuousendcaps,translated+37 follows; negativerepeatstrip hasvisibleinternalgaps/endfragmentsthatsameassertionsreject",
+  "scope_limits": [
+    "Onlytestadapterreview;noGameplay/artchange/no newrouteorcommercial/device/audio/useraesthetic acceptance",
+    "E originaleight-route and F screenshotlabels remainunchanged; realtimeobservercollection now additionally haschangedwoodtest SHA, cannot claim original947 entries all equal for this workingtree",
+    "Full76 fresh final result pending parent run, not implied by this boundedpass"
+  ]
+}

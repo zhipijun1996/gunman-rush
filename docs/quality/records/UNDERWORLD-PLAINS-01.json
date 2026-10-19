@@ -4,13 +4,17 @@
   "task_type": "art",
   "workflow": "in_progress",
   "baseline_commit": "8382a41cb0ccf9a8e2e56075ade9edaceb4ff67a",
-  "reviewed_commit": "8382a41cb0ccf9a8e2e56075ade9edaceb4ff67a",
+  "reviewed_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
   "content_version": "underworld-formal-v1",
   "owner": "root",
-  "purpose": "Apply user-selected Underworld style to both formal Windchime Plains maps and executable Tile production workflow",
+  "purpose": "Resolve six concrete Underworld playtest gaps across player animation, carriers, merchant, bells, walkable Home and UI",
   "player_experience": "Consistent dark fairy-tale landscape, three genuine depth planes, grounded sparse chimes, integrated readable hazardous surfaces",
   "constraints": [
-    "Preserve existing gameplay contracts"
+    "Preserve physics, legal abilities/resources, collision geometry, gameplay RNG and saves",
+    "Sixteen regional identities share markmaking, scale and interfaces, not a single palette",
+    "Underworld chosen as direction; final commercial imagery and physical-device approval remain separate",
+    "True47 cells where geometrically valid, exact same-source adapter for non-grid boundaries; no complete formal47/dual-grid claim",
+    "Keep original failures and original C/D media source identities"
   ],
   "affected_paths": [
     "assets/underworld_plains/",
@@ -36,129 +40,2504 @@
       "status": "user_confirmed",
       "basis": "Current conversation explicit user selection and implementation request",
       "evidence_id": "user_scope"
+    },
+    {
+      "decision": "Apply the user six specific revisions while retaining Underworld direction",
+      "status": "user_confirmed",
+      "basis": "Verbatim six-item current playtest request; final revised images not approved",
+      "evidence_id": "revision2_user_scope"
     }
   ],
   "formal_impact": true,
   "gates": {
     "G0": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Explicit revision2 user scope and falsifiable six-item spec",
+      "evidence": [
+        "revision2_spec",
+        "revision2_user_scope"
+      ]
     },
     "G1": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Revision2 implementation has changed; predecessor F executions are historical and do not approve the new runtime",
       "evidence": []
     },
     "G2": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Revision2 implementation has changed; predecessor F executions are historical and do not approve the new runtime",
       "evidence": []
     },
     "G3": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Revision2 implementation has changed; predecessor F executions are historical and do not approve the new runtime",
       "evidence": []
     },
     "G4": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Revision2 implementation has changed; predecessor F executions are historical and do not approve the new runtime",
       "evidence": []
     },
     "G5": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Revision2 implementation has changed; predecessor F executions are historical and do not approve the new runtime",
       "evidence": []
     }
   },
   "dimensions": {
     "design": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "User authorized the six concrete revisions",
+      "evidence": [
+        "revision2_user_scope",
+        "revision2_spec"
+      ]
     },
     "technical": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Await actual frozen revision2 outputs; predecessor F evidence retained separately",
       "evidence": []
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Await actual frozen revision2 outputs; predecessor F evidence retained separately",
       "evidence": []
     },
     "visual": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Await actual frozen revision2 outputs; predecessor F evidence retained separately",
       "evidence": []
     },
     "animation": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Await actual frozen revision2 outputs; predecessor F evidence retained separately",
       "evidence": []
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Await actual frozen revision2 outputs; predecessor F evidence retained separately",
       "evidence": []
     },
     "gameplay": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Await actual frozen revision2 outputs; predecessor F evidence retained separately",
       "evidence": []
     },
     "performance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Await actual frozen revision2 outputs; predecessor F evidence retained separately",
       "evidence": []
     },
     "independent_review": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Await actual frozen revision2 outputs; predecessor F evidence retained separately",
       "evidence": []
     },
     "device": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Await actual frozen revision2 outputs; predecessor F evidence retained separately",
       "evidence": []
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Await actual frozen revision2 outputs; predecessor F evidence retained separately",
       "evidence": []
     }
   },
-  "criteria": [],
+  "criteria": [
+    {
+      "id": "U0",
+      "scenario": "Current user scope and16-region continuity",
+      "method": "Explicit source-attributed user scope and production contract",
+      "expected": "Underworld shared markmaking with regional materials/palettes, actual formal Plains migration",
+      "failure": "Infer final user approval or claim all16 region production",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "unverified",
+      "reason": "Predecessor F criterion is historical; revised runtime criteria must be observed again",
+      "evidence": []
+    },
+    {
+      "id": "U1",
+      "scenario": "Real reusable Tile and precise formal geometry",
+      "method": "Original-source47 reconstruction, exact-boundary/core TileMap actual20 Stage inventory and real callbacks",
+      "expected": "Honest47 core with non-grid exact adapter, collision/RNG/physics preserved",
+      "failure": "Snap geometry, fake complete47 formal map or replace route with connectivity",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "unverified",
+      "reason": "Predecessor F criterion is historical; revised runtime criteria must be observed again",
+      "evidence": []
+    },
+    {
+      "id": "U2",
+      "scenario": "Three independent depth images and grounded decoration",
+      "method": "Actual reviewed-source camera coefficients, screen coverage, supported roots, keepouts and static/motion outputs",
+      "expected": "Different layers/speeds and readable real gameplay plane",
+      "failure": "One panorama copied thrice, fake root support, silhouette/landing occlusion",
+      "gate": "G2",
+      "dimension": "visual",
+      "status": "unverified",
+      "reason": "Predecessor F criterion is historical; revised runtime criteria must be observed again",
+      "evidence": []
+    },
+    {
+      "id": "U3",
+      "scenario": "Danger material fused with platform",
+      "method": "Four-face directional actual contacts, visual root continuity and source-bound official fixture",
+      "expected": "Same terrain substrate and independent original damage semantics",
+      "failure": "Floating additional platform, collision mutation or safe-looking actual hurt region",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "unverified",
+      "reason": "Predecessor F criterion is historical; revised runtime criteria must be observed again",
+      "evidence": []
+    },
+    {
+      "id": "R2_SCOPE",
+      "scenario": "Six explicit playtest revisions",
+      "method": "Compare verbatim user feedback with the bounded revision2 specification",
+      "expected": "All six revisions are scoped; prior F evidence is retained as historical and does not approve the new runtime",
+      "failure": "Retag predecessor F media or infer user acceptance of revised work",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "Explicit six-item user feedback is preserved and mapped to implementation and validation responsibilities",
+      "evidence": [
+        "revision2_spec",
+        "revision2_user_scope"
+      ]
+    }
+  ],
   "evidence": [
     {
       "id": "spec",
-      "kind": "spec",
       "path": "docs/evidence/underworld_plains/spec.md",
       "sha256": "0d1f8756042bef839596a03e247d7b968df7e5e69e0c456e88883a872340d499",
+      "kind": "spec",
       "producer": "root",
       "source_commit": "8382a41cb0ccf9a8e2e56075ade9edaceb4ff67a",
       "content_version": "underworld-formal-v1",
       "method": "Latest user scope and immutable core boundaries",
-      "observed": "Production scope confirmed; implementation and final visual/device acceptance remain separate"
+      "observed": "Frozen production scope and invariants; not a runtime acceptance result"
     },
     {
       "id": "user_scope",
-      "kind": "user_feedback",
       "path": "docs/evidence/underworld_plains/user_scope.txt",
       "sha256": "2f2124155a0da8ee11521483d4298dc22b20598613641f0886af4052c63a1388",
+      "kind": "user_feedback",
       "producer": "user",
       "source_commit": "8382a41cb0ccf9a8e2e56075ade9edaceb4ff67a",
       "content_version": "underworld-formal-v1",
+      "method": "Verbatim latest user request captured from current conversation",
+      "observed": "Original user choice/authorized implementation scope; no final image, commercial or device approval",
       "accepted": true,
       "source": "Current conversation explicit user request",
-      "quote": "我更偏向于Underworld风格；然后整体修改风铃平原；荆棘或者其他碰撞伤害tile和平台层的tile融合",
+      "quote": "我更偏向于Underworld风格\n整理好harness和skills的修改。怎么参考开源的tile，怎么生成tile，怎么用tile做关卡。背景怎么做3层3种镜头速度移动的不同景深。怎么做装饰。\n然后整体修改风铃平原。\n然后荆棘或者其他碰撞伤害tile我不希望是额外多出来的，而是和平台层的tile是融合的。",
       "covers": [
         "design"
       ]
+    },
+    {
+      "id": "pipeline_production_spec",
+      "path": "docs/evidence/underworld_plains/revision2/predecessor_tile_production.md.txt",
+      "sha256": "1f6e2671c93e8caf8de16cdd69b4f3cea35d04b80c01701c4a83fcf89cd1ee93",
+      "kind": "spec",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Immutable exact pre-feedback specification bytes; old expected SHA preserved, not new revision2 approval",
+      "observed": "Executable reference → image generation → Tile assembly → three-depth planes → supported decoration → integrated danger workflow"
+    },
+    {
+      "id": "terrain_component",
+      "path": "docs/evidence/underworld_plains/terrain/receipt.json",
+      "sha256": "a65517dfac46a301665d240cd110bc59fc936f7507c55c3cb39fc76602647a2e",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "8382a41cb0ccf9a8e2e56075ade9edaceb4ff67a",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Source-native47, GPU and exact-boundary geometry; pre-freeze component hashes, not complete reviewed-source execution",
+      "source_state": "Pre-freeze HEAD plus recorded component working-tree hashes; exact component record is authoritative, not a clean full-game BASE claim"
+    },
+    {
+      "id": "terrain_geometry_initial",
+      "path": "docs/evidence/underworld_plains/terrain/result.json",
+      "sha256": "96c1c3e674b77c4e7e1766d9efba4637ecc50d2e31a46aedb7bfe91d232cf1a6",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "8382a41cb0ccf9a8e2e56075ade9edaceb4ff67a",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "239900 bounded geometric/source-pixel assertions; no real route claim",
+      "source_state": "Pre-freeze HEAD plus recorded component working-tree hashes; exact component record is authoritative, not a clean full-game BASE claim"
+    },
+    {
+      "id": "terrain_gpu_initial",
+      "path": "docs/evidence/underworld_plains/terrain/result_gpu.json",
+      "sha256": "c71902eb83c94e9eaee1fa862c5494d67742761582bee0f621f62f3291fcf133",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "8382a41cb0ccf9a8e2e56075ade9edaceb4ff67a",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "239910 real software-GL fixture assertions; not commercial art approval",
+      "source_state": "Pre-freeze HEAD plus recorded component working-tree hashes; exact component record is authoritative, not a clean full-game BASE claim"
+    },
+    {
+      "id": "formal_geometry_initial",
+      "path": "docs/evidence/underworld_plains/terrain/formal_result.json",
+      "sha256": "e24cdffecf9b33145062a410ecd202ec6e1104a02b555a77c459e2c397c9d9a2",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "8382a41cb0ccf9a8e2e56075ade9edaceb4ff67a",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "20 actual Stage geometries;10 seeds×2maps; exact union and Boss break lifecycle, not traversal",
+      "source_state": "Pre-freeze HEAD plus recorded component working-tree hashes; exact component record is authoritative, not a clean full-game BASE claim"
+    },
+    {
+      "id": "scenery_binding_initial",
+      "path": "docs/evidence/underworld_plains/scenery/source_binding.json",
+      "sha256": "48a229c54d9a16be910af8c1aeb66ccd263cdd01bac18b6c0cf3f35f2d07889b",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "8382a41cb0ccf9a8e2e56075ade9edaceb4ff67a",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Component-source hashes; original headless/GPU camera/support/keepout and failures retained",
+      "source_state": "Pre-freeze HEAD plus recorded component working-tree hashes; exact component record is authoritative, not a clean full-game BASE claim"
+    },
+    {
+      "id": "hazard_independent_initial",
+      "path": "docs/evidence/underworld_plains/independent_review/hazard_independent_receipt.json",
+      "sha256": "e1455ed7e15a160d4235239b7758dfe0b68cd0aa3265ddcfe50c914e9af1cc62",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "8382a41cb0ccf9a8e2e56075ade9edaceb4ff67a",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Independent281 hazard checks and four-face GPU fixture; component scope before frozen C",
+      "source_state": "Pre-freeze HEAD plus recorded component working-tree hashes; exact component record is authoritative, not a clean full-game BASE claim"
+    },
+    {
+      "id": "hazard_trace_initial",
+      "path": "docs/evidence/underworld_plains/independent_review/hazard_runtime/runtime.json",
+      "sha256": "074605c0eb5b53276db6e123d1116f2e55ce2e025d12c94c605408417b79d87a",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "8382a41cb0ccf9a8e2e56075ade9edaceb4ff67a",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Real Router/Motor/contact/Health eight directional contact fixtures and formal reload; not four formal route completions",
+      "source_state": "Pre-freeze HEAD plus recorded component working-tree hashes; exact component record is authoritative, not a clean full-game BASE claim"
+    },
+    {
+      "id": "core_initial",
+      "path": "docs/evidence/underworld_plains/verification/core.log",
+      "sha256": "6f9eb2db28705862db0ef60d4d879589b49a83924c78e65e255713e4ae20a2e5",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "8382a41cb0ccf9a8e2e56075ade9edaceb4ff67a",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Original bounded pre-freeze native regression log; complete invocation/reviewed-source execution is documented separately",
+      "source_state": "HEAD before C with working-tree implementation; not relabeled D"
+    },
+    {
+      "id": "legacy_pixel_initial",
+      "path": "docs/evidence/underworld_plains/verification/legacy_pixel_formal.log",
+      "sha256": "0e4acd52a27d65f2dafd5f10d81cdf856a41fd3501837312a05b437a1ae521a7",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "8382a41cb0ccf9a8e2e56075ade9edaceb4ff67a",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Original bounded pre-freeze native regression log; complete invocation/reviewed-source execution is documented separately",
+      "source_state": "HEAD before C with working-tree implementation; not relabeled D"
+    },
+    {
+      "id": "original_scene_timeout",
+      "path": "docs/evidence/underworld_plains/verification/original_scene.log",
+      "sha256": "517ff20f9d6aa011fd4fad5cb7b5ca65e6abebf551ee601dae0596777d54d956",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "8382a41cb0ccf9a8e2e56075ade9edaceb4ff67a",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Preserved actual failure; never evidence for a passed gate"
+    },
+    {
+      "id": "original_scene_identity_reject",
+      "path": "docs/evidence/underworld_plains/verification/original_scene2.log",
+      "sha256": "fa8228c93b4ebec56b048acbdf1c3739b32aedff4bdd4ba2a0816352459449b5",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "8382a41cb0ccf9a8e2e56075ade9edaceb4ff67a",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Preserved actual failure; never evidence for a passed gate"
+    },
+    {
+      "id": "c_export_foundry_reject",
+      "path": "docs/evidence/underworld_plains/delivery/export_1cbf4966_foundry_failure.json",
+      "sha256": "e7b23f356ffd4a7c1b52f158091caaa90fbaa1833fe421526c054fbf33f7a703",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "1cbf49663ecfa24769aeaea320be2801fa446917",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Preserved actual failure; never evidence for a passed gate"
+    },
+    {
+      "id": "review_c",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_c_1cbf/report.json",
+      "sha256": "9b1a9bfd1a65645453b42f9f2c3a2e6360431c8996582794bc37d5ded9113bc2",
+      "kind": "review",
+      "producer": "production_review",
+      "source_commit": "1cbf49663ecfa24769aeaea320be2801fa446917",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Limited technical/static/dynamic visual sample review: 20 individually opened original formal GPU positional screenshots, 3 actual native8s clips sampled48 half-second frames +6 full-resolution frames. Not full-region, full routes, all Boss phases, user aesthetics or device approval. Formal four-identity contract remains blocked in C and is separate pending rework.",
+      "reviewer": "/root/production_review",
+      "implementers": [
+        "root",
+        "formal_terrain",
+        "tile_pipeline",
+        "underworld_scenery",
+        "terrain_hazards",
+        "underworld_delivery"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Different read-only agent; independently sampled original native outputs; exact media/source scope preserved"
+    },
+    {
+      "id": "c_map1_boss",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_c_1cbf/static/map1_boss.png",
+      "sha256": "6bef0b97a1950ba8a01ae4faa5f612eb15d8caa6774a520e42055361e177a0eb",
+      "kind": "screenshot",
+      "producer": "production_review",
+      "source_commit": "1cbf49663ecfa24769aeaea320be2801fa446917",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Original native1280×720 positional formal fixture, individually opened by independent reviewer; traversal_claim=false",
+      "consumers": [
+        "scene/map1_boss"
+      ]
+    },
+    {
+      "id": "c_map1_enemy_charger",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_c_1cbf/static/map1_enemy_charger.png",
+      "sha256": "d7392817c25d033ee72eddb49b5bab01380d4e4b0831b1ea1c84e464fc0025b6",
+      "kind": "screenshot",
+      "producer": "production_review",
+      "source_commit": "1cbf49663ecfa24769aeaea320be2801fa446917",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Original native1280×720 positional formal fixture, individually opened by independent reviewer; traversal_claim=false",
+      "consumers": [
+        "scene/map1_enemy_charger"
+      ]
+    },
+    {
+      "id": "c_map1_enemy_diver",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_c_1cbf/static/map1_enemy_diver.png",
+      "sha256": "3a6798adf85f1dd015b796ced3c7f19a1e8b30a5928dab48944a5b7d072f928a",
+      "kind": "screenshot",
+      "producer": "production_review",
+      "source_commit": "1cbf49663ecfa24769aeaea320be2801fa446917",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Original native1280×720 positional formal fixture, individually opened by independent reviewer; traversal_claim=false",
+      "consumers": [
+        "scene/map1_enemy_diver"
+      ]
+    },
+    {
+      "id": "c_map1_enemy_fan_sentry",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_c_1cbf/static/map1_enemy_fan_sentry.png",
+      "sha256": "5d793eda1f6e699bd07c73c35065fe74d58a718a07fc0849b86ac42bd232ad46",
+      "kind": "screenshot",
+      "producer": "production_review",
+      "source_commit": "1cbf49663ecfa24769aeaea320be2801fa446917",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Original native1280×720 positional formal fixture, individually opened by independent reviewer; traversal_claim=false",
+      "consumers": [
+        "scene/map1_enemy_fan_sentry"
+      ]
+    },
+    {
+      "id": "c_map1_enemy_hopper",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_c_1cbf/static/map1_enemy_hopper.png",
+      "sha256": "b94d46bd9cf657cad8cd42ef422ee37d108e4e47411d89dd6d7003cec3be323a",
+      "kind": "screenshot",
+      "producer": "production_review",
+      "source_commit": "1cbf49663ecfa24769aeaea320be2801fa446917",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Original native1280×720 positional formal fixture, individually opened by independent reviewer; traversal_claim=false",
+      "consumers": [
+        "scene/map1_enemy_hopper"
+      ]
+    },
+    {
+      "id": "c_map1_enemy_sentry",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_c_1cbf/static/map1_enemy_sentry.png",
+      "sha256": "221701286b516530bb3b3a65d477a58574985aec6e216bc6b1e0a68e2ca9a7a4",
+      "kind": "screenshot",
+      "producer": "production_review",
+      "source_commit": "1cbf49663ecfa24769aeaea320be2801fa446917",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Original native1280×720 positional formal fixture, individually opened by independent reviewer; traversal_claim=false",
+      "consumers": [
+        "scene/map1_enemy_sentry"
+      ]
+    },
+    {
+      "id": "c_map1_integrated_thorns",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_c_1cbf/static/map1_integrated_thorns.png",
+      "sha256": "19471be2be4df5a56b05a7c71c1208c2d0e362f64fb685379f7499d29b57b779",
+      "kind": "screenshot",
+      "producer": "production_review",
+      "source_commit": "1cbf49663ecfa24769aeaea320be2801fa446917",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Original native1280×720 positional formal fixture, individually opened by independent reviewer; traversal_claim=false",
+      "consumers": [
+        "scene/map1_integrated_thorns"
+      ]
+    },
+    {
+      "id": "c_map1_junction",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_c_1cbf/static/map1_junction.png",
+      "sha256": "3442a70486229a6096b206dc9a7cb1d9743ba08190d32a370b000d506b380582",
+      "kind": "screenshot",
+      "producer": "production_review",
+      "source_commit": "1cbf49663ecfa24769aeaea320be2801fa446917",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Original native1280×720 positional formal fixture, individually opened by independent reviewer; traversal_claim=false",
+      "consumers": [
+        "scene/map1_junction"
+      ]
+    },
+    {
+      "id": "c_map1_merchant",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_c_1cbf/static/map1_merchant.png",
+      "sha256": "e3071089bb5748a829d76f73e9e20b504229d00d67287642eca23cda64584f6c",
+      "kind": "screenshot",
+      "producer": "production_review",
+      "source_commit": "1cbf49663ecfa24769aeaea320be2801fa446917",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Original native1280×720 positional formal fixture, individually opened by independent reviewer; traversal_claim=false",
+      "consumers": [
+        "scene/map1_merchant"
+      ]
+    },
+    {
+      "id": "c_map1_spawn",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_c_1cbf/static/map1_spawn.png",
+      "sha256": "3db65bd264e506177378205ca7fc4d00d73908e2e45dac4bf6ba075b9da2f2bf",
+      "kind": "screenshot",
+      "producer": "production_review",
+      "source_commit": "1cbf49663ecfa24769aeaea320be2801fa446917",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Original native1280×720 positional formal fixture, individually opened by independent reviewer; traversal_claim=false",
+      "consumers": [
+        "scene/map1_spawn"
+      ]
+    },
+    {
+      "id": "c_map2_boss",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_c_1cbf/static/map2_boss.png",
+      "sha256": "7d6e5f6feff6262669d5331bd7b64d876ecfe4562efcafe8989286e8b6401f55",
+      "kind": "screenshot",
+      "producer": "production_review",
+      "source_commit": "1cbf49663ecfa24769aeaea320be2801fa446917",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Original native1280×720 positional formal fixture, individually opened by independent reviewer; traversal_claim=false",
+      "consumers": [
+        "scene/map2_boss"
+      ]
+    },
+    {
+      "id": "c_map2_enemy_charger",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_c_1cbf/static/map2_enemy_charger.png",
+      "sha256": "2d434fbb3e32372f35c1d48ba864ba2c3dccbfaeaac6c9da427b2c53edea649f",
+      "kind": "screenshot",
+      "producer": "production_review",
+      "source_commit": "1cbf49663ecfa24769aeaea320be2801fa446917",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Original native1280×720 positional formal fixture, individually opened by independent reviewer; traversal_claim=false",
+      "consumers": [
+        "scene/map2_enemy_charger"
+      ]
+    },
+    {
+      "id": "c_map2_enemy_diver",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_c_1cbf/static/map2_enemy_diver.png",
+      "sha256": "a656dc01b08134e15a06ba921417ec18b8c455a9e623b68b1cdef3f5e964f196",
+      "kind": "screenshot",
+      "producer": "production_review",
+      "source_commit": "1cbf49663ecfa24769aeaea320be2801fa446917",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Original native1280×720 positional formal fixture, individually opened by independent reviewer; traversal_claim=false",
+      "consumers": [
+        "scene/map2_enemy_diver"
+      ]
+    },
+    {
+      "id": "c_map2_enemy_fan_sentry",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_c_1cbf/static/map2_enemy_fan_sentry.png",
+      "sha256": "73d6672ba0ce0a93ee4ec1227c2e04d9ec36524f89c99078a32b74581379e7b1",
+      "kind": "screenshot",
+      "producer": "production_review",
+      "source_commit": "1cbf49663ecfa24769aeaea320be2801fa446917",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Original native1280×720 positional formal fixture, individually opened by independent reviewer; traversal_claim=false",
+      "consumers": [
+        "scene/map2_enemy_fan_sentry"
+      ]
+    },
+    {
+      "id": "c_map2_enemy_hopper",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_c_1cbf/static/map2_enemy_hopper.png",
+      "sha256": "4b8b79af0cd4228a18efa37944856b0babae9242cb4c50dc88688d1077fff484",
+      "kind": "screenshot",
+      "producer": "production_review",
+      "source_commit": "1cbf49663ecfa24769aeaea320be2801fa446917",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Original native1280×720 positional formal fixture, individually opened by independent reviewer; traversal_claim=false",
+      "consumers": [
+        "scene/map2_enemy_hopper"
+      ]
+    },
+    {
+      "id": "c_map2_enemy_sentry",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_c_1cbf/static/map2_enemy_sentry.png",
+      "sha256": "ef75cd25661f7942a9e94bcd4e5e5970f48f147372335f8ebd807defe7e167b8",
+      "kind": "screenshot",
+      "producer": "production_review",
+      "source_commit": "1cbf49663ecfa24769aeaea320be2801fa446917",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Original native1280×720 positional formal fixture, individually opened by independent reviewer; traversal_claim=false",
+      "consumers": [
+        "scene/map2_enemy_sentry"
+      ]
+    },
+    {
+      "id": "c_map2_integrated_thorns",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_c_1cbf/static/map2_integrated_thorns.png",
+      "sha256": "6c28fd21b2a61c14e31e1a8e693e4f87d9fcc6e8fedd35a05c5abd1b3a0a4143",
+      "kind": "screenshot",
+      "producer": "production_review",
+      "source_commit": "1cbf49663ecfa24769aeaea320be2801fa446917",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Original native1280×720 positional formal fixture, individually opened by independent reviewer; traversal_claim=false",
+      "consumers": [
+        "scene/map2_integrated_thorns"
+      ]
+    },
+    {
+      "id": "c_map2_junction",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_c_1cbf/static/map2_junction.png",
+      "sha256": "5d162d768ef0645c7986f5b4812bccdbaf341570d72c90cce284eb932e55a3b5",
+      "kind": "screenshot",
+      "producer": "production_review",
+      "source_commit": "1cbf49663ecfa24769aeaea320be2801fa446917",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Original native1280×720 positional formal fixture, individually opened by independent reviewer; traversal_claim=false",
+      "consumers": [
+        "scene/map2_junction"
+      ]
+    },
+    {
+      "id": "c_map2_merchant",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_c_1cbf/static/map2_merchant.png",
+      "sha256": "85b58b0965e4d2cbf7dec19abe2d85c1494a7f15fe20d548c5fd2ef4aa75a1bf",
+      "kind": "screenshot",
+      "producer": "production_review",
+      "source_commit": "1cbf49663ecfa24769aeaea320be2801fa446917",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Original native1280×720 positional formal fixture, individually opened by independent reviewer; traversal_claim=false",
+      "consumers": [
+        "scene/map2_merchant"
+      ]
+    },
+    {
+      "id": "c_map2_spawn",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_c_1cbf/static/map2_spawn.png",
+      "sha256": "7871425ddaa33cbba61b054d62dc9c5dee62b73217dcf38dc88c6fb896811c8d",
+      "kind": "screenshot",
+      "producer": "production_review",
+      "source_commit": "1cbf49663ecfa24769aeaea320be2801fa446917",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Original native1280×720 positional formal fixture, individually opened by independent reviewer; traversal_claim=false",
+      "consumers": [
+        "scene/map2_spawn"
+      ]
+    },
+    {
+      "id": "c_final_motion_map1_merchant",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_c_1cbf/final_motion_map1_merchant.mp4",
+      "sha256": "e25d960cab9e8118995a3e7ad5b75cc3804611add658ac50e560dacd1c689da2",
+      "kind": "video",
+      "producer": "production_review",
+      "source_commit": "1cbf49663ecfa24769aeaea320be2801fa446917",
+      "content_version": "underworld-formal-v1",
+      "method": "All16 half-second frames t0..7.5 in 4x4 sequence + two native1280x720 frames t2.5 and5.5. Not uninterrupted video playback; audio not listened.",
+      "observed": "Actual480 driven frames; accepted jumps/shots and scoped sample inspection. same_actor_epoch=False. Not uninterrupted playback, full route, all Boss phases or complete listening.",
+      "consumers": [
+        "motion/final_motion_map1_merchant"
+      ]
+    },
+    {
+      "id": "c_final_motion_map1_boss",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_c_1cbf/final_motion_map1_boss.mp4",
+      "sha256": "64519ea1b27bc10e42dc4031490a7c357476fa2f03f042a99d7848632de5dc96",
+      "kind": "video",
+      "producer": "production_review",
+      "source_commit": "1cbf49663ecfa24769aeaea320be2801fa446917",
+      "content_version": "underworld-formal-v1",
+      "method": "All16 half-second frames t0..7.5 in 4x4 sequence + two native1280x720 frames t2.5 and5.5. Not uninterrupted video playback; audio not listened.",
+      "observed": "Actual480 driven frames; accepted jumps/shots and scoped sample inspection. same_actor_epoch=True. Not uninterrupted playback, full route, all Boss phases or complete listening.",
+      "consumers": [
+        "motion/final_motion_map1_boss"
+      ]
+    },
+    {
+      "id": "c_final_motion_map2_boss",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_c_1cbf/final_motion_map2_boss.mp4",
+      "sha256": "2ec0edbc9c022858cf1d51f95450c788b206ca9253c3bbf0a81c27898e40461d",
+      "kind": "video",
+      "producer": "production_review",
+      "source_commit": "1cbf49663ecfa24769aeaea320be2801fa446917",
+      "content_version": "underworld-formal-v1",
+      "method": "All16 half-second frames t0..7.5 in 4x4 sequence + two native1280x720 frames t2.5 and5.5. Not uninterrupted video playback; audio not listened.",
+      "observed": "Actual480 driven frames; accepted jumps/shots and scoped sample inspection. same_actor_epoch=True. Not uninterrupted playback, full route, all Boss phases or complete listening.",
+      "consumers": [
+        "motion/final_motion_map2_boss"
+      ]
+    },
+    {
+      "id": "d_scene_original",
+      "path": "docs/evidence/underworld_plains/verification/original_scene_d_14e8/receipt.json",
+      "sha256": "45c6298f71f58ee3f9a39fe5dd2ebc5b866aaa773900789eca42413ce7f52a1b",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "14e81362fcc33995bf6929ee13e83cf973d483e0",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Original D eight real routes/ten physical negative processes/twelve evidence mutations; not relabeled to a later implementation"
+    },
+    {
+      "id": "d_full_profiles_before_binding_repair",
+      "path": "docs/evidence/underworld_plains/verification/full_profiles_d_14e8_before_binding_repair/report.json",
+      "sha256": "d45ac0d0867f0bf11869a1f8b94518a55e547e63ffb3dfc45f1e8c2d21f74fc8",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "14e81362fcc33995bf6929ee13e83cf973d483e0",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual first D full-profile failure retained; historical record source/path binding was repaired with original matching bytes later"
+    },
+    {
+      "id": "d_capture_binding",
+      "path": "docs/evidence/underworld_plains/captures_d_14e8/source_binding.json",
+      "sha256": "d168a84b70023e96f1a0d13b94b7e0e199460f582bb2f2bc19a3b68656ed3bea",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "14e81362fcc33995bf6929ee13e83cf973d483e0",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Original D20 native positioned screenshots retained under their actual source; later source receives separate captures"
+    },
+    {
+      "id": "c_d_component_comparison",
+      "path": "docs/evidence/underworld_plains/independent_review/source_c_d_review.json",
+      "sha256": "633bbb36bd5e8c94217e2c4532d3a06333eef5db1610a4071ef3eaf5fdd682ad",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "14e81362fcc33995bf6929ee13e83cf973d483e0",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Independent precise C/D unchanged-family comparison; raw C media retain C and do not certify new local-scenery fields"
+    },
+    {
+      "id": "history_e_final_harness",
+      "path": "docs/evidence/underworld_plains/verification/final_e_8653/report.json",
+      "sha256": "02c8527a2ff05d7c652c603231ba2c5c4614f998b2465180de23c401a9a41de6",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "86535886c5b86e95bea094d7e92e57354be3d76e",
+      "content_version": "underworld-formal-v1",
+      "method": "Original fresh release report records all actual child argv, exit statuses, source guard and zero cache reuse; replay argv shown",
+      "observed": "HISTORY ONLY, original source retained. Nine actual fresh checks passed with stable source guard;272.957s. This is the bounded batch, complete75-profile result separate.",
+      "command": "python3 tools/harness.py --check underworld-pipeline --check underworld-terrain --check underworld-formal-terrain --check underworld-scenery --check underworld-hazards --check underworld-formal --check core --check pixel-formal --check style-exploration --release --jobs 1",
+      "exit_code": 0,
+      "environment": "Linux; Godot 4.7.2 Standard; Xvfb software OpenGL for rendered outputs; headless/Dummy for technical fixtures; no physical-device claim"
+    },
+    {
+      "id": "history_e_formal_geometry_final",
+      "path": "docs/evidence/underworld_plains/verification/final_e_8653/terrain/formal_result.json",
+      "sha256": "e24cdffecf9b33145062a410ecd202ec6e1104a02b555a77c459e2c397c9d9a2",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "86535886c5b86e95bea094d7e92e57354be3d76e",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "HISTORY ONLY, original source retained. 20 actual Stage geometries and real Boss break refresh, no Motor traversal claim"
+    },
+    {
+      "id": "history_e_geometry_final",
+      "path": "docs/evidence/underworld_plains/verification/final_e_8653/terrain/result.json",
+      "sha256": "96c1c3e674b77c4e7e1766d9efba4637ecc50d2e31a46aedb7bfe91d232cf1a6",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "86535886c5b86e95bea094d7e92e57354be3d76e",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "HISTORY ONLY, original source retained. Source-native exact-boundary/core TileMap geometric test output"
+    },
+    {
+      "id": "history_e_hazard_runtime_final",
+      "path": "docs/evidence/underworld_plains/verification/final_e_8653/hazards/runtime.json",
+      "sha256": "69d220d5263b3b39d47b9dd41f4c630f21c668ef80c817181bff6f9fed45da0f",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "86535886c5b86e95bea094d7e92e57354be3d76e",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "HISTORY ONLY, original source retained. Actual directional contact, original damage/Health and epoch/reload fixtures"
+    },
+    {
+      "id": "history_e_scenery_runtime_final",
+      "path": "docs/evidence/underworld_plains/verification/final_e_8653/scenery_runtime_receipts.json",
+      "sha256": "deaadcb65d64cc10e92de27264895885cfbd90c2373493316811290218f23f38",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "86535886c5b86e95bea094d7e92e57354be3d76e",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "HISTORY ONLY, original source retained. Actual camera coefficient/coverage and supported prop/native-grass placement checks"
+    },
+    {
+      "id": "history_e_identity_population_final",
+      "path": "docs/evidence/underworld_plains/verification/final_e_8653/identity_population.json",
+      "sha256": "cafb97bcc96ee3daad36bbe8a6a87483dbb96ab68ef1b62b1617dc8fce7f1db3",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "86535886c5b86e95bea094d7e92e57354be3d76e",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "HISTORY ONLY, original source retained. 20 actual Stage identity populations with real grounded roots/rays/keepouts and nonphysical distant-well semantics"
+    },
+    {
+      "id": "history_e_pipeline_final",
+      "path": "docs/evidence/underworld_plains/verification/final_e_8653/pipeline_audit_E.json",
+      "sha256": "7b6aa28db8c807ed8b98852f34d41a07c881a895034a9ca651a9aa299cae2615",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "86535886c5b86e95bea094d7e92e57354be3d76e",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "HISTORY ONLY, original source retained. 319 actual source/provenance/Tile assembly checks;55 adversarial tests in the same fresh release batch"
+    },
+    {
+      "id": "history_e_formal_integration_final",
+      "path": "docs/evidence/underworld_plains/verification/final_e_8653/underworld-formal.log",
+      "sha256": "198ab3f4212ca7923e3011df76be773065c2d963cbe0b72a74d36569b78bf56a",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "86535886c5b86e95bea094d7e92e57354be3d76e",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "HISTORY ONLY, original source retained. 80 actual ordinary formal consumers/lifecycle checks, not complete gameplay routes"
+    },
+    {
+      "id": "history_e_core_final",
+      "path": "docs/evidence/underworld_plains/verification/final_e_8653/core.log",
+      "sha256": "2329430625a7dd8fe3ae48dec7748ad5e490b890b94a301edb902bc76f40c4f7",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "86535886c5b86e95bea094d7e92e57354be3d76e",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "HISTORY ONLY, original source retained. 5676 actual unchanged core assertions,0 failures"
+    },
+    {
+      "id": "history_e_legacy_pixel_final",
+      "path": "docs/evidence/underworld_plains/verification/final_e_8653/pixel-formal.log",
+      "sha256": "0e4acd52a27d65f2dafd5f10d81cdf856a41fd3501837312a05b437a1ae521a7",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "86535886c5b86e95bea094d7e92e57354be3d76e",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "HISTORY ONLY, original source retained. Original2097 strict PixelFormalTerrain checks unchanged and passed"
+    },
+    {
+      "id": "history_e_style_lab_final",
+      "path": "docs/evidence/underworld_plains/verification/final_e_8653/style-exploration.log",
+      "sha256": "15f781c58b60d34e47a3927abb8615594783aa3bd185182a1e802fb5e1319ce1",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "86535886c5b86e95bea094d7e92e57354be3d76e",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "HISTORY ONLY, original source retained. Existing isolated five-style/three-region lab regressions at final source; original art media retain their original source"
+    },
+    {
+      "id": "history_e_original_scene_final",
+      "path": "docs/evidence/underworld_plains/verification/original_scene_e_8653/receipt.json",
+      "sha256": "c45ebb5422c3bf6bef6f2c8de453cb21ad2ad6ecf25ae1784e6d271360d9d93c",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "86535886c5b86e95bea094d7e92e57354be3d76e",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "HISTORY ONLY, original source retained. Eight actual formal routes target_reached; native59/0,10 actual bad-scene processes refused and12 corrupted-evidence mutations rejected. Original limits/requirements retained."
+    },
+    {
+      "id": "history_e_final_review",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_e_8653/report.json",
+      "sha256": "ca9d697b3f308d4feab14cde0663a2e507630a1abbaba3737f4a726574884b60",
+      "kind": "review",
+      "producer": "root",
+      "source_commit": "86535886c5b86e95bea094d7e92e57354be3d76e",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "HISTORY ONLY, original source retained. Different read-only agent independently inspected E30 native images,20 Stage geometries/identity presence and77 static support rays. C movies retain C; commercial/user/device/full animation not accepted.",
+      "reviewer": "independent /root/production_review",
+      "implementers": [
+        "root",
+        "formal_terrain",
+        "tile_pipeline",
+        "underworld_scenery",
+        "terrain_hazards",
+        "underworld_delivery"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Original different-agent review at its original source; preserved as history"
+    },
+    {
+      "id": "history_e_root_bell_actual_window",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_e_8653/rootbell_e/map2_enemy_root_bell.png",
+      "sha256": "c76147aff3344eb10c309f424e00e3ac4ffc45f38b20bd5a244b2aaa4463e934",
+      "kind": "screenshot",
+      "producer": "production_review",
+      "source_commit": "86535886c5b86e95bea094d7e92e57354be3d76e",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "HISTORY ONLY, original source retained. Actual rare root_bell instance at underworld-formal/2,map2 rendered with Underworld presentation and independently viewed. Positional static/idle only; no complete attack animation claim."
+    },
+    {
+      "id": "history_e_local_browser_review",
+      "path": "docs/evidence/underworld_plains/independent_review/browser_local_e/report.json",
+      "sha256": "3ae3d51ed42537a9e92ef5a5791cc39a238b951e60ddb233f92945adc6127713",
+      "kind": "review",
+      "producer": "root",
+      "source_commit": "86535886c5b86e95bea094d7e92e57354be3d76e",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "HISTORY ONLY, original source retained. Independent direct original-local-WebM samples show actual relative movement, ~217screenpx airborne gap and right-platform landing.70 sampled frames overlap, not70 unique times. Exact browser Router telemetry/full playback/listening/device/full route unverified.",
+      "reviewer": "/root/production_review",
+      "implementers": [
+        "root",
+        "formal_terrain",
+        "tile_pipeline",
+        "underworld_scenery",
+        "terrain_hazards",
+        "underworld_delivery"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Original different-agent review at its original source; preserved as history"
+    },
+    {
+      "id": "history_e_history_e_full_before_forest_fixture",
+      "path": "docs/evidence/underworld_plains/verification/full_e_before_forest_fixture/report.json",
+      "sha256": "a75f68b1d1b1a742862108b31b698e1b829715f6885cb64b52a61ba8c14f0e50",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "86535886c5b86e95bea094d7e92e57354be3d76e",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "HISTORY ONLY, original source retained. Original failed75-check complete-profile attempt retained at sourceE. First12 checks passed; level-design-contracts then refused missing historical forest captures. This failed attempt does not become passed when original exact fixtures are later restored; final complete rerun is separate.",
+      "preserved_failure": true
+    },
+    {
+      "id": "history_e_actual_browser",
+      "path": "docs/evidence/underworld_plains/delivery/browser_public_E.json",
+      "sha256": "bd18557d8f84da9dbb6669b16e495b2eae7c9d375e5f52a9778d4a94e996ed7d",
+      "kind": "gui",
+      "producer": "root",
+      "source_commit": "86535886c5b86e95bea094d7e92e57354be3d76e",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "HISTORY ONLY, original source retained. Actual HTTPS exactE7915 package: ordinary pointer title entry/map1 keyboard, clear public jump before gap fall; map2 is positioned art fixture only.12NEXT attempts10accepted further junction/merchant windows; publichazard not observed. Exact Router acceptance/full route/device unverified."
+    },
+    {
+      "id": "history_e_local_browser_original",
+      "path": "docs/evidence/underworld_plains/delivery/browser_local_E.json",
+      "sha256": "ac741af6598670a50ca7f64dff83961eeed155254dc2163e5cd301f9ff1b49d4",
+      "kind": "gui",
+      "producer": "root",
+      "source_commit": "86535886c5b86e95bea094d7e92e57354be3d76e",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "HISTORY ONLY, original source retained. Actual localhostE7915 same exportedPCK original browser actions/screens/video retained; map2positioned fixture and oldstyle4 lab. Pixel-change check alone is not Motor proof; originalvideo independent review supplies local visible walk/jump/landing."
+    },
+    {
+      "id": "history_e_public_browser_review",
+      "path": "docs/evidence/underworld_plains/independent_review/browser_public_e/report.json",
+      "sha256": "f4da88bf9790c6987e95e548082ef6a097cde373186eef3e28c195c70ecf37a8",
+      "kind": "review",
+      "producer": "root",
+      "source_commit": "86535886c5b86e95bea094d7e92e57354be3d76e",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "HISTORY ONLY, original source retained. Different agent personally viewed3originalpublicE screenshots:ordinary entry,horizontal relative movement,70pxairborne/JUMP0of1,thenactualgapfall. Public landing faileddriverattempt, fullroute/device/uninterruptedmovie listening unverified; publicmovie retained but unviewed.",
+      "reviewer": "/root/production_review",
+      "implementers": [
+        "root",
+        "formal_terrain",
+        "tile_pipeline",
+        "underworld_scenery",
+        "terrain_hazards",
+        "underworld_delivery"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Original different-agent review at its original source; preserved as history"
+    },
+    {
+      "id": "history_e_final_delivery",
+      "path": "docs/evidence/underworld_plains/delivery/final_delivery_E.json",
+      "sha256": "1a37ad995e626434096ce46348ba26bf88a47cc3e9e8b91949759b3906d8c921",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "86535886c5b86e95bea094d7e92e57354be3d76e",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "HISTORY ONLY, original source retained. ExactE source/7915build/preparedcommit/run39245171512 attempt1success,full128733764byteSHA7915 publicPCK and12licensesverified. Package closure is separate from actualGUI,visualapproval,fullroute/audio/device."
+    },
+    {
+      "id": "history_e_export_raw_source_hash_limitation",
+      "path": "docs/evidence/underworld_plains/delivery/raw_png_visibility_E.json",
+      "sha256": "862b4f3ffa1d7c8a6bcf1ee423510f74856480307dd251d0a664f7f547027cca",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "86535886c5b86e95bea094d7e92e57354be3d76e",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "HISTORY ONLY, original source retained. Actual cookedE PCK has imported textures but no originalfar/middle/near/sourcePNG entries; publicparallax raw-sourceSHAfields empty. FullpublicPCK SHA and importedctex bytes verified separately; runtime raw-sourceSHAcache is not validated and not claimed effective."
+    },
+    {
+      "id": "history_e_capture_binding",
+      "path": "docs/evidence/underworld_plains/captures_e_8653/source_binding.json",
+      "sha256": "597aea245127fd12c25ffdc76e75c9dca92031b8a44bab3d1abc9742f1149f7c",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "86535886c5b86e95bea094d7e92e57354be3d76e",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "HISTORY ONLY, original source retained. 20 original E GPU captures preserved at E, not F"
+    },
+    {
+      "id": "history_e_identity_binding",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_e_8653/composition/source_binding.json",
+      "sha256": "e4fb64cf1a74f5d08e9277961a036b7ec2070323f17a501fe03a4a74074b80fb",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "86535886c5b86e95bea094d7e92e57354be3d76e",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "HISTORY ONLY, original source retained. Actual E8identity native bindings retained at E, not F"
+    },
+    {
+      "id": "history_f_full_before_idle_retry",
+      "path": "docs/evidence/underworld_plains/verification/full_f_before_idle_retry/report.json",
+      "sha256": "edce5f90615d52c4df3e1905616ea694b288b0e644acebac04cd323d894f8d60",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "HISTORY ONLY, original source retained. Actual firstF complete76-profile attempt timed out at original60s production-loop budget after65of87tests; first8checks passed. SoftwareGPU/browser activity concurrent; causality not proven. Timeout is preserved; same-limit independent retry will be a separate originalreport."
+    },
+    {
+      "id": "history_f_scenery_first_exit_warning",
+      "path": "docs/evidence/underworld_plains/scenery/source_f/source_binding.json",
+      "sha256": "ef90029199301339a1c12c1e0198631805237e878474fb57d4729ca930225003",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "HISTORY ONLY, original source retained. First map2 native image capture exited0 with4ObjectDB/2resource teardown warnings. Preserved originalbinding; not strictclean. Selected finalmap2 images are independent clean same-fixture verbose retry, not relabeled originalimages."
+    },
+    {
+      "id": "history_e_full_before_knowledge_restore",
+      "path": "docs/evidence/underworld_plains/verification/full_e_before_knowledge_restore/report.json",
+      "sha256": "92134551f0381a832fb9dfaa3ff22c343ebcf1b8a2ba15129762ce87a711a14c",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "86535886c5b86e95bea094d7e92e57354be3d76e",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "HISTORY ONLY, original source retained. Original E complete-profile failure at production-loop missinghistorical lessonfiles retained; later original-source restoration and freshretries do not relabel thisfailure."
+    },
+    {
+      "id": "history_f_full_before_card_sync",
+      "path": "docs/evidence/underworld_plains/verification/full_f_before_card_sync/report.json",
+      "sha256": "53a8826d59bff6b83e9258c8e9ab369ce42202796be8c8389236a498690354e8",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "HISTORY ONLY, original source retained. Actual F retry: first7checks passed, check8quality refused taskindexreview versus priorcardin_progress mismatch. Record synchronization failure, not a scene/render/physics failure. Original report preserved; later synchronized card does not relabel thisattempt."
+    },
+    {
+      "id": "formal_geometry_final",
+      "path": "docs/evidence/underworld_plains/verification/final_f_a44b/terrain/formal_result.json",
+      "sha256": "e24cdffecf9b33145062a410ecd202ec6e1104a02b555a77c459e2c397c9d9a2",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "20 actual Stage geometries and real Boss break refresh, no Motor traversal claim",
+      "consumers": [
+        "geometry/underworld-formal/0/map1",
+        "geometry/underworld-formal/0/map2",
+        "geometry/underworld-formal/1/map1",
+        "geometry/underworld-formal/1/map2",
+        "geometry/underworld-formal/2/map1",
+        "geometry/underworld-formal/2/map2",
+        "geometry/underworld-formal/3/map1",
+        "geometry/underworld-formal/3/map2",
+        "geometry/underworld-formal/4/map1",
+        "geometry/underworld-formal/4/map2",
+        "geometry/underworld-formal/5/map1",
+        "geometry/underworld-formal/5/map2",
+        "geometry/underworld-formal/6/map1",
+        "geometry/underworld-formal/6/map2",
+        "geometry/underworld-formal/7/map1",
+        "geometry/underworld-formal/7/map2",
+        "geometry/underworld-formal/8/map1",
+        "geometry/underworld-formal/8/map2",
+        "geometry/underworld-formal/9/map1",
+        "geometry/underworld-formal/9/map2"
+      ]
+    },
+    {
+      "id": "geometry_final",
+      "path": "docs/evidence/underworld_plains/verification/final_f_a44b/terrain/result.json",
+      "sha256": "96c1c3e674b77c4e7e1766d9efba4637ecc50d2e31a46aedb7bfe91d232cf1a6",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Source-native exact-boundary/core TileMap geometric test output"
+    },
+    {
+      "id": "hazard_runtime_final",
+      "path": "docs/evidence/underworld_plains/verification/final_f_a44b/hazards/runtime.json",
+      "sha256": "074605c0eb5b53276db6e123d1116f2e55ce2e025d12c94c605408417b79d87a",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual directional contact, original damage/Health and epoch/reload fixtures",
+      "consumers": [
+        "hazard/top",
+        "hazard/left",
+        "hazard/right",
+        "hazard/bottom"
+      ]
+    },
+    {
+      "id": "scenery_runtime_final",
+      "path": "docs/evidence/underworld_plains/verification/final_f_a44b/scenery_runtime_receipts.json",
+      "sha256": "deaadcb65d64cc10e92de27264895885cfbd90c2373493316811290218f23f38",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual camera coefficient/coverage and supported prop/native-grass placement checks",
+      "consumers": [
+        "decor/supported_prop_fixture",
+        "decor/native_grass_fixture"
+      ]
+    },
+    {
+      "id": "identity_population_final",
+      "path": "docs/evidence/underworld_plains/verification/final_f_a44b/identity_population.json",
+      "sha256": "cafb97bcc96ee3daad36bbe8a6a87483dbb96ab68ef1b62b1617dc8fce7f1db3",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "20 actual Stage identity populations with real grounded roots/rays/keepouts and nonphysical distant-well semantics"
+    },
+    {
+      "id": "formal_integration_final",
+      "path": "docs/evidence/underworld_plains/verification/final_f_a44b/underworld-formal.log",
+      "sha256": "8eace6d490490d663239aa94fc81b643e3fb627698fb2d2c417fce6cd83b8d55",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "80 actual ordinary formal consumers/lifecycle checks, not complete gameplay routes"
+    },
+    {
+      "id": "final_harness",
+      "path": "docs/evidence/underworld_plains/verification/final_f_a44b/report.json",
+      "sha256": "bfc55c9310abfd1bab214d6e551ffdbbd7e6d84052977da288a06a4f54740380",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual fresh release report records seven child argv/statuses, no cache and stable source snapshot; equivalent replayargv shown",
+      "observed": "Seven actual fresh sourceF checks passed218.43s; original core/style/8routes remain sourceE historical executions. Final complete76-profile result is separate.",
+      "command": "python3 tools/harness.py --check underworld-pipeline --check underworld-terrain --check underworld-formal-terrain --check underworld-scenery --check underworld-hazards --check underworld-formal --check underworld-raw-export --release --jobs 1",
+      "exit_code": 0,
+      "environment": "Linux; Godot 4.7.2 Standard; Xvfb software OpenGL for rendered outputs; headless/Dummy for technical fixtures; no physical-device claim"
+    },
+    {
+      "id": "pipeline_final",
+      "path": "docs/evidence/underworld_plains/verification/final_f_a44b/pipeline_audit_F.json",
+      "sha256": "7b6aa28db8c807ed8b98852f34d41a07c881a895034a9ca651a9aa299cae2615",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "55 actual source audit/negative mutation tests at sourceF, original319check audit retained with exact inputs; no autogenerated art assertion."
+    },
+    {
+      "id": "raw_export_final",
+      "path": "docs/evidence/underworld_plains/verification/final_f_a44b/underworld-raw-export.log",
+      "sha256": "78eef06a986d8417523e74a16d2bb14e35ab64ab86924c647f2bc690902433d9",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual export-only plugin/source-set/native runner regression at sourceF; real publicPCK raw sourcebytes and browser nonemptyruntimeSHA require separate actualbundle/GUI receipts."
+    },
+    {
+      "id": "identity_retry_clean",
+      "path": "docs/evidence/underworld_plains/scenery/source_f/map2_verbose_retry/retry_binding.json",
+      "sha256": "8d84b7b03e4ab72dc63832a68f16c5757dab92af0e78b1e386dbd8ae1751c273",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "SourceF same originalmap2 fixture --verbose actual exit0/logissues empty14.191s;8fresh rawwindows separate SHA/receipts. Does not erase priorwarning or establish allfutureteardowns."
+    },
+    {
+      "id": "final_review",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_f_a44b/report.json",
+      "sha256": "46796ce7ad0d127f6bb4ac6ffc6df892ea3bdfc5ea3b945b0f64821941171194",
+      "kind": "review",
+      "producer": "production_review",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Independent directly viewed30 selectedF native fullimages+4 original-warning windows; actualF rootBell/3publicstationary jump-return frames+local originalvideo225pxjump thenfall. Read parentF20geometry/identity receipts without claiming ownF rerun; E947common consumerbytes equal withone addedtest, notwholecollectionequal. Final user/device/fullmovie/listening unverified.",
+      "reviewer": "production_review independent read-only",
+      "implementers": [
+        "root",
+        "formal_terrain",
+        "tile_pipeline",
+        "underworld_scenery",
+        "terrain_hazards",
+        "underworld_delivery"
+      ],
+      "verdict": "ACCEPT",
+      "original_verdict": "ACCEPT bounded Underworld Plains integration, observed finite native/browser pixels and export-only raw PNG fix",
+      "independent": true,
+      "independence_basis": "Different actual agent; read-only implementation review with independently collected native outputs"
+    },
+    {
+      "id": "root_bell_actual_window",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_f_a44b/rootbell_f/map2_enemy_root_bell.png",
+      "sha256": "9b1cacce9ed984aaca137443e24d4ef390bfcb8f4b5b0dd712c897f95b85a8e9",
+      "kind": "screenshot",
+      "producer": "production_review",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual independentF GPU positioned underworld-formal/2map2 rareRootBell still; no complete behavior/route claim.",
+      "consumers": [
+        "actor/root_bell",
+        "actor/root_bell"
+      ]
+    },
+    {
+      "id": "actual_browser",
+      "path": "docs/evidence/underworld_plains/delivery/browser_public_F.json",
+      "sha256": "b6e8cb141f274383df22a78255a29246bd048e1b1b0a96a264124504904d5799",
+      "kind": "gui",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual HTTPS sourceF/build4b01: realpointer title entry/map1; stationarySpace airborne then same-bank return; separate horizontaltrial gapfall. Map2 built-in positioned artfixture only; no naturalcompletion/publichazard/fullroute/deviceclaim. Three runtime rawsourceSHA nonempty and exactmatches.",
+      "consumers": [
+        "ordinary_title_entry",
+        "ordinary_map1_walk_jump",
+        "ordinary_map2_positioned_inspector"
+      ]
+    },
+    {
+      "id": "local_browser_original",
+      "path": "docs/evidence/underworld_plains/delivery/browser_local_F.json",
+      "sha256": "6f6bcd5d838b12210abd6be1fc21c1457767fa2be9af6fa3293258677098f6a5",
+      "kind": "gui",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual localhostF4b01same PCK originalinput/screens/webm. Finite independentmovie samples establish225pxjump/relative movement followed bygapfall, notcrossgaplanding. Map2positioned/style4 preserved."
+    },
+    {
+      "id": "local_browser_review",
+      "path": "docs/evidence/underworld_plains/independent_review/raw_export_f/browser_local_three_frames.json",
+      "sha256": "f3ec62721e516817787dd7f88d6ab81850f7a680dcf7ff2ba71d218d60f3b321",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "ActualF local originalmovie54.5sec225pxairborne independently seen; threeisolate screenshots insufficientjumpapex. Driverthenfalls. Finiteoverlapping samplecontacts, not45uniqueframes; no Routertelemetry/fullplayback/audio."
+    },
+    {
+      "id": "public_browser_review",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_f_a44b/browser_public_f/review.json",
+      "sha256": "29a45c05d65957dce62ef9d41d2636dd54690f5249746ee7c52a2d78ddb25c73",
+      "kind": "review",
+      "producer": "production_review",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "ActualF publicstationarySpace threeoriginalframes personallyviewed:feet49pxabovebank HUD0/1, thenoriginalbank return HUD1/1. Nocrossgaplanding/fullroute/device/audio/publicvideoreviewclaim.",
+      "reviewer": "/root/production_review",
+      "implementers": [
+        "root",
+        "formal_terrain",
+        "tile_pipeline",
+        "underworld_scenery",
+        "terrain_hazards",
+        "underworld_delivery"
+      ],
+      "verdict": "ACCEPT",
+      "original_verdict": "ACCEPT real public default entry and stationary jump/return rendered in three actual viewed frames",
+      "independent": true,
+      "independence_basis": "Different actual agent; read-only implementation review with independently collected native outputs"
+    },
+    {
+      "id": "final_delivery",
+      "path": "docs/evidence/underworld_plains/delivery/final_delivery.json",
+      "sha256": "4641c4879843b5ea610c0edb564141d2c0240c700f9b74dbb7928948df093260",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "ExactsourceF/build4b01de439c24/PCK132559084/SHA4b01de439c241004d9148bf5958de524d14dda3ae5bc56b67c2731312856b46c/run39248153645attempt1success; fullpublicbytes/12licenses/7raw/33ctex and3runtimeSHA exact. Closure separatefromGUIandcommercialrelease."
+    },
+    {
+      "id": "actual_raw_pack_bytes",
+      "path": "docs/evidence/underworld_plains/independent_review/raw_export_f/actual_pack_bytes.json",
+      "sha256": "7679720b5c2dd8e780ea73959b34de95c97b1623e3a6b419f686ba437d4dd709",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Independent actualF PCK7originalPNGand33existingctex byteforbytecompared withsources/manifest, not justfilenamepresence."
+    },
+    {
+      "id": "E_F_observer_comparison",
+      "path": "docs/evidence/underworld_plains/independent_review/raw_export_f/observer_source_comparison.json",
+      "sha256": "2f427db7e64e3e798e2e79a3690ca19027bb4bd623047662b136f47921220abe",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "E947old observerinputs match Fcommonbytes. F948addsoneexport-onlytest; wholecollectionequal=false. E8actualroutes remainE execution, notF rerun."
+    },
+    {
+      "id": "full_profile_failure",
+      "path": "docs/evidence/underworld_plains/verification/full_f_before_idle_retry/report.json",
+      "sha256": "edce5f90615d52c4df3e1905616ea694b288b0e644acebac04cd323d894f8d60",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual F complete76profile firstattempt failed at original60s production-loop timeout after65of87tests, previous8checks passed. No blanket fullgreen; same-limit retry and quality-card alignment still outstanding. Originaltimeout preserved, no causal inference or waived assertion."
+    },
+    {
+      "id": "current_map1_spawn",
+      "path": "docs/evidence/underworld_plains/captures_f_a44b/map1_spawn.png",
+      "sha256": "0829af8d66e53624c6e04a14a50401f23d170800984e63a71f0a63728d179ec0",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual reviewed-source native positional formal fixture; raw hash agrees with native receipt; no natural traversal claim",
+      "consumers": [
+        "scene/map1_spawn",
+        "parallax/map1/far",
+        "parallax/map1/middle",
+        "parallax/map1/near",
+        "actor/courier"
+      ]
+    },
+    {
+      "id": "current_map1_junction",
+      "path": "docs/evidence/underworld_plains/captures_f_a44b/map1_junction.png",
+      "sha256": "3f037bb4e4af914829f3cc71b1f35a813e888be823ecea712411f58e6594546a",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual reviewed-source native positional formal fixture; raw hash agrees with native receipt; no natural traversal claim",
+      "consumers": [
+        "scene/map1_junction"
+      ]
+    },
+    {
+      "id": "current_map1_merchant",
+      "path": "docs/evidence/underworld_plains/captures_f_a44b/map1_merchant.png",
+      "sha256": "486f63cbf32c79f35fe251d2d24d9278fa5430bb5083f68b4e379b057611d5ca",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual reviewed-source native positional formal fixture; raw hash agrees with native receipt; no natural traversal claim",
+      "consumers": [
+        "scene/map1_merchant"
+      ]
+    },
+    {
+      "id": "current_map1_enemy_charger",
+      "path": "docs/evidence/underworld_plains/captures_f_a44b/map1_enemy_charger.png",
+      "sha256": "105ebe22a17088068445149359ff1905ba438832d72ee1d60f4e1c27a9847bad",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual reviewed-source native positional formal fixture; raw hash agrees with native receipt; no natural traversal claim",
+      "consumers": [
+        "scene/map1_enemy_charger",
+        "actor/charger"
+      ]
+    },
+    {
+      "id": "current_map1_enemy_diver",
+      "path": "docs/evidence/underworld_plains/captures_f_a44b/map1_enemy_diver.png",
+      "sha256": "f719be18578d38103e8ad0345e38064888b3c449e8444f05a2b20e4627c4bd79",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual reviewed-source native positional formal fixture; raw hash agrees with native receipt; no natural traversal claim",
+      "consumers": [
+        "scene/map1_enemy_diver",
+        "actor/aerial(diver)"
+      ]
+    },
+    {
+      "id": "current_map1_enemy_fan_sentry",
+      "path": "docs/evidence/underworld_plains/captures_f_a44b/map1_enemy_fan_sentry.png",
+      "sha256": "065e0eef91372615736af539866814c347984d7dac1983a9a4e046084a03adcc",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual reviewed-source native positional formal fixture; raw hash agrees with native receipt; no natural traversal claim",
+      "consumers": [
+        "scene/map1_enemy_fan_sentry",
+        "actor/sentry(fan_sentry)"
+      ]
+    },
+    {
+      "id": "current_map1_enemy_hopper",
+      "path": "docs/evidence/underworld_plains/captures_f_a44b/map1_enemy_hopper.png",
+      "sha256": "0d95b77fb1302929b0bdf81a8a3292f03d99a5b272e5d8d9c89e3e3b0fb9cb42",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual reviewed-source native positional formal fixture; raw hash agrees with native receipt; no natural traversal claim",
+      "consumers": [
+        "scene/map1_enemy_hopper",
+        "actor/hopper"
+      ]
+    },
+    {
+      "id": "current_map1_enemy_sentry",
+      "path": "docs/evidence/underworld_plains/captures_f_a44b/map1_enemy_sentry.png",
+      "sha256": "77871cc403e42838750e5dd8fdb30272fb55166d662a298508f5de7ca10c378c",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual reviewed-source native positional formal fixture; raw hash agrees with native receipt; no natural traversal claim",
+      "consumers": [
+        "scene/map1_enemy_sentry",
+        "actor/sentry"
+      ]
+    },
+    {
+      "id": "current_map1_integrated_thorns",
+      "path": "docs/evidence/underworld_plains/captures_f_a44b/map1_integrated_thorns.png",
+      "sha256": "3812b7a6e7c70a8d949eb8c55ad3944492abe065a061cdc38af9b1472953bf05",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual reviewed-source native positional formal fixture; raw hash agrees with native receipt; no natural traversal claim",
+      "consumers": [
+        "scene/map1_integrated_thorns"
+      ]
+    },
+    {
+      "id": "current_map1_boss",
+      "path": "docs/evidence/underworld_plains/captures_f_a44b/map1_boss.png",
+      "sha256": "c56b2d6ffc9ebc567356f9afc21f76d67c22cd12326b41ee0698849ba22f38be",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual reviewed-source native positional formal fixture; raw hash agrees with native receipt; no natural traversal claim",
+      "consumers": [
+        "scene/map1_boss",
+        "actor/bellstrider"
+      ]
+    },
+    {
+      "id": "current_map2_spawn",
+      "path": "docs/evidence/underworld_plains/captures_f_a44b/map2_spawn.png",
+      "sha256": "2ac0131c593eab671550933f7c0fb4fbb74bb0a2d013d83a0bddb1ce8da35af0",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual reviewed-source native positional formal fixture; raw hash agrees with native receipt; no natural traversal claim",
+      "consumers": [
+        "scene/map2_spawn",
+        "parallax/map2/far",
+        "parallax/map2/middle",
+        "parallax/map2/near"
+      ]
+    },
+    {
+      "id": "current_map2_junction",
+      "path": "docs/evidence/underworld_plains/captures_f_a44b/map2_junction.png",
+      "sha256": "92cc17463f36b50dc3f776ace36c87e5bda666791ffbf38f71e6307c5fe31d3b",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual reviewed-source native positional formal fixture; raw hash agrees with native receipt; no natural traversal claim",
+      "consumers": [
+        "scene/map2_junction"
+      ]
+    },
+    {
+      "id": "current_map2_merchant",
+      "path": "docs/evidence/underworld_plains/captures_f_a44b/map2_merchant.png",
+      "sha256": "3ab33f4e14e3028ffe4f7cd6f56dafbe8363f07bae3faae343d2b6dcee19b06e",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual reviewed-source native positional formal fixture; raw hash agrees with native receipt; no natural traversal claim",
+      "consumers": [
+        "scene/map2_merchant"
+      ]
+    },
+    {
+      "id": "current_map2_enemy_charger",
+      "path": "docs/evidence/underworld_plains/captures_f_a44b/map2_enemy_charger.png",
+      "sha256": "fb0e52feb8227d393b7c9e456c24553a97efeab0573bf049482f23edb29adac1",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual reviewed-source native positional formal fixture; raw hash agrees with native receipt; no natural traversal claim",
+      "consumers": [
+        "scene/map2_enemy_charger"
+      ]
+    },
+    {
+      "id": "current_map2_enemy_diver",
+      "path": "docs/evidence/underworld_plains/captures_f_a44b/map2_enemy_diver.png",
+      "sha256": "f50b16bb07af6b20aa1cbebc1fa4f2e566f63ca3c3a3655980c37463b8033c5d",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual reviewed-source native positional formal fixture; raw hash agrees with native receipt; no natural traversal claim",
+      "consumers": [
+        "scene/map2_enemy_diver"
+      ]
+    },
+    {
+      "id": "current_map2_enemy_fan_sentry",
+      "path": "docs/evidence/underworld_plains/captures_f_a44b/map2_enemy_fan_sentry.png",
+      "sha256": "4f27da1d4c5cd9f809ab5409cb26982abb2e3bfb9ad6a172622a98ea41102fb7",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual reviewed-source native positional formal fixture; raw hash agrees with native receipt; no natural traversal claim",
+      "consumers": [
+        "scene/map2_enemy_fan_sentry"
+      ]
+    },
+    {
+      "id": "current_map2_enemy_hopper",
+      "path": "docs/evidence/underworld_plains/captures_f_a44b/map2_enemy_hopper.png",
+      "sha256": "9aa9c0a80f2f049c2eeeaa441215199ede877c7352404e26b021e8003fff395d",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual reviewed-source native positional formal fixture; raw hash agrees with native receipt; no natural traversal claim",
+      "consumers": [
+        "scene/map2_enemy_hopper"
+      ]
+    },
+    {
+      "id": "current_map2_enemy_sentry",
+      "path": "docs/evidence/underworld_plains/captures_f_a44b/map2_enemy_sentry.png",
+      "sha256": "739f6a69c08cb94f92680acb85f8808fdb7baf403b59f45d5fc0bdb1b48d4654",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual reviewed-source native positional formal fixture; raw hash agrees with native receipt; no natural traversal claim",
+      "consumers": [
+        "scene/map2_enemy_sentry"
+      ]
+    },
+    {
+      "id": "current_map2_integrated_thorns",
+      "path": "docs/evidence/underworld_plains/captures_f_a44b/map2_integrated_thorns.png",
+      "sha256": "edc3c02d54d6a8200fbeb790d4962b53d7c9fc8cca47489c348e235773e7af3c",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual reviewed-source native positional formal fixture; raw hash agrees with native receipt; no natural traversal claim",
+      "consumers": [
+        "scene/map2_integrated_thorns"
+      ]
+    },
+    {
+      "id": "current_map2_boss",
+      "path": "docs/evidence/underworld_plains/captures_f_a44b/map2_boss.png",
+      "sha256": "434bd7475c8e421122f681454accccfe8281cb3d222c483c32a832844c5b0f6e",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual reviewed-source native positional formal fixture; raw hash agrees with native receipt; no natural traversal claim",
+      "consumers": [
+        "scene/map2_boss",
+        "actor/windkeeper"
+      ]
+    },
+    {
+      "id": "current_map1_windmill_plateau",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_f_a44b/composition/map1/golden_identity_windmill_plateau.png",
+      "sha256": "5cc293bc7d96a0becef3b2e46d80fdd270d5fd713649fdf3f0cc14b28e37b9a0",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual reviewed-source grounded identity landmark on real static support and declared keepouts; positioned fixture",
+      "consumers": [
+        "identity/map1/windmill_plateau"
+      ]
+    },
+    {
+      "id": "current_map2_windmill_plateau",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_f_a44b/composition/map2_verbose_retry/golden_map2_identity_windmill_plateau.png",
+      "sha256": "fcc0edf82686134a2ae5b62fdc658df6eaf23428ac2032f058b64b661bdae472",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual reviewed-source grounded identity landmark on real static support and declared keepouts; positioned fixture",
+      "consumers": [
+        "identity/map2/windmill_plateau"
+      ]
+    },
+    {
+      "id": "current_map1_creek_well",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_f_a44b/composition/map1/golden_local_creek_well.png",
+      "sha256": "06e8c03b29e0201b2be94a0e811507dc9c9f6659c9f7f37c9bbc63a309ef52c4",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual reviewed-source creek distant architectural silhouette; source-painted base, no solid-support/standing-edge claim; positioned fixture",
+      "consumers": [
+        "identity/map1/creek_well"
+      ]
+    },
+    {
+      "id": "current_map2_creek_well",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_f_a44b/composition/map2_verbose_retry/golden_map2_local_creek_well.png",
+      "sha256": "9b26d2a228c62e9a694fc77ceaeadf0fa71417786f3e298d1c4722533a413e6b",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual reviewed-source creek distant architectural silhouette; source-painted base, no solid-support/standing-edge claim; positioned fixture",
+      "consumers": [
+        "identity/map2/creek_well"
+      ]
+    },
+    {
+      "id": "current_map1_clock_court",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_f_a44b/composition/map1/golden_identity_clock_court.png",
+      "sha256": "1a7cebc5b2a3aa8034d4723c888db5c3bae9f7247e4491ac6e41c45ebff5210f",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual reviewed-source grounded identity landmark on real static support and declared keepouts; positioned fixture",
+      "consumers": [
+        "identity/map1/clock_court"
+      ]
+    },
+    {
+      "id": "current_map2_clock_court",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_f_a44b/composition/map2_verbose_retry/golden_map2_identity_clock_court.png",
+      "sha256": "4f8d6bde2532d2f510fef27ab07d44f4041afd2cc79aef3ac665123712bd4cd8",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual reviewed-source grounded identity landmark on real static support and declared keepouts; positioned fixture",
+      "consumers": [
+        "identity/map2/clock_court"
+      ]
+    },
+    {
+      "id": "current_map1_repair_gallery",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_f_a44b/composition/map1/golden_identity_repair_gallery.png",
+      "sha256": "6a50c5605e85e69d8a244545dd396a672cc743a93b2a5e4da442e1fb401ff944",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual reviewed-source grounded identity landmark on real static support and declared keepouts; positioned fixture",
+      "consumers": [
+        "identity/map1/repair_gallery"
+      ]
+    },
+    {
+      "id": "current_map2_repair_gallery",
+      "path": "docs/evidence/underworld_plains/independent_review/formal_f_a44b/composition/map2_verbose_retry/golden_map2_identity_repair_gallery.png",
+      "sha256": "a154ae508089f2f15885278442082646624823707061af1af891b5bc2e7f7471",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Actual reviewed-source grounded identity landmark on real static support and declared keepouts; positioned fixture",
+      "consumers": [
+        "identity/map2/repair_gallery"
+      ]
+    },
+    {
+      "id": "consumer_inventory",
+      "path": "docs/evidence/underworld_plains/consumer_inventory.json",
+      "sha256": "9ec0ab2f082c52a3507ab7d7d83dde3419c5682166b526647f3da6cb730a3d74",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Actual native output or original source-bound record; scope below",
+      "observed": "Composed one-to-one ledger of actual native outputs and missing target-source observations; see per-row original source"
+    },
+    {
+      "id": "revision2_spec",
+      "path": "docs/evidence/underworld_plains/revision2/spec.md",
+      "sha256": "ced173762a3d54efb642f747025b910f01701699a18d176b536e9659f2e109eb",
+      "kind": "spec",
+      "producer": "root",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Verbatim current conversation and bounded implementation scope",
+      "observed": "Six explicit playtest revisions, inherited Tile/physics boundaries and actual owner scope"
+    },
+    {
+      "id": "revision2_user_scope",
+      "path": "docs/evidence/underworld_plains/revision2/user_feedback_F.txt",
+      "sha256": "dc1582d5a3e3f8cd1d5b3bdaaf770b26b066b37c892eb339c1b804de99ffd6c0",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+      "content_version": "underworld-formal-v1",
+      "method": "Verbatim current conversation and bounded implementation scope",
+      "observed": "User explicitly requested these six revisions; design authorization only, no acceptance of revised visuals",
+      "source": "Current conversation, latest six numbered playtest feedback items",
+      "quote": "1，人物的动作帧不够，而且没有向左走的。\n2，移动平台的风格有点不一致。\n3，商人的大小应该和人物差不多。\n4，风铃机关的画风不一致。\n5，家园的风格也要重新设计。家园应该也是类似风铃平原的风格，只是里面很多npc预留功能位置。\n6，ui，菜单也适配新的风格。",
+      "covers": [
+        "design"
+      ],
+      "accepted": true
     }
   ],
-  "consumer_coverage": null,
+  "consumer_coverage": {
+    "scope": "Predecessor F inventory retained for traceability only; current revision2 full inventory, including Home/UI and continuous player actions, is pending discovery",
+    "inventory_evidence": "consumer_inventory",
+    "observations": [
+      {
+        "consumer": "geometry/underworld-formal/0/map1",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "behavior",
+        "evidence": [
+          "formal_geometry_final"
+        ]
+      },
+      {
+        "consumer": "geometry/underworld-formal/0/map2",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "behavior",
+        "evidence": [
+          "formal_geometry_final"
+        ]
+      },
+      {
+        "consumer": "geometry/underworld-formal/1/map1",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "behavior",
+        "evidence": [
+          "formal_geometry_final"
+        ]
+      },
+      {
+        "consumer": "geometry/underworld-formal/1/map2",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "behavior",
+        "evidence": [
+          "formal_geometry_final"
+        ]
+      },
+      {
+        "consumer": "geometry/underworld-formal/2/map1",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "behavior",
+        "evidence": [
+          "formal_geometry_final"
+        ]
+      },
+      {
+        "consumer": "geometry/underworld-formal/2/map2",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "behavior",
+        "evidence": [
+          "formal_geometry_final"
+        ]
+      },
+      {
+        "consumer": "geometry/underworld-formal/3/map1",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "behavior",
+        "evidence": [
+          "formal_geometry_final"
+        ]
+      },
+      {
+        "consumer": "geometry/underworld-formal/3/map2",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "behavior",
+        "evidence": [
+          "formal_geometry_final"
+        ]
+      },
+      {
+        "consumer": "geometry/underworld-formal/4/map1",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "behavior",
+        "evidence": [
+          "formal_geometry_final"
+        ]
+      },
+      {
+        "consumer": "geometry/underworld-formal/4/map2",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "behavior",
+        "evidence": [
+          "formal_geometry_final"
+        ]
+      },
+      {
+        "consumer": "geometry/underworld-formal/5/map1",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "behavior",
+        "evidence": [
+          "formal_geometry_final"
+        ]
+      },
+      {
+        "consumer": "geometry/underworld-formal/5/map2",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "behavior",
+        "evidence": [
+          "formal_geometry_final"
+        ]
+      },
+      {
+        "consumer": "geometry/underworld-formal/6/map1",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "behavior",
+        "evidence": [
+          "formal_geometry_final"
+        ]
+      },
+      {
+        "consumer": "geometry/underworld-formal/6/map2",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "behavior",
+        "evidence": [
+          "formal_geometry_final"
+        ]
+      },
+      {
+        "consumer": "geometry/underworld-formal/7/map1",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "behavior",
+        "evidence": [
+          "formal_geometry_final"
+        ]
+      },
+      {
+        "consumer": "geometry/underworld-formal/7/map2",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "behavior",
+        "evidence": [
+          "formal_geometry_final"
+        ]
+      },
+      {
+        "consumer": "geometry/underworld-formal/8/map1",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "behavior",
+        "evidence": [
+          "formal_geometry_final"
+        ]
+      },
+      {
+        "consumer": "geometry/underworld-formal/8/map2",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "behavior",
+        "evidence": [
+          "formal_geometry_final"
+        ]
+      },
+      {
+        "consumer": "geometry/underworld-formal/9/map1",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "behavior",
+        "evidence": [
+          "formal_geometry_final"
+        ]
+      },
+      {
+        "consumer": "geometry/underworld-formal/9/map2",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "behavior",
+        "evidence": [
+          "formal_geometry_final"
+        ]
+      },
+      {
+        "consumer": "scene/map1_spawn",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map1_spawn"
+        ]
+      },
+      {
+        "consumer": "scene/map1_junction",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map1_junction"
+        ]
+      },
+      {
+        "consumer": "scene/map1_merchant",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map1_merchant"
+        ]
+      },
+      {
+        "consumer": "scene/map1_enemy_charger",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map1_enemy_charger"
+        ]
+      },
+      {
+        "consumer": "scene/map1_enemy_diver",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map1_enemy_diver"
+        ]
+      },
+      {
+        "consumer": "scene/map1_enemy_fan_sentry",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map1_enemy_fan_sentry"
+        ]
+      },
+      {
+        "consumer": "scene/map1_enemy_hopper",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map1_enemy_hopper"
+        ]
+      },
+      {
+        "consumer": "scene/map1_enemy_sentry",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map1_enemy_sentry"
+        ]
+      },
+      {
+        "consumer": "scene/map1_integrated_thorns",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map1_integrated_thorns"
+        ]
+      },
+      {
+        "consumer": "scene/map1_boss",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map1_boss"
+        ]
+      },
+      {
+        "consumer": "parallax/map1/far",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map1_spawn"
+        ]
+      },
+      {
+        "consumer": "parallax/map1/middle",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map1_spawn"
+        ]
+      },
+      {
+        "consumer": "parallax/map1/near",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map1_spawn"
+        ]
+      },
+      {
+        "consumer": "scene/map2_spawn",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map2_spawn"
+        ]
+      },
+      {
+        "consumer": "scene/map2_junction",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map2_junction"
+        ]
+      },
+      {
+        "consumer": "scene/map2_merchant",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map2_merchant"
+        ]
+      },
+      {
+        "consumer": "scene/map2_enemy_charger",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map2_enemy_charger"
+        ]
+      },
+      {
+        "consumer": "scene/map2_enemy_diver",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map2_enemy_diver"
+        ]
+      },
+      {
+        "consumer": "scene/map2_enemy_fan_sentry",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map2_enemy_fan_sentry"
+        ]
+      },
+      {
+        "consumer": "scene/map2_enemy_hopper",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map2_enemy_hopper"
+        ]
+      },
+      {
+        "consumer": "scene/map2_enemy_sentry",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map2_enemy_sentry"
+        ]
+      },
+      {
+        "consumer": "scene/map2_integrated_thorns",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map2_integrated_thorns"
+        ]
+      },
+      {
+        "consumer": "scene/map2_boss",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map2_boss"
+        ]
+      },
+      {
+        "consumer": "parallax/map2/far",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map2_spawn"
+        ]
+      },
+      {
+        "consumer": "parallax/map2/middle",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map2_spawn"
+        ]
+      },
+      {
+        "consumer": "parallax/map2/near",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map2_spawn"
+        ]
+      },
+      {
+        "consumer": "actor/courier",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map1_spawn"
+        ]
+      },
+      {
+        "consumer": "actor/charger",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map1_enemy_charger"
+        ]
+      },
+      {
+        "consumer": "actor/aerial(diver)",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map1_enemy_diver"
+        ]
+      },
+      {
+        "consumer": "actor/sentry(fan_sentry)",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map1_enemy_fan_sentry"
+        ]
+      },
+      {
+        "consumer": "actor/hopper",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map1_enemy_hopper"
+        ]
+      },
+      {
+        "consumer": "actor/sentry",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map1_enemy_sentry"
+        ]
+      },
+      {
+        "consumer": "actor/bellstrider",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map1_boss"
+        ]
+      },
+      {
+        "consumer": "actor/windkeeper",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map2_boss"
+        ]
+      },
+      {
+        "consumer": "actor/root_bell",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "root_bell_actual_window"
+        ]
+      },
+      {
+        "consumer": "decor/supported_prop_fixture",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "behavior",
+        "evidence": [
+          "scenery_runtime_final"
+        ]
+      },
+      {
+        "consumer": "decor/native_grass_fixture",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "behavior",
+        "evidence": [
+          "scenery_runtime_final"
+        ]
+      },
+      {
+        "consumer": "hazard/top",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "behavior",
+        "evidence": [
+          "hazard_runtime_final"
+        ]
+      },
+      {
+        "consumer": "hazard/left",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "behavior",
+        "evidence": [
+          "hazard_runtime_final"
+        ]
+      },
+      {
+        "consumer": "hazard/right",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "behavior",
+        "evidence": [
+          "hazard_runtime_final"
+        ]
+      },
+      {
+        "consumer": "hazard/bottom",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "behavior",
+        "evidence": [
+          "hazard_runtime_final"
+        ]
+      },
+      {
+        "consumer": "ordinary_title_entry",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "actual_browser"
+        ]
+      },
+      {
+        "consumer": "ordinary_map1_walk_jump",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "actual_browser",
+          "local_browser_original",
+          "local_browser_review",
+          "public_browser_review"
+        ]
+      },
+      {
+        "consumer": "ordinary_map2_positioned_inspector",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "actual_browser"
+        ]
+      },
+      {
+        "consumer": "identity/map1/windmill_plateau",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map1_windmill_plateau"
+        ]
+      },
+      {
+        "consumer": "identity/map2/windmill_plateau",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map2_windmill_plateau"
+        ]
+      },
+      {
+        "consumer": "identity/map1/creek_well",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map1_creek_well"
+        ]
+      },
+      {
+        "consumer": "identity/map2/creek_well",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map2_creek_well"
+        ]
+      },
+      {
+        "consumer": "identity/map1/clock_court",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map1_clock_court"
+        ]
+      },
+      {
+        "consumer": "identity/map2/clock_court",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map2_clock_court"
+        ]
+      },
+      {
+        "consumer": "identity/map1/repair_gallery",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map1_repair_gallery"
+        ]
+      },
+      {
+        "consumer": "identity/map2/repair_gallery",
+        "status": "unverified",
+        "reason": "Prior F observation retained as history; revision2 frame/Home/UI/mechanism scope requires new actual source-bound observation",
+        "output": "visual",
+        "evidence": [
+          "current_map2_repair_gallery"
+        ]
+      }
+    ]
+  },
   "unverified_items": [
-    "Design and all relevant acceptance remain unverified"
-  ]
+    "All six revision2 feedback items until actual integration/continuous and GUI review",
+    "New frozen source and full package/browser verification",
+    "Physical device, full Boss/audio and final user visual acceptance",
+    "Original F intermittent actor failure and legacy fixture failures remain preserved, not waived"
+  ],
+  "assembly_boundary": {
+    "C": "1cbf49663ecfa24769aeaea320be2801fa446917",
+    "D": "14e81362fcc33995bf6929ee13e83cf973d483e0",
+    "reviewed_source": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+    "missing_inputs": [],
+    "production_snapshot": "Intentionally absent here; root computes after all non-record files freeze"
+  },
+  "source_state": "Revision2 working tree is not frozen; reviewed_commit identifies the last reviewed/exported predecessor F only. Prior F evidence remains historical.",
+  "revision2": {
+    "feedback_file": "docs/evidence/underworld_plains/revision2/user_feedback_F.txt",
+    "predecessor_quality_record": "docs/evidence/underworld_plains/revision2/quality_record_F_before_feedback.json",
+    "predecessor_inventory": "docs/evidence/underworld_plains/revision2/consumer_inventory_F.json",
+    "predecessor_build": "4b01de439c24",
+    "predecessor_feedback": "requires_rework_on_six_observed_items",
+    "new_runtime_review": "unverified",
+    "open_items": [
+      "real_multiframe_player_and_left_right",
+      "consistent_moving_platforms",
+      "human_scale_merchant",
+      "consistent_functional_bells",
+      "walkable_underworld_home_and_npc_reservations",
+      "complete_underworld_ui_menu_inventory"
+    ],
+    "pending_content_version": "underworld-formal-v2-feedback"
+  }
 }

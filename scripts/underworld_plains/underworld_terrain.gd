@@ -11,6 +11,8 @@ var union_corners := PackedVector4Array()
 var core_cells: Dictionary = {}
 var boundary_pieces: Array[Rect2] = []
 var core_layer: TileMapLayer
+static var _mechanism_spec: Dictionary = {}
+static var _mechanism_textures: Dictionary = {}
 
 static func specification() -> Dictionary:
 	return JSON.parse_string(FileAccess.get_file_as_string(BUILD_PATH))
@@ -142,8 +144,77 @@ static func draw_one_way(node: CanvasItem, rect: Rect2) -> void:
 		node.draw_rect(Rect2(x,rect.position.y+2,2,minf(8,rect.size.y-2)),Color("a69055"))
 
 static func draw_moving(node: CanvasItem, rect: Rect2) -> void:
-	node.draw_rect(rect,Color("19202a"))
-	node.draw_rect(Rect2(rect.position,Vector2(rect.size.x,minf(3,rect.size.y))),Color("b49a58"))
-	if rect.size.y>4: node.draw_rect(Rect2(rect.position+Vector2(2,4),Vector2(maxf(0,rect.size.x-4),minf(4,rect.size.y-4))),Color("796445"))
-	for x: float in [rect.position.x+5,rect.end.x-7]:
-		if rect.size.y>8: node.draw_rect(Rect2(x,rect.position.y+6,2,2),Color("d0bf7a"))
+	var texture := mechanism_texture(&"carrier")
+	for part: Dictionary in moving_patch_plan(rect):
+		node.draw_texture_rect_region(texture,part.target,part.source)
+
+static func mechanism_specification() -> Dictionary:
+	if _mechanism_spec.is_empty():
+		_mechanism_spec = JSON.parse_string(FileAccess.get_file_as_string("res://assets/underworld_plains/mechanisms/mechanisms_build.json"))
+	return _mechanism_spec
+
+static func moving_patch_plan(rect: Rect2) -> Array[Dictionary]:
+	var spec: Dictionary = mechanism_specification().carrier
+	var scale_value := float(spec.pixel_world_scale)
+	var native := Vector2(float(spec.size_px[0]),float(spec.size_px[1]))
+	var left := minf(float(spec.left_px)*scale_value,rect.size.x*.5)
+	var right := minf(float(spec.right_px)*scale_value,rect.size.x-left)
+	var top := minf(float(spec.top_px)*scale_value,rect.size.y*.5)
+	var bottom := minf(float(spec.bottom_px)*scale_value,rect.size.y-top)
+	var widths: Array[float] = [left,maxf(0,rect.size.x-left-right),right]
+	var heights: Array[float] = [top,maxf(0,rect.size.y-top-bottom),bottom]
+	var sources_x: Array[Vector2] = [Vector2(0,left/scale_value),Vector2(float(spec.middle_x_px),float(spec.middle_width_px)),Vector2(native.x-right/scale_value,right/scale_value)]
+	var sources_y: Array[Vector2] = [Vector2(0,top/scale_value),Vector2(float(spec.top_px),native.y-float(spec.top_px)-float(spec.bottom_px)),Vector2(native.y-bottom/scale_value,bottom/scale_value)]
+	var result: Array[Dictionary] = []
+	var y := rect.position.y
+	for row: int in 3:
+		var x := rect.position.x
+		for column: int in 3:
+			var source := Rect2(sources_x[column].x,sources_y[row].x,sources_x[column].y,sources_y[row].y)
+			var target := Rect2(x,y,widths[column],heights[row])
+			if target.has_area() and source.has_area():
+				var cursor_y := target.position.y
+				while cursor_y < target.end.y-.0001:
+					var height := minf(source.size.y*scale_value,target.end.y-cursor_y)
+					var cursor_x := target.position.x
+					while cursor_x < target.end.x-.0001:
+						var width := minf(source.size.x*scale_value,target.end.x-cursor_x)
+						result.append({"target":Rect2(cursor_x,cursor_y,width,height),"source":Rect2(source.position,Vector2(width,height)/scale_value),"column":column,"row":row})
+						cursor_x += width
+					cursor_y += height
+			x += widths[column]
+		y += heights[row]
+	return result
+
+static func mechanism_bell_texture() -> Texture2D:
+	return mechanism_texture(&"bell")
+
+static func mechanism_texture(kind: StringName) -> Texture2D:
+	# Canvas draw commands retain a RID, not an owning Resource reference. Keep
+	# these source textures alive beyond the local _draw call or the submitted
+	# material becomes a white rectangle when the temporary load is released.
+	if not _mechanism_textures.has(kind):
+		_mechanism_textures[kind] = load(str(mechanism_specification()[kind].texture)) as Texture2D
+	return _mechanism_textures[kind]
+
+static func mechanism_bell_size() -> Vector2:
+	var source := mechanism_bell_texture().get_size()
+	var bounds: Array = mechanism_specification().bell.visual_bound_wu
+	return source * minf(float(bounds[0])/source.x,float(bounds[1])/source.y)
+
+static func draw_mechanism_bell(node: CanvasItem, at: Vector2, open: bool, flash := false) -> void:
+	var texture := mechanism_bell_texture()
+	var size := mechanism_bell_size()
+	node.draw_texture_rect(texture,Rect2(at-size*.5,size),false,Color(1.18,1.12,1.0) if open or flash else Color.WHITE)
+
+static func draw_mechanism_beam(node: CanvasItem, rect: Rect2, opacity := 1.0) -> void:
+	var texture := mechanism_texture(&"carrier")
+	var vertical := rect.size.y > rect.size.x
+	if vertical:
+		node.draw_set_transform(rect.position+Vector2(rect.size.x,0),PI*.5)
+		for part: Dictionary in moving_patch_plan(Rect2(Vector2.ZERO,Vector2(rect.size.y,rect.size.x))):
+			node.draw_texture_rect_region(texture,part.target,part.source,Color(1,1,1,opacity))
+		node.draw_set_transform(Vector2.ZERO)
+	else:
+		for part: Dictionary in moving_patch_plan(rect):
+			node.draw_texture_rect_region(texture,part.target,part.source,Color(1,1,1,opacity))

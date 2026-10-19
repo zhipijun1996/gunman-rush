@@ -1,0 +1,15 @@
+curl: (3) URL rejected: Malformed input to a URL function
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tools/underworld_delivery.py", line 297, in <module>
+    main()
+  File "/workspace/clock-style-lab/tools/underworld_delivery.py", line 291, in main
+    result = asyncio.run(browser(args)) if args.command == "browser" else globals()[args.command.replace("-", "_")](args)
+                                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/clock-style-lab/tools/underworld_delivery.py", line 124, in public_bytes
+    target = download(item["path"])
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/clock-style-lab/tools/underworld_delivery.py", line 106, in download
+    subprocess.run(["curl", "--ipv4", "--fail", "--silent", "--show-error", "--location",
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['curl', '--ipv4', '--fail', '--silent', '--show-error', '--location', '--retry', '3', '--max-time', '240', 'https://zhipijun1996.github.io/gunman-rush/style-licenses/basic/source/licenses/LICENSE & CREDITS.txt', '--output', 'build/underworld_plains/delivery/public_bytes/style-licenses/basic/source/licenses/LICENSE & CREDITS.txt']' returned non-zero exit status 3.

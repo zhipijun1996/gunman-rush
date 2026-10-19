@@ -1,0 +1,44 @@
+{
+  "task_id": "UNDERWORLD-PLAINS-01",
+  "revision": "user-six-feedback-player-rework",
+  "generation_calls": 2,
+  "elapsed_generation_ms": [
+    48045,
+    75944
+  ],
+  "reference": "assets/style_exploration/underworld/player.png",
+  "reference_sha256": "e6df8e5c7a09668f809c0e23d11810761cb42f611772df2b259f37c08e091cb7",
+  "reference_origin": "Previously generated project Underworld-style courier, not a publisher character ripped from Underworld tileset. Original reference provenance remains in style_exploration generation evidence.",
+  "calls": [
+    "generated/run_call.json",
+    "generated/states_call.json"
+  ],
+  "source_pngs": [
+    "generated/run_source.png",
+    "generated/states_source.png"
+  ],
+  "raw_hashes": {
+    "generated/run_source.png": "f9225b333aa9fc3d50ed44d4848189d7a830d2f10bf26c2bc8278ff25c0daab1",
+    "generated/states_source.png": "2caac7031772470180274afe1760408c13a666902d49306337b28da66f0881b1"
+  },
+  "original_generation_layout_results": {
+    "run": "8 complete poses in a 4x2 visual arrangement. Equal-size sheet cells sampled; actual source1774x887, not requested exact dimensions; shared foot and body pivots require declared translations.",
+    "states": "12 complete poses visible; strict equal 4x3 cell sampling FAILED: first-row boots extend past y362 and final prone scarf extends left of x1086. Complete nonoverlapping measured figure regions are used instead, recorded in recipe.json. Original PNG and request preserved, no false original-grid PASS."
+  },
+  "generated_frames": 20,
+  "distinct_RGBA_frames": 20,
+  "runtime_semantics": "Body uses actual Motor normal_velocity and real Router movement axis; independent weapon uses CourierVisual authoritative muzzle. Actual accepted health state owns hurt/death. No generated pose changes physics, resources, damage or input.",
+  "allowed_processing": [
+    "measured whole-figure source rectangle crops",
+    "one fixed nearest-neighbor scale per source page",
+    "RGBA translation to shared pivot/foot baseline",
+    "runtime horizontal mirror"
+  ],
+  "forbidden_processing_used": false,
+  "model_and_token_pricing": "not exposed; no model/price invented",
+  "limitations": [
+    "Two generated keyframes per non-run state; not a full 16-region actor catalog.",
+    "First page assets direction independently viewed; complete runtime and user/physical-device animation acceptance remain separate.",
+    "Current component motion media recorded from HEAD a44b856e plus actual dirty source hashes; historical deployed F evidence is unchanged."
+  ]
+}

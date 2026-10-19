@@ -11,6 +11,8 @@ func show_map(stage: PlainsRegionStage) -> void:
 	close()
 	opened=true
 	_root=Control.new()
+	_root.theme=UnderworldUI.create_theme()
+	_root.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
 	_root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_root.mouse_filter=Control.MOUSE_FILTER_STOP
 	add_child(_root)
@@ -19,31 +21,33 @@ func show_map(stage: PlainsRegionStage) -> void:
 	shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_root.add_child(shade)
 	var rows:=VBoxContainer.new()
-	rows.position=Vector2(60,48)
-	rows.size=Vector2(1160,624)
+	rows.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	rows.offset_left=32;rows.offset_right=-32;rows.offset_top=28;rows.offset_bottom=-28
 	_root.add_child(rows)
 	var label:=Label.new()
 	label.text="PLAINS / MAP %s OF 2 / EXPLORATION MAP" % stage.map_index
-	label.add_theme_font_size_override("font_size",24)
+	label.add_theme_font_size_override("font_size",22)
 	rows.add_child(label)
 	var help:=Label.new()
 	help.text="Fog = not explored / drag to pan / wheel or pinch to zoom / M or Esc to close"
+	help.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
 	rows.add_child(help)
 	canvas=PlainsRegionMap.new()
 	canvas.name="ExplorationCanvas"
 	canvas.expanded=true
 	canvas.stage=stage
-	canvas.custom_minimum_size=Vector2(1160,480)
+	canvas.custom_minimum_size=Vector2(0,260)
 	canvas.size_flags_vertical=Control.SIZE_EXPAND_FILL
 	rows.add_child(canvas)
 	var controls:=HBoxContainer.new()
 	controls.alignment=BoxContainer.ALIGNMENT_CENTER
-	controls.add_theme_constant_override("separation",20)
+	controls.add_theme_constant_override("separation",12)
 	rows.add_child(controls)
 	for title: String in ["ZOOM -","ZOOM +","FIT MAP","FIND ME","CLOSE MAP"]:
 		var button:=Button.new()
 		button.text=title
-		button.custom_minimum_size=Vector2(160,44)
+		button.add_theme_font_size_override("font_size",14)
+		button.custom_minimum_size=Vector2(120,44)
 		controls.add_child(button)
 		if title=="ZOOM -": button.pressed.connect(func() -> void: canvas.zoom_at(1.0/1.3,canvas.player_anchor()))
 		elif title=="ZOOM +": button.pressed.connect(func() -> void: canvas.zoom_at(1.3,canvas.player_anchor()))

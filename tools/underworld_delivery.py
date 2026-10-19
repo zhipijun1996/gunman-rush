@@ -74,6 +74,38 @@ def check_parallax_hashes(console):
     return observed
 
 
+def underworld_script_consumers():
+    """Include the UI/Home/actor adapters outside the art script directory."""
+    paths = []
+    for path in sorted((ROOT / "scripts").rglob("*.gd")):
+        source = path.read_text()
+        if "underworld_plains" in path.parts or "Underworld" in source or "res://assets/underworld_plains/" in source:
+            paths.append(path)
+    return paths
+
+
+def check_imported_font(pack, name):
+    """A declared FontFile must have its actual matching cooked .fontdata."""
+    local_import = ROOT / (name + ".import")
+    if not local_import.is_file():
+        raise ValueError("Runtime font lacks its actual local import: " + name)
+    actual = pack.read(name + ".import").decode()
+    expected = local_import.read_text()
+    if 'type="FontFile"' not in actual:
+        raise ValueError("Runtime font import is not FontFile: " + name)
+    pattern = r'^path="res://([^"\n]+\.fontdata)"'
+    actual_target = re.search(pattern, actual, re.MULTILINE)
+    expected_target = re.search(pattern, expected, re.MULTILINE)
+    if not actual_target or not expected_target or actual_target.group(1) != expected_target.group(1):
+        raise ValueError("Runtime font import target differs from source import: " + name)
+    target = actual_target.group(1)
+    source_target = ROOT / target
+    if not source_target.is_file() or pack.read(target) != source_target.read_bytes():
+        raise ValueError("Runtime font cooked bytes differ from source import: " + name)
+    return {"path": name, "source_sha256": sha(ROOT / name), "imported_target": target,
+            "imported_sha256": sha(source_target), "imported_bytes": source_target.stat().st_size}
+
+
 def closure(args):
     from check_web_bundle import Pack, texture_import_targets
     from style_exploration_delivery import resource
@@ -94,7 +126,7 @@ def closure(args):
     if checksum[:12] != info["build_id"] or pack_path.stat().st_size != info["pack_bytes"]:
         raise ValueError("Bundle bytes differ from build ID/length")
     pack = Pack(pack_path)
-    checked = {"textures": [], "resources": [], "raw_metadata": []}
+    checked = {"textures": [], "resources": [], "raw_metadata": [], "fonts": []}
     checked["raw_png"] = check_raw_sources(pack)
     provenance_entries = [name for name in sorted(pack.entries)
                           if name.startswith("assets/underworld_plains/")
@@ -130,10 +162,28 @@ def closure(args):
                 name = path.relative_to(ROOT).as_posix()
                 resource(pack, name)
                 checked["resources"].append(name)
+    fonts = set()
+    for path in underworld_script_consumers():
+        name = path.relative_to(ROOT).as_posix()
+        if name not in checked["resources"]:
+            resource(pack, name)
+            checked["resources"].append(name)
+        fonts.update(re.findall(r'(?:preload|load)\(\s*"res://(assets/fonts/[^"\n]+\.(?:ttf|otf))"\s*\)', path.read_text()))
+    for name in sorted(fonts):
+        checked["fonts"].append(check_imported_font(pack, name))
+    components = {}
+    for group in ("player_animation", "mechanisms", "home", "ui"):
+        prefix = "assets/underworld_plains/" + group + "/"
+        components[group] = {
+            "textures": [item["path"] for item in checked["textures"] if item["path"].startswith(prefix)],
+            "json": [item["path"] for item in checked["raw_metadata"] if item["path"].startswith(prefix)],
+        }
+        if (ASSETS / group).is_dir() and (not components[group]["textures"] or not components[group]["json"]):
+            raise ValueError("New Underworld component has incomplete actual PNG/JSON export closure: " + group)
     return {"status": "passed", "scope": "actual frozen Underworld runtime PCK closure",
             "source_commit": args.source, "build_id": info["build_id"], "pack": info["pack"],
             "pack_bytes": pack_path.stat().st_size, "pack_sha256": checksum, "checked": checked,
-            "nonruntime_provenance_entries": provenance_entries}
+            "nonruntime_provenance_entries": provenance_entries, "components": components}
 
 
 def public_bytes(args):
@@ -232,33 +282,84 @@ async def browser(args):
                 raise ValueError("Actual canvas build badge differs")
             report["build_info"] = info
 
-        try:
-            await load(args.url)
-            path = await capture("00-ordinary-title")
-            words, text = ocr(path)
-            # Locate the actual first formal-entrance line, excluding the lab.
+        async def click_observed(words, pattern, action):
             rows = {}
             for row in words:
                 rows.setdefault(tuple(row[key] for key in ("block_num", "par_num", "line_num")), []).append(row)
             choices = []
             for line in rows.values():
                 label = " ".join(row["text"] for row in line).upper()
-                if "PLAINS" in label and "LAB" not in label and "WIND" in label:
-                    choices.append(line)
+                if re.search(pattern, label):
+                    choices.append((line, label))
             if len(choices) != 1:
-                raise ValueError("Formal title entry missing/ambiguous in actual pixels: " + text)
-            line = choices[0]
+                raise ValueError("Actual pointer label missing or ambiguous: " + action + ": " + str([label for _, label in choices]))
+            line, label = choices[0]
             left = min(int(row["left"]) for row in line)
             top = min(int(row["top"]) for row in line)
             right = max(int(row["left"]) + int(row["width"]) for row in line)
             bottom = max(int(row["top"]) + int(row["height"]) for row in line)
             await page.mouse.click((left + right) / 2, (top + bottom) / 2)
+            report.setdefault("pointer_observations", []).append({"action": action, "observed_text": label,
+                "original_pixel_bounds": [left, top, right, bottom]})
+
+        try:
+            await load(args.url)
+            path = await capture("00-ordinary-title")
+            words, text = ocr(path)
+            await click_observed(words, r"\bENTER\s+HOME\b", "ordinary title enters actual Home")
+            await page.wait_for_timeout(1200)
+            path = await capture("00a-home-world-entry")
+            _, text = ocr(path)
+            if "WINDCHIME HOME" not in text or "NOTES" not in text:
+                raise ValueError("Actual new Home world/HUD missing after title pointer: " + text)
+            report["checks"].append({"action": "ordinary title pointer enters actual Home settlement", "ocr": text})
+            for attempt in range(8):
+                await page.keyboard.down("KeyD")
+                await page.wait_for_timeout(80)
+                await page.keyboard.up("KeyD")
+                await page.wait_for_timeout(60)
+                path = await capture("00b-home-character-approach-" + str(attempt))
+                _, text = ocr(path)
+                if "WARDROBE" in text or "CHARACTER" in text:
+                    break
+            else:
+                raise ValueError("Bounded real Home movement never showed its character interaction prompt")
+            await page.keyboard.press("KeyW")
+            await page.wait_for_timeout(300)
+            path = await capture("00c-home-character-panel")
+            words, text = ocr(path)
+            if "WARDROBE" not in text or "KEEPER" not in text:
+                raise ValueError("Actual Home interaction did not open existing character panel: " + text)
+            await click_observed(words, r"\bBACK\s+TO\s+HOME\b", "close actual Home character panel")
+            await page.wait_for_timeout(300)
+            path = await capture("00d-home-panel-closed")
+            _, text = ocr(path)
+            if "WINDCHIME HOME" not in text:
+                raise ValueError("Actual Home panel close did not return to world HUD")
+            report["checks"].append({"action": "actual Home movement/W interaction and pointer close", "ocr": text,
+                                     "limit": "character selection remains declared development boundary; no purchase or new function granted"})
+            await load(args.url)
+            path = await capture("00e-ordinary-title-after-home")
+            words, text = ocr(path)
+            # The decorative title says WINDCHIME; the actual button explicitly
+            # says WIND CHIME. Retain that observed distinction in the new UI.
+            await click_observed(words, r"\bWIND\s+CHIME\s+PLAINS\b", "ordinary title enters formal map1")
             await page.wait_for_timeout(1600)
             spawn = await capture("01-map1-ordinary-spawn")
             _, text = ocr(spawn)
             if "WINDCHIME PLAINS" not in text or not re.search(r"\b1\s*/\s*2\b", text):
                 raise ValueError("Actual formal first map was not accepted: " + text)
             report["checks"].append({"action": "ordinary title mouse enters formal map1", "ocr": text})
+            await page.keyboard.down("Space")
+            await page.wait_for_timeout(90)
+            await capture("01a-map1-stationary-space-early")
+            await page.wait_for_timeout(110)
+            await capture("01b-map1-stationary-space-later")
+            await page.keyboard.up("Space")
+            await page.wait_for_timeout(900)
+            await capture("01c-map1-stationary-return")
+            report["checks"].append({"action": "stationary Space input dispatched before separate horizontal trial",
+                                     "limit": "original Actor/platform media independently reviewed; input dispatch alone is not accepted Motor evidence"})
             await page.keyboard.down("KeyD")
             await page.wait_for_timeout(400)
             await page.keyboard.down("Space")

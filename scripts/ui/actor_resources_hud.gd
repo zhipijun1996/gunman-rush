@@ -25,15 +25,15 @@ func bind(resources: ActorResources, focus: AirFocusAbility = null, actor: Playe
 	_actor = actor
 	if health_bar == null:
 		mouse_filter = Control.MOUSE_FILTER_IGNORE
-		health_bar = _make_bar(Vector2(22, 78), Color(0.82, 0.28, 0.32))
+		health_bar = _make_bar(Vector2(22, 78), UnderworldUI.HURT)
 		health_label = _make_label(Vector2(252, 73))
-		stamina_bar = _make_bar(Vector2(22, 95), Color(0.9, 0.68, 0.2))
+		stamina_bar = _make_bar(Vector2(22, 95), UnderworldUI.BRASS)
 		stamina_label = _make_label(Vector2(252, 90))
-		stamina_label.add_theme_font_override("font",preload("res://assets/fonts/windkeeper_ui.ttf"))
+		stamina_label.add_theme_font_override("font",UnderworldUI.FONT)
 		_shots_label = _make_label(Vector2(22, 111))
-		_shots_label.add_theme_font_override("font", preload("res://assets/fonts/windkeeper_ui.ttf"))
+		_shots_label.add_theme_font_override("font", UnderworldUI.FONT)
 	if combat_bar==null:
-		combat_bar=_make_bar(Vector2(22,133),Color(.55,.52,.92))
+		combat_bar=_make_bar(Vector2(22,133),UnderworldUI.COOL)
 		combat_label=_make_label(Vector2(252,128))
 		combat_label.add_theme_font_override("font",preload("res://assets/fonts/foundry_notes.otf"))
 	if is_instance_valid(_resources):
@@ -77,13 +77,13 @@ func _make_bar(location: Vector2, color: Color) -> ProgressBar:
 	bar.add_theme_font_size_override("font_size", 1)
 	bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	var background := StyleBoxFlat.new()
-	background.bg_color = Color("23382f")
-	background.border_color = Color("a58d5e")
+	background.bg_color = UnderworldUI.INK
+	background.border_color = UnderworldUI.BORDER
 	background.set_border_width_all(1)
-	background.set_corner_radius_all(3)
+	background.set_corner_radius_all(1)
 	var fill := StyleBoxFlat.new()
 	fill.bg_color = color
-	fill.set_corner_radius_all(3)
+	fill.set_corner_radius_all(1)
 	bar.add_theme_stylebox_override("background", background)
 	bar.add_theme_stylebox_override("fill", fill)
 	bar.custom_minimum_size = Vector2(220, 9)
@@ -98,7 +98,7 @@ func _make_label(location: Vector2) -> Label:
 	label.position = location
 	label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	label.add_theme_font_size_override("font_size", 14)
-	label.add_theme_color_override("font_color", Color("f5ecd4"))
+	label.add_theme_color_override("font_color", UnderworldUI.TEXT)
 	label.add_theme_color_override("font_shadow_color", Color(0.08, 0.12, 0.10, 0.9))
 	label.add_theme_constant_override("shadow_offset_x", 1)
 	label.add_theme_constant_override("shadow_offset_y", 1)

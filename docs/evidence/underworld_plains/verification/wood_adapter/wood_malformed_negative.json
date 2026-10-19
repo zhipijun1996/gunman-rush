@@ -1,0 +1,26 @@
+{
+  "argv": [
+    "bash",
+    "tools/godot.sh",
+    "--headless",
+    "--max-fps",
+    "60",
+    "--audio-driver",
+    "Dummy",
+    "--path",
+    ".",
+    "--script",
+    "tests/wood_platform_runner.gd",
+    "--",
+    "--missing-legacy-material",
+    "--unknown-default-renderer"
+  ],
+  "exit_code": 1,
+  "expected_nonzero": true,
+  "elapsed_seconds": 7.339058482999462,
+  "log": "build/underworld_plains/wood_malformed_negative.log",
+  "both_guards_counted_failures": true,
+  "completed_without_script_abort": true,
+  "positive_inventory_restored_byte_identical": true,
+  "negative_inventory": "build/underworld_plains/wood_malformed_negative_inventory.json"
+}

@@ -1,0 +1,44 @@
+{
+  "reviewer": "/root/production_review",
+  "scope": "Historical immutable evidence correction only; does not change old acceptance verdicts or approve current art",
+  "rows": [
+    {
+      "record": "docs/quality/records/TILE-MAP-PLAN-01.json",
+      "old_expected_sha256": "9553fcf20bc7175768811e84729da042ac256cd392bad84154452f0b35231780",
+      "snapshot_sha256": "9553fcf20bc7175768811e84729da042ac256cd392bad84154452f0b35231780",
+      "snapshot_equals_native_git_bytes": true,
+      "actual_git_blob": "a6267be00e79b2e12555ead8970fe01a67114952",
+      "record_changes": [
+        [
+          "/evidence/0/method",
+          "项目内规划文档",
+          "Original historical document bytes recovered from exact Git commit; immutable snapshot, original expected SHA256 unchanged"
+        ],
+        [
+          "/evidence/0/path",
+          "docs/tile_map_production_plan.md",
+          "docs/evidence/underworld_plains/historical_bindings/tile_map_production_plan_a39a56a8.txt"
+        ],
+        [
+          "/evidence/0/source_commit",
+          "4ee004dfda4debc27be07ea1d001fef3b32515b5",
+          "a39a56a85282ba86a642e8263cbbfc28cadc47e1"
+        ]
+      ]
+    },
+    {
+      "record": "docs/quality/asset_records/blob47_foundation_v1.json",
+      "old_expected_sha256": "5929927a7d9f0112f01ea0477c85c3d97a98a0f7a362831a17a3fe11f14869e5",
+      "snapshot_sha256": "5929927a7d9f0112f01ea0477c85c3d97a98a0f7a362831a17a3fe11f14869e5",
+      "snapshot_equals_native_git_bytes": true,
+      "actual_git_blob": "0e7ee76ffc9ecc4d2d25af313288d9742040580b",
+      "record_changes": [
+        [
+          "/associated_files/1/path",
+          "assets/manifest.json",
+          "docs/evidence/underworld_plains/historical_bindings/assets_manifest_222ee12f.json"
+        ]
+      ]
+    }
+  ]
+}

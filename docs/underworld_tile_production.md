@@ -20,7 +20,7 @@
 
 以单族代表块和组合黄金实景开始，检查长短平台、厚薄、内外角、孔洞、竖壁、相邻间隙、堆叠、单格、拼接顺序与不同模块分块。连接带先冻结；变化尽量在内部，顶面/端头有共同接口。技术覆盖不代签用户审美。
 
-当前复用有许可的 Underworld 原生 Tile 是合法生产路径，不强制对已合适的材质重抽图。森林树皮、工城金属等真实新材料需要独立母版和上述流程；不能只改岩石颜色称完成。
+16区的候选色域/材料/生态见[地域视觉分工](region_visual_identity.md)，不是统一蓝紫色。当前复用有许可的 Underworld 原生 Tile 是合法生产路径，不强制对已合适的材质重抽图。森林树皮、工城金属等真实新材料需要独立母版和上述流程；不能只改岩石颜色称完成。
 
 ## 用 Tile 做关卡：先占用与语义，再选择画片
 
@@ -42,7 +42,7 @@
 
 使用实际 `Camera2D.get_screen_center_position()`，包括镜头 smoothing、限位及偏移后的中心。背景的运动与角色移动、风摆不同；纯风动画不算相机视差。回执保存两个以上不同相机中心及每层原点，核对斜率；实际 GPU 动态序列看出层次才可声称视觉景深成立。
 
-覆盖验证：水平长距离、纵向井庭、回程、左右/上下限位、宽屏与竖屏。需要重复时使用实际可平铺图/边缘与确定的重复周期；透明部分露出天空是设计，但图片矩形边缘、黑条或重复硬接缝是失败。前景不能遮唯一落点、敌预告、玩家或 UI；必要时减密、移锚或改素材，不简单加雾掩盖。
+覆盖验证：水平长距离、纵向井庭、回程、左右/上下限位、宽屏与竖屏。请求窗口尺寸不等于实际viewport，回执必须记录actual viewport并断言PNG像素尺寸；本轮720×1280通过真实SubViewport取图验证。需要重复时使用实际可平铺图/边缘与确定的重复周期；透明部分露出天空是设计，但图片矩形边缘、黑条或重复硬接缝是失败。前景不能遮唯一落点、敌预告、玩家或 UI；必要时减密、移锚或改素材，不简单加雾掩盖。
 
 ## 装饰：有根、有空域、可撤销
 
@@ -54,7 +54,7 @@
 
 机器检查有根/keepout/独立 seed 声明及运行回执；真实遮挡看 GPU，AABB 候选不直接等于像素遮挡。验证移动/删除支撑和故意错误根锚能被拒绝。
 
-正式平原保留风车高地、溪谷井庭、断钟庭与修理营地四种空间身份。近处的风架、钟拱、修理棚按真实静态平台与根扇放置。溪谷没有满足净空的地面井架槽位，不能放松支撑检查：井架改为独立的远处局部构图，完整石基来自原图，低对比冷灰、位于玩法层后方，不带 standing_edge、不声称物理支撑，也不提供碰撞。`UnderworldLocalComposition`读取同一scenery manifest，拒绝前景、亮绿可踩边、功能keepout相交与实体遮挡超预算；这与grounded装饰是两种明确语义。实际地标截图、原bottom-center射线和缺支撑/冒充地标等反例一起记录。
+正式平原保留风车高地、溪谷井庭、断钟庭与修理营地四种空间身份。近处的风架、钟拱、修理棚按真实静态平台与根扇放置。基线黄金镜头的溪谷没有满足净空的地面井架槽位，不能放松支撑检查：井架改为独立的远处局部构图，完整石基来自原图，低对比冷灰、位于玩法层后方，不带 standing_edge、不声称物理支撑，也不提供碰撞。`UnderworldLocalComposition`读取同一scenery manifest，拒绝前景、亮绿可踩边、功能keepout相交与实体遮挡超预算；这与grounded装饰是两种明确语义。实际地标截图、原bottom-center射线和缺支撑/冒充地标等反例一起记录。其他种子有合法槽位时仍可放近处实体支撑井架，远井与近井可以并存；不得把基线无槽位外推到全区。E的20实际地图有77个grounded物件/77条真实StaticBody射线、17个合法近井与20个非物理远井。稀缺槽位先尝试有限的合理完整尺寸（修理棚120/96/80/64/56wu），保持全根与whole keepout；用同一真实20地图回归，不能仅固定黄金seed通过。
 
 ## 融合平台的伤害 Tile
 
@@ -63,6 +63,18 @@
 视觉与语义分离：同一个平台 Tile 家族有 safe/thorn 材质状态；伤害仍由原 hazard/Area、原碰撞接触和原 damage 服务处理，带明确 metadata/custom data 与消费路径。保持既有伤害量、无敌窗、生命周期、移动扫掠与基础碰撞，不为了融合把刺隐藏到安全地面或增加伤害宽度。坑内原 hazard 若没有支撑，先复用实际已有边/底的贴合表现，无法合理贴合就记录例外；不能凭空添 solid 救图。
 
 必测：安全→危险与危险→安全接缝、两端/转角、近边界内外接触、背面/下方接触、同帧/无敌窗、支撑/场景销毁、暂停与重进。无伤害控制反例与危险材质漂浮/额外基座反例均保留。视觉融合、真实伤害和正常速度可读性分别报告。
+
+## Skills分工
+
+五份Skills引用本流程并使用同一production manifest：
+
+- [art-director](../.agents/skills/art-director/SKILL.md)：许可、视觉锚点、真实图生、材料母版与Tile接口黄金。
+- [scene-composer](../.agents/skills/scene-composer/SKILL.md)：三层独立景深、实际相机运动、区域地标、装饰根基和遮挡。
+- [level-module-creator](../.agents/skills/level-module-creator/SKILL.md)：实体/薄台/移动语义、邻接halo、端口、危险表面与净空。
+- [region-generator](../.agents/skills/region-generator/SKILL.md)：模块组合、独立装饰seed、同源随机回归与16区材料差异。
+- [visual-director](../.agents/skills/visual-director/SKILL.md)：黄金→第二空间→整体合屏、不同作者审查、实际输出与未验范围。
+
+不在每份Skill复制一套不同参数；原物理、伤害、模块准入及G0–G5继续沿用现有权威来源。
 
 ## 可执行入口与完成边界
 
@@ -75,9 +87,24 @@ python3 tools/underworld_pipeline.py runtime --suite scenery
 python3 tools/underworld_pipeline.py runtime --suite hazards
 python3 tools/run_underworld_terrain_tests.py
 python3 tools/run_underworld_formal_terrain_tests.py
-python3 tools/harness.py --check underworld-pipeline --check underworld-terrain --check underworld-formal-terrain --check underworld-scenery --check underworld-hazards --check underworld-formal --release --jobs 1
+python3 tools/harness.py --check underworld-pipeline --check underworld-terrain --check underworld-formal-terrain --check underworld-scenery --check underworld-hazards --check underworld-formal --check underworld-raw-export --release --jobs 1
 ```
 
 源码许可/复建、CPU 几何、真实运行、GPU 静态、动态读图、用户选择、实体设备各有自己的证据。测试、层数、Hash 或截图数量不能代签商业品质。失败保存原件后修对应工序；缺用户/设备继续保留 review/awaiting-device，不反复请求已授权的技术修改。
 
 `underworld-formal`补充默认玩家/敌人/商人/奖励/拾取与两图重载、暂停等真实消费者；图生身体为状态驱动pose/叠层，不冒称完整手绘动作帧。原始alpha1尾部可污染bbox，本轮以alpha>8定位主体再保留内部RGBA裁切，配方明确记录。背景源SHA只在资源加载时缓存，不能在每帧读取并哈希整幅PNG；本轮实际12.108ms/update性能缺陷及无像素变化修复均保留。
+
+导出须区分两条消费链：Texture2D经ResourceLoader读取导入ctex；FileAccess.get_sha256读取原始PNG。Godot的include_filter列PNG不保证原始字节可读。本轮E包画面/ctex正确而三层原图SHA为空，原失败保留；修复复用既有`addons/runtime_raw_export/raw_exporter.gd`，从三个preset明确登记7个实际源PNG，按原production manifest/SHA绑定后`add_file(...,false)`，保留正常纹理导入。新`underworld-raw-export`验证旧规则和错SHA/缺binding/排除冲突/alias/wildcard/缺raw/篡改字节/空Web三层hash反例，真实包还要逐原始字节及导入纹理闭包核对；不能仅看本地源存在或编辑器通过。
+
+
+## 六项试玩反馈后的共享表现合同
+
+人物、商人和家园人形NPC共用 `UnderworldActors.HUMANOID_HEIGHT`，比较实际非透明身体高度，不能把带留白画布当身高。玩家以实际Motor法向速度与最后移动方向驱动身体，左右跑动独立可读；武器与枪口继续由原CourierVisual负责。真实生成关键帧、完整原图、失败的等格假设及明确裁切配方保留在 `player_animation/`，不把平移同一姿势称为新动作。
+
+移动平台与门/支撑消费 `mechanisms/mechanisms_build.json` 的同族材料；端头、长边与厚度分别平铺，保留真实碰撞和携带。绘制命令引用的Texture2D必须由绘制消费者持续持有：函数内临时load可能在GPU执行前释放RID，实际造成整块纯白；无脚本错误也不能代替像素检查。所有功能铃复用同一图和accepted事件反馈，不以装饰风铃冒充功能机关。
+
+家园使用同族Tile、三层真实景深和完整房屋物件。先保留真实四项功能ID/锚点，再布置有根房屋、统一身高的NPC与明确预留位置；预留不发假业务请求、不授予资源。远处标签简短、低对比且有显示范围，详情只在近处显示；文字样式只在近远状态变化时更新，不能每帧重建字体布局。
+
+UI使用共享原生Theme/StyleBox、来自已核许可Tile的九宫边框，以及有真实来源的物品图。窗口、按钮、disabled/focus、取消/重开、HUD、地图、触屏与窄屏都走原控制器；换肤不能重写交易、奖励和导航。中文字体必须实际包含所用glyph或显式打包fallback，不能依赖开发机系统字体。表现层不缓存含有业务owner的Callable/Resource循环引用；卸载检查保留严格资源守门。
+
+新增Harness检查 `underworld-player-animation`、`underworld-mechanisms`、`underworld-home`、`underworld-ui` 与原七项共存。它们分别测试真实左右动作与生命周期、弹丸触发/平台携带、家园真实往返/预留语义、实际鼠标/触屏/应用UI路径。各自连续画面、正式场景合屏和网页仍需独立验证，数值通过不等于用户审美认可。

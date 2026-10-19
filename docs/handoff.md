@@ -1,3 +1,31 @@
+# 最新：Underworld六项试玩反馈返工中
+
+任务UNDERWORLD-PLAINS-01继续，未合main。用户要求补足真实角色动作及向左走、统一移动平台/功能风铃、商人与玩家同尺度，重做同族可走家园并预留NPC功能位置，以及整套UI/菜单适配。当前工作区未冻结；下文F build4b01de439c24是返工前对照，不能称已包含这六项修复。
+
+[本轮具体范围](evidence/underworld_plains/revision2/spec.md)、[用户原话](evidence/underworld_plains/revision2/user_feedback_F.txt)。原F媒体/质量记录、完整检查失败/原命令复测均保留；新玩家多帧、Home/UI与机关须新版本实际验证，不沿用F有限ACCEPT。正式碰撞/物理/资源/RNG/保存不改，Home空间按新授权重设计，未来地区仍未开放。
+
+以下是返工前版本与历史记录。
+
+---
+
+# Underworld正式平原交接
+
+任务 `UNDERWORLD-PLAINS-01` 保持review。分支 `feature/underworld-plains-production`，开发基线8382a41；准确运行源 `a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2`、Web build `4b01de439c24`。[直接试玩](https://zhipijun1996.github.io/gunman-rush/?plains=1&v=4b01de439c24)，Pages run39248153645/1成功、完整公开PCK132559084bytes/SHA与本地一致，12许可及3层原图非空SHA逐条通过；未合main。后续文档提交不冒称重导出。
+
+普通风铃平原正式两图已整体接Underworld：真实TileMap内部格与同源精确并集边界，三张独立三速景层，角色/敌人/Boss/交互物，四空间地标与独立seed装饰。荆棘根嵌平台表层8wu，四向/端头衔接，原碰撞/伤害/物理/玩法RNG/保存未改。10seed×2map实际40374/0与身份20cases21127/0；原E八路线59/0、10真实反例+12证据损坏均按原门槛拒绝，E→F947既有消费者字节一致、另新增一个导出测试，不把E路线重标F。
+
+[生产报告](underworld_plains_report.md)、[可执行Tile流程与5 Skills分工](underworld_tile_production.md)、[证据目录](evidence/underworld_plains/README.md)。7项Underworld fresh全过；完整76项前30通过后的旧wood consumer空引用保留，测试按真实default/显式legacy replay适配，原headless4533/0与GPU4546/0，完整复试见报告。F静态定位、旧C动态、E本地落地与F浏览器原地起跳回台分别标源；完整Boss阶段/连续听音、目标实体设备/性能与最终用户审美未签。
+
+原D4/20棚缺失REJECT、E PNG未导出导致空SHA、F map2一次退出资源警告、历史稀疏证据与旧超时均保留。棚增加合法完整64/56wu尺寸且原支撑/keepout不放宽；原PNG由既有export插件明确7路径+真实SHA保留，33ctex正常导入；map2原fixture唯一verbose复采干净。两个旧mutable证据绑定从确切Git版本恢复命中原expected SHA的不可变原件，旧验收未改。
+
+16区共用画法/光向/接口，各自产材料、色域、生态、地标。下一步森林先树皮/根皮/藤蔓真实家族，工城先金属/铆接/齿轮真实家族，按代表Tile→组合黄金→随机→正式消费者准入；本轮未正式开放森林/工城，不把岩石改色等同新地区。
+
+复验：`python3 tools/harness.py --check underworld-pipeline --check underworld-terrain --check underworld-formal-terrain --check underworld-scenery --check underworld-hazards --check underworld-formal --check underworld-raw-export --release --jobs 1`；完整 `python3 tools/harness.py --profile docs --profile art --profile gameplay --profile web --release --jobs 1`。原场景实际路线 `python3 tools/run_plains_redesign_scene_tests.py` 保持180秒与原断言。
+
+以下历史不覆盖本段。
+
+---
+
 # 五风格三地区实验交接
 
 分支 `feature/windchime-five-style-lab`；基线 `2f25083da11da11604a3535a2feae20d119ac001`；运行源 `32200d04fe233bda16cf50f678aabee51a9715e5`、build `d2d469f81582`。公开试玩 https://zhipijun1996.github.io/gunman-rush/?styles=1&v=d2d469f81582 ，部署run39229024220/attempt1成功，不合main。后续纯证据提交不更换运行源标签。

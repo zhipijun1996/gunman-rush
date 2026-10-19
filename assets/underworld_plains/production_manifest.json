@@ -7,9 +7,38 @@
   "hazards_manifest": "assets/underworld_plains/hazards/hazard_build.json",
   "actors_manifest": "assets/underworld_plains/actors/actors_build.json",
   "constraints": [
-    "original collision/physics/RNG/save unchanged",
+    "formal Plains collision, shared physics, RNG and save unchanged; Home settlement bounds redesigned within explicit user scope",
     "16 regional identities share style, never one palette",
     "hazards use same rooted terrain material, semantic damage independent"
   ],
-  "runtime_entry": "scripts/demo/plains_region_stage.gd"
+  "runtime_entry": "scripts/demo/plains_region_stage.gd",
+  "player_animation_manifest": "assets/underworld_plains/player_animation/animation_build.json",
+  "mechanisms_manifest": "assets/underworld_plains/mechanisms/mechanisms_build.json",
+  "home_manifest": "assets/underworld_plains/home/home_build.json",
+  "ui_manifest": "assets/underworld_plains/ui/ui_build.json",
+  "runtime_entries": [
+    "scripts/demo/plains_region_stage.gd",
+    "scripts/demo/home_scene.gd",
+    "scripts/ui/demo_menu.gd",
+    "scripts/demo/demo_app.gd"
+  ],
+  "consumers": {
+    "player_animation": [
+      "scripts/underworld_plains/underworld_player.gd"
+    ],
+    "mechanisms": [
+      "scripts/generation/module_moving_platform.gd",
+      "scripts/world/shot_latch.gd",
+      "scripts/underworld_plains/underworld_terrain.gd"
+    ],
+    "home": [
+      "scripts/demo/home_scene.gd",
+      "scripts/underworld_plains/underworld_home_world.gd"
+    ],
+    "ui": [
+      "scripts/ui/underworld_ui.gd",
+      "scripts/ui/demo_menu.gd",
+      "scripts/demo/demo_app.gd"
+    ]
+  }
 }

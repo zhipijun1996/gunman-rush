@@ -1,5 +1,7 @@
 # Underworld正式平原景层与装饰
 
+当前运行源为E `86535886c5b86e95bea094d7e92e57354be3d76e`。完整原图/日志/回执/精确源绑定见[source_e](source_e/README.md)，两map×4身份实机图和原坏seed0完整56wu小棚已重采；20个真实消费者21127检查/0失败。D `14e81362fcc33995bf6929ee13e83cf973d483e0` 的实机与源绑定原件保留[source_d](source_d/source_binding.json)，其后独审发现四个seed缺修理棚的失败不被E追认。四身份最初返工过程见[记录](identity_rework/README.md)。下文`final/`和420/450保留为此前C景层基线，不冒E整游戏验收。
+
 任务 `UNDERWORLD-PLAINS-01`。本目录是实际景层组件与正式地图定位检查，不代签整区美术、自然通关、实体设备或商业品质。
 
 三个独立原PNG由3次真实 `image_gen.imagegen` 调用产生，参考已选Asouris Underworld原始TileSet；原图、完整prompt、参考/source/消费图SHA与处理步骤位于 `assets/underworld_plains/backgrounds/*_generation.json`。原图和消费图字节相同，没有把同图裁成三层。远景是蓝色黄昏天空和低丘，中景是透明天空的钟塔/风弯树，近背景是透明天空的低草坡/旧木风架。中/近原图分别82.18%/82.41%严格alpha零；模型、token与价格未暴露。Asouris自定义宽泛使用许可不是CC0，出版方文本保留于实验source/licenses。

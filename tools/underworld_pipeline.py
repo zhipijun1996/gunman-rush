@@ -31,9 +31,11 @@ def canonical_mask(mask: int) -> int:
 
 
 class Audit:
-    def __init__(self, root: Path, json_overrides: dict | None = None):
+    def __init__(self, root: Path, json_overrides: dict | None = None, text_overrides: dict | None = None):
         self.root = root.resolve()
         self.json_overrides = json_overrides or {}
+        self.text_overrides = text_overrides or {}
+        self.runtime_text: dict[str, str] = {}
         self.image_cache: dict[str, Image.Image] = {}
         self.checks: list[dict] = []
         self.measurements: dict = {'files': {}}
@@ -88,11 +90,23 @@ class Audit:
                 self.check(False, code + '.decode', str(exc))
         return {}
 
+    def script(self, value, code):
+        path = self.path(value, code)
+        if path is None:
+            return ''
+        rel = str(path.relative_to(self.root))
+        try:
+            return self.text_overrides.get(rel, path.read_text())
+        except (OSError, UnicodeError) as exc:
+            self.check(False, code + '.decode', str(exc))
+            return ''
+
     def consumption(self, fragment_path, consumer, code):
         consumers = consumer if isinstance(consumer, list) else [consumer]
-        scripts = [self.path(value, code + '.consumer') for value in consumers]
+        texts = [self.script(value, code + '.consumer') for value in consumers]
+        self.runtime_text[code] = '\n'.join(texts)
         raw = fragment_path.get('path') if isinstance(fragment_path, dict) else fragment_path
-        matched = isinstance(raw, str) and any(script and Path(raw).name in script.read_text() and 'JSON.parse_string' in script.read_text() and 'FileAccess.get_file_as_string' in script.read_text() for script in scripts)
+        matched = isinstance(raw, str) and any(Path(raw).name in text and 'JSON.parse_string' in text and 'FileAccess.get_file_as_string' in text for text in texts)
         self.check(matched, code + '.read_by_runtime', str(raw))
 
     def result(self):
@@ -338,23 +352,267 @@ def audit_hazards(a: Audit, hazards: dict):
     a.check(bool(connection.get('material_family')), 'hazards.material_family', str(connection.get('material_family')))
 
 
-def audit(root: Path = ROOT, manifest_path: str = DEFAULT_MANIFEST, overrides: dict | None = None, json_overrides: dict | None = None) -> dict:
-    a = Audit(root, json_overrides=json_overrides)
+def bounded_region(a: Audit, image, rect, code):
+    legal = image is not None and isinstance(rect, list) and len(rect) == 4 and all(isinstance(v, int) for v in rect) and 0 <= rect[0] < rect[0]+rect[2] <= image.width and 0 <= rect[1] < rect[1]+rect[3] <= image.height
+    a.check(legal, code, 'Actual x/y/width/height is inside the consumed PNG')
+    return legal
+
+
+def fragment_folder(a: Audit, fragment: dict, key: str):
+    path = a.path(fragment.get(key), key + '.relative_base')
+    return path.parent.relative_to(a.root) if path else Path('assets/underworld_plains')
+
+
+def audit_player_animation(a: Audit, player: dict):
+    prefix = 'player'
+    a.check(player.get('schema') == 'underworld-player-animation-v1', prefix+'.schema', 'Real cached body-keyframe manifest')
+    recipe = a.json(player.get('recipe'), prefix+'.recipe')
+    folder = fragment_folder(a, player, 'recipe')
+    summary = a.json(str(folder/'generation_summary.json'), prefix+'.generation')
+    reference = a.hashed({'path':summary.get('reference'), 'sha256':summary.get('reference_sha256')}, prefix+'.reference')
+    a.check(bool(reference) and str(player.get('reference', '')).removeprefix('res://') == summary.get('reference'), prefix+'.reference_lineage', 'Runtime reference agrees with actual generation ancestry')
+    calls = summary.get('calls', [])
+    a.check(isinstance(calls,list) and len(calls) == summary.get('generation_calls') and len(calls) > 0, prefix+'.actual_calls', 'Actual preserved generation calls, not templates')
+    for i, call in enumerate(calls if isinstance(calls,list) else []):
+        audit_generation(a, str(folder/call), prefix+f'.call.{i}')
+    canvas, anchor = player.get('canvas'), player.get('anchor')
+    valid_canvas = isinstance(canvas,list) and len(canvas)==2 and all(isinstance(v,int) and v>0 for v in canvas)
+    valid_anchor = valid_canvas and isinstance(anchor,list) and len(anchor)==2 and all(isinstance(v,(int,float)) for v in anchor) and 0<anchor[0]<canvas[0] and 0<anchor[1]<canvas[1]
+    a.check(valid_canvas, prefix+'.canvas', str(canvas)); a.check(valid_anchor, prefix+'.anchor', str(anchor))
+    a.check(canvas == recipe.get('canvas') and anchor == recipe.get('anchor'), prefix+'.recipe_anchor', 'Runtime and source packing share the actual pivot')
+    states = {'idle','run','rise','fall','land','hurt','death'}
+    clips = player.get('animations', {})
+    a.check(set(clips)==states, prefix+'.states', 'Real seven-state body set, independent from weapon')
+    for state in states:
+        clip = clips.get(state,{})
+        a.check(isinstance(clip.get('fps'),(int,float)) and clip.get('fps',0)>0 and isinstance(clip.get('loop'),bool), prefix+'.clip.'+state, 'Positive playback rate and explicit loop')
+    a.check(clips.get('run',{}).get('loop') is True and clips.get('death',{}).get('loop') is False, prefix+'.loop_semantics', 'Running loops; terminal death holds final pose')
+    frames = player.get('frames', [])
+    a.check(isinstance(frames,list) and len(frames)==player.get('generated_keyframes') and len(frames)>=20, prefix+'.frame_count', 'Actual required body frames, not a bobbed single sprite')
+    actual_ids, state_hashes = {}, {}
+    atlas_images = {}
+    idle_heights = []
+    for i, frame in enumerate(frames if isinstance(frames,list) else []):
+        code = prefix+f'.frame.{i}'
+        atlas = str(frame.get('atlas',''))
+        if atlas not in atlas_images: atlas_images[atlas] = a.image(str(folder/atlas), prefix+'.atlas.'+atlas)
+        image = atlas_images[atlas]
+        rect = frame.get('rect')
+        if not bounded_region(a,image,rect,code+'.bounds'): continue
+        x,y,w,h = rect
+        pixels = image.crop((x,y,x+w,y+h))
+        frame_hash = hashlib.sha256(pixels.tobytes()).hexdigest()
+        a.check(frame_hash==frame.get('pixel_sha256'),code+'.pixel_sha256','Hash covers actual runtime body RGBA, not a label')
+        a.check(valid_canvas and [w,h]==canvas and frame.get('anchor')==anchor, code+'.shared_canvas', 'Every frame uses one declared padded body canvas/pivot')
+        bbox = pixels.getchannel('A').point(lambda v:255 if v>=128 else 0).getbbox()
+        a.check(bbox is not None and list(bbox)==frame.get('opaque_bounds'), code+'.opaque_bounds','Actual alpha128 bounds')
+        a.check(bbox is not None and 0<bbox[0]<bbox[2]<w and 0<bbox[1]<bbox[3]<h, code+'.complete_body','No opaque body touches cell crop boundary')
+        state = frame.get('state')
+        actual_ids.setdefault(state,[]).append(frame.get('index'))
+        state_hashes.setdefault(state,set()).add(frame_hash)
+        if state=='idle' and bbox: idle_heights.append(bbox[3]-bbox[1])
+    a.check(set(actual_ids)==states and all(sorted(actual_ids.get(s,[]))==list(range(len(actual_ids.get(s,[])))) for s in states), prefix+'.contiguous_frames','Every real state has unique contiguous indices')
+    a.check(len(actual_ids.get('run',[]))>=8 and len(state_hashes.get('run',set()))>=8, prefix+'.real_run_cycle','Eight distinct source RGBA bodies in the actual run cycle')
+    a.check(all(len(state_hashes.get(state,set()))>=2 for state in states-{'run'}), prefix+'.distinct_other_poses','Each required non-run state contains real distinct source poses')
+    a.check(bool(idle_heights) and all(h==player.get('standing_body_source_height') for h in idle_heights), prefix+'.standing_opaque_height','Shared44wu maps actual standing opaque height, not padded canvas height')
+    expected_atlases = {}
+    expected_frame_count = 0
+    for i,page in enumerate(recipe.get('pages',[])):
+        code=prefix+f'.page.{i}'
+        source_path = a.hashed({'path':str(folder/str(page.get('source',''))),'sha256':page.get('source_sha256')},code+'.source')
+        source = a.image(str(folder/str(page.get('source',''))),code+'.source_image')
+        raw_hashes = summary.get('raw_hashes',{})
+        a.check(source_path is not None and raw_hashes.get(page.get('source'))==digest(source_path),code+'.generation_source_hash','Generation summary and recipe identify same preserved original')
+        scale = page.get('nearest_scale')
+        grid = page.get('grid',[])
+        legal_grid = isinstance(grid,list) and len(grid)==2 and all(isinstance(v,int) and v>0 for v in grid)
+        a.check(legal_grid and isinstance(scale,(int,float)) and scale>0,code+'.packing_scale','Declared native packing only')
+        if not source or not valid_canvas or not legal_grid or not isinstance(scale,(int,float)) or scale<=0:continue
+        cols,rows=grid
+        target=Image.new('RGBA',(canvas[0]*cols,canvas[1]*rows))
+        for j,frame in enumerate(page.get('frames',[])):
+            c,r=j%cols,j//cols
+            box=frame.get('source_rect',[round(c*source.width/cols),round(r*source.height/rows),round((c+1)*source.width/cols),round((r+1)*source.height/rows)])
+            valid_box=isinstance(box,list) and len(box)==4 and all(isinstance(v,int) for v in box) and 0<=box[0]<box[2]<=source.width and 0<=box[1]<box[3]<=source.height
+            a.check(valid_box,code+f'.source_crop.{j}','Complete measured original-source rectangle')
+            if not valid_box:continue
+            raw=source.crop(tuple(box));resized=raw.resize((round(raw.width*scale),round(raw.height*scale)),Image.Resampling.NEAREST)
+            dx=round(anchor[0]-frame['pivot_x']*scale);dy=round(anchor[1]-frame['baseline_y']*scale)
+            if 'foot_anchor_y' in frame:
+                bbox=resized.getchannel('A').point(lambda v:255 if v>=128 else 0).getbbox()
+                if bbox:dy=int(frame['foot_anchor_y'])-bbox[3]
+            body=Image.new('RGBA',tuple(canvas));body.paste(resized,(dx,dy));target.paste(body,(c*canvas[0],r*canvas[1]));expected_frame_count+=1
+        expected_atlases[page.get('output')]=target
+    for atlas,target in expected_atlases.items():
+        actual=atlas_images.get(atlas)
+        a.check(actual is not None and actual.size==target.size and actual.tobytes()==target.tobytes(),prefix+'.source_reconstruction.'+str(atlas),'Runtime body sheet exactly replays actual source crop/nearest/translation recipe')
+    a.check(expected_frame_count==len(frames) and set(expected_atlases)==set(atlas_images),prefix+'.all_sources_consumed','Every source pose reaches exactly the declared runtime sheets')
+    text=a.runtime_text.get('player_animation','')
+    a.check(bool(re.search(r'Vector2\(\s*facing\s*,\s*1(?:\.0)?\s*\)',text)),prefix+'.left_mirror','Actual renderer mirrors about body pivot; separate Motor GPU proof required')
+    a.check('facing = signf(motor.normal_velocity.x)' in text and 'controller.router.sample_axes()' in text and 'aim_direction.x' not in text,prefix+'.move_facing','Actual movement-facing code is independent of mouse aim')
+    a.check('UnderworldActors.HUMANOID_HEIGHT' in text and '_build.standing_body_source_height' in text,prefix+'.shared_height','Actual standard body height consumer')
+    a.check('anchor.visible_muzzle_position()' in text and 'frame.rect' in text and '_build.frames' in text,prefix+'.real_frame_and_muzzle_consumer','Real body rectangle plus original weapon anchor')
+    a.measurements['player_animation']={'source_calls':len(calls),'body_frames':len(frames),'distinct_run_pixels':len(state_hashes.get('run',set())),'states':sorted(actual_ids),'scope':'Source/frame assembly; not full-speed aesthetic approval'}
+
+
+def audit_mechanisms(a: Audit, spec: dict):
+    a.check(spec.get('schema')=='underworld-mechanisms-v1','mechanisms.schema','Actual carrier/bell material manifest')
+    carrier=spec.get('carrier',{})
+    source_path=a.hashed({'path':carrier.get('source'),'sha256':carrier.get('source_sha256')},'mechanisms.carrier.source')
+    source=a.image(carrier.get('source'),'mechanisms.carrier.source_image')
+    output=a.image({'path':carrier.get('texture'),'sha256':carrier.get('sha256')},'mechanisms.carrier.image')
+    record=audit_generation(a,spec.get('generation_record'),'mechanisms.generation')
+    a.check(record.get('raw_output')==carrier.get('source'),'mechanisms.generated_source','Actual generated slab is the consumed crop ancestor')
+    if source and output:
+        bbox=record.get('measured_alpha128_bbox_px',[])
+        valid=isinstance(bbox,list) and len(bbox)==4 and 0<=bbox[0]<bbox[2]<=source.width and 0<=bbox[1]<bbox[3]<=source.height
+        a.check(valid,'mechanisms.carrier.crop_bounds','Original slab measured source crop')
+        size=carrier.get('size_px')
+        a.check(list(output.size)==size,'mechanisms.carrier.size','Runtime declared source size')
+        if valid:
+            raw=source.crop(tuple(bbox))
+            expected=raw.resize(output.size,Image.Resampling.NEAREST)
+            a.check(expected.tobytes()==output.tobytes(),'mechanisms.carrier.source_reconstruction','Original crop/nearest only, no procedural replacement')
+            expected_height=round(raw.height*output.width/raw.width)
+            a.check(output.height==expected_height,'mechanisms.carrier.native_aspect','Source slab aspect preserved to nearest whole-pixel height')
+        if isinstance(size,list) and len(size)==2:
+            a.check(all(isinstance(carrier.get(k),(int,float)) and carrier[k]>0 for k in ['pixel_world_scale','left_px','right_px','top_px','bottom_px','middle_width_px']),'mechanisms.carrier.patch_values','Positive patch values, no added collider')
+            a.check(carrier.get('left_px',0)+carrier.get('right_px',0)<=size[0] and carrier.get('top_px',0)+carrier.get('bottom_px',0)<size[1] and 0<=carrier.get('middle_x_px',-1)<carrier.get('middle_x_px',0)+carrier.get('middle_width_px',0)<=size[0],'mechanisms.carrier.patch_bounds','Caps/middle source rectangles are bounded')
+    bell=spec.get('bell',{})
+    bell_image=a.image({'path':bell.get('texture'),'sha256':bell.get('sha256')},'mechanisms.bell.image')
+    a.path(bell.get('provenance'),'mechanisms.bell.provenance')
+    bounds=bell.get('visual_bound_wu',[])
+    a.check(isinstance(bounds,list) and len(bounds)==2 and all(isinstance(v,(int,float)) and v>0 for v in bounds),'mechanisms.bell.bounds','Existing collision-bound icon fit has positive extent')
+    a.check(bell.get('sampling')=='uniform fit preserving source aspect','mechanisms.bell.aspect','No independently stretched bell axes')
+    a.check(spec.get('physics_mutation') is False,'mechanisms.physics_unchanged','Presentation does not install or alter collision bodies')
+    text=a.runtime_text.get('mechanisms','')
+    a.check('source * minf(' in text and 'source.x' in text and 'source.y' in text,'mechanisms.runtime_bell_aspect','Real consumer uniformly fits original bell')
+    a.check('moving_patch_plan(rect)' in text and 'mechanism_specification().carrier' in text and 'draw_texture_rect_region(texture,part.target,part.source)' in text,'mechanisms.runtime_patch_consumer','Actual carrier uses repeated source cap/body patches')
+
+
+def audit_home(a: Audit, home: dict):
+    a.check(home.get('schema')=='underworld-home-v1','home.schema','Actual Home world manifest')
+    record=audit_generation(a,home.get('source_record'),'home.generation')
+    source=a.hashed({'path':record.get('source'),'sha256':record.get('source_sha256')},'home.generation.raw_source')
+    runtime=a.path(record.get('image'),'home.generation.image')
+    a.check(source is not None and runtime is not None and digest(source)==digest(runtime),'home.unpainted_original','Home runtime atlas is byte-identical generated source')
+    records={entry.get('id'):entry for entry in record.get('regions',[])}
+    assets=home.get('assets',{})
+    required={'wardrobe','workshop','archive','tailor','artisan','archivist'}
+    a.check(required<=set(assets) and required==set(records),'home.generated_roles','Three complete buildings and three actual keepers')
+    for name,entry in assets.items():
+        code='home.asset.'+name
+        image=a.image(entry.get('image'),code+'.image')
+        rect=entry.get('region',[])
+        if not bounded_region(a,image,rect,code+'.bounds'):continue
+        foot=entry.get('foot',[])
+        valid=isinstance(foot,list) and len(foot)==2 and all(isinstance(v,(int,float)) for v in foot) and 0<=foot[0]<=rect[2] and 0<=foot[1]<=rect[3]
+        a.check(valid,code+'.foot_bounds',str(foot))
+        x,y,w,h=rect;alpha=image.crop((x,y,x+w,y+h)).getchannel('A');bbox=alpha.point(lambda v:255 if v>=128 else 0).getbbox()
+        a.check(valid and bbox is not None and foot[1]==bbox[3],code+'.actual_opaque_foot','Actual native foot, no padded-box floor anchor')
+        if name in required:
+            a.check(all(entry.get(key)==records.get(name,{}).get(key) for key in ['image','region','foot','opaque_height']),code+'.generation_recipe','Actual generated-source whole-object crop is shared by runtime')
+            a.check(bbox is not None and entry.get('opaque_height')==bbox[3]-bbox[1],code+'.opaque_height','NPC/building scale measures actual visible body')
+    slots=home.get('slots',[])
+    ids=[slot.get('id') for slot in slots]
+    a.check(len(ids)>=12 and len(set(ids))==len(ids),'home.unique_slots','Four current services plus eight physically reserved future plots')
+    active={slot.get('id') for slot in slots if slot.get('active') is True}
+    a.check(active=={'character','upgrade','achievements','departure'},'home.active_services','Reserved future plots do not become invented active services')
+    width=home.get('world_width')
+    a.check(isinstance(width,(int,float)) and width>0 and all(isinstance(slot.get('x'),(int,float)) and 0<slot['x']<width for slot in slots),'home.slot_bounds','All service plots occupy actual Home world extent')
+    for slot in slots:
+        a.check(slot.get('building') in assets and (not slot.get('keeper') or slot.get('keeper') in assets),'home.slot.'+str(slot.get('id'))+'.source','Real building and optional keeper asset')
+    a.check(home.get('safe_noncombat_settlement') is True and home.get('player_height_source')=='UnderworldActors.HUMANOID_HEIGHT','home.safe_shared_height','Safe Home shares real actor scale')
+    text=a.runtime_text.get('home','')
+    a.check('sprite.scale=Vector2.ONE*factor' in text and 'UnderworldActors.HUMANOID_HEIGHT' in text,'home.runtime_uniform_aspect','Actual world consumer preserves source aspect and shared humanoid scale')
+    a.check('specification.assets' in text and 'specification.slots' in text and 'sprite.position=root-Vector2(foot[0],foot[1])*factor' in text,'home.actual_asset_slots','Actual world builds source foot-anchored slots')
+    a.measurements['home']={'slots':len(slots),'active_services':sorted(active),'world_width':width,'generated_objects':len(records)}
+
+
+def audit_ui(a: Audit, ui: dict):
+    a.check(ui.get('schema_version')==1,'ui.schema','Actual Godot theme/source-region manifest')
+    a.check('Native Godot Theme' in ui.get('method',''),'ui.native_theme_disclosure','Native layout is not falsely credited as generated illustration')
+    panel=ui.get('panel',{})
+    panel_image=a.image(panel.get('texture'),'ui.panel.source')
+    licensed=a.path('assets/style_exploration/underworld/source/TileSet.png','ui.panel.licensed_source')
+    actual_panel=a.path(panel.get('texture'),'ui.panel.actual_source')
+    a.check(licensed is not None and actual_panel is not None and digest(licensed)==digest(actual_panel),'ui.panel.native_reference','Panel source is the byte-identical licensed Underworld tile sheet, not an unrelated PNG with a permission label')
+    rect=panel.get('region',[])
+    if bounded_region(a,panel_image,rect,'ui.panel.bounds'):
+        margin=panel.get('slice_margin')
+        a.check(isinstance(margin,(int,float)) and 0<margin<min(rect[2:])/2,'ui.panel.slice_margin','Actual nine-patch corners fit original region')
+    a.check('custom publisher' in panel.get('source_license',''),'ui.panel.custom_license','Reference tile UI border retains custom permission disclosure')
+    icons=a.json(ui.get('icons'),'ui.icons')
+    icon_path=a.path(ui.get('icons'),'ui.icons.relative_base')
+    folder=icon_path.parent.relative_to(a.root) if icon_path else Path('assets/underworld_plains/ui')
+    record=audit_generation(a,str(folder/'provenance.json'),'ui.generation')
+    original=a.hashed({'path':record.get('original'),'sha256':record.get('original_sha256')},'ui.generated_original')
+    runtime=a.hashed({'path':record.get('runtime_image'),'sha256':record.get('runtime_image_sha256')},'ui.generated_runtime')
+    a.hashed({'path':record.get('reference'),'sha256':record.get('reference_sha256')},'ui.generated_reference')
+    a.check(original is not None and runtime is not None and digest(original)==digest(runtime),'ui.unpainted_original','Generated UI atlas bytes unchanged')
+    atlas=a.image({'path':icons.get('atlas'),'sha256':icons.get('sha256')},'ui.icons.atlas')
+    a.check(icons.get('atlas')==record.get('runtime_image') and record.get('region_metadata')==ui.get('icons'),'ui.actual_generated_atlas','Actual source record, runtime image and icon regions are linked')
+    a.check(atlas is not None and list(atlas.size)==icons.get('image_size'),'ui.icons.size','Actual icon PNG dimensions')
+    regions=icons.get('regions',{})
+    required={'barrel','heart','magazine','coil','boots','echo','grip','map','energy','stabilizer','braid','hammer','brakes','cooling','bandage','run_coin','healing','meta_note'}
+    a.check(set(regions)==required,'ui.complete_item_keys','Real15 item and3 resource identifiers, no substitutions')
+    for name,rect in regions.items():
+        code='ui.icon.'+name
+        if not bounded_region(a,atlas,rect,code+'.bounds'):continue
+        measurement=icons.get('measurements',{}).get(name,{})
+        window=measurement.get('measured_window',[])
+        if not bounded_region(a,atlas,window,code+'.measured_window'):continue
+        x,y,w,h=window
+        bbox=atlas.crop((x,y,x+w,y+h)).getchannel('A').point(lambda v:255 if v>=16 else 0).getbbox()
+        actual=None if bbox is None else [bbox[0]+x,bbox[1]+y,bbox[2]-bbox[0],bbox[3]-bbox[1]]
+        a.check(actual==measurement.get('native_body_alpha16'),code+'.actual_source_bounds','Measured original alpha body, not invented crop metadata')
+        padding=measurement.get('padding')
+        expected=None if actual is None or not isinstance(padding,int) else [max(0,actual[0]-padding),max(0,actual[1]-padding),min(atlas.width,actual[0]+actual[2]+padding)-max(0,actual[0]-padding),min(atlas.height,actual[1]+actual[3]+padding)-max(0,actual[1]-padding)]
+        a.check(rect==expected and isinstance(padding,int) and padding>0,code+'.whole_object_padding','Runtime region includes declared complete body with sampling gutter')
+    text=a.runtime_text.get('ui','')
+    a.check('spec.panel.region' in text and 'spec.panel.slice_margin' in text and 'specification.regions.get' in text and 'texture.filter_clip = true' in text,'ui.actual_region_consumer','Actual theme/icon consumer samples these regions')
+    a.check('AXIS_STRETCH_MODE_TILE' in text,'ui.panel.native_tiling','Nine-patch borders tile native source instead of stretching whole image')
+    roots=ui.get('production_roots',[])
+    a.check(isinstance(roots,list) and len(roots)>=13 and len(set(roots))==len(roots),'ui.real_root_inventory','Explicit actual UI consumer inventory')
+    classes={}
+    for path in (a.root/'scripts').rglob('*.gd'):
+        content=a.text_overrides.get(str(path.relative_to(a.root)),path.read_text())
+        match=re.search(r'^class_name\s+(\w+)',content,re.MULTILINE)
+        if match:classes[match.group(1)]=(path,content)
+    for root in roots:
+        name=str(root).split('.')[0]
+        entry=classes.get(name)
+        a.check(entry is not None and 'UnderworldUI' in entry[1],'ui.root.'+str(root)+'.actual_theme','Real named class references the shared theme/colors; GUI flow remains separately tested')
+    for name in ['ItemCard','ItemAcquiredToast','DemoMenu']:
+        text=classes.get(name,(None,''))[1]
+        a.check('STRETCH_KEEP_ASPECT_CENTERED' in text,'ui.aspect.'+name,'Actual generated item icon consumer retains source aspect')
+    item=classes.get('ItemPresentation',(None,''))[1]
+    a.check('return UnderworldUI.icon(key)' in item,'ui.actual_item_dispatch','Real ItemPresentation delegates to generated AtlasTexture source')
+    a.measurements['ui']={'icons':len(regions),'ui_roots':len(roots),'scope':'Source crops, source hashes and source-level consumer references; not GUI/visual/device acceptance'}
+
+
+def audit(root: Path = ROOT, manifest_path: str = DEFAULT_MANIFEST, overrides: dict | None = None, json_overrides: dict | None = None, text_overrides: dict | None = None) -> dict:
+    a = Audit(root, json_overrides=json_overrides, text_overrides=text_overrides)
     manifest = a.json(manifest_path, 'production.manifest')
     a.check(manifest.get('schema') == 'underworld-production-v1', 'production.schema', str(manifest.get('schema')))
     consumers = manifest.get('consumers', {})
-    handlers = {'terrain': audit_reference, 'scenery': audit_scenery, 'hazards': audit_hazards}
+    handlers = {'terrain': audit_reference, 'scenery': audit_scenery, 'hazards': audit_hazards, 'player_animation': audit_player_animation, 'mechanisms': audit_mechanisms, 'home': audit_home, 'ui': audit_ui}
     for key, handler in handlers.items():
         path = manifest.get(key + '_manifest', manifest.get(key))
         fragment = a.json(path, key + '.manifest')
         if overrides and key in overrides:
             fragment = copy.deepcopy(overrides[key])
-        consumer = fragment.get('consumer_scripts', fragment.get('consumer_script', consumers.get(key)))
+        consumer = consumers.get(key, fragment.get('consumer_scripts', fragment.get('consumer_script', fragment.get('consumer'))))
         a.consumption(path, consumer, key)
         try:
             handler(a, fragment)
         except (OSError, ValueError, TypeError, KeyError, AttributeError) as exc:
             a.check(False, key + '.invalid_data', f'{type(exc).__name__}: {exc}')
+    entries = manifest.get('runtime_entries', [])
+    a.check(isinstance(entries, list) and len(entries) >= 4, 'production.runtime_entries', 'Actual formal, Home, menu and App entry scripts')
+    for index, entry in enumerate(entries if isinstance(entries, list) else []):
+        text = a.script(entry, 'production.entry.' + str(index))
+        a.check('Underworld' in text, 'production.entry.' + str(index) + '.linked', 'Entry actually references the Underworld presentation family')
     return a.result()
 
 
