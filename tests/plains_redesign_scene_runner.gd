@@ -126,7 +126,7 @@ func issues_for(rows: Array[Dictionary], regions: Array[Dictionary]) -> Array[St
 func landmark_issues() -> Array[String]:
 	var result: Array[String]=[]
 	for child: Node in app.stage.get_children():
-		if not child is PlainsRegionScenery:continue
+		if not (child is PlainsRegionScenery or child is UnderworldScenery):continue
 		for sprite: Node in child.get_children():
 			if not sprite is Sprite2D or not sprite.has_meta("landmark"):continue
 			var item: Dictionary=sprite.get_meta("landmark")
@@ -170,7 +170,7 @@ func apply_mutation(trace) -> void:
 					chosen={"id":"required_ferry","world":bounds,"mandatory":true};required_override=[chosen];break
 	elif mutation=="floating_landmark":
 		for child:Node in app.stage.get_children():
-			if child is PlainsRegionScenery:
+			if child is PlainsRegionScenery or child is UnderworldScenery:
 				for sprite:Node in child.get_children():
 					if sprite is Sprite2D and sprite.has_meta("landmark"):
 						sprite.position.y-=20;mutation_receipt={"path":str(sprite.get_path()),"actual_offset_y":-20};mutation_applied=true;return
@@ -259,7 +259,7 @@ func run_case(map_index: int, strategy: String, custom: String="", seed_value: S
 func scene_inventory(stage: Node) -> Array:
 	var rows:Array=[]
 	for child:Node in stage.get_children():
-		if child is PlainsRegionScenery: rows.append({"plan":child.presentation_manifest,"children":child.get_child_count(),"composition":child.get_node("PlainsRegionComposition").compositions if child.has_node("PlainsRegionComposition") else []})
+		if child is PlainsRegionScenery or child is UnderworldScenery: rows.append({"plan":child.presentation_manifest,"children":child.get_child_count(),"composition":child.get_node("PlainsRegionComposition").compositions if child.has_node("PlainsRegionComposition") else []})
 	return rows
 func custom_route(trace, mode: String) -> void:
 	var ok:bool=await trace.tutorial()

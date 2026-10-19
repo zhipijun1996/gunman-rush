@@ -7,19 +7,29 @@ var omitted: Array[Dictionary] = []
 var supports: Array[Rect2] = []
 var protected_regions: Array[Rect2] = []
 var presentation_manifest: Dictionary = {}
+var manifest: Dictionary = {}
+var identity_items: Array[Dictionary] = []
+var _source_hashes: Dictionary = {}
 var _spec: Dictionary = {}
 var _props: Dictionary = {}
 var _atlas: Texture2D
 var _seed := ""
 var _phase := 0.0
 
-func configure(stage: PlainsRegionStage) -> void:
-	configure_geometry(PlainsRegionScenery.solid_supports(stage), PlainsRegionScenery.protection(stage), str(stage.generated.manifest.manifest_hash), {"world_bounds": stage.bounds})
+func configure(value: Variant, slabs: Array[Rect2] = [], blocked: Array[Rect2] = []) -> void:
+	if value is PlainsRegionStage:
+		var stage := value as PlainsRegionStage
+		manifest = stage.generated.manifest
+		configure_geometry(PlainsRegionScenery.solid_supports(stage), PlainsRegionScenery.protection(stage), str(manifest.manifest_hash), {"world_bounds": stage.bounds,"areas":manifest.areas})
+	elif value is Dictionary:
+		manifest = value
+		configure_geometry(slabs,blocked,str(manifest.get("manifest_hash","manifest")),{"areas":manifest.get("areas",[])})
 
 func configure_geometry(slabs: Array[Rect2], blocked: Array[Rect2], seed_value: String, _metadata: Dictionary = {}) -> void:
 	for child: Node in get_children(): child.free()
 	placements.clear()
 	omitted.clear()
+	identity_items.clear()
 	supports = slabs.duplicate()
 	protected_regions = blocked.duplicate()
 	_spec = JSON.parse_string(FileAccess.get_file_as_string(BUILD_PATH)).decor
@@ -34,6 +44,12 @@ func configure_geometry(slabs: Array[Rect2], blocked: Array[Rect2], seed_value: 
 		if is_equal_approx(edge.y, edge.w) and edge.z - edge.x >= 72.0: edges.append(edge)
 	# Stable spatial ordering means source-array ordering cannot change composition.
 	edges.sort_custom(func(a: Vector4, b: Vector4): return a.x < b.x if not is_equal_approx(a.x, b.x) else a.y < b.y)
+	_place_identities(edges,_metadata.get("areas",[]))
+	if _props.has("well") and not _metadata.get("areas",[]).is_empty():
+		var composition := UnderworldLocalComposition.new()
+		composition.name="PlainsRegionComposition"
+		add_child(composition)
+		composition.configure(_metadata.areas,_props.well,protected_regions,supports,_spec.local_composition)
 	for edge: Vector4 in edges:
 		for zone: int in range(floori(edge.x / 1280.0), floori(edge.z / 1280.0) + 1):
 			var left := maxf(edge.x, zone * 1280.0)
@@ -66,16 +82,65 @@ func configure_geometry(slabs: Array[Rect2], blocked: Array[Rect2], seed_value: 
 					if _try_place("grass",Vector2(x,edge.y),18.0,edge,210.0):
 						accent_counts[zone] = int(accent_counts.get(zone,0)) + 1
 						if int(accent_counts[zone]) >= int(_spec.max_small_accents_per_1280): break
-	presentation_manifest = {"schema": "underworld-scenery-runtime-v1", "seed_namespace": _spec.seed_namespace, "independent_seed": _seed, "collision": false, "placements": placements.duplicate(true), "omitted": omitted.duplicate(true), "source": _spec.atlas}
+	presentation_manifest = {"schema": "underworld-scenery-runtime-v1", "seed_namespace": _spec.seed_namespace, "independent_seed": _seed, "collision": false, "items":identity_items.duplicate(true), "placements": placements.duplicate(true), "omitted": omitted.duplicate(true), "source": _spec.atlas}
 	set_meta("presentation_only", true)
 
 func _ready() -> void:
 	z_index = -12
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 
-func _try_place(kind: String, foot: Vector2, height: float, edge: Vector4, spacing: float) -> bool:
+func _place_identities(edges: Array[Vector4], areas: Array) -> void:
+	if not _spec.has("identity_landmarks"): return
+	for identity: String in _spec.identity_landmarks:
+		var entry: Dictionary = _spec.identity_landmarks[identity]
+		var candidates: Array[Dictionary] = []
+		for area: Dictionary in areas:
+			if str(area.get("identity",""))!=identity: continue
+			var at := Vector2(float(area.position[0]),float(area.position[1]))
+			for edge: Vector4 in edges:
+				if absf(edge.y-at.y)>224.0: continue
+				var center := Vector2(clampf(at.x,edge.x,edge.z),edge.y)
+				if center.distance_to(at)>1000.0: continue
+				candidates.append({"edge":edge,"area":area,"at":at,"score":center.distance_to(at)})
+		candidates.sort_custom(func(a:Dictionary,b:Dictionary):return float(a.score)<float(b.score))
+		var placed := false
+		for candidate: Dictionary in candidates:
+			var edge: Vector4 = candidate.edge
+			var area: Dictionary = candidate.area
+			for height_value: Variant in entry.heights:
+				var height := float(height_value)
+				for x: float in _identity_x_candidates(str(entry.kind),height,edge,float(area.position[0])):
+					if absf(x-float(area.position[0]))>1000.0: continue
+					if _try_place(str(entry.kind),Vector2(x,edge.y),height,edge,260.0,{"identity":identity,"area_id":str(area.id)}): placed=true;break
+				if placed: break
+			if placed: break
+		if not placed: omitted.append({"identity":identity,"kind":entry.kind,"reason":"no_clear_actual_static_root_span_in_identity_area","candidate_count":candidates.size()})
+
+func _identity_x_candidates(kind: String, height: float, edge: Vector4, desired: float) -> Array[float]:
 	var region: Dictionary = _props[kind]
-	var r: Array = region.region
+	var scale_value := height / float(region.foot[1])
+	var left := float(region.foot[0]) * scale_value
+	var right := (float(region.region[2])-float(region.foot[0])) * scale_value
+	var minimum := edge.x+8.0+left
+	var maximum := edge.z-8.0-right
+	if maximum<minimum: return []
+	var values: Array[float] = [minimum,maximum,clampf(desired,minimum,maximum),(minimum+maximum)*.5]
+	# Exact interval boundaries find narrow but genuinely legal bank sockets.
+	# A fixed 33-point scan can miss a 1-world-unit admissible interval.
+	for keepout: Rect2 in protected_regions:
+		if keepout.end.y<edge.y-height-8.0 or keepout.position.y>edge.y+8.0: continue
+		for x: float in [keepout.position.x-8.01-right,keepout.end.x+8.01+left]:
+			if x>=minimum and x<=maximum: values.append(x)
+	values.sort_custom(func(a:float,b:float):return absf(a-desired)<absf(b-desired))
+	return values
+
+func _try_place(kind: String, foot: Vector2, height: float, edge: Vector4, spacing: float, identity: Dictionary = {}) -> bool:
+	var region: Dictionary = _props[kind]
+	var r: Array = region.region.duplicate()
+	# Identity props bury only their declared below-root tail. The drawn box's
+	# bottom is the real root line, so actual bottom-center ray validation
+	# cannot start inside a solid beneath transparent source padding.
+	if not identity.is_empty(): r[3] = int(region.foot[1])
 	var scale_value := height / float(r[3])
 	var anchor := Vector2(float(region.foot[0]), float(region.foot[1])) * scale_value
 	var size := Vector2(float(r[2]), float(r[3])) * scale_value
@@ -106,6 +171,12 @@ func _try_place(kind: String, foot: Vector2, height: float, edge: Vector4, spaci
 	sprite.position = bounds.position
 	sprite.scale = Vector2.ONE * scale_value
 	add_child(sprite)
+	if not identity.is_empty():
+		var source := str(region.get("atlas",_spec.atlas))
+		if not _source_hashes.has(source): _source_hashes[source] = FileAccess.get_sha256("res://"+source)
+		var item := {"identity":identity.identity,"area_id":identity.area_id,"asset_id":kind,"asset_source":source,"source_sha256":_source_hashes[source],"display_bounds":[bounds.position.x,bounds.position.y,bounds.size.x,bounds.size.y],"foot":[foot.x,foot.y],"support":[edge.x,edge.y,edge.z-edge.x,0.0],"depth":"grounded_noninteractive_local_landmark","collision":false,"standing_edge":false,"node":sprite.name}
+		sprite.set_meta("landmark",item.duplicate(true))
+		identity_items.append(item)
 	placements.append({"kind": kind, "position": foot, "bounds": bounds, "support_edge": edge, "root_span": [bounds.position.x, bounds.end.x], "source_region": r, "scale": scale_value, "node": sprite.name, "collision": false})
 	return true
 

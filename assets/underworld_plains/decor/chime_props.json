@@ -76,6 +76,51 @@
       "world_height": 18,
       "atlas": "assets/underworld_plains/decor/native_underworld.png",
       "source_semantics": "original Asouris sparse rooted grass sprite, exact source crop; non-colliding"
+    },
+    "well": {
+      "atlas": "assets/underworld_plains/decor/identity_props.png",
+      "region": [
+        84,
+        247,
+        576,
+        406
+      ],
+      "foot": [
+        288.0,
+        394
+      ],
+      "world_height": 112,
+      "source_semantics": "complete original landmark at alpha>=2 plus 8px region margin; raw alpha1 noise retained in original sheet"
+    },
+    "clock_arch": {
+      "atlas": "assets/underworld_plains/decor/identity_props.png",
+      "region": [
+        733,
+        100,
+        689,
+        564
+      ],
+      "foot": [
+        344.5,
+        548
+      ],
+      "world_height": 112,
+      "source_semantics": "complete original landmark at alpha>=2 plus 8px region margin; raw alpha1 noise retained in original sheet"
+    },
+    "repair_shelter": {
+      "atlas": "assets/underworld_plains/decor/identity_props.png",
+      "region": [
+        1501,
+        224,
+        606,
+        434
+      ],
+      "foot": [
+        303.0,
+        423
+      ],
+      "world_height": 112,
+      "source_semantics": "complete original landmark at alpha>=2 plus 8px region margin; raw alpha1 noise retained in original sheet"
     }
   },
   "processing": "alpha-separated complete-object rectangular extraction only; no repainting, resampling or color changes",

@@ -92,6 +92,30 @@ func run() -> void:
 	check(decor.placements.is_empty(), "fully protected gameplay admits no decoration")
 	decor.configure_geometry([],[],"actual-runtime-test")
 	check(decor.placements.is_empty(), "no static ground cannot produce floating rooted props")
+	var areas: Array = [{"id":"creek_background_test","identity":"creek_well","position":[0,0]}]
+	decor.configure_geometry([],[],"local-background-test",{"areas":areas})
+	check(decor.identity_items.is_empty(), "without solids the grounded well remains rejected")
+	var background := decor.get_node_or_null("PlainsRegionComposition") as UnderworldLocalComposition
+	check(background!=null and background.compositions.size()==1, "actual separate local background well consumer exists")
+	if background!=null and background.get_child_count()==1:
+		check(background.actual_issues().is_empty(), "actual cold local architecture passes position/material/semantic checks")
+		check(not background.compositions[0].physical_support and not background.compositions[0].standing_edge, "painted base does not claim physical support or standing edge")
+		var sprite := background.get_child(0) as Sprite2D
+		sprite.set_meta("landmark",{})
+		check("background_architecture_misdeclared_as_grounded_landmark" in background.actual_issues(), "reject falsely assigning background to grounded landmark")
+		sprite.remove_meta("landmark")
+		background.z_index=0
+		check("background_architecture_moved_to_foreground" in background.actual_issues(), "reject moving distant well to foreground")
+		background.z_index=-8
+		var material := sprite.material as ShaderMaterial
+		var original: Color = material.get_shader_parameter("fog_highlight")
+		material.set_shader_parameter("fog_highlight",Color("8de043"))
+		check("background_bright_or_green_standing_edge_signal" in background.actual_issues(), "reject bright green playable-edge color signal")
+		material.set_shader_parameter("fog_highlight",original)
+		check(background.actual_issues().is_empty(), "restored actual node becomes valid again")
+	decor.configure_geometry([],[Rect2(-10000,-10000,20000,20000)],"blocked-background-test",{"areas":areas})
+	background=decor.get_node_or_null("PlainsRegionComposition") as UnderworldLocalComposition
+	check(background!=null and background.compositions.is_empty(), "local background also preserves whole functional keepout")
 	var file := FileAccess.open("res://build/underworld_plains/scenery_runtime_receipts.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify({"schema":"underworld-scenery-runtime-test-v1","checks":checks,"failures":failures,"camera_samples":receipts,"decor_sample":expected},"\t"))
 	file.close()

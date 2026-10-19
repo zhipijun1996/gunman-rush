@@ -38,7 +38,7 @@
 
 当前远层横向以同源边缘交替镜像重复，中近层采用同方向重叠与透明边缘渐隐，避免风架成对镜像；源图保留不改，不声称图生已产生无缝母版；纵向位移有明确的屏幕高度比例限幅，远层另外保持不透明覆盖。以下公式适用于未到限幅的区间；极限位置验证实际覆盖而非继续外推斜率。
 
-令相机实际屏幕中心为 `C`，冻结锚点为 `C0`，相机位移 `ΔC=C−C0`。每层的横纵向可各自设置系数。若某轴 camera factor 为 `f`，屏幕上图案移动 `−f·ΔC`，相应世界锚点为 `P=P0+(1−f)·ΔC`。`f=0` 固定在屏幕，`f=1` 跟世界实体同速。本轮三组具体系数从运行 manifest 读取，横纵轴分别按远→近递增；不要在工具、文档、脚本另造三套默认值。
+令相机实际屏幕中心为 `C`，冻结锚点为 `C0`，相机位移 `ΔC=C−C0`。每层的横纵向可各自设置系数。当前背景在CanvasLayer中绘制，若某轴 camera factor 为 `f`，屏幕上图案移动 `−f·ΔC`，这里f的单位为屏幕像素/相机世界单位。若换成世界坐标层且该轴相机zoom为z，对应世界锚点为 `P=P0+(1−f/z)·ΔC`；`f=0` 固定在屏幕，`f=z` 才与世界实体在屏幕上同速。不能在非1倍zoom时把f直接当作归一化的世界速率。本轮三组具体系数从运行 manifest 读取，横纵轴分别按远→近递增；不要在工具、文档、脚本另造三套默认值。
 
 使用实际 `Camera2D.get_screen_center_position()`，包括镜头 smoothing、限位及偏移后的中心。背景的运动与角色移动、风摆不同；纯风动画不算相机视差。回执保存两个以上不同相机中心及每层原点，核对斜率；实际 GPU 动态序列看出层次才可声称视觉景深成立。
 
@@ -53,6 +53,8 @@
 装饰使用独立 seed / coordinate hash，不消费地形、遭遇、奖励的 RNG。先构图槽位，再抽有限变体；保留观察区、安全落点、危险轮廓、敌预告、射击通道、UI 与移动扫掠 keepout。密疏和局部灯光有预算，不靠随机塞满产生丰富度。灯光与微粒只辅助画面，不能盖住边界失败。
 
 机器检查有根/keepout/独立 seed 声明及运行回执；真实遮挡看 GPU，AABB 候选不直接等于像素遮挡。验证移动/删除支撑和故意错误根锚能被拒绝。
+
+正式平原保留风车高地、溪谷井庭、断钟庭与修理营地四种空间身份。近处的风架、钟拱、修理棚按真实静态平台与根扇放置。溪谷没有满足净空的地面井架槽位，不能放松支撑检查：井架改为独立的远处局部构图，完整石基来自原图，低对比冷灰、位于玩法层后方，不带 standing_edge、不声称物理支撑，也不提供碰撞。`UnderworldLocalComposition`读取同一scenery manifest，拒绝前景、亮绿可踩边、功能keepout相交与实体遮挡超预算；这与grounded装饰是两种明确语义。实际地标截图、原bottom-center射线和缺支撑/冒充地标等反例一起记录。
 
 ## 融合平台的伤害 Tile
 
@@ -73,7 +75,7 @@ python3 tools/underworld_pipeline.py runtime --suite scenery
 python3 tools/underworld_pipeline.py runtime --suite hazards
 python3 tools/run_underworld_terrain_tests.py
 python3 tools/run_underworld_formal_terrain_tests.py
-python3 tools/harness.py --check underworld-pipeline --check underworld-terrain --check underworld-formal-terrain --check underworld-scenery --check underworld-hazards --release --jobs 1
+python3 tools/harness.py --check underworld-pipeline --check underworld-terrain --check underworld-formal-terrain --check underworld-scenery --check underworld-hazards --check underworld-formal --release --jobs 1
 ```
 
 源码许可/复建、CPU 几何、真实运行、GPU 静态、动态读图、用户选择、实体设备各有自己的证据。测试、层数、Hash 或截图数量不能代签商业品质。失败保存原件后修对应工序；缺用户/设备继续保留 review/awaiting-device，不反复请求已授权的技术修改。

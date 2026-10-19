@@ -118,5 +118,107 @@ class UnderworldPipelineTest(unittest.TestCase):
         self.reject('hazards', lambda v: v['source_image'].update(sha256='0'*64), 'hazards.source.sha256')
 
 
+    def reject_json(self, path, mutate, expected):
+        value = json.loads((ROOT / path).read_text())
+        mutate(value)
+        result = audit(json_overrides={path: value})
+        self.assertFalse(result['passed'])
+        self.assertIn(expected, {item['code'] for item in result['checks'] if not item['passed']})
+
+    def test_native_grass_override_must_match_source(self):
+        self.reject_json('assets/underworld_plains/decor/chime_props.json', lambda v: v['regions']['grass'].update(atlas='assets/style_exploration/cavern/terrain.png'), 'decor.grass.runtime_recipe')
+
+    def test_native_grass_source_hash(self):
+        self.reject_json('assets/underworld_plains/decor/provenance.json', lambda v: v['native_grass'].update(source_sha256='0'*64), 'decor.grass.source.sha256')
+
+    def test_native_grass_license_required(self):
+        self.reject_json('assets/underworld_plains/decor/provenance.json', lambda v: v['native_grass'].pop('license_record'), 'decor.grass.license')
+
+    def test_native_grass_crop_must_fit_original(self):
+        self.reject_json('assets/underworld_plains/decor/chime_props.json', lambda v: v['regions']['grass'].update(region=[170,32,32,16]), 'decor.region.grass.bounds')
+
+    def test_native_grass_root_uses_real_alpha_foot(self):
+        self.reject_json('assets/underworld_plains/decor/chime_props.json', lambda v: v['regions']['grass'].update(foot=[16,3]), 'decor.region.grass.actual_opaque_foot')
+
+    def test_identity_crop_must_fit_original(self):
+        self.reject_json('assets/underworld_plains/decor/chime_props.json', lambda v: v['regions']['well'].update(region=[2160,247,576,406]), 'decor.region.well.bounds')
+
+    def test_identity_foot_must_be_inside_crop(self):
+        self.reject_json('assets/underworld_plains/decor/chime_props.json', lambda v: v['regions']['clock_arch'].update(foot=[-1,548]), 'decor.region.clock_arch.foot_bounds')
+
+    def test_identity_foot_must_match_actual_source_bottom(self):
+        self.reject_json('assets/underworld_plains/decor/chime_props.json', lambda v: v['regions']['repair_shelter'].update(foot=[303,10]), 'decor.region.repair_shelter.actual_opaque_foot')
+
+    def test_identity_runtime_recipe_not_independent_copy(self):
+        self.reject_json('assets/underworld_plains/decor/identity_generation.json', lambda v: v['regions'][0].update(foot=[10,394]), 'decor.region.well.generation_recipe')
+
+    def test_identity_actual_original_hash_required(self):
+        self.reject_json('assets/underworld_plains/decor/identity_generation.json', lambda v: v.update(source_sha256='0'*64), 'decor.identity_generation.source_sha256')
+
+    def test_identity_actual_generation_prompt_required(self):
+        self.reject_json('assets/underworld_plains/decor/identity_generation.json', lambda v: v.update(prompt=''), 'decor.identity_generation.prompt')
+
+    def test_identity_source_lineage_not_unrelated_atlas(self):
+        self.reject_json('assets/underworld_plains/decor/chime_props.json', lambda v: v['regions']['well'].update(atlas='assets/underworld_plains/decor/chime_props.png'), 'decor.region.well.actual_generated_atlas')
+
+    def test_missing_identity_source_record(self):
+        self.reject('scenery', lambda v: v['decor'].update(identity_generation_record='assets/underworld_plains/decor/provenance.json'), 'decor.identity.complete_objects')
+
+    def test_four_identity_roles_not_just_three_labels(self):
+        self.reject('scenery', lambda v: v['decor']['identity_landmarks'].pop('creek_well'), 'decor.identity.four_roles')
+
+    def test_local_background_spec_required(self):
+        self.reject('scenery', lambda v: v['decor'].pop('local_composition'), 'local.spec_present')
+
+    def test_local_architecture_cannot_be_foreground(self):
+        self.reject('scenery', lambda v: v['decor']['local_composition'].update(z_index=0), 'local.background_z')
+
+    def test_local_architecture_cannot_claim_solid_support(self):
+        self.reject('scenery', lambda v: v['decor']['local_composition'].update(physical_support=True), 'local.physical_support')
+
+    def test_local_architecture_cannot_add_collision(self):
+        self.reject('scenery', lambda v: v['decor']['local_composition'].update(collision=True), 'local.collision')
+
+    def test_local_architecture_cannot_claim_standing_edge(self):
+        self.reject('scenery', lambda v: v['decor']['local_composition'].update(standing_edge=True), 'local.standing_edge')
+
+    def test_local_architecture_depth_not_grounded_landmark(self):
+        self.reject('scenery', lambda v: v['decor']['local_composition'].update(depth='grounded_landmark'), 'local.depth')
+
+    def test_local_architecture_painted_base_source_required(self):
+        self.reject('scenery', lambda v: v['decor']['local_composition']['painted_base'].update(source='assets/underworld_plains/decor/native_underworld.png'), 'local.same_painted_base')
+
+    def test_local_architecture_painted_base_disclosure_required(self):
+        self.reject('scenery', lambda v: v['decor']['local_composition']['painted_base'].update(description=''), 'local.painted_base.description')
+
+    def test_local_architecture_actual_runtime_consumer_required(self):
+        self.reject('scenery', lambda v: v['decor']['local_composition'].update(consumer_script='scripts/art_foundation/pixel_formal_terrain.gd'), 'local.read_by_runtime')
+
+    def test_local_architecture_no_bright_playable_rim(self):
+        self.reject('scenery', lambda v: v['decor']['local_composition'].update(fog_highlight='ffffff'), 'local.fog_highlight.runtime_readability')
+
+    def test_local_architecture_no_green_playable_rim(self):
+        self.reject('scenery', lambda v: v['decor']['local_composition'].update(fog_shadow='22ee00'), 'local.fog_shadow.runtime_readability')
+
+    def test_local_architecture_uses_declared_runtime_limits(self):
+        self.reject('scenery', lambda v: v['decor']['local_composition'].update(readability_limits={}), 'local.readability_contract')
+
+    def test_local_architecture_positive_scale(self):
+        self.reject('scenery', lambda v: v['decor']['local_composition'].update(target_height=0), 'local.positive_height')
+
+    def test_local_architecture_socket_offsets_required(self):
+        self.reject('scenery', lambda v: v['decor']['local_composition'].update(offset_x=[]), 'local.offset_x')
+
+    def test_local_architecture_keepouts_required(self):
+        self.reject('scenery', lambda v: v['decor']['local_composition'].update(functional_keepout=''), 'local.functional_keepout')
+
+
+    def test_local_architecture_cannot_be_fully_transparent(self):
+        self.reject('scenery', lambda v: v['decor']['local_composition'].update(opacity=0), 'local.visible_opacity')
+
+    def test_local_architecture_cannot_accept_all_samples_hidden(self):
+        self.reject('scenery', lambda v: v['decor']['local_composition'].update(maximum_solid_hidden_samples=v['decor']['local_composition']['total_visibility_samples']), 'local.visibility_budget')
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)
