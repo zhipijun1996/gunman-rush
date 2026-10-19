@@ -53,8 +53,12 @@ func observe() -> void:
 	for node: Node in get_nodes_in_group(&"underworld_projectile_vfx"):
 		if node is UnderworldProjectileVisual:
 			effects.append({"point":pair(node.global_position),"age":node.age,"friendly":node.friendly,"physical_contact":node.impact})
+	var target_state: Dictionary={}
+	if target is EnemyMotor and is_instance_valid(target):
+		var target_actor := target.get_node("Actor") as EnemyActor
+		target_state={"point":pair(target.global_position),"health":target_actor.health.current,"terminal":target_actor.health.terminal,"ordinary_hurt_remaining":target_actor._damage_stun_remaining,"velocity":pair((target as EnemyMotor).velocity)}
 	var boss:=stage.boss.get_node("Encounter") as WindkeeperEncounter
-	rows.append({"frame":rows.size(),"physics_frame":Engine.get_physics_frames(),"drawn_frame":Engine.get_frames_drawn(),"position":pair(app.player.global_position),"velocity":pair(app.player.velocity),"health":app.controller.actor_resources.health.current,"stamina":app.controller.actor_resources.stamina.current,"combat_energy":app.controller.combat_energy.current,"grounded":app.player.is_on_floor(),"boss_mode":str(boss.mode),"boss_health":boss.health.current,"boss_active":boss.active,"projectiles":projectiles,"effects":effects,"run_epoch":app.lifetime.epoch,"stage_epoch":app.lifetime.stage_epoch,"actor_epoch":app.lifetime.actor_epoch})
+	rows.append({"frame":rows.size(),"physics_frame":Engine.get_physics_frames(),"drawn_frame":Engine.get_frames_drawn(),"position":pair(app.player.global_position),"velocity":pair(app.player.velocity),"health":app.controller.actor_resources.health.current,"stamina":app.controller.actor_resources.stamina.current,"combat_energy":app.controller.combat_energy.current,"grounded":app.player.is_on_floor(),"boss_mode":str(boss.mode),"boss_health":boss.health.current,"boss_active":boss.active,"projectiles":projectiles,"effects":effects,"target_actor":target_state,"run_epoch":app.lifetime.epoch,"stage_epoch":app.lifetime.stage_epoch,"actor_epoch":app.lifetime.actor_epoch})
 func wait_for_formal_map(expected_map: int) -> bool:
 	# DemoApp loads after a physics boundary. Observe the actual consumer,
 	# never treat start_plains returning true as a synchronously ready scene.
@@ -74,7 +78,8 @@ func enemy_window() -> Vector2:
 		if target!=null or actor.definition.behavior_id not in [&"sentry",&"fan_sentry"]: continue
 		for slab: Rect2 in PlainsRegionScenery.solid_supports(stage):
 			if slab.size.x<210 or not Rect2(slab.position-Vector2(0,80),slab.size+Vector2(0,80)).has_point(body.global_position): continue
-			var x:=clampf(body.position.x-180,slab.position.x+30,slab.end.x-30)
+			var stand_off := minf(120.0, actor.definition.activation_range-30.0)
+			var x:=clampf(body.position.x-stand_off,slab.position.x+30,slab.end.x-30)
 			var candidate:=Vector2(x,slab.position.y-18)
 			if candidate.distance_to(body.position)<65 or candidate.distance_to(body.position)>actor.definition.activation_range-20: continue
 			var protected := false
@@ -134,18 +139,28 @@ func run() -> void:
 			var actor:=body.get_node("Actor") as EnemyActor
 			if actor.attack_behavior!=null:
 				actor.attack_behavior.state_changed.connect(func(state: StringName):events.append({"kind":"actual_enemy_state","state":str(state),"row":rows.size()}))
+		initialization["input_submission_timing"]="actual native InputEvents at SceneTree.physics_frame before ordinary Controller step; original wall-clock TTL unchanged"
 		for i: int in frame_budget:
+			await physics_frame
 			if not is_instance_valid(app.player) or not app.lifetime.active or app.controller.actor_resources.health.terminal: break
 			var aim:=target.global_position if is_instance_valid(target) else at+Vector2(200,-20)
 			if target==stage.boss: aim+=(stage.boss.get_node("Encounter") as WindkeeperEncounter).core_offset()
 			aim_at(aim)
+			var target_alive := true
+			if focus=="enemy" and target is EnemyMotor:
+				var target_actor := target.get_node("Actor") as EnemyActor
+				target_alive = not target_actor.health.terminal
+				var separation := target.global_position.x-app.player.global_position.x
+				key(KEY_D,target_alive and separation>145)
+				key(KEY_A,target_alive and separation<95)
 			# Slow repeated ordinary clicks let standing recovery/refunds follow
 			# their original rules; no hold-to-auto-fire/resource injection.
-			if i%66==10: mouse(true)
+			if i%66==10 and target_alive: mouse(true)
 			if i%66==11: mouse(false)
 			# Real jump input supplies an ordinary dodge; it is not phase forcing.
 			key(KEY_SPACE,focus!="enemy" and i%95<12)
-			await tick()
+			await RenderingServer.frame_post_draw
+			observe()
 	for code: Variant in held.keys(): key(code,false)
 	mouse(false)
 	if accepted_shots==0:failures.append("no actual accepted player shot")
