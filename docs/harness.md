@@ -86,3 +86,10 @@ mission默认只规划；`--execute`才调用现有生产循环。诊断候选�
 ## 历史证据与当前配置分离
 
 参数合同改变后，固定历史native/Manifest仍须绑定原始配置字节与原source inventory；不能重写旧capture、只换指纹或借旧成功认证当前运行。历史Python消费者可在明确限定的语义校验scope读取SHA绑定的旧authority，必须验证当前默认校验仍拒绝失配历史数据、篡改旧authority被拒绝、正常及异常退出都恢复当前scope；真实当前生成与原历史整串断言分别保留。内层CLI重定向日志的检查应沿原profile artifact_paths收集原件，不只保留外层通用错误。FOREST-GRAPPLE-02的根铃旧20%／当前15%修复是一次实际案例，不是新的并行生产流程。
+
+
+### 原预算超时与驾驶失败的分账（FOREST-GRAPPLE-02）
+
+原80／600秒检查在修正真实起跳策略后完成59条严格通过，但整组600.167秒超时仍为FAIL；内层receipt被终止时保留running，不能后补source_stable或passed。`run_forest_depth_region.py` 的每例seconds包含native、JSON读取、validate和rawSHA，不能直接称引擎耗时。先用一份已有capture做有界离线profile：本例2214帧读取0.174秒、带profiler校验0.275秒，不足解释整组缺口，故未凭假设修改校验器。后续同原案例／上限的CI结果另记，不覆写本机失败。详见[原件](evidence/forest_grapple02/release02/README.md)。
+
+Driver为通关证据提交的输入可以改进，但不得改原断言、case、能力、资源或预算；改进后必须重采并保留旧FAIL。固定短跳失效不证明完整跳跃失效，强删动作对照也必须允许剩余能力的合理使用。本次完整跳跃→H实测成功，冠叉R不能继续宣称必需。驱动策略收益与内容收益分开，仍使用原Harness与独审，不新增平行评分体系。

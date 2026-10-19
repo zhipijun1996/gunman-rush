@@ -3,6 +3,16 @@
 基线 `6c61faadd511c48a267b975550da897e701fd09f`，承接PR83／PR76。本轮需求原文见[user_request.txt](user_request.txt)，设计见[森林钩索与纵向主路](../../design/forest_grapple_vertical.md)。本页区分真实运行、不同作者审查、原失败与未验品质；不把技术通过当作玩家认可。
 
 
+## S2路线失败、真实输入修正与原80超时
+
+S2 `6adc5ff3`／[CI39200142616](https://github.com/zhipijun1996/gunman-rush/actions/runs/39200142616)实际FAIL：Web／Windows／serial18成功，parallel在hollow-04／图1／growth第33例死亡，部署跳过。[release02](release02/README.md)保留普通API、单次原artifact下载403脱敏收据、干净失败、高跳输入成功和无R强反事实。远端原phase ZIP未取得，不能把本地复现冒充远端raw审查。
+
+原驾驶固定短跳，在上层盾甲虫巡逻身体处低拉碰撞；后续仍等待已取消的H，直到死亡。仅用真实跳跃的高度选择发R时机，原9帧反冲后接H，保留原怪物／地形／判定，同case33腿2214帧严格通过。该腿HP5→5；后腿实际受伤1，营地恢复，不能称整图零伤。R发出瞬间脚底净空85.320px，拉动途经身体处独审实读最低45.598px；80px是驾驶空间条件，不是新物理参数，单次成功不证明容错区间。
+
+强反事实用完整跳跃＋右移进入真实231px射程，零射击到同岸973帧／HP5；R→H为965帧，故R非必需，也不能凭8帧优势签组合体验优秀。原固定短跳失败不能证明真实关卡无解，脚本动作数也不能证明玩家必须组合。
+
+随后原CLI整组80／600秒只执行一次，实际timeout600.167s，59条完整strictPASS，下一条被cap中断，剩余未验；内receipt保留running原样，外层timeout是终态权威。现有case33离线读取0.174s、带profiler严格校验0.275s，尚未测定原生瓶颈，未改预算、断言或玩法。修正后最终同源CI／发布仍待，整体REVISE。下面S1和旧待验段保留各自历史范围。
+
 ## S1完整CI失败：历史fixture与当前配置必须分开
 
 S1 `7ba2e92d`／CI39194694146实际FAIL，Web、Windows与serial18成功，parallel在root-bell-tests失败，core拒绝汇总，deploy/verify_public跳过；森林80尚未达到，不签89全通过。[release01](release01/README.md)保存原API、403、本地原CLI及inner日志。根因精确到固定20% native02的纯Python反例使用当前15% authority，Godot未启动；通用outer错误不能包装成已证泄漏。测试隔离修复已通过纯Python原27+9、新增2反例、不同作者6个authority变造与异常恢复检查；[修复原件及限定独审](release01/ROOT_BELL_REPAIR.md)中的原Harness fresh/release在360秒预算内121.717s实际PASS，165/0、原41+9拒绝、40历史整串与40当前15%生成、5真实RunManifest正例/9拒绝均保留。生产reader/main与15%配置不改；新源完整CI仍待。以下较早“CI待运行”均为对应历史截止。

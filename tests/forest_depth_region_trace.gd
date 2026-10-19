@@ -220,7 +220,8 @@ func _physics_process(_delta: float) -> void:
 			if route_name=="upper_noH": drive_upper_noH(leg)
 			else: drive_hollow(leg)
 		"hollow_cavity": drive_cavity_kind(leg)
-		"airborne_chain", "hanging_chain": air_chain_case.drive(self,leg)
+		"airborne_chain", "hanging_chain":
+			if not _drive_canopy_bark_high_launch(leg):air_chain_case.drive(self,leg)
 		"candidate_hook_relay": drive_candidate_relay(leg)
 		"gate_hook": drive_gate(leg)
 		"ecology_choice","ecology_return": drive_ecology(leg)
@@ -236,6 +237,27 @@ func drive_walk(destination: Vector2) -> void:
 	controller.router.set_move_axis(clampf((destination.x-player.global_position.x)/12,-1,1))
 	stable=stable+1 if at_destination(destination) else 0
 	if stable>=12: complete_leg()
+func _drive_canopy_bark_high_launch(leg: Dictionary) -> bool:
+	# Candidate ecology strategy: use the real jump's height before the
+	# horizontal recoil, rather than flying through the patrolling shield.
+	var program: Array=leg.get("action_program",[])
+	if manifest.get("layout_version")!="forest-woven-trunk-v12" or str(leg.get("geometry_instance",""))!="canopy_fork" or phase!="air_chain_launch" or program.size()!=2:return false
+	if str(program[0].get("action",""))!="R" or str(program[1].get("action",""))!="H":return false
+	var keeper: EnemyActor
+	for i: int in stage.enemy_manifest.size():
+		if str(stage.enemy_manifest[i].id)=="upper_spiral_bark_keeper":keeper=stage.enemies[i].get_node("Actor") as EnemyActor
+	if not is_instance_valid(keeper) or keeper.health.terminal:
+		fail("canopy_bark_launch_actual_keeper_missing");return true
+	var keeper_top:=keeper.motor.global_position.y-keeper.definition.collision_size.y*.5
+	var foot:=player.global_position+Vector2(0,18)
+	var required_gap:=80.0
+	controller.router.set_move_axis(0)
+	if foot.y<=keeper_top-required_gap and player.normal_velocity.y<0:
+		event("canopy_bark_high_launch_observed",{"enemy_id":"upper_spiral_bark_keeper","enemy_position":pair(keeper.motor.global_position),"enemy_body":pair(keeper.definition.collision_size),"enemy_top":keeper_top,"foot":pair(foot),"required_gap":required_gap,"actual_gap":keeper_top-foot.y,"velocity":pair(player.velocity),"supports":supports()})
+		jump(false);air_chain_case._submit(self)
+	elif age>8 and player.normal_velocity.y>=0:fail("canopy_bark_launch_headroom_not_reached")
+	return true
+
 func drive_drop(leg: Dictionary) -> void:
 	var path: Array=leg.path
 	if path.size()<2 or drop_cursor>=path.size(): fail("malformed_drop_path");return
