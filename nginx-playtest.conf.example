@@ -1,0 +1,21 @@
+# Example for a user-controlled HTTPS origin, including a mainland host/CDN.
+# Replace domain, certificate paths and root. Do not proxy runtime to GitHub.
+server {
+    listen 443 ssl;
+    server_name play.example.com;
+    ssl_certificate /etc/letsencrypt/live/play.example.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/play.example.com/privkey.pem;
+    root /var/www/gunman-rush;
+    index index.html;
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+
+    location ~ ^/(chunks/[a-f0-9]{64}\.gz|index\.[a-f0-9]{12}\..+)$ {
+        add_header Cache-Control "public, max-age=31536000, immutable" always;
+        try_files $uri =404;
+    }
+    location / {
+        add_header Cache-Control "no-cache" always;
+        try_files $uri =404;
+    }
+}
