@@ -34,7 +34,7 @@ if (ROOT / "assets/visual_development/plains_world_rebuild/environment_source.pn
     EXTRA += ("assets/visual_development/plains_world_rebuild/environment_source.png",)
 
 
-def capture(folder, route):
+def capture(folder, route, route_kind="main"):
     """Use the existing harness process gate and live preview, never a fixture."""
     env = os.environ.copy()
     env.update(LIBGL_ALWAYS_SOFTWARE="1", LP_NUM_THREADS="1", OMP_NUM_THREADS="1")
@@ -59,7 +59,7 @@ def capture(folder, route):
             movie = folder / "gameplay.avi"
             if route: command += ["--write-movie", str(movie), "--fixed-fps", "60"]
             command += ["--path", ".", "--script", "tools/plains_world_rebuild_preview.gd", "--", "--seed=world-rebuild-01", "--variant=0", "--capture-output=" + str(folder / "frames")]
-            if route: command += ["--route=main"]
+            if route: command += ["--route=" + route_kind]
             report["command"] = command
             result = harness.run_check({"argv": command, "timeout_seconds": 600 if route else 90,
                 "success_pattern": r"^PLAINS WORLD REBUILD ROUTE: .*" if route else r"^PLAINS WORLD REBUILD READY: .*"}, folder / "capture.log", ROOT, env)
@@ -131,6 +131,7 @@ def trace(folder, route):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, help="New evidence directory; defaults to /tmp to avoid filling workspace")
+    parser.add_argument("--route-kind", choices=("main","lower"), default="main", help="Existing normal-camera route to record")
     parser.add_argument("--trace", choices=("main","lower"), help="Cheap actual headless input trace before movies")
     parser.add_argument("--capture", action="store_true", help="Actual first candidate normal-camera image")
     parser.add_argument("--route", action="store_true", help="Actual first candidate input trace and continuous movie")
@@ -147,7 +148,7 @@ def main():
             trace(folder, args.trace)
             return
         if args.capture or args.route:
-            capture(folder, args.route)
+            capture(folder, args.route, args.route_kind)
             return
         before = source_files(EXTRA)
         report["source_before"] = before

@@ -82,6 +82,7 @@ func verify_stage(plan: Dictionary, tuning: PlayerTuning) -> Dictionary:
 
 	check(actual.actual_enemies == plan.enemy_spawns.size(), "Existing enemy contract really instantiated")
 	check(not actual.painting.is_empty(), "Actual painting consumer supplies measured evidence")
+	actual["installed_mesh_diagnostics"] = []
 	var composer: Node2D = stage.world_composer
 	for source: Dictionary in plan.bodies:
 		var instance: MeshInstance2D = composer.get_node(str(source.id).validate_node_name()+"CompletePainting") as MeshInstance2D
@@ -110,9 +111,13 @@ func verify_stage(plan: Dictionary, tuning: PlayerTuning) -> Dictionary:
 			check(Geometry2D.is_point_in_polygon(middle,body_polygon), "Installed painted triangle lies inside actual shared solid")
 		check(absf(actual_area-absf(expected_area)) < .1, "Installed painting covers complete solid area without missing shoulders or root volume")
 		var all_uvs_valid := true
+		var bad_samples: Array = []
 		for uv: Vector2 in uvs:
-			if not uv.is_finite() or uv.x<0 or uv.x>1 or uv.y<0 or uv.y>1: all_uvs_valid = false
-		check(all_uvs_valid, "Actual source UVs stay finite and inside real material image")
+			if not uv.is_finite() or uv.x<0 or uv.x>1 or uv.y<0 or uv.y>1:
+				all_uvs_valid = false
+				if bad_samples.size()<8: bad_samples.append([uv.x,uv.y])
+		actual.installed_mesh_diagnostics.append({"id":source.id,"invalid_uv_samples":bad_samples})
+		check(all_uvs_valid, "Actual source UVs stay finite and inside real material image: "+str(source.id))
 		var density := float(receipt.get("source_pixels_per_world_unit",0))
 		check(density>0 and not receipt.get("body_width_normalized",true) and not receipt.get("body_depth_normalized",true), "Consumer declares fixed world painting scale rather than whole-body normalization")
 		if str(source.kind) == "creek_bedrock":
