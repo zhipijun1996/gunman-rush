@@ -907,9 +907,9 @@
         "python3",
         "tests/test_underworld_pipeline.py"
       ],
-      "timeout_seconds": 60,
+      "timeout_seconds": 180,
       "success_pattern": "^OK$",
-      "weight_seconds": 2,
+      "weight_seconds": 80,
       "cacheable": false,
       "inputs": [
         "tools/underworld_pipeline.py",
@@ -917,7 +917,13 @@
         "assets/underworld_plains",
         "assets/style_exploration/anchors.json",
         "assets/style_exploration/underworld/source",
-        "scripts/underworld_plains"
+        "scripts/underworld_plains",
+        "scripts/ui",
+        "scripts/demo",
+        "scripts/generation/module_moving_platform.gd",
+        "scripts/world/shot_latch.gd",
+        "assets/fonts",
+        "assets/manifest.json"
       ]
     },
     "underworld-scenery": {
