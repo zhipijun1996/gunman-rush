@@ -1,3 +1,13 @@
+# 当前：美术参数已前移至模块/区域嵌入，绘画生产仍未准入
+
+分支 `feature/plains-art-language`，基线 PR88/`07ffe3f3`；运行冻结 `5d5d31f0`。先读[实际方法与恢复入口](evidence/plains_art_language/recipe.md)、[独立审查](evidence/plains_art_language/independent-review.md)、[原始记录索引](evidence/plains_art_language/records/index.json)。未改森林、核心规则或正式池。
+
+有限家族/尺寸、肩部与quiet预算先于坐标，有限后山体/外界空气直接被真实消费者使用。4Seed原生2503通过、原模块Motor1310通过、77Python检查通过；01/07同Seed拓扑和配方不变，实际列距按美术预算改变。随后有界扩到真实junction/connection，覆盖34/59、36/61、35/60、35/59；未转换部分明确保留。原JSON浮点失败保留，按整数源像素分配重叠后严格重验。
+
+**艺术失败，禁止扩产画源或宣称整区黄金。** 前景仍旧材质；九件只是拟议固定尺寸接口，非九件可用画源。根部/支座/复杂接头未实现。两Seed正常出生图与debug总览已保存，非全路线影片。无新完整路线/听音/人机设备/全CI/Web或包，旧/tmp包不代签。下一实验：一组真实岸端—芯段—根部画件，两个合法跨度和一个非法跨度，验证实际连接、支承及反向拒绝，再扩其他家族。下方历史按需。
+
+---
+
 # 当前交接：环境先于关卡投影已落地，后地层表示法实机RETHINK
 
 [草稿PR88](https://github.com/zhipijun1996/gunman-rush/pull/88)，分支`feature/plains-landform-first`，基线PR87/16e98690，运行冻结`2c615d3d4762c51edfe1bc1e970f28f60807a1f8`。先看[同Seed真实前后与最弱接口](evidence/plains_landform/gallery.html)、[实际根因](evidence/plains_landform/findings.md)、[最终独审](evidence/plains_landform/independent-art-03.md)、[恢复命令](evidence/plains_landform/recipe.md)。这是正式随机地图内一处上层岩脊＋下层溪廊的显式候选；其余为legacy remainder，非整区黄金，不进正式池，不改森林与核心规则。
