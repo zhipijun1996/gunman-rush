@@ -203,7 +203,15 @@
     "tools/underworld_delivery.py",
     "tools/underworld_pipeline.py",
     "tests/underworld_plains/damage_enemy_edge_cases.gd",
-    "tests/underworld_plains/test_underworld_boss_hit_direction.gd"
+    "tests/underworld_plains/test_underworld_boss_hit_direction.gd",
+    ".agents/skills/enemy-creator/SKILL.md",
+    "tests/underworld_plains/damage_enemy_edge_cases.gd.uid",
+    "tests/underworld_plains/test_underworld_boss_hit_direction.gd.uid",
+    "tests/underworld_plains/damage_response_ownership_cases.gd",
+    "tests/underworld_plains/damage_response_ownership_cases.gd.uid",
+    "tests/enemy_tests.gd",
+    "docs/evidence/underworld_feedback_03/verification/enemy_tests_baseline_0fab.gd.txt",
+    "docs/evidence/underworld_feedback_03/verification/pause_guard_migration.json"
   ],
   "deliverables": [
     "Eleven implemented formal consumer revisions",
@@ -359,5 +367,5 @@
   "unverified_items": [
     "Design and all relevant acceptance remain unverified"
   ],
-  "test_change_justification": "New user contract explicitly supersedes R2 one-floor Home and weakpoint-only formal Bosses. Frozen original source/tests retained byte-for-byte; existing Home19/27 business conditions kept while driver uses real multi-tier input; four Boss legacy scripts use explicit actual historical Definition/renderer without removing original assertions. Original pipeline107 retained, semantic arms corruption targets stableID instead of stale row index;9 new negatives. New Home180 retains original155 and restores25 missing applicable guards; new36 parser negatives independently executed by read-only reviewer. Current independent review remains unverified until exact source and GPU review; no old failure waived."
+  "test_change_justification": "New user contract explicitly supersedes R2 one-floor Home and weakpoint-only formal Bosses. Frozen original source/tests retained byte-for-byte; existing Home19/27 business conditions kept while driver uses real multi-tier input; four Boss legacy scripts use explicit actual historical Definition/renderer without removing original assertions. Original pipeline107 retained, semantic arms corruption targets stableID instead of stale row index;9 new negatives. New Home180 retains original155 and restores25 missing applicable guards; new36 parser negatives independently executed by read-only reviewer. Current independent review remains unverified until exact source and GPU review; no old failure waived. Original enemy pause fixture now waits natural authored hurt exit; all original check lines/three-frame pause-resume predicates retained with exact baseline and four new hurt pause/exit guards. Actual core5680/0. New317 keeps all297; original7305 action-budget unchanged and actual pass after explicit grapple/skill motion ownership repair. production-loop-tests87 predicates/regex retained, timeout60→180 bounded by local48.371s vs exact CI69.65s timeout. Independent TTL expiry is preserved, original InputRouter/input config untouched."
 }

@@ -105,6 +105,11 @@ func _accepted_hit(context: Dictionary) -> void:
 	if health.terminal or _restoring_instance: return
 	var raw_direction: Variant = context.get("hit_direction", Vector2.ZERO)
 	if not raw_direction is Vector2 or not (raw_direction as Vector2).is_finite(): return
+	# Grapple and active skills already own their target motion contract. HP
+	# still drives the shared hurt animation/audio; generic hit motion must not
+	# stop a moving hook target or extend the authored skill stagger clock.
+	GameAudio.cue(self, &"hurt")
+	if context.get("damage_type", &"") == &"grapple" or context.get("skill_attack", false) == true: return
 	var direction: Vector2 = raw_direction
 	if direction.is_zero_approx(): direction = Vector2(-brain.direction,0)
 	# Ground actors have no gravity policy in EnemyMotor; a vertical force must
@@ -112,4 +117,3 @@ func _accepted_hit(context: Dictionary) -> void:
 	if not definition.aerial: direction=Vector2(signf(direction.x) if absf(direction.x)>.05 else -brain.direction,0)
 	_damage_stun_remaining = damage_feedback.enemy_knockback_seconds
 	motor.request_knockback(direction.normalized()*damage_feedback.enemy_knockback_speed,damage_feedback.enemy_knockback_seconds,not definition.aerial)
-	GameAudio.cue(self, &"hurt")

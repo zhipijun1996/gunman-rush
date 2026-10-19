@@ -309,7 +309,8 @@ func run() -> void:
 	# Same-frame arbitration and lethal priority use the unchanged original suite.
 	await load("res://tests/damage_tests.gd").new().run(self,check)
 	var enemy_edge_rows: Array[Dictionary]=await load("res://tests/underworld_plains/damage_enemy_edge_cases.gd").new().run(self,check)
-	var output := {"enemy_edge_cases":enemy_edge_rows,"checks":checks,"failures":failures,"trace":rows,"old_lower_route":old_lower,"new_lower_route":fixed_lower,"true_pit":true_pit,"hurt_shoot_orders":hurt_shoot_orders,"actual_gear":actual_gear,"actual_surface":actual_surface,"return_entry":return_entry,"scope":"actual policy/contact/Motor fixture; not natural route, GPU or physical device"}
+	var response_owner_rows: Array[Dictionary]=await load("res://tests/underworld_plains/damage_response_ownership_cases.gd").new().run(self,check)
+	var output := {"response_owner_cases":response_owner_rows,"enemy_edge_cases":enemy_edge_rows,"checks":checks,"failures":failures,"trace":rows,"old_lower_route":old_lower,"new_lower_route":fixed_lower,"true_pit":true_pit,"hurt_shoot_orders":hurt_shoot_orders,"actual_gear":actual_gear,"actual_surface":actual_surface,"return_entry":return_entry,"scope":"actual policy/contact/Motor fixture; not natural route, GPU or physical device"}
 	DirAccess.make_dir_recursive_absolute("res://build/underworld_r3/damage")
 	var file := FileAccess.open("res://build/underworld_r3/damage/runtime.json",FileAccess.WRITE);file.store_string(JSON.stringify(output,"\t"));file.close()
 	await audio.shutdown();world.queue_free();await process_frame;await process_frame
