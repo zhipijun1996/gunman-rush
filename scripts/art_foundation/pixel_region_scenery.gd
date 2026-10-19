@@ -8,6 +8,7 @@ var supports: Array[Rect2] = []
 var clock := 0.0
 
 func configure(stage: PlainsRegionStage) -> void:
+	placements.clear()
 	supports = PlainsRegionScenery.solid_supports(stage)
 	protected_regions = PlainsRegionScenery.protection(stage)
 	var plan := PixelFormalTerrain.geometry_plan(supports)

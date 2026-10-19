@@ -38,7 +38,12 @@ func _update() -> void:
 	camera_offset = center-origin
 	for i: int in 3:
 		var width: float = size.x*[1.5,1.8,1.5][i]
-		var factor: float = width/TEXTURES[i].get_width()
+		# Preserve desktop width-driven scale; tall viewports need real source
+		# height too. Even-pixel copy widths prevent fractional repeat gaps.
+		var minimum_height: float = size.y*[1.20,.85,.62][i]
+		var factor: float = maxf(width/TEXTURES[i].get_width(),minimum_height/TEXTURES[i].get_height())
+		width = ceilf(TEXTURES[i].get_width()*factor/2.0)*2.0
+		factor = width/TEXTURES[i].get_width()
 		var height: float = TEXTURES[i].get_height()*factor
 		var drift := camera_offset*RATES[i]
 		var x: float = fposmod(-drift.x,width)-width
@@ -47,6 +52,9 @@ func _update() -> void:
 		for copy: int in 3:
 			var panel := panels[i*3+copy]
 			panel.position = Vector2(x+copy*width,y).snapped(Vector2(2,2))
+			# Far sky stops at its coverage limits. Its vertical speed is therefore
+			# constant only inside that interval, never across arbitrary Y travel.
+			if i==0: panel.position.y=clampf(panel.position.y,size.y-height,0)
 			panel.scale = Vector2.ONE*factor
 
 func measured_nodes() -> Array[Dictionary]:

@@ -125,6 +125,9 @@ func _ready() -> void:
 	terrain_art = PlainsTerrainStudy.new()
 	terrain_art.stage = self
 	add_child(terrain_art)
+	terrain_art.geometry_changed.connect(func() -> void:
+		scenery.configure(self)
+		scenery.queue_redraw())
 	PixelFormalActors.install(self)
 	queue_redraw()
 
