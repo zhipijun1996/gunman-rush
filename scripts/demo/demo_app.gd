@@ -22,6 +22,7 @@ var _run_camera: StageCameraRig
 var _lab: ModuleLab
 var _action_studio: ActionStudio
 var _foundation_lab: Blob47Lab
+var _windchime_lab: WindchimeLab
 var _foundry: FoundryLab
 var _preview: RandomStagePreview
 var lifetime := DemoLifetime.new()
@@ -101,6 +102,10 @@ func _ready() -> void:
 	if OS.has_feature("web"):
 		foundation_requested = bool(JavaScriptBridge.eval("new URLSearchParams(location.search).has('foundation')"))
 	if foundation_requested: _open_foundation.call_deferred()
+	var windchime_requested := "--windchime" in OS.get_cmdline_user_args()
+	if OS.has_feature("web"):
+		windchime_requested = bool(JavaScriptBridge.eval("new URLSearchParams(location.search).has('windchime')"))
+	if windchime_requested: _open_windchime.call_deferred()
 
 var connected_region := false
 # Explicit pilot request is read only at run start; saved map hashes can replay v10.
@@ -1250,6 +1255,7 @@ func _make_ui() -> void:
 	menu.requested_lab.connect(_open_module_lab)
 	menu.requested_actions.connect(_open_action_studio)
 	menu.requested_foundation.connect(_open_foundation)
+	menu.requested_windchime.connect(_open_windchime)
 	menu.requested_foundry.connect(_open_foundry)
 	menu.requested_random.connect(_open_random_preview)
 	menu.requested_resume.connect(_resume_from_menu)
@@ -1766,6 +1772,18 @@ func _open_action_studio() -> void:
 		_action_studio = null
 		_show_home())
 	add_child(_action_studio)
+
+func _open_windchime() -> void:
+	if director.state != DemoRunDirector.State.HOME or is_instance_valid(_windchime_lab): return
+	_remove_home_scene()
+	menu.hide_home()
+	_windchime_lab = preload("res://scenes/demo/windchime_lab.tscn").instantiate()
+	_windchime_lab.input_values = _session_input.duplicate(true)
+	_windchime_lab.home_requested.connect(func() -> void:
+		_windchime_lab.queue_free()
+		_windchime_lab = null
+		_show_home())
+	add_child(_windchime_lab)
 
 func _open_foundation() -> void:
 	if director.state != DemoRunDirector.State.HOME or is_instance_valid(_foundation_lab): return

@@ -4,9 +4,9 @@ extends RefCounted
 ## merged from the very same cells, with no snapping of existing module geometry.
 const ATLAS := preload("res://assets/art_foundation_v1/sandstone_blob47.svg")
 
-static func build(cells: Dictionary, seed_text: String) -> TileMapLayer:
+static func build(cells: Dictionary, seed_text: String, atlas: Texture2D = ATLAS, family: StringName = &"sandstone") -> TileMapLayer:
 	var source := TileSetAtlasSource.new()
-	source.texture = ATLAS
+	source.texture = atlas
 	source.texture_region_size = Vector2i.ONE * Blob47Rules.SOURCE_SIZE
 	source.margins = Vector2i.ONE * Blob47Rules.GUTTER
 	source.separation = Vector2i.ONE * Blob47Rules.GUTTER * 2
@@ -22,7 +22,7 @@ static func build(cells: Dictionary, seed_text: String) -> TileMapLayer:
 	layer.scale = Vector2.ONE * float(Blob47Rules.CELL) / Blob47Rules.SOURCE_SIZE
 	layer.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	for cell: Vector2i in cells:
-		assert(cells[cell] == &"sandstone", "Material needs its own admitted 47-tile family")
+		assert(cells[cell] == family, "Material needs its own admitted 47-tile family")
 		layer.set_cell(cell, 0, Blob47Rules.atlas_coords(Blob47Rules.mask_at(cells, cell), Blob47Rules.variant_at(seed_text, cell)))
 	return layer
 

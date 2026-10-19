@@ -1,5 +1,7 @@
 # 后续 Tile Map 制作规划
 
+> 最新执行覆盖：用户已授权按新参考切换画法，并要求纹理/肌理与16区色彩分工。平原材质改为暖石灰岩/鼠尾草/麦金，见[最新美术入口](art_foundation_v1.md)和[16区视觉分工](region_visual_identity.md)。下文原草土石卡通措辞仅为历史起点；素材→样板→模块→随机的生产次序继续有效。
+
 任务 `TILE-MAP-PLAN-01`，2026-10-19。依据用户提供的[视频](https://www.bilibili.com/video/BV1kbDGYuEF7/)和[关键段落记录](evidence/tile_map_plan_01/observations.md)制定。本文是生产规划，未制作新地图、修改随机池或开放地区。
 
 ## 本轮决定
