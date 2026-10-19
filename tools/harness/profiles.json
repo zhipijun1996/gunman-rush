@@ -891,6 +891,16 @@
       "success_pattern": "^PASS: current formal pixel",
       "weight_seconds": 20,
       "serial": true
+    },
+    "style-exploration": {
+      "argv": [
+        "python3",
+        "tools/run_style_exploration_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^Validated runtime evidence:",
+      "weight_seconds": 8,
+      "serial": true
     }
   },
   "profiles": {
@@ -994,7 +1004,8 @@
       "blob47-foundation",
       "windchime-plains",
       "pixel-plains",
-      "pixel-formal"
+      "pixel-formal",
+      "style-exploration"
     ],
     "art": [
       "docs",
@@ -1048,7 +1059,8 @@
       "blob47-foundation",
       "windchime-plains",
       "pixel-plains",
-      "pixel-formal"
+      "pixel-formal",
+      "style-exploration"
     ],
     "web": [
       "docs",
@@ -1145,7 +1157,8 @@
       "blob47-foundation",
       "windchime-plains",
       "pixel-plains",
-      "pixel-formal"
+      "pixel-formal",
+      "style-exploration"
     ]
   }
 }

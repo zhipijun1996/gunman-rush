@@ -1,0 +1,525 @@
+[
+  {
+    "name": "runtime",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--path",
+      ".",
+      "--script",
+      "tests/style_exploration/test_style_exploration.gd",
+      "--",
+      "--report=/workspace/clock-style-lab/build/style_exploration/20261019T081913264768Z/runtime_report.json"
+    ],
+    "log": "build/style_exploration/20261019T081913264768Z/runtime.log",
+    "passed": true
+  },
+  {
+    "name": "capture_retro_0",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      ".",
+      "--resolution",
+      "1280x720",
+      "res://scenes/style_exploration/style_lab.tscn",
+      "--",
+      "--style=retro",
+      "--sample=0",
+      "--capture=/workspace/clock-style-lab/build/style_exploration/20261019T081913264768Z/retro_sample0.png"
+    ],
+    "log": "build/style_exploration/20261019T081913264768Z/capture_retro_0.log",
+    "passed": true
+  },
+  {
+    "name": "capture_retro_1",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      ".",
+      "--resolution",
+      "1280x720",
+      "res://scenes/style_exploration/style_lab.tscn",
+      "--",
+      "--style=retro",
+      "--sample=1",
+      "--capture=/workspace/clock-style-lab/build/style_exploration/20261019T081913264768Z/retro_sample1.png"
+    ],
+    "log": "build/style_exploration/20261019T081913264768Z/capture_retro_1.log",
+    "passed": true
+  },
+  {
+    "name": "capture_retro_2",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      ".",
+      "--resolution",
+      "1280x720",
+      "res://scenes/style_exploration/style_lab.tscn",
+      "--",
+      "--style=retro",
+      "--sample=2",
+      "--capture=/workspace/clock-style-lab/build/style_exploration/20261019T081913264768Z/retro_sample2.png"
+    ],
+    "log": "build/style_exploration/20261019T081913264768Z/capture_retro_2.log",
+    "passed": true
+  },
+  {
+    "name": "capture_retro_3",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      ".",
+      "--resolution",
+      "1280x720",
+      "res://scenes/style_exploration/style_lab.tscn",
+      "--",
+      "--style=retro",
+      "--sample=3",
+      "--capture=/workspace/clock-style-lab/build/style_exploration/20261019T081913264768Z/retro_sample3.png"
+    ],
+    "log": "build/style_exploration/20261019T081913264768Z/capture_retro_3.log",
+    "passed": true
+  },
+  {
+    "name": "catalog_retro",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      ".",
+      "--resolution",
+      "1280x720",
+      "res://scenes/style_exploration/style_lab.tscn",
+      "--",
+      "--style=retro",
+      "--sample=0",
+      "--catalog",
+      "--capture=/workspace/clock-style-lab/build/style_exploration/20261019T081913264768Z/retro_tileset.png"
+    ],
+    "log": "build/style_exploration/20261019T081913264768Z/catalog_retro.log",
+    "passed": true
+  },
+  {
+    "name": "capture_basic_0",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      ".",
+      "--resolution",
+      "1280x720",
+      "res://scenes/style_exploration/style_lab.tscn",
+      "--",
+      "--style=basic",
+      "--sample=0",
+      "--capture=/workspace/clock-style-lab/build/style_exploration/20261019T081913264768Z/basic_sample0.png"
+    ],
+    "log": "build/style_exploration/20261019T081913264768Z/capture_basic_0.log",
+    "passed": true
+  },
+  {
+    "name": "capture_basic_1",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      ".",
+      "--resolution",
+      "1280x720",
+      "res://scenes/style_exploration/style_lab.tscn",
+      "--",
+      "--style=basic",
+      "--sample=1",
+      "--capture=/workspace/clock-style-lab/build/style_exploration/20261019T081913264768Z/basic_sample1.png"
+    ],
+    "log": "build/style_exploration/20261019T081913264768Z/capture_basic_1.log",
+    "passed": true
+  },
+  {
+    "name": "capture_basic_2",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      ".",
+      "--resolution",
+      "1280x720",
+      "res://scenes/style_exploration/style_lab.tscn",
+      "--",
+      "--style=basic",
+      "--sample=2",
+      "--capture=/workspace/clock-style-lab/build/style_exploration/20261019T081913264768Z/basic_sample2.png"
+    ],
+    "log": "build/style_exploration/20261019T081913264768Z/capture_basic_2.log",
+    "passed": true
+  },
+  {
+    "name": "capture_basic_3",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      ".",
+      "--resolution",
+      "1280x720",
+      "res://scenes/style_exploration/style_lab.tscn",
+      "--",
+      "--style=basic",
+      "--sample=3",
+      "--capture=/workspace/clock-style-lab/build/style_exploration/20261019T081913264768Z/basic_sample3.png"
+    ],
+    "log": "build/style_exploration/20261019T081913264768Z/capture_basic_3.log",
+    "passed": true
+  },
+  {
+    "name": "catalog_basic",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      ".",
+      "--resolution",
+      "1280x720",
+      "res://scenes/style_exploration/style_lab.tscn",
+      "--",
+      "--style=basic",
+      "--sample=0",
+      "--catalog",
+      "--capture=/workspace/clock-style-lab/build/style_exploration/20261019T081913264768Z/basic_tileset.png"
+    ],
+    "log": "build/style_exploration/20261019T081913264768Z/catalog_basic.log",
+    "passed": true
+  },
+  {
+    "name": "capture_scribble_0",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      ".",
+      "--resolution",
+      "1280x720",
+      "res://scenes/style_exploration/style_lab.tscn",
+      "--",
+      "--style=scribble",
+      "--sample=0",
+      "--capture=/workspace/clock-style-lab/build/style_exploration/20261019T081913264768Z/scribble_sample0.png"
+    ],
+    "log": "build/style_exploration/20261019T081913264768Z/capture_scribble_0.log",
+    "passed": true
+  },
+  {
+    "name": "capture_scribble_1",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      ".",
+      "--resolution",
+      "1280x720",
+      "res://scenes/style_exploration/style_lab.tscn",
+      "--",
+      "--style=scribble",
+      "--sample=1",
+      "--capture=/workspace/clock-style-lab/build/style_exploration/20261019T081913264768Z/scribble_sample1.png"
+    ],
+    "log": "build/style_exploration/20261019T081913264768Z/capture_scribble_1.log",
+    "passed": true
+  },
+  {
+    "name": "capture_scribble_2",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      ".",
+      "--resolution",
+      "1280x720",
+      "res://scenes/style_exploration/style_lab.tscn",
+      "--",
+      "--style=scribble",
+      "--sample=2",
+      "--capture=/workspace/clock-style-lab/build/style_exploration/20261019T081913264768Z/scribble_sample2.png"
+    ],
+    "log": "build/style_exploration/20261019T081913264768Z/capture_scribble_2.log",
+    "passed": true
+  },
+  {
+    "name": "capture_scribble_3",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      ".",
+      "--resolution",
+      "1280x720",
+      "res://scenes/style_exploration/style_lab.tscn",
+      "--",
+      "--style=scribble",
+      "--sample=3",
+      "--capture=/workspace/clock-style-lab/build/style_exploration/20261019T081913264768Z/scribble_sample3.png"
+    ],
+    "log": "build/style_exploration/20261019T081913264768Z/capture_scribble_3.log",
+    "passed": true
+  },
+  {
+    "name": "catalog_scribble",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      ".",
+      "--resolution",
+      "1280x720",
+      "res://scenes/style_exploration/style_lab.tscn",
+      "--",
+      "--style=scribble",
+      "--sample=0",
+      "--catalog",
+      "--capture=/workspace/clock-style-lab/build/style_exploration/20261019T081913264768Z/scribble_tileset.png"
+    ],
+    "log": "build/style_exploration/20261019T081913264768Z/catalog_scribble.log",
+    "passed": true
+  },
+  {
+    "name": "capture_underworld_0",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      ".",
+      "--resolution",
+      "1280x720",
+      "res://scenes/style_exploration/style_lab.tscn",
+      "--",
+      "--style=underworld",
+      "--sample=0",
+      "--capture=/workspace/clock-style-lab/build/style_exploration/20261019T081913264768Z/underworld_sample0.png"
+    ],
+    "log": "build/style_exploration/20261019T081913264768Z/capture_underworld_0.log",
+    "passed": true
+  },
+  {
+    "name": "capture_underworld_1",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      ".",
+      "--resolution",
+      "1280x720",
+      "res://scenes/style_exploration/style_lab.tscn",
+      "--",
+      "--style=underworld",
+      "--sample=1",
+      "--capture=/workspace/clock-style-lab/build/style_exploration/20261019T081913264768Z/underworld_sample1.png"
+    ],
+    "log": "build/style_exploration/20261019T081913264768Z/capture_underworld_1.log",
+    "passed": true
+  },
+  {
+    "name": "capture_underworld_2",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      ".",
+      "--resolution",
+      "1280x720",
+      "res://scenes/style_exploration/style_lab.tscn",
+      "--",
+      "--style=underworld",
+      "--sample=2",
+      "--capture=/workspace/clock-style-lab/build/style_exploration/20261019T081913264768Z/underworld_sample2.png"
+    ],
+    "log": "build/style_exploration/20261019T081913264768Z/capture_underworld_2.log",
+    "passed": true
+  },
+  {
+    "name": "capture_underworld_3",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      ".",
+      "--resolution",
+      "1280x720",
+      "res://scenes/style_exploration/style_lab.tscn",
+      "--",
+      "--style=underworld",
+      "--sample=3",
+      "--capture=/workspace/clock-style-lab/build/style_exploration/20261019T081913264768Z/underworld_sample3.png"
+    ],
+    "log": "build/style_exploration/20261019T081913264768Z/capture_underworld_3.log",
+    "passed": true
+  },
+  {
+    "name": "catalog_underworld",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      ".",
+      "--resolution",
+      "1280x720",
+      "res://scenes/style_exploration/style_lab.tscn",
+      "--",
+      "--style=underworld",
+      "--sample=0",
+      "--catalog",
+      "--capture=/workspace/clock-style-lab/build/style_exploration/20261019T081913264768Z/underworld_tileset.png"
+    ],
+    "log": "build/style_exploration/20261019T081913264768Z/catalog_underworld.log",
+    "passed": true
+  },
+  {
+    "name": "capture_cavern_0",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      ".",
+      "--resolution",
+      "1280x720",
+      "res://scenes/style_exploration/style_lab.tscn",
+      "--",
+      "--style=cavern",
+      "--sample=0",
+      "--capture=/workspace/clock-style-lab/build/style_exploration/20261019T081913264768Z/cavern_sample0.png"
+    ],
+    "log": "build/style_exploration/20261019T081913264768Z/capture_cavern_0.log",
+    "passed": true
+  },
+  {
+    "name": "capture_cavern_1",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      ".",
+      "--resolution",
+      "1280x720",
+      "res://scenes/style_exploration/style_lab.tscn",
+      "--",
+      "--style=cavern",
+      "--sample=1",
+      "--capture=/workspace/clock-style-lab/build/style_exploration/20261019T081913264768Z/cavern_sample1.png"
+    ],
+    "log": "build/style_exploration/20261019T081913264768Z/capture_cavern_1.log",
+    "passed": true
+  },
+  {
+    "name": "capture_cavern_2",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      ".",
+      "--resolution",
+      "1280x720",
+      "res://scenes/style_exploration/style_lab.tscn",
+      "--",
+      "--style=cavern",
+      "--sample=2",
+      "--capture=/workspace/clock-style-lab/build/style_exploration/20261019T081913264768Z/cavern_sample2.png"
+    ],
+    "log": "build/style_exploration/20261019T081913264768Z/capture_cavern_2.log",
+    "passed": true
+  },
+  {
+    "name": "capture_cavern_3",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      ".",
+      "--resolution",
+      "1280x720",
+      "res://scenes/style_exploration/style_lab.tscn",
+      "--",
+      "--style=cavern",
+      "--sample=3",
+      "--capture=/workspace/clock-style-lab/build/style_exploration/20261019T081913264768Z/cavern_sample3.png"
+    ],
+    "log": "build/style_exploration/20261019T081913264768Z/capture_cavern_3.log",
+    "passed": true
+  },
+  {
+    "name": "catalog_cavern",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      ".",
+      "--resolution",
+      "1280x720",
+      "res://scenes/style_exploration/style_lab.tscn",
+      "--",
+      "--style=cavern",
+      "--sample=0",
+      "--catalog",
+      "--capture=/workspace/clock-style-lab/build/style_exploration/20261019T081913264768Z/cavern_tileset.png"
+    ],
+    "log": "build/style_exploration/20261019T081913264768Z/catalog_cavern.log",
+    "passed": true
+  }
+]
