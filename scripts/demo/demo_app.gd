@@ -567,7 +567,7 @@ func _physics_process(_delta: float) -> void:
 		else:
 			_boss_contact.enabled = not stage.boss.get_node("Encounter").health.terminal
 
-func _submit_damage(source: StringName, kind: DamageRequest.Kind, amount: float, event: StringName = &"") -> void:
+func _submit_damage(source: StringName, kind: DamageRequest.Kind, amount: float, event: StringName = &"", hit_direction: Vector2 = Vector2.ZERO) -> void:
 	var request := DamageRequest.new()
 	request.token = lifetime.token()
 	request.event_id = _next_id(str(source)) if event.is_empty() else event
@@ -575,6 +575,7 @@ func _submit_damage(source: StringName, kind: DamageRequest.Kind, amount: float,
 	request.target_id = &"player"
 	request.kind = kind
 	request.amount = amount
+	request.hit_direction = hit_direction
 	request.health_epoch = controller.actor_resources.health.epoch
 	request.actor_epoch = lifetime.actor_epoch
 	policy.submit(request)
@@ -582,7 +583,7 @@ func _submit_damage(source: StringName, kind: DamageRequest.Kind, amount: float,
 func _boss_projectile_created(projectile: Node) -> void:
 	projectile.hit.connect(func(body: Node, event_id: StringName, amount: float) -> void:
 		if body == player and lifetime.active and is_instance_valid(policy) and (not generated_plains or (_boss_started and _in_boss_core())):
-			_submit_damage(&"boss_projectile", DamageRequest.Kind.MONSTER, amount, event_id)
+			_submit_damage(&"boss_projectile", DamageRequest.Kind.MONSTER, amount, event_id, projectile.direction)
 	)
 
 func _damage_resolved(_results: Array[DamageResult], batch_policy: FrameDamagePolicy = null, batch_stage_epoch: int = -1, batch_run_epoch: int = -1) -> void:

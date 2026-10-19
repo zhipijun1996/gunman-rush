@@ -111,5 +111,5 @@ func _accepted_hit(context: Dictionary) -> void:
 	# not leave a walking beetle permanently hovering above its authored floor.
 	if not definition.aerial: direction=Vector2(signf(direction.x) if absf(direction.x)>.05 else -brain.direction,0)
 	_damage_stun_remaining = damage_feedback.enemy_knockback_seconds
-	motor.request_knockback(direction.normalized()*damage_feedback.enemy_knockback_speed,damage_feedback.enemy_knockback_seconds)
+	motor.request_knockback(direction.normalized()*damage_feedback.enemy_knockback_speed,damage_feedback.enemy_knockback_seconds,not definition.aerial)
 	GameAudio.cue(self, &"hurt")

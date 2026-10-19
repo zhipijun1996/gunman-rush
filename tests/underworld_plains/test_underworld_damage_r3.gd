@@ -83,6 +83,8 @@ func real_enemy_projectile_fixture() -> void:
 	check(policy.bind_damageable(&"r3_actual_enemy",actor.damageable,actor.health),"actual enemy bound to batched policy")
 	var accepted_hits: Array[Dictionary]=[]
 	actor.damageable.damaged.connect(func(context: Dictionary) -> void: accepted_hits.append(context))
+	await settle_audio_voices()
+	var enemy_audio_before := int(audio.played.get(&"hurt",0))
 	controller.router.aim_direction=Vector2.RIGHT
 	controller.router.request_action(&"shoot_release",Vector2.RIGHT)
 	await ticks(20,"actual_player_projectile_enemy_hit")
@@ -90,11 +92,13 @@ func real_enemy_projectile_fixture() -> void:
 	check(accepted_hits.size()==1 and presentation.accepted_hurt_count==1,"committed batched hit emits one actual enemy hurt")
 	check(not accepted_hits.is_empty() and (accepted_hits[0].get("hit_direction",Vector2.ZERO) as Vector2).x>.9,"actual projectile direction preserved through damage sink")
 	check(presentation._hurt>0,"ordinary enemy renders bounded hurt animation after actual projectile")
+	check(int(audio.played.get(&"hurt",0))==enemy_audio_before+1,"real ordinary enemy accepted hit emits exactly one hurt audio")
 	if not accepted_hits.is_empty():
 		check(not actor.damageable.receive_damage(accepted_hits[0]),"actual projectile event replay refused")
 	var count := presentation.accepted_hurt_count
 	await ticks(2,"enemy_replay_rejected")
 	check(presentation.accepted_hurt_count==count,"enemy event replay cannot retrigger hurt")
+	check(int(audio.played.get(&"hurt",0))==enemy_audio_before+1,"enemy hit replay cannot emit second hurt audio")
 	enemy.queue_free();await process_frame
 
 func settle_audio_voices() -> void:
@@ -304,7 +308,8 @@ func run() -> void:
 		death_policy.free()
 	# Same-frame arbitration and lethal priority use the unchanged original suite.
 	await load("res://tests/damage_tests.gd").new().run(self,check)
-	var output := {"checks":checks,"failures":failures,"trace":rows,"old_lower_route":old_lower,"new_lower_route":fixed_lower,"true_pit":true_pit,"hurt_shoot_orders":hurt_shoot_orders,"actual_gear":actual_gear,"actual_surface":actual_surface,"return_entry":return_entry,"scope":"actual policy/contact/Motor fixture; not natural route, GPU or physical device"}
+	var enemy_edge_rows: Array[Dictionary]=await load("res://tests/underworld_plains/damage_enemy_edge_cases.gd").new().run(self,check)
+	var output := {"enemy_edge_cases":enemy_edge_rows,"checks":checks,"failures":failures,"trace":rows,"old_lower_route":old_lower,"new_lower_route":fixed_lower,"true_pit":true_pit,"hurt_shoot_orders":hurt_shoot_orders,"actual_gear":actual_gear,"actual_surface":actual_surface,"return_entry":return_entry,"scope":"actual policy/contact/Motor fixture; not natural route, GPU or physical device"}
 	DirAccess.make_dir_recursive_absolute("res://build/underworld_r3/damage")
 	var file := FileAccess.open("res://build/underworld_r3/damage/runtime.json",FileAccess.WRITE);file.store_string(JSON.stringify(output,"\t"));file.close()
 	await audio.shutdown();world.queue_free();await process_frame;await process_frame

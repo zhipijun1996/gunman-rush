@@ -71,3 +71,7 @@ F / G3–G5 集成：写正式场景/实例/生成池路径和许可证据；通
 [独立有限试玩审查](../../../docs/evidence/region_production_v3/ecology_admission/README.md)将有条件接受与后续default复验分开。
 条件未补齐不得改写原REJECT；有限runtime候选可保持review交试玩，但不代签G5、用户、设备、商业品质或整区生态完成。
 玩法失败退回空间/AI时序与反制设计；视觉失败交art-director/animation-vfx；验收器误收交实际证据消费者修复并保留原连贯反例。
+
+## Underworld第三轮地面受伤反例
+
+无重力的地面敌人被受伤力推出窄台会永久悬空；只给该受伤通道检查真实下一脚步支撑，保留宽地面击退、空中敌人、普通AI及旧技能合同。双侧边缘/宽地面/空中对照、失败及修复范围见[第三轮经验](../../../docs/underworld_feedback_r3.md)。

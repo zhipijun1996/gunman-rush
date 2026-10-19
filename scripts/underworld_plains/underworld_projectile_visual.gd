@@ -16,7 +16,14 @@ var impact := false
 var source: WeakRef
 
 static func enabled(node: Node) -> bool:
-	return UnderworldActors.enabled(node)
+	# Keep the projectile leaf independent of actor/presentation classes. Boss
+	# and Enemy scripts both load this visual; loading Actors back from here
+	# creates a class-resolution cycle in standalone Stage consumers.
+	var cursor := node
+	while cursor != null:
+		if cursor.get_meta("underworld_formal_style",false): return true
+		cursor = cursor.get_parent()
+	return false
 
 static func emit(origin: Node2D, at: Vector2, direction: Vector2, is_friendly: bool, is_impact: bool) -> UnderworldProjectileVisual:
 	if not origin.is_inside_tree() or not enabled(origin): return null

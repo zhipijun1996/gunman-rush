@@ -21,6 +21,10 @@ def main():
     receipt = json.loads((directory / 'continuous_combat.json').read_text())
     if receipt['failures'] or receipt['checks'] < 90:
         raise RuntimeError('R3 Boss receipt incomplete or failed')
+    directions = run_engine([*common, '--script', 'tests/underworld_plains/test_underworld_boss_hit_direction.gd'], 120)
+    (directory / 'directional_hits_runtime.log').write_text(directions)
+    if not re.search(r'^UNDERWORLD R3 BOSS HIT DIRECTION: 16 checks, 0 failures$', directions, re.M):
+        raise RuntimeError('Actual Boss projectile directions or accepted Motor knockback failed')
     output = run_engine([*common, '--script', 'tests/underworld_plains/test_underworld_r3_boss_lifecycle.gd'], 180)
     (directory / 'lifecycle_runtime.log').write_text(output)
     if 'ERROR:' in output or not re.search(r'^UNDERWORLD R3 BOSS LIFECYCLE: [1-9]\d* checks, 0 failures$', output, re.M):
