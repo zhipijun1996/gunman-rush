@@ -7,9 +7,7 @@ extends RefCounted
 const CATALOG_PATH := "res://resources/generation/plains_world_rebuild.json"
 const VERSION := "plains-world-rebuild-v3"
 const WORLD_SUBPIXELS := 100
-# Keep the admitted comparison layout/gap stream stable while changing wall geometry.
-const LAYOUT_RANDOM_VERSION := "plains-world-rebuild-v1"
-const PREVIOUS_SOURCE_COMMIT := "e76e5c24a1dff6733bcf7a64fae3ab8cca4a7640"
+const PREVIOUS_SOURCE_COMMIT := "5871a02bb2d54670dea0bcd643a307d575bce6e7"
 
 static func generate(seed: String, variant: int = 0) -> Dictionary:
 	var source: Variant = JSON.parse_string(FileAccess.get_file_as_string(CATALOG_PATH))
@@ -71,7 +69,7 @@ static func generate(seed: String, variant: int = 0) -> Dictionary:
 		"enemy_spawns": [{"id": "east_guard", "definition": "res://resources/enemies/plains_charger.tres", "position": [enemy_anchor[0], float(enemy_anchor[1]) - enemy_definition.collision_size.y * 0.5], "body": "east_meadow_ridge"}], "device_spawns": [],
 		"encounter_reservations": [{"id": "east_guard", "position": enemy_anchor, "clear_landing_radius": 160.0, "status": "runtime_existing_enemy_contract_required"}], "layers": layers,
 		"interfaces": [{"id": "west_extension", "position": west_top[0]["from"], "direction": [-1, 0], "root_y": float(bodies[0]["polygon"][-1][1]), "kind": "source_body_cross_section"}, {"id": "east_extension", "position": east_top[-1]["to"], "direction": [1, 0], "root_y": float(bodies[1]["polygon"][0][1]), "kind": "source_body_cross_section"}, {"id": "west_creek_root", "overlap_width": overlap, "top_y": creek, "kind": "solid_root_overlap"}, {"id": "east_creek_root", "overlap_width": overlap, "top_y": creek, "kind": "solid_root_overlap"}],
-		"planning_limits": catalog["limits"].duplicate(true), "player_source": {"path": "res://config/player_tuning.json", "ground_speed": tuning["ground_speed"], "gravity": tuning["gravity"], "jump_speeds": tuning["jump_speeds"], "max_jumps": tuning["max_jumps"], "max_air_shots": tuning["max_air_shots"], "body_size": [24, 36]}, "admission": catalog["admission"].duplicate(true)
+		"planning_limits": catalog["limits"].duplicate(true), "player_source": {"path": "res://config/player_tuning.json", "ground_speed": tuning["ground_speed"], "gravity": tuning["gravity"], "jump_speeds": tuning["jump_speeds"], "max_jumps": tuning["max_jumps"], "max_air_shots": tuning["max_air_shots"], "body_size": [player_size.x,player_size.y]}, "admission": catalog["admission"].duplicate(true)
 	}
 	# Canonical world coordinates are integer centipixels expressed in world
 	# units. Quantize geometry, never authoritative source pixels or tuning.
@@ -82,6 +80,18 @@ static func generate(seed: String, variant: int = 0) -> Dictionary:
 	data["world_coordinate_protocol"] = catalog["world_coordinate_protocol"].duplicate(true)
 	data["validation_errors"] = validate(data)
 	return data
+
+static func _player_body_size() -> Vector2:
+	var packed := load("res://scenes/player/player.tscn") as PackedScene
+	var state := packed.get_state()
+	for index: int in state.get_node_count():
+		if state.get_node_type(index)!=&"CollisionShape2D":continue
+		for property_index: int in state.get_node_property_count(index):
+			if state.get_node_property_name(index,property_index)==&"shape":
+				var shape := state.get_node_property_value(index,property_index) as RectangleShape2D
+				if shape!=null:return shape.size
+	push_error("Actual Player rectangular collision source missing")
+	return Vector2.ZERO
 
 static func _source_body(id: String, frame: Dictionary, geometry: Dictionary) -> Dictionary:
 	var source_polygon: Array = geometry["top_poly"].duplicate(true)
@@ -190,8 +200,8 @@ static func validate(data: Dictionary) -> Array[String]:
 			points.append(Vector2(float(point[0]), float(point[1])))
 		if points.size() < 4 or Geometry2D.triangulate_polygon(points).is_empty():
 			errors.append("body_not_triangulatable:" + id)
-		if str(body.get("collision_source", "")) != "polygon" or str(body.get("painting_source", "")) != "polygon":
-			errors.append("collision_and_painting_must_share_complete_body:" + id)
+		if str(body.get("collision_source", "")) != "polygon" or str(body.get("painting_source", "")) != "paint_frame":
+			errors.append("collision_and_painting_must_share_registered_source:" + id)
 		for surface: Dictionary in body.get("top_surfaces", []):
 			var a := Vector2(float(surface["from"][0]), float(surface["from"][1]))
 			var b := Vector2(float(surface["to"][0]), float(surface["to"][1]))
@@ -291,7 +301,7 @@ static func _packed(values: Array) -> PackedVector2Array:
 	return result
 
 static func _body(id: String, kind: String, polygon: Array, surfaces: Array, connections: Array) -> Dictionary:
-	return {"id": id, "kind": kind, "polygon": polygon, "top_surfaces": surfaces, "collision_source": "polygon", "painting_source": "polygon", "paint_family": "p1_continuous_meadow_candidate", "paint_z": 0, "connections": connections, "visual_status": "requires_whole_body_hand_painted_implementation"}
+	return {"id": id, "kind": kind, "polygon": polygon, "top_surfaces": surfaces, "collision_source": "polygon", "painting_source": "paint_frame", "paint_family": "p1_continuous_meadow_candidate", "paint_z": 0, "connections": connections, "visual_status": "source_frame_candidate_requires_actual_art_admission"}
 
 static func _surfaces(points: Array, role: String) -> Array:
 	var surfaces: Array = []

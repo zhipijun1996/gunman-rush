@@ -123,6 +123,16 @@ func verify_stage(plan: Dictionary, tuning: PlayerTuning) -> Dictionary:
 			var hit := stage.get_world_2d().direct_space_state.intersect_ray(query)
 			check(not hit.is_empty() and hit.collider == collider.get_parent(), "Actual physics ray finds declared complete-body standing surface")
 
+	var actual_player := preload("res://scenes/player/player.tscn").instantiate() as PlayerMotor
+	actual_player.position = Vector2(float(plan.spawn[0]),float(plan.spawn[1]))
+	root.add_child(actual_player)
+	await physics_frame
+	var actual_controller := actual_player.get_node("Controller") as PlayerController
+	var respawn := SegmentRespawn.new()
+	respawn.configure(actual_controller,DemoLifetime.new())
+	check(respawn.is_safe(Vector2(float(plan.spawn[0]),float(plan.spawn[1]))), "Actual unchanged full-player safe-entry contract accepts source-derived spawn")
+	actual_player.queue_free()
+	await process_frame
 	check(actual.actual_enemies == plan.enemy_spawns.size(), "Existing enemy contract really instantiated")
 	check(not actual.painting.is_empty(), "Actual painting consumer supplies measured evidence")
 	actual["installed_paint_diagnostics"] = []
@@ -190,7 +200,7 @@ func run() -> void:
 	check(not plan.formal_pool and plan.variant == 0, "First candidate isolated and second layout not expanded")
 	check(plan.bodies.size() == 3 and plan.interfaces.size() == 4, "Two complete ridges and common foundation own explicit extension/root interfaces")
 	for body: Dictionary in plan.bodies:
-		check(body.collision_source == "polygon" and body.painting_source == "polygon", "Physics and painting both consume complete same source")
+		check(body.collision_source == "polygon" and body.painting_source == "paint_frame", "Physics polygon and direct painting frame share the registered source")
 		check(not Geometry2D.triangulate_polygon(packed(body.polygon)).is_empty(), "Complete irregular body triangulates")
 		check(body.polygon.size() > 4 or body.id == "creek_foundation", "Ridges carry shaped complete volume rather than slab plus alpha skirt")
 	verify_negative(plan)

@@ -4,39 +4,8 @@
   "source_model": "continuous_ridge_and_open_creek_section",
   "paint_family": "p1_candidate_unconfirmed",
   "config_source": "res://config/player_tuning.json",
-  "body_units": {
-    "ridge_widths": [
-      1080,
-      1240
-    ],
-    "landing_widths": [
-      1400,
-      1560
-    ],
-    "fissure_widths": [
-      96,
-      104
-    ],
-    "main_surface_y": [
-      500,
-      460
-    ],
-    "creek_depths": [
-      300,
-      320
-    ],
-    "shoulder_run": 80,
-    "shoulder_rise": 60,
-    "root_depth": 340,
-    "side_recession": 130,
-    "creek_root_overlap": 100,
-    "root_side_recession": 150
-  },
   "limits": {
-    "max_main_gap": 104,
-    "min_main_landing": 240,
     "max_walk_slope_degrees": 40,
-    "visual_extension_non_interactive_max": 18,
     "minimum_player_clearance": 72,
     "max_source_rim_gap": 240
   },
@@ -44,7 +13,7 @@
     "ridge_to_creek": "solid_roots_overlap_below_open_valley; no_fake_floating_support",
     "rim_to_air": "flat_contact_then_irregular_complete_cliff",
     "world_extension": "matching_surface_height_and_full_root_cross_section",
-    "painting": "source_full_image_uniform_scale_and_optional_mirror_only; collision_derived_from_observed_source_contact_and_body_outline",
+    "painting": "registered_source_frame_drives_collision_and_direct_painting",
     "cliff_profile": "modest_continuous_shoulder_to_near_vertical_wall_to_full_root; top_and_gap_unchanged"
   },
   "admission": {
@@ -53,7 +22,7 @@
     "formal_pool": false
   },
   "geometry_revision": "v3_source_painting_is_world_construction",
-  "previous_source_commit": "e76e5c24a1dff6733bcf7a64fae3ab8cca4a7640",
+  "previous_source_commit": "5871a02bb2d54670dea0bcd643a307d575bce6e7",
   "layout_random_version": "plains-world-rebuild-v1",
   "source_geometry": {
     "source_path": "res://assets/visual_development/plains_world_rebuild/terrain_cliff_v2.png",

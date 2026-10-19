@@ -74,6 +74,7 @@ func run() -> void:
 				await save_receipt()
 				await close_review()
 			return
+	print("WORLD REBUILD STARTUP STATE: ",JSON.stringify({"status":app._status,"director_state":app.director.state,"stage_pending":app._stage_pending,"stage_exists":is_instance_valid(app.stage)}))
 	push_error("World rebuild startup timeout");rejected = true;await close_review()
 
 func evidence_output() -> String:
