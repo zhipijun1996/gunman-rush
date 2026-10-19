@@ -52,8 +52,43 @@ func verify_negative(source: Dictionary) -> void:
 	invalid = source.duplicate(true)
 	invalid.bodies[1].top_surfaces[0]["from"][0] += 1000
 	check(not WORLD.validate(invalid).is_empty(), "Unregistered main-route jump span rejected")
+	invalid = source.duplicate(true)
+	invalid.bodies[0].paint_frame.uniform_scale *= 1.1
+	check(not WORLD.validate(invalid).is_empty(), "Changed source-frame scale without rederiving collision is refused")
+	invalid = source.duplicate(true)
+	invalid.bodies[0].paint_frame.source_path = "res://assets/visual_development/plains_world_rebuild/environment_source.png"
+	check(not WORLD.validate(invalid).is_empty(), "Different real image cannot masquerade as registered complete terrain source")
+	invalid = source.duplicate(true)
+	invalid.bodies[0].paint_frame.source_size[0] += 1
+	check(not WORLD.validate(invalid).is_empty(), "False original source dimensions refused")
+	invalid = source.duplicate(true)
+	invalid.bodies[0].paint_frame.mirror_x = not bool(invalid.bodies[0].paint_frame.mirror_x)
+	check(not WORLD.validate(invalid).is_empty(), "Mirror change without source-derived physical reconstruction refused")
+	invalid = source.duplicate(true)
+	invalid.bodies[0].polygon[0][0] += 2
+	check(not WORLD.validate(invalid).is_empty(), "Collision point detached from source painting frame refused")
+	invalid = source.duplicate(true)
+	invalid.bodies[0].source_polygon[0][0] += 2
+	check(not WORLD.validate(invalid).is_empty(), "Counterfeit source contour detached from actual registered painting refused")
 	check(WORLD.generate("world-rebuild-01", -1).has("error"), "Negative structure variant refused")
 	check(WORLD.generate("world-rebuild-01", 2).has("error"), "Unregistered second-plus structure refused")
+
+func source_pixel_to_world(sprite: Sprite2D, pixel: Vector2) -> Vector2:
+	var local := pixel
+	var size := sprite.texture.get_size()
+	if sprite.flip_h: local.x = size.x-local.x
+	if sprite.flip_v: local.y = size.y-local.y
+	if sprite.centered: local -= size*.5
+	local += sprite.offset
+	return sprite.to_global(local)
+
+func world_to_source_pixel(sprite: Sprite2D, world: Vector2) -> Vector2:
+	var local := sprite.to_local(world)-sprite.offset
+	var size := sprite.texture.get_size()
+	if sprite.centered: local += size*.5
+	if sprite.flip_h: local.x=size.x-local.x
+	if sprite.flip_v: local.y=size.y-local.y
+	return local
 
 func verify_stage(plan: Dictionary, tuning: PlayerTuning) -> Dictionary:
 	var stage := STAGE.new() as PlainsWorldRebuildStage
@@ -82,59 +117,49 @@ func verify_stage(plan: Dictionary, tuning: PlayerTuning) -> Dictionary:
 
 	check(actual.actual_enemies == plan.enemy_spawns.size(), "Existing enemy contract really instantiated")
 	check(not actual.painting.is_empty(), "Actual painting consumer supplies measured evidence")
-	actual["installed_mesh_diagnostics"] = []
+	actual["installed_paint_diagnostics"] = []
 	var composer: Node2D = stage.world_composer
 	for source: Dictionary in plan.bodies:
-		var instance: MeshInstance2D = composer.get_node(str(source.id).validate_node_name()+"CompletePainting") as MeshInstance2D
-		check(instance != null and instance.mesh != null, "Actual painted mesh exists for complete source body")
-		if instance == null or instance.mesh == null: continue
+		var instance := composer.get_node_or_null(str(source.id).validate_node_name()+"CompletePainting") as Sprite2D
+		check(instance != null, "Actual complete painted body installs source Sprite: "+str(source.id))
+		if instance == null: continue
+		var frame: Dictionary = source.paint_frame
 		var receipt: Dictionary = {}
 		for row: Dictionary in actual.painting.bodies:
 			if str(row.id) == str(source.id): receipt = row; break
 		check(not receipt.is_empty() and receipt.world_polygon == source.polygon, "Measured painter binds same complete polygon as actual collider")
-		check(instance.texture != null and instance.texture.resource_path == str(receipt.source), "Actual mesh uses measured real image resource")
-		check(FileAccess.get_sha256(str(receipt.source)) == str(receipt.source_sha256), "Actual painting bytes match receipt")
-		check(FileAccess.get_sha256(str(receipt.mapping_source)) == str(receipt.mapping_sha256), "Actual source-coordinate mapping bytes match receipt")
-		check(instance.material is ShaderMaterial, "Complete-body consumer really installs its declared opaque material")
-		var surface_arrays: Array = instance.mesh.surface_get_arrays(0)
-		var vertices: PackedVector2Array = surface_arrays[Mesh.ARRAY_VERTEX]
-		var uvs: PackedVector2Array = surface_arrays[Mesh.ARRAY_TEX_UV]
-		check(vertices.size() == int(receipt.mesh_vertices) and vertices.size()%3 == 0 and uvs.size() == vertices.size(), "Actual installed mesh triangle/UV counts match measured painter")
-		var body_polygon := packed(source.polygon)
-		var actual_area := 0.0
-		var expected_area := 0.0
-		for index: int in body_polygon.size():
-			expected_area += body_polygon[index].cross(body_polygon[(index+1)%body_polygon.size()])*.5
-		for index: int in range(0,vertices.size(),3):
-			actual_area += absf((vertices[index+1]-vertices[index]).cross(vertices[index+2]-vertices[index]))*.5
-			var middle := (vertices[index]+vertices[index+1]+vertices[index+2])/3.0
-			check(Geometry2D.is_point_in_polygon(middle,body_polygon), "Installed painted triangle lies inside actual shared solid")
-		check(absf(actual_area-absf(expected_area)) < .1, "Installed painting covers complete solid area without missing shoulders or root volume")
-		var all_uvs_valid := true
-		var bad_samples: Array = []
-		for uv: Vector2 in uvs:
-			if not uv.is_finite() or uv.x<0 or uv.x>1 or uv.y<0 or uv.y>1:
-				all_uvs_valid = false
-				if bad_samples.size()<8: bad_samples.append([uv.x,uv.y])
-		actual.installed_mesh_diagnostics.append({"id":source.id,"invalid_uv_samples":bad_samples})
-		check(all_uvs_valid, "Actual source UVs stay finite and inside real material image: "+str(source.id))
-		var density := float(receipt.get("source_pixels_per_world_unit",0))
-		check(density>0 and not receipt.get("body_width_normalized",true) and not receipt.get("body_depth_normalized",true), "Consumer declares fixed world painting scale rather than whole-body normalization")
-		if str(source.kind) == "creek_bedrock":
-			var center := (float(plan.bodies[0].top_surfaces[-1].to[0])+float(plan.bodies[1].top_surfaces[0].from[0]))*.5
-			var rim_top := float(plan.bodies[0].top_surfaces[-1].to[1])
-			var fixed_density_matches := true
-			for index: int in vertices.size():
-				var expected_uv := Vector2((800+(vertices[index].x-center)*density)/1536.0,(190+(vertices[index].y-rim_top)*density)/1024.0)
-				if uvs[index].distance_to(expected_uv)>.00001: fixed_density_matches = false
-			check(fixed_density_matches, "Actual foundation mesh consumes same fixed source-pixel/world density on both axes")
-		else:
-			var sample_x := float(source.top_surfaces[-1].to[0])-160 if str(source.id)=="west_meadow_ridge" else float(source.top_surfaces[0].from[0])+160
-			var sample_y := float(source.top_surfaces[-1].to[1])+80 if str(source.id)=="west_meadow_ridge" else float(source.top_surfaces[0].from[1])+80
-			var sample := Vector2(sample_x,sample_y)
-			var first_uv: Vector2 = composer.call("_source_uv",source,sample,-240.0,3000.0,1200.0)
-			var changed_bounds_uv: Vector2 = composer.call("_source_uv",source,sample,-1240.0,9000.0,4200.0)
-			check(first_uv == changed_bounds_uv, "Changing overall width/depth arguments cannot rescale local painted bank material")
+		check(instance.texture != null and instance.texture.resource_path == str(frame.source_path), "Actual Sprite uses registered frame source")
+		check(FileAccess.get_sha256(str(frame.source_path)) == str(receipt.source_sha256), "Actual painting bytes match receipt")
+		check(instance.texture.get_size() == Vector2(float(frame.source_size[0]),float(frame.source_size[1])), "Actual original image dimensions equal registered source frame")
+		check(not instance.region_enabled and instance.hframes==1 and instance.vframes==1, "Whole painted construction rendered without slicing or hidden atlas deformation")
+		check(absf(absf(instance.scale.x)-float(frame.uniform_scale))<.00001 and absf(absf(instance.scale.y)-float(frame.uniform_scale))<.00001, "Actual Sprite has one equal-axis source-to-world scale")
+		check(instance.material == null, "Source painting remains direct Sprite without UV remapping or opacity-forcing material")
+		var transformed: Array = []
+		for value: Array in source.source_polygon:
+			var at := source_pixel_to_world(instance,Vector2(float(value[0]),float(value[1])))
+			transformed.append([at.x,at.y])
+		if bool(frame.mirror_x): transformed.reverse()
+		check(packed(transformed).size()==packed(source.polygon).size(), "Source outline and installed collider retain all construction vertices")
+		var max_mismatch := 0.0
+		for index: int in mini(transformed.size(),source.polygon.size()):
+			max_mismatch=maxf(max_mismatch,Vector2(float(transformed[index][0]),float(transformed[index][1])).distance_to(Vector2(float(source.polygon[index][0]),float(source.polygon[index][1]))))
+		check(max_mismatch<.001, "Actual Sprite source polygon maps point-for-point to real collider with declared mirror and origin")
+		var image := Image.load_from_file(str(frame.source_path))
+		check(image != null and not image.is_empty(), "Original source pixels load for physical contact-material verification")
+		var material_samples: Array = []
+		for surface: Dictionary in source.top_surfaces:
+			var middle := (Vector2(float(surface.from[0]),float(surface.from[1]))+Vector2(float(surface.to[0]),float(surface.to[1])))*.5
+			var found_solid_pixel := false
+			var pixels: Array = []
+			for depth: float in [2.0,6.0,10.0]:
+				var pixel := world_to_source_pixel(instance,middle+Vector2(0,depth))
+				var inside := pixel.x>=0 and pixel.y>=0 and pixel.x<image.get_width() and pixel.y<image.get_height()
+				var opacity := image.get_pixel(int(pixel.x),int(pixel.y)).a if inside else 0.0
+				pixels.append([pixel.x,pixel.y,opacity])
+				if opacity>.95: found_solid_pixel=true
+			check(found_solid_pixel,"Actual standing contact has real opaque source material immediately below, not transparent Sprite bounds")
+			material_samples.append(pixels)
+		actual.installed_paint_diagnostics.append({"id":source.id,"max_source_collider_mismatch":max_mismatch,"contact_material_samples":material_samples,"source":frame.source_path,"uniform_scale":frame.uniform_scale})
 
 	check(not actual.production_pool, "Experiment not added to formal pool")
 	stage.queue_free()

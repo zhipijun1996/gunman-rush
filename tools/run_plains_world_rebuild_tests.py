@@ -34,6 +34,11 @@ if (ROOT / "assets/visual_development/plains_world_rebuild/environment_source.pn
     EXTRA += ("assets/visual_development/plains_world_rebuild/environment_source.png",)
 
 
+# Include every actual candidate image, including retained v1/v2 originals.
+EXTRA = tuple(dict.fromkeys(EXTRA + tuple(path.relative_to(ROOT).as_posix()
+    for path in sorted((ROOT/"assets/visual_development/plains_world_rebuild").glob("*.png")))))
+
+
 def capture(folder, route, route_kind="main"):
     """Use the existing harness process gate and live preview, never a fixture."""
     env = os.environ.copy()
