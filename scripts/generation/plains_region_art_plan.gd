@@ -3,6 +3,7 @@ extends RefCounted
 ## Candidate-only companion to the actual complete formal region Manifest.
 ## Physics, content, resources and replay remain owned by the formal generator.
 const VERSION := "plains-regional-art-v2"
+const LANGUAGE_VERSION := "plains-regional-art-v5-bounded-language"
 const JOINT_VERSION := "plains-regional-art-v4-environment-program"
 const ASSET_CATALOG := "res://resources/visual_development/p1_regional_assets.json"
 const ATTEMPTS := 4
@@ -10,13 +11,14 @@ const MAX_WORLD_WIDTH := 22000.0
 const MAX_WORLD_HEIGHT := 6500.0
 const MIN_SURFACE_WIDTH := 20.0
 
-static func generate(seed_value: String, tuning: PlayerTuning, difficulty := "intro", force_family := "", joint_recoil_profile := false) -> Dictionary:
-	if seed_value.is_empty() or difficulty not in ["intro","advanced"]:
-		return {"ok":false,"error":"Invalid regional art generation input","rejections":[]}
+static func generate(seed_value: String, tuning: PlayerTuning, difficulty := "intro", force_family := "", joint_recoil_profile := false, art_language_profile := "") -> Dictionary:
+	if seed_value.is_empty() or difficulty not in ["intro","advanced"] or art_language_profile not in ["","bounded_plains_v1"] or (joint_recoil_profile and not art_language_profile.is_empty()):
+		return {"ok":false,"error":"Invalid or conflicting regional art generation input","rejections":[]}
 	var generator := PlainsRegionGenerator.new()
 	generator.root_bell_mode = "v3"
 	generator.regional_art_profile = "continuous_plains_v1"
 	generator.joint_recoil_profile = joint_recoil_profile
+	generator.art_language_profile = art_language_profile
 	var rejections: Array = []
 	for attempt: int in ATTEMPTS:
 		# Reuse the formal topology, semantic routes, recipe allocator, geometry,
@@ -40,6 +42,11 @@ static func generate(seed_value: String, tuning: PlayerTuning, difficulty := "in
 static func compile(manifest: Dictionary) -> Dictionary:
 	if manifest.get("sample",true) or manifest.get("layout_id","") != "connected_region":
 		return {"ok":false,"error":"Regional art requires the full connected-region Manifest, never a sample or place chain"}
+	var language_candidate: bool = manifest.get("art_language_profile","")=="bounded_plains_v1"
+	if language_candidate and manifest.get("joint_recoil_profile",false):return {"ok":false,"error":"Joint legacy and bounded language consumers are exclusive"}
+	if language_candidate:
+		var language_error := _language_world_error(manifest)
+		if not language_error.is_empty():return {"ok":false,"error":language_error}
 	if manifest.get("regional_art_profile","")!="continuous_plains_v1": return {"ok":false,"error":"Missing actual pre-embedding regional art profile"}
 	for edge: Dictionary in manifest.connections:
 		var width:=0.0
@@ -158,7 +165,7 @@ static func compile(manifest: Dictionary) -> Dictionary:
 			var attachment: Dictionary=solution.attachment
 			attachment.merge({"id":"landmark/"+str(area.id),"owner":area.id,"identity":identity,"role":area.role,"asset_role":asset_role,"priority":3 if area.role=="boss" else 2,"support_required":true})
 			landmarks.append(attachment)
-	var belts := _global_belts(manifest,bounds)
+	var belts: Array = [] if language_candidate else _global_belts(manifest,bounds)
 	var topology := {"family":manifest.family,"recipe":manifest.topology.recipe,"areas":manifest.areas.duplicate(true),"connections":manifest.connections.duplicate(true),"cycle_count":manifest.connections.size()-manifest.areas.size()+1,"semantic_routes":manifest.topology.semantic_routes.duplicate(true),"signature":topology_signature(manifest)}
 	var plan := {"version":JOINT_VERSION if not joint_modules.is_empty() else VERSION,"schema_version":1,"seed":manifest.seed,"manifest_hash":manifest.manifest_hash,"production_pool":false,"layout_source":"formal_full_region","assets_catalog":ASSET_CATALOG,"assets_catalog_sha256":asset_result.catalog_sha256,"bounds":values.duplicate(),"topology":topology,"solids":solids,"one_way_platforms":one_way,"terrain_edges":contours,"geological_bodies":geological_bodies,"surfaces":surfaces,"dynamic_surfaces":dynamic_surfaces,"keep_clear":keep_clear,"places":places,"landmarks":landmarks,"layer_belts":belts,"global_art":{"world_origin":[0.0,0.0],"light_direction":[-0.7,-0.5],"wind_direction":[-1.0,0.0],"material_coordinate_space":"world","camera_reference":"one_continuous_player_camera","background_policy":"global_belts_not_per_place_reset"},"metrics":{"source_solid_rectangles":solids.size(),"exposed_contour_edges":contours.size(),"actual_surfaces":surfaces.size(),"continuous_bodies":geological_bodies.size(),"union_area":actual_area,"places":places.size(),"landmarks":landmarks.size()}}
 	if not joint_modules.is_empty():
@@ -171,8 +178,46 @@ static func compile(manifest: Dictionary) -> Dictionary:
 			plan.rear_walls.append_array(joint.rear_walls)
 			plan.rear_openings.append_array(joint.rear_openings)
 			plan.support_relations.append_array(joint.support_relations)
+	if language_candidate:
+		plan.version=LANGUAGE_VERSION
+		plan.art_language_world=manifest.art_language_world.duplicate(true)
+		plan.module_art_expressions=[]
+		for node: Dictionary in manifest.nodes:
+			if node.has("art_expression"):
+				plan.module_art_expressions.append({"node_id":node.id,"offset":node.offset.duplicate(),"expression":node.art_expression.duplicate(true)})
+		plan.production_method="pre_embedding_art_language_and_finite_world_landforms"
+		plan.front_terrain_scope="existing_collision_union_projection_no_new_interactive_geometry"
+		plan.art_status="design_debug_not_art_admission"
+		plan.global_art.background_policy="source_owned_finite_landforms_and_exterior_air_no_world_floor_fill"
 	plan.plan_hash = plan_hash(plan)
 	return {"ok":true,"plan":plan}
+
+static func _language_world_error(manifest: Dictionary) -> String:
+	# Generated inline units must bind to the independently supplied real node;
+	# an expression's own geometry is not proof of its source Definition.
+	for node: Dictionary in manifest.get("nodes",[]):
+		if not node.has("art_expression"):continue
+		var expression: Variant=node.art_expression
+		if not expression is Dictionary:return "Invalid module art expression for "+str(node.get("id",""))
+		var expression_issues: Array=PlainsArtLanguage.expression_errors(expression,node)
+		if not expression_issues.is_empty():return "Module art expression/source rejected for "+str(node.get("id",""))+": "+str(expression_issues)
+	var world: Variant=manifest.get("art_language_world",{})
+	if not world is Dictionary or not world.get("ok",false):return "Missing pre-embedding bounded art world"
+	if world.get("finite_landforms",[]).is_empty() or world.get("open_valleys",[]).is_empty():return "Bounded language requires finite masses and exterior air"
+	var ids: Dictionary={}
+	for body: Dictionary in world.finite_landforms:
+		if str(body.get("id","")).is_empty() or ids.has(str(body.id)):return "Duplicate or absent finite landform identity"
+		ids[str(body.id)]=true
+		if body.get("collision",true) or body.get("layer","")!="rear_landform":return "Finite painting cannot silently become interactive geometry"
+		var polygon:=PackedVector2Array()
+		for value: Array in body.get("points",[]):polygon.append(_point(value))
+		if polygon.size()<3 or Geometry2D.triangulate_polygon(polygon).is_empty():return "Finite landform source cannot triangulate"
+		for valley: Dictionary in world.open_valleys:
+			var air:=PackedVector2Array()
+			for value: Array in valley.get("points",[]):air.append(_point(value))
+			if air.size()<3 or Geometry2D.triangulate_polygon(air).is_empty():return "Exterior air source cannot triangulate"
+			if not Geometry2D.intersect_polygons(polygon,air).is_empty():return "Finite mountain intrudes declared exterior air"
+	return ""
 
 static func _asset_specs() -> Dictionary:
 	if not FileAccess.file_exists(ASSET_CATALOG): return {"ok":false,"error":"Regional attachment source catalog unavailable"}
@@ -255,17 +300,17 @@ static func landmark_support_errors(landmark: Dictionary, surfaces: Array) -> Ar
 static func plan_hash(plan: Dictionary) -> String:
 	var source := plan.duplicate(true)
 	source.erase("plan_hash")
-	if source.get("version")==JOINT_VERSION: source=RandomStageGenerator.new()._canonical(source)
+	if source.get("version") in [JOINT_VERSION,LANGUAGE_VERSION]: source=RandomStageGenerator.new()._canonical(source)
 	return JSON.stringify(source,"",true).sha256_text()
 
 static func validate_recorded(plan: Dictionary, manifest: Dictionary) -> bool:
-	if plan.get("version") not in [VERSION,JOINT_VERSION] or plan.get("manifest_hash")!=manifest.get("manifest_hash") or plan.get("plan_hash")!=plan_hash(plan): return false
+	if plan.get("version") not in [VERSION,JOINT_VERSION,LANGUAGE_VERSION] or plan.get("manifest_hash")!=manifest.get("manifest_hash") or plan.get("plan_hash")!=plan_hash(plan): return false
 	var rebuilt := compile(manifest)
 	if not rebuilt.ok: return false
 	var a: Dictionary = plan.duplicate(true)
 	var b: Dictionary = rebuilt.plan.duplicate(true)
 	a.erase("generation");a.erase("plan_hash");b.erase("plan_hash")
-	if plan.get("version")==JOINT_VERSION:
+	if plan.get("version") in [JOINT_VERSION,LANGUAGE_VERSION]:
 		a=RandomStageGenerator.new()._canonical(a);b=RandomStageGenerator.new()._canonical(b)
 	return JSON.stringify(a,"",true)==JSON.stringify(b,"",true)
 

@@ -356,6 +356,14 @@ def load_spatial_experiment(path, region_id, root=ROOT):
     return data, {'path': relative.as_posix(), 'sha256': file_hash(target), 'region_id': region_id, 'allowed_paths': paths}
 
 
+def art_language_request(request, region_id):
+    """Explicit module/world art-language work; do not grant it for a palette edit."""
+    return bool(region_id == "windchime_plains"
+        and re.search(r"关卡|模块|地形|地貌|生成|level|module|generat", request, re.I)
+        and re.search(r"美术语言|美术参数|尺寸规格|尺寸族|art.language|art.parameters|size.spec", request, re.I)
+        and not re.search(r"调色|换纹理|更换纹理|贴图|palette|retexture|解锁|新机制|武器规则|能力规则|物理参数", request, re.I))
+
+
 def joint_landform_request(request, region_id):
     """Explicit shared art/level intent; surface-only requests grant no geometry."""
     visual_words = re.search(r"美术|画面|视觉|调色|纹理|\bart\b|visual|palette|texture", request, re.I)
@@ -366,7 +374,8 @@ def joint_landform_request(request, region_id):
     protected_change = re.search(r"解锁|新机制|武器规则|能力规则|物理参数", request, re.I)
     return (region_id == "windchime_plains" and not protected_change
         and ((joint_words and level_words and visual_words)
-             or (landform_words and not surface_only)))
+             or (landform_words and not surface_only)
+             or art_language_request(request, region_id)))
 
 
 def route_request(request, mode=None, phase="auto", direction=None, spatial_experiment=None):
@@ -413,8 +422,16 @@ def route_request(request, mode=None, phase="auto", direction=None, spatial_expe
                 "tests/plains_joint_recoil_trace.gd", "tests/plains_joint_recoil_runner.gd",
                 "tests/plains_joint_recoil_scan.gd",
                 "docs/evidence/plains_landform/", "docs/quality/records/", "docs/tasks.md"]
+        if art_language_request(request, region_id):
+            allowed_paths = ["scripts/generation/plains_art_language.gd",
+                "resources/generation/plains_art_language.json",
+                "scripts/generation/plains_region_generator.gd", "scripts/generation/plains_region_art_plan.gd",
+                "scripts/art/plains_regional_composer.gd", "resources/visual_development/p1_regional_assets.json",
+                "tools/plains_art_language_preview.gd", "tools/run_plains_art_language_tests.py",
+                "tests/plains_art_language_runner.gd", "docs/evidence/plains_art_language/",
+                "docs/quality/records/", "docs/tasks.md"]
         plan = art_route(request, task_id, quality_record, allowed_paths)
-        plan["preparation"]["art_scope"] = "joint_landform" if joint_art else "surface_only_frozen_geometry"
+        plan["preparation"]["art_scope"] = "pre_embedding_art_language" if art_language_request(request, region_id) else "joint_landform" if joint_art else "surface_only_frozen_geometry"
         _, binding = load_direction("docs/creative_direction/windchime_plains.json", region_id)
         plan["native_import_preflight"] = True
         plan["context_mode"] = "compact"

@@ -1221,9 +1221,32 @@ def route(request,task_id,quality_record,allowed_paths,max_calls=10,max_rounds=2
        'preparation':{'region_context':build_region_context(region_id) if region_id else {'status':'unregistered','runtime_available':None},'lessons':load_lessons(region_id)},
        'constraints':['Freeze Motor, weapons/resources/progression, RNG, actual collision geometry/route and saves; within the authorized art scope visual mesh, source profiles and UV mapping may be redesigned, not collision or gameplay','Admission is scoped to this family and actual consumer: independently evidenced actual-pixel G2 is required before its descendants expand; a rejected unrelated mother does not block independently qualified units. Preserve rejected contracts; a different limited pilot role requires its own actual-pixel review, never retroactive approval','No conceptual image posing as actual gameplay; no subjective score from hashes','Two no-progress visual rounds stop. Preserve every failed native/model/review attempt.','Host mode needs an active real Codex host, distinct implementation/review agents; otherwise block with original Harness lease/timeout','Use existing G0–G5/eleven quality dimensions; G0/G1 stage is not G2 beauty approval or full content completion']}
     regional_request = region_id == 'windchime_plains' and not re.search(r'场所|局部|另一段|钟庭|\blocal\b|\bplace\b', request, re.I)
-    from level_design import joint_landform_request
+    from level_design import joint_landform_request, art_language_request
+    language_request = art_language_request(request, region_id)
     joint_request = joint_landform_request(request, region_id)
-    if joint_request:
+    if language_request:
+        paths = ['scripts/generation/plains_art_language.gd', 'resources/generation/plains_art_language.json',
+                 'scripts/generation/plains_region_generator.gd', 'scripts/generation/plains_region_art_plan.gd',
+                 'scripts/art/plains_regional_composer.gd', 'tools/plains_art_language_preview.gd',
+                 'docs/evidence/plains_art_language/recipe.md']
+        m['constraints'][0] = ('Module and topology art intent precedes coordinates and instances. Candidate embedding consumes finite family sizes, shoulders and quiet arrivals. Preserve original module mechanics, Motor, resources, weapons, abilities, RNG implementation, saves and forest. Missing painted families and unconverted inline geometry are explicit; parameter/consumer proof is not artistic admission.')
+        m['preparation']['visual_recipe'] = {
+            'status': 'candidate_structure_only_not_art_admitted',
+            'scope': 'Pre-embedding module/world art-language interface; foreground family assets and complete artistic region remain unverified',
+            'sources': [{'path': path, 'sha256': file_hash(ROOT / path)} for path in paths if (ROOT / path).is_file()],
+            'profile': 'scripts/art/plains_regional_composer.gd', 'generation_profile': 'bounded_plains_v1',
+            'recipe': 'docs/evidence/plains_art_language/recipe.md',
+            'quality_record': 'docs/quality/records/PLAINS-ART-LANGUAGE-01.json',
+            'preview_script': 'tools/plains_art_language_preview.gd',
+            'capture_script': None, 'capture_status': 'new_profile_full_route_movie_adapter_not_bound',
+            'method': 'Finite part/family expression and topology intent before embedding; directly consume finite mountain silhouettes and exterior air. Never rectangular rear fill minus holes. Distinguish whole-challenge footprints from painting-part assembly. Missing physical/painted family implementations are not ready.',
+            'expansion': 'bounded_parameter_tests_only; painted_family_expansion_requires_actual_first_art_admission'}
+        for task in tasks:
+            task['skills'] = list(dict.fromkeys(task['skills'] + ['level-module-creator', 'region-generator']))
+            task['goal'] += ' First verify module art expressions, finite part assembly, per-column embedding and actual source-owned finite-landform consumers. Preserve unsupported parts/readiness gaps and rejection evidence. Do not expand foreground painting or claim whole-region gold from parameter tests. The current new-profile full-route MovieWriter adapter is unbound; do not use old-profile footage as new evidence.'
+            if not task['read_only']:
+                task['checks'] = list(dict.fromkeys([c for c in task['checks'] if c not in ('visual-director-terrain','visual-director-space')] + ['plains-art-language-contract']))
+    elif joint_request:
         paths = ['scripts/generation/plains_joint_recoil_plan.gd', 'scripts/generation/plains_region_generator.gd',
                  'scripts/generation/plains_region_art_plan.gd', 'scripts/art/plains_joint_recoil_composer.gd',
                  'shaders/plains_landform_material.gdshader', 'resources/visual_development/p1_landform_assets.json',

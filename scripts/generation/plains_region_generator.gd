@@ -11,10 +11,13 @@ const ATTEMPTS := 4
 # A run pins content mode; legacy generation remains byte-identical.
 var joint_recoil_profile := false # Explicit one-challenge semantic experiment; normal maps unchanged.
 var regional_art_profile := "" # Candidate-only; empty preserves the exact formal map.
+var art_language_profile := "" # Explicit pre-embedding language; no change to default/old joint records.
 var root_bell_mode := "legacy_v10" # Preserve the old generator API; DemoApp explicitly pins admitted content.
 
 func generate(seed_value: String, tuning: PlayerTuning, sample := false, force_family := "", difficulty := "advanced") -> Dictionary:
 	if regional_art_profile not in ["","continuous_plains_v1"]: return {"ok":false,"error":"Unknown regional art profile"}
+	if art_language_profile not in ["","bounded_plains_v1"] or (art_language_profile!="" and (sample or joint_recoil_profile or regional_art_profile!="continuous_plains_v1")):
+		return {"ok":false,"error":"Art-language candidate requires a full region and cannot inherit the rejected joint representation"}
 	if difficulty not in ["intro","advanced"] or seed_value.is_empty() or tuning.max_jumps < 1 or tuning.max_air_shots < 1:
 		return {"ok": false, "error": "Plains requires the existing base jump and recoil shot"}
 	for attempt: int in ATTEMPTS:
@@ -23,7 +26,7 @@ func generate(seed_value: String, tuning: PlayerTuning, sample := false, force_f
 	return verified_fallback(seed_value,tuning,difficulty)
 
 func verified_fallback(seed_value: String,tuning: PlayerTuning,difficulty := "advanced") -> Dictionary:
-	if regional_art_profile != "" or joint_recoil_profile: return {"ok":false,"error":"Regional art profile has no separately verified fallback"}
+	if regional_art_profile != "" or joint_recoil_profile or art_language_profile!="": return {"ok":false,"error":"Regional art profile has no separately verified fallback"}
 	var fallback := _candidate("region-woven_layers", false, "woven_layers", 0,difficulty)
 	fallback.seed = seed_value
 	fallback.fallback_id = "verified_exploration_region"
@@ -31,6 +34,8 @@ func verified_fallback(seed_value: String,tuning: PlayerTuning,difficulty := "ad
 	return _result(fallback) if validate(fallback, tuning) else {"ok": false, "error": "Region fallback failed validation"}
 
 func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,difficulty := "advanced") -> Dictionary:
+	if art_language_profile not in ["","bounded_plains_v1"] or (art_language_profile!="" and (sample or joint_recoil_profile or regional_art_profile!="continuous_plains_v1")):
+		return {"art_language_error":"Invalid or conflicting pre-embedding art profile"}
 	var topology := RunRandomStream.new(seed_value, "region_topology", str(attempt), RNG_VERSION)
 	var content := RunRandomStream.new(seed_value, "region_content", str(attempt), RNG_VERSION)
 	var reward := RunRandomStream.new(seed_value, "region_reward", str(attempt), RNG_VERSION)
@@ -41,6 +46,10 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 	var prep_row := 1 if sample else topology.next_int(3)
 	var m := {"version": PlainsRootBellEncounterV3.CONTENT_VERSION if root_bell_mode == "v3" else PlainsRootBellEncounterV2.CONTENT_VERSION if root_bell_mode == "v2" else VERSION, "difficulty":difficulty, "player_tuning_hash":FileAccess.get_sha256("res://config/player_tuning.json"), "seed": seed_value, "region": "plains", "layout_id": "connected_region", "family": family, "attempt": attempt, "fallback_id": "", "sample": sample, "areas": [], "connections": [], "nodes": [], "rewards": [], "pickups": [], "enemies": [], "terminal_exits": [], "budget": {"ordinary_coins": 24, "medium": 2, "high": 1, "region_top": 1, "finite_hearts": 3,"cache_coin_limit":122,"cache_heart_limit":11,"cache_note_limit":8}, "streams": {"topology": "region_topology", "content": "region_content", "reward": "region_reward", "phases": "region_phases", "generation_seed": seed_value,"derivation_version":RNG_VERSION}}
 	if joint_recoil_profile: m.joint_recoil_profile=true
+	if art_language_profile!="":
+		m.art_language_profile=art_language_profile
+		m.art_language_catalog_sha256=FileAccess.get_sha256(PlainsArtLanguage.CATALOG)
+		m.streams.art_language="region_art_language"
 	if regional_art_profile != "":
 		m.regional_art_profile=regional_art_profile
 		m.art_layout={"minimum_column_span":1400.0,"quiet_arrival_width":180.0,"maximum_phrase_width":2200.0,"support_depth_policy":"original_collision_supports_and_preserved_lower_route_voids"}
@@ -152,12 +161,24 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 			var area: Dictionary=_area(m,e.a)
 			e.purpose="outer_return" if e.get("outer_return",false) else "creek_discovery" if e.a=="area_1_2" and e.b=="area_2_2" else "first_short_chain" if e.a=="area_0_1" else "rejoin_repair_camp" if e.b==m.merchant_id else "explore_creek_return" if area.identity=="creek_well" else "learn_clock_sightline" if area.identity=="clock_court" else "meadow_crossing"
 			e.design_recipe=PlainsRouteRecipes.choose(content,m.recipe_history,difficulty=="intro",e.purpose,str(area.identity))
+			if art_language_profile!="":
+				e.art_language=PlainsArtLanguage.plan_recipe(e.design_recipe,str(area.identity),str(e.id))
+				if not e.art_language.ok:
+					m.art_language_error=e.art_language.error
+					return m
 			if joint_recoil_profile:
 				# A world construction sentence exists BEFORE any Definition or
 				# column/span embedding is allocated. Unimplemented sentences are
 				# explicitly counted, never reported as converted environment.
 				e.environment_program=PlainsJointRecoilPlan.program_for_recipe(e.design_recipe,str(area.identity),str(e.id),seed_value)
 		if joint_recoil_profile:PlainsJointRecoilPlan.bind_vertical_programs(m)
+		# This intent exists while every formal area position is still unassigned
+		# and before module instances/Definition projections enter the Manifest.
+		if art_language_profile!="":
+			m.art_language_intent=PlainsArtLanguage.plan_world_intent(m)
+			if not m.art_language_intent.ok:
+				m.art_language_error=m.art_language_intent.error
+				return m
 		for e: Dictionary in m.connections:
 			if e.kind!="horizontal":continue
 			var area: Dictionary=_area(m,e.a)
@@ -167,13 +188,25 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 					width+=float(e.environment_program.module_width)
 				else:width+=RandomStageGenerator.new().definition_for(module_id,false,false).world_bounds.size.x
 			var quiet_width:=180.0 if regional_art_profile!="" else 0.0
+			if art_language_profile!="":
+				width=maxf(width,float(e.art_language.minimum_expression_width))
+				quiet_width=float(e.art_language.quiet_arrival_width)
 			if regional_art_profile!="": e.art_clearance={"quiet_arrival_width":quiet_width,"purpose":"land_read_next_route_before_reentering_pressure","source":"continuous_plains_v1"}
 			spans[int(area.col)]=maxf(float(spans[int(area.col)]),width+HALF*2.0+80.0+quiet_width)
 		var xs: Array=[0.0]
-		for span: float in spans: xs.append(float(xs[-1])+maxf(1400.0 if regional_art_profile!="" else 1080.0,span))
+		for col: int in spans.size():
+			var minimum:=1400.0 if regional_art_profile!="" else 1080.0
+			if art_language_profile!="":minimum=float(m.art_language_intent.get("minimum_column_spans",{}).get(str(col),m.art_language_intent.minimum_column_span))
+			xs.append(float(xs[-1])+maxf(minimum,float(spans[col])))
 		for a: Dictionary in m.areas: a.position=[xs[int(a.col)],footprint.terrace_heights[int(a.row)]]
 		m.topology.column_positions=xs
 		m.topology.embedding="phrase_clearance_and_authored_terraces"
+		if art_language_profile!="":
+			m.art_language_world=PlainsArtLanguage.resolve_world(m.art_language_intent,m)
+			if not m.art_language_world.ok:
+				m.art_language_error=m.art_language_world.error
+				return m
+			m.topology.embedding="operation_and_art_family_clearance_before_module_projection"
 	# Multipoint platforms and real ascending/descending stair shafts.
 	for a: Dictionary in m.areas:
 		var drop: bool = m.connections.any(func(e: Dictionary) -> bool: return (e.kind=="stairs" and e.b==a.id) or (e.kind=="drop" and e.a==a.id))
@@ -364,8 +397,9 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 	geometry_bounds=geometry_bounds.grow(320.0)
 	m.world_bounds = [geometry_bounds.position.x,geometry_bounds.position.y,geometry_bounds.size.x,geometry_bounds.size.y]
 	if not sample:
-		m.ground_supports = _regional_landmass_supports(m) if regional_art_profile=="continuous_plains_v1" and not joint_recoil_profile else PlainsGroundSupports.region_plan(m)
+		m.ground_supports = _regional_landmass_supports(m) if regional_art_profile=="continuous_plains_v1" and not joint_recoil_profile and art_language_profile=="" else PlainsGroundSupports.region_plan(m)
 		if regional_art_profile=="continuous_plains_v1": m.art_layout.landmass_method="landform_first_joint_with_explicit_legacy_remainder" if joint_recoil_profile else "world_base_mass_minus_actual_lower_route_voids_v2"
+		if art_language_profile!="":m.art_layout.landmass_method="finite_rear_landforms_with_formal_shallow_supports_front_family_pending"
 	if joint_recoil_profile:
 		var programs:=0
 		for edge: Dictionary in m.connections:
@@ -394,6 +428,13 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 	m.streams.items="region_items"
 	m.item_version="plains-items-v2"
 	m.shot_energy_version="plains-shot-energy-v1"
+	if art_language_profile!="":
+		var planned: Array=[]
+		var unresolved: Array=[]
+		for node: Dictionary in m.nodes:
+			if node.has("art_expression"):planned.append(str(node.id))
+			else:unresolved.append(str(node.id))
+		m.art_language_coverage={"planned_node_ids":planned,"unresolved_inline_or_tutorial_node_ids":unresolved,"whole_region_front_art_ready":false,"scope":"horizontal_recipe_modules_and_registered_junction_connection; remaining_vertical_tutorial_reward_boss_are_explicit_remainder"}
 	m.manifest_hash = _hash(m)
 	return m
 
@@ -642,6 +683,13 @@ func _fill_edge(m: Dictionary, e: Dictionary, rng: RunRandomStream) -> void:
 		var program: Dictionary=e.get("environment_program",{}) if joint_recoil_profile and e.get("environment_program",{}).get("implemented",false) and id==e.environment_program.get("module_id","") and (e.id==m.get("environment_target_edge","") or e.environment_program.has("parent_program_id")) else {}
 		var d := PlainsJointRecoilPlan.definition_from_program(program) if not program.is_empty() else RandomStageGenerator.new().definition_for(id, false, false)
 		_add_existing(m, e.id + "_%s" % e.modules.size(), id, Vector2(x, a.y),program)
+		if art_language_profile!="":
+			# Preserve the exact locally authored action geometry, while binding
+			# its visual specification selected before any world coordinates.
+			var expression: Dictionary=e.art_language.modules[e.modules.size()].duplicate(true)
+			expression.source_edge_id=e.id
+			expression.source_order=e.art_language.source_order
+			m.nodes[-1].art_expression=expression
 		e.modules.append(m.nodes.size()-1)
 		x += d.world_bounds.size.x
 	if x < b.x - HALF:
@@ -662,8 +710,9 @@ func _fill_edge(m: Dictionary, e: Dictionary, rng: RunRandomStream) -> void:
 			join.anchors.assign([Vector2(-4,0), Vector2(4,0)])
 			join.entry_port = _port("entry", join.anchors[0])
 			join.exit_port = _port("exit", join.anchors[1])
-		_add_inline(m, e.id + "_join", Vector2(x, a.y), join)
-		if overlap > 0.0: m.nodes[-1].geometry.standing_margin = 16.0
+		# Bind art expression to the final source geometry, including the old
+		# certified 20px overlap correction; never mutate it after binding.
+		_add_inline(m, e.id + "_join", Vector2(x, a.y), join,{"standing_margin":16.0} if overlap>0.0 else {})
 	e.path = [[a.x,a.y],[b.x,b.y]]
 
 func _connection_actions(m: Dictionary,e: Dictionary) -> Dictionary:
@@ -707,12 +756,18 @@ func _add_existing(m: Dictionary, id: String, module_id: String, entry: Vector2,
 		m.joint_recoil_target=id
 	m.nodes.append(node)
 
-func _add_inline(m: Dictionary, id: String, p: Vector2, d: PlatformingModuleDefinition) -> void:
+func _add_inline(m: Dictionary, id: String, p: Vector2, d: PlatformingModuleDefinition, geometry_overrides: Dictionary = {}) -> void:
 	var slabs: Array = []
 	for rect: Rect2 in d.platforms: slabs.append([rect.position.x,rect.position.y,rect.size.x,rect.size.y])
 	var carriers: Array=[]
 	for f: ModuleMovingPlatformDefinition in d.ferries: carriers.append({"id":str(f.platform_id),"start":[f.start.x,f.start.y],"finish":[f.finish.x,f.finish.y],"size":[f.size.x,f.size.y],"travel":f.travel_duration,"dwell":f.dwell_duration,"phase":f.initial_phase})
-	m.nodes.append({"id": id, "module_id": str(d.module_id), "offset": [p.x,p.y], "mirrored": false, "reverse_traversal": false, "initial_phases": [], "geometry": {"bounds": [d.world_bounds.position.x,d.world_bounds.position.y,d.world_bounds.size.x,d.world_bounds.size.y], "platforms": slabs, "one_way": d.one_way_platform_indices, "ferries":carriers, "junction": str(d.module_id) == "region_junction"}})
+	var node := {"id": id, "module_id": str(d.module_id), "offset": [p.x,p.y], "mirrored": false, "reverse_traversal": false, "initial_phases": [], "geometry": {"bounds": [d.world_bounds.position.x,d.world_bounds.position.y,d.world_bounds.size.x,d.world_bounds.size.y], "platforms": slabs, "one_way": d.one_way_platform_indices, "ferries":carriers, "junction": str(d.module_id) == "region_junction"}}
+	node.geometry.merge(geometry_overrides,true)
+	if art_language_profile!="" and str(d.module_id) in ["region_junction","region_connection"]:
+		var expression := PlainsArtLanguage.plan_generated(node)
+		if expression.get("ok",false):node.art_expression=expression
+		else:m.art_language_error=expression.get("error","Generated connection has no legal finite painting assembly")
+	m.nodes.append(node)
 
 static func definition(node: Dictionary) -> PlatformingModuleDefinition:
 	if not node.has("geometry"):
@@ -825,6 +880,8 @@ func semantic_route_errors(m: Dictionary) -> Array[String]:
 
 func validate(m: Dictionary, tuning: PlayerTuning) -> bool:
 	if m.get("regional_art_profile","") not in ["","continuous_plains_v1"]: return false
+	if m.get("art_language_profile","") not in ["","bounded_plains_v1"] or m.has("art_language_error"):return false
+	if m.get("art_language_profile","")!="" and (m.get("sample",false) or m.get("joint_recoil_profile",false)):return false
 	if m.get("version") not in [VERSION, PlainsRootBellEncounterV2.CONTENT_VERSION, PlainsRootBellEncounterV3.CONTENT_VERSION] or m.get("manifest_hash") != _hash(m) or not _connected(m) or _cycles(m) < 3 or not semantic_route_errors(m).is_empty(): return false
 	if m.areas.size() < 12 or m.areas.size() > 24 or _degree(m, m.prep_id) < 2: return false
 	if m.connections.filter(func(e: Dictionary) -> bool: return e.condition == "backside").size() < 2: return false
@@ -841,13 +898,16 @@ func validate(m: Dictionary, tuning: PlayerTuning) -> bool:
 	var previous_mode := root_bell_mode
 	var previous_art_profile := regional_art_profile
 	var previous_joint_profile := joint_recoil_profile
+	var previous_language_profile := art_language_profile
 	joint_recoil_profile = bool(m.get("joint_recoil_profile",false))
+	art_language_profile = str(m.get("art_language_profile",""))
 	regional_art_profile = str(m.get("regional_art_profile",""))
 	root_bell_mode = "v3" if m.version == PlainsRootBellEncounterV3.CONTENT_VERSION else "v2" if m.version == PlainsRootBellEncounterV2.CONTENT_VERSION else "legacy_v10"
 	var expected := _candidate("region-woven_layers" if m.fallback_id != "" else str(m.seed),bool(m.get("sample",false)),str(m.family),int(m.attempt),str(m.get("difficulty","advanced")))
 	root_bell_mode = previous_mode
 	regional_art_profile = previous_art_profile
 	joint_recoil_profile = previous_joint_profile
+	art_language_profile = previous_language_profile
 	if m.fallback_id != "":
 		expected.seed = m.seed
 		expected.fallback_id = m.fallback_id

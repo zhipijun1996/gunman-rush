@@ -13,6 +13,30 @@ import production_loop
 
 
 class RoutingTests(unittest.TestCase):
+    def test_module_art_language_uses_new_exact_candidate_not_failed_joint_profile(self):
+        for request in ('优化风铃平原关卡美术语言', '改进风铃平原生成器美术参数', '设计风铃平原模块尺寸规格'):
+            with self.subTest(request=request):
+                mission = level_design.route_request(request)
+                production_loop.validate(mission)
+                recipe = mission['preparation']['visual_recipe']
+                self.assertEqual(mission['preparation']['art_scope'], 'pre_embedding_art_language')
+                self.assertEqual(recipe['generation_profile'], 'bounded_plains_v1')
+                self.assertEqual(recipe['preview_script'], 'tools/plains_art_language_preview.gd')
+                self.assertIsNone(recipe['capture_script'])
+                self.assertIn('not_bound', recipe['capture_status'])
+                worker = mission['tasks'][1]
+                self.assertIn('plains-art-language-contract', worker['checks'])
+                self.assertIn('scripts/generation/plains_art_language.gd', worker['allowed_paths'])
+                self.assertNotIn('scripts/generation/', worker['allowed_paths'])
+                self.assertNotIn('scripts/demo/demo_app.gd', worker['allowed_paths'])
+                self.assertFalse(any('forest' in path for path in worker['allowed_paths']))
+        for request in ('优化风铃平原模块调色', '改善风铃平原关卡美术语言的贴图'):
+            with self.subTest(request=request):
+                self.assertFalse(level_design.art_language_request(request, 'windchime_plains'))
+                mission = level_design.route_request(request)
+                self.assertEqual(mission['preparation']['art_scope'], 'surface_only_frozen_geometry')
+        self.assertFalse(level_design.art_language_request('设计荆棘森林关卡美术语言', 'thorn_forest'))
+
     def test_short_plains_art_uses_actual_existing_visual_recipe_without_mode_flags(self):
         request = '改善另一段风铃平原的美术'
         mission = level_design.route_request(request)
