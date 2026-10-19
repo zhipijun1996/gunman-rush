@@ -131,6 +131,7 @@ func verify_stage(plan: Dictionary, tuning: PlayerTuning) -> Dictionary:
 	var respawn := SegmentRespawn.new()
 	respawn.configure(actual_controller,DemoLifetime.new())
 	check(respawn.is_safe(Vector2(float(plan.spawn[0]),float(plan.spawn[1]))), "Actual unchanged full-player safe-entry contract accepts source-derived spawn")
+	var actual_actor_z := actual_player.z_index
 	actual_player.queue_free()
 	await process_frame
 	check(actual.actual_enemies == plan.enemy_spawns.size(), "Existing enemy contract really instantiated")
@@ -152,6 +153,9 @@ func verify_stage(plan: Dictionary, tuning: PlayerTuning) -> Dictionary:
 		check(not instance.region_enabled and instance.hframes==1 and instance.vframes==1, "Whole painted construction rendered without slicing or hidden atlas deformation")
 		check(absf(absf(instance.scale.x)-float(frame.uniform_scale))<.00001 and absf(absf(instance.scale.y)-float(frame.uniform_scale))<.00001, "Actual Sprite has one equal-axis source-to-world scale")
 		check(instance.material == null, "Source painting remains direct Sprite without UV remapping or opacity-forcing material")
+		check(instance.z_index<actual_actor_z, "Whole terrain source stays behind actual dynamic actor layer")
+		check(int(receipt.get("actual_z_index",999))==instance.z_index, "Measured terrain depth equals actual installed Sprite depth")
+
 		var transformed: Array = []
 		for value: Array in source.source_polygon:
 			var at := source_pixel_to_world(instance,Vector2(float(value[0]),float(value[1])))
