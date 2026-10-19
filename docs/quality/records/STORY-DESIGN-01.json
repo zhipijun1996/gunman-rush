@@ -1,0 +1,226 @@
+{
+  "schema_version": 1,
+  "task_id": "STORY-DESIGN-01",
+  "task_type": "process",
+  "workflow": "review",
+  "baseline_commit": "e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7",
+  "reviewed_commit": "e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7",
+  "content_version": "story-proposal-v0.1",
+  "owner": "/root",
+  "purpose": "规划完整背景、首通结局、16区域环境证据、家园NPC与碎片叙事；仅文档",
+  "player_experience": "反冲平台跳跃中逐步理解留日事故与师徒关系，首通告别、家园成长、余响续玩",
+  "constraints": [
+    "纯设计文档；不改变Motor、资源、奖励、保存、能力授予或现行路线",
+    "保留六阶段16区域池与每区两图；不要求16区全收集才结局"
+  ],
+  "affected_paths": [
+    "docs/design/story/",
+    "docs/world_and_story.md",
+    "docs/tasks.md",
+    "docs/handoff.md",
+    "docs/current_state.md",
+    "docs/quality/records/STORY-DESIGN-01.json",
+    "docs/evidence/story_design/"
+  ],
+  "deliverables": [
+    "docs/design/story/README.md",
+    "docs/design/story/story_bible.md",
+    "docs/design/story/region_narratives.md",
+    "docs/design/story/narrative_delivery.md"
+  ],
+  "creative_decisions": [
+    {
+      "status": "proposed",
+      "decision": "普通修钟学徒寻找师父；君主留日；首通修复与告别；余响续玩",
+      "basis": "本轮用户世界观与气质约束下的编剧提案，尚未获用户创作认可"
+    }
+  ],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "完整设计提案与范围边界明确",
+      "evidence": [
+        "story-spec"
+      ]
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "纯文档不涉及运行制作阶段",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "纯文档不涉及运行制作阶段",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "纯文档不涉及运行制作阶段",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "局部文档检查通过；全仓docs未能执行",
+      "evidence": [
+        "doc-coverage",
+        "harness-interrupted"
+      ]
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "纯文档不涉及运行制作阶段",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "文档范围已覆盖四个背景问题、首通与续玩；创意仍proposed",
+      "evidence": [
+        "story-spec"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "局部文档检查通过，完整docs profile被隔离克隆失败阻断",
+      "evidence": [
+        "doc-coverage",
+        "harness-interrupted"
+      ]
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "本轮仅文档，不接运行或制作素材",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "本轮仅文档，不接运行或制作素材",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "本轮仅文档，不接运行或制作素材",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "本轮仅文档，不接运行或制作素材",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "本轮仅文档，不接运行或制作素材",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "本轮仅文档，不接运行或制作素材",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "不同代理只读独立设计一致性审查，无阻塞；不签玩家认可",
+      "evidence": [
+        "independent-story-review"
+      ]
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "本轮仅文档，不接运行或制作素材",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "提案待玩家创作反馈，不冒签认可",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "STORY-FOUR-QUESTIONS",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "编剧全知稿与玩家旅程",
+      "method": "检查故事圣经各节",
+      "expected": "过去、主角现在做什么、目的、通关后均有因果闭合",
+      "failure": "任一问题缺答或结局撤销首通成果",
+      "status": "passed",
+      "reason": "完整提案已给出；玩家理解未实测",
+      "evidence": [
+        "story-spec"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "story-spec",
+      "path": "docs/evidence/story_design_v02/v01_story_bible.md.txt",
+      "sha256": "fdd3d9c40537b2b028c3f63ded22261a0f3ba4c66bf0cc8ee0a5c5e73ee928f5",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7",
+      "content_version": "story-proposal-v0.1",
+      "method": "本轮实际文件与输出",
+      "observed": "完整背景、主角目标、告别与重玩逻辑均有明确提案"
+    },
+    {
+      "id": "doc-coverage",
+      "path": "docs/evidence/story_design/document_check.txt",
+      "sha256": "52ae34ef39c48a038783870b509c0e8fed96c3f51d280340c5cd34e4100a8afa",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7",
+      "content_version": "story-proposal-v0.1",
+      "method": "本轮实际文件与输出",
+      "observed": "本轮四文档链接与16ID/六层计数静态检查通过；不代表全仓docs",
+      "command": "python inline document coverage/link assertions; git diff --check",
+      "exit_code": 0,
+      "environment": "managed cloud / Python 3.12 / sparse checkout"
+    },
+    {
+      "id": "harness-interrupted",
+      "path": "docs/evidence/story_design/harness_interrupted.json",
+      "sha256": "8af53a85f5297a8c67553114465c1002bb34100298e779fafe57d088ea37e7cd",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7",
+      "content_version": "story-proposal-v0.1",
+      "method": "本轮实际文件与输出",
+      "observed": "原docs profile在隔离共享克隆阶段失败，checks为空",
+      "command": "python3 tools/harness.py --profile docs --jobs 4",
+      "exit_code": 1,
+      "environment": "managed cloud / sparse partial clone"
+    },
+    {
+      "id": "independent-story-review",
+      "path": "docs/evidence/story_design/independent_review.md",
+      "sha256": "c46476d95aed0d5b636bbf226c222a9220fde8c092f41be99e1dcf7071bf91af",
+      "kind": "review",
+      "producer": "/root/story_review",
+      "source_commit": "e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7",
+      "content_version": "story-proposal-v0.1",
+      "method": "只读跨文档与现有地区/保存契约对照",
+      "observed": "无阻塞问题；ACCEPT仅设计一致性，不签运行或玩家认可",
+      "reviewer": "/root/story_review",
+      "implementers": [
+        "/root",
+        "/root/story_core",
+        "/root/region_story",
+        "/root/npc_delivery"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "审查者未参与故事素材或最终文档编写，只读检查"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "完整harness docs隔离克隆失败，未执行检查项",
+    "剧情尚未接入运行",
+    "用户创作偏好与玩家理解度未验证",
+    "中文显示、真实操作、视听与设备未验证",
+    "历史V0.1提案已由STORY-DESIGN-02覆盖；原spec按相同字节冻结，仅供原证据复核"
+  ]
+}

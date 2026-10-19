@@ -1,0 +1,252 @@
+{
+  "schema_version": 1,
+  "task_id": "STORY-DESIGN-02",
+  "task_type": "process",
+  "workflow": "review",
+  "baseline_commit": "44cbab0a9dd008345cf3a9df31698680f86df3e4",
+  "reviewed_commit": "44cbab0a9dd008345cf3a9df31698680f86df3e4",
+  "content_version": "story-proposal-v0.2",
+  "owner": "/root",
+  "purpose": "按用户反馈重写时间因果、三次成功结局、活老师责任、武器身份、16区Boss与多局叙事",
+  "player_experience": "首通救回老师/昼夜，再通查清与停止征时，深层安全归还未用未来，现实成果持续",
+  "constraints": [
+    "仅设计；不修改运行、Boss外观数值、资源、能力授予、保存或地区开放",
+    "六阶段16区/每区两图；所有合法路线同样三次成功可见深层结局；不要求全收集",
+    "武器保留枪/手里剑/炸弹；无维修工具改称；老师活人共谋、不能靠死洗白"
+  ],
+  "affected_paths": [
+    "docs/design/story/",
+    "docs/current_state.md",
+    "docs/handoff.md",
+    "docs/tasks.md",
+    "docs/world_and_story.md",
+    "docs/evidence/story_design_v02/",
+    "docs/quality/records/STORY-DESIGN-01.json",
+    "docs/quality/records/STORY-DESIGN-02.json"
+  ],
+  "deliverables": [
+    "docs/design/story/README.md",
+    "docs/design/story/story_bible.md",
+    "docs/design/story/region_narratives.md",
+    "docs/design/story/boss_narratives.md",
+    "docs/design/story/narrative_delivery.md"
+  ],
+  "creative_decisions": [
+    {
+      "status": "proposed",
+      "decision": "征时制度、活着的共谋老师、首通/停征/归还三层结局与16区Boss身份",
+      "basis": "用户明确要求时间关联/多次通关深层黑暗真相与角色Boss因果；本轮具体设定仍为推荐"
+    }
+  ],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "时间、人物、结局、世界后果与Boss具体设计齐备",
+      "evidence": [
+        "v02-spec"
+      ]
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "纯文档，无运行制作阶段",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "纯文档，无运行制作阶段",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "纯文档，无运行制作阶段",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "独立设计审查接受；全仓docs检查未通过",
+      "evidence": [
+        "v02-document-check",
+        "v02-docs-profile",
+        "review-round2"
+      ]
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "纯文档，无运行制作阶段",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "文档范围覆盖用户问题与具体因果；新增创意仍proposed",
+      "evidence": [
+        "v02-spec"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "本轮局部文档检查过；完整docs profile失败，未冒通过",
+      "evidence": [
+        "v02-document-check",
+        "v02-docs-profile"
+      ]
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "纯文档，不接运行或制作资产",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "纯文档，不接运行或制作资产",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "纯文档，不接运行或制作资产",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "纯文档，不接运行或制作资产",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "纯文档，不接运行或制作资产",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "纯文档，不接运行或制作资产",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "不同作者两轮只读复审接受设计一致性；原REJECT保留",
+      "evidence": [
+        "review-round2"
+      ]
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "纯文档，不接运行或制作资产",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "用户尚未评价V0.2具体提案",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "V02-CAUSALITY",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "首通到深层结局及四阶段征收状态",
+      "method": "核对故事圣经与五文档",
+      "expected": "各次成功目标/后果不同且不撤销救援，时间与人物因果可追溯",
+      "failure": "以倒带/隐瞒全知角色/失败献寿/复活或全16收集卡主线",
+      "status": "passed",
+      "reason": "独立首轮问题已修，当前稿一致性复审接受",
+      "evidence": [
+        "v02-spec",
+        "review-round2"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "v02-spec",
+      "path": "docs/evidence/story_design_v03/v02_story_bible.md.txt",
+      "sha256": "ce972a50c07f65be714477ea586fe3705bb87dea77eddac2f28543a1c883453f",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "44cbab0a9dd008345cf3a9df31698680f86df3e4",
+      "content_version": "story-proposal-v0.2",
+      "method": "本轮实际文件/输出",
+      "observed": "时间七规则/四状态、人物关系、三个成功后果明确"
+    },
+    {
+      "id": "v02-document-check",
+      "path": "docs/evidence/story_design_v02/document_check.txt",
+      "sha256": "fe35dc775f77100aa3bf40436ae161eda4d291d20c3aacd0a4dbe3f73714070f",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "44cbab0a9dd008345cf3a9df31698680f86df3e4",
+      "content_version": "story-proposal-v0.2",
+      "method": "本轮实际文件/输出",
+      "observed": "五文档链接/段落、16ID与Boss/六层/四状态静态覆盖通过",
+      "command": "python inline V0.2 file/anchor/catalog/layer/state assertions; git diff --check",
+      "exit_code": 0,
+      "environment": "managed cloud / Python 3.12 / sparse checkout"
+    },
+    {
+      "id": "v02-docs-profile",
+      "path": "docs/evidence/story_design_v02/harness_final_report.json",
+      "sha256": "306190267b7c1bed950815c2f3d372dd3c8ad46b0d38b521ad3da3a2d2d324a8",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "44cbab0a9dd008345cf3a9df31698680f86df3e4",
+      "content_version": "story-proposal-v0.2",
+      "method": "本轮实际文件/输出",
+      "observed": "完整docs profile实际退出1，首项docs失败，后续未执行；不签全仓通过",
+      "command": "python3 tools/harness.py --profile docs --jobs 1",
+      "exit_code": 1,
+      "environment": "managed cloud / sparse partial checkout"
+    },
+    {
+      "id": "review-round1",
+      "path": "docs/evidence/story_design_v02/review_round1.md",
+      "sha256": "20bdf5a3f075ca5aea4b32cad5400e518be39c19098801e14afacd388a644000",
+      "kind": "review",
+      "producer": "/root",
+      "source_commit": "44cbab0a9dd008345cf3a9df31698680f86df3e4",
+      "content_version": "story-proposal-v0.2",
+      "method": "本轮实际文件/输出",
+      "observed": "首通知情者机械压信息、事故期征收状态不一；两问题保留",
+      "reviewer": "/root/review_v2",
+      "implementers": [
+        "/root",
+        "/root/time_plot_v2",
+        "/root/bosses_v2",
+        "/root/narrative_v2"
+      ],
+      "verdict": "REJECT",
+      "independent": true,
+      "independence_basis": "审查者未参与素材或文档编写，只读对照与复审"
+    },
+    {
+      "id": "review-round2",
+      "path": "docs/evidence/story_design_v02/review_round2.md",
+      "sha256": "a30c9837551f2dac65b955ebfde0691f4a0d36c167f4b69062985bfb7615a229",
+      "kind": "review",
+      "producer": "/root",
+      "source_commit": "44cbab0a9dd008345cf3a9df31698680f86df3e4",
+      "content_version": "story-proposal-v0.2",
+      "method": "本轮实际文件/输出",
+      "observed": "统一四状态与知识边界、签名授权后设计一致性接受；不签游戏或玩家认可",
+      "reviewer": "/root/review_v2",
+      "implementers": [
+        "/root",
+        "/root/time_plot_v2",
+        "/root/bosses_v2",
+        "/root/narrative_v2"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "审查者未参与素材或文档编写，只读对照与复审"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "新剧情尚未接运行",
+    "完整docs profile退出1，稀疏工作区未物化大量历史资产/证据，原日志保留",
+    "用户创作认可、叙事理解与实际游玩未验证",
+    "V0.1原spec同字节冻结供历史证据复核，不用新稿冒签原审查",
+    "V0.2时间混杂方向已由用户否定并被STORY-DESIGN-03覆盖；此记录仅复核历史提案"
+  ]
+}

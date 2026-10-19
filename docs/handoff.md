@@ -77,6 +77,50 @@ Web build `d2c684ef8fc0`；运行源 `c0f8e50770145795db5affd4afdbffff2479f1ea`�
 
 以下为历史记录，不覆盖本节新美术要求。
 
+# STORY-WORKFLOW-01 剧情方法交接
+
+2026-10-18，分支 `docs/disordered-clock-story` / 草稿PR80；本轮基线 `36805d3`。新增[故事速读](design/story/story_overview.md)、[Codex写作方法](design/story/codex_workflow.md)、[任务模板](design/story/story_templates.md)及仓库Skill `$story-writer`（[说明](../.agents/skills/story-writer/SKILL.md)），AGENTS与剧情README可发现。只整理后续工作方法，不改V0.3规则/故事源稿、不新增运行内容，也不将提案升级为用户定案。
+
+检查与独立审查见[质量记录](quality/records/STORY-WORKFLOW-01.json)。完整docs因稀疏工作区缺历史素材/证据未通过；不据局部检查冒称全仓通过。下一步可用新Skill补一个平原可选剧情房的文档，先核对角色知识与当日日程，再经授权接入真实样板。复验命令：`python3 tools/harness.py --profile docs --jobs 1`（需完整历史文件）。
+
+以下为历史记录；当前故事仍以V0.3为准。
+
+---
+
+# STORY-DESIGN-03 V0.3统一循环剧情交接
+
+- 分支：`docs/disordered-clock-story` / 草稿PR80；基线 `3e2a96c7dce1108d4dcf7be535688a2ef677296f`，main复核仍e8ee344。
+- 交付：[六份剧情设计](design/story/README.md)，唯一时间规则为06:00至午夜的同一天回返，钟外站保持连续；不再保留征时/寿命转移/地方快慢。首通救师，再通接管无限试验，最终同一轮先安全卸载再断环。
+- 边界：用户同意统一方向，院长/事故/三次成功等细节仍提案；不改实际生成、Boss、物理、资源、保存，不开放地区/部署/合并。
+- 检查：六文档链接/锚点、16区ID与Boss、六层日程/事实覆盖、质量记录一致性通过；独立首轮两处日程REJECT已修，复审ACCEPT仅设计一致性。完整docs实际退出1，稀疏工作区缺历史素材/证据、后续未执行；原件见[本轮记录](quality/records/STORY-DESIGN-03.json)。旧V0.2源稿同字节冻结，不冒签当前稿。
+- 下一步：先评审循环/登记/原灾难/结局关系，再做送信动作重复→脱网居民新台词→老师归来→新日期来信的短样板，验证叙事与随机地图锚点。完整docs命令：`python3 tools/harness.py --profile docs --jobs 1`，需要完整历史文件。
+
+以下为历史交接，剧情以V0.3为准。
+
+---
+
+# STORY-DESIGN-02 V0.2剧情重写交接（2026-10-17）
+
+- 分支：`docs/disordered-clock-story`，继续草稿PR80；源基线 `44cbab0a9dd008345cf3a9df31698680f86df3e4`，远端main复核仍e8ee344。
+- 交付：[五份设计文档](design/story/README.md)，新增[16区Boss设定](design/story/boss_narratives.md)。首通救回活老师并恢复昼夜，二通揭露征时与共谋、停止新增，三通安全归还未用未来。枪/手里剑/炸弹不再称维修工具；老师不再是末次回响。
+- 边界：所有新创意proposed；仅文档，不修改实际Boss、物理、资源、能力、存档，不开放地区/部署/合并。
+- 检查：五文档链接/锚点、16区ID/Boss与六层/四阶段覆盖、质量记录一致性通过；独立首轮REJECT两项已修并复审ACCEPT，仅设计一致性。完整docs实际退出1：稀疏工作区缺历史资产/证据，后续项未执行，原日志见[STORY-DESIGN-02记录](quality/records/STORY-DESIGN-02.json)。不签全仓、运行或玩家通过。
+- 下一步：先评审征时规则、老师活人共谋与三层结局，再做平原同一贡献牌/首通归家/税单对照样板。完整环境复验 `python3 tools/harness.py --profile docs --jobs 1`。
+
+以下为历史交接，剧情由V0.2覆盖。
+
+---
+
+# STORY-DESIGN-01 剧情规划交接（2026-10-17）
+
+- 分支：`docs/disordered-clock-story`，基线main `e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7`。
+- 完成：[完整提案入口](design/story/README.md)链接故事圣经、16区域叙事与NPC/呈现方案；推荐首通真正修复并告别，余响远征保留成果。新增设定均proposed。
+- 边界：纯文档，无游戏运行改动、无新地区开放、无部署；保留现有构筑/能力/经济/保存契约。
+- 验证：本轮新文档覆盖/链接检查与独立设计审查见[质量记录](quality/records/STORY-DESIGN-01.json)。原harness docs真实调用退出1：隔离共享克隆失败，检查未执行，不宣称全仓docs通过。
+- 下一步：评审主线后，以平原一间剧情房/一位居民/一次回家变化做最小接入，不批量实现16地区。复验命令：`python3 tools/harness.py --profile docs --jobs 1`（需要完整、可隔离克隆的工作区）。
+
+以下为原工程交接。
+
 ---
 
 # GRAPPLE-FIX-01：钩索小修已验证，完整回归仍有阻塞

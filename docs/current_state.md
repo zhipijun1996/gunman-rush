@@ -179,6 +179,38 @@ Web build `d2c684ef8fc0`；运行源 `c0f8e50770145795db5affd4afdbffff2479f1ea`�
 
 以下为历史记录，不覆盖本节新美术要求。
 
+# STORY-WORKFLOW-01：后续剧情写作入口
+
+2026-10-18，分支 `docs/disordered-clock-story` / 草稿PR80；本轮基线 `36805d3`。新增[故事速读](design/story/story_overview.md)、[Codex写作方法](design/story/codex_workflow.md)、[任务模板](design/story/story_templates.md)及仓库Skill `$story-writer`（[说明](../.agents/skills/story-writer/SKILL.md)），AGENTS与剧情README可发现。只整理后续工作方法，不改V0.3规则/故事源稿、不新增运行内容，也不将提案升级为用户定案。
+
+检查与独立审查见[质量记录](quality/records/STORY-WORKFLOW-01.json)。完整docs因稀疏工作区缺历史素材/证据未通过；不据局部检查冒称全仓通过。下一步可用新Skill补一个平原可选剧情房的文档，先核对角色知识与当日日程，再经授权接入真实样板。复验命令：`python3 tools/harness.py --profile docs --jobs 1`（需完整历史文件）。
+
+以下为历史记录；当前故事仍以V0.3为准。
+
+---
+
+# STORY-DESIGN-03：统一最后一天回返，V0.3细案可评审
+
+用户认可单一循环方向后，继续分支 `docs/disordered-clock-story` / 草稿PR80，源基线 `3e2a96c7dce1108d4dcf7be535688a2ef677296f`。入口：[六份设计](design/story/README.md)。新增唯一[规则来源](design/story/loop_rules.md)，细化钟外家园/身份移交/死亡边界/地图抽象、院长试验与老师签名、三层结局、16区同日事件与Boss。V0.1/V0.2旧剧情失效，新具体情节仍proposed；工程实现、发布与旧阻塞不受文档改变。
+
+以下历史剧情只供溯源，当前设计以V0.3覆盖。
+
+---
+
+# STORY-DESIGN-02：多次通关与时间真相V0.2
+
+2026-10-17，继续分支 `docs/disordered-clock-story` / 草稿PR80，基线V0.1提交 `44cbab0a9dd008345cf3a9df31698680f86df3e4`。入口：[V0.2剧情设计](design/story/README.md)。按用户反馈整体替换旧剧情：三阶段成功远征、征时规则、活老师的共谋责任、16区Boss、武器保持武器。V0.1中维修工具/老师回响/唯一结局不再适用，旧证据仅证明当时提案。新创意仍proposed，未改游戏运行或部署。
+
+以下保留历史设计与工程状态；工程实现与阻塞仍有效，剧情以本节V0.2覆盖V0.1。
+
+---
+
+# STORY-DESIGN-01：剧情设计提案V0.1可评审
+
+2026-10-17，基于main `e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7`，独立文档分支 `docs/disordered-clock-story`。入口：[剧情提案](design/story/README.md)。本轮只规划故事、16区环境证据、NPC与碎片交付；全部新增创意标proposed，不改变下列游戏实现、验证与发布状态。剧情尚未接入，用户创作认可待后续反馈。
+
+以下为原工程状态，保持有效。
+
 ---
 
 # GRAPPLE-FIX-01：钩索小修已验证，完整回归仍有阻塞
