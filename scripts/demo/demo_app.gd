@@ -25,6 +25,7 @@ var _action_studio: ActionStudio
 var _foundation_lab: Blob47Lab
 var _windchime_lab: WindchimeLab
 var _pixel_plains: PixelPlainsPreview
+var _style_lab: Node
 var _foundry: FoundryLab
 var _preview: RandomStagePreview
 var lifetime := DemoLifetime.new()
@@ -117,6 +118,12 @@ func _ready() -> void:
 	_refresh_home_meta()
 	_hide_run_hud()
 	menu.show_title()
+	var style_lab_requested := "--style-lab" in OS.get_cmdline_user_args()
+	if OS.has_feature("web"):
+		style_lab_requested = bool(JavaScriptBridge.eval("new URLSearchParams(location.search).has('styles')"))
+	if style_lab_requested:
+		_open_style_lab.call_deferred()
+		return
 	var foundation_requested := "--blob47" in OS.get_cmdline_user_args()
 	if OS.has_feature("web"):
 		foundation_requested = bool(JavaScriptBridge.eval("new URLSearchParams(location.search).has('foundation')"))
@@ -194,7 +201,7 @@ func start_debug_region(region: StringName, map_index: int, seed_value: String, 
 	if not content_version.is_empty() and (region != &"thorn_forest" or not ThornForestRegionGenerator.supported(content_version)): return false
 	if not layout_version.is_empty() and (region != &"thorn_forest" or content_version != ThornForestRegionGenerator.DEPTH_VERSION or not ThornForestRegionGenerator.DEPTH_LAYOUT_SCRIPTS.has(layout_version)): return false
 	# Rejected entries must not replace the next run's region/version request.
-	if director.state != DemoRunDirector.State.HOME or seed_value.is_empty() or is_instance_valid(_lab) or is_instance_valid(_preview) or is_instance_valid(_foundry): return false
+	if director.state != DemoRunDirector.State.HOME or seed_value.is_empty() or is_instance_valid(_lab) or is_instance_valid(_preview) or is_instance_valid(_foundry) or is_instance_valid(_style_lab): return false
 	_debug_region = region
 	_debug_map = map_index
 	_requested_forest_version = content_version
@@ -222,7 +229,7 @@ func _pixel_projectiles(_direction: Vector2, _shot_id: int) -> void:
 		projectile.add_child(visual)
 
 func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) -> bool:
-	if director.state != DemoRunDirector.State.HOME or seed_value.is_empty() or is_instance_valid(_lab) or is_instance_valid(_preview) or is_instance_valid(_foundry):
+	if director.state != DemoRunDirector.State.HOME or seed_value.is_empty() or is_instance_valid(_lab) or is_instance_valid(_preview) or is_instance_valid(_foundry) or is_instance_valid(_style_lab):
 		return false
 	if _explicit_plains_candidate(): meta_persistence_enabled = false
 	if plains_environment_candidate_requested or plains_regional_art_candidate_requested:
@@ -1068,7 +1075,7 @@ func _input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 func _open_module_lab() -> void:
-	if director.state != DemoRunDirector.State.HOME or is_instance_valid(_lab) or is_instance_valid(_preview) or is_instance_valid(_foundry):
+	if director.state != DemoRunDirector.State.HOME or is_instance_valid(_lab) or is_instance_valid(_preview) or is_instance_valid(_foundry) or is_instance_valid(_style_lab):
 		return
 	_remove_home_scene()
 	menu.hide_home()
@@ -1094,7 +1101,7 @@ func _close_module_lab() -> void:
 	_show_home()
 
 func _open_foundry() -> void:
-	if director.state != DemoRunDirector.State.HOME or is_instance_valid(_lab) or is_instance_valid(_preview) or is_instance_valid(_foundry):
+	if director.state != DemoRunDirector.State.HOME or is_instance_valid(_lab) or is_instance_valid(_preview) or is_instance_valid(_foundry) or is_instance_valid(_style_lab):
 		return
 	_remove_home_scene()
 	menu.hide_home()
@@ -1112,7 +1119,7 @@ func _close_foundry() -> void:
 	_show_home()
 
 func _open_random_preview(seed_text: String) -> void:
-	if director.state != DemoRunDirector.State.HOME or is_instance_valid(_lab) or is_instance_valid(_preview) or is_instance_valid(_foundry):
+	if director.state != DemoRunDirector.State.HOME or is_instance_valid(_lab) or is_instance_valid(_preview) or is_instance_valid(_foundry) or is_instance_valid(_style_lab):
 		return
 	_remove_home_scene()
 	menu.hide_home()
@@ -1211,7 +1218,7 @@ func _refresh_home_meta() -> void:
 		home_scene.set_meta_state(snapshot)
 
 func _show_home() -> void:
-	if director.state != DemoRunDirector.State.HOME or is_instance_valid(_lab) or is_instance_valid(_preview) or is_instance_valid(_foundry):
+	if director.state != DemoRunDirector.State.HOME or is_instance_valid(_lab) or is_instance_valid(_preview) or is_instance_valid(_foundry) or is_instance_valid(_style_lab):
 		return
 	get_tree().paused = false
 	_sync_region_presentation(true)
@@ -1540,6 +1547,7 @@ func _make_ui() -> void:
 	menu.requested_foundation.connect(_open_foundation)
 	menu.requested_windchime.connect(_open_windchime)
 	menu.requested_pixel_plains.connect(_open_pixel_plains)
+	menu.requested_style_lab.connect(_open_style_lab)
 	menu.requested_foundry.connect(_open_foundry)
 	menu.requested_random.connect(_open_random_preview)
 	menu.requested_resume.connect(_resume_from_menu)
@@ -2123,6 +2131,23 @@ func _finish_campaign_boundary() -> void:
 	progression_modal.close()
 	get_tree().paused = false
 	director.finish_biome(_progression_token,_next_id("forest_boundary"),true)
+
+func _open_style_lab() -> void:
+	if director.state != DemoRunDirector.State.HOME or is_instance_valid(_style_lab): return
+	var scene := load("res://scenes/style_exploration/style_lab.tscn") as PackedScene
+	if scene == null:
+		push_error("Five Style Lab scene is unavailable")
+		menu.show_title()
+		return
+	_remove_home_scene()
+	menu.hide_home()
+	_style_lab = scene.instantiate()
+	_style_lab.set("input_values", _session_input.duplicate(true))
+	_style_lab.connect("home_requested", func() -> void:
+		_style_lab.queue_free()
+		_style_lab = null
+		_show_home())
+	add_child(_style_lab)
 
 func _open_pixel_plains() -> void:
 	if director.state!=DemoRunDirector.State.HOME or is_instance_valid(_pixel_plains):return

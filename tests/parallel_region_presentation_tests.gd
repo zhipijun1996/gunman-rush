@@ -53,6 +53,24 @@ static func home_errors(app: DemoApp) -> Array[String]:
 	return errors
 
 func run() -> void:
+	# Actual embedded Lab owns its actor while director remains HOME. Reject
+	# a concurrent formal run before it can mutate the pending region request.
+	var lab_app := DemoApp.new()
+	lab_app.meta_persistence_enabled = false
+	root.add_child(lab_app)
+	lab_app._open_style_lab()
+	await frames(4)
+	check(is_instance_valid(lab_app._style_lab), "actual embedded style lab opens")
+	check(not lab_app.start_debug_region(&"thorn_forest", 2, "style-concurrent"), "active Lab rejects concurrent region")
+	check(lab_app._debug_region == &"", "rejected Lab entry preserves pending region")
+	check(not lab_app.start_demo("style-concurrent"), "active Lab rejects concurrent formal run")
+	lab_app._show_home()
+	check(not is_instance_valid(lab_app.home_scene), "active Lab prevents second Home actor")
+	lab_app._style_lab.home_requested.emit()
+	await frames(8)
+	check(not is_instance_valid(lab_app._style_lab) and is_instance_valid(lab_app.home_scene), "Lab exit returns actual Home")
+	if not await load("res://tests/audio_teardown.gd").drain_world(lab_app): failures += 1
+	lab_app.free()
 	for region: StringName in [&"plains", &"thorn_forest"]:
 		for map_index: int in [1, 2]:
 			var app := DemoApp.new()

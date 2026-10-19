@@ -57,6 +57,7 @@ FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试�
 | FOREST-PLAYABLE-01 | 森林两图／能力和地区选择／调试直选 | FOREST-DESIGN-01 | review | 原host七项全过／两轮60路线／不同作者原生ACCEPT／真实Web鼠标触摸8入口通过；完整旧回归和发布仍阻塞，艺术／玩家／设备未验 |
 | FOREST-DESIGN-01 | 荆棘森林随机区域／怪物G0设计 | GRAPPLE-FIX-01 | review | [设计卡](design/thorn_forest_region.md)：短H／两图三骨架／地块端口／活锚生态／三策略返程；仅候选设计，不签物理或开放 |
 
+| WINDCHIME-FIVE-STYLE-01 | 五锚点与Underworld/Cavern三地区实机比较 | WINDCHIME-PIXEL-01 | review | Web d2d469f81582/source32200d0；17215/0+1706/0、20主路/80上层、45实机/图集与独审；森林/工城独立新景层，主体材料/商业/用户/设备仍未签 |
 | WINDCHIME-PIXEL-01 | 新像素风格重制正式平原两图、三层独立视差 | WINDCHIME-STYLE-01 | review | 已部署d2c684ef8fc0/source c0f8e50；全体表现迁移、简洁纹理、动态支撑装饰与三图视差；冻结技术/有限GUI通过，整区审美/全警示/设备未签 |
 | WINDCHIME-STYLE-01 | 风铃平原新参考风格素材与手工实景 | TILE-MAP-PLAN-01 | review | 暖色候选被用户拒绝为廉价，停止扩产/发布；47态、样板与技术修复保留，Animal Well方向待小样 |
 | TILE-MAP-PLAN-01 | 视频方法到后续tile map生产规划 | ART-BLOB47-CARTOON-02 | review | 来源与关键段落记录、素材范围、3张验证map、6–8模块候选及随机迁移顺序；仅规划，未造新地图 |

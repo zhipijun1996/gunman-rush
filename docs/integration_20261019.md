@@ -8,6 +8,7 @@
 | PR91 像素平原 | 2f25083da11da11604a3535a2feae20d119ac001 | 正式两图地形、演员、道具和三层视差；旧风格失败保留 |
 | PR90 累积场所实验 | 913d77afa4019a0a2e6c84f270f3fe30ac2f00ba | 含前序PR81/82/84–89等祖先；显式候选入口，不替换正式池 |
 | PR80 剧情 | 3e0ce1caf02ab8c400f85d85f9540405b977cee6 | 重复末日剧情、地区叙事及写作Skill；非完整剧情运行实现 |
+| PR93 五风格实验 | 8382a41cb0ccf9a8e2e56075ade9edaceb4ff67a | 本轮期间新增；显式Style Lab与三地区表现比较，不替代正式地图 |
 
 按实际 ancestry 收敛累积链，不逐个重复合并祖先PR，不关闭原PR、不强推。main 当前为共同基线 e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7。
 
@@ -44,3 +45,9 @@ ff143c91的push docs39232313993中，生产原107项实际39.996秒通过；随�
 现沿既有总谱schema升级两active creative-v3，完整归档旧v2字节/SHA，旧版用当前权威仍被拒绝；正式Plains对应PR91像素，森林对应v12/15%/挂环及REVISE。旧P1/PR90配方与素材没有升为当前默认；generic美术planner仍走旧候选，当前像素生产用途明确blocked，本轮不执行这类mission。原校验器未改；当前版本精确断言更新v3，新增原v2身份/bytes/拒绝反例。相关专项2方向/10creative/原24routing全通过。
 
 本机原docs Harness --release一次完整24项实际PASS，原收据/全stdout日志无损ZIP在`evidence/parallel_integration_01/docs_final01/`；这是工作候选的本机证明，不冒最终CI。两原生正常速电影真实源ff143c91，2038/1769帧、60FPS、无注入/手动Motor、严格source_stable；后续只有docs与独立Python版本测试变动，2716项采集库存仅该非运行Python测试不同，运行/电影驱动零字节变化，最终Git绑定另验；绝不改签raw影片源。独审实际看8原AVI样帧，限定角色/树壁/环可读，没有全片听音或玩家认可；map2 HUD边缘可读性候选未证新回归，仍未签商业美术。见`movies01/`及review06。
+
+## 本轮新增PR93
+
+远端复查发现09:41新增PR93，基于已整合PR91，按增量纳入。02cd原push docs39235403208实际24项PASS且Windows成功，但full39235453618为纳入新输入主动取消，不称完整通过或新发布。其原生影片仍明确绑定ff143c91；新增菜单/App实验入口后不再声称最终运行文件零差异，也不改签影片源。新源将复验StyleLab原玩法与Biome/CLI、共享表现与战役UI，再跑完整发布门槛和线上GUI。
+
+PR93原生路线17215/0、Biome1706/0及3CLI实际通过；共享表现36/0（含真实Lab并开拒绝/退出）和原战役UI56/0通过。Lab不改变正式地图池。新增3loader有限资源适配以精确SHA绑定66个实际资源（总known333）；quality原45+6新反例51/0。11资源承载严格区分CC0、自定义许可与生成unknown，visual均未验。原218路径质量记录缺项FAIL保留；补affected_paths后另验，不豁免。另一次原生presentation因磁盘耗尽exit120失败，恢复工具、移除无人使用的孤立临时Git pack后02完整exit0，日志另保留。

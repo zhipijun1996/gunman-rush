@@ -1632,6 +1632,16 @@
       "timeout_seconds": 300,
       "success_pattern": "^PASS: parallel region presentation lifecycle and existing campaign UI fixture$",
       "weight_seconds": 15
+    },
+    "style-exploration": {
+      "argv": [
+        "python3",
+        "tools/run_style_exploration_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^Validated runtime evidence:",
+      "weight_seconds": 8,
+      "serial": true
     }
   },
   "profiles": {
@@ -1772,7 +1782,8 @@
       "pixel-formal",
       "creative-direction",
       "creative-direction-tests",
-      "parallel-region-presentation"
+      "parallel-region-presentation",
+      "style-exploration"
     ],
     "art": [
       "docs",
@@ -1832,7 +1843,8 @@
       "pixel-formal",
       "creative-direction",
       "creative-direction-tests",
-      "visual-director-terrain"
+      "visual-director-terrain",
+      "style-exploration"
     ],
     "web": [
       "docs",
@@ -1964,7 +1976,8 @@
       "creative-direction",
       "creative-direction-tests",
       "visual-director-terrain",
-      "parallel-region-presentation"
+      "parallel-region-presentation",
+      "style-exploration"
     ],
     "creative-feedback": [
       "docs",

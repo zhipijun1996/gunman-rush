@@ -567,6 +567,89 @@ class QualityTests(unittest.TestCase):
                 mutate()
                 with self.assertRaises(ValueError):known_asset_consumers(self.root)
 
+    def style_runtime_fixture(self):
+        # Real frozen loader sources, synthetic resource bytes. No engine claim.
+        from check_quality_diff import STYLE_CONSUMER_SHA256, style_asset_inventory
+        repository = Path(__file__).resolve().parents[1]
+        for name in STYLE_CONSUMER_SHA256:
+            path = self.root / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes((repository / name).read_bytes())
+        required, _optional = style_asset_inventory()
+        for name in required:
+            path = self.root / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(b'SYNTHETIC finite style resource; not renderable')
+        return required
+
+    def test_diff_style_finite_inventory_excludes_unknown_siblings(self):
+        from check_quality_diff import known_asset_consumers, style_asset_inventory
+        required = self.style_runtime_fixture()
+        for name in ('retro/secret.png', 'cavern/ice/chime_props.png',
+                     'retro/generated/source_props.png', 'retro/source/Environment.png'):
+            path = self.root / ('assets/style_exploration/' + name)
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(b'not a reviewed runtime consumer')
+        known = known_asset_consumers(self.root)
+        self.assertEqual(known, required)
+        optional = 'assets/style_exploration/cavern/forest/background_far.png'
+        (self.root / optional).write_bytes(b'SYNTHETIC optional depth layer')
+        self.assertEqual(known_asset_consumers(self.root), required | {optional})
+
+    def test_diff_style_missing_required_assets_are_rejected(self):
+        from check_quality_diff import known_asset_consumers
+        self.style_runtime_fixture()
+        for name in ('retro/terrain.png', 'basic/terrain.tres', 'underworld/player.json',
+                     'cavern/plains/chime_props.json', 'underworld/gear/background_sky.png',
+                     'scribble/original/character_roundPurple.png'):
+            with self.subTest(asset=name):
+                path = self.root / ('assets/style_exploration/' + name)
+                original = path.read_bytes()
+                path.unlink()
+                with self.assertRaises(ValueError): known_asset_consumers(self.root)
+                path.write_bytes(original)
+
+    def test_diff_style_partial_consumers_are_rejected(self):
+        from check_quality_diff import known_asset_consumers
+        self.style_runtime_fixture()
+        (self.root / 'scripts/style_exploration/style_scenery.gd').unlink()
+        with self.assertRaises(ValueError): known_asset_consumers(self.root)
+
+    def test_diff_style_changed_dynamic_alias_reflection_and_even_comment_rejected(self):
+        from check_quality_diff import known_asset_consumers
+        self.style_runtime_fixture()
+        path = self.root / 'scripts/style_exploration/style_actor_visual.gd'
+        original = path.read_text()
+        for extra in ('\n# caller changed\n', '\nvar hidden = ROOT + "secret.png"\n',
+                      '\nvar reader_alias = _load_generated\n',
+                      '\nfunc reflection():\n\treturn call("_load_generated")\n'):
+            with self.subTest(extra=extra):
+                path.write_text(original + extra)
+                with self.assertRaises(ValueError): known_asset_consumers(self.root)
+        path.write_text(original)
+
+    def test_diff_style_unknown_root_consumer_and_dynamic_template_rejected(self):
+        from check_quality_diff import known_asset_consumers
+        self.style_runtime_fixture()
+        caller = self.root / 'scripts/unknown_style.gd'
+        for code in ('const ROOT = "res://assets/style_exploration/"',
+                     'func hidden(id):\n\treturn load("res://assets/style_exploration/%s/secret.png" % id)'):
+            with self.subTest(code=code):
+                caller.write_text('extends Node\n' + code + '\n')
+                with self.assertRaises(ValueError): known_asset_consumers(self.root)
+
+    def test_diff_style_asset_symlink_escape_is_rejected(self):
+        from check_quality_diff import known_asset_consumers
+        self.style_runtime_fixture()
+        with tempfile.TemporaryDirectory() as elsewhere:
+            external = Path(elsewhere) / 'external.png'
+            external.write_bytes(b'external')
+            path = self.root / 'assets/style_exploration/basic/terrain.png'
+            path.unlink()
+            path.symlink_to(external)
+            with self.assertRaises(ValueError): known_asset_consumers(self.root)
+
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

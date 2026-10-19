@@ -1,0 +1,1548 @@
+{
+  "schema_version": 1,
+  "task_id": "WINDCHIME-FIVE-STYLE-01",
+  "task_type": "art",
+  "workflow": "review",
+  "baseline_commit": "2f25083da11da11604a3535a2feae20d119ac001",
+  "reviewed_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+  "content_version": "five-style-three-region-candidate-v4",
+  "owner": "root",
+  "purpose": "Compare five real TileSet anchors and user-selected Underworld/Cavern across three regions with distinct palettes and structural identities",
+  "player_experience": "Switch style, region and deterministic seed in a playable isolated Godot lab, compare actual tile assembly and movement",
+  "constraints": [
+    "Preserve formal PlayerMotor, tuning, resources, RNG and saves",
+    "No claim of formal forest/gear release or sixteen-region production",
+    "Keep original source and rejected visual/route evidence",
+    "Latest user preference selects 4/5 but does not certify final art"
+  ],
+  "affected_paths": [
+    "assets/style_exploration/",
+    "scripts/style_exploration/",
+    "scenes/style_exploration/",
+    "tests/style_exploration/",
+    "scripts/demo/demo_app.gd",
+    "scripts/ui/demo_menu.gd",
+    "tools/harness/profiles.json",
+    "export_presets.cfg",
+    ".github/workflows/deploy-prepared-playtest.yml"
+  ],
+  "deliverables": [
+    "docs/evidence/style_exploration/final_capture/portable_index.json",
+    "docs/evidence/style_exploration/generation.json",
+    "assets/style_exploration/anchors.json",
+    "assets/style_exploration/atlas_build_manifest.json"
+  ],
+  "creative_decisions": [
+    {
+      "decision": "Prioritize Underworld/Cavern across Plains, Thorn Forest and Gear City with distinct regional palettes",
+      "status": "user_confirmed",
+      "basis": "Latest explicit user instruction confirms comparison scope, not final art acceptance",
+      "evidence_id": "user_scope"
+    },
+    {
+      "decision": "Final commercial visual master among delivered candidates",
+      "status": "proposed",
+      "basis": "Actual selection belongs to user after reviewing real samples"
+    }
+  ],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Bounded scope and falsifiable specification present",
+      "evidence": [
+        "spec",
+        "user_scope"
+      ]
+    },
+    "G1": {
+      "status": "passed",
+      "reason": "Actual unchanged Motor and complete lower/upper technical route evidence",
+      "evidence": [
+        "motor_routes",
+        "region_switches"
+      ]
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Candidate visuals/motion supplied, final commercial visual master remains a user decision",
+      "evidence": [
+        "independent_review",
+        "motion_0",
+        "motion_1",
+        "motion_2",
+        "motion_3",
+        "motion_4",
+        "motion_5",
+        "motion_6"
+      ]
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Actual experimental GUI integration passed; physical performance unverified",
+      "evidence": [
+        "actual_browser"
+      ]
+    },
+    "G4": {
+      "status": "failed",
+      "reason": "Isolated test+independent review pass; complete required docs/art/gameplay profiles remain failed at inherited historical evidence closure",
+      "evidence": [
+        "final_capture_command",
+        "independent_review"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "No user final master or physical-device signoff; do not turn preference into acceptance",
+      "evidence": [
+        "user_scope"
+      ]
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Five anchors and latest user two-style/three-region/16-region scope explicitly specified",
+      "evidence": [
+        "spec",
+        "user_scope"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Bounded experiment actual physics/switch/capture/import exits passed; complete inherited profiles not claimed",
+      "evidence": [
+        "final_capture_command",
+        "motor_routes",
+        "region_switches"
+      ]
+    },
+    "formal_integration": {
+      "status": "passed",
+      "reason": "Isolated title/direct-query entry and comparison controls verified in exported sourceB; no formal campaign visual migration",
+      "evidence": [
+        "actual_browser",
+        "consumer_inventory"
+      ]
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "45 actual stills independently accepted for experiment comparison; commercial master/user final art approval pending",
+      "evidence": [
+        "independent_review"
+      ]
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Seven normal-speed rendered movement sequences delivered and sampled; full character/combat animation not produced",
+      "evidence": [
+        "motion_0",
+        "motion_1",
+        "motion_2",
+        "motion_3",
+        "motion_4",
+        "motion_5",
+        "motion_6"
+      ]
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "No audio production requested; Dummy silent track removed; bounded visual glow/motes documented with motion",
+      "evidence": [
+        "motion_0",
+        "motion_1",
+        "motion_2",
+        "motion_3",
+        "motion_4",
+        "motion_5",
+        "motion_6"
+      ]
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Motor routes proven technically; human feel/fun and formal forest/gear mechanics not judged",
+      "evidence": [
+        "motor_routes"
+      ]
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Software GPU/offline fixedFPS does not establish target-device performance",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Different author independently reran real tests, inspected45 images, AI repetitions and release boundaries; scope-limited ACCEPT",
+      "evidence": [
+        "independent_review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "No physical target-device evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "User chose scope preferences; no final artwork/commercial/device acceptance is inferred",
+      "evidence": [
+        "user_scope"
+      ]
+    }
+  },
+  "criteria": [
+    {
+      "id": "C0",
+      "scenario": "Latest two selected styles across three distinct regions",
+      "method": "Frozen experiment specification plus verbatim user scope",
+      "expected": "Preserve original five anchors and compare six selected regional looks",
+      "failure": "Bind Cavern to purple or replace regional identity with color alone",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "Exact user scope captured",
+      "evidence": [
+        "spec",
+        "user_scope"
+      ]
+    },
+    {
+      "id": "C1",
+      "scenario": "Same32wu geometry under every style and region",
+      "method": "Real Motor round trips, upper visits, exact TileMap/mask/collision and pointer-switch tests",
+      "expected": "20 main+80 upper traversals;16 added region combinations preserve physics",
+      "failure": "Teleport credit, unreachable jump, altered tuning or geometry",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "17215/0+1706/0 and actual capture/import exits0",
+      "evidence": [
+        "final_capture_command",
+        "motor_routes",
+        "region_switches"
+      ]
+    },
+    {
+      "id": "C2",
+      "scenario": "Player opens and compares candidates in actual game",
+      "method": "Real exported Chromium pointer/touch and HUD OCR plus inventory",
+      "expected": "Title/direct query, five style/four seed/three region controls and Home accepted",
+      "failure": "Visible button without accepted callback or missing exported resources",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "status": "passed",
+      "reason": "23 actual local GUI actions and independent observed outputs",
+      "evidence": [
+        "actual_browser",
+        "consumer_inventory"
+      ]
+    },
+    {
+      "id": "C3",
+      "scenario": "Commercial master and all16 region material production",
+      "method": "Actual45 images, generation n3 and independent assessment",
+      "expected": "Final user style choice and full reusable material families",
+      "failure": "Claim palette ramps as new bark/metal47 or infer user acceptance",
+      "gate": "G2",
+      "dimension": "visual",
+      "status": "unverified",
+      "reason": "Experiment delivered; wider production/approval intentionally not asserted",
+      "evidence": [
+        "independent_review"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "spec",
+      "path": "docs/evidence/style_exploration/spec.md",
+      "sha256": "e2d84560d077fe3e81a76eb1d7c52048f0943a3298461156198e364b46cc2fde",
+      "kind": "spec",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Available original bytes, not a planned command"
+    },
+    {
+      "id": "user_scope",
+      "path": "docs/evidence/style_exploration/user_scope.txt",
+      "sha256": "6644a5137cb6f4b063004d37767a02336992b54f972c286e4c062b3dc96fa296",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Available original bytes, not a planned command",
+      "accepted": true,
+      "source": "Current conversation, latest three steering messages",
+      "quote": "underworld和cavern。同时测试风铃平原，荆棘森林，齿轮工城",
+      "covers": [
+        "design"
+      ]
+    },
+    {
+      "id": "final_capture_command",
+      "path": "docs/evidence/style_exploration/final_capture/summary.json",
+      "sha256": "0a57d71ccb37f7b7d07df89d15e26003785d026739ccdc9213fd995c8a042aa6",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "51 completed processes;17215 checks/20 main and80 upper routes;1706 region checks/16 added combinations/3 CLI;36 scenes+9 actual-profile catalogs",
+      "command": "DISPLAY=:99 python3 tools/run_style_exploration_tests.py --capture --output build/style_exploration/final_capture",
+      "exit_code": 0,
+      "environment": "Linux / Godot4.7.2 / Xvfb+software OpenGL / 1280x720 / Dummy audio; working runtime later frozen byte-identically as source32200d04"
+    },
+    {
+      "id": "motor_routes",
+      "path": "docs/evidence/style_exploration/final_capture/runtime_report.json",
+      "sha256": "556b6b991ce2915cf63c68bfa25e07f7aac73430e9caaa0507cdbc10d8477971",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "20 main-route round trips and80 upper visits/returns; no teleport/death epoch change; old unreachable case retained"
+    },
+    {
+      "id": "region_switches",
+      "path": "docs/evidence/style_exploration/final_capture/biome_report.json",
+      "sha256": "87483ca0ddb1128845005948d8ef1eca1a102dcee6b17fb9988f43820602429d",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "16 added presentation consumers; pointer/key/epoch/geometry/tuning/resources invariants"
+    },
+    {
+      "id": "independent_review",
+      "path": "docs/evidence/style_exploration/independent_review/report.md",
+      "sha256": "08b31bbb0223da0b2493c4d65f4bf0a62a530f54abe169800aca4f75dd31a17d",
+      "kind": "review",
+      "producer": "independent_review",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "ACCEPT isolated technical/static experiment delivery; commercial/user/device and full-material production UNVERIFIED",
+      "reviewer": "/root/independent_review",
+      "implementers": [
+        "root",
+        "anchor_assets",
+        "lab_runtime",
+        "scenery",
+        "toolchain_delivery"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Different agent, read-only production source, independently reran tests and opened every final45 image"
+    },
+    {
+      "id": "image_0",
+      "path": "docs/evidence/style_exploration/final_capture/basic_plains_sample0.png",
+      "sha256": "66063131c74f60ad53cd4b6a14c7deb61a4bff3989383081527c2f9bb6715022",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "basic/plains/seed0"
+      ]
+    },
+    {
+      "id": "image_1",
+      "path": "docs/evidence/style_exploration/final_capture/basic_plains_sample1.png",
+      "sha256": "77e8143083871270bf85d650ab42ad923448d50c7e7f324ad0d007c676073a58",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "basic/plains/seed101"
+      ]
+    },
+    {
+      "id": "image_2",
+      "path": "docs/evidence/style_exploration/final_capture/basic_plains_sample2.png",
+      "sha256": "742463940197c0094db84f0f44445ad850ee9a01c84f857c3aa7f3cbde006ce7",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "basic/plains/seed307"
+      ]
+    },
+    {
+      "id": "image_3",
+      "path": "docs/evidence/style_exploration/final_capture/basic_plains_sample3.png",
+      "sha256": "8eba6da6f150cd4ae30aff59bc188be7a00348effd1ba189549061644fa6e32e",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "basic/plains/seed911"
+      ]
+    },
+    {
+      "id": "image_4",
+      "path": "docs/evidence/style_exploration/final_capture/basic_plains_tileset.png",
+      "sha256": "5d3c05c4e3ccdff67ff0e1fbd8ce55465eef7c7ab06ee4e0f781e1a91034e156",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "basic/plains/catalog"
+      ]
+    },
+    {
+      "id": "image_5",
+      "path": "docs/evidence/style_exploration/final_capture/cavern_forest_sample0.png",
+      "sha256": "b65ff9b8955c6ddc10663d7093ffd74f66cbf0c7c4781b00048258c68a9ccc1a",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "cavern/forest/seed0"
+      ]
+    },
+    {
+      "id": "image_6",
+      "path": "docs/evidence/style_exploration/final_capture/cavern_forest_sample1.png",
+      "sha256": "b6026e79bb5750a8777ef6afaec8c65e8a71e746d937ed0f4984f335948e974d",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "cavern/forest/seed101"
+      ]
+    },
+    {
+      "id": "image_7",
+      "path": "docs/evidence/style_exploration/final_capture/cavern_forest_sample2.png",
+      "sha256": "48c3534703107e22b8db6412ed1ffa3a4ceeab2ae1228a771465f170e9ee8bf5",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "cavern/forest/seed307"
+      ]
+    },
+    {
+      "id": "image_8",
+      "path": "docs/evidence/style_exploration/final_capture/cavern_forest_sample3.png",
+      "sha256": "9180c1274d821ed1c3f723eaf796da223d0d2b6a3bf86d5c296b9aa051b65b72",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "cavern/forest/seed911"
+      ]
+    },
+    {
+      "id": "image_9",
+      "path": "docs/evidence/style_exploration/final_capture/cavern_forest_tileset.png",
+      "sha256": "bc42a26bd02afe83638c0ddd51a004b042e0819e8d7834f4b11b5ce0a3dbcc84",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "cavern/forest/catalog"
+      ]
+    },
+    {
+      "id": "image_10",
+      "path": "docs/evidence/style_exploration/final_capture/cavern_gear_sample0.png",
+      "sha256": "32de69917b217bf90988d05edecfe800030931736d5a69555dc73c12f0021c48",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "cavern/gear/seed0"
+      ]
+    },
+    {
+      "id": "image_11",
+      "path": "docs/evidence/style_exploration/final_capture/cavern_gear_sample1.png",
+      "sha256": "82c30eacbe5e9b54d37b575881af23cee904852ed54bebdc5c50bc062846c58d",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "cavern/gear/seed101"
+      ]
+    },
+    {
+      "id": "image_12",
+      "path": "docs/evidence/style_exploration/final_capture/cavern_gear_sample2.png",
+      "sha256": "7c9a74bd01ae4b57e898a9e7a63b135047690ece9098074239ab84084262d659",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "cavern/gear/seed307"
+      ]
+    },
+    {
+      "id": "image_13",
+      "path": "docs/evidence/style_exploration/final_capture/cavern_gear_sample3.png",
+      "sha256": "33a32683662be7010d5e5f100549c798e69b931cd42cc58b140d7a730be4c588",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "cavern/gear/seed911"
+      ]
+    },
+    {
+      "id": "image_14",
+      "path": "docs/evidence/style_exploration/final_capture/cavern_gear_tileset.png",
+      "sha256": "48b66e9e1ee38ea1e492a9d5119b7d97e9f67a582347b508db0caa1ad1acd4dc",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "cavern/gear/catalog"
+      ]
+    },
+    {
+      "id": "image_15",
+      "path": "docs/evidence/style_exploration/final_capture/cavern_plains_sample0.png",
+      "sha256": "8e23fa76f8db46d103c62010154478d92ed5e1496aa9bb7cdb0da6b2273d807b",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "cavern/plains/seed0"
+      ]
+    },
+    {
+      "id": "image_16",
+      "path": "docs/evidence/style_exploration/final_capture/cavern_plains_sample1.png",
+      "sha256": "b3344abe1634491441a7aec0f3548ae2a12f49c4e89fe64aebbc18c8e456e07a",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "cavern/plains/seed101"
+      ]
+    },
+    {
+      "id": "image_17",
+      "path": "docs/evidence/style_exploration/final_capture/cavern_plains_sample2.png",
+      "sha256": "0dc7d034219545c554995d008ee5fe9b0f98b5325a38fb082d2269622af92ab3",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "cavern/plains/seed307"
+      ]
+    },
+    {
+      "id": "image_18",
+      "path": "docs/evidence/style_exploration/final_capture/cavern_plains_sample3.png",
+      "sha256": "c97d21bee7e0d85de05b339c7c32162a04d76a23034bc84ed8bff0c73605af5b",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "cavern/plains/seed911"
+      ]
+    },
+    {
+      "id": "image_19",
+      "path": "docs/evidence/style_exploration/final_capture/cavern_plains_tileset.png",
+      "sha256": "fadeb98797e446ce50f17f0f50d2fd2b1c5957329822655d2557a800645be21d",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "cavern/plains/catalog"
+      ]
+    },
+    {
+      "id": "image_20",
+      "path": "docs/evidence/style_exploration/final_capture/retro_plains_sample0.png",
+      "sha256": "e1b7eb94c090ccef2be28b5ed42c507c8e12eacfc8a321fe7443dfc4ea5dd287",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "retro/plains/seed0"
+      ]
+    },
+    {
+      "id": "image_21",
+      "path": "docs/evidence/style_exploration/final_capture/retro_plains_sample1.png",
+      "sha256": "dd9716723ce79bcf1e64184a3a40d427d2258e6ddc2033c38551700805578426",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "retro/plains/seed101"
+      ]
+    },
+    {
+      "id": "image_22",
+      "path": "docs/evidence/style_exploration/final_capture/retro_plains_sample2.png",
+      "sha256": "8d2a69c98c6241ba1a93a7545227c588faf81fce5e18350a5d77dc81fa9c1eca",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "retro/plains/seed307"
+      ]
+    },
+    {
+      "id": "image_23",
+      "path": "docs/evidence/style_exploration/final_capture/retro_plains_sample3.png",
+      "sha256": "1eeb246bbf840f3070dc95e882f423a46f8417ab031fae39c792e740860cb424",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "retro/plains/seed911"
+      ]
+    },
+    {
+      "id": "image_24",
+      "path": "docs/evidence/style_exploration/final_capture/retro_plains_tileset.png",
+      "sha256": "06f949405e97ff34bff185aa6d339b94e8a9e8ac3085903e3dec4df5ca388628",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "retro/plains/catalog"
+      ]
+    },
+    {
+      "id": "image_25",
+      "path": "docs/evidence/style_exploration/final_capture/scribble_plains_sample0.png",
+      "sha256": "063dce9eacea64cc6592fad9156513294b1c9d7778ff4c7b28c0e58eb6b734c3",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "scribble/plains/seed0"
+      ]
+    },
+    {
+      "id": "image_26",
+      "path": "docs/evidence/style_exploration/final_capture/scribble_plains_sample1.png",
+      "sha256": "e7d97e53ddacb4829d31a88b79a84bcd6ce30206f29f4cc5d3681c286ec4791a",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "scribble/plains/seed101"
+      ]
+    },
+    {
+      "id": "image_27",
+      "path": "docs/evidence/style_exploration/final_capture/scribble_plains_sample2.png",
+      "sha256": "95ce8abae80d36213d5e0f7840d3ca984a0d132bee9d89e94bc06801e67cf5b8",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "scribble/plains/seed307"
+      ]
+    },
+    {
+      "id": "image_28",
+      "path": "docs/evidence/style_exploration/final_capture/scribble_plains_sample3.png",
+      "sha256": "eddd2cceec3da6be5424db60d291bf449546ed5ef95c67385833bfcd668e5789",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "scribble/plains/seed911"
+      ]
+    },
+    {
+      "id": "image_29",
+      "path": "docs/evidence/style_exploration/final_capture/scribble_plains_tileset.png",
+      "sha256": "a1dc487f1fe14b08775a4a39843776cc3c8551358e203d9e2725ab2d407b72cc",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "scribble/plains/catalog"
+      ]
+    },
+    {
+      "id": "image_30",
+      "path": "docs/evidence/style_exploration/final_capture/underworld_forest_sample0.png",
+      "sha256": "1dd4a82fd28a63a50eaa755819a097c24000d7d99aba49c698645ae18f086eff",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "underworld/forest/seed0"
+      ]
+    },
+    {
+      "id": "image_31",
+      "path": "docs/evidence/style_exploration/final_capture/underworld_forest_sample1.png",
+      "sha256": "552b57ddfa6a460d737f07259a47aac542d7615748dd0fd1490760baf57f47b5",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "underworld/forest/seed101"
+      ]
+    },
+    {
+      "id": "image_32",
+      "path": "docs/evidence/style_exploration/final_capture/underworld_forest_sample2.png",
+      "sha256": "f4efe8ec6bf019b6166f714190dd373ba816c3a57eee60980d5cec4e584ab5f5",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "underworld/forest/seed307"
+      ]
+    },
+    {
+      "id": "image_33",
+      "path": "docs/evidence/style_exploration/final_capture/underworld_forest_sample3.png",
+      "sha256": "bfcf9db59fe52e958c4feb65fd24cc3ab52182d37f1702f628faeb4958ce2d60",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "underworld/forest/seed911"
+      ]
+    },
+    {
+      "id": "image_34",
+      "path": "docs/evidence/style_exploration/final_capture/underworld_forest_tileset.png",
+      "sha256": "3e2bc788b10b7f0306d0a4e755fed8f44419b1528fd67706894eab897f91d33c",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "underworld/forest/catalog"
+      ]
+    },
+    {
+      "id": "image_35",
+      "path": "docs/evidence/style_exploration/final_capture/underworld_gear_sample0.png",
+      "sha256": "5e0a1ae39e0c22a87078d3c16ad6d71edd236c569fd58869b350c3b0c940f28b",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "underworld/gear/seed0"
+      ]
+    },
+    {
+      "id": "image_36",
+      "path": "docs/evidence/style_exploration/final_capture/underworld_gear_sample1.png",
+      "sha256": "9721147330184c52092cf0285e90258c5180a8d5d3ae9ecc78f51e7298bda348",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "underworld/gear/seed101"
+      ]
+    },
+    {
+      "id": "image_37",
+      "path": "docs/evidence/style_exploration/final_capture/underworld_gear_sample2.png",
+      "sha256": "c41cd2032585a55de8c1b95cee3fb57fdc93870816f5e0d803ddc1f9083e701d",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "underworld/gear/seed307"
+      ]
+    },
+    {
+      "id": "image_38",
+      "path": "docs/evidence/style_exploration/final_capture/underworld_gear_sample3.png",
+      "sha256": "06efd6e81ce6ff5d6d8e31836c28c86d4817dc0ac2f1e39f46040bd0465f114b",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "underworld/gear/seed911"
+      ]
+    },
+    {
+      "id": "image_39",
+      "path": "docs/evidence/style_exploration/final_capture/underworld_gear_tileset.png",
+      "sha256": "6b48d7fcafaa47e8495303411c0bf1860e571275e85983b9411c925f0db40aa2",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "underworld/gear/catalog"
+      ]
+    },
+    {
+      "id": "image_40",
+      "path": "docs/evidence/style_exploration/final_capture/underworld_plains_sample0.png",
+      "sha256": "dd278078d39ccdecb5aeeac24bc5c506490d3d05f18ff02cda187058a3dd2d36",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "underworld/plains/seed0"
+      ]
+    },
+    {
+      "id": "image_41",
+      "path": "docs/evidence/style_exploration/final_capture/underworld_plains_sample1.png",
+      "sha256": "fea2c69d29e3b07e612e9a72ca9696a90b5bef48c1518e1b13d14d7fe3158af7",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "underworld/plains/seed101"
+      ]
+    },
+    {
+      "id": "image_42",
+      "path": "docs/evidence/style_exploration/final_capture/underworld_plains_sample2.png",
+      "sha256": "8e6e2c72ee3017fdf170bb6b40a2f19c8eafaaa4ec90f235dca6aa9dc69219c7",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "underworld/plains/seed307"
+      ]
+    },
+    {
+      "id": "image_43",
+      "path": "docs/evidence/style_exploration/final_capture/underworld_plains_sample3.png",
+      "sha256": "1378eb09727459fb1151a22c665135017ffdde7bb27ea20919874179101f44ef",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "underworld/plains/seed911"
+      ]
+    },
+    {
+      "id": "image_44",
+      "path": "docs/evidence/style_exploration/final_capture/underworld_plains_tileset.png",
+      "sha256": "5584f701a3965490d36c0540b7a4252b8642e9aad3c9ef5fdb3e3df4f370af1d",
+      "kind": "screenshot",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Actual source-bound Godot GPU image; camera-only, traversal_claim=false",
+      "consumers": [
+        "underworld/plains/catalog"
+      ]
+    },
+    {
+      "id": "actual_browser",
+      "path": "docs/evidence/style_exploration/delivery/browser_final/browser_report.json",
+      "sha256": "2b431c23cf0ea267077c8690e8c652539955db7ff3e61f9ace8440e31c17c5c1",
+      "kind": "gui",
+      "producer": "toolchain_delivery",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "23 actual pointer/OCR interactions, same exported sourceB package; entry/styles/seeds/regions/catalog/Home; zero script/shader/WebGL errors; favicon failure retained separately",
+      "consumers": [
+        "title_style_lab_entry",
+        "direct_styles_query",
+        "style_region_seed_controls",
+        "lab_home_return"
+      ]
+    },
+    {
+      "id": "consumer_inventory",
+      "path": "docs/evidence/style_exploration/consumer_inventory.json",
+      "sha256": "a9001db12efa9c3d2c2867faf0f00db08f7ee7f0030092eb495e2c750baace38",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Inventory derived from45 original readback receipts and actual23-action browser report"
+    },
+    {
+      "id": "motion_0",
+      "path": "docs/evidence/style_exploration/motion/underworld_plains.mp4",
+      "sha256": "dd2aa19d5053cc589b5f263dc5b9307d43cdbd638bc0c801412c4084731ab890",
+      "kind": "video",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Rendered Router/Motor follow+walk+jump demonstration;480 driven frames; not a full route, no return within clip, silent audio removed"
+    },
+    {
+      "id": "motion_1",
+      "path": "docs/evidence/style_exploration/motion/underworld_forest.mp4",
+      "sha256": "0f706edbffa47afeba78dfeaab990be48eff3b64741fa19dab144978c921cd37",
+      "kind": "video",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Rendered Router/Motor follow+walk+jump demonstration;480 driven frames; not a full route, no return within clip, silent audio removed"
+    },
+    {
+      "id": "motion_2",
+      "path": "docs/evidence/style_exploration/motion/underworld_gear.mp4",
+      "sha256": "11f59db8e2addd124f5ca8b81b95aa44ac5c53091779af8c3d5eb40355e473f3",
+      "kind": "video",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Rendered Router/Motor follow+walk+jump demonstration;480 driven frames; not a full route, no return within clip, silent audio removed"
+    },
+    {
+      "id": "motion_3",
+      "path": "docs/evidence/style_exploration/motion/cavern_plains.mp4",
+      "sha256": "0fd7000ef91230eff6f544737c617c7c2496003d34abc3690329b2ac8344eead",
+      "kind": "video",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Rendered Router/Motor follow+walk+jump demonstration;480 driven frames; not a full route, no return within clip, silent audio removed"
+    },
+    {
+      "id": "motion_4",
+      "path": "docs/evidence/style_exploration/motion/cavern_forest.mp4",
+      "sha256": "da710a1d650051a791bf6c34aab7653184ecc1609b2d42c2c892dd03e064848d",
+      "kind": "video",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Rendered Router/Motor follow+walk+jump demonstration;480 driven frames; not a full route, no return within clip, silent audio removed"
+    },
+    {
+      "id": "motion_5",
+      "path": "docs/evidence/style_exploration/motion/cavern_gear.mp4",
+      "sha256": "d1db595d73f3cdca059f842120d3b639100f4282cb23ea7ff40eb343127d0d6b",
+      "kind": "video",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Rendered Router/Motor follow+walk+jump demonstration;480 driven frames; not a full route, no return within clip, silent audio removed"
+    },
+    {
+      "id": "motion_6",
+      "path": "docs/evidence/style_exploration/motion/underworld_forest_seed911.mp4",
+      "sha256": "f0d1f407856fbb7833a05e17d9640c578394165a37c66e84e3bfc7b3c4e9670f",
+      "kind": "video",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "Rendered Router/Motor follow+walk+jump demonstration;480 driven frames; not a full route, no return within clip, silent audio removed"
+    },
+    {
+      "id": "registered_harness",
+      "path": "docs/evidence/style_exploration/final_verification/registered_harness.log",
+      "sha256": "d80475b12797861c62b0d35c6c89d9bfced1037dff18e7bcb0bf29656d3d5f92",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+      "content_version": "five-style-three-region-candidate-v4",
+      "method": "Actual frozen-runtime output / source-bound provenance; see bounded scope",
+      "observed": "See original harness report and log; restricted experiment only",
+      "command": "python3 tools/harness.py --check style-exploration --release --jobs 1",
+      "exit_code": 0,
+      "environment": "Frozen game runtimeB with later evidence/tool-only hardening; strict current source guard"
+    }
+  ],
+  "consumer_coverage": {
+    "scope": "Experimental game entry and49 observed visual consumers, formal campaign stage content unchanged",
+    "inventory_evidence": "consumer_inventory",
+    "observations": [
+      {
+        "consumer": "basic/plains/seed0",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_0"
+        ]
+      },
+      {
+        "consumer": "basic/plains/seed101",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_1"
+        ]
+      },
+      {
+        "consumer": "basic/plains/seed307",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_2"
+        ]
+      },
+      {
+        "consumer": "basic/plains/seed911",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_3"
+        ]
+      },
+      {
+        "consumer": "basic/plains/catalog",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_4"
+        ]
+      },
+      {
+        "consumer": "cavern/forest/seed0",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_5"
+        ]
+      },
+      {
+        "consumer": "cavern/forest/seed101",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_6"
+        ]
+      },
+      {
+        "consumer": "cavern/forest/seed307",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_7"
+        ]
+      },
+      {
+        "consumer": "cavern/forest/seed911",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_8"
+        ]
+      },
+      {
+        "consumer": "cavern/forest/catalog",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_9"
+        ]
+      },
+      {
+        "consumer": "cavern/gear/seed0",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_10"
+        ]
+      },
+      {
+        "consumer": "cavern/gear/seed101",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_11"
+        ]
+      },
+      {
+        "consumer": "cavern/gear/seed307",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_12"
+        ]
+      },
+      {
+        "consumer": "cavern/gear/seed911",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_13"
+        ]
+      },
+      {
+        "consumer": "cavern/gear/catalog",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_14"
+        ]
+      },
+      {
+        "consumer": "cavern/plains/seed0",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_15"
+        ]
+      },
+      {
+        "consumer": "cavern/plains/seed101",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_16"
+        ]
+      },
+      {
+        "consumer": "cavern/plains/seed307",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_17"
+        ]
+      },
+      {
+        "consumer": "cavern/plains/seed911",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_18"
+        ]
+      },
+      {
+        "consumer": "cavern/plains/catalog",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_19"
+        ]
+      },
+      {
+        "consumer": "retro/plains/seed0",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_20"
+        ]
+      },
+      {
+        "consumer": "retro/plains/seed101",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_21"
+        ]
+      },
+      {
+        "consumer": "retro/plains/seed307",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_22"
+        ]
+      },
+      {
+        "consumer": "retro/plains/seed911",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_23"
+        ]
+      },
+      {
+        "consumer": "retro/plains/catalog",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_24"
+        ]
+      },
+      {
+        "consumer": "scribble/plains/seed0",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_25"
+        ]
+      },
+      {
+        "consumer": "scribble/plains/seed101",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_26"
+        ]
+      },
+      {
+        "consumer": "scribble/plains/seed307",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_27"
+        ]
+      },
+      {
+        "consumer": "scribble/plains/seed911",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_28"
+        ]
+      },
+      {
+        "consumer": "scribble/plains/catalog",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_29"
+        ]
+      },
+      {
+        "consumer": "underworld/forest/seed0",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_30"
+        ]
+      },
+      {
+        "consumer": "underworld/forest/seed101",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_31"
+        ]
+      },
+      {
+        "consumer": "underworld/forest/seed307",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_32"
+        ]
+      },
+      {
+        "consumer": "underworld/forest/seed911",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_33"
+        ]
+      },
+      {
+        "consumer": "underworld/forest/catalog",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_34"
+        ]
+      },
+      {
+        "consumer": "underworld/gear/seed0",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_35"
+        ]
+      },
+      {
+        "consumer": "underworld/gear/seed101",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_36"
+        ]
+      },
+      {
+        "consumer": "underworld/gear/seed307",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_37"
+        ]
+      },
+      {
+        "consumer": "underworld/gear/seed911",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_38"
+        ]
+      },
+      {
+        "consumer": "underworld/gear/catalog",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_39"
+        ]
+      },
+      {
+        "consumer": "underworld/plains/seed0",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_40"
+        ]
+      },
+      {
+        "consumer": "underworld/plains/seed101",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_41"
+        ]
+      },
+      {
+        "consumer": "underworld/plains/seed307",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_42"
+        ]
+      },
+      {
+        "consumer": "underworld/plains/seed911",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_43"
+        ]
+      },
+      {
+        "consumer": "underworld/plains/catalog",
+        "status": "passed",
+        "reason": "Actual GPU output and independent full-image review; no commercial quality assertion",
+        "output": "visual",
+        "evidence": [
+          "image_44"
+        ]
+      },
+      {
+        "consumer": "title_style_lab_entry",
+        "status": "passed",
+        "reason": "Real exported-package pointer inputs and HUD OCR acceptance, sourceB",
+        "output": "visual",
+        "evidence": [
+          "actual_browser"
+        ]
+      },
+      {
+        "consumer": "direct_styles_query",
+        "status": "passed",
+        "reason": "Real exported-package pointer inputs and HUD OCR acceptance, sourceB",
+        "output": "visual",
+        "evidence": [
+          "actual_browser"
+        ]
+      },
+      {
+        "consumer": "style_region_seed_controls",
+        "status": "passed",
+        "reason": "Real exported-package pointer inputs and HUD OCR acceptance, sourceB",
+        "output": "visual",
+        "evidence": [
+          "actual_browser"
+        ]
+      },
+      {
+        "consumer": "lab_home_return",
+        "status": "passed",
+        "reason": "Real exported-package pointer inputs and HUD OCR acceptance, sourceB",
+        "output": "visual",
+        "evidence": [
+          "actual_browser"
+        ]
+      }
+    ]
+  },
+  "unverified_items": [
+    "Full commercial art approval",
+    "Physical target-device performance and controls",
+    "Audio and combat encounter/full region progression",
+    "New tree-bark/metal 47-tile material families; current region ramps preserve native topology",
+    "Complete inherited docs/art/gameplay harness blocked by missing historical evidence closure"
+  ],
+  "production_snapshot": "d2c47d6dcc60c722c07e8faa4bb7a5893edf805721510699278b1291d5bdd8f7"
+}

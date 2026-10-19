@@ -1,0 +1,5 @@
+# 第四候选02cd：新增并行输入后主动取消
+
+源码02cd2a9d958130af860c3f4327965a3192ee9ba6。push docs39235403208原24项PASS，干净精确HEAD；PR docs39235416863也24项PASS，但实际checkout为GitHub合成提交0f6114df0d8b698791fe5c2a66d13a72be205010，不能混用身份。两准确API ZIP的size/digest逐字节校验。
+
+full39235453618因发现本轮新增PR93、需纳入最终交付主动取消，非测试PASS；Windows成功、Web/core未完成，不发布。原API包含实际终态/步骤/产物。后续以包含PR93的新源独立全量验证，不将旧通过追认新源。

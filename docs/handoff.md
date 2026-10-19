@@ -1,10 +1,24 @@
 # 最新：并行分支整合候选（尚待新包验证）
 
-2026-10-19，`integration/forest-plains-20261019` 已整合最新PR91正式像素平原、PR90累积独立实验、PR80剧情及PR83森林。森林仍v12/15%双瞄准，正式平原采用像素表现，候选不替换正式池。共享入口跨区表现已修复，正在回归与重新部署；旧公开包不作为整合包。见[精确输入与验证边界](integration_20261019.md)。整体品质仍REVISE，真人/实体设备未验。以下段落保留各历史分支身份。
+2026-10-19，`integration/forest-plains-20261019` 已整合最新PR91正式像素平原、PR90累积独立实验、PR80剧情、PR83森林及本轮新增PR93风格实验。森林仍v12/15%双瞄准，正式平原采用像素表现，候选不替换正式池。共享入口跨区表现已修复，正在回归与重新部署；旧公开包不作为整合包。见[精确输入与验证边界](integration_20261019.md)。整体品质仍REVISE，真人/实体设备未验。以下段落保留各历史分支身份。
 
 ---
 
 # FOREST-GRAPPLE-02：实现与验证交接
+
+# 五风格三地区实验交接
+
+分支 `feature/windchime-five-style-lab`；基线 `2f25083da11da11604a3535a2feae20d119ac001`；运行源 `32200d04fe233bda16cf50f678aabee51a9715e5`、build `d2d469f81582`。公开试玩 https://zhipijun1996.github.io/gunman-rush/?styles=1&v=d2d469f81582 ，部署run39229024220/attempt1成功，不合main。后续纯证据提交不更换运行源标签。
+
+已完成5永久TileSet/5原风格平原、Underworld/Cavern三地区表现共9环境、同布局四seed、风格/地区/目录/光景开关。实际17215/0（20主路+80上层）、1706/0（16新增环境）、45GPU和独立全图审查；来源/许可/30图生/重复n3保留。已修上层160px不可达、假敌/白圆台/矩形碎石与camera限位露边，失败原件不删。源复建工具与素材原字节自包含；首次部分clone不含4GB历史证据，完整docs/art/gameplay/web profile仍在首项docs失败；最终冻结注册专项fresh43.052秒通过，不将本轮专项当全绿。
+
+报告 `docs/style_exploration_report.md`；全部证据 `docs/evidence/style_exploration/`。下一步先由用户在真实六组中选画法，按该规范制作原创森林/工城完整材料Tile家族，再扩展16区；不能把相同岩床调色当树皮/钢板完成。其他13区只有视觉矩阵；正式地区未开放。商业/用户/设备、完整动作/声音和最差任意地形仍未签。
+
+复验：`python3 tools/build_style_anchor_atlases.py --check`；`python3 tools/run_style_exploration_tests.py`；`python3 tools/harness.py --check style-exploration --release --jobs 1`。实际GPU `DISPLAY=:99 python3 tools/run_style_exploration_tests.py --capture`。Web闭包与公开部署：`python3 tools/style_exploration_delivery.py --help`，准确SHA/资源表见delivery/final_delivery.json；大PCK经已校验gzip chunks传输并在Pages构建重建。
+
+以下历史入口不覆盖本段。
+
+---
 
 # 已部署：风铃平原正式两图像素重制候选
 

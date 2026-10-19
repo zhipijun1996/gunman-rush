@@ -1,0 +1,20 @@
+[
+  {
+    "name": "runtime",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--path",
+      ".",
+      "--script",
+      "tests/style_exploration/test_style_exploration.gd",
+      "--",
+      "--report=/workspace/clock-style-lab/docs/evidence/style_exploration/independent_review/runtime_recheck/runtime_report.json"
+    ],
+    "log": "docs/evidence/style_exploration/independent_review/runtime_recheck/runtime.log",
+    "passed": true
+  }
+]

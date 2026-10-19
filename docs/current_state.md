@@ -1,6 +1,6 @@
 # 最新：并行分支整合候选（尚待新包验证）
 
-2026-10-19，`integration/forest-plains-20261019` 已整合最新PR91正式像素平原、PR90累积独立实验、PR80剧情及PR83森林。森林仍v12/15%双瞄准，正式平原采用像素表现，候选不替换正式池。共享入口跨区表现已修复，正在回归与重新部署；旧公开包不作为整合包。见[精确输入与验证边界](integration_20261019.md)。整体品质仍REVISE，真人/实体设备未验。以下段落保留各历史分支身份。
+2026-10-19，`integration/forest-plains-20261019` 已整合最新PR91正式像素平原、PR90累积独立实验、PR80剧情、PR83森林及本轮新增PR93风格实验。森林仍v12/15%双瞄准，正式平原采用像素表现，候选不替换正式池。共享入口跨区表现已修复，正在回归与重新部署；旧公开包不作为整合包。见[精确输入与验证边界](integration_20261019.md)。整体品质仍REVISE，真人/实体设备未验。以下段落保留各历史分支身份。
 
 ---
 
@@ -109,6 +109,20 @@ Harness沿原体系增加12项检查、固定80语料、正式生态整路与每
 用户本轮重新授权森林随机地图与怪物设计，美术暂缓。新增[设计卡](design/thorn_forest_region.md)：S2仅H+基础单武器、当前231px/360°/每轴24px小跳；两图三骨架、七地块、固定锚保底/活锚捷径/根洞回程、E01/E02候选。不同只读代理完成空间与生态审查，恢复合同首轮REJECT已修复并复审接受，范围仅G0。
 
 未改任何运行源/配置/资产，未开放森林、未正式授H、未产生森林试玩；旧长H切片不是本版证据。下一步是[第一黄金](design/thorn_forest_region.md#第一黄金与后续制作顺序)真实短H灰盒出返。原平原/发布/完整回归阻塞保留，下列旧“仅平原、不启动森林”描述由本轮设计授权覆盖，未扩为正式地区开放。
+
+# 已交付候选：五风格TileSet与Underworld/Cavern三地区比较
+
+任务 `WINDCHIME-FIVE-STYLE-01`，分支 `feature/windchime-five-style-lab`，基线为当前最新开发源 `feature/blob47-art-foundation` / `2f25083`。运行源冻结 `32200d04fe233bda16cf50f678aabee51a9715e5`，Web build `d2d469f81582`；[直接试玩](https://zhipijun1996.github.io/gunman-rush/?styles=1&v=d2d469f81582)，未合并main。
+
+保留原五套平原锚点；按用户最新偏好增加第四Underworld/第五Cavern的平原、荆棘森林、齿轮工城六组重点对照。Cavern平原使用暖灰/苔绿/麦金、森林冷绿、工城铁灰锈铜，原紫源保留，不固定为全游戏色系。新增真实TileSet/TileMapLayer实验入口与地区/seed切换，独立资源；正式Motor/物理/资源/成长/保存未修改，森林和工城未正式开放。
+
+最终17215/0、20主路往返+80上层往返；1706/0、16新增地区表现消费者；36实际场景图+9actual-profile图集、5风格n=3重复生成与30真实图生均归档。独立逐张45图静态实验交付范围ACCEPT；商业成品、完整战斗/音轨、用户风格最终选择与实体设备仍UNVERIFIED。九profile不是九套新地形，森林/钢板新材料家族尚待生产。
+
+完整docs/art/gameplay因历史证据闭包缺失未绿，首注册专项source_changed失败保留，不削守门；最终冻结专项fresh43.052秒通过，实际Web包和GUI单列。已部署包全SHA/length与12份公开许可一致。详见[实验报告](style_exploration_report.md)、[全部证据](evidence/style_exploration/README.md)、[独审](evidence/style_exploration/independent_review/report.md)。后续先按用户选定画法生产森林树皮/工城钢铁真实边界家族，再逐区准入，不以本轮调色和景层证明16区量产已完成。
+
+以下为历史，不覆盖本段实验范围。
+
+---
 
 # 已部署：风铃平原正式两图像素重制候选
 
