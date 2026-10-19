@@ -4,7 +4,7 @@
   "task_type": "region",
   "workflow": "in_progress",
   "baseline_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
-  "reviewed_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+  "reviewed_commit": "315f4972081f17128fa2a499a2169ae65010bcaf",
   "content_version": "forest-interwoven-canopy-v13",
   "owner": "/root",
   "purpose": "修复钩索连续操作的真实输入/独立瞄准精力反馈，重编森林开局教学、持续组合与多路径环路。",
@@ -279,13 +279,18 @@
       "method": "原600 wrapper/sourceguard和原strict reader逐capture，ZIP中保custody/独审",
       "expected": "80出口0/strict errors空/无缺case/不改原预算",
       "failure": "任意缺case/损伤合同拒绝或sourceguard改变均失败",
-      "status": "passed",
-      "reason": "仅接受原源技术范围，不外推最终camera。",
+      "status": "unverified",
+      "reason": "历史范围PASS保留于historical_scope_result及原证据；当前reviewed315不重签旧运行。仅接受原源技术范围，不外推最终camera。",
       "evidence": [
         "final80-pre-camera-package"
       ],
       "gate": "G1",
-      "dimension": "technical"
+      "dimension": "technical",
+      "historical_scope_result": {
+        "status": "passed",
+        "reviewed_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+        "reason": "仅接受原源技术范围，不外推最终camera。"
+      }
     },
     {
       "id": "pre-camera-native-shared-docs",
@@ -293,13 +298,18 @@
       "method": "源绑定receipt+原日志+raw+有限替代与回程",
       "expected": "13 exit0/shared5676/122/52/56 all0/docs25 passed",
       "failure": "任何失败保原身份，不以旧51/2或三corpus FAIL覆盖",
-      "status": "passed",
-      "reason": "技术消费者范围有证据；FUN/设备/完整当前覆盖未签。",
+      "status": "unverified",
+      "reason": "历史范围PASS保留于historical_scope_result及原证据；当前reviewed315不重签旧运行。技术消费者范围有证据；FUN/设备/完整当前覆盖未签。",
       "evidence": [
         "native13-shared4-docs25-pre-camera-package"
       ],
       "gate": "G1",
-      "dimension": "technical"
+      "dimension": "technical",
+      "historical_scope_result": {
+        "status": "passed",
+        "reviewed_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+        "reason": "技术消费者范围有证据；FUN/设备/完整当前覆盖未签。"
+      }
     },
     {
       "id": "post-camera-held-aim-prefix",
@@ -307,13 +317,18 @@
       "method": "真实键鼠hold/自然接地恢复/辅助目标，原receipt source guard",
       "expected": "7legs/5holds完成，scope明确非玩家认可",
       "failure": "未到目标/source变化/瞄准未真实提交即失败",
-      "status": "passed",
-      "reason": "已完成真实最新前缀，未覆盖后续全部地图/Boss。",
+      "status": "unverified",
+      "reason": "历史范围PASS保留于historical_scope_result及原证据；当前reviewed315不重签旧运行。已完成真实最新前缀，未覆盖后续全部地图/Boss。",
       "evidence": [
         "camera-zoom12-aim08-prefix"
       ],
       "gate": "G1",
-      "dimension": "technical"
+      "dimension": "technical",
+      "historical_scope_result": {
+        "status": "passed",
+        "reviewed_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+        "reason": "已完成真实最新前缀，未覆盖后续全部地图/Boss。"
+      }
     },
     {
       "id": "full-forest-experience",
@@ -335,13 +350,49 @@
       "method": "原strict movie/原script fresh rerun56/0/sourceguard与独立实帧对照",
       "expected": "原影片完整1731帧60fps、原240cap内exit0，smoke sourceguard和56项通过",
       "failure": "host错误/exit未知保原失败；旧80不得重签当前全量；画面不等FUN",
-      "status": "passed",
-      "reason": "当前镜头技术和取样lookahead有独立范围证据；未跑exact-current80、实体设备/真人。",
+      "status": "unverified",
+      "reason": "历史范围PASS保留于historical_scope_result及原证据；当前reviewed315不重签旧运行。当前镜头技术和取样lookahead有独立范围证据；未跑exact-current80、实体设备/真人。",
       "evidence": [
         "camera03-actual-validation-package"
       ],
       "gate": "G2",
-      "dimension": "visual"
+      "dimension": "visual",
+      "historical_scope_result": {
+        "status": "passed",
+        "reviewed_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+        "reason": "当前镜头技术和取样lookahead有独立范围证据；未跑exact-current80、实体设备/真人。"
+      }
+    },
+    {
+      "id": "delivered-preview-current-runtime315",
+      "scenario": "已发布runtime315精确build与原公网GUI范围",
+      "method": "Pages终态API、全PCK/许可检查与原20/8GUI实际收据分开记录",
+      "expected": "API success/完整字节正确/GUI原20项8入口终态，运行源与docs-onlyHEAD分开",
+      "failure": "dispatch退出不代终态、公网byte不代GUI、任一未完成保unverified",
+      "status": "passed",
+      "reason": "仅公开试玩传输与原GUI20/8范围PASS：source315、Pages终态/完整PCK/12许可与实际CLI exit0；不签main fullCI/整图浏览器/实体设备/FUN。",
+      "evidence": [
+        "delivery-pages-terminal",
+        "delivery-public-bytes",
+        "delivery-public-gui-report",
+        "delivery-public-gui-exec"
+      ],
+      "gate": "G3",
+      "dimension": "formal_integration"
+    },
+    {
+      "id": "exact315-documentation-ci",
+      "scenario": "精确已发布315的Documentation工作流",
+      "method": "GitHub实际终态snapshot39307414111与source315核对",
+      "expected": "completed/success且head315；不与nativeCI混淆",
+      "failure": "非315或未终态不能签成功",
+      "status": "passed",
+      "reason": "仅精确315 Docs workflow成功，不签39307414057 nativefullCI。",
+      "evidence": [
+        "delivery-docs-ci-snapshot"
+      ],
+      "gate": "G3",
+      "dimension": "technical"
     }
   ],
   "evidence": [
@@ -778,10 +829,187 @@
       "content_version": "forest-interwoven-canopy-v13",
       "method": "实际camera03完整MP4/4PNG/原strict receipt/capture raw、实际.8 prefix、smoke01原FAIL和smoke02原重跑、两种独审原件逐字包；camera03-index逐项SHA，原AVI不复制。",
       "observed": "camera03 strict exit0/160.478s，1731帧60fps/28.85s；完整1715physics capture JSON与旧源相等。smoke02 exit0/9.866s/56checks/3170源码稳定；旧smoke01 hostFAIL/exit未知保留。独审接受限定lookahead改善，整体仍REVISE。"
+    },
+    {
+      "id": "delivery-pages-terminal",
+      "path": "docs/evidence/forest_focus_routes03/delivery/pages-run39308213581.json",
+      "sha256": "45ff68124a889d16e362dfc682d475ee74f51a8504ccaf5e90870318a529d66d",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "315f4972081f17128fa2a499a2169ae65010bcaf",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "实际完成原件逐字copy；新运行315与baseline20eb和后续docs-onlyHEAD区分。",
+      "observed": "实际GitHub API captured completed/success，run39308213581/source315；不是main fullCI通过。"
+    },
+    {
+      "id": "delivery-public-bytes",
+      "path": "docs/evidence/forest_focus_routes03/delivery/public-bytes.json",
+      "sha256": "6657eaccc756163e33b510a7c2b8a31871b1d7797cc3a8099ef71cea1e6684d9",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "315f4972081f17128fa2a499a2169ae65010bcaf",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "实际完成原件逐字copy；新运行315与baseline20eb和后续docs-onlyHEAD区分。",
+      "observed": "实际公网完整PCK140589880B/SHA91280a1a...与12份许可检查passed；尚不代GUI/自然玩法/设备。"
+    },
+    {
+      "id": "delivery-closure",
+      "path": "docs/evidence/forest_focus_routes03/delivery/closure-receipt.json",
+      "sha256": "23d3c0fa635acb158a9802dfc626e7b9cea4947b27e5ae31132a07e584104a4a",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "315f4972081f17128fa2a499a2169ae65010bcaf",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "实际完成原件逐字copy；新运行315与baseline20eb和后续docs-onlyHEAD区分。",
+      "observed": "运行源码315的stock export闭包四项原命令exit0，原PCK身份保留。"
+    },
+    {
+      "id": "delivery-transport",
+      "path": "docs/evidence/forest_focus_routes03/delivery/publish-receipt.json",
+      "sha256": "215a37a57175f90b3061304882526d008401884c72f1d6ce8c33b2ce2b48c5d3",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "315f4972081f17128fa2a499a2169ae65010bcaf",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "实际完成原件逐字copy；新运行315与baseline20eb和后续docs-onlyHEAD区分。",
+      "observed": "Prepared分支94e157 push/dispatch实际exit0，与运行315游戏源分开。"
+    },
+    {
+      "id": "delivery-public-gui-report",
+      "path": "docs/evidence/forest_focus_routes03/delivery/public-gui-report.json",
+      "sha256": "b8a6e6d94f31ed09679ce9d34891a20c596bffd756280926818a7aada025fb48",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "315f4972081f17128fa2a499a2169ae65010bcaf",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "实际公网原480cap CLI终态原件与全部输出，不改变验证器、不代自然战役/整图浏览器。",
+      "observed": "实际public GUI20checks/8identities/errors[]，鼠标/仿真触屏、两区两图入口与pause/resume；wholebrowserroute/自然进程/实体设备未验。"
+    },
+    {
+      "id": "delivery-public-gui-exec",
+      "path": "docs/evidence/forest_focus_routes03/delivery/public-gui-exec.json",
+      "sha256": "0e78079ad707e90cb9fb9eed254d26e6eefdf248f6aaaae3f64a2b55eee13df1",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "315f4972081f17128fa2a499a2169ae65010bcaf",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "实际公网原480cap CLI终态原件与全部输出，不改变验证器、不代自然战役/整图浏览器。",
+      "observed": "根实际execution工具观察原CLI exit0/原asyncio480cap，reportSHA b8a6e6d9...，无重试/放宽。"
+    },
+    {
+      "id": "delivery-public-gui-package",
+      "path": "docs/evidence/forest_focus_routes03/delivery/public-gui-originals.zip",
+      "sha256": "b0a553b479f045f7ecc126a8ec10db4d7f6bf9745fbc2fe4cc38787798ff7a0d",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "315f4972081f17128fa2a499a2169ae65010bcaf",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "实际公网原480cap CLI终态原件与全部输出，不改变验证器、不代自然战役/整图浏览器。",
+      "observed": "全139原GUI文件含截图/OCR TSV/原receipt原字节ZIP，public-gui-index逐entry SHA/CRC，非新录制。"
+    },
+    {
+      "id": "delivery-runtime-ci-snapshot",
+      "path": "docs/evidence/forest_focus_routes03/delivery/delivery-runtime-ci-snapshot.json",
+      "sha256": "2a97e4336ea132e47e9ba07a7ef8613cb6ca0376d3cceab0a4e4c1c9ae921a8a",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "315f4972081f17128fa2a499a2169ae65010bcaf",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "实际小原件逐字copy，终态/运行中及历史pending范围不互签。",
+      "observed": "315 runtime39307414057实际仍in_progress，未通过。"
+    },
+    {
+      "id": "delivery-docs-ci-snapshot",
+      "path": "docs/evidence/forest_focus_routes03/delivery/delivery-docs-ci-snapshot.json",
+      "sha256": "9ad0312efcfb1fb868e06a4261018c15ccd9b97481337963a54683a9e10d73e0",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "315f4972081f17128fa2a499a2169ae65010bcaf",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "实际小原件逐字copy，终态/运行中及历史pending范围不互签。",
+      "observed": "精确315 Documentation39307414111 completed/success，独立于此前本地camera-before docs25；不是nativefullCI。"
+    },
+    {
+      "id": "delivery-final-review01",
+      "path": "docs/evidence/forest_focus_routes03/delivery/delivery-final-review01.json",
+      "sha256": "6204a841e75dd289cb2aac7a735e96b82f44db5ba60db535ff2fa4ba39f8ee94",
+      "kind": "review",
+      "producer": "/root/integration_review",
+      "source_commit": "315f4972081f17128fa2a499a2169ae65010bcaf",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "实际小原件逐字copy，终态/运行中及历史pending范围不互签。",
+      "observed": "历史pending独审保持原身份，不作最终公网GUI准入。",
+      "reviewer": "/root/integration_review",
+      "implementers": [
+        "/root",
+        "/root/creative_direction_integration"
+      ],
+      "verdict": "UNVERIFIED",
+      "independent": true,
+      "independence_basis": "不同作者限定交付审查，实际文本方框缺陷保留、完整CI/FUN未签。"
+    },
+    {
+      "id": "delivery-final-review01-text",
+      "path": "docs/evidence/forest_focus_routes03/delivery/delivery-final-review01-text.md",
+      "sha256": "26df20671dcbff32ffc5cd890b6cdebbde048f566f8292aad1d9b103f21d4f85",
+      "kind": "review",
+      "producer": "/root/integration_review",
+      "source_commit": "315f4972081f17128fa2a499a2169ae65010bcaf",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "实际小原件逐字copy，终态/运行中及历史pending范围不互签。",
+      "observed": "历史审查原文保留。",
+      "reviewer": "/root/integration_review",
+      "implementers": [
+        "/root",
+        "/root/creative_direction_integration"
+      ],
+      "verdict": "UNVERIFIED",
+      "independent": true,
+      "independence_basis": "不同作者限定交付审查，实际文本方框缺陷保留、完整CI/FUN未签。"
+    },
+    {
+      "id": "delivery-final-review02",
+      "path": "docs/evidence/forest_focus_routes03/delivery/delivery-final-review02.json",
+      "sha256": "310e3d0475cb3106067ecd739f5358f3f4940e62335fa91ab4b1d03118ec3f19",
+      "kind": "review",
+      "producer": "/root/integration_review",
+      "source_commit": "315f4972081f17128fa2a499a2169ae65010bcaf",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "实际小原件逐字copy，终态/运行中及历史pending范围不互签。",
+      "observed": "最终不同作者限定接受精确315/build9128/PCK、原GUI20/8/errors[]/hostexit0和当前DocsCI成功；辅助hint缺字方框未解决，不签UI全面质量/完整CI/FUN。",
+      "reviewer": "/root/integration_review",
+      "implementers": [
+        "/root",
+        "/root/creative_direction_integration"
+      ],
+      "verdict": "UNVERIFIED",
+      "independent": true,
+      "independence_basis": "不同作者限定交付审查，实际文本方框缺陷保留、完整CI/FUN未签。"
+    },
+    {
+      "id": "delivery-final-review02-text",
+      "path": "docs/evidence/forest_focus_routes03/delivery/delivery-final-review02-text.md",
+      "sha256": "a5b1677a0bbc28ea87452cc19f67b1b85e8f1639f6743ee36e4b36292be52873",
+      "kind": "review",
+      "producer": "/root/integration_review",
+      "source_commit": "315f4972081f17128fa2a499a2169ae65010bcaf",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "实际小原件逐字copy，终态/运行中及历史pending范围不互签。",
+      "observed": "最新最终独审原文，绑定当前315 DocsCI success/runtimeCI in_progress，未重签旧25本机报告。",
+      "reviewer": "/root/integration_review",
+      "implementers": [
+        "/root",
+        "/root/creative_direction_integration"
+      ],
+      "verdict": "UNVERIFIED",
+      "independent": true,
+      "independence_basis": "不同作者限定交付审查，实际文本方框缺陷保留、完整CI/FUN未签。"
     }
   ],
   "consumer_coverage": null,
   "unverified_items": [
+    "最终交付独审实看桌面森林1右上MENU下辅助hint存在缺字方框，未解决；public GUI20/8通过不能签全部UI文本质量。",
+    "runtime315 public GUI实际20/8通过；main fullCI39307414057仍未完成。计划docs-only [skip ci]只避免取消当前315CI和重复约1h代码未变流程，不修改任何workflow/断言，不称docsHEAD通过代码CI。",
     "网络基线20eb最新观察：Docs run39285184099 SUCCESS，Godot core39285184036实际FAIL（两core lane及Web，prepare/windows成功、自动deploy跳过）；失败日志为空，具体原因未证实，不能归因旧菜单为唯一原因。它不是本轮新提交的CI结果；完整CI未通过，已授权prepared试玩预览与正式验收分开。",
     "最终camera03/新.8前缀/smoke02实际通过并获限定技术/取样lookahead独审；不是exact-currentfull80重跑、全片主观观赏或设备/FUN/商业品质认可。旧smoke01 hostFAIL/进程exit未知仍保留。",
     "camera-only之前原80最终04已80PASS/source_stable，原三FAIL仍保留；最终camera三参数修订后不声称exact-current full80。",
@@ -811,5 +1039,26 @@
     "path": ".agents/skills/region-generator/SKILL.md",
     "scope": "原G4增加通用消费者追溯，不新增平行规范或森林硬编码",
     "observed": "Manifest.routes/求解器/驾驶计划变化与正式可玩世界实体/通路/敌奖励差异分审，driver顺序不冒真人发现顺序。"
+  },
+  "delivery_status": {
+    "runtime_source_commit": "315f4972081f17128fa2a499a2169ae65010bcaf",
+    "build_id": "91280a1ade48",
+    "pack_bytes": 140589880,
+    "pack_sha256": "91280a1ade48520424f75e3d647fae57fe72aefd34cb5d3c6acad625f1c70eb6",
+    "pages_run": 39308213581,
+    "pages_status": "success",
+    "public_full_bytes_licenses": "passed",
+    "public_gui": "passed:20checks/8identities/errors[] original480cap CLIexit0",
+    "main_full_ci_run": 39307414057,
+    "main_full_ci_status": "in_progress, not green",
+    "later_docs_only_commit": null,
+    "scope": "deployed playable preview, not design/commercial/player acceptance",
+    "docs_followup": "docs-only [skip ci] planned to preserve ongoing315fullCI and avoid unchanged-code rerun; no workflow/assertion/source edit, not a tested docsHEAD claim",
+    "documentation_ci": {
+      "run": 39307414111,
+      "source": "315f4972081f17128fa2a499a2169ae65010bcaf",
+      "status": "completed/success",
+      "scope": "exact315 Docs workflow, not historical local25/nativefullCI"
+    }
   }
 }

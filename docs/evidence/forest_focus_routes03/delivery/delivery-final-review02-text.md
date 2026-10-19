@@ -1,0 +1,9 @@
+公网发布与GUI限定技术接受，完整CI仍未签通过。
+
+原公网GUI报告SHA已精确核对，20断言/8入口/errors[]；host记录原CLI exit0、原480秒上限。八入口逐项绑定同一315源码、build91280a1ade48及完整PCK140589880B/SHA；森林四个实际组装事件均v13且仅grapple。此前独立全PCK与12许可原字节验证复用，不重复网络下载。
+
+实际查看mouse森林map1与touch森林map2入口图：标题、角色、根平台、铜环及悬挂环、focus行和触控按钮可见。desktop图右上MENU下辅助提示有缺字方框，明确保留此局部文本缺陷；不宣称全界面可读性通过。
+
+这些入口/暂停测试不证明浏览器整路线、自然奖励跨区、完整Boss、真机或FUN。完整CI39307414057仍仅此前in_progress观察，设计REVISE与HH替代等限制保留。
+
+更新：精确315的Documentation CI39307414111实际completed/success，快照SHA绑定；不重签旧25本机收据。完整运行CI39307414057快照仍in_progress，不能称完整CI通过。

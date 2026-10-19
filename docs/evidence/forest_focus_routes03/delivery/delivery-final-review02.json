@@ -1,0 +1,129 @@
+{
+  "verdict": "BOUNDED_PUBLIC_DELIVERY_AND_GUI_ACCEPT_FULLCI_UNVERIFIED",
+  "scope": "Independent read-only identity/report review; no engine/browser invocation",
+  "prior_review01_sha256": "6204a841e75dd289cb2aac7a735e96b82f44db5ba60db535ff2fa4ba39f8ee94",
+  "public_gui_report_sha256": "b8a6e6d94f31ed09679ce9d34891a20c596bffd756280926818a7aada025fb48",
+  "gui_exec_observation_sha256": "0e78079ad707e90cb9fb9eed254d26e6eefdf248f6aaaae3f64a2b55eee13df1",
+  "actual_cli_exit_code": 0,
+  "original_timeout_seconds": 480,
+  "checks": 20,
+  "contexts": [
+    "mouse-plains-map1",
+    "mouse-plains-map2",
+    "mouse-thorn_forest-map1",
+    "mouse-thorn_forest-map2",
+    "touch-plains-map1",
+    "touch-plains-map2",
+    "touch-thorn_forest-map1",
+    "touch-thorn_forest-map2"
+  ],
+  "errors": [],
+  "source_commit": "315f4972081f17128fa2a499a2169ae65010bcaf",
+  "build_id": "91280a1ade48",
+  "pack_sha256": "91280a1ade48520424f75e3d647fae57fe72aefd34cb5d3c6acad625f1c70eb6",
+  "pack_bytes": 140589880,
+  "prior_independent_fullpack_and_all12_license_hash_checks": "Passed in review01; no repeat network download",
+  "actual_forest_assembly_events": [
+    {
+      "device": "touch",
+      "abilities": [
+        "grapple"
+      ],
+      "boss_definition": "res://resources/bosses/rootbell_guardian_v2.tres",
+      "boss_scene": "res://scenes/bosses/rootbell_guardian_v2.tscn",
+      "content_version": "thorn-forest-region-v2",
+      "debug_entry": true,
+      "event": "region_assembled",
+      "layout_version": "forest-interwoven-canopy-v13",
+      "manifest_hash": "78a7f309d69d46c29d02b4e88a9797b59878291ca83fe400e879324e07599f59",
+      "map_index": 1,
+      "region": "thorn_forest",
+      "seed": "plains-35feec8fee01cf5a9139e0ad4d3eedca/thorn_forest/map_1"
+    },
+    {
+      "device": "touch",
+      "abilities": [
+        "grapple"
+      ],
+      "boss_definition": "res://resources/bosses/thorn_queen_canopy.tres",
+      "boss_scene": "res://scenes/bosses/thorn_queen_canopy.tscn",
+      "content_version": "thorn-forest-region-v2",
+      "debug_entry": true,
+      "event": "region_assembled",
+      "layout_version": "forest-interwoven-canopy-v13",
+      "manifest_hash": "d4c3261bbd7e6f5da2d97c4221d5b4ed708989011e95b86041086b350dd10c3e",
+      "map_index": 2,
+      "region": "thorn_forest",
+      "seed": "plains-81122b7e05062931faf13dab0f96deb4/thorn_forest/map_2"
+    },
+    {
+      "device": "mouse",
+      "abilities": [
+        "grapple"
+      ],
+      "boss_definition": "res://resources/bosses/rootbell_guardian_v2.tres",
+      "boss_scene": "res://scenes/bosses/rootbell_guardian_v2.tscn",
+      "content_version": "thorn-forest-region-v2",
+      "debug_entry": true,
+      "event": "region_assembled",
+      "layout_version": "forest-interwoven-canopy-v13",
+      "manifest_hash": "0877199d1d91b6aa33bdd1a76d8d0154c29c1853e650bfc6f41d0c0c79cd7512",
+      "map_index": 1,
+      "region": "thorn_forest",
+      "seed": "plains-5d0104bc318ae67fd8d1ec5726be69b7/thorn_forest/map_1"
+    },
+    {
+      "device": "mouse",
+      "abilities": [
+        "grapple"
+      ],
+      "boss_definition": "res://resources/bosses/thorn_queen_canopy.tres",
+      "boss_scene": "res://scenes/bosses/thorn_queen_canopy.tscn",
+      "content_version": "thorn-forest-region-v2",
+      "debug_entry": true,
+      "event": "region_assembled",
+      "layout_version": "forest-interwoven-canopy-v13",
+      "manifest_hash": "209784a171eb1423150e6e6cfa4148a869ada5ca2c1dc64177e2d89912664ef2",
+      "map_index": 2,
+      "region": "thorn_forest",
+      "seed": "plains-430812ef4abe6ace8d14dc75d904c9e4/thorn_forest/map_2"
+    }
+  ],
+  "images_personally_viewed": [
+    {
+      "path": "build/forest_revision03/delivery-public/gui/mouse-thorn_forest-map1-entry.png",
+      "sha256": "a424624d6267ba82db8303ea7c2f9db296a8e7307f7229c8467639237eebb3c5"
+    },
+    {
+      "path": "build/forest_revision03/delivery-public/gui/touch-thorn_forest-map2-entry.png",
+      "sha256": "dc986d7eebce6863df5e1bac172f76dc446e5f04f8056b6f23d5d61d501cd0cd"
+    }
+  ],
+  "visual_observation": "Both screenshots visibly show correct THORN FOREST1/2 or2/2 heading, actor on root platform, distinct hanging and fixed ring marks, visible HUD focus row, touch controls on touch image. This is entry view only. Desktop map1 right-side auxiliary hint under MENU has missing-glyph boxes; record as unresolved localized text defect, not pass all text readability.",
+  "not_verified": {
+    "physical_devices": "unverified",
+    "whole_browser_route": "unverified",
+    "natural_reward_and_next_region_gui": "unverified; native actual progression evidence is separate",
+    "full_ci": "39307414057 last observed in_progress; no terminal success claimed",
+    "fun": "unverified",
+    "boss_complete_combat": "not covered"
+  },
+  "quality_scope": "Overall design REVISE/in_progress and HH no-H alternative/bitnotworldrandomization remain. GUI20 entry/pause tests do not replace full-route actual play. PR96 excluded.",
+  "documentation_ci": {
+    "snapshot_sha256": "9ad0312efcfb1fb868e06a4261018c15ccd9b97481337963a54683a9e10d73e0",
+    "conclusion": "success",
+    "databaseId": 39307414111,
+    "headSha": "315f4972081f17128fa2a499a2169ae65010bcaf",
+    "status": "completed",
+    "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/39307414111",
+    "scope": "Exact315 postcamera Documentation workflow success; not relabeling older25 local suite receipt"
+  },
+  "runtime_ci_latest": {
+    "snapshot_sha256": "2a97e4336ea132e47e9ba07a7ef8613cb6ca0376d3cceab0a4e4c1c9ae921a8a",
+    "databaseId": 39307414057,
+    "headSha": "315f4972081f17128fa2a499a2169ae65010bcaf",
+    "status": "in_progress",
+    "conclusion": "",
+    "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/39307414057"
+  }
+}

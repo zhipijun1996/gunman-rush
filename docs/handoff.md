@@ -1,14 +1,12 @@
-## 2026-10-19：森林v13收尾交接（保持in_progress/REVISE）
+## 2026-10-19：森林v13发布后交接（公网GUI通过、完整CI尚待）
 
-当前`fix/forest-focus-and-interwoven-routes`尚未merge/deploy。最终camera-only修订之前原80/80、13/13补充native、共享4（5676/122/52/56 all0）和docs原25技术通过；三轮旧FAIL完整保留，不能以最后成功覆写。13项中含当前262/20 producer合同、真实长瞄准/有限替代/两图回程。证据已安装为[普通Git精选包](evidence/forest_focus_routes03/final_validation/README.md)，75.21MB，原路径→archiveentry/SHA完整；不要删除原RAM unique movie/原raw或只读Foundry alias。
+运行游戏为main315f4972081f17128fa2a499a2169ae65010bcaf（PR97），build91280a1ade48/PCK140589880B，完整SHA91280a1ade48520424f75e3d647fae57fe72aefd34cb5d3c6acad625f1c70eb6。Pages39308213581实际SUCCESS，公网完整字节/12许可通过；原GUI20/8实际exit0通过，8identities/errors[]，原480cap未改，main fullCI39307414057仍in_progress。后续纯文档HEAD不可冒运行源；PR96独立DRAFT保留，未合并。
 
-最后镜头在configure之后实际应用zoom1.2，.8s actualAdapter前缀7legs/5holds/834frames源稳定PASS；camera03严格movie160.478s/exit0/sourceguard通过，完整capture JSON1715物理样本与旧源逐项相等；fresh smoke02 9.866s/exit0/56项/3170源码稳定，限定镜头与取样lookahead独审已完成，旧smoke01 hostFAIL/exit未知保留。不能把before-camera原80和旧movie冒签exact-current全80或当前画面。
+下一步保留当前315CI继续执行，记录其真实终态；继续评估早期组合简化路径、种子探索差异及辅助提示缺字。独立发布审查已完成；本次docs-only跟进使用[skip ci]保留315运行，避免对未改代码重复启动完整流程；不改workflow/断言，不声称docsHEAD已通过代码CI；不把dispatch/公网字节代GUI或自然战役。发布原件见[delivery](evidence/forest_focus_routes03/delivery/README.md)，完整精选验证包见[final_validation](evidence/forest_focus_routes03/final_validation/README.md)。原80/13/shared4/docs25及camera03均保各自源边界，任务维持REVISE/in_progress，真人/实体设备/FUN/完整消费者覆盖未验。
 
-下一步据已完成的当前镜头receipt/独审核对证据/质量静态检查，随后由根任务按授权安排提交/合并/发布；当前不擅自merge/deploy。整体仍REVISE：早HH可无H一R/两R替代，推荐branch位不改世界随机，deep三有限策略未到不证明普遍无H不可能，设备/真人/FUN/商业品质与consumercoverage总覆盖未验。旧公网2985982ee612已真实发布，但不含本轮新v13。
+工程保全：从完整提交树恢复315、ignored原件迁RAM与12656 readonly alias的根任务审计只属存储完整性，不作游戏设计证明；保留原unique RAM素材/影片与alias，不复制全量1GB custody。以下均为历史交接时点，不覆盖本节。
 
-以下均为历史交接快照，不覆盖本节。
-
-网络基线20eb最新观察：Docs run39285184099 SUCCESS，Godot core39285184036实际FAIL（两core lane及Web，prepare/windows成功、自动deploy跳过）；失败日志为空，具体原因未证实，不能归因旧菜单为唯一原因。它不是本轮新提交的CI结果；完整CI未通过，已授权prepared试玩预览与正式验收分开。
+精确315的Documentation39307414111实际completed/SUCCESS；runtime39307414057仍in_progress，未称全CI绿色。最终独立交付审查限定接受公网20/8与身份，但实看森林1右上MENU下辅助hint有缺字方框，仍未解决，不能把GUI验收当全部UI品质通过。后续docs-only [skip ci]仅保留315代码CI不被取消/避免对未改代码重复启动完整流程，不修改workflow、断言或运行源。
 
 ---
 

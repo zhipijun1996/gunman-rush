@@ -1,12 +1,10 @@
-## 2026-10-19：FOREST-FOCUS-ROUTES-03 当前技术完成范围（未合并/部署）
+## 2026-10-19：森林v13已发布试玩，公网GUI通过，完整CI仍待终态
 
-分支`fix/forest-focus-and-interwoven-routes`中的森林v13提供可接地开局、两处早分流与中段580px五连深根路线，保留v12保存/旧技巧路。独立focus HUD、15%双瞄准及2秒空中预算清楚分开，未改变玩家物理/身体/射程/资源。
+PR97已合并main运行源码`315f4972081f17128fa2a499a2169ae65010bcaf`，与实现71c29dfc同树。试玩[build91280a1ade48](https://zhipijun1996.github.io/gunman-rush/?v=91280a1ade48)由[Pages39308213581](https://github.com/zhipijun1996/gunman-rush/actions/runs/39308213581)实际SUCCESS发布；公网完整PCK140589880B/SHA91280a1ade48520424f75e3d647fae57fe72aefd34cb5d3c6acad625f1c70eb6和12份许可实际通过。原20项/8入口GUI实际exit0通过、8 identities/errors[]（原480 cap未改），main fullCI39307414057仍in_progress，不预签。后续纯文档HEAD不是已发布游戏源。
 
-最终camera-only修订之前：原固定80/600实际80/80严格通过/source_stable；13/13补充native（含当前20 producer合同262/0）、共享四原回归5676/122/52/56均0失败、原docs25项通过。原三轮80失败保留。镜头configure后实际zoom1.2的新源.8s actualAdapter前缀7legs/5holds已通过；camera03严格movie160.478s/exit0完成；fresh smoke02 9.866s/exit0/56项/3170源码稳定，独审接受限定lookahead改善，旧smoke01 hostFAIL/exit未知保留。不得把旧源80或旧movie重签为exact-current完整验收。
+最后camera-only之前原80/80、13/13补充native（含262/20合同）、共享4与docs25真实技术通过；新镜头.8前缀、camera03完整1731帧影片和smoke02也有范围证据。整体仍in_progress/REVISE：早HH可无H、推荐bit非世界随机、设备/真人FUN/商业品质及消费者总覆盖未完成；发布只是可玩迭代，不是全面验收。PR96独立DRAFT未合并。见[当前设计](design/forest_interwoven_v13.md)、[精选技术证据](evidence/forest_focus_routes03/final_validation/README.md)、[最新发布原件](evidence/forest_focus_routes03/delivery/README.md)。以下均为历史时点。
 
-独立体验仍**REVISE / in_progress**：早HH一R/两R可无H通过，branch bit只推荐routes不随机世界；深根有限两R对照及两图12leg回程有实际证据，但不证明所有策略/全区域FUN。设备/真人/商业品质/消费者完整覆盖未完成，尚未merge/deploy。见[当前设计](design/forest_interwoven_v13.md)、[普通文件精选证据](evidence/forest_focus_routes03/final_validation/README.md)。当前公网仍为先前已发布2985982ee612包，不含本轮未提交v13。以下各节均为历史记录。
-
-网络基线20eb最新观察：Docs run39285184099 SUCCESS，Godot core39285184036实际FAIL（两core lane及Web，prepare/windows成功、自动deploy跳过）；失败日志为空，具体原因未证实，不能归因旧菜单为唯一原因。它不是本轮新提交的CI结果；完整CI未通过，已授权prepared试玩预览与正式验收分开。
+精确315的Documentation39307414111实际completed/SUCCESS；runtime39307414057仍in_progress，未称全CI绿色。最终独立交付审查限定接受公网20/8与身份，但实看森林1右上MENU下辅助hint有缺字方框，仍未解决，不能把GUI验收当全部UI品质通过。后续docs-only [skip ci]仅保留315代码CI不被取消/避免对未改代码重复启动完整流程，不修改workflow、断言或运行源。
 
 ---
 

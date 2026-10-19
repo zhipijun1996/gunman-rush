@@ -1,0 +1,115 @@
+{
+  "verdict": "BOUNDED_DELIVERY_IDENTITY_ACCEPT_GUI_AND_FULLCI_PENDING",
+  "source_commit": "315f4972081f17128fa2a499a2169ae65010bcaf",
+  "tree_exact_implementation71": true,
+  "ordinary_evidence_copy_count": 15,
+  "ordinary_copy_hashes_all_match": true,
+  "pack_actual_local_download_sha256": "91280a1ade48520424f75e3d647fae57fe72aefd34cb5d3c6acad625f1c70eb6",
+  "pack_actual_bytes": 140589880,
+  "licenses_actual_all12_length_sha_verified": true,
+  "license_scope": "Byte-preservation only, no independent legal license clearance",
+  "pages": {
+    "id": 39308213581,
+    "head_sha": "315f4972081f17128fa2a499a2169ae65010bcaf",
+    "status": "completed",
+    "conclusion": "success",
+    "html_url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/39308213581"
+  },
+  "full_ci_observed": {
+    "id": 39307414057,
+    "head_sha": "315f4972081f17128fa2a499a2169ae65010bcaf",
+    "status": "in_progress",
+    "conclusion": null
+  },
+  "gui_report_exists": false,
+  "gui_status": "PENDING no final report yet",
+  "closure_receipt": {
+    "source": "315f4972081f17128fa2a499a2169ae65010bcaf",
+    "build_info": {
+      "build_id": "91280a1ade48",
+      "pack": "index.91280a1ade48.pck",
+      "engine_id": "d20938d2db49",
+      "cache_schema": 2,
+      "loader_id": "ea3497130b53",
+      "pack_bytes": 140589880,
+      "download_bytes": 143079266,
+      "chunk_bytes": 524288,
+      "wasm_bytes": 37902138,
+      "wasm_gzip_bytes": 10027646,
+      "jump": "tap/hold",
+      "playtest": "web",
+      "source_commit": "315f4972081f17128fa2a499a2169ae65010bcaf"
+    },
+    "checks": [
+      {
+        "name": "generic-closure",
+        "argv": [
+          "python3",
+          "tools/check_web_bundle.py",
+          "build/web"
+        ],
+        "exit_code": 0,
+        "seconds": 1.5689531740063103
+      },
+      {
+        "name": "underworld-closure",
+        "argv": [
+          "python3",
+          "tools/underworld_delivery.py",
+          "closure",
+          "--bundle",
+          "build/web",
+          "--source",
+          "315f4972081f17128fa2a499a2169ae65010bcaf",
+          "--output",
+          "/workspace/gunman-rush-design/build/forest_revision03/delivery-draft/underworld-closure.json"
+        ],
+        "exit_code": 0,
+        "seconds": 0.5667535229877103
+      },
+      {
+        "name": "style-closure",
+        "argv": [
+          "python3",
+          "tools/style_exploration_delivery.py",
+          "check-bundle",
+          "--bundle",
+          "build/web",
+          "--commit",
+          "315f4972081f17128fa2a499a2169ae65010bcaf",
+          "--output",
+          "/workspace/gunman-rush-design/build/forest_revision03/delivery-draft/style-closure.json"
+        ],
+        "exit_code": 0,
+        "seconds": 0.3659152489999542
+      },
+      {
+        "name": "style-licenses",
+        "argv": [
+          "python3",
+          "tools/style_exploration_delivery.py",
+          "licenses",
+          "--bundle",
+          "build/web",
+          "--commit",
+          "315f4972081f17128fa2a499a2169ae65010bcaf",
+          "--output",
+          "/workspace/gunman-rush-design/build/forest_revision03/delivery-draft/style-licenses.json"
+        ],
+        "exit_code": 0,
+        "seconds": 0.0651809749979293
+      }
+    ]
+  },
+  "prepared_transport_scope": "94e1576 static transport commit is separate from315 runtime source; full reconstructed PCK exact bytes verified locally from downloaded public output. Did not independently make another network PCK download.",
+  "historical_receipts": "source-freeze.json committed_not_yet_merged_or_exported is earlier workflow state; README labels later merged/exported source. Not a current deployment failure.",
+  "known_quality_limits": [
+    "Overall design REVISE/in_progress",
+    "HH no-H alternative unresolved",
+    "recommended-bit choice is not world randomization",
+    "No human fun/device approval",
+    "PR96 DRAFT excluded",
+    "No complete freshCI claim"
+  ],
+  "documentation_only_followup": "Must remain docs-only and preserve runtime source315 identity; skip-ci docs followup not itself evidence of full CI success."
+}

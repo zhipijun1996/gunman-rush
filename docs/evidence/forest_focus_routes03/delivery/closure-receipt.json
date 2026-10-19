@@ -1,0 +1,78 @@
+{
+  "source": "315f4972081f17128fa2a499a2169ae65010bcaf",
+  "build_info": {
+    "build_id": "91280a1ade48",
+    "pack": "index.91280a1ade48.pck",
+    "engine_id": "d20938d2db49",
+    "cache_schema": 2,
+    "loader_id": "ea3497130b53",
+    "pack_bytes": 140589880,
+    "download_bytes": 143079266,
+    "chunk_bytes": 524288,
+    "wasm_bytes": 37902138,
+    "wasm_gzip_bytes": 10027646,
+    "jump": "tap/hold",
+    "playtest": "web",
+    "source_commit": "315f4972081f17128fa2a499a2169ae65010bcaf"
+  },
+  "checks": [
+    {
+      "name": "generic-closure",
+      "argv": [
+        "python3",
+        "tools/check_web_bundle.py",
+        "build/web"
+      ],
+      "exit_code": 0,
+      "seconds": 1.5689531740063103
+    },
+    {
+      "name": "underworld-closure",
+      "argv": [
+        "python3",
+        "tools/underworld_delivery.py",
+        "closure",
+        "--bundle",
+        "build/web",
+        "--source",
+        "315f4972081f17128fa2a499a2169ae65010bcaf",
+        "--output",
+        "/workspace/gunman-rush-design/build/forest_revision03/delivery-draft/underworld-closure.json"
+      ],
+      "exit_code": 0,
+      "seconds": 0.5667535229877103
+    },
+    {
+      "name": "style-closure",
+      "argv": [
+        "python3",
+        "tools/style_exploration_delivery.py",
+        "check-bundle",
+        "--bundle",
+        "build/web",
+        "--commit",
+        "315f4972081f17128fa2a499a2169ae65010bcaf",
+        "--output",
+        "/workspace/gunman-rush-design/build/forest_revision03/delivery-draft/style-closure.json"
+      ],
+      "exit_code": 0,
+      "seconds": 0.3659152489999542
+    },
+    {
+      "name": "style-licenses",
+      "argv": [
+        "python3",
+        "tools/style_exploration_delivery.py",
+        "licenses",
+        "--bundle",
+        "build/web",
+        "--commit",
+        "315f4972081f17128fa2a499a2169ae65010bcaf",
+        "--output",
+        "/workspace/gunman-rush-design/build/forest_revision03/delivery-draft/style-licenses.json"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0651809749979293
+    }
+  ]
+}

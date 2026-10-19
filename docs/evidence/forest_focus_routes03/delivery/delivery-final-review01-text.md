@@ -1,0 +1,5 @@
+发布身份限定接受，公网GUI与完整CI待终态。
+
+main315与实现71树完全一致。逐核普通证据copy manifest全部SHA；本机保存的公网下载完整PCK140589880B/SHA91280a1ade48520424f75e3d647fae57fe72aefd34cb5d3c6acad625f1c70eb6以及12许可文件长度/SHA全部一致。Pages39308213581成功，静态传输commit与315运行源码明确区分。没有重新联网下载整PCK，不把许可字节保存当法律许可审查。
+
+当前原公网GUI报告尚未产生；main315完整CI39307414057实际in_progress。四export闭包原收据均exit0，仅签其声明范围，不签整体CI。旧source-freeze早期状态保留，不能冒为当前失败。后续文档commit不得重签已发布运行源。整体REVISE、HH无H替代、推荐bit非世界随机及真人设备/FUN未验保留，PR96独立草稿未纳入。
