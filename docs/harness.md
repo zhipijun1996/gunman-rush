@@ -82,3 +82,7 @@ mission默认只规划；`--execute`才调用现有生产循环。诊断候选�
 `forest-depth-ecology-expedition` 在同一gameplay/full保留地图1正式13段取奖返营后的活锚与满跳双R对照，并以既有 `--include-map2-expedition` 在同一次import后追加root02／map2／level0自然取奖→R的活锚／双R两组，两者共同使用普通满跳apex单枪E→C跨联到真实门。四组保留实际指针领奖、资源与完整路线守门；地图2局部独评CONTINUE不代表整个区域丰富度或玩家认可。旧上层活H边与侧环已退役。新增检查仍12项，每次使用 `{check_token}` 新输出，原300秒外层预算与其余阈值保留。
 
 `forest-region-matrix`、`forest-formal-combat` 两项坐标专属历史回归由 `run_forest_v1_regressions.py` 在精确bee源fixture中执行原命令／断言；它们证明历史v1消费者，不覆盖新默认v2。完整原输出保留于legacy-runs，legacy-evidence只复制SHA绑定原报告、日志和fixture构建收据，不复制缓存、素材和影片；桥失败仍令检查失败。当前自然入口／调试入口／版本恢复／v2正式App与80路线另做实际检查。
+
+## 历史证据与当前配置分离
+
+参数合同改变后，固定历史native/Manifest仍须绑定原始配置字节与原source inventory；不能重写旧capture、只换指纹或借旧成功认证当前运行。历史Python消费者可在明确限定的语义校验scope读取SHA绑定的旧authority，必须验证当前默认校验仍拒绝失配历史数据、篡改旧authority被拒绝、正常及异常退出都恢复当前scope；真实当前生成与原历史整串断言分别保留。内层CLI重定向日志的检查应沿原profile artifact_paths收集原件，不只保留外层通用错误。FOREST-GRAPPLE-02的根铃旧20%／当前15%修复是一次实际案例，不是新的并行生产流程。

@@ -3,6 +3,10 @@
 基线 `6c61faadd511c48a267b975550da897e701fd09f`，承接PR83／PR76。本轮需求原文见[user_request.txt](user_request.txt)，设计见[森林钩索与纵向主路](../../design/forest_grapple_vertical.md)。本页区分真实运行、不同作者审查、原失败与未验品质；不把技术通过当作玩家认可。
 
 
+## S1完整CI失败：历史fixture与当前配置必须分开
+
+S1 `7ba2e92d`／CI39194694146实际FAIL，Web、Windows与serial18成功，parallel在root-bell-tests失败，core拒绝汇总，deploy/verify_public跳过；森林80尚未达到，不签89全通过。[release01](release01/README.md)保存原API、403、本地原CLI及inner日志。根因精确到固定20% native02的纯Python反例使用当前15% authority，Godot未启动；通用outer错误不能包装成已证泄漏。测试隔离修复已通过纯Python原27+9、新增2反例、不同作者6个authority变造与异常恢复检查；[修复原件及限定独审](release01/ROOT_BELL_REPAIR.md)中的原Harness fresh/release在360秒预算内121.717s实际PASS，165/0、原41+9拒绝、40历史整串与40当前15%生成、5真实RunManifest正例/9拒绝均保留。生产reader/main与15%配置不改；新源完整CI仍待。以下较早“CI待运行”均为对应历史截止。
+
 ## 最新设计结论：保留实际尾部替代，七句是推荐主线
 
 [检查点06](checkpoint06/README.md)公开有限反例：aperture03从真实起点/前缀，经catch、普通跳与一次空中向上R，851帧/HP5→5走到W；该探针前五句9H后无H，实际可省upper_spiral/canopy_fork两句。02已到联合岸却误判negative、01首R接地的局限均原样保存，不能拿native0或未到W标签签blocked。七句仅为已制作推荐主线，观察到的前五句也不是穷尽必经证明；当前保留便宜尾替代，不再加高孔位/加锁。上层无独占奖励或熟练玩家吸引力证据，父任务REVISE。
