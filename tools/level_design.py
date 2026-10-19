@@ -356,6 +356,16 @@ def load_spatial_experiment(path, region_id, root=ROOT):
     return data, {'path': relative.as_posix(), 'sha256': file_hash(target), 'region_id': region_id, 'allowed_paths': paths}
 
 
+def world_rebuild_request(request, region_id):
+    """Explicit source-painting pilot only, never a whole-region default."""
+    return bool(region_id == "windchime_plains"
+        and re.search(r"源画|source.paint", request, re.I)
+        and re.search(r"重建|重做|rebuild", request, re.I)
+        and re.search(r"地貌|地形|landform|terrain", request, re.I)
+        and re.search(r"美术|art", request, re.I)
+        and not re.search(r"调色|贴图|palette|森林|forest|解锁|新机制|武器规则|能力规则|物理参数", request, re.I))
+
+
 def art_language_request(request, region_id):
     """Explicit module/world art-language work; do not grant it for a palette edit."""
     return bool(region_id == "windchime_plains"
@@ -375,7 +385,8 @@ def joint_landform_request(request, region_id):
     return (region_id == "windchime_plains" and not protected_change
         and ((joint_words and level_words and visual_words)
              or (landform_words and not surface_only)
-             or art_language_request(request, region_id)))
+             or art_language_request(request, region_id)
+             or world_rebuild_request(request, region_id)))
 
 
 def route_request(request, mode=None, phase="auto", direction=None, spatial_experiment=None):
@@ -430,8 +441,17 @@ def route_request(request, mode=None, phase="auto", direction=None, spatial_expe
                 "tools/plains_art_language_preview.gd", "tools/run_plains_art_language_tests.py",
                 "tests/plains_art_language_runner.gd", "docs/evidence/plains_art_language/",
                 "docs/quality/records/", "docs/tasks.md"]
+        if world_rebuild_request(request, region_id):
+            task_id = "plains-world-rebuild"
+            quality_record = "docs/quality/records/PLAINS-WORLD-REBUILD-01.json"
+            allowed_paths = ["scripts/generation/plains_world_rebuild.gd",
+                "resources/generation/plains_world_rebuild.json",
+                "scripts/art/plains_world_rebuild_composer.gd", "scripts/demo/plains_world_rebuild_stage.gd",
+                "tools/plains_world_rebuild_preview.gd", "tools/run_plains_world_rebuild_tests.py",
+                "tests/plains_world_rebuild_runner.gd", "assets/visual_development/plains_world_rebuild/",
+                "docs/evidence/plains_world_rebuild/", quality_record, "docs/tasks.md"]
         plan = art_route(request, task_id, quality_record, allowed_paths)
-        plan["preparation"]["art_scope"] = "pre_embedding_art_language" if art_language_request(request, region_id) else "joint_landform" if joint_art else "surface_only_frozen_geometry"
+        plan["preparation"]["art_scope"] = "source_paint_world_rebuild" if world_rebuild_request(request, region_id) else "pre_embedding_art_language" if art_language_request(request, region_id) else "joint_landform" if joint_art else "surface_only_frozen_geometry"
         _, binding = load_direction("docs/creative_direction/windchime_plains.json", region_id)
         plan["native_import_preflight"] = True
         plan["context_mode"] = "compact"

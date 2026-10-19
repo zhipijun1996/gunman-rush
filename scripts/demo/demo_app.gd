@@ -143,7 +143,7 @@ var _shop_offer: ShopOffer
 var _shop_token: DemoToken
 
 func _explicit_plains_candidate() -> bool:
-	return spatial_golden_requested or plains_environment_candidate_requested or plains_regional_art_candidate_requested
+	return spatial_golden_requested or plains_environment_candidate_requested or plains_regional_art_candidate_requested or bool(get_meta("plains_world_rebuild_candidate",false))
 
 func start_plains(seed_value: String = "plains-run") -> bool:
 	return start_demo(seed_value, true)
@@ -244,7 +244,21 @@ func _load_stage() -> void:
 		_region_offer=null
 		_gold_claimed=false
 	var loading_token := lifetime.token()
-	if plains_regional_art_candidate_requested:
+	if bool(get_meta("plains_world_rebuild_candidate",false)):
+		# Explicit isolated new world contract. Keep actual Run/Player/Combat;
+		# bypass only the old connected-region map, boss and shop consumers.
+		connected_region = false
+		var world_generator := load("res://scripts/generation/plains_world_rebuild.gd") as Script
+		var world: Dictionary = world_generator.generate(director.seed,int(get_meta("plains_world_rebuild_variant",0)))
+		var world_errors: Array = world_generator.validate(world)
+		if not world_errors.is_empty():
+			push_error("New plains world refused: " + str(world_errors))
+			abandon_run()
+			return
+		var world_stage_script := load("res://scripts/demo/plains_world_rebuild_stage.gd") as Script
+		stage = world_stage_script.new() as GeneratedDemoStage
+		stage.call("configure_world",world,controller.motor.tuning)
+	elif plains_regional_art_candidate_requested:
 		var planner := load("res://scripts/generation/plains_region_art_plan.gd") as Script
 		var actual_seed := PlainsRegionCampaign.seed_for(director.seed,director.stage_index)
 		var candidate: Dictionary = planner.generate(actual_seed,controller.motor.tuning,"intro" if director.stage_index==1 else "advanced","",plains_joint_recoil_candidate_requested,str(get_meta("plains_art_language_candidate","")))
@@ -1074,6 +1088,7 @@ func _process(_delta: float) -> void:
 	if director.state != DemoRunDirector.State.IN_STAGE or not is_instance_valid(controller) or _stage_pending:
 		return
 	_title.text = "PLAINS / CONNECTED REGION %s/2 / " % director.stage_index + (stage as PlainsRegionStage).visited_area if connected_region else "DEVELOPMENT / ROOM %s OF %s / %s" % [director.stage_index, director.profile.stages_per_biome, String(director.stage_type_id).to_upper()]
+	if bool(get_meta("plains_world_rebuild_candidate",false)):_title.text = "风铃平原 · 风过溪谷"
 	(player.get_node("PlayerFeedback") as PlayerFeedback).effects_enabled = not _reduced_effects
 	_hud.text = "COINS %s | NOTES %s | JUMPS %s | AIR SHOTS %s" % [wallet.balance, meta.snapshot().get("notes", 0), controller.motor.tuning.max_jumps, controller.action_resources.shot_charges]
 	if is_instance_valid(stage.boss):

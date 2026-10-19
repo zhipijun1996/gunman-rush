@@ -71,3 +71,7 @@ V3实战检查点：开始昂贵worker前，原production_loop会物化核对所
 当前“制作风铃平原美术”等区域短任务默认绑定[完整区域候选](../../../docs/evidence/plains_regional/recipe.md)及真实RETHINK，明确局部/场所请求保留旧入口。检查actual full-region Manifest、非同构Seed、全域地貌/路线/景层诊断、完整正常速度路线与实际消费者；诊断缩放图不冒充正常相机。当前两个制作方法均艺术REJECT，不因193项合同和完整Motor路线通过而扩产。原地质/空腔技术可复用，下一实验需要改宏观地貌与路线生成顺序。route只出计划，艺术任务不自动授权碰撞改动，用户审美/设备认可独立。
 
 整区实录暴露了廉价预检缺口：headless路线和另行GUI启动并不验证电影适配器的准入路径。昂贵长片前先用**同一真实MovieWriter入口**做60tick有界采集，核源码/原生退出/实际目录与素材/人物/影音封装；`frame_budget_exhausted`只签采集完整性，不冒充路线通过。区域入口不支持旧visual_sample/layout，非空请求要拒绝；使用实际regional catalog和初末素材/人物SHA，而非伪造旧样板标签。原生已通过而后处理失败时沿原finalize-existing在新目录恢复并保留旧失败，禁止重标源码；首片e450与观察器修复版本之间的实际差异见本轮范例。
+
+## 连续地貌重建的当前执行范例
+
+显式源画重建请求沿原route/production_loop，使用[两布局实际范例](../../../docs/evidence/plains_world_rebuild/recipe.md)和 `plains-world-rebuild-contract`，由其wrapper拍正常main/lower输入路线；不能调用旧实验电影冒签当前消费者。完整源画frame同时约束物理与画面，先看整体，再定位源构造/映射/层级/镜头：本例两种UV方案失败后换直接源构造，不继续加纹理救场。首准入后同四源改变高差/溪宽/主路，第二独审限定接受；后续只能按已实际消费的接口扩，不把Seed身份当随机结构。

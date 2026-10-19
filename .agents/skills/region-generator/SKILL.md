@@ -145,3 +145,9 @@ V3的20图RootBell为0，而原40图资格审计仅1例，不说明应增怪或�
 历史复现按需读取[原始Skill与迁移索引](../../../docs/archive/skill_history/README.md)，不默认加载旧轮授权、PR实录或失败数字。
 
 整区任务优先读取[实际整区范例与失败](../../../docs/evidence/plains_regional/recipe.md)：正式平原探索图与原Assembler可复用，场所链只验证局部，不是大地图。显式regional profile在嵌入前预算空间，联合计划实际消费完整拓扑、碰撞支撑、站面、保护空腔与景层；193项原生合同含6个默认Manifest对PR85原件完全一致。两种整区艺术方法均被实际像素否定：合并矩形不产生地貌，向下填土也不能纠正行列布局。当前只保留技术候选，后续要验证地貌场与路线共同嵌入，不继续扩大立柱或以拓扑多样性签美术。
+
+## 源画构造的有限重建入口
+
+显式短请求“从源画重建风铃平原连续地貌与美术”沿现有 `level_design.py route` / production_loop，读取[实际制作范例与失败](../../../docs/evidence/plains_world_rebuild/recipe.md)。`plains-world-rebuild-v3` 首构造已取得限定艺术/操作准入，非用户审美定稿或整区黄金。先设计完整可延伸源形体及可信接触线，等比frame同时派生实际Sprite、碰撞与路线；不能先定任意平台再拉伸源画，不能恢复已被RETHINK的反投影补缝方法。
+
+使用现有 `plains-world-rebuild-contract` 短反馈；真实预览和 main/lower 输入录像均由范例中的新wrapper启动，不能借旧profile电影。新布局先验证实际接触/往返/战斗再独审；未消费接口、Seed结构随机、整区连接和设备验证均不得从首构造成功推导。保留失败，源图、比例与消费者变化复验相关合同，不重写核心契约。

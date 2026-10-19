@@ -13,6 +13,34 @@ import production_loop
 
 
 class RoutingTests(unittest.TestCase):
+    def test_source_painting_rebuild_is_explicit_limited_real_consumer_route(self):
+        mission = level_design.route_request('从源画重建风铃平原连续地貌与美术')
+        production_loop.validate(mission)
+        recipe = mission['preparation']['visual_recipe']
+        worker = next(task for task in mission['tasks'] if not task['read_only'])
+        self.assertEqual(mission['preparation']['art_scope'], 'source_paint_world_rebuild')
+        self.assertEqual(recipe['generation_profile'], 'plains-world-rebuild-v3')
+        self.assertEqual(recipe['preview_script'], 'tools/plains_world_rebuild_preview.gd')
+        self.assertEqual(recipe['capture_wrapper'], 'tools/run_plains_world_rebuild_tests.py')
+        self.assertIsNone(recipe['capture_script'])
+        self.assertIn('main_or_lower_only', recipe['capture_status'])
+        self.assertEqual(worker['quality_task_id'], 'PLAINS-WORLD-REBUILD-01')
+        self.assertIn('plains-world-rebuild-contract', worker['checks'])
+        self.assertNotIn('plains-art-language-contract', worker['checks'])
+        self.assertNotIn('visual-director-terrain', worker['checks'])
+        self.assertIn('scripts/demo/plains_world_rebuild_stage.gd', worker['allowed_paths'])
+        self.assertNotIn('scripts/demo/demo_app.gd', worker['allowed_paths'])
+        self.assertNotIn('scripts/generation/', worker['allowed_paths'])
+        self.assertFalse(any('forest' in path for path in worker['allowed_paths']))
+        self.assertEqual(mission['scope'], 'offline_production_plan_not_executed')
+        for request, region in [('制作风铃平原美术', 'windchime_plains'),
+                                ('优化风铃平原关卡美术语言', 'windchime_plains'),
+                                ('从源画重建风铃平原地貌美术调色', 'windchime_plains'),
+                                ('从源画重建荆棘森林地貌美术', 'thorn_forest'),
+                                ('从源画重建风铃平原地貌美术与武器规则', 'windchime_plains')]:
+            with self.subTest(request=request):
+                self.assertFalse(level_design.world_rebuild_request(request, region))
+
     def test_module_art_language_uses_new_exact_candidate_not_failed_joint_profile(self):
         for request in ('优化风铃平原关卡美术语言', '改进风铃平原生成器美术参数', '设计风铃平原模块尺寸规格'):
             with self.subTest(request=request):

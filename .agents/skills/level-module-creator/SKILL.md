@@ -84,3 +84,9 @@ G5：玩家实操可读性、手感、公平性和设备控制；有证据才允
 [预制作→制作→验收及版本总谱](../../../docs/creative_direction/README.md)是共同执行依据。总谱SHA变更须RETHINK并复验；交付写贡献、协作、新行为/视觉、主题冲突和实机验证。REWORK局部修复，DISCARD隔离候选；ACCEPT只限真实已验范围，审美不绕过工程红灯。
 
 历史复现按需读取[原始Skill与迁移索引](../../../docs/archive/skill_history/README.md)，不默认加载旧轮授权、PR实录或失败数字。
+
+## 源画构造的有限重建入口
+
+显式短请求“从源画重建风铃平原连续地貌与美术”沿现有 `level_design.py route` / production_loop，读取[实际制作范例与失败](../../../docs/evidence/plains_world_rebuild/recipe.md)。`plains-world-rebuild-v3` 首构造已取得限定艺术/操作准入，非用户审美定稿或整区黄金。先设计完整可延伸源形体及可信接触线，等比frame同时派生实际Sprite、碰撞与路线；不能先定任意平台再拉伸源画，不能恢复已被RETHINK的反投影补缝方法。
+
+使用现有 `plains-world-rebuild-contract` 短反馈；真实预览和 main/lower 输入录像均由范例中的新wrapper启动，不能借旧profile电影。新布局先验证实际接触/往返/战斗再独审；未消费接口、Seed结构随机、整区连接和设备验证均不得从首构造成功推导。保留失败，源图、比例与消费者变化复验相关合同，不重写核心契约。
