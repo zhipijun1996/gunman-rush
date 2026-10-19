@@ -4,7 +4,7 @@
   "task_type": "region",
   "workflow": "in_progress",
   "baseline_commit": "ac002e7641fd282c291cdd7c25c9cf5d2450ce0a",
-  "reviewed_commit": "1c8c85d35bc57b0fd6f070c524094e704ddfb45e",
+  "reviewed_commit": "aefba67ddf649241de6beb09585454c0c32c3f18",
   "content_version": "forest-v12-pixel-plains-integration-v1",
   "owner": "root",
   "purpose": "整合PR91正式像素平原、PR90累积候选及PR80剧情，保留森林v12并重新部署",
@@ -1072,8 +1072,11 @@
     "docs/evidence/parallel_integration_01/local01/quality-tests01.log",
     "docs/evidence/parallel_integration_01/local01/world-rebuild01.log",
     "docs/evidence/parallel_integration_01/local01/world-rebuild02.log",
+    "docs/evidence/parallel_integration_01/local01/world-rebuild03.log",
     "docs/evidence/parallel_integration_01/review01.json",
     "docs/evidence/parallel_integration_01/review01.md",
+    "docs/evidence/parallel_integration_01/review02.json",
+    "docs/evidence/parallel_integration_01/review02.md",
     "docs/evidence/plains_art_language/images/joint-recoil-01/normal_start.png",
     "docs/evidence/plains_art_language/images/joint-recoil-01/receipt.json",
     "docs/evidence/plains_art_language/images/joint-recoil-01/world_overview_debug.png",
@@ -2734,7 +2737,7 @@
     },
     "independent_review": {
       "status": "unverified",
-      "reason": "源码/有限适配/元数据/消费者限定ACCEPT见review01；最终提交绑定与发布仍待",
+      "reason": "review01/02限定ACCEPT，23个实际Git blob绑定aefba67d；整区品质/最终部署未签",
       "evidence": []
     },
     "device": {
@@ -2748,15 +2751,12 @@
       "evidence": []
     }
   },
-  "criteria": [
-    "正式像素平原与森林v12并存，候选显式启用",
-    "当前15%/真实玩家物理与历史存档合同保留",
-    "同源CI/Web部署和公开GUI实际通过后才能声明整合发布"
-  ],
+  "criteria": [],
   "evidence": [],
   "consumer_coverage": null,
   "unverified_items": [
     "整合源新鲜完整CI/Web/公开GUI仍在验证",
     "人类趣味/最终审美/实体设备未验；森林已知设计REVISE不变"
-  ]
+  ],
+  "production_snapshot": "80674771931d31a8b65cab5fa6a36f315952e2fdb4429a26d2b7eb61043d0c2d"
 }
