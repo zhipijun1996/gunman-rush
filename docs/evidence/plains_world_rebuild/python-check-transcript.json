@@ -1,0 +1,23 @@
+{
+  "kind": "transcript_not_original_log",
+  "producer": "rebuild_entry",
+  "source_runtime": "ba787df7261dba40f75409a3b99457dd9bbef985",
+  "attribution": "Tool session outputs reported by implementing worker; no persistent raw log was created. Routing+VD final session23835 exit0; harness section prior session46420 exit0; first routing failure/quality binding corrected before successful routing+VD rerun. No original-output file is fabricated.",
+  "checks": [
+    {
+      "command": "python3 -m unittest discover -s tests -p test_level_design_routing.py -q",
+      "passed": 24,
+      "seconds": 1.146
+    },
+    {
+      "command": "python3 -m unittest discover -s tests -p test_visual_director.py -q",
+      "passed": 24,
+      "seconds": 7.92
+    },
+    {
+      "command": "python3 -m unittest discover -s tests -p test_harness.py -q",
+      "passed": 24,
+      "seconds": 3.138
+    }
+  ]
+}
