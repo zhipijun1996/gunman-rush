@@ -1,0 +1,64 @@
+{
+  "task": "WINDCHIME-FIVE-STYLE-01",
+  "baseline": "2f25083",
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "setup": "python3 tools/setup_environment.py --godot-only",
+  "godot_wrapper": "bash tools/godot.sh",
+  "entry": {
+    "title_button": "WINDCHIME PLAINS / FIVE STYLE LAB",
+    "native_args": [
+      "--",
+      "--style-lab"
+    ],
+    "web_query": "?styles=1",
+    "scene": "res://scenes/style_exploration/style_lab.tscn"
+  },
+  "display": {
+    "Xvfb": "/workspace/toolchains/x11/root/usr/bin/Xvfb",
+    "display": ":99",
+    "xdotool": "/workspace/toolchains/x11/root/usr/bin/xdotool",
+    "LD_LIBRARY_PATH": "/workspace/toolchains/x11/root/usr/lib/x86_64-linux-gnu",
+    "method": "rootless Debian trixie package download and dpkg-deb extraction"
+  },
+  "setup_failures": [
+    {
+      "command": "sudo apt-get update",
+      "exit_code": 127,
+      "reason": "sudo unavailable"
+    },
+    {
+      "command": "apt-get download xvfb xdotool libxdo3 using global lists",
+      "exit_code": 100,
+      "reason": "global package lists unavailable; private rootless apt lists then succeeded"
+    }
+  ],
+  "github": {
+    "actor": "zhipijun1996",
+    "repository_permissions": {
+      "admin": true,
+      "push": true
+    },
+    "pages_build_type": "workflow",
+    "pages_url": "https://zhipijun1996.github.io/gunman-rush/",
+    "prepared_bundle_workflow": ".github/workflows/deploy-prepared-playtest.yml",
+    "prepared_ref_input": "prepared_ref",
+    "authorization": "AGENTS persistent large-task playtest delivery; no main merge"
+  },
+  "verification": {
+    "exact_engine_and_templates": "passed",
+    "native_menu": "pointer click reaches StyleLab; initial lab incomplete (missing terrain); final verification pending",
+    "web_export": "unverified pending frozen source",
+    "public_deployment": "unverified pending frozen source",
+    "physical_device": "unverified",
+    "native_title": "passed actual Xvfb screenshot; formal entry and lab button visible",
+    "audio": "unverified; no audio device, explicit Dummy driver used after retained ALSA failure"
+  },
+  "resource_export_note": "Texture2D load paths use imported resources under all_resources. Dynamic JSON files need explicit preset inclusion. Existing raw exporter only handles declared historical families.",
+  "sparse_restore": {
+    "reason": "restore baseline asset closure without changing bytes",
+    "initial_editor": "exit 0 but parse errors (FAIL)",
+    "restored_editor": "exit 0, no script/parse errors",
+    "families_total_bytes_approx": 23500000,
+    "list": "sparse_missing_refs_initial.json"
+  }
+}

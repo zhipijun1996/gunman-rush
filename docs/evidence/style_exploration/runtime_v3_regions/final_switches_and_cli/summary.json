@@ -1,0 +1,77 @@
+[
+  {
+    "name": "biomes",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--path",
+      ".",
+      "--script",
+      "tests/style_exploration/test_style_biomes.gd",
+      "--",
+      "--report=/workspace/clock-style-lab/build/style_exploration/20261019T084511504389Z/biome_report.json"
+    ],
+    "log": "build/style_exploration/20261019T084511504389Z/biomes.log",
+    "passed": true
+  },
+  {
+    "name": "cli_underworld_gear",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--path",
+      ".",
+      "--script",
+      "tests/style_exploration/test_style_biome_cli.gd",
+      "--",
+      "--style=underworld",
+      "--biome=gear",
+      "--expect-style=underworld",
+      "--expect-biome=gear"
+    ],
+    "log": "build/style_exploration/20261019T084511504389Z/cli_underworld_gear.log",
+    "passed": true
+  },
+  {
+    "name": "cli_cavern_forest",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--path",
+      ".",
+      "--script",
+      "tests/style_exploration/test_style_biome_cli.gd",
+      "--",
+      "--style=cavern",
+      "--biome=forest",
+      "--expect-style=cavern",
+      "--expect-biome=forest"
+    ],
+    "log": "build/style_exploration/20261019T084511504389Z/cli_cavern_forest.log",
+    "passed": true
+  },
+  {
+    "name": "cli_basic_forest",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--path",
+      ".",
+      "--script",
+      "tests/style_exploration/test_style_biome_cli.gd",
+      "--",
+      "--style=basic",
+      "--biome=forest",
+      "--expect-style=basic",
+      "--expect-biome=plains"
+    ],
+    "log": "build/style_exploration/20261019T084511504389Z/cli_basic_forest.log",
+    "passed": true
+  }
+]
