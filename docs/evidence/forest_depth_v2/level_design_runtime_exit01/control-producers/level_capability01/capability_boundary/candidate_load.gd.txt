@@ -1,0 +1,7 @@
+extends SceneTree
+func _initialize() -> void: execute.call_deferred()
+func execute() -> void:
+ var script: Script=load("res://build/capability_boundary/case.gd")
+ print("BOUNDARY LOAD candidate: ",script!=null)
+ script=null
+ quit(0)

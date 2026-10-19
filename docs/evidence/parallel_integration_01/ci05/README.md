@@ -1,0 +1,7 @@
+# 第五候选d86：实际完整CI失败，未发布
+
+源码d86ae7474239a6f483962e0f2af712ed1d0432b7，run39237985979/attempt1终态failure，deploy_web/verify_public跳过；publisher ci_failed/live_verified=false。push docs39237939641准确24项PASS/clean；Web/Windows成功，不等于发布通过。
+
+原serial phase9检查中8通过、plains-redesign-scene失败；原parallel phase17中16通过、wood-platforms失败，联合98目标未跑完。准确API-bound ZIP保留；scene内层positive.json/log因原artifact_paths缺项未上载，不能拿本机重建冒充CI原件，后续仅补原内层产物搜集路径。独立本机同源原positive8路线91/0/cleanup全真，唯一原Python errors为8条缺失四身份，另件准确身份保留。
+
+准确Web ZIP12181595114/SHA25e42f2ec4763b0330667ef7cc08f9a2f5289b8fd9a39df1d70f08cb4223603f，本机build/integration01/ci05-web.zip(257666852B)已核对完整hash；其build cddc08147825/PCK120346332B仅候选，未上新公网。原三浏览器第一消费者导航失败60.417秒，后两未执行，不能计72项PASS。三张真实画面/OCR确认固定640,500命中新StyleLab，不是ActionStudio；后续菜单断言正确拒绝。所有后续武器断言/300cap保留，将用真实label导航后独立新运行。

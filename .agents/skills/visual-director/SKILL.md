@@ -5,21 +5,27 @@ description: 统筹真实游戏像素驱动的空间美术生产，路由资产�
 
 # visual-director
 
+## 当前生产入口：Underworld 正式平原
+
+用户已选择 Underworld；本轮依 [Tile 生产流程](../../../docs/underworld_tile_production.md) 组织开源锚点→材料/物件图生→可重建切片→正式精确几何或真网格拼接→三张独立变速景深→有根装饰→融合平台危险→实际镜头。不要继续叠加旧画风清单或用一张概念图替代正式消费者。
+
+先一个正式黄金镜头的静态/动态可读性，再推广两图；三层元数据或 47 索引通过只能证明接口，不证明层深或商业品质。注册 `underworld-pipeline` 检查实际生产清单和故意坏例，另跑真实运行/Motor/GPU与镜头回程。把物理危险轮廓、材质融合、落点/敌预告遮挡、横纵覆盖和支撑消失列为独审重点；缺实体设备/用户审美仍留未验。
+
 ## 触发与边界
 
-用户要求提升正式场景美术、建立美术生产能力，或反馈空间空、贴片感、缺景深/身份时自动使用。不接管art-director的风格与资产责任、scene-composer的空间实现、animation-vfx的动态制作；本Skill负责从实机证据定位责任、组织顺序和决定下一次实际返工。复用[原生产循环](../../../docs/quality/production_loop.md)、原G0–G5/十一维，不能用新总分代签美感。
+用户要求提升正式场景美术、建立美术生产能力，或反馈空间空、贴片感、缺景深/身份时自动使用。当前平原从[当前场所制作范例](../../../docs/evidence/plains_joint/recipe.md)与 `PLAINS-JOINT-01` 进入完整场所实验，未准入；停止把失败的薄肩带接法派给下一轮。不接管art-director的风格与资产责任、scene-composer的空间实现、animation-vfx的动态制作；本Skill负责从实机证据定位责任、组织顺序和决定下一次实际返工。复用[原生产循环](../../../docs/quality/production_loop.md)、原G0–G5/十一维，不能用新总分代签美感。
 
 ## 输入与依赖
 
-读[AGENTS](../../../AGENTS.md)、[当前状态](../../../docs/current_state.md)、[Visual Bible](../../../docs/visual_bible.md)、真实运行消费者、资产生产记录及失败像素。先fetch并保存完整SHA/工作区状态。输入Seed/Manifest、合法能力、真实镜头/路线与分辨率、用户视觉方向、实际素材和工具能力、原图/实景/连续录像；缺项保留未验。用户认可过局部材质不等于任何新空间用途获准。能力、物理、生成、资源和相机规则不为画面改动。
+读[AGENTS](../../../AGENTS.md)、[当前状态](../../../docs/current_state.md)、[Visual Bible](../../../docs/visual_bible.md)、真实运行消费者、资产生产记录及失败像素。先fetch并保存完整SHA/工作区状态。输入Seed/Manifest、合法能力、真实镜头/路线与分辨率、用户视觉方向、实际素材和工具能力、原图/实景/连续录像；缺项保留未验。用户认可过局部材质不等于任何新空间用途获准。核心Motor/武器能力/资源/RNG/save保持；普通覆材冻结已验布局。显式授权的局部几何/平台/镜头联合实验依[共同契约](../../../docs/creative_direction/README.md)重新设计与真实操作验证，不沿用旧物理通过。
 
 ## 阶段流程与交付物
 
 1. 采集：用`python3 tools/visual_director.py capture --help`对应的真实命令，复用正式DemoApp/PlayerMotor/输入、敌人与机关。固定Seed/路线/能力/相位/源；全片write-movie期间不做PNG读屏，结束后提取视频帧，记录frame/time，不能假称精确物理tick。
-2. 诊断：实际打开正常尺寸游戏像素及镜头连续抽帧，分别标记资产质量、用途语义、宏观构图、光深/动态、可读性和采证工具缺口。每项给scene/Seed/镜头时间/像素位置、原件引用、事实或AI判断及责任Skill；没有实际观察不得签视觉通过。
+2. 诊断：先核初末实际美术消费者（omitted、体块/桥/附件/景层及源站面与碰撞一致），保留“影片完成但缺实际桥”的失败，不以录制完成推导资产已消费。随后实际打开正常尺寸游戏像素及镜头连续抽帧，分别标记资产质量、用途语义、宏观构图、光深/动态、可读性和采证工具缺口。每项给scene/Seed/镜头时间/像素位置、原件引用、事实或AI判断及责任Skill；没有实际观察不得签视觉通过。
 3. 设计：从整体轮廓、负空间、主焦点、观看顺序与真实通道起步。中景大结构可以跨模块，根/连接/植生来源可信。分配极远/远/中/玩法/近/气氛职责与冷暖/明暗/清晰度，不以layer数量证明景深。
 4. 资产：art-director先一件正确空间用途母版，实际看图/合屏再编辑同族。缺大墙就做大墙，不放大小石簇。记录真实工具/参考/版本/原PNG/派生/锚点/采样/来源/许可；未知不伪补。AI负责图像内容，代码只做已声明切片组织/Shader/接入。
-5. 静态黄金：scene-composer在正式区域、原相机与完整玩家/HUD/敌人/落点下接入；先三个观看窗口成立，再补animation-vfx的统一风场/局部光雾。不能先用粒子/辉光掩盖失败大形。
+5. 静态黄金：scene-composer在正式区域、本任务正常游戏镜头与完整玩家/HUD/敌人/落点下接入；先三个观看窗口成立，再补animation-vfx的统一风场/局部光雾。不能先用粒子/辉光掩盖失败大形。
 6. 审查返工：不同实际代理看原分辨率像素和运动序列，输出明确REJECT/UNVERIFIED/范围接受、实际看图清单和未观看范围。按资产/构图/动画/可读性归责；一轮只围绕实际缺陷改变必要内容，保存原失败。两轮连续没有实质画面进步、关键工具不可用或预算到达，停止对应依赖。
 7. 泛化：同一母版及其依赖须先有黄金静态/动态内部准入，才扩产；失败只阻塞该母版和依赖，不阻塞独立合格家族。给第二空间简短目标及其真实空间/能力/同族母版；不得把第一场景坐标、轮廓或逐点摆位当通用规则。技术验证可缩小，但不能冒称全区精修。
 8. 交付：同条件前后实际截图/正常速度电影、客观变化和主观判断、真实时长/调用计数/未暴露成本、质量记录与独审；大任务结束部署最新Web试玩，给HTTPS/准确build_id/source SHA，不需合并main，不自动签品质完成。
@@ -54,11 +60,24 @@ V3实战检查点：开始昂贵worker前，原production_loop会物化核对所
 
 共用`docs/quality/records/<task_id>.json`。输出有真实消费者的设计卡/资产家族、source-bound capture、独立像素缺陷与返工包、前后对照、时间账本、复用范围和部署版本。自动化必须是原production_loop真实租约/真实专业worker/实际检查/不同代理审查，不是预填host_response。示例：“溪谷井庭缺围合”先实景审计→承壁母版→同族后壁→正式摆渡/返程镜头→独审修复，再验证开阔钟庭；不把同一拱门复制到两处当泛化。
 
-
 ## PR69后的真实产出与验证成本
 
-依据[本轮失败与修复](../../../docs/quality/production_capability_repair/report.md)，先把资产返回、原规格校准、实际消费者接口、三窗像素、连续操作和最终发布分别入账。`tools/production_timing.py run --ledger ... --stage game_integration|verification|rework|network_wait|release --label ... -- 实际命令`记录真实命令包络；`report`合并区间并报告重叠/未知。宿主invocation包含调度与内部工具等待，不命名为纯模型compute；未暴露token/价格填not_exposed。V3只有13次图生636.724秒可见，不能把12小时都归图像服务。
+用原production_timing记录生成、实施、集成、独审、返工、验证、等待和发布实际区间，未知token/价格写not_exposed；宿主包络不称纯模型compute。廉价接口先于昂贵回归；只复用source/argv/consumer/artifact一致回执。恢复核真实lease/checkpoint/controller，发布绑定repo/ref/SHA/run/attempt及公开PCK指纹；保留原红，不另dispatch掩盖。
 
-首次昂贵回归前，实际原production_loop先执行本任务廉价接口专项，失败中止该依赖链并保留checkpoint，无关家族独立继续；既有回执只有source/argv/consumer与实际artifact字节一致才复用。原画失败仍可作为校准工具实际负例，但工程stage的ACCEPT不可升级素材或合屏。恢复先核对真实controller/lease/checkpoint，发布恢复绑定repo/ref/SHA/run/attempt和实际公开pack指纹，不能另dispatch掩盖原红。
+## 当前候选首整屏先于扩产
 
-每次审图写实际观看范围。静态reset pose可帮助观察根/接缝，但不证明合法到达、无伤、通关或连续动态。新旧同source表现toggle适合纯美术A/B；代码生命周期、Manifest版本或driver改变时，保留严格compare的not_comparable，另做当前源真实验证，不回填旧来源。最终商业目标未达就保持failed/unverified，技术可试玩发布不代签艺术、用户或真机认可。
+简短平原任务核route的 `preparation.visual_recipe` 是否经稳定入口解析到[当前场所制作范例](../../../docs/evidence/plains_joint/recipe.md)和 `PLAINS-JOINT-01`；若仍推荐旧thin shoulder/端alpha，纠正当期任务方法，不能让旧路由覆盖真实失败。顺序是整体场所意图与可表达源家族 → 同一支持面/依附关系联合推导几何、体块、路线和景层 → 核初末实际消费者完整 → 真实动作语义窗独审 → 只在对应范围接受后复现第二结构。设计视点和保护矩形不自动代表镜头或构图已成立。预列三个原型不是放行扩产。实际路径为 `plains_place_plan.gd` / `places_v1.json` 与 `plains_place_composer.gd`，当前均为隔离候选，不是正式生成器升级完成。独审要看完整屏幕、连续穿越/回望及对象动作；局部图、相位Seed差异、工程绿灯或旧B/P1接受不能证明这条方法成功。
+
+## 共同创作契约
+
+[预制作→制作→验收及版本总谱](../../../docs/creative_direction/README.md)是共同执行依据。总谱SHA变更须RETHINK并复验；交付写贡献、协作、新行为/视觉、主题冲突和实机验证。REWORK局部修复，DISCARD隔离候选；ACCEPT只限真实已验范围，审美不绕过工程红灯。
+
+历史复现按需读取[原始Skill与迁移索引](../../../docs/archive/skill_history/README.md)，不默认加载旧轮授权、PR实录或失败数字。
+
+当前“制作风铃平原美术”等区域短任务默认绑定[完整区域候选](../../../docs/evidence/plains_regional/recipe.md)及真实RETHINK，明确局部/场所请求保留旧入口。检查actual full-region Manifest、非同构Seed、全域地貌/路线/景层诊断、完整正常速度路线与实际消费者；诊断缩放图不冒充正常相机。当前两个制作方法均艺术REJECT，不因193项合同和完整Motor路线通过而扩产。原地质/空腔技术可复用，下一实验需要改宏观地貌与路线生成顺序。route只出计划，艺术任务不自动授权碰撞改动，用户审美/设备认可独立。
+
+整区实录暴露了廉价预检缺口：headless路线和另行GUI启动并不验证电影适配器的准入路径。昂贵长片前先用**同一真实MovieWriter入口**做60tick有界采集，核源码/原生退出/实际目录与素材/人物/影音封装；`frame_budget_exhausted`只签采集完整性，不冒充路线通过。区域入口不支持旧visual_sample/layout，非空请求要拒绝；使用实际regional catalog和初末素材/人物SHA，而非伪造旧样板标签。原生已通过而后处理失败时沿原finalize-existing在新目录恢复并保留旧失败，禁止重标源码；首片e450与观察器修复版本之间的实际差异见本轮范例。
+
+## 连续地貌重建的当前执行范例
+
+显式源画重建请求沿原route/production_loop，使用[两布局实际范例](../../../docs/evidence/plains_world_rebuild/recipe.md)和 `plains-world-rebuild-contract`，由其wrapper拍正常main/lower输入路线；不能调用旧实验电影冒签当前消费者。完整源画frame同时约束物理与画面，先看整体，再定位源构造/映射/层级/镜头：本例两种UV方案失败后换直接源构造，不继续加纹理救场。首准入后同四源改变高差/溪宽/主路，第二独审限定接受；后续只能按已实际消费的接口扩，不把Seed身份当随机结构。

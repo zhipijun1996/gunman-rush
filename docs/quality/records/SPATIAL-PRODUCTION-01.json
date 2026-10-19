@@ -1,0 +1,225 @@
+{
+  "schema_version": 1,
+  "task_id": "SPATIAL-PRODUCTION-01",
+  "task_type": "process",
+  "workflow": "review",
+  "baseline_commit": "1597db583a6ade25a469cb9ecb99b5762d6f76db",
+  "reviewed_commit": "26cf2267da84f22d2a1a0004e1dd7223a37482fd",
+  "content_version": "spatial-v2",
+  "owner": "/root",
+  "purpose": "修复空间冻结与技术黄金越过视觉准入的执行根因",
+  "player_experience": "逆风送钟草海：观察—反冲跨隙—落稳听铃—回望返回",
+  "constraints": [
+    "Preserve existing gameplay contracts"
+  ],
+  "affected_paths": [
+    ".agents/skills/art-director/SKILL.md",
+    ".agents/skills/game-quality-gate/SKILL.md",
+    ".agents/skills/scene-composer/SKILL.md",
+    ".agents/skills/visual-director/SKILL.md",
+    "docs/creative_direction/README.md",
+    "docs/creative_direction/windchime_plains.json",
+    "docs/evidence/spatial_golden/candidate-01-independent-review.md",
+    "docs/evidence/spatial_golden/control-final-source-sha256.json",
+    "docs/evidence/spatial_golden/control-independent-review.md",
+    "docs/evidence/spatial_golden/root-cause-audit.md",
+    "docs/quality/asset_records/spatial-golden-kit-v1.json",
+    "docs/quality/records/SPATIAL-GOLDEN-01.json",
+    "docs/quality/records/SPATIAL-PRODUCTION-01.json",
+    "docs/tasks.md",
+    "tests/spatial_golden_trace.gd",
+    "tests/spatial_golden_trace.gd.uid",
+    "tests/test_level_design_routing.py",
+    "tests/test_production_loop.py",
+    "tests/test_visual_director.py",
+    "tools/level_design.py",
+    "tools/production_loop.py",
+    "tools/spatial_golden_capture.gd",
+    "tools/spatial_golden_capture.gd.uid",
+    "tools/spatial_golden_preview.gd",
+    "tools/visual_director.py"
+  ],
+  "deliverables": [
+    "tools/production_loop.py",
+    "tools/level_design.py",
+    "tools/visual_director.py"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Explicit experiment authorization and versioned joint design; not art approval",
+      "evidence": [
+        "spatial-spec"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "passed",
+      "reason": "Light process scope checks, not game G4 or art acceptance",
+      "evidence": [
+        "closure-guards",
+        "closure-routing"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Scope/intention is explicit and versioned; commercial realization is not approved",
+      "evidence": [
+        "spatial-spec"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "5 exact-boundary/media guards and19 routing tests at closure; earlier144 regression and independent control review retain scope",
+      "evidence": [
+        "closure-guards",
+        "closure-routing"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "joint-scope",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Authorized local geometry and camera experiment bound to selected direction; preserve core",
+      "method": "Read actual shared layout/consumer and root-cause evidence",
+      "expected": "One versioned current spatial source, no core rewrite",
+      "failure": "Only old rect-overlay or unsigned scope; not a commercial art claim",
+      "status": "passed",
+      "reason": "Joint actual polygon consumer and explicit frozen scope exist",
+      "evidence": [
+        "spatial-spec"
+      ]
+    },
+    {
+      "id": "no-unreviewed-expansion",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "Core-write alias, stale direction, false native media and missing visual admission must reject before lease",
+      "method": "Actual final5 spatial guard tests and19 current routing tests",
+      "expected": "Reject malformed dependencies and keep current native-media gate",
+      "failure": "Golden G1-only or wrong source/media/reviewer releases integration",
+      "status": "passed",
+      "reason": "Actual final closure targeted tests exit0; scoped process only",
+      "evidence": [
+        "closure-guards",
+        "closure-routing"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "spatial-spec",
+      "path": "docs/quality/spatial_golden.md",
+      "sha256": "88775036c393d7c952e74bd8e6f40b647577532abe098392ad8b21a82480d0f7",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "26cf2267da84f22d2a1a0004e1dd7223a37482fd",
+      "content_version": "spatial-v2",
+      "method": "Actual retained file; source identity and byte-equivalent closure explicitly separated in report",
+      "observed": "Bounded joint experiment, actual outcome and remaining failed scope"
+    },
+    {
+      "id": "closure-guards",
+      "path": "docs/evidence/spatial_golden/final_closure_guard_01.log",
+      "sha256": "ffbea15bbe6702188ee6b5d0e0fa1ab5d6c0db462941617b558efa7306bb734b",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "26cf2267da84f22d2a1a0004e1dd7223a37482fd",
+      "content_version": "spatial-v2",
+      "method": "Actual retained file; source identity and byte-equivalent closure explicitly separated in report",
+      "observed": "Current closure actual targeted tests exit0",
+      "command": "python3 tests/test_production_loop.py SpatialLeaseBoundaryTests NativeVisualMediaAdmissionTests VisualGoldenAdmissionTests",
+      "exit_code": 0,
+      "environment": "Linux Python; actual PNG/ffprobe negative fixtures, not game art"
+    },
+    {
+      "id": "closure-routing",
+      "path": "docs/evidence/spatial_golden/final_closure_routing_01.log",
+      "sha256": "f253095c41992863b51420a5408641515abe7514ca2809076ab501a55e791bb3",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "26cf2267da84f22d2a1a0004e1dd7223a37482fd",
+      "content_version": "spatial-v2",
+      "method": "Actual retained file; source identity and byte-equivalent closure explicitly separated in report",
+      "observed": "Current closure actual targeted tests exit0",
+      "command": "python3 tests/test_level_design_routing.py",
+      "exit_code": 0,
+      "environment": "Linux Python; actual PNG/ffprobe negative fixtures, not game art"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Art REWORK; no first G2, second space or multiple/random/worst seed validation; no formal release/full CI/user/device approval",
+    "Original movie/build HEAD27c63f plus then-untracked exact layout;1118-file same-byte closure at26cf, raw source identity retained"
+  ]
+}

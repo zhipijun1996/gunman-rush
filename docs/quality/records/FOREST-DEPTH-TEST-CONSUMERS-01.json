@@ -1,0 +1,204 @@
+{
+  "schema_version": 1,
+  "task_id": "FOREST-DEPTH-TEST-CONSUMERS-01",
+  "task_type": "small_fix",
+  "workflow": "review",
+  "baseline_commit": "51e594b38465326655ae0c8515d686241415ade8",
+  "reviewed_commit": "9fdf7fad08550ea0da46b59ef7126fa721571f28",
+  "content_version": "forest-depth-test-consumers-v1",
+  "owner": "/root",
+  "purpose": "Preserve complete test checks while repairing real App ownership, asynchronous test Script lifetimes, capture error-exit propagation and fresh-output provenance.",
+  "player_experience": "Testing infrastructure only: validate the unchanged real game consumers and surface their failures; no game, Boss, fun or device acceptance.",
+  "constraints": [
+    "No production scripts/scenes/resources/config/assets, Player tuning, Boss values or game inputs changed by this record.",
+    "Preserve all original assertions, caps, completion markers, strict native errors, source guards and selected check membership; additional negative checks may strengthen them.",
+    "This record covers bounded fixture/ownership/IO/observer/argv mechanics only; new scenario content and region implementation remain FOREST-DEPTH-02.",
+    "This record covers only independently reviewed test fixture, lifecycle, IO and guard-preservation changes. Historical native executions retain their own source overlays; final exact-source CI is separate."
+  ],
+  "affected_paths": [
+    "tests/forest_campaign_runner.gd",
+    "tests/level_capability_runner.gd",
+    "tests/level_capability_case.gd",
+    "tests/level_capability_case.gd.uid",
+    "tools/level_design_capture.gd",
+    "tools/level_design_capture_case.gd",
+    "tools/level_design_capture_case.gd.uid",
+    "tests/forest_depth_version_runner.gd",
+    "tools/run_forest_depth_enemies.py",
+    "tools/harness.py",
+    "tools/harness/profiles.json"
+  ],
+  "deliverables": [
+    "Exact S per-file/line-range source audit, original-to-helper mechanical extraction proofs and retained original failures.",
+    "Actual bounded ACCEPT review for changed test guards and semantic preservation, independently authored and SHA-bound.",
+    "Real affected-target results and negative error-exit controls with unchanged caps/strict/source guards; final full CI is a separate claim."
+  ],
+  "creative_decisions": [
+    {
+      "status": "not_required",
+      "decision": "Test-consumer repairs have no new creative/gameplay decision.",
+      "basis": "No production game behavior or subjective quality is approved by this small_fix record."
+    }
+  ],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Await exact-S bounded design/command/review evidence.",
+      "evidence": []
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "Not applicable to this non-production small_fix; no region G5/human acceptance implied.",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "Not applicable to this non-production small_fix; no region G5/human acceptance implied.",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "Not applicable to this non-production small_fix; no region G5/human acceptance implied.",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Await exact-S bounded design/command/review evidence.",
+      "evidence": []
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "Not applicable to this non-production small_fix; no region G5/human acceptance implied.",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Await actual exact-S evidence; this draft makes no PASS claim.",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Await actual exact-S evidence; this draft makes no PASS claim.",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "Outside this test-consumer-only repair scope; FOREST-DEPTH-02 retains its own unfinished content/device/human gates.",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "Outside this test-consumer-only repair scope; FOREST-DEPTH-02 retains its own unfinished content/device/human gates.",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "Outside this test-consumer-only repair scope; FOREST-DEPTH-02 retains its own unfinished content/device/human gates.",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "Outside this test-consumer-only repair scope; FOREST-DEPTH-02 retains its own unfinished content/device/human gates.",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "Outside this test-consumer-only repair scope; FOREST-DEPTH-02 retains its own unfinished content/device/human gates.",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "Outside this test-consumer-only repair scope; FOREST-DEPTH-02 retains its own unfinished content/device/human gates.",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Bounded independent acceptance of only the exact-S test-consumer guard/fixture/lifecycle changes; no current-source native, region fun or G5 approval.",
+      "evidence": [
+        "bounded-review-S"
+      ]
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "Outside this test-consumer-only repair scope; FOREST-DEPTH-02 retains its own unfinished content/device/human gates.",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "not_applicable",
+      "reason": "Outside this test-consumer-only repair scope; FOREST-DEPTH-02 retains its own unfinished content/device/human gates.",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "test-consumer-scope-preserved",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "unverified",
+      "reason": "Bind committed bounded spec at S before PASS.",
+      "evidence": [],
+      "scenario": "Compare old and new whole consumer bodies and exact selected profile lines.",
+      "method": "Mechanical inverse/expression/body checks plus source review, preserving actual real App binding.",
+      "expected": "Same original check inventory, resources, scenarios, timeouts, markers, strict errors and full-source guards.",
+      "failure": "Any deleted assertion, new hidden fixture bypass, reduced cap/selection, or unrelated production behavior invalidates this record."
+    },
+    {
+      "id": "test-consumer-runtime-and-negative-errors",
+      "gate": "G4",
+      "dimension": "technical",
+      "status": "unverified",
+      "reason": "Actual source-attributed command receipt required.",
+      "evidence": [],
+      "scenario": "Run original affected targets and error-exit/IO/fresh-output negative controls.",
+      "method": "Use existing wrappers with their original budgets and strict actual nested logs, source guard and retained fail history.",
+      "expected": "Original target data/checks complete, malformed/error path fails outward, no native leaks or hidden current-source mutation.",
+      "failure": "Counts alone or top-level clean redirect cannot replace nested strict clean exits."
+    },
+    {
+      "id": "bounded-independent-guard-review",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "status": "passed",
+      "reason": "Actual different-author exact-S review accepted the explicitly limited scope; original rejected and failed evidence preserved.",
+      "evidence": [
+        "bounded-review-S"
+      ],
+      "scenario": "Review exact old/current guards and helper extraction, static annotation, sticky exit and unchanged wrapper outcome/caps.",
+      "method": "Different author reads all changed consumers and actual original/negative evidence, recomputes body/line equivalence and precise scope.",
+      "expected": "Genuine bounded ACCEPT with reviewer outside owner/implementers and explicit exclusions.",
+      "failure": "Own-review, generic whole-region approval, stale source retag or unexplained removed checks cannot authorize guard changes."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "bounded-review-S",
+      "kind": "review",
+      "path": "docs/evidence/forest_depth_v2/reviews/frozen-S-test-consumers/REVIEW.md",
+      "sha256": "7f0f7842987bf423e169e32bd910156eefbed6b3f9e4f5238b501623a8b0d771",
+      "producer": "/root/forest_runtime_review",
+      "source_commit": "9fdf7fad08550ea0da46b59ef7126fa721571f28",
+      "content_version": "forest-depth-test-consumers-v1",
+      "method": "Read immutable Git objects, reconstruct original entire executable bodies, verify original strict wrappers/caps, and hash source-attributed historical native and negative artifacts. No engine execution at S.",
+      "observed": "All five principal bodies preserve reviewed checks;26-file exact Git binding; historical failure and corrected exits remain separate; original strict/caps/12-check selection preserved.",
+      "verdict": "ACCEPT",
+      "independent": true,
+      "reviewer": "/root/forest_runtime_review",
+      "implementers": [
+        "/root",
+        "/root/forest_progression",
+        "/root/forest_ecology"
+      ],
+      "independence_basis": "Reviewer authored earlier base formal-region driving logic, which is explicitly excluded. Reviewer did not implement these test-output/App-fixture/Node-lifecycle/Harness fixes and did not change reviewed source."
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Current final-source CI is pending; historical final04 normal and sticky error controls retain their own exact overlays, not a fabricated S native PASS.",
+    "No whole-region, Boss, art/audio/device or human fun/G5 approval.",
+    "Any later change to the reviewed consumers requires new source-bound review; unrelated Queen candidate changes remain FOREST-DEPTH-02 scope."
+  ],
+  "test_change_justification": "Actual exact-S bounded independent review: docs/evidence/forest_depth_v2/reviews/frozen-S-test-consumers/REVIEW.md. App capability fixture preserves old complete assertions through real App setup; capability/capture move complete logic into owned Node helpers and return before Script exit; capture static-local annotation changes only a reference type to the same tuning object; sticky exit uses maxi(exit_code,code) so an output failure cannot be overwritten by finish(0). Campaign evidence writer preserves unchanged payload and checks directory/file errors. Harness check_token expands only the literal output placeholder and keeps all caps/strict/selection; profiles scope is precise fresh-output argv lines only. Enemy wrapper row metadata gains return_strategy while original per-case240/native run/case outcome/error paths remain reviewed; unrelated new scenario implementation is excluded and remains region scope. Version label wording does not change the boolean expression. The real reviewer bound S; this authorizes only these guard-preserving test changes, not the region design or fresh final-source execution. Later default-identity, current Canopy App reader and true-Router telemetry deltas are independently source-bound under FOREST-DEPTH-02: reviews/canopy_app03 and recommended_north_return02. Those new reports are not added to this exact-S PASS, source_commit or content_version, and do not expand its historical signoff. Current region record remains in_progress with all quality limits; original S review and this record scope are preserved."
+}

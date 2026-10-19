@@ -1,0 +1,50 @@
+{
+  "reviewer": "/root/integration_review",
+  "verdict": "ACCEPT_BOUNDED_STATIC",
+  "scope": "Coldoutputprecondition andexistingHarnessadditiveregistration only; noengine/browser/sourcewrite",
+  "pipeline_SHA256": "5fa05a3371a2e04f3edd870fbfd08a4c8993c0e27036b15031eee3c9cb2513cc",
+  "incoming_PR94_pipeline_SHA256": "b69d411e248a4c1151ce832faafd595db6c24338b1755909acaef7fe767c31c5",
+  "cold_output_fix": "Removingexact2comments+1mkdir restoresincomingPR94byteforbyte. mkdircreatesrequiredparentbeforeoriginalrun_engine120; originalGD119/120write/markers/validators/capsunchanged. Prior5secnullwritefailurepreserved; cold150rerunnotyetproved.",
+  "prior_failure_log": "build/verification/harness/20261019T154651.315825Z/underworld-scenery.log",
+  "prior_failure_log_SHA256": "cfaf437d62b92205c0756954dd5cbad1e7b819fde440ba56fd549a5a72c1963d",
+  "profiles_SHA256": "ee7c25a75fff8e5a15d499899ef6105d53c095e436d2b08e3945c72c1e924a8e",
+  "all_original_definition_objects_unchanged": 110,
+  "all_PR94_new_definition_objects_unchanged": 11,
+  "only_additional_definition": {
+    "id": "forest-region-scheduler-tests",
+    "definition": {
+      "argv": [
+        "python3",
+        "tests/test_forest_region_scheduler.py"
+      ],
+      "timeout_seconds": 30,
+      "success_pattern": "^OK$",
+      "weight_seconds": 2,
+      "cacheable": false,
+      "inputs": [
+        "tools/run_forest_depth_region.py",
+        "tests/test_forest_region_scheduler.py",
+        "tools/harness/profiles.json"
+      ]
+    }
+  },
+  "registered_profiles": [
+    "core",
+    "gameplay",
+    "art",
+    "full"
+  ],
+  "all_old_profile_members_preserved": true,
+  "counts": {
+    "release_gameplay_art_union": 110,
+    "total_definition_objects": 122,
+    "full_profile": 113,
+    "clarification": "Originalreleaseunion98+11PR94+1scheduler=110; totaldefinitionobjects122andfullprofile113aredifferentscopes"
+  },
+  "limits": [
+    "Coldsceneryactual150PASSpending",
+    "Menu43strict49/37leakstillunresolved",
+    "SchedulerunitregistrationnotGodotpair/80/600validation",
+    "NoFreshCI/public110/device/funapproval"
+  ]
+}

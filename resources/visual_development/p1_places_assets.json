@@ -1,0 +1,225 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAINS-PLACES-01",
+  "status": "candidate_not_automatic_admission",
+  "production_pool": false,
+  "master": "docs/evidence/p1_environment/environment_master_v1.png",
+  "sky_color": "e9eeeb",
+  "terrain": {
+    "representation": "whole painted volume; equal axis scale only; no top/side bands"
+  },
+  "objects": {
+    "bridge": {
+      "texture": "res://assets/visual_development/p1_environment/postal_bridge_walkable_v2.png",
+      "source_sha256": "efab17570bb7bf56c518cc536fa395dbae2b5409c08448edb12ee2c8d59739ac",
+      "deck_left_px": [
+        280,
+        304
+      ],
+      "deck_right_px": [
+        1270,
+        304
+      ],
+      "deck_profile_px": [
+        [
+          280,
+          304
+        ],
+        [
+          450,
+          323
+        ],
+        [
+          550,
+          330
+        ],
+        [
+          650,
+          337
+        ],
+        [
+          768,
+          339
+        ],
+        [
+          880,
+          337
+        ],
+        [
+          980,
+          333
+        ],
+        [
+          1080,
+          327
+        ],
+        [
+          1180,
+          314
+        ],
+        [
+          1270,
+          304
+        ]
+      ],
+      "world_span_range": [
+        500,
+        500
+      ],
+      "foot_anchors_px": [
+        [
+          280,
+          700
+        ],
+        [
+          1270,
+          700
+        ]
+      ],
+      "alpha128_bbox": [
+        14,
+        283,
+        1522,
+        878
+      ],
+      "measurement": "Original uppermost alpha is deck silhouette, but standing line lies inside pale upper plank face, approximately7-12px below silhouette; measured actual face pixels at x450 y323,x550 y330,x768 y339,x1080 y327. Endpoints on grass/deck join. Never previous railing. Footpoints at wood-to-stone joints y700. West added-support top remains clipped below retained gameplay top."
+    },
+    "shelter": {
+      "texture": "res://assets/visual_development/p1_environment/shelter_tree.png",
+      "source_sha256": "c79633a73bfd27ec2f603eef69c924e88c28a2103fa95d0ff7b20eeac24c2b98",
+      "pivot_px": [
+        450,
+        800
+      ],
+      "world_height": 240,
+      "foundation_px": [
+        [
+          125,
+          800
+        ],
+        [
+          275,
+          800
+        ],
+        [
+          665,
+          800
+        ],
+        [
+          780,
+          800
+        ]
+      ],
+      "source_polygon": [
+        [
+          0,
+          0
+        ],
+        [
+          800,
+          0
+        ],
+        [
+          800,
+          440
+        ],
+        [
+          850,
+          520
+        ],
+        [
+          940,
+          640
+        ],
+        [
+          870,
+          740
+        ],
+        [
+          840,
+          887
+        ],
+        [
+          0,
+          887
+        ]
+      ],
+      "measurement": "Whole pavilion selected through the actual alpha-free sheet gap; 4 measured original root feet. No rescale per axis.",
+      "require_all_feet_supported": true,
+      "foot_tolerance_world": 3.0
+    },
+    "tree": {
+      "texture": "res://assets/visual_development/p1_environment/shelter_tree.png",
+      "source_sha256": "c79633a73bfd27ec2f603eef69c924e88c28a2103fa95d0ff7b20eeac24c2b98",
+      "pivot_px": [
+        1175,
+        820
+      ],
+      "world_height": 350,
+      "foundation_px": [
+        [
+          1010,
+          813
+        ],
+        [
+          1175,
+          820
+        ],
+        [
+          1350,
+          812
+        ]
+      ],
+      "source_polygon": [
+        [
+          800,
+          0
+        ],
+        [
+          800,
+          440
+        ],
+        [
+          850,
+          520
+        ],
+        [
+          940,
+          640
+        ],
+        [
+          870,
+          740
+        ],
+        [
+          840,
+          887
+        ],
+        [
+          1774,
+          887
+        ],
+        [
+          1774,
+          0
+        ]
+      ],
+      "measurement": "Complete crown/trunk/root selected via the shared empty sheet gap; all original pixels and uniform scale."
+    }
+  },
+  "layers": [],
+  "whole_body_sources": [
+    {
+      "texture": "res://assets/visual_development/p1_places/whole_bank.png",
+      "source_sha256": "d8f422ccd7708191cc83d2fd0152ff2d9481e09fbe6bed40352f1881966ffe2d"
+    },
+    {
+      "texture": "res://assets/visual_development/p1_places/enclosing_ridge.png",
+      "source_sha256": "47ac58d905fe15d3dedab8ec8b279e4cdd7c11af9011bfc3c31a025e2722173f"
+    },
+    {
+      "texture": "res://assets/visual_development/p1_places/stepped_court.png",
+      "source_sha256": "c05d8523f7804e737f495577cacc5a3f319936ee21aa36e1ab99405139b6c348"
+    }
+  ]
+}

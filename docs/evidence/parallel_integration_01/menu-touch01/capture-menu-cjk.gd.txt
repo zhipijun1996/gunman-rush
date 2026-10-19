@@ -1,0 +1,19 @@
+extends SceneTree
+func _initialize() -> void:
+ run.call_deferred()
+func run() -> void:
+ var app := DemoApp.new()
+ app.meta_persistence_enabled = false
+ root.add_child(app)
+ for unused: int in 8: await process_frame
+ for mode: String in ["title","home"]:
+  if mode == "title": app.menu.show_title()
+  else: app.menu.show_home("")
+  for unused: int in 4: await process_frame
+  await RenderingServer.frame_post_draw
+  var error := root.get_texture().get_image().save_png("res://build/integration01/menu-cjk-gpu01/" + mode + ".png")
+  if error != OK: quit(1); return
+ app.queue_free()
+ for unused: int in 3: await process_frame
+ print("MENU CJK GPU: 2 actual UI screenshots; no traversal or device claim")
+ quit(0)

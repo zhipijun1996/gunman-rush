@@ -5,10 +5,8 @@ import harness, level_formal
 from run_tests import REPO
 
 def sources():
-    result=level_formal.source_files()
-    for name in ['tools/run_plains_experience_golden_tests.py','tools/run_plains_redesign_spatial_tests.py','tools/harness/profiles.json']:
-        result[name]=hashlib.sha256((REPO/name).read_bytes()).hexdigest()
-    return result
+    return level_formal.source_files(extra_paths=['tools/run_plains_experience_golden_tests.py',
+        'tools/run_plains_redesign_spatial_tests.py','tools/harness/profiles.json'])
 
 def actor_causality(frames, events):
     """Actor signals and Router causes must exactly cover observed floor transitions."""
@@ -136,6 +134,7 @@ def encounter_causality(observation):
 
 def valid(data, negative=False):
     try:
+        assert data['cleanup_ok'] is True, 'owned fallback backend cleanup must succeed even for expected geometry rejection'
         assert data['version']=='plains-experience-golden-v1' and data['deleted_island'] is negative
         obs=data['observations']
         if negative:

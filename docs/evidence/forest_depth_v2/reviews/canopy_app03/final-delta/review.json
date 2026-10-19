@@ -1,0 +1,156 @@
+{
+  "status": "CONTINUE_BOUNDED_ACTUAL_APP03_AND_OFFLINE_OWNERSHIP_READER_DELTA",
+  "native_run_by_reviewer": false,
+  "original_raw_sha256": "02b27fe45ca3e421298743ed8f34db799b6b943331020cb1af16caf2e93a9e96",
+  "native03_reader_sha256": "9ec517f500dee284902c3883fb271181962201075b59c64adbd3f737235f711a",
+  "offline_reader_sha256": "8de25d307741d4223f86c9244825ee467bad3056564dba9650a93655cc0018b4",
+  "native03_original_wrapper_exit0": true,
+  "native03_checks": 46,
+  "native03_source_inventory_verified": 2068,
+  "runtime_beforeafter_verified": 921,
+  "verifier_beforeafter_verified": 7,
+  "source_overlay": "Native03 snapshot atdd214+dirty; offline reader different SHA, not backdated",
+  "observed": {
+    "combat_frames": 704,
+    "boss_hp": {
+      "initial": 24,
+      "save": 15,
+      "final": 0
+    },
+    "combat_player_HP": [
+      4,
+      4
+    ],
+    "saved_live_field_age": 0.516666666666667,
+    "saved_Player_HP_energy_capacity": [
+      4,
+      80,
+      5
+    ],
+    "before_player_position": [
+      1884.57434082031,
+      140.946716308594
+    ],
+    "bound_checkpoint_position": [
+      1558.0,
+      372.0
+    ],
+    "session": [
+      2,
+      3
+    ],
+    "actor_epoch": [
+      3,
+      4
+    ],
+    "stage_epoch": [
+      3,
+      3
+    ],
+    "schema_negatives": 9,
+    "pointer_events": 12,
+    "gold_before": {
+      "capacity": 5.0,
+      "count": 0,
+      "hp": 4.0,
+      "wallet": 0
+    },
+    "gold_after": {
+      "capacity": 7.0,
+      "count": 1,
+      "hp": 4.0,
+      "wallet": 0
+    }
+  },
+  "original03_reader_crossreload_mutant_acceptance_preserved": true,
+  "current_key_mutants": [
+    {
+      "case": "cross_reload_old_source_and_serial",
+      "rejected": true,
+      "error": "Boss commit projectile must belong to its current sampled actor/session, never a cancelled pre-reload shot"
+    },
+    {
+      "case": "Router_other_motor",
+      "rejected": true,
+      "error": "Each accepted gun requires its real same-session Router request and aim"
+    },
+    {
+      "case": "Router_wrong_engine_frame",
+      "rejected": true,
+      "error": "Each accepted gun requires its real same-session Router request and aim"
+    },
+    {
+      "case": "resume_inactive",
+      "rejected": true,
+      "error": "Actual resumed App must activate the restored current phase behind its real seal"
+    },
+    {
+      "case": "resume_energy_changed",
+      "rejected": true,
+      "error": "Resume preserves actual damaged HP/stamina/capacity under the checkpoint contract"
+    },
+    {
+      "case": "resume_old_owner",
+      "rejected": true,
+      "error": "Resume uses the actual fresh-bound ownership, not the retired actors"
+    },
+    {
+      "case": "Policy_wrong_actor_epoch",
+      "rejected": true,
+      "error": "Every Policy commit requires its actual segment/physics frame and actor epoch"
+    },
+    {
+      "case": "Policy_wrong_health_epoch",
+      "rejected": true,
+      "error": "Policy result must bind to its actual target HealthState epoch"
+    },
+    {
+      "case": "wrong_frame_stage_epoch",
+      "rejected": true,
+      "error": "Every frame must belong to the actual session/actor/stage ownership segment"
+    },
+    {
+      "case": "delete_middle_motor_frame",
+      "rejected": true,
+      "error": "No missing observed Motor frames inside each uninterrupted ownership segment"
+    }
+  ],
+  "actual02_hurt_ledger_subtests": {
+    "raw_sha256": "3fe81056492483c217607237f9bc0b3b238b8bbd87934a1b5afb30be52a023be",
+    "actual_Player_commits": 1,
+    "ledger_only_baseline_accepted": true,
+    "whole02_not_accepted": true,
+    "mutations": [
+      {
+        "field": "hp",
+        "ledger_only_rejected": true,
+        "error": "Every player commit must reconcile actual ordered HP/lethality"
+      },
+      {
+        "field": "lethal",
+        "ledger_only_rejected": true,
+        "error": "Every player commit must reconcile actual ordered HP/lethality"
+      }
+    ]
+  },
+  "old_readers_AST_unchanged": [
+    "require",
+    "finite",
+    "vector",
+    "close",
+    "same_aim",
+    "validate_inputs_and_health",
+    "validate_pointer_and_map2",
+    "validate",
+    "validate_queen"
+  ],
+  "limits": [
+    "No whole Boss fun/mechanism approval",
+    "No new native with offline reader",
+    "03 combat Player hurt absent;02 sub-reader proof explicitly partial",
+    "Checkpoint S rebuild is not preserving Player airborne position",
+    "Map2 debug entry plus natural route, not full natural plains/map1 campaign",
+    "Full194/CI/browser/OS/device/audio/human approval unverified"
+  ],
+  "outer_source_before_after_exact_snapshot2068": true
+}

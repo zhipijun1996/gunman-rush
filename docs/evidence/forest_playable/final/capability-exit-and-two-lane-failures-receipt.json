@@ -1,0 +1,665 @@
+{
+  "scope": "Actual failed capability diagnostics and two actual failed isolation starts, no accepted repair, not complete validation",
+  "source_commit": "cda8c30ed375a97a53de27d8348a79f137199427",
+  "dirty_source": "Individual source inventories preserved. Some probes baseline clean cda; later57/58dirty distinguish exact byte guards. No source re-signing.",
+  "archive": "capability-exit-and-two-lane-failures.tar.gz",
+  "archive_bytes": 3060534,
+  "archive_sha256": "ac133a08a273c725745098027be12d979df66f2f1cbf2d9d73cae75bc2a467ec",
+  "members": [
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/artifact_paths_proposal.patch",
+      "bytes": 297,
+      "sha256": "5269b8d699c9c38f727be1b5f9a97ce6662c0352226b186d9bf31f8304d92ad5"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/build_type_ab/a_build.gd",
+      "bytes": 6046,
+      "sha256": "78d2bfbd2bc622c06212a2acb53416c6c05a2ee2d63888383b178587f5ebc8d9"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/build_type_ab/a_full.log",
+      "bytes": 713,
+      "sha256": "57ac40bdbb735d2b57da5922ef5280a0c4f631ee07d457decf616a667a73777a"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/build_type_ab/a_runner.gd",
+      "bytes": 3365,
+      "sha256": "0d7bf3da31cdd2a186fb860fff60eb437bca0678681f71d81153e9609a5cc566"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/build_type_ab/ab.patch",
+      "bytes": 734,
+      "sha256": "5a2919dd1685a9844cfe8cec9779372f8e6d6f4a13653d727f290cb6a19b1a6d"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/build_type_ab/b_build.gd",
+      "bytes": 6022,
+      "sha256": "5c405e9441eb512c5ab56da6c3f9e452791ba9d3a5e0c1c4b6879e011ba9e43f"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/build_type_ab/b_full.log",
+      "bytes": 1175,
+      "sha256": "22f9444a38965c0aac6e88625ff1acc6eace6900ca25abad0a76126dc8b70610"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/build_type_ab/b_runner.gd",
+      "bytes": 3365,
+      "sha256": "d65834f5e1aebc223c4131084608f2bde55b2a3cf9895fabf09898cd4ef6061d"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/build_type_ab/receipt.json",
+      "bytes": 214066,
+      "sha256": "ab3b5d6b37b553b20fa72e4b305a8db5cfb1a0286deac49eda87175cb3950b73"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/build_type_ab/run.py",
+      "bytes": 3267,
+      "sha256": "76891df33e7364cbd70be721fea8fe23687ec49b4f84c8e1469db5ac83ffecab"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/build_type_ab/stdout.log",
+      "bytes": 1251,
+      "sha256": "69bf1ed3219942d5a457d80a14aec8696c7ca7ca084b440ee69856065caf560f"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/build_type_ab_round2/a_build.gd",
+      "bytes": 6058,
+      "sha256": "0e975443c9b92e5296f4da0e27d9ec821c35fb1b6afa2be310d32e1e562f4dd3"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/build_type_ab_round2/a_full.log",
+      "bytes": 713,
+      "sha256": "57ac40bdbb735d2b57da5922ef5280a0c4f631ee07d457decf616a667a73777a"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/build_type_ab_round2/a_runner.gd",
+      "bytes": 3372,
+      "sha256": "9b703e1487b738d6dfaf29c3ff974683dff1dfbc5625840bca49976569301d97"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/build_type_ab_round2/ab.patch",
+      "bytes": 734,
+      "sha256": "5a2919dd1685a9844cfe8cec9779372f8e6d6f4a13653d727f290cb6a19b1a6d"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/build_type_ab_round2/b_build.gd",
+      "bytes": 6034,
+      "sha256": "6a1752165a7f9b1db1b9f3398922cae1341cdd4502c550437fb4dbb984bb80a6"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/build_type_ab_round2/b_full.log",
+      "bytes": 713,
+      "sha256": "57ac40bdbb735d2b57da5922ef5280a0c4f631ee07d457decf616a667a73777a"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/build_type_ab_round2/b_runner.gd",
+      "bytes": 3372,
+      "sha256": "9eb810a5208d6f41678faafac353ca4cea71075fd5aad34408b2414e005549fc"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/build_type_ab_round2/receipt.json",
+      "bytes": 214322,
+      "sha256": "756cb91ddf93b6adacd6f27339a514e4fb433e10816c901bc27b61674ad5bd7c"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/build_type_ab_round2/run.py",
+      "bytes": 3390,
+      "sha256": "4feba0df2847ed7d41076d1b2431953179274440367d0bcb1fc5fa21224c5f90"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/build_type_ab_round2/stdout.log",
+      "bytes": 1477,
+      "sha256": "7775f2cbc5039696d3b3adb6bc60c9a00a3a4b99187c5605a0bdd9d2e06481dc"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/diagnosis.json",
+      "bytes": 8753,
+      "sha256": "5fb9a6fb6aee16cce2f5cf2a4de86b71cc62916adc2abbe333498a70823967e1"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/dynamic_build_trace/candidate.gd",
+      "bytes": 3315,
+      "sha256": "bc782bcb816c38deab3d5a6fe4ee89539f2401490717a59519c4cd05dfce9063"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/dynamic_build_trace/ordinary.log",
+      "bytes": 713,
+      "sha256": "57ac40bdbb735d2b57da5922ef5280a0c4f631ee07d457decf616a667a73777a"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/dynamic_build_trace/preparation.json",
+      "bytes": 636,
+      "sha256": "e58faba0f64ff0b882bf6995814c0cb77112e5ed2761ce3dbe1746c88eb20cb6"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/dynamic_build_trace/receipt.json",
+      "bytes": 212668,
+      "sha256": "60c9c3f87ccd47dafdfdaf42eedf49e1e3fc9473a727b57a0eaf8322552e9e77"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/dynamic_build_trace/run.py",
+      "bytes": 1599,
+      "sha256": "57a065cf18814d2800fe729e984ed54be1106c3630c5c3bf3089830f60efa8b2"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/dynamic_build_trace/stdout.log",
+      "bytes": 416,
+      "sha256": "ec98223ac8be12cca3c5917e36e34e7f953b3e55178b5dfd6120b79eaa2d0558"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/dynamic_build_trace/versus_dynamic_build.patch",
+      "bytes": 487,
+      "sha256": "90c23d77ebf4387ad2d685a95ffb51dccf17cf6aaedd4bd71c82a886ba0db599"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/dynamic_build_trace/versus_original.patch",
+      "bytes": 1005,
+      "sha256": "8c3870e7446b3e4943a2a824ed92fe5cf2010a0904b783ceca0b7e4464545b08"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/load_only/build_state.gd",
+      "bytes": 175,
+      "sha256": "2f01ca091e3ad03ad8fce33fc1d7fed1c768b54da9996b7844777ff70c2f278d"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/load_only/build_state.log",
+      "bytes": 42814,
+      "sha256": "6c93089f4a160546ea769f1465bd388f8f91aadb73db7b370b10c75afa1edc6f"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/load_only/dynamic_both.gd",
+      "bytes": 229,
+      "sha256": "28d11ef09c64224c31adb613c461dd1910414fdbb4d5bdb20a76ab91f18d189d"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/load_only/dynamic_both.log",
+      "bytes": 178905,
+      "sha256": "8038a3b1fc7c626872cdd3b6decd6ff883c0c6271823b2c4de5ad032750154e8"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/load_only/dynamic_both_runner.gd",
+      "bytes": 3268,
+      "sha256": "d6512abe60a17053a4c92414f794311988407fe3a13290ec18532a6d4f274a88"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/load_only/dynamic_build.gd",
+      "bytes": 231,
+      "sha256": "40c037219631af88bef03f4e89ae6559b89704eae8e87d51973fddbc190f2b73"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/load_only/dynamic_build.log",
+      "bytes": 24887,
+      "sha256": "113ecb38aaf0df2e85227f287a9cc8259f10063cd9294512cfbeb760b67249c8"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/load_only/dynamic_build_actual.log",
+      "bytes": 187224,
+      "sha256": "bd7dc9a6e4d555174fbd58125e0a803add5cd7aabeae82dc5feca07321a9aac5"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/load_only/dynamic_build_runner.gd",
+      "bytes": 3318,
+      "sha256": "7e2525ad269168fd582cd09fc6a28e14a3d68d15e8394840e2023ce0ba71b13b"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/load_only/dynamic_player.gd",
+      "bytes": 236,
+      "sha256": "19d61cbb9ed1c6fb4b8a05fd215555c10ea0b9ccfb2ecc4c3ebb7a2f194fbda0"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/load_only/dynamic_player.log",
+      "bytes": 182039,
+      "sha256": "c9903012dbba0cce0796603d7b8f8ee6f090bb51e7422d369d5ce9e5c242a680"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/load_only/dynamic_player_runner.gd",
+      "bytes": 3271,
+      "sha256": "5f6da0fafa6b492796198496c9666e9bedd9b94bd5a2c489d99ed5dd342ac70d"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/load_only/dynamic_trace.gd",
+      "bytes": 234,
+      "sha256": "30b825e65c0397bb0f81f637b1c9c98742d061e004f7d4d1b3db659253924969"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/load_only/dynamic_trace.log",
+      "bytes": 182494,
+      "sha256": "622b5511d16b2178741a6238f5d7c8c95528442a99018fa547c581a232a51e02"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/load_only/dynamic_trace_runner.gd",
+      "bytes": 3271,
+      "sha256": "656ccad459ba0936a08d988a2b495fe44a3d42a4cdb7829cc22b2faa3270bbc1"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/load_only/node_interfaces_actual.log",
+      "bytes": 187232,
+      "sha256": "a7191d27cec6131df77904932f2cf17ae330e0e0225e3703aaf5da24fa011a75"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/load_only/node_interfaces_runner.gd",
+      "bytes": 3314,
+      "sha256": "941047db7755540b7ecf30da246aa901e18f6d7003c306867184fdc6f464046b"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/load_only/player_scene.gd",
+      "bytes": 172,
+      "sha256": "ca8bd364d5601cfc0f3d8cecd0a3e38087b31e511a8e4c1235b0d0988d88737e"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/load_only/player_scene.log",
+      "bytes": 8014,
+      "sha256": "4897e9caf78b99d986a313128b036561e149096f42ed68862788c97de60890ab"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/load_only/runner.gd",
+      "bytes": 174,
+      "sha256": "b66ce497c9d3c7243d2f28c709c50c5f2d926f694e7d3df306f39afe00ac56b5"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/load_only/runner.log",
+      "bytes": 182247,
+      "sha256": "3c029f68fc8003f0bd384c6e94598ae469aa85beb1dde194dd8f9f74e54205c5"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/load_only/snapshot.gd",
+      "bytes": 178,
+      "sha256": "be0eb497fd1d66525ee4e1c1c23ddf499d82225639a401d2451a262b57c89fff"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/load_only/snapshot.log",
+      "bytes": 21078,
+      "sha256": "804fe3dc47a57657b952c5f69f30e7678ec1ec6a16bdf6bc22a1f3381b52c2a5"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/load_only/trace.gd",
+      "bytes": 168,
+      "sha256": "51bc2089143646ef4eb5588f4d07c05cb166f81dc10a6d19db0b66566301f632"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/load_only/trace.log",
+      "bytes": 24615,
+      "sha256": "9abc8bf078dd40b6db5227f840d26d661e5338255445ce2a3efe6d906fd8e8d5"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/load_only/weapon_catalog.gd",
+      "bytes": 181,
+      "sha256": "e6c05119b3536a0d05dea84f753bf0b5109dadc2646c8bc4b80ba037deaa4a39"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/load_only/weapon_catalog.log",
+      "bytes": 1256,
+      "sha256": "a9fdb98799cf227c8fde4b1e079b7a2bc03ab43e22edf6d6ba7b1c0e86fc821b"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/order_controls/build_then_player.gd",
+      "bytes": 277,
+      "sha256": "aae2398c9a98d24f9dfad671f2d485a2aa04e33b306f475d6f1f8a6aadc8ae69"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/order_controls/build_then_player.log",
+      "bytes": 45984,
+      "sha256": "7295e450751ecff4219fadfdd8134cc2f1557afbe8f746cb5b803ebd5767fafc"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/order_controls/controller_entry.gd",
+      "bytes": 186,
+      "sha256": "72e242a04debb507b461bde09c97a8f63f29e6fbfd0017dc8a31d2fb51f8da81"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/order_controls/controller_entry.log",
+      "bytes": 4722,
+      "sha256": "50836cf670095df9987ffaf83964fbb82bd89feae669dadf74a4cc5a8d6234fa"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/order_controls/enemy_entry.gd",
+      "bytes": 176,
+      "sha256": "07ded82bc1f4eab548613b0cb93a11f517052b5662299f24c12232547ae5a519"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/order_controls/enemy_entry.log",
+      "bytes": 4677,
+      "sha256": "fc08708d1c61baf3220e983a106d3eea1ddeb23b72c2c66914872afbf3831760"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/order_controls/enemy_then_build.gd",
+      "bytes": 259,
+      "sha256": "0c07c213de9677e6c2afff3650dc42488d7c0ec83b1c771fb32d5c7094dc5536"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/order_controls/enemy_then_build.log",
+      "bytes": 77701,
+      "sha256": "8acaed1d6327aecd7d6f0abac470f9d37dec999d293d372af571b7bc747bf282"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/order_controls/original_then_player.gd",
+      "bytes": 283,
+      "sha256": "a4792e3c2627c38f09ba197330f710f1c16decad6fae2bd0143619c4d42258db"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/order_controls/original_then_player.log",
+      "bytes": 182341,
+      "sha256": "67b91965c8bd1c257dfd481c6a2f4a235562d5bce07dbfd8f986237e10020271"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/order_controls/player_then_build.gd",
+      "bytes": 277,
+      "sha256": "cc7c235fd37e56b5ad67d21df06148ccb7632fda45114a23c7b0cc09262683b1"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/order_controls/player_then_build.log",
+      "bytes": 81062,
+      "sha256": "3536a4b345cd0e04879e0471ac132d83c51b3fb2428fdf60445b49a6acc73890"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/order_controls/player_then_original.gd",
+      "bytes": 283,
+      "sha256": "82a2193482cb7963f34fe331de920e36f08329e78c41103b457f54975183a461"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/order_controls/player_then_original.log",
+      "bytes": 182341,
+      "sha256": "6cf827a718dc36994429f9a544923681e5650c17d08d628831a5a04b9fc4dbea"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/order_controls/receipt.json",
+      "bytes": 214270,
+      "sha256": "decfeac068601d8a0cf9d9cde349f95091b37cf39f2a0ec77c4d39b669f52d4b"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/order_controls/run.py",
+      "bytes": 1580,
+      "sha256": "1a0886d3c06c144f0253df3ba6471a868815378ca4b91d264e0f069bf5a8d0f8"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/order_controls/stdout.log",
+      "bytes": 2452,
+      "sha256": "daebab3406813af8c2a22bece959e98ae2594b371440d4a0dd54566661ab33e0"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/order_controls/top_player_load.gd",
+      "bytes": 243,
+      "sha256": "0d42f8bc2d0a3b3d824f1f6cd026b21cc9cc7b9a32d7a10d198fcebfe07a4432"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/order_controls/top_player_load.log",
+      "bytes": 182536,
+      "sha256": "a84f8261e0c72f8859c352539763f935e39a1597080e6b550a147ff5925071f5"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/order_controls/top_player_runner.gd",
+      "bytes": 3297,
+      "sha256": "70feb6a9470167434d5b9565211f03d90884ae9290aca08f8bbb577045a6d042"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/ordinary.log",
+      "bytes": 713,
+      "sha256": "57ac40bdbb735d2b57da5922ef5280a0c4f631ee07d457decf616a667a73777a"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/owned_fixture_candidate/entry.gd",
+      "bytes": 1237,
+      "sha256": "f6b9f84b8c8ca38d8fd8a1fd32f46c7e2477e764dfdd78c83137366723468b86"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/owned_fixture_candidate/fixture.gd",
+      "bytes": 3221,
+      "sha256": "75f9d5d375d0350779d94b3eb80612336b9d748fa7e9c9bd4a81bd8e601f2a73"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/owned_fixture_candidate/fixture.patch",
+      "bytes": 1774,
+      "sha256": "e806e0ab1ecdd67f16ccd248d6e52322baca5c5be16cfb715b24caeee852988c"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/owned_fixture_candidate/ordinary.log",
+      "bytes": 1297,
+      "sha256": "294c80913ef1900432a215ab6f62329f940e6078bb93d0bfae9ef2b9bfb3345c"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/owned_fixture_candidate/prepare.py",
+      "bytes": 2034,
+      "sha256": "5a4964fd31d55d739f10cf9984a8c3ab0d9289fa8a2e829c10af0cc6e2f8a4cf"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/owned_fixture_candidate/receipt.json",
+      "bytes": 212696,
+      "sha256": "39d77c0cb098d6b7817b509f56d5ce3df798efe71f90922d7f668c5734b23c36"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/owned_fixture_candidate/run.py",
+      "bytes": 1403,
+      "sha256": "fd5ab0904c1f78ffb4630f05791378720727b367d36ea0a294bd490f0ae9d5da"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/owned_fixture_candidate/stdout.log",
+      "bytes": 5591,
+      "sha256": "0e6cd23a3ddb3a97c6a0a52bb97ba31a520ec3bac5209cccfbb14a492693b0d5"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/receipt.json",
+      "bytes": 209299,
+      "sha256": "9cd8d97fd64e443dea39bb95e2a9d12e3f31e6abf058f3e4f0652b346814a6fd"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/reproduce.py",
+      "bytes": 1502,
+      "sha256": "375b2925f42ed2767662a2a3e2d9483cf61380755e0dca043c3f806da785560e"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/scc_controls/GRAPH.md",
+      "bytes": 7596,
+      "sha256": "6b0068a05ffc1a9b52cac11ce7a76fb0baede334d8277becbf8a7b7e81fd07e7"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/scc_controls/combined_groups.gd",
+      "bytes": 562,
+      "sha256": "81920117585b516a58131c94e14007ff571f5d5bb7c82256eb5277c3a5392d72"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/scc_controls/combined_groups.log",
+      "bytes": 78763,
+      "sha256": "d193cd058ace76f34ad337bf4b1ea10bf508c54ca6351b965e144828f455ca7e"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/scc_controls/controller_group.gd",
+      "bytes": 305,
+      "sha256": "d25aadd5be37dd9a0544956e75ae753f98e0a8b699412723e9c2b7d75eb346f7"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/scc_controls/controller_group.log",
+      "bytes": 2550,
+      "sha256": "1e3c6ce00d7fcbd3e1157de8a014e039b79ca253e0450bf95992bc2ce2904997"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/scc_controls/controller_group_types.gd",
+      "bytes": 47,
+      "sha256": "05b3635ba895cbb4fc02433d8d16beb2a890441023c4643e23ea5a8c2f38198e"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/scc_controls/diagnosis.json",
+      "bytes": 1430,
+      "sha256": "545f1d3b394fc231bd0afd0e59465101cb6450cb20deebdcffd2a34ab6cfee05"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/scc_controls/direct.gd",
+      "bytes": 613,
+      "sha256": "67b204d5b4d91f8a18baad06cf942335f74bd1f8edfeb51ad9cb9ba624c7147b"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/scc_controls/direct.log",
+      "bytes": 42861,
+      "sha256": "82ef18747c59d6c0aef18274d96acb655ec7941b46871622c8f27bda47a3d5ee"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/scc_controls/graph.json",
+      "bytes": 69552,
+      "sha256": "041f95bf4926fd2b991284aba1a4e87b0bb41e88693e467c6df79bd0e976b05f"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/scc_controls/item_group.gd",
+      "bytes": 299,
+      "sha256": "0c68f3808c61757d578ba33de7c854f0d120209ef09175a2abc6c60f514186b3"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/scc_controls/item_group.log",
+      "bytes": 2472,
+      "sha256": "afd17f437bf2122f63aa2e5acf0e668e7c13152a896a64801be4ec78e06c9959"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/scc_controls/item_group_types.gd",
+      "bytes": 77,
+      "sha256": "cf911863d7fee39cd527bdd88ce3914339d4644468c9537bec1fab6fd4f8904a"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/scc_controls/modifier_group.gd",
+      "bytes": 303,
+      "sha256": "2f99b939ebfbfde5e1ab7573b7163dd2b0a038152fb99e9af2471d68e49d6270"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/scc_controls/modifier_group.log",
+      "bytes": 2524,
+      "sha256": "4d509e9cb8d70c1821266d6f520361b03c581e6dd96ccce0ca0982183535a111"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/scc_controls/modifier_group_types.gd",
+      "bytes": 81,
+      "sha256": "ce801b3b669f5b388ad3220821e602819aafbc7c7cb9b1a45e7a1dffc3f76fa5"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/scc_controls/prepare.py",
+      "bytes": 3316,
+      "sha256": "b026a18378e5ecf5ac93552d6de51d3af7551605b8e9a3c900b03b938aef8360"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/scc_controls/receipt.json",
+      "bytes": 215647,
+      "sha256": "751cfc7ee2b86c411ba1a8de1a749f1b937fcaa042ada676060c6a6806fd778e"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/scc_controls/returned_deferred.gd",
+      "bytes": 627,
+      "sha256": "3b5f0de9422b0587f8695f3430b0531414471d3fbedc1fa7007c3e57fcaf5c5f"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/scc_controls/returned_deferred.log",
+      "bytes": 42906,
+      "sha256": "10fe5780bf5f9940113a7eda46b940038e514ba43c6e14258e2e1157645b6ee6"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/scc_controls/run.py",
+      "bytes": 1750,
+      "sha256": "f2f8b123ad8abd023d5f1603bde2b3c45caba8daf3f3b5cda08f51b21a59823d"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/scc_controls/sixth.py",
+      "bytes": 1072,
+      "sha256": "a1855fe1905cb62a334b08bc6768d9b0d448d6b581861dcb47eee78a50a5863a"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/scc_controls/sixth_receipt.json",
+      "bytes": 208861,
+      "sha256": "a8f4e6512f5f6fa8d5f8d504d37fad9ea0af42502773e2e6159d6629d47deb50"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/scc_controls/stdout.log",
+      "bytes": 2819,
+      "sha256": "45ee580e3d26985f5b7c309237dfc3e19c8f083d1674bee1d60403f5bb53263c"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/stdout.log",
+      "bytes": 682,
+      "sha256": "6f4e7fe5a2f9bfbf23dc0701a43821daca150b6500a096e1ff4b9674adf8191a"
+    },
+    {
+      "path": "build/forest_playable/ecology/level_capability_exit/verbose.log",
+      "bytes": 186794,
+      "sha256": "46e3b99ad283609067ec9223cb6eaec4cf336db5f4b91174554826f05e88227a"
+    },
+    {
+      "path": "build/forest_playable/review/capability_buildstate_type_edge_ab_actual_review.json",
+      "bytes": 2266,
+      "sha256": "6585b3297265fe809193bdd2339fc626ddaf428758083f898417bdc755ba9da2"
+    },
+    {
+      "path": "build/forest_playable/review/capability_dynamic_build_trace_failed_review.json",
+      "bytes": 1372,
+      "sha256": "cdc5320d44338e0c5cf0ea19a41982e861a63a3cd454c1a0240896bbed91ec33"
+    },
+    {
+      "path": "build/forest_playable/review/capability_owned_node_failed_candidate_review.json",
+      "bytes": 2369,
+      "sha256": "13edce346bc4f7636c1f378ea707e34e08736dda5f90b5db4d4691a3d6b4fdba"
+    },
+    {
+      "path": "build/forest_playable/review/capability_resource_graph_failed_candidates_review.json",
+      "bytes": 3840,
+      "sha256": "54c8b2f42cd58823d508058b03dcd0f5316e64e171fff78b92769dac338969db"
+    },
+    {
+      "path": "build/forest_playable/root/two_lane_clone_diagnosis/after-materialization-inventory.json",
+      "bytes": 84,
+      "sha256": "f58e4b020e20550ad3c8e063ea66a8435f18a24e2c429d18795c49429bc88dac"
+    },
+    {
+      "path": "build/forest_playable/root/two_lane_clone_diagnosis/materialize-actual-objects.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "build/forest_playable/root/two_lane_clone_diagnosis/materialize-receipt.json",
+      "bytes": 367,
+      "sha256": "fbb77542cf7c113c7f5a419145525f7ab6cbc4db05f410917b3ec9049e30fb95"
+    },
+    {
+      "path": "build/forest_playable/root/two_lane_clone_diagnosis/missing-objects-inventory.json",
+      "bytes": 166233,
+      "sha256": "528cc8a8b00c6544aa0b32b4b492d29ba17dd37e133c5412f29d950f85b35c36"
+    },
+    {
+      "path": "build/forest_playable/root/two_lane_clone_diagnosis/receipt.json",
+      "bytes": 798,
+      "sha256": "5228e0820831ae4408ee614902126c0bbcb5956b63ef4f20163cff4979ad11c9"
+    },
+    {
+      "path": "build/forest_playable/root/two_lane_targeted/receipt.json",
+      "bytes": 8088,
+      "sha256": "03ec4a7ac6ab1cd2a193d00e12c797a288f78655a5df2d6e985a67422bdee54c"
+    },
+    {
+      "path": "build/forest_playable/root/two_lane_targeted/run.py",
+      "bytes": 1670,
+      "sha256": "b975698b0090e63e9f20a2d4a4a2af8c8e7f5bf1a3da7ad286d704dc1e43a1ef"
+    },
+    {
+      "path": "build/forest_playable/root/two_lane_targeted/stdout.log",
+      "bytes": 424,
+      "sha256": "284dec42cc01ffa3248cfe603dd0fe109f4f843b7ba0cc8c600ef5cc89e55d04"
+    },
+    {
+      "path": "build/forest_playable/root/two_lane_targeted_retry02/receipt.json",
+      "bytes": 8096,
+      "sha256": "b9f76ca3fde5f380feaf2ef2f6e7852afe0ed12bafd0156945aaa3fd5704b358"
+    },
+    {
+      "path": "build/forest_playable/root/two_lane_targeted_retry02/run.py",
+      "bytes": 1678,
+      "sha256": "703b8b75ae8281523da617b3eb9a8cffd75b3776f714b330ec0fd21ff2b724bd"
+    },
+    {
+      "path": "build/forest_playable/root/two_lane_targeted_retry02/stdout.log",
+      "bytes": 424,
+      "sha256": "5fbf54f17b2751985085792b1a3f3cef3471b512a4914e893d7decd62be2203a"
+    },
+    {
+      "path": "build/verification/harness/20261016T231310.716871Z/report.json",
+      "bytes": 10398084,
+      "sha256": "9312e0d1c4d674de9919686781a936e6f74cb9e478726578312c5fb4910b1a3b"
+    },
+    {
+      "path": "build/verification/harness/20261016T231754.367753Z/report.json",
+      "bytes": 10398200,
+      "sha256": "33ed7072ce7d89b6460ae1a07cf269b60a4c5d8b4a39456dea85b83565f93289"
+    }
+  ]
+}

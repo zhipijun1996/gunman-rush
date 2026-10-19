@@ -4,10 +4,14 @@ extends Node2D
 signal requested_interaction(function_id: StringName)
 signal requested_navigation
 const FLOOR_Y := 432.0
+const WORLD_WIDTH := 3520.0
+var world: UnderworldHomeWorld
+var parallax: UnderworldParallax
+var reserved_id := ""
 const NPCS := [
-	{"id": &"character", "x": 250.0, "name": "Wardrobe / Character", "region": Rect2(0, 0, 660, 887), "pivot": Vector2(351, 874)},
-	{"id": &"upgrade", "x": 600.0, "name": "Artisan / Permanent upgrades", "region": Rect2(660, 0, 530, 887), "pivot": Vector2(253, 873)},
-	{"id": &"achievements", "x": 930.0, "name": "Archivist / Achievements", "region": Rect2(1190, 0, 584, 887), "pivot": Vector2(288.5, 875)},
+	{"id": &"character", "x": 250.0, "name": "Wardrobe / Character"},
+	{"id": &"upgrade", "x": 600.0, "name": "Artisan / Permanent upgrades"},
+	{"id": &"achievements", "x": 930.0, "name": "Archivist / Achievements"},
 	{"id": &"departure", "x": 1160.0, "name": "Plains / Begin adventure"},
 ]
 var player: PlayerMotor
@@ -20,33 +24,15 @@ var _prompt: Label
 var _controls: HBoxContainer
 var overlay: TouchOverlay
 var _resource_hud: ActorResourcesHud
-var _artisan: Sprite2D
-var _artisan_clock := 0.0
 var _hud: CanvasLayer
 
 func _ready() -> void:
-	var background := Sprite2D.new()
-	background.texture = load("res://assets/title_home/home_background.png")
-	background.centered = false
-	background.scale = Vector2(1280.0 / 1672.0, 720.0 / 941.0)
-	background.z_index = -10
-	add_child(background)
-	_ground(Rect2(-100, FLOOR_Y, 1480, 160))
-	_ground(Rect2(-28, -400, 28, 850))
-	_ground(Rect2(1280, -400, 28, 850))
-	for entry: Dictionary in NPCS:
-		if not entry.has("region") or entry.id != &"upgrade":
-			continue
-		var sprite := Sprite2D.new()
-		var atlas := AtlasTexture.new()
-		atlas.atlas = load("res://assets/title_home/npcs.png")
-		atlas.region = entry.region
-		sprite.texture = atlas
-		sprite.centered = false
-		sprite.scale = Vector2.ONE * 0.095
-		sprite.position = Vector2(entry.x, FLOOR_Y) - entry.pivot * sprite.scale
-		_artisan = sprite
-		add_child(sprite)
+	_ground(Rect2(-100,FLOOR_Y,WORLD_WIDTH+200,640))
+	_ground(Rect2(-28,-400,28,1100))
+	_ground(Rect2(WORLD_WIDTH,-400,28,1100))
+	world=UnderworldHomeWorld.new()
+	add_child(world)
+	world.configure(FLOOR_Y)
 	player = preload("res://scenes/player/player.tscn").instantiate() as PlayerMotor
 	player.position = Vector2(110, FLOOR_Y - 18)
 	add_child(player)
@@ -63,18 +49,29 @@ func _ready() -> void:
 	camera.position = Vector2(640, 360)
 	add_child(camera)
 	camera.make_current()
+	parallax=UnderworldParallax.new()
+	parallax.configure(camera)
+	add_child(parallax)
+	player.get_node("CourierVisual").hide()
+	player.get_node("PlayerVisualAdapter").process_mode=Node.PROCESS_MODE_DISABLED
+	player.get_node("PlayerFeedback").hide()
+	var art:=UnderworldPlayer.new()
+	art.motor=player
+	art.controller=controller
+	art.name="UnderworldPlayer"
+	player.add_child(art)
 	_hud = CanvasLayer.new()
 	_hud.layer = 10
 	add_child(_hud)
-	var backing:=ColorRect.new();backing.position=Vector2(12,8);backing.size=Vector2(1010,132);backing.color=Color(.055,.10,.095,.84);backing.mouse_filter=Control.MOUSE_FILTER_IGNORE;_hud.add_child(backing)
+	var backing:=ColorRect.new();backing.position=Vector2(12,8);backing.size=Vector2(340,132);backing.color=Color(.055,.10,.095,.84);backing.mouse_filter=Control.MOUSE_FILTER_IGNORE;_hud.add_child(backing)
 	var top := HBoxContainer.new()
 	top.theme = DemoMenu.create_theme()
-	top.position = Vector2(24, 16)
-	top.size = Vector2(1232, 52)
+	top.position = Vector2(370, 16)
+	top.size = Vector2(886, 52)
 	_hud.add_child(top)
-	_resource_hud=ActorResourcesHud.new();_resource_hud.position=Vector2(2,0);_hud.add_child(_resource_hud);_resource_hud.bind(controller.actor_resources,controller.air_focus_ability,controller)
+	_resource_hud=ActorResourcesHud.new();_resource_hud.position=Vector2(2,0);_hud.add_child(_resource_hud);_resource_hud.bind(controller.actor_resources,controller.air_focus_ability,controller);_resource_hud.set_region_compact(true)
 	_status = Label.new()
-	_status.add_theme_font_size_override("font_size", 24)
+	_status.add_theme_font_size_override("font_size", 18)
 	_status.add_theme_color_override("font_shadow_color", Color(0.08, 0.05, 0.06, 0.95))
 	_status.add_theme_constant_override("shadow_offset_x", 2)
 	_status.add_theme_constant_override("shadow_offset_y", 2)
@@ -112,6 +109,7 @@ func _ready() -> void:
 	_controls.add_child(interaction)
 	controller.router.touch_enabled = OS.has_feature("android") or OS.has_feature("ios") or DisplayServer.is_touchscreen_available()
 	set_meta_state({"notes": 0})
+	UnderworldUI.style_canvas(_hud)
 
 func _ground(rect: Rect2) -> void:
 	var body := StaticBody2D.new()
@@ -125,7 +123,7 @@ func _ground(rect: Rect2) -> void:
 
 func set_meta_state(snapshot: Dictionary) -> void:
 	if _status != null:
-		_status.text = "FLOWERLIGHT HOME    /    NOTES %s" % snapshot.get("notes", 0)
+		_status.text = "风铃聚落 / WINDCHIME HOME    ·    NOTES %s" % snapshot.get("notes", 0)
 
 func nearest_candidate(point: Vector2) -> StringName:
 	var candidates: Array[Dictionary] = []
@@ -142,10 +140,17 @@ func _physics_process(_delta: float) -> void:
 	if not is_instance_valid(player):
 		return
 	nearest_id = nearest_candidate(player.position)
-	_prompt.text = "Move to a keeper or gate. W / Up to interact."
+	_prompt.text = "向守护者靠近 · W 交互 / 前往东侧查看预留工坊"
 	for entry: Dictionary in NPCS:
 		if entry.id == nearest_id:
-			_prompt.text = "%s\nW / Up / Left stick up / INTERACT" % entry.name
+			_prompt.text = "%s\nW / Left stick up / INTERACT" % entry.name
+	reserved_id=""
+	if nearest_id.is_empty():
+		for entry: Dictionary in world.specification.slots:
+			if not bool(entry.active) and absf(player.position.x-float(entry.x))<100:
+				reserved_id=str(entry.id)
+				_prompt.text=str(entry.label)+" · 功能预留，尚未开放"
+	world.update_focus(player.position.x,camera.get_screen_center_position().x)
 	_controls.visible = not input_blocked and controller.router.touch_enabled and controller.router.current_device != &"gamepad"
 	overlay.visible=not input_blocked and overlay.enabled and controller.router.current_device!=&"gamepad"
 
@@ -186,11 +191,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		requested_navigation.emit()
 		get_viewport().set_input_as_handled()
 
-func _animate_artisan(delta: float) -> void:
-	if not is_instance_valid(_artisan): return
-	_artisan_clock += delta
-	_artisan.scale = Vector2(.095,.095*(1+sin(_artisan_clock*2.2)*.006))
-	_artisan.position = Vector2(600,FLOOR_Y)-Vector2(253,873)*_artisan.scale
-
-func _process(delta: float) -> void:
-	_animate_artisan(delta)
+func _process(_delta: float) -> void:
+	if is_instance_valid(player) and is_instance_valid(camera):
+		camera.position.x=clampf(player.position.x,640.0,WORLD_WIDTH-640.0)

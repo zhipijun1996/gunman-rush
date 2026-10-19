@@ -1,0 +1,119 @@
+{
+  "scope": "Read-only PR93 branch audit, plus exactly authorized resolutions to two tracked config files; no engine or claims of new-source validation",
+  "observed_utc": "2026-10-19T10:24:12.504751+00:00",
+  "integration_source": "02cd2a9d958130af860c3f4327965a3192ee9ba6",
+  "pr93_head": "8382a41cb0ccf9a8e2e56075ade9edaceb4ff67a",
+  "merge_base": "2f25083da11da11604a3535a2feae20d119ac001",
+  "pr93_runtime_source": "32200d04fe233bda16cf50f678aabee51a9715e5",
+  "changed_paths_count": 793,
+  "path_groups": {
+    ".github/workflows": 1,
+    "assets/manifest.json": 1,
+    "assets/style_exploration": 192,
+    "docs/current_state.md": 1,
+    "docs/evidence": 550,
+    "docs/handoff.md": 1,
+    "docs/quality": 1,
+    "docs/style_exploration_report.md": 1,
+    "docs/tasks.md": 1,
+    "export_presets.cfg": 1,
+    "scenes/style_exploration": 10,
+    "scripts/demo": 1,
+    "scripts/style_exploration": 16,
+    "scripts/ui": 1,
+    "tests/style_exploration": 6,
+    "tools/build_style_anchor_atlases.py": 1,
+    "tools/capture_style_motion.gd": 1,
+    "tools/capture_style_motion.gd.uid": 1,
+    "tools/harness": 1,
+    "tools/prepare_style_generated_assets.py": 1,
+    "tools/prepare_style_region_assets.py": 1,
+    "tools/requirements_art.txt": 1,
+    "tools/run_style_exploration_tests.py": 1,
+    "tools/style_exploration_delivery.py": 1
+  },
+  "overlap_paths": [
+    "docs/current_state.md",
+    "docs/handoff.md",
+    "docs/tasks.md",
+    "export_presets.cfg",
+    "scripts/demo/demo_app.gd",
+    "scripts/ui/demo_menu.gd",
+    "tools/harness/profiles.json"
+  ],
+  "text_merge_conflicts": {
+    "docs/current_state.md": 1,
+    "docs/handoff.md": 1,
+    "docs/tasks.md": 1,
+    "export_presets.cfg": 3,
+    "scripts/demo/demo_app.gd": 1,
+    "tools/harness/profiles.json": 4
+  },
+  "auto_merged_shared_paths": [
+    "scripts/ui/demo_menu.gd"
+  ],
+  "recommendation": "Integrate as opt-in StyleLab only; preserve formal pixel Plains, forest v12, .15 focus, campaign and save contracts",
+  "resolved_by_agent": [
+    "tools/harness/profiles.json",
+    "export_presets.cfg"
+  ],
+  "config_resolution_evidence": {
+    "all_prior_checks_exactly_equal": true,
+    "all_prior_profile_arrays_preserved": true,
+    "new_check": {
+      "argv": [
+        "python3",
+        "tools/run_style_exploration_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^Validated runtime evidence:",
+      "weight_seconds": 8,
+      "serial": true
+    },
+    "new_profile_membership": [
+      "gameplay",
+      "art",
+      "full"
+    ],
+    "export_filter_policy": "Exact 02cd text retained except per-preset include/exclude lists append PR93 missing items; no removals"
+  },
+  "asset_registration": {
+    "prior_manifest_records": 121,
+    "pr93_manifest_records": 151,
+    "delta_records": 30,
+    "new_asset_paths": 192,
+    "independent_branch_claim": "45 images scoped ACCEPT; full docs/art/gameplay not green; not final commercial art"
+  },
+  "dependencies": {
+    "requirements_delta": [
+      "NumPy>=2.0,<3",
+      "SciPy>=1.14,<2"
+    ],
+    "usage": "Only offline prepare_style_region_assets; no game runtime dependency",
+    "local_installed": {
+      "Pillow": "12.3.0",
+      "numpy": "2.3.5",
+      "scipy": "1.17.0"
+    },
+    "ci_risk": "Requirements are installed in docs/environment jobs, so dependency/network/disk effects apply even when offline extraction is not invoked; retain original logs and do not weaken checks"
+  },
+  "risks": [
+    "DemoApp conflict must retain all four forest progression functions AND _open_style_lab; only add Lab/query/menu hookups, do not replace current presentation sync",
+    "New title menu entry changes physical/OCR layout; same final-source original browser consumers must run",
+    "PR93 has no player/config/forest runtime delta; its palette forest/gear are isolated visual profiles, not production regions",
+    "Keep 30 new asset hashes/provenance plus all existing manifest records; asset carrier/creative/quality/release-evidence checks require full merged closure",
+    "PR93 quality record is historical reviewed source32200d04; do not relabel its 45 captures as new integration source evidence; fresh integration record snapshots computed after tracked final edits",
+    "Prepared deployment workflow now requires exact delivery-source helper + prepared-web reconstruction; normal full PCK verified unchanged, chunks validated when absent; retain generic normal CI deployment path",
+    "Three export presets must keep all current forest JSON/save contracts and append style JSON/licenses plus source/generated exclusions",
+    "Explicit StyleLab should block simultaneous start_debug/start_demo/Home creation while alive; ordinary menu button insertion is not proof of input/lifecycle correctness"
+  ],
+  "verification_plan": [
+    "Fresh exact merged-source docs/art/gameplay/web/full CI as applicable; old02cd outcomes remain old source",
+    "Original style-exploration full240s check, original image/atlas/biome consumers, no skipped cases",
+    "Original current region presentation lifecycle and campaign checks, forest v12 routes, current15%/historical20% consumers",
+    "Exact final Web/PCK/source identity and original public8-entry20-check browser GUI plus real StyleLab entry/switch/Home lifecycle",
+    "Asset carrier, creative direction, asset manifest hashes, licensing/export closure, release evidence tree"
+  ],
+  "tracked_changes_other_than_two_configs_by_agent": false,
+  "engine_executed": false
+}

@@ -1,0 +1,117 @@
+{
+  "task_id": "PARALLEL-INTEGRATION-01",
+  "reviewer": "/root/integration_review",
+  "timestamp_utc": "2026-10-19T12:46:40.123732+00:00",
+  "reviewed_commit": "afd84ec6fa4ad080abece91c1343838fb759d140",
+  "verdict": "ACCEPT",
+  "scope": "Singleactualcandidate6 nativeMap2fast route identity/media/fullXZ custody plus4sampledpixels; not completeBoss/fullmovieaudio/CI/public/humanapproval",
+  "actual_native": {
+    "map": 2,
+    "route": "fast",
+    "seed": "forest-depth-hollow-00",
+    "layout": "forest-woven-trunk-v12",
+    "manifest_hash": "94e1736d8e00a8a0a7be49c9e1b0333742acc55ab33dd2cb75178f4782518815",
+    "native_seconds": 186.52200312400237,
+    "cap_seconds": 240,
+    "status": "passed",
+    "exit_code": 0,
+    "source_stable": true,
+    "scope": "Authorrealnativeexecution/receipt reviewed, reviewer didnotrunengine"
+  },
+  "media": {
+    "inventory_sha256": "c5c66916c79e92b10cb2875d31fa5d8c1d457225188980ddd590c0e21e46c6be",
+    "inventory_members_verified": 17,
+    "original_native_ZIP_sha256": "ca18ea7c35138657b38dd378d5815374d0bdd75838be89872007356f6d7bed4d",
+    "MP4_sha256": "3fb02e53848586c5deba03cecc127a16c16c0e1dcfd8505fb8121d2e2e791f42",
+    "AVI_decompressed_sha256": "19c0e7008a7acd7122c0d78e75abae1890a510a5d116516f79f8271422fb510f",
+    "AVI_full_decompressed_bytes": 101862892,
+    "XZ_sha256": "9a9fcbc0e8b8950d28e83318f9739438928b446d335e5cb3ff9aa5e1e2469347",
+    "XZ_bytes": 34042540,
+    "actual_MP4_and_streamed_AVI_probe": [
+      {
+        "frames": 1769,
+        "fps": "60/1",
+        "dimensions": [
+          1280,
+          720
+        ]
+      },
+      {
+        "frames": 1769,
+        "fps": "60/1",
+        "dimensions": [
+          1280,
+          720
+        ]
+      }
+    ],
+    "time_axis_seconds": 29.483333333333334,
+    "MP4_encoding": "LossyCRF20/AAC, not originalpixel/audio sample equality"
+  },
+  "actually_viewed_frames": [
+    {
+      "file": "sample-01.png",
+      "original_video_frame_zero_based": 0,
+      "seconds": 0.0,
+      "sha256": "540f47a3a85886a2941703721caebabc2c9462105d200122c631264b5d5905b5",
+      "source": "Decoded directly from original AVI, not MP4",
+      "matching_actual_tick": null,
+      "matching_actual_position": null,
+      "path": "build/integration01/movie-candidate6-map2-fast-portable/sample-01.png",
+      "actual_view_image": true
+    },
+    {
+      "file": "sample-02.png",
+      "original_video_frame_zero_based": 354,
+      "seconds": 5.9,
+      "sha256": "5454d79d947ad9f527b9473332eec8a339edccfbd51264762ea8f6249067361b",
+      "source": "Decoded directly from original AVI, not MP4",
+      "matching_actual_tick": 347,
+      "matching_actual_position": [
+        -1468.59289550781,
+        1211.15454101562
+      ],
+      "path": "build/integration01/movie-candidate6-map2-fast-portable/sample-02.png",
+      "actual_view_image": true
+    },
+    {
+      "file": "sample-04.png",
+      "original_video_frame_zero_based": 1061,
+      "seconds": 17.683333333333334,
+      "sha256": "c9002a765352d1aa4a32ce4c61ce7e88fcd0924f371ca3e23534553fdd316d90",
+      "source": "Decoded directly from original AVI, not MP4",
+      "matching_actual_tick": 1054,
+      "matching_actual_position": [
+        199.666687011719,
+        599.925231933594
+      ],
+      "path": "build/integration01/movie-candidate6-map2-fast-portable/sample-04.png",
+      "actual_view_image": true
+    },
+    {
+      "file": "sample-06.png",
+      "original_video_frame_zero_based": 1768,
+      "seconds": 29.466666666666665,
+      "sha256": "0b72dca1686d269e3cdf09f5e63877f86878ba21b2cc020f2d2bf694a5ad400e",
+      "source": "Decoded directly from original AVI, not MP4",
+      "matching_actual_tick": null,
+      "matching_actual_position": null,
+      "path": "build/integration01/movie-candidate6-map2-fast-portable/sample-06.png",
+      "actual_view_image": true
+    }
+  ],
+  "pixel_findings": [
+    "sample01frame0 startupbackground/HUD withplayeroffview; not routeevidence.",
+    "sample02frame354/5.9sec originalCourier airborne besideupper/lowerthorns, copperring/cyanhangring/spider/beetlevisible; actualgoldprojectile toleft visible. Noattachedgrappleline inthissample; do not callprojectile Hrope.",
+    "sample04frame1061/17.683sec Courier onlowerbranch, actualmultipleanchors/enemies andROOTCAMP signreadable; staticshot doesnotprovefullcontinuous combo feel.",
+    "sample06frame1768/29.466sec darkcleanupframe; boundary retained, not hidden or relabeledgameplay."
+  ],
+  "unverified": [
+    "Only4actualsamples viewed, not entireAVI/MP4 playback or audiolistening",
+    "No pixelclaim ofattachedhook inselectedmap2 samples",
+    "Not fullBoss/crossseed80route matrix/wholeforestfun/device/commercialartapproval",
+    "Final98same-sourceCI/artifact72/public20/8 stillseparate, no verdictfrommovie",
+    "Genericartplannerblocked/forestdesignREVISE remain"
+  ],
+  "tracked_files_edited": false
+}

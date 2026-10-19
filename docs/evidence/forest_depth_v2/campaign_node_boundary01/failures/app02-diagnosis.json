@@ -1,0 +1,16 @@
+{
+  "scope": "Queen App02 first actual strict failure diagnosis; no success claim",
+  "actual_definition_health": 24.0,
+  "schema": 13,
+  "native_checks": 27,
+  "native_failures": [],
+  "strict_status": "FAILED_three_duplicate_signal_connections_and_stale_bound_session",
+  "first_ownership_counterexample": {
+    "tick": 783,
+    "actual_queued_session": 3,
+    "old_accepted_observer_session": 2
+  },
+  "correction": "Disconnect only own stored shot callable before binding current real session; idempotent action/contact observers",
+  "runtime_changed": false,
+  "native_after_correction_executed": false
+}

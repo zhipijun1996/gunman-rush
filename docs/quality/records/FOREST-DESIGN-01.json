@@ -1,0 +1,223 @@
+{
+  "schema_version": 1,
+  "task_id": "FOREST-DESIGN-01",
+  "task_type": "region",
+  "workflow": "review",
+  "baseline_commit": "e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7",
+  "reviewed_commit": "e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7",
+  "content_version": "forest-design-v0.1",
+  "owner": "/root",
+  "purpose": "S2荆棘森林短H随机区域与怪物G0候选设计",
+  "player_experience": "树干钩窗、错层枝台、活锚捷径与根洞异路返回",
+  "constraints": [
+    "S2仅H+基础动作+单Lv1武器；无W/D/U1/U2",
+    "当前231px/360度H与每轴24px小跳；不使用历史长H证明",
+    "仅G0设计；无运行/素材/生成配置更改"
+  ],
+  "affected_paths": [
+    "docs/design/thorn_forest_region.md",
+    "docs/design/thorn_forest_authority.json",
+    "docs/evidence/forest_design/",
+    "docs/quality/records/FOREST-DESIGN-01.json",
+    "docs/tasks.md",
+    "docs/handoff.md",
+    "docs/current_state.md"
+  ],
+  "deliverables": [
+    "两图三骨架／七地块与端口合同",
+    "六挑战配方与三种探索策略",
+    "E01/E02候选与E03复用门槛／禁配",
+    "来源账本、只读独审与返工"
+  ],
+  "creative_decisions": [
+    {
+      "status": "proposed",
+      "decision": "固定锚保底、活锚捷径、林隙恢复与树洞回程；E01/E02及三骨架候选",
+      "basis": "用户要求森林随机地图与怪物设计，特色H，美术暂缓；具体方案待灰盒与玩家评估"
+    }
+  ],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "G0候选设计已独审，整体地区门槛不因设计交付代签；G1–G5未实施",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "G0候选设计已独审，整体地区门槛不因设计交付代签；G1–G5未实施",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "G0候选设计已独审，整体地区门槛不因设计交付代签；G1–G5未实施",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "G0候选设计已独审，整体地区门槛不因设计交付代签；G1–G5未实施",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "G0候选设计已独审，整体地区门槛不因设计交付代签；G1–G5未实施",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "G0候选设计已独审，整体地区门槛不因设计交付代签；G1–G5未实施",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "仅G0候选设计资料完整；非用户创意认可或运行准入",
+      "evidence": [
+        "forest-spec",
+        "forest-authority"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "本轮仅设计；未实施或验证该内容维度",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "本轮仅设计；未实施或验证该内容维度",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "本轮仅设计；未实施或验证该内容维度",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "本轮仅设计；未实施或验证该内容维度",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "本轮仅设计；未实施或验证该内容维度",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "本轮仅设计；未实施或验证该内容维度",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "本轮仅设计；未实施或验证该内容维度",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "仅G0独立设计审查与返工；不覆盖实现",
+      "evidence": [
+        "forest-g0-review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "本轮仅设计；未实施或验证该内容维度",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "本轮仅设计；未实施或验证该内容维度",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "FOREST-G0",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "森林只有S2-H与单Lv1构筑，旧长钩样例不能作证明",
+      "method": "源合同核对、两不同只读代理独审、恢复冲突返工",
+      "expected": "地块/去返程/资源/怪物/禁配明确且候选与实现分开",
+      "failure": "暗需二能力、损血保底、怪死断路或以历史fixture签短H",
+      "status": "passed",
+      "reason": "设计审查范围接受；实际操作未验",
+      "evidence": [
+        "forest-spec",
+        "forest-g0-review"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "forest-spec",
+      "path": "docs/design/thorn_forest_region.md",
+      "sha256": "3221f6eb271f77007b9b890717cb38c839a286ac044e2e9244dfbeaed39fe648",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7",
+      "content_version": "forest-design-v0.1",
+      "method": "本轮源文档与只读审查；非物理证据",
+      "observed": "候选两图空间/怪物设计；非运行实现"
+    },
+    {
+      "id": "forest-authority",
+      "path": "docs/design/thorn_forest_authority.json",
+      "sha256": "0d282d956ef96664b6e325d0b2e710f40a5950ddac88b3723194307d1ae44c46",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7",
+      "content_version": "forest-design-v0.1",
+      "method": "本轮源文档与只读审查；非物理证据",
+      "observed": "源哈希和现行覆盖范围"
+    },
+    {
+      "id": "forest-g0-review",
+      "path": "docs/evidence/forest_design/review.md",
+      "sha256": "7a8c3ced4c734bf5db3206c9d23e82e2335983c279a23e2f3ba3c7f7a37fdb4c",
+      "kind": "review",
+      "producer": "independent-subagents",
+      "source_commit": "e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7",
+      "content_version": "forest-design-v0.1",
+      "method": "本轮源文档与只读审查；非物理证据",
+      "observed": "初次恢复合同REJECT已修；复审仅G0候选设计ACCEPT",
+      "reviewer": "/root/forest_ecology_review + /root/forest_spatial_review",
+      "implementers": [
+        "/root"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "不同只读代理；没有编辑生产设计；明确未签运行或玩家"
+    },
+    {
+      "id": "forest-scoped-check",
+      "path": "docs/evidence/forest_design/scoped_links.log",
+      "sha256": "e8bd461d636ac39f0493f6120b3e6448b5467c37179c38491f0d6d304408c752",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7",
+      "content_version": "forest-design-v0.1",
+      "method": "Python local link / source hash assertions and git diff runtime paths",
+      "observed": "new design links / authority hashes correct; no runtime diff; not physical evidence",
+      "exit_code": 0,
+      "command": "python3 inline assertions: local markdown targets, authority SHA256, git diff --name-only HEAD -- scripts scenes resources config assets project.godot",
+      "environment": "Managed cloud Linux /workspace/gunman-rush-design, Python3, sparse checkout; no engine"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "当前短H完整出返与三Lv1构筑",
+    "新怪物真实行为/资源/伤害/生命周期",
+    "两图随机消费者/保存/正式授予",
+    "所有G1–G5及用户/真机/趣味/画面"
+  ],
+  "verification_summary": {
+    "docs_profile": "failed_missing_sparse_historical_evidence",
+    "quality_record": "passed_consistency_only",
+    "scoped_links_authority_runtime_diff": "passed",
+    "git_diff_check": "passed_after_stopping_parallel_checkout",
+    "runtime": "not_run_design_only"
+  },
+  "production_snapshot": "333b986322c5319aab1089c9e657439cd1858acb18bf866574c099a2c358ab35",
+  "production_snapshot_scope": "actual sparse checkout snapshot; not a fully materialized gameplay source or runtime proof"
+}

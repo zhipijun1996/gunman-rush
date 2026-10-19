@@ -1,0 +1,80 @@
+{
+  "scope": "Independent offline limited new-reader review. Original native25 assertions / no native rerun; old four bypasses preserved.",
+  "reader_sha256": "6a7d1f91d6d60420b36cc1f68259804ef9e9ac6972b2ee606a99830679039c0e",
+  "raw_sha256": "97ded5b760a3d417e9a2e649746f1cc70aa94905b4139ad8e7282fe50db69269",
+  "original_accepted": true,
+  "controls": [
+    {
+      "name": "original4/all-combat-frame-hp32",
+      "rejected": true,
+      "diagnostic": "ValueError: Every captured end-physics HP must reconcile to complete Policy ledger"
+    },
+    {
+      "name": "original4/erase-combat-router-requests",
+      "rejected": true,
+      "diagnostic": "ValueError: Actual combat Router request ledger required"
+    },
+    {
+      "name": "original4/map2-coast-dead",
+      "rejected": true,
+      "diagnostic": "ValueError: Every map2 coast observation must be alive within captured entry health/capacity"
+    },
+    {
+      "name": "original4/pointer-outside-button",
+      "rejected": true,
+      "diagnostic": "ValueError: Reward pointer must be inside its actual Button rectangle"
+    },
+    {
+      "name": "remove_policy",
+      "rejected": true,
+      "diagnostic": "ValueError: Actual Policy result ledger required"
+    },
+    {
+      "name": "request_wrong_aim",
+      "rejected": true,
+      "diagnostic": "ValueError: Combat input directions must be finite unit vectors"
+    },
+    {
+      "name": "remove_grapple",
+      "rejected": true,
+      "diagnostic": "ValueError: Accepted H cast needs a same-tick queued grapple request"
+    },
+    {
+      "name": "wrong_policy_hp",
+      "rejected": true,
+      "diagnostic": "ValueError: Each Policy result HP/lethal must reconcile to preceding actual damage"
+    },
+    {
+      "name": "duplicate_physics_frame",
+      "rejected": true,
+      "diagnostic": "AssertionError: "
+    },
+    {
+      "name": "wrong_actor_session",
+      "rejected": true,
+      "diagnostic": "ValueError: Boss projectile damage must resolve an actually accepted shot in this actor session"
+    },
+    {
+      "name": "erase_target_contact",
+      "rejected": true,
+      "diagnostic": "ValueError: Physical Bell arrival must match actual accepted target-specific Motor contact after H input"
+    },
+    {
+      "name": "pointer_different_rect",
+      "rejected": true,
+      "diagnostic": "ValueError: Press/release must target the same actual reward button"
+    },
+    {
+      "name": "coast_wrong_session",
+      "rejected": true,
+      "diagnostic": "ValueError: Every coast observation must belong to actual second-map actor with finite position"
+    },
+    {
+      "name": "coast_nan_body",
+      "rejected": true,
+      "diagnostic": "ValueError: Every coast observation must belong to actual second-map actor with finite position"
+    }
+  ],
+  "rejected": 14,
+  "source_guard": true
+}

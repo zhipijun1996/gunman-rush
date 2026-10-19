@@ -1,0 +1,143 @@
+{
+  "task_id": "PARALLEL-INTEGRATION-01",
+  "reviewer": "/root/integration_review",
+  "timestamp_utc": "2026-10-19T09:20:56.876211+00:00",
+  "reviewed_commit": "2cb6272b6c7cdda1dbc3f45b3aac1759a9201ea8",
+  "previous_reviewed_commit": "aefba67ddf649241de6beb09585454c0c32c3f18",
+  "verdict": "ACCEPT",
+  "scope": "Read-only exact Git and current-workspace binding of23 already reviewed source files; not fresh engine test, CI, public deployment or content quality acceptance",
+  "source_count": 23,
+  "source_bindings": {
+    "config/player_tuning.json": {
+      "git_blob": "8d9c3cbd73923095b1068e5aa7b92ae3a5c43f48",
+      "sha256": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c",
+      "frozen_and_current_equal": true
+    },
+    "resources/player/traversal.tres": {
+      "git_blob": "58c69ce2acba25666df7f74a0de89e27cdbab3a8",
+      "sha256": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+      "frozen_and_current_equal": true
+    },
+    "scripts/art/avatar_presentation.gd": {
+      "git_blob": "f3b0d8e4733ba214f387300687297c79af31fad5",
+      "sha256": "00f91843d0b2ddb026f278e2ac325e56593f8ef575f5d15b58ab4eef0d925823",
+      "frozen_and_current_equal": true
+    },
+    "scripts/art/plains_creative_slice.gd": {
+      "git_blob": "805284fe51564e1056e433624f6f0d6ef52bb8a7",
+      "sha256": "e1e1b644d3c65d17c39b7eff92866ee8c238e917b8224ae15986176fe846a6d9",
+      "frozen_and_current_equal": true
+    },
+    "scripts/art/plains_region_composition.gd": {
+      "git_blob": "46349b497a272929f3e41ba13d0fc837a4aa48b5",
+      "sha256": "0849d8ccffac023150f73d3f701c5878c5badc49883d6fdf3857fe4d6cdeb745",
+      "frozen_and_current_equal": true
+    },
+    "scripts/demo/demo_app.gd": {
+      "git_blob": "2d8e4ea846ab3e1fea0ba0cb4a86740997e7b1b6",
+      "sha256": "1372c42b846bab6020594b0fb0d55ce6c593a9990f4de9038794f9d94786ead7",
+      "frozen_and_current_equal": true
+    },
+    "scripts/demo/plains_region_stage.gd": {
+      "git_blob": "6da368c1a2637bc6be5a6a017655f1a363d934d0",
+      "sha256": "3d04ea5d1e8cc456c8fc2d9a5d55cf37528e8e31e27cecf3018425449d799531",
+      "frozen_and_current_equal": true
+    },
+    "scripts/generation/plains_region_assembler.gd": {
+      "git_blob": "61ae3d9c6930dc385f41e10040c26accf9e2521e",
+      "sha256": "b410601c6b181dba069d7566edfec2de41d1941a06859dfa28aa49793a67fbfd",
+      "frozen_and_current_equal": true
+    },
+    "scripts/generation/plains_region_generator.gd": {
+      "git_blob": "9a8efa24c2ce88a803e4f549730dd5b10b2ffbc7",
+      "sha256": "949e2b518325a2cd48e15a56db26b31374268953b1d2b2688b4d8b5d85563e94",
+      "frozen_and_current_equal": true
+    },
+    "scripts/generation/thorn_forest_region_assembler.gd": {
+      "git_blob": "5f187780b355945943a89fe041ab22ffed74db56",
+      "sha256": "ebd1591086cb2cd766952408afc79c4699f167e2e05b45cb24c5757eab42081c",
+      "frozen_and_current_equal": true
+    },
+    "scripts/generation/thorn_forest_region_generator.gd": {
+      "git_blob": "a8003ac38b5e677b9505a95575e65397aa1d257b",
+      "sha256": "69da2661252b1b78e622dead785f3076777fb28fee2a618eda626de71277a291",
+      "frozen_and_current_equal": true
+    },
+    "tests/fixtures/root_bell/pre_focus_15_player_tuning.json": {
+      "git_blob": "6518967495edc3444faf3c8459295d5c1b6a1985",
+      "sha256": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+      "frozen_and_current_equal": true
+    },
+    "tests/forest_campaign_runner.gd": {
+      "git_blob": "d787a3ea6b74387bec87f1ba458d17d6162aa580",
+      "sha256": "b3ea0760da0a443b964d1dddb1294212de7b28b898f90083d4e55a986f414513",
+      "frozen_and_current_equal": true
+    },
+    "tests/parallel_region_presentation_tests.gd": {
+      "git_blob": "1c2a6ccb617f51f1242dd55d78dea3590f69bdd7",
+      "sha256": "868d582bedecb6d72575376f71ae296b8e98163563ecbf11bcc18b77a9cadcfe",
+      "frozen_and_current_equal": true
+    },
+    "tests/plains_art_language_runner.gd": {
+      "git_blob": "0fa975ab86f22ed268efd592ee841fd1ca9087df",
+      "sha256": "64cfc8ad83a46dcbb0ec8610124935ece25c5ff7bc69cf552c37692359887eee",
+      "frozen_and_current_equal": true
+    },
+    "tests/plains_joint_recoil_runner.gd": {
+      "git_blob": "a0410d9d8aea837cfbffc6e7f1223c0e067590f5",
+      "sha256": "c1f85d364e7d23ef8665e631418f933fdabed2ee6bd0b189cc056b38218c8fca",
+      "frozen_and_current_equal": true
+    },
+    "tests/plains_pre_focus_baseline.gd": {
+      "git_blob": "0d99e51b9babfdea7cb8728cd7bbf897fa361e72",
+      "sha256": "453af69dcd6eecb2da072e19d3ddc7bb00dff4d1d8b48106e30524655350e318",
+      "frozen_and_current_equal": true
+    },
+    "tests/plains_world_rebuild_runner.gd": {
+      "git_blob": "be3694bc048bde1b8d366b124057cf69e243e84b",
+      "sha256": "fe6b1acb372ea3eb724a64d3e8b6a32b5ed1ea0ff22c1bb13bf46d50034731d3",
+      "frozen_and_current_equal": true
+    },
+    "tools/check_quality_diff.py": {
+      "git_blob": "8b7c7907efd3d9ed22e9b175ea0989676fe50f1e",
+      "sha256": "90e8458f1339a2e2184e5b4f29ab518784227299b543d923cb1e6840fd26029b",
+      "frozen_and_current_equal": true
+    },
+    "tools/run_pixel_plains_tests.py": {
+      "git_blob": "78beed303b5677b89f48935d5dcceb4d87787443",
+      "sha256": "6b9e6fe36dd0cc93674501f48b37a9bd50a285a9bcf6744988e5eb9a335a7063",
+      "frozen_and_current_equal": true
+    },
+    "tools/run_plains_art_language_tests.py": {
+      "git_blob": "b4a2c3f79bb1fa439c4df24e63e8a913b6e239f6",
+      "sha256": "e57a4628017842b0c46b84610c08928b2d53851ba0d8d21f141f928c825d91f3",
+      "frozen_and_current_equal": true
+    },
+    "tools/run_plains_joint_recoil_tests.py": {
+      "git_blob": "8dff87c07ce0d48c00d0a5c1a6e50b9c97476649",
+      "sha256": "c1c57289d63e62f9a8c8e613db40659f6f43d50f93c6606883d88b28bb3eace2",
+      "frozen_and_current_equal": true
+    },
+    "tools/run_plains_world_rebuild_tests.py": {
+      "git_blob": "e6fa7e61a22034a8b1d9c2abefd432c72fac1b51",
+      "sha256": "711fe6da3332353aa6c00cbac64675c3801f223f965b7382b72a5dcf7bafe3eb",
+      "frozen_and_current_equal": true
+    }
+  },
+  "four_input_heads_are_ancestors": {
+    "ac002e7641fd282c291cdd7c25c9cf5d2450ce0a": true,
+    "2f25083da11da11604a3535a2feae20d119ac001": true,
+    "913d77afa4019a0a2e6c84f270f3fe30ac2f00ba": true,
+    "3e0ce1caf02ab8c400f85d85f9540405b977cee6": true
+  },
+  "focus_time_scale": 0.15,
+  "forest_layout": "forest-woven-trunk-v12",
+  "ci": {
+    "run_id": 39229199208,
+    "status": "pending",
+    "note": "Not checked or certified by this binding review"
+  },
+  "public_deployment": "pending",
+  "tracked_files_edited": false,
+  "initial_probe": "First inline check assumed direct literal CURRENT_DEPTH_LAYOUT; actual constant aliases DEPTH_LAYOUT_VERTICAL. Corrected read-only probe verifies both real constant bindings; no source changes."
+}

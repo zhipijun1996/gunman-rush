@@ -1,0 +1,793 @@
+{
+  "scope": "Actual frozen/current comparison fields; diagnostic only, original guard unchanged",
+  "cases": [
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline",
+        "map_index": 1,
+        "strategy": "return",
+        "phase_wait_ticks": 0
+      },
+      "before": {
+        "equipped_weapon": {
+          "branch": "",
+          "burst_duration": 0.065,
+          "definition_path": "res://resources/weapons/pulse_gun.tres",
+          "definition_sha256": "d9c7341e1ae5bacb74740996215fac8e1173a1053a6d492333a8593adddb5b6a",
+          "id": "pulse_gun",
+          "interval": 0.11,
+          "mode": 0,
+          "recoil_scale": 0.72,
+          "rounds": 1,
+          "skill_name": "",
+          "tier": 1
+        },
+        "granted_actions": [
+          "jump",
+          "shot_recoil"
+        ],
+        "tuning": {
+          "air_acceleration": 19800.0,
+          "air_focus_enabled": true,
+          "coyote_time": 0.1,
+          "drop_through_duration": 0.2,
+          "drop_through_speed": 80.0,
+          "focus_max_air_duration": 2.0,
+          "focus_rearm_stamina": 15.0,
+          "focus_stamina_capacity": 100.0,
+          "focus_stamina_drain": 45.0,
+          "focus_stamina_recovery": 30.0,
+          "focus_time_scale": 0.2,
+          "gravity": 2600.0,
+          "ground_acceleration": 19800.0,
+          "ground_deceleration": 19800.0,
+          "ground_recoil_multiplier": 0.55,
+          "ground_speed": 260.0,
+          "jump_buffer": 0.1,
+          "jump_hold_duration": 0.13,
+          "jump_min_hold_duration": 0.1,
+          "jump_release_speed": 0.0,
+          "jump_speeds": [
+            -666.0,
+            -599.4
+          ],
+          "max_air_shots": 2,
+          "max_jumps": 1,
+          "max_normal_fall_speed": 800.0,
+          "physics_hz": null,
+          "projectile_damage": 1.0,
+          "projectile_lifetime": 2.0,
+          "projectile_radius": 3.0,
+          "projectile_speed": 1200.0,
+          "recoil_impulse": 520.0,
+          "recoil_mode": "shot_burst",
+          "recoil_tau": 0.16,
+          "shot_burst_duration": 0.14,
+          "shot_burst_speed": 1100.0,
+          "shot_cooldown": 0.25,
+          "variable_jump_enabled": true
+        },
+        "config_hashes": {
+          "input_profile": "4b32d1d2a2ae930d649ed4a02c19833a725b9e8669ec33a9c5393229433ad64e",
+          "player_tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+          "shot_energy": "c4f5570999639b349a5568db095cccad18a38be67d88dc3456a6ec2acf291770",
+          "traversal": "6e44331517c7acdc2a1e9eb6e0f066a782192206aec9095419fd5fc0f6b706c5",
+          "weapon_motion": "745e34841342f71402bcc7a41f32e092d60cca475e560820943aa81b3dfefc10"
+        },
+        "effective_max_jumps": 1,
+        "air_shot_flight_cap": 2,
+        "shot_energy": {
+          "_delay": 0.0,
+          "capacity": 100.0,
+          "current": 100.0,
+          "enabled": true,
+          "ground_energy_recovery": 30.0,
+          "hit_energy_recovery": 20.0,
+          "shot_energy_cost": 20.0,
+          "shot_energy_delay": 0.35
+        },
+        "combat_energy": {
+          "capacity": 100.0,
+          "current": 0.0,
+          "skill_cost": 0.0
+        },
+        "build": {
+          "items": [],
+          "sources": {},
+          "status": "captured"
+        },
+        "air_shots": 2,
+        "physics_hz": 60
+      },
+      "after": {
+        "equipped_weapon": {
+          "branch": "",
+          "burst_duration": 0.065,
+          "definition_path": "res://resources/weapons/pulse_gun.tres",
+          "definition_sha256": "d9c7341e1ae5bacb74740996215fac8e1173a1053a6d492333a8593adddb5b6a",
+          "id": "pulse_gun",
+          "interval": 0.11,
+          "mode": 0,
+          "recoil_scale": 0.72,
+          "rounds": 1,
+          "skill_name": "",
+          "tier": 1
+        },
+        "granted_actions": [
+          "jump",
+          "shot_recoil"
+        ],
+        "tuning": {
+          "air_acceleration": 19800.0,
+          "air_focus_enabled": true,
+          "coyote_time": 0.1,
+          "drop_through_duration": 0.2,
+          "drop_through_speed": 80.0,
+          "focus_max_air_duration": 2.0,
+          "focus_rearm_stamina": 15.0,
+          "focus_stamina_capacity": 100.0,
+          "focus_stamina_drain": 45.0,
+          "focus_stamina_recovery": 30.0,
+          "focus_time_scale": 0.2,
+          "gravity": 2600.0,
+          "ground_acceleration": 19800.0,
+          "ground_deceleration": 19800.0,
+          "ground_recoil_multiplier": 0.55,
+          "ground_speed": 260.0,
+          "jump_buffer": 0.1,
+          "jump_hold_duration": 0.13,
+          "jump_min_hold_duration": 0.1,
+          "jump_release_speed": 0.0,
+          "jump_speeds": [
+            -666.0,
+            -599.4
+          ],
+          "max_air_shots": 2,
+          "max_jumps": 1,
+          "max_normal_fall_speed": 800.0,
+          "physics_hz": null,
+          "projectile_damage": 1.0,
+          "projectile_lifetime": 2.0,
+          "projectile_radius": 3.0,
+          "projectile_speed": 1200.0,
+          "recoil_impulse": 520.0,
+          "recoil_mode": "shot_burst",
+          "recoil_tau": 0.16,
+          "shot_burst_duration": 0.14,
+          "shot_burst_speed": 1100.0,
+          "shot_cooldown": 0.25,
+          "variable_jump_enabled": true
+        },
+        "config_hashes": {
+          "input_profile": "4b32d1d2a2ae930d649ed4a02c19833a725b9e8669ec33a9c5393229433ad64e",
+          "player_tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+          "shot_energy": "c4f5570999639b349a5568db095cccad18a38be67d88dc3456a6ec2acf291770",
+          "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+          "weapon_motion": "745e34841342f71402bcc7a41f32e092d60cca475e560820943aa81b3dfefc10"
+        },
+        "effective_max_jumps": 1,
+        "air_shot_flight_cap": 2,
+        "shot_energy": {
+          "_delay": 0.0,
+          "capacity": 100.0,
+          "current": 100.0,
+          "enabled": true,
+          "ground_energy_recovery": 30.0,
+          "hit_energy_recovery": 20.0,
+          "shot_energy_cost": 20.0,
+          "shot_energy_delay": 0.35
+        },
+        "combat_energy": {
+          "capacity": 100.0,
+          "current": 0.0,
+          "skill_cost": 0.0
+        },
+        "build": {
+          "items": [],
+          "sources": {},
+          "status": "captured"
+        },
+        "air_shots": 2,
+        "physics_hz": 60
+      },
+      "actual_differences": [
+        {
+          "path": "/config_hashes/traversal",
+          "before": "6e44331517c7acdc2a1e9eb6e0f066a782192206aec9095419fd5fc0f6b706c5",
+          "after": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390"
+        }
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline",
+        "map_index": 2,
+        "strategy": "fast",
+        "phase_wait_ticks": 0
+      },
+      "before": {
+        "equipped_weapon": {
+          "branch": "",
+          "burst_duration": 0.065,
+          "definition_path": "res://resources/weapons/pulse_gun.tres",
+          "definition_sha256": "d9c7341e1ae5bacb74740996215fac8e1173a1053a6d492333a8593adddb5b6a",
+          "id": "pulse_gun",
+          "interval": 0.11,
+          "mode": 0,
+          "recoil_scale": 0.72,
+          "rounds": 1,
+          "skill_name": "",
+          "tier": 1
+        },
+        "granted_actions": [
+          "jump",
+          "shot_recoil"
+        ],
+        "tuning": {
+          "air_acceleration": 19800.0,
+          "air_focus_enabled": true,
+          "coyote_time": 0.1,
+          "drop_through_duration": 0.2,
+          "drop_through_speed": 80.0,
+          "focus_max_air_duration": 2.0,
+          "focus_rearm_stamina": 15.0,
+          "focus_stamina_capacity": 100.0,
+          "focus_stamina_drain": 45.0,
+          "focus_stamina_recovery": 30.0,
+          "focus_time_scale": 0.2,
+          "gravity": 2600.0,
+          "ground_acceleration": 19800.0,
+          "ground_deceleration": 19800.0,
+          "ground_recoil_multiplier": 0.55,
+          "ground_speed": 260.0,
+          "jump_buffer": 0.1,
+          "jump_hold_duration": 0.13,
+          "jump_min_hold_duration": 0.1,
+          "jump_release_speed": 0.0,
+          "jump_speeds": [
+            -666.0,
+            -599.4
+          ],
+          "max_air_shots": 2,
+          "max_jumps": 1,
+          "max_normal_fall_speed": 800.0,
+          "physics_hz": null,
+          "projectile_damage": 1.0,
+          "projectile_lifetime": 2.0,
+          "projectile_radius": 3.0,
+          "projectile_speed": 1200.0,
+          "recoil_impulse": 520.0,
+          "recoil_mode": "shot_burst",
+          "recoil_tau": 0.16,
+          "shot_burst_duration": 0.14,
+          "shot_burst_speed": 1100.0,
+          "shot_cooldown": 0.25,
+          "variable_jump_enabled": true
+        },
+        "config_hashes": {
+          "input_profile": "4b32d1d2a2ae930d649ed4a02c19833a725b9e8669ec33a9c5393229433ad64e",
+          "player_tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+          "shot_energy": "c4f5570999639b349a5568db095cccad18a38be67d88dc3456a6ec2acf291770",
+          "traversal": "6e44331517c7acdc2a1e9eb6e0f066a782192206aec9095419fd5fc0f6b706c5",
+          "weapon_motion": "745e34841342f71402bcc7a41f32e092d60cca475e560820943aa81b3dfefc10"
+        },
+        "effective_max_jumps": 1,
+        "air_shot_flight_cap": 2,
+        "shot_energy": {
+          "_delay": 0.0,
+          "capacity": 100.0,
+          "current": 100.0,
+          "enabled": true,
+          "ground_energy_recovery": 30.0,
+          "hit_energy_recovery": 20.0,
+          "shot_energy_cost": 20.0,
+          "shot_energy_delay": 0.35
+        },
+        "combat_energy": {
+          "capacity": 100.0,
+          "current": 0.0,
+          "skill_cost": 0.0
+        },
+        "build": {
+          "items": [],
+          "sources": {},
+          "status": "captured"
+        },
+        "air_shots": 2,
+        "physics_hz": 60
+      },
+      "after": {
+        "equipped_weapon": {
+          "branch": "",
+          "burst_duration": 0.065,
+          "definition_path": "res://resources/weapons/pulse_gun.tres",
+          "definition_sha256": "d9c7341e1ae5bacb74740996215fac8e1173a1053a6d492333a8593adddb5b6a",
+          "id": "pulse_gun",
+          "interval": 0.11,
+          "mode": 0,
+          "recoil_scale": 0.72,
+          "rounds": 1,
+          "skill_name": "",
+          "tier": 1
+        },
+        "granted_actions": [
+          "jump",
+          "shot_recoil"
+        ],
+        "tuning": {
+          "air_acceleration": 19800.0,
+          "air_focus_enabled": true,
+          "coyote_time": 0.1,
+          "drop_through_duration": 0.2,
+          "drop_through_speed": 80.0,
+          "focus_max_air_duration": 2.0,
+          "focus_rearm_stamina": 15.0,
+          "focus_stamina_capacity": 100.0,
+          "focus_stamina_drain": 45.0,
+          "focus_stamina_recovery": 30.0,
+          "focus_time_scale": 0.2,
+          "gravity": 2600.0,
+          "ground_acceleration": 19800.0,
+          "ground_deceleration": 19800.0,
+          "ground_recoil_multiplier": 0.55,
+          "ground_speed": 260.0,
+          "jump_buffer": 0.1,
+          "jump_hold_duration": 0.13,
+          "jump_min_hold_duration": 0.1,
+          "jump_release_speed": 0.0,
+          "jump_speeds": [
+            -666.0,
+            -599.4
+          ],
+          "max_air_shots": 2,
+          "max_jumps": 1,
+          "max_normal_fall_speed": 800.0,
+          "physics_hz": null,
+          "projectile_damage": 1.0,
+          "projectile_lifetime": 2.0,
+          "projectile_radius": 3.0,
+          "projectile_speed": 1200.0,
+          "recoil_impulse": 520.0,
+          "recoil_mode": "shot_burst",
+          "recoil_tau": 0.16,
+          "shot_burst_duration": 0.14,
+          "shot_burst_speed": 1100.0,
+          "shot_cooldown": 0.25,
+          "variable_jump_enabled": true
+        },
+        "config_hashes": {
+          "input_profile": "4b32d1d2a2ae930d649ed4a02c19833a725b9e8669ec33a9c5393229433ad64e",
+          "player_tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+          "shot_energy": "c4f5570999639b349a5568db095cccad18a38be67d88dc3456a6ec2acf291770",
+          "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+          "weapon_motion": "745e34841342f71402bcc7a41f32e092d60cca475e560820943aa81b3dfefc10"
+        },
+        "effective_max_jumps": 1,
+        "air_shot_flight_cap": 2,
+        "shot_energy": {
+          "_delay": 0.0,
+          "capacity": 100.0,
+          "current": 100.0,
+          "enabled": true,
+          "ground_energy_recovery": 30.0,
+          "hit_energy_recovery": 20.0,
+          "shot_energy_cost": 20.0,
+          "shot_energy_delay": 0.35
+        },
+        "combat_energy": {
+          "capacity": 100.0,
+          "current": 0.0,
+          "skill_cost": 0.0
+        },
+        "build": {
+          "items": [],
+          "sources": {},
+          "status": "captured"
+        },
+        "air_shots": 2,
+        "physics_hz": 60
+      },
+      "actual_differences": [
+        {
+          "path": "/config_hashes/traversal",
+          "before": "6e44331517c7acdc2a1e9eb6e0f066a782192206aec9095419fd5fc0f6b706c5",
+          "after": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390"
+        }
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline",
+        "map_index": 2,
+        "strategy": "growth",
+        "phase_wait_ticks": 0
+      },
+      "before": {
+        "equipped_weapon": {
+          "branch": "",
+          "burst_duration": 0.065,
+          "definition_path": "res://resources/weapons/pulse_gun.tres",
+          "definition_sha256": "d9c7341e1ae5bacb74740996215fac8e1173a1053a6d492333a8593adddb5b6a",
+          "id": "pulse_gun",
+          "interval": 0.11,
+          "mode": 0,
+          "recoil_scale": 0.72,
+          "rounds": 1,
+          "skill_name": "",
+          "tier": 1
+        },
+        "granted_actions": [
+          "jump",
+          "shot_recoil"
+        ],
+        "tuning": {
+          "air_acceleration": 19800.0,
+          "air_focus_enabled": true,
+          "coyote_time": 0.1,
+          "drop_through_duration": 0.2,
+          "drop_through_speed": 80.0,
+          "focus_max_air_duration": 2.0,
+          "focus_rearm_stamina": 15.0,
+          "focus_stamina_capacity": 100.0,
+          "focus_stamina_drain": 45.0,
+          "focus_stamina_recovery": 30.0,
+          "focus_time_scale": 0.2,
+          "gravity": 2600.0,
+          "ground_acceleration": 19800.0,
+          "ground_deceleration": 19800.0,
+          "ground_recoil_multiplier": 0.55,
+          "ground_speed": 260.0,
+          "jump_buffer": 0.1,
+          "jump_hold_duration": 0.13,
+          "jump_min_hold_duration": 0.1,
+          "jump_release_speed": 0.0,
+          "jump_speeds": [
+            -666.0,
+            -599.4
+          ],
+          "max_air_shots": 2,
+          "max_jumps": 1,
+          "max_normal_fall_speed": 800.0,
+          "physics_hz": null,
+          "projectile_damage": 1.0,
+          "projectile_lifetime": 2.0,
+          "projectile_radius": 3.0,
+          "projectile_speed": 1200.0,
+          "recoil_impulse": 520.0,
+          "recoil_mode": "shot_burst",
+          "recoil_tau": 0.16,
+          "shot_burst_duration": 0.14,
+          "shot_burst_speed": 1100.0,
+          "shot_cooldown": 0.25,
+          "variable_jump_enabled": true
+        },
+        "config_hashes": {
+          "input_profile": "4b32d1d2a2ae930d649ed4a02c19833a725b9e8669ec33a9c5393229433ad64e",
+          "player_tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+          "shot_energy": "c4f5570999639b349a5568db095cccad18a38be67d88dc3456a6ec2acf291770",
+          "traversal": "6e44331517c7acdc2a1e9eb6e0f066a782192206aec9095419fd5fc0f6b706c5",
+          "weapon_motion": "745e34841342f71402bcc7a41f32e092d60cca475e560820943aa81b3dfefc10"
+        },
+        "effective_max_jumps": 1,
+        "air_shot_flight_cap": 2,
+        "shot_energy": {
+          "_delay": 0.0,
+          "capacity": 100.0,
+          "current": 100.0,
+          "enabled": true,
+          "ground_energy_recovery": 30.0,
+          "hit_energy_recovery": 20.0,
+          "shot_energy_cost": 20.0,
+          "shot_energy_delay": 0.35
+        },
+        "combat_energy": {
+          "capacity": 100.0,
+          "current": 0.0,
+          "skill_cost": 0.0
+        },
+        "build": {
+          "items": [],
+          "sources": {},
+          "status": "captured"
+        },
+        "air_shots": 2,
+        "physics_hz": 60
+      },
+      "after": {
+        "equipped_weapon": {
+          "branch": "",
+          "burst_duration": 0.065,
+          "definition_path": "res://resources/weapons/pulse_gun.tres",
+          "definition_sha256": "d9c7341e1ae5bacb74740996215fac8e1173a1053a6d492333a8593adddb5b6a",
+          "id": "pulse_gun",
+          "interval": 0.11,
+          "mode": 0,
+          "recoil_scale": 0.72,
+          "rounds": 1,
+          "skill_name": "",
+          "tier": 1
+        },
+        "granted_actions": [
+          "jump",
+          "shot_recoil"
+        ],
+        "tuning": {
+          "air_acceleration": 19800.0,
+          "air_focus_enabled": true,
+          "coyote_time": 0.1,
+          "drop_through_duration": 0.2,
+          "drop_through_speed": 80.0,
+          "focus_max_air_duration": 2.0,
+          "focus_rearm_stamina": 15.0,
+          "focus_stamina_capacity": 100.0,
+          "focus_stamina_drain": 45.0,
+          "focus_stamina_recovery": 30.0,
+          "focus_time_scale": 0.2,
+          "gravity": 2600.0,
+          "ground_acceleration": 19800.0,
+          "ground_deceleration": 19800.0,
+          "ground_recoil_multiplier": 0.55,
+          "ground_speed": 260.0,
+          "jump_buffer": 0.1,
+          "jump_hold_duration": 0.13,
+          "jump_min_hold_duration": 0.1,
+          "jump_release_speed": 0.0,
+          "jump_speeds": [
+            -666.0,
+            -599.4
+          ],
+          "max_air_shots": 2,
+          "max_jumps": 1,
+          "max_normal_fall_speed": 800.0,
+          "physics_hz": null,
+          "projectile_damage": 1.0,
+          "projectile_lifetime": 2.0,
+          "projectile_radius": 3.0,
+          "projectile_speed": 1200.0,
+          "recoil_impulse": 520.0,
+          "recoil_mode": "shot_burst",
+          "recoil_tau": 0.16,
+          "shot_burst_duration": 0.14,
+          "shot_burst_speed": 1100.0,
+          "shot_cooldown": 0.25,
+          "variable_jump_enabled": true
+        },
+        "config_hashes": {
+          "input_profile": "4b32d1d2a2ae930d649ed4a02c19833a725b9e8669ec33a9c5393229433ad64e",
+          "player_tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+          "shot_energy": "c4f5570999639b349a5568db095cccad18a38be67d88dc3456a6ec2acf291770",
+          "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+          "weapon_motion": "745e34841342f71402bcc7a41f32e092d60cca475e560820943aa81b3dfefc10"
+        },
+        "effective_max_jumps": 1,
+        "air_shot_flight_cap": 2,
+        "shot_energy": {
+          "_delay": 0.0,
+          "capacity": 100.0,
+          "current": 100.0,
+          "enabled": true,
+          "ground_energy_recovery": 30.0,
+          "hit_energy_recovery": 20.0,
+          "shot_energy_cost": 20.0,
+          "shot_energy_delay": 0.35
+        },
+        "combat_energy": {
+          "capacity": 100.0,
+          "current": 0.0,
+          "skill_cost": 0.0
+        },
+        "build": {
+          "items": [],
+          "sources": {},
+          "status": "captured"
+        },
+        "air_shots": 2,
+        "physics_hz": 60
+      },
+      "actual_differences": [
+        {
+          "path": "/config_hashes/traversal",
+          "before": "6e44331517c7acdc2a1e9eb6e0f066a782192206aec9095419fd5fc0f6b706c5",
+          "after": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390"
+        }
+      ]
+    },
+    {
+      "case": {
+        "root_seed": "level-design-v2-baseline/01",
+        "map_index": 1,
+        "strategy": "fast",
+        "phase_wait_ticks": 0
+      },
+      "before": {
+        "equipped_weapon": {
+          "branch": "",
+          "burst_duration": 0.065,
+          "definition_path": "res://resources/weapons/pulse_gun.tres",
+          "definition_sha256": "d9c7341e1ae5bacb74740996215fac8e1173a1053a6d492333a8593adddb5b6a",
+          "id": "pulse_gun",
+          "interval": 0.11,
+          "mode": 0,
+          "recoil_scale": 0.72,
+          "rounds": 1,
+          "skill_name": "",
+          "tier": 1
+        },
+        "granted_actions": [
+          "jump",
+          "shot_recoil"
+        ],
+        "tuning": {
+          "air_acceleration": 19800.0,
+          "air_focus_enabled": true,
+          "coyote_time": 0.1,
+          "drop_through_duration": 0.2,
+          "drop_through_speed": 80.0,
+          "focus_max_air_duration": 2.0,
+          "focus_rearm_stamina": 15.0,
+          "focus_stamina_capacity": 100.0,
+          "focus_stamina_drain": 45.0,
+          "focus_stamina_recovery": 30.0,
+          "focus_time_scale": 0.2,
+          "gravity": 2600.0,
+          "ground_acceleration": 19800.0,
+          "ground_deceleration": 19800.0,
+          "ground_recoil_multiplier": 0.55,
+          "ground_speed": 260.0,
+          "jump_buffer": 0.1,
+          "jump_hold_duration": 0.13,
+          "jump_min_hold_duration": 0.1,
+          "jump_release_speed": 0.0,
+          "jump_speeds": [
+            -666.0,
+            -599.4
+          ],
+          "max_air_shots": 2,
+          "max_jumps": 1,
+          "max_normal_fall_speed": 800.0,
+          "physics_hz": null,
+          "projectile_damage": 1.0,
+          "projectile_lifetime": 2.0,
+          "projectile_radius": 3.0,
+          "projectile_speed": 1200.0,
+          "recoil_impulse": 520.0,
+          "recoil_mode": "shot_burst",
+          "recoil_tau": 0.16,
+          "shot_burst_duration": 0.14,
+          "shot_burst_speed": 1100.0,
+          "shot_cooldown": 0.25,
+          "variable_jump_enabled": true
+        },
+        "config_hashes": {
+          "input_profile": "4b32d1d2a2ae930d649ed4a02c19833a725b9e8669ec33a9c5393229433ad64e",
+          "player_tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+          "shot_energy": "c4f5570999639b349a5568db095cccad18a38be67d88dc3456a6ec2acf291770",
+          "traversal": "6e44331517c7acdc2a1e9eb6e0f066a782192206aec9095419fd5fc0f6b706c5",
+          "weapon_motion": "745e34841342f71402bcc7a41f32e092d60cca475e560820943aa81b3dfefc10"
+        },
+        "effective_max_jumps": 1,
+        "air_shot_flight_cap": 2,
+        "shot_energy": {
+          "_delay": 0.0,
+          "capacity": 100.0,
+          "current": 100.0,
+          "enabled": true,
+          "ground_energy_recovery": 30.0,
+          "hit_energy_recovery": 20.0,
+          "shot_energy_cost": 20.0,
+          "shot_energy_delay": 0.35
+        },
+        "combat_energy": {
+          "capacity": 100.0,
+          "current": 0.0,
+          "skill_cost": 0.0
+        },
+        "build": {
+          "items": [],
+          "sources": {},
+          "status": "captured"
+        },
+        "air_shots": 2,
+        "physics_hz": 60
+      },
+      "after": {
+        "equipped_weapon": {
+          "branch": "",
+          "burst_duration": 0.065,
+          "definition_path": "res://resources/weapons/pulse_gun.tres",
+          "definition_sha256": "d9c7341e1ae5bacb74740996215fac8e1173a1053a6d492333a8593adddb5b6a",
+          "id": "pulse_gun",
+          "interval": 0.11,
+          "mode": 0,
+          "recoil_scale": 0.72,
+          "rounds": 1,
+          "skill_name": "",
+          "tier": 1
+        },
+        "granted_actions": [
+          "jump",
+          "shot_recoil"
+        ],
+        "tuning": {
+          "air_acceleration": 19800.0,
+          "air_focus_enabled": true,
+          "coyote_time": 0.1,
+          "drop_through_duration": 0.2,
+          "drop_through_speed": 80.0,
+          "focus_max_air_duration": 2.0,
+          "focus_rearm_stamina": 15.0,
+          "focus_stamina_capacity": 100.0,
+          "focus_stamina_drain": 45.0,
+          "focus_stamina_recovery": 30.0,
+          "focus_time_scale": 0.2,
+          "gravity": 2600.0,
+          "ground_acceleration": 19800.0,
+          "ground_deceleration": 19800.0,
+          "ground_recoil_multiplier": 0.55,
+          "ground_speed": 260.0,
+          "jump_buffer": 0.1,
+          "jump_hold_duration": 0.13,
+          "jump_min_hold_duration": 0.1,
+          "jump_release_speed": 0.0,
+          "jump_speeds": [
+            -666.0,
+            -599.4
+          ],
+          "max_air_shots": 2,
+          "max_jumps": 1,
+          "max_normal_fall_speed": 800.0,
+          "physics_hz": null,
+          "projectile_damage": 1.0,
+          "projectile_lifetime": 2.0,
+          "projectile_radius": 3.0,
+          "projectile_speed": 1200.0,
+          "recoil_impulse": 520.0,
+          "recoil_mode": "shot_burst",
+          "recoil_tau": 0.16,
+          "shot_burst_duration": 0.14,
+          "shot_burst_speed": 1100.0,
+          "shot_cooldown": 0.25,
+          "variable_jump_enabled": true
+        },
+        "config_hashes": {
+          "input_profile": "4b32d1d2a2ae930d649ed4a02c19833a725b9e8669ec33a9c5393229433ad64e",
+          "player_tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+          "shot_energy": "c4f5570999639b349a5568db095cccad18a38be67d88dc3456a6ec2acf291770",
+          "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+          "weapon_motion": "745e34841342f71402bcc7a41f32e092d60cca475e560820943aa81b3dfefc10"
+        },
+        "effective_max_jumps": 1,
+        "air_shot_flight_cap": 2,
+        "shot_energy": {
+          "_delay": 0.0,
+          "capacity": 100.0,
+          "current": 100.0,
+          "enabled": true,
+          "ground_energy_recovery": 30.0,
+          "hit_energy_recovery": 20.0,
+          "shot_energy_cost": 20.0,
+          "shot_energy_delay": 0.35
+        },
+        "combat_energy": {
+          "capacity": 100.0,
+          "current": 0.0,
+          "skill_cost": 0.0
+        },
+        "build": {
+          "items": [],
+          "sources": {},
+          "status": "captured"
+        },
+        "air_shots": 2,
+        "physics_hz": 60
+      },
+      "actual_differences": [
+        {
+          "path": "/config_hashes/traversal",
+          "before": "6e44331517c7acdc2a1e9eb6e0f066a782192206aec9095419fd5fc0f6b706c5",
+          "after": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390"
+        }
+      ]
+    }
+  ]
+}

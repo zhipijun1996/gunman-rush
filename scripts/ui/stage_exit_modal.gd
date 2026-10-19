@@ -14,6 +14,8 @@ func show_exit(next_label: String, reward_summary: String) -> void:
 	close()
 	opened = true
 	_root = Control.new()
+	_root.theme=UnderworldUI.create_theme()
+	_root.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
 	_root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_root.mouse_filter = Control.MOUSE_FILTER_STOP
 	add_child(_root)

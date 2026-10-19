@@ -81,11 +81,13 @@ func ready_map(app: DemoApp,index: int) -> bool:
 	for unused: int in 180:
 		await physics_frame;await process_frame
 		var actual_stage := app.stage as PlainsRegionStage
-		if not app._stage_pending and actual_stage != null and actual_stage.map_index==index:return actual_stage.assembly_ok
+		if not app._stage_pending and actual_stage != null and actual_stage.map_index==index:return actual_stage.assembly_ok and _fixture_identity_matches(app, index, str(app.director.get("seed")))
 	return false
 func second_map(app: DemoApp) -> void:
 	app.lifetime.stage_epoch+=1;app.lifetime.actor_epoch+=1
-	app.director._enter_stage(2,&"boss");app._stage_entered(DemoRunResult.new())
+	_sync_fixture_map_index(app, 2)
+	app.director._enter_stage(2,&"boss")
+	app._stage_entered(DemoRunResult.new())
 func cleanup(app: DemoApp) -> void:
 	for child: Node in app.get_children():
 		if child is GameAudio:require(await child.shutdown(),"audio_backend_not_released")
@@ -113,7 +115,7 @@ func saved_map_compatibility(mode: String) -> Dictionary:
 	second_map(current);ok=await ready_map(current,2) and ok
 	var actual_version: String=current.stage.generated.manifest.version
 	ok=ok and old_version==actual_version and snapshot.manifest_hash==current.stage.generated.manifest.manifest_hash and current.region_state.actors.size()==snapshot.actors.size()
-	var result: Dictionary={"mode":mode,"passed":ok,"old_version":old_version,"actual_version":actual_version,"old_hash":snapshot.manifest_hash,"actual_hash":current.stage.generated.manifest.manifest_hash,"old_actors":snapshot.actors.size(),"actual_actors":current.region_state.actors.size(),"scope":"current loader pinned historical state, not old binary or full run migration"}
+	var result: Dictionary={"mode":mode,"passed":ok,"actual_map_identity":{"map_index":current.stage.map_index,"seed":current.stage.generated.manifest.seed,"difficulty":current.stage.generated.manifest.difficulty},"old_version":old_version,"actual_version":actual_version,"old_hash":snapshot.manifest_hash,"actual_hash":current.stage.generated.manifest.manifest_hash,"old_actors":snapshot.actors.size(),"actual_actors":current.region_state.actors.size(),"scope":"current loader pinned historical state, not old binary or full run migration"}
 	require(ok,"saved_map_compatibility/"+mode)
 	await cleanup(current)
 	return result
@@ -137,3 +139,17 @@ func run_replay(mode: String) -> Dictionary:
 	var result: Dictionary={"mode":mode,"passed":ok,"version":native.versions.generated_layout,"wrong_version_refused":refused,"scope":"actual two-map RunManifest; explicit existing miniBoss outcome fixture, not combat proof"}
 	await cleanup(app)
 	return result
+
+
+# Test-only independent-stage fixture; no natural campaign transition is claimed.
+func _sync_fixture_map_index(app: DemoApp, index: int) -> void:
+	for entry: Dictionary in app.director.get_property_list():
+		if str(entry.get("name", "")) == "region_map_index":
+			app.director.set("region_map_index", index)
+			return
+
+func _fixture_identity_matches(app: DemoApp, index: int, root_seed: String) -> bool:
+	var actual := app.stage as PlainsRegionStage
+	if actual == null or not actual.assembly_ok: return false
+	var manifest: Dictionary = actual.generated.manifest
+	return actual.map_index == index and manifest.get("region", "") == "plains" and manifest.get("seed", "") == PlainsRegionCampaign.seed_for(root_seed, index) and manifest.get("difficulty", "") == ("intro" if index == 1 else "advanced")

@@ -10,8 +10,12 @@ var map_view: PlainsRegionMap
 var terrain_art: PlainsTerrainStudy
 var context_signs: Array[Dictionary] = []
 var boss_seal:BossArenaSeal
+var regional_art_renderer: Node2D
 
 func _ready() -> void:
+	set_meta("pixel_formal_style",not generated.has("regional_art_plan"))
+	set_meta("underworld_formal_style",not generated.has("regional_art_plan"))
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	if region_state == null: region_state = PlainsRegionState.new()
 	if not region_state.bind_map(str(generated.manifest.manifest_hash)): return
@@ -79,9 +83,12 @@ func _ready() -> void:
 		chest.claimed = region_state.claimed.has(chest.id)
 		chests.append(chest)
 	install_visual_layer(VISUAL_LAYER.new())
-	var scenery:=PlainsRegionScenery.new()
-	scenery.configure(generated.manifest, PlainsRegionScenery.solid_supports(self), PlainsRegionScenery.protection(self))
-	add_child(scenery)
+	var scenery: UnderworldScenery
+	if not generated.has("regional_art_plan"):
+		scenery = UnderworldScenery.new()
+		scenery.name = "PixelRegionScenery"
+		scenery.configure(self)
+		add_child(scenery)
 	_context_sign(spawn+Vector2(20,-100), "HOLD JUMP  ·  AIM BACK TO RECOIL", 220)
 	_context_sign(merchant_position+Vector2(-115,-112), "REPAIR CAMP  ·  INTERACT", 220)
 	var creek: Dictionary = generated.manifest.get("creek_discovery", {})
@@ -99,16 +106,21 @@ func _ready() -> void:
 			_context_sign(chest.position+Vector2(-95,-80), "CACHE  ·  ↓ + JUMP TO RETURN", 170)
 	for c: Dictionary in chests:
 		var sprite:=Sprite2D.new()
-		sprite.texture=PlainsV3Assets.texture("objects.json","chest")
+		sprite.texture=PixelFormalActors.icon_texture(&"chest") if generated.has("regional_art_plan") else UnderworldActors.icon_texture(&"chest")
 		sprite.scale=Vector2(58,48)/sprite.texture.get_size()
 		sprite.position=c.position+Vector2(0,-3)
 		sprite.modulate=Color("ddb1ff") if c.tier=="high" else Color("ffe7a0") if c.tier=="region_top" else Color.WHITE
 		add_child(sprite)
 		c.sprite=sprite
 	var merchant:=Sprite2D.new()
-	merchant.texture=PlainsV3Assets.texture("objects.json","shop")
-	merchant.scale=Vector2(95,90)/merchant.texture.get_size()
-	merchant.position=merchant_position+Vector2(0,-30)
+	if generated.has("regional_art_plan"):
+		merchant.texture=PixelFormalActors.icon_texture(&"merchant")
+		merchant.scale=Vector2(95,90)/merchant.texture.get_size()
+		merchant.position=merchant_position+Vector2(0,-30)
+	else:
+		merchant.name = "UnderworldMerchant"
+		merchant.texture=UnderworldActors.icon_texture(&"merchant")
+		UnderworldActors.place_humanoid(merchant, merchant_position + Vector2(0,18))
 	add_child(merchant)
 	var map_layer:=CanvasLayer.new()
 	map_layer.layer=1
@@ -119,10 +131,53 @@ func _ready() -> void:
 	map.region_chip = true
 	map.position=Vector2(1098,14)
 	map_layer.add_child(map)
-	terrain_art = PlainsTerrainStudy.new()
-	terrain_art.stage = self
-	add_child(terrain_art)
+	if generated.has("regional_art_plan"):
+		var joint := not (generated.regional_art_plan.get("joint_modules",[]) as Array).is_empty()
+		var script := load("res://scripts/art/plains_joint_recoil_composer.gd" if joint else "res://scripts/art/plains_regional_composer.gd") as Script
+		regional_art_renderer = script.new() as Node2D
+		add_child(regional_art_renderer)
+		regional_art_renderer.call("install",self,generated.regional_art_plan)
+	else:
+		terrain_art = PlainsTerrainStudy.new()
+		terrain_art.stage = self
+		add_child(terrain_art)
+		terrain_art.geometry_changed.connect(func() -> void:
+			scenery.configure(self)
+			scenery.queue_redraw())
+		PixelFormalActors.install(self)
+		UnderworldActors.install(self)
 	queue_redraw()
+
+func get_regional_art_snapshot() -> Dictionary:
+	var art: Dictionary = {}
+	if is_instance_valid(regional_art_renderer):
+		art = regional_art_renderer.call("measured_nodes")
+	return {"ready":assembly_ok and not art.is_empty() and art.get("omitted",[]).is_empty() and art.get("installed_foundations_valid",false),"manifest_hash":generated.manifest.get("manifest_hash",""),"art_plan":generated.get("regional_art_plan",{}),"art":art,"production_pool":false,"actual_modules":assembler.modules.size() if assembler!=null else 0,"actual_enemies":enemies.size(),"actual_chests":chests.size(),"actual_boss":is_instance_valid(boss)}
+
+func get_joint_recoil_snapshot() -> Dictionary:
+	var result := get_regional_art_snapshot()
+	var collisions: Array = []
+	if assembler != null and assembler.has_method("joint_collision_snapshot"):
+		collisions = assembler.call("joint_collision_snapshot")
+	result["joint_collisions"] = collisions
+	result["joint_candidate"] = generated.manifest.get("joint_recoil_profile",false)
+	var expected: Array[String] = []
+	for program: Dictionary in result.art_plan.get("joint_modules",[]):
+		for volume: Dictionary in program.get("terrain_bodies",[]):
+			expected.append(str(program.node_id).replace("/","_")+":"+str(volume.source_role))
+	var physical: Array[String] = []
+	for collider: Dictionary in collisions:
+		if collider.get("disabled",true) or collider.get("one_way",true) or collider.get("collision_layer",0)!=1 or collider.get("build_mode",-1)!=CollisionPolygon2D.BUILD_SOLIDS:
+			continue
+		physical.append(str(collider.module)+":"+str(collider.source.get("source_role","")))
+	var painted: Array[String] = []
+	for volume: Dictionary in result.art.get("joint_terrain",[]):
+		painted.append(str(volume.module_id).replace("/","_")+":"+str(volume.source_role))
+	expected.sort(); physical.sort(); painted.sort()
+	var unique: Dictionary = {}
+	for identity: String in expected: unique[identity]=true
+	result["joint_ready"] = result.ready and result.joint_candidate and not expected.is_empty() and unique.size()==expected.size() and physical==expected and painted==expected
+	return result
 
 func _physics_process(delta: float) -> void:
 	super._physics_process(delta)
@@ -131,6 +186,7 @@ func _physics_process(delta: float) -> void:
 
 func _context_sign(at: Vector2, text: String, radius: float) -> void:
 	var label := _sign(at, text, Color("e7d9ac"))
+	label.add_theme_font_override("font",preload("res://assets/fonts/foundry_notes.otf"))
 	label.add_theme_font_size_override("font_size", 11)
 	label.add_theme_color_override("font_shadow_color", Color("182c29"))
 	label.add_theme_constant_override("shadow_offset_x", 1)

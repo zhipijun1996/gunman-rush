@@ -1,0 +1,13 @@
+# recommended-growth-v10-02：窄静态 Router telemetry 独评
+
+**有限CONTINUE一次真实复采；不倒签01 FAIL，不签02 native/strict成功。** 只读patch、before/after、当前Router与严格reader，并对原01封存源作逐byte比较；没有运行引擎或改生产/driver/reader。
+
+结论是这次属于真实观测修复，不是从结果编造accepted方向，也不是放松浮点断言。InputRouter.request_action同步检查拒绝条件，成功时sequence加一、append包含direction.normalized()的packet，随后直接return true；成功路径无await/信号/消费操作。TRACE在其返回后立即只读_queue.back()，因此当前权威语义下该字典就是本次追加的packet。weapon_skill即使先取消旧shoot，也会最后append本次动作，依赖仍成立。
+
+调用仍一次、参数仍是原kind/aim；input_aim在调用前独立保存caller意图。实际direction、type、sequence、epoch均来自真实packet，未重新normalize输入猜结果、未看shot回填、未改队列或controller。局部row.aim赋值不改actual字典。拒绝分支保原input方向与queued=false；成功却队列空时明确fail，不制造成功记录。
+
+重要语义：queued=true只是Router入队成功，不是Shoot接受或子弹生成；consume_actions仍会按epoch/年龄淘汰或同类合并。新记录不绕过这些规则，原reader仍要求同tick/queued且request.aim exact==shot.aim。若后续再次正规化产生另一种真实差异，reader仍会严格拒绝，不允许在本修复里补容差或伪造末端方向。
+
+独立字节核验：main TRACE与after一致；移除request整个函数后before/after全部字节相同，全部旧函数/断言保留；当前Router和reader分别与原01 selected-source逐byte相同，reader第525行exact匹配未变。before af5eabea…304094e，after fe2a3610…08d66，完整SHA见audit。
+
+该授权仅支持以同驾驶重采新证据来检验原45度A→Router B→Shoot B链；不能把新字段倒添旧raw或重分类旧FAIL。私有_queue权威依赖已明确：若未来Router改为异步/回调式成功、return前继续追加其他packet，该假设需重审。当前静态实现不存在该情况，没必要为本次另建API/生产体系。

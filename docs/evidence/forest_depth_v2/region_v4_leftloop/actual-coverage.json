@@ -1,0 +1,95 @@
+{
+  "scope": "Headless actual16 canonical route coverage only, not player discovered paths or all ecology engagement",
+  "total": 16,
+  "cavity_route_count": 7,
+  "cavity_map2_count": 7,
+  "cache1_true_claim_cases": [
+    {
+      "seed": "forest-depth-hollow-00",
+      "map": 2,
+      "route": "growth",
+      "ids": [
+        "thorn_forest/map_2/clearing_cross_loop_cache"
+      ]
+    },
+    {
+      "seed": "forest-depth-hollow-00",
+      "map": 2,
+      "route": "high_return",
+      "ids": [
+        "thorn_forest/map_2/clearing_cross_loop_cache",
+        "camp_heart"
+      ]
+    }
+  ],
+  "minimum_final_HP": 2.0,
+  "map2_change_mind": [
+    {
+      "seed": "forest-depth-hollow-00",
+      "events": [
+        {
+          "actual_next_edge": "borer_crown_descent",
+          "chosen_goal": "camp",
+          "decision_node": "C",
+          "kind": "actual_route_goal_changed",
+          "leg": 9,
+          "original_next_edge": "cavity_prep",
+          "planned_goal": "gate_ready",
+          "position": [
+            1029.98046875,
+            281.925231933594
+          ],
+          "supports": [
+            "boss_approach",
+            "hollow__cavity_exit"
+          ],
+          "tick": 469
+        }
+      ],
+      "route": [
+        "arrival_reading",
+        "west_to_belly",
+        "belly_borer_access",
+        "borer_crossing",
+        "borer_crown_descent",
+        "lower_in",
+        "inner_recovery",
+        "belly_to_west",
+        "west_north",
+        "camp_north_out"
+      ]
+    },
+    {
+      "seed": "forest-depth-hollow-02",
+      "events": [
+        {
+          "actual_next_edge": "borer_crown_descent",
+          "chosen_goal": "camp",
+          "decision_node": "C",
+          "kind": "actual_route_goal_changed",
+          "leg": 7,
+          "original_next_edge": "cavity_prep",
+          "planned_goal": "gate_ready",
+          "position": [
+            1029.98046875,
+            281.925231933594
+          ],
+          "supports": [
+            "boss_approach",
+            "hollow__cavity_exit"
+          ],
+          "tick": 425
+        }
+      ],
+      "route": [
+        "arrival_reading",
+        "west_to_belly",
+        "belly_borer_access",
+        "borer_crossing",
+        "borer_crown_descent",
+        "lower_in",
+        "camp_inner_out"
+      ]
+    }
+  ]
+}

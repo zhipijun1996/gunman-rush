@@ -1,0 +1,13 @@
+diff --git a/tools/verify_forest_browser.py b/tools/verify_forest_browser.py
+index c3024dda..3b771d3f 100644
+--- a/tools/verify_forest_browser.py
++++ b/tools/verify_forest_browser.py
+@@ -54,7 +54,7 @@ def locate(path: Path, phrase: str):
+         # This never substitutes a fixed click position or bypasses text matching.
+         original = Image.open(path)
+         width,height=original.size
+-        boxes=[(int(width*.909),int(height*.004),int(width*.997),int(height*.093)),(int(width*.84),0,width,int(height*.1)),(int(width*.84),int(height*.075),width,int(height*.21)),(int(width*.84),int(height*.82),width,height)]
++        boxes=[(int(width*.899),int(height*.104),int(width*.985),int(height*.171)),(int(width*.909),int(height*.004),int(width*.997),int(height*.093)),(int(width*.84),0,width,int(height*.1)),(int(width*.84),int(height*.075),width,int(height*.21)),(int(width*.84),int(height*.82),width,height)]
+         for index,box in enumerate(boxes):
+             crop=original.crop(box).resize(((box[2]-box[0])*4,(box[3]-box[1])*4)).convert("L")
+             for style,processed in (("gray",crop),("binary",ImageOps.invert(crop.point(lambda value:255 if value>180 else 0)))):

@@ -1,0 +1,21 @@
+# S2真实失败与有限高跳驾驶候选
+
+准确S2 6adc5ff30515d7adaf598d5bbba0268d42af44f4，选定run39200142616、attempt1终态FAILURE；parallel job117891990565失败，core失败，deploy/public跳过，publisher ci_failed/live_verified=false。prepare、Web、Windows及serial18各有自己的成功API范围，不代全89、当前80或发布。
+
+## 远端证据实际取得范围
+
+普通annotation指向forest-depth-region原80中的case33：forest-depth-hollow-04/图1/growth。唯一一次正常gh下载parallel artifact12165440604失败403（exit1、0.677秒、无文件），API摘要a80c6b0d1f1a8de8ea6950464a66ec90526567687f2a905b2c76fa1a8b8e2f06及32,680,189B只作身份元数据，不是假装ZIP已取或原phase/内层raw已审。stdout/stderr所有URL写入前已删，原SAS未复制；没有重试或绕过。首轮取消空数组/两请求记录与S1失败仍是历史原件，未改写。
+
+## 本地真实旧失败和新策略
+
+干净原驾驶单case reproduce_seed04_growth01：strictFAIL、source_stable，8.675秒；实际leg13/canopy空气动作中玩家HP0/run ended。原trace SHA a592cf48ba431742ccef3dc9a16f23ccfe75bd4fb9ccb1733032a3bf2a427add与S2提交Git字节/已存before_trace一致。原失败仍保存，不能被后来的策略冲掉。
+
+高跳候选 reproduce_seed04_growth_highlaunch01：同seed/map/route，正常输入策略改为较高起跳，单例strictPASS/source_stable，10.180秒、末HP5。其trace SHA f5a143d2e3671e6ba4c970c11c0b9ea054a9ba2158906984a17b514730372e94单独保存，不叫S2原CI source，也不叫已提交S3。当前生产scripts/scenes/resources/config/assets/project/export相对S2无差异；这是一条测试driver候选，不是修改Player、敌人或几何的游戏修复。后续完整原80/600秒已实际FAIL(timeout)：59例完成严格通过，60th请求中断、其余合计21例未验。正式外层600.167秒超时，见LOCAL80_TIMEOUT_AND_DIAGNOSTICS.md；本包原单例原件不回填整组成功，也不复制59份巨型raw。
+
+noR反事实以原实际前缀进入，真实fullJ→H无R也成功接收，原runner/capture/receipt/native日志保留。该段不能称RH必须反冲；R最多是可较快的选择。没有通过移怪/改几何掩盖反例。局部noR成功不认证所有相位、整80或上层路线对玩家有独立价值，父任务REVISE仍在。
+
+## 便携边界
+
+s2-failure-candidates02.zip保存普通API/annotation、脱敏下载收据、旧单case失败、新高跳单case及noR原件、两套明确SHA的driver文本。原receipt/capture/log哈希逐项核对，ZIP内外逐成员SHA完整读回。publisher只保存终态身份字段的明确派生摘要：commit/run/phase/ci_status等，另记private原路径、原SHA和字节；不复制live checkpoint、事件或可能签名last_error。
+
+原release02_skeleton已保存的43/1231审查仍属于S2提交；它不自动覆盖现在多出的候选driver。所有S1已提交ZIP仅引用，不覆盖。新包不修改tracked，不重跑引擎/测试/CI；下载只按授权正常尝试一次。后续完整80或S3/CI终态必须另收真实原报告，不向本包回填PASS或把S2 failure改成成功。

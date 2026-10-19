@@ -1,0 +1,22 @@
+{
+  "argv": [
+    "bash",
+    "tools/godot.sh",
+    "--headless",
+    "--fixed-fps",
+    "60",
+    "--path",
+    ".",
+    "--script",
+    "tests/plains_room_grammar_runner.gd",
+    "--",
+    "--template=gear_relay",
+    "--contracts-only",
+    "--verify-failure"
+  ],
+  "exit_code": 1,
+  "seconds": 3.2402794120007457,
+  "expected_nonzero": true,
+  "marker": true,
+  "scope": "actual retained intentional refusal; not a route pass"
+}

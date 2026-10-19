@@ -1,0 +1,256 @@
+[
+  {
+    "run_id": 39229184873,
+    "before": {
+      "event": "pull_request",
+      "headSha": "2cb6272b6c7cdda1dbc3f45b3aac1759a9201ea8",
+      "jobs": [
+        {
+          "completedAt": "0001-01-01T00:00:00Z",
+          "conclusion": "",
+          "databaseId": 117982732254,
+          "name": "prepare",
+          "startedAt": "2026-10-19T09:19:28Z",
+          "status": "in_progress",
+          "steps": [
+            {
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "status": "completed"
+            },
+            {
+              "conclusion": "",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "status": "in_progress"
+            },
+            {
+              "conclusion": "",
+              "name": "Select absolute external toolchain path",
+              "number": 3,
+              "status": "pending"
+            },
+            {
+              "conclusion": "",
+              "name": "Run actions/setup-python@v5",
+              "number": 4,
+              "status": "pending"
+            },
+            {
+              "conclusion": "",
+              "name": "Check committed quality evidence before toolchain work",
+              "number": 5,
+              "status": "pending"
+            },
+            {
+              "conclusion": "",
+              "name": "Check exact portable frozen assets before toolchain work",
+              "number": 6,
+              "status": "pending"
+            },
+            {
+              "conclusion": "",
+              "name": "Run actions/cache/restore@v4",
+              "number": 7,
+              "status": "pending"
+            },
+            {
+              "conclusion": "",
+              "name": "Run actions/cache/restore@v4",
+              "number": 8,
+              "status": "pending"
+            },
+            {
+              "conclusion": "",
+              "name": "Exercise real downloader recovery and terminal failures",
+              "number": 9,
+              "status": "pending"
+            },
+            {
+              "conclusion": "",
+              "name": "Install verified toolchain (resumable bounded downloads)",
+              "number": 10,
+              "status": "pending"
+            },
+            {
+              "conclusion": "",
+              "name": "Run actions/cache/save@v4",
+              "number": 11,
+              "status": "pending"
+            },
+            {
+              "conclusion": "",
+              "name": "Run actions/cache/save@v4",
+              "number": 12,
+              "status": "pending"
+            },
+            {
+              "conclusion": "",
+              "name": "Run actions/upload-artifact@v4",
+              "number": 13,
+              "status": "pending"
+            },
+            {
+              "conclusion": "",
+              "name": "Run python3 tools/foundry.py build --count 24 --promote",
+              "number": 14,
+              "status": "pending"
+            },
+            {
+              "conclusion": "",
+              "name": "Run bash tools/godot.sh --headless --path . --script tools/foundry_export_stamp.gd",
+              "number": 15,
+              "status": "pending"
+            },
+            {
+              "conclusion": "",
+              "name": "Run actions/upload-artifact@v4",
+              "number": 16,
+              "status": "pending"
+            },
+            {
+              "conclusion": "",
+              "name": "Post Run actions/checkout@v4",
+              "number": 32,
+              "status": "pending"
+            }
+          ],
+          "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/39229184873/job/117982732254"
+        }
+      ],
+      "status": "in_progress"
+    },
+    "command_exit": 0,
+    "reason": "Duplicate automatic full run; explicit same-source deployment run39229199208 selected",
+    "stdout": "\u2713 Request to cancel workflow 39229184873 submitted.\n",
+    "stderr": ""
+  },
+  {
+    "run_id": 39229170916,
+    "before": {
+      "event": "push",
+      "headSha": "2cb6272b6c7cdda1dbc3f45b3aac1759a9201ea8",
+      "jobs": [
+        {
+          "completedAt": "0001-01-01T00:00:00Z",
+          "conclusion": "",
+          "databaseId": 117982687316,
+          "name": "prepare",
+          "startedAt": "2026-10-19T09:19:21Z",
+          "status": "in_progress",
+          "steps": [
+            {
+              "conclusion": "success",
+              "name": "Set up job",
+              "number": 1,
+              "status": "completed"
+            },
+            {
+              "conclusion": "",
+              "name": "Run actions/checkout@v4",
+              "number": 2,
+              "status": "in_progress"
+            },
+            {
+              "conclusion": "",
+              "name": "Select absolute external toolchain path",
+              "number": 3,
+              "status": "pending"
+            },
+            {
+              "conclusion": "",
+              "name": "Run actions/setup-python@v5",
+              "number": 4,
+              "status": "pending"
+            },
+            {
+              "conclusion": "",
+              "name": "Check committed quality evidence before toolchain work",
+              "number": 5,
+              "status": "pending"
+            },
+            {
+              "conclusion": "",
+              "name": "Check exact portable frozen assets before toolchain work",
+              "number": 6,
+              "status": "pending"
+            },
+            {
+              "conclusion": "",
+              "name": "Run actions/cache/restore@v4",
+              "number": 7,
+              "status": "pending"
+            },
+            {
+              "conclusion": "",
+              "name": "Run actions/cache/restore@v4",
+              "number": 8,
+              "status": "pending"
+            },
+            {
+              "conclusion": "",
+              "name": "Exercise real downloader recovery and terminal failures",
+              "number": 9,
+              "status": "pending"
+            },
+            {
+              "conclusion": "",
+              "name": "Install verified toolchain (resumable bounded downloads)",
+              "number": 10,
+              "status": "pending"
+            },
+            {
+              "conclusion": "",
+              "name": "Run actions/cache/save@v4",
+              "number": 11,
+              "status": "pending"
+            },
+            {
+              "conclusion": "",
+              "name": "Run actions/cache/save@v4",
+              "number": 12,
+              "status": "pending"
+            },
+            {
+              "conclusion": "",
+              "name": "Run actions/upload-artifact@v4",
+              "number": 13,
+              "status": "pending"
+            },
+            {
+              "conclusion": "",
+              "name": "Run python3 tools/foundry.py build --count 24 --promote",
+              "number": 14,
+              "status": "pending"
+            },
+            {
+              "conclusion": "",
+              "name": "Run bash tools/godot.sh --headless --path . --script tools/foundry_export_stamp.gd",
+              "number": 15,
+              "status": "pending"
+            },
+            {
+              "conclusion": "",
+              "name": "Run actions/upload-artifact@v4",
+              "number": 16,
+              "status": "pending"
+            },
+            {
+              "conclusion": "",
+              "name": "Post Run actions/checkout@v4",
+              "number": 32,
+              "status": "pending"
+            }
+          ],
+          "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/39229170916/job/117982687316"
+        }
+      ],
+      "status": "in_progress"
+    },
+    "command_exit": 0,
+    "reason": "Duplicate automatic full run; explicit same-source deployment run39229199208 selected",
+    "stdout": "\u2713 Request to cancel workflow 39229170916 submitted.\n",
+    "stderr": ""
+  }
+]

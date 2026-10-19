@@ -1,0 +1,25 @@
+{
+  "status": "accept",
+  "reviewer": "root/forest_runtime_review",
+  "independent": true,
+  "scope": "test-owned region fixture fallback-audio lifecycle cleanup only; not full regression, formal gameplay, audio quality, release or device acceptance",
+  "reviewed_commit": "75c6cc3c018015bbbf31bcf01d17466a2565dfb3",
+  "sources": {
+    "tests/plains_region_trace.gd": "714ca6f12169530b84ce2363a8830da4905f307ad9d533790977f665afdc843b",
+    "tests/plains_region_runner.gd": "a1cc108ef4281b6c1d14d182eda81b4219b12544b04859bc06f538358837e0d0",
+    "tests/audio_teardown.gd": "b2ff397c59cb5e4d7014b27f540e73b0c3127ebf4e0352ad7f01856bf90f36da",
+    "tools/run_plains_region_tests.py": "ea5f0a4488c1b542694069e961f33d0c4a0ad9e26ecdea77e7e4b01a367052bd"
+  },
+  "proposal_sha256": "a0a93fb2a34e8e50b88f53ce079c833cf8457da5f62730a17c179217d7a581ed",
+  "engine_started": false,
+  "findings": [
+    "Read full proposal.patch, applied tracked two-file diff, existing AudioTeardown implementation, original trace/runner behavior, source_identity/results and raw normal/verbose logs. Applied change matches the narrow proposal: preload helper, cleanup before replacing a previous world, cleanup at three successful route tails, and final runner cleanup for early-return residual worlds.",
+    "All original route actions, positions, input drivers, resource checks, hazard/body-sweep checks, assertions, early failures and actual journey/tutorial summary markers remain. Cleanup occurs after observation or at fixture replacement, never mid-route. It does not reset health/ammo/H, warp the player, alter enemy/terrain state, skip a fixture or convert a failed route into a completed route.",
+    "Cleanup captures actual owned fallback playback weakrefs, stops voices and detaches streams before free, then waits conditionally for those exact backends. Deadline remains1000ms, measured from the receipt. A false result invokes original check callback, increments failure count, and yields FAILED>0/nonzero runner exit; replacement additionally returns false immediately. Ignoring the returned bool at a completed route tail does not suppress failure because original failure counters are already updated.",
+    "Runner final cleanup covers worlds left alive by early returns. It does not add missing journey markers; wrapper still rejects missing physical completion even if cleanup itself succeeds. Invalid/already-freed worlds return true and do not fabricate a release assertion or route completion.",
+    "Raw baseline_verbose_02 has the original66/0 functional result but actual OggPacketSequence/AudioStreamOggVorbis/AudioStreamPlaybackOggVorbis/OggPacketSequencePlayback leaks and bell.ogg resources at exit. baseline_verbose first attempt was clean and remains a timing-sensitive observation, not cancellation of the failed baseline.",
+    "Raw candidate verbose and normal both preserve3969ticks/8shots/safe=true and original66 assertions, adding exactly one actual release assertion for67/0. Both receipts name one actual bell.ogg playback backend and report release after19ms/64ms, with clean native exit. This is actual nonempty-owner evidence, not an empty weakref list or fixed delay. Logs identify Godot4.6.3.stable.official.7d41c59c4; no different-engine evidence is inferred.",
+    "Original two runner entry modes, full28 fixture inventory, all prior checks, per-fixture120s, whole-ledger1500s, strict ERROR/leak rejection and failure exit remain unchanged. No verification wrapper or shared playback guard was relaxed. Original full-region failure log and intermittent baseline rejection remain preserved.",
+    "Only source/evidence review performed by this reviewer, no parallel Godot run and no tracked edits. Single-fixture candidate success supports the cleanup mechanism but is not proof of the full migrated region suite; root must complete the original full rerun and report actual terminal status before claiming full regression."
+  ]
+}

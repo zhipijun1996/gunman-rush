@@ -1,0 +1,67 @@
+{
+  "candidate": true,
+  "scope": "exact chunk transport; not aesthetic/full-release acceptance",
+  "cases": [
+    {
+      "case": "228 original gzip chunks reconstruct byte-identical full PCK",
+      "result": {
+        "scope": "exact PCK reconstruction for static Pages transport",
+        "source_commit": "2f25083da11da11604a3535a2feae20d119ac001",
+        "build_id": "e9d981beb2bb",
+        "pack": "index.e9d981beb2bb.pck",
+        "pack_bytes": 119396160,
+        "pack_sha256": "e9d981beb2bb0a0be1dc86f87963b69a0b984d9f5b8fc8412aac401734079558",
+        "reconstructed": true,
+        "failed": 0
+      }
+    },
+    {
+      "case": "already-existing correct PCK verifies without rewrite",
+      "result": {
+        "scope": "exact PCK reconstruction for static Pages transport",
+        "source_commit": "2f25083da11da11604a3535a2feae20d119ac001",
+        "build_id": "e9d981beb2bb",
+        "pack": "index.e9d981beb2bb.pck",
+        "pack_bytes": 119396160,
+        "pack_sha256": "e9d981beb2bb0a0be1dc86f87963b69a0b984d9f5b8fc8412aac401734079558",
+        "reconstructed": false,
+        "failed": 0
+      }
+    },
+    {
+      "case": "standalone sparse helper has no repository-module dependency",
+      "exit_code": 0
+    },
+    {
+      "case": "bad_chunk",
+      "rejected": true,
+      "reason": "Compressed chunk byte count differs"
+    },
+    {
+      "case": "bad_full_pack",
+      "rejected": true,
+      "reason": "Existing full PCK differs from cache contract"
+    },
+    {
+      "case": "bad_build_id",
+      "rejected": true,
+      "reason": "Pack digest and build ID disagree"
+    },
+    {
+      "case": "unsafe_pack",
+      "rejected": true,
+      "reason": "Unsafe or unexpected pack name"
+    },
+    {
+      "case": "bad_chunk_sha",
+      "rejected": true,
+      "reason": "Chunk content SHA256/length differs"
+    },
+    {
+      "case": "bad_full_pack_sha",
+      "rejected": true,
+      "reason": "Existing full PCK differs from cache contract"
+    }
+  ],
+  "failed": 0
+}

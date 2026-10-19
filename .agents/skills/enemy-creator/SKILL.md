@@ -5,13 +5,17 @@ description: 设计或实现新敌人及实质行为改造；不用于单纯修�
 
 # enemy-creator
 
+## 机制价值先于扩产（FOREST-DEPTH-02）
+
+使用[黄金玩法假设对照](../../../docs/quality/review_method.md#黄金推广前玩法假设对照)：先比较真正不同的玩家体验假设，再在同条件真实消费者上记录目的打法、最便宜退化打法与关键动作／对象消融。由不同作者在原黄金审查阶段作继续／修改／淘汰决定，整合只消费被接受的具体机制范围。不得用技术通过、阶段编号、Hash、动作计数或“G5尚待玩家”跳过此处的专家设计淘汰；仍不能把专家判断签成玩家认可。共享组件可保留，缺少新增判断的候选允许删除；失败只阻断其后继。
+
 ## 触发与边界
 
 设计或实现新敌人及实质行为改造；不用于单纯修正已有敌人拼写。 从仓库根目录调用 `$enemy-creator`。使用 [总门槛](../../../docs/development_quality.md)；重要内容由 game-quality-gate 建立一次任务，专业技能补充同一记录，不重复执行共用阶段。
 
 ## 输入与依赖
 
-读取 [AGENTS](../../../AGENTS.md)、[实际状态](../../../docs/current_state.md)、[handoff](../../../docs/handoff.md)、[架构](../../../docs/architecture.md)、[验收](../../../docs/acceptance_tests.md) 和相关最新设计。输入用户目标、基线完整 SHA、任务 ID、内容版本、受影响路径、正式消费者、已知失败与前置能力。缺信息先记录 unverified，独立可逆工作继续；重大创意不可伪称用户确认。
+读取当前AGENTS及当前状态；按任务消费者读取相关设计与架构，保留目标、完整SHA、任务/内容版本、路径、已知失败和能力来源；缺证据写unverified。
 
 ## 阶段流程与交付物
 
@@ -19,6 +23,7 @@ A / G0 敌人策划：Enemy Design Sheet 写名称/背景/地区、战斗职责�
 B / G1 灰盒：复用 [EnemyDefinition](../../../scripts/enemies/enemy_definition.gd)、[AI](../../../scripts/enemies/enemy_patrol_ai.gd)、[Motor](../../../scripts/enemies/enemy_motor.gd) 与既有 Health/[DamagePolicy](../../../scripts/damage/frame_damage_policy.gd)。让真实输入和弹体产生攻击/命中/死亡；含暂停、中断、无目标及失败反例，不旁路正式伤害。
 C / G2 美术动作：用 art-director 区域母版和 animation-vfx 状态表，按需求完成待机/移动/预警/攻击/恢复/受伤/死亡；锚点、连续转向和动作过渡需正常速度录像，无统一帧数门槛。
 D / G1–G3 遭遇：平地、多平台、落差、机关与其他敌人组合；写生成区域/机制标签、禁用组合、安全空间、同时压力预算。检查镜头外攻击、出口堵塞和落点公平性。
+从实际接敌函数逐项核距离、视线、目标保护区、并发上限与落地等前提：敌人允许生成，不等于它能在拟定观察岸发动攻击。站位无攻击时先记录哪项真实谓词拒绝；不要先移动敌人、加射程或削弱安全保护。普通弹、钩头与身体各按实际形状扫掠，中心射线可通不代签可射杀。
 E / G2–G3 反馈：动画粒子、命中/落空、声音、死亡与掉落反馈对应已接受事件；死亡只结算一次，卸载取消旧请求。
 F / G3–G5 集成：写正式场景/实例/生成池路径和许可证据；通过相关门槛后才入正式随机池。交可玩场景、设计卡、配置、正式运行录像及验收报告。
 
@@ -35,14 +40,6 @@ F / G3–G5 集成：写正式场景/实例/生成池路径和许可证据；通
 采用 [通用审查方法](../../../docs/quality/review_method.md) 的不变量与对照/变形测试，覆盖实际绘制与正式消费者；用户反馈是回归样本，不是发现问题的唯一列表。
 
 观察新的操作价值、预警可读性、可反制窗口、动画自然性、材质光照、声音和组合公平性。gameplay-reviewer 比较设计/实际，玩家确认趣味和表现，设备测量单列。
-
-## 准入退出与返工
-
-按 [policy](../../../docs/quality/policy.json) 的相关 G0–G5 执行。进入一阶段前上一相关阶段通过、输入与消费者明确；退出须专用模板的可证伪判据及对应证据成立。设计失败退 G0，操作/公平失败退 G1，表现失败退 G2，接入/状态失败退 G3；修复后重跑受影响门槛并复审。保留失败原件，不删除测试/降标。依赖阻塞写 blocked，缺审查写 review，缺真机写 awaiting-device。
-
-## 完成与证据
-
-使用 [质量报告](../../../docs/templates/quality_gate_acceptance.md) 和 docs/quality/records/<task_id>.json，逐项记录 design/technical/formal_integration/visual/animation/audio_vfx/gameplay/performance/independent_review/device/player_acceptance。只允许 passed/failed/unverified/not_applicable（有理由）；证据需路径、SHA256、提交/内容版本、观察和来源。技术通过不能宣称完整内容完成；所有适用条件具备才可 done。本技能文档本身不提供任何内容的 PASS 或用户认可。
 
 ## V3实证：从生态缺口到有限正式遭遇
 
@@ -71,3 +68,17 @@ F / G3–G5 集成：写正式场景/实例/生成池路径和许可证据；通
 [独立有限试玩审查](../../../docs/evidence/region_production_v3/ecology_admission/README.md)将有条件接受与后续default复验分开。
 条件未补齐不得改写原REJECT；有限runtime候选可保持review交试玩，但不代签G5、用户、设备、商业品质或整区生态完成。
 玩法失败退回空间/AI时序与反制设计；视觉失败交art-director/animation-vfx；验收器误收交实际证据消费者修复并保留原连贯反例。
+
+## 准入退出与返工
+
+按[共同契约](../../../docs/creative_direction/README.md)及原G0–G5准入退出；设计失败RETHINK、局部REWORK、不适候选DISCARD。保留失败原件，重跑受影响检查并独立复审，不降工程门槛。
+
+## 完成与证据
+
+按[共同契约](../../../docs/creative_direction/README.md)记录原十一维、版本/SHA、消费者、实机证据和未验范围；缺审查/用户/设备不宣称完成，旧证据保留原来源。
+
+## 共同创作契约
+
+[预制作→制作→验收及版本总谱](../../../docs/creative_direction/README.md)是共同执行依据。总谱SHA变更须RETHINK并复验；交付写贡献、协作、新行为/视觉、主题冲突和实机验证。REWORK局部修复，DISCARD隔离候选；ACCEPT只限真实已验范围，审美不绕过工程红灯。
+
+历史复现按需读取[原始Skill与迁移索引](../../../docs/archive/skill_history/README.md)，不默认加载旧轮授权、PR实录或失败数字。

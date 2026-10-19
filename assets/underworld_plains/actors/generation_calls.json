@@ -1,0 +1,91 @@
+{
+  "task_id": "UNDERWORLD-PLAINS-01",
+  "real_calls": 4,
+  "calls": [
+    {
+      "tool": "image_gen.imagegen",
+      "prompt": "Create a TRANSPARENT PNG sprite asset page for a side-view 2D platform action game, matching the reference's Underworld low-detail dark fairy-tale pixel-art language. This is a game spritesheet, no scenery, labels, ground, frame, drop shadows or glow rectangles. Six isolated enemy sprite designs arranged LEFT TO RIGHT in one horizontal row, each with a large fully transparent gutter, all face RIGHT, feet at same baseline. EXACT ORDER: 1 small wind-up brass-black wren walking on two feet (patrol), 2 squat round moss-coated hopping bell frog with long folded back legs (hopper), 3 lean horned wind-up boar low to ground with two ivory horns pointing right (charger), 4 flying bell moth with clearly separate raised wings and amber eye (aerial diver), 5 stationary stout iron and bark bell sentry with a single tubular spout aimed right (sentry), 6 rooted ancient small moss bell shrine, wide visible two roots and hanging bell at top (root bell). Dark nearly black ink body masses, very restrained olive/bronze 1-pixel edge lights, pale straw eyes and readable strong silhouette. Material clusters and simplicity match the reference tile art: broad quiet dark shapes, scarce bright pixels, no dense dither, no painterly or realistic texture. Source logical pixel sizes approximately 24x24 for first five and 32x40 for shrine, crisp integer pixel clusters at export scale. Every sprite is wholly visible and not touching its neighbor. Each is a distinct enemy silhouette, preserve strict six-object left-to-right order. No platform-shaped objects or decorative props.",
+      "transparent_background": true,
+      "references": [
+        {
+          "path": "assets/style_exploration/underworld/generated/source_props.png",
+          "sha256": "a956c984f4a839f08dc7a9e6dbd5e145a348efa36221e308d964b5cb0fb8cf06"
+        },
+        {
+          "path": "assets/style_exploration/underworld/source/TileSet.png",
+          "sha256": "a369175ccef5fca5ab363f140252d1f0f38b5eafb5d541605c601ea4ac56f88c"
+        }
+      ],
+      "original": "assets/underworld_plains/actors/source_enemies.png",
+      "sha256": "befa13fcfcaa0d8192997385f7119459206485ca694f0b60c2e8fcbd9ef935f2",
+      "model": "not_exposed",
+      "tokens": "not_exposed",
+      "price": "not_exposed",
+      "observed": "Actual tool result saved unchanged, six/two/six alpha-isolated designs; prompt proportions not strictly followed",
+      "runtime_processing": "tools/prepare_underworld_actors.py, alpha>8 bbox crop/nearest scaling only; retained RGBA unchanged before resizing"
+    },
+    {
+      "tool": "image_gen.imagegen",
+      "prompt": "Transparent background production pixel-art BOSS sprite asset page for side-view 2D game. Exactly TWO isolated designs SIDE BY SIDE with wide completely transparent gutter, fully visible and no ground or scenery. Match reference UNDERWORLD style: nearly black broad silhouette masses, sparse olive moss, antique bronze fine edges, tiny pale straw accents, restrained low detail chunky pixels and flat quiet planes, NOT painted or high-detail realistic art. LEFT: a bellstrider mini-boss, a chunky low ancient bell wagon on exactly two large circular wheels, square iron box body, thin arched bell hood, central hanging old bronze bell in a dark aperture, worn moss corners; wheels clearly separated from body for future overlay animation, side view facing RIGHT, width:height about 1.3:1. RIGHT: Windkeeper giant quadruped bell automaton boss, four sturdy planted legs and wide body (feet all aligned), forest-dark armor with only thin moss rim, asymmetrical taller bell-tower head facing RIGHT; a large visible dark circular core aperture in the mid-body with a warm amber bell, four clear mechanical leg shapes, no humanoid appearance, width:height about 1:1.3. Sparse ambient lighting from upper left, no bloom clouds, no cut-off appendages, no text, no border, no floor. Both are plainly game enemies with readable silhouette at 150-210 world-unit heights. This sprite image is BODY art; gameplay telegraphs and hazards are rendered separately. Crisp logical pixel clusters, no anti-aliased outline.",
+      "transparent_background": true,
+      "references": [
+        {
+          "path": "assets/style_exploration/underworld/generated/source_props.png",
+          "sha256": "a956c984f4a839f08dc7a9e6dbd5e145a348efa36221e308d964b5cb0fb8cf06"
+        },
+        {
+          "path": "assets/style_exploration/underworld/source/TileSet.png",
+          "sha256": "a369175ccef5fca5ab363f140252d1f0f38b5eafb5d541605c601ea4ac56f88c"
+        }
+      ],
+      "original": "assets/underworld_plains/actors/source_bosses.png",
+      "sha256": "9f71623fe5a210f107d226e3af6584a5c29ebbe8ea84a2b40d13efd6cd85fd32",
+      "model": "not_exposed",
+      "tokens": "not_exposed",
+      "price": "not_exposed",
+      "observed": "Actual tool result saved unchanged, six/two/six alpha-isolated designs; prompt proportions not strictly followed",
+      "runtime_processing": "tools/prepare_underworld_actors.py, alpha>8 bbox crop/nearest scaling only; retained RGBA unchanged before resizing"
+    },
+    {
+      "tool": "image_gen.imagegen",
+      "prompt": "Create a transparent production pixel-art sprite asset strip. Match the exact UNDERWORLD dark fairy-tale palette/style of the reference: quiet nearly black silhouettes, sparse thin olive moss and aged bronze edges, cream accents, clean chunky logical pixels and restrained details. EXACTLY SIX completely separate objects in one horizontal row, with generous fully transparent gutters, ordered LEFT TO RIGHT: 1 a friendly repair merchant, a short cloaked traveler in muted olive hood and brown apron, small pale face, carrying a compact brass tool bag, standing side view facing right, whole feet visible; 2 a closed small ancient wooden/brass treasure chest, moss corners, clear chest silhouette and tiny amber lock, three-quarter side game view; 3 a single gold coin front view with simple engraved bell; 4 a tiny muted coral healing heart pickup, chunky bold silhouette and one cream pixel highlight; 5 an old slim dark wooden arch EXIT DOOR, moss upper rim, open black interior with very small warm light rune, upright whole threshold, no ground; 6 an isolated hanging small bronze bell with one top loop, clear readable flared rim and clapper. No floor, scenery, captions, border, base shadow, glow box, background, extra objects or tiny sparkles. Merchant source logical size about32x48; chest32x24; coin16x16; heart16x16; door32x48; bell16x24, crisp nearest-neighbor pixel clusters. Separate these six objects using transparent empty columns all the way from top to bottom. No contact between sprites. The tiny source details must remain readable when sprites are 16-70 pixels high in a game.",
+      "transparent_background": true,
+      "references": [
+        {
+          "path": "assets/style_exploration/underworld/generated/source_props.png",
+          "sha256": "a956c984f4a839f08dc7a9e6dbd5e145a348efa36221e308d964b5cb0fb8cf06"
+        }
+      ],
+      "original": "assets/underworld_plains/actors/source_items.png",
+      "sha256": "bcd00c38639eaf5c04a753995615326c73dc2dd9f618ed294c0e6c6dd92e7f03",
+      "model": "not_exposed",
+      "tokens": "not_exposed",
+      "price": "not_exposed",
+      "observed": "Actual tool result saved unchanged, six/two/six alpha-isolated designs; prompt proportions not strictly followed",
+      "runtime_processing": "tools/prepare_underworld_actors.py, alpha>8 bbox crop/nearest scaling only; retained RGBA unchanged before resizing"
+    },
+    {
+      "tool": "image_gen.imagegen",
+      "prompt": "Edit this transparent pixel-art sprite asset page. Keep BOTH sprites and their positions, extents, pixel density, dark Underworld style, colors and transparent background unchanged. Make exactly ONE local art correction on the RIGHT quadruped boss only: remove the large central hanging golden bell from its chest aperture and replace that aperture with cohesive dark curved iron armour plating, shallow bronze riveted ribs and a sparse moss edge. This chest is solid closed armour, with no bell, no glowing core, no black rectangular blank patch, no hole. The armour must follow the organically curved body outline and existing pixel-art material language, not look like an overlay rectangle. The actual moving weak point will be drawn separately by the game at its true gameplay position. Keep the RIGHT boss's four legs, tall head, small bells hanging from the head, feet, all outer silhouettes, and the LEFT wheeled bell wagon entirely as they are. No labels or new scenery. Preserve complete transparency outside both existing sprites.",
+      "transparent_background": true,
+      "references": [
+        {
+          "path": "assets/underworld_plains/actors/source_bosses.png",
+          "sha256": "9f71623fe5a210f107d226e3af6584a5c29ebbe8ea84a2b40d13efd6cd85fd32"
+        }
+      ],
+      "original": "assets/underworld_plains/actors/source_windkeeper_edit.png",
+      "sha256": "58975b9a3bf18a5503929968c9156b29dccef104b1fa9905ab3cceb7ea1560ff",
+      "model": "not_exposed",
+      "tokens": "not_exposed",
+      "price": "not_exposed",
+      "observed": "Real local edit requested; imagegen changed both drawings slightly, so only right design is consumed. Left live Bellstrider remains extracted from original source.",
+      "runtime_processing": "right alpha-isolated component crop/nearest resize; no rectangular code mask remains"
+    }
+  ],
+  "known_limits": [
+    "body sprites use state-driven pose and overlays, not complete painted frame animation",
+    "AI imposed neither uniform cells nor exact requested pixel scale; deterministic extraction required",
+    "initial alpha1 crop accepted transparent dust and exaggerated empty padding; fixed at alpha>8, before captures preserved"
+  ]
+}

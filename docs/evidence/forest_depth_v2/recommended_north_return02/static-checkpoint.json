@@ -1,0 +1,19 @@
+{
+  "scope": "Only TRACE.request observation semantics; no native run, no reader/core/driver intent changes",
+  "source_file": "tests/forest_depth_region_trace.gd",
+  "before_sha256": "af5eabea7970d94f2ee4a18a7474ef1b1a32c06fb3b1d81c988587573304094e",
+  "after_sha256": "fe2a3610f53cb7ab2f29872e6664500072d6f25a2028a8b688fda0cf6d508d66",
+  "patch_sha256": "22b9bb804af817a6f4850fe5c6c73a7d019e7201698ac95265bfba411384c66a",
+  "other_functions_byte_exact": true,
+  "fields": {
+    "input_aim": "exact caller Vector2 captured before Router processing",
+    "aim": "queued=true: actual Router._queue.back().direction; otherwise caller vector, no accepted action claimed",
+    "router_type": "actual queue packet type String",
+    "router_sequence": "actual queue packet sequence integer",
+    "router_epoch": "actual queue packet epoch integer",
+    "queued": "actual request_action return value"
+  },
+  "old_reader_unchanged": true,
+  "source_is_readonly_observation": "No queue writes/pops/consume call, no computed fake accepted direction",
+  "sample_45deg": "float32 a=.7071067690849304 -> Router b=.7071068286895752 -> Shoot normalization b; old actual projectile/shot b, no global tolerance introduced"
+}

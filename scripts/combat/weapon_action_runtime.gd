@@ -166,7 +166,7 @@ func flash(unit: Vector2, speed: float, duration: float) -> void:
 	actor().motor.start_weapon_burst(unit,speed,duration)
 func advance(delta: float) -> void:
 	pose_remaining=maxf(0,pose_remaining-delta);skill_cooldown=maxf(0,skill_cooldown-delta)
-	if not actor().router.aim_engaged:_beam_require_release=false
+	if not actor().router.aim_engaged or actor().router.aim_mode==&"grapple":_beam_require_release=false
 	for i: int in range(_fx.size()-1,-1,-1):
 		_fx[i].age+=delta
 		if _fx[i].age>fx_duration(_fx[i]):_fx.remove_at(i)
@@ -175,7 +175,7 @@ func advance(delta: float) -> void:
 		queue_redraw();return
 	age+=delta
 	var aim := actor().router.aim_direction
-	if not actor().router.aim_engaged:_beam_require_release=false
+	if not actor().router.aim_engaged or actor().router.aim_mode==&"grapple":_beam_require_release=false
 	if not aim.is_zero_approx() and actor().router.aim_mode in [&"attack",&"singularity_launch"]:direction=aim
 	if actor().router.aim_mode!=&"grapple":
 		actor().router.aim_mode=&"singularity_launch" if phase==&"singularity" else &"steer_blade" if not current_entities().is_empty() and current_entities()[0].kind==&"boomerang" else &"attack"
@@ -201,7 +201,7 @@ func advance(delta: float) -> void:
 			if age>=def.second_flash_delay:
 				blink(-direction,base_displacement()*actor().motor.weapon_motion.secondary_ratio);_pose(&"blade_throw",.13);_phase(&"idle")
 		&"beam":
-			if not actor().router.aim_engaged:
+			if not actor().router.aim_engaged or actor().router.aim_mode!=&"attack":
 				_end_beam(false)
 			else:
 				var step := minf(delta,maxf(0,def.beam_duration-_beam_elapsed))
@@ -230,7 +230,7 @@ func advance(delta: float) -> void:
 				flash(direction,base_displacement()*(def.skill_multiplier if _skill else 1)/actor().motor.tuning.shot_burst_duration,actor().motor.tuning.shot_burst_duration);_pose(&"weapon_skill");_phase(&"idle")
 	queue_redraw()
 func _end_beam(final_step: bool) -> void:
-	_beam_require_release=actor().router.aim_engaged
+	_beam_require_release=actor().router.aim_engaged and actor().router.aim_mode==&"attack"
 	if final_step:actor().motor.finish_weapon_drive()
 	else:actor().motor.stop_weapon_drive()
 	pose_remaining=0;_phase(&"idle")

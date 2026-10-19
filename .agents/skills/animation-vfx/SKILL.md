@@ -11,7 +11,7 @@ description: 角色敌人 Boss 机关动作、动画过渡、射击反馈或游�
 
 ## 输入与依赖
 
-读取 [AGENTS](../../../AGENTS.md)、[实际状态](../../../docs/current_state.md)、[handoff](../../../docs/handoff.md)、[架构](../../../docs/architecture.md)、[验收](../../../docs/acceptance_tests.md) 和相关最新设计。输入用户目标、基线完整 SHA、任务 ID、内容版本、受影响路径、正式消费者、已知失败与前置能力。缺信息先记录 unverified，独立可逆工作继续；重大创意不可伪称用户确认。
+读取当前AGENTS及当前状态；按任务消费者读取相关设计与架构，保留目标、完整SHA、任务/内容版本、路径、已知失败和能力来源；缺证据写unverified。
 
 ## 阶段流程与交付物
 
@@ -36,14 +36,6 @@ G5：用户评价动作连续性、反馈准确、操作流畅和视听可读性
 采用 [通用审查方法](../../../docs/quality/review_method.md) 的不变量与对照/变形测试，覆盖实际绘制与正式消费者；用户反馈是回归样本，不是发现问题的唯一列表。
 
 gameplay-reviewer 检查正常速度动作再逐帧定位；最终依据连续性、可读性、同步和用户手感，不靠总帧数。AI 自评不能签玩家认可。
-
-## 准入退出与返工
-
-按 [policy](../../../docs/quality/policy.json) 的相关 G0–G5 执行。进入一阶段前上一相关阶段通过、输入与消费者明确；退出须专用模板的可证伪判据及对应证据成立。设计失败退 G0，操作/公平失败退 G1，表现失败退 G2，接入/状态失败退 G3；修复后重跑受影响门槛并复审。保留失败原件，不删除测试/降标。依赖阻塞写 blocked，缺审查写 review，缺真机写 awaiting-device。
-
-## 完成与证据
-
-使用 [质量报告](../../../docs/templates/quality_gate_acceptance.md) 和 docs/quality/records/<task_id>.json，逐项记录 design/technical/formal_integration/visual/animation/audio_vfx/gameplay/performance/independent_review/device/player_acceptance。只允许 passed/failed/unverified/not_applicable（有理由）；证据需路径、SHA256、提交/内容版本、观察和来源。技术通过不能宣称完整内容完成；所有适用条件具备才可 done。本技能文档本身不提供任何内容的 PASS 或用户认可。
 
 ## 人物动作扩展（2026-10-13）
 
@@ -72,3 +64,21 @@ gameplay-reviewer 检查正常速度动作再逐帧定位；最终依据连续�
 按 [视觉合同](../../../docs/quality/visual_director_contract.md) 用 `python3 tools/visual_director.py capture --help` 采正常速度正式影片，结束后抽帧标video frame/time；实际accepted事件/资源与媒体时间对应另记，不能由截图序号虚构物理tick。`inspect --help`、`compare --help` 只辅助定位：不同审查者仍需实际看连续像素，检验静止/移动/反冲/敌预告/船载/领奖UI/暂停重入，未听音轨不签音频。
 
 交付实际参数/消费者、开关前后同镜头影片、源与事件、生命周期/帧时事实及AI情绪判断。手机缩小代理不等于真机性能或用户手感。连续两轮无实质画面改善或关键工具不可用停止相应依赖，保留失败；经验附媒体/版本/适用材质和场景范围，不把一次“更有生命力”的判断设成全区域强制粒子量。
+
+## 准入退出与返工
+
+按[共同契约](../../../docs/creative_direction/README.md)及原G0–G5准入退出；设计失败RETHINK、局部REWORK、不适候选DISCARD。保留失败原件，重跑受影响检查并独立复审，不降工程门槛。
+
+## 完成与证据
+
+按[共同契约](../../../docs/creative_direction/README.md)记录原十一维、版本/SHA、消费者、实机证据和未验范围；缺审查/用户/设备不宣称完成，旧证据保留原来源。
+
+## 共同创作契约
+
+[预制作→制作→验收及版本总谱](../../../docs/creative_direction/README.md)是共同执行依据。总谱SHA变更须RETHINK并复验；交付写贡献、协作、新行为/视觉、主题冲突和实机验证。REWORK局部修复，DISCARD隔离候选；ACCEPT只限真实已验范围，审美不绕过工程红灯。
+
+历史复现按需读取[原始Skill与迁移索引](../../../docs/archive/skill_history/README.md)，不默认加载旧轮授权、PR实录或失败数字。
+
+## Underworld试玩反馈生产补充
+
+Underworld机关复用同一功能铃图及accepted事件反馈；平台材质按独立长宽平铺。绘制纹理必须持续持有，纯headless成功不能排除GPU白块。运行 `underworld-mechanisms` 并检查真实截图像素/弹丸时间轴；失败白块与修复源分别保留。

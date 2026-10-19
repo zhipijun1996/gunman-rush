@@ -16,6 +16,8 @@ import time
 import production_loop
 
 ROOT = Path(__file__).resolve().parents[1]
+# All historical renderer consumers below are explicit test-only fixtures; formal Pixel defaults are unchanged.
+LEGACY_FIXTURE_SCOPE = "explicit_legacy_presentation_not_default"
 
 
 def print_failure_diagnostics(report, folder):
@@ -101,7 +103,7 @@ def main():
             command=['bash','tools/godot.sh','--verbose']
             if args.gpu and not negative:command+=['--rendering-method','gl_compatibility','--audio-driver','Dummy']
             else:command+=['--headless','--max-fps','60']
-            command+=['--path','.','--script','tests/plains_terrain_family_runner.gd','--','--output='+str(capture)]
+            command+=['--path','.','--script','tests/plains_terrain_family_runner.gd','--','--legacy-presentation-fixture=terrain_family','--output='+str(capture)]
             if negative:command+=['--prove-failure']
             elif args.gpu:command+=['--gpu']
             elif args.all_maps:command+=['--all-maps']
@@ -125,7 +127,8 @@ def main():
             except subprocess.TimeoutExpired:display.kill();display.wait(timeout=5)
         if display_log:display_log.close()
         report['seconds']=time.monotonic()-started
-        report['scope']='Actual source consumers/negative diagnoses; static GPU fixture is not traversal or aesthetics/device acceptance'
+        report['consumer_mode']=LEGACY_FIXTURE_SCOPE
+        report['scope']='Explicit historical presentation compatibility; actual source consumers/negative diagnoses; static GPU fixture is not traversal or aesthetics/device acceptance'
         (folder/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
     if report['status'] != 'passed':
         print_failure_diagnostics(report, folder)

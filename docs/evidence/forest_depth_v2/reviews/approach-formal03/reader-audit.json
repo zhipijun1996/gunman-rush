@@ -1,0 +1,95 @@
+{
+  "scope": "Offline real03 raw, old producer vs later reader; no engine or retrospective producer success",
+  "raw": "build/forest_depth/snapshots/approach_formal03/build/forest_depth/ecology/approach_formal03/00-approach_live_jump/capture.json",
+  "raw_sha": "0360b7962f99f667ab99d239f67be5c9c2eea1a78deedfae8d77fadbe201083a",
+  "old_reader_sha": "78b14407f92087b5d5e3ec0cacf307c8fdec6c0cad789bcd424cb8a895015bfe",
+  "new_reader_sha": "a7c06f14ce7d62d4b6ca8a42ca3c469b0b76ed475e9011991a9dac558bc21803",
+  "dependency_region_reader_sha": "6a1716b5fdc39438deb999561951b904c0ee304ca3a41bbb9415340bc08af234",
+  "old_original": {
+    "accepted": false,
+    "error": "The actual recoil burst must begin and finish before a new H"
+  },
+  "new_original": {
+    "accepted": true
+  },
+  "mutants": [
+    {
+      "name": "R_start_zero",
+      "sha": "2d227f99695e5be596988d3f8d1c2fb5a440d9139dc3e30a13d0f71d52c9d768",
+      "accepted": false,
+      "error": "The actual recoil burst must begin and finish before a new H"
+    },
+    {
+      "name": "R_end_not_zero",
+      "sha": "8503456eb234ac8d10c951471082ecac1bc55aab57aad39084e43d9ce1f90130",
+      "accepted": false,
+      "error": "The actual recoil burst must begin and finish before a new H"
+    },
+    {
+      "name": "gate_H_before_burst_complete",
+      "sha": "b4d0df1e03a16a4084fb8ffc0e4dd31e2d36930579a168f445804b0d9647ee0e",
+      "accepted": false,
+      "error": "The actual recoil burst must begin and finish before a new H"
+    },
+    {
+      "name": "R_not_first_free",
+      "sha": "93f678ec54a6e1d8f889291c50e632019268aa72e38f96633a4a686afde61acd",
+      "accepted": false,
+      "error": "Head, real body arrival, damage and first-free recoil order invalid"
+    },
+    {
+      "name": "R_free_state_hidden",
+      "sha": "5bee1c4f6c418d4823d698672b8b983f940f4ee1572089d1d3786e2bccd6a229",
+      "accepted": false,
+      "error": "Recoil must be submitted on the first actual controllable free-air step"
+    },
+    {
+      "name": "delete_body_arrival",
+      "sha": "aeb6878f68ab1d925b23cdd2eca8a0f1e678d0ec792245af686dfabdd445c912",
+      "accepted": false,
+      "error": "Real unique live head/body/Policy and one real horizontal recoil required"
+    },
+    {
+      "name": "stale_approach_epoch",
+      "sha": "909b1550163b0b9c09aa5d30a05092e85899ea80f8fceac1aabadf80c2d5a675",
+      "accepted": false,
+      "error": "Actual stable actor epoch required across the optional branch"
+    },
+    {
+      "name": "canonical_H_aim_forged",
+      "sha": "53ea12471915264d5d2330d683ac7a6b1c2e6ddb071f59f670b123f0bd11e41a",
+      "accepted": false,
+      "error": "Observed canonical aim must preserve the original requested direction"
+    },
+    {
+      "name": "delete_C_prefix_frame",
+      "sha": "9975ba1e9a4900103998bad1a00598333bf18217128e7335d9369519708b5f88",
+      "accepted": false,
+      "error": "Actual DemoApp route rejected: continuous_single_motor_frames, leg_9_full_body_support_window, leg_9_cavity_actual_C_fullsupport12, leg_9_elbow_actual_C_node_position_full12"
+    },
+    {
+      "name": "free_shot_cost",
+      "sha": "0596a8cad94653bde9c1ba5ee886842b44ba781e1e7ffceaaf5e73f458bc2c6f",
+      "accepted": false,
+      "error": "One actual air round and normal20 energy required; no injected refund"
+    },
+    {
+      "name": "duplicate_head_contact",
+      "sha": "bca567e87059ee99063788e08eae8156b8930d96b18741c991f408c5a5004145",
+      "accepted": false,
+      "error": "Real unique live head/body/Policy and one real horizontal recoil required"
+    },
+    {
+      "name": "fake_combat_credit",
+      "sha": "f1331bcbb27d4906cf44f9d88790080337cfc670a06b5f8dba113b4d33cf2d3f",
+      "accepted": false,
+      "error": "Independent accepted grapple combat credit must not become a normal-shot refund"
+    },
+    {
+      "name": "missing_preMotor_body",
+      "sha": "6f6005c7de19630cf658b470aa125efaea64d26a8e076272d39182fe8c0625e5",
+      "accepted": false,
+      "error": "Actual DemoApp route rejected: leg_9_elbow_request_not_actual_previous_motor_frame, leg_9_elbow_cast_not_fixed_actual_request_origin"
+    }
+  ]
+}

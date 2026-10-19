@@ -1,0 +1,33 @@
+from pathlib import Path
+import copy,hashlib,importlib.util,json,sys
+ROOT=Path('/workspace/gunman-rush-design');OUT=Path(__file__).resolve().parent;reader=ROOT/'tools/run_forest_depth_campaign_boss.py';raw=ROOT/'build/forest_depth/snapshots/queen_node_boundary_ab01/build/forest_depth/campaign/queen_app05/capture.json'
+sys.path.insert(0,str(ROOT/'tools'));spec=importlib.util.spec_from_file_location('current_queen_reader',reader);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+before=hashlib.sha256(reader.read_bytes()).hexdigest();base=json.loads(raw.read_text());m.validate_queen(base)
+mutations=[
+ ('remove_inputs',lambda d:d['queen_combat'].__setitem__('events',[r for r in d['queen_combat']['events'] if r.get('event')!='actual_queued_input'])),
+ ('remove_boss_policy',lambda d:d['queen_combat'].__setitem__('events',[r for r in d['queen_combat']['events'] if not(r.get('event')=='policy_result' and r.get('target')=='boss')])),
+ ('all_boss_frame_hp24',lambda d:[r.__setitem__('boss_hp',24) for r in d['queen_combat']['frames']]),
+ ('all_player_frame_hp5',lambda d:[r.__setitem__('player_hp',5) for r in d['queen_combat']['frames']]),
+ ('pointer_outside',lambda d:[r.__setitem__('point',[0,0]) for r in d['pointer_events']]),
+ ('stale_schema11',lambda d:d['queen_reload']['saved'].__setitem__('weave_schema',11)),
+ ('teardown_survivor',lambda d:d['queen_teardown'].__setitem__('observed_actors_alive',[42])),
+ ('frame_old_session',lambda d:[r.__setitem__('session',-1) for r in d['queen_combat']['frames']]),
+ ('duplicate_physics_frame',lambda d:d['queen_combat']['frames'][1].__setitem__('physics_frame',d['queen_combat']['frames'][0]['physics_frame'])),
+ ('remove_player_policy',lambda d:d['queen_combat'].__setitem__('events',[r for r in d['queen_combat']['events'] if not(r.get('event')=='policy_result' and r.get('target')=='player')])),
+ ('final_health_forged',lambda d:d['queen_combat']['final'].__setitem__('player_hp',5)),
+ ('old_actor_epoch',lambda d:d['queen_reload']['after_bound'].__setitem__('actor_epoch',d['queen_reload']['before']['actor_epoch'])),
+ ('source_not_cleared',lambda d:d['queen_teardown'].__setitem__('shot_source_cleared',False)),
+ ('wrong_frame_stage_epoch',lambda d:d['queen_combat']['frames'][5].__setitem__('stage_epoch',999)),
+ ('restore_field_forged',lambda d:d['queen_reload']['after_bound']['boss']['fields'][0].__setitem__('health',0)),
+ ('boundary_ability_forged',lambda d:d['before_boundary'].__setitem__('abilities',[])),
+]
+results=[]
+for name,fn in mutations:
+ changed=copy.deepcopy(base);fn(changed);error=None
+ try:m.validate_queen(changed)
+ except (AssertionError,ValueError,KeyError,TypeError,IndexError) as e:error=type(e).__name__+': '+str(e)
+ results.append({'case':name,'rejected':error is not None,'reason':error})
+receipt={'scope':'Author offline actual raw and finite16 mutations, not independent/native/design acceptance; initial3bypasses preserved in initial_probe.json','original_actual_capture_accepted':True,'native_producer_reader_sha256':hashlib.sha256((ROOT/'build/forest_depth/snapshots/queen_node_boundary_ab01/tools/run_forest_depth_campaign_boss.py').read_bytes()).hexdigest(),'current_hardened_reader_sha256':before,'raw_sha256':hashlib.sha256(raw.read_bytes()).hexdigest(),'native_rerun':False,'controls':results,'source_guard':before==hashlib.sha256(reader.read_bytes()).hexdigest(),'rejected':sum(r['rejected'] for r in results)}
+(OUT/'recheck_receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
+assert receipt['source_guard'] and all(r['rejected'] for r in results)
+print('Actual QueenApp05 capture accepted;16 mutations rejected; reader delta offline only, native unchanged')

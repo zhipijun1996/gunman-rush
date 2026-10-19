@@ -1,0 +1,68 @@
+{
+  "scope": "Exact target command development validation, NOT Harness full profile",
+  "snapshot": "/workspace/gunman-rush-design/build/forest_depth/snapshots/promotion03",
+  "checks": [
+    {
+      "name": "cold-import",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--path",
+        ".",
+        "--editor",
+        "--quit"
+      ],
+      "timeout_seconds": 90,
+      "exit_code": 0,
+      "elapsed_seconds": 25.881611913999222,
+      "strict_log_clean": true,
+      "success_pattern_found": true,
+      "source_guard": true,
+      "log_sha256": "abc832d393c5ab7b48739083d829ebf9ae02fcc5dba90fa840f3b4a0b650b193"
+    },
+    {
+      "name": "forest-campaign",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_campaign_runner.gd"
+      ],
+      "timeout_seconds": 180,
+      "exit_code": 0,
+      "elapsed_seconds": 6.575678896999307,
+      "strict_log_clean": true,
+      "success_pattern_found": true,
+      "source_guard": true,
+      "log_sha256": "ab902bdcd7a8353186ff654a140716fae5a9eba99df22a4123943a26993a115b"
+    },
+    {
+      "name": "forest-debug",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_progression_debug_runner.gd"
+      ],
+      "timeout_seconds": 180,
+      "exit_code": 0,
+      "elapsed_seconds": 5.931944045998534,
+      "strict_log_clean": true,
+      "success_pattern_found": true,
+      "source_guard": true,
+      "log_sha256": "91d5db233b89b665499e6d2eca67d75161a8a70454bb5507fa88504c3cc493a6"
+    }
+  ],
+  "passed": true
+}

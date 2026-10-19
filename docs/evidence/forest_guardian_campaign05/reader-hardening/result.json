@@ -1,0 +1,105 @@
+{
+  "scope": "Reader-only repair on immutable actual campaign05 capture; no native re-execution or retroactive producer signature",
+  "native_executed": false,
+  "raw_path": "docs/evidence/forest_guardian_campaign05/native05/capture.json",
+  "raw_sha256": "97ded5b760a3d417e9a2e649746f1cc70aa94905b4139ad8e7282fe50db69269",
+  "reader_sha256": "846d0fc7a1ea44033dfbbc70ea2c056030b0e413905f8c81ec646f151ac63526",
+  "original_accepted": true,
+  "negative_count": 14,
+  "all_rejected": true,
+  "negatives": [
+    {
+      "id": "all-combat-frame-hp32",
+      "origin": "independent review actual mutant",
+      "path": "build/forest_depth/independent/campaign05-review/all-combat-frame-hp32.json",
+      "sha256": "105751d7cdcd09bd76b759c12f9d9cdf50d1e740c6e5a574f7445649a550edc7",
+      "rejected": true,
+      "reason": "ValueError: Every captured end-physics HP must reconcile to complete Policy ledger"
+    },
+    {
+      "id": "erase-combat-router-requests",
+      "origin": "independent review actual mutant",
+      "path": "build/forest_depth/independent/campaign05-review/erase-combat-router-requests.json",
+      "sha256": "2fd3b0ef388f12ed91119c45277d56681b66885126d2866e4cf7f8f57fa805d6",
+      "rejected": true,
+      "reason": "ValueError: Actual combat Router request ledger required"
+    },
+    {
+      "id": "map2-coast-dead",
+      "origin": "independent review actual mutant",
+      "path": "build/forest_depth/independent/campaign05-review/map2-coast-dead.json",
+      "sha256": "23dcf496be3087f9ed8a7f71a0a7ae18c547681d7225b7f5972fcb9bd97d7153",
+      "rejected": true,
+      "reason": "ValueError: Every map2 coast observation must be alive within captured entry health/capacity"
+    },
+    {
+      "id": "pointer-outside-button",
+      "origin": "independent review actual mutant",
+      "path": "build/forest_depth/independent/campaign05-review/pointer-outside-button.json",
+      "sha256": "a0b421f506ae4bdd71ef8af11bb88a629754e90a497afa0b890e0125cb5c4cd0",
+      "rejected": true,
+      "reason": "ValueError: Reward pointer must be inside its actual Button rectangle"
+    },
+    {
+      "id": "accepted-shot-without-matching-aim",
+      "origin": "author causal-class reader negative, not new gameplay",
+      "rejected": true,
+      "reason": "ValueError: Every accepted ordinary shot needs its actual same-tick queued direction"
+    },
+    {
+      "id": "remove-all-grapple-inputs",
+      "origin": "author causal-class reader negative, not new gameplay",
+      "rejected": true,
+      "reason": "ValueError: Accepted H cast needs a same-tick queued grapple request"
+    },
+    {
+      "id": "remove-accepted-shots",
+      "origin": "author causal-class reader negative, not new gameplay",
+      "rejected": true,
+      "reason": "ValueError: Accepted real ordinary shots required"
+    },
+    {
+      "id": "policy-result-health-forged",
+      "origin": "author causal-class reader negative, not new gameplay",
+      "rejected": true,
+      "reason": "ValueError: Each Policy result HP/lethal must reconcile to preceding actual damage"
+    },
+    {
+      "id": "projectile-session-forged",
+      "origin": "author causal-class reader negative, not new gameplay",
+      "rejected": true,
+      "reason": "ValueError: Boss projectile damage must resolve an actually accepted shot in this actor session"
+    },
+    {
+      "id": "remove-target-motor-contact",
+      "origin": "author causal-class reader negative, not new gameplay",
+      "rejected": true,
+      "reason": "ValueError: Physical Bell arrival must match actual accepted target-specific Motor contact after H input"
+    },
+    {
+      "id": "duplicate-policy-id",
+      "origin": "author causal-class reader negative, not new gameplay",
+      "rejected": true,
+      "reason": "ValueError: Policy damage event ids must be exact and unique"
+    },
+    {
+      "id": "release-to-different-point",
+      "origin": "author causal-class reader negative, not new gameplay",
+      "rejected": true,
+      "reason": "ValueError: Press/release must target the same actual reward button"
+    },
+    {
+      "id": "coast-wrong-actor",
+      "origin": "author causal-class reader negative, not new gameplay",
+      "rejected": true,
+      "reason": "ValueError: Every coast observation must belong to actual second-map actor with finite position"
+    },
+    {
+      "id": "coast-nonfinite-position",
+      "origin": "author causal-class reader negative, not new gameplay",
+      "rejected": true,
+      "reason": "ValueError: Every coast observation must belong to actual second-map actor with finite position"
+    }
+  ],
+  "limitations": "Original05 does not record coast Motor/Policy/physics-frame fields, and does not contain OS/browser pointer events; none are inferred."
+}

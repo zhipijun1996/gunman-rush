@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "started_at": "20261019T053830.236044Z",
+  "profiles": [
+    "docs"
+  ],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "docs",
+      "argv": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "0a3cc00ef158af1536b9ecb1daa47bf5527565371cecad253c9b5b7fb9ceb008",
+      "log": "docs.log",
+      "status": "failed",
+      "exit_code": 1,
+      "failure_reason": "nonzero_exit",
+      "started_at_unix": 1792388311.2650106,
+      "ended_at_unix": 1792388311.3905602,
+      "duration_seconds": 0.126,
+      "artifact_directory": "/workspace/gunman-rush-work/build/verification/harness/20261019T053830.236044Z/artifacts/docs",
+      "reused": false
+    }
+  ],
+  "status": "failed",
+  "targeted_checks": false,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "e61e03ba4f7e0f07bd128292eae21ec734e2cd618e2c395c8636b0373363c4ab",
+  "working_files": {
+    "docs/art_foundation_v1.md": "57e5a04694cbb2457643faafe45e123a91af6c885c57517710abdb78e6196b40",
+    "docs/current_state.md": "7ce2e67829433f88013145f871dc8c295a61c753701815c4a9f4d294caa3aee5",
+    "docs/evidence/tile_map_plan_01/frame_0150.jpg": "38afef5823f3f36450f2e360504c25645eb55faf423f736fae9d9f19e163e294",
+    "docs/evidence/tile_map_plan_01/frame_0220.jpg": "ae9d4f4213d3dacc32a461ab6c39508cf5236e74c267d4136ef5f6543e1d59d5",
+    "docs/evidence/tile_map_plan_01/frame_0540.jpg": "d153ece8569f9c54987335ac8c556079aed04e69a52e4d4f06e22ffa17a6d329",
+    "docs/evidence/tile_map_plan_01/frame_0750.jpg": "9b0eb81500e65bd827cce03d751834927efe6092090bc684413b3449f7af7ecc",
+    "docs/evidence/tile_map_plan_01/frame_0990.jpg": "4b9c651c4c7ef190fa66a2f84146b4e41938dbcd73103d3015b8abe45588d44a",
+    "docs/evidence/tile_map_plan_01/frame_1230.jpg": "dde3b56262c928afe3d18908a79ca876f6d0f38565705a9cfc53e96bd5ba44fd",
+    "docs/evidence/tile_map_plan_01/observations.md": "8e4665183624227d37fe8e717902afdd9741a466fbda1dcea7fc9430ee495c24",
+    "docs/evidence/tile_map_plan_01/source.json": "471705b46997ea0c2f3fc1e3b5c501823cd2b1d9b6e338e700e75a6d07cd69c6",
+    "docs/evidence/tile_map_plan_01/user_request.txt": "2148b876aae6e25c297f050ad250997ca5243bdb1ddc0ddb64847516e20e6fda",
+    "docs/handoff.md": "1bd0d57ad8e9026593d8f9c1e4a523b691e3784e3ba49a5e3b34f77a427b8e9a",
+    "docs/quality/records/TILE-MAP-PLAN-01.json": "95fd6ce05c1ec5849aa4031b5b8ec6262d62e7190bd7293ec38e31db767afd17",
+    "docs/tasks.md": "7561ee37f51609742a014b756025a3d84df94f8077d94d6e35005373bdaad089",
+    "docs/tile_map_production_plan.md": "9553fcf20bc7175768811e84729da042ac256cd392bad84154452f0b35231780"
+  },
+  "commit": "4ee004dfda4debc27be07ea1d001fef3b32515b5",
+  "git_status": "M docs/art_foundation_v1.md\n M docs/current_state.md\n M docs/handoff.md\n M docs/tasks.md\n?? docs/evidence/tile_map_plan_01/\n?? docs/quality/records/TILE-MAP-PLAN-01.json\n?? docs/tile_map_production_plan.md",
+  "diff": "diff --git a/docs/art_foundation_v1.md b/docs/art_foundation_v1.md\nindex 9451e69..ae88afb 100644\n--- a/docs/art_foundation_v1.md\n+++ b/docs/art_foundation_v1.md\n@@ -2,6 +2,10 @@\n \n > 2026-10-19 最新用户要求；本页覆盖所有历史美术风格、母版、画面目标与地形制作方式。历史素材、截图、已失败方案不作本轮创意输入，不因已有成本继续继承。玩法、物理、资源、能力授予和存档合同仍按各自权威来源执行。\n \n+## 视频参考后的map生产顺序\n+\n+用户最新提供的瓦片教程已转为[后续Tile Map制作规划](tile_map_production_plan.md)：从同一材质家族的代表块和接口开始，补齐47态后完成材料验收场，再做横向/纵向两张手工样板，拆出小型模块库，最后接入受约束随机和正式地图。优先交付可连续拼接的草土石小包与实际合屏；关键画面与项目推论分开见[视频记录](evidence/tile_map_plan_01/observations.md)。此任务仅规划，未执行新素材/地图生产，也不以教程标题自动改成像素画。\n+\n ## 最新视觉反馈：V1色块候选被拒绝，转向饱满卡通\n \n 用户已明确反馈：“我看你的截图，感觉画风又太丑了。风格还是得想洞窟探险2或者马里奥制造2那种靠。”因此 `blob47-garden-v1` 的 SVG 色块画面停止作为风格母版，不继续改色、添小纹理或扩产。47-mask、碰撞/语义、模块卡等技术地基继续有效；此前技术通过不构成视觉认可。\ndiff --git a/docs/current_state.md b/docs/current_state.md\nindex 3c89882..cfc5643 100644\n--- a/docs/current_state.md\n+++ b/docs/current_state.md\n@@ -1,3 +1,13 @@\n+# 最新：参考瓦片视频的后续map规划已交付，生产尚未执行\n+\n+任务 `TILE-MAP-PLAN-01`。已读取用户给定B站视频的关键画面与烧录字幕，按[后续Tile Map制作规划](tile_map_production_plan.md)组织同族素材→手工样板→模块库→受约束随机。首期一套草土石，先代表块与接口，再完整47态；MAP-00材料验收场、MAP-01横向草坡石拱、MAP-02回廊井庭逐步验证，之后才拆6–8个模块和抽样Seed。\n+\n+[视频来源与观察](evidence/tile_map_plan_01/observations.md)注明43个抽样时刻及字幕方式；没有声称完整听读/逐字转录。尺寸、模块数量、地图拓扑与Seed规模是项目候选，不是视频结论。卡通画风要求和V1拒绝状态保留；本轮没有新素材、实机地图、生成器改动或Web发布。\n+\n+以下为历史记录，不覆盖本节规划边界。\n+\n+---\n+\n # 最新画风反馈：V1已被用户拒绝，转向洞窟探险2/马里奥制造2的饱满卡通\n \n 2026-10-19，用户认为已交付截图画风“太丑”，明确要求靠近《洞窟探险2》或《马里奥制造2》。V1 SVG色块方案停止扩产；47-tile、碰撞/模块语义等技术地基继续有效。新[风格规范](art_foundation_v1.md)落实厚实圆润地形、饱满草帽、清晰体积/轮廓、鲜明配色与协调道具，[方向B概念](evidence/blob47_cartoon_02/concept.png)为本轮从零图生原件；[来源与边界](evidence/blob47_cartoon_02/README.md)完整保留。\ndiff --git a/docs/handoff.md b/docs/handoff.md\nindex 232472c..3306244 100644\n--- a/docs/handoff.md\n+++ b/docs/handoff.md\n@@ -1,3 +1,13 @@\n+# 最新：参考瓦片视频的后续map规划已交付，生产尚未执行\n+\n+任务 `TILE-MAP-PLAN-01`。已读取用户给定B站视频的关键画面与烧录字幕，按[后续Tile Map制作规划](tile_map_production_plan.md)组织同族素材→手工样板→模块库→受约束随机。首期一套草土石，先代表块与接口，再完整47态；MAP-00材料验收场、MAP-01横向草坡石拱、MAP-02回廊井庭逐步验证，之后才拆6–8个模块和抽样Seed。\n+\n+[视频来源与观察](evidence/tile_map_plan_01/observations.md)注明43个抽样时刻及字幕方式；没有声称完整听读/逐字转录。尺寸、模块数量、地图拓扑与Seed规模是项目候选，不是视频结论。卡通画风要求和V1拒绝状态保留；本轮没有新素材、实机地图、生成器改动或Web发布。\n+\n+以下为历史记录，不覆盖本节规划边界。\n+\n+---\n+\n # 最新画风反馈：V1已被用户拒绝，转向洞窟探险2/马里奥制造2的饱满卡通\n \n 2026-10-19，用户认为已交付截图画风“太丑”，明确要求靠近《洞窟探险2》或《马里奥制造2》。V1 SVG色块方案停止扩产；47-tile、碰撞/模块语义等技术地基继续有效。新[风格规范](art_foundation_v1.md)落实厚实圆润地形、饱满草帽、清晰体积/轮廓、鲜明配色与协调道具，[方向B概念](evidence/blob47_cartoon_02/concept.png)为本轮从零图生原件；[来源与边界](evidence/blob47_cartoon_02/README.md)完整保留。\ndiff --git a/docs/tasks.md b/docs/tasks.md\nindex 7292428..826e9df 100644\n--- a/docs/tasks.md\n+++ b/docs/tasks.md\n@@ -4,6 +4,7 @@\n \n | ID | 阶段 | 依赖 | 状态 | 交付与验收 |\n | --- | --- | --- | --- | --- |\n+| TILE-MAP-PLAN-01 | 视频方法到后续tile map生产规划 | ART-BLOB47-CARTOON-02 | review | 来源与关键段落记录、素材范围、3张验证map、6–8模块候选及随机迁移顺序；仅规划，未造新地图 |\n | ART-BLOB47-CARTOON-02 | 向洞窟探险2/马里奥制造2饱满卡通方向重定向 | ART-BLOB47-FOUNDATION-01 | review | 用户拒绝V1视觉；1次实际图生合屏概念与新约束已交，图集/实机/新图审美未验 |\n | ART-BLOB47-FOUNDATION-01 | 从零47-tile地基、三层美术流程和可试玩候选 | — | review | 新权威覆盖旧美术；真实TileMap/模块卡/独立装饰与灯预算；21314专项零失败、独审低路20/20；PR91及build45c1a10f8767已部署；本轮用户拒绝V1画风，停止扩产，正式迁移未签 |\n | GRAPPLE-FIX-01 | 钩索射程、小跳与移动敌人一致性修复 | ACTION-BUDGET-01 | review | 最新9ffe8e7基线；231px射程/24px小跳、同帧抵达结算、真实移动目标回归与独审；用户/真机手感待验 |",
+  "untracked": "docs/evidence/tile_map_plan_01/frame_0150.jpg\ndocs/evidence/tile_map_plan_01/frame_0220.jpg\ndocs/evidence/tile_map_plan_01/frame_0540.jpg\ndocs/evidence/tile_map_plan_01/frame_0750.jpg\ndocs/evidence/tile_map_plan_01/frame_0990.jpg\ndocs/evidence/tile_map_plan_01/frame_1230.jpg\ndocs/evidence/tile_map_plan_01/observations.md\ndocs/evidence/tile_map_plan_01/source.json\ndocs/evidence/tile_map_plan_01/user_request.txt\ndocs/quality/records/TILE-MAP-PLAN-01.json\ndocs/tile_map_production_plan.md",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 1.651,
+  "jobs": 1,
+  "release": true
+}

@@ -1,0 +1,668 @@
+{
+  "reviewed_commit": "9fdf7fad08550ea0da46b59ef7126fa721571f28",
+  "inventory_differences": {
+    "exploration": {
+      "inventory": "build/forest_depth/snapshots/region_v7_movie01/build/snapshot-receipt.json",
+      "count": 2037,
+      "different": [
+        "tests/forest_depth_lift_trace.gd",
+        "tools/harness/profiles.json"
+      ],
+      "missing": []
+    },
+    "guardian": {
+      "inventory": "docs/evidence/forest_depth_v2/guardian_label_delta03/full-source-after.json",
+      "count": 2033,
+      "different": [
+        "scripts/generation/thorn_forest_region_v2.gd",
+        "tests/forest_depth_enemy_runner.gd",
+        "tests/forest_depth_lift_runner.gd",
+        "tests/forest_depth_ecology_trace.gd",
+        "tests/forest_depth_lift_trace.gd",
+        "tests/level_capability_runner.gd",
+        "tools/level_design_capture.gd",
+        "tools/run_forest_depth_enemies.py",
+        "tools/harness/profiles.json"
+      ],
+      "missing": []
+    },
+    "queen": {
+      "inventory": "docs/evidence/forest_depth_v2/queen36/inventories/actual-main-snapshot-receipt.json.gz",
+      "count": 2019,
+      "different": [
+        "scripts/generation/thorn_forest_region_v2.gd",
+        "scripts/generation/forest_hollow_trunk_geometry.gd",
+        "scripts/generation/thorn_forest_region_generator.gd",
+        "scripts/bosses/forest_boss_duel_presentation_v2.gd",
+        "scripts/demo/forest_hollow_trunk_golden.gd",
+        "scripts/demo/demo_app.gd",
+        "scripts/enemies/enemy_actor.gd",
+        "scripts/enemies/forest_enemy_definition.gd",
+        "tests/forest_depth_region_trace.gd",
+        "tests/forest_campaign_runner.gd",
+        "tests/forest_depth_enemy_runner.gd",
+        "tests/forest_hollow_trunk_runner.gd",
+        "tests/forest_depth_lift_runner.gd",
+        "tests/test_forest_vine_gate.gd",
+        "tests/forest_depth_version_runner.gd",
+        "tests/test_harness.py",
+        "tests/forest_hollow_upper_runner.gd",
+        "tests/forest_depth_ecology_trace.gd",
+        "tests/test_forest_legacy_fixture.py",
+        "tests/forest_depth_lift_trace.gd",
+        "tests/level_capability_runner.gd",
+        "tests/forest_progression_debug_runner.gd",
+        "tools/run_forest_depth_campaign_boss.py",
+        "tools/level_design_capture.gd",
+        "tools/harness.py",
+        "tools/verify_forest_browser.py",
+        "tools/run_forest_v1_regressions.py",
+        "tools/run_forest_hollow_trunk.py",
+        "tools/run_forest_hollow_upper.py",
+        "tools/run_forest_depth_region.py",
+        "tools/run_forest_depth_enemies.py",
+        "tools/harness/profiles.json"
+      ],
+      "missing": [
+        "scripts/enemies/forest_branch_leaper_presentation.gd.uid",
+        "scripts/enemies/forest_branch_leaper_presentation.gd",
+        "scripts/enemies/forest_branch_leaper_behavior.gd",
+        "scripts/enemies/forest_branch_leaper_behavior.gd.uid",
+        "scenes/enemies/forest_branch_leaper.tscn",
+        "resources/enemies/forest_branch_leaper.tres",
+        "tests/forest_depth_topology_runner.gd",
+        "tests/forest_depth_thorn_runner.gd",
+        "tests/forest_depth_thorn_trace.gd",
+        "tools/run_forest_depth_thorn.py"
+      ]
+    }
+  },
+  "raw_summary": {
+    "growth": {
+      "path": "build/forest_depth/snapshots/region_v7_movie01/build/forest_depth/region/v7-growth-movie01/00-map2-growth/capture.json",
+      "sha256": "0ce48fd69922290e731b1803d05634ab565c24b7ee318caca6150d02e98e5070",
+      "top_keys": [
+        "actual_stage_map",
+        "actual_stage_version",
+        "audio_released",
+        "boss_fight_covered",
+        "cache_claimed",
+        "claim_after",
+        "claim_before",
+        "claimed_ids",
+        "completed_legs",
+        "duplicate_after",
+        "duplicate_before",
+        "duplicate_checked",
+        "edge_tick_budget",
+        "engine",
+        "events",
+        "failures",
+        "final_snapshot",
+        "frames",
+        "gate_saved_open",
+        "gate_shape_disabled",
+        "initial_snapshot",
+        "itinerary",
+        "manifest",
+        "manual_motor_step",
+        "map_index",
+        "modal_frames",
+        "pointer_events",
+        "position_or_resource_injection",
+        "requests",
+        "route",
+        "schema_version",
+        "scope",
+        "seed",
+        "tick_budget",
+        "visited_areas"
+      ],
+      "frames": 580,
+      "first_keys": [
+        "actor_epoch",
+        "axis",
+        "enemies",
+        "energy",
+        "grounded",
+        "health",
+        "hook_state",
+        "hook_used",
+        "leg",
+        "motor_steps",
+        "phase",
+        "position",
+        "presentation_frame",
+        "process_frame",
+        "shots",
+        "stage_epoch",
+        "supports",
+        "tick",
+        "velocity"
+      ]
+    },
+    "guardian": {
+      "path": "docs/evidence/forest_depth_v2/guardian_label_delta03/capture.json.gz",
+      "sha256": "de0ebd4e109425b311004bab6fb8fa1e9e752474ccce20cfce8cb983ac80a162",
+      "top_keys": [
+        "arena",
+        "assertions",
+        "cases",
+        "comparisons",
+        "events",
+        "failures",
+        "mechanic_version",
+        "samples",
+        "scenario_selection",
+        "scope",
+        "version"
+      ],
+      "frames": 0,
+      "first_keys": []
+    },
+    "queen_H": {
+      "path": "docs/evidence/forest_depth_v2/queen36/movies/adaptive_H/capture.json.gz",
+      "sha256": "2f15004c1dae875bed498a645784e9395a35425476bd48044fc24f84b8fd5d65",
+      "top_keys": [
+        "assertions",
+        "capture_schema",
+        "cases",
+        "design_verdict",
+        "events",
+        "failures",
+        "frames",
+        "geometry",
+        "manual_motor_step",
+        "midroute_player_position_or_resource_writes",
+        "migration_speed",
+        "player_tuning_sha256",
+        "scope",
+        "selected",
+        "task_id"
+      ],
+      "frames": 1492,
+      "first_keys": [
+        "actual_last_muzzle",
+        "air_shots",
+        "axis",
+        "boss_hp",
+        "boss_position",
+        "case",
+        "core_open",
+        "energy",
+        "fields",
+        "grounded",
+        "growth",
+        "hook",
+        "hook_used",
+        "hp",
+        "knot_hp",
+        "migrations",
+        "motion_mode",
+        "motor_steps",
+        "perch",
+        "physics_frame",
+        "player",
+        "queen_motor_id",
+        "rotating_age",
+        "rotating_thread",
+        "route_phase",
+        "sampled_player",
+        "sampled_shore",
+        "severed",
+        "tick",
+        "velocity"
+      ]
+    },
+    "queen_edge": {
+      "path": "docs/evidence/forest_depth_v2/queen36/movies/edge/capture.json.gz",
+      "sha256": "8b15b0df972a8a10a28c267f063e8be1f2de7528c6fdcca433f6a95d75cfe534",
+      "top_keys": [
+        "assertions",
+        "capture_schema",
+        "cases",
+        "design_verdict",
+        "events",
+        "failures",
+        "frames",
+        "geometry",
+        "manual_motor_step",
+        "midroute_player_position_or_resource_writes",
+        "migration_speed",
+        "player_tuning_sha256",
+        "scope",
+        "selected",
+        "task_id"
+      ],
+      "frames": 1115,
+      "first_keys": [
+        "actual_last_muzzle",
+        "air_shots",
+        "axis",
+        "boss_hp",
+        "boss_position",
+        "case",
+        "core_open",
+        "energy",
+        "fields",
+        "grounded",
+        "growth",
+        "hook",
+        "hook_used",
+        "hp",
+        "knot_hp",
+        "migrations",
+        "motion_mode",
+        "motor_steps",
+        "perch",
+        "physics_frame",
+        "player",
+        "queen_motor_id",
+        "rotating_age",
+        "rotating_thread",
+        "route_phase",
+        "sampled_player",
+        "sampled_shore",
+        "severed",
+        "tick",
+        "velocity"
+      ]
+    }
+  },
+  "growth": {
+    "choices": {
+      "cache_route": 1,
+      "cavity_direction": 1,
+      "enemy_mix": 1,
+      "skeleton": 1
+    },
+    "completed_legs": [
+      {
+        "edge_id": "arrival_reading",
+        "leg": 0,
+        "position": [
+          180.0,
+          600.0
+        ],
+        "start_tick": 1,
+        "supports": [
+          "west_court"
+        ],
+        "tick": 12
+      },
+      {
+        "edge_id": "west_north",
+        "leg": 1,
+        "position": [
+          200.015853881836,
+          449.925231933594
+        ],
+        "start_tick": 13,
+        "supports": [
+          "north_court"
+        ],
+        "tick": 107
+      },
+      {
+        "edge_id": "camp_north_out",
+        "leg": 2,
+        "position": [
+          200.015853881836,
+          449.925231933594
+        ],
+        "start_tick": 108,
+        "supports": [
+          "north_court"
+        ],
+        "tick": 119
+      },
+      {
+        "edge_id": "camp_north_back",
+        "leg": 3,
+        "position": [
+          200.015853881836,
+          449.925231933594
+        ],
+        "start_tick": 120,
+        "supports": [
+          "north_court"
+        ],
+        "tick": 131
+      },
+      {
+        "edge_id": "north_borer_access",
+        "leg": 4,
+        "position": [
+          337.98486328125,
+          381.925231933594
+        ],
+        "start_tick": 132,
+        "supports": [
+          "borer_access_middle"
+        ],
+        "tick": 182
+      },
+      {
+        "edge_id": "north_borer_access",
+        "leg": 5,
+        "position": [
+          354.984252929688,
+          281.925231933594
+        ],
+        "start_tick": 183,
+        "supports": [
+          "hollow__cavity_observe"
+        ],
+        "tick": 206
+      },
+      {
+        "edge_id": "north_borer_access",
+        "leg": 6,
+        "position": [
+          354.984252929688,
+          281.925231933594
+        ],
+        "start_tick": 207,
+        "supports": [
+          "hollow__cavity_observe"
+        ],
+        "tick": 218
+      },
+      {
+        "edge_id": "borer_crossing",
+        "leg": 7,
+        "position": [
+          1029.98315429688,
+          371.925231933594
+        ],
+        "start_tick": 219,
+        "supports": [
+          "boss_approach",
+          "hollow__cavity_exit"
+        ],
+        "tick": 378
+      },
+      {
+        "edge_id": "borer_cache",
+        "leg": 8,
+        "position": [
+          1099.95678710938,
+          371.925231933594
+        ],
+        "start_tick": 379,
+        "supports": [
+          "boss_approach",
+          "hollow__cavity_exit"
+        ],
+        "tick": 405
+      },
+      {
+        "edge_id": "cache_borer_back",
+        "leg": 9,
+        "position": [
+          1030.04284667969,
+          371.925231933594
+        ],
+        "start_tick": 406,
+        "supports": [
+          "boss_approach",
+          "hollow__cavity_exit"
+        ],
+        "tick": 443
+      },
+      {
+        "edge_id": "cavity_prep",
+        "leg": 10,
+        "position": [
+          1299.95385742188,
+          371.925231933594
+        ],
+        "start_tick": 444,
+        "supports": [
+          "boss_approach",
+          "hollow__cavity_exit"
+        ],
+        "tick": 516
+      },
+      {
+        "edge_id": "crown_approach",
+        "leg": 11,
+        "position": [
+          1399.98413085938,
+          371.925231933594
+        ],
+        "start_tick": 517,
+        "supports": [
+          "boss_approach",
+          "hollow__cavity_exit"
+        ],
+        "tick": 580
+      }
+    ],
+    "health_min": 5.0,
+    "health_final": 5.0,
+    "motor_steps": {
+      "1": 580
+    },
+    "enemies": {
+      "hollow_route__crown_thread": {
+        "states": {
+          "idle": 580
+        },
+        "health_values": [
+          2.0
+        ]
+      },
+      "hollow_route__inner_thread": {
+        "states": {
+          "idle": 580
+        },
+        "health_values": [
+          2.0
+        ]
+      },
+      "hollow_route__outer_lift_lantern": {
+        "states": {
+          "dwell": 199,
+          "telegraph": 93,
+          "travel": 288
+        },
+        "health_values": [
+          2.0
+        ]
+      },
+      "hollow_route__root_seed_watch": {
+        "states": {
+          "idle": 580
+        },
+        "health_values": [
+          3.0
+        ]
+      }
+    },
+    "hook_requests": [
+      {
+        "aim": [
+          0.763672471046448,
+          -0.645603835582733
+        ],
+        "kind": "grapple",
+        "leg": 1,
+        "phase": "relay_launch",
+        "presentation_frame": 48,
+        "process_frame": 48,
+        "queued": true,
+        "tick": 41
+      },
+      {
+        "aim": [
+          0.992466807365417,
+          -0.122514300048351
+        ],
+        "body_before": [
+          354.984252929688,
+          281.925231933594
+        ],
+        "grounded_before": true,
+        "hook_origin_before": [
+          354.984252929688,
+          275.925231933594
+        ],
+        "kind": "grapple",
+        "leg": 7,
+        "phase": "align",
+        "presentation_frame": 237,
+        "process_frame": 237,
+        "queued": true,
+        "tick": 230,
+        "velocity_before": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "aim": [
+          0.887539803981781,
+          0.460730940103531
+        ],
+        "body_before": [
+          787.95947265625,
+          282.647521972656
+        ],
+        "grounded_before": false,
+        "hook_origin_before": [
+          787.95947265625,
+          276.647521972656
+        ],
+        "kind": "grapple",
+        "leg": 7,
+        "phase": "cavity_elbow_walkoff",
+        "presentation_frame": 323,
+        "process_frame": 323,
+        "queued": true,
+        "tick": 316,
+        "velocity_before": [
+          260.0,
+          43.3333320617676
+        ]
+      },
+      {
+        "aim": [
+          0.883464097976685,
+          -0.468498915433884
+        ],
+        "kind": "grapple",
+        "leg": 11,
+        "phase": "gate_jump",
+        "presentation_frame": 532,
+        "process_frame": 532,
+        "queued": true,
+        "tick": 521
+      }
+    ],
+    "shot_requests": [
+      {
+        "aim": [
+          -1.0,
+          0.0
+        ],
+        "body_before": [
+          499.438720703125,
+          232.028564453125
+        ],
+        "grounded_before": false,
+        "hook_origin_before": [
+          499.438720703125,
+          226.028564453125
+        ],
+        "kind": "shoot_release",
+        "leg": 7,
+        "phase": "cavity_pull",
+        "presentation_frame": 272,
+        "process_frame": 272,
+        "queued": true,
+        "tick": 265,
+        "velocity_before": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "aim": [
+          -1.0,
+          0.0
+        ],
+        "body_before": [
+          845.378295898438,
+          309.158355712891
+        ],
+        "grounded_before": false,
+        "hook_origin_before": [
+          845.378295898438,
+          303.158355712891
+        ],
+        "kind": "shoot_release",
+        "leg": 7,
+        "phase": "cavity_pull",
+        "presentation_frame": 352,
+        "process_frame": 352,
+        "queued": true,
+        "tick": 345,
+        "velocity_before": [
+          0.0,
+          0.0
+        ]
+      }
+    ]
+  },
+  "selected_git_blobs": {
+    "scripts/generation/thorn_forest_region_v2.gd": {
+      "sha256": "11bd3ef949a35ea7c1665f53cea7be46da27c69da5891d2aaf0161b0444b1de1",
+      "working_byte_equal": true
+    },
+    "scripts/generation/forest_hollow_trunk_geometry.gd": {
+      "sha256": "17e4f89d4180a03a20e01f0cec68738971769c99846b41b3210e26d50f4d4a4c",
+      "working_byte_equal": true
+    },
+    "scripts/bosses/rootbell_guardian_v2.gd": {
+      "sha256": "169b2b227bf7d3c35b20f0bedd04830dd46a05088e89b9b60902c610b325f69b",
+      "working_byte_equal": true
+    },
+    "scripts/bosses/guardian_root_bell_v2.gd": {
+      "sha256": "19fa837e6032b94519f0a1a8141d492707ae7d75a32514ef94af6b054246d0e8",
+      "working_byte_equal": true
+    },
+    "scripts/bosses/thorn_queen_v2.gd": {
+      "sha256": "3c964fe228f95e796304ce666a3f3e4b651f5a3eb902d05b4ccb252d7fe62026",
+      "working_byte_equal": true
+    },
+    "scripts/bosses/thorn_queen_weave_band.gd": {
+      "sha256": "404fd7f88f65ba2f92ff6191758b1a076f390edd6e791e809d7abcafe33ec8e4",
+      "working_byte_equal": true
+    },
+    "scripts/bosses/thorn_queen_weave_knot.gd": {
+      "sha256": "9a728e933d94cb7e95dc64c88cabf0822f6989cedb36952056ca0fbea74d7e32",
+      "working_byte_equal": true
+    },
+    "scripts/bosses/forest_boss_duel_presentation_v2.gd": {
+      "sha256": "44e69d4ba89ed87d48a685158a2e0784addb4d4c3ce6c1235ba47e7a63f7ed61",
+      "working_byte_equal": true
+    },
+    "scripts/enemies/forest_thread_spider_behavior.gd": {
+      "sha256": "9c855bb2797ddbe6da2a0fa47818a0c05e93562b627df73c55cf59d1a7c01c11",
+      "working_byte_equal": true
+    },
+    "scripts/enemies/forest_lantern_behavior.gd": {
+      "sha256": "a86e6eeba1d40cb19058779382aef02f52c61d2d7376751bfda90ae3ffe972c4",
+      "working_byte_equal": true
+    },
+    "scripts/enemies/forest_seed_sentry_behavior.gd": {
+      "sha256": "9351a00f6c2cd3d8a86b7f6996e15e53ce2c7144f7539bf5935d3e9d32a5224e",
+      "working_byte_equal": true
+    },
+    "config/player_tuning.json": {
+      "sha256": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+      "working_byte_equal": true
+    }
+  }
+}

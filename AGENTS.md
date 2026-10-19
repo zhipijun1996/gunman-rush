@@ -1,5 +1,15 @@
 # 项目工作规则
 
+## 2026-10-19 最新选择：Underworld正式平原
+
+用户从五套实机中选择Underworld，授权整理Harness/Skills并整体改造正式风铃平原。当前生产方法见[Underworld Tile流程](docs/underworld_tile_production.md)：原生Tile参考/许可与接口、生成材料母版、真实TileMap核心+非整格精确边界、三张独立不同速率景层、有根装饰、融合平台表面的四向伤害材质。16区统一画法/语义，色域与主材料分区；不把全游戏固定成同色暗洞。此选择覆盖旧晨光/卡通的当前生产方向，旧fixture和失败证据保留。核心玩法、碰撞、伤害、随机流与保存不为美术改变；用户偏好不等于本轮最终视觉/实体设备验收。
+
+## 2026-10-19 最新覆盖：完全重置美术
+
+美术最高入口改为 [美术地基 V1](docs/art_foundation_v1.md)。用户明确要求完全忘记过去所有美术：旧画风、旧母版、旧概念图及旧失败方向不得作为新创意输入；取消空洞骑士/奥里画面目标。下文和其他文件里冲突的历史美术规则只供溯源，不恢复其权威。玩法、物理、资源、能力授予、RNG 和保存合同继续有效。
+
+最新用户允许 dual-grid 作为47-tile替代。正式两图已授权按新像素小样感觉重制、三张独立视差远景、简洁纹理；现有非整格几何可精确边界适配而不得冒称dual-grid。所有新地形以 47-tile blob autotiling 或经验证的dual-grid为地基，背景/玩家 tile/装饰灯光分层；模块设计与随机装配必须先明确 tile 家族、碰撞语义、接缝及净空可实现性。solid、one-way、moving 分开；装饰无碰撞、独立 seed，遵守 keepout、密疏与灯光预算。最新用户已授权按认可的像素小样感觉重制正式平原两图、三个独立视差远景与简洁纹理。不用旧素材改色冒充重做，不以技术检查代签用户审美或全区终审。
+
 ## 开始与权威来源
 
 先读 [当前状态](docs/current_state.md)、[交接](docs/handoff.md)，检查 Git 工作区，再选择 [任务](docs/tasks.md)。用户最新指令优先；当前状态列出的最新修订覆盖同主题旧段落。历史记录和开发 fixture 不代表正式规则。
@@ -30,19 +40,16 @@
 - [.agents/skills/player-creator/SKILL.md](.agents/skills/player-creator/SKILL.md)：主角整体设计、动作与操作表现的新增或成套改造。
 - [.agents/skills/weapon-creator/SKILL.md](.agents/skills/weapon-creator/SKILL.md)：新增或替换武器、武器升级分支及整套攻击动作/特效。
 - [.agents/skills/ability-creator/SKILL.md](.agents/skills/ability-creator/SKILL.md)：新增移动/战斗能力、二段跳、贴墙/蹬墙跳或能力解锁与能力锁。
+- [.agents/skills/story-writer/SKILL.md](.agents/skills/story-writer/SKILL.md)：剧情、NPC、区域碎片和多轮结局；统一循环规则、角色知识与简明写法。
 - [.agents/skills/project-integration/SKILL.md](.agents/skills/project-integration/SKILL.md)：Git、结构与交付辅助。
 
-关卡生产 V2 自动路由：
+当前创作统一从 [区域创作总谱](docs/creative_direction/README.md) 开始，前置 [.agents/skills/region-creative-director/SKILL.md](.agents/skills/region-creative-director/SKILL.md) 负责方向比较/取舍与RETHINK；[.agents/skills/visual-director/SKILL.md](.agents/skills/visual-director/SKILL.md) 负责完整游戏画面，不取代区域创作决策。
 
-- “优化风铃平原/这里无聊、重复、不好看、不流畅” → region-generator 审计正式 Manifest 和玩家反馈 → 少量黄金改进 → 同条件路线对照 → 准入后扩展与回归。
-- “制作荆棘森林/全新地区” → region-generator 明确合法基础构筑与地区身份 → 六层设计 → 黄金样板 → 模块库/拓扑/遭遇/美术 → 正式集成。未来地区不继承平原网格、Boss或基础数值。
-- [.agents/skills/challenge-choreographer/SKILL.md](.agents/skills/challenge-choreographer/SKILL.md)：连续动作语法、入口出口、单武器、资源相位、观察恢复和替代解。
-- [.agents/skills/encounter-director/SKILL.md](.agents/skills/encounter-director/SKILL.md)：敌人、平台、机关、奖励和实际路线节奏联合编排；不代替敌人/Boss制作。
-- [.agents/skills/scene-composer/SKILL.md](.agents/skills/scene-composer/SKILL.md)：场景轮廓、焦点、深度、地标、模块接缝和合屏；art-director仍负责风格与资产质量。
+- [.agents/skills/challenge-choreographer/SKILL.md](.agents/skills/challenge-choreographer/SKILL.md)：连续动作与入口/出口/资源/恢复。
+- [.agents/skills/encounter-director/SKILL.md](.agents/skills/encounter-director/SKILL.md)：敌人/地形/机关/奖励/返回的共同节奏。
+- [.agents/skills/scene-composer/SKILL.md](.agents/skills/scene-composer/SKILL.md)：围合/层深/焦点/根基和实际合屏。
 
-统一入口 [Level Design Harness V2](docs/level_design_harness_v2.md)。`python3 tools/level_design.py route --request "优化风铃平原" --output build/level_design_v2/mission.json` 生成现有 harness 可读 mission，默认只规划；宿主按 Skill 实际执行，不把路由/模板测试写成模型自主制作成功。所有步骤共用现有任务类型、G0–G5与十一维；本轮体系授权不自动授权重做正式平原或开放未来地区。
-
-自主生产续轮（LEVEL-AUTONOMY-01）：用户已授权范围可控的正式平原验证切片。简短优化/新地区需求自动读取 [地区V0.3](docs/design/player_actions/regions_v0.3.md)、[武器V0.8及最新覆盖](docs/design/player_actions/README.md)、[Q1–Q8](docs/quality/level_quality_dimensions.md)和带来源/适用范围的经验；继承已确认S1–S6/16地区/H/W/D/U1/U2，区分候选与真实授予。按 [实际执行协议](docs/quality/level_autonomy_execution.md) 使用原 `harness --mission --execute`，有效CLI或当前真实Codex宿主worker；自动处理租约/专业实施/真实检查/不同代理只读审查/有界返工。计划、mock、认证失败不得冒称真实执行。每次先黄金再推广；缺用户或真机证据保留review/awaiting-device，不按普通技术步骤反复请求许可。
+`python3 tools/level_design.py route --request "制作荆棘森林" --output build/creative_system/start.json` 先预制作；选定总谱后以同指令加`--direction`绑定推进。route是计划，实际宿主按原harness租约执行。未来地区按S1–S6/16区/H/W/D/U1/U2最新权威和实际授予分开，不照搬平原，不用G0/G1技术片称整区。每专业交付贡献/协作/新体验/主题冲突/实机验证，不能最后拼贴。
 
 流程权威：[development_quality](docs/development_quality.md)、[policy](docs/quality/policy.json)、[使用说明](docs/quality/README.md)。当前状态兼任 project_status；[generation_current](docs/generation_current.md) 解释当前生成实现，[visual_bible](docs/visual_bible.md) / [动画规范](docs/animation_vfx_standards.md) 统一表现要求。旧规则冲突以最新明确修订为准，不能复制同义规范。
 
@@ -70,21 +77,10 @@
 
 结束前更新 docs/handoff.md：分支/提交、已完成、失败/阻塞、下一任务和命令。证据包含版本、退出码、日志、Seed/Manifest（适用时）；临时产物写 build/，精选证据写 docs/evidence/。历史规则快照见 [归档](docs/archive/agents_before_harness.md)，仅供溯源。
 
-## 武器与人物动作设计输入（2026-10-13）
+## 当前授权与历史读取
 
-新增武器、跨平台动作、H/W/D与地区能力锁先读 [设计入口](docs/design/player_actions/README.md) 与 [动作harness规划](docs/quality/player_action_plan.md)。同一时刻只有一种当前装备/使用武器；钩索等能力独立于武器。附件中LOCKED/PROPOSED状态保留，新规划不代表运行实现；旧未来计划冲突以此入口列出的最新用户要求为准。
+本轮用户授权系统审计、可逆瘦身、三阶段架构升级、风铃平原代表正式空间艺术样板和未来地区有限真实演练。保留核心物理/合法能力/武器资源/RNG/保存与已验证玩法；不得因旧窗口“只平原”而拒绝本轮森林演练，也不得因此正式开放森林。
 
+武器/能力工作先读 [当前动作设计入口](docs/design/player_actions/README.md)，按任务取具体权威章节和实际消费者，不要求每个无关专业重复全文读取所有历史附件。G0建立一次带SHA的权威索引，下游引用适用段落与当前总谱；发生冲突/涉及新能力时读取完整相关原文核实。历史授权与全部旧规则逐字保存在 [基线原件](docs/archive/creative_system_baseline/manifest.json)，Skill原件见 [Skill归档](docs/archive/skill_history/README.md)，按需恢复，旧冻结Manifest不无区别约束当前内容版本。
 
-## 平原整区重设计范围（2026-10-15，覆盖旧轮有限切片范围）
-
-最新用户已授权全面重设计正式平原的布局、路线、模块组合、敌人与机关编排、构图和随机策略；仍保留核心物理、单武器/资源/能力成长、RNG服务、保存和两图流程。不要把上一轮“仅工具”或“只做最小切片”当成本轮上限。先验证代表性黄金，再按有意图的宏观骨架推广，并对整区实际路线/最差Seed/动态画面独审与返工。未知的新需求仍按其实际授权范围执行；本条不自动开放其他地区或授权合并/发布。
-
-生产经验：portable证据目录必须在实施租约前纳入allowed_paths，超界须保留blocked后修订租约；每条连续链的出程与返程均需完整动作/边界/真实事件和资源因果，删事件、删返程或仅保留reached标记必须拒绝。策略升级时在冻结旧内容上用同字节策略复采，分清驾驶策略收益和内容收益。历史坐标专属测试在可重建的冻结源中保留原断言，新默认消费者必须另有实际强验，其他适用回归仍跑新默认。
-
-## 视觉导演与试玩交付新授权（2026-10-15）
-
-用户本轮授权在冻结核心玩法/生成/物理/资源规则下，重绘必要大空间资产、升级美术Skills/Harness并先制作一个正式黄金实景，准入后才验证第二空间。连续两轮没有实质画面改善或关键工具不可用须保存证据停止对应依赖，不无限扩预算。用户长期要求：以后每次大任务结束部署最新可试玩Web预览，提供HTTPS地址、准确build_id和源提交；无需合并main。该发布授权不等于商店发布、main合并或美术/趣味/实体设备验收。
-
-## V3 全域生产新授权（2026-10-15）
-
-用户已授权最长12小时的平原全域体验、美术、生态及生产系统升级，保留核心物理、武器/资源/能力成长、RNG服务/保存及已验证路线。旧creek黄金失败只阻塞其自身不合格母版扩产；其他独立共享家族、空间和敌人包继续，按各自真实像素/玩法准入后推广。单方向连续两轮无实质进展停止该方向，不把全区挂在一个场景。可主动制作有实际玩家判断差异的新敌人并正式遭遇验证；Boss有实质缺口才改。用现有production_loop/G0-G5/十一维、独立工作树/单消费者写者、阶段检查点与有界网络恢复，不冒称后台模型服务。最终部署准确版本Web预览，不合并main，缺审美/玩家/设备仍未验。
+图像方向每方向连续两轮无实质改善停止并保留失败；工程阻塞独立限预算，不冲销完整CI。已授权每次大任务结束交付准确版本可玩Web预览，但仍须通过当前发布门槛；不能通过时提供本地已验证构建及阻塞原因，不以旧包冒充。发布不等于main合并/商店发布/玩家或真机认可。

@@ -25,6 +25,9 @@ var _separated := true
 var _serial := 0
 var _session := 0
 var _pull_step_requested := false
+var _pull_distance_before := 0.0
+var _hang_offset := Vector2.ZERO
+var _released_hang_target: Node2D
 var _contact_target: Node2D
 var _contact_remaining := 0.0
 var kick_side := -1.0
@@ -51,8 +54,12 @@ func busy() -> bool:
 	return state in [&"hook_cast", &"hook_fly", &"hook_pull", &"hook_miss", &"hook_retract", &"hook_contact_kick"]
 
 func request_hook(direction: Vector2) -> bool:
-	if not hook_enabled or state != &"free" or not controller.active or not direction.is_finite(): return false
+	if not hook_enabled or state not in [&"free", &"hook_hang"] or not controller.active or not direction.is_finite(): return false
 	if hook_used and not controller.motor.is_on_floor(): return false
+	_released_hang_target=hook_target if state == &"hook_hang" else null
+	if state == &"hook_hang":
+		controller.motor.cancel_ability_motion()
+		_set_state(&"free")
 	hook_used = true
 	var face := signf(direction.x)
 	if is_zero_approx(direction.x):
@@ -128,7 +135,9 @@ func advance(delta: float) -> void:
 		if not hit.is_empty():
 			hook_tip = hit.position
 			kick_side=signf(hook_start.x-hook_tip.x)
-			if is_zero_approx(kick_side):kick_side=-hook_forward
+			# A practically vertical approach has no meaningful incoming side.
+			# Small aim/capture jitter must not randomly choose a 24px side hop.
+			if absf(hook_direction.x) <= definition.hook_vertical_kick_deadzone: kick_side=0.0
 			var node := hit.collider as Node2D
 			if node != null and node.is_in_group(&"grapple_target"):
 				hook_target = node
@@ -144,6 +153,13 @@ func advance(delta: float) -> void:
 			hook_tip = finish
 			if hook_start.distance_to(hook_tip) >= definition.hook_range-0.01: _set_state(&"hook_miss")
 		return
+	if state == &"hook_hang":
+		if not is_instance_valid(hook_target) or not hook_target.is_inside_tree():
+			cancel(); return
+		hook_tip=hook_target.to_global(hook_local)
+		var hold_delta := hook_tip+_hang_offset-motor.global_position
+		motor.request_ability_velocity(hold_delta.limit_length(definition.hook_pull_speed*delta)/delta)
+		return
 	if state == &"hook_pull":
 		if not is_instance_valid(hook_target) or not hook_target.is_inside_tree() or state_age > 0.8:
 			_set_state(&"hook_miss"); return
@@ -151,6 +167,7 @@ func advance(delta: float) -> void:
 		if receiver != null and not receiver.active: _set_state(&"hook_miss"); return
 		hook_tip = hook_target.to_global(hook_local)
 		var offset := hook_tip-motor.global_position
+		_pull_distance_before = offset.length()
 		_pull_step_requested = true
 		motor.request_ability_velocity(offset.normalized()*minf(definition.hook_pull_speed,maxf(0,offset.length()-definition.hook_stop_distance)/delta))
 		return
@@ -174,6 +191,10 @@ func advance(delta: float) -> void:
 		elif state == &"wall_attach": _set_state(&"free")
 
 func after_move() -> void:
+	if state == &"hook_hang":
+		# A moved/obstructed ring cannot drag the body through solid geometry.
+		if motor_hang_blocked(): cancel()
+		return
 	if state != &"hook_pull" or not _pull_step_requested: return
 	var motor := controller.motor
 	var distance := motor.global_position.distance_to(hook_tip)
@@ -189,10 +210,26 @@ func after_move() -> void:
 		motor.normal_velocity = Vector2.ZERO
 		if receiver != null:
 			receiver.receive_damage({"session_id":controller.session_id,"event_id":"hook/%s/%s/%s" % [motor.get_instance_id(),_session,_serial],"source_actor_id":motor.get_instance_id(),"target_actor_id":receiver.actor_id,"target_epoch":receiver.damage_epoch,"attack_id":_serial,"amount":definition.hook_damage,"damage_type":&"grapple","source_faction":&"player","hit_direction":hook_direction,"on_committed":controller.on_grapple_damage.bind(_session,_serial,(receiver.actor_id if receiver.actor_id!=0 else receiver.get_instance_id()) if receiver.faction==&"enemy" else 0)})
-		_set_state(&"hook_contact_kick")
-	elif motor.get_slide_collision_count() > 0 and distance > definition.hook_stop_distance+2:
-		# A collision that prevents approach terminates the pull, never tunnels.
+		if hook_target is GrappleAnchor and (hook_target as GrappleAnchor).hang_enabled:
+			_hang_offset=motor.global_position-hook_tip
+			restore_air_actions()
+			_set_state(&"hook_hang")
+		else: _set_state(&"hook_contact_kick")
+	elif motor.get_slide_collision_count() > 0 and distance > definition.hook_stop_distance+2 and _pull_distance_before-distance < 0.05:
+		# Stop only when collision actually prevents approach. A floor may
+		# clip downward velocity while the real body slides toward its edge.
 		_set_state(&"hook_miss")
+
+func motor_hang_blocked() -> bool:
+	return controller.motor.get_slide_collision_count()>0 and controller.motor.global_position.distance_to(hook_tip+_hang_offset)>2.0
+
+func release_hang_for_jump() -> bool:
+	if state != &"hook_hang": return false
+	controller.motor.cancel_ability_motion()
+	var kick := Vector2(kick_side*definition.hook_kick.x,definition.hook_kick.y)
+	controller.motor.start_weapon_burst(kick,kick.length(),definition.hook_launch_seconds)
+	_set_state(&"hook_kick")
+	return true
 
 func cancel() -> void:
 	guide_active=false;guide_target_valid=false
@@ -202,6 +239,7 @@ func cancel() -> void:
 		controller.motor.wall_slide_limit = -1
 		controller.motor.cancel_ability_motion()
 	hook_target = null
+	_released_hang_target = null
 	if is_instance_valid(controller) and controller.session_id != _session:
 		_session = controller.session_id
 		wall_ready = true
@@ -228,7 +266,8 @@ func on_weapon_fired() -> void:
 	# The accepted recoil takes over from wall adhesion/kick recovery. Keep the
 	# detach token; cancelling a pose must never grant another wall kick.
 	controller.motor.wall_slide_limit = -1
-	if state in [&"wall_attach",&"wall_kick",&"hook_kick"]: _set_state(&"free")
+	if state == &"hook_hang": controller.motor.cancel_ability_motion()
+	if state in [&"wall_attach",&"wall_kick",&"hook_kick",&"hook_hang"]: _set_state(&"free")
 
 func on_jump_executed() -> void:
 	if state in [&"wall_kick",&"hook_kick"]: _set_state(&"free")
@@ -247,6 +286,12 @@ func _probe_segment(start: Vector2, finish: Vector2) -> Dictionary:
 		_hook_probe.shape=shape;_hook_probe.enabled=false;_hook_probe.exclude_parent=false
 		_hook_probe.collision_mask=0xFFFFFFFF;_hook_probe.collide_with_areas=true
 		add_child(_hook_probe);_hook_probe.add_exception(controller.motor)
+	# Exclude the departed ring before sweeping: skipping result entries alone
+	# cannot reveal a farther target behind an initial overlap.
+	_hook_probe.clear_exceptions()
+	_hook_probe.add_exception(controller.motor)
+	if state==&"hook_hang" and is_instance_valid(hook_target): _hook_probe.add_exception(hook_target)
+	if state in [&"hook_cast",&"hook_fly"] and is_instance_valid(_released_hang_target): _hook_probe.add_exception(_released_hang_target)
 	_hook_probe.global_position=start
 	_hook_probe.target_position=_hook_probe.to_local(finish)
 	_hook_probe.force_shapecast_update()
@@ -256,6 +301,8 @@ func _probe_segment(start: Vector2, finish: Vector2) -> Dictionary:
 		if point.distance_to(hook_start)>definition.hook_range+.01:continue
 		var node := _hook_probe.get_collider(i) as Node2D
 		if node==null:continue
+		if node==_released_hang_target and state in [&"hook_cast",&"hook_fly"]:continue
+		if node==hook_target and state==&"hook_hang":continue
 		var distance := start.distance_squared_to(point)
 		if distance<nearest:
 			nearest=distance;chosen={"position":point,"collider":node}
@@ -265,7 +312,7 @@ func _probe_segment(start: Vector2, finish: Vector2) -> Dictionary:
 		if not obstruction.is_empty() and obstruction.collider!=chosen.collider:return {"position":obstruction.position,"collider":obstruction.collider}
 	return chosen
 func _update_guide() -> void:
-	guide_active=hook_enabled and state==&"free" and controller.active and not hook_used and (controller.router.aim_engaged or controller.router.aim_mode==&"grapple") and not controller.router.aim_direction.is_zero_approx()
+	guide_active=hook_enabled and state in [&"free",&"hook_hang"] and controller.active and not hook_used and (controller.router.aim_engaged or controller.router.aim_mode==&"grapple") and not controller.router.aim_direction.is_zero_approx()
 	guide_target_valid=false
 	if not guide_active:return
 	var origin := controller.motor.global_position+Vector2(0,-6)

@@ -1,0 +1,23 @@
+import json,hashlib,sys
+from pathlib import Path
+from collections import deque
+ROOT=Path(__file__).resolve().parents[4];s=ROOT/'build/forest_depth/snapshots/lower_map2_expedition01';p=s/'build/forest_depth/ecology/expedition/lower_map2_expedition01';sys.path.insert(0,str(s/'tools'));import run_forest_depth_enemies as reader
+sha=lambda f:hashlib.sha256(f.read_bytes()).hexdigest();rec=json.loads((p/'receipt.json').read_text());inv=json.loads((s/'build/snapshot-receipt.json').read_text());out={'scope':'Offline exact four native consumers; purpose judged separately; no engine','receipt':str((p/'receipt.json').relative_to(ROOT)),'receipt_sha':sha(p/'receipt.json'),'source_before_after_same':rec['source_before']==rec['source_after'],'snapshot_source_count':len(inv['source_files']),'all_source_hash_matches':all((s/k).is_file() and sha(s/k)==h for k,h in inv['source_files'].items()),'reader_sha':sha(s/'tools/run_forest_depth_enemies.py'),'cases':{}};sigs=[];live=None
+for f in sorted(p.rglob('capture.json')):
+ d=json.loads(f.read_text());fs=d['frames'];key=('map2_' if d['map_index']==2 else 'map1_')+d['lift_strategy'];begin=d['lift_started'];sig={'entry':d['lift_entry'],'frames':[{k:x[k] for k in ['position','health','energy','shots','enemies']} for x in fs if x['tick']<begin],'requests':[r for r in d['requests'] if r['tick']<begin]}
+ try:reader.validate_expedition(d);v={'reader_accepts':True}
+ except Exception as e:v={'reader_accepts':False,'reader_error':str(e)}
+ out['cases'][key]={'raw':str(f.relative_to(ROOT)),'sha':sha(f),**v,'frames':len(fs),'single_motor_continuous':all(x['tick']==i+1 and x['motor_steps']==1 for i,x in enumerate(fs)),'entry':d['lift_entry'],'exit_pre':d['lift_exit'],'exit_post':fs[d['lift_finished']-1],'final':d['final_snapshot'],'epochs':{'actor':sorted(set(x['actor_epoch'] for x in fs)),'stage':sorted(set(x['stage_epoch'] for x in fs))},'damage':[e for e in d['events'] if e['kind']=='committed_damage'],'health_increases':[{'before':a['tick'],'after':b['tick'],'HP_before':a['health'],'HP_after':b['health'],'position':b['position']} for a,b in zip(fs,fs[1:]) if b['health']>a['health']],'legs':d['completed_legs'],'itinerary':d['itinerary'],'claimed_ids':d['claimed_ids'],'pointer_events':d['pointer_events'],'modal_frames':len(d['modal_frames']),'duplicate_equal':d['duplicate_before']==d['duplicate_after'],'lift_begins':begin,'lift_ends':d['lift_finished'],'camp_tick':d.get('expedition_camp_tick'),'prefix_sha':hashlib.sha256(json.dumps(sig,sort_keys=True).encode()).hexdigest()}
+ if d['map_index']==2:sigs.append(sig)
+ if key=='map2_alive_lift':live=d
+out['map2_prefixes_exact']=sigs[0]==sigs[1];m=live['manifest'];q=deque(['R']);seen={'R'};prev={}
+while q:
+ a=q.popleft()
+ for e in m['connections']:
+  if e['a']!=a or e['b'] in seen or e['b']=='cache':continue
+  b=e['b'];seen.add(b);prev[b]=(a,e);q.append(b)
+a='gate_ready';edges=[]
+while a!='R':a,e=prev[a];edges.append(e)
+edges.reverse();out['shortest_R_to_gate_graph']=edges
+oldp=ROOT/'build/forest_depth/snapshots/cavity_v4_02/build/forest_depth/region/v4-leftloop-matrix/14-map2-high_return/capture.json';old=json.loads(oldp.read_text());out['old_direct_R_D']={'raw':str(oldp.relative_to(ROOT)),'sha':sha(oldp),'leg':next(e for e in old['completed_legs'] if e['edge_id']=='outer_to_inner'),'hooks':[e for e in old['events'] if e['kind']=='hook_contact_kick'],'same_local_geometry':next(g for g in old['manifest']['geometry_instances'] if g['id']=='hollow')['local_geometry']==next(g for g in m['geometry_instances'] if g['id']=='hollow')['local_geometry'],'scope':'old direct R-D physical segment in identical geometry; not a new full shortest R-gate native or total no-H proof'}
+(ROOT/'build/forest_depth/independent/map2-reward-return01/raw-audit.json').write_text(json.dumps(out,indent=2)+'\n');print('source',out['snapshot_source_count'],out['all_source_hash_matches'],'prefix',out['map2_prefixes_exact']);print([(k,v['reader_accepts'],v['frames']) for k,v in out['cases'].items()]);print('shortest',[e['id'] for e in edges])

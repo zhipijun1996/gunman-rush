@@ -1,0 +1,194 @@
+{
+  "schema": 1,
+  "scope": "independent read-only exact affected_paths declaration and unchanged checker review only; NOT full CI/content quality acceptance",
+  "conclusion": "ACCEPT_LIMITED_RECORD_DECLARATION_FIX",
+  "reviewer": "forest_expedition_compat_audit",
+  "game_source_commit": "5a9f4bdaf846a635eb2659080d563b865758ab87",
+  "baseline_commit": "d3ba6b57ae0315f6c13573a9f303b9b9f5314b8e",
+  "quality_diff_base": "bee850c66b2f402d644d7daa4c13db91c8abe8f8",
+  "record": "docs/quality/records/FOREST-FEEDBACK-01.json",
+  "record_sha256": "006b5ed5a5da617b50cd65ac572a885ba606e2815ecb0ca80ef77fca381b8ace",
+  "top_level_fields_changed": [
+    "affected_paths",
+    "reviewed_commit"
+  ],
+  "exact_affected_paths": [
+    ".agents/skills/challenge-choreographer/SKILL.md",
+    ".agents/skills/encounter-director/SKILL.md",
+    ".agents/skills/region-generator/SKILL.md",
+    "resources/enemies/forest_bark_beetle.tres",
+    "resources/enemies/forest_swing_pod.tres",
+    "scenes/enemies/forest_bark_beetle.tscn",
+    "scenes/enemies/forest_swing_pod.tscn",
+    "scripts/demo/demo_app.gd",
+    "scripts/demo/forest_air_chain_golden.gd",
+    "scripts/demo/forest_air_chain_golden.gd.uid",
+    "scripts/demo/thorn_forest_region_stage.gd",
+    "scripts/enemies/enemy_actor.gd",
+    "scripts/enemies/forest_bark_beetle_behavior.gd",
+    "scripts/enemies/forest_bark_beetle_behavior.gd.uid",
+    "scripts/enemies/forest_bark_damageable.gd",
+    "scripts/enemies/forest_bark_damageable.gd.uid",
+    "scripts/enemies/forest_enemy_definition.gd",
+    "scripts/enemies/forest_feedback_enemy_presentation.gd",
+    "scripts/enemies/forest_feedback_enemy_presentation.gd.uid",
+    "scripts/enemies/forest_swing_pod_behavior.gd",
+    "scripts/enemies/forest_swing_pod_behavior.gd.uid",
+    "scripts/generation/forest_air_chain_geometry.gd",
+    "scripts/generation/forest_air_chain_geometry.gd.uid",
+    "scripts/generation/forest_expedition_layout.gd",
+    "scripts/generation/forest_expedition_layout.gd.uid",
+    "scripts/generation/forest_scene_language.gd",
+    "scripts/generation/forest_scene_language.gd.uid",
+    "scripts/generation/forest_western_grove.gd",
+    "scripts/generation/forest_western_grove.gd.uid",
+    "scripts/generation/thorn_forest_region_assembler.gd",
+    "scripts/generation/thorn_forest_region_generator.gd",
+    "scripts/generation/thorn_forest_region_v2.gd",
+    "scripts/generation/thorn_forest_region_v2_v10.gd",
+    "scripts/generation/thorn_forest_region_v2_v10.gd.uid",
+    "tests/forest_air_chain_runner.gd",
+    "tests/forest_air_chain_runner.gd.uid",
+    "tests/forest_campaign_runner.gd",
+    "tests/forest_depth_air_chain_case.gd",
+    "tests/forest_depth_air_chain_case.gd.uid",
+    "tests/forest_depth_ecology_runner.gd",
+    "tests/forest_depth_grove_combat_case.gd",
+    "tests/forest_depth_grove_combat_case.gd.uid",
+    "tests/forest_depth_lift_runner.gd",
+    "tests/forest_depth_region_runner.gd",
+    "tests/forest_depth_region_trace.gd",
+    "tests/forest_depth_version_runner.gd",
+    "tests/forest_expedition_contract_runner.gd",
+    "tests/forest_expedition_contract_runner.gd.uid",
+    "tests/forest_feedback_enemy_runner.gd",
+    "tests/forest_feedback_enemy_runner.gd.uid",
+    "tests/forest_progression_debug_runner.gd",
+    "tools/harness/profiles.json",
+    "tools/run_forest_air_chain.py",
+    "tools/run_forest_depth_campaign_boss.py",
+    "tools/run_forest_depth_enemies.py",
+    "tools/run_forest_depth_region.py",
+    "tools/run_forest_depth_versions.py",
+    "tools/verify_forest_browser.py"
+  ],
+  "checks": [
+    {
+      "check": "HEAD equals reviewed game source5a9f",
+      "passed": true
+    },
+    {
+      "check": "only tracked modified/staged file is the quality record",
+      "passed": true
+    },
+    {
+      "check": "additional untracked work only parent-declared docs evidence",
+      "passed": true
+    },
+    {
+      "check": "only reviewed_commit and affected_paths changed",
+      "passed": true
+    },
+    {
+      "check": "exact real d3ba-to-5a9f runtime/test/tool/Skill file inventory",
+      "passed": true
+    },
+    {
+      "check": "no glob scope",
+      "passed": true
+    },
+    {
+      "check": "all24 actual CI failed paths covered",
+      "passed": true
+    },
+    {
+      "check": "reviewed source pointer accurate and region remains in_progress",
+      "passed": true
+    },
+    {
+      "check": "all gates/evidence/quality/player/device fields untouched",
+      "passed": true
+    },
+    {
+      "check": "checker/profile byte-identical to game commit tools/check_quality_diff.py",
+      "passed": true
+    },
+    {
+      "check": "checker/profile byte-identical to game commit tools/check_quality.py",
+      "passed": true
+    },
+    {
+      "check": "checker/profile byte-identical to game commit tools/harness/profiles.json",
+      "passed": true
+    },
+    {
+      "check": "original checker not altered during this gameplay round tools/check_quality_diff.py",
+      "passed": true
+    },
+    {
+      "check": "original checker not altered during this gameplay round tools/check_quality.py",
+      "passed": true
+    },
+    {
+      "check": "actual original diff checker prints1985 PASS",
+      "passed": true
+    },
+    {
+      "check": "actual record checker prints STATIC ONLY PASS",
+      "passed": true
+    }
+  ],
+  "original_checkers_sha256": {
+    "tools/check_quality_diff.py": "e09bed3f4a52f804c96f29533eb5417ebf7d98628cccfcc29c37beff4319d00a",
+    "tools/check_quality.py": "1d44af53c9c966e4aece23cd76b610206ef477da169793e9cb9e699d6a51d294",
+    "tools/harness/profiles.json": "299f8b66768ae3c1434824125b8cf19ceae0a7408c1e9f6804b9382d7d1db165"
+  },
+  "tracked_diff": [
+    "docs/quality/records/FOREST-FEEDBACK-01.json"
+  ],
+  "staged_diff": [],
+  "parent_prepared_untracked_docs_evidence": [
+    "docs/evidence/forest_depth_v2/forest_feedback01/scope_record_fix01/README.md",
+    "docs/evidence/forest_depth_v2/forest_feedback01/scope_record_fix01/originals.zip"
+  ],
+  "validation": [
+    {
+      "argv": [
+        "python3",
+        "tools/check_quality_diff.py",
+        "--base",
+        "bee850c66b2f402d644d7daa4c13db91c8abe8f8"
+      ],
+      "exit_code": 0,
+      "stdout": "PASS: diff scope, new completion and test guard preservation (1985 files); semantic review still required.",
+      "log_sha256": "4389c0f3d07be27b110c20ca474d9220c3a0085750fa475a7fc93808c54e5ceb"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_quality.py"
+      ],
+      "exit_code": 0,
+      "stdout": "PASS: 14 core skills, references, 17 templates, quality records and asset metadata; STATIC ONLY.",
+      "log_sha256": "00dca9ecdd519a2fa3d01fd427af4cac5c23b4a134444d8d339e55194a1ddcb1"
+    }
+  ],
+  "original_ci_failure": {
+    "run": 39160851552,
+    "status": "FAIL retained, not reclassified",
+    "failed_production_paths": 24,
+    "log": "build/forest_feedback/release5a9f/docs-pr-failed.log",
+    "log_sha256": "ba496e92e00ebc4acc8614bbfead78a1c3d5855bb093393d005d12ccc52d7c0d"
+  },
+  "game_ci": {
+    "run": 39160856629,
+    "source": "5a9f4bdaf846a635eb2659080d563b865758ab87",
+    "not_certified_by_this_review": true
+  },
+  "engine_executed": false,
+  "production_source_modified_by_reviewer": false,
+  "quality_gates_promoted": false,
+  "workflow": "in_progress",
+  "scope_note": "Initial overly strict local inventory expectation saw parent adding its declared docs-only evidence; no production change found. Review classifies those exact docs paths explicitly, not hiding them.",
+  "finished_utc": "2026-10-18T20:08:51.462938+00:00"
+}

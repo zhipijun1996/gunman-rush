@@ -1,0 +1,78 @@
+{
+  "scope": "Read-only upstream Godot4.7.2-stable source and project input contract; no runtime/browser executed by agent",
+  "observed_utc": "2026-10-19T11:28:04.106155+00:00",
+  "sources": [
+    {
+      "path": "build/integration01/touch-scroll-source-audit01/scroll_bar.cpp",
+      "url": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/scene/gui/scroll_bar.cpp",
+      "bytes": 22189,
+      "sha256": "c8ba665ac6a4c468c54d86f53e57ac4e9d3efcc3d36750edd1e7213252c2f57e"
+    },
+    {
+      "path": "build/integration01/touch-scroll-source-audit01/base_button.cpp",
+      "url": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/scene/gui/base_button.cpp",
+      "bytes": 22255,
+      "sha256": "98b17be1146da1f32752befd0def0bc5963f9bbcea624f45fdc20b9b038bf61a"
+    },
+    {
+      "path": "build/integration01/touch-scroll-source-audit01/scroll_container.cpp",
+      "url": "https://raw.githubusercontent.com/godotengine/godot/4.7.2-stable/scene/gui/scroll_container.cpp",
+      "bytes": 42052,
+      "sha256": "ed4e16ea3022b44503b09b854a9ddff57c8db384fde4748ddbc3ff708f8a5c1d"
+    }
+  ],
+  "project_contract": {
+    "file": "project.godot",
+    "line": 22,
+    "value": "pointing/emulate_mouse_from_touch=false",
+    "must_remain": true
+  },
+  "findings": [
+    {
+      "source": "scroll_container.cpp",
+      "lines": [
+        175,
+        182,
+        237,
+        274,
+        311
+      ],
+      "fact": "gui_input recognizes MouseButton, MouseMotion and PanGesture, no ScreenTouch/ScreenDrag; drag requires LEFT mouse plus touchscreen available"
+    },
+    {
+      "source": "scroll_bar.cpp",
+      "lines": [
+        49,
+        51,
+        53,
+        586,
+        620
+      ],
+      "fact": "both gui_input and drag_node_input lack ScreenTouch/ScreenDrag handling"
+    },
+    {
+      "source": "base_button.cpp",
+      "lines": [
+        67,
+        84,
+        181
+      ],
+      "fact": "BaseButton directly recognizes real ScreenTouch/ScreenDrag and cancels press on SCROLL_BEGIN"
+    }
+  ],
+  "diagnosis": "Real CDP touch produces ScreenTouch/ScreenDrag; global emulation off means buttons can tap but neither ScrollContainer nor ScrollBar receives mouse events necessary to scroll. Moving same gesture to gutter/thumb is not expected to change this; root actual diagnostic remains authoritative.",
+  "minimal_production_recommendation": {
+    "scope": "Visible DemoMenu ScrollContainer only, no global emulation or gameplay changes",
+    "approach": "Existing PopupTouchAdapter pattern: single-owned actual touch, root GUI forwarding of UI-only DEVICE_ID_EMULATION MouseButton/MouseMotion; original touch consumed to avoid native BaseButton double activation; keep existing native scroll logic",
+    "required_lifecycle": [
+      "clip/bounds and visibility ownership",
+      "track one finger; second finger cannot steal/confirm",
+      "real tap exactly one button callback",
+      "real drag triggers native SCROLL_BEGIN, cancels underlying button press",
+      "canceled input, hide, scene exit and focus loss release owner and never activate button",
+      "Web DOM touchcancel captured early due known lost canceled flag; remove listener on exit",
+      "no gameplay input/stick/global setting changes"
+    ]
+  },
+  "verification_boundary": "If gutter/thumb also fail, old d86 mobile consumer must stay FAIL. Production fix needs a new built game and original full72 same limits, plus new small lifecycle negatives. Existing old-package desktop PASS does not redeem mobile."
+}

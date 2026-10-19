@@ -1,0 +1,46 @@
+from pathlib import Path
+import subprocess,json,re,hashlib,gzip
+R=Path.cwd();O=R/'build/forest_depth/independent/final-delivery-plan/campaign-output-helper';P=R/'docs/evidence/forest_depth_v2/default_promotion01';S=R/'build/forest_depth/snapshots/promotion03';sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+a=subprocess.check_output(['git','show','bee850c66b2f402d644d7daa4c13db91c8abe8f8:tests/forest_campaign_runner.gd'],text=True);b=(R/'tests/forest_campaign_runner.gd').read_text();frozen=(P/'promotion03/source/tests/forest_campaign_runner.gd.txt').read_text();assert b==frozen==(S/'tests/forest_campaign_runner.gd').read_text()
+# Exact balanced-call argument trees. Leaves preserve entire expressions/literals;
+# no regex rewriting of boolean guards, no claim of a full GDScript grammar parser.
+def calls(s):
+ out=[]
+ for m in re.finditer(r'(?m)^\s+check\(',s):
+  pos=m.end();start=pos;depth=1;quote=None;escape=False;args=[]
+  while depth:
+   ch=s[pos]
+   if quote:
+    if escape:escape=False
+    elif ch=='\\':escape=True
+    elif ch==quote:quote=None
+   elif ch in ['"',"'"]:quote=ch
+   elif ch in '([{':depth+=1
+   elif ch in ')]}':
+    depth-=1
+    if depth==0:args.append(s[start:pos]);break
+   elif ch==','and depth==1:args.append(s[start:pos]);start=pos+1
+   pos+=1
+  out.append({'callee':'check','arguments':args})
+ return out
+ca,cb=calls(a),calls(b);assert len(ca)==37 and len(cb)==43 and ca==cb[4:41]
+# Inverse only reviewed additions and call-wrapper rewrite; whole executable old
+# runner remains exact (blank/comment-only lines excluded), including order/input.
+x=b
+x=re.sub(r'(?ms)^# Independent v2.*?(?=^var assertions)', '',x,count=1)
+x=re.sub(r'(?ms)^func check_default_forest_identity\(.*?(?=^func run\()', '',x,count=1)
+x=x.replace('\tcheck_default_forest_identity(1)\n','').replace('\tcheck_default_forest_identity(2)\n','')
+x=x[:x.index('\nfunc write_fixture_evidence(')]
+x=x.replace('write_fixture_evidence("res://build/forest_playable/progression/cross_region_manifest.json",app.director.manifest.canonical_json())','FileAccess.open("res://build/forest_playable/progression/cross_region_manifest.json",FileAccess.WRITE).store_string(app.director.manifest.canonical_json())')
+x=x.replace('write_fixture_evidence("res://build/forest_playable/progression/campaign_pointer_events.json",JSON.stringify(', 'FileAccess.open("res://build/forest_playable/progression/campaign_pointer_events.json",FileAccess.WRITE).store_string(JSON.stringify(')
+def executable(s):return '\n'.join(l for l in s.splitlines()if l.strip()and not l.lstrip().startswith('#'))
+assert executable(x)==executable(a)
+r=json.loads((P/'promotion03/host/receipt.json').read_text());assert r['passed'];rows={x['name']:x for x in r['checks']};assert rows['forest-campaign']['timeout_seconds']==180 and rows['forest-debug']['timeout_seconds']==180
+for n,row in rows.items():
+ log=P/'promotion03/host'/(n+'.log');assert sha(log)==row['log_sha256'];t=log.read_text();assert '4.7.2' in t and not re.search(r'SCRIPT ERROR:|Parse Error:|^ERROR:|ObjectDB.*leaked|resources? still in use at exit',t,re.M);assert row['exit_code']==0 and row['source_guard']and row['strict_log_clean']and row['success_pattern_found']
+assert '49 assertions / 0 failures' in (P/'promotion03/host/forest-campaign.log').read_text();assert '50 assertions / 0 failures'in(P/'promotion03/host/forest-debug.log').read_text()
+pre=json.loads((P/'promotion02/host/receipt.json').read_text());oldrun=next(x for x in pre['checks']if x['name']=='forest-campaign');assert not pre['passed'] and oldrun['exit_code']==-15 and not oldrun['strict_log_clean'];assert "Cannot call method 'store_string' on a null value"in(P/'promotion02/host/forest-campaign.log').read_text()
+out=S/'build/forest_playable/progression';manifest=json.loads((out/'cross_region_manifest.json').read_text());pointer=json.loads((out/'campaign_pointer_events.json').read_text());assert pointer['failures']==0 and pointer['assertions']==47 and len(pointer['events'])==12 and pointer['callbacks']=={'ability':2,'region':1,'reward':2}
+res={'status':'ACCEPT_BOUNDED_TEST_OUTPUT_AND_DEFAULT_IDENTITY_CHANGE','reviewer':'/root/forest_runtime_review','scope':'Static actual check-call trees and exact executable inverse + actual frozen promotion03 targeted outputs. Not physical traversal/Boss combat or final current-source profile.','current_runner_sha256':sha(R/'tests/forest_campaign_runner.gd'),'baseline':'bee850c66b2f402d644d7daa4c13db91c8abe8f8','all37_original_check_call_argument_trees_exact_in_original_order':True,'whole_old_executable_exact_after_inverse_only_documented_additions':True,'new_static_check_sites':{'default_identity':cb[:4],'output_IO':cb[41:]},'actual_added_assertions':'4 default identity checks called twice=8; 2 mkdir/open checks called twice=4; base37 +8 +4 =49','native_campaign49_debug50_targeted_clean':True,'outputs':{p.name:{'sha256':sha(p),'bytes':p.stat().st_size}for p in [out/'cross_region_manifest.json',out/'campaign_pointer_events.json']},'pointer_payload_check_count':47,'pointer_payload_limit':'Payload formed before final helper mkdir/open adds2; terminal49includes these. File contains47/failures0,12actual pointer events,not49.','prior_campaign_failure_retained':oldrun,'no_new_engine_run':True,'parser_limit':'Balanced call-expression trees with exact expression leaves, not a full GDScript AST. Complete old executable byte-equivalence modulo comments/blank lines is stronger preservation evidence here; native actual proves syntax.'}
+(O/'review.json').write_text(json.dumps(res,indent=2)+'\n');(O/'assertion-call-trees.json').write_text(json.dumps({'old':ca,'new':cb},indent=2)+'\n');(O/'old_runner.gd.txt').write_text(a);(O/'reviewed_runner.gd.txt').write_text(b)
+print(json.dumps({k:v for k,v in res.items()if k not in ['new_static_check_sites','prior_campaign_failure_retained']},indent=2))

@@ -1,0 +1,216 @@
+{
+  "kind": "derived_summary_originals_in_records",
+  "source_commit": "ba787df7261dba40f75409a3b99457dd9bbef985",
+  "runs": [
+    {
+      "status": "passed",
+      "variant": 0,
+      "scope": "World-first source, rejection and installed collision/painting contracts; not art quality, complete playable region, device or production-pool admission",
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_world_rebuild_runner.gd",
+        "--",
+        "--output=/tmp/plains_world_rebuild/native_layout0_final/actual.json",
+        "--variant=0"
+      ],
+      "elapsed_seconds": 11.953471577999153,
+      "name": "native_layout0_final",
+      "original_report": "/tmp/plains_world_rebuild/native_layout0_final/report.json",
+      "original_report_sha256": "c01bcbad4e2f3ed19f3105e1b3f56621a8e4e71bd325584bc52484381e345235",
+      "source_unchanged": true
+    },
+    {
+      "status": "passed",
+      "variant": 1,
+      "scope": "World-first source, rejection and installed collision/painting contracts; not art quality, complete playable region, device or production-pool admission",
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_world_rebuild_runner.gd",
+        "--",
+        "--output=/tmp/plains_world_rebuild/native_layout1_01/actual.json",
+        "--variant=1"
+      ],
+      "elapsed_seconds": 12.140914919000352,
+      "name": "native_layout1_01",
+      "original_report": "/tmp/plains_world_rebuild/native_layout1_01/report.json",
+      "original_report_sha256": "217304969ac17c6c920ac79dd6c23e548289217d218f8f41e506c3f669da4528",
+      "source_unchanged": true
+    },
+    {
+      "status": "passed",
+      "scope": "Original unmodified branch-library real Motor normal/reflected routes and no-shot negatives; not art or complete CI",
+      "source_commit": "ba787df7261dba40f75409a3b99457dd9bbef985",
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/branch_library_runner.gd"
+      ],
+      "elapsed_seconds": 6.3549909310004296,
+      "name": "branch_library_final",
+      "original_report": "/tmp/plains_world_rebuild/branch_library_final/report.json",
+      "original_report_sha256": "be0c2d7b81183396edc448e86364e71b37f3b32f4750a5167883ca2230818932",
+      "source_unchanged": true
+    },
+    {
+      "status": "passed",
+      "variant": 0,
+      "scope": "Actual normal follow-camera screenshot and optional input-only route movie; not art, user or device admission",
+      "source_commit": "ba787df7261dba40f75409a3b99457dd9bbef985",
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        ".",
+        "--script",
+        "tools/plains_world_rebuild_preview.gd",
+        "--",
+        "--seed=world-rebuild-01",
+        "--variant=0",
+        "--capture-output=/tmp/plains_world_rebuild/render_layout0_final/frames"
+      ],
+      "elapsed_seconds": 5.250080973000877,
+      "route": {},
+      "process": {
+        "status": "passed",
+        "exit_code": 0,
+        "failure_reason": null,
+        "started_at_unix": 1792377367.8861241,
+        "ended_at_unix": 1792377372.9266322,
+        "duration_seconds": 5.041
+      },
+      "name": "render_layout0_final",
+      "original_report": "/tmp/plains_world_rebuild/render_layout0_final/report.json",
+      "original_report_sha256": "fc18c29b9180a20a7de00c0ab5adb4adce83fea677adbaf1c46fb0318e32313e",
+      "source_unchanged": true
+    },
+    {
+      "status": "passed",
+      "variant": 1,
+      "scope": "Actual normal follow-camera screenshot and optional input-only route movie; not art, user or device admission",
+      "source_commit": "ba787df7261dba40f75409a3b99457dd9bbef985",
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--write-movie",
+        "/tmp/plains_world_rebuild/route_layout1_main_01/gameplay.avi",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tools/plains_world_rebuild_preview.gd",
+        "--",
+        "--seed=world-rebuild-01",
+        "--variant=1",
+        "--capture-output=/tmp/plains_world_rebuild/route_layout1_main_01/frames",
+        "--route=main"
+      ],
+      "elapsed_seconds": 137.70429325299847,
+      "route": {
+        "final_hp": 5.0,
+        "minimum_hp": 5.0,
+        "passed": true,
+        "reason": "actual_forward_and_return",
+        "shot_rejections": [],
+        "shots_accepted": 9,
+        "shots_submitted": 9,
+        "ticks": 1347,
+        "visited_points": 11
+      },
+      "process": {
+        "status": "passed",
+        "exit_code": 0,
+        "failure_reason": null,
+        "started_at_unix": 1792377098.462233,
+        "ended_at_unix": 1792377217.5393407,
+        "duration_seconds": 119.077
+      },
+      "name": "route_layout1_main_01",
+      "original_report": "/tmp/plains_world_rebuild/route_layout1_main_01/report.json",
+      "original_report_sha256": "b98d736bb9284ae3e5f3a49422bcfd5d71c1abf13bd59098814b5f7b6e250575",
+      "source_unchanged": true,
+      "media": {
+        "duration": "22.966667",
+        "size": "22430406"
+      }
+    },
+    {
+      "status": "passed",
+      "scope": "Actual normal follow-camera screenshot and optional input-only route movie; not art, user or device admission",
+      "source_commit": "97703a8ff4ca9a86c7fb92ff2d182d0595ffce96",
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--write-movie",
+        "/tmp/plains_world_rebuild/route_v3_main_02/gameplay.avi",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tools/plains_world_rebuild_preview.gd",
+        "--",
+        "--seed=world-rebuild-01",
+        "--variant=0",
+        "--capture-output=/tmp/plains_world_rebuild/route_v3_main_02/frames",
+        "--route=main"
+      ],
+      "elapsed_seconds": 104.26148294599989,
+      "route": {
+        "final_hp": 5.0,
+        "minimum_hp": 5.0,
+        "passed": true,
+        "reason": "actual_forward_and_return",
+        "shot_rejections": [],
+        "shots_accepted": 3,
+        "shots_submitted": 3,
+        "ticks": 1003,
+        "visited_points": 9
+      },
+      "process": {
+        "status": "passed",
+        "exit_code": 0,
+        "failure_reason": null,
+        "started_at_unix": 1792376625.56515,
+        "ended_at_unix": 1792376716.2196703,
+        "duration_seconds": 90.655
+      },
+      "name": "route_v3_main_02",
+      "original_report": "/tmp/plains_world_rebuild/route_v3_main_02/report.json",
+      "original_report_sha256": "d29d68b002f53fa768270fbc816bddf45dc0777dcb387f6c2f3f4613eef2d9d7",
+      "source_unchanged": true,
+      "media": {
+        "duration": "17.200000",
+        "size": "16158022"
+      }
+    }
+  ]
+}

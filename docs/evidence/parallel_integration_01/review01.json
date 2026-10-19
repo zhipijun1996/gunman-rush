@@ -1,0 +1,106 @@
+{
+  "task_id": "PARALLEL-INTEGRATION-01",
+  "reviewer": "/root/integration_review",
+  "author": "/root and integration implementers",
+  "independence": "Reviewer made no production/test/tool edits; only review01.md/json outputs",
+  "reviewed_commit": "549d24e74f4d9e000475d0153f64b08132d09635",
+  "source_state": "HEAD plus working tree; exact selected bytes below; final commit binding pending",
+  "baseline_commit": "ac002e7641fd282c291cdd7c25c9cf5d2450ce0a",
+  "content_version": "forest-v12-pixel-plains-integration-v1",
+  "timestamp_utc": "2026-10-19T09:15:42.228217+00:00",
+  "verdict": "ACCEPT",
+  "scope": "Limited source integration, finite asset-adapter update, 72 metadata custody records, 2 historical frozen carriers, additive presentation tests, clean-output-directory runner fix. Not final release/content/G5 acceptance.",
+  "reviewed_sources": {
+    "scripts/demo/demo_app.gd": "1372c42b846bab6020594b0fb0d55ce6c593a9990f4de9038794f9d94786ead7",
+    "scripts/demo/plains_region_stage.gd": "3d04ea5d1e8cc456c8fc2d9a5d55cf37528e8e31e27cecf3018425449d799531",
+    "scripts/generation/plains_region_assembler.gd": "b410601c6b181dba069d7566edfec2de41d1941a06859dfa28aa49793a67fbfd",
+    "scripts/generation/plains_region_generator.gd": "949e2b518325a2cd48e15a56db26b31374268953b1d2b2688b4d8b5d85563e94",
+    "scripts/art/plains_region_composition.gd": "0849d8ccffac023150f73d3f701c5878c5badc49883d6fdf3857fe4d6cdeb745",
+    "scripts/art/plains_creative_slice.gd": "e1e1b644d3c65d17c39b7eff92866ee8c238e917b8224ae15986176fe846a6d9",
+    "scripts/art/avatar_presentation.gd": "00f91843d0b2ddb026f278e2ac325e56593f8ef575f5d15b58ab4eef0d925823",
+    "tools/check_quality_diff.py": "90e8458f1339a2e2184e5b4f29ab518784227299b543d923cb1e6840fd26029b",
+    "tools/run_pixel_plains_tests.py": "6b9e6fe36dd0cc93674501f48b37a9bd50a285a9bcf6744988e5eb9a335a7063",
+    "tests/parallel_region_presentation_tests.gd": "868d582bedecb6d72575376f71ae296b8e98163563ecbf11bcc18b77a9cadcfe",
+    "tests/forest_campaign_runner.gd": "b3ea0760da0a443b964d1dddb1294212de7b28b898f90083d4e55a986f414513",
+    "config/player_tuning.json": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c",
+    "resources/player/traversal.tres": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+    "scripts/generation/thorn_forest_region_generator.gd": "69da2661252b1b78e622dead785f3076777fb28fee2a618eda626de71277a291",
+    "scripts/generation/thorn_forest_region_assembler.gd": "ebd1591086cb2cd766952408afc79c4699f167e2e05b45cb24c5757eab42081c"
+  },
+  "observed_existing_logs": {
+    "build/integration01/grapple-feel01.log": "64b6643a7103cd850a11a7a738da7efc6d629c46c3fa087b7aed60254cdd07ae",
+    "build/integration01/aim-save01.log": "66b7ee4643f6859f8ec449245c13b8136ab78c003999bb5d389567b551772807",
+    "build/integration01/pixel-formal01.log": "0e4acd52a27d65f2dafd5f10d81cdf856a41fd3501837312a05b437a1ae521a7",
+    "build/integration01/presentation01.log": "90ba1672fc74e14709eeff56f01afeeebda3602370477470121ee038fd71aee9",
+    "build/integration01/core01.log": "e93557acddbc88af92bf78a85e83b247d12aea22c10dc28346859039670e8b11",
+    "build/integration01/pixel-study01.log": "8e570ff78e0d45773103421526464f974f297de25c818f7ca3a9884c7a67e58c",
+    "build/integration01/pixel-study02.log": "499150b0be065ea6cadcbbc8d348e66df32a299cccd5130aec506327bb217c7a"
+  },
+  "independently_executed": [
+    {
+      "command": "PYTHONPATH=tools:tests python3 -m unittest test_quality.QualityTests.test_diff_connected_directory_resolves_only_verified_files test_quality.QualityTests.test_diff_connected_files_cannot_pose_as_offline_provenance test_quality.QualityTests.test_diff_connected_external_callers_cannot_escape_finite_adapter test_quality.QualityTests.test_diff_connected_adapter_refuses_dynamic_missing_escaped_and_stale -v",
+      "exit_code": 0,
+      "result": "4 original tests PASS, 0.042s; covers unknown caller/alias/reflection and changed reader/missing/escaped/stale asset cases"
+    },
+    {
+      "command": "Inline read-only Python assertions: exact 4-line composition diff; adapter hashes; known_asset_consumers; validate_asset for all carrier records; frozen Git byte equality",
+      "exit_code": 0,
+      "result": "exact 4 added lines; 3 finite consumer hashes match; 267 known assets; all 72 carrier records validate without license or visual acceptance; 2 frozen files byte-identical"
+    }
+  ],
+  "findings": [
+    {
+      "id": "INTEGRATION-REVIEW-01",
+      "severity": "none",
+      "status": "accepted_in_scope",
+      "detail": "Default app presentation is guarded by active Plains consumer, connected region, not Forest and not explicit candidate. Stage-load sync selects/removes pixel actor and updates parallax/legacy background on same-player regional transition; Home cleanup/restoration separately tested."
+    },
+    {
+      "id": "INTEGRATION-REVIEW-02",
+      "severity": "none",
+      "status": "accepted_in_scope",
+      "detail": "Default candidate flags empty/false; generator profile additions conditional, reject unknown profiles and do not add candidate manifest fields in empty-profile path. Forest generator/assembler, player tuning and actual traversal resource equal baseline bytes; current focus is 0.15. Historical exact tuning fingerprint remains finite."
+    },
+    {
+      "id": "INTEGRATION-REVIEW-03",
+      "severity": "none",
+      "status": "accepted_in_scope",
+      "detail": "Only reviewed finite hash entry changes. Composition source adds four literal-safe CreativeSlice ownership lines; slice enablement explicit and assets load only after enabled check. No parser/audit guard changes. Original rejection tests independently pass."
+    },
+    {
+      "id": "INTEGRATION-REVIEW-04",
+      "severity": "none",
+      "status": "accepted_in_scope",
+      "detail": "72 carrier records preserve inherited files, all license_status unknown, visual_status unverified, user evidence empty. They do not establish commercial clearance. Frozen historical plan/manifest exact Git bytes retained; historical failed art and attribution limitations documented."
+    },
+    {
+      "id": "INTEGRATION-REVIEW-05",
+      "severity": "none",
+      "status": "accepted_in_scope",
+      "detail": "Campaign presentation assertions are additive, old settlement fixtures explicit; new lifecycle tests use actual damage policy/death and abandon/reopen without movement writes. pixel runner adds only Path import and mkdir for actual output parent before unchanged engine test,90s timeout/success check. Original pixel-study01 failure retained; pixel-study02 log has19/0 and original PASS."
+    }
+  ],
+  "unverified": [
+    "Final frozen integrated commit, full same-source CI and actual deployed identity/browser checks pending",
+    "New historical 20%-hash candidate test consumer migration is being handled separately and is outside this review01 source set",
+    "Reviewer did not execute Godot; native logs were read as author-run evidence only",
+    "No actual rendered game pixels/videos/audio watched, no physical device or human feel/aesthetic/fun approval",
+    "Forest previously documented action shortcuts, reward depth, Boss grapple value and random exploration design limitations remain REVISE"
+  ],
+  "overall_quality": "UNVERIFIED / REVISE; limited ACCEPT does not upgrade region or release",
+  "supplemental_source_review": {
+    "scope": "Historical 20% / current 15% candidate consumer migration; source only, original CLI results and negative current_errors runtime probes pending",
+    "verdict": "UNVERIFIED",
+    "reviewed_sources": {
+      "tests/plains_pre_focus_baseline.gd": "453af69dcd6eecb2da072e19d3ddc7bb00dff4d1d8b48106e30524655350e318",
+      "tests/plains_world_rebuild_runner.gd": "3e6ac7571be1cb4fd8e3a16c5f93ee0a9d557b975a86601d21e571c3c26cf488",
+      "tests/plains_art_language_runner.gd": "64cfc8ad83a46dcbb0ec8610124935ece25c5ff7bc69cf552c37692359887eee",
+      "tests/plains_joint_recoil_runner.gd": "c1f85d364e7d23ef8665e631418f933fdabed2ee6bd0b189cc056b38218c8fca",
+      "tools/run_plains_world_rebuild_tests.py": "711fe6da3332353aa6c00cbac64675c3801f223f965b7382b72a5dcf7bafe3eb",
+      "tools/run_plains_art_language_tests.py": "e57a4628017842b0c46b84610c08928b2d53851ba0d8d21f141f928c825d91f3",
+      "tools/run_plains_joint_recoil_tests.py": "c1c57289d63e62f9a8c8e613db40659f6f43d50f93c6606883d88b28bb3eace2",
+      "tests/fixtures/root_bell/pre_focus_15_player_tuning.json": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+    },
+    "findings": "Original frozen hash constants retained. Old manifests generated only via exact immutable e516 profile and authorized historical API; current runtime tuning remains15%. Current complete Manifest replay validates then compares to entire old Manifest with only provenance field and derived digest changed. Candidate activation rejected. Wrappers add fixture to source guards; budgets and original guards preserved. No semantic lowering found in source; runtime positive/forgery proof pending."
+  }
+}

@@ -1,0 +1,268 @@
+{
+  "status": "accept",
+  "scope": "Exactdirty3filecandidate sceneowner lifecycle +original900wrapperlocalactual; notfinalCI/movie/device",
+  "summary": "Freshoriginalwrapper264.498s passes8positive/10actualmutation consumers. All18actualcleanup receipts strictclean;6oldleakscases nowreleased. IndependentcurrentAST77mutations rejected.",
+  "evidence": {
+    "outer_summary": "build/forest_playable/traversal/scene_owner_cancel_fix/actual-full-1792188402299222292/summary.json",
+    "wrapper_log_sha256": "96d089dce7328d70ec4141c791e502418af8d00ac334d7fbb5e6f32ed51c6977",
+    "seconds": 264.498,
+    "base_commit": "81031906849d60b37da8e99adb02f07491e71cd8",
+    "dirty_files": " M tests/challenge_recoil_tests.gd\n M tests/plains_redesign_scene_runner.gd\n M tools/run_plains_redesign_scene_tests.py\n",
+    "source_before_after_equal": true,
+    "scene_sha256": "d44c6b86032808404462de31b0a7afe91213808f4feaf8a8e1f95bc8f98ccc0e",
+    "wrapper_sha256": "d32d99940915f973b6c6fbe3ea3eca5645757530dc2775eafc420fbcb3304693",
+    "runs": [
+      {
+        "mutation": "",
+        "exit": 0,
+        "assertions": 91,
+        "failures": 0,
+        "cleanup_count": 8,
+        "capture_sha256": "8efd4bb53d1780e9de439c95eb61a94b83251dedd5b9c0dbe614510e427a6223",
+        "log_sha256": "7df61d3ad77cd4d739d57aa4e6d88599036b04712d4124dd230edbbf6dadadaf"
+      },
+      {
+        "mutation": "hud_actor",
+        "exit": 1,
+        "assertions": 10,
+        "failures": 1,
+        "cleanup_count": 1,
+        "capture_sha256": "a4d2b296a626be986860da2e0cf15a46b9b8e88051c0869e97901a2aa62e3060",
+        "log_sha256": "fe678d91eeff1bee7cd03a433924042684f8b73bdbdff1d9063bf8d4524cade0"
+      },
+      {
+        "mutation": "foreground_actor",
+        "exit": 1,
+        "assertions": 10,
+        "failures": 1,
+        "cleanup_count": 1,
+        "capture_sha256": "d1e1821a9b63f507f85bbf83ced144a15813db5af09d43b407eac6fd5405c669",
+        "log_sha256": "6b572e1ff4eaa51080e5ae66caf536b8dc7fff7feeed8239e0a3ea34256bea3c"
+      },
+      {
+        "mutation": "foreground_landing",
+        "exit": 1,
+        "assertions": 10,
+        "failures": 1,
+        "cleanup_count": 1,
+        "capture_sha256": "881b51e1c4a0475057c0ec335cd5c2e16ea7565d607493b811c0a565402cc2b6",
+        "log_sha256": "a6db185d3f20dec069798873b8d6a027e7e126a32fda1c0595f73057b3fd97ae"
+      },
+      {
+        "mutation": "foreground_bell",
+        "exit": 1,
+        "assertions": 10,
+        "failures": 1,
+        "cleanup_count": 1,
+        "capture_sha256": "e234cf87f972405a57a16ce998e242976961608cbc996f8576883085cd036c10",
+        "log_sha256": "142f27de88890bdb4aa42b3ce125688e6978017c393192807bcf1cd3d5f83a30"
+      },
+      {
+        "mutation": "foreground_ferry",
+        "exit": 1,
+        "assertions": 10,
+        "failures": 1,
+        "cleanup_count": 1,
+        "capture_sha256": "0029215cbbd170fe59460004b61085743620dbba37b6bdac317eeceed2748577",
+        "log_sha256": "0a617a7b20c5679ee3fa39df5c33fc540ac45e5224d161d5071ab34b46c63710"
+      },
+      {
+        "mutation": "heading_actor",
+        "exit": 1,
+        "assertions": 10,
+        "failures": 1,
+        "cleanup_count": 1,
+        "capture_sha256": "a1131288df32f4dea1db052266a00467731577d38a99a206d128202dc36616f6",
+        "log_sha256": "e9b1bf187dab784200576e2570e27cdd3144f6c69224ba9ea282478b5ceb8ef6"
+      },
+      {
+        "mutation": "floating_landmark",
+        "exit": 1,
+        "assertions": 10,
+        "failures": 1,
+        "cleanup_count": 1,
+        "capture_sha256": "5e7e4df25d33311305356f46d5e8b2ba22e2b7c99f3c4c7afc0350578ce6fb91",
+        "log_sha256": "fb0156a39829c6dc38982b639b0ec8b3a242ff620d05d63da6cf5c2a5ef235b5"
+      },
+      {
+        "mutation": "required_outside",
+        "exit": 1,
+        "assertions": 10,
+        "failures": 1,
+        "cleanup_count": 1,
+        "capture_sha256": "b8b33c64a9e64bc82f2864397f35b40634a8754abbbe795641d7641e922d5385",
+        "log_sha256": "a0a4ec43ff7235a3b83957eee23467737dead411251657f3c8472f0df0b0df78"
+      },
+      {
+        "mutation": "touch_controls_overlap",
+        "exit": 1,
+        "assertions": 10,
+        "failures": 1,
+        "cleanup_count": 1,
+        "capture_sha256": "9868ae83d5f5afc929352f305e0478e75a0b797da97f55ac389dfa84b318abe9",
+        "log_sha256": "70d8415f0009b74afbafb7c295ee14dec7beb31470fd71c3f1c5f3f54b243ccb"
+      },
+      {
+        "mutation": "info_actor",
+        "exit": 1,
+        "assertions": 10,
+        "failures": 1,
+        "cleanup_count": 1,
+        "capture_sha256": "73fee4f2735e490bb0fd15704f00c436f0b73937073a08d3aa9aef7e8dfbc737",
+        "log_sha256": "72d12a663f4592772767e3f2f2d2086ac88e0637e91b55140523081ba5942692"
+      }
+    ],
+    "independent_AST_refusals": 77,
+    "old_leak_logs_rejected": [
+      "foreground_actor",
+      "foreground_bell",
+      "foreground_ferry",
+      "required_outside",
+      "touch_controls_overlap",
+      "info_actor"
+    ],
+    "old_new_exact_negative_payload": [
+      {
+        "mutation": "hud_actor",
+        "exact_payload_keys": [
+          "outcome",
+          "ticks",
+          "issues",
+          "manifest",
+          "runtime",
+          "mutation",
+          "visual_frames"
+        ]
+      },
+      {
+        "mutation": "foreground_actor",
+        "exact_payload_keys": [
+          "outcome",
+          "ticks",
+          "issues",
+          "manifest",
+          "runtime",
+          "mutation",
+          "visual_frames"
+        ]
+      },
+      {
+        "mutation": "foreground_landing",
+        "exact_payload_keys": [
+          "outcome",
+          "ticks",
+          "issues",
+          "manifest",
+          "runtime",
+          "mutation",
+          "visual_frames"
+        ]
+      },
+      {
+        "mutation": "foreground_bell",
+        "exact_payload_keys": [
+          "outcome",
+          "ticks",
+          "issues",
+          "manifest",
+          "runtime",
+          "mutation",
+          "visual_frames"
+        ]
+      },
+      {
+        "mutation": "foreground_ferry",
+        "exact_payload_keys": [
+          "outcome",
+          "ticks",
+          "issues",
+          "manifest",
+          "runtime",
+          "mutation",
+          "visual_frames"
+        ]
+      },
+      {
+        "mutation": "heading_actor",
+        "exact_payload_keys": [
+          "outcome",
+          "ticks",
+          "issues",
+          "manifest",
+          "runtime",
+          "mutation",
+          "visual_frames"
+        ]
+      },
+      {
+        "mutation": "floating_landmark",
+        "exact_payload_keys": [
+          "outcome",
+          "ticks",
+          "issues",
+          "manifest",
+          "runtime",
+          "mutation",
+          "visual_frames"
+        ]
+      },
+      {
+        "mutation": "required_outside",
+        "exact_payload_keys": [
+          "outcome",
+          "ticks",
+          "issues",
+          "manifest",
+          "runtime",
+          "mutation",
+          "visual_frames"
+        ]
+      },
+      {
+        "mutation": "touch_controls_overlap",
+        "exact_payload_keys": [
+          "outcome",
+          "ticks",
+          "issues",
+          "manifest",
+          "runtime",
+          "mutation",
+          "visual_frames"
+        ]
+      },
+      {
+        "mutation": "info_actor",
+        "exact_payload_keys": [
+          "outcome",
+          "ticks",
+          "issues",
+          "manifest",
+          "runtime",
+          "mutation",
+          "visual_frames"
+        ]
+      }
+    ],
+    "originalvalidatorrefusals": {
+      "empty_routes": true,
+      "empty_trajectory": true,
+      "movie_presence_not_completion": true,
+      "no_visual_observations": true,
+      "false_projection": true,
+      "deleted_actual_outer_connection": true,
+      "restored_duplicate_high": true,
+      "missing_actual_legacy_compatibility": true,
+      "disabled_touch_geometry": true,
+      "restored_touch_ui_overlap": true,
+      "substituted_vertical_lift_for_horizontal_boat": true,
+      "missing_actual_closed_cycle": true
+    }
+  },
+  "findings": [
+    "ACCEPT exactreviewedstaticScene2files+separatelyreviewed2lineChallengefix. Outeroriginal900/inner180 unchanged,actual264.498s exit0/marker;allsourcebeforeafter=currentverified,explicitbase810+3dirtyfiles,notcleanHEADclaim. All11artifact/logSHAengine4.7.2strictchildlogsverified.",
+    "ACCEPT positive8actualroute_target_reached,correctmap2identity,originalfullerrorsvalidatorindependentlyaccepted.10actualNodemutations remainoriginalsinglefailure/exit1/diagnostic/refusal. All10old/new outcome/ticks/issues/manifest/runtime/mutation/visualframes payloadpreciselyidentical independentlycompared;rawframes/events nativeinstanceIDdifferences notnormalizedorclaimedbyteequal.",
+    "ACCEPT18actualcleanupreceipts:sealedpayloadunchanged,realexecutionack/stablefacts/livecontroller/axis0/queue0/noacceptedlateevents/observerdisconnect/audio/traceWeakRef release. No cancel flag activatedduringobservedroute beforeownerseals.",
+    "ACCEPT independentexactcurrentPythonASTextractedcleanup_valid/malformed expressions:all11freshreceiptgroupsaccept;7faultspergroup(total77) includingcoherentdoubleaxis/queue/controllerfalse,missingack/weakref/audio/changedsealallreject. Newmalformedexpressionrejectsallsixoriginalleaklogs. No replacementvalidatororreviewerGodotrun.",
+    "Closes resourceclean concern forfreshSceneonly;oldsix810logs stayfailedandimmutable. Oldwrongstage16/CI810selftickfailurespreserved. No newcommitCI/finalmovie/listening/device/art/fullnaturalcampaignsign."
+  ]
+}

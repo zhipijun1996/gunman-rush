@@ -1,0 +1,17 @@
+> **Superseding user feedback:** warm visual candidate **FAILED / rejected by user**. See [user_rejection_addendum.md](user_rejection_addendum.md). Limited technical evidence below remains valid and does not authorize art expansion or deployment.
+
+# Independent warm-palette review checkpoint
+
+**Scope:** WindchimeLab MAP-00 material fixture and MAP-01 handmade sample. Source is the uncommitted worktree after the original a39a56a baseline, provisional Web build `e9c3b9dc4d07`; do not relabel it as a frozen publish candidate. This checkpoint is **limited technical ACCEPT / visual UNVERIFIED pending remaining HUD correction and final build**. It does not accept the full formal Plains region, generator, campaign, all16 region production, user taste or physical device.
+
+Actual originals viewed at1280×720: root warm01-entry,03-materials,04-catalog; independent browser route-06,10,15,18. Independent GUI continuously moved and jumped from entry through the arch court and wood bridge; blindly timed later jumps fell and auto-returned to entry. Therefore this is not a claimed complete human-input route clear. The production actual-Motor path test is distinct evidence. Selected independent06/10 originals retained here. Full browser video was recorded in build but was not fully played; audio not listened to.
+
+Observed visual result: lower-contrast meadow distance, windmills and a low bell tower now distinguish S1 better than the retired sky-city panorama. Cream standing edges, warm olive-limestone faces, cross-cell broad courses, tiny surface grain, brass moving slab, thin wood bridge, small red-scarf player and wind-up bird enemies are visible in actual pixels. The stone arch is a genuine hole through the near terrain and remains see-through while the camera moves. No false geometry was inferred from a concept image. Background detail and foreground hue sometimes occupy nearby value ranges; that is a remaining artistic tuning choice for user feedback, not proof of collision ambiguity or an invented beauty score.
+
+- WC-R1: corrected in warm actual pixels; bottom Chinese operation/material strings now render readable glyphs.
+- WC-R2: corrected and independently rerun on latest warm source; actual death/Restart/shot scope11/0. Old4 failures retained. Stress223/0 checks20 recreation cycles, real projectile skin, stale token/projectile cancellation, world/target count cleanup and actual AI pause.
+- WC-R3: new actual projectiles consume WindchimeProjectileVisual; shared projectile mechanics remain unchanged. Gun endpoint now derives from the established technical muzzle and _draw reads it without mutation. Initial5-direction muzzle discrepancy diagnostic is retained for the prior manual-gun version.
+- WC-R4: new observed defect in e9 warm screenshots: left ENERGY100 line is cream text on cream cloud, almost unreadable aroundx92–168,y50–64. Root has changed it to dark ink in source; correction still requires a new actual export screenshot before visual sign-off.
+- Added masonry test: latest warm actual MAP01/MAP00/negative-coordinate large-hole frame,27141/0 occupied-interior properties, deterministic output and immutable cells. Strict exit0, no errors/native leaks. This verifies texturing bounds and does not judge grain attractiveness.
+
+No new production code was authored by reviewer. Final report must bind the actual frozen source/build and verify the last HUD pixels. User and device statuses remain unverified.

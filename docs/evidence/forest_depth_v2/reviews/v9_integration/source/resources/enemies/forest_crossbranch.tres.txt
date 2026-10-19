@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="ForestEnemyDefinition" load_steps=4 format=3]
+[ext_resource type="Script" path="res://scripts/enemies/forest_enemy_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/resources/definitions/health_definition.gd" id="2"]
+[sub_resource type="Resource" id="health"]
+script = ExtResource("2")
+resource_id = &"forest_crossbranch_health"
+max_health = 3.0
+initial_current = 3.0
+[resource]
+script = ExtResource("1")
+stable_id = &"forest_crossbranch"
+definition_version = 2
+health_definition = SubResource("health")
+behavior_id = &"forest_crossbranch"
+collision_size = Vector2(28, 32)
+patrol_speed = 0.0
+patrol_half_width = 0.0
+telegraph_duration = 1.0
+attack_speed = 240.0
+return_speed = 100.0
+recovery_duration = 1.6
+activation_range = 300.0
+protected_radius = 45.0
+crossbranch_rest_seconds = 1.8
+crossbranch_settle_seconds = 0.35
+crossbranch_gravity = 620.0
+crossbranch_rise_velocity = -540.0
+crossbranch_fall_velocity = -220.0
+crossbranch_max_flight_seconds = 2.5

@@ -1,0 +1,9 @@
+# 菜单触屏滚动源码诊断
+
+读取准确Godot4.7.2-stable的ScrollContainer、ScrollBar、BaseButton上游小源码，URL与SHA见audit.json。未运行浏览器/引擎，未修改tracked文件。
+
+ScrollContainer只消费MouseButton/MouseMotion/PanGesture（175/182/274/311行），touch惯性依赖LEFT mouse且touchscreen可用；ScrollBar两条路径同样没有ScreenTouch/ScreenDrag。BaseButton却原生支持这两类Screen输入（67/84行），因此按钮能tap、拖拽滚动无效与project.godot:22关闭全局emulation一致。换gutter或thumb预期无效，最终仍看root实际诊断。
+
+最小方案是可见DemoMenu当前ScrollContainer内的UI专属适配器，参考PopupTouchAdapter的root正常GUI转发，将单指真实触摸映射为emulated MouseButton/MouseMotion，consume原touch防止Button双回调，复用原ScrollContainer惯性与SCROLL_BEGIN取消点击。保持全局emulation=false、viewport、所有原断言/时序。必须补真实tap一次、drag不点击、多指/取消/隐藏/退出清理及DOM touchcancel早期钩子。
+
+若实际gutter/thumb均不动，应认定旧d86包触屏菜单真实不可达，保留旧mobile FAIL。生产修复必须重建新游戏再跑完整原72；消费者不能伪造旧包通过。

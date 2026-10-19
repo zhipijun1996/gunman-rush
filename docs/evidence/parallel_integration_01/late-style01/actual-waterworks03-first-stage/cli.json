@@ -1,0 +1,28 @@
+{
+  "command": [
+    "bash",
+    "tools/godot.sh",
+    "--headless",
+    "--path",
+    ".",
+    "--script",
+    "build/integration01/legacy-fixture-waterworks03/waterworks-smoke.gd",
+    "--",
+    "--legacy-presentation-fixture=waterworks",
+    "--legacy-waterworks-contract"
+  ],
+  "exit_code": 0,
+  "seconds": 5.9209603999916,
+  "before": {
+    "tests/legacy_plains_presentation_fixture.gd": "d036a49751c18321335baea377fc4795b016c4e2ae44ebae18cb130ad5a84cfa",
+    "scripts/generation/module_moving_platform.gd": "c4d8cc06f9de9daf3988cd198497102a349f7204eb83d7fbf8685e4acb82be1a",
+    "tests/visual_director_space_runner.gd": "30087c5d0431c0ad55ac189174e356902792b44c9f005e1bbf8ae6b4104e9a4a"
+  },
+  "after": {
+    "tests/legacy_plains_presentation_fixture.gd": "d036a49751c18321335baea377fc4795b016c4e2ae44ebae18cb130ad5a84cfa",
+    "scripts/generation/module_moving_platform.gd": "c4d8cc06f9de9daf3988cd198497102a349f7204eb83d7fbf8685e4acb82be1a",
+    "tests/visual_director_space_runner.gd": "30087c5d0431c0ad55ac189174e356902792b44c9f005e1bbf8ae6b4104e9a4a"
+  },
+  "source_stable": true,
+  "scope": "one actual original map2 waterworks/ferry smoke only; not full wrappers"
+}

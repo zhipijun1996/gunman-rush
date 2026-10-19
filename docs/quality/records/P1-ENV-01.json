@@ -1,0 +1,512 @@
+{
+  "schema_version": 1,
+  "task_id": "P1-ENV-01",
+  "task_type": "region",
+  "workflow": "blocked",
+  "baseline_commit": "e545b05e5de5c33656cc489cc5f3d3ebaf69432d",
+  "reviewed_commit": "4d4803773d21dbe9e9443b42bc0a87dbc35137c6",
+  "content_version": "environment-round03-art-rework",
+  "owner": "root",
+  "purpose": "共同设计连续平原场所：同一计划驱动真实地形、手绘体积、建筑连接与景层；首片准入后验证结构复用及真正Seed变化。",
+  "player_experience": "草坡进入、跨风裂隙、完整邮桥、避风棚、登高回望；核心反冲操作及原资源合同不变。",
+  "constraints": [
+    "Preserve existing gameplay contracts"
+  ],
+  "affected_paths": [
+    ".agents/skills/art-director/SKILL.md",
+    ".agents/skills/region-generator/SKILL.md",
+    ".agents/skills/scene-composer/SKILL.md",
+    ".agents/skills/visual-director/SKILL.md",
+    "assets/visual_development/p1_environment/earth_section.png",
+    "assets/visual_development/p1_environment/earth_section.png.import",
+    "assets/visual_development/p1_environment/earth_section.prompt.txt",
+    "assets/visual_development/p1_environment/earth_section.record.json",
+    "assets/visual_development/p1_environment/earth_sides.png",
+    "assets/visual_development/p1_environment/earth_sides.png.import",
+    "assets/visual_development/p1_environment/earth_sides.prompt.txt",
+    "assets/visual_development/p1_environment/earth_sides.record.json",
+    "assets/visual_development/p1_environment/far_world.png",
+    "assets/visual_development/p1_environment/far_world.png.import",
+    "assets/visual_development/p1_environment/far_world.prompt.txt",
+    "assets/visual_development/p1_environment/far_world.record.json",
+    "assets/visual_development/p1_environment/middle_ridges.png",
+    "assets/visual_development/p1_environment/middle_ridges.png.import",
+    "assets/visual_development/p1_environment/middle_ridges.prompt.txt",
+    "assets/visual_development/p1_environment/middle_ridges.record.json",
+    "assets/visual_development/p1_environment/postal_bridge.png",
+    "assets/visual_development/p1_environment/postal_bridge.png.import",
+    "assets/visual_development/p1_environment/postal_bridge.prompt.txt",
+    "assets/visual_development/p1_environment/postal_bridge.record.json",
+    "assets/visual_development/p1_environment/postal_bridge_walkable_v2.png",
+    "assets/visual_development/p1_environment/postal_bridge_walkable_v2.png.import",
+    "assets/visual_development/p1_environment/postal_bridge_walkable_v2.prompt.txt",
+    "assets/visual_development/p1_environment/postal_bridge_walkable_v2.record.json",
+    "assets/visual_development/p1_environment/shelter_tree.png",
+    "assets/visual_development/p1_environment/shelter_tree.png.import",
+    "assets/visual_development/p1_environment/shelter_tree.prompt.txt",
+    "assets/visual_development/p1_environment/shelter_tree.record.json",
+    "docs/current_state.md",
+    "docs/evidence/p1_environment/brief.md",
+    "docs/evidence/p1_environment/delivery/archive_index.json",
+    "docs/evidence/p1_environment/delivery/delivery.json",
+    "docs/evidence/p1_environment/delivery/exact_pck_dedup.json",
+    "docs/evidence/p1_environment/delivery/local_review_01/build_receipt.json",
+    "docs/evidence/p1_environment/delivery/local_review_01/logs/display.log",
+    "docs/evidence/p1_environment/delivery/local_review_01/logs/isolated_gui.log",
+    "docs/evidence/p1_environment/delivery/local_review_01/logs/isolated_headless.log",
+    "docs/evidence/p1_environment/delivery/local_review_01/logs/pack.log",
+    "docs/evidence/p1_environment/delivery/local_review_01/pack_inputs.json",
+    "docs/evidence/p1_environment/delivery/local_review_01/pack_sources.gd",
+    "docs/evidence/p1_environment/delivery/local_review_01/review_smoke.gd",
+    "docs/evidence/p1_environment/delivery/local_review_02/README.txt",
+    "docs/evidence/p1_environment/delivery/local_review_02/alsa_null.conf",
+    "docs/evidence/p1_environment/delivery/local_review_02/build_receipt.json",
+    "docs/evidence/p1_environment/delivery/local_review_02/download.json",
+    "docs/evidence/p1_environment/delivery/local_review_02/logs/display.log",
+    "docs/evidence/p1_environment/delivery/local_review_02/logs/isolated_gui.log",
+    "docs/evidence/p1_environment/delivery/local_review_02/logs/isolated_headless.log",
+    "docs/evidence/p1_environment/delivery/local_review_02/logs/pack.log",
+    "docs/evidence/p1_environment/delivery/local_review_02/pack_inputs.json",
+    "docs/evidence/p1_environment/delivery/local_review_02/pack_sources.gd",
+    "docs/evidence/p1_environment/delivery/local_review_02/play.sh",
+    "docs/evidence/p1_environment/delivery/local_review_02/review_smoke.gd",
+    "docs/evidence/p1_environment/delivery/local_review_02/version.json",
+    "docs/evidence/p1_environment/delivery/producers/README.txt",
+    "docs/evidence/p1_environment/delivery/producers/baseline_asset_paths.json",
+    "docs/evidence/p1_environment/delivery/producers/prepare_local_review_bundle.py",
+    "docs/evidence/p1_environment/environment_master_v1.png",
+    "docs/evidence/p1_environment/environment_master_v1.prompt.txt",
+    "docs/evidence/p1_environment/frames/bindings.json",
+    "docs/evidence/p1_environment/frames/round01_bridge.png",
+    "docs/evidence/p1_environment/frames/round01_entry.png",
+    "docs/evidence/p1_environment/frames/round01_lookback.png",
+    "docs/evidence/p1_environment/frames/round01_receiver.png",
+    "docs/evidence/p1_environment/frames/round01_shelter.png",
+    "docs/evidence/p1_environment/frames/round02_bridge.png",
+    "docs/evidence/p1_environment/frames/round02_entry.png",
+    "docs/evidence/p1_environment/frames/round02_lookback.png",
+    "docs/evidence/p1_environment/frames/round02_receiver.png",
+    "docs/evidence/p1_environment/frames/round02_shelter.png",
+    "docs/evidence/p1_environment/frames/round03_bridge.png",
+    "docs/evidence/p1_environment/frames/round03_entry.png",
+    "docs/evidence/p1_environment/frames/round03_lookback.png",
+    "docs/evidence/p1_environment/frames/round03_receiver.png",
+    "docs/evidence/p1_environment/frames/round03_shelter.png",
+    "docs/evidence/p1_environment/gallery.html",
+    "docs/evidence/p1_environment/independent-harness-01.md",
+    "docs/evidence/p1_environment/independent-master-01.md",
+    "docs/evidence/p1_environment/independent-native-01.md",
+    "docs/evidence/p1_environment/independent-native-02.md",
+    "docs/evidence/p1_environment/independent-native-03.md",
+    "docs/evidence/p1_environment/measurements/bridge_abutments_proposal.json",
+    "docs/evidence/p1_environment/measurements/bridge_walkable_v2_measurement.json",
+    "docs/evidence/p1_environment/measurements/renderer_source_change.json",
+    "docs/evidence/p1_environment/measurements/renderer_source_change_03.json",
+    "docs/evidence/p1_environment/measurements/side_geometry_proposal.json",
+    "docs/evidence/p1_environment/media/binding.json",
+    "docs/evidence/p1_environment/media/full03.mp4",
+    "docs/evidence/p1_environment/recipe.md",
+    "docs/evidence/p1_environment/records/archive_index.json",
+    "docs/evidence/p1_environment/records/checks_final/harness/art-art.log",
+    "docs/evidence/p1_environment/records/checks_final/harness/docs.log",
+    "docs/evidence/p1_environment/records/checks_final/harness/level-design-routing.log",
+    "docs/evidence/p1_environment/records/checks_final/harness/quality.log",
+    "docs/evidence/p1_environment/records/checks_final/harness/report.json",
+    "docs/evidence/p1_environment/records/checks_final/harness/visual-director-tests.log",
+    "docs/evidence/p1_environment/records/checks_final/unit_tests.json",
+    "docs/evidence/p1_environment/records/checks_final/unit_tests.log",
+    "docs/evidence/p1_environment/records/comparison_01/original_compare_rejection.json",
+    "docs/evidence/p1_environment/records/comparison_02/actual_trajectory_02_03.json",
+    "docs/evidence/p1_environment/records/comparison_02/original_compare_02_03.json",
+    "docs/evidence/p1_environment/records/full_01/capture.json",
+    "docs/evidence/p1_environment/records/full_01/capture.log",
+    "docs/evidence/p1_environment/records/full_01/display.log",
+    "docs/evidence/p1_environment/records/full_01/encode.log",
+    "docs/evidence/p1_environment/records/full_01/extract.log",
+    "docs/evidence/p1_environment/records/full_01/inspection.json",
+    "docs/evidence/p1_environment/records/full_01/visual_capture.json",
+    "docs/evidence/p1_environment/records/full_02/capture.json",
+    "docs/evidence/p1_environment/records/full_02/capture.log",
+    "docs/evidence/p1_environment/records/full_02/display.log",
+    "docs/evidence/p1_environment/records/full_02/encode.log",
+    "docs/evidence/p1_environment/records/full_02/extract.log",
+    "docs/evidence/p1_environment/records/full_02/inspection.json",
+    "docs/evidence/p1_environment/records/full_02/visual_capture.json",
+    "docs/evidence/p1_environment/records/full_03/capture.json",
+    "docs/evidence/p1_environment/records/full_03/capture.log",
+    "docs/evidence/p1_environment/records/full_03/display.log",
+    "docs/evidence/p1_environment/records/full_03/encode.log",
+    "docs/evidence/p1_environment/records/full_03/extract.log",
+    "docs/evidence/p1_environment/records/full_03/visual_capture.json",
+    "docs/evidence/p1_environment/records/no_gun_01/capture.json",
+    "docs/evidence/p1_environment/records/no_gun_01/capture.log",
+    "docs/evidence/p1_environment/records/no_gun_01/display.log",
+    "docs/evidence/p1_environment/records/no_gun_01/encode.log",
+    "docs/evidence/p1_environment/records/no_gun_01/extract.log",
+    "docs/evidence/p1_environment/records/no_gun_01/negative_case_summary.json",
+    "docs/evidence/p1_environment/records/no_gun_01/visual_capture.json",
+    "docs/evidence/p1_environment/records/preflight_01/capture_parse.json",
+    "docs/evidence/p1_environment/records/preflight_01/capture_parse.log",
+    "docs/evidence/p1_environment/records/preflight_01/capture_parse_02.log",
+    "docs/evidence/p1_environment/records/preflight_01/capture_parse_03.log",
+    "docs/evidence/p1_environment/records/preflight_01/import.log",
+    "docs/evidence/p1_environment/records/preflight_01/preview_parse.json",
+    "docs/evidence/p1_environment/records/preflight_01/preview_parse.log",
+    "docs/evidence/p1_environment/records/preflight_01/receipt.json",
+    "docs/evidence/p1_environment/records/preflight_02/capture_parse.json",
+    "docs/evidence/p1_environment/records/preflight_02/capture_parse.log",
+    "docs/evidence/p1_environment/records/preflight_02/import.json",
+    "docs/evidence/p1_environment/records/preflight_02/import.log",
+    "docs/evidence/p1_environment/records/preflight_02/preview_parse.json",
+    "docs/evidence/p1_environment/records/preflight_02/preview_parse.log",
+    "docs/evidence/p1_environment/records/preflight_03/capture_parse.json",
+    "docs/evidence/p1_environment/records/preflight_03/capture_parse.log",
+    "docs/evidence/p1_environment/records/preflight_03/import.json",
+    "docs/evidence/p1_environment/records/preflight_03/import.log",
+    "docs/evidence/p1_environment/records/preflight_03/preview_parse.json",
+    "docs/evidence/p1_environment/records/preflight_03/preview_parse.log",
+    "docs/evidence/p1_environment/records/probe_01/capture.json",
+    "docs/evidence/p1_environment/records/probe_01/capture.log",
+    "docs/evidence/p1_environment/records/probe_01/display.log",
+    "docs/evidence/p1_environment/records/probe_01/visual_capture.json",
+    "docs/evidence/p1_environment/records/probe_02/capture.json",
+    "docs/evidence/p1_environment/records/probe_02/capture.log",
+    "docs/evidence/p1_environment/records/probe_02/display.log",
+    "docs/evidence/p1_environment/records/probe_02/visual_capture.json",
+    "docs/evidence/p1_environment/records/probe_03/capture.json",
+    "docs/evidence/p1_environment/records/probe_03/capture.log",
+    "docs/evidence/p1_environment/records/probe_03/display.log",
+    "docs/evidence/p1_environment/records/probe_03/encode.log",
+    "docs/evidence/p1_environment/records/probe_03/extract.log",
+    "docs/evidence/p1_environment/records/probe_03/visual_capture.json",
+    "docs/evidence/p1_environment/seed_set.json",
+    "docs/evidence/p1_environment/timings.json",
+    "docs/handoff.md",
+    "docs/quality/asset_records/p1-environment-earth_section.json",
+    "docs/quality/asset_records/p1-environment-earth_sides.json",
+    "docs/quality/asset_records/p1-environment-far_world.json",
+    "docs/quality/asset_records/p1-environment-middle_ridges.json",
+    "docs/quality/asset_records/p1-environment-postal_bridge.json",
+    "docs/quality/asset_records/p1-environment-postal_bridge_walkable_v2.json",
+    "docs/quality/asset_records/p1-environment-shelter_tree.json",
+    "docs/quality/asset_records/p1-environment-whole-master-v1.json",
+    "docs/quality/p1_environment.md",
+    "docs/quality/records/P1-ENV-01.json",
+    "docs/quality/records/P1-ENV-ROUTING-01.json",
+    "docs/tasks.md",
+    "resources/generation/environment_grammar/lee_post_v1.json",
+    "resources/visual_development/p1_environment_assets.json",
+    "scripts/art/plains_environment_composer.gd",
+    "scripts/art/plains_environment_composer.gd.uid",
+    "scripts/art/plains_environment_terrain.gd",
+    "scripts/art/plains_environment_terrain.gd.uid",
+    "scripts/demo/demo_app.gd",
+    "scripts/demo/plains_environment_stage.gd",
+    "scripts/demo/plains_environment_stage.gd.uid",
+    "scripts/generation/plains_environment_assembler.gd",
+    "scripts/generation/plains_environment_assembler.gd.uid",
+    "scripts/generation/plains_environment_module.gd",
+    "scripts/generation/plains_environment_module.gd.uid",
+    "scripts/generation/plains_environment_plan.gd",
+    "scripts/generation/plains_environment_plan.gd.uid",
+    "tests/plains_environment_trace.gd",
+    "tests/plains_environment_trace.gd.uid",
+    "tests/test_level_design_routing.py",
+    "tests/test_visual_director.py",
+    "tools/level_design.py",
+    "tools/plains_environment_capture.gd",
+    "tools/plains_environment_capture.gd.uid",
+    "tools/plains_environment_preview.gd",
+    "tools/plains_environment_preview.gd.uid",
+    "tools/visual_director.py"
+  ],
+  "deliverables": [
+    "真实正常相机首片及去返录像",
+    "独立整屏审查",
+    "准入后结构B及有限Seed验证"
+  ],
+  "creative_decisions": [
+    {
+      "status": "proposed",
+      "decision": "P1作为可逆候选方向，未代签用户最终艺术认可。",
+      "basis": "用户更倾向P1并授权本轮实际制作；不是最终风格或商业认可。"
+    },
+    {
+      "status": "not_required",
+      "decision": "首完整scope ART REWORK，暂禁第二空间；执行一次实际消费者与功能桥重绘修正。",
+      "basis": "docs/evidence/p1_environment/independent-native-01.md，独立作者按真实原生帧发现裁边/剪切/假栏杆踏面；属于已授权候选内返工。"
+    },
+    {
+      "status": "not_required",
+      "decision": "停止当前band/端alpha接法，不扩第二结构或Seeds；保留有证据的深壁/桥面技术和全部失败。",
+      "basis": "独立第三轮真实整屏REWORK，已有进步不虚构两轮全无进步；本轮授权停止被证伪路径。"
+    }
+  ],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "failed",
+      "reason": "Shared intent exists, but actual artistic decomposition/space direction needs RETHINK.",
+      "evidence": [
+        "environment-plan",
+        "art-review03"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Only explicit candidate full route passed; do not bypass failedG0 or grant formal region completion.",
+      "evidence": [
+        "native-trace03"
+      ]
+    },
+    "G2": {
+      "status": "failed",
+      "reason": "Actual whole-screen golden rejected.",
+      "evidence": [
+        "frame03-receiver",
+        "movie03",
+        "art-review03"
+      ]
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "No default-pool/two-map integration or target performance admission.",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Targeted current checks only, not full formalCI/publish or historical blocker repair.",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "No user/human/physical-device acceptance.",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "failed",
+      "reason": "Whole-image transfer and continuous-space layer/connection design did not reach intended golden.",
+      "evidence": [
+        "environment-plan",
+        "art-review03"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Explicit candidate actual complete route and strict lifecycle plus44 tool cases; rejected setup branch and full formalCI not waived.",
+      "evidence": [
+        "native-full03",
+        "environment-units",
+        "targeted-harness"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Explicit development flag only, not default formal random pool or full two-map/Boss admission.",
+      "evidence": []
+    },
+    "visual": {
+      "status": "failed",
+      "reason": "Third actual shoulder join remains a faded cut rather than coherent terrain volume.",
+      "evidence": [
+        "frame03-receiver",
+        "art-review03"
+      ]
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Normal character/enemy/saw motion recorded; full state and environment motion quality not admitted.",
+      "evidence": [
+        "movie03"
+      ]
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Audio recorded but no personal audition or full quality acceptance.",
+      "evidence": [
+        "movie03"
+      ]
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Real Router route is engineering evidence; player fun/feel not tested with humans.",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Software movie capture cost measured, no target-device frame-budget validation.",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "failed",
+      "reason": "Different-author art review returned REWORK; technical routing ACCEPT is separate child scope.",
+      "evidence": [
+        "art-review03"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "No physical phone/PC/controller hardware session.",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "P1 preference is not final actual-game user approval.",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "candidate-route-21",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "Explicit5place candidate with actual enemies/saw, original motor/resources.",
+      "method": "Fresh strict visible forward/return trace.",
+      "expected": "All21 waypoints,HP5,0teleport/recovery,cleanexit.",
+      "failure": "Any missingcase,damage/recovery,wrongsource or nativeerror.",
+      "status": "passed",
+      "reason": "Observed in originalfull03 trace.",
+      "evidence": [
+        "native-full03",
+        "native-trace03"
+      ]
+    },
+    {
+      "id": "whole-art-golden",
+      "gate": "G2",
+      "dimension": "visual",
+      "scenario": "Normal-camera entered/bridge/shelter/receiver/lookback frames.",
+      "method": "Actual pixels and independent source-bound review.",
+      "expected": "Continuous credible top/end/side volume and appealing unified space.",
+      "failure": "Cut/faded cap disconnected from body, weak whole-space layers.",
+      "status": "failed",
+      "reason": "Third actual review REWORK; expansion stopped.",
+      "evidence": [
+        "frame03-receiver",
+        "art-review03"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "environment-plan",
+      "path": "resources/generation/environment_grammar/lee_post_v1.json",
+      "sha256": "2521745eb56f3e44404f9e518f181d6f7baf3d6edac021069bdac86e949cfe54",
+      "kind": "spec",
+      "producer": "environment_plan",
+      "source_commit": "4d4803773d21dbe9e9443b42bc0a87dbc35137c6",
+      "content_version": "environment-round03-art-rework",
+      "method": "Actual shared resolved plan used by collision and art.",
+      "observed": "Explicit isolated candidate, four natural banks, bridge and two abutments."
+    },
+    {
+      "id": "native-full03",
+      "path": "docs/evidence/p1_environment/records/full_03/visual_capture.json",
+      "sha256": "9f09569a80af5a6b1ab871441a2084e4442f6c1a5adadf876bac9ed721cd866e",
+      "kind": "command",
+      "producer": "environment_native",
+      "source_commit": "4d4803773d21dbe9e9443b42bc0a87dbc35137c6",
+      "content_version": "environment-round03-art-rework",
+      "method": "Original strict capture CLI, normal visible camera and real Router inputs.",
+      "observed": "Captured2234ticks,21waypoints,HP5,6shots,0recoveries, clean strict exit.",
+      "command": "bash tools/godot.sh --rendering-method gl_compatibility --write-movie /workspace/art-direction-exploration/build/plains_environment/full_03/gameplay.avi --fixed-fps 60 --path . --script tools/plains_environment_capture.gd -- --source-commit=4d4803773d21dbe9e9443b42bc0a87dbc35137c6 --seed=plains-environment-first-A --strategy=fast --map-index=1 --phase-wait-ticks=0 --max-ticks=3600 --output=res://build/plains_environment/full_03/capture.json --encounter-policy=blind_legacy --capture-visible --environment-phase=full --environment-mutation=",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Standard, llvmpipe/softwareGL,1280x720,60Hz movie; not physical-device performance"
+    },
+    {
+      "id": "native-trace03",
+      "path": "docs/evidence/p1_environment/records/full_03/capture.json",
+      "sha256": "d824a5ef7b167fed10bce44f3b8404200107ffe1dccef7470c64f002cfaa4b57",
+      "kind": "runtime_trace",
+      "producer": "environment_native",
+      "source_commit": "4d4803773d21dbe9e9443b42bc0a87dbc35137c6",
+      "content_version": "environment-round03-art-rework",
+      "method": "Actual player/collision/accepted-input and shared-plan trace.",
+      "observed": "Full explicit candidate forward and return; not campaign/Boss/two-map completion."
+    },
+    {
+      "id": "frame03-receiver",
+      "path": "docs/evidence/p1_environment/frames/round03_receiver.png",
+      "sha256": "35f00c784b318a054095febc579f7273955c5ff5054105cb525aaba6872edac9",
+      "kind": "screenshot",
+      "producer": "environment_native",
+      "source_commit": "4d4803773d21dbe9e9443b42bc0a87dbc35137c6",
+      "content_version": "environment-round03-art-rework",
+      "method": "Unmodified native movie frame360/6seconds, not exactphysics tick.",
+      "observed": "Remaining square/transparent shoulder join; actual Godot UI/character."
+    },
+    {
+      "id": "movie03",
+      "path": "docs/evidence/p1_environment/media/full03.mp4",
+      "sha256": "10596a1fd814ababedbab9c734836b82dd618f233dfc511a2bd1f3fe14de93d8",
+      "kind": "video",
+      "producer": "environment_native",
+      "source_commit": "4d4803773d21dbe9e9443b42bc0a87dbc35137c6",
+      "content_version": "environment-round03-art-rework",
+      "method": "Byte-identical copy of original completed capture movie.",
+      "observed": "37.316667seconds,60fps,stereo AAC; no listening/device approval."
+    },
+    {
+      "id": "art-review03",
+      "path": "docs/evidence/p1_environment/independent-native-03.md",
+      "sha256": "515c4bdebc1b4e34fb587cfe4327c0c2cbd1ecad536e705e4d863463f765257d",
+      "kind": "review",
+      "producer": "environment_art_review",
+      "source_commit": "4d4803773d21dbe9e9443b42bc0a87dbc35137c6",
+      "content_version": "environment-round03-art-rework",
+      "method": "Read-only distinct-author actual original-size pixel review.",
+      "observed": "REWORK; no golden admission, stop current shoulder method, noB/Seeds.",
+      "reviewer": "environment_art_review",
+      "implementers": [
+        "root",
+        "environment_plan",
+        "environment_renderer",
+        "environment_native"
+      ],
+      "independent": true,
+      "independence_basis": "Only read source/pixels and authored review, did not modify production or create images.",
+      "verdict": "REJECT",
+      "original_verdict": "REWORK"
+    },
+    {
+      "id": "environment-units",
+      "path": "docs/evidence/p1_environment/records/checks_final/unit_tests.json",
+      "sha256": "e6b6b7b827ff93e792480cef0991514b967fdcd1cb3014cae17d5c680a1b147d",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "4d4803773d21dbe9e9443b42bc0a87dbc35137c6",
+      "content_version": "environment-round03-art-rework",
+      "method": "Actual original unit/routing suite.",
+      "observed": "44 passed; distinct from art or Motor approval.",
+      "command": "PYTHONPATH=tests python3 -m unittest tests.test_visual_director tests.test_level_design_routing",
+      "exit_code": 0,
+      "environment": "Linux/Python3.12 workspace"
+    },
+    {
+      "id": "targeted-harness",
+      "path": "docs/evidence/p1_environment/records/checks_final/harness/report.json",
+      "sha256": "883d2863157efa6448887f55de47b919f506690679a40b2c915ea44d43b76e8e",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "4d4803773d21dbe9e9443b42bc0a87dbc35137c6",
+      "content_version": "environment-round03-art-rework",
+      "method": "Original Harness, explicit relevant check selection, jobs1 because isolated clones exceed available disk.",
+      "observed": "All5 requested checks passed; targeted_checks=true, not full-profile/CI/release approval.",
+      "command": "python3 tools/harness.py --profile docs --profile art --profile gameplay --base e545b05e --check docs --check quality --check art-art --check visual-director-tests --check level-design-routing --jobs 1",
+      "exit_code": 0,
+      "environment": "Linux execution workspace/Python3.12, all writers idle during frozen validation."
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Golden art not admitted; no structureB or structuralSeed execution.",
+    "Current fixedA seed varies sawphase only; not random terrain proof.",
+    "Autonomous stable full-region art capability not established.",
+    "No full formalCI/Webrelease, old encounter/complexGUI blocker repair, user/physicaldevice or personal listening approval.",
+    "Native capture attach-rejection cleanup leak remains preserved; normal positive/negative-route clean does not waive it.",
+    "Generated asset commercial license/model/price remain unknown."
+  ],
+  "test_change_justification": "Visual recipe assertions now bind actual P1-ENV-01 catalog/consumer/capture and explicit non-admission instead of historical P1-native/painted-terrain fixture. Historical capture/physics/strict/negative tests remain. Different-author read-only test-change review pending; no automatic waiver."
+}

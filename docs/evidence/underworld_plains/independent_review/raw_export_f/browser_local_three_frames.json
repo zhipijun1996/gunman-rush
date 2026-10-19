@@ -1,0 +1,47 @@
+{
+  "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+  "build_id": "4b01de439c24",
+  "actual_browser_console_samples": 5,
+  "observed_raw_hashes": {
+    "res://assets/underworld_plains/backgrounds/far.png": "c99e5c0c7d86710345f291baf7ee4950995b59b3e0da8034be7fe5f145a78e3e",
+    "res://assets/underworld_plains/backgrounds/middle.png": "b736998135fcc8f7a9a740634dbc33e585f3ebfdf79b4a55395405ae2365e4c2",
+    "res://assets/underworld_plains/backgrounds/near.png": "32ea3038c8388b4df3898e0803d02ca7ad76634d5745019cbde3057d66c6ccf2"
+  },
+  "runtime_raw_hashes_verdict": "PASS actual cooked browser console matches seven-source pack subset",
+  "viewed_original_frames": [
+    "build/underworld_plains/delivery/browser_local_F/01-map1-ordinary-spawn.png",
+    "build/underworld_plains/delivery/browser_local_F/02-map1-real-move-jump.png",
+    "build/underworld_plains/delivery/browser_local_F/03-map1-after-landing.png"
+  ],
+  "frame_observation": "01 on spawn bank;02 feet below right bank top, HUD JUMP0/1;03 below level in gap. Filename after-landing is not proof of landing. No actual jump apex visible in these three frames.",
+  "local_driver_landing": "FAILED observed fall, do not inherit E local landing result",
+  "independent_video_review": {
+    "source": "build/underworld_plains/delivery/browser_local_F/video/page@0b727693f282bdd458744098d568563d.webm",
+    "duration_seconds": 138.0,
+    "resolution": [
+      1280,
+      720
+    ],
+    "fps": 25,
+    "viewed_samples": [
+      "40..64 seconds at1Hz25sample contact",
+      "53.3..55.2 at10Hz20sample contact",
+      "full54.0 frame slight separation/HUD1/1 retained before-jump reference",
+      "full54.5 accurate post-input seek frame HUD0/1,feet232 vsplatform457 (225px above)"
+    ],
+    "actual_airborne_frame": "local_movie_airborne_54_5.png",
+    "verdict": "ACCEPT real rendered movement and jump visible in original movie; driver then falls into gap, landing FAILED",
+    "limits": "Finite extracted samples; no whole uninterrupted playback/audio/no Router telemetry. Sample contacts overlap timestamps; not45unique frames.",
+    "portable_source": "browser_local_f/video/page@0b727693f282bdd458744098d568563d.webm",
+    "full54_frame_limit": "The early54.0 filename says airborne but shows only slight gap with HUD1/1; actual proof is accurate54.5s file and not this filename."
+  },
+  "E_counterexample_actual_missing_background_raw": [
+    "assets/underworld_plains/backgrounds/far.png",
+    "assets/underworld_plains/backgrounds/middle.png",
+    "assets/underworld_plains/backgrounds/near.png"
+  ],
+  "E_evidence_unchanged": true,
+  "physical_device_audio_user_aesthetic": "UNVERIFIED",
+  "runtime_motion_verdict": "ACCEPT ordinary title -> horizontal move -> real jump, finite native/browser pixels observed; this driver landing FAILED",
+  "portable_original_media": "browser_local_f/"
+}

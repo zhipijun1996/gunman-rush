@@ -16,10 +16,23 @@ var _pulse := 0
 var _next_pulse := 0.0
 var _last_actor_epoch := -1
 var _previous_relative := Vector2.ZERO
+var _physical_contact_frame := -1
+var _physical_contact_epoch := -1
+var _physical_contact_session := -1
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	process_physics_priority = 900
+	# Opt-in moving bodies report an actual KinematicCollision. Their safe
+	# margin can stop just outside the geometric sweep; do not enlarge hitboxes.
+	if get_parent().has_signal("physical_contact"):
+		get_parent().connect("physical_contact",notify_physical_contact)
+
+func notify_physical_contact(collider: Node) -> void:
+	if not is_instance_valid(controller) or collider != controller.motor or policy == null or policy.lifetime == null: return
+	_physical_contact_frame = Engine.get_physics_frames()
+	_physical_contact_epoch = policy.lifetime.actor_epoch
+	_physical_contact_session = controller.session_id
 
 func _physics_process(_delta: float) -> void:
 	if policy == null or policy.lifetime == null or not policy.lifetime.active or not is_instance_valid(controller) or not controller.active:
@@ -32,7 +45,9 @@ func _physics_process(_delta: float) -> void:
 		_last_actor_epoch = life.actor_epoch
 	var size := half_size + Vector2(12, 18)
 	var protected := kind == DamageRequest.Kind.MONSTER and controller.traversal != null and controller.traversal.protects_contact(get_parent())
-	var touching := enabled and not protected and segment_intersects_bounds(_previous_relative, relative, Rect2(-size, size * 2.0))
+	var physical_contact := (_physical_contact_frame == Engine.get_physics_frames()
+		and _physical_contact_epoch == life.actor_epoch and _physical_contact_session == controller.session_id)
+	var touching := enabled and not protected and (physical_contact or segment_intersects_bounds(_previous_relative, relative, Rect2(-size, size * 2.0)))
 	_previous_relative = relative
 	if not touching:
 		_was_touching = false

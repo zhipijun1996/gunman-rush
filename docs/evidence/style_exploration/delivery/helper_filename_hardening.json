@@ -1,0 +1,30 @@
+{
+  "scope": "post-deployment helper hardening; runtime package not rebuilt or relabeled",
+  "deployed_source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+  "deployed_helper_sha256": "d360f9e749dc5a91e68052bc29ec8d58097f71a57aec1011faa1c707f16b8a09",
+  "fixed_helper_sha256": "582a88b0438753b04d771a479aa4d13f923b4387938252f09428773375391a43",
+  "actual_public_pack_filename": "index.d2d469f81582.pck",
+  "fixture_filename": "index.000000000000.pck",
+  "fixture_content": "hard-linked exact final PCK, metadata pack and resource-map key renamed; original build_id/SHA/length retained",
+  "old_b_helper": {
+    "exit_code": 0,
+    "accepted_wrong_filename": true
+  },
+  "fixed_helper": {
+    "exit_code": 1,
+    "rejected": true,
+    "diagnostic": "ValueError: Pack filename differs from build ID"
+  },
+  "correct_final_package": {
+    "scope": "exact PCK reconstruction for static Pages transport",
+    "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+    "build_id": "d2d469f81582",
+    "pack": "index.d2d469f81582.pck",
+    "pack_bytes": 119400768,
+    "pack_sha256": "d2d469f81582f52d18038455005e557f74906b4ae12b41efaab499d59400ad1a",
+    "reconstructed": false,
+    "failed": 0
+  },
+  "runtime_and_public_pack_unchanged": true,
+  "failed": 0
+}

@@ -1,0 +1,84 @@
+{
+  "status": "reject",
+  "scope": "Independent static inventory of legacy direct map2 test setups; not production or forest matrix rejection",
+  "summary": "Global stage_index and local region_map_index split invalidates old direct _enter_stage(2) setup without local region index. Current formal strict startup rejects wrong map; old reward observer only labelled requested map and lacks equivalent guard.",
+  "legacy_callers": [
+    {
+      "path": "tests/root_bell_spaces_runner.gd",
+      "call_lines": [
+        88
+      ],
+      "explicit_region_map_index_anywhere": false
+    },
+    {
+      "path": "tests/plains_encounter_policy_runner.gd",
+      "call_lines": [
+        305
+      ],
+      "explicit_region_map_index_anywhere": false
+    },
+    {
+      "path": "tests/plains_directed_space_runner.gd",
+      "call_lines": [
+        205,
+        323
+      ],
+      "explicit_region_map_index_anywhere": false
+    },
+    {
+      "path": "tests/plains_terrain_family_runner.gd",
+      "call_lines": [
+        127
+      ],
+      "explicit_region_map_index_anywhere": false
+    },
+    {
+      "path": "tests/plains_connected_landscape_runner.gd",
+      "call_lines": [
+        40
+      ],
+      "explicit_region_map_index_anywhere": false
+    },
+    {
+      "path": "tests/plains_connected_family_contract_runner.gd",
+      "call_lines": [
+        21
+      ],
+      "explicit_region_map_index_anywhere": false
+    },
+    {
+      "path": "tests/visual_director_space_runner.gd",
+      "call_lines": [
+        173
+      ],
+      "explicit_region_map_index_anywhere": false
+    },
+    {
+      "path": "tests/plains_redesign_scene_runner.gd",
+      "call_lines": [
+        224
+      ],
+      "explicit_region_map_index_anywhere": false
+    },
+    {
+      "path": "tests/root_bell_formal_tests.gd",
+      "call_lines": [
+        70
+      ],
+      "explicit_region_map_index_anywhere": false
+    },
+    {
+      "path": "tools/level_formal_capture.gd",
+      "call_lines": [
+        134
+      ],
+      "explicit_region_map_index_anywhere": false
+    }
+  ],
+  "findings": [
+    "REJECT old reward map2/high2/top2/deadlow2 actual-map coverage: observer wrote entry_map2 but DemoApp uses region_map_index1, so actual stage was map1; previous targeted observer/cleanup acceptance does not prove map2 gameplay. Old whole04 strict formal startup refusal retained.",
+    "UNVERIFIED eight other legacy test files with nine direct calls: root_bell_formal_tests, plains_redesign_scene_runner, visual_director_space_runner, plains_connected_family_contract_runner, plains_connected_landscape_runner, plains_terrain_family_runner, root_bell_spaces_runner, plains_directed_space_runner(two). No caller assigns region_map_index; map2 assertions in these old scopes may fail or silently exercise map1. Initial message accidentally said9 files: corrected inventory8 files/9calls outside formal+reward.",
+    "ACCEPT limited unaffected-source reasoning: forest_region_trace.prepare uses actual start_debug_region(thorn_forest,map_index,seed), which DemoApp._stage_entered debug-entry stage1 sets director.region_map_index=_debug_map before generation. Forest generated manifest map_index is checked against capture requested map in Python; forest matrix does not use the old direct _enter_stage(2) setup. This finding does not invalidate independent frozen60 forest matrix.",
+    "Pending minimal current-test compatibility: conditionally assign region_map_index when property exists before loader; preserve immutable old runtime133 identity; require actual stage and generated/formal manifest identity rather than requested JSON label. New correct map2 targeted runtime still pending; no additional input strategy authorized."
+  ]
+}

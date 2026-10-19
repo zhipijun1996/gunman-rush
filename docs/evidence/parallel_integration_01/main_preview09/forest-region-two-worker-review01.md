@@ -1,0 +1,5 @@
+Bounded ACCEPT for native validation of scheduler SHA6e88c947be8246c45c808b855749826c34ef4ab0417ff7614afcf38ed8a2d443. Independently verified everyoldfunction exceptmain isAST-identical; onlyrun_region_case/schedule_cases added. Original80seeds/order, strictvalidator/GDdriver, native240/import90/profile600 andnoncorpus/movie serialbehavior remain. Parentonlyorderedreceipts+completedindicespreventholemislabeling; firstobservedfailure stopsnewworkwhilealreadyactiveprocessesreapundertheirowncaps. No exceptionisconvertedtoPASS.
+
+Independently executed11realtinyPythonprocess tests:1.176s/exit0, noGodot. Theseprove fixtureboundedprocess behavior, notactualGodotconcurrency orruntimeperformance. Uniqueuser/config/cache/outputpaths donotisolateproject.godot; preimportthenactualpairmustcheckcache/races/CPU/RSS. Parentenginelease coversimport/activechildren; finalsourceinventory remainsoutsidewithlock asbefore, soREADMEclaimaboutguardinsideleaseisnotaccurate.
+
+Actualpair andoriginal80/600/freshCI remainpending. PriorCI8timeout/deployskipremainfailures; no theoretical2xspeedup/fullintegration/public/device/fun approval. Noengine/browser orsourceedit byreviewer.

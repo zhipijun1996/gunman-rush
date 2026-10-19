@@ -7,6 +7,7 @@ var bell_controlled := false
 var motion_running := true
 var motion_clock := 0.0
 var painted_art: Node2D
+var pixel_art_enabled := true
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -32,7 +33,10 @@ func _physics_process(_delta: float) -> void:
 	else: position = definition.at_time(module.clock)
 
 func _draw() -> void:
-	if not is_instance_valid(painted_art) or not painted_art.visible:
+	if pixel_art_enabled and (not is_instance_valid(painted_art) or not painted_art.visible):
+		if UnderworldActors.enabled(self): UnderworldTerrain.draw_moving(self, Rect2(-definition.size / 2.0, definition.size))
+		else: PixelFormalTerrain.draw_moving(self, Rect2(-definition.size / 2.0, definition.size))
+	elif not pixel_art_enabled and (not is_instance_valid(painted_art) or not painted_art.visible):
 		PlainsTerrainSkin.draw_moving_platform(self, Rect2(-definition.size / 2.0, definition.size))
 
 func bind_bell_control() -> void:
@@ -50,15 +54,27 @@ func restore_motion(clock:float,running:bool)->void:
 	position=definition.at_time(motion_clock)
 	sync_to_physics=true
 
-# Body-local material coordinates preserve brushwork while the platform moves.
-# The existing AnimatableBody2D remains the only carrier; art adds no collision.
+# Style toggles do not create bodies, move carriers, or alter animation phases.
 func set_painted_enabled(value: bool) -> void:
+	pixel_art_enabled = value
+	# Existing presentation instances can survive style installation or reload.
+	# A current Underworld carrier must never keep an old painted material overlay.
+	if value and UnderworldActors.enabled(self) and is_instance_valid(painted_art) and not painted_art is UnderworldCarrierPaint:
+		remove_child(painted_art)
+		painted_art.queue_free()
+		painted_art = null
 	if value and not is_instance_valid(painted_art):
-		var solids: Array[Rect2] = [Rect2(-definition.size / 2.0, definition.size)]
-		painted_art = PlainsTileComposer.build_rectangles(solids)
-		if painted_art != null:
-			for quad: ColorRect in painted_art.get_children():
-				quad.material.set_shader_parameter("body_local_material", true)
-			add_child(painted_art)
+		painted_art = UnderworldCarrierPaint.new() if UnderworldActors.enabled(self) else PixelFormalTerrain.build_moving(Rect2(-definition.size / 2.0, definition.size))
+		if painted_art is UnderworldCarrierPaint:
+			(painted_art as UnderworldCarrierPaint).bounds=Rect2(-definition.size / 2.0, definition.size)
+			painted_art.name="UnderworldCarrierMaterial"
+			painted_art.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
+			painted_art.set_meta("material_source","res://assets/underworld_plains/mechanisms/carrier.png")
+		add_child(painted_art)
 	if is_instance_valid(painted_art): painted_art.visible = value
 	queue_redraw()
+
+class UnderworldCarrierPaint extends Node2D:
+	var bounds: Rect2
+	func _draw() -> void:
+		UnderworldTerrain.draw_moving(self,bounds)

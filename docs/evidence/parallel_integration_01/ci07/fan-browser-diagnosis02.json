@@ -1,0 +1,320 @@
+{
+  "scope": "Interpretation of one bounded passive diagnostic; original CI7 failure retained; no game/adapter/queue modification or browser root-cause/PASS72 claim",
+  "source_commit": "1fd766e9d76e84289a51e47b13633969d48d0eeb",
+  "exact_prefix_AST_proof": {
+    "exact_original_asyncwith_prefix_statements": 47,
+    "all_original_prefix_AST_identical": true,
+    "added_tail_statements_after_original_fan_checks": 4,
+    "no_original_mouse_wait_or_assert_changes": true,
+    "observation_overhead": "passive callbacks, tee writes and command timestamps may affect scheduling; no added pre-check captures/waits"
+  },
+  "status": "diagnostic_completed_with_original_prefix_pass",
+  "diagnostic_prefix_checks": {
+    "scope": "EXACT frozen consumer prefix choose1/2/5 through original fan checks, plus passive diagnostics; NO whole72/24 acceptance or browser root-cause claim",
+    "checks": {
+      "mouse_instant_blade_once": true,
+      "mouse_instant_blade_distance": true,
+      "mouse_blink_clears_all_speed_and_pauses": true,
+      "mouse_bomb_release_tick": true,
+      "mouse_two_blade_flashes": true,
+      "mouse_second_flash_has_delay": true,
+      "mouse_second_stage_half_budget": true,
+      "mouse_second_flash_reaim": true
+    },
+    "failed": [],
+    "browser_errors": [],
+    "url": "http://127.0.0.1:42343/"
+  },
+  "original_consumer_24_check_failures_retained": [
+    "mouse_two_blade_flashes",
+    "mouse_second_flash_has_delay",
+    "mouse_second_stage_half_budget",
+    "mouse_second_flash_reaim",
+    "mouse_hook_fixed_45"
+  ],
+  "first_fan_tap": {
+    "actual_trusted_canvas_down": {
+      "kind": "DOM",
+      "python_monotonic_ns": 81448737710545,
+      "python_unix_ns": 1792419032464615219,
+      "observation": {
+        "kind": "mousedown",
+        "now": 77127.70000000298,
+        "timeOrigin": 1792418955335.1,
+        "visibility": "visible",
+        "focused": true,
+        "eventTimeStamp": 76992.59999999404,
+        "isTrusted": true,
+        "button": 0,
+        "buttons": 1,
+        "client": [
+          790,
+          590
+        ],
+        "targetTag": "CANVAS",
+        "targetId": "canvas",
+        "activeTag": "CANVAS",
+        "activeId": "canvas",
+        "lastRaf": 76983.7,
+        "canvas": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    "actual_trusted_canvas_up": {
+      "kind": "DOM",
+      "python_monotonic_ns": 81448870273676,
+      "python_unix_ns": 1792419032597178347,
+      "observation": {
+        "kind": "mouseup",
+        "now": 77260.89999999106,
+        "timeOrigin": 1792418955335.1,
+        "visibility": "visible",
+        "focused": true,
+        "eventTimeStamp": 77190.59999999404,
+        "isTrusted": true,
+        "button": 0,
+        "buttons": 0,
+        "client": [
+          790,
+          590
+        ],
+        "targetTag": "CANVAS",
+        "targetId": "canvas",
+        "activeTag": "CANVAS",
+        "activeId": "canvas",
+        "lastRaf": 77117.1,
+        "canvas": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    "requested_source_hold_ms": 40,
+    "DOM_callback_hold_ms": 133.19999998807907,
+    "browser_event_timestamp_hold_ms": 198.0,
+    "first_packet": {
+      "kind": "accepted_studio_event",
+      "python_monotonic_ns": 81448874454514,
+      "python_unix_ns": 1792419032601359373,
+      "event": {
+        "action": "weapon_packet",
+        "aim": [
+          0.982524514198303,
+          0.186133414506912
+        ],
+        "beam_muzzle": [
+          151.125,
+          603.575012207031
+        ],
+        "beam_visual": [],
+        "blink_pause": 0.0,
+        "combat": 0.0,
+        "detail": {
+          "packet": 4,
+          "state": "started"
+        },
+        "device": "keyboard_mouse",
+        "energy": 80.0,
+        "game_seconds": 23.3282666666667,
+        "hook_guide": false,
+        "hook_guide_valid": false,
+        "hook_tip": [
+          0.0,
+          0.0
+        ],
+        "kick_side": -1.0,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "packet": 4,
+        "physics_tick": 2276,
+        "position": [
+          150.0,
+          602.0
+        ],
+        "real_usec": 57266800,
+        "recoil": [
+          0.0,
+          0.0
+        ],
+        "recoil_speed": 0.0,
+        "shots": 2,
+        "time_scale": 1.0,
+        "velocity": [
+          0.0,
+          0.0
+        ],
+        "weapon": "fan_shuriken",
+        "weapon_apex": 0.0
+      }
+    },
+    "DOM_mouseup_to_packet_python_receipt_ms": 4.180838,
+    "interpretation": "Both first fan down/up reached real canvas as trusted DOM events, and a positive-X fan packet was accepted in this sample. Python receipt delta is transport/observation time, NOT actual adapter enqueue/consume latency."
+  },
+  "fan_original_check_window": {
+    "packet_count": 1,
+    "blink_count": 2,
+    "blinks": [
+      {
+        "physics_tick": 2280,
+        "aim": [
+          0.982524514198303,
+          0.186133414506912
+        ],
+        "distance": 84.70000283112391,
+        "start": [
+          150.0,
+          602.0
+        ],
+        "finish": [
+          66.7801742553711,
+          586.234497070312
+        ]
+      },
+      {
+        "physics_tick": 2298,
+        "aim": [
+          -0.833194077014923,
+          0.552980661392212
+        ],
+        "distance": 42.34998098272952,
+        "start": [
+          66.7801742553711,
+          601.994689941406
+        ],
+        "finish": [
+          102.065940856934,
+          578.575988769531
+        ]
+      }
+    ],
+    "check_boundary": {
+      "kind": "original_fan_checks_computed",
+      "python_monotonic_ns": 81449378048985,
+      "python_unix_ns": 1792419033104953678,
+      "checks": {
+        "mouse_instant_blade_once": true,
+        "mouse_instant_blade_distance": true,
+        "mouse_blink_clears_all_speed_and_pauses": true,
+        "mouse_bomb_release_tick": true,
+        "mouse_two_blade_flashes": true,
+        "mouse_second_flash_has_delay": true,
+        "mouse_second_stage_half_budget": true,
+        "mouse_second_flash_reaim": true
+      }
+    }
+  },
+  "performance_observation": {
+    "lastRaf_anchors_near_fan": [
+      76400.4,
+      76833.8,
+      76983.7,
+      77117.1,
+      77250.4,
+      77417,
+      77717.1,
+      79017
+    ],
+    "observed_anchor_gaps_ms": [
+      433.40000000000873,
+      149.89999999999418,
+      133.40000000000873,
+      133.29999999998836,
+      166.60000000000582,
+      300.1000000000058,
+      1299.8999999999942
+    ],
+    "longtasks_near_first_tap": [
+      {
+        "kind": "longtask",
+        "now": 77422.20000000298,
+        "timeOrigin": 1792418955335.1,
+        "visibility": "visible",
+        "focused": true,
+        "startTime": 76838.20000000298,
+        "duration": 148
+      },
+      {
+        "kind": "longtask",
+        "now": 77422.29999999702,
+        "timeOrigin": 1792418955335.1,
+        "visibility": "visible",
+        "focused": true,
+        "startTime": 76988.39999999106,
+        "duration": 138
+      },
+      {
+        "kind": "longtask",
+        "now": 77422.39999999106,
+        "timeOrigin": 1792418955335.1,
+        "visibility": "visible",
+        "focused": true,
+        "startTime": 77128.70000000298,
+        "duration": 131
+      },
+      {
+        "kind": "longtask",
+        "now": 77422.39999999106,
+        "timeOrigin": 1792418955335.1,
+        "visibility": "visible",
+        "focused": true,
+        "startTime": 77263.09999999404,
+        "duration": 159
+      },
+      {
+        "kind": "longtask",
+        "now": 77650.5,
+        "timeOrigin": 1792418955335.1,
+        "visibility": "visible",
+        "focused": true,
+        "startTime": 77423.39999999106,
+        "duration": 165
+      }
+    ],
+    "full_raf_batch_last_timestamp": 75367.1,
+    "first_tap_perf_now": 77127.70000000298,
+    "partial_batch_limit": "rAF batches emit every30 callbacks; final partial batch did not flush before close, so there is no complete per-frame rAF series during the final fan window. lastRaf pointers and longtask entries are available.",
+    "interpretation": "Real callback delays and131\u2013165ms longtasks are observed. They show scheduling pressure but do not prove that original missing release exceeded InputRouter TTL; original adapter enqueue/consume times remain unobserved."
+  },
+  "post_original_check_boundary": {
+    "new_packets": 1,
+    "new_blinks": 2,
+    "scope": "After original checks, the diagnostic screenshot tail allows later processing including a new packet on the second mouse-up. This is outside the original assertion window and differs from original subsequent choose6; it neither changes8/8 nor certifies full consumer behavior."
+  },
+  "native_probe02": {
+    "checks": 19,
+    "failures": 0,
+    "conclusions": [
+      "Actual viewport transform calibration and three real practice_reset callbacks succeeded.",
+      "Neutral real reset followed by nominal40ms wall-deadline tap accepted first packet.",
+      "Artificial cancel-while-held then releasing over the actual Button did NOT swallow the release; blocked became false and next first tap accepted. This proposed stale-block counterexample was not reproduced.",
+      "Artificial125ms frame block caused existing100ms queue TTL drop; policy demonstration only, not browser cause."
+    ],
+    "limits": "Synthetic native InputEvents, explicit fixture loadout/cancellation/block, no browser reproduction; root cause remains UNKNOWN."
+  },
+  "root_cause": "UNKNOWN. The same frozen CI7 bundle and unchanged command/timeout/assert prefix has one observed successful sample, while the original failed. Passive instrumentation has overhead and actual DOM hold durations differ from nominal40ms. This supports scheduling/observability-sensitive behavior, not a proved game fix or clean uninstrumented retry PASS.",
+  "not_performed": [
+    "No production/player/weapon tuning changes",
+    "No extension of40/100/300/5s original timings or assertions",
+    "No browser retry after this diagnostic",
+    "No actual Godot adapter-state/queue instrumentation in published bundle",
+    "No full24/72 re-execution"
+  ],
+  "files_sha256": {
+    "fan_browser_probe01/coordinator.json": "70de67f063380257507e5ca14e5a9a4ec78901ecd0acae944b7314a1a1075168",
+    "fan_browser_probe01/source/passive_trace.json": "20ba8d890af444fae5f58c4942d03efe65e69e1c52bb2659c53447a9a1a95ece",
+    "fan_browser_probe01/source_manifest.json": "65e2766abd969e859014499390d8e8ce0ef83622956624134e5634ac848756c1",
+    "fan_browser_probe01/source/observed_prefix.py": "c49dde5df2aef5e65ef52ffb55b3b999731b5460258fa8856432f026149827f6",
+    "fan_browser_probe01/source/observer.py": "0ef304eafe88b9f94d20294298eed07e1b8eb31a8700885d417cbdba39aba6c2",
+    "fan_gui_probe02.gd": "7f136c8ea8ad1dba402719b1d16bd783e245e290c1c2b83a62c89ab112a70b80",
+    "fan_gui_probe02.json": "e63ed796bedb0c8044e24a11744b7662e15d5e60cb49332b18082c25d990a645",
+    "fan_gui_probe02.log": "be156daa14e86150b7cf3df7a59bad3e060a5a331f4e5884eef6765bbc011832"
+  }
+}

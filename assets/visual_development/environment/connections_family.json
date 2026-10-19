@@ -1,0 +1,314 @@
+{
+  "schema_version": 1,
+  "family_id": "b_rain_glaze_environment_v1",
+  "source_path": "assets/visual_development/environment/connections_atlas.png",
+  "source_sha256": "f431d3877a0f10c738245e858b36e816c77ae42395e156113d1c83a9b317fc7c",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "processing": "Original RGBA unchanged; actual irregular AtlasTexture regions instead of intended equal-grid slicing",
+  "requested_grid": {
+    "columns": 3,
+    "rows": 2,
+    "cell": [
+      512,
+      512
+    ],
+    "padding": 20,
+    "status": "FAILED: strip crosses first equal-column boundary, alpha tails contaminate nominal gutters"
+  },
+  "alpha": {
+    "min": 0,
+    "max": 254,
+    "zero_fraction": 0.5446351369222006,
+    "one_to_ten_fraction": 0.15380414326985678,
+    "status": "not zero-clean; no alpha thresholding performed; real filter/scale halo inspection mandatory"
+  },
+  "components": {
+    "lip_strip": {
+      "region": [
+        16,
+        130,
+        700,
+        300
+      ],
+      "pivot": [
+        349,
+        106
+      ],
+      "pivot_source": [
+        365,
+        236
+      ],
+      "sockets_source": {
+        "left": [
+          35,
+          236
+        ],
+        "right": [
+          698,
+          236
+        ]
+      },
+      "sockets": {
+        "left": [
+          19,
+          106
+        ],
+        "right": [
+          682,
+          106
+        ]
+      },
+      "facing": "horizontal; no rotation",
+      "candidate_for_visual_integration": true,
+      "socket_accuracy": "manual source-pixel reading, not collider calibration; real gameplay surface alignment mandatory",
+      "opaque128_bounds_source": [
+        25,
+        153,
+        680,
+        261
+      ],
+      "scale_rule": "uniform only, no full-object rotation to fabricate other corner types",
+      "filter_clip": true
+    },
+    "left_cap": {
+      "region": [
+        720,
+        85,
+        332,
+        425
+      ],
+      "pivot": [
+        310,
+        105
+      ],
+      "pivot_source": [
+        1030,
+        190
+      ],
+      "sockets_source": {
+        "right": [
+          1030,
+          190
+        ]
+      },
+      "sockets": {
+        "right": [
+          310,
+          105
+        ]
+      },
+      "facing": "open right; curved outer edge left",
+      "candidate_for_visual_integration": true,
+      "socket_accuracy": "manual source-pixel reading, not collider calibration; real gameplay surface alignment mandatory",
+      "opaque128_bounds_source": [
+        734,
+        102,
+        303,
+        378
+      ],
+      "scale_rule": "uniform only, no full-object rotation to fabricate other corner types",
+      "filter_clip": true,
+      "standing_outer_edge_source": [
+        770,
+        192
+      ],
+      "standing_outer_edge_pivot": [
+        50,
+        107
+      ],
+      "outer_edge_calibration": "unverified manual reading; align actual solid edge in-game, inner socket pivot is NOT outer standable edge"
+    },
+    "right_cap": {
+      "region": [
+        1065,
+        85,
+        470,
+        450
+      ],
+      "pivot": [
+        22,
+        106
+      ],
+      "pivot_source": [
+        1087,
+        191
+      ],
+      "sockets_source": {
+        "left": [
+          1087,
+          191
+        ]
+      },
+      "sockets": {
+        "left": [
+          22,
+          106
+        ]
+      },
+      "facing": "open left; curved outer edge right",
+      "candidate_for_visual_integration": true,
+      "socket_accuracy": "manual source-pixel reading, not collider calibration; real gameplay surface alignment mandatory",
+      "opaque128_bounds_source": [
+        1082,
+        127,
+        430,
+        383
+      ],
+      "scale_rule": "uniform only, no full-object rotation to fabricate other corner types",
+      "filter_clip": true,
+      "standing_outer_edge_source": [
+        1483,
+        194
+      ],
+      "standing_outer_edge_pivot": [
+        418,
+        109
+      ],
+      "outer_edge_calibration": "unverified manual reading; align actual solid edge in-game, inner socket pivot is NOT outer standable edge"
+    },
+    "underside_candidate": {
+      "region": [
+        15,
+        610,
+        657,
+        300
+      ],
+      "pivot": [
+        325,
+        71
+      ],
+      "pivot_source": [
+        340,
+        681
+      ],
+      "sockets_source": {
+        "left": [
+          35,
+          681
+        ],
+        "right": [
+          650,
+          681
+        ]
+      },
+      "sockets": {
+        "left": [
+          20,
+          71
+        ],
+        "right": [
+          635,
+          71
+        ]
+      },
+      "facing": "REJECT underside: generated another top grass lip",
+      "candidate_for_visual_integration": false,
+      "socket_accuracy": "manual source-pixel reading, not collider calibration; real gameplay surface alignment mandatory",
+      "opaque128_bounds_source": [
+        26,
+        645,
+        632,
+        248
+      ],
+      "scale_rule": "uniform only, no full-object rotation to fabricate other corner types",
+      "filter_clip": true
+    },
+    "concave_inner": {
+      "region": [
+        680,
+        510,
+        380,
+        480
+      ],
+      "pivot": [
+        236,
+        285
+      ],
+      "pivot_source": [
+        916,
+        795
+      ],
+      "sockets_source": {
+        "floor_left": [
+          705,
+          795
+        ],
+        "wall_top": [
+          972,
+          564
+        ]
+      },
+      "sockets": {
+        "floor_left": [
+          25,
+          285
+        ],
+        "wall_top": [
+          292,
+          54
+        ]
+      },
+      "facing": "open upper-left; horizontal floor meets right wall",
+      "candidate_for_visual_integration": true,
+      "socket_accuracy": "manual source-pixel reading, not collider calibration; real gameplay surface alignment mandatory",
+      "opaque128_bounds_source": [
+        693,
+        526,
+        347,
+        439
+      ],
+      "scale_rule": "uniform only, no full-object rotation to fabricate other corner types",
+      "filter_clip": true
+    },
+    "clay_sleeve": {
+      "region": [
+        1100,
+        560,
+        435,
+        430
+      ],
+      "pivot": [
+        228,
+        227
+      ],
+      "pivot_source": [
+        1328,
+        787
+      ],
+      "sockets_source": {
+        "root_joint": [
+          1328,
+          787
+        ]
+      },
+      "sockets": {
+        "root_joint": [
+          228,
+          227
+        ]
+      },
+      "facing": "diagonal sleeve around exposed roots; decorative only",
+      "candidate_for_visual_integration": true,
+      "socket_accuracy": "manual source-pixel reading, not collider calibration; real gameplay surface alignment mandatory",
+      "opaque128_bounds_source": [
+        1132,
+        602,
+        370,
+        337
+      ],
+      "scale_rule": "uniform only, no full-object rotation to fabricate other corner types",
+      "filter_clip": true
+    }
+  },
+  "missing": [
+    "true underside connecting strip",
+    "separately painted convex/concave variants beyond this one elbow",
+    "guaranteed flat exact collision-matched top strip"
+  ],
+  "art_acceptance": "unverified",
+  "license_status": "unknown",
+  "user_direction_acceptance": "B direction confirmed; these derived assets not individually accepted"
+}

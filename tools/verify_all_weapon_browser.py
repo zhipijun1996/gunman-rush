@@ -2,7 +2,7 @@
 import asyncio,json,shutil,sys,time
 from pathlib import Path
 from playwright.async_api import async_playwright
-from studio_gui_pointer import select_weapon, weapon_row_y
+from studio_gui_pointer import select_weapon, weapon_row_y, enter_action_studio
 out=Path('build/weapons/browser');out.mkdir(parents=True,exist_ok=True)
 async def main():
  events=[];errors=[];checks={}
@@ -20,8 +20,7 @@ async def main():
    page.on('console',log);page.on('pageerror',lambda e:errors.append(str(e)))
    await page.goto(sys.argv[1] if len(sys.argv)>1 else 'http://127.0.0.1:8765',wait_until='networkidle')
    await page.wait_for_function('window.PLAYTEST_LOADING_DONE === true',timeout=60000);await page.wait_for_timeout(400)
-   if touch:await page.touchscreen.tap(420,270);await page.wait_for_timeout(250);await page.touchscreen.tap(275,150)
-   else:await page.mouse.click(640,500);await page.wait_for_timeout(250);await page.mouse.click(335,285)
+   await enter_action_studio(page,touch=touch,between_clicks_ms=250)
    await page.wait_for_timeout(700)
    return c,page
   c,page=await launch()

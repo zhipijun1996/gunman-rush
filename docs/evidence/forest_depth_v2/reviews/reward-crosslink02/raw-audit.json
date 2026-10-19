@@ -1,0 +1,572 @@
+{
+  "source_files": 907,
+  "source_mismatches": [],
+  "reader_sha256": "746a98a467c5e4311daf2b0c96ca9c49b71913c17a5e050d1eaacbc44a5316aa",
+  "base_sha256": "6a1716b5fdc39438deb999561951b904c0ee304ca3a41bbb9415340bc08af234",
+  "prefix450": {
+    "frames": {
+      "count": [
+        450,
+        450
+      ],
+      "exact": true
+    },
+    "requests": {
+      "count": [
+        15,
+        15
+      ],
+      "exact": true
+    }
+  },
+  "cases": [
+    {
+      "file": "build/forest_depth/snapshots/reward_crosslink02/build/forest_depth/ecology/reward_crosslink02/00-alive_lift-direct_one_R/capture.json",
+      "sha256": "12eded8e875f28d1a7bc41f27605a34b21bfcc234be550e16754ace5dd880ef6",
+      "offline_reader": "ACCEPT",
+      "legs": [
+        {
+          "edge_id": "arrival_reading",
+          "leg": 0,
+          "position": [
+            180.0,
+            600.0
+          ],
+          "start_tick": 1,
+          "supports": [
+            "west_court"
+          ],
+          "tick": 12
+        },
+        {
+          "edge_id": "west_to_belly",
+          "leg": 1,
+          "position": [
+            391.985443115234,
+            599.925170898438
+          ],
+          "start_tick": 13,
+          "supports": [
+            "hollow__belly_entry"
+          ],
+          "tick": 82
+        },
+        {
+          "edge_id": "west_to_belly",
+          "leg": 2,
+          "position": [
+            599.959899902344,
+            599.925170898438
+          ],
+          "start_tick": 83,
+          "supports": [
+            "hollow__belly_entry"
+          ],
+          "tick": 141
+        },
+        {
+          "edge_id": "upper_out",
+          "leg": 3,
+          "position": [
+            979.95703125,
+            557.925170898438
+          ],
+          "start_tick": 142,
+          "supports": [
+            "crown_reward_rest",
+            "hollow__outer_crown"
+          ],
+          "tick": 234
+        },
+        {
+          "edge_id": "reward_descent",
+          "leg": 4,
+          "position": [
+            1299.99682617188,
+            671.992980957031
+          ],
+          "start_tick": 235,
+          "supports": [
+            "outer_reward_branch"
+          ],
+          "tick": 336
+        },
+        {
+          "edge_id": "reward_other_exit",
+          "leg": 5,
+          "position": [
+            1020.03253173828,
+            881.925170898438
+          ],
+          "start_tick": 337,
+          "supports": [
+            "hollow__outer_root"
+          ],
+          "tick": 450
+        },
+        {
+          "edge_id": "outer_lift_return",
+          "leg": 6,
+          "position": [
+            980.049194335938,
+            557.925170898438
+          ],
+          "start_tick": 451,
+          "supports": [
+            "crown_reward_rest",
+            "hollow__outer_crown"
+          ],
+          "tick": 521
+        },
+        {
+          "edge_id": "crown_reverse_return",
+          "leg": 7,
+          "position": [
+            1029.99987792969,
+            281.992858886719
+          ],
+          "start_tick": 522,
+          "supports": [
+            "boss_approach",
+            "hollow__cavity_exit"
+          ],
+          "tick": 582
+        },
+        {
+          "edge_id": "cavity_prep",
+          "leg": 8,
+          "position": [
+            1299.95373535156,
+            281.925231933594
+          ],
+          "start_tick": 583,
+          "supports": [
+            "boss_approach",
+            "hollow__cavity_exit"
+          ],
+          "tick": 655
+        },
+        {
+          "edge_id": "crown_approach",
+          "leg": 9,
+          "position": [
+            1399.98413085938,
+            281.925231933594
+          ],
+          "start_tick": 656,
+          "supports": [
+            "boss_approach",
+            "hollow__cavity_exit"
+          ],
+          "tick": 719
+        }
+      ],
+      "player_hurts": [
+        {
+          "amount": 1.0,
+          "damage_kind": 0,
+          "event_id": "hollow_route__crown_thread:thread:1",
+          "health_after": 4.0,
+          "kind": "committed_damage",
+          "leg": 4,
+          "lethal": false,
+          "position": [
+            1105.62194824219,
+            557.925231933594
+          ],
+          "source": "hollow_route__crown_thread",
+          "target": "player",
+          "tick": 263
+        }
+      ],
+      "lift_exit": {
+        "combat_energy": 7.0,
+        "config": {
+          "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+          "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+        },
+        "double_enabled": false,
+        "energy": 85.5,
+        "health": 4.0,
+        "hook_enabled": true,
+        "position": [
+          980.049194335938,
+          557.925170898438
+        ],
+        "shots": 2,
+        "supports": [
+          "crown_reward_rest",
+          "hollow__outer_crown"
+        ],
+        "tier": 1,
+        "wall_enabled": false,
+        "weapon": "pulse_gun"
+      },
+      "C_exit": {
+        "config": {
+          "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+          "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+        },
+        "double_enabled": false,
+        "energy": 72.0,
+        "health": 4.0,
+        "hook_enabled": true,
+        "position": [
+          1029.99987792969,
+          281.992858886719
+        ],
+        "shots": 2,
+        "supports": [
+          "boss_approach",
+          "hollow__cavity_exit"
+        ],
+        "tier": 1,
+        "wall_enabled": false,
+        "weapon": "pulse_gun"
+      },
+      "final": {
+        "config": {
+          "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+          "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+        },
+        "double_enabled": false,
+        "energy": 100.0,
+        "health": 4.0,
+        "hook_enabled": true,
+        "position": [
+          1399.98413085938,
+          281.925231933594
+        ],
+        "shots": 2,
+        "tier": 1,
+        "wall_enabled": false,
+        "weapon": "pulse_gun"
+      },
+      "hook_anchors": [
+        "hollow__upper_window_ring",
+        "hollow__lower_window_ring",
+        "hollow__cavity_ring_a",
+        "hollow__cavity_ring_b",
+        "west_gap_ring",
+        "north_court_ring",
+        "crown_approach_ring_0",
+        "queen_hook_0"
+      ],
+      "connections": [
+        {
+          "id": "outer_to_inner",
+          "a": "R",
+          "b": "D"
+        },
+        {
+          "id": "crown_reverse_return",
+          "a": "E",
+          "b": "C"
+        }
+      ],
+      "actor_epochs": [
+        3
+      ],
+      "stage_epochs": [
+        3
+      ]
+    },
+    {
+      "file": "build/forest_depth/snapshots/reward_crosslink02/build/forest_depth/ecology/reward_crosslink02/01-jump_two_R-direct_one_R/capture.json",
+      "sha256": "49d62e2f09b7e48368ae1ccec26561428ba458c195fb8b82cf9472fe76c387bc",
+      "offline_reader": "ACCEPT",
+      "legs": [
+        {
+          "edge_id": "arrival_reading",
+          "leg": 0,
+          "position": [
+            180.0,
+            600.0
+          ],
+          "start_tick": 1,
+          "supports": [
+            "west_court"
+          ],
+          "tick": 12
+        },
+        {
+          "edge_id": "west_to_belly",
+          "leg": 1,
+          "position": [
+            391.985443115234,
+            599.925170898438
+          ],
+          "start_tick": 13,
+          "supports": [
+            "hollow__belly_entry"
+          ],
+          "tick": 82
+        },
+        {
+          "edge_id": "west_to_belly",
+          "leg": 2,
+          "position": [
+            599.959899902344,
+            599.925170898438
+          ],
+          "start_tick": 83,
+          "supports": [
+            "hollow__belly_entry"
+          ],
+          "tick": 141
+        },
+        {
+          "edge_id": "upper_out",
+          "leg": 3,
+          "position": [
+            979.95703125,
+            557.925170898438
+          ],
+          "start_tick": 142,
+          "supports": [
+            "crown_reward_rest",
+            "hollow__outer_crown"
+          ],
+          "tick": 234
+        },
+        {
+          "edge_id": "reward_descent",
+          "leg": 4,
+          "position": [
+            1299.99682617188,
+            671.992980957031
+          ],
+          "start_tick": 235,
+          "supports": [
+            "outer_reward_branch"
+          ],
+          "tick": 336
+        },
+        {
+          "edge_id": "reward_other_exit",
+          "leg": 5,
+          "position": [
+            1020.03253173828,
+            881.925170898438
+          ],
+          "start_tick": 337,
+          "supports": [
+            "hollow__outer_root"
+          ],
+          "tick": 450
+        },
+        {
+          "edge_id": "outer_lift_return",
+          "leg": 6,
+          "position": [
+            980.000061035156,
+            557.990966796875
+          ],
+          "start_tick": 451,
+          "supports": [
+            "crown_reward_rest",
+            "hollow__outer_crown"
+          ],
+          "tick": 538
+        },
+        {
+          "edge_id": "crown_reverse_return",
+          "leg": 7,
+          "position": [
+            1029.99987792969,
+            281.968475341797
+          ],
+          "start_tick": 539,
+          "supports": [
+            "boss_approach",
+            "hollow__cavity_exit"
+          ],
+          "tick": 599
+        },
+        {
+          "edge_id": "cavity_prep",
+          "leg": 8,
+          "position": [
+            1299.95373535156,
+            281.925231933594
+          ],
+          "start_tick": 600,
+          "supports": [
+            "boss_approach",
+            "hollow__cavity_exit"
+          ],
+          "tick": 672
+        },
+        {
+          "edge_id": "crown_approach",
+          "leg": 9,
+          "position": [
+            1399.98413085938,
+            281.925231933594
+          ],
+          "start_tick": 673,
+          "supports": [
+            "boss_approach",
+            "hollow__cavity_exit"
+          ],
+          "tick": 736
+        }
+      ],
+      "player_hurts": [
+        {
+          "amount": 1.0,
+          "damage_kind": 0,
+          "event_id": "hollow_route__crown_thread:thread:1",
+          "health_after": 4.0,
+          "kind": "committed_damage",
+          "leg": 4,
+          "lethal": false,
+          "position": [
+            1105.62194824219,
+            557.925231933594
+          ],
+          "source": "hollow_route__crown_thread",
+          "target": "player",
+          "tick": 263
+        }
+      ],
+      "lift_exit": {
+        "combat_energy": 0.0,
+        "config": {
+          "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+          "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+        },
+        "double_enabled": false,
+        "energy": 65.5,
+        "health": 4.0,
+        "hook_enabled": true,
+        "position": [
+          980.000061035156,
+          557.990966796875
+        ],
+        "shots": 2,
+        "supports": [
+          "crown_reward_rest",
+          "hollow__outer_crown"
+        ],
+        "tier": 1,
+        "wall_enabled": false,
+        "weapon": "pulse_gun"
+      },
+      "C_exit": {
+        "config": {
+          "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+          "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+        },
+        "double_enabled": false,
+        "energy": 52.0,
+        "health": 4.0,
+        "hook_enabled": true,
+        "position": [
+          1029.99987792969,
+          281.968475341797
+        ],
+        "shots": 2,
+        "supports": [
+          "boss_approach",
+          "hollow__cavity_exit"
+        ],
+        "tier": 1,
+        "wall_enabled": false,
+        "weapon": "pulse_gun"
+      },
+      "final": {
+        "config": {
+          "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+          "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+        },
+        "double_enabled": false,
+        "energy": 95.5,
+        "health": 4.0,
+        "hook_enabled": true,
+        "position": [
+          1399.98413085938,
+          281.925231933594
+        ],
+        "shots": 2,
+        "tier": 1,
+        "wall_enabled": false,
+        "weapon": "pulse_gun"
+      },
+      "hook_anchors": [
+        "hollow__upper_window_ring",
+        "hollow__lower_window_ring",
+        "hollow__cavity_ring_a",
+        "hollow__cavity_ring_b",
+        "west_gap_ring",
+        "north_court_ring",
+        "crown_approach_ring_0",
+        "queen_hook_0"
+      ],
+      "connections": [
+        {
+          "id": "outer_to_inner",
+          "a": "R",
+          "b": "D"
+        },
+        {
+          "id": "crown_reverse_return",
+          "a": "E",
+          "b": "C"
+        }
+      ],
+      "actor_epochs": [
+        3
+      ],
+      "stage_epochs": [
+        3
+      ]
+    }
+  ],
+  "mutants": [
+    {
+      "name": "delete_actual_lower_body_contact",
+      "result": "REJECT",
+      "reason": "Real moving contact, HP2-to-1 grapple Policy and one actual downward shot required"
+    },
+    {
+      "name": "delete_actual_first_free_event",
+      "result": "ACCEPT"
+    },
+    {
+      "name": "hide_actual_free_frame",
+      "result": "REJECT",
+      "reason": "Downward R must occur at the first actual free-air input step"
+    },
+    {
+      "name": "delete_frame471",
+      "result": "REJECT",
+      "reason": "Complete actual expedition route rejected: continuous_single_motor_frames"
+    },
+    {
+      "name": "remove_upper_R_request",
+      "result": "REJECT",
+      "reason": "Complete actual expedition route rejected: shot_not_actual_router_request"
+    },
+    {
+      "name": "truncate_at_C",
+      "result": "REJECT",
+      "reason": "Complete actual expedition route rejected: leg_8_full_body_support_window, leg_9_full_body_support_window"
+    },
+    {
+      "name": "forge_C_saved_open_false",
+      "result": "REJECT",
+      "reason": "Only the actual accepted key can finish the real gate objective"
+    },
+    {
+      "name": "remove_reward_pointer",
+      "result": "REJECT",
+      "reason": "Complete actual expedition route rejected: actual_reward_pointer_missing"
+    },
+    {
+      "name": "erase_lift_cost",
+      "result": "REJECT",
+      "reason": "One real air round and configured stamina cost must be spent"
+    }
+  ]
+}

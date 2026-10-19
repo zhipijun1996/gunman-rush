@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAINS-CREATIVE-SLICE-01",
+  "task_type": "region",
+  "workflow": "review",
+  "baseline_commit": "e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7",
+  "reviewed_commit": "e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7",
+  "content_version": "creative-v1",
+  "owner": "/root",
+  "purpose": "风铃平原完整主题艺术样板验证",
+  "player_experience": "保留当前正式玩法；专业推荐/技术通过不代表整区或用户体验通过",
+  "constraints": [
+    "Preserve existing gameplay contracts"
+  ],
+  "affected_paths": [
+    "assets/creative_direction/windchime_plains_v1/asset_record.json",
+    "assets/creative_direction/windchime_plains_v1/clockroot_shore.png",
+    "assets/creative_direction/windchime_plains_v1/clockroot_shore.png.import",
+    "assets/creative_direction/windchime_plains_v1/direction.json",
+    "assets/creative_direction/windchime_plains_v1/wind_bell_ribs.png",
+    "assets/creative_direction/windchime_plains_v1/wind_bell_ribs.png.import",
+    "export_presets.cfg",
+    "scripts/art/plains_creative_shore.gdshader",
+    "scripts/art/plains_creative_shore.gdshader.uid",
+    "scripts/art/plains_creative_slice.gd",
+    "scripts/art/plains_creative_slice.gd.uid",
+    "scripts/art/plains_region_composition.gd"
+  ],
+  "deliverables": [
+    "docs/creative_direction/windchime_plains.json"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "failed",
+      "reason": "Independent RETHINK: rectangular macro geometry/roof dominates, no unified recoil-crossing/distant-bell experience; stop current master expansion",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "failed",
+      "reason": "Real whole-screen independent review rejects complete art slice; direction confirmation is separate",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Art candidate remains explicit only; rectangle large-shape problem not resolved",
+    "Complete unified player/enemy/Boss/UI/audio production not achieved",
+    "Whole-region commercial art / real player fun / physical devices unverified",
+    "Full CI and publication pending current source validation"
+  ]
+}

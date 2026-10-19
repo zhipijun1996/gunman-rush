@@ -1,0 +1,71 @@
+class_name ThornForestRegionV2
+extends RefCounted
+## Expanded playtest candidate. Historical v11 is pinned in its own producer.
+const VERSION := "thorn-forest-region-v2"
+const LAYOUT_VERSION := "forest-woven-trunk-v12"
+const BASE := preload("res://scripts/generation/thorn_forest_region_v2_v10.gd")
+const EXPEDITION := preload("res://scripts/generation/forest_vertical_expedition.gd")
+const LANGUAGE := preload("res://scripts/generation/forest_scene_language.gd")
+const FAMILIES := BASE.FAMILIES
+
+static func seed_for(root_seed: String, map_index: int) -> String:
+	return BASE.seed_for(root_seed,map_index)
+
+func generate(seed_value: String,tuning: PlayerTuning,map_index:=1,capability_snapshot: Dictionary={}) -> Dictionary:
+	return generate_spatial_candidate(seed_value,tuning,map_index,capability_snapshot)
+
+func generate_spatial_candidate(seed_value: String,tuning: PlayerTuning,map_index:=1,capability_snapshot: Dictionary={}) -> Dictionary:
+	if seed_value.is_empty() or tuning==null or map_index not in [1,2] or not capability_snapshot.get("grapple",false):
+		return {"ok":false,"error":"Forest expedition requires actual H, tuning, seed and map1/2"}
+	var abilities: Variant=capability_snapshot.get("abilities",["grapple"])
+	if not abilities is Array or abilities.size()!=1 or str(abilities[0])!="grapple":return {"ok":false,"error":"Forest expedition S2 requires H only"}
+	for forbidden: String in ["wall_climb","double_jump","weapon_evolution_1","weapon_evolution_2"]:
+		if capability_snapshot.get(forbidden,false):return {"ok":false,"error":"Forest expedition cannot require "+forbidden}
+	var m:=_candidate(seed_value,map_index)
+	if not _validate_structure(m,tuning):return {"ok":false,"error":"Forest expedition manifest rejected"}
+	var points: Array[Vector2]=[]
+	for area: Dictionary in m.areas:points.append(BASE._point(area.position))
+	return {"ok":true,"manifest":m,"stage_generator_version":VERSION,"boss_arena":BASE._rect(m.boss_arena),"placement_points":points,"encounter_plan":{"version":VERSION,"enemies":m.enemies.duplicate(true)},"exit_points":[],"admission":"expanded_candidate_pending_formal_experience","production_pool":false}
+
+func _candidate(seed_value: String,map_index: int) -> Dictionary:
+	var m: Dictionary=BASE.new()._candidate(seed_value,map_index)
+	m.layout_version=LAYOUT_VERSION
+	m.player_tuning_hash=FileAccess.get_sha256("res://config/player_tuning.json")
+	EXPEDITION.install(m)
+	LANGUAGE.annotate(m)
+	m.topology_signature=BASE.topology_signature(m)
+	var bounds:=Rect2(BASE._point(m.spawn),Vector2.ONE)
+	for row: Dictionary in m.platforms:bounds=bounds.merge(BASE._rect(row.rect))
+	for anchor: Dictionary in m.hook_anchors:bounds=bounds.expand(BASE._point(anchor.position))
+	bounds=bounds.grow(200)
+	m.world_bounds=[bounds.position.x,bounds.position.y,bounds.size.x,bounds.size.y]
+	m.manifest_hash=BASE._hash(m)
+	return m
+
+func validate(m: Dictionary,tuning: PlayerTuning) -> bool:return _validate_structure(m,tuning)
+func validate_spatial_candidate(m: Dictionary,tuning: PlayerTuning) -> bool:return _validate_structure(m,tuning)
+func _validate_structure(m: Dictionary,tuning: PlayerTuning) -> bool:
+	if tuning==null or m.get("version")!=VERSION or m.get("layout_version")!=LAYOUT_VERSION or m.get("region")!="thorn_forest":return false
+	if not m.get("seed") is String or m.seed.is_empty():return false
+	var index: Variant=m.get("map_index")
+	if typeof(index) not in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(index)) or float(index)!=floorf(float(index)) or int(index) not in [1,2]:return false
+	if m.get("manifest_hash")!=BASE._hash(m) or m.get("production_pool")!=false or m.get("requires")!=["grapple"]:return false
+	if not RandomStageGenerator.new()._same_data(m,_candidate(m.seed,int(index))) or not LANGUAGE.validate(m):return false
+	for category: String in ["platforms","hook_anchors","areas","connections","enemies","rewards"]:
+		var ids: Dictionary={}
+		for row: Dictionary in m[category]:
+			if ids.has(row.id):return false
+			ids[row.id]=true
+	for name: String in m.routes:
+		var at:="arrival"
+		for id: String in m.routes[name]:
+			var edge:=BASE._edge_by_id(m,id)
+			if edge.is_empty() or edge.a!=at:return false
+			at=str(edge.b)
+		if at!=("camp" if name in ["high_return","change_mind"] else "gate_ready"):return false
+	return bool(m.boss_contract.get("ok",false))
+
+static func topology_signature(m: Dictionary) -> String:return BASE.topology_signature(m)
+static func _hash(m: Dictionary) -> String:return BASE._hash(m)
+static func _point(value: Array) -> Vector2:return BASE._point(value)
+static func _rect(value: Array) -> Rect2:return BASE._rect(value)

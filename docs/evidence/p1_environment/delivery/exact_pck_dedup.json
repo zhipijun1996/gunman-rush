@@ -1,0 +1,75 @@
+{
+  "scope": "Exact immutable PCK byte dedup only. Both original bundle paths, failure logs, ZIP and original toolchain are retained unchanged. No media or historical ZIP removed. Engine pair was inspected but left untouched.",
+  "started_utc": "2026-10-17T17:43:12Z",
+  "before": {
+    "disk_before": {
+      "total": 33770192896,
+      "used": 31727427584,
+      "free": 308002816
+    },
+    "pairs": {
+      "engine": [
+        {
+          "path": "build/plains_environment/local_review_01/plains-environment-candidate-linux-x86_64/bin/Godot_v4.7.2-stable_linux.x86_64",
+          "sha256": "8d106cbe6144c2dc7e881d61d2429c1a8a76e6b22ef48bd5e48dcf934953f71e",
+          "size": 146414384,
+          "inode": 808257,
+          "device": 27,
+          "links": 1
+        },
+        {
+          "path": "build/plains_environment/local_review_02/plains-environment-candidate-linux-x86_64/bin/Godot_v4.7.2-stable_linux.x86_64",
+          "sha256": "8d106cbe6144c2dc7e881d61d2429c1a8a76e6b22ef48bd5e48dcf934953f71e",
+          "size": 146414384,
+          "inode": 924877,
+          "device": 27,
+          "links": 2
+        }
+      ],
+      "pck": [
+        {
+          "path": "build/plains_environment/local_review_01/plains-environment-candidate-linux-x86_64/environment-review.pck",
+          "sha256": "35bfdf035cd7b519d02ae9173c0fefa02c461c810218cdd3d6237fdca6a072f6",
+          "size": 168336800,
+          "inode": 808255,
+          "device": 27,
+          "links": 1
+        },
+        {
+          "path": "build/plains_environment/local_review_02/plains-environment-candidate-linux-x86_64/environment-review.pck",
+          "sha256": "35bfdf035cd7b519d02ae9173c0fefa02c461c810218cdd3d6237fdca6a072f6",
+          "size": 168336800,
+          "inode": 808271,
+          "device": 27,
+          "links": 1
+        }
+      ]
+    }
+  },
+  "after": {
+    "disk": {
+      "total": 33770192896,
+      "used": 31559094272,
+      "free": 476336128
+    },
+    "pck_paths": [
+      {
+        "path": "build/plains_environment/local_review_01/plains-environment-candidate-linux-x86_64/environment-review.pck",
+        "sha256": "35bfdf035cd7b519d02ae9173c0fefa02c461c810218cdd3d6237fdca6a072f6",
+        "inode": 808255,
+        "links": 2,
+        "size": 168336800
+      },
+      {
+        "path": "build/plains_environment/local_review_02/plains-environment-candidate-linux-x86_64/environment-review.pck",
+        "sha256": "35bfdf035cd7b519d02ae9173c0fefa02c461c810218cdd3d6237fdca6a072f6",
+        "inode": 808255,
+        "links": 2,
+        "size": 168336800
+      }
+    ]
+  },
+  "zip_sha256_before_after": "4e6540e05fb0fce9dc874217929978fcf7b9451253bd80c87a87672ae5d4bee1",
+  "restore_separate_copy_command": "cp --reflink=never --remove-destination build/plains_environment/local_review_01/plains-environment-candidate-linux-x86_64/environment-review.pck build/plains_environment/local_review_02/plains-environment-candidate-linux-x86_64/environment-review.pck",
+  "restoration_note": "This reversible copy needs 168336800 bytes free. Never write either hardlinked PCK in place; materialize a separate copy first."
+}

@@ -11,6 +11,9 @@ var diagnostics: Array = []
 var pending_events: Array = []
 var finished := false
 var terminated := false
+var _unwind_requested := false
+var _observation_sealed := false
+var _cleanup_accepted_events: Array = []
 var outcome := "running"
 var strategy := "fast"
 var phase_wait_ticks := 0
@@ -45,6 +48,57 @@ var preferred_reward_resource := ""
 var visible_input_post_draw := false
 var observe_input_timing := false
 
+func is_trace_cancelled() -> bool:
+	return _unwind_requested
+
+func seal_test_observation() -> void:
+	_observation_sealed = true
+
+func request_test_unwind() -> bool:
+	# Only the capture owner may open the cleanup phase, after immutable evidence.
+	if not _observation_sealed: return false
+	_unwind_requested = true
+	return true
+
+func cancellation_facts() -> Dictionary:
+	var controller_live: bool = is_instance_valid(controller)
+	var router_live: bool = controller_live and is_instance_valid(controller.router)
+	return {
+		"trace_ticks":trace_ticks,"controller_valid":controller_live,"motor_valid":is_instance_valid(motor),
+		"controller_tick":controller._tick if controller_live else -1,
+		"router_sequence":controller.router.sequence if router_live else -1,
+		"router_epoch":controller.router.epoch if router_live else -1,
+		"queued_actions":controller.router._queue.size() if router_live else -1,
+		"router_axis":controller.router.axis if router_live else 0.0,
+		"position":SNAPSHOT.pair(motor.global_position) if is_instance_valid(motor) else [],
+		"health":controller.actor_resources.health.current if controller_live else null,
+		"shot_energy":controller.actor_resources.stamina.current if controller_live else null,
+		"events":events.size(),"frames":observed_frames.size(),"observations":policy_observations.size(),
+		"receipts":resource_receipts.size(),"wallet":app.wallet.balance if is_instance_valid(app) else null,
+		"claims":region_state.claimed.keys().duplicate(),"terminated":terminated,"finished":finished,
+		"outcome":outcome,"shots":shots,"post_seal_accepted_events":_cleanup_accepted_events.duplicate(true)}
+
+func disconnect_test_observers() -> int:
+	# Retrieve actual Callables; default fatal cleanup may have freed the actor.
+	var signals: Array[Signal] = []
+	if is_instance_valid(app) and app.director != null: signals.append(app.director.run_ended)
+	if is_instance_valid(controller):
+		signals.append_array([controller.jump_ability.jumped,controller.shoot_ability.shot_fired,controller.landed,controller.segment_returned,controller.died,controller.energy_recovered,controller.router.action_rejected,controller.actor_resources.health.changed,controller.shoot_ability.shot_rejected])
+	if is_instance_valid(app) and is_instance_valid(app.policy): signals.append(app.policy.batch_resolved)
+	if is_instance_valid(formal_stage):
+		for enemy: EnemyMotor in formal_stage.enemies:
+			if not is_instance_valid(enemy): continue
+			var actor := enemy.get_node("Actor") as EnemyActor
+			if actor.attack_behavior != null: signals.append(actor.attack_behavior.state_changed)
+	var removed := 0
+	for observed: Signal in signals:
+		for connection: Dictionary in observed.get_connections():
+			var callback: Callable = connection["callable"]
+			if callback.get_object() == self:
+				observed.disconnect(callback)
+				removed += 1
+	return removed
+
 func attach(application: DemoApp, selected_strategy: String, wait_ticks: int, selected_policy: String = "blind_legacy") -> bool:
 	if selected_policy not in ["blind_legacy", "kill_from_bank_v1", "kill_from_bank_v2", "bait_then_bypass_v1"]: return false
 	encounter_policy = selected_policy
@@ -65,6 +119,9 @@ func attach(application: DemoApp, selected_strategy: String, wait_ticks: int, se
 	if not controller.is_physics_processing() or not formal_stage.is_physics_processing(): return false
 	controller.jump_ability.jumped.connect(func(): event("jump_accepted"))
 	controller.shoot_ability.shot_fired.connect(func(direction: Vector2, id: int):
+		if _observation_sealed:
+			event("shot_accepted", {"shot_id":id})
+			return
 		shots += 1
 		var detail := {"direction": SNAPSHOT.pair(direction), "shot_id": id}
 		for projectile: PlayerProjectile in controller.shoot_ability.get_projectiles():
@@ -73,6 +130,9 @@ func attach(application: DemoApp, selected_strategy: String, wait_ticks: int, se
 		event("shot_accepted", detail))
 	controller.landed.connect(func(): event("landed"))
 	controller.segment_returned.connect(func():
+		if _observation_sealed:
+			event("segment_returned")
+			return
 		_recovery_serial += 1
 		event("segment_returned", {"position": SNAPSHOT.pair(motor.global_position), "session_id": controller.session_id})
 		if encounter_policy != "blind_legacy" and not allow_expected_recovery:
@@ -86,10 +146,16 @@ func attach(application: DemoApp, selected_strategy: String, wait_ticks: int, se
 	controller.actor_resources.health.changed.connect(func(result: ActorResourceResult):
 		event("player_health", {"operation": str(result.operation), "amount": result.amount_applied, "status": int(result.status), "current": controller.actor_resources.health.current}))
 	app.policy.batch_resolved.connect(func(results: Array[DamageResult]):
+		if _observation_sealed:
+			for result: DamageResult in results: event("damage_committed", {"target":str(result.request.target_id)})
+			return
 		for result: DamageResult in results:
 			collect_resource_receipts()
 			event("damage_committed", {"source": str(result.request.source_id), "target": str(result.request.target_id), "damage_kind": int(result.request.kind), "event_id": str(result.request.event_id), "health_epoch": result.request.health_epoch, "actor_epoch": result.request.actor_epoch, "health_after": result.health.current, "amount": result.request.amount, "lethal": result.lethal}))
 	app.director.run_ended.connect(func(result: DemoRunResult):
+		if _observation_sealed:
+			event("run_ended", {"reason":str(result.reason)})
+			return
 		final_capability = SNAPSHOT.capture(controller, app.build, "formal_run_end_before_cleanup")
 		final_runtime = runtime_snapshot(true)
 		event("run_ended", {"reason": str(result.reason)})
@@ -104,6 +170,7 @@ func attach(application: DemoApp, selected_strategy: String, wait_ticks: int, se
 		_enemy_transitions[id] = 0
 		if actor.attack_behavior != null:
 			actor.attack_behavior.state_changed.connect(func(state: StringName):
+				if _observation_sealed: return
 				_enemy_transitions[id] = int(_enemy_transitions[id]) + 1
 				policy_observations.append({"tick": trace_ticks + 1, "kind": "actual_enemy_transition", "enemy": id, "state": str(state), "transition_serial": _enemy_transitions[id], "position": SNAPSHOT.pair(enemy.global_position)}))
 	initial_capability = SNAPSHOT.capture(controller, app.build, "live_formal_demo_app")
@@ -111,12 +178,17 @@ func attach(application: DemoApp, selected_strategy: String, wait_ticks: int, se
 	return true
 
 func event(kind: String, detail: Dictionary = {}) -> void:
+	if _observation_sealed:
+		if kind in ["jump_accepted","shot_accepted","landed","segment_returned","died","damage_committed","run_ended","reward_modal_submission","player_health","energy_recovered"]:
+			_cleanup_accepted_events.append({"kind":kind,"detail":detail.duplicate(true)})
+		return
 	var value := {"tick": trace_ticks + 1, "kind": kind, "edge": current_edge}
 	value.merge(detail)
 	events.append(value)
 	pending_events.append(value)
 
 func record_check(ok: bool, label: String) -> void:
+	if _observation_sealed: return
 	if not ok:
 		diagnostics.append({"tick": trace_ticks, "edge": current_edge, "message": label, "position": SNAPSHOT.pair(motor.global_position) if is_instance_valid(motor) else []})
 		print("FORMAL DRIVER DIAGNOSTIC: ", label)
@@ -145,25 +217,33 @@ func runtime_snapshot(all_enemies: bool = false) -> Dictionary:
 	return {"enemies": enemies, "enemy_count": formal_stage.enemies.size(), "contact_emitters": app._enemy_contacts.size(), "camera": camera, "chests": chests, "pickups": pickups, "mechanisms": mechanisms, "coins": app.wallet.balance, "claimed_ids": region_state.claimed.keys(), "opened_ids": region_state.opened.keys(), "boss_started": app._boss_started, "app_status": app._status, "paused": tree.paused}
 
 func tick(count: int = 1) -> void:
+	if is_trace_cancelled(): return
 	for unused: int in count:
 		# On fatal cleanup keep the driver suspended while the capture owner saves
 		# the observed failure. Never run legacy helper code against freed actors.
-		while terminated or not is_instance_valid(motor): await tree.process_frame
+		while terminated or not is_instance_valid(motor):
+			if is_trace_cancelled(): return
+			await tree.process_frame
 		if trace_ticks >= frame_budget:
 			outcome = "frame_budget_exhausted"
 			terminated = true
-			while terminated: await tree.process_frame
+			while terminated:
+				if is_trace_cancelled(): return
+				await tree.process_frame
 		if encounter_policy != "blind_legacy" and not _enemy_policy_busy and critical_traversal == 0 and motor.is_on_floor() and controller.router._queue.is_empty():
 			var original_axis := controller.router.axis
 			_enemy_policy_busy = true
 			var safe := await prepare_threats()
+			if is_trace_cancelled(): return
 			_enemy_policy_busy = false
 			if not safe:
 				outcome = "route_policy_failed"
 				terminated = true
 				final_runtime = runtime_snapshot(true)
 				final_capability = SNAPSHOT.capture(controller, app.build, "bounded_policy_stop")
-				while terminated: await tree.process_frame
+				while terminated:
+					if is_trace_cancelled(): return
+					await tree.process_frame
 			controller.router.set_move_axis(original_axis)
 		var requests: Array = []
 		for action: Dictionary in controller.router._queue:
@@ -174,6 +254,7 @@ func tick(count: int = 1) -> void:
 		var axis := controller.router.axis
 		var before := motor.global_position
 		await tree.physics_frame
+		if is_trace_cancelled(): return
 		var input_timing: Dictionary = {}
 		if observe_input_timing:
 			var boundary_usec := Time.get_ticks_usec()
@@ -182,9 +263,12 @@ func tick(count: int = 1) -> void:
 				queued.append({"sequence": action.sequence, "type": str(action.type), "timestamp_seconds": action.timestamp, "epoch": action.epoch, "age_seconds": boundary_usec / 1000000.0 - float(action.timestamp)})
 			input_timing = {"scope": "observer_preconsume_boundary_not_controller_receipt", "physics_frame_signal_usec": boundary_usec, "controller_tick_before": controller._tick, "router_epoch": controller.router.epoch, "max_age_seconds": InputRouter.MAX_AGE_SECONDS, "queued": queued}
 		await tree.process_frame
+		if is_trace_cancelled(): return
 		trace_ticks += 1
 		collect_resource_receipts(trace_ticks)
-		while terminated or not is_instance_valid(motor): await tree.process_frame
+		while terminated or not is_instance_valid(motor):
+			if is_trace_cancelled(): return
+			await tree.process_frame
 		var collisions: Array = []
 		for i: int in motor.get_slide_collision_count():
 			var collision := motor.get_slide_collision(i)
@@ -200,9 +284,12 @@ func tick(count: int = 1) -> void:
 		if _recovery_serial > 0: safe_trace = false
 		# Helpers resume at the observed frame_post_draw boundary. This does not
 		# guarantee MovieWriter encoding or other post-draw subscribers have ended.
-		if visible_input_post_draw: await RenderingServer.frame_post_draw
+		if visible_input_post_draw:
+			await RenderingServer.frame_post_draw
+			if is_trace_cancelled(): return
 
 func walk_edge(edge: Dictionary, forward: bool) -> bool:
+	if is_trace_cancelled(): return false
 	current_edge = str(edge.id)
 	var start := trace_ticks + 1
 	# Production shortcut opening must go through nearby input interaction.
@@ -210,6 +297,7 @@ func walk_edge(edge: Dictionary, forward: bool) -> bool:
 		if forward: return false
 		controller.router.request_action(&"interact")
 		await tick(3)
+		if is_trace_cancelled(): return false
 		if not region_state.opened.has(edge.id):
 			record_check(false, "formal shortcut interaction not accepted from this position")
 			return false
@@ -217,15 +305,18 @@ func walk_edge(edge: Dictionary, forward: bool) -> bool:
 	if protected_motion and encounter_policy != "blind_legacy":
 		_enemy_policy_busy = true
 		var ready := await prepare_threats()
+		if is_trace_cancelled(): return false
 		_enemy_policy_busy = false
 		if not ready: return false
 		critical_traversal += 1
 	var ok: bool = await super.walk_edge(edge, forward)
+	if is_trace_cancelled(): return false
 	if protected_motion and encounter_policy != "blind_legacy": critical_traversal -= 1
 	observed_edges.append({"id": str(edge.id), "forward": forward, "start_tick": start, "end_tick": trace_ticks, "reached": ok, "recovery_count": _recovery_serial})
 	return ok
 
 func follow_to(goal: String) -> bool:
+	if is_trace_cancelled(): return false
 	var path := path_to(current_area, goal)
 	if current_area != goal and path.is_empty():
 		record_check(false, "no declared accessible path: " + current_area + " -> " + goal)
@@ -236,9 +327,11 @@ func follow_to(goal: String) -> bool:
 	return true
 
 func claim_nearby_reward() -> void:
+	if is_trace_cancelled(): return
 	if formal_stage.nearby_chest(motor.global_position) < 0: return
 	controller.router.request_action(&"interact")
 	await tick(2)
+	if is_trace_cancelled(): return
 	if not app.reward_modal.opened or app._region_offer == null: return
 	# Invoke the same modal submission callback; no direct grant or stat edit.
 	# Prefer resources so the baseline traversal policy is not silently retuned.
@@ -250,6 +343,7 @@ func claim_nearby_reward() -> void:
 	event("reward_modal_submission", {"choice": str(selected.stable_id), "input_scope": "production_modal_callback_not_device_GUI"})
 	app._claim_modal_item(selected.stable_id)
 	await tick(3)
+	if is_trace_cancelled(): return
 
 func reward_transaction_state() -> Dictionary:
 	var health_receipts: Dictionary = {}
@@ -267,6 +361,7 @@ func reward_offer_snapshot() -> Dictionary:
 	return {"offer_id":str(app._region_offer.offer_id),"candidates":choices}
 
 func claim_required_chest(id: String) -> bool:
+	if is_trace_cancelled(): return false
 	var index := -1
 	for i: int in formal_stage.chests.size():
 		if str(formal_stage.chests[i].id) == id: index = i
@@ -284,13 +379,16 @@ func claim_required_chest(id: String) -> bool:
 	# Modal opens from the normal end-of-frame action queue; do not await a
 	# permanently paused controller before giving the real UI submission.
 	await tick()
+	if is_trace_cancelled(): return false
 	for unused: int in 30:
 		if app.reward_modal.opened: break
 		await tree.process_frame
+		if is_trace_cancelled(): return false
 	if not app.reward_modal.opened or app._region_offer == null or str(app._region_offer.offer_id) != id: return false
 	if probe_reward_errors:
 		var wrong_queued:=app._claim_modal_item(&"not_a_real_offered_choice")
 		await tick(2)
+		if is_trace_cancelled(): return false
 		var wrong_rejected:bool=wrong_queued and not chest.claimed and app.reward_modal.opened and not app._region_pending_claim
 		policy_observations.append({"tick":trace_ticks,"kind":"actual_wrong_choice_rejected","chest":id,"queued":wrong_queued,"claimed":chest.claimed,"modal_opened":app.reward_modal.opened,"rejected":wrong_rejected})
 		if not wrong_rejected:return false
@@ -306,19 +404,23 @@ func claim_required_chest(id: String) -> bool:
 	var queued := app._claim_modal_item(selected.stable_id)
 	if not queued: return false
 	await tick(3)
+	if is_trace_cancelled(): return false
 	var claimed: bool = chest.claimed and region_state.claimed.has(id) and not app.reward_modal.opened and app._region_chest == -1
 	policy_observations.append({"tick": trace_ticks, "kind": "actual_cache_claim", "chest": id, "choice": str(selected.stable_id), "queued": queued, "claimed": claimed, "before": before, "after": {"coins": app.wallet.balance, "health": controller.actor_resources.health.current, "meta": app.meta.snapshot()}, "wallet_receipts": app.wallet._grants.duplicate(true), "transaction": {"schema_version":1,"stage_index":app.director.stage_index,"receipt_prefix":app._run_receipt_prefix,"offer":offered,"before":transaction_before,"after":reward_transaction_state()}, "claim_output": app.director.manifest.snapshot().stages[app.director.stage_index-1].outputs.get("cache/"+id,{}), "position": SNAPSHOT.pair(motor.global_position)})
 	if claimed and probe_reward_errors:
 		var balance:=app.wallet.balance
 		var grants:Dictionary=app.wallet._grants.duplicate(true)
 		var duplicate_submission:=app._claim_modal_item(selected.stable_id)
-		controller.router.request_action(&"interact");await tick(2)
+		controller.router.request_action(&"interact")
+		await tick(2)
+		if is_trace_cancelled(): return false
 		var duplicate_rejected:bool=not duplicate_submission and chest.claimed and app.wallet.balance==balance and app.wallet._grants==grants and not app.reward_modal.opened
 		policy_observations.append({"tick":trace_ticks,"kind":"actual_duplicate_claim_rejected","chest":id,"accepted":duplicate_submission,"rejected":duplicate_rejected,"balance":app.wallet.balance})
 		if not duplicate_rejected:return false
 	return claimed
 
 func aware_growth() -> bool:
+	if is_trace_cancelled(): return false
 	var rewards: Array = stage.manifest.rewards.filter(func(c: Dictionary): return c.tier == "medium")
 	if rewards.size() != 2: return false
 	for reward: Dictionary in rewards:
@@ -332,13 +434,17 @@ func aware_growth() -> bool:
 			if not await move_to(module.world_entry().x, 500): return false
 			_enemy_policy_busy = true
 			var ready := await prepare_threats()
+			if is_trace_cancelled(): return false
 			_enemy_policy_busy = false
 			if not ready: return false
 			var branch = load("res://tests/branch_module_driver.gd").new()
 			branch.module = module; branch.motor = motor; branch.controller = controller; branch.tick_callback = tick; branch.check = check
 			module.set_meta("discovery_latch", shot_latch_encounter.for_module(module))
 			var claim_state := {"accepted": false}
-			var claim := func(): claim_state.accepted = await claim_required_chest(id)
+			var claim := func():
+				var accepted: bool = await claim_required_chest(id)
+				if is_trace_cancelled(): return
+				claim_state.accepted = accepted
 			current_edge = ""
 			for edge: Dictionary in stage.manifest.connections:
 				if str(edge.a) == str(approach.entry_area) and str(edge.b) == str(approach.exit_area): current_edge = str(edge.id)
@@ -346,6 +452,7 @@ func aware_growth() -> bool:
 			var begin := trace_ticks + 1
 			critical_traversal += 1
 			var reached: bool = await load("res://tests/plains_creek_discovery_motion.gd").traverse(branch, module, bank, claim)
+			if is_trace_cancelled(): return false
 			critical_traversal -= 1
 			observed_edges.append({"id": current_edge, "forward": true, "start_tick": begin, "end_tick": trace_ticks, "reached": reached and bool(claim_state.accepted), "kind": "actual_creek_reward_and_return"})
 			if not reached or not claim_state.accepted: return false
@@ -359,6 +466,7 @@ func aware_growth() -> bool:
 	return await follow_to(str(stage.manifest.merchant_id))
 
 func deep_trial(id: String) -> bool:
+	if is_trace_cancelled(): return false
 	current_edge = id
 	if encounter_policy!="blind_legacy":
 		# The next authored ascent is not the previous horizontal waypoint.
@@ -366,22 +474,27 @@ func deep_trial(id: String) -> bool:
 		policy_move_goal=INF
 		_enemy_policy_busy=true
 		var ready:=await prepare_threats()
+		if is_trace_cancelled(): return false
 		_enemy_policy_busy=false
 		if not ready:return false
 	# Parent bundles traversal and evacuation. Claim at the authored reward point
 	# via move_to override before its production drop-through input begins.
 	var start := trace_ticks + 1
 	var ok: bool = await super.deep_trial(id)
+	if is_trace_cancelled(): return false
 	observed_edges.append({"id": id, "forward": true, "kind": "challenge_and_evacuation", "start_tick": start, "end_tick": trace_ticks, "reached": ok, "recovery_count": _recovery_serial})
 	return ok
 
 func move_to(x: float, budget: int = 310) -> bool:
+	if is_trace_cancelled(): return false
 	var previous_goal:=policy_move_goal
 	policy_move_goal=x
 	var ok: bool = await super.move_to(x, budget)
+	if is_trace_cancelled(): return false
 	policy_move_goal=previous_goal
 	if ok and encounter_policy == "blind_legacy" and strategy in ["growth", "deep", "return"] and formal_stage.nearby_chest(motor.global_position) >= 0:
 		await claim_nearby_reward()
+		if is_trace_cancelled(): return false
 	if ok and encounter_policy!="blind_legacy" and strategy in ["deep","return"]:
 		var nearby:=formal_stage.nearby_chest(motor.global_position)
 		if nearby>=0 and str(formal_stage.chests[nearby].tier) in ["high","region_top"]:
@@ -389,8 +502,11 @@ func move_to(x: float, budget: int = 310) -> bool:
 	return ok
 
 func run_route() -> void:
+	if is_trace_cancelled(): return
 	await tick(phase_wait_ticks)
+	if is_trace_cancelled(): return
 	var ok: bool = await tutorial()
+	if is_trace_cancelled(): return
 	observed_edges.append({"id": "tutorial", "forward": true, "start_tick": phase_wait_ticks + 1, "end_tick": trace_ticks, "reached": ok})
 	if not ok:
 		finish(false, "tutorial_policy_failed")
@@ -417,9 +533,11 @@ func run_route() -> void:
 			return
 	var goal := "area_0_1" if strategy == "return" else str(stage.manifest.prep_id)
 	ok = await follow_to(goal)
+	if is_trace_cancelled(): return
 	finish(ok, "route_target_reached" if ok else "route_policy_failed")
 
 func finish(ok: bool, status: String) -> void:
+	if _observation_sealed or is_trace_cancelled(): return
 	controller.router.set_move_axis(0)
 	outcome = status
 	finished = true
@@ -482,6 +600,7 @@ func incoming_projectile(point: Vector2, horizon: float = .3) -> bool:
 	return false
 
 func prepare_threats() -> bool:
+	if is_trace_cancelled(): return false
 	if encounter_policy == "blind_legacy" or not motor.is_on_floor(): return true
 	# No intervention on a moving platform or after a jump/shot is committed.
 	if not bank_supported(motor.global_position): return true
@@ -490,8 +609,18 @@ func prepare_threats() -> bool:
 		var actor := enemy.get_node("Actor") as EnemyActor
 		if actor.health.terminal: continue
 		var offset := enemy.global_position - motor.global_position
-		if absf(offset.y) > 220 or offset.length() > 440: continue
+		if offset.length() > 440: continue
 		var id: String = str(formal_stage.enemy_manifest[index].id)
+		if absf(offset.y) > 220:
+			# The existing kill policy requires a full horizontal recoil footprint
+			# before firing. Let Router movement reach that real bank first.
+			var recoil_distance: float = motor.weapon_motion.base_distance(motor.tuning, true)
+			var projected := Vector2(-offset.normalized().x * recoil_distance, 0)
+			var horizontal := Vector2(-signf(offset.x) * recoil_distance, 0)
+			var projected_supported := bank_supported(motor.global_position, projected)
+			var horizontal_supported := bank_supported(motor.global_position, horizontal)
+			policy_observations.append({"tick":trace_ticks,"kind":"high_target_actual_bank_readiness","enemy":id,"position":SNAPSHOT.pair(motor.global_position),"target":SNAPSHOT.pair(enemy.global_position),"projected_retreat":SNAPSHOT.pair(projected),"horizontal_retreat":SNAPSHOT.pair(horizontal),"projected_supported":projected_supported,"horizontal_supported":horizontal_supported})
+			if not horizontal_supported: continue
 		if is_finite(policy_move_goal):
 			var travel_direction:=signf(policy_move_goal-motor.global_position.x)
 			if travel_direction!=0 and travel_direction*(enemy.global_position.x-policy_move_goal)>actor.definition.collision_size.x*.5+28:continue
@@ -509,10 +638,12 @@ func prepare_threats() -> bool:
 			record_check(false, "bounded enemy attempts exhausted " + id)
 			return false
 		var ok := await kill_from_bank(enemy, id) if encounter_policy in ["kill_from_bank_v1", "kill_from_bank_v2"] else await bait_then_bypass(enemy, id)
+		if is_trace_cancelled(): return false
 		if not ok: return false
 	return true
 
 func kill_from_bank(enemy: EnemyMotor, id: String) -> bool:
+	if is_trace_cancelled(): return false
 	var actor := enemy.get_node("Actor") as EnemyActor
 	var bank := motor.global_position
 	var aim := (enemy.global_position - bank).normalized()
@@ -541,6 +672,7 @@ func kill_from_bank(enemy: EnemyMotor, id: String) -> bool:
 			for step: int in 40:
 				controller.router.set_move_axis(clampf((candidate.x-motor.global_position.x)/5.5,-1,1))
 				await tick()
+				if is_trace_cancelled(): return false
 				if absf(candidate.x-motor.global_position.x)<1:break
 			if motor.is_on_floor() and absf(candidate.x-motor.global_position.x)<1:
 				bank=motor.global_position;found_bank=true;break
@@ -555,6 +687,7 @@ func kill_from_bank(enemy: EnemyMotor, id: String) -> bool:
 			for settle: int in 110:
 				controller.router.set_move_axis(clampf((bank.x-motor.global_position.x)/5.5,-1,1))
 				await tick()
+				if is_trace_cancelled(): return false
 				if motor.is_on_floor() and absf(motor.global_position.x-bank.x)<1 and controller.shoot_ability.cooldown_remaining<=0: break
 			policy_observations.append({"tick": trace_ticks, "kind": "actual_enemy_dead", "enemy": id, "health": actor.health.current, "position": SNAPSHOT.pair(enemy.global_position), "player_position": SNAPSHOT.pair(motor.global_position)})
 			return motor.is_on_floor() and absf(motor.global_position.x-bank.x)<2
@@ -574,6 +707,7 @@ func kill_from_bank(enemy: EnemyMotor, id: String) -> bool:
 			if not bank_supported(bank,back): break
 			controller.router.set_move_axis(signf(back.x))
 			await tick(8)
+			if is_trace_cancelled(): return false
 			continue
 		if motor.is_on_floor() and absf(motor.global_position.x-bank.x)<1 and absf(motor.global_position.y-bank.y)<2 and controller.shoot_ability.cooldown_remaining<=0 and controller.shot_energy.can_fire() and clear_shot(enemy):
 			if not bank_supported(motor.global_position,Vector2(-signf(enemy.global_position.x-motor.global_position.x)*recoil_distance,0)): break
@@ -585,10 +719,12 @@ func kill_from_bank(enemy: EnemyMotor, id: String) -> bool:
 			policy_observations.append({"tick":trace_ticks+1,"kind":"enemy_shot_request","enemy":id,"target_screen":target_screen_facts(enemy),"position":SNAPSHOT.pair(motor.global_position),"direction":SNAPSHOT.pair(direction)})
 			controller.router.request_action(&"shoot_release",direction)
 		await tick()
+		if is_trace_cancelled(): return false
 	record_check(false,"enemy bank unsafe/no damage progress within budget " + id)
 	return false
 
 func bait_then_bypass(enemy: EnemyMotor, id: String) -> bool:
+	if is_trace_cancelled(): return false
 	var actor := enemy.get_node("Actor") as EnemyActor
 	var attack := actor.attack_behavior
 	if attack == null: return false
@@ -628,40 +764,49 @@ func bait_then_bypass(enemy: EnemyMotor, id: String) -> bool:
 			if bank_supported(takeoff) and bank_supported(receiver) and absf(motor.global_position.x-takeoff.x)<200:
 				if not await super.move_to(takeoff.x,120):break
 				var crossed:bool=await jump_point(receiver)
+				if is_trace_cancelled(): return false
 				if crossed and controller.actor_resources.health.current==initial_health and not actor.health.terminal and direction*(motor.global_position.x-enemy.global_position.x)>30:
 					_passed_enemies[id]=direction
 					policy_observations.append({"tick":trace_ticks,"kind":"actual_nonkill_bypass","enemy":id,"enemy_health":actor.health.current,"transition_start":transition_start,"transition_now":_enemy_transitions.get(id,0),"enemy_displacement":enemy.global_position.distance_to(start_enemy),"player_position":SNAPSHOT.pair(motor.global_position),"enemy_position":SNAPSHOT.pair(enemy.global_position),"target_screen":target_screen_facts(enemy)})
 					return true
 				break
 		await tick()
+		if is_trace_cancelled(): return false
 	record_check(false,"no safe non-kill recovery/crossing within budget "+id)
 	return false
 
 func forward_module(module: PlatformingModule) -> bool:
+	if is_trace_cancelled(): return false
 	if encounter_policy == "blind_legacy": return await super.forward_module(module)
 	policy_move_goal=module.world_exit().x
 	_enemy_policy_busy=true
 	var ready := await prepare_threats()
+	if is_trace_cancelled(): return false
 	_enemy_policy_busy=false
 	if not ready:return false
 	critical_traversal+=1
 	var ok: bool=await super.forward_module(module)
+	if is_trace_cancelled(): return false
 	critical_traversal-=1
 	return ok
 
 func reverse_module(module: PlatformingModule) -> bool:
+	if is_trace_cancelled(): return false
 	if encounter_policy == "blind_legacy": return await super.reverse_module(module)
 	policy_move_goal=module.world_entry().x
 	_enemy_policy_busy=true
 	var ready := await prepare_threats()
+	if is_trace_cancelled(): return false
 	_enemy_policy_busy=false
 	if not ready:return false
 	critical_traversal+=1
 	var ok: bool=await super.reverse_module(module)
+	if is_trace_cancelled(): return false
 	critical_traversal-=1
 	return ok
 
 func collect_resource_receipts(observed_tick: int = -1) -> void:
+	if _observation_sealed: return
 	var state := controller.actor_resources.stamina
 	for id: StringName in state._receipts:
 		var key := "%s/%s" % [state.epoch,id]

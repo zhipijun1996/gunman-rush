@@ -1,0 +1,40 @@
+{
+  "status": "failed",
+  "scope": "ONE verbose repeat of the frozen versions04 source; no production fixes or new acceptance",
+  "original_native_cap_seconds": 90,
+  "actual_seconds": 4.212552167000467,
+  "functional_assertions": 86,
+  "functional_failures": 0,
+  "strict_failure": "2 ObjectDB instances /1Resource still in use",
+  "actual_leaked_instances": [
+    "GDScriptNativeClass refcount1",
+    "GDScript refcount1"
+  ],
+  "actual_resource_path": "res://scripts/player/player_tuning.gd",
+  "source_guard": true,
+  "all2005_snapshot_raw_bytes_unchanged": true,
+  "cause": "Not yet localized; actual script identity is evidence, not proof of cause or permission to change PlayerTuning",
+  "files": {
+    "native.log": {
+      "sha256": "460e62d6cbb18112c457277d828507220b206bdc9c7e9f96eb23a91e01331202",
+      "bytes": 86604
+    },
+    "receipt.json": {
+      "sha256": "cd0e662b2134ca102c121e4b967f7aedaa2918fc6fcf3baf553c9e25de1412f7",
+      "bytes": 219903
+    },
+    "capture.json": {
+      "sha256": "2304a33b01a0952f9085255d24485461c54ddcebcff353f9244dc89b61400a58",
+      "bytes": 194750
+    },
+    "producer.py": {
+      "sha256": "8f118ea8bd520cac61317076e36779c2ec8ae213337f38e1f122b92e00c20704",
+      "bytes": 1685
+    },
+    "host.log": {
+      "sha256": "5dc808bad897209fa9bfc06f80d6dfa8704f624892f366e362e4b2d00657e61d",
+      "bytes": 885
+    }
+  },
+  "next": "Bounded own-runner teardown/coroutine lifetime analysis on exact frozen source; retain all assertions/caps/strict guard; new current map2 technical-ok contract must be tested separately"
+}

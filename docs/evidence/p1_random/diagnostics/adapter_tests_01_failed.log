@@ -1,0 +1,41 @@
+............FFFF........
+======================================================================
+FAIL: test_formal_random_adapter_keeps_exact_catalog_and_original_layout (test_visual_director.VisualDirectorTests.test_formal_random_adapter_keeps_exact_catalog_and_original_layout) (mutation='missing')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/art-direction-exploration/tests/test_visual_director.py", line 323, in test_formal_random_adapter_keeps_exact_catalog_and_original_layout
+    with self.subTest(mutation=mutation): self.assertTrue(relevant(data, report))
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_formal_random_adapter_keeps_exact_catalog_and_original_layout (test_visual_director.VisualDirectorTests.test_formal_random_adapter_keeps_exact_catalog_and_original_layout) (mutation='wrong_path')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/art-direction-exploration/tests/test_visual_director.py", line 323, in test_formal_random_adapter_keeps_exact_catalog_and_original_layout
+    with self.subTest(mutation=mutation): self.assertTrue(relevant(data, report))
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_formal_random_adapter_keeps_exact_catalog_and_original_layout (test_visual_director.VisualDirectorTests.test_formal_random_adapter_keeps_exact_catalog_and_original_layout) (mutation='wrong_hash')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/art-direction-exploration/tests/test_visual_director.py", line 323, in test_formal_random_adapter_keeps_exact_catalog_and_original_layout
+    with self.subTest(mutation=mutation): self.assertTrue(relevant(data, report))
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true
+
+======================================================================
+FAIL: test_formal_random_adapter_keeps_exact_catalog_and_original_layout (test_visual_director.VisualDirectorTests.test_formal_random_adapter_keeps_exact_catalog_and_original_layout) (mutation='unguarded_catalog')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/art-direction-exploration/tests/test_visual_director.py", line 323, in test_formal_random_adapter_keeps_exact_catalog_and_original_layout
+    with self.subTest(mutation=mutation): self.assertTrue(relevant(data, report))
+                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [] is not true
+
+----------------------------------------------------------------------
+Ran 21 tests in 5.342s
+
+FAILED (failures=4)

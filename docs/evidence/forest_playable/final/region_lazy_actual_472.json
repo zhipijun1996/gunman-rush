@@ -1,0 +1,49 @@
+{
+  "base_commit": "75c6cc3c018015bbbf31bcf01d17466a2565dfb3",
+  "scope": "Actual root wrapper4.7.2 retained failed fixture with current lazy cleanup patch; not full suite",
+  "argv": [
+    "bash",
+    "tools/godot.sh",
+    "--headless",
+    "--fixed-fps",
+    "60",
+    "--path",
+    ".",
+    "--script",
+    "tests/plains_region_runner.gd",
+    "--",
+    "--fixture=intro/woven_layers/adventure"
+  ],
+  "source_before": {
+    "tests/plains_region_trace.gd": "9d2871d4c744c0069cc4034c69b650520277609bf5dc695988ddae2259cdc822",
+    "tests/plains_region_runner.gd": "a1cc108ef4281b6c1d14d182eda81b4219b12544b04859bc06f538358837e0d0",
+    "tests/plains_run_trace.gd": "ef1082e8dcabeab498c3dfb81c471d97a08467c93ae4c5c28cc9676a33cf64e6",
+    "tests/audio_teardown.gd": "b2ff397c59cb5e4d7014b27f540e73b0c3127ebf4e0352ad7f01856bf90f36da"
+  },
+  "started_unix": 1792181301.520605,
+  "timeout_seconds": 120,
+  "status": "passed",
+  "exit_code": 0,
+  "engine": "4.7.2.stable.official.ed1daf0bf",
+  "receipts": [
+    {
+      "owners": [
+        {
+          "node": "/root/@Node2D@2/@Node2D@125/@Node2D@166/@AudioStreamPlayer2D@167",
+          "playback_id": -9223371480790725231,
+          "stream": "res://assets/audio/kenney/bell.ogg"
+        }
+      ],
+      "released": true,
+      "seconds": 0.02
+    }
+  ],
+  "source_after": {
+    "tests/plains_region_trace.gd": "9d2871d4c744c0069cc4034c69b650520277609bf5dc695988ddae2259cdc822",
+    "tests/plains_region_runner.gd": "a1cc108ef4281b6c1d14d182eda81b4219b12544b04859bc06f538358837e0d0",
+    "tests/plains_run_trace.gd": "ef1082e8dcabeab498c3dfb81c471d97a08467c93ae4c5c28cc9676a33cf64e6",
+    "tests/audio_teardown.gd": "b2ff397c59cb5e4d7014b27f540e73b0c3127ebf4e0352ad7f01856bf90f36da"
+  },
+  "sources_unchanged": true,
+  "seconds": 8.45218825340271
+}

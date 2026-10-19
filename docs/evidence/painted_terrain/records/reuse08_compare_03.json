@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "artifact_kind": "actual_visual_comparison",
+  "status": "comparable_for_review",
+  "before": {
+    "path": "build/painted_terrain/reuse08_baseline_03/visual_capture.json",
+    "sha256": "f2b4a6e0582463cd7e395e946ff821851e7920616b022b9ec2680f498649b4ae"
+  },
+  "after": {
+    "path": "build/painted_terrain/reuse08_candidate_03/visual_capture.json",
+    "sha256": "452c3701e5c14988ee0d5ac97eb21a847eaf6af9fdb0abfcc88a886b4aef3e88"
+  },
+  "conditions": {
+    "root_seed": "level-design-v2-baseline/08",
+    "map_index": 1,
+    "strategy": "growth",
+    "phase_wait_ticks": 0,
+    "max_ticks": 900,
+    "encounter_policy": "kill_from_bank_v1",
+    "capture_script": "tools/painted_formal_capture.gd",
+    "visual_sample": "",
+    "visual_layout": ""
+  },
+  "source_changes": [],
+  "before_source_commit": "df197eb773aa3d3d89078616d7523da1d3922724",
+  "after_source_commit": "df197eb773aa3d3d89078616d7523da1d3922724",
+  "visual_treatments": {
+    "before": "",
+    "after": "res://resources/visual_development/painted_terrain_candidate.json"
+  },
+  "before_movie": {
+    "path": "build/painted_terrain/reuse08_baseline_03/gameplay.mp4",
+    "sha256": "6bbd569df34aeedd7166cd375178e816c730d7b414c6b78ea0fe116aa7b6b0ab"
+  },
+  "after_movie": {
+    "path": "build/painted_terrain/reuse08_candidate_03/gameplay.mp4",
+    "sha256": "9d3f4c67c7d86f4c27f5066f12bb78bc4f30376a1d98f4be1e70cf82da52a109"
+  },
+  "route_outcomes": {
+    "before": "route_target_reached",
+    "after": "route_target_reached"
+  },
+  "adaptation_validation": {
+    "before": null,
+    "after": null
+  },
+  "producer_origins": {
+    "before": {
+      "kind": "original_workspace",
+      "producer_root": "/workspace/plains-art-grammar",
+      "movie_writer_completion_bound": true
+    },
+    "after": {
+      "kind": "original_workspace",
+      "producer_root": "/workspace/plains-art-grammar",
+      "movie_writer_completion_bound": true
+    }
+  },
+  "subjective_acceptance": "unverified",
+  "limits": "Same actual driver/core/entry/manifest conditions, not byte-identical trajectory, pixel registration, performance, full route success or beauty proof."
+}

@@ -1,0 +1,9 @@
+# MENU OCR consumer review02
+
+**ACCEPT_SCOPED_OCR_TOOL** for tool SHA `3f542a8b4a97dd8678ab45d5ef185ce8c47f6f753ec4bb6ef52eb2408890e422`. Original review01 REJECT/OCR01 and candidate95 artifacts remain intact. Only locate() changes; all other top-level AST, actual UI events, identity/PCK checks and20/8/480 limits remain unchanged. Actual affected set remains43 existing paths, with42 other source hashes still identical to the S3 review.
+
+The new sixth psm7 ROI requires its entire normalized OCR text to equal MENU, and still derives the click point from a real individual MENU word box. Original OCR plus fiveROI paths keep their behavior. Independent real screenshot replay returns(1216.125,35.875) after12 calls; ROI pixels and inverse4× mapping match exactly. The identical MENU2 image that candidate95 misaccepted is now rejected. Glyph-only erasure, MENUS and new MENUX controls also reject; non-MENU requests keep their single original OCR call. Seven synthetic TSV guard probes separately confirm extra prefix/suffix/repeated/split words are refused, a true MENU word is accepted, and old psm6 matching remains unchanged. Synthetic probes do not stand in for actual OCR or game execution.
+
+Writer map1 still succeeds through its original five-call path. Original GUI01 all27 files and golden01 all files remain byte-identical; golden02 stored input hashes and TSV words were independently checked. No original directory received new reviewer ROI files.
+
+Public game source remains S3 `93c202568d154e37b1d57de1e08ba0c42820e828`, build `f7e22bcfaf40`; the dirty tool hash is separately bound. This accepts only the bounded tool fix, not GUI02, new game/native/movie evidence, original publisher72 verification, player/device or whole-region quality. Root may now perform its separately authorized original GUI02 run. Exact source hashes, raw OCR outputs and checks are in review.json.

@@ -1,0 +1,40 @@
+{
+  "task_id": "VISUAL-LANGUAGE-01",
+  "asset_id": "rootbell_b_body_v1",
+  "status": "generated_actual_tool_call",
+  "tool": "image_gen.imagegen",
+  "model": "not_exposed",
+  "license_status": "unknown",
+  "transparent_background_requested": true,
+  "prompt": "Create a clean game ENEMY BODY sprite atlas PNG, REAL TRANSPARENT background, exactly 3 equal columns x 2 equal rows (6 cells), canvas1536x1024, each cell512x512. No paper, labels, borders, gridlines, background, floor, cast shadows, interface, damage numbers, warning marks, resonance rings, projectiles, dust or VFX. Both permanent reference images are authoritative: B1 master and B Rain Glaze & Off-centre. Recreate their distinctive enemy, not the upward-open friendly listening bowl and not a generic gear robot.\nSame compact low-centred glazed ceramic POD enemy in every cell: chipped warm apricot clay and rain-washed slate-blue glaze; THREE articulated short wooden/brass-brown feet, a THICK SIDE opening cavity facing RIGHT; crooked wooden feeler with one olive leaf. Rounded asymmetrical body, broad egg-tempera light/shadow masses, selective graphite edges, no universal microtexture. Friendly apparatus has upward opening; this enemy MUST have SIDE opening, three feet, coral danger cracks. All three original body feet stay attached to the body. Same body-foot pivot x256,y448 in every512 cell. Feet rest at that notional baseline; anticipate by bending stance or compressing shell, not levitating the entire enemy. Keep every pixel (including feeler/leaf) inside its cell with transparent gutters. No separate external VFX baked into body. This is BODY ONLY: real game Presentation retains exact warning/attack/recovery timings and independently draws warning rings and ground resonance.\nStrict row-major order:\nROW1 cell0 IDLE: stable asymmetrical tripod; side cavity mostly narrow/dark; intact relaxed shell; leaf droops. cell1 TELEGRAPH: shell leans forward/right on compressed front foot, visible aperture opens, separated clay seams reveal restrained coral-red interior; readable physical anticipation, NO exclamation marks and NO glowing ring. cell2 ATTACK: tripod strongly BRACED, body low, side-mouth WIDE open pointed down-right for ground resonance; shell plates splay, intense small coral cavity, feeler whips back. Body pose only, absolutely no emitted wave, beam, ring, ground line or projectile.\nROW2 cell3 RECOVERY: shell sinks/sags backward with folded joints, mouth closes halfway and glow subsides; physically different from idle/attack. cell4 HURT: asymmetric shell twist, one clay plate knocked up attached to shell, squashed front leg and bent feeler; no red overlay, no loose flying debris. cell5 DEATH: clearly inert collapsed broken pod resting near the same foot baseline, leaf limp, side shell cracked open with two large grounded fragments kept within the cell, no hovering, no blast effects. Do not normalize death to idle height.\nAll six should read as continuous states of the exact same handcrafted three-foot side-open B ceramic creature. Preserve both reference palettes and low-centre off-centre form. Clean antialiased alpha edges and ample empty transparent margins. Do not turn this into six static idle recolors or a concept page.",
+  "reference_images": [
+    {
+      "path": "assets/visual_development/master/b1_master.png",
+      "sha256": "c1dcef82970aca7352988bac084d1a3b4abe62187557d094fbe5b96bb631963c"
+    },
+    {
+      "path": "assets/visual_development/proposals/b_board.png",
+      "sha256": "b117d2211992e5943d3bb1e6768a897b6b4c01cc8608dee0b2cffc4a1b00e81b"
+    }
+  ],
+  "prepared_at_unix": 1792167738.7300127,
+  "scope": "candidate sheet only, no consumer/native animation integration",
+  "actual_tool_result": {
+    "key": "actor_rootbell",
+    "request": "actor_rootbell_b_body_v1_request.json",
+    "raw": "rootbell_b_body_v1_raw.png",
+    "metadata": "rootbell_b_body_v1.provenance.json",
+    "disposition": "retained_failed_alpha_candidate",
+    "started_at_unix": 1792167829.063,
+    "ended_at_unix": 1792167881.556,
+    "output_hint": "Generated images are saved to /workspace/generated_images as /workspace/generated_images/exec-759d654d-71e4-41d8-bd33-2caf33b03514.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  "original_png": {
+    "path": "assets/visual_development/actors/rootbell_b_body_v1_raw.png",
+    "sha256": "87c3b58cd2041659e97300a2d83efda6bd1bfa896dbb3d13e100b63006ff1872",
+    "bytes": 2120472,
+    "preserved_unchanged": true
+  },
+  "review_disposition": "retained_failed_alpha_candidate",
+  "duration_seconds": 52.49300003051758
+}

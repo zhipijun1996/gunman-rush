@@ -1,0 +1,51 @@
+{
+  "status": "passed",
+  "scope": "Actual ZIP CRC plus original five source PNG bytes in verified PCK; manual package startup scope only",
+  "zip_path": "/tmp/plains-landform-review-2tzzr0om/delivery/plains-landform-candidate-linux-x86_64.zip",
+  "zip_sha256": "79d3d734571672b4097df787205ac573391b0d118e9d0a504ac398bc8be0f576",
+  "zip_bytes": 255310009,
+  "source_commit": "2c615d3d4762c51edfe1bc1e970f28f60807a1f8",
+  "build_id": "f7a0fd956887",
+  "art_verdict": "NOT_ADMITTED",
+  "golden_admission": false,
+  "zip_crc_all_entries": true,
+  "actual_pack_closure": {
+    "entry_count": 1506,
+    "all_entry_sha256_checked": true,
+    "raw_gd_not_old_gdc": true,
+    "raw_json_and_png_preserved": true
+  },
+  "paint_sources": [
+    {
+      "role": "rock_core",
+      "path": "assets/visual_development/p1_landform/rock_core.png",
+      "sha256": "8b3414b09536877bea9e6f059b1b612c28a68b0003ce2a8fc0d3f30b735055b2"
+    },
+    {
+      "role": "meadow_transition",
+      "path": "assets/visual_development/p1_landform/meadow_transition.png",
+      "sha256": "b28aef110bb0cc6dd2bc88824e107b99bffde512455daf0202bf8c963365b176"
+    },
+    {
+      "role": "cave_transition",
+      "path": "assets/visual_development/p1_landform/cave_transition.png",
+      "sha256": "17fd9e285aa301454ea232239563512b23f7424c294ce536b08f6c7b1d98af26"
+    },
+    {
+      "role": "rear_substrate",
+      "path": "assets/visual_development/p1_landform/rear_substrate.png",
+      "sha256": "8b35b38f97899669c7f76158f923b72ec18340575f844fe5b0ba0c171bf630dd"
+    },
+    {
+      "role": "rock_vault",
+      "path": "assets/visual_development/p1_landform/rock_vault_structure.png",
+      "sha256": "91bf8e6d103bf2c755a5b08d46b27b7c676188df1586be552a15f5d716ff82e6"
+    }
+  ],
+  "steps": {
+    "pack": "passed",
+    "isolated_headless": "passed",
+    "isolated_gui": "passed"
+  },
+  "runtime_source_unchanged": true
+}

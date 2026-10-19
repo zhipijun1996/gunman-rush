@@ -1,0 +1,24 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FOREST_UI_EVENT {"event":"debug_entry","map_index":2,"natural_progression":false,"region":"thorn_forest","seed":"forest-depth-hollow-00"}
+PLAINS REGION: family=clearing_shared_node areas=14 fallback=
+FOREST_UI_EVENT {"anchor":"crown_approach_ring_0","event":"vine_gate_opened","source":"accepted_hook_contact"}
+PLAINS REGION: family=clearing_shared_node areas=14 fallback=
+ERROR: Signal 'shot_fired' is already connected to given callable 'SceneTree(forest_depth_campaign_boss_runner.gd)::_queen_shot' in that object.
+   at: connect (core/object/object.cpp:1562)
+   GDScript backtrace (most recent call first):
+       [0] _queen_bind_actual (res://tests/forest_depth_campaign_boss_runner.gd:152)
+       [1] _queen_pause_reload (res://tests/forest_depth_campaign_boss_runner.gd:241)
+ERROR: Signal 'action_changed' is already connected to given callable 'SceneTree(forest_depth_campaign_boss_runner.gd)::_queen_hook_state' in that object.
+   at: connect (core/object/object.cpp:1562)
+   GDScript backtrace (most recent call first):
+       [0] _queen_bind_actual (res://tests/forest_depth_campaign_boss_runner.gd:153)
+       [1] _queen_pause_reload (res://tests/forest_depth_campaign_boss_runner.gd:241)
+ERROR: Signal 'hook_contact' is already connected to given callable 'SceneTree(forest_depth_campaign_boss_runner.gd)::_queen_contact' in that object.
+   at: connect (core/object/object.cpp:1562)
+   GDScript backtrace (most recent call first):
+       [0] _queen_bind_actual (res://tests/forest_depth_campaign_boss_runner.gd:154)
+       [1] _queen_pause_reload (res://tests/forest_depth_campaign_boss_runner.gd:241)
+FOREST_UI_EVENT {"ability":"double_jump","event":"ability_selected","source_region":"thorn_forest","token":"3/3/4"}
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node@2/@Node2D@3/@Node@4","played":{"click":6,"confirm":6,"focus_start":1,"hurt":1,"impact":2,"jump":6,"land":9,"shot":8,"step":17,"warning":5},"service":"GameAudio"}],"released":true,"seconds":0.067}
+FOREST DEPTH CAMPAIGN: 27 assertions / 0 failures

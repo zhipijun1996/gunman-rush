@@ -1,0 +1,120 @@
+{
+  "task_id": "PARALLEL-INTEGRATION-01",
+  "reviewer": "/root/integration_review",
+  "timestamp_utc": "2026-10-19T12:33:05.563835+00:00",
+  "baseline_commit": "d86ae7474239a6f483962e0f2af712ed1d0432b7",
+  "verdict": "ACCEPT",
+  "scope": "Bounded explicit test-only historicalpresentation migration semantics and actual split-source localoriginalwrapper results; not finalsame-source98/CI/public/art acceptance",
+  "source_state": "Finalworkcandidatehelperd036+ready05connected; finalGitcommitpending; exactSHA below",
+  "source_sha256": {
+    "tests/legacy_plains_presentation_fixture.gd": "d036a49751c18321335baea377fc4795b016c4e2ae44ebae18cb130ad5a84cfa",
+    "tests/plains_terrain_family_runner.gd": "cd627a62b38af1f5e12c02c7989c31ac7e998db086f18863035340f4b4032619",
+    "tests/plains_directed_space_runner.gd": "7c12bd5030a36611fb9e9cd09ee3d8b4b0d31ea62ed2e0e2d314a187eb31a2f3",
+    "tests/visual_director_space_runner.gd": "30087c5d0431c0ad55ac189174e356902792b44c9f005e1bbf8ae6b4104e9a4a",
+    "tests/plains_connected_family_contract_runner.gd": "34e8f953d36decb77699bafdeff2db08871c8c36bf17404b07cc48c6a85cf26c",
+    "tools/run_plains_terrain_family_tests.py": "00d7df3ef026ecf241fe015ec8dda2b7bd2818623dd4301e1cfee4cf214c5c52",
+    "tools/run_plains_directed_space_tests.py": "75e04d1023ea611906bfd9ff961d268fdf1a4f415b36935f18e141c0e2107318",
+    "tools/run_visual_director_space_tests.py": "6cb595c830a6cc976eb45aa6121200d154c26b652416f9e3c46f656dafcd497c",
+    "tools/run_connected_family_tests.py": "e2e78a9c894e6804a52e05bf2fbd3db43285780b566dd9c5fe3df3b6b4b2f6a6"
+  },
+  "independently_checked": {
+    "old_check_lines_preserved": {
+      "tests/plains_terrain_family_runner.gd": 27,
+      "tests/plains_directed_space_runner.gd": 79,
+      "tests/visual_director_space_runner.gd": 31,
+      "tests/plains_connected_family_contract_runner.gd": 16
+    },
+    "total": 153,
+    "all_four_wrapper_timeout_env_AST_unchanged": true,
+    "d036_without_waterworks_specific_additions_SHA": "5177b16758e1fb9134f1147cc04639c39ca1517e30c0ea8ee6853cbfbdcf4063",
+    "archives_full_member_SHA_CRC_verified": [
+      {
+        "path": "build/integration01/late-style-fixture-validation02.zip",
+        "sha256": "159ad38e528abbcb0e6d53fa0fa16b6d1b8258dbe9b1f626b9ad37db4dcbc57d",
+        "members_verified": 62
+      },
+      {
+        "path": "build/integration01/late-style-fixture-validation03.zip",
+        "sha256": "4c2264d38ab77d371472f16e43fb338750dd1535686b420e356de3935d81776d",
+        "members_verified": 55
+      },
+      {
+        "path": "build/integration01/late-style-fixture-validation04.zip",
+        "sha256": "a2083a3880bdcdba030f8fd38487fed219963470b29bc3b66dc15949114a2499",
+        "members_verified": 7
+      }
+    ]
+  },
+  "findings": [
+    "All153originalchecklines/values remain, oldnegative/GPU/twoenvironment loops andtimeouts maintained. Sourceguards broadened ratherthan reduced. Oldconsumer_modes retained butexplicit presentation_scope legacy disambiguates, no pretendingformalPixeldefault tests nowrenderoldart.",
+    "Fixture requires exactlyoneauthorizedprofileflag and rejectsabsent/wrong/conflictingflags beforetouching stage; actualPixeldefault prerequisite plusinvariant nochange checked. CurrentformalPixel remainsproductiondefault, fixture livesonlytests.",
+    "Invariant signsactualbodytransform/layer/mask, fullShape2DSTORAGEparams plusConvexpoints/Concavesegments, CollisionPolygon2Dpoints/buildmode/disabled/oneway/margin, CollisionShape2Dmargin, entireManifest/currenttuning/traversal. Typed02actualsameAABBconvexpointmutation changes signature; truefirstmapstage default/refusal/physicalunchanged clean.",
+    "Waterworksonly movingpaintfactory matchesactualac002e76ModuleMovingPlatform blobebcd7a7332225b39ab0b5355ddb2cf4cd93329c4: centeredlocalRect/PlainsTileComposer/body_local_material.9actualmovingplatforms recorded, physicalsignature unchanged; other3profilecode exactly5177afterstrippingonlywaterworksaddition.",
+    "Connectedready05 movesinstallation before originalexisting3processframe waits, addsnoadditionalwait/budget/check deletion. Originaldeferredconsumer nowactuallybuilds3plants;23/0/fullsourceguardclean."
+  ],
+  "local_results": {
+    "typed02_helper": "5177b16758e1fb9134f1147cc04639c39ca1517e30c0ea8ee6853cbfbdcf4063",
+    "terrain": "full10seeds×2maps97.415s/720cap;508/0 andnegative55/1,sourceguardstable",
+    "directed": "fulltwoenvironments141.539s/300cap;1133/0+190/1 and680/0+81/1,sourceguardstable",
+    "d036_visual": "all12originalcases+actualGLGPU86.190s/240cap,inner90caps unchanged,fullsourceguardstable",
+    "d036_ready05_connected": "originalfull10.505s/180cap,23/0,3plants/issuesempty,fullsourceguardstable",
+    "actual_attempt_statuses": [
+      {
+        "attempt": "02",
+        "check": "terrain-family-tests",
+        "status": "passed",
+        "seconds": 97.415
+      },
+      {
+        "attempt": "02",
+        "check": "directed-space-tests",
+        "status": "passed",
+        "seconds": 141.539
+      },
+      {
+        "attempt": "02",
+        "check": "visual-director-space",
+        "status": "failed",
+        "seconds": 166.464
+      },
+      {
+        "attempt": "03",
+        "check": "visual-director-space",
+        "status": "passed",
+        "seconds": 86.19
+      },
+      {
+        "attempt": "03",
+        "check": "connected-family-tests",
+        "status": "failed",
+        "seconds": 6.125
+      }
+    ],
+    "final_connected_process": {
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792413053.246534,
+      "ended_at_unix": 1792413063.751564,
+      "duration_seconds": 10.505,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_connected_family_tests.py"
+      ],
+      "check_token": "c335965fb0854b209bbcc1d54d768b09"
+    }
+  },
+  "preserved_failures": [
+    "Originaloldconsumerwrappers fail, not reclassified",
+    "validation01 fixtureparse/type failure andlaterNOTRUN retained",
+    "validation02visual first11accepted thenferry_graded actualnullmaterial/90timeout→outer166.464FAIL,connectedNOTRUN",
+    "validation03visualPASS butconnectedactual12/1emptyentries/deferrednotreadyFAIL preserved",
+    "review01initialUNVERIFIED remainsunchanged; this is separateversion02"
+  ],
+  "limits": [
+    "Differentlocalruns/sources cannotbecomposedinto finalsame-source98releasePASS; freshfullCI/Webartifact72/public20/8 pending",
+    "No reviewerengine/fullsuite run, onlyreadactualrawreports/archives andindependentPython/sourcechecks",
+    "LocalGPU isisolatedhistoricalshaderfixture, not currentformalPixelcommercialaesthetic/deviceapproval",
+    "Genericartplannerblocked/forestdesignREVISE/userfununverified remain"
+  ]
+}

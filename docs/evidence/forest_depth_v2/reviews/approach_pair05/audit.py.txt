@@ -1,0 +1,19 @@
+import json,hashlib
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[4];out={'scope':'Readonly offline current05 clear/failedlive and retained04 ordinary; no engine','cases':{},'sources':{}}
+entries=[('clear05','approach_pair05','approach_pair05/00-clear'),('live05','approach_pair05','approach_pair05/00-live'),('ordinary04','approach_pair04','approach_pair04/00-ordinary'),('wide04','approach_pair04','approach_pair04/00-ordinary_wide')]
+for name,snap,rel in entries:
+ s=ROOT/'build/forest_depth/snapshots'/snap;p=s/'build/forest_depth/ecology'/rel/'capture.json'
+ if not p.exists():
+  matches=list((s/'build/forest_depth/ecology').rglob('capture.json'));p=next(x for x in matches if x.parent.name.endswith('ordinary_wide' if name=='wide04' else 'ordinary'))
+ r=json.loads(p.read_text());fs=r['frames'];states=[]
+ for f in fs:
+  if f['tick']<r['start_tick']:continue
+  if not states or states[-1]['state']!=f['H_state']:states.append({'tick':f['tick'],'state':f['H_state'],'target':f['H_target'],'position':f['position'],'grounded':f['grounded']})
+ out['cases'][name]={'raw':str(p.relative_to(ROOT)),'sha':hashlib.sha256(p.read_bytes()).hexdigest(),'completed':r['completed'],'failures':r['failures'],'start_tick':r['start_tick'],'decision_ticks':r['decision_ticks'],'initial':r['initial'],'final':r['final'],'contacts':r['contacts'],'H_state_changes':states,'router_requests':[e for e in r['events'] if e['kind']=='router_request'],'policy_results':[e for e in r['events'] if e['kind']=='policy_result'],'phase_scope':r['phase_scope'],'manifest_choices':r['choices']}
+ if name=='live05':
+  req=next(e for e in r['events'] if e['kind']=='router_request');before=req['before'];origin=[before['position'][0],before['position'][1]-6];lamp=next(e for e in before['actors'] if e['instance_id']=='approach_lamp');target=lamp['position'];u=(310-origin[1])/(target[1]-origin[1]);at=[origin[0]+u*(target[0]-origin[0]),310];out['live_direct_line_relay_intersection']={'request_tick':req['tick'],'request_observed_origin':origin,'sampled_lamp':target,'relay_rect':[1100,290,160,20],'centreline_meets_relay_bottom':at,'inside_horizontal_span':1100<=at[0]<=1260,'note':'static request-time centreline; actual cast nexttick can shift origin, and target moves; raw confirms miss not contact. No simulated new success.'}
+ for f in ['scripts/generation/thorn_forest_region_v2.gd','scripts/generation/forest_hollow_trunk_geometry.gd','scripts/generation/thorn_forest_region_assembler.gd','scripts/player/player_controller.gd','scripts/player/air_focus_ability.gd','scripts/enemies/forest_lantern_behavior.gd']:
+  if (s/f).is_file():out['sources'].setdefault(snap,{})[f]=hashlib.sha256((s/f).read_bytes()).hexdigest()
+(ROOT/'build/forest_depth/independent/approach-pair05/raw-audit.json').write_text(json.dumps(out,indent=2)+'\n')
+print({k:{f:v[f] for f in ['completed','failures','decision_ticks']} for k,v in out['cases'].items()});print(out['live_direct_line_relay_intersection'])

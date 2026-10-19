@@ -1,0 +1,37 @@
+{
+  "status": "ACCEPT_BOUNDED_ERROR_LEDGER_CLOSURE",
+  "reviewer": "/root/forest_runtime_review",
+  "indexed_artifact_storage_original_roundtrips_verified": 19,
+  "frozen_runtime2037_actual_hashes_verified": true,
+  "single_assignment_only_and_wholebody_exact_reverse": true,
+  "old_helper_sha256": "d4393894a21edc3339db4c5d5e70789700b7965ffacd46435d09a4565db6274f",
+  "new_helper_sha256": "cb9ecdca5618bd731f8816701190610dc27a7c8cb63824f12685b3316c56a353",
+  "actual_original_strict_reader_verified": true,
+  "actual_cases": [
+    {
+      "name": "old_directory",
+      "after_save": 2,
+      "after_final0": 0,
+      "native_exit": 0,
+      "reader_accepts": true
+    },
+    {
+      "name": "new_directory",
+      "after_save": 2,
+      "after_final0": 2,
+      "native_exit": 2,
+      "reader_accepts": false
+    },
+    {
+      "name": "new_file",
+      "after_save": 0,
+      "after_final0": 0,
+      "native_exit": 0,
+      "reader_accepts": true
+    }
+  ],
+  "full_normal_target": "Original final04 remains actualPASS at OLD helper SHA only; this new error-only source was not rerun for41/169/three strategies and is not retrospectively relabeled.",
+  "prior_findings_preserved": true,
+  "limits": "No historical SceneTree multiplequit result claimed; actual oldNode overwrite is now measured. Local invocation consistency, not complete finalS/fullCI/game/fun/device approval.",
+  "engine_run_by_reviewer": false
+}

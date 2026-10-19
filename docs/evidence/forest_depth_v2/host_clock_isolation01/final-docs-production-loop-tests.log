@@ -1,0 +1,50 @@
+................................................................................E......
+======================================================================
+ERROR: test_prompt_and_host_request_bind_exact_profile_command_timeout_and_marker (__main__.SelectedInputPreflightTests.test_prompt_and_host_request_bind_exact_profile_command_timeout_and_marker)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/runner/work/gunman-rush/gunman-rush/tests/test_production_loop.py", line 1305, in test_prompt_and_host_request_bind_exact_profile_command_timeout_and_marker
+    loop.invoke_host(task,self.mission,'implement',folder,'{}')
+  File "/home/runner/work/gunman-rush/gunman-rush/tools/production_loop.py", line 352, in invoke_host
+    "source_hash": digest(snapshot()), "feedback": feedback,
+                          ^^^^^^^^^^
+  File "/home/runner/work/gunman-rush/gunman-rush/tools/production_loop.py", line 92, in snapshot
+    result = subprocess.run(["git", "ls-files", "-z", "--cached", "--others", "--exclude-standard"],
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/subprocess.py", line 550, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/subprocess.py", line 1209, in communicate
+    stdout, stderr = self._communicate(input, endtime, timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/subprocess.py", line 2141, in _communicate
+    self.wait(timeout=self._remaining_time(endtime))
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/subprocess.py", line 1264, in wait
+    return self._wait(timeout=timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/subprocess.py", line 2047, in _wait
+    time.sleep(delay)
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/unittest/mock.py", line 1139, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/unittest/mock.py", line 1143, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/unittest/mock.py", line 1204, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/gunman-rush/gunman-rush/tests/test_production_loop.py", line 1299, in respond
+    request=json.loads((folder/'host_request.json').read_text())
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmpk6ij6oa0/frozen/build/verification/command/DRILL/1/implement/host_request.json'
+
+----------------------------------------------------------------------
+Ran 87 tests in 56.360s
+
+FAILED (errors=1)

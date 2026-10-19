@@ -15,6 +15,70 @@ import run_root_bell_formal as rf
 
 ROOT=Path(__file__).resolve().parents[1]
 NATIVE_ARCHIVE=ROOT/'docs/evidence/region_production_v3/enemy_encounter_v2/movie02_native_and_frozen_sources.zip'
+HISTORICAL_TUNING=ROOT/'tests/fixtures/root_bell/pre_focus_15_player_tuning.json'
+HISTORICAL_TUNING_SHA='e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058'
+
+def require_historical_tuning(raw, source_inventory, capture):
+    expected=source_inventory['config/player_tuning.json']
+    rf.require(expected==HISTORICAL_TUNING_SHA and hashlib.sha256(raw).hexdigest()==expected,
+               'Historical tuning bytes differ from pinned original source inventory')
+    for capability in ('initial_capability','final_capability'):
+        rf.require(capture[capability]['config_hashes']['player_tuning']==expected,
+                   'Historical capture config identity differs from original inventory')
+
+def prepare_historical_authority(out, archive, capture):
+    """Reader-only historical inputs, never current runtime or rewritten capture."""
+    delta_bytes=archive.read('modified_source_bytes.zip')
+    rf.require(hashlib.sha256(delta_bytes).hexdigest()==rf.FROZEN_NATIVE_02_PINS['old_delta_zip_sha256'],
+               'Original source delta ZIP changed')
+    with zipfile.ZipFile(io.BytesIO(delta_bytes)) as delta:
+        manifest=json.loads(delta.read('source_manifest.json'))
+        inventory=manifest['full_source_sha256']
+        for name, expected in manifest['changed_source_sha256'].items():
+            rf.require(hashlib.sha256(delta.read(name)).hexdigest()==expected==inventory[name],
+                       'Original changed source bytes mismatch '+name)
+        raw=HISTORICAL_TUNING.read_bytes()
+        require_historical_tuning(raw,inventory,capture)
+        required={'config/player_tuning.json','resources/enemies/plains_root_bell.tres',
+                  'resources/enemies/patrol_health.tres','resources/actors/prototype_health.tres',
+                  'resources/weapons/pulse_gun.tres','resources/player/plains_shot_energy.tres',
+                  'scripts/resources/definitions/shot_energy_definition.gd','scenes/player/player.tscn'}
+        target_edge=capture['manifest']['root_bell_admission']['physical_facts']['edge']
+        edge=next(e for e in capture['manifest']['connections'] if e['id']==target_edge)
+        for index in edge['modules']:
+            required.add('resources/generation/modules/'+capture['manifest']['nodes'][index]['module_id']+'.tres')
+        directory=out/'historical_authority'
+        directory.mkdir()
+        copied={}
+        for name in sorted(required):
+            if name=='config/player_tuning.json':
+                data=raw;origin='exact historical tuning fixture'
+            elif name in manifest['changed_source_sha256']:
+                data=delta.read(name);origin='pinned original source delta ZIP'
+            else:
+                data=(ROOT/name).read_bytes();origin='current file byte-identical to pinned original inventory'
+            actual=hashlib.sha256(data).hexdigest()
+            rf.require(actual==inventory[name],'Historical authority source mismatch '+name)
+            path=directory/name
+            path.parent.mkdir(parents=True,exist_ok=True)
+            path.write_bytes(data)
+            copied[name]={'sha256':actual,'origin':origin}
+    return directory,{'scope':'Historical Python reader authority only; NO current runtime/native proof',
+                      'directory':str(directory.relative_to(ROOT)),
+                      'original_delta_zip_sha256':hashlib.sha256(delta_bytes).hexdigest(),
+                      'original_source_inventory_sha256':hashlib.sha256(json.dumps(inventory,sort_keys=True).encode()).hexdigest(),
+                      'files':copied},inventory
+
+@contextlib.contextmanager
+def historical_semantics(directory):
+    # Keep main output paths, current source checks and transport on the real ROOT.
+    # Only the existing unmodified semantic predicate reads historical resources.
+    original=rf.strict_semantics
+    def validate_historical(*args,**kwargs):
+        with patch.object(rf,'ROOT',directory):
+            return original(*args,**kwargs)
+    with patch.object(rf,'strict_semantics',side_effect=validate_historical):
+        yield
 
 def variants(base):
     samples={}
@@ -73,9 +137,27 @@ def variants(base):
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('--output-dir',required=True);args=p.parse_args();out=(ROOT/args.output_dir).resolve();rf.require(out.is_relative_to(ROOT/'build/root_bell') and not out.exists(),'New test output directory required');out.mkdir(parents=True)
-    with zipfile.ZipFile(NATIVE_ARCHIVE) as archive:raw_native=archive.read('capture.json')
+    with zipfile.ZipFile(NATIVE_ARCHIVE) as archive:
+        raw_native=archive.read('capture.json')
+        rf.require(hashlib.sha256(raw_native).hexdigest()==rf.FROZEN_NATIVE_02_PINS['old_capture_sha256'],'Original portable native SHA changed')
+        base=json.loads(raw_native)
+        authority,authority_record,original_inventory=prepare_historical_authority(out,archive,base)
     rf.require(hashlib.sha256(raw_native).hexdigest()==rf.FROZEN_NATIVE_02_PINS['old_capture_sha256'],'Original portable native SHA changed')
-    base=json.loads(raw_native);positive=rf.validate(base);old27=rf.tamper(base);rf.require(len(old27)==27,'Original27 assertions changed');results={};original_run=rf.subprocess.run
+    current_root=rf.ROOT
+    try:rf.validate(base)
+    except ValueError as error:
+        rf.require(str(error)=='Actual tuning mismatch focus_time_scale','Current authority rejected for an unexpected reason: '+str(error))
+        current_refusal={'refused':True,'reason':str(error)}
+    else:raise ValueError('Current authority accepted historical focus/config identity')
+    altered_tuning=json.loads(HISTORICAL_TUNING.read_bytes());altered_tuning['focus_time_scale']=.15
+    try:require_historical_tuning(json.dumps(altered_tuning).encode(),original_inventory,base)
+    except ValueError as error:tuning_refusal={'refused':True,'reason':str(error)}
+    else:raise ValueError('Edited historical tuning fixture accepted')
+    with historical_semantics(authority):
+        return run_historical_cases(out,base,raw_native,authority_record,current_root,current_refusal,tuning_refusal)
+
+def run_historical_cases(out,base,raw_native,authority_record,current_root,current_refusal,tuning_refusal):
+    positive=rf.validate(base);old27=rf.tamper(base);rf.require(len(old27)==27,'Original27 assertions changed');results={};original_run=rf.subprocess.run
     for name,candidate in variants(base).items():
         folder=out/name
         def fake_run(command,*args,**kwargs):
@@ -87,6 +169,7 @@ def main():
         except (ValueError,KeyError,IndexError,TypeError) as e:results[name]={'refused':True,'reason':str(e)}
         else:raise ValueError('Coherent full consumer bad case accepted '+name)
         report=folder/'report.json';data=json.loads(report.read_text());rf.require(data['status']=='failed','Bad test got successful receipt');data['scope']='UNIT TEST: explicitly synthetic process transport and historical mutated data; NOT NATIVE';report.write_text(json.dumps(data,indent=2)+'\n')
-    result={'status':'passed','scope':'Actual Python main negatives with explicitly synthetic transport, NO NATIVE/MOVIE execution','baseline_original_native_observed':positive,'original27_refusals':old27,'coherent_fullmain_refusals':results,'original_capture_sha256':hashlib.sha256(raw_native).hexdigest(),'current_verifier_sha256':rf.sha(ROOT/'tools/run_root_bell_formal.py'),'current_test_sha256':rf.sha(Path(__file__))}
+    rf.require(rf.ROOT==current_root==ROOT,'Historical semantic scope leaked into main ROOT')
+    result={'status':'passed','scope':'Actual Python main negatives with explicitly synthetic transport, NO NATIVE/MOVIE execution','historical_authority':authority_record,'authority_refusals':{'current_authority_rejects_historical_capture':current_refusal,'edited_historical_tuning':tuning_refusal},'baseline_original_native_observed':positive,'original27_refusals':old27,'coherent_fullmain_refusals':results,'original_capture_sha256':hashlib.sha256(raw_native).hexdigest(),'current_verifier_sha256':rf.sha(ROOT/'tools/run_root_bell_formal.py'),'current_test_sha256':rf.sha(Path(__file__))}
     (out/'report.json').write_text(json.dumps(result,indent=2)+'\n');print('STRICT FORMAL PYTHON: original27 + coherent full-main',len(results),'refusals; no native')
 if __name__=='__main__':main()

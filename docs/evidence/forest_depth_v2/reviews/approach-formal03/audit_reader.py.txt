@@ -1,0 +1,36 @@
+from pathlib import Path
+import json,hashlib,sys,importlib.util,copy
+ROOT=Path(__file__).resolve().parents[4];outdir=ROOT/'build/forest_depth/independent/approach-formal03';s=ROOT/'build/forest_depth/snapshots/approach_formal03';raw=s/'build/forest_depth/ecology/approach_formal03/00-approach_live_jump/capture.json';data=json.loads(raw.read_text());sys.path.insert(0,str(ROOT/'tools'))
+def load(name,p):
+ spec=importlib.util.spec_from_file_location(name,p);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m);return m
+newp=ROOT/'tools/run_forest_depth_enemies.py';oldp=s/'tools/run_forest_depth_enemies.py';new=load('new_approach_reader',newp);old=load('produced_approach_reader',oldp)
+def run(m,d):
+ try:m.validate_formal_choice(d);return {'accepted':True}
+ except Exception as e:return {'accepted':False,'error':str(e)}
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+out={'scope':'Offline real03 raw, old producer vs later reader; no engine or retrospective producer success','raw':str(raw.relative_to(ROOT)),'raw_sha':sha(raw),'old_reader_sha':sha(oldp),'new_reader_sha':sha(newp),'dependency_region_reader_sha':sha(ROOT/'tools/run_forest_depth_region.py'),'old_original':run(old,data),'new_original':run(new,data),'mutants':[]}
+(outdir/'later-reader.py.txt').write_bytes(newp.read_bytes())
+mut=[]
+def frame(d,t):return next(f for f in d['frames'] if f['tick']==t)
+def event(d,k):return next(e for e in d['events'] if e['kind']==k)
+mut.append(('R_start_zero',lambda d:frame(d,535).update(approach_burst_remaining=0)))
+mut.append(('R_end_not_zero',lambda d:frame(d,543).update(approach_burst_remaining=.01)))
+mut.append(('gate_H_before_burst_complete',lambda d:event(d,'approach_gate_H_request').update(tick=543)))
+mut.append(('R_not_first_free',lambda d:event(d,'approach_first_free_R_request').update(tick=536)))
+mut.append(('R_free_state_hidden',lambda d:frame(d,534).update(approach_H_state='hook_kick')))
+mut.append(('delete_body_arrival',lambda d:d.update(events=[e for e in d['events'] if e['kind']!='approach_actual_body_arrival'])))
+mut.append(('stale_approach_epoch',lambda d:frame(d,520).update(approach_actor_epoch=2)))
+mut.append(('canonical_H_aim_forged',lambda d:next(r for r in d['requests'] if r['kind']=='grapple' and r['tick']>482).update(aim=[0,1])))
+mut.append(('delete_C_prefix_frame',lambda d:d.update(frames=[f for f in d['frames'] if f['tick']!=481])))
+mut.append(('free_shot_cost',lambda d:event(d,'approach_first_free_R_request').update(shot_cost=0)))
+mut.append(('duplicate_head_contact',lambda d:d['events'].append(copy.deepcopy(event(d,'approach_actual_head_contact')))))
+def credit(d):
+ f=frame(d,520);key=next(k for k in f['combat_hit_packets'] if '/hook/' in k);f['combat_hit_packets'][key]=100
+mut.append(('fake_combat_credit',credit))
+mut.append(('missing_preMotor_body',lambda d:next(r for r in d['requests'] if r['tick']==333 and r['kind']=='grapple').pop('body_before')))
+for name,fn in mut:
+ d=copy.deepcopy(data)
+ try:fn(d);result=run(new,d)
+ except Exception as e:result={'mutation_error':str(e)}
+ (outdir/'mutations').mkdir(exist_ok=True);p=outdir/'mutations'/(name+'.json');p.write_text(json.dumps(d,separators=(',',':')));out['mutants'].append({'name':name,'sha':sha(p),**result})
+(outdir/'reader-audit.json').write_text(json.dumps(out,indent=2)+'\n');print(json.dumps({k:v for k,v in out.items() if k!='mutants'},indent=2));print([(x['name'],x.get('accepted'),x.get('mutation_error'),x.get('error','')[:90]) for x in out['mutants']])

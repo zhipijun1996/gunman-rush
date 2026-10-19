@@ -1,0 +1,12 @@
+acquired global engine lock
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-design/build/forest_depth/restore/v6-preparation/diagnose_version_verbose.py", line 21, in <module>
+    if failure:raise failure
+               ^^^^^^^^^^^^^
+  File "/workspace/gunman-rush-design/build/forest_depth/restore/v6-preparation/diagnose_version_verbose.py", line 12, in <module>
+    with (O/'native.log').open('w') as log,contextlib.redirect_stdout(log):text=run_engine(argv,90)
+                                                                                ^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush-design/build/forest_depth/snapshots/restore_v6_03/tools/run_tests.py", line 47, in run_engine
+    raise RuntimeError("Godot leaked ObjectDB instances or live resources at exit")
+RuntimeError: Godot leaked ObjectDB instances or live resources at exit
+engine lock released

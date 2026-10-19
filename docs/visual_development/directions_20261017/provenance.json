@@ -1,0 +1,570 @@
+{
+  "task_id": "ART-DIRECTION-02",
+  "base_pr77": "da05c27a3a5b5d06ea14f24b299b598713c8ab1d",
+  "pr75": "0905516bb8c996a5f79ee4ac242ea0a0ab2205de",
+  "actual_image_calls": 19,
+  "records": [
+    {
+      "id": "trial-scene-a",
+      "file": "trials/a-screenshot-conditioned.png",
+      "original": "/workspace/generated_images/exec-fb3352a5-d74e-4c26-a7c5-c904ded9ab2f.png",
+      "prompt": "a-scene.prompt.txt",
+      "references": [
+        "gameplay-reference.png"
+      ],
+      "status": "retained_trial_not_selected",
+      "reason": "Screenshot reference carries too much previous B form and paint language",
+      "sha256": "e7c5f6648fb50e77d803dd5440476f95e40db255a2be14b6a4eafa14720cfebe",
+      "original_sha256": "e7c5f6648fb50e77d803dd5440476f95e40db255a2be14b6a4eafa14720cfebe",
+      "size": [
+        1672,
+        941
+      ],
+      "tool": "image_gen.imagegen",
+      "model": "not_exposed",
+      "commercial_license": "unknown",
+      "price": "unknown",
+      "tokens": "unknown",
+      "raw_bytes_unchanged": true,
+      "prompt_sha256": "b771bbdd9a4d7dcb5395e94172d54b40fa7115c4091b8d23af843ddfe5aa1092",
+      "reference_sha256": {
+        "gameplay-reference.png": "6cf1c5033242aba8a1d317e340f9781459b335e1fc556c2ba0d008e167ab20a3"
+      }
+    },
+    {
+      "id": "board-a",
+      "file": "p1-board.png",
+      "original": "/workspace/generated_images/exec-1533a5d4-b512-4443-81ad-f6f0abad3051.png",
+      "prompt": "p1-board.prompt.txt",
+      "references": [],
+      "status": "selected_concept_not_approved",
+      "reason": "Ordinary objects and matching HUD design proposal",
+      "sha256": "8a458893f753cf6180842b4d027880ce5c459268140c820a56ebcb140bc034c6",
+      "original_sha256": "8a458893f753cf6180842b4d027880ce5c459268140c820a56ebcb140bc034c6",
+      "size": [
+        1672,
+        941
+      ],
+      "tool": "image_gen.imagegen",
+      "model": "not_exposed",
+      "commercial_license": "unknown",
+      "price": "unknown",
+      "tokens": "unknown",
+      "raw_bytes_unchanged": true,
+      "prompt_sha256": "541a86e6832eb1b011aa846371a6e059986f1667c216dd151faf613cf0d96a62",
+      "reference_sha256": {}
+    },
+    {
+      "id": "trial-layout-a",
+      "file": "trials/p1-board-first-layout-drift.png",
+      "original": "/workspace/generated_images/exec-05721c4d-5ee1-403d-94f4-6d70cf605d27.png",
+      "prompt": "trials/p1-board-first-layout-drift.prompt.txt",
+      "references": [
+        "p1-board.png",
+        "layout-guide.png"
+      ],
+      "status": "retained_trial_not_selected",
+      "reason": "Style-sheet-first reference enlarged/moved hero, house and/or functional anchors",
+      "sha256": "69e82c6b906a0284b5ea8305f34d7a776a9d7d41ffe7c5085543fd24b0084187",
+      "original_sha256": "69e82c6b906a0284b5ea8305f34d7a776a9d7d41ffe7c5085543fd24b0084187",
+      "size": [
+        1672,
+        941
+      ],
+      "tool": "image_gen.imagegen",
+      "model": "not_exposed",
+      "commercial_license": "unknown",
+      "price": "unknown",
+      "tokens": "unknown",
+      "raw_bytes_unchanged": true,
+      "prompt_sha256": "8dfb0ec9fa2a477ec3168565807ed58cb03328a53e028d6c3e95593af67bb7ef",
+      "reference_sha256": {
+        "p1-board.png": "8a458893f753cf6180842b4d027880ce5c459268140c820a56ebcb140bc034c6",
+        "layout-guide.png": "b131054751d3c8fc552a01c184ed82dd806e8ffd70c554bd0766e0fdbacf91b2"
+      }
+    },
+    {
+      "id": "scene-p1",
+      "file": "p1-scene.png",
+      "original": "/workspace/generated_images/exec-26728e03-7127-4a1e-b637-b36b6f8f8f29.png",
+      "prompt": "p1-scene.prompt.txt",
+      "references": [
+        "layout-guide.png",
+        "p1-board.png"
+      ],
+      "status": "selected_concept_not_approved",
+      "reason": "Geometry-first full-screen art proposal; remaining coordinate/scale drift disclosed, not actual gameplay",
+      "sha256": "5863f4602906c7803b8ff2a82de2638e059b14beb1e6967354538b1ba5a4315c",
+      "original_sha256": "5863f4602906c7803b8ff2a82de2638e059b14beb1e6967354538b1ba5a4315c",
+      "size": [
+        1672,
+        941
+      ],
+      "tool": "image_gen.imagegen",
+      "model": "not_exposed",
+      "commercial_license": "unknown",
+      "price": "unknown",
+      "tokens": "unknown",
+      "raw_bytes_unchanged": true,
+      "prompt_sha256": "a68b8daef285df510bac0490f9c31ce7000beb8994f46f7f6d427d2271af85ef",
+      "reference_sha256": {
+        "layout-guide.png": "b131054751d3c8fc552a01c184ed82dd806e8ffd70c554bd0766e0fdbacf91b2",
+        "p1-board.png": "8a458893f753cf6180842b4d027880ce5c459268140c820a56ebcb140bc034c6"
+      }
+    },
+    {
+      "id": "trial-scene-b",
+      "file": "trials/b-screenshot-conditioned.png",
+      "original": "/workspace/generated_images/exec-b9f20b1a-c3c7-4907-9a10-00610f7bdc26.png",
+      "prompt": "b-scene.prompt.txt",
+      "references": [
+        "gameplay-reference.png"
+      ],
+      "status": "retained_trial_not_selected",
+      "reason": "Screenshot reference carries too much previous B form and paint language",
+      "sha256": "e2534108051ec12addabce6636f838822cb8a2882d10f14ff6e1006c0b04afeb",
+      "original_sha256": "e2534108051ec12addabce6636f838822cb8a2882d10f14ff6e1006c0b04afeb",
+      "size": [
+        1672,
+        941
+      ],
+      "tool": "image_gen.imagegen",
+      "model": "not_exposed",
+      "commercial_license": "unknown",
+      "price": "unknown",
+      "tokens": "unknown",
+      "raw_bytes_unchanged": true,
+      "prompt_sha256": "c4f63cc33d4b336d2d23ca882546570279614bde4c1dd8de1f2e0d317277df0c",
+      "reference_sha256": {
+        "gameplay-reference.png": "6cf1c5033242aba8a1d317e340f9781459b335e1fc556c2ba0d008e167ab20a3"
+      }
+    },
+    {
+      "id": "board-b",
+      "file": "p2-board.png",
+      "original": "/workspace/generated_images/exec-d0172e19-69b0-4c29-a0c2-0511c66c5265.png",
+      "prompt": "p2-board.prompt.txt",
+      "references": [],
+      "status": "selected_concept_not_approved",
+      "reason": "Ordinary objects and matching HUD design proposal",
+      "sha256": "7c171cff80afafbac62c9437c2f396571f3033d9320267af85034d5ec5d7543c",
+      "original_sha256": "7c171cff80afafbac62c9437c2f396571f3033d9320267af85034d5ec5d7543c",
+      "size": [
+        1672,
+        941
+      ],
+      "tool": "image_gen.imagegen",
+      "model": "not_exposed",
+      "commercial_license": "unknown",
+      "price": "unknown",
+      "tokens": "unknown",
+      "raw_bytes_unchanged": true,
+      "prompt_sha256": "e3e587bcf33c4c7b68b3b09a55628a6c64a4e6b064553d01c95ca932fdec367d",
+      "reference_sha256": {}
+    },
+    {
+      "id": "trial-layout-b",
+      "file": "trials/p2-board-first-layout-drift.png",
+      "original": "/workspace/generated_images/exec-6549a3d2-a908-4079-a5e2-617a197ab420.png",
+      "prompt": "trials/p2-board-first-layout-drift.prompt.txt",
+      "references": [
+        "p2-board.png",
+        "layout-guide.png"
+      ],
+      "status": "retained_trial_not_selected",
+      "reason": "Style-sheet-first reference enlarged/moved hero, house and/or functional anchors",
+      "sha256": "5572d6b0300873aa0fd2787f07df6f029aeeb7c930f792bc98c3efd97d434f64",
+      "original_sha256": "5572d6b0300873aa0fd2787f07df6f029aeeb7c930f792bc98c3efd97d434f64",
+      "size": [
+        1672,
+        941
+      ],
+      "tool": "image_gen.imagegen",
+      "model": "not_exposed",
+      "commercial_license": "unknown",
+      "price": "unknown",
+      "tokens": "unknown",
+      "raw_bytes_unchanged": true,
+      "prompt_sha256": "f26aa87c8d248a081681959360384c2850d25f4c00eb57a216a422ad5c9833fd",
+      "reference_sha256": {
+        "p2-board.png": "7c171cff80afafbac62c9437c2f396571f3033d9320267af85034d5ec5d7543c",
+        "layout-guide.png": "b131054751d3c8fc552a01c184ed82dd806e8ffd70c554bd0766e0fdbacf91b2"
+      }
+    },
+    {
+      "id": "trial-p2-before-local-fix",
+      "file": "trials/p2-before-local-layout-fix.png",
+      "original": "/workspace/generated_images/exec-786f24eb-db0b-4a5c-a3b5-633b457ebf15.png",
+      "prompt": "trials/p2-before-local-layout-fix.prompt.txt",
+      "references": [
+        "layout-guide.png",
+        "p2-board.png"
+      ],
+      "status": "retained_trial_not_selected",
+      "reason": "Upper bank too high and house large before localized layout correction",
+      "sha256": "dc221adc44ee1596408576088e08bf92ee5fdc972a2593abb3c101b907292e52",
+      "original_sha256": "dc221adc44ee1596408576088e08bf92ee5fdc972a2593abb3c101b907292e52",
+      "size": [
+        1672,
+        941
+      ],
+      "tool": "image_gen.imagegen",
+      "model": "not_exposed",
+      "commercial_license": "unknown",
+      "price": "unknown",
+      "tokens": "unknown",
+      "raw_bytes_unchanged": true,
+      "prompt_sha256": "51a1d4245d1a70084fbf86efad7c3556ec01a26c77457581144383100ce8226e",
+      "reference_sha256": {
+        "layout-guide.png": "b131054751d3c8fc552a01c184ed82dd806e8ffd70c554bd0766e0fdbacf91b2",
+        "p2-board.png": "7c171cff80afafbac62c9437c2f396571f3033d9320267af85034d5ec5d7543c"
+      }
+    },
+    {
+      "id": "trial-scene-c",
+      "file": "trials/c-screenshot-conditioned.png",
+      "original": "/workspace/generated_images/exec-b7ce57f8-677c-43c0-92c5-73bdc383191e.png",
+      "prompt": "c-scene.prompt.txt",
+      "references": [
+        "gameplay-reference.png"
+      ],
+      "status": "retained_trial_not_selected",
+      "reason": "Screenshot reference carries too much previous B form and paint language",
+      "sha256": "5dde2ed618f32ed843b890f8dfcbc194076d6e2feffbda10bb1c1113d4f6ecf8",
+      "original_sha256": "5dde2ed618f32ed843b890f8dfcbc194076d6e2feffbda10bb1c1113d4f6ecf8",
+      "size": [
+        1672,
+        941
+      ],
+      "tool": "image_gen.imagegen",
+      "model": "not_exposed",
+      "commercial_license": "unknown",
+      "price": "unknown",
+      "tokens": "unknown",
+      "raw_bytes_unchanged": true,
+      "prompt_sha256": "f1e801133bdf5fdf46a928598389671d091882885d366652d8d9d28768e666b7",
+      "reference_sha256": {
+        "gameplay-reference.png": "6cf1c5033242aba8a1d317e340f9781459b335e1fc556c2ba0d008e167ab20a3"
+      }
+    },
+    {
+      "id": "board-c",
+      "file": "p3-board.png",
+      "original": "/workspace/generated_images/exec-5f0578bd-b143-4239-b0d3-eaa2e1d951fa.png",
+      "prompt": "p3-board.prompt.txt",
+      "references": [],
+      "status": "selected_concept_not_approved",
+      "reason": "Ordinary objects and matching HUD design proposal",
+      "sha256": "e7780ed1ecc2ccf21a5822dfe78b704e024e886d54f8f17c95c5669eac33eff0",
+      "original_sha256": "e7780ed1ecc2ccf21a5822dfe78b704e024e886d54f8f17c95c5669eac33eff0",
+      "size": [
+        1672,
+        941
+      ],
+      "tool": "image_gen.imagegen",
+      "model": "not_exposed",
+      "commercial_license": "unknown",
+      "price": "unknown",
+      "tokens": "unknown",
+      "raw_bytes_unchanged": true,
+      "prompt_sha256": "5997cdac86c87a224a84ba31710239497db69965215d7ffae88bcee8fbb2a045",
+      "reference_sha256": {}
+    },
+    {
+      "id": "trial-layout-c",
+      "file": "trials/p3-board-first-layout-drift.png",
+      "original": "/workspace/generated_images/exec-1bddfaf1-3c83-4504-acab-e74687bfb9da.png",
+      "prompt": "trials/p3-board-first-layout-drift.prompt.txt",
+      "references": [
+        "p3-board.png",
+        "layout-guide.png"
+      ],
+      "status": "retained_trial_not_selected",
+      "reason": "Style-sheet-first reference enlarged/moved hero, house and/or functional anchors",
+      "sha256": "f812b9af249f389d849ca2439954132f89a287f709180022dacf7c8f47be7191",
+      "original_sha256": "f812b9af249f389d849ca2439954132f89a287f709180022dacf7c8f47be7191",
+      "size": [
+        1672,
+        941
+      ],
+      "tool": "image_gen.imagegen",
+      "model": "not_exposed",
+      "commercial_license": "unknown",
+      "price": "unknown",
+      "tokens": "unknown",
+      "raw_bytes_unchanged": true,
+      "prompt_sha256": "c3481d4ec04a817e7dca11ea81667b4b13c7e6876ba6847643080fb41c592f08",
+      "reference_sha256": {
+        "p3-board.png": "e7780ed1ecc2ccf21a5822dfe78b704e024e886d54f8f17c95c5669eac33eff0",
+        "layout-guide.png": "b131054751d3c8fc552a01c184ed82dd806e8ffd70c554bd0766e0fdbacf91b2"
+      }
+    },
+    {
+      "id": "scene-p3",
+      "file": "p3-scene.png",
+      "original": "/workspace/generated_images/exec-89763390-bae2-437c-9062-714de4631cbb.png",
+      "prompt": "p3-scene.prompt.txt",
+      "references": [
+        "layout-guide.png",
+        "p3-board.png"
+      ],
+      "status": "selected_concept_not_approved",
+      "reason": "Geometry-first full-screen art proposal; remaining coordinate/scale drift disclosed, not actual gameplay",
+      "sha256": "35d3d74ffb74f393be36434c3a2305a4da47acbb1ce102efd90ab0bec7d7fbf1",
+      "original_sha256": "35d3d74ffb74f393be36434c3a2305a4da47acbb1ce102efd90ab0bec7d7fbf1",
+      "size": [
+        1672,
+        941
+      ],
+      "tool": "image_gen.imagegen",
+      "model": "not_exposed",
+      "commercial_license": "unknown",
+      "price": "unknown",
+      "tokens": "unknown",
+      "raw_bytes_unchanged": true,
+      "prompt_sha256": "0d8427ee2ff40014710c7e4093e2f54984c86fd1bf19452972fd0538c06ab8f7",
+      "reference_sha256": {
+        "layout-guide.png": "b131054751d3c8fc552a01c184ed82dd806e8ffd70c554bd0766e0fdbacf91b2",
+        "p3-board.png": "e7780ed1ecc2ccf21a5822dfe78b704e024e886d54f8f17c95c5669eac33eff0"
+      }
+    },
+    {
+      "id": "trial-scene-d",
+      "file": "trials/d-screenshot-conditioned.png",
+      "original": "/workspace/generated_images/exec-33bf5e2f-771a-4e83-9ac4-43d900cb0d76.png",
+      "prompt": "d-scene.prompt.txt",
+      "references": [
+        "gameplay-reference.png"
+      ],
+      "status": "retained_trial_not_selected",
+      "reason": "Screenshot reference carries too much previous B form and paint language",
+      "sha256": "c63567721c74ed650872d940457e3bb3ee1aab9c95ebcf797b389341ccbcd57a",
+      "original_sha256": "c63567721c74ed650872d940457e3bb3ee1aab9c95ebcf797b389341ccbcd57a",
+      "size": [
+        1672,
+        941
+      ],
+      "tool": "image_gen.imagegen",
+      "model": "not_exposed",
+      "commercial_license": "unknown",
+      "price": "unknown",
+      "tokens": "unknown",
+      "raw_bytes_unchanged": true,
+      "prompt_sha256": "89d157fbd1c80386ec277bcd4f611ad19fd25e1e0d8e63ec67a5d63cdca25322",
+      "reference_sha256": {
+        "gameplay-reference.png": "6cf1c5033242aba8a1d317e340f9781459b335e1fc556c2ba0d008e167ab20a3"
+      }
+    },
+    {
+      "id": "board-d",
+      "file": "trials/p4-wash-board.png",
+      "original": "/workspace/generated_images/exec-b7e720f1-db2c-4e63-9cb8-acf967453655.png",
+      "prompt": "trials/p4-wash-board.prompt.txt",
+      "references": [],
+      "status": "superseded_candidate",
+      "reason": "Damp wash too close to P1; rethink to relief-print language",
+      "sha256": "e4a282c46027c9987db0f02e7b1460bbc757e83acbf3ef778582fb70c56779c4",
+      "original_sha256": "e4a282c46027c9987db0f02e7b1460bbc757e83acbf3ef778582fb70c56779c4",
+      "size": [
+        1672,
+        941
+      ],
+      "tool": "image_gen.imagegen",
+      "model": "not_exposed",
+      "commercial_license": "unknown",
+      "price": "unknown",
+      "tokens": "unknown",
+      "raw_bytes_unchanged": true,
+      "prompt_sha256": "22786adbe07741b744f8e90b05f65fe559bd73096a3076a48d280093e6b64a4e",
+      "reference_sha256": {}
+    },
+    {
+      "id": "scene-p4",
+      "file": "p4-scene.png",
+      "original": "/workspace/generated_images/exec-64e6503f-961f-4791-add0-9fe74f71dc58.png",
+      "prompt": "p4-scene.prompt.txt",
+      "references": [
+        "layout-guide.png",
+        "p4-board.png"
+      ],
+      "status": "selected_concept_not_approved",
+      "reason": "Geometry-first full-screen art proposal; remaining coordinate/scale drift disclosed, not actual gameplay",
+      "sha256": "07fbf66b010bcd6a039f45813c5b166a5536e159357b4083f6eb153450a5b5ff",
+      "original_sha256": "07fbf66b010bcd6a039f45813c5b166a5536e159357b4083f6eb153450a5b5ff",
+      "size": [
+        1672,
+        941
+      ],
+      "tool": "image_gen.imagegen",
+      "model": "not_exposed",
+      "commercial_license": "unknown",
+      "price": "unknown",
+      "tokens": "unknown",
+      "raw_bytes_unchanged": true,
+      "prompt_sha256": "98416f3384d6f79898f0e7bb3515500bfef3d2e327b2a7d2e3fd0eaede24347c",
+      "reference_sha256": {
+        "layout-guide.png": "b131054751d3c8fc552a01c184ed82dd806e8ffd70c554bd0766e0fdbacf91b2",
+        "p4-board.png": "986351dd0b79db2d6c1b6f650cb59dda28703d1ffa8ddc95955575093e6bb775"
+      }
+    },
+    {
+      "id": "board-d2",
+      "file": "p4-board.png",
+      "original": "/workspace/generated_images/exec-a88ffac7-9da5-45bf-a9c7-b731cf63d30e.png",
+      "prompt": "p4-board.prompt.txt",
+      "references": [],
+      "status": "selected_concept_not_approved",
+      "reason": "Rethink toward original reed negative forms / ink relief / paper white / cinnabar",
+      "sha256": "986351dd0b79db2d6c1b6f650cb59dda28703d1ffa8ddc95955575093e6bb775",
+      "original_sha256": "986351dd0b79db2d6c1b6f650cb59dda28703d1ffa8ddc95955575093e6bb775",
+      "size": [
+        1672,
+        941
+      ],
+      "tool": "image_gen.imagegen",
+      "model": "not_exposed",
+      "commercial_license": "unknown",
+      "price": "unknown",
+      "tokens": "unknown",
+      "raw_bytes_unchanged": true,
+      "prompt_sha256": "e9bb5b91c336b081d377ee19defe390cee5d920af352b12daae45c88421f1aed",
+      "reference_sha256": {}
+    },
+    {
+      "id": "scene-p2",
+      "file": "p2-scene.png",
+      "original": "/workspace/generated_images/exec-59ee04a6-701b-49a5-a457-b381cadaf4be.png",
+      "prompt": "p2-scene.prompt.txt",
+      "references": [
+        "trials/p2-before-local-layout-fix.png",
+        "layout-guide.png"
+      ],
+      "actual_call_reference_note": "First reference path at call was p2-scene.png; exact prior bytes preserved in trials/p2-before-local-layout-fix.png",
+      "status": "selected_concept_not_approved",
+      "reason": "Localized downshift of upper landing/smaller house; remaining saw/other drift disclosed",
+      "sha256": "74c9ef493ff0cd87eb15a8738193a63882b9ddf2194c50d7e816ded28ceb0676",
+      "original_sha256": "74c9ef493ff0cd87eb15a8738193a63882b9ddf2194c50d7e816ded28ceb0676",
+      "size": [
+        1672,
+        941
+      ],
+      "tool": "image_gen.imagegen",
+      "model": "not_exposed",
+      "commercial_license": "unknown",
+      "price": "unknown",
+      "tokens": "unknown",
+      "raw_bytes_unchanged": true,
+      "prompt_sha256": "d88c43712841841517624463c3ef5b1bec14e9aaeeba9681d283d1d4f753d257",
+      "reference_sha256": {
+        "trials/p2-before-local-layout-fix.png": "dc221adc44ee1596408576088e08bf92ee5fdc972a2593abb3c101b907292e52",
+        "layout-guide.png": "b131054751d3c8fc552a01c184ed82dd806e8ffd70c554bd0766e0fdbacf91b2"
+      }
+    },
+    {
+      "id": "p1-region-transfer",
+      "file": "p1-region-transfer.png",
+      "original": "/workspace/generated_images/exec-85641f82-109e-4b5b-93ee-9cc2c56d3de7.png",
+      "prompt": "p1-region-transfer.prompt.txt",
+      "references": [
+        "p1-board.png",
+        "p1-scene.png"
+      ],
+      "status": "supplementary_concept_not_approved",
+      "reason": "Conditional P1 preference; global language transfer or non-generator structure study only",
+      "sha256": "cf6b5b9129797fb03f741fcebc07200cf31a048fb85c960eb000b295993637cf",
+      "original_sha256": "cf6b5b9129797fb03f741fcebc07200cf31a048fb85c960eb000b295993637cf",
+      "size": [
+        1672,
+        941
+      ],
+      "tool": "image_gen.imagegen",
+      "model": "not_exposed",
+      "commercial_license": "unknown",
+      "price": "unknown",
+      "tokens": "unknown",
+      "raw_bytes_unchanged": true,
+      "prompt_sha256": "eadeec466d625def507ede1b517f9ffce3d47202cc9b0f29a9fdb0c94b4b2129",
+      "reference_sha256": {
+        "p1-board.png": "8a458893f753cf6180842b4d027880ce5c459268140c820a56ebcb140bc034c6",
+        "p1-scene.png": "5863f4602906c7803b8ff2a82de2638e059b14beb1e6967354538b1ba5a4315c"
+      }
+    },
+    {
+      "id": "p1-structure-studies",
+      "file": "p1-structure-studies.png",
+      "original": "/workspace/generated_images/exec-bec04fb7-7120-44a5-921f-07a790c90810.png",
+      "prompt": "p1-structure-studies.prompt.txt",
+      "references": [
+        "p1-board.png",
+        "p1-scene.png"
+      ],
+      "status": "supplementary_concept_not_approved",
+      "reason": "Conditional P1 preference; global language transfer or non-generator structure study only",
+      "sha256": "32f7754676afd9a3cda7b76a7c9918c44d68f6dcf19dc20ebe3d632ba444d46d",
+      "original_sha256": "32f7754676afd9a3cda7b76a7c9918c44d68f6dcf19dc20ebe3d632ba444d46d",
+      "size": [
+        1672,
+        941
+      ],
+      "tool": "image_gen.imagegen",
+      "model": "not_exposed",
+      "commercial_license": "unknown",
+      "price": "unknown",
+      "tokens": "unknown",
+      "raw_bytes_unchanged": true,
+      "prompt_sha256": "24805652cb0ec62c26bb49796b6448571efd587bd72de98e405b7c2131b21d2a",
+      "reference_sha256": {
+        "p1-board.png": "8a458893f753cf6180842b4d027880ce5c459268140c820a56ebcb140bc034c6",
+        "p1-scene.png": "5863f4602906c7803b8ff2a82de2638e059b14beb1e6967354538b1ba5a4315c"
+      }
+    }
+  ],
+  "scope": "Concepts only; no Godot runtime/asset pool/physics or user approval",
+  "global_master_selected": false,
+  "reference": {
+    "gameplay": "docs/evidence/painted_terrain/media/candidate-encounter.png",
+    "actual_runtime_commit": "3ebb0d3af98855595f43c7bf4ec2b2a675b5d6cc",
+    "seed": "against-wind-golden-v1",
+    "movie_frame": 600,
+    "role": "Actual camera/layout input, not inherited style authority",
+    "sha256": "6cf1c5033242aba8a1d317e340f9781459b335e1fc556c2ba0d008e167ab20a3"
+  },
+  "technical_guide": {
+    "png": "layout-guide.png",
+    "svg": "layout-guide.svg",
+    "purpose": "Program-drawn numeric layout diagram only, not final art or actual game",
+    "normal_viewport": [
+      1280,
+      720
+    ],
+    "output_size": [
+      1600,
+      900
+    ],
+    "target_hero_foot_xy": [
+      1025,
+      290
+    ],
+    "target_hero_height": 40,
+    "target_enemy_foot_xy": [
+      505,
+      420
+    ],
+    "target_enemy_height": 45,
+    "target_saw_center_diameter": [
+      925,
+      375,
+      52
+    ],
+    "not_exact_source_segmentation": true
+  },
+  "known_nonconformance": [
+    "Concept coordinates are approximate, not pixel-identical to reference",
+    "P2 upper landing/house locally corrected; saw and other object/house anchors still differ from numerical guide",
+    "P3 decorative inner slopes look standable but are not actual platforms",
+    "Board dimension captions are generated labels, not measured results",
+    "No module/source interface/Godot/animation/device/market validation"
+  ],
+  "supplementary_round_calls": 2,
+  "priority_candidate": "P1 conditional preference; no global master approval"
+}

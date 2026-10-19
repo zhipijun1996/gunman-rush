@@ -1,0 +1,7 @@
+# Actual host Harness: narrow02 portability audit
+
+The existing `harness --mission --execute --worker-mode host` controller actually completed one bounded read-only scope with two fresh live leases, real different agents, an actual original Harness check between them, zero source changes, and exit 0. `content_complete` remains **false**. This is evidence-package integrity/replay review, not autonomous production of the whole forest.
+
+Implementation verified the 147-member narrow02 archive, 146 external member records, selected 20+20 original-source bindings, four new accepted and four original rejected raw captures, and eleven corruption controls. The different reviewer independently unpacked/replayed it, verified 143 original-copy provenance rows and nine independent coherent corruption controls. Both disclosed prior related work; neither authored this archive or its checker. The controller separately ran the nine generic mechanism-contract tests; these do not prove gameplay.
+
+The tar retains unmodified leases/responses, invocation metadata, checkpoints, terminal state, mission, both audit scripts/reports/results/logs/corruptions and source inventories, plus selected exact consumed source. Duplicate unpacked copies are omitted; [original narrow02](../narrow02/README.md) remains tracked separately. Historical absolute paths and hashes are preserved. No native rerun, normal-speed movie viewing, fun, device, final region or user acceptance is claimed. The sparse audit worktree is not a game build.

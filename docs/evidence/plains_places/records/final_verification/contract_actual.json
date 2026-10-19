@@ -1,0 +1,1115 @@
+{
+	"actual": [
+		{
+			"attempts": 1,
+			"connections": [
+				{
+					"a": "place_0_wind_meadow",
+					"b": "place_1_postal_valley",
+					"bidirectional": true,
+					"condition": "open",
+					"gap_world": 200.0,
+					"id": "edge_0",
+					"kind": "horizontal",
+					"modules": [
+						0,
+						1
+					],
+					"path": [
+						[
+							732.0,
+							703.0
+						],
+						[
+							1024.0,
+							710.0
+						]
+					],
+					"recipe_id": "gap200_level",
+					"rise_world": 0.0
+				},
+				{
+					"a": "place_1_postal_valley",
+					"b": "place_2_lee_court",
+					"bidirectional": true,
+					"condition": "open",
+					"gap_world": 200.0,
+					"id": "edge_1",
+					"kind": "horizontal",
+					"modules": [
+						1,
+						2
+					],
+					"path": [
+						[
+							2508.0,
+							712.0
+						],
+						[
+							2780.0,
+							716.1333
+						]
+					],
+					"recipe_id": "gap200_level",
+					"rise_world": 0.0
+				}
+			],
+			"place_instances": [
+				{
+					"id": "place_0_wind_meadow",
+					"prototype_id": "wind_meadow",
+					"source_measurement_sha256": "e7ca4d01ac1350b504356548912f06ad69dd32f0e647f3b16205069090c03df2",
+					"translation": [
+						0.0,
+						0.0
+					]
+				},
+				{
+					"id": "place_1_postal_valley",
+					"prototype_id": "postal_valley",
+					"source_measurement_sha256": "d59b3d59caaa9b6723ca3df2b0ac2ffd44a495335504a87efcad01178787a02a",
+					"translation": [
+						992.0,
+						6.0
+					]
+				},
+				{
+					"id": "place_2_lee_court",
+					"prototype_id": "lee_court",
+					"source_measurement_sha256": "abbdd0e589f0d25ae60937726dad9a633f1772d593bf2ff307d6d25f13031081",
+					"translation": [
+						2748.0,
+						14.0
+					]
+				}
+			],
+			"prototype_order": [
+				"wind_meadow",
+				"postal_valley",
+				"lee_court"
+			],
+			"rejections": [],
+			"seed": "places-contract-01"
+		},
+		{
+			"attempts": 1,
+			"connections": [
+				{
+					"a": "place_0_postal_valley",
+					"b": "place_1_wind_meadow",
+					"bidirectional": true,
+					"condition": "open",
+					"gap_world": 160.0,
+					"id": "edge_0",
+					"kind": "horizontal",
+					"modules": [
+						0,
+						1
+					],
+					"path": [
+						[
+							1516.0,
+							706.0
+						],
+						[
+							1764.0,
+							714.0
+						]
+					],
+					"recipe_id": "gap160_level",
+					"rise_world": 0.0
+				},
+				{
+					"a": "place_1_wind_meadow",
+					"b": "place_2_lee_court",
+					"bidirectional": true,
+					"condition": "open",
+					"gap_world": 160.0,
+					"id": "edge_1",
+					"kind": "horizontal",
+					"modules": [
+						1,
+						2
+					],
+					"path": [
+						[
+							2448.0,
+							711.0
+						],
+						[
+							2700.0,
+							716.1333
+						]
+					],
+					"recipe_id": "gap160_level",
+					"rise_world": 0.0
+				}
+			],
+			"place_instances": [
+				{
+					"id": "place_0_postal_valley",
+					"prototype_id": "postal_valley",
+					"source_measurement_sha256": "d59b3d59caaa9b6723ca3df2b0ac2ffd44a495335504a87efcad01178787a02a",
+					"translation": [
+						0.0,
+						0.0
+					]
+				},
+				{
+					"id": "place_1_wind_meadow",
+					"prototype_id": "wind_meadow",
+					"source_measurement_sha256": "e7ca4d01ac1350b504356548912f06ad69dd32f0e647f3b16205069090c03df2",
+					"translation": [
+						1716.0,
+						8.0
+					]
+				},
+				{
+					"id": "place_2_lee_court",
+					"prototype_id": "lee_court",
+					"source_measurement_sha256": "abbdd0e589f0d25ae60937726dad9a633f1772d593bf2ff307d6d25f13031081",
+					"translation": [
+						2668.0,
+						14.0
+					]
+				}
+			],
+			"prototype_order": [
+				"postal_valley",
+				"wind_meadow",
+				"lee_court"
+			],
+			"rejections": [],
+			"seed": "places-contract-02"
+		},
+		{
+			"attempts": 1,
+			"connections": [
+				{
+					"a": "place_0_lee_court",
+					"b": "place_1_wind_meadow",
+					"bidirectional": true,
+					"condition": "open",
+					"gap_world": 160.0,
+					"id": "edge_0",
+					"kind": "horizontal",
+					"modules": [
+						0,
+						1
+					],
+					"path": [
+						[
+							508.0,
+							618.7692
+						],
+						[
+							748.0,
+							626.0
+						]
+					],
+					"recipe_id": "gap160_level",
+					"rise_world": 0.0
+				},
+				{
+					"a": "place_1_wind_meadow",
+					"b": "place_2_postal_valley",
+					"bidirectional": true,
+					"condition": "open",
+					"gap_world": 200.0,
+					"id": "edge_1",
+					"kind": "horizontal",
+					"modules": [
+						1,
+						2
+					],
+					"path": [
+						[
+							1432.0,
+							623.0
+						],
+						[
+							1724.0,
+							630.0
+						]
+					],
+					"recipe_id": "gap200_level",
+					"rise_world": 0.0
+				}
+			],
+			"place_instances": [
+				{
+					"id": "place_0_lee_court",
+					"prototype_id": "lee_court",
+					"source_measurement_sha256": "abbdd0e589f0d25ae60937726dad9a633f1772d593bf2ff307d6d25f13031081",
+					"translation": [
+						0.0,
+						0.0
+					]
+				},
+				{
+					"id": "place_1_wind_meadow",
+					"prototype_id": "wind_meadow",
+					"source_measurement_sha256": "e7ca4d01ac1350b504356548912f06ad69dd32f0e647f3b16205069090c03df2",
+					"translation": [
+						700.0,
+						-80.0
+					]
+				},
+				{
+					"id": "place_2_postal_valley",
+					"prototype_id": "postal_valley",
+					"source_measurement_sha256": "d59b3d59caaa9b6723ca3df2b0ac2ffd44a495335504a87efcad01178787a02a",
+					"translation": [
+						1692.0,
+						-74.0
+					]
+				}
+			],
+			"prototype_order": [
+				"lee_court",
+				"wind_meadow",
+				"postal_valley"
+			],
+			"rejections": [],
+			"seed": "places-contract-03"
+		},
+		{
+			"attempts": 1,
+			"connections": [
+				{
+					"a": "place_0_lee_court",
+					"b": "place_1_postal_valley",
+					"bidirectional": true,
+					"condition": "open",
+					"gap_world": 200.0,
+					"id": "edge_0",
+					"kind": "horizontal",
+					"modules": [
+						0,
+						1
+					],
+					"path": [
+						[
+							508.0,
+							618.7692
+						],
+						[
+							772.0,
+							624.0
+						]
+					],
+					"recipe_id": "gap200_level",
+					"rise_world": 0.0
+				},
+				{
+					"a": "place_1_postal_valley",
+					"b": "place_2_wind_meadow",
+					"bidirectional": true,
+					"condition": "open",
+					"gap_world": 160.0,
+					"id": "edge_1",
+					"kind": "horizontal",
+					"modules": [
+						1,
+						2
+					],
+					"path": [
+						[
+							2256.0,
+							626.0
+						],
+						[
+							2504.0,
+							634.0
+						]
+					],
+					"recipe_id": "gap160_level",
+					"rise_world": 0.0
+				}
+			],
+			"place_instances": [
+				{
+					"id": "place_0_lee_court",
+					"prototype_id": "lee_court",
+					"source_measurement_sha256": "abbdd0e589f0d25ae60937726dad9a633f1772d593bf2ff307d6d25f13031081",
+					"translation": [
+						0.0,
+						0.0
+					]
+				},
+				{
+					"id": "place_1_postal_valley",
+					"prototype_id": "postal_valley",
+					"source_measurement_sha256": "d59b3d59caaa9b6723ca3df2b0ac2ffd44a495335504a87efcad01178787a02a",
+					"translation": [
+						740.0,
+						-80.0
+					]
+				},
+				{
+					"id": "place_2_wind_meadow",
+					"prototype_id": "wind_meadow",
+					"source_measurement_sha256": "e7ca4d01ac1350b504356548912f06ad69dd32f0e647f3b16205069090c03df2",
+					"translation": [
+						2456.0,
+						-72.0
+					]
+				}
+			],
+			"prototype_order": [
+				"lee_court",
+				"postal_valley",
+				"wind_meadow"
+			],
+			"rejections": [],
+			"seed": "places-contract-04"
+		},
+		{
+			"attempts": 1,
+			"connections": [
+				{
+					"a": "place_0_postal_valley",
+					"b": "place_1_wind_meadow",
+					"bidirectional": true,
+					"condition": "open",
+					"gap_world": 160.0,
+					"id": "edge_0",
+					"kind": "horizontal",
+					"modules": [
+						0,
+						1
+					],
+					"path": [
+						[
+							1516.0,
+							706.0
+						],
+						[
+							1764.0,
+							714.0
+						]
+					],
+					"recipe_id": "gap160_level",
+					"rise_world": 0.0
+				},
+				{
+					"a": "place_1_wind_meadow",
+					"b": "place_2_lee_court",
+					"bidirectional": true,
+					"condition": "open",
+					"gap_world": 160.0,
+					"id": "edge_1",
+					"kind": "horizontal",
+					"modules": [
+						1,
+						2
+					],
+					"path": [
+						[
+							2448.0,
+							711.0
+						],
+						[
+							2700.0,
+							716.1333
+						]
+					],
+					"recipe_id": "gap160_level",
+					"rise_world": 0.0
+				}
+			],
+			"place_instances": [
+				{
+					"id": "place_0_postal_valley",
+					"prototype_id": "postal_valley",
+					"source_measurement_sha256": "d59b3d59caaa9b6723ca3df2b0ac2ffd44a495335504a87efcad01178787a02a",
+					"translation": [
+						0.0,
+						0.0
+					]
+				},
+				{
+					"id": "place_1_wind_meadow",
+					"prototype_id": "wind_meadow",
+					"source_measurement_sha256": "e7ca4d01ac1350b504356548912f06ad69dd32f0e647f3b16205069090c03df2",
+					"translation": [
+						1716.0,
+						8.0
+					]
+				},
+				{
+					"id": "place_2_lee_court",
+					"prototype_id": "lee_court",
+					"source_measurement_sha256": "abbdd0e589f0d25ae60937726dad9a633f1772d593bf2ff307d6d25f13031081",
+					"translation": [
+						2668.0,
+						14.0
+					]
+				}
+			],
+			"prototype_order": [
+				"postal_valley",
+				"wind_meadow",
+				"lee_court"
+			],
+			"rejections": [],
+			"seed": "places-contract-05"
+		},
+		{
+			"attempts": 1,
+			"connections": [
+				{
+					"a": "place_0_lee_court",
+					"b": "place_1_postal_valley",
+					"bidirectional": true,
+					"condition": "open",
+					"gap_world": 160.0,
+					"id": "edge_0",
+					"kind": "horizontal",
+					"modules": [
+						0,
+						1
+					],
+					"path": [
+						[
+							508.0,
+							618.7692
+						],
+						[
+							732.0,
+							624.0
+						]
+					],
+					"recipe_id": "gap160_level",
+					"rise_world": 0.0
+				},
+				{
+					"a": "place_1_postal_valley",
+					"b": "place_2_wind_meadow",
+					"bidirectional": true,
+					"condition": "open",
+					"gap_world": 200.0,
+					"id": "edge_1",
+					"kind": "horizontal",
+					"modules": [
+						1,
+						2
+					],
+					"path": [
+						[
+							2216.0,
+							626.0
+						],
+						[
+							2504.0,
+							634.0
+						]
+					],
+					"recipe_id": "gap200_level",
+					"rise_world": 0.0
+				}
+			],
+			"place_instances": [
+				{
+					"id": "place_0_lee_court",
+					"prototype_id": "lee_court",
+					"source_measurement_sha256": "abbdd0e589f0d25ae60937726dad9a633f1772d593bf2ff307d6d25f13031081",
+					"translation": [
+						0.0,
+						0.0
+					]
+				},
+				{
+					"id": "place_1_postal_valley",
+					"prototype_id": "postal_valley",
+					"source_measurement_sha256": "d59b3d59caaa9b6723ca3df2b0ac2ffd44a495335504a87efcad01178787a02a",
+					"translation": [
+						700.0,
+						-80.0
+					]
+				},
+				{
+					"id": "place_2_wind_meadow",
+					"prototype_id": "wind_meadow",
+					"source_measurement_sha256": "e7ca4d01ac1350b504356548912f06ad69dd32f0e647f3b16205069090c03df2",
+					"translation": [
+						2456.0,
+						-72.0
+					]
+				}
+			],
+			"prototype_order": [
+				"lee_court",
+				"postal_valley",
+				"wind_meadow"
+			],
+			"rejections": [],
+			"seed": "places-contract-06"
+		},
+		{
+			"attempts": 1,
+			"connections": [
+				{
+					"a": "place_0_postal_valley",
+					"b": "place_1_wind_meadow",
+					"bidirectional": true,
+					"condition": "open",
+					"gap_world": 200.0,
+					"id": "edge_0",
+					"kind": "horizontal",
+					"modules": [
+						0,
+						1
+					],
+					"path": [
+						[
+							1516.0,
+							706.0
+						],
+						[
+							1804.0,
+							714.0
+						]
+					],
+					"recipe_id": "gap200_level",
+					"rise_world": 0.0
+				},
+				{
+					"a": "place_1_wind_meadow",
+					"b": "place_2_lee_court",
+					"bidirectional": true,
+					"condition": "open",
+					"gap_world": 200.0,
+					"id": "edge_1",
+					"kind": "horizontal",
+					"modules": [
+						1,
+						2
+					],
+					"path": [
+						[
+							2488.0,
+							711.0
+						],
+						[
+							2780.0,
+							716.1333
+						]
+					],
+					"recipe_id": "gap200_level",
+					"rise_world": 0.0
+				}
+			],
+			"place_instances": [
+				{
+					"id": "place_0_postal_valley",
+					"prototype_id": "postal_valley",
+					"source_measurement_sha256": "d59b3d59caaa9b6723ca3df2b0ac2ffd44a495335504a87efcad01178787a02a",
+					"translation": [
+						0.0,
+						0.0
+					]
+				},
+				{
+					"id": "place_1_wind_meadow",
+					"prototype_id": "wind_meadow",
+					"source_measurement_sha256": "e7ca4d01ac1350b504356548912f06ad69dd32f0e647f3b16205069090c03df2",
+					"translation": [
+						1756.0,
+						8.0
+					]
+				},
+				{
+					"id": "place_2_lee_court",
+					"prototype_id": "lee_court",
+					"source_measurement_sha256": "abbdd0e589f0d25ae60937726dad9a633f1772d593bf2ff307d6d25f13031081",
+					"translation": [
+						2748.0,
+						14.0
+					]
+				}
+			],
+			"prototype_order": [
+				"postal_valley",
+				"wind_meadow",
+				"lee_court"
+			],
+			"rejections": [],
+			"seed": "places-contract-07"
+		},
+		{
+			"attempts": 1,
+			"connections": [
+				{
+					"a": "place_0_postal_valley",
+					"b": "place_1_wind_meadow",
+					"bidirectional": true,
+					"condition": "open",
+					"gap_world": 160.0,
+					"id": "edge_0",
+					"kind": "horizontal",
+					"modules": [
+						0,
+						1
+					],
+					"path": [
+						[
+							1516.0,
+							706.0
+						],
+						[
+							1764.0,
+							714.0
+						]
+					],
+					"recipe_id": "gap160_level",
+					"rise_world": 0.0
+				},
+				{
+					"a": "place_1_wind_meadow",
+					"b": "place_2_lee_court",
+					"bidirectional": true,
+					"condition": "open",
+					"gap_world": 200.0,
+					"id": "edge_1",
+					"kind": "horizontal",
+					"modules": [
+						1,
+						2
+					],
+					"path": [
+						[
+							2448.0,
+							711.0
+						],
+						[
+							2740.0,
+							716.1333
+						]
+					],
+					"recipe_id": "gap200_level",
+					"rise_world": 0.0
+				}
+			],
+			"place_instances": [
+				{
+					"id": "place_0_postal_valley",
+					"prototype_id": "postal_valley",
+					"source_measurement_sha256": "d59b3d59caaa9b6723ca3df2b0ac2ffd44a495335504a87efcad01178787a02a",
+					"translation": [
+						0.0,
+						0.0
+					]
+				},
+				{
+					"id": "place_1_wind_meadow",
+					"prototype_id": "wind_meadow",
+					"source_measurement_sha256": "e7ca4d01ac1350b504356548912f06ad69dd32f0e647f3b16205069090c03df2",
+					"translation": [
+						1716.0,
+						8.0
+					]
+				},
+				{
+					"id": "place_2_lee_court",
+					"prototype_id": "lee_court",
+					"source_measurement_sha256": "abbdd0e589f0d25ae60937726dad9a633f1772d593bf2ff307d6d25f13031081",
+					"translation": [
+						2708.0,
+						14.0
+					]
+				}
+			],
+			"prototype_order": [
+				"postal_valley",
+				"wind_meadow",
+				"lee_court"
+			],
+			"rejections": [],
+			"seed": "places-contract-08"
+		},
+		{
+			"attempts": 1,
+			"connections": [
+				{
+					"a": "place_0_wind_meadow",
+					"b": "place_1_lee_court",
+					"bidirectional": true,
+					"condition": "open",
+					"gap_world": 160.0,
+					"id": "edge_0",
+					"kind": "horizontal",
+					"modules": [
+						0,
+						1
+					],
+					"path": [
+						[
+							732.0,
+							703.0
+						],
+						[
+							984.0,
+							708.1333
+						]
+					],
+					"recipe_id": "gap160_level",
+					"rise_world": 0.0
+				},
+				{
+					"a": "place_1_lee_court",
+					"b": "place_2_postal_valley",
+					"bidirectional": true,
+					"condition": "open",
+					"gap_world": 200.0,
+					"id": "edge_1",
+					"kind": "horizontal",
+					"modules": [
+						1,
+						2
+					],
+					"path": [
+						[
+							1460.0,
+							624.7692
+						],
+						[
+							1724.0,
+							630.0
+						]
+					],
+					"recipe_id": "gap200_level",
+					"rise_world": 0.0
+				}
+			],
+			"place_instances": [
+				{
+					"id": "place_0_wind_meadow",
+					"prototype_id": "wind_meadow",
+					"source_measurement_sha256": "e7ca4d01ac1350b504356548912f06ad69dd32f0e647f3b16205069090c03df2",
+					"translation": [
+						0.0,
+						0.0
+					]
+				},
+				{
+					"id": "place_1_lee_court",
+					"prototype_id": "lee_court",
+					"source_measurement_sha256": "abbdd0e589f0d25ae60937726dad9a633f1772d593bf2ff307d6d25f13031081",
+					"translation": [
+						952.0,
+						6.0
+					]
+				},
+				{
+					"id": "place_2_postal_valley",
+					"prototype_id": "postal_valley",
+					"source_measurement_sha256": "d59b3d59caaa9b6723ca3df2b0ac2ffd44a495335504a87efcad01178787a02a",
+					"translation": [
+						1692.0,
+						-74.0
+					]
+				}
+			],
+			"prototype_order": [
+				"wind_meadow",
+				"lee_court",
+				"postal_valley"
+			],
+			"rejections": [],
+			"seed": "places-contract-09"
+		},
+		{
+			"attempts": 1,
+			"connections": [
+				{
+					"a": "place_0_wind_meadow",
+					"b": "place_1_postal_valley",
+					"bidirectional": true,
+					"condition": "open",
+					"gap_world": 160.0,
+					"id": "edge_0",
+					"kind": "horizontal",
+					"modules": [
+						0,
+						1
+					],
+					"path": [
+						[
+							732.0,
+							703.0
+						],
+						[
+							984.0,
+							710.0
+						]
+					],
+					"recipe_id": "gap160_level",
+					"rise_world": 0.0
+				},
+				{
+					"a": "place_1_postal_valley",
+					"b": "place_2_lee_court",
+					"bidirectional": true,
+					"condition": "open",
+					"gap_world": 200.0,
+					"id": "edge_1",
+					"kind": "horizontal",
+					"modules": [
+						1,
+						2
+					],
+					"path": [
+						[
+							2468.0,
+							712.0
+						],
+						[
+							2740.0,
+							716.1333
+						]
+					],
+					"recipe_id": "gap200_level",
+					"rise_world": 0.0
+				}
+			],
+			"place_instances": [
+				{
+					"id": "place_0_wind_meadow",
+					"prototype_id": "wind_meadow",
+					"source_measurement_sha256": "e7ca4d01ac1350b504356548912f06ad69dd32f0e647f3b16205069090c03df2",
+					"translation": [
+						0.0,
+						0.0
+					]
+				},
+				{
+					"id": "place_1_postal_valley",
+					"prototype_id": "postal_valley",
+					"source_measurement_sha256": "d59b3d59caaa9b6723ca3df2b0ac2ffd44a495335504a87efcad01178787a02a",
+					"translation": [
+						952.0,
+						6.0
+					]
+				},
+				{
+					"id": "place_2_lee_court",
+					"prototype_id": "lee_court",
+					"source_measurement_sha256": "abbdd0e589f0d25ae60937726dad9a633f1772d593bf2ff307d6d25f13031081",
+					"translation": [
+						2708.0,
+						14.0
+					]
+				}
+			],
+			"prototype_order": [
+				"wind_meadow",
+				"postal_valley",
+				"lee_court"
+			],
+			"rejections": [],
+			"seed": "places-contract-10"
+		},
+		{
+			"attempts": 1,
+			"connections": [
+				{
+					"a": "place_0_lee_court",
+					"b": "place_1_postal_valley",
+					"bidirectional": true,
+					"condition": "open",
+					"gap_world": 200.0,
+					"id": "edge_0",
+					"kind": "horizontal",
+					"modules": [
+						0,
+						1
+					],
+					"path": [
+						[
+							508.0,
+							618.7692
+						],
+						[
+							772.0,
+							624.0
+						]
+					],
+					"recipe_id": "gap200_level",
+					"rise_world": 0.0
+				},
+				{
+					"a": "place_1_postal_valley",
+					"b": "place_2_wind_meadow",
+					"bidirectional": true,
+					"condition": "open",
+					"gap_world": 160.0,
+					"id": "edge_1",
+					"kind": "horizontal",
+					"modules": [
+						1,
+						2
+					],
+					"path": [
+						[
+							2256.0,
+							626.0
+						],
+						[
+							2504.0,
+							634.0
+						]
+					],
+					"recipe_id": "gap160_level",
+					"rise_world": 0.0
+				}
+			],
+			"place_instances": [
+				{
+					"id": "place_0_lee_court",
+					"prototype_id": "lee_court",
+					"source_measurement_sha256": "abbdd0e589f0d25ae60937726dad9a633f1772d593bf2ff307d6d25f13031081",
+					"translation": [
+						0.0,
+						0.0
+					]
+				},
+				{
+					"id": "place_1_postal_valley",
+					"prototype_id": "postal_valley",
+					"source_measurement_sha256": "d59b3d59caaa9b6723ca3df2b0ac2ffd44a495335504a87efcad01178787a02a",
+					"translation": [
+						740.0,
+						-80.0
+					]
+				},
+				{
+					"id": "place_2_wind_meadow",
+					"prototype_id": "wind_meadow",
+					"source_measurement_sha256": "e7ca4d01ac1350b504356548912f06ad69dd32f0e647f3b16205069090c03df2",
+					"translation": [
+						2456.0,
+						-72.0
+					]
+				}
+			],
+			"prototype_order": [
+				"lee_court",
+				"postal_valley",
+				"wind_meadow"
+			],
+			"rejections": [],
+			"seed": "places-contract-11"
+		},
+		{
+			"attempts": 1,
+			"connections": [
+				{
+					"a": "place_0_wind_meadow",
+					"b": "place_1_postal_valley",
+					"bidirectional": true,
+					"condition": "open",
+					"gap_world": 200.0,
+					"id": "edge_0",
+					"kind": "horizontal",
+					"modules": [
+						0,
+						1
+					],
+					"path": [
+						[
+							732.0,
+							703.0
+						],
+						[
+							1024.0,
+							710.0
+						]
+					],
+					"recipe_id": "gap200_level",
+					"rise_world": 0.0
+				},
+				{
+					"a": "place_1_postal_valley",
+					"b": "place_2_lee_court",
+					"bidirectional": true,
+					"condition": "open",
+					"gap_world": 200.0,
+					"id": "edge_1",
+					"kind": "horizontal",
+					"modules": [
+						1,
+						2
+					],
+					"path": [
+						[
+							2508.0,
+							712.0
+						],
+						[
+							2780.0,
+							716.1333
+						]
+					],
+					"recipe_id": "gap200_level",
+					"rise_world": 0.0
+				}
+			],
+			"place_instances": [
+				{
+					"id": "place_0_wind_meadow",
+					"prototype_id": "wind_meadow",
+					"source_measurement_sha256": "e7ca4d01ac1350b504356548912f06ad69dd32f0e647f3b16205069090c03df2",
+					"translation": [
+						0.0,
+						0.0
+					]
+				},
+				{
+					"id": "place_1_postal_valley",
+					"prototype_id": "postal_valley",
+					"source_measurement_sha256": "d59b3d59caaa9b6723ca3df2b0ac2ffd44a495335504a87efcad01178787a02a",
+					"translation": [
+						992.0,
+						6.0
+					]
+				},
+				{
+					"id": "place_2_lee_court",
+					"prototype_id": "lee_court",
+					"source_measurement_sha256": "abbdd0e589f0d25ae60937726dad9a633f1772d593bf2ff307d6d25f13031081",
+					"translation": [
+						2748.0,
+						14.0
+					]
+				}
+			],
+			"prototype_order": [
+				"wind_meadow",
+				"postal_valley",
+				"lee_court"
+			],
+			"rejections": [],
+			"seed": "places-contract-12"
+		}
+	],
+	"assertions": 118,
+	"different_geometries": 9,
+	"different_orders": 5,
+	"failures": [],
+	"preregistered_seeds": [
+		"places-contract-01",
+		"places-contract-02",
+		"places-contract-03",
+		"places-contract-04",
+		"places-contract-05",
+		"places-contract-06",
+		"places-contract-07",
+		"places-contract-08",
+		"places-contract-09",
+		"places-contract-10",
+		"places-contract-11",
+		"places-contract-12"
+	],
+	"scope": "Actual generation/replay/refusal only; no Motor, art or formal admission"
+}

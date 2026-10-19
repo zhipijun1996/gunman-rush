@@ -1,0 +1,48 @@
+{
+  "verdict": "ACCEPT",
+  "scope": "bounded disposable Git test fixture lifecycle isolation only",
+  "base_commit": "912e3cdf2a1697f88077c80ee553594357ae2b42",
+  "base_blob": "5ac50d126af75b166c327a28c2ee29b6fa127f10",
+  "candidate_git_blob": "415302ca9f88541b62978dfe864f894cc29e5ca9",
+  "candidate_sha256": "8ca605870b39069728685c0d950c5a0a8000a054bb6325e770f64948f438e1cd",
+  "inverse_byte_exact": true,
+  "assert_AST_exact_count": 342,
+  "entire_AST_exact_after_removing_two_config_calls": true,
+  "evidence": {
+    "full87-receipt.json": "f45043a27f9d20ecc28ed23423661c89724bc8938602c9cf091b0570308756bd",
+    "original-case.log": "76aa7fbc93ecf3a6d3d10a77c33c5e3449debea0d2f7b8ad813d7878d82022ed",
+    "README.md": "a895bddaa7681675a3ea0312256a42df29089163c4ba29f7cbd94a1a669032ec",
+    "original-assertions.json": "d49ccf378a0e683ca27b62dc5e5e05bf7ca44f9848ee5e2a0884f3dcac85cca5",
+    "patch-proof.json": "9b6aff5b99391d43334ab898ba33fb09ac63fd49f416e39e1432a167ee60f48a",
+    "original_test_production_loop.py.txt": "cae640b00ebf2eb810d944d0f63e102aee7ca3677f3ce543f28acbb1729280a4",
+    "tiny_probe.py": "f7f247e7d712b53ebb4848f93143209871576a2a769ce1195f10a17690723547",
+    "original-case-trace.jsonl": "cf699f2765f53db7b6fdf7f8a70a90a8c5844ec1c74eccb7ca0e7adcdf081df4",
+    "full87.log": "343f9f20c5991c42ab1b9649e5ae50903b17fd2726d75817465b83fb6702ee19",
+    "original-case-receipt.json": "2b94458af890582ab16edfc75de85f026e3e82b97131f34c7e6f5069ec4b5d44",
+    "tiny2_probe.py": "ccc61728175c62b17164dffe111ed5da8914459219c6082c11a8be835c99ba29"
+  },
+  "existing_suite_receipt": {
+    "argv": [
+      "python3",
+      "tests/test_production_loop.py"
+    ],
+    "timeout_seconds": 60,
+    "elapsed_seconds": 33.07963082100014,
+    "exit_code": 0,
+    "timed_out": false,
+    "source_before": {
+      "tests/test_production_loop.py": "8ca605870b39069728685c0d950c5a0a8000a054bb6325e770f64948f438e1cd",
+      "tools/production_loop.py": "4c53eb8d997e320c2fcba6587647ef2b2cac375e16520f98ff046353f97a0a90",
+      "tools/harness/profiles.json": "a7788c1e84daa9eadfd249fc509491b28e478182cdd711cc3e9cfc7c12e11c74"
+    },
+    "source_after": {
+      "tests/test_production_loop.py": "8ca605870b39069728685c0d950c5a0a8000a054bb6325e770f64948f438e1cd",
+      "tools/production_loop.py": "4c53eb8d997e320c2fcba6587647ef2b2cac375e16520f98ff046353f97a0a90",
+      "tools/harness/profiles.json": "a7788c1e84daa9eadfd249fc509491b28e478182cdd711cc3e9cfc7c12e11c74"
+    },
+    "source_guard": true,
+    "log": "full87.log"
+  },
+  "reviewer_execution": "offline hash/byte/AST/receipt/log verification only; no suite rerun",
+  "CI_causal_writer": "unproven; original CI failure retained"
+}

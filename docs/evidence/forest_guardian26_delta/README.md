@@ -1,0 +1,7 @@
+# Guardian26 presentation-only delta
+
+Original40edd668 base plus exact overlay/source inventory in snapshot-receipt.json and per-run receipts. Only Guardian Presentation changed relative to24 mechanism: full intended Body footprint sweep/landing rectangle, real phase2 double rim, and actual Policy-committed Bell counter flare/-4. No Player/physics/HP/stage/save contract changes. Native179/0 all seven strategy time/HP/energy outcomes identical24; two actual fixed60fps OpenGL movies717/598 frames, original45s caps passed. Presentation source copied as .gd.txt to avoid executable duplicate imports, exact bytes preserved.
+
+This delta does not inherit independent24 review as new26 visual acceptance. Root independently inspected original-size keys271(counter Policy at269),375(phase1 sweep),585(phase2 warning) and the actual presentation/ballistic consumer; its scoped ACCEPT review is preserved in independent-presentation-review. Key608 shows actual flight. Left-seal labels have known partial occlusion. Dummy audio does not prove audio quality; no normal-speed player control/playback, App consumer/reward/restore or device acceptance is claimed by these artifacts. See ../forest_guardian24_25 for original mechanism/tolerance evidence and limited independent review. Old failures remain immutable at their original snapshot paths.
+
+The prior design chronology is preserved byte-for-byte in prior_design_chronology.md.txt, including every historical evidence reference; it describes superseded candidates and is not current design authority.

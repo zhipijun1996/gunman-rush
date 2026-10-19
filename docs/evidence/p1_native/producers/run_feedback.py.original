@@ -1,0 +1,52 @@
+from __future__ import annotations
+import argparse,json,sys,time,subprocess,hashlib,os,shutil,selectors
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[2]
+sys.path.insert(0,str(ROOT/'tools'))
+import visual_director as vd
+import harness
+p=argparse.ArgumentParser();p.add_argument('--output',required=True);p.add_argument('--case',default='positive',choices=['positive','no-gun','remove-recovery-bank']);p.add_argument('--phase',default='probe',choices=['probe','full']);p.add_argument('--max-ticks',type=int,default=600);p.add_argument('--seed',default='against-wind-golden-v1');p.add_argument('--map-index',type=int,default=1);p.add_argument('--visible-screens',action='store_true');p.add_argument('--visual-sample',default='');p.add_argument('--visual-layout',default='');a=p.parse_args()
+folder=(ROOT/a.output).resolve();folder.mkdir(parents=True,exist_ok=False)
+started=time.monotonic();before=vd.sources('tools/spatial_golden_capture.gd');commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
+request={'seed':a.seed,'map_index':a.map_index,'strategy':'fast','encounter_policy':'blind_legacy','phase':a.phase,'mutation':'' if a.case=='positive' else a.case,'max_ticks':a.max_ticks}
+command=['bash','tools/godot.sh','--headless','--fixed-fps','60','--path','.','--script','tools/spatial_golden_capture.gd','--','--source-commit='+commit,'--seed='+request['seed'],'--map-index='+str(a.map_index),'--strategy=fast','--encounter-policy=blind_legacy','--spatial-phase='+a.phase,'--max-ticks='+str(a.max_ticks),'--output=res://'+(folder/'capture.json').relative_to(ROOT).as_posix()]
+if a.visual_sample:command.append('--visual-sample='+a.visual_sample)
+if a.visual_layout:command.append('--visual-layout='+a.visual_layout)
+if a.case!='positive':command.append('--spatial-mutation='+a.case)
+receipt={'schema_version':1,'scope':'explicit experimental local polygon stage, actual Router/Motor, no midroute reset; not campaign or pure-art compare','request':request,'source_before':before,'command':command,'status':'running'}
+display=None;display_log=None;env=os.environ.copy();env.update(LIBGL_ALWAYS_SOFTWARE='1',LP_NUM_THREADS='1')
+try:
+ if a.visible_screens:
+  display_log=(folder/'display.log').open('wb');binary=shutil.which('Xvfb') or str(ROOT.parent/'toolchains/xvfb/usr/bin/Xvfb')
+  display=subprocess.Popen([binary,'-displayfd','1','-screen','0','1280x720x24','-nolisten','tcp','-ac'],stdout=subprocess.PIPE,stderr=display_log)
+  with selectors.DefaultSelector() as selector:
+   selector.register(display.stdout,selectors.EVENT_READ)
+   if not selector.select(20):raise RuntimeError('Xvfb readiness timeout')
+   number=display.stdout.readline().decode().strip()
+   if not number.isdigit():raise RuntimeError('invalid Xvfb display')
+  env['DISPLAY']=':'+number;command.remove('--headless');command[2:2]=['--rendering-method','gl_compatibility'];command.extend(['--capture-visible','--frame-dir=res://'+(folder/'screens').relative_to(ROOT).as_posix(),'--frame-stride=120']);receipt['command']=command;receipt['environment']={k:env[k] for k in ['DISPLAY','LIBGL_ALWAYS_SOFTWARE','LP_NUM_THREADS']}
+ receipt['process']=harness.run_check({'argv':command,'timeout_seconds':300,'success_pattern':r'^LEVEL FORMAL CAPTURE: [1-9]\d* frames, [1-9]\d* edges, outcome=\S+, capture_errors=0$'},folder/'runtime.log',ROOT,env)
+ if (folder/'capture.json').is_file():
+  data=vd.read(folder/'capture.json');receipt['capture']=vd.artifact(folder/'capture.json');receipt['native_outcome']=data.get('outcome');receipt['route_reached']=data.get('route_reached');receipt['cases']=data.get('spatial_golden_cases');receipt['native_frames']=len(data.get('frames',[]));receipt['capture_errors']=data.get('capture_errors');receipt['geometry_before']=data.get('spatial_golden_initial_physics');receipt['geometry_after']=data.get('spatial_golden_final_physics')
+  expected=data.get('route_reached') is (a.case=='positive')
+  if a.case!='positive':
+   expected=expected and data.get('outcome')=='spatial_primary_gap_failed' and any(c.get('passed') is False for c in data.get('spatial_golden_cases',[]))
+   frames=data.get('frames',[])
+   receipt['physical_negative_facts']={'max_x':max((f['position'][0] for f in frames),default=None),'max_y':max((f['position'][1] for f in frames),default=None),'actual_shots':sum(e.get('kind')=='shot_accepted' for e in data.get('events',[])),'actual_collision_polygons':len(data.get('spatial_golden_initial_physics',{}).get('solid_polygons',[]))}
+   if a.case=='no-gun':expected=expected and receipt['physical_negative_facts']['actual_shots']==0
+   if a.case=='remove-recovery-bank':expected=expected and not any('recovery_shore' in x.get('node_path','') for x in data.get('spatial_golden_initial_physics',{}).get('solid_polygons',[]))
+  receipt['expected_physical_outcome']=expected
+ else:receipt['expected_physical_outcome']=False
+ receipt['status']='passed' if receipt['process']['status']=='passed' and receipt['expected_physical_outcome'] else 'failed'
+except Exception as e:receipt.update(status='failed',error=str(e));raise
+finally:
+ if display:
+  display.terminate()
+  try:display.wait(timeout=5)
+  except subprocess.TimeoutExpired:display.kill();display.wait(timeout=5)
+ if display_log:display_log.close()
+ receipt['source_after']=vd.sources('tools/spatial_golden_capture.gd');receipt['seconds']=time.monotonic()-started;receipt['source_unchanged']=receipt['source_before']==receipt['source_after']
+ if not receipt['source_unchanged']:receipt['status']='failed'
+ vd.write(folder/'receipt.json',receipt)
+ print(json.dumps({k:receipt.get(k) for k in ['status','native_outcome','route_reached','native_frames','expected_physical_outcome','source_unchanged','seconds']},ensure_ascii=False))
+sys.exit(0 if receipt['status']=='passed' else 1)

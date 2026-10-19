@@ -1,0 +1,82 @@
+{
+  "schema": "underworld-three-depth-generation-v1",
+  "task": "UNDERWORLD-PLAINS-01",
+  "calls": 3,
+  "source_reference_license": "Asouris publisher broad use permission; not CC0. See assets/style_exploration/underworld/source/licenses",
+  "model": "not_exposed",
+  "cost": "not_exposed",
+  "entries": [
+    {
+      "id": "far",
+      "tool": "image_gen.imagegen",
+      "model": "not_exposed",
+      "prompt": "Create an original PARALLAX FAR-SKY LAYER for Windchime Plains, a 2D side-view fairy-tale platformer, matching the attached Underworld asset's shape economy and strict pixel clusters. Wide panoramic 16:9 composition. This is one independent distant layer, NOT a full game scene. OPAQUE image all the way to all edges. Main 80% of image is a quiet deep desaturated blue evening sky, narrow warm pale-gold dusk band near 75% height, few long quiet cloud wisps with crisp clustered pixel edges. Bottom 20% holds low, extremely distant rolling meadow horizons in soft slate blue, tiny isolated bell spires barely perceptible, no recognizable foreground. Near-black silhouettes with a few thin moss and honey pixels in anchor; use that economy, not photoreal texture. Large quiet color masses, only 5 to 7 softly separated color steps. Open windy PLAINS, not cave or dense forest. Keep left and right horizon height/color identical for lateral repetition and avoid large landmarks near edges. NO ground platforms, trees up close, UI, words, characters, foreground framing, giant moon, gradient banding or black border. Designed at small logical pixel resolution, crisp edges, sparse texture.",
+      "result_hint": "Generated images are saved to /workspace/generated_images as /workspace/generated_images/exec-64fb8e79-d3fb-45df-ac22-4f84b5f283a1.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "reference": "assets/style_exploration/underworld/original/TileSet.png",
+      "transparent_background": false,
+      "source": "assets/underworld_plains/backgrounds/sources/far_original.png",
+      "image": "assets/underworld_plains/backgrounds/far.png",
+      "source_sha256": "c99e5c0c7d86710345f291baf7ee4950995b59b3e0da8034be7fe5f145a78e3e",
+      "image_sha256": "c99e5c0c7d86710345f291baf7ee4950995b59b3e0da8034be7fe5f145a78e3e",
+      "reference_sha256": "a369175ccef5fca5ab363f140252d1f0f38b5eafb5d541605c601ea4ac56f88c",
+      "processing": "byte-identical copy; no cropping, repaint, recolor or resampling",
+      "image_size": [
+        1672,
+        941
+      ],
+      "alpha_extrema": [
+        255,
+        255
+      ],
+      "alpha_zero_fraction": 0.0
+    },
+    {
+      "id": "middle",
+      "tool": "image_gen.imagegen",
+      "model": "not_exposed",
+      "prompt": "Produce an ORIGINAL standalone MIDDLE-DISTANCE PARALLAX LAYER PNG for Windchime Plains, dark minimal pixel art matching attached Underworld tile silhouettes. Wide 16:9 canvas with TRUE TRANSPARENT SKY (alpha zero), no colored sky or checker pattern. This layer must be different from a complete landscape, it only contains remote grassland silhouettes, low wind-bent meadow trees and a small weathered wooden bell tower. Large quiet silhouette masses with strict crisp 16-pixel-inspired clusters, slate blue-green body, dark navy shadow, just a few muted moss rim pixels and tiny pale brass bell dots. LOW contrast for distant scenery. Bottom 35%: a single continuously connected gently rolling hill mass reaching all image edges and bottom; hill profile stays low left and right. At roughly 30% horizontal position a SMALL slender asymmetrical old bell tower rooted on the hill, its height only 22% of canvas. At 70% position a sparse stand of three crooked wind-bent meadow trees, not a dense forest. Keep the top half fully alpha zero, leave 60% of overall canvas empty/transparent. NO moon, sky, clouds, actors, UI, readable text, borders, foreground platforms, suspended ground, bridge deck or playable ledges. No painterly shading, high-frequency texture, photorealism, abundant flowers or full-screen canopy. This is the middle of three original independent depth images: quiet fairy-tale open plains.",
+      "result_hint": "Generated images are saved to /workspace/generated_images as /workspace/generated_images/exec-c38f3783-6874-4ba5-b8a5-5830804d5936.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "reference": "assets/style_exploration/underworld/original/TileSet.png",
+      "transparent_background": true,
+      "source": "assets/underworld_plains/backgrounds/sources/middle_original.png",
+      "image": "assets/underworld_plains/backgrounds/middle.png",
+      "source_sha256": "b736998135fcc8f7a9a740634dbc33e585f3ebfdf79b4a55395405ae2365e4c2",
+      "image_sha256": "b736998135fcc8f7a9a740634dbc33e585f3ebfdf79b4a55395405ae2365e4c2",
+      "reference_sha256": "a369175ccef5fca5ab363f140252d1f0f38b5eafb5d541605c601ea4ac56f88c",
+      "processing": "byte-identical copy; no cropping, repaint, recolor or resampling",
+      "image_size": [
+        1672,
+        941
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_zero_fraction": 0.8217582588003193
+    },
+    {
+      "id": "near",
+      "tool": "image_gen.imagegen",
+      "model": "not_exposed",
+      "prompt": "Create an ORIGINAL standalone NEAR-BACKGROUND parallax PNG, wide 16:9 composition, TRUE TRANSPARENT ALPHA SKY, matching attached Underworld tiny dark silhouette platformer pixel art. This is a different independent depth painting from any far landscape. Only the LOWEST 25% of canvas contains a connected dark blue-black gently sloping meadow-bank silhouette, reaching left/right/bottom. Top 65% fully transparent and quiet. On far LEFT grows one low sparse windswept crooked meadow tree with thin moss edges. On far RIGHT only, an old WOODEN WIND-CHIME FRAME rises out of hill: two irregular thin weathered posts and a broken crossbeam, three tiny unlit hanging brass bells. Posts subtly lean, no straight cartoon box. Middle two-thirds is deliberately mostly empty silhouette grass horizon, wide negative space for game actors. Near-black navy bodies with very few slate moss rim pixel clusters, restrained dull amber dots, extremely minimal internal texture. Keep overall scenery in bottom quarter, objects no more than 35% image height, no sprawling canopy across center. Frame should lead eye inward. No distinct playable platforms or rectangular ledges, no foreground ground slab, UI, words, sky, clouds, moon, tall dense forest, large architecture, noisy hatch. Crisp clustered pixels, fairy-tale wind, melancholic quiet open plains; no luminous hazard-color flowers. This painting lives behind actual gameplay and must remain lower contrast than platforms and player.",
+      "result_hint": "Generated images are saved to /workspace/generated_images as /workspace/generated_images/exec-aa7b7f09-0b57-4b82-9594-2a95ae61a79f.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link.",
+      "reference": "assets/style_exploration/underworld/original/TileSet.png",
+      "transparent_background": true,
+      "source": "assets/underworld_plains/backgrounds/sources/near_original.png",
+      "image": "assets/underworld_plains/backgrounds/near.png",
+      "source_sha256": "32ea3038c8388b4df3898e0803d02ca7ad76634d5745019cbde3057d66c6ccf2",
+      "image_sha256": "32ea3038c8388b4df3898e0803d02ca7ad76634d5745019cbde3057d66c6ccf2",
+      "reference_sha256": "a369175ccef5fca5ab363f140252d1f0f38b5eafb5d541605c601ea4ac56f88c",
+      "processing": "byte-identical copy; no cropping, repaint, recolor or resampling",
+      "image_size": [
+        1672,
+        941
+      ],
+      "alpha_extrema": [
+        0,
+        255
+      ],
+      "alpha_zero_fraction": 0.824110561400119
+    }
+  ]
+}

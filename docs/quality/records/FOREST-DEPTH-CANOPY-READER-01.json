@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "task_id": "FOREST-DEPTH-CANOPY-READER-01",
+  "task_type": "small_fix",
+  "workflow": "review",
+  "baseline_commit": "0cf4aa5816c735fdd6e83bfb95d8ee0f70d129ee",
+  "reviewed_commit": "df3f162ac7c49f0bcdfe56c3d4093a3f49d289aa",
+  "content_version": "guardian-canopy-identity-reader-v1",
+  "owner": "/root",
+  "purpose": "Migrate the existing Guardian reward map2 reader to exact version-bound Canopy identity without admitting game content or weakening old contracts.",
+  "player_experience": "Reader-only bounded review; no production game, physical/input, fun or device acceptance.",
+  "constraints": [
+    "Only one Python reader file; no production/GD driver/input/threshold/budget change.",
+    "Newv10 exact layout/region/int map2/bool ok/version/contract/admission/scene/resource required; explicit historical whitelist keeps exact old contract.",
+    "Original0cf CI and browser failure retained. Offline new-reader acceptance never rewrites prior CI; targeted7 is not a full profile."
+  ],
+  "affected_paths": [
+    "tools/run_forest_depth_campaign_boss.py",
+    "docs/quality/records/FOREST-DEPTH-CANOPY-READER-01.json"
+  ],
+  "deliverables": [
+    "Actual remote25/0 capture plus outer stale-admission FAIL and full API-digest ZIP.",
+    "Shared strict version identity validator, real full-case/44-mutant offline proof and independent immutableGit review.",
+    "Original fresh targeted7 on clean reviewed_commit; final whole CI/public remain separate."
+  ],
+  "creative_decisions": [
+    {
+      "status": "not_required",
+      "decision": "Test-consumer repairs have no new creative/gameplay decision.",
+      "basis": "No production game behavior or subjective quality is approved by this small_fix record."
+    }
+  ],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "No whole-source content or final CI signoff by this limited review record.",
+      "evidence": []
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "Not applicable to this non-production small_fix; no region G5/human acceptance implied.",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "Not applicable to this non-production small_fix; no region G5/human acceptance implied.",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "Not applicable to this non-production small_fix; no region G5/human acceptance implied.",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "No whole-source content or final CI signoff by this limited review record.",
+      "evidence": []
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "Not applicable to this non-production small_fix; no region G5/human acceptance implied.",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Only the version-bound reader is independently reviewed; clean df3f targeted7 and next whole-source CI are separate, no content approval.",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Only the version-bound reader is independently reviewed; clean df3f targeted7 and next whole-source CI are separate, no content approval.",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "Outside this infrastructure-only small_fix; no forest quality, human/device or G5 signoff.",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "Outside this infrastructure-only small_fix; no forest quality, human/device or G5 signoff.",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "Outside this infrastructure-only small_fix; no forest quality, human/device or G5 signoff.",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "Outside this infrastructure-only small_fix; no forest quality, human/device or G5 signoff.",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "Outside this infrastructure-only small_fix; no forest quality, human/device or G5 signoff.",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "Outside this infrastructure-only small_fix; no forest quality, human/device or G5 signoff.",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Different-author limited review of exact committed reader migration and actual original data; not full CI or forest approval.",
+      "evidence": [
+        "bounded-reader-review"
+      ]
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "Outside this infrastructure-only small_fix; no forest quality, human/device or G5 signoff.",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "not_applicable",
+      "reason": "Outside this infrastructure-only small_fix; no forest quality, human/device or G5 signoff.",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "bounded-reader-identity-review",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "status": "passed",
+      "reason": "Independent exact Git blob audit and actual whole-case offline checks preserve original guards and reject mixed/unknown identity.",
+      "evidence": [
+        "bounded-reader-review"
+      ],
+      "scenario": "Old Guardian next-map reader meets current Canopy after actual reward transition.",
+      "method": "Read original CI ZIP/raw and immutable df3f reader; reproduce old rejection/new full acceptance and historical whole cases, actual negative mutations.",
+      "expected": "Exact version-specific contracts, preserved original input/health/ledger/source/budget guards.",
+      "failure": "Unknown/mixed accepted, old assertions/caps weakened, or original CI failure falsely re-signed invalidates scope."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "bounded-reader-review",
+      "kind": "review",
+      "path": "docs/evidence/forest_depth_v2/release_followup01/independent_reader/REVIEW.md",
+      "sha256": "68331b8b33b921414295b49d26c5f5349d659352904973671dbf6e05d26748dd",
+      "producer": "/root/forest_acceptance_inventory",
+      "source_commit": "df3f162ac7c49f0bcdfe56c3d4093a3f49d289aa",
+      "content_version": "guardian-canopy-identity-reader-v1",
+      "method": "Independent Git blob equality, original actualCI and two historical complete cases,44 original negative mutants,actualv7/v9 identity and App03 full reader.",
+      "observed": "Strict exact new identity and old whitelist, no mixed/unknown fallback, original functions/inputs/caps/strict/sourceguard unchanged. Native target7 and final CI separate.",
+      "verdict": "ACCEPT",
+      "reported_verdict": "ACCEPT",
+      "reviewer": "/root/forest_acceptance_inventory",
+      "independent": true,
+      "implementers": [
+        "/root/forest_progression",
+        "/root"
+      ],
+      "independence_basis": "Reviewer authored no reader implementation and only independently audited original bytes and offline outcomes."
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Final new-source full CI/build/public browsers remain separate; original0cf49passed then readerFAIL remains failed.",
+    "Unresolved original browser fan initial-click/reaim failure not repaired by this reader-only change.",
+    "No region/Boss/fun/art/human/device/commercial/G5 approval."
+  ],
+  "test_change_justification": "Real0cf native25/0 enters exactv10 Canopy map2 while old reader requires legacy Queen admission. Replace only one old assertion and two repeated current identity checks with a shared stricter version-bound helper: exact new contract/version/candidate admission/scene/resource and explicit old layout whitelist with original experimental admission. No production/GD/input/threshold/budget change; all other existing functions AST unchanged and restoring only these sites/removing new helper yields byte-exact old reader. OriginalCI raw plus two historical complete cases and44 actual mutations validate migration; originalFAIL retained. Different-author immutableGit review accepts only this scope; original Harness targeted7 on clean df3f passes, not a whole-profile signature."
+}

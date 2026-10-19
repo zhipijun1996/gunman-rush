@@ -9,10 +9,36 @@ import time
 import os
 import selectors
 import shutil
+import argparse
 
 import level_formal
 
 ROOT = Path(__file__).resolve().parents[1]
+# All historical renderer consumers below are explicit test-only fixtures; formal Pixel defaults are unchanged.
+LEGACY_FIXTURE_SCOPE = "explicit_legacy_presentation_not_default"
+
+
+def run_painted():
+    """Short actual new-consumer preflight; the legacy suite remains separate."""
+    from run_tests import run_engine
+    dependencies = ('tests/painted_formal_terrain_tests.gd',
+                    'tools/run_visual_director_space_tests.py')
+    before = level_formal.source_files(extra_paths=dependencies)
+    try:
+        imported = run_engine(['--headless', '--path', '.', '--editor', '--quit'], 120)
+        if 'ERROR:' in imported:
+            raise RuntimeError('Native import error before painted-terrain preflight')
+        output = run_engine(['--headless', '--path', '.', '--script',
+                             'tests/painted_formal_terrain_tests.gd'], 45)
+        if 'ERROR:' in output or not re.search(r'^PASS: painted formal ', output, re.M):
+            raise RuntimeError('Actual painted-terrain completion missing or native error')
+        if before != level_formal.source_files(extra_paths=dependencies):
+            raise RuntimeError('Painted-terrain source changed during preflight')
+        print('VISUAL TERRAIN MESH: passed; actual runtime/mesh/refusal checks only, not art or full-route approval')
+        return 0
+    except Exception as exc:
+        print('VISUAL TERRAIN MESH: failed; ' + str(exc))
+        return 1
 
 
 def run(output=None):
@@ -30,7 +56,7 @@ def run(output=None):
         for mutation in ('', 'detached_root', 'channel_intrusion', 'wrong_attachment', 'far_wrong_scale', 'far_wrong_depth', 'far_detached_root', 'far_clipped_boundary', 'translated_parent', 'bank_scope_escape', 'bank_disabled', 'ferry_graded'):
             label = mutation or 'positive'
             capture = folder / (label+'.json')
-            command = ['bash','tools/godot.sh','--headless','--path','.', '--script','tests/visual_director_space_runner.gd','--','--legacy-waterworks-contract','--output='+str(capture)]
+            command = ['bash','tools/godot.sh','--headless','--path','.', '--script','tests/visual_director_space_runner.gd','--','--legacy-presentation-fixture=waterworks','--legacy-waterworks-contract','--output='+str(capture)]
             if mutation: command.append('--mutation='+mutation)
             started = time.monotonic()
             result = subprocess.run(command,cwd=ROOT,capture_output=True,text=True,timeout=90)
@@ -61,7 +87,7 @@ def run(output=None):
                     if not number.isdigit(): raise RuntimeError('Invalid actual GPU display')
                 env['DISPLAY']=':'+number
             capture=folder/'gpu_probe.json'
-            command=['bash','tools/godot.sh','--rendering-method','gl_compatibility','--path','.', '--script','tests/visual_director_space_runner.gd','--','--legacy-waterworks-contract','--gpu-probe','--output='+str(capture)]
+            command=['bash','tools/godot.sh','--rendering-method','gl_compatibility','--path','.', '--script','tests/visual_director_space_runner.gd','--','--legacy-presentation-fixture=waterworks','--legacy-waterworks-contract','--gpu-probe','--output='+str(capture)]
             started=time.monotonic()
             result=subprocess.run(command,cwd=ROOT,env=env,capture_output=True,text=True,timeout=90)
             log=folder/'gpu_probe.log';log.write_text(result.stdout+result.stderr)
@@ -92,4 +118,8 @@ def run(output=None):
     return 0 if report['status']=='passed' else 1
 
 if __name__=='__main__':
-    raise SystemExit(run())
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--painted-terrain', action='store_true',
+                        help='Run only the actual painted-terrain mesh preflight')
+    args = parser.parse_args()
+    raise SystemExit(run_painted() if args.painted_terrain else run())

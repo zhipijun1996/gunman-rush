@@ -1,0 +1,69 @@
+{
+  "schema_version": 1,
+  "family_id": "b_distant_bands_v1",
+  "source_path": "assets/visual_development/environment/distant_bands.png",
+  "source_sha256": "35e6b0d528834e5acf7ecdf6990678a023333c86e94ce208fea0e7cef97d1923",
+  "canvas": [
+    1536,
+    1024
+  ],
+  "bands": {
+    "far_hills": {
+      "region": [
+        0,
+        130,
+        1536,
+        215
+      ],
+      "pivot": [
+        768,
+        204
+      ],
+      "layer": "extreme_far",
+      "direction": "horizontal landscape band; horizon/base at source y334"
+    },
+    "grass_sea": {
+      "region": [
+        0,
+        425,
+        1536,
+        245
+      ],
+      "pivot": [
+        768,
+        227
+      ],
+      "layer": "far",
+      "direction": "horizontal hill/grass band; base at source y652"
+    },
+    "tree_band": {
+      "region": [
+        0,
+        680,
+        1536,
+        295
+      ],
+      "pivot": [
+        768,
+        268
+      ],
+      "layer": "middle_far",
+      "direction": "wind-bent sparse tree band; root base at source y948; no collision"
+    }
+  },
+  "alpha": {
+    "min": 0,
+    "max": 254,
+    "zero_fraction": 0.5408178965250651,
+    "one_to_ten_fraction": 0.07195536295572917
+  },
+  "risks": [
+    "low-alpha painted halo extends outside band silhouettes; transparent24px gutters not proven",
+    "band bases contain horizontal baselines; keep behind actual terrain without pretending a gameplay support",
+    "not seamless horizontal panorama, do not repeat without world-camera seam verification",
+    "no sky plate generated; original three-call budget exhausted"
+  ],
+  "processing": "Original RGBA unchanged; measured source regions only",
+  "art_acceptance": "unverified",
+  "license_status": "unknown"
+}

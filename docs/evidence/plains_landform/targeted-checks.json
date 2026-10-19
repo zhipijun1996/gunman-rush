@@ -1,0 +1,53 @@
+{
+  "scope": "targeted Python/static checks only; no full CI, Web, human or device approval",
+  "runtime_commit": "2c615d3d4762c51edfe1bc1e970f28f60807a1f8",
+  "checks": [
+    {
+      "command": "python tests/test_visual_director.py",
+      "exit_code": 0,
+      "tests": 24,
+      "elapsed_seconds": 7.036
+    },
+    {
+      "command": "python tests/test_level_design_routing.py",
+      "exit_code": 0,
+      "tests": 22,
+      "reported_previous_run_seconds": 0.911
+    },
+    {
+      "command": "python tests/test_harness.py",
+      "exit_code": 0,
+      "tests": 24,
+      "elapsed_seconds": 3.454
+    },
+    {
+      "command": "python tests/test_capture_actions.py",
+      "exit_code": 0,
+      "tests": 5
+    },
+    {
+      "command": "python tools/check_art.py",
+      "exit_code": 0,
+      "observed": "105 asset metadata/hash/dimension checks; no visual acceptance"
+    },
+    {
+      "command": "python tools/check_docs.py",
+      "exit_code": 0,
+      "observed": "33 required docs, local links, 222 task dependencies and tuning"
+    },
+    {
+      "command": "python tools/check_quality.py",
+      "exit_code": 0,
+      "observed": "14 core skills, references,17 templates,quality records/asset metadata; STATIC ONLY"
+    }
+  ],
+  "vd_log": {
+    "path": "docs/evidence/plains_landform/vd-tests.log",
+    "sha256": "f495f6df9425827f7c2266f4848d5bb9428cd699890531ab5a4a048843e89eb7"
+  },
+  "routing_log": {
+    "path": "docs/evidence/plains_landform/routing-tests.log",
+    "sha256": "4976b632e62da9c956bc35b39edee44687c865c1b6512989b0bb9f31d92af0bd"
+  },
+  "note": "Routing/VD rerun after routing metadata bound final independent-art-03; runtime movie/PCK remain frozen2c615d3d. Native246, original1310, movie and delivery have separate original receipts."
+}

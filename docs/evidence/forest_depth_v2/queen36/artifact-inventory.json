@@ -1,0 +1,1269 @@
+{
+  "task": "FOREST-DEPTH-02",
+  "basis_commit": "0dd1fba0bffba707d873155fc506f874d3651565",
+  "dirty_overlay": true,
+  "scope": "Queen36 explicitly pinned experimental v2 whitebox evidence; defaultv1 and production_pool unchanged; not whole region/Boss admission",
+  "runs": {
+    "adaptive_H": {
+      "selector": "adaptive_full",
+      "actual_argv": [
+        "bash",
+        "tools/godot.sh",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--fixed-fps",
+        "60",
+        "--write-movie",
+        "/workspace/gunman-rush-design/build/forest_depth/queen/movie36_adaptive_H/gameplay.avi",
+        "--path",
+        ".",
+        "--script",
+        "tests/thorn_queen_sweep_runner.gd",
+        "--",
+        "--case=adaptive_full",
+        "--output-dir=/workspace/gunman-rush-design/build/forest_depth/queen/movie36_adaptive_H"
+      ],
+      "initial_boss_hp": 24.0,
+      "case": {
+        "attack_damage_after_fixed": 0.0,
+        "borrowed_main": true,
+        "boss_damage": 24.0,
+        "boss_defeated": true,
+        "explicit_initial_probe": false,
+        "fields": [
+          0.0,
+          0.0,
+          2.0
+        ],
+        "final_energy": 100.0,
+        "final_field_states": [
+          {
+            "health": 0.0,
+            "spawned": true,
+            "weave": {
+              "age": 4.61666666666666,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": true,
+              "suspended": false
+            }
+          },
+          {
+            "health": 0.0,
+            "spawned": true,
+            "weave": {
+              "age": 11.6166666666668,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": true,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 13.2333333333336,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 1,
+              "severed": false,
+              "suspended": false
+            }
+          }
+        ],
+        "final_phase": 3,
+        "final_position": [
+          541.712280273438,
+          341.92529296875
+        ],
+        "final_route_phase": 3,
+        "fixed_borrows": 0,
+        "id": "full_H",
+        "initial_boss_hp": 24.0,
+        "initial_energy": 100.0,
+        "initial_fields": [
+          2.0,
+          2.0,
+          null
+        ],
+        "initial_player_hp": 5.0,
+        "low_excursions": 1,
+        "main_backshot_cut": true,
+        "middle_entry": true,
+        "p1_warning_response": {
+          "accepted_response_shots": 10,
+          "body_damage": 0,
+          "borrowed": true,
+          "boss_damage": 8.0,
+          "bounded_local_response": true,
+          "explicit_initial_probe": false,
+          "fallback": false,
+          "final_energy": 69.5,
+          "final_position": [
+            449.180572509766,
+            341.92529296875
+          ],
+          "id": "full_H",
+          "initial_boss_hp": 24.0,
+          "initial_energy": 100.0,
+          "initial_fields": [
+            2.0,
+            2.0,
+            null
+          ],
+          "initial_player_hp": 5.0,
+          "player_damage": 0.0,
+          "preview_player": [
+            688.6669921875,
+            278.245330810547
+          ],
+          "preview_tick": 193,
+          "real_migrations": 1,
+          "retained_in_arena": true,
+          "return_support_frames": 12,
+          "ticks": 569
+        },
+        "player_damage": 1.0,
+        "player_dead": false,
+        "retained_in_arena": true,
+        "third_H_omitted_as_redundant": true,
+        "ticks": 1492,
+        "upper_entry": true
+      },
+      "assertions": 18,
+      "failures": [],
+      "native_seconds": 42.8739715260017,
+      "native_budget_seconds": 60,
+      "frames": 1493,
+      "fps": 60,
+      "dimensions": [
+        1280,
+        720
+      ],
+      "source_domains": {
+        "actual_full_runtime_file_count": 2019,
+        "all_full_runtime_before_after_equal": true,
+        "level_formal_source_subset_guard": true,
+        "runner_guard": true
+      },
+      "avi_retained_build_only": {
+        "path": "build/forest_depth/queen/movie36_adaptive_H/gameplay.avi",
+        "sha256": "7ca667d9584bb09d59f0ad61f1c114aa3db1154f43d2581a4e509f8acdda4723",
+        "bytes": 68682408
+      }
+    },
+    "edge": {
+      "selector": "full_edge",
+      "actual_argv": [
+        "bash",
+        "tools/godot.sh",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--fixed-fps",
+        "60",
+        "--write-movie",
+        "/workspace/gunman-rush-design/build/forest_depth/queen/movie36_edge/gameplay.avi",
+        "--path",
+        ".",
+        "--script",
+        "tests/thorn_queen_sweep_runner.gd",
+        "--",
+        "--case=full_edge",
+        "--output-dir=/workspace/gunman-rush-design/build/forest_depth/queen/movie36_edge"
+      ],
+      "initial_boss_hp": 24.0,
+      "case": {
+        "boss_damage": 24.0,
+        "boss_defeated": true,
+        "explicit_initial_probe": false,
+        "fields": [
+          2.0,
+          2.0,
+          2.0
+        ],
+        "final_energy": 80.0,
+        "final_field_states": [
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 18.5833333333336,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 18.5833333333336,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 7.46666666666665,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          }
+        ],
+        "final_phase": 3,
+        "final_position": [
+          790.966613769531,
+          381.92529296875
+        ],
+        "final_route_phase": 3,
+        "id": "edge_repeat_noH",
+        "initial_boss_hp": 24.0,
+        "initial_energy": 100.0,
+        "initial_fields": [
+          2.0,
+          2.0,
+          null
+        ],
+        "initial_player_hp": 5.0,
+        "middle_arrival": true,
+        "ordinary_upper_arrival": true,
+        "player_damage": 1.0,
+        "player_dead": false,
+        "retained_in_arena": true,
+        "ticks": 1115
+      },
+      "assertions": 11,
+      "failures": [],
+      "native_seconds": 32.812938538998424,
+      "native_budget_seconds": 60,
+      "frames": 1116,
+      "fps": 60,
+      "dimensions": [
+        1280,
+        720
+      ],
+      "source_domains": {
+        "actual_full_runtime_file_count": 2019,
+        "all_full_runtime_before_after_equal": true,
+        "level_formal_source_subset_guard": true,
+        "runner_guard": true
+      },
+      "avi_retained_build_only": {
+        "path": "build/forest_depth/queen/movie36_edge/gameplay.avi",
+        "sha256": "0775e15bf70fd330f71c63859d4543ba02d35bbe64f88d7607758c480cd7a757",
+        "bytes": 53756576
+      }
+    }
+  },
+  "locals_assertions": 69,
+  "current_final_all188_run": false,
+  "older32_all188_failures_retained": 4,
+  "keyframes": {
+    "adaptive_H": [
+      {
+        "path": "movies/adaptive_H/keyframes/frame-01.png",
+        "movie_frame_zero_based": 74,
+        "seconds_at_60fps": 1.2333333333333334,
+        "sha256": "ffdc809d7d287ff87f45e3e5351b4266f6e52798e1fbbbdfa4a7b7db0cdb9b0b"
+      },
+      {
+        "path": "movies/adaptive_H/keyframes/frame-02.png",
+        "movie_frame_zero_based": 298,
+        "seconds_at_60fps": 4.966666666666667,
+        "sha256": "a1058f84f45e52b4187129964b4d25d79f3dfa5f329a568787ad69b403eae8c1"
+      },
+      {
+        "path": "movies/adaptive_H/keyframes/frame-03.png",
+        "movie_frame_zero_based": 522,
+        "seconds_at_60fps": 8.7,
+        "sha256": "2236e1f8fd21e6ff5f0e82585cc93ddde3466b4b6a13b5878588557a7e0ff1b4"
+      },
+      {
+        "path": "movies/adaptive_H/keyframes/frame-04.png",
+        "movie_frame_zero_based": 746,
+        "seconds_at_60fps": 12.433333333333334,
+        "sha256": "ce92a8db66fdf7dcef1b164da70b70008699a1f5fb251e98105a5ccafb27dd1e"
+      },
+      {
+        "path": "movies/adaptive_H/keyframes/frame-05.png",
+        "movie_frame_zero_based": 970,
+        "seconds_at_60fps": 16.166666666666668,
+        "sha256": "5df1471d1c9fee5ff2169e210d887e098f83613f2006b24d6e633c3c9351cca2"
+      },
+      {
+        "path": "movies/adaptive_H/keyframes/frame-06.png",
+        "movie_frame_zero_based": 1194,
+        "seconds_at_60fps": 19.9,
+        "sha256": "68c3694e25a7c3f2753643f188df593863f3e09ff04a258846e3d4966aabc5dd"
+      },
+      {
+        "path": "movies/adaptive_H/keyframes/frame-07.png",
+        "movie_frame_zero_based": 1418,
+        "seconds_at_60fps": 23.633333333333333,
+        "sha256": "3ca2ecb7539fcb79ae41f3a4bc6abd5cec3e448bd12096c9f81e9bc3112180f9"
+      }
+    ],
+    "edge": [
+      {
+        "path": "movies/edge/keyframes/frame-01.png",
+        "movie_frame_zero_based": 55,
+        "seconds_at_60fps": 0.9166666666666666,
+        "sha256": "888b2591f3b68c1f99322fda4c442882461631f1d099a4f2892f9784b9f76d69"
+      },
+      {
+        "path": "movies/edge/keyframes/frame-02.png",
+        "movie_frame_zero_based": 223,
+        "seconds_at_60fps": 3.716666666666667,
+        "sha256": "7b2d1cea4dc108f7c26b1f9b11190c2b8ae121be942d27fb4286416511978871"
+      },
+      {
+        "path": "movies/edge/keyframes/frame-03.png",
+        "movie_frame_zero_based": 390,
+        "seconds_at_60fps": 6.5,
+        "sha256": "9a76008787fd22d34bd1c44abb9962b9f9a22c304d7558ed2694c8ba3a9d7621"
+      },
+      {
+        "path": "movies/edge/keyframes/frame-04.png",
+        "movie_frame_zero_based": 558,
+        "seconds_at_60fps": 9.3,
+        "sha256": "36a0f08f3f7b317594d0c4960a86909de84ed578f3f0147f3905f3e77abbd962"
+      },
+      {
+        "path": "movies/edge/keyframes/frame-05.png",
+        "movie_frame_zero_based": 725,
+        "seconds_at_60fps": 12.083333333333334,
+        "sha256": "d509ac04cb8596729ec4777237dad65c5d99065dbb74c68d4a02cc84ba2af447"
+      },
+      {
+        "path": "movies/edge/keyframes/frame-06.png",
+        "movie_frame_zero_based": 892,
+        "seconds_at_60fps": 14.866666666666667,
+        "sha256": "9c1f2bef1c4295a48831f3161872562ad1ddf9fee88804fad59cda011fa97fb5"
+      },
+      {
+        "path": "movies/edge/keyframes/frame-07.png",
+        "movie_frame_zero_based": 1060,
+        "seconds_at_60fps": 17.666666666666668,
+        "sha256": "6524d9f8edd9b1f73307b86de06824318596354d856e9f2e3d390e7ba6e3cd9b"
+      }
+    ]
+  },
+  "historical_failures": {
+    "movie23_H": {
+      "status": "original45s timeout FAILED, not retroactively accepted",
+      "files": [
+        "failures/movie23_H/receipt.json.gz",
+        "failures/movie23_H/native.log"
+      ],
+      "partial_avi_retained_build_only": {
+        "path": "build/forest_depth/queen/movie23_H/gameplay.avi",
+        "sha256": "230a80696760e208fdda1c9d317b0301a82a714c06c33d6466b195e3e47d93ee",
+        "bytes": 68956160,
+        "status": "original partial fragment; no completed native receipt; not a complete movie"
+      }
+    },
+    "movie24_H": {
+      "status": "original45s timeout FAILED, not retroactively accepted",
+      "files": [
+        "failures/movie24_H/receipt.json.gz",
+        "failures/movie24_H/native.log"
+      ],
+      "partial_avi_retained_build_only": {
+        "path": "build/forest_depth/queen/movie24_H/gameplay.avi",
+        "sha256": "08bf078de1add091d1b51c899791d76b0a14be07b765885988843deb75d8dfe9",
+        "bytes": 69730304,
+        "status": "original partial fragment; no completed native receipt; not a complete movie"
+      }
+    },
+    "32": {
+      "status": "original actual FAILED, no retag/retry within this capture",
+      "assertions": 188,
+      "failures": [
+        "explicit_third_weave_cycle/normal walking actually reaches lower side branch",
+        "explicit_third_weave_cycle/wide middle receiver stays safe through full moving third weave",
+        "explicit_phase2_weave_observer/wide inner support truly permits observation without hidden damage",
+        "explicit_phase2_weave_observer/purpose borrow attack return uses no immunity or damage refund"
+      ],
+      "files": [
+        "failures/32/capture.json.gz",
+        "failures/32/receipt.json.gz",
+        "failures/32/native.log"
+      ]
+    },
+    "33": {
+      "status": "original actual FAILED, no retag/retry within this capture",
+      "assertions": 41,
+      "failures": [
+        "explicit_third_weave_cycle/normal walking actually reaches lower side branch"
+      ],
+      "files": [
+        "failures/33/capture.json.gz",
+        "failures/33/receipt.json.gz",
+        "failures/33/native.log"
+      ]
+    },
+    "34b": {
+      "status": "original actual FAILED, no retag/retry within this capture",
+      "assertions": 43,
+      "failures": [
+        "explicit_third_weave_cycle/real old patrol completes before ordinary transfer to rising-field observation",
+        "explicit_third_weave_cycle/ordinary gap jump begins with full actual body on middle support",
+        "explicit_third_weave_cycle/ordinary input actually reaches lower side branch with complete body support",
+        "explicit_third_weave_cycle/slow visible rising weave really pressures old side-branch shooting place through Policy",
+        "explicit_third_weave_cycle/ordinary jump and single R regain wide safe middle receiver",
+        "explicit_third_weave_cycle/third weave really completes full upward and downward traversal",
+        "explicit_third_weave_cycle/real optional H weakens new third 2HP knot",
+        "explicit_third_weave_cycle/real propulsion backshot cuts borrowed third knot and stops same moving weave",
+        "explicit_third_weave_cycle/optional third borrow and cut returns to real middle bank"
+      ],
+      "files": [
+        "failures/34b/capture.json.gz",
+        "failures/34b/receipt.json.gz",
+        "failures/34b/native.log"
+      ]
+    },
+    "35": {
+      "status": "original actual FAILED, no retag/retry within this capture",
+      "assertions": 14,
+      "failures": [
+        "explicit_third_weave_cycle/ordinary input actually reaches lower side branch with complete body support"
+      ],
+      "files": [
+        "failures/35/capture.json.gz",
+        "failures/35/receipt.json.gz",
+        "failures/35/native.log"
+      ]
+    }
+  },
+  "source_selected_count": 13,
+  "artifacts": [
+    {
+      "path": "original-build-package.json.gz",
+      "sha256": "1ab1ec2c0d73ace7c40c98c96354fe1a2256be5e42a33fad3c698708d0458163",
+      "bytes": 5380,
+      "original_path": "build/forest_depth/queen/whole36-review-package/package.json",
+      "original_sha256": "0c873590c380fccf10ace4ef0d65f3b6f74a7b9f41f463454a9e84381be7c9e0",
+      "original_bytes": 22746,
+      "encoding": "lossless gzip, mtime0",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "sources/scripts/bosses/thorn_queen_v2.gd.txt",
+      "sha256": "3c964fe228f95e796304ce666a3f3e4b651f5a3eb902d05b4ccb252d7fe62026",
+      "bytes": 17867,
+      "original_path": "build/forest_depth/queen/whole36-review-package/source/scripts/bosses/thorn_queen_v2.gd",
+      "original_sha256": "3c964fe228f95e796304ce666a3f3e4b651f5a3eb902d05b4ccb252d7fe62026",
+      "original_bytes": 17867,
+      "encoding": "exact bytes",
+      "kind": "exact frozen production/verifier source, txt suffix prevents Godot import"
+    },
+    {
+      "path": "sources/scripts/bosses/thorn_queen_weave_motor.gd.txt",
+      "sha256": "fde9f2d848dfc435d76510aa2e15623b5e5ff9569cffdcc5c4fe9ab4bcb1acdb",
+      "bytes": 1578,
+      "original_path": "build/forest_depth/queen/whole36-review-package/source/scripts/bosses/thorn_queen_weave_motor.gd",
+      "original_sha256": "fde9f2d848dfc435d76510aa2e15623b5e5ff9569cffdcc5c4fe9ab4bcb1acdb",
+      "original_bytes": 1578,
+      "encoding": "exact bytes",
+      "kind": "exact frozen production/verifier source, txt suffix prevents Godot import"
+    },
+    {
+      "path": "sources/scripts/bosses/thorn_queen_weave_definition.gd.txt",
+      "sha256": "26b15f4a08bfda9f45ae6899406e9825565b05c85886b1e7bf479f15d9d81257",
+      "bytes": 4573,
+      "original_path": "build/forest_depth/queen/whole36-review-package/source/scripts/bosses/thorn_queen_weave_definition.gd",
+      "original_sha256": "26b15f4a08bfda9f45ae6899406e9825565b05c85886b1e7bf479f15d9d81257",
+      "original_bytes": 4573,
+      "encoding": "exact bytes",
+      "kind": "exact frozen production/verifier source, txt suffix prevents Godot import"
+    },
+    {
+      "path": "sources/scripts/bosses/thorn_queen_weave_presentation.gd.txt",
+      "sha256": "aa5c3d31fce1a5781a8fa5ce3c7adde47f67b551fd5827e59e9be77040055554",
+      "bytes": 976,
+      "original_path": "build/forest_depth/queen/whole36-review-package/source/scripts/bosses/thorn_queen_weave_presentation.gd",
+      "original_sha256": "aa5c3d31fce1a5781a8fa5ce3c7adde47f67b551fd5827e59e9be77040055554",
+      "original_bytes": 976,
+      "encoding": "exact bytes",
+      "kind": "exact frozen production/verifier source, txt suffix prevents Godot import"
+    },
+    {
+      "path": "sources/scripts/bosses/thorn_queen_weave_knot.gd.txt",
+      "sha256": "9a728e933d94cb7e95dc64c88cabf0822f6989cedb36952056ca0fbea74d7e32",
+      "bytes": 2269,
+      "original_path": "build/forest_depth/queen/whole36-review-package/source/scripts/bosses/thorn_queen_weave_knot.gd",
+      "original_sha256": "9a728e933d94cb7e95dc64c88cabf0822f6989cedb36952056ca0fbea74d7e32",
+      "original_bytes": 2269,
+      "encoding": "exact bytes",
+      "kind": "exact frozen production/verifier source, txt suffix prevents Godot import"
+    },
+    {
+      "path": "sources/scripts/bosses/thorn_queen_weave_band.gd.txt",
+      "sha256": "404fd7f88f65ba2f92ff6191758b1a076f390edd6e791e809d7abcafe33ec8e4",
+      "bytes": 11197,
+      "original_path": "build/forest_depth/queen/whole36-review-package/source/scripts/bosses/thorn_queen_weave_band.gd",
+      "original_sha256": "404fd7f88f65ba2f92ff6191758b1a076f390edd6e791e809d7abcafe33ec8e4",
+      "original_bytes": 11197,
+      "encoding": "exact bytes",
+      "kind": "exact frozen production/verifier source, txt suffix prevents Godot import"
+    },
+    {
+      "path": "sources/scenes/bosses/thorn_queen.tscn.txt",
+      "sha256": "fffdcd28cac17ee8621e3d14965502f7908cff0545fa39f0b0eb40ab3c42474e",
+      "bytes": 1091,
+      "original_path": "build/forest_depth/queen/whole36-review-package/source/scenes/bosses/thorn_queen.tscn",
+      "original_sha256": "fffdcd28cac17ee8621e3d14965502f7908cff0545fa39f0b0eb40ab3c42474e",
+      "original_bytes": 1091,
+      "encoding": "exact bytes",
+      "kind": "exact frozen production/verifier source, txt suffix prevents Godot import"
+    },
+    {
+      "path": "sources/scenes/bosses/thorn_queen_v2.tscn.txt",
+      "sha256": "38e391089c5e2669bddaba0e9cdddbb1836f57ec3ee7873948f5871cbee0e443",
+      "bytes": 1107,
+      "original_path": "build/forest_depth/queen/whole36-review-package/source/scenes/bosses/thorn_queen_v2.tscn",
+      "original_sha256": "38e391089c5e2669bddaba0e9cdddbb1836f57ec3ee7873948f5871cbee0e443",
+      "original_bytes": 1107,
+      "encoding": "exact bytes",
+      "kind": "exact frozen production/verifier source, txt suffix prevents Godot import"
+    },
+    {
+      "path": "sources/resources/bosses/thorn_queen_v2.tres.txt",
+      "sha256": "b618a46c4ad151067e428b3a81b13b8f572a1159245d0f7e0f075d8070c9152d",
+      "bytes": 901,
+      "original_path": "build/forest_depth/queen/whole36-review-package/source/resources/bosses/thorn_queen_v2.tres",
+      "original_sha256": "b618a46c4ad151067e428b3a81b13b8f572a1159245d0f7e0f075d8070c9152d",
+      "original_bytes": 901,
+      "encoding": "exact bytes",
+      "kind": "exact frozen production/verifier source, txt suffix prevents Godot import"
+    },
+    {
+      "path": "sources/resources/bosses/thorn_queen.tres.txt",
+      "sha256": "c07006c759e38a7846e52e5d0e02d154a56b67703999f8c6cab57cf6c4d9509a",
+      "bytes": 728,
+      "original_path": "build/forest_depth/queen/whole36-review-package/source/resources/bosses/thorn_queen.tres",
+      "original_sha256": "c07006c759e38a7846e52e5d0e02d154a56b67703999f8c6cab57cf6c4d9509a",
+      "original_bytes": 728,
+      "encoding": "exact bytes",
+      "kind": "exact frozen production/verifier source, txt suffix prevents Godot import"
+    },
+    {
+      "path": "sources/tests/support/forest_queen_gameplay_fixture.gd.txt",
+      "sha256": "142a8c6ce0d04253fc3fe7dd86d46eb6e6e89c1dcb3ef2aad4aee7a748727b45",
+      "bytes": 17437,
+      "original_path": "build/forest_depth/queen/whole36-review-package/source/tests/support/forest_queen_gameplay_fixture.gd",
+      "original_sha256": "142a8c6ce0d04253fc3fe7dd86d46eb6e6e89c1dcb3ef2aad4aee7a748727b45",
+      "original_bytes": 17437,
+      "encoding": "exact bytes",
+      "kind": "exact frozen production/verifier source, txt suffix prevents Godot import"
+    },
+    {
+      "path": "sources/tests/thorn_queen_sweep_runner.gd.txt",
+      "sha256": "a5f9e69af97e11fc23f4dc3646e1e2525349f7602f83c51bf32d5d1fa6a3728d",
+      "bytes": 43086,
+      "original_path": "build/forest_depth/queen/whole36-review-package/source/tests/thorn_queen_sweep_runner.gd",
+      "original_sha256": "a5f9e69af97e11fc23f4dc3646e1e2525349f7602f83c51bf32d5d1fa6a3728d",
+      "original_bytes": 43086,
+      "encoding": "exact bytes",
+      "kind": "exact frozen production/verifier source, txt suffix prevents Godot import"
+    },
+    {
+      "path": "sources/tools/run_thorn_queen_sweep.py.txt",
+      "sha256": "4111f8e6ee4b3b1e6c79f24dea68a8a5c316e2ba80ebb9fdb80391596b426a8d",
+      "bytes": 11091,
+      "original_path": "build/forest_depth/queen/whole36-review-package/source/tools/run_thorn_queen_sweep.py",
+      "original_sha256": "4111f8e6ee4b3b1e6c79f24dea68a8a5c316e2ba80ebb9fdb80391596b426a8d",
+      "original_bytes": 11091,
+      "encoding": "exact bytes",
+      "kind": "exact frozen production/verifier source, txt suffix prevents Godot import"
+    },
+    {
+      "path": "producers/capture_queen36_complete_movie.py.txt",
+      "sha256": "24ef55f37778e34e9f652bf940fdb020c92675a1f269fb7474d8a5af7571ec91",
+      "bytes": 5744,
+      "original_path": "build/forest_depth/queen/capture_queen36_complete_movie.py",
+      "original_sha256": "24ef55f37778e34e9f652bf940fdb020c92675a1f269fb7474d8a5af7571ec91",
+      "original_bytes": 5744,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "producers/run_snapshot36_local.py.txt",
+      "sha256": "2efb92f3f7e9dde8466ba89afef6c076f16127aa416da943393a78cd0121529f",
+      "bytes": 1820,
+      "original_path": "build/forest_depth/queen/run_snapshot36_local.py",
+      "original_sha256": "2efb92f3f7e9dde8466ba89afef6c076f16127aa416da943393a78cd0121529f",
+      "original_bytes": 1820,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "producers/copy_cold_snapshot.py.txt",
+      "sha256": "5d1d8ad382f77962302397f463e29e09ea9dbdeca4380f1850308280ec4948d1",
+      "bytes": 4053,
+      "original_path": "build/forest_depth/region/map2-copy-disk-failure/copy_cold_snapshot.py",
+      "original_sha256": "5d1d8ad382f77962302397f463e29e09ea9dbdeca4380f1850308280ec4948d1",
+      "original_bytes": 4053,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "inventories/actual-main-snapshot-receipt.json.gz",
+      "sha256": "e8f51757bd83708381f5215d82598a42a667b87397388032d2eaf124c9e95365",
+      "bytes": 103699,
+      "original_path": "build/forest_depth/snapshots/queen36-local-causal-pressure/build/snapshot-receipt.json",
+      "original_sha256": "3996fb36627e9b67baca6e96e525e2ac6963c3db6064affd99affcaa7149c262",
+      "original_bytes": 280376,
+      "encoding": "lossless gzip, mtime0",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "movies/adaptive_H/gameplay.mp4",
+      "sha256": "40670d5211233444a5c655143c05ee0272c29b79ec5dbc4877763e5ea9c809da",
+      "bytes": 1723211,
+      "original_path": "build/forest_depth/queen/movie36_adaptive_H/gameplay.mp4",
+      "original_sha256": "40670d5211233444a5c655143c05ee0272c29b79ec5dbc4877763e5ea9c809da",
+      "original_bytes": 1723211,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "movies/adaptive_H/native.log",
+      "sha256": "f0d29f96e2bec7d15f9df3b1f4bbd23358775bf670d956d8b8473561c2547246",
+      "bytes": 1299,
+      "original_path": "build/forest_depth/queen/movie36_adaptive_H/native.log",
+      "original_sha256": "f0d29f96e2bec7d15f9df3b1f4bbd23358775bf670d956d8b8473561c2547246",
+      "original_bytes": 1299,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "movies/adaptive_H/receipt.json.gz",
+      "sha256": "6fe40f324add3e270ceff393df62b6d444f872e2fede50b40dab5c1260d1a9f0",
+      "bytes": 278821,
+      "original_path": "build/forest_depth/queen/movie36_adaptive_H/receipt.json",
+      "original_sha256": "6f37761aadb84833c5760253d5b8e99caee5571bc15657a1de1b8388add78770",
+      "original_bytes": 706125,
+      "encoding": "lossless gzip, mtime0",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "movies/adaptive_H/capture.json.gz",
+      "sha256": "2f15004c1dae875bed498a645784e9395a35425476bd48044fc24f84b8fd5d65",
+      "bytes": 106661,
+      "original_path": "build/forest_depth/queen/movie36_adaptive_H/capture.json",
+      "original_sha256": "25d327b8fdc6bbbd2d74162629390f2d4e53913095f9112b6af1e60b564ee565",
+      "original_bytes": 1943450,
+      "encoding": "lossless gzip, mtime0",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "movies/adaptive_H/input-timeline.json.gz",
+      "sha256": "2593fda54bdfc9d4f9c4274e06b644791fafb1767fe6bb11decef9313e753643",
+      "bytes": 4067,
+      "original_path": "build/forest_depth/queen/whole36-review-package/adaptive_H-timeline.json",
+      "original_sha256": "22de9716245c0cf74b547284f6db3bf2077132ff5f53cb1a2dde07aa02b9fdd1",
+      "original_bytes": 38485,
+      "encoding": "lossless gzip, mtime0",
+      "kind": "derived selection of original events; exact original capture also included"
+    },
+    {
+      "path": "movies/adaptive_H/keyframes/frame-01.png",
+      "sha256": "ffdc809d7d287ff87f45e3e5351b4266f6e52798e1fbbbdfa4a7b7db0cdb9b0b",
+      "bytes": 161595,
+      "original_path": "build/forest_depth/queen/movie36_adaptive_H/frame-01.png",
+      "original_sha256": "ffdc809d7d287ff87f45e3e5351b4266f6e52798e1fbbbdfa4a7b7db0cdb9b0b",
+      "original_bytes": 161595,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "movies/adaptive_H/keyframes/frame-02.png",
+      "sha256": "a1058f84f45e52b4187129964b4d25d79f3dfa5f329a568787ad69b403eae8c1",
+      "bytes": 184652,
+      "original_path": "build/forest_depth/queen/movie36_adaptive_H/frame-02.png",
+      "original_sha256": "a1058f84f45e52b4187129964b4d25d79f3dfa5f329a568787ad69b403eae8c1",
+      "original_bytes": 184652,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "movies/adaptive_H/keyframes/frame-03.png",
+      "sha256": "2236e1f8fd21e6ff5f0e82585cc93ddde3466b4b6a13b5878588557a7e0ff1b4",
+      "bytes": 181409,
+      "original_path": "build/forest_depth/queen/movie36_adaptive_H/frame-03.png",
+      "original_sha256": "2236e1f8fd21e6ff5f0e82585cc93ddde3466b4b6a13b5878588557a7e0ff1b4",
+      "original_bytes": 181409,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "movies/adaptive_H/keyframes/frame-04.png",
+      "sha256": "ce92a8db66fdf7dcef1b164da70b70008699a1f5fb251e98105a5ccafb27dd1e",
+      "bytes": 187386,
+      "original_path": "build/forest_depth/queen/movie36_adaptive_H/frame-04.png",
+      "original_sha256": "ce92a8db66fdf7dcef1b164da70b70008699a1f5fb251e98105a5ccafb27dd1e",
+      "original_bytes": 187386,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "movies/adaptive_H/keyframes/frame-05.png",
+      "sha256": "5df1471d1c9fee5ff2169e210d887e098f83613f2006b24d6e633c3c9351cca2",
+      "bytes": 189004,
+      "original_path": "build/forest_depth/queen/movie36_adaptive_H/frame-05.png",
+      "original_sha256": "5df1471d1c9fee5ff2169e210d887e098f83613f2006b24d6e633c3c9351cca2",
+      "original_bytes": 189004,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "movies/adaptive_H/keyframes/frame-06.png",
+      "sha256": "68c3694e25a7c3f2753643f188df593863f3e09ff04a258846e3d4966aabc5dd",
+      "bytes": 190855,
+      "original_path": "build/forest_depth/queen/movie36_adaptive_H/frame-06.png",
+      "original_sha256": "68c3694e25a7c3f2753643f188df593863f3e09ff04a258846e3d4966aabc5dd",
+      "original_bytes": 190855,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "movies/adaptive_H/keyframes/frame-07.png",
+      "sha256": "3ca2ecb7539fcb79ae41f3a4bc6abd5cec3e448bd12096c9f81e9bc3112180f9",
+      "bytes": 190655,
+      "original_path": "build/forest_depth/queen/movie36_adaptive_H/frame-07.png",
+      "original_sha256": "3ca2ecb7539fcb79ae41f3a4bc6abd5cec3e448bd12096c9f81e9bc3112180f9",
+      "original_bytes": 190655,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "movies/edge/gameplay.mp4",
+      "sha256": "70cdeca4b3067cacd4ce045cfb17a5f946e192fa4218cf74a7529d9b1b772e19",
+      "bytes": 1580172,
+      "original_path": "build/forest_depth/queen/movie36_edge/gameplay.mp4",
+      "original_sha256": "70cdeca4b3067cacd4ce045cfb17a5f946e192fa4218cf74a7529d9b1b772e19",
+      "original_bytes": 1580172,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "movies/edge/native.log",
+      "sha256": "e03799c9fb2e0bbbf34f2d8eea92815d4d815614e3e8054f43b851f804ff4677",
+      "bytes": 1292,
+      "original_path": "build/forest_depth/queen/movie36_edge/native.log",
+      "original_sha256": "e03799c9fb2e0bbbf34f2d8eea92815d4d815614e3e8054f43b851f804ff4677",
+      "original_bytes": 1292,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "movies/edge/receipt.json.gz",
+      "sha256": "537899eb14c08a102500ae4a47ba8e25f77c1c080cd3f0cad5d0a2e3b731b50f",
+      "bytes": 278467,
+      "original_path": "build/forest_depth/queen/movie36_edge/receipt.json",
+      "original_sha256": "3ac226ce879bcf3f26563820ef91e57befd33c6d9fcfadd9a88b592b5045e78f",
+      "original_bytes": 705116,
+      "encoding": "lossless gzip, mtime0",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "movies/edge/capture.json.gz",
+      "sha256": "8b15b0df972a8a10a28c267f063e8be1f2de7528c6fdcca433f6a95d75cfe534",
+      "bytes": 108516,
+      "original_path": "build/forest_depth/queen/movie36_edge/capture.json",
+      "original_sha256": "8d51610de017138eaa05043938a8f1c979c36943ef181ead8711bdcfc36a5766",
+      "original_bytes": 1478300,
+      "encoding": "lossless gzip, mtime0",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "movies/edge/input-timeline.json.gz",
+      "sha256": "8e27d1001df52e71c8caf842dcf2aa802374c596f8e3e17035577d797de183ed",
+      "bytes": 3135,
+      "original_path": "build/forest_depth/queen/whole36-review-package/edge-timeline.json",
+      "original_sha256": "78efa7cfe9949e6b5b4999f6f605dc297e9aded71f948105ec70df356563c27f",
+      "original_bytes": 31650,
+      "encoding": "lossless gzip, mtime0",
+      "kind": "derived selection of original events; exact original capture also included"
+    },
+    {
+      "path": "movies/edge/keyframes/frame-01.png",
+      "sha256": "888b2591f3b68c1f99322fda4c442882461631f1d099a4f2892f9784b9f76d69",
+      "bytes": 162919,
+      "original_path": "build/forest_depth/queen/movie36_edge/frame-01.png",
+      "original_sha256": "888b2591f3b68c1f99322fda4c442882461631f1d099a4f2892f9784b9f76d69",
+      "original_bytes": 162919,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "movies/edge/keyframes/frame-02.png",
+      "sha256": "7b2d1cea4dc108f7c26b1f9b11190c2b8ae121be942d27fb4286416511978871",
+      "bytes": 214329,
+      "original_path": "build/forest_depth/queen/movie36_edge/frame-02.png",
+      "original_sha256": "7b2d1cea4dc108f7c26b1f9b11190c2b8ae121be942d27fb4286416511978871",
+      "original_bytes": 214329,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "movies/edge/keyframes/frame-03.png",
+      "sha256": "9a76008787fd22d34bd1c44abb9962b9f9a22c304d7558ed2694c8ba3a9d7621",
+      "bytes": 176661,
+      "original_path": "build/forest_depth/queen/movie36_edge/frame-03.png",
+      "original_sha256": "9a76008787fd22d34bd1c44abb9962b9f9a22c304d7558ed2694c8ba3a9d7621",
+      "original_bytes": 176661,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "movies/edge/keyframes/frame-04.png",
+      "sha256": "36a0f08f3f7b317594d0c4960a86909de84ed578f3f0147f3905f3e77abbd962",
+      "bytes": 203005,
+      "original_path": "build/forest_depth/queen/movie36_edge/frame-04.png",
+      "original_sha256": "36a0f08f3f7b317594d0c4960a86909de84ed578f3f0147f3905f3e77abbd962",
+      "original_bytes": 203005,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "movies/edge/keyframes/frame-05.png",
+      "sha256": "d509ac04cb8596729ec4777237dad65c5d99065dbb74c68d4a02cc84ba2af447",
+      "bytes": 210330,
+      "original_path": "build/forest_depth/queen/movie36_edge/frame-05.png",
+      "original_sha256": "d509ac04cb8596729ec4777237dad65c5d99065dbb74c68d4a02cc84ba2af447",
+      "original_bytes": 210330,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "movies/edge/keyframes/frame-06.png",
+      "sha256": "9c1f2bef1c4295a48831f3161872562ad1ddf9fee88804fad59cda011fa97fb5",
+      "bytes": 219453,
+      "original_path": "build/forest_depth/queen/movie36_edge/frame-06.png",
+      "original_sha256": "9c1f2bef1c4295a48831f3161872562ad1ddf9fee88804fad59cda011fa97fb5",
+      "original_bytes": 219453,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "movies/edge/keyframes/frame-07.png",
+      "sha256": "6524d9f8edd9b1f73307b86de06824318596354d856e9f2e3d390e7ba6e3cd9b",
+      "bytes": 219289,
+      "original_path": "build/forest_depth/queen/movie36_edge/frame-07.png",
+      "original_sha256": "6524d9f8edd9b1f73307b86de06824318596354d856e9f2e3d390e7ba6e3cd9b",
+      "original_bytes": 219289,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "locals/rising/capture.json.gz",
+      "sha256": "98f51067721214e944faf3f801c2b2ca5d98124a7ca40cb8f82508bef9e0c2ec",
+      "bytes": 97015,
+      "original_path": "build/forest_depth/snapshots/queen36-local-causal-pressure/build/forest_depth/queen/round36-local-rising/capture.json",
+      "original_sha256": "c1f5b1b223a82e2e6d201df659cdd8ffcf1b6444a2962ecd2fc5d1be18d62186",
+      "original_bytes": 1932104,
+      "encoding": "lossless gzip, mtime0",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "locals/rising/receipt.json.gz",
+      "sha256": "fcdb591f28943114bd2d884d1ca07e973a3e2337182eb94c894187f6eeda2bbe",
+      "bytes": 88513,
+      "original_path": "build/forest_depth/snapshots/queen36-local-causal-pressure/build/forest_depth/queen/round36-local-rising/receipt.json",
+      "original_sha256": "ac34d33aef637fef32bdf9ca35407d2a6367609b3b96dfb71fd8acb3ec908d74",
+      "original_bytes": 221837,
+      "encoding": "lossless gzip, mtime0",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "locals/rising/native.log",
+      "sha256": "1dda590c0a0a06204436b030dbab19122143b4e25878ebf4064ee95e656da4eb",
+      "bytes": 188,
+      "original_path": "build/forest_depth/snapshots/queen36-local-causal-pressure/build/forest_depth/queen/round36-local-rising/native.log",
+      "original_sha256": "1dda590c0a0a06204436b030dbab19122143b4e25878ebf4064ee95e656da4eb",
+      "original_bytes": 188,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "locals/rising/import.log",
+      "sha256": "37cf7b1460e2e6a5052b1c70a1074d50a96a04a36abef551ed17b0a6cda9ed23",
+      "bytes": 76375,
+      "original_path": "build/forest_depth/snapshots/queen36-local-causal-pressure/build/forest_depth/queen/round36-local-rising/import.log",
+      "original_sha256": "37cf7b1460e2e6a5052b1c70a1074d50a96a04a36abef551ed17b0a6cda9ed23",
+      "original_bytes": 76375,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "locals/observer/capture.json.gz",
+      "sha256": "9ef9c7cabab8cca06b58e089ab05ce5b220fdc34a487332597d2872688e22314",
+      "bytes": 236298,
+      "original_path": "build/forest_depth/snapshots/queen36-local-causal-pressure/build/forest_depth/queen/round36-local-observer/capture.json",
+      "original_sha256": "f3c561650d1727f07fa076919561b045c807206a4ccf039ec2aea683e0d1204a",
+      "original_bytes": 3545944,
+      "encoding": "lossless gzip, mtime0",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "locals/observer/receipt.json.gz",
+      "sha256": "ae742bd4558493a58facfe0d448468009cef656eb6a6d0bb88e518a83ab95c12",
+      "bytes": 88515,
+      "original_path": "build/forest_depth/snapshots/queen36-local-causal-pressure/build/forest_depth/queen/round36-local-observer/receipt.json",
+      "original_sha256": "6907c34d9b53eb7d266ffe1b6d5487d2cab8fe0549912fa3d5f8e04012ff0a42",
+      "original_bytes": 221839,
+      "encoding": "lossless gzip, mtime0",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "locals/observer/native.log",
+      "sha256": "42b99dfa1c56c6086ef0b59516c0c2839fd1ebf8f334426cb75e07a7f8333d07",
+      "bytes": 188,
+      "original_path": "build/forest_depth/snapshots/queen36-local-causal-pressure/build/forest_depth/queen/round36-local-observer/native.log",
+      "original_sha256": "42b99dfa1c56c6086ef0b59516c0c2839fd1ebf8f334426cb75e07a7f8333d07",
+      "original_bytes": 188,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "locals/observer/import.log",
+      "sha256": "f15ffd4c558b01611d562c8c257508942bdc2dc542124f423ae2a592a46edfa6",
+      "bytes": 1017,
+      "original_path": "build/forest_depth/snapshots/queen36-local-causal-pressure/build/forest_depth/queen/round36-local-observer/import.log",
+      "original_sha256": "f15ffd4c558b01611d562c8c257508942bdc2dc542124f423ae2a592a46edfa6",
+      "original_bytes": 1017,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "locals/actual-outer-receipt.json",
+      "sha256": "a861ef0146fc29b0987fc91cea36804445e35316897aff00dfe1771166a3b9ea",
+      "bytes": 936,
+      "original_path": "build/forest_depth/queen/round36-local-outer/receipt.json",
+      "original_sha256": "a861ef0146fc29b0987fc91cea36804445e35316897aff00dfe1771166a3b9ea",
+      "original_bytes": 936,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "local-contract/CONTRACT.md.txt",
+      "sha256": "dbb8c1aa007091165ebdd64755dcd11a9cb3197340c56de2e6e5a9edbe776d87",
+      "bytes": 2617,
+      "original_path": "build/forest_depth/queen/round36-static-contract/CONTRACT.md",
+      "original_sha256": "dbb8c1aa007091165ebdd64755dcd11a9cb3197340c56de2e6e5a9edbe776d87",
+      "original_bytes": 2617,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "local-contract/counterexample-rejection.json",
+      "sha256": "3ec8a4c7f21ed56c8e494246a06cf3d3ecdf9cc0ed71855315cb9d36ad0268d5",
+      "bytes": 642,
+      "original_path": "build/forest_depth/queen/round36-static-contract/counterexample-rejection.json",
+      "original_sha256": "3ec8a4c7f21ed56c8e494246a06cf3d3ecdf9cc0ed71855315cb9d36ad0268d5",
+      "original_bytes": 642,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "local-contract/production-proof.json",
+      "sha256": "ca14a2da567bf2db221b2a2231ab5cb31d5e2658d9b45896a85d6f5fad61fb31",
+      "bytes": 1122,
+      "original_path": "build/forest_depth/queen/round36-static-contract/production-proof.json",
+      "original_sha256": "ca14a2da567bf2db221b2a2231ab5cb31d5e2658d9b45896a85d6f5fad61fb31",
+      "original_bytes": 1122,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "failures/movie23_H/receipt.json.gz",
+      "sha256": "a5c1968bb1a241d4101eedc5d64931727d3ce250ec6da9a1f62607b63cf3fb3f",
+      "bytes": 44473,
+      "original_path": "build/forest_depth/queen/movie23_H/receipt.json",
+      "original_sha256": "8d244fa8ad0d6c0993f61b84155d8459c4606cbfc8e6a9893bc11e28b007d973",
+      "original_bytes": 110879,
+      "encoding": "lossless gzip, mtime0",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "failures/movie23_H/native.log",
+      "sha256": "3f04e85a255c1d259a30ca97bbbce8ec5e41cc3ff2e9793587b9b50841201a92",
+      "bytes": 640,
+      "original_path": "build/forest_depth/queen/movie23_H/native.log",
+      "original_sha256": "3f04e85a255c1d259a30ca97bbbce8ec5e41cc3ff2e9793587b9b50841201a92",
+      "original_bytes": 640,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "failures/movie24_H/receipt.json.gz",
+      "sha256": "37ad6693154c5b4f2f9eaeaff947e6b37e8449313703848621d724b593abd66c",
+      "bytes": 44472,
+      "original_path": "build/forest_depth/queen/movie24_H/receipt.json",
+      "original_sha256": "33cb38d5132f20d9b6dd04c93d8dd2cf50c12e4ee81d70c6c2bb45cfc57cb1ae",
+      "original_bytes": 110877,
+      "encoding": "lossless gzip, mtime0",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "failures/movie24_H/native.log",
+      "sha256": "103645fc9e8928dbaeeff3deb9897af6db30f434f7a4e949d01ac62b9b508565",
+      "bytes": 640,
+      "original_path": "build/forest_depth/queen/movie24_H/native.log",
+      "original_sha256": "103645fc9e8928dbaeeff3deb9897af6db30f434f7a4e949d01ac62b9b508565",
+      "original_bytes": 640,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "failures/32/capture.json.gz",
+      "sha256": "2b6a2fde8ea543288460c94cd09d3330c61cee9f009569e293c5e18da9949a14",
+      "bytes": 1124270,
+      "original_path": "build/forest_depth/snapshots/queen32-no-forced-third-H/build/forest_depth/queen/round32-canonical-all/capture.json",
+      "original_sha256": "498ce3cbca30f1b24ddd651e9b8ec0a14f37295c3641bbd8aa86b0fab001ae24",
+      "original_bytes": 18057161,
+      "encoding": "lossless gzip, mtime0",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "failures/32/receipt.json.gz",
+      "sha256": "ab2175d807246cf6b4cca6d046e73112ae717edb111cb0ddbdf0970ca0aec689",
+      "bytes": 88213,
+      "original_path": "build/forest_depth/snapshots/queen32-no-forced-third-H/build/forest_depth/queen/round32-canonical-all/receipt.json",
+      "original_sha256": "1878f88ae638a2d5e560f917f8389b58c48a0b1b4fe273678abee63a54cfbce3",
+      "original_bytes": 220991,
+      "encoding": "lossless gzip, mtime0",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "failures/32/native.log",
+      "sha256": "840113c099549fb803064d4cb79fa7476899e36e723adf65e36add09d107bc9d",
+      "bytes": 1332,
+      "original_path": "build/forest_depth/snapshots/queen32-no-forced-third-H/build/forest_depth/queen/round32-canonical-all/native.log",
+      "original_sha256": "840113c099549fb803064d4cb79fa7476899e36e723adf65e36add09d107bc9d",
+      "original_bytes": 1332,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "failures/33/capture.json.gz",
+      "sha256": "1b6706f74c6f873a712f17888a2b765a64a5c791bca85536dcfc310df0e2a8e5",
+      "bytes": 81944,
+      "original_path": "build/forest_depth/snapshots/queen33-local-ordinary-avoidance/build/forest_depth/queen/round33-local-rising/capture.json",
+      "original_sha256": "101d45b34236000c2077fb7bc14d20185cbbd39a4bf33a3d54fc2ae0e0fa4ba7",
+      "original_bytes": 1488140,
+      "encoding": "lossless gzip, mtime0",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "failures/33/receipt.json.gz",
+      "sha256": "d36a43ef25d4d1aa1912cb6e77046a61bb89cd183abc5e4238c36f250e516818",
+      "bytes": 88215,
+      "original_path": "build/forest_depth/snapshots/queen33-local-ordinary-avoidance/build/forest_depth/queen/round33-local-rising/receipt.json",
+      "original_sha256": "aa5291209bfd89b55d630c6d4accf583885ce73996c6174886563a314b6d5637",
+      "original_bytes": 221006,
+      "encoding": "lossless gzip, mtime0",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "failures/33/native.log",
+      "sha256": "77a4b4eaccf0a23a483eca6eee908e0a063650ab60baf07686a27862d735ac8c",
+      "bytes": 271,
+      "original_path": "build/forest_depth/snapshots/queen33-local-ordinary-avoidance/build/forest_depth/queen/round33-local-rising/native.log",
+      "original_sha256": "77a4b4eaccf0a23a483eca6eee908e0a063650ab60baf07686a27862d735ac8c",
+      "original_bytes": 271,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "failures/34b/capture.json.gz",
+      "sha256": "4a6103e9ffccd395b54b43538fc97d963229b33c54ac31a273d4ba575fbfb286",
+      "bytes": 121770,
+      "original_path": "build/forest_depth/snapshots/queen34b-local-gap-jump-after-patrol/build/forest_depth/queen/round34b-local-rising/capture.json",
+      "original_sha256": "5af712fe1c56cdd9afa233a40b2ec9434b8c136785e1b4f131365ad3639bd173",
+      "original_bytes": 4058392,
+      "encoding": "lossless gzip, mtime0",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "failures/34b/receipt.json.gz",
+      "sha256": "c251f0372106d8e00ea8f5f5c9cf928510cbe8c42fb04917250fa92e15dd1a92",
+      "bytes": 88202,
+      "original_path": "build/forest_depth/snapshots/queen34b-local-gap-jump-after-patrol/build/forest_depth/queen/round34b-local-rising/receipt.json",
+      "original_sha256": "6bc932bbe134e11d1b4227f27d325a5b43f3c2e346c3a7e94a8c615456ca3bfd",
+      "original_bytes": 221016,
+      "encoding": "lossless gzip, mtime0",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "failures/34b/native.log",
+      "sha256": "8c65f661e27b65b2a2ef24424a18c1b23dbf6a67020de0f69557f67d8da3cbac",
+      "bytes": 1098,
+      "original_path": "build/forest_depth/snapshots/queen34b-local-gap-jump-after-patrol/build/forest_depth/queen/round34b-local-rising/native.log",
+      "original_sha256": "8c65f661e27b65b2a2ef24424a18c1b23dbf6a67020de0f69557f67d8da3cbac",
+      "original_bytes": 1098,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "failures/35/capture.json.gz",
+      "sha256": "f4863e647ed4de183a50699f8c28f575412aedb5d9c18796ed619a2bccce7080",
+      "bytes": 67150,
+      "original_path": "build/forest_depth/snapshots/queen35-local-axis-stop/build/forest_depth/queen/round35-local-rising/capture.json",
+      "original_sha256": "1683c7b8416f1ecd7251a56fa364a47c633ccb87bb904c6aaa13e997d72ea7e4",
+      "original_bytes": 1183591,
+      "encoding": "lossless gzip, mtime0",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "failures/35/receipt.json.gz",
+      "sha256": "8c818e9d158c7a48ee5a2a9121b45bd331dc7486da25af6fffe19c98714ec358",
+      "bytes": 88221,
+      "original_path": "build/forest_depth/snapshots/queen35-local-axis-stop/build/forest_depth/queen/round35-local-rising/receipt.json",
+      "original_sha256": "3a0c2a91ac9d50826ef3a75221aca0393eee091a1a384c1c0296ddf14e711de7",
+      "original_bytes": 220987,
+      "encoding": "lossless gzip, mtime0",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "failures/35/native.log",
+      "sha256": "ad187d1ee80d8f6143ae1dbce04a21bce3d8b983e75c327c1871bf4d23afb556",
+      "bytes": 296,
+      "original_path": "build/forest_depth/snapshots/queen35-local-axis-stop/build/forest_depth/queen/round35-local-rising/native.log",
+      "original_sha256": "ad187d1ee80d8f6143ae1dbce04a21bce3d8b983e75c327c1871bf4d23afb556",
+      "original_bytes": 296,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "failures/34b/author-diagnosis.json",
+      "sha256": "5729200c4217dc64d89684512b8ec24f6e42acd6073eaac5f0218a6af84f4673",
+      "bytes": 774,
+      "original_path": "build/forest_depth/queen/round34-preparation/failed34b-diagnosis.json",
+      "original_sha256": "5729200c4217dc64d89684512b8ec24f6e42acd6073eaac5f0218a6af84f4673",
+      "original_bytes": 774,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "failures/35/author-diagnosis.json",
+      "sha256": "46dd8e87f008593f232db158944fe8a4448acbb5bfe13ac8bd2d0fb9c3186a24",
+      "bytes": 1070,
+      "original_path": "build/forest_depth/queen/round35-preparation/diagnosis.json",
+      "original_sha256": "46dd8e87f008593f232db158944fe8a4448acbb5bfe13ac8bd2d0fb9c3186a24",
+      "original_bytes": 1070,
+      "encoding": "exact bytes",
+      "kind": "exact artifact"
+    },
+    {
+      "path": "failures/32/actual-source-receipt.json.gz",
+      "sha256": "bbaaf1af28a9a15cd5fd79ffea98a14d4f3b06084283f31557d72a8915da3503",
+      "bytes": 103372,
+      "original_path": "build/forest_depth/snapshots/queen32-no-forced-third-H/build/snapshot-receipt.json",
+      "original_sha256": "7728abd2ed73cc4fcc72a51b86173a8645fd5f517ff585d1d4f7db05a8384375",
+      "original_bytes": 279504,
+      "encoding": "lossless gzip, mtime0",
+      "kind": "exact original failing capture source inventory"
+    },
+    {
+      "path": "failures/33/actual-source-receipt.json.gz",
+      "sha256": "5cd16830d9511180733f01d0ae2df858792bfd490be830e8f2d6435fd85f0437",
+      "bytes": 103376,
+      "original_path": "build/forest_depth/snapshots/queen33-local-ordinary-avoidance/build/snapshot-receipt.json",
+      "original_sha256": "ad998c4c74b37f76bd647d2e1f91695a6b1a10172a648eff87111ff4da132061",
+      "original_bytes": 279512,
+      "encoding": "lossless gzip, mtime0",
+      "kind": "exact original failing capture source inventory"
+    },
+    {
+      "path": "failures/34b/actual-source-receipt.json.gz",
+      "sha256": "ac06df0b23abb33d26c0ada145ef9b40babe7d7a39ffedaae88e7d1acc5ac5df",
+      "bytes": 103378,
+      "original_path": "build/forest_depth/snapshots/queen34b-local-gap-jump-after-patrol/build/snapshot-receipt.json",
+      "original_sha256": "a7937d7957efbe96a34a9c9bb9f99adb867e9bf0c5d74288dd20ccb24b1e3c0e",
+      "original_bytes": 279516,
+      "encoding": "lossless gzip, mtime0",
+      "kind": "exact original failing capture source inventory"
+    },
+    {
+      "path": "failures/35/actual-source-receipt.json.gz",
+      "sha256": "301b41b0022d5e481e22a4c6fdda27d75fb921bec2b748390b13d81bfa19da4d",
+      "bytes": 103359,
+      "original_path": "build/forest_depth/snapshots/queen35-local-axis-stop/build/snapshot-receipt.json",
+      "original_sha256": "4f14f66b46c9fed9b8dba33db879a2b8b21da365f7ed905d66cbab4da1d50330",
+      "original_bytes": 279503,
+      "encoding": "lossless gzip, mtime0",
+      "kind": "exact original failing capture source inventory"
+    },
+    {
+      "path": "failures/movie23_H/actual-source-receipt.json.gz",
+      "sha256": "eb370804a16aa94a5741f31c214a111bd3a436d50654c9f0b57339bf8136d8c0",
+      "bytes": 103104,
+      "original_path": "build/forest_depth/snapshots/queen23-canonical-full/build/snapshot-receipt.json",
+      "original_sha256": "f04c30fd3a496f6dc2b0d58c95b6f61e7246656a322a9875c9802a954612abba",
+      "original_bytes": 279100,
+      "encoding": "lossless gzip, mtime0",
+      "kind": "exact original failing capture source inventory"
+    },
+    {
+      "path": "failures/movie24_H/actual-source-receipt.json.gz",
+      "sha256": "aad94dc003090d19d3fa5bf34a730b7a09c25a815ea29ba0d467aa3f7f9a01c8",
+      "bytes": 103106,
+      "original_path": "build/forest_depth/snapshots/queen24-purpose-pair/build/snapshot-receipt.json",
+      "original_sha256": "08187367a6a006ca2cfe837168186a3e398ffff8e3c72ca2ec34a39075d5aa42",
+      "original_bytes": 279098,
+      "encoding": "lossless gzip, mtime0",
+      "kind": "exact original failing capture source inventory"
+    },
+    {
+      "path": "README.md",
+      "sha256": "d8d33de1f77a882a426ecafa43252cf0d073fe810dde6bfa6a25c5d9614e6478",
+      "bytes": 5043,
+      "encoding": "generated evidence navigation",
+      "kind": "current selected evidence navigation"
+    },
+    {
+      "path": "keyframe-index.json",
+      "sha256": "ef17eab285b65edc691ca50a9ec19de7c60b29a329220633ead3d34aaae1117d",
+      "bytes": 3257,
+      "encoding": "generated evidence navigation",
+      "kind": "current selected evidence navigation"
+    }
+  ],
+  "not_signed": [
+    "user fun/approval",
+    "device support",
+    "audio quality",
+    "G2 visual polish",
+    "wholeBoss admission",
+    "default region promotion",
+    "current full finalHarness"
+  ],
+  "independent_current_whole_review": "docs/evidence/forest_depth_v2/reviews/queen36/REVIEW.md",
+  "independent_verdict": "LIMITED_CONTINUE playtest/technical integration, not default region/Boss promotion or user/device approval"
+}

@@ -1,0 +1,33 @@
+extends Node
+var checks: Array = []
+var failures := 0
+var cases: Array = []
+func check(value: bool,label: String) -> void:
+	checks.append({"passed":value,"label":label})
+	if not value:failures+=1;printerr("SAVE INDEPENDENT FAIL: "+label)
+func frames(count: int) -> void:
+	for i: int in count:await get_tree().physics_frame;await get_tree().process_frame
+func run() -> void:
+	for mode: String in ["v2","legacy_v10"]:
+		for map_index: int in [1,2]:
+			var seed_value := "independent-old-plains"
+			var label := "%s/map%s" % [mode,map_index]
+			var generator := PlainsRegionGenerator.new();generator.root_bell_mode=mode
+			var expected: Dictionary=generator.generate_before_focus_15(PlainsRegionCampaign.seed_for(seed_value,map_index),PlayerTuning.load_default(),false,"","intro" if map_index==1 else "advanced").manifest
+			var state := PlainsRegionState.new();state.bind_map(expected.manifest_hash);state.claimed["independent_old_claim"]=true
+			var app := DemoApp.new();app.meta_persistence_enabled=false;get_tree().root.add_child(app)
+			check(app.start_debug_region(&"plains",map_index,seed_value),label+" actual cold entry accepts")
+			app.region_states[1]=state
+			await frames(10)
+			var assembled: bool=app.stage is PlainsRegionStage and app.stage.assembly_ok
+			check(assembled,label+" actual old-mode stage assembles")
+			if assembled:
+				check(RandomStageGenerator.new()._same_data(app.stage.generated.manifest,expected),label+" exact entire historical generated manifest")
+				check(app.region_state==state and state.claimed.has("independent_old_claim"),label+" same state and claimed ledger")
+				check(app.controller.motor.tuning.focus_time_scale==.15,label+" runtime uses current focus")
+				var data: Dictionary=JSON.parse_string(app.director.manifest.canonical_json())
+				check(RunManifest.from_snapshot(data)!=null,label+" actual recorded old-mode output remains compatible")
+				cases.append({"mode":mode,"map_index":map_index,"old_hash":expected.manifest_hash,"actual_version":app.stage.generated.manifest.version,"runtime_focus":app.controller.motor.tuning.focus_time_scale,"snapshot":data})
+			app.abandon_run();await frames(4)
+			check(await load("res://tests/audio_teardown.gd").drain_world(app),label+" actual audio drained")
+			app.free();await frames(2)

@@ -1,0 +1,400 @@
+{
+  "schema_version": 1,
+  "task_id": "FOREST-GRAPPLE-CONSUMERS-02",
+  "task_type": "process",
+  "workflow": "in_progress",
+  "baseline_commit": "6c61faadd511c48a267b975550da897e701fd09f",
+  "reviewed_commit": "93c202568d154e37b1d57de1e08ba0c42820e828",
+  "content_version": "scoped verifier migration for FOREST-GRAPPLE-02",
+  "owner": "/root",
+  "purpose": "Migrate explicit old20%/press-hook/defaultv11 consumer expectations to authorized15%/release-hook/v12 contracts while retaining frozen original readers and strict physical/causal guards",
+  "player_experience": "No content admission: ensure verifier accepts actual new legal mechanics, rejects invented credits/hidden lands/mixed versions and does not mask real failures",
+  "constraints": [
+    "Parent region FOREST-GRAPPLE-02 remains in_progress/REVISE; this process scope cannot certify gameplay, art or human acceptance",
+    "Original historical fixtures/readers, every oldcase/assertion/timeout retained unless explicitly superseded by user contract; add exactnewcontract checks",
+    "Causal H contact exception requires real verified enemy projectile receipt; forged/missing credit remains rejected"
+  ],
+  "affected_paths": [
+    "docs/quality/records/FOREST-GRAPPLE-CONSUMERS-02.json",
+    "tests/actor_actions_runner.gd",
+    "tests/aim_save_compat_case.gd",
+    "tests/aim_save_compat_case.gd.uid",
+    "tests/aim_save_compat_runner.gd",
+    "tests/aim_save_compat_runner.gd.uid",
+    "tests/air_focus_tests.gd",
+    "tests/fixtures/forest_recorded_layouts/v11_corpus_map1.json",
+    "tests/fixtures/forest_recorded_layouts/v11_corpus_map2.json",
+    "tests/fixtures/root_bell/pre_focus_15_player_tuning.json",
+    "tests/forest_air_chain_runner.gd",
+    "tests/forest_campaign_runner.gd",
+    "tests/forest_depth_air_chain_case.gd",
+    "tests/forest_depth_grove_combat_case.gd",
+    "tests/forest_depth_region_trace.gd",
+    "tests/forest_depth_version_runner.gd",
+    "tests/forest_progression_debug_runner.gd",
+    "tests/forest_root_retry_runner.gd",
+    "tests/forest_root_retry_runner.gd.uid",
+    "tests/forest_vertical_shortcut_runner.gd",
+    "tests/forest_vertical_shortcut_runner.gd.uid",
+    "tests/grapple_aim_input_runner.gd",
+    "tests/grapple_aim_input_runner.gd.uid",
+    "tests/grapple_feel_runner.gd",
+    "tests/grapple_feel_runner.gd.uid",
+    "tests/grapple_laser_input_runner.gd",
+    "tests/grapple_laser_input_runner.gd.uid",
+    "tests/player_feedback_runner.gd",
+    "tests/root_bell_formal_tests.gd",
+    "tests/support/grapple_legacy_collision.gd",
+    "tests/support/grapple_legacy_collision.gd.uid",
+    "tests/test_forest_vertical_shortcut.py",
+    "tests/test_grapple_feel_wrapper.py",
+    "tests/test_harness.py",
+    "tools/harness/profiles.json",
+    "tools/run_aim_save_compat_tests.py",
+    "tools/run_forest_air_chain.py",
+    "tools/run_forest_depth_campaign_boss.py",
+    "tools/run_forest_depth_region.py",
+    "tools/run_forest_depth_versions.py",
+    "tools/run_forest_vertical_shortcut.py",
+    "tools/run_grapple_feel_tests.py",
+    "tools/test_root_bell_formal_verifier.py",
+    "tools/verify_forest_browser.py"
+  ],
+  "deliverables": [
+    "Versioned exact old/current consumer checks",
+    "Real-input regression and finite strict runtime completion guards",
+    "Different-author scoped test-change review with original failures retained"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Bounded technical regression: published gameS3 original89 CI checks including original80 succeed; new OCR-only consumer additionally tested by actual original20/8/480 GUI. No player, design or commercial admission; local600 timeout and exactZIP403 retained.",
+      "evidence": [
+        "s3-final-ci-status",
+        "s3-public-gui02-cli"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Literal ACCEPT final review03 covers original43 protected paths through S3 review chain,42sameS3 bytes+new independently reviewed OCR helper and actual publicGUI02. Scope bounded to technical consumers; no new-HEAD game rebuild, player/device/design admission.",
+      "evidence": [
+        "final-consumer-public-review03"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [
+    {
+      "id": "scoped-verifier-review",
+      "path": "docs/quality/reviews/FOREST-GRAPPLE-02/verifier_review02.md",
+      "sha256": "0041029307b2008bb706ba8609fedafa5ce4c4a4d6d6f420f36f3c744e5997f1",
+      "kind": "review",
+      "producer": "/root/verifier_migration_review",
+      "source_commit": "6c61faadd511c48a267b975550da897e701fd09f",
+      "content_version": "scoped verifier migration for FOREST-GRAPPLE-02",
+      "method": "Independent read-only exact-byte review and preserved counterexamples",
+      "observed": "ACCEPT only bounded test/tool migration; later exact-marker/output-token amendments separately bound",
+      "reviewer": "/root/verifier_migration_review",
+      "implementers": [
+        "/root",
+        "/root/forest_vertical",
+        "/root/hook_aim_input",
+        "/root/forest_version_compat",
+        "/root/forest_shortcut_probe",
+        "/root/aim_save_migration",
+        "/root/grapple_feel"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Reviewer did not author production/test/tool files; independently read diffs and ran reader counterexamples and 25 Python tests. Followup appendices bind subsequent marker/output-only changes."
+    },
+    {
+      "id": "strict-marker-review",
+      "path": "docs/quality/reviews/FOREST-GRAPPLE-02/verifier_marker_appendix01.json",
+      "sha256": "2992c7a42798c128f916485345e12d9110bf7ed0928ab019b55c9e4a7d5c8667",
+      "kind": "review",
+      "producer": "/root/verifier_migration_review",
+      "source_commit": "6c61faadd511c48a267b975550da897e701fd09f",
+      "content_version": "scoped verifier migration for FOREST-GRAPPLE-02",
+      "method": "Independent read-only exact-byte review and preserved counterexamples",
+      "observed": "Different-author exact-byte incremental ACCEPT; original failures retained, no budget/case/assertion relaxation",
+      "reviewer": "/root/verifier_migration_review",
+      "implementers": [
+        "/root",
+        "/root/forest_vertical",
+        "/root/hook_aim_input",
+        "/root/forest_version_compat",
+        "/root/forest_shortcut_probe",
+        "/root/aim_save_migration",
+        "/root/grapple_feel"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Reviewer did not author production/test/tool files; independently read diffs and ran reader counterexamples and 25 Python tests. Followup appendices bind subsequent marker/output-only changes."
+    },
+    {
+      "id": "fresh-output-token-review",
+      "path": "docs/quality/reviews/FOREST-GRAPPLE-02/verifier_output_token_appendix01.json",
+      "sha256": "b76b98692a316c3e7c45734a2bae6cc3376dba888affc0d1a82dfedc2cb796eb",
+      "kind": "review",
+      "producer": "/root/verifier_migration_review",
+      "source_commit": "6c61faadd511c48a267b975550da897e701fd09f",
+      "content_version": "scoped verifier migration for FOREST-GRAPPLE-02",
+      "method": "Independent read-only exact-byte review and preserved counterexamples",
+      "observed": "Different-author exact-byte incremental ACCEPT; original failures retained, no budget/case/assertion relaxation",
+      "reviewer": "/root/verifier_migration_review",
+      "implementers": [
+        "/root",
+        "/root/forest_vertical",
+        "/root/hook_aim_input",
+        "/root/forest_version_compat",
+        "/root/forest_shortcut_probe",
+        "/root/aim_save_migration",
+        "/root/grapple_feel"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Reviewer did not author production/test/tool files; independently read diffs and ran reader counterexamples and 25 Python tests. Followup appendices bind subsequent marker/output-only changes."
+    },
+    {
+      "id": "rhr-factory-review",
+      "path": "docs/quality/reviews/FOREST-GRAPPLE-02/verifier_rhr_appendix01.json",
+      "sha256": "4167660ec23b27ceba85c863d969a44484b6c5e28af69e82e42d1eae7b1ecfc0",
+      "kind": "review",
+      "producer": "/root/verifier_migration_review",
+      "source_commit": "6c61faadd511c48a267b975550da897e701fd09f",
+      "content_version": "scoped verifier migration for FOREST-GRAPPLE-02",
+      "method": "Different-author read-only current source and actual raw inspection; source SHA and counterexamples in report",
+      "observed": "Finite additive18th factory and strict source-bound reader; original17 remain",
+      "reviewer": "/root/verifier_migration_review",
+      "implementers": [
+        "/root",
+        "/root/forest_vertical"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Reviewer did not author the reviewed implementation; no human, device or whole-region certification"
+    },
+    {
+      "id": "canopy-reader-review",
+      "path": "docs/quality/reviews/FOREST-GRAPPLE-02/verifier_canopy_derivation_appendix01.json",
+      "sha256": "c7af6911e99e517e6386c584004aa44cb5e1ac7f9f83eb655880fa9deb8bc3ed",
+      "kind": "review",
+      "producer": "/root/verifier_migration_review",
+      "source_commit": "6c61faadd511c48a267b975550da897e701fd09f",
+      "content_version": "scoped verifier migration for FOREST-GRAPPLE-02",
+      "method": "Different-author read-only current source and actual raw inspection; source SHA and counterexamples in report",
+      "observed": "Actual canopy positive and8 coherent derivation forgeries rejected",
+      "reviewer": "/root/verifier_migration_review",
+      "implementers": [
+        "/root",
+        "/root/forest_vertical"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Reviewer did not author the reviewed implementation; no human, device or whole-region certification"
+    },
+    {
+      "id": "harness-cli-review",
+      "path": "docs/quality/reviews/FOREST-GRAPPLE-02/verifier_harness_load_tests_appendix01.json",
+      "sha256": "a2dc99f793baaf9704b2a380228679ada0d7da2b80573d47d9aa0bf3cbe0934e",
+      "kind": "review",
+      "producer": "/root/verifier_migration_review",
+      "source_commit": "6c61faadd511c48a267b975550da897e701fd09f",
+      "content_version": "scoped verifier migration for FOREST-GRAPPLE-02",
+      "method": "Different-author read-only current source and actual raw inspection; source SHA and counterexamples in report",
+      "observed": "Original36 retained +3+22=61; real original CLI61/0 in5.948s within60",
+      "reviewer": "/root/verifier_migration_review",
+      "implementers": [
+        "/root",
+        "/root/forest_vertical"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Reviewer did not author the reviewed implementation; no human, device or whole-region certification"
+    },
+    {
+      "id": "return-reader-review",
+      "path": "docs/quality/reviews/FOREST-GRAPPLE-02/verifier_return_aperture_appendix01.json",
+      "sha256": "e594aa32efac483e8dc6ce123e9b21f96a4efb7a8873580297336a55e66f587d",
+      "kind": "review",
+      "producer": "/root/verifier_migration_review",
+      "source_commit": "6c61faadd511c48a267b975550da897e701fd09f",
+      "content_version": "scoped verifier migration for FOREST-GRAPPLE-02",
+      "method": "Different-author read-only current source and actual raw inspection; source SHA and counterexamples in report",
+      "observed": "Full40leg actual positive and22 return/aperture forgeries rejected; original failed attempts preserved",
+      "reviewer": "/root/verifier_migration_review",
+      "implementers": [
+        "/root",
+        "/root/forest_vertical"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Reviewer did not author the reviewed implementation; no human, device or whole-region certification"
+    },
+    {
+      "id": "s2-failure-driver-and-timeout",
+      "path": "docs/evidence/forest_grapple02/release02/README.md",
+      "sha256": "eb04fd150afedb587dee5db08cc907da104b1bf28bdefd03c187cc3a47094a32",
+      "kind": "measurement",
+      "producer": "/root/forest_acceptance_inventory",
+      "source_commit": "6adc5ff30515d7adaf598d5bbba0268d42af44f4",
+      "content_version": "scoped verifier migration for FOREST-GRAPPLE-02",
+      "method": "Original ordinary APIs, raw local failure/golden/noR, original600 timeout and bounded offline profile; archive preserves original head and dirty byte identity",
+      "observed": "S2 CI failed and no deployment; candidate case33 strict pass but fullJH succeeds withoutR; original whole80 timeout600.167 with59 complete strict passes; remaining unverified",
+      "device": "Cloud Linux headless; no physical-device claim",
+      "environment": "Godot4.7.2 Standard local workspace; normal GitHub API status separate from unavailable remote raw",
+      "scenario": "Fixed original80 real two-map four-route corpus; local original600 timeout; same-case failed/golden/fullJH counterfactual",
+      "budget_source": "tools/harness/profiles.json forest-depth-region unchanged600 seconds, native240/import90 unchanged"
+    },
+    {
+      "producer": "/root/forest_acceptance_inventory",
+      "source_commit": "93c202568d154e37b1d57de1e08ba0c42820e828",
+      "content_version": "scoped verifier migration for FOREST-GRAPPLE-02",
+      "id": "s3-final-ci-status",
+      "path": "docs/evidence/forest_grapple02/release03/originals/selected-jobs-terminal01.json",
+      "sha256": "739a1b9c61dacf9375bdbc330a48e93a64b244bf205d30baf026cbc3debb1094",
+      "kind": "command",
+      "command": "gh api repos/zhipijun1996/gunman-rush/actions/runs/39207127333/jobs",
+      "exit_code": 0,
+      "environment": "Ordinary authenticated Actions terminal API; original Godot4.7.2 workflow, unchanged per-check and job caps",
+      "method": "Successful actual API query preserves original job/step statuses; core verifies exact same-source89=18+71. Inner artifact unavailable via403, not individually reviewed.",
+      "observed": "S3 prepare, serial18, parallel71 including original80, aggregate core, Web, Windows, deploy and verify_public reported success. Android skipped by false input; local original600 timeout retained."
+    },
+    {
+      "producer": "/root/forest_acceptance_inventory",
+      "source_commit": "93c202568d154e37b1d57de1e08ba0c42820e828",
+      "content_version": "scoped verifier migration for FOREST-GRAPPLE-02",
+      "id": "s3-public-gui02",
+      "path": "docs/evidence/forest_grapple02/release03/originals/gui02-report.json",
+      "sha256": "3bf19e48155ddd909d2640bc08b37086eb9e3bce13a29879939cfddb13fd0c11",
+      "kind": "gui",
+      "method": "Original20/8/480 public mouse+emulated DOM touch CLI, actual rendered controls and assembled forest events; new verification toolSHA independently reviewed",
+      "observed": "20checks/8entries/errors0, two forest maps actualV12/H-only/Boss identities. Full90390548B PCK before and after everycase verified by unchanged code, buildf7e22bcfaf40/sourceS3. No natural browser campaign, physical device or whole-route claim.",
+      "verification_tool_sha256": "3f542a8b4a97dd8678ab45d5ef185ce8c47f6f753ec4bb6ef52eb2408890e422",
+      "verification_tool_context": "S3 game immutable; OCR-only tool working-treeSHA differs from its S3 blob"
+    },
+    {
+      "producer": "/root/forest_acceptance_inventory",
+      "source_commit": "93c202568d154e37b1d57de1e08ba0c42820e828",
+      "content_version": "scoped verifier migration for FOREST-GRAPPLE-02",
+      "id": "s3-public-gui02-cli",
+      "path": "docs/evidence/forest_grapple02/release03/originals/gui02-cli-receipt.json",
+      "sha256": "cbaa8587fd1438bc1ba7efee67ac26d982b3c43416312865906fd57880b9c552",
+      "kind": "command",
+      "command": "python3 tools/verify_forest_browser.py 'https://zhipijun1996.github.io/gunman-rush/?v=f7e22bcfaf40' --output-dir /workspace/gunman-rush-design/build/forest_grapple02/browser_gui02 --expected-commit 93c202568d154e37b1d57de1e08ba0c42820e828 --expected-build-id f7e22bcfaf40 --expected-forest-version thorn-forest-region-v2 --expected-forest-layout forest-woven-trunk-v12 --proxy-from-environment",
+      "exit_code": 0,
+      "environment": "Local Chromium software renderer, publicHTTPS through explicitly selected environment proxy, Godot web game sourceS3",
+      "method": "Actual CLI stdout/log, report and before/after tool hashes archived; original480 cap unchanged",
+      "observed": "exit0,378.77094069s,20checks,8identities,toolSHA3f542a8b... stable; GUI01 failure and initial OCR REJECT preserved"
+    },
+    {
+      "id": "final-consumer-public-review03",
+      "path": "docs/evidence/forest_grapple02/release03/originals/browser_gui_review03.json",
+      "sha256": "f3fc04e9e62c64a581a0d07e0d7c2922788293f7b7c749b0f9651216eeb5fc52",
+      "kind": "review",
+      "producer": "/root/verifier_migration_review",
+      "source_commit": "93c202568d154e37b1d57de1e08ba0c42820e828",
+      "content_version": "scoped verifier migration for FOREST-GRAPPLE-02",
+      "method": "Different-author read-only final43-path coverage using frozen S3/02 reviews plus actualGUI02 report/log/receipt; no re-execution of browser/native or independent PCK refetch",
+      "observed": "Literal ACCEPT scoped technical consumers+publicGUI:42S3 same bytes plus helper3f542a8b...;20checks/8entries/378.771s/errors0. SourceS3 game and changed verification-tool SHA distinct. Original REJECT/GUI01/600timeout59 and designREVISE preserved; no raw89/72/human/device approval.",
+      "reviewer": "/root/verifier_migration_review",
+      "implementers": [
+        "/root",
+        "/root/forest_vertical",
+        "/root/aim_save_migration"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Reviewer authored no reviewed production or verification-tool change; separate bounded expert review, not user or device acceptance",
+      "verification_tool_sha256": "3f542a8b4a97dd8678ab45d5ef185ce8c47f6f753ec4bb6ef52eb2408890e422"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "No gameplay, graphics, fun, player or physical-device admission from this process review",
+    "S3 CI39207127333 and public GUI02 pass separately; publisher exactartifact403/live_verifiedfalse and same-package72 not executed. Local original80 remains600.167timeout59complete/21unfinished.",
+    "Published game source is S3; later verification-tool and documentation commit is not a fresh game build. Human/device/fun/commercial quality remains unverified."
+  ],
+  "test_change_justification": "Latest user explicitly supersedes20% focus and press-hook; latest producer is finite v12. Old recorded v1/v7/v9/v10/v11 layouts are replayed exactly. Current consumers must require exactv12, realbody/inputs/resources, conditional Htoken restoration only from verified real projectile hit; no lowered thresholds or removed originalcases. New regional interfaces require real12-frame2px stable via, accepted Router drop, unchanged original lower/step1/W support, source-derived two-solid tree opening and actual fullbody passage. Failed04 strict window was fixed by tighter driver, never relaxed reader. Original36 harness tests plus25 failure guards run through the same CLI/60s. No originalcase, resource rule, timeout or assertion removed to obtain pass. S1 actual CI exposed historical native02 20% fixture compared against current15% authority before Godot. The proposed test-only historical authority uses exact pinned old bytes and retains original27+9 plus new authority refusal checks; production reader/main unchanged. Root-bell artifact_paths only collects original inner logs and changes no argv, success marker or timeout. Formal Root Bell audit retains current15 original/v2 generation, validation and enemy budget; its unchanged40 frozen historical JSON strings are compared with actual pinned20 tuning through existing historical generator. Separate current15 config SHA and validation checks are added; static old/new fingerprint mismatch is not claimed as an executed native failure. S2 actual forest80 case33 failed with a fixed short-jump driver. The v12 canopy exactRH candidate uses actual ascending body clearance before the existing R submission and unchanged nine-frame H. Actual same-case strict PASS, original FAIL and full-jump H-only success retained; no original assertion, enemy, physics, case or budget changed. R is explicitly optional, not a proven required combination. Original80 whole local600 timeout after59 complete passes is retained as failure, not replaced by a partial pass. PublicGUI01 exited1 after3checks because visible MENU was not recognized. Initial sixth-ROI candidate95 falsely accepted independently generated MENU2 and was REJECTed; only the new psm7 region now requires entire normalized ROI text exactlyMENU plus the actualMENU word bounding box. Original five ROIs, verify/main AST, source/PCK/assembled events,8entries/20checks/480cap and error propagation remain unchanged. Frozen real positives, five writer negatives and independent nearword/TSV cases plus actualGUI02 validate current helperSHA3f542a8b4a97dd8678ab45d5ef185ce8c47f6f753ec4bb6ef52eb2408890e422. Original failure/REJECT retained. Production remains identicalS3; same43 protected paths,42S3 bytes plus this newly reviewed helper. Full gameCI is attributed only toS3, not later tool/docs HEAD.",
+  "production_snapshot": "6e315646368ab237f83e4e3b5ca65c230b1bae08ce898d612c9ca62bd734551c"
+}

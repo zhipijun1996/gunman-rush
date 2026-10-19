@@ -17,7 +17,7 @@ description: 统筹重要游戏内容与关卡生产的 G0–G5、十一维记�
 
 画面品质/空间深度任务自动路由 [visual-director](../visual-director/SKILL.md) 统筹，art-director管风格/资产家族，scene-composer管围合/焦点/真实镜头，animation-vfx管环境动态，region-generator提供正式空间语义，gameplay-reviewer只读独审。沿用原production_loop、内容类型、G0–G5及十一维，不以新增视觉分数或process检查代签实际art内容。
 
-先冻结核心玩法/生成/物理/资源、代表Seed/路线/能力/相位/镜头及预算，记录当前实景失败；资产来源合法不豁免新用途审查。G0先大轮廓/负空间/焦点/景层和正确空间资产家族，G2先静态黄金再动态，G3真实正式消费者，G4实际看像素的不同代理与有界返工；G5用户审美和实体设备依然独立。内部黄金的技术/AI专业准入足够继续授权内第二空间验证，不因缺最终用户签字反复询问普通步骤，也不宣称用户认可。
+先冻结核心Motor/武器能力/资源/RNG/save及预算；代表Seed/路线/几何/镜头按当前授权明确实验可变范围，未授权部分保持，记录当前实景失败；资产来源合法不豁免新用途审查。G0先大轮廓/负空间/焦点/景层和正确空间资产家族，G2先静态黄金再动态，G3真实正式消费者，G4实际看像素的不同代理与有界返工；G5用户审美和实体设备依然独立。内部黄金的技术/AI专业准入足够继续授权内第二空间验证，不因缺最终用户签字反复询问普通步骤，也不宣称用户认可。
 
 实际入口为 `python3 tools/visual_director.py route --help`、`run --help`、`capture --help`、`inspect --help`、`compare --help`，合同见 [视觉合同](../../../docs/quality/visual_director_contract.md)。route或未execute的run只是计划，真实宿主/CLI工作、修改、采集、独审和复验各存原件/退出码/耗时。全片录制不实时PNG读回，片终抽帧写video frame/time；保存原失败，不能更换输入、Seed、源码标签或降低阈值把旧失败冲成通过。
 
@@ -25,13 +25,17 @@ description: 统筹重要游戏内容与关卡生产的 G0–G5、十一维记�
 
 可复用经验进入既有知识记录，附真实像素来源、修复/反例、源和母版版本、空间/消费者范围及待验，不把一次局部判断升全局规则。黄金先于泛化；第二空间是新的空间需求推导与真实Godot接入，不能旋转/复制首场景或以静态概念图证明自动生产成立。
 
+## 机制价值先于扩产（FOREST-DEPTH-02）
+
+使用[黄金玩法假设对照](../../../docs/quality/review_method.md#黄金推广前玩法假设对照)：先比较真正不同的玩家体验假设，再在同条件真实消费者上记录目的打法、最便宜退化打法与关键动作／对象消融。由不同作者在原黄金审查阶段作继续／修改／淘汰决定，整合只消费被接受的具体机制范围。不得用技术通过、阶段编号、Hash、动作计数或“G5尚待玩家”跳过此处的专家设计淘汰；仍不能把专家判断签成玩家认可。共享组件可保留，缺少新增判断的候选允许删除；失败只阻断其后继。
+
 ## 触发与边界
 
 重要游戏内容总流程、质量门槛与完成声明；普通修复按风险轻量验收。 从仓库根目录调用 `$game-quality-gate`。使用 [总门槛](../../../docs/development_quality.md)；重要内容由 game-quality-gate 建立一次任务，专业技能补充同一记录，不重复执行共用阶段。
 
 ## 输入与依赖
 
-读取 [AGENTS](../../../AGENTS.md)、[实际状态](../../../docs/current_state.md)、[handoff](../../../docs/handoff.md)、[架构](../../../docs/architecture.md)、[验收](../../../docs/acceptance_tests.md) 和相关最新设计。输入用户目标、基线完整 SHA、任务 ID、内容版本、受影响路径、正式消费者、已知失败与前置能力。缺信息先记录 unverified，独立可逆工作继续；重大创意不可伪称用户确认。
+读取当前AGENTS及当前状态；按任务消费者读取相关设计与架构，保留目标、完整SHA、任务/内容版本、路径、已知失败和能力来源；缺证据写unverified。
 
 ## 阶段流程与交付物
 
@@ -64,14 +68,6 @@ description: 统筹重要游戏内容与关卡生产的 G0–G5、十一维记�
 
 逐条比较设计与实际体验，识别换皮/数值堆叠/素材拼贴和遗漏消费者。用户确认仅记录可溯源原话，不能用 AI 自评替代。
 
-## 准入退出与返工
-
-按 [policy](../../../docs/quality/policy.json) 的相关 G0–G5 执行。进入一阶段前上一相关阶段通过、输入与消费者明确；退出须专用模板的可证伪判据及对应证据成立。设计失败退 G0，操作/公平失败退 G1，表现失败退 G2，接入/状态失败退 G3；修复后重跑受影响门槛并复审。保留失败原件，不删除测试/降标。依赖阻塞写 blocked，缺审查写 review，缺真机写 awaiting-device。
-
-## 完成与证据
-
-使用 [质量报告](../../../docs/templates/quality_gate_acceptance.md) 和 docs/quality/records/<task_id>.json，逐项记录 design/technical/formal_integration/visual/animation/audio_vfx/gameplay/performance/independent_review/device/player_acceptance。只允许 passed/failed/unverified/not_applicable（有理由）；证据需路径、SHA256、提交/内容版本、观察和来源。技术通过不能宣称完整内容完成；所有适用条件具备才可 done。本技能文档本身不提供任何内容的 PASS 或用户认可。
-
 ## 人物动作扩展（2026-10-13）
 
 读取 [设计入口](../../../docs/design/player_actions/README.md)、[动作与harness规划](../../../docs/quality/player_action_plan.md)，使用 [动作覆盖卡](../../../docs/templates/player_action_coverage.md)。
@@ -96,10 +92,6 @@ G0 统一地区、挑战、能力、遭遇、构图意图与失败条件；G1 �
 
 ## 自主生产闭环与 Q1–Q8
 
-每次关卡任务先执行 [统一质量维度的权威加载与来源账本](../../../docs/quality/level_quality_dimensions.md)：自动读动作入口、regions_v0.3、weapons_v0.8 全文及最新覆盖合同，核对 LOCKED/PROPOSED、实现消费者与正式授予三种状态。继承 S1–S6/16地区、H/W/D/U1/U2、S2单能力、S4替代、S5双移动+U1；不从旧八关或旧V2摘要重创规则。Q1–Q8 映射既有十一维，不增加质量编号。
-
-依据当前任务的最新用户授权及可写范围直接设计、实现、测试、审查、返工；历史“仅工具”或“有限切片”不覆盖后来的整区授权，也不自动授权其他地区或核心规则变更。PlayerMotor/武器/资源/随机流/保存与未授权地区仍是边界。用户负责核心创意与审美偏好/最终体验认可；常规缺陷由团队主动发现修复。
-
 把Q1–Q8作为同一任务的质量目标和审查发现索引，按统一映射回现有十一维。地区标准源自动加载后才路由；本轮实际平原切片归region/相关内容类型，工具扩展归process，不用process通过代签内容。森林仅按原S2-H权威做dry-run。
 
 组织真实有界循环：冻结基线与授权/路径→专业设计备选→真实实现→适用测试→新只读审查→结构化返工→复验。把实际worker prompt/事件/退出码、修改快照、Godot/GUI证据、审查身份和修复版本放同一记录；假worker/mission计划仅测执行器，不能签自主制作。本轮至少一正式优化切片、≥10不同root Seed覆盖两图/不同路线和正式敌人画面，缺项明确未验。
@@ -107,7 +99,6 @@ G0 统一地区、挑战、能力、遭遇、构图意图与失败条件；G1 �
 修复执行不因常规步骤请求用户确认；预算、无进展、越界或外部工具依赖阻塞才保留现场并停止对应依赖。相同输入指纹可恢复，源码/任务变动使旧通过失效；日志不删、拒绝不覆盖、失败不重抽。新CLI按实际--help和已注册runner调用，未实现不写可执行。
 
 知识回流写来源/观察/推断/范围/正例/反例/版本/待验，不能把一次seed经验变全局规则。若技术第一轮已通过，不人为污染生产制造失败；隔离演练标scope，真实发现按真实修复链存证。最终设备/玩家未验仍保留，不影响授权范围内独立可推进的修复。
-
 
 ## 平原实战后的收尾守卫
 
@@ -117,15 +108,11 @@ G0 统一地区、挑战、能力、遭遇、构图意图与失败条件；G1 �
 
 语义路线必须检查每个实际step、方向、进入状态的门条件和基础能力，并有删边/倒向/未授能力锁反例。单模块/全身Motor通过不能赦免虚构路线。参见[实际空间候选与返工](../../../docs/quality/plains_redesign_spatial.md)。
 
-
 规划实施租约要包含真实消费者使用的Definition Resource（如resources/generation/modules的具体.tres），不能只列生成器脚本；必要路径遗漏须真实停止、保留计数后在剩余额度建立新scope，不能就地改已活跃mission/nonce。恢复时只读当前host_request.expires_at，不沿用上一轮时间。用官方quality初始化或显式同步record/evidence内容版本，避免复制父任务元数据冒充本阶段；真实失败不能被静态PASS冲销。
-
 
 最终验证使用生产Harness实际调用的入口：测试类写在unittest.main之后时，discover通过更多用例不能替代原CLI入口漏跑。保留直接入口与discovery计数对照，让新增反例确实进入CI。独立审查须同时看原生事实与验收器反证；发现漏检先真实拒绝并保留原件，再有界返工，不把原通过日志改标为已覆盖。
 
-
 离线固定FPS不保证输入墙钟新鲜：真实Router可能按墙钟丢弃旧队列。录制不能和大量原生/生成检查争抢CPU；记录实际线程环境、负载、producer源、原生输出和MP4自己的终态。请求无accepted/rejected须先区分过期/取消/epoch/玩法拒绝，不能直接归因关卡无解；不要改Router过期规则、刷新timestamp或注资源换通过。同条件受控重采要保留原受干扰轨迹，避免用不同输入/负载解释内容收益。[真实TTL小复现与限度](../../../docs/evidence/plains_redesign/render_timing_diagnosis/report.md)不代表实体设备性能已验。
-
 
 实际内容版本升级须走原注册CLI，而非只过fixture单测：有限支持表应和当前生产者字面版本做快测，逐层验证RunManifest/实际Manifest身份，未来/混版本/降标签仍拒绝。分析消费者源码更新后原producer回执若source_changed，应保留旧失败并真实重采，禁止回填来源。
 
@@ -134,3 +121,17 @@ G0 统一地区、挑战、能力、遭遇、构图意图与失败条件；G1 �
 包装器失败必须同时暴露原始report.error、有界内部native日志与源指纹，并将该原目录加入既有CI artifact；只上传外层harness目录会使真实失败失去可诊断依据。同源码旧绿/本地绿不能冲销最新CI红；正例断言零失败但退出ERROR仍按原守门拒绝，不把另一次本地复现擅称远端同因。[实际失败与诊断修复](../../../docs/evidence/region_production_v3/final_delivery_50fb10c/README.md)仅证明可观测性修复，未签根因解决或发布通过。
 
 真实退出案例：功能summary/native0不能冲销ObjectDB/resource终态错误，重定向内层log同样要拒绝。测试世界只在原玩法观察完成后，按实际GameAudio/独立播放器弱引用释放或deferred部件入树状态有界清理，超时传播失败；不可用固定sleep、verbose偶然clean或合法负例exit1来掩盖额外泄漏。实际实现与正反例见tests/audio_teardown.gd及docs/evidence/production_capability_repair/release/lifecycle_expansion/。
+
+## 准入退出与返工
+
+按[共同契约](../../../docs/creative_direction/README.md)及原G0–G5准入退出；设计失败RETHINK、局部REWORK、不适候选DISCARD。保留失败原件，重跑受影响检查并独立复审，不降工程门槛。
+
+## 完成与证据
+
+按[共同契约](../../../docs/creative_direction/README.md)记录原十一维、版本/SHA、消费者、实机证据和未验范围；缺审查/用户/设备不宣称完成，旧证据保留原来源。
+
+## 共同创作契约
+
+[预制作→制作→验收及版本总谱](../../../docs/creative_direction/README.md)是共同执行依据。总谱SHA变更须RETHINK并复验；交付写贡献、协作、新行为/视觉、主题冲突和实机验证。REWORK局部修复，DISCARD隔离候选；ACCEPT只限真实已验范围，审美不绕过工程红灯。
+
+历史复现按需读取[原始Skill与迁移索引](../../../docs/archive/skill_history/README.md)，不默认加载旧轮授权、PR实录或失败数字。

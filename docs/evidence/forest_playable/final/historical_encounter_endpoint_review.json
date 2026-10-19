@@ -1,0 +1,40 @@
+{
+  "status": "accept",
+  "reviewer": "root/forest_runtime_review",
+  "independent": true,
+  "scope": "immutable historical encounter endpoint restoration and strict validator-context migration code review; native execution still pending, not gameplay improvement/release/device acceptance",
+  "reviewed_commit": "4cd710d7832e108f5a811c36bb244f3108ce4e3f",
+  "source_sha256": {
+    "tools/run_plains_encounter_policy_tests.py": "12933921d2787e789a309c318442c2dcb54687def4ed3d86bbb4f32430a3ede4",
+    "tests/test_plains_encounter_policy_boundary.py": "1a56ee4d91a431aefed23e40742b2d6f20c06889b6076632a08bdf1fc9c6e797",
+    "docs/evidence/plains_redesign/encounter/frozen_50fb10c/manifest.json": "955f6713bdcdb9ec298add02321923a6d5007b9f773f5f42fe0d2e611c7150bb",
+    "docs/evidence/plains_redesign/encounter/frozen_50fb10c/delta.tar.gz": "fcd2a891ec4bdace56c2c2422773bf45d3afc50b28bacba4613006bf0dfe40f1",
+    "tools/level_formal.py": "f0b54f81234202d132ee3e807965fd5655ca1ec209465167ea439a7f608918c2",
+    "tools/level_experience.py": "35c55c28b95651ce72580687d18fe20455041263a7a83460536e3d41f92af6a8",
+    "tools/harness/profiles.json": "7bf4ce2eceeeab2a1e5f7d557e989fd836cfdeaa51dce0d0dc898af8b6fb79fe"
+  },
+  "engine_started": false,
+  "independent_checks": {
+    "python_boundary_tests": "15 tests in2.080s, exit0; original10 plus5 real portable-restore/current135-core guards",
+    "git_endpoint_members": "1668 of1668 SHA256 checked against actual local Git50fb10c blobs,0 mismatch",
+    "delta_archive": "155 unique regular files, all content SHA matches pinned manifest; archive SHA matches",
+    "isolated_python_validator_context": {
+      "formal_and_experience_root": "actual restored temporary endpoint, not current root",
+      "historical_core_count": 133,
+      "historical_forest_core_members": false,
+      "current_core_count": 135,
+      "shared_driver_paths": 21
+    }
+  },
+  "findings": [
+    "Manifest pins exact50fb10c749871cb555f24fab84b3f539abde49fb, v9 base30f6a825712fbb30e607791c996de142c6757a79/archive identity, delta archive and complete1668-member endpoint. Independent Git-object verification confirms all endpoint file hashes. No forest campaign/gold core is inserted into this historical endpoint.",
+    "Restore rejects manifest/delta fingerprints, unsafe/duplicate/nonregular delta members, missing or differently hashed current shared assets, wrong base identity, incomplete endpoint and core changes outside exact audited project.godot/run_manifest pair. Portable restoration test actually rebuilds bytes with Git access disabled; it does not synthesize a missing historical asset or borrow different current bytes.",
+    "Historical worker runs fresh4before+4after captures under explicit frozen Python module roots. Shared driver/verifier bytes are overlaid identically and checked; historical runtime inventory is checked unchanged before/after. Imports require actual4.7.2 header and strict native error rules; capture producer250s and worker600s remain bounded. Existing outer harness600s is unchanged, so long or incomplete work still fails rather than passing a plan.",
+    "Independent temporary endpoint restoration and child Python import demonstrated formal.ROOT and experience.ROOT resolve to the restored endpoint and133-core closure. Current root remains135. Thus this is an actual source-root context boundary, not merely relaxing the current135 validator or feeding old captures directly into its source expectations.",
+    "Original historical_boundary_rejection still validates both reports, exact4-case identities, observation/capability/physics basis, identical shared driver/policy and exact two historical core changes, then requires original strict comparator to reject with exact reason. It does not turn a historical mismatch into a comparable/content-improvement pass.",
+    "Current path remains separate and strict:4 fresh current135 cases, independent same-source repeat, native fixtures, live recovery, heart/note reward cases, reward entry, causal/claim tamper negatives and actual nonkill bypass all remain. Current policy-basis tests reject omission of either newly real forest core member; no133 projection replaces current135.",
+    "New capture metadata may inherit an ancestor Git source_commit because frozen projects lack their own Git repository. Preserve that raw value. Only pinned endpoint manifest plus exact before/after runtime inventory identify historical content; the inherited commit is not evidence that historical capture ran current release source. Historical receipts and user-facing scope must make this limitation explicit, never rewrite source metadata to pretend a separate checkout commit.",
+    "Historical comparisons are now immutable v9-to-exact50fb history, while current135 captures are verified independently. This adds an endpoint cohort without deleting original current coverage; it does not establish current-versus-v9 content improvement. No native historical/current results were signed by this reviewer while ecology was still running.",
+    "No tracked changes or Godot run by reviewer. Old failures remain preserved; complete current specialty/CLI and release status must come from actual final receipts and strict exit outcomes. Acceptance is limited to restoration identity, guard preservation and genuine independent Python validation contexts."
+  ]
+}

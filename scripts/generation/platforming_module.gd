@@ -8,6 +8,7 @@ var floating_solid_indices: Array[int] = []
 var ground_surface_regions: Dictionary = {}
 var exposed_surface_edges:Dictionary={}
 var terrain_candidate_preview := false
+var pixel_mechanism_art := true
 var clock := 0.0
 var hazards: Array[ModuleSawHazard] = []
 var moving_platforms: Array[ModuleMovingPlatform] = []
@@ -38,7 +39,7 @@ func _ready() -> void:
 		body.add_child(shape)
 		add_child(body)
 		if shape.one_way_collision:
-			var paint := PlainsWoodPlatformArt.build(rect)
+			var paint := PlainsWoodPlatformArt.build(rect, pixel_mechanism_art)
 			paint.set_meta("platform_index", index)
 			add_child(paint)
 	for saw_definition: ModuleSawDefinition in definition.saws:
@@ -124,7 +125,12 @@ func _draw() -> void:
 	for danger: Rect2 in definition.danger_bounds:
 		_draw_spikes(danger)
 	for thorn: PlatformThornDefinition in definition.surface_thorns:
-		PlainsInteractiveArt.draw_thorns(self,thorn,definition.platforms)
+		if UnderworldHazardTiles.enabled(self): UnderworldHazardTiles.draw_surface(self, thorn, definition.platforms)
+		elif pixel_mechanism_art: PixelFormalTerrain.draw_thorns(self, thorn.danger(definition.platforms), thorn.face)
+		else: PlainsInteractiveArt.draw_thorns(self,thorn,definition.platforms)
+	if pixel_mechanism_art:
+		for ferry: ModuleMovingPlatformDefinition in definition.ferries:
+			_draw_pixel_ferry_rail(ferry)
 	if not authoring_debug:
 		return
 	for saw: ModuleSawDefinition in definition.saws:
@@ -168,9 +174,31 @@ func _draw_spikes(danger: Rect2) -> void:
 	for index: int in definition.platforms.size():
 		if index not in definition.one_way_platform_indices:
 			solids.append(definition.platforms[index])
+	if UnderworldHazardTiles.enabled(self):
+		var support := UnderworldHazardTiles.supported_legacy_face(danger, solids)
+		if not support.is_empty():
+			UnderworldHazardTiles.draw_band(self, danger, int(support.face), support.host)
+			return
+		# Unsupported rectangles are deep-drop sensors, never new floating thorns.
+		draw_string(ThemeDB.fallback_font,danger.position+Vector2(0,-8),"DEEP DROP",HORIZONTAL_ALIGNMENT_LEFT,-1,12,Color("cfb595"))
+		return
 	for slab:Rect2 in solids:
 		if slab.encloses(danger) or absf(slab.position.y-danger.end.y)<.1 and slab.grow(.1).intersects(danger):
-			PlainsTerrainSkin.draw_rooted_bramble(self,danger,solids)
+			if pixel_mechanism_art: PixelFormalTerrain.draw_thorns(self, danger)
+			else: PlainsTerrainSkin.draw_rooted_bramble(self,danger,solids)
 			return
 	# These legacy rectangles are fall sensors below gaps, not floating thorns.
+	if UnderworldHazardTiles.enabled(self): return
 	draw_string(ThemeDB.fallback_font,danger.position+Vector2(0,-8),"DEEP DROP",HORIZONTAL_ALIGNMENT_LEFT,-1,12,Color("cfb595"))
+
+# Quiet broken guides communicate travel, with no platform-width horizontal bar.
+func _draw_pixel_ferry_rail(ferry: ModuleMovingPlatformDefinition) -> void:
+	var distance := ferry.start.distance_to(ferry.finish)
+	var steps := maxi(1, int(ceil(distance / 28.0)))
+	for index: int in steps + 1:
+		var point := ferry.start.lerp(ferry.finish, float(index) / steps)
+		point = (point / 2.0).floor() * 2.0
+		draw_rect(Rect2(point - Vector2.ONE * 1, Vector2.ONE * 2), Color("365a59"))
+	for point: Vector2 in [ferry.start, ferry.finish]:
+		draw_rect(Rect2(point - Vector2.ONE * 3, Vector2.ONE * 6), Color("a66d45"))
+		draw_rect(Rect2(point - Vector2.ONE, Vector2.ONE * 2), Color("ead39a"))

@@ -1,0 +1,23 @@
+{
+  "status": "accept",
+  "scope": "Provenance and byte-exact promotion of actual CI-generated Foundry resources plus minimal artifact preservation; not new native validation or full Foundry dependency-closure certification",
+  "summary": "Current56 Foundry JSONfiles exactly match the authenticated CIprepare artifact. Independently reconstructed original basis algorithm yields160inputs/current583c\u20268827d,matchingCIstamp. This copies genuine generatedproof ratherthan fabricating stamps.",
+  "evidence": {
+    "artifact_id": 12078162091,
+    "run_id": 38974548573,
+    "source_commit": "cda8c30ed375a97a53de27d8348a79f137199427",
+    "artifact_zip_sha256": "a79bc82f7aa42e92035a20c40619c0cc03d33e8d360d7fdb5715b0f07e70b9f3",
+    "current_basis": "583c805c16cef038a6950f5bff76aa4966e1693d0e4dc854f5748a7c56a8827d",
+    "input_count": 160,
+    "raw_and_promoted_byte_exact_files": 56,
+    "artifact_paths_diff": "build/forest_playable/review/level_design_artifact_paths_proposal/minimal.patch"
+  },
+  "findings": [
+    "ACCEPT API provenance: selectedvalidated-foundry artifact12078162091 from38974548573/cda8c30 hasAPIsha256a79bc82f\u2026e70b9f3;actual488021B ZIP digestmatches. CIworkflow prepare actuallyrunsoriginalfoundry build--count24--promote thenoriginalexport_stamp; no source text stamp edits or locally invented acceptedrecords. Rootcopiedall56ZIP/rawJSONbytesexactly intoresources/foundry,independentlyverified.",
+    "ACCEPT originalalgorithm equivalence: independentlyrebuiltCONFIG/template-module/fixedfile/directory-andrecursivegd/tres inventoryandpath:SHA+engine-stringdigest.160files,currentbasis583c805c\u20268827d and4configSHA matchauthenticCIstamp; basisfunction/sourceunchanged. Copiedresourceoutputs areexcludedfrombasis,so promotiondoesnotself-invalidate. Original36phrases/18itineraries/0rejected,development_only/awaitingplaytest/production_poolfalse retained.",
+    "Exportsemantics: source-modeFoundryCatalog.batch rejects mismatchingbasis beforestamp;exportstamp writescurrentbasis/configSHAs/exactengine. Cookedtemplate mode cannotrecomputeexcludedtestsource andtrusts thatguardedstamp whilecheckingengine/configs. AuthenticCIgeneration+API/fullsourceidentityisessential;matchingstampaloneisnotindependentexecutionproof.",
+    "Completenessboundary: basis is theexistingexplicitphysical-route dependency set,notfullruntime/assets/font/alltestscript fingerprint. Current6templatecatalog selectsmodulescoveredbyBranch+Exploration+Interactive; excludedinactivehelperbranches do notjustifyclaimallpossiblefuturemodules. Otherunlistedassets/UI/callerupdatesrequireseparaterevieworfreshgenerationevenifbasisunchanged. Copy isacceptedagainstcurrentcda160inputset,notageneralpermissiontoretainstalestampsafterarbitrarychanges.",
+    "Postcopyreverificationconditions: keepall56bytehashes/provenance;verifyactualFoundryCatalog.basis/batch/stamp under4.7.2 andfulloriginalFoundryconsumersinfreshCI; if any coveredinput/engine/configchanges,originalCIprepare mustrebuildandstamp,nevermanualresign. Newcapability/workflowchanges outsidecoveredset stillneedownactualchecks. No newnativeperformedbyreviewer.",
+    "ACCEPT artifact_paths minimalJSONdelta exactly addsbuild/level_design_v2 tolevel-design-runtime;independentlycomparedallremainingmanifestfields/68checks/caps/markersunchanged. Thispreservesmissinginnerlogs ratherthanweakeningexitguard orrepairingleak. FullCIremainsfaileduntilnewactualsourceCIterminalpass."
+  ]
+}

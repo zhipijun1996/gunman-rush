@@ -1,0 +1,28 @@
+{
+  "command": [
+    "python3",
+    "tools/verify_ci_artifact_browser.py",
+    "--run-api",
+    "build/integration01/ci06/run-api.json",
+    "--artifact-api",
+    "build/integration01/ci06/artifact-api.json",
+    "--artifact-zip",
+    "build/integration01/ci06-web.zip",
+    "--commit",
+    "afd84ec6fa4ad080abece91c1343838fb759d140",
+    "--run-id",
+    "39253468792",
+    "--attempt",
+    "1",
+    "--output",
+    "build/integration01/ci-artifact-browser06"
+  ],
+  "started_at": "2026-10-19T12:55:39.907001+00:00",
+  "status": "failed",
+  "source_commit": "afd84ec6fa4ad080abece91c1343838fb759d140",
+  "run_api_sha256": "cead19abdd550c93c8b57abada84048ba7164aba885b64b0e628280a35e14dfa",
+  "artifact_api_sha256": "3d639dbaefd428666ae78a5b94b111be800b1e804504d2654e3f44610a1260c1",
+  "exit_code": 1,
+  "duration_seconds": 56.5595003359922,
+  "log_sha256": "a8748798a216628d0269213c9745c92f6cc23a902b1f688a3807406e8a7d22e0"
+}

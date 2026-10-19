@@ -1,0 +1,89 @@
+{
+  "original_nine_air_cases_preserved": true,
+  "all_original_profile_checks_preserved": true,
+  "original_check_configs_unchanged": true,
+  "causal_receipt_reader_byteidentical": true,
+  "forged_shortcut_credit_errors": [
+    "unexpected_hit_credit_in_controlled_no_hit_strategy",
+    "air_charge_refill_in_no_hit_strategy"
+  ],
+  "forged_shortcut_credit_rejected": true,
+  "full_reader_rejects_same_forgery": true,
+  "full_reader_forgery_errors": [
+    "cavity_actual_projectile_credit_evidence"
+  ],
+  "synthetic_full_causal_positive": true,
+  "synthetic_causal_negatives": [
+    {
+      "kind": "missing_spawn",
+      "rejected": true
+    },
+    {
+      "kind": "missing_damage",
+      "rejected": true
+    },
+    {
+      "kind": "missing_credit",
+      "rejected": true
+    },
+    {
+      "kind": "missing_shot",
+      "rejected": true
+    },
+    {
+      "kind": "wrong_HP",
+      "rejected": true
+    },
+    {
+      "kind": "wrong_epoch",
+      "rejected": true
+    },
+    {
+      "kind": "wrong_packet",
+      "rejected": true
+    },
+    {
+      "kind": "fake_airborne",
+      "rejected": true
+    }
+  ],
+  "reviewed_sha256": {
+    "tests/actor_actions_runner.gd": "cdcc8e6605660345c3315e786ecb532cbcab76a2fcd5f4c1ab18f989b006b325",
+    "tests/aim_save_compat_case.gd": "1d32006a6c37edf62c7aff165e4c511d15ac8f183675248029a07746b7d9caf0",
+    "tests/aim_save_compat_case.gd.uid": "ddb1716a507be61fec4a363b70118460054d328cb809ba296bf6d270cd1b8fc8",
+    "tests/aim_save_compat_runner.gd": "da50470f871b63ef22df1be5723a4928e3c2446e3aaaddc31257e4a18328eb7c",
+    "tests/aim_save_compat_runner.gd.uid": "60dfd16ea3df9491e4675e7eeb97d17ca78890cbd86a58ecaba0bba02b431d18",
+    "tests/air_focus_tests.gd": "d40dd9969646938f3ff542adbc73b8056bc088d0f529f903b3af6149b737727c",
+    "tests/fixtures/forest_recorded_layouts/v11_corpus_map1.json": "ddd26758ae3d968927a16bfaa94c89366e00a443120b6441fc2a285df615a2ff",
+    "tests/fixtures/forest_recorded_layouts/v11_corpus_map2.json": "85e7ef09f8fbc59a4f0f5f70d2286200bb9e86bb55db6fcc029a08847949cf72",
+    "tests/forest_air_chain_runner.gd": "6b185de50a5184937c8ca07248390472dedb7e49a41aeef926d0b3dea83029c1",
+    "tests/forest_campaign_runner.gd": "b33fc5f27a5c421cc5911ef11cf92d1457c139b06acc09ecf0ace86d19677eab",
+    "tests/forest_depth_air_chain_case.gd": "e692029b05fc41c0366db556c8c7fcdeb70f035f84a62a911b9ff225990b9429",
+    "tests/forest_depth_grove_combat_case.gd": "e37cdfda8e3f19cf56f3fcda4ee1abcdcc8e604a866de4d04855d46f5449db85",
+    "tests/forest_depth_region_trace.gd": "ded27b064cce183ee49853a0c88f4f00523cdbd551511e06dcfe2feed9dcba4c",
+    "tests/forest_depth_version_runner.gd": "b465cee226a07238ba8d3c250927753e91fbb816e6333654bd2c0a531a7ae205",
+    "tests/forest_progression_debug_runner.gd": "8c4d64e10a03a8c763daa1f98eae90f10b6a3d675b8603198d45a51493933e2f",
+    "tests/forest_root_retry_runner.gd": "1e1bbe4c4e5ec823a250e3001cb66a4f09ad6d346557090ec444b99c17842e9d",
+    "tests/forest_vertical_shortcut_runner.gd": "8df908f6721d6a97dc0bd5e0aefd721713422087d7df64cb663d452bda424dbe",
+    "tests/grapple_aim_input_runner.gd": "f1ea7669cff223141cb56ef90f929f38218a74a581411b1f431c5757325c336d",
+    "tests/grapple_aim_input_runner.gd.uid": "1f1c94295b6a6b0054cb37800cde4d19ad1a50ed178ee20d881341e32d687d70",
+    "tests/grapple_feel_runner.gd": "7a25d7bd836428b16369afaece400006251b29e539d989474d4c764def241791",
+    "tests/grapple_feel_runner.gd.uid": "ff54beb551efd04bf7bc648231a60f4d5ddfa9205926c39cfc7b08aa643b8192",
+    "tests/grapple_laser_input_runner.gd": "e0a58f64254ddd1ab6cee2d696f6bbb5344ae07ca1dfb4227b8dd3835f9b0a5c",
+    "tests/grapple_laser_input_runner.gd.uid": "87f041e9f0664b032ff7d05735a59d80a5c2c40612fad3faf93322eb90dc778d",
+    "tests/player_feedback_runner.gd": "3a5d61662b6a9bd4e9f9b7a76c468e044b76234b104f1ed86685815e70ce9a31",
+    "tests/support/grapple_legacy_collision.gd": "71ef58237d1549dfdcbf41bf428a3d4d25efee05cd5017bc81bfb6e5a483aef4",
+    "tests/support/grapple_legacy_collision.gd.uid": "e243f6d4a571b4b0925e54f50a3a2ec09e7ab3511055f90170027f021f482d79",
+    "tests/test_forest_vertical_shortcut.py": "c095a3159b11dbaf0d36c95ade16fa6d4fc58d61d08fb11c2e84fc78ca62a473",
+    "tests/test_grapple_feel_wrapper.py": "5baa124422c3f39d6522e2b15de429960c70197f309088cebb6c83f243fae36a",
+    "tools/harness/profiles.json": "71ea6603498ac5a8d63a97947e7f7b4851893912198c18970a3bc2a5573c6809",
+    "tools/run_aim_save_compat_tests.py": "9681b0f4927ccdfe9bf08bf78303c86f6761fde68343f7d1563eef573987c235",
+    "tools/run_forest_air_chain.py": "7262f1d48fda5ac1fdfc8ab3974013be088fd1fa48f9aff3f963d7a5144adff1",
+    "tools/run_forest_depth_campaign_boss.py": "8039836dfa206c39e38275c077fdfe11c4b14e3ce2055286bc1038aa2fd851a1",
+    "tools/run_forest_depth_region.py": "bb82965f4c3073e54f599c5dcd1280c8f4e50ea78d859197177a092456a04557",
+    "tools/run_forest_depth_versions.py": "ecb23670976e53021013529c43d86d420a220777e0087229a1f1273d74890ec5",
+    "tools/run_forest_vertical_shortcut.py": "0120746416b01163ecfe16425bc1590d771c1f8d3d4392cac142715cf3deb290",
+    "tools/run_grapple_feel_tests.py": "d00bd59b4f330d5a0684c3aa02ff11c0563d0b6813f0f91e2affa71a1d74e2d2",
+    "tools/verify_forest_browser.py": "83be1ffe83ee74b1cf8902386575328eefe60aab312bb0d9d397410bf10cd94c"
+  }
+}

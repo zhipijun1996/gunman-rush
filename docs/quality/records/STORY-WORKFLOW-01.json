@@ -1,0 +1,255 @@
+{
+  "schema_version": 1,
+  "task_id": "STORY-WORKFLOW-01",
+  "task_type": "process",
+  "workflow": "review",
+  "baseline_commit": "36805d3475742aabde661672edeaa432eb011df3",
+  "reviewed_commit": "36805d3475742aabde661672edeaa432eb011df3",
+  "content_version": "story-workflow-v1",
+  "owner": "/root",
+  "purpose": "整理现有剧情基线为后续Codex可执行的写作方法、模板与Skill",
+  "player_experience": "后续剧情保持同一循环规则，通过具体场景传达信息；本轮未接游戏",
+  "constraints": [
+    "纯文档和Skill入口，不修改运行/当前规则/故事源稿",
+    "提案不冒称定案；本轮检查不代表玩家体验认可"
+  ],
+  "affected_paths": [
+    "AGENTS.md",
+    ".agents/skills/story-writer/",
+    "docs/design/story/",
+    "docs/current_state.md",
+    "docs/handoff.md",
+    "docs/tasks.md",
+    "docs/world_and_story.md",
+    "docs/evidence/story_workflow/",
+    "docs/quality/records/STORY-WORKFLOW-01.json"
+  ],
+  "deliverables": [
+    "docs/design/story/story_overview.md",
+    "docs/design/story/codex_workflow.md",
+    "docs/design/story/story_templates.md",
+    ".agents/skills/story-writer/SKILL.md"
+  ],
+  "creative_decisions": [
+    {
+      "status": "not_required",
+      "decision": "本轮整理方法，不新增正式剧情设定",
+      "basis": "用户要求后续指导Codex；现有V0.3具体情节仍提案，样例明确候选"
+    }
+  ],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "方法和模板可具体评审",
+      "evidence": [
+        "method",
+        "templates"
+      ]
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "纯写作流程与文档，不涉及运行或资产实现",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "纯写作流程与文档，不涉及运行或资产实现",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "纯写作流程与文档，不涉及运行或资产实现",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "独审接受且局部检查通过；完整docs失败",
+      "evidence": [
+        "links",
+        "docs-profile",
+        "review2"
+      ]
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "纯写作流程与文档，不涉及运行或资产实现",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "写作范围/规则来源/状态变化/检查具体化",
+      "evidence": [
+        "method",
+        "templates"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "局部链接通过，完整docs未通过",
+      "evidence": [
+        "links",
+        "docs-profile"
+      ]
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "纯写作流程与文档，不涉及运行或资产实现",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "纯写作流程与文档，不涉及运行或资产实现",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "纯写作流程与文档，不涉及运行或资产实现",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "纯写作流程与文档，不涉及运行或资产实现",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "纯写作流程与文档，不涉及运行或资产实现",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "纯写作流程与文档，不涉及运行或资产实现",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "两处时间措辞已修，独立复审接受流程与一致性",
+      "evidence": [
+        "review2"
+      ]
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "纯写作流程与文档，不涉及运行或资产实现",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "未收到本轮表达方式认可，不代签",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "METHOD-SCOPE",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "后续Codex补一个NPC房",
+      "method": "工作流及模板覆盖检查",
+      "expected": "明确范围/信息来源/日程/各状态/缺席主线与交付",
+      "failure": "改小段落就重写规则或遗漏失败/多路线",
+      "status": "passed",
+      "reason": "五步流程和可填模板可执行",
+      "evidence": [
+        "method",
+        "templates"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "method",
+      "path": "docs/design/story/codex_workflow.md",
+      "sha256": "17d4597615dd625843577cac0e56fdc49826505e9f801608f7c67ff0becf85ea",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "36805d3475742aabde661672edeaa432eb011df3",
+      "content_version": "story-workflow-v1",
+      "method": "本轮工作区文件与实际执行输出",
+      "observed": "五步写作、五项检查、跨文档同步与可复制任务"
+    },
+    {
+      "id": "templates",
+      "path": "docs/design/story/story_templates.md",
+      "sha256": "356da80d009825c0618c57da148d7e5c97db96167a19425f34fddefd4f133dac",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "36805d3475742aabde661672edeaa432eb011df3",
+      "content_version": "story-workflow-v1",
+      "method": "本轮工作区文件与实际执行输出",
+      "observed": "任务/NPC/区域Boss/结局模板与候选样例"
+    },
+    {
+      "id": "links",
+      "path": "docs/evidence/story_workflow/document_check.txt",
+      "sha256": "69ecea3945674009c508c3260362571ff7a6f9374f85beb463cb4d52758ffecf",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "36805d3475742aabde661672edeaa432eb011df3",
+      "content_version": "story-workflow-v1",
+      "method": "本轮工作区文件与实际执行输出",
+      "observed": "10份故事与Skill文档40个相对目标存在，Skill入口/格式和空白检查通过",
+      "command": "Python local link existence and Skill discovery checks; git diff --check",
+      "exit_code": 0,
+      "environment": "managed cloud sparse checkout / Python3"
+    },
+    {
+      "id": "docs-profile",
+      "path": "docs/evidence/story_workflow/harness_report.json",
+      "sha256": "a52d14e4cb5ed4ca4555198d857b966ce0be63d59dba2e81940ed2447872155e",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "36805d3475742aabde661672edeaa432eb011df3",
+      "content_version": "story-workflow-v1",
+      "method": "本轮工作区文件与实际执行输出",
+      "observed": "完整docs实际失败，首项历史文件缺失，后续未运行",
+      "command": "python3 tools/harness.py --profile docs --jobs 1",
+      "exit_code": 1,
+      "environment": "managed cloud sparse checkout"
+    },
+    {
+      "id": "review1",
+      "path": "docs/evidence/story_workflow/review_round1.md",
+      "sha256": "dccbbdfc6fed4c731dc14040380cca2fe735d13fedd1517a1a80db202093ea54",
+      "kind": "review",
+      "producer": "/root/loop_review",
+      "source_commit": "36805d3475742aabde661672edeaa432eb011df3",
+      "content_version": "story-workflow-v1",
+      "method": "不同作者只读审查",
+      "observed": "时间顺序首审指出两处问题，修正后复审接受；不签玩家体验",
+      "reviewer": "/root/loop_review",
+      "implementers": [
+        "/root"
+      ],
+      "verdict": "REJECT",
+      "independent": true,
+      "independence_basis": "审查者未参与方法论文档编写，仅只读审查"
+    },
+    {
+      "id": "review2",
+      "path": "docs/evidence/story_workflow/review_round2.md",
+      "sha256": "e8c81754427b2888ff0cc62a4c48220ab6bf9e1075f9ac13af96fe59838bc528",
+      "kind": "review",
+      "producer": "/root/loop_review",
+      "source_commit": "36805d3475742aabde661672edeaa432eb011df3",
+      "content_version": "story-workflow-v1",
+      "method": "不同作者只读审查",
+      "observed": "时间顺序首审指出两处问题，修正后复审接受；不签玩家体验",
+      "reviewer": "/root/loop_review",
+      "implementers": [
+        "/root"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "审查者未参与方法论文档编写，仅只读审查"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "完整docs检查实际退出1：缺历史素材/证据文件，后续检查未运行",
+    "尚无玩家对本轮文档表达的认可；无剧情运行实现"
+  ]
+}

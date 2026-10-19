@@ -1,0 +1,634 @@
+{
+  "scope": "Byte-for-byte portable custody only; no new native, gameplay, App or movie acceptance.",
+  "archives": {
+    "canopy-v3-01.tar.gz": {
+      "bytes": 590836,
+      "sha256": "4a6deaf29b707807a4cf365360767cb0961e865ba2a13b883c49ffc35fc8830d",
+      "members": {
+        "canopy-v3-01/PLAN.md": {
+          "bytes": 3135,
+          "sha256": "68d0a4e11c60d5ec9b955f3f969d89fb032b459a9a1df62d4cd6e397dbbb7c08"
+        },
+        "canopy-v3-01/RESULT.md": {
+          "bytes": 2839,
+          "sha256": "d19f96dcf56511649e5b5dfaddb912e4c37e5384b81190a0242349eba7f89625"
+        },
+        "canopy-v3-01/actual-audit.json": {
+          "bytes": 4911,
+          "sha256": "060a84800d66c49f26d97c19290a5702ff96a3ae491d139c7d1518d48e81b662"
+        },
+        "canopy-v3-01/controls-audit.json": {
+          "bytes": 4751,
+          "sha256": "c3137fe2ef5f27db9d134ebad7f015742bf263eaca10334d6a761f812607a894"
+        },
+        "canopy-v3-01/controls-outer-receipt.json": {
+          "bytes": 934,
+          "sha256": "937212e2ac7a47326ab5e714d1c19edb0b3a16ba2a7a92eb7297da386cabcf43"
+        },
+        "canopy-v3-01/copy-receipt.json": {
+          "bytes": 270158,
+          "sha256": "05936ed6fcb24dac72e5bc35e6488791eaabfaae5b39347016b954ec4822b9f9"
+        },
+        "canopy-v3-01/copy.py": {
+          "bytes": 2274,
+          "sha256": "2a8637cfc56ebe57021c90e6d3c186f7ce48d4fde11b4d08df190380e71eb0a5"
+        },
+        "canopy-v3-01/full-source-post-controls.json": {
+          "bytes": 62,
+          "sha256": "6cda7501ca462744a25042a32f770f30df957b23f3b4b7af3aaceaefb482dc21"
+        },
+        "canopy-v3-01/full-source-post.json": {
+          "bytes": 62,
+          "sha256": "6943f4e62007678065649b7864c520ad47400013bc352c771f7499da4c65f6f5"
+        },
+        "canopy-v3-01/index.json": {
+          "bytes": 6660,
+          "sha256": "1dc1bc554c26231e19c98024ef9f7b9e7b49fa45b2639dd80aa0a0eeab858845"
+        },
+        "canopy-v3-01/raw/capture.json.gz": {
+          "bytes": 35759,
+          "sha256": "0a6ff2f0d5690c71229214a920ca28d405033aa86493f8532c2d8fdcbe3c8aa6"
+        },
+        "canopy-v3-01/raw/import.log": {
+          "bytes": 76813,
+          "sha256": "2a471cd50cd950f86a4149e2c94719a92758da2f1587faa2aa5e909bdfeeb60d"
+        },
+        "canopy-v3-01/raw/native.log": {
+          "bytes": 189,
+          "sha256": "f1a8be248392a08237b477588e1377213fe57c359ae6318603d54190b8a0ff34"
+        },
+        "canopy-v3-01/raw/ordinary_cut/capture.json.gz": {
+          "bytes": 29472,
+          "sha256": "b4d56ccf25fb582281f61b510b2c485b554fdfe42ba8c0450dac4c4d9624b6dc"
+        },
+        "canopy-v3-01/raw/ordinary_cut/import.log": {
+          "bytes": 1017,
+          "sha256": "f15ffd4c558b01611d562c8c257508942bdc2dc542124f423ae2a592a46edfa6"
+        },
+        "canopy-v3-01/raw/ordinary_cut/native.log": {
+          "bytes": 189,
+          "sha256": "f1a8be248392a08237b477588e1377213fe57c359ae6318603d54190b8a0ff34"
+        },
+        "canopy-v3-01/raw/ordinary_cut/partial.json.gz": {
+          "bytes": 29332,
+          "sha256": "bf54254c75eb4a002e23c54f4f180dc6bdc45776202c9e3108c55da59e17f8a2"
+        },
+        "canopy-v3-01/raw/ordinary_cut/receipt.json": {
+          "bytes": 223289,
+          "sha256": "eb58a322bc472b08ebb8d8422b87ac3b8e96afee79649fb0672d07e459def883"
+        },
+        "canopy-v3-01/raw/ordinary_keep/capture.json.gz": {
+          "bytes": 26235,
+          "sha256": "2615d65403f6c6f70fffd7ecd1e1d0d16650ee4f60cc71c8cd9210e4dc56be6c"
+        },
+        "canopy-v3-01/raw/ordinary_keep/import.log": {
+          "bytes": 1017,
+          "sha256": "f15ffd4c558b01611d562c8c257508942bdc2dc542124f423ae2a592a46edfa6"
+        },
+        "canopy-v3-01/raw/ordinary_keep/native.log": {
+          "bytes": 360,
+          "sha256": "50ea317eeac676ca2453d5771715b88537ace4e3d19aa5f4fb7b6f98a44095b8"
+        },
+        "canopy-v3-01/raw/ordinary_keep/partial.json.gz": {
+          "bytes": 26027,
+          "sha256": "103e3c4b1983815b857d2824387821d478ffd3a3812d09ef92f0a51be33d4a65"
+        },
+        "canopy-v3-01/raw/ordinary_keep/receipt.json": {
+          "bytes": 223656,
+          "sha256": "da91d9397b81f0d3ac79fa8d098be8a2563f96d109807bb8bf55a0a75a330739"
+        },
+        "canopy-v3-01/raw/partial.json.gz": {
+          "bytes": 35572,
+          "sha256": "57bb073523795e3c2ab27c1530fb05af30b34cef5f84ba7338c79c0f0019733b"
+        },
+        "canopy-v3-01/raw/receipt.json": {
+          "bytes": 223284,
+          "sha256": "84a543acb8bdf0a9e250a27753637ca413f038dd1ccbdeace883ef0890f2ca0a"
+        },
+        "canopy-v3-01/run_controls.py": {
+          "bytes": 1915,
+          "sha256": "906646568e43d9c919e1b3bba928c38ddbb89f09297b707beeb9ee8ab20041b5"
+        },
+        "canopy-v3-01/run_first.py": {
+          "bytes": 1664,
+          "sha256": "ad627e21b1f0f68b633e2da6afc8d66e5b0da6c81dff107a073ddb73abf418a4"
+        },
+        "canopy-v3-01/selected-source/resources/bosses/thorn_queen_canopy.tres.txt": {
+          "bytes": 965,
+          "sha256": "bbf920724f95209f89fdd5b117c2f6a8344941336cb2e0287258edf77c00aca6"
+        },
+        "canopy-v3-01/selected-source/scenes/bosses/thorn_queen_canopy.tscn.txt": {
+          "bytes": 1130,
+          "sha256": "a5a566419a09816959acc6dbafe4991781f1ff96d73d95dcefe9f5146999252b"
+        },
+        "canopy-v3-01/selected-source/scripts/bosses/thorn_queen_canopy_definition.gd.txt": {
+          "bytes": 6492,
+          "sha256": "5ede6ee4d98da10157b1b9af62d2b21593ae8801175c5a56c3529da8be324bdb"
+        },
+        "canopy-v3-01/selected-source/scripts/bosses/thorn_queen_canopy_definition.gd.uid.txt": {
+          "bytes": 19,
+          "sha256": "6ca783017babdd6a6f6911c8ef250acfeeeb7fafcde9f33a88242f3334da37c6"
+        },
+        "canopy-v3-01/selected-source/scripts/bosses/thorn_queen_canopy_encounter.gd.txt": {
+          "bytes": 13304,
+          "sha256": "993a11da54b2f3b2c810ade9f6f78a40327be7b3ad260a438ab56f6aa785b163"
+        },
+        "canopy-v3-01/selected-source/scripts/bosses/thorn_queen_canopy_encounter.gd.uid.txt": {
+          "bytes": 18,
+          "sha256": "cb03d66c884b002745001a24003de19373e51df06a26b5e1346dfbe3cc885dd6"
+        },
+        "canopy-v3-01/selected-source/scripts/bosses/thorn_queen_canopy_presentation.gd.txt": {
+          "bytes": 1186,
+          "sha256": "a350b901eac5a7307d09dacfaedcbce20e1eda3b207aedad47feabb76c107470"
+        },
+        "canopy-v3-01/selected-source/scripts/bosses/thorn_queen_canopy_presentation.gd.uid.txt": {
+          "bytes": 18,
+          "sha256": "66e89a1b34041e533b912111aa29a80c3e7a243e90c39fbf3e373422f9bd91b7"
+        },
+        "canopy-v3-01/selected-source/tests/support/forest_queen_canopy_fixture.gd.txt": {
+          "bytes": 9552,
+          "sha256": "5897736bf68f8dd264f504e5b546178ccc38ac60a8e1f5882600e6d4e67f19ce"
+        },
+        "canopy-v3-01/selected-source/tests/support/forest_queen_canopy_fixture.gd.uid.txt": {
+          "bytes": 19,
+          "sha256": "3a325e7f1dd9a8d0e1f1515bfe06243abcdf6afc2d9498e37ca96cf86705e1f2"
+        },
+        "canopy-v3-01/selected-source/tests/thorn_queen_canopy_runner.gd.txt": {
+          "bytes": 15397,
+          "sha256": "e05ce966775d5214815aed4b2dc08f0388108ea00546198ec87b0937f6d771bd"
+        },
+        "canopy-v3-01/selected-source/tests/thorn_queen_canopy_runner.gd.uid.txt": {
+          "bytes": 18,
+          "sha256": "10a38eedcedb9f041d6d5bc51a14a1babf0d0d109a2690d89789d329ea95f3a1"
+        },
+        "canopy-v3-01/selected-source/tools/run_thorn_queen_canopy.py.txt": {
+          "bytes": 6717,
+          "sha256": "f7e7d8aa82d1f9ac26fcd5cd6728fd3c7711ca55bdee546b819a38481155eb70"
+        },
+        "canopy-v3-01/source-checkpoint.json": {
+          "bytes": 1654,
+          "sha256": "724c3c6bbdedbf13d3c984dca5f501c7c1cd279b97668ddd2389a0d80f287589"
+        }
+      },
+      "indexed_member_count": 40,
+      "original_index_sha256": "1dc1bc554c26231e19c98024ef9f7b9e7b49fa45b2639dd80aa0a0eeab858845",
+      "unindexed_files_excluding_index": []
+    },
+    "canopy-v3-02.tar.gz": {
+      "bytes": 712938,
+      "sha256": "6db593916bb5ecd117ab5dfe8630957a4aafbf5c32311053aeb089595c71cd58",
+      "members": {
+        "canopy-v3-02/RESULT.md": {
+          "bytes": 3056,
+          "sha256": "a2d2508306071614a1cc0aefa7a0cff865277bbbc802758ae2748fde199c525e"
+        },
+        "canopy-v3-02/actual-audit.json": {
+          "bytes": 16103,
+          "sha256": "00a390686b060f330c2175665c2d12bbed5a73db38bb5001d49df9228446eae8"
+        },
+        "canopy-v3-02/copy-receipt.json": {
+          "bytes": 268691,
+          "sha256": "f0179a94b9b89f66bef8ec202f418ecc5c24005ba0d790e6627717b0dabca954"
+        },
+        "canopy-v3-02/driver-diff.patch": {
+          "bytes": 9084,
+          "sha256": "3aba066c52ddb5eeb46dc5a18a975a42270a36d722632032f0f5e65a05fa3790"
+        },
+        "canopy-v3-02/full-source-post.json": {
+          "bytes": 246213,
+          "sha256": "cff823251b71ff49fdd4aa5b8255856adb866c46f3d9b38c66953258fcd4209f"
+        },
+        "canopy-v3-02/index.json": {
+          "bytes": 6696,
+          "sha256": "e8edf650551d595c5f6d53958f0ed0601b382a86d954c4411611342da0da0f45"
+        },
+        "canopy-v3-02/outer-receipt.json": {
+          "bytes": 1286,
+          "sha256": "6fb0748cc7f244a1be52750be4fee7d51898cd93c3d40d9e3433085cad0980bf"
+        },
+        "canopy-v3-02/overlay.json": {
+          "bytes": 367,
+          "sha256": "2a3c84f364d3e26e8819e46b098f0cf512fa37d8df26a52ab311d46989f33a09"
+        },
+        "canopy-v3-02/package.py": {
+          "bytes": 2895,
+          "sha256": "5ffb5466ea05e05d081da7328b9c287a82ccc56c2f21c2e394bde7163c2fafd8"
+        },
+        "canopy-v3-02/prepare.py": {
+          "bytes": 2325,
+          "sha256": "6fe835216610584579b17a31e76ff97cbb2409386c2d94ba7e8ed7e01bff142f"
+        },
+        "canopy-v3-02/raw/lure/capture.json.gz": {
+          "bytes": 39895,
+          "sha256": "4690a8bf58af752ceada049ea4076f50121ae32d68e273f36db77b886abb74e3"
+        },
+        "canopy-v3-02/raw/lure/import.log": {
+          "bytes": 1017,
+          "sha256": "f15ffd4c558b01611d562c8c257508942bdc2dc542124f423ae2a592a46edfa6"
+        },
+        "canopy-v3-02/raw/lure/native.log": {
+          "bytes": 189,
+          "sha256": "6413be91e98939d05dd50adc5d1c81b8b8f004e6835e3767f61fa71fb6d17d56"
+        },
+        "canopy-v3-02/raw/lure/partial.json.gz": {
+          "bytes": 39695,
+          "sha256": "a58324c8d2a4dfb9c5484cd256c63e1343b5a9ba8c76e0e9c0061e92ba1fd07a"
+        },
+        "canopy-v3-02/raw/lure/receipt.json": {
+          "bytes": 223281,
+          "sha256": "54afa3d5ef76efd08cea54d022565b498e3622d26dd7f6e1818203338d37ee1b"
+        },
+        "canopy-v3-02/raw/ordinary_keep/capture.json.gz": {
+          "bytes": 29236,
+          "sha256": "91e1f77c502fc235ac6a80feb2746edca1a12ae50b94d4140a5e7157a9a4c3eb"
+        },
+        "canopy-v3-02/raw/ordinary_keep/import.log": {
+          "bytes": 1017,
+          "sha256": "f15ffd4c558b01611d562c8c257508942bdc2dc542124f423ae2a592a46edfa6"
+        },
+        "canopy-v3-02/raw/ordinary_keep/native.log": {
+          "bytes": 189,
+          "sha256": "34dd198c9e821e64efc30da018154d962064e5654c18e3ce759f44e19ea4e366"
+        },
+        "canopy-v3-02/raw/ordinary_keep/partial.json.gz": {
+          "bytes": 28945,
+          "sha256": "c264d5949198148cf522fa46e452222b6cd5e6cbfa173b32efab3babb11071a6"
+        },
+        "canopy-v3-02/raw/ordinary_keep/receipt.json": {
+          "bytes": 223290,
+          "sha256": "50f88b5d6a9e1386bf473a211ea9799a646fe01fce871d4b3518659a4e8767b3"
+        },
+        "canopy-v3-02/raw/purpose/capture.json.gz": {
+          "bytes": 35335,
+          "sha256": "248ef917a73d753a726162ebee9ba5b0dbb4ba841c94990397c8c8dd440e1171"
+        },
+        "canopy-v3-02/raw/purpose/import.log": {
+          "bytes": 76813,
+          "sha256": "2a471cd50cd950f86a4149e2c94719a92758da2f1587faa2aa5e909bdfeeb60d"
+        },
+        "canopy-v3-02/raw/purpose/native.log": {
+          "bytes": 189,
+          "sha256": "87d311e4b551a50bcbd9751246ac9ce1d93ebb273aabcf7c54d100d514ef475c"
+        },
+        "canopy-v3-02/raw/purpose/partial.json.gz": {
+          "bytes": 35151,
+          "sha256": "e700c31cb9a5f0a367f21e15ef61bf02f17600c6cb64d56ae2164fef597cde6b"
+        },
+        "canopy-v3-02/raw/purpose/receipt.json": {
+          "bytes": 223284,
+          "sha256": "d4193c3b6256300579f6eca5aa87648eba1a4522bc83ff50654437a665e0372f"
+        },
+        "canopy-v3-02/run_controls.py": {
+          "bytes": 1901,
+          "sha256": "6b36aee9a62573087c00e1e042980d38c99ee3d8a220805807d6864d795bdbbc"
+        },
+        "canopy-v3-02/selected-source/resources/bosses/thorn_queen_canopy.tres.txt": {
+          "bytes": 965,
+          "sha256": "bbf920724f95209f89fdd5b117c2f6a8344941336cb2e0287258edf77c00aca6"
+        },
+        "canopy-v3-02/selected-source/scenes/bosses/thorn_queen_canopy.tscn.txt": {
+          "bytes": 1130,
+          "sha256": "a5a566419a09816959acc6dbafe4991781f1ff96d73d95dcefe9f5146999252b"
+        },
+        "canopy-v3-02/selected-source/scripts/bosses/thorn_queen_canopy_definition.gd.txt": {
+          "bytes": 6492,
+          "sha256": "5ede6ee4d98da10157b1b9af62d2b21593ae8801175c5a56c3529da8be324bdb"
+        },
+        "canopy-v3-02/selected-source/scripts/bosses/thorn_queen_canopy_definition.gd.uid.txt": {
+          "bytes": 19,
+          "sha256": "6ca783017babdd6a6f6911c8ef250acfeeeb7fafcde9f33a88242f3334da37c6"
+        },
+        "canopy-v3-02/selected-source/scripts/bosses/thorn_queen_canopy_encounter.gd.txt": {
+          "bytes": 13304,
+          "sha256": "993a11da54b2f3b2c810ade9f6f78a40327be7b3ad260a438ab56f6aa785b163"
+        },
+        "canopy-v3-02/selected-source/scripts/bosses/thorn_queen_canopy_encounter.gd.uid.txt": {
+          "bytes": 18,
+          "sha256": "cb03d66c884b002745001a24003de19373e51df06a26b5e1346dfbe3cc885dd6"
+        },
+        "canopy-v3-02/selected-source/scripts/bosses/thorn_queen_canopy_presentation.gd.txt": {
+          "bytes": 1186,
+          "sha256": "a350b901eac5a7307d09dacfaedcbce20e1eda3b207aedad47feabb76c107470"
+        },
+        "canopy-v3-02/selected-source/scripts/bosses/thorn_queen_canopy_presentation.gd.uid.txt": {
+          "bytes": 18,
+          "sha256": "66e89a1b34041e533b912111aa29a80c3e7a243e90c39fbf3e373422f9bd91b7"
+        },
+        "canopy-v3-02/selected-source/tests/support/forest_queen_canopy_fixture.gd.txt": {
+          "bytes": 9552,
+          "sha256": "5897736bf68f8dd264f504e5b546178ccc38ac60a8e1f5882600e6d4e67f19ce"
+        },
+        "canopy-v3-02/selected-source/tests/support/forest_queen_canopy_fixture.gd.uid.txt": {
+          "bytes": 19,
+          "sha256": "3a325e7f1dd9a8d0e1f1515bfe06243abcdf6afc2d9498e37ca96cf86705e1f2"
+        },
+        "canopy-v3-02/selected-source/tests/thorn_queen_canopy_runner.gd.txt": {
+          "bytes": 21203,
+          "sha256": "762d52799fbe335cc47bdfe8ebaef9b33e95b0fe3c8402ef353a0bf295df5d0f"
+        },
+        "canopy-v3-02/selected-source/tests/thorn_queen_canopy_runner.gd.uid.txt": {
+          "bytes": 18,
+          "sha256": "10a38eedcedb9f041d6d5bc51a14a1babf0d0d109a2690d89789d329ea95f3a1"
+        },
+        "canopy-v3-02/selected-source/tools/run_thorn_queen_canopy.py.txt": {
+          "bytes": 6717,
+          "sha256": "f7e7d8aa82d1f9ac26fcd5cd6728fd3c7711ca55bdee546b819a38481155eb70"
+        },
+        "canopy-v3-02/source-checkpoint.json": {
+          "bytes": 1900,
+          "sha256": "23fe69d73be1259add7d52db6d7280a04376085cd218f61d772b27be15ce168d"
+        }
+      },
+      "indexed_member_count": 39,
+      "original_index_sha256": "e8edf650551d595c5f6d53958f0ed0601b382a86d954c4411611342da0da0f45",
+      "unindexed_files_excluding_index": []
+    },
+    "air-motion-07-double-root.tar.gz": {
+      "bytes": 852726,
+      "sha256": "048f6c01fa9e88c734ea1036dcf3e6610f445b94d48fc71c659ed8534dd17e1c",
+      "members": {
+        "air-motion-07-double-root/PLAN.md": {
+          "bytes": 3011,
+          "sha256": "f19d8ef8c9240b4c19cb653ff6c27c4618d6e590122d07e19e737e3bc6008da8"
+        },
+        "air-motion-07-double-root/RESULT.md": {
+          "bytes": 3619,
+          "sha256": "8a674e2e21f0dfce1419012745ba9d97735960bad794219696c0f53ffefe3ae4"
+        },
+        "air-motion-07-double-root/actual-audit.json": {
+          "bytes": 17718,
+          "sha256": "fc3d09514d656bab1159faf55bda05c45c29dd7ad2fcd29b5ae610366a0ba47a"
+        },
+        "air-motion-07-double-root/audit.py": {
+          "bytes": 3661,
+          "sha256": "70b6e2df59c8f02bacb0a043f7b39f1e3986098139e17eedbb305efeb2bebb19"
+        },
+        "air-motion-07-double-root/checkpoint-inventory.json": {
+          "bytes": 239571,
+          "sha256": "50c4accbcdd4a1f17a85277869ba615c5cf93876aa42aefdef132d0b5bfe9070"
+        },
+        "air-motion-07-double-root/controls.gd.txt": {
+          "bytes": 8647,
+          "sha256": "009ebfc9c8b2dc1029dd9ccb14a820a1eb10d78fe39a48cb95c4f41c7f8e9ab0"
+        },
+        "air-motion-07-double-root/copy-receipt.json": {
+          "bytes": 266896,
+          "sha256": "e83861e35dc9870c3845475887f7040eeb7df50c76c09515236b083b552c571c"
+        },
+        "air-motion-07-double-root/geometry.gd.txt": {
+          "bytes": 868,
+          "sha256": "97b5cf53b2d16f35f5c55ee4a362e018085a59be059d0bcb42bc3608dc0be01e"
+        },
+        "air-motion-07-double-root/hp-guard-provenance.json": {
+          "bytes": 679,
+          "sha256": "7a3328d72b1468352d731c4efc6486a26c70c4fbe4089075411c509eef065609"
+        },
+        "air-motion-07-double-root/index.json": {
+          "bytes": 5887,
+          "sha256": "83e9873ff50f1bd0e64090579ea2bf50d17b9faedd09c0e516ec5615f822d28d"
+        },
+        "air-motion-07-double-root/overlay.json": {
+          "bytes": 1045,
+          "sha256": "d955b43d125cc7e6f887b0bdf1cf5a9c3b84ef22e236a75edde97561ac2b450c"
+        },
+        "air-motion-07-double-root/post-native-full-inventory.json": {
+          "bytes": 243757,
+          "sha256": "f1dd8c7c54c1bde168c1016ccc20d85a10479f7fb2f6ba1a3d35c9ec7d3ba2b8"
+        },
+        "air-motion-07-double-root/prepare-reference.py": {
+          "bytes": 4347,
+          "sha256": "31f47a21e90b329a10c35db18b9d3b7e24ec69e72c94b01ef8bb7bad1ec17c58"
+        },
+        "air-motion-07-double-root/prepare.py": {
+          "bytes": 4627,
+          "sha256": "03dc65bed8776dcc006ee538bc68d63ab1752f835325d63ac72115dd7f56fb95"
+        },
+        "air-motion-07-double-root/raw/air_camp/capture.json.gz": {
+          "bytes": 60379,
+          "sha256": "0f7af09d6d069ce40c260ed73ebf5929db38b2f8e03e5b028074c63be9acaffd"
+        },
+        "air-motion-07-double-root/raw/air_camp/import.log": {
+          "bytes": 1017,
+          "sha256": "f15ffd4c558b01611d562c8c257508942bdc2dc542124f423ae2a592a46edfa6"
+        },
+        "air-motion-07-double-root/raw/air_camp/native.log": {
+          "bytes": 257,
+          "sha256": "3b6bd122a337612814d6625a79fb233670569cb8603e0a40571e641bad490a2e"
+        },
+        "air-motion-07-double-root/raw/air_camp/partial-air_camp_canopy.json.gz": {
+          "bytes": 26961,
+          "sha256": "de88d98cec10ead3a8fdb0e7bc3ad68bd8fdddd0b97dcdf18295c7042a7b35e6"
+        },
+        "air-motion-07-double-root/raw/air_camp/partial-air_camp_left_floor.json.gz": {
+          "bytes": 59701,
+          "sha256": "e96b2fd53814a271b3d326204e962cd77b0def83975b44b377f587784b99e023"
+        },
+        "air-motion-07-double-root/raw/air_camp/receipt.json": {
+          "bytes": 221370,
+          "sha256": "31141fff527fd5f167c411e328cf08255240638bf3fdf4892bf8b50ecf9b1290"
+        },
+        "air-motion-07-double-root/raw/air_ordinary/capture.json.gz": {
+          "bytes": 28094,
+          "sha256": "568e1ad87c3c8cf2617b9d79d30e5e5173796a73e440a83b93e28f3e9841742c"
+        },
+        "air-motion-07-double-root/raw/air_ordinary/import.log": {
+          "bytes": 1017,
+          "sha256": "f15ffd4c558b01611d562c8c257508942bdc2dc542124f423ae2a592a46edfa6"
+        },
+        "air-motion-07-double-root/raw/air_ordinary/native.log": {
+          "bytes": 188,
+          "sha256": "8675024700e282322db8fd4e5b730a9d8f3bf5f9c7d7b4599d1cca798fd9fbc5"
+        },
+        "air-motion-07-double-root/raw/air_ordinary/partial-air_ordinary.json.gz": {
+          "bytes": 27449,
+          "sha256": "65a6d89f2db7fef0a2582b5f6331e0433de54756dae33a87887ec9d20188c3bc"
+        },
+        "air-motion-07-double-root/raw/air_ordinary/receipt.json": {
+          "bytes": 221375,
+          "sha256": "5b9cf6ddb330723aa086116d1012caa3b8fa18bd22403f82907e6c17540fc4fe"
+        },
+        "air-motion-07-double-root/raw/air_purpose/capture.json.gz": {
+          "bytes": 27007,
+          "sha256": "c935ffb0e671bac923cb1aaef66193c90b58d66569d36ef1e5c97b95201ef96c"
+        },
+        "air-motion-07-double-root/raw/air_purpose/import.log": {
+          "bytes": 76349,
+          "sha256": "c35b208ee9577de2338a781e29382dfbc67181bccc7c4e565748220289836002"
+        },
+        "air-motion-07-double-root/raw/air_purpose/native.log": {
+          "bytes": 188,
+          "sha256": "e36af9177b449a3a22404ea870c0cf099104a874c06b8a2f4fe973978c3a501b"
+        },
+        "air-motion-07-double-root/raw/air_purpose/partial-air_purpose.json.gz": {
+          "bytes": 26461,
+          "sha256": "dff0a6db75fef56689c93314a6d7223a09b143c98abe3431ec5def9262d35dc4"
+        },
+        "air-motion-07-double-root/raw/air_purpose/receipt.json": {
+          "bytes": 221375,
+          "sha256": "67c946fa9e7aaaeaea08207bcc22754bf8fec08069ba123fa03cf0de011d4ed4"
+        },
+        "air-motion-07-double-root/run_controls.py": {
+          "bytes": 2075,
+          "sha256": "2143a5560d5c618f2a38af3c78d1068fce050c727b719d8eee72932a095cfc91"
+        },
+        "air-motion-07-double-root/selected-source/scripts/bosses/thorn_queen_v2.gd.txt": {
+          "bytes": 20019,
+          "sha256": "4fa5c7a4a69f1179f0b8d3e6346c7b49ab4dd1059eb054d95fa3117ed170aba1"
+        },
+        "air-motion-07-double-root/selected-source/scripts/combat/shot_energy_policy.gd.txt": {
+          "bytes": 2623,
+          "sha256": "446602eb4991970b7ae8b84226f9243af34a2c0f113415bba0344f5c8ad9dbbe"
+        },
+        "air-motion-07-double-root/selected-source/scripts/world/grapple_anchor.gd.txt": {
+          "bytes": 777,
+          "sha256": "9234931c6a509c1f83174c5c2cdd189114065ab025d58466a1bcc3564fc9a38a"
+        },
+        "air-motion-07-double-root/selected-source/tests/support/forest_queen_gameplay_fixture.gd.txt": {
+          "bytes": 17690,
+          "sha256": "469eb4785ec618abe118904d78dbf99cb67a7bb4b87709177cd2a0447200911b"
+        },
+        "air-motion-07-double-root/selected-source/tests/thorn_queen_sweep_runner.gd.txt": {
+          "bytes": 64296,
+          "sha256": "820e955521f2c5854516dc9d07d3546817e66b900e0a190b18729f62584a5cc4"
+        },
+        "air-motion-07-double-root/selected-source/tools/run_thorn_queen_sweep.py.txt": {
+          "bytes": 13635,
+          "sha256": "3255b8c188e873b4679401e1dff2153266c5d9c43b095245bd7190fcf60dce7d"
+        }
+      },
+      "indexed_member_count": 36,
+      "original_index_sha256": "83e9873ff50f1bd0e64090579ea2bf50d17b9faedd09c0e516ec5615f822d28d",
+      "unindexed_files_excluding_index": []
+    }
+  },
+  "direct_files": {
+    "REVIEW.md": {
+      "source": "/workspace/gunman-rush-design/build/forest_depth/independent/final-experience-v7/Queen-canopy-v3-02-REVIEW.md",
+      "bytes": 2672,
+      "sha256": "79826dee59e8376f80aabf044c6397ad65a2eac7d3fa68d97ed611c62563955c"
+    },
+    "independent-audit.json": {
+      "source": "/workspace/gunman-rush-design/build/forest_depth/independent/final-experience-v7/Queen-canopy-v3-02-audit.json",
+      "bytes": 11662,
+      "sha256": "ff78ab5240afcbbba4e94584f3b4e6fe7b44b3258b69043015ef976b42682b4c"
+    }
+  },
+  "source_guard": {
+    "canopy-v3-01": {
+      "before_matches_original_index": true,
+      "archive_readback_exact": true,
+      "after_all_members_unchanged": true,
+      "source": "/workspace/gunman-rush-design/build/forest_depth/queen/canopy-v3-01"
+    },
+    "canopy-v3-02": {
+      "before_matches_original_index": true,
+      "archive_readback_exact": true,
+      "after_all_members_unchanged": true,
+      "source": "/workspace/gunman-rush-design/build/forest_depth/queen/canopy-v3-02"
+    },
+    "air-motion-07-double-root": {
+      "before_matches_original_index": true,
+      "archive_readback_exact": true,
+      "after_all_members_unchanged": true,
+      "source": "/workspace/gunman-rush-design/build/forest_depth/queen/air-motion-07-double-root"
+    }
+  },
+  "raw_decoded": [
+    {
+      "member": "canopy-v3-01/raw/capture.json.gz",
+      "uncompressed_bytes": 666008,
+      "uncompressed_sha256": "bedc12903e79e19ec37641370b5ee16754edd894e5e7b8b5551d0d43d9775546"
+    },
+    {
+      "member": "canopy-v3-01/raw/ordinary_cut/capture.json.gz",
+      "uncompressed_bytes": 663733,
+      "uncompressed_sha256": "5da871f746137496ea4ec34ac2678e1c33870104522d2e9615267d00eb646c84"
+    },
+    {
+      "member": "canopy-v3-01/raw/ordinary_cut/partial.json.gz",
+      "uncompressed_bytes": 648164,
+      "uncompressed_sha256": "cedd42330ef22a6bc1bbaa113a0952c6c57ba43a366afe2edad191dcc69bb175"
+    },
+    {
+      "member": "canopy-v3-01/raw/ordinary_keep/capture.json.gz",
+      "uncompressed_bytes": 519156,
+      "uncompressed_sha256": "ea7d3c73d07f88dcefca41094c1adedbf4c4b92ee0d34d596c47f3a1f3b3b7c5"
+    },
+    {
+      "member": "canopy-v3-01/raw/ordinary_keep/partial.json.gz",
+      "uncompressed_bytes": 507227,
+      "uncompressed_sha256": "c8b87aa938968e6b1a4c6959c4edaa9c1de477f46ee70caeb68f612d5359d7e7"
+    },
+    {
+      "member": "canopy-v3-01/raw/partial.json.gz",
+      "uncompressed_bytes": 650835,
+      "uncompressed_sha256": "63de402af937d75150fa2c5435bc4bce7e71af3bbd8167643cebd451aa0c3481"
+    },
+    {
+      "member": "canopy-v3-02/raw/lure/capture.json.gz",
+      "uncompressed_bytes": 965124,
+      "uncompressed_sha256": "bf617252cfd94bdad20989b27f1b16cd500634c5720d544243518aa0ebc461f0"
+    },
+    {
+      "member": "canopy-v3-02/raw/lure/partial.json.gz",
+      "uncompressed_bytes": 942543,
+      "uncompressed_sha256": "9cc6ebfb087f2f0d5ebcca060b03bf3b2e986de3121924b812a1e49c75bfd49f"
+    },
+    {
+      "member": "canopy-v3-02/raw/ordinary_keep/capture.json.gz",
+      "uncompressed_bytes": 549319,
+      "uncompressed_sha256": "b666783809d712200d082f3b88e3027dea597c912d3df80d74be3972be8fe778"
+    },
+    {
+      "member": "canopy-v3-02/raw/ordinary_keep/partial.json.gz",
+      "uncompressed_bytes": 536688,
+      "uncompressed_sha256": "030c1d635fdb72eb01c2d02a27f73eb56b3a30fa22f7a6e0e82421c98b8a60d1"
+    },
+    {
+      "member": "canopy-v3-02/raw/purpose/capture.json.gz",
+      "uncompressed_bytes": 660492,
+      "uncompressed_sha256": "937459bd77a21585059e972a2d2574b1e5c978174bd6b0b68d6290d88889d253"
+    },
+    {
+      "member": "canopy-v3-02/raw/purpose/partial.json.gz",
+      "uncompressed_bytes": 645377,
+      "uncompressed_sha256": "f668b4325cd5778414458cfd67cd667f567eba8f8bb39115b3f1976d62414a60"
+    },
+    {
+      "member": "air-motion-07-double-root/raw/air_camp/capture.json.gz",
+      "uncompressed_bytes": 1531156,
+      "uncompressed_sha256": "6ef46a24defe16df4ccce951a73bfecab4696b2d31d1f2c8ce16460c5718695a"
+    },
+    {
+      "member": "air-motion-07-double-root/raw/air_camp/partial-air_camp_canopy.json.gz",
+      "uncompressed_bytes": 642816,
+      "uncompressed_sha256": "9426f40f529dbfc014cd223a99a715a087fa69261f24155047dc40bb80216a93"
+    },
+    {
+      "member": "air-motion-07-double-root/raw/air_camp/partial-air_camp_left_floor.json.gz",
+      "uncompressed_bytes": 1529975,
+      "uncompressed_sha256": "11d240e67ab971c4fcae7336488dd73870c60084226bfc1373edbe1080622fa3"
+    },
+    {
+      "member": "air-motion-07-double-root/raw/air_ordinary/capture.json.gz",
+      "uncompressed_bytes": 650164,
+      "uncompressed_sha256": "f528724c8e0e96f1f282403bbbd740bb5e95aa2c1a4616341de9ff641ca4f85b"
+    },
+    {
+      "member": "air-motion-07-double-root/raw/air_ordinary/partial-air_ordinary.json.gz",
+      "uncompressed_bytes": 648976,
+      "uncompressed_sha256": "a85b201fd407b3b29a4606d88d53818552c3fcc2fc8eba2a20da1b037f253078"
+    },
+    {
+      "member": "air-motion-07-double-root/raw/air_purpose/capture.json.gz",
+      "uncompressed_bytes": 761103,
+      "uncompressed_sha256": "2b4074a9a1f8768cb699bcd9fa44b21d68d643a2b08826f1dfbd019f68f08a07"
+    },
+    {
+      "member": "air-motion-07-double-root/raw/air_purpose/partial-air_purpose.json.gz",
+      "uncompressed_bytes": 759914,
+      "uncompressed_sha256": "d91d73c93bf767d31b3b1d2a4afefcbd8cea512fe3bf98fe9418c04c130be35d"
+    }
+  ],
+  "independent_audit_raw_binding": "Every audit capture.json SHA checked against preserved decompressed 02 raw gzip bytes."
+}

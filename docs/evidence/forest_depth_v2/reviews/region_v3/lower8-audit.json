@@ -1,0 +1,948 @@
+[
+  {
+    "archive": "lower-lift-four-controls.tar.gz",
+    "member": "build/forest_depth/ecology/lift01/00-alive_lift/capture.json",
+    "sha": "7a3c64f0253db960eb99fe74aaaa99d26e4771869e0cffcf4eec44ada128fc84",
+    "strategy": "alive_lift",
+    "start": 322,
+    "motion_start": 322,
+    "end": 392,
+    "interval": 70,
+    "contact": 342,
+    "free": 356,
+    "entry_energy": 100.0,
+    "exit_energy": 85.5,
+    "entry_hp": 4.0,
+    "exit_hp": 4.0,
+    "setup_shots": 0,
+    "R_requested": 1,
+    "failure": [],
+    "events": [
+      {
+        "kind": "hook_cast",
+        "leg": 4,
+        "position": [
+          1020.03253173828,
+          881.925170898438
+        ],
+        "target": "",
+        "tick": 322
+      },
+      {
+        "kind": "hook_contact_kick",
+        "leg": 4,
+        "position": [
+          1054.22839355469,
+          721.036987304688
+        ],
+        "target": "forest_lantern",
+        "tick": 342
+      },
+      {
+        "amount": 1.0,
+        "damage_kind": 0,
+        "event_id": "hook/155558349025/2/2",
+        "health_after": 1.0,
+        "kind": "committed_damage",
+        "leg": 4,
+        "lethal": false,
+        "position": [
+          1054.22839355469,
+          721.036987304688
+        ],
+        "source": "player_projectile:155558349025",
+        "target": "hollow_route__outer_lift_lantern",
+        "tick": 342
+      },
+      {
+        "kind": "hook_kick",
+        "leg": 4,
+        "position": [
+          1054.22839355469,
+          721.036987304688
+        ],
+        "target": "forest_lantern",
+        "tick": 349
+      },
+      {
+        "kind": "free",
+        "leg": 4,
+        "position": [
+          1030.22839355469,
+          697.036987304688
+        ],
+        "target": "forest_lantern",
+        "tick": 356
+      },
+      {
+        "aim": [
+          0.0,
+          1.0
+        ],
+        "kind": "shot_fired",
+        "leg": 4,
+        "position": [
+          1030.22839355469,
+          697.036987304688
+        ],
+        "serial": 2,
+        "tick": 357
+      }
+    ]
+  },
+  {
+    "archive": "lower-lift-four-controls.tar.gz",
+    "member": "build/forest_depth/ecology/lift01/01-jump_two_R/capture.json",
+    "sha": "fa24ac3f8ba11d48470c61c8409f431263adebe59d64a2a8a70311a3eaa63ac6",
+    "strategy": "jump_two_R",
+    "start": 322,
+    "motion_start": 322,
+    "end": 409,
+    "interval": 87,
+    "contact": -1,
+    "free": -1,
+    "entry_energy": 100.0,
+    "exit_energy": 65.5,
+    "entry_hp": 4.0,
+    "exit_hp": 4.0,
+    "setup_shots": 0,
+    "R_requested": 2,
+    "failure": [],
+    "events": [
+      {
+        "aim": [
+          0.0,
+          1.0
+        ],
+        "kind": "shot_fired",
+        "leg": 4,
+        "position": [
+          980.007507324219,
+          732.212890625
+        ],
+        "serial": 2,
+        "tick": 345
+      },
+      {
+        "aim": [
+          0.0,
+          1.0
+        ],
+        "kind": "shot_fired",
+        "leg": 4,
+        "position": [
+          980.000305175781,
+          578.3818359375
+        ],
+        "serial": 3,
+        "tick": 361
+      }
+    ]
+  },
+  {
+    "archive": "lower-lift-four-controls.tar.gz",
+    "member": "build/forest_depth/ecology/lift01/02-fixed_return/capture.json",
+    "sha": "68ba64553ff71e90fd7be5e5e65c3513f87638e6457ef0a73398502564fd4d8d",
+    "strategy": "fixed_return",
+    "start": 322,
+    "motion_start": 322,
+    "end": 729,
+    "interval": 407,
+    "contact": -1,
+    "free": -1,
+    "entry_energy": 100.0,
+    "exit_energy": 89.0,
+    "entry_hp": 4.0,
+    "exit_hp": 4.0,
+    "setup_shots": 0,
+    "R_requested": 0,
+    "failure": [],
+    "events": [
+      {
+        "kind": "hook_cast",
+        "leg": 4,
+        "position": [
+          938.205383300781,
+          789.534973144531
+        ],
+        "target": "",
+        "tick": 355
+      },
+      {
+        "kind": "hook_contact_kick",
+        "leg": 4,
+        "position": [
+          758.852355957031,
+          769.727844238281
+        ],
+        "target": "hollow__lower_window_ring",
+        "tick": 378
+      },
+      {
+        "kind": "hook_kick",
+        "leg": 4,
+        "position": [
+          758.852355957031,
+          769.727844238281
+        ],
+        "target": "hollow__lower_window_ring",
+        "tick": 385
+      },
+      {
+        "kind": "free",
+        "leg": 4,
+        "position": [
+          782.852355957031,
+          745.727844238281
+        ],
+        "target": "hollow__lower_window_ring",
+        "tick": 392
+      },
+      {
+        "aim": [
+          1.0,
+          0.0
+        ],
+        "kind": "shot_fired",
+        "leg": 4,
+        "position": [
+          782.852355957031,
+          745.727844238281
+        ],
+        "serial": 2,
+        "tick": 393
+      },
+      {
+        "amount": 1.0,
+        "damage_kind": 0,
+        "event_id": "hollow_route__root_patrol_contact:3:1:1",
+        "health_after": 3.0,
+        "kind": "committed_damage",
+        "leg": 5,
+        "lethal": false,
+        "position": [
+          633.317138671875,
+          801.925231933594
+        ],
+        "source": "hollow_route__root_patrol_contact",
+        "target": "player",
+        "tick": 465
+      },
+      {
+        "kind": "hook_cast",
+        "leg": 6,
+        "position": [
+          599.967468261719,
+          537.657165527344
+        ],
+        "target": "",
+        "tick": 654
+      },
+      {
+        "kind": "hook_contact_kick",
+        "leg": 6,
+        "position": [
+          758.364562988281,
+          554.483032226562
+        ],
+        "target": "hollow__upper_window_ring",
+        "tick": 674
+      },
+      {
+        "kind": "hook_kick",
+        "leg": 6,
+        "position": [
+          758.364562988281,
+          554.483032226562
+        ],
+        "target": "hollow__upper_window_ring",
+        "tick": 681
+      },
+      {
+        "kind": "free",
+        "leg": 6,
+        "position": [
+          734.364562988281,
+          530.483032226562
+        ],
+        "target": "hollow__upper_window_ring",
+        "tick": 688
+      },
+      {
+        "aim": [
+          -1.0,
+          0.0
+        ],
+        "kind": "shot_fired",
+        "leg": 6,
+        "position": [
+          734.364562988281,
+          530.483032226562
+        ],
+        "serial": 3,
+        "tick": 689
+      }
+    ]
+  },
+  {
+    "archive": "lower-lift-four-controls.tar.gz",
+    "member": "build/forest_depth/ecology/lift01/03-dead_fixed_return/capture.json",
+    "sha": "8863fdaf1ed1f34b9c26bce34796323bf64ec84c0643b89086afd127d1ccc713",
+    "strategy": "dead_fixed_return",
+    "start": 322,
+    "motion_start": 322,
+    "end": 770,
+    "interval": 448,
+    "contact": -1,
+    "free": -1,
+    "entry_energy": 100.0,
+    "exit_energy": 89.0,
+    "entry_hp": 4.0,
+    "exit_hp": 3.0,
+    "setup_shots": 2,
+    "R_requested": 0,
+    "failure": [],
+    "events": [
+      {
+        "aim": [
+          0.0778444558382034,
+          -0.996965527534485
+        ],
+        "kind": "shot_fired",
+        "leg": 4,
+        "position": [
+          1048.80114746094,
+          881.925231933594
+        ],
+        "serial": 2,
+        "tick": 330
+      },
+      {
+        "amount": 1.0,
+        "damage_kind": 0,
+        "event_id": "155608680673:2:2",
+        "health_after": 1.0,
+        "kind": "committed_damage",
+        "leg": 4,
+        "lethal": false,
+        "position": [
+          1046.35791015625,
+          881.925231933594
+        ],
+        "source": "player_projectile:155608680673",
+        "target": "hollow_route__outer_lift_lantern",
+        "tick": 339
+      },
+      {
+        "aim": [
+          0.116253487765789,
+          -0.993219614028931
+        ],
+        "kind": "shot_fired",
+        "leg": 4,
+        "position": [
+          1053.20056152344,
+          881.925231933594
+        ],
+        "serial": 3,
+        "tick": 346
+      },
+      {
+        "amount": 1.0,
+        "damage_kind": 0,
+        "event_id": "155608680673:2:3",
+        "health_after": 0.0,
+        "kind": "committed_damage",
+        "leg": 4,
+        "lethal": true,
+        "position": [
+          1047.09008789062,
+          881.925231933594
+        ],
+        "source": "player_projectile:155608680673",
+        "target": "hollow_route__outer_lift_lantern",
+        "tick": 355
+      },
+      {
+        "kind": "hook_cast",
+        "leg": 4,
+        "position": [
+          938.207702636719,
+          789.534973144531
+        ],
+        "target": "",
+        "tick": 396
+      },
+      {
+        "kind": "hook_contact_kick",
+        "leg": 4,
+        "position": [
+          758.852478027344,
+          769.727722167969
+        ],
+        "target": "hollow__lower_window_ring",
+        "tick": 419
+      },
+      {
+        "kind": "hook_kick",
+        "leg": 4,
+        "position": [
+          758.852478027344,
+          769.727722167969
+        ],
+        "target": "hollow__lower_window_ring",
+        "tick": 426
+      },
+      {
+        "kind": "free",
+        "leg": 4,
+        "position": [
+          782.852478027344,
+          745.727722167969
+        ],
+        "target": "hollow__lower_window_ring",
+        "tick": 433
+      },
+      {
+        "aim": [
+          1.0,
+          0.0
+        ],
+        "kind": "shot_fired",
+        "leg": 4,
+        "position": [
+          782.852478027344,
+          745.727722167969
+        ],
+        "serial": 4,
+        "tick": 434
+      },
+      {
+        "amount": 1.0,
+        "damage_kind": 0,
+        "event_id": "hollow_route__root_patrol_contact:3:1:1",
+        "health_after": 3.0,
+        "kind": "committed_damage",
+        "leg": 4,
+        "lethal": false,
+        "position": [
+          663.519165039062,
+          771.727722167969
+        ],
+        "source": "hollow_route__root_patrol_contact",
+        "target": "player",
+        "tick": 450
+      },
+      {
+        "amount": 1.0,
+        "damage_kind": 0,
+        "event_id": "hollow_route__root_patrol_contact:3:2:1",
+        "health_after": 2.0,
+        "kind": "committed_damage",
+        "leg": 5,
+        "lethal": false,
+        "position": [
+          667.983642578125,
+          801.925231933594
+        ],
+        "source": "hollow_route__root_patrol_contact",
+        "target": "player",
+        "tick": 498
+      },
+      {
+        "kind": "hook_cast",
+        "leg": 6,
+        "position": [
+          599.967468261719,
+          537.657165527344
+        ],
+        "target": "",
+        "tick": 695
+      },
+      {
+        "kind": "hook_contact_kick",
+        "leg": 6,
+        "position": [
+          758.364562988281,
+          554.483032226562
+        ],
+        "target": "hollow__upper_window_ring",
+        "tick": 715
+      },
+      {
+        "kind": "hook_kick",
+        "leg": 6,
+        "position": [
+          758.364562988281,
+          554.483032226562
+        ],
+        "target": "hollow__upper_window_ring",
+        "tick": 722
+      },
+      {
+        "kind": "free",
+        "leg": 6,
+        "position": [
+          734.364562988281,
+          530.483032226562
+        ],
+        "target": "hollow__upper_window_ring",
+        "tick": 729
+      },
+      {
+        "aim": [
+          -1.0,
+          0.0
+        ],
+        "kind": "shot_fired",
+        "leg": 6,
+        "position": [
+          734.364562988281,
+          530.483032226562
+        ],
+        "serial": 5,
+        "tick": 730
+      }
+    ]
+  },
+  {
+    "archive": "lower-lift-three-additional-controls.tar.gz",
+    "member": "actual/02-low_air_recover_lift/capture.json",
+    "sha": "d2ddd9469fa109c9f048d889b65cda698414c746f911728c2f6ca1f6e87a68a4",
+    "strategy": "low_air_recover_lift",
+    "start": 322,
+    "motion_start": 400,
+    "end": 470,
+    "interval": 148,
+    "contact": 420,
+    "free": 434,
+    "entry_energy": 100.0,
+    "exit_energy": 57.5,
+    "entry_hp": 4.0,
+    "exit_hp": 4.0,
+    "setup_shots": 2,
+    "R_requested": 1,
+    "failure": [],
+    "events": [
+      {
+        "aim": [
+          -1.0,
+          0.0
+        ],
+        "kind": "shot_fired",
+        "leg": 4,
+        "position": [
+          1020.03253173828,
+          732.212768554688
+        ],
+        "serial": 2,
+        "tick": 345
+      },
+      {
+        "aim": [
+          1.0,
+          0.0
+        ],
+        "kind": "shot_fired",
+        "leg": 4,
+        "position": [
+          1174.03283691406,
+          752.434997558594
+        ],
+        "serial": 3,
+        "tick": 361
+      },
+      {
+        "kind": "hook_cast",
+        "leg": 4,
+        "position": [
+          1020.03253173828,
+          881.976684570312
+        ],
+        "target": "",
+        "tick": 400
+      },
+      {
+        "kind": "hook_contact_kick",
+        "leg": 4,
+        "position": [
+          1075.61474609375,
+          720.369018554688
+        ],
+        "target": "forest_lantern",
+        "tick": 420
+      },
+      {
+        "amount": 1.0,
+        "damage_kind": 0,
+        "event_id": "hook/155608680673/2/2",
+        "health_after": 1.0,
+        "kind": "committed_damage",
+        "leg": 4,
+        "lethal": false,
+        "position": [
+          1075.61474609375,
+          720.369018554688
+        ],
+        "source": "player_projectile:155608680673",
+        "target": "hollow_route__outer_lift_lantern",
+        "tick": 420
+      },
+      {
+        "kind": "hook_kick",
+        "leg": 4,
+        "position": [
+          1075.61474609375,
+          720.369018554688
+        ],
+        "target": "forest_lantern",
+        "tick": 427
+      },
+      {
+        "kind": "free",
+        "leg": 4,
+        "position": [
+          1051.61474609375,
+          696.369018554688
+        ],
+        "target": "forest_lantern",
+        "tick": 434
+      },
+      {
+        "aim": [
+          0.0,
+          1.0
+        ],
+        "kind": "shot_fired",
+        "leg": 4,
+        "position": [
+          1051.61474609375,
+          696.369018554688
+        ],
+        "serial": 4,
+        "tick": 435
+      }
+    ]
+  },
+  {
+    "archive": "lower-lift-three-additional-controls.tar.gz",
+    "member": "actual/01-left_phase_lift/capture.json",
+    "sha": "da92a01f41636c1f7f2914d1faab1cdc0c2faf7b658a2b9eec2ff059109027f1",
+    "strategy": "left_phase_lift",
+    "start": 322,
+    "motion_start": 470,
+    "end": 540,
+    "interval": 218,
+    "contact": 490,
+    "free": 504,
+    "entry_energy": 100.0,
+    "exit_energy": 85.5,
+    "entry_hp": 4.0,
+    "exit_hp": 4.0,
+    "setup_shots": 0,
+    "R_requested": 1,
+    "failure": [],
+    "events": [
+      {
+        "kind": "hook_cast",
+        "leg": 4,
+        "position": [
+          1020.03253173828,
+          881.925170898438
+        ],
+        "target": "",
+        "tick": 470
+      },
+      {
+        "kind": "hook_contact_kick",
+        "leg": 4,
+        "position": [
+          1070.62976074219,
+          720.953063964844
+        ],
+        "target": "forest_lantern",
+        "tick": 490
+      },
+      {
+        "amount": 1.0,
+        "damage_kind": 0,
+        "event_id": "hook/155608680673/2/2",
+        "health_after": 1.0,
+        "kind": "committed_damage",
+        "leg": 4,
+        "lethal": false,
+        "position": [
+          1070.62976074219,
+          720.953063964844
+        ],
+        "source": "player_projectile:155608680673",
+        "target": "hollow_route__outer_lift_lantern",
+        "tick": 490
+      },
+      {
+        "kind": "hook_kick",
+        "leg": 4,
+        "position": [
+          1070.62976074219,
+          720.953063964844
+        ],
+        "target": "forest_lantern",
+        "tick": 497
+      },
+      {
+        "kind": "free",
+        "leg": 4,
+        "position": [
+          1046.62976074219,
+          696.953063964844
+        ],
+        "target": "forest_lantern",
+        "tick": 504
+      },
+      {
+        "aim": [
+          0.0,
+          1.0
+        ],
+        "kind": "shot_fired",
+        "leg": 4,
+        "position": [
+          1046.62976074219,
+          696.953063964844
+        ],
+        "serial": 2,
+        "tick": 505
+      }
+    ]
+  },
+  {
+    "archive": "lower-lift-three-additional-controls.tar.gz",
+    "member": "actual/00-dead_jump_two_R/capture.json",
+    "sha": "883dd8fd771dffb9a640f2a630d4698534a0744a0a679505328f0f88a2cc5706",
+    "strategy": "dead_jump_two_R",
+    "start": 322,
+    "motion_start": 375,
+    "end": 462,
+    "interval": 140,
+    "contact": -1,
+    "free": -1,
+    "entry_energy": 100.0,
+    "exit_energy": 65.5,
+    "entry_hp": 4.0,
+    "exit_hp": 4.0,
+    "setup_shots": 2,
+    "R_requested": 2,
+    "failure": [],
+    "events": [
+      {
+        "aim": [
+          0.0778444558382034,
+          -0.996965527534485
+        ],
+        "kind": "shot_fired",
+        "leg": 4,
+        "position": [
+          1048.80114746094,
+          881.925231933594
+        ],
+        "serial": 2,
+        "tick": 330
+      },
+      {
+        "amount": 1.0,
+        "damage_kind": 0,
+        "event_id": "155558349025:2:2",
+        "health_after": 1.0,
+        "kind": "committed_damage",
+        "leg": 4,
+        "lethal": false,
+        "position": [
+          1046.35791015625,
+          881.925231933594
+        ],
+        "source": "player_projectile:155558349025",
+        "target": "hollow_route__outer_lift_lantern",
+        "tick": 339
+      },
+      {
+        "aim": [
+          0.116253487765789,
+          -0.993219614028931
+        ],
+        "kind": "shot_fired",
+        "leg": 4,
+        "position": [
+          1053.20056152344,
+          881.925231933594
+        ],
+        "serial": 3,
+        "tick": 346
+      },
+      {
+        "amount": 1.0,
+        "damage_kind": 0,
+        "event_id": "155558349025:2:3",
+        "health_after": 0.0,
+        "kind": "committed_damage",
+        "leg": 4,
+        "lethal": true,
+        "position": [
+          1047.09008789062,
+          881.925231933594
+        ],
+        "source": "player_projectile:155558349025",
+        "target": "hollow_route__outer_lift_lantern",
+        "tick": 355
+      },
+      {
+        "aim": [
+          0.0,
+          1.0
+        ],
+        "kind": "shot_fired",
+        "leg": 4,
+        "position": [
+          980.007507324219,
+          732.212951660156
+        ],
+        "serial": 4,
+        "tick": 398
+      },
+      {
+        "aim": [
+          0.0,
+          1.0
+        ],
+        "kind": "shot_fired",
+        "leg": 4,
+        "position": [
+          980.000305175781,
+          578.381896972656
+        ],
+        "serial": 5,
+        "tick": 414
+      }
+    ]
+  },
+  {
+    "archive": "HP1-lethal-contact-originals.tar.gz",
+    "member": "actual/00-lethal_contact_lift/capture.json",
+    "sha": "ad3142581be7a02620b7479b6fbc03cadb3bbc814f2a1fc9e7951c234f69b134",
+    "strategy": "lethal_contact_lift",
+    "start": 322,
+    "motion_start": 359,
+    "end": 429,
+    "interval": 107,
+    "contact": 379,
+    "free": 393,
+    "entry_energy": 100.0,
+    "exit_energy": 85.5,
+    "entry_hp": 4.0,
+    "exit_hp": 4.0,
+    "setup_shots": 1,
+    "R_requested": 1,
+    "failure": [],
+    "events": [
+      {
+        "aim": [
+          0.0778444558382034,
+          -0.996965527534485
+        ],
+        "kind": "shot_fired",
+        "leg": 4,
+        "position": [
+          1048.80114746094,
+          881.925231933594
+        ],
+        "serial": 2,
+        "tick": 330
+      },
+      {
+        "amount": 1.0,
+        "damage_kind": 0,
+        "event_id": "155558349025:2:2",
+        "health_after": 1.0,
+        "kind": "committed_damage",
+        "leg": 4,
+        "lethal": false,
+        "position": [
+          1046.35791015625,
+          881.925231933594
+        ],
+        "source": "player_projectile:155558349025",
+        "target": "hollow_route__outer_lift_lantern",
+        "tick": 339
+      },
+      {
+        "kind": "hook_cast",
+        "leg": 4,
+        "position": [
+          1020.06732177734,
+          881.925170898438
+        ],
+        "target": "",
+        "tick": 359
+      },
+      {
+        "kind": "hook_contact_kick",
+        "leg": 4,
+        "position": [
+          1073.10546875,
+          720.5009765625
+        ],
+        "target": "forest_lantern",
+        "tick": 379
+      },
+      {
+        "amount": 1.0,
+        "damage_kind": 0,
+        "event_id": "hook/155558349025/2/2",
+        "health_after": 0.0,
+        "kind": "committed_damage",
+        "leg": 4,
+        "lethal": true,
+        "position": [
+          1073.10546875,
+          720.5009765625
+        ],
+        "source": "player_projectile:155558349025",
+        "target": "hollow_route__outer_lift_lantern",
+        "tick": 379
+      },
+      {
+        "kind": "hook_kick",
+        "leg": 4,
+        "position": [
+          1073.10546875,
+          720.5009765625
+        ],
+        "target": "forest_lantern",
+        "tick": 386
+      },
+      {
+        "kind": "free",
+        "leg": 4,
+        "position": [
+          1049.10546875,
+          696.5009765625
+        ],
+        "target": "forest_lantern",
+        "tick": 393
+      },
+      {
+        "aim": [
+          0.0,
+          1.0
+        ],
+        "kind": "shot_fired",
+        "leg": 4,
+        "position": [
+          1049.10546875,
+          696.5009765625
+        ],
+        "serial": 3,
+        "tick": 394
+      }
+    ]
+  }
+]

@@ -1,0 +1,215 @@
+"""Bounded floorless canopy comparison; existing real Hollow consumer, not promotion."""
+import argparse,contextlib,hashlib,json,re,time,subprocess
+from pathlib import Path
+import level_formal
+from run_tests import run_engine
+from run_forest_directional_golden import _resource_errors
+ROOT=Path(__file__).resolve().parents[1]
+VARIANTS=('H0R','noH_zeroR','noH_oneR','wrongH','noH_bay','cavity_HR','noH_cavity_twoR','cavity_wrongR','noH_cavity_outer','shaft_HR','noH_shaft_oneR','noH_shaft_twoR','noH_shaft_miss')
+def _cavity_resource_errors(frames,events,tuning,reset_ticks):
+    """Original shot economy, plus proven production SegmentRespawn action reset.
+
+    Reset ticks come only from the independently checked ENV/epoch/body/HP facts.
+    Stamina and recovery delay survive; no energy boost is permitted by a return.
+    """
+    resource=(ROOT/'resources/player/plains_shot_energy.tres').read_text()
+    definition=(ROOT/'scripts/resources/definitions/shot_energy_definition.gd').read_text()
+    def number(name):
+        found=re.search(r'(?m)^'+name+r'\s*=\s*([\d.]+)',resource) or re.search(r'var '+name+r'\s*:=\s*([\d.]+)',definition)
+        return float(found.group(1))
+    capacity=number('capacity');energy=number('initial_current');cost=number('shot_energy_cost');recovery=number('ground_recovery');delay_limit=number('recovery_delay')
+    delay=0.;shots=tuning['max_air_shots'];previous_grounded=False;hook_used=False;errors=[];dt=1/tuning['physics_hz']
+    for f in frames:
+        accepted=[e for e in events if e['tick']==f['tick'] and e['kind']=='shot_fired']
+        if any(e['tick']==f['tick'] and e['kind']=='hook_cast' for e in events):hook_used=True
+        if (f['grounded'] and not previous_grounded) or any(e['tick']==f['tick'] and e['kind']=='hook_kick' for e in events):hook_used=False
+        if f['tick'] in reset_ticks:hook_used=False
+        if f['hook_used']!=hook_used and 'H_token_not_actual_cast_contact_or_ground' not in errors:errors.append('H_token_not_actual_cast_contact_or_ground')
+        jumped=any(e['tick']==f['tick'] and e['kind']=='jumped' for e in events)
+        recovery_delta=max(0.,dt-delay);delay=max(0.,delay-dt)
+        if previous_grounded:energy=min(capacity,energy+recovery*recovery_delta)
+        started_grounded=previous_grounded and not jumped
+        for _ in accepted:
+            energy-=cost;delay=delay_limit
+            if not started_grounded:shots-=1
+        if f['grounded']:shots=tuning['max_air_shots']
+        elif started_grounded:shots=max(0,shots-len(accepted))
+        if not 0<=f['energy']<=capacity and 'energy_outside_real_capacity' not in errors:errors.append('energy_outside_real_capacity')
+        if abs(f['energy']-energy)>.001 and 'energy_not_actual_shot_cost_delay_and_ground_recovery' not in errors:errors.append('energy_not_actual_shot_cost_delay_and_ground_recovery')
+        if f['tick'] in reset_ticks:shots=tuning['max_air_shots']
+        if f['shots']!=shots and 'charges_not_actual_accepted_shot_and_ground_reset' not in errors:errors.append('charges_not_actual_accepted_shot_and_ground_reset')
+        previous_grounded=f['grounded']
+    return errors
+
+def validate_cavity(d, drop_shaft=False):
+    errors=[];fs=d.get('frames',[]);ps={p['id']:p for p in d['manifest']['platforms']}
+    if not fs:return ['continuous capture missing']
+    if any(not isinstance(f,dict) or not isinstance(f.get('tick'),int) or not isinstance(f.get('position'),list) or len(f['position'])!=2 or not isinstance(f.get('body'),list) or len(f['body'])!=4 or type(f.get('grounded')) is not bool for f in fs):return ['full continuous body/state contract missing']
+    if d.get('failure') or not d.get('returned'):errors.append('actual bounded complete recovery required')
+    if not d.get('audio_released') or d.get('manual_motor_step') is not False or d.get('midroute_injection') is not False:errors.append('real input/lifecycle required')
+    for i,f in enumerate(fs):
+        if f['tick']!=i+1 or f['motor_steps']!=1:errors.append('one real Motor per continuous tick');break
+        x,y=f['position']
+        if f['body']!=[x-12,y-18,24,36] and any(abs(a-b)>.001 for a,b in zip(f['body'],[x-12,y-18,24,36])):errors.append('body envelope missing')
+        for key in f['supports']:
+            px,py,w,_=ps[key]['rect']
+            if not f['grounded'] or abs(y+18-py)>1 or x-12<px or x+12>px+w:errors.append('false fullsupport')
+    for index,f in enumerate(fs):
+        x,y=f['position']
+        for row in ps.values():
+            if row['one_way']:continue
+            px,py,w,h=row['rect']
+            if min(x+12,px+w)-max(x-12,px)>.2 and min(y+18,py+h)-max(y-18,py)>.2:errors.append('body inside actual solid')
+        if f['grounded']:
+            poses=[f['position'],fs[max(0,index-1)]['position']]
+            if not any(any(x+12>row['rect'][0]-.2 and x-12<row['rect'][0]+row['rect'][2]+.2 and abs(y+18-row['rect'][1])<=1 for x,y in poses) for row in ps.values()):errors.append('grounded without real support')
+    by_tick={f['tick']:f for f in fs};reset_ticks=set()
+    damages=d.get('damage_events',[]);returns=d.get('policy_returns',[])
+    enum_source=(ROOT/'scripts/damage/damage_request.gd').read_text()
+    kinds=[x.strip() for x in re.search(r'enum Kind \{([^}]+)\}',enum_source).group(1).split(',')]
+    environment_kind=kinds.index('ENVIRONMENT')
+    for r in returns:
+        hits=[e for e in damages if e.get('tick')==r.get('tick')]
+        f=by_tick.get(r.get('tick'));previous=by_tick.get(r.get('tick',0)-1)
+        valid=(r.get('returned') is True and len(hits)==1 and f is not None and previous is not None
+               and r.get('actor_epoch_after')==r.get('actor_epoch_before',-2)+1
+               and r.get('to')==d['manifest']['spawn'] and f['position']==r.get('to'))
+        if valid:
+            hit=hits[0];sid=hit.get('source','');match=re.fullmatch(r'hollow_thorns_(\d+)',sid)
+            valid=(match is not None and int(match.group(1))<len(d['manifest']['dangers'])
+                   and hit.get('kind')==environment_kind and hit.get('amount')==1
+                   and hit.get('hp')==f['health']==previous['health']-hit['amount']
+                   and hit.get('actor_epoch')==r['actor_epoch_after'])
+            if valid:
+                x,y=r['from'];px,py,w,h=d['manifest']['dangers'][int(match.group(1))]
+                valid=min(x+12,px+w)>=max(x-12,px) and min(y+18,py+h)>=max(y-18,py)
+        if valid:reset_ticks.add(r['tick'])
+        else:errors.append('return lacks actual ENV body/HP/epoch/anchor proof')
+    if len(reset_ticks)!=len(returns) or len(damages)!=len(returns):errors.append('damage/return causal cardinality mismatch')
+    for a,b in zip(fs,fs[1:]):
+        if b['tick'] not in reset_ticks and a['health']!=b['health']:errors.append('health changed without proven ENV return')
+    if d['final_hp']!=fs[-1]['health'] or d['initial_hp']!=fs[0]['health']:errors.append('health summary mismatch')
+    errors+=_cavity_resource_errors(fs,d['events'],json.loads((ROOT/'config/player_tuning.json').read_text()),reset_ticks)
+    for e in d['events']:
+        if e['kind']=='shot_fired' and not any(r.get('tick')==e['tick'] and r.get('kind')=='shoot_release' and r.get('direction')==e.get('direction') and r.get('queued') is True for r in d['requests']):errors.append('accepted shot lacks actual input request')
+        if e['kind']=='hook_cast' and not any(r.get('tick')==e['tick'] and r.get('kind')=='grapple' and r.get('queued') is True for r in d['requests']):errors.append('accepted H lacks actual input request')
+
+    if drop_shaft:
+        return sorted(set(errors+validate_drop_shaft(d)))
+    if not all('cavity_observe' in f['supports'] for f in fs[-12:]):errors.append('real S recovery fullsupport12 missing')
+    if d['variant']=='cavity_wrongR':
+        if len(reset_ticks)!=1:errors.append('one real ENV Segment return required')
+        if d.get('reached') or not d['damage_events'] or not d['policy_returns'] or d['final_hp']!=d['initial_hp']-1:errors.append('wrong direction actual Policy damage and segment recovery required')
+    else:
+        if not d.get('reached') or d['damage_events'] or d['policy_returns']:errors.append('direct real cavity route without damage required')
+        for support in (['cavity_exit'] if d['variant']=='noH_cavity_outer' else ['cavity_bay','cavity_exit']):
+            n=0;best=0
+            for f in fs:
+                n=n+1 if support in f['supports'] else 0;best=max(best,n)
+            if best<12:errors.append(support+' fullsupport12 missing')
+        contacts=[e for e in d['events'] if e['kind']=='hook_contact_kick']
+        if d['variant']=='cavity_HR' and (len(contacts)!=2 or {e.get('target') for e in contacts}!={'cavity_ring_a','cavity_ring_b'}):errors.append('actual two cell H contacts required')
+        expected_shots={'cavity_HR':2,'noH_cavity_twoR':4,'noH_cavity_outer':0}
+        if d['variant'] in expected_shots and sum(e['kind']=='shot_fired' for e in d['events'])!=expected_shots[d['variant']]:errors.append('declared actual shot strategy missing')
+        if d['variant'].startswith('noH') and any(e['kind']=='hook_cast' for e in d['events']):errors.append('control used H')
+        if d['variant']=='noH_cavity_outer' and any(e['kind']=='shot_fired' for e in d['events']):errors.append('ordinary outside control used R')
+    return sorted(set(errors))
+def validate_drop_shaft(d):
+    """C1 additions to unchanged continuous cavity body/Policy/resource guard."""
+    errors=[];fs=d['frames'];events=d['events'];m=d['manifest'];ps={p['id']:p for p in m['platforms']}
+    if m.get('version')!='forest-hollow-drop-shaft-candidate-v1' or m.get('spawn')!=[40,-558]:errors.append('actual C1 version/normal top-shore spawn missing')
+    expected={'shaft_roof_left':[-220,-520,290,90],'shaft_roof_right':[170,-520,40,90],'shaft_observe':[-40,-540,110,16],'shaft_receiver':[-210,-330,100,16]}
+    for key,rect in expected.items():
+        if ps.get(key,{}).get('rect')!=rect:errors.append('C1 exact carved geometry missing: '+key)
+    if m.get('dangers')!=[[-220,-430,290,20],[170,-430,160,20],[-220,-300,260,24],[170,-300,160,24]]:errors.append('C1 exact real danger split missing')
+    if m.get('danger_presentations')!=[{'facing':'down'},{'facing':'down'},{'facing':'up'},{'facing':'up'}]:errors.append('C1 danger facing missing')
+    if not any(a.get('id')=='cavity_ring_a' and a.get('position')==[-35,-350] for a in m['hook_anchors']):errors.append('C1 original ring changed')
+    if d.get('damage_events') or d.get('policy_returns') or d['initial_hp']!=d['final_hp']:errors.append('C1 requires natural recovery, no damage or Segment return')
+    if not d.get('reached') or not d.get('returned'):errors.append('C1 actual receiver and complete S recovery missing')
+    if not all('cavity_observe' in f['supports'] for f in fs[-12:]):errors.append('C1 final actual S fullsupport12 missing')
+    def longest(key):
+        n=best=0
+        for f in fs:n=n+1 if key in f['supports'] else 0;best=max(best,n)
+        return best
+    if longest('shaft_observe')<12 or longest('shaft_receiver')<12:errors.append('C1 real top observation/receiver fullsupport12 missing')
+    casts=[e for e in events if e['kind']=='hook_cast'];contacts=[e for e in events if e['kind']=='hook_contact_kick'];shots=[e for e in events if e['kind']=='shot_fired']
+    expected_shots={'shaft_HR':1,'noH_shaft_oneR':1,'noH_shaft_twoR':2,'noH_shaft_miss':1}
+    if len(shots)!=expected_shots.get(d['variant']):errors.append('C1 declared actual shot budget mismatch')
+    if d['variant']=='shaft_HR':
+        if len(casts)!=1 or len(contacts)!=1 or contacts[0].get('target')!='cavity_ring_a':errors.append('C1 actual falling side-H contact missing')
+        else:
+            before=next((f for f in fs if f['tick']==casts[0]['tick']-1),None)
+            if not before or before['grounded'] or before['velocity'][1]<=0:errors.append('C1 cast was not actual natural descent')
+            if any(f['grounded'] or f['supports'] for f in fs if casts[0]['tick']<=f['tick']<=contacts[0]['tick']):errors.append('C1 falling H landed before actual contact')
+            if not shots or shots[0]['tick']<=contacts[0]['tick']:errors.append('C1 recoil must follow actual contact')
+    elif casts or contacts:errors.append('C1 noH control used H')
+    if d['variant']=='noH_shaft_miss' and (not d.get('recovered') or longest('cavity_bay')<12):errors.append('C1 miss actual bay12 and ordinary retry missing')
+    if d['variant']!='noH_shaft_miss' and d.get('recovered'):errors.append('C1 direct strategy used recovery')
+    return errors
+
+def validate(d):
+    if 'drop_shaft_contract' in d['manifest']:return validate_cavity(d,drop_shaft=True)
+    if 'cavity_contract' in d['manifest']:return validate_cavity(d)
+    errors=[];fs=d.get('frames',[]);ps={p['id']:p for p in d['manifest']['platforms']}
+    if not fs:return ['continuous capture missing']
+    if d.get('manual_motor_step') is not False or d.get('midroute_injection') is not False:errors.append('normal input consumer required')
+    if d.get('failure') or not d.get('reached') or not d.get('returned'):errors.append('actual crown and complete natural entry return required')
+    if not d.get('audio_released'):errors.append('audio release missing')
+    if d['damage_events'] or d['policy_returns'] or d['initial_hp']!=d['final_hp']:errors.append('natural recovery without damage/segment required')
+    for i,f in enumerate(fs):
+        if f['tick']!=i+1 or f['motor_steps']!=1:errors.append('continuous one Motor per frame required');break
+        x,y=f['position']
+        if any(abs(a-b)>.001 for a,b in zip(f['body'],[x-12,y-18,24,36])):errors.append('full body missing');break
+        for key in f['supports']:
+            px,py,w,_=ps[key]['rect']
+            if not f['grounded'] or abs(y+18-py)>1 or x-12<px or x+12>px+w:errors.append('support/body mismatch')
+    errors+=_resource_errors(fs,d['events'],json.loads((ROOT/'config/player_tuning.json').read_text()))
+    if not all('belly_entry' in f['supports'] for f in fs[-12:]):errors.append('final entry fullsupport12 missing')
+    shared=bool(d['manifest'].get('upper_candidate_contract',{}).get('preserved_lower_ports'))
+    crown=next((e for e in d['events'] if e.get('to')==('shared_depart' if shared else 'crown_return')),None)
+    if not crown or not all('outer_crown' in f['supports'] for f in fs if crown['tick']-11<=f['tick']<=crown['tick']):errors.append('crown fullsupport12 missing')
+    all_shots=[e for e in d['events'] if e['kind']=='shot_fired']
+    shots=[e for e in all_shots if not shared or e['tick']<=d['return_start_tick']]
+    hooks=[e for e in d['events'] if e['kind']=='hook_contact_kick']
+    if d['variant']=='H0R' and (shots or not any(e['target']=='upper_window_ring' for e in hooks) or d['recovered']):errors.append('zero-shot actual H direct crossing required')
+    if shared:
+        if not d.get('lower_entered'):errors.append('actual preserved lower-window D reception missing')
+        landing=next((e for e in d['events'] if e.get('from')=='shared_inner_land' and e.get('to')=='return_floor'),None)
+        if not landing or not all('inner_root' in f['supports'] for f in fs if landing['tick']-11<=f['tick']<=landing['tick']):errors.append('lower-window actual D fullsupport12 missing')
+        lower=[e for e in d['events'] if e['tick']>d['return_start_tick']]
+        if d['variant'].startswith('noH'):
+            if sum(e['kind']=='shot_fired' for e in lower)!=1:errors.append('actual cheapest lower one-R return required')
+        elif not any(e['kind']=='hook_contact_kick' and e.get('target')=='lower_window_ring' for e in lower):errors.append('actual preserved deep lower H contact missing')
+    if d['variant'].startswith('noH') and any(e['kind']=='hook_cast' for e in d['events']):errors.append('noH control cast')
+    if d['variant']=='noH_oneR' and len(shots)!=1:errors.append('one actual shot control required')
+    if d['variant']in ('noH_zeroR','wrongH','noH_bay') and shots:errors.append('zero-shot control actually fired')
+    if d['variant']=='wrongH' and not d['recovered']:errors.append('wrong hook must actually recover below')
+    return sorted(set(errors))
+def main():
+    ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--variants',nargs='+',choices=VARIANTS,default=['H0R']);ap.add_argument('--output-dir',required=True);ap.add_argument('--skip-import',action='store_true');ap.add_argument('--shared',action='store_true');ap.add_argument('--cavity',action='store_true');ap.add_argument('--drop-shaft',action='store_true');ap.add_argument('--cast-offset',type=int,choices=[-3,0,3],default=0);ap.add_argument('--recoil-offset',type=int,choices=[0,3],default=0);ap.add_argument('--standing-hook',action='store_true');ap.add_argument('--launch-offset',type=int,choices=[-8,0,8],default=0);a=ap.parse_args()
+    if a.drop_shaft and (a.shared or a.cavity or any(not v.startswith(('shaft_','noH_shaft_')) for v in a.variants)):ap.error('C1 requires only shaft variants and no other geometry flags')
+    if not a.drop_shaft and any(v.startswith(('shaft_','noH_shaft_')) for v in a.variants):ap.error('shaft variants require --drop-shaft')
+    out=(ROOT/a.output_dir).resolve()
+    if out.exists() or not out.is_relative_to(ROOT/'build'):ap.error('fresh output under build required')
+    out.mkdir(parents=True);before=level_formal.source_files();snapshot_path=ROOT/'build/snapshot-receipt.json';snapshot=json.loads(snapshot_path.read_text()) if snapshot_path.exists() else None;r={'scope':'new canopy physical/resource hypothesis only; no regional admission','source_before':before,'snapshot_receipt_sha256':hashlib.sha256(snapshot_path.read_bytes()).hexdigest() if snapshot else None,'git_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'cases':[],'passed':False};start=time.monotonic()
+    try:
+        if not a.skip_import:
+            with (out/'import.log').open('w')as log,contextlib.redirect_stdout(log):run_engine(['--headless','--path','.','--editor','--quit'],90)
+        for variant in a.variants:
+            row={'variant':variant,'passed':False};r['cases'].append(row);argv=['--headless','--fixed-fps','60','--path','.','--script','tests/forest_hollow_upper_runner.gd','--','--variant='+variant,'--output=res://'+str((out/(variant+'.json')).relative_to(ROOT))];
+            if a.drop_shaft:argv.append('--drop-shaft')
+            if a.shared:argv.append('--shared')
+            if a.cavity:argv.extend(['--cavity','--cast-offset='+str(a.cast_offset),'--recoil-offset='+str(a.recoil_offset),'--launch-offset='+str(a.launch_offset)])
+            if a.standing_hook:argv.append('--standing-hook')
+            row['argv']=argv
+            with (out/(variant+'.log')).open('w')as log,contextlib.redirect_stdout(log):text=run_engine(argv,45)
+            if re.search(r'(?m)^ERROR:|SCRIPT ERROR:|SHADER ERROR:|ObjectDB.*leaked|resources? still in use',text):raise RuntimeError('strict native error')
+            if 'FOREST HOLLOW: '+variant+' terminal 'not in text:raise RuntimeError('terminal marker missing')
+            d=json.loads((out/(variant+'.json')).read_text());row['validation_errors']=validate(d);row['passed']=not row['validation_errors'];row['frames']=len(d['frames']);row['shots']=sum(e['kind']=='shot_fired'for e in d['events']);row['recovered']=d['recovered'];row['crown_tick']=d['return_start_tick']
+            if not row['passed']:raise RuntimeError('candidate failed: '+str(row['validation_errors']))
+        r['passed']=True
+    finally:
+        r['source_after']=level_formal.source_files();r['source_guard']=r['source_after']==before;r['copy_source_guard']=all((ROOT/p).is_file()and hashlib.sha256((ROOT/p).read_bytes()).hexdigest()==h for p,h in snapshot['source_files'].items()) if snapshot else None;r['elapsed_seconds']=time.monotonic()-start;r['logs']={p.name:hashlib.sha256(p.read_bytes()).hexdigest()for p in out.iterdir()if p.is_file()};(out/'receipt.json').write_text(json.dumps(r,indent=2)+'\n')
+        if not r['source_guard']or r['copy_source_guard'] is False:raise RuntimeError('source drift')
+    print('PASS: floorless canopy specified actual routes only; not admitted')
+if __name__=='__main__':main()

@@ -1,0 +1,40 @@
+{
+  "task_id": "VISUAL-LANGUAGE-01",
+  "asset_id": "hero_b_actions_v1",
+  "status": "generated_actual_tool_call",
+  "tool": "image_gen.imagegen",
+  "model": "not_exposed",
+  "license_status": "unknown",
+  "transparent_background_requested": true,
+  "prompt": "Create a production sprite atlas PNG with REAL transparent background, NOT a concept board. Exactly 4 equal columns by 3 equal rows, 12 separate cells, overall canvas 1536x1152 (each cell 384 square). No text, labels, grid lines, paper, floor, cast shadows, halos, scene, or overlapping cells. BOTH attached images are permanent coequal style/identity references: B1 visual master AND B Rain Glaze & Off-centre board. Use their courier's exact identity and egg-tempera/graphite broad-shadow painting, NOT old videogame art or generic anime.\nThe SAME small capable young messenger in all body cells: warm peach human face with dark small eyes and short tousled dark brown hair; cream off-centre linen flat cap, tilted soft brim; SHORT apricot repaired poncho with visible side stitches; loop olive satchel; blue-grey cropped pants; chunky brown boots. Side-view, facing RIGHT, gently rounded low centre of gravity, readable restrained shapes. Draw for eventual 40 WORLD PIXEL height, not 400px in game; avoid tiny surface noise. Retain face/hat/clothes across every pose, small deliberate proportions. Hands EMPTY in EVERY BODY POSE. NO pistol or gun attached to any of the eleven bodies. Actual game WeaponArm renders the one separate gun, so a painted body gun would be a serious double-weapon defect.\nAll 384 cells share an unchanged notional foot/pivot anchor x192,y336. Idle standing body is about 260 source px tall. Foot soles align to y336 for contact poses, but airborne/crouching/death bodies have genuine pose-dependent bounding-box heights: do NOT stretch every pose to a common height or move the cell anchor. Large clean transparent padding to all four sides of each cell, every hat and boot entirely inside its cell.\nStrict row-major order:\nROW 1: (0) IDLE upright relaxed empty hands; (1) RUN A full forward stride right leg extended, opposite arm swing, poncho trails; (2) RUN B compressed passing pose knees cross under hip, clearly not same silhouette; (3) RUN C opposite-leg full stride left leg extended, opposing arm swing.\nROW 2: (4) JUMP START deep anticipatory crouch with cap lower and boots planted; (5) JUMP ascending energetic diagonal torso, one knee high and other boot stretched, cape lifted; (6) FALL descending torso upright, knees bent feet prepared, cape raised above shoulders; (7) RECOIL body knocked backward LEFT, chest arches and cape snaps RIGHT, empty forward hand, visibly different from jump.\nROW 3: (8) LAND low squashed knees/hips, reaching hand and heavy grounded boots; (9) HURT recoiling head and one protective arm across chest, asymmetrical stagger; (10) DEATH collapsed sideways curled on the low baseline, cap remains identifiable, no blood, wide and SHORTER silhouette; (11) WEAPON ONLY: one separate SMALL curved brass/dark-wood recoil pistol facing right, no hand/arm/person. Use the board pistol's silhouette; grip and muzzle clean and legible, centered alone with ample transparent padding.\nIt must be an actual clean transparent sprite sheet with materially different poses, not twelve recolored idle portraits, not a storyboard. Painted broad shapes, directional light from upper-left, muted warm clay / cool blue-grey clothes. No artificial pixel-art outline, no phototexture. Preserve the repaired handmade warmth and asymmetry of both B references.",
+  "reference_images": [
+    {
+      "path": "assets/visual_development/master/b1_master.png",
+      "sha256": "c1dcef82970aca7352988bac084d1a3b4abe62187557d094fbe5b96bb631963c"
+    },
+    {
+      "path": "assets/visual_development/proposals/b_board.png",
+      "sha256": "b117d2211992e5943d3bb1e6768a897b6b4c01cc8608dee0b2cffc4a1b00e81b"
+    }
+  ],
+  "prepared_at_unix": 1792167738.7242277,
+  "scope": "candidate sheet only, no consumer/native animation integration",
+  "actual_tool_result": {
+    "key": "actor_hero",
+    "request": "actor_hero_b_actions_v1_request.json",
+    "raw": "hero_b_actions_v1_raw.png",
+    "metadata": "hero_b_actions_v1.provenance.json",
+    "disposition": "REWORK_run_cycle_and_foot_alignment",
+    "started_at_unix": 1792167752.006,
+    "ended_at_unix": 1792167817.065,
+    "output_hint": "Generated images are saved to /workspace/generated_images as /workspace/generated_images/exec-5a8662e9-1eeb-40be-bb09-2467f8e49c14.png by default.\nIf you need to use a generated image at another path, copy it and leave the original in place unless the user explicitly asks you to delete it.\nThe generated image is already displayed to the user. There is no need to render it in the final response as a Markdown image or file link."
+  },
+  "original_png": {
+    "path": "assets/visual_development/actors/hero_b_actions_v1_raw.png",
+    "sha256": "58f680c5ff0aeae146692e378f511d9c9f97964faf88e7c8b09012f5907a9cfa",
+    "bytes": 1292918,
+    "preserved_unchanged": true
+  },
+  "review_disposition": "REWORK_run_cycle_and_foot_alignment",
+  "duration_seconds": 65.05900001525879
+}

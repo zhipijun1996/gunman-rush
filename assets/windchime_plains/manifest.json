@@ -1,0 +1,194 @@
+{
+  "family_id": "windchime-plains-warm-limestone-v2",
+  "task_id": "WINDCHIME-STYLE-01",
+  "method": "Original SVG path authoring in tools/build_windchime_art.py; no legacy art read or transformed",
+  "author": "Codex",
+  "license": "project-original-authored",
+  "generative_image_model": null,
+  "reference": {
+    "source": "User supplied 1000057721.jpg on 2026-10-19",
+    "license": "unknown",
+    "use": "Mood, limited palette and material hierarchy; no tracing or embedded reference pixels",
+    "sha256": "87afc39797133337b1cf23b775f6f8fae81a7a42da021420ece2f2d048e4e9e8"
+  },
+  "palette": {
+    "stone": "#676b55",
+    "recess": "#485543",
+    "face": "#85866a",
+    "masonry": "#74795e",
+    "edge": "#a4ab80",
+    "grass": "#9fa66c",
+    "cream": "#efe0ab",
+    "gold": "#a98949",
+    "dark_gold": "#74623e",
+    "ink": "#37483e",
+    "quiet_chip": "#6a6e58",
+    "quiet_crack": "#636751"
+  },
+  "lighting": "wheat-cream top lip; sage upper-left edge; warm olive recesses",
+  "regional_identity": {
+    "region": "windchime_plains",
+    "palette_status": "candidate",
+    "materials": [
+      "warm limestone",
+      "sage grass",
+      "wheat",
+      "aged brass",
+      "dark green wooden stands"
+    ],
+    "scope": "Windchime Plains regional palette; not a shared palette for all 16 regions",
+    "source_texture": "Quiet tile cores; world-coordinate cross-cell weathering supplied by the terrain consumer"
+  },
+  "atlas": {
+    "path": "limestone_blob47.svg",
+    "source_size": 64,
+    "world_cell": 32,
+    "gutter": 2,
+    "columns": 8,
+    "variants": 3,
+    "masks": [
+      0,
+      1,
+      4,
+      5,
+      7,
+      16,
+      17,
+      20,
+      21,
+      23,
+      28,
+      29,
+      31,
+      64,
+      65,
+      68,
+      69,
+      71,
+      80,
+      81,
+      84,
+      85,
+      87,
+      92,
+      93,
+      95,
+      112,
+      113,
+      116,
+      117,
+      119,
+      124,
+      125,
+      127,
+      193,
+      197,
+      199,
+      209,
+      213,
+      215,
+      221,
+      223,
+      241,
+      245,
+      247,
+      253,
+      255
+    ],
+    "bit_order": [
+      "N",
+      "NE",
+      "E",
+      "SE",
+      "S",
+      "SW",
+      "W",
+      "NW"
+    ],
+    "semantics": "solid-only; occupancy controls collision; alpha opaque inside every occupied cell",
+    "variant_scope": "small quiet internal patches only; identical boundary signatures"
+  },
+  "props": {
+    "path": "props.svg",
+    "slot_size": [
+      64,
+      128
+    ],
+    "root": [
+      32,
+      120
+    ],
+    "scale": 0.43,
+    "bounds_xywh_with_one_pixel_guard": [
+      [
+        6,
+        69,
+        54,
+        53
+      ],
+      [
+        0,
+        80,
+        57,
+        41
+      ],
+      [
+        12,
+        72,
+        39,
+        49
+      ],
+      [
+        29,
+        35,
+        31,
+        86
+      ],
+      [
+        7,
+        10,
+        52,
+        111
+      ],
+      [
+        9,
+        15,
+        47,
+        106
+      ],
+      [
+        13,
+        41,
+        39,
+        80
+      ],
+      [
+        10,
+        49,
+        44,
+        72
+      ]
+    ],
+    "names": [
+      "flower_cluster",
+      "grass",
+      "urn",
+      "lantern",
+      "windchime",
+      "banner",
+      "flower_tall",
+      "brass_ring"
+    ],
+    "semantics": "decoration-only; zero collision; lantern is local decorative glow"
+  },
+  "files": {
+    "limestone_blob47.svg": "2e4456fbcbf37a7df6d1eb08df4c60332e603b8643ebf31d8aa45d479265005a",
+    "props.svg": "b7212b71b448ea48cdbf8ca00dd1c6a4db538942e57a7cc978c1712fef9c680e"
+  },
+  "acceptance": {
+    "technical": "requires actual import/tests",
+    "visual": "requires game-scale composite review",
+    "user": "unverified",
+    "device": "unverified"
+  }
+}

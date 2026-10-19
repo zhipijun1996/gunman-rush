@@ -1,0 +1,7 @@
+START capability-verbose
+{"name": "capability-verbose", "argv": ["bash", "tools/godot.sh", "--headless", "--verbose", "--fixed-fps", "60", "--path", ".", "--script", "tests/level_capability_runner.gd"], "timeout_seconds": 120, "exit_code": 0, "elapsed_seconds": 2.0238422059992445, "strict_log_clean": false, "success_pattern_found": true, "source_guard": true, "log_sha256": "be5f27ced97ace7ab37c4b011348449795e63e3076a749ff6d3802f65e05a974"}
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-design/build/forest_depth/level_capability/verbose01/run.py", line 21, in <module>
+    if code!=0 or not strict or not marker or not guard: raise RuntimeError('First failure: '+name)
+                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: First failure: capability-verbose

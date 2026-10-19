@@ -1,0 +1,7 @@
+START level-design-runtime
+{"name": "level-design-runtime", "argv": ["python3", "tools/run_level_design_tests.py"], "timeout_seconds": 720, "exit_code": 1, "elapsed_seconds": 61.764635072999226, "strict_log_clean": true, "success_pattern_found": false, "source_guard": true, "log_sha256": "5c32c93a6e132776cdebf28cfd21fb7eb2382a4eaeed6d0cc997525450a4b32a"}
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-design/build/forest_depth/level_capability/final02/run.py", line 21, in <module>
+    if code!=0 or not strict or not marker or not guard: raise RuntimeError('First failure: '+name)
+                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: First failure: level-design-runtime

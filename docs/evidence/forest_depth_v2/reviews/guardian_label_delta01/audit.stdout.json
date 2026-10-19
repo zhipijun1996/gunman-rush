@@ -1,0 +1,53 @@
+{
+  "status": "REVISE_TEXT_PLACEMENT_DELTA_ONLY",
+  "role_disclosure": "Author of earlier reused base battle/region driver; independent of this presentation patch and capture; not re-signing whole driver or unchanged mechanism.",
+  "source_sha_verified": 906,
+  "source_stable": true,
+  "current_guardian_production_vs26": {
+    "scripts/bosses/rootbell_guardian_v2.gd": false,
+    "scripts/bosses/forest_boss_duel_presentation_v2.gd": false,
+    "scripts/bosses/guardian_root_bell_v2.gd": true,
+    "scripts/bosses/forest_boss_motor.gd": true,
+    "scenes/bosses/clockwork_guardian.tscn": true,
+    "scenes/bosses/rootbell_guardian_v2.tscn": true,
+    "scenes/bosses/thorn_guardian.tscn": true,
+    "resources/bosses/rootbell_guardian_v2.tres": true,
+    "resources/bosses/clockwork_guardian.tres": true,
+    "resources/bosses/thorn_guardian.tres": true,
+    "resources/bosses/guardian_health.tres": true
+  },
+  "raw_capture_byte_identical_to26_H": true,
+  "rootbell_nonpresentation_delta": "valid_duel_snapshot only: type validation reordered and duel_version explicit String/StringName check; not claimed whole production byte-identical to26; no new restore approval here.",
+  "capture_sha256": "f086562c5d7151e78e479b9f4c3636183722cbafc2de47170b17879843a99d85",
+  "presentation_sha256": "363501128be6ab1f1f477ad4bcc1ebda43d14f556ae7e27c23e266829b05da9d",
+  "native_technical_pass": {
+    "HP32to0": true,
+    "PlayerHP5": true,
+    "phase2_overlap_frames": 18,
+    "seconds_wall": 16.908386503000656,
+    "cap": 45
+  },
+  "movie": {
+    "frames": 717,
+    "fps": 60,
+    "seconds": 11.95,
+    "sha256": "2638bbcd4a04de0e5e3b8119dfeb573c954aa25cb0226ec0cc788b62b17e9511"
+  },
+  "viewed": "73 every10-frame plus final samples across whole range, all4sheets;7original1280keyframes; independently decoded375/585cue frames. No real-time playback/audio/device approval.",
+  "findings": [
+    {
+      "frame": 375,
+      "seconds": 6.25,
+      "text": "LOCKED LANDING",
+      "finding": "Initial LO intersects/behind bright left arena seal, remainder OCKED LANDING readable; warning arc/locked body rectangle remains visible."
+    },
+    {
+      "frame": 501,
+      "seconds": 8.35,
+      "text": "II BELL + BODY",
+      "finding": "Bright left seal crosses BELL beginning; also visible in585. Center/right609/681 label less affected."
+    }
+  ],
+  "cause": "_draw_visible_label only clamps to viewport rectangle; arena wall sits inside viewport and can still overlap the label.",
+  "bounded_remedy": "Keep same mechanisms/attack geometry; place label inside visible arena-safe screen region with padding or a clear foreground/backplate, retaining its target association. No general all-warning clarity claim."
+}

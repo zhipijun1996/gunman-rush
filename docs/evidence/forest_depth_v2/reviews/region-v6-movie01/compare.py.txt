@@ -1,0 +1,11 @@
+from pathlib import Path
+import json,hashlib
+R=Path.cwd();O=R/'build/forest_depth/independent/region-v6-movie01';base=R/'build/forest_depth/snapshots/region_final80_01/build/forest_depth/region';movie=json.loads((base/'final-v6-growth-movie01/00-map2-growth/capture.json').read_text());headless=json.loads((base/'final-v6-corpus01/09-map2-growth/capture.json').read_text());old=json.loads((R/'build/forest_depth/snapshots/formal_movie02/build/forest_depth/region/formal-movie02/00-map2-growth/capture.json').read_text())
+def strip(x):
+ if isinstance(x,dict):return{k:strip(v)for k,v in x.items()if k not in ['presentation_frame','process_frame']}
+ if isinstance(x,list):return[strip(v)for v in x]
+ return x
+same={k:strip(movie[k])==strip(headless[k])for k in ['frames','events','requests','modal_frames','pointer_events','manifest','completed_legs','final_snapshot']};assert all(same.values())
+def timing(d):
+ cs=d['completed_legs'];prefix=[x for x in cs if x['edge_id']in ['north_borer_access','north_belly','belly_borer_access']];cavity=next(x for x in cs if x['edge_id']=='borer_crossing');return{'ticks':len(d['frames']),'aftercamp_to_S':prefix[-1]['tick']-prefix[0]['start_tick']+1,'C_phrase':cavity['tick']-cavity['start_tick']+1,'C_arrival':cavity['tick'],'C_to_end':len(d['frames'])-cavity['tick'],'final_HP':d['frames'][-1]['health']}
+r={'same80_headless_vs_movie_exact_after_only_draw_metadata':same,'old02':timing(old),'current':timing(movie),'note':'Descriptive actual different-version route comparison; shortcut/A2/enemies all changed, not a one-variable experiment.','no_actual_live_enemy_H_or_enemy_damage':not any(e.get('kind')=='committed_damage'and e.get('target')!='player'for e in movie['events']),'retained_player_damage':[e for e in movie['events']if e.get('kind')=='committed_damage'and e.get('target')=='player']};(O/'independent-comparison.json').write_text(json.dumps(r,indent=2)+'\n');print(json.dumps(r,indent=2))

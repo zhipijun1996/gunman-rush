@@ -1,0 +1,35 @@
+extends SceneTree
+## Local explicit review launcher. No driver after one declared entry fixture.
+## Existing DemoApp/Motor/enemies/mechanisms/UI/controls, no save writes.
+func _initialize() -> void:
+	OS.set_environment("PLAINS_CREATIVE_SLICE", "1")
+	run.call_deferred()
+func wait_stage(app: DemoApp, index: int) -> bool:
+	for unused:int in 180:
+		await physics_frame
+		await process_frame
+		if not app._stage_pending and app.stage is PlainsRegionStage and app.stage.map_index == index:return true
+	return false
+func run() -> void:
+	root.size=Vector2i(1280,720)
+	var app:=DemoApp.new()
+	app.meta_persistence_enabled=false
+	app.root_bell_pilot_requested=true
+	root.add_child(app)
+	if not app.start_plains("v3-root-bell-pilot-1") or not await wait_stage(app,1):push_error("Preview map1 fixture load failed");quit(1);return
+	app.lifetime.stage_epoch+=1
+	app.lifetime.actor_epoch+=1
+	app.director._enter_stage(2,&"boss")
+	app._stage_entered(DemoRunResult.new())
+	if not await wait_stage(app,2):push_error("Preview map2 fixture load failed");quit(1);return
+	var stage:=app.stage as PlainsRegionStage
+	var edge_id:=str(stage.generated.manifest.root_bell_admission.physical_facts.edge)
+	for edge:Dictionary in stage.generated.manifest.connections:
+		if str(edge.id)==edge_id:
+			var module:=stage.assembler.modules[int(edge.modules[0])] as PlatformingModule
+			app.player.reset_at(module.world_entry())
+			app._run_camera.snap_to_target()
+			print("LOCAL ART REVIEW READY: explicit module-entry fixture; real player controls active, no automatic driver, no save writes; direction accepted, art/commercial/device quality unverified")
+			return
+	push_error("Preview actual RootBell connection missing")
+	quit(1)

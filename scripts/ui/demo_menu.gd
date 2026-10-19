@@ -1,3 +1,4 @@
+@static_unload
 class_name DemoMenu
 extends CanvasLayer
 ## Presentation-only menus. The app owns pausing, routing and session input updates.
@@ -6,9 +7,14 @@ signal requested_enter_home
 signal home_panel_closed
 signal requested_start(seed: String, formal_ten: bool)
 signal requested_plains(seed: String)
+signal requested_debug_region(region: StringName, map_index: int, seed: String)
 signal requested_upgrade
 signal requested_lab
 signal requested_actions
+signal requested_foundation
+signal requested_windchime
+signal requested_pixel_plains
+signal requested_style_lab
 signal requested_foundry
 signal requested_random(seed: String)
 signal requested_resume
@@ -17,16 +23,18 @@ signal settings_changed(values: Dictionary)
 signal menu_opened
 signal presentation_changed(reduced_effects: bool, muted: bool)
 
-const INK := Color("231e21")
-const CARD := Color("efe1c6")
-const TEAL := Color("2b7067")
-const GOLD := Color("967035")
-const TEXT := Color("3a2d28")
-const MUTED := Color("695247")
+const INK := UnderworldUI.INK
+const CARD := UnderworldUI.PANEL
+const TEAL := UnderworldUI.MOSS
+const GOLD := UnderworldUI.BRASS
+const TEXT := UnderworldUI.TEXT
+const MUTED := UnderworldUI.MUTED
+const SCROLL_TOUCH_ADAPTER := preload("res://scripts/ui/menu_scroll_touch_adapter.gd")
 
 var visible_panel: StringName = &""
 var _root: Control
 var _content: VBoxContainer
+var _scroll_touch: Node
 var _in_run := false
 var _home_overlay := false
 var _summary := ""
@@ -55,6 +63,7 @@ func _ready() -> void:
 	_root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	_root.mouse_filter = Control.MOUSE_FILTER_STOP
 	_root.theme = _make_theme()
+	_root.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	add_child(_root)
 	_root.hide()
 
@@ -67,19 +76,60 @@ func set_meta_state(snapshot: Dictionary) -> void:
 func show_title() -> void:
 	_home_overlay = false
 	_begin(&"title", false)
-	var logo := TextureRect.new()
-	logo.texture = load("res://assets/title_home/title_logo.png")
-	logo.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	logo.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	logo.custom_minimum_size = Vector2(400, 170)
-	_content.add_child(logo)
-	_title("GUNMAN RUSH", "A painted world. A shot that carries you forward.")
-	_button(_content, "ENTER HOME", func() -> void:
+	var heading := HBoxContainer.new()
+	heading.add_theme_constant_override("separation", 24)
+	_content.add_child(heading)
+	var seal := TextureRect.new()
+	seal.texture = UnderworldUI.icon(&"meta_note")
+	seal.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+	seal.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	seal.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	seal.custom_minimum_size = Vector2(72, 100)
+	seal.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	heading.add_child(seal)
+	var title_rows := VBoxContainer.new()
+	title_rows.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	heading.add_child(title_rows)
+	_label(title_rows, "失序之钟", 44, TEXT)
+	_label(title_rows, "WINDCHIME PLAINS  /  第一声风铃", 15, GOLD)
+	_label(_content, "AIM  ·  RELEASE  ·  RISE", 13, MUTED)
+	_space(_content, 8)
+	var columns := GridContainer.new()
+	columns.columns = 2 if get_viewport().get_visible_rect().size.x >= 900 else 1
+	columns.add_theme_constant_override("h_separation", 24)
+	columns.add_theme_constant_override("v_separation", 18)
+	_content.add_child(columns)
+	var journey := VBoxContainer.new()
+	journey.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	journey.add_theme_constant_override("separation", 10)
+	columns.add_child(journey)
+	_label(journey, "ADVENTURE / 冒险", 13, GOLD)
+	_button(journey, "风铃平原 / WIND CHIME PLAINS", func() -> void:
+		_hide()
+		requested_plains.emit("level-design-v2-baseline/08"))
+	_button(journey, "ENTER HOME", func() -> void:
 		_hide()
 		requested_enter_home.emit())
-	_button(_content, "DEVELOPMENT DEMOS / ALL ENTRIES", func() -> void: show_home(_summary))
-	_button(_content, "SETTINGS", func() -> void: show_settings(false))
-	_button(_content, "HOW TO PLAY", func() -> void: show_help(false))
+	_button(journey, "SETTINGS", func() -> void: show_settings(false))
+	_button(journey, "HOW TO PLAY", func() -> void: show_help(false))
+	var workshop := VBoxContainer.new()
+	workshop.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	workshop.add_theme_constant_override("separation", 10)
+	columns.add_child(workshop)
+	_label(workshop, "WORKSHOP / 开发入口", 13, MUTED)
+	_button(workshop, "WINDCHIME PLAINS / FIVE STYLE LAB", func() -> void:
+		_hide()
+		requested_style_lab.emit())
+	_button(workshop, "PIXEL MATERIAL / SMALL STUDY", func() -> void:
+		_hide()
+		requested_pixel_plains.emit())
+	_button(workshop, "47 TILE / LEGACY TECH LAB", func() -> void:
+		_hide()
+		requested_foundation.emit())
+	_button(workshop, "DEVELOPMENT DEMOS / ALL ENTRIES", func() -> void: show_home(_summary))
+	for button: Node in columns.find_children("*", "Button", true, false):
+		button.add_theme_font_size_override("font_size", 15)
+
 	_focus_first()
 
 func show_home_navigation(summary: String = "") -> void:
@@ -136,14 +186,11 @@ func show_home(summary: String = "") -> void:
 	rail.custom_minimum_size.x = 160
 	rail.add_theme_constant_override("separation", 12)
 	shell.add_child(rail)
-	_label(rail, "GUNMAN\nRUSH", 30, TEXT)
+	_label(rail, "失序\n之钟", 30, TEXT)
 	_label(rail, "AIM • RELEASE • RISE", 12, TEAL)
 	var action_button := _button(rail,"动作练习 / ACTIONS",func() -> void:
 		_hide()
 		requested_actions.emit())
-	action_button.custom_minimum_size = Vector2(160,24)
-	action_button.add_theme_font_override("font",preload("res://assets/fonts/foundry_notes.otf"))
-	action_button.add_theme_font_size_override("font_size",12)
 	for style: String in ["normal","hover","pressed","focus"]:
 		action_button.add_theme_stylebox_override(style,_box(CARD,TEAL,4))
 	_button(rail, "HOME", func() -> void:
@@ -176,6 +223,7 @@ func show_home(summary: String = "") -> void:
 		_hide()
 		requested_plains.emit(_plains_seed()))
 	_upgrade_controls(body)
+	_button(body, "DEBUG / SELECT REGION + MAP", show_debug_regions)
 	_label(body, "QUICK DEMO", 12, TEAL)
 	_button(body, "3 rooms   /   A quick taste", func() -> void: _start(false))
 	_label(body, "DEVELOPMENT / OLD EIGHT-ROOM TRIAL", 12, GOLD)
@@ -190,6 +238,24 @@ func show_home(summary: String = "") -> void:
 	body.add_child(seed_edit)
 	if not _summary.is_empty():
 		_label(body, _summary, 15, MUTED)
+	_focus_first()
+
+func show_debug_regions() -> void:
+	_begin(&"debug_regions", false)
+	_title("DEBUG / REGION SELECT", "Test entry only. Forest grants H only. This does not record a natural campaign clear.")
+	var seed_edit := LineEdit.new()
+	seed_edit.text = _seed
+	seed_edit.placeholder_text = "Seed (blank = fresh run)"
+	seed_edit.text_changed.connect(func(value: String) -> void: _seed = value)
+	_content.add_child(seed_edit)
+	for region: StringName in [&"plains", &"thorn_forest"]:
+		for map_index: int in [1,2]:
+			var chosen_region := region
+			var chosen_map := map_index
+			_button(_content, "%s / MAP %s" % [String(region).to_upper(),map_index], func() -> void:
+				_hide()
+				requested_debug_region.emit(chosen_region,chosen_map,_plains_seed()))
+	_button(_content,"BACK",func() -> void: show_home(_summary))
 	_focus_first()
 
 func hide_home() -> void:
@@ -237,7 +303,7 @@ func show_settings(in_run: bool = false) -> void:
 		_muted = value
 		presentation_changed.emit(_reduced_effects,_muted))
 	_content.add_child(muted)
-	_label(_content, "Sound volume / 音量（当前会话）", 14, GOLD).add_theme_font_override("font", preload("res://assets/fonts/windkeeper_ui.ttf"))
+	_label(_content, "Sound volume / 音量（当前会话）", 14, GOLD)
 	var volume_slider := HSlider.new()
 	volume_slider.min_value = 0.0
 	volume_slider.max_value = 1.0
@@ -323,10 +389,12 @@ func _confirm_home() -> void:
 	_focus_first()
 
 func _hide() -> void:
+	if is_instance_valid(_scroll_touch): _scroll_touch.cancel(&"menu_hide")
 	visible_panel = &""
 	_root.hide()
 
 func _begin(panel: StringName, in_run: bool) -> void:
+	if is_instance_valid(_scroll_touch): _scroll_touch.cancel(&"menu_replace")
 	_in_run = in_run
 	visible_panel = panel
 	for child: Node in _root.get_children():
@@ -340,17 +408,17 @@ func _begin(panel: StringName, in_run: bool) -> void:
 	_root.add_child(backdrop)
 	if not in_run and not _home_overlay:
 		var painted := TextureRect.new()
-		painted.texture = load("res://assets/title_home/home_background.png")
+		painted.texture = load("res://assets/underworld_plains/backgrounds/far.png")
 		painted.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		painted.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		painted.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
-		painted.modulate = Color(0.45, 0.4, 0.36, 1)
+		painted.modulate = Color(0.34, 0.4, 0.35, 1)
 		painted.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		_root.add_child(painted)
 	var accent := ColorRect.new()
-	accent.color = TEAL
+	accent.color = Color(TEAL, 0.3)
 	accent.set_anchors_and_offsets_preset(Control.PRESET_TOP_WIDE)
-	accent.offset_bottom = 4
+	accent.offset_bottom = 2
 	accent.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	_root.add_child(accent)
 	var margin := MarginContainer.new()
@@ -366,9 +434,12 @@ func _begin(panel: StringName, in_run: bool) -> void:
 	frame.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	centered.add_child(frame)
 	var scroll := ScrollContainer.new()
-	scroll.custom_minimum_size = Vector2(minf(820, get_viewport().get_visible_rect().size.x - 56), minf(590, get_viewport().get_visible_rect().size.y - 56))
+	scroll.custom_minimum_size = Vector2(minf(820, get_viewport().get_visible_rect().size.x - 96), minf(590, get_viewport().get_visible_rect().size.y - 96))
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	frame.add_child(scroll)
+	_scroll_touch = SCROLL_TOUCH_ADAPTER.new()
+	_scroll_touch.scroll = scroll
+	scroll.add_child(_scroll_touch)
 	var padding := MarginContainer.new()
 	padding.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	for side: String in ["left", "right", "top", "bottom"]:
@@ -379,12 +450,14 @@ func _begin(panel: StringName, in_run: bool) -> void:
 	_content.add_theme_constant_override("separation", 14)
 	padding.add_child(_content)
 	var ornament := TextureRect.new()
-	ornament.texture = atlas_region(Rect2(914, 278, 412, 363))
+	ornament.texture = UnderworldUI.icon(&"meta_note")
+	ornament.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	ornament.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	ornament.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	ornament.custom_minimum_size = Vector2(48, 36)
 	ornament.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_content.add_child(ornament)
+	if panel != &"title": _content.add_child(ornament)
+	else: ornament.free()
 	if in_run:
 		menu_opened.emit()
 
@@ -440,7 +513,9 @@ func _label(parent: Node, text: String, font_size: int, color: Color) -> Label:
 
 func _button(parent: Node, text: String, action: Callable) -> Button:
 	var button := Button.new()
+	button.mouse_filter = Control.MOUSE_FILTER_PASS
 	button.text = text
+	button.clip_text = true
 	button.custom_minimum_size.y = 46
 	button.alignment = HORIZONTAL_ALIGNMENT_LEFT
 	button.pressed.connect(action)
@@ -479,31 +554,14 @@ static func atlas_region(region: Rect2) -> AtlasTexture:
 	return atlas
 
 static func create_theme() -> Theme:
-	var theme := Theme.new()
-	theme.default_font_size = 18
-	theme.set_stylebox("panel", "PanelContainer", _box(CARD, Color("355366"), 16))
-	theme.set_stylebox("normal", "Button", _box(Color("e7d4ad"), Color("987b49"), 8))
-	theme.set_stylebox("hover", "Button", _box(Color("f5e7c5"), Color("b99752"), 8))
-	theme.set_stylebox("pressed", "Button", _box(Color("cbb58c"), GOLD, 8))
-	theme.set_stylebox("focus", "Button", _box(Color(0, 0, 0, 0), GOLD, 8))
-	theme.set_color("font_color", "Button", TEXT)
-	theme.set_color("font_focus_color", "Button", TEXT)
-	theme.set_color("font_pressed_color", "Button", TEXT)
-	theme.set_color("font_hover_pressed_color", "Button", TEXT)
-	theme.set_color("font_hover_color", "Button", Color("612e32"))
-	theme.set_stylebox("normal", "LineEdit", _box(Color("f4ead5"), Color("987b49"), 8))
-	theme.set_stylebox("focus", "LineEdit", _box(Color("f4ead5"), GOLD, 8))
-	theme.set_color("font_color", "LineEdit", TEXT)
+	var theme := UnderworldUI.create_theme()
+	var menu_font := FontVariation.new()
+	menu_font.base_font = ThemeDB.fallback_font
+	menu_font.fallbacks = [preload("res://assets/fonts/foundry_notes.otf")]
+	theme.default_font = menu_font
 	return theme
 
 static func _box(color: Color, border: Color, radius: int) -> StyleBoxFlat:
-	var box := StyleBoxFlat.new()
-	box.bg_color = color
-	box.border_color = border
-	box.set_border_width_all(1)
-	box.set_corner_radius_all(radius)
-	box.content_margin_left = 16
-	box.content_margin_right = 16
-	box.content_margin_top = 9
-	box.content_margin_bottom = 9
-	return box
+	var style := UnderworldUI.box(color, border)
+	style.set_corner_radius_all(mini(radius, 2))
+	return style

@@ -1,0 +1,63 @@
+extends SceneTree
+var failures := 0
+var rows: Array[Dictionary] = []
+const OUT := "res://build/integration01/pixel-landmark-gpu01/"
+func _initialize() -> void: run.call_deferred()
+func frames(n: int) -> void:
+ for i: int in n: await process_frame
+func run() -> void:
+ DirAccess.make_dir_recursive_absolute(OUT)
+ root.size = Vector2i(1280, 720)
+ for map_index: int in [1, 2]:
+  var app := DemoApp.new()
+  app.meta_persistence_enabled = false
+  root.add_child(app)
+  if not app.start_debug_region(&"plains", map_index, "terrain-production"):
+   failures += 1
+   app.free()
+   continue
+  await frames(12)
+  var scenery := app.stage.get_node_or_null("PixelRegionScenery") as PixelRegionScenery
+  if scenery == null:
+   failures += 1
+   app.abandon_run()
+   app.free()
+   continue
+  var seen: Array[String] = []
+  var camera := root.get_camera_2d()
+  camera.set_process(false)
+  camera.set_physics_process(false)
+  paused = true
+  for child: Node in scenery.get_children():
+   if not child is Sprite2D or not child.has_meta("landmark"): continue
+   var item: Dictionary = child.get_meta("landmark")
+   var identity := str(item.identity)
+   if identity in seen: continue
+   seen.append(identity)
+   var sprite := child as Sprite2D
+   var bounds := Rect2(sprite.global_position, sprite.texture.get_size() * sprite.global_scale)
+   camera.zoom = Vector2.ONE
+   camera.position = bounds.get_center() + Vector2(0, -30)
+   camera.reset_smoothing()
+   await frames(4)
+   await RenderingServer.frame_post_draw
+   var stem := "map%s-%s" % [map_index, identity]
+   var result := root.get_texture().get_image().save_png(OUT+stem+".png")
+   var texture_result := sprite.texture.get_image().save_png(OUT+stem+"-actual-texture.png")
+   if result != OK or texture_result != OK: failures += 1
+   rows.append({"map":map_index, "identity":identity, "actual_node":str(sprite.get_path()), "bounds":[bounds.position.x,bounds.position.y,bounds.size.x,bounds.size.y], "landmark":item, "capture":stem+".png", "texture":stem+"-actual-texture.png", "scope":"Actual current stage and renderer; camera repositioned for static visual inspection, not player traversal evidence"})
+  for identity: String in PixelRegionLandmarks.SIZES:
+   if identity not in seen:
+    printerr("FAIL: map%s actual identity absent: %s" % [map_index,identity])
+    failures += 1
+  paused = false
+  app.abandon_run()
+  await frames(8)
+  if not await load("res://tests/audio_teardown.gd").drain_world(app): failures += 1
+  app.free()
+  await frames(4)
+ var output := FileAccess.open(OUT+"capture.json",FileAccess.WRITE)
+ output.store_string(JSON.stringify({"failures":failures,"rows":rows,"scope":"Actual normal-zoom pixels with inspection camera; static presentation only, not traversal or player approval"},"  "))
+ output.close()
+ print("PIXEL LANDMARK GPU: %s actual views / %s failures" % [rows.size(),failures])
+ quit(1 if failures else 0)

@@ -1,0 +1,207 @@
+{
+  "schema_version": 1,
+  "task_id": "TILE-MAP-PLAN-01",
+  "task_type": "process",
+  "workflow": "review",
+  "baseline_commit": "4ee004dfda4debc27be07ea1d001fef3b32515b5",
+  "reviewed_commit": "4ee004dfda4debc27be07ea1d001fef3b32515b5",
+  "content_version": "tile-map-plan-v1",
+  "owner": "/root",
+  "purpose": "参考用户瓦片视频，制定后续map的素材/样板/模块/随机生产规划",
+  "player_experience": "规划让地形轮廓、材质重复、照明与装饰统一，并明确地图的实际操作验证顺序",
+  "constraints": [
+    "仅规划，不修改运行地图/生成器/物理/保存/正式地区开放",
+    "47-tile地基保留，V1画风拒绝不被撤销",
+    "视频方法与本项目候选尺寸/模块/拓扑分开",
+    "沿用最新卡通画风要求，不自动转为像素画"
+  ],
+  "affected_paths": [
+    "docs/art_foundation_v1.md",
+    "docs/current_state.md",
+    "docs/evidence/tile_map_plan_01/README.md",
+    "docs/evidence/tile_map_plan_01/checks.log",
+    "docs/evidence/tile_map_plan_01/docs-report.json",
+    "docs/evidence/tile_map_plan_01/docs.log",
+    "docs/evidence/tile_map_plan_01/frame_0150.jpg",
+    "docs/evidence/tile_map_plan_01/frame_0220.jpg",
+    "docs/evidence/tile_map_plan_01/frame_0540.jpg",
+    "docs/evidence/tile_map_plan_01/frame_0750.jpg",
+    "docs/evidence/tile_map_plan_01/frame_0990.jpg",
+    "docs/evidence/tile_map_plan_01/frame_1230.jpg",
+    "docs/evidence/tile_map_plan_01/observations.md",
+    "docs/evidence/tile_map_plan_01/source.json",
+    "docs/evidence/tile_map_plan_01/user_request.txt",
+    "docs/handoff.md",
+    "docs/quality/records/TILE-MAP-PLAN-01.json",
+    "docs/tasks.md",
+    "docs/tile_map_production_plan.md"
+  ],
+  "deliverables": [
+    "docs/tile_map_production_plan.md",
+    "docs/evidence/tile_map_plan_01/observations.md",
+    "docs/evidence/tile_map_plan_01/source.json"
+  ],
+  "creative_decisions": [
+    {
+      "decision": "MAP-01横向草坡石拱与MAP-02回廊井庭、1家族/6–8模块候选",
+      "status": "proposed",
+      "basis": "从视频方法和既有项目合同推导，当前为后续生产方案，不是已实现或用户认可的地图"
+    }
+  ],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "视频参考及项目规划范围明确",
+      "evidence": [
+        "plan"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "作为规划，来源、现状、制作顺序与候选边界已明确；不等于地图质量已通过",
+      "evidence": [
+        "plan",
+        "video-observations"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "定向文档与来源校验通过；完整docs profile因本地历史证据缺失失败，后继未执行",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "当前仅生产规划，不含运行内容、最终画面或设备/玩家验收",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "当前仅生产规划，不含运行内容、最终画面或设备/玩家验收",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "当前仅生产规划，不含运行内容、最终画面或设备/玩家验收",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "当前仅生产规划，不含运行内容、最终画面或设备/玩家验收",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "当前仅生产规划，不含运行内容、最终画面或设备/玩家验收",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "当前仅生产规划，不含运行内容、最终画面或设备/玩家验收",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "not_applicable",
+      "reason": "当前仅生产规划，不含运行内容、最终画面或设备/玩家验收",
+      "evidence": []
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "当前仅生产规划，不含运行内容、最终画面或设备/玩家验收",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "not_applicable",
+      "reason": "当前仅生产规划，不含运行内容、最终画面或设备/玩家验收",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "PLAN-SCOPE",
+      "scenario": "参考视频规划后续map",
+      "method": "核对观察表、素材范围、阶段、地图、模块与随机步骤",
+      "expected": "方法有时刻来源，项目提案与未执行范围明确",
+      "failure": "将概念/规划声称实机或将项目尺寸说成视频要求",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "文档已写明上述边界",
+      "evidence": [
+        "plan",
+        "video-observations"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "plan",
+      "path": "docs/evidence/parallel_integration_01/frozen/tile_map_production_plan_v1.md.txt",
+      "sha256": "9553fcf20bc7175768811e84729da042ac256cd392bad84154452f0b35231780",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "4ee004dfda4debc27be07ea1d001fef3b32515b5",
+      "content_version": "tile-map-plan-v1",
+      "method": "原规划文档字节冻结；原件 a39a56a85282ba86a642e8263cbbfc28cadc47e1:docs/tile_map_production_plan.md；保留原记录 baseline/source_commit，不将现行更新规划视为旧证据",
+      "observed": "阶段、范围、交付物、依赖与可证伪验收明确"
+    },
+    {
+      "id": "video-observations",
+      "path": "docs/evidence/tile_map_plan_01/observations.md",
+      "sha256": "8e4665183624227d37fe8e717902afdd9741a466fbda1dcea7fc9430ee495c24",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "4ee004dfda4debc27be07ea1d001fef3b32515b5",
+      "content_version": "tile-map-plan-v1",
+      "method": "B站公开视频43处关键帧与烧录字幕观察",
+      "observed": "区分视频观察和项目推论，未声称完整音频转写"
+    },
+    {
+      "id": "video-source",
+      "path": "docs/evidence/tile_map_plan_01/source.json",
+      "sha256": "471705b46997ea0c2f3fc1e3b5c501823cd2b1d9b6e338e700e75a6d07cd69c6",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "4ee004dfda4debc27be07ea1d001fef3b32515b5",
+      "content_version": "tile-map-plan-v1",
+      "method": "公开metadata/完整媒体字节与抽帧哈希",
+      "observed": "视频36,674,101字节下载完成，6幅精选分析帧有归属，不作为运行资产"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "代表tile母版/47态生产",
+    "两张手工实机合屏及模块库",
+    "新随机/正式迁移与真实Motor/Seed验证",
+    "用户画风/地图体验与设备验收",
+    "完整docs profile首项受本地历史证据未物化阻断，保留实际失败",
+    "历史plan首次入库在a39a56a8，晚于原记录source_commit 4ee004df；冻结保留原证据字节，不补称原baseline已经包含规划，也不覆盖现行规划"
+  ]
+}

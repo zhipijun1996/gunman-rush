@@ -1,0 +1,94 @@
+{
+  "status": "ACCEPT_BOUNDED_TEST_OUTPUT_AND_DEFAULT_IDENTITY_CHANGE",
+  "reviewer": "/root/forest_runtime_review",
+  "scope": "Static actual check-call trees and exact executable inverse + actual frozen promotion03 targeted outputs. Not physical traversal/Boss combat or final current-source profile.",
+  "current_runner_sha256": "806cb92cc137884110750a0bcf567deb041924dcb128f7d69c52460d8dd823e6",
+  "baseline": "bee850c66b2f402d644d7daa4c13db91c8abe8f8",
+  "all37_original_check_call_argument_trees_exact_in_original_order": true,
+  "whole_old_executable_exact_after_inverse_only_documented_additions": true,
+  "new_static_check_sites": {
+    "default_identity": [
+      {
+        "callee": "check",
+        "arguments": [
+          "app.stage is ThornForestRegionStage and is_instance_valid(app.stage.boss)",
+          "\"default forest actual stage and Boss exist\""
+        ]
+      },
+      {
+        "callee": "check",
+        "arguments": [
+          "app.forest_content_version==EXPECTED_PUBLIC_FOREST and app.stage.generated.manifest.version==EXPECTED_PUBLIC_FOREST and app.stage.generated.manifest.map_index==map_index",
+          "\"natural region selection retains independently expected public forest version map%s\"%map_index"
+        ]
+      },
+      {
+        "callee": "check",
+        "arguments": [
+          "encounter!=null and encounter.definition!=null and encounter.definition.resource_path==expected.definition",
+          "\"natural default forest actual Boss Definition matches selected version map%s\"%map_index"
+        ]
+      },
+      {
+        "callee": "check",
+        "arguments": [
+          "app.stage.boss.scene_file_path==expected.scene",
+          "\"natural default forest actual Boss scene matches selected version map%s\"%map_index"
+        ]
+      }
+    ],
+    "output_IO": [
+      {
+        "callee": "check",
+        "arguments": [
+          "directory_error==OK",
+          "\"fixture evidence output directory is available\""
+        ]
+      },
+      {
+        "callee": "check",
+        "arguments": [
+          "output!=null",
+          "\"fixture evidence output file opens\""
+        ]
+      }
+    ]
+  },
+  "actual_added_assertions": "4 default identity checks called twice=8; 2 mkdir/open checks called twice=4; base37 +8 +4 =49",
+  "native_campaign49_debug50_targeted_clean": true,
+  "outputs": {
+    "cross_region_manifest.json": {
+      "sha256": "82d6ef43b5f8bbd0f14cdff9468cdc7dae17c5c986d78a447935982c46475efa",
+      "bytes": 198451
+    },
+    "campaign_pointer_events.json": {
+      "sha256": "155a43742a6f7978e436cfbfd137c222aae0b4833499d2b8cf3b9a88e5353fa9",
+      "bytes": 1632
+    }
+  },
+  "pointer_payload_check_count": 47,
+  "pointer_payload_limit": "Payload formed before final helper mkdir/open adds2; terminal49includes these. File contains47/failures0,12actual pointer events,not49.",
+  "prior_campaign_failure_retained": {
+    "name": "forest-campaign",
+    "argv": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--path",
+      ".",
+      "--script",
+      "tests/forest_campaign_runner.gd"
+    ],
+    "timeout_seconds": 180,
+    "exit_code": -15,
+    "elapsed_seconds": 40.84822608400282,
+    "strict_log_clean": false,
+    "success_pattern_found": false,
+    "source_guard": true,
+    "log_sha256": "71d85a0df0e21b15a8bf762e823e93911bdca5c649a4dadff8374d5164b9df49"
+  },
+  "no_new_engine_run": true,
+  "parser_limit": "Balanced call-expression trees with exact expression leaves, not a full GDScript AST. Complete old executable byte-equivalence modulo comments/blank lines is stronger preservation evidence here; native actual proves syntax."
+}

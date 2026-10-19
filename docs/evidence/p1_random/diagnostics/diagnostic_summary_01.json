@@ -1,0 +1,60 @@
+{
+  "scope": "bounded diagnostic, not final route or three-seed proof",
+  "default_home": {
+    "log": "home_app_01.log",
+    "exit_code": 0,
+    "assertions": 19,
+    "failures": 0,
+    "errors": 0,
+    "formal_sourceguard": false
+  },
+  "ordinary_P1_minimal": [
+    {
+      "avatar": "courier",
+      "log": "preview_courier_verbose_02.log",
+      "exit_code": 0,
+      "ready": true,
+      "strict_errors": [],
+      "source_inventory": "diagnostic_source_02.json",
+      "sourceguard": "inventory saved during diagnostics; not pre/post signature"
+    },
+    {
+      "avatar": "p1_girl",
+      "log": "preview_girl_verbose_01.log",
+      "exit_code": 0,
+      "ready": true,
+      "strict_errors": [],
+      "source_inventory": "diagnostic_source_02.json",
+      "sourceguard": "inventory saved during diagnostics; not pre/post signature"
+    }
+  ],
+  "GUI": [
+    {
+      "directory": "gui_01",
+      "status": "failed",
+      "exit_code": 0,
+      "sourceguard_equal": true,
+      "failures": [
+        "actual_MENU_pointer_paused",
+        "real_popup_select_courier_1",
+        "unique_owner_select_courier_1"
+      ],
+      "selected": 17,
+      "omitted": 6,
+      "strict_cleanup": "45 ObjectDB instances / 37 resources at exit"
+    },
+    {
+      "directory": "gui_02",
+      "status": "failed",
+      "exit_code": 0,
+      "sourceguard_equal": true,
+      "failures": [
+        "real_popup_select_courier_1",
+        "unique_owner_select_courier_1"
+      ],
+      "selected": 22,
+      "omitted": 1,
+      "strict_cleanup": "45 ObjectDB instances / 37 resources at exit"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+from pathlib import Path
+import hashlib,json,os,shutil,stat,subprocess,sys,time
+root=Path.cwd();destination=Path(sys.argv[1]).resolve();assert destination.is_relative_to(root/'build/forest_depth/snapshots') and not destination.exists()
+roots=['scripts','scenes','resources','config','assets','shaders','addons','tests','tools']
+def files():
+ result={}
+ for directory in roots:
+  p=root/directory
+  if p.is_dir():
+   for item in p.rglob('*'):
+    if item.is_file() and '__pycache__' not in item.parts and item.suffix!='.pyc':result[str(item.relative_to(root))]=hashlib.sha256(item.read_bytes()).hexdigest()
+ for name in ['project.godot','export_presets.cfg','.gitignore','.gitattributes']:
+  p=root/name
+  if p.is_file():result[name]=hashlib.sha256(p.read_bytes()).hexdigest()
+ return result
+before=files();destination.mkdir(parents=True)
+# Forward-only storage optimization. Never link the mutable authoring workspace.
+sealed_media_basis=root/'build/forest_depth/snapshots/narrow02'
+shared_media_links={}
+media_suffixes={'.png','.jpg','.jpeg','.webp','.ogg','.wav','.ttf','.woff','.woff2'}
+for relative,expected in before.items():
+ src=root/relative;dst=destination/relative;dst.parent.mkdir(parents=True,exist_ok=True)
+ sealed=sealed_media_basis/relative
+ if relative.startswith('assets/') and src.suffix.lower() in media_suffixes and sealed.is_file() and not sealed.is_symlink() and stat.S_IMODE(src.stat().st_mode)==stat.S_IMODE(sealed.stat().st_mode) and hashlib.sha256(sealed.read_bytes()).hexdigest()==expected:
+  os.link(sealed,dst)
+  shared_media_links[relative]={'from':str(sealed),'sha256':expected,'mode':stat.S_IMODE(sealed.stat().st_mode),'mtime_ns':sealed.stat().st_mtime_ns}
+ else:
+  shutil.copyfile(src,dst);shutil.copymode(src,dst)
+ assert hashlib.sha256(dst.read_bytes()).hexdigest()==expected,relative
+assert before==files(),'Source changed while copying; snapshot REJECTED before any native run'
+subprocess.run(['git','init','--quiet',str(destination)],check=True)
+objects=Path(subprocess.check_output(['git','rev-parse','--path-format=absolute','--git-path','objects'],text=True).strip())
+(destination/'.git/objects/info/alternates').write_text(str(objects)+'\n')
+head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+shallow=Path(subprocess.check_output(['git','rev-parse','--git-path','shallow'],text=True).strip())
+if shallow.exists():shutil.copyfile(shallow,destination/'.git/shallow')
+subprocess.run(['git','update-ref','--no-deref','HEAD',head],cwd=destination,check=True)
+subprocess.run(['git','read-tree','HEAD'],cwd=destination,check=True)
+(destination/'.git/info/exclude').write_text('build/\n.godot/\n')
+# Cold CLI explicitly imports; do not copy a derived cache which would be deleted.
+(destination/'build/verification').mkdir(parents=True)
+receipt={'scope':'Runtime source snapshot only, base actualGitHEAD plus actual dirty runtime overlay. Nonconsumer docs omitted, not a clean checkout or fullrelease proof. Genuine source objects read-only alternate; independent HEAD/index/cache/userdata.','base_commit':head,'source_files':before,'source_copy_guard':True,'cache_copy_policy':'Omitted .godot only; actual CLI performs explicit cold editor import90','created':time.time(),'source_root':str(root),'snapshot_root':str(destination),'shared_media_links':shared_media_links,'media_storage_scope':'New snapshots only: identical SHA+mode immutable binary assets may share a sealed snapshot inode, never mutable main. Existing media bytes/mode/mtime remain unchanged; inode link-count/ctime change. No old snapshot path replaced or metadata normalized. Import sidecars and all code remain independent copies. Unlink/copy a shared binary before any future edit; sealed snapshots are read-only evidence.'}
+(destination/'build/snapshot-receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
+(destination.parent/(destination.name+'-receipt.json')).write_text(json.dumps(receipt,indent=2)+'\n')
+print(json.dumps({'snapshot':str(destination),'files':len(before),'base_commit':head,'copy_guard':True}))

@@ -1,0 +1,26 @@
+{
+  "status": "passed",
+  "kind": "tracked_required_input_materialization",
+  "missing_tracked_inputs": [],
+  "explicit_deleted_repairs": [],
+  "index_warnings": [],
+  "import_metadata_risks": [],
+  "uncertain_inputs": [],
+  "resolved_checks": {
+    "manifest": "tools/harness/profiles.json",
+    "manifest_sha256": "2ac6dac6c95fc88520ce558466f1c518640abdaf72cf7548fd2d26d81b257590",
+    "cwd": "/workspace/clock-style-lab",
+    "checks": [
+      {
+        "id": "docs",
+        "argv": [
+          "python3",
+          "tools/check_docs.py"
+        ],
+        "timeout_seconds": 60,
+        "success_pattern": "^PASS:"
+      }
+    ]
+  },
+  "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+}

@@ -1,0 +1,42 @@
+{
+  "verdict": "ACCEPT limited artifact retention only",
+  "base": "3065b55454caaeeeac2e288b3939bf7101784ec1",
+  "candidate_sha256": "93516034ee814d5b57694c756bd96f9d88ed70006c0499192657a067942b431b",
+  "inverse_entire_manifest_byte_exact": true,
+  "index_actual_bytes_verified": {
+    "build/plains_redesign/experience/run_nljim3mi/positive.json": true,
+    "build/plains_redesign/experience/run_nljim3mi/receipt.json": true,
+    "build/plains_redesign/experience/run_nljim3mi/validator_refusals.json": true,
+    "build/plains_redesign/experience/run_nljim3mi/positive.log": true,
+    "build/plains_redesign/experience/run_nljim3mi/deleted_island.json": true,
+    "build/plains_redesign/experience/run_nljim3mi/deleted_island.log": true,
+    "tests/plains_experience_golden_runner.gd": true,
+    "tests/plains_region_trace.gd": true,
+    "tests/audio_teardown.gd": true,
+    "tools/run_plains_experience_golden_tests.py": true,
+    "tools/harness/profiles.json": false
+  },
+  "index_profiles_mismatch": "Expected: current profiles contains the new three-line addition; archived profiles.json.txt retains original indexed SHA",
+  "local_receipt": {
+    "head": "3065b55454caaeeeac2e288b3939bf7101784ec1",
+    "argv": [
+      "python3",
+      "tools/run_plains_experience_golden_tests.py"
+    ],
+    "timeout_seconds": 900,
+    "exit_code": 0,
+    "timed_out": false,
+    "elapsed_seconds": 53.482564610999816,
+    "source_guard": true,
+    "log": "cli.log"
+  },
+  "CI_cause": "UNKNOWN",
+  "review_execution": "offline only; no native",
+  "inputs": {
+    "build/verification/plains-experience-diagnosis01/REVIEW.md": "a05ec0ff639e1df67cc85c385ead1e04a3a17dfecd220f3b1cd72e999d47dfd7",
+    "build/verification/plains-experience-diagnosis01/receipt.json": "26d632e03caeefefca30b8d4c800a62e2be7e497e011e49f58c5a0e104432168",
+    "build/verification/plains-experience-diagnosis01/artifact-index.json": "f05b338af08800903ce47713bec6aadc01ad123c5c43905d47975b12e2a8be9f",
+    "build/verification/3065b554-release/serial-job117597930592.log": "fac035111b50c27a46d020351c135b404dd70bd67cb7086a7a45ac0acf084972",
+    "tools/harness.py": "e7e136915675674c2bd7e6ac7db4dcc0aa971542a8812b216d547c978bce9ff5"
+  }
+}

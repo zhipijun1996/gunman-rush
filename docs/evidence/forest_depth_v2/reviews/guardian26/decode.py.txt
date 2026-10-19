@@ -1,0 +1,19 @@
+from pathlib import Path
+from PIL import Image,ImageDraw
+import subprocess,json,hashlib
+R=Path.cwd();O=R/'build/forest_depth/review/guardian26';out=[]
+for name in ['H','evade_stationary']:
+ p=R/f'docs/evidence/forest_guardian26_delta/movie26_{name}/gameplay.mp4';d=O/name;d.mkdir(exist_ok=True)
+ metadata=json.loads(subprocess.check_output(['ffprobe','-v','error','-select_streams','v:0','-show_entries','stream=width,height,r_frame_rate,nb_frames,duration','-of','json',str(p)],text=True))['streams'][0];n=int(metadata['nb_frames'])
+ indices=list(range(0,n,10));indices.append(n-1) if n-1 not in indices else None
+ # Decode selected frames from the actual complete mp4, without engine/render rerun.
+ subprocess.run(['ffmpeg','-v','error','-threads','1','-i',str(p),'-vf',f'select=not(mod(n\\,10))+eq(n\\,{n-1}),scale=320:180','-vsync','0',str(d/'sample-%03d.png')],check=True)
+ files=sorted(d.glob('sample-*.png'));assert len(files)==len(indices)
+ sheets=[]
+ for start in range(0,len(files),24):
+  batch=files[start:start+24];im=Image.new('RGB',(1280,1200),'#172020');draw=ImageDraw.Draw(im)
+  for k,f in enumerate(batch):
+   x=(k%4)*320;y=(k//4)*200;im.paste(Image.open(f).convert('RGB'),(x,y+20));idx=indices[start+k];draw.text((x+4,y+3),f'{name}: frame {idx} / {idx/60:.4f}s',fill='white')
+  target=d/f'sheet-{start//24+1:02d}.png';im.save(target);sheets.append(str(target.relative_to(R)))
+ out.append({'movie':str(p.relative_to(R)),'sha256':hashlib.sha256(p.read_bytes()).hexdigest(),'metadata':metadata,'decoded_indices':indices,'sheets':sheets,'scope':'Every10th encoded frame plus actual final frame; sampled inspection, not realtime playback or audio listening'})
+(O/'decode-receipt.json').write_text(json.dumps(out,indent=2)+'\n');print(json.dumps(out,indent=2))

@@ -1,0 +1,31 @@
+{
+  "command": [
+    "python3",
+    "tools/verify_forest_browser.py",
+    "https://zhipijun1996.github.io/gunman-rush/?v=f7e22bcfaf40",
+    "--output-dir",
+    "/workspace/gunman-rush-design/build/forest_grapple02/browser_gui02",
+    "--expected-commit",
+    "93c202568d154e37b1d57de1e08ba0c42820e828",
+    "--expected-build-id",
+    "f7e22bcfaf40",
+    "--expected-forest-version",
+    "thorn-forest-region-v2",
+    "--expected-forest-layout",
+    "forest-woven-trunk-v12",
+    "--proxy-from-environment"
+  ],
+  "exit_code": 0,
+  "wall_seconds": 378.77094068999577,
+  "game_source_commit": "93c202568d154e37b1d57de1e08ba0c42820e828",
+  "tool_context_head": "93c202568d154e37b1d57de1e08ba0c42820e828",
+  "tool_sha_before": "3f542a8b4a97dd8678ab45d5ef185ce8c47f6f753ec4bb6ef52eb2408890e422",
+  "tool_sha_after": "3f542a8b4a97dd8678ab45d5ef185ce8c47f6f753ec4bb6ef52eb2408890e422",
+  "log_sha256": "113fa041f1c13d751a0eee330de89f6ee9180396545a1d2a45a996dc1a828da8",
+  "actual_report_status": "passed",
+  "actual_checks": 20,
+  "actual_identities": 8,
+  "report_sha256": "3bf19e48155ddd909d2640bc08b37086eb9e3bce13a29879939cfddb13fd0c11",
+  "scope": "Unmodified original20/8/480 CLI after reviewed OCR-only change; game source and verification-tool source are distinct",
+  "status": "passed"
+}

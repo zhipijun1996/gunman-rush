@@ -1,0 +1,52 @@
+from pathlib import Path
+import sys,os,subprocess,time,json,ctypes,selectors,shutil,hashlib
+ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT/'tools'));import visual_director as vd
+out=ROOT/'build/p1_random/gui_04';out.mkdir(exist_ok=False);before=vd.sources('tools/p1_random_capture.gd');receipt={'source_before':before,'producer_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'probe_sha256':hashlib.sha256((ROOT/'build/p1_random/avatar_gui_probe_04.gd').read_bytes()).hexdigest(),'status':'failed','started_unix':time.time()};env=os.environ.copy();env.update(LIBGL_ALWAYS_SOFTWARE='1',LP_NUM_THREADS='1',ALSA_CONFIG_PATH=str(ROOT/'build/p1_native/alsa-null.conf'));display=process=None;log=(out/'native.log').open('wb');dl=(out/'display.log').open('wb')
+try:
+ display=subprocess.Popen([shutil.which('Xvfb') or str(ROOT.parent/'toolchains/xvfb/usr/bin/Xvfb'),'-displayfd','1','-screen','0','1280x720x24','-nolisten','tcp','-ac'],stdout=subprocess.PIPE,stderr=dl)
+ with selectors.DefaultSelector() as s:
+  s.register(display.stdout,selectors.EVENT_READ)
+  if not s.select(10):raise RuntimeError('Xvfb readiness timeout')
+  number=display.stdout.readline().decode().strip()
+ env['DISPLAY']=':'+number
+ x=ctypes.CDLL('libX11.so.6');xt=ctypes.CDLL('libXtst.so.6');x.XOpenDisplay.argtypes=[ctypes.c_char_p];x.XOpenDisplay.restype=ctypes.c_void_p;pointer=x.XOpenDisplay(env['DISPLAY'].encode());assert pointer
+ x.XFlush.argtypes=[ctypes.c_void_p];x.XCloseDisplay.argtypes=[ctypes.c_void_p];xt.XTestFakeMotionEvent.argtypes=[ctypes.c_void_p,ctypes.c_int,ctypes.c_int,ctypes.c_int,ctypes.c_ulong];xt.XTestFakeButtonEvent.argtypes=[ctypes.c_void_p,ctypes.c_uint,ctypes.c_int,ctypes.c_ulong]
+ x.XDefaultRootWindow.argtypes=[ctypes.c_void_p];x.XDefaultRootWindow.restype=ctypes.c_ulong
+ x.XQueryTree.argtypes=[ctypes.c_void_p,ctypes.c_ulong,ctypes.POINTER(ctypes.c_ulong),ctypes.POINTER(ctypes.c_ulong),ctypes.POINTER(ctypes.POINTER(ctypes.c_ulong)),ctypes.POINTER(ctypes.c_uint)];x.XQueryTree.restype=ctypes.c_int
+ x.XFetchName.argtypes=[ctypes.c_void_p,ctypes.c_ulong,ctypes.POINTER(ctypes.c_char_p)];x.XFree.argtypes=[ctypes.c_void_p]
+ x.XSetInputFocus.argtypes=[ctypes.c_void_p,ctypes.c_ulong,ctypes.c_int,ctypes.c_ulong];x.XGetInputFocus.argtypes=[ctypes.c_void_p,ctypes.POINTER(ctypes.c_ulong),ctypes.POINTER(ctypes.c_int)]
+ x.XSync.argtypes=[ctypes.c_void_p,ctypes.c_int]
+ def focus_audit():
+  desktop=x.XDefaultRootWindow(pointer);r=ctypes.c_ulong();parent=ctypes.c_ulong();children=ctypes.POINTER(ctypes.c_ulong)();count=ctypes.c_uint();rows=[];target=0
+  x.XQueryTree(pointer,desktop,ctypes.byref(r),ctypes.byref(parent),ctypes.byref(children),ctypes.byref(count))
+  for i in range(count.value):
+   name=ctypes.c_char_p();w=children[i];x.XFetchName(pointer,w,ctypes.byref(name));title=name.value.decode(errors='replace') if name.value else '';rows.append({'window':w,'title':title})
+   if 'P1' in title or 'Godot' in title:target=w
+   if name:x.XFree(name)
+  if children:x.XFree(children)
+  beforefocus=ctypes.c_ulong();revert=ctypes.c_int();x.XGetInputFocus(pointer,ctypes.byref(beforefocus),ctypes.byref(revert))
+  if target and beforefocus.value in (0,1):x.XSetInputFocus(pointer,target,2,0);x.XSync(pointer,0)
+  afterfocus=ctypes.c_ulong();x.XGetInputFocus(pointer,ctypes.byref(afterfocus),ctypes.byref(revert));return {'windows':rows,'before_focus':beforefocus.value,'selected_focus':target,'after_focus':afterfocus.value}
+ command=['bash','tools/godot.sh','--verbose','--rendering-method','gl_compatibility','--path','.','--script','build/p1_random/avatar_gui_probe_04.gd'];receipt['command']=command;process=subprocess.Popen(command,cwd=ROOT,env=env,stdout=log,stderr=subprocess.STDOUT);seen=set();events=[];deadline=time.monotonic()+100
+ while process.poll() is None:
+  if time.monotonic()>deadline:raise TimeoutError('Actual pointer GUI deadline')
+  p=out/'control.json'
+  if p.exists():
+   try:step=json.loads(p.read_text())
+   except json.JSONDecodeError:time.sleep(.03);continue
+   if step['sequence'] not in seen:
+    step['focus_audit']=focus_audit()
+    if '_item' in step['label'] or step['label']=='pause_MENU':
+     subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-threads','1','-f','x11grab','-video_size','1280x720','-i',env['DISPLAY'],'-frames:v','1','-threads','1',str(out/(step['label']+'_native_popup.png'))],env=env,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,timeout=10)
+    a,b=map(round,step['screen_position']);xt.XTestFakeMotionEvent(pointer,-1,a,b,0);x.XFlush(pointer);time.sleep(.08);xt.XTestFakeButtonEvent(pointer,1,1,0);x.XFlush(pointer);time.sleep(.08);xt.XTestFakeButtonEvent(pointer,1,0,0);x.XFlush(pointer);events.append(step);seen.add(step['sequence'])
+  time.sleep(.04)
+ receipt['exit_code']=process.returncode;receipt['actual_pointer_events']=events
+ text=(out/'native.log').read_text(errors='replace');result=json.loads((out/'result.json').read_text()) if (out/'result.json').is_file() else {}
+ if process.returncode!=0 or result.get('status')!='passed' or any(s in text for s in ('SCRIPT ERROR:','ERROR:','ObjectDB instances leaked','resources still in use')):raise RuntimeError('Native GUI/API assertions or strict cleanup failed')
+ receipt['source_after']=vd.sources('tools/p1_random_capture.gd');assert before==receipt['source_after'];receipt['status']='passed'
+except BaseException as e:receipt['error']=type(e).__name__+': '+str(e)
+finally:
+ if process and process.poll() is None:process.terminate();process.wait(timeout=10)
+ if display:display.terminate();display.wait(timeout=10)
+ log.close();dl.close();receipt['finished_unix']=time.time();receipt['source_after']=vd.sources('tools/p1_random_capture.gd');(out/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n');print(json.dumps({'status':receipt['status'],'error':receipt.get('error')}))
+raise SystemExit(0 if receipt['status']=='passed' else 1)

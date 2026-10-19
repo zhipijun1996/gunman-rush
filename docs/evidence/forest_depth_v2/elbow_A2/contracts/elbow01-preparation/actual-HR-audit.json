@@ -1,0 +1,311 @@
+{
+  "raw": "build/forest_depth/snapshots/elbow01-HR/build/forest_depth/elbow01/HR/elbow_HR.json",
+  "raw_sha256": "07f419db7cb2e575b56d5b90238e8ef34271a6f8a04f6891f24bd12d83dea715",
+  "actual_result": {
+    "variant": "elbow_HR",
+    "passed": true,
+    "argv": [
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--path",
+      ".",
+      "--script",
+      "tests/forest_hollow_upper_runner.gd",
+      "--",
+      "--variant=elbow_HR",
+      "--output=res://build/forest_depth/elbow01/HR/elbow_HR.json",
+      "--cavity-elbow",
+      "--cavity",
+      "--cast-offset=0",
+      "--recoil-offset=0",
+      "--launch-offset=0"
+    ],
+    "validation_errors": [],
+    "frames": 577,
+    "shots": 2,
+    "recovered": false,
+    "crown_tick": 168
+  },
+  "initial_hp": 5.0,
+  "final_hp": 5.0,
+  "return_start_tick": 168,
+  "second_contact_frame": {
+    "actual_camera_view": [
+      -195.447235107422,
+      -687.052978515625,
+      1280.0,
+      720.0
+    ],
+    "apex_remaining": 0.0,
+    "body": [
+      257.378265380859,
+      -284.841613769531,
+      24,
+      36
+    ],
+    "body_on_screen": true,
+    "cell": 1,
+    "drop_remaining": 0.0,
+    "energy": 94.5,
+    "grounded": false,
+    "health": 5.0,
+    "hook_enabled": true,
+    "hook_start": [
+      187.959548950195,
+      -323.352478027344
+    ],
+    "hook_state": "hook_contact_kick",
+    "hook_tip": [
+      299.349517822266,
+      -265.528778076172
+    ],
+    "hook_used": true,
+    "motor_contacts": [],
+    "motor_steps": 1,
+    "normal_velocity": [
+      0.0,
+      0.0
+    ],
+    "phase": "cavity_pull",
+    "position": [
+      269.378265380859,
+      -266.841613769531
+    ],
+    "probe_contacts": [
+      {
+        "collider": "cavity_ring_b",
+        "finish": [
+          309.996276855469,
+          -260.001953125
+        ],
+        "point": [
+          299.349517822266,
+          -265.528778076172
+        ],
+        "source": [
+          285.588928222656,
+          -272.672058105469
+        ]
+      }
+    ],
+    "raw_floor_contacts": [],
+    "recoil_remaining": 0.0,
+    "shots": 2,
+    "supports": [],
+    "tick": 120,
+    "velocity": [
+      289.529541015625,
+      12.6822490692139
+    ],
+    "visible_targets": {
+      "cavity_ring_a": {
+        "distance": 314.005645751953,
+        "on_screen": true,
+        "terrain_clear": false
+      },
+      "cavity_ring_b": {
+        "distance": 42.603199005127,
+        "on_screen": true,
+        "terrain_clear": true
+      },
+      "lower_window_ring": {
+        "distance": 453.169189453125,
+        "on_screen": false,
+        "terrain_clear": false
+      },
+      "upper_window_ring": {
+        "distance": 242.957946777344,
+        "on_screen": true,
+        "terrain_clear": false
+      }
+    }
+  },
+  "departure_frame": {
+    "actual_camera_view": [
+      -272.040466308594,
+      -737.352478027344,
+      1280.0,
+      720.0
+    ],
+    "apex_remaining": 0.0,
+    "body": [
+      175.959548950195,
+      -333.908020019531,
+      24,
+      36
+    ],
+    "body_on_screen": true,
+    "cell": 1,
+    "drop_remaining": 0.0,
+    "energy": 94.5,
+    "grounded": false,
+    "health": 5.0,
+    "hook_enabled": true,
+    "hook_start": [
+      187.959548950195,
+      -323.352478027344
+    ],
+    "hook_state": "hook_cast",
+    "hook_tip": [
+      187.959548950195,
+      -323.352478027344
+    ],
+    "hook_used": true,
+    "motor_contacts": [],
+    "motor_steps": 1,
+    "normal_velocity": [
+      0.0,
+      86.6666641235352
+    ],
+    "phase": "cavity_pull",
+    "position": [
+      187.959548950195,
+      -315.908020019531
+    ],
+    "probe_contacts": [
+      {
+        "collider": "cavity_ring_a",
+        "finish": [
+          -55.2106628417969,
+          -353.428070068359
+        ],
+        "point": [
+          -46.8310203552246,
+          -352.006744384766
+        ],
+        "source": [
+          -82.3234252929688,
+          -358.026794433594
+        ]
+      }
+    ],
+    "raw_floor_contacts": [],
+    "recoil_remaining": 0.0,
+    "shots": 2,
+    "supports": [],
+    "tick": 106,
+    "velocity": [
+      0.0,
+      86.6666641235352
+    ],
+    "visible_targets": {
+      "cavity_ring_a": {
+        "distance": 224.722320556641,
+        "on_screen": true,
+        "terrain_clear": true
+      },
+      "cavity_ring_b": {
+        "distance": 136.844711303711,
+        "on_screen": true,
+        "terrain_clear": true
+      },
+      "lower_window_ring": {
+        "distance": 481.725830078125,
+        "on_screen": false,
+        "terrain_clear": false
+      },
+      "upper_window_ring": {
+        "distance": 282.1650390625,
+        "on_screen": true,
+        "terrain_clear": false
+      }
+    }
+  },
+  "kick_release_frame": {
+    "actual_camera_view": [
+      -214.621734619141,
+      -710.841613769531,
+      1280.0,
+      720.0
+    ],
+    "apex_remaining": 0.0,
+    "body": [
+      251.711608886719,
+      -308.841613769531,
+      24,
+      36
+    ],
+    "body_on_screen": true,
+    "cell": 1,
+    "drop_remaining": 0.0,
+    "energy": 74.5,
+    "grounded": false,
+    "health": 5.0,
+    "hook_enabled": true,
+    "hook_start": [
+      187.959548950195,
+      -323.352478027344
+    ],
+    "hook_state": "free",
+    "hook_tip": [
+      245.378265380859,
+      -296.841613769531
+    ],
+    "hook_used": false,
+    "motor_contacts": [],
+    "motor_steps": 1,
+    "normal_velocity": [
+      0.0,
+      0.0
+    ],
+    "phase": "cavity_cross",
+    "position": [
+      263.711608886719,
+      -290.841613769531
+    ],
+    "probe_contacts": [
+      {
+        "collider": "cavity_ring_b",
+        "finish": [
+          309.996276855469,
+          -260.001953125
+        ],
+        "point": [
+          299.349517822266,
+          -265.528778076172
+        ],
+        "source": [
+          285.588928222656,
+          -272.672058105469
+        ]
+      }
+    ],
+    "raw_floor_contacts": [],
+    "recoil_remaining": 0.123333333333333,
+    "shots": 1,
+    "supports": [],
+    "tick": 135,
+    "velocity": [
+      1100.0,
+      0.0
+    ],
+    "visible_targets": {
+      "cavity_ring_a": {
+        "distance": 303.404754638672,
+        "on_screen": true,
+        "terrain_clear": true
+      },
+      "cavity_ring_b": {
+        "distance": 59.1601219177246,
+        "on_screen": true,
+        "terrain_clear": true
+      },
+      "lower_window_ring": {
+        "distance": 474.145416259766,
+        "on_screen": false,
+        "terrain_clear": false
+      },
+      "upper_window_ring": {
+        "distance": 264.625762939453,
+        "on_screen": true,
+        "terrain_clear": false
+      }
+    }
+  },
+  "source_guard": true,
+  "fullcopy_source_guard": true,
+  "body_on_screen_frames": 577,
+  "total_frames": 577,
+  "scope": "Actual first HR only, no H0R/native controls or regional promotion"
+}

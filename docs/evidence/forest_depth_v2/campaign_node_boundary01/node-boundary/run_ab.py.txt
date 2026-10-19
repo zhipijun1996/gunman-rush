@@ -1,0 +1,31 @@
+from pathlib import Path
+import hashlib,json,os,re,shutil,signal,subprocess,time
+ROOT=Path('/workspace/gunman-rush-design');SNAP=ROOT/'build/forest_depth/snapshots/queen_node_boundary_ab01';OUT=ROOT/'build/forest_depth/campaign/node_boundary01/actual_ab01'
+assert not OUT.exists()
+original=ROOT/'build/forest_depth/campaign/node_boundary01/original_runner.gd.txt';overlay=SNAP/'build/forest_depth/node_boundary/original_runner.gd';overlay.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(original,overlay)
+expected=json.loads((SNAP/'build/snapshot-receipt.json').read_text())['source_files']
+def inventory(): return {p:hashlib.sha256((SNAP/p).read_bytes()).hexdigest() for p in expected}
+before=inventory();assert before==expected;OUT.mkdir(parents=True)
+receipt={'scope':'One load-only original/extracted A/B; no actor construction, no fullfight, no Player/production changes','source_before':before,'original_overlay_sha256':hashlib.sha256(overlay.read_bytes()).hexdigest(),'cases':[]}
+base=os.environ.copy();base.update(GUNMAN_TOOLCHAIN_ROOT='/workspace/toolchains',GUNMAN_DATA_HOME=str(SNAP/'build/ab_userdata'),XDG_DATA_HOME=str(SNAP/'build/ab_userdata'),XDG_CONFIG_HOME=str(SNAP/'build/ab_config'),XDG_CACHE_HOME=str(SNAP/'build/ab_cache'))
+pattern=r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:|^ERROR:|ObjectDB.*leaked|resources? still in use at exit'
+def execute(name,args,budget):
+ cmd=['bash','tools/godot.sh']+args;start=time.monotonic();process=subprocess.Popen(cmd,cwd=SNAP,env=base,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,start_new_session=True)
+ timedout=False
+ try:raw=process.communicate(timeout=budget)[0]
+ except subprocess.TimeoutExpired:
+  timedout=True;os.killpg(process.pid,signal.SIGKILL);raw=process.communicate()[0]
+ text=raw.decode(errors='replace');(OUT/(name+'.log')).write_bytes(raw)
+ row={'case':name,'command':cmd,'cap_seconds':budget,'timeout':timedout,'exit_code':process.returncode,'elapsed_seconds':time.monotonic()-start,'leaked_resources':re.findall(r'^Resource still in use: (.*)$',text,re.M),'leaked_instances':re.findall(r'^Leaked instance: (.*)$',text,re.M),'engine_identity':'Godot Engine v4.7.2.stable.official.ed1daf0bf' in text,'completion':'FOREST LOAD ONLY: released local reference; no instances constructed' in text,'strict_clean':not timedout and process.returncode==0 and not re.search(pattern,text,re.M),'log_sha256':hashlib.sha256(raw).hexdigest()}
+ receipt['cases'].append(row);print(json.dumps(row),flush=True);return row
+try:
+ imported=execute('00_cold_import',['--headless','--path','.','--editor','--quit'],90)
+ if not imported['strict_clean']:raise RuntimeError('Cold import failed; no load probes launched')
+ args=['--verbose','--headless','--path','.','--script','tests/forest_ecology_load_only_probe.gd','--']
+ control=execute('01_original',args+['--load=res://build/forest_depth/node_boundary/original_runner.gd'],10)
+ candidate=execute('02_extracted',args+['--load=res://tests/forest_depth_campaign_boss_runner.gd'],10)
+ receipt['candidate_boundary_supported']=control['completion'] and control['leaked_resources']==['res://scripts/player/player_tuning.gd (GDScript)'] and not control['strict_clean'] and candidate['completion'] and candidate['strict_clean'] and candidate['engine_identity']
+finally:
+ receipt['source_after']=inventory();receipt['source_guard']=before==receipt['source_after'];receipt['original_overlay_unchanged']=hashlib.sha256(overlay.read_bytes()).hexdigest()==receipt['original_overlay_sha256']
+ (OUT/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n');assert receipt['source_guard'] and receipt['original_overlay_unchanged']
+if not receipt.get('candidate_boundary_supported'):raise SystemExit(1)

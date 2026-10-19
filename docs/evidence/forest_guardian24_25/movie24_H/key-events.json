@@ -1,0 +1,153 @@
+{
+  "scope": "Readonly actual24 full movie event keyframes; original producer receipt and movie unchanged",
+  "frames": [
+    {
+      "label": "arrival",
+      "movie_frame": 219,
+      "actual_tick_event": {
+        "accepted_action": "hook_contact_kick",
+        "attack_epoch": 0,
+        "bell_id": 71672268505,
+        "bell_state": "outbound",
+        "event": "bell_player_arrived",
+        "fixture": 1,
+        "hook_tip": [
+          94.5416641235352,
+          -40.8959617614746
+        ],
+        "owner_id": 71470941900,
+        "physics_frame": 221,
+        "player_position": [
+          84.3092346191406,
+          -16.8717727661133
+        ],
+        "position": [
+          113.398834228516,
+          -55.7420806884766
+        ],
+        "tick": 219
+      },
+      "path": "build/forest_depth/boss/movie24_H/key-arrival.png",
+      "sha256": "87c24141404702693aa65ceb1625b6850fd158a836f3fc5c1510d98ea5a3a998"
+    },
+    {
+      "label": "kick",
+      "movie_frame": 226,
+      "actual_tick_event": {
+        "accepted_action": "hook_kick",
+        "attack_epoch": 0,
+        "bell_id": 71672268505,
+        "bell_state": "returning",
+        "event": "bell_counter_armed",
+        "event_id": "bell-counter:71672268505:0:1",
+        "fixture": 1,
+        "locked_owner": [
+          524.0,
+          -170.000289916992
+        ],
+        "owner_id": 71470941900,
+        "physics_frame": 228,
+        "player_session": 1,
+        "position": [
+          140.171005249023,
+          -84.3620071411133
+        ],
+        "tick": 226,
+        "velocity": [
+          448.960906982422,
+          -399.394805908203
+        ]
+      },
+      "path": "build/forest_depth/boss/movie24_H/key-kick.png",
+      "sha256": "e780f20b0a230d372aa511d22ca92769ccf3608f1318f5b4de41a6f6f63f462f"
+    },
+    {
+      "label": "counter_contact",
+      "movie_frame": 271,
+      "actual_tick_event": {
+        "attack_epoch": 0,
+        "bell_id": 71672268505,
+        "bell_state": "returning",
+        "contact_kind": "kinematic_sweep",
+        "event": "bell_counter_owner_contact",
+        "event_id": "bell-counter:71672268505:0:1",
+        "fixture": 1,
+        "owner_id": 71470941900,
+        "physics_frame": 271,
+        "player_session": 1,
+        "point": [
+          488.0,
+          -186.123886108398
+        ],
+        "position": [
+          463.972717285156,
+          -186.131301879883
+        ],
+        "tick": 269
+      },
+      "path": "build/forest_depth/boss/movie24_H/key-counter_contact.png",
+      "sha256": "a4ebc79c64ed1cb1df8cfdd17713b3e53f407be4c8fcca12e1b98c4f058b7837"
+    },
+    {
+      "label": "phase2_flight",
+      "movie_frame": 608,
+      "actual_tick_event": {
+        "attack_epoch": 1,
+        "attack_id": "guardian-duel:boss-defeat-71470941900:1:2",
+        "bell_out": true,
+        "event": "body_launch",
+        "fixture": 1,
+        "from": [
+          67.7423782348633,
+          -30.0015430450439
+        ],
+        "goal": [
+          749.347290039062,
+          -30.0
+        ],
+        "mode": "pursuit_flight",
+        "phase": 2,
+        "tick": 600,
+        "velocity": [
+          946.673461914062,
+          -503.997863769531
+        ]
+      },
+      "path": "build/forest_depth/boss/movie24_H/key-phase2_flight.png",
+      "sha256": "bf6e33ce3e03c024a01c595c7a013a7715ecc7729e3fac3962b23c226af949bf"
+    },
+    {
+      "label": "new_receiver_position",
+      "movie_frame": 644,
+      "actual_tick_event": {
+        "attack_epoch": 1,
+        "attack_id": "guardian-duel:boss-defeat-71470941900:1:2",
+        "body_position": [
+          733.556335449219,
+          -30.0068969726562
+        ],
+        "collider": 64927827561,
+        "completed_body_cycles": 2,
+        "event": "body_collision",
+        "fixture": 1,
+        "kind": "terrain",
+        "mode": "landing_recovery",
+        "normal": [
+          0.0,
+          -1.0
+        ],
+        "phase": 2,
+        "physics_frame": 645,
+        "platform_id": "boss_floor",
+        "point": [
+          769.648803710938,
+          18.0
+        ],
+        "support_ids": [],
+        "tick": 643
+      },
+      "path": "build/forest_depth/boss/movie24_H/key-new_receiver_position.png",
+      "sha256": "0abb5153591188d40b49f67613793eff2455ab598006f165e69a5e180989a830"
+    }
+  ]
+}

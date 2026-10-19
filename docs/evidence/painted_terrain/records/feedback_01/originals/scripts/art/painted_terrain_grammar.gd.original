@@ -1,0 +1,106 @@
+class_name PaintedTerrainGrammar
+extends Node2D
+## One finite painted cross-section, continuously mapped along real bank contours.
+var _design: Dictionary
+var _spec: Dictionary
+var _facts: Dictionary = {"method":"arc-length continuous full-depth section mesh", "source_repeated":false,"banks":[]}
+
+func configure(design: Dictionary, specification: Dictionary) -> void:
+	_design=design
+	_spec=specification
+
+func _ready() -> void:
+	var path := str(_spec.texture)
+	var texture := load(path) as Texture2D if ResourceLoader.exists(path) else null
+	if texture==null:
+		push_error("Painted bank section source missing: "+path)
+		return
+	for top: Dictionary in _design.top_polylines:
+		var key := str(top.id).trim_suffix("_grass")
+		for solid: Dictionary in _design.solid_polygons:
+			if str(solid.id).trim_suffix("_shore")==key:_bank(solid,top,texture)
+
+func measured_nodes() -> Dictionary:
+	return _facts.duplicate(true)
+
+func _points(raw: Array) -> PackedVector2Array:
+	var result := PackedVector2Array()
+	for p: Array in raw:result.append(Vector2(p[0],p[1]))
+	return result
+
+func _bank(solid: Dictionary, top: Dictionary, texture: Texture2D) -> void:
+	var outline := _points(solid.points)
+	var curve := _points(top.points)
+	var bottom := outline[0].y
+	for p: Vector2 in outline:bottom=maxf(bottom,p.y)
+	var points := PackedVector2Array()
+	var distances := PackedFloat32Array()
+	var length := 0.0
+	for index: int in curve.size()-1:
+		var steps := maxi(1,ceili(curve[index].distance_to(curve[index+1])/12.0))
+		for step: int in steps:
+			var p := curve[index].lerp(curve[index+1],float(step)/steps)
+			if not points.is_empty():length+=points[-1].distance_to(p)
+			points.append(p);distances.append(length)
+	length+=points[-1].distance_to(curve[-1]);points.append(curve[-1]);distances.append(length)
+	var offset := float(_spec.source_x_offsets.get(str(solid.id),0.0))
+	var end := offset+length*float(_spec.source_pixels_per_world_unit)
+	if end>texture.get_width():
+		push_error("Finite bank source exhausted; refusing repeat or full-strip compression: "+str(solid.id))
+		return
+	var front := {"vertices":PackedVector2Array(),"uv":PackedVector2Array(),"indices":PackedInt32Array()}
+	var back := {"vertices":PackedVector2Array(),"uv":PackedVector2Array(),"indices":PackedInt32Array()}
+	for index: int in points.size()-1:
+		for mode: String in ["back","lip","side"]:
+			_append_band(back if mode=="back" else front,points[index],points[index+1],distances[index],distances[index+1],offset,bottom,mode,outline,texture.get_size())
+	_install_mesh(back,texture,-3,"PaintedTop_"+str(solid.id))
+	_install_mesh(front,texture,-2,"PaintedContinuousFace_"+str(solid.id))
+	_facts.banks.append({"id":solid.id,"source_span":[offset,end],"arc_length_world":length,"samples":points.size(),"source_surface_profile":_spec.source_surface_profile,"front_vertices":front.vertices.size(),"back_vertices":back.vertices.size(),"collision_changed":false,"end_connections":"awaiting painted end family; not admitted"})
+
+func _source_surface(x: float) -> float:
+	var profile: Array=_spec.source_surface_profile
+	for index: int in profile.size()-1:
+		var a: Array=profile[index]
+		var b: Array=profile[index+1]
+		if x<=float(b[0]):return lerpf(float(a[1]),float(b[1]),clampf((x-float(a[0]))/maxf(.001,float(b[0])-float(a[0])),0,1))
+	return float(profile[-1][1])
+
+func _append_band(data: Dictionary, a: Vector2, b: Vector2, arc_a: float, arc_b: float, source_offset: float, bottom: float, mode: String, outline: PackedVector2Array, texture_size: Vector2) -> void:
+	var upper_a := -float(_spec.back_world_depth) if mode=="back" else 0.0 if mode=="lip" else float(_spec.lip_world_depth)
+	var upper_b := upper_a
+	var lower_a := 0.0 if mode=="back" else float(_spec.lip_world_depth) if mode=="lip" else bottom-a.y
+	var lower_b := 0.0 if mode=="back" else float(_spec.lip_world_depth) if mode=="lip" else bottom-b.y
+	var quad := PackedVector2Array([a+Vector2(0,upper_a),b+Vector2(0,upper_b),b+Vector2(0,lower_b),a+Vector2(0,lower_a)])
+	var pieces: Array[PackedVector2Array]=[]
+	if mode=="back":pieces.append(quad)
+	else:pieces=Geometry2D.intersect_polygons(quad,outline)
+	for clipped: PackedVector2Array in pieces:
+		var triangles := Geometry2D.triangulate_polygon(clipped)
+		var base: int=data.vertices.size()
+		for p: Vector2 in clipped:
+			var t := clampf((p.x-a.x)/maxf(.001,b.x-a.x),0,1)
+			var surface := lerpf(a.y,b.y,t)
+			var depth := p.y-surface
+			var x := source_offset+lerpf(arc_a,arc_b,t)*float(_spec.source_pixels_per_world_unit)
+			var source_surface := _source_surface(x)
+			var y := source_surface
+			if mode=="back":y+=depth/float(_spec.back_world_depth)*float(_spec.back_source_depth)
+			elif mode=="lip":y+=depth/float(_spec.lip_world_depth)*float(_spec.lip_source_depth)
+			else:y=lerpf(source_surface+float(_spec.lip_source_depth),texture_size.y-1.0,clampf((depth-float(_spec.lip_world_depth))/maxf(1,bottom-surface-float(_spec.lip_world_depth)),0,1))
+			data.vertices.append(p);data.uv.append(Vector2(x,y)/texture_size)
+		for triangle: int in triangles:data.indices.append(base+triangle)
+
+func _install_mesh(data: Dictionary, texture: Texture2D, order: int, label: String) -> void:
+	if data.indices.is_empty():return
+	var arrays: Array=[]
+	arrays.resize(Mesh.ARRAY_MAX)
+	arrays[Mesh.ARRAY_VERTEX]=data.vertices
+	arrays[Mesh.ARRAY_TEX_UV]=data.uv
+	arrays[Mesh.ARRAY_INDEX]=data.indices
+	var mesh := ArrayMesh.new()
+	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays,[],{},Mesh.ARRAY_FLAG_USE_2D_VERTICES)
+	var node := MeshInstance2D.new()
+	node.mesh=mesh;node.texture=texture
+	node.texture_repeat=CanvasItem.TEXTURE_REPEAT_DISABLED
+	node.z_as_relative=false;node.z_index=order;node.name=label
+	add_child(node)

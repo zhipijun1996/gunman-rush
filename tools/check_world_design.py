@@ -11,7 +11,7 @@ CATALOG = ROOT / "docs/world_regions.json"
 
 
 def validate_framework(data, contract):
-    """Six chosen stages, sixteen designed regions, one implemented region."""
+    """Six chosen stages and sixteen designed regions; current runtime list is versioned."""
     errors = []
     formal = contract.get("formal_run", {})
     design = contract.get("world_design", {})
@@ -20,8 +20,15 @@ def validate_framework(data, contract):
     if (design.get("region_pool_count") != 16 or data.get("region_pool_count") != 16
             or len(data.get("regions", [])) != 16):
         errors.append("Confirmed design pool must contain sixteen actual registry entries")
-    if formal.get("implemented_regions") != ["plains"] or formal.get("profile_id") != "formal_plains_region":
-        errors.append("Only plains has the formal runtime consumer; design does not open future regions")
+    runtime_version = formal.get("runtime_contract_version", 1)
+    expected = ["plains", "thorn_forest"] if runtime_version == 2 else ["plains"]
+    if runtime_version not in [1, 2] or formal.get("implemented_regions") != expected or formal.get("profile_id") != "formal_plains_region":
+        errors.append("Only plains has the legacy runtime consumer" if runtime_version == 1 else "Only plains and thorn_forest have current runtime consumers")
+    if runtime_version == 2:
+        if formal.get("campaign_policy") != "TWO_REGION_CAMPAIGN_v1":
+            errors.append("Two-region runtime requires its actual versioned campaign policy")
+        for name in ["scripts/demo/thorn_forest_region_stage.gd", "scripts/generation/thorn_forest_region_generator.gd", "scripts/run/run_campaign_progression.gd"]:
+            if not (ROOT / name).is_file(): errors.append("Declared forest runtime consumer missing: " + name)
     if "biome_count" in formal or "formal_region_count" in data:
         errors.append("Ambiguous legacy total-region fields must stay in historical provenance only")
     if design.get("framework_status") != "confirmed" or data.get("framework_status") != "confirmed":
@@ -149,4 +156,4 @@ if __name__ == "__main__":
     if problems:
         print("\n".join(problems), file=sys.stderr)
         sys.exit(1)
-    print("PASS: confirmed 16-region pool / six-stage framework, candidate 29 whitelist edges, source hashes and plains-only runtime boundary. Runtime not tested.")
+    print("PASS: confirmed 16-region pool / six-stage framework, candidate 29 whitelist edges, source hashes and versioned runtime boundary. Runtime not tested.")

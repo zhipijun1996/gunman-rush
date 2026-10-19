@@ -1,5 +1,6 @@
 class_name BellstriderPresentation
 extends Node2D
+var pixel_style := false
 @export var encounter: BellstriderEncounter
 const BODY:=preload("res://assets/plains_v4/spatial/actors.png")
 const CHASSIS:=preload("res://assets/plains_v4/spatial/chassis.png")
@@ -39,22 +40,28 @@ func _process(delta: float) -> void:
 	queue_redraw()
 func _draw() -> void:
 	if encounter==null: return
-	# Wheel rotation follows real movement; chassis suspension is visual only.
-	# AI painted timber braces connect chassis to wheel axles, behind both.
-	for side: int in [-1,1]:
-		draw_texture_rect_region(PARTS,Rect2(side*40-7,0,14,45),Rect2(292,650,88,450))
-	for side: int in [-1,1]:
-		var center:=Vector2(side*40,40)
-		draw_set_transform(center,wheel_angle)
-		draw_texture_rect_region(BODY,Rect2(-25,-25,50,50),Rect2(945,30,565,530))
-	draw_set_transform(Vector2.ZERO)
-	draw_set_transform(Vector2(0,spring+sin(clock*3)*1.2+14.9*(1-_body_scale.y)),lean,_body_scale)
-	draw_texture_rect(CHASSIS,Rect2(Vector2(-78,-87.5),Vector2(153.6,102.4)),false,Color(1.4,1.25,.9) if flash>0 else Color.WHITE)
-	draw_set_transform(Vector2.ZERO)
+	if UnderworldActors.enabled(self):
+		UnderworldActors.draw_bellstrider(self,encounter,spring,wheel_angle,flash>0)
+	elif pixel_style:
+		PixelFormalActors.draw_bellstrider(self,encounter,clock,spring,wheel_angle,flash>0)
+	else:
+		# Wheel rotation follows real movement; chassis suspension is visual only.
+		# AI painted timber braces connect chassis to wheel axles, behind both.
+		for side: int in [-1,1]:
+			draw_texture_rect_region(PARTS,Rect2(side*40-7,0,14,45),Rect2(292,650,88,450))
+		for side: int in [-1,1]:
+			var center:=Vector2(side*40,40)
+			draw_set_transform(center,wheel_angle)
+			draw_texture_rect_region(BODY,Rect2(-25,-25,50,50),Rect2(945,30,565,530))
+		draw_set_transform(Vector2.ZERO)
+		draw_set_transform(Vector2(0,spring+sin(clock*3)*1.2+14.9*(1-_body_scale.y)),lean,_body_scale)
+		draw_texture_rect(CHASSIS,Rect2(Vector2(-78,-87.5),Vector2(153.6,102.4)),false,Color(1.4,1.25,.9) if flash>0 else Color.WHITE)
+		draw_set_transform(Vector2.ZERO)
 	if encounter.core_open:
 		var p:=encounter.core_offset()
 		draw_string(CORE_FONT,p+Vector2(-20,-34),"铃芯",HORIZONTAL_ALIGNMENT_LEFT,-1,13,Color("ffe9a8"))
-		draw_texture_rect_region(PARTS,Rect2(p-Vector2(11,14),Vector2(22,29)),Rect2(735,20,435,575))
+		if pixel_style: PixelFormalActors.bell(self,p,true,flash>0)
+		else: draw_texture_rect_region(PARTS,Rect2(p-Vector2(11,14),Vector2(22,29)),Rect2(735,20,435,575))
 		draw_circle(p,25,Color(1,.85,.4,.3))
 		draw_arc(p,18,0,TAU,32,Color("ffe59b"),2)
 		var remaining:=clampf(encounter.clock/(encounter.definition as WindkeeperDefinition).exposed_seconds,0,1)

@@ -173,7 +173,11 @@ class DesignContractTests(unittest.TestCase):
             'health_death':lambda d:d['observations'][50].update(health=0),
         }
         original_read=loop.quality.read_json
-        with tempfile.TemporaryDirectory(dir=ROOT/'build') as temp:
+        # These six semantic cases only mutate ignored capture bytes. Freeze the
+        # actual production tree once, then verify it again after the cases;
+        # repeatedly hashing multi-GB historical evidence adds no case coverage.
+        frozen_sources=loop.snapshot()
+        with tempfile.TemporaryDirectory(dir=ROOT/'build') as temp, patch.object(loop,'snapshot',return_value=frozen_sources):
             capture=Path(temp)/'capture.json';log=capture.with_suffix('.log')
             log.write_bytes((folder/'capture.log').read_bytes())
             for name,change in changes.items():
@@ -192,6 +196,7 @@ class DesignContractTests(unittest.TestCase):
                     self.assertEqual(result['scope_complete'],name=='positive',result)
                     self.assertFalse(result['content_complete'])
                     if name!='positive':self.assertTrue(any('Canopy' in error for error in result['quality']['errors']))
+        self.assertEqual(loop.snapshot(),frozen_sources,'semantic cases must not modify the actual production tree')
 
     def setUp(self):
         self.design = json.loads((FIXTURES / "plains_design.json").read_text())

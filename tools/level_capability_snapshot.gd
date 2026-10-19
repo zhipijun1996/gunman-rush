@@ -9,13 +9,13 @@ static func tuning_values(tuning: PlayerTuning) -> Dictionary:
 		result[key] = tuning.get(key)
 	return result
 
-static func matches_tuning(actor: PlayerController, requested: PlayerTuning) -> bool:
+static func matches_tuning(actor: Node, requested: PlayerTuning) -> bool:
 	return requested != null and is_instance_valid(actor) and FoundryCatalog.same(tuning_values(actor.motor.tuning), tuning_values(requested))
 
-static func capture(actor: PlayerController, build: BuildState = null, scope: String = "runtime_observation") -> Dictionary:
+static func capture(actor: Node, build: RefCounted = null, scope: String = "runtime_observation") -> Dictionary:
 	if not is_instance_valid(actor): return {}
-	var weapon := actor.shoot_ability.weapon
-	var runtime := actor.shoot_ability.runtime # Avoid behavior(): it lazily creates state.
+	var weapon: Variant = actor.shoot_ability.weapon
+	var runtime: Variant = actor.shoot_ability.runtime # Avoid behavior(): it lazily creates state.
 	var granted: Array[String] = []
 	if actor.jump_ability.enabled and actor.jump_ability.maximum_jumps() > 0: granted.append("jump")
 	if actor.shoot_ability.enabled: granted.append("shot_recoil")

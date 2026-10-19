@@ -1,0 +1,182 @@
+{
+  "reviewer": "/root/integration_review",
+  "hud_sha256": "4639a67c9c1a9a144d3111e031ce3a05edce39ccd21a0b69aac032e4c70bd1b3",
+  "hook_sha256": "6892d970f6272915cf99b2897d140299d41b744ce76379c7d9f286d5284f48ca",
+  "independent_actual_offline_controls": [
+    {
+      "case": "ci7_plains1",
+      "accepted": true,
+      "expected": true,
+      "point": [
+        115.58333333333333,
+        26.0
+      ],
+      "error": null,
+      "seconds": 0.5028247110021766,
+      "source_sha256": "d28cd0a67d06663e703cdd4a5ee6a363760bf6e63db46aeb5a917475004280bb"
+    },
+    {
+      "case": "old_mouse_forest1",
+      "accepted": true,
+      "expected": true,
+      "point": [
+        97.58333333333333,
+        26.0
+      ],
+      "error": null,
+      "seconds": 0.4413237789995037,
+      "source_sha256": "f211e18a37942da3174d8b93ca3909c3ecdb41c2bfb5a2eb8cb268e9c2d29bae"
+    },
+    {
+      "case": "old_mouse_forest2",
+      "accepted": true,
+      "expected": true,
+      "point": [
+        97.58333333333333,
+        26.0
+      ],
+      "error": null,
+      "seconds": 0.4262759690027451,
+      "source_sha256": "28598f05137adbdc695c6d2091166b9de6ab9ff6b5982223f4bb12bddf993326"
+    },
+    {
+      "case": "old_touch_forest1",
+      "accepted": true,
+      "expected": true,
+      "point": [
+        97.58333333333333,
+        26.0
+      ],
+      "error": null,
+      "seconds": 0.4284057559998473,
+      "source_sha256": "c5b534daf76a9eeaa77032e6a096a83dc947f9465d280235489d095e391c2245"
+    },
+    {
+      "case": "old_touch_forest2",
+      "accepted": true,
+      "expected": true,
+      "point": [
+        97.58333333333333,
+        26.0
+      ],
+      "error": null,
+      "seconds": 0.49594155099475756,
+      "source_sha256": "caf4e7753dde4807a6d798d3c33bc00f31c67e0b9515d3b227b11e1449633833"
+    },
+    {
+      "case": "wrong_region",
+      "accepted": false,
+      "expected": false,
+      "point": null,
+      "error": "Expected exactly one complete actual HUD heading 'WINDCHIME PLAINS 1/2'; found 0",
+      "seconds": 0.4580961780011421,
+      "source_sha256": "4a35e740e0c0ce048282c836bc2db827dd415510b320150fc46773f7a0338b9e"
+    },
+    {
+      "case": "wrong_map",
+      "accepted": false,
+      "expected": false,
+      "point": null,
+      "error": "Expected exactly one complete actual HUD heading 'WINDCHIME PLAINS 1/2'; found 0",
+      "seconds": 0.4589830439945217,
+      "source_sha256": "ac819ebe28b4c8ecbc3f9250fd35f8bc4c78cd0841c00b956a7e1481ec1534ed"
+    },
+    {
+      "case": "blank",
+      "accepted": false,
+      "expected": false,
+      "point": null,
+      "error": "Expected exactly one complete actual HUD heading 'WINDCHIME PLAINS 1/2'; found 0",
+      "seconds": 0.4285601980081992,
+      "source_sha256": "063eee488c2600ffe036448c4d623cda7c2ed4b57fb18e15d32e2e29045d08dd"
+    },
+    {
+      "case": "actual_glyphs_with_suffix",
+      "accepted": false,
+      "expected": false,
+      "point": null,
+      "error": "Expected exactly one complete actual HUD heading 'WINDCHIME PLAINS 1/2'; found 0",
+      "seconds": 0.48559915099758655,
+      "source_sha256": "c8ddcb110ac764d03a3af603f466daa929ac3a876e627bac30e80a118e689ba3"
+    },
+    {
+      "case": "duplicate_title",
+      "accepted": false,
+      "expected": false,
+      "point": null,
+      "error": "Expected exactly one complete actual HUD heading 'WINDCHIME PLAINS 1/2'; found 2",
+      "seconds": 0.5102728370111436,
+      "source_sha256": "f2643b3a9e99e6d096032a44e317b243122aac910c92e6574b398c8d9b616d87"
+    },
+    {
+      "case": "separated_visible_suffix",
+      "accepted": false,
+      "expected": false,
+      "point": null,
+      "error": "Expected exactly one complete actual HUD heading 'WINDCHIME PLAINS 1/2'; found 0",
+      "seconds": 0.46655686901067384,
+      "source_sha256": "ce076f45c1a3a302da4a59af117b751847db962a6a7c71d76e6918622d61d570"
+    }
+  ],
+  "original9functions_AST_unchanged": [
+    "norm",
+    "locate_original",
+    "locate",
+    "validate_identity",
+    "fetch_identity",
+    "touch_scroll",
+    "environment_proxy",
+    "validate_assembled_layout",
+    "main"
+  ],
+  "hook_original24_rhs_AST_unchanged": true,
+  "hook_new_check_count": 25,
+  "fan_section_byte_identical": true,
+  "runtime_diff": [],
+  "original_report_check_append_AST_sites": 3,
+  "entire_verify_AST_equal_after_restoring_only_originalHUDlocate_statement": true,
+  "note": "Three syntactic report-check append sites are unchanged; productionloop expansion retains original20check scope. Entireverify AST preserved apartfrom oneHUDvalidationblock.",
+  "verdict": "ACCEPT",
+  "scope": "Boundedfinaltwo-collector source migration independentreview; notnewCI8orcanonical73/public acceptance",
+  "authors": {
+    "hook": "/root",
+    "HUD": "/root/integration_branch_audit",
+    "independent_reviewer": "/root/integration_review"
+  },
+  "hud": {
+    "verdict": "ACCEPT",
+    "source_sha256": "4639a67c9c1a9a144d3111e031ce3a05edce39ccd21a0b69aac032e4c70bd1b3",
+    "independent_offline_results": "11/11correct: currentCI7Plains +fourOLDactualForest positives, sixpixelnegative controls includingentirevisible suffixright-of-cut",
+    "semantics": "Completeallwordexactregion+map matching; all4finitecandidates processed andexactly1required. Conservativecropx12..250; actualINFO262..318 excludedonlyfromfiniteoverspillguard246..332. Croppedoriginalpixels only; no desiredworderasure orfixedclickfallback.",
+    "visual_review": [
+      "ActualindependentlyderivedoldForestcrop hasfulllegibleTHORNFOREST1/2withINFOexcluded",
+      "Separatedsuffixcropcontainsfullcorrectheadingbutoverspillguardrejectsvisiblesuffixoutsidecrop, so exactOCRalonecannotturnthatnegativegreen"
+    ],
+    "finite_limit": "Brightness>=235/neutral<=25 glyphguard isfinitevisible-currentHUDsampling, notclaimhiddenINFOcoveredglyphs or arbitraryfieldoutside textabsence",
+    "preserved": "Original9functionsAST+entireverifyexceptoneHUDblockASTunchanged, thusoriginal8contexts/20expandedchecks/480cap/menuinput/identity unchanged; originalfullframeHUDlocate stillcalled"
+  },
+  "hook": {
+    "verdict": "ACCEPT",
+    "source_sha256": "6892d970f6272915cf99b2897d140299d41b744ce76379c7d9f286d5284f48ca",
+    "preserved": "Original24predicateRHSASTidentical; fansectionbyteidentical; oneadditionalstrictverticalcheck yields25(originaltotal72->73)",
+    "contract": "ActualResourcekickY=-240 andactualResource/defaultdeadzone=.2; no new tuningdefault",
+    "actual_prior_probe": "UniqueexactCI7two-directionGUIprobe91.372111s/120: visibleactualsideanchor aim .449288/-.893387kick[-240,-240], verticalaim0/-1kick[0,-240]; archive0082f951889f5a6fd06168c00cde8d13f12f1720c8f1c1791a84268b38595177"
+  },
+  "evidence_sha256": {
+    "build/integration01/collectors-final-review01/independent.json": "5b1e7f2c178473220f4ebc5fb8a7803d4291ec817a21e5ee6e83e9e53ed8ac35",
+    "build/integration01/hud-title-ocr-repair02/report.json": "e10a009e6b2e3833a5515c416a52005ae36f704e5694614397e1a366838c53ed",
+    "build/integration01/hud-title-ocr-repair02/source-audit.json": "c697885d4f64b4a046cd121712044e60a58561b77d9a0e724217b3bfb1941d33",
+    "build/integration01/hook-two-directions-probe01/review.json": "979a86de5b81dffab2796c91d2d2ba0249c852c96135c72ff0120aa576959f9b"
+  },
+  "not_approved": [
+    "ActualnewCI8all8GUIcontexts/20checks",
+    "Canonicalnew25/73browserPASS",
+    "Originalfanfirsttapcauseorfailure resolution",
+    "Public20/8deployment/device/fun acceptance"
+  ],
+  "old_failures_preserved": [
+    "OriginalCI7canonicalbrowserFAIL",
+    "56beHUDpartialINFOfalse-rejections",
+    "RejectedtallerBwholepanelOCR"
+  ]
+}

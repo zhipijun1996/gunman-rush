@@ -1,0 +1,27 @@
+from pathlib import Path
+import copy,hashlib,importlib.util,json,sys
+root=Path.cwd();snap=root/'build/forest_depth/snapshots/guardian_campaign05';out=root/'build/forest_depth/independent/campaign05-review';sys.path.insert(0,str(snap/'tools'))
+reader=snap/'tools/run_forest_depth_campaign_boss.py';spec=importlib.util.spec_from_file_location('frozen_campaign_reader',reader);m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+raw=snap/'build/forest_depth/campaign/native05/capture.json';data=json.loads(raw.read_text());m.validate(data)
+rows=[]
+for name,mutate in [('erase-combat-router-requests',lambda d:d['combat'].__setitem__('requests',[])),('all-combat-frame-hp32',lambda d:[f.__setitem__('boss_hp',32) for f in d['combat']['frames']]),('pointer-outside-button',lambda d:[e.__setitem__('point',[0,0]) for e in d['pointer_events']]),('map2-coast-dead',lambda d:[f.__setitem__('hp',0) for f in d['map2_normal_frames']])]:
+ d=copy.deepcopy(data);mutate(d);error=None
+ try:m.validate(d)
+ except (AssertionError,ValueError,KeyError,TypeError) as exc:error=type(exc).__name__+': '+str(exc)
+ rows.append({'name':name,'rejected':error is not None,'error':error});(out/(name+'.json')).write_text(json.dumps(d))
+# Independent concrete original-data reconciliation, not native rerun.
+fight=data['combat'];events=fight['events'];frames=fight['frames'];policies=[e for e in events if e.get('event')=='policy_result' and e.get('target')=='boss'];hp=fight['initial']['boss_hp']
+assert len({e['event_id'] for e in policies})==len(policies)
+for e in policies:hp-=e['amount'];assert abs(hp-e['hp'])<1e-6
+assert hp==fight['final']['boss_hp']==0
+for f in frames:
+ expected=fight['initial']['boss_hp']-sum(e['amount'] for e in policies if e['physics_frame']<=f['physics_frame'])
+ assert abs(expected-f['boss_hp'])<1e-6,(f['physics_frame'],expected,f['boss_hp'])
+assert [f['physics_frame'] for f in frames]==list(range(fight['initial']['physics_frame']+1,fight['final']['physics_frame']+1))
+assert all(f['motor_steps']==1 and f['player_hp']>0 for f in frames)
+for e in data['pointer_events']:
+ x,y=e['point'];l,t,w,h=e['actual_button_rect'];assert l<=x<=l+w and t<=y<=t+h
+assert all(f['hp']>0 and f['grounded'] and f['map']==2 for f in data['map2_normal_frames'])
+assert len(fight['requests'])>0 and all(r['queued'] for r in fight['requests'])
+checks={'original_wrapper_accepts':True,'combat_frames':len(frames),'combat_requests':len(fight['requests']),'boss_policy_count':len(policies),'boss_damage':sum(e['amount'] for e in policies),'actual_frame_HP_reconciles':True,'pointer_in_real_rect':True,'map2_coast30_alive_grounded':True,'mutation_controls':rows,'raw_sha256':hashlib.sha256(raw.read_bytes()).hexdigest(),'reader_sha256':hashlib.sha256(reader.read_bytes()).hexdigest(),'source_guard':all(hashlib.sha256((snap/p).read_bytes()).hexdigest()==sha for p,sha in json.loads((snap/'build/snapshot-receipt.json').read_text())['source_files'].items())}
+(out/'result.json').write_text(json.dumps(checks,indent=2)+'\n');print(json.dumps(checks,indent=2))

@@ -1,0 +1,25 @@
+{
+  "status": "unimplemented_unverified_proposal_archived_after_bounded_stop",
+  "scope": "Only build-only candidate/diff. Never applied to tracked harness, never executed, never a successful isolation/native proof.",
+  "motivation": "Original clone failed128 on missing promisor objects; after normal materialization, retry02 still timed out in original60second clone. Existing source Git2.52 reports shallow=true and remote.origin promisor=true/blob:none. Repacking explanation is a hypothesis informed by Git behavior, not a measured performance proof.",
+  "bootstrap_design": [
+    "Replace only original isolated_workspace clone bootstrap. Keep the same total60second monotonic deadline across rev-parse/init/checkout subprocesses; do not reset a60second budget per command.",
+    "Resolve actual source HEAD, actual object directory and actual shallow boundary via Git. git init an independent destination repository/index/HEAD.",
+    "Set destination objects/info/alternates to the existing resolved source object directory. Source objects are reused read-only; destination writes its new objects locally. Do not copy source index/HEAD or invent history.",
+    "Copy the actual source shallow boundary when present, detach-checkout exact source HEAD. Do not configure a remote or lazy network retrieval; a missing required object fails.",
+    "Preserve all original exact working snapshot overlay/deletions/untracked source, .godot copy, distinct userdata/config/cache, external toolchain env and before/after sourceguard/output collection.",
+    "Source Git object store must remain available and not be garbage-collected through lane execution. Preserve failure output; no deleting evidence to fit storage."
+  ],
+  "not_executed_test_plan": [
+    "Run all existing23 tests/test_harness.py using the candidate bootstrap without production source mutation; prior static-workflow test results do not cover this new candidate.",
+    "Create a real local origin with multiple commits; make a real depth1 filtered/promisor clone with working HEAD objects present. Record actual Git/version/config/shallow bytes.",
+    "Run two actual candidate isolated workspaces from that shallow source, including dirty content/new source/deletion. Verify detached sourceHEAD equality, separate .git/index and .git/HEAD, real copied shallow boundary, no destination remote, actual alternates path.",
+    "Hash source object/index/HEAD/config before/after; mutate and commit inside lane1 and verify new object writes remain lane1, lane2/source unchanged. Verify separate import/userdata/cache writes.",
+    "Intentionally omit a required blob in an isolated fixture; candidate must fail under original60second deadline without network fallback. Do not corrupt production source.",
+    "Retain original tests for result markers/nonzero/timeout/source-mutation/output-copy failures. Only after passing nonengine tests consider targeted2native execution; that remains nonfull approval."
+  ],
+  "executed_checks": [
+    "Python candidate compilation only; no tests, Git bootstrap execution, Godot or browser executed for this proposal."
+  ],
+  "full_profile_boundaries": "68checks/50parallel18serial unchanged; alloriginalcaps unchanged. No guarantee under60minutes. Job1\u21922 workflow proposal is withdrawn from this bounded delivery, not validated."
+}

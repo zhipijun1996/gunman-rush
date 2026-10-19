@@ -30,17 +30,21 @@ var requests: Array[Dictionary] = []
 var initial_snapshot: Dictionary
 var body_size := Vector2.ZERO
 
+func layout() -> Dictionary:
+	# Historical defaults remain immutable; current prototypes override layout only.
+	return {"root": ROOT_RECT, "branch": BRANCH_RECT, "anchor": ANCHOR_POINT, "spawn": SPAWN}
+
 func _ready() -> void:
 	process_physics_priority = -100
-	_surface("RootLanding", ROOT_RECT)
-	_surface("CanopyBranch", BRANCH_RECT)
+	_surface("RootLanding", layout().root)
+	_surface("CanopyBranch", layout().branch)
 	if include_anchor:
 		anchor = GrappleAnchor.new()
 		anchor.name = "BellVineAnchor"
-		anchor.position = ANCHOR_POINT
+		anchor.position = layout().anchor
 		add_child(anchor)
 	player = preload("res://scenes/player/player.tscn").instantiate() as PlayerMotor
-	player.position = SPAWN # Initial development spawn only; never reset during trace.
+	player.position = layout().spawn # Initial development spawn only; never reset during trace.
 	add_child(player)
 	controller = player.get_node("Controller") as PlayerController
 	body_size = (player.get_node("CollisionShape2D") as CollisionShape2D).shape.get_rect().size
@@ -92,7 +96,7 @@ func _physics_process(_delta: float) -> void:
 	before_steps = player.motion_steps
 	var axis := 0.0
 	if frame == 12:
-		var direction := (ANCHOR_POINT - (player.position + Vector2(0, -6))).normalized()
+		var direction: Vector2 = (layout().anchor - (player.position + Vector2(0, -6))).normalized()
 		var queued := controller.router.request_action(&"grapple", direction)
 		requests.append({"tick": frame, "kind": "grapple", "queued": queued, "direction": SNAPSHOT.pair(direction)})
 	if phase == "outbound":
@@ -120,8 +124,8 @@ func observe_tick(_delta: float) -> void:
 		return
 	var actual_supports := supports()
 	var body_rect := Rect2(player.position - body_size / 2, body_size)
-	var full_branch := (player.is_on_floor() and "CanopyBranch" in actual_supports
-		and body_rect.position.x >= BRANCH_RECT.position.x and body_rect.end.x <= BRANCH_RECT.end.x)
+	var full_branch: bool = (player.is_on_floor() and "CanopyBranch" in actual_supports
+		and body_rect.position.x >= layout().branch.position.x and body_rect.end.x <= layout().branch.end.x)
 	stable_branch = stable_branch + 1 if full_branch else 0
 	if phase == "outbound" and stable_branch >= 12:
 		branch_landed = true
@@ -146,7 +150,7 @@ func _draw() -> void:
 	draw_rect(Rect2(385, 230, 55, 370), Color("31483a"))
 	draw_circle(Vector2(400, 220), 95, Color("28443a"))
 	draw_line(Vector2(50, 420), Vector2(405, 365), Color("524b37"), 28)
-	draw_rect(ROOT_RECT, Color("526441"))
-	draw_rect(BRANCH_RECT, Color("8c9864"))
-	draw_line(BRANCH_RECT.position, Vector2(BRANCH_RECT.end.x, BRANCH_RECT.position.y), Color("e2e7ad"), 3)
+	draw_rect(layout().root, Color("526441"))
+	draw_rect(layout().branch, Color("8c9864"))
+	draw_line(layout().branch.position, Vector2(layout().branch.end.x, layout().branch.position.y), Color("e2e7ad"), 3)
 	draw_string(ThemeDB.fallback_font, Vector2(10, 230), "FOREST H TECHNICAL PROTOTYPE - NOT FORMAL REGION", HORIZONTAL_ALIGNMENT_LEFT, -1, 17, Color("e4e5c6"))

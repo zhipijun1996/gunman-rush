@@ -32,7 +32,7 @@ func run() -> void:
 		await physics_frame
 		controller.physics_tick(DT)
 	check(motor.is_on_floor(), "actual collision establishes grounded contact")
-	check(is_equal_approx(motor.tuning.focus_time_scale, 0.2), "focus uses requested twenty percent timescale")
+	check(is_equal_approx(motor.tuning.focus_time_scale, 0.15), "focus uses requested fifteen percent timescale")
 	var start := motor.position.x
 	check(controller.shoot_ability.try_fire(Vector2.LEFT, true), "grounded shot fires normally")
 	check(is_equal_approx(motor.recoil_velocity.x, 605.0), "ground shot samples reduced recoil at fire instant")

@@ -1,3 +1,21 @@
+# 当前森林生成候选（FOREST-GRAPPLE-02）
+
+2026-10-19最新技术交付：[试玩build f7e22bcfaf40](https://zhipijun1996.github.io/gunman-rush/?v=f7e22bcfaf40)，游戏源码 `93c202568d154e37b1d57de1e08ba0c42820e828`，默认 `forest-woven-trunk-v12`。选定CI39207127333／attempt1实际SUCCESS：serial18＋parallel71共89项同源汇总、原森林80路线、Web／Windows／deploy／verify_public通过；两轮docs也成功。本机原80仍单独为600.167秒超时、59例完整通过、索引59中断／21未完成，不由CI绿覆盖。publisher正常下载精确CI ZIP被proxy403阻断，live_verified=false、原包72未执行；公网源码／资源包校验另已通过。公开GUI01实际OCR失败3/20、未到森林，真实MENU可见；保留原失败及初版ROI误收MENU2的REJECT，整行严格匹配修正后真实正反例获独审限定接受。新采证工具与已发布游戏源码分开绑定，公开GUI02原20项／8入口实测通过（378.771秒<480），两图实际v12、前后完整PCK身份一致、零引擎错误；该证据只覆盖GUI入口，不代自然战役／整图浏览器路线或实体设备。见[最终技术交付与明确边界](evidence/forest_grapple02/release03/README.md)。整体仍REVISE／in_progress：冠叉R可被完整跳跃→H替代、较易尾路可省末两句、上层收益和随机探索／Boss钩索价值、真人手感及实体设备仍未通过。以下旧v11与失败记录均保留历史身份。
+
+2026-10-19：正式调试／新建森林默认 `forest-woven-trunk-v12`，区域仍 `thorn-forest-region-v2`。在原共享巨木前加入七段推荐主线、1528px纵升；HHRH树洞、RH叉枝、HR荆棘窄口、HRHH断枝拱交错，三处观察停留环与三处深坑恢复环实际消费。快路和左侧停留路线在首树冠重汇；不同Seed主干顺序基本固定，末叉HH/RH变化；存在跨枝迁徙者且为RH时派生RHR，以尾反冲越过返航通道，不能宣称丰富随机探索。保持旧v1/v7/v9/v10/v11完整重建和有限旧20%配置校验，当前运行统一15%。地块场景语义／14–16敌实例及原两图流程保留，奖励／资源／身体／射程不改。迁徙通道保留真实双岸飞行；回程经396枝落稳12帧、真实下穿至600，再通过560–640树洞返回，原树皮上下仍为实体。S1代表16及额外HH迁徙成长Seed17严格通过；S3后续原80／600与同源89、公开GUI20／8实际通过，仍不代本机600失败或真人认可。新洞口实证存在普通J落旧catch、再JR提前接W的尾部替代，省两句；保留并如实记为较易尾路，不称七句必经，上层无独占收益仍未证明吸引力。详见[本轮设计](design/forest_grapple_vertical.md)、[原件与未通过项](evidence/forest_grapple02/README.md)。以下v11和旧交付为历史检查点。
+
+2026-10-18四项反馈续轮：registry正式试玩默认仍为 `thorn-forest-region-v2`，布局现为 `forest-expedition-airborne-v11`。河岸、西空心巨木、连续空中桥、倒木、树冠与根下回廊连通；HH/RH/四连/五连、新盾甲虫/摆荚和每块场景语义均进入实际App。旧V7/V9/V10冻结重建保留，旧v6描述只属历史。有效支持面跨度5630px；每图14–16敌实例不代遭遇质量。详情见[续轮设计](design/forest_feedback_expedition.md)。
+
+实际游戏源码 `5a9f4bdaf846a635eb2659080d563b865758ab87`、[CI39160856629](https://github.com/zhipijun1996/gunman-rush/actions/runs/39160856629)完整成功：gameplay/art86项同源汇总、Web/Windows/deploy/verify_public通过，公开[build5fd40a31c4be](https://zhipijun1996.github.io/gunman-rush/?v=5fd40a31c4be)。原本机600秒超时、长growth录像240秒超时、公开GUI首轮OCR失败仍单列；新GUI后续结果、ZIP代理403和体验缺口见[本轮证据](evidence/forest_depth_v2/forest_feedback01/README.md)。技术通过不签摆荚价值、QueenH、灰盒精美、真人与设备，整体REVISE/in_progress。
+
+下面平原与早期plan_only描述是其冻结轮次历史，不覆盖现在已实现的森林候选，也不代表商业／玩家准入。
+
+# 当前隔离实验：完整随机区域与同源地貌
+
+当前`46c3c099`/计划v2显式regional art候选（旧首片仍是e450/v1）复用下方正式整区链，profile在嵌入前预算空间，伴随计划消费真正拓扑、碰撞支撑、地貌边界、空腔、景层和附件；默认生成无profile保持原件一致。当前两种地貌制作方法均艺术REJECT，并非正式池升级或成熟自动美术。真实全图、动作、失败和下一关键实验见[报告](quality/plains_regional.md)，最小执行入口见[范例](evidence/plains_regional/recipe.md)。PR85场所链仅保留局部语义，不是完整区域。下方为正式生成能力及历史按需说明。
+
+---
+
 # 最新收口：平原可玩候选，完整品质目标未完成
 
 2026-10-15；独立分支 `feature/plains-designed-exploration`，[草稿PR67](https://github.com/zhipijun1996/gunman-rush/pull/67)依赖PR66，未合并main、未发布。C4运行/观察冻结 `a39ea373105c24b09c59b9d51b7c440440bc0a17`；最后提交只收口文档、知识、质量元数据和证据，不冒充全局fresh原生检查。

@@ -1,0 +1,553 @@
+{
+  "scope": "Offline reader migration on original0cf CI bytes; NO native replay or CI failure retag",
+  "reader_before_sha256": "8de25d307741d4223f86c9244825ee467bad3056564dba9650a93655cc0018b4",
+  "reader_after_sha256": "5b4d88c2060b0ed0ebccfb7a53be91f4a51e29e9f9e508793657d84355848851",
+  "reader_source_unchanged_during_audit": true,
+  "positives": [
+    {
+      "path": "build/verification/0cf-core-selected/verification/harness/20261018T021827.118192Z/artifacts/forest-depth-campaign-guardian/build/forest_depth/campaign/harness-guardian/harness-9228079351f4495abab6eb9c79ded9c7/capture.json",
+      "sha256": "0a0828d2b95c515e239df6cb634bede4a806eb107c18e4a7941eddfc9b3f6ae4",
+      "layout": "shared-tree-canopy-hunt-v10",
+      "full_validate_accepted": true
+    },
+    {
+      "path": "docs/evidence/forest_depth_v2/campaign_node_boundary01/guardian_node01/capture.json.gz",
+      "sha256": "b37775d64a96154b2bd36b1b80f42ac2f19ef1eca3704be860ac77f624e8b164",
+      "layout": "shared-tree-borer-final-approach-v4",
+      "full_validate_accepted": true
+    },
+    {
+      "path": "docs/evidence/forest_guardian_campaign05/native05/capture.json",
+      "sha256": "97ded5b760a3d417e9a2e649746f1cc70aa94905b4139ad8e7282fe50db69269",
+      "layout": "hollow-clearing-upper-thorn-candidate-v2",
+      "full_validate_accepted": true
+    }
+  ],
+  "ci_full_validate_accepted": true,
+  "negative_mutants": [
+    {
+      "id": "wrong_layout_version_0",
+      "path": [
+        "map2_manifest",
+        "layout_version"
+      ],
+      "value": "unknown-layout",
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Unsupported Queen layout; no legacy fallback for unknown versions"
+    },
+    {
+      "id": "wrong_layout_version_1",
+      "path": [
+        "map2_manifest",
+        "layout_version"
+      ],
+      "value": "shared-tree-living-detour-v9",
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Exact historical weave contract and experimental admission required"
+    },
+    {
+      "id": "wrong_layout_version_2",
+      "path": [
+        "map2_manifest",
+        "layout_version"
+      ],
+      "value": null,
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Unsupported Queen layout; no legacy fallback for unknown versions"
+    },
+    {
+      "id": "wrong_layout_version_3",
+      "path": [
+        "map2_manifest",
+        "layout_version"
+      ],
+      "value": [],
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Unsupported Queen layout; no legacy fallback for unknown versions"
+    },
+    {
+      "id": "wrong_version_4",
+      "path": [
+        "map2_manifest",
+        "version"
+      ],
+      "value": "thorn-forest-region-v999",
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "AssertionError",
+      "reason": ""
+    },
+    {
+      "id": "wrong_region_5",
+      "path": [
+        "map2_manifest",
+        "region"
+      ],
+      "value": "plains",
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Exact forest version/region/map2 identity required"
+    },
+    {
+      "id": "wrong_region_6",
+      "path": [
+        "map2_manifest",
+        "region"
+      ],
+      "value": null,
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Exact forest version/region/map2 identity required"
+    },
+    {
+      "id": "wrong_map_index_7",
+      "path": [
+        "map2_manifest",
+        "map_index"
+      ],
+      "value": 1,
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "AssertionError",
+      "reason": ""
+    },
+    {
+      "id": "wrong_map_index_8",
+      "path": [
+        "map2_manifest",
+        "map_index"
+      ],
+      "value": 2.0,
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Exact forest version/region/map2 identity required"
+    },
+    {
+      "id": "wrong_map_index_9",
+      "path": [
+        "map2_manifest",
+        "map_index"
+      ],
+      "value": true,
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "AssertionError",
+      "reason": ""
+    },
+    {
+      "id": "wrong_boss_contract_10",
+      "path": [
+        "map2_manifest",
+        "boss_contract"
+      ],
+      "value": null,
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Actual successful typed Boss contract required"
+    },
+    {
+      "id": "wrong_boss_contract_11",
+      "path": [
+        "map2_manifest",
+        "boss_contract"
+      ],
+      "value": [],
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Actual successful typed Boss contract required"
+    },
+    {
+      "id": "wrong_boss_content_12",
+      "path": [
+        "map2_manifest",
+        "boss_content"
+      ],
+      "value": null,
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Exact current canopy contract/scene/resource declaration required"
+    },
+    {
+      "id": "wrong_boss_content_13",
+      "path": [
+        "map2_manifest",
+        "boss_content"
+      ],
+      "value": [],
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Exact current canopy contract/scene/resource declaration required"
+    },
+    {
+      "id": "wrong_boss_content_14",
+      "path": [
+        "map2_manifest",
+        "boss_content"
+      ],
+      "value": true,
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Exact current canopy contract/scene/resource declaration required"
+    },
+    {
+      "id": "content_scene_15",
+      "path": [
+        "map2_manifest",
+        "boss_content",
+        "scene"
+      ],
+      "value": "res://scenes/bosses/thorn_queen_v2.tscn",
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Exact current canopy contract/scene/resource declaration required"
+    },
+    {
+      "id": "content_resource_16",
+      "path": [
+        "map2_manifest",
+        "boss_content",
+        "resource"
+      ],
+      "value": "res://resources/bosses/thorn_queen_v2.tres",
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Exact current canopy contract/scene/resource declaration required"
+    },
+    {
+      "id": "content_contract_17",
+      "path": [
+        "map2_manifest",
+        "boss_content",
+        "contract"
+      ],
+      "value": "forest-queen-canopy-v999",
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Exact current canopy contract/scene/resource declaration required"
+    },
+    {
+      "id": "content_scene_18",
+      "path": [
+        "map2_manifest",
+        "boss_content",
+        "scene"
+      ],
+      "value": null,
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Exact current canopy contract/scene/resource declaration required"
+    },
+    {
+      "id": "content_resource_19",
+      "path": [
+        "map2_manifest",
+        "boss_content",
+        "resource"
+      ],
+      "value": 1,
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Exact current canopy contract/scene/resource declaration required"
+    },
+    {
+      "id": "contract_admission_20",
+      "path": [
+        "map2_manifest",
+        "boss_contract",
+        "admission"
+      ],
+      "value": "experimental_whole_boss_pending",
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Exact canopy contract version and candidate admission required"
+    },
+    {
+      "id": "contract_admission_21",
+      "path": [
+        "map2_manifest",
+        "boss_contract",
+        "admission"
+      ],
+      "value": "commercially_admitted",
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Exact canopy contract version and candidate admission required"
+    },
+    {
+      "id": "contract_admission_22",
+      "path": [
+        "map2_manifest",
+        "boss_contract",
+        "admission"
+      ],
+      "value": true,
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Exact canopy contract version and candidate admission required"
+    },
+    {
+      "id": "contract_boss_contract_23",
+      "path": [
+        "map2_manifest",
+        "boss_contract",
+        "boss_contract"
+      ],
+      "value": "queen-weave-region-experimental",
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Exact canopy contract version and candidate admission required"
+    },
+    {
+      "id": "contract_boss_contract_24",
+      "path": [
+        "map2_manifest",
+        "boss_contract",
+        "boss_contract"
+      ],
+      "value": {},
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Exact canopy contract version and candidate admission required"
+    },
+    {
+      "id": "contract_version_25",
+      "path": [
+        "map2_manifest",
+        "boss_contract",
+        "version"
+      ],
+      "value": "forest-queen-canopy-v999",
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Exact canopy contract version and candidate admission required"
+    },
+    {
+      "id": "contract_version_26",
+      "path": [
+        "map2_manifest",
+        "boss_contract",
+        "version"
+      ],
+      "value": 3,
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Exact canopy contract version and candidate admission required"
+    },
+    {
+      "id": "contract_ok_27",
+      "path": [
+        "map2_manifest",
+        "boss_contract",
+        "ok"
+      ],
+      "value": false,
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Actual successful typed Boss contract required"
+    },
+    {
+      "id": "contract_ok_28",
+      "path": [
+        "map2_manifest",
+        "boss_contract",
+        "ok"
+      ],
+      "value": 1,
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Actual successful typed Boss contract required"
+    },
+    {
+      "id": "contract_ok_29",
+      "path": [
+        "map2_manifest",
+        "boss_contract",
+        "ok"
+      ],
+      "value": "true",
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Actual successful typed Boss contract required"
+    },
+    {
+      "id": "contract_ok_30",
+      "path": [
+        "map2_manifest",
+        "boss_contract",
+        "ok"
+      ],
+      "value": null,
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Actual successful typed Boss contract required"
+    },
+    {
+      "id": "missing_boss_content",
+      "path": [
+        "map2_manifest",
+        "boss_content"
+      ],
+      "value": null,
+      "delete": true,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Exact current canopy contract/scene/resource declaration required"
+    },
+    {
+      "id": "missing_boss_contract",
+      "path": [
+        "map2_manifest",
+        "boss_contract"
+      ],
+      "value": null,
+      "delete": true,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Actual successful typed Boss contract required"
+    },
+    {
+      "id": "missing_layout_version",
+      "path": [
+        "map2_manifest",
+        "layout_version"
+      ],
+      "value": null,
+      "delete": true,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Unsupported Queen layout; no legacy fallback for unknown versions"
+    },
+    {
+      "id": "missing_region",
+      "path": [
+        "map2_manifest",
+        "region"
+      ],
+      "value": null,
+      "delete": true,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Exact forest version/region/map2 identity required"
+    },
+    {
+      "id": "extra_content_key",
+      "path": [
+        "map2_manifest",
+        "boss_content",
+        "extra"
+      ],
+      "value": "unrecognized",
+      "delete": false,
+      "full_validate_rejected": true,
+      "exception": "ValueError",
+      "reason": "Exact current canopy contract/scene/resource declaration required"
+    }
+  ],
+  "historical_negative_mutants": [
+    {
+      "historical_capture": 1,
+      "field": "admission",
+      "value": "candidate_whole_boss_pending",
+      "full_validate_rejected": true,
+      "reason": "Exact historical weave contract and experimental admission required"
+    },
+    {
+      "historical_capture": 1,
+      "field": "version",
+      "value": "forest-queen-canopy-v3",
+      "full_validate_rejected": true,
+      "reason": "Exact historical weave contract and experimental admission required"
+    },
+    {
+      "historical_capture": 1,
+      "field": "boss_contract",
+      "value": "forest-queen-canopy-v3",
+      "full_validate_rejected": true,
+      "reason": "Exact historical weave contract and experimental admission required"
+    },
+    {
+      "historical_capture": 1,
+      "field": "ok",
+      "value": 1,
+      "full_validate_rejected": true,
+      "reason": "Actual successful typed Boss contract required"
+    },
+    {
+      "historical_capture": 2,
+      "field": "admission",
+      "value": "candidate_whole_boss_pending",
+      "full_validate_rejected": true,
+      "reason": "Exact historical weave contract and experimental admission required"
+    },
+    {
+      "historical_capture": 2,
+      "field": "version",
+      "value": "forest-queen-canopy-v3",
+      "full_validate_rejected": true,
+      "reason": "Exact historical weave contract and experimental admission required"
+    },
+    {
+      "historical_capture": 2,
+      "field": "boss_contract",
+      "value": "forest-queen-canopy-v3",
+      "full_validate_rejected": true,
+      "reason": "Exact historical weave contract and experimental admission required"
+    },
+    {
+      "historical_capture": 2,
+      "field": "ok",
+      "value": 1,
+      "full_validate_rejected": true,
+      "reason": "Actual successful typed Boss contract required"
+    }
+  ],
+  "rejected_mutants": 44,
+  "all_other_existing_functions_ast_unchanged": [
+    "require",
+    "finite",
+    "vector",
+    "close",
+    "same_aim",
+    "validate_inputs_and_health",
+    "validate_pointer_and_map2",
+    "validate_queen",
+    "validate_canopy_policy_ledger",
+    "main"
+  ],
+  "existing_functions_changed": [
+    "validate",
+    "validate_canopy"
+  ]
+}

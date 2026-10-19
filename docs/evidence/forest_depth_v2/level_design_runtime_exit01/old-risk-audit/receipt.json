@@ -1,0 +1,88 @@
+{
+  "scope": "Read-only risk audit, no native execution or code edits",
+  "current_head": "51e594b38465326655ae0c8515d686241415ade8",
+  "old_commit": "cda8c30ed375a97a53de27d8348a79f137199427",
+  "old_remote_check": {
+    "id": "level-design-runtime",
+    "argv": [
+      "python3",
+      "tools/run_level_design_tests.py"
+    ],
+    "timeout_seconds": 720,
+    "input_digest": "721acbcd9dd2c53dba1f8a5ea6850f505afc23dcf21a23d950b6f6a8d7547b1d",
+    "log": "level-design-runtime.log",
+    "status": "failed",
+    "exit_code": 1,
+    "failure_reason": "nonzero_exit",
+    "started_at_unix": 1792191322.9221995,
+    "ended_at_unix": 1792191329.6875727,
+    "duration_seconds": 6.765,
+    "artifact_directory": "/home/runner/work/gunman-rush/gunman-rush/build/verification/harness/20261016T221937.910295Z/artifacts/level-design-runtime",
+    "reused": false
+  },
+  "remote_capability_log_uploaded": false,
+  "local_log_scope": "Historical local same-commit 41/0 plus232ObjectDB/170resources; counts are NOT remote counts",
+  "selected_current_source_comparison": [
+    {
+      "path": "tools/run_level_design_tests.py",
+      "old_sha256": "8c38f6e505378909f6da7f9a15bfd6d4f7704067b2591cba8d30de53811e0643",
+      "current_sha256": "8c38f6e505378909f6da7f9a15bfd6d4f7704067b2591cba8d30de53811e0643",
+      "byte_identical": true
+    },
+    {
+      "path": "tools/run_tests.py",
+      "old_sha256": "4dca5f5f9ea6345f5caffc3de51fce5f48d1fa0267c26c74e0d061a6f6a97abb",
+      "current_sha256": "4dca5f5f9ea6345f5caffc3de51fce5f48d1fa0267c26c74e0d061a6f6a97abb",
+      "byte_identical": true
+    },
+    {
+      "path": "tests/level_capability_runner.gd",
+      "old_sha256": "fdc5acab7ca745f25ce92d12b29e5ce78cc323b93a0f084cfadc4b92b5bea777",
+      "current_sha256": "fdc5acab7ca745f25ce92d12b29e5ce78cc323b93a0f084cfadc4b92b5bea777",
+      "byte_identical": true
+    },
+    {
+      "path": "tools/level_capability_snapshot.gd",
+      "old_sha256": "ec64f5b6e8dc71eefaeb3e062578eb182cb41c1624400bd3c66cd2b3c67c084f",
+      "current_sha256": "ec64f5b6e8dc71eefaeb3e062578eb182cb41c1624400bd3c66cd2b3c67c084f",
+      "byte_identical": true
+    },
+    {
+      "path": "tests/level_design_trace.gd",
+      "old_sha256": "e1004c1589020560acd6aabf8be92e5375cae388a77b28464febb3db413b47c5",
+      "current_sha256": "e1004c1589020560acd6aabf8be92e5375cae388a77b28464febb3db413b47c5",
+      "byte_identical": true
+    },
+    {
+      "path": "tests/plains_region_trace.gd",
+      "old_sha256": "0c8e70220452b7432c3c9cdd87dfce54cea65e4e70b580311f157a1de119280e",
+      "current_sha256": "0c8e70220452b7432c3c9cdd87dfce54cea65e4e70b580311f157a1de119280e",
+      "byte_identical": true
+    },
+    {
+      "path": "scripts/builds/build_state.gd",
+      "old_sha256": "a9726e7b891823b8f18fc6641ec2be2c46f42396bbbde59e9613d51744e25db1",
+      "current_sha256": "a9726e7b891823b8f18fc6641ec2be2c46f42396bbbde59e9613d51744e25db1",
+      "byte_identical": true
+    },
+    {
+      "path": "scripts/player/player_tuning.gd",
+      "old_sha256": "4cd18aefd536247d6665b5e3d6e0709cd479eebdb248231de758de500226d0c7",
+      "current_sha256": "4cd18aefd536247d6665b5e3d6e0709cd479eebdb248231de758de500226d0c7",
+      "byte_identical": true
+    },
+    {
+      "path": "scripts/generation/foundry_catalog.gd",
+      "old_sha256": "c326a086fdcfc625970688084bd1e606824bdd04152b9c6e228ad248534fc148",
+      "current_sha256": "c326a086fdcfc625970688084bd1e606824bdd04152b9c6e228ad248534fc148",
+      "byte_identical": true
+    },
+    {
+      "path": "scenes/player/player.tscn",
+      "old_sha256": "75ea76ff43b9b8cb3410096d01bfde92c678c56bd31ea3cf6a0bfd438fd9acd8",
+      "current_sha256": "75ea76ff43b9b8cb3410096d01bfde92c678c56bd31ea3cf6a0bfd438fd9acd8",
+      "byte_identical": true
+    }
+  ],
+  "conclusion": "Known strict-exit blocker remains unresolved in this consumer; unrelated Nodehelper fixes do not alter this byte-identical runner or its selected dependencies. Current exact native outcome unverified."
+}

@@ -1,0 +1,23 @@
+{
+  "scope": "Mechanical Guardian Node-boundary candidate; not a functional or leak fix result",
+  "guardian_run_and_utilities_normalized_exact": true,
+  "guardian_finish_exact_except_tree_access_and_outer_owned_quit": true,
+  "shared_Queen_fixture_changed": false,
+  "Queen_driver_body_changed": false,
+  "runtime_changed": false,
+  "original_runner_sha256": "df11bfef4435a050c77b2c656fd9fc9bf9bc6710b84056c83ac8e002a6d7fd95",
+  "new_runner_sha256": "c97b422e0ee4adcbe9485493ca1bbc6f73b0ed728baf415a5af26c0678fb5b24",
+  "new_helper_sha256": "4ed5592d2509acd5c70d3388bd49329551f4b977a1089908b79b31a167d1db43",
+  "normalization": [
+    "SceneTree root\u2192get_tree().root",
+    "SceneTree physics/process signal\u2192get_tree().signal",
+    "SceneTree paused\u2192get_tree().paused",
+    "outer owner quit only after awaited helper return/free"
+  ],
+  "native_executed": false,
+  "Queen_branch_exact_sha256": "1ad08ad7d382bf68ff0183ca32ccfa445857e2fd9bf949c2b0e9ac1ea17aa1e3",
+  "Queen_branch_byte_identical": true,
+  "Guardian_run_all_string_literals_equal": true,
+  "Guardian_run_string_literals_sha256": "def697a616ca2e669caa9617d90a2f284743cf7b10fa1ec6227c0661f17a53b8",
+  "Guardian_reader_AST_exact": true
+}

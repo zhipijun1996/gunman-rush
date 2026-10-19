@@ -1,0 +1,27 @@
+# Layout replay01 — independent version/hash compatibility review
+
+**Bounded production plumbing: CONTINUE. New offline reader: REVISE the three recorded identity holes.** Exact source copies/hashes and repeatable Python audit are retained here. No native run or受审 source edit by this reviewer. No new Queen mechanics, natural entrance or closed-seal gameplay acceptance is implied.
+
+The original actual native run contains126/0,126 passed ledger rows and14 cases,4.7.2 strict-clean logs, and a2063-file guarded snapshot verified byte for byte. Its original outer CLI still exited1 because the original reader rejects14 instead of11 cases. That failed receipt is not rewritten or relabelled PASS. The same raw is accepted only by the new offline reader. The original validate function AST is unchanged; it still sees all126 ledger entries and their failures when the exact old11-case domain is projected. The wrapper's original import/native/outer budgets, marker/strict/source guards remain unchanged.
+
+## Frozen source and actual old manifests
+
+v2_v7 is exactly Git9fdf7fad08550ea0da46b59ef7126fa721571f28's generator after reversing only class rename and two provenance comments. v2_v9 is exactly Gitdd214ddec4394758d3d3efb71d604b86b7fdb7a3 after reversing class rename/comments and the explicit known_north_return switch. The latter preserves both actual pre-N itinerary and post-N itinerary, rather than ignoring a route mismatch in validation. Both validators still compare complete deterministic _candidate data and the original hash.
+
+Independently read the two retained actual Motor captures, verified their source SHA, and compared each complete manifest to its fixture. The fresh126-case original/rebuilt records equal those fixtures entirely, including the unmodified old hash and old Queen identity. Thus this is full-value reconstruction for those two actual seed/map cases, not hash replacement. It is not new actual App reload of oldv7/v9: native App legacy cases still coverv1. Other old-layout seeds are not automatically measured by the two fixture proofs.
+
+## Production compatibility source
+
+Registry dispatch is a bounded string-to-script table for v7/v9/privatev10. Default staysv9. New optional layout capability and v9 itinerary bool are types/whitelist checked; unknown layout fails. Validation selects the matching old generator and, only forv9, tries the other explicit north itinerary. App retries bounded recorded variants only until their generated manifest hash exactly matches the stored hash. It carries that layout/itinerary forward without modifying the old region-state hash, actors or claims.
+
+Boss resource selection is centralized in _boss_paths. Explicit new content must match the exact three-field contract/scene/resource whitelist andv10/map2; unknown/partial/extra fields or new layout missing its content are rejected. Existing manifests without new boss_content retain old resources. Stage and RunManifest use that same resolver. RunManifest still validates the complete generated layout first and then compares actual Boss stable_id/Definition version/health; it does not load arbitrary saved paths.
+
+Stage checks finite explicit canopy safe_return/reward points. Both the Stage seal-reload spawn and App's separately activated boss_enter Segment anchor now use the same safe_return. This closes the former hidden bottom-edge fallback path. Stage initial/dead reward uses the new reward point, and the new encounter exposes reward_stand_position for the App's existing post-death consumer. Old manifests retain old bottom behavior. Shared strict _restore_forest_duel remains unchanged; new encounter-internal save schema/mechanics are not reviewed here.
+
+New Factory calls the actual canopy Definition build_geometry with a translated origin aligning prep at its authored entrance height; old queen_golden/from_prep bodies are unchanged. Its native new contract case compares complete Factory geometry to the real Resource result and checks supported safe-return and reward. Offline reader checks full-body support/terrain intersection. These are actual generated data checks, not proof that real Player has naturally walked the new seam or reloaded within the new arena. Old194/all-CI is not newly executed or signed.
+
+## Reader controls and exact failure
+
+Exact counts require old8 delegates+1 Queen+2 old App cases and new2 recorded layouts+1 private canopy case. Independently deleting a new case, falsifying an existing ledger result, changing a complete old-manifest hash or duplicating a fixture identity all reject. The old fixture rows are SHA-bound to whole original manifest values, not selectively compared fields.
+
+However, in the new canopy row, altering only manifest.version to an unknown version, map_index to1, or manifest_hash to64 zeros each still passes validate_current. The new branch currently checks layout/content/resource geometry but omits these identity/hash guards. These are actual mutations of the retained126 raw, not evidence that its original native data was fabricated. The new reader must bind the private case's identity and complete expected manifest before its stronger acceptance is claimed. Root has acknowledged the issue and is preparing a narrow frozen full-manifest fixture; this report retains the pre-fix REVISE and exact reader copy. A later reader correction needs a separate delta result, not rewriting this finding.

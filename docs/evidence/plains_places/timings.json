@@ -1,0 +1,65 @@
+{
+  "first_instrumented_clock_utc": "2026-10-18 02:34:43 UTC",
+  "task_started_before_first_clock": true,
+  "image_tool_calls": 4,
+  "image_tool_observed_wall_seconds": [
+    50.0,
+    40.3,
+    24.9,
+    27.1
+  ],
+  "capture_intervals": [
+    {
+      "capture": "full_01",
+      "status": "failed",
+      "started_utc": "2026-10-18T02:50:20Z",
+      "finished_utc": "2026-10-18T02:50:33Z",
+      "native_seconds": 12.057,
+      "total_capture_postprocessing_seconds": 12.884499807998509,
+      "source_commit": "b493a0b771cc2abe4981c507947cc7ecf2639d72"
+    },
+    {
+      "capture": "full_02",
+      "status": "captured",
+      "started_utc": "2026-10-18T02:53:21Z",
+      "finished_utc": "2026-10-18T02:56:47Z",
+      "native_seconds": 161.589,
+      "total_capture_postprocessing_seconds": 206.33602059700024,
+      "source_commit": "ac5419a742723574e2ba3aa053eb857bfffc9231"
+    },
+    {
+      "capture": "full_03",
+      "status": "captured",
+      "started_utc": "2026-10-18T03:06:18Z",
+      "finished_utc": "2026-10-18T03:09:25Z",
+      "native_seconds": 147.355,
+      "total_capture_postprocessing_seconds": 186.9071491499999,
+      "source_commit": "ef6a8b4f1d06406b6b5f0a3db658902c15c1084e"
+    },
+    {
+      "capture": "seed_01",
+      "status": "captured",
+      "started_utc": "2026-10-18T03:11:48Z",
+      "finished_utc": "2026-10-18T03:14:55Z",
+      "native_seconds": 146.798,
+      "total_capture_postprocessing_seconds": 187.1053910970004,
+      "source_commit": "ef6a8b4f1d06406b6b5f0a3db658902c15c1084e"
+    },
+    {
+      "capture": "seed_02",
+      "status": "captured",
+      "started_utc": "2026-10-18T03:15:05Z",
+      "finished_utc": "2026-10-18T03:18:12Z",
+      "native_seconds": 147.131,
+      "total_capture_postprocessing_seconds": 187.00943174799977,
+      "source_commit": "ef6a8b4f1d06406b6b5f0a3db658902c15c1084e"
+    }
+  ],
+  "pr82_full03_reference": {
+    "native_seconds": 162.014,
+    "total_capture_postprocessing_seconds": 198.99795960399933,
+    "ticks": 2234
+  },
+  "comparison_limits": "New scope and previous assets reused; not controlled performance or total production-cost AB. Native time is inside capture total, not additive. Agent phase/compute/token price not fully instrumented; no invented savings.",
+  "model_and_price": "not_exposed"
+}

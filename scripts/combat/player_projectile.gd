@@ -23,6 +23,8 @@ var fired_airborne := false
 var _age := 0.0
 var launch_motion := Vector2.ZERO
 var trail: Array[Vector2] = []
+## Optional sample skin; movement, swept contacts and damage remain here.
+var presentation: CanvasItem
 const ART := preload("res://assets/plains_v4/spatial/actors.png")
 var _shape := CircleShape2D.new()
 
@@ -33,6 +35,7 @@ func _ready() -> void:
 	queue_redraw()
 
 func _draw() -> void:
+	if is_instance_valid(presentation): return
 	for i: int in range(1, trail.size()):
 		draw_line(to_local(trail[i-1]), to_local(trail[i]), Color(1,.83,.38,float(i)/trail.size()*.7), 2.5)
 	draw_set_transform(Vector2.ZERO, direction.angle())

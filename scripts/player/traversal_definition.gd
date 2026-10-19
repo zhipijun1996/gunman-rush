@@ -21,3 +21,6 @@ extends Resource
 @export var hook_contact_grace := 0.15
 
 @export var hook_capture_radius := 12.0
+
+## Near-vertical hooks kick upward, avoiding capture-side jitter.
+@export_range(0.0,1.0) var hook_vertical_kick_deadzone := 0.2

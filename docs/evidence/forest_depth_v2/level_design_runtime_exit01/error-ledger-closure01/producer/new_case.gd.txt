@@ -1,0 +1,90 @@
+extends Node
+## Real formal manifest plus bounded continuous assembler traces. No promotion.
+const SNAPSHOT := preload("res://tools/level_capability_snapshot.gd")
+const TRACE := preload("res://tests/level_design_trace.gd")
+var exit_code := 0
+var report: Dictionary = {}
+var failures: Array = []
+var assertions := 0
+var output := "res://build/level_design_v2/capture.json"
+var source_commit := ""
+var seed_value := "level-design-v2-baseline"
+var strategies: PackedStringArray = ["fast", "growth", "deep"]
+
+
+func verify(ok: bool, label: String) -> void:
+	assertions += 1
+	if not ok:
+		failures.append({"message": label})
+		print("LEVEL DESIGN CAPTURE FAILURE: ", label)
+
+func save_report() -> void:
+	report["failures"] = failures.duplicate(true)
+	report["assertions"] = assertions
+	DirAccess.make_dir_recursive_absolute(output.get_base_dir())
+	var file := FileAccess.open(output, FileAccess.WRITE)
+	if file == null:
+		print("LEVEL DESIGN CAPTURE: cannot write report")
+		finish_code(2)
+		return
+	file.store_string(JSON.stringify(report) + "\n")
+	file.close()
+
+func run() -> void:
+	for arg: String in OS.get_cmdline_user_args():
+		if arg.begins_with("--source-commit="): source_commit = arg.trim_prefix("--source-commit=")
+		elif arg.begins_with("--output="): output = arg.trim_prefix("--output=")
+		elif arg.begins_with("--seed="): seed_value = arg.trim_prefix("--seed=")
+		elif arg.begins_with("--strategies="): strategies = arg.trim_prefix("--strategies=").split(",", false)
+	report = {"schema_version": 1, "source_commit": source_commit, "engine": Engine.get_version_info().string, "scope": "formal_manifest_and_assembler_shotlatch_traces_not_enemy_or_boss_completion", "manifests": [], "traces": [], "failures": []}
+	report["source_basis"] = FoundryCatalog.basis()
+	report["capture_source_hashes"] = {}
+	for path: String in ["res://tools/level_design_capture.gd", "res://tools/level_design_capture_case.gd", "res://tools/level_capability_snapshot.gd", "res://tests/level_design_trace.gd", "res://tests/plains_region_trace.gd", "res://tests/random_stage_tests.gd"]:
+		report.capture_source_hashes[path] = FileAccess.get_sha256(path)
+	verify(source_commit.length() == 40 and source_commit.is_valid_hex_number(false), "full_source_commit_required")
+	verify(Engine.physics_ticks_per_second == 60, "physics_60hz_required")
+	verify(not strategies.is_empty() and strategies.size() <= 3, "bounded_strategy_request")
+	for strategy: String in strategies: verify(strategy in ["fast", "growth", "deep"], "supported_strategy/" + strategy)
+	if not failures.is_empty(): save_report(); finish_code(1); return
+	var app := DemoApp.new()
+	app.meta_persistence_enabled = false
+	get_tree().root.add_child(app)
+	verify(app.start_plains(seed_value), "formal_consumer_starts")
+	for unused: int in 10: await get_tree().physics_frame
+	verify(app.stage is PlainsRegionStage and app.stage.assembly_ok, "formal_region_assembled")
+	if not failures.is_empty(): save_report(); app.free(); finish_code(1); return
+	var formal := app.director.manifest.snapshot()
+	verify(RunManifest.from_snapshot(JSON.parse_string(JSON.stringify(formal))) != null, "formal_manifest_roundtrip")
+	report["formal_run_manifest"] = formal
+	report["formal_capability"] = SNAPSHOT.capture(app.controller, app.build, "formal_demo_app")
+	var manifest: Dictionary = app.stage.generated.manifest.duplicate(true)
+	# PlayerTuning fields are plain variables; Resource.duplicate does not copy
+	# them. Retain this immutable reference after freeing the formal consumer.
+	var tuning = app.controller.motor.tuning
+	report.manifests.append(manifest)
+	verify(manifest.fallback_id.is_empty(), "baseline_is_randomized_not_fallback")
+	verify(PlainsRegionGenerator.new().validate(manifest, tuning), "formal_manifest_validates")
+	app.abandon_run()
+	for unused: int in 3: await get_tree().physics_frame
+	app.free()
+	for strategy: String in strategies:
+		var driver = TRACE.new()
+		driver.tree = get_tree()
+		driver.check = verify
+		var failure_start := failures.size()
+		if strategy == "deep": await driver.adventure(manifest, tuning)
+		else: await driver.journey(manifest, tuning, strategy)
+		verify(not driver.observed_frames.is_empty() and not driver.observed_edges.is_empty(), "nonempty_trace/" + strategy)
+		verify(driver.safe_trace and driver.continuous_trace and not driver.capability_mismatch, "safe_continuous_matching_capability/" + strategy)
+		if not driver.observed_frames.is_empty():
+			var prep: Dictionary = PlainsRegionGenerator.new()._area(manifest, str(manifest.prep_id))
+			var last: Dictionary = driver.observed_frames.back()
+			verify(bool(last.grounded) and Vector2(last.position[0], last.position[1]).distance_to(Vector2(prep.position[0], prep.position[1])) < 2.0, "actual_supported_boss_approach_reached/" + strategy)
+		report.traces.append({"seed": manifest.seed, "manifest_hash": manifest.manifest_hash, "strategy": strategy, "scope": "assembler_shotlatch_without_enemies_or_boss_fight", "enemies_instantiated": false, "device": "synthetic_router", "physics_hz": 60, "actions_semantics": "router_input_requests_not_accepted_action_events", "capability": driver.actual_capability, "final_capability": driver.final_capability, "frames": driver.observed_frames, "edges": driver.observed_edges, "failures": failures.slice(failure_start)})
+		if is_instance_valid(driver.world): driver.world.free()
+		save_report()
+	print("LEVEL DESIGN CAPTURE: %d assertions, %d failures, %d traces" % [assertions, failures.size(), report.traces.size()])
+	finish_code(0 if failures.is_empty() else 1)
+
+func finish_code(code: int) -> void:
+	exit_code=maxi(exit_code,code)

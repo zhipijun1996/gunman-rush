@@ -1,0 +1,24 @@
+{
+  "scope": "Offline only; not applied or executed",
+  "original_sha256": "7051d11895708a8d8647f8daeda320ef805ddc871fbed677e1fcc8e200d0cee6",
+  "helper_sha256": "f7cfb3cdf986babb23b053c6c063201926ed8b8e3112a48dcb8deb61fc142f57",
+  "verify_call_lines_exact": true,
+  "original_verify_lines": [
+    "ok: bool, label: String) -> void:",
+    "source_commit.length() == 40 and source_commit.is_valid_hex_number(false), \"full_source_commit_required\")",
+    "Engine.physics_ticks_per_second == 60, \"physics_60hz_required\")",
+    "not strategies.is_empty() and strategies.size() <= 3, \"bounded_strategy_request\")",
+    "strategy in [\"fast\", \"growth\", \"deep\"], \"supported_strategy/\" + strategy)",
+    "app.start_plains(seed_value), \"formal_consumer_starts\")",
+    "app.stage is PlainsRegionStage and app.stage.assembly_ok, \"formal_region_assembled\")",
+    "RunManifest.from_snapshot(JSON.parse_string(JSON.stringify(formal))) != null, \"formal_manifest_roundtrip\")",
+    "manifest.fallback_id.is_empty(), \"baseline_is_randomized_not_fallback\")",
+    "PlainsRegionGenerator.new().validate(manifest, tuning), \"formal_manifest_validates\")",
+    "not driver.observed_frames.is_empty() and not driver.observed_edges.is_empty(), \"nonempty_trace/\" + strategy)",
+    "driver.safe_trace and driver.continuous_trace and not driver.capability_mismatch, \"safe_continuous_matching_capability/\" + strategy)",
+    "bool(last.grounded) and Vector2(last.position[0], last.position[1]).distance_to(Vector2(prep.position[0], prep.position[1])) < 2.0, \"actual_supported_boss_approach_reached/\" + strategy)"
+  ],
+  "tree_frame_root_adaptations_only": true,
+  "producer_hash_addition": "res://tools/level_design_capture_case.gd",
+  "original_args_and_driver_and_strategies_unchanged": true
+}

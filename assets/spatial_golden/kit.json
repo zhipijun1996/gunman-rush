@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "asset_id": "against-wind-finite-bell-rib-kit-v1",
+  "source_path": "assets/spatial_golden/bell_rib_kit_v1.png",
+  "source_sha256": "20cf8c0a5c36761dc247d4e6df61fae00b8d7b91886092cc6c217d5584cbeafb",
+  "source_original": "/workspace/generated_images/exec-a2a420a9-04ae-4b06-ab2f-05f11c07ea65.png",
+  "tool": "image_gen.imagegen",
+  "model": "not_exposed",
+  "generation_calls": 1,
+  "started_at_unix": 1792158387.131,
+  "ended_at_unix": 1792158431.881,
+  "duration_seconds": 44.75,
+  "canvas": [
+    1536,
+    1024
+  ],
+  "purpose": "Six isolated modular side-view components, never a whole-screen game scene",
+  "style": "gouache ivory limestone / aged brass / yellow-olive wind grass, upper-left light",
+  "processing": "Original RGBA unchanged, Godot AtlasTexture/filter_clip only; irregular collision polygons use existing approved stone material, no baked scene",
+  "alpha_observation": "Native alpha 0..254; nonzero low-alpha surroundings and imperfect grid padding retained. Runtime atlas regions measured individually; actual GPU/edge review required, not pre-approved.",
+  "license_status": "unknown",
+  "visual_status": "unverified",
+  "components": {
+    "shaft": {
+      "region": [
+        175,
+        0,
+        200,
+        512
+      ],
+      "pivot": [
+        100,
+        490
+      ]
+    },
+    "crown": {
+      "region": [
+        530,
+        0,
+        470,
+        512
+      ],
+      "pivot": [
+        75,
+        480
+      ]
+    },
+    "foot": {
+      "region": [
+        1030,
+        150,
+        500,
+        355
+      ],
+      "pivot": [
+        250,
+        345
+      ]
+    },
+    "grass": {
+      "region": [
+        0,
+        560,
+        555,
+        430
+      ],
+      "pivot": [
+        380,
+        375
+      ]
+    },
+    "bell": {
+      "region": [
+        640,
+        512,
+        310,
+        512
+      ],
+      "pivot": [
+        145,
+        18
+      ]
+    },
+    "wedge": {
+      "region": [
+        1035,
+        570,
+        480,
+        430
+      ],
+      "pivot": [
+        230,
+        90
+      ]
+    }
+  },
+  "reuse_rules": [
+    "Uniform scale only",
+    "World-anchored joints and real solid support",
+    "No per-seed image generation",
+    "First sample independent admission before second sample"
+  ],
+  "scope": "explicit spatial experiment, not production admitted"
+}

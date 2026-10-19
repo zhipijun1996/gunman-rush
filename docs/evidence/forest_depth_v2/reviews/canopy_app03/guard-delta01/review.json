@@ -1,0 +1,76 @@
+{
+  "status": "CONTINUE_BOUNDED_DEFAULT_IDENTITY_AND_LEGACY_GUARD_DELTA",
+  "baseline_commit": "dd214ddec4394758d3d3efb71d604b86b7fdb7a3",
+  "reviewer": "/root/forest_runtime_review",
+  "native_run": false,
+  "source_bindings": {
+    "tests/forest_campaign_runner.gd": {
+      "sha256": "dc01d7bcb426a2fe5519e224c56a98044ab53aa02ef4186f5b8ef378bd3dfee9",
+      "whole_file_inverse_exact": true,
+      "new_assertion": "Exact independently literal v10 layout for each default forest map"
+    },
+    "tests/forest_progression_debug_runner.gd": {
+      "sha256": "762e3e0b0697d48af5172bcc2c65b067ebbe481521eb17943bf4b8f7097cc777",
+      "whole_file_inverse_exact": true,
+      "new_assertion": "Exact independently literal v10 layout for each default forest map"
+    },
+    "tools/verify_forest_browser.py": {
+      "sha256": "617b8dfccbdac8f3f5ac7f8bbc3ffa4dfba9daec060e82eb7169b9395c247d3a",
+      "whole_file_inverse_exact": true,
+      "delta": "Only map2 v2 Boss name changes; existing exact scene/resource/PCK/GUI guards retained"
+    },
+    "tools/run_forest_depth_campaign_boss.py": {
+      "sha256": "9ec517f500dee284902c3883fb271181962201075b59c64adbd3f737235f711a",
+      "all_old_reader_helper_ASTs_unchanged": {
+        "require": true,
+        "finite": true,
+        "vector": true,
+        "close": true,
+        "same_aim": true,
+        "validate_inputs_and_health": true,
+        "validate_pointer_and_map2": true,
+        "validate": true,
+        "validate_queen": true
+      },
+      "new_validate_canopy_not_accepted_by_this_guard_review": true
+    },
+    "tests/forest_depth_campaign_boss_runner.gd": {
+      "sha256": "a26665efaddda1462b707d729f6fac7909567f48cb72f965a0253256f98a2ccc",
+      "whole_file_inverse_exact_after_new_branch_and_explicit_v7_pin_assertion": true,
+      "legacy_input_choreography_unchanged": true
+    },
+    "tools/harness/profiles.json": {
+      "sha256": "f14f1f850a23f471daac8288e50e8217ea80908297967b01f0a200bec20e2be2",
+      "context_only_not_full_newcase_approval": true
+    },
+    "scripts/generation/thorn_forest_region_generator.gd": {
+      "sha256": "bb3a4ad1b93acb59a72803290fb12fde26c6c4b1beab5110614116508d2a2c41",
+      "context_only_not_full_newcase_approval": true
+    },
+    "tests/forest_depth_region_trace.gd": {
+      "sha256": "af5eabea7970d94f2ee4a18a7474ef1b1a32c06fb3b1d81c988587573304094e",
+      "context_only_not_full_newcase_approval": true
+    },
+    "tests/forest_depth_canopy_campaign_case.gd": {
+      "sha256": "2e6d8a65223ed80d19b52a40221e204e140ec99ccf8b61ba9a385fe649ea827e",
+      "context_only_not_full_newcase_approval": true
+    },
+    "tests/forest_depth_canopy_campaign_pilot.gd": {
+      "sha256": "df30c22979305315d35b08598868d794e0cfa03d99756c475c93c9f14143a05f",
+      "context_only_not_full_newcase_approval": true
+    }
+  },
+  "old_all194_new_execution_not_claimed": true,
+  "three_current_and_legacy_checks_mandatory_full_gameplay": [
+    "forest-depth-versions",
+    "forest-depth-campaign-queen",
+    "forest-depth-campaign-canopy"
+  ],
+  "old_S_review_not_extended": true,
+  "exclusions": [
+    "New validate_canopy correctness still under independent review; Policy owner/frame/epoch static linkage issues already reported",
+    "Native02 did not trigger reload and remainsFAIL; no full-reader acceptance of its raw claimed",
+    "No Boss fun/new App seam/nativebrowser/fullCI acceptance",
+    "Reviewer early base trace authorship excluded from this testguarddelta"
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "task_id": "UNDERWORLD-PLAINS-01",
+  "reviewer": "/root/production_review",
+  "reviewed_commit": "86535886c5b86e95bea094d7e92e57354be3d76e",
+  "build_id": "7915c17348c0",
+  "verdict": "ACCEPT",
+  "scope": "Public HTTPS ordinary entry and actual rendered horizontal movement + jump visible in original source E3screenshots. This particular public driver falls into gap; landing/full route is NOT accepted.",
+  "actually_viewed": [
+    {
+      "path": "build/underworld_plains/delivery/browser_public_E/01-map1-ordinary-spawn.png",
+      "sha256": "e853ff3c1ffebaefce76a4826d44ec91c8620d1b2dd76277fed494f427dfc903",
+      "actually_viewed_native": true
+    },
+    {
+      "path": "build/underworld_plains/delivery/browser_public_E/02-map1-real-move-jump.png",
+      "sha256": "dc21fae3c6bfc7c1270054e0372b603307975ec26097882aa426dc7bd9e270b4",
+      "actually_viewed_native": true
+    },
+    {
+      "path": "build/underworld_plains/delivery/browser_public_E/03-map1-after-landing.png",
+      "sha256": "a61961ec0ae629079d322ba253811e48fe5139a2f12c604c78244b869954d90f",
+      "actually_viewed_native": true
+    }
+  ],
+  "observations": [
+    "Public entry original screenshot shows actual Underworld formal map1,realHUD,touch controls,footer7915c173.",
+    "Public02 actor feet approximately y467 versus actual platform tops approximately y537: about70screenpx above ground; HUDJUMP0/1. Relative to two platforms actor has moved horizontally beyond first-bank right edge. This is direct rendered jump/movement evidence beyond whole-screen pixel differences.",
+    "Public03 actor falls below the platform gap; no standing platform under feet, JUMP0/1. The inherited after-landing filename is not a factual landing observation."
+  ],
+  "checks": {
+    "ordinary_entry": "passed_visible",
+    "horizontal_movement": "passed_visible",
+    "jump": "passed_visible",
+    "this_driver_cross_gap_and_land": "failed_driver_attempt",
+    "full_route": "unverified",
+    "physical_device": "unverified",
+    "browser_Router_event_log": "unverified"
+  },
+  "driver_boundary": "Public uses D120ms beforeSpace,heldSpace180ms thencontinueD. Local uses a different D400ms/Space260ms driver; local original video showed successful landing. Neither test is a universal traversal or difficulty judgment.",
+  "original_public_video": "build/underworld_plains/delivery/browser_public_E/video/page@d3288bdeed0695340c83057cbdc2d535.webm",
+  "original_public_video_sha256": "c1c0eba9ca4a70c84f7bdbfea6e43eec77580041937afc972b5978eddc745250",
+  "video_viewing_boundary": "Public movie was not watched in this review; only these3originalfull-resolutionGPUstills were viewed. Local full recording was separately sampled and documented.",
+  "unverified": [
+    "Public all-state motion / all landmarks / hazards / collision boundaries",
+    "Uninterrupted video playback/audio",
+    "Device and user aesthetics"
+  ]
+}

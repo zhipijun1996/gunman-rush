@@ -1,0 +1,11 @@
+# C2 linked phase-proof path repair
+
+Only `tools/harness.py` and additive tests in `tests/test_harness.py` were edited by this author. Source is frozen at the SHA256 values in `receipt.json`. No commit, push, native engine, browser or full profile was executed here.
+
+`proof_file` anchors trusted ROOT once, requires a lexical path under ROOT/build, rejects parent traversal and every symlink from that root down to the evidence leaf, then requires lstat regular-file type. Evidence paths are not resolved before checking. ROOT's own system/workspace parent alias is permitted and excluded from evidence-subtree checks. Valid absolute paths and ROOT-relative build paths are supported. Report reads, original log validation and merged-proof copying/revalidation use this guard. Original hash/source/contract guards remain.
+
+`original-negative-replay.json` is an actual replay of the independent original directory-symlink attack with tiny real Python phase checks. The validator extracted directly from immutable C `5e61afa6233018125ef0fb1d23129d7bc9522f9c` accepts the swapped proof directory; the current validator rejects it as `Linked phase proof path`. Report bytes, Git metadata and full source inventory are identical across the attack. The original independent negative JSON is embedded without changing its accepted verdict. The original C validator source, replay recipe and actual check stdout remain alongside it.
+
+The final original test entrypoint ran once under the unchanged 60s outer cap after this change: all 36 tests pass. Original 33 methods are AST-exact; the original 25-test classes, run_check and execute_checks remain AST-exact. The three added methods exercise actual report-directory, harness-ancestor, build-ancestor and report-leaf links end-to-end through verify_lane_reports; non-regular and invalid path rejection; and a valid ROOT system-alias case. No original negative, test or assertion was removed. Full run duration and exact source hashes are in receipt.json.
+
+This is implementation evidence for a bounded path-validation repair, not an independent self-approval, release proof, device or content acceptance. The prior C independent REVISE remains applicable to C; a different reviewer should bind C2 separately. Workflow collector changes are independently owned by the workflow author.

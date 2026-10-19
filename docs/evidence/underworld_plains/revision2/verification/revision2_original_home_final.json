@@ -1,0 +1,15 @@
+{
+  "source_commit": "8972f92fdd5e1334ea313d5201c62b2a267fbffe",
+  "runtime_commit": "c65a111015d032211bb8c54aaae9b322401349d4",
+  "results": [
+    {
+      "script": "tests/home_app_runner.gd",
+      "strict_status": "passed"
+    },
+    {
+      "script": "tests/home_ui_tests.gd",
+      "strict_status": "failed",
+      "reason": "Godot leaked ObjectDB instances or live resources at exit"
+    }
+  ]
+}

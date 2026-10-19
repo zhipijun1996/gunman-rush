@@ -1,0 +1,61 @@
+{
+  "scope": "offline original raw read only; not design admission",
+  "actual03": [
+    {
+      "name": "trailing-bud-purpose03",
+      "passed": false,
+      "source_guard": true,
+      "verifier_guard": true,
+      "cases": [
+        {
+          "boss_hp": 18.0,
+          "energy": 80.0,
+          "id": "trailing_bud",
+          "initial_boss_hp": 24.0,
+          "initial_energy": 100.0,
+          "initial_player_hp": 5.0,
+          "kill_tick": -1.0,
+          "player_hp": 5.0,
+          "support12": 0.0,
+          "ticks": 272.0,
+          "trail_arrival": -1.0,
+          "trail_contact": -1.0,
+          "trail_kick": -1.0,
+          "trail_shot": -1.0
+        }
+      ],
+      "failures": [
+        "trailing_bud/selected one real trailing contact/kick/shot or unchanged fixed control",
+        "trailing_bud/full24HP actual fight and support12 recovery",
+        "trailing_bud/all24 actual Boss Policy commits"
+      ],
+      "raw_sha256": "383e289daa4fd9aa9ec5dc01df8ce7f466f278c8e9a59889390b3af7e9a0b657"
+    },
+    {
+      "name": "trailing-bud-fixed-control03",
+      "passed": true,
+      "source_guard": true,
+      "verifier_guard": true,
+      "cases": [
+        {
+          "boss_hp": 0.0,
+          "energy": 100.0,
+          "id": "trailing_fixed_control",
+          "initial_boss_hp": 24.0,
+          "initial_energy": 100.0,
+          "initial_player_hp": 5.0,
+          "kill_tick": 935.0,
+          "player_hp": 5.0,
+          "support12": 12.0,
+          "ticks": 946.0,
+          "trail_arrival": -1.0,
+          "trail_contact": -1.0,
+          "trail_kick": -1.0,
+          "trail_shot": -1.0
+        }
+      ],
+      "failures": [],
+      "raw_sha256": "086eaf2fb5e7715b61739dd9ddf2ad4e97d06a527d7e7033ee0d66d1ec98e12a"
+    }
+  ]
+}

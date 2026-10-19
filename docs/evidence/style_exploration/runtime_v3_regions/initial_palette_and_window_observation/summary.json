@@ -1,0 +1,21 @@
+[
+  {
+    "name": "biomes",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--path",
+      ".",
+      "--script",
+      "tests/style_exploration/test_style_biomes.gd",
+      "--",
+      "--report=/workspace/clock-style-lab/build/style_exploration/20261019T084243156100Z/biome_report.json"
+    ],
+    "log": "build/style_exploration/20261019T084243156100Z/biomes.log",
+    "passed": false,
+    "error": "Godot returned 1"
+  }
+]

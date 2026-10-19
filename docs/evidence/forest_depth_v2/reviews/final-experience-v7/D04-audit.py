@@ -1,0 +1,24 @@
+import json,hashlib,subprocess
+from pathlib import Path
+out=Path('build/forest_depth/independent/final-experience-v7')
+snap=Path('build/forest_depth/snapshots/crossbranch_purpose04')
+base=snap/'build/forest_depth/ecology/crossbranch_purpose04';p=base/'00-crossbranch_live_H/capture.json'
+d=json.loads(p.read_text());r=json.loads((base/'receipt.json').read_text());fs=d['frames']
+old=json.loads(Path('build/forest_depth/snapshots/region_v7_movie01/build/forest_depth/region/v7-growth-movie01/00-map2-growth/capture.json').read_text())
+physical_keys=[k for k in fs[0] if k not in ['crossbranch','enemies']]
+prefix_equal=all({k:x[k] for k in physical_keys}=={k:y[k] for k in physical_keys} for x,y in zip(fs[:107],old['frames'][:107]));assert prefix_equal
+sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest()
+source_mismatch=[f for f,h in r['source_before'].items() if not (snap/f).exists() or sha(snap/f)!=h]
+S='9fdf7fad08550ea0da46b59ef7126fa721571f28'
+core=['config/player_tuning.json','config/input_profile.json','scripts/player/player_motor.gd','scripts/player/player_controller.gd','scripts/player/jump_ability.gd','resources/player/traversal.tres','scripts/combat/weapon_motion_definition.gd']
+core_compare={f:hashlib.sha256(subprocess.check_output(['git','show',S+':'+f])).hexdigest()==sha(snap/f) for f in core}
+transitions=[]
+for i,f in enumerate(fs):
+ if i==0 or f['crossbranch']['NPC']['state']!=fs[i-1]['crossbranch']['NPC']['state']:transitions.append({'tick':f['tick'],**f['crossbranch']['NPC']})
+selected_ticks=[108,130,131,149,165,169,180,181,204,224,238,239,276,277,288,328,336,541,563,564,636,907,1044]
+samples=[]
+for t in selected_ticks:
+ f=fs[t-1];e=next(e for e in f['enemies'] if e['id']=='candidate__crossbranch');view=f['crossbranch']['view'];shore_visible=max(0,min(-320,view[0]+view[2])-max(-610,view[0]));samples.append({'tick':t,'player':f['position'],'hp':f['health'],'energy':f['energy'],'shots':f['shots'],'hook':f['hook_state'],'supports':f['supports'],'NPC':e,'world_view':view,'shore_visible_world_width':shore_visible,'cache_center_in_world_view':view[0]<=-525<=view[0]+view[2] and view[1]<=250<=view[1]+view[3],'wallet':f['crossbranch']['wallet'],'claims':f['crossbranch']['claims']})
+a={'scope':'Independent offline raw/source only; no native or current-source image/movie','raw':str(p),'raw_sha256':sha(p),'receipt_sha256':sha(base/'receipt.json'),'source_before_after_equal':r['source_before']==r['source_after'],'source_guard_recorded':r['source_guard'],'actual_rehashed_source_count':len(r['source_before']),'source_mismatches':source_mismatch,'engine':d['engine'],'wrapper_passed':r['passed'],'elapsed_seconds':r['elapsed_seconds'],'core_S_byte_identity':core_compare,'frames':len(fs),'ticks_exact_1_to_end':all(f['tick']==i+1 for i,f in enumerate(fs)),'actual_motor_steps_each_frame':all(f['motor_steps']==1 for f in fs),'same_original_107_frame_player_prefix':{'keys':physical_keys,'equal':prefix_equal,'enemies':'Excluded new actor; original enemies compared separately below'},'original_enemies_107_equal':all([e for e in x['enemies'] if e['id']!='candidate__crossbranch']==y['enemies'] for x,y in zip(fs[:107],old['frames'][:107])),'first_shore_right_edge_in_world_rect':next(f['tick'] for f in fs if f['crossbranch']['near_reward_edge_visible']),'first_actual_reward_branch_support':next(f['tick'] for f in fs if 'candidate_reward_branch'in f['supports']),'first_cache_center_in_world_rect':next(f['tick'] for f in fs if f['crossbranch']['view'][0]<=-525<=f['crossbranch']['view'][0]+f['crossbranch']['view'][2] and f['crossbranch']['view'][1]<=250<=f['crossbranch']['view'][1]+f['crossbranch']['view'][3]),'health_changes':[{'before_tick':x['tick'],'after_tick':y['tick'],'before':x['health'],'after':y['health'],'new_claims':[k for k in y['crossbranch']['claims'] if k not in x['crossbranch']['claims']]} for x,y in zip(fs,fs[1:]) if x['health']!=y['health']],'NPC_transitions':transitions,'NPC_ledger':d['candidate_NPC_ledger'],'completed_legs':d['completed_legs'],'events':[e for e in d['events'] if e.get('kind') in ['candidate_purpose_N_entry','candidate_migrant_H_request','candidate_actual_migrant_body_contact','committed_damage','candidate_first_actual_free_R','candidate_award_actual_arrival','candidate_actual_reward_return_W']],'selected_samples':samples,'gate_open':d['gate_saved_open'],'gate_shape_disabled':d['gate_shape_disabled'],'pointer_events':d['pointer_events'],'readability_limit':'World-rectangle inclusion does not show pixels, opaque HUD occlusion, layers, redraw success or normal-speed novice readability'}
+(out/'D04-audit.json').write_text(json.dumps(a,indent=2)+'\n')
+print(json.dumps({k:v for k,v in a.items() if k not in ['selected_samples','NPC_ledger','NPC_transitions','events','completed_legs','pointer_events']},indent=2))

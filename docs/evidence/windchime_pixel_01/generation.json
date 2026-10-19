@@ -1,0 +1,76 @@
+{
+  "calls": 5,
+  "tool": "image_gen.imagegen",
+  "model": "not_exposed",
+  "cost": "not_exposed",
+  "attempts": [
+    {
+      "tool": "image_gen.imagegen",
+      "model": "not_exposed",
+      "cost": "not_exposed",
+      "reference_images": [],
+      "source": "assets/pixel_plains/dawn_distance.png",
+      "sha256": "da49d78cc007ec2e367507ead55670b5e710341c8722e3e8fa2c2ee51ca49c03",
+      "prompt": "docs/evidence/windchime_pixel_01/background_prompt.txt",
+      "processing": "Tool original PNG copied byte-for-byte; Godot renders at640x360 with nearest texture filter. No image cropping, painting or pixel edits.",
+      "license": "unknown",
+      "scope": "Background only. Terrain/props generated as new original4px-grid SVG pixels, independent from background.",
+      "call": 1,
+      "status": "one-screen reference, broadly endorsed feel"
+    },
+    {
+      "call": 2,
+      "status": "unused; requested before latest simple texture instruction, never viewed or copied into runtime",
+      "tool_original": "/workspace/generated_images/exec-410baa54-7b4c-4467-9a38-c0e6d7a6c866.png",
+      "prompt": "docs/evidence/windchime_pixel_01/unused_stone_prompt.txt"
+    },
+    {
+      "call": 3,
+      "status": "formal candidate",
+      "source": "assets/pixel_plains/parallax_far.png",
+      "sha256": "4d6fe1794e341a3102b56ce18a5f44c24148a9ff93dd607df7037d3caadd799a",
+      "reference_images": [
+        "assets/pixel_plains/dawn_distance.png"
+      ],
+      "prompt": "docs/evidence/windchime_pixel_01/parallax_far_prompt.txt",
+      "transparent_background": false,
+      "dimensions": [
+        1672,
+        941
+      ]
+    },
+    {
+      "call": 4,
+      "status": "formal candidate",
+      "source": "assets/pixel_plains/parallax_middle.png",
+      "sha256": "10d10a3790f1cce1a0e864feac47243e267a085b0e37fab0fcaee18bdf520aee",
+      "reference_images": [
+        "assets/pixel_plains/dawn_distance.png"
+      ],
+      "prompt": "docs/evidence/windchime_pixel_01/parallax_middle_prompt.txt",
+      "transparent_background": true,
+      "dimensions": [
+        1983,
+        793
+      ]
+    },
+    {
+      "call": 5,
+      "status": "formal candidate",
+      "source": "assets/pixel_plains/parallax_near.png",
+      "sha256": "9895b0a000bb600d9f640d997df528add01587e752627d7abe2537d308dbaeee",
+      "reference_images": [
+        "assets/pixel_plains/dawn_distance.png"
+      ],
+      "prompt": "docs/evidence/windchime_pixel_01/parallax_near_prompt.txt",
+      "transparent_background": true,
+      "dimensions": [
+        1672,
+        941
+      ]
+    }
+  ],
+  "processing": "All runtime PNG files are byte-for-byte tool originals. Shader edge alpha blending is runtime compositing, not source image editing. No external game art used as generation input.",
+  "license": "unknown",
+  "budget_scope": "Same WINDCHIME-PIXEL-01 task; no reset on formal expansion."
+}

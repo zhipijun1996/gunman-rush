@@ -1,0 +1,61 @@
+{
+  "scope": "Observed stage times, not additive model compute or controlled before/after savings",
+  "image_generation_calls": 0,
+  "first_observed_root_clock_utc": "2026-10-18 05:27:48 UTC",
+  "task_started_before_clock": true,
+  "captures": [
+    {
+      "name": "full_01",
+      "recorded_status": "captured",
+      "admission": "failed_actual_bridge_consumer",
+      "started_at": null,
+      "finished_at": null,
+      "capture_process": {
+        "status": "passed",
+        "exit_code": 0,
+        "failure_reason": null,
+        "started_at_unix": 1792301129.7821913,
+        "ended_at_unix": 1792301256.5840735,
+        "duration_seconds": 126.802
+      },
+      "elapsed_seconds": null,
+      "observed_stage_wall_seconds": 160.857
+    },
+    {
+      "name": "full_02",
+      "recorded_status": "captured",
+      "admission": "scoped_joint_mechanism_not_art_golden",
+      "started_at": null,
+      "finished_at": null,
+      "capture_process": {
+        "status": "passed",
+        "exit_code": 0,
+        "failure_reason": null,
+        "started_at_unix": 1792301542.6621706,
+        "ended_at_unix": 1792301669.8279169,
+        "duration_seconds": 127.166
+      },
+      "elapsed_seconds": null,
+      "observed_stage_wall_seconds": 163.226
+    },
+    {
+      "name": "seed_02",
+      "recorded_status": "captured",
+      "admission": "scoped_joint_mechanism_not_art_golden",
+      "started_at": null,
+      "finished_at": null,
+      "capture_process": {
+        "status": "passed",
+        "exit_code": 0,
+        "failure_reason": null,
+        "started_at_unix": 1792301779.5362837,
+        "ended_at_unix": 1792301913.6584308,
+        "duration_seconds": 134.122
+      },
+      "elapsed_seconds": null,
+      "observed_stage_wall_seconds": 171.466
+    }
+  ],
+  "startup_corpus_seconds": 48.867829578000965,
+  "price_tokens_model": "not_exposed"
+}

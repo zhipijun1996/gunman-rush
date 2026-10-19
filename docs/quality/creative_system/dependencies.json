@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "baseline_commit": "e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7",
+  "classification_basis": "Actual consumer references, finite dynamic adapters, profiles and export filters; directory age/count is not proof of redundancy",
+  "classes": [
+    {
+      "id": 1,
+      "name": "current_runtime_required",
+      "examples": [
+        "scripts/demo/demo_app.gd",
+        "scripts/player/player_motor.gd",
+        "scripts/art/plains_region_composition.gd",
+        "assets/plains_v3/decor.png",
+        "assets/plains_v8/painted_limestone_material.png"
+      ],
+      "evidence": [
+        "scripts/art/plains_region_composition.gd",
+        "tools/check_web_bundle.py:runtime_contract"
+      ],
+      "action": "retain; v3/v8 still have real preload/Atlas consumers"
+    },
+    {
+      "id": 2,
+      "name": "development_and_quality_required",
+      "examples": [
+        "tools/harness.py",
+        "tools/production_loop.py",
+        "tools/run_generated_consumer_tests.py",
+        "tests/plains_encounter_policy_runner.gd"
+      ],
+      "evidence": [
+        "tools/harness/profiles.json",
+        "tools/run_tests.py"
+      ],
+      "action": "retain assertions; share source inventory and original strict engine launcher"
+    },
+    {
+      "id": 3,
+      "name": "reusable_on_demand",
+      "examples": [
+        ".agents/skills/weapon-creator/SKILL.md",
+        "docs/design/player_actions/weapons_v0.8.md"
+      ],
+      "evidence": [
+        "tools/production_loop.py:prepare_call",
+        "tools/level_region_context.py"
+      ],
+      "action": "load relevant skills/authority sections; do not embed all historical feedback"
+    },
+    {
+      "id": 4,
+      "name": "historical_reproduction_audit",
+      "examples": [
+        "docs/evidence/",
+        "docs/archive/skill_history/",
+        "docs/archive/creative_system_baseline/",
+        "tests/fixtures/forest_h_legacy_traversal.tres"
+      ],
+      "evidence": [
+        "docs/archive/skill_history/manifest.json",
+        "tools/run_forest_h_slice_tests.py"
+      ],
+      "action": "byte-preserved; explicit history profile; original full profile remains unchanged"
+    },
+    {
+      "id": 5,
+      "name": "proven_duplicate",
+      "examples": [
+        "Repeated current_state/handoff historical appendices",
+        "Repeated per-runner source_files+extra hash adapters"
+      ],
+      "evidence": [
+        "docs/archive/creative_system_baseline/manifest.json",
+        "docs/archive/skill_history/manifest.json",
+        "tools/run_plains_redesign_spatial_tests.py",
+        "tools/run_plains_experience_golden_tests.py"
+      ],
+      "action": "archive authority appendices and share exact source_files(extra_paths); no test semantics merged"
+    },
+    {
+      "id": 6,
+      "name": "uncertain_retain",
+      "examples": [
+        "assets with indirect dynamic consumers not exhaustively mapped",
+        "old prototype fixtures lacking complete equivalent current coverage"
+      ],
+      "evidence": [
+        "tools/check_quality_diff.py:known_asset_consumers"
+      ],
+      "action": "retain; fail unresolved dynamic reference rather than assume unused"
+    }
+  ],
+  "edges": [
+    [
+      "AGENTS/current_state",
+      "region_creative_director"
+    ],
+    [
+      "region_creative_director",
+      "selected direction JSON+authority SHA"
+    ],
+    [
+      "selected direction JSON+authority SHA",
+      "level_design.route_request"
+    ],
+    [
+      "level_design.route_request",
+      "production_loop.preflight+prompt"
+    ],
+    [
+      "production_loop",
+      "selected professional Skill"
+    ],
+    [
+      "professional delivery",
+      "original Harness+independent review"
+    ],
+    [
+      "DemoApp",
+      "PlainsRegionStage"
+    ],
+    [
+      "PlainsRegionScenery",
+      "PlainsRegionComposition"
+    ],
+    [
+      "PlainsRegionComposition",
+      "SemanticLandscape/ConnectedLandscape"
+    ],
+    [
+      "explicit candidate only",
+      "PlainsCreativeSlice"
+    ],
+    [
+      "family JSON",
+      "exact raw+imported textures"
+    ],
+    [
+      "export presets",
+      "check_web_bundle runtime closure"
+    ]
+  ],
+  "entry_context_metrics": {
+    "AGENTS.md": {
+      "before_bytes": 12874,
+      "after_bytes": 10019,
+      "saved_bytes": 2855
+    },
+    "docs/current_state.md": {
+      "before_bytes": 52333,
+      "after_bytes": 1798,
+      "saved_bytes": 50535
+    },
+    "docs/handoff.md": {
+      "before_bytes": 71249,
+      "after_bytes": 1559,
+      "saved_bytes": 69690
+    }
+  },
+  "pack_size_reduction_bytes": 0,
+  "pack_size_reduction_reason": "No valid runtime family or effective test deleted; new unadmitted art excluded from normal presets. Actual PCK comparison pending; do not infer size improvement from source text.",
+  "coverage_removed": [],
+  "known_limits": [
+    "Directory inventory does not prove all runtime consumers",
+    "history profile is separate index, old full still includes its checks",
+    "production loop task writes still sequential; parallel validation lanes remain isolated"
+  ]
+}

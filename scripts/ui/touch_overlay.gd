@@ -20,6 +20,8 @@ var skill_center := Vector2.ZERO
 var _hook_idle := Vector2.ZERO
 var _hook_offset := Vector2.ZERO
 var _hook_direction := Vector2.ZERO
+var _aim_owner: StringName = &"attack"
+var _right_suppressed := false
 var radius := 90.0
 var jump_radius := 64.0
 var jump_hit_radius := 76.0
@@ -42,6 +44,7 @@ func _ready() -> void:
 	clip_contents = true
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	router.cancelled.connect(_cancel)
+	router.device_changed.connect(_device_changed)
 	set_enabled(OS.has_feature("android") or OS.has_feature("ios") or (OS.has_feature("web") and DisplayServer.is_touchscreen_available()))
 	update_layout()
 
@@ -155,6 +158,8 @@ func handle_touch(event: InputEvent) -> bool:
 				pass
 			elif region == &"hook":
 				hook_center = event.position
+				_right_suppressed = _captures.values().has(&"right")
+				router.cancel_actions_for(&"shoot_release")
 				_update_stick(&"hook", event.position)
 			elif region == &"jump":
 				router.set_jump_held(&"touch", true)
@@ -169,6 +174,7 @@ func handle_touch(event: InputEvent) -> bool:
 					left_center = event.position
 				else:
 					right_center = event.position
+					_right_suppressed = false
 				_update_stick(region, event.position)
 			queue_redraw()
 			return true
@@ -178,21 +184,22 @@ func handle_touch(event: InputEvent) -> bool:
 				router.request_action(&"weapon_skill",router.skill_direction())
 			elif region == &"hook":
 				_update_stick(&"hook", event.position)
-				if not _hook_direction.is_zero_approx():
+				if router.grapple_available and not _hook_direction.is_zero_approx():
 					router.request_action(&"grapple",_hook_direction)
 				_hook_direction = Vector2.ZERO
 				_hook_offset = Vector2.ZERO
 				hook_center = _hook_idle
-				router.set_aim(&"touch",_direction,not _direction.is_zero_approx())
+				_restore_other_aim(&"hook")
 			elif region == &"jump":
 				router.set_jump_held(&"touch", false)
 			elif region == &"right":
 				_update_stick(region, event.position)
-				if not _direction.is_zero_approx():
+				if not _direction.is_zero_approx() and not _right_suppressed and _aim_owner == &"attack":
 					router.primary_release(_direction)
 				_direction = Vector2.ZERO
 				_right_offset = Vector2.ZERO
-				router.set_aim(&"touch", Vector2.ZERO)
+				_right_suppressed = false
+				_restore_other_aim(&"right")
 				right_center = _right_idle
 			elif region == &"left":
 				_left_offset = Vector2.ZERO
@@ -224,8 +231,9 @@ func _update_stick(region: StringName, location: Vector2) -> void:
 		if conditioned.length() > float(router.profile.values.touch_deadzone):
 			var inverse := aim_origin.get_canvas_transform().affine_inverse() if is_instance_valid(aim_origin) else Transform2D.IDENTITY
 			_hook_direction = ((inverse*(hook_center+_hook_offset))-(inverse*hook_center)).normalized()
-		if not _captures.values().has(&"right"):
-			router.set_aim(&"touch",_hook_direction,not _hook_direction.is_zero_approx())
+		_aim_owner = &"grapple"
+		router.aim_mode = _aim_owner
+		router.set_aim(&"touch",_hook_direction,not _hook_direction.is_zero_approx())
 	elif region == &"left":
 		_left_offset = (location - left_center).limit_length(radius)
 		var axis := router.profile.axis(_left_offset / radius, "left_sensitivity")
@@ -243,7 +251,41 @@ func _update_stick(region: StringName, location: Vector2) -> void:
 		if conditioned.length() > float(router.profile.values.touch_deadzone):
 			var inverse := aim_origin.get_canvas_transform().affine_inverse() if is_instance_valid(aim_origin) else Transform2D.IDENTITY
 			_direction = ((inverse * (right_center + _right_offset)) - (inverse * right_center)).normalized()
+		# A captured hook owns the aim until release. Gun micro-drags only
+		# update its stored direction, and a revoked gun needs a new finger.
+		if _captures.values().has(&"hook") or _right_suppressed: return
+		_aim_owner = &"attack"
+		router.aim_mode = _aim_owner
 		router.set_aim(&"touch", _direction, not _direction.is_zero_approx())
+
+func _restore_other_aim(released: StringName) -> void:
+	if released == &"right" and _captures.values().has(&"hook"):
+		_aim_owner = &"grapple"
+		router.aim_mode = _aim_owner
+		router.set_aim(&"touch", _hook_direction, not _hook_direction.is_zero_approx())
+	elif released == &"hook" and _captures.values().has(&"right") and not _right_suppressed:
+		_aim_owner = &"attack"
+		router.aim_mode = _aim_owner
+		router.set_aim(&"touch", _direction, not _direction.is_zero_approx())
+	else:
+		_aim_owner = &"attack"
+		router.aim_mode = _aim_owner
+		router.set_aim(&"touch", Vector2.ZERO, false)
+
+func _device_changed(source: StringName) -> void:
+	if source == &"touch": return
+	# Only aim captures are revoked; an independently held jump can release.
+	for index: int in _captures.keys():
+		if _captures[index] in [&"hook", &"right"]: _captures.erase(index)
+	_direction = Vector2.ZERO
+	_hook_direction = Vector2.ZERO
+	_right_offset = Vector2.ZERO
+	_hook_offset = Vector2.ZERO
+	_right_suppressed = false
+	_aim_owner = &"attack"
+	router.aim_mode = &"attack"
+	router.cancel_actions_for(&"shoot_release")
+	router.cancel_actions_for(&"grapple")
 
 func _movement_axis(value: float) -> float:
 	var p := router.profile.values
@@ -276,35 +318,38 @@ func _cancel(_reason: String) -> void:
 	_direction = Vector2.ZERO
 	_hook_direction = Vector2.ZERO
 	_hook_offset = Vector2.ZERO
+	_right_suppressed = false
+	_aim_owner = &"attack"
 	_vertical_ready = true
 	update_layout()
 
 func _draw() -> void:
 	if enabled and router.weapon_context_available:
-		draw_circle(context_center,hook_radius*.8,Color(.55,.65,.4,.6))
-		draw_string(ThemeDB.fallback_font,context_center+Vector2(-23,4),router.weapon_context_label,HORIZONTAL_ALIGNMENT_LEFT,-1,10,Color.WHITE)
+		draw_circle(context_center,hook_radius*.8,Color(UnderworldUI.MOSS,0.28))
+		draw_string(UnderworldUI.FONT,context_center+Vector2(-23,4),router.weapon_context_label,HORIZONTAL_ALIGNMENT_LEFT,-1,10,UnderworldUI.TEXT)
 	if enabled and router.weapon_skill_available:
-		draw_circle(skill_center,hook_radius*.8,Color(.35,.45,.8,.65))
-		draw_circle(skill_center,5,Color(.8,.8,1,.8))
-		draw_string(ThemeDB.fallback_font,skill_center+Vector2(-16,4),"SKILL",HORIZONTAL_ALIGNMENT_LEFT,-1,11,Color.WHITE)
+		draw_circle(skill_center,hook_radius*.8,Color(UnderworldUI.COOL,0.28))
+		draw_circle(skill_center,5,Color(UnderworldUI.TEXT,0.65))
+		draw_string(UnderworldUI.FONT,skill_center+Vector2(-16,4),"SKILL",HORIZONTAL_ALIGNMENT_LEFT,-1,11,UnderworldUI.TEXT)
 	if not enabled:
 		return
 	for center: Vector2 in [left_center, right_center]:
-		draw_circle(center, radius, Color(0.4, 0.65, 0.8, 0.08))
-		draw_arc(center, radius, 0, TAU, 48, Color(0.7, 0.85, 0.9, 0.30), 2)
-	draw_circle(left_center + _left_offset, radius * 0.25, Color(0.8, 0.9, 1, 0.35))
-	draw_circle(right_center + _right_offset, radius * 0.25, Color(1, 0.65, 0.3, 0.35))
+		draw_circle(center, radius, Color(UnderworldUI.INK,0.10))
+		draw_arc(center, radius, 0, TAU, 48, Color(UnderworldUI.MOSS,0.32), 2)
+	draw_circle(left_center + _left_offset, radius * 0.25, Color(UnderworldUI.MOSS,0.38))
+	draw_circle(right_center + _right_offset, radius * 0.25, Color(UnderworldUI.BRASS,0.38))
 	if router.grapple_available:
-		draw_circle(hook_center,hook_radius,Color(.85,.67,.26,.12))
-		draw_arc(hook_center,hook_radius,0,TAU,48,Color(.95,.78,.40,.65),2)
-		draw_circle(hook_center+_hook_offset,hook_radius*.25,Color(.95,.78,.40,.6))
-		draw_string(ThemeDB.fallback_font,hook_center+Vector2(-20,5),"HOOK",HORIZONTAL_ALIGNMENT_LEFT,-1,14)
-	draw_circle(jump_center, jump_radius, Color(0.35, 0.8, 0.6, 0.32))
-	var font := ThemeDB.fallback_font
-	draw_string(font, jump_center + Vector2(-22, 6), "JUMP", HORIZONTAL_ALIGNMENT_LEFT, -1, 16)
-	draw_rect(_pause_rect, Color(0.2, 0.3, 0.4, 0.8))
+		draw_circle(hook_center,hook_radius,Color(UnderworldUI.INK,0.18))
+		draw_arc(hook_center,hook_radius,0,TAU,48,Color(UnderworldUI.BRASS,0.48),2)
+		draw_circle(hook_center+_hook_offset,hook_radius*.25,Color(UnderworldUI.BRASS,0.42))
+		draw_string(UnderworldUI.FONT,hook_center+Vector2(-20,5),"HOOK",HORIZONTAL_ALIGNMENT_LEFT,-1,14)
+	draw_circle(jump_center, jump_radius, Color(UnderworldUI.MOSS,0.30 if _captures.values().has(&"jump") else 0.16))
+	draw_arc(jump_center,jump_radius,0,TAU,48,Color(UnderworldUI.BRASS,0.48),1)
+	var font := UnderworldUI.FONT
+	draw_string(font, jump_center + Vector2(-22, 6), "JUMP", HORIZONTAL_ALIGNMENT_LEFT, -1, 16,UnderworldUI.TEXT)
+	draw_rect(_pause_rect, Color(UnderworldUI.INK,0.84))
 	if not hide_reset_button:
-		draw_rect(_reset_rect, Color(0.2, 0.3, 0.4, 0.8))
+		draw_rect(_reset_rect, Color(UnderworldUI.INK,0.84))
 	draw_string(font, _pause_rect.position + Vector2(12, 30), "RESUME" if get_tree().paused else pause_label, HORIZONTAL_ALIGNMENT_LEFT, -1, 16)
 	if not hide_reset_button:
 		draw_string(font, _reset_rect.position + Vector2(12, 30), reset_label, HORIZONTAL_ALIGNMENT_LEFT, -1, 16)

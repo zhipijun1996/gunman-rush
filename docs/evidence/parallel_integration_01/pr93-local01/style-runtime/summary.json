@@ -1,0 +1,109 @@
+[
+  {
+    "name": "import",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--path",
+      ".",
+      "--editor",
+      "--quit"
+    ],
+    "log": "build/integration01/pr93-style01/import.log",
+    "passed": true
+  },
+  {
+    "name": "runtime",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--path",
+      ".",
+      "--script",
+      "tests/style_exploration/test_style_exploration.gd",
+      "--",
+      "--report=/workspace/gunman-rush-design/build/integration01/pr93-style01/runtime_report.json"
+    ],
+    "log": "build/integration01/pr93-style01/runtime.log",
+    "passed": true
+  },
+  {
+    "name": "biomes",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--path",
+      ".",
+      "--script",
+      "tests/style_exploration/test_style_biomes.gd",
+      "--",
+      "--report=/workspace/gunman-rush-design/build/integration01/pr93-style01/biome_report.json"
+    ],
+    "log": "build/integration01/pr93-style01/biomes.log",
+    "passed": true
+  },
+  {
+    "name": "cli_underworld_gear",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--path",
+      ".",
+      "--script",
+      "tests/style_exploration/test_style_biome_cli.gd",
+      "--",
+      "--style=underworld",
+      "--biome=gear",
+      "--expect-style=underworld",
+      "--expect-biome=gear"
+    ],
+    "log": "build/integration01/pr93-style01/cli_underworld_gear.log",
+    "passed": true
+  },
+  {
+    "name": "cli_cavern_forest",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--path",
+      ".",
+      "--script",
+      "tests/style_exploration/test_style_biome_cli.gd",
+      "--",
+      "--style=cavern",
+      "--biome=forest",
+      "--expect-style=cavern",
+      "--expect-biome=forest"
+    ],
+    "log": "build/integration01/pr93-style01/cli_cavern_forest.log",
+    "passed": true
+  },
+  {
+    "name": "cli_basic_forest",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--path",
+      ".",
+      "--script",
+      "tests/style_exploration/test_style_biome_cli.gd",
+      "--",
+      "--style=basic",
+      "--biome=forest",
+      "--expect-style=basic",
+      "--expect-biome=plains"
+    ],
+    "log": "build/integration01/pr93-style01/cli_basic_forest.log",
+    "passed": true
+  }
+]

@@ -1,0 +1,9 @@
+# E plains experience failure: retain inner evidence
+
+E `3065b55454caaeeeac2e288b3939bf7101784ec1` selected run39101149990 is terminal **cancelled**. Serial's existing plains-experience-golden really failed with outerRuntimeError; inner raw/log/receipt were not collected under the old profile. Root cancelled remainingparallel, so core coverage is incomplete. Web/Windows/docs passed. Publisher exited1/ci_failed, no deployment or E browser run. Build `e99c7f37190f` A199129149-byte WebZIP/SHA is preserved in custody, not deployed or validated by a new browser test.
+
+CI cause remains **UNKNOWN**. The sole exact original localCLI run passed53.483s under900outer/native180: positive255/0, expectednegative8/2,42 original mutants rejected, no exit leak/sourceguard true. Local success does not replace remote failure. Static audio-lifecycle risk is not an established cause and no speculative repair was added.
+
+The only change is three lines declaring the existing inner output directory asartifact_paths. Original commands, marker, serial placement, inputs/assertions/mutants and budgets are unchanged. Existing Harness collects changed inner files on an ordinary failed check; catastrophic termination can still leave incomplete evidence. Independent limitedACCEPT signs artifact retention/inversebyte proof, not a causal fix or game quality. Final new-sourceCI remains pending.
+
+Archive includes terminal run/jobs/artifact APIs, original serial/report/log, original exact local sources and complete actual local raw/receipt, review and exactpatch. `inventory.json` binds every member/archive, fullZIP SHA readback verified. HugeWeb/originaldownloadZIP is referenced, not copied. Parent remains playable candidate/in_progress/REVISE; QueenH/randomexploration/density, physical devices/human fun and finalCI/Web/browser/HTTPS remain unapproved.

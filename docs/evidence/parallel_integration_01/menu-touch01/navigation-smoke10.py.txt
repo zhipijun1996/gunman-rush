@@ -1,0 +1,39 @@
+import asyncio,sys,pathlib,json,shutil,time,io,subprocess,os
+from PIL import Image
+sys.path.insert(0,'tools')
+from studio_gui_pointer import enter_action_studio,select_weapon,_studio_label_box
+from playwright.async_api import async_playwright
+async def main():
+ out=pathlib.Path('build/integration01/navigation-smoke10');out.mkdir(exist_ok=False);rows=[]
+ async with async_playwright() as p:
+  browser=await p.chromium.launch(executable_path=shutil.which('chromium'),headless=True,args=['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader'])
+  try:
+   for touch in [True]:
+    context=await browser.new_context(viewport={'width':844,'height':390} if touch else {'width':1280,'height':720},has_touch=touch,is_mobile=touch);page=await context.new_page();events=[]
+    def log(m):
+     if 'STUDIO_EVENT 'in m.text:events.append(json.loads(m.text.split('STUDIO_EVENT ',1)[1]))
+    page.on('console',log)
+    row={'touch':touch,'status':'failed'};rows.append(row)
+    await page.goto('http://127.0.0.1:18318/',wait_until='networkidle');await page.wait_for_function('window.PLAYTEST_LOADING_DONE===true',timeout=60000);await page.wait_for_timeout(600)
+    if touch:
+     before=await page.screenshot();(out/'touch-cancel-before.png').write_bytes(before)
+     im=Image.open(io.BytesIO(before)).convert('L');im=im.resize((im.width*3,im.height*3));buf=io.BytesIO();im.save(buf,format='PNG')
+     tsv=subprocess.run(['tesseract','stdin','stdout','--psm','11','tsv'],input=buf.getvalue(),capture_output=True,check=True,timeout=10,env={**os.environ,'OMP_THREAD_LIMIT':'1'}).stdout.decode()
+     (out/'touch-cancel-before.tsv').write_text(tsv)
+     x,y=_studio_label_box(tsv,'WINDCHIME PLAINS / FIVE STYLE LAB',3)
+     cdp=await context.new_cdp_session(page)
+     await cdp.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[{'x':x,'y':y,'id':0,'radiusX':8,'radiusY':8,'force':1}]})
+     await page.wait_for_timeout(150)
+     await cdp.send('Input.dispatchTouchEvent',{'type':'touchCancel','touchPoints':[]});await cdp.detach();await page.wait_for_timeout(250)
+     await page.screenshot(path=str(out/'touch-cancel-after.png'))
+     row['real_DOM_cancel']={'point':[x,y],'gesture':'actual DOM touchStart then touchCancel on visible Style Lab; subsequent successful title navigation proves no activation'}
+    await enter_action_studio(page,touch);await page.wait_for_timeout(600)
+    n=len(events);await select_weapon(page,1,touch);await page.wait_for_timeout(700)
+    equipped=[e for e in events[n:] if e['action']=='weapon_equipped'];assert len(equipped)==1 and equipped[0]['weapon']=='shadow_shuriken'
+    await page.screenshot(path=str(out/('touch.png' if touch else 'desktop.png')))
+    row.update(status='passed',accepted_equipment=equipped,events=events)
+    await context.close()
+  finally:
+   (out/'report.json').write_text(json.dumps({'scope':'actual 844x390 mobile-only followup of Web08: real DOM cancel, button-content scroll and one accepted equipment after exact complete-label OCR block repair; desktop08 separately passed, not original72','rows':rows},indent=2)+'\n');await browser.close()
+ print('NAVIGATION SMOKE PASS:',len(rows))
+asyncio.run(main())

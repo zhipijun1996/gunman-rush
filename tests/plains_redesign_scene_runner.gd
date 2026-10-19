@@ -18,6 +18,8 @@ var elective_ascent := false
 var elective_receipts: Array = []
 var legacy_ui: Dictionary = {}
 var route_comparison: Dictionary = {}
+var cleanup_receipts: Array = []
+const AUDIO_TEARDOWN = preload("res://tests/audio_teardown.gd")
 class SceneTrace extends "res://tests/level_formal_trace.gd":
 	signal presentation_sampled
 	var observer: Callable
@@ -26,10 +28,15 @@ class SceneTrace extends "res://tests/level_formal_trace.gd":
 	func tick(count: int = 1) -> void:
 		for unused: int in count:
 			await super.tick()
+			if is_trace_cancelled(): return
 			if observer.is_valid() and (observe_every_tick or trace_ticks % 6 == 0 or not observed_frames[-1].accepted_events.is_empty()):
 				_sample_after_process.call_deferred()
 				await presentation_sampled
+				if is_trace_cancelled(): return
 	func _sample_after_process() -> void:
+		if is_trace_cancelled():
+			presentation_sampled.emit()
+			return
 		visual_frames.append(observer.call(self))
 		presentation_sampled.emit()
 func _initialize() -> void:
@@ -126,7 +133,7 @@ func issues_for(rows: Array[Dictionary], regions: Array[Dictionary]) -> Array[St
 func landmark_issues() -> Array[String]:
 	var result: Array[String]=[]
 	for child: Node in app.stage.get_children():
-		if not child is PlainsRegionScenery:continue
+		if not (child is PlainsRegionScenery or child is PixelRegionScenery or child is UnderworldScenery):continue
 		for sprite: Node in child.get_children():
 			if not sprite is Sprite2D or not sprite.has_meta("landmark"):continue
 			var item: Dictionary=sprite.get_meta("landmark")
@@ -170,7 +177,7 @@ func apply_mutation(trace) -> void:
 					chosen={"id":"required_ferry","world":bounds,"mandatory":true};required_override=[chosen];break
 	elif mutation=="floating_landmark":
 		for child:Node in app.stage.get_children():
-			if child is PlainsRegionScenery:
+			if child is PlainsRegionScenery or child is PixelRegionScenery or child is UnderworldScenery:
 				for sprite:Node in child.get_children():
 					if sprite is Sprite2D and sprite.has_meta("landmark"):
 						sprite.position.y-=20;mutation_receipt={"path":str(sprite.get_path()),"actual_offset_y":-20};mutation_applied=true;return
@@ -221,11 +228,16 @@ func run_case(map_index: int, strategy: String, custom: String="", seed_value: S
 		await physics_frame;await process_frame
 		if not app._stage_pending and app.stage is PlainsRegionStage:break
 	if map_index==2:
-		app.lifetime.stage_epoch+=1;app.lifetime.actor_epoch+=1;app.director._enter_stage(2,&"boss");app._stage_entered(DemoRunResult.new())
+		app.lifetime.stage_epoch+=1
+		app.lifetime.actor_epoch+=1
+		_sync_fixture_map_index(app, 2)
+		app.director._enter_stage(2,&"boss")
+		app._stage_entered(DemoRunResult.new())
 		for unused:int in 120:
 			await physics_frame;await process_frame
 			if not app._stage_pending and app.stage is PlainsRegionStage and app.stage.map_index==2:break
 	check(app.stage is PlainsRegionStage and app.stage.assembly_ok,"actual formal region ready")
+	check(_fixture_identity_matches(app, map_index, seed_value), "actual stage/map/manifest seed+difficulty matches requested fixture")
 	var trace:=SceneTrace.new();active_trace=trace
 	check(trace.attach(app,strategy,0,"kill_from_bank_v1"),"unchanged real policy attaches")
 	trace.frame_budget=15000;trace.observer=observe
@@ -235,8 +247,8 @@ func run_case(map_index: int, strategy: String, custom: String="", seed_value: S
 		# Presentation-only toast fixture. No item is granted or build changed.
 		app.item_toast.show_item(DemoApp.SHOT_ITEM);app._layout_region_hud()
 	var manifest_before:=JSON.stringify(app.stage.generated.manifest)
-	if custom.is_empty():trace.run_route.call_deferred()
-	else:custom_route.call_deferred(trace,custom)
+	var execution: Dictionary = {"execution_done":false}
+	drive_scene_execution.call_deferred(trace,custom,execution)
 	while not trace.finished and not trace.terminated:
 		await process_frame
 		if mutation_applied:break
@@ -248,42 +260,109 @@ func run_case(map_index: int, strategy: String, custom: String="", seed_value: S
 		observe(trace)
 		check(current_issues.is_empty(),"deliberate real scene mutation rejected: "+mutation)
 	check(JSON.stringify(app.stage.generated.manifest)==manifest_before,"presentation observation does not mutate actual manifest")
-	cases.append({"map":map_index,"strategy":strategy,"custom":custom,"outcome":trace.outcome,"finished":trace.finished,"ticks":trace.trace_ticks,"manifest":app.stage.generated.manifest.duplicate(true),"visual_frames":trace.visual_frames,"frames":trace.observed_frames,"events":trace.events,"runtime":trace.runtime_snapshot(true),"mutation":mutation_receipt,"seed":seed_value,"issues":current_issues.duplicate(),"scenery":scene_inventory(app.stage),"elective_receipts":elective_receipts.duplicate(true),"route_comparison":route_comparison.duplicate(true)})
+	var frozen_case: Dictionary = ({"map":map_index,"actual_map_index":app.stage.map_index,"actual_manifest_seed":app.stage.generated.manifest.seed,"actual_manifest_difficulty":app.stage.generated.manifest.difficulty,"strategy":strategy,"custom":custom,"outcome":trace.outcome,"finished":trace.finished,"ticks":trace.trace_ticks,"manifest":app.stage.generated.manifest.duplicate(true),"visual_frames":trace.visual_frames,"frames":trace.observed_frames,"events":trace.events,"runtime":trace.runtime_snapshot(true),"mutation":mutation_receipt,"seed":seed_value,"issues":current_issues.duplicate(),"scenery":scene_inventory(app.stage),"elective_receipts":elective_receipts.duplicate(true),"route_comparison":route_comparison.duplicate(true)}).duplicate(true)
+	cases.append(frozen_case)
+	var sealed_hash := JSON.stringify(frozen_case).sha256_text()
+	var cleanup: Dictionary = await unwind_scene_execution(trace,execution)
+	cleanup["sealed_case_sha256"] = sealed_hash
+	cleanup["case_sha256_after_unwind"] = JSON.stringify(frozen_case).sha256_text()
+	check(cleanup.ok and cleanup.sealed_case_sha256==cleanup.case_sha256_after_unwind,"sealed scene payload preserved and actual route execution ended without post-terminal effects")
+	cleanup_receipts.append(cleanup)
+	if not cleanup.ok: return
+	cleanup["observers_disconnected"] = trace.disconnect_test_observers()
+	trace.observer=Callable()
+	while capture_pending:await process_frame
+	cleanup["audio_released"] = await AUDIO_TEARDOWN.drain_world(app)
+	check(cleanup.audio_released,"owned scene audio backend released")
+	var reference: WeakRef = weakref(trace)
+	active_trace=null
+	app.free();await process_frame
+	trace=null
+	await process_frame
+	cleanup["driver_released"] = reference.get_ref()==null
+	check(cleanup.driver_released,"scene execution stack and trace actually released")
 	current_issues=[]
 	elective_ascent=false
 	elective_receipts=[]
 	route_comparison={}
-	if mutation.is_empty():
-		while capture_pending:await process_frame
-		app.free();await process_frame
+
+func drive_scene_execution(trace: SceneTrace, custom: String, state: Dictionary) -> void:
+	if custom.is_empty(): await trace.run_route()
+	else: await custom_route(trace,custom)
+	state.execution_done=true
+
+func unwind_scene_execution(trace: SceneTrace, state: Dictionary) -> Dictionary:
+	trace.seal_test_observation()
+	var epoch_before: int = trace.controller.router.epoch if is_instance_valid(trace.controller) else -1
+	app.process_mode=Node.PROCESS_MODE_DISABLED
+	for descendant: Node in app.find_children("*","",true,false): descendant.process_mode=Node.PROCESS_MODE_DISABLED
+	if is_instance_valid(trace.controller): trace.controller.router.clear("test_capture_sealed_unwind")
+	var before := trace.cancellation_facts().duplicate(true)
+	var requested := trace.request_test_unwind()
+	var started := Time.get_ticks_msec()
+	while not state.get("execution_done",false) and Time.get_ticks_msec()-started<1000:
+		await process_frame
+	var after := trace.cancellation_facts().duplicate(true)
+	var completed: bool = state.get("execution_done",false)
+	return {"scope":"post-capture lifecycle only; original gameplay observations already frozen","execution_done":completed,"requested":requested,"deadline_msec":1000,"elapsed_msec":Time.get_ticks_msec()-started,"router_epoch_before_clear":epoch_before,"before":before,"after":after,"ok":requested and completed and before==after}
+
 func scene_inventory(stage: Node) -> Array:
 	var rows:Array=[]
 	for child:Node in stage.get_children():
 		if child is PlainsRegionScenery: rows.append({"plan":child.presentation_manifest,"children":child.get_child_count(),"composition":child.get_node("PlainsRegionComposition").compositions if child.has_node("PlainsRegionComposition") else []})
+		elif child is PixelRegionScenery or child is UnderworldScenery:
+			var actual_items: Array[Dictionary] = []
+			var actual_compositions: Array[Dictionary] = []
+			if child.has_node("PlainsRegionComposition"):
+				for composition: Dictionary in child.get_node("PlainsRegionComposition").compositions:
+					actual_compositions.append(composition.duplicate(true))
+			for sprite: Node in child.get_children():
+				if not sprite is Sprite2D or not sprite.has_meta("landmark"):continue
+				var item: Dictionary = sprite.get_meta("landmark").duplicate(true)
+				item["actual_node"] = str(sprite.get_path())
+				item["actual_bounds"] = rect_values(Rect2(sprite.global_position,sprite.texture.get_size()*sprite.global_scale))
+				actual_items.append(item)
+				if sprite.has_meta("composition"):actual_compositions.append(sprite.get_meta("composition").duplicate(true))
+			# Four-role coverage comes only from instantiated sprites, never from
+			# generation declarations for landmarks that might not actually exist.
+			rows.append({"plan":{"items":actual_items},"declared_plan":child.presentation_manifest.duplicate(true),"children":child.get_child_count(),"composition":actual_compositions})
 	return rows
 func custom_route(trace, mode: String) -> void:
 	var ok:bool=await trace.tutorial()
+	if trace.is_trace_cancelled(): return
 	if ok and mode=="extra_upward_recoil":
 		ok=await extra_upward_recoil(trace)
+		if trace.is_trace_cancelled(): return
 	elif ok and mode=="touch_geometry":
 		ok=await trace.follow_to("area_2_1")
+		if trace.is_trace_cancelled(): return
 	elif ok and mode=="main_then_high":
 		ok=await trace.follow_to("area_2_1")
-		if ok:ok=await trace.follow_to("area_0_0")
-		if ok:ok=await trace.deep_trial("deep_high")
+		if trace.is_trace_cancelled(): return
+		if ok:
+			ok=await trace.follow_to("area_0_0")
+			if trace.is_trace_cancelled(): return
+		if ok:
+			ok=await trace.deep_trial("deep_high")
+			if trace.is_trace_cancelled(): return
 		if ok:
 			for edge:Dictionary in trace.stage.manifest.connections:
 				if edge.a=="deep_high" and edge.kind=="drop":trace.current_area=str(edge.b)
 			ok=await trace.follow_to("area_2_1")
+			if trace.is_trace_cancelled(): return
 	elif ok and mode in ["outer_return","outer_upper_alternative"]:
 		ok=await trace.follow_to("area_3_3")
+		if trace.is_trace_cancelled(): return
 		if ok:
 			var start_tick: int=trace.trace_ticks
 			var before: Dictionary=trace.runtime_snapshot(true)
 			var start_position:=pair(trace.motor.global_position)
 			var path: Array=["area_3_3","area_4_3","area_4_2"] if mode=="outer_return" else ["area_3_3","area_3_2","area_4_2"]
 			ok=await trace.follow_to(path[1])
-			if ok:ok=await trace.follow_to(path[2])
+			if trace.is_trace_cancelled(): return
+			if ok:
+				ok=await trace.follow_to(path[2])
+				if trace.is_trace_cancelled(): return
 			var ferry_paths: Array=[]
 			var outer_connection: Dictionary=trace.stage.manifest.connections.filter(func(e:Dictionary):return e.get("outer_return",false))[0]
 			var carrier_modules: Array=[]
@@ -303,11 +382,16 @@ func custom_route(trace, mode: String) -> void:
 				# bank; descend the eastern arm and leave through the new lower boat.
 				# Preserve failed clockwise kill and bait strategies separately.
 				var returned: bool=await trace.follow_to("area_4_3")
-				if returned:returned=await trace.follow_to("area_3_3")
+				if trace.is_trace_cancelled(): return
+				if returned:
+					returned=await trace.follow_to("area_3_3")
+					if trace.is_trace_cancelled(): return
 				route_comparison["cycle_return"]={"encounter_policy":"kill_from_bank_v1","path":["area_4_2","area_4_3","area_3_3"],"start_tick":return_begin,"end_tick":trace.trace_ticks,"position":pair(trace.motor.global_position),"reached":returned,"actual_edges":trace.observed_edges.filter(func(e:Dictionary):return e.start_tick>=return_begin)}
 				check(returned,"same body closes upper-out lower-back circuit without repeating entry shaft")
 				ok=returned
-		if ok:ok=await trace.follow_to(str(trace.stage.manifest.prep_id))
+		if ok:
+			ok=await trace.follow_to(str(trace.stage.manifest.prep_id))
+			if trace.is_trace_cancelled(): return
 	trace.finish(ok,"route_target_reached" if ok else "scene_custom_route_failed")
 
 func extra_upward_recoil(trace) -> bool:
@@ -320,16 +404,20 @@ func extra_upward_recoil(trace) -> bool:
 	app.overlay.set_enabled(true);app.overlay.update_layout()
 	# Combined real toast/overlay/recoil state. No item/build grant.
 	app.item_toast.show_item(DemoApp.SHOT_ITEM);app._layout_region_hud()
-	if not await trace.move_to(well.position.x+265):return false
+	var approached: bool = await trace.move_to(well.position.x+265)
+	if trace.is_trace_cancelled(): return false
+	if not approached:return false
 	trace.critical_traversal+=1
 	var latch: ShotLatch=trace.shot_latch_encounter.for_module(well)
 	var first_event: int=trace.events.size()
 	trace.controller.router.set_move_axis(1)
 	trace.controller.router.request_action(&"jump")
 	await trace.tick(14)
+	if trace.is_trace_cancelled(): return false
 	trace.controller.router.request_action(&"shoot_release",(trace.motor.get_node("KeyboardMouseAdapter") as KeyboardMouseAdapter).world_direction(trace.motor.get_canvas_transform()*latch.bell_body.global_position))
 	trace.controller.router.set_move_axis(0)
 	await trace.tick(18)
+	if trace.is_trace_cancelled(): return false
 	var second_tick: int=trace.trace_ticks+1
 	elective_ascent=true
 	# A second ordinary legal downward shot, with the real cooldown, charges,
@@ -341,6 +429,7 @@ func extra_upward_recoil(trace) -> bool:
 	for unused: int in 240:
 		trace.controller.router.set_move_axis(clampf((well.position.x+430-trace.motor.global_position.x)/5.5,-1,1))
 		await trace.tick()
+		if trace.is_trace_cancelled(): return false
 		apex=minf(apex,trace.motor.global_position.y)
 		if trace.motor.is_on_floor():settled=true;break
 	trace.critical_traversal-=1
@@ -351,7 +440,10 @@ func extra_upward_recoil(trace) -> bool:
 	elective_receipts.append(scope)
 	check(accepted.size()==2 and accepted[1].tick>=second_tick,"elective second upward recoil uses two accepted real shots")
 	check(apex<well.position.y-100,"elective actual ascent exceeds canonical well observation band")
-	return settled and latch.is_open and await trace.move_to(well.world_exit().x)
+	if not (settled and latch.is_open): return false
+	var completed: bool = await trace.move_to(well.world_exit().x)
+	if trace.is_trace_cancelled(): return false
+	return completed
 
 func legacy_compatibility() -> void:
 	var legacy:=DemoApp.new();legacy.meta_persistence_enabled=false;root.add_child(legacy)
@@ -398,6 +490,20 @@ func run() -> void:
 	if output.is_empty() or FileAccess.file_exists(output):printerr("unique output required");quit(2);return
 	DirAccess.make_dir_recursive_absolute(output.get_base_dir())
 	var file:=FileAccess.open(output,FileAccess.WRITE)
-	file.store_string(JSON.stringify({"engine":Engine.get_version_info().string,"scope":"normally scheduled formal consumer; privileged frozen route policy, projection proxy not human perception/device/aesthetics","assertions":assertions,"failures":failures,"mutation":mutation,"legacy_ui":legacy_ui,"screenshots":screenshots,"cases":cases})+"\n");file.close()
+	file.store_string(JSON.stringify({"engine":Engine.get_version_info().string,"scope":"normally scheduled formal consumer; privileged frozen route policy, projection proxy not human perception/device/aesthetics","assertions":assertions,"failures":failures,"mutation":mutation,"legacy_ui":legacy_ui,"screenshots":screenshots,"cases":cases,"post_capture_cleanup":cleanup_receipts})+"\n");file.close()
 	print("PLAINS REDESIGN SCENE NATIVE: %d assertions, %d failures" % [assertions,failures])
 	quit(0 if failures==0 else 1)
+
+
+# Test-only independent-stage fixture; no natural campaign transition is claimed.
+func _sync_fixture_map_index(app: DemoApp, index: int) -> void:
+	for entry: Dictionary in app.director.get_property_list():
+		if str(entry.get("name", "")) == "region_map_index":
+			app.director.set("region_map_index", index)
+			return
+
+func _fixture_identity_matches(app: DemoApp, index: int, root_seed: String) -> bool:
+	var actual := app.stage as PlainsRegionStage
+	if actual == null or not actual.assembly_ok: return false
+	var manifest: Dictionary = actual.generated.manifest
+	return actual.map_index == index and manifest.get("region", "") == "plains" and manifest.get("seed", "") == PlainsRegionCampaign.seed_for(root_seed, index) and manifest.get("difficulty", "") == ("intro" if index == 1 else "advanced")

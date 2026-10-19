@@ -1,0 +1,25 @@
+{
+  "runtime_commit": "31912d1c10f70855c99c61fbe93628f6348e18ec",
+  "producer": "root functions.exec actual shell outputs in session",
+  "checks": [
+    {
+      "command": "python3 -m unittest tests.test_visual_director",
+      "exit_code": 0,
+      "stdout": "22 tests; OK",
+      "scope": "preserves original20 plus2 random-capture whitelist tests"
+    },
+    {
+      "command": "python3 tests/test_web_bundle.py",
+      "exit_code": 0,
+      "stdout": "44 tests; OK",
+      "scope": "static export resource-contract suite; not actual Web export/release"
+    }
+  ],
+  "timing": "Observed before13:51UTC; exact command durations retained in tool records, not reconstructed",
+  "not_claimed": [
+    "full CI",
+    "actual browser release",
+    "physical mobile/controller",
+    "human playtest"
+  ]
+}

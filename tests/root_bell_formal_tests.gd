@@ -3,6 +3,18 @@ func audit() -> Dictionary:
 	var rows: Array = []
 	var failures: Array = []
 	var original_rows: Array = JSON.parse_string(FileAccess.get_file_as_string("res://docs/evidence/region_production_v3/enemy_encounter_v2/legacy_manifest_strings.json")).rows
+	var historical_path := "res://tests/fixtures/root_bell/pre_focus_15_player_tuning.json"
+	if FileAccess.get_sha256(historical_path)!=PlainsRegionGenerator.PRE_FOCUS_15_TUNING_HASH:
+		return {"rows":[],"failures":["historical_tuning_fixture_identity"],"scope":"Historical fixture rejected before replay"}
+	var historical_values: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(historical_path))
+	var historical_tuning := PlayerTuning.load_default()
+	for key: String in historical_values:
+		if key=="physics_hz":continue # Project clock, not a PlayerTuning field.
+		if key=="jump_speeds":historical_tuning.jump_speeds.assign(historical_values[key])
+		else:historical_tuning.set(key,historical_values[key])
+	for key: String in historical_values:
+		if key!="physics_hz" and not RandomStageGenerator.new()._same_data(historical_tuning.get(key),historical_values[key]):failures.append("historical_tuning_value/"+key)
+	if historical_tuning.focus_time_scale!=0.2 or not historical_tuning.valid_focus_configuration():failures.append("historical_focus_profile")
 	for i: int in 20:
 		for map_index: int in [1,2]:
 			var root := "v3-root-bell-pilot-%s" % i
@@ -10,20 +22,30 @@ func audit() -> Dictionary:
 			var difficulty := "intro" if map_index==1 else "advanced"
 			var legacy := PlainsRegionGenerator.new()
 			var original := legacy.generate(seed,PlayerTuning.load_default(),false,"",difficulty)
+			# This immutable corpus predates the authorized .2 -> .15 focus change.
+			# Keep its entire original assertion against an explicit historical replay;
+			# current default generation and validation remain separate below.
+			var historical := legacy.generate_before_focus_15(seed,historical_tuning,false,"",difficulty)
 			var historical_row: Dictionary = original_rows[i*2+map_index-1]
-			var old_equal: bool = historical_row.root_seed==root and historical_row.map_index==map_index and historical_row.raw_manifest==JSON.stringify(original.manifest)
+			var old_equal: bool = historical.ok and historical_row.root_seed==root and historical_row.map_index==map_index and historical_row.raw_manifest==JSON.stringify(historical.manifest)
 			if not old_equal:failures.append("legacy_default_byte_mismatch/%s/%s"%[i,map_index])
 			var v2 := PlainsRegionGenerator.new()
 			v2.root_bell_mode = "v2"
 			var candidate := v2.generate(seed,PlayerTuning.load_default(),false,"",difficulty)
-			if not original.ok or not candidate.ok:
+			if not original.ok or not candidate.ok or not historical.ok:
 				failures.append("generation_failed/%s/%s"%[i,map_index])
 				continue
 			var result: Dictionary = candidate.manifest.root_bell_admission
-			rows.append({"root_seed":root,"map_index":map_index,"actual_seed":seed,"legacy_hash":original.manifest.manifest_hash,"legacy_default_byte_equal":old_equal,"content_version":candidate.manifest.version,"candidate":result,"default_gate":PlainsRootBellEncounterV2.PRODUCTION_ADMITTED})
+			var current_hash := FileAccess.get_sha256("res://config/player_tuning.json")
+			var current_validated := legacy.validate(original.manifest,PlayerTuning.load_default())
+			var historical_validated := legacy.validate(historical.manifest,historical_tuning)
+			var current_focus := PlayerTuning.load_default().focus_time_scale
+			var actual_profiles: bool = original.manifest.player_tuning_hash==current_hash and candidate.manifest.player_tuning_hash==current_hash and historical.manifest.player_tuning_hash==PlainsRegionGenerator.PRE_FOCUS_15_TUNING_HASH and current_hash!=historical.manifest.player_tuning_hash and current_focus==0.15
+			if not actual_profiles or not historical_validated:failures.append("current_and_historical_tuning_identity/%s/%s"%[i,map_index])
+			rows.append({"root_seed":root,"map_index":map_index,"actual_seed":seed,"legacy_hash":original.manifest.manifest_hash,"legacy_default_byte_equal":old_equal,"legacy_default_byte_equal_scope":"immutable historical v10 replay; not current default bytes","historical_hash":historical.manifest.manifest_hash,"historical_tuning_hash":historical.manifest.player_tuning_hash,"historical_validated":historical_validated,"current_tuning_hash":original.manifest.player_tuning_hash,"current_tuning_focus_scale":current_focus,"current_default_validated":current_validated,"current_and_historical_profiles_distinct":actual_profiles,"content_version":candidate.manifest.version,"candidate":result,"default_gate":PlainsRootBellEncounterV2.PRODUCTION_ADMITTED})
 			if original.manifest.enemies.size()!=candidate.manifest.enemies.size(): failures.append("enemy_budget")
-			if not legacy.validate(original.manifest,PlayerTuning.load_default()) or not v2.validate(candidate.manifest,PlayerTuning.load_default()):failures.append("version_replay")
-	return {"rows":rows,"failures":failures,"scope":"40 actual currentcampaign manifests; eligibility only, actual traversal separate"}
+			if not current_validated or not v2.validate(candidate.manifest,PlayerTuning.load_default()):failures.append("version_replay")
+	return {"rows":rows,"failures":failures,"historical_tuning_sha256":FileAccess.get_sha256(historical_path),"historical_tuning_values":historical_values,"historical_focus_time_scale":historical_tuning.focus_time_scale,"scope":"40 currentcampaign manifests plus exact immutable historical corpus replay with original .2 tuning; legacy_default_byte_equal describes historical replay only; eligibility, not traversal"}
 
 func physical_negatives() -> Dictionary:
 	var generated := PlainsRegionGenerator.new().generate("v3-root-bell-pilot-1/plains/map_2",PlayerTuning.load_default(),false,"","advanced")
@@ -61,12 +83,13 @@ func wait_map(tree: SceneTree,app: DemoApp,index: int) -> bool:
 		await tree.physics_frame
 		await tree.process_frame
 		var actual_stage := app.stage as PlainsRegionStage
-		if not app._stage_pending and actual_stage != null and actual_stage.map_index==index:return actual_stage.assembly_ok
+		if not app._stage_pending and actual_stage != null and actual_stage.map_index==index:return actual_stage.assembly_ok and _fixture_identity_matches(app, index, str(app.director.get("seed")))
 	return false
 
 func map2(app: DemoApp) -> void:
 	app.lifetime.stage_epoch+=1
 	app.lifetime.actor_epoch+=1
+	_sync_fixture_map_index(app, 2)
 	app.director._enter_stage(2,&"boss")
 	app._stage_entered(DemoRunResult.new())
 
@@ -110,6 +133,7 @@ func compatibility(tree: SceneTree) -> Dictionary:
 	var actual_version: String = current.stage.generated.manifest.version
 	var actual_root: int = current.stage.enemy_manifest.filter(func(e: Dictionary)->bool:return e.behavior_id=="root_bell").size()
 	ok=ok and old_hash==new_hash and old_version==actual_version and actual_version=="plains-region-v10" and actual_root==0
+	var actual_map_identity := {"map_index":current.stage.map_index,"seed":current.stage.generated.manifest.seed,"difficulty":current.stage.generated.manifest.difficulty}
 	var actual_actors: int = current.region_state.actors.size()
 	ok=ok and actual_actors==snapshot.actors.size()
 	current.abandon_run()
@@ -118,7 +142,7 @@ func compatibility(tree: SceneTree) -> Dictionary:
 	current.queue_free()
 	await tree.process_frame
 	await tree.process_frame
-	return {"passed":ok,"old_hash":old_hash,"actual_new_loader_hash":new_hash,"old_version":old_version,"actual_version":actual_version,"old_actor_count":snapshot.actors.size(),"actual_actor_count":actual_actors,"actual_root_count":actual_root,"scope":"Current real DemoApp explicitly pinned to historical legacy_v10 before map2 capture_state → detached restore → new loader hash-bound legacy replay; not a frozen old binary; no save/RNG schema rewrite"}
+	return {"passed":ok,"actual_map_identity":actual_map_identity,"old_hash":old_hash,"actual_new_loader_hash":new_hash,"old_version":old_version,"actual_version":actual_version,"old_actor_count":snapshot.actors.size(),"actual_actor_count":actual_actors,"actual_root_count":actual_root,"scope":"Current real DemoApp explicitly pinned to historical legacy_v10 before map2 capture_state → detached restore → new loader hash-bound legacy replay; not a frozen old binary; no save/RNG schema rewrite"}
 
 func run_manifest_replay(tree: SceneTree) -> Dictionary:
 	# Replay contract fixture: real DemoApp generation/recording and the existing
@@ -218,3 +242,17 @@ func run_manifest_replay(tree: SceneTree) -> Dictionary:
 	cases.append({"case": "default_enable_api_keeps_v10", "passed": legacy_default})
 	if not legacy_default: failures.append("legacy_default_enable_version")
 	return {"passed": failures.is_empty(), "failures": failures, "cases": cases, "negatives": negatives, "actual_snapshots": snapshots, "scope": "Real current DemoApp two-map versioned RunManifest snapshots/reconstruction; explicit lawful item and mini-Boss outcome fixtures, not input-only traversal/combat, save schema or device acceptance"}
+
+
+# Test-only independent-stage fixture; no natural campaign transition is claimed.
+func _sync_fixture_map_index(app: DemoApp, index: int) -> void:
+	for entry: Dictionary in app.director.get_property_list():
+		if str(entry.get("name", "")) == "region_map_index":
+			app.director.set("region_map_index", index)
+			return
+
+func _fixture_identity_matches(app: DemoApp, index: int, root_seed: String) -> bool:
+	var actual := app.stage as PlainsRegionStage
+	if actual == null or not actual.assembly_ok: return false
+	var manifest: Dictionary = actual.generated.manifest
+	return actual.map_index == index and manifest.get("region", "") == "plains" and manifest.get("seed", "") == PlainsRegionCampaign.seed_for(root_seed, index) and manifest.get("difficulty", "") == ("intro" if index == 1 else "advanced")

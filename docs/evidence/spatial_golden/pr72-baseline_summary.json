@@ -1,0 +1,36 @@
+{
+  "source_commit": "1597db583a6ade25a469cb9ecb99b5762d6f76db",
+  "source_unchanged": true,
+  "capture_status": "captured",
+  "native_exit_code": 0,
+  "native_duration_seconds": 91.181,
+  "outcome": "frame_budget_exhausted",
+  "route_reached": false,
+  "capture_errors": [],
+  "movie": "build/spatial_golden/before_02/gameplay.mp4",
+  "movie_sha256": "e2b392cd26eb560437b578ec340004c506d12790b6f8266db1cbe0dfa06ba5e2",
+  "normal_speed_seconds": 20.083333,
+  "three_previews": [
+    {
+      "path": "build/spatial_golden/before_02/video_frames/video_frame_000300.png",
+      "frame": 300,
+      "seconds": 5.0
+    },
+    {
+      "path": "build/spatial_golden/before_02/video_frames/video_frame_000600.png",
+      "frame": 600,
+      "seconds": 10.0
+    },
+    {
+      "path": "build/spatial_golden/before_02/video_frames/video_frame_000900.png",
+      "frame": 900,
+      "seconds": 15.0
+    }
+  ],
+  "extra_phase_preview": "build/spatial_golden/before_02/video_frames/video_frame_000900.png",
+  "failure_preserved": "Original ferry traversal strategy did not reach module exit within bounded20s capture; logs retained, not route success or baseline CI pass. First display failure retained separately before_01.",
+  "comparison": "Same seed ordinary PR72 map1 versus explicit spatial golden experiment; geometry, route, camera and encounter differ. NOT pure-art comparison / NOT identical room.",
+  "host_environment": "host_environment.json",
+  "no_baseline_runtime_source_or_tool_edits": true,
+  "selection_scope": "5s first jump/encounter,10s recovery/approach,15s gear traverse; full movie and all extracted frames including initial frame0 preserved, no same-room claim."
+}

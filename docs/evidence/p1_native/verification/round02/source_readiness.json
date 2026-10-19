@@ -1,0 +1,139 @@
+{
+  "task_id": "P1-NATIVE-01",
+  "round": 2,
+  "status": "structural_source_readiness_passed_not_engine_or_art_pass",
+  "catalog_sha256": "9b1c52058fdc8bcf6e2e4e913e1b83688233cb8bf727446f6771df8ed05c9e7d",
+  "actor_calibration_sha256": "a3934ea8bba87f2cbda28c4906f057cb8ee06e88b88ce61fa95b912eec4749a3",
+  "sample_script_sha256": "0a4a1fbaba487433e3c391d6e8515fdfdfb334cfbd9bfcb198744dad7c0ca82b",
+  "source_files": [
+    {
+      "path": "assets/visual_development/p1_native/terrain_section.png",
+      "sha256": "008ba4ed763235e30ff4e89391a9cba6927d535cf205257c41a9030ad6ba1488",
+      "dimensions": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "path": "assets/visual_development/p1_native/left_end.png",
+      "sha256": "ba3dd93b0e4e00fc442b25b34d1e3526e99e5d193cd545a811464c5171a8dbc8",
+      "dimensions": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "path": "assets/visual_development/p1_native/right_end.png",
+      "sha256": "5e74256b09fced794954e5dc67e918bf907f8728a5a59cc00f144cb791bf14c1",
+      "dimensions": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "path": "assets/visual_development/p1_native/tree.png",
+      "sha256": "97eb18400c8e722b7873fcd6a5c81f3f69ce52241723daa1db91289040113bc6",
+      "dimensions": [
+        1366,
+        1152
+      ]
+    },
+    {
+      "path": "assets/visual_development/p1_native/shelter.png",
+      "sha256": "4bce48047326447812d78d088f276ba8227b6874757284b0a8b318ebc624062d",
+      "dimensions": [
+        1524,
+        1032
+      ]
+    },
+    {
+      "path": "assets/visual_development/p1_native/device.png",
+      "sha256": "802abc8ee5857bf83f87e87166d352c51b17dff26d51e6eea3e049a75ef34c1a",
+      "dimensions": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "path": "assets/visual_development/p1_native/distant.png",
+      "sha256": "5017ca3fb03c76a54d5142375dbbe17405aff96957a062e20ba2aa9746050dd6",
+      "dimensions": [
+        1536,
+        1024
+      ]
+    },
+    {
+      "path": "assets/visual_development/p1_native/meadow.png",
+      "sha256": "b53fc8d14d29e65d5dbdad2b900720ac8eeb5c3d8db90bb64c03b6f3abb0b68a",
+      "dimensions": [
+        1536,
+        1024
+      ]
+    },
+    {
+      "path": "assets/visual_development/p1_native/hero_actions.png",
+      "sha256": "f14951c643fb33fe788fb524a3b82a5973f75eff808907e37a27dff98691bc7c",
+      "dimensions": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "path": "assets/visual_development/p1_native/enemy_actions.png",
+      "sha256": "fda75f611584417fad03ed9983fb7273388c8d9199d90095cdada2638df1b60f",
+      "dimensions": [
+        1536,
+        1024
+      ]
+    },
+    {
+      "path": "assets/visual_development/p1_native/saw.png",
+      "sha256": "70aafd43e7a1808a49dd33490d36850c69cd6ca505dec141b8521ddbdcafe84d",
+      "dimensions": [
+        1283,
+        1226
+      ]
+    }
+  ],
+  "regions_checked": 23,
+  "finite_spans": [
+    {
+      "bank": "entry_shore",
+      "arc_world": 644.3934383152065,
+      "source_span": [
+        40,
+        942.150813641289
+      ]
+    },
+    {
+      "bank": "recovery_shore",
+      "arc_world": 809.4427190999916,
+      "source_span": [
+        60,
+        1193.2198067399881
+      ]
+    },
+    {
+      "bank": "lookback_shore",
+      "arc_world": 180.0,
+      "source_span": [
+        960,
+        1212.0
+      ]
+    }
+  ],
+  "unchanged_from_first01": [
+    "terrain",
+    "placements",
+    "components",
+    "ui",
+    "terrain_method",
+    "distant"
+  ],
+  "changes": [
+    "meadow optional opacity0.55 scale0.84 parallax0.15 anchor2540",
+    "actual root edited hero/enemy/saw with per-source remeasurement"
+  ],
+  "native_status": "not_run_waiting_root_observer",
+  "errors": []
+}

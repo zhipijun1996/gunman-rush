@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-design/build/forest_depth/snapshots/queen_app03/tools/run_forest_depth_campaign_boss.py", line 232, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/workspace/gunman-rush-design/build/forest_depth/snapshots/queen_app03/tools/run_forest_depth_campaign_boss.py", line 219, in main
+    text=run_engine(['--headless','--fixed-fps','60','--path','.','--script','tests/forest_depth_campaign_boss_runner.gd','--','--boss='+args.boss,'--seed='+args.seed,'--output=res://'+(out/'capture.json').relative_to(ROOT).as_posix()],180)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush-design/build/forest_depth/snapshots/queen_app03/tools/run_tests.py", line 47, in run_engine
+    raise RuntimeError("Godot leaked ObjectDB instances or live resources at exit")
+RuntimeError: Godot leaked ObjectDB instances or live resources at exit

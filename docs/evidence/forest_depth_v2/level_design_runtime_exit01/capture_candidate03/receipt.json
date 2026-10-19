@@ -1,0 +1,24 @@
+{
+  "scope": "Exact target command development validation, NOT Harness full profile",
+  "snapshot": "/workspace/gunman-rush-design/build/forest_depth/snapshots/level_capability03",
+  "checks": [
+    {
+      "name": "capture-target",
+      "argv": [
+        "python3",
+        "tools/level_design.py",
+        "capture",
+        "--output",
+        "build/level_design_v2/capture_boundary03/capture.json"
+      ],
+      "timeout_seconds": 600,
+      "exit_code": 1,
+      "elapsed_seconds": 43.098856922995765,
+      "strict_log_clean": true,
+      "success_pattern_found": false,
+      "source_guard": true,
+      "log_sha256": "d4a1ecd7c118bd2e6d680425e9123d322bbe8c711b45bb10d32a947f2771644e"
+    }
+  ],
+  "passed": false
+}

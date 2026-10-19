@@ -1,13 +1,23 @@
 extends SceneTree
 var failed := 0
 var assertions := 0
+var selected_fixture := ""
+var fixture_arguments := 0
 func check(value: bool, message: String) -> void:
 	assertions += 1
 	if not value:
 		failed += 1
 		printerr("FAIL: " + message)
-func _initialize() -> void: call_deferred("run")
+func _initialize() -> void:
+	for argument: String in OS.get_cmdline_user_args():
+		if argument.begins_with("--fixture="):
+			fixture_arguments+=1
+			selected_fixture=argument.trim_prefix("--fixture=")
+	call_deferred("run")
 func run() -> void:
+	if fixture_arguments>0:
+		await run_fixture()
+		return
 	DirAccess.make_dir_recursive_absolute("res://build/verification/generated/plains_cohesion")
 	var g := PlainsRegionGenerator.new()
 	var tuning := PlayerTuning.load_default()
@@ -65,6 +75,7 @@ func run() -> void:
 			await trace.journey(r.manifest,tuning,"growth")
 			await trace.journey(r.manifest,tuning,"tour")
 			await trace.adventure(r.manifest,tuning)
+	await trace.release_test_world()
 	print("REGION ASSERTIONS: ",assertions," FAILED: ",failed)
 	quit(1 if failed else 0)
 
@@ -138,3 +149,85 @@ func corpus(g: PlainsRegionGenerator,tuning: PlayerTuning) -> void:
 		else: changed.rewards[0].coins=9999
 		changed.manifest_hash=g._hash(changed)
 		check(not g.validate(changed,tuning),"rehashed forged " + kind + " rejected")
+
+
+func fixture_catalog() -> Dictionary:
+	var result := {"baseline":{},"sample/tour":{"kind":"sample","mode":"tour"},"sample/tutorial_return":{"kind":"sample","mode":"tutorial_return"},"intro-fallback/tour":{"kind":"intro-fallback","mode":"tour"},"intro-fallback/adventure":{"kind":"intro-fallback","mode":"adventure"},"advanced-fallback/tour":{"kind":"advanced-fallback","mode":"tour"},"advanced-fallback/adventure":{"kind":"advanced-fallback","mode":"adventure"}}
+	for family: String in PlainsRegionGenerator.FAMILIES:
+		for mode: String in ["fast","tour","adventure"]:
+			result["intro/%s/%s" % [family,mode]]={"kind":"intro","family":family,"mode":mode}
+		for mode: String in ["fast","growth","tour","adventure"]:
+			result["advanced/%s/%s" % [family,mode]]={"kind":"advanced","family":family,"mode":mode}
+	return result
+
+func run_fixture() -> void:
+	var catalog := fixture_catalog()
+	print("REGION FIXTURE INVENTORY: ",JSON.stringify(catalog.keys()))
+	if fixture_arguments!=1 or not catalog.has(selected_fixture):
+		check(false,"unknown, empty or duplicate explicit fixture request")
+		print("REGION FIXTURE INVALID: ",selected_fixture)
+		quit(1)
+		return
+	DirAccess.make_dir_recursive_absolute("res://build/verification/generated/plains_cohesion")
+	var generator := PlainsRegionGenerator.new()
+	var tuning := PlayerTuning.load_default()
+	if selected_fixture=="baseline":
+		await fixture_baseline(generator,tuning)
+	else:
+		var spec: Dictionary=catalog[selected_fixture]
+		var generated: Dictionary
+		match str(spec.kind):
+			"sample": generated=generator.generate("sample",tuning,true,"woven_layers")
+			"intro-fallback": generated=generator.verified_fallback("intro-fallback-proof",tuning,"intro")
+			"advanced-fallback": generated=generator.verified_fallback("forced-fallback-proof",tuning)
+			"intro": generated=generator.generate("intro-"+str(spec.family),tuning,false,str(spec.family),"intro")
+			"advanced": generated=generator.generate("region-"+str(spec.family),tuning,false,str(spec.family))
+		check(generated.get("ok",false),"original fixture manifest generates "+selected_fixture)
+		if generated.get("ok",false):
+			var trace=load("res://tests/plains_region_trace.gd").new()
+			trace.tree=self
+			trace.check=check
+			match str(spec.mode):
+				"tutorial_return": await trace.tutorial_return(generated.manifest,tuning)
+				"adventure": await trace.adventure(generated.manifest,tuning)
+				_: await trace.journey(generated.manifest,tuning,str(spec.mode))
+			await trace.release_test_world()
+	print("REGION ASSERTIONS: ",assertions," FAILED: ",failed)
+	print("REGION FIXTURE: ",selected_fixture," ASSERTIONS: ",assertions," FAILED: ",failed)
+	quit(1 if failed else 0)
+
+func fixture_baseline(g: PlainsRegionGenerator,tuning: PlayerTuning) -> void:
+	# Original corpus includes all150 forced-family and50 automatic-family seeds,
+	# reproducibility and3 rehashed tamper negatives. Run it once, not per route.
+	corpus(g,tuning)
+	for family: String in PlainsRegionGenerator.FAMILIES:
+		var r := g.generate("region-"+family,tuning,false,family)
+		check(r.ok,"family generates " + family)
+		if r.ok: print("REGION ",family," areas=",r.manifest.areas.size()," fallback=",r.manifest.fallback_id)
+	var fixed := g.generate("sample",tuning,true,"woven_layers")
+	check(fixed.ok,"fixed 12 node sample validates")
+	if fixed.ok: print("SAMPLE ",fixed.manifest.areas.size()," fallback=",fixed.manifest.fallback_id)
+	var app := DemoApp.new()
+	app.meta_persistence_enabled = false
+	root.add_child(app)
+	check(app.start_plains("region-app"),"formal connected region starts")
+	for i: int in 10: await physics_frame
+	var actual_stage := app.stage as PlainsRegionStage
+	check(actual_stage != null and actual_stage.assembly_ok,"formal uses region assembler")
+	check(app.director.profile.is_valid(true) and app.director.stage_index == 1,"formal two-map region profile")
+	check(is_instance_valid(actual_stage) and actual_stage.exits.is_empty(),"no room progression exits")
+	if actual_stage != null:
+		check(actual_stage.generated.manifest.areas.size() in [20,23] and actual_stage.generated.manifest.fallback_id.is_empty(),"normal automatic-family App must deliver randomized map, not fallback")
+		check(actual_stage.boss != null,"Boss exists from start without seven exits")
+		check(app.controller.motor.tuning.max_jumps == 1 and app.controller.motor.tuning.max_air_shots == 2,"base action resources preserved")
+		check(RunManifest.from_snapshot(JSON.parse_string(app.director.manifest.canonical_json())) != null,"formal region manifest JSON roundtrip")
+	app.abandon_run()
+	for i: int in 3: await physics_frame
+	app.free()
+	var intro_fallback:=g.verified_fallback("intro-fallback-proof",tuning,"intro")
+	check(intro_fallback.ok,"first-map difficulty has its own complete verified fallback")
+	var fallback:=g.verified_fallback("forced-fallback-proof",tuning)
+	check(fallback.ok and fallback.manifest.fallback_id=="verified_exploration_region" and fallback.manifest.rewards.size()==4,"complete exploration fallback is reproducible")
+	for family: String in PlainsRegionGenerator.FAMILIES:
+		var intro:=g.generate("intro-"+family,tuning,false,family,"intro")
+		check(intro.ok and intro.manifest.difficulty=="intro" and intro.manifest.areas.size()==20,"intro still delivers a complete randomized exploration world")

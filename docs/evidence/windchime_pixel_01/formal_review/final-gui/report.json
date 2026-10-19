@@ -1,0 +1,43 @@
+{
+  "expected": {
+    "build_id": "d2c684ef8fc0",
+    "pack": "index.d2c684ef8fc0.pck",
+    "engine_id": "d20938d2db49",
+    "cache_schema": 2,
+    "loader_id": "35cffb75a5da",
+    "pack_bytes": 95794008,
+    "download_bytes": 99847265,
+    "chunk_bytes": 524288,
+    "wasm_bytes": 37902138,
+    "wasm_gzip_bytes": 10027646,
+    "jump": "tap/hold",
+    "playtest": "web",
+    "source_commit": "c0f8e50770145795db5affd4afdbffff2479f1ea"
+  },
+  "observations": [
+    {
+      "mode": "ordinary",
+      "build": "d2c684ef8fc0",
+      "source_commit": "c0f8e50770145795db5affd4afdbffff2479f1ea",
+      "url": "http://127.0.0.1:8770/"
+    },
+    {
+      "mode": 1,
+      "build": "d2c684ef8fc0",
+      "source_commit": "c0f8e50770145795db5affd4afdbffff2479f1ea",
+      "url": "http://127.0.0.1:8770/?plains=1&pixel_inspect=1"
+    },
+    {
+      "mode": 2,
+      "build": "d2c684ef8fc0",
+      "source_commit": "c0f8e50770145795db5affd4afdbffff2479f1ea",
+      "url": "http://127.0.0.1:8770/?plains=1&pixel_inspect=2"
+    }
+  ],
+  "errors": [],
+  "scope": "ordinary title/input + explicitly positioned enemy/Boss samples; not campaign traversal",
+  "gpu": [
+    "PIXEL_GPU {\"cases\":3,\"checks\":552960,\"failures\":[],\"gpu_oracle\":true,\"scope\":\"real rendered opaque occupancy and repartition pixel equality; not visual acceptance\"}",
+    "PIXEL_GPU {\"cases\":3,\"checks\":552960,\"failures\":[],\"gpu_oracle\":true,\"scope\":\"real rendered opaque occupancy and repartition pixel equality; not visual acceptance\"}"
+  ]
+}

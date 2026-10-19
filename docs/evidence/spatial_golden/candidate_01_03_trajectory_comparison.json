@@ -1,0 +1,189 @@
+{
+  "scope": "actual candidate01 versus bounded art rework candidate03; same experimental geometry/driver; not PR72 geometry equivalence, user approval, or whole regression",
+  "frames_before": 1216,
+  "frames_after": 1216,
+  "per_tick": {
+    "tick": {
+      "differing_ticks": 0,
+      "examples": []
+    },
+    "position": {
+      "differing_ticks": 0,
+      "examples": []
+    },
+    "velocity": {
+      "differing_ticks": 0,
+      "examples": []
+    },
+    "health": {
+      "differing_ticks": 0,
+      "examples": []
+    },
+    "shot_energy": {
+      "differing_ticks": 0,
+      "examples": []
+    },
+    "grounded": {
+      "differing_ticks": 0,
+      "examples": []
+    },
+    "axis": {
+      "differing_ticks": 0,
+      "examples": []
+    },
+    "session_id": {
+      "differing_ticks": 0,
+      "examples": []
+    },
+    "recovery_count": {
+      "differing_ticks": 0,
+      "examples": []
+    },
+    "input_requests": {
+      "differing_ticks": 22,
+      "examples": [
+        {
+          "tick": 214,
+          "before": [
+            {
+              "direction": [
+                0.0,
+                0.0
+              ],
+              "epoch": 3,
+              "sequence": 1,
+              "timestamp_seconds": 27.476313,
+              "type": "jump"
+            }
+          ],
+          "after": [
+            {
+              "direction": [
+                0.0,
+                0.0
+              ],
+              "epoch": 3,
+              "sequence": 1,
+              "timestamp_seconds": 21.065234,
+              "type": "jump"
+            }
+          ]
+        },
+        {
+          "tick": 232,
+          "before": [
+            {
+              "direction": [
+                -0.707106828689575,
+                0.707106828689575
+              ],
+              "epoch": 3,
+              "sequence": 2,
+              "timestamp_seconds": 29.394788,
+              "type": "shoot_release"
+            }
+          ],
+          "after": [
+            {
+              "direction": [
+                -0.707106828689575,
+                0.707106828689575
+              ],
+              "epoch": 3,
+              "sequence": 2,
+              "timestamp_seconds": 22.375412,
+              "type": "shoot_release"
+            }
+          ]
+        },
+        {
+          "tick": 242,
+          "before": [
+            {
+              "direction": [
+                0.0,
+                0.0
+              ],
+              "epoch": 3,
+              "sequence": 3,
+              "timestamp_seconds": 30.475557,
+              "type": "jump_release"
+            }
+          ],
+          "after": [
+            {
+              "direction": [
+                0.0,
+                0.0
+              ],
+              "epoch": 3,
+              "sequence": 3,
+              "timestamp_seconds": 23.201844,
+              "type": "jump_release"
+            }
+          ]
+        }
+      ]
+    },
+    "root_bell": {
+      "differing_ticks": 0,
+      "examples": []
+    },
+    "actual_camera": {
+      "differing_ticks": 0,
+      "examples": []
+    },
+    "accepted_events": {
+      "differing_ticks": 0,
+      "examples": []
+    },
+    "shots": {
+      "differing_ticks": 0,
+      "examples": []
+    },
+    "shot_cooldown": {
+      "differing_ticks": 0,
+      "examples": []
+    },
+    "used_jumps": {
+      "differing_ticks": 0,
+      "examples": []
+    }
+  },
+  "global_events_equal_raw": true,
+  "event_counts": {
+    "before": {
+      "jump_accepted": 6,
+      "landed": 8,
+      "root_pulse": 2,
+      "shot_accepted": 4,
+      "spatial_case_begin": 4,
+      "spatial_case_end": 4
+    },
+    "after": {
+      "jump_accepted": 6,
+      "landed": 8,
+      "root_pulse": 2,
+      "shot_accepted": 4,
+      "spatial_case_begin": 4,
+      "spatial_case_end": 4
+    }
+  },
+  "initial_geometry_equal": true,
+  "final_geometry_equal": true,
+  "geometry_contract_equal": true,
+  "original_comparator": {
+    "status": "comparable_for_review",
+    "artifact": "original_comparison_01_03.json"
+  },
+  "input_requests_semantic": {
+    "fields": [
+      "type",
+      "direction",
+      "sequence",
+      "epoch"
+    ],
+    "different_ticks": 0,
+    "raw_difference_scope": "wall timestamp_seconds only; original captures and raw examples retained"
+  }
+}

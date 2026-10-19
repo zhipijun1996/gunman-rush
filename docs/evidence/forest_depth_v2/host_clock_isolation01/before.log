@@ -1,0 +1,50 @@
+test_prompt_and_host_request_bind_exact_profile_command_timeout_and_marker (clock_probe_before.SelectedInputPreflightTests.test_prompt_and_host_request_bind_exact_profile_command_timeout_and_marker) ... ERROR
+
+======================================================================
+ERROR: test_prompt_and_host_request_bind_exact_profile_command_timeout_and_marker (clock_probe_before.SelectedInputPreflightTests.test_prompt_and_host_request_bind_exact_profile_command_timeout_and_marker)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-design/tests/test_production_loop.py", line 1305, in test_prompt_and_host_request_bind_exact_profile_command_timeout_and_marker
+    with patch.object(loop,'time',wraps=loop.time),patch.object(loop.time,'sleep',side_effect=respond):
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush-design/tools/production_loop.py", line 352, in invoke_host
+    "source_hash": digest(snapshot()), "feedback": feedback,
+                          ^^^^^^^^^^
+  File "/workspace/gunman-rush-design/tools/production_loop.py", line 92, in snapshot
+    result = subprocess.run(["git", "ls-files", "-z", "--cached", "--others", "--exclude-standard"],
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/mock.py", line 1139, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/mock.py", line 1143, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/mock.py", line 1204, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush-design/build/verification/host-clock-isolation01/probe.py", line 22, in run_with_stdlib_wait
+    time.sleep(0.001)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/mock.py", line 1139, in __call__
+    return self._mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/mock.py", line 1143, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/unittest/mock.py", line 1204, in _execute_mock_call
+    result = effect(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush-design/tests/test_production_loop.py", line 1299, in respond
+    request=json.loads((folder/'host_request.json').read_text())
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmpezaoxk38/frozen/build/verification/command/DRILL/1/implement/host_request.json'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.084s
+
+FAILED (errors=1)

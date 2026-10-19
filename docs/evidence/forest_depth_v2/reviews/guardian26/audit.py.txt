@@ -1,0 +1,45 @@
+from pathlib import Path
+import json,hashlib,sys,importlib.util,copy,re,collections
+R=Path.cwd();O=R/'build/forest_depth/review/guardian26';S=R/'build/forest_depth/snapshots/boss26_readable_cues';sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();identity={}
+for folder in ['forest_guardian26_delta','forest_guardian24_25']:
+ D=R/'docs/evidence'/folder;idx=json.loads((D/'selected-sha256.json').read_text())
+ for p,row in idx.items():assert sha(D/p)==row['sha256'];identity[str((D/p).relative_to(R))]=row['sha256']
+snapshot=json.loads((R/'docs/evidence/forest_guardian26_delta/snapshot-receipt.json').read_text());assert all(sha(S/p)==h for p,h in snapshot['source_files'].items())
+sys.path.insert(0,str(S/'tools'));spec=importlib.util.spec_from_file_location('guardian',S/'tools/run_forest_boss_depth.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+a=json.loads((R/'docs/evidence/forest_guardian26_delta/native26/capture.json').read_text());t=json.loads((R/'docs/evidence/forest_guardian24_25/native25/capture.json').read_text());m.validate(a);m.validate_tolerance(t);assert len(a['comparisons'])==7 and a['assertions']==179 and t['assertions']==84
+rows=[]
+for row in a['comparisons']:
+ ev=a['events'][row['event_start']:row['event_end']];m.validate_counter_causality(ev)
+ hits=[e for e in ev if e.get('event')=='policy_result' and e.get('target')=='boss'];assert sum(e['amount'] for e in hits)>=32 and row['boss_hp']==0 and row['defeats']==1
+ rows.append({k:row[k] for k in ['id','elapsed_ticks','player_hp','final_stamina','counter_hits','counter_damage','phase1_body_launches','phase2_body_launches','phase2_overlap_frames']})
+for dirname in ['forest_guardian26_delta/native26','forest_guardian24_25/native25']:
+ D=R/'docs/evidence'/dirname;r=json.loads((D/'receipt.json').read_text());assert r['passed'] and r['source_guard'] and r['source_before']==r['source_after'];text=(D/'native.log').read_text();assert 'Godot Engine v4.7.2.' in text and not re.search(r'(?m)SCRIPT ERROR:|Parse Error:|^ERROR:|ObjectDB.*leaked|resources? still in use at exit',text)
+for dirname in ['movie26_H','movie26_evade_stationary']:
+ D=R/'docs/evidence/forest_guardian26_delta'/dirname;r=json.loads((D/'receipt.json').read_text());assert r['source_before']==r['source_after'];d=json.loads((D/'capture.json').read_text());assert d['failures']==0
+# Recheck current hardened reader on original actual capture and independently reconstructed fourteen variants.
+C=R/'docs/evidence/forest_guardian_campaign05';reader=C/'reader-hardening/reader.py.txt';sys.path.insert(0,str(R/'build/forest_depth/snapshots/guardian_campaign05/tools'))
+ns={'__name__':'read_only_reader','__file__':str(reader)};exec(compile(reader.read_text(),str(reader),'exec'),ns);base=json.loads((C/'native05/capture.json').read_text());ns['validate'](base);probes=[]
+def mutate(label,change):
+ x=copy.deepcopy(base);change(x)
+ try:ns['validate'](x)
+ except (ValueError,AssertionError,KeyError,TypeError,IndexError):probes.append({'name':label,'rejected':True})
+ else:raise AssertionError(label)
+mutate('erase_requests',lambda d:d['combat'].__setitem__('requests',[]))
+mutate('all_boss_hp32',lambda d:[f.__setitem__('boss_hp',32) for f in d['combat']['frames']])
+mutate('pointer_outside',lambda d:[e.__setitem__('point',[0,0]) for e in d['pointer_events']])
+mutate('coast_dead',lambda d:[f.__setitem__('hp',0) for f in d['map2_normal_frames']])
+mutate('erase_policy',lambda d:d['combat'].__setitem__('events',[e for e in d['combat']['events'] if e['event']!='policy_result']))
+mutate('wrong_request_aim',lambda d:d['combat']['requests'][0].__setitem__('aim',[0,0]))
+mutate('erase_grapple',lambda d:d['combat'].__setitem__('requests',[q for q in d['combat']['requests'] if q['kind']!='grapple']))
+mutate('wrong_policy_hp',lambda d:next(e for e in d['combat']['events'] if e['event']=='policy_result').__setitem__('hp',999))
+mutate('duplicate_frame',lambda d:d['combat']['frames'][200].__setitem__('physics_frame',d['combat']['frames'][199]['physics_frame']))
+mutate('wrong_actor_session',lambda d:d['combat']['initial'].__setitem__('session_id',99))
+mutate('erase_target_contact',lambda d:d['combat'].__setitem__('events',[e for e in d['combat']['events'] if not(e['event']=='actual_traversal' and e['state']=='hook_contact_kick')]))
+mutate('inconsistent_button',lambda d:d['pointer_events'][1].__setitem__('actual_button_rect',[400,400,300,60]))
+mutate('wrong_coast_session',lambda d:d['map2_normal_frames'][0].__setitem__('session',99))
+mutate('nan_coast_body',lambda d:d['map2_normal_frames'][0].__setitem__('position',[float('nan'),0]))
+assert len(probes)==14
+production=['scripts/bosses/rootbell_guardian_v2.gd','scripts/bosses/guardian_root_bell_v2.gd','scripts/bosses/boss_duel_definition.gd','resources/bosses/rootbell_guardian_v2.tres','scripts/player/player_motor.gd','scripts/player/traversal_ability.gd','config/player_tuning.json'];guard={}
+for p in production:
+ hashes={n:sha(R/'build/forest_depth/snapshots'/n/p) for n in ['boss24_oneway_branches','boss25_input_tolerance','boss26_readable_cues']};assert len(set(hashes.values()))==1;guard[p]=hashes
+result={'scope':'Independent offline whole Guardian26 design review; seven actual local strategies, six timing samples, full movie sampling, original App05 + hardened reader. No new native/device/fun acceptance.','snapshot_source_files':len(snapshot['source_files']),'selected_artifact_hashes':identity,'selected_production_hashes':guard,'strategies':rows,'tolerance':[ {k:r[k] for k in ['id','elapsed_ticks','player_hp','counter_hits','counter_damage','phase2_overlap_frames']} for r in t['comparisons']],'hardened_campaign_reader_sha256':sha(reader),'campaign_raw_sha256':sha(C/'native05/capture.json'),'campaign_original_accepted':True,'reader_negative_controls':probes,'mechanism_ablation_disclosure':'H_pure_shift deliberately disables bell_counter_enabled on fixture-local duplicated Boss Definition. It is a causal component ablation, not an unmodified legal player strategy.','movies_sampled':'decode-receipt.json binds actual mp4, every10th frame plus final; reviewer actually viewed all seven sheets and four original1280x720 cue frames. Not realtime playback or sound listening.'};(O/'actual-audit.json').write_text(json.dumps(result,indent=2)+'\n');print('7 strategy + 6 timing + hardened reader14 negatives verified; selected artifact hashes',len(identity))

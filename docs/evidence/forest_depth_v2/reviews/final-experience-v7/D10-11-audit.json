@@ -1,0 +1,1164 @@
+{
+  "scope": "Independent offline actual contact/source/purpose; no native, motion-film, human or device pass",
+  "same107_full_frames": true,
+  "same107_requests": true,
+  "rows": {
+    "component10": {
+      "path": "build/forest_depth/snapshots/crossbranch_purpose10/build/forest_depth/ecology/crossbranch_purpose10/00-crossbranch_contact_recovery/capture.json",
+      "sha256": "36255383890b5abac1004eb69a7ae129d92fc2830551606da6464ce94002b10f",
+      "frames": 747,
+      "continuous_tick": true,
+      "one_actual_motor_step_each": true,
+      "full_source_guard_recorded": true,
+      "source_files_rehashed": 911,
+      "source_mismatches": [],
+      "original_wrapper_passed": false,
+      "failures": [],
+      "actual_contact": {
+        "amount": 1.0,
+        "half_size": [
+          15.0,
+          17.0
+        ],
+        "interval": 0.7,
+        "kind": 0,
+        "registered_in_App": true,
+        "source_id": "candidate__crossbranch_contact"
+      },
+      "health_min": 4.0,
+      "health_final": 4.0,
+      "energy_final": 100.0,
+      "claim": null,
+      "completed_legs": [
+        {
+          "edge_id": "arrival_reading",
+          "leg": 0,
+          "position": [
+            180.0,
+            600.0
+          ],
+          "start_tick": 1,
+          "supports": [
+            "west_court"
+          ],
+          "tick": 12
+        },
+        {
+          "edge_id": "west_north",
+          "leg": 1,
+          "position": [
+            200.015853881836,
+            449.925231933594
+          ],
+          "start_tick": 13,
+          "supports": [
+            "north_court"
+          ],
+          "tick": 107
+        },
+        {
+          "edge_id": "candidate_crossbranch_physics",
+          "leg": 2,
+          "position": [
+            111.981147766113,
+            449.925231933594
+          ],
+          "start_tick": 108,
+          "supports": [
+            "north_court"
+          ],
+          "tick": 747
+        }
+      ],
+      "events": [
+        {
+          "kind": "jumped",
+          "leg": 1,
+          "position": [
+            180.0,
+            600.0
+          ],
+          "tick": 24
+        },
+        {
+          "amount": 1.0,
+          "damage_kind": 0,
+          "event_id": "candidate__crossbranch_contact:3:1:1",
+          "health_after": 4.0,
+          "kind": "committed_damage",
+          "leg": 2,
+          "lethal": false,
+          "position": [
+            100.349258422852,
+            449.92529296875
+          ],
+          "source": "candidate__crossbranch_contact",
+          "target": "player",
+          "tick": 130
+        },
+        {
+          "NPC_position": [
+            50.375431060791,
+            451.92529296875
+          ],
+          "kind": "candidate_actual_collision_recovery_started",
+          "ledger": [
+            {
+              "event": "commit",
+              "from": 0,
+              "position": [
+                76.0,
+                452.0
+              ],
+              "serial": 1,
+              "to": 1
+            },
+            {
+              "collision": {
+                "collider": "/root/@Node@2/@Node2D@3/Player",
+                "normal": [
+                  -1.0,
+                  0.0
+                ],
+                "player": true
+              },
+              "event": "blocked",
+              "position": [
+                50.375431060791,
+                451.92529296875
+              ],
+              "reason": "physical_obstruction"
+            }
+          ],
+          "leg": 2,
+          "position": [
+            76.0136871337891,
+            449.925231933594
+          ],
+          "snapshot": {
+            "config": {
+              "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+              "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+            },
+            "double_enabled": false,
+            "energy": 100.0,
+            "health": 4.0,
+            "hook_enabled": true,
+            "position": [
+              76.0136871337891,
+              449.925231933594
+            ],
+            "shots": 2,
+            "tier": 1,
+            "wall_enabled": false,
+            "weapon": "pulse_gun"
+          },
+          "tick": 171
+        },
+        {
+          "NPC_position": [
+            76.0375137329102,
+            451.992736816406
+          ],
+          "actual_roundtrip_lands": [
+            {
+              "event": "land",
+              "position": [
+                -350.067077636719,
+                251.99397277832
+              ],
+              "serial": 2,
+              "shore": 1
+            },
+            {
+              "event": "land",
+              "position": [
+                76.0375137329102,
+                451.992736816406
+              ],
+              "serial": 3,
+              "shore": 0
+            }
+          ],
+          "kind": "candidate_actual_component_recovery_complete",
+          "leg": 2,
+          "position": [
+            111.981147766113,
+            449.925231933594
+          ],
+          "snapshot": {
+            "config": {
+              "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+              "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+            },
+            "double_enabled": false,
+            "energy": 100.0,
+            "health": 4.0,
+            "hook_enabled": true,
+            "position": [
+              111.981147766113,
+              449.925231933594
+            ],
+            "shots": 2,
+            "tier": 1,
+            "wall_enabled": false,
+            "weapon": "pulse_gun"
+          },
+          "tick": 747
+        }
+      ],
+      "health_changes": [
+        {
+          "tick": 130,
+          "before": 5.0,
+          "after": 4.0,
+          "new_claims": []
+        }
+      ]
+    },
+    "H10": {
+      "path": "build/forest_depth/snapshots/crossbranch_purpose10/build/forest_depth/ecology/crossbranch_purpose10/01-crossbranch_live_H/capture.json",
+      "sha256": "dec826db6eed36e9e72f2ee879d31c3c36999b22d4ffa9ac5a8b78566ea636bb",
+      "frames": 1044,
+      "continuous_tick": true,
+      "one_actual_motor_step_each": true,
+      "full_source_guard_recorded": true,
+      "source_files_rehashed": 911,
+      "source_mismatches": [],
+      "original_wrapper_passed": false,
+      "failures": [],
+      "actual_contact": {
+        "amount": 1.0,
+        "half_size": [
+          15.0,
+          17.0
+        ],
+        "interval": 0.7,
+        "kind": 0,
+        "registered_in_App": true,
+        "source_id": "candidate__crossbranch_contact"
+      },
+      "health_min": 5.0,
+      "health_final": 6.0,
+      "energy_final": 100.0,
+      "claim": {
+        "tick": 330,
+        "energy": 100.0,
+        "wallet": 18
+      },
+      "completed_legs": [
+        {
+          "edge_id": "arrival_reading",
+          "leg": 0,
+          "position": [
+            180.0,
+            600.0
+          ],
+          "start_tick": 1,
+          "supports": [
+            "west_court"
+          ],
+          "tick": 12
+        },
+        {
+          "edge_id": "west_north",
+          "leg": 1,
+          "position": [
+            200.015853881836,
+            449.925231933594
+          ],
+          "start_tick": 13,
+          "supports": [
+            "north_court"
+          ],
+          "tick": 107
+        },
+        {
+          "edge_id": "candidate_reward_out",
+          "leg": 2,
+          "position": [
+            -399.985961914062,
+            249.925231933594
+          ],
+          "start_tick": 108,
+          "supports": [
+            "candidate_reward_branch"
+          ],
+          "tick": 288
+        },
+        {
+          "edge_id": "candidate_reward_claim",
+          "leg": 3,
+          "position": [
+            -524.963012695312,
+            249.925231933594
+          ],
+          "start_tick": 289,
+          "supports": [
+            "candidate_reward_branch"
+          ],
+          "tick": 328
+        },
+        {
+          "edge_id": "candidate_reward_return",
+          "leg": 4,
+          "position": [
+            179.961380004883,
+            599.925170898438
+          ],
+          "start_tick": 329,
+          "supports": [
+            "west_court"
+          ],
+          "tick": 541
+        },
+        {
+          "edge_id": "west_north",
+          "leg": 5,
+          "position": [
+            200.015853881836,
+            449.925231933594
+          ],
+          "start_tick": 542,
+          "supports": [
+            "north_court"
+          ],
+          "tick": 636
+        },
+        {
+          "edge_id": "camp_north_out",
+          "leg": 6,
+          "position": [
+            200.015853881836,
+            449.925231933594
+          ],
+          "start_tick": 637,
+          "supports": [
+            "north_court"
+          ],
+          "tick": 648
+        },
+        {
+          "edge_id": "camp_north_back",
+          "leg": 7,
+          "position": [
+            200.015853881836,
+            449.925231933594
+          ],
+          "start_tick": 649,
+          "supports": [
+            "north_court"
+          ],
+          "tick": 660
+        },
+        {
+          "edge_id": "north_borer_access",
+          "leg": 8,
+          "position": [
+            337.98486328125,
+            381.925231933594
+          ],
+          "start_tick": 661,
+          "supports": [
+            "borer_access_middle"
+          ],
+          "tick": 711
+        },
+        {
+          "edge_id": "north_borer_access",
+          "leg": 9,
+          "position": [
+            354.984252929688,
+            281.925231933594
+          ],
+          "start_tick": 712,
+          "supports": [
+            "hollow__cavity_observe"
+          ],
+          "tick": 735
+        },
+        {
+          "edge_id": "north_borer_access",
+          "leg": 10,
+          "position": [
+            354.984252929688,
+            281.925231933594
+          ],
+          "start_tick": 736,
+          "supports": [
+            "hollow__cavity_observe"
+          ],
+          "tick": 747
+        },
+        {
+          "edge_id": "borer_crossing",
+          "leg": 11,
+          "position": [
+            1029.98315429688,
+            371.925231933594
+          ],
+          "start_tick": 748,
+          "supports": [
+            "boss_approach",
+            "hollow__cavity_exit"
+          ],
+          "tick": 907
+        },
+        {
+          "edge_id": "cavity_prep",
+          "leg": 12,
+          "position": [
+            1299.95373535156,
+            371.925231933594
+          ],
+          "start_tick": 908,
+          "supports": [
+            "boss_approach",
+            "hollow__cavity_exit"
+          ],
+          "tick": 980
+        },
+        {
+          "edge_id": "crown_approach",
+          "leg": 13,
+          "position": [
+            1399.98413085938,
+            371.925231933594
+          ],
+          "start_tick": 981,
+          "supports": [
+            "boss_approach",
+            "hollow__cavity_exit"
+          ],
+          "tick": 1044
+        }
+      ],
+      "events": [
+        {
+          "kind": "jumped",
+          "leg": 1,
+          "position": [
+            180.0,
+            600.0
+          ],
+          "tick": 24
+        },
+        {
+          "kind": "jumped",
+          "leg": 2,
+          "position": [
+            68.6855545043945,
+            449.92529296875
+          ],
+          "tick": 181
+        },
+        {
+          "health": 3.0,
+          "kind": "candidate_actual_migrant_body_contact",
+          "leg": 2,
+          "position": [
+            -199.416641235352,
+            235.844085693359
+          ],
+          "snapshot": {
+            "config": {
+              "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+              "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+            },
+            "double_enabled": false,
+            "energy": 100.0,
+            "health": 5.0,
+            "hook_enabled": true,
+            "position": [
+              -199.416641235352,
+              235.844085693359
+            ],
+            "shots": 2,
+            "tier": 1,
+            "wall_enabled": false,
+            "weapon": "pulse_gun"
+          },
+          "target_id": "candidate__crossbranch",
+          "target_position": [
+            -241.483703613281,
+            217.048065185547
+          ],
+          "tick": 224
+        },
+        {
+          "amount": 1.0,
+          "damage_kind": 0,
+          "event_id": "hook/155726121186/2/2",
+          "health_after": 2.0,
+          "kind": "committed_damage",
+          "leg": 2,
+          "lethal": false,
+          "position": [
+            -199.416641235352,
+            235.844085693359
+          ],
+          "source": "player_projectile:155726121186",
+          "target": "candidate__crossbranch",
+          "tick": 224
+        },
+        {
+          "aim": [
+            0.70710676908493,
+            0.70710676908493
+          ],
+          "kind": "candidate_first_actual_free_R",
+          "leg": 2,
+          "position": [
+            -175.416641235352,
+            211.844085693359
+          ],
+          "snapshot": {
+            "config": {
+              "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+              "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+            },
+            "double_enabled": false,
+            "energy": 100.0,
+            "health": 5.0,
+            "hook_enabled": true,
+            "position": [
+              -175.416641235352,
+              211.844085693359
+            ],
+            "shots": 2,
+            "tier": 1,
+            "wall_enabled": false,
+            "weapon": "pulse_gun"
+          },
+          "tick": 239
+        },
+        {
+          "kind": "candidate_award_actual_arrival",
+          "leg": 2,
+          "position": [
+            -399.985961914062,
+            249.925231933594
+          ],
+          "snapshot": {
+            "config": {
+              "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+              "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+            },
+            "double_enabled": false,
+            "energy": 85.5,
+            "health": 5.0,
+            "hook_enabled": true,
+            "position": [
+              -399.985961914062,
+              249.925231933594
+            ],
+            "shots": 2,
+            "tier": 1,
+            "wall_enabled": false,
+            "weapon": "pulse_gun"
+          },
+          "supports": [
+            "candidate_reward_branch"
+          ],
+          "tick": 288
+        },
+        {
+          "kind": "jumped",
+          "leg": 4,
+          "position": [
+            -444.610870361328,
+            249.925277709961
+          ],
+          "tick": 359
+        },
+        {
+          "kind": "jumped",
+          "leg": 4,
+          "position": [
+            -150.021301269531,
+            599.925170898438
+          ],
+          "tick": 439
+        },
+        {
+          "claims": [
+            "thorn_forest/map_2/clearing_cross_loop_cache"
+          ],
+          "kind": "candidate_actual_reward_return_W",
+          "leg": 4,
+          "position": [
+            179.961380004883,
+            599.925170898438
+          ],
+          "snapshot": {
+            "config": {
+              "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+              "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+            },
+            "double_enabled": false,
+            "energy": 100.0,
+            "health": 5.0,
+            "hook_enabled": true,
+            "position": [
+              179.961380004883,
+              599.925170898438
+            ],
+            "shots": 2,
+            "tier": 1,
+            "wall_enabled": false,
+            "weapon": "pulse_gun"
+          },
+          "tick": 541,
+          "wallet": 18
+        },
+        {
+          "kind": "jumped",
+          "leg": 5,
+          "position": [
+            179.984237670898,
+            599.925170898438
+          ],
+          "tick": 553
+        },
+        {
+          "kind": "jumped",
+          "leg": 8,
+          "position": [
+            263.244323730469,
+            449.92529296875
+          ],
+          "tick": 676
+        },
+        {
+          "kind": "jumped",
+          "leg": 9,
+          "position": [
+            337.98486328125,
+            381.925231933594
+          ],
+          "tick": 712
+        },
+        {
+          "kind": "jumped",
+          "leg": 13,
+          "position": [
+            1299.95373535156,
+            371.925231933594
+          ],
+          "tick": 981
+        }
+      ],
+      "health_changes": [
+        {
+          "tick": 564,
+          "before": 5.0,
+          "after": 6.0,
+          "new_claims": [
+            "camp_heart"
+          ]
+        }
+      ]
+    },
+    "ordinary11": {
+      "path": "build/forest_depth/snapshots/crossbranch_purpose10/build/forest_depth/ecology/crossbranch_ordinary11/00-crossbranch_ordinary_safe_two_R/capture.json",
+      "sha256": "20c8ef235a1b14378cc99ec5f4c67689b26dbda35999ec9422d9efdcd9d7b704",
+      "frames": 969,
+      "continuous_tick": true,
+      "one_actual_motor_step_each": true,
+      "full_source_guard_recorded": true,
+      "source_files_rehashed": 911,
+      "source_mismatches": [],
+      "original_wrapper_passed": true,
+      "failures": [],
+      "actual_contact": {
+        "amount": 1.0,
+        "half_size": [
+          15.0,
+          17.0
+        ],
+        "interval": 0.7,
+        "kind": 0,
+        "registered_in_App": true,
+        "source_id": "candidate__crossbranch_contact"
+      },
+      "health_min": 5.0,
+      "health_final": 6.0,
+      "energy_final": 100.0,
+      "claim": {
+        "tick": 255,
+        "energy": 89.0,
+        "wallet": 18
+      },
+      "completed_legs": [
+        {
+          "edge_id": "arrival_reading",
+          "leg": 0,
+          "position": [
+            180.0,
+            600.0
+          ],
+          "start_tick": 1,
+          "supports": [
+            "west_court"
+          ],
+          "tick": 12
+        },
+        {
+          "edge_id": "west_north",
+          "leg": 1,
+          "position": [
+            200.015853881836,
+            449.925231933594
+          ],
+          "start_tick": 13,
+          "supports": [
+            "north_court"
+          ],
+          "tick": 107
+        },
+        {
+          "edge_id": "candidate_reward_out",
+          "leg": 2,
+          "position": [
+            -399.954864501953,
+            249.925231933594
+          ],
+          "start_tick": 108,
+          "supports": [
+            "candidate_reward_branch"
+          ],
+          "tick": 213
+        },
+        {
+          "edge_id": "candidate_reward_claim",
+          "leg": 3,
+          "position": [
+            -524.962829589844,
+            249.925231933594
+          ],
+          "start_tick": 214,
+          "supports": [
+            "candidate_reward_branch"
+          ],
+          "tick": 253
+        },
+        {
+          "edge_id": "candidate_reward_return",
+          "leg": 4,
+          "position": [
+            179.961380004883,
+            599.925170898438
+          ],
+          "start_tick": 254,
+          "supports": [
+            "west_court"
+          ],
+          "tick": 466
+        },
+        {
+          "edge_id": "west_north",
+          "leg": 5,
+          "position": [
+            200.015853881836,
+            449.925231933594
+          ],
+          "start_tick": 467,
+          "supports": [
+            "north_court"
+          ],
+          "tick": 561
+        },
+        {
+          "edge_id": "camp_north_out",
+          "leg": 6,
+          "position": [
+            200.015853881836,
+            449.925231933594
+          ],
+          "start_tick": 562,
+          "supports": [
+            "north_court"
+          ],
+          "tick": 573
+        },
+        {
+          "edge_id": "camp_north_back",
+          "leg": 7,
+          "position": [
+            200.015853881836,
+            449.925231933594
+          ],
+          "start_tick": 574,
+          "supports": [
+            "north_court"
+          ],
+          "tick": 585
+        },
+        {
+          "edge_id": "north_borer_access",
+          "leg": 8,
+          "position": [
+            337.98486328125,
+            381.925231933594
+          ],
+          "start_tick": 586,
+          "supports": [
+            "borer_access_middle"
+          ],
+          "tick": 636
+        },
+        {
+          "edge_id": "north_borer_access",
+          "leg": 9,
+          "position": [
+            354.984252929688,
+            281.925231933594
+          ],
+          "start_tick": 637,
+          "supports": [
+            "hollow__cavity_observe"
+          ],
+          "tick": 660
+        },
+        {
+          "edge_id": "north_borer_access",
+          "leg": 10,
+          "position": [
+            354.984252929688,
+            281.925231933594
+          ],
+          "start_tick": 661,
+          "supports": [
+            "hollow__cavity_observe"
+          ],
+          "tick": 672
+        },
+        {
+          "edge_id": "borer_crossing",
+          "leg": 11,
+          "position": [
+            1029.98315429688,
+            371.925231933594
+          ],
+          "start_tick": 673,
+          "supports": [
+            "boss_approach",
+            "hollow__cavity_exit"
+          ],
+          "tick": 832
+        },
+        {
+          "edge_id": "cavity_prep",
+          "leg": 12,
+          "position": [
+            1299.95373535156,
+            371.925231933594
+          ],
+          "start_tick": 833,
+          "supports": [
+            "boss_approach",
+            "hollow__cavity_exit"
+          ],
+          "tick": 905
+        },
+        {
+          "edge_id": "crown_approach",
+          "leg": 13,
+          "position": [
+            1399.98413085938,
+            371.925231933594
+          ],
+          "start_tick": 906,
+          "supports": [
+            "boss_approach",
+            "hollow__cavity_exit"
+          ],
+          "tick": 969
+        }
+      ],
+      "events": [
+        {
+          "kind": "jumped",
+          "leg": 1,
+          "position": [
+            180.0,
+            600.0
+          ],
+          "tick": 24
+        },
+        {
+          "kind": "jumped",
+          "leg": 2,
+          "position": [
+            118.399070739746,
+            449.92529296875
+          ],
+          "tick": 127
+        },
+        {
+          "NPC_top": 436.0,
+          "kind": "candidate_actual_vertical_body_clear",
+          "leg": 2,
+          "player_bottom": 426.412933349609,
+          "position": [
+            118.399070739746,
+            408.412933349609
+          ],
+          "snapshot": {
+            "config": {
+              "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+              "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+            },
+            "double_enabled": false,
+            "energy": 100.0,
+            "health": 5.0,
+            "hook_enabled": true,
+            "position": [
+              118.399070739746,
+              408.412933349609
+            ],
+            "shots": 2,
+            "tier": 1,
+            "wall_enabled": false,
+            "weapon": "pulse_gun"
+          },
+          "tick": 131
+        },
+        {
+          "aim": [
+            0.907524108886719,
+            0.419999986886978
+          ],
+          "budget": 2,
+          "kind": "candidate_actual_ordinary_apex_R",
+          "leg": 2,
+          "ordinal": 1,
+          "position": [
+            36.0657157897949,
+            300.212921142578
+          ],
+          "snapshot": {
+            "config": {
+              "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+              "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+            },
+            "double_enabled": false,
+            "energy": 100.0,
+            "health": 5.0,
+            "hook_enabled": true,
+            "position": [
+              36.0657157897949,
+              300.212921142578
+            ],
+            "shots": 2,
+            "tier": 1,
+            "wall_enabled": false,
+            "weapon": "pulse_gun"
+          },
+          "tick": 150,
+          "velocity": [
+            -260.0,
+            36.0000076293945
+          ]
+        },
+        {
+          "aim": [
+            0.93217808008194,
+            0.361999988555908
+          ],
+          "budget": 2,
+          "kind": "candidate_actual_ordinary_apex_R",
+          "leg": 2,
+          "ordinal": 2,
+          "position": [
+            -134.026321411133,
+            235.701705932617
+          ],
+          "snapshot": {
+            "config": {
+              "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+              "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+            },
+            "double_enabled": false,
+            "energy": 80.0,
+            "health": 5.0,
+            "hook_enabled": true,
+            "position": [
+              -134.026321411133,
+              235.701705932617
+            ],
+            "shots": 1,
+            "tier": 1,
+            "wall_enabled": false,
+            "weapon": "pulse_gun"
+          },
+          "tick": 166,
+          "velocity": [
+            -260.0,
+            8.16789817810059
+          ]
+        },
+        {
+          "kind": "candidate_award_actual_arrival",
+          "leg": 2,
+          "one_R_direct_failed": false,
+          "ordinary_budget": 2,
+          "position": [
+            -399.954864501953,
+            249.925231933594
+          ],
+          "snapshot": {
+            "config": {
+              "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+              "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+            },
+            "double_enabled": false,
+            "energy": 67.5,
+            "health": 5.0,
+            "hook_enabled": true,
+            "position": [
+              -399.954864501953,
+              249.925231933594
+            ],
+            "shots": 2,
+            "tier": 1,
+            "wall_enabled": false,
+            "weapon": "pulse_gun"
+          },
+          "supports": [
+            "candidate_reward_branch"
+          ],
+          "tick": 213
+        },
+        {
+          "kind": "jumped",
+          "leg": 4,
+          "position": [
+            -444.610809326172,
+            249.925277709961
+          ],
+          "tick": 284
+        },
+        {
+          "kind": "jumped",
+          "leg": 4,
+          "position": [
+            -150.021301269531,
+            599.925170898438
+          ],
+          "tick": 364
+        },
+        {
+          "claims": [
+            "thorn_forest/map_2/clearing_cross_loop_cache"
+          ],
+          "kind": "candidate_actual_reward_return_W",
+          "leg": 4,
+          "position": [
+            179.961380004883,
+            599.925170898438
+          ],
+          "snapshot": {
+            "config": {
+              "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+              "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+            },
+            "double_enabled": false,
+            "energy": 100.0,
+            "health": 5.0,
+            "hook_enabled": true,
+            "position": [
+              179.961380004883,
+              599.925170898438
+            ],
+            "shots": 2,
+            "tier": 1,
+            "wall_enabled": false,
+            "weapon": "pulse_gun"
+          },
+          "tick": 466,
+          "wallet": 18
+        },
+        {
+          "kind": "jumped",
+          "leg": 5,
+          "position": [
+            179.984237670898,
+            599.925170898438
+          ],
+          "tick": 478
+        },
+        {
+          "kind": "jumped",
+          "leg": 8,
+          "position": [
+            263.244323730469,
+            449.92529296875
+          ],
+          "tick": 601
+        },
+        {
+          "kind": "jumped",
+          "leg": 9,
+          "position": [
+            337.98486328125,
+            381.925231933594
+          ],
+          "tick": 637
+        },
+        {
+          "amount": 11.5,
+          "energy": 100.0,
+          "fired_airborne": true,
+          "hits": {
+            "2/3": true
+          },
+          "kind": "actual_shot_energy_credit",
+          "leg": 11,
+          "owner_id": 155726121186,
+          "position": [
+            735.959045410156,
+            281.92529296875
+          ],
+          "session_id": 2,
+          "tick": 757
+        },
+        {
+          "amount": 1.0,
+          "damage_kind": 0,
+          "event_id": "155726121186:2:3",
+          "health_after": 2.0,
+          "kind": "committed_damage",
+          "leg": 11,
+          "lethal": false,
+          "position": [
+            735.959045410156,
+            281.92529296875
+          ],
+          "source": "player_projectile:155726121186",
+          "target": "candidate__crossbranch",
+          "tick": 757
+        },
+        {
+          "kind": "jumped",
+          "leg": 13,
+          "position": [
+            1299.95373535156,
+            371.925231933594
+          ],
+          "tick": 906
+        }
+      ],
+      "health_changes": [
+        {
+          "tick": 489,
+          "before": 5.0,
+          "after": 6.0,
+          "new_claims": [
+            "camp_heart"
+          ]
+        }
+      ]
+    }
+  }
+}

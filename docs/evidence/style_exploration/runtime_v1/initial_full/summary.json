@@ -1,0 +1,34 @@
+[
+  {
+    "name": "import",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--path",
+      ".",
+      "--editor",
+      "--quit"
+    ],
+    "log": "build/style_exploration/20261019T081830566503Z/import.log",
+    "passed": true
+  },
+  {
+    "name": "runtime",
+    "command": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--path",
+      ".",
+      "--script",
+      "tests/style_exploration/test_style_exploration.gd",
+      "--",
+      "--report=/workspace/clock-style-lab/build/style_exploration/20261019T081830566503Z/runtime_report.json"
+    ],
+    "log": "build/style_exploration/20261019T081830566503Z/runtime.log",
+    "passed": true
+  }
+]

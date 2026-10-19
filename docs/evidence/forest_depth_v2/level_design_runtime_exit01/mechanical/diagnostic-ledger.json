@@ -1,0 +1,299 @@
+{
+  "scope": "All execution attempts so far; no accepted source fix",
+  "main_tests_modified": false,
+  "production_modified": false,
+  "runs": [
+    {
+      "name": "preflight01",
+      "receipt_path": "build/forest_depth/level_capability/preflight01/receipt.json",
+      "receipt_sha256": "add3c3c1177546e8d5cc30c7338b2b99b62ffab9888f99c153006b439cbf83be",
+      "data": {
+        "scope": "Exact target command development validation, NOT Harness full profile",
+        "snapshot": "/workspace/gunman-rush-design/build/forest_depth/snapshots/level_capability01",
+        "checks": [
+          {
+            "name": "level-design-runtime",
+            "argv": [
+              "python3",
+              "tools/run_level_design_tests.py"
+            ],
+            "timeout_seconds": 720,
+            "exit_code": 1,
+            "elapsed_seconds": 29.5697656989978,
+            "strict_log_clean": true,
+            "success_pattern_found": false,
+            "source_guard": true,
+            "log_sha256": "a207a91c72d693bfaf4fdbfb0fb0c7af04ef2b77525eb622d94fb2b981732b31"
+          }
+        ],
+        "passed": false
+      }
+    },
+    {
+      "name": "verbose01",
+      "receipt_path": "build/forest_depth/level_capability/verbose01/receipt.json",
+      "receipt_sha256": "34da64d7dc2452c1de26c5070e7929b258ff2c0e43b985885a42c935d9d6429e",
+      "data": {
+        "scope": "Exact target command development validation, NOT Harness full profile",
+        "snapshot": "/workspace/gunman-rush-design/build/forest_depth/snapshots/level_capability01",
+        "checks": [
+          {
+            "name": "capability-verbose",
+            "argv": [
+              "bash",
+              "tools/godot.sh",
+              "--headless",
+              "--verbose",
+              "--fixed-fps",
+              "60",
+              "--path",
+              ".",
+              "--script",
+              "tests/level_capability_runner.gd"
+            ],
+            "timeout_seconds": 120,
+            "exit_code": 0,
+            "elapsed_seconds": 2.0238422059992445,
+            "strict_log_clean": false,
+            "success_pattern_found": true,
+            "source_guard": true,
+            "log_sha256": "be5f27ced97ace7ab37c4b011348449795e63e3076a749ff6d3802f65e05a974"
+          }
+        ],
+        "passed": false
+      }
+    },
+    {
+      "name": "boundary01",
+      "receipt_path": "build/forest_depth/level_capability/boundary01/receipt.json",
+      "receipt_sha256": "bfba7fb1a6a2e56699a1ceeaca922359e8b10f586b8f1d8a6a9e0a47c6c28329",
+      "data": {
+        "scope": "Controlled load-only dependency boundary; not full41 proof",
+        "source_guard": true,
+        "cases": [
+          {
+            "case": "original",
+            "argv": [
+              "bash",
+              "tools/godot.sh",
+              "--headless",
+              "--verbose",
+              "--path",
+              ".",
+              "--script",
+              "build/capability_boundary/original_load.gd"
+            ],
+            "budget_seconds": 10,
+            "exit": 0,
+            "seconds": 1.7729476729946327,
+            "loaded": true,
+            "strict_clean": false
+          },
+          {
+            "case": "candidate",
+            "argv": [
+              "bash",
+              "tools/godot.sh",
+              "--headless",
+              "--verbose",
+              "--path",
+              ".",
+              "--script",
+              "build/capability_boundary/candidate_load.gd"
+            ],
+            "budget_seconds": 10,
+            "exit": 0,
+            "seconds": 0.3713984240021091,
+            "loaded": true,
+            "strict_clean": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "candidate01",
+      "receipt_path": "build/forest_depth/level_capability/candidate01/receipt.json",
+      "receipt_sha256": "a018b29526855509f886b3b38ccf3a6bef99ed06561e3347f1607836ea175ff3",
+      "data": {
+        "scope": "Exact target command development validation, NOT Harness full profile",
+        "snapshot": "/workspace/gunman-rush-design/build/forest_depth/snapshots/level_capability01",
+        "checks": [
+          {
+            "name": "capability-verbose",
+            "argv": [
+              "bash",
+              "tools/godot.sh",
+              "--headless",
+              "--verbose",
+              "--fixed-fps",
+              "60",
+              "--path",
+              ".",
+              "--script",
+              "build/capability_boundary/entry.gd"
+            ],
+            "timeout_seconds": 120,
+            "exit_code": 0,
+            "elapsed_seconds": 9.87488484300411,
+            "strict_log_clean": false,
+            "success_pattern_found": true,
+            "source_guard": true,
+            "log_sha256": "556dae84deb9c219a53dad44a940a17cd7f8e2a9ed1101a4d3b00287d39b748f"
+          }
+        ],
+        "passed": false
+      }
+    },
+    {
+      "name": "prefix01",
+      "receipt_path": "build/forest_depth/level_capability/prefix01/receipt.json",
+      "receipt_sha256": "98f811724508b615931446c44c85a5a501c3186f12b489a97716b5182ae5c06a",
+      "data": {
+        "scope": "Controlled load-only dependency boundary; not full41 proof",
+        "source_guard": true,
+        "cases": [
+          {
+            "case": "player",
+            "argv": [
+              "bash",
+              "tools/godot.sh",
+              "--headless",
+              "--verbose",
+              "--path",
+              ".",
+              "--script",
+              "build/capability_boundary/player_entry.gd"
+            ],
+            "budget_seconds": 10,
+            "exit": 0,
+            "seconds": 1.5177706030008267,
+            "marker": true,
+            "strict_clean": true
+          },
+          {
+            "case": "build",
+            "argv": [
+              "bash",
+              "tools/godot.sh",
+              "--headless",
+              "--verbose",
+              "--path",
+              ".",
+              "--script",
+              "build/capability_boundary/build_entry.gd"
+            ],
+            "budget_seconds": 10,
+            "exit": 0,
+            "seconds": 1.5192834510016837,
+            "marker": true,
+            "strict_clean": false
+          },
+          {
+            "case": "snapshot",
+            "argv": [
+              "bash",
+              "tools/godot.sh",
+              "--headless",
+              "--verbose",
+              "--path",
+              ".",
+              "--script",
+              "build/capability_boundary/snapshot_entry.gd"
+            ],
+            "budget_seconds": 10,
+            "exit": 0,
+            "seconds": 1.6198079430032521,
+            "marker": true,
+            "strict_clean": false
+          },
+          {
+            "case": "trace",
+            "argv": [
+              "bash",
+              "tools/godot.sh",
+              "--headless",
+              "--verbose",
+              "--path",
+              ".",
+              "--script",
+              "build/capability_boundary/trace_entry.gd"
+            ],
+            "budget_seconds": 10,
+            "exit": 0,
+            "seconds": 1.6177314810047392,
+            "marker": true,
+            "strict_clean": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "ordered01",
+      "receipt_path": "build/forest_depth/level_capability/ordered01/receipt.json",
+      "receipt_sha256": "507e6d5225c862214e708eb4e3097df0411a88499eb62988f281b10162e4206e",
+      "data": {
+        "scope": "Exact target command development validation, NOT Harness full profile",
+        "snapshot": "/workspace/gunman-rush-design/build/forest_depth/snapshots/level_capability01",
+        "checks": [
+          {
+            "name": "capability-verbose",
+            "argv": [
+              "bash",
+              "tools/godot.sh",
+              "--headless",
+              "--verbose",
+              "--fixed-fps",
+              "60",
+              "--path",
+              ".",
+              "--script",
+              "build/capability_boundary/ordered_entry.gd"
+            ],
+            "timeout_seconds": 120,
+            "exit_code": 0,
+            "elapsed_seconds": 1.9119080689997645,
+            "strict_log_clean": false,
+            "success_pattern_found": true,
+            "source_guard": true,
+            "log_sha256": "faf046cfe02b67ce3ff0738a71b8b069cf58d69cfd31e892391d3ba3ea970595"
+          }
+        ],
+        "passed": false
+      }
+    },
+    {
+      "name": "scene_first01",
+      "receipt_path": "build/forest_depth/level_capability/scene_first01/receipt.json",
+      "receipt_sha256": "fc058a7b59ed71ebe74c50606a5dcdce55a60caf00b1ded1c5b7d7c5cc3ca57a",
+      "data": {
+        "scope": "Exact target command development validation, NOT Harness full profile",
+        "snapshot": "/workspace/gunman-rush-design/build/forest_depth/snapshots/level_capability01",
+        "checks": [
+          {
+            "name": "capability-verbose",
+            "argv": [
+              "bash",
+              "tools/godot.sh",
+              "--headless",
+              "--verbose",
+              "--fixed-fps",
+              "60",
+              "--path",
+              ".",
+              "--script",
+              "build/capability_boundary/scene_first_entry.gd"
+            ],
+            "timeout_seconds": 120,
+            "exit_code": 0,
+            "elapsed_seconds": 1.9211979629981215,
+            "strict_log_clean": false,
+            "success_pattern_found": true,
+            "source_guard": true,
+            "log_sha256": "40dc28dbbef9335bdf1651d58c95e0bc9f3b75fa7d918ec84eeb65bcdcafcf7d"
+          }
+        ],
+        "passed": false
+      }
+    }
+  ]
+}

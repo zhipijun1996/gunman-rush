@@ -1,9 +1,18 @@
 """Real canvas weapon inputs; readonly accepted-event evidence, no gameplay injection."""
-import asyncio,json,math,shutil,sys,time
+import asyncio,json,math,re,shutil,sys,time
 from pathlib import Path
 from playwright.async_api import async_playwright
-from studio_gui_pointer import select_weapon,weapon_row_y
+from studio_gui_pointer import select_weapon,weapon_row_y,enter_action_studio
 OUT=Path('build/action_budget/browser');OUT.mkdir(parents=True,exist_ok=True)
+ROOT=Path(__file__).resolve().parents[1]
+# Observe the actual Resource/default contract, without another tuning default.
+_traversal=(ROOT/'resources/player/traversal.tres').read_text()
+_kick=re.search(r'^hook_kick = Vector2\(([-\d.]+),\s*([-\d.]+)\)$',_traversal,re.M)
+assert _kick, 'actual traversal kick Resource missing'
+HOOK_KICK_Y=float(_kick[2])
+_deadzone=re.search(r'^hook_vertical_kick_deadzone = ([\d.]+)$',_traversal,re.M) or re.search(r'\bvar hook_vertical_kick_deadzone := ([\d.]+)',(ROOT/'scripts/player/traversal_definition.gd').read_text())
+assert _deadzone, 'actual traversal vertical deadzone missing'
+HOOK_VERTICAL_DEADZONE=float(_deadzone[1])
 async def main():
  events=[];errors=[];checks={}
  async with async_playwright() as p:
@@ -18,7 +27,7 @@ async def main():
   page.on('console',log);page.on('pageerror',lambda e:errors.append(str(e)))
   await page.goto(sys.argv[1]if len(sys.argv)>1 else'http://127.0.0.1:8765',wait_until='networkidle')
   await page.wait_for_function('window.PLAYTEST_LOADING_DONE===true',timeout=60000)
-  await page.wait_for_timeout(600);await page.mouse.click(640,500);await page.wait_for_timeout(300);await page.mouse.click(335,285);await page.wait_for_timeout(600)
+  await page.wait_for_timeout(600);await enter_action_studio(page,between_clicks_ms=300);await page.wait_for_timeout(600)
   await page.mouse.click(710,await weapon_row_y(page));await page.wait_for_timeout(250)
   async def wait(pred,seconds=5):
    end=time.monotonic()+seconds
@@ -65,9 +74,20 @@ async def main():
   await choose(6)
   await page.mouse.click(500,100);await page.wait_for_timeout(350);n=len(events)
   await page.keyboard.press(' ')
+  # Existing visible side ring: retain the original 45-degree assertion on an
+  # oblique cast. The central ring now has a distinct near-vertical contract.
+  await page.mouse.click(560,245,button='right')
+  assert await wait(lambda:any(e['action']=='hook_kick'for e in events[n:])), 'real oblique hook did not launch'
+  cast=next(e for e in events[n:]if e['action']=='hook_cast')
+  assert abs(cast['aim'][0])>HOOK_VERTICAL_DEADZONE, '45-degree case did not actually cast obliquely'
+  kick=next(e for e in events[n:]if e['action']=='hook_kick');checks['mouse_hook_fixed_45']=kick['recoil'][1]<0 and abs(abs(kick['recoil'][0])+kick['recoil'][1])<1 and math.copysign(1,kick['recoil'][0])==kick['kick_side']
+  assert await wait(lambda:any(e['action']=='free'for e in events[n:])), 'oblique hook recovery never returned to free'
+  await page.mouse.click(500,100);await page.wait_for_timeout(350);n=len(events)
+  await page.keyboard.press(' ')
   await page.mouse.click(432,230,button='right')
   assert await wait(lambda:any(e['action']=='hook_kick'for e in events[n:])), 'real upward hook did not launch'
-  kick=next(e for e in events[n:]if e['action']=='hook_kick');checks['mouse_hook_fixed_45']=kick['recoil'][1]<0 and abs(abs(kick['recoil'][0])+kick['recoil'][1])<1 and math.copysign(1,kick['recoil'][0])==kick['kick_side']
+  cast=next(e for e in events[n:]if e['action']=='hook_cast');kick=next(e for e in events[n:]if e['action']=='hook_kick')
+  checks['mouse_hook_near_vertical_no_side_kick']=abs(cast['aim'][0])<=HOOK_VERTICAL_DEADZONE and kick['kick_side']==0 and kick['recoil']==[0,HOOK_KICK_Y]
   assert await wait(lambda:any(e['action']=='free'for e in events[n:])), 'hook recovery never returned to free'
   await fire(650,670)
   released=await wait(lambda:any(e['action']=='weapon_entities'and e['detail']['entities']for e in events[n:]))
@@ -88,7 +108,7 @@ async def main():
   await context.close()
   context=await browser.new_context(viewport={'width':844,'height':390},has_touch=True,is_mobile=True);page=await context.new_page();page.on('console',log);page.on('pageerror',lambda e:errors.append(str(e)))
   await page.goto(sys.argv[1]if len(sys.argv)>1 else'http://127.0.0.1:8765',wait_until='networkidle');await page.wait_for_function('window.PLAYTEST_LOADING_DONE===true',timeout=60000);await page.wait_for_timeout(500)
-  await page.touchscreen.tap(420,270);await page.wait_for_timeout(300);await page.touchscreen.tap(275,150);await page.wait_for_timeout(600)
+  await enter_action_studio(page,touch=True,between_clicks_ms=300);await page.wait_for_timeout(600)
   await select_weapon(page,11,True);await page.wait_for_timeout(200);session=await context.new_cdp_session(page)
   async def touch(kind,points):await session.send('Input.dispatchTouchEvent',{'type':kind,'touchPoints':[{'id':i,'x':x,'y':y}for i,x,y in points]})
   n=len(events)

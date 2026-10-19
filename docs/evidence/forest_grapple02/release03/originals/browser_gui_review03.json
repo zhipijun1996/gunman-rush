@@ -1,0 +1,812 @@
+{
+  "task_id": "FOREST-GRAPPLE-CONSUMERS-02",
+  "reviewer": "/root/verifier_migration_review",
+  "verdict": "ACCEPT",
+  "scope": "Read-only existing actual GUI02/technical consumer evidence integration. No OCR/browser/native/engine/network/test re-execution. Public game S3 and dirty accepted tool remain separate. No player/device/design acceptance.",
+  "public_game_source_commit": "93c202568d154e37b1d57de1e08ba0c42820e828",
+  "public_build_id": "f7e22bcfaf40",
+  "tool_context_HEAD": "93c202568d154e37b1d57de1e08ba0c42820e828",
+  "tool_sha256": "3f542a8b4a97dd8678ab45d5ef185ce8c47f6f753ec4bb6ef52eb2408890e422",
+  "checks": {
+    "tool_sha_current_and_actual_before_after_exact": true,
+    "prior_tool02_ACCEPT_original01_REJECT_retained": true,
+    "GUI02_actual_exit0_and20_8_error0": true,
+    "original480_budget_and_under_budget": true,
+    "actual_report_and_log_hash_bound": true,
+    "all8_actual_unique_events_and4_forest_consumers": true,
+    "original20_checks_exact_order": true,
+    "actual_public_S3_build_identity_exact": true,
+    "all_case_before_after_identity_assertions_retained": true,
+    "original_full_stream_pack_validation_retained": true,
+    "actual_mouse_and_emulated_DOM_touch_APIs_retained": true,
+    "all43_paths_and42_unchanged_S3_sources": true,
+    "game_production_zero_diff_S3": true,
+    "original_GUI01_27_unchanged": true,
+    "no_hardware_fullroute_or_natural_reward_claim": true,
+    "selected_S3_CI_job_summary_success_not_raw89_review": true,
+    "public_build_metadata_same_identity": true,
+    "publisher_liveverified_still_false": true
+  },
+  "actual_cases": [
+    {
+      "case": "touch-plains-map1",
+      "checks": {
+        "unique_debug_entry": true,
+        "unique_real_assembly": true,
+        "assembly_seed_matches_selected_request": true,
+        "recorded_identity_exact": true,
+        "per_case_checks_exact": true,
+        "seven_original_screenshots_present": true
+      },
+      "debug_entry_event": [
+        {
+          "device": "touch",
+          "event": "debug_entry",
+          "map_index": 1,
+          "natural_progression": false,
+          "region": "plains",
+          "seed": "plains-ca76b3f8b9b9898bdc1673db3bfed1c1"
+        }
+      ],
+      "actual_assembly_event": [
+        {
+          "device": "touch",
+          "abilities": [],
+          "boss_definition": "res://resources/bosses/bellstrider.tres",
+          "boss_scene": "res://scenes/bosses/bellstrider.tscn",
+          "content_version": "plains-region-v12-root-bell-spaces",
+          "debug_entry": true,
+          "event": "region_assembled",
+          "layout_version": "",
+          "manifest_hash": "b183371e1484bc6fe51b90763c5dbdb06c4d491c34e9df4ac47c4146b61cb753",
+          "map_index": 1,
+          "region": "plains",
+          "seed": "plains-ca76b3f8b9b9898bdc1673db3bfed1c1"
+        }
+      ],
+      "identity": {
+        "source_commit": "93c202568d154e37b1d57de1e08ba0c42820e828",
+        "build_id": "f7e22bcfaf40",
+        "pack": "index.f7e22bcfaf40.pck",
+        "pack_sha256": "f7e22bcfaf408f621111300f2eea185ae12c284bcb7d19f414b56496e69f4632",
+        "pack_bytes": 90390548
+      },
+      "screenshots_sha256": {
+        "title-0": "3607f773d07c6759738cba10eb71e2e38af43be43cea0b7d1efd2b4b66417e9c",
+        "home-0": "65aa7d84bcb61675dfce16cb2c31dbe122af41cca7c300688fe747c719e950b9",
+        "region-0": "d1f5e90325b70919d3aecd50f146bb3e7149ed10fe5c19f13c1bda6bd8bf4f62",
+        "entry": "9abd962ee36229a750832cb0dd2519283616df106f66007b43f15f50b42738e7",
+        "pause-button-0": "c26b39634f31248e177f2e2dfd3655e7abb8cfb44a4408955e5c0acf7d8688f9",
+        "pause-0": "cf0b03ce2a988ea7c4e2e8f5c608be6c5c7c1c377ecf1fa329c0f90e34b58ba6",
+        "resumed": "10ef2c007c9fec518a581208540ed4ee59f4e59ea7ab841db9f0cf039d619b3a"
+      }
+    },
+    {
+      "case": "touch-plains-map2",
+      "checks": {
+        "unique_debug_entry": true,
+        "unique_real_assembly": true,
+        "assembly_seed_matches_selected_request": true,
+        "recorded_identity_exact": true,
+        "per_case_checks_exact": true,
+        "seven_original_screenshots_present": true
+      },
+      "debug_entry_event": [
+        {
+          "device": "touch",
+          "event": "debug_entry",
+          "map_index": 2,
+          "natural_progression": false,
+          "region": "plains",
+          "seed": "plains-0cffce0b5f2c0dc2aa4b257a1440f230"
+        }
+      ],
+      "actual_assembly_event": [
+        {
+          "device": "touch",
+          "abilities": [],
+          "boss_definition": "res://resources/bosses/windkeeper_storm.tres",
+          "boss_scene": "res://scenes/bosses/windkeeper.tscn",
+          "content_version": "plains-region-v12-root-bell-spaces",
+          "debug_entry": true,
+          "event": "region_assembled",
+          "layout_version": "",
+          "manifest_hash": "a045efef9411a6dceb56f3059d087e846541c96bb4c90d1a0fcc9e457033001e",
+          "map_index": 2,
+          "region": "plains",
+          "seed": "plains-0cffce0b5f2c0dc2aa4b257a1440f230/plains/map_2"
+        }
+      ],
+      "identity": {
+        "source_commit": "93c202568d154e37b1d57de1e08ba0c42820e828",
+        "build_id": "f7e22bcfaf40",
+        "pack": "index.f7e22bcfaf40.pck",
+        "pack_sha256": "f7e22bcfaf408f621111300f2eea185ae12c284bcb7d19f414b56496e69f4632",
+        "pack_bytes": 90390548
+      },
+      "screenshots_sha256": {
+        "title-0": "3607f773d07c6759738cba10eb71e2e38af43be43cea0b7d1efd2b4b66417e9c",
+        "home-0": "65aa7d84bcb61675dfce16cb2c31dbe122af41cca7c300688fe747c719e950b9",
+        "region-0": "d1f5e90325b70919d3aecd50f146bb3e7149ed10fe5c19f13c1bda6bd8bf4f62",
+        "entry": "db6407e14f200cbbf311caf37f1620d39c68a11e41287e64c0e45240c96365cb",
+        "pause-button-0": "0e1742b3f6ba62e3093b8a2eef9075cc310bbc07447eeb1a37aeaf888b08526d",
+        "pause-0": "d21d950f5c3c4202b67a916483a49e99142f9ad7ebd171459e76e2a90f6fc4f8",
+        "resumed": "28dd8c83b185e9e41c1639716aa73ef25d452df293669a76f59d376bfac0911e"
+      }
+    },
+    {
+      "case": "touch-thorn_forest-map1",
+      "checks": {
+        "unique_debug_entry": true,
+        "unique_real_assembly": true,
+        "assembly_seed_matches_selected_request": true,
+        "recorded_identity_exact": true,
+        "per_case_checks_exact": true,
+        "seven_original_screenshots_present": true,
+        "forest_v12_Honly_exact_Boss": true
+      },
+      "debug_entry_event": [
+        {
+          "device": "touch",
+          "event": "debug_entry",
+          "map_index": 1,
+          "natural_progression": false,
+          "region": "thorn_forest",
+          "seed": "plains-cddf7960b280a44b19347c5aac7aa396"
+        }
+      ],
+      "actual_assembly_event": [
+        {
+          "device": "touch",
+          "abilities": [
+            "grapple"
+          ],
+          "boss_definition": "res://resources/bosses/rootbell_guardian_v2.tres",
+          "boss_scene": "res://scenes/bosses/rootbell_guardian_v2.tscn",
+          "content_version": "thorn-forest-region-v2",
+          "debug_entry": true,
+          "event": "region_assembled",
+          "layout_version": "forest-woven-trunk-v12",
+          "manifest_hash": "3cf0c75f849b8ad7163664b7cb285f8f788933c562ba79e6864687a28512657f",
+          "map_index": 1,
+          "region": "thorn_forest",
+          "seed": "plains-cddf7960b280a44b19347c5aac7aa396/thorn_forest/map_1"
+        }
+      ],
+      "identity": {
+        "source_commit": "93c202568d154e37b1d57de1e08ba0c42820e828",
+        "build_id": "f7e22bcfaf40",
+        "pack": "index.f7e22bcfaf40.pck",
+        "pack_sha256": "f7e22bcfaf408f621111300f2eea185ae12c284bcb7d19f414b56496e69f4632",
+        "pack_bytes": 90390548
+      },
+      "screenshots_sha256": {
+        "title-0": "3607f773d07c6759738cba10eb71e2e38af43be43cea0b7d1efd2b4b66417e9c",
+        "home-0": "65aa7d84bcb61675dfce16cb2c31dbe122af41cca7c300688fe747c719e950b9",
+        "region-0": "d1f5e90325b70919d3aecd50f146bb3e7149ed10fe5c19f13c1bda6bd8bf4f62",
+        "entry": "c5b534daf76a9eeaa77032e6a096a83dc947f9465d280235489d095e391c2245",
+        "pause-button-0": "31cbbc9732115aef3454689abaf0ec23abb64e156678736d18ac430c6f66fb22",
+        "pause-0": "9b698a0d7a23ded51d2c20177ea734315eb4eaf81f4234d0b50fb56e66fd7648",
+        "resumed": "7683514d2bf7473c068364648a0aac180bc6fe97669dcc1615c984eb3468ea23"
+      }
+    },
+    {
+      "case": "touch-thorn_forest-map2",
+      "checks": {
+        "unique_debug_entry": true,
+        "unique_real_assembly": true,
+        "assembly_seed_matches_selected_request": true,
+        "recorded_identity_exact": true,
+        "per_case_checks_exact": true,
+        "seven_original_screenshots_present": true,
+        "forest_v12_Honly_exact_Boss": true
+      },
+      "debug_entry_event": [
+        {
+          "device": "touch",
+          "event": "debug_entry",
+          "map_index": 2,
+          "natural_progression": false,
+          "region": "thorn_forest",
+          "seed": "plains-da574c270a0050d8e95014aea1ba2eac"
+        }
+      ],
+      "actual_assembly_event": [
+        {
+          "device": "touch",
+          "abilities": [
+            "grapple"
+          ],
+          "boss_definition": "res://resources/bosses/thorn_queen_canopy.tres",
+          "boss_scene": "res://scenes/bosses/thorn_queen_canopy.tscn",
+          "content_version": "thorn-forest-region-v2",
+          "debug_entry": true,
+          "event": "region_assembled",
+          "layout_version": "forest-woven-trunk-v12",
+          "manifest_hash": "b6f90cc1b9d74ab99373a7613ada821d0c55b2e0bd34174eb8d438c4cf450fae",
+          "map_index": 2,
+          "region": "thorn_forest",
+          "seed": "plains-da574c270a0050d8e95014aea1ba2eac/thorn_forest/map_2"
+        }
+      ],
+      "identity": {
+        "source_commit": "93c202568d154e37b1d57de1e08ba0c42820e828",
+        "build_id": "f7e22bcfaf40",
+        "pack": "index.f7e22bcfaf40.pck",
+        "pack_sha256": "f7e22bcfaf408f621111300f2eea185ae12c284bcb7d19f414b56496e69f4632",
+        "pack_bytes": 90390548
+      },
+      "screenshots_sha256": {
+        "title-0": "3607f773d07c6759738cba10eb71e2e38af43be43cea0b7d1efd2b4b66417e9c",
+        "home-0": "65aa7d84bcb61675dfce16cb2c31dbe122af41cca7c300688fe747c719e950b9",
+        "region-0": "d1f5e90325b70919d3aecd50f146bb3e7149ed10fe5c19f13c1bda6bd8bf4f62",
+        "entry": "caf4e7753dde4807a6d798d3c33bc00f31c67e0b9515d3b227b11e1449633833",
+        "pause-button-0": "2696ed4af0c0744fa52601de4ea8af5e31d313dbec17910c1c2d7b856430efd6",
+        "pause-0": "6b28b35b8363c8054bfc8c4ee53128d483a8a9d97506d622032a554ad3bcf6f3",
+        "resumed": "296e5edc754bbb2c1e273bab5898bdbb9909240539582e282b10b42fb2c8689b"
+      }
+    },
+    {
+      "case": "mouse-plains-map1",
+      "checks": {
+        "unique_debug_entry": true,
+        "unique_real_assembly": true,
+        "assembly_seed_matches_selected_request": true,
+        "recorded_identity_exact": true,
+        "per_case_checks_exact": true,
+        "seven_original_screenshots_present": true
+      },
+      "debug_entry_event": [
+        {
+          "device": "mouse",
+          "event": "debug_entry",
+          "map_index": 1,
+          "natural_progression": false,
+          "region": "plains",
+          "seed": "plains-360c12463f3fd98f7591d41585df9958"
+        }
+      ],
+      "actual_assembly_event": [
+        {
+          "device": "mouse",
+          "abilities": [],
+          "boss_definition": "res://resources/bosses/bellstrider.tres",
+          "boss_scene": "res://scenes/bosses/bellstrider.tscn",
+          "content_version": "plains-region-v12-root-bell-spaces",
+          "debug_entry": true,
+          "event": "region_assembled",
+          "layout_version": "",
+          "manifest_hash": "75d110856d8bfd20ffcfa45441aab1839b974f6b9ddcc196ce91cafce883eaac",
+          "map_index": 1,
+          "region": "plains",
+          "seed": "plains-360c12463f3fd98f7591d41585df9958"
+        }
+      ],
+      "identity": {
+        "source_commit": "93c202568d154e37b1d57de1e08ba0c42820e828",
+        "build_id": "f7e22bcfaf40",
+        "pack": "index.f7e22bcfaf40.pck",
+        "pack_sha256": "f7e22bcfaf408f621111300f2eea185ae12c284bcb7d19f414b56496e69f4632",
+        "pack_bytes": 90390548
+      },
+      "screenshots_sha256": {
+        "title-0": "3607f773d07c6759738cba10eb71e2e38af43be43cea0b7d1efd2b4b66417e9c",
+        "home-0": "65aa7d84bcb61675dfce16cb2c31dbe122af41cca7c300688fe747c719e950b9",
+        "region-0": "d1f5e90325b70919d3aecd50f146bb3e7149ed10fe5c19f13c1bda6bd8bf4f62",
+        "entry": "f79e8e9a469098fad190814ac5f12bc8e2ae60510018f6365c90a5fc98c816ed",
+        "pause-button-0": "cc42c69e3fb8530c579c1c7dfd3e3436ce5c6eefe06ba28074c9a86821260861",
+        "pause-0": "6d327c6d2c414380ab7e6dbedc201a31b55e9a74a6307165af8c249e1c22c311",
+        "resumed": "3ba3dddc9452774c082a37e363bda614d11c8c8ec9671c410c9d31835b6db5a3"
+      }
+    },
+    {
+      "case": "mouse-plains-map2",
+      "checks": {
+        "unique_debug_entry": true,
+        "unique_real_assembly": true,
+        "assembly_seed_matches_selected_request": true,
+        "recorded_identity_exact": true,
+        "per_case_checks_exact": true,
+        "seven_original_screenshots_present": true
+      },
+      "debug_entry_event": [
+        {
+          "device": "mouse",
+          "event": "debug_entry",
+          "map_index": 2,
+          "natural_progression": false,
+          "region": "plains",
+          "seed": "plains-47d14550b0d534e875f968e2b0f4b251"
+        }
+      ],
+      "actual_assembly_event": [
+        {
+          "device": "mouse",
+          "abilities": [],
+          "boss_definition": "res://resources/bosses/windkeeper_storm.tres",
+          "boss_scene": "res://scenes/bosses/windkeeper.tscn",
+          "content_version": "plains-region-v12-root-bell-spaces",
+          "debug_entry": true,
+          "event": "region_assembled",
+          "layout_version": "",
+          "manifest_hash": "a364201ebc96b8b16473ab9c3787b653e06b3ef352324f9c4c7e4aea8fb3e424",
+          "map_index": 2,
+          "region": "plains",
+          "seed": "plains-47d14550b0d534e875f968e2b0f4b251/plains/map_2"
+        }
+      ],
+      "identity": {
+        "source_commit": "93c202568d154e37b1d57de1e08ba0c42820e828",
+        "build_id": "f7e22bcfaf40",
+        "pack": "index.f7e22bcfaf40.pck",
+        "pack_sha256": "f7e22bcfaf408f621111300f2eea185ae12c284bcb7d19f414b56496e69f4632",
+        "pack_bytes": 90390548
+      },
+      "screenshots_sha256": {
+        "title-0": "3607f773d07c6759738cba10eb71e2e38af43be43cea0b7d1efd2b4b66417e9c",
+        "home-0": "65aa7d84bcb61675dfce16cb2c31dbe122af41cca7c300688fe747c719e950b9",
+        "region-0": "d1f5e90325b70919d3aecd50f146bb3e7149ed10fe5c19f13c1bda6bd8bf4f62",
+        "entry": "3255198c3f00d00f82f92a8a305d6a4fe226c79f86137ee0da25b82afe71ff1c",
+        "pause-button-0": "fc833ac51376e49e1e482e3c30424dd0fea508980bfeab03306f09b4c6568d10",
+        "pause-0": "0256f650bc1b354308cea91fbe8a9c75fa11b08bdbf9325ef2d531a8c8026a2e",
+        "resumed": "82a5394c54241a82cb39e403c96a6237eebd0e8bb8f9bb1318f16bdb16ec0dec"
+      }
+    },
+    {
+      "case": "mouse-thorn_forest-map1",
+      "checks": {
+        "unique_debug_entry": true,
+        "unique_real_assembly": true,
+        "assembly_seed_matches_selected_request": true,
+        "recorded_identity_exact": true,
+        "per_case_checks_exact": true,
+        "seven_original_screenshots_present": true,
+        "forest_v12_Honly_exact_Boss": true
+      },
+      "debug_entry_event": [
+        {
+          "device": "mouse",
+          "event": "debug_entry",
+          "map_index": 1,
+          "natural_progression": false,
+          "region": "thorn_forest",
+          "seed": "plains-8359a84dd3f8aa8e96549c09fb971417"
+        }
+      ],
+      "actual_assembly_event": [
+        {
+          "device": "mouse",
+          "abilities": [
+            "grapple"
+          ],
+          "boss_definition": "res://resources/bosses/rootbell_guardian_v2.tres",
+          "boss_scene": "res://scenes/bosses/rootbell_guardian_v2.tscn",
+          "content_version": "thorn-forest-region-v2",
+          "debug_entry": true,
+          "event": "region_assembled",
+          "layout_version": "forest-woven-trunk-v12",
+          "manifest_hash": "d5f4b85344d9daba234cd3c9ec6f8b88f16a89a5468077cf306283508d1d09f2",
+          "map_index": 1,
+          "region": "thorn_forest",
+          "seed": "plains-8359a84dd3f8aa8e96549c09fb971417/thorn_forest/map_1"
+        }
+      ],
+      "identity": {
+        "source_commit": "93c202568d154e37b1d57de1e08ba0c42820e828",
+        "build_id": "f7e22bcfaf40",
+        "pack": "index.f7e22bcfaf40.pck",
+        "pack_sha256": "f7e22bcfaf408f621111300f2eea185ae12c284bcb7d19f414b56496e69f4632",
+        "pack_bytes": 90390548
+      },
+      "screenshots_sha256": {
+        "title-0": "3607f773d07c6759738cba10eb71e2e38af43be43cea0b7d1efd2b4b66417e9c",
+        "home-0": "65aa7d84bcb61675dfce16cb2c31dbe122af41cca7c300688fe747c719e950b9",
+        "region-0": "d1f5e90325b70919d3aecd50f146bb3e7149ed10fe5c19f13c1bda6bd8bf4f62",
+        "entry": "f211e18a37942da3174d8b93ca3909c3ecdb41c2bfb5a2eb8cb268e9c2d29bae",
+        "pause-button-0": "9f9a1e3dcc19643491ad409190d252f672a2a673ea19727cf3f49233c34d21cb",
+        "pause-0": "4daa36fc0c539861b973a4b3df37fe7b8bc39ed490270833fb62b94d58c1e0e9",
+        "resumed": "73468335941ada4406ee218ddd071e9cb7be6dc02ae1a2261968970a72401672"
+      }
+    },
+    {
+      "case": "mouse-thorn_forest-map2",
+      "checks": {
+        "unique_debug_entry": true,
+        "unique_real_assembly": true,
+        "assembly_seed_matches_selected_request": true,
+        "recorded_identity_exact": true,
+        "per_case_checks_exact": true,
+        "seven_original_screenshots_present": true,
+        "forest_v12_Honly_exact_Boss": true
+      },
+      "debug_entry_event": [
+        {
+          "device": "mouse",
+          "event": "debug_entry",
+          "map_index": 2,
+          "natural_progression": false,
+          "region": "thorn_forest",
+          "seed": "plains-6cf1beadcd7d2bc4b8ca558cb4dddfac"
+        }
+      ],
+      "actual_assembly_event": [
+        {
+          "device": "mouse",
+          "abilities": [
+            "grapple"
+          ],
+          "boss_definition": "res://resources/bosses/thorn_queen_canopy.tres",
+          "boss_scene": "res://scenes/bosses/thorn_queen_canopy.tscn",
+          "content_version": "thorn-forest-region-v2",
+          "debug_entry": true,
+          "event": "region_assembled",
+          "layout_version": "forest-woven-trunk-v12",
+          "manifest_hash": "ba8b99c72c3719280fcf0c62e533336df814f5a16f9380cf3f952913817c3a59",
+          "map_index": 2,
+          "region": "thorn_forest",
+          "seed": "plains-6cf1beadcd7d2bc4b8ca558cb4dddfac/thorn_forest/map_2"
+        }
+      ],
+      "identity": {
+        "source_commit": "93c202568d154e37b1d57de1e08ba0c42820e828",
+        "build_id": "f7e22bcfaf40",
+        "pack": "index.f7e22bcfaf40.pck",
+        "pack_sha256": "f7e22bcfaf408f621111300f2eea185ae12c284bcb7d19f414b56496e69f4632",
+        "pack_bytes": 90390548
+      },
+      "screenshots_sha256": {
+        "title-0": "3607f773d07c6759738cba10eb71e2e38af43be43cea0b7d1efd2b4b66417e9c",
+        "home-0": "65aa7d84bcb61675dfce16cb2c31dbe122af41cca7c300688fe747c719e950b9",
+        "region-0": "d1f5e90325b70919d3aecd50f146bb3e7149ed10fe5c19f13c1bda6bd8bf4f62",
+        "entry": "28598f05137adbdc695c6d2091166b9de6ab9ff6b5982223f4bb12bddf993326",
+        "pause-button-0": "06afcbe2a2410311c1505c9deff24ed802881f938acb51fc2185b5e310571626",
+        "pause-0": "778de7571c034b33a9615d3ffe8984ca9c4ea170a0ab5b3b23b9eb0364fdc8f2",
+        "resumed": "378553c0b0c4d3d857e63a6ea738df35d9ae1b55e80841c60c5168fa0df61f20"
+      }
+    }
+  ],
+  "GUI02_67_file_sha256": {
+    "touch-plains-map1-entry.png": "9abd962ee36229a750832cb0dd2519283616df106f66007b43f15f50b42738e7",
+    "touch-plains-map1-title-0.png": "3607f773d07c6759738cba10eb71e2e38af43be43cea0b7d1efd2b4b66417e9c",
+    "touch-thorn_forest-map2-entry.png": "caf4e7753dde4807a6d798d3c33bc00f31c67e0b9515d3b227b11e1449633833",
+    "mouse-thorn_forest-map2-title-0.png": "3607f773d07c6759738cba10eb71e2e38af43be43cea0b7d1efd2b4b66417e9c",
+    "touch-thorn_forest-map2-pause-button-0.png": "2696ed4af0c0744fa52601de4ea8af5e31d313dbec17910c1c2d7b856430efd6",
+    "mouse-plains-map2-pause-0.png": "0256f650bc1b354308cea91fbe8a9c75fa11b08bdbf9325ef2d531a8c8026a2e",
+    "mouse-thorn_forest-map1-pause-0.png": "4daa36fc0c539861b973a4b3df37fe7b8bc39ed490270833fb62b94d58c1e0e9",
+    "touch-thorn_forest-map2-region-0.png": "d1f5e90325b70919d3aecd50f146bb3e7149ed10fe5c19f13c1bda6bd8bf4f62",
+    "mouse-plains-map2-region-0.png": "d1f5e90325b70919d3aecd50f146bb3e7149ed10fe5c19f13c1bda6bd8bf4f62",
+    "touch-plains-map1-pause-button-0-actual-menu-roi-1-gray.png": "d954fd42e9ffe4daccab3d9aeb61bcd29adce9b3cdc21ccc897f6a419c60fae0",
+    "mouse-thorn_forest-map1-entry.png": "f211e18a37942da3174d8b93ca3909c3ecdb41c2bfb5a2eb8cb268e9c2d29bae",
+    "mouse-thorn_forest-map1-pause-button-0.png": "9f9a1e3dcc19643491ad409190d252f672a2a673ea19727cf3f49233c34d21cb",
+    "touch-thorn_forest-map2-home-0.png": "65aa7d84bcb61675dfce16cb2c31dbe122af41cca7c300688fe747c719e950b9",
+    "touch-thorn_forest-map1-pause-0.png": "9b698a0d7a23ded51d2c20177ea734315eb4eaf81f4234d0b50fb56e66fd7648",
+    "touch-plains-map2-pause-button-0-actual-menu-roi-0-binary.png": "02f7e8c28486006ec36e52da1955393135114002e8c857a4391b3525ba964edb",
+    "touch-thorn_forest-map1-title-0.png": "3607f773d07c6759738cba10eb71e2e38af43be43cea0b7d1efd2b4b66417e9c",
+    "mouse-thorn_forest-map1-title-0.png": "3607f773d07c6759738cba10eb71e2e38af43be43cea0b7d1efd2b4b66417e9c",
+    "touch-plains-map2-entry.png": "db6407e14f200cbbf311caf37f1620d39c68a11e41287e64c0e45240c96365cb",
+    "mouse-plains-map1-title-0.png": "3607f773d07c6759738cba10eb71e2e38af43be43cea0b7d1efd2b4b66417e9c",
+    "touch-plains-map1-pause-button-0-actual-menu-roi-0-binary.png": "f2aa610cf11eaed0c71a7e02a3dcc3b0e890440b2252affe3290cd5a870650c9",
+    "touch-thorn_forest-map2-pause-0.png": "6b28b35b8363c8054bfc8c4ee53128d483a8a9d97506d622032a554ad3bcf6f3",
+    "mouse-plains-map2-pause-button-0-actual-menu-roi-0-gray.png": "5d529aa36ab53548886a72d07e9f61a7adb7346022f510d33f09250c373b3ed4",
+    "report.json": "3bf19e48155ddd909d2640bc08b37086eb9e3bce13a29879939cfddb13fd0c11",
+    "touch-thorn_forest-map2-title-0.png": "3607f773d07c6759738cba10eb71e2e38af43be43cea0b7d1efd2b4b66417e9c",
+    "mouse-plains-map1-home-0.png": "65aa7d84bcb61675dfce16cb2c31dbe122af41cca7c300688fe747c719e950b9",
+    "mouse-thorn_forest-map2-resumed.png": "378553c0b0c4d3d857e63a6ea738df35d9ae1b55e80841c60c5168fa0df61f20",
+    "touch-plains-map1-pause-button-0-actual-menu-roi-1-binary.png": "23bfc1f2baed8bff995679046605d3bd3e3e79176aaf06ea1ae9fd280026e4d9",
+    "touch-plains-map2-title-0.png": "3607f773d07c6759738cba10eb71e2e38af43be43cea0b7d1efd2b4b66417e9c",
+    "touch-plains-map1-pause-0.png": "cf0b03ce2a988ea7c4e2e8f5c608be6c5c7c1c377ecf1fa329c0f90e34b58ba6",
+    "touch-plains-map2-pause-0.png": "d21d950f5c3c4202b67a916483a49e99142f9ad7ebd171459e76e2a90f6fc4f8",
+    "mouse-plains-map1-resumed.png": "3ba3dddc9452774c082a37e363bda614d11c8c8ec9671c410c9d31835b6db5a3",
+    "mouse-plains-map1-region-0.png": "d1f5e90325b70919d3aecd50f146bb3e7149ed10fe5c19f13c1bda6bd8bf4f62",
+    "mouse-plains-map2-resumed.png": "82a5394c54241a82cb39e403c96a6237eebd0e8bb8f9bb1318f16bdb16ec0dec",
+    "touch-plains-map1-resumed.png": "10ef2c007c9fec518a581208540ed4ee59f4e59ea7ab841db9f0cf039d619b3a",
+    "mouse-plains-map1-pause-button-0-actual-menu-roi-0-gray.png": "2b8a3f7052517126215cab30ad5003c6769de7df63b29d4df71e30b4a5739fc8",
+    "touch-plains-map2-pause-button-0-actual-menu-roi-1-binary.png": "abdf3d969391553bbff68e0e4478af9b7f1ae481422a9a876d84e31e194f9e66",
+    "mouse-plains-map1-pause-0.png": "6d327c6d2c414380ab7e6dbedc201a31b55e9a74a6307165af8c249e1c22c311",
+    "mouse-thorn_forest-map1-resumed.png": "73468335941ada4406ee218ddd071e9cb7be6dc02ae1a2261968970a72401672",
+    "touch-plains-map2-pause-button-0-actual-menu-roi-0-gray.png": "ef95864eca4fa03689db24957b1a4e3f9beea401a6906995a4e5ae880d7afe1a",
+    "mouse-plains-map2-pause-button-0.png": "fc833ac51376e49e1e482e3c30424dd0fea508980bfeab03306f09b4c6568d10",
+    "mouse-plains-map2-entry.png": "3255198c3f00d00f82f92a8a305d6a4fe226c79f86137ee0da25b82afe71ff1c",
+    "mouse-plains-map1-entry.png": "f79e8e9a469098fad190814ac5f12bc8e2ae60510018f6365c90a5fc98c816ed",
+    "touch-thorn_forest-map2-resumed.png": "296e5edc754bbb2c1e273bab5898bdbb9909240539582e282b10b42fb2c8689b",
+    "mouse-plains-map2-title-0.png": "3607f773d07c6759738cba10eb71e2e38af43be43cea0b7d1efd2b4b66417e9c",
+    "touch-thorn_forest-map1-region-0.png": "d1f5e90325b70919d3aecd50f146bb3e7149ed10fe5c19f13c1bda6bd8bf4f62",
+    "touch-plains-map1-region-0.png": "d1f5e90325b70919d3aecd50f146bb3e7149ed10fe5c19f13c1bda6bd8bf4f62",
+    "touch-plains-map2-region-0.png": "d1f5e90325b70919d3aecd50f146bb3e7149ed10fe5c19f13c1bda6bd8bf4f62",
+    "mouse-thorn_forest-map2-pause-button-0.png": "06afcbe2a2410311c1505c9deff24ed802881f938acb51fc2185b5e310571626",
+    "mouse-thorn_forest-map2-entry.png": "28598f05137adbdc695c6d2091166b9de6ab9ff6b5982223f4bb12bddf993326",
+    "touch-plains-map2-resumed.png": "28dd8c83b185e9e41c1639716aa73ef25d452df293669a76f59d376bfac0911e",
+    "mouse-thorn_forest-map1-home-0.png": "65aa7d84bcb61675dfce16cb2c31dbe122af41cca7c300688fe747c719e950b9",
+    "touch-plains-map1-home-0.png": "65aa7d84bcb61675dfce16cb2c31dbe122af41cca7c300688fe747c719e950b9",
+    "touch-plains-map2-pause-button-0-actual-menu-roi-1-gray.png": "e226f2cf409c71765a8b6759add109fce7643c53ed03156e1bbe0837fcb91a0b",
+    "touch-thorn_forest-map1-entry.png": "c5b534daf76a9eeaa77032e6a096a83dc947f9465d280235489d095e391c2245",
+    "touch-plains-map2-pause-button-0.png": "0e1742b3f6ba62e3093b8a2eef9075cc310bbc07447eeb1a37aeaf888b08526d",
+    "mouse-plains-map1-pause-button-0.png": "cc42c69e3fb8530c579c1c7dfd3e3436ce5c6eefe06ba28074c9a86821260861",
+    "touch-thorn_forest-map1-pause-button-0.png": "31cbbc9732115aef3454689abaf0ec23abb64e156678736d18ac430c6f66fb22",
+    "touch-thorn_forest-map1-resumed.png": "7683514d2bf7473c068364648a0aac180bc6fe97669dcc1615c984eb3468ea23",
+    "mouse-thorn_forest-map2-pause-0.png": "778de7571c034b33a9615d3ffe8984ca9c4ea170a0ab5b3b23b9eb0364fdc8f2",
+    "mouse-plains-map2-home-0.png": "65aa7d84bcb61675dfce16cb2c31dbe122af41cca7c300688fe747c719e950b9",
+    "touch-plains-map1-pause-button-0-actual-menu-roi-0-gray.png": "c52e30bd6c9d18b52a4e73adcaea7cc573db540511818ae1c2935450d8868912",
+    "mouse-thorn_forest-map2-home-0.png": "65aa7d84bcb61675dfce16cb2c31dbe122af41cca7c300688fe747c719e950b9",
+    "mouse-thorn_forest-map1-region-0.png": "d1f5e90325b70919d3aecd50f146bb3e7149ed10fe5c19f13c1bda6bd8bf4f62",
+    "touch-thorn_forest-map1-home-0.png": "65aa7d84bcb61675dfce16cb2c31dbe122af41cca7c300688fe747c719e950b9",
+    "mouse-thorn_forest-map2-region-0.png": "d1f5e90325b70919d3aecd50f146bb3e7149ed10fe5c19f13c1bda6bd8bf4f62",
+    "touch-plains-map2-home-0.png": "65aa7d84bcb61675dfce16cb2c31dbe122af41cca7c300688fe747c719e950b9",
+    "touch-plains-map1-pause-button-0.png": "c26b39634f31248e177f2e2dfd3655e7abb8cfb44a4408955e5c0acf7d8688f9"
+  },
+  "affected_tests_tools_final_sha256": {
+    "tests/actor_actions_runner.gd": {
+      "sha256": "cdcc8e6605660345c3315e786ecb532cbcab76a2fcd5f4c1ab18f989b006b325",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/aim_save_compat_case.gd": {
+      "sha256": "1d32006a6c37edf62c7aff165e4c511d15ac8f183675248029a07746b7d9caf0",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/aim_save_compat_case.gd.uid": {
+      "sha256": "ddb1716a507be61fec4a363b70118460054d328cb809ba296bf6d270cd1b8fc8",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/aim_save_compat_runner.gd": {
+      "sha256": "da50470f871b63ef22df1be5723a4928e3c2446e3aaaddc31257e4a18328eb7c",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/aim_save_compat_runner.gd.uid": {
+      "sha256": "60dfd16ea3df9491e4675e7eeb97d17ca78890cbd86a58ecaba0bba02b431d18",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/air_focus_tests.gd": {
+      "sha256": "d40dd9969646938f3ff542adbc73b8056bc088d0f529f903b3af6149b737727c",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/fixtures/forest_recorded_layouts/v11_corpus_map1.json": {
+      "sha256": "ddd26758ae3d968927a16bfaa94c89366e00a443120b6441fc2a285df615a2ff",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/fixtures/forest_recorded_layouts/v11_corpus_map2.json": {
+      "sha256": "85e7ef09f8fbc59a4f0f5f70d2286200bb9e86bb55db6fcc029a08847949cf72",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/fixtures/root_bell/pre_focus_15_player_tuning.json": {
+      "sha256": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/forest_air_chain_runner.gd": {
+      "sha256": "6b185de50a5184937c8ca07248390472dedb7e49a41aeef926d0b3dea83029c1",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/forest_campaign_runner.gd": {
+      "sha256": "b33fc5f27a5c421cc5911ef11cf92d1457c139b06acc09ecf0ace86d19677eab",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/forest_depth_air_chain_case.gd": {
+      "sha256": "e692029b05fc41c0366db556c8c7fcdeb70f035f84a62a911b9ff225990b9429",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/forest_depth_grove_combat_case.gd": {
+      "sha256": "e37cdfda8e3f19cf56f3fcda4ee1abcdcc8e604a866de4d04855d46f5449db85",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/forest_depth_region_trace.gd": {
+      "sha256": "f5a143d2e3671e6ba4c970c11c0b9ea054a9ba2158906984a17b514730372e94",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/forest_depth_version_runner.gd": {
+      "sha256": "b465cee226a07238ba8d3c250927753e91fbb816e6333654bd2c0a531a7ae205",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/forest_progression_debug_runner.gd": {
+      "sha256": "8c4d64e10a03a8c763daa1f98eae90f10b6a3d675b8603198d45a51493933e2f",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/forest_root_retry_runner.gd": {
+      "sha256": "1e1bbe4c4e5ec823a250e3001cb66a4f09ad6d346557090ec444b99c17842e9d",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/forest_root_retry_runner.gd.uid": {
+      "sha256": "fe3e11fdf5eee7646e22d4169a643ed931bf3140722d3a6ff55186a37ce6538b",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/forest_vertical_shortcut_runner.gd": {
+      "sha256": "8df908f6721d6a97dc0bd5e0aefd721713422087d7df64cb663d452bda424dbe",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/forest_vertical_shortcut_runner.gd.uid": {
+      "sha256": "50f8e118f556a947d6776fcbcb117524a6b9851de3e03072c18a6adca8a0a192",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/grapple_aim_input_runner.gd": {
+      "sha256": "f1ea7669cff223141cb56ef90f929f38218a74a581411b1f431c5757325c336d",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/grapple_aim_input_runner.gd.uid": {
+      "sha256": "1f1c94295b6a6b0054cb37800cde4d19ad1a50ed178ee20d881341e32d687d70",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/grapple_feel_runner.gd": {
+      "sha256": "7a25d7bd836428b16369afaece400006251b29e539d989474d4c764def241791",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/grapple_feel_runner.gd.uid": {
+      "sha256": "ff54beb551efd04bf7bc648231a60f4d5ddfa9205926c39cfc7b08aa643b8192",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/grapple_laser_input_runner.gd": {
+      "sha256": "e0a58f64254ddd1ab6cee2d696f6bbb5344ae07ca1dfb4227b8dd3835f9b0a5c",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/grapple_laser_input_runner.gd.uid": {
+      "sha256": "87f041e9f0664b032ff7d05735a59d80a5c2c40612fad3faf93322eb90dc778d",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/player_feedback_runner.gd": {
+      "sha256": "3a5d61662b6a9bd4e9f9b7a76c468e044b76234b104f1ed86685815e70ce9a31",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/root_bell_formal_tests.gd": {
+      "sha256": "2df8559092e1601791c23605ad56c4a8fab47f580fc3cec4b2329490746afd47",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/support/grapple_legacy_collision.gd": {
+      "sha256": "71ef58237d1549dfdcbf41bf428a3d4d25efee05cd5017bc81bfb6e5a483aef4",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/support/grapple_legacy_collision.gd.uid": {
+      "sha256": "e243f6d4a571b4b0925e54f50a3a2ec09e7ab3511055f90170027f021f482d79",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/test_forest_vertical_shortcut.py": {
+      "sha256": "c095a3159b11dbaf0d36c95ade16fa6d4fc58d61d08fb11c2e84fc78ca62a473",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/test_grapple_feel_wrapper.py": {
+      "sha256": "5baa124422c3f39d6522e2b15de429960c70197f309088cebb6c83f243fae36a",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tests/test_harness.py": {
+      "sha256": "3449fceb10bf7d27929054d359ede007051f9a28eb4389e2036b3485aca60f10",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tools/harness/profiles.json": {
+      "sha256": "cbf0908795f90a77a796294520ac31eda6985f82d10b2ed07383846371cdf895",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tools/run_aim_save_compat_tests.py": {
+      "sha256": "9681b0f4927ccdfe9bf08bf78303c86f6761fde68343f7d1563eef573987c235",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tools/run_forest_air_chain.py": {
+      "sha256": "499d61e03c3503301e3f026d4ee49a998be5e8a018b29f67cb0d05a41869665b",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tools/run_forest_depth_campaign_boss.py": {
+      "sha256": "8039836dfa206c39e38275c077fdfe11c4b14e3ce2055286bc1038aa2fd851a1",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tools/run_forest_depth_region.py": {
+      "sha256": "3762457151ac8c2a5b1e84c005e9d11c1ca163576b609a3d711a7ccc90e07ede",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tools/run_forest_depth_versions.py": {
+      "sha256": "ecb23670976e53021013529c43d86d420a220777e0087229a1f1273d74890ec5",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tools/run_forest_vertical_shortcut.py": {
+      "sha256": "a803b0fffbf5224ad61d120e91dce10944b0fa77974bfecf3ee0df4491de663b",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tools/run_grapple_feel_tests.py": {
+      "sha256": "d00bd59b4f330d5a0684c3aa02ff11c0563d0b6813f0f91e2affa71a1d74e2d2",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tools/test_root_bell_formal_verifier.py": {
+      "sha256": "b88176c688159a5252f41f94c34e860812cd7a65bb3cf976122cc65669d8298e",
+      "review_reference": "commit_s3_review.json",
+      "unchanged_S3_bytes": true
+    },
+    "tools/verify_forest_browser.py": {
+      "sha256": "3f542a8b4a97dd8678ab45d5ef185ce8c47f6f753ec4bb6ef52eb2408890e422",
+      "review_reference": "browser_menu_ocr_review02/review.json",
+      "unchanged_S3_bytes": false
+    }
+  },
+  "evidence": [
+    {
+      "path": "build/forest_grapple02/browser_gui02/report.json",
+      "sha256": "3bf19e48155ddd909d2640bc08b37086eb9e3bce13a29879939cfddb13fd0c11"
+    },
+    {
+      "path": "build/forest_grapple02/browser_gui02.cli_receipt.json",
+      "sha256": "cbaa8587fd1438bc1ba7efee67ac26d982b3c43416312865906fd57880b9c552"
+    },
+    {
+      "path": "build/forest_grapple02/browser_gui02.cli.log",
+      "sha256": "113fa041f1c13d751a0eee330de89f6ee9180396545a1d2a45a996dc1a828da8"
+    },
+    {
+      "path": "build/forest_grapple02/run_browser_gui02.py",
+      "sha256": "f5412cb905a656eed3b4b65b4952736274a2b73cebb71257522e139398d70fb4"
+    },
+    {
+      "path": "build/verification/verifier_migration_review/commit_s3_review.json",
+      "sha256": "ebfcee398711ad17baa6eff1a3fc7931ddf1eef282cfc8028cb1f8f9dbb93481"
+    },
+    {
+      "path": "build/verification/verifier_migration_review/browser_menu_ocr_review01/review.json",
+      "sha256": "4d591a1c0503e35d03a483d4ced9b8f2ef04dade5e7fd5c373befb9ee02a5267"
+    },
+    {
+      "path": "build/verification/verifier_migration_review/browser_menu_ocr_review02/review.json",
+      "sha256": "1b2208df1ef7a525ca2f3a01f416903f7476a1bfcc0b7a65940033af1ca2c482"
+    },
+    {
+      "path": "build/forest_grapple02/ci_s3/selected-run-terminal01.json",
+      "sha256": "77d3c0e2ff3b59dad447987d92393aaa2c6bc400f55bbd79818434b0fba595de"
+    },
+    {
+      "path": "build/forest_grapple02/ci_s3/selected-jobs-terminal01.json",
+      "sha256": "739a1b9c61dacf9375bdbc330a48e93a64b244bf205d30baf026cbc3debb1094"
+    },
+    {
+      "path": "build/forest_grapple02/ci_s3/public_build_info01.json",
+      "sha256": "4c3d878b16474be4cd25bf722a83634d4b06c2b6660309a3d70d7a15580f17ee"
+    },
+    {
+      "path": "build/forest_grapple02/ci_s3/release03_skeleton/originals/publisher-terminal-allowlisted01.json",
+      "sha256": "e3ee5a1010c5aa86a791bbb6d048e5218a8a8378263b5c85947bce3250d256a7"
+    }
+  ],
+  "identity_evidence_limit": "8 initial identities are stored; final identity comparisons are not separately serialized. Actual successful CLI exit and unchanged verify() prove each final full-fetch equality assertion completed. Reviewer did not redownload/hash PCK bytes; full90390548-byte streamed hash is recorded by the unchanged original verifier.",
+  "CI_scope": "Selected S3 workflow39207127333 success is independently read from stored ordinary run/jobs metadata; source profile maps89=18+71 including originalforest80. Original CI inner ZIP unavailable403, so no independent\u901089 raw review is claimed. Publisher exact-package72 remains unexecuted/live_verified=false.",
+  "historical_limits": [
+    "Original GUI01 failed and OCR01 REJECT/candidate95 remain unchanged",
+    "Original local80 remains600.167-second timeout,59 actual passes/21 incomplete; no final source_stable is fabricated",
+    "Prior movies/routes are not fresh S3 native captures",
+    "Full-J\u2192H no-R succeeds; canopy R is not required",
+    "Parent whole-region design remains REVISE; human/physical device/fun/commercial quality unverified",
+    "Whole browser route and natural reward/next region GUI unverified"
+  ],
+  "wall_seconds": 378.77094068999577,
+  "admission_scope": "Technical consumer migration and actual public GUI entries/pause/resume only; no content/player/commercial admission"
+}

@@ -1,0 +1,42 @@
+{
+  "scope": "independent only-three-text-change review against verifier_counterexamples04 snapshot; not new native run",
+  "verdict": "ACCEPT",
+  "changed": [
+    {
+      "path": "tools/harness/profiles.json",
+      "previous_sha256": "71ea6603498ac5a8d63a97947e7f7b4851893912198c18970a3bc2a5573c6809",
+      "current_sha256": "e4bd23e498c5cf7f5629a77db5ee6ce96017a7489f6cfa12dc2b18da43707fe1",
+      "exactly_one_text_change": true
+    },
+    {
+      "path": "tools/run_forest_air_chain.py",
+      "previous_sha256": "7262f1d48fda5ac1fdfc8ab3974013be088fd1fa48f9aff3f963d7a5144adff1",
+      "current_sha256": "6ed1189767144c4cbe14b2b88d6ca332998a3ea3551dddf303cba85aa9aa733f",
+      "exactly_one_text_change": true
+    },
+    {
+      "path": "tools/run_forest_vertical_shortcut.py",
+      "previous_sha256": "0120746416b01163ecfe16425bc1590d771c1f8d3d4392cac142715cf3deb290",
+      "current_sha256": "a803b0fffbf5224ad61d120e91dce10944b0fa77974bfecf3ee0df4491de663b",
+      "exactly_one_text_change": true
+    }
+  ],
+  "unexpected_changes": [],
+  "marker_checks": [
+    {
+      "check": "forest-air-chain",
+      "pattern": "^FOREST AIR CHAIN SUITE: passed / 17 cases$",
+      "exact_positive_accepted": true,
+      "all_negatives_rejected": true
+    },
+    {
+      "check": "forest-vertical-shortcut",
+      "pattern": "^FOREST VERTICAL SHORTCUT: passed$",
+      "exact_positive_accepted": true,
+      "all_negatives_rejected": true
+    }
+  ],
+  "original_air_fields_except_authorized_marker_exactly_preserved": true,
+  "actual_suite_count": 17,
+  "all_checked": true
+}

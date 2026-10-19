@@ -1,0 +1,81 @@
+{
+  "task_id": "FOREST-DEPTH-02",
+  "baseline": "bee850c66b2f402d644d7daa4c13db91c8abe8f8",
+  "source_kind": "user_2026_10_17_request_and_actual_repository",
+  "locked": [
+    "S2 H only plus base jump and single equipped weapon recoil",
+    "No change to PlayerMotor, body24x36, hook231 range, incoming-side24x24kick, cast/pull timing, resource rules, RNG or save/core growth",
+    "Successful real hook kick and real accepted hit refill remain actual consumers; missed cast does not refill",
+    "New enemy/Boss mechanisms and two-map redesign authorized; aesthetic/player/device acceptance not provided"
+  ],
+  "proposed": [
+    "Rootbell: always vulnerable body, independently committed cross-arena pursuit and physical mobile thrown-bell anchor; true H arrival bats bell into owner through existing damage policy. Rejected destructible-root helper removed.",
+    "Queen: migrating perches and persistent cut-or-borrow weaving network; static dummy first candidate rejected",
+    "Woven exploration loops, horizontal/diagonal/fall-catch H and recoil corridors"
+  ],
+  "evidence_scope": "Actual PR76 latest baseline bee850c6; local source checkpoint51e594b3 plus declared dirty overlays. Each frozen receipt/source inventory is independently scoped. Guardian26 and Queen36 complete normal local fights, real App Node boundary chains, formal ecology expedition and A2 directional cavity have limited reviews. Default v2 is a playtest candidate; current final whole-source regression, public preview, players/devices and commercial quality are not yet admitted. Original rejected candidates and v3 whole-region REVISE retained.",
+  "sources": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "2c0825031a2e407da977879322554a7bb325a9ad8d05d64b1e8f8e3368b58b6d"
+    },
+    {
+      "path": "docs/design/player_actions/regions_v0.3.md",
+      "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4"
+    },
+    {
+      "path": "docs/design/player_actions/weapons_v0.8.md",
+      "sha256": "0d2b908637a85270e46ede7cbb17fb8d5d8f353d901a3bda79665291c450e852"
+    },
+    {
+      "path": "docs/quality/action_budget_spec.md",
+      "sha256": "6e1b9fe47f6cf61d680ae2c842cdb7e4b6954383a3f5fc848f1353d253eaabab"
+    },
+    {
+      "path": "docs/quality/air_action_refill.md",
+      "sha256": "fe6bc80021a09b82ec27bebfe866efe6f1b96423cb9102c7d9af9ad904772f86"
+    },
+    {
+      "path": "config/player_tuning.json",
+      "sha256": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+    },
+    {
+      "path": "resources/player/traversal.tres",
+      "sha256": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390"
+    },
+    {
+      "path": "scripts/player/traversal_ability.gd",
+      "sha256": "d30033d4f07566c6a6917b8d82407f5cbef5e873415e59082ddf844880ddb4ea"
+    },
+    {
+      "path": "scripts/run/run_campaign_progression.gd",
+      "sha256": "c4ec91e9d9fe86a13efea5bbdfceff1dd516ae14a44d3fc3c16798a3ecd84131"
+    },
+    {
+      "path": "scripts/player/player_motor.gd",
+      "sha256": "718a6c96ada9d3cd9134e24158a3fd730574166b1193e2770f098978d863ad5b"
+    },
+    {
+      "path": "resources/weapons/motion.tres",
+      "sha256": "745e34841342f71402bcc7a41f32e092d60cca475e560820943aa81b3dfefc10"
+    },
+    {
+      "path": "scripts/combat/shoot_ability.gd",
+      "sha256": "bb2895138a6b2bdee9959313597ec2eb765eca4ffe80e2ac3e6d3e72aed148bd"
+    },
+    {
+      "path": "scripts/combat/weapon_definition.gd",
+      "sha256": "76d52bf44579fa57ccd14851e46b2db925068ae7b00b4021604dabc16e991c8d"
+    },
+    {
+      "path": "resources/weapons/pulse_gun.tres",
+      "sha256": "d9c7341e1ae5bacb74740996215fac8e1173a1053a6d492333a8593adddb5b6a"
+    }
+  ],
+  "motion_analysis_correction": "Existing PlayerMotor upward weapon-burst completion starts the weapon-motion apex hold/blend. An estimate using immediate full gravity after H kick was incomplete; actual narrow trace accepts at least +9 ticks late R. No player motion parameter was changed.",
+  "weapon_consumer_correction": {
+    "ordinary_pulse": "ShootAbility.try_fire/_emit_round consume tuning projectile_speed=1200, projectile_lifetime=2, projectile_damage=1, and max(tuning.shot_cooldown=.25, weapon.interval*(rounds-1)+burst_duration)=.25. Nominal unobstructed travel is 2400px; real terrain and lifetime bound the actual path.",
+    "rejected_inference": "WeaponDefinition defaults speed850/range420/interval.11 do not determine ordinary single-round Pulse flight or cooldown. Earlier range420/.11 reasoning is withdrawn; no weapon parameters changed.",
+    "impact": "Boss sightlines must use real physical occlusion and actual shot outcomes; moving-target drivers must use actual projectile consumer, not unused Definition fields."
+  }
+}

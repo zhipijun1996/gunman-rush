@@ -1,0 +1,28 @@
+from pathlib import Path
+import json,hashlib,re,sys,importlib.util
+R=Path.cwd();O=R/'build/forest_depth/review/queen36';P=R/'build/forest_depth/queen/whole36-review-package';sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();pkg=json.loads((P/'package.json').read_text());verified=[]
+def refs(x):
+ if isinstance(x,dict):
+  if 'path' in x and 'sha256' in x:
+   p=R/x['path'];assert sha(p)==x['sha256'],p
+   if 'bytes' in x:assert p.stat().st_size==x['bytes']
+   verified.append(x['path'])
+  for v in x.values():refs(v)
+ elif isinstance(x,list):
+  for v in x:refs(v)
+refs(pkg)
+for path,row in pkg['source_files'].items():assert sha(R/row['selected'])==row['sha256']
+old=json.loads((R/'build/forest_depth/queen/whole31-review-package/package.json').read_text());S=R/'build/forest_depth/snapshots/queen36-local-causal-pressure';S31=R/old['snapshot'];prod=[p for p in pkg['source_files'] if not p.startswith(('tests/','tools/'))];assert len(prod)==10 and all(sha(S31/p)==pkg['source_files'][p]['sha256'] for p in prod)
+sys.path.insert(0,str(S/'tools'));spec=importlib.util.spec_from_file_location('frozen_queen36_reader',S/'tools/run_thorn_queen_sweep.py');v=importlib.util.module_from_spec(spec);spec.loader.exec_module(v)
+rows={};err=re.compile(r'SCRIPT ERROR:|Parse Error:|^ERROR:|ObjectDB.*leaked|resources? still in use at exit',re.M)
+for name,row in pkg['movies'].items():
+ d=json.loads((R/row['capture']['path']).read_text());r=json.loads((R/row['receipt']['path']).read_text());v.validate(d,d['selected']);assert r['native_exit_code']==0 and r['source_guard'] and r['runner_guard'] and r['all_snapshot_source_guard'];assert r['all_snapshot_source_before']==r['all_snapshot_source_after'];assert len(r['all_snapshot_source_before'])==2019
+ text=(R/row['native_log']['path']).read_text();assert '4.7.2' in text and not err.search(text)
+ f=d['frames'];e=d['events'];assert [x['tick'] for x in f]==list(range(1,len(f)+1));assert all(x['motor_steps']==x['tick'] for x in f);assert not d['manual_motor_step'] and not d['midroute_player_position_or_resource_writes'];assert all(x['core_open'] for x in f if x['boss_hp']>0)
+ hits=[x for x in e if x['event']=='policy_result' and x.get('target')=='boss'];damage=[x for x in e if x['event']=='policy_result' and x.get('target')=='player'];assert sum(x['amount'] for x in hits)==24 and sum(x['amount'] for x in damage)==1 and f[-1]['boss_hp']==0 and f[-1]['hp']==4
+ rows[name]={'ticks':len(f),'damage':sum(x['amount'] for x in damage),'damage_events':damage,'final_energy':f[-1]['energy'],'hook_contacts':[x for x in e if x['event']=='actual_hook_target_contact'],'severed':[x for x in e if x['event']=='weave_severed'],'phases':[x for x in e if x['event'] in ['network_phase_started','route_phase_started']],'phase_ranges':{str(p):{'ticks':[min(x['tick'] for x in f if x['route_phase']==p),max(x['tick'] for x in f if x['route_phase']==p)],'player_x':[min(x['player'][0] for x in f if x['route_phase']==p),max(x['player'][0] for x in f if x['route_phase']==p)],'player_y':[min(x['player'][1] for x in f if x['route_phase']==p),max(x['player'][1] for x in f if x['route_phase']==p)]} for p in [1,2,3]}}
+for name,row in pkg['locals'].items():
+ d=json.loads((R/row['capture']['path']).read_text());r=json.loads((R/row['receipt']['path']).read_text());v.validate(d,d['selected']);assert not d['failures'] and r['passed'] and r['source_guard'] and r['verifier_guard'];assert d['assertions']==row['assertions'];assert not err.search((R/row['native_log']['path']).read_text())
+ rows['local_'+name]={'assertions':d['assertions'],'cases':d['cases'],'scope':'Explicit local probe; not fair whole fight starting conditions'}
+res={'status':'CONTINUE_BOUNDED_PLAYTEST_CANDIDATE','package_sha256':sha(P/'package.json'),'verified_file_refs':len(verified),'production10_exact31':True,'source_guards_2019':True,'cases':rows,'local_assertions':69,'old_failures_retained':list(pkg['old_failures']),'viewing':'Actual nine contact sheets, every15 encoded frames plus final, covering both complete time ranges; original1280x720 H298/746/1194 and edge725 also viewed. No real-time playback/audio listening/device claim.'}
+(O/'actual-audit.json').write_text(json.dumps(res,indent=2)+'\n');print(json.dumps({k:v for k,v in res.items() if k!='cases'},indent=2))

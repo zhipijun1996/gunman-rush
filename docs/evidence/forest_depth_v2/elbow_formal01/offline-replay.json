@@ -1,0 +1,37 @@
+{
+  "scope": "Offline same actual580raw; producer reader reproduces original rejection; corrected reader accepts;8actual mutant controls reject. Not native rerun.",
+  "original_errors": [
+    "leg_7_elbow_second_contact_not_actual_motor_arrival"
+  ],
+  "corrected_errors": [],
+  "mutants": {
+    "tip_falsely_target_centre": [
+      "leg_7_elbow_second_contact_not_actual_motor_arrival_at_sampled_tip",
+      "leg_7_elbow_sampled_tip_not_on_actual_target_ring"
+    ],
+    "coherent_body_event_10px_short_of_stop": [
+      "leg_7_elbow_second_contact_not_actual_motor_arrival_at_sampled_tip"
+    ],
+    "coherent_tip_body_stop_but_wrong_target_ring": [
+      "leg_7_elbow_sampled_tip_not_on_actual_target_ring"
+    ],
+    "wrong_real_contact_target": [
+      "leg_7_cavity_actual_anchor_target"
+    ],
+    "no_actual_contact_event": [
+      "leg_7_cavity_cell_1_actual_hook_contact_kick"
+    ],
+    "coherent_fake_grounded_H2": [
+      "leg_7_cavity_actual_energy_cost_and_ground_recovery",
+      "leg_7_elbow_second_H_not_real_full_body_beyond_bay"
+    ],
+    "false_fixed_request_origin": [
+      "leg_7_elbow_cast_not_fixed_actual_request_origin",
+      "leg_7_elbow_request_not_actual_target_aim"
+    ],
+    "partial_receiver_12_not_actual_node430": [
+      "leg_7_actual_destination",
+      "leg_7_elbow_actual_C_node_position_full12"
+    ]
+  }
+}

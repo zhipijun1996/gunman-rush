@@ -1,0 +1,2597 @@
+{
+  "schema_version": 1,
+  "version": "plains-environment-candidate-v1",
+  "region_id": "windchime_plains",
+  "production_pool": false,
+  "source_art": "/workspace/generated_images/exec-211feb80-4d17-4296-94b3-8be3fb01ef52.png",
+  "structure_variant": "A",
+  "seed_policy": "Fixed first golden A; Seed phases are real, structural generalization unverified.",
+  "bounds": [
+    0,
+    0,
+    4200,
+    1560
+  ],
+  "spawn": [
+    180,
+    902
+  ],
+  "assets_catalog": "res://resources/visual_development/p1_environment_assets.json",
+  "places": [
+    {
+      "id": "grass_entry",
+      "label": "草坡进入",
+      "bounds": [
+        0,
+        480,
+        850,
+        1080
+      ],
+      "entry_port": {
+        "id": "grass_entry/entry",
+        "position": [
+          180,
+          902
+        ]
+      },
+      "exit_port": {
+        "id": "grass_entry/exit",
+        "position": [
+          790,
+          802
+        ]
+      },
+      "safe_stands": [
+        {
+          "id": "entry",
+          "position": [
+            180,
+            902
+          ],
+          "surface_id": "entry_slope/top"
+        },
+        {
+          "id": "fissure_takeoff",
+          "position": [
+            798,
+            802
+          ],
+          "surface_id": "entry_slope/top"
+        }
+      ],
+      "focal_anchors": [
+        {
+          "id": "grass_entry/focus",
+          "position": [
+            180,
+            902
+          ],
+          "role": "route_landmark",
+          "layer": -5
+        }
+      ],
+      "layer_anchors": [
+        {
+          "id": "grass_entry/depth",
+          "position": [
+            425.0,
+            400
+          ],
+          "role": "distant_continuity",
+          "layer": -40
+        }
+      ]
+    },
+    {
+      "id": "wind_fissure",
+      "label": "逆风裂隙",
+      "bounds": [
+        850,
+        400,
+        720,
+        1160
+      ],
+      "entry_port": {
+        "id": "wind_fissure/entry",
+        "position": [
+          1160,
+          742
+        ]
+      },
+      "exit_port": {
+        "id": "wind_fissure/exit",
+        "position": [
+          1510,
+          722
+        ]
+      },
+      "safe_stands": [
+        {
+          "id": "fissure_receiver",
+          "position": [
+            1160,
+            742
+          ],
+          "surface_id": "fissure_bank/top"
+        }
+      ],
+      "focal_anchors": [
+        {
+          "id": "wind_fissure/focus",
+          "position": [
+            1160,
+            742
+          ],
+          "role": "route_landmark",
+          "layer": -5
+        }
+      ],
+      "layer_anchors": [
+        {
+          "id": "wind_fissure/depth",
+          "position": [
+            1210.0,
+            400
+          ],
+          "role": "distant_continuity",
+          "layer": -40
+        }
+      ]
+    },
+    {
+      "id": "postal_ruins",
+      "label": "邮桥遗迹",
+      "bounds": [
+        1570,
+        300,
+        500,
+        1260
+      ],
+      "entry_port": {
+        "id": "postal_ruins/entry",
+        "position": [
+          1650,
+          710.941
+        ]
+      },
+      "exit_port": {
+        "id": "postal_ruins/exit",
+        "position": [
+          2010,
+          708.941
+        ]
+      },
+      "safe_stands": [],
+      "focal_anchors": [
+        {
+          "id": "postal_ruins/focus",
+          "position": [
+            1650,
+            710.941
+          ],
+          "role": "route_landmark",
+          "layer": -5
+        }
+      ],
+      "layer_anchors": [
+        {
+          "id": "postal_ruins/depth",
+          "position": [
+            1820.0,
+            400
+          ],
+          "role": "distant_continuity",
+          "layer": -40
+        }
+      ],
+      "safe_stand_scope": "No respawn anchor on measured sloping timber deck. Recover at adjoining natural banks."
+    },
+    {
+      "id": "lee_shelter",
+      "label": "背风栈棚",
+      "bounds": [
+        2070,
+        220,
+        1290,
+        1340
+      ],
+      "entry_port": {
+        "id": "lee_shelter/entry",
+        "position": [
+          2200,
+          691
+        ]
+      },
+      "exit_port": {
+        "id": "lee_shelter/exit",
+        "position": [
+          3310,
+          629
+        ]
+      },
+      "safe_stands": [
+        {
+          "id": "shelter_approach",
+          "position": [
+            2730,
+            662
+          ],
+          "surface_id": "shelter_ground/top"
+        },
+        {
+          "id": "shelter_rest",
+          "position": [
+            3040,
+            662
+          ],
+          "surface_id": "shelter_ground/top"
+        }
+      ],
+      "focal_anchors": [
+        {
+          "id": "lee_shelter/focus",
+          "position": [
+            2200,
+            691
+          ],
+          "role": "route_landmark",
+          "layer": -5
+        }
+      ],
+      "layer_anchors": [
+        {
+          "id": "lee_shelter/depth",
+          "position": [
+            2715.0,
+            400
+          ],
+          "role": "distant_continuity",
+          "layer": -40
+        }
+      ]
+    },
+    {
+      "id": "high_lookback",
+      "label": "高处回望",
+      "bounds": [
+        3360,
+        100,
+        840,
+        1460
+      ],
+      "entry_port": {
+        "id": "high_lookback/entry",
+        "position": [
+          3590,
+          582
+        ]
+      },
+      "exit_port": {
+        "id": "high_lookback/exit",
+        "position": [
+          4030,
+          542
+        ]
+      },
+      "safe_stands": [
+        {
+          "id": "ridge_receiver",
+          "position": [
+            3590,
+            582
+          ],
+          "surface_id": "lookback_ridge/top"
+        },
+        {
+          "id": "lookback",
+          "position": [
+            4030,
+            542
+          ],
+          "surface_id": "lookback_ridge/top"
+        }
+      ],
+      "focal_anchors": [
+        {
+          "id": "high_lookback/focus",
+          "position": [
+            3590,
+            582
+          ],
+          "role": "route_landmark",
+          "layer": -5
+        }
+      ],
+      "layer_anchors": [
+        {
+          "id": "high_lookback/depth",
+          "position": [
+            3780.0,
+            400
+          ],
+          "role": "distant_continuity",
+          "layer": -40
+        }
+      ]
+    }
+  ],
+  "solid_polygons": [
+    {
+      "id": "entry_slope",
+      "place_id": "grass_entry",
+      "points": [
+        [
+          0,
+          940
+        ],
+        [
+          120,
+          920
+        ],
+        [
+          250,
+          920
+        ],
+        [
+          380,
+          880
+        ],
+        [
+          600,
+          840
+        ],
+        [
+          720,
+          820
+        ],
+        [
+          850,
+          820
+        ],
+        [
+          878.5714,
+          860.1786
+        ],
+        [
+          829.4643,
+          949.4643
+        ],
+        [
+          762.5,
+          1038.75
+        ],
+        [
+          784.8214,
+          1128.0357
+        ],
+        [
+          728.5714,
+          1217.3214
+        ],
+        [
+          680.3571,
+          1306.6071
+        ],
+        [
+          625.8929,
+          1395.8929
+        ],
+        [
+          541.9643,
+          1485.1786
+        ],
+        [
+          265.8071,
+          1485.1786
+        ],
+        [
+          231.25,
+          1426.6071
+        ],
+        [
+          173.2143,
+          1337.3214
+        ],
+        [
+          174.1071,
+          1248.0357
+        ],
+        [
+          100.8929,
+          1158.75
+        ],
+        [
+          72.3214,
+          1069.4643
+        ],
+        [
+          30.3571,
+          980.1786
+        ]
+      ],
+      "material": "chalk",
+      "visual_envelope_points": [
+        [
+          0,
+          940
+        ],
+        [
+          120,
+          920
+        ],
+        [
+          250,
+          920
+        ],
+        [
+          380,
+          880
+        ],
+        [
+          600,
+          840
+        ],
+        [
+          720,
+          820
+        ],
+        [
+          850,
+          820
+        ],
+        [
+          878.5714,
+          860.1786
+        ],
+        [
+          829.4643,
+          949.4643
+        ],
+        [
+          762.5,
+          1038.75
+        ],
+        [
+          784.8214,
+          1128.0357
+        ],
+        [
+          728.5714,
+          1217.3214
+        ],
+        [
+          680.3571,
+          1306.6071
+        ],
+        [
+          625.8929,
+          1395.8929
+        ],
+        [
+          541.9643,
+          1485.1786
+        ],
+        [
+          265.8071,
+          1485.1786
+        ],
+        [
+          231.25,
+          1426.6071
+        ],
+        [
+          173.2143,
+          1337.3214
+        ],
+        [
+          174.1071,
+          1248.0357
+        ],
+        [
+          100.8929,
+          1158.75
+        ],
+        [
+          72.3214,
+          1069.4643
+        ],
+        [
+          30.3571,
+          980.1786
+        ]
+      ],
+      "side_profile_basis": {
+        "source_profile_scale": 0.8928571428571429,
+        "source_profile_origin_px": {
+          "left": [
+            40,
+            255
+          ],
+          "right": [
+            1485,
+            255
+          ]
+        },
+        "bottom_mode": "quiet deep core join below visible route"
+      }
+    },
+    {
+      "id": "fissure_bank",
+      "place_id": "wind_fissure",
+      "points": [
+        [
+          1090,
+          760
+        ],
+        [
+          1250,
+          760
+        ],
+        [
+          1460,
+          740
+        ],
+        [
+          1570,
+          720
+        ],
+        [
+          1598.5714,
+          760.1786
+        ],
+        [
+          1549.4643,
+          849.4643
+        ],
+        [
+          1482.5,
+          938.75
+        ],
+        [
+          1504.8214,
+          1028.0357
+        ],
+        [
+          1448.5714,
+          1117.3214
+        ],
+        [
+          1400.3571,
+          1206.6071
+        ],
+        [
+          1348.1477,
+          1292.1964
+        ],
+        [
+          1321.25,
+          1246.6071
+        ],
+        [
+          1263.2143,
+          1157.3214
+        ],
+        [
+          1264.1071,
+          1068.0357
+        ],
+        [
+          1190.8929,
+          978.75
+        ],
+        [
+          1162.3214,
+          889.4643
+        ],
+        [
+          1120.3571,
+          800.1786
+        ]
+      ],
+      "material": "chalk",
+      "visual_envelope_points": [
+        [
+          1090,
+          760
+        ],
+        [
+          1250,
+          760
+        ],
+        [
+          1460,
+          740
+        ],
+        [
+          1570,
+          720
+        ],
+        [
+          1598.5714,
+          760.1786
+        ],
+        [
+          1549.4643,
+          849.4643
+        ],
+        [
+          1482.5,
+          938.75
+        ],
+        [
+          1504.8214,
+          1028.0357
+        ],
+        [
+          1448.5714,
+          1117.3214
+        ],
+        [
+          1400.3571,
+          1206.6071
+        ],
+        [
+          1348.1477,
+          1292.1964
+        ],
+        [
+          1321.25,
+          1246.6071
+        ],
+        [
+          1263.2143,
+          1157.3214
+        ],
+        [
+          1264.1071,
+          1068.0357
+        ],
+        [
+          1190.8929,
+          978.75
+        ],
+        [
+          1162.3214,
+          889.4643
+        ],
+        [
+          1120.3571,
+          800.1786
+        ]
+      ],
+      "side_profile_basis": {
+        "source_profile_scale": 0.8928571428571429,
+        "source_profile_origin_px": {
+          "left": [
+            40,
+            255
+          ],
+          "right": [
+            1485,
+            255
+          ]
+        },
+        "bottom_mode": "measured side-profile intersection"
+      }
+    },
+    {
+      "id": "postal_deck_west",
+      "place_id": "postal_ruins",
+      "points": [
+        [
+          1570.0,
+          720.0
+        ],
+        [
+          1655.8586,
+          729.596
+        ],
+        [
+          1706.3636,
+          733.1313
+        ],
+        [
+          1756.8687,
+          736.6667
+        ],
+        [
+          1816.4646,
+          737.6768
+        ],
+        [
+          1873.0303,
+          736.6667
+        ],
+        [
+          1923.5354,
+          734.6465
+        ],
+        [
+          1974.0404,
+          731.6162
+        ],
+        [
+          2024.5455,
+          725.0505
+        ],
+        [
+          2070.0,
+          720.0
+        ],
+        [
+          2070.0,
+          760.0
+        ],
+        [
+          2024.5455,
+          765.0505
+        ],
+        [
+          1974.0404,
+          771.6162
+        ],
+        [
+          1923.5354,
+          774.6465
+        ],
+        [
+          1873.0303,
+          776.6667
+        ],
+        [
+          1816.4646,
+          777.6768
+        ],
+        [
+          1756.8687,
+          776.6667
+        ],
+        [
+          1706.3636,
+          773.1313
+        ],
+        [
+          1655.8586,
+          769.596
+        ],
+        [
+          1570.0,
+          760.0
+        ]
+      ],
+      "material": "timber",
+      "collision_basis": "Measured walkable_v2 pale plank standing face, ten points; uniformscale500/990, sockets[280,304]/[1270,304]; no old handrail collider or image warp."
+    },
+    {
+      "id": "shelter_ground",
+      "place_id": "lee_shelter",
+      "points": [
+        [
+          2070,
+          720
+        ],
+        [
+          2310,
+          700
+        ],
+        [
+          2520,
+          680
+        ],
+        [
+          2870,
+          680
+        ],
+        [
+          3060,
+          680
+        ],
+        [
+          3220,
+          660
+        ],
+        [
+          3360,
+          640
+        ],
+        [
+          3388.5714,
+          680.1786
+        ],
+        [
+          3339.4643,
+          769.4643
+        ],
+        [
+          3272.5,
+          858.75
+        ],
+        [
+          3294.8214,
+          948.0357
+        ],
+        [
+          3238.5714,
+          1037.3214
+        ],
+        [
+          3190.3571,
+          1126.6071
+        ],
+        [
+          3135.8929,
+          1215.8929
+        ],
+        [
+          3051.9643,
+          1305.1786
+        ],
+        [
+          2360.8,
+          1305.1786
+        ],
+        [
+          2353.9286,
+          1295.8929
+        ],
+        [
+          2301.25,
+          1206.6071
+        ],
+        [
+          2243.2143,
+          1117.3214
+        ],
+        [
+          2244.1071,
+          1028.0357
+        ],
+        [
+          2170.8929,
+          938.75
+        ],
+        [
+          2142.3214,
+          849.4643
+        ],
+        [
+          2100.3571,
+          760.1786
+        ]
+      ],
+      "material": "chalk",
+      "visual_envelope_points": [
+        [
+          2070,
+          720
+        ],
+        [
+          2310,
+          700
+        ],
+        [
+          2520,
+          680
+        ],
+        [
+          2870,
+          680
+        ],
+        [
+          3060,
+          680
+        ],
+        [
+          3220,
+          660
+        ],
+        [
+          3360,
+          640
+        ],
+        [
+          3388.5714,
+          680.1786
+        ],
+        [
+          3339.4643,
+          769.4643
+        ],
+        [
+          3272.5,
+          858.75
+        ],
+        [
+          3294.8214,
+          948.0357
+        ],
+        [
+          3238.5714,
+          1037.3214
+        ],
+        [
+          3190.3571,
+          1126.6071
+        ],
+        [
+          3135.8929,
+          1215.8929
+        ],
+        [
+          3051.9643,
+          1305.1786
+        ],
+        [
+          2360.8,
+          1305.1786
+        ],
+        [
+          2353.9286,
+          1295.8929
+        ],
+        [
+          2301.25,
+          1206.6071
+        ],
+        [
+          2243.2143,
+          1117.3214
+        ],
+        [
+          2244.1071,
+          1028.0357
+        ],
+        [
+          2170.8929,
+          938.75
+        ],
+        [
+          2142.3214,
+          849.4643
+        ],
+        [
+          2100.3571,
+          760.1786
+        ]
+      ],
+      "side_profile_basis": {
+        "source_profile_scale": 0.8928571428571429,
+        "source_profile_origin_px": {
+          "left": [
+            40,
+            255
+          ],
+          "right": [
+            1485,
+            255
+          ]
+        },
+        "bottom_mode": "quiet deep core join below visible route"
+      }
+    },
+    {
+      "id": "lookback_ridge",
+      "place_id": "high_lookback",
+      "points": [
+        [
+          3520,
+          600
+        ],
+        [
+          3690,
+          600
+        ],
+        [
+          3850,
+          560
+        ],
+        [
+          4200,
+          560
+        ],
+        [
+          4228.5714,
+          600.1786
+        ],
+        [
+          4179.4643,
+          689.4643
+        ],
+        [
+          4112.5,
+          778.75
+        ],
+        [
+          4134.8214,
+          868.0357
+        ],
+        [
+          4078.5714,
+          957.3214
+        ],
+        [
+          4030.3571,
+          1046.6071
+        ],
+        [
+          3975.8929,
+          1135.8929
+        ],
+        [
+          3891.9643,
+          1225.1786
+        ],
+        [
+          3840.4,
+          1225.1786
+        ],
+        [
+          3803.9286,
+          1175.8929
+        ],
+        [
+          3751.25,
+          1086.6071
+        ],
+        [
+          3693.2143,
+          997.3214
+        ],
+        [
+          3694.1071,
+          908.0357
+        ],
+        [
+          3620.8929,
+          818.75
+        ],
+        [
+          3592.3214,
+          729.4643
+        ],
+        [
+          3550.3571,
+          640.1786
+        ]
+      ],
+      "material": "chalk",
+      "visual_envelope_points": [
+        [
+          3520,
+          600
+        ],
+        [
+          3690,
+          600
+        ],
+        [
+          3850,
+          560
+        ],
+        [
+          4200,
+          560
+        ],
+        [
+          4228.5714,
+          600.1786
+        ],
+        [
+          4179.4643,
+          689.4643
+        ],
+        [
+          4112.5,
+          778.75
+        ],
+        [
+          4134.8214,
+          868.0357
+        ],
+        [
+          4078.5714,
+          957.3214
+        ],
+        [
+          4030.3571,
+          1046.6071
+        ],
+        [
+          3975.8929,
+          1135.8929
+        ],
+        [
+          3891.9643,
+          1225.1786
+        ],
+        [
+          3840.4,
+          1225.1786
+        ],
+        [
+          3803.9286,
+          1175.8929
+        ],
+        [
+          3751.25,
+          1086.6071
+        ],
+        [
+          3693.2143,
+          997.3214
+        ],
+        [
+          3694.1071,
+          908.0357
+        ],
+        [
+          3620.8929,
+          818.75
+        ],
+        [
+          3592.3214,
+          729.4643
+        ],
+        [
+          3550.3571,
+          640.1786
+        ]
+      ],
+      "side_profile_basis": {
+        "source_profile_scale": 0.8928571428571429,
+        "source_profile_origin_px": {
+          "left": [
+            40,
+            255
+          ],
+          "right": [
+            1485,
+            255
+          ]
+        },
+        "bottom_mode": "quiet deep core join below visible route"
+      }
+    },
+    {
+      "id": "postal_abutment_west",
+      "place_id": "postal_ruins",
+      "material": "bridge_abutment",
+      "points": [
+        [
+          1463.9394,
+          760
+        ],
+        [
+          1562.4242,
+          760
+        ],
+        [
+          1568.4848,
+          912.4242
+        ],
+        [
+          1618.9899,
+          932.6263
+        ],
+        [
+          1618.9899,
+          965.4545
+        ],
+        [
+          1448.7879,
+          965.4545
+        ],
+        [
+          1442.7273,
+          935.1515
+        ],
+        [
+          1463.9394,
+          917.4747
+        ]
+      ],
+      "source_polygon_px": [
+        [
+          70,
+          345
+        ],
+        [
+          265,
+          345
+        ],
+        [
+          277,
+          685
+        ],
+        [
+          377,
+          725
+        ],
+        [
+          377,
+          790
+        ],
+        [
+          40,
+          790
+        ],
+        [
+          28,
+          730
+        ],
+        [
+          70,
+          695
+        ]
+      ],
+      "collision_union_note": "Upper two collision vertices clipped to y760 inside existing grass/bridge union; original painted stone upper section remains carried by existing bank. Preserves previously verified standing edge and avoids a new 9px step.",
+      "presentation_owner": "postal_deck_west whole bridge asset; no separate grass or rock overlay"
+    },
+    {
+      "id": "postal_abutment_east",
+      "place_id": "postal_ruins",
+      "material": "bridge_abutment",
+      "points": [
+        [
+          2072.5253,
+          740.7071
+        ],
+        [
+          2176.0606,
+          740.7071
+        ],
+        [
+          2176.0606,
+          917.4747
+        ],
+        [
+          2191.2121,
+          935.1515
+        ],
+        [
+          2191.2121,
+          965.4545
+        ],
+        [
+          2027.0707,
+          965.4545
+        ],
+        [
+          2015.9596,
+          935.1515
+        ],
+        [
+          2064.9495,
+          912.4242
+        ]
+      ],
+      "source_polygon_px": [
+        [
+          1275,
+          345
+        ],
+        [
+          1480,
+          345
+        ],
+        [
+          1480,
+          695
+        ],
+        [
+          1510,
+          730
+        ],
+        [
+          1510,
+          790
+        ],
+        [
+          1185,
+          790
+        ],
+        [
+          1163,
+          730
+        ],
+        [
+          1260,
+          685
+        ]
+      ],
+      "presentation_owner": "postal_deck_west whole bridge asset; no separate grass or rock overlay"
+    }
+  ],
+  "surfaces": [
+    {
+      "id": "entry_slope/top",
+      "solid_id": "entry_slope",
+      "edge_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "semantic": "terrain",
+      "kind": "terrain"
+    },
+    {
+      "id": "entry_slope/outer",
+      "solid_id": "entry_slope",
+      "edge_indices": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "semantic": "outer_side_bottom",
+      "kind": "terrain_side"
+    },
+    {
+      "id": "fissure_bank/top",
+      "solid_id": "fissure_bank",
+      "edge_indices": [
+        0,
+        1,
+        2
+      ],
+      "semantic": "terrain",
+      "kind": "terrain"
+    },
+    {
+      "id": "fissure_bank/outer",
+      "solid_id": "fissure_bank",
+      "edge_indices": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "semantic": "outer_side_bottom",
+      "kind": "terrain_side"
+    },
+    {
+      "id": "postal_deck_west/top",
+      "solid_id": "postal_deck_west",
+      "edge_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "semantic": "bridge",
+      "kind": "bridge"
+    },
+    {
+      "id": "postal_deck_west/outer",
+      "solid_id": "postal_deck_west",
+      "edge_indices": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "semantic": "outer_side_bottom",
+      "kind": "terrain_side"
+    },
+    {
+      "id": "shelter_ground/top",
+      "solid_id": "shelter_ground",
+      "edge_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "semantic": "terrain",
+      "kind": "terrain"
+    },
+    {
+      "id": "shelter_ground/outer",
+      "solid_id": "shelter_ground",
+      "edge_indices": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22
+      ],
+      "semantic": "outer_side_bottom",
+      "kind": "terrain_side"
+    },
+    {
+      "id": "lookback_ridge/top",
+      "solid_id": "lookback_ridge",
+      "edge_indices": [
+        0,
+        1,
+        2
+      ],
+      "semantic": "terrain",
+      "kind": "terrain"
+    },
+    {
+      "id": "lookback_ridge/outer",
+      "solid_id": "lookback_ridge",
+      "edge_indices": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "semantic": "outer_side_bottom",
+      "kind": "terrain_side"
+    }
+  ],
+  "attachments": [
+    {
+      "id": "entry_wind_tree",
+      "role": "tree",
+      "surface_id": "entry_slope/top",
+      "t": 0.14,
+      "layer": -2
+    },
+    {
+      "id": "first_chime",
+      "role": "chime",
+      "surface_id": "entry_slope/top",
+      "t": 0.83,
+      "layer": 0
+    },
+    {
+      "id": "bridge_abut_west",
+      "role": "bridge_abutment",
+      "surface_id": "postal_deck_west/top",
+      "t": 0,
+      "layer": -1
+    },
+    {
+      "id": "bridge_abut_east",
+      "role": "bridge_abutment",
+      "surface_id": "postal_deck_west/top",
+      "t": 1,
+      "layer": -1
+    },
+    {
+      "id": "postal_sign",
+      "role": "chime",
+      "surface_id": "fissure_bank/top",
+      "t": 0.79,
+      "layer": 0
+    },
+    {
+      "id": "lee_shelter",
+      "role": "shelter",
+      "surface_id": "shelter_ground/top",
+      "t": 0.56,
+      "layer": -2
+    },
+    {
+      "id": "lookback_signal",
+      "role": "lookout",
+      "surface_id": "lookback_ridge/top",
+      "t": 0.83,
+      "layer": 0
+    }
+  ],
+  "mechanisms": [
+    {
+      "id": "postal_wind_gear",
+      "place_id": "postal_ruins",
+      "kind": "saw",
+      "origin": [
+        1950,
+        737.0664
+      ],
+      "travel": [
+        0,
+        26
+      ],
+      "radius": 24,
+      "period": 3.2,
+      "initial_phase": 0.25
+    }
+  ],
+  "enemies": [
+    {
+      "id": "environment/root_bell",
+      "area": "lee_shelter",
+      "behavior_id": "root_bell",
+      "position": [
+        2870,
+        660
+      ],
+      "patrol_radius": 0,
+      "aerial": false
+    }
+  ],
+  "route_waypoints": [
+    {
+      "id": "entry",
+      "position": [
+        180,
+        902
+      ],
+      "intent": "observe",
+      "direction": 1,
+      "tolerance": 22,
+      "require_grounded": true,
+      "wait_ticks": 45
+    },
+    {
+      "id": "first_takeoff",
+      "position": [
+        798,
+        802
+      ],
+      "intent": "walk",
+      "direction": 1,
+      "tolerance": 22,
+      "require_grounded": true
+    },
+    {
+      "id": "first_receiver",
+      "position": [
+        1160,
+        742
+      ],
+      "intent": "jump_recoil",
+      "direction": 1,
+      "tolerance": 22,
+      "require_grounded": true
+    },
+    {
+      "id": "bridge_west",
+      "position": [
+        1810,
+        719.567
+      ],
+      "intent": "walk",
+      "direction": 1,
+      "tolerance": 22,
+      "require_grounded": true
+    },
+    {
+      "id": "gear_wait",
+      "position": [
+        1880,
+        718.388
+      ],
+      "intent": "observe",
+      "direction": 1,
+      "tolerance": 22,
+      "require_grounded": true,
+      "wait_ticks": 60
+    },
+    {
+      "id": "gear_clear",
+      "position": [
+        2020,
+        707.641
+      ],
+      "intent": "wait_hop",
+      "direction": 1,
+      "tolerance": 22,
+      "require_grounded": true,
+      "wait_ticks": 0
+    },
+    {
+      "id": "shelter_observe",
+      "position": [
+        2700,
+        662
+      ],
+      "intent": "observe",
+      "direction": 1,
+      "tolerance": 22,
+      "require_grounded": true,
+      "wait_ticks": 30
+    },
+    {
+      "id": "shelter_bypass",
+      "position": [
+        3040,
+        662
+      ],
+      "intent": "jump_recoil",
+      "direction": 1,
+      "tolerance": 22,
+      "require_grounded": true
+    },
+    {
+      "id": "ridge_takeoff",
+      "position": [
+        3310,
+        629
+      ],
+      "intent": "walk",
+      "direction": 1,
+      "tolerance": 22,
+      "require_grounded": true
+    },
+    {
+      "id": "ridge_receiver",
+      "position": [
+        3590,
+        582
+      ],
+      "intent": "jump_recoil",
+      "direction": 1,
+      "tolerance": 22,
+      "require_grounded": true
+    },
+    {
+      "id": "lookback",
+      "position": [
+        4030,
+        542
+      ],
+      "intent": "arrive",
+      "direction": 1,
+      "tolerance": 22,
+      "require_grounded": true,
+      "wait_ticks": 90
+    },
+    {
+      "id": "return_ridge_takeoff",
+      "position": [
+        3570,
+        582
+      ],
+      "intent": "walk",
+      "direction": -1,
+      "tolerance": 22,
+      "require_grounded": true
+    },
+    {
+      "id": "return_ridge_bank",
+      "position": [
+        3300,
+        631
+      ],
+      "intent": "jump_recoil",
+      "direction": -1,
+      "tolerance": 22,
+      "require_grounded": true
+    },
+    {
+      "id": "return_shelter",
+      "position": [
+        3040,
+        662
+      ],
+      "intent": "walk",
+      "direction": -1,
+      "tolerance": 22,
+      "require_grounded": true
+    },
+    {
+      "id": "return_bypass",
+      "position": [
+        2700,
+        662
+      ],
+      "intent": "jump_recoil",
+      "direction": -1,
+      "tolerance": 22,
+      "require_grounded": true
+    },
+    {
+      "id": "return_bridge",
+      "position": [
+        2020,
+        707.641
+      ],
+      "intent": "walk",
+      "direction": -1,
+      "tolerance": 22,
+      "require_grounded": true
+    },
+    {
+      "id": "return_gear_west",
+      "position": [
+        1830,
+        719.435
+      ],
+      "intent": "wait_hop",
+      "direction": -1,
+      "tolerance": 22,
+      "require_grounded": true,
+      "wait_ticks": 0
+    },
+    {
+      "id": "return_bank",
+      "position": [
+        1160,
+        742
+      ],
+      "intent": "walk",
+      "direction": -1,
+      "tolerance": 22,
+      "require_grounded": true
+    },
+    {
+      "id": "return_fissure_takeoff",
+      "position": [
+        1125,
+        742
+      ],
+      "intent": "walk",
+      "direction": -1,
+      "tolerance": 22,
+      "require_grounded": true
+    },
+    {
+      "id": "return_entry_bank",
+      "position": [
+        790,
+        802
+      ],
+      "intent": "jump_recoil",
+      "direction": -1,
+      "tolerance": 22,
+      "require_grounded": true
+    },
+    {
+      "id": "return_entry",
+      "position": [
+        180,
+        902
+      ],
+      "intent": "arrive",
+      "direction": -1,
+      "tolerance": 22,
+      "require_grounded": true
+    }
+  ],
+  "route_forward": [
+    "entry",
+    "first_takeoff",
+    "first_receiver",
+    "bridge_west",
+    "gear_wait",
+    "gear_clear",
+    "shelter_observe",
+    "shelter_bypass",
+    "ridge_takeoff",
+    "ridge_receiver",
+    "lookback"
+  ],
+  "route_return": [
+    "return_ridge_takeoff",
+    "return_ridge_bank",
+    "return_shelter",
+    "return_bypass",
+    "return_bridge",
+    "return_gear_west",
+    "return_bank",
+    "return_fissure_takeoff",
+    "return_entry_bank",
+    "return_entry"
+  ],
+  "keep_clear": [
+    {
+      "id": "fissure_landing",
+      "bounds": [
+        740,
+        570,
+        500,
+        250
+      ]
+    },
+    {
+      "id": "bridge_arch_opening",
+      "bounds": [
+        1640,
+        780,
+        355,
+        600
+      ]
+    },
+    {
+      "id": "shelter_bypass",
+      "bounds": [
+        2650,
+        430,
+        470,
+        250
+      ]
+    },
+    {
+      "id": "ridge_fissure",
+      "bounds": [
+        3280,
+        400,
+        360,
+        260
+      ]
+    }
+  ],
+  "route_failure_y": 1510,
+  "camera": {
+    "zoom": 1.25
+  },
+  "capability_contract": {
+    "max_jumps": 1,
+    "max_air_shots": 2,
+    "weapon": "PulseLv1",
+    "grants": []
+  },
+  "source_art_scope": "Concept only. One complete postal bridge, two natural fissures; true sockets and collision shared.",
+  "bridge_measurement": {
+    "source": "assets/visual_development/p1_environment/postal_bridge_walkable_v2.png",
+    "source_sha256": "efab17570bb7bf56c518cc536fa395dbae2b5409c08448edb12ee2c8d59739ac",
+    "source_sockets": [
+      [
+        280,
+        304
+      ],
+      [
+        1270,
+        304
+      ]
+    ],
+    "uniform_scale": 0.5050505050505051,
+    "top_world": [
+      [
+        1570.0,
+        720.0
+      ],
+      [
+        1655.8586,
+        729.596
+      ],
+      [
+        1706.3636,
+        733.1313
+      ],
+      [
+        1756.8687,
+        736.6667
+      ],
+      [
+        1816.4646,
+        737.6768
+      ],
+      [
+        1873.0303,
+        736.6667
+      ],
+      [
+        1923.5354,
+        734.6465
+      ],
+      [
+        1974.0404,
+        731.6162
+      ],
+      [
+        2024.5455,
+        725.0505
+      ],
+      [
+        2070.0,
+        720.0
+      ]
+    ],
+    "source_deck_profile": [
+      [
+        280,
+        304
+      ],
+      [
+        450,
+        323
+      ],
+      [
+        550,
+        330
+      ],
+      [
+        650,
+        337
+      ],
+      [
+        768,
+        339
+      ],
+      [
+        880,
+        337
+      ],
+      [
+        980,
+        333
+      ],
+      [
+        1080,
+        327
+      ],
+      [
+        1180,
+        314
+      ],
+      [
+        1270,
+        304
+      ]
+    ],
+    "source_feet": [
+      [
+        280,
+        700
+      ],
+      [
+        1270,
+        700
+      ]
+    ],
+    "world_feet": [
+      [
+        1570,
+        920
+      ],
+      [
+        2070,
+        920
+      ]
+    ],
+    "shape_scope": "Original uppermost alpha is deck silhouette, but standing line lies inside pale upper plank face, approximately7-12px below silhouette; measured actual face pixels at x450 y323,x550 y330,x768 y339,x1080 y327. Endpoints on grass/deck join. Never previous railing. Footpoints at wood-to-stone joints y700. West added-support top remains clipped below retained gameplay top."
+  },
+  "geometry_provenance": {
+    "version": "measured-side-profile-rework-v1",
+    "basis_plan_sha256": "67a321306662c577c17f4162cc454c0470409b8313cacb8c97f0fcf6d787df4c",
+    "proposal_sha256": "aa9983b63da8490c58e4c431f8d5af18214d324b5eed2adc9b7f8393d606c7e9",
+    "source_sha256": "66e1cd6802163bd22830161a96d9fbf8d6203ad307ad9daaf7cd0720bd288791",
+    "source_profile_samples_y_left_right": [
+      [
+        255,
+        40,
+        1485
+      ],
+      [
+        300,
+        74,
+        1517
+      ],
+      [
+        400,
+        121,
+        1462
+      ],
+      [
+        500,
+        153,
+        1387
+      ],
+      [
+        600,
+        235,
+        1412
+      ],
+      [
+        700,
+        234,
+        1349
+      ],
+      [
+        800,
+        299,
+        1295
+      ],
+      [
+        900,
+        358,
+        1234
+      ],
+      [
+        1000,
+        432,
+        1140
+      ]
+    ],
+    "scope": "Actual deep side/bottom collisions jointly redesigned to measured visual boundary; all top vertices, bridge, routes, enemies, mechanisms, safe stands and bounds preserved. Requires fresh Motor traversal."
+  },
+  "bridge_abutment_provenance": {
+    "version": "whole-bridge-source-abutments-v1",
+    "source_texture": "assets/visual_development/p1_environment/postal_bridge.png",
+    "source_sha256": "e162653253c01d8e152b97d938f2cb3cb5a05565b2b195cd72ee049f71ec1604",
+    "proposal_sha256": "65ef62ac1005798a5275216b48b9e8ad3166c980d82ee1275d889314d3c664b3",
+    "source_foot_px": [
+      [
+        280,
+        722
+      ],
+      [
+        1270,
+        722
+      ]
+    ],
+    "source_to_world": {
+      "source_deck_left": [
+        280,
+        345
+      ],
+      "world_deck_left": [
+        1570,
+        720
+      ],
+      "uniform_scale": 0.5050505050505051
+    },
+    "source_alpha_measurement": "Within opaque stone-column/foot regions of original bridge, excluding arch ribs and decorative root tips.",
+    "original_proposed_solids": [
+      {
+        "id": "postal_abutment_west",
+        "place_id": "postal_ruins",
+        "material": "bridge_abutment",
+        "points": [
+          [
+            1463.9394,
+            730.101
+          ],
+          [
+            1562.4242,
+            730.101
+          ],
+          [
+            1568.4848,
+            902.8283
+          ],
+          [
+            1623.5354,
+            920.5051
+          ],
+          [
+            1623.5354,
+            950.303
+          ],
+          [
+            1450.8081,
+            950.303
+          ],
+          [
+            1450.8081,
+            924.5455
+          ],
+          [
+            1468.9899,
+            907.3737
+          ]
+        ],
+        "source_polygon_px": [
+          [
+            70,
+            365
+          ],
+          [
+            265,
+            365
+          ],
+          [
+            277,
+            707
+          ],
+          [
+            386,
+            742
+          ],
+          [
+            386,
+            801
+          ],
+          [
+            44,
+            801
+          ],
+          [
+            44,
+            750
+          ],
+          [
+            80,
+            716
+          ]
+        ]
+      },
+      {
+        "id": "postal_abutment_east",
+        "place_id": "postal_ruins",
+        "material": "bridge_abutment",
+        "points": [
+          [
+            2072.5253,
+            730.101
+          ],
+          [
+            2176.0606,
+            730.101
+          ],
+          [
+            2165.9596,
+            906.8687
+          ],
+          [
+            2181.1111,
+            922.5253
+          ],
+          [
+            2181.1111,
+            949.798
+          ],
+          [
+            2013.4343,
+            949.798
+          ],
+          [
+            2013.4343,
+            921.5152
+          ],
+          [
+            2064.9495,
+            903.3333
+          ]
+        ],
+        "source_polygon_px": [
+          [
+            1275,
+            365
+          ],
+          [
+            1480,
+            365
+          ],
+          [
+            1460,
+            715
+          ],
+          [
+            1490,
+            746
+          ],
+          [
+            1490,
+            800
+          ],
+          [
+            1158,
+            800
+          ],
+          [
+            1158,
+            744
+          ],
+          [
+            1260,
+            708
+          ]
+        ]
+      }
+    ],
+    "original_keep_clear": {
+      "id": "bridge_air",
+      "bounds": [
+        1590,
+        780,
+        460,
+        600
+      ]
+    },
+    "replacement_keep_clear": {
+      "id": "bridge_arch_opening",
+      "bounds": [
+        1640,
+        780,
+        355,
+        600
+      ]
+    },
+    "reason": "Measured stone feet in the complete bridge were part of the visible load-bearing object but old bridge_air incorrectly classified both bases as air. The central arch opening remains genuinely empty. West new collision upper edge is clipped to the existing terrain union to preserve the original standing edge; no arch rib collision is added."
+  },
+  "bridge_walkable_repaint_provenance": {
+    "version": "walkable-bridge-repaint-v2",
+    "measurement_sha256": "ce2725806007335cfb06eb72519f8d71d096eede2bd1ab6ab086b8962a5a4ad5",
+    "source_sha256": "efab17570bb7bf56c518cc536fa395dbae2b5409c08448edb12ee2c8d59739ac",
+    "source": "assets/visual_development/p1_environment/postal_bridge_walkable_v2.png",
+    "previous_measurement": {
+      "source_sockets": [
+        [
+          280,
+          345
+        ],
+        [
+          1270,
+          345
+        ]
+      ],
+      "uniform_scale": 0.5050505050505051,
+      "top_world": [
+        [
+          1570,
+          720
+        ],
+        [
+          1655.86,
+          723.54
+        ],
+        [
+          1706.36,
+          729.09
+        ],
+        [
+          1816.46,
+          731.11
+        ],
+        [
+          1873.03,
+          730.61
+        ],
+        [
+          1974.04,
+          724.55
+        ],
+        [
+          2070,
+          720
+        ]
+      ],
+      "shape_scope": "Measured painted sag is actual polygon standing edge, not a visual-only overlay."
+    },
+    "previous_deck_polygon": {
+      "id": "postal_deck_west",
+      "place_id": "postal_ruins",
+      "points": [
+        [
+          1570,
+          720
+        ],
+        [
+          1655.86,
+          723.54
+        ],
+        [
+          1706.36,
+          729.09
+        ],
+        [
+          1816.46,
+          731.11
+        ],
+        [
+          1873.03,
+          730.61
+        ],
+        [
+          1974.04,
+          724.55
+        ],
+        [
+          2070,
+          720
+        ],
+        [
+          2070,
+          760
+        ],
+        [
+          1974.04,
+          764.55
+        ],
+        [
+          1873.03,
+          770.61
+        ],
+        [
+          1816.46,
+          771.11
+        ],
+        [
+          1706.36,
+          769.09
+        ],
+        [
+          1655.86,
+          763.54
+        ],
+        [
+          1570,
+          760
+        ]
+      ],
+      "material": "timber",
+      "collision_basis": "Measured complete bridge alpha deck; uniformscale500/990, source sockets[280,345]/[1270,345], no image warp."
+    },
+    "previous_bridge_route_waypoints": [
+      {
+        "id": "bridge_west",
+        "position": [
+          1810,
+          712.991
+        ],
+        "intent": "walk",
+        "direction": 1,
+        "tolerance": 22,
+        "require_grounded": true
+      },
+      {
+        "id": "gear_wait",
+        "position": [
+          1880,
+          712.192
+        ],
+        "intent": "observe",
+        "direction": 1,
+        "tolerance": 22,
+        "require_grounded": true,
+        "wait_ticks": 60
+      },
+      {
+        "id": "gear_clear",
+        "position": [
+          2020,
+          704.371
+        ],
+        "intent": "wait_hop",
+        "direction": 1,
+        "tolerance": 22,
+        "require_grounded": true,
+        "wait_ticks": 0
+      },
+      {
+        "id": "return_bridge",
+        "position": [
+          2020,
+          704.371
+        ],
+        "intent": "walk",
+        "direction": -1,
+        "tolerance": 22,
+        "require_grounded": true
+      },
+      {
+        "id": "return_gear_west",
+        "position": [
+          1830,
+          712.99
+        ],
+        "intent": "wait_hop",
+        "direction": -1,
+        "tolerance": 22,
+        "require_grounded": true,
+        "wait_ticks": 0
+      }
+    ],
+    "previous_mechanisms": [
+      {
+        "id": "postal_wind_gear",
+        "place_id": "postal_ruins",
+        "kind": "saw",
+        "origin": [
+          1950,
+          730
+        ],
+        "travel": [
+          0,
+          26
+        ],
+        "radius": 24,
+        "period": 3.2,
+        "initial_phase": 0.25
+      }
+    ],
+    "previous_abutment_solids": [
+      {
+        "id": "postal_abutment_west",
+        "place_id": "postal_ruins",
+        "material": "bridge_abutment",
+        "points": [
+          [
+            1463.9394,
+            760
+          ],
+          [
+            1562.4242,
+            760
+          ],
+          [
+            1568.4848,
+            902.8283
+          ],
+          [
+            1623.5354,
+            920.5051
+          ],
+          [
+            1623.5354,
+            950.303
+          ],
+          [
+            1450.8081,
+            950.303
+          ],
+          [
+            1450.8081,
+            924.5455
+          ],
+          [
+            1468.9899,
+            907.3737
+          ]
+        ],
+        "source_polygon_px": [
+          [
+            70,
+            365
+          ],
+          [
+            265,
+            365
+          ],
+          [
+            277,
+            707
+          ],
+          [
+            386,
+            742
+          ],
+          [
+            386,
+            801
+          ],
+          [
+            44,
+            801
+          ],
+          [
+            44,
+            750
+          ],
+          [
+            80,
+            716
+          ]
+        ],
+        "collision_union_note": "Upper two collision vertices clipped to y760 inside existing grass/bridge union; original painted stone upper section remains carried by existing bank. Preserves previously verified standing edge and avoids a new 9px step.",
+        "presentation_owner": "postal_deck_west whole bridge asset; no separate grass or rock overlay"
+      },
+      {
+        "id": "postal_abutment_east",
+        "place_id": "postal_ruins",
+        "material": "bridge_abutment",
+        "points": [
+          [
+            2072.5253,
+            730.101
+          ],
+          [
+            2176.0606,
+            730.101
+          ],
+          [
+            2165.9596,
+            906.8687
+          ],
+          [
+            2181.1111,
+            922.5253
+          ],
+          [
+            2181.1111,
+            949.798
+          ],
+          [
+            2013.4343,
+            949.798
+          ],
+          [
+            2013.4343,
+            921.5152
+          ],
+          [
+            2064.9495,
+            903.3333
+          ]
+        ],
+        "source_polygon_px": [
+          [
+            1275,
+            365
+          ],
+          [
+            1480,
+            365
+          ],
+          [
+            1460,
+            715
+          ],
+          [
+            1490,
+            746
+          ],
+          [
+            1490,
+            800
+          ],
+          [
+            1158,
+            800
+          ],
+          [
+            1158,
+            744
+          ],
+          [
+            1260,
+            708
+          ]
+        ],
+        "presentation_owner": "postal_deck_west whole bridge asset; no separate grass or rock overlay"
+      }
+    ],
+    "scope": "Functional repaint removes misleading old handrail. Real ten-point bridge collision, port/route body-centre heights and saw support-relative origin updated together. Saw radius/period/travel/phase/behavior and all other standing tops/routes/enemies preserved. New stone feet follow measured source. Requires fresh full Motor capture."
+  }
+}

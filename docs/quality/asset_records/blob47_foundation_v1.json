@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "asset_id": "blob47_foundation_v1",
+  "content_version": "blob47-v1",
+  "source_path": "tools/build_blob47_art.py",
+  "source_sha256": "5594b2c1fb47fadb57cde4ea56394b90106800fac086884c8f725ffd4dbe488d",
+  "runtime_paths": [
+    "assets/art_foundation_v1/far.svg",
+    "assets/art_foundation_v1/middle.svg",
+    "assets/art_foundation_v1/props.svg",
+    "assets/art_foundation_v1/sandstone_blob47.svg",
+    "assets/art_foundation_v1/sky.svg"
+  ],
+  "tool": "Python stdlib SVG authoring; tools/build_blob47_art.py",
+  "model": "not_applicable: original vector source, no image-generation model",
+  "prompt_or_reference": "docs/art_foundation_v1.md; user supplied modular platformer references, no historical image input",
+  "processing": "64px source tiles, 32 world units, canonical 47 masks x 3 internal variants; 2px gutter, nearest filtering, no whole-platform stretch; original global generation manifest frozen byte-identically from 222ee12fa002710de104d31f660ee275c1e6d2f6:assets/manifest.json; does not cover the current global manifest",
+  "usage_scope": "V1 screenshot explicitly rejected by user on 2026-10-19; retained for existing runtime/build reproduction only, no style inheritance or expansion",
+  "license_status": "unknown",
+  "license_source": "Project-authored source. Repository has no explicit license grant; no third-party artwork copied. New legal license not inferred.",
+  "visual_status": "failed",
+  "user_acceptance_evidence": [],
+  "disposition": "runtime_candidate",
+  "associated_files": [
+    {
+      "path": "assets/art_foundation_v1/manifest.json",
+      "sha256": "732476a9d6462ee166c3bf17afdaff0d85c1e3ff04e823023a3620231252e83d",
+      "role": "generation_record"
+    },
+    {
+      "path": "docs/evidence/parallel_integration_01/frozen/blob47_assets_manifest_v1.json",
+      "sha256": "5929927a7d9f0112f01ea0477c85c3d97a98a0f7a362831a17a3fe11f14869e5",
+      "role": "generation_record"
+    }
+  ]
+}

@@ -1,0 +1,216 @@
+{
+  "scope": "single bounded supplemental raw review; no native or new comparator",
+  "verdict": "DROP unchanged",
+  "commit": "5bd6d738d476d404f9a8fd0b716fa3d591e10f37",
+  "raw_sha256": "8f788bf8f73d283f48786b6a5d4f0f8210e84d7227936b878e57e0ab3a764d57",
+  "receipt_sha256": "ad9d81874d79e15989073a431b8232c56e2bb50d35d32800a5753605b9b8bb6c",
+  "sources": {
+    "scripts/bosses/thorn_queen_canopy_encounter.gd": {
+      "sha256": "e16ac8e272a1821307d23a105f98fbb3f907702cf9733c7b53b849cc656d9218",
+      "source_before_match": true,
+      "same_9ca": true
+    },
+    "scripts/bosses/thorn_queen_canopy_presentation.gd": {
+      "sha256": "73c55121fea29526f3a9475f14c6b2f87545a4fe9485d0a58616d2794a417935",
+      "source_before_match": true,
+      "same_9ca": true
+    },
+    "tests/thorn_queen_canopy_mobile_anchor_runner.gd": {
+      "sha256": "fdbc7551f9b9279cbddc5f5f1db55232c52205d662321ab3b4b3aab3f891058d",
+      "source_before_match": true,
+      "same_9ca": false
+    },
+    "tests/support/forest_queen_canopy_fixture.gd": {
+      "sha256": "6f3db7a7d08bf3987e120a1c60eb17be33301166aff931553167bf06f5be01f8",
+      "source_before_match": true,
+      "same_9ca": false
+    },
+    "tools/run_thorn_queen_canopy.py": {
+      "sha256": "478853b98cb4620c82a9eeb86475d68fe27efd3b8ae2bce71e466ed70636d44d",
+      "source_before_match": true,
+      "same_9ca": false
+    }
+  },
+  "original_passed": true,
+  "source_guard": true,
+  "verifier_guard": true,
+  "summary": {
+    "arrival_tick": 161.0,
+    "boss_hp": 0.0,
+    "cast_tick": 152.0,
+    "departure_tick": 151.0,
+    "energy": 100.0,
+    "follow_shot_tick": 169.0,
+    "id": "mobile_mixed_chase",
+    "initial_boss_hp": 24.0,
+    "initial_energy": 100.0,
+    "initial_player_hp": 5.0,
+    "kick_tick": 168.0,
+    "kill_tick": 976.0,
+    "player_hp": 4.0,
+    "support12": 12.0,
+    "target_contact_tick": 159.0,
+    "ticks": 1021.0
+  },
+  "actual_damage_contexts": {
+    "grapple": 2,
+    "projectile": 22
+  },
+  "boss24_unique_HPcommits": true,
+  "player_policy": [
+    {
+      "amount": 1.0,
+      "case": "mobile_mixed_chase",
+      "event": "policy_result",
+      "hp": 4.0,
+      "id": "queen/weave/canopy_high/1/0",
+      "source": "queen_growing_weave",
+      "target": "player",
+      "tick": 553.0
+    }
+  ],
+  "continued_hook_transitions": [
+    {
+      "tick": 179.0,
+      "state": "hook_pull",
+      "player": [
+        651.955200195312,
+        147.478408813477
+      ],
+      "queen": [
+        426.0,
+        310.0
+      ],
+      "relative_x": 225.95520019531205
+    },
+    {
+      "tick": 189.0,
+      "state": "hook_contact_kick",
+      "player": [
+        515.642883300781,
+        280.640441894531
+      ],
+      "queen": [
+        476.71533203125,
+        277.938537597656
+      ],
+      "relative_x": 38.92755126953102
+    },
+    {
+      "tick": 196.0,
+      "state": "hook_kick",
+      "player": [
+        519.642883300781,
+        276.640441894531
+      ],
+      "queen": [
+        512.216125488281,
+        255.495513916016
+      ],
+      "relative_x": 7.4267578125
+    },
+    {
+      "tick": 219.0,
+      "state": "hook_miss",
+      "player": [
+        562.205627441406,
+        466.753051757812
+      ],
+      "queen": [
+        630.0,
+        200.0
+      ],
+      "relative_x": -67.79437255859398
+    }
+  ],
+  "mixed_decisions": [
+    {
+      "boss": [
+        484.0,
+        310.0
+      ],
+      "boss_id": 89909102385.0,
+      "boss_mode": "flight",
+      "case": "mobile_mixed_chase",
+      "distance": 96.5995101928711,
+      "event": "mixed_chase_decision",
+      "hook_used": false,
+      "player": [
+        545.464416503906,
+        241.477584838867
+      ],
+      "player_id": 87845504770.0,
+      "queen_velocity": [
+        -359.999969482422,
+        0.0
+      ],
+      "radial_speed": 229.061080932617,
+      "requested": true,
+      "session_id": 1.0,
+      "tick": 169.0
+    },
+    {
+      "boss": [
+        557.859924316406,
+        226.640197753906
+      ],
+      "boss_id": 89909102385.0,
+      "boss_mode": "flight",
+      "case": "mobile_mixed_chase",
+      "distance": 171.11100769043,
+      "event": "mixed_chase_decision",
+      "hook_used": false,
+      "player": [
+        622.872009277344,
+        390.919708251953
+      ],
+      "player_id": 87845504770.0,
+      "queen_velocity": [
+        304.293060302734,
+        -192.368713378906
+      ],
+      "radial_speed": 62.3297119140625,
+      "requested": true,
+      "session_id": 1.0,
+      "tick": 205.0
+    },
+    {
+      "boss": [
+        606.0,
+        110.0
+      ],
+      "boss_id": 89909102385.0,
+      "boss_mode": "flight",
+      "case": "mobile_mixed_chase",
+      "event": "mixed_warning_response",
+      "field_age": 0.0,
+      "locked": "S",
+      "player": [
+        438.074981689453,
+        341.92529296875
+      ],
+      "player_id": 87845504770.0,
+      "session_id": 1.0,
+      "target": "right",
+      "tick": 521.0
+    },
+    {
+      "boss": [
+        550.0,
+        110.0
+      ],
+      "boss_id": 89909102385.0,
+      "boss_mode": "migration_preview",
+      "case": "mobile_mixed_chase",
+      "event": "mixed_new_shore_support12",
+      "player": [
+        908.925048828125,
+        541.925231933594
+      ],
+      "player_id": 87845504770.0,
+      "session_id": 1.0,
+      "tick": 606.0
+    }
+  ],
+  "limits": "Earlier526 ordinary/pureH867 are separate actual source-bound controls, not a same-driver controlled ablation of new mixed chase; no claims current strongest ordinary or early-crown approval."
+}

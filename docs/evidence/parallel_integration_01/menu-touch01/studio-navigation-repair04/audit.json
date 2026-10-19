@@ -1,0 +1,44 @@
+{
+  "scope": "Actual Web08 failed OCR TSV parse and exact-baseline negative controls; not game GUI or motion acceptance",
+  "actual_TSV": "build/studio-navigation/1792410362360088566/title-4.tsv",
+  "source_sha256": "c1066f86c42784d7e641f2a1c0f9deea3de46cd4a1735466a06afd6b2592ac6f",
+  "positive_actual_center": [
+    309.8333333333333,
+    265.1666666666667
+  ],
+  "positive_bounds": [
+    669,
+    787,
+    521,
+    17
+  ],
+  "negative_controls": [
+    {
+      "case": "cross_baseline",
+      "rejected": true,
+      "error": "Expected one complete rendered menu label 'DEVELOPMENT DEMOS / ALL ENTRIES'; found 0"
+    },
+    {
+      "case": "large_gap",
+      "rejected": true,
+      "error": "Expected one complete rendered menu label 'DEVELOPMENT DEMOS / ALL ENTRIES'; found 0"
+    },
+    {
+      "case": "partial",
+      "rejected": true,
+      "error": "Expected one complete rendered menu label 'DEVELOPMENT DEMOS / ALL ENTRIES'; found 0"
+    },
+    {
+      "case": "wrong_suffix",
+      "rejected": true,
+      "error": "Expected one complete rendered menu label 'DEVELOPMENT DEMOS / ALL ENTRIES'; found 0"
+    },
+    {
+      "case": "duplicate_complete",
+      "rejected": true,
+      "error": "Expected one complete rendered menu label 'DEVELOPMENT DEMOS / ALL ENTRIES'; found 2"
+    }
+  ],
+  "production_tests_or_72_caps_changed": false,
+  "helper_sha256": "ed5b7f33dd48b07ede15640f47bede92fbaa80a7b4550f89f89f8e8f38f2b0cb"
+}

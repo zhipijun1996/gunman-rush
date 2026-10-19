@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "asset_id": "underworld-production-backgrounds",
+  "content_version": "underworld-formal-v2-feedback",
+  "source_path": "assets/underworld_plains/backgrounds/near.png",
+  "source_sha256": "32ea3038c8388b4df3898e0803d02ca7ad76634d5745019cbde3057d66c6ccf2",
+  "runtime_paths": [
+    "assets/underworld_plains/backgrounds/near.png",
+    "assets/underworld_plains/backgrounds/far.png",
+    "assets/underworld_plains/backgrounds/middle.png",
+    "assets/underworld_plains/backgrounds/sources/middle_original.png",
+    "assets/underworld_plains/backgrounds/sources/near_original.png",
+    "assets/underworld_plains/backgrounds/sources/far_original.png",
+    "assets/underworld_plains/scenery_build.json"
+  ],
+  "tool": "Per-file original imagegen/native-tile records in this family; aggregate inventory is not a new generation call",
+  "model": "not_exposed; see original records, no invented model/cost",
+  "prompt_or_reference": "docs/underworld_tile_production.md and original generation/provenance/build records listed in associated_files",
+  "processing": "Exact original sources and processing records retained; production_manifest.json and per-family build/provenance files specify actual crops, nearest scale, Tile atlas assembly and consumers. This aggregate does not replace individual source records. Runtime metadata assets/underworld_plains/scenery_build.json is loaded by the actual Underworld consumer; original processing bytes and licensing retained.",
+  "usage_scope": "Underworld formal Plains and current Home limited preview; no16-region completion claim",
+  "license_status": "unknown",
+  "license_source": "Mixed generated and referenced native assets; exact original licensing/source provenance retained per file, no blanket new commercial license assertion",
+  "visual_status": "unverified",
+  "user_acceptance_evidence": [],
+  "disposition": "limited_preview",
+  "associated_files": [
+    {
+      "path": "assets/underworld_plains/backgrounds/generation_record.json",
+      "sha256": "c4e590528fb99615b857487fbdaff0c0da917b11231ae89fce71dec6c3b6fa67",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/underworld_plains/backgrounds/middle_generation.json",
+      "sha256": "01b3cd55dc3d7d35f38479c421c5c9091fee8be1cb4e51d67d9f57f6e33e617f",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/underworld_plains/backgrounds/near_generation.json",
+      "sha256": "fe948fd3af73546f037009463d68ca1096006a7dbad90def18bf96b36925a419",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/underworld_plains/backgrounds/far_generation.json",
+      "sha256": "efb8fad802ff83a8403b1d40e4fe5e5493294d10b2eebc8c6c2cf3721a076ac2",
+      "role": "processing_record"
+    }
+  ]
+}

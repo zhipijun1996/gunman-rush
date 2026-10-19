@@ -1,0 +1,487 @@
+{
+  "scope": "actual candidate01 versus bounded art rework candidate02; same experimental geometry/driver; not PR72 geometry equivalence, user approval, or whole regression",
+  "frames_before": 1216,
+  "frames_after": 1216,
+  "per_tick": {
+    "tick": {
+      "differing_ticks": 0,
+      "examples": []
+    },
+    "position": {
+      "differing_ticks": 0,
+      "examples": []
+    },
+    "velocity": {
+      "differing_ticks": 0,
+      "examples": []
+    },
+    "health": {
+      "differing_ticks": 0,
+      "examples": []
+    },
+    "shot_energy": {
+      "differing_ticks": 0,
+      "examples": []
+    },
+    "grounded": {
+      "differing_ticks": 0,
+      "examples": []
+    },
+    "axis": {
+      "differing_ticks": 0,
+      "examples": []
+    },
+    "session_id": {
+      "differing_ticks": 0,
+      "examples": []
+    },
+    "recovery_count": {
+      "differing_ticks": 0,
+      "examples": []
+    },
+    "input_requests": {
+      "differing_ticks": 22,
+      "examples": [
+        {
+          "tick": 214,
+          "before": [
+            {
+              "direction": [
+                0.0,
+                0.0
+              ],
+              "epoch": 3,
+              "sequence": 1,
+              "timestamp_seconds": 27.476313,
+              "type": "jump"
+            }
+          ],
+          "after": [
+            {
+              "direction": [
+                0.0,
+                0.0
+              ],
+              "epoch": 3,
+              "sequence": 1,
+              "timestamp_seconds": 19.482139,
+              "type": "jump"
+            }
+          ]
+        },
+        {
+          "tick": 232,
+          "before": [
+            {
+              "direction": [
+                -0.707106828689575,
+                0.707106828689575
+              ],
+              "epoch": 3,
+              "sequence": 2,
+              "timestamp_seconds": 29.394788,
+              "type": "shoot_release"
+            }
+          ],
+          "after": [
+            {
+              "direction": [
+                -0.707106828689575,
+                0.707106828689575
+              ],
+              "epoch": 3,
+              "sequence": 2,
+              "timestamp_seconds": 20.768016,
+              "type": "shoot_release"
+            }
+          ]
+        },
+        {
+          "tick": 242,
+          "before": [
+            {
+              "direction": [
+                0.0,
+                0.0
+              ],
+              "epoch": 3,
+              "sequence": 3,
+              "timestamp_seconds": 30.475557,
+              "type": "jump_release"
+            }
+          ],
+          "after": [
+            {
+              "direction": [
+                0.0,
+                0.0
+              ],
+              "epoch": 3,
+              "sequence": 3,
+              "timestamp_seconds": 21.464679,
+              "type": "jump_release"
+            }
+          ]
+        }
+      ]
+    },
+    "root_bell": {
+      "differing_ticks": 0,
+      "examples": []
+    },
+    "actual_camera": {
+      "differing_ticks": 0,
+      "examples": []
+    },
+    "accepted_events": {
+      "differing_ticks": 0,
+      "examples": []
+    },
+    "shots": {
+      "differing_ticks": 0,
+      "examples": []
+    },
+    "shot_cooldown": {
+      "differing_ticks": 0,
+      "examples": []
+    },
+    "used_jumps": {
+      "differing_ticks": 0,
+      "examples": []
+    }
+  },
+  "global_events_equal_raw": true,
+  "event_counts": {
+    "before": {
+      "jump_accepted": 6,
+      "landed": 8,
+      "root_pulse": 2,
+      "shot_accepted": 4,
+      "spatial_case_begin": 4,
+      "spatial_case_end": 4
+    },
+    "after": {
+      "jump_accepted": 6,
+      "landed": 8,
+      "root_pulse": 2,
+      "shot_accepted": 4,
+      "spatial_case_begin": 4,
+      "spatial_case_end": 4
+    }
+  },
+  "initial_geometry_equal": true,
+  "final_geometry_equal": true,
+  "geometry_contract_equal": true,
+  "original_comparator": {
+    "status": "comparable_for_review",
+    "artifact": "original_comparison_01_02.json"
+  },
+  "input_requests_semantic": {
+    "fields": [
+      "type",
+      "direction",
+      "sequence",
+      "epoch"
+    ],
+    "different_ticks": 0,
+    "raw_difference_scope": "wall timestamp_seconds only; raw values retained in per_tick examples and original captures"
+  },
+  "source_unchanged": {
+    "movie_01": true,
+    "movie_02": true
+  },
+  "captured_metrics": {
+    "movie_01": {
+      "wall_seconds": 170.80759221100016,
+      "started_utc": "2026-10-16T14:06:57Z",
+      "finished_utc": "2026-10-16T14:09:48Z",
+      "media": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "profile": "High",
+            "codec_type": "video",
+            "codec_tag_string": "avc1",
+            "codec_tag": "0x31637661",
+            "width": 1280,
+            "height": 720,
+            "coded_width": 1280,
+            "coded_height": 720,
+            "closed_captions": 0,
+            "film_grain": 0,
+            "has_b_frames": 2,
+            "sample_aspect_ratio": "1:1",
+            "display_aspect_ratio": "16:9",
+            "pix_fmt": "yuvj420p",
+            "level": 32,
+            "color_range": "pc",
+            "color_space": "bt470bg",
+            "chroma_location": "center",
+            "field_order": "progressive",
+            "refs": 1,
+            "is_avc": "true",
+            "nal_length_size": "4",
+            "id": "0x1",
+            "r_frame_rate": "60/1",
+            "avg_frame_rate": "60/1",
+            "time_base": "1/15360",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 312576,
+            "duration": "20.350000",
+            "bit_rate": "8497107",
+            "bits_per_raw_sample": "8",
+            "nb_frames": "1221",
+            "extradata_size": 51,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "und",
+              "handler_name": "VideoHandler",
+              "vendor_id": "[0][0][0][0]",
+              "encoder": "Lavc61.19.101 libx264"
+            }
+          },
+          {
+            "index": 1,
+            "codec_name": "aac",
+            "codec_long_name": "AAC (Advanced Audio Coding)",
+            "profile": "LC",
+            "codec_type": "audio",
+            "codec_tag_string": "mp4a",
+            "codec_tag": "0x6134706d",
+            "sample_fmt": "fltp",
+            "sample_rate": "48000",
+            "channels": 2,
+            "channel_layout": "stereo",
+            "bits_per_sample": 0,
+            "initial_padding": 0,
+            "id": "0x2",
+            "r_frame_rate": "0/0",
+            "avg_frame_rate": "0/0",
+            "time_base": "1/48000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 976800,
+            "duration": "20.350000",
+            "bit_rate": "106915",
+            "nb_frames": "955",
+            "extradata_size": 5,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "und",
+              "handler_name": "SoundHandler",
+              "vendor_id": "[0][0][0][0]"
+            }
+          }
+        ],
+        "format": {
+          "filename": "/workspace/gunman-rush/build/spatial_golden/movie_01/gameplay.mp4",
+          "nb_streams": 2,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "format_long_name": "QuickTime / MOV",
+          "start_time": "0.000000",
+          "duration": "20.350000",
+          "size": "21920061",
+          "bit_rate": "8617222",
+          "probe_score": 100,
+          "tags": {
+            "major_brand": "isom",
+            "minor_version": "512",
+            "compatible_brands": "isomiso2avc1mp41",
+            "encoder": "Lavf61.7.103"
+          }
+        }
+      }
+    },
+    "movie_02": {
+      "wall_seconds": 113.06566161000046,
+      "started_utc": "2026-10-16T14:17:57Z",
+      "finished_utc": "2026-10-16T14:19:50Z",
+      "media": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "profile": "High",
+            "codec_type": "video",
+            "codec_tag_string": "avc1",
+            "codec_tag": "0x31637661",
+            "width": 1280,
+            "height": 720,
+            "coded_width": 1280,
+            "coded_height": 720,
+            "closed_captions": 0,
+            "film_grain": 0,
+            "has_b_frames": 2,
+            "sample_aspect_ratio": "1:1",
+            "display_aspect_ratio": "16:9",
+            "pix_fmt": "yuvj420p",
+            "level": 32,
+            "color_range": "pc",
+            "color_space": "bt470bg",
+            "chroma_location": "center",
+            "field_order": "progressive",
+            "refs": 1,
+            "is_avc": "true",
+            "nal_length_size": "4",
+            "id": "0x1",
+            "r_frame_rate": "60/1",
+            "avg_frame_rate": "60/1",
+            "time_base": "1/15360",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 312576,
+            "duration": "20.350000",
+            "bit_rate": "8574732",
+            "bits_per_raw_sample": "8",
+            "nb_frames": "1221",
+            "extradata_size": 51,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "und",
+              "handler_name": "VideoHandler",
+              "vendor_id": "[0][0][0][0]",
+              "encoder": "Lavc61.19.101 libx264"
+            }
+          },
+          {
+            "index": 1,
+            "codec_name": "aac",
+            "codec_long_name": "AAC (Advanced Audio Coding)",
+            "profile": "LC",
+            "codec_type": "audio",
+            "codec_tag_string": "mp4a",
+            "codec_tag": "0x6134706d",
+            "sample_fmt": "fltp",
+            "sample_rate": "48000",
+            "channels": 2,
+            "channel_layout": "stereo",
+            "bits_per_sample": 0,
+            "initial_padding": 0,
+            "id": "0x2",
+            "r_frame_rate": "0/0",
+            "avg_frame_rate": "0/0",
+            "time_base": "1/48000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 976800,
+            "duration": "20.350000",
+            "bit_rate": "106915",
+            "nb_frames": "955",
+            "extradata_size": 5,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "und",
+              "handler_name": "SoundHandler",
+              "vendor_id": "[0][0][0][0]"
+            }
+          }
+        ],
+        "format": {
+          "filename": "/workspace/gunman-rush/build/spatial_golden/movie_02/gameplay.mp4",
+          "nb_streams": 2,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "format_long_name": "QuickTime / MOV",
+          "start_time": "0.000000",
+          "duration": "20.350000",
+          "size": "22117425",
+          "bit_rate": "8694810",
+          "probe_score": 100,
+          "tags": {
+            "major_brand": "isom",
+            "minor_version": "512",
+            "compatible_brands": "isomiso2avc1mp41",
+            "encoder": "Lavf61.7.103"
+          }
+        }
+      }
+    }
+  }
+}

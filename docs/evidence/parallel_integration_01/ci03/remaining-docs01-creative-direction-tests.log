@@ -1,0 +1,44 @@
+E...E.E..
+======================================================================
+ERROR: test_actual_recommendations_are_valid_but_never_player_or_runtime_acceptance (__main__.CreativeTests.test_actual_recommendations_are_valid_but_never_player_or_runtime_acceptance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-design/tests/test_region_creative_direction.py", line 23, in test_actual_recommendations_are_valid_but_never_player_or_runtime_acceptance
+    data, ref = creative.load_direction('docs/creative_direction/' + path + '.json', path)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush-design/tools/region_creative_direction.py", line 77, in load_direction
+    raise ValueError('; '.join(errors))
+ValueError: Authority changed; rethink direction: docs/controls_contract.md; Authority changed; rethink direction: config/player_tuning.json
+
+======================================================================
+ERROR: test_engineering_prototype_stays_explicit_and_does_not_claim_region (__main__.CreativeTests.test_engineering_prototype_stays_explicit_and_does_not_claim_region)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-design/tests/test_region_creative_direction.py", line 83, in test_engineering_prototype_stays_explicit_and_does_not_claim_region
+    mission = level_design.route_request('制作荆棘森林', phase='prototype', direction=self.path)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush-design/tools/level_design.py", line 474, in route_request
+    data, binding = load_direction(direction, region_id)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush-design/tools/region_creative_direction.py", line 77, in load_direction
+    raise ValueError('; '.join(errors))
+ValueError: Authority changed; rethink direction: docs/controls_contract.md; Authority changed; rethink direction: config/player_tuning.json
+
+======================================================================
+ERROR: test_selected_direction_binds_every_specialist_and_retains_stage_gates (__main__.CreativeTests.test_selected_direction_binds_every_specialist_and_retains_stage_gates)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-design/tests/test_region_creative_direction.py", line 71, in test_selected_direction_binds_every_specialist_and_retains_stage_gates
+    mission = level_design.route_request('制作荆棘森林', direction=self.path)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush-design/tools/level_design.py", line 474, in route_request
+    data, binding = load_direction(direction, region_id)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush-design/tools/region_creative_direction.py", line 77, in load_direction
+    raise ValueError('; '.join(errors))
+ValueError: Authority changed; rethink direction: docs/controls_contract.md; Authority changed; rethink direction: config/player_tuning.json
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.693s
+
+FAILED (errors=3)

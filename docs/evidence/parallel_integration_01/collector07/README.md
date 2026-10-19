@@ -1,0 +1,9 @@
+# 新候选采证修复：有界接受，发布验收另待
+
+正式游戏在afd84ec6之后零改动；修改仅studio_gui_pointer与public collector title scroll=True。原153历史检查、三个72consumer/所有postentry与预算保持。
+
+原CI6准确包导航失败→中文模型/全幅高分辨率未解决→完整四边ROI的06版desktop成功/mobile抗锯齿FAIL→07版alpha识框但Nearest把/读错被strict parser真实拒绝→08版固定6xLANCZOS/真实alpha色族mask通过静态和唯一live12。06/07源码由唯一记录变换事后重建且逐字SHA匹配原实际receipt，明确不是当时原文件封存；08为实际当前字节快照。
+
+四边/完整label/全候选统一唯一性保留，重复真按钮/去框glyph/空白/EXTRA后缀真实像素负例均拒绝，36候选溢出不截断。live11真实mobile失败保留，live12两viewport实际fresh Studio和装备各一次成功且手机DOMcancel后可导航。仅准确CI6包+dirty工具诊断，绝不原72或新source部署通过。
+
+新source完整CI/原canonical72/公开20/8另验。独审01限定ACCEPT；初审UNVERIFIED与原失败全保留。诊断无损ZIP各成员SHA/bytes+CRC验证。未采用中文模型bytes仅本机，源URL固定commit与SHA在依赖receipt，Git不冒称提供模型。

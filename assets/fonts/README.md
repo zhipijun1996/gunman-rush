@@ -8,3 +8,9 @@ D073: subset expanded to all current Boss, ammunition rejection and session-volu
 D077: subset also covers Bellstrider Chinese display name and all roll/ring/lob/core cues. Its formal Boss HUD has one actual half-health intensity marker. The original OFL source and runtime usage are unchanged.
 
 D079: subset includes all actual item resources and shared item-card/acquisition UI, plus formal energy feedback. Runtime consumers now include reward/shop/build cards; OFL license and original font source remain unchanged.
+
+FOREST-PLAYABLE-01: rebuilt by the same tool from the same SHA-verified OFL source to cover all current item-card literals, including `forest_heart_gold.tres`. Glyph coverage is checked against actual runtime item resources; user/device typography approval remains unverified.
+
+FOREST-DEPTH-02: the same SHA-verified OFL source now also covers actual encounter objectives and names across `scripts/bosses/*.gd` and `resources/bosses/*.tres`. The existing codepoints are preserved when rebuilding; new forest cues must not display missing-character boxes. This is UI readability work, not final typography or art approval.
+
+FOREST-DEPTH-02 Canopy: preserve all462 prior codepoints and their exact metrics/decomposed outlines; add `岸` for the actual phase3 objective using the same SHA-verified OFL source and weight600 tool. The new463 subset fixes portable glyph availability, without signing pixel, device or typography approval.

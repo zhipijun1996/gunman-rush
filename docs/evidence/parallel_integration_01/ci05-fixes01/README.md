@@ -1,0 +1,13 @@
+# CI05 后续修复与独立审查原件
+
+本目录是 d86ae7474239a6f483962e0f2af712ed1d0432b7 失败之后的修复工作候选证据归档；尚未绑定最终修复Git／新CI或公网部署。review中的实际时间、源SHA、失败与未知项原字节保留，不改签旧来源。旧d86完整CI实际FAIL／未部署继续保留在相邻ci05／ci05-diagnosis01；本机后来通过不冲销原失败。
+
+reviews保存四组已实际完成的限定独立审查。scene保留完整原wrapper31原始成员无损ZIP及成员来源绑定（每成员完整size/SHA与CRC重新验证）；包含positive与全部mutation／验收反例，不复制49MB原JSON第二份。wood保留当前pixel＋显式legacy fixture的严格headless／GPU原logs、GPU原图和原LegacyStrip真实非零失败回执。GPU1760/0是作者原执行日志，本目录归档不冒充审查者跑引擎或重新签像素认可。
+
+pixel/GPU保存两图×四身份8幅正常zoom和8幅实际TexturePNG、capture/process/display原件；脚本只移动检查摄影机，不当玩家通行。source是当前修复源码字节快照（.txt避免改变生产消费者），轮廓设计是风车四帆／井架水槽桶／钟架钟面／开放工坊工具架，实际support/protection、非碰撞整数pixel。独审限定局部可辨／贴地，地标偏小、背景抢眼、浅顶边轻微可站误读风险保留，不签商业构图／用户审美。
+
+custody保留AVI和两大JSON无损迁移原receipt／脚本／实际早停。四AVI原字节在原工作路径+.xz，未复制138MB压缩电影到此；完整SHA和流式解压独审在reviews。原AVI路径删除是明确的可逆保管迁移，不能把缺原路径当仍有AVI。JSON分别在相邻ci05-diagnosis01的原归档和本目录scene完整ZIP精确保存；restore.py保留其原路径合同，若从此归档执行须先按receipt把原ZIP放回记录的build路径或显式定位相同SHA归档。恢复只构造独立临时文件、完整SHA／长度验证后rename，绝不重新序列化JSON／重录电影。
+
+movie-binding保留实际d86新电影原native/capture/receipt ZIP和AVI／MP4 SHA及时间轴；MP4分享件目前在本机build/integration01/movies-final-portable，不由本目录宣称已Git携带全部movie。旧ff与新d86源分开，当前新pixel地标不在这些旧d86片内，不可把旧片改签新修复源。
+
+本目录不包含257MB Web ZIP、任何publisher私有checkpoint／签名URL，不执行engine/browser；新touch adapter、原72／公网GUI、新最终CI尚待后续独立评审。整体设计REVISE、generic art planner blocked、玩家／设备／趣味未验保持。

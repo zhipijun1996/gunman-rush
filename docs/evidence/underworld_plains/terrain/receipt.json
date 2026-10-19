@@ -1,0 +1,71 @@
+{
+  "task_id": "UNDERWORLD-PLAINS-01",
+  "scope": "Native source-pixel selected Underworld material. True 47-mask TileMap for grid cells unambiguous against neighbouring occupancy; exact union adapter for partial-boundary rectangles. No collision or level-layout conversion. Five fixture GPU static images, not formal gameplay/aesthetic/device approval.",
+  "files": {
+    "scripts/underworld_plains/underworld_terrain.gd": "1b806e6c8b2d81f75edb4a5cc3e671b84d1d3d383536670234cbdc0232170e3f",
+    "scripts/underworld_plains/underworld_terrain.gdshader": "a175d071cda5b8d95a25ce327f7abc77eec9d779b9a5abc374b02ced640cb0ae",
+    "tools/build_underworld_terrain.py": "3411b02e258c9d51bc9566257dd6b7447c3bfef9c3785178b8a1da48cf6e85a6",
+    "tests/underworld_plains/test_underworld_terrain.gd": "130f47f1cc1a7eb760e23a973919ae2fedb80a1dbe044b116b637a4ec23979d7",
+    "scripts/art/plains_terrain_study.gd": "af14698e84358e031b91a51c4df6558ce1be07df2093b165a8e651d229d108d3",
+    "assets/underworld_plains/terrain/source.png": "a369175ccef5fca5ab363f140252d1f0f38b5eafb5d541605c601ea4ac56f88c",
+    "assets/underworld_plains/terrain/terrain.png": "908a3541feccc0e7abdd629c3a0bb8ce22693e22e89ea153cc7d80a411cbfba9",
+    "assets/underworld_plains/terrain/terrain.tres": "02fa0bf8a764fd6307d47b9bf802066c6374d7a7c2d93060ec099289cbde3770",
+    "assets/underworld_plains/terrain/terrain_build.json": "64f0c0fb88271e0e25684c8a4e4099af7135e5001c6604126485c9bb6c511c5d",
+    "tests/underworld_plains/test_underworld_formal_terrain.gd": "3a30053017daa8b6c0e55df801918eccedcde62feffba4bc362257fd48ff19b3",
+    "tools/run_underworld_terrain_tests.py": "3f09d75e496efb1cba68fdfa9d677eb74bc1cce845721d63c10c38624b9ebadc",
+    "tools/run_underworld_formal_terrain_tests.py": "d86cfae949a3938732d60ab4e4d5355d004ce5199223b64d1731fa1678e73752"
+  },
+  "commands": [
+    {
+      "command": "python tools/build_underworld_terrain.py --check",
+      "exit_code": 0,
+      "writes": false
+    },
+    {
+      "command": "bash tools/godot.sh --headless --path . --script tests/underworld_plains/test_underworld_terrain.gd",
+      "exit_code": 0,
+      "checks": 239900
+    },
+    {
+      "command": "DISPLAY=:98 bash tools/godot.sh --audio-driver Dummy --path . --rendering-method gl_compatibility --script tests/underworld_plains/test_underworld_terrain.gd -- --gpu",
+      "exit_code": 0,
+      "checks": 239910
+    },
+    {
+      "command": "python tools/run_underworld_terrain_tests.py",
+      "exit_code": 0,
+      "strict_engine_wrapper": true,
+      "checks": 239900,
+      "log": "docs/evidence/underworld_plains/terrain/geometry_final.log"
+    },
+    {
+      "command": "python tools/run_underworld_formal_terrain_tests.py",
+      "exit_code": 0,
+      "strict_engine_wrapper": true,
+      "checks": 40374,
+      "actual_app_stage_consumers": 20,
+      "log": "docs/evidence/underworld_plains/terrain/formal_v2.log",
+      "result": "docs/evidence/underworld_plains/terrain/formal_result.json"
+    }
+  ],
+  "preserved_failure": "Initial GPU startup DISPLAY=:99 unavailable, no rendering result; retried actual software-GL Xvfb :98. v1 GPU default ALSA failed and fell back Dummy; v2 explicitly Dummy.",
+  "native_alpha_note": "Publisher pixels include transparent rounded convex/bottom edge texels. Quad geometric coverage is exact; alpha inside the shape is intentionally not fully opaque. GPU verifies no outside spill and complete repartition image equality.",
+  "consumer": "PlainsTerrainStudy.refresh_geometry -> UnderworldTerrain.build; collector observes true module solids+ground support columns and refreshes when geometry changes.",
+  "preserved_formal_failure": {
+    "log": "docs/evidence/underworld_plains/terrain/preserved_formal_unbound_stage_leaks.log",
+    "description": "Direct unbound Stage fixtures pass40384 assertions but leave20 not-yet-bound Boss contact areas orphaned. Strict completion rejected. Test revised to create full actual DemoApp and bind normal lifecycle; production assertions were preserved and no leak exemption added."
+  },
+  "formal_scope": "10 seeds x 2 maps through current DemoApp v3 Stage consumers, explicit second-map selection fixture; exact source TileSet and geometry contract checks, no Motor route traversal. Separate actual App bound Boss arena callback proves material refresh when real bridge geometry breaks.",
+  "formal_summary": {
+    "tilemap_area_fraction_min": 0.398857685058528,
+    "tilemap_area_fraction_max": 0.483653222361113,
+    "tilemap_cells_per_map_min": 844,
+    "tilemap_cells_per_map_max": 1194,
+    "distinct_atlas_coordinates_per_map_min": 3,
+    "distinct_atlas_coordinates_per_map_max": 5,
+    "adapter_pieces_per_map_min": 252,
+    "adapter_pieces_per_map_max": 355,
+    "native_glyph_roles_geometric_inventory_min": 11,
+    "native_glyph_roles_geometric_inventory_max": 13
+  }
+}

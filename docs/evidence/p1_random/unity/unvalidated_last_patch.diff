@@ -1,0 +1,193 @@
+diff --git a/scripts/art/p1_random_plains_sample.gd b/scripts/art/p1_random_plains_sample.gd
+index 0fc120bb..94a01693 100644
+--- a/scripts/art/p1_random_plains_sample.gd
++++ b/scripts/art/p1_random_plains_sample.gd
+@@ -12,6 +12,7 @@ var _family: Dictionary
+ var _paint: Node2D
+ var _baseline: Node2D
+ var _geometry: Array[Rect2] = []
++var _shortcut_art: Array[Dictionary]=[]
+ 
+ func install(stage: PlainsRegionStage) -> void:
+ 	_stage=stage
+@@ -33,6 +34,8 @@ func install(stage: PlainsRegionStage) -> void:
+ func _process(_delta: float) -> void:
+ 	if not is_instance_valid(_stage) or not is_instance_valid(_stage.terrain_art):return
+ 	if _baseline!=_stage.terrain_art.art or _geometry!=_stage.terrain_art.authored_solids:_refresh()
++	for row: Dictionary in _shortcut_art:
++		if is_instance_valid(row.node):row.node.visible=not _stage.region_state.opened.has(row.id)
+ 
+ func _refresh() -> void:
+ 	if is_instance_valid(_paint):_paint.free()
+@@ -92,6 +95,16 @@ func _hide_solid(rect: Rect2) -> void:
+ func _structures(data: Dictionary) -> Dictionary:
+ 	var applied: Array[Dictionary]=[]
+ 	var omitted: Array[Dictionary]=[]
++	_shortcut_art.clear()
++	var narrow_seen: Dictionary={}
++	for rect: Rect2 in data.rooted:
++		if rect.size.x>48 or rect.size.y<rect.size.x*2 or narrow_seen.has(rect):continue
++		narrow_seen[rect]=true
++		var column := P1StructureArt.make(rect,"column")
++		if column==null:omitted.append({"semantic":"narrow_rooted_part_source_refused","rect":_rect(rect)});continue
++		_paint.add_child(column)
++		for paint: CanvasItem in column.get_children():paint.z_index=0
++		var record: Dictionary=column.get_meta("p1_structure");record["semantic"]="actual_narrow_rooted_member_opaque_overlay_connected_to_original_body";applied.append(record)
+ 	for row: Dictionary in data.one_way:
+ 		var module := get_node(str(row.module_path)) as PlatformingModule
+ 		for child: Node in module.get_children():
+@@ -100,7 +113,7 @@ func _structures(data: Dictionary) -> Dictionary:
+ 		if node==null:omitted.append({"semantic":"one_way","rect":_rect(row.rect)});continue
+ 		_paint.add_child(node)
+ 		for child: Node in module.get_children():
+-			if child is CanvasItem and child.get_meta("platform_index",-1)==int(row.platform_index):child.hide()
++			if child is CanvasItem and child.get_meta("platform_index",-1)==int(row.platform_index):child.visible=false;child.process_mode=Node.PROCESS_MODE_DISABLED
+ 		var record: Dictionary=node.get_meta("p1_structure");record["semantic"]="one_way_pass_through_unchanged";applied.append(record)
+ 	for row: Dictionary in data.floating:
+ 		var rect: Rect2=row.rect
+@@ -119,6 +132,24 @@ func _structures(data: Dictionary) -> Dictionary:
+ 			if is_instance_valid(ferry.painted_art):ferry.painted_art.hide()
+ 			ferry.add_child(node);ferry.painted_art=node;ferry.set_meta("p1_structure_node",node);ferry.queue_redraw()
+ 			var record: Dictionary=node.get_meta("p1_structure");record["semantic"]="moving_body_local_original_carrier";record["body_path"]=str(ferry.get_path());applied.append(record)
++	var assembler := _stage.assembler as PlainsRegionAssembler
++	var gates: Array[Node2D]=[]
++	var gates_complete := true
++	for id: String in assembler.shortcut_bodies:
++		var body: StaticBody2D=assembler.shortcut_bodies[id]
++		var shape: CollisionShape2D=assembler.shortcut_shapes[id]
++		var size: Vector2=(shape.shape as RectangleShape2D).size
++		var node := P1StructureArt.make(Rect2(body.position-size/2,size),"bridge" if size.x>=size.y else "column")
++		if node==null:gates_complete=false;continue
++		gates.append(node);_shortcut_art.append({"id":id,"node":node})
++	if gates_complete:
++		assembler.self_modulate.a=0.0 # Only its gate drawing; modules/bodies stay live.
++		for node: Node2D in gates:
++			_paint.add_child(node);var record: Dictionary=node.get_meta("p1_structure");record["semantic"]="actual_backside_shortcut_gate_original_open_state";applied.append(record)
++	else:
++		assembler.self_modulate.a=1.0
++		for node: Node2D in gates:node.free()
++		_shortcut_art.clear();omitted.append({"semantic":"shortcut_gate_family_refused"})
+ 	return {"applied":applied,"omitted":omitted,"physics_changed":false,"one_way_count":data.one_way.size(),"floating_count":data.floating.size(),"moving_count":_moving_count()}
+ 
+ func _scenery(rooted: Array[Rect2]) -> Dictionary:
+diff --git a/scripts/art/p1_structure_art.gd b/scripts/art/p1_structure_art.gd
+index 08946695..885a4684 100644
+--- a/scripts/art/p1_structure_art.gd
++++ b/scripts/art/p1_structure_art.gd
+@@ -20,10 +20,29 @@ static func make(rect: Rect2,kind: String) -> Node2D:
+ 	var horizontal := kind=="bridge"
+ 	var low := int(spec.get("body_left",30)) if horizontal else int(spec.get("body_top",16)) if kind=="column" else int(spec.standing_y)
+ 	var high := int(spec.get("body_right",495)) if horizontal else int(spec.get("body_bottom",475))
+-	var samples: Array[int]=[low,high]
++	var samples: Array[float]=[low,high]
+ 	for point: int in range(low+4,high,4):samples.append(point)
+ 	samples.sort()
+-	for point: int in samples:
++	var bridge_world: Array[float]=[]
++	var center_pages := 0
++	if horizontal:
++		var scale_value := rect.size.y/maxf(1,float(spec.body_bottom)-float(spec.standing_y))
++		var a := float(spec.left_socket);var b := float(spec.right_socket)
++		var left_width := minf((a-low)*scale_value,rect.size.x*.25);var right_width := minf((high-b)*scale_value,rect.size.x*.25)
++		var segments: Array[Vector4]=[Vector4(rect.position.x,rect.position.x+left_width,low,a)]
++		var cursor := rect.position.x+left_width
++		while cursor<rect.end.x-right_width-.001:
++			var end := minf(rect.end.x-right_width,cursor+(b-a)*scale_value)
++			segments.append(Vector4(cursor,end,a,a+(end-cursor)/scale_value));cursor=end;center_pages+=1
++		segments.append(Vector4(rect.end.x-right_width,rect.end.x,b,high))
++		samples.clear()
++		for segment: Vector4 in segments:
++			var steps := maxi(1,ceili((segment.w-segment.z)/4.0))
++			for step: int in steps+1:
++				var t := float(step)/steps
++				samples.append(lerpf(segment.z,segment.w,t));bridge_world.append(lerpf(segment.x,segment.y,t))
++	for sample_index: int in samples.size():
++		var point := samples[sample_index]
+ 		var range_low := int(spec.standing_y) if horizontal else int(spec.get("body_left",55)) if kind=="column" else 0
+ 		var range_high := int(spec.body_bottom) if horizontal else int(spec.get("body_right",132)) if kind=="column" else int(region.size.x)-1
+ 		var first := -1;var last := -1
+@@ -35,11 +54,7 @@ static func make(rect: Rect2,kind: String) -> Node2D:
+ 		if first<0:return null
+ 		var q := float(point-low)/maxf(1,high-low)
+ 		if horizontal:
+-			var reference := rect.size.y/maxf(1,float(spec.body_bottom)-float(spec.standing_y))
+-			var a := float(spec.left_socket);var b := float(spec.right_socket)
+-			var left_width := minf((a-low)*reference,rect.size.x*.25)
+-			var right_width := minf((high-b)*reference,rect.size.x*.25)
+-			var x := rect.position.x+left_width*float(point-low)/maxf(1,a-low) if point<=a else rect.end.x-right_width+right_width*float(point-b)/maxf(1,high-b) if point>=b else rect.position.x+left_width+(rect.size.x-left_width-right_width)*float(point-a)/maxf(1,b-a)
++			var x := bridge_world[sample_index]
+ 			vertices.append(Vector2(x,rect.position.y));vertices.append(Vector2(x,rect.end.y))
+ 			uv.append((region.position+Vector2(point,first+.25))/_texture.get_size());uv.append((region.position+Vector2(point,last-.25))/_texture.get_size())
+ 		else:
+@@ -73,5 +88,5 @@ static func make(rect: Rect2,kind: String) -> Node2D:
+ 			var cap := Sprite2D.new();cap.texture=atlas;cap.centered=false;cap.scale=Vector2.ONE*cap_scale
+ 			cap.position=Vector2(rect.position.x if side=="left" else rect.end.x-width,rect.position.y)
+ 			cap.z_as_relative=false;cap.z_index=0;node.add_child(cap)
+-	node.set_meta("p1_structure",{"kind":kind,"physical_rect":[rect.position.x,rect.position.y,rect.size.x,rect.size.y],"source":_data.texture,"source_sha256":FileAccess.get_sha256(str(_data.texture)),"method":"source-alpha physical edge calibration, preserved cap sockets, painted core covers actual full body; no collision changes","mesh_pairs":samples.size()})
++	node.set_meta("p1_structure",{"kind":kind,"physical_rect":[rect.position.x,rect.position.y,rect.size.x,rect.size.y],"source":_data.texture,"source_sha256":FileAccess.get_sha256(str(_data.texture)),"method":"source-alpha physical edge calibration, preserved cap sockets, painted core covers actual full body; no collision changes","center_finite_pages":center_pages,"center_scale":"isotropic actual-height/source-core-height; explicit finite source reuse","mesh_pairs":samples.size()})
+ 	return node
+diff --git a/scripts/art/p1_unity_props.gd b/scripts/art/p1_unity_props.gd
+index a78c73e1..8c11999b 100644
+--- a/scripts/art/p1_unity_props.gd
++++ b/scripts/art/p1_unity_props.gd
+@@ -6,7 +6,8 @@ var _parts: Dictionary
+ var _chests: Dictionary = {}
+ var _notes: Dictionary = {}
+ var _latches: Array[Dictionary] = []
+-var _facts: Dictionary = {"scope":"actual chest/shot-latch bell/permanent-note presentations only","collision_changed":false,"state_or_reward_writes":false,"chests":0,"note_wind_icons":0,"shot_latches":0,"uncovered":["coin and heart retain original distinct reward art","diver and other non-RootBell enemies retain original readable art","thorn/pennant candidates rejected; not consumed","no RechargePoint exists in ordinary Plains consumer; no fake recharge interaction"]}
++var _access_bells: Dictionary = {}
++var _facts: Dictionary = {"scope":"actual chest/shot-latch primary+sequence+access/motion bell/permanent-note presentations only","collision_changed":false,"state_or_reward_writes":false,"chests":0,"note_wind_icons":0,"shot_latches":0,"uncovered":["coin and heart retain original distinct reward art","diver and other non-RootBell enemies retain original readable art","thorn/pennant candidates rejected; not consumed","no RechargePoint exists in ordinary Plains consumer; no fake recharge interaction"]}
+ var _old_bell_size := Vector2.ZERO
+ 
+ func install(stage: Node) -> void:
+@@ -70,6 +71,21 @@ func _install_latch(latch: Node2D) -> void:
+ 	_latches.append(row)
+ 	_facts.shot_latches=_latches.size()
+ 
++func _install_access_bells(latch: Node2D) -> void:
++	# _add_access_bell creates real ferry/return-side sprites separately from
++	# the parent's _draw. Parent canvas material cannot retire child commands.
++	for child: Node in latch.get_children():
++		var sprite := child as Sprite2D
++		if sprite==null or sprite.texture==null:continue
++		if sprite.texture.resource_path!="res://assets/plains_v3/windchime_switch.png":continue
++		if _access_bells.has(sprite.get_instance_id()):continue
++		_access_bells[sprite.get_instance_id()]={"node":sprite,"texture":sprite.texture,"scale":sprite.scale,"offset":sprite.offset,"centered":sprite.centered,"rotation":sprite.rotation,"owner":latch}
++		sprite.texture=_texture("chime");sprite.centered=false
++		sprite.offset=-Vector2(_parts.chime.pivot[0],_parts.chime.pivot[1])
++		sprite.scale=Vector2.ONE*(48.0/385.0)
++	_facts["access_motion_bells"]=_access_bells.size()
++	_facts["access_motion_bell_height_world"]=48
++
+ func _process(_delta: float) -> void:
+ 	if not is_instance_valid(_stage) or _atlas==null:return
+ 	# setup_shot_latches occurs after ordinary presentation install, so discover
+@@ -79,6 +95,7 @@ func _process(_delta: float) -> void:
+ 		for row: Dictionary in _latches:
+ 			if row.node==latch:known=true;break
+ 		if not known:_install_latch(latch)
++		_install_access_bells(latch)
+ 	for row: Dictionary in _latches:
+ 		var latch: Node2D=row.node
+ 		if not is_instance_valid(latch):continue
+@@ -88,6 +105,10 @@ func _process(_delta: float) -> void:
+ 			var sprite: Sprite2D=row.bells[index].node
+ 			sprite.rotation=sin(age*28)*.16*maxf(0,1-age/.5) if bool(latch.get("is_open")) else 0.0
+ 			sprite.modulate=Color.WHITE if index==0 or int(latch.get("sequence_step"))==1 else Color(.55,.55,.55)
++	for row: Dictionary in _access_bells.values():
++		if not is_instance_valid(row.node) or not is_instance_valid(row.owner):continue
++		var age := float(row.owner.get("_clock"))-float(row.owner.get("_opened_at"))
++		row.node.rotation=sin(age*28)*.16*maxf(0,1-age/.5) if float(row.owner.get("_opened_at"))>=0 else 0.0
+ 	var visual := _stage.get("visual_layer") as Node
+ 	if visual==null:return
+ 	var actual: Dictionary=visual.get("_pickup_by_id")
+@@ -115,6 +136,9 @@ func measured_nodes() -> Dictionary:
+ 	return result
+ 
+ func _exit_tree() -> void:
++	for row: Dictionary in _access_bells.values():
++		if not is_instance_valid(row.node):continue
++		row.node.texture=row.texture;row.node.scale=row.scale;row.node.offset=row.offset;row.node.centered=row.centered;row.node.rotation=row.rotation
+ 	for row: Dictionary in _latches:
+ 		if is_instance_valid(row.node):row.node.material=row.material
+ 		for bell: Dictionary in row.bells:

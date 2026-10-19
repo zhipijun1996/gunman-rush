@@ -1,0 +1,157 @@
+{
+  "schema": "underworld-scenery-v1",
+  "task_id": "UNDERWORLD-PLAINS-01",
+  "backgrounds": [
+    {
+      "id": "far",
+      "image": "assets/underworld_plains/backgrounds/far.png",
+      "camera_factor": [
+        0.035,
+        0.015
+      ],
+      "role": "opaque_evening_sky_and_low_remote_hills",
+      "generation_record": "assets/underworld_plains/backgrounds/far_generation.json",
+      "minimum_height_ratio": 1.2,
+      "width_ratio": 1.5,
+      "bottom_ratio": 1.0,
+      "repetition": "alternating_mirrored_strips"
+    },
+    {
+      "id": "middle",
+      "image": "assets/underworld_plains/backgrounds/middle.png",
+      "camera_factor": [
+        0.12,
+        0.04
+      ],
+      "role": "transparent_sky_remote_bell_tower_and_wind_bent_meadow_trees",
+      "generation_record": "assets/underworld_plains/backgrounds/middle_generation.json",
+      "minimum_height_ratio": 0.85,
+      "width_ratio": 1.8,
+      "bottom_ratio": 1.1,
+      "repetition": "overlapping_alpha_edge_fade",
+      "edge_fraction": 0.035,
+      "opacity": 0.96,
+      "fog_shadow": "213444",
+      "fog_highlight": "41566a",
+      "readability_policy": "source luma maps into bounded cold blue-gray atmosphere ramp; green playable rims not inherited; near shadow and highlight darker than middle"
+    },
+    {
+      "id": "near",
+      "image": "assets/underworld_plains/backgrounds/near.png",
+      "camera_factor": [
+        0.28,
+        0.075
+      ],
+      "role": "transparent_sky_low_grass_bank_and_sparse_wooden_chime_frame",
+      "generation_record": "assets/underworld_plains/backgrounds/near_generation.json",
+      "minimum_height_ratio": 0.62,
+      "width_ratio": 1.5,
+      "bottom_ratio": 1.35,
+      "repetition": "overlapping_alpha_edge_fade",
+      "edge_fraction": 0.035,
+      "opacity": 0.96,
+      "readability_policy": "source luma maps into bounded cold blue-gray atmosphere ramp; green playable rims not inherited; near shadow and highlight darker than middle",
+      "fog_shadow": "12232e",
+      "fog_highlight": "2b414d"
+    }
+  ],
+  "horizontal_repetition": "far mirrored; transparent middle/near normal-orientation overlap with alpha-only edge feather",
+  "vertical_policy": "camera_drift_clamped_to_10_percent_view_height_far_also_clamped_for_opaque_coverage",
+  "decor": {
+    "atlas": "assets/underworld_plains/decor/chime_props.png",
+    "regions_metadata": "assets/underworld_plains/decor/chime_props.json",
+    "generation_record": "assets/underworld_plains/decor/provenance.json",
+    "independent_seed": true,
+    "seed_namespace": "underworld-scenery-v1",
+    "collision": false,
+    "keepout_policy": "whole_display_bounds_plus_8",
+    "support_policy": "full_root_span_on_exposed_static_solid",
+    "max_landmarks_per_1280": 2,
+    "max_small_accents_per_1280": 2,
+    "identity_landmarks": {
+      "windmill_plateau": {
+        "kind": "tower",
+        "heights": [
+          144,
+          112,
+          92
+        ]
+      },
+      "creek_well": {
+        "kind": "well",
+        "heights": [
+          112,
+          92,
+          76,
+          64
+        ]
+      },
+      "clock_court": {
+        "kind": "clock_arch",
+        "heights": [
+          136,
+          112,
+          92
+        ]
+      },
+      "repair_gallery": {
+        "kind": "repair_shelter",
+        "heights": [
+          120,
+          96,
+          80,
+          64,
+          56
+        ]
+      }
+    },
+    "identity_generation_record": "assets/underworld_plains/decor/identity_generation.json",
+    "local_composition": {
+      "consumer_script": "scripts/underworld_plains/underworld_local_composition.gd",
+      "identity": "creek_well",
+      "asset_id": "well",
+      "depth": "distant_local_architecture",
+      "collision": false,
+      "standing_edge": false,
+      "physical_support": false,
+      "image_base": "painted_base_of_complete_well_wheel_reeds_stone_footing",
+      "target_height": 92,
+      "offset_x": [
+        -240,
+        240,
+        -400,
+        400,
+        -600,
+        600
+      ],
+      "offset_y": [
+        140,
+        180,
+        220,
+        260
+      ],
+      "fog_shadow": "172c38",
+      "fog_highlight": "293f4b",
+      "opacity": 0.96,
+      "functional_keepout": "whole_display_bounds_plus_8_unchanged",
+      "maximum_solid_hidden_samples": 0,
+      "total_visibility_samples": 25,
+      "z_index": -8,
+      "painted_base": {
+        "source": "assets/underworld_plains/decor/identity_props.png",
+        "description": "complete original well stone footing, wheel and reeds form its painted base; no physical support claim"
+      },
+      "readability_limits": {
+        "max_r": 0.28,
+        "max_g": 0.34,
+        "max_b": 0.38,
+        "red_not_above_blue": true
+      },
+      "foreground_visibility_policy": "complete_display_bounds_plus_2_not_intersect_actual_solid"
+    }
+  },
+  "consumer_scripts": [
+    "scripts/underworld_plains/underworld_parallax.gd",
+    "scripts/underworld_plains/underworld_scenery.gd"
+  ]
+}

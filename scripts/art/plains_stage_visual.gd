@@ -1,6 +1,7 @@
 class_name PlainsStageVisual
 extends Node2D
 ## Cosmetic consumer only; collection and transitions remain stage/App owned.
+var pixel_style := false
 var stage: Node2D
 var _time := 0.0
 var _pickups: Array[Sprite2D] = []
@@ -36,7 +37,7 @@ func _sync_pickups() -> void:
 		live_ids[key] = true
 		if not _pickup_by_id.has(key):
 			var sprite := Sprite2D.new()
-			sprite.texture = PlainsRefreshAssets.object_texture(StringName(pickup.kind))
+			sprite.texture = _texture(StringName(pickup.kind))
 			sprite.scale = _pickup_size(pickup.kind) / sprite.texture.get_size()
 			sprite.set_meta("initially_claimed",bool(pickup.claimed))
 			add_child(sprite)
@@ -48,7 +49,7 @@ func _sync_pickups() -> void:
 			_pickup_by_id.erase(key)
 func _make_door(location: Vector2) -> Sprite2D:
 	var sprite := Sprite2D.new()
-	sprite.texture = PlainsRefreshAssets.object_texture(&"door")
+	sprite.texture = _texture(&"door")
 	sprite.scale = Vector2(60, 80) / sprite.texture.get_size()
 	sprite.position = location + Vector2(0, -22)
 	add_child(sprite)
@@ -98,8 +99,28 @@ func _process(delta: float) -> void:
 
 func play_boss_defeat(origin:Vector2,mini:bool,animate:bool=true)->void:
 	if animate:
-		var burst:=DefeatBurst.new();burst.mini=mini;burst.position=origin;stage.add_child(burst)
+		var burst:=DefeatBurst.new();burst.mini=mini;burst.set_meta("pixel_style",pixel_style);burst.position=origin;stage.add_child(burst)
 	if is_instance_valid(_boss_loot):return
 	_boss_origin=origin;_boss_born=stage.clock if animate else stage.clock-.85
-	_boss_loot=Sprite2D.new();_boss_loot.texture=PlainsV3Assets.texture("objects.json","chest")
+	_boss_loot=Sprite2D.new();_boss_loot.texture=UnderworldActors.icon_texture(&"chest") if UnderworldActors.enabled(self) else PixelFormalActors.icon_texture(&"chest") if pixel_style else PlainsV3Assets.texture("objects.json","chest")
 	_boss_loot.scale=Vector2(38,32)/_boss_loot.texture.get_size();_boss_loot.modulate=Color("ffe7a0");add_child(_boss_loot)
+
+func _texture(kind: StringName) -> Texture2D:
+	return UnderworldActors.icon_texture(kind) if UnderworldActors.enabled(self) else PixelFormalActors.icon_texture(kind) if pixel_style else PlainsRefreshAssets.object_texture(kind)
+
+func set_pixel_style(enabled: bool) -> void:
+	pixel_style = enabled
+	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST if enabled else CanvasItem.TEXTURE_FILTER_PARENT_NODE
+	for index: int in _pickups.size():
+		var kind := StringName(stage.pickups[index].kind)
+		_pickups[index].texture = _texture(kind)
+		_pickups[index].scale = _pickup_size(str(kind)) / _pickups[index].texture.get_size()
+	for door: Sprite2D in _doors:
+		door.texture = _texture(&"door")
+		door.scale = Vector2(60,80) / door.texture.get_size()
+	if is_instance_valid(_boss_door):
+		_boss_door.texture = _texture(&"door")
+		_boss_door.scale = Vector2(60,80) / _boss_door.texture.get_size()
+	if is_instance_valid(_boss_loot):
+		_boss_loot.texture=UnderworldActors.icon_texture(&"chest") if UnderworldActors.enabled(self) else PixelFormalActors.icon_texture(&"chest") if pixel_style else PlainsV3Assets.texture("objects.json","chest")
+		_boss_loot.scale=Vector2(38,32)/_boss_loot.texture.get_size()

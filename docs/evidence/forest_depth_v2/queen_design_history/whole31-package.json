@@ -1,0 +1,3466 @@
+{
+  "scope": "Queen31 three actual full native battles; no current-source movie, no whole acceptance claim",
+  "snapshot": "build/forest_depth/snapshots/queen31-inner-gap-low-nest",
+  "source_receipt": "build/forest_depth/snapshots/queen31-inner-gap-low-nest/build/snapshot-receipt.json",
+  "source_receipt_sha256": "473d359efb02ab89da8881334c1dc6d1ee8aa0aaf3ad435fe7dab834204a146d",
+  "source_guard": true,
+  "base_commit": "0dd1fba0bffba707d873155fc506f874d3651565",
+  "overlays": {
+    "scripts/bosses/thorn_queen_weave_definition.gd": "26b15f4a08bfda9f45ae6899406e9825565b05c85886b1e7bf479f15d9d81257",
+    "scripts/bosses/thorn_queen_v2.gd": "3c964fe228f95e796304ce666a3f3e4b651f5a3eb902d05b4ccb252d7fe62026",
+    "resources/bosses/thorn_queen_v2.tres": "b618a46c4ad151067e428b3a81b13b8f572a1159245d0f7e0f075d8070c9152d",
+    "tests/thorn_queen_sweep_runner.gd": "0109e76308c7b9bc840561fb86f2a054c82f55a4900c2757d57ef31d9b84d8d6",
+    "tools/run_thorn_queen_sweep.py": "cda86bee594e42b1c90dc20540ee8d0141d1542f6e1aa30eb0566591be5f3ba0"
+  },
+  "older_whole_review": "build/forest_depth/independent/queen23-whole/REVIEW.md",
+  "older24_snapshot": "build/forest_depth/snapshots/queen24-purpose-pair",
+  "cases": {
+    "adaptive": {
+      "capture": "build/forest_depth/snapshots/queen31-inner-gap-low-nest/build/forest_depth/queen/round31-inner-gap-low-nest-adaptive/capture.json",
+      "capture_sha256": "6cd86e2cfe2434bb3307b6ff9afff2ba012e70e77da8c7066dd0745b5a931ba6",
+      "receipt": "build/forest_depth/snapshots/queen31-inner-gap-low-nest/build/forest_depth/queen/round31-inner-gap-low-nest-adaptive/receipt.json",
+      "receipt_sha256": "a57896be0cec89e6ef51c6fad6215ae56260bada95a5d52d29512deb12a3c375",
+      "case": {
+        "attack_damage_after_fixed": 0.0,
+        "borrowed_main": true,
+        "boss_damage": 24.0,
+        "boss_defeated": true,
+        "explicit_initial_probe": false,
+        "fields": [
+          0.0,
+          0.0,
+          2.0
+        ],
+        "final_energy": 100.0,
+        "final_field_states": [
+          {
+            "health": 0.0,
+            "spawned": true,
+            "weave": {
+              "age": 4.61666666666666,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": true,
+              "suspended": false
+            }
+          },
+          {
+            "health": 0.0,
+            "spawned": true,
+            "weave": {
+              "age": 11.6166666666668,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": true,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 13.2333333333336,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 1,
+              "severed": false,
+              "suspended": false
+            }
+          }
+        ],
+        "final_phase": 3,
+        "final_position": [
+          541.480590820312,
+          341.92529296875
+        ],
+        "final_route_phase": 3,
+        "fixed_borrows": 0,
+        "id": "full_H",
+        "initial_boss_hp": 24.0,
+        "initial_energy": 100.0,
+        "initial_fields": [
+          2.0,
+          2.0,
+          null
+        ],
+        "initial_player_hp": 5.0,
+        "low_excursions": 0,
+        "main_backshot_cut": true,
+        "middle_entry": true,
+        "p1_warning_response": {
+          "accepted_response_shots": 10,
+          "body_damage": 0,
+          "borrowed": true,
+          "boss_damage": 8.0,
+          "bounded_local_response": true,
+          "explicit_initial_probe": false,
+          "fallback": false,
+          "final_energy": 69.5,
+          "final_position": [
+            449.180572509766,
+            341.92529296875
+          ],
+          "id": "full_H",
+          "initial_boss_hp": 24.0,
+          "initial_energy": 100.0,
+          "initial_fields": [
+            2.0,
+            2.0,
+            null
+          ],
+          "initial_player_hp": 5.0,
+          "player_damage": 0.0,
+          "preview_player": [
+            688.6669921875,
+            278.245330810547
+          ],
+          "preview_tick": 193,
+          "real_migrations": 1,
+          "retained_in_arena": true,
+          "return_support_frames": 12,
+          "ticks": 569
+        },
+        "player_damage": 1.0,
+        "player_dead": false,
+        "retained_in_arena": true,
+        "third_borrowed": false,
+        "third_clear": false,
+        "ticks": 1492,
+        "upper_entry": true
+      },
+      "assertions": 18,
+      "failures": [],
+      "route_player_ranges": {
+        "1": {
+          "first_tick": 1,
+          "last_tick": 654,
+          "x_min": 13.7938098907471,
+          "x_max": 769.333557128906,
+          "y_min": 152.085403442383,
+          "y_max": 582.0
+        },
+        "2": {
+          "first_tick": 655,
+          "last_tick": 894,
+          "x_min": 452.622589111328,
+          "x_max": 648.426330566406,
+          "y_min": 235.850860595703,
+          "y_max": 581.990173339844
+        },
+        "3": {
+          "first_tick": 895,
+          "last_tick": 1492,
+          "x_min": 370.741424560547,
+          "x_max": 615.338195800781,
+          "y_min": 278.212615966797,
+          "y_max": 581.925231933594
+        }
+      },
+      "timeline": "adaptive-timeline.json",
+      "visibility": "adaptive-visibility.json",
+      "third_attempt": {
+        "request_tick": 861,
+        "request_frame_player": [
+          614.927368164062,
+          352.758636474609
+        ],
+        "estimated_fixed_cast_start_request_body_minus6": [
+          614.927368164062,
+          346.758636474609
+        ],
+        "distance_to_target": 136.2619498020776,
+        "range": 231,
+        "range_exceeded": false,
+        "frames": [
+          {
+            "actual_last_muzzle": [
+              628.460327148438,
+              449.659240722656
+            ],
+            "air_shots": 2,
+            "axis": 0.0,
+            "boss_hp": 12.0,
+            "boss_position": [
+              588.0,
+              450.0
+            ],
+            "case": "full_H",
+            "core_open": true,
+            "energy": 98.5,
+            "fields": [
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 4.61666666666666,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 11.6166666666668,
+                  "growth": 1.0,
+                  "initial_angle": -1.57079637050629,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 2.71666666666666,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              }
+            ],
+            "grounded": false,
+            "growth": 1.0,
+            "hook": "free",
+            "hook_used": false,
+            "hp": 5.0,
+            "knot_hp": 0.0,
+            "migrations": 1,
+            "motion_mode": "phase_flight",
+            "motor_steps": 861,
+            "perch": 0,
+            "physics_frame": 862,
+            "player": [
+              614.927368164062,
+              352.758636474609
+            ],
+            "queen_motor_id": 89389008684,
+            "rotating_age": 11.6166666666668,
+            "rotating_thread": [
+              [
+                372.40185546875,
+                473.592681884766
+              ],
+              [
+                269.272521972656,
+                849.710144042969
+              ]
+            ],
+            "route_phase": 2,
+            "sampled_player": [
+              537.481994628906,
+              341.92529296875
+            ],
+            "sampled_shore": 1,
+            "severed": true,
+            "third_thread": [
+              [
+                200.0,
+                531.0
+              ],
+              [
+                888.0,
+                546.0
+              ]
+            ],
+            "tick": 861,
+            "velocity": [
+              0.0,
+              216.666656494141
+            ]
+          },
+          {
+            "actual_last_muzzle": [
+              628.460327148438,
+              449.659240722656
+            ],
+            "air_shots": 2,
+            "axis": 0.0,
+            "boss_hp": 12.0,
+            "boss_position": [
+              592.0,
+              450.0
+            ],
+            "case": "full_H",
+            "core_open": true,
+            "energy": 98.5,
+            "fields": [
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 4.61666666666666,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 11.6166666666668,
+                  "growth": 1.0,
+                  "initial_angle": -1.57079637050629,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 2.73333333333333,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              }
+            ],
+            "grounded": false,
+            "growth": 1.0,
+            "hook": "hook_cast",
+            "hook_used": true,
+            "hp": 5.0,
+            "knot_hp": 0.0,
+            "migrations": 1,
+            "motion_mode": "phase_flight",
+            "motor_steps": 862,
+            "perch": 0,
+            "physics_frame": 863,
+            "player": [
+              614.927368164062,
+              357.091979980469
+            ],
+            "queen_motor_id": 89389008684,
+            "rotating_age": 11.6166666666668,
+            "rotating_thread": [
+              [
+                372.40185546875,
+                473.592681884766
+              ],
+              [
+                269.272521972656,
+                849.710144042969
+              ]
+            ],
+            "route_phase": 2,
+            "sampled_player": [
+              537.481994628906,
+              341.92529296875
+            ],
+            "sampled_shore": 1,
+            "severed": true,
+            "third_thread": [
+              [
+                200.0,
+                530.25
+              ],
+              [
+                888.0,
+                545.25
+              ]
+            ],
+            "tick": 862,
+            "velocity": [
+              0.0,
+              260.0
+            ]
+          },
+          {
+            "actual_last_muzzle": [
+              628.460327148438,
+              449.659240722656
+            ],
+            "air_shots": 2,
+            "axis": 0.0,
+            "boss_hp": 12.0,
+            "boss_position": [
+              596.0,
+              450.0
+            ],
+            "case": "full_H",
+            "core_open": true,
+            "energy": 98.5,
+            "fields": [
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 4.61666666666666,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 11.6166666666668,
+                  "growth": 1.0,
+                  "initial_angle": -1.57079637050629,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 2.75,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              }
+            ],
+            "grounded": false,
+            "growth": 1.0,
+            "hook": "hook_cast",
+            "hook_used": true,
+            "hp": 5.0,
+            "knot_hp": 0.0,
+            "migrations": 1,
+            "motion_mode": "phase_flight",
+            "motor_steps": 863,
+            "perch": 0,
+            "physics_frame": 864,
+            "player": [
+              614.927368164062,
+              362.147521972656
+            ],
+            "queen_motor_id": 89389008684,
+            "rotating_age": 11.6166666666668,
+            "rotating_thread": [
+              [
+                372.40185546875,
+                473.592681884766
+              ],
+              [
+                269.272521972656,
+                849.710144042969
+              ]
+            ],
+            "route_phase": 2,
+            "sampled_player": [
+              537.481994628906,
+              341.92529296875
+            ],
+            "sampled_shore": 1,
+            "severed": true,
+            "third_thread": [
+              [
+                200.0,
+                529.5
+              ],
+              [
+                888.0,
+                544.5
+              ]
+            ],
+            "tick": 863,
+            "velocity": [
+              0.0,
+              303.333343505859
+            ]
+          },
+          {
+            "actual_last_muzzle": [
+              628.460327148438,
+              449.659240722656
+            ],
+            "air_shots": 2,
+            "axis": 0.0,
+            "boss_hp": 12.0,
+            "boss_position": [
+              600.0,
+              450.0
+            ],
+            "case": "full_H",
+            "core_open": true,
+            "energy": 98.5,
+            "fields": [
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 4.61666666666666,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 11.6166666666668,
+                  "growth": 1.0,
+                  "initial_angle": -1.57079637050629,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 2.76666666666666,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              }
+            ],
+            "grounded": false,
+            "growth": 1.0,
+            "hook": "hook_cast",
+            "hook_used": true,
+            "hp": 5.0,
+            "knot_hp": 0.0,
+            "migrations": 1,
+            "motion_mode": "phase_flight",
+            "motor_steps": 864,
+            "perch": 0,
+            "physics_frame": 865,
+            "player": [
+              614.927368164062,
+              367.92529296875
+            ],
+            "queen_motor_id": 89389008684,
+            "rotating_age": 11.6166666666668,
+            "rotating_thread": [
+              [
+                372.40185546875,
+                473.592681884766
+              ],
+              [
+                269.272521972656,
+                849.710144042969
+              ]
+            ],
+            "route_phase": 2,
+            "sampled_player": [
+              537.481994628906,
+              341.92529296875
+            ],
+            "sampled_shore": 1,
+            "severed": true,
+            "third_thread": [
+              [
+                200.0,
+                528.75
+              ],
+              [
+                888.0,
+                543.75
+              ]
+            ],
+            "tick": 864,
+            "velocity": [
+              0.0,
+              346.666687011719
+            ]
+          },
+          {
+            "actual_last_muzzle": [
+              628.460327148438,
+              449.659240722656
+            ],
+            "air_shots": 2,
+            "axis": 0.0,
+            "boss_hp": 12.0,
+            "boss_position": [
+              604.0,
+              450.0
+            ],
+            "case": "full_H",
+            "core_open": true,
+            "energy": 98.5,
+            "fields": [
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 4.61666666666666,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 11.6166666666668,
+                  "growth": 1.0,
+                  "initial_angle": -1.57079637050629,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 2.78333333333333,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              }
+            ],
+            "grounded": false,
+            "growth": 1.0,
+            "hook": "hook_cast",
+            "hook_used": true,
+            "hp": 5.0,
+            "knot_hp": 0.0,
+            "migrations": 1,
+            "motion_mode": "phase_flight",
+            "motor_steps": 865,
+            "perch": 0,
+            "physics_frame": 866,
+            "player": [
+              614.927368164062,
+              374.42529296875
+            ],
+            "queen_motor_id": 89389008684,
+            "rotating_age": 11.6166666666668,
+            "rotating_thread": [
+              [
+                372.40185546875,
+                473.592681884766
+              ],
+              [
+                269.272521972656,
+                849.710144042969
+              ]
+            ],
+            "route_phase": 2,
+            "sampled_player": [
+              537.481994628906,
+              341.92529296875
+            ],
+            "sampled_shore": 1,
+            "severed": true,
+            "third_thread": [
+              [
+                200.0,
+                528.0
+              ],
+              [
+                888.0,
+                543.0
+              ]
+            ],
+            "tick": 865,
+            "velocity": [
+              0.0,
+              390.000030517578
+            ]
+          },
+          {
+            "actual_last_muzzle": [
+              628.460327148438,
+              449.659240722656
+            ],
+            "air_shots": 2,
+            "axis": 0.0,
+            "boss_hp": 12.0,
+            "boss_position": [
+              608.0,
+              450.0
+            ],
+            "case": "full_H",
+            "core_open": true,
+            "energy": 98.5,
+            "fields": [
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 4.61666666666666,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 11.6166666666668,
+                  "growth": 1.0,
+                  "initial_angle": -1.57079637050629,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 2.79999999999999,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              }
+            ],
+            "grounded": false,
+            "growth": 1.0,
+            "hook": "hook_fly",
+            "hook_used": true,
+            "hp": 5.0,
+            "knot_hp": 0.0,
+            "migrations": 1,
+            "motion_mode": "phase_flight",
+            "motor_steps": 866,
+            "perch": 0,
+            "physics_frame": 867,
+            "player": [
+              614.927368164062,
+              381.647521972656
+            ],
+            "queen_motor_id": 89389008684,
+            "rotating_age": 11.6166666666668,
+            "rotating_thread": [
+              [
+                372.40185546875,
+                473.592681884766
+              ],
+              [
+                269.272521972656,
+                849.710144042969
+              ]
+            ],
+            "route_phase": 2,
+            "sampled_player": [
+              537.481994628906,
+              341.92529296875
+            ],
+            "sampled_shore": 1,
+            "severed": true,
+            "third_thread": [
+              [
+                200.0,
+                527.25
+              ],
+              [
+                888.0,
+                542.25
+              ]
+            ],
+            "tick": 866,
+            "velocity": [
+              0.0,
+              433.333374023438
+            ]
+          },
+          {
+            "actual_last_muzzle": [
+              628.460327148438,
+              449.659240722656
+            ],
+            "air_shots": 2,
+            "axis": 0.0,
+            "boss_hp": 12.0,
+            "boss_position": [
+              612.0,
+              450.0
+            ],
+            "case": "full_H",
+            "core_open": true,
+            "energy": 98.5,
+            "fields": [
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 4.61666666666666,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 11.6166666666668,
+                  "growth": 1.0,
+                  "initial_angle": -1.57079637050629,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 2.81666666666666,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              }
+            ],
+            "grounded": false,
+            "growth": 1.0,
+            "hook": "hook_fly",
+            "hook_used": true,
+            "hp": 5.0,
+            "knot_hp": 0.0,
+            "migrations": 1,
+            "motion_mode": "phase_flight",
+            "motor_steps": 867,
+            "perch": 0,
+            "physics_frame": 868,
+            "player": [
+              614.927368164062,
+              389.591979980469
+            ],
+            "queen_motor_id": 89389008684,
+            "rotating_age": 11.6166666666668,
+            "rotating_thread": [
+              [
+                372.40185546875,
+                473.592681884766
+              ],
+              [
+                269.272521972656,
+                849.710144042969
+              ]
+            ],
+            "route_phase": 2,
+            "sampled_player": [
+              537.481994628906,
+              341.92529296875
+            ],
+            "sampled_shore": 1,
+            "severed": true,
+            "third_thread": [
+              [
+                200.0,
+                526.5
+              ],
+              [
+                888.0,
+                541.5
+              ]
+            ],
+            "tick": 867,
+            "velocity": [
+              0.0,
+              476.666717529297
+            ]
+          },
+          {
+            "actual_last_muzzle": [
+              628.460327148438,
+              449.659240722656
+            ],
+            "air_shots": 2,
+            "axis": 0.0,
+            "boss_hp": 12.0,
+            "boss_position": [
+              616.0,
+              450.0
+            ],
+            "case": "full_H",
+            "core_open": true,
+            "energy": 98.5,
+            "fields": [
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 4.61666666666666,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 11.6166666666668,
+                  "growth": 1.0,
+                  "initial_angle": -1.57079637050629,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 2.83333333333333,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              }
+            ],
+            "grounded": false,
+            "growth": 1.0,
+            "hook": "hook_fly",
+            "hook_used": true,
+            "hp": 5.0,
+            "knot_hp": 0.0,
+            "migrations": 1,
+            "motion_mode": "phase_flight",
+            "motor_steps": 868,
+            "perch": 0,
+            "physics_frame": 869,
+            "player": [
+              614.927368164062,
+              398.258636474609
+            ],
+            "queen_motor_id": 89389008684,
+            "rotating_age": 11.6166666666668,
+            "rotating_thread": [
+              [
+                372.40185546875,
+                473.592681884766
+              ],
+              [
+                269.272521972656,
+                849.710144042969
+              ]
+            ],
+            "route_phase": 2,
+            "sampled_player": [
+              537.481994628906,
+              341.92529296875
+            ],
+            "sampled_shore": 1,
+            "severed": true,
+            "third_thread": [
+              [
+                200.0,
+                525.75
+              ],
+              [
+                888.0,
+                540.75
+              ]
+            ],
+            "tick": 868,
+            "velocity": [
+              0.0,
+              520.000061035156
+            ]
+          },
+          {
+            "actual_last_muzzle": [
+              628.460327148438,
+              449.659240722656
+            ],
+            "air_shots": 2,
+            "axis": 0.0,
+            "boss_hp": 12.0,
+            "boss_position": [
+              620.0,
+              450.0
+            ],
+            "case": "full_H",
+            "core_open": true,
+            "energy": 98.5,
+            "fields": [
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 4.61666666666666,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 11.6166666666668,
+                  "growth": 1.0,
+                  "initial_angle": -1.57079637050629,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 2.84999999999999,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              }
+            ],
+            "grounded": false,
+            "growth": 1.0,
+            "hook": "free",
+            "hook_used": true,
+            "hp": 4.0,
+            "knot_hp": 0.0,
+            "migrations": 1,
+            "motion_mode": "phase_flight",
+            "motor_steps": 869,
+            "perch": 0,
+            "physics_frame": 870,
+            "player": [
+              614.927368164062,
+              407.647521972656
+            ],
+            "queen_motor_id": 89389008684,
+            "rotating_age": 11.6166666666668,
+            "rotating_thread": [
+              [
+                372.40185546875,
+                473.592681884766
+              ],
+              [
+                269.272521972656,
+                849.710144042969
+              ]
+            ],
+            "route_phase": 2,
+            "sampled_player": [
+              537.481994628906,
+              341.92529296875
+            ],
+            "sampled_shore": 1,
+            "severed": true,
+            "third_thread": [
+              [
+                200.0,
+                525.0
+              ],
+              [
+                888.0,
+                540.0
+              ]
+            ],
+            "tick": 869,
+            "velocity": [
+              0.0,
+              563.333374023438
+            ]
+          },
+          {
+            "actual_last_muzzle": [
+              628.460327148438,
+              449.659240722656
+            ],
+            "actual_low_perch_visibility": {
+              "found": true,
+              "player": [
+                614.927368164062,
+                417.758636474609
+              ],
+              "queen": [
+                624.0,
+                450.0
+              ],
+              "shape_traces": [
+                {
+                  "end": [
+                    624.498718261719,
+                    432.233367919922
+                  ],
+                  "overlap_count": 0,
+                  "radius": 3.0,
+                  "safe_fraction": [
+                    1.0,
+                    1.0
+                  ],
+                  "start": [
+                    614.927368164062,
+                    417.758636474609
+                  ]
+                },
+                {
+                  "end": [
+                    631.225341796875,
+                    450.0
+                  ],
+                  "overlap_count": 0,
+                  "radius": 3.0,
+                  "safe_fraction": [
+                    1.0,
+                    1.0
+                  ],
+                  "start": [
+                    624.498718261719,
+                    432.233367919922
+                  ]
+                }
+              ]
+            },
+            "air_shots": 2,
+            "axis": 0.0,
+            "boss_hp": 12.0,
+            "boss_position": [
+              624.0,
+              450.0
+            ],
+            "case": "full_H",
+            "core_open": true,
+            "energy": 98.5,
+            "fields": [
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 4.61666666666666,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 11.6166666666668,
+                  "growth": 1.0,
+                  "initial_angle": -1.57079637050629,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 2.86666666666666,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              }
+            ],
+            "grounded": false,
+            "growth": 1.0,
+            "hook": "free",
+            "hook_used": true,
+            "hp": 4.0,
+            "knot_hp": 0.0,
+            "migrations": 1,
+            "motion_mode": "phase_flight",
+            "motor_steps": 870,
+            "perch": 0,
+            "physics_frame": 871,
+            "player": [
+              614.927368164062,
+              417.758636474609
+            ],
+            "queen_motor_id": 89389008684,
+            "rotating_age": 11.6166666666668,
+            "rotating_thread": [
+              [
+                372.40185546875,
+                473.592681884766
+              ],
+              [
+                269.272521972656,
+                849.710144042969
+              ]
+            ],
+            "route_phase": 2,
+            "sampled_player": [
+              537.481994628906,
+              341.92529296875
+            ],
+            "sampled_shore": 1,
+            "severed": true,
+            "third_thread": [
+              [
+                200.0,
+                524.25
+              ],
+              [
+                888.0,
+                539.25
+              ]
+            ],
+            "tick": 870,
+            "velocity": [
+              0.0,
+              606.666687011719
+            ]
+          },
+          {
+            "actual_last_muzzle": [
+              628.460327148438,
+              449.659240722656
+            ],
+            "air_shots": 2,
+            "axis": 0.0,
+            "boss_hp": 12.0,
+            "boss_position": [
+              628.0,
+              450.0
+            ],
+            "case": "full_H",
+            "core_open": true,
+            "energy": 98.5,
+            "fields": [
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 4.61666666666666,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 11.6166666666668,
+                  "growth": 1.0,
+                  "initial_angle": -1.57079637050629,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 2.88333333333333,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              }
+            ],
+            "grounded": false,
+            "growth": 1.0,
+            "hook": "free",
+            "hook_used": true,
+            "hp": 4.0,
+            "knot_hp": 0.0,
+            "migrations": 1,
+            "motion_mode": "phase_flight",
+            "motor_steps": 871,
+            "perch": 0,
+            "physics_frame": 872,
+            "player": [
+              614.927368164062,
+              428.591979980469
+            ],
+            "queen_motor_id": 89389008684,
+            "rotating_age": 11.6166666666668,
+            "rotating_thread": [
+              [
+                372.40185546875,
+                473.592681884766
+              ],
+              [
+                269.272521972656,
+                849.710144042969
+              ]
+            ],
+            "route_phase": 2,
+            "sampled_player": [
+              537.481994628906,
+              341.92529296875
+            ],
+            "sampled_shore": 1,
+            "severed": true,
+            "third_thread": [
+              [
+                200.0,
+                523.5
+              ],
+              [
+                888.0,
+                538.5
+              ]
+            ],
+            "tick": 871,
+            "velocity": [
+              0.0,
+              650.0
+            ]
+          }
+        ],
+        "events": [
+          {
+            "actual": [
+              4.0,
+              0.0
+            ],
+            "after": [
+              588.0,
+              450.0
+            ],
+            "before": [
+              584.0,
+              450.0
+            ],
+            "case": "full_H",
+            "collision": false,
+            "event": "actual_queen_motor_motion",
+            "physics_frame": 862,
+            "requested": [
+              4.0,
+              0.0
+            ],
+            "source_id": 89389008684,
+            "tick": 861
+          },
+          {
+            "case": "full_H",
+            "event": "hook_request",
+            "point": [
+              720.0,
+              260.0
+            ],
+            "queued": true,
+            "tick": 861
+          },
+          {
+            "action": "grapple",
+            "case": "full_H",
+            "direction": [
+              0.77110767364502,
+              -0.636704802513123
+            ],
+            "event": "actual_queued_input",
+            "sequence": 33,
+            "tick": 862
+          },
+          {
+            "case": "full_H",
+            "event": "hook_state",
+            "state": "hook_cast",
+            "tick": 862
+          },
+          {
+            "actual": [
+              4.0,
+              0.0
+            ],
+            "after": [
+              592.0,
+              450.0
+            ],
+            "before": [
+              588.0,
+              450.0
+            ],
+            "case": "full_H",
+            "collision": false,
+            "event": "actual_queen_motor_motion",
+            "physics_frame": 863,
+            "requested": [
+              4.0,
+              0.0
+            ],
+            "source_id": 89389008684,
+            "tick": 862
+          },
+          {
+            "actual": [
+              4.0,
+              0.0
+            ],
+            "after": [
+              596.0,
+              450.0
+            ],
+            "before": [
+              592.0,
+              450.0
+            ],
+            "case": "full_H",
+            "collision": false,
+            "event": "actual_queen_motor_motion",
+            "physics_frame": 864,
+            "requested": [
+              4.0,
+              0.0
+            ],
+            "source_id": 89389008684,
+            "tick": 863
+          },
+          {
+            "actual": [
+              4.0,
+              0.0
+            ],
+            "after": [
+              600.0,
+              450.0
+            ],
+            "before": [
+              596.0,
+              450.0
+            ],
+            "case": "full_H",
+            "collision": false,
+            "event": "actual_queen_motor_motion",
+            "physics_frame": 865,
+            "requested": [
+              4.0,
+              0.0
+            ],
+            "source_id": 89389008684,
+            "tick": 864
+          },
+          {
+            "actual": [
+              4.0,
+              0.0
+            ],
+            "after": [
+              604.0,
+              450.0
+            ],
+            "before": [
+              600.0,
+              450.0
+            ],
+            "case": "full_H",
+            "collision": false,
+            "event": "actual_queen_motor_motion",
+            "physics_frame": 866,
+            "requested": [
+              4.0,
+              0.0
+            ],
+            "source_id": 89389008684,
+            "tick": 865
+          },
+          {
+            "case": "full_H",
+            "event": "hook_state",
+            "state": "hook_fly",
+            "tick": 866
+          },
+          {
+            "actual": [
+              4.0,
+              0.0
+            ],
+            "after": [
+              608.0,
+              450.0
+            ],
+            "before": [
+              604.0,
+              450.0
+            ],
+            "case": "full_H",
+            "collision": false,
+            "event": "actual_queen_motor_motion",
+            "physics_frame": 867,
+            "requested": [
+              4.0,
+              0.0
+            ],
+            "source_id": 89389008684,
+            "tick": 866
+          },
+          {
+            "actual": [
+              4.0,
+              0.0
+            ],
+            "after": [
+              612.0,
+              450.0
+            ],
+            "before": [
+              608.0,
+              450.0
+            ],
+            "case": "full_H",
+            "collision": false,
+            "event": "actual_queen_motor_motion",
+            "physics_frame": 868,
+            "requested": [
+              4.0,
+              0.0
+            ],
+            "source_id": 89389008684,
+            "tick": 867
+          },
+          {
+            "actual": [
+              4.0,
+              0.0
+            ],
+            "after": [
+              616.0,
+              450.0
+            ],
+            "before": [
+              612.0,
+              450.0
+            ],
+            "case": "full_H",
+            "collision": false,
+            "event": "actual_queen_motor_motion",
+            "physics_frame": 869,
+            "requested": [
+              4.0,
+              0.0
+            ],
+            "source_id": 89389008684,
+            "tick": 868
+          },
+          {
+            "actual": [
+              4.0,
+              0.0
+            ],
+            "after": [
+              620.0,
+              450.0
+            ],
+            "before": [
+              616.0,
+              450.0
+            ],
+            "case": "full_H",
+            "collision": false,
+            "event": "actual_queen_motor_motion",
+            "physics_frame": 870,
+            "requested": [
+              4.0,
+              0.0
+            ],
+            "source_id": 89389008684,
+            "tick": 869
+          },
+          {
+            "case": "full_H",
+            "event": "hook_state",
+            "state": "free",
+            "tick": 869
+          },
+          {
+            "amount": 1.0,
+            "case": "full_H",
+            "event": "policy_result",
+            "hp": 4.0,
+            "id": "queen_body_contact:1:1:1",
+            "source": "queen_body_contact",
+            "target": "player",
+            "tick": 869
+          },
+          {
+            "actual": [
+              4.0,
+              0.0
+            ],
+            "after": [
+              624.0,
+              450.0
+            ],
+            "before": [
+              620.0,
+              450.0
+            ],
+            "case": "full_H",
+            "collision": false,
+            "event": "actual_queen_motor_motion",
+            "physics_frame": 871,
+            "requested": [
+              4.0,
+              0.0
+            ],
+            "source_id": 89389008684,
+            "tick": 870
+          },
+          {
+            "actual": [
+              4.0,
+              0.0
+            ],
+            "after": [
+              628.0,
+              450.0
+            ],
+            "before": [
+              624.0,
+              450.0
+            ],
+            "case": "full_H",
+            "collision": false,
+            "event": "actual_queen_motor_motion",
+            "physics_frame": 872,
+            "requested": [
+              4.0,
+              0.0
+            ],
+            "source_id": 89389008684,
+            "tick": 871
+          }
+        ],
+        "causal_result": "Normal queen_body_contact applied1 damage at request+8, same tick hook_fly changes free; PlayerController applied-damage callback cancels traversal. No target contact, hook_miss or obstacle collider recorded. First two knots already dead. Not evidence of blocker, nearest-knot capture or range failure. Flight had at most3 advancing ticks (82.5px) before hurt, less than target distance. Further probe would require new telemetry, not inferred collision."
+      }
+    },
+    "baseline_H": {
+      "capture": "build/forest_depth/snapshots/queen31-inner-gap-low-nest/build/forest_depth/queen/round31-inner-gap-low-nest-baseline_H/capture.json",
+      "capture_sha256": "32fc3963964bb5992d7532bb48375949913b0c9662d090cdc65579524c860502",
+      "receipt": "build/forest_depth/snapshots/queen31-inner-gap-low-nest/build/forest_depth/queen/round31-inner-gap-low-nest-baseline_H/receipt.json",
+      "receipt_sha256": "f5269bf154800bfd354fb994c697b0e476ac9330953d873a05eaab1833f62d4b",
+      "case": {
+        "attack_damage_after_fixed": 0.0,
+        "borrowed_main": true,
+        "boss_damage": 24.0,
+        "boss_defeated": true,
+        "explicit_initial_probe": false,
+        "fields": [
+          2.0,
+          0.0,
+          2.0
+        ],
+        "final_energy": 100.0,
+        "final_field_states": [
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 23.0833333333333,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "health": 0.0,
+            "spawned": true,
+            "weave": {
+              "age": 9.8333333333334,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": true,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 13.2333333333336,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 1,
+              "severed": false,
+              "suspended": false
+            }
+          }
+        ],
+        "final_phase": 3,
+        "final_position": [
+          541.735107421875,
+          341.92529296875
+        ],
+        "final_route_phase": 3,
+        "fixed_borrows": 0,
+        "id": "full_H",
+        "initial_boss_hp": 24.0,
+        "initial_energy": 100.0,
+        "initial_fields": [
+          2.0,
+          2.0,
+          null
+        ],
+        "initial_player_hp": 5.0,
+        "low_excursions": 0,
+        "main_backshot_cut": true,
+        "middle_entry": true,
+        "player_damage": 2.0,
+        "player_dead": false,
+        "retained_in_arena": true,
+        "third_borrowed": false,
+        "third_clear": false,
+        "ticks": 1385,
+        "upper_entry": true
+      },
+      "assertions": 12,
+      "failures": [],
+      "route_player_ranges": {
+        "1": {
+          "first_tick": 1,
+          "last_tick": 546,
+          "x_min": 130.0,
+          "x_max": 769.333557128906,
+          "y_min": 231.613098144531,
+          "y_max": 582.0
+        },
+        "2": {
+          "first_tick": 547,
+          "last_tick": 786,
+          "x_min": 451.947418212891,
+          "x_max": 647.413269042969,
+          "y_min": 235.968017578125,
+          "y_max": 581.988647460938
+        },
+        "3": {
+          "first_tick": 787,
+          "last_tick": 1385,
+          "x_min": 369.162933349609,
+          "x_max": 613.768920898438,
+          "y_min": 278.212615966797,
+          "y_max": 581.925231933594
+        }
+      },
+      "timeline": "baseline_H-timeline.json",
+      "visibility": "baseline_H-visibility.json",
+      "third_attempt": {
+        "request_tick": 752,
+        "request_frame_player": [
+          613.914306640625,
+          352.758636474609
+        ],
+        "estimated_fixed_cast_start_request_body_minus6": [
+          613.914306640625,
+          346.758636474609
+        ],
+        "distance_to_target": 137.0446472448767,
+        "range": 231,
+        "range_exceeded": false,
+        "frames": [
+          {
+            "actual_last_muzzle": [
+              627.447265625,
+              449.659240722656
+            ],
+            "air_shots": 2,
+            "axis": 0.0,
+            "boss_hp": 12.0,
+            "boss_position": [
+              584.0,
+              450.0
+            ],
+            "case": "full_H",
+            "core_open": true,
+            "energy": 100.0,
+            "fields": [
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 12.5333333333335,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 9.8333333333334,
+                  "growth": 1.0,
+                  "initial_angle": -1.57079637050629,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 2.68333333333333,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              }
+            ],
+            "grounded": false,
+            "growth": 1.0,
+            "hook": "free",
+            "hook_used": false,
+            "hp": 4.0,
+            "knot_hp": 2.0,
+            "migrations": 1,
+            "motion_mode": "phase_flight",
+            "motor_steps": 752,
+            "perch": 0,
+            "physics_frame": 753,
+            "player": [
+              613.914306640625,
+              352.758636474609
+            ],
+            "queen_motor_id": 89439340332,
+            "rotating_age": 9.8333333333334,
+            "rotating_thread": [
+              [
+                482.546630859375,
+                468.783630371094
+              ],
+              [
+                618.064331054688,
+                834.481567382812
+              ]
+            ],
+            "route_phase": 2,
+            "sampled_player": [
+              540.084838867188,
+              341.92529296875
+            ],
+            "sampled_shore": 1,
+            "severed": false,
+            "third_thread": [
+              [
+                200.0,
+                532.5
+              ],
+              [
+                888.0,
+                547.5
+              ]
+            ],
+            "tick": 752,
+            "velocity": [
+              0.0,
+              216.666656494141
+            ]
+          },
+          {
+            "actual_last_muzzle": [
+              627.447265625,
+              449.659240722656
+            ],
+            "air_shots": 2,
+            "axis": 0.0,
+            "boss_hp": 12.0,
+            "boss_position": [
+              588.0,
+              450.0
+            ],
+            "case": "full_H",
+            "core_open": true,
+            "energy": 100.0,
+            "fields": [
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 12.5500000000002,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 9.8333333333334,
+                  "growth": 1.0,
+                  "initial_angle": -1.57079637050629,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 2.7,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              }
+            ],
+            "grounded": false,
+            "growth": 1.0,
+            "hook": "hook_cast",
+            "hook_used": true,
+            "hp": 4.0,
+            "knot_hp": 2.0,
+            "migrations": 1,
+            "motion_mode": "phase_flight",
+            "motor_steps": 753,
+            "perch": 0,
+            "physics_frame": 754,
+            "player": [
+              613.914306640625,
+              357.091979980469
+            ],
+            "queen_motor_id": 89439340332,
+            "rotating_age": 9.8333333333334,
+            "rotating_thread": [
+              [
+                482.546630859375,
+                468.783630371094
+              ],
+              [
+                618.064331054688,
+                834.481567382812
+              ]
+            ],
+            "route_phase": 2,
+            "sampled_player": [
+              540.084838867188,
+              341.92529296875
+            ],
+            "sampled_shore": 1,
+            "severed": false,
+            "third_thread": [
+              [
+                200.0,
+                531.75
+              ],
+              [
+                888.0,
+                546.75
+              ]
+            ],
+            "tick": 753,
+            "velocity": [
+              0.0,
+              260.0
+            ]
+          },
+          {
+            "actual_last_muzzle": [
+              627.447265625,
+              449.659240722656
+            ],
+            "air_shots": 2,
+            "axis": 0.0,
+            "boss_hp": 12.0,
+            "boss_position": [
+              592.0,
+              450.0
+            ],
+            "case": "full_H",
+            "core_open": true,
+            "energy": 100.0,
+            "fields": [
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 12.5666666666669,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 9.8333333333334,
+                  "growth": 1.0,
+                  "initial_angle": -1.57079637050629,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 2.71666666666666,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              }
+            ],
+            "grounded": false,
+            "growth": 1.0,
+            "hook": "hook_cast",
+            "hook_used": true,
+            "hp": 4.0,
+            "knot_hp": 2.0,
+            "migrations": 1,
+            "motion_mode": "phase_flight",
+            "motor_steps": 754,
+            "perch": 0,
+            "physics_frame": 755,
+            "player": [
+              613.914306640625,
+              362.147521972656
+            ],
+            "queen_motor_id": 89439340332,
+            "rotating_age": 9.8333333333334,
+            "rotating_thread": [
+              [
+                482.546630859375,
+                468.783630371094
+              ],
+              [
+                618.064331054688,
+                834.481567382812
+              ]
+            ],
+            "route_phase": 2,
+            "sampled_player": [
+              540.084838867188,
+              341.92529296875
+            ],
+            "sampled_shore": 1,
+            "severed": false,
+            "third_thread": [
+              [
+                200.0,
+                531.0
+              ],
+              [
+                888.0,
+                546.0
+              ]
+            ],
+            "tick": 754,
+            "velocity": [
+              0.0,
+              303.333343505859
+            ]
+          },
+          {
+            "actual_last_muzzle": [
+              627.447265625,
+              449.659240722656
+            ],
+            "air_shots": 2,
+            "axis": 0.0,
+            "boss_hp": 12.0,
+            "boss_position": [
+              596.0,
+              450.0
+            ],
+            "case": "full_H",
+            "core_open": true,
+            "energy": 100.0,
+            "fields": [
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 12.5833333333335,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 9.8333333333334,
+                  "growth": 1.0,
+                  "initial_angle": -1.57079637050629,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 2.73333333333333,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              }
+            ],
+            "grounded": false,
+            "growth": 1.0,
+            "hook": "hook_cast",
+            "hook_used": true,
+            "hp": 4.0,
+            "knot_hp": 2.0,
+            "migrations": 1,
+            "motion_mode": "phase_flight",
+            "motor_steps": 755,
+            "perch": 0,
+            "physics_frame": 756,
+            "player": [
+              613.914306640625,
+              367.92529296875
+            ],
+            "queen_motor_id": 89439340332,
+            "rotating_age": 9.8333333333334,
+            "rotating_thread": [
+              [
+                482.546630859375,
+                468.783630371094
+              ],
+              [
+                618.064331054688,
+                834.481567382812
+              ]
+            ],
+            "route_phase": 2,
+            "sampled_player": [
+              540.084838867188,
+              341.92529296875
+            ],
+            "sampled_shore": 1,
+            "severed": false,
+            "third_thread": [
+              [
+                200.0,
+                530.25
+              ],
+              [
+                888.0,
+                545.25
+              ]
+            ],
+            "tick": 755,
+            "velocity": [
+              0.0,
+              346.666687011719
+            ]
+          },
+          {
+            "actual_last_muzzle": [
+              627.447265625,
+              449.659240722656
+            ],
+            "air_shots": 2,
+            "axis": 0.0,
+            "boss_hp": 12.0,
+            "boss_position": [
+              600.0,
+              450.0
+            ],
+            "case": "full_H",
+            "core_open": true,
+            "energy": 100.0,
+            "fields": [
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 12.6000000000002,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 9.8333333333334,
+                  "growth": 1.0,
+                  "initial_angle": -1.57079637050629,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 2.75,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              }
+            ],
+            "grounded": false,
+            "growth": 1.0,
+            "hook": "hook_cast",
+            "hook_used": true,
+            "hp": 4.0,
+            "knot_hp": 2.0,
+            "migrations": 1,
+            "motion_mode": "phase_flight",
+            "motor_steps": 756,
+            "perch": 0,
+            "physics_frame": 757,
+            "player": [
+              613.914306640625,
+              374.42529296875
+            ],
+            "queen_motor_id": 89439340332,
+            "rotating_age": 9.8333333333334,
+            "rotating_thread": [
+              [
+                482.546630859375,
+                468.783630371094
+              ],
+              [
+                618.064331054688,
+                834.481567382812
+              ]
+            ],
+            "route_phase": 2,
+            "sampled_player": [
+              540.084838867188,
+              341.92529296875
+            ],
+            "sampled_shore": 1,
+            "severed": false,
+            "third_thread": [
+              [
+                200.0,
+                529.5
+              ],
+              [
+                888.0,
+                544.5
+              ]
+            ],
+            "tick": 756,
+            "velocity": [
+              0.0,
+              390.000030517578
+            ]
+          },
+          {
+            "actual_last_muzzle": [
+              627.447265625,
+              449.659240722656
+            ],
+            "air_shots": 2,
+            "axis": 0.0,
+            "boss_hp": 12.0,
+            "boss_position": [
+              604.0,
+              450.0
+            ],
+            "case": "full_H",
+            "core_open": true,
+            "energy": 100.0,
+            "fields": [
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 12.6166666666669,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 9.8333333333334,
+                  "growth": 1.0,
+                  "initial_angle": -1.57079637050629,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 2.76666666666666,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              }
+            ],
+            "grounded": false,
+            "growth": 1.0,
+            "hook": "hook_fly",
+            "hook_used": true,
+            "hp": 4.0,
+            "knot_hp": 2.0,
+            "migrations": 1,
+            "motion_mode": "phase_flight",
+            "motor_steps": 757,
+            "perch": 0,
+            "physics_frame": 758,
+            "player": [
+              613.914306640625,
+              381.647521972656
+            ],
+            "queen_motor_id": 89439340332,
+            "rotating_age": 9.8333333333334,
+            "rotating_thread": [
+              [
+                482.546630859375,
+                468.783630371094
+              ],
+              [
+                618.064331054688,
+                834.481567382812
+              ]
+            ],
+            "route_phase": 2,
+            "sampled_player": [
+              540.084838867188,
+              341.92529296875
+            ],
+            "sampled_shore": 1,
+            "severed": false,
+            "third_thread": [
+              [
+                200.0,
+                528.75
+              ],
+              [
+                888.0,
+                543.75
+              ]
+            ],
+            "tick": 757,
+            "velocity": [
+              0.0,
+              433.333374023438
+            ]
+          },
+          {
+            "actual_last_muzzle": [
+              627.447265625,
+              449.659240722656
+            ],
+            "air_shots": 2,
+            "axis": 0.0,
+            "boss_hp": 12.0,
+            "boss_position": [
+              608.0,
+              450.0
+            ],
+            "case": "full_H",
+            "core_open": true,
+            "energy": 100.0,
+            "fields": [
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 12.6333333333335,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 9.8333333333334,
+                  "growth": 1.0,
+                  "initial_angle": -1.57079637050629,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 2.78333333333333,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              }
+            ],
+            "grounded": false,
+            "growth": 1.0,
+            "hook": "hook_fly",
+            "hook_used": true,
+            "hp": 4.0,
+            "knot_hp": 2.0,
+            "migrations": 1,
+            "motion_mode": "phase_flight",
+            "motor_steps": 758,
+            "perch": 0,
+            "physics_frame": 759,
+            "player": [
+              613.914306640625,
+              389.591979980469
+            ],
+            "queen_motor_id": 89439340332,
+            "rotating_age": 9.8333333333334,
+            "rotating_thread": [
+              [
+                482.546630859375,
+                468.783630371094
+              ],
+              [
+                618.064331054688,
+                834.481567382812
+              ]
+            ],
+            "route_phase": 2,
+            "sampled_player": [
+              540.084838867188,
+              341.92529296875
+            ],
+            "sampled_shore": 1,
+            "severed": false,
+            "third_thread": [
+              [
+                200.0,
+                528.0
+              ],
+              [
+                888.0,
+                543.0
+              ]
+            ],
+            "tick": 758,
+            "velocity": [
+              0.0,
+              476.666717529297
+            ]
+          },
+          {
+            "actual_last_muzzle": [
+              627.447265625,
+              449.659240722656
+            ],
+            "air_shots": 2,
+            "axis": 0.0,
+            "boss_hp": 12.0,
+            "boss_position": [
+              612.0,
+              450.0
+            ],
+            "case": "full_H",
+            "core_open": true,
+            "energy": 100.0,
+            "fields": [
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 12.6500000000002,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 9.8333333333334,
+                  "growth": 1.0,
+                  "initial_angle": -1.57079637050629,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 2.79999999999999,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              }
+            ],
+            "grounded": false,
+            "growth": 1.0,
+            "hook": "hook_fly",
+            "hook_used": true,
+            "hp": 4.0,
+            "knot_hp": 2.0,
+            "migrations": 1,
+            "motion_mode": "phase_flight",
+            "motor_steps": 759,
+            "perch": 0,
+            "physics_frame": 760,
+            "player": [
+              613.914306640625,
+              398.258636474609
+            ],
+            "queen_motor_id": 89439340332,
+            "rotating_age": 9.8333333333334,
+            "rotating_thread": [
+              [
+                482.546630859375,
+                468.783630371094
+              ],
+              [
+                618.064331054688,
+                834.481567382812
+              ]
+            ],
+            "route_phase": 2,
+            "sampled_player": [
+              540.084838867188,
+              341.92529296875
+            ],
+            "sampled_shore": 1,
+            "severed": false,
+            "third_thread": [
+              [
+                200.0,
+                527.25
+              ],
+              [
+                888.0,
+                542.25
+              ]
+            ],
+            "tick": 759,
+            "velocity": [
+              0.0,
+              520.000061035156
+            ]
+          },
+          {
+            "actual_last_muzzle": [
+              627.447265625,
+              449.659240722656
+            ],
+            "air_shots": 2,
+            "axis": 0.0,
+            "boss_hp": 12.0,
+            "boss_position": [
+              616.0,
+              450.0
+            ],
+            "case": "full_H",
+            "core_open": true,
+            "energy": 100.0,
+            "fields": [
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 12.6666666666669,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 9.8333333333334,
+                  "growth": 1.0,
+                  "initial_angle": -1.57079637050629,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 2.81666666666666,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              }
+            ],
+            "grounded": false,
+            "growth": 1.0,
+            "hook": "free",
+            "hook_used": true,
+            "hp": 3.0,
+            "knot_hp": 2.0,
+            "migrations": 1,
+            "motion_mode": "phase_flight",
+            "motor_steps": 760,
+            "perch": 0,
+            "physics_frame": 761,
+            "player": [
+              613.914306640625,
+              407.647521972656
+            ],
+            "queen_motor_id": 89439340332,
+            "rotating_age": 9.8333333333334,
+            "rotating_thread": [
+              [
+                482.546630859375,
+                468.783630371094
+              ],
+              [
+                618.064331054688,
+                834.481567382812
+              ]
+            ],
+            "route_phase": 2,
+            "sampled_player": [
+              540.084838867188,
+              341.92529296875
+            ],
+            "sampled_shore": 1,
+            "severed": false,
+            "third_thread": [
+              [
+                200.0,
+                526.5
+              ],
+              [
+                888.0,
+                541.5
+              ]
+            ],
+            "tick": 760,
+            "velocity": [
+              0.0,
+              563.333374023438
+            ]
+          },
+          {
+            "actual_last_muzzle": [
+              627.447265625,
+              449.659240722656
+            ],
+            "air_shots": 2,
+            "axis": 0.0,
+            "boss_hp": 12.0,
+            "boss_position": [
+              620.0,
+              450.0
+            ],
+            "case": "full_H",
+            "core_open": true,
+            "energy": 100.0,
+            "fields": [
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 12.6833333333335,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 9.8333333333334,
+                  "growth": 1.0,
+                  "initial_angle": -1.57079637050629,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 2.83333333333333,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              }
+            ],
+            "grounded": false,
+            "growth": 1.0,
+            "hook": "free",
+            "hook_used": true,
+            "hp": 3.0,
+            "knot_hp": 2.0,
+            "migrations": 1,
+            "motion_mode": "phase_flight",
+            "motor_steps": 761,
+            "perch": 0,
+            "physics_frame": 762,
+            "player": [
+              613.914306640625,
+              417.758636474609
+            ],
+            "queen_motor_id": 89439340332,
+            "rotating_age": 9.8333333333334,
+            "rotating_thread": [
+              [
+                482.546630859375,
+                468.783630371094
+              ],
+              [
+                618.064331054688,
+                834.481567382812
+              ]
+            ],
+            "route_phase": 2,
+            "sampled_player": [
+              540.084838867188,
+              341.92529296875
+            ],
+            "sampled_shore": 1,
+            "severed": false,
+            "third_thread": [
+              [
+                200.0,
+                525.75
+              ],
+              [
+                888.0,
+                540.75
+              ]
+            ],
+            "tick": 761,
+            "velocity": [
+              0.0,
+              606.666687011719
+            ]
+          },
+          {
+            "actual_last_muzzle": [
+              627.447265625,
+              449.659240722656
+            ],
+            "air_shots": 2,
+            "axis": 0.0,
+            "boss_hp": 12.0,
+            "boss_position": [
+              624.0,
+              450.0
+            ],
+            "case": "full_H",
+            "core_open": true,
+            "energy": 100.0,
+            "fields": [
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 12.7000000000002,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 0.0,
+                "spawned": true,
+                "weave": {
+                  "age": 9.8333333333334,
+                  "growth": 1.0,
+                  "initial_angle": -1.57079637050629,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": true,
+                  "suspended": false
+                }
+              },
+              {
+                "health": 2.0,
+                "spawned": true,
+                "weave": {
+                  "age": 2.84999999999999,
+                  "growth": 1.0,
+                  "initial_angle": 0.0,
+                  "next_damage_in": 0.0,
+                  "pulse": 0,
+                  "severed": false,
+                  "suspended": false
+                }
+              }
+            ],
+            "grounded": false,
+            "growth": 1.0,
+            "hook": "free",
+            "hook_used": true,
+            "hp": 3.0,
+            "knot_hp": 2.0,
+            "migrations": 1,
+            "motion_mode": "phase_flight",
+            "motor_steps": 762,
+            "perch": 0,
+            "physics_frame": 763,
+            "player": [
+              613.914306640625,
+              428.591979980469
+            ],
+            "queen_motor_id": 89439340332,
+            "rotating_age": 9.8333333333334,
+            "rotating_thread": [
+              [
+                482.546630859375,
+                468.783630371094
+              ],
+              [
+                618.064331054688,
+                834.481567382812
+              ]
+            ],
+            "route_phase": 2,
+            "sampled_player": [
+              540.084838867188,
+              341.92529296875
+            ],
+            "sampled_shore": 1,
+            "severed": false,
+            "third_thread": [
+              [
+                200.0,
+                525.0
+              ],
+              [
+                888.0,
+                540.0
+              ]
+            ],
+            "tick": 762,
+            "velocity": [
+              0.0,
+              650.0
+            ]
+          }
+        ],
+        "events": [
+          {
+            "actual": [
+              4.0,
+              0.0
+            ],
+            "after": [
+              584.0,
+              450.0
+            ],
+            "before": [
+              580.0,
+              450.0
+            ],
+            "case": "full_H",
+            "collision": false,
+            "event": "actual_queen_motor_motion",
+            "physics_frame": 753,
+            "requested": [
+              4.0,
+              0.0
+            ],
+            "source_id": 89439340332,
+            "tick": 752
+          },
+          {
+            "case": "full_H",
+            "event": "hook_request",
+            "point": [
+              720.0,
+              260.0
+            ],
+            "queued": true,
+            "tick": 752
+          },
+          {
+            "action": "grapple",
+            "case": "full_H",
+            "direction": [
+              0.774095833301544,
+              -0.633068382740021
+            ],
+            "event": "actual_queued_input",
+            "sequence": 26,
+            "tick": 753
+          },
+          {
+            "case": "full_H",
+            "event": "hook_state",
+            "state": "hook_cast",
+            "tick": 753
+          },
+          {
+            "actual": [
+              4.0,
+              0.0
+            ],
+            "after": [
+              588.0,
+              450.0
+            ],
+            "before": [
+              584.0,
+              450.0
+            ],
+            "case": "full_H",
+            "collision": false,
+            "event": "actual_queen_motor_motion",
+            "physics_frame": 754,
+            "requested": [
+              4.0,
+              0.0
+            ],
+            "source_id": 89439340332,
+            "tick": 753
+          },
+          {
+            "actual": [
+              4.0,
+              0.0
+            ],
+            "after": [
+              592.0,
+              450.0
+            ],
+            "before": [
+              588.0,
+              450.0
+            ],
+            "case": "full_H",
+            "collision": false,
+            "event": "actual_queen_motor_motion",
+            "physics_frame": 755,
+            "requested": [
+              4.0,
+              0.0
+            ],
+            "source_id": 89439340332,
+            "tick": 754
+          },
+          {
+            "actual": [
+              4.0,
+              0.0
+            ],
+            "after": [
+              596.0,
+              450.0
+            ],
+            "before": [
+              592.0,
+              450.0
+            ],
+            "case": "full_H",
+            "collision": false,
+            "event": "actual_queen_motor_motion",
+            "physics_frame": 756,
+            "requested": [
+              4.0,
+              0.0
+            ],
+            "source_id": 89439340332,
+            "tick": 755
+          },
+          {
+            "actual": [
+              4.0,
+              0.0
+            ],
+            "after": [
+              600.0,
+              450.0
+            ],
+            "before": [
+              596.0,
+              450.0
+            ],
+            "case": "full_H",
+            "collision": false,
+            "event": "actual_queen_motor_motion",
+            "physics_frame": 757,
+            "requested": [
+              4.0,
+              0.0
+            ],
+            "source_id": 89439340332,
+            "tick": 756
+          },
+          {
+            "case": "full_H",
+            "event": "hook_state",
+            "state": "hook_fly",
+            "tick": 757
+          },
+          {
+            "actual": [
+              4.0,
+              0.0
+            ],
+            "after": [
+              604.0,
+              450.0
+            ],
+            "before": [
+              600.0,
+              450.0
+            ],
+            "case": "full_H",
+            "collision": false,
+            "event": "actual_queen_motor_motion",
+            "physics_frame": 758,
+            "requested": [
+              4.0,
+              0.0
+            ],
+            "source_id": 89439340332,
+            "tick": 757
+          },
+          {
+            "actual": [
+              4.0,
+              0.0
+            ],
+            "after": [
+              608.0,
+              450.0
+            ],
+            "before": [
+              604.0,
+              450.0
+            ],
+            "case": "full_H",
+            "collision": false,
+            "event": "actual_queen_motor_motion",
+            "physics_frame": 759,
+            "requested": [
+              4.0,
+              0.0
+            ],
+            "source_id": 89439340332,
+            "tick": 758
+          },
+          {
+            "actual": [
+              4.0,
+              0.0
+            ],
+            "after": [
+              612.0,
+              450.0
+            ],
+            "before": [
+              608.0,
+              450.0
+            ],
+            "case": "full_H",
+            "collision": false,
+            "event": "actual_queen_motor_motion",
+            "physics_frame": 760,
+            "requested": [
+              4.0,
+              0.0
+            ],
+            "source_id": 89439340332,
+            "tick": 759
+          },
+          {
+            "actual": [
+              4.0,
+              0.0
+            ],
+            "after": [
+              616.0,
+              450.0
+            ],
+            "before": [
+              612.0,
+              450.0
+            ],
+            "case": "full_H",
+            "collision": false,
+            "event": "actual_queen_motor_motion",
+            "physics_frame": 761,
+            "requested": [
+              4.0,
+              0.0
+            ],
+            "source_id": 89439340332,
+            "tick": 760
+          },
+          {
+            "case": "full_H",
+            "event": "hook_state",
+            "state": "free",
+            "tick": 760
+          },
+          {
+            "amount": 1.0,
+            "case": "full_H",
+            "event": "policy_result",
+            "hp": 3.0,
+            "id": "queen_body_contact:1:2:1",
+            "source": "queen_body_contact",
+            "target": "player",
+            "tick": 760
+          },
+          {
+            "actual": [
+              4.0,
+              0.0
+            ],
+            "after": [
+              620.0,
+              450.0
+            ],
+            "before": [
+              616.0,
+              450.0
+            ],
+            "case": "full_H",
+            "collision": false,
+            "event": "actual_queen_motor_motion",
+            "physics_frame": 762,
+            "requested": [
+              4.0,
+              0.0
+            ],
+            "source_id": 89439340332,
+            "tick": 761
+          },
+          {
+            "actual": [
+              4.0,
+              0.0
+            ],
+            "after": [
+              624.0,
+              450.0
+            ],
+            "before": [
+              620.0,
+              450.0
+            ],
+            "case": "full_H",
+            "collision": false,
+            "event": "actual_queen_motor_motion",
+            "physics_frame": 763,
+            "requested": [
+              4.0,
+              0.0
+            ],
+            "source_id": 89439340332,
+            "tick": 762
+          }
+        ],
+        "causal_result": "Normal queen_body_contact applied1 damage at request+8, same tick hook_fly changes free; PlayerController applied-damage callback cancels traversal. No target contact, hook_miss or obstacle collider recorded. First two knots already dead. Not evidence of blocker, nearest-knot capture or range failure. Flight had at most3 advancing ticks (82.5px) before hurt, less than target distance. Further probe would require new telemetry, not inferred collision."
+      }
+    },
+    "edge": {
+      "capture": "build/forest_depth/snapshots/queen31-inner-gap-low-nest/build/forest_depth/queen/round31-inner-gap-low-nest-edge/capture.json",
+      "capture_sha256": "440a9471aaf99cb95ffccd1c08cccaae0b0f7dc312d53dd456e4acbda79b285d",
+      "receipt": "build/forest_depth/snapshots/queen31-inner-gap-low-nest/build/forest_depth/queen/round31-inner-gap-low-nest-edge/receipt.json",
+      "receipt_sha256": "8afd443a14c29bb1c5e69841d1483745527a40624606ac4b1efbf790bdb54b15",
+      "case": {
+        "boss_damage": 24.0,
+        "boss_defeated": true,
+        "explicit_initial_probe": false,
+        "fields": [
+          2.0,
+          2.0,
+          2.0
+        ],
+        "final_energy": 80.0,
+        "final_field_states": [
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 18.5833333333336,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 18.5833333333336,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 7.46666666666665,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          }
+        ],
+        "final_phase": 3,
+        "final_position": [
+          790.966613769531,
+          381.92529296875
+        ],
+        "final_route_phase": 3,
+        "id": "edge_repeat_noH",
+        "initial_boss_hp": 24.0,
+        "initial_energy": 100.0,
+        "initial_fields": [
+          2.0,
+          2.0,
+          null
+        ],
+        "initial_player_hp": 5.0,
+        "middle_arrival": true,
+        "ordinary_upper_arrival": true,
+        "player_damage": 1.0,
+        "player_dead": false,
+        "retained_in_arena": true,
+        "ticks": 1115
+      },
+      "assertions": 11,
+      "failures": [],
+      "route_player_ranges": {
+        "1": {
+          "first_tick": 1,
+          "last_tick": 535,
+          "x_min": 130.0,
+          "x_max": 828.034362792969,
+          "y_min": 231.613098144531,
+          "y_max": 582.0
+        },
+        "2": {
+          "first_tick": 536,
+          "last_tick": 775,
+          "x_min": 662.160949707031,
+          "x_max": 831.698791503906,
+          "y_min": 359.933898925781,
+          "y_max": 382.647521972656
+        },
+        "3": {
+          "first_tick": 776,
+          "last_tick": 1115,
+          "x_min": 493.740509033203,
+          "x_max": 803.966674804688,
+          "y_min": 147.464553833008,
+          "y_max": 384.091979980469
+        }
+      },
+      "timeline": "edge-timeline.json",
+      "visibility": "edge-visibility.json"
+    }
+  },
+  "limitations": [
+    "No Queen31 GL movie. Old21 movies do not sign current source.",
+    "Edge reaches low nest then phase3 flight but kills before arriving high-left; not a complete third-phase perch roundtrip.",
+    "Adaptive and baseline third hook attempt fails from normal body damage cancellation.",
+    "188/0 is old23 frozen content only, not current31.",
+    "Surface clearance probes are finite real muzzle/radius3 samples, not exhaustive shooting proof."
+  ],
+  "method_sha256_current": {
+    "full_fight": "08e9b3f178760862f301e39aadbc26dca550b7456559957f1a28bd961ac20edf",
+    "edge_control": "b70ea995462477b28de262e23e508d881aa79f7cdd07eb68f17245d9c4eb7d96"
+  },
+  "actual_consumer_source": {
+    "hook_start": "scripts/player/traversal_ability.gd:62",
+    "flight_and_target_probe": "scripts/player/traversal_ability.gd:123",
+    "hurt_cancels_hook": "scripts/player/player_controller.gd:40",
+    "real_muzzle_nine_surface_samples": "tests/support/forest_queen_gameplay_fixture.gd:164",
+    "passive_visibility_frame_field": "tests/thorn_queen_sweep_runner.gd:34"
+  },
+  "same_byte_historical_methods": {
+    "queen24-purpose-pair": {
+      "edge_control": "b70ea995462477b28de262e23e508d881aa79f7cdd07eb68f17245d9c4eb7d96",
+      "full_fight": "08e9b3f178760862f301e39aadbc26dca550b7456559957f1a28bd961ac20edf"
+    },
+    "queen25-shore-patrol": {
+      "edge_control": "b70ea995462477b28de262e23e508d881aa79f7cdd07eb68f17245d9c4eb7d96",
+      "full_fight": "08e9b3f178760862f301e39aadbc26dca550b7456559957f1a28bd961ac20edf"
+    },
+    "queen31-inner-gap-low-nest": {
+      "edge_control": "b70ea995462477b28de262e23e508d881aa79f7cdd07eb68f17245d9c4eb7d96",
+      "full_fight": "08e9b3f178760862f301e39aadbc26dca550b7456559957f1a28bd961ac20edf"
+    }
+  }
+}

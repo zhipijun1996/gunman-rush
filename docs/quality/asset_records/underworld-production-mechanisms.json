@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "asset_id": "underworld-production-mechanisms",
+  "content_version": "underworld-formal-v2-feedback",
+  "source_path": "assets/underworld_plains/mechanisms/source_carrier.png",
+  "source_sha256": "b65c4ad5d4cdd30e2b5beae19ad081891badc84806a29560e68ba99ca54beacf",
+  "runtime_paths": [
+    "assets/underworld_plains/mechanisms/carrier.png",
+    "assets/underworld_plains/mechanisms/mechanisms_build.json"
+  ],
+  "tool": "Per-file original imagegen/native-tile records in this family; aggregate inventory is not a new generation call",
+  "model": "not_exposed; see original records, no invented model/cost",
+  "prompt_or_reference": "docs/underworld_tile_production.md and original generation/provenance/build records listed in associated_files",
+  "processing": "Exact original sources and processing records retained; production_manifest.json and per-family build/provenance files specify actual crops, nearest scale, Tile atlas assembly and consumers. This aggregate does not replace individual source records. Runtime metadata assets/underworld_plains/mechanisms/mechanisms_build.json is loaded by the actual Underworld consumer; original processing bytes and licensing retained.",
+  "usage_scope": "Underworld formal Plains and current Home limited preview; no16-region completion claim",
+  "license_status": "unknown",
+  "license_source": "Mixed generated and referenced native assets; exact original licensing/source provenance retained per file, no blanket new commercial license assertion",
+  "visual_status": "unverified",
+  "user_acceptance_evidence": [],
+  "disposition": "limited_preview",
+  "associated_files": [
+    {
+      "path": "assets/underworld_plains/mechanisms/generation_call.json",
+      "sha256": "77a7d4b0d192cde68a73d63de5998b1a40ccb5a65751b94438e46a3158ca9208",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/underworld_plains/mechanisms/mechanisms_build.json",
+      "sha256": "183b23d838988ff493980bdc18a8e0fd1f59ecab856fa8fdc651335ae3a33fa6",
+      "role": "processing_record"
+    }
+  ]
+}

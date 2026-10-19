@@ -1,0 +1,34 @@
+{
+  "scope": "Exact upstream4.7.2 source plus native production-path test pending; actual Web07 failure retained",
+  "source_files": {
+    "build/integration01/touch-scroll-source-audit02/viewport.cpp": {
+      "bytes": 200690,
+      "sha256": "db949779da96c93cbbdd3d97976efe00211fe900ca2e1283d67ce44671c4a652"
+    },
+    "build/integration01/touch-scroll-source-audit02/display_server_web.cpp": {
+      "bytes": 49511,
+      "sha256": "2e4b1ebf3b08b39494e47f8b699797140d79d5c821263094c3997bb85af63b4e"
+    }
+  },
+  "root_cause": "Viewport::_gui_call_input stops propagated MouseButton/MouseMotion at MOUSE_FILTER_STOP; only wheel exception passes. Button default STOP prevented adapted native drag reaching ancestor ScrollContainer. BaseButton::gui_input does not itself accept event.",
+  "source_lines": {
+    "viewport.cpp": [
+      1740,
+      1744,
+      1764,
+      1769
+    ],
+    "base_button.cpp": [
+      59,
+      110,
+      490
+    ],
+    "display_server_web.cpp": [
+      782,
+      783
+    ]
+  },
+  "authorized_minimal_change": "Only DemoMenu._button sets MOUSE_FILTER_PASS; native ScrollContainer/outer _root remains stop, HSlider remains stop; no helper/viewport/global input changes",
+  "native_new_assertions": "Observe actual scroll.gui_input on ScreenTouch->adapter->rootGUI through Button, require LEFT press arrival; verify nested HSlider consumes own pointer without parent press",
+  "actual_Web08": "Pending root new export and real small-screen swipe"
+}

@@ -1,0 +1,665 @@
+{
+  "status": "DROP",
+  "scope": "C1 actual local hypothesis disproved; no region acceptance",
+  "source_snapshot": "build/forest_depth/snapshots/drop_shaft01",
+  "native_receipt": {
+    "scope": "C1 first normal-input local hypothesis; no regional approval",
+    "argv": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "tools/run_forest_hollow_upper.py",
+      "--drop-shaft",
+      "--variants",
+      "shaft_HR",
+      "noH_shaft_oneR",
+      "noH_shaft_twoR",
+      "noH_shaft_miss",
+      "--output-dir",
+      "build/forest_depth/drop_shaft/first01"
+    ],
+    "cwd": "/workspace/gunman-rush-design/build/forest_depth/snapshots/drop_shaft01",
+    "cold_import_cap": 90,
+    "each_native_cap": 45,
+    "engine": "/workspace/toolchains/godot/4.7.2/Godot_v4.7.2-stable_linux.x86_64",
+    "returncode": 1,
+    "elapsed_seconds": 28.54328150299989,
+    "files": {
+      "build/forest_depth/drop_shaft/first01/noH_shaft_oneR.log": "9a9f66437cd09c58cf0602d24d2c7f849987fa165af0691a66ba8e2d91167bec",
+      "build/forest_depth/drop_shaft/first01/shaft_HR.log": "2f0549d2fd7268f6bfebe70b19516c5ef1e1e9bde013048c45c09ba84ce02c99",
+      "build/forest_depth/drop_shaft/first01/import.log": "37cf7b1460e2e6a5052b1c70a1074d50a96a04a36abef551ed17b0a6cda9ed23",
+      "build/forest_depth/drop_shaft/first01/noH_shaft_oneR.json": "5e9d3d324accb4e21204683b96efba2bf319de6c28b13f2722d85e77bcef8bbd",
+      "build/forest_depth/drop_shaft/first01/receipt.json": "81d3638c45d820d276414606216f47787872084d8466d2a90a0654dde32905c1",
+      "build/forest_depth/drop_shaft/first01/noH_shaft_twoR.log": "7a3c78379f2ff0fcf1d6f21be333e10913be5ea4d0dfa6bd38e910e32f640355",
+      "build/forest_depth/drop_shaft/first01/noH_shaft_twoR.json": "219aef633f9cacf612aa8cafa100fb67ce93b395690d4c4b3eeaa8a157160122",
+      "build/forest_depth/drop_shaft/first01/shaft_HR.json": "d2e91e354f36ef7909e82d15f407bca08bb3b810ee6c57268cbbc08c50e5d192"
+    },
+    "all_snapshot_source_unchanged": true
+  },
+  "new_reader_sha256": "02243c40382165e057615c2a3fff06552daab7d1b80a6ab809b9671bdc7632e3",
+  "original_reader_sha256": "085fcc184006520b7fce29076ee9f9920cdd4dd561e8506a1a1d9d0cf12ff3a3",
+  "cases": [
+    {
+      "variant": "shaft_HR",
+      "raw_sha256": "d2e91e354f36ef7909e82d15f407bca08bb3b810ee6c57268cbbc08c50e5d192",
+      "failure": "",
+      "observed_frames": 136,
+      "driver_terminal_tick": 137,
+      "receiver12_tick": 101,
+      "reached": true,
+      "returned": true,
+      "actual_shots": [
+        {
+          "direction": [
+            1.0,
+            0.0
+          ],
+          "kind": "shot_fired",
+          "serial": 1,
+          "tick": 73
+        }
+      ],
+      "new_offline_errors": [
+        "C1 falling H landed before actual contact"
+      ],
+      "native_rerun_after_reader": false,
+      "grounded_between_cast_contact": [
+        {
+          "tick": 50,
+          "position": [
+            87.9995346069336,
+            -318.012176513672
+          ],
+          "supports": [
+            "cavity_bay"
+          ],
+          "velocity": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "tick": 51,
+          "position": [
+            87.9995346069336,
+            -318.012176513672
+          ],
+          "supports": [
+            "cavity_bay"
+          ],
+          "velocity": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "tick": 52,
+          "position": [
+            87.9995346069336,
+            -318.012176513672
+          ],
+          "supports": [
+            "cavity_bay"
+          ],
+          "velocity": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "tick": 53,
+          "position": [
+            87.9995346069336,
+            -318.012176513672
+          ],
+          "supports": [
+            "cavity_bay"
+          ],
+          "velocity": [
+            0.0,
+            0.0
+          ]
+        }
+      ],
+      "hook_facts": [
+        {
+          "tick": 44,
+          "position": [
+            87.9995346069336,
+            -394.574737548828
+          ],
+          "velocity": [
+            0.015869140625,
+            800.0
+          ],
+          "hook_state": "free",
+          "hook_start": [
+            0.0,
+            0.0
+          ],
+          "hook_tip": [
+            0.0,
+            0.0
+          ],
+          "probe_contacts": [],
+          "grounded": false,
+          "supports": []
+        },
+        {
+          "tick": 45,
+          "position": [
+            87.9995346069336,
+            -381.241394042969
+          ],
+          "velocity": [
+            0.0,
+            800.0
+          ],
+          "hook_state": "hook_cast",
+          "hook_start": [
+            87.9995346069336,
+            -400.574737548828
+          ],
+          "hook_tip": [
+            87.9995346069336,
+            -400.574737548828
+          ],
+          "probe_contacts": [],
+          "grounded": false,
+          "supports": []
+        },
+        {
+          "tick": 46,
+          "position": [
+            87.9995346069336,
+            -367.908050537109
+          ],
+          "velocity": [
+            0.0,
+            800.0
+          ],
+          "hook_state": "hook_cast",
+          "hook_start": [
+            87.9995346069336,
+            -400.574737548828
+          ],
+          "hook_tip": [
+            87.9995346069336,
+            -400.574737548828
+          ],
+          "probe_contacts": [],
+          "grounded": false,
+          "supports": []
+        },
+        {
+          "tick": 47,
+          "position": [
+            87.9995346069336,
+            -354.57470703125
+          ],
+          "velocity": [
+            0.0,
+            800.0
+          ],
+          "hook_state": "hook_cast",
+          "hook_start": [
+            87.9995346069336,
+            -400.574737548828
+          ],
+          "hook_tip": [
+            87.9995346069336,
+            -400.574737548828
+          ],
+          "probe_contacts": [],
+          "grounded": false,
+          "supports": []
+        },
+        {
+          "tick": 48,
+          "position": [
+            87.9995346069336,
+            -341.241363525391
+          ],
+          "velocity": [
+            0.0,
+            800.0
+          ],
+          "hook_state": "hook_cast",
+          "hook_start": [
+            87.9995346069336,
+            -400.574737548828
+          ],
+          "hook_tip": [
+            87.9995346069336,
+            -400.574737548828
+          ],
+          "probe_contacts": [],
+          "grounded": false,
+          "supports": []
+        },
+        {
+          "tick": 49,
+          "position": [
+            87.9995346069336,
+            -327.908020019531
+          ],
+          "velocity": [
+            0.0,
+            800.0
+          ],
+          "hook_state": "hook_fly",
+          "hook_start": [
+            87.9995346069336,
+            -400.574737548828
+          ],
+          "hook_tip": [
+            87.9995346069336,
+            -400.574737548828
+          ],
+          "probe_contacts": [],
+          "grounded": false,
+          "supports": []
+        },
+        {
+          "tick": 50,
+          "position": [
+            87.9995346069336,
+            -318.012176513672
+          ],
+          "velocity": [
+            0.0,
+            0.0
+          ],
+          "hook_state": "hook_fly",
+          "hook_start": [
+            87.9995346069336,
+            -400.574737548828
+          ],
+          "hook_tip": [
+            62.5656356811523,
+            -390.116882324219
+          ],
+          "probe_contacts": [],
+          "grounded": true,
+          "supports": [
+            "cavity_bay"
+          ]
+        },
+        {
+          "tick": 51,
+          "position": [
+            87.9995346069336,
+            -318.012176513672
+          ],
+          "velocity": [
+            0.0,
+            0.0
+          ],
+          "hook_state": "hook_fly",
+          "hook_start": [
+            87.9995346069336,
+            -400.574737548828
+          ],
+          "hook_tip": [
+            37.1317367553711,
+            -379.659027099609
+          ],
+          "probe_contacts": [],
+          "grounded": true,
+          "supports": [
+            "cavity_bay"
+          ]
+        },
+        {
+          "tick": 52,
+          "position": [
+            87.9995346069336,
+            -318.012176513672
+          ],
+          "velocity": [
+            0.0,
+            0.0
+          ],
+          "hook_state": "hook_fly",
+          "hook_start": [
+            87.9995346069336,
+            -400.574737548828
+          ],
+          "hook_tip": [
+            11.6978378295898,
+            -369.201171875
+          ],
+          "probe_contacts": [],
+          "grounded": true,
+          "supports": [
+            "cavity_bay"
+          ]
+        },
+        {
+          "tick": 53,
+          "position": [
+            87.9995346069336,
+            -318.012176513672
+          ],
+          "velocity": [
+            0.0,
+            0.0
+          ],
+          "hook_state": "hook_pull",
+          "hook_start": [
+            87.9995346069336,
+            -400.574737548828
+          ],
+          "hook_tip": [
+            -23.9015827178955,
+            -354.563446044922
+          ],
+          "probe_contacts": [
+            {
+              "collider": "cavity_ring_a",
+              "finish": [
+                -13.7360610961914,
+                -358.743316650391
+              ],
+              "point": [
+                -23.9015827178955,
+                -354.563446044922
+              ],
+              "source": [
+                11.6978378295898,
+                -369.201171875
+              ]
+            }
+          ],
+          "grounded": true,
+          "supports": [
+            "cavity_bay"
+          ]
+        },
+        {
+          "tick": 54,
+          "position": [
+            69.7616577148438,
+            -323.969390869141
+          ],
+          "velocity": [
+            -1093.16125488281,
+            -357.069122314453
+          ],
+          "hook_state": "hook_pull",
+          "hook_start": [
+            87.9995346069336,
+            -400.574737548828
+          ],
+          "hook_tip": [
+            -23.9015827178955,
+            -354.563446044922
+          ],
+          "probe_contacts": [
+            {
+              "collider": "cavity_ring_a",
+              "finish": [
+                -13.7360610961914,
+                -358.743316650391
+              ],
+              "point": [
+                -23.9015827178955,
+                -354.563446044922
+              ],
+              "source": [
+                11.6978378295898,
+                -369.201171875
+              ]
+            }
+          ],
+          "grounded": false,
+          "supports": []
+        },
+        {
+          "tick": 55,
+          "position": [
+            51.5423011779785,
+            -329.920532226562
+          ],
+          "velocity": [
+            -1093.16137695312,
+            -357.069000244141
+          ],
+          "hook_state": "hook_pull",
+          "hook_start": [
+            87.9995346069336,
+            -400.574737548828
+          ],
+          "hook_tip": [
+            -23.9015827178955,
+            -354.563446044922
+          ],
+          "probe_contacts": [
+            {
+              "collider": "cavity_ring_a",
+              "finish": [
+                -13.7360610961914,
+                -358.743316650391
+              ],
+              "point": [
+                -23.9015827178955,
+                -354.563446044922
+              ],
+              "source": [
+                11.6978378295898,
+                -369.201171875
+              ]
+            }
+          ],
+          "grounded": false,
+          "supports": []
+        },
+        {
+          "tick": 56,
+          "position": [
+            33.3229446411133,
+            -335.871673583984
+          ],
+          "velocity": [
+            -1093.16137695312,
+            -357.069091796875
+          ],
+          "hook_state": "hook_pull",
+          "hook_start": [
+            87.9995346069336,
+            -400.574737548828
+          ],
+          "hook_tip": [
+            -23.9015827178955,
+            -354.563446044922
+          ],
+          "probe_contacts": [
+            {
+              "collider": "cavity_ring_a",
+              "finish": [
+                -13.7360610961914,
+                -358.743316650391
+              ],
+              "point": [
+                -23.9015827178955,
+                -354.563446044922
+              ],
+              "source": [
+                11.6978378295898,
+                -369.201171875
+              ]
+            }
+          ],
+          "grounded": false,
+          "supports": []
+        },
+        {
+          "tick": 57,
+          "position": [
+            15.1035938262939,
+            -341.822814941406
+          ],
+          "velocity": [
+            -1093.16125488281,
+            -357.069305419922
+          ],
+          "hook_state": "hook_pull",
+          "hook_start": [
+            87.9995346069336,
+            -400.574737548828
+          ],
+          "hook_tip": [
+            -23.9015827178955,
+            -354.563446044922
+          ],
+          "probe_contacts": [
+            {
+              "collider": "cavity_ring_a",
+              "finish": [
+                -13.7360610961914,
+                -358.743316650391
+              ],
+              "point": [
+                -23.9015827178955,
+                -354.563446044922
+              ],
+              "source": [
+                11.6978378295898,
+                -369.201171875
+              ]
+            }
+          ],
+          "grounded": false,
+          "supports": []
+        },
+        {
+          "tick": 58,
+          "position": [
+            4.61566352844238,
+            -345.248596191406
+          ],
+          "velocity": [
+            -629.275756835938,
+            -205.546325683594
+          ],
+          "hook_state": "hook_contact_kick",
+          "hook_start": [
+            87.9995346069336,
+            -400.574737548828
+          ],
+          "hook_tip": [
+            -23.9015827178955,
+            -354.563446044922
+          ],
+          "probe_contacts": [
+            {
+              "collider": "cavity_ring_a",
+              "finish": [
+                -13.7360610961914,
+                -358.743316650391
+              ],
+              "point": [
+                -23.9015827178955,
+                -354.563446044922
+              ],
+              "source": [
+                11.6978378295898,
+                -369.201171875
+              ]
+            }
+          ],
+          "grounded": false,
+          "supports": []
+        }
+      ],
+      "receiver_resources": {
+        "shots": 2,
+        "energy": 83.5,
+        "health": 5.0,
+        "position": [
+          -159.98371887207,
+          -348.074768066406
+        ],
+        "supports": [
+          "shaft_receiver"
+        ]
+      }
+    },
+    {
+      "variant": "noH_shaft_oneR",
+      "raw_sha256": "5e9d3d324accb4e21204683b96efba2bf319de6c28b13f2722d85e77bcef8bbd",
+      "failure": "",
+      "observed_frames": 114,
+      "driver_terminal_tick": 115,
+      "receiver12_tick": 79,
+      "reached": true,
+      "returned": true,
+      "actual_shots": [
+        {
+          "direction": [
+            1.0,
+            0.0
+          ],
+          "kind": "shot_fired",
+          "serial": 1,
+          "tick": 46
+        }
+      ],
+      "new_offline_errors": [],
+      "native_rerun_after_reader": false,
+      "receiver_resources": {
+        "shots": 2,
+        "energy": 86.0,
+        "health": 5.0,
+        "position": [
+          -159.206604003906,
+          -348.07470703125
+        ],
+        "supports": [
+          "shaft_receiver"
+        ]
+      }
+    },
+    {
+      "variant": "noH_shaft_twoR",
+      "raw_sha256": "219aef633f9cacf612aa8cafa100fb67ce93b395690d4c4b3eeaa8a157160122",
+      "failure": "drop_shaft_actual_ENV_return/shaft_land",
+      "observed_frames": 68,
+      "driver_terminal_tick": 69,
+      "receiver12_tick": -1,
+      "reached": false,
+      "returned": false,
+      "actual_shots": [
+        {
+          "direction": [
+            1.0,
+            0.0
+          ],
+          "kind": "shot_fired",
+          "serial": 1,
+          "tick": 46
+        },
+        {
+          "direction": [
+            0.970142543315887,
+            0.242535635828972
+          ],
+          "kind": "shot_fired",
+          "serial": 2,
+          "tick": 62
+        }
+      ],
+      "new_offline_errors": [
+        "C1 actual receiver and complete S recovery missing",
+        "C1 final actual S fullsupport12 missing",
+        "C1 real top observation/receiver fullsupport12 missing",
+        "C1 requires natural recovery, no damage or Segment return",
+        "actual bounded complete recovery required"
+      ],
+      "native_rerun_after_reader": false,
+      "receiver_resources": null
+    }
+  ],
+  "not_executed": [
+    "noH_shaft_miss"
+  ],
+  "reason": "Purpose actually landed bay before H contact; strongest sampled no-H one-R has same receiver and shots, 22 ticks earlier with higher energy. Do not use a bay excavation to rescue dominated signature."
+}

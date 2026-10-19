@@ -1,0 +1,289 @@
+{
+  "schema_version": 1,
+  "task_id": "STORY-DESIGN-03",
+  "task_type": "process",
+  "workflow": "review",
+  "baseline_commit": "3e2a96c7dce1108d4dcf7be535688a2ef677296f",
+  "reviewed_commit": "3e2a96c7dce1108d4dcf7be535688a2ef677296f",
+  "content_version": "single-day-loop-v0.3",
+  "owner": "/root",
+  "purpose": "以单一最后一天回返统一时间设计，细化家园/救援/日程/人物/结局/16区Boss",
+  "player_experience": "反冲平台探索中识别同一天，救师后知晓无限试验，最后同轮止损迎来第二天",
+  "constraints": [
+    "仅文档；不改生成器、Motor、Boss、资源、能力、保存或地区开放",
+    "午夜回同日黎明，家园与身份不复制，最后同轮处理原事故",
+    "任意合法六区路线均可完成，不依赖全NPC、随机房或死亡次数"
+  ],
+  "affected_paths": [
+    "docs/design/story/",
+    "docs/current_state.md",
+    "docs/handoff.md",
+    "docs/tasks.md",
+    "docs/world_and_story.md",
+    "docs/quality/records/STORY-DESIGN-02.json",
+    "docs/quality/records/STORY-DESIGN-03.json",
+    "docs/evidence/story_design_v03/"
+  ],
+  "deliverables": [
+    "docs/design/story/README.md",
+    "docs/design/story/loop_rules.md",
+    "docs/design/story/story_bible.md",
+    "docs/design/story/region_narratives.md",
+    "docs/design/story/boss_narratives.md",
+    "docs/design/story/narrative_delivery.md"
+  ],
+  "creative_decisions": [
+    {
+      "status": "user_confirmed",
+      "decision": "以最后一天回返统一时间语言，继续完善",
+      "basis": "本会话用户在单一循环建议后同意继续；仅方向认可",
+      "evidence_id": "user-direction"
+    },
+    {
+      "status": "proposed",
+      "decision": "钟院试验、院长/老师责任、登记细则、06至午夜/三次成功及区域Boss",
+      "basis": "本轮具体创意，尚待用户评审"
+    }
+  ],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "统一规则及完整细案具体可评审",
+      "evidence": [
+        "v03-rules",
+        "v03-story"
+      ]
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "无运行制作阶段",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "无运行制作阶段",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "无运行制作阶段",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "独立设计接受，全仓docs未通过",
+      "evidence": [
+        "v03-doc-check",
+        "v03-docs-profile",
+        "review-round2"
+      ]
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "无运行制作阶段",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "唯一规则、故事、区域/Boss和呈现文档覆盖，具体创意仍proposed",
+      "evidence": [
+        "v03-rules",
+        "v03-story"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "局部检查过，全仓docs失败，不冒通过",
+      "evidence": [
+        "v03-doc-check",
+        "v03-docs-profile"
+      ]
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "纯文档，无运行或资产制作",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "纯文档，无运行或资产制作",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "纯文档，无运行或资产制作",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "纯文档，无运行或资产制作",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "纯文档，无运行或资产制作",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "纯文档，无运行或资产制作",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "不同作者两轮复审ACCEPT仅设计一致性，原REJECT保留",
+      "evidence": [
+        "review-round2"
+      ]
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "纯文档，无运行或资产制作",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "方向认可不等于细节/玩家体验认可",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "V03-SINGLE-LOOP",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "入站到最后同轮安全断环",
+      "method": "六文档对照规则及独立审查",
+      "expected": "单一时间原理、无复制、角色知识/证据/日程一致、先止损再断环",
+      "failure": "地方快慢/借寿、跨轮累积物理阀门、复制人物或概率关键剧情",
+      "status": "passed",
+      "reason": "两处日程接缝已修，机制与设计复审接受",
+      "evidence": [
+        "v03-rules",
+        "v03-story",
+        "review-round2"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "v03-rules",
+      "path": "docs/design/story/loop_rules.md",
+      "sha256": "ee79115fd6789f73e017485032336bc180cbe96ab32b3c1957d7a1f83bcf7db3",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "3e2a96c7dce1108d4dcf7be535688a2ef677296f",
+      "content_version": "single-day-loop-v0.3",
+      "method": "本轮源基线与工作区内容文件/输出",
+      "observed": "单一回返、身份/死亡/家园/地图抽象与回放边界明确"
+    },
+    {
+      "id": "v03-story",
+      "path": "docs/design/story/story_bible.md",
+      "sha256": "132cbe6c4779d47e7182d97ebbe0bd934f2fce79d59114a77296c4e4dd4477a1",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "3e2a96c7dce1108d4dcf7be535688a2ef677296f",
+      "content_version": "single-day-loop-v0.3",
+      "method": "本轮源基线与工作区内容文件/输出",
+      "observed": "事故、角色知识、结局具体，最后同轮止损"
+    },
+    {
+      "id": "v03-doc-check",
+      "path": "docs/evidence/story_design_v03/document_check.txt",
+      "sha256": "8872df71b90f2afa998f5538f4ee33e197fbaf1db70074a13ef838851849d2d9",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "3e2a96c7dce1108d4dcf7be535688a2ef677296f",
+      "content_version": "single-day-loop-v0.3",
+      "method": "本轮源基线与工作区内容文件/输出",
+      "observed": "六文档链接/锚点、16区/Boss/六层/日程静态覆盖通过",
+      "command": "python inline V0.3 document/link/anchor/region/Boss/reveal/day-schedule assertions; git diff --check",
+      "exit_code": 0,
+      "environment": "managed cloud / Python 3.12 / sparse checkout"
+    },
+    {
+      "id": "v03-docs-profile",
+      "path": "docs/evidence/story_design_v03/harness_report.json",
+      "sha256": "e74dcfc5215667f027514279ee54505823c7b5e3d1b7483832a2d28e54500681",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "3e2a96c7dce1108d4dcf7be535688a2ef677296f",
+      "content_version": "single-day-loop-v0.3",
+      "method": "本轮源基线与工作区内容文件/输出",
+      "observed": "完整docs实际退出1，首项缺历史文件失败，后续未执行",
+      "command": "python3 tools/harness.py --profile docs --jobs 1",
+      "exit_code": 1,
+      "environment": "managed cloud / sparse partial checkout"
+    },
+    {
+      "id": "user-direction",
+      "path": "docs/evidence/story_design_v03/user_direction.md",
+      "sha256": "f66dc32743a05400735d54f5bf9a1b09b052a09c6e05cf242e471dae6eee7219",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "3e2a96c7dce1108d4dcf7be535688a2ef677296f",
+      "content_version": "single-day-loop-v0.3",
+      "method": "本轮源基线与工作区内容文件/输出",
+      "observed": "仅单一最后一天回返方向获同意",
+      "source": "本任务2026-10-17用户在单一循环建议后的消息",
+      "quote": "好的，继续完善细节。",
+      "accepted": true,
+      "covers": [
+        "design"
+      ]
+    },
+    {
+      "id": "review-round1",
+      "path": "docs/evidence/story_design_v03/review_round1.md",
+      "sha256": "77f0d86176a12f38b7aa0fd7458fde6053b4a81d3eec5d2369545e466b86259b",
+      "kind": "review",
+      "producer": "/root",
+      "source_commit": "3e2a96c7dce1108d4dcf7be535688a2ef677296f",
+      "content_version": "single-day-loop-v0.3",
+      "method": "本轮源基线与工作区内容文件/输出",
+      "observed": "上午风暴与傍晚改药车的日程接缝，原件保留",
+      "reviewer": "/root/loop_review",
+      "implementers": [
+        "/root",
+        "/root/loop_rules",
+        "/root/loop_plot",
+        "/root/loop_regions"
+      ],
+      "verdict": "REJECT",
+      "independent": true,
+      "independence_basis": "审查者未参与素材或文档编写，仅只读审查与复审"
+    },
+    {
+      "id": "review-round2",
+      "path": "docs/evidence/story_design_v03/review_round2.md",
+      "sha256": "b3d5c6546f7ca589bcbab9f16e2106c411b98ae9c1591d4dc5ccaae14a4f7b08",
+      "kind": "review",
+      "producer": "/root",
+      "source_commit": "3e2a96c7dce1108d4dcf7be535688a2ef677296f",
+      "content_version": "single-day-loop-v0.3",
+      "method": "本轮源基线与工作区内容文件/输出",
+      "observed": "修正日程和履历后设计一致性接受，不签玩法/玩家认可",
+      "reviewer": "/root/loop_review",
+      "implementers": [
+        "/root",
+        "/root/loop_rules",
+        "/root/loop_plot",
+        "/root/loop_regions"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "审查者未参与素材或文档编写，仅只读审查与复审"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "具体情节与玩家理解未验证",
+    "剧情尚未接运行，地图对应/岗位交接/回放经济需真实消费者",
+    "完整docs profile退出1，稀疏工作区缺大量历史素材/证据，后续未跑",
+    "V0.2原spec同字节冻结只复核历史，不冒签当前稿"
+  ]
+}

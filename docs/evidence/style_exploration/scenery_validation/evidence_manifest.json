@@ -1,0 +1,36 @@
+{
+  "scope": "scenery camera and source-bound additive light integration only",
+  "engine": "Godot 4.7.2.stable.official.ed1daf0bf",
+  "checks": {
+    "run.log": {
+      "exit_code": 0,
+      "marker": "SCENERY_VALIDATION_OK combinations=20 camera_samples=100 camera_limit_cases=3 depth_layers=3 bound_light_max=2 generated_players=5"
+    },
+    "follow_camera_run.log": {
+      "exit_code": 0,
+      "marker": "FOLLOW_CAMERA_GPU_OK cases=3; endpoint relocation fixture, not traversal proof"
+    }
+  },
+  "files": {
+    "README.md": "36c894b560b9aa47e8defbac32e2731d9cd859e6b8928e36bcb90132a57cfb47",
+    "basic_camera_limit_before_2240.log": "c18a056f4f08a166e9efd71190ccd56e5211b069b6be9d7471039145f5791ed3",
+    "basic_camera_limit_before_2240.png": "4e5bc8cc548602f9a6deec3f6df0681516b6c4493f1fe83961cdc9d7a56af278",
+    "basic_camera_limit_before_2240.png.json": "d4dbc6f0916412dba9f3c1a6e82c54f1c4e1e59648ae0113a689d7efaef725aa",
+    "basic_camera_limit_before_300.log": "96c9d48a931e5dec66657994d8cf74f7a86a56661068d2bf5846af455a6bbc89",
+    "basic_camera_limit_before_300.png": "9ccb73d8fe1553cc1596dab6cdbe1eb8b75d20542934218c0e0924b920937bda",
+    "basic_camera_limit_before_300.png.json": "7a20266c92dfb7e5c3db0f1a1fe2c3906cee234a3933854e34374ff09821ba34",
+    "basic_follow_after_left.png": "34f736709798f2e461a9d0b74afbf15745a5fbca80dfd5b57a6b5b231ecf78a5",
+    "basic_follow_after_middle.png": "da275cc2822d2d9f7c87f1346e4f60888a9367d2b2581b53bdcdb7c543607ff8",
+    "basic_follow_after_right.png": "a2a53865b73beca8fdd8f80f0cc3ffc4f61eadf310d1d3f7bbc2157161b66542",
+    "check.gd": "dbb3aee0885f7a69fb79a9600ad04441c30ae3dcabd8895041e976f0b56fe29a",
+    "follow_camera_check.gd": "7591640d06d72442cc5dadceddac4a1f1380fb69c2b0dfb64c272a26c9635551",
+    "follow_camera_run.log": "6b23470d2cbdc1bf584b67830d2eb9c1ab6206d6f990ef25dbe303916cb7a5f8",
+    "run.log": "982a950e151efb76568d456d42a38a7d3899fc9533e836ac3bd8349f2103e9aa"
+  },
+  "production_files_sha256": {
+    "scripts/style_exploration/style_scenery.gd": "217aa569bceaf577ae0ccfeea2231275ee731aca97f3532ebda89be553dfca49",
+    "scripts/style_exploration/style_actor_visual.gd": "1f3806605ef56a9ef473f8d54002ea0688d811cd07e0a7bdbcf80a2aff8a0f16",
+    "assets/style_exploration/generated_anchor_adjustments.json": "19b5782fb2137ba0b200f1599cacce110477edadfd1a9a35056398c47c39643f",
+    "assets/style_exploration/underworld/player.json": "48f0fcfeec94d6954e1ad7d8798e2fd8c7709095f9e3d45397af4c2e0512cc15"
+  }
+}

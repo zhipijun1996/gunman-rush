@@ -1,0 +1,15 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+REVIEW real_shot_accepted=true
+REVIEW real_shot_commits_damage_before_death=true
+BEFORE_CONTACT player_health=5.0 enemy_health=2.0
+REVIEW real_contact_fatal_ends_lifetime=true
+REVIEW new_attempt_rejects_old_token=true
+REVIEW restart_recreates_enemy_health=true
+REVIEW restart_reactivates_player=true
+REVIEW restart_reactivates_damage_scope=true
+REVIEW contact_still_damages_after_restart=true
+REVIEW shot_accepted_after_restart=true
+REVIEW shot_damage_commits_after_restart=true
+REVIEW material_roundtrip_does_not_reuse_dead_scope=true
+WINDCHIME_INDEPENDENT checks=11 failures=0

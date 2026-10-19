@@ -1,0 +1,105 @@
+--- actual-campaign05-original-reader
++++ hardened-reader
+@@ -7,6 +7,7 @@
+ import contextlib
+ import hashlib
+ import json
++import math
+ from pathlib import Path
+ import re
+ import subprocess
+@@ -16,11 +17,94 @@
+ 
+ ROOT=Path(__file__).resolve().parents[1]
+ ERRORS=re.compile(r'(?m)SCRIPT ERROR:|Parse Error:|SHADER ERROR:|^ERROR:|ObjectDB.*leaked|resources? still in use at exit')
++def require(ok, reason):
++    if not ok:
++        raise ValueError(reason)
++
++def finite(value):
++    return isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(value)
++
++def vector(value):
++    return isinstance(value, list) and len(value)==2 and all(finite(v) for v in value)
++
++def close(first, second):
++    return finite(first) and finite(second) and math.isclose(first, second, abs_tol=0.00001, rel_tol=0.000001)
++
++def same_aim(first, second):
++    return vector(first) and vector(second) and all(close(a,b) for a,b in zip(first,second))
++
++def validate_inputs_and_health(fight):
++    events=fight['events'];requests=fight.get('requests');frames=fight['frames']
++    require(isinstance(requests,list) and bool(requests),'Actual combat Router request ledger required')
++    for request in requests:
++        require(request.get('kind') in {'grapple','shoot_release'} and type(request.get('queued')) is bool and finite(request.get('tick')) and vector(request.get('aim')),'Typed real combat request fields required')
++        require(close(sum(v*v for v in request['aim']),1),'Combat input directions must be finite unit vectors')
++    shots=[e for e in events if e.get('event')=='actual_shot']
++    require(bool(shots),'Accepted real ordinary shots required')
++    shot_ids=set()
++    for shot in shots:
++        shot_id=shot.get('shot_id')
++        require(type(shot_id) is int and shot_id>0 and shot_id not in shot_ids,'Accepted shot serials must be unique positive integers')
++        shot_ids.add(shot_id)
++        require(any(r['kind']=='shoot_release' and r['queued'] is True and r['tick']==shot.get('tick') and same_aim(r['aim'],shot.get('aim')) for r in requests),'Every accepted ordinary shot needs its actual same-tick queued direction')
++    casts=[e for e in events if e.get('event')=='actual_traversal' and e.get('state')=='hook_cast']
++    require(bool(casts),'Actual accepted H cast required')
++    for cast in casts:
++        require(any(r['kind']=='grapple' and r['queued'] is True and r['tick']==cast.get('tick') for r in requests),'Accepted H cast needs a same-tick queued grapple request')
++    for arrival in (e for e in events if e.get('event')=='bell_player_arrived'):
++        target=arrival.get('bell_id');at=arrival.get('tick',-1)
++        contact=[e for e in events if e.get('event')=='actual_traversal' and e.get('state')=='hook_contact_kick' and e.get('bell_target') is True and e.get('target_id')==target and e.get('tick')==at]
++        require(len(contact)==1 and any(c.get('tick',-1)<=at for c in casts),'Physical Bell arrival must match actual accepted target-specific Motor contact after H input')
++        require(any(e.get('event')=='actual_traversal' and e.get('state')=='hook_pull' and e.get('target_id')==target and e.get('tick',-1)<at for e in events),'Bell arrival requires its actual preceding target pull')
++    results=[e for e in events if e.get('event')=='policy_result' and e.get('target') in {'boss','player'}]
++    require(bool(results),'Actual Policy result ledger required')
++    ids=set();by_frame={}
++    for result in results:
++        ident=result.get('event_id');frame=result.get('physics_frame')
++        require(isinstance(ident,str) and ident and ident==result.get('id') and ident not in ids,'Policy damage event ids must be exact and unique')
++        ids.add(ident)
++        require(type(frame) is int and frame>=frames[0]['physics_frame'] and frame<=frames[-1]['physics_frame'] and finite(result.get('amount')) and result['amount']>0 and finite(result.get('hp')),'Policy result must belong to a real captured physics frame with finite damage/HP')
++        by_frame.setdefault(frame,[]).append(result)
++        if result.get('target')=='boss' and str(result.get('source','')).startswith('player_projectile:'):
++            parts=ident.split(':')
++            require(len(parts)==3 and all(p.isdigit() for p in parts),'Ordinary projectile event identity required')
++            require(parts[0]==result['source'].split(':')[-1] and int(parts[1])==fight['initial']['session_id'] and int(parts[2]) in shot_ids,'Boss projectile damage must resolve an actually accepted shot in this actor session')
++    hp={'boss':fight['initial']['boss_hp'],'player':fight['initial']['player_hp']}
++    require(all(finite(v) and v>0 for v in hp.values()),'Live initial health ledger required')
++    for frame in frames:
++        for result in by_frame.get(frame['physics_frame'],[]):
++            target=result['target'];hp[target]=max(0,hp[target]-result['amount'])
++            require(close(result['hp'],hp[target]) and result.get('lethal') is (hp[target]==0),'Each Policy result HP/lethal must reconcile to preceding actual damage')
++        require(close(frame.get('boss_hp'),hp['boss']) and close(frame.get('player_hp'),hp['player']),'Every captured end-physics HP must reconcile to complete Policy ledger')
++        require(frame['player_hp']>0,'This successful consumer requires a living player throughout combat')
++    require(close(fight['final']['boss_hp'],hp['boss']) and close(fight['final']['player_hp'],hp['player']),'Final health must agree with the same full frame/damage ledger')
++    require(sum(r.get('lethal') is True for r in results if r['target']=='boss')==1,'Exactly one actual lethal Boss Policy result required')
++    for counter in (e for e in events if e.get('event')=='bell_counter_committed'):
++        require(any(r['event_id']==counter.get('event_id') and r['target']=='boss' and r.get('tick')==counter.get('tick') and close(r['hp'],counter.get('hp')) and close(r['amount'],counter.get('amount')) for r in results),'Counter summary must match its exact committed Policy health/amount')
++
++def validate_pointer_and_map2(data):
++    pointer=data.get('pointer_events')
++    require(isinstance(pointer,list) and len(pointer)==2 and [r.get('pressed') for r in pointer]==[True,False],'Actual reward pointer press/release pair required')
++    for event in pointer:
++        rect=event.get('actual_button_rect');point=event.get('point')
++        require(event.get('text')=='ENTER / CLAIM REWARD' and vector(point) and isinstance(rect,list) and len(rect)==4 and all(finite(v) for v in rect) and rect[2]>0 and rect[3]>0,'Actual labelled Button and finite positive global rectangle required')
++        require(rect[0]<=point[0]<rect[0]+rect[2] and rect[1]<=point[1]<rect[1]+rect[3],'Reward pointer must be inside its actual Button rectangle')
++    require(pointer[0]['actual_button_rect']==pointer[1]['actual_button_rect'] and pointer[0]['point']==pointer[1]['point'],'Press/release must target the same actual reward button')
++    after=data['map2_after_entry'];coast=data.get('map2_normal_frames')
++    require(isinstance(coast,list) and len(coast)==30,'Thirty actual map2 coast observations required')
++    # Old05 did not record per-frame coast motor steps or Policy events. Validate
++    # the actual available alive/map/session/position fields without inventing them.
++    for frame in coast:
++        require(finite(frame.get('hp')) and 0<frame['hp']<=after['capacity'] and frame['hp']<=after['hp'],'Every map2 coast observation must be alive within captured entry health/capacity')
++        require(frame.get('map')==after['map']==2 and frame.get('session')==after['session'] and vector(frame.get('position')) and type(frame.get('grounded')) is bool,'Every coast observation must belong to actual second-map actor with finite position')
++
+ def validate(data):
+     assert data['scope']=='actual_DemoApp_v2_map1_route_Guardian_fullfight_pointer_reward_map2_entry'
+     assert data['failures']==[] and len(data['checks'])>=20 and all(r['passed'] is True for r in data['checks'])
+     assert data['initial_debug_entry_only'] is True and data['manual_motor_step'] is False and data['position_health_phase_resource_injection'] is False
+     route=data['route'];fight=data['combat'];events=fight['events']
++    validate_inputs_and_health(fight)
++    validate_pointer_and_map2(data)
+     assert not route['failures'] and len(route['completed'])==len(route['itinerary']) and route['frames'] and route['requests']
+     assert fight['initial']['boss_hp']==32 and fight['initial']['boss_started'] is False
+     assert fight['defeats']==1 and fight['final']['boss_hp']==0 and fight['final']['player_hp']>0

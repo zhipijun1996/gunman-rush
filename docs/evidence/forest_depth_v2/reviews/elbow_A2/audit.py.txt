@@ -1,0 +1,26 @@
+import hashlib,json,math
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[4];out={'scope':'Offline original source/raw/receipt audit, no engine','cases':{},'sources':{}}
+entries=[('HR','elbow02-A2','elbow02/HR/elbow_HR.json'),('H0R','elbow02-A2','elbow02/H0R/elbow_H0R.json'),('roof','elbow02-A2','elbow02/ordinary-roof/noH_cavity_outer.json'),('3R','elbow03-ordinary','elbow03/ordinary/noH_elbow_oneR.json')]
+for name,snap,rel in entries:
+ s=ROOT/'build/forest_depth/snapshots'/snap;p=s/'build/forest_depth'/rel;r=json.loads(p.read_text());fs=r['frames'];receipt=json.loads((p.parent/'receipt.json').read_text());ds=r['manifest']['dangers'];contacts=[f for f in fs if f['tick']>90 and 'cavity_exit' in f.get('raw_floor_contacts',[])];full=[f for f in fs if f['tick']>90 and 'cavity_exit' in f['supports']];stable=0;first12=None;goalstable=0;goal12=None
+ for f in fs:
+  stable=stable+1 if 'cavity_exit' in f['supports'] else 0
+  goalstable=goalstable+1 if 'cavity_exit' in f['supports'] and abs(f['position'][0]-430)<2 else 0
+  if stable>=12 and first12 is None:first12=f
+  if goalstable>=12 and goal12 is None:goal12=f
+ def fshort(f):return None if f is None else {k:f[k] for k in ['tick','position','grounded','supports','energy','shots','hook_state']}
+ overlaps=[]
+ for f in fs:
+  b=f['body']
+  for i,d in enumerate(ds):
+   if min(b[0]+24,d[0]+d[2])>max(b[0],d[0]) and min(b[1]+36,d[1]+d[3])>max(b[1],d[1]):overlaps.append([f['tick'],i])
+ source_ok=receipt['source_before']==receipt['source_after'] and all((s/k).is_file() and hashlib.sha256((s/k).read_bytes()).hexdigest()==h for k,h in receipt['source_before'].items());log_ok=all((p.parent/k).is_file() and hashlib.sha256((p.parent/k).read_bytes()).hexdigest()==h for k,h in receipt['logs'].items())
+ out['cases'][name]={'raw':str(p.relative_to(ROOT)),'sha':hashlib.sha256(p.read_bytes()).hexdigest(),'receipt_source_same_and_current_matches':source_ok,'receipt_log_bindings_match':log_ok,'frames':len(fs),'continuous_oneMotor':all(f['tick']==i+1 and f['motor_steps']==1 for i,f in enumerate(fs)),'no_midroute_injection':not r['midroute_injection'],'manual_motor_step':r['manual_motor_step'],'body_danger_overlap_frames':overlaps,'damage':r['damage_events'],'returns':r['policy_returns'],'C_declared':fshort(fs[r['return_start_tick']-1]),'C_first_physical':fshort(contacts[0] if contacts else None),'C_first_full':fshort(full[0] if full else None),'C_first_12':fshort(first12),'node430_first12':fshort(goal12),'final':fshort(fs[-1]),'last12_supportS':all('cavity_observe' in f['supports'] for f in fs[-12:]),'all_body_onscreen':all(f['body_on_screen'] for f in fs),'events':[e for e in r['events'] if e['kind'] in ['elbow_airborne_departure','elbow_kick_release','hook_cast','hook_pull','hook_contact_kick','hook_kick','free','shot_fired']],'requests':r['requests']}
+ for f in ['scripts/generation/forest_hollow_trunk_geometry.gd','scripts/player/player_motor.gd','scripts/player/traversal_ability.gd','scripts/demo/forest_hollow_trunk_golden.gd']:
+  out['sources'].setdefault(snap,{})[f]=hashlib.sha256((s/f).read_bytes()).hexdigest()
+ if name=='H0R':
+  req=next(x for x in r['requests'] if x.get('cell')==1 and x['kind']=='grapple');pull=next(f for f in fs if f['tick']>=req['tick'] and f['hook_state']=='hook_pull');out['second_hook_geometry']={'request':req,'request_angle_degrees':math.degrees(math.atan2(req['direction'][1],req['direction'][0])),'first_pull':fshort(pull),'first_pull_target_delta':[310-pull['position'][0],-260-pull['position'][1]],'actual_initial_pull_approach_degrees':math.degrees(math.atan2(-260-pull['position'][1],310-pull['position'][0]))}
+(ROOT/'build/forest_depth/independent/elbow-A2/raw-audit.json').write_text(json.dumps(out,indent=2)+'\n')
+for k,v in out['cases'].items():print(k,'guard',v['receipt_source_same_and_current_matches'],v['receipt_log_bindings_match'],'C',v['C_declared'],'goal12',v['node430_first12'],'overlap',v['body_danger_overlap_frames'])
+print(out['second_hook_geometry'])

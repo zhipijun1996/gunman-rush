@@ -1,0 +1,35 @@
+{
+  "status": "limitation_confirmed",
+  "source_commit": "86535886c5b86e95bea094d7e92e57354be3d76e",
+  "build_id": "7915c17348c0",
+  "scope": "actual cooked PCK directory and actual browser diagnostic output",
+  "files": [
+    {
+      "path": "assets/underworld_plains/backgrounds/far.png",
+      "raw_png_entry_present": false,
+      "import_mapping_present": true
+    },
+    {
+      "path": "assets/underworld_plains/backgrounds/middle.png",
+      "raw_png_entry_present": false,
+      "import_mapping_present": true
+    },
+    {
+      "path": "assets/underworld_plains/backgrounds/near.png",
+      "raw_png_entry_present": false,
+      "import_mapping_present": true
+    },
+    {
+      "path": "assets/underworld_plains/terrain/source.png",
+      "raw_png_entry_present": false,
+      "import_mapping_present": true
+    }
+  ],
+  "actual_browser_raw_sha_fields": [
+    "",
+    "",
+    ""
+  ],
+  "evidence": "browser_public_E.json console PIXEL_INSPECT parallax[].texture_sha256",
+  "interpretation": "Godot imported texture closure passes, but include_filter alone did not preserve original PNG bytes. Runtime FileAccess raw-source SHA fields are empty and cannot prove source identity. Imported derivatives were compared byte-for-byte separately. No claim of runtime raw-source SHA acceptance."
+}

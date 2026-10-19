@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tools/underworld_delivery.py", line 287, in <module>
+    main()
+  File "/workspace/clock-style-lab/tools/underworld_delivery.py", line 281, in main
+    result = asyncio.run(browser(args)) if args.command == "browser" else globals()[args.command.replace("-", "_")](args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/workspace/clock-style-lab/tools/underworld_delivery.py", line 209, in browser
+    raise ValueError("Actual formal first map was not accepted: " + text)
+ValueError: Actual formal first map was not accepted: MENU FO NE 2. NS. HOLD JUMP + AIM BACK TO RECOIL OE = —— A, ICS OS EE A FE =)S AL ALL A AIE FR’ FR A

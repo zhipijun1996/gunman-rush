@@ -1,0 +1,61 @@
+{
+  "scope": "independent current reader on actual native raw and synthetic adversaries, no new native gameplay",
+  "source_sha256": "0120746416b01163ecfe16425bc1590d771c1f8d3d4392cac142715cf3deb290",
+  "actual_captures": [
+    {
+      "path": "build/forest_grapple02/root_retry02/capture.json",
+      "sha256": "b9506989310be24b812b27ac4db7c073a9a4be3a25668d920417aaf5f161f66e",
+      "frames": 581,
+      "errors": []
+    },
+    {
+      "path": "build/forest_grapple02/shortcut_probe/fixed01/capture.json",
+      "sha256": "ed0cb73c40b8d846c5534807a18748b024e47064b19e7d1ab392488e5855cfa2",
+      "frames": 493,
+      "errors": []
+    }
+  ],
+  "cases": [
+    {
+      "kind": "positive",
+      "errors": []
+    },
+    {
+      "kind": "teleport_during_hang",
+      "errors": [
+        "unexplained_body_displacement",
+        "body_geometry_not_actual_position",
+        "recovery_hang_body_not_at_actual_contact",
+        "recovery_static_hang_moved_or_teleported"
+      ]
+    },
+    {
+      "kind": "no_ring_geometry",
+      "errors": [
+        "missing_manifest_hanging_anchor/thorn_retry_low_ring",
+        "missing_manifest_hanging_anchor/thorn_retry_high_ring",
+        "missing_manifest_hanging_anchor/thorn_retry_exit_ring"
+      ]
+    },
+    {
+      "kind": "wrong_hook_tip",
+      "errors": [
+        "recovery_hang_tip_not_on_actual_ring",
+        "recovery_hang_body_not_at_actual_contact"
+      ]
+    },
+    {
+      "kind": "forged_cast_origin",
+      "errors": [
+        "recovery_hook_start_not_actual_cast_origin",
+        "recovery_actual_contact_beyond_real_range"
+      ]
+    },
+    {
+      "kind": "unreported_thorn_overlap",
+      "errors": [
+        "recovery_body_crossed_actual_thorns"
+      ]
+    }
+  ]
+}

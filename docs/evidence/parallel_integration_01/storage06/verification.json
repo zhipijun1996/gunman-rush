@@ -1,0 +1,51 @@
+{
+  "scope": "Post-migration actual XZ SHA/size, unchanged producer receipts and old-path absence check. Full decompression SHA/size is referenced from each migration full-stream receipt rather than repeated; 2PASS/1timeout identities preserved. No engine/browser/restoration run.",
+  "observed_utc": "2026-10-19T14:06:16.421725+00:00",
+  "status": "passed",
+  "receipt_sha256": "5690c62aeb09a1f97b510ea31e312387a2f236b1c4adb993a11f1ca2a06397fc",
+  "files": [
+    {
+      "original_path": "/tmp/gunman-forest-feedback-runtime/build/forest_feedback/movies01-map1/00-map1-fast/gameplay.avi",
+      "original_sha256": "9926f5ff3e6e944774b2487fa952bbf58741ccadcc6b2ef33511e597f73694c1",
+      "original_bytes": 81940618,
+      "compressed_path": "/tmp/gunman-forest-feedback-runtime/build/forest_feedback/movies01-map1/00-map1-fast/gameplay.avi.xz",
+      "compressed_sha256": "65fb158dc41044d7cda518e27257812f86547170f02fcda9e7e951273c347a5a",
+      "compressed_bytes": 27954492,
+      "producer_recorded_status": "passed",
+      "producer_run_status": "passed",
+      "producer_provided_movie_sha_and_size": true,
+      "original_sha_binding_basis": "Complete actual AVI matches the existing terminal PASS producer movie SHA/size",
+      "full_decompression_matched": true
+    },
+    {
+      "original_path": "/tmp/gunman-forest-feedback-runtime/build/forest_feedback/movies03-map2-fast/00-map2-fast/gameplay.avi",
+      "original_sha256": "cbbe306b78df3a1e28c3fbee5377ae3cdb987f5a79cf0b024ca108119a1f60f2",
+      "original_bytes": 97394688,
+      "compressed_path": "/tmp/gunman-forest-feedback-runtime/build/forest_feedback/movies03-map2-fast/00-map2-fast/gameplay.avi.xz",
+      "compressed_sha256": "a4a134835de75f6e120af7c0414fa61d469f5983b9875d70e5570ce5dc32dcfa",
+      "compressed_bytes": 30798740,
+      "producer_recorded_status": "passed",
+      "producer_run_status": "passed",
+      "producer_provided_movie_sha_and_size": true,
+      "original_sha_binding_basis": "Complete actual AVI matches the existing terminal PASS producer movie SHA/size",
+      "full_decompression_matched": true
+    },
+    {
+      "original_path": "/tmp/gunman-forest-feedback-runtime/build/forest_feedback/movies02-map2/00-map2-growth/gameplay.avi",
+      "original_sha256": "eb09384cf9164c333d6925143be17841dc74982407f9b82d7e3915a2ab23c549",
+      "original_bytes": 162025472,
+      "compressed_path": "/tmp/gunman-forest-feedback-runtime/build/forest_feedback/movies02-map2/00-map2-growth/gameplay.avi.xz",
+      "compressed_sha256": "17f18122ce18b16f59369096ec8e9a127b7ee3b820c092d387531fd228532398",
+      "compressed_bytes": 49042368,
+      "producer_recorded_status": "failed",
+      "producer_run_status": "timeout",
+      "producer_provided_movie_sha_and_size": false,
+      "original_sha_binding_basis": "Original producer timed out and supplied no movie SHA/size; baseline SHA/size first measured from the complete existing failed raw file for this lossless custody migration only",
+      "full_decompression_matched": true
+    }
+  ],
+  "logical_inode_allocated_bytes_reduced": 233562112,
+  "actual_filesystem_reclaimed_bytes": null,
+  "actual_filesystem_reclaim_measured": false,
+  "accounting_correction": "Full stream byte preservation passed; st_blocks accounting does not demonstrate physical overlay free gain. No before/after statvfs baseline exists."
+}

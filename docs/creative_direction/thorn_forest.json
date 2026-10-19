@@ -1,0 +1,160 @@
+{
+  "region_id": "thorn_forest",
+  "direction_id": "woven_trunk_chains",
+  "title": "荆棘森林：树洞与枝冠的连续换向",
+  "selection_rationale": "RETHINK：旧仅技术片/等待开合方向不再描述现行森林。依据最新用户授权选择纵向树洞、横向棘口、枝冠接收与青色停留环，围绕真实H/反冲连续换向；可玩v12仍有普通替代、尾路省句与Boss价值缺口，不以技术通过签设计成功。",
+  "intent": {
+    "journey": "S2以H+基础跳跃/当前武器反冲为核心，穿树洞、棘口和枝冠连续换位；不要求未授予W/D/U1/U2。",
+    "meaning": "不是战胜自然的DPS区，而是读出呼吸节拍后穿过生长缝隙。"
+  },
+  "emotion": {
+    "arc": "被包裹的好奇→聆听→短促承诺→树节内安心",
+    "mood": "青绿阴翳与琥珀树节，潮湿而有生命，不复制平原金色钟塔。"
+  },
+  "player_behavior": {
+    "core": "观察身体路径/锚点/落点，空中H→H、H→R或多动作改变方向；青色环可停留观察后合法脱离。",
+    "capability": "S2仅H；任何高级/隐藏也不可偷要求W/D/U1/U2",
+    "first_30_seconds": "看见枝节发光与清楚钩点、一次安全示范",
+    "first_10_minutes": "现行两图可玩；七段推荐主线与探索/奖励/返程、两Boss需分别判断动作价值，不能把动作计数签成乐趣。"
+  },
+  "space": {
+    "macro": "v12纵向树洞与枝冠交替，增量累计纵升1528px；根地恢复、实体树皮洞口、横向荆棘窄口、断枝拱各有场景语言。",
+    "exploration": "两图共享巨木、多分支/奖励/营地/回程；七段是推荐路径，尾路可省上层两句、冠叉反冲可省，随机发现顺序与上层收益仍需重构。",
+    "slice": "正式ThornForestRegionStage -> ThornForestRegionGenerator/current v2 -> forest-woven-trunk-v12；旧current_slice/历史H slice只为显式技术/历史回归，不代正式两图。"
+  },
+  "ecology": {
+    "theme": "慢生长的驻留枝与会收缩的空隙；敌人服务钩点取舍与安全返回",
+    "planned_roles": "现行七种行为、每图约14–16只，含铃囊萤/棘籽哨、方向盾甲虫/摆荚等；活锚、占位与换层价值逐消费者评审，不假称每种已达趣味目标。",
+    "implementation": "已有真实区域敌人和生命周期/伤害消费者；历史测试与新整合分源。摆荚路线收益、组合密度与非击杀策略价值仍未最终通过。"
+  },
+  "boss": {
+    "direction": "根铃守卫以实体铃H夺取返撞与跨场，棘冠女王以巡视/活结/持续网；两场独立实际消费者已实现。",
+    "status": "现行Boss可玩不等于核心H体验成立；QueenH、普通最便宜打法、完整战斗趣味/真人设备仍REVISE，不再标未制作也不重签旧电影。"
+  },
+  "visual": {
+    "shape": "包裹弧线、窄缝、厚树节，宽根系有重量；非矩形石灰岩",
+    "material": "纤维状树皮、半透嫩叶、哑光甲壳",
+    "color_light": "深青绿中景，琥珀安全树节，稀疏冷亮孢光",
+    "depth": "远密冠→中景树干围合→清楚玩法树节→少量近景叶缘",
+    "negative_space": "钩线与落点通道保持清楚，装饰枝条不冒充钩点"
+  },
+  "motion_audio": {
+    "motion": "呼吸式伸展/静止/回缩，真实事件驱动，触碰与伤害窗口必须可读",
+    "audio": "枝条摩擦提示开合，安全树节短回声，音频完整实现未验",
+    "ui": "枪/钩空中有效瞄准共用15%世界速度，精力仍按真实秒；PC右键/E和LB按住瞄准松手发钩。青色双环表示可停留，铜环保持接触小踢；取消/失焦无额外枪钩。"
+  },
+  "memory": {
+    "scene": "一次从棘廊暗缝钩入琥珀树节，回望生长闭合的路",
+    "status": "可玩内容已制作，记忆点、熟练爽感与人类认可仍未证明。"
+  },
+  "exclusions": {
+    "elements": [
+      "平原钟塔/石灰岩换绿",
+      "强制W/D/U1/U2",
+      "敌人死后唯一H路断裂",
+      "装饰钩点",
+      "用旧原型的禁止开放声明覆盖最新用户授权，或反向把可玩等同production_pool准入"
+    ],
+    "scope": "本轮整合保留现行可玩第二地区/选择能力/选区/调试直入，不新增能力授予或签完整商业地区。"
+  },
+  "commercial": {
+    "hypothesis": "钩索与反冲衔接形成地区差异，慢生长音画是识别点；未经市场/玩家证实",
+    "test": "同一build/能力/输入记录首次钩点判断、落空恢复、非击杀返回；真实玩家另验",
+    "device": "手机独立HOOK瞄准操作负担需实机；桌面自动脚本不能代签"
+  },
+  "slice": {
+    "consumer": "DemoApp normal campaign/region selection/debug entry -> ThornForestRegionStage -> ThornForestRegionGenerator -> forest-woven-trunk-v12 (thorn-forest-region-v2); production_pool=false remains explicit metadata",
+    "required": [
+      "真实24x36身体/唯一Motor",
+      "231px钩索/现有重力与反冲",
+      "15%双瞄准与真实秒资源",
+      "斜下真实碰撞拉动/近垂直稳定小踢",
+      "停留环生命周期与合法离环",
+      "两图Seed/保存/跨区/奖励流程",
+      "正常速度完整动作/战斗和独审",
+      "原失败与便宜替代打法保留"
+    ],
+    "scope": "当前可玩v12，整体REVISE。旧S3 source93c202568d154e37b1d57de1e08ba0c42820e828的CI89/80路线与GUI20/8仅归该源；新整合必须重新执行适用验证。不重新声明旧technical_slice退出失败为现行整区失败或通过。",
+    "next": "先修复最便宜策略、上层收益/随机探索与BossH价值，按黄金对照淘汰；不以测试通过/连招数量代体验。通用规划器仍保守保留formal_opening_authorized=false，任务必须带最新明确用户授权，不通过本总谱自动解锁。"
+  },
+  "candidates": [
+    {
+      "id": "woven_trunk_chains",
+      "experience": "连续空中换向与可停留的观察，H/反冲组成空间动作",
+      "space": "纵向树洞+横向棘口+枝冠/异路回程",
+      "ecology_boss": "活锚/占位/方向压力及两场真实Boss消费者",
+      "art_emotion": "纤维树皮与青绿枝冠，明确地块身份",
+      "originality": "动作路径与森林宿主关联，非把平原换绿",
+      "feasibility": "v12可玩已实现，当前真实身体/231px射程不改",
+      "player_appeal": "符合最新用户连续操作目标，但乐趣未获玩家认可",
+      "risk": "普通替代、尾路跳句、上层收益与QueenH尚未解决"
+    },
+    {
+      "id": "listening_thorns",
+      "experience": "等待枝条开合后单次H穿隙",
+      "space": "短棘廊和安全树节",
+      "ecology_boss": "原提案守节生物与开合棘冠",
+      "art_emotion": "青绿/琥珀的紧张后安心",
+      "originality": "等待/放手对应钩索承诺",
+      "feasibility": "只曾有限技术样板，不能等同已实现动态生长",
+      "player_appeal": "缺连续动作密度，非当前首选",
+      "risk": "等待重复且旧技术片不证明区域体验"
+    },
+    {
+      "id": "all_thorn_fixed_combo",
+      "experience": "固定高密度刺道强制长连招",
+      "space": "线性窄缝与缩小接收台",
+      "ecology_boss": "敌人只能增加执行压力",
+      "art_emotion": "全屏危险易盖住安全落点",
+      "originality": "仅操作负担增加，无额外决策",
+      "feasibility": "不为成立改射程/无敌/身体，禁止盲跳",
+      "player_appeal": "不满足观察决策恢复，淘汰",
+      "risk": "难度冒充乐趣；DISCARD，不扩产"
+    }
+  ],
+  "schema_version": 1,
+  "version": "creative-v3",
+  "decision": "selected",
+  "acceptance": "professional_recommendation",
+  "user_acceptance": "unverified",
+  "authority_sources": [
+    {
+      "path": "docs/design/player_actions/regions_v0.3.md",
+      "sha256": "1c0e78298942fce4e0b133f4b5a52e37cf302c6af57e268747fdf7e6deb636f4"
+    },
+    {
+      "path": "docs/design/player_actions/README.md",
+      "sha256": "26b46fcf4be3440f0d4c6563d59af7dc5595f65ea3cb1e6f5a612eae1fb92618"
+    },
+    {
+      "path": "docs/world_regions.json",
+      "sha256": "8d31538a5e7e33c093dc1e70739102c73359de6ea0848d99f0294659cfd2c656"
+    },
+    {
+      "path": "docs/controls_contract.md",
+      "sha256": "cc95ac2818d365d2e9176af3c5b0b48cc642feca2ef49d4b4c05ffaf79ab9a70"
+    },
+    {
+      "path": "config/player_tuning.json",
+      "sha256": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c"
+    },
+    {
+      "path": "resources/player/traversal.tres",
+      "sha256": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390"
+    },
+    {
+      "path": "docs/design/forest_grapple_vertical.md",
+      "sha256": "c1130318fc04c4af3d887778959b8c6c8a4f8c46f40c40c9ea8628a103b34404"
+    },
+    {
+      "path": "scripts/generation/thorn_forest_region_v2.gd",
+      "sha256": "c449be2883d8590d2db01483889522f5f9b0a1e62e8421733ff71aeeac6185f8"
+    }
+  ],
+  "revision_reason": "Integration 2026-10-19 updates the actual playable v12 consumer and authorized 15% focus/holding rings; prior creative-v2 prototype status, physics evidence and art direction are archived unchanged, never relabeled.",
+  "historical_direction": {
+    "path": "docs/creative_direction/archive/creative-v2/thorn_forest.json",
+    "sha256": "c79445e94ed41217ec326b0a928f1b6e723a754d66a8cc3eabcfd08e6c01b150",
+    "status": "historical_only_not_current_validation"
+  }
+}

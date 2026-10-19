@@ -1,0 +1,15 @@
+{
+  "status": "failed",
+  "source_commit": "1cbf49663ecfa24769aeaea320be2801fa446917",
+  "command": [
+    "python",
+    "tools/build.py",
+    "web"
+  ],
+  "exit_code": 1,
+  "log": "export_1cbf4966_foundry_failure.log",
+  "log_sha256": "22633cee2fefc1f3f17abb173bab4c04e505250a91949d0a381f8cdbf60b5c2a",
+  "failure": "Foundry source changed after validation; rebuild batch before export",
+  "stage": "guarded Foundry export stamp; Web export not reached",
+  "existing_web_bundle_is_not_this_source": true
+}

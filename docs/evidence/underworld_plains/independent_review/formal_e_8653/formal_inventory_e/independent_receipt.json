@@ -1,0 +1,49 @@
+{
+  "reviewed_commit": "86535886c5b86e95bea094d7e92e57354be3d76e",
+  "reviewer": "/root/production_review",
+  "runs": [
+    {
+      "reviewed_commit": "86535886c5b86e95bea094d7e92e57354be3d76e",
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--audio-driver",
+        "Dummy",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "build/underworld_plains/independent_review/formal_inventory_e/runner.gd"
+      ],
+      "exit_code": 0,
+      "seconds": 42.92042636899896,
+      "log": "build/underworld_plains/independent_review/formal_inventory_e/runner.gd.log",
+      "log_sha256": "e07021101ee514f345bae0fc045b0454c8818a1966c2507650c24451dec5a18b",
+      "errors": []
+    },
+    {
+      "reviewed_commit": "86535886c5b86e95bea094d7e92e57354be3d76e",
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--audio-driver",
+        "Dummy",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "build/underworld_plains/independent_review/formal_inventory_e/identity_runner.gd"
+      ],
+      "exit_code": 0,
+      "seconds": 52.295507046999774,
+      "log": "build/underworld_plains/independent_review/formal_inventory_e/identity_runner.gd.log",
+      "log_sha256": "5e740a7b83e05d13b5c15dc74be6b67652e5193856ae88725adf063dbd41e7e1",
+      "errors": []
+    }
+  ],
+  "probe_scope": "Original assertions retained, outputs relocated; only first runner adds read-only instance metadata"
+}

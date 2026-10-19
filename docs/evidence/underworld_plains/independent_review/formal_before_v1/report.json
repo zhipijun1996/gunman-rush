@@ -1,0 +1,72 @@
+{
+  "task_id": "UNDERWORLD-PLAINS-01",
+  "reviewer": "/root/production_review",
+  "verdict": "REJECT",
+  "review_scope": "Preliminary actual formal GPU composition during active working-tree implementation. Not frozen final source; not route completion. User preference for Underworld does not approve this formal composition.",
+  "version": "formal-before-v1 / active working tree before icon and actor crop correction",
+  "observed_originals": [
+    {
+      "path": "docs/evidence/underworld_plains/independent_review/formal_before_v1/map1_spawn.png",
+      "sha256": "4e5edd456efbe0358cd2de1890283d9b71139a812ba84643a8ab9f50d12a554e"
+    },
+    {
+      "path": "docs/evidence/underworld_plains/independent_review/formal_before_v1/map1_merchant.png",
+      "sha256": "8fdfc111a4f17188905e1defaaeb4dccd950a0bfe2c07a6023ee60766714c037"
+    },
+    {
+      "path": "docs/evidence/underworld_plains/independent_review/formal_before_v1/map1_enemy_diver.png",
+      "sha256": "f472e5f6ebfc509c81def64f5b78137477ec2df46904b2b3f412bb3ee98ba967"
+    },
+    {
+      "path": "docs/evidence/underworld_plains/independent_review/formal_before_v1/map1_boss.png",
+      "sha256": "d20568b3cb553137af992d6752569d0ff49f4437d686ca9734f368431df94278"
+    }
+  ],
+  "findings": [
+    {
+      "id": "UW-G2-01",
+      "severity": "major",
+      "gate": "G2",
+      "status": "failed",
+      "fact": "Merchant and chest retain primitive large flat-color pixel body while new player/environment use finer moss/edge texture. Actual visible merchant x712-815,y366-511 in map1_merchant; chest x992-1084,y482-548 in map1_enemy_diver.",
+      "judgment_kind": "AI independent art consistency judgment based on actually opened native viewport; not user feedback",
+      "responsibility": "art-director / actual icon consumers",
+      "minimum_rework": "Generate/provenance consistent merchant/chest/icon family and replace actual consumers, then same-window GPU re-review."
+    },
+    {
+      "id": "UW-G2-02",
+      "severity": "candidate",
+      "gate": "G2",
+      "status": "unverified",
+      "fact": "Bellstrider wheel bottom appears about15screenpx above top of platform during real entry shot. Entry animation may explain some of gap; static image does not establish standing-phase failure.",
+      "responsibility": "animation-vfx / actual Boss body foot anchor",
+      "minimum_rework": "Check actual alpha and real +65 floor reference in normal-speed motion; preserve original source bbox."
+    },
+    {
+      "id": "UW-G2-03",
+      "severity": "candidate",
+      "gate": "G2",
+      "status": "unverified",
+      "fact": "Near background beams/trees share dark green edge material and actor-scale proportions with collidable platform; may suggest false landing. Still candidate, not observed player confusion.",
+      "responsibility": "scene-composer",
+      "minimum_rework": "Use actual camera horizontal/vertical/return sequence; reduce near contrast if it competes with true top edges."
+    }
+  ],
+  "probe_failures": [
+    {
+      "id": "probe_v1_death",
+      "status": "preserved",
+      "fact": "Sequential live positioned fixture accrued real damage and eventually freed map2 stage, causing reviewer script invalid property access. Not a demonstrated game bug. Original log retained; process manually terminated130 after script error."
+    },
+    {
+      "id": "probe_v2_pause_initialization",
+      "status": "preserved",
+      "fact": "Directly paused map2 immediately on loading prevented initial PlainsStageVisual visibility update, leaving initial boss-door sprite visible. This artifact must not be reported as normal-game occlusion. Corrected later fixture must allow initial real process first."
+    }
+  ],
+  "unverified": [
+    "Final corrected source and final formal consumers",
+    "Full normal-speed video/audio",
+    "Physical devices, commercial aesthetics/user approval"
+  ]
+}

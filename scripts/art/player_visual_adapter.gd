@@ -68,12 +68,12 @@ func _process(delta: float) -> void:
 	visual.wall_surface_x = visual.to_local(controller.traversal.wall_point).x
 	if controller.traversal.state in [&"wall_attach",&"wall_kick"]:
 		visual.set_facing(-controller.traversal.wall_normal)
-	elif controller.traversal.state in [&"hook_cast",&"hook_fly",&"hook_pull",&"hook_kick",&"hook_contact_kick",&"hook_miss",&"hook_retract"]:
-		visual.set_facing(controller.traversal.kick_side if controller.traversal.state==&"hook_kick" else controller.traversal.hook_forward)
+	elif controller.traversal.state in [&"hook_cast",&"hook_fly",&"hook_pull",&"hook_kick",&"hook_contact_kick",&"hook_hang",&"hook_miss",&"hook_retract"]:
+		visual.set_facing(controller.traversal.kick_side if controller.traversal.state==&"hook_kick" and not is_zero_approx(controller.traversal.kick_side) else controller.traversal.hook_forward)
 	if _hurt_remaining > 0.0:
 		visual.set_state(&"hurt")
 	elif controller.traversal.state != &"free":
-		visual.set_state(controller.traversal.state)
+		visual.set_state(&"hook_contact_kick" if controller.traversal.state==&"hook_hang" else controller.traversal.state)
 	elif controller.shoot_ability.behavior().visual_state()!=&"idle":
 		var pose := controller.shoot_ability.behavior().visual_state()
 		if pose==&"weapon_skill":

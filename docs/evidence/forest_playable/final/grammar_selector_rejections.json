@@ -1,0 +1,40 @@
+{
+  "status": "passed",
+  "cases": [
+    {
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_room_grammar_runner.gd",
+        "--",
+        "--template=not_a_real_template"
+      ],
+      "exit_code": 1,
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nERROR: ROOM GRAMMAR: selected template exists in authoritative catalog\n   at: push_error (core/variant/variant_utility.cpp:1023)\n   GDScript backtrace (most recent call first):\n       [0] check (res://tests/plains_room_grammar_runner.gd:16)\n       [1] _run (res://tests/plains_room_grammar_runner.gd:26)\n"
+    },
+    {
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/plains_room_grammar_runner.gd",
+        "--",
+        "--baseline-only",
+        "--template=gear_relay"
+      ],
+      "exit_code": 1,
+      "output": "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org\n\nERROR: ROOM GRAMMAR: baseline-only and template selection are mutually exclusive\n   at: push_error (core/variant/variant_utility.cpp:1023)\n   GDScript backtrace (most recent call first):\n       [0] check (res://tests/plains_room_grammar_runner.gd:16)\n       [1] _run (res://tests/plains_room_grammar_runner.gd:22)\n"
+    }
+  ]
+}
