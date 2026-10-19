@@ -377,6 +377,10 @@ def main() -> int:
         output = run_engine(['--headless', '--audio-driver', 'Dummy', '--path', '.', '--script', script], 120)
         if not re.search(marker, output, re.MULTILINE):
             raise RuntimeError('Missing Underworld runtime completion: ' + args.suite)
+        if args.suite == 'scenery':
+            population = run_engine(['--headless', '--audio-driver', 'Dummy', '--path', '.', '--script', 'tests/underworld_plains/test_underworld_identity_population.gd'], 240)
+            if not re.search(r'^Underworld identity population: 20 cases, [0-9]+ checks, 0 failures$', population, re.MULTILINE):
+                raise RuntimeError('Missing actual20-case Underworld identity population completion')
         print('PASS: Underworld ' + args.suite + ' runtime; strict engine teardown')
         return 0
     report = audit(manifest_path=args.manifest)
