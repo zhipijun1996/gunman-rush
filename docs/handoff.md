@@ -1,3 +1,7 @@
+## 2026-10-19 main 合并后的导出刷新
+
+PR92已合main fe704f9717dc1109605a5186b2acd94ba5b58792。真实export发现Foundry basis stale，原36短句/18路线重建完成（三profile零失败），原stamp重新生成。下一步合并刷新提交、按最新main构建已有prepared Pages试玩；不把known menu strictFAIL或旧CI8 timeout当成通过。原始拒绝、重建、stamp在main_preview09/foundry-refresh-original09.zip。
+
 # 当前：最新并行内容合入 main 与快速试玩部署
 
 用户最新明确授权将最新分支一起合入 main，并快速部署试玩页。本轮已将 PR94 `0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad` 的 Underworld 正式平原、20帧人物、机关、家园与共享UI，和 PR83 森林v12／15%双瞄准／挂环、PR91、PR90、PR80、PR93一起整合；实验入口仍独立。当前正在提交合并并构建准确main试玩包，尚未把此候选称已上线。
