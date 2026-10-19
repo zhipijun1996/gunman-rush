@@ -1,0 +1,153 @@
+{
+  "collector_sha256": "7d1098aa6125c3982ca2e5131af27ecbcb375888bc73daadf77befab40f67c75",
+  "scope": "Production collector offline: currentCI7Plains1 plus4 OLD nativeForest images;6 pixelnegative controls. Not8actualGUIcontexts/currentForest/pause/nativegame acceptance; title-field only, no arbitrary hidden field-external text guarantee.",
+  "cases": [
+    {
+      "case": "ci7_plains1",
+      "source": "build/integration01/local-gui07/touch-plains-map1-entry.png",
+      "source_sha256": "d28cd0a67d06663e703cdd4a5ee6a363760bf6e63db46aeb5a917475004280bb",
+      "expected_region": "plains",
+      "expected_map": 1,
+      "should_pass": true,
+      "accepted": true,
+      "point": [
+        115.58333333333333,
+        26.0
+      ],
+      "correct_outcome": true,
+      "seconds": 0.496848577997298
+    },
+    {
+      "case": "old_mouse_forest1",
+      "source": "build/forest_grapple02/browser_gui02/mouse-thorn_forest-map1-entry.png",
+      "source_sha256": "f211e18a37942da3174d8b93ca3909c3ecdb41c2bfb5a2eb8cb268e9c2d29bae",
+      "expected_region": "thorn_forest",
+      "expected_map": 1,
+      "should_pass": true,
+      "accepted": true,
+      "point": [
+        97.58333333333333,
+        26.0
+      ],
+      "correct_outcome": true,
+      "seconds": 0.41333402700547595
+    },
+    {
+      "case": "old_mouse_forest2",
+      "source": "build/forest_grapple02/browser_gui02/mouse-thorn_forest-map2-entry.png",
+      "source_sha256": "28598f05137adbdc695c6d2091166b9de6ab9ff6b5982223f4bb12bddf993326",
+      "expected_region": "thorn_forest",
+      "expected_map": 2,
+      "should_pass": true,
+      "accepted": true,
+      "point": [
+        97.58333333333333,
+        26.0
+      ],
+      "correct_outcome": true,
+      "seconds": 0.4153222699969774
+    },
+    {
+      "case": "old_touch_forest1",
+      "source": "build/forest_grapple02/browser_gui02/touch-thorn_forest-map1-entry.png",
+      "source_sha256": "c5b534daf76a9eeaa77032e6a096a83dc947f9465d280235489d095e391c2245",
+      "expected_region": "thorn_forest",
+      "expected_map": 1,
+      "should_pass": true,
+      "accepted": true,
+      "point": [
+        97.58333333333333,
+        26.0
+      ],
+      "correct_outcome": true,
+      "seconds": 0.4197208330006106
+    },
+    {
+      "case": "old_touch_forest2",
+      "source": "build/forest_grapple02/browser_gui02/touch-thorn_forest-map2-entry.png",
+      "source_sha256": "caf4e7753dde4807a6d798d3c33bc00f31c67e0b9515d3b227b11e1449633833",
+      "expected_region": "thorn_forest",
+      "expected_map": 2,
+      "should_pass": true,
+      "accepted": true,
+      "point": [
+        97.58333333333333,
+        26.0
+      ],
+      "correct_outcome": true,
+      "seconds": 0.3981617270037532
+    },
+    {
+      "case": "wrong_region",
+      "source": "build/integration01/hud-title-ocr-diagnosis01/wrong_region.png",
+      "source_sha256": "4a35e740e0c0ce048282c836bc2db827dd415510b320150fc46773f7a0338b9e",
+      "expected_region": "plains",
+      "expected_map": 1,
+      "should_pass": false,
+      "accepted": false,
+      "error": "Expected exactly one complete actual HUD heading 'WINDCHIME PLAINS 1/2'; found 0",
+      "correct_outcome": true,
+      "seconds": 0.45945880899671465
+    },
+    {
+      "case": "wrong_map",
+      "source": "build/integration01/hud-title-ocr-diagnosis01/wrong_map.png",
+      "source_sha256": "ac819ebe28b4c8ecbc3f9250fd35f8bc4c78cd0841c00b956a7e1481ec1534ed",
+      "expected_region": "plains",
+      "expected_map": 1,
+      "should_pass": false,
+      "accepted": false,
+      "error": "Expected exactly one complete actual HUD heading 'WINDCHIME PLAINS 1/2'; found 0",
+      "correct_outcome": true,
+      "seconds": 0.4883265759999631
+    },
+    {
+      "case": "blank",
+      "source": "build/integration01/hud-title-ocr-diagnosis01/blank.png",
+      "source_sha256": "063eee488c2600ffe036448c4d623cda7c2ed4b57fb18e15d32e2e29045d08dd",
+      "expected_region": "plains",
+      "expected_map": 1,
+      "should_pass": false,
+      "accepted": false,
+      "error": "Expected exactly one complete actual HUD heading 'WINDCHIME PLAINS 1/2'; found 0",
+      "correct_outcome": true,
+      "seconds": 0.4594316979928408
+    },
+    {
+      "case": "actual_glyphs_with_suffix",
+      "source": "build/integration01/hud-title-ocr-diagnosis01/actual_glyphs_with_suffix.png",
+      "source_sha256": "c8ddcb110ac764d03a3af603f466daa929ac3a876e627bac30e80a118e689ba3",
+      "expected_region": "plains",
+      "expected_map": 1,
+      "should_pass": false,
+      "accepted": false,
+      "error": "Expected exactly one complete actual HUD heading 'WINDCHIME PLAINS 1/2'; found 0",
+      "correct_outcome": true,
+      "seconds": 0.5546672529890202
+    },
+    {
+      "case": "duplicate_title",
+      "source": "build/integration01/hud-title-ocr-diagnosis01/duplicate_title.png",
+      "source_sha256": "f2643b3a9e99e6d096032a44e317b243122aac910c92e6574b398c8d9b616d87",
+      "expected_region": "plains",
+      "expected_map": 1,
+      "should_pass": false,
+      "accepted": false,
+      "error": "Expected exactly one complete actual HUD heading 'WINDCHIME PLAINS 1/2'; found 2",
+      "correct_outcome": true,
+      "seconds": 0.6476807459985139
+    },
+    {
+      "case": "separated_visible_suffix",
+      "source": "build/integration01/hud-title-ocr-A-final01/separated_visible_suffix.png",
+      "source_sha256": "ce076f45c1a3a302da4a59af117b751847db962a6a7c71d76e6918622d61d570",
+      "expected_region": "plains",
+      "expected_map": 1,
+      "should_pass": false,
+      "accepted": false,
+      "error": "Expected exactly one complete actual HUD heading 'WINDCHIME PLAINS 1/2'; found 0",
+      "correct_outcome": true,
+      "seconds": 0.4962578599952394
+    }
+  ]
+}

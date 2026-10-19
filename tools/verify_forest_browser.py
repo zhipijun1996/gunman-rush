@@ -74,6 +74,68 @@ def locate(path: Path, phrase: str):
         raise ValueError("Actual MENU text not found in original canvas or enlarged HUD pixels")
 
 
+def validate_region_heading(path: Path, region: str, map_index: int):
+    """Require one complete actual HUD heading, including the selected map.
+
+    DemoApp positions the same heading at four finite HUD layout candidates.
+    Read a conservative title sampling region before the INFO button, refusing
+    visible boundary ink instead of accepting a crop that cuts a suffix. All candidates
+    participate even when the original full-frame region locator succeeds.
+    """
+    original = Image.open(path).convert("RGB")
+    width, height = original.size
+    expected = ("THORN FOREST" if region == "thorn_forest" else "WINDCHIME PLAINS") + f" {map_index}/2"
+    observations, matches = [], []
+    receipt = {"expected": expected, "scope": "actual complete HUD heading OCR only; no click or engine mutation", "observations": observations}
+    try:
+        for panel_y in (8,220,382,590):
+            # Actual DemoApp::_layout_region_hud panel/title coordinates at
+            # 1280x720. Use250 as a conservative title sampling edge; Label
+            # has no explicit clipping boundary. INFO starts at panel12+250
+            # =262 and ends at318. This is not a desired-word bounding box.
+            box = (round(12*width/1280),round((panel_y+6)*height/720),
+                   round(250*width/1280),round((panel_y+26)*height/720))
+            crop = original.crop(box).convert("L")
+            crop = crop.resize((crop.width*6,crop.height*6),Image.Resampling.LANCZOS)
+            derived = path.with_name(path.stem+f"-actual-heading-{panel_y}.png")
+            crop.save(derived)
+            result = subprocess.run(["tesseract",str(derived),"stdout","--psm","7","tsv"],capture_output=True,text=True,check=True,timeout=10,env={**os.environ,"OMP_THREAD_LIMIT":"1"})
+            derived.with_suffix(".tsv").write_text(result.stdout)
+            words = [word for word in csv.DictReader(io.StringIO(result.stdout),delimiter="\t") if word.get("text","").strip()]
+            rendered = " ".join(word["text"] for word in words)
+            # Refuse bright neutral heading ink crossing the sampling edge
+            # or visibly spilling beside INFO. Exclude only the actual INFO
+            # control rectangle, not OCR words. This is a finite sampling
+            # check, not a claim to detect arbitrary text hidden by controls.
+            cut_boundary_ink = any(
+                min(original.getpixel((x,y))) >= 235 and
+                max(original.getpixel((x,y)))-min(original.getpixel((x,y))) <= 25
+                for x in range(round(246*width/1280),round(333*width/1280))
+                for y in range(box[1],box[3])
+                if not (round(262*width/1280)<=x<round(318*width/1280) and
+                        round((panel_y+8)*height/720)<=y<round((panel_y+38)*height/720)))
+            observation = {"bounds":box,"pixels":derived.name,"ocr":derived.with_suffix(".tsv").name,"rendered":rendered,"cut_boundary_ink":cut_boundary_ink,"exact_complete_match":norm(rendered)==norm(expected) and not cut_boundary_ink}
+            observations.append(observation)
+            if not observation["exact_complete_match"]:
+                continue
+            left = min(int(word["left"]) for word in words)
+            top = min(int(word["top"]) for word in words)
+            right = max(int(word["left"])+int(word["width"]) for word in words)
+            bottom = max(int(word["top"])+int(word["height"]) for word in words)
+            matches.append((box[0]+(left+right)/12,box[1]+(top+bottom)/12))
+        receipt["match_count"] = len(matches)
+        if len(matches) != 1:
+            raise ValueError(f"Expected exactly one complete actual HUD heading {expected!r}; found {len(matches)}")
+        receipt["status"] = "passed"
+        return matches[0]
+    except BaseException as error:
+        receipt["status"] = "failed"
+        receipt["failure"] = str(error)
+        raise
+    finally:
+        path.with_name(path.stem+"-actual-heading-receipt.json").write_text(json.dumps(receipt,indent=2)+"\n")
+
+
 def validate_identity(info, worker_text, pack, expected_commit, expected_build_id):
     if not isinstance(info, dict) or info.get("source_commit") != expected_commit:
         raise AssertionError("Actual build-info source_commit differs from expected frozen commit")
@@ -246,7 +308,15 @@ async def verify(url: str, folder: Path, expected_commit: str, expected_build_id
                         if actual.get("content_version")!=expected_forest_version or not re.fullmatch(r"[0-9a-f]{64}",str(actual.get("manifest_hash",""))) or actual.get("boss_definition")!=f"res://resources/bosses/{boss}.tres" or actual.get("boss_scene")!=f"res://scenes/bosses/{boss}.tscn" or actual.get("abilities")!=["grapple"]:
                             raise AssertionError(f"{prefix}: actual forest manifest/Boss/H-only build differs from selected default: {actual}")
                         report["checks"].append(prefix+": actual assembled forest version, manifest, Boss scene/resource and H-only build")
-                    locate(entry,"THORN FOREST" if region=="thorn_forest" else "WINDCHIME PLAINS")
+                    try:
+                        locate(entry,"THORN FOREST" if region=="thorn_forest" else "WINDCHIME PLAINS")
+                    except ValueError:
+                        # Full-frame OCR can miss the small HUD over artwork.
+                        # The sole fallback still requires the complete title
+                        # AND map exactly once, including every suffix word.
+                        validate_region_heading(entry,region,map_index)
+                    else:
+                        validate_region_heading(entry,region,map_index)
                     report["checks"].append(prefix+": actual rendered debug menu enters selected map once; native capability proof is separate")
                     await click_text("MENU","pause-button")
                     await page.wait_for_timeout(250)
