@@ -1,3 +1,17 @@
+## 2026-10-19：森林v13收尾交接（保持in_progress/REVISE）
+
+当前`fix/forest-focus-and-interwoven-routes`尚未merge/deploy。最终camera-only修订之前原80/80、13/13补充native、共享4（5676/122/52/56 all0）和docs原25技术通过；三轮旧FAIL完整保留，不能以最后成功覆写。13项中含当前262/20 producer合同、真实长瞄准/有限替代/两图回程。证据已安装为[普通Git精选包](evidence/forest_focus_routes03/final_validation/README.md)，75.21MB，原路径→archiveentry/SHA完整；不要删除原RAM unique movie/原raw或只读Foundry alias。
+
+最后镜头在configure之后实际应用zoom1.2，.8s actualAdapter前缀7legs/5holds/834frames源稳定PASS；camera03严格movie160.478s/exit0/sourceguard通过，完整capture JSON1715物理样本与旧源逐项相等；fresh smoke02 9.866s/exit0/56项/3170源码稳定，限定镜头与取样lookahead独审已完成，旧smoke01 hostFAIL/exit未知保留。不能把before-camera原80和旧movie冒签exact-current全80或当前画面。
+
+下一步据已完成的当前镜头receipt/独审核对证据/质量静态检查，随后由根任务按授权安排提交/合并/发布；当前不擅自merge/deploy。整体仍REVISE：早HH可无H一R/两R替代，推荐branch位不改世界随机，deep三有限策略未到不证明普遍无H不可能，设备/真人/FUN/商业品质与consumercoverage总覆盖未验。旧公网2985982ee612已真实发布，但不含本轮新v13。
+
+以下均为历史交接快照，不覆盖本节。
+
+网络基线20eb最新观察：Docs run39285184099 SUCCESS，Godot core39285184036实际FAIL（两core lane及Web，prepare/windows成功、自动deploy跳过）；失败日志为空，具体原因未证实，不能归因旧菜单为唯一原因。它不是本轮新提交的CI结果；完整CI未通过，已授权prepared试玩预览与正式验收分开。
+
+---
+
 ## 2026-10-19：PR94已包含于main，网页待GitHub故障恢复
 
 PR92与导出修复PR95已普通合入main；实际游戏源码 `b8dc8c51dc68c4d1e2e70302ec9eb8d94e9e237c` 包含PR94最新 `0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad`，六个输入祖先关系已逐项核实。后续本记录提交只更新文档/证据，不改游戏。

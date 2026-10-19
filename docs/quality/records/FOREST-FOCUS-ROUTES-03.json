@@ -1,0 +1,815 @@
+{
+  "schema_version": 1,
+  "task_id": "FOREST-FOCUS-ROUTES-03",
+  "task_type": "region",
+  "workflow": "in_progress",
+  "baseline_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+  "reviewed_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+  "content_version": "forest-interwoven-canopy-v13",
+  "owner": "/root",
+  "purpose": "修复钩索连续操作的真实输入/独立瞄准精力反馈，重编森林开局教学、持续组合与多路径环路。",
+  "player_experience": "根湾短课接地恢复后HH/RH或活挂环分流；破枝再选上层纵向路线或下降根洞，580px HRHHR五连侧入旧根盘，按实际奖励布局决定营地/奖励路线。",
+  "constraints": [
+    "保持H-only森林、单武器与真实Motor/身体/231射程/15%倍率/2秒真实瞄准预算/资源与存档合同",
+    "保留v12和所有历史布局生成、旧断言与原时限；v13另版本明确准入",
+    "不把Router直瞄自动路线当初见可玩，不以新增边数/Hash证明探索改善",
+    "选定root Seed00/03/08/09两图，开发先黄金后代表矩阵，最终原10root80验证仍不可降低",
+    "真实瞄准探针显式辅助选目标+按HUD接地等待恢复，不注能；不是玩家盲测或熟练无停顿路线。旧v12 .35/.6完整4动作成功，.8最后H真实失败，不宣称绝对无解。"
+  ],
+  "affected_paths": [
+    ".agents/skills/region-generator/SKILL.md",
+    "docs/current_state.md",
+    "docs/design/forest_interwoven_v13.md",
+    "docs/evidence/forest_focus_routes03/",
+    "docs/handoff.md",
+    "docs/quality/records/FOREST-FOCUS-ROUTES-03.json",
+    "docs/tasks.md",
+    "resources/foundry/batch.json",
+    "resources/foundry/export_basis.json",
+    "resources/foundry/replays/climb_change_height-air_chain-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p1.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p1.json",
+    "resources/foundry/replays/climb_change_height-double_jump-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-air_chain-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p1.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p1.json",
+    "resources/foundry/replays/height_then_precision-double_jump-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-air_chain-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p1.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p1.json",
+    "resources/foundry/replays/precision_to_transfer-double_jump-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-air_chain-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p1.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p1.json",
+    "resources/foundry/replays/read_ride_release-double_jump-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-air_chain-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-double_jump-v0-p0.json",
+    "resources/foundry/replays/route-0e61faed40.json",
+    "resources/foundry/replays/route-0efaee5828.json",
+    "resources/foundry/replays/route-122d7f6e2a.json",
+    "resources/foundry/replays/route-1521b6b7c3.json",
+    "resources/foundry/replays/route-2860deda61.json",
+    "resources/foundry/replays/route-2d706b6f11.json",
+    "resources/foundry/replays/route-2d7d2e4612.json",
+    "resources/foundry/replays/route-2f6354523f.json",
+    "resources/foundry/replays/route-3aa2ad4cba.json",
+    "resources/foundry/replays/route-4bec60578b.json",
+    "resources/foundry/replays/route-5798c84cea.json",
+    "resources/foundry/replays/route-7da5a6c16f.json",
+    "resources/foundry/replays/route-908c475df3.json",
+    "resources/foundry/replays/route-93acd6603f.json",
+    "resources/foundry/replays/route-ad7b9db895.json",
+    "resources/foundry/replays/route-b4df2effd8.json",
+    "resources/foundry/replays/route-cf73f3c620.json",
+    "resources/foundry/replays/route-f91361b454.json",
+    "resources/foundry/replays/short_long_rise-air_chain-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p1.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p1.json",
+    "resources/foundry/replays/short_long_rise-double_jump-v0-p0.json",
+    "scripts/demo/demo_app.gd",
+    "scripts/generation/forest_interwoven_expedition.gd",
+    "scripts/generation/forest_interwoven_expedition.gd.uid",
+    "scripts/generation/thorn_forest_region_generator.gd",
+    "scripts/generation/thorn_forest_region_v2_v13.gd",
+    "scripts/generation/thorn_forest_region_v2_v13.gd.uid",
+    "scripts/player/player_controller.gd",
+    "scripts/player/traversal_ability.gd",
+    "scripts/ui/actor_resources_hud.gd",
+    "tests/forest_campaign_runner.gd",
+    "tests/forest_depth_grove_combat_case.gd",
+    "tests/forest_depth_region_trace.gd",
+    "tests/forest_depth_version_runner.gd",
+    "tests/forest_interwoven_alternative_runner.gd",
+    "tests/forest_interwoven_alternative_runner.gd.uid",
+    "tests/forest_interwoven_contract_runner.gd",
+    "tests/forest_interwoven_contract_runner.gd.uid",
+    "tests/forest_interwoven_crown_combat_case.gd",
+    "tests/forest_interwoven_crown_combat_case.gd.uid",
+    "tests/forest_interwoven_deep_alternative_runner.gd",
+    "tests/forest_interwoven_deep_alternative_runner.gd.uid",
+    "tests/forest_interwoven_midloop_runner.gd",
+    "tests/forest_interwoven_midloop_runner.gd.uid",
+    "tests/forest_player_aim_runner.gd",
+    "tests/forest_player_aim_runner.gd.uid",
+    "tests/forest_player_aim_trace.gd",
+    "tests/forest_player_aim_trace.gd.uid",
+    "tests/forest_progression_debug_runner.gd",
+    "tests/forest_root_retry_runner.gd",
+    "tests/forest_vertical_shortcut_runner.gd",
+    "tests/grapple_chain_input_runner.gd",
+    "tests/grapple_chain_input_runner.gd.uid",
+    "tests/grapple_focus_hud_runner.gd",
+    "tests/grapple_focus_hud_runner.gd.uid",
+    "tests/parallel_region_presentation_tests.gd",
+    "tests/test_forest_interwoven_validator.py",
+    "tests/test_grapple_feel_wrapper.py",
+    "tools/harness/profiles.json",
+    "tools/run_forest_depth_campaign_boss.py",
+    "tools/run_forest_depth_region.py",
+    "tools/run_forest_depth_versions.py",
+    "tools/run_forest_interwoven_contract.py",
+    "tools/run_forest_player_aim.py",
+    "tools/run_grapple_feel_tests.py",
+    "tools/verify_forest_browser.py"
+  ],
+  "deliverables": [
+    "独立focus/shot精力HUD与真实适配器回归",
+    "踢跳尾端有限TTL输入缓冲的真实前后对照",
+    "v13真实多路径与短链黄金、10seed两图路线和版本兼容",
+    "实际normal-speed录像、独立评审与新Web指纹"
+  ],
+  "creative_decisions": [
+    {
+      "id": "route-direction",
+      "status": "proposed",
+      "decision": "REVISE：已实现根湾两处早分流及破枝中段深根分流；保留纵向高路与历史v12，整体体验尚未准入。",
+      "basis": "真实held-aim黄金、正式代表路线与独立逐帧审查；不能以动作数或技术PASS替代强替代解/真人体验。"
+    }
+  ],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "已形成交织/深根方向和独立逐帧诊断，整体REVISE；非最终设计准入。",
+      "evidence": [
+        "first-review",
+        "deep-review"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "camera-only之前固定原80/600已全80PASS/source_stable，13补充native与共享4/原docs25真实通过；三原FAIL保留。最终camera三参数新源不能冒签exact-currentfull80。整体设计与消费者总覆盖未完成。",
+      "evidence": [
+        "deep-arch07",
+        "full-fast05",
+        "full-other07",
+        "version-final03-receipt",
+        "version-final03-native",
+        "contracts-final01",
+        "foundry-final01"
+      ]
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "native HUD实帧有范围内审查；地图全景/动作可读/音画仍待验。",
+      "evidence": [
+        "hud-native",
+        "hud-review"
+      ]
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "正式代表路线仅绑定1336/cf32旧工作树快照；6a569最终图接缝/版本/保存/发布仍待同源复验。",
+      "evidence": [
+        "full-fast05",
+        "full-other07"
+      ]
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "最终体验独审REVISE：接受恢复/方向/深根和异路返回，早HH有无H反例；推荐bit不等于世界随机。最终camera画面与FUN/设备尚待，不升级门槛。",
+      "evidence": [
+        "first-review",
+        "deep-review",
+        "hud-review",
+        "occupancy-fix-review01",
+        "upper-crown-strategy-review01",
+        "upper-crown-strategy-review02"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "缺真人学习/手感/FUN反馈与实体设备；AI审查不代签。",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "可玩迭代获范围肯定但最终REVISE：早HH非必要，推荐随机不改世界，deep noH对照仅有限策略，区域强制组合密度/探索惊喜尚未证明。",
+      "evidence": [
+        "first-review",
+        "deep-review"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "camera-only前80/13native/共享4/docs25有真实源绑定通过；当前camera新源单独边界，消费者完整覆盖尚未成立。",
+      "evidence": [
+        "packet51",
+        "feel-final",
+        "deep-arch07",
+        "full-other07",
+        "version-final03-receipt",
+        "contracts-final01",
+        "foundry-final01"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "尚未完成该维度最终准入；不以局部技术证据替代。",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "仅实际native focus HUD范围bounded ACCEPT；区域完整构图、设备可读性未验。",
+      "evidence": [
+        "hud-native",
+        "hud-review"
+      ]
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "尚未完成该维度最终准入；不以局部技术证据替代。",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "尚未完成该维度最终准入；不以局部技术证据替代。",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "尚未完成该维度最终准入；不以局部技术证据替代。",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "尚未完成该维度最终准入；不以局部技术证据替代。",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "已有不同作者局部审查；整区仍REVISE，未签FUN/玩家认可。",
+      "evidence": [
+        "first-review",
+        "deep-review",
+        "hud-review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "尚未完成该维度最终准入；不以局部技术证据替代。",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "尚未完成该维度最终准入；不以局部技术证据替代。",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "pre-camera-fixed80",
+      "scenario": "camera-only修订之前原10root两图4路线固定80",
+      "method": "原600 wrapper/sourceguard和原strict reader逐capture，ZIP中保custody/独审",
+      "expected": "80出口0/strict errors空/无缺case/不改原预算",
+      "failure": "任意缺case/损伤合同拒绝或sourceguard改变均失败",
+      "status": "passed",
+      "reason": "仅接受原源技术范围，不外推最终camera。",
+      "evidence": [
+        "final80-pre-camera-package"
+      ],
+      "gate": "G1",
+      "dimension": "technical"
+    },
+    {
+      "id": "pre-camera-native-shared-docs",
+      "scenario": "同前camera源补充13native/4共享/原docs25",
+      "method": "源绑定receipt+原日志+raw+有限替代与回程",
+      "expected": "13 exit0/shared5676/122/52/56 all0/docs25 passed",
+      "failure": "任何失败保原身份，不以旧51/2或三corpus FAIL覆盖",
+      "status": "passed",
+      "reason": "技术消费者范围有证据；FUN/设备/完整当前覆盖未签。",
+      "evidence": [
+        "native13-shared4-docs25-pre-camera-package"
+      ],
+      "gate": "G1",
+      "dimension": "technical"
+    },
+    {
+      "id": "post-camera-held-aim-prefix",
+      "scenario": "configure后forest zoom1.2的新源.8s actualAdapter fast前缀",
+      "method": "真实键鼠hold/自然接地恢复/辅助目标，原receipt source guard",
+      "expected": "7legs/5holds完成，scope明确非玩家认可",
+      "failure": "未到目标/source变化/瞄准未真实提交即失败",
+      "status": "passed",
+      "reason": "已完成真实最新前缀，未覆盖后续全部地图/Boss。",
+      "evidence": [
+        "camera-zoom12-aim08-prefix"
+      ],
+      "gate": "G1",
+      "dimension": "technical"
+    },
+    {
+      "id": "full-forest-experience",
+      "scenario": "当前完整森林学习/动作密度/探索与玩家趣味",
+      "method": "最终独立体验审及需要的真人/实体设备观察",
+      "expected": "区分可选HH、真实世界随机、有限策略和体验认可",
+      "failure": "将推荐位/动作计数/80 PASS当FUN即拒绝",
+      "status": "unverified",
+      "reason": "REVISE：早HH被1R/2R绕过，随机推荐不等随机世界，设备/FUN未验。",
+      "evidence": [
+        "native13-shared4-docs25-pre-camera-package"
+      ],
+      "gate": "G5",
+      "dimension": "player_acceptance"
+    },
+    {
+      "id": "current-camera03-scope",
+      "scenario": "最终configure后forest1.2镜头真实前缀/完整GL影片/四场景smoke",
+      "method": "原strict movie/原script fresh rerun56/0/sourceguard与独立实帧对照",
+      "expected": "原影片完整1731帧60fps、原240cap内exit0，smoke sourceguard和56项通过",
+      "failure": "host错误/exit未知保原失败；旧80不得重签当前全量；画面不等FUN",
+      "status": "passed",
+      "reason": "当前镜头技术和取样lookahead有独立范围证据；未跑exact-current80、实体设备/真人。",
+      "evidence": [
+        "camera03-actual-validation-package"
+      ],
+      "gate": "G2",
+      "dimension": "visual"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "packet51",
+      "path": "docs/evidence/forest_focus_routes03/originals/packet51.json",
+      "sha256": "b7dd5243c2360ca12a3743c31fbc7db18e40368357108ebfab1567fbb45e0760",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "原件只读归档引用；工作树实际source SHA以该证据内部receipt/trace及独审为准，baseline_commit不是冒签最终修改源。",
+      "observed": "真实相同51项输入回归新源51/0；原before51/2保留；不是地图/玩家认可。"
+    },
+    {
+      "id": "packet-old-fail",
+      "path": "docs/evidence/forest_focus_routes03/originals/packet-old-fail.json",
+      "sha256": "cbc0e2b089bc75dcf5948f5d6b16e09c7a5d1a95522215bcafcf5a21665e884b",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "原件只读归档引用；工作树实际source SHA以该证据内部receipt/trace及独审为准，baseline_commit不是冒签最终修改源。",
+      "observed": "旧同51项实际exit1，两项TTL/新序列优先失败；不是新源故障。"
+    },
+    {
+      "id": "feel-final",
+      "path": "docs/evidence/forest_focus_routes03/originals/feel-final.log",
+      "sha256": "c5dab8a3de09e310b253ce184231fd76d1642e3a4b59764bcb4ea04001c0531f",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "原件只读归档引用；工作树实际source SHA以该证据内部receipt/trace及独审为准，baseline_commit不是冒签最终修改源。",
+      "observed": "实际focusHUD25/0及原38/119/174回归；各源身份按原日志/独审，不重签旧focus31。"
+    },
+    {
+      "id": "hud-native",
+      "path": "docs/evidence/forest_focus_routes03/originals/hud-native.json",
+      "sha256": "e7bc69e956276c836ca8e32ce7029bf0e75882414f988d24f2922a805f50c7d0",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "原件只读归档引用；工作树实际source SHA以该证据内部receipt/trace及独审为准，baseline_commit不是冒签最终修改源。",
+      "observed": "实际native GL HUD18/0，分离focus/shot、15%反馈；1280x720非手机真机。"
+    },
+    {
+      "id": "deep-arch07",
+      "path": "docs/evidence/forest_focus_routes03/originals/deep-arch07.json",
+      "sha256": "950ea540d39a4795b4aaeb4a92adc91b3f6042b4f4d05d6cea5f2734fb86e64d",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "原件只读归档引用；工作树实际source SHA以该证据内部receipt/trace及独审为准，baseline_commit不是冒签最终修改源。",
+      "observed": "cf32源初始破枝motion0 fixture，RH下降+580px HRHHR到D，2legs/0fail/health5；非正式出生完整图。"
+    },
+    {
+      "id": "full-fast05",
+      "path": "docs/evidence/forest_focus_routes03/originals/full-fast05.json",
+      "sha256": "efb35567be9516b89afc050d521ce4d5a8a5729d21a36bbeb9b96cb4204e39bf",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "原件只读归档引用；工作树实际source SHA以该证据内部receipt/trace及独审为准，baseline_commit不是冒签最终修改源。",
+      "observed": "1336源代表正式fast完整28legs/2040frames/HP3；不是最终6a569源矩阵。"
+    },
+    {
+      "id": "full-other07",
+      "path": "docs/evidence/forest_focus_routes03/originals/full-other07.json",
+      "sha256": "a07c1f8f5951b8c5fe6e2b8f8dc2854c5cc9e294c79e842a131799b72b391ee8",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "原件只读归档引用；工作树实际source SHA以该证据内部receipt/trace及独审为准，baseline_commit不是冒签最终修改源。",
+      "observed": "cf32源growth23/high_return24/change_mind27完整、原wrapper三项passed/source_stable；不外推最终6a569源。"
+    },
+    {
+      "id": "hud-review",
+      "path": "docs/evidence/forest_focus_routes03/originals/hud-review.md",
+      "sha256": "90ee05ec4140a27157f254888c2b9f70c91232d517b7ef89295a2c466b770229",
+      "kind": "review",
+      "producer": "/root/integration_review",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "原件只读归档引用；工作树实际source SHA以该证据内部receipt/trace及独审为准，baseline_commit不是冒签最终修改源。",
+      "observed": "独立bounded ACCEPT实际HUD与delay合同；地图/设备/趣味仍unsigned。",
+      "reviewer": "/root/integration_review",
+      "implementers": [
+        "/root",
+        "/root/creative_direction_integration"
+      ],
+      "verdict": "UNVERIFIED",
+      "independent": true,
+      "independence_basis": "不同作者只读审查；记录具体bounded ACCEPT发现，不签整区或用户认可。"
+    },
+    {
+      "id": "deep-review",
+      "path": "docs/evidence/forest_focus_routes03/originals/deep-review.md",
+      "sha256": "caf0326d2a8b99eeb1a83d833512933b4991f4c0de1627a28e7e29d667c22786",
+      "kind": "review",
+      "producer": "/root/experience_audit",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "原件只读归档引用；工作树实际source SHA以该证据内部receipt/trace及独审为准，baseline_commit不是冒签最终修改源。",
+      "observed": "独立bounded ACCEPT五动作假设；05先扫step与06直接D差异明确，容错/动作必要/失败恢复未通过。",
+      "reviewer": "/root/experience_audit",
+      "implementers": [
+        "/root",
+        "/root/creative_direction_integration"
+      ],
+      "verdict": "UNVERIFIED",
+      "independent": true,
+      "independence_basis": "不同作者只读审查；记录具体bounded ACCEPT发现，不签整区或用户认可。"
+    },
+    {
+      "id": "first-review",
+      "path": "docs/evidence/forest_focus_routes03/originals/first-review.md",
+      "sha256": "d8266cf1789c48d0d492813cee60f3354873f15021df1b1346228f528e361013",
+      "kind": "review",
+      "producer": "/root/experience_audit",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "原件只读归档引用；工作树实际source SHA以该证据内部receipt/trace及独审为准，baseline_commit不是冒签最终修改源。",
+      "observed": "独立首黄金审查：两早分流有潜力，12px RH实落margin/瞄准扰动和强两R替代待验。",
+      "reviewer": "/root/experience_audit",
+      "implementers": [
+        "/root",
+        "/root/creative_direction_integration"
+      ],
+      "verdict": "UNVERIFIED",
+      "independent": true,
+      "independence_basis": "不同作者只读审查；记录具体bounded ACCEPT发现，不签整区或用户认可。"
+    },
+    {
+      "id": "version-final03-receipt",
+      "path": "docs/evidence/forest_focus_routes03/originals/version-final03-receipt.json",
+      "sha256": "cb2c8a8382a6a7ec9012ef2f65a19ee63aea93fe2c6d0b5ea291546b38b5fd9c",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "逐字复制实际原运行小receipt/日志/审查，原始源快照与用途范围保留；不以baseline冒签所有工作树。",
+      "observed": "实际passed=true/source_guard=true/21.351s，registry/legacy范围；非v2整图/Boss/FUN。 此为敌人占位修订前源绑定结果，不重签后续新设计。"
+    },
+    {
+      "id": "version-final03-native",
+      "path": "docs/evidence/forest_focus_routes03/originals/version-final03-native.log",
+      "sha256": "21b4434378beac4f04cb1d6b7fec158ee77e95435771241b03460f3c869fa774",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "逐字复制实际原运行小receipt/日志/审查，原始源快照与用途范围保留；不以baseline冒签所有工作树。",
+      "observed": "实际290 assertions/0fail，原版本消费者；先前final02 source_guard=false保留。 此为敌人占位修订前源绑定结果，不重签后续新设计。"
+    },
+    {
+      "id": "contracts-final01",
+      "path": "docs/evidence/forest_focus_routes03/originals/contracts-final01.json",
+      "sha256": "b14d98f5914e9d77af9f377c0ab5298c0367d4bafc062a84c9d66f95518dbae0",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "逐字复制实际原运行小receipt/日志/审查，原始源快照与用途范围保留；不以baseline冒签所有工作树。",
+      "observed": "20实际producer合同、242 checks、0fail；scope明确非Motor或FUN。 此为敌人占位修订前源绑定结果，不重签后续新设计。"
+    },
+    {
+      "id": "foundry-final01",
+      "path": "docs/evidence/forest_focus_routes03/originals/foundry-final01.log",
+      "sha256": "d25788dc381570f13feb9340917902539beee932b9ecf5dc48cad4087e175092",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "逐字复制实际原运行小receipt/日志/审查，原始源快照与用途范围保留；不以baseline冒签所有工作树。",
+      "observed": "实际36 development phrases及18 continuous itineraries；Fun awaiting playtest。"
+    },
+    {
+      "id": "foundry-stamp-final01",
+      "path": "docs/evidence/forest_focus_routes03/originals/foundry-stamp-final01.log",
+      "sha256": "a502638d4eb893630bf3832478c1c12264c34a1b60a8e7b2199d9c32d3ca0435",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "逐字复制实际原运行小receipt/日志/审查，原始源快照与用途范围保留；不以baseline冒签所有工作树。",
+      "observed": "实际FOUNDRY EXPORT BASIS指纹；不是游戏发布/完整地区准入。"
+    },
+    {
+      "id": "version-reader-final01",
+      "path": "docs/evidence/forest_focus_routes03/originals/version-reader-final01.json",
+      "sha256": "0a14541a4eb876a4038cde15a532b0e26229dabdd7c61efa387952c17db9409b",
+      "kind": "review",
+      "producer": "/root/integration_review",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "逐字复制实际原运行小receipt/日志/审查，原始源快照与用途范围保留；不以baseline冒签所有工作树。",
+      "observed": "独立source/offline bounded ACCEPT，22cases/min290与reader04有限语义迁移；该报告自身明确未运行native或验FUN。",
+      "reviewer": "/root/integration_review",
+      "implementers": [
+        "/root",
+        "/root/integration_branch_audit"
+      ],
+      "verdict": "UNVERIFIED",
+      "independent": true,
+      "independence_basis": "不同作者只读源/离线审查，bounded ACCEPT不冒整区准入。"
+    },
+    {
+      "id": "version-reader-final01-text",
+      "path": "docs/evidence/forest_focus_routes03/originals/version-reader-final01-text.md",
+      "sha256": "86aeafc39d77dcb5292311c89b60d09935e27bf1d1a1f0bd58c297e8c6454519",
+      "kind": "review",
+      "producer": "/root/integration_review",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "逐字复制实际原运行小receipt/日志/审查，原始源快照与用途范围保留；不以baseline冒签所有工作树。",
+      "observed": "独审原文保留旧274/2FAIL与80/2worker/cap未放宽，完整native另据receipt。",
+      "reviewer": "/root/integration_review",
+      "implementers": [
+        "/root",
+        "/root/integration_branch_audit"
+      ],
+      "verdict": "UNVERIFIED",
+      "independent": true,
+      "independence_basis": "不同作者只读源/离线审查，bounded ACCEPT不冒整区准入。"
+    },
+    {
+      "id": "occupancy-fix-review01",
+      "path": "docs/evidence/forest_focus_routes03/originals/occupancy-fix-review01.json",
+      "sha256": "fb4c15f74d3552cb5b95eaa26bfd76235c89bf853413cbff3fbb622a3b5d9612",
+      "kind": "review",
+      "producer": "/root/integration_review",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "逐字复制实际原receipt或不同作者审查；保留其原source与有限scope，历史失败不覆盖。",
+      "observed": "v13 ONLY蜘蛛四占位字段精确投影；50px落点余量/53px安全观察bank，攻击未取消；单case范围通过，262未执行。",
+      "reviewer": "/root/integration_review",
+      "implementers": [
+        "/root"
+      ],
+      "verdict": "UNVERIFIED",
+      "independent": true,
+      "independence_basis": "独立bounded审查原文；整体未准入，旧泛化适用范围不冒签最终。"
+    },
+    {
+      "id": "occupancy-fix-review01-text",
+      "path": "docs/evidence/forest_focus_routes03/originals/occupancy-fix-review01-text.md",
+      "sha256": "27c9447821d523079ba7bf4061b45ae521d77fffe3ea2a833464cd35680b282f",
+      "kind": "review",
+      "producer": "/root/integration_review",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "逐字复制实际原receipt或不同作者审查；保留其原source与有限scope，历史失败不覆盖。",
+      "observed": "实际占位修复独审原文，只有空间位置四字段改变；完整80/FUN不在其批准内。",
+      "reviewer": "/root/integration_review",
+      "implementers": [
+        "/root"
+      ],
+      "verdict": "UNVERIFIED",
+      "independent": true,
+      "independence_basis": "独立bounded审查原文；整体未准入，旧泛化适用范围不冒签最终。"
+    },
+    {
+      "id": "upper-crown-strategy-review01",
+      "path": "docs/evidence/forest_focus_routes03/originals/upper-crown-strategy-review01.json",
+      "sha256": "2863b27f4dc5efb4316afc4b83295792551dcdfef96288b59bdb1bb7d5aaa59a",
+      "kind": "review",
+      "producer": "/root/integration_review",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "逐字复制实际原receipt或不同作者审查；保留其原source与有限scope，历史失败不覆盖。",
+      "observed": "历史较泛化上冠战前策略bounded ACCEPT；后续final03发现2action已有live keeper策略需保留，不能当最终适用范围审查。",
+      "reviewer": "/root/integration_review",
+      "implementers": [
+        "/root"
+      ],
+      "verdict": "UNVERIFIED",
+      "independent": true,
+      "independence_basis": "独立bounded审查原文；整体未准入，旧泛化适用范围不冒签最终。"
+    },
+    {
+      "id": "upper-crown-strategy-review01-text",
+      "path": "docs/evidence/forest_focus_routes03/originals/upper-crown-strategy-review01-text.md",
+      "sha256": "ea89ac766a0bdeada0081a5130a3ea59798fbf07ff263bee2ff0786864c7d078",
+      "kind": "review",
+      "producer": "/root/integration_review",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "逐字复制实际原receipt或不同作者审查；保留其原source与有限scope，历史失败不覆盖。",
+      "observed": "历史审查保留原scope和真实战斗受伤，不重签当前helper只3action用途。",
+      "reviewer": "/root/integration_review",
+      "implementers": [
+        "/root"
+      ],
+      "verdict": "UNVERIFIED",
+      "independent": true,
+      "independence_basis": "独立bounded审查原文；整体未准入，旧泛化适用范围不冒签最终。"
+    },
+    {
+      "id": "corpus-fail01",
+      "path": "docs/evidence/forest_focus_routes03/originals/corpus-fail01.json",
+      "sha256": "8848403576feee18791964d37752004b812fe6e8013485f25f520c73132d10b1",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "逐字复制实际原receipt或不同作者审查；保留其原source与有限scope，历史失败不覆盖。",
+      "observed": "原固定80第1轮真实FAIL，已完成/未执行及各case源清单保留；不是当前完整矩阵通过。"
+    },
+    {
+      "id": "corpus-fail02",
+      "path": "docs/evidence/forest_focus_routes03/originals/corpus-fail02.json",
+      "sha256": "27fd50450961dc00275f56df879eb2260204de345d802d2cb2637db1944e147b",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "逐字复制实际原receipt或不同作者审查；保留其原source与有限scope，历史失败不覆盖。",
+      "observed": "原固定80第2轮真实FAIL，已完成/未执行及各case源清单保留；不是当前完整矩阵通过。"
+    },
+    {
+      "id": "corpus-fail03",
+      "path": "docs/evidence/forest_focus_routes03/originals/corpus-fail03.json",
+      "sha256": "d2197f0f65ddb635bbd32b8e6a8c1db25905c60f7f2d9642bec72cd9bb138d48",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "逐字复制实际原receipt或不同作者审查；保留其原source与有限scope，历史失败不覆盖。",
+      "observed": "原固定80第3轮真实FAIL，已完成/未执行及各case源清单保留；不是当前完整矩阵通过。"
+    },
+    {
+      "id": "upper-live-native01",
+      "path": "docs/evidence/forest_focus_routes03/originals/upper-live-native01.json",
+      "sha256": "4464ae1d5301d6551fb49a9baef72ec363db82cf9532e46498079c1f68c9e56d",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "逐字复制实际原receipt或不同作者审查；保留其原source与有限scope，历史失败不覆盖。",
+      "observed": "修后单case strict reader实际PASS/source_stable，保留原2action livekeeper高跳策略；不能外推80。"
+    },
+    {
+      "id": "upper-crown-strategy-review02",
+      "path": "docs/evidence/forest_focus_routes03/originals/upper-crown-strategy-review02.json",
+      "sha256": "1bf32946a750c8d5c8620acfef619120c7192010f05b60b8dc3694e80c32a4eb",
+      "kind": "review",
+      "producer": "/root/integration_review",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "逐字复制实际原receipt或不同作者审查；保留其原source与有限scope，历史失败不覆盖。",
+      "observed": "后续收窄helper仅3action的源/单case独审；只按该实际原文范围引用，不签80/FUN。",
+      "reviewer": "/root/integration_review",
+      "implementers": [
+        "/root"
+      ],
+      "verdict": "UNVERIFIED",
+      "independent": true,
+      "independence_basis": "独立bounded审查原文；整体未准入，旧泛化适用范围不冒签最终。"
+    },
+    {
+      "id": "upper-crown-strategy-review02-text",
+      "path": "docs/evidence/forest_focus_routes03/originals/upper-crown-strategy-review02-text.md",
+      "sha256": "93655fb60e4930828ff9a95222f4b372ea4073e5b00352e27d8831af72a02715",
+      "kind": "review",
+      "producer": "/root/integration_review",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "逐字复制实际原receipt或不同作者审查；保留其原source与有限scope，历史失败不覆盖。",
+      "observed": "后续收窄helper仅3action的源/单case独审；只按该实际原文范围引用，不签80/FUN。",
+      "reviewer": "/root/integration_review",
+      "implementers": [
+        "/root"
+      ],
+      "verdict": "UNVERIFIED",
+      "independent": true,
+      "independence_basis": "独立bounded审查原文；整体未准入，旧泛化适用范围不冒签最终。"
+    },
+    {
+      "id": "final80-pre-camera-package",
+      "path": "docs/evidence/forest_focus_routes03/final_validation/fixed80-and-three-failures.zip",
+      "sha256": "db379b8b0fabf0f07513a970d2778d4c55b2d4291b0bcfcb64bbe516015cfbfa",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "冻结精选原字节包；archive_index逐项原路径/entry/SHA；80 raw ZIP以STORED嵌套，全部运行先于最后camera-only三参数。",
+      "observed": "固定80/80原600出口0、原三FAIL及custody/独审保留；非当前camera精确full80。"
+    },
+    {
+      "id": "native13-shared4-docs25-pre-camera-package",
+      "path": "docs/evidence/forest_focus_routes03/final_validation/supplemental13-shared4-docs25-review.zip",
+      "sha256": "20838f56b2ed50177175c2d95af977616470038481eb9de70bd7c0a73cb7ceab",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "冻结精选原字节包；archive_index逐项原路径/entry/SHA；80 raw ZIP以STORED嵌套，全部运行先于最后camera-only三参数。",
+      "observed": "13/13 native、共享4 5676/122/52/56均0、原docs25 PASS，含HH无H与有限deep反例/真实双图回程/最终体验REVISE。"
+    },
+    {
+      "id": "movie1731-before-camera-package",
+      "path": "docs/evidence/forest_focus_routes03/final_validation/before-camera-movie-derived01.zip",
+      "sha256": "1fabff4992c199f4ac533a14823b7fa471760f081262a6946ba101be46b3aaf2",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "冻结精选原字节包；archive_index逐项原路径/entry/SHA；80 raw ZIP以STORED嵌套，全部运行先于最后camera-only三参数。",
+      "observed": "原速完整MP4 1731帧60fps/28.85s与RAM原receipt；不是新camera03、不是设备实时60fps。"
+    },
+    {
+      "id": "camera-zoom12-aim08-prefix",
+      "path": "docs/evidence/forest_focus_routes03/final_validation/camera-prefix-after-zoom/receipt.json",
+      "sha256": "e225e7137226713a5544f1a6368fec3607447afb4e472208bb87acad60f42268",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "最新configure之后forest zoom1.2源的真实.8s actualAdapter前缀，receipt原字节/source guard；不代整图/玩家或镜头movie。",
+      "observed": "status passed、7legs/5holds/834frames、26.836s、runtime_source_unchanged=true；旧camera02覆盖失败身份保留。"
+    },
+    {
+      "id": "camera03-actual-validation-package",
+      "path": "docs/evidence/forest_focus_routes03/final_validation/camera03-actual-validation.zip",
+      "sha256": "430e49752502c6da214b282da058946a644c0557658b3622fae1ddc1e13a95c5",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "20eb550decc74b4b478d06daac6b8d0c41bc8868",
+      "content_version": "forest-interwoven-canopy-v13",
+      "method": "实际camera03完整MP4/4PNG/原strict receipt/capture raw、实际.8 prefix、smoke01原FAIL和smoke02原重跑、两种独审原件逐字包；camera03-index逐项SHA，原AVI不复制。",
+      "observed": "camera03 strict exit0/160.478s，1731帧60fps/28.85s；完整1715physics capture JSON与旧源相等。smoke02 exit0/9.866s/56checks/3170源码稳定；旧smoke01 hostFAIL/exit未知保留。独审接受限定lookahead改善，整体仍REVISE。"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "网络基线20eb最新观察：Docs run39285184099 SUCCESS，Godot core39285184036实际FAIL（两core lane及Web，prepare/windows成功、自动deploy跳过）；失败日志为空，具体原因未证实，不能归因旧菜单为唯一原因。它不是本轮新提交的CI结果；完整CI未通过，已授权prepared试玩预览与正式验收分开。",
+    "最终camera03/新.8前缀/smoke02实际通过并获限定技术/取样lookahead独审；不是exact-currentfull80重跑、全片主观观赏或设备/FUN/商业品质认可。旧smoke01 hostFAIL/进程exit未知仍保留。",
+    "camera-only之前原80最终04已80PASS/source_stable，原三FAIL仍保留；最终camera三参数修订后不声称exact-current full80。",
+    "当前完整消费者inventory与总覆盖尚未建立，consumer_coverage=null；不得用局部包自动补出覆盖。",
+    "早期HH在无H一R/两R实际对照中均target_reached，不得宣称该段HH必要；deep三有限两R策略未到不证明所有无H不可能。",
+    "interwoven_first_branch只选推荐routes/test itinerary，不改变两条真实共存通路，不算世界随机/玩家发现顺序随机。",
+    "上冠新战前顶射helper仅在3action RHR启用；原2action已有livekeeper高跳驾驶必须保留。单case upper-live-native01 strictPASS不替代全固定矩阵。",
+    "consumer_coverage=null：当前仅收录源绑定代表/黄金证据，最终所有变动生产/test/tool消费者覆盖与独立总审未完成。",
+    "HH/RH最强普通跳+两R、关键H消融、低focus/瞄准扰动与失败恢复未全部证明。",
+    "05斜R先扫恢复枝，不满足primary first landing D；最终主策略06水平。",
+    "实际目标次序依旧west_reward布局及真实edge/claim，不把推荐名称当探索多样性证据。",
+    "正式新源正常速度完整录制、区域地图可读性/合屏、Boss体验与音画未验。",
+    "实体PC手柄/触屏/移动端性能与首次真人学习、FUN、商业品质未获认可。",
+    "最终Web版本指纹、公开浏览器自然进程/调试入口与保存跨区复验待完成。"
+  ],
+  "creative_scope_verdict": "REVISE / in_progress; bounded technical and design findings only",
+  "verification_progress_before_camera": {
+    "fixed_original80": "80PASS, source_stable, original600 outer exit0; exact pre-camera source only",
+    "supplemental_native": "13 actual runs exit0/source_stable",
+    "shared_regressions": "4 original suites 5676/122/52/56 all0",
+    "docs_profile": "20261019T182718.595586Z original25 PASS",
+    "design_verdict": "REVISE; early HH oneR/twoR bypass target_reached; first_branch bit recommendations only",
+    "camera_revision_boundary": "all above precede final camera-only three parameters; no exact-currentfull80 claim",
+    "consumer_coverage": "not complete; null retained"
+  },
+  "skill_improvement": {
+    "path": ".agents/skills/region-generator/SKILL.md",
+    "scope": "原G4增加通用消费者追溯，不新增平行规范或森林硬编码",
+    "observed": "Manifest.routes/求解器/驾驶计划变化与正式可玩世界实体/通路/敌奖励差异分审，driver顺序不冒真人发现顺序。"
+  }
+}

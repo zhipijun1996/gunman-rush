@@ -52,6 +52,7 @@ var goal_changed := false
 var cavity_cell := 0
 var air_chain_case := preload("res://tests/forest_depth_air_chain_case.gd").new()
 var grove_combat_case := preload("res://tests/forest_depth_grove_combat_case.gd").new()
+var interwoven_crown_case := preload("res://tests/forest_interwoven_crown_combat_case.gd").new()
 var movie_capture := OS.get_cmdline_user_args().has("--capture-movie")
 func _ready() -> void:
 	process_mode=Node.PROCESS_MODE_ALWAYS
@@ -84,7 +85,7 @@ func begin() -> void:
 						if edge.has(key): step[key]=edge[key]
 				itinerary.append(step)
 			itinerary.append({"kind":"walk","edge_id":id,"landing":edge.path[-1].duplicate(),"step_index":edge.steps.size()})
-			if manifest.get("layout_version") in ["forest-expedition-airborne-v11","forest-woven-trunk-v12"]:itinerary[-1].b=edge.b
+			if manifest.get("layout_version") in ["forest-expedition-airborne-v11","forest-woven-trunk-v12","forest-interwoven-canopy-v13"]:itinerary[-1].b=edge.b
 		else:
 			edge.edge_id=id;edge.landing=edge.get("landing",edge.path[-1]).duplicate();itinerary.append(edge)
 			if edge.has("post_landing_steps"):
@@ -210,7 +211,8 @@ func _physics_process(_delta: float) -> void:
 	var leg: Dictionary=itinerary[leg_index]
 	if (leg.kind=="narrow_return" or bool(leg.get("claim_before_edge",false))) and not duplicate_checked:
 		claim_local_id=str(leg.get("claim_id","crown_cache"));drive_cache();return
-	if manifest.get("layout_version") in ["forest-expedition-airborne-v11","forest-woven-trunk-v12"] and grove_combat_case.drive(self,leg):return
+	if interwoven_crown_case.drive(self,leg):return
+	if manifest.get("layout_version") in ["forest-expedition-airborne-v11","forest-woven-trunk-v12","forest-interwoven-canopy-v13"] and grove_combat_case.drive(self,leg):return
 	match str(leg.kind):
 		"walk": drive_walk(point(leg.landing))
 		"drop","drop_through": drive_drop(leg)
@@ -241,7 +243,7 @@ func _drive_canopy_bark_high_launch(leg: Dictionary) -> bool:
 	# Candidate ecology strategy: use the real jump's height before the
 	# horizontal recoil, rather than flying through the patrolling shield.
 	var program: Array=leg.get("action_program",[])
-	if manifest.get("layout_version")!="forest-woven-trunk-v12" or str(leg.get("geometry_instance",""))!="canopy_fork" or phase!="air_chain_launch" or program.size()!=2:return false
+	if manifest.get("layout_version") not in ["forest-woven-trunk-v12","forest-interwoven-canopy-v13"] or str(leg.get("geometry_instance",""))!="canopy_fork" or phase!="air_chain_launch" or program.size()!=2:return false
 	if str(program[0].get("action",""))!="R" or str(program[1].get("action",""))!="H":return false
 	var keeper: EnemyActor
 	for i: int in stage.enemy_manifest.size():
@@ -295,7 +297,7 @@ func drive_jump(leg: Dictionary) -> void:
 		controller.router.set_move_axis(clampf((landing.x-player.global_position.x)/12,-1,1))
 		if leg.kind=="jump_gap":
 			release_gap_before_ceiling(str(leg.support_id))
-			if not (manifest.get("layout_version") in ["forest-expedition-airborne-v11","forest-woven-trunk-v12"] and leg.get("hold_to_receiver",false)):
+			if not (manifest.get("layout_version") in ["forest-expedition-airborne-v11","forest-woven-trunk-v12","forest-interwoven-canopy-v13"] and leg.get("hold_to_receiver",false)):
 				release_gap_after_vertical_clearance(str(leg.support_id))
 		release_jump_after_clearance(str(leg.support_id))
 		stable=stable+1 if at_destination(landing,str(leg.support_id)) else 0

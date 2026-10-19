@@ -15,16 +15,47 @@ spec.loader.exec_module(CLI)
 
 class GrappleCompletion(unittest.TestCase):
     def test_complete_both_consumers(self):
-        with patch.object(CLI, 'run_engine', side_effect=['', 'GRAPPLE FEEL RESULT: 38 checks, 0 failures\n', 'GRAPPLE AIM INPUT: 119 checks, 0 failures\n', 'GRAPPLE LASER INPUT: 174 assertions, 0 failures\n']) as native:
+        with patch.object(CLI, 'run_engine', side_effect=['', 'GRAPPLE FEEL RESULT: 38 checks, 0 failures\n', 'GRAPPLE AIM INPUT: 119 checks, 0 failures\n', 'GRAPPLE LASER INPUT: 174 assertions, 0 failures\n', 'GRAPPLE FOCUS HUD: 1 checks / 0 failures\n', 'GRAPPLE CHAIN INPUT: 1 checks / 0 failures\n']) as native:
             CLI.main()
-        self.assertEqual(len(native.call_args_list), 4)
-        self.assertEqual(native.call_args_list[-1].args[0][-1], 'tests/grapple_laser_input_runner.gd')
+        self.assertEqual(len(native.call_args_list), 6)
+        self.assertEqual(native.call_args_list[3].args[0][-1], 'tests/grapple_laser_input_runner.gd')
+        self.assertEqual(native.call_args_list[4].args[0][-1], 'tests/grapple_focus_hud_runner.gd')
+        self.assertEqual(native.call_args_list[5].args[0][-1], 'tests/grapple_chain_input_runner.gd')
+        self.assertTrue(all(call.args[1] == 90 for call in native.call_args_list))
 
     def test_zero_exit_without_each_complete_summary(self):
         for outputs in (['', ''], ['', 'GRAPPLE FEEL RESULT: 38 checks, 0 failures\n', ''], ['', 'GRAPPLE FEEL RESULT: 38 checks, 0 failures\n', 'GRAPPLE AIM INPUT: 119 checks, 0 failures\n', '']):
             with self.subTest(outputs=outputs), patch.object(CLI, 'run_engine', side_effect=outputs):
                 with self.assertRaisesRegex(RuntimeError, 'Missing complete'):
                     CLI.main()
+
+    def test_hud_requires_its_complete_summary(self):
+        outputs = ['', 'GRAPPLE FEEL RESULT: 38 checks, 0 failures\n',
+                   'GRAPPLE AIM INPUT: 119 checks, 0 failures\n',
+                   'GRAPPLE LASER INPUT: 174 assertions, 0 failures\n', '']
+        with patch.object(CLI, 'run_engine', side_effect=outputs):
+            with self.assertRaisesRegex(RuntimeError, 'grapple_focus_hud_runner'):
+                CLI.main()
+
+    def test_chain_requires_its_complete_summary(self):
+        outputs = ['', 'GRAPPLE FEEL RESULT: 38 checks, 0 failures\n',
+                   'GRAPPLE AIM INPUT: 119 checks, 0 failures\n',
+                   'GRAPPLE LASER INPUT: 174 assertions, 0 failures\n',
+                   'GRAPPLE FOCUS HUD: 1 checks / 0 failures\n', '']
+        with patch.object(CLI, 'run_engine', side_effect=outputs):
+            with self.assertRaisesRegex(RuntimeError, 'grapple_chain_input_runner'):
+                CLI.main()
+
+    def test_new_native_failure_and_timeout_propagate(self):
+        prefix = ['', 'GRAPPLE FEEL RESULT: 38 checks, 0 failures\n',
+                  'GRAPPLE AIM INPUT: 119 checks, 0 failures\n',
+                  'GRAPPLE LASER INPUT: 174 assertions, 0 failures\n']
+        for index in (0, 1):
+            for failure in (RuntimeError('native exit 1'), subprocess.TimeoutExpired('native', 90)):
+                outputs = prefix + (['GRAPPLE FOCUS HUD: 1 checks / 0 failures\n'] if index else []) + [failure]
+                with self.subTest(index=index, failure=failure), patch.object(CLI, 'run_engine', side_effect=outputs):
+                    with self.assertRaises(type(failure)):
+                        CLI.main()
 
     def test_native_failure_and_timeout_remain_failures(self):
         for failure in (RuntimeError('native exit 1'), subprocess.TimeoutExpired('native', 90)):

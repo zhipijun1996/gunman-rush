@@ -1,0 +1,126 @@
+{
+  "reviewer": "/root/integration_review",
+  "verdict": "ACCEPT_BOUNDED_UPPER_CROWN_INPUT_STRATEGY_AND_ONE_NATIVE_CASE",
+  "scope": "Testautodriveronly+oneexactroot00map2growth; no80/FUNapproval",
+  "helper_SHA256": "1ef4e4c2966bd34506a5c118c6789d379342d8c7ed7633ff1653de2136a899f0",
+  "recorded_before_after_source_delta_only_helper": [
+    "tests/forest_interwoven_crown_combat_case.gd"
+  ],
+  "all_other3170inventory_source_stats_reader_inputs_unchanged_from_failed_corpus": true,
+  "native_case": {
+    "seed": "forest-depth-hollow-00",
+    "map": 2,
+    "route": "growth",
+    "actual_status": "passed",
+    "exit": 0,
+    "seconds": 17.204711483995197,
+    "cap": 240,
+    "capture_SHA256": "cf5ce947ca504bbb7308e99912accb9f23eee49a70be663addfcca77845f6fb4",
+    "receipt_SHA256": "97a9d5b4013e3e823efe3dceeb391af79877babf024cc03aafe34c73936a5d92",
+    "source_stable": true,
+    "completed_legs": 46,
+    "frames": 3440,
+    "independent_unchanged_strict_reader_errors": [],
+    "manual_motor_step": false,
+    "position_or_resource_injection": false
+  },
+  "actual_upper_combat": {
+    "start_tick": 1373,
+    "return_tick": 1567,
+    "accepted_shot_fired_count": 5,
+    "actual_damage_events": [
+      {
+        "amount": 1.0,
+        "damage_kind": 0,
+        "event_id": "202484222812:2:10",
+        "health_after": 2.0,
+        "kind": "committed_damage",
+        "leg": 18,
+        "lethal": false,
+        "position": [
+          -118.373947143555,
+          129.345001220703
+        ],
+        "source": "player_projectile:202484222812",
+        "target": "upper_spiral_bark_keeper",
+        "tick": 1422
+      },
+      {
+        "amount": 1.0,
+        "damage_kind": 0,
+        "event_id": "202484222812:2:11",
+        "health_after": 1.0,
+        "kind": "committed_damage",
+        "leg": 18,
+        "lethal": false,
+        "position": [
+          -103.33211517334,
+          -50.0195503234863
+        ],
+        "source": "player_projectile:202484222812",
+        "target": "upper_spiral_bark_keeper",
+        "tick": 1446
+      },
+      {
+        "amount": 1.0,
+        "damage_kind": 1,
+        "event_id": "bounds_3_1",
+        "health_after": 4.0,
+        "kind": "committed_damage",
+        "leg": 18,
+        "lethal": false,
+        "position": [
+          -285.0,
+          396.0
+        ],
+        "source": "bounds",
+        "target": "player",
+        "tick": 1466
+      },
+      {
+        "amount": 1.0,
+        "damage_kind": 0,
+        "event_id": "202484222812:3:14",
+        "health_after": 0.0,
+        "kind": "committed_damage",
+        "leg": 18,
+        "lethal": true,
+        "position": [
+          -129.654739379883,
+          129.393524169922
+        ],
+        "source": "player_projectile:202484222812",
+        "target": "upper_spiral_bark_keeper",
+        "tick": 1513
+      }
+    ],
+    "returned_enemy_health": 0.0,
+    "returned_player_health": 4.0,
+    "returned_fullfoot_frames": 12,
+    "final_route_health": 5.0,
+    "interpretation": "Fiveacceptedshots/threeenemyhitsandoneplayerhit, notthree-shot/undamagedclaim. Actualtracewalkgoalresumedafterfull12supportframes; finalhealingnotinvulnerability."
+  },
+  "semantic_review": [
+    "Gatev13only; twoexplicitapproachedgeIDs targettwoexistingkeepers; allotherlayoutsreturnfalse. Existinggrovepilot/reader/productiongeometry/player/enemystatsunchangedbyrecordedinventory.",
+    "Onlyreadsactualposition/health/cooldownandsubmitsaxis/jump/realshoot_release/drop_through. Noactorhealth/resource/position/velocity/collisionwrite.",
+    "Eachencounterresetsrequestcounter/start/returnstate; completed_encounterskeyedenemyIDpreventsrepeatclearofsamekeeper. 600tick/12requestcapsretained.",
+    "Onlyafteractualtargetterminalandactualreturn_goal+namedcrown12fullfootframesallowsoldlegpolicycontinue. Acceptedshotsanddamageverifiedfromoriginalevents, nothelpermetadataalone."
+  ],
+  "nonblocking_limits": [
+    "GatechecksedgeIDbutnotexplicitleg.kindwalk; currentactualcanopy_fork_approachleg18walkisobserved. Futuremulti-step/nonwalkuseofsameedgeIDcouldinterceptwronggoal/supportandfail; addkindguardifgeneralizing.",
+    "returndefaultusesexistingcurrentmanifestwalkgoal/support, nofuturemapgenericproof.",
+    "Requestslabelaccepted_requestscountsissuedrequests incode; thisactualcasefiveacceptedshot_firedverified, do notassumealldiagnosticrequestsacceptedineveryfuturecase.",
+    "OtherSeed/map enemyphase/bankconditionsmaystillfail600cap; singlecasecannotprove80."
+  ],
+  "retained_failure": {
+    "old_corpus": "10PASS/1FAIL/69notexecuted",
+    "old_root00_map2growth": "actual_run_endedafterupperkeepercollision/death, originalrawunchanged",
+    "old_capture_SHA256": "277115e612cc8b540c4893745a9cbdf7d14df169eaa16bcc5157698492d8a786",
+    "not_retrospectively_passed": true
+  },
+  "not_approved": [
+    "Complete80/600/newfullcorpus",
+    "Wholeforest/Boss/FUN/human/device/browser/public"
+  ],
+  "reviewer_no_engine_browser_or_tracked_write": true
+}

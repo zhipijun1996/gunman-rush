@@ -1,3 +1,15 @@
+## 2026-10-19：FOREST-FOCUS-ROUTES-03 当前技术完成范围（未合并/部署）
+
+分支`fix/forest-focus-and-interwoven-routes`中的森林v13提供可接地开局、两处早分流与中段580px五连深根路线，保留v12保存/旧技巧路。独立focus HUD、15%双瞄准及2秒空中预算清楚分开，未改变玩家物理/身体/射程/资源。
+
+最终camera-only修订之前：原固定80/600实际80/80严格通过/source_stable；13/13补充native（含当前20 producer合同262/0）、共享四原回归5676/122/52/56均0失败、原docs25项通过。原三轮80失败保留。镜头configure后实际zoom1.2的新源.8s actualAdapter前缀7legs/5holds已通过；camera03严格movie160.478s/exit0完成；fresh smoke02 9.866s/exit0/56项/3170源码稳定，独审接受限定lookahead改善，旧smoke01 hostFAIL/exit未知保留。不得把旧源80或旧movie重签为exact-current完整验收。
+
+独立体验仍**REVISE / in_progress**：早HH一R/两R可无H通过，branch bit只推荐routes不随机世界；深根有限两R对照及两图12leg回程有实际证据，但不证明所有策略/全区域FUN。设备/真人/商业品质/消费者完整覆盖未完成，尚未merge/deploy。见[当前设计](design/forest_interwoven_v13.md)、[普通文件精选证据](evidence/forest_focus_routes03/final_validation/README.md)。当前公网仍为先前已发布2985982ee612包，不含本轮未提交v13。以下各节均为历史记录。
+
+网络基线20eb最新观察：Docs run39285184099 SUCCESS，Godot core39285184036实际FAIL（两core lane及Web，prepare/windows成功、自动deploy跳过）；失败日志为空，具体原因未证实，不能归因旧菜单为唯一原因。它不是本轮新提交的CI结果；完整CI未通过，已授权prepared试玩预览与正式验收分开。
+
+---
+
 ## 2026-10-19：PR94已包含于main，网页待GitHub故障恢复
 
 PR92与导出修复PR95已普通合入main；实际游戏源码 `b8dc8c51dc68c4d1e2e70302ec9eb8d94e9e237c` 包含PR94最新 `0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad`，六个输入祖先关系已逐项核实。后续本记录提交只更新文档/证据，不改游戏。

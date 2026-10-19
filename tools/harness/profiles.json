@@ -1362,7 +1362,9 @@
         "export_presets.cfg"
       ],
       "artifact_paths": [
-        "build/verification/grapple_feel.json"
+        "build/verification/grapple_feel.json",
+        "build/verification/grapple_focus_hud.json",
+        "build/verification/grapple_chain_input.json"
       ]
     },
     "aim-save-compat": {
@@ -1925,6 +1927,46 @@
         "tests/test_forest_region_scheduler.py",
         "tools/harness/profiles.json"
       ]
+    },
+    "forest-interwoven-contract": {
+      "argv": [
+        "python3",
+        "tools/run_forest_interwoven_contract.py",
+        "--output",
+        "build/forest_revision03/contracts/harness-{check_token}"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: actual20 interwoven producer contracts, not Motor or experience approval$",
+      "weight_seconds": 20,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/forest_revision03/contracts"
+      ]
+    },
+    "forest-player-aim": {
+      "argv": [
+        "python3",
+        "tools/run_forest_player_aim.py",
+        "--output",
+        "build/forest_revision03/aim/harness-{check_token}"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: real-adapter forest prefix and observed grounded focus recovery$",
+      "weight_seconds": 30,
+      "artifact_paths": [
+        "build/forest_revision03/aim"
+      ]
     }
   },
   "profiles": {
@@ -2003,6 +2045,8 @@
       "wood-platforms",
       "actor-actions",
       "grapple-feel",
+      "forest-interwoven-contract",
+      "forest-player-aim",
       "aim-save-compat",
       "all-weapons",
       "studio-input",
@@ -2222,6 +2266,8 @@
       "wood-platforms",
       "actor-actions",
       "grapple-feel",
+      "forest-interwoven-contract",
+      "forest-player-aim",
       "aim-save-compat",
       "all-weapons",
       "studio-input",

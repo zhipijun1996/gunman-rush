@@ -8,6 +8,8 @@ var health_bar: ProgressBar
 var health_label: Label
 var stamina_bar: ProgressBar
 var stamina_label: Label
+var focus_bar: ProgressBar
+var focus_label: Label
 var _resources: ActorResources
 var _hurt_glow := 0.0
 var _last_health := -1.0
@@ -32,6 +34,10 @@ func bind(resources: ActorResources, focus: AirFocusAbility = null, actor: Playe
 		stamina_label.add_theme_font_override("font",UnderworldUI.FONT)
 		_shots_label = _make_label(Vector2(22, 111))
 		_shots_label.add_theme_font_override("font", UnderworldUI.FONT)
+	if focus_bar == null:
+		focus_bar = _make_bar(Vector2(22, 155), UnderworldUI.MOSS)
+		focus_label = _make_label(Vector2(252, 150))
+		focus_label.add_theme_font_override("font", UnderworldUI.FONT)
 	if combat_bar==null:
 		combat_bar=_make_bar(Vector2(22,133),UnderworldUI.COOL)
 		combat_label=_make_label(Vector2(252,128))
@@ -43,6 +49,8 @@ func bind(resources: ActorResources, focus: AirFocusAbility = null, actor: Playe
 		if is_instance_valid(_actor) and _actor.shot_energy!=null: _actor.shot_energy.recovered.connect(_energy_recovered)
 		_refresh_health(_resources.health.snapshot())
 		_refresh_stamina(_resources.stamina.snapshot())
+	set_region_compact(compact_region)
+	_refresh_focus()
 
 func _shot_rejected(reason: StringName) -> void:
 	if reason == &"empty": _shot_hint = 1.2
@@ -141,13 +149,44 @@ func set_region_compact(enabled: bool) -> void:
 		combat_bar.custom_minimum_size.x = 132
 		combat_bar.size.x = 132
 		combat_label.position = Vector2(164, 96)
+		focus_bar.position = Vector2(22, 119)
+		focus_bar.custom_minimum_size.x = 132
+		focus_bar.size.x = 132
+		focus_label.position = Vector2(164, 113)
 	else:
 		health_bar.position=Vector2(22,78); health_bar.custom_minimum_size.x=220; health_bar.size.x=220; health_label.position=Vector2(252,73)
 		stamina_bar.position=Vector2(22,95); stamina_bar.custom_minimum_size.x=220; stamina_bar.size.x=220; stamina_label.position=Vector2(252,90)
 		_shots_label.position=Vector2(22,111)
 		combat_bar.position=Vector2(22,133); combat_bar.custom_minimum_size.x=220; combat_bar.size.x=220; combat_label.position=Vector2(252,128)
+		focus_bar.position = Vector2(22, 155)
+		focus_bar.custom_minimum_size.x = 220
+		focus_bar.size.x = 220
+		focus_label.position = Vector2(252, 150)
+
+func _refresh_focus() -> void:
+	if focus_bar == null: return
+	# Formal shot energy is a different ledger. Show the actual focus resource,
+	# plus its per-flight real-second limit, rather than relabeling shot energy.
+	var valid := is_instance_valid(_focus) and _focus.tuning != null
+	focus_bar.visible = valid
+	focus_label.visible = valid
+	if not valid: return
+	focus_bar.max_value = _focus.stamina_state.capacity
+	focus_bar.value = _focus.stamina
+	var remaining := maxf(0.0, _focus.tuning.focus_max_air_duration - _focus.air_time_used)
+	var status := "READY"
+	if not _focus.enabled or not _focus.tuning.air_focus_enabled: status = "OFF"
+	elif _focus.active: status = "SLOW %d%%" % roundi(_focus.tuning.focus_time_scale * 100.0)
+	elif _focus.exhausted or _focus.stamina <= 0.0 or remaining <= 1.0e-9: status = "LAND TO REARM"
+	focus_label.text = "AIM %.0f/%.0f | %.1fs | %s" % [_focus.stamina, _focus.stamina_state.capacity, remaining, status]
+	if compact_region:
+		if status == "LAND TO REARM": focus_label.text = "0.0s LAND TO REARM"
+		elif status.begins_with("SLOW"):
+			focus_label.text = "%s %s" % [status, "HOLD" if remaining <= 1.0e-9 else "%.1fs" % remaining]
+		else: focus_label.text = "AIM %s %.1fs" % [status, remaining]
 
 func _process(delta: float) -> void:
+	_refresh_focus()
 	if combat_bar!=null:
 		combat_bar.visible=is_instance_valid(_actor);combat_label.visible=combat_bar.visible
 		if combat_bar.visible:
