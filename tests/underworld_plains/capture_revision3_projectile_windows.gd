@@ -55,6 +55,15 @@ func observe() -> void:
 			effects.append({"point":pair(node.global_position),"age":node.age,"friendly":node.friendly,"physical_contact":node.impact})
 	var boss:=stage.boss.get_node("Encounter") as WindkeeperEncounter
 	rows.append({"frame":rows.size(),"physics_frame":Engine.get_physics_frames(),"drawn_frame":Engine.get_frames_drawn(),"position":pair(app.player.global_position),"velocity":pair(app.player.velocity),"health":app.controller.actor_resources.health.current,"stamina":app.controller.actor_resources.stamina.current,"combat_energy":app.controller.combat_energy.current,"grounded":app.player.is_on_floor(),"boss_mode":str(boss.mode),"boss_health":boss.health.current,"boss_active":boss.active,"projectiles":projectiles,"effects":effects,"run_epoch":app.lifetime.epoch,"stage_epoch":app.lifetime.stage_epoch,"actor_epoch":app.lifetime.actor_epoch})
+func wait_for_formal_map(expected_map: int) -> bool:
+	# DemoApp loads after a physics boundary. Observe the actual consumer,
+	# never treat start_plains returning true as a synchronously ready scene.
+	for n: int in 180:
+		var loaded := app.stage as PlainsRegionStage
+		if loaded != null and loaded.map_index == expected_map and loaded.is_node_ready() and loaded.assembly_ok: return true
+		await tick()
+	failures.append("actual formal map readiness timed out: " + str(expected_map))
+	return false
 func enemy_window() -> Vector2:
 	var selected := Vector2.INF
 	for i: int in stage.enemies.size():
@@ -90,8 +99,12 @@ func run() -> void:
 	app.meta_persistence_enabled=false;root.add_child(app)
 	for i: int in 8: await tick()
 	if not app.start_plains(seed): failures.append("formal ordinary start failed")
+	if not await wait_for_formal_map(1):
+		printerr("FORMAL PROJECTILE WINDOW timed out waiting for actual map1");quit(1);return
 	if focus=="windkeeper":
 		app.director.stage_index=2;app._load_stage()
+		if not await wait_for_formal_map(2):
+			printerr("FORMAL PROJECTILE WINDOW timed out waiting for actual map2");quit(1);return
 	stage=app.stage as PlainsRegionStage
 	if stage==null:
 		printerr("FORMAL PROJECTILE WINDOW failed to create actual formal stage");quit(1);return

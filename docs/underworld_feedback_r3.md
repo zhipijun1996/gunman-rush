@@ -31,3 +31,5 @@
 原underworld-home迁移到当前多层实际消费者，旧97及源原件保留在[精确R2 fixture](../tests/fixtures/underworld_home_r2/README.md)。新增underworld-damage-feedback、underworld-projectile-vfx、underworld-world-objects、underworld-continuous-bosses检查，分别覆盖真实伤害/跨层、15武器与远程、攻击开门/实际领取重载、连续Boss及真实同帧死亡/唯一奖励。source/assembly审计保留原107用例并增加Home/开箱反例，原Semantic arms故障注入改按ID定位以适配合法布局顺序。
 
 最终独审必须实际看当前源连续像素和正式合屏；组件数值、定位图、完整Boss战、自然整图路线、听音、设备与用户审美是不同范围，不互相代签。
+
+实机复审追加：Encounter的objective更新不会自动更新独立WindkeeperHud。连续合同须同步检查护甲状态行、命中词、阶段大字与方向箭头，legacy窗口提示只留在legacy分支。本轮N原片保留旧提示REJECT，后续仅HUD修正另绑定源。录制脚本必须等待真实异步Stage ready/assembly，而不能以start_plains返回值当同步就绪。
