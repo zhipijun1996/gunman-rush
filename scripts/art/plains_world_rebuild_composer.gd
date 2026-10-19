@@ -2,8 +2,8 @@ class_name PlainsWorldRebuildComposer
 extends Node2D
 ## Complete solid bodies are the visual domain. Source painting is parameterized
 ## by continuous surface-to-root sections, never old collision rectangles.
-const TERRAIN := "res://assets/visual_development/plains_world_rebuild/terrain_source.png"
-const MAPPING := "res://assets/visual_development/plains_world_rebuild/terrain_mapping.json"
+const TERRAIN := "res://assets/visual_development/plains_world_rebuild/terrain_cliff_v2.png"
+const MAPPING := "res://assets/visual_development/plains_world_rebuild/cliff_mapping_v2.json"
 const ENVIRONMENT := "res://assets/visual_development/plains_world_rebuild/environment_source.png"
 var plan: Dictionary = {}
 var measurements: Array = []
@@ -44,6 +44,11 @@ func _install_environment() -> void:
 	var domain: Array = plan.layers.far_image_domain
 	var far := _sprite(texture,Rect2(0,0,1536,365),Vector2(float(domain[0]),float(domain[1])),Vector2(float(domain[2])/1536.0,float(domain[3])/365.0),-60,"DistantMeadowAndBrokenViaduct")
 	far.modulate = Color(1,1,1,0.72)
+	var air_shader := Shader.new()
+	air_shader.code = "shader_type canvas_item; void fragment(){ vec4 tint=COLOR; vec4 paint=texture(TEXTURE,UV); float fade=smoothstep(0.0,0.07,UV.y)*(1.0-smoothstep(0.265,0.355,UV.y)); COLOR=vec4(paint.rgb,paint.a*fade)*tint; }"
+	var air_material := ShaderMaterial.new()
+	air_material.shader = air_shader
+	far.material = air_material
 	for item: Dictionary in plan.layers.composition_assets:
 		var region := Rect2(0,365,820,659) if str(item.kind)=="meadow_tree" else Rect2(820,395,716,629)
 		# Measured feet on the original sheet, independent from world geometry.
@@ -115,23 +120,49 @@ func _install_body(body: Dictionary) -> void:
 	instance.material = material
 	add_child(instance)
 	_install_living_lip(body,minimum_x,maximum_x)
-	measurements.append({"id":body.id,"world_polygon":body.polygon.duplicate(true),"source":TERRAIN,"source_sha256":FileAccess.get_sha256(TERRAIN),"mapping_source":MAPPING,"mapping_sha256":FileAccess.get_sha256(MAPPING),"mesh_vertices":vertices.size(),"triangles":triangle_count,"legacy_rectangles":false,"complete_body":true,"method":"shared_body_polygon_clipped_world_sections_surface_to_root_painted_coordinates","source_painting_present":true,"art_admitted":false})
+	measurements.append({"id":body.id,"world_polygon":body.polygon.duplicate(true),"source":TERRAIN,"source_sha256":FileAccess.get_sha256(TERRAIN),"mapping_source":MAPPING,"mapping_sha256":FileAccess.get_sha256(MAPPING),"mesh_vertices":vertices.size(),"triangles":triangle_count,"legacy_rectangles":false,"complete_body":true,"method":"fixed_world_paint_scale_real_source_shoulder_boundary_coordinates","source_pixels_per_world_unit":source_mapping.source_pixels_per_world_unit,"body_width_normalized":false,"body_depth_normalized":false,"source_painting_present":true,"art_admitted":false})
 
-func _source_uv(body: Dictionary,point: Vector2,minimum_x: float,maximum_x: float,root_y: float) -> Vector2:
-	var source_x := lerpf(100.0,1430.0,clampf((point.x-minimum_x)/(maximum_x-minimum_x),0,1))
+func _source_uv(body: Dictionary,point: Vector2,_minimum_x: float,_maximum_x: float,_root_y: float) -> Vector2:
+	var density := float(source_mapping.source_pixels_per_world_unit)
+	var west := str(body.id)=="west_meadow_ridge"
+	var creek := str(body.kind)=="creek_bedrock"
 	var top := _surface_y(body,point.x)
-	var source_bottom := _opaque_bottom(source_x)
-	var source_y := lerpf(145.0,source_bottom,clampf((point.y-top)/maxf(1.0,root_y-top),0,1))
+	var depth := maxf(0.0,point.y-top)
+	var source_y := 190.0+depth*density
+	var source_x := 800.0
+	if creek:
+		# The foundation is the same geological depth, not another grassy bank.
+		var rim_top := float(plan.bodies[0].top_surfaces[-1].to[1])
+		source_y=190.0+(point.y-rim_top)*density
+		source_x=800.0+(point.x-(float(plan.bodies[0].top_surfaces[-1].to[0])+float(plan.bodies[1].top_surfaces[0].from[0]))*0.5)*density
+	else:
+		var boundary := _world_boundary(body,point.y,west)
+		var distance := boundary-point.x if west else point.x-boundary
+		for iteration: int in 3:
+			source_x = _profile_at(source_mapping.right_opaque_boundary,source_y)-distance*density
+			source_y = _profile_at(source_mapping.source_contact_profile,source_x)+depth*density
 	return Vector2(source_x/1536.0,source_y/1024.0)
 
-func _opaque_bottom(x: float) -> float:
-	var rows: Array = source_mapping.opaque_lower_profile
+func _profile_at(rows: Array,value: float) -> float:
+	if value<=float(rows[0][0]):return float(rows[0][1])
 	for index: int in range(rows.size()-1):
-		var a: Array = rows[index]
-		var b: Array = rows[index+1]
-		if x >= float(a[0]) and x <= float(b[0]):
-			return lerpf(float(a[1]),float(b[1]),(x-float(a[0]))/(float(b[0])-float(a[0])))
+		var a: Array=rows[index]
+		var b: Array=rows[index+1]
+		if value>=float(a[0]) and value<=float(b[0]):return lerpf(float(a[1]),float(b[1]),(value-float(a[0]))/(float(b[0])-float(a[0])))
 	return float(rows[-1][1])
+
+func _world_boundary(body: Dictionary,y: float,west: bool) -> float:
+	var points: Array=body.polygon
+	var intersections: Array[float]=[]
+	for index: int in points.size():
+		var a: Array=points[index]
+		var b: Array=points[(index+1)%points.size()]
+		if is_equal_approx(float(a[1]),float(b[1])):
+			if is_equal_approx(y,float(a[1])):intersections.append(float(a[0]));intersections.append(float(b[0]))
+		elif y>=minf(float(a[1]),float(b[1])) and y<=maxf(float(a[1]),float(b[1])):
+			intersections.append(lerpf(float(a[0]),float(b[0]),(y-float(a[1]))/(float(b[1])-float(a[1]))))
+	if intersections.is_empty():return float(body.top_surfaces[-1].to[0]) if west else float(body.top_surfaces[0].from[0])
+	return intersections.max() if west else intersections.min()
 
 func _surface_y(body: Dictionary,x: float) -> float:
 	var surfaces: Array = body.top_surfaces
@@ -157,7 +188,9 @@ func _install_living_lip(body: Dictionary,minimum_x: float,maximum_x: float) -> 
 			for p: Vector2 in [left+Vector2(0,-46),right+Vector2(0,-46),right,left+Vector2(0,-46),right,left]:
 				vertices.append(p)
 				var ground := lerpf(a.y,b.y,(p.x-a.x)/(b.x-a.x))
-				uv.append(Vector2(lerpf(100,1430,(p.x-minimum_x)/(maximum_x-minimum_x))/1536.0,(145+(p.y-ground)*2.0)/1024.0))
+				var source_uv := _source_uv(body,Vector2(p.x,ground),minimum_x,maximum_x,ground+1)
+				source_uv.y += (p.y-ground)*float(source_mapping.source_pixels_per_world_unit)/1024.0
+				uv.append(source_uv)
 	var arrays: Array = []
 	arrays.resize(Mesh.ARRAY_MAX)
 	arrays[Mesh.ARRAY_VERTEX]=vertices
@@ -173,4 +206,4 @@ func _install_living_lip(body: Dictionary,minimum_x: float,maximum_x: float) -> 
 	add_child(lip)
 
 func measured_nodes() -> Dictionary:
-	return {"status":"actual_painted_world_candidate_not_art_admitted","bodies":measurements.duplicate(true),"layers":layer_measurements.duplicate(true),"actual_body_count":measurements.size(),"source_kind":"new_hand_painted_material_image_not_screen_background","formal_pool":false,"limitations":["surface_to_root_mapping_may_deform_strata_requires_actual_pixel_review","root_bodies_overlap_material_connections_require_actual_review","no_user_or_art_admission"]}
+	return {"status":"actual_painted_world_candidate_not_art_admitted","bodies":measurements.duplicate(true),"layers":layer_measurements.duplicate(true),"actual_body_count":measurements.size(),"source_kind":"new_hand_painted_material_image_not_screen_background","formal_pool":false,"limitations":["fixed_scale_boundary_shear_and_root_connections_require_actual_pixel_review","root_bodies_overlap_material_connections_require_actual_review","no_user_or_art_admission"]}

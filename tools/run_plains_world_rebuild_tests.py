@@ -25,7 +25,9 @@ EXTRA = ("tools/run_plains_world_rebuild_tests.py", "tools/run_plains_joint_reco
          "tools/run_tests.py", "tools/run_root_bell_ecology.py",
          "tools/plains_world_rebuild_preview.gd",
          "assets/visual_development/plains_world_rebuild/terrain_source.png",
-         "assets/visual_development/plains_world_rebuild/terrain_mapping.json")
+         "assets/visual_development/plains_world_rebuild/terrain_mapping.json",
+         "assets/visual_development/plains_world_rebuild/terrain_cliff_v2.png",
+         "assets/visual_development/plains_world_rebuild/cliff_mapping_v2.json")
 
 
 if (ROOT / "assets/visual_development/plains_world_rebuild/environment_source.png").is_file():
@@ -97,9 +99,39 @@ def capture(folder, route):
         print(folder / "report.json", flush=True)
 
 
+def trace(folder, route):
+    """Short real DemoApp/Router feedback without recording or actor relocation."""
+    started = time.monotonic()
+    before = source_files(EXTRA)
+    report = {"status": "failed", "source_before": before,
+              "scope": "Actual headless PlayerMotor/Router traversal; not rendered art or device evidence"}
+    command = ["--headless", "--fixed-fps", "60", "--path", ".", "--script", "tools/plains_world_rebuild_preview.gd", "--", "--seed=world-rebuild-01", "--variant=0", "--route="+route, "--trace-output="+str(folder/"trace")]
+    report["command"] = ["bash", "tools/godot.sh", *command]
+    try:
+        output = logged_engine(command, 120, folder/"trace.log")
+        data = json.loads((folder/"trace/receipt.json").read_text())
+        report["route"] = data["route"]
+        if not data["route"].get("passed",False): raise RuntimeError("Actual headless input route failed")
+        if re.search(r"(?m)^\s*(?:ERROR:|SCRIPT ERROR:|Parse Error:|SHADER ERROR:)",output): raise RuntimeError("Actual native route error")
+        if source_files(EXTRA) != before: raise RuntimeError("Source changed during headless route")
+        report["status"] = "passed"
+    except Exception as exc:
+        report["error"] = str(exc)
+        raise
+    finally:
+        # Existing strict engine raises on a failed route: keep its actual trace.
+        receipt = folder/"trace/receipt.json"
+        if receipt.is_file(): report["route"] = json.loads(receipt.read_text())["route"]
+        report["source_after"] = source_files(EXTRA)
+        report["elapsed_seconds"] = time.monotonic()-started
+        (folder/"report.json").write_text(json.dumps(report,indent=2)+"\n")
+        print(folder/"report.json",flush=True)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, help="New evidence directory; defaults to /tmp to avoid filling workspace")
+    parser.add_argument("--trace", choices=("main","lower"), help="Cheap actual headless input trace before movies")
     parser.add_argument("--capture", action="store_true", help="Actual first candidate normal-camera image")
     parser.add_argument("--route", action="store_true", help="Actual first candidate input trace and continuous movie")
     args = parser.parse_args()
@@ -111,6 +143,9 @@ def main():
     command = ["--headless", "--path", ".", "--script", "tests/plains_world_rebuild_runner.gd", "--", "--output=" + str(actual)]
     with godot_lock_path(ROOT).open("a") as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
+        if args.trace:
+            trace(folder, args.trace)
+            return
         if args.capture or args.route:
             capture(folder, args.route)
             return

@@ -19,5 +19,19 @@
     ],
     "prompt_summary": "Transparent environment sheet: top distant pale rolling meadow and broken bent-wood viaduct; bottom separate wind-bowed tree and open repaired bell shelter; consistent pen watercolor, no UI/characters/foreground gameplay terrain.",
     "processing": "Copied unchanged; engine region sampling only. Bottom object foot anchors measured from original."
+  },
+  "terrain_v2": {
+    "tool": "image_gen.imagegen",
+    "model": "not_exposed",
+    "original": "/workspace/generated_images/exec-3c984840-2f55-463b-b353-65a87f9e8908.png",
+    "sha256": "8b0e39bb1cb05f91501e6c3d121498b25d82c0f17725108853daae73d2056b5d",
+    "references": [
+      "P1 scene",
+      "terrain_source.png"
+    ],
+    "prompt_summary": "One full-depth grounded cliff, horizontal contact near top, rounded convex shoulder and near-vertical complete eroded side; left/bottom are joining opaque interior; sparse roots, broad quiet volume, pen watercolor, no UI/scene/second panel.",
+    "change_reason": "First engine rejected: normalized material mapping stretched root curtain and clipped shoulder. Source v2 supplies actual painted turn at stable brush scale.",
+    "license": "not independently verified",
+    "processing": "Original PNG unchanged; read-only alpha boundary measurement and explicitly chosen source contact landmarks; engine remaps same-scale material coordinates."
   }
 }

@@ -113,6 +113,24 @@ func verify_stage(plan: Dictionary, tuning: PlayerTuning) -> Dictionary:
 		for uv: Vector2 in uvs:
 			if not uv.is_finite() or uv.x<0 or uv.x>1 or uv.y<0 or uv.y>1: all_uvs_valid = false
 		check(all_uvs_valid, "Actual source UVs stay finite and inside real material image")
+		var density := float(receipt.get("source_pixels_per_world_unit",0))
+		check(density>0 and not receipt.get("body_width_normalized",true) and not receipt.get("body_depth_normalized",true), "Consumer declares fixed world painting scale rather than whole-body normalization")
+		if str(source.kind) == "creek_bedrock":
+			var center := (float(plan.bodies[0].top_surfaces[-1].to[0])+float(plan.bodies[1].top_surfaces[0].from[0]))*.5
+			var rim_top := float(plan.bodies[0].top_surfaces[-1].to[1])
+			var fixed_density_matches := true
+			for index: int in vertices.size():
+				var expected_uv := Vector2((800+(vertices[index].x-center)*density)/1536.0,(190+(vertices[index].y-rim_top)*density)/1024.0)
+				if uvs[index].distance_to(expected_uv)>.00001: fixed_density_matches = false
+			check(fixed_density_matches, "Actual foundation mesh consumes same fixed source-pixel/world density on both axes")
+		else:
+			var sample_x := float(source.top_surfaces[-1].to[0])-160 if str(source.id)=="west_meadow_ridge" else float(source.top_surfaces[0].from[0])+160
+			var sample_y := float(source.top_surfaces[-1].to[1])+80 if str(source.id)=="west_meadow_ridge" else float(source.top_surfaces[0].from[1])+80
+			var sample := Vector2(sample_x,sample_y)
+			var first_uv: Vector2 = composer.call("_source_uv",source,sample,-240.0,3000.0,1200.0)
+			var changed_bounds_uv: Vector2 = composer.call("_source_uv",source,sample,-1240.0,9000.0,4200.0)
+			check(first_uv == changed_bounds_uv, "Changing overall width/depth arguments cannot rescale local painted bank material")
+
 	check(not actual.production_pool, "Experiment not added to formal pool")
 	stage.queue_free()
 	await process_frame

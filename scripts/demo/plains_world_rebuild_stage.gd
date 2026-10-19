@@ -11,7 +11,7 @@ func configure_world(data: Dictionary, player_tuning: PlayerTuning) -> void:
 	tuning = player_tuning
 	# Small adapter for the existing Run logging/HUD contract; this is explicitly
 	# not a PlainsRegionGenerator Manifest and does not claim old save compatibility.
-	generated = {"stage_generator_version":"plains-world-rebuild-v1", "placement_points":[],
+	generated = {"stage_generator_version":str(data.get("version","")), "placement_points":[],
 		"manifest":{"seed":str(data.get("root_seed","")), "nodes":[{"id":"continuous_world", "mirrored":false}],
 		"shot_latch_plan":{}, "world_rebuild_plan":world_plan}}
 

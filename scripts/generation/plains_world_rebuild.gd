@@ -5,7 +5,10 @@ extends RefCounted
 ## complete bodies; route and layer intentions are derived from those bodies.
 ## This is structure, not a declaration that a painted asset family is ready.
 const CATALOG_PATH := "res://resources/generation/plains_world_rebuild.json"
-const VERSION := "plains-world-rebuild-v1"
+const VERSION := "plains-world-rebuild-v2"
+# Keep the admitted comparison layout/gap stream stable while changing wall geometry.
+const LAYOUT_RANDOM_VERSION := "plains-world-rebuild-v1"
+const PREVIOUS_SOURCE_COMMIT := "e76e5c24a1dff6733bcf7a64fae3ab8cca4a7640"
 
 static func generate(seed: String, variant: int = 0) -> Dictionary:
 	var source: Variant = JSON.parse_string(FileAccess.get_file_as_string(CATALOG_PATH))
@@ -22,7 +25,7 @@ static func generate(seed: String, variant: int = 0) -> Dictionary:
 	var units: Dictionary = catalog["body_units"]
 	# Local RNG never mutates the game's RunRandomStream or save state.
 	var rng := RandomNumberGenerator.new()
-	rng.seed = hash(VERSION + ":" + seed)
+	rng.seed = hash(LAYOUT_RANDOM_VERSION + ":" + seed)
 	var option := rng.randi_range(0, 1)
 	var left: float = float(units["ridge_widths"][variant])
 	var gap: float = float(units["fissure_widths"][option])
@@ -31,29 +34,37 @@ static func generate(seed: String, variant: int = 0) -> Dictionary:
 	var creek := top + float(units["creek_depths"][variant])
 	var root := creek + float(units["root_depth"])
 	var far_right := right + float(units["landing_widths"][variant])
+	var recession: float = float(units["side_recession"])
+	var root_recession: float = float(units["root_side_recession"])
+	var overlap: float = float(units["creek_root_overlap"])
 	var approach: Array = [[-240.0, top + 60.0], [560.0, top + 60.0], [640.0, top], [left, top]]
 	if variant == 1:
 		# A longer stepped approach changes the cross-section, not merely pigment.
 		approach = [[-240.0, top + 120.0], [480.0, top + 120.0], [560.0, top + 60.0], [840.0, top + 60.0], [920.0, top], [left, top]]
 	var left_polygon: Array = approach.duplicate(true)
-	left_polygon.append_array([[left + 14.0, top + 30.0], [left - 20.0, top + 74.0], [left - 12.0, top + 100.0], [left - 88.0, top + 148.0], [left - 120.0, top + 210.0], [left - 208.0, creek - 44.0], [left - 260.0, creek], [left - 300.0, creek + 120.0], [left - 360.0, root], [-240.0, root]])
+	left_polygon.append_array(_cliff_side(left, top, creek, root, -1.0, recession, root_recession))
+	left_polygon.append([-240.0, root])
 	var right_top: Array = [[right, top], [right + 260.0, top], [right + 340.0, top - 40.0], [right + 1000.0, top - 40.0], [right + 1080.0, top], [far_right, top]]
 	var right_polygon: Array = right_top.duplicate(true)
-	right_polygon.append_array([[far_right + 40.0, top + 90.0], [far_right + 80.0, creek + 60.0], [far_right + 120.0, root], [right + 360.0, root], [right + 300.0, creek + 120.0], [right + 260.0, creek], [right + 208.0, creek - 44.0], [right + 120.0, top + 210.0], [right + 88.0, top + 148.0], [right + 12.0, top + 100.0], [right + 20.0, top + 74.0], [right - 14.0, top + 30.0]])
-	var creek_polygon: Array = [[left - 360.0, creek], [right + 360.0, creek], [right + 400.0, root], [left - 400.0, root]]
+	right_polygon.append_array([[far_right + 40.0, top + 90.0], [far_right + 80.0, creek + 60.0], [far_right + 120.0, root]])
+	var east_side := _cliff_side(right, top, creek, root, 1.0, recession, root_recession)
+	east_side.reverse()
+	right_polygon.append_array(east_side)
+	var creek_polygon: Array = [[left - recession - overlap, creek], [right + recession + overlap, creek], [right + root_recession + overlap, root], [left - root_recession - overlap, root]]
 	var bodies: Array = [
 		_body("west_meadow_ridge", "grounded_grass_ridge", left_polygon, _surfaces(approach, "main_route"), ["west_extension", "west_creek_root"]),
 		_body("east_meadow_ridge", "grounded_grass_ridge", right_polygon, _surfaces(right_top, "main_route"), ["east_extension", "east_creek_root"]),
-		_body("creek_foundation", "creek_bedrock", creek_polygon, [{"from": [left - 260.0, creek], "to": [right + 260.0, creek], "role": "lower_recovery"}], ["west_creek_root", "east_creek_root"])
+		_body("creek_foundation", "creek_bedrock", creek_polygon, [{"from": [left - recession, creek], "to": [right + recession, creek], "role": "lower_recovery"}], ["west_creek_root", "east_creek_root"])
 	]
 	var spawn_y := float(approach[0][1]) - 18.0
 	var bounds: Array = [-240.0, top - 360.0, far_right + 360.0, root - top + 540.0]
 	var data: Dictionary = {
 		"version": VERSION, "root_seed": seed, "variant": variant,
+		"geometry_revision": "v2_near_vertical_shoulder_wall_root", "previous_source_commit": PREVIOUS_SOURCE_COMMIT, "layout_random_version": LAYOUT_RANDOM_VERSION,
 		"status": "first_structure_candidate" if variant == 0 else "second_layout_pre_research_not_admitted",
 		"bounds": bounds, "spawn": [100.0, spawn_y], "exit": [far_right - 140.0, top - 18.0],
 		"bodies": bodies, "formal_pool": false,
-		"construction": {"west_width": left, "east_width": far_right - right, "fissure_width": gap, "main_y": top, "creek_depth": creek - top, "root_depth": root - creek, "registered_unit_source": CATALOG_PATH},
+		"construction": {"west_width": left, "east_width": far_right - right, "fissure_width": gap, "main_y": top, "creek_depth": creek - top, "root_depth": root - creek, "side_recession": recession, "root_side_recession": root_recession, "registered_unit_source": CATALOG_PATH},
 		"routes": [
 			{"id": "main", "required_action": "walk_full_jump_with_optional_recoil", "points": [[100.0, spawn_y], [660.0, (top if variant == 0 else top + 60.0) - 18.0], [left - 48.0, top - 18.0], [right + 64.0, top - 18.0], [right + 420.0, top - 58.0], [far_right - 140.0, top - 18.0]], "validation_status": "unverified_motor"},
 			{"id": "lower_creek", "required_action": "controlled_drop_then_legal_downshot_recoil_return", "points": [[left - 48.0, top - 18.0], [(left + right) * 0.5, creek - 18.0], [right + 80.0, creek - 18.0], [right + 64.0, top - 18.0]], "validation_status": "unverified_motor"}
@@ -138,6 +149,11 @@ static func validate(data: Dictionary) -> Array[String]:
 		if not body_found:
 			errors.append("composition_asset_missing_parent_body:" + str(asset.get("id", "")))
 	return errors
+
+static func _cliff_side(rim: float, top: float, creek: float, root: float, direction: float, recession: float, root_recession: float) -> Array:
+	# Modest convex shoulder leads into a full, near-vertical cliff. This is
+	# actual collision geometry; no texture shear changes the physical body.
+	return [[rim - direction * 8.0, top + 18.0], [rim + direction * 12.0, top + 60.0], [rim + direction * 32.0, top + 120.0], [rim + direction * 58.0, top + 180.0], [rim + direction * 86.0, top + 230.0], [rim + direction * 110.0, creek - 32.0], [rim + direction * recession, creek], [rim + direction * (recession + 10.0), creek + 120.0], [rim + direction * root_recession, root]]
 
 static func _surface_anchor(body: Dictionary, x: float) -> Array:
 	for surface: Dictionary in body.get("top_surfaces", []):
