@@ -167,10 +167,10 @@ static func validate(data: Dictionary) -> Array[String]:
 		else:
 			if registered_sha.length() == 64 and FileAccess.get_sha256(path) != registered_sha:
 				errors.append("registered_paint_source_bytes_changed:" + id)
-			var source_image: Image = Image.load_from_file(path)
-			if source_image == null or source_image.is_empty():
+			var source_texture := load(path) as Texture2D
+			if source_texture == null:
 				errors.append("registered_paint_source_not_decodable:" + id)
-			elif [source_image.get_width(), source_image.get_height()] != expected_frame["source_size"]:
+			elif source_texture.get_width() != int(expected_frame["source_size"][0]) or source_texture.get_height() != int(expected_frame["source_size"][1]):
 				errors.append("registered_paint_source_size_mismatch:" + id)
 		var points := PackedVector2Array()
 		for point: Variant in body.get("polygon", []):
