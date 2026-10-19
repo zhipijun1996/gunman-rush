@@ -1,3 +1,15 @@
+# 最新交付：已上线正式两图候选
+
+[HTTPS试玩](https://zhipijun1996.github.io/gunman-rush/?plains=1&v=d2c684ef8fc0)，build `d2c684ef8fc0` / source `c0f8e50770145795db5affd4afdbffff2479f1ea`。[交付身份](delivery.json)、[独立终轮范围报告](formal_review/report.md)、[发布后实际GUI](root/published/report.json)。下文进行中的历史说明已由本节复验结果覆盖，原失败不删除。
+
+原15套区域回归分批完成；冻结源4套当前/原断言再测2097+19+27+488均0失败，实际正式consumer原探针冻结复跑21000/0。最初脚本退出依赖环、艺术工具Nil、破桥悬空与竖屏覆盖均有修复/复验链；旧双层默认断言保留为明确legacyfixture，当前三层默认另测，不冒充旧consumer仍默认。
+
+最终专项harness五项fresh通过，原始报告/日志在[root/harness-final](root/harness-final/targeted-summary.json)；完整适用profile仍在历史docs断链处失败，不冒称全绿。
+
+正式地形是精确矩形并集适配，不是dual-grid/47正式TileMap。完整视觉状态、用户最终整区审美、实体设备/音轨和最差Seed仍未签；不能将技术与定位检查升级成自然全战役或商业品质通过。适用全量harness受历史稀疏docs证据断链阻塞，继承asset-consumer路径审计也未解决。
+
+---
+
 # WINDCHIME-PIXEL-01：晨光像素风铃平原
 
 最新用户已认可小样感觉并授权整个正式平原、三个独立远景和简单纹理；允许dual-grid替代47。完整原话见[user_request.txt](user_request.txt)。旧暖色失败方向未复用为创意输入。本任务使用game-quality-gate、art-director、scene-composer、animation-vfx与独立gameplay-reviewer；没有改造敌人AI/Boss机制、地图生成或玩家物理。

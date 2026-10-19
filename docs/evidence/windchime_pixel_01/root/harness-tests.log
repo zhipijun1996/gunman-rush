@@ -1,0 +1,35 @@
+....Running proof (fresh); log: build/verification/harness/first/proof.log
+proof: passed
+Running proof (reused); log: build/verification/harness/same/proof.log
+proof: passed
+Running proof (fresh); log: build/verification/harness/corrupt/proof.log
+proof: passed
+Running proof (reused); log: build/verification/harness/repaired/proof.log
+proof: passed
+Running proof (fresh); log: build/verification/harness/deleted/proof.log
+proof: passed
+Running proof (fresh); log: build/verification/harness/changed-input/proof.log
+proof: passed
+Running proof (fresh); log: build/verification/harness/changed-input-corrupt-output/proof.log
+proof: passed
+.......Running a (fresh); log: build/report/a.log
+Running b (fresh); log: build/report/b.log
+a: passed
+b: passed
+Running bad (fresh); log: build/report/bad.log
+bad: failed
+Running created (fresh); log: build/report/created.log
+created: failed
+Running deleted (fresh); log: build/report/deleted.log
+deleted: failed
+Running custom (fresh); log: build/report/custom.log
+custom: passed
+Running good (fresh); log: build/report/good.log
+Running bad (fresh); log: build/report/bad.log
+bad: failed
+good: passed
+............
+----------------------------------------------------------------------
+Ran 23 tests in 3.638s
+
+OK

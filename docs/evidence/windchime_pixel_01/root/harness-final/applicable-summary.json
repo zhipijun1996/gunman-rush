@@ -1,0 +1,34 @@
+{
+  "status": "failed",
+  "commit": "c0f8e50770145795db5affd4afdbffff2479f1ea",
+  "profiles": [
+    "docs",
+    "art",
+    "gameplay",
+    "web"
+  ],
+  "targeted_checks": false,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "raw_report_sha256": "b0c782e5c057dc21432444305ac34f539acfe5f4a50ff90d5bbf6ec1ab82f7e9",
+  "checks": [
+    {
+      "id": "docs",
+      "argv": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "0093e1592cc4e0462d8611bcc07b9de2cf35c7a4346d93fa0e260ad563a39e27",
+      "log": "docs.log",
+      "status": "failed",
+      "exit_code": 1,
+      "failure_reason": "nonzero_exit",
+      "started_at_unix": 1792395137.9952297,
+      "ended_at_unix": 1792395138.1282218,
+      "duration_seconds": 0.133,
+      "artifact_directory": "/workspace/gunman-rush-work/build/verification/harness/20261019T073217.048432Z/artifacts/docs",
+      "reused": false
+    }
+  ]
+}

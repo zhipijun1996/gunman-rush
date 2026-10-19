@@ -1,0 +1,101 @@
+{
+  "status": "passed",
+  "commit": "c0f8e50770145795db5affd4afdbffff2479f1ea",
+  "profiles": [],
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "raw_report_sha256": "ef9b96f2c27dbf929ab3b33946cb10eeef995e9434de8ae683a62e538bf85c56",
+  "checks": [
+    {
+      "id": "pixel-plains",
+      "argv": [
+        "python3",
+        "tools/run_pixel_plains_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "1f8c66524552a972d742f572bb11fd7be3fad29bbc3bfe87105cccd97fe48f97",
+      "log": "pixel-plains.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792395139.635335,
+      "ended_at_unix": 1792395141.4736366,
+      "duration_seconds": 1.838,
+      "artifact_directory": "/workspace/gunman-rush-work/build/verification/harness/20261019T073217.041213Z/artifacts/pixel-plains",
+      "reused": false
+    },
+    {
+      "id": "pixel-formal",
+      "argv": [
+        "python3",
+        "tools/run_pixel_formal_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "ac87485e991574fe95565b8fc8c8fcdc27d86f293d8283f865067717a03c1ca6",
+      "log": "pixel-formal.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792395142.1389337,
+      "ended_at_unix": 1792395143.1717837,
+      "duration_seconds": 1.033,
+      "artifact_directory": "/workspace/gunman-rush-work/build/verification/harness/20261019T073217.041213Z/artifacts/pixel-formal",
+      "reused": false
+    },
+    {
+      "id": "art-art",
+      "argv": [
+        "python3",
+        "tools/check_art.py"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "8ac4f9a3b8428e6fc520aa564c2f70cad27f849ffaafec5eaad1ef8a8d9b7a01",
+      "log": "art-art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792395137.97483,
+      "ended_at_unix": 1792395138.1588364,
+      "duration_seconds": 0.184,
+      "artifact_directory": "/workspace/gunman-rush-work/build/verification/harness/20261019T073217.041213Z/artifacts/art-art",
+      "reused": false
+    },
+    {
+      "id": "web-cache",
+      "argv": [
+        "node",
+        "tools/test_web_cache_policy.mjs"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "a29207af4be1266595dc1770ba0ebbcf0e323503384a9dbfd6f5953af8d01fdf",
+      "log": "web-cache.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792395138.846779,
+      "ended_at_unix": 1792395138.9799476,
+      "duration_seconds": 0.133,
+      "artifact_directory": "/workspace/gunman-rush-work/build/verification/harness/20261019T073217.041213Z/artifacts/web-cache",
+      "reused": false
+    },
+    {
+      "id": "web-bundle",
+      "argv": [
+        "python3",
+        "tools/check_web_bundle.py"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "a103c3bf2e4233b78fb4842935cc44e7d26a97553ae36156fe4fe67ff2c8969a",
+      "log": "web-bundle.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792395143.8459623,
+      "ended_at_unix": 1792395144.838209,
+      "duration_seconds": 0.992,
+      "artifact_directory": "/workspace/gunman-rush-work/build/verification/harness/20261019T073217.041213Z/artifacts/web-bundle",
+      "reused": false
+    }
+  ]
+}

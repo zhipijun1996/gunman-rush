@@ -4,7 +4,7 @@
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
-| WINDCHIME-PIXEL-01 | 新像素风格重制正式平原两图、三层独立视差 | WINDCHIME-STYLE-01 | in_progress | 用户认可小样感觉后授权整区；纹理简洁，精确边界适配保持碰撞，独立三图/演员机关/真实消费者审查与Web交付中 |
+| WINDCHIME-PIXEL-01 | 新像素风格重制正式平原两图、三层独立视差 | WINDCHIME-STYLE-01 | review | 已部署d2c684ef8fc0/source c0f8e50；全体表现迁移、简洁纹理、动态支撑装饰与三图视差；冻结技术/有限GUI通过，整区审美/全警示/设备未签 |
 | WINDCHIME-STYLE-01 | 风铃平原新参考风格素材与手工实景 | TILE-MAP-PLAN-01 | review | 暖色候选被用户拒绝为廉价，停止扩产/发布；47态、样板与技术修复保留，Animal Well方向待小样 |
 | TILE-MAP-PLAN-01 | 视频方法到后续tile map生产规划 | ART-BLOB47-CARTOON-02 | review | 来源与关键段落记录、素材范围、3张验证map、6–8模块候选及随机迁移顺序；仅规划，未造新地图 |
 | ART-BLOB47-CARTOON-02 | 向洞窟探险2/马里奥制造2饱满卡通方向重定向 | ART-BLOB47-FOUNDATION-01 | review | 用户拒绝V1视觉；1次实际图生合屏概念与新约束已交，图集/实机/新图审美未验 |

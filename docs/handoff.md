@@ -1,3 +1,22 @@
+# 已部署：风铃平原正式两图像素重制候选
+
+试玩：https://zhipijun1996.github.io/gunman-rush/?plains=1&v=d2c684ef8fc0
+Web build `d2c684ef8fc0`；运行源 `c0f8e50770145795db5affd4afdbffff2479f1ea`；PR91仍draft、未合main。[交付身份](evidence/windchime_pixel_01/delivery.json)与[独立审查](evidence/windchime_pixel_01/formal_review/report.md)。后续证据/交接提交不改变该运行源。
+
+最新用户认可小样感觉后授权整个平原、3张独立大图视差、纹理简洁，并允许dual-grid。两张正式地图的地形、主角、敌人、两Boss、机关、拾取与装饰已接新像素表现。正式非整格平台使用精确并集边界适配，**不是已实现dual-grid/47正式TileMap**；47小样独立保留，新网格模块可选dual-grid，其他15区不复制同色遗迹。
+
+已修脚本退出依赖环、破桥后悬空装饰、受伤反馈与竖屏天空覆盖。基础5676/0；区域15套分批完成（原失败保留，旧双背景断言保留为legacyfixture，新三层默认另验）。最终冻结源又复跑地形2097/0、小样19/0、生命周期27/0、背景/Boss兼容488/0和实际正式消费者21000/0，严格退出干净。独立最终普通入口/两图敌人和Boss前段0脚本/着色器错误，GPU每图552960/0；发布后HTTPS实际走跳/版本核对也0错误。
+
+任务 `WINDCHIME-PIXEL-01` 保持review：完整全区审美/所有敌人警示与Boss阶段、完整听音、实体设备/性能和最差Seed未签；不能用定位fixture冒充自然通关。适用docs/art/gameplay/web全量harness在稀疏历史证据断链处阻塞；继承asset-consumer审计`assets/production_repair/`路径问题仍在，未降标准。下一步按用户实际试玩反馈精修，未来新模块先验证dual-grid对角/孔洞/薄台/返程净空；不自动开放后续地区。
+
+最后专项harness 5/5（pixel-plains、pixel-formal、art-art、web-cache、web-bundle）fresh通过；原始压缩报告与全部日志在 `docs/evidence/windchime_pixel_01/root/harness-final/`。适用全量profile原失败继续保留。
+
+关键命令：`python3 tools/run_pixel_plains_tests.py`、`python3 tools/run_pixel_formal_tests.py`、`python3 tools/harness.py --profile docs --profile art --profile gameplay --profile web --jobs 1`（完整历史证据未取齐时仍失败）。所有来源/失败/限定证据见[本轮目录](evidence/windchime_pixel_01/README.md)。
+
+以下为历史，不覆盖本节。
+
+---
+
 # 当前：正式风铃平原像素重制候选，准备冻结与交付
 
 用户已认可新小样的感觉，授权整个风铃平原、3张独立视差远景，并要求纹理简洁、允许dual-grid。任务 `WINDCHIME-PIXEL-01` 覆盖旧“一屏不扩区”边界；不重开预算、旧暖色失败不追认。

@@ -1,5 +1,5 @@
-# 当前候选冻结边界
+# 最终运行源与证据提交
 
-冻结前仍在修复新helper脚本依赖环的资源退出泄漏，不能把工作树构建`d54a2ddedf5f`与`92004efec748`当成最终可发布版本。它们均是300d65c+dirty真实Web，build-info准确仅表述其当时提交基线；源码变化以独立source_snapshot和日志绑定。
+运行源冻结 `c0f8e50770145795db5affd4afdbffff2479f1ea`，Web `d2c684ef8fc0`。交付身份、PCK hash、部署workflow和HTTPS在[delivery.json](delivery.json)。后续提交只补证据/质量记录/交接，不改变冻结运行目录。
 
-最终源码提交、构建ID、HTTPS与复测报告将在交付记录补齐；历史暖色失败、定位工具自然死亡后的Nil错误、退出泄漏原失败保留。
+本地最终独立普通/两图GUI无脚本/着色器错误；发布后HTTPS实际下载并执行正式图1走跳、正确build-info与badge，0页面/脚本/请求错误。较早d54a2ddedf5f、94fa94514253和92004efec748均保留其原身份，不追认最终修复；原暖色失败也不恢复。
