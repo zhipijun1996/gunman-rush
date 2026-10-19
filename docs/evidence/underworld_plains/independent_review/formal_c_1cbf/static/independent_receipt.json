@@ -1,0 +1,53 @@
+{
+  "reviewed_commit": "1cbf49663ecfa24769aeaea320be2801fa446917",
+  "reviewer": "/root/production_review",
+  "phase": "formal final static",
+  "source_after": "1cbf49663ecfa24769aeaea320be2801fa446917",
+  "runs": [
+    {
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        ".",
+        "--script",
+        "tools/capture_underworld_formal.gd",
+        "--",
+        "--map=1",
+        "--seed=underworld-independent-final/0",
+        "--output=res://build/underworld_plains/independent_review/final_static"
+      ],
+      "exit_code": 0,
+      "seconds": 21.78154903199902,
+      "log": "build/underworld_plains/independent_review/final_static/map1.log",
+      "log_sha256": "81790c9868bc88ae3b6b1dc6421e99e85a091bf8bb0e82c3ce3f710eff9dd192"
+    },
+    {
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--rendering-method",
+        "gl_compatibility",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        ".",
+        "--script",
+        "tools/capture_underworld_formal.gd",
+        "--",
+        "--map=2",
+        "--seed=underworld-independent-final/0",
+        "--output=res://build/underworld_plains/independent_review/final_static"
+      ],
+      "exit_code": 0,
+      "seconds": 19.159304574999624,
+      "log": "build/underworld_plains/independent_review/final_static/map2.log",
+      "log_sha256": "25def0c3ab2eb0aa73c7da1a5b0719b5ecdbb7377714c49ea7c6a0edc23c527c"
+    }
+  ],
+  "scope": "Actual formal consumers+HUD, recursively physics-frozen positional art inspection, not traversal"
+}

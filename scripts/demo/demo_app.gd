@@ -89,7 +89,7 @@ func _ready() -> void:
 	add_child(GameAudio.new())
 	process_physics_priority = 900
 	lifetime.end() # TITLE/Home do not own an active Run token.
-	var backdrop := PixelPlainsParallax.new()
+	var backdrop := UnderworldParallax.new()
 	backdrop.name = "PixelPlainsParallax"
 	add_child(backdrop)
 	director.stage_entered.connect(_stage_entered)
@@ -183,7 +183,7 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 		player.get_node("CourierVisual").hide()
 		player.get_node("PlayerVisualAdapter").process_mode = Node.PROCESS_MODE_DISABLED
 		player.get_node("PlayerFeedback").hide()
-		var visual := PixelPlainsActor.new()
+		var visual := UnderworldPlayer.new()
 		visual.name = "PixelPlainsActor"
 		visual.motor = player
 		visual.controller = controller
@@ -1309,6 +1309,7 @@ func _make_ui() -> void:
 		_reduced_effects = reduced
 		AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"),muted))
 	menu.menu_opened.connect(_pause_for_menu)
+	UnderworldUI.style_canvas(_canvas)
 
 func _label(location: Vector2, font_size: int) -> Label:
 	var label := Label.new()

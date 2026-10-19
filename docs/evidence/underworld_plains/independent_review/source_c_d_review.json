@@ -1,0 +1,31 @@
+{
+  "task_id": "UNDERWORLD-PLAINS-01",
+  "reviewer": "/root/production_review",
+  "source_c": "1cbf49663ecfa24769aeaea320be2801fa446917",
+  "source_d": "14e81362fcc33995bf6929ee13e83cf973d483e0",
+  "checked_unchanged_paths": [
+    "scripts/player",
+    "scripts/input",
+    "scripts/bosses",
+    "scripts/generation",
+    "scripts/demo",
+    "scripts/underworld_plains/underworld_player.gd",
+    "scripts/underworld_plains/underworld_enemy.gd",
+    "scripts/underworld_plains/underworld_actors.gd",
+    "scripts/underworld_plains/underworld_hazard_tiles.gd",
+    "scripts/underworld_plains/underworld_terrain.gd",
+    "scripts/underworld_plains/underworld_terrain.gdshader",
+    "scripts/underworld_plains/underworld_parallax.gd",
+    "scripts/underworld_plains/underworld_parallax_edge.gdshader",
+    "assets/underworld_plains/actors",
+    "assets/underworld_plains/icons",
+    "assets/underworld_plains/terrain",
+    "assets/underworld_plains/hazards",
+    "assets/underworld_plains/backgrounds",
+    "config/player_tuning.json"
+  ],
+  "changed_paths_in_checked_scope": [],
+  "boundary": "C actual static/motion evidence retains C source ID. These precise production families are byte-identical in D, including actors/Boss bodies and overlays, physics/input/generation, terrain/hazards and background images/parallax. D adds actual local scenery/decor and changes foundry export evidence; those need new D observations and cannot be relabeled C outputs.",
+  "test_diff_observation": "tests/plains_redesign_scene_runner.gd C->D changes only3 actual consumer type selectors to also observe UnderworldScenery; original4-identity requirement, ray checks, thresholds and10 mutations remain.",
+  "actual_local_composition_review": "New UnderworldLocalComposition consumes actual well region + source and shader at actual creek areas, emits Sprite2D. Metadata explicitly collision=false standing_edge=false physical_support=false and distant_local_architecture.3 grounded landmark sprites are actually drawn in UnderworldScenery and preserve full keepout/support-span checks. No invented invisible4th identity observed in source."
+}

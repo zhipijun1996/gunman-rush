@@ -1,7 +1,7 @@
 class_name WindkeeperHud
 extends Control
 ## Read-only HealthState view; no timers survive encounter disposal.
-const FONT := preload("res://assets/fonts/windkeeper_ui.ttf")
+const FONT := UnderworldUI.FONT
 var intro_only:=false
 var encounter: WindkeeperEncounter
 var delayed_hp := 0.0
@@ -16,8 +16,7 @@ var _hint_age := 0.0
 var _skip: Button
 func _ready() -> void:
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	theme = Theme.new()
-	theme.default_font = FONT
+	theme = UnderworldUI.create_theme()
 	position = Vector2(540, 18)
 	size = Vector2(570, 100)
 	_name = Label.new()
@@ -108,11 +107,11 @@ func _draw() -> void:
 	if intro_only: return
 	if not is_instance_valid(encounter): return
 	var bar := Rect2(0, 32, 550, 14)
-	draw_rect(bar.grow(3), Color("283b39"))
-	draw_rect(bar, Color("182925"))
+	draw_rect(bar.grow(3), UnderworldUI.BORDER)
+	draw_rect(bar, UnderworldUI.INK)
 	var capacity := maxf(1, encounter.health.capacity)
 	draw_rect(Rect2(bar.position, Vector2(bar.size.x * delayed_hp / capacity, bar.size.y)), Color("ba8355"))
-	draw_rect(Rect2(bar.position, Vector2(bar.size.x * encounter.health.current / capacity, bar.size.y)), Color("efcd7b"))
+	draw_rect(Rect2(bar.position, Vector2(bar.size.x * encounter.health.current / capacity, bar.size.y)), UnderworldUI.BRASS)
 	var definition := encounter.definition as WindkeeperDefinition
 	var thresholds: Array=[definition.phase_two_health] if encounter is BellstriderEncounter else [definition.phase_two_health,definition.phase_three_health]
 	for threshold: float in thresholds:

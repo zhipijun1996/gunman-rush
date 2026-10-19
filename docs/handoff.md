@@ -1,3 +1,49 @@
+# 最新：Underworld六项返工已部署，待试玩审阅
+
+任务 `UNDERWORLD-PLAINS-01` 保持 **review**，未合main。运行源 `c65a111015d032211bb8c54aaae9b322401349d4`（G），Web build `6b3093b929c0`；[直接试玩](https://zhipijun1996.github.io/gunman-rush/?v=6b3093b929c0)，标题进入平原或家园。[六项结果、截图与录像](evidence/underworld_plains/revision2/README.md)、[实际画面对照](evidence/underworld_plains/revision2/overview.png)、[准确交付](evidence/underworld_plains/delivery/source_G_c65a/final_delivery_G.json)。
+
+人物20个真实关键帧/双向8帧跑动；移动平台与功能风铃统一材质；商人与人物同为44wu实际站姿身高；家园同族Tile/三层视差，四原功能入口及八预留站位；标题、HUD、菜单/商店/地图共用主题与中文字体。修复Home新旧身体叠画与GPU平台纹理纯白。16区保持统一画法、分别配色/材料，本轮未开放其他地区。
+
+最新12项专项fresh全部通过（source I `8972f92f`，380.153秒，无缓存），覆盖原七项、新人物/机关/Home/UI与core；HomeApp原19/0干净。G GPU机制1254/0、Home101/0、UI隔离265/0；H正式实际键鼠影片18/0、Home十二站往返52/0。H仅修改采样长度/录影时限，I仅Harness时限/依赖，游戏运行文件均与G逐字节相同，原执行标签保留。公开完整PCK139618488字节/SHA、12许可与G一致，本地7/公开8项GUI通过；Pages39263060977/1成功。
+
+**未全绿：** 原独立HomeUI27条功能断言通过但退出197资源/285对象泄漏，strict FAIL；UI首次GPU地图点击失败，原命令隔离复试通过，原因未证；G完整CI的generated-consumers失败，自动部署跳过，新预览使用既有prepared发布与严格包闭包。全部原失败保留。纵屏、实体设备、完整Boss/全部朝向/听音和最终用户审美手感未验，不能称商业成品或完整80项通过。
+
+下一步先试玩新平原与Home；后续工程修复独立HomeUI生命周期与地图间歇失败，保留原断言及严格退出守门。验证命令 `python3 tools/harness.py --check underworld-player-animation --check underworld-mechanisms --check underworld-home --check underworld-ui --release --jobs 1`；完整适用回归另跑并如实保留失败。证据打包提交不冒称新导出。
+
+文档profile最新22/22项通过（整体passed，串行fresh）；最初并行克隆promisor对象缺失失败已保留。差异审计仍阻于旧production_repair目录引用，未改守门。逐文件来源记录与准确affected_paths已补齐。
+
+以下F及更早内容均为历史，不覆盖上文。
+
+---
+
+# 最新：Underworld六项试玩反馈返工中
+
+任务UNDERWORLD-PLAINS-01继续，未合main。用户要求补足真实角色动作及向左走、统一移动平台/功能风铃、商人与玩家同尺度，重做同族可走家园并预留NPC功能位置，以及整套UI/菜单适配。当前工作区未冻结；下文F build4b01de439c24是返工前对照，不能称已包含这六项修复。
+
+[本轮具体范围](evidence/underworld_plains/revision2/spec.md)、[用户原话](evidence/underworld_plains/revision2/user_feedback_F.txt)。原F媒体/质量记录、完整检查失败/原命令复测均保留；新玩家多帧、Home/UI与机关须新版本实际验证，不沿用F有限ACCEPT。正式碰撞/物理/资源/RNG/保存不改，Home空间按新授权重设计，未来地区仍未开放。
+
+以下是返工前版本与历史记录。
+
+---
+
+# Underworld正式平原交接
+
+任务 `UNDERWORLD-PLAINS-01` 保持review。分支 `feature/underworld-plains-production`，开发基线8382a41；准确运行源 `a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2`、Web build `4b01de439c24`。[直接试玩](https://zhipijun1996.github.io/gunman-rush/?plains=1&v=4b01de439c24)，Pages run39248153645/1成功、完整公开PCK132559084bytes/SHA与本地一致，12许可及3层原图非空SHA逐条通过；未合main。后续文档提交不冒称重导出。
+
+普通风铃平原正式两图已整体接Underworld：真实TileMap内部格与同源精确并集边界，三张独立三速景层，角色/敌人/Boss/交互物，四空间地标与独立seed装饰。荆棘根嵌平台表层8wu，四向/端头衔接，原碰撞/伤害/物理/玩法RNG/保存未改。10seed×2map实际40374/0与身份20cases21127/0；原E八路线59/0、10真实反例+12证据损坏均按原门槛拒绝，E→F947既有消费者字节一致、另新增一个导出测试，不把E路线重标F。
+
+[生产报告](underworld_plains_report.md)、[可执行Tile流程与5 Skills分工](underworld_tile_production.md)、[证据目录](evidence/underworld_plains/README.md)。7项Underworld fresh全过；完整76项前30通过后的旧wood consumer空引用保留，测试按真实default/显式legacy replay适配，原headless4533/0与GPU4546/0，完整复试见报告。F静态定位、旧C动态、E本地落地与F浏览器原地起跳回台分别标源；完整Boss阶段/连续听音、目标实体设备/性能与最终用户审美未签。
+
+原D4/20棚缺失REJECT、E PNG未导出导致空SHA、F map2一次退出资源警告、历史稀疏证据与旧超时均保留。棚增加合法完整64/56wu尺寸且原支撑/keepout不放宽；原PNG由既有export插件明确7路径+真实SHA保留，33ctex正常导入；map2原fixture唯一verbose复采干净。两个旧mutable证据绑定从确切Git版本恢复命中原expected SHA的不可变原件，旧验收未改。
+
+16区共用画法/光向/接口，各自产材料、色域、生态、地标。下一步森林先树皮/根皮/藤蔓真实家族，工城先金属/铆接/齿轮真实家族，按代表Tile→组合黄金→随机→正式消费者准入；本轮未正式开放森林/工城，不把岩石改色等同新地区。
+
+复验：`python3 tools/harness.py --check underworld-pipeline --check underworld-terrain --check underworld-formal-terrain --check underworld-scenery --check underworld-hazards --check underworld-formal --check underworld-raw-export --release --jobs 1`；完整 `python3 tools/harness.py --profile docs --profile art --profile gameplay --profile web --release --jobs 1`。原场景实际路线 `python3 tools/run_plains_redesign_scene_tests.py` 保持180秒与原断言。
+
+以下历史不覆盖本段。
+
+---
+
 # 五风格三地区实验交接
 
 分支 `feature/windchime-five-style-lab`；基线 `2f25083da11da11604a3535a2feae20d119ac001`；运行源 `32200d04fe233bda16cf50f678aabee51a9715e5`、build `d2d469f81582`。公开试玩 https://zhipijun1996.github.io/gunman-rush/?styles=1&v=d2d469f81582 ，部署run39229024220/attempt1成功，不合main。后续纯证据提交不更换运行源标签。

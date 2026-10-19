@@ -1,0 +1,114 @@
+{
+  "status": "deployed_public_bytes_and_gui_verified",
+  "task_id": "UNDERWORLD-PLAINS-01",
+  "source_commit": "86535886c5b86e95bea094d7e92e57354be3d76e",
+  "source_ref": "delivery/underworld-plains-source-7915c17348c0",
+  "build_id": "7915c17348c0",
+  "pack": "index.7915c17348c0.pck",
+  "pack_bytes": 128733764,
+  "pack_sha256": "7915c17348c09c793b73e4c15ebcf22a67e899a333ead48247d6df8f19a3701b",
+  "prepared_commit": "67baf5f8140222823eb7056e7c89bd53f69c9398",
+  "prepared_ref": "playtest/underworld-plains-7915c17348c0",
+  "transport": "Unchanged 512 KiB content-addressed gzip chunks; full pack omitted only from Git transport; existing Pages workflow reconstructs and verifies all original PCK bytes.",
+  "run_id": 39245171512,
+  "attempt": 1,
+  "run_url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/39245171512",
+  "deployment_conclusion": "success",
+  "url": "https://zhipijun1996.github.io/gunman-rush/?v=7915c17348c0",
+  "public_pack_sha256": "7915c17348c09c793b73e4c15ebcf22a67e899a333ead48247d6df8f19a3701b",
+  "public_pack_bytes": 128733764,
+  "public_license_files_checked": 12,
+  "licenses": "style-licenses/index.json",
+  "local_package_closure": {
+    "status": "passed",
+    "generic_cache_and_runtime": "web_bundle_E.log",
+    "style": "style_closure_E.json",
+    "underworld": "underworld_closure_E.json",
+    "underworld_textures": 33,
+    "underworld_resources": 12,
+    "underworld_json": 14
+  },
+  "local_gui": {
+    "status": "passed",
+    "report": "browser_local_E.json",
+    "folder": "browser_local_E",
+    "driver": "D 400 ms then Space 260 ms; original unmodified screenshots and full WebM retained",
+    "claim": "Ordinary title entry/map1; actual GUI input sequence; map2 positioned fixture; preserved style4 lab. Independent original-video review observed airborne-to-right-platform landing; world pixel change alone is not Motor acceptance.",
+    "positioned_map2_traversal_claim": false
+  },
+  "public_gui": {
+    "status": "passed",
+    "report": "browser_public_E.json",
+    "folder": "browser_public_E",
+    "driver": "D 120 ms then Space 180 ms; independent evidence must distinguish changed driving from content",
+    "claim": "Real HTTPS ordinary title/map1; clear airborne frame with JUMP0/1; subsequent gap fall, not landing or route completion. Positioned second-map scene and preserved experimental lab.",
+    "next_button_attempts": 12,
+    "accepted_additional_positioned_landmarks": 10,
+    "remaining_attempts": "Run ended; no further accepted fixture locations",
+    "hazard_surface_visible": "unverified; bounded extra locations were junction/merchant, not a hazard sample",
+    "positioned_map2_traversal_claim": false
+  },
+  "runtime_errors": {
+    "local_script_shader_resource": 0,
+    "public_script_shader_resource": 0,
+    "physical_device": "unverified"
+  },
+  "public_byte_report": "public_bytes_E.json",
+  "actual_validators": {
+    "browser_validator_E.py": {
+      "path": "browser_validator_E.py",
+      "sha256": "a3cda5f4753bcc3dd4afaa615c1414627cb6c6d90a92d336ba652b44da377d8d"
+    },
+    "browser_public_validator_E.py": {
+      "path": "browser_public_validator_E.py",
+      "sha256": "bda5b12b834b08fc9518778011fa3a09ecc0010903e75be28a7b14e43da556e0"
+    },
+    "public_bytes_validator_E.py": {
+      "path": "public_bytes_validator_E.py",
+      "sha256": "dc0882827c6bb00ef57931e14618a1c3359ed7dd8f67159c771b9a3f9318e2fb"
+    }
+  },
+  "post_E_delivery_helper": {
+    "path": "tools/underworld_delivery.py",
+    "sha256": "e5a181c4be03ad36be6cd5880dd493bdffca1b43e3f646c8657680c6792bf171",
+    "patch": "helper_post_E.patch",
+    "runtime_pack_rebuilt": false,
+    "changes": [
+      "Read exact rendered HUD title strip with inverted 4x OCR and preserve original/crop; original map predicates retained.",
+      "Bound OCR OpenMP threads to one.",
+      "Record validator digest; avoid treating whole-world pixel change as Actor/Motor acceptance.",
+      "Percent-encode license path characters before curl."
+    ]
+  },
+  "preserved_failures": [
+    "export_1cbf4966_foundry_failure.log",
+    "export_1cbf4966_foundry_failure.json",
+    "browser_local_E_initial_missing_playwright_ffmpeg.log",
+    "browser_local_E_ocr_timeout.log",
+    "browser_local_E_ocr_timeout.json",
+    "browser_local_E_ocr_timeout/",
+    "browser_local_E_ocr_miss.log",
+    "browser_local_E_ocr_miss.json",
+    "browser_local_E_ocr_miss/",
+    "browser_local_E_hud_layout_miss.log",
+    "browser_local_E_hud_layout_miss.json",
+    "browser_local_E_hud_layout_miss/",
+    "public_bytes_E_url_encoding_failure.log",
+    "public_bytes_E_url_encoding_failure.json"
+  ],
+  "preserved_D_candidate": {
+    "source_commit": "14e81362fcc33995bf6929ee13e83cf973d483e0",
+    "build_id": "7a33d7328135",
+    "not_deployed": true,
+    "reason": "Independent formal identity coverage rejected scenery repair omission; exact D bundle is retained in ignored build only, D closure reports remain preserved."
+  },
+  "full_release": "unverified; this metadata proves a bounded preview, not whole-project release, user art approval, all routes, audio or physical-device acceptance",
+  "main_merged": false,
+  "physical_device": "unverified",
+  "audio": "unverified",
+  "runtime_raw_png_hash_limitation": {
+    "report": "raw_png_visibility_E.json",
+    "status": "unverified runtime raw-source hashes; all three layer hashes empty in exported browser",
+    "imported_texture_bytes_checked": true
+  }
+}

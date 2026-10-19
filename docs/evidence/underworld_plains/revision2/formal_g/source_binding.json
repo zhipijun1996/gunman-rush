@@ -1,0 +1,92 @@
+{
+  "schema": "underworld-formal-capture-source-v1",
+  "source_commit": "c65a111015d032211bb8c54aaae9b322401349d4",
+  "source_after": "c65a111015d032211bb8c54aaae9b322401349d4",
+  "worktree_head": "8dfef50ee902f7c0726764d41d0480f2df46ea18",
+  "source_attribution": "All listed runtime and capture producer scopes are byte-identical to G. Checkout HEAD H changes only another actual-input movie fixture, not these consumers.",
+  "runtime_source_commit": "c65a111015d032211bb8c54aaae9b322401349d4",
+  "runtime_scopes": [
+    "scripts",
+    "scenes",
+    "resources",
+    "config",
+    "assets",
+    "shaders",
+    "project.godot",
+    "export_presets.cfg",
+    "tools/capture_underworld_formal.gd"
+  ],
+  "runtime_diff_empty": true,
+  "status": "passed",
+  "source_scope": "Actual DemoApp formal positioned GPU stills, no traversal claim",
+  "runs": [
+    {
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        ".",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tools/capture_underworld_formal.gd",
+        "--",
+        "--map=1",
+        "--output=res://build/underworld_plains/captures_g_c65a"
+      ],
+      "exit_code": 0,
+      "seconds": 21.095,
+      "strict_error": false,
+      "log": "build/underworld_plains/captures_g_c65a/map1.log"
+    },
+    {
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--audio-driver",
+        "Dummy",
+        "--path",
+        ".",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tools/capture_underworld_formal.gd",
+        "--",
+        "--map=2",
+        "--output=res://build/underworld_plains/captures_g_c65a"
+      ],
+      "exit_code": 0,
+      "seconds": 20.739,
+      "strict_error": false,
+      "log": "build/underworld_plains/captures_g_c65a/map2.log"
+    }
+  ],
+  "files": {
+    "build/underworld_plains/captures_g_c65a/map2_enemy_sentry.png": "968d86641554f8753ff103318df93d2e1eba6de1aa5024011c31bf60f1229a7b",
+    "build/underworld_plains/captures_g_c65a/map2.log": "edd979c715f9ace895b11b968c36273cd7426974448c41651a64ef3f1c9984c9",
+    "build/underworld_plains/captures_g_c65a/map1_enemy_diver.png": "5d4663148a3b56aa033f19846afc9f2b67d4fa17d893cbb4f9175bb73ebed903",
+    "build/underworld_plains/captures_g_c65a/map1_boss.png": "acaf592b6a0bfde292e79a8697c09980de2a8e3d6e719662617449db683be002",
+    "build/underworld_plains/captures_g_c65a/map2_spawn.png": "47828c018121910a5c6d522f9575d49f282bfd55ba6b4271b91976e96de4e37d",
+    "build/underworld_plains/captures_g_c65a/map1_enemy_hopper.png": "8d63bf647cad90b42cd592ead9ea50a83f0427e65cef26ff5f3216568c9b3c64",
+    "build/underworld_plains/captures_g_c65a/map2_integrated_thorns.png": "3ba8d732032d9c252daf70c72626ee9ebb463cf376abf33d93c42c57cde9b9e6",
+    "build/underworld_plains/captures_g_c65a/map2_enemy_charger.png": "7424b49271aca9bb6a0c3fa85693e58d9d1492793e113079c796a86ba140073b",
+    "build/underworld_plains/captures_g_c65a/map1_integrated_thorns.png": "72ebf2e29e32e3e7e4e80d051f9fc507c6f339d80c0d9e5d257f8f54b31fc1e2",
+    "build/underworld_plains/captures_g_c65a/map1_merchant.png": "01cbc1578044ada0a845ffde80eb42d86bdfeea94ef0eb7f4ac98b8ff05938e6",
+    "build/underworld_plains/captures_g_c65a/map1_spawn.png": "03a7f88992359471a5de9118274e6f040255ee5988a35d0e6103f999f04006ff",
+    "build/underworld_plains/captures_g_c65a/map2_enemy_diver.png": "c3adf1a18d9dbb01b93adcdd6de3ed90ef1623928ca6cc3e08c3259c8c516284",
+    "build/underworld_plains/captures_g_c65a/map1_enemy_charger.png": "79c98ed48c16c28ca2ffa1a2120802ca9ffa94571339f930f73dd929b7fec60a",
+    "build/underworld_plains/captures_g_c65a/map2_captures.json": "68e5212d21c5b06bf6bdba98eee0bb700890a941e7abf2a33516ff6bfe0eedc3",
+    "build/underworld_plains/captures_g_c65a/map2_boss.png": "86dd80869298d9947728ba2ed14682392dd24ac11d8fb830ea7b9fd069fadcf5",
+    "build/underworld_plains/captures_g_c65a/map1_junction.png": "6b2c3f62484a618ae4f274e9139e46d023af738420bdf724233c5472de8b9039",
+    "build/underworld_plains/captures_g_c65a/map1.log": "840bdd17ffc7867718f7cbe3f3e1df7b446ebd35662066710583bbeaf8d9d426",
+    "build/underworld_plains/captures_g_c65a/map2_enemy_fan_sentry.png": "67c829990143e5ca38ae8abda8ba580764df581c288bceba7bdd7e3be1236e38",
+    "build/underworld_plains/captures_g_c65a/map1_enemy_sentry.png": "ecda2e981a4b603a1454d277b6d5ef63900e03d8d6fceabe514f514528aeb389",
+    "build/underworld_plains/captures_g_c65a/map1_captures.json": "4b47dec91cec053a95e044cd7dfdc73992b77e5aadf5aa1d42cef74accd9153a",
+    "build/underworld_plains/captures_g_c65a/map2_enemy_hopper.png": "5ae052cfca7620a5da796c49b4a29dcabcae70fc49eb5070058648bdb24d6fb2",
+    "build/underworld_plains/captures_g_c65a/map2_junction.png": "27cedf190ec86deae3571703739c62a98124c0afa1649b2dd13759659814d8ee",
+    "build/underworld_plains/captures_g_c65a/map1_enemy_fan_sentry.png": "91efbb13b744e8760cf30d4f028434e3048b9c6faa78c1639e10172dba1842ac",
+    "build/underworld_plains/captures_g_c65a/map2_merchant.png": "04bb1087fbe5a343d32bf6aecf30d8a2e3242fbf575260a945f5dbca7fd2178a"
+  }
+}

@@ -1,0 +1,5 @@
+# D原场景检查完整通过
+
+运行源14e81362fcc33995bf6929ee13e83cf973d483e0。原命令`python tools/run_plains_redesign_scene_tests.py`退出0。正例124.572秒，8条真实路线59/0，10个实际节点错误均被预期拒绝，12个证据腐坏均被拒绝；原180秒上限和断言未降。receipt/source_snapshot原件保留，路径仍记录实际build生成位置；positive.json.gz解压后SHA与receipt原始positive.json一致，未改内容。
+
+后续独审在其他随机种子发现repair_shelter4/20省略，所以这份D基线检查不能替最终随机地标准入，也不改标成后续E检查。

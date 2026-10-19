@@ -1,0 +1,658 @@
+#!/usr/bin/env python3
+"""Audit the Underworld production manifests actually read by runtime consumers.
+
+This is a source/assembly contract, not a beauty, gameplay or device approval.
+The audit never imports Godot, writes source assets, or paints pixels.
+"""
+from __future__ import annotations
+import argparse
+import copy
+import hashlib
+import json
+import re
+import sys
+from pathlib import Path
+from PIL import Image
+
+ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_MANIFEST = 'assets/underworld_plains/production_manifest.json'
+BITS = {'N': 1, 'NE': 2, 'E': 4, 'SE': 8, 'S': 16, 'SW': 32, 'W': 64, 'NW': 128}
+
+
+def digest(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def canonical_mask(mask: int) -> int:
+    for diagonal, a, b in [('NE','N','E'),('SE','S','E'),('SW','S','W'),('NW','N','W')]:
+        if not (mask & BITS[a] and mask & BITS[b]):
+            mask &= ~BITS[diagonal]
+    return mask
+
+
+class Audit:
+    def __init__(self, root: Path, json_overrides: dict | None = None, text_overrides: dict | None = None):
+        self.root = root.resolve()
+        self.json_overrides = json_overrides or {}
+        self.text_overrides = text_overrides or {}
+        self.runtime_text: dict[str, str] = {}
+        self.image_cache: dict[str, Image.Image] = {}
+        self.checks: list[dict] = []
+        self.measurements: dict = {'files': {}}
+
+    def check(self, condition, code: str, detail: str):
+        self.checks.append({'code': code, 'passed': bool(condition), 'detail': detail})
+        return bool(condition)
+
+    def path(self, value, code: str) -> Path | None:
+        if isinstance(value, dict):
+            value = value.get('path', value.get('image'))
+        if not self.check(isinstance(value, str) and bool(value), code, str(value)):
+            return None
+        raw = value.removeprefix('res://')
+        path = (self.root / raw).resolve()
+        if not self.check(path.is_relative_to(self.root), code + '.inside_repo', raw):
+            return None
+        if not self.check(path.is_file() and path.stat().st_size > 0, code + '.exists', raw):
+            return None
+        self.measurements['files'][str(path.relative_to(self.root))] = {'sha256': digest(path), 'bytes': path.stat().st_size}
+        return path
+
+    def hashed(self, spec, code: str) -> Path | None:
+        path = self.path(spec, code)
+        if path and isinstance(spec, dict):
+            self.check(spec.get('sha256') == digest(path), code + '.sha256', str(path.relative_to(self.root)))
+        return path
+
+    def image(self, spec, code: str) -> Image.Image | None:
+        path = self.hashed(spec, code)
+        if path is None:
+            return None
+        if str(path) in self.image_cache:
+            return self.image_cache[str(path)]
+        try:
+            image = Image.open(path).convert('RGBA')
+            image.load()
+            self.image_cache[str(path)] = image
+            return image
+        except (OSError, ValueError) as exc:
+            self.check(False, code + '.decode', str(exc))
+            return None
+
+    def json(self, value, code: str) -> dict:
+        path = self.path(value, code)
+        if path:
+            try:
+                result = copy.deepcopy(self.json_overrides[str(path.relative_to(self.root))]) if str(path.relative_to(self.root)) in self.json_overrides else json.loads(path.read_text())
+                self.check(isinstance(result, dict), code + '.object', str(path))
+                return result if isinstance(result, dict) else {}
+            except (OSError, ValueError) as exc:
+                self.check(False, code + '.decode', str(exc))
+        return {}
+
+    def script(self, value, code):
+        path = self.path(value, code)
+        if path is None:
+            return ''
+        rel = str(path.relative_to(self.root))
+        try:
+            return self.text_overrides.get(rel, path.read_text())
+        except (OSError, UnicodeError) as exc:
+            self.check(False, code + '.decode', str(exc))
+            return ''
+
+    def consumption(self, fragment_path, consumer, code):
+        consumers = consumer if isinstance(consumer, list) else [consumer]
+        texts = [self.script(value, code + '.consumer') for value in consumers]
+        self.runtime_text[code] = '\n'.join(texts)
+        raw = fragment_path.get('path') if isinstance(fragment_path, dict) else fragment_path
+        matched = isinstance(raw, str) and any(Path(raw).name in text and 'JSON.parse_string' in text and 'FileAccess.get_file_as_string' in text for text in texts)
+        self.check(matched, code + '.read_by_runtime', str(raw))
+
+    def result(self):
+        failures = [c for c in self.checks if not c['passed']]
+        return {'schema': 'underworld-pipeline-audit-v1', 'scope': 'Source provenance and production-manifest assembly contract only; GPU, Motor, visual quality and device acceptance are separate.',
+                'passed': not failures, 'check_count': len(self.checks), 'failure_count': len(failures), 'checks': self.checks, 'measurements': self.measurements}
+
+
+
+def audit_generation(a: Audit, value, code: str, consumed_image=None):
+    record = a.json(value, code)
+    original = record.get('original_generation', {})
+    prompt = record.get('prompt', original.get('props_prompt'))
+    a.check(isinstance(prompt, str) and bool(prompt.strip()), code + '.prompt', 'Actual nonempty generation prompt')
+    a.check(record.get('tool') == 'image_gen.imagegen', code + '.tool', str(record.get('tool')))
+    a.check(bool(record.get('model', record.get('model_status'))), code + '.model_disclosure', 'not_exposed / unknown is valid; invented model names are not required')
+    for source_key in ('source', 'reference', 'image', 'atlas'):
+        if source_key in record and source_key + '_sha256' in record:
+            path = a.path(record[source_key], code + '.' + source_key)
+            if path:
+                a.check(digest(path) == record[source_key + '_sha256'], code + '.' + source_key + '_sha256', 'Recorded lineage agrees with real source bytes')
+    recorded_output = record.get('image', record.get('atlas'))
+    if recorded_output and consumed_image:
+        consumed = consumed_image.get('path') if isinstance(consumed_image, dict) else consumed_image
+        a.check(str(recorded_output).removeprefix('res://') == str(consumed).removeprefix('res://'), code + '.consumed_output', 'Generation record describes the actual runtime image')
+    return record
+
+
+def audit_reference(a: Audit, terrain: dict):
+    # The immutable source recipe already distinguishes 47 coordinates from
+    # 47 different paintings, and records true quarter-tile inner corners.
+    recipe_path = terrain.get('reference_recipe', 'assets/style_exploration/anchors.json')
+    recipes = a.json(recipe_path, 'reference.recipe')
+    styles = recipes.get('styles', {})
+    source_spec = styles.get('underworld', {})
+    masks = sorted({canonical_mask(i) for i in range(256)})
+    a.check(recipes.get('bits') == BITS, 'reference.bits', 'Project clockwise neighbour order')
+    a.check(recipes.get('masks') == masks and len(masks) == 47, 'reference.47_masks', 'All canonical masks, including missing-diagonal inner corners')
+    source_path = a.path(terrain.get('source_texture'), 'reference.source')
+    if source_path:
+        a.check(digest(source_path) == source_spec.get('source_sha256'), 'reference.source_sha256', 'Frozen licensed Underworld source bytes')
+        a.check(terrain.get('source_sha256') == digest(source_path), 'terrain.declared_source_sha256', 'Runtime provenance agrees with actual copied source')
+    evidence = a.path(terrain.get('license_evidence', 'assets/style_exploration/underworld/source/licenses/publisher_page.txt'), 'reference.license')
+    if evidence:
+        text = evidence.read_text().lower()
+        a.check('feel free to use it however you want' in text, 'reference.permission', 'Custom publisher permission; not CC0')
+    a.check(terrain.get('license', 'custom-publisher-permission') != 'CC0', 'reference.no_false_cc0', 'Underworld has a custom permission statement')
+    px = terrain.get('tile_px')
+    a.check(isinstance(px, int) and px == source_spec.get('px'), 'terrain.native_pixel_scale', str(px))
+    a.check(isinstance(terrain.get('world_tile_wu'), (int, float)) and terrain['world_tile_wu'] > 0, 'terrain.world_scale', str(terrain.get('world_tile_wu')))
+    mapping = terrain.get('mask_to_atlas', {})
+    a.check(mapping == source_spec.get('mask_to_atlas'), 'terrain.mask_mapping', 'Runtime mask coordinates equal immutable crop recipe')
+    a.check(terrain.get('source_regions') == source_spec.get('recipes') and bool(source_spec.get('recipes')), 'terrain.source_regions', 'Runtime boundary source regions match the original quarter-crop recipe')
+    atlas = a.image(terrain.get('atlas'), 'terrain.atlas')
+    atlas_path = a.path(terrain.get('atlas'), 'terrain.declared_atlas')
+    if atlas_path:
+        a.check(terrain.get('atlas_sha256') == digest(atlas_path), 'terrain.declared_atlas_sha256', 'Runtime provenance agrees with actual atlas')
+    if atlas and source_path and isinstance(px, int) and px > 0:
+        source = Image.open(source_path).convert('RGBA')
+        expected = Image.new('RGBA', (8 * px, 6 * px))
+        valid = True
+        hashes = []
+        for i, mask in enumerate(masks):
+            tile = Image.new('RGBA', (px, px))
+            covered = Image.new('1', (px, px))
+            for patch in source_spec.get('recipes', {}).get(str(mask), []):
+                src, dst = patch['source'], patch['destination']
+                x1,y1,x2,y2 = dst
+                legal = (0 <= src[0] < src[2] <= source.width and 0 <= src[1] < src[3] <= source.height and 0 <= x1 < x2 <= px and 0 <= y1 < y2 <= px and (src[2]-src[0],src[3]-src[1]) == (x2-x1,y2-y1))
+                if not legal or covered.crop(dst).getbbox():
+                    valid = False
+                    continue
+                crop = source.crop(src)
+                if patch.get('horizontal_flip'):
+                    crop = crop.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
+                tile.paste(crop, (x1,y1)); covered.paste(1, dst)
+            valid &= covered.histogram()[0] == 0
+            hashes.append(hashlib.sha256(tile.tobytes()).hexdigest())
+            expected.paste(tile, ((i % 8)*px, (i//8)*px))
+        a.check(valid, 'terrain.crop_coverage', 'All pixels covered exactly once by bounded unscaled original-source crops')
+        a.check(atlas.size == expected.size and atlas.tobytes() == expected.tobytes(), 'terrain.source_reconstruction', 'Runtime atlas RGBA exactly equals source crop replay')
+        a.measurements['terrain'] = {'native_tile_px': px, 'world_tile_wu': terrain.get('world_tile_wu'), 'canonical_masks': len(masks), 'unique_tile_pixels': len(set(hashes))}
+    tileset = a.path(terrain.get('tileset'), 'terrain.tileset')
+    if tileset:
+        content = tileset.read_text()
+        a.check('TileSetAtlasSource' in content, 'terrain.real_tileset', 'Godot TileSetAtlasSource resource')
+        atlas_path = terrain.get('atlas')
+        atlas_path = atlas_path.get('path') if isinstance(atlas_path, dict) else atlas_path
+        a.check(isinstance(atlas_path, str) and atlas_path.removeprefix('res://') in content, 'terrain.tileset_consumes_atlas', str(atlas_path))
+    a.check(terrain.get('mode') == 'blob47_core_with_exact_boundary_adapter', 'terrain.honest_geometry_mode', 'Formal non-grid boundaries remain exact; only interior cells use Blob47 TileMapLayer')
+
+
+def audit_scenery(a: Audit, scenery: dict):
+    layers = scenery.get('backgrounds', [])
+    a.check(isinstance(layers, list) and len(layers) == 3, 'background.three_layers', 'Sky base excluded')
+    factors, images, rows = [], [], []
+    for index, spec in enumerate(layers if isinstance(layers, list) else []):
+        prefix = f'background.{index}'
+        image = a.image(spec.get('image'), prefix + '.image')
+        factor = spec.get('camera_factor')
+        pair = factor if isinstance(factor, list) else [factor, factor]
+        a.check(len(pair) == 2 and all(isinstance(v,(int,float)) and 0 < v < 1 for v in pair), prefix + '.factor', str(factor))
+        factors.append(pair)
+        a.check(bool(spec.get('role')), prefix + '.role', str(spec.get('role')))
+        if image:
+            lo, hi = image.getchannel('A').getextrema()
+            a.check(hi > 0 and (index == 0 or lo < 255), prefix + '.transparent_depth', 'Far may contain sky; middle and near require transparent empty space')
+            images.append(hashlib.sha256(image.tobytes()).hexdigest())
+            rows.append({'size': list(image.size), 'alpha_range':[lo,hi], 'factor':factor})
+        generation = spec.get('generation_record')
+        audit_generation(a, generation, prefix + '.generation_record', spec.get('image'))
+    a.check(len(images) == 3 and len(set(images)) == 3, 'background.independent_pixels', 'Three different source images, not one panorama copied three times')
+    valid = all(len(pair) == 2 and all(isinstance(v,(int,float)) for v in pair) for pair in factors)
+    a.check(valid and len(factors) == 3 and all(factors[0][axis] < factors[1][axis] < factors[2][axis] for axis in (0,1)), 'background.ordered_factors', str(factors))
+    a.measurements['backgrounds'] = rows
+    decor = scenery.get('decor', {})
+    a.check(decor.get('independent_seed') is True, 'decor.independent_seed', 'Does not consume gameplay RNG')
+    a.check(bool(decor.get('keepout_policy')), 'decor.keepout', str(decor.get('keepout_policy')))
+    a.check(bool(decor.get('support_policy')), 'decor.support', str(decor.get('support_policy')))
+    a.check(decor.get('collision') is False, 'decor.no_collision', 'Presentation-only supported props')
+    a.image(decor.get('atlas'), 'decor.atlas')
+    audit_generation(a, decor.get('generation_record'), 'decor.generation_record', decor.get('atlas'))
+    audit_extended_decor(a, scenery)
+    audit_local_composition(a, scenery)
+
+
+
+def audit_extended_decor(a: Audit, scenery: dict):
+    """Audit the additional source-native grass and whole identity objects."""
+    decor = scenery.get('decor', {})
+    metadata = a.json(decor.get('regions_metadata'), 'decor.regions_metadata')
+    regions = metadata.get('regions', {})
+    provenance = a.json(decor.get('generation_record'), 'decor.extended_provenance')
+    native = provenance.get('native_grass', {})
+    native_image = a.image({'path':native.get('source'), 'sha256':native.get('source_sha256')}, 'decor.grass.source')
+    a.check(bool(native.get('processing')), 'decor.grass.processing', 'Original-source crop processing disclosure')
+    license_file = a.path(native.get('license_record'), 'decor.grass.license')
+    if license_file:
+        a.check('feel free to use it however you want' in license_file.read_text().lower(), 'decor.grass.permission', 'Original publisher custom permission retained')
+    reference = a.path('assets/style_exploration/underworld/source/TileSet.png','decor.grass.reference')
+    native_path = a.path(native.get('source'), 'decor.grass.actual_source')
+    if reference and native_path:
+        a.check(digest(reference)==digest(native_path), 'decor.grass.same_publisher_bytes', 'Native grass atlas is the byte-identical original Underworld sheet')
+    grass = regions.get('grass', {})
+    a.check(grass.get('atlas')==native.get('source') and grass.get('region')==native.get('region'), 'decor.grass.runtime_recipe', 'Runtime grass override agrees with its actual source record')
+    identities = audit_generation(a, decor.get('identity_generation_record'), 'decor.identity_generation')
+    recorded = {entry.get('kind'):entry for entry in identities.get('regions',[])}
+    expected={'well','clock_arch','repair_shelter'}
+    a.check(set(recorded)==expected, 'decor.identity.complete_objects', 'Three actual complete-object regions with preserved original source')
+    a.check(set(decor.get('identity_landmarks',{}))=={'windmill_plateau','creek_well','clock_court','repair_gallery'}, 'decor.identity.four_roles', 'Four current Plains identity roles; not sixteen-region production')
+    for kind in ['grass','well','clock_arch','repair_shelter']:
+        spec=regions.get(kind,{})
+        prefix='decor.region.'+kind
+        image=a.image(spec.get('atlas'),prefix+'.atlas')
+        rect=spec.get('region',[])
+        legal=(isinstance(rect,list) and len(rect)==4 and all(isinstance(v,int) for v in rect) and image is not None and 0<=rect[0]<rect[0]+rect[2]<=image.width and 0<=rect[1]<rect[1]+rect[3]<=image.height)
+        a.check(legal,prefix+'.bounds','Actual x/y/width/height entirely inside source PNG')
+        foot=spec.get('foot',[])
+        foot_legal=(legal and isinstance(foot,list) and len(foot)==2 and all(isinstance(v,(int,float)) for v in foot) and 0<=foot[0]<=rect[2] and 0<=foot[1]<=rect[3])
+        a.check(foot_legal,prefix+'.foot_bounds',str(foot))
+        a.check(bool(spec.get('source_semantics')),prefix+'.source_semantics','Source role and no repaint/native versus generated lineage are explicit')
+        if legal and foot_legal:
+            x,y,w,h=rect
+            alpha=image.crop((x,y,x+w,y+h)).getchannel('A')
+            bbox=alpha.point(lambda value:255 if value>=128 else 0).getbbox()
+            a.check(bbox is not None and foot[1]==bbox[3],prefix+'.actual_opaque_foot','Declared foot equals actual alpha>=128 lower edge; no cut root or floating bottom padding')
+        if kind in expected:
+            record=recorded.get(kind,{})
+            a.check(all(record.get(field)==spec.get(field) for field in ('atlas','region','foot','world_height')),prefix+'.generation_recipe','Runtime crop/foot/scale agrees with actual generated-source extraction record')
+            a.check(spec.get('atlas')==identities.get('image'),prefix+'.actual_generated_atlas','Runtime region samples the recorded original image')
+
+
+def audit_local_composition(a: Audit, scenery: dict):
+    """Use the same explicit background semantics as the actual consumer."""
+    spec=scenery.get('decor',{}).get('local_composition',{})
+    a.check(bool(spec),'local.spec_present','New distant architectural consumer must have an explicit runtime spec')
+    a.check(spec.get('identity')=='creek_well' and spec.get('asset_id')=='well','local.identity_asset','The source-painted well is the current creek background identity')
+    a.check(spec.get('depth')=='distant_local_architecture','local.depth','Background architecture is not a grounded gameplay landmark')
+    for name in ('collision','standing_edge','physical_support'):
+        a.check(spec.get(name) is False,'local.'+name,'No collider, standable edge or physical-root claim')
+    z=spec.get('z_index')
+    a.check(isinstance(z,int) and z<0,'local.background_z','Consumer remains behind the gameplay plane')
+    a.check(isinstance(spec.get('target_height'),(int,float)) and spec['target_height']>0,'local.positive_height','Actual source/foot scale has positive height')
+    a.check(bool(spec.get('functional_keepout')),'local.functional_keepout','Original functional keepouts remain declared')
+    opacity=spec.get('opacity')
+    a.check(isinstance(opacity,(int,float)) and 0<opacity<=1,'local.visible_opacity','Actual material opacity is declared and nonzero, not an invisible identity label')
+    total=spec.get('total_visibility_samples')
+    hidden=spec.get('maximum_solid_hidden_samples')
+    a.check(isinstance(total,int) and isinstance(hidden,int) and total>0 and 0<=hidden<total,'local.visibility_budget','Declared visibility sample budget cannot accept a fully hidden source base')
+    for axis in ('offset_x','offset_y'):
+        values=spec.get(axis)
+        a.check(isinstance(values,list) and bool(values) and all(isinstance(v,(int,float)) for v in values),'local.'+axis,'Actual source-consumed local background sockets')
+    base=spec.get('painted_base',{})
+    source=a.path(base.get('source'),'local.painted_base.source')
+    a.check(bool(base.get('description')),'local.painted_base.description','Original painted footing is the declared base, not physical solid support')
+    metadata=a.json(scenery.get('decor',{}).get('regions_metadata'),'local.source_regions')
+    well=metadata.get('regions',{}).get('well',{})
+    a.check(base.get('source')==well.get('atlas'),'local.same_painted_base','Virtual base belongs to the exact consumed well image')
+    limits=spec.get('readability_limits',{})
+    a.check(all(isinstance(limits.get(k),(int,float)) for k in ('max_r','max_g','max_b')) and limits.get('red_not_above_blue') is True,'local.readability_contract','Actual runtime cold atmospheric material limits; no separate pipeline shadow rules')
+    for key in ('fog_shadow','fog_highlight'):
+        value=spec.get(key)
+        valid=isinstance(value,str) and bool(re.fullmatch('[0-9a-fA-F]{6}',value))
+        a.check(valid,'local.'+key+'.rgb','Explicit six-digit source-consumed fog color')
+        if valid and all(isinstance(limits.get(k),(int,float)) for k in ('max_r','max_g','max_b')):
+            rgb=[int(value[i:i+2],16)/255.0 for i in (0,2,4)]
+            a.check(all(rgb[i]<=limits['max_'+channel] for i,channel in enumerate('rgb')) and (not limits.get('red_not_above_blue') or rgb[0]<=rgb[2]),'local.'+key+'.runtime_readability','Matches the same declared limits checked by UnderworldLocalComposition.actual_issues')
+    script=a.path(spec.get('consumer_script'),'local.consumer')
+    direct='' if script is None else script.read_text()
+    callers=[]
+    for caller in scenery.get('consumer_scripts',[]):
+        path=a.path(caller,'local.caller')
+        if path:callers.append(path.read_text())
+    linked=any('scenery_build.json' in text and 'JSON.parse_string' in text and 'UnderworldLocalComposition.new()' in text and '_spec.local_composition' in text for text in callers)
+    a.check(linked and 'class_name UnderworldLocalComposition' in direct and 'spec.painted_base.source' in direct,'local.read_by_runtime','Actual JSON-reading scenery passes local_composition into the real child configure()')
+    a.check('_spec.readability_limits' in direct and 'spec.fog_shadow' in direct and 'spec.fog_highlight' in direct,'local.same_runtime_readability_spec','The actual material and runtime rejection read these same production values')
+
+
+def audit_hazards(a: Audit, hazards: dict):
+    a.hashed(hazards.get('source_image'), 'hazards.source')
+    generated = hazards.get('generated_reference', {})
+    if generated:
+        a.hashed(generated, 'hazards.generated_reference')
+        audit_generation(a, generated.get('prompt_record'), 'hazards.generation_record')
+        a.check(bool(generated.get('model_status')), 'hazards.model_status', 'Unknown model is allowed when not exposed')
+    atlas_spec = hazards.get('atlas', {})
+    image = a.image(atlas_spec, 'hazards.atlas')
+    a.check(atlas_spec.get('tile_size_px') == [16,16], 'hazards.native_scale', str(atlas_spec.get('tile_size_px')))
+    a.check(atlas_spec.get('columns') == ['start','middle','end','single'], 'hazards.transitions', 'Start, repeat, end and single-span material variants')
+    if image:
+        a.check(image.size == (64,16), 'hazards.atlas_size', str(image.size))
+        if image.size == (64,16):
+            root = int(atlas_spec.get('embedded_root_px', 0))
+            outer = int(atlas_spec.get('external_depth_px', 0))
+            a.check(root > 0 and outer > 0 and root + outer == 16, 'hazards.root_and_tip', f'{root}+{outer}')
+            a.check(image.getchannel('A').crop((0,0,64,outer)).getbbox() is not None and image.getchannel('A').crop((0,outer,64,16)).getbbox() is not None, 'hazards.material_continuity', 'Visible tips and embedded root pixels, not an empty overlay')
+    semantics = hazards.get('semantics', {})
+    a.check(semantics.get('damage_source') == 'PlatformThornDefinition.danger', 'hazards.damage_source', 'Existing authoritative damage definition')
+    a.check(set(semantics.get('orientation', [])) == {'top','left','right','bottom'}, 'hazards.orientations', str(semantics.get('orientation')))
+    a.check(semantics.get('collision_mutation') is False, 'hazards.preserve_collision', 'No additional solid base or changed hazard extent')
+    connection = hazards.get('connection', {})
+    a.check(connection.get('floating_base') is False, 'hazards.no_floating_base', 'Danger material uses the supporting platform boundary')
+    a.check(bool(connection.get('material_family')), 'hazards.material_family', str(connection.get('material_family')))
+
+
+def bounded_region(a: Audit, image, rect, code):
+    legal = image is not None and isinstance(rect, list) and len(rect) == 4 and all(isinstance(v, int) for v in rect) and 0 <= rect[0] < rect[0]+rect[2] <= image.width and 0 <= rect[1] < rect[1]+rect[3] <= image.height
+    a.check(legal, code, 'Actual x/y/width/height is inside the consumed PNG')
+    return legal
+
+
+def fragment_folder(a: Audit, fragment: dict, key: str):
+    path = a.path(fragment.get(key), key + '.relative_base')
+    return path.parent.relative_to(a.root) if path else Path('assets/underworld_plains')
+
+
+def audit_player_animation(a: Audit, player: dict):
+    prefix = 'player'
+    a.check(player.get('schema') == 'underworld-player-animation-v1', prefix+'.schema', 'Real cached body-keyframe manifest')
+    recipe = a.json(player.get('recipe'), prefix+'.recipe')
+    folder = fragment_folder(a, player, 'recipe')
+    summary = a.json(str(folder/'generation_summary.json'), prefix+'.generation')
+    reference = a.hashed({'path':summary.get('reference'), 'sha256':summary.get('reference_sha256')}, prefix+'.reference')
+    a.check(bool(reference) and str(player.get('reference', '')).removeprefix('res://') == summary.get('reference'), prefix+'.reference_lineage', 'Runtime reference agrees with actual generation ancestry')
+    calls = summary.get('calls', [])
+    a.check(isinstance(calls,list) and len(calls) == summary.get('generation_calls') and len(calls) > 0, prefix+'.actual_calls', 'Actual preserved generation calls, not templates')
+    for i, call in enumerate(calls if isinstance(calls,list) else []):
+        audit_generation(a, str(folder/call), prefix+f'.call.{i}')
+    canvas, anchor = player.get('canvas'), player.get('anchor')
+    valid_canvas = isinstance(canvas,list) and len(canvas)==2 and all(isinstance(v,int) and v>0 for v in canvas)
+    valid_anchor = valid_canvas and isinstance(anchor,list) and len(anchor)==2 and all(isinstance(v,(int,float)) for v in anchor) and 0<anchor[0]<canvas[0] and 0<anchor[1]<canvas[1]
+    a.check(valid_canvas, prefix+'.canvas', str(canvas)); a.check(valid_anchor, prefix+'.anchor', str(anchor))
+    a.check(canvas == recipe.get('canvas') and anchor == recipe.get('anchor'), prefix+'.recipe_anchor', 'Runtime and source packing share the actual pivot')
+    states = {'idle','run','rise','fall','land','hurt','death'}
+    clips = player.get('animations', {})
+    a.check(set(clips)==states, prefix+'.states', 'Real seven-state body set, independent from weapon')
+    for state in states:
+        clip = clips.get(state,{})
+        a.check(isinstance(clip.get('fps'),(int,float)) and clip.get('fps',0)>0 and isinstance(clip.get('loop'),bool), prefix+'.clip.'+state, 'Positive playback rate and explicit loop')
+    a.check(clips.get('run',{}).get('loop') is True and clips.get('death',{}).get('loop') is False, prefix+'.loop_semantics', 'Running loops; terminal death holds final pose')
+    frames = player.get('frames', [])
+    a.check(isinstance(frames,list) and len(frames)==player.get('generated_keyframes') and len(frames)>=20, prefix+'.frame_count', 'Actual required body frames, not a bobbed single sprite')
+    actual_ids, state_hashes = {}, {}
+    atlas_images = {}
+    idle_heights = []
+    for i, frame in enumerate(frames if isinstance(frames,list) else []):
+        code = prefix+f'.frame.{i}'
+        atlas = str(frame.get('atlas',''))
+        if atlas not in atlas_images: atlas_images[atlas] = a.image(str(folder/atlas), prefix+'.atlas.'+atlas)
+        image = atlas_images[atlas]
+        rect = frame.get('rect')
+        if not bounded_region(a,image,rect,code+'.bounds'): continue
+        x,y,w,h = rect
+        pixels = image.crop((x,y,x+w,y+h))
+        frame_hash = hashlib.sha256(pixels.tobytes()).hexdigest()
+        a.check(frame_hash==frame.get('pixel_sha256'),code+'.pixel_sha256','Hash covers actual runtime body RGBA, not a label')
+        a.check(valid_canvas and [w,h]==canvas and frame.get('anchor')==anchor, code+'.shared_canvas', 'Every frame uses one declared padded body canvas/pivot')
+        bbox = pixels.getchannel('A').point(lambda v:255 if v>=128 else 0).getbbox()
+        a.check(bbox is not None and list(bbox)==frame.get('opaque_bounds'), code+'.opaque_bounds','Actual alpha128 bounds')
+        a.check(bbox is not None and 0<bbox[0]<bbox[2]<w and 0<bbox[1]<bbox[3]<h, code+'.complete_body','No opaque body touches cell crop boundary')
+        state = frame.get('state')
+        actual_ids.setdefault(state,[]).append(frame.get('index'))
+        state_hashes.setdefault(state,set()).add(frame_hash)
+        if state=='idle' and bbox: idle_heights.append(bbox[3]-bbox[1])
+    a.check(set(actual_ids)==states and all(sorted(actual_ids.get(s,[]))==list(range(len(actual_ids.get(s,[])))) for s in states), prefix+'.contiguous_frames','Every real state has unique contiguous indices')
+    a.check(len(actual_ids.get('run',[]))>=8 and len(state_hashes.get('run',set()))>=8, prefix+'.real_run_cycle','Eight distinct source RGBA bodies in the actual run cycle')
+    a.check(all(len(state_hashes.get(state,set()))>=2 for state in states-{'run'}), prefix+'.distinct_other_poses','Each required non-run state contains real distinct source poses')
+    a.check(bool(idle_heights) and all(h==player.get('standing_body_source_height') for h in idle_heights), prefix+'.standing_opaque_height','Shared44wu maps actual standing opaque height, not padded canvas height')
+    expected_atlases = {}
+    expected_frame_count = 0
+    for i,page in enumerate(recipe.get('pages',[])):
+        code=prefix+f'.page.{i}'
+        source_path = a.hashed({'path':str(folder/str(page.get('source',''))),'sha256':page.get('source_sha256')},code+'.source')
+        source = a.image(str(folder/str(page.get('source',''))),code+'.source_image')
+        raw_hashes = summary.get('raw_hashes',{})
+        a.check(source_path is not None and raw_hashes.get(page.get('source'))==digest(source_path),code+'.generation_source_hash','Generation summary and recipe identify same preserved original')
+        scale = page.get('nearest_scale')
+        grid = page.get('grid',[])
+        legal_grid = isinstance(grid,list) and len(grid)==2 and all(isinstance(v,int) and v>0 for v in grid)
+        a.check(legal_grid and isinstance(scale,(int,float)) and scale>0,code+'.packing_scale','Declared native packing only')
+        if not source or not valid_canvas or not legal_grid or not isinstance(scale,(int,float)) or scale<=0:continue
+        cols,rows=grid
+        target=Image.new('RGBA',(canvas[0]*cols,canvas[1]*rows))
+        for j,frame in enumerate(page.get('frames',[])):
+            c,r=j%cols,j//cols
+            box=frame.get('source_rect',[round(c*source.width/cols),round(r*source.height/rows),round((c+1)*source.width/cols),round((r+1)*source.height/rows)])
+            valid_box=isinstance(box,list) and len(box)==4 and all(isinstance(v,int) for v in box) and 0<=box[0]<box[2]<=source.width and 0<=box[1]<box[3]<=source.height
+            a.check(valid_box,code+f'.source_crop.{j}','Complete measured original-source rectangle')
+            if not valid_box:continue
+            raw=source.crop(tuple(box));resized=raw.resize((round(raw.width*scale),round(raw.height*scale)),Image.Resampling.NEAREST)
+            dx=round(anchor[0]-frame['pivot_x']*scale);dy=round(anchor[1]-frame['baseline_y']*scale)
+            if 'foot_anchor_y' in frame:
+                bbox=resized.getchannel('A').point(lambda v:255 if v>=128 else 0).getbbox()
+                if bbox:dy=int(frame['foot_anchor_y'])-bbox[3]
+            body=Image.new('RGBA',tuple(canvas));body.paste(resized,(dx,dy));target.paste(body,(c*canvas[0],r*canvas[1]));expected_frame_count+=1
+        expected_atlases[page.get('output')]=target
+    for atlas,target in expected_atlases.items():
+        actual=atlas_images.get(atlas)
+        a.check(actual is not None and actual.size==target.size and actual.tobytes()==target.tobytes(),prefix+'.source_reconstruction.'+str(atlas),'Runtime body sheet exactly replays actual source crop/nearest/translation recipe')
+    a.check(expected_frame_count==len(frames) and set(expected_atlases)==set(atlas_images),prefix+'.all_sources_consumed','Every source pose reaches exactly the declared runtime sheets')
+    text=a.runtime_text.get('player_animation','')
+    a.check(bool(re.search(r'Vector2\(\s*facing\s*,\s*1(?:\.0)?\s*\)',text)),prefix+'.left_mirror','Actual renderer mirrors about body pivot; separate Motor GPU proof required')
+    a.check('facing = signf(motor.normal_velocity.x)' in text and 'controller.router.sample_axes()' in text and 'aim_direction.x' not in text,prefix+'.move_facing','Actual movement-facing code is independent of mouse aim')
+    a.check('UnderworldActors.HUMANOID_HEIGHT' in text and '_build.standing_body_source_height' in text,prefix+'.shared_height','Actual standard body height consumer')
+    a.check('anchor.visible_muzzle_position()' in text and 'frame.rect' in text and '_build.frames' in text,prefix+'.real_frame_and_muzzle_consumer','Real body rectangle plus original weapon anchor')
+    a.measurements['player_animation']={'source_calls':len(calls),'body_frames':len(frames),'distinct_run_pixels':len(state_hashes.get('run',set())),'states':sorted(actual_ids),'scope':'Source/frame assembly; not full-speed aesthetic approval'}
+
+
+def audit_mechanisms(a: Audit, spec: dict):
+    a.check(spec.get('schema')=='underworld-mechanisms-v1','mechanisms.schema','Actual carrier/bell material manifest')
+    carrier=spec.get('carrier',{})
+    source_path=a.hashed({'path':carrier.get('source'),'sha256':carrier.get('source_sha256')},'mechanisms.carrier.source')
+    source=a.image(carrier.get('source'),'mechanisms.carrier.source_image')
+    output=a.image({'path':carrier.get('texture'),'sha256':carrier.get('sha256')},'mechanisms.carrier.image')
+    record=audit_generation(a,spec.get('generation_record'),'mechanisms.generation')
+    a.check(record.get('raw_output')==carrier.get('source'),'mechanisms.generated_source','Actual generated slab is the consumed crop ancestor')
+    if source and output:
+        bbox=record.get('measured_alpha128_bbox_px',[])
+        valid=isinstance(bbox,list) and len(bbox)==4 and 0<=bbox[0]<bbox[2]<=source.width and 0<=bbox[1]<bbox[3]<=source.height
+        a.check(valid,'mechanisms.carrier.crop_bounds','Original slab measured source crop')
+        size=carrier.get('size_px')
+        a.check(list(output.size)==size,'mechanisms.carrier.size','Runtime declared source size')
+        if valid:
+            raw=source.crop(tuple(bbox))
+            expected=raw.resize(output.size,Image.Resampling.NEAREST)
+            a.check(expected.tobytes()==output.tobytes(),'mechanisms.carrier.source_reconstruction','Original crop/nearest only, no procedural replacement')
+            expected_height=round(raw.height*output.width/raw.width)
+            a.check(output.height==expected_height,'mechanisms.carrier.native_aspect','Source slab aspect preserved to nearest whole-pixel height')
+        if isinstance(size,list) and len(size)==2:
+            a.check(all(isinstance(carrier.get(k),(int,float)) and carrier[k]>0 for k in ['pixel_world_scale','left_px','right_px','top_px','bottom_px','middle_width_px']),'mechanisms.carrier.patch_values','Positive patch values, no added collider')
+            a.check(carrier.get('left_px',0)+carrier.get('right_px',0)<=size[0] and carrier.get('top_px',0)+carrier.get('bottom_px',0)<size[1] and 0<=carrier.get('middle_x_px',-1)<carrier.get('middle_x_px',0)+carrier.get('middle_width_px',0)<=size[0],'mechanisms.carrier.patch_bounds','Caps/middle source rectangles are bounded')
+    bell=spec.get('bell',{})
+    bell_image=a.image({'path':bell.get('texture'),'sha256':bell.get('sha256')},'mechanisms.bell.image')
+    a.path(bell.get('provenance'),'mechanisms.bell.provenance')
+    bounds=bell.get('visual_bound_wu',[])
+    a.check(isinstance(bounds,list) and len(bounds)==2 and all(isinstance(v,(int,float)) and v>0 for v in bounds),'mechanisms.bell.bounds','Existing collision-bound icon fit has positive extent')
+    a.check(bell.get('sampling')=='uniform fit preserving source aspect','mechanisms.bell.aspect','No independently stretched bell axes')
+    a.check(spec.get('physics_mutation') is False,'mechanisms.physics_unchanged','Presentation does not install or alter collision bodies')
+    text=a.runtime_text.get('mechanisms','')
+    a.check('source * minf(' in text and 'source.x' in text and 'source.y' in text,'mechanisms.runtime_bell_aspect','Real consumer uniformly fits original bell')
+    a.check('moving_patch_plan(rect)' in text and 'mechanism_specification().carrier' in text and 'draw_texture_rect_region(texture,part.target,part.source)' in text,'mechanisms.runtime_patch_consumer','Actual carrier uses repeated source cap/body patches')
+
+
+def audit_home(a: Audit, home: dict):
+    a.check(home.get('schema')=='underworld-home-v1','home.schema','Actual Home world manifest')
+    record=audit_generation(a,home.get('source_record'),'home.generation')
+    source=a.hashed({'path':record.get('source'),'sha256':record.get('source_sha256')},'home.generation.raw_source')
+    runtime=a.path(record.get('image'),'home.generation.image')
+    a.check(source is not None and runtime is not None and digest(source)==digest(runtime),'home.unpainted_original','Home runtime atlas is byte-identical generated source')
+    records={entry.get('id'):entry for entry in record.get('regions',[])}
+    assets=home.get('assets',{})
+    required={'wardrobe','workshop','archive','tailor','artisan','archivist'}
+    a.check(required<=set(assets) and required==set(records),'home.generated_roles','Three complete buildings and three actual keepers')
+    for name,entry in assets.items():
+        code='home.asset.'+name
+        image=a.image(entry.get('image'),code+'.image')
+        rect=entry.get('region',[])
+        if not bounded_region(a,image,rect,code+'.bounds'):continue
+        foot=entry.get('foot',[])
+        valid=isinstance(foot,list) and len(foot)==2 and all(isinstance(v,(int,float)) for v in foot) and 0<=foot[0]<=rect[2] and 0<=foot[1]<=rect[3]
+        a.check(valid,code+'.foot_bounds',str(foot))
+        x,y,w,h=rect;alpha=image.crop((x,y,x+w,y+h)).getchannel('A');bbox=alpha.point(lambda v:255 if v>=128 else 0).getbbox()
+        a.check(valid and bbox is not None and foot[1]==bbox[3],code+'.actual_opaque_foot','Actual native foot, no padded-box floor anchor')
+        if name in required:
+            a.check(all(entry.get(key)==records.get(name,{}).get(key) for key in ['image','region','foot','opaque_height']),code+'.generation_recipe','Actual generated-source whole-object crop is shared by runtime')
+            a.check(bbox is not None and entry.get('opaque_height')==bbox[3]-bbox[1],code+'.opaque_height','NPC/building scale measures actual visible body')
+    slots=home.get('slots',[])
+    ids=[slot.get('id') for slot in slots]
+    a.check(len(ids)>=12 and len(set(ids))==len(ids),'home.unique_slots','Four current services plus eight physically reserved future plots')
+    active={slot.get('id') for slot in slots if slot.get('active') is True}
+    a.check(active=={'character','upgrade','achievements','departure'},'home.active_services','Reserved future plots do not become invented active services')
+    width=home.get('world_width')
+    a.check(isinstance(width,(int,float)) and width>0 and all(isinstance(slot.get('x'),(int,float)) and 0<slot['x']<width for slot in slots),'home.slot_bounds','All service plots occupy actual Home world extent')
+    for slot in slots:
+        a.check(slot.get('building') in assets and (not slot.get('keeper') or slot.get('keeper') in assets),'home.slot.'+str(slot.get('id'))+'.source','Real building and optional keeper asset')
+    a.check(home.get('safe_noncombat_settlement') is True and home.get('player_height_source')=='UnderworldActors.HUMANOID_HEIGHT','home.safe_shared_height','Safe Home shares real actor scale')
+    text=a.runtime_text.get('home','')
+    a.check('sprite.scale=Vector2.ONE*factor' in text and 'UnderworldActors.HUMANOID_HEIGHT' in text,'home.runtime_uniform_aspect','Actual world consumer preserves source aspect and shared humanoid scale')
+    a.check('specification.assets' in text and 'specification.slots' in text and 'sprite.position=root-Vector2(foot[0],foot[1])*factor' in text,'home.actual_asset_slots','Actual world builds source foot-anchored slots')
+    a.measurements['home']={'slots':len(slots),'active_services':sorted(active),'world_width':width,'generated_objects':len(records)}
+
+
+def audit_ui(a: Audit, ui: dict):
+    a.check(ui.get('schema_version')==1,'ui.schema','Actual Godot theme/source-region manifest')
+    a.check('Native Godot Theme' in ui.get('method',''),'ui.native_theme_disclosure','Native layout is not falsely credited as generated illustration')
+    panel=ui.get('panel',{})
+    panel_image=a.image(panel.get('texture'),'ui.panel.source')
+    licensed=a.path('assets/style_exploration/underworld/source/TileSet.png','ui.panel.licensed_source')
+    actual_panel=a.path(panel.get('texture'),'ui.panel.actual_source')
+    a.check(licensed is not None and actual_panel is not None and digest(licensed)==digest(actual_panel),'ui.panel.native_reference','Panel source is the byte-identical licensed Underworld tile sheet, not an unrelated PNG with a permission label')
+    rect=panel.get('region',[])
+    if bounded_region(a,panel_image,rect,'ui.panel.bounds'):
+        margin=panel.get('slice_margin')
+        a.check(isinstance(margin,(int,float)) and 0<margin<min(rect[2:])/2,'ui.panel.slice_margin','Actual nine-patch corners fit original region')
+    a.check('custom publisher' in panel.get('source_license',''),'ui.panel.custom_license','Reference tile UI border retains custom permission disclosure')
+    icons=a.json(ui.get('icons'),'ui.icons')
+    icon_path=a.path(ui.get('icons'),'ui.icons.relative_base')
+    folder=icon_path.parent.relative_to(a.root) if icon_path else Path('assets/underworld_plains/ui')
+    record=audit_generation(a,str(folder/'provenance.json'),'ui.generation')
+    original=a.hashed({'path':record.get('original'),'sha256':record.get('original_sha256')},'ui.generated_original')
+    runtime=a.hashed({'path':record.get('runtime_image'),'sha256':record.get('runtime_image_sha256')},'ui.generated_runtime')
+    a.hashed({'path':record.get('reference'),'sha256':record.get('reference_sha256')},'ui.generated_reference')
+    a.check(original is not None and runtime is not None and digest(original)==digest(runtime),'ui.unpainted_original','Generated UI atlas bytes unchanged')
+    atlas=a.image({'path':icons.get('atlas'),'sha256':icons.get('sha256')},'ui.icons.atlas')
+    a.check(icons.get('atlas')==record.get('runtime_image') and record.get('region_metadata')==ui.get('icons'),'ui.actual_generated_atlas','Actual source record, runtime image and icon regions are linked')
+    a.check(atlas is not None and list(atlas.size)==icons.get('image_size'),'ui.icons.size','Actual icon PNG dimensions')
+    regions=icons.get('regions',{})
+    required={'barrel','heart','magazine','coil','boots','echo','grip','map','energy','stabilizer','braid','hammer','brakes','cooling','bandage','run_coin','healing','meta_note'}
+    a.check(set(regions)==required,'ui.complete_item_keys','Real15 item and3 resource identifiers, no substitutions')
+    for name,rect in regions.items():
+        code='ui.icon.'+name
+        if not bounded_region(a,atlas,rect,code+'.bounds'):continue
+        measurement=icons.get('measurements',{}).get(name,{})
+        window=measurement.get('measured_window',[])
+        if not bounded_region(a,atlas,window,code+'.measured_window'):continue
+        x,y,w,h=window
+        bbox=atlas.crop((x,y,x+w,y+h)).getchannel('A').point(lambda v:255 if v>=16 else 0).getbbox()
+        actual=None if bbox is None else [bbox[0]+x,bbox[1]+y,bbox[2]-bbox[0],bbox[3]-bbox[1]]
+        a.check(actual==measurement.get('native_body_alpha16'),code+'.actual_source_bounds','Measured original alpha body, not invented crop metadata')
+        padding=measurement.get('padding')
+        expected=None if actual is None or not isinstance(padding,int) else [max(0,actual[0]-padding),max(0,actual[1]-padding),min(atlas.width,actual[0]+actual[2]+padding)-max(0,actual[0]-padding),min(atlas.height,actual[1]+actual[3]+padding)-max(0,actual[1]-padding)]
+        a.check(rect==expected and isinstance(padding,int) and padding>0,code+'.whole_object_padding','Runtime region includes declared complete body with sampling gutter')
+    text=a.runtime_text.get('ui','')
+    a.check('spec.panel.region' in text and 'spec.panel.slice_margin' in text and 'specification.regions.get' in text and 'texture.filter_clip = true' in text,'ui.actual_region_consumer','Actual theme/icon consumer samples these regions')
+    a.check('AXIS_STRETCH_MODE_TILE' in text,'ui.panel.native_tiling','Nine-patch borders tile native source instead of stretching whole image')
+    roots=ui.get('production_roots',[])
+    a.check(isinstance(roots,list) and len(roots)>=13 and len(set(roots))==len(roots),'ui.real_root_inventory','Explicit actual UI consumer inventory')
+    classes={}
+    for path in (a.root/'scripts').rglob('*.gd'):
+        content=a.text_overrides.get(str(path.relative_to(a.root)),path.read_text())
+        match=re.search(r'^class_name\s+(\w+)',content,re.MULTILINE)
+        if match:classes[match.group(1)]=(path,content)
+    for root in roots:
+        name=str(root).split('.')[0]
+        entry=classes.get(name)
+        a.check(entry is not None and 'UnderworldUI' in entry[1],'ui.root.'+str(root)+'.actual_theme','Real named class references the shared theme/colors; GUI flow remains separately tested')
+    for name in ['ItemCard','ItemAcquiredToast','DemoMenu']:
+        text=classes.get(name,(None,''))[1]
+        a.check('STRETCH_KEEP_ASPECT_CENTERED' in text,'ui.aspect.'+name,'Actual generated item icon consumer retains source aspect')
+    item=classes.get('ItemPresentation',(None,''))[1]
+    a.check('return UnderworldUI.icon(key)' in item,'ui.actual_item_dispatch','Real ItemPresentation delegates to generated AtlasTexture source')
+    a.measurements['ui']={'icons':len(regions),'ui_roots':len(roots),'scope':'Source crops, source hashes and source-level consumer references; not GUI/visual/device acceptance'}
+
+
+def audit(root: Path = ROOT, manifest_path: str = DEFAULT_MANIFEST, overrides: dict | None = None, json_overrides: dict | None = None, text_overrides: dict | None = None) -> dict:
+    a = Audit(root, json_overrides=json_overrides, text_overrides=text_overrides)
+    manifest = a.json(manifest_path, 'production.manifest')
+    a.check(manifest.get('schema') == 'underworld-production-v1', 'production.schema', str(manifest.get('schema')))
+    consumers = manifest.get('consumers', {})
+    handlers = {'terrain': audit_reference, 'scenery': audit_scenery, 'hazards': audit_hazards, 'player_animation': audit_player_animation, 'mechanisms': audit_mechanisms, 'home': audit_home, 'ui': audit_ui}
+    for key, handler in handlers.items():
+        path = manifest.get(key + '_manifest', manifest.get(key))
+        fragment = a.json(path, key + '.manifest')
+        if overrides and key in overrides:
+            fragment = copy.deepcopy(overrides[key])
+        consumer = consumers.get(key, fragment.get('consumer_scripts', fragment.get('consumer_script', fragment.get('consumer'))))
+        a.consumption(path, consumer, key)
+        try:
+            handler(a, fragment)
+        except (OSError, ValueError, TypeError, KeyError, AttributeError) as exc:
+            a.check(False, key + '.invalid_data', f'{type(exc).__name__}: {exc}')
+    entries = manifest.get('runtime_entries', [])
+    a.check(isinstance(entries, list) and len(entries) >= 4, 'production.runtime_entries', 'Actual formal, Home, menu and App entry scripts')
+    for index, entry in enumerate(entries if isinstance(entries, list) else []):
+        text = a.script(entry, 'production.entry.' + str(index))
+        a.check('Underworld' in text, 'production.entry.' + str(index) + '.linked', 'Entry actually references the Underworld presentation family')
+    return a.result()
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('command', choices=['audit', 'runtime'])
+    parser.add_argument('--suite', choices=['scenery', 'hazards'])
+    parser.add_argument('--manifest', default=DEFAULT_MANIFEST)
+    parser.add_argument('--output', type=Path)
+    args = parser.parse_args()
+    if args.command == 'runtime':
+        if not args.suite:
+            parser.error('runtime requires --suite')
+        from run_tests import run_engine
+        suites = {
+            'scenery': ('tests/underworld_plains/test_underworld_scenery.gd', r'^Underworld scenery: [0-9]+ checks, 0 failures$'),
+            'hazards': ('tests/underworld_plains/test_underworld_hazards.gd', r'^UNDERWORLD HAZARD TESTS: [0-9]+ assertions, 0 failures$'),
+        }
+        script, marker = suites[args.suite]
+        output = run_engine(['--headless', '--audio-driver', 'Dummy', '--path', '.', '--script', script], 120)
+        if not re.search(marker, output, re.MULTILINE):
+            raise RuntimeError('Missing Underworld runtime completion: ' + args.suite)
+        if args.suite == 'scenery':
+            population = run_engine(['--headless', '--audio-driver', 'Dummy', '--path', '.', '--script', 'tests/underworld_plains/test_underworld_identity_population.gd'], 240)
+            if not re.search(r'^Underworld identity population: 20 cases, [0-9]+ checks, 0 failures$', population, re.MULTILINE):
+                raise RuntimeError('Missing actual20-case Underworld identity population completion')
+        print('PASS: Underworld ' + args.suite + ' runtime; strict engine teardown')
+        return 0
+    report = audit(manifest_path=args.manifest)
+    encoded = json.dumps(report, ensure_ascii=False, indent=2) + '\n'
+    if args.output:
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+        args.output.write_text(encoded)
+    print(encoded, end='')
+    if report['passed']:
+        print(f"PASS: Underworld production pipeline; {report['check_count']} source and assembly checks")
+        return 0
+    print(f"FAIL: Underworld production pipeline; {report['failure_count']} failures", file=sys.stderr)
+    return 1
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())

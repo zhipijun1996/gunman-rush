@@ -1,0 +1,20 @@
+....................E..........
+======================================================================
+ERROR: test_original_quality_consumer_rejects_coherent_causal_counterexamples (__main__.DesignContractTests.test_original_quality_consumer_rejects_coherent_causal_counterexamples)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_level_design_contracts.py", line 162, in test_original_quality_consumer_rejects_coherent_causal_counterexamples
+    actual_record=json.loads((ROOT/'docs/evidence/region_production_v3/forest_h_slice/child_final_quality_record.json').read_text())
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/workspace/clock-style-lab/docs/evidence/region_production_v3/forest_h_slice/child_final_quality_record.json'
+
+----------------------------------------------------------------------
+Ran 31 tests in 0.427s
+
+FAILED (errors=1)

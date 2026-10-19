@@ -1,0 +1,741 @@
+.........FFFFFEEEEEEEEEEEEEF.FF..FFFF......FFFFFFFF.E...EFFF..F.FFEEEEFF.FFFFFF..FFFF.FFFF.FF.....................
+======================================================================
+ERROR: test_complete_resume_rejects_incomplete_history_checks_and_quality (__main__.LoopTests.test_complete_resume_rejects_incomplete_history_checks_and_quality) (edit='roles')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 293, in test_complete_resume_rejects_incomplete_history_checks_and_quality
+    edit(state['tasks']['DRILL'])
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 282, in <lambda>
+    'roles':lambda e:e['history'][-1].update(roles={}),
+                     ~~~~~~~~~~~~^^^^
+IndexError: list index out of range
+
+======================================================================
+ERROR: test_complete_resume_rejects_incomplete_history_checks_and_quality (__main__.LoopTests.test_complete_resume_rejects_incomplete_history_checks_and_quality) (edit='review-reject')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 293, in test_complete_resume_rejects_incomplete_history_checks_and_quality
+    edit(state['tasks']['DRILL'])
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 283, in <lambda>
+    'review-reject':lambda e:e['history'][-1]['roles']['review'].update(status='reject'),
+                             ~~~~~~~~~~~~^^^^
+IndexError: list index out of range
+
+======================================================================
+ERROR: test_complete_resume_rejects_incomplete_history_checks_and_quality (__main__.LoopTests.test_complete_resume_rejects_incomplete_history_checks_and_quality) (edit='checks-missing')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 293, in test_complete_resume_rejects_incomplete_history_checks_and_quality
+    edit(state['tasks']['DRILL'])
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 284, in <lambda>
+    'checks-missing':lambda e:e['history'][-1].update(checks=[]),
+                              ~~~~~~~~~~~~^^^^
+IndexError: list index out of range
+
+======================================================================
+ERROR: test_complete_resume_rejects_incomplete_history_checks_and_quality (__main__.LoopTests.test_complete_resume_rejects_incomplete_history_checks_and_quality) (edit='checks-other')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 293, in test_complete_resume_rejects_incomplete_history_checks_and_quality
+    edit(state['tasks']['DRILL'])
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 285, in <lambda>
+    'checks-other':lambda e:e['history'][-1]['checks'][0].update(id='other'),
+                            ~~~~~~~~~~~~^^^^
+IndexError: list index out of range
+
+======================================================================
+ERROR: test_complete_resume_rejects_incomplete_history_checks_and_quality (__main__.LoopTests.test_complete_resume_rejects_incomplete_history_checks_and_quality) (edit='checks-failed')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 293, in test_complete_resume_rejects_incomplete_history_checks_and_quality
+    edit(state['tasks']['DRILL'])
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 286, in <lambda>
+    'checks-failed':lambda e:e['history'][-1]['checks'][0].update(status='failed'),
+                             ~~~~~~~~~~~~^^^^
+IndexError: list index out of range
+
+======================================================================
+ERROR: test_complete_resume_rejects_incomplete_history_checks_and_quality (__main__.LoopTests.test_complete_resume_rejects_incomplete_history_checks_and_quality) (edit='quality-missing')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 293, in test_complete_resume_rejects_incomplete_history_checks_and_quality
+    edit(state['tasks']['DRILL'])
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 287, in <lambda>
+    'quality-missing':lambda e:e['history'][-1].pop('quality'),
+                               ~~~~~~~~~~~~^^^^
+IndexError: list index out of range
+
+======================================================================
+ERROR: test_complete_resume_rejects_incomplete_history_checks_and_quality (__main__.LoopTests.test_complete_resume_rejects_incomplete_history_checks_and_quality) (edit='quality-incomplete')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 293, in test_complete_resume_rejects_incomplete_history_checks_and_quality
+    edit(state['tasks']['DRILL'])
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 288, in <lambda>
+    'quality-incomplete':lambda e:e['history'][-1]['quality'].update(scope_complete=False),
+                                  ~~~~~~~~~~~~^^^^
+IndexError: list index out of range
+
+======================================================================
+ERROR: test_complete_resume_rejects_missing_moved_or_modified_role_results (__main__.LoopTests.test_complete_resume_rejects_missing_moved_or_modified_role_results) (role='implement', mutation='delete')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 305, in test_complete_resume_rejects_missing_moved_or_modified_role_results
+    if mutation=='delete':result.unlink()
+                          ^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1342, in unlink
+    os.unlink(self)
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmpr4y4rjsa/DRILL/1/implement/result.json'
+
+======================================================================
+ERROR: test_complete_resume_rejects_missing_moved_or_modified_role_results (__main__.LoopTests.test_complete_resume_rejects_missing_moved_or_modified_role_results) (role='implement', mutation='move')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 306, in test_complete_resume_rejects_missing_moved_or_modified_role_results
+    elif mutation=='move':result.rename(result.with_suffix('.moved'))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1363, in rename
+    os.rename(self, target)
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmpo560tubs/DRILL/1/implement/result.json' -> '/tmp/tmpo560tubs/DRILL/1/implement/result.moved'
+
+======================================================================
+ERROR: test_complete_resume_rejects_missing_moved_or_modified_role_results (__main__.LoopTests.test_complete_resume_rejects_missing_moved_or_modified_role_results) (role='implement', mutation='change')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 308, in test_complete_resume_rejects_missing_moved_or_modified_role_results
+    value=json.loads(result.read_text());value['summary']='modified response';result.write_text(json.dumps(value))
+                     ^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmp5izu9fl8/DRILL/1/implement/result.json'
+
+======================================================================
+ERROR: test_complete_resume_rejects_missing_moved_or_modified_role_results (__main__.LoopTests.test_complete_resume_rejects_missing_moved_or_modified_role_results) (role='review', mutation='delete')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 305, in test_complete_resume_rejects_missing_moved_or_modified_role_results
+    if mutation=='delete':result.unlink()
+                          ^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1342, in unlink
+    os.unlink(self)
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmpzxhe667z/DRILL/1/review/result.json'
+
+======================================================================
+ERROR: test_complete_resume_rejects_missing_moved_or_modified_role_results (__main__.LoopTests.test_complete_resume_rejects_missing_moved_or_modified_role_results) (role='review', mutation='move')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 306, in test_complete_resume_rejects_missing_moved_or_modified_role_results
+    elif mutation=='move':result.rename(result.with_suffix('.moved'))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1363, in rename
+    os.rename(self, target)
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmpgdxjztpe/DRILL/1/review/result.json' -> '/tmp/tmpgdxjztpe/DRILL/1/review/result.moved'
+
+======================================================================
+ERROR: test_complete_resume_rejects_missing_moved_or_modified_role_results (__main__.LoopTests.test_complete_resume_rejects_missing_moved_or_modified_role_results) (role='review', mutation='change')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 308, in test_complete_resume_rejects_missing_moved_or_modified_role_results
+    value=json.loads(result.read_text());value['summary']='modified response';result.write_text(json.dumps(value))
+                     ^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmp033y0tis/DRILL/1/review/result.json'
+
+======================================================================
+ERROR: test_reject_no_progress (__main__.LoopTests.test_reject_no_progress)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 55, in test_reject_no_progress
+    self.assertIn('No source progress',state['tasks']['DRILL']['history'][0]['stop_reason'])
+                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+IndexError: list index out of range
+
+======================================================================
+ERROR: test_route_stage_and_final_content_are_distinct (__main__.LoopTests.test_route_stage_and_final_content_are_distinct)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 424, in test_route_stage_and_final_content_are_distinct
+    m=route_request('优化风铃平原')
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/clock-style-lab/tools/level_design.py", line 201, in route_request
+    preparation = {"region_context": region_context, "lessons": load_lessons(region_id),
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/clock-style-lab/tools/level_experience.py", line 58, in load_lessons
+    raise ValueError("Stale/missing knowledge evidence: " + str(ref.get("path")))
+ValueError: Stale/missing knowledge evidence: docs/evidence/plains_redesign/reward_entry/README.md
+
+======================================================================
+ERROR: test_checkpoint_rejects_changed_result_metadata_log_and_checkpoint (__main__.PhaseRecoveryTests.test_checkpoint_rejects_changed_result_metadata_log_and_checkpoint) (artifact='result.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 647, in test_checkpoint_rejects_changed_result_metadata_log_and_checkpoint
+    path.write_text('{}')
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1047, in write_text
+    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmpncblnjq8/DRILL/1/implement/result.json'
+
+======================================================================
+ERROR: test_checkpoint_rejects_changed_result_metadata_log_and_checkpoint (__main__.PhaseRecoveryTests.test_checkpoint_rejects_changed_result_metadata_log_and_checkpoint) (artifact='invocation.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 647, in test_checkpoint_rejects_changed_result_metadata_log_and_checkpoint
+    path.write_text('{}')
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1047, in write_text
+    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmpbtuij8jg/DRILL/1/implement/invocation.json'
+
+======================================================================
+ERROR: test_checkpoint_rejects_changed_result_metadata_log_and_checkpoint (__main__.PhaseRecoveryTests.test_checkpoint_rejects_changed_result_metadata_log_and_checkpoint) (artifact='docs.log')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 647, in test_checkpoint_rejects_changed_result_metadata_log_and_checkpoint
+    path.write_text('{}')
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1047, in write_text
+    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmpmsejnc_2/DRILL/1/docs.log'
+
+======================================================================
+ERROR: test_checkpoint_rejects_changed_result_metadata_log_and_checkpoint (__main__.PhaseRecoveryTests.test_checkpoint_rejects_changed_result_metadata_log_and_checkpoint) (artifact='checkpoint.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 647, in test_checkpoint_rejects_changed_result_metadata_log_and_checkpoint
+    path.write_text('{}')
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1047, in write_text
+    with self.open(mode='w', encoding=encoding, errors=errors, newline=newline) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/tmpiijbijmj/DRILL/1/checkpoint.json'
+
+======================================================================
+FAIL: test_budget_before_invocation (__main__.LoopTests.test_budget_before_invocation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 62, in test_budget_before_invocation
+    self.assertEqual(state['status'],'budget_exhausted');self.assertFalse(calls)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'blocked' != 'budget_exhausted'
+- blocked
++ budget_exhausted
+
+
+======================================================================
+FAIL: test_complete_dependency_cannot_be_incomplete_on_resume (__main__.LoopTests.test_complete_dependency_cannot_be_incomplete_on_resume)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 320, in test_complete_dependency_cannot_be_incomplete_on_resume
+    with self.assertRaisesRegex(ValueError,'incomplete dependency'):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_complete_resume_rechecks_current_final_scope_quality (__main__.LoopTests.test_complete_resume_rechecks_current_final_scope_quality)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 329, in test_complete_resume_rechecks_current_final_scope_quality
+    with self.assertRaisesRegex(ValueError,'current scope quality'):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_complete_resume_rejects_incomplete_history_checks_and_quality (__main__.LoopTests.test_complete_resume_rejects_incomplete_history_checks_and_quality) (edit='history')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 295, in test_complete_resume_rejects_incomplete_history_checks_and_quality
+    with self.assertRaises(ValueError):loop.run(MISSION,folder,worker)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_complete_resume_rejects_incomplete_history_checks_and_quality (__main__.LoopTests.test_complete_resume_rejects_incomplete_history_checks_and_quality) (edit='lost-round')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 295, in test_complete_resume_rejects_incomplete_history_checks_and_quality
+    with self.assertRaises(ValueError):loop.run(MISSION,folder,worker)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_dependencies_deliver_real_prior_result_and_resume_no_calls (__main__.LoopTests.test_dependencies_deliver_real_prior_result_and_resume_no_calls)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 118, in test_dependencies_deliver_real_prior_result_and_resume_no_calls
+    self.assertEqual(state['status'],'complete')
+AssertionError: 'blocked' != 'complete'
+- blocked
++ complete
+
+
+======================================================================
+FAIL: test_failed_check_repair_carries_feedback_and_skips_review (__main__.LoopTests.test_failed_check_repair_carries_feedback_and_skips_review)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 137, in test_failed_check_repair_carries_feedback_and_skips_review
+    self.assertEqual(calls,['implement','implement','review'])
+AssertionError: Lists differ: [] != ['implement', 'implement', 'review']
+
+Second list contains 3 additional elements.
+First extra element 0:
+'implement'
+
+- []
++ ['implement', 'implement', 'review']
+
+======================================================================
+FAIL: test_failed_targeted_prefix_skips_expensive_successor_and_independent_task_continues (__main__.LoopTests.test_failed_targeted_prefix_skips_expensive_successor_and_independent_task_continues)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 155, in test_failed_targeted_prefix_skips_expensive_successor_and_independent_task_continues
+    self.assertEqual(executed,['tools/check_docs.py','tools/check_world_design.py'])
+AssertionError: Lists differ: ['tools/check_world_design.py'] != ['tools/check_docs.py', 'tools/check_world_design.py']
+
+First differing element 0:
+'tools/check_world_design.py'
+'tools/check_docs.py'
+
+Second list contains 1 additional elements.
+First extra element 1:
+'tools/check_world_design.py'
+
+- ['tools/check_world_design.py']
++ ['tools/check_docs.py', 'tools/check_world_design.py']
+
+======================================================================
+FAIL: test_human_pending_not_done (__main__.LoopTests.test_human_pending_not_done)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 58, in test_human_pending_not_done
+    self.assertEqual(calls,['implement']); self.assertEqual(state['status'],'awaiting_acceptance')
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [] != ['implement']
+
+Second list contains 1 additional elements.
+First extra element 0:
+'implement'
+
+- []
++ ['implement']
+
+======================================================================
+FAIL: test_incomplete_content_stops_after_technical_review (__main__.LoopTests.test_incomplete_content_stops_after_technical_review)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 206, in test_incomplete_content_stops_after_technical_review
+    self.assertEqual(state['status'],'awaiting_acceptance')
+AssertionError: 'blocked' != 'awaiting_acceptance'
+- blocked
++ awaiting_acceptance
+
+
+======================================================================
+FAIL: test_independent_reject_is_reworked_with_original_findings (__main__.LoopTests.test_independent_reject_is_reworked_with_original_findings)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 197, in test_independent_reject_is_reworked_with_original_findings
+    self.assertEqual(roles,['implement','review','implement','review'])
+AssertionError: Lists differ: [] != ['implement', 'review', 'implement', 'review']
+
+Second list contains 4 additional elements.
+First extra element 0:
+'implement'
+
+- []
++ ['implement', 'review', 'implement', 'review']
+
+======================================================================
+FAIL: test_independent_role_and_resume (__main__.LoopTests.test_independent_role_and_resume)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 51, in test_independent_role_and_resume
+    self.assertEqual(calls,['implement','review']); self.assertEqual(state['status'],'complete')
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [] != ['implement', 'review']
+
+Second list contains 2 additional elements.
+First extra element 0:
+'implement'
+
+- []
++ ['implement', 'review']
+
+======================================================================
+FAIL: test_malformed_restored_rounds_rejected_without_repair (__main__.LoopTests.test_malformed_restored_rounds_rejected_without_repair) (rounds=0)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 244, in test_malformed_restored_rounds_rejected_without_repair
+    with self.assertRaisesRegex(ValueError,'round'):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_modified_restored_call_budget_rejected_without_repair (__main__.LoopTests.test_modified_restored_call_budget_rejected_without_repair)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 224, in test_modified_restored_call_budget_rejected_without_repair
+    self.assertEqual(loop.run(MISSION,folder,worker)['calls'],2)
+AssertionError: 0 != 2
+
+======================================================================
+FAIL: test_prior_round_implementer_cannot_review_later_round (__main__.LoopTests.test_prior_round_implementer_cannot_review_later_round) (identity='agent', reviewer='author-one')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 403, in test_prior_round_implementer_cannot_review_later_round
+    with self.assertRaisesRegex(RuntimeError,'previously implemented'):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: RuntimeError not raised
+
+======================================================================
+FAIL: test_prior_round_implementer_cannot_review_later_round (__main__.LoopTests.test_prior_round_implementer_cannot_review_later_round) (identity='agent', reviewer='independent-two')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 408, in test_prior_round_implementer_cannot_review_later_round
+    self.assertEqual(state['status'],'complete')
+AssertionError: 'blocked' != 'complete'
+- blocked
++ complete
+
+
+======================================================================
+FAIL: test_prior_round_implementer_cannot_review_later_round (__main__.LoopTests.test_prior_round_implementer_cannot_review_later_round) (identity='thread', reviewer='author-one')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 403, in test_prior_round_implementer_cannot_review_later_round
+    with self.assertRaisesRegex(RuntimeError,'previously implemented'):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: RuntimeError not raised
+
+======================================================================
+FAIL: test_prior_round_implementer_cannot_review_later_round (__main__.LoopTests.test_prior_round_implementer_cannot_review_later_round) (identity='thread', reviewer='independent-two')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 408, in test_prior_round_implementer_cannot_review_later_round
+    self.assertEqual(state['status'],'complete')
+AssertionError: 'blocked' != 'complete'
+- blocked
++ complete
+
+
+======================================================================
+FAIL: test_prior_task_implementer_cannot_review_dependent_task (__main__.LoopTests.test_prior_task_implementer_cannot_review_dependent_task)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 419, in test_prior_task_implementer_cannot_review_dependent_task
+    with self.assertRaisesRegex(RuntimeError,'previously implemented'):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: RuntimeError not raised
+
+======================================================================
+FAIL: test_read_only_mutation_blocked (__main__.LoopTests.test_read_only_mutation_blocked)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 74, in test_read_only_mutation_blocked
+    with self.assertRaisesRegex(RuntimeError,'Read-only'):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: RuntimeError not raised
+
+======================================================================
+FAIL: test_same_host_agent_cannot_review_itself (__main__.LoopTests.test_same_host_agent_cannot_review_itself)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 385, in test_same_host_agent_cannot_review_itself
+    with self.assertRaisesRegex(RuntimeError,'same agent'):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: RuntimeError not raised
+
+======================================================================
+FAIL: test_scope_resume_cannot_forge_full_content_completion (__main__.LoopTests.test_scope_resume_cannot_forge_full_content_completion)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 338, in test_scope_resume_cannot_forge_full_content_completion
+    with self.assertRaisesRegex(ValueError,'content completion'):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ValueError not raised
+
+======================================================================
+FAIL: test_source_mutation_during_check_rejected (__main__.LoopTests.test_source_mutation_during_check_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 181, in test_source_mutation_during_check_rejected
+    with self.assertRaisesRegex(RuntimeError,'during harness'):
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: RuntimeError not raised
+
+======================================================================
+FAIL: test_task_budget_caps_rework_without_refunding_failed_calls (__main__.LoopTests.test_task_budget_caps_rework_without_refunding_failed_calls)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 171, in test_task_budget_caps_rework_without_refunding_failed_calls
+    self.assertEqual(roles,['implement','review']);self.assertEqual(state['calls'],2)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [] != ['implement', 'review']
+
+Second list contains 2 additional elements.
+First extra element 0:
+'implement'
+
+- []
++ ['implement', 'review']
+
+======================================================================
+FAIL: test_worker_error_retains_consumed_call (__main__.LoopTests.test_worker_error_retains_consumed_call)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 80, in test_worker_error_retains_consumed_call
+    with self.assertRaises(RuntimeError):loop.run(MISSION,Path(tmp),fail)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: RuntimeError not raised
+
+======================================================================
+FAIL: test_authentication_never_retries_even_with_retry_budget (__main__.PhaseRecoveryTests.test_authentication_never_retries_even_with_retry_budget)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 709, in test_authentication_never_retries_even_with_retry_budget
+    self.assertEqual(state['calls'],1);self.assertEqual(state['status'],'blocked')
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 1
+
+======================================================================
+FAIL: test_clean_implement_and_checks_checkpoint_resume_without_reimplementation (__main__.PhaseRecoveryTests.test_clean_implement_and_checks_checkpoint_resume_without_reimplementation) (phase='implement')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 627, in test_clean_implement_and_checks_checkpoint_resume_without_reimplementation
+    self.assertEqual(paused['status'],'paused');self.assertEqual(paused['calls'],1)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'blocked' != 'paused'
+- blocked
++ paused
+
+
+======================================================================
+FAIL: test_clean_implement_and_checks_checkpoint_resume_without_reimplementation (__main__.PhaseRecoveryTests.test_clean_implement_and_checks_checkpoint_resume_without_reimplementation) (phase='checks')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 627, in test_clean_implement_and_checks_checkpoint_resume_without_reimplementation
+    self.assertEqual(paused['status'],'paused');self.assertEqual(paused['calls'],1)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'blocked' != 'paused'
+- blocked
++ paused
+
+
+======================================================================
+FAIL: test_finished_completion_rechecks_termination_identity_and_success_marker_even_if_rehashed (__main__.PhaseRecoveryTests.test_finished_completion_rechecks_termination_identity_and_success_marker_even_if_rehashed) (mutation='failed-invocation')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 598, in test_finished_completion_rechecks_termination_identity_and_success_marker_even_if_rehashed
+    folder=Path(tmp);state,worker,calls=self.completed_metadata_fixture(folder)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 570, in completed_metadata_fixture
+    self.assertEqual(state['status'],'complete')
+AssertionError: 'blocked' != 'complete'
+- blocked
++ complete
+
+
+======================================================================
+FAIL: test_finished_completion_rechecks_termination_identity_and_success_marker_even_if_rehashed (__main__.PhaseRecoveryTests.test_finished_completion_rechecks_termination_identity_and_success_marker_even_if_rehashed) (mutation='same-identity')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 598, in test_finished_completion_rechecks_termination_identity_and_success_marker_even_if_rehashed
+    folder=Path(tmp);state,worker,calls=self.completed_metadata_fixture(folder)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 570, in completed_metadata_fixture
+    self.assertEqual(state['status'],'complete')
+AssertionError: 'blocked' != 'complete'
+- blocked
++ complete
+
+
+======================================================================
+FAIL: test_finished_completion_rechecks_termination_identity_and_success_marker_even_if_rehashed (__main__.PhaseRecoveryTests.test_finished_completion_rechecks_termination_identity_and_success_marker_even_if_rehashed) (mutation='no-check-completion')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 598, in test_finished_completion_rechecks_termination_identity_and_success_marker_even_if_rehashed
+    folder=Path(tmp);state,worker,calls=self.completed_metadata_fixture(folder)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 570, in completed_metadata_fixture
+    self.assertEqual(state['status'],'complete')
+AssertionError: 'blocked' != 'complete'
+- blocked
++ complete
+
+
+======================================================================
+FAIL: test_finished_completion_rejects_log_and_invocation_byte_changes (__main__.PhaseRecoveryTests.test_finished_completion_rejects_log_and_invocation_byte_changes) (artifact='docs.log')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 576, in test_finished_completion_rejects_log_and_invocation_byte_changes
+    folder=Path(tmp);state,worker,calls=self.completed_metadata_fixture(folder)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 570, in completed_metadata_fixture
+    self.assertEqual(state['status'],'complete')
+AssertionError: 'blocked' != 'complete'
+- blocked
++ complete
+
+
+======================================================================
+FAIL: test_finished_completion_rejects_log_and_invocation_byte_changes (__main__.PhaseRecoveryTests.test_finished_completion_rejects_log_and_invocation_byte_changes) (artifact='review/invocation.json')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 576, in test_finished_completion_rejects_log_and_invocation_byte_changes
+    folder=Path(tmp);state,worker,calls=self.completed_metadata_fixture(folder)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 570, in completed_metadata_fixture
+    self.assertEqual(state['status'],'complete')
+AssertionError: 'blocked' != 'complete'
+- blocked
++ complete
+
+
+======================================================================
+FAIL: test_finished_completion_rejects_log_and_invocation_byte_changes (__main__.PhaseRecoveryTests.test_finished_completion_rejects_log_and_invocation_byte_changes) (artifact='review/events.jsonl')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 576, in test_finished_completion_rejects_log_and_invocation_byte_changes
+    folder=Path(tmp);state,worker,calls=self.completed_metadata_fixture(folder)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 570, in completed_metadata_fixture
+    self.assertEqual(state['status'],'complete')
+AssertionError: 'blocked' != 'complete'
+- blocked
++ complete
+
+
+======================================================================
+FAIL: test_independent_package_continues_and_only_descendant_blocks (__main__.PhaseRecoveryTests.test_independent_package_continues_and_only_descendant_blocks)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 682, in test_independent_package_continues_and_only_descendant_blocks
+    self.assertEqual(state['tasks']['INDEPENDENT']['status'],'complete')
+AssertionError: 'blocked' != 'complete'
+- blocked
++ complete
+
+
+======================================================================
+FAIL: test_interrupted_review_requires_expiry_or_actual_host_cancellation_receipt (__main__.PhaseRecoveryTests.test_interrupted_review_requires_expiry_or_actual_host_cancellation_receipt) (expired=False)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 771, in test_interrupted_review_requires_expiry_or_actual_host_cancellation_receipt
+    folder=Path(tmp);worker,calls=self.interrupted_review(folder,expired)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 765, in interrupted_review
+    with self.assertRaises(KeyboardInterrupt):loop.run(MISSION,folder,worker)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: KeyboardInterrupt not raised
+
+======================================================================
+FAIL: test_interrupted_review_requires_expiry_or_actual_host_cancellation_receipt (__main__.PhaseRecoveryTests.test_interrupted_review_requires_expiry_or_actual_host_cancellation_receipt) (expired=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 771, in test_interrupted_review_requires_expiry_or_actual_host_cancellation_receipt
+    folder=Path(tmp);worker,calls=self.interrupted_review(folder,expired)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 765, in interrupted_review
+    with self.assertRaises(KeyboardInterrupt):loop.run(MISSION,folder,worker)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: KeyboardInterrupt not raised
+
+======================================================================
+FAIL: test_partial_check_checkpoint_only_reruns_interrupted_check (__main__.PhaseRecoveryTests.test_partial_check_checkpoint_only_reruns_interrupted_check)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 663, in test_partial_check_checkpoint_only_reruns_interrupted_check
+    with self.assertRaises(KeyboardInterrupt):loop.run(mission,folder,worker)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: KeyboardInterrupt not raised
+
+======================================================================
+FAIL: test_real_transport_cannot_omit_checkpoint_invocation_or_check_bindings (__main__.PhaseRecoveryTests.test_real_transport_cannot_omit_checkpoint_invocation_or_check_bindings) (missing='role_metadata')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 587, in test_real_transport_cannot_omit_checkpoint_invocation_or_check_bindings
+    folder=Path(tmp);state,worker,calls=self.completed_metadata_fixture(folder)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 570, in completed_metadata_fixture
+    self.assertEqual(state['status'],'complete')
+AssertionError: 'blocked' != 'complete'
+- blocked
++ complete
+
+
+======================================================================
+FAIL: test_real_transport_cannot_omit_checkpoint_invocation_or_check_bindings (__main__.PhaseRecoveryTests.test_real_transport_cannot_omit_checkpoint_invocation_or_check_bindings) (missing='check_logs')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 587, in test_real_transport_cannot_omit_checkpoint_invocation_or_check_bindings
+    folder=Path(tmp);state,worker,calls=self.completed_metadata_fixture(folder)
+                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 570, in completed_metadata_fixture
+    self.assertEqual(state['status'],'complete')
+AssertionError: 'blocked' != 'complete'
+- blocked
++ complete
+
+
+======================================================================
+FAIL: test_retry_exhaustion_stops_at_cap_and_unknown_failure_is_not_retried (__main__.PhaseRecoveryTests.test_retry_exhaustion_stops_at_cap_and_unknown_failure_is_not_retried) (kind='transport')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 751, in test_retry_exhaustion_stops_at_cap_and_unknown_failure_is_not_retried
+    self.assertEqual(state['calls'],3);self.assertEqual(state['status'],'blocked')
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 3
+
+======================================================================
+FAIL: test_retry_exhaustion_stops_at_cap_and_unknown_failure_is_not_retried (__main__.PhaseRecoveryTests.test_retry_exhaustion_stops_at_cap_and_unknown_failure_is_not_retried) (kind='worker_error')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 747, in test_retry_exhaustion_stops_at_cap_and_unknown_failure_is_not_retried
+    with self.assertRaises(RuntimeError):loop.run(mission,Path(tmp),worker)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: RuntimeError not raised
+
+======================================================================
+FAIL: test_transient_retry_is_bounded_consumes_calls_and_restores (__main__.PhaseRecoveryTests.test_transient_retry_is_bounded_consumes_calls_and_restores)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 696, in test_transient_retry_is_bounded_consumes_calls_and_restores
+    self.assertEqual(state['status'],'complete');self.assertEqual(state['calls'],3)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'blocked' != 'complete'
+- blocked
++ complete
+
+
+======================================================================
+FAIL: test_transient_with_source_mutation_is_not_automatically_replayed (__main__.PhaseRecoveryTests.test_transient_with_source_mutation_is_not_automatically_replayed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tests/test_production_loop.py", line 736, in test_transient_with_source_mutation_is_not_automatically_replayed
+    self.assertEqual(state['calls'],1);self.assertEqual(state['status'],'blocked')
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 1
+
+----------------------------------------------------------------------
+Ran 87 tests in 54.786s
+
+FAILED (failures=44, errors=19)

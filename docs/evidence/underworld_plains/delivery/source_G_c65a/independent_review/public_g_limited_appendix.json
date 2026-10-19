@@ -1,0 +1,203 @@
+{
+  "schema": "underworld-revision2-public-browser-independent-appendix-v1",
+  "verdict": "LIMITED ACCEPT public G sampled locomotion, facing and Home/panel entry; final native six-request report boundaries remain unchanged",
+  "source_commit": "c65a111015d032211bb8c54aaae9b322401349d4",
+  "build_id": "6b3093b929c0",
+  "url": "https://zhipijun1996.github.io/gunman-rush/?v=6b3093b929c0",
+  "original_report": "build/underworld_plains/delivery/source_G_c65a/browser_public_G.json",
+  "report_sha256": "eef5bcf13cf18297c5d399e4100efc2aa66f42bac0b61255309718cb69ad9676",
+  "producer_report_status": "passed",
+  "producer_report_checks": 8,
+  "method": "Read-only independent original rendered-pixel review; no new browser/Godot run or private state injection by reviewer",
+  "observations": {
+    "stationary_jump": "01 original feet at spawn top≈455;01a feet≈422 while same spawn top≈531, clear≈109px gap and JUMP0/1;01b/c feet at same spawn platform with JUMP1/1. Camera height changes so compare feet relative to platform in each image, not absolute screen displacement.",
+    "horizontal_trial": "02 is already at right bank top and JUMP1/1, not an airborne sample;03 feet on following wide bank, HP5 and JUMP1/1. Limited ordinary map1 movement/jump/landing sample accepted, not whole route.",
+    "home_panel": "00a actual settlement,00c explicit character-development panel,00d actual settlement and no modal, all visible. No completed character-selection claim.",
+    "home_direction": "Static house/tree positions provide world references with west-clamped camera. Courier advances right from≈x105 to≈316(Dheld), then≈455(released sample), returns left to≈295(Aheld), then≈73(released sample). Body faces left during A while aim line stays right. The visible sequence stays on supported Home floor, away from west/east world bounds, HP5, NOTES0.",
+    "animation": "Individual keyframe silhouette changes are visible in the final-eight-second samples. This public finite sample is not an exhaustive proof of all eight run indices or all14 state/facing branches; H native trace/contiguous review supplies the eight-frame run evidence.",
+    "timing": "D/A requested wait300ms but actual held including screenshot2546.10/3355.46ms as recorded. Screenshot and simulation timing do not measure control latency; released-neutral names are not treated as proof of immediate zero velocity."
+  },
+  "home_direction_input_dispatches": [
+    {
+      "key": "KeyD",
+      "requested_wait_before_screenshot_ms": 300,
+      "actual_hold_including_screenshot_ms": 2546.1,
+      "released": true,
+      "neutral_wait_ms": 80
+    },
+    {
+      "key": "KeyA",
+      "requested_wait_before_screenshot_ms": 300,
+      "actual_hold_including_screenshot_ms": 3355.46,
+      "released": true,
+      "neutral_wait_ms": 80
+    }
+  ],
+  "raw_hash_independent_comparison": {
+    "res://assets/underworld_plains/backgrounds/far.png": {
+      "runtime_report": "c99e5c0c7d86710345f291baf7ee4950995b59b3e0da8034be7fe5f145a78e3e",
+      "current_raw_png": "c99e5c0c7d86710345f291baf7ee4950995b59b3e0da8034be7fe5f145a78e3e",
+      "match": true
+    },
+    "res://assets/underworld_plains/backgrounds/middle.png": {
+      "runtime_report": "b736998135fcc8f7a9a740634dbc33e585f3ebfdf79b4a55395405ae2365e4c2",
+      "current_raw_png": "b736998135fcc8f7a9a740634dbc33e585f3ebfdf79b4a55395405ae2365e4c2",
+      "match": true
+    },
+    "res://assets/underworld_plains/backgrounds/near.png": {
+      "runtime_report": "32ea3038c8388b4df3898e0803d02ca7ad76634d5745019cbde3057d66c6ccf2",
+      "current_raw_png": "32ea3038c8388b4df3898e0803d02ca7ad76634d5745019cbde3057d66c6ccf2",
+      "match": true
+    }
+  },
+  "observed_original_images": [
+    {
+      "path": "build/underworld_plains/delivery/source_G_c65a/browser_public_G/01-map1-ordinary-spawn.png",
+      "sha256": "02b4b8b52219394d5529a077bf0fe2db41c97e1a595c9b36262ded78a6149f1e",
+      "size": [
+        1280,
+        720
+      ],
+      "viewed_original_fullsize": true
+    },
+    {
+      "path": "build/underworld_plains/delivery/source_G_c65a/browser_public_G/01a-map1-stationary-space-early.png",
+      "sha256": "b0520942b41567b2304321b5555fc32bdfb208d3eb02caef1e4ff8189eb3f723",
+      "size": [
+        1280,
+        720
+      ],
+      "viewed_original_fullsize": true
+    },
+    {
+      "path": "build/underworld_plains/delivery/source_G_c65a/browser_public_G/01b-map1-stationary-space-later.png",
+      "sha256": "48fc5695fc947baae2ab9e87869611c31deec8ab47dd8182af24fd739485bb54",
+      "size": [
+        1280,
+        720
+      ],
+      "viewed_original_fullsize": true
+    },
+    {
+      "path": "build/underworld_plains/delivery/source_G_c65a/browser_public_G/01c-map1-stationary-return.png",
+      "sha256": "488655e293f2cbe3249f62ca1fb3db386c32e42a7f1b0bab1f0bf9d7ed042891",
+      "size": [
+        1280,
+        720
+      ],
+      "viewed_original_fullsize": true
+    },
+    {
+      "path": "build/underworld_plains/delivery/source_G_c65a/browser_public_G/02-map1-real-move-jump.png",
+      "sha256": "8c272014275c6fb325f94482c937b62c9e397c784fc4ff17a9a266e28359c83e",
+      "size": [
+        1280,
+        720
+      ],
+      "viewed_original_fullsize": true
+    },
+    {
+      "path": "build/underworld_plains/delivery/source_G_c65a/browser_public_G/03-map1-after-landing.png",
+      "sha256": "6c40761370a7498d6983ee914150ad3b2550d3a0ee40a6298d4838f2397e2be8",
+      "size": [
+        1280,
+        720
+      ],
+      "viewed_original_fullsize": true
+    },
+    {
+      "path": "build/underworld_plains/delivery/source_G_c65a/browser_public_G/00a-home-world-entry.png",
+      "sha256": "3d168f5dd0f45ff79f704cd54fe3192ae0dad4fdb8991d4f24ad28d2932bc027",
+      "size": [
+        1280,
+        720
+      ],
+      "viewed_original_fullsize": true
+    },
+    {
+      "path": "build/underworld_plains/delivery/source_G_c65a/browser_public_G/00c-home-character-panel.png",
+      "sha256": "5b9523f4aaec328b1948b06c29b39f8492baf014f9146552ea70c49a7dc0a39c",
+      "size": [
+        1280,
+        720
+      ],
+      "viewed_original_fullsize": true
+    },
+    {
+      "path": "build/underworld_plains/delivery/source_G_c65a/browser_public_G/00d-home-panel-closed.png",
+      "sha256": "f0fda5d119821cd3518d412c494a8a9606c6a00bea5710b98301ac99e218490e",
+      "size": [
+        1280,
+        720
+      ],
+      "viewed_original_fullsize": true
+    },
+    {
+      "path": "build/underworld_plains/delivery/source_G_c65a/browser_public_G/08b-home-direction-neutral.png",
+      "sha256": "3d168f5dd0f45ff79f704cd54fe3192ae0dad4fdb8991d4f24ad28d2932bc027",
+      "size": [
+        1280,
+        720
+      ],
+      "viewed_original_fullsize": true
+    },
+    {
+      "path": "build/underworld_plains/delivery/source_G_c65a/browser_public_G/09-home-keyD-right.png",
+      "sha256": "904810b5f8af75fcef2eda33b1dd2b4b546bb82292aa3aabbd329f61e44608ca",
+      "size": [
+        1280,
+        720
+      ],
+      "viewed_original_fullsize": true
+    },
+    {
+      "path": "build/underworld_plains/delivery/source_G_c65a/browser_public_G/09-home-keyD-right-released-neutral.png",
+      "sha256": "a40f1a0c9dbd81d57f5660281946dec2946c1870a65ccc02b2c67ffa20157d0d",
+      "size": [
+        1280,
+        720
+      ],
+      "viewed_original_fullsize": true
+    },
+    {
+      "path": "build/underworld_plains/delivery/source_G_c65a/browser_public_G/10-home-keyA-left.png",
+      "sha256": "84f0402edd59eefd59a01d5dd2a0021fcb6c34478ddd93b639926aff0372eb17",
+      "size": [
+        1280,
+        720
+      ],
+      "viewed_original_fullsize": true
+    },
+    {
+      "path": "build/underworld_plains/delivery/source_G_c65a/browser_public_G/10-home-keyA-left-released-neutral.png",
+      "sha256": "b33b402daed62dc8b14e59e0f42b0f57dbedc3869e34debe599773777414d3d0",
+      "size": [
+        1280,
+        720
+      ],
+      "viewed_original_fullsize": true
+    }
+  ],
+  "observed_original_count": 14,
+  "video_sampling": {
+    "path": "build/underworld_plains/delivery/source_G_c65a/browser_public_G/video/page@ca431c41a0bf17553ef74385bb4a3d3c.webm",
+    "duration_seconds": 311.72,
+    "fps": 25,
+    "sample_window_seconds": [
+      303.72,
+      311.72
+    ],
+    "method": "ffmpeg seek only final8sec, fps2, crop620x180 at0,285, tile4x4;16 halfsecond body/building samples actually viewed",
+    "contact": "build/underworld_plains/independent_review/six_feedback_rework/g_public_final8sec_actor_samples.png",
+    "not_full_decode": true,
+    "uninterrupted_playback": false,
+    "audio_listened": false
+  },
+  "retained_limits": [
+    "Map2 uses explicitly positioned inspection entry; no map2 traversal signed.",
+    "Browser producer8checkPASS does not replace original UI minimap/Nil failed run or standalone Home UI27 strict exit failure.",
+    "No all-green whole project test profile, portrait layout, physical keyboard/touch/gamepad/device, actual listening, user aesthetic approval or all Boss stages signed.",
+    "Public pack bytes/license closure are delivery-owner results; independent native/raw-export audits remain in their original F labels, no new G PCK byte parser run here."
+  ],
+  "companion": "final_g_h_limited_review.json"
+}

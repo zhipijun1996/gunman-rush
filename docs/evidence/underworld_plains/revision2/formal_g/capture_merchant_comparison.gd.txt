@@ -1,0 +1,38 @@
+extends SceneTree
+## Actual two-map standing comparison; explicitly positioned, not traversal.
+var checks:=0
+var failures: Array[String]=[]
+var records: Array[Dictionary]=[]
+func _initialize() -> void:run.call_deferred()
+func check(ok: bool,label: String) -> void:
+ checks+=1
+ if not ok:failures.append(label);printerr("FAIL: ",label)
+func run() -> void:
+ root.size=Vector2i(1280,720)
+ var app:=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
+ check(app.start_plains("level-design-v2-baseline/08"),"actual formal entry")
+ for index: int in [1,2]:
+  if index==2:app.director.stage_index=2;app._load_stage()
+  for frame: int in 8:await physics_frame
+  var stage:=app.stage as PlainsRegionStage
+  app.controller.return_to_segment(stage.merchant_position+Vector2(-64,0))
+  for frame: int in 35:await physics_frame
+  var art:=app.player.get_node("PixelPlainsActor") as UnderworldPlayer
+  var merchant:=stage.get_node("UnderworldMerchant") as Sprite2D
+  check(app.player.is_on_floor(),"comparison player really stands on formal terrain")
+  check(art.animation_state=="idle","standing comparison uses actual idle body")
+  var player_foot:=app.player.global_position+Vector2(0,18)
+  var merchant_bounds:=merchant.global_transform*merchant.get_rect()
+  var merchant_foot:=Vector2(merchant_bounds.get_center().x,merchant_bounds.end.y)
+  check(absf(player_foot.y-merchant_foot.y)<1,"both real body feet share the same floor")
+  check(absf(player_foot.x-merchant_foot.x)>50,"bodies remain visually separate")
+  check(is_equal_approx(merchant_bounds.size.y,UnderworldActors.HUMANOID_HEIGHT),"NPC shares courier standing-body height")
+  app._run_camera.snap_to_target();app._run_camera.force_update_scroll()
+  await process_frame;await RenderingServer.frame_post_draw
+  var path:="res://build/underworld_plains/captures_g_c65a/map%d_merchant_standing_comparison.png"%index
+  check(root.get_texture().get_image().save_png(path)==OK,"actual standing comparison saved")
+  records.append({"map":index,"positioned_fixture":true,"traversal_claim":false,"player_position":[app.player.position.x,app.player.position.y],"player_foot":[player_foot.x,player_foot.y],"merchant_foot":[merchant_foot.x,merchant_foot.y],"standing_body_height_wu":UnderworldActors.HUMANOID_HEIGHT,"player_animation":art.animation_receipt(),"image":path})
+ app.abandon_run();check(await load("res://tests/audio_teardown.gd").drain_world(app),"world audio clean")
+ app.free();for frame: int in 6:await process_frame
+ FileAccess.open("res://build/underworld_plains/captures_g_c65a/merchant_standing_comparison.json",FileAccess.WRITE).store_string(JSON.stringify({"checks":checks,"failures":failures,"records":records},"  "))
+ print("MERCHANT STANDING COMPARISON: %d checks, %d failures"%[checks,failures.size()]);quit(0 if failures.is_empty() else 1)

@@ -34,7 +34,8 @@ func _physics_process(_delta: float) -> void:
 
 func _draw() -> void:
 	if pixel_art_enabled and (not is_instance_valid(painted_art) or not painted_art.visible):
-		PixelFormalTerrain.draw_moving(self, Rect2(-definition.size / 2.0, definition.size))
+		if UnderworldActors.enabled(self): UnderworldTerrain.draw_moving(self, Rect2(-definition.size / 2.0, definition.size))
+		else: PixelFormalTerrain.draw_moving(self, Rect2(-definition.size / 2.0, definition.size))
 	elif not pixel_art_enabled and (not is_instance_valid(painted_art) or not painted_art.visible):
 		PlainsTerrainSkin.draw_moving_platform(self, Rect2(-definition.size / 2.0, definition.size))
 
@@ -56,8 +57,24 @@ func restore_motion(clock:float,running:bool)->void:
 # Style toggles do not create bodies, move carriers, or alter animation phases.
 func set_painted_enabled(value: bool) -> void:
 	pixel_art_enabled = value
+	# Existing presentation instances can survive style installation or reload.
+	# A current Underworld carrier must never keep an old painted material overlay.
+	if value and UnderworldActors.enabled(self) and is_instance_valid(painted_art) and not painted_art is UnderworldCarrierPaint:
+		remove_child(painted_art)
+		painted_art.queue_free()
+		painted_art = null
 	if value and not is_instance_valid(painted_art):
-		painted_art = PixelFormalTerrain.build_moving(Rect2(-definition.size / 2.0, definition.size))
+		painted_art = UnderworldCarrierPaint.new() if UnderworldActors.enabled(self) else PixelFormalTerrain.build_moving(Rect2(-definition.size / 2.0, definition.size))
+		if painted_art is UnderworldCarrierPaint:
+			(painted_art as UnderworldCarrierPaint).bounds=Rect2(-definition.size / 2.0, definition.size)
+			painted_art.name="UnderworldCarrierMaterial"
+			painted_art.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
+			painted_art.set_meta("material_source","res://assets/underworld_plains/mechanisms/carrier.png")
 		add_child(painted_art)
 	if is_instance_valid(painted_art): painted_art.visible = value
 	queue_redraw()
+
+class UnderworldCarrierPaint extends Node2D:
+	var bounds: Rect2
+	func _draw() -> void:
+		UnderworldTerrain.draw_moving(self,bounds)

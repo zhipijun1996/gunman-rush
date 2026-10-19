@@ -3,22 +3,55 @@ extends EditorExportPlugin
 ## The preset is the one explicit raw-file list. Family manifests bind its bytes.
 ## add_file never skips/remaps the normal Texture2D export/imported derivatives.
 var editor_tree: SceneTree
+const UNDERWORLD_SOURCES: Array[String] = [
+	"assets/underworld_plains/backgrounds/far.png",
+	"assets/underworld_plains/backgrounds/middle.png",
+	"assets/underworld_plains/backgrounds/near.png",
+	"assets/underworld_plains/terrain/source.png",
+	"assets/underworld_plains/decor/chime_props.png",
+	"assets/underworld_plains/decor/native_underworld.png",
+	"assets/underworld_plains/decor/identity_props.png",
+]
 
 func _get_name() -> String:
 	return "RuntimeSourcePngBytes"
 
-static func source_plan(includes: String, excludes: String) -> Dictionary:
+static func underworld_source_contract() -> Dictionary:
+	# Existing production records bind six delivered images; the terrain record
+	# separately binds its native source. No new runtime manifest is required.
+	var result: Dictionary = {}
+	var catalog: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://assets/manifest.json"))
+	if not catalog is Dictionary or not catalog.get("assets") is Array: return {}
+	for record: Dictionary in catalog.assets:
+		var path := str(record.get("path", ""))
+		if path not in UNDERWORLD_SOURCES: continue
+		if result.has(path): return {}
+		result[path] = str(record.get("sha256", ""))
+	var terrain: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://assets/underworld_plains/terrain/terrain_build.json"))
+	if not terrain is Dictionary or str(terrain.get("source_texture", "")).trim_prefix("res://") != UNDERWORLD_SOURCES[3]: return {}
+	result[UNDERWORLD_SOURCES[3]] = str(terrain.get("source_sha256", ""))
+	return result
+
+static func source_plan(includes: String, excludes: String, underworld_bindings: Variant = null) -> Dictionary:
 	var sources: Array[String] = []
+	var underworld: Dictionary = underworld_source_contract() if underworld_bindings == null else underworld_bindings
 	var pattern := RegEx.new()
 	pattern.compile("^assets/(region_production_v3/spaces/[a-z0-9_]+/source|production_repair/rooted_plants_v1/raw)\\.png$")
 	for entry: String in includes.split(",", false):
 		var path := entry.strip_edges()
-		if not (path.begins_with("assets/region_production_v3/spaces/") or path.begins_with("assets/production_repair/")) or not path.ends_with(".png"): continue
-		if pattern.search(path) == null:
+		var is_underworld := path.begins_with("assets/underworld_plains/")
+		if not (is_underworld or path.begins_with("assets/region_production_v3/spaces/") or path.begins_with("assets/production_repair/")) or not path.ends_with(".png"): continue
+		if (is_underworld and path not in UNDERWORLD_SOURCES) or (not is_underworld and pattern.search(path) == null):
 			return {"ok": false, "error": "Raw PNG include must be one explicit canonical family source: " + path}
 		for excluded: String in excludes.split(",", false):
 			if path.matchn(excluded.strip_edges()):
 				return {"ok": false, "error": "Raw PNG include conflicts with export exclusion: " + path}
+		if is_underworld:
+			var expected := str(underworld.get(path, ""))
+			if expected.length() != 64 or FileAccess.get_sha256("res://" + path) != expected:
+				return {"ok": false, "error": "Underworld raw PNG differs from its existing production SHA256: " + path}
+			if path not in sources: sources.append(path)
+			continue
 		var family_path := "res://" + path.get_base_dir().path_join("family.json")
 		if not FileAccess.file_exists(family_path):
 			return {"ok": false, "error": "Raw PNG lacks its real family manifest: " + path}

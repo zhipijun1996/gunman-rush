@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "task_id": "UNDERWORLD-PLAINS-01",
+  "reviewer": "independent /root/production_review",
+  "prepared_at_utc": "2026-10-19T10:07:21.293427+00:00",
+  "baseline_commit": "8382a41cb0ccf9a8e2e56075ade9edaceb4ff67a",
+  "status": "prepared_unverified",
+  "scope": "Independent formal Underworld Windchime Plains two-map art+pipeline audit; old style-lab preference is not formal acceptance",
+  "inventory_kind": "source-derived required coverage candidates; actual runtime instance inventory and output pairing pending golden-ready freeze",
+  "consumers": [
+    {
+      "id": "formal_entry",
+      "source_path": "DemoApp.start_plains -> connected_region RunProfile.formal -> two-map campaign",
+      "required_observation": "Home normal entry, pause/return/restart, stage transition",
+      "status": "unverified",
+      "reason": "Awaiting frozen golden production consumers and actual GPU output"
+    },
+    {
+      "id": "player",
+      "source_path": "DemoApp -> accepted PlayerMotor/InputRouter -> actor Presentation",
+      "required_observation": "idle/run/jump/apex/landing/fire/hit/death; no direct-transform traversal",
+      "status": "unverified",
+      "reason": "Awaiting frozen golden production consumers and actual GPU output"
+    },
+    {
+      "id": "ordinary_enemies",
+      "source_path": "PlainsRegionStage generated enemies -> PixelFormalStyleInstaller",
+      "required_observation": "all actual behavior IDs from runtime inventory, idle/telegraph/attack/hit/defeat",
+      "status": "unverified",
+      "reason": "Awaiting frozen golden production consumers and actual GPU output"
+    },
+    {
+      "id": "bellstrider_map1",
+      "source_path": "PlainsRegionStage map 1 -> BellstriderPresentation",
+      "required_observation": "arrival, activation, warning/attack/core/damage/death plus HUD",
+      "status": "unverified",
+      "reason": "Awaiting frozen golden production consumers and actual GPU output"
+    },
+    {
+      "id": "windkeeper_map2",
+      "source_path": "PlainsRegionStage map 2 -> WindkeeperPresentation",
+      "required_observation": "all actual phases, warnings, projectiles/core/damage/death plus HUD",
+      "status": "unverified",
+      "reason": "Awaiting frozen golden production consumers and actual GPU output"
+    },
+    {
+      "id": "projectiles",
+      "source_path": "DemoApp.shoot_ability.shot_fired and actual enemy attack projectiles",
+      "required_observation": "muzzle alignment, trails, motion, collision accepted vs rejected",
+      "status": "unverified",
+      "reason": "Awaiting frozen golden production consumers and actual GPU output"
+    },
+    {
+      "id": "mechanisms",
+      "source_path": "ShotLatch / gates / saws / ferries / actual stage instances",
+      "required_observation": "closed-warning-open-reset, support relation, hazard visibility",
+      "status": "unverified",
+      "reason": "Awaiting frozen golden production consumers and actual GPU output"
+    },
+    {
+      "id": "solid",
+      "source_path": "PlainsRegionStage actual physical RectangleShape2D union",
+      "required_observation": "short/long/thin/thick/overlap/concave/hole/float/grounded; exact unchanged collision",
+      "status": "unverified",
+      "reason": "Awaiting frozen golden production consumers and actual GPU output"
+    },
+    {
+      "id": "oneway",
+      "source_path": "PlatformingModule real one_way_platform_indices and PlainsWoodPlatformArt",
+      "required_observation": "ends, stacked gaps, drop through; semantic remains visually distinct",
+      "status": "unverified",
+      "reason": "Awaiting frozen golden production consumers and actual GPU output"
+    },
+    {
+      "id": "moving",
+      "source_path": "ModuleMovingPlatform actual AnimatableBody2D",
+      "required_observation": "both ends, direction reversal, boarding/carry/alighting; moving reference frame",
+      "status": "unverified",
+      "reason": "Awaiting frozen golden production consumers and actual GPU output"
+    },
+    {
+      "id": "hazard_up",
+      "source_path": "PlatformThornDefinition.face UP + danger_bounds support case",
+      "required_observation": "visual rooted edge, exact damage rect and real damage accept/reject boundary",
+      "status": "unverified",
+      "reason": "Awaiting frozen golden production consumers and actual GPU output"
+    },
+    {
+      "id": "hazard_down",
+      "source_path": "PlatformThornDefinition.face DOWN",
+      "required_observation": "ceiling/short/thin/inner edge; real support and exact danger",
+      "status": "unverified",
+      "reason": "Awaiting frozen golden production consumers and actual GPU output"
+    },
+    {
+      "id": "hazard_left",
+      "source_path": "PlatformThornDefinition.face LEFT",
+      "required_observation": "wall boundary, pillar edge and actual danger",
+      "status": "unverified",
+      "reason": "Awaiting frozen golden production consumers and actual GPU output"
+    },
+    {
+      "id": "hazard_right",
+      "source_path": "PlatformThornDefinition.face RIGHT",
+      "required_observation": "wall boundary, mirrored correspondence and actual danger",
+      "status": "unverified",
+      "reason": "Awaiting frozen golden production consumers and actual GPU output"
+    },
+    {
+      "id": "parallax_far",
+      "source_path": "Actual default Underworld far layer texture + actual screen center",
+      "required_observation": "independent original PNG, XY travel, return, clamp, 1280x720/640x360/480x270/portrait",
+      "status": "unverified",
+      "reason": "Awaiting frozen golden production consumers and actual GPU output"
+    },
+    {
+      "id": "parallax_middle",
+      "source_path": "Actual default Underworld middle layer texture + actual screen center",
+      "required_observation": "different image, depth/scale/contrast/transparent sky, distinct measured speed, no seam",
+      "status": "unverified",
+      "reason": "Awaiting frozen golden production consumers and actual GPU output"
+    },
+    {
+      "id": "parallax_near",
+      "source_path": "Actual default Underworld near layer texture + actual screen center",
+      "required_observation": "different image and speed; motion does not imply false solid landing",
+      "status": "unverified",
+      "reason": "Awaiting frozen golden production consumers and actual GPU output"
+    },
+    {
+      "id": "decor",
+      "source_path": "Actual Underworld formal supported decoration nodes",
+      "required_observation": "independent decoration RNG, support/root anchor, keepout, no collisions, sparse budget",
+      "status": "unverified",
+      "reason": "Awaiting frozen golden production consumers and actual GPU output"
+    },
+    {
+      "id": "bridge_refresh",
+      "source_path": "Actual destructible bridge lifecycle -> dependent presentation rebuild",
+      "required_observation": "before/after break, bridge reset/map reload, no detached ornaments or stale duplicate visuals",
+      "status": "unverified",
+      "reason": "Awaiting frozen golden production consumers and actual GPU output"
+    },
+    {
+      "id": "two_map_ten_seed",
+      "source_path": "PlainsRegionCampaign root seed -> both formal difficulty consumers",
+      "required_observation": "at least 10 distinct root seeds x both maps, manifest/source hashes, worst seeds; do not infer actual traversal from camera inspection",
+      "status": "unverified",
+      "reason": "Awaiting frozen golden production consumers and actual GPU output"
+    }
+  ]
+}

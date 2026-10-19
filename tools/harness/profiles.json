@@ -901,6 +901,271 @@
       "success_pattern": "^Validated runtime evidence:",
       "weight_seconds": 8,
       "serial": true
+    },
+    "underworld-pipeline": {
+      "argv": [
+        "python3",
+        "tests/test_underworld_pipeline.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^OK$",
+      "weight_seconds": 80,
+      "cacheable": false,
+      "inputs": [
+        "tools/underworld_pipeline.py",
+        "tests/test_underworld_pipeline.py",
+        "assets/underworld_plains",
+        "assets/style_exploration/anchors.json",
+        "assets/style_exploration/underworld/source",
+        "scripts/underworld_plains",
+        "scripts/ui",
+        "scripts/demo",
+        "scripts/generation/module_moving_platform.gd",
+        "scripts/world/shot_latch.gd",
+        "assets/fonts",
+        "assets/manifest.json"
+      ]
+    },
+    "underworld-scenery": {
+      "argv": [
+        "python3",
+        "tools/underworld_pipeline.py",
+        "runtime",
+        "--suite",
+        "scenery"
+      ],
+      "timeout_seconds": 150,
+      "success_pattern": "^PASS: Underworld scenery runtime; strict engine teardown$",
+      "weight_seconds": 2,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "assets/underworld_plains",
+        "scripts/underworld_plains",
+        "tests/underworld_plains/test_underworld_scenery.gd",
+        "project.godot",
+        "tools/underworld_pipeline.py",
+        "tools/run_tests.py",
+        "tests/underworld_plains/test_underworld_identity_population.gd"
+      ]
+    },
+    "underworld-hazards": {
+      "argv": [
+        "python3",
+        "tools/underworld_pipeline.py",
+        "runtime",
+        "--suite",
+        "hazards"
+      ],
+      "timeout_seconds": 150,
+      "success_pattern": "^PASS: Underworld hazards runtime; strict engine teardown$",
+      "weight_seconds": 3,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "assets/underworld_plains",
+        "scripts/underworld_plains",
+        "scripts/generation/platforming_module.gd",
+        "scripts/demo/plains_region_stage.gd",
+        "tests/underworld_plains/test_underworld_hazards.gd",
+        "project.godot",
+        "tools/underworld_pipeline.py",
+        "tools/run_tests.py"
+      ]
+    },
+    "underworld-terrain": {
+      "argv": [
+        "python3",
+        "tools/run_underworld_terrain_tests.py"
+      ],
+      "timeout_seconds": 150,
+      "success_pattern": "^PASS: Underworld source-native exact terrain geometry$",
+      "weight_seconds": 2,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "assets/underworld_plains",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "tests/underworld_plains",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/run_underworld_terrain_tests.py"
+      ]
+    },
+    "underworld-formal-terrain": {
+      "argv": [
+        "python3",
+        "tools/run_underworld_formal_terrain_tests.py"
+      ],
+      "timeout_seconds": 270,
+      "success_pattern": "^PASS: Underworld 20 formal Stage geometries and actual Boss-break refresh$",
+      "weight_seconds": 40,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "assets/underworld_plains",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "tests/underworld_plains",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/run_underworld_formal_terrain_tests.py"
+      ]
+    },
+    "underworld-formal": {
+      "argv": [
+        "python3",
+        "tools/run_underworld_formal_tests.py"
+      ],
+      "timeout_seconds": 150,
+      "success_pattern": "^PASS: Underworld default formal actor/UI consumers and lifecycle$",
+      "weight_seconds": 3,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "assets/underworld_plains",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "tests/underworld_plains",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/run_underworld_formal_tests.py"
+      ]
+    },
+    "underworld-raw-export": {
+      "argv": [
+        "python3",
+        "tests/test_underworld_raw_export.py"
+      ],
+      "timeout_seconds": 120,
+      "success_pattern": "^OK$",
+      "weight_seconds": 5,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "addons/runtime_raw_export",
+        "export_presets.cfg",
+        "assets/underworld_plains",
+        "assets/manifest.json",
+        "tests/test_underworld_raw_export.py",
+        "tests/underworld_raw_export_runner.gd",
+        "tools/underworld_delivery.py",
+        "tools/run_tests.py"
+      ]
+    },
+    "underworld-player-animation": {
+      "argv": [
+        "python3",
+        "tools/run_underworld_player_animation_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^PASS: Underworld generated player body frames, actual left/right Motor, anchors and accepted lifecycle$",
+      "weight_seconds": 15,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "assets/underworld_plains",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "tests/underworld_plains",
+        "tests/audio_teardown.gd",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/run_underworld_player_animation_tests.py"
+      ],
+      "artifact_paths": [
+        "build/underworld_player_animation"
+      ]
+    },
+    "underworld-mechanisms": {
+      "argv": [
+        "python3",
+        "tools/run_underworld_mechanism_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: Underworld mechanisms",
+      "weight_seconds": 20,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "assets/underworld_plains",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "tests/underworld_plains",
+        "tests/audio_teardown.gd",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/run_underworld_mechanism_tests.py"
+      ],
+      "artifact_paths": [
+        "build/underworld_plains/mechanisms"
+      ]
+    },
+    "underworld-home": {
+      "argv": [
+        "python3",
+        "tools/run_underworld_home_tests.py"
+      ],
+      "timeout_seconds": 150,
+      "success_pattern": "^UNDERWORLD HOME CHECK: [1-9][0-9]* assertions,0 failures; actual consumer and source lineage checked$",
+      "weight_seconds": 45,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "assets/underworld_plains",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "tests/underworld_plains",
+        "tests/audio_teardown.gd",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/run_underworld_home_tests.py"
+      ],
+      "artifact_paths": [
+        "build/underworld_home"
+      ]
+    },
+    "underworld-ui": {
+      "argv": [
+        "python3",
+        "tools/run_underworld_ui_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS: Underworld UI actual native mouse paths",
+      "weight_seconds": 25,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "assets/underworld_plains",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "tests/underworld_plains",
+        "tests/audio_teardown.gd",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/run_underworld_ui_tests.py",
+        "assets/fonts",
+        "assets/underworld_plains/terrain/source.png",
+        "assets/underworld_plains/actors/bell.png"
+      ],
+      "artifact_paths": [
+        "build/underworld_plains/ui_rework"
+      ]
     }
   },
   "profiles": {
@@ -925,7 +1190,8 @@
       "level-experience",
       "level-formal-receipts",
       "visual-director-tests",
-      "asset-family-tests"
+      "asset-family-tests",
+      "underworld-pipeline"
     ],
     "core": [
       "docs",
@@ -1005,7 +1271,18 @@
       "windchime-plains",
       "pixel-plains",
       "pixel-formal",
-      "style-exploration"
+      "style-exploration",
+      "underworld-pipeline",
+      "underworld-scenery",
+      "underworld-hazards",
+      "underworld-terrain",
+      "underworld-formal-terrain",
+      "underworld-formal",
+      "underworld-raw-export",
+      "underworld-player-animation",
+      "underworld-mechanisms",
+      "underworld-home",
+      "underworld-ui"
     ],
     "art": [
       "docs",
@@ -1060,7 +1337,18 @@
       "windchime-plains",
       "pixel-plains",
       "pixel-formal",
-      "style-exploration"
+      "style-exploration",
+      "underworld-pipeline",
+      "underworld-scenery",
+      "underworld-hazards",
+      "underworld-terrain",
+      "underworld-formal-terrain",
+      "underworld-formal",
+      "underworld-raw-export",
+      "underworld-player-animation",
+      "underworld-mechanisms",
+      "underworld-home",
+      "underworld-ui"
     ],
     "web": [
       "docs",
@@ -1087,7 +1375,12 @@
       "level-formal-receipts",
       "visual-director-tests",
       "web-resource-contract-tests",
-      "runtime-raw-export-tests"
+      "runtime-raw-export-tests",
+      "underworld-raw-export",
+      "underworld-player-animation",
+      "underworld-mechanisms",
+      "underworld-home",
+      "underworld-ui"
     ],
     "full": [
       "docs",
@@ -1158,7 +1451,18 @@
       "windchime-plains",
       "pixel-plains",
       "pixel-formal",
-      "style-exploration"
+      "style-exploration",
+      "underworld-pipeline",
+      "underworld-scenery",
+      "underworld-hazards",
+      "underworld-terrain",
+      "underworld-formal-terrain",
+      "underworld-formal",
+      "underworld-raw-export",
+      "underworld-player-animation",
+      "underworld-mechanisms",
+      "underworld-home",
+      "underworld-ui"
     ]
   }
 }

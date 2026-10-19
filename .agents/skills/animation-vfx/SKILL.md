@@ -72,3 +72,7 @@ gameplay-reviewer 检查正常速度动作再逐帧定位；最终依据连续�
 按 [视觉合同](../../../docs/quality/visual_director_contract.md) 用 `python3 tools/visual_director.py capture --help` 采正常速度正式影片，结束后抽帧标video frame/time；实际accepted事件/资源与媒体时间对应另记，不能由截图序号虚构物理tick。`inspect --help`、`compare --help` 只辅助定位：不同审查者仍需实际看连续像素，检验静止/移动/反冲/敌预告/船载/领奖UI/暂停重入，未听音轨不签音频。
 
 交付实际参数/消费者、开关前后同镜头影片、源与事件、生命周期/帧时事实及AI情绪判断。手机缩小代理不等于真机性能或用户手感。连续两轮无实质画面改善或关键工具不可用停止相应依赖，保留失败；经验附媒体/版本/适用材质和场景范围，不把一次“更有生命力”的判断设成全区域强制粒子量。
+
+## Underworld试玩反馈生产补充
+
+Underworld机关复用同一功能铃图及accepted事件反馈；平台材质按独立长宽平铺。绘制纹理必须持续持有，纯headless成功不能排除GPU白块。运行 `underworld-mechanisms` 并检查真实截图像素/弹丸时间轴；失败白块与修复源分别保留。

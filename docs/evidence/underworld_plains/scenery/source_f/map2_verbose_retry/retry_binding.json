@@ -1,0 +1,121 @@
+{
+  "schema": "underworld-exact-f-map2-verbose-retry-v1",
+  "runtime_source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+  "fixture_source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+  "fixture_path": "tests/underworld_plains/capture_scenery_windows.gd",
+  "fixture_sha256": "517307a5cb080a655198498049717b811781d6ece13e20bf0cb035a45fc27c9f",
+  "runtime_diff": [],
+  "original_preserved_binding": "build/underworld_plains/source_f_scenery/source_binding.json",
+  "original_preserved_binding_sha256": "ef90029199301339a1c12c1e0198631805237e878474fb57d4729ca930225003",
+  "purpose": "One exact original fixture retry with --verbose to diagnose original4ObjectDB/2resource exit warning; original warning evidence unchanged",
+  "argv": [
+    "bash",
+    "tools/godot.sh",
+    "--path",
+    ".",
+    "--rendering-method",
+    "gl_compatibility",
+    "--audio-driver",
+    "Dummy",
+    "--verbose",
+    "--script",
+    "tests/underworld_plains/capture_scenery_windows.gd",
+    "--",
+    "--scenery-map=2"
+  ],
+  "engine_exit_code": 0,
+  "elapsed_seconds": 14.191361427307129,
+  "log": "build/underworld_plains/source_f_scenery/map2_verbose_retry/capture.log",
+  "log_sha256": "62e285e3999e2a7d9a4a067386f800f1bfe901f9b3a060f9d289b1b67ba0916d",
+  "receipts": "build/underworld_plains/source_f_scenery/map2_verbose_retry/receipts.json",
+  "receipts_sha256": "10ee37492bc8fccb29852b31ee261ce75c2ca1221891504521163ca27b04ff88",
+  "images": [
+    {
+      "path": "build/underworld_plains/source_f_scenery/map2_verbose_retry/golden_map2_spawn.png",
+      "sha256": "5a3f885e6401afbf8ab4172d21dd0ab36afee0256bed4143433d4d5efb59dd32",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/underworld_plains/source_f_scenery/map2_verbose_retry/golden_map2_junction.png",
+      "sha256": "fe18fca03640b297ed965a8738e125a3de9b7f5aa04bf6a6eb5d249a1c00c2d7",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/underworld_plains/source_f_scenery/map2_verbose_retry/golden_map2_middle.png",
+      "sha256": "29053ee7e6082c5666aaa38b8521d41335e0a1dd2214757d5856977ee6716d46",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/underworld_plains/source_f_scenery/map2_verbose_retry/golden_map2_deep_creek.png",
+      "sha256": "a10b89739c82c31a8cbd63be50a1a62274d7d6d265628adf6ced7c284489ebf6",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/underworld_plains/source_f_scenery/map2_verbose_retry/golden_map2_local_creek_well.png",
+      "sha256": "9b26d2a228c62e9a694fc77ceaeadf0fa71417786f3e298d1c4722533a413e6b",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/underworld_plains/source_f_scenery/map2_verbose_retry/golden_map2_identity_windmill_plateau.png",
+      "sha256": "fcc0edf82686134a2ae5b62fdc658df6eaf23428ac2032f058b64b661bdae472",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/underworld_plains/source_f_scenery/map2_verbose_retry/golden_map2_identity_clock_court.png",
+      "sha256": "4f8d6bde2532d2f510fef27ab07d44f4041afd2cc79aef3ac665123712bd4cd8",
+      "size": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/underworld_plains/source_f_scenery/map2_verbose_retry/golden_map2_identity_repair_gallery.png",
+      "sha256": "a154ae508089f2f15885278442082646624823707061af1af891b5bc2e7f7471",
+      "size": [
+        1280,
+        720
+      ]
+    }
+  ],
+  "grounded_landmark_rays": [
+    {
+      "actual_bottom_center": "(-797.8148, 18.0)",
+      "collider": "/root/@Node2D@2/@Node2D@628/@Node2D@629/tutorial_recoil/Platform1",
+      "hit_static_body": true,
+      "identity": "windmill_plateau"
+    },
+    {
+      "actual_bottom_center": "(509.5063, -682.0)",
+      "collider": "/root/@Node2D@2/@Node2D@628/@Node2D@629/plains_passage_area_0_0_area_1_0_0/Platform0",
+      "hit_static_body": true,
+      "identity": "clock_court"
+    },
+    {
+      "actual_bottom_center": "(2247.224, 18.0)",
+      "collider": "/root/@Node2D@2/@Node2D@628/@Node2D@629/plains_passage_area_1_1_area_2_1_0/Platform1",
+      "hit_static_body": true,
+      "identity": "repair_gallery"
+    }
+  ],
+  "log_issues": [],
+  "status": "clean",
+  "scope": "Positioned real formal consumer art inspection; not traversal/no-damage/FPS claim"
+}

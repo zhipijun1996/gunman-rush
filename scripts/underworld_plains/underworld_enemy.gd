@@ -1,0 +1,42 @@
+class_name UnderworldEnemy
+extends PixelPlainsEnemy
+## Genuine new body art. Original state-based telegraphs remain authoritative.
+const SPRITES := {
+	"patrol":preload("res://assets/underworld_plains/actors/patrol.png"),
+	"hopper":preload("res://assets/underworld_plains/actors/hopper.png"),
+	"charger":preload("res://assets/underworld_plains/actors/charger.png"),
+	"aerial":preload("res://assets/underworld_plains/actors/aerial.png"),
+	"sentry":preload("res://assets/underworld_plains/actors/sentry.png"),
+	"root_bell":preload("res://assets/underworld_plains/actors/root_bell.png")}
+
+func _draw() -> void:
+	if actor == null: return
+	var behavior := String(actor.definition.behavior_id)
+	var state: StringName = actor.attack_behavior.state if actor.attack_behavior!=null else &"idle"
+	if not actor.health.terminal: _telegraph(state,StringName(behavior))
+	var key := "aerial" if actor.definition.aerial else "sentry" if behavior in ["sentry","fan_sentry"] else behavior if SPRITES.has(behavior) else "patrol"
+	var source: Texture2D = SPRITES[key]
+	var size := actor.definition.collision_size
+	var width := maxf(size.x+8,28)
+	var height := width*source.get_height()/source.get_width()
+	if height>size.y+14:
+		width *= (size.y+14)/height
+		height = size.y+14
+	var floor_y := size.y*.5
+	var dip := 3.0 if state==&"telegraph" else 1.0 if state==&"recovery" else 0.0
+	if actor.health.terminal: dip += _death*18
+	var pose := Vector2.ONE
+	if state==&"telegraph": pose=Vector2(1.06,.94)
+	elif state==&"attack": pose=Vector2(.96,1.04)
+	var flutter := 2*roundf(sin(_clock*12)) if actor.definition.aerial else 0.0
+	draw_set_transform(Vector2(0,dip+flutter),0,Vector2(float(actor.brain.direction)*pose.x,pose.y))
+	draw_texture_rect(source,Rect2(-width*.5,floor_y-height,width,height),false,Color(1.8,1.6,1.3) if _hurt>0 else Color.WHITE)
+	draw_set_transform(Vector2.ZERO)
+	if actor.health.terminal: return
+	var top := -size.y*.5
+	var half := maxf(12,size.x*.5)
+	if actor.health.capacity>8:
+		draw_rect(Rect2(-half,top-12,half*2,4),Color("111b17"))
+		draw_rect(Rect2(-half,top-12,half*2*actor.health.current/actor.health.capacity,2),Color("d4c893"))
+	else:
+		for i: int in ceili(actor.health.current):draw_rect(Rect2(-8+i*6,top-12,4,2),Color("d4c893"))

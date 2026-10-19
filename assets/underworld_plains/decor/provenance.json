@@ -1,0 +1,40 @@
+{
+  "schema": "underworld-decor-reuse-v1",
+  "task": "UNDERWORLD-PLAINS-01",
+  "source": "assets/underworld_plains/decor/sources/original_props.png",
+  "source_sha256": "a956c984f4a839f08dc7a9e6dbd5e145a348efa36221e308d964b5cb0fb8cf06",
+  "atlas": "assets/underworld_plains/decor/chime_props.png",
+  "atlas_sha256": "a956c984f4a839f08dc7a9e6dbd5e145a348efa36221e308d964b5cb0fb8cf06",
+  "reference": "assets/style_exploration/underworld/original/TileSet.png",
+  "reference_license": "Asouris broad use permission; not CC0",
+  "generation_record": "docs/evidence/style_exploration/generation.json",
+  "processing": "Byte-identical reuse of selected Underworld props and exact measured AtlasTexture regions; no recolor, repaint, or resampling",
+  "tool": "image_gen.imagegen",
+  "model": "not_exposed",
+  "original_generation": {
+    "style": "underworld",
+    "tool": "image_gen.imagegen",
+    "model": "not_exposed",
+    "calls": 2,
+    "props_prompt": "Create an ORIGINAL game sprite asset sheet extending the visual language of the attached reference. Strict tiny 16x16-inspired dark silhouette pixel art, large near-black navy shapes, sparse moss-green and warm amber rim pixels, enchanting local glow, minimal texture.\nOutput a very wide transparent canvas, arranged as exactly FOUR EQUAL WIDTH CELLS IN ONE HORIZONTAL ROW, each object fully isolated with at least 12% transparent margin around its own cell. No labels, text, numbers, UI, ground plane, drop shadows or background. Same baseline near bottom for all objects. Cell 1: a whole crooked OLD WINDCHIME TREE, short twisted trunk anchored with visible roots, windswept asymmetrical canopy, exactly three small brass bells suspended from its branches; whole tree complete, visible trunk and roots. Cell 2: a complete slender meadow BELL WINDMILL shrine, grounded old wooden base, small four-blade wind rotor and two hanging bell chimes, pleasing asymmetric fairy tale silhouette, not a castle. Cell 3: a small cluster of meadow GRASS, TINY FLOWERS and one weathered brass bell half embedded, small complete rooted object. Cell 4: an adorable tiny HOODED COURIER player character full body side view facing right, cream face visible in hood, rust red scarf streaming left, brown boots, clearly separate legs, no weapon. These are game assets for Windchime Plains in The Disordered Clock, a gentle but melancholy fairy tale. Keep each object narrow and vertical, don't join objects or draw terrain. These must look like designed reusable game sprites at small scale; faithfully maintain the supplied reference's markmaking and shape economy.",
+    "background_prompt": "Create a wide 16:9 ORIGINAL seamless-feeling PARALLAX BACKGROUND PANORAMA for a 2D platformer Windchime Plains in The Disordered Clock. Match the attached visual anchor carefully. Strict tiny 16x16-inspired dark silhouette pixel art, large near-black navy shapes, sparse moss-green and warm amber rim pixels, enchanting local glow, minimal texture.\nScene: an enchanted wide-open countryside at blue dusk with a pale fading horizon (for the hand-drawn scribble version use warm ivory paper and for the Basic version soft peach afternoon instead). Broad layered rolling meadow hills stretch horizontally, tiny distant weathered bell towers and windmills with four thin vanes, wisps of clouds carried by wind, a very thin stream reflecting the sky far below, sparse silhouettes of wind-bent grass trees. Fairy tale with melancholy, sophisticated restrained color hierarchy. The top two-thirds is a beautiful soft sky with atmospheric clouds and a small pale moon (Basic: sun; scribble: sketched sun), the bottom third has three receding bands of low distant landscape. Far silhouettes must remain soft LOW CONTRAST and small, so foreground gameplay terrain will read clearly. Favor designed landscape masses and negative space over busy details.\nThis is ONLY a distant landscape image, NOT a screenshot or concept of the playable level. Absolutely NO foreground platforms, no ground tiles, no floating blocks, no characters, no large trees in front, no large architecture, no UI, no borders, no captions. Background extends to every image edge; nothing central like a logo. No underworld cavern roof: even dark variants are OPEN WINDY PLAINS so this style can expand into sixteen diverse biomes later. Crisp markmaking matching reference, no generic photorealism or painterly style drift.",
+    "props_source": "assets/style_exploration/underworld/generated/source_props.png",
+    "background_source": "assets/style_exploration/underworld/generated/source_background.png",
+    "anchor_source": "See assets/style_exploration/atlas_build_manifest.json and source/licenses",
+    "generation_scope": "experimental art candidates; no final user approval; one props family plus one distant landscape per style",
+    "props_source_sha256": "a956c984f4a839f08dc7a9e6dbd5e145a348efa36221e308d964b5cb0fb8cf06",
+    "background_source_sha256": "10a559bee8637f146d85598a2218cb3bc7735ae7be73f87a2975c45d14c91aef"
+  },
+  "native_grass": {
+    "source": "assets/underworld_plains/decor/native_underworld.png",
+    "source_sha256": "a369175ccef5fca5ab363f140252d1f0f38b5eafb5d541605c601ea4ac56f88c",
+    "region": [
+      96,
+      32,
+      32,
+      16
+    ],
+    "license_record": "assets/style_exploration/underworld/source/licenses/publisher_page.txt",
+    "processing": "Runtime AtlasTexture exact original-source crop; no repaint"
+  }
+}

@@ -1,3 +1,11 @@
+# 当前执行：Underworld正式平原与可复用Tile流程
+
+用户已从五套真实TileSet样本中选择Underworld，授权整体修改正式风铃平原并整理Harness/Skills；伤害Tile须与平台材料融合。当前规范见[Underworld Tile生产流程](underworld_tile_production.md)，真实清单为 `assets/underworld_plains/production_manifest.json`。16px原生参考按32wu格消费，不沿用历史64px素材规格。整格核心使用永久TileSet与TileMapLayer，非整格边界仍精确适配而非改变碰撞。三独立PNG按真实限位后相机中心分速；装饰根/净空/独立seed、四向危险材料与真实hurt band分别验证。其他地区统一画法而不固定配色或复制岩石材质。
+
+以下是历史生产方向，不覆盖本节。
+
+---
+
 # 当前执行：正式风铃平原像素重制与三层视差
 
 用户在新像素晨光小样后明确说：“大概就是这种感觉。基于这种风格重做整个风铃平原。然后远景需要3种层次分开3个大图，镜头移动的时候不同速度移动体现景深差异”，并补充“不需要太复杂的纹理”“47tile难做的话可以考虑dual-grid方案”。这覆盖下文仅一屏/不迁移正式地图的旧范围。任务仍为 `WINDCHIME-PIXEL-01`，不重开生成预算。

@@ -1,0 +1,5 @@
+# 验证原件
+
+core：5676/0；旧PixelFormalTerrain：2097/0，原断言不改。新正式消费者初验80/0。原场景专项首轮180秒timeout，原件保留；定位新背景每tick三幅PNG哈希，缓存后同像素、8条正式route全部target_reached且native59/0，原wrapper只因四身份consumer缺失REJECT。该缺口正真实补充新Underworld地标，不当历史稀疏问题豁免，最终结果另存。
+
+Foundry原导出守门拒绝过期basis后，按原36phrases/18itineraries规模真实重验晋升，原脚本盖章。去除basis/hash等纯内容指纹字段后全部其余字段相同，production_pool仍false，未改正式生成或能力授予。

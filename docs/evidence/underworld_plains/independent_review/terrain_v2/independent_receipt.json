@@ -1,0 +1,49 @@
+{
+  "task_id": "UNDERWORLD-PLAINS-01",
+  "phase": "Independent native GPU terrain v2 rerun",
+  "reviewer": "/root/production_review",
+  "observed_at": "2026-10-19T10:11:03.462729+00:00",
+  "verdict": "ACCEPT",
+  "scope": "Five isolated terrain cases: exact geometry occupancy, source native GPU repartition equality, no outside spill, previously viewed identical output; formal consumers/aesthetic approval not included.",
+  "command": "DISPLAY=:98 LIBGL_ALWAYS_SOFTWARE=1 LP_NUM_THREADS=1 bash tools/godot.sh --rendering-method gl_compatibility --audio-driver Dummy --path . --script build/underworld_plains/independent_review/terrain_v2/runner.gd -- --gpu",
+  "exit_code": 0,
+  "source_original": "tests/underworld_plains/test_underworld_terrain.gd",
+  "probe_change": "Only one output path literal changed to reviewer-owned build folder; all native assertions and cases retained verbatim",
+  "original_runner_sha256": "130f47f1cc1a7eb760e23a973919ae2fedb80a1dbe044b116b637a4ec23979d7",
+  "production_source_sha256": "1b806e6c8b2d81f75edb4a5cc3e671b84d1d3d383536670234cbdc0232170e3f",
+  "native_result": {
+    "cases": 5,
+    "checks": 239910,
+    "failures": [],
+    "gpu": true,
+    "scope": "Exact geometry coverage and native-pixel partition equality; original source alpha can round convex silhouette. Not aesthetic acceptance."
+  },
+  "images": [
+    {
+      "path": "docs/evidence/underworld_plains/independent_review/terrain_v2/golden_0.png",
+      "sha256": "d8be711e7110fa51313461e99c472e8d007dc0bbfb303047e35b687c55f94cab",
+      "identical_to_previously_actually_viewed_png": true
+    },
+    {
+      "path": "docs/evidence/underworld_plains/independent_review/terrain_v2/golden_1.png",
+      "sha256": "4e530b9c354d81099974adb164efc35f3235a3fe5a37b6ab990f57acc15b5522",
+      "identical_to_previously_actually_viewed_png": true
+    },
+    {
+      "path": "docs/evidence/underworld_plains/independent_review/terrain_v2/golden_2.png",
+      "sha256": "afb6456fbbe1597e22bbf400139e64ac54882da8f5e8fa6645dcda6c2da6aedb",
+      "identical_to_previously_actually_viewed_png": true
+    },
+    {
+      "path": "docs/evidence/underworld_plains/independent_review/terrain_v2/golden_3.png",
+      "sha256": "0670652660e00a3c5172915c6fc3a7f1fc14135dedeee737ccd28b8eb2912d94",
+      "identical_to_previously_actually_viewed_png": true
+    },
+    {
+      "path": "docs/evidence/underworld_plains/independent_review/terrain_v2/golden_4.png",
+      "sha256": "2958556f448c4fc68f2d3dcf7e4b6599c9469a7acaa9bd08ec132faed7f2d320",
+      "identical_to_previously_actually_viewed_png": true
+    }
+  ],
+  "preserved_failure": "native_attempt1_display_unavailable.log records exit1 with stale DISPLAY=:99 before successful rerun on existing :98. No application assertion failed in first attempt."
+}

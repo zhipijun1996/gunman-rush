@@ -102,11 +102,11 @@ func play_boss_defeat(origin:Vector2,mini:bool,animate:bool=true)->void:
 		var burst:=DefeatBurst.new();burst.mini=mini;burst.set_meta("pixel_style",pixel_style);burst.position=origin;stage.add_child(burst)
 	if is_instance_valid(_boss_loot):return
 	_boss_origin=origin;_boss_born=stage.clock if animate else stage.clock-.85
-	_boss_loot=Sprite2D.new();_boss_loot.texture=PixelFormalActors.icon_texture(&"chest") if pixel_style else PlainsV3Assets.texture("objects.json","chest")
+	_boss_loot=Sprite2D.new();_boss_loot.texture=UnderworldActors.icon_texture(&"chest") if UnderworldActors.enabled(self) else PixelFormalActors.icon_texture(&"chest") if pixel_style else PlainsV3Assets.texture("objects.json","chest")
 	_boss_loot.scale=Vector2(38,32)/_boss_loot.texture.get_size();_boss_loot.modulate=Color("ffe7a0");add_child(_boss_loot)
 
 func _texture(kind: StringName) -> Texture2D:
-	return PixelFormalActors.icon_texture(kind) if pixel_style else PlainsRefreshAssets.object_texture(kind)
+	return UnderworldActors.icon_texture(kind) if UnderworldActors.enabled(self) else PixelFormalActors.icon_texture(kind) if pixel_style else PlainsRefreshAssets.object_texture(kind)
 
 func set_pixel_style(enabled: bool) -> void:
 	pixel_style = enabled
@@ -122,5 +122,5 @@ func set_pixel_style(enabled: bool) -> void:
 		_boss_door.texture = _texture(&"door")
 		_boss_door.scale = Vector2(60,80) / _boss_door.texture.get_size()
 	if is_instance_valid(_boss_loot):
-		_boss_loot.texture=PixelFormalActors.icon_texture(&"chest") if pixel_style else PlainsV3Assets.texture("objects.json","chest")
+		_boss_loot.texture=UnderworldActors.icon_texture(&"chest") if UnderworldActors.enabled(self) else PixelFormalActors.icon_texture(&"chest") if pixel_style else PlainsV3Assets.texture("objects.json","chest")
 		_boss_loot.scale=Vector2(38,32)/_boss_loot.texture.get_size()
