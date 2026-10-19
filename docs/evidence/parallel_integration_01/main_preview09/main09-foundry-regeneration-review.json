@@ -1,0 +1,318 @@
+{
+  "reviewer": "/root/integration_review",
+  "verdict": "ACCEPT_BOUNDED_FOUNDRY_REGENERATION_AND_METADATA",
+  "main_source_before_generation": "fe704f9717dc1109605a5186b2acd94ba5b58792",
+  "scope": "ActualoriginalFoundrybuildoutputs+7assetmetadatareview only; no newengine/browser/tests byreviewer",
+  "asset_records": [
+    {
+      "record": "docs/quality/asset_records/underworld-production-actors.json",
+      "SHA256": "43771b31c9745f50bc89b6e032093df90c0f22031707128c1da95640c9e90664",
+      "actual_JSON_read": false,
+      "scope": "DeclaredBUILDpathonly;PNGpreloads, notJSONparse"
+    },
+    {
+      "record": "docs/quality/asset_records/underworld-production-backgrounds.json",
+      "SHA256": "7eda47e424d417d312d1b27b89bde2cbebe7189070caee4f0b5411266c8bb133",
+      "actual_JSON_read": true,
+      "scope": "ActualscriptFileAccessJSONconsumer traced; notproofvisual/licenseacceptance"
+    },
+    {
+      "record": "docs/quality/asset_records/underworld-production-hazards.json",
+      "SHA256": "36f8b10868f98cdf40f9130cd7de6e1e061e598519dc57cac876daff2e9612f6",
+      "actual_JSON_read": true,
+      "scope": "ActualscriptFileAccessJSONconsumer traced; notproofvisual/licenseacceptance"
+    },
+    {
+      "record": "docs/quality/asset_records/underworld-production-home.json",
+      "SHA256": "4c79425c0b8e81781fd21a2605929678f50e4da420652ca44535ba0f5b616067",
+      "actual_JSON_read": true,
+      "scope": "ActualscriptFileAccessJSONconsumer traced; notproofvisual/licenseacceptance"
+    },
+    {
+      "record": "docs/quality/asset_records/underworld-production-mechanisms.json",
+      "SHA256": "737bafae54a7293b41f25a9fe2cbe4e1c21779f08e2f8c04cdcf4dcb6ee0a729",
+      "actual_JSON_read": true,
+      "scope": "ActualscriptFileAccessJSONconsumer traced; notproofvisual/licenseacceptance"
+    },
+    {
+      "record": "docs/quality/asset_records/underworld-production-terrain.json",
+      "SHA256": "e27576d0293e10c07ae49d7a28991b18dd5a4f829e7a9feecdd0e01d927accf3",
+      "actual_JSON_read": true,
+      "scope": "ActualscriptFileAccessJSONconsumer traced; notproofvisual/licenseacceptance"
+    },
+    {
+      "record": "docs/quality/asset_records/underworld-production-ui.json",
+      "SHA256": "df0e3b91586af22cf42fab3bd10777983a9f2e3b18a847985c31eabffc8ea154",
+      "actual_JSON_read": true,
+      "scope": "ActualscriptFileAccessJSONconsumer traced; notproofvisual/licenseacceptance"
+    }
+  ],
+  "actors_correction": "OriginalclaimactualJSONreadwasincorrect. Currentrecord43771b31\u2026correctlystatesUnderworldActors.BUILDdeclaredpathinventory/currentPNGpreloads/noJSONparseobserved. Runtime_pathsretainedasstaticruntime-addressableinventory, notexecutionproof. Noartificialreadadded.",
+  "workflow": "Originalunchangedtools/foundry.pybuild--count24--profilesbase double_jump air_chain --promote; originalperprofile300/import120/strictfailures+acceptedcount/sourcebasis+replayhash checks. PromotesonlydevelopmentFoundrycatalog, production_poolfalse, notformalregionpool. Originalstaleexportfailureisretained.",
+  "actual_profiles": [
+    {
+      "profile": "base",
+      "requested": 24,
+      "accepted": 24,
+      "failures": 0,
+      "basis": "7b55004a0f9b446aa3b132465d0513d9c3848c2e87c11a7ed5790ce8af00a1c5",
+      "SHA256": "007c1311a063458aeab2eefea8baac3105001ea05babc6b76f0c79914d8e504e"
+    },
+    {
+      "profile": "double_jump",
+      "requested": 6,
+      "accepted": 6,
+      "failures": 0,
+      "basis": "7b55004a0f9b446aa3b132465d0513d9c3848c2e87c11a7ed5790ce8af00a1c5",
+      "SHA256": "aa2ba1231beaf90fe7b32853650804a177f95a0b395e7ca4d40a531e7282ec6f"
+    },
+    {
+      "profile": "air_chain",
+      "requested": 6,
+      "accepted": 6,
+      "failures": 0,
+      "basis": "7b55004a0f9b446aa3b132465d0513d9c3848c2e87c11a7ed5790ce8af00a1c5",
+      "SHA256": "aa163077895da8201d1571586f6e75ab4ea5bd5e83b8624755bd3803783155f2"
+    }
+  ],
+  "combined": {
+    "accepted_phrases": 36,
+    "itineraries": 18,
+    "connection_proofs": 18,
+    "production_pool": false,
+    "design_status": "awaiting_playtest",
+    "basis": "7b55004a0f9b446aa3b132465d0513d9c3848c2e87c11a7ed5790ce8af00a1c5",
+    "batch_SHA256": "0e16ceebe2b8f965788482dec8c0eec25c622ea9f7baea41b2c2c40e162f51a2",
+    "export_basis_SHA256": "e100646a9e99bb283e608a137e462beb32f887fa955c6a3f31d14eb0f77689de",
+    "stamp_configs_all_actual_SHA_equal": true,
+    "actual_originalstamp_log_SHA256": "27c29a80758c93749c748631533db3cf3de4f68ac49d41e272682a0cd25bb6f3",
+    "rebuild_log_SHA256": "d25788dc381570f13feb9340917902539beee932b9ecf5dc48cad4087e175092",
+    "all54promotedreplaybasis_manifest_hash_verified": true,
+    "replays": [
+      {
+        "path": "resources/foundry/replays/height_then_precision-base-v0-p0.json",
+        "SHA256": "e143a4fd05e903b59840a457f045a45f912daf73ae36e4a7bedbc646cf33ccba"
+      },
+      {
+        "path": "resources/foundry/replays/read_ride_release-base-v0-p0.json",
+        "SHA256": "69454bd7658d1683bbf7e990a17ca90a732660450806b5bf6b844e3603aba4b7"
+      },
+      {
+        "path": "resources/foundry/replays/short_long_rise-base-v0-p0.json",
+        "SHA256": "453f0a19f5cc4ac9757915f1b8dda90868b871e3194ff9a924a358312f1bf667"
+      },
+      {
+        "path": "resources/foundry/replays/climb_change_height-base-v0-p0.json",
+        "SHA256": "cfc9df7daa503197e65d98c50f345536d8fc7f809b9a64b75c6990b20552aa28"
+      },
+      {
+        "path": "resources/foundry/replays/resource_then_rhythm-base-v0-p0.json",
+        "SHA256": "d60e731af0b06ecb31d08a42f0968a93508ce1c7030ff846b995b6d8983c1e7a"
+      },
+      {
+        "path": "resources/foundry/replays/precision_to_transfer-base-v0-p0.json",
+        "SHA256": "4c07a913832db7500283bc07c94f993be72b166ebee579826653403b89fcdcc8"
+      },
+      {
+        "path": "resources/foundry/replays/height_then_precision-base-v1-p0.json",
+        "SHA256": "5350712229188e533e01ede0d835df47a8862743d52bd7f3cd81acbedc12bea5"
+      },
+      {
+        "path": "resources/foundry/replays/read_ride_release-base-v1-p0.json",
+        "SHA256": "54a65f1f0d43996a90628a4c2015d7dbbc1eff3a8b395f38fed18361a5459d90"
+      },
+      {
+        "path": "resources/foundry/replays/short_long_rise-base-v1-p0.json",
+        "SHA256": "a53d6ed1cc1b73b39cd9278cd429ff1610f87997e5d637b4bf111e5f934e410b"
+      },
+      {
+        "path": "resources/foundry/replays/climb_change_height-base-v1-p0.json",
+        "SHA256": "0849f90c80a8d22628827efb8ce7a6cee1eceb2f3b1d32e5a6360d7fc23c93db"
+      },
+      {
+        "path": "resources/foundry/replays/resource_then_rhythm-base-v1-p0.json",
+        "SHA256": "1318c980c9a7bcd3f2742a9513dfa27446324838654699fb69566fe584948074"
+      },
+      {
+        "path": "resources/foundry/replays/precision_to_transfer-base-v1-p0.json",
+        "SHA256": "5d8e53839fe6e2cf2bbc76b4b93e6831d2da9ddb1a1b4c2be4a9b66f6c17edb1"
+      },
+      {
+        "path": "resources/foundry/replays/height_then_precision-base-v0-p1.json",
+        "SHA256": "0557a9a5d017de9eedda483dac9d8ad06b70afa8f4b69c7fe7b85cef07c4e1b5"
+      },
+      {
+        "path": "resources/foundry/replays/read_ride_release-base-v0-p1.json",
+        "SHA256": "deca32d10448409512671bf80656fb4452b1774f8e748a02db05dd9bd35683f4"
+      },
+      {
+        "path": "resources/foundry/replays/short_long_rise-base-v0-p1.json",
+        "SHA256": "37fee101897ed31794b453201fea451e6675d08bae77b9d2d2dae72f84cb851a"
+      },
+      {
+        "path": "resources/foundry/replays/climb_change_height-base-v0-p1.json",
+        "SHA256": "4f26580ef8ab3084eae99f99cc8642ec26ce5311860b145a8aedcad8e4087805"
+      },
+      {
+        "path": "resources/foundry/replays/resource_then_rhythm-base-v0-p1.json",
+        "SHA256": "7ba700101b51d6346c59b8e234d93233f359185e8e9231b0c4e2c58708075f09"
+      },
+      {
+        "path": "resources/foundry/replays/precision_to_transfer-base-v0-p1.json",
+        "SHA256": "572bf3376d376257ac3fc3833c3184199c51afb43bc990d8d99b0fc0f06e1036"
+      },
+      {
+        "path": "resources/foundry/replays/height_then_precision-base-v1-p1.json",
+        "SHA256": "4d7b9a631d406864497922665f49b5954c6366ed1c30679374527abd0dddc6b7"
+      },
+      {
+        "path": "resources/foundry/replays/read_ride_release-base-v1-p1.json",
+        "SHA256": "be6d1486b6099f646494865ff687773f3732813d66a4d3ee5990b3c868a8a187"
+      },
+      {
+        "path": "resources/foundry/replays/short_long_rise-base-v1-p1.json",
+        "SHA256": "dfc144feb65c5c6a4807aca93c041f7c7ffc1e41d493c8640b68da9f975ee943"
+      },
+      {
+        "path": "resources/foundry/replays/climb_change_height-base-v1-p1.json",
+        "SHA256": "d3b024323e975a0a64e669b26f04f57ac1e6a58d95f9e5636ed1f610d4ef5251"
+      },
+      {
+        "path": "resources/foundry/replays/resource_then_rhythm-base-v1-p1.json",
+        "SHA256": "c0091dfa0263d5ef7f42de204e468ed8532adb3c43b1c4e55ce0c6dd64071e2b"
+      },
+      {
+        "path": "resources/foundry/replays/precision_to_transfer-base-v1-p1.json",
+        "SHA256": "c9f9a68751d1d8ff38b70e072a04be13e7971e2a6d5b73780215590093487571"
+      },
+      {
+        "path": "resources/foundry/replays/height_then_precision-double_jump-v0-p0.json",
+        "SHA256": "af87d6b4293a6c8167c21062a51d37531cd4c1f323c3780dc27ef18d70317d46"
+      },
+      {
+        "path": "resources/foundry/replays/read_ride_release-double_jump-v0-p0.json",
+        "SHA256": "77c71d5b24ef5361b5f34761b26519ca6291dc45a0789d984e25b2f43f3027ba"
+      },
+      {
+        "path": "resources/foundry/replays/short_long_rise-double_jump-v0-p0.json",
+        "SHA256": "538f36a38c9cb463837041aed7f09bb4f378ff070b6cce63463af40a1bee1162"
+      },
+      {
+        "path": "resources/foundry/replays/climb_change_height-double_jump-v0-p0.json",
+        "SHA256": "bca1aa7d2015b6dcf7bc540fd868de3f478ed85c9e09d49574dab7b9fa30c10f"
+      },
+      {
+        "path": "resources/foundry/replays/resource_then_rhythm-double_jump-v0-p0.json",
+        "SHA256": "0db10b16428212145373274cf2ca70a0d387a075ca4d30029fce65642f6aa7ee"
+      },
+      {
+        "path": "resources/foundry/replays/precision_to_transfer-double_jump-v0-p0.json",
+        "SHA256": "8f47cf54892281a022d20709c5d4e522a4001610d1cf67e1e1303608dc3d493a"
+      },
+      {
+        "path": "resources/foundry/replays/height_then_precision-air_chain-v0-p0.json",
+        "SHA256": "68d2a7084face44c52e1c82b035905a481a58d31f490d1a7907b8111c9807168"
+      },
+      {
+        "path": "resources/foundry/replays/read_ride_release-air_chain-v0-p0.json",
+        "SHA256": "baeb690ed312ed8f0487ebdd0ed05850ae1d4875b8b3f3e328125ae24fe2bc3b"
+      },
+      {
+        "path": "resources/foundry/replays/short_long_rise-air_chain-v0-p0.json",
+        "SHA256": "717adf18b991a301f79861ed03b38dec4e9c027d3fa31cd7d4b4d48eaf8b7000"
+      },
+      {
+        "path": "resources/foundry/replays/climb_change_height-air_chain-v0-p0.json",
+        "SHA256": "e3b0ae95c68ba1a445f46c06d3ecff18caa0efb6adf2641849ff5e58f4098e2c"
+      },
+      {
+        "path": "resources/foundry/replays/resource_then_rhythm-air_chain-v0-p0.json",
+        "SHA256": "42e37f178a5e4417c2f73c32047b110755e745b2eb4e092fa99e52b692726188"
+      },
+      {
+        "path": "resources/foundry/replays/precision_to_transfer-air_chain-v0-p0.json",
+        "SHA256": "61c341f1e3ab607aea0207543e10a398b44ccafc2d932553cdd84c1028a0da25"
+      },
+      {
+        "path": "resources/foundry/replays/route-2d706b6f11.json",
+        "SHA256": "1f3ef363530c902c8bc50265aad6f9c87c689f8e2deaa943e412e753f0762c7f"
+      },
+      {
+        "path": "resources/foundry/replays/route-2d7d2e4612.json",
+        "SHA256": "bfe553021fb10b92ff064e9512c477a08310e82cb0b8407d0cdce059e9dd4ddd"
+      },
+      {
+        "path": "resources/foundry/replays/route-4bec60578b.json",
+        "SHA256": "0285d59730496f133a99e0ab22587bb6a4844016ebc3edd732496889b788ef28"
+      },
+      {
+        "path": "resources/foundry/replays/route-3aa2ad4cba.json",
+        "SHA256": "e0a2a222fa61aa3dca1f70ad1cadefac171760072ac84bcbbb51e2fef15abd81"
+      },
+      {
+        "path": "resources/foundry/replays/route-2860deda61.json",
+        "SHA256": "0b4e7aea86db78a1a916e0d954d5537af81a7ea0c44c5370fb6bcc6664d7483a"
+      },
+      {
+        "path": "resources/foundry/replays/route-93acd6603f.json",
+        "SHA256": "8332308fff659a990edf6d5c86fe0948c3b1d66220cb5cb49c25c4b9f25ac10f"
+      },
+      {
+        "path": "resources/foundry/replays/route-0e61faed40.json",
+        "SHA256": "db84a628549a0c09b61ce1aec5e04dc473330f73d7395ccc24148981d213dd93"
+      },
+      {
+        "path": "resources/foundry/replays/route-b4df2effd8.json",
+        "SHA256": "d7f86a1376b367be2c7546a9cf8302098b226abc1042d5e85f79bd8960a2b4cb"
+      },
+      {
+        "path": "resources/foundry/replays/route-2f6354523f.json",
+        "SHA256": "886300523e34ff1735814774c6a6c0fe152339070caf0f37c6c28b3d3e00d856"
+      },
+      {
+        "path": "resources/foundry/replays/route-5798c84cea.json",
+        "SHA256": "c383d1ac8acd10f8292f5ae382d7e1ff1657e01d0f10b06894778d3418b530bc"
+      },
+      {
+        "path": "resources/foundry/replays/route-ad7b9db895.json",
+        "SHA256": "85102088dbd5650e9f64dd6ac774d6008f3c671e1208c46aa5e63ddf493ce0be"
+      },
+      {
+        "path": "resources/foundry/replays/route-cf73f3c620.json",
+        "SHA256": "aaaf8c8e1d3d66cf69b3b4ef5f4804ba8465e572b1fe0b8d4e9ade273d452350"
+      },
+      {
+        "path": "resources/foundry/replays/route-7da5a6c16f.json",
+        "SHA256": "941b6db43d758dfe25c4fd6b57eb5969fbf16f52af144bd58c86d366ebed3b33"
+      },
+      {
+        "path": "resources/foundry/replays/route-122d7f6e2a.json",
+        "SHA256": "1f3e619ec0d5f7bda9d092edbd23d600200ef697c60d3144f0a71c4e614bfbcb"
+      },
+      {
+        "path": "resources/foundry/replays/route-0efaee5828.json",
+        "SHA256": "2c160741808769f8f5f57b369e3066c0ab2e37e758ade3a8a2dc93aa0fec09bd"
+      },
+      {
+        "path": "resources/foundry/replays/route-f91361b454.json",
+        "SHA256": "054ed7ce4cfdc4691484c67985d48ba2f350e623cb8bf4f0fe3f99424b2f36be"
+      },
+      {
+        "path": "resources/foundry/replays/route-908c475df3.json",
+        "SHA256": "4c9836a5a7785fa00ee6e5ca97146d20e94df6a0b14f3d719a1644f9b2ee95a7"
+      },
+      {
+        "path": "resources/foundry/replays/route-1521b6b7c3.json",
+        "SHA256": "33ee8f06139c1ddd70e50c5e6d20a6454c1c4dc5d42daa652828eeb9fa4bb184"
+      }
+    ]
+  },
+  "old_failure": "main09-web-build.log andmain09-web-build02.log realstalesourceguardexportFAIL remainFAIL. Successfulregeneration+stampingdoesnotmeanWebexportorpublicdeploymenthaspassed.",
+  "not_approved": [
+    "Wholeforest/Bossfun/naturalcampaign/physicaldevice",
+    "Blanketcommercialassetlicenseorvisualacceptance",
+    "FinalfreshfullCI orcurrentWebexport/publicidentity",
+    "OldC8/PR94failureerasure"
+  ],
+  "reviewer_no_engine_browser_source_git_write": true
+}

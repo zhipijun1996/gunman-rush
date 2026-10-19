@@ -1,3 +1,7 @@
+## main 合并与原验证批次刷新
+
+PR92已普通合入main fe704f9717dc1109605a5186b2acd94ba5b58792；导出真实拒绝stale Foundry。原命令保留24/6/6、36短句18连续路线、三个原300秒cap和原validator，真实全部零失败并生成原stamp；重新冻结后的main才是试玩源。刷新仅开发练习场产物，不改正式能力/物理/池。actors JSON来源文本修正为常量声明路径，当前PNG preload而非JSON运行读取。当前导出/公网仍待完成，不签质量通过。
+
 # PARALLEL-INTEGRATION-01：并行分支整合与重新部署
 
 ## 最新用户授权：合入 main，快速交付有明确未通过项的试玩
