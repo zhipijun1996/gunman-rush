@@ -98,6 +98,14 @@ func verify_stage(plan: Dictionary, tuning: PlayerTuning) -> Dictionary:
 	await process_frame
 	var actual := stage.get_world_rebuild_snapshot()
 	check(actual.ready, "Actual new stage assembles")
+	if not actual.ready:
+		# Preserve the primary source/assembly refusal as failed evidence without
+		# dereferencing missing dependent consumers or masking the real cause.
+		stage.queue_free()
+		await process_frame
+		await process_frame
+		return actual
+
 	check(actual.legacy_modules == 0, "No old rectangle/module implementation instantiated")
 	check(actual.actual_collisions.size() == plan.bodies.size(), "Every complete source body installs one actual collider")
 	for index: int in range(stage.body_colliders.size()):
@@ -144,7 +152,7 @@ func verify_stage(plan: Dictionary, tuning: PlayerTuning) -> Dictionary:
 		for index: int in mini(transformed.size(),source.polygon.size()):
 			max_mismatch=maxf(max_mismatch,Vector2(float(transformed[index][0]),float(transformed[index][1])).distance_to(Vector2(float(source.polygon[index][0]),float(source.polygon[index][1]))))
 		check(max_mismatch<.001, "Actual Sprite source polygon maps point-for-point to real collider with declared mirror and origin")
-		var image := Image.load_from_file(str(frame.source_path))
+		var image := instance.texture.get_image()
 		check(image != null and not image.is_empty(), "Original source pixels load for physical contact-material verification")
 		var material_samples: Array = []
 		for surface: Dictionary in source.top_surfaces:
@@ -177,14 +185,14 @@ func run() -> void:
 	check(not plan.has("error") and plan.validation_errors.is_empty(), "First world structure passes actual grammar")
 	check(plan == WORLD.generate("world-rebuild-01", 0), "Same Seed replays complete world source")
 	var replay: Dictionary = JSON.parse_string(JSON.stringify(plan))
-	check(WORLD.validate(replay).is_empty(), "Ordinary JSON replay preserves accepted complete bodies")
+	check(WORLD.validate(replay).is_empty(), "Ordinary JSON replay preserves accepted complete bodies: "+str(WORLD.validate(replay)))
 	check(RandomStageGenerator.new()._canonical(plan) == RandomStageGenerator.new()._canonical(replay), "Ordinary JSON retains complete plan semantics")
 	check(not plan.formal_pool and plan.variant == 0, "First candidate isolated and second layout not expanded")
 	check(plan.bodies.size() == 3 and plan.interfaces.size() == 4, "Two complete ridges and common foundation own explicit extension/root interfaces")
 	for body: Dictionary in plan.bodies:
 		check(body.collision_source == "polygon" and body.painting_source == "polygon", "Physics and painting both consume complete same source")
 		check(not Geometry2D.triangulate_polygon(packed(body.polygon)).is_empty(), "Complete irregular body triangulates")
-		check(body.polygon.size() > 4 or body.kind == "creek_bedrock", "Ridges carry shaped complete volume rather than slab plus alpha skirt")
+		check(body.polygon.size() > 4 or body.id == "creek_foundation", "Ridges carry shaped complete volume rather than slab plus alpha skirt")
 	verify_negative(plan)
 	var actual: Dictionary = await verify_stage(plan, tuning)
 	var file := FileAccess.open(output_path, FileAccess.WRITE)

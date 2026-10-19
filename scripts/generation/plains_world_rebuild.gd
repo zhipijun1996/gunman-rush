@@ -6,6 +6,7 @@ extends RefCounted
 ## This is structure, not a declaration that a painted asset family is ready.
 const CATALOG_PATH := "res://resources/generation/plains_world_rebuild.json"
 const VERSION := "plains-world-rebuild-v3"
+const WORLD_SUBPIXELS := 100
 # Keep the admitted comparison layout/gap stream stable while changing wall geometry.
 const LAYOUT_RANDOM_VERSION := "plains-world-rebuild-v1"
 const PREVIOUS_SOURCE_COMMIT := "e76e5c24a1dff6733bcf7a64fae3ab8cca4a7640"
@@ -30,10 +31,10 @@ static func generate(seed: String, variant: int = 0) -> Dictionary:
 	var creek_scale: float = float(geometry["creek_fixed_scale"])
 	var west_wall := _outline_x_at_y(bodies[0]["polygon"], creek, true)
 	var east_wall := _outline_x_at_y(bodies[1]["polygon"], creek, false)
-	var creek_center := (west_wall + east_wall) * 0.5
+	var creek_center := _q((west_wall + east_wall) * 0.5)
 	var creek_size: Array = geometry["creek_source_size"]
 	var creek_source_top: Array = geometry["creek_source_top_poly"]
-	var creek_origin: Array = [creek_center - float(creek_size[0]) * creek_scale * 0.5, creek - float(creek_source_top[0][1]) * creek_scale]
+	var creek_origin: Array = [_q(creek_center - float(creek_size[0]) * creek_scale * 0.5), _q(creek - float(creek_source_top[0][1]) * creek_scale)]
 	var creek_frame: Dictionary = {"source_path": geometry["creek_source_path"], "source_size": creek_size, "origin": creek_origin, "uniform_scale": creek_scale, "mirror_x": false, "source_coordinate_mode": "full_image_pixels"}
 	var creek_geometry: Dictionary = {"top_poly": creek_source_top, "side_poly": geometry["creek_source_side_poly"]}
 	var foundation := _source_body("creek_foundation", creek_frame, creek_geometry)
@@ -42,7 +43,7 @@ static func generate(seed: String, variant: int = 0) -> Dictionary:
 	foundation["connections"] = ["west_creek_root", "east_creek_root"]
 	foundation["paint_z"] = -2
 	bodies.append(foundation)
-	var root := float(creek_origin[1]) + float(creek_size[1]) * creek_scale
+	var root := _q(float(creek_origin[1]) + float(creek_size[1]) * creek_scale)
 	var overlap := float(creek_size[0]) * creek_scale * 0.5 - (east_wall - west_wall) * 0.5
 	var world_root_extent := maxf(root, maxf(float(bodies[0]["polygon"][-1][1]), float(bodies[1]["polygon"][0][1])))
 	var west_top: Array = bodies[0]["top_surfaces"]
@@ -50,10 +51,10 @@ static func generate(seed: String, variant: int = 0) -> Dictionary:
 	var west_rim: Array = west_top[-1]["to"]
 	var east_rim: Array = east_top[0]["from"]
 	var spawn := _surface_anchor(bodies[0], 100.0)
-	spawn[1] = float(spawn[1]) - 18.0
+	spawn[1] = _q(float(spawn[1]) - 18.0)
 	var far_right: float = float(east_top[-1]["to"][0])
 	var exit_position := _surface_anchor(bodies[1], far_right - 140.0)
-	exit_position[1] = float(exit_position[1]) - 18.0
+	exit_position[1] = _q(float(exit_position[1]) - 18.0)
 	var enemy_anchor := _surface_anchor(bodies[1], float(east_rim[0]) + 490.0)
 	var layers := _layers(float(west_rim[0]), float(east_rim[0]), float(west_rim[1]), creek, far_right, bodies)
 	var shed_anchor := _surface_anchor(bodies[1], float(east_rim[0]) + 490.0)
@@ -65,13 +66,20 @@ static func generate(seed: String, variant: int = 0) -> Dictionary:
 		"construction": {"source_geometry": geometry.duplicate(true), "main_contact_gap": float(east_rim[0]) - float(west_rim[0]), "creek_open_width": east_wall - west_wall, "root_depth": root - creek, "registered_unit_source": CATALOG_PATH, "randomness_status": "seed_recorded_no_structure_randomization_until_first_art_admission"},
 		"routes": [
 			{"id": "main", "required_action": "walk_source_derived_surface_then_legal_recoil_crossing", "points": [spawn, _standing_anchor(bodies[0], 600.0), _standing_anchor(bodies[0], float(west_rim[0]) - 30.0), _standing_anchor(bodies[1], float(east_rim[0]) + 54.0), exit_position], "validation_status": "unverified_motor"},
-			{"id": "lower_creek", "required_action": "controlled_drop_then_legal_downshot_recoil_return", "points": [_standing_anchor(bodies[0], float(west_rim[0]) - 30.0), [(west_wall + east_wall) * 0.5, creek - 18.0], _standing_anchor(bodies[1], float(east_rim[0]) + 54.0)], "validation_status": "unverified_motor"}
+			{"id": "lower_creek", "required_action": "controlled_drop_then_legal_downshot_recoil_return", "points": [_standing_anchor(bodies[0], float(west_rim[0]) - 30.0), [_q((west_wall + east_wall) * 0.5), _q(creek - 18.0)], [_q((west_wall + east_wall) * 0.5 + (east_wall - west_wall) * 0.25), _q(creek - 18.0)], _standing_anchor(bodies[1], float(east_rim[0]) + 54.0)], "validation_status": "unverified_motor"}
 		],
 		"enemy_spawns": [{"id": "east_guard", "definition": "res://resources/enemies/plains_charger.tres", "position": [enemy_anchor[0], float(enemy_anchor[1]) - enemy_definition.collision_size.y * 0.5], "body": "east_meadow_ridge"}], "device_spawns": [],
 		"encounter_reservations": [{"id": "east_guard", "position": enemy_anchor, "clear_landing_radius": 160.0, "status": "runtime_existing_enemy_contract_required"}], "layers": layers,
 		"interfaces": [{"id": "west_extension", "position": west_top[0]["from"], "direction": [-1, 0], "root_y": float(bodies[0]["polygon"][-1][1]), "kind": "source_body_cross_section"}, {"id": "east_extension", "position": east_top[-1]["to"], "direction": [1, 0], "root_y": float(bodies[1]["polygon"][0][1]), "kind": "source_body_cross_section"}, {"id": "west_creek_root", "overlap_width": overlap, "top_y": creek, "kind": "solid_root_overlap"}, {"id": "east_creek_root", "overlap_width": overlap, "top_y": creek, "kind": "solid_root_overlap"}],
 		"planning_limits": catalog["limits"].duplicate(true), "player_source": {"path": "res://config/player_tuning.json", "ground_speed": tuning["ground_speed"], "gravity": tuning["gravity"], "jump_speeds": tuning["jump_speeds"], "max_jumps": tuning["max_jumps"], "max_air_shots": tuning["max_air_shots"], "body_size": [24, 36]}, "admission": catalog["admission"].duplicate(true)
 	}
+	# Canonical world coordinates are integer centipixels expressed in world
+	# units. Quantize geometry, never authoritative source pixels or tuning.
+	var actual_player_source: Dictionary = data["player_source"]
+	data = _q_world_tree(data)
+	data["player_source"] = actual_player_source
+	data["construction"]["source_geometry"] = geometry.duplicate(true)
+	data["world_coordinate_protocol"] = catalog["world_coordinate_protocol"].duplicate(true)
 	data["validation_errors"] = validate(data)
 	return data
 
@@ -99,12 +107,12 @@ static func _source_to_world(point: Array, frame: Dictionary) -> Array:
 	var source_x := float(point[0])
 	if bool(frame["mirror_x"]):
 		source_x = float(frame["source_size"][0]) - source_x
-	return [float(frame["origin"][0]) + source_x * float(frame["uniform_scale"]), float(frame["origin"][1]) + float(point[1]) * float(frame["uniform_scale"])]
+	return [_q(float(frame["origin"][0]) + source_x * float(frame["uniform_scale"])), _q(float(frame["origin"][1]) + float(point[1]) * float(frame["uniform_scale"]))]
 
 static func _standing_anchor(body: Dictionary, x: float) -> Array:
 	var anchor := _surface_anchor(body, x)
 	if not anchor.is_empty():
-		anchor[1] = float(anchor[1]) - 18.0
+		anchor[1] = _q(float(anchor[1]) - 18.0)
 	return anchor
 
 static func _outline_x_at_y(polygon: Array, y: float, choose_max: bool) -> float:
@@ -119,7 +127,7 @@ static func _outline_x_at_y(polygon: Array, y: float, choose_max: bool) -> float
 	if intersections.is_empty():
 		return NAN
 	intersections.sort()
-	return intersections[-1] if choose_max else intersections[0]
+	return _q(intersections[-1] if choose_max else intersections[0])
 
 static func validate(data: Dictionary) -> Array[String]:
 	var errors: Array[String] = []
@@ -128,6 +136,8 @@ static func validate(data: Dictionary) -> Array[String]:
 		errors.append("missing_external_source_frame_catalog")
 		return errors
 	var registered_catalog: Dictionary = registered_source
+	if int(registered_catalog.get("world_coordinate_protocol", {}).get("subpixels_per_world", 0)) != WORLD_SUBPIXELS:
+		errors.append("external_world_subpixel_protocol_mismatch")
 	if str(registered_catalog.get("version", "")) != VERSION:
 		errors.append("external_catalog_version_mismatch")
 	if str(data.get("version", "")) != VERSION:
@@ -241,11 +251,29 @@ static func _registered_source_body(id: String, catalog: Dictionary) -> Dictiona
 	var scale: float = float(geometry["creek_fixed_scale"])
 	var size: Array = geometry["creek_source_size"]
 	var source_top: Array = geometry["creek_source_top_poly"]
-	var origin: Array = [(west_wall + east_wall) * 0.5 - float(size[0]) * scale * 0.5, creek - float(source_top[0][1]) * scale]
+	var origin: Array = [_q(_q((west_wall + east_wall) * 0.5) - float(size[0]) * scale * 0.5), _q(creek - float(source_top[0][1]) * scale)]
 	var frame: Dictionary = {"source_path": geometry["creek_source_path"], "source_size": size, "origin": origin, "uniform_scale": scale, "mirror_x": false, "source_coordinate_mode": "full_image_pixels"}
 	var result := _source_body(id, frame, {"top_poly": source_top, "side_poly": geometry["creek_source_side_poly"]})
 	result["top_surfaces"] = [{"from": [west_wall, creek], "to": [east_wall, creek], "role": "lower_recovery"}]
 	return result
+
+static func _q(value: float) -> float:
+	return float(roundi(value * WORLD_SUBPIXELS)) / WORLD_SUBPIXELS
+
+static func _q_world_tree(value: Variant) -> Variant:
+	if value is float:
+		return _q(float(value))
+	if value is Array:
+		var result: Array = []
+		for child: Variant in value:
+			result.append(_q_world_tree(child))
+		return result
+	if value is Dictionary:
+		var mapping: Dictionary = {}
+		for key: Variant in value:
+			mapping[key] = value[key] if str(key) in ["source_polygon", "source_top_poly", "source_size", "uniform_scale", "source_geometry", "player_source"] else _q_world_tree(value[key])
+		return mapping
+	return value
 
 static func _surface_anchor(body: Dictionary, x: float) -> Array:
 	for surface: Dictionary in body.get("top_surfaces", []):
@@ -253,7 +281,7 @@ static func _surface_anchor(body: Dictionary, x: float) -> Array:
 		var b: Array = surface["to"]
 		if x >= float(a[0]) and x <= float(b[0]) and float(b[0]) > float(a[0]):
 			var weight := (x - float(a[0])) / (float(b[0]) - float(a[0]))
-			return [x, lerpf(float(a[1]), float(b[1]), weight)]
+			return [_q(x), _q(lerpf(float(a[1]), float(b[1]), weight))]
 	return []
 
 static func _packed(values: Array) -> PackedVector2Array:
