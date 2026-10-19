@@ -24,6 +24,7 @@ var _action_studio: ActionStudio
 var _foundation_lab: Blob47Lab
 var _windchime_lab: WindchimeLab
 var _pixel_plains: PixelPlainsPreview
+var _style_lab: Node
 var _foundry: FoundryLab
 var _preview: RandomStagePreview
 var lifetime := DemoLifetime.new()
@@ -99,6 +100,12 @@ func _ready() -> void:
 	_refresh_home_meta()
 	_hide_run_hud()
 	menu.show_title()
+	var style_lab_requested := "--style-lab" in OS.get_cmdline_user_args()
+	if OS.has_feature("web"):
+		style_lab_requested = bool(JavaScriptBridge.eval("new URLSearchParams(location.search).has('styles')"))
+	if style_lab_requested:
+		_open_style_lab.call_deferred()
+		return
 	var foundation_requested := "--blob47" in OS.get_cmdline_user_args()
 	if OS.has_feature("web"):
 		foundation_requested = bool(JavaScriptBridge.eval("new URLSearchParams(location.search).has('foundation')"))
@@ -1292,6 +1299,7 @@ func _make_ui() -> void:
 	menu.requested_foundation.connect(_open_foundation)
 	menu.requested_windchime.connect(_open_windchime)
 	menu.requested_pixel_plains.connect(_open_pixel_plains)
+	menu.requested_style_lab.connect(_open_style_lab)
 	menu.requested_foundry.connect(_open_foundry)
 	menu.requested_random.connect(_open_random_preview)
 	menu.requested_resume.connect(_resume_from_menu)
@@ -1808,6 +1816,23 @@ func _open_action_studio() -> void:
 		_action_studio = null
 		_show_home())
 	add_child(_action_studio)
+
+func _open_style_lab() -> void:
+	if director.state != DemoRunDirector.State.HOME or is_instance_valid(_style_lab): return
+	var scene := load("res://scenes/style_exploration/style_lab.tscn") as PackedScene
+	if scene == null:
+		push_error("Five Style Lab scene is unavailable")
+		menu.show_title()
+		return
+	_remove_home_scene()
+	menu.hide_home()
+	_style_lab = scene.instantiate()
+	_style_lab.set("input_values", _session_input.duplicate(true))
+	_style_lab.connect("home_requested", func() -> void:
+		_style_lab.queue_free()
+		_style_lab = null
+		_show_home())
+	add_child(_style_lab)
 
 func _open_pixel_plains() -> void:
 	if director.state!=DemoRunDirector.State.HOME or is_instance_valid(_pixel_plains):return

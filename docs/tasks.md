@@ -4,6 +4,7 @@
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
+| WINDCHIME-FIVE-STYLE-01 | 五套开放素材锚点、真实TileSet风格实验及16区扩展研究 | WINDCHIME-PIXEL-01 | in_progress | 独立入口、同布局四seed、原生/适配边界、20路线、实机比较；图生来源、独审与最终交付进行中 |
 | WINDCHIME-PIXEL-01 | 新像素风格重制正式平原两图、三层独立视差 | WINDCHIME-STYLE-01 | review | 已部署d2c684ef8fc0/source c0f8e50；全体表现迁移、简洁纹理、动态支撑装饰与三图视差；冻结技术/有限GUI通过，整区审美/全警示/设备未签 |
 | WINDCHIME-STYLE-01 | 风铃平原新参考风格素材与手工实景 | TILE-MAP-PLAN-01 | review | 暖色候选被用户拒绝为廉价，停止扩产/发布；47态、样板与技术修复保留，Animal Well方向待小样 |
 | TILE-MAP-PLAN-01 | 视频方法到后续tile map生产规划 | ART-BLOB47-CARTOON-02 | review | 来源与关键段落记录、素材范围、3张验证map、6–8模块候选及随机迁移顺序；仅规划，未造新地图 |

@@ -12,6 +12,7 @@ signal requested_actions
 signal requested_foundation
 signal requested_windchime
 signal requested_pixel_plains
+signal requested_style_lab
 signal requested_foundry
 signal requested_random(seed: String)
 signal requested_resume
@@ -80,6 +81,9 @@ func show_title() -> void:
 	_button(_content, "风铃平原 / WIND CHIME PLAINS", func() -> void:
 		_hide()
 		requested_plains.emit("level-design-v2-baseline/08"))
+	_button(_content, "WINDCHIME PLAINS / FIVE STYLE LAB", func() -> void:
+		_hide()
+		requested_style_lab.emit())
 	_button(_content, "PIXEL MATERIAL / SMALL STUDY", func() -> void:
 		_hide()
 		requested_pixel_plains.emit())

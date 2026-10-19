@@ -21,11 +21,21 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Checkout exact deployment helper without historical evidence
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          path: delivery-source
+          sparse-checkout: tools/style_exploration_delivery.py
+          sparse-checkout-cone-mode: false
       - uses: actions/checkout@v4
         with:
           ref: ${{ inputs.prepared_ref }}
+          path: prepared-web
+      - name: Reconstruct and verify the complete content-addressed PCK
+        run: python3 delivery-source/tools/style_exploration_delivery.py reconstruct-pack --bundle prepared-web
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: prepared-web
       - uses: actions/deploy-pages@v4
         id: deployment

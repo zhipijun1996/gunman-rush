@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "task_id": "WINDCHIME-FIVE-STYLE-01",
+  "task_type": "art",
+  "workflow": "in_progress",
+  "baseline_commit": "2f25083da11da11604a3535a2feae20d119ac001",
+  "reviewed_commit": "2f25083da11da11604a3535a2feae20d119ac001",
+  "content_version": "five-style-three-region-candidate-v4",
+  "owner": "root",
+  "purpose": "Compare five real TileSet anchors and user-selected Underworld/Cavern across three regions with distinct palettes and structural identities",
+  "player_experience": "Switch style, region and deterministic seed in a playable isolated Godot lab, compare actual tile assembly and movement",
+  "constraints": [
+    "Preserve formal PlayerMotor, tuning, resources, RNG and saves",
+    "No claim of formal forest/gear release or sixteen-region production",
+    "Keep original source and rejected visual/route evidence",
+    "Latest user preference selects 4/5 but does not certify final art"
+  ],
+  "affected_paths": [
+    "assets/style_exploration/",
+    "scripts/style_exploration/",
+    "scenes/style_exploration/",
+    "tests/style_exploration/",
+    "scripts/demo/demo_app.gd",
+    "scripts/ui/demo_menu.gd",
+    "tools/harness/profiles.json",
+    "export_presets.cfg",
+    ".github/workflows/deploy-prepared-playtest.yml"
+  ],
+  "deliverables": [
+    "docs/evidence/style_exploration/final_capture/portable_index.json",
+    "docs/evidence/style_exploration/generation.json",
+    "assets/style_exploration/anchors.json",
+    "assets/style_exploration/atlas_build_manifest.json"
+  ],
+  "creative_decisions": [
+    {
+      "decision": "Prioritize Underworld and Cavern; evaluate Plains/Thorn Forest/Gear City without fixing Cavern to purple",
+      "status": "user_confirmed",
+      "source": "Current conversation: user latest region/style steering; final artwork approval remains pending"
+    }
+  ],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Specialized tests and independent rechecks succeeded; full profiles fail inherited historical evidence closure and frozen-scope rerun pending",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Current isolated 17215/0 base-route suite,1706/0 new environment invariants,45 GPU captures succeeded; frozen registered harness and Web delivery still pending",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Actual nine environments and three-region source identities delivered; independent review and final user choice remain separate",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Full commercial art approval",
+    "Physical target-device performance and controls",
+    "Audio and combat encounter/full region progression",
+    "New tree-bark/metal 47-tile material families; current region ramps preserve native topology",
+    "Complete inherited docs/art/gameplay harness blocked by missing historical evidence closure"
+  ]
+}

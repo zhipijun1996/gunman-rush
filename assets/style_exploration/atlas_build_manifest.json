@@ -1,0 +1,164 @@
+{
+  "schema": "windchime-anchor-local-build-v1",
+  "builder": "tools/build_style_anchor_atlases.py",
+  "recipes": "assets/style_exploration/anchors.json",
+  "recipes_sha256": "622dec4f962557dd77902cb9f3cb5ee6fc412d9d931e0773dacc58ed8ba0e656",
+  "operations": [
+    "source rectangle crop",
+    "Basic horizontal flip",
+    "lossless RGBA patch paste"
+  ],
+  "scope": "Source provenance and exact atlas reconstruction; not GPU, aesthetic, or AI generation approval",
+  "styles": {
+    "retro": {
+      "source": "assets/style_exploration/retro/source/Environment.png",
+      "original_recipe_source": "retro/Retro-Lines-16x16/With-Background/Environment.png",
+      "source_sha256": "456f48926b4af6cc123761dec858ad56296b62f8b0c2824c8676e30404ccfc30",
+      "output": "assets/style_exploration/retro/terrain.png",
+      "output_sha256": "2fad73bbbceb289a288ced252426db7b1c3de7089e6e32e7d2beda672790b35d",
+      "tile_px": 16,
+      "world_tile_size": 32,
+      "mask_count": 47,
+      "distinct_pixel_tiles": 16,
+      "license": "CC0-1.0",
+      "publisher_url": "https://v3x3d.itch.io/retro-lines",
+      "publisher_page_retrieved": "2026-10-19",
+      "license_evidence": [
+        {
+          "path": "assets/style_exploration/retro/source/licenses/LICENSE.txt",
+          "sha256": "c39cab651e2a949e2fd0aca52af39a8701cd387f924181e1792a6033680c6205",
+          "bytes": 370
+        },
+        {
+          "path": "assets/style_exploration/retro/source/licenses/README.txt",
+          "sha256": "8eb7805d948b2d20e2bf7a554787646935b8773c06593641cc7fb9daf30c2ce3",
+          "bytes": 332
+        },
+        {
+          "path": "assets/style_exploration/retro/source/licenses/publisher_page.txt",
+          "sha256": "c1e48cfca360f312a9d92b6725feb154e3efda99865d50f69e8c0dee5211bc8c",
+          "bytes": 14795
+        }
+      ],
+      "adaptation": "16px quarter crops from native 5x5 terrain frame; square concave joins; original opaque background retained",
+      "exact_rebuild": true
+    },
+    "basic": {
+      "source": "assets/style_exploration/basic/source/sTileset.png",
+      "original_recipe_source": "basic/Basic Platformer Asset Pack/sTileset.png",
+      "source_sha256": "e2569afa715b1056d85e0dbf62ac25f1c29bf7e422a75a99b0234d3e9545e0c5",
+      "output": "assets/style_exploration/basic/terrain.png",
+      "output_sha256": "11cdd96bd03a57a4957bda85b64c78208eaf6c43f28a197e016199ad4b2a6045",
+      "tile_px": 16,
+      "world_tile_size": 32,
+      "mask_count": 47,
+      "distinct_pixel_tiles": 16,
+      "license": "CC0-1.0 (publisher page; archive license is empty)",
+      "publisher_url": "https://ariel-pinana.itch.io/platformer-tileset-character-and-monsters",
+      "publisher_page_retrieved": "2026-10-19",
+      "license_evidence": [
+        {
+          "path": "assets/style_exploration/basic/source/licenses/LICENSE & CREDITS.txt",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "bytes": 0
+        },
+        {
+          "path": "assets/style_exploration/basic/source/licenses/NOTICE.md",
+          "sha256": "71c363f6c83790e9e9368711d081ee18f0b073ce70d0d6edf7c790fb391d25a1",
+          "bytes": 282
+        },
+        {
+          "path": "assets/style_exploration/basic/source/licenses/publisher_page.txt",
+          "sha256": "180828f74bb5b96380582b0da9b2ae4d579c165eeb921ecec59ce12ed140689e",
+          "bytes": 1753
+        }
+      ],
+      "adaptation": "16px quarter crops from native left/top/bottom strips; absent right edge mirrors native left-edge quadrants; inward halves supply center; square concave joins",
+      "exact_rebuild": true
+    },
+    "scribble": {
+      "source": "assets/style_exploration/scribble/source/spritesheet_default.png",
+      "original_recipe_source": "scribble/Spritesheet/spritesheet_default.png",
+      "source_sha256": "0cbfd5182cd8572fed73a8872277aa1a490d9d794ee2e70268d4583ecf6cfa86",
+      "output": "assets/style_exploration/scribble/terrain.png",
+      "output_sha256": "de7e1de4d0786a0e495a9d8f664b296700a6e239a65019e401c6d0269051aaad",
+      "tile_px": 64,
+      "world_tile_size": 32,
+      "mask_count": 47,
+      "distinct_pixel_tiles": 1,
+      "license": "CC0-1.0",
+      "publisher_url": "https://kenney-assets.itch.io/scribble-platformer",
+      "publisher_page_retrieved": "2026-10-19",
+      "license_evidence": [
+        {
+          "path": "assets/style_exploration/scribble/source/licenses/License.txt",
+          "sha256": "2ac45344f3657a8dbac7360aeb53cfb0187cc24234979dcb0855b6e454c78973",
+          "bytes": 571
+        },
+        {
+          "path": "assets/style_exploration/scribble/source/licenses/publisher_page.txt",
+          "sha256": "b5a67f8a997ccf2f0633ba3b9b08fd4f1c8931c6e1e3d62d0bfbc0bf0e0d4420",
+          "bytes": 1188
+        }
+      ],
+      "adaptation": "All 47 masks share native tile_border.png at exact XML rect (320,385,64,64). Native independent block grammar, not a continuous blob material. No native47 claim.",
+      "exact_rebuild": true
+    },
+    "underworld": {
+      "source": "assets/style_exploration/underworld/source/TileSet.png",
+      "original_recipe_source": "underworld/TileSet.png",
+      "source_sha256": "a369175ccef5fca5ab363f140252d1f0f38b5eafb5d541605c601ea4ac56f88c",
+      "output": "assets/style_exploration/underworld/terrain.png",
+      "output_sha256": "908a3541feccc0e7abdd629c3a0bb8ce22693e22e89ea153cc7d80a411cbfba9",
+      "tile_px": 16,
+      "world_tile_size": 32,
+      "mask_count": 47,
+      "distinct_pixel_tiles": 47,
+      "license": "Custom permissive statement; not CC0",
+      "publisher_url": "https://asouris.itch.io/underworld-tileset",
+      "publisher_page_retrieved": "2026-10-19",
+      "license_evidence": [
+        {
+          "path": "assets/style_exploration/underworld/source/licenses/NOTICE.md",
+          "sha256": "20a3ae70da1e7774fc2aee83f16ce4da128141887740713b0064de8846ac32d2",
+          "bytes": 416
+        },
+        {
+          "path": "assets/style_exploration/underworld/source/licenses/publisher_page.txt",
+          "sha256": "9dcb86357ece8650bcb8be5798b02167b8d8735a475e3ec4e31518e1b744b270",
+          "bytes": 1282
+        }
+      ],
+      "adaptation": "16px quarter crops from native 3x3 shell and 2x2 inner corner group; green family retained",
+      "exact_rebuild": true
+    },
+    "cavern": {
+      "source": "assets/style_exploration/cavern/source/tiles.png",
+      "original_recipe_source": "cavern/caverns-files/layers/tiles.png",
+      "source_sha256": "c62bdddb3b544018fae2e68cca3c89bd4d9bd0afbf671ad147839a84634945bf",
+      "output": "assets/style_exploration/cavern/terrain.png",
+      "output_sha256": "8c7803d12ea22b06c59567be9da89fa748a849cc507ac08dbdaad024c2c13e54",
+      "tile_px": 16,
+      "world_tile_size": 32,
+      "mask_count": 47,
+      "distinct_pixel_tiles": 16,
+      "license": "CC0-1.0",
+      "publisher_url": "https://opengameart.org/content/cavern-tile-set",
+      "publisher_page_retrieved": "2026-10-19",
+      "license_evidence": [
+        {
+          "path": "assets/style_exploration/cavern/source/licenses/license.txt",
+          "sha256": "0cdee69377c1ca66a47d88118133ecb17349f5dfcb0afcb9f76b1ece53c74e3c",
+          "bytes": 281
+        },
+        {
+          "path": "assets/style_exploration/cavern/source/licenses/publisher_page.txt",
+          "sha256": "8f75048a0cf5d4ab3ebe7f90bf7fb8c3afd26ccb578a2f9bace637404a169cec",
+          "bytes": 2762
+        }
+      ],
+      "adaptation": "16px quarter crops from preassembled sample geometry, not a native atlas; square concave joins; repeated 16px rock motifs",
+      "exact_rebuild": true
+    }
+  }
+}
