@@ -1,6 +1,6 @@
 # 当前：美术参数已前移至模块/区域嵌入，绘画生产仍未准入
 
-分支 `feature/plains-art-language`，基线 PR88/`07ffe3f3`；运行冻结 `5d5d31f0`。先读[实际方法与恢复入口](evidence/plains_art_language/recipe.md)、[独立审查](evidence/plains_art_language/independent-review.md)、[原始记录索引](evidence/plains_art_language/records/index.json)。未改森林、核心规则或正式池。
+[草稿PR89](https://github.com/zhipijun1996/gunman-rush/pull/89)，分支 `feature/plains-art-language`，基线 PR88/`07ffe3f3`；运行冻结 `5d5d31f0`。先读[实际方法与恢复入口](evidence/plains_art_language/recipe.md)、[独立审查](evidence/plains_art_language/independent-review.md)、[原始记录索引](evidence/plains_art_language/records/index.json)。未改森林、核心规则或正式池。
 
 有限家族/尺寸、肩部与quiet预算先于坐标，有限后山体/外界空气直接被真实消费者使用。4Seed原生2503通过、原模块Motor1310通过、77Python检查通过；01/07同Seed拓扑和配方不变，实际列距按美术预算改变。随后有界扩到真实junction/connection，覆盖34/59、36/61、35/60、35/59；未转换部分明确保留。原JSON浮点失败保留，按整数源像素分配重叠后严格重验。
 
