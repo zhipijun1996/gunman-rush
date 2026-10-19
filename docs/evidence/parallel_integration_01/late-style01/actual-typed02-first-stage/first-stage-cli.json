@@ -1,0 +1,29 @@
+{
+  "command": [
+    "bash",
+    "tools/godot.sh",
+    "--headless",
+    "--path",
+    ".",
+    "--script",
+    "build/integration01/legacy-fixture-typed02/first-stage-smoke.gd",
+    "--",
+    "--legacy-presentation-fixture=terrain_family"
+  ],
+  "exit_code": 0,
+  "seconds": 4.634090784995351,
+  "before": {
+    "tests/legacy_plains_presentation_fixture.gd": "5177b16758e1fb9134f1147cc04639c39ca1517e30c0ea8ee6853cbfbdcf4063",
+    "scripts/demo/demo_app.gd": "93e446037eceeda989991f238e1941e45286c2f44aa1f13d13f87a5367aecd4f",
+    "scripts/demo/plains_region_stage.gd": "3d04ea5d1e8cc456c8fc2d9a5d55cf37528e8e31e27cecf3018425449d799531",
+    "scripts/art/plains_terrain_study.gd": "c528f9a9de5abdce47907e68bd06c9deb77e8ded59d79bb9de8921e8a2057a45"
+  },
+  "after": {
+    "tests/legacy_plains_presentation_fixture.gd": "5177b16758e1fb9134f1147cc04639c39ca1517e30c0ea8ee6853cbfbdcf4063",
+    "scripts/demo/demo_app.gd": "93e446037eceeda989991f238e1941e45286c2f44aa1f13d13f87a5367aecd4f",
+    "scripts/demo/plains_region_stage.gd": "3d04ea5d1e8cc456c8fc2d9a5d55cf37528e8e31e27cecf3018425449d799531",
+    "scripts/art/plains_terrain_study.gd": "c528f9a9de5abdce47907e68bd06c9deb77e8ded59d79bb9de8921e8a2057a45"
+  },
+  "source_stable": true,
+  "scope": "one real original terrain map1 smoke only; not full wrappers"
+}

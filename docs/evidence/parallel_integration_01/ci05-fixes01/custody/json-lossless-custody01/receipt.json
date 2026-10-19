@@ -1,0 +1,83 @@
+{
+  "scope": "Authorized lossless storage migration of only two new diagnostic JSON working copies; no new gameplay validation",
+  "started_utc": "2026-10-19T11:13:18.772659+00:00",
+  "status": "completed",
+  "files": [
+    {
+      "original_path": "build/integration01/ci05-scene-diagnosis01/positive.json",
+      "original_sha256": "ef54a7b78756949d57bc26511c20412e197600c0e2b3f63d33de59f8450029de",
+      "original_bytes": 49098884,
+      "original_nlink": 1,
+      "original_inode": 560779,
+      "archive_path": "build/integration01/ci05-scene-diagnosis01.zip",
+      "archive_sha256": "c78e8c291ea3af4faab6764f0e5e9e00ca2564276fe17e24de0278e5f1c82388",
+      "archive_bytes": 2397971,
+      "archive_receipt": "build/integration01/ci05-scene-diagnosis01.archive.json",
+      "archive_receipt_sha256": "40d5849fa04aad7a3c2eff401fd380c552475e272248207b45e15d0450d0cbe5",
+      "member": "positive.json",
+      "decompressed_member_sha256": "ef54a7b78756949d57bc26511c20412e197600c0e2b3f63d33de59f8450029de",
+      "decompressed_member_bytes": 49098884,
+      "full_stream_roundtrip": true,
+      "producer_process_receipt": "build/integration01/ci05-scene-diagnosis01/process.json",
+      "producer_process_receipt_sha256": "8e0720073d7aa6864178f859c42c667d5bfde196781c1169ef48355e4927e819",
+      "producer_terminal_status": "passed",
+      "producer_exit_code": 0,
+      "migration_command": "python3 build/integration01/json-lossless-custody01/migrate.py",
+      "restore_command": [
+        "python3",
+        "build/integration01/json-lossless-custody01/restore.py",
+        "build/integration01/ci05-scene-diagnosis01/positive.json"
+      ],
+      "status": "uncompressed_working_copy_unlinked_exact_bytes_retained_in_original_zip",
+      "unlinked_utc": "2026-10-19T11:13:19.015682+00:00"
+    },
+    {
+      "original_path": "build/plains_redesign/scene/run_oc2p8d_z/positive.json",
+      "original_sha256": "2d31875cbec4b10eb8e8f27d13185c8f065b57c13763eb24762104b8f9c23e25",
+      "original_bytes": 49186454,
+      "original_nlink": 1,
+      "original_inode": 1191668,
+      "archive_path": "build/integration01/ci05-scene-migration01.zip",
+      "archive_sha256": "ccfea3705bc3c13eeafbc4e9399bdbe942e0ea5c02d77104a80d5e566de66340",
+      "archive_bytes": 2879364,
+      "archive_receipt": "build/integration01/ci05-scene-migration01.archive.json",
+      "archive_receipt_sha256": "9aca1d6e5654d513e516704fec5d66c88d33024552433d30655f3a22bc71a462",
+      "member": "original_run/positive.json",
+      "decompressed_member_sha256": "2d31875cbec4b10eb8e8f27d13185c8f065b57c13763eb24762104b8f9c23e25",
+      "decompressed_member_bytes": 49186454,
+      "full_stream_roundtrip": true,
+      "producer_process_receipt": "build/integration01/ci05-scene-migration01/wrapper.process.json",
+      "producer_process_receipt_sha256": "77b61d5e0db496592ffd5297a1858033b78ec848232eb51a0bffae59aace3ec0",
+      "producer_terminal_status": "passed",
+      "producer_exit_code": 0,
+      "migration_command": "python3 build/integration01/json-lossless-custody01/migrate.py",
+      "restore_command": [
+        "python3",
+        "build/integration01/json-lossless-custody01/restore.py",
+        "build/plains_redesign/scene/run_oc2p8d_z/positive.json"
+      ],
+      "status": "uncompressed_working_copy_unlinked_exact_bytes_retained_in_original_zip",
+      "unlinked_utc": "2026-10-19T11:13:19.212586+00:00"
+    }
+  ],
+  "preflight": {
+    "active_engines": [],
+    "open_target_handles": [],
+    "defunct_nonwriters": [
+      {
+        "pid": "18925",
+        "comm": "Godot_v4.7.2-st",
+        "state": "State:\tZ (zombie)",
+        "cmdline": ""
+      },
+      {
+        "pid": "71834",
+        "comm": "Godot_v4.7.2-st",
+        "state": "State:\tZ (zombie)",
+        "cmdline": ""
+      }
+    ]
+  },
+  "logical_bytes_released": 98285338,
+  "finished_utc": "2026-10-19T11:13:19.213897+00:00"
+}

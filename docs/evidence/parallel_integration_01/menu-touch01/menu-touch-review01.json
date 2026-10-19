@@ -1,0 +1,136 @@
+{
+  "task_id": "PARALLEL-INTEGRATION-01",
+  "reviewer": "/root/integration_review",
+  "timestamp_utc": "2026-10-19T12:07:21.935414+00:00",
+  "verdict": "ACCEPT",
+  "scope": "Bounded current menu touch/native43 lifecycle and Latin/CJK proof, exact-label helper negatives, actually viewed native1280 and earlierdirtyWeb10 mobile navigation/cancel/equip; no finalsame-sourceWeb/72/CI/public approval",
+  "source_state": "Frozenworkingrepair atopd86; finalcommitpending; nativeCJK finalsource differs from earlierWeb10 onlysubsequentfontwork, not silentlyrelabeledsameWeb",
+  "source_sha256": {
+    "scripts/ui/menu_scroll_touch_adapter.gd": "66661723da0d9b0ed94560b44bb2d709af189c6690b64da8b46c824b3efdb563",
+    "scripts/ui/demo_menu.gd": "bda9917bcb50e0aef4517c99fa78531134caa0f95b786a6d3f7c4596caabeef2",
+    "tests/menu_scroll_touch_tests.gd": "f41a8fcfbd5f1c71183064a7e137079669550fa24ce166769e9db5bcf42e898b",
+    "tools/studio_gui_pointer.py": "b5d1acf6adfc96600184400f1a985d348dff21559fda609129a5fbbe20595312",
+    "tools/verify_action_budget_browser.py": "8095dec145e0f4d61f392dafa7e6585824ca574d78f136ab1b23e0b1be076e2e",
+    "tools/verify_all_weapon_browser.py": "c4f069fb1c5775145dde9b1be2564bd08959ff7c773c108f7ce41e3cc27f7272",
+    "tools/verify_studio_click_browser.py": "8b1b17a7e29d1b01b45db4dc58726dfe901dc049bf12ab1bac488edf890f4825"
+  },
+  "evidence_sha256": {
+    "build/integration01/menu-scroll-native02/receipt.json": "4988aab9fcd8282b448b28b50957f658a527afec00d099d5cb68840024f79ff2",
+    "build/integration01/menu-scroll-native03/receipt.json": "682ce71acee00e83bc63f87e58ae882f22b1e9ec335b82eded6ac86acfed467a",
+    "build/integration01/menu-standard-button-native01.json": "c88ec73578927978a3ec4278744e168b0389f404ae3daf8f0eddaad99206bf13",
+    "build/integration01/menu-cjk-native01.json": "3c1bf491d6deeac4abf46f4e2d9240c5fbef750a8e71bb0e2c13d805178a3d7d",
+    "build/integration01/menu-cjk-native01.log": "bb29cb8558aac4e629dd9d1a908705bf0e0210d3c1e86fd88a3c85b526953f3b",
+    "build/integration01/menu-cjk-gpu01/receipt.json": "1a3539bd0322811345b9dcaf90cdb8373659a71883c56b3a5b07cea2395968eb",
+    "build/integration01/navigation-smoke08/report.json": "905ddd237834888a6427f2b498b06954c64557725c3748bb69ea4483f22f2585",
+    "build/integration01/navigation-smoke10/report.json": "334b784cb8ffaec74bb7635542b566c2c747d07f3bfdb8c76466b935710e36d0",
+    "build/integration01/studio-navigation-repair05/audit.json": "eb209f0fc8db029c59401d93df92c3999d7118627fdc1c015813fcdf28b01d20",
+    "build/integration01/menu-touch-ocr-reject01/receipt.json": "009bcd85423740215036ff93e5b821f44ccfbd9d80556fd912dd2e32e148f60b"
+  },
+  "actually_viewed_images": [
+    {
+      "path": "build/studio-navigation/1792410547449833575/development-0.png",
+      "sha256": "3bddbaef9fb3fadd07269415d1d5371e6380d966ca703befb7f0c6fc195e50fe",
+      "actual_view_image": true
+    },
+    {
+      "path": "build/studio-navigation/1792410881729799313/development-0.png",
+      "sha256": "da8960874838232870faebd289881e663ed8a07e3c92e6a7924f10cc3cf6c131",
+      "actual_view_image": true
+    },
+    {
+      "path": "build/studio-navigation/1792410881729799313/title-1.png",
+      "sha256": "ffe7cf0414e4c096c967c223214c7846562704bd6abbfb7578e4d5cf86ffff53",
+      "actual_view_image": true
+    },
+    {
+      "path": "build/integration01/navigation-smoke10/touch-cancel-after.png",
+      "sha256": "30c754b8d81167d5b99f63da7f7f73f9c05c185efac9acecb46beefeece3b11e",
+      "actual_view_image": true
+    },
+    {
+      "path": "build/integration01/navigation-smoke10/touch.png",
+      "sha256": "64fb6344c1aa58e032bef5a684184f90e6b50487d1928670ee78e7320821ddcd",
+      "actual_view_image": true
+    },
+    {
+      "path": "build/integration01/menu-cjk-gpu01/title.png",
+      "sha256": "f61aa2d34ce9e98296f2b6a67dfb4e9c7e5112179c879b42097e98e0b33a768c",
+      "actual_view_image": true
+    },
+    {
+      "path": "build/integration01/menu-cjk-gpu01/home.png",
+      "sha256": "9ff23d9a268e8f809b1ec18bba9ba2dc47480b608357b1dbc1661e1ecc5cd51f",
+      "actual_view_image": true
+    }
+  ],
+  "independent_execution": [
+    "Executed authorparser_controls.py: actualsplitnormal/samebboxpositives and6negatives includingcrossparserduplicate allPASS",
+    "Independentlyfed originalreviewerREJECTcross-path-duplicate.tsv into finalhelper: actualfound2rejection PASS",
+    "Original5studio_gui_pointer helperfunctionAST unchanged againstd86;3browserconsumers originalassertAST unchanged; diff onlyinitialnav replacement/import, not72laterasserts/caps",
+    "Finalnative43 log/sourceSHA andGPUsourceSHA/images checked againstcurrentactualbytes; noengine/browser rerun"
+  ],
+  "findings": [
+    {
+      "area": "touch_input",
+      "status": "accepted_native_scope",
+      "detail": "LocalScrollContaineradapter emitsDEVICE_ID_EMULATION realWindow.push_input, nativeMouseButton.canceled release, onefingerownership/extrafingersuppression, hide/replace/focus/exit cleanup, DOMtouchcancel listener add/remove. DemoMenubuttonPASS forwards nativeGUI chain toScrollContainer, nestedSliderSTOP retained. Globalsuntouched. Native23then32 actualtests verifyButtonsinglecallback/cancel/rearm, sliderrealvalue≤2callbacks andparentnotmoving, newactualPlayerController+enabledTouchOverlay trailingfingerdrag/release produceszeroqueue/sequence/axis/look/aim/captures/shots/H. Fresh43 retains32plus3exactLatinadvances+8Chinesehas_char."
+    },
+    {
+      "area": "OCR_uniqueness",
+      "status": "accepted_after_real_reject",
+      "detail": "Originaled5b7f33helper incorrectlyaccepted splitrow+ordinaryrowduplicate. ActualreviewerREJECTTSV preserved. Finalb5d1acf6 merges exactrow/baselinecandidates, dedupsamebboxthenuniformuniquecheck; completewords/suffix/gap/baseline/duplicate rejection, boundedrealpointer/scroll, freshStudioevent; original5helpers kept. Not generalfuzzyOCRorcoordinatefallback."
+    },
+    {
+      "area": "actual_mobile_Web",
+      "status": "accepted_earlier_dirty_candidate_scope",
+      "detail": "Web0708/09failures retained andnotretroactivelypassed. Desktop08 actualnav/equipmentPASS onb703candidate separate. MobileWeb10dirty0bfc74f74ed3 actual844x390 touch buttoncontentscroll, DOMtouchStart→touchCancel onStyleLabthenstilltitle, completeDEV/ACTIONSnav, shadow_shuriken accepted once. Readactualreport andviewedtitle/development/cancelafter/studio images. This is navigation/equip smoke, not original72 or finalfontsourceWeb."
+    },
+    {
+      "area": "UI_readability",
+      "status": "accepted_native_CJK_scope",
+      "detail": "Old09actual844screenshot ACTIONS13pxbutton/~6pxletters versusnormalcolumn isrealreadability/targetdefect; remove12/24specialoverrides restores18/46 withoutmovingorder/callback. Web10EnglishACTIONSvisibleuncropped andrailnotexpanded, butCJKglyphbroken observed. FinalFontVariation baseThemeDB.fallback_font+repoCJKfallback preserves3exactLatinget_string_size andhas8Chinese; native43/0 logPASS, actualGL1280title/home viewedshow风铃平原/动作练习correctcomplete,nohorizontalcut. FinalCJKnativeimage is not finalmobileWeb/deviceproof."
+    }
+  ],
+  "versions": [
+    {
+      "name": "native02",
+      "checks": 23,
+      "scope": "initialconsumer/lifecycle, noactualWebscroll"
+    },
+    {
+      "name": "native03",
+      "checks": 32,
+      "scope": "ButtonPASS realparentreceipt+SliderSTOP, prior23retained"
+    },
+    {
+      "name": "Web07-09",
+      "status": "failed",
+      "scope": "Realattempts preserved; nativepassesneverrelabelthem"
+    },
+    {
+      "name": "Web10",
+      "build_id": "0bfc74f74ed3",
+      "status": "mobile_smoke_passed",
+      "scope": "DirtyworkingWeb, earlierthanfinalCJKfont"
+    },
+    {
+      "name": "finalCJKnative",
+      "checks": 43,
+      "exit_code": 0,
+      "source": {
+        "scripts/ui/demo_menu.gd": "bda9917bcb50e0aef4517c99fa78531134caa0f95b786a6d3f7c4596caabeef2",
+        "scripts/ui/menu_scroll_touch_adapter.gd": "66661723da0d9b0ed94560b44bb2d709af189c6690b64da8b46c824b3efdb563",
+        "tests/menu_scroll_touch_tests.gd": "f41a8fcfbd5f1c71183064a7e137079669550fa24ce166769e9db5bcf42e898b"
+      },
+      "scope": "32+3Latin+8CJK andseparatenative1280GL, noWeb/device"
+    }
+  ],
+  "limits": [
+    "Finalrepairedcommit/fullsame-sourceCI/originalartifact72/public20 stillpending",
+    "No reviewerengine/browserinvocation; actualauthorlogsandscreenshots reviewed only",
+    "Physicaldevice44pxtarget,humanfeel/fulltouchload/wholegame/commercialquality notcertified",
+    "Initialnativecancel callback is not realDOMevent; realDOMscope belongs earlierWeb10 specifically",
+    "Genericartplannerblocked/forestdesignREVISE remain"
+  ],
+  "tracked_files_edited": false
+}

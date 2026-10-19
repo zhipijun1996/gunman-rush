@@ -51,3 +51,29 @@ ff143c91的push docs39232313993中，生产原107项实际39.996秒通过；随�
 远端复查发现09:41新增PR93，基于已整合PR91，按增量纳入。02cd原push docs39235403208实际24项PASS且Windows成功，但full39235453618为纳入新输入主动取消，不称完整通过或新发布。其原生影片仍明确绑定ff143c91；新增菜单/App实验入口后不再声称最终运行文件零差异，也不改签影片源。新源将复验StyleLab原玩法与Biome/CLI、共享表现与战役UI，再跑完整发布门槛和线上GUI。
 
 PR93原生路线17215/0、Biome1706/0及3CLI实际通过；共享表现36/0（含真实Lab并开拒绝/退出）和原战役UI56/0通过。Lab不改变正式地图池。新增3loader有限资源适配以精确SHA绑定66个实际资源（总known333）；quality原45+6新反例51/0。11资源承载严格区分CC0、自定义许可与生成unknown，visual均未验。原218路径质量记录缺项FAIL保留；补affected_paths后另验，不豁免。另一次原生presentation因磁盘耗尽exit120失败，恢复工具、移除无人使用的孤立临时Git pack后02完整exit0，日志另保留。
+
+## 第五候选d86真实失败与整合缺口
+
+d86完整39237985979终态FAIL，未发布。Web/Windows/push docs24通过；两lane实际24通过/2失败/其余未执行。scene发现新像素景观遗漏四场所身份，木台消费者仍假定旧shader，浏览器原第一消费者固定坐标误入新增StyleLab；不是凭CI绿色代签。原件见`evidence/parallel_integration_01/ci05/`。正在用真实新像素四地标、明确current/legacy绘制器消费者及可见label/真实pointer导航修复，原物理/断言/原预算不降；新源完整验证另跑。
+
+## 第五候选之后的有界修复
+
+当前像素景观新增程序绘制的风车、井、钟架、维修架四种原始轮廓，依实际Manifest身份、StaticBody支撑与保护区放置，不改变几何/RNG/玩家。原scene完整wrapper实际255.886秒通过，原8路线、10真实变造和12伪造验收例保留；新绘制器通过真实Sprite观察，原判定不降。完整31成员无损归档和正常zoom两图八幅独审见[修复证据](evidence/parallel_integration_01/ci05-fixes01/README.md)。地标局部可辨但偏小、背景抢眼及浅色顶边误读风险仍列局限，不签整体美术终审。
+
+当前pixel木台严格验class、完整bounds、一对一body/oneway，原shader check_module逐字节保留并在同正式几何的显式legacy生产fixture执行，默认游戏不恢复旧风格。headless1747/0、实际GPU1760/0通过；原LegacyStrip负例真实非零失败且保留，非把负例失败改成游戏PASS。
+
+原d86包配严格可见label导航后，桌面真实进入ACTIONS并一次装备通过，小屏844×390内容与thumb真实拖动均失败。Godot4.7.2 ScrollContainer只处理鼠标/Pan，BaseButton能直接处理touch，项目全局touch转mouse关闭；因此是生产菜单触屏可达性缺陷，新UI适配与新包另验，不能改消费者让旧包过关。[真实导航失败与源码定位](evidence/parallel_integration_01/navigation06/README.md)。
+
+## 触屏菜单与历史展示合同收敛
+
+菜单只在可见ScrollContainer内转发真实触摸到正常GUI鼠标通路；按钮PASS让原生父滚动收到事件，保留Slider STOP、根面板拦截与全局输入关闭。ACTIONS恢复普通18/46，FontVariation保原Latin并补已有OFL中文fallback；实际43原生断言及两个GL中文合屏通过，早期dirty Web10手机取消/滚动/导航/一次装备通过，最终同源Web72/公网20项8入口仍待。OCR完整标签同baseline合并并统一真实bbox唯一性；原误收反例、旧失败07-09与修复独审均保留，不能用native代手机。见[菜单证据](evidence/parallel_integration_01/menu-touch01/README.md)。
+
+冻结前原4旧画风wrapper发现真实缺consumer，均按原工具预算留FAIL；autonomy实际已有冻结v9回归PASS，未错误重做。四旧renderer改为唯一test-only显式legacy profile fixture，原153条断言、负例、两环境、GPU和预算逐条保留；在真实current Stage安装前确认Pixel默认/无旧consumer、缺错flag拒绝，前后签Manifest/真实多边形和形状参数/玩家调优不变。正式Pixel生产Stage不恢复旧画风，当前scene8真实路线10变造与pixel-formal另验。首次类型错误、第二轮ferry负例原90s超时保留；仅waterworks复原真实旧ferry shader，原完整两suite后续复验。见[真实失败与分版本来源](evidence/parallel_integration_01/late-style01/README.md)。
+
+存储仅对旧无活动引用生成API缓存195文件作55blob无损保管，完整映射/解压SHA+CRC后移除冗余原件，净回收约459MB；原字节ZIP保留本机，Git不冒称携带178MB缓存包。此不涉及当前共享cache/源/电影或玩法证据；旧去重149路径按新收据接管。见[保管范围与可恢复边界](evidence/parallel_integration_01/storage03/PORTABILITY.md)。
+
+## 第六候选冻结前结论
+
+最终ready05原connected完整wrapper实际10.505秒通过：23断言/0失败、3株真实植物，完整源码守卫一致。原153检查与四预算/env AST独审保持；review02限定接受，未将分来源terrain/direct/visual/connected拼成最终同源98通过。validation04 ZIP七成员均逐项SHA/bytes/CRC验证。最终冻结源码完整CI、原包72、公开20/8尚待。
+
+输入五分支于12:14 UTC复查保持所列精确head。原第五候选FAIL、所有局部失败和不同source边界均保留。接下来冻结新提交，只用其完整gameplay/art 98项、准确CI Web原包72、Style Lab实际入口和公开GUI20/8及完整PCK判定技术交付；正常原速影片另做同源新片。整体森林体验与真人/设备仍REVISE，不因技术通过升为商业完成。

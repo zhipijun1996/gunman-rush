@@ -28,10 +28,12 @@ const TEAL := Color("2b7067")
 const GOLD := Color("967035")
 const TEXT := Color("3a2d28")
 const MUTED := Color("695247")
+const SCROLL_TOUCH_ADAPTER := preload("res://scripts/ui/menu_scroll_touch_adapter.gd")
 
 var visible_panel: StringName = &""
 var _root: Control
 var _content: VBoxContainer
+var _scroll_touch: Node
 var _in_run := false
 var _home_overlay := false
 var _summary := ""
@@ -158,9 +160,6 @@ func show_home(summary: String = "") -> void:
 	var action_button := _button(rail,"动作练习 / ACTIONS",func() -> void:
 		_hide()
 		requested_actions.emit())
-	action_button.custom_minimum_size = Vector2(160,24)
-	action_button.add_theme_font_override("font",preload("res://assets/fonts/foundry_notes.otf"))
-	action_button.add_theme_font_size_override("font_size",12)
 	for style: String in ["normal","hover","pressed","focus"]:
 		action_button.add_theme_stylebox_override(style,_box(CARD,TEAL,4))
 	_button(rail, "HOME", func() -> void:
@@ -359,10 +358,12 @@ func _confirm_home() -> void:
 	_focus_first()
 
 func _hide() -> void:
+	if is_instance_valid(_scroll_touch): _scroll_touch.cancel(&"menu_hide")
 	visible_panel = &""
 	_root.hide()
 
 func _begin(panel: StringName, in_run: bool) -> void:
+	if is_instance_valid(_scroll_touch): _scroll_touch.cancel(&"menu_replace")
 	_in_run = in_run
 	visible_panel = panel
 	for child: Node in _root.get_children():
@@ -405,6 +406,9 @@ func _begin(panel: StringName, in_run: bool) -> void:
 	scroll.custom_minimum_size = Vector2(minf(820, get_viewport().get_visible_rect().size.x - 56), minf(590, get_viewport().get_visible_rect().size.y - 56))
 	scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
 	frame.add_child(scroll)
+	_scroll_touch = SCROLL_TOUCH_ADAPTER.new()
+	_scroll_touch.scroll = scroll
+	scroll.add_child(_scroll_touch)
 	var padding := MarginContainer.new()
 	padding.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	for side: String in ["left", "right", "top", "bottom"]:
@@ -476,6 +480,7 @@ func _label(parent: Node, text: String, font_size: int, color: Color) -> Label:
 
 func _button(parent: Node, text: String, action: Callable) -> Button:
 	var button := Button.new()
+	button.mouse_filter = Control.MOUSE_FILTER_PASS
 	button.text = text
 	button.custom_minimum_size.y = 46
 	button.alignment = HORIZONTAL_ALIGNMENT_LEFT
@@ -516,6 +521,10 @@ static func atlas_region(region: Rect2) -> AtlasTexture:
 
 static func create_theme() -> Theme:
 	var theme := Theme.new()
+	var menu_font := FontVariation.new()
+	menu_font.base_font = ThemeDB.fallback_font
+	menu_font.fallbacks = [preload("res://assets/fonts/foundry_notes.otf")]
+	theme.default_font = menu_font
 	theme.default_font_size = 18
 	theme.set_stylebox("panel", "PanelContainer", _box(CARD, Color("355366"), 16))
 	theme.set_stylebox("normal", "Button", _box(Color("e7d4ad"), Color("987b49"), 8))

@@ -1,0 +1,66 @@
+{
+  "task_id": "PARALLEL-INTEGRATION-01",
+  "reviewer": "/root/integration_review",
+  "timestamp_utc": "2026-10-19T11:07:28.353756+00:00",
+  "baseline_commit": "d86ae7474239a6f483962e0f2af712ed1d0432b7",
+  "source_state": "Working repair candidate; exact SHA below, finalsource/newfullscene/newGUI pending",
+  "verdict": "ACCEPT",
+  "scope": "Limited code semantics, original assertions/caps preservation, actualfloating negative and originalwood log review; not actualnewrenderedlandmark artisticapproval or fullCI/GUI",
+  "source_sha256": {
+    "scripts/art_foundation/pixel_region_landmarks.gd": "976fabb76b54d1318043936083c3ccd00761b3cefce8cba0fe1b7971dabdd3e8",
+    "scripts/art_foundation/pixel_region_scenery.gd": "1407ad858ed31c4795360dfd1e37497a35799135e54f21280cc34b6716e86b09",
+    "tests/plains_redesign_scene_runner.gd": "dba8c26ec242e2fe45de1eeffc9237f51470416759c916f59f052dd4878cd233",
+    "tests/wood_platform_runner.gd": "86118ec532d50256c15ae45fb19909212f6b5c72df60b770d4c858366e78112e",
+    "tools/harness/profiles.json": "4f5e5a9791f1df3eaa745876734c58c0424532190979e8595495a7dad7276729",
+    "tools/studio_gui_pointer.py": "bdfa6bd883d5c3fe1360fd72c9541e490687e53a66d9e316031bfa126387b7bb",
+    "tools/verify_action_budget_browser.py": "8095dec145e0f4d61f392dafa7e6585824ca574d78f136ab1b23e0b1be076e2e",
+    "tools/verify_all_weapon_browser.py": "c4f069fb1c5775145dde9b1be2564bd08959ff7c773c108f7ce41e3cc27f7272",
+    "tools/verify_studio_click_browser.py": "8b1b17a7e29d1b01b45db4dc58726dfe901dc049bf12ab1bac488edf890f4825"
+  },
+  "evidence_sha256": {
+    "build/integration01/ci05-serial.zip": "0f531d437e9089422fb206909de12eb0e7bbc10f0b2580e47dbe7d7bf6c5deea",
+    "build/integration01/ci05-parallel.zip": "8412ca666e9ba24996e02b2677a3d6a6ad172acbabd45c7fa80368683a43b295",
+    "build/integration01/ci05-scene-diagnosis01/diagnosis.json": "180de476d050b599d29de170dfe38a85bd7f02e93c8b1eb6b07536aeb55f8e82",
+    "build/integration01/ci05-scene-migration01/floating_landmark.validation.json": "90cc1b20ba188ca33f2dd301a8c5dac90546c8ad4730d5086739be38d8cb48c4",
+    "build/integration01/wood-style-migration01.log": "00b5e801b1ca753a29660e80be921aed0fd81c2a1e67b38af0029bad1fa2723b",
+    "build/integration01/studio-navigation-repair01/audit.json": "9521bad2285ce7bb12b1d2e29cc0e2b640a625690b964b1277b9222c15fe9e48",
+    "build/integration01/studio-navigation-repair02/audit.json": "a6cccfd9691deab463ee403eb34af377370987b707c9fec2538836b0fba6f7a9"
+  },
+  "independent_checks": [
+    "Woodcheck_module exactfunctionbody byte-for-byte equalsd86 baseline.",
+    "Harnessprofiles entireJSON equals old except onecheck additive artifact_paths; old budgets/profiles/markers identical.",
+    "Every originalstudio_gui_pointer top-levelfunction AST equalsd86 original.",
+    "Directnewhelper positive exactACTIONS row and4prefix/suffixnegatives plusinvalidready-event cases independentlyexecuted PASS.",
+    "Read actualCIphase ZIP reports:serial9 first8passed scenefailed;parallel17 first16passed woodfailed. Retain failedterminal, notdeployed."
+  ],
+  "findings": [
+    {
+      "area": "pixel_landmarks",
+      "status": "accepted_source_scope",
+      "detail": "Four identities have distinct authoredpixelgeometry/windmill sails/tower,waterwellposts/bucket,clockarch/hands,repairrack/workbench; actualImageTexture/Spritechildren, not labels ormetadataonly. Generationusesclear realsupport/protection and1x/2xinteger pixel scale, noncollision/RNGpreserved. Childclearing preventsreconfigureduplication."
+    },
+    {
+      "area": "sceneconsumer",
+      "status": "accepted_source_and_actualnegative_scope",
+      "detail": "Only3consumerlocators extendlegacy|pixel; actualinventoryfromSpritebounds andmetadata. Originalfouridentity/footray/bounds/8routes/cleanupremain. Actualfloating childexit1/5.176s/10assertions1fail, truePixelLandmark y-20; bounds and realfootray bothreject. Completewrapper stillrunning, noPASSsignatureyet."
+    },
+    {
+      "area": "woodconsumer",
+      "status": "accepted_source_and_localtechnical_scope",
+      "detail": "Currentpixelnode/class/bounds/position/StaticBody/onewaygeometry/exactdrawcountverified bynewroutine. Oldshaderchecks rununchanged inisolatedfixturewithsameformalplatformgeometry,without hazards/ferries andfaroutsidegame; originalwidth/stack/GPUnegative retained. Localauthororiginal1747/0 strictPASS logread; noGPUartapproval."
+    },
+    {
+      "area": "studio_navigation",
+      "status": "accepted_tool_scope_not_realGUI",
+      "detail": "ExactwholevisibleOCRrow anduniquematch drivesactualmouse/touch; onlymissinglabelallowsbounded4scroll/5screenshots,duplicatefails. FreshpostlisteneractualSTUDIO_EVENT shape/tick required.3consumers onlyreplaceinitialcoordinateswithhelper, theirpost-entrychecks/timings andoriginalweaponpickerfunctions retained. Existingoriginalbudgets unchanged. ActualOCR/mockprotocolauditpassed; realoriginal72notyetexecutedonsourcenew."
+    }
+  ],
+  "limits": [
+    "Fullsceneoriginalwrapper/newcompleteCI/newartifact72/publicnotpassed",
+    "Landmark codegenuinelyrenders4silhouettes but reviewerhasnotseenactualnewgamepixels; cannotcertifyvisualidentity/commercialaesthetic",
+    "Oldd86/ffnativefilms do not include newlandmarks and cannot be relabeledthissource",
+    "OriginalCIscenefailure reallymissingactualidentity evenif91routeassertionspassed; woodfailurewasstalelegacyshaderexpectation, neitherrelabeledpass",
+    "NoGodot or engineparallelization;onlybuildreviewfileswritten",
+    "Genericartplannerblocked/designREVISE/human/device/fununverified remain"
+  ]
+}

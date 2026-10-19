@@ -1,0 +1,40 @@
+{
+  "scope": "Remove only an explicitly authorized, regenerable, inactive Godot generated cache directory; no source or evidence files",
+  "target": "/tmp/gunman-forest-feedback-runtime/.godot",
+  "current_shared_cache": "/tmp/gunman-forest-feedback-godot-cache",
+  "distinct_from_current_cache": true,
+  "started_utc": "2026-10-19T11:32:41.323766+00:00",
+  "status": "completed",
+  "reconstruction_basis": "Godot creates .godot generated imports, editor metadata, class/UID caches, and export intermediates from the associated project.godot and unchanged source assets; opening/importing this isolated project recreates the directory. No project/source/asset directory is deleted.",
+  "reconstruction_command": [
+    "bash",
+    "/workspace/gunman-rush-design/tools/godot.sh",
+    "--headless",
+    "--editor",
+    "--path",
+    "/tmp/gunman-forest-feedback-runtime",
+    "--quit"
+  ],
+  "command": "python3 build/integration01/cache-cleanup02/cleanup.py",
+  "authorized_deletion_operation": "shutil.rmtree(/tmp/gunman-forest-feedback-runtime/.godot)",
+  "active_dependencies": {
+    "cwd_in_project": [],
+    "command_argument_in_project": [],
+    "open_target_handles": []
+  },
+  "manifest_path": "build/integration01/cache-cleanup02/cache-manifest-before01.json",
+  "manifest_sha256": "4972438514a2d809a5df7828f0c8ccbd538e1525e13f09243df018fc46e7ba0a",
+  "entries": 939,
+  "files": 934,
+  "logical_file_bytes": 102524147,
+  "allocated_scope_bytes_before": 105590784,
+  "regular_files_with_multiple_links": [],
+  "filesystem_available_bytes_immediately_before": 780001280,
+  "filesystem_available_bytes_immediately_after": 885592064,
+  "filesystem_available_bytes_delta": 105590784,
+  "target_exists_after": false,
+  "allocated_scope_bytes_after": 0,
+  "released_exclusive_scope_bytes": 105590784,
+  "finished_utc": "2026-10-19T11:32:41.386234+00:00",
+  "current_shared_cache_still_present": true
+}

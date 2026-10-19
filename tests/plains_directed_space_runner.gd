@@ -1,4 +1,6 @@
 extends SceneTree
+const LEGACY_PRESENTATION := preload("res://tests/legacy_plains_presentation_fixture.gd")
+var legacy_presentation_fixtures: Array[Dictionary] = []
 ## Real DemoApp consumer and deliberate live-Node counterexamples.
 ## No traversal, pixels, performance, audio, device or aesthetic acceptance.
 var assertions := 0
@@ -40,6 +42,7 @@ func wait_stage(app: DemoApp) -> void:
 		if not app._stage_pending and app.stage is PlainsRegionStage: return
 
 func check_live(app: DemoApp, map_index: int, seed_value: String, thorough: bool) -> void:
+	_install_legacy_presentation(app)
 	var stage := app.stage as PlainsRegionStage
 	check(_fixture_identity_matches(app, map_index, seed_value), "actual stage/map/manifest seed+difficulty matches requested fixture")
 	var before := JSON.stringify(stage.generated.manifest)
@@ -212,7 +215,7 @@ func run_legacy() -> void:
 		app.free()
 		await process_frame
 	if "--prove-failure" in OS.get_cmdline_user_args(): check(false,"intentional guard counterexample")
-	var report := {"assertions":assertions,"failures":failures,"rows":rows,"camera_response_samples":camera_samples,"scope":"Actual10root x2map cosmetic consumer/isolated camera response and live Node counterexamples only; gameplay traversal/pixels/audio/device/aesthetics unverified"}
+	var report := {"presentation_scope":"explicit_legacy_presentation_not_default","legacy_presentation_fixtures":legacy_presentation_fixtures,"assertions":assertions,"failures":failures,"rows":rows,"camera_response_samples":camera_samples,"scope":"Actual10root x2map cosmetic consumer/isolated camera response and live Node counterexamples only; gameplay traversal/pixels/audio/device/aesthetics unverified"}
 	if not output.is_empty():
 		DirAccess.make_dir_recursive_absolute(output.get_base_dir())
 		var file := FileAccess.open(output,FileAccess.WRITE)
@@ -260,6 +263,7 @@ func expected_highland_slot(landscape: PlainsSemanticLandscape) -> bool:
 	return false
 
 func check_default(app: DemoApp, map_index: int, seed_value: String, thorough: bool) -> void:
+	_install_legacy_presentation(app)
 	var stage := app.stage as PlainsRegionStage
 	check(_fixture_identity_matches(app, map_index, seed_value), "actual stage/map/manifest seed+difficulty matches requested fixture")
 	var before := JSON.stringify(stage.generated.manifest)
@@ -335,7 +339,7 @@ func run_default() -> void:
 		check(_ivy_actual_seen>0,"actual20map candidate selection retains supported ivy rather than globally disabling it")
 		check(_ivy_counterexample_done,"actual supported ivy detach and removed-support counterexamples exercised")
 	if "--prove-failure" in OS.get_cmdline_user_args(): check(false,"intentional default guard counterexample")
-	var report := {"consumer_mode":"default_stopped_woodland_with_limited_highland","assertions":assertions,"failures":failures,"rows":rows,"scope":"Actual default10root x2map consumer stop/support checks and live counterexamples; no visual/commercial/route acceptance"}
+	var report := {"consumer_mode":"default_stopped_woodland_with_limited_highland","presentation_scope":"explicit_legacy_presentation_not_default","legacy_presentation_fixtures":legacy_presentation_fixtures,"assertions":assertions,"failures":failures,"rows":rows,"scope":"Actual default10root x2map consumer stop/support checks and live counterexamples; no visual/commercial/route acceptance"}
 	if not output.is_empty():
 		DirAccess.make_dir_recursive_absolute(output.get_base_dir())
 		var file := FileAccess.open(output,FileAccess.WRITE)
@@ -389,3 +393,11 @@ func _fixture_identity_matches(app: DemoApp, index: int, root_seed: String) -> b
 	if actual == null or not actual.assembly_ok: return false
 	var manifest: Dictionary = actual.generated.manifest
 	return actual.map_index == index and manifest.get("region", "") == "plains" and manifest.get("seed", "") == PlainsRegionCampaign.seed_for(root_seed, index) and manifest.get("difficulty", "") == ("intro" if index == 1 else "advanced")
+
+
+func _install_legacy_presentation(app: DemoApp) -> void:
+	var record := LEGACY_PRESENTATION.prepare(app, "directed_space")
+	legacy_presentation_fixtures.append(record)
+	check(record.get("pixel_default_before",false), "new stage retains current pixel default before explicit historical fixture")
+	check(record.get("no_flag_and_wrong_profile_refused_without_mutation",false), "missing/wrong legacy profile rejected with actual default unchanged")
+	check(record.get("installed",false) and record.get("unchanged",false), "explicit legacy presentation preserves actual physics/Manifest/player tuning")

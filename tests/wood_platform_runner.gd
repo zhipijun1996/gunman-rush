@@ -1,5 +1,6 @@
 extends SceneTree
-# Actual module and formal stage consumers. Camera repositioning below is ONLY
+# Current pixel formal modules plus unchanged historical shader fixtures.
+# Camera repositioning below is ONLY
 # visual inspection, never evidence of player traversal or device performance.
 var checks := 0
 var failures := 0
@@ -41,6 +42,42 @@ func check_module(module: PlatformingModule, context: String) -> void:
 			check(collider.one_way_collision and collider.shape.size == rect.size, "one-way collision unchanged")
 			inventory.append({"consumer": context, "module": str(module.definition.module_id), "index": index, "width": rect.size.x, "height": rect.size.y, "renderer": node.material.shader.resource_path})
 	check(found.size() == module.definition.one_way_platform_indices.size(), "every formal one-way instance has observed renderer")
+func check_pixel_module(module: PlatformingModule, context: String) -> void:
+	var found: Dictionary = {}
+	check(module.pixel_mechanism_art, "current formal consumer selects pixel family")
+	for node: Node in module.get_children():
+		if not node.has_meta("platform_index"): continue
+		var index := int(node.get_meta("platform_index"))
+		var rect: Rect2 = module.definition.platforms[index]
+		check(not found.has(index), "current pixel draw is unique")
+		found[index] = true
+		check(node is PlainsWoodPlatformArt.PixelOneWayPaint, "current actual one-way uses pixel renderer")
+		if not node is PlainsWoodPlatformArt.PixelOneWayPaint: continue
+		check(node.bounds == rect and node.position == Vector2.ZERO, "current pixel outline matches complete physical rectangle")
+		var body: StaticBody2D = module.get_node("Platform%s" % index)
+		var collider: CollisionShape2D = body.get_node("CollisionShape2D")
+		check(collider.one_way_collision and collider.shape.size == rect.size and body.position == rect.get_center(), "current pixel draw keeps actual physical body")
+		inventory.append({"consumer":context,"module":str(module.definition.module_id),"index":index,"width":rect.size.x,"height":rect.size.y,"renderer":"PixelOneWayPaint/current-pixel"})
+	check(found.size() == module.definition.one_way_platform_indices.size(), "every current formal one-way owns an observed pixel draw")
+
+func check_legacy_geometry(source: PlatformingModule, context: String) -> void:
+	# Historical shader regression keeps every original check on the production
+	# renderer using the exact current module's platform geometry. This isolated
+	# rendering fixture is not a claim that the formal game still uses old art.
+	var module := PlatformingModule.new()
+	module.definition = source.definition.duplicate(true)
+	module.definition.danger_bounds.clear()
+	module.definition.surface_thorns.clear()
+	module.definition.saws.clear()
+	module.definition.ferries.clear()
+	module.pixel_mechanism_art = false
+	module.authoring_debug = false
+	module.terrain_candidate_preview = true
+	module.position = Vector2(1000000, 1000000)
+	root.add_child(module)
+	check_module(module, context)
+	module.free()
+
 func run() -> void:
 	var legacy := "--legacy-strip" in OS.get_cmdline_user_args()
 	if legacy: folder += "-rejected"
@@ -56,7 +93,8 @@ func run() -> void:
 	var target: PlatformingModule
 	var largest := 0.0
 	for module: PlatformingModule in stage.assembler.modules:
-		check_module(module, "formal-map-1")
+		check_pixel_module(module, "formal-map-1")
+		check_legacy_geometry(module, "historical-shader/current-map-1-geometry")
 		for index: int in module.definition.one_way_platform_indices:
 			if module.definition.platforms[index].size.x > largest:
 				target = module
@@ -83,7 +121,8 @@ func run() -> void:
 		paused = false
 	check(await load("res://tests/plains_campaign_fixture.gd").second_map(app, self), "second formal map lifecycle fixture")
 	for candidate: PlatformingModule in app.stage.assembler.modules:
-		check_module(candidate, "formal-map-2")
+		check_pixel_module(candidate, "formal-map-2")
+		check_legacy_geometry(candidate, "historical-shader/current-map-2-geometry")
 	if capture:
 		for candidate: PlatformingModule in app.stage.assembler.modules:
 			if candidate.definition.one_way_platform_indices.is_empty(): continue
@@ -127,6 +166,8 @@ func run() -> void:
 	for y: float in [650, 690]:
 		module.definition.one_way_platform_indices.append(module.definition.platforms.size())
 		module.definition.platforms.append(Rect2(100, y, 680, 24))
+	# Original shader width/stack/pixel-negative regression remains historical.
+	module.pixel_mechanism_art = false
 	module.authoring_debug = false
 	module.terrain_candidate_preview = true
 	root.add_child(module)
@@ -195,7 +236,7 @@ func run() -> void:
 	module.free()
 	var file := FileAccess.open(folder + "/inventory.json", FileAccess.WRITE)
 	var consumers: Array[Dictionary] = []
-	for context: String in ["formal-map-1", "formal-map-2", "production-module-width-sweep"]:
+	for context: String in ["formal-map-1", "formal-map-2", "production-module-width-sweep", "historical-shader/current-map-1-geometry", "historical-shader/current-map-2-geometry"]:
 		consumers.append({"id": context, "path": "PlatformingModule -> PlainsWoodPlatformArt", "instances": inventory.filter(func(i: Dictionary) -> bool: return i.consumer == context).size()})
 	file.store_string(JSON.stringify({"consumers": consumers, "instances": inventory, "capture": capture, "legacy_negative": legacy, "checks": checks, "failures": failures, "scope": "one-way rendering and collision ownership; no traversal or device claim"}, "  "))
 	file.close()

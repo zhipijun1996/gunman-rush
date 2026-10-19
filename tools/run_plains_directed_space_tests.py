@@ -10,6 +10,8 @@ import tempfile
 import level_formal
 
 ROOT = Path(__file__).resolve().parents[1]
+# All historical renderer consumers below are explicit test-only fixtures; formal Pixel defaults are unchanged.
+LEGACY_FIXTURE_SCOPE = "explicit_legacy_presentation_not_default"
 
 
 def run():
@@ -44,7 +46,7 @@ def run():
             label = consumer_mode + ("_negative" if negative else "_positive")
             capture = folder / (label + ".json")
             command = ["bash", "tools/godot.sh", "--headless", "--path", ".", "--script",
-                       "tests/plains_directed_space_runner.gd", "--", "--output=" + str(capture)]
+                       "tests/plains_directed_space_runner.gd", "--",'--legacy-presentation-fixture=directed_space', "--output=" + str(capture)]
             if negative:
                 command.append("--prove-failure")
                 command.append("--single-seed")
@@ -76,7 +78,7 @@ def run():
               "producer_sha256": producer, "import": {"command":import_command,"exit_code":imported.returncode,
                   "log":str(import_log.relative_to(ROOT)),"log_sha256":hashlib.sha256(import_log.read_bytes()).hexdigest()}, "runs": runs,
               "source_before": source_before, "source_after": source_after, "source_stable": source_stable,
-              "scope": "Actual integration/counterexamples; no source-bound film or visual acceptance"}
+              "presentation_scope": LEGACY_FIXTURE_SCOPE, "scope": "Explicit historical renderer integration/counterexamples; no source-bound film or visual acceptance"}
     (folder / "report.json").write_text(json.dumps(report, indent=2) + "\n")
     print("DIRECTED SPACE SUITE:", report["status"], folder.relative_to(ROOT))
     return 0 if report["status"] == "passed" else 1

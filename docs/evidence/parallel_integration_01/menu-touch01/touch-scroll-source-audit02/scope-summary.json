@@ -1,0 +1,68 @@
+{
+  "scope": "Consolidated accurate source/fixture boundaries; no new engine/browser execution",
+  "facts": [
+    {
+      "id": "native01",
+      "evidence": "build/integration01/menu-scroll-native01/receipt.json",
+      "status": "16/0",
+      "limits": "Native GUI lifecycle only; exact old snapshot; not Web scrolling"
+    },
+    {
+      "id": "native02",
+      "evidence": "build/integration01/menu-scroll-native02/receipt.json",
+      "status": "23/0",
+      "limits": "Expanded native real PlayerController tail-finger and Slider; not Web scrolling"
+    },
+    {
+      "id": "Web07",
+      "evidence": "build/integration01/navigation-smoke07/report.json",
+      "status": "desktop PASS/mobile navigation FAIL",
+      "limits": "Native23 did not redeem actual mobile failure; cancel remained title but complete cancel+navigation unproved"
+    },
+    {
+      "id": "Web07_gutter",
+      "evidence": "build/integration01/touch-scroll-diagnosis07/padding-swipe.png",
+      "status": "root actually observed padding swipe scrolls while same package button swipe fails",
+      "limits": "Reported actual root browser diagnostic, not agent-run browser"
+    },
+    {
+      "id": "cause",
+      "evidence": "build/integration01/touch-scroll-source-audit02/diagnosis.json",
+      "status": "Viewport1764\u20131769 STOP blocks converted LEFT/motion at Button; wheel exception explains desktop pass; Web touch availability normal",
+      "limits": "Exact4.7.2 upstream source recorded locally"
+    },
+    {
+      "id": "minimal_fix",
+      "status": "One menu _button mouse_filter PASS line, Slider and outer container STOP retained",
+      "limits": "No layout/global emulation/physics/viewport/helper bypass"
+    },
+    {
+      "id": "native03",
+      "evidence": "build/integration01/menu-scroll-native03/receipt.json",
+      "status": "32/0 actual exit0 frozen source",
+      "limits": "Added actual ScrollContainer.gui_input delivery and Slider STOP; not real Web inertia/DOM"
+    },
+    {
+      "id": "Web08",
+      "status": "root actual real touch scrolling now succeeds; navigation consumer rejected OCR split block label",
+      "evidence": "build/studio-navigation/1792410362360088566/title-4.tsv",
+      "limits": "Not full72 PASS; actual old failure retained"
+    },
+    {
+      "id": "OCR04",
+      "evidence": "build/integration01/studio-navigation-repair04/audit.json",
+      "status": "Actual failed TSV exact same-top/height full-label clustering parses;5 strict negative controls rejected",
+      "limits": "Parser only, root actual final browser still required"
+    }
+  ],
+  "current_production_sha256": {
+    "scripts/ui/menu_scroll_touch_adapter.gd": "66661723da0d9b0ed94560b44bb2d709af189c6690b64da8b46c824b3efdb563",
+    "scripts/ui/demo_menu.gd": "2cb2a2ea375384b6f3b9ca2c1591a37912532e387b207d38a36c665d36eeda31"
+  },
+  "current_helper_sha256": "ed5b7f33dd48b07ede15640f47bede92fbaa80a7b4550f89f89f8e8f38f2b0cb",
+  "unverified": [
+    "Final same-source original72 action/menu checks and original300 caps",
+    "Actual DOM touchcancel plus subsequent valid menu/navigation without unintended callback",
+    "Physical devices and human feel/commercial quality"
+  ]
+}

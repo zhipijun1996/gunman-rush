@@ -8,7 +8,11 @@ import subprocess
 import tempfile
 import time
 
+import level_formal
+
 ROOT=Path(__file__).resolve().parents[1]
+# All historical renderer consumers below are explicit test-only fixtures; formal Pixel defaults are unchanged.
+LEGACY_FIXTURE_SCOPE = "explicit_legacy_presentation_not_default"
 ERRORS=r'(?m)SCRIPT ERROR:|Parse Error:|SHADER ERROR:|^ERROR:|ObjectDB.*leaked'
 
 
@@ -24,12 +28,15 @@ def main():
     folder.mkdir(parents=True,exist_ok=True)
     paths=['tools/run_connected_family_tests.py','scripts/art/plains_connected_landscape.gd','scripts/art/plains_region_composition.gd',
            'scripts/art/plains_landscape_observer.gd','tests/plains_connected_family_contract_runner.gd',
-           'assets/production_repair/rooted_plants_v1/raw.png','assets/production_repair/rooted_plants_v1/family.json']
-    def sources():return {p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in paths}
+           'tests/legacy_plains_presentation_fixture.gd','scripts/demo/demo_app.gd','scripts/demo/plains_region_stage.gd',
+           'scripts/art/plains_terrain_study.gd','scripts/art/plains_terrain_family_sampler.gd',
+           'scripts/art_foundation/pixel_region_scenery.gd','scripts/art_foundation/pixel_region_landmarks.gd','scripts/art_foundation/pixel_plains_parallax.gd',
+           'config/player_tuning.json','resources/player/traversal.tres','assets/production_repair/rooted_plants_v1/raw.png','assets/production_repair/rooted_plants_v1/family.json']
+    def sources():return level_formal.source_files(extra_paths=paths)
     before=sources()
-    command=['bash','tools/godot.sh','--verbose','--headless','--path','.', '--script','tests/plains_connected_family_contract_runner.gd','--','--output='+str(folder/'consumer.json')]
+    command=['bash','tools/godot.sh','--verbose','--headless','--path','.', '--script','tests/plains_connected_family_contract_runner.gd','--','--legacy-presentation-fixture=connected_family','--output='+str(folder/'consumer.json')]
     started=time.time();clock=time.monotonic()
-    report={'status':'failed','command':command,'source_before':before,'started_at_unix':started,'errors':[]}
+    report={'consumer_mode':LEGACY_FIXTURE_SCOPE,'status':'failed','command':command,'source_before':before,'started_at_unix':started,'errors':[]}
     try:
         result=subprocess.run(command,cwd=ROOT,capture_output=True,text=True,timeout=120)
         log=result.stdout+result.stderr

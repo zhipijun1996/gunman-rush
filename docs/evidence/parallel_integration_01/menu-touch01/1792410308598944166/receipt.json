@@ -1,0 +1,142 @@
+{
+  "touch": false,
+  "clicks": [
+    {
+      "label": "DEVELOPMENT DEMOS / ALL ENTRIES",
+      "attempt": 1,
+      "screenshot": "title-1.png",
+      "ocr": "title-1.tsv",
+      "result": "unique_visible_match",
+      "point": [
+        431.8333333333333,
+        488.5
+      ]
+    },
+    {
+      "label": "ACTIONS",
+      "attempt": 0,
+      "screenshot": "development-0.png",
+      "ocr": "development-0.tsv",
+      "result": "unique_visible_match",
+      "point": [
+        352.8333333333333,
+        285.5
+      ]
+    }
+  ],
+  "observations": [
+    {
+      "label": "DEVELOPMENT DEMOS / ALL ENTRIES",
+      "attempt": 0,
+      "screenshot": "title-0.png",
+      "ocr": "title-0.tsv",
+      "result": "missing",
+      "error": "Expected one complete rendered menu label 'DEVELOPMENT DEMOS / ALL ENTRIES'; found 0"
+    },
+    {
+      "label": "DEVELOPMENT DEMOS / ALL ENTRIES",
+      "attempt": 1,
+      "screenshot": "title-1.png",
+      "ocr": "title-1.tsv",
+      "result": "unique_visible_match"
+    },
+    {
+      "label": "ACTIONS",
+      "attempt": 0,
+      "screenshot": "development-0.png",
+      "ocr": "development-0.tsv",
+      "result": "unique_visible_match"
+    }
+  ],
+  "gestures": [
+    {
+      "menu": "title",
+      "viewport": [
+        1280,
+        720
+      ],
+      "kind": "real_mouse_wheel",
+      "at": [
+        900.0,
+        570.0
+      ],
+      "delta": [
+        0,
+        232.0
+      ]
+    }
+  ],
+  "status": "passed",
+  "scope": "Screenshot OCR navigation and read-only actual STUDIO_EVENT; no gameplay acceptance",
+  "observed_events": [
+    {
+      "action": "training_motion",
+      "aim": [
+        0.0,
+        0.0
+      ],
+      "beam_muzzle": [
+        166.514999389648,
+        601.595031738281
+      ],
+      "beam_visual": [],
+      "blink_pause": 0.0,
+      "combat": 0.0,
+      "detail": {
+        "positions": [
+          [
+            352.0,
+            596.0
+          ],
+          [
+            472.0,
+            596.0
+          ],
+          [
+            592.0,
+            596.0
+          ],
+          [
+            712.0,
+            596.0
+          ]
+        ],
+        "static": false
+      },
+      "device": "keyboard_mouse",
+      "energy": 100.0,
+      "game_seconds": 0.127766666666666,
+      "hook_guide": false,
+      "hook_guide_valid": false,
+      "hook_tip": [
+        0.0,
+        0.0
+      ],
+      "kick_side": -1.0,
+      "normal_velocity": [
+        0.0,
+        0.0
+      ],
+      "packet": 0,
+      "physics_tick": 507,
+      "position": [
+        150.0,
+        602.0
+      ],
+      "real_usec": 18568600,
+      "recoil": [
+        0.0,
+        0.0
+      ],
+      "recoil_speed": 0.0,
+      "shots": 2,
+      "time_scale": 1.0,
+      "velocity": [
+        0.0,
+        0.0
+      ],
+      "weapon": "pulse_gun",
+      "weapon_apex": 0.0
+    }
+  ]
+}

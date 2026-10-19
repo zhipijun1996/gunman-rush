@@ -1,4 +1,6 @@
 extends SceneTree
+const LEGACY_PRESENTATION := preload("res://tests/legacy_plains_presentation_fixture.gd")
+var legacy_presentation_fixtures: Array[Dictionary] = []
 ## Real consumers; static camera/actor poses below are explicitly composition fixtures, not route traversal.
 var assertions:=0
 var failures:=0
@@ -19,6 +21,7 @@ func wait_stage(app:DemoApp)->void:
 func rect_values(rect:Rect2)->Array:return [rect.position.x,rect.position.y,rect.size.x,rect.size.y]
 func pair(p:Vector2)->Array:return [p.x,p.y]
 func check_live(app:DemoApp,seed_value:String,map_index:int,thorough:bool)->void:
+	_install_legacy_presentation(app)
 	var stage:=app.stage as PlainsRegionStage
 	check(_fixture_identity_matches(app, map_index, seed_value), "actual stage/map/manifest seed+difficulty matches requested fixture")
 	var manifest:=JSON.stringify(stage.generated.manifest)
@@ -139,7 +142,7 @@ func run()->void:
 		app.free();app=null
 		for unused:int in 3:await physics_frame;await process_frame
 	if "--prove-failure" in OS.get_cmdline_user_args():check(false,"intentional harness guard rejection")
-	var report:Dictionary={"assertions":assertions,"failures":failures,"rows":rows,"gpu_static_fixtures":pixels,"scope":"Actual source consumer/union semantics/negative diagnostics; static fixture pixels never traversal or commercial art acceptance"}
+	var report:Dictionary={"presentation_scope":"explicit_legacy_presentation_not_default","legacy_presentation_fixtures":legacy_presentation_fixtures,"assertions":assertions,"failures":failures,"rows":rows,"gpu_static_fixtures":pixels,"scope":"Actual source consumer/union semantics/negative diagnostics; static fixture pixels never traversal or commercial art acceptance"}
 	if not output.is_empty():
 		DirAccess.make_dir_recursive_absolute(output.get_base_dir());var file:=FileAccess.open(output,FileAccess.WRITE);file.store_string(JSON.stringify(report)+"\n");file.close()
 	print("TERRAIN FAMILY: %s assertions, %s failures"%[assertions,failures]);quit(0 if failures==0 else 1)
@@ -157,3 +160,11 @@ func _fixture_identity_matches(app: DemoApp, index: int, root_seed: String) -> b
 	if actual == null or not actual.assembly_ok: return false
 	var manifest: Dictionary = actual.generated.manifest
 	return actual.map_index == index and manifest.get("region", "") == "plains" and manifest.get("seed", "") == PlainsRegionCampaign.seed_for(root_seed, index) and manifest.get("difficulty", "") == ("intro" if index == 1 else "advanced")
+
+
+func _install_legacy_presentation(app: DemoApp) -> void:
+	var record := LEGACY_PRESENTATION.prepare(app, "terrain_family")
+	legacy_presentation_fixtures.append(record)
+	check(record.get("pixel_default_before",false), "new stage retains current pixel default before explicit historical fixture")
+	check(record.get("no_flag_and_wrong_profile_refused_without_mutation",false), "missing/wrong legacy profile rejected with actual default unchanged")
+	check(record.get("installed",false) and record.get("unchanged",false), "explicit legacy presentation preserves actual physics/Manifest/player tuning")

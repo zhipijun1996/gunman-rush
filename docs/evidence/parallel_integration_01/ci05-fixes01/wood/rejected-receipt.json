@@ -1,0 +1,28 @@
+{
+  "process": {
+    "status": "failed",
+    "exit_code": 1,
+    "failure_reason": "nonzero_exit",
+    "started_at_unix": 1792408697.858028,
+    "ended_at_unix": 1792408707.7346032,
+    "duration_seconds": 9.877,
+    "expanded_argv": [
+      "bash",
+      "tools/godot.sh",
+      "--rendering-method",
+      "gl_compatibility",
+      "--audio-driver",
+      "Dummy",
+      "--path",
+      ".",
+      "--script",
+      "tests/wood_platform_runner.gd",
+      "--",
+      "--capture",
+      "--legacy-strip"
+    ],
+    "check_token": "5a679ef6b10d46ddba0ae3184f96508b"
+  },
+  "validated_expected_negative": true,
+  "scope": "Original rejected LegacyStrip fails original GPU terminal contract; raw process remains failed, not a positive pass"
+}

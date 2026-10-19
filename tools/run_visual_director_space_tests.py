@@ -14,6 +14,8 @@ import argparse
 import level_formal
 
 ROOT = Path(__file__).resolve().parents[1]
+# All historical renderer consumers below are explicit test-only fixtures; formal Pixel defaults are unchanged.
+LEGACY_FIXTURE_SCOPE = "explicit_legacy_presentation_not_default"
 
 
 def run_painted():
@@ -54,7 +56,7 @@ def run(output=None):
         for mutation in ('', 'detached_root', 'channel_intrusion', 'wrong_attachment', 'far_wrong_scale', 'far_wrong_depth', 'far_detached_root', 'far_clipped_boundary', 'translated_parent', 'bank_scope_escape', 'bank_disabled', 'ferry_graded'):
             label = mutation or 'positive'
             capture = folder / (label+'.json')
-            command = ['bash','tools/godot.sh','--headless','--path','.', '--script','tests/visual_director_space_runner.gd','--','--legacy-waterworks-contract','--output='+str(capture)]
+            command = ['bash','tools/godot.sh','--headless','--path','.', '--script','tests/visual_director_space_runner.gd','--','--legacy-presentation-fixture=waterworks','--legacy-waterworks-contract','--output='+str(capture)]
             if mutation: command.append('--mutation='+mutation)
             started = time.monotonic()
             result = subprocess.run(command,cwd=ROOT,capture_output=True,text=True,timeout=90)
@@ -85,7 +87,7 @@ def run(output=None):
                     if not number.isdigit(): raise RuntimeError('Invalid actual GPU display')
                 env['DISPLAY']=':'+number
             capture=folder/'gpu_probe.json'
-            command=['bash','tools/godot.sh','--rendering-method','gl_compatibility','--path','.', '--script','tests/visual_director_space_runner.gd','--','--legacy-waterworks-contract','--gpu-probe','--output='+str(capture)]
+            command=['bash','tools/godot.sh','--rendering-method','gl_compatibility','--path','.', '--script','tests/visual_director_space_runner.gd','--','--legacy-presentation-fixture=waterworks','--legacy-waterworks-contract','--gpu-probe','--output='+str(capture)]
             started=time.monotonic()
             result=subprocess.run(command,cwd=ROOT,env=env,capture_output=True,text=True,timeout=90)
             log=folder/'gpu_probe.log';log.write_text(result.stdout+result.stderr)

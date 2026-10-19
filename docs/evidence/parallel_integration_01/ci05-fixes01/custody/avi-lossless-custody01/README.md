@@ -1,0 +1,15 @@
+# Lossless custody migration of four native AVI recordings
+
+This migration preserves the complete native AVI byte streams in individual `gameplay.avi.xz` files. It does not transcode, trim, resample, or change video or audio. The original movie receipts, capture traces, native logs, MP4s, historical documentation, and all other evidence remain unchanged.
+
+The four authorized AVI paths are the Map 1 growth and Map 2 fast recordings under both `movie-*` and `movie-final-*`. The former receipts identify source `ff143c916a04d43c074dac3b2277f4ce53d4ddd9`; the latter identify `d86ae7474239a6f483962e0f2af712ed1d0432b7`.
+
+Preflight checks compare every complete AVI's SHA-256 and length against its existing movie receipt, require an ordinary file with a single link, inspect `/proc` for open handles to the target inodes, and check for active Godot/FFmpeg processes. Two orphaned Godot zombie processes were observed; they have no open file handles and cannot write. An initial conservative process-name-only check stopped before any compression or unlink; that observation remains in `preflight-conservative-stop01.json`.
+
+`migrate.py` streams each file through Python's single-threaded `lzma` encoder using the XZ container and preset 6, in 1 MiB blocks. The equivalent compression operation is `xz --threads=1 --format=xz -6 --stdout ORIGINAL > ORIGINAL.xz`. Each destination is created exclusively, then its complete decompressed stream is independently hashed and counted. Only after the decompressed SHA-256 and size equal the original receipt values, the compressed archive is fsynced, and a migration receipt is saved does the script unlink that one authorized original working AVI. Receipt updates use atomic replacement. The archive itself remains present and contains every original byte.
+
+`receipt.json` is the authoritative status and records each original path, expected/actual SHA and size, source receipt hash and source commit, inode/link checks, compressed path/SHA/size, full decompression SHA/size, and unlink timestamp. A status other than `completed` must not be presented as a completed migration.
+
+To restore any exact original path, first ensure it is absent. Stream `lzma.open(compressed_path, 'rb')` to a newly created temporary ordinary file in that original directory. Hash and count that temporary file and require equality with `original_sha256` and `original_bytes` in the migration receipt. Then rename the verified temporary file to `original_path`. The equivalent decompression is `xz --decompress --stdout ORIGINAL.xz > ORIGINAL.restore.tmp`, followed by the receipt's full hash/size checks and an atomic rename. Retain the `.xz` until the restored original has been verified. Reconstruction requires enough free disk for that AVI and does not require Godot or another gameplay run.
+
+This is a reversible storage migration, not additional gameplay acceptance or a new recording. Existing reviews remain bound to the unchanged original AVI bytes and their original source identities.

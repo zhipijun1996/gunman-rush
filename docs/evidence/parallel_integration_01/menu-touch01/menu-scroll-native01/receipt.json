@@ -1,0 +1,23 @@
+{
+  "command": "GUNMAN_TOOLCHAIN_ROOT=/workspace/toolchains bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/menu_scroll_touch_tests.gd",
+  "exit_code": 0,
+  "duration_scope": "Tool-reported outer execution 0.743139991s includes Python lock wrapper; engine exact duration not separately captured",
+  "outer_duration_seconds": 0.743139991,
+  "marker": "MENU SCROLL TOUCH:16 checks/0 failures",
+  "scope": "Actual native GUI lifecycle, not Web scroll or physical touch",
+  "sources": {
+    "tests/menu_scroll_touch_tests.gd": {
+      "sha256": "773b6247ddc9597a86d2565caf2bb4f96494b8b90dec8a40d9ca3028fffff600",
+      "bytes": 4340
+    },
+    "scripts/ui/menu_scroll_touch_adapter.gd": {
+      "sha256": "66661723da0d9b0ed94560b44bb2d709af189c6690b64da8b46c824b3efdb563",
+      "bytes": 4167
+    },
+    "scripts/ui/demo_menu.gd": {
+      "sha256": "acbd89269b0391da664e50792a46b37a665c697d13836c928f98bf0ce9d53255",
+      "bytes": 22794
+    }
+  },
+  "native_log_sha256": "d2d708bf66b7b1e72a80a6215217fdd06d112e2541160f4d5ee7ba39fa34d839"
+}

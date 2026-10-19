@@ -1,0 +1,24 @@
+Traceback (most recent call last):
+  File "/tmp/navigation-smoke08.py", line 39, in <module>
+    asyncio.run(main())
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/tmp/navigation-smoke08.py", line 30, in main
+    await enter_action_studio(page,touch);await page.wait_for_timeout(600)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush-design/tools/studio_gui_pointer.py", line 106, in enter_action_studio
+    await label_click('title','DEVELOPMENT DEMOS / ALL ENTRIES')
+  File "/workspace/gunman-rush-design/tools/studio_gui_pointer.py", line 95, in label_click
+    point=_studio_label_box(tsv,label,3)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush-design/tools/studio_gui_pointer.py", line 35, in _studio_label_box
+    if not matches:raise StudioMenuLabelMissing(f'Expected one complete rendered menu label {label!r}; found 0')
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+studio_gui_pointer.StudioMenuLabelMissing: Expected one complete rendered menu label 'DEVELOPMENT DEMOS / ALL ENTRIES'; found 0

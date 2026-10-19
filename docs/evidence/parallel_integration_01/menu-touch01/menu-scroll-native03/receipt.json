@@ -1,0 +1,18 @@
+{
+  "scope": "Actual native menu GUI routing: scroll receives converted LEFT through Button; Slider still STOP; prior23 lifecycle and real gameplay tail-finger checks; not actual Web inertia",
+  "sources_before": {
+    "tests/menu_scroll_touch_tests.gd": "e0829c67043ba223f5d9afe486b3d37fbacb61e6f78e420be9d9cecd347a8b93",
+    "scripts/ui/menu_scroll_touch_adapter.gd": "66661723da0d9b0ed94560b44bb2d709af189c6690b64da8b46c824b3efdb563",
+    "scripts/ui/demo_menu.gd": "2cb2a2ea375384b6f3b9ca2c1591a37912532e387b207d38a36c665d36eeda31"
+  },
+  "command": "GUNMAN_TOOLCHAIN_ROOT=/workspace/toolchains bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/menu_scroll_touch_tests.gd",
+  "status": "passed",
+  "exit_code": 0,
+  "duration_seconds": 1.6505488209950272,
+  "sources_after": {
+    "tests/menu_scroll_touch_tests.gd": "e0829c67043ba223f5d9afe486b3d37fbacb61e6f78e420be9d9cecd347a8b93",
+    "scripts/ui/menu_scroll_touch_adapter.gd": "66661723da0d9b0ed94560b44bb2d709af189c6690b64da8b46c824b3efdb563",
+    "scripts/ui/demo_menu.gd": "2cb2a2ea375384b6f3b9ca2c1591a37912532e387b207d38a36c665d36eeda31"
+  },
+  "native_log_sha256": "7350883bc2d7c7f913b8f13953161b2f34574172decd1b8bb09f12083bb92306"
+}

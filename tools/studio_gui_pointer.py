@@ -3,6 +3,147 @@ import io
 from collections import Counter
 from PIL import Image
 
+class StudioMenuLabelMissing(AssertionError):
+ """Only a missing visible label permits another actual scroll observation."""
+
+def _studio_label_box(tsv, label, scale=1):
+ """Exact rendered OCR row, including suffixes; never a coordinate fallback."""
+ import csv,re
+ normalize=lambda value:re.sub(r'[^A-Z0-9]','',value.upper())
+ rows={}
+ for word in csv.DictReader(io.StringIO(tsv),delimiter='\t'):
+  if not word.get('text','').strip():continue
+  key=tuple(word.get(k,'')for k in ('page_num','block_num','par_num','line_num'))
+  rows.setdefault(key,[]).append(word)
+ matches=[]
+ for words in rows.values():
+  rendered=' '.join(w['text']for w in words)
+  selected=words
+  if label=='ACTIONS'and re.search(r'[/|]',rendered):
+   # This one actual bilingual button has a stable complete English clause.
+   # The left clause is not an English OCR spelling/word whitelist for Chinese.
+   # Require exactly one real delimiter and one complete right-side OCR word;
+   # never accept substring/suffix matches or estimate bounds within a word.
+   clauses=re.split(r'[/|]',rendered)
+   if len(clauses)!=2 or not clauses[0].strip()or clauses[1].strip().upper()!='ACTIONS':continue
+   selected=[w for w in words if w['text'].strip().upper()=='ACTIONS']
+   if len(selected)!=1:continue
+  elif normalize(rendered)!=normalize(label):continue
+  left=min(int(w['left'])for w in selected);top=min(int(w['top'])for w in selected)
+  right=max(int(w['left'])+int(w['width'])for w in selected);bottom=max(int(w['top'])+int(w['height'])for w in selected)
+  matches.append((left,top,right,bottom))
+ if label=='DEVELOPMENT DEMOS / ALL ENTRIES':
+  # Tesseract can split this one complete visible button across blocks. Join
+  # only words on an identical pixel baseline/height and a contiguous run;
+  # never search a substring within another row or bridge a large blank gap.
+  baselines={}
+  for words in rows.values():
+   for word in words:
+    key=(word.get('page_num',''),int(word['top']),int(word['height']))
+    baselines.setdefault(key,[]).append(word)
+  for (_page,top,height),words in baselines.items():
+   runs=[]
+   for word in sorted(words,key=lambda w:int(w['left'])):
+    if not runs or int(word['left'])-(int(runs[-1][-1]['left'])+int(runs[-1][-1]['width']))>2*height:runs.append([])
+    runs[-1].append(word)
+   for run in runs:
+    if normalize(' '.join(w['text']for w in run))!=normalize(label):continue
+    left=min(int(w['left'])for w in run);right=max(int(w['left'])+int(w['width'])for w in run)
+    matches.append((left,top,right,top+height))
+  # Both parsers must participate in ambiguity detection. A normal OCR row
+  # cannot hide a second complete button split across other OCR blocks.
+  # Deduplicate only the same actual pixel rectangle found by both paths.
+  matches=list(dict.fromkeys(matches))
+ if not matches:raise StudioMenuLabelMissing(f'Expected one complete rendered menu label {label!r}; found 0')
+ if len(matches)!=1:raise AssertionError(f'Expected one complete rendered menu label {label!r}; found {len(matches)}')
+ left,top,right,bottom=matches[0]
+ return (left+right)/2/scale,(top+bottom)/2/scale
+
+def _studio_ready_event(event):
+ return (isinstance(event,dict)and event.get('action')in ('weapon_entities','weapon_motion','training_motion')
+         and type(event.get('physics_tick'))is int and event['physics_tick']>0
+         and isinstance(event.get('weapon'),str)and bool(event['weapon'])
+         and isinstance(event.get('position'),list)and len(event['position'])==2
+         and isinstance(event.get('detail'),dict))
+
+async def enter_action_studio(page,touch=False,between_clicks_ms=300):
+ """Navigate visible menus with actual pointer input; require a fresh Studio event.
+
+ No DOM/game-state evaluation, synthetic engine event, fixed-point fallback or
+ weapon-picker changes. Existing consumers retain their post-entry timing.
+ """
+ import json,os,subprocess,time
+ from pathlib import Path
+ folder=Path('build/studio-navigation')/str(time.time_ns());folder.mkdir(parents=True,exist_ok=False)
+ observed=[];receipt={'touch':touch,'clicks':[],'observations':[],'gestures':[],'status':'failed','scope':'Screenshot OCR navigation and read-only actual STUDIO_EVENT; no gameplay acceptance'}
+ def console(message):
+  if 'STUDIO_EVENT 'not in message.text:return
+  try:observed.append(json.loads(message.text.split('STUDIO_EVENT ',1)[1]))
+  except json.JSONDecodeError:pass
+ page.on('console',console)
+ async def scroll_visible_menu(name):
+  width,height=page.viewport_size['width'],page.viewport_size['height']
+  # These are a scroll gesture within the visible menu, never button targets.
+  # Scale the original forest consumer's real 900,570 -> 900,338 DOM swipe
+  # to the actual viewport, including the original 844x390 mobile consumer.
+  x=width*900/1280;start=height*570/720;end=height*338/720
+  if touch:
+   session=await page.context.new_cdp_session(page)
+   try:
+    await session.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[{'x':x,'y':start,'id':0,'radiusX':8,'radiusY':8,'force':1}]})
+    for step in range(1,9):
+     await session.send('Input.dispatchTouchEvent',{'type':'touchMove','touchPoints':[{'x':x,'y':start+(end-start)*step/8,'id':0,'radiusX':8,'radiusY':8,'force':1}]})
+     await page.wait_for_timeout(25)
+    await session.send('Input.dispatchTouchEvent',{'type':'touchEnd','touchPoints':[]})
+   finally:
+    await session.detach()
+   gesture={'kind':'CDP_real_DOM_touch_scroll','from':[x,start],'to':[x,end]}
+  else:
+   await page.mouse.move(x,start)
+   await page.mouse.wheel(0,start-end)
+   gesture={'kind':'real_mouse_wheel','at':[x,start],'delta':[0,start-end]}
+  receipt['gestures'].append({'menu':name,'viewport':[width,height],**gesture})
+  await page.wait_for_timeout(200)
+ async def label_click(name,label):
+  for attempt in range(5):
+   stem=f'{name}-{attempt}'
+   pixels=await page.screenshot();(folder/(stem+'.png')).write_bytes(pixels)
+   im=Image.open(io.BytesIO(pixels)).convert('L');im=im.resize((im.width*3,im.height*3))
+   data=io.BytesIO();im.save(data,format='PNG')
+   result=subprocess.run(['tesseract','stdin','stdout','--psm','11','tsv'],input=data.getvalue(),capture_output=True,check=True,timeout=10,env={**os.environ,'OMP_THREAD_LIMIT':'1'})
+   tsv=result.stdout.decode();(folder/(stem+'.tsv')).write_text(tsv)
+   observation={'label':label,'attempt':attempt,'screenshot':stem+'.png','ocr':stem+'.tsv'}
+   receipt['observations'].append(observation)
+   try:
+    point=_studio_label_box(tsv,label,3)
+   except StudioMenuLabelMissing as exc:
+    observation['result']='missing';observation['error']=str(exc)
+    if attempt==4:raise
+    await scroll_visible_menu(name)
+    continue
+   observation['result']='unique_visible_match'
+   receipt['clicks'].append({**observation,'point':point})
+   await click(page,*point,touch)
+   return
+ try:
+  await label_click('title','DEVELOPMENT DEMOS / ALL ENTRIES')
+  await page.wait_for_timeout(between_clicks_ms)
+  await label_click('development','ACTIONS')
+  # Bounded readiness belongs to navigation only; original checks and action
+  # delays start after this fresh actual consumer has identified itself.
+  end=time.monotonic()+5
+  while not any(_studio_ready_event(e)for e in observed)and time.monotonic()<end:
+   await page.wait_for_timeout(50)
+  assert any(_studio_ready_event(e)for e in observed),'ActionStudio did not emit a fresh read-only STUDIO_EVENT after actual menu clicks'
+  receipt['status']='passed'
+ except Exception as exc:
+  receipt['error']=f'{type(exc).__name__}: {exc}'
+  raise
+ finally:
+  page.remove_listener('console',console)
+  receipt['observed_events']=observed
+  (folder/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
+
 def geometry(page):
  w,h=page.viewport_size['width'],page.viewport_size['height'];scale=min(w/1280,h/720)
  return scale,(w-1280*scale)/2,h

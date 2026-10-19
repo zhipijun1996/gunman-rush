@@ -1,0 +1,1 @@
+只携带生成API缓存的保管收据、路径→blob映射、完整独立验证和恢复脚本。178,970,266字节内容寻址ZIP保存在本机ignored build/integration01/cache-custody03/generated-doc-cache-original-bytes01.zip，SHA ddfbb88bd133faed64dc560f6407471de30991537e7af055a06267c48a63ae67；不声称Git携带该大缓存包。从Git普通文件本身不能精确还原195个旧API缓存；Godot可重新生成缓存但字节未必一致。这些是生成API文档缓存，不是源、游戏验证图/电影或当前共享cache。历史149去重路径本次迁移有明确接管，旧审计仅代表历史时点。

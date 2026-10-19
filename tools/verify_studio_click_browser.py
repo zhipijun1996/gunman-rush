@@ -2,7 +2,7 @@
 import asyncio,io,json,math,shutil,sys,time
 from pathlib import Path
 from PIL import Image
-from studio_gui_pointer import weapon_row_y, select_weapon, open_weapon_picker
+from studio_gui_pointer import weapon_row_y, select_weapon, open_weapon_picker, enter_action_studio
 from playwright.async_api import async_playwright
 IDS=['pulse_gun','shadow_shuriken','recoil_bomb','triple_machine_gun','sustained_laser','fan_shuriken','remote_boomerang','magnetic_mine','collapse_singularity','machine_storm','laser_cannon','blade_bloom','moon_boomerang','magnetic_storm','star_collapse']
 OUT=Path('build/studio_input/browser');OUT.mkdir(parents=True,exist_ok=True)
@@ -26,7 +26,7 @@ async def main():
    async def click(x,y):
     if touch:await page.touchscreen.tap(x,y)
     else:await page.mouse.click(x,y)
-   await click(pad+640*scale,500*scale);await page.wait_for_timeout(300);await click(pad+335*scale,285*scale);await page.wait_for_timeout(800)
+   await enter_action_studio(page,touch=touch,between_clicks_ms=300);await page.wait_for_timeout(800)
    async def wait(predicate):
     end=time.monotonic()+5
     while time.monotonic()<end:

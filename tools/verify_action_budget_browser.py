@@ -2,7 +2,7 @@
 import asyncio,json,math,shutil,sys,time
 from pathlib import Path
 from playwright.async_api import async_playwright
-from studio_gui_pointer import select_weapon,weapon_row_y
+from studio_gui_pointer import select_weapon,weapon_row_y,enter_action_studio
 OUT=Path('build/action_budget/browser');OUT.mkdir(parents=True,exist_ok=True)
 async def main():
  events=[];errors=[];checks={}
@@ -18,7 +18,7 @@ async def main():
   page.on('console',log);page.on('pageerror',lambda e:errors.append(str(e)))
   await page.goto(sys.argv[1]if len(sys.argv)>1 else'http://127.0.0.1:8765',wait_until='networkidle')
   await page.wait_for_function('window.PLAYTEST_LOADING_DONE===true',timeout=60000)
-  await page.wait_for_timeout(600);await page.mouse.click(640,500);await page.wait_for_timeout(300);await page.mouse.click(335,285);await page.wait_for_timeout(600)
+  await page.wait_for_timeout(600);await enter_action_studio(page,between_clicks_ms=300);await page.wait_for_timeout(600)
   await page.mouse.click(710,await weapon_row_y(page));await page.wait_for_timeout(250)
   async def wait(pred,seconds=5):
    end=time.monotonic()+seconds
@@ -88,7 +88,7 @@ async def main():
   await context.close()
   context=await browser.new_context(viewport={'width':844,'height':390},has_touch=True,is_mobile=True);page=await context.new_page();page.on('console',log);page.on('pageerror',lambda e:errors.append(str(e)))
   await page.goto(sys.argv[1]if len(sys.argv)>1 else'http://127.0.0.1:8765',wait_until='networkidle');await page.wait_for_function('window.PLAYTEST_LOADING_DONE===true',timeout=60000);await page.wait_for_timeout(500)
-  await page.touchscreen.tap(420,270);await page.wait_for_timeout(300);await page.touchscreen.tap(275,150);await page.wait_for_timeout(600)
+  await enter_action_studio(page,touch=True,between_clicks_ms=300);await page.wait_for_timeout(600)
   await select_weapon(page,11,True);await page.wait_for_timeout(200);session=await context.new_cdp_session(page)
   async def touch(kind,points):await session.send('Input.dispatchTouchEvent',{'type':kind,'touchPoints':[{'id':i,'x':x,'y':y}for i,x,y in points]})
   n=len(events)

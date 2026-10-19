@@ -1,0 +1,138 @@
+{
+  "task_id": "PARALLEL-INTEGRATION-01",
+  "reviewer": "/root/integration_review",
+  "timestamp_utc": "2026-10-19T10:42:02.901815+00:00",
+  "reviewed_commit": "d86ae7474239a6f483962e0f2af712ed1d0432b7",
+  "verdict": "ACCEPT",
+  "scope": "Exact-source native route movie receipts/media timeline and eight actually viewed original samples; docs24 selectedreport review, not fullCI/public/wholeBoss/content acceptance",
+  "movies": [
+    {
+      "case": "map1-growth",
+      "source_commit": "d86ae7474239a6f483962e0f2af712ed1d0432b7",
+      "native_seconds": 201.2368124019995,
+      "cap": 240,
+      "video_frames": 2038,
+      "seconds": 33.966667,
+      "fps": "60/1",
+      "resolution": [
+        1280,
+        720
+      ],
+      "receipt_stable": true,
+      "rawAVI_sha256": "f1774664b4972f4e11046033c43e58d0094b4fa0ba03aa10639171e8d4026e85",
+      "MP4_sha256": "69f4972fd8ba150b5d20dd1acd275e2e2447eec5880b3ac4fbc8ca1305ec0d91",
+      "scope": "Representative real native route, not fullBoss or completeSeedmatrix"
+    },
+    {
+      "case": "map2-fast",
+      "source_commit": "d86ae7474239a6f483962e0f2af712ed1d0432b7",
+      "native_seconds": 185.12061297599575,
+      "cap": 240,
+      "video_frames": 1769,
+      "seconds": 29.483333,
+      "fps": "60/1",
+      "resolution": [
+        1280,
+        720
+      ],
+      "receipt_stable": true,
+      "rawAVI_sha256": "1bd03a4b9e120a2ce318fde7f0af7e98c7053a764a013fdff062f7683298ddcf",
+      "MP4_sha256": "e910f744124b3a720fa1f054017eb686c8cb26f8bf6b330a0d4108317a0d8548",
+      "scope": "Representative real native route, not fullBoss or completeSeedmatrix"
+    }
+  ],
+  "portable_inventory_members_verified": 20,
+  "viewed_frames": [
+    {
+      "case": "map1-growth",
+      "file": "build/integration01/movies-final-portable/map1-growth/sample-01.png",
+      "frame": 0,
+      "seconds": 0.0,
+      "sha256": "bb06e5bcf0bfd2c8a36c1cf33e7f376e3849742da6667961ccafb47c62bd86a0",
+      "actual_view_image": true
+    },
+    {
+      "case": "map1-growth",
+      "file": "build/integration01/movies-final-portable/map1-growth/sample-03.png",
+      "frame": 800,
+      "seconds": 13.333333333333334,
+      "sha256": "96653f15d95d20d8ee32243b2a7fefc3da3609d840a4050341efb8975e4f1d8d",
+      "actual_view_image": true
+    },
+    {
+      "case": "map1-growth",
+      "file": "build/integration01/movies-final-portable/map1-growth/sample-04.png",
+      "frame": 1200,
+      "seconds": 20.0,
+      "sha256": "a686cf3f1dcf4ea86e548af431a1d80707cdb12dad8130c4d31a4ea60ab942d2",
+      "actual_view_image": true
+    },
+    {
+      "case": "map1-growth",
+      "file": "build/integration01/movies-final-portable/map1-growth/sample-05.png",
+      "frame": 1600,
+      "seconds": 26.666666666666668,
+      "sha256": "47cb19764e63f66783ecf183ab1d4397f109c6756efdfcf31aa0d07fb491d188",
+      "actual_view_image": true
+    },
+    {
+      "case": "map2-fast",
+      "file": "build/integration01/movies-final-portable/map2-fast/sample-01.png",
+      "frame": 0,
+      "seconds": 0.0,
+      "sha256": "f8edc028f2463df33336f9b80ec2c8abf96e66d3fa975b0523f6e949ff7d00e7",
+      "actual_view_image": true
+    },
+    {
+      "case": "map2-fast",
+      "file": "build/integration01/movies-final-portable/map2-fast/sample-03.png",
+      "frame": 700,
+      "seconds": 11.666666666666666,
+      "sha256": "7313ff0874b22b6cfde4f97ea3b09372a6391e6c6f61f0ccbc254846275bbd1c",
+      "actual_view_image": true
+    },
+    {
+      "case": "map2-fast",
+      "file": "build/integration01/movies-final-portable/map2-fast/sample-04.png",
+      "frame": 1050,
+      "seconds": 17.5,
+      "sha256": "55b957858563e536446b2bfe1cffd153543aceaa433eee2c15c2440acd8201d3",
+      "actual_view_image": true
+    },
+    {
+      "case": "map2-fast",
+      "file": "build/integration01/movies-final-portable/map2-fast/sample-05.png",
+      "frame": 1400,
+      "seconds": 23.333333333333332,
+      "sha256": "fd2d506c4d916df9dc1231bbe08763c13464597856d270bfabdd61c1148407dd",
+      "actual_view_image": true
+    }
+  ],
+  "independent_checks": [
+    "Allportableinventory size/hash;2rawAVI+2MP4actual size/fullSHA;independentactualffprobe4files matching60fps/1280x720/framecount/duration",
+    "OriginalZIPreceipts source d86/sourcebeforeafter stable/exit0/errors0; native/capture hashes match actual archivedbytes; selecteddriver/runtime/source hashes match current files",
+    "Originalnativecapturetimes201.236812/185.120613 less240cap; author-run not reviewer engine invocation"
+  ],
+  "pixels": [
+    "Map1frame800 shows originalCourier goldattachedgrappleline diagonallyup-right, copperanchors vs cyan hangring distinct;frames1200/1600 branch/solidbark/thorns/enemy and landingplayer readable.",
+    "Map2frame700/1050/1400 originalforestCourier and verticalbark/branch floors/cyanring/copperring visible;1400 thorn corridor has visible upper/lower boundaries and centralanchor. No attachedHline in selectedmap2 samples, no pixel-only certification ofHaction.",
+    "Bothframe0 are startupbackground/HUD withoutvisibleplayer; no routeclaim from those.",
+    "Map2frame1050 priorHUDleftCOINS clipping not visible in thisnew sample; map1frame1200 now shows partialleftlabel, and lowerHUD/mapchip edge placement remains minorreadability followup. No newcause or allviewblockingclaim."
+  ],
+  "docs_ci": {
+    "reported_run": 39237939641,
+    "reported_artifact_id": 12180129499,
+    "local_zip_sha256": "ff529408d95d81c87a27b96128da43d3cedcb7f5c27bccb2dacfcedc7ebdeb56",
+    "actual_report_member": "20261019T103258.955744Z/report.json",
+    "checks": 24,
+    "status": "passed",
+    "scope": "Actualdownloadedreport read; reviewer did not independentlyqueryAPI digest, and this does not certify full39237985979"
+  },
+  "unverified": [
+    "Full39237985979 stillpending/public not yetchecked",
+    "Samples actually viewed only; no completeAVI playback or audio listening",
+    "Not completeBosscombat, exhaustive80routes, humanfeel/firsttimelearning/device or commercialart/fun approval",
+    "ForestdesignREVISE and genericartplannerblocked remain"
+  ],
+  "tracked_files_edited": false
+}

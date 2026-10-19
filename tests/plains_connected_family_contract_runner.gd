@@ -1,4 +1,6 @@
 extends SceneTree
+const LEGACY_PRESENTATION := preload("res://tests/legacy_plains_presentation_fixture.gd")
+var legacy_presentation_fixtures: Array[Dictionary] = []
 ## Actual family consumer counterexamples; no aesthetic or traversal verdict.
 var assertions:=0
 var failures:=0
@@ -24,6 +26,8 @@ func run()->void:
 	app.director._enter_stage(2,&"boss")
 	app._stage_entered(DemoRunResult.new())
 	await wait_stage(app)
+	_install_legacy_presentation(app)
+	# Reuse the original three frames after installation for the real deferred _build lifecycle.
 	for unused:int in 3:await process_frame
 	var stage:=app.stage as PlainsRegionStage
 	check(_fixture_identity_matches(app, 2, "v3-root-bell-pilot-1"), "actual map2 stage/manifest seed+difficulty")
@@ -64,7 +68,7 @@ func run()->void:
 	check(audio!=null and await audio.shutdown(),"actual audio thread drained before fixture exit")
 	app.free();app=null
 	for unused:int in 3:await physics_frame;await process_frame
-	DirAccess.make_dir_recursive_absolute(output.get_base_dir());var file:=FileAccess.open(output,FileAccess.WRITE);file.store_string(JSON.stringify({"assertions":assertions,"failures":failures,"actual_map_identity":actual_map_identity,"consumer":measured,"scope":"Actual formal consumer invariants and mutated real Nodes; no traversal/pixels/aesthetic/device acceptance."})+"\n");file.close()
+	DirAccess.make_dir_recursive_absolute(output.get_base_dir());var file:=FileAccess.open(output,FileAccess.WRITE);file.store_string(JSON.stringify({"presentation_scope":"explicit_legacy_presentation_not_default","legacy_presentation_fixtures":legacy_presentation_fixtures,"assertions":assertions,"failures":failures,"actual_map_identity":actual_map_identity,"consumer":measured,"scope":"Actual formal consumer invariants and mutated real Nodes; no traversal/pixels/aesthetic/device acceptance."})+"\n");file.close()
 	print("CONNECTED FAMILY CONTRACT: %s assertions, %s failures"%[assertions,failures]);quit(0 if failures==0 else 1)
 
 
@@ -80,3 +84,11 @@ func _fixture_identity_matches(app: DemoApp, index: int, root_seed: String) -> b
 	if actual == null or not actual.assembly_ok: return false
 	var manifest: Dictionary = actual.generated.manifest
 	return actual.map_index == index and manifest.get("region", "") == "plains" and manifest.get("seed", "") == PlainsRegionCampaign.seed_for(root_seed, index) and manifest.get("difficulty", "") == ("intro" if index == 1 else "advanced")
+
+
+func _install_legacy_presentation(app: DemoApp) -> void:
+	var record := LEGACY_PRESENTATION.prepare(app, "connected_family")
+	legacy_presentation_fixtures.append(record)
+	check(record.get("pixel_default_before",false), "new stage retains current pixel default before explicit historical fixture")
+	check(record.get("no_flag_and_wrong_profile_refused_without_mutation",false), "missing/wrong legacy profile rejected with actual default unchanged")
+	check(record.get("installed",false) and record.get("unchanged",false), "explicit legacy presentation preserves actual physics/Manifest/player tuning")

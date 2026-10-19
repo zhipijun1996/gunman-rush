@@ -1,0 +1,18 @@
+{
+  "scope": "Actual native GUI lifecycle/real PlayerController tail-finger intents and nested HSlider, not actual Web inertia or DOM cancel",
+  "sources_before": {
+    "tests/menu_scroll_touch_tests.gd": "ac6b0e53ee9f1e80acbcc48a01bc71902019cf8cdc411599cd41c51e0478fb23",
+    "scripts/ui/menu_scroll_touch_adapter.gd": "66661723da0d9b0ed94560b44bb2d709af189c6690b64da8b46c824b3efdb563",
+    "scripts/ui/demo_menu.gd": "acbd89269b0391da664e50792a46b37a665c697d13836c928f98bf0ce9d53255"
+  },
+  "command": "GUNMAN_TOOLCHAIN_ROOT=/workspace/toolchains bash tools/godot.sh --headless --fixed-fps 60 --path . --script tests/menu_scroll_touch_tests.gd",
+  "status": "passed",
+  "exit_code": 0,
+  "duration_seconds": 1.2542240399925504,
+  "sources_after": {
+    "tests/menu_scroll_touch_tests.gd": "ac6b0e53ee9f1e80acbcc48a01bc71902019cf8cdc411599cd41c51e0478fb23",
+    "scripts/ui/menu_scroll_touch_adapter.gd": "66661723da0d9b0ed94560b44bb2d709af189c6690b64da8b46c824b3efdb563",
+    "scripts/ui/demo_menu.gd": "acbd89269b0391da664e50792a46b37a665c697d13836c928f98bf0ce9d53255"
+  },
+  "native_log_sha256": "b0357d99062a02b9713fd317c3766645f9691099add4edfe9ba2de350cfa9021"
+}

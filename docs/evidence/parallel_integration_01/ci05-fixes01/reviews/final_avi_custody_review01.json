@@ -1,0 +1,78 @@
+{
+  "task_id": "PARALLEL-INTEGRATION-01",
+  "reviewer": "/root/integration_review",
+  "timestamp_utc": "2026-10-19T10:54:45.928173+00:00",
+  "verdict": "ACCEPT",
+  "scope": "Exact reversible losslessAVI storage migration and independentlylivequeried API artifact identity; not gameplay/public acceptance",
+  "files": [
+    {
+      "original_path": "build/integration01/movie-map1-growth/00-map1-growth/gameplay.avi",
+      "xz_path": "build/integration01/movie-map1-growth/00-map1-growth/gameplay.avi.xz",
+      "source_head": "ff143c916a04d43c074dac3b2277f4ce53d4ddd9",
+      "original_bytes": 110220296,
+      "decompressed_sha256": "f1774664b4972f4e11046033c43e58d0094b4fa0ba03aa10639171e8d4026e85",
+      "compressed_sha256": "dd0c5c4aca62d9d44df9d471e7911ba69762e93e355a910623d3b0e649f1770a",
+      "xz_nlink": 1,
+      "actual_original_receipt_and_prior_review_match": true
+    },
+    {
+      "original_path": "build/integration01/movie-map2-fast/00-map2-fast/gameplay.avi",
+      "xz_path": "build/integration01/movie-map2-fast/00-map2-fast/gameplay.avi.xz",
+      "source_head": "ff143c916a04d43c074dac3b2277f4ce53d4ddd9",
+      "original_bytes": 101880330,
+      "decompressed_sha256": "1bd03a4b9e120a2ce318fde7f0af7e98c7053a764a013fdff062f7683298ddcf",
+      "compressed_sha256": "9cbd2100c8a6d1a7f9e7d7e1bf21bd7e34352efb261f635aa36ecb6b85740a01",
+      "xz_nlink": 1,
+      "actual_original_receipt_and_prior_review_match": true
+    },
+    {
+      "original_path": "build/integration01/movie-final-map1-growth/00-map1-growth/gameplay.avi",
+      "xz_path": "build/integration01/movie-final-map1-growth/00-map1-growth/gameplay.avi.xz",
+      "source_head": "d86ae7474239a6f483962e0f2af712ed1d0432b7",
+      "original_bytes": 110220296,
+      "decompressed_sha256": "f1774664b4972f4e11046033c43e58d0094b4fa0ba03aa10639171e8d4026e85",
+      "compressed_sha256": "dd0c5c4aca62d9d44df9d471e7911ba69762e93e355a910623d3b0e649f1770a",
+      "xz_nlink": 1,
+      "actual_original_receipt_and_prior_review_match": true
+    },
+    {
+      "original_path": "build/integration01/movie-final-map2-fast/00-map2-fast/gameplay.avi",
+      "xz_path": "build/integration01/movie-final-map2-fast/00-map2-fast/gameplay.avi.xz",
+      "source_head": "d86ae7474239a6f483962e0f2af712ed1d0432b7",
+      "original_bytes": 101880330,
+      "decompressed_sha256": "1bd03a4b9e120a2ce318fde7f0af7e98c7053a764a013fdff062f7683298ddcf",
+      "compressed_sha256": "9cbd2100c8a6d1a7f9e7d7e1bf21bd7e34352efb261f635aa36ecb6b85740a01",
+      "xz_nlink": 1,
+      "actual_original_receipt_and_prior_review_match": true
+    }
+  ],
+  "full_decompressed_bytes": 424201252,
+  "source_receipt_bytes_unchanged": true,
+  "source_identities_distinct": [
+    "ff143c916a04d43c074dac3b2277f4ce53d4ddd9",
+    "d86ae7474239a6f483962e0f2af712ed1d0432b7"
+  ],
+  "live_api_checks": [
+    {
+      "artifact_id": 12181595114,
+      "run_id": 39237985979,
+      "head_sha": "d86ae7474239a6f483962e0f2af712ed1d0432b7",
+      "digest": "25e42f2ec4763b0330667ef7cc08f9a2f5289b8fd9a39df1d70f08cb4223603f",
+      "actual_local_zip_matches": true
+    },
+    {
+      "artifact_id": 12180129499,
+      "run_id": 39237939641,
+      "head_sha": "d86ae7474239a6f483962e0f2af712ed1d0432b7",
+      "digest": "ff529408d95d81c87a27b96128da43d3cedcb7f5c27bccb2dacfcedc7ebdeb56",
+      "actual_local_zip_matches": true
+    }
+  ],
+  "limits": [
+    "Full XZ streams independently hashed/counted without restoring uncompressed files; exact recoverability proven, no reencoding",
+    "Original4AVI path absence is deliberate storage migration; usexz receipt to reconstruct original bytes. Original receipt/previous reviews not relabeled",
+    "No fullengine/media replay; rawsourceff/d86 retained despite deterministic sameAVI bytes",
+    "Artifact identity only; original72browser stillrunning/fullCI/public not certified",
+    "Priorhardlinkdedup failure not approved"
+  ]
+}

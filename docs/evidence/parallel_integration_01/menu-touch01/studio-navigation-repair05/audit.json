@@ -1,0 +1,40 @@
+{
+  "status": "passed_scoped_parser_controls",
+  "scope": "Actual TSV parser controls, not live GUI approval",
+  "helper_sha256": "b5d1acf6adfc96600184400f1a985d348dff21559fda609129a5fbbe20595312",
+  "actual_split_block_positive": true,
+  "normal_row_and_same_bbox_both_paths_positive": true,
+  "negative_controls": [
+    {
+      "case": "cross_baseline",
+      "rejected": true,
+      "error": "Expected one complete rendered menu label 'DEVELOPMENT DEMOS / ALL ENTRIES'; found 0"
+    },
+    {
+      "case": "large_gap",
+      "rejected": true,
+      "error": "Expected one complete rendered menu label 'DEVELOPMENT DEMOS / ALL ENTRIES'; found 0"
+    },
+    {
+      "case": "partial",
+      "rejected": true,
+      "error": "Expected one complete rendered menu label 'DEVELOPMENT DEMOS / ALL ENTRIES'; found 0"
+    },
+    {
+      "case": "wrong_suffix",
+      "rejected": true,
+      "error": "Expected one complete rendered menu label 'DEVELOPMENT DEMOS / ALL ENTRIES'; found 0"
+    },
+    {
+      "case": "duplicate_complete",
+      "rejected": true,
+      "error": "Expected one complete rendered menu label 'DEVELOPMENT DEMOS / ALL ENTRIES'; found 2"
+    },
+    {
+      "case": "cross_parser_duplicate",
+      "rejected": true,
+      "error": "Expected one complete rendered menu label 'DEVELOPMENT DEMOS / ALL ENTRIES'; found 2"
+    }
+  ],
+  "prior_reject_preserved": "reject04.json"
+}
