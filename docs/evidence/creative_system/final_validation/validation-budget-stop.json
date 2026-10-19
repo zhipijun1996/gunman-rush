@@ -1,0 +1,15 @@
+{
+  "reason": "Declared total final-validation budget reached; do not approve full from partial logs",
+  "deadline_utc": "2026-10-16 12:28:40 UTC",
+  "stopped_at_unix": 1792153717.0503385,
+  "harness_pid": 28162,
+  "owned_descendants": [],
+  "source_commit": "26c497ca4f98967cfc49d4fb3dad6cd57d77c34a",
+  "scope": "Only this full harness and its descendants; timing wrapper retained to record actual duration/exit",
+  "shutdown_descendants": [
+    34639,
+    34882
+  ],
+  "shutdown_signal_at_unix": 1792153747.6371038,
+  "shutdown_note": "Original ThreadPoolExecutor waits for running lane; check spawned after first SIGINT while between checks, terminated owned descendants to stop queue without altering Harness code."
+}

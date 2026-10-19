@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "artifact_kind": "actual_visual_comparison",
+  "status": "comparable_for_review",
+  "before": {
+    "path": "build/visual_language/final_a_02/visual_capture.json",
+    "sha256": "6aaf6ee36aadee2e9faaa3fe743362497ef138fffda49b063185f4d060a543b8"
+  },
+  "after": {
+    "path": "build/visual_language/final_e_02/visual_capture.json",
+    "sha256": "3e499245dda1a84be8dcf4860628d37f1559885a1405e81852a5846a20d3bdcd"
+  },
+  "conditions": {
+    "root_seed": "against-wind-golden-v1",
+    "map_index": 1,
+    "strategy": "fast",
+    "phase_wait_ticks": 0,
+    "max_ticks": 1800,
+    "encounter_policy": "blind_legacy",
+    "capture_script": "tools/spatial_golden_capture.gd",
+    "visual_sample": "",
+    "visual_layout": "open-meadow"
+  },
+  "source_changes": [],
+  "before_source_commit": "425826e39f56c2a16ce445130c4352deb0d0b95e",
+  "after_source_commit": "425826e39f56c2a16ce445130c4352deb0d0b95e",
+  "visual_treatments": {
+    "before": "",
+    "after": "res://resources/visual_development/candidate.json"
+  },
+  "before_movie": {
+    "path": "build/visual_language/final_a_02/gameplay.mp4",
+    "sha256": "1debedbefac8f234c2f88002760b2a960f21c0d666ac40ac3b5016bee78ea317"
+  },
+  "after_movie": {
+    "path": "build/visual_language/final_e_02/gameplay.mp4",
+    "sha256": "36a6c12ac8d194bc4b21521d713b6aead0723d4ce0989d11666d978b0b054c5d"
+  },
+  "route_outcomes": {
+    "before": "route_target_reached",
+    "after": "route_target_reached"
+  },
+  "adaptation_validation": {
+    "before": null,
+    "after": null
+  },
+  "producer_origins": {
+    "before": {
+      "kind": "original_workspace",
+      "producer_root": "/workspace/gunman-rush",
+      "movie_writer_completion_bound": true
+    },
+    "after": {
+      "kind": "original_workspace",
+      "producer_root": "/workspace/gunman-rush",
+      "movie_writer_completion_bound": true
+    }
+  },
+  "subjective_acceptance": "unverified",
+  "limits": "Same actual driver/core/entry/manifest conditions, not byte-identical trajectory, pixel registration, performance, full route success or beauty proof."
+}

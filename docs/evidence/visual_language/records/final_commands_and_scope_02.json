@@ -1,0 +1,229 @@
+{
+  "task_id": "VISUAL-LANGUAGE-01",
+  "code_and_catalog_frozen_commit": "425826e39f56c2a16ce445130c4352deb0d0b95e",
+  "catalog_sha256": "03a0078b26958332392b8cac59369c5d55126ff3d88245eeae2bd81950f5ca2e",
+  "actual_layout_variant": "open_meadow",
+  "actual_manifest_hash": "2c17d2325d00ed545eb9d845101ccc651635a51e7be68b5bd247a8c755fc8d99",
+  "actual_collision_polygons": 3,
+  "same_A_E_source_inventory": true,
+  "runs": {
+    "final_no_gun_01": {
+      "receipt": "build/visual_language/final_no_gun_01/receipt.json",
+      "receipt_sha256": "9d934f81fb2962b7e9ff6e6fbeb495fde7322162ea6db7abbcc2e392f98aa9ac",
+      "actual_native_command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tools/spatial_golden_capture.gd",
+        "--",
+        "--source-commit=a79ce5c9dbe4c25b41be075db3244376004b83fa",
+        "--seed=against-wind-golden-v1",
+        "--map-index=1",
+        "--strategy=fast",
+        "--encounter-policy=blind_legacy",
+        "--spatial-phase=probe",
+        "--max-ticks=600",
+        "--output=res://build/visual_language/final_no_gun_01/capture.json",
+        "--visual-sample=res://resources/visual_development/candidate.json",
+        "--visual-layout=open-meadow",
+        "--spatial-mutation=no-gun"
+      ],
+      "source_guard_unchanged": true,
+      "status": "passed",
+      "outcome": "spatial_primary_gap_failed",
+      "physical_negative_facts": {
+        "max_x": 919.99951171875,
+        "max_y": 1219.57958984375,
+        "actual_shots": 0,
+        "actual_collision_polygons": 3
+      },
+      "seconds": 7.113793386000907
+    },
+    "final_no_bank_01": {
+      "receipt": "build/visual_language/final_no_bank_01/receipt.json",
+      "receipt_sha256": "032299ca33b64aa64462771f2a5961d4376f5db935d12fb6404c62ae135f2f97",
+      "actual_native_command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tools/spatial_golden_capture.gd",
+        "--",
+        "--source-commit=a79ce5c9dbe4c25b41be075db3244376004b83fa",
+        "--seed=against-wind-golden-v1",
+        "--map-index=1",
+        "--strategy=fast",
+        "--encounter-policy=blind_legacy",
+        "--spatial-phase=probe",
+        "--max-ticks=600",
+        "--output=res://build/visual_language/final_no_bank_01/capture.json",
+        "--visual-sample=res://resources/visual_development/candidate.json",
+        "--visual-layout=open-meadow",
+        "--spatial-mutation=remove-recovery-bank"
+      ],
+      "source_guard_unchanged": true,
+      "status": "passed",
+      "outcome": "spatial_primary_gap_failed",
+      "physical_negative_facts": {
+        "max_x": 920.0,
+        "max_y": 1216.41552734375,
+        "actual_shots": 1,
+        "actual_collision_polygons": 2
+      },
+      "seconds": 6.449961776001146
+    },
+    "final_e_02": {
+      "receipt": "build/visual_language/final_e_02/visual_capture.json",
+      "receipt_sha256": "3e499245dda1a84be8dcf4860628d37f1559885a1405e81852a5846a20d3bdcd",
+      "source_commit": "425826e39f56c2a16ce445130c4352deb0d0b95e",
+      "request": {
+        "source_commit": "425826e39f56c2a16ce445130c4352deb0d0b95e",
+        "root_seed": "against-wind-golden-v1",
+        "map_index": 1,
+        "strategy": "fast",
+        "phase_wait_ticks": 0,
+        "max_ticks": 1800,
+        "encounter_policy": "blind_legacy",
+        "capture_script": "tools/spatial_golden_capture.gd",
+        "visual_sample": "res://resources/visual_development/candidate.json",
+        "visual_layout": "open-meadow"
+      },
+      "actual_native_command": [
+        "bash",
+        "tools/godot.sh",
+        "--rendering-method",
+        "gl_compatibility",
+        "--write-movie",
+        "/workspace/gunman-rush/build/visual_language/final_e_02/gameplay.avi",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tools/spatial_golden_capture.gd",
+        "--",
+        "--source-commit=425826e39f56c2a16ce445130c4352deb0d0b95e",
+        "--seed=against-wind-golden-v1",
+        "--strategy=fast",
+        "--map-index=1",
+        "--phase-wait-ticks=0",
+        "--max-ticks=1800",
+        "--output=res://build/visual_language/final_e_02/capture.json",
+        "--encounter-policy=blind_legacy",
+        "--capture-visible",
+        "--visual-layout=open-meadow",
+        "--visual-sample=res://resources/visual_development/candidate.json"
+      ],
+      "source_guard_unchanged": true,
+      "source_inventory_sha256": "af6d1833e930bf970ab6eaf44026d61ffcf635f324c54fea9aedbcb36851fb91",
+      "capture_extension_source_file_count": 21,
+      "status": "captured",
+      "movie": {
+        "path": "build/visual_language/final_e_02/gameplay.mp4",
+        "sha256": "36a6c12ac8d194bc4b21521d713b6aead0723d4ce0989d11666d978b0b054c5d"
+      },
+      "native_log": {
+        "path": "build/visual_language/final_e_02/capture.log",
+        "sha256": "d978010c8da853ace006a89741b293b23588b32cf7124bafb0a2ae68d2addfc4"
+      },
+      "wall_seconds": 96.46869905800122
+    },
+    "final_a_02": {
+      "receipt": "build/visual_language/final_a_02/visual_capture.json",
+      "receipt_sha256": "6aaf6ee36aadee2e9faaa3fe743362497ef138fffda49b063185f4d060a543b8",
+      "source_commit": "425826e39f56c2a16ce445130c4352deb0d0b95e",
+      "request": {
+        "source_commit": "425826e39f56c2a16ce445130c4352deb0d0b95e",
+        "root_seed": "against-wind-golden-v1",
+        "map_index": 1,
+        "strategy": "fast",
+        "phase_wait_ticks": 0,
+        "max_ticks": 1800,
+        "encounter_policy": "blind_legacy",
+        "capture_script": "tools/spatial_golden_capture.gd",
+        "visual_sample": "",
+        "visual_layout": "open-meadow"
+      },
+      "actual_native_command": [
+        "bash",
+        "tools/godot.sh",
+        "--rendering-method",
+        "gl_compatibility",
+        "--write-movie",
+        "/workspace/gunman-rush/build/visual_language/final_a_02/gameplay.avi",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tools/spatial_golden_capture.gd",
+        "--",
+        "--source-commit=425826e39f56c2a16ce445130c4352deb0d0b95e",
+        "--seed=against-wind-golden-v1",
+        "--strategy=fast",
+        "--map-index=1",
+        "--phase-wait-ticks=0",
+        "--max-ticks=1800",
+        "--output=res://build/visual_language/final_a_02/capture.json",
+        "--encounter-policy=blind_legacy",
+        "--capture-visible",
+        "--visual-layout=open-meadow"
+      ],
+      "source_guard_unchanged": true,
+      "source_inventory_sha256": "af6d1833e930bf970ab6eaf44026d61ffcf635f324c54fea9aedbcb36851fb91",
+      "capture_extension_source_file_count": 21,
+      "status": "captured",
+      "movie": {
+        "path": "build/visual_language/final_a_02/gameplay.mp4",
+        "sha256": "1debedbefac8f234c2f88002760b2a960f21c0d666ac40ac3b5016bee78ea317"
+      },
+      "native_log": {
+        "path": "build/visual_language/final_a_02/capture.log",
+        "sha256": "ef07a24160f3a0b0be391fecfd80272a493ef075caee21f5fb7b9080e460ac13"
+      },
+      "wall_seconds": 109.98048149799797
+    },
+    "default_home_02": {
+      "receipt": "build/visual_language/default_home_02/receipt.json",
+      "receipt_sha256": "448ef19098bd9eb197ea9653feb0e0f60e2d28ea1497605f66a197058dea519e",
+      "source_commit": "425826e39f56c2a16ce445130c4352deb0d0b95e",
+      "actual_native_command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--path",
+        ".",
+        "--script",
+        "tests/home_app_runner.gd"
+      ],
+      "source_guard_unchanged": true,
+      "status": "passed",
+      "seconds": 8.48815732499861
+    }
+  },
+  "recording_order": [
+    "final_e_02",
+    "final_a_02"
+  ],
+  "original_comparison": "original_a_e_comparison_02.json",
+  "actual_trajectory_comparison": "actual_a_e_trajectory_comparison_02.json",
+  "frozen_changed_source_bytes": "final_e_02/source_snapshot/index.json",
+  "audio_scope": "60fps normal-speed MP4 contains 48k stereo encoded audio; not personally listened to; no auditory quality approval",
+  "independent_art_decision": "REWORK communicated by root; no second space or seed expansion",
+  "technical_limits": "Native full-route plus two actual physical counterexamples and default19assertions only; not fullCI/user/device/market proof. Budget-limited D660 and earlier timeout remain FAILED.",
+  "reused_negative_scope": "The two actual physical counterexamples are original a79ce5c9 runs, not rerun at425.425 only fixes exported ResourceLoader and explicit actual-consumer preview guard plus import metadata; geometry/Motor/HP/resources unchanged. No fresh-negative or wholeCI claim.",
+  "delivery_history": {
+    "local_review_01": "DELIVERY_BLOCKED: exported GD FileAccess check silently skipped actual art; old log has no VISUAL LANGUAGE SAMPLE. Preserved, not corrected/relabelled.",
+    "old_a79_AE": "native editor captures remain valid for their source, not relabelled current",
+    "current_425_AE": "fresh native full-route/compare/inspect/home passed; final exported package actual consumer validation belongs to root separate package receipt"
+  }
+}

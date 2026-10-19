@@ -1,0 +1,227 @@
+{
+  "schema_version": 1,
+  "task_id": "SPATIAL-GOLDEN-01",
+  "task_type": "region",
+  "workflow": "blocked",
+  "baseline_commit": "1597db583a6ade25a469cb9ecb99b5762d6f76db",
+  "reviewed_commit": "26cf2267da84f22d2a1a0004e1dd7223a37482fd",
+  "content_version": "spatial-v2",
+  "owner": "/root",
+  "purpose": "空间几何与美术联合黄金实机及有限资产复用",
+  "player_experience": "逆风送钟草海：观察—反冲跨隙—落稳听铃—回望返回",
+  "constraints": [
+    "Preserve existing gameplay contracts"
+  ],
+  "affected_paths": [
+    "assets/spatial_golden/bell_rib_kit_v1.png",
+    "assets/spatial_golden/bell_rib_kit_v1.png.import",
+    "assets/spatial_golden/generation_prompt.txt",
+    "assets/spatial_golden/kit.json",
+    "export_presets.cfg",
+    "resources/generation/spatial_golden/against_wind_v1.json",
+    "scripts/art/plains_spatial_golden_art.gd",
+    "scripts/art/spatial_golden_terrain.gdshader",
+    "scripts/demo/demo_app.gd",
+    "scripts/generation/plains_spatial_golden.gd",
+    "scripts/generation/plains_spatial_golden.gd.uid"
+  ],
+  "deliverables": [
+    "resources/generation/spatial_golden/against_wind_v1.json",
+    "scripts/generation/plains_spatial_golden.gd",
+    "scripts/art/plains_spatial_golden_art.gd"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Explicit experiment authorization and versioned joint design; not art approval",
+      "evidence": [
+        "spatial-spec"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Actual current1096tick complete route/strict exit passed; broader applicable game quality gate not declared complete",
+      "evidence": []
+    },
+    "G2": {
+      "status": "failed",
+      "reason": "Independent final art REWORK: rib joints/grass/saw readability; expansion stopped",
+      "evidence": [
+        "final-art-review",
+        "final-cross",
+        "final-movie"
+      ]
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Scope/intention is explicit and versioned; commercial realization is not approved",
+      "evidence": [
+        "spatial-spec"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Scoped native current route, positives/negatives and normal default19 pass; no full CI claim",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "failed",
+      "reason": "Current full-screen art not admitted; macro progress does not erase defects",
+      "evidence": [
+        "final-art-review",
+        "final-cross"
+      ]
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "failed",
+      "reason": "Independent review performed but acceptance not granted",
+      "evidence": [
+        "final-art-review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "joint-scope",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Authorized local geometry and camera experiment bound to selected direction; preserve core",
+      "method": "Read actual shared layout/consumer and root-cause evidence",
+      "expected": "One versioned current spatial source, no core rewrite",
+      "failure": "Only old rect-overlay or unsigned scope; not a commercial art claim",
+      "status": "passed",
+      "reason": "Joint actual polygon consumer and explicit frozen scope exist",
+      "evidence": [
+        "spatial-spec"
+      ]
+    },
+    {
+      "id": "whole-playable-space",
+      "gate": "G2",
+      "dimension": "visual",
+      "scenario": "Normal camera entire entry/recoil/RootBell/lookback/return composition",
+      "method": "Independent actual final20frames plus native full route and normal-speed movie source-bound",
+      "expected": "Credible continuous themed macro shapes/joints, readable actor/hazard",
+      "failure": "Hard rectangular rib seam, actor grass occlusion, half-hidden hazard or route failure",
+      "status": "failed",
+      "reason": "Final independent REWORK retained after meaningful macro progress; stop production",
+      "evidence": [
+        "final-art-review",
+        "final-cross",
+        "final-movie"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "spatial-spec",
+      "path": "docs/quality/spatial_golden.md",
+      "sha256": "88775036c393d7c952e74bd8e6f40b647577532abe098392ad8b21a82480d0f7",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "26cf2267da84f22d2a1a0004e1dd7223a37482fd",
+      "content_version": "spatial-v2",
+      "method": "Actual retained file; source identity and byte-equivalent closure explicitly separated in report",
+      "observed": "Bounded joint experiment, actual outcome and remaining failed scope"
+    },
+    {
+      "id": "final-art-review",
+      "path": "docs/evidence/spatial_golden/final-macro-independent-review.md",
+      "sha256": "08a52943ef6ff43161f72f44f7f488ff3c29a860ad804ee538a07efa5f7199d4",
+      "kind": "review",
+      "producer": "/root",
+      "source_commit": "27c63f948d17fe01a42936784700b56a2bcff89c",
+      "content_version": "spatial-v2",
+      "method": "Actual retained file; source identity and byte-equivalent closure explicitly separated in report",
+      "observed": "Creative REWORK; no G2 admission; final movie20frames inspected, not full playback/audio",
+      "reviewer": "/root/pr_cost_audit",
+      "implementers": [
+        "/root",
+        "/root/plains_slice",
+        "/root/observer_fix"
+      ],
+      "verdict": "REJECT"
+    },
+    {
+      "id": "final-cross",
+      "path": "docs/evidence/spatial_golden/media/current-recoil.png",
+      "sha256": "bca1a117e83cbca57838ab2362ea18e013b01c4f6e285874309f9c48d6bf63b4",
+      "kind": "screenshot",
+      "producer": "/root",
+      "source_commit": "27c63f948d17fe01a42936784700b56a2bcff89c",
+      "content_version": "spatial-v2",
+      "method": "Actual retained file; source identity and byte-equivalent closure explicitly separated in report",
+      "observed": "Actual normal camera action screen"
+    },
+    {
+      "id": "final-movie",
+      "path": "docs/evidence/spatial_golden/media/spatial-v2-current.mp4",
+      "sha256": "7bf75b143e4afa59a44ab1f2b19fa0d01b89d678b8f524afe88eb6b0c0c3625e",
+      "kind": "video",
+      "producer": "/root",
+      "source_commit": "27c63f948d17fe01a42936784700b56a2bcff89c",
+      "content_version": "spatial-v2",
+      "method": "Actual retained file; source identity and byte-equivalent closure explicitly separated in report",
+      "observed": "Actual18.35s60fps movie; original source identity retained"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Art REWORK; no first G2, second space or multiple/random/worst seed validation; no formal release/full CI/user/device approval",
+    "Original movie/build HEAD27c63f plus then-untracked exact layout;1118-file same-byte closure at26cf, raw source identity retained"
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "status": "blocked_strict_exit",
+  "scope": "current-default H-only technical sample; not full forest, art, formal grant or production acceptance",
+  "source_files": {
+    "scripts/demo/thorn_forest_h_slice.gd": "aee54f3c7cfb546da452c0401df9b35435e39c524b1a5c78d3cbbe26506336cd",
+    "scripts/demo/thorn_forest_current_slice.gd": "9a29a9ef055805f877107c9498ad5199129b235504fbeda3785b6f31ddb95710",
+    "tests/forest_current_slice_runner.gd": "027133dec682776efadf153f72a9e26881bc64f55656a2df93aeabd43c041e6b",
+    "tools/run_forest_current_slice_tests.py": "375500140e36023172b87f230bb6bbfbd132a8a06a9866364b6d210f4d08fce0",
+    "resources/player/traversal.tres": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390"
+  },
+  "current_native_positive": {
+    "capture": "cli-fresh/positive/capture.json",
+    "assertions": 152,
+    "failures": 0,
+    "frames": 132,
+    "actions": {
+      "jump_tick": 2,
+      "H_tick": 18,
+      "branch_landing_tick": 70,
+      "shot_tick": 82,
+      "root_landing_tick": 121
+    },
+    "shot_energy": "100 -> 80 -> 85.5 naturally on ground",
+    "current_definition": "resources/player/traversal.tres / hook_range231 / kick240,-240 over0.1 seconds"
+  },
+  "strict_cli": {
+    "summary": "cli-fresh/summary.json",
+    "status": "failed",
+    "reason": "Strict engine diagnostic / exit cleanup failure",
+    "source_before_after_equal": true,
+    "world_weakref_released": true
+  },
+  "load_only_control": {
+    "current": "load_probe.log",
+    "historical_base": "base_load_probe.log",
+    "both": "77 ObjectDB / 58 resources / 2 DummyTexture RID; no game world instantiated"
+  },
+  "geometry_candidates": 2,
+  "geometry_first": "geometry1.json/log: real cast missed because solid branch occluded shot; retained",
+  "history": "Historical runner, fixture and Python assertions unchanged. Base layout() defaults still return original immutable constants.",
+  "limitations": [
+    "No full region or art approval",
+    "Current strict release remains blocked; no legacy success used as substitute",
+    "Root full-source edits require final integrated-source checks; only last CLI sourceguard was fresh"
+  ],
+  "historical_layout_regression": {
+    "assertions": 186,
+    "failures": [],
+    "geometry_exactly_original": true,
+    "strict_exit": "blocked_inherited_105ObjectDB_63resources",
+    "capture": "historical-layout-regression.json"
+  },
+  "current_native_negatives": [
+    {
+      "case": "missing-anchor",
+      "native_exit": 1,
+      "source_before": {
+        "scripts/demo/thorn_forest_h_slice.gd": "aee54f3c7cfb546da452c0401df9b35435e39c524b1a5c78d3cbbe26506336cd",
+        "scripts/demo/thorn_forest_current_slice.gd": "9a29a9ef055805f877107c9498ad5199129b235504fbeda3785b6f31ddb95710",
+        "tests/forest_current_slice_runner.gd": "027133dec682776efadf153f72a9e26881bc64f55656a2df93aeabd43c041e6b",
+        "tools/run_forest_current_slice_tests.py": "375500140e36023172b87f230bb6bbfbd132a8a06a9866364b6d210f4d08fce0",
+        "resources/player/traversal.tres": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390"
+      },
+      "source_after": {
+        "scripts/demo/thorn_forest_h_slice.gd": "aee54f3c7cfb546da452c0401df9b35435e39c524b1a5c78d3cbbe26506336cd",
+        "scripts/demo/thorn_forest_current_slice.gd": "9a29a9ef055805f877107c9498ad5199129b235504fbeda3785b6f31ddb95710",
+        "tests/forest_current_slice_runner.gd": "027133dec682776efadf153f72a9e26881bc64f55656a2df93aeabd43c041e6b",
+        "tools/run_forest_current_slice_tests.py": "375500140e36023172b87f230bb6bbfbd132a8a06a9866364b6d210f4d08fce0",
+        "resources/player/traversal.tres": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390"
+      },
+      "seconds": 1.8217426389999218,
+      "failures": [
+        "accepted_hook_pull",
+        "accepted_hook_contact_kick",
+        "accepted_hook_kick",
+        "whole_body_stable_branch_landing",
+        "continuous_safe_return_to_entry",
+        "actual_accepted_shot_recoil_after_H_landing",
+        "real_shot_consumption_and_ground_recovery"
+      ],
+      "branch_landed": false,
+      "returned": false,
+      "strict_engine_exit": "blocked_legacy_load_only_resource_leak",
+      "capture": "build/creative_system/forest-current/final-missing-anchor.json"
+    },
+    {
+      "case": "no-hook",
+      "native_exit": 1,
+      "source_before": {
+        "scripts/demo/thorn_forest_h_slice.gd": "aee54f3c7cfb546da452c0401df9b35435e39c524b1a5c78d3cbbe26506336cd",
+        "scripts/demo/thorn_forest_current_slice.gd": "9a29a9ef055805f877107c9498ad5199129b235504fbeda3785b6f31ddb95710",
+        "tests/forest_current_slice_runner.gd": "027133dec682776efadf153f72a9e26881bc64f55656a2df93aeabd43c041e6b",
+        "tools/run_forest_current_slice_tests.py": "375500140e36023172b87f230bb6bbfbd132a8a06a9866364b6d210f4d08fce0",
+        "resources/player/traversal.tres": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390"
+      },
+      "source_after": {
+        "scripts/demo/thorn_forest_h_slice.gd": "aee54f3c7cfb546da452c0401df9b35435e39c524b1a5c78d3cbbe26506336cd",
+        "scripts/demo/thorn_forest_current_slice.gd": "9a29a9ef055805f877107c9498ad5199129b235504fbeda3785b6f31ddb95710",
+        "tests/forest_current_slice_runner.gd": "027133dec682776efadf153f72a9e26881bc64f55656a2df93aeabd43c041e6b",
+        "tools/run_forest_current_slice_tests.py": "375500140e36023172b87f230bb6bbfbd132a8a06a9866364b6d210f4d08fce0",
+        "resources/player/traversal.tres": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390"
+      },
+      "seconds": 1.8272253899999669,
+      "failures": [
+        "H_only_entry_capability",
+        "accepted_hook_cast",
+        "accepted_hook_fly",
+        "accepted_hook_pull",
+        "accepted_hook_contact_kick",
+        "accepted_hook_kick",
+        "whole_body_stable_branch_landing",
+        "continuous_safe_return_to_entry",
+        "actual_accepted_shot_recoil_after_H_landing",
+        "real_shot_consumption_and_ground_recovery"
+      ],
+      "branch_landed": false,
+      "returned": false,
+      "strict_engine_exit": "blocked_legacy_load_only_resource_leak",
+      "capture": "build/creative_system/forest-current/final-no-hook.json"
+    }
+  ]
+}

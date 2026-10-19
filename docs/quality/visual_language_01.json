@@ -1,0 +1,422 @@
+{
+  "schema_version": 1,
+  "task_id": "VISUAL-LANGUAGE-01",
+  "task_type": "art",
+  "workflow": "blocked",
+  "baseline_commit": "5c1e6549987e1e68c846302e9595a106ca1d79e7",
+  "reviewed_commit": "425826e39f56c2a16ce445130c4352deb0d0b95e",
+  "content_version": "rain-glaze-offcentre-b1-open-meadow-v1",
+  "owner": "root; isolated runtime plains_slice; readonly review pr_cost_audit",
+  "purpose": "用真实图像编辑与原生消费者验证B视觉语言；不以框架/概念图代签商业品质",
+  "player_experience": "约40world-pixel信使反冲穿过草海、区分上口装置与侧口敌人、可回望和安全返回",
+  "constraints": [
+    "Preserve PlayerMotor/weapons/abilities/resources/RNG/save",
+    "Experimental asset/catalog explicitly opt-in; normal exports exclude candidates",
+    "First whole-screen independent admission before second space/seeds",
+    "Same-method two no-progress rounds stop; preserve originals"
+  ],
+  "affected_paths": [
+    "assets/visual_development",
+    "resources/visual_development",
+    "scripts/art/visual_language_sample.gd",
+    "scripts/demo/demo_app.gd",
+    "scripts/generation/plains_spatial_golden.gd",
+    "tools/visual_director.py",
+    "tools/spatial_golden_capture.gd",
+    "tools/spatial_golden_preview.gd",
+    "export_presets.cfg"
+  ],
+  "deliverables": [
+    "Actual same-subject A/B boards and user direction quote",
+    "B1 master, actual value/material two-call lineage and measured connection assets",
+    "Native same-layout A/E evidence and independent review",
+    "Short-prompt separate-context forest transfer proposal; engine boundary explicit"
+  ],
+  "creative_decisions": [
+    {
+      "status": "user_confirmed",
+      "decision": "B雨釉与偏心方向，非母版/实机定稿",
+      "basis": "实际用户答复，范围仅方向",
+      "evidence_id": "user-direction"
+    },
+    {
+      "status": "not_required",
+      "decision": "Current candidate REWORK, stop texture-cover method, no second space/seeds",
+      "basis": "Actual independent whole-screen rejection; reversible stop within user budget, not new aesthetic authority"
+    }
+  ],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "B user direction selected and actually drawn master; not final user/game approval",
+      "evidence": [
+        "b-board",
+        "b-master"
+      ]
+    },
+    "G1": {
+      "status": "passed",
+      "reason": "Limited candidate retains core and actual valid traversal; not region completeness",
+      "evidence": [
+        "e-trace",
+        "e-native"
+      ]
+    },
+    "G2": {
+      "status": "failed",
+      "reason": "Actual whole screen terrain volume/rectangular texture joins rejected",
+      "evidence": [
+        "review",
+        "e-shot"
+      ]
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Opt-in consumer exists; not admitted formal asset/region pool",
+      "evidence": [
+        "e-native"
+      ]
+    },
+    "G4": {
+      "status": "failed",
+      "reason": "Targeted technical checks do not replace artistic acceptance/full applicable release gates",
+      "evidence": [
+        "home",
+        "comparison",
+        "review"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "No actual-user/native-device/commercial approval",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Scope: actual alternative ordinary-object designs/master only, not market fact",
+      "evidence": [
+        "b-board",
+        "b-master"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Scope: actual native full route/clean exit and original ordinary assertions only; full CI not claimed",
+      "evidence": [
+        "e-native",
+        "home",
+        "comparison",
+        "packed-consumer"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Opt-in experiment isolated and defaults retained; not formal promotion",
+      "evidence": [
+        "e-native"
+      ]
+    },
+    "visual": {
+      "status": "failed",
+      "reason": "Whole-screen terrain joins and volume remain wrong despite unified objects",
+      "evidence": [
+        "review",
+        "e-shot"
+      ]
+    },
+    "animation": {
+      "status": "failed",
+      "reason": "Base poses integrated but run cycle/complete accepted-state art unfinished",
+      "evidence": [
+        "actors",
+        "e-video"
+      ]
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Movie has audio track; no actual listening, existing attack VFX not fully recalibrated",
+      "evidence": [
+        "e-video"
+      ]
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Synthetic native physical route passed under technical; human fun/feel requires real feedback",
+      "evidence": [
+        "e-trace"
+      ]
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Software MovieWriter capture is not target-device benchmark",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "failed",
+      "reason": "Distinct read-only reviewer rejects current candidate G2, recommends REWORK",
+      "evidence": [
+        "review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "No physical mobile/PC/controller device validation",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "User chose B direction only; did not accept master/live candidate",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "ordinary-shape-language",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Same six ordinary subjects A/B",
+      "method": "Actually generated boards/master and independent ordinary-object comparison",
+      "expected": "Distinct visual/shape/paint answers rather than palette swaps",
+      "failure": "Only prose or different lighting masks unchanged objects",
+      "status": "passed",
+      "reason": "Both actual boards, B selected direction; not engine approval",
+      "evidence": [
+        "b-board",
+        "b-master"
+      ]
+    },
+    {
+      "id": "original-route-and-package-consumer",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "Current candidate synthetic full route and isolated PCK startup",
+      "method": "Original native driver/strict source guard/ordinary19; actual packed art readiness",
+      "expected": "Core preserved, HP5 forward/reverse, real candidate consumer loads in PCK",
+      "failure": "Godot ERROR, source changed, missing art or route requires illicit resources",
+      "status": "passed",
+      "reason": "Native current425 full route and packed actual consumer clean",
+      "evidence": [
+        "e-trace",
+        "e-native",
+        "home",
+        "packed-consumer"
+      ]
+    },
+    {
+      "id": "whole-screen-volume",
+      "gate": "G2",
+      "dimension": "visual",
+      "scenario": "Normal camera at240/360/600/return",
+      "method": "Independent full-resolution actual movie-frame review",
+      "expected": "Unified painted top/side/turning planes without giant repeat seams",
+      "failure": "Rock cover rectangles expose procedural assembly",
+      "status": "failed",
+      "reason": "Main side planes still reveal huge repeat seams; no G2/second",
+      "evidence": [
+        "review",
+        "e-shot"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "b-board",
+      "path": "assets/visual_development/proposals/b_board.png",
+      "sha256": "b117d2211992e5943d3bb1e6768a897b6b4c01cc8608dee0b2cffc4a1b00e81b",
+      "kind": "spec",
+      "producer": "root actual tool/runtime; no human acceptance",
+      "source_commit": "425826e39f56c2a16ce445130c4352deb0d0b95e",
+      "content_version": "rain-glaze-offcentre-b1-open-meadow-v1",
+      "method": "Actual tool original/command record, preserve original source identity inside artifact",
+      "observed": "Actual design proposal B, user direction selected; not engine"
+    },
+    {
+      "id": "b-master",
+      "path": "assets/visual_development/master/b1_master.png",
+      "sha256": "c1dcef82970aca7352988bac084d1a3b4abe62187557d094fbe5b96bb631963c",
+      "kind": "spec",
+      "producer": "root actual tool/runtime; no human acceptance",
+      "source_commit": "425826e39f56c2a16ce445130c4352deb0d0b95e",
+      "content_version": "rain-glaze-offcentre-b1-open-meadow-v1",
+      "method": "Actual tool original/command record, preserve original source identity inside artifact",
+      "observed": "Image-led master; illustrative panels not actual production history"
+    },
+    {
+      "id": "e-native",
+      "path": "docs/evidence/visual_language/records/final_e_02-visual_capture.json",
+      "sha256": "3e499245dda1a84be8dcf4860628d37f1559885a1405e81852a5846a20d3bdcd",
+      "kind": "command",
+      "producer": "root actual tool/runtime; no human acceptance",
+      "source_commit": "425826e39f56c2a16ce445130c4352deb0d0b95e",
+      "content_version": "rain-glaze-offcentre-b1-open-meadow-v1",
+      "method": "Actual tool original/command record, preserve original source identity inside artifact",
+      "observed": "Actual1116ticks full return HP5, strict clean source guard; artistic REWORK",
+      "command": "bash tools/godot.sh --rendering-method gl_compatibility --write-movie /workspace/gunman-rush/build/visual_language/final_e_02/gameplay.avi --fixed-fps 60 --path . --script tools/spatial_golden_capture.gd -- --source-commit=425826e39f56c2a16ce445130c4352deb0d0b95e --seed=against-wind-golden-v1 --strategy=fast --map-index=1 --phase-wait-ticks=0 --max-ticks=1800 --output=res://build/visual_language/final_e_02/capture.json --encounter-policy=blind_legacy --capture-visible --visual-layout=open-meadow --visual-sample=res://resources/visual_development/candidate.json",
+      "exit_code": 0,
+      "environment": "{\"LIBGL_ALWAYS_SOFTWARE\": \"1\", \"LP_NUM_THREADS\": \"1\", \"DISPLAY\": \":0\"}"
+    },
+    {
+      "id": "e-video",
+      "path": "docs/evidence/visual_language/media/candidate-normal-60fps.mp4",
+      "sha256": "36a6c12ac8d194bc4b21521d713b6aead0723d4ce0989d11666d978b0b054c5d",
+      "kind": "video",
+      "producer": "root actual tool/runtime; no human acceptance",
+      "source_commit": "425826e39f56c2a16ce445130c4352deb0d0b95e",
+      "content_version": "rain-glaze-offcentre-b1-open-meadow-v1",
+      "method": "Actual tool original/command record, preserve original source identity inside artifact",
+      "observed": "Actual1280x720/60fps18.6833s; not fully played/listened; no retiming"
+    },
+    {
+      "id": "e-shot",
+      "path": "docs/evidence/visual_language/media/candidate-lookback.png",
+      "sha256": "8bb4c8e38774c84363bf808a3dc60a27c65568d40453168a80eaa77df2c4541e",
+      "kind": "screenshot",
+      "producer": "root actual tool/runtime; no human acceptance",
+      "source_commit": "425826e39f56c2a16ce445130c4352deb0d0b95e",
+      "content_version": "rain-glaze-offcentre-b1-open-meadow-v1",
+      "method": "Actual tool original/command record, preserve original source identity inside artifact",
+      "observed": "Actual frame600; giant terrain rectangle seams remain"
+    },
+    {
+      "id": "comparison",
+      "path": "docs/evidence/visual_language/records/original_a_e_comparison_02.json",
+      "sha256": "103d30335eb8fded20c41c1c46988596664f7bda69a2d91c823d3beb0fa7c632",
+      "kind": "runtime_trace",
+      "producer": "root actual tool/runtime; no human acceptance",
+      "source_commit": "425826e39f56c2a16ce445130c4352deb0d0b95e",
+      "content_version": "rain-glaze-offcentre-b1-open-meadow-v1",
+      "method": "Actual tool original/command record, preserve original source identity inside artifact",
+      "observed": "Original strict comparator comparable_for_review, not beauty"
+    },
+    {
+      "id": "home",
+      "path": "docs/evidence/visual_language/records/default_home_02-receipt.json",
+      "sha256": "448ef19098bd9eb197ea9653feb0e0f60e2d28ea1497605f66a197058dea519e",
+      "kind": "command",
+      "producer": "root actual tool/runtime; no human acceptance",
+      "source_commit": "425826e39f56c2a16ce445130c4352deb0d0b95e",
+      "content_version": "rain-glaze-offcentre-b1-open-meadow-v1",
+      "method": "Actual tool original/command record, preserve original source identity inside artifact",
+      "observed": "Original19 ordinary home assertions clean exit/source guard",
+      "command": "bash tools/godot.sh --headless --path . --script tests/home_app_runner.gd",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Standard Linux headless; exact receipt"
+    },
+    {
+      "id": "review",
+      "path": "docs/evidence/visual_language/final-b1-live-independent-review.md",
+      "sha256": "be95b874b28ccebc29c62d35c0330276c86ffcc2211f6b2e11a53a7b864ef09d",
+      "kind": "review",
+      "producer": "root actual tool/runtime; no human acceptance",
+      "source_commit": "425826e39f56c2a16ce445130c4352deb0d0b95e",
+      "content_version": "rain-glaze-offcentre-b1-open-meadow-v1",
+      "method": "Actual tool original/command record, preserve original source identity inside artifact",
+      "observed": "Actual early whole-screen review and final425 source recheck: REWORK / no G2 / no second",
+      "reviewer": "/root/pr_cost_audit",
+      "implementers": [
+        "/root",
+        "/root/plains_slice",
+        "/root/creative_loop",
+        "/root/skills_dependency_audit"
+      ],
+      "independent": true,
+      "independence_basis": "Read-only separate agent, no production source edits, actual image refs and viewing limits in report",
+      "verdict": "REJECT",
+      "creative_decision": "REWORK"
+    },
+    {
+      "id": "lineage",
+      "path": "assets/visual_development/provenance_index.json",
+      "sha256": "49b41286fe0c007aabdd0a01d0513de4684805250221e26c130dc39bf1d467d1",
+      "kind": "spec",
+      "producer": "root actual tool/runtime; no human acceptance",
+      "source_commit": "425826e39f56c2a16ce445130c4352deb0d0b95e",
+      "content_version": "rain-glaze-offcentre-b1-open-meadow-v1",
+      "method": "Actual tool original/command record, preserve original source identity inside artifact",
+      "observed": "19 actual source carriers SHA verified; unknown model/license/price not invented"
+    },
+    {
+      "id": "actors",
+      "path": "assets/visual_development/actors/README.md",
+      "sha256": "c49003f0e5bade4e4f5e30f8eff397b858398eb70e1901d68f0f7d70226bd3dd",
+      "kind": "spec",
+      "producer": "root actual tool/runtime; no human acceptance",
+      "source_commit": "425826e39f56c2a16ce445130c4352deb0d0b95e",
+      "content_version": "rain-glaze-offcentre-b1-open-meadow-v1",
+      "method": "Actual tool original/command record, preserve original source identity inside artifact",
+      "observed": "Actual poses, runA/C near duplication, unknown full animation quality"
+    },
+    {
+      "id": "forest",
+      "path": "docs/evidence/visual_language/forest-transfer-independent-review.md",
+      "sha256": "ab48d11a504fb0a44a12801b3ddde48e605bfe093066d55d73c3a4db1f9d7c9e",
+      "kind": "review",
+      "producer": "root actual tool/runtime; no human acceptance",
+      "source_commit": "425826e39f56c2a16ce445130c4352deb0d0b95e",
+      "content_version": "rain-glaze-offcentre-b1-open-meadow-v1",
+      "method": "Actual tool original/command record, preserve original source identity inside artifact",
+      "observed": "Separate-context short prompt drew concept candidates; missing scale/consumer/functional proof",
+      "reviewer": "/root/pr_cost_audit",
+      "implementers": [
+        "/root/visual_transfer"
+      ],
+      "independent": true,
+      "independence_basis": "Read-only separate agent saw both actual proposal images, no modifications to production",
+      "verdict": "REJECT",
+      "creative_decision": "REWORK"
+    },
+    {
+      "id": "e-trace",
+      "path": "docs/evidence/visual_language/records/final_e_02-capture.json",
+      "sha256": "25c0959a2b689e3553621b8ff073d7dc25ecf043916d83edd0953cc2d99a56f6",
+      "kind": "runtime_trace",
+      "producer": "root actual artifacts",
+      "source_commit": "425826e39f56c2a16ce445130c4352deb0d0b95e",
+      "content_version": "rain-glaze-offcentre-b1-open-meadow-v1",
+      "method": "Actual preserved artifact; scope declared inside",
+      "observed": "Actual1116ticks current legal forward/reverse source trace; not human feel"
+    },
+    {
+      "id": "user-direction",
+      "path": "resources/visual_development/style_master.json",
+      "sha256": "748ba6e8d21cd7d2076e79b5d3a3f3a466ac583e373876cbce3819c1804c8c72",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "425826e39f56c2a16ce445130c4352deb0d0b95e",
+      "content_version": "rain-glaze-offcentre-b1-open-meadow-v1",
+      "method": "Actual preserved artifact; scope declared inside",
+      "observed": "User selected B direction only, not master/live art",
+      "source": "Actual user request_user_input reply in current conversation",
+      "quote": "B 雨釉与偏心：圆润低重心、盘筑陶形、蛋彩明暗",
+      "covers": [
+        "direction_only"
+      ],
+      "accepted": true
+    },
+    {
+      "id": "packed-consumer",
+      "path": "docs/evidence/visual_language/records/local-review-gui-start.json",
+      "sha256": "da6eaeb648ab97b5f0d570fae803744e7afa1d536df52d57c8a16b51e1773518",
+      "kind": "command",
+      "producer": "root actual artifacts",
+      "source_commit": "425826e39f56c2a16ce445130c4352deb0d0b95e",
+      "content_version": "rain-glaze-offcentre-b1-open-meadow-v1",
+      "method": "Actual preserved artifact; scope declared inside",
+      "observed": "Actual isolated packed GUI/consumer load and strict exit; no packaged full route",
+      "command": "Actual argv preserved in referenced record; isolated PCK review_smoke.gd GUI with MovieWriter",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Linux Xvfb llvmpipe LP_NUM_THREADS1; embedded PCK"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "No admitted first golden/second structure/seeds/worst-seed proof",
+    "No forest engine transfer; production_examples was empty during actual transfer",
+    "Full applicable CI/release and pre-existing blockers not rerun/repaired",
+    "No real user playtest/audio listening/device/commercial data",
+    "Image commercial license/model/token/price unknown"
+  ]
+}

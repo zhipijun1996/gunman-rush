@@ -1,0 +1,166 @@
+{
+  "status": "captured_pending_independent_art_admission",
+  "source_commit": "425826e39f56c2a16ce445130c4352deb0d0b95e",
+  "source_guard_unchanged": true,
+  "source_inventory_sha256": "af6d1833e930bf970ab6eaf44026d61ffcf635f324c54fea9aedbcb36851fb91",
+  "seed": "against-wind-golden-v1",
+  "map_index": 1,
+  "layout_treatment": "open-meadow",
+  "visual_sample_treatment": {
+    "catalog_path": "res://resources/visual_development/candidate.json",
+    "catalog_sha256": "03a0078b26958332392b8cac59369c5d55126ff3d88245eeae2bd81950f5ca2e",
+    "scope": "catalog selects presentation only; actual layout variant is recorded separately in visual_layout_treatment and collision snapshots"
+  },
+  "geometry_manifest_version": "visual-language-open-meadow-v1",
+  "geometry_manifest_hash": "2c17d2325d00ed545eb9d845101ccc651635a51e7be68b5bd247a8c755fc8d99",
+  "actual_initial_collision_count": 3,
+  "outcome": "route_target_reached",
+  "tick_count": 1116,
+  "health_values": [
+    5.0
+  ],
+  "final_returns": 0,
+  "shots": 4,
+  "root_pulses": 2,
+  "movie": "gameplay.mp4",
+  "movie_seconds": "18.683333",
+  "extracted_frame_count": 20,
+  "wall_seconds": 96.46869905800122,
+  "capture_extension_source_file_count": 21,
+  "finite_asset_library_inventory": [
+    {
+      "measurement": {
+        "accepted_event_receipts": [
+          {
+            "id": "1",
+            "kind": "accepted_shot",
+            "position": [
+              667.690124511719,
+              556.43505859375
+            ],
+            "time": 3.68333333333333
+          },
+          {
+            "id": "generated_2",
+            "kind": "accepted_safe_anchor",
+            "position": [
+              920.0,
+              642.0
+            ],
+            "time": 4.36666666666666
+          },
+          {
+            "id": "2",
+            "kind": "accepted_shot",
+            "position": [
+              1677.83056640625,
+              456.435089111328
+            ],
+            "time": 7.98333333333331
+          },
+          {
+            "id": "3",
+            "kind": "accepted_shot",
+            "position": [
+              1702.513671875,
+              356.435272216797
+            ],
+            "time": 11.3333333333335
+          },
+          {
+            "id": "generated_2",
+            "kind": "accepted_safe_anchor",
+            "position": [
+              920.0,
+              642.0
+            ],
+            "time": 15.1833333333337
+          },
+          {
+            "id": "4",
+            "kind": "accepted_shot",
+            "position": [
+              822.463012695312,
+              496.435089111328
+            ],
+            "time": 15.716666666667
+          }
+        ],
+        "actual_solid_count": 3,
+        "automatic_checkpoint_activated": "generated_2",
+        "cap_outer_edge_calibration": "unverified source-pixel candidate; actual screen review required",
+        "catalog_path": "res://resources/visual_development/candidate.json",
+        "catalog_sha256": "03a0078b26958332392b8cac59369c5d55126ff3d88245eeae2bd81950f5ca2e",
+        "derived_manifest_hash": "2c17d2325d00ed545eb9d845101ccc651635a51e7be68b5bd247a8c755fc8d99",
+        "hero_missing_states": [
+          "double_jump",
+          "wall_attach",
+          "wall_kick",
+          "hook_cast",
+          "hook_fly",
+          "hook_pull",
+          "hook_kick",
+          "hook_miss",
+          "hook_contact_kick",
+          "hook_retract",
+          "machine_recoil",
+          "blade_throw",
+          "blade_catch",
+          "bomb_place",
+          "laser_fire",
+          "singularity_hold",
+          "weapon_charge",
+          "weapon_skill"
+        ],
+        "hero_states": [
+          "idle",
+          "jump_start",
+          "jump",
+          "fall",
+          "recoil",
+          "land",
+          "hurt",
+          "death",
+          "run"
+        ],
+        "hud_scope": "Palette only; original functional controls and layout",
+        "input_geometry_contract_sha256": "146d6758c2008ee2c6d9efded5c942135712ea13c9e581a406b176fdae0158eb",
+        "layout_variant": "open_meadow",
+        "observed_hero_states": {
+          "fall": 155,
+          "hurt": 16,
+          "idle": 286,
+          "jump": 130,
+          "jump_start": 30,
+          "land": 70,
+          "recoil": 32,
+          "run": 401
+        },
+        "root_body": true,
+        "root_warning_and_burst": "original",
+        "saw": true,
+        "saw_actual_radius": 26.0,
+        "saw_source": "res://assets/visual_development/props/saw.png",
+        "terrain_missing": [
+          "true underside strip",
+          "arbitrary-slope corner family",
+          "outer edge GPU collision calibration"
+        ]
+      },
+      "node": "/root/@Node2D@2/@Node2D@69/@Node2D@73"
+    }
+  ],
+  "camera_zoom_values": [
+    [
+      1.25,
+      1.25
+    ]
+  ],
+  "post_capture_cleanup": {
+    "audio_backend_released": true,
+    "audio_drain_seconds": 0.206463,
+    "per_service_timeout_msec": 1000,
+    "scope": "after_final_observed_frame; not gameplay or driver time"
+  },
+  "scope": "complete original Router/Motor round trip with actual enemy/hazard; actual collision variant is new open-meadow, old5poly PR73 is historical reference only; not full region/game/market/device acceptance"
+}

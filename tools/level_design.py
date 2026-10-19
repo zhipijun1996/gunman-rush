@@ -175,11 +175,11 @@ def analyze(args):
     return 1 if report.get("verdict") == "REJECT" else 0
 
 
-def route_request(request, mode=None, phase="auto"):
+def content_plan(request, mode=None, phase="auto"):
     """Deterministic request routing, shared with existing production_loop missions."""
     if not isinstance(request, str) or not request.strip():
         raise ValueError("A concrete region request is required")
-    optimize = bool(re.search(r"优化|改进|审计|无聊|重复|不好看|不流畅|optimi[sz]e|audit|improve", request, re.I))
+    optimize = bool(re.search(r"优化|改善|改进|审计|无聊|重复|不好看|不流畅|optimi[sz]e|audit|improve", request, re.I))
     create = bool(re.search(r"制作|新地区|新区域|创建|create|new biome|new region", request, re.I))
     if mode is None:
         if optimize == create:
@@ -326,6 +326,201 @@ def route_request(request, mode=None, phase="auto"):
     return mission
 
 
+def load_spatial_experiment(path, region_id, root=ROOT):
+    """A frozen design and exact experimental write lease, never core authorization."""
+    relative = Path(path)
+    target = Path(root) / relative
+    if relative.is_absolute() or '..' in relative.parts or target.is_symlink() or not target.resolve().is_relative_to(Path(root).resolve()):
+        raise ValueError('Spatial experiment must be a repository-relative regular design')
+    data = read(target)
+    if (not isinstance(data, dict) or type(data.get('schema_version')) is not int or data['schema_version'] != 1
+            or data.get('region_id') != region_id or not isinstance(data.get('authorization_basis'), str)
+            or not data['authorization_basis'].strip() or not isinstance(data.get('design'), dict) or not data['design']
+            or not isinstance(data.get('validation'), list) or not data['validation']
+            or any(not isinstance(item, str) or not item.strip() for item in data['validation'])):
+        raise ValueError('Spatial experiment needs region, explicit authorization, design and validation')
+    paths = data.get('allowed_paths')
+    if not isinstance(paths, list) or not paths or any(not isinstance(item, str) or not item for item in paths) or len(set(paths)) != len(paths):
+        raise ValueError('Spatial experiment needs a distinct exact-file write set')
+    for name in paths:
+        entry = Path(name)
+        permitted = (name.startswith(('scripts/generation/', 'scripts/art/', 'resources/generation/', 'resources/art/',
+                                      'scenes/', 'assets/', 'tests/', 'tools/', 'docs/evidence/'))
+                     or name == 'scripts/demo/demo_app.gd')
+        if (entry.is_absolute() or '..' in entry.parts or name.endswith('/') or any(c in name for c in '*?[')
+                or not entry.suffix or not permitted or (Path(root)/name).is_dir()
+                or re.search(r'(?:motor|rng|save|ability|weapon|resource)', entry.stem, re.I)
+                or entry.stem == 'movement_capability_envelope'):
+            raise ValueError('Spatial experiment cannot grant directories or protected core: ' + name)
+        candidate = Path(root)/name
+        if candidate.is_symlink() or not candidate.resolve().is_relative_to(Path(root).resolve()):
+            raise ValueError('Spatial experiment write path escapes repository: ' + name)
+    return data, {'path': relative.as_posix(), 'sha256': file_hash(target), 'region_id': region_id, 'allowed_paths': paths}
+
+
+def world_rebuild_request(request, region_id):
+    """Explicit source-painting pilot only, never a whole-region default."""
+    return bool(region_id == "windchime_plains"
+        and re.search(r"源画|source.paint", request, re.I)
+        and re.search(r"重建|重做|rebuild", request, re.I)
+        and re.search(r"地貌|地形|landform|terrain", request, re.I)
+        and re.search(r"美术|art", request, re.I)
+        and not re.search(r"调色|贴图|palette|森林|forest|解锁|新机制|武器规则|能力规则|物理参数", request, re.I))
+
+
+def art_language_request(request, region_id):
+    """Explicit module/world art-language work; do not grant it for a palette edit."""
+    return bool(region_id == "windchime_plains"
+        and re.search(r"关卡|模块|地形|地貌|生成|level|module|generat", request, re.I)
+        and re.search(r"美术语言|美术参数|尺寸规格|尺寸族|art.language|art.parameters|size.spec", request, re.I)
+        and not re.search(r"调色|换纹理|更换纹理|贴图|palette|retexture|解锁|新机制|武器规则|能力规则|物理参数", request, re.I))
+
+
+def joint_landform_request(request, region_id):
+    """Explicit shared art/level intent; surface-only requests grant no geometry."""
+    visual_words = re.search(r"美术|画面|视觉|调色|纹理|\bart\b|visual|palette|texture", request, re.I)
+    joint_words = re.search(r"联合|共同|协同|joint|co.design", request, re.I)
+    level_words = re.search(r"关卡|玩法|碰撞|地形|level|collision", request, re.I)
+    surface_only = re.search(r"调色|换纹理|更换纹理|贴图|palette|retexture", request, re.I)
+    landform_words = re.search(r"地貌|地形语言|模块语言|环境构造|landform|module.language", request, re.I)
+    protected_change = re.search(r"解锁|新机制|武器规则|能力规则|物理参数", request, re.I)
+    return (region_id == "windchime_plains" and not protected_change
+        and ((joint_words and level_words and visual_words)
+             or (landform_words and not surface_only)
+             or art_language_request(request, region_id)
+             or world_rebuild_request(request, region_id)))
+
+
+def route_request(request, mode=None, phase="auto", direction=None, spatial_experiment=None):
+    """The public short-prompt entry starts creative work before content production."""
+    from level_region_context import resolve_region_id
+    from region_creative_direction import load_direction
+    region_id = resolve_region_id(request)
+    # Surface treatments retain their frozen geometry lease. Explicit joint
+    # landform work uses this same production loop with a finite source lease.
+    visual_words = re.search(r"美术|画面|视觉|调色|纹理|\bart\b|visual|palette|texture", request, re.I)
+    surface_only = re.search(r"调色|换纹理|更换纹理|贴图|palette|retexture", request, re.I)
+    protected_change = re.search(r"解锁|新机制|武器规则|能力规则|物理参数", request, re.I)
+    joint_art = joint_landform_request(request, region_id)
+    art_improvement = (region_id == "windchime_plains" and not protected_change
+        and re.search(r"优化|改善|改进|制作|重做|绘制|设计|improve|optimi[sz]e|create|design|retexture", request, re.I)
+        and visual_words
+        and (not re.search(r"玩法|碰撞|物理", request) or surface_only))
+    if (art_improvement or joint_art) and mode is None and phase == "auto" and direction is None and spatial_experiment is None:
+        from visual_director import route as art_route
+        task_id = "visual-windchime-plains-" + hashlib.sha256(request.encode()).hexdigest()[:8]
+        quality_record = "docs/quality/records/" + task_id + "-golden.json"
+        allowed_paths = ["scripts/art/", "assets/visual_development/", "resources/visual_development/",
+             "tools/visual_director.py", "tools/level_formal_capture.gd",
+             "tools/plains_environment_preview.gd", "tools/plains_environment_capture.gd",
+             "tests/plains_environment_trace.gd", "docs/quality/records/",
+             "tools/plains_places_preview.gd", "tools/plains_places_capture.gd",
+             "tests/plains_places_trace.gd", "tests/plains_places_plan_runner.gd",
+             "tools/plains_regional_art_preview.gd", "tools/plains_regional_art_capture.gd",
+             "tools/plains_regional_art_overview.gd", "tools/plains_regional_art_map.py",
+             "tests/plains_regional_art_trace.gd", "tests/plains_regional_art_plan_runner.gd",
+             "docs/evidence/plains_regional/", "docs/evidence/plains_places/", "docs/tasks.md"]
+        if joint_art:
+            allowed_paths = [
+                "scripts/generation/plains_joint_recoil_plan.gd",
+                "scripts/generation/plains_region_generator.gd",
+                "scripts/generation/plains_region_art_plan.gd",
+                "scripts/art/plains_joint_recoil_composer.gd",
+                "shaders/plains_landform_material.gdshader",
+                "resources/visual_development/p1_landform_assets.json",
+                "resources/visual_development/p1_joint_recoil_assets.json",
+                "assets/visual_development/p1_landform/",
+                "tools/plains_joint_recoil_preview.gd", "tools/plains_joint_recoil_capture.gd",
+                "tools/plains_joint_recoil_overview.gd", "tools/run_plains_joint_recoil_tests.py",
+                "tests/plains_joint_recoil_trace.gd", "tests/plains_joint_recoil_runner.gd",
+                "tests/plains_joint_recoil_scan.gd",
+                "docs/evidence/plains_landform/", "docs/quality/records/", "docs/tasks.md"]
+        if art_language_request(request, region_id):
+            allowed_paths = ["scripts/generation/plains_art_language.gd",
+                "resources/generation/plains_art_language.json",
+                "scripts/generation/plains_region_generator.gd", "scripts/generation/plains_region_art_plan.gd",
+                "scripts/art/plains_regional_composer.gd", "resources/visual_development/p1_regional_assets.json",
+                "tools/plains_art_language_preview.gd", "tools/run_plains_art_language_tests.py",
+                "tests/plains_art_language_runner.gd", "docs/evidence/plains_art_language/",
+                "docs/quality/records/", "docs/tasks.md"]
+        if world_rebuild_request(request, region_id):
+            task_id = "plains-world-rebuild"
+            quality_record = "docs/quality/records/PLAINS-WORLD-REBUILD-01.json"
+            allowed_paths = ["scripts/generation/plains_world_rebuild.gd",
+                "resources/generation/plains_world_rebuild.json",
+                "scripts/art/plains_world_rebuild_composer.gd", "scripts/demo/plains_world_rebuild_stage.gd",
+                "tools/plains_world_rebuild_preview.gd", "tools/run_plains_world_rebuild_tests.py",
+                "tests/plains_world_rebuild_runner.gd", "assets/visual_development/plains_world_rebuild/",
+                "docs/evidence/plains_world_rebuild/", quality_record, "docs/tasks.md"]
+        plan = art_route(request, task_id, quality_record, allowed_paths)
+        plan["preparation"]["art_scope"] = "source_paint_world_rebuild" if world_rebuild_request(request, region_id) else "pre_embedding_art_language" if art_language_request(request, region_id) else "joint_landform" if joint_art else "surface_only_frozen_geometry"
+        _, binding = load_direction("docs/creative_direction/windchime_plains.json", region_id)
+        plan["native_import_preflight"] = True
+        plan["context_mode"] = "compact"
+        # This is the existing art subtask loop, not a newly bound region
+        # production golden. Carry its authority in the shared preparation;
+        # explicit full-region requests retain all joint G2 requirements below.
+        plan["preparation"]["creative_direction"] = binding
+        for task in plan["tasks"]:
+            task["feedback_context"] = "compact"
+        return plan
+    plan = content_plan(request, mode, "production" if phase in {"auto", "preproduction"} else phase)
+    plan["native_import_preflight"] = True
+    if spatial_experiment is not None and (direction is None or plan["phase"] != "production"):
+        raise ValueError("Spatial experiment requires selected direction and full production plan")
+    if direction is not None:
+        if region_id is None:
+            raise ValueError("Register the region before binding a creative direction")
+        data, binding = load_direction(direction, region_id)
+        if phase == "prototype" and region_id == "thorn_forest":
+            for task in plan["tasks"]:
+                task["checks"] = ["forest-current-slice" if c == "forest-h-slice" else c for c in task["checks"]]
+                task["region_proof"]["kind"] = "technical_sample"
+                task["goal"] += "；使用当前默认短钩索与真实反冲/落地恢复/返回，原历史长钩索仅用于复现；严格退出未过必须blocked。"
+                task["allowed_paths"] += ["scripts/demo/thorn_forest_current_slice.gd", "scripts/demo/thorn_forest_current_slice.gd.uid", "tests/forest_current_slice_runner.gd", "tests/forest_current_slice_runner.gd.uid", "tools/run_forest_current_slice_tests.py"]
+        for task in plan["tasks"]:
+            task["creative_direction"] = binding.copy()
+            task["feedback_context"] = "compact"
+            task["goal"] += "；逐项交付总谱贡献、协作依赖、新行为/视觉、主题冲突和真实游戏验证；方向不成立RETHINK，不适合候选DISCARD，局部失败REWORK。"
+        if plan["phase"] == "production":
+            golden = next(task for task in plan["tasks"] if task["id"].endswith("-golden"))
+            golden["skills"] = list(dict.fromkeys(golden["skills"] + ["visual-director", "scene-composer", "encounter-director", "animation-vfx"]))
+            golden["required_gates"] = ["G0", "G1", "G2"]
+            golden["requires_visual_admission"] = True
+            golden["goal"] += "；只制作第一个统一可玩黄金空间，空间/挑战/遭遇/视觉/动画共同设计。G2截图与正常速度视频必须由独立视觉审查ACCEPT；复用质量卡independent_review证据，并以reviewed_evidence引用本卡G2全部媒体ID。未准入不得第二空间、多Seed或扩产。"
+            integration = next(task for task in plan["tasks"] if task["id"].endswith("-integration"))
+            integration["goal"] += "；仅在首黄金G2与独立视觉实机审查均ACCEPT后才允许第二空间和多Seed推广，不扩产失败母版。"
+            if spatial_experiment is not None:
+                experiment_data, experiment = load_spatial_experiment(spatial_experiment, region_id)
+                if (experiment_data["design"].get("direction_path") != binding["path"]
+                        or experiment_data["design"].get("direction_sha256") != binding["sha256"]):
+                    raise ValueError("Spatial design direction path/hash differs from selected creative direction")
+                plan["spatial_experiment"] = experiment
+                for task in plan["tasks"]:
+                    if task["id"].endswith(("-design", "-golden")):
+                        task["spatial_experiment"] = experiment.copy()
+                        task["allowed_paths"] = list(dict.fromkeys(experiment["allowed_paths"] + [task["quality_record"], "docs/tasks.md"]))
+                        task["goal"] += "；按已冻结spatial_experiment真实消费设计并产出golden_manifest，仅改精确写集中的几何/镜头/表现；保留PlayerMotor/武器能力/资源/RNG/保存。"
+        plan.update(creative_direction=binding, creative_phase="production", context_mode="compact")
+        plan["preparation"]["creative_selection"] = {"direction_id": data["direction_id"], "acceptance": data["acceptance"]}
+        return plan
+    if phase == "prototype":
+        plan["creative_phase"] = "engineering_prototype_only"
+        return plan
+    identifier = "creative-" + (region_id or "unregistered")
+    target = "docs/creative_direction/" + (region_id or "unregistered") + ".json"
+    task = {"id": identifier, "goal": request + "：先注册本任务/质量记录；读取最新地区设计与实际消费者；提出2–3个在体验、空间、生态/Boss、艺术情绪上实质不同的完整方向，比较原创性、可行性、玩家吸引力及商业展示假设，推荐一个。把版本总谱写入" + target + "，涵盖全屏大形/负空间/层深/动态音画、明确排除、真实可玩切片与跨专业接口。推荐不是用户最终认可；不生成正式地图/资产，不开放地区。",
+            "skills": ["region-creative-director"], "checks": ["creative-direction"],
+            "depends_on": [], "read_only": False, "allowed_paths": ["docs/creative_direction/", "docs/tasks.md", "docs/quality/records/"],
+            "quality_record": "docs/quality/records/" + identifier + ".json", "completion": "stage", "required_gates": ["G0"], "max_calls": 4}
+    plan.update(phase="preproduction", creative_phase="preproduction", tasks=[task],
+                max_calls=4, max_rounds=2, context_mode="compact", production_plan=plan["tasks"],
+                continuation={"condition": "selected direction passes independent G0 scope review; preserve user approval as unverified",
+                              "command": ["python3", "tools/level_design.py", "route", "--request", request, "--direction", target, "--output", "build/creative_system/production.json"],
+                              "execution": "active host advances this checkpoint using the existing harness; no unattended model service"})
+    return plan
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
@@ -347,7 +542,9 @@ def main(argv=None):
     route = commands.add_parser("route")
     route.add_argument("--request", required=True)
     route.add_argument("--mode", choices=["optimize", "new_region"])
-    route.add_argument("--phase", choices=["auto", "prototype", "production"], default="auto")
+    route.add_argument("--phase", choices=["auto", "preproduction", "prototype", "production"], default="auto")
+    route.add_argument("--direction", help="Bind a selected versioned region creative direction")
+    route.add_argument("--spatial-experiment", help="Frozen experimental design JSON with exact authorized file writes")
     route.add_argument("--output", required=True)
     experience = commands.add_parser("experience", help="Analyze live enemies, rewards, camera and Q1–Q8 evidence")
     experience.add_argument("parameters", nargs=argparse.REMAINDER)
@@ -373,7 +570,7 @@ def main(argv=None):
         return experience_main(args.parameters)
     else:
         from production_loop import validate as validate_mission
-        mission = route_request(args.request, args.mode, args.phase)
+        mission = route_request(args.request, args.mode, args.phase, args.direction, args.spatial_experiment)
         validate_mission(mission)
         write(args.output, mission)
         print(f"PASS: {mission['workflow']} routed to existing harness --mission {args.output}; plan only")

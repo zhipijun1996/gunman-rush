@@ -1,0 +1,27 @@
+{
+  "kind": "actual_input_policy_negative_case",
+  "scope": "No shoot requests from this driver; original abilities/resources retained. This route attempt fails at first receiver, not proof against every possible strategy. Startup attach leakage failures remain unresolved independent records.",
+  "source_commit": "1b7559224b71c03e3e14e98fed8a622d85f702a1",
+  "capture": {
+    "path": "build/plains_environment/no_gun_01/visual_capture.json",
+    "sha256": "c1e25dcd57cc1f39fa7c68010d249260ff4cc282db9ac495fe19ce046af3d0e3"
+  },
+  "expected_outcome": "environment_waypoint_failed/first_receiver",
+  "actual_outcome": "environment_waypoint_failed/first_receiver",
+  "route_reached": false,
+  "ticks": 344,
+  "accepted_shots": 0,
+  "health_first_last": [
+    5.0,
+    4.0
+  ],
+  "recovery_count": 1,
+  "strict_native_exit": 0,
+  "cleanup": {
+    "audio_backend_released": true,
+    "audio_drain_seconds": 0.136457,
+    "per_service_timeout_msec": 1000,
+    "scope": "after_final_observed_frame; not gameplay or driver time"
+  },
+  "source_before_after_equal": true
+}

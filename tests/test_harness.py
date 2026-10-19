@@ -275,6 +275,26 @@ class HarnessTests(unittest.TestCase):
                 self.assertEqual((root / "input.txt").read_text(), "after")
 
 
+    def test_isolation_capacity_fails_before_clone_and_clone_errors_are_preserved(self):
+        from types import SimpleNamespace
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary) / 'repo'; root.mkdir()
+            subprocess.run(['git', 'init', '-q'], cwd=root, check=True)
+            (root/'.gitignore').write_text('build/\n')
+            (root/'source.txt').write_text('actual source bytes')
+            folder=root/'build/report';folder.mkdir(parents=True)
+            check={'argv':['python3','-c',"print('COMPLETE')"], 'timeout_seconds':5, 'success_pattern':'COMPLETE'}
+            with patch.object(h,'ROOT',root), patch.object(h,'toolchain_identity',return_value={}), patch.object(h.shutil,'disk_usage',return_value=SimpleNamespace(free=0)), patch.object(h,'isolated_workspace') as clone:
+                with self.assertRaisesRegex(RuntimeError,'no lane launched'):
+                    h.execute_checks({'checks':{'a':check}}, ['a'], folder, jobs=2)
+                clone.assert_not_called()
+            diagnostic=folder/'clone.log'
+            failure=subprocess.CalledProcessError(128,['git','clone'],stderr=b'actual clone diagnostic retained')
+            with patch.object(h,'ROOT',root), patch.object(h.subprocess,'run',side_effect=failure):
+                with self.assertRaisesRegex(RuntimeError,'actual clone diagnostic retained'):
+                    h.isolated_workspace(root/'lane',[],setup_log=diagnostic)
+            self.assertEqual(diagnostic.read_bytes(),b'actual clone diagnostic retained')
+
     def test_parallel_results_and_source_mutation_fail_closed(self):
         import json
         with tempfile.TemporaryDirectory() as temporary:

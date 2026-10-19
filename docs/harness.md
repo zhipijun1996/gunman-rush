@@ -100,3 +100,5 @@ Driver为通关证据提交的输入可以改进，但不得改原断言、case�
 S3实际CI／公网包通过后，GUI01因可见MENU未被识别而在3/20退出。先保存原截图／失败，再在真实像素上做黄金；初版追加单行ROI虽识别真实按钮，却把MENU2拆词误收，独审真实REJECT保留。仅新增PSM7路径改为整ROI归一化文本必须恰为MENU、再读取实际MENU单词字框；原5ROI、真实输入／事件／PCK身份／8入口／20检查／480秒均不改。整图抹字、真实无MENU、同字节MENU2等负例拒绝后才执行完整GUI02（最终378.771秒、20／8实测通过），不用固定点击坐标或游戏JS钩子绕过OCR。
 
 发布游戏仍为S3原PCK；后续采证工具以自己的源码SHA绑定，不把工具修复后的GUI误称新游戏HEAD构建。CI ZIP代理403与公开GUI是不同证据：前者原包72未执行，后者只按实际结果记录，不相互替代。详见[原始失败／REJECT／复验](evidence/forest_grapple02/release03/README.md)。
+
+整区平原候选的短反馈入口为 `python3 tools/harness.py --profile regional-art-feedback`，复用docs与原检查调度，运行实际整区生成/默认Manifest对PR85原件比较、无标签图同构及伪造覆盖反例。真实电影仍走原`visual_director.py capture`和新增regional适配器；完整源码、正常输入、伤害/HP、清理退出门槛保留。长电影临时AVI允许保存在明确唯一的系统临时目录，经原始SHA验证后成功清理，失败保留；MP4/日志/回执仍在build。当前仅技术候选，艺术失败见[实录](evidence/plains_regional/recipe.md)。

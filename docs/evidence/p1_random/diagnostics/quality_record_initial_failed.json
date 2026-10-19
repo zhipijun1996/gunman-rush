@@ -1,0 +1,333 @@
+{
+  "schema_version": 1,
+  "task_id": "P1-RANDOM-01",
+  "task_type": "art",
+  "workflow": "review",
+  "baseline_commit": "ed647d5dee2a72d5c7ef95f43fa5fdffe6d88ac1",
+  "reviewed_commit": "c0975dbafb720156b46b8ee98a9ad52f08725bde",
+  "content_version": "p1-random-unity01-rejected",
+  "owner": "root",
+  "purpose": "将P1候选从固定三岸扩至正常随机平原表现，并保留原角色及提供可选少女形象",
+  "player_experience": "不同生成布局共享画法与实体语义；角色外观可实际选择但操作/能力与存档契约不变",
+  "constraints": [
+    "不改森林玩法/敌Boss/生成器",
+    "不改核心物理/真实碰撞/能力/武器/资源/RNG/存档格式",
+    "未知非土地形不装假土体，逐消费者披露覆盖与遗漏",
+    "原Courier保留，少女为可选候选，不伪用户艺术定稿"
+  ],
+  "affected_paths": [
+    "scripts/art/",
+    "scripts/demo/demo_app.gd",
+    "resources/art/avatars.json",
+    "resources/visual_development/",
+    "assets/visual_development/p1_random/",
+    "assets/visual_development/p1_unity/",
+    "export_presets.cfg",
+    "tools/",
+    "tests/"
+  ],
+  "deliverables": [
+    "正常随机地图真实截图/正常视频/几何差异与最差样本",
+    "少女实际源与可选角色正反例",
+    "真实覆盖/保留旧表现缺口",
+    "本地可玩包与准确版本"
+  ],
+  "creative_decisions": [
+    {
+      "status": "proposed",
+      "decision": "P1及少女仍是候选，用户没有给予整区艺术认可；两次明确REWORK，停止组件补丁方法",
+      "basis": "Original active-conversation rejection and actual same-condition native films"
+    },
+    {
+      "status": "not_required",
+      "decision": "保留角色选择及工程成果；归档未验末次patch，还原最后验证版本，不扩Seed/打包/默认正式池",
+      "basis": "User explicitly rejected continued local patches; all changes reversible"
+    }
+  ],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "边界已明确但完整环境设计目标未成立；不以范围文件签艺术设计",
+      "evidence": [
+        "scope"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "未完成整区艺术/正式晋级/完整回归/用户或实体设备验证；保留有限工程证据",
+      "evidence": []
+    },
+    "G2": {
+      "status": "failed",
+      "reason": "用户与实际全屏均否定割裂，整体环境联合创作未完成",
+      "evidence": [
+        "pixels",
+        "feedback"
+      ]
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "未完成整区艺术/正式晋级/完整回归/用户或实体设备验证；保留有限工程证据",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "未完成整区艺术/正式晋级/完整回归/用户或实体设备验证；保留有限工程证据",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "未完成整区艺术/正式晋级/完整回归/用户或实体设备验证；保留有限工程证据",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "未完成整区艺术/正式晋级/完整回归/用户或实体设备验证；保留有限工程证据",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "未完成整区艺术/正式晋级/完整回归/用户或实体设备验证；保留有限工程证据",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "未完成整区艺术/正式晋级/完整回归/用户或实体设备验证；保留有限工程证据",
+      "evidence": []
+    },
+    "visual": {
+      "status": "failed",
+      "reason": "真实整屏仍是部件替换，未兑现绘改与完整区域关系",
+      "evidence": [
+        "pixels",
+        "movie",
+        "feedback"
+      ]
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "未完成整区艺术/正式晋级/完整回归/用户或实体设备验证；保留有限工程证据",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "未完成整区艺术/正式晋级/完整回归/用户或实体设备验证；保留有限工程证据",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "未完成整区艺术/正式晋级/完整回归/用户或实体设备验证；保留有限工程证据",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "未完成整区艺术/正式晋级/完整回归/用户或实体设备验证；保留有限工程证据",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "未完成整区艺术/正式晋级/完整回归/用户或实体设备验证；保留有限工程证据",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "未完成整区艺术/正式晋级/完整回归/用户或实体设备验证；保留有限工程证据",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "failed",
+      "reason": "用户两次明确否定，未获艺术认可",
+      "evidence": [
+        "feedback"
+      ]
+    }
+  },
+  "criteria": [
+    {
+      "id": "bounded-scope",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "P1 candidate and user-directed stop",
+      "method": "Original scope and retained artifacts",
+      "expected": "Bounded reversible implementation without forest/core changes",
+      "failure": "Unbounded expansion or promoting rejected art",
+      "status": "passed",
+      "reason": "实验与停止边界明确，原件/末次WIP保留",
+      "evidence": [
+        "scope"
+      ]
+    },
+    {
+      "id": "normal-route",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "same seed01 normal generated map, original fast trace",
+      "method": "Native strict capture and original comparator",
+      "expected": "Normal route and collision/input/resource contracts unchanged",
+      "failure": "Native error, changed physics or old evidence relabeled",
+      "status": "passed",
+      "reason": "真实2323ticks/guard与原比较器通过，只限该路线",
+      "evidence": [
+        "native",
+        "compare"
+      ]
+    },
+    {
+      "id": "whole-region-art",
+      "gate": "G2",
+      "dimension": "visual",
+      "scenario": "ordinary random environment screen",
+      "method": "Actual full-frame comparison and original user judgement",
+      "expected": "Coherent complete environment instead of mixed asset skins",
+      "failure": "Whole scene remains fragmented",
+      "status": "failed",
+      "reason": "用户与实际整屏均REWORK；停止此方法",
+      "evidence": [
+        "pixels",
+        "movie",
+        "feedback"
+      ]
+    },
+    {
+      "id": "avatar-ui-cleanup",
+      "gate": "G1",
+      "dimension": "technical",
+      "scenario": "complex true-pointer switch/home/restart helper",
+      "method": "Original actualXTest receipt, functional checks separate from strict exit",
+      "expected": "Actual selector works and strict cleanup passes",
+      "failure": "Any exit resource error",
+      "status": "failed",
+      "reason": "旧源25功能断言绿但34resources严格红，未归因，保留失败不冒通过",
+      "evidence": [
+        "gui-historical"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "scope",
+      "path": "docs/evidence/p1_random/brief.md",
+      "sha256": "9f907b90a1d57500a9760635eb47ba63870a2ed3af0084238a9ed743f19d083d",
+      "kind": "spec",
+      "producer": "root/team",
+      "source_commit": "c0975dbafb720156b46b8ee98a9ad52f08725bde",
+      "content_version": "p1-random-unity01-rejected",
+      "method": "Actual retained native producer/artifact or attributed original feedback; bounded scope",
+      "observed": "实际预算、用户纠正、停止与未通过范围"
+    },
+    {
+      "id": "native",
+      "path": "docs/evidence/p1_random/records/unity_01/visual_capture.json",
+      "sha256": "85871bb5b84107f011a136a662d5740f93c4d7ca8b016a9398fc39c6305bf23e",
+      "kind": "command",
+      "producer": "root/team",
+      "source_commit": "c0975dbafb720156b46b8ee98a9ad52f08725bde",
+      "content_version": "p1-random-unity01-rejected",
+      "method": "Actual retained native producer/artifact or attributed original feedback; bounded scope",
+      "observed": "原正式路线2323ticks，strict/sourceguard通过；不是艺术接受",
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--rendering-method",
+        "gl_compatibility",
+        "--write-movie",
+        "/workspace/art-direction-exploration/build/p1_random/unity_01/gameplay.avi",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tools/p1_random_capture.gd",
+        "--",
+        "--source-commit=c0975dbafb720156b46b8ee98a9ad52f08725bde",
+        "--seed=level-design-v2-baseline/01",
+        "--strategy=fast",
+        "--map-index=1",
+        "--phase-wait-ticks=0",
+        "--max-ticks=6000",
+        "--output=res://build/p1_random/unity_01/capture.json",
+        "--encounter-policy=kill_from_bank_v1",
+        "--capture-visible",
+        "--visual-sample=res://resources/visual_development/p1_candidate.json"
+      ],
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Linux Xvfb llvmpipe ALSA null; normal scheduled controls/production camera"
+    },
+    {
+      "id": "compare",
+      "path": "docs/evidence/p1_random/records/unity_01/unity_compare_01.json",
+      "sha256": "33907b334ffab35d3a2eb2ce8d353fa2ce75249e5698813a62ee9f142cdd977b",
+      "kind": "command",
+      "producer": "root/team",
+      "source_commit": "c0975dbafb720156b46b8ee98a9ad52f08725bde",
+      "content_version": "p1-random-unity01-rejected",
+      "method": "Actual retained native producer/artifact or attributed original feedback; bounded scope",
+      "observed": "原比较器通过，原物理与玩法契约未改",
+      "command": "python3 tools/visual_director.py compare --before build/p1_random/seed_01/visual_capture.json --after build/p1_random/unity_01/visual_capture.json --output build/p1_random/unity_compare_01.json",
+      "exit_code": 0,
+      "environment": "Linux retained before31912/afterc097 original comparator"
+    },
+    {
+      "id": "pixels",
+      "path": "docs/evidence/p1_random/unity/actual_001080.png",
+      "sha256": "77e8ce9e41095f413741959ee206f08874647e589d057434400606c95b17dfe8",
+      "kind": "screenshot",
+      "producer": "root/team",
+      "source_commit": "c0975dbafb720156b46b8ee98a9ad52f08725bde",
+      "content_version": "p1-random-unity01-rejected",
+      "method": "Actual retained native producer/artifact or attributed original feedback; bounded scope",
+      "observed": "真实1080视频帧仍割裂、长梁拉伸，整体REWORK"
+    },
+    {
+      "id": "movie",
+      "path": "docs/evidence/p1_random/records/unity_01/gameplay.mp4",
+      "sha256": "b249641424bb684981dba8d4a083018fae20fe15592db96a3de5ae7a6fc3c8f9",
+      "kind": "video",
+      "producer": "root/team",
+      "source_commit": "c0975dbafb720156b46b8ee98a9ad52f08725bde",
+      "content_version": "p1-random-unity01-rejected",
+      "method": "Actual retained native producer/artifact or attributed original feedback; bounded scope",
+      "observed": "真实38.8秒/2328帧/60fps，未亲听/完整连续人工播放"
+    },
+    {
+      "id": "feedback",
+      "path": "docs/evidence/p1_random/user_feedback_02.json",
+      "sha256": "4f8c0d7da5112cfd7ef89d7665e7b304b40306776350dd9582280214d10fa15c",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "Active conversation 2026-10-17, latest feedback after unity01 screenshots",
+      "content_version": "p1-random-unity01-rejected",
+      "method": "Actual retained native producer/artifact or attributed original feedback; bounded scope",
+      "observed": "用户明确否定整体割裂与持续小修补",
+      "quote": "我看你的截图，感觉整体画面十分的割裂。之前说的，要将整个环境区整体设计的路线才是合理的。不然一直小修小补永远都是割裂的。",
+      "covers": [
+        "visual",
+        "design"
+      ],
+      "accepted": false
+    },
+    {
+      "id": "gui-historical",
+      "path": "docs/evidence/p1_random/diagnostics/gui_04/receipt.json",
+      "sha256": "e2404913b69cafaa6ee5e19409ad846bb3f8922cc65cc69efa7a00aca9b769d8",
+      "kind": "gui",
+      "producer": "root/team",
+      "source_commit": "31912d1c10f70855c99c61fbe93628f6348e18ec",
+      "content_version": "p1-random-phase1-gui04",
+      "method": "Actual retained native producer/artifact or attributed original feedback; bounded scope",
+      "observed": "真实鼠标25功能断言passed，但strict34资源残留，不能代签新源或发布"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "全区域联合环境创作与可迁移空间随机语法未实现",
+    "末次微调未运行，已归档diff并恢复c097",
+    "第三Seed中止、未做正式新包或发布",
+    "少女18缺态/完整动画/真人/手机手柄/听音/目标性能未验证",
+    "复杂GUI辅助路径34资源退出残留未解决",
+    "金币/治疗/商店/非RootBell敌等仍旧风格"
+  ]
+}

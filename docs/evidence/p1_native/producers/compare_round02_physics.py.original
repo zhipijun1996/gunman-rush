@@ -1,0 +1,15 @@
+from pathlib import Path
+import json,hashlib
+B=Path('build/p1_native');a=json.loads((B/'final_a_01/capture.json').read_text());e=json.loads((B/'second_01/capture.json').read_text())
+fields=['tick','position','velocity','displacement','health','shot_energy','shot_cooldown','shots','used_jumps','axis','grounded','input_requests','controller_tick','recovery_count','resource_epoch','session_id','actual_camera','spatial_golden']
+diffs=[]
+for i,(x,y) in enumerate(zip(a['frames'],e['frames'])):
+ for field in fields:
+  if x.get(field)!=y.get(field):diffs.append({'tick_index':i,'field':field,'before':x.get(field),'after':y.get(field)})
+ for field in ['position','goal','hp','state','serial','cooldown','time','active','terminal','body_size','pulse_size','actor_epoch']:
+  if x.get('root_bell',{}).get(field)!=y.get('root_bell',{}).get(field):diffs.append({'tick_index':i,'field':'root_bell.'+field,'before':x.get('root_bell',{}).get(field),'after':y.get('root_bell',{}).get(field)})
+ for field in ['position','radius','period','module_clock','initial_phase','enabled']:
+  old=[s.get(field) for s in x.get('root_bell',{}).get('nearby_actual_saws',[])];new=[s.get(field) for s in y.get('root_bell',{}).get('nearby_actual_saws',[])]
+  if old!=new:diffs.append({'tick_index':i,'field':'actual_saws.'+field,'before':old,'after':new})
+result={'scope':'Exact native tick values for explicitly listed actual physics/input/resource/camera/rootbell/hazard fields; complements original strict comparer, not aesthetic acceptance','before':'final_a_01/capture.json','after':'second_01/capture.json','before_sha256':hashlib.sha256((B/'final_a_01/capture.json').read_bytes()).hexdigest(),'after_sha256':hashlib.sha256((B/'second_01/capture.json').read_bytes()).hexdigest(),'frame_counts':[len(a['frames']),len(e['frames'])],'listed_frame_fields':fields,'root_bell_and_hazard_fields':'actual simulation fields above; dynamic instance source_id and wall-clock observer microseconds excluded from this numeric simulation comparison','difference_count':len(diffs),'differences':diffs,'equal_for_listed_fields':not diffs and len(a['frames'])==len(e['frames'])}
+(B/'final_a_p1_physics.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n');print(json.dumps({k:result[k] for k in ['frame_counts','difference_count','equal_for_listed_fields']}))

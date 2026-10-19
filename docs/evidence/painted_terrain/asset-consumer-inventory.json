@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "task_id": "PAINTED-TERRAIN-01",
+  "status": "opt_in_local_art_pilot_not_formal_pool",
+  "catalog": "resources/visual_development/painted_terrain_candidate.json",
+  "assets": [
+    {
+      "path": "assets/visual_development/painted_terrain/left_end_repair_v1.png",
+      "sha256": "54fdbcb6775f1eb48eb9183f6946e77539318f481b226985c1130654112d4dfa",
+      "role": "cropped inert ceramic-and-wood repair, original whole-alpha rejected",
+      "first04_consumed": true,
+      "formal_pair_consumed": false,
+      "source_record": "assets/visual_development/painted_terrain/left_end_repair_v1.record.json",
+      "commercial_license": "unknown",
+      "model": "not_exposed"
+    },
+    {
+      "path": "assets/visual_development/painted_terrain/left_end_v1.png",
+      "sha256": "626b9f90bf36c3e2ded3be68ab2833bb3247a8285a521762e5eda5084d80d84d",
+      "role": "left inward turned face",
+      "first04_consumed": true,
+      "formal_pair_consumed": true,
+      "source_record": "assets/visual_development/painted_terrain/left_end_v1.record.json",
+      "commercial_license": "unknown",
+      "model": "not_exposed"
+    },
+    {
+      "path": "assets/visual_development/painted_terrain/meadow_v2.png",
+      "sha256": "74a183cb2673801ee925a9cd611875fe57047b4d52ab8de9089761fbb7ba0ea1",
+      "role": "finite distant grass windbands, no gameplay geometry",
+      "first04_consumed": true,
+      "formal_pair_consumed": true,
+      "source_record": "assets/visual_development/painted_terrain/meadow_v2.record.json",
+      "commercial_license": "unknown",
+      "model": "not_exposed"
+    },
+    {
+      "path": "assets/visual_development/painted_terrain/right_end_v1.png",
+      "sha256": "76f36e1266fe3c866ef527c3f0fada6fef7dd4fa83e2c1210056080d987c5562",
+      "role": "right inward turned face",
+      "first04_consumed": true,
+      "formal_pair_consumed": true,
+      "source_record": "assets/visual_development/painted_terrain/right_end_v1.record.json",
+      "commercial_license": "unknown",
+      "model": "not_exposed"
+    },
+    {
+      "path": "assets/visual_development/painted_terrain/section_v1.png",
+      "sha256": "3ad51c8ac4397c26fc511f68501d3789d7d68a452872ff2c7086524a7b15803e",
+      "role": "superseded first painted section, historical only",
+      "first04_consumed": false,
+      "formal_pair_consumed": false,
+      "source_record": "assets/visual_development/painted_terrain/section_v1.record.json",
+      "commercial_license": "unknown",
+      "model": "not_exposed"
+    },
+    {
+      "path": "assets/visual_development/painted_terrain/section_v2.png",
+      "sha256": "cb3bf270980b768eeeeb84abca2b3841a7cd0ee5b69dc01fbf8f2ac067293956",
+      "role": "continuous painted top/root shoulder/deep earth volume",
+      "first04_consumed": true,
+      "formal_pair_consumed": true,
+      "source_record": "assets/visual_development/painted_terrain/section_v2.record.json",
+      "commercial_license": "unknown",
+      "model": "not_exposed"
+    },
+    {
+      "path": "assets/visual_development/painted_terrain/underside_v1.png",
+      "sha256": "5498e4efda29fe5b404987b91fc2db964f2c6e5f01020d3ef50ede5b94af4f0f",
+      "role": "visible thin-bank underside volume with original per-column edge sampling",
+      "first04_consumed": false,
+      "formal_pair_consumed": true,
+      "source_record": "assets/visual_development/painted_terrain/underside_v1.record.json",
+      "commercial_license": "unknown",
+      "model": "not_exposed"
+    }
+  ],
+  "shared_major_new_sources": [
+    "left_end_v1",
+    "meadow_v2",
+    "right_end_v1",
+    "section_v2"
+  ],
+  "interface": {
+    "top": "actual collision top arc length; finite 1.4 source pixels/world unit; measured painted front profile",
+    "side": "continuous real full-depth solid cross-sections; clipped mesh, original actual collision unchanged",
+    "ends": "distinct left/right turned sources; 220 source pixels ->60 world units inward, not mirrored decorative wall caps",
+    "underside": "actual thin-bank physical bottom owns visible alpha boundary; per-column RG8 coordinates are numerical metadata, not generated paint",
+    "repair": "only source crop610,400,260,200 ->40x30.769 world on recovery-shore face; local alpha accepted, full source alpha rejected",
+    "variability": "profile and mapping per genuine painted source; no new image per seed; unsupported/unavailable source span preserves old consumer",
+    "forbidden_extrapolation": "two local banks do not prove long unions/floating/moving/one-way surfaces or entire generated maps"
+  },
+  "normal_pool": "existing export exclusions retain visual_development opt-in only",
+  "source_family_generation": "real image_gen generation/edit; raw PNG bytes retained, no procedural painting or whole-screen runtime paintover",
+  "design_only": "docs/evidence/painted_terrain/paintover_04.png is actual screenshot paintover, never an engine background",
+  "reused_pr75": "B hero states/root-bell body/saw/UI/ordinary props/far hills; second actual formal enemies remain original and root-bell matches zero"
+}

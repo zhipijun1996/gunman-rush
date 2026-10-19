@@ -1,0 +1,185 @@
+{
+  "version": "plains-world-rebuild-v3",
+  "status": "isolated_structure_candidate_not_art_approved",
+  "source_model": "continuous_ridge_and_open_creek_section",
+  "paint_family": "p1_candidate_unconfirmed",
+  "config_source": "res://config/player_tuning.json",
+  "limits": {
+    "max_walk_slope_degrees": 40,
+    "minimum_player_clearance": 72,
+    "max_source_rim_gap": 240
+  },
+  "connection_grammar": {
+    "ridge_to_creek": "solid_roots_overlap_below_open_valley; no_fake_floating_support",
+    "rim_to_air": "flat_contact_then_irregular_complete_cliff",
+    "world_extension": "matching_surface_height_and_full_root_cross_section",
+    "painting": "registered_source_frame_drives_collision_and_direct_painting",
+    "cliff_profile": "modest_continuous_shoulder_to_near_vertical_wall_to_full_root; top_and_gap_unchanged"
+  },
+  "admission": {
+    "first_layout": "accepted_scoped_internal_source_frame_method_only",
+    "second_layout": "limited_transfer_candidate_requires_independent_motor_and_art_validation",
+    "formal_pool": false,
+    "first_layout_proof": "docs/evidence/plains_world_rebuild/independent-art-03.md"
+  },
+  "geometry_revision": "v3_source_painting_is_world_construction",
+  "previous_source_commit": "5871a02bb2d54670dea0bcd643a307d575bce6e7",
+  "layout_random_version": "plains-world-rebuild-v1",
+  "source_geometry": {
+    "source_path": "res://assets/visual_development/plains_world_rebuild/terrain_cliff_v2.png",
+    "source_size": [
+      1536,
+      1024
+    ],
+    "top_poly": [
+      [
+        0,
+        160
+      ],
+      [
+        200,
+        163
+      ],
+      [
+        400,
+        171
+      ],
+      [
+        700,
+        177
+      ],
+      [
+        1000,
+        190
+      ],
+      [
+        1200,
+        203
+      ],
+      [
+        1320,
+        220
+      ],
+      [
+        1390,
+        250
+      ]
+    ],
+    "side_poly": [
+      [
+        1450,
+        320
+      ],
+      [
+        1452,
+        400
+      ],
+      [
+        1450,
+        600
+      ],
+      [
+        1420,
+        800
+      ],
+      [
+        1410,
+        1024
+      ],
+      [
+        0,
+        1024
+      ]
+    ],
+    "fixed_scale_options": [
+      0.8,
+      0.72
+    ],
+    "west_origin": [
+      -240,
+      340
+    ],
+    "east_origin": [
+      965.12,
+      360
+    ],
+    "west_scale": 0.8,
+    "east_scale": 0.72,
+    "creek_surface_y": 820,
+    "creek_root_y": 1040.2,
+    "creek_root_overlap": "derived_from_full_source_width_and_actual_ridge_walls",
+    "source_outline_status": "observed_contact_approximation_grass_excluded",
+    "layout_status": "one_source_anchored_candidate_not_modular_production_proof",
+    "east_source_path": "res://assets/visual_development/plains_world_rebuild/terrain_east_v3.png",
+    "creek_source_path": "res://assets/visual_development/plains_world_rebuild/creek_bed_v3.png",
+    "creek_source_size": [
+      1536,
+      1024
+    ],
+    "creek_fixed_scale": 0.3,
+    "creek_source_top_poly": [
+      [
+        0,
+        290
+      ],
+      [
+        1536,
+        290
+      ]
+    ],
+    "creek_source_side_poly": [
+      [
+        1536,
+        1024
+      ],
+      [
+        0,
+        1024
+      ]
+    ]
+  },
+  "source_sha_map": {
+    "res://assets/visual_development/plains_world_rebuild/terrain_cliff_v2.png": "8b0e39bb1cb05f91501e6c3d121498b25d82c0f17725108853daae73d2056b5d",
+    "res://assets/visual_development/plains_world_rebuild/terrain_east_v3.png": "703dfdbbadecc40965bb7d7cffa9477df1e4b7e23331a01a1c678e161425b131",
+    "res://assets/visual_development/plains_world_rebuild/creek_bed_v3.png": "e6fc061529c850c200a847bf59c63798a870087c9d2744c06ed50da4205b9842"
+  },
+  "source_registration_status": "actual_png_bytes_registered",
+  "world_coordinate_protocol": {
+    "subpixels_per_world": 100,
+    "rounding": "nearest_centipixel",
+    "scope": "world_contacts_frames_polygons_anchors_bounds_derived_metrics_only",
+    "unchanged": "source_pixels_uniform_scale_and_player_tuning"
+  },
+  "layout_variants": {
+    "0": {
+      "status": "accepted_scoped_internal_not_user_style_approval",
+      "route_mode": "upper_fissure",
+      "west_origin": [
+        -240,
+        340
+      ],
+      "east_origin": [
+        965.12,
+        360
+      ],
+      "creek_surface_y": 820,
+      "minimum_root_overlap": 170,
+      "admission_proof": "docs/evidence/plains_world_rebuild/independent-art-03.md"
+    },
+    "1": {
+      "status": "limited_transfer_candidate",
+      "route_mode": "lower_pass",
+      "west_origin": [
+        -240,
+        340
+      ],
+      "east_origin": [
+        1145.12,
+        480
+      ],
+      "creek_surface_y": 880,
+      "minimum_root_overlap": 80,
+      "optional_upper_shortcut": "unverified_not_required_by_main_route"
+    }
+  }
+}

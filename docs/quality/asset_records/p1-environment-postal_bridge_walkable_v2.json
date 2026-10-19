@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "asset_id": "p1-environment-postal_bridge_walkable_v2",
+  "content_version": "environment-shared-plan-v1",
+  "source_path": "assets/visual_development/p1_environment/postal_bridge_walkable_v2.png",
+  "source_sha256": "efab17570bb7bf56c518cc536fa395dbae2b5409c08448edb12ee2c8d59739ac",
+  "runtime_paths": [
+    "assets/visual_development/p1_environment/postal_bridge_walkable_v2.png"
+  ],
+  "tool": "image_gen.imagegen",
+  "model": "unknown_not_exposed",
+  "prompt_or_reference": "assets/visual_development/p1_environment/postal_bridge.prompt.txt; whole-environment master 42b0be0a4a60ab07283357a0995a608790a130a40d428b78d45ac9afb4bcf274",
+  "processing": "Actual image editing from original bridge and stable original whole-environment master; raised rails removed and full solid walking deck painted. Actual dimensions/profile must be remeasured, prompt pixel coordinates were not exactly retained.",
+  "usage_scope": "Explicit second-round P1-ENV-01 candidate; never formal pool; fresh actual standing pose/route/art review pending.",
+  "license_source": "User-authorized image generation; tool exposes no commercial license metadata; no grant invented.",
+  "license_status": "unknown",
+  "visual_status": "unverified",
+  "disposition": "runtime_candidate",
+  "associated_files": [
+    {
+      "path": "assets/visual_development/p1_environment/postal_bridge_walkable_v2.record.json",
+      "sha256": "8671095a70f3611d8d9201d20b8631a96ccbcb1694dcf366312e391e56d40e75",
+      "role": "generation_record"
+    },
+    {
+      "path": "assets/visual_development/p1_environment/postal_bridge_walkable_v2.prompt.txt",
+      "sha256": "bee97d2caa5a758b6464adefc34bb2b2939edfdda8a59aa022b94131bda81610",
+      "role": "source_contract"
+    }
+  ]
+}

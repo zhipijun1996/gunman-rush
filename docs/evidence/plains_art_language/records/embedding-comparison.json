@@ -1,0 +1,272 @@
+[
+  {
+    "seed": "joint-recoil-01",
+    "planned": 34,
+    "unresolved": 25,
+    "total": 59,
+    "embedding_counterfactual": {
+      "actual_edge_budgets": [
+        {
+          "actual_operation_end_x": 1100.0,
+          "column": 0,
+          "edge_id": "plains/passage/area_0_0/area_1_0",
+          "existing_join_reserve": 80.0,
+          "neighbor_arrival_boundary_x": 1852.0,
+          "quiet_arrival_width": 180.0,
+          "remaining_world_span": 752.0,
+          "shoulder_budget_each": 56.0
+        },
+        {
+          "actual_operation_end_x": 3152.0,
+          "column": 1,
+          "edge_id": "plains/passage/area_1_0/area_2_0",
+          "existing_join_reserve": 80.0,
+          "neighbor_arrival_boundary_x": 3524.0,
+          "quiet_arrival_width": 180.0,
+          "remaining_world_span": 372.0,
+          "shoulder_budget_each": 56.0
+        },
+        {
+          "actual_operation_end_x": 1480.0,
+          "column": 0,
+          "edge_id": "plains/passage/area_0_1/area_1_1",
+          "existing_join_reserve": 80.0,
+          "neighbor_arrival_boundary_x": 1852.0,
+          "quiet_arrival_width": 180.0,
+          "remaining_world_span": 372.0,
+          "shoulder_budget_each": 56.0
+        },
+        {
+          "actual_operation_end_x": 3052.0,
+          "column": 1,
+          "edge_id": "plains/passage/area_1_1/area_2_1",
+          "existing_join_reserve": 80.0,
+          "neighbor_arrival_boundary_x": 3524.0,
+          "quiet_arrival_width": 200.0,
+          "remaining_world_span": 472.0,
+          "shoulder_budget_each": 72.0
+        },
+        {
+          "actual_operation_end_x": 6272.0,
+          "column": 3,
+          "edge_id": "plains/passage/area_3_1/area_4_1",
+          "existing_join_reserve": 80.0,
+          "neighbor_arrival_boundary_x": 6756.0,
+          "quiet_arrival_width": 160.0,
+          "remaining_world_span": 484.0,
+          "shoulder_budget_each": 48.0
+        },
+        {
+          "actual_operation_end_x": 3052.0,
+          "column": 1,
+          "edge_id": "plains/passage/area_1_2/area_2_2",
+          "existing_join_reserve": 80.0,
+          "neighbor_arrival_boundary_x": 3524.0,
+          "quiet_arrival_width": 200.0,
+          "remaining_world_span": 472.0,
+          "shoulder_budget_each": 64.0
+        },
+        {
+          "actual_operation_end_x": 4724.0,
+          "column": 2,
+          "edge_id": "plains/passage/area_2_2/area_3_2",
+          "existing_join_reserve": 80.0,
+          "neighbor_arrival_boundary_x": 5132.0,
+          "quiet_arrival_width": 200.0,
+          "remaining_world_span": 408.0,
+          "shoulder_budget_each": 64.0
+        },
+        {
+          "actual_operation_end_x": 6392.0,
+          "column": 3,
+          "edge_id": "plains/passage/area_3_2/area_4_2",
+          "existing_join_reserve": 80.0,
+          "neighbor_arrival_boundary_x": 6756.0,
+          "quiet_arrival_width": 160.0,
+          "remaining_world_span": 364.0,
+          "shoulder_budget_each": 48.0
+        },
+        {
+          "actual_operation_end_x": 6332.0,
+          "column": 3,
+          "edge_id": "plains/passage/area_3_3/area_4_3",
+          "existing_join_reserve": 80.0,
+          "neighbor_arrival_boundary_x": 6756.0,
+          "quiet_arrival_width": 200.0,
+          "remaining_world_span": 424.0,
+          "shoulder_budget_each": 72.0
+        }
+      ],
+      "after_column_positions": [
+        0.0,
+        2052.0,
+        3724.0,
+        5332.0,
+        6956.0
+      ],
+      "attempt": 0,
+      "baseline_manifest_hash": "a8e7bf5fffeb893539711577b0fb7c0809e42c9d425e7f20c48f673e5576d5f8",
+      "baseline_origin": "cached_actual_regional_baseline_same_seed_family_attempt",
+      "before_column_positions": [
+        0.0,
+        1940.0,
+        3500.0,
+        4960.0,
+        6480.0
+      ],
+      "family": "crossroads",
+      "minimum_column_spans": {
+        "0": 1972.0,
+        "1": 1600.0,
+        "2": 1600.0,
+        "3": 1600.0,
+        "4": 1600.0
+      },
+      "scope": "Actual layout allocation proof; shoulder/root painted pieces are still missing and not claimed instantiated",
+      "seed": "joint-recoil-01",
+      "unchanged_topology_signature": "area_0_0>area_0_1:stairs:open:true|area_0_0>area_1_0:horizontal:open:true|area_0_0>deep_high:challenge:open:false|area_0_1>area_0_2:stairs:open:true|area_0_1>area_1_1:horizontal:open:true|area_0_1>tutorial_bell:tutorial:open:true|area_1_0>area_1_1:stairs:backside:true|area_1_0>area_2_0:horizontal:open:true|area_1_1>area_1_2:stairs:open:true|area_1_1>area_2_1:horizontal:open:true|area_1_2>area_2_2:horizontal:open:true|area_2_0>area_2_1:stairs:open:true|area_2_0>deep_region_top:challenge:open:false|area_2_1>area_2_2:stairs:open:true|area_2_2>area_3_2:horizontal:open:true|area_3_1>area_3_2:stairs:backside:true|area_3_1>area_4_1:horizontal:open:true|area_3_2>area_3_3:stairs:open:true|area_3_2>area_4_2:horizontal:open:true|area_3_3>area_4_3:horizontal:open:true|area_4_1>area_4_2:stairs:open:true|area_4_2>area_4_3:stairs:open:true|area_4_3>windkeeper:boss:open:true|deep_high>area_1_1:drop:open:false|deep_region_top>area_3_1:drop:open:false|tutorial_bell>tutorial_jump:tutorial:open:true"
+    }
+  },
+  {
+    "seed": "joint-recoil-07",
+    "planned": 36,
+    "unresolved": 25,
+    "total": 61,
+    "embedding_counterfactual": {
+      "actual_edge_budgets": [
+        {
+          "actual_operation_end_x": 1100.0,
+          "column": 0,
+          "edge_id": "plains/passage/area_0_0/area_1_0",
+          "existing_join_reserve": 80.0,
+          "neighbor_arrival_boundary_x": 1852.0,
+          "quiet_arrival_width": 180.0,
+          "remaining_world_span": 752.0,
+          "shoulder_budget_each": 56.0
+        },
+        {
+          "actual_operation_end_x": 3152.0,
+          "column": 1,
+          "edge_id": "plains/passage/area_1_0/area_2_0",
+          "existing_join_reserve": 80.0,
+          "neighbor_arrival_boundary_x": 3488.0,
+          "quiet_arrival_width": 160.0,
+          "remaining_world_span": 336.0,
+          "shoulder_budget_each": 48.0
+        },
+        {
+          "actual_operation_end_x": 1480.0,
+          "column": 0,
+          "edge_id": "plains/passage/area_0_1/area_1_1",
+          "existing_join_reserve": 80.0,
+          "neighbor_arrival_boundary_x": 1852.0,
+          "quiet_arrival_width": 180.0,
+          "remaining_world_span": 372.0,
+          "shoulder_budget_each": 56.0
+        },
+        {
+          "actual_operation_end_x": 3052.0,
+          "column": 1,
+          "edge_id": "plains/passage/area_1_1/area_2_1",
+          "existing_join_reserve": 80.0,
+          "neighbor_arrival_boundary_x": 3488.0,
+          "quiet_arrival_width": 200.0,
+          "remaining_world_span": 436.0,
+          "shoulder_budget_each": 72.0
+        },
+        {
+          "actual_operation_end_x": 4788.0,
+          "column": 2,
+          "edge_id": "plains/passage/area_2_1/area_3_1",
+          "existing_join_reserve": 80.0,
+          "neighbor_arrival_boundary_x": 5160.0,
+          "quiet_arrival_width": 180.0,
+          "remaining_world_span": 372.0,
+          "shoulder_budget_each": 56.0
+        },
+        {
+          "actual_operation_end_x": 3052.0,
+          "column": 1,
+          "edge_id": "plains/passage/area_1_2/area_2_2",
+          "existing_join_reserve": 80.0,
+          "neighbor_arrival_boundary_x": 3488.0,
+          "quiet_arrival_width": 200.0,
+          "remaining_world_span": 436.0,
+          "shoulder_budget_each": 64.0
+        },
+        {
+          "actual_operation_end_x": 4688.0,
+          "column": 2,
+          "edge_id": "plains/passage/area_2_2/area_3_2",
+          "existing_join_reserve": 80.0,
+          "neighbor_arrival_boundary_x": 5160.0,
+          "quiet_arrival_width": 200.0,
+          "remaining_world_span": 472.0,
+          "shoulder_budget_each": 64.0
+        },
+        {
+          "actual_operation_end_x": 4748.0,
+          "column": 2,
+          "edge_id": "plains/passage/area_2_3/area_3_3",
+          "existing_join_reserve": 80.0,
+          "neighbor_arrival_boundary_x": 5160.0,
+          "quiet_arrival_width": 160.0,
+          "remaining_world_span": 412.0,
+          "shoulder_budget_each": 48.0
+        },
+        {
+          "actual_operation_end_x": 6360.0,
+          "column": 3,
+          "edge_id": "plains/passage/area_3_3/area_4_3",
+          "existing_join_reserve": 80.0,
+          "neighbor_arrival_boundary_x": 6784.0,
+          "quiet_arrival_width": 200.0,
+          "remaining_world_span": 424.0,
+          "shoulder_budget_each": 72.0
+        }
+      ],
+      "after_column_positions": [
+        0.0,
+        2052.0,
+        3688.0,
+        5360.0,
+        6984.0
+      ],
+      "attempt": 0,
+      "baseline_manifest_hash": "29f81cfa36891e15a06e9006c0353d0473a1343106514228f0ff90d3682e5e6d",
+      "baseline_origin": "cached_actual_regional_baseline_same_seed_family_attempt",
+      "before_column_positions": [
+        0.0,
+        1940.0,
+        3500.0,
+        5060.0,
+        6520.0
+      ],
+      "family": "woven_layers",
+      "minimum_column_spans": {
+        "0": 1972.0,
+        "1": 1600.0,
+        "2": 1600.0,
+        "3": 1600.0,
+        "4": 1600.0
+      },
+      "scope": "Actual layout allocation proof; shoulder/root painted pieces are still missing and not claimed instantiated",
+      "seed": "joint-recoil-07",
+      "unchanged_topology_signature": "area_0_0>area_0_1:stairs:open:true|area_0_0>area_1_0:horizontal:open:true|area_0_0>deep_high:challenge:open:false|area_0_1>area_1_1:horizontal:open:true|area_0_1>tutorial_bell:tutorial:open:true|area_1_0>area_1_1:stairs:backside:true|area_1_0>area_2_0:horizontal:open:true|area_1_1>area_1_2:stairs:open:true|area_1_1>area_2_1:horizontal:open:true|area_1_2>area_2_2:horizontal:open:true|area_2_0>area_2_1:stairs:open:true|area_2_0>deep_region_top:challenge:open:false|area_2_1>area_2_2:stairs:open:true|area_2_1>area_3_1:horizontal:open:true|area_2_2>area_2_3:stairs:open:true|area_2_2>area_3_2:horizontal:open:true|area_2_3>area_3_3:horizontal:open:true|area_3_1>area_3_2:stairs:backside:true|area_3_2>area_3_3:stairs:open:true|area_3_3>area_4_3:horizontal:open:true|area_4_1>area_4_2:stairs:open:true|area_4_2>area_4_3:stairs:open:true|area_4_3>windkeeper:boss:open:true|deep_high>area_1_1:drop:open:false|deep_region_top>area_3_1:drop:open:false|tutorial_bell>tutorial_jump:tutorial:open:true"
+    }
+  },
+  {
+    "seed": "language-valley-03",
+    "planned": 35,
+    "unresolved": 25,
+    "total": 60,
+    "embedding_counterfactual": {}
+  },
+  {
+    "seed": "language-valley-04",
+    "planned": 35,
+    "unresolved": 24,
+    "total": 59,
+    "embedding_counterfactual": {}
+  }
+]

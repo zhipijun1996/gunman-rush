@@ -1,0 +1,51 @@
+{
+  "source_commit": "3188a5a088d1fdb2989ae0a3d439b24c2a536cb0",
+  "scope": "Targeted Python/static checks only; not full docs/gameplay/art/CI profiles, device or art acceptance.",
+  "checks": [
+    {
+      "command": "python3 -m unittest discover -s tests -p test_visual_director.py",
+      "exit_code": 0,
+      "tests": 24,
+      "elapsed_test_seconds": 7.118
+    },
+    {
+      "command": "python3 -m unittest discover -s tests -p plains_regional_art_capture_test.py",
+      "exit_code": 0,
+      "tests": 4,
+      "elapsed_test_seconds": 0.003
+    },
+    {
+      "command": "python3 tools/check_art.py",
+      "exit_code": 0,
+      "observed": "105 formal assets; new candidate is not a formal asset admission."
+    },
+    {
+      "command": "python3 tools/check_quality.py",
+      "exit_code": 0,
+      "observed": "14 core skills,17 templates, references/records static pass; task blocked."
+    },
+    {
+      "command": "python3 -m py_compile tools/visual_director.py tools/run_plains_joint_recoil_tests.py docs/evidence/plains_joint_recoil/delivery/producer.py",
+      "exit_code": 0
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 0
+    }
+  ],
+  "runtime_inputs": {
+    "tools/visual_director.py": "b46b153036cf83e62ce8b8eabb37df98006932f799a7326cb95aa98225115bde",
+    "tools/run_plains_joint_recoil_tests.py": "a94a7b84ef7482529c7170c7db94b1cbacc4087822bf0a9606a40c41280d5aab"
+  },
+  "harness_runs": [
+    {
+      "report": "build/verification/harness/20261018T171008.027607Z/report.json",
+      "retained": "docs/evidence/plains_joint_recoil/records/harness_docs_then_frozen_recipe_mismatch.json.gz"
+    },
+    {
+      "report": "build/verification/harness/20261018T171125.734639Z/report.json",
+      "retained": "docs/evidence/plains_joint_recoil/records/harness_quality_art_pass.json.gz"
+    }
+  ],
+  "harness_result": "Docs passed. First quality guard caught our added link changing an old evidence-bound recipe; only that link was restored to preserve frozen evidence. Fresh quality+art-art then passed. No full-profile claim."
+}

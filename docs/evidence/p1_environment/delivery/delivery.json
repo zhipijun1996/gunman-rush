@@ -1,0 +1,91 @@
+{
+  "schema_version": 1,
+  "task_id": "P1-ENV-01",
+  "status": "strict_local_candidate_smoke_passed_not_release",
+  "art_verdict": "REWORK",
+  "golden_admission": false,
+  "formal_release": false,
+  "scope": "Original failed whole-environment candidate for manual Linux x86_64 review only. Package technical success grants no art, user, listening or physical-device acceptance. No structure B or multi-seed promotion.",
+  "source_commit": "4d4803773d21dbe9e9443b42bc0a87dbc35137c6",
+  "build_id": "35bfdf035cd7",
+  "archive": {
+    "path": "/workspace/art-direction-exploration/build/plains_environment/local_review_02/plains-environment-candidate-linux-x86_64.zip",
+    "sha256": "4e6540e05fb0fce9dc874217929978fcf7b9451253bd80c87a87672ae5d4bee1",
+    "bytes": 239813534,
+    "build_id": "35bfdf035cd7",
+    "source_commit": "4d4803773d21dbe9e9443b42bc0a87dbc35137c6",
+    "scope": "Failed whole-environment art candidate (REWORK), golden not admitted; local manual review only, not formal release or artistic/user/device acceptance"
+  },
+  "pck": {
+    "sha256": "35bfdf035cd7b519d02ae9173c0fefa02c461c810218cdd3d6237fdca6a072f6",
+    "bytes": 168336800
+  },
+  "engine": {
+    "version": "4.7.2.stable.official.ed1daf0bf",
+    "sha256": "8d106cbe6144c2dc7e881d61d2429c1a8a76e6b22ef48bd5e48dcf934953f71e"
+  },
+  "strict_capture": {
+    "path": "docs/evidence/p1_environment/records/full_03/visual_capture.json",
+    "sha256": "9f09569a80af5a6b1ab871441a2084e4442f6c1a5adadf876bac9ed721cd866e",
+    "tick_count": 2234,
+    "outcome": "route_target_reached",
+    "health_first_last": [
+      5.0,
+      5.0
+    ],
+    "accepted_shots": 6,
+    "recoveries": 0
+  },
+  "actual_pck_closure": {
+    "entry_count": 1476,
+    "all_entry_sha256_checked": true,
+    "raw_gd_not_old_gdc": true,
+    "raw_json_and_png_preserved": true
+  },
+  "checks": {
+    "pack": {
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 0.677,
+      "log_sha256": "144ef94b2922c1f14369b0904e2adeb1efd0627c699f259b4541cb1b2fda6024"
+    },
+    "isolated_headless": {
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 5.438,
+      "log_sha256": "9d5756fa7b231d8dd8d14bd1bf6c4cf13fd4f0c879ea27ca7bada0f2d51e054f"
+    },
+    "isolated_gui": {
+      "status": "passed",
+      "exit_code": 0,
+      "duration_seconds": 9.647,
+      "log_sha256": "250ac29af266ac5a7e3a39920f919faf4d1d42b0be24d5118f84ee765f44571e"
+    }
+  },
+  "gui_audio_backend": {
+    "kind": "ALSA explicit null output on cloud host",
+    "config_sha256": "d4451aaf42879c7ace71e5262265e76943efe5179d9d4b62470486a1851a2cf7",
+    "physical_listening": "unverified",
+    "scope": "Only smoke environment; user play.sh uses the normal device"
+  },
+  "gui": {
+    "original_path": "build/plains_environment/local_review_02/plains-environment-candidate-linux-x86_64/actual_packed_gui.png",
+    "sha256": "f3af200e2e8e84b9657c2b6e0fa24b0efbe0ccc797d15b78b95c9070a2c3b9a2",
+    "resolution": [
+      1280,
+      720
+    ]
+  },
+  "isolated_empty_boot": true,
+  "manual_entry_no_driver_no_save": true,
+  "zip_crc_all_entries_passed": true,
+  "zip_member_count": 11,
+  "failed_attempts_preserved": [
+    {
+      "path": "docs/evidence/p1_environment/delivery/local_review_01/build_receipt.json",
+      "reason": "Cloud ALSA card0 unavailable caused native ERROR despite actual scene/cleanup exit0. Strictly rejected; no ZIP distributed."
+    }
+  ],
+  "unresolved_prior_failures": "probe_01/probe_02 attach-failure cleanup ObjectDB/resources remain failed original records; normal route/package clean exits do not waive them.",
+  "package_limits": "Startup/actual consumer/strict cleanup only; no route replay, visual acceptance, listening or physical device acceptance inferred"
+}

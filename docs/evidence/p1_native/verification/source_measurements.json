@@ -1,0 +1,397 @@
+{
+  "task_id": "P1-NATIVE-01",
+  "section": {
+    "sha256": "008ba4ed763235e30ff4e89391a9cba6927d535cf205257c41a9030ad6ba1488",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "standing_profile_method": "Initial P1 pale walking-plane center from actual original pixels/visual inspection, not alpha vegetation outline; GPU footline alignment pending",
+    "band_method": "Top vegetation/back100src to24world; first70src lip to22world; selective-root shoulder to source+260src/180world; quiet lower planes continue to source1253 without repeat"
+  },
+  "source_surface_profile": [
+    [
+      0,
+      526
+    ],
+    [
+      150,
+      528
+    ],
+    [
+      300,
+      531
+    ],
+    [
+      450,
+      535
+    ],
+    [
+      600,
+      544
+    ],
+    [
+      750,
+      537
+    ],
+    [
+      900,
+      545
+    ],
+    [
+      1050,
+      540
+    ],
+    [
+      1200,
+      548
+    ],
+    [
+      1253,
+      542
+    ]
+  ],
+  "tree": {
+    "dimensions": [
+      1366,
+      1152
+    ],
+    "alpha128_bbox": [
+      17,
+      9,
+      1354,
+      1138
+    ],
+    "root_alpha128_range": [
+      17,
+      1090,
+      607,
+      1137
+    ],
+    "pivot": [
+      350,
+      1132
+    ],
+    "uniform_scale": 0.15943312666076173,
+    "display_world_height": 180,
+    "expected_screen_height_at_zoom1_25": 225,
+    "placement": {
+      "component": "tree",
+      "position": [
+        1040,
+        668
+      ],
+      "scale": 0.15943312666076173,
+      "layer": -4,
+      "placement_note": "One wind-tree focal silhouette on the actual recovery-shore 660 standing plane, 8world root burial. Crown remains before original enemy1240; entering/receiving/lookback reveal P1 tree and open shelter together, no duplicated tree on every bank. Native dynamic occlusion pending."
+    }
+  },
+  "native_status": "not_run_root_waits_all_sources",
+  "shelter": {
+    "dimensions": [
+      1524,
+      1032
+    ],
+    "alpha128_bbox": [
+      191,
+      43,
+      1463,
+      997
+    ],
+    "pivot": [
+      827,
+      985
+    ],
+    "uniform_scale": 0.13364779874213836,
+    "display_world_width": 170,
+    "expected_screen_width_at_zoom1_25": 212.5,
+    "display_world_height": 127.5
+  },
+  "distant": {
+    "texture": "res://assets/visual_development/p1_native/distant.png",
+    "pivot": [
+      768,
+      615
+    ],
+    "position": [
+      1000,
+      650
+    ],
+    "scale": 0.82,
+    "layer": -65,
+    "parallax": 0.1,
+    "source_sha256": "5017ca3fb03c76a54d5142375dbbe17405aff96957a062e20ba2aa9746050dd6",
+    "source_dimensions": [
+      1536,
+      1024
+    ],
+    "sampling": "Full original image including paper sky, no atlas crop/repeat or baked gameplay; finite overscan covers existing three-bank camera range",
+    "status": "initial_P1_far_depth_pending_native_and_meadow_layer"
+  },
+  "meadow": {
+    "texture": "res://assets/visual_development/p1_native/meadow.png",
+    "pivot": [
+      768,
+      870
+    ],
+    "position": [
+      1000,
+      1740
+    ],
+    "scale": 0.95,
+    "layer": -50,
+    "parallax": 0.22,
+    "source_sha256": "b53fc8d14d29e65d5dbdad2b900720ac8eeb5c3d8db90bb64c03b6f3abb0b68a",
+    "source_dimensions": [
+      1536,
+      1024
+    ],
+    "alpha128_bbox": [
+      0,
+      444,
+      1536,
+      958
+    ],
+    "sampling": "Full original finite transparent meadow with natural upper/lower mist; no gameplay objects, crop, repeat, tint wash or baked foreground",
+    "status": "actual_P1_midground_initial_projection_pending_native"
+  },
+  "ends": {
+    "left": {
+      "texture": "res://assets/visual_development/p1_native/left_end.png",
+      "source_surface_y": 325,
+      "outer_profile": [
+        [
+          225,
+          331
+        ],
+        [
+          250,
+          274
+        ],
+        [
+          275,
+          173
+        ],
+        [
+          300,
+          143
+        ],
+        [
+          325,
+          103
+        ],
+        [
+          350,
+          91
+        ],
+        [
+          400,
+          95
+        ],
+        [
+          450,
+          135
+        ],
+        [
+          500,
+          173
+        ],
+        [
+          600,
+          172
+        ],
+        [
+          700,
+          219
+        ],
+        [
+          800,
+          297
+        ],
+        [
+          900,
+          289
+        ],
+        [
+          1000,
+          287
+        ],
+        [
+          1100,
+          243
+        ],
+        [
+          1200,
+          276
+        ],
+        [
+          1300,
+          265
+        ],
+        [
+          1400,
+          260
+        ],
+        [
+          1500,
+          240
+        ],
+        [
+          1535,
+          224
+        ]
+      ],
+      "source_width": 200,
+      "world_width": 56,
+      "blend_start": 0.4,
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "source_sha256": "ba3dd93b0e4e00fc442b25b34d1e3526e99e5d193cd545a811464c5171a8dbc8",
+      "calibration": "Actual current-source alpha>=128 exposed profile; pale foot-plane visual hinge; independent inward turn socket, GPU joint/color alignment pending. Hidden low-alpha RGB is not included as physical material."
+    },
+    "right": {
+      "texture": "res://assets/visual_development/p1_native/right_end.png",
+      "source_surface_y": 245,
+      "outer_profile": [
+        [
+          145,
+          729
+        ],
+        [
+          170,
+          817
+        ],
+        [
+          195,
+          860
+        ],
+        [
+          220,
+          861
+        ],
+        [
+          245,
+          914
+        ],
+        [
+          350,
+          907
+        ],
+        [
+          400,
+          883
+        ],
+        [
+          450,
+          857
+        ],
+        [
+          500,
+          823
+        ],
+        [
+          600,
+          807
+        ],
+        [
+          700,
+          821
+        ],
+        [
+          800,
+          827
+        ],
+        [
+          900,
+          796
+        ],
+        [
+          1000,
+          797
+        ],
+        [
+          1100,
+          801
+        ],
+        [
+          1200,
+          800
+        ],
+        [
+          1300,
+          776
+        ],
+        [
+          1400,
+          807
+        ],
+        [
+          1500,
+          843
+        ],
+        [
+          1535,
+          849
+        ]
+      ],
+      "source_width": 200,
+      "world_width": 56,
+      "blend_start": 0.4,
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "source_sha256": "5e74256b09fced794954e5dc67e918bf907f8728a5a59cc00f144cb791bf14c1",
+      "calibration": "Actual current-source alpha>=128 exposed profile; pale foot-plane visual hinge; independent inward turn socket, GPU joint/color alignment pending. Hidden low-alpha RGB is not included as physical material."
+    }
+  },
+  "device": {
+    "texture": "res://assets/visual_development/p1_native/device.png",
+    "status": "actual_P1_source_initial_foot_calibration_pending_native",
+    "region": [
+      272,
+      9,
+      702,
+      1489
+    ],
+    "pivot": [
+      228,
+      1488
+    ],
+    "alpha128_bbox": [
+      272,
+      9,
+      974,
+      1498
+    ],
+    "source_dimensions": [
+      1024,
+      1536
+    ],
+    "source_sha256": "802abc8ee5857bf83f87e87166d352c51b17dff26d51e6eea3e049a75ef34c1a",
+    "anchor_semantics": "Two original feet kept; hinge between feet, placed2world inside actual safe receiving bank; visual reacts only to accepted checkpoint"
+  },
+  "saw": {
+    "texture": "res://assets/visual_development/p1_native/saw.png",
+    "region": [
+      60,
+      56,
+      1169,
+      1112
+    ],
+    "source_sha256": "99b939e8d48eab61d53d4344405c64ca1cc286227b04f9119689cd84e47b17c1",
+    "source_dimensions": [
+      1283,
+      1226
+    ],
+    "alpha128_bbox": [
+      60,
+      56,
+      1229,
+      1168
+    ],
+    "calibration": "Actual visible bbox1169x1112, source axle approximately center; equalxy scaling by existing actual radius26 gives52world maximum diameter/49.46world height. Source canvas padding not counted as body. GPU motion readability pending."
+  }
+}

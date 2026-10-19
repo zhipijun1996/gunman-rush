@@ -1452,6 +1452,177 @@
       "success_pattern": "^PASS: current formal pixel",
       "weight_seconds": 20,
       "serial": true
+    },
+    "creative-direction": {
+      "argv": [
+        "python3",
+        "tools/region_creative_direction.py",
+        "--directory",
+        "docs/creative_direction"
+      ],
+      "timeout_seconds": 30,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 0.1
+    },
+    "creative-direction-tests": {
+      "argv": [
+        "python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "forest-current-slice": {
+      "argv": [
+        "python3",
+        "tools/run_forest_current_slice_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^PASS: current default H \\+ recoil / landing recovery / return and actual node-capability negatives$",
+      "serial": true,
+      "weight_seconds": 5
+    },
+    "visual-director-terrain": {
+      "argv": [
+        "python3",
+        "tools/run_visual_director_space_tests.py",
+        "--painted-terrain"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^VISUAL TERRAIN MESH: passed",
+      "weight_seconds": 3,
+      "inputs": [
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/run_visual_director_space_tests.py",
+        "tools/level_formal.py",
+        "tests/painted_formal_terrain_tests.gd",
+        "scripts/art/painted_*.gd",
+        "scripts/art/painted_*.gdshader",
+        "scripts/art/plains_terrain_family_sampler.gd",
+        "scripts/art/plains_terrain_borders.gd",
+        "scripts/art/plains_tile_composer.gd",
+        "resources/visual_development/painted_terrain_candidate.json",
+        "assets/visual_development/painted_terrain/**"
+      ]
+    },
+    "plains-places-contract": {
+      "argv": [
+        "python3",
+        "tools/run_plains_places_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PLAINS PLACES SUITE: passed",
+      "serial": true,
+      "weight_seconds": 25,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "resources",
+        "assets",
+        "config",
+        "tests/plains_places_plan_runner.gd",
+        "project.godot",
+        "tools"
+      ]
+    },
+    "plains-places-capture-tests": {
+      "argv": [
+        "python3",
+        "tests/test_plains_places_capture.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 3
+    },
+    "plains-regional-art-contract": {
+      "argv": [
+        "python3",
+        "tools/run_plains_regional_art_tests.py"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PLAINS REGIONAL ART SUITE: passed ",
+      "weight_seconds": 14,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "shaders",
+        "tests/plains_regional_art_plan_runner.gd",
+        "tools"
+      ],
+      "artifact_paths": [
+        "build/plains_regional_art/contract"
+      ]
+    },
+    "plains-regional-art-counterexamples": {
+      "argv": [
+        "python3",
+        "tests/plains_regional_art_capture_test.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 0.1
+    },
+    "plains-regional-art-graph-counterexamples": {
+      "argv": [
+        "python3",
+        "tests/plains_regional_art_graph_test.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 0.1
+    },
+    "plains-landform-contract": {
+      "argv": [
+        "python3",
+        "tools/run_plains_joint_recoil_tests.py"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PLAINS JOINT RECOIL CONTRACT: [1-9][0-9]* assertions, 0 failures$",
+      "weight_seconds": 20,
+      "serial": true,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "shaders",
+        "tests/plains_joint_recoil_runner.gd",
+        "tools"
+      ],
+      "artifact_paths": [
+        "build/plains_joint_recoil/contracts"
+      ]
+    },
+    "plains-art-language-contract": {
+      "argv": [
+        "python3",
+        "tools/run_plains_art_language_tests.py"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PLAINS ART LANGUAGE: [1-9][0-9]* assertions, 0 failures$",
+      "weight_seconds": 20,
+      "serial": true,
+      "cacheable": false
+    },
+    "plains-world-rebuild-contract": {
+      "argv": [
+        "python3",
+        "tools/run_plains_world_rebuild_tests.py"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PLAINS WORLD REBUILD: [1-9][0-9]* assertions, 0 failures$",
+      "weight_seconds": 20,
+      "serial": true,
+      "cacheable": false
     }
   },
   "profiles": {
@@ -1477,7 +1648,9 @@
       "level-experience",
       "level-formal-receipts",
       "visual-director-tests",
-      "asset-family-tests"
+      "asset-family-tests",
+      "creative-direction",
+      "creative-direction-tests"
     ],
     "core": [
       "docs",
@@ -1501,7 +1674,9 @@
       "level-design-golden-tests",
       "level-region-context",
       "level-experience",
-      "level-formal-receipts"
+      "level-formal-receipts",
+      "creative-direction",
+      "creative-direction-tests"
     ],
     "gameplay": [
       "docs",
@@ -1585,7 +1760,9 @@
       "blob47-foundation",
       "windchime-plains",
       "pixel-plains",
-      "pixel-formal"
+      "pixel-formal",
+      "creative-direction",
+      "creative-direction-tests"
     ],
     "art": [
       "docs",
@@ -1642,7 +1819,10 @@
       "blob47-foundation",
       "windchime-plains",
       "pixel-plains",
-      "pixel-formal"
+      "pixel-formal",
+      "creative-direction",
+      "creative-direction-tests",
+      "visual-director-terrain"
     ],
     "web": [
       "docs",
@@ -1670,7 +1850,9 @@
       "level-formal-receipts",
       "visual-director-tests",
       "web-resource-contract-tests",
-      "runtime-raw-export-tests"
+      "runtime-raw-export-tests",
+      "creative-direction",
+      "creative-direction-tests"
     ],
     "full": [
       "docs",
@@ -1768,7 +1950,35 @@
       "blob47-foundation",
       "windchime-plains",
       "pixel-plains",
-      "pixel-formal"
+      "pixel-formal",
+      "creative-direction",
+      "creative-direction-tests",
+      "visual-director-terrain"
+    ],
+    "creative-feedback": [
+      "docs",
+      "creative-direction",
+      "creative-direction-tests",
+      "level-design-routing",
+      "production-loop-tests"
+    ],
+    "history": [
+      "docs",
+      "generated-consumers",
+      "forest-h-slice",
+      "visual-director-space"
+    ],
+    "creative-prototype": [
+      "docs",
+      "creative-direction",
+      "creative-direction-tests",
+      "forest-current-slice"
+    ],
+    "regional-art-feedback": [
+      "docs",
+      "plains-regional-art-counterexamples",
+      "plains-regional-art-graph-counterexamples",
+      "plains-regional-art-contract"
     ]
   }
 }

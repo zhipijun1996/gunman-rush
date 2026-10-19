@@ -1,0 +1,1654 @@
+{
+  "status": "captured_committed_B_baseline_for_P1_round02",
+  "git_parent_commit": "2be5e1f6f9a87cfa644b0c52b6ce8ff311c9a51b",
+  "git_parent_is_not_complete_dirty_source": false,
+  "source_identification": "Frozen committed runtime with exact inventories and verified capture closure bytes",
+  "actual_source_inventory_sha256": "9b44464e944793377f0af5f364282834839d5ad5e3336b522a485448ade5b44e",
+  "source_unchanged": true,
+  "source_snapshot": "source_snapshot/index.json",
+  "snapshot_file_count": 21,
+  "catalog": {
+    "catalog_path": "res://resources/visual_development/painted_terrain_candidate.json",
+    "catalog_sha256": "8adbc6ab801c8657d9ee3b17c310872257e500510802f1b6363aa87c7881cf9f",
+    "scope": "catalog selects presentation only; actual layout variant is recorded separately in visual_layout_treatment and collision snapshots"
+  },
+  "manifest_hash": "2c17d2325d00ed545eb9d845101ccc651635a51e7be68b5bd247a8c755fc8d99",
+  "actual_polygon_count": 3,
+  "tick_count": 1116,
+  "outcome": "route_target_reached",
+  "route_reached": true,
+  "cases": [
+    {
+      "end_tick": 275,
+      "full_body_supported": true,
+      "health": 5.0,
+      "id": "entry_and_primary_recoil_gap",
+      "passed": true,
+      "position": [
+        919.786315917969,
+        641.925231933594
+      ],
+      "scope": "single actual jump/recoil and stable receiver; no invented energy or body writes",
+      "session": 2,
+      "shot_energy": 87.5,
+      "start_tick": 1
+    },
+    {
+      "end_tick": 443,
+      "full_body_supported": true,
+      "health": 5.0,
+      "id": "rootbell_warning_and_bypass",
+      "passed": true,
+      "position": [
+        1539.87866210938,
+        601.925231933594
+      ],
+      "session": 2,
+      "shot_energy": 100.0,
+      "start_tick": 276
+    },
+    {
+      "end_tick": 654,
+      "full_body_supported": true,
+      "health": 5.0,
+      "id": "short_gear_gap_and_lookback",
+      "passed": true,
+      "position": [
+        1799.76000976562,
+        501.925262451172
+      ],
+      "session": 2,
+      "shot_energy": 100.0,
+      "start_tick": 444
+    },
+    {
+      "end_tick": 1116,
+      "enemy_alive": true,
+      "full_body_supported": true,
+      "health": 5.0,
+      "id": "continuous_return_to_entry",
+      "passed": true,
+      "position": [
+        160.224029541016,
+        801.925231933594
+      ],
+      "same_session": true,
+      "session": 2,
+      "shot_energy": 100.0,
+      "start_tick": 655
+    }
+  ],
+  "health_values": [
+    5.0
+  ],
+  "final_recovery_count": 0,
+  "accepted_shots": 4,
+  "root_pulses": 2,
+  "movie": "gameplay.mp4",
+  "movie_seconds": "18.683333",
+  "video_frames": 11,
+  "wall_seconds": 81.06118926900035,
+  "consumer_inventory": [
+    {
+      "measurement": {
+        "accepted_event_receipts": [
+          {
+            "id": "1",
+            "kind": "accepted_shot",
+            "position": [
+              667.690124511719,
+              556.43505859375
+            ],
+            "time": 3.68333333333333
+          },
+          {
+            "id": "generated_2",
+            "kind": "accepted_safe_anchor",
+            "position": [
+              920.0,
+              642.0
+            ],
+            "time": 4.36666666666666
+          },
+          {
+            "id": "2",
+            "kind": "accepted_shot",
+            "position": [
+              1677.83056640625,
+              456.435089111328
+            ],
+            "time": 7.98333333333331
+          },
+          {
+            "id": "3",
+            "kind": "accepted_shot",
+            "position": [
+              1702.513671875,
+              356.435272216797
+            ],
+            "time": 11.3333333333335
+          },
+          {
+            "id": "generated_2",
+            "kind": "accepted_safe_anchor",
+            "position": [
+              920.0,
+              642.0
+            ],
+            "time": 15.1833333333337
+          },
+          {
+            "id": "4",
+            "kind": "accepted_shot",
+            "position": [
+              822.463012695312,
+              496.435089111328
+            ],
+            "time": 15.716666666667
+          }
+        ],
+        "actual_solid_count": 3,
+        "automatic_checkpoint_activated": "generated_2",
+        "catalog_path": "res://resources/visual_development/painted_terrain_candidate.json",
+        "catalog_sha256": "8adbc6ab801c8657d9ee3b17c310872257e500510802f1b6363aa87c7881cf9f",
+        "derived_manifest_hash": "2c17d2325d00ed545eb9d845101ccc651635a51e7be68b5bd247a8c755fc8d99",
+        "hero_missing_states": [
+          "double_jump",
+          "wall_attach",
+          "wall_kick",
+          "hook_cast",
+          "hook_fly",
+          "hook_pull",
+          "hook_kick",
+          "hook_miss",
+          "hook_contact_kick",
+          "hook_retract",
+          "machine_recoil",
+          "blade_throw",
+          "blade_catch",
+          "bomb_place",
+          "laser_fire",
+          "singularity_hold",
+          "weapon_charge",
+          "weapon_skill"
+        ],
+        "hero_states": [
+          "idle",
+          "jump_start",
+          "jump",
+          "fall",
+          "recoil",
+          "land",
+          "hurt",
+          "death",
+          "run"
+        ],
+        "hud_scope": "Palette only; original functional controls and layout",
+        "input_geometry_contract_sha256": "146d6758c2008ee2c6d9efded5c942135712ea13c9e581a406b176fdae0158eb",
+        "layout_variant": "open_meadow",
+        "observed_hero_states": {
+          "fall": 155,
+          "hurt": 16,
+          "idle": 286,
+          "jump": 130,
+          "jump_start": 30,
+          "land": 70,
+          "recoil": 32,
+          "run": 401
+        },
+        "painted_terrain_grammar": {
+          "banks": [
+            {
+              "arc_length_world": 644.393437385559,
+              "back_vertices": 336,
+              "collision_changed": false,
+              "coverage": {
+                "all_samples_match_actual_solid": true,
+                "samples": [
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      0.5,
+                      933.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      147.721590909091,
+                      933.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      295.443181818182,
+                      933.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      443.164772727273,
+                      933.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      590.386363636364,
+                      933.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": false,
+                    "inside_actual_solid": false,
+                    "legacy_top_x_domain": false,
+                    "point": [
+                      -2.0,
+                      933.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": false,
+                    "inside_actual_solid": false,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      592.886363636364,
+                      933.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      0.5,
+                      1105.0
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      112.4375,
+                      1105.0
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      224.875,
+                      1105.0
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      337.3125,
+                      1105.0
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      449.25,
+                      1105.0
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": false,
+                    "inside_actual_solid": false,
+                    "legacy_top_x_domain": false,
+                    "point": [
+                      -2.0,
+                      1105.0
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": false,
+                    "inside_actual_solid": false,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      451.75,
+                      1105.0
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      0.5,
+                      1276.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      69.25,
+                      1276.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      138.5,
+                      1276.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      207.75,
+                      1276.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      276.5,
+                      1276.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": false,
+                    "inside_actual_solid": false,
+                    "legacy_top_x_domain": false,
+                    "point": [
+                      -2.0,
+                      1276.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": false,
+                    "inside_actual_solid": false,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      279.0,
+                      1276.5
+                    ]
+                  }
+                ],
+                "scope": "actual mesh geometry, not texture opacity or artistic approval"
+              },
+              "end_connections": "finite60world inward turn faces; GPU alignment unverified",
+              "front_vertices": 11045,
+              "id": "entry_shore",
+              "samples": 57,
+              "source_span": [
+                40.0,
+                942.150812339783
+              ],
+              "source_surface_profile": [
+                [
+                  0.0,
+                  432.0
+                ],
+                [
+                  200.0,
+                  437.0
+                ],
+                [
+                  400.0,
+                  427.0
+                ],
+                [
+                  600.0,
+                  427.0
+                ],
+                [
+                  800.0,
+                  448.0
+                ],
+                [
+                  1000.0,
+                  444.0
+                ],
+                [
+                  1253.0,
+                  418.0
+                ]
+              ]
+            },
+            {
+              "arc_length_world": 809.442718505859,
+              "back_vertices": 414,
+              "collision_changed": false,
+              "coverage": {
+                "all_samples_match_actual_solid": true,
+                "samples": [
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      875.720588235294,
+                      763.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      1068.29587595908,
+                      763.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      1261.37116368286,
+                      763.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      1454.44645140665,
+                      763.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      1647.02173913043,
+                      763.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": false,
+                    "inside_actual_solid": false,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      873.220588235294,
+                      763.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": false,
+                    "inside_actual_solid": false,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      1649.52173913043,
+                      763.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      911.785714285714,
+                      1005.0
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      1069.61813186813,
+                      1005.0
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      1227.95054945055,
+                      1005.0
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      1386.28296703297,
+                      1005.0
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      1544.11538461538,
+                      1005.0
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": false,
+                    "inside_actual_solid": false,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      909.285714285714,
+                      1005.0
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": false,
+                    "inside_actual_solid": false,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      1546.61538461538,
+                      1005.0
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      973.885714285714,
+                      1246.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      1073.02366071429,
+                      1246.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      1172.66160714286,
+                      1246.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      1272.29955357143,
+                      1246.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      1371.4375,
+                      1246.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": false,
+                    "inside_actual_solid": false,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      971.385714285714,
+                      1246.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": false,
+                    "inside_actual_solid": false,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      1373.9375,
+                      1246.5
+                    ]
+                  }
+                ],
+                "scope": "actual mesh geometry, not texture opacity or artistic approval"
+              },
+              "end_connections": "finite60world inward turn faces; GPU alignment unverified",
+              "front_vertices": 15849,
+              "id": "recovery_shore",
+              "samples": 70,
+              "source_span": [
+                60.0,
+                1193.2198059082
+              ],
+              "source_surface_profile": [
+                [
+                  0.0,
+                  432.0
+                ],
+                [
+                  200.0,
+                  437.0
+                ],
+                [
+                  400.0,
+                  427.0
+                ],
+                [
+                  600.0,
+                  427.0
+                ],
+                [
+                  800.0,
+                  448.0
+                ],
+                [
+                  1000.0,
+                  444.0
+                ],
+                [
+                  1253.0,
+                  418.0
+                ]
+              ]
+            },
+            {
+              "arc_length_world": 180.0,
+              "back_vertices": 90,
+              "collision_changed": false,
+              "coverage": {
+                "all_samples_match_actual_solid": true,
+                "samples": [
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      1706.725,
+                      644.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      1755.32784090909,
+                      644.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      1804.43068181818,
+                      644.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      1853.53352272727,
+                      644.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": false,
+                    "point": [
+                      1902.13636363636,
+                      644.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": false,
+                    "inside_actual_solid": false,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      1704.225,
+                      644.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": false,
+                    "inside_actual_solid": false,
+                    "legacy_top_x_domain": false,
+                    "point": [
+                      1904.63636363636,
+                      644.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      1722.24418604651,
+                      935.0
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      1780.5938538206,
+                      935.0
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      1839.44352159468,
+                      935.0
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": false,
+                    "point": [
+                      1898.29318936877,
+                      935.0
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": false,
+                    "point": [
+                      1956.64285714286,
+                      935.0
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": false,
+                    "inside_actual_solid": false,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      1719.74418604651,
+                      935.0
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": false,
+                    "inside_actual_solid": false,
+                    "legacy_top_x_domain": false,
+                    "point": [
+                      1959.14285714286,
+                      935.0
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      1756.02325581395,
+                      1225.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      1816.64244186047,
+                      1225.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      1877.76162790698,
+                      1225.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": false,
+                    "point": [
+                      1938.88081395349,
+                      1225.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": true,
+                    "inside_actual_solid": true,
+                    "legacy_top_x_domain": false,
+                    "point": [
+                      1999.5,
+                      1225.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": false,
+                    "inside_actual_solid": false,
+                    "legacy_top_x_domain": true,
+                    "point": [
+                      1753.52325581395,
+                      1225.5
+                    ]
+                  },
+                  {
+                    "covered_by_actual_front_triangles": false,
+                    "inside_actual_solid": false,
+                    "legacy_top_x_domain": false,
+                    "point": [
+                      2002.0,
+                      1225.5
+                    ]
+                  }
+                ],
+                "scope": "actual mesh geometry, not texture opacity or artistic approval"
+              },
+              "end_connections": "finite60world inward turn faces; GPU alignment unverified",
+              "front_vertices": 3570,
+              "id": "lookback_shore",
+              "samples": 16,
+              "source_span": [
+                960.0,
+                1212.0
+              ],
+              "source_surface_profile": [
+                [
+                  0.0,
+                  432.0
+                ],
+                [
+                  200.0,
+                  437.0
+                ],
+                [
+                  400.0,
+                  427.0
+                ],
+                [
+                  600.0,
+                  427.0
+                ],
+                [
+                  800.0,
+                  448.0
+                ],
+                [
+                  1000.0,
+                  444.0
+                ],
+                [
+                  1253.0,
+                  418.0
+                ]
+              ]
+            }
+          ],
+          "method": "arc-length continuous full-depth section mesh",
+          "source_repeated": false
+        },
+        "root_body": true,
+        "root_warning_and_burst": "original",
+        "saw": true,
+        "saw_actual_radius": 26.0,
+        "saw_source": "res://assets/visual_development/props/saw.png"
+      },
+      "node": "/root/@Node2D@2/@Node2D@69/@Node2D@73"
+    },
+    {
+      "measurement": {
+        "banks": [
+          {
+            "arc_length_world": 644.393437385559,
+            "back_vertices": 336,
+            "collision_changed": false,
+            "coverage": {
+              "all_samples_match_actual_solid": true,
+              "samples": [
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    0.5,
+                    933.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    147.721590909091,
+                    933.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    295.443181818182,
+                    933.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    443.164772727273,
+                    933.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    590.386363636364,
+                    933.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": false,
+                  "inside_actual_solid": false,
+                  "legacy_top_x_domain": false,
+                  "point": [
+                    -2.0,
+                    933.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": false,
+                  "inside_actual_solid": false,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    592.886363636364,
+                    933.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    0.5,
+                    1105.0
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    112.4375,
+                    1105.0
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    224.875,
+                    1105.0
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    337.3125,
+                    1105.0
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    449.25,
+                    1105.0
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": false,
+                  "inside_actual_solid": false,
+                  "legacy_top_x_domain": false,
+                  "point": [
+                    -2.0,
+                    1105.0
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": false,
+                  "inside_actual_solid": false,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    451.75,
+                    1105.0
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    0.5,
+                    1276.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    69.25,
+                    1276.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    138.5,
+                    1276.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    207.75,
+                    1276.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    276.5,
+                    1276.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": false,
+                  "inside_actual_solid": false,
+                  "legacy_top_x_domain": false,
+                  "point": [
+                    -2.0,
+                    1276.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": false,
+                  "inside_actual_solid": false,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    279.0,
+                    1276.5
+                  ]
+                }
+              ],
+              "scope": "actual mesh geometry, not texture opacity or artistic approval"
+            },
+            "end_connections": "finite60world inward turn faces; GPU alignment unverified",
+            "front_vertices": 11045,
+            "id": "entry_shore",
+            "samples": 57,
+            "source_span": [
+              40.0,
+              942.150812339783
+            ],
+            "source_surface_profile": [
+              [
+                0.0,
+                432.0
+              ],
+              [
+                200.0,
+                437.0
+              ],
+              [
+                400.0,
+                427.0
+              ],
+              [
+                600.0,
+                427.0
+              ],
+              [
+                800.0,
+                448.0
+              ],
+              [
+                1000.0,
+                444.0
+              ],
+              [
+                1253.0,
+                418.0
+              ]
+            ]
+          },
+          {
+            "arc_length_world": 809.442718505859,
+            "back_vertices": 414,
+            "collision_changed": false,
+            "coverage": {
+              "all_samples_match_actual_solid": true,
+              "samples": [
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    875.720588235294,
+                    763.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    1068.29587595908,
+                    763.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    1261.37116368286,
+                    763.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    1454.44645140665,
+                    763.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    1647.02173913043,
+                    763.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": false,
+                  "inside_actual_solid": false,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    873.220588235294,
+                    763.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": false,
+                  "inside_actual_solid": false,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    1649.52173913043,
+                    763.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    911.785714285714,
+                    1005.0
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    1069.61813186813,
+                    1005.0
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    1227.95054945055,
+                    1005.0
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    1386.28296703297,
+                    1005.0
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    1544.11538461538,
+                    1005.0
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": false,
+                  "inside_actual_solid": false,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    909.285714285714,
+                    1005.0
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": false,
+                  "inside_actual_solid": false,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    1546.61538461538,
+                    1005.0
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    973.885714285714,
+                    1246.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    1073.02366071429,
+                    1246.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    1172.66160714286,
+                    1246.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    1272.29955357143,
+                    1246.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    1371.4375,
+                    1246.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": false,
+                  "inside_actual_solid": false,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    971.385714285714,
+                    1246.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": false,
+                  "inside_actual_solid": false,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    1373.9375,
+                    1246.5
+                  ]
+                }
+              ],
+              "scope": "actual mesh geometry, not texture opacity or artistic approval"
+            },
+            "end_connections": "finite60world inward turn faces; GPU alignment unverified",
+            "front_vertices": 15849,
+            "id": "recovery_shore",
+            "samples": 70,
+            "source_span": [
+              60.0,
+              1193.2198059082
+            ],
+            "source_surface_profile": [
+              [
+                0.0,
+                432.0
+              ],
+              [
+                200.0,
+                437.0
+              ],
+              [
+                400.0,
+                427.0
+              ],
+              [
+                600.0,
+                427.0
+              ],
+              [
+                800.0,
+                448.0
+              ],
+              [
+                1000.0,
+                444.0
+              ],
+              [
+                1253.0,
+                418.0
+              ]
+            ]
+          },
+          {
+            "arc_length_world": 180.0,
+            "back_vertices": 90,
+            "collision_changed": false,
+            "coverage": {
+              "all_samples_match_actual_solid": true,
+              "samples": [
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    1706.725,
+                    644.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    1755.32784090909,
+                    644.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    1804.43068181818,
+                    644.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    1853.53352272727,
+                    644.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": false,
+                  "point": [
+                    1902.13636363636,
+                    644.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": false,
+                  "inside_actual_solid": false,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    1704.225,
+                    644.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": false,
+                  "inside_actual_solid": false,
+                  "legacy_top_x_domain": false,
+                  "point": [
+                    1904.63636363636,
+                    644.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    1722.24418604651,
+                    935.0
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    1780.5938538206,
+                    935.0
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    1839.44352159468,
+                    935.0
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": false,
+                  "point": [
+                    1898.29318936877,
+                    935.0
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": false,
+                  "point": [
+                    1956.64285714286,
+                    935.0
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": false,
+                  "inside_actual_solid": false,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    1719.74418604651,
+                    935.0
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": false,
+                  "inside_actual_solid": false,
+                  "legacy_top_x_domain": false,
+                  "point": [
+                    1959.14285714286,
+                    935.0
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    1756.02325581395,
+                    1225.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    1816.64244186047,
+                    1225.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    1877.76162790698,
+                    1225.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": false,
+                  "point": [
+                    1938.88081395349,
+                    1225.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": true,
+                  "inside_actual_solid": true,
+                  "legacy_top_x_domain": false,
+                  "point": [
+                    1999.5,
+                    1225.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": false,
+                  "inside_actual_solid": false,
+                  "legacy_top_x_domain": true,
+                  "point": [
+                    1753.52325581395,
+                    1225.5
+                  ]
+                },
+                {
+                  "covered_by_actual_front_triangles": false,
+                  "inside_actual_solid": false,
+                  "legacy_top_x_domain": false,
+                  "point": [
+                    2002.0,
+                    1225.5
+                  ]
+                }
+              ],
+              "scope": "actual mesh geometry, not texture opacity or artistic approval"
+            },
+            "end_connections": "finite60world inward turn faces; GPU alignment unverified",
+            "front_vertices": 3570,
+            "id": "lookback_shore",
+            "samples": 16,
+            "source_span": [
+              960.0,
+              1212.0
+            ],
+            "source_surface_profile": [
+              [
+                0.0,
+                432.0
+              ],
+              [
+                200.0,
+                437.0
+              ],
+              [
+                400.0,
+                427.0
+              ],
+              [
+                600.0,
+                427.0
+              ],
+              [
+                800.0,
+                448.0
+              ],
+              [
+                1000.0,
+                444.0
+              ],
+              [
+                1253.0,
+                418.0
+              ]
+            ]
+          }
+        ],
+        "method": "arc-length continuous full-depth section mesh",
+        "source_repeated": false
+      },
+      "node": "/root/@Node2D@2/@Node2D@69/@Node2D@73/@Node2D@78"
+    }
+  ],
+  "scope": "Current-round same-source Bpainted catalog baseline for second_01 P1 E; not747 old comparison or art approval",
+  "audio": "encoded 48k stereo; not personally listened to",
+  "source_commit": "2be5e1f6f9a87cfa644b0c52b6ce8ff311c9a51b"
+}

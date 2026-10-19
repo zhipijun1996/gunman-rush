@@ -9,10 +9,34 @@ import time
 import os
 import selectors
 import shutil
+import argparse
 
 import level_formal
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def run_painted():
+    """Short actual new-consumer preflight; the legacy suite remains separate."""
+    from run_tests import run_engine
+    dependencies = ('tests/painted_formal_terrain_tests.gd',
+                    'tools/run_visual_director_space_tests.py')
+    before = level_formal.source_files(extra_paths=dependencies)
+    try:
+        imported = run_engine(['--headless', '--path', '.', '--editor', '--quit'], 120)
+        if 'ERROR:' in imported:
+            raise RuntimeError('Native import error before painted-terrain preflight')
+        output = run_engine(['--headless', '--path', '.', '--script',
+                             'tests/painted_formal_terrain_tests.gd'], 45)
+        if 'ERROR:' in output or not re.search(r'^PASS: painted formal ', output, re.M):
+            raise RuntimeError('Actual painted-terrain completion missing or native error')
+        if before != level_formal.source_files(extra_paths=dependencies):
+            raise RuntimeError('Painted-terrain source changed during preflight')
+        print('VISUAL TERRAIN MESH: passed; actual runtime/mesh/refusal checks only, not art or full-route approval')
+        return 0
+    except Exception as exc:
+        print('VISUAL TERRAIN MESH: failed; ' + str(exc))
+        return 1
 
 
 def run(output=None):
@@ -92,4 +116,8 @@ def run(output=None):
     return 0 if report['status']=='passed' else 1
 
 if __name__=='__main__':
-    raise SystemExit(run())
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--painted-terrain', action='store_true',
+                        help='Run only the actual painted-terrain mesh preflight')
+    args = parser.parse_args()
+    raise SystemExit(run_painted() if args.painted_terrain else run())

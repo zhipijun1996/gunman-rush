@@ -20,6 +20,11 @@ func build(recorded: Dictionary, tuning: PlayerTuning) -> Dictionary:
 		modules.append(module)
 		if region_state != null: module.clock = float(region_state.clocks.get(n.id, 0.0))
 		add_child(module)
+	# All original modules exist before explicit cross-module ownership transfer.
+	for index: int in manifest.nodes.size():
+		var recorded_node: Dictionary=manifest.nodes[index]
+		if recorded_node.has("joint_recoil") and not _install_joint_banks(modules[index],recorded_node.joint_recoil):
+			return {"ok":false,"error":"Joint recoil physical bank installation failed"}
 	if not manifest.ground_supports.is_empty():
 		ground_supports=PlainsGroundSupports.new()
 		add_child(ground_supports)
@@ -73,4 +78,80 @@ func _draw() -> void:
 		var body := shortcut_bodies[id] as StaticBody2D
 		var shape := shortcut_shapes[id] as CollisionShape2D
 		var rect := (shape.shape as RectangleShape2D).size
-		PixelFormalTerrain.draw_gate(self,Rect2(body.position-rect/2,rect))
+		if manifest.get("regional_art_profile", "").is_empty() and not manifest.get("joint_recoil_profile",false):
+			PixelFormalTerrain.draw_gate(self,Rect2(body.position-rect/2,rect))
+		else:
+			PlainsTerrainSkin.draw_moving_platform(self,Rect2(body.position-rect/2,rect))
+
+# Environment-first entities own their derived physics. Definition rectangles
+# are compatibility contacts only; source ownership explicitly retires them.
+func _install_joint_banks(module: PlatformingModule, local: Dictionary) -> bool:
+	if local.get("module_id", "") != str(module.definition.module_id): return false
+	var bodies: Array = local.get("terrain_bodies", [])
+	var context: Dictionary = local.get("region_context", {})
+	var ownership: Array = context.get("owned_slabs", [])
+	if bodies.is_empty() or ownership.is_empty(): return false
+	var originals: Array[CollisionShape2D] = []
+	var original_paths: Array[String] = []
+	for owned: Dictionary in ownership:
+		var node_id := str(owned.get("node_id", ""))
+		var platform_index := int(owned.get("platform_index", -1))
+		if node_id.is_empty() or platform_index < 0: return false
+		var owner_module := get_node_or_null(node_id.replace("/", "_")) as PlatformingModule
+		if owner_module == null: return false
+		var original := owner_module.get_node_or_null("Platform%d/CollisionShape2D" % platform_index) as CollisionShape2D
+		if original == null or original.disabled or original.one_way_collision: return false
+		var original_path := str(original.get_path())
+		if original_path in original_paths: return false
+		originals.append(original)
+		original_paths.append(original_path)
+	# Validate the complete source before changing any live collision owner.
+	var prepared: Array[Dictionary] = []
+	var roles: Array[String] = []
+	for entity: Dictionary in bodies:
+		var role := str(entity.get("source_role", ""))
+		if role.is_empty() or role in roles or not role.is_valid_identifier(): return false
+		roles.append(role)
+		var points := PackedVector2Array()
+		for point: Array in entity.get("points", []):
+			if point.size() != 2: return false
+			var vector := Vector2(float(point[0]), float(point[1]))
+			if not vector.is_finite(): return false
+			points.append(vector)
+		if points.size() < 3 or Geometry2D.triangulate_polygon(points).is_empty(): return false
+		prepared.append({"source": entity, "points": points})
+	for original: CollisionShape2D in originals: original.disabled = true
+	for item: Dictionary in prepared:
+		var entity: Dictionary = item.source
+		var body := StaticBody2D.new()
+		body.name = "JointBank_" + str(entity.source_role)
+		body.collision_layer = 1
+		body.set_meta("joint_bank_source", entity.duplicate(true))
+		body.set_meta("joint_owned_originals", original_paths.duplicate())
+		var shape := CollisionPolygon2D.new()
+		shape.name = "JointBankCollision"
+		shape.build_mode = CollisionPolygon2D.BUILD_SOLIDS
+		shape.polygon = item.points
+		body.add_child(shape)
+		module.add_child(body)
+	return true
+
+func joint_collision_snapshot() -> Array:
+	var rows: Array=[]
+	for module: PlatformingModule in modules:
+		for child: Node in module.get_children():
+			if not child.has_meta("joint_bank_source"): continue
+			var shape := child.get_node("JointBankCollision") as CollisionPolygon2D
+			var points: Array=[]
+			for point: Vector2 in shape.polygon: points.append([shape.to_global(point).x,shape.to_global(point).y])
+			rows.append({"module":str(module.name),"node_path":str(child.get_path()),"shape_path":str(shape.get_path()),"source":child.get_meta("joint_bank_source"),"world_points":points,"collision_layer":child.collision_layer,"disabled":shape.disabled,"one_way":shape.one_way_collision,"build_mode":shape.build_mode,"replaced_slabs":_joint_originals_snapshot(child.get_meta("joint_owned_originals",[]))})
+	return rows
+
+func _joint_originals_snapshot(paths: Array) -> Array:
+	var rows: Array=[]
+	for path: String in paths:
+		var shape:=get_node_or_null(path) as CollisionShape2D
+		if shape==null:rows.append({"path":path,"missing":true});continue
+		var rectangle:=shape.shape as RectangleShape2D
+		rows.append({"path":path,"disabled":shape.disabled,"one_way":shape.one_way_collision,"size":[rectangle.size.x,rectangle.size.y] if rectangle!=null else [],"world_center":[shape.global_position.x,shape.global_position.y]})
+	return rows

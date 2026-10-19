@@ -243,6 +243,186 @@ class VisualDirectorTests(unittest.TestCase):
         with self.assertRaises(ValueError):vd.native_command(observed,self.native,self.movie.with_suffix('.avi'))
         self.assertEqual(vd.load_capture(self.receipt)[1]['outcome'],'route_policy_failed')
 
+    def test_capture_script_is_allowlisted_and_binds_native_observer_bytes(self):
+        # Synthetic integrity test only, not actual spatial/gameplay evidence.
+        script = 'tools/spatial_golden_capture.gd'
+        extension = {script: 'f' * 64, 'tests/spatial_golden_trace.gd': 'e' * 64}
+        self.request['capture_script'] = script
+        self.report['capture_extension'] = {'script': script, 'sources': extension}
+        self.source.update(extension)
+        self.report['source_after'] = copy.deepcopy(self.source)
+        self.data['capture_extension_sources'] = {'res://' + p: h for p, h in extension.items()}
+        command = vd.native_command(self.report, self.native, self.movie.with_suffix('.avi'))
+        self.assertEqual(command[command.index('--script') + 1], script)
+        self.assertEqual(vd.validate_native(self.data, self.report, self.log), [])
+        for mutation in ('native_missing', 'native_changed', 'guard_missing', 'extension_missing', 'unsupported'):
+            with self.subTest(mutation=mutation):
+                data, report = copy.deepcopy(self.data), copy.deepcopy(self.report)
+                if mutation == 'native_missing': data.pop('capture_extension_sources')
+                elif mutation == 'native_changed': data['capture_extension_sources']['res://' + script] = '0' * 64
+                elif mutation == 'guard_missing': report['source_before'].pop(script)
+                elif mutation == 'extension_missing': report.pop('capture_extension')
+                elif mutation == 'unsupported': report['request']['capture_script'] = '../unrelated.gd'
+                self.assertTrue(vd.validate_native(data, report, self.log))
+        for bad in ('../unrelated.gd', '/tmp/arbitrary.gd', 'tools/level_formal_capture.gd'):
+            bad_report = copy.deepcopy(self.report); bad_report['request']['capture_script'] = bad
+            with self.assertRaisesRegex(ValueError, 'Unsupported capture script'):
+                vd.native_command(bad_report, self.native, self.movie.with_suffix('.avi'))
+            with self.assertRaisesRegex(ValueError, 'Unsupported capture script'):
+                vd.capture_extension_sources(bad)
+
+    def test_environment_candidate_keeps_original_guards_and_binds_shared_plan(self):
+        script = vd.ENVIRONMENT_CAPTURE
+        extension = {script: 'f' * 64, 'tests/plains_environment_trace.gd': 'e' * 64}
+        self.request.update(capture_script=script, map_index=1, strategy='fast', encounter_policy='blind_legacy', environment_phase='full', environment_mutation='', visual_sample='', visual_layout='')
+        self.data.update(map_index=1, strategy='fast', encounter_policy='blind_legacy')
+        self.data['policy_basis'].update(encounter_policy='blind_legacy', reward_policy='legacy_auto_claim_v1')
+        self.report['capture_extension'] = {'script': script, 'sources': extension}
+        self.source.update(extension)
+        self.report['source_after'] = copy.deepcopy(self.source)
+        self.data['capture_extension_sources'] = {'res://' + p: h for p, h in extension.items()}
+        self.data['visual_layout_treatment'] = 'original'
+        self.data['visual_sample_treatment'] = {'catalog_path': '', 'catalog_sha256': ''}
+        plan = {'route_waypoints': [{'id': 'fixture-not-real-route'}], 'safe_stands': [{'id': 'fixture-not-real-stand'}]}
+        self.data['manifest']['environment_plan'] = plan
+        self.data['environment_route_contract'] = {'phase': 'full', 'mutation': '', 'plan': copy.deepcopy(plan)}
+        self.data['environment_initial_physics'] = {'fixture_not_runtime': True, 'environment_plan': copy.deepcopy(plan), 'manifest_hash': self.data['manifest_hash'], 'production_pool': False}
+        self.data['environment_final_physics'] = copy.deepcopy(self.data['environment_initial_physics'])
+        self.data['environment_cases'] = [{'id': 'fixture', 'passed': False}]
+        avatar = {'selected_id': 'p1_girl', 'painted_owner_count': 1, 'hero_states': ['fixture'], 'gameplay_changed': False, 'source_calibration': 'res://tests/observer_fixture.gd', 'source_sha256': self.source['tests/observer_fixture.gd'], 'texture_source': 'res://assets/fixture-bitmap.png', 'texture_sha256': self.source['assets/fixture-bitmap.png']}
+        self.data['environment_avatar_initial'] = avatar
+        self.data['environment_avatar_final'] = copy.deepcopy(avatar)
+        self.data['captured_scope'].update(plains_environment_candidate=True, pure_art_comparison_eligible=False)
+        self.assertEqual(vd.validate_native(self.data, self.report, self.log), [])
+        command = vd.native_command(self.report, self.native, self.movie.with_suffix('.avi'))
+        self.assertIn('--environment-phase=full', command)
+        self.assertIn('--environment-mutation=', command)
+        for mutation in ('plan_changed', 'missing_initial', 'scope', 'driver_bytes', 'source_drift', 'teleport', 'live_png', 'illegal_phase', 'illegal_mutation', 'borrowed_catalog', 'cleanup_error', 'engine_error', 'avatar_duplicate', 'avatar_source'):
+            data, report, log = copy.deepcopy(self.data), copy.deepcopy(self.report), self.log
+            if mutation == 'plan_changed': data['environment_route_contract']['plan']['safe_stands'] = []
+            elif mutation == 'missing_initial': data.pop('environment_initial_physics')
+            elif mutation == 'scope': data['captured_scope']['plains_environment_candidate'] = False
+            elif mutation == 'driver_bytes': data['capture_extension_sources']['res://tests/plains_environment_trace.gd'] = '0' * 64
+            elif mutation == 'source_drift': report['source_after'][script] = '0' * 64
+            elif mutation == 'teleport': data['captured_scope']['actor_teleport_by_driver'] = True
+            elif mutation == 'live_png': data['screenshots'] = [{'tick': 1}]
+            elif mutation == 'illegal_phase': report['request']['environment_phase'] = 'arbitrary'
+            elif mutation == 'illegal_mutation': report['request']['environment_mutation'] = 'godmode'
+            elif mutation == 'borrowed_catalog': report['request']['visual_sample'] = vd.VISUAL_SAMPLE_CATALOG
+            elif mutation == 'cleanup_error': log += 'ERROR: 2 resources still in use at exit\n'
+            elif mutation == 'engine_error': log += 'ERROR: RenderingServer unexpected failure\n'
+            elif mutation == 'avatar_duplicate': data['environment_avatar_final']['painted_owner_count'] = 2
+            elif mutation == 'avatar_source': data['environment_avatar_initial']['texture_sha256'] = '0' * 64
+            with self.subTest(mutation=mutation): self.assertTrue(vd.validate_native(data, report, log))
+        self.report['request']['environment_mutation'] = 'godmode'
+        with self.assertRaisesRegex(ValueError, 'Unsupported explicit environment'):
+            vd.native_command(self.report, self.native, self.movie.with_suffix('.avi'))
+        for catalog in vd.VISUAL_SAMPLE_CATALOGS:
+            self.assertFalse(vd.valid_visual_sample(script, catalog))
+
+    def test_environment_adapter_closure_includes_preview_and_real_driver(self):
+        closure = vd.capture_extension_sources(vd.ENVIRONMENT_CAPTURE)
+        for name in ('tools/plains_environment_preview.gd', 'tests/plains_environment_trace.gd', 'tools/level_formal_capture.gd', 'tests/level_formal_trace.gd', 'tools/observed_audio_teardown.gd'):
+            self.assertIn(name, closure)
+
+    def test_visual_sample_treatment_is_allowlisted_and_binds_observed_catalog(self):
+        self.request['capture_script'] = 'tools/spatial_golden_capture.gd'
+        self.request['visual_sample'] = vd.VISUAL_SAMPLE_CATALOG
+        self.request['visual_layout'] = 'open-meadow'
+        self.data['visual_layout_treatment'] = 'open-meadow'
+        command = vd.native_command(self.report, self.native, self.movie.with_suffix('.avi'))
+        self.assertIn('--visual-sample=' + vd.VISUAL_SAMPLE_CATALOG, command)
+        self.assertIn('--visual-layout=open-meadow', command)
+        report = copy.deepcopy(self.report)
+        report['request']['visual_layout'] = ''
+        with self.assertRaisesRegex(ValueError, 'requires explicit open-meadow'):
+            vd.native_command(report, self.native, self.movie.with_suffix('.avi'))
+        for unsafe in ('res://scripts/arbitrary.gd', '../candidate.json', '/tmp/candidate.json', 'res://resources/visual_development/other.json', 'res://resources/visual_development/../visual_development/painted_terrain_candidate.json'):
+            report = copy.deepcopy(self.report)
+            report['request']['visual_sample'] = unsafe
+            with self.subTest(unsafe=unsafe), self.assertRaisesRegex(ValueError, 'Unsupported explicit visual sample'):
+                vd.native_command(report, self.native, self.movie.with_suffix('.avi'))
+        # Isolate actual catalog binding from the already-tested extension closure.
+        self.request.pop('capture_script')
+
+        path = vd.VISUAL_SAMPLE_CATALOG.removeprefix('res://')
+        self.source[path] = 'f' * 64
+        self.data['visual_sample_treatment'] = {'catalog_path': vd.VISUAL_SAMPLE_CATALOG, 'catalog_sha256': 'f' * 64}
+        relevant = lambda data, report: [e for e in vd.validate_native(data, report, self.log) if 'explicit visual sample' in e]
+        self.assertEqual(relevant(self.data, self.report), [])
+        for mutation in ('missing', 'wrong_path', 'wrong_hash', 'unguarded_catalog', 'wrong_type'):
+            data, report = copy.deepcopy(self.data), copy.deepcopy(self.report)
+            if mutation == 'missing': data.pop('visual_sample_treatment')
+            elif mutation == 'wrong_path': data['visual_sample_treatment']['catalog_path'] = ''
+            elif mutation == 'wrong_hash': data['visual_sample_treatment']['catalog_sha256'] = '0' * 64
+            elif mutation == 'unguarded_catalog': report['source_before'].pop(path)
+            elif mutation == 'wrong_type': report['request']['visual_sample'] = 1
+            with self.subTest(mutation=mutation): self.assertTrue(relevant(data, report))
+
+    def test_formal_random_adapter_keeps_exact_catalog_and_original_layout(self):
+        script = 'tools/p1_random_capture.gd'
+        for catalog in ('', vd.VISUAL_SAMPLE_CATALOGS[2]):
+            report = copy.deepcopy(self.report)
+            report['request'].update(capture_script=script, visual_sample=catalog, visual_layout='')
+            command = vd.native_command(report, self.native, self.movie.with_suffix('.avi'))
+            self.assertEqual(command[command.index('--script') + 1], script)
+            self.assertNotIn('--visual-layout=open-meadow', command)
+            if catalog: self.assertIn('--visual-sample=' + catalog, command)
+        for catalog in (*vd.VISUAL_SAMPLE_CATALOGS[:2], 'res://resources/visual_development/../p1_candidate.json', 'res://scripts/arbitrary.gd'):
+            report = copy.deepcopy(self.report)
+            report['request'].update(capture_script=script, visual_sample=catalog, visual_layout='')
+            with self.subTest(catalog=catalog), self.assertRaisesRegex(ValueError, 'Unsupported explicit visual sample'):
+                vd.native_command(report, self.native, self.movie.with_suffix('.avi'))
+        report['request'].update(visual_sample=vd.VISUAL_SAMPLE_CATALOGS[2], visual_layout='open-meadow')
+        with self.assertRaisesRegex(ValueError, 'Unsupported explicit visual layout'):
+            vd.native_command(report, self.native, self.movie.with_suffix('.avi'))
+
+    def test_formal_random_native_requires_actual_identity_collision_and_terrain(self):
+        # Synthetic receipt mutations test the adapter binding, not a live gameplay claim.
+        script = 'tools/p1_random_capture.gd'
+        for selected in (False, True):
+            report, data = copy.deepcopy(self.report), copy.deepcopy(self.data)
+            catalog = vd.VISUAL_SAMPLE_CATALOGS[2] if selected else ''
+            report['request'].update(capture_script=script, visual_sample=catalog, visual_layout='')
+            report['capture_extension'] = {'script': script, 'sources': {script: 'f' * 64}}
+            report['source_before'][script] = 'f' * 64
+            report['source_after'] = copy.deepcopy(report['source_before'])
+            data['capture_extension_sources'] = {'res://' + script: 'f' * 64}
+            data['visual_sample_treatment'] = {'catalog_path': catalog, 'catalog_sha256': report['source_before'][catalog.removeprefix('res://')] if selected else ''}
+            data['visual_layout_treatment'] = 'original'
+            data.update(p1_random_requested=selected, requested_avatar='p1_girl' if selected else 'courier', p1_install_collision_unchanged=True)
+            avatar = {'selected_id': data['requested_avatar'], 'painted_owner_count': int(selected), 'hero_states': ['idle']}
+            data.update(avatar_initial=copy.deepcopy(avatar), avatar_final=copy.deepcopy(avatar), p1_random_initial={'selected': [{'fixture': True}]} if selected else {}, p1_random_final={'selected': [{'fixture': True}]} if selected else {})
+            relevant = lambda observed: [e for e in vd.validate_native(observed, report, self.log) if 'formal random' in e]
+            self.assertEqual(relevant(data), [])
+            for mutation in ('identity', 'duplicate_owner', 'unobserved_collision', 'empty_terrain'):
+                if mutation == 'empty_terrain' and not selected: continue
+                observed = copy.deepcopy(data)
+                if mutation == 'identity': observed['avatar_final']['selected_id'] = 'unselected_actor'
+                elif mutation == 'duplicate_owner': observed['avatar_initial']['painted_owner_count'] += 1
+                elif mutation == 'unobserved_collision': observed.pop('p1_install_collision_unchanged')
+                elif mutation == 'empty_terrain': observed['p1_random_initial']['selected'] = []
+                with self.subTest(selected=selected, mutation=mutation): self.assertTrue(relevant(observed))
+
+    def test_baseline_painted_and_p1_bind_distinct_catalog_treatments(self):
+        # All three use the same observer; only the explicitly bound skin treatment differs.
+        self.assertEqual(vd.VISUAL_SAMPLE_CATALOGS[0], vd.VISUAL_SAMPLE_CATALOG)
+        self.assertEqual(vd.VISUAL_SAMPLE_CATALOGS, (vd.VISUAL_SAMPLE_CATALOG, "res://resources/visual_development/painted_terrain_candidate.json", "res://resources/visual_development/p1_candidate.json"))
+        self.assertFalse(vd.valid_visual_sample("tools/painted_formal_capture.gd", vd.VISUAL_SAMPLE_CATALOGS[2]))
+        for catalog in vd.VISUAL_SAMPLE_CATALOGS:
+            with self.subTest(catalog=catalog):
+                report, data = copy.deepcopy(self.report), copy.deepcopy(self.data)
+                report['request'].update(capture_script='tools/spatial_golden_capture.gd', visual_layout='open-meadow', visual_sample=catalog)
+                command = vd.native_command(report, self.native, self.movie.with_suffix('.avi'))
+                self.assertIn('--visual-sample=' + catalog, command)
+                report['source_before'][catalog.removeprefix('res://')] = 'f' * 64
+                data['visual_layout_treatment'] = 'open-meadow'
+                data['visual_sample_treatment'] = {'catalog_path': catalog, 'catalog_sha256': 'f' * 64}
+                relevant = lambda observed: [error for error in vd.validate_native(observed, report, self.log) if 'explicit visual sample' in error]
+                self.assertEqual(relevant(data), [])
+                data['visual_sample_treatment']['catalog_path'] = next(path for path in vd.VISUAL_SAMPLE_CATALOGS if path != catalog)
+                self.assertIn('explicit visual sample treatment mismatch', relevant(data))
+
     def test_compare_requires_same_conditions_core_and_manifest(self):
         good=vd.compare_captures(self.receipt,self.receipt)
         self.assertEqual(good['status'],'comparable_for_review');self.assertEqual(good['route_outcomes']['after'],'route_policy_failed')
@@ -265,9 +445,28 @@ class VisualDirectorTests(unittest.TestCase):
         self.assertTrue(any('rejected unrelated mother does not block' in item for item in mission['constraints']))
         self.assertEqual(mission['tasks'][1]['required_gates'],['G0','G1'])
         self.assertIn('art-art',mission['tasks'][1]['checks'])
-        self.assertIn('visual-director-space',mission['tasks'][1]['checks'])
+        self.assertNotIn('visual-director-terrain',mission['tasks'][1]['checks'])
+        self.assertEqual(mission['preparation']['visual_recipe']['capture_script'],vd.PLACES_CAPTURE)
+        recipe=mission['preparation']['visual_recipe']
+        self.assertEqual(recipe['status'],'candidate_not_automatic_admission')
+        self.assertIn('not automatic acceptance',recipe['scope'])
+        self.assertNotIn('first_space_evidence',recipe)
+        self.assertTrue(any('old B scoped acceptance does not admit P1' in item for item in mission['constraints']))
+        self.assertFalse(any('b1_master' in source['path'] or '/failed/' in source['path'] or '/revisions/' in source['path'] for source in recipe['sources']))
+        self.assertEqual(recipe['profile'],'scripts/art/plains_place_composer.gd')
+        self.assertIn('STOP the PR82',recipe['method'])
+        self.assertEqual(recipe['quality_record'],'docs/quality/records/PLAINS-PLACES-01.json')
+        self.assertIn('grants no new collision edits',recipe['geometry_authority'])
+        for source in recipe['sources']:
+            self.assertEqual(source['sha256'],vd.file_hash(vd.ROOT/source['path']))
+        self.assertIn('whole source volumes at equal axis scale',mission['tasks'][1]['goal'])
+        self.assertIn('plains-places-contract',mission['tasks'][1]['checks'])
+        self.assertIn('plains-places-capture-tests',mission['tasks'][1]['checks'])
+        self.assertNotIn('finite arc-length',mission['tasks'][1]['goal'])
+        self.assertTrue(any('actual collision geometry/route' in item for item in mission['constraints']))
         forest=vd.route('制作荆棘森林黄金场景美术','forest-visual','docs/quality/records/forest-visual.json',['scripts/art/'],phase='golden')
         self.assertNotIn('visual-director-space',forest['tasks'][0]['checks'])
+        self.assertNotIn('visual_recipe',forest['preparation'])
         focused=vd.route('优化风铃平原黄金场景','existing-task-id','docs/quality/records/existing-task-id.json',['scripts/art/'],phase='golden')
         self.assertEqual(len(focused['tasks']),1);self.assertEqual(focused['tasks'][0]['id'],'existing-task-id')
         with self.assertRaises(ValueError):vd.route('request','../bad','record.json',['assets/'])

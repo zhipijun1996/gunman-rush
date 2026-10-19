@@ -1,0 +1,86 @@
+{
+  "scope": "Observed real wall time; overlapping implementation/image/review phases are not summed.",
+  "start_anchor_utc": "2026-10-17T16:31:00Z",
+  "native_complete_runs": [
+    {
+      "round": "01",
+      "source_commit": "3818b85145192d35e51f3a2507aad423b077d377",
+      "actual_ticks": 2233,
+      "source_seed": "plains-environment-first-A",
+      "native_seconds": 171.158,
+      "capture_encode_extract_wall_seconds": 209.72711433800214,
+      "movie_seconds": 37.3,
+      "native_exit_code": 0,
+      "art_verdict": "REWORK"
+    },
+    {
+      "round": "02",
+      "source_commit": "1b7559224b71c03e3e14e98fed8a622d85f702a1",
+      "actual_ticks": 2234,
+      "source_seed": "plains-environment-first-A",
+      "native_seconds": 161.847,
+      "capture_encode_extract_wall_seconds": 199.4421075140017,
+      "movie_seconds": 37.316667,
+      "native_exit_code": 0,
+      "art_verdict": "REWORK"
+    },
+    {
+      "round": "03",
+      "source_commit": "4d4803773d21dbe9e9443b42bc0a87dbc35137c6",
+      "actual_ticks": 2234,
+      "source_seed": "plains-environment-first-A",
+      "native_seconds": 162.014,
+      "capture_encode_extract_wall_seconds": 198.99795960399933,
+      "movie_seconds": 37.316667,
+      "native_exit_code": 0,
+      "art_verdict": "REWORK"
+    }
+  ],
+  "image_calls": {
+    "actual": 8,
+    "initial_master": 1,
+    "initial_functional_sources": 6,
+    "functional_bridge_repaint": 1,
+    "model": "unknown_not_exposed",
+    "price": "unknown_not_exposed"
+  },
+  "agent_individual_start_end_cost": "not fully instrumented; no fabricated per-agent cost",
+  "scheduling_issue": "Completed-agent send_message did not wake implementation; corrected with followup_task. About8minutes critical-path delay while root performed routing work, not8minutes entirely idle.",
+  "unrelated_tests": "No full campaign/forest compatibility regression or publish claimed.",
+  "failed_checks": "Two actual startup attach/type errors with leaks preserved; package01 missing host audio device rejected; first docs/quality lane interrupted by concurrent metadata write; corrected invocation of routing tests after Python module import-path error.",
+  "final_targeted_harness": {
+    "source_commit": "4d4803773d21dbe9e9443b42bc0a87dbc35137c6",
+    "wall_seconds": 65.9,
+    "status": "passed",
+    "checks": [
+      {
+        "id": "docs",
+        "status": "passed",
+        "duration_seconds": 0.125
+      },
+      {
+        "id": "quality",
+        "status": "passed",
+        "duration_seconds": 0.877
+      },
+      {
+        "id": "art-art",
+        "status": "passed",
+        "duration_seconds": 0.125
+      },
+      {
+        "id": "visual-director-tests",
+        "status": "passed",
+        "duration_seconds": 6.994
+      },
+      {
+        "id": "level-design-routing",
+        "status": "passed",
+        "duration_seconds": 0.877
+      }
+    ],
+    "jobs": 1,
+    "targeted_checks": true
+  },
+  "report_checkpoint_utc": "2026-10-17T17:53:55.135113+00:00"
+}

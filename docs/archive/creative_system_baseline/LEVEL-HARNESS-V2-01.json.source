@@ -1,0 +1,502 @@
+{
+  "schema_version": 1,
+  "task_id": "LEVEL-HARNESS-V2-01",
+  "task_type": "process",
+  "workflow": "review",
+  "baseline_commit": "fa9b9502a3b3c6c28bb361b1512cc44b5e854564",
+  "reviewed_commit": "e870f0b249258e13766676be68ec8fd1d649a179",
+  "content_version": "level-design-harness-v2",
+  "owner": "Codex /root",
+  "purpose": "建立兼容现有Harness的关卡设计、诊断、Skills和证据生产体系",
+  "player_experience": "后续能定位实际路线重复与低互动片段，设计连续反冲动作、探索选择和统一构图；本轮不重做正式地图",
+  "constraints": [
+    "保留正式两图、Motor、资源、随机流与存档合同",
+    "G0–G5和十一维不重编号",
+    "设计意图、真实运行、技术证据和主观体验分离"
+  ],
+  "affected_paths": [
+    ".agents/skills/art-director/SKILL.md",
+    ".agents/skills/challenge-choreographer/SKILL.md",
+    ".agents/skills/encounter-director/SKILL.md",
+    ".agents/skills/game-quality-gate/SKILL.md",
+    ".agents/skills/gameplay-reviewer/SKILL.md",
+    ".agents/skills/level-module-creator/SKILL.md",
+    ".agents/skills/region-generator/SKILL.md",
+    ".agents/skills/scene-composer/SKILL.md",
+    "AGENTS.md",
+    "docs/current_state.md",
+    "docs/evidence/level_design_v2/ci_observation.json",
+    "docs/evidence/level_design_v2/deliver_socket_blocked.log",
+    "docs/evidence/level_design_v2/first_full_console.log",
+    "docs/evidence/level_design_v2/first_full_snapshot_reject.tar.gz",
+    "docs/evidence/level_design_v2/full_console.log",
+    "docs/evidence/level_design_v2/full_evidence_index.json",
+    "docs/evidence/level_design_v2/full_report.json",
+    "docs/evidence/level_design_v2/full_runtime_evidence.tar.gz",
+    "docs/evidence/level_design_v2/independent_review/delivery_review.json",
+    "docs/evidence/level_design_v2/independent_review/final_analyze.log",
+    "docs/evidence/level_design_v2/independent_review/final_capture-command.log",
+    "docs/evidence/level_design_v2/independent_review/final_capture.log",
+    "docs/evidence/level_design_v2/independent_review/final_compare.log",
+    "docs/evidence/level_design_v2/independent_review/final_counterexamples.json",
+    "docs/evidence/level_design_v2/independent_review/final_counterexamples.log",
+    "docs/evidence/level_design_v2/independent_review/final_counterexamples.py",
+    "docs/evidence/level_design_v2/independent_review/final_golden-command.log",
+    "docs/evidence/level_design_v2/independent_review/final_python.log",
+    "docs/evidence/level_design_v2/independent_review/final_review.json",
+    "docs/evidence/level_design_v2/independent_review/final_runtime_evidence.tar.gz",
+    "docs/evidence/level_design_v2/independent_review/initial_capability.log",
+    "docs/evidence/level_design_v2/independent_review/initial_counterexamples.json",
+    "docs/evidence/level_design_v2/independent_review/initial_counterexamples.log",
+    "docs/evidence/level_design_v2/independent_review/initial_golden.log",
+    "docs/evidence/level_design_v2/independent_review/initial_python.log",
+    "docs/evidence/level_design_v2/independent_review/initial_reproduce.py",
+    "docs/evidence/level_design_v2/independent_review/initial_review.json",
+    "docs/evidence/level_design_v2/independent_review/initial_wrong_card_real_batch_binding.json",
+    "docs/evidence/level_design_v2/independent_review/interim_cli_compare_reject.json",
+    "docs/evidence/level_design_v2/independent_review/second_analyze.log",
+    "docs/evidence/level_design_v2/independent_review/second_capture.log",
+    "docs/evidence/level_design_v2/independent_review/second_counterexamples.json",
+    "docs/evidence/level_design_v2/independent_review/second_counterexamples.log",
+    "docs/evidence/level_design_v2/independent_review/second_counterexamples.py",
+    "docs/evidence/level_design_v2/independent_review/second_golden-command.log",
+    "docs/evidence/level_design_v2/independent_review/second_mandatory_hidden_master.json",
+    "docs/evidence/level_design_v2/independent_review/second_python.log",
+    "docs/evidence/level_design_v2/independent_review/second_review.json",
+    "docs/evidence/level_design_v2/independent_review/second_route_scope_counterexample.json",
+    "docs/evidence/level_design_v2/reviewed_implementation.bundle",
+    "docs/evidence/level_design_v2/synthetic_comparison/after_report.json",
+    "docs/evidence/level_design_v2/synthetic_comparison/before_report.json",
+    "docs/evidence/level_design_v2/synthetic_comparison/comparison.json",
+    "docs/evidence/level_design_v2/synthetic_comparison/cosmetic_comparison.json",
+    "docs/evidence/level_design_v2/synthetic_comparison/execution.log",
+    "docs/evidence/level_design_v2/synthetic_comparison/scope.json",
+    "docs/evidence/level_design_v2/transport.json",
+    "docs/evidence/level_design_v2/validated_source.bundle",
+    "docs/generation_current.md",
+    "docs/handoff.md",
+    "docs/harness.md",
+    "docs/level_design_harness_v2.md",
+    "docs/level_design_v2_delivery.md",
+    "docs/quality/level_design_contracts.md",
+    "docs/quality/level_design_golden.md",
+    "docs/quality/level_design_v2_audit.md",
+    "docs/quality/policy.json",
+    "docs/quality/records/LEVEL-HARNESS-V2-01.json",
+    "docs/tasks.md",
+    "docs/templates/biome_design_profile.md",
+    "docs/templates/challenge_sequence.md",
+    "docs/templates/level_experience_acceptance.md",
+    "docs/templates/level_optimization.md",
+    "docs/templates/scene_composition.md",
+    "tests/fixtures/level_design_v2/analysis_after.json",
+    "tests/fixtures/level_design_v2/analysis_before.json",
+    "tests/fixtures/level_design_v2/golden_challenges.json",
+    "tests/fixtures/level_design_v2/plains_design.json",
+    "tests/fixtures/level_design_v2/thorn_forest_design.json",
+    "tests/level_capability_runner.gd",
+    "tests/level_capability_runner.gd.uid",
+    "tests/level_design_trace.gd",
+    "tests/level_design_trace.gd.uid",
+    "tests/test_level_design_analysis.py",
+    "tests/test_level_design_contracts.py",
+    "tests/test_level_design_golden.py",
+    "tests/test_level_design_routing.py",
+    "tools/foundry.py",
+    "tools/harness/profiles.json",
+    "tools/level_capability_snapshot.gd",
+    "tools/level_capability_snapshot.gd.uid",
+    "tools/level_design.py",
+    "tools/level_design_analysis.py",
+    "tools/level_design_capture.gd",
+    "tools/level_design_capture.gd.uid",
+    "tools/level_design_contracts.py",
+    "tools/level_design_golden.py",
+    "tools/run_level_design_tests.py"
+  ],
+  "deliverables": [
+    "docs/evidence/level_design_v2/full_report.json",
+    "docs/evidence/level_design_v2/full_runtime_evidence.tar.gz",
+    "docs/evidence/level_design_v2/independent_review/delivery_review.json",
+    "docs/evidence/level_design_v2/independent_review/final_review.json",
+    "docs/evidence/level_design_v2/independent_review/final_runtime_evidence.tar.gz",
+    "docs/level_design_harness_v2.md",
+    "docs/level_design_v2_delivery.md",
+    "docs/quality/level_design_contracts.md",
+    "docs/quality/level_design_golden.md",
+    "docs/quality/level_design_v2_audit.md",
+    "tests/fixtures/level_design_v2/golden_challenges.json",
+    "tests/fixtures/level_design_v2/thorn_forest_design.json",
+    "tools/level_design.py",
+    "tools/level_design_analysis.py",
+    "tools/level_design_contracts.py",
+    "tools/level_design_golden.py"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "生产体系设计范围：实际源码审计、六层职责、双工作流及合同边界已具备；不代表任何正式关卡设计已获玩家认可。",
+      "evidence": [
+        "design-spec",
+        "source-audit"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "本次未验收成品关卡的完整动作/入口出口/低资源/所有相位合同；真实Motor切片和Foundry只证明记录中的策略。",
+      "evidence": [
+        "independent-runtime-archive"
+      ]
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "未执行成品关卡正式尺寸合屏、正常速度完整音画及用户审美验收；场景构图模板不能代替视觉证据。",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "不改正式运行内容；仅采集generator/assembler/shotlatch消费者，未验收完整敌人/Boss正式GUI与目标设备性能。",
+      "evidence": [
+        "independent-runtime-archive"
+      ]
+    },
+    "G4": {
+      "status": "passed",
+      "reason": "冻结交付源e870完整Harness 40/40 fresh release通过；独立交付复审ACCEPT。原118第三轮88项与真实回放保留原始来源，不重标为e870执行。仅工程验收，不代签成品体验。",
+      "evidence": [
+        "full-release-report",
+        "full-release-console",
+        "full-runtime-archive",
+        "independent-delivery-review"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "未获得玩家趣味/手感确认，也无实体键鼠/手柄/Android/iPhone验收；不以自动回放代签。",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "离线生产体系的审计、架构、Skill分工和可证伪合同已落实；森林及大师关卡仍为设计/技术切片。",
+      "evidence": [
+        "design-spec",
+        "source-audit"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "e870完整适用Harness 40/40通过，全部fresh、release=true、exit0；含真实能力/正式Manifest三策略与Foundry24短语/6路线。GUI、设备及主观体验未由此验收。",
+      "evidence": [
+        "full-release-report",
+        "full-release-console",
+        "full-runtime-archive"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "无正式运行改动；两张平原完整正式GUI、敌人/Boss、保存生命周期未由本次离线捕获完整证明。",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "未提供本次成品关卡正式比例合屏及玩家美术认可；模板与相同场景身份诊断不证明视觉优秀。",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "未验收本次完整动作与环境动画正常速度连续表现；技术输入轨迹不等于连贯动画证据。",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "未提供本次关卡正常速度完整音轨/VFX联合试听验收。",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "真实回放仅证明fast/growth/deep等已测策略；完整战斗、失败重试、低资源、不同合法武器及主观趣味尚未覆盖。",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "没有目标设备预算或真实性能采样；保留Godot退出2 ObjectDB实例/1资源诊断，不声明无泄漏。",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "独立只读审查者/root/independent_v2_review对e870交付及完整回归证据复审ACCEPT；原118第三轮审查与失败链保留，不将技术认可扩大为用户或设备签收。",
+      "evidence": [
+        "independent-delivery-review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "无实体键鼠、手柄、Android/iPhone操作证据；headless真实Motor不替代设备操作验收。",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "用户未对本轮关卡趣味、手感、审美给出最终认可；AI审查不代签。",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "V2-DESIGN",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "在最新两张平原正式消费者与未来地区设计边界下建立同一生产流程。",
+      "method": "审计路径/函数/消费者，核对六层合同和Skills分工。",
+      "expected": "不以旧八小关或未来能力冒充正式实现；不新增第二套Harness。",
+      "failure": "遗漏正式消费者、混淆设计与物理证据或扩大正式机制范围。",
+      "status": "passed",
+      "reason": "架构和审计已记录真实来源及待验证边界。",
+      "evidence": [
+        "design-spec",
+        "source-audit"
+      ]
+    },
+    {
+      "id": "V2-NEGATIVE-TESTS",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "空报告、伪造本地凭据、动作请求无状态变化、错误黄金绑定、强制大师和路由范围反例。",
+      "method": "e870 full release重新运行合同/路由/分析/黄金反例测试；独立交付复审核对原118第三轮R1–R7修复与实现一致。",
+      "expected": "88项测试通过；错误数据拒绝；合法替代输入通过。",
+      "failure": "空/错配数据得到PASS，或删断言/降阈值以通过。",
+      "status": "passed",
+      "reason": "完整fresh专项通过，原118独立88项及反例拒绝链保持原source；e870执行由full报告证明。",
+      "evidence": [
+        "full-release-report",
+        "independent-delivery-review"
+      ]
+    },
+    {
+      "id": "V2-REAL-LOOP",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "正式生成Manifest→真实Motor三策略→路线诊断→同源比较以及Foundry连续技术样板。",
+      "method": "e870 full fresh执行capability/capture/analyze和Foundry连续回放；原118独立same-report比较保留历史来源。",
+      "expected": "三条真实策略、原始Manifest和能力证据完整；本次Golden24短语/6连续路线通过，完整设计状态仍unverified。",
+      "failure": "以几何连通/合成fixture替代真实Motor，或错配Seed/Manifest/phrase_count获得通过。",
+      "status": "passed",
+      "reason": "当前源完整Harness的真实专项与原始输入轨迹已归档，未把历史118命令重标为本次执行。",
+      "evidence": [
+        "full-release-report",
+        "full-runtime-archive",
+        "independent-delivery-review"
+      ]
+    },
+    {
+      "id": "V2-INDEPENDENT",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "scenario": "独立只读审查冻结实现。",
+      "method": "原118第三轮独立反例复验后，独立交付审查核对e870实现一致及完整fresh回归。",
+      "expected": "原R1–R7解决；e870交付复审ACCEPT，仅工程范围。",
+      "failure": "作者自签独立PASS或将AI认可扩大为设备/玩家认可。",
+      "status": "passed",
+      "reason": "新交付审查证据明确e870完整SHA和工程边界；原118审查继续保留。",
+      "evidence": [
+        "independent-delivery-review"
+      ]
+    },
+    {
+      "id": "V2-FULL-REGRESSION",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "最终冻结实现的完整适用Harness回归。",
+      "method": "主任务运行完整Harness，保存完整报告与退出码。",
+      "expected": "全部适用原有检查完成且通过；失败不得隐藏。",
+      "failure": "超时、无完成标记、任一检查失败或省略真实Godot要求。",
+      "status": "passed",
+      "reason": "e870完整40/40检查均fresh通过，release=true、exit0；原报告、console、逐项日志及运行证据hash已核对。",
+      "evidence": [
+        "full-release-report",
+        "full-release-console",
+        "full-runtime-archive",
+        "independent-delivery-review"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "design-spec",
+      "path": "docs/level_design_harness_v2.md",
+      "sha256": "570b1eaba6924e846f4bc12b486cc33bfc14a6196e76c17586c617b0466bfdcc",
+      "kind": "spec",
+      "producer": "Codex /root",
+      "source_commit": "11827baaf259f5fc91061f5358f2621ed00e958c",
+      "content_version": "level-design-harness-v2",
+      "method": "Read actual current consumers and newest rules; document six-layer ownership, two workflows and evidence boundaries.",
+      "observed": "Defines shared Skills/Harness/Foundry workflow without changing runtime or claiming finished new regions."
+    },
+    {
+      "id": "source-audit",
+      "path": "docs/quality/level_design_v2_audit.md",
+      "sha256": "c47e366e9fbc1e3584a7c7e3eb8b983422156e21eb420a34456a2d8eb7219791",
+      "kind": "spec",
+      "producer": "/root/audit_generation and /root/audit_capabilities",
+      "source_commit": "11827baaf259f5fc91061f5358f2621ed00e958c",
+      "content_version": "level-design-harness-v2",
+      "method": "Read-only audit of baseline fa9b9502a3b3c6c28bb361b1512cc44b5e854564; frozen report in reviewed source.",
+      "observed": "File/function/consumer evidence, known assumptions and bounded reproducibility; code audit is not playtest evidence."
+    },
+    {
+      "id": "independent-python",
+      "path": "docs/evidence/level_design_v2/independent_review/final_python.log",
+      "sha256": "03c6de87fe62d5e61c1eca455b406de49c4d519135941c489686aa7ed23121a9",
+      "kind": "command",
+      "producer": "/root/independent_v2_review",
+      "source_commit": "11827baaf259f5fc91061f5358f2621ed00e958c",
+      "content_version": "level-design-harness-v2",
+      "method": "Independent fresh execution of contract, routing, analysis and Golden tests including deliberate failures.",
+      "observed": "88 tests passed; intentional negative CLI reports are expected assertions, not ignored failures.",
+      "command": "python3 -m unittest discover -s tests -p 'test_level_design_*.py' -v",
+      "exit_code": 0,
+      "environment": "Managed Linux cloud workspace; Python 3; reviewed commit 11827baaf259f5fc91061f5358f2621ed00e958c"
+    },
+    {
+      "id": "independent-capture",
+      "path": "docs/evidence/level_design_v2/independent_review/final_capture.log",
+      "sha256": "7e21e669cf53ccae1e7509434322df6df9187d4977a908269673552018a9b98b",
+      "kind": "command",
+      "producer": "/root/independent_v2_review",
+      "source_commit": "11827baaf259f5fc91061f5358f2621ed00e958c",
+      "content_version": "level-design-harness-v2",
+      "method": "Fresh real Godot capture with formal generator/assembler and real PlayerMotor input strategies; completion marker and invocation receipts checked.",
+      "observed": "137 assertions, 0 failures, 3 real strategies. Retains sandbox listen/Android build-tools diagnostics and exit 2 ObjectDB/1 resource warnings; no leak-free or full enemy/Boss claim.",
+      "command": "python3 tools/level_design.py capture --seed level-design-v2-baseline --strategies fast growth deep --output build/verification/v2-review/third/capture.json",
+      "exit_code": 0,
+      "environment": "Managed Linux cloud workspace; Godot 4.7.2.stable.official.ed1daf0bf; headless real Motor"
+    },
+    {
+      "id": "independent-runtime-archive",
+      "path": "docs/evidence/level_design_v2/independent_review/final_runtime_evidence.tar.gz",
+      "sha256": "1424dba468ad43557bcab063c23b1e725b7c0f3448062c59078cb49b271d552b",
+      "kind": "runtime_trace",
+      "producer": "/root/independent_v2_review",
+      "source_commit": "11827baaf259f5fc91061f5358f2621ed00e958c",
+      "content_version": "level-design-harness-v2",
+      "method": "Archive retains actual capture, invocation, analysis, same-report comparison, original Golden batch and input replay trajectories.",
+      "observed": "fast 2113 frames/5 edges; growth 2106/5; deep 2943/7. Golden 6 phrases and 6 continuous three-phrase itineraries; exact three adapter bindings; full challenge-state fulfillment unverified."
+    },
+    {
+      "id": "independent-final-review",
+      "path": "docs/evidence/level_design_v2/independent_review/final_review.json",
+      "sha256": "f5ab7864034545415bfca2e76ee59a8497bb9fc6fe7ca8359c22ca00abff1f4b",
+      "kind": "review",
+      "producer": "/root/independent_v2_review",
+      "source_commit": "11827baaf259f5fc91061f5358f2621ed00e958c",
+      "content_version": "level-design-harness-v2",
+      "method": "Separate read-only reviewer reproduced original R1–R7 failures, reran repaired code and real Godot end-to-end paths at the frozen implementation.",
+      "observed": "ACCEPT for bounded offline production-system engineering slice only. Full project regression, finished content quality, physical devices and user acceptance are not signed.",
+      "reviewer": "/root/independent_v2_review",
+      "implementers": [
+        "Codex /root",
+        "/root",
+        "/root/audit_generation",
+        "/root/audit_capabilities",
+        "/root/design_contracts",
+        "/root/golden_foundry",
+        "/root/skills_templates"
+      ],
+      "independent": true,
+      "independence_basis": "Separately spawned read-only reviewer explicitly states implemented_reviewed_production_code=false and modified_production_code=false; original rejected findings and retests retained.",
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "full-release-report",
+      "path": "docs/evidence/level_design_v2/full_report.json",
+      "sha256": "7105d29334d448944eeda15981f570384a7d744b9436e4ff82b318ecb3df0b33",
+      "kind": "command",
+      "producer": "Codex /root",
+      "source_commit": "e870f0b249258e13766676be68ec8fd1d649a179",
+      "content_version": "level-design-harness-v2",
+      "method": "Actual fresh release Harness, all 40 checks exit zero; report/index/log/archive hashes checked.",
+      "observed": "40/40 passed, reused=0, release=true, 663.34 seconds; includes old core/generated consumers/region/actions/art/web and six Level Design specialties. No subjective/device/GUI acceptance.",
+      "command": "python3 tools/harness.py --profile full --jobs 4 --release",
+      "exit_code": 0,
+      "environment": "Managed Linux cloud workspace; Python 3.12.14; Godot 4.7.2.stable.official.ed1daf0bf; clean source e870f0b249258e13766676be68ec8fd1d649a179"
+    },
+    {
+      "id": "full-release-console",
+      "path": "docs/evidence/level_design_v2/full_console.log",
+      "sha256": "d5c7979295f61be18645444a19dc714cfb24b4b05d07a12b6145d73ff2890d94",
+      "kind": "command",
+      "producer": "Codex /root",
+      "source_commit": "e870f0b249258e13766676be68ec8fd1d649a179",
+      "content_version": "level-design-harness-v2",
+      "method": "Original complete console of full release invocation, completion and exit status recorded in evidence index.",
+      "observed": "Every scheduled check passed; all explicitly fresh; raw diagnostics preserved in archive.",
+      "command": "python3 tools/harness.py --profile full --jobs 4 --release",
+      "exit_code": 0,
+      "environment": "Managed Linux cloud workspace; Python 3.12.14; Godot 4.7.2.stable.official.ed1daf0bf; clean source e870f0b249258e13766676be68ec8fd1d649a179"
+    },
+    {
+      "id": "full-runtime-archive",
+      "path": "docs/evidence/level_design_v2/full_runtime_evidence.tar.gz",
+      "sha256": "16566b93626f67d3e0b8e6917d8c9926837263015c81a1e52c58d62edc98b9d0",
+      "kind": "runtime_trace",
+      "producer": "Codex /root",
+      "source_commit": "e870f0b249258e13766676be68ec8fd1d649a179",
+      "content_version": "level-design-harness-v2",
+      "method": "Repository-relative archive of full Harness individual logs, real capability/capture/analysis and Golden batch/replays.",
+      "observed": "Fresh capture of three actual strategies; Golden 24 phrases and 6 continuous itineraries, 592 assertions. Full challenge-state fulfillment, complete enemy/Boss gameplay, GUI, visual/player/device approval remain unverified."
+    },
+    {
+      "id": "independent-delivery-review",
+      "path": "docs/evidence/level_design_v2/independent_review/delivery_review.json",
+      "sha256": "90bdbebc9c8813f6bcd5d1e645a4c487e79d339222fd6c5c39558a26484f2dfa",
+      "kind": "review",
+      "producer": "/root/independent_v2_review",
+      "source_commit": "e870f0b249258e13766676be68ec8fd1d649a179",
+      "content_version": "level-design-harness-v2",
+      "method": "Independent follow-up verifies e870 implementation identity against third-round reviewed source and actual full release evidence.",
+      "observed": "ACCEPT for engineering delivery scope at e870; original 118 third-round command/source provenance preserved, not relabeled.",
+      "reviewer": "/root/independent_v2_review",
+      "implementers": [
+        "Codex /root",
+        "/root",
+        "/root/audit_generation",
+        "/root/audit_capabilities",
+        "/root/design_contracts",
+        "/root/golden_foundry",
+        "/root/skills_templates"
+      ],
+      "independent": true,
+      "independence_basis": "Separately spawned read-only reviewer states implemented_reviewed_production_code=false and modified_reviewed_production_code=false. Reviewer independently inspected completed full report, all check logs, profile/source bindings and runtime artifacts; the main task executed the unchanged full suite.",
+      "verdict": "ACCEPT"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "完整release工程回归已通过，但本次未取得正式浏览器GUI、实体设备、正常速度美术音画和玩家趣味/手感认可；workflow保留review。",
+    "Whole formal map enemy encounters and Boss completion; capture uses assembler/shotlatch routes",
+    "All legal weapons, low-resource entry, failures/retries, all dynamic phases and equipment switching",
+    "Complete action-order/alternative/entry-exit/energy-cooldown/camera/failure-recovery fulfillment of Golden design cards",
+    "Real normal-speed aesthetics/audio/gamefeel and user fun acceptance",
+    "Physical keyboard/mouse, gamepad and mobile devices",
+    "Mechanism/exploration/visual diversity full measured signatures",
+    "Full autonomous new-region authoring beyond routable mission and tested existing consumers",
+    "Cryptographic authentication of externally edited recordings; local fingerprints detect consistency only",
+    "Editor import log contains sandbox TCP socket/listen errors and missing Android build-tools; this review did not build Android or verify networking.",
+    "Capture exit reports 2 leaked ObjectDB instances and 1 resource still in use; functional checks complete but no leak-free lifecycle/performance claim.",
+    "Earlier capability-only run reported larger exit resource diagnostics; original log retained."
+  ],
+  "adopted_skills": [
+    "game-quality-gate",
+    "region-generator",
+    "level-module-creator",
+    "art-director",
+    "gameplay-reviewer",
+    "project-integration",
+    "challenge-choreographer",
+    "encounter-director",
+    "scene-composer"
+  ]
+}

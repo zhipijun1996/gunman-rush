@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "artifact_kind": "actual_visual_comparison",
+  "status": "comparable_for_review",
+  "before": {
+    "path": "build/painted_terrain/final_a_01/visual_capture.json",
+    "sha256": "5d742a90661f0174ccf8ba093096c9d631399723b9c0597957f7c2f55f353470"
+  },
+  "after": {
+    "path": "build/painted_terrain/final_e_01/visual_capture.json",
+    "sha256": "529c671a8f0972b9e9c03b70c4f4c3a7c629078534cbb5af073b12d8e24fa7e7"
+  },
+  "conditions": {
+    "root_seed": "against-wind-golden-v1",
+    "map_index": 1,
+    "strategy": "fast",
+    "phase_wait_ticks": 0,
+    "max_ticks": 1800,
+    "encounter_policy": "blind_legacy",
+    "capture_script": "tools/spatial_golden_capture.gd",
+    "visual_sample": "res://resources/visual_development/candidate.json",
+    "visual_layout": "open-meadow"
+  },
+  "source_changes": [],
+  "before_source_commit": "3ebb0d3af98855595f43c7bf4ec2b2a675b5d6cc",
+  "after_source_commit": "3ebb0d3af98855595f43c7bf4ec2b2a675b5d6cc",
+  "visual_treatments": {
+    "before": "res://resources/visual_development/candidate.json",
+    "after": "res://resources/visual_development/painted_terrain_candidate.json"
+  },
+  "before_movie": {
+    "path": "build/painted_terrain/final_a_01/gameplay.mp4",
+    "sha256": "36a6c12ac8d194bc4b21521d713b6aead0723d4ce0989d11666d978b0b054c5d"
+  },
+  "after_movie": {
+    "path": "build/painted_terrain/final_e_01/gameplay.mp4",
+    "sha256": "65bfe2834a43d94fc35f17f3e05ea5a10299134a8f71aa0c2b5479fe71388ade"
+  },
+  "route_outcomes": {
+    "before": "route_target_reached",
+    "after": "route_target_reached"
+  },
+  "adaptation_validation": {
+    "before": null,
+    "after": null
+  },
+  "producer_origins": {
+    "before": {
+      "kind": "original_workspace",
+      "producer_root": "/workspace/plains-art-grammar",
+      "movie_writer_completion_bound": true
+    },
+    "after": {
+      "kind": "original_workspace",
+      "producer_root": "/workspace/plains-art-grammar",
+      "movie_writer_completion_bound": true
+    }
+  },
+  "subjective_acceptance": "unverified",
+  "limits": "Same actual driver/core/entry/manifest conditions, not byte-identical trajectory, pixel registration, performance, full route success or beauty proof."
+}

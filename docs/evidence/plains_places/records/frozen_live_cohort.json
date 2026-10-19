@@ -1,0 +1,312 @@
+{
+  "source_commit": "ef6a8b4f1d06406b6b5f0a3db658902c15c1084e",
+  "scope": "Exactly three preregistered live chains; actual orders/placements/ports differ. No six-order/raise40/all-phase/campaign/device/formal admission inferred. Original same-layout compare contract remains unchanged.",
+  "captures": [
+    {
+      "capture": "build/plains_places/full_03/visual_capture.json",
+      "seed": "plains-places-first-01",
+      "prototype_order": [
+        "lee_court",
+        "wind_meadow",
+        "postal_valley"
+      ],
+      "place_instances": [
+        {
+          "id": "place_0_lee_court",
+          "prototype_id": "lee_court",
+          "source_measurement_sha256": "abbdd0e589f0d25ae60937726dad9a633f1772d593bf2ff307d6d25f13031081",
+          "translation": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "id": "place_1_wind_meadow",
+          "prototype_id": "wind_meadow",
+          "source_measurement_sha256": "e7ca4d01ac1350b504356548912f06ad69dd32f0e647f3b16205069090c03df2",
+          "translation": [
+            700.0,
+            -80.0
+          ]
+        },
+        {
+          "id": "place_2_postal_valley",
+          "prototype_id": "postal_valley",
+          "source_measurement_sha256": "d59b3d59caaa9b6723ca3df2b0ac2ffd44a495335504a87efcad01178787a02a",
+          "translation": [
+            1652.0,
+            -74.0
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "a": "place_0_lee_court",
+          "b": "place_1_wind_meadow",
+          "bidirectional": true,
+          "condition": "open",
+          "gap_world": 160.0,
+          "id": "edge_0",
+          "kind": "horizontal",
+          "modules": [
+            0,
+            1
+          ],
+          "path": [
+            [
+              508.0,
+              618.7692
+            ],
+            [
+              748.0,
+              626.0
+            ]
+          ],
+          "recipe_id": "gap160_level",
+          "rise_world": 0.0
+        },
+        {
+          "a": "place_1_wind_meadow",
+          "b": "place_2_postal_valley",
+          "bidirectional": true,
+          "condition": "open",
+          "gap_world": 160.0,
+          "id": "edge_1",
+          "kind": "horizontal",
+          "modules": [
+            1,
+            2
+          ],
+          "path": [
+            [
+              1432.0,
+              623.0
+            ],
+            [
+              1684.0,
+              630.0
+            ]
+          ],
+          "recipe_id": "gap160_level",
+          "rise_world": 0.0
+        }
+      ],
+      "ticks": 2174,
+      "completed_cases": 35,
+      "movie": {
+        "path": "build/plains_places/full_03/gameplay.mp4",
+        "sha256": "5af2780e02957bda575b3674238f59cb1a986be87bd8a7d5204efdc3ba002ab2"
+      },
+      "health_values": [
+        5.0
+      ],
+      "max_recovery_count": 0,
+      "all_cases_passed_supported": true,
+      "source_inventory_matches_first": true
+    },
+    {
+      "capture": "build/plains_places/seed_01/visual_capture.json",
+      "seed": "places-contract-01",
+      "prototype_order": [
+        "wind_meadow",
+        "postal_valley",
+        "lee_court"
+      ],
+      "place_instances": [
+        {
+          "id": "place_0_wind_meadow",
+          "prototype_id": "wind_meadow",
+          "source_measurement_sha256": "e7ca4d01ac1350b504356548912f06ad69dd32f0e647f3b16205069090c03df2",
+          "translation": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "id": "place_1_postal_valley",
+          "prototype_id": "postal_valley",
+          "source_measurement_sha256": "d59b3d59caaa9b6723ca3df2b0ac2ffd44a495335504a87efcad01178787a02a",
+          "translation": [
+            992.0,
+            6.0
+          ]
+        },
+        {
+          "id": "place_2_lee_court",
+          "prototype_id": "lee_court",
+          "source_measurement_sha256": "abbdd0e589f0d25ae60937726dad9a633f1772d593bf2ff307d6d25f13031081",
+          "translation": [
+            2748.0,
+            14.0
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "a": "place_0_wind_meadow",
+          "b": "place_1_postal_valley",
+          "bidirectional": true,
+          "condition": "open",
+          "gap_world": 200.0,
+          "id": "edge_0",
+          "kind": "horizontal",
+          "modules": [
+            0,
+            1
+          ],
+          "path": [
+            [
+              732.0,
+              703.0
+            ],
+            [
+              1024.0,
+              710.0
+            ]
+          ],
+          "recipe_id": "gap200_level",
+          "rise_world": 0.0
+        },
+        {
+          "a": "place_1_postal_valley",
+          "b": "place_2_lee_court",
+          "bidirectional": true,
+          "condition": "open",
+          "gap_world": 200.0,
+          "id": "edge_1",
+          "kind": "horizontal",
+          "modules": [
+            1,
+            2
+          ],
+          "path": [
+            [
+              2508.0,
+              712.0
+            ],
+            [
+              2780.0,
+              716.1333
+            ]
+          ],
+          "recipe_id": "gap200_level",
+          "rise_world": 0.0
+        }
+      ],
+      "ticks": 2231,
+      "completed_cases": 35,
+      "movie": {
+        "path": "build/plains_places/seed_01/gameplay.mp4",
+        "sha256": "911699883d8eb25489a38a186f4ad3aa19694464ce5f99e6c409398a02c2cd69"
+      },
+      "health_values": [
+        5.0
+      ],
+      "max_recovery_count": 0,
+      "all_cases_passed_supported": true,
+      "source_inventory_matches_first": true
+    },
+    {
+      "capture": "build/plains_places/seed_02/visual_capture.json",
+      "seed": "places-contract-02",
+      "prototype_order": [
+        "postal_valley",
+        "wind_meadow",
+        "lee_court"
+      ],
+      "place_instances": [
+        {
+          "id": "place_0_postal_valley",
+          "prototype_id": "postal_valley",
+          "source_measurement_sha256": "d59b3d59caaa9b6723ca3df2b0ac2ffd44a495335504a87efcad01178787a02a",
+          "translation": [
+            0.0,
+            0.0
+          ]
+        },
+        {
+          "id": "place_1_wind_meadow",
+          "prototype_id": "wind_meadow",
+          "source_measurement_sha256": "e7ca4d01ac1350b504356548912f06ad69dd32f0e647f3b16205069090c03df2",
+          "translation": [
+            1716.0,
+            8.0
+          ]
+        },
+        {
+          "id": "place_2_lee_court",
+          "prototype_id": "lee_court",
+          "source_measurement_sha256": "abbdd0e589f0d25ae60937726dad9a633f1772d593bf2ff307d6d25f13031081",
+          "translation": [
+            2668.0,
+            14.0
+          ]
+        }
+      ],
+      "connections": [
+        {
+          "a": "place_0_postal_valley",
+          "b": "place_1_wind_meadow",
+          "bidirectional": true,
+          "condition": "open",
+          "gap_world": 160.0,
+          "id": "edge_0",
+          "kind": "horizontal",
+          "modules": [
+            0,
+            1
+          ],
+          "path": [
+            [
+              1516.0,
+              706.0
+            ],
+            [
+              1764.0,
+              714.0
+            ]
+          ],
+          "recipe_id": "gap160_level",
+          "rise_world": 0.0
+        },
+        {
+          "a": "place_1_wind_meadow",
+          "b": "place_2_lee_court",
+          "bidirectional": true,
+          "condition": "open",
+          "gap_world": 160.0,
+          "id": "edge_1",
+          "kind": "horizontal",
+          "modules": [
+            1,
+            2
+          ],
+          "path": [
+            [
+              2448.0,
+              711.0
+            ],
+            [
+              2700.0,
+              716.1333
+            ]
+          ],
+          "recipe_id": "gap160_level",
+          "rise_world": 0.0
+        }
+      ],
+      "ticks": 2199,
+      "completed_cases": 35,
+      "movie": {
+        "path": "build/plains_places/seed_02/gameplay.mp4",
+        "sha256": "491078e9a2f8756b4e61a59a41a886f0de5d9ecde3cad4f7f8f2ea4481320ca1"
+      },
+      "health_values": [
+        5.0
+      ],
+      "max_recovery_count": 0,
+      "all_cases_passed_supported": true,
+      "source_inventory_matches_first": true
+    }
+  ]
+}

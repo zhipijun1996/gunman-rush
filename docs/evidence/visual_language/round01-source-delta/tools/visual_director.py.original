@@ -1,0 +1,698 @@
+"""Pixel-bound visual production adapter; uses the existing formal driver and Harness loop.
+
+Capture integrity, computable candidates, AI review and human acceptance stay separate.
+No live PNG readback: images are extracted from the completed real Godot movie.
+"""
+from __future__ import annotations
+import argparse
+import hashlib
+import json
+import math
+import os
+from pathlib import Path
+import re
+import selectors
+import shutil
+import subprocess
+import sys
+import time
+
+import harness
+import level_formal
+from level_design import ROOT, read, write, file_hash
+
+
+# Explicit experimental capture adapter; arbitrary script execution is not a CLI option.
+CAPTURE_SCRIPTS = {"tools/spatial_golden_capture.gd"}
+VISUAL_SAMPLE_CATALOG = "res://resources/visual_development/candidate.json"
+
+
+def capture_extension_sources(script):
+    if script is None:
+        return {}
+    if script not in CAPTURE_SCRIPTS:
+        raise ValueError("Unsupported capture script")
+    pending = [script, "tools/spatial_golden_preview.gd"]
+    result = {}
+    while pending:
+        relative_path = pending.pop()
+        if relative_path in result:
+            continue
+        path = (ROOT / relative_path).resolve()
+        if not path.is_relative_to(ROOT) or not path.is_file():
+            raise ValueError("Missing capture extension source: " + relative_path)
+        result[relative_path] = file_hash(path)
+        pending.extend(re.findall(r"res://((?:tests|tools)/[a-zA-Z0-9_/]+[.]gd)", path.read_text()))
+    return dict(sorted(result.items()))
+
+
+def sources(capture_script=None):
+    result = level_formal.source_files()
+    for p in (ROOT / 'assets').rglob('*'):
+        if p.is_file() and p.suffix != '.import':
+            result[p.relative_to(ROOT).as_posix()] = file_hash(p)
+    result[Path(__file__).relative_to(ROOT).as_posix()] = file_hash(Path(__file__))
+    result.update(capture_extension_sources(capture_script))
+    return dict(sorted(result.items()))
+
+
+def relative(path):
+    return str(Path(path).resolve().relative_to(ROOT))
+
+
+def artifact(path):
+    return {'path': relative(path), 'sha256': file_hash(Path(path))}
+
+
+def capture(seed, map_index, strategy, folder, max_ticks=6000, timeout=900,
+            encounter_policy='kill_from_bank_v1', phase_wait_ticks=0, frame_stride=120, composition=False, capture_script=None, visual_sample=''):
+    folder = Path(folder).resolve()
+    if not folder.is_relative_to(ROOT / 'build') or folder.exists():
+        raise ValueError('Use a NEW build/ directory; failed attempts are immutable')
+    if not (1 <= max_ticks <= 18000 and 0 <= phase_wait_ticks <= 600 and 1 <= frame_stride <= 3600 and 1 <= timeout <= 3600):
+        raise ValueError('Unbounded capture request')
+    if map_index not in (1, 2) or strategy not in ('fast', 'growth', 'deep', 'return') or encounter_policy not in level_formal.ENCOUNTER_POLICIES:
+        raise ValueError('Unknown formal driver request')
+    extension_sources = capture_extension_sources(capture_script)
+    if visual_sample and (capture_script != 'tools/spatial_golden_capture.gd' or visual_sample != VISUAL_SAMPLE_CATALOG):
+        raise ValueError('Unsupported explicit visual sample catalog')
+    if visual_sample and not (ROOT / visual_sample.removeprefix('res://')).is_file():
+        raise ValueError('Missing explicit visual sample catalog')
+    folder.mkdir(parents=True)
+    before = sources(capture_script)
+    request = dict(source_commit=subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
+                   root_seed=seed, map_index=map_index, strategy=strategy, phase_wait_ticks=phase_wait_ticks,
+                   max_ticks=max_ticks, encounter_policy=encounter_policy)
+    if capture_script is not None:
+        request['capture_script'] = capture_script
+        request['visual_sample'] = visual_sample
+    report = dict(schema_version=1, artifact_kind='actual_formal_visual_capture', status='running', producer_root=str(ROOT),
+                  request=request, source_before=before, source_after=None, errors=[],
+                  subjective_acceptance='unverified', device_acceptance='unverified',
+                  scope='Real DemoApp camera, enemies, Motor and synthetic Router input; post-extracted video frames are NOT exact physics-tick screenshots',
+                  started_utc=time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()))
+    if capture_script is not None:
+        report['capture_extension'] = {'script': capture_script, 'sources': extension_sources,
+            'scope': 'explicit experimental spatial fixture; not campaign arrival or pure-art equivalence'}
+    if composition:
+        report['composition_capture']={'requested':True,'raw_path':relative(folder/'composition_raw.json')}
+    report['composition_observation_status']='pending' if composition else 'not_requested'
+    receipt = folder / 'visual_capture.json'
+    write(receipt, report)
+    display = None
+    display_log = None
+    started = time.monotonic()
+    env = os.environ.copy()
+    env.update(LIBGL_ALWAYS_SOFTWARE='1', LP_NUM_THREADS='1')
+    output, avi, movie = folder/'capture.json', folder/'gameplay.avi', folder/'gameplay.mp4'
+    try:
+        if not env.get('DISPLAY'):
+            binary = shutil.which('Xvfb') or str(ROOT.parent/'toolchains/xvfb/usr/bin/Xvfb')
+            display_log = (folder/'display.log').open('wb')
+            display = subprocess.Popen([binary, '-displayfd', '1', '-screen', '0', '1280x720x24', '-nolisten', 'tcp', '-ac'], stdout=subprocess.PIPE, stderr=display_log)
+            with selectors.DefaultSelector() as selector:
+                selector.register(display.stdout, selectors.EVENT_READ)
+                if not selector.select(20): raise RuntimeError('Xvfb readiness timeout')
+                number = display.stdout.readline().decode().strip()
+                if not number.isdigit(): raise RuntimeError('Invalid Xvfb display')
+            env['DISPLAY'] = ':' + number
+        report['environment'] = {k:env[k] for k in ('LIBGL_ALWAYS_SOFTWARE','LP_NUM_THREADS','DISPLAY')}
+        command = native_command(report, output, avi)
+        report['command'] = command
+        write(receipt, report)
+        report['capture_process'] = harness.run_check({'argv':command, 'timeout_seconds':timeout,
+            'success_pattern':r'^LEVEL FORMAL CAPTURE: [1-9]\d* frames, [1-9]\d* edges, outcome=\S+, capture_errors=0$'}, folder/'capture.log', ROOT, env)
+        report['source_after'] = sources(capture_script)
+        if output.exists(): report['native_capture'] = artifact(output)
+        if (folder/'capture.log').exists(): report['native_log'] = artifact(folder/'capture.log')
+        if report['capture_process']['status'] != 'passed' or report['source_after'] != before:
+            raise RuntimeError('Native producer failed/timed out or source drifted; retain evidence')
+        data = read(output)
+        errors = validate_native(data, report, (folder/'capture.log').read_text())
+        if errors: raise RuntimeError('; '.join(errors))
+        if composition:
+            raw_path=folder/'composition_raw.json'
+            if raw_path.is_file():
+                observation_path=folder/'composition_observation.json'
+                bind_composition(raw_path,output,before,observation_path)
+                report['composition_observation']=artifact(observation_path)
+                report['composition_observation_status']='measured'
+            else:
+                report['composition_observation_status']='unverified_missing_raw'
+        with (folder/'encode.log').open('w') as log:
+            subprocess.run(['ffmpeg','-n','-i',str(avi),'-c:v','libx264','-crf','21','-pix_fmt','yuv420p','-c:a','aac',str(movie)], stdout=log, stderr=subprocess.STDOUT, timeout=180, check=True)
+        media = json.loads(subprocess.check_output(['ffprobe','-v','error','-show_streams','-show_format','-of','json',str(movie)],timeout=30))
+        video = next(s for s in media['streams'] if s['codec_type']=='video')
+        audio = next(s for s in media['streams'] if s['codec_type']=='audio')
+        count = int(video['nb_frames'])
+        if (video['width'],video['height'],video['avg_frame_rate'],int(audio['sample_rate']),audio['channels']) != (1280,720,'60/1',48000,2) or count < data['tick_count']:
+            raise RuntimeError('Formal movie resolution/frame/audio coverage mismatch')
+        numbers = sorted(set([0,count-1]+list(range(frame_stride,count,frame_stride))))
+        images = folder/'video_frames'; images.mkdir()
+        select = 'select=' + '+'.join('eq(n\\,'+str(n)+')' for n in numbers)
+        with (folder/'extract.log').open('w') as log:
+            subprocess.run(['ffmpeg','-n','-i',str(movie),'-vf',select,'-vsync','0',str(images/'extracted_%06d.png')],stdout=log,stderr=subprocess.STDOUT,timeout=180,check=True)
+        outputs = sorted(images.glob('extracted_*.png'))
+        if len(outputs) != len(numbers): raise RuntimeError('Video frame extraction incomplete')
+        frames = []
+        for p, n in zip(outputs,numbers):
+            target = images/f'video_frame_{n:06d}.png';p.rename(target)
+            frames.append(dict(**artifact(target),video_frame_index_zero_based=n,video_time_seconds=n/60,scope='post-extracted actual MP4 frame; not physics tick'))
+        report.update(status='captured', outcome=data['outcome'], route_reached=data['route_reached'],
+                      tick_count=data['tick_count'], media=media, movie=artifact(movie),video_frames=frames,
+                      original_avi_sha256=file_hash(avi), source_after=sources(capture_script))
+        if report['source_after'] != before: raise RuntimeError('Source drift during media finalization')
+        # Keep native trace and validated complete MP4. Failed temporary AVI is never removed.
+        avi.unlink()
+    except Exception as exc:
+        report['status'] = 'failed'; report['errors'].append(type(exc).__name__+': '+str(exc))
+    finally:
+        try:
+            report['source_after'] = sources(capture_script)
+        except (OSError, ValueError) as exc:
+            report['source_after'] = None
+            report['status'] = 'failed'
+            report['errors'].append('Final source guard unavailable: ' + str(exc))
+        report.update(wall_seconds=time.monotonic()-started,finished_utc=time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()))
+        write(receipt,report)
+        if display:
+            display.terminate()
+            try: display.wait(timeout=5)
+            except subprocess.TimeoutExpired: display.kill();display.wait(timeout=5)
+        if display_log: display_log.close()
+    return report
+
+
+def native_command(report, output, avi):
+    command=level_formal.command_for(report['request'],output,frame_dir='',visible=True)
+    script = report['request'].get('capture_script')
+    if script is not None:
+        if script not in CAPTURE_SCRIPTS:
+            raise ValueError('Unsupported capture script')
+        command[command.index('--script') + 1] = script
+    sample = report['request'].get('visual_sample', '')
+    if sample:
+        if script != 'tools/spatial_golden_capture.gd' or sample != VISUAL_SAMPLE_CATALOG:
+            raise ValueError('Unsupported explicit visual sample catalog')
+        command.append('--visual-sample=' + sample)
+    command[2:2]=['--rendering-method','gl_compatibility','--write-movie',str(avi)]
+    composition=report.get('composition_capture')
+    if composition:
+        expected=relative(Path(output).parent/'composition_raw.json')
+        if composition!={'requested':True,'raw_path':expected}:
+            raise ValueError('Unexpected composition output request')
+        command.append('--visual-composition-output=res://'+expected)
+    return command
+
+
+def producer_command_origin(report, output, native_log):
+    """Verify original commands after a workspace move, without rewriting receipts.
+
+    Only the absolute MovieWriter destination may differ. Its repository-relative
+    path and the independently bound native completion log must still agree.
+    All other arguments, source, media and evidence checks remain mandatory.
+    """
+    output = Path(output).resolve()
+    expected = native_command(report, output, output.parent / 'gameplay.avi')
+    actual = report.get('command')
+    completions = [line.strip().removeprefix('Done recording movie at path: ')
+                   for line in native_log.splitlines()
+                   if line.strip().startswith('Done recording movie at path: ')]
+    index = expected.index('--write-movie') + 1
+    if not isinstance(actual,list) or len(actual)!=len(expected) or completions!=[actual[index]]:
+        raise ValueError('MovieWriter origin lacks unique matching native completion')
+    if actual == expected:
+        if report.get('producer_root', str(ROOT)) != str(ROOT):
+            raise ValueError('unexpected real producer root')
+        return {'kind': 'original_workspace', 'producer_root': str(ROOT), 'movie_writer_completion_bound':True}
+    if not isinstance(actual, list) or len(actual) != len(expected):
+        raise ValueError('unexpected real producer command')
+    index = expected.index('--write-movie') + 1
+    destination = actual[index]
+    if not isinstance(destination, str):
+        raise ValueError('unexpected real producer movie destination')
+    original = Path(destination)
+    relative_avi = output.parent.relative_to(ROOT) / 'gameplay.avi'
+    if (not original.is_absolute() or str(original.resolve()) != destination
+            or len(original.parts) <= len(relative_avi.parts)
+            or original.parts[-len(relative_avi.parts):] != relative_avi.parts):
+        raise ValueError('unexpected real producer archive path')
+    producer_root = Path(*original.parts[:-len(relative_avi.parts)])
+    reconstructed = expected.copy()
+    reconstructed[index] = destination
+    if (actual != reconstructed or completions != [destination]
+            or report.get('producer_root', str(producer_root)) != str(producer_root)):
+        raise ValueError('unexpected real producer command or unbound archived MovieWriter origin')
+    return {'kind': 'relocated_workspace_same_relative_paths', 'producer_root': str(producer_root),
+            'movie_writer_completion_bound': True,
+            'limits': 'Original capture/command/log bytes unchanged; not authentication against forged native processes.'}
+
+
+def bind_composition(raw_path,native_path,source_before,output):
+    """Adapt actual runtime measurements after native completion; never manufacture measured Nodes."""
+    raw_path=Path(raw_path).resolve();output=Path(output).resolve()
+    if output.exists() or not output.is_relative_to(ROOT/'build'):
+        raise ValueError('Use a new build/ composition observation')
+    raw=read(raw_path)
+    if raw.get('artifact_kind')!='actual_scene_composition_measurements':
+        raise ValueError('Not runtime composition measurements')
+    observer=raw.get('observer',{})
+    observer_path=observer.get('path','').removeprefix('res://')
+    if not observer_path or source_before.get(observer_path)!=observer.get('sha256'):
+        raise ValueError('Actual composition observer absent/changed in captured source')
+    if not isinstance(raw.get('samples'),list) or not raw['samples']:
+        raise ValueError('Missing actual runtime composition samples')
+    observation=dict(raw)
+    observation.update(artifact_kind='actual_scene_composition_observation',
+                       capture_sha256=file_hash(Path(native_path)),raw_measurements=artifact(raw_path),
+                       observer={'path':observer_path,'sha256':observer['sha256']},
+                       scope='Actual runtime Sprite and Platform bounds from read-only scene observer. Nodes are last measured sample; samples retain actual cadence. Layer/semantic labels are declarations, not artistic quality proof.')
+    composition_candidates(observation,observation['capture_sha256'],source_before)
+    write(output,observation)
+    return observation
+
+
+def validate_composition_binding(observation,native_sha,source_before):
+    raw=read(bound_file(observation.get('raw_measurements')))
+    if raw.get('artifact_kind')!='actual_scene_composition_measurements' or not raw.get('samples'):
+        raise ValueError('Missing real runtime measurement provenance')
+    for key in ('nodes','protected_world_bounds','samples'):
+        if observation.get(key)!=raw.get(key): raise ValueError('Composition adapter changed actual measurements/'+key)
+    original_observer=raw.get('observer',{})
+    expected={'path':original_observer.get('path','').removeprefix('res://'),'sha256':original_observer.get('sha256')}
+    if observation.get('observer')!=expected: raise ValueError('Composition observer identity changed')
+    composition_candidates(observation,native_sha,source_before)
+    return observation
+
+
+def formal_source_projection(inventory):
+    """Original observer hashes code/resources, not bitmap bytes; preserve that exact contract.
+
+    Full bitmap + producer inventories remain separately bound by before/after equality.
+    Never replace the full original runtime inventory with the small driver/core subset.
+    """
+    runtime_folders=('scripts/','scenes/','resources/','config/','shaders/','assets/')
+    suffixes={'.gd','.tscn','.tres','.json','.gdshader'}
+    return {k:v for k,v in inventory.items() if not k.startswith(runtime_folders) or Path(k).suffix in suffixes}
+
+
+def validate_native(data, report, log):
+    errors=[]
+    if data.get('artifact_kind') != 'formal_level_capture' or data.get('schema_version') != 1 or data.get('capture_contract_version') != 3: errors.append('not actual current formal capture')
+    if not data.get('frames') or data.get('capture_errors') != []: errors.append('empty/incomplete real trace')
+    if data.get('screenshots') not in ([],None): errors.append('unexpected live screenshot readback')
+    if report.get('source_before') != report.get('source_after') or not report.get('source_before'): errors.append('source drift/incomplete inventory')
+    request=report.get('request',{})
+    for k in ('source_commit','root_seed','map_index','strategy','phase_wait_ticks','encounter_policy'):
+        if data.get(k) != request.get(k): errors.append('request mismatch/'+k)
+    extension = report.get('capture_extension')
+    script = request.get('capture_script')
+    if script is not None:
+        if script not in CAPTURE_SCRIPTS or not isinstance(extension, dict) or extension.get('script') != script:
+            errors.append('invalid capture extension identity')
+        else:
+            bound = extension.get('sources', {})
+            observed = data.get('capture_extension_sources')
+            if not bound or script not in bound or observed != {'res://' + p: h for p, h in bound.items()}:
+                errors.append('missing/changed native capture extension closure')
+            if any(report.get('source_before', {}).get(p) != h for p, h in bound.items()):
+                errors.append('capture extension absent from source guard')
+    elif extension is not None or data.get('capture_extension_sources'):
+        errors.append('unexpected capture extension')
+    if 'visual_sample' in report['request']:
+        selected = report['request']['visual_sample']
+        treatment = data.get('visual_sample_treatment', {})
+        valid = isinstance(selected, str) and selected in ('', VISUAL_SAMPLE_CATALOG)
+        if not isinstance(treatment, dict): treatment = {}
+        if not valid or treatment.get('catalog_path') != selected:
+            errors.append('explicit visual sample treatment mismatch')
+        expected = report.get('source_before', {}).get(selected.removeprefix('res://')) if valid and selected else ''
+        if treatment.get('catalog_sha256') != expected or (selected and not expected):
+            errors.append('explicit visual sample catalog source mismatch')
+    scope=data.get('captured_scope',{})
+    for k in ('enemies_instantiated','enemy_attacks_enabled','enemy_contacts_enabled','production_rewards_enabled','production_camera_enabled'):
+        if scope.get(k) is not True: errors.append('missing formal runtime/'+k)
+    for k in ('controller_manual_step','actor_teleport_by_driver','resource_injection','enemy_disable'):
+        if scope.get(k) is not False: errors.append('altered runtime/'+k)
+    if not data.get('initial_capability') or not data.get('initial_scenery_inventory'): errors.append('missing capability/scenery observation')
+    if data.get('manifest_hash') != data.get('manifest',{}).get('manifest_hash'): errors.append('manifest identity mismatch')
+    errors.extend(level_formal.validate_policy_basis(data,formal_source_projection(report.get('source_before',{}))))
+    marks=re.findall(r'^LEVEL FORMAL CAPTURE: (\d+) frames, (\d+) edges, outcome=(\S+), capture_errors=(\d+)$',log,re.M)
+    if marks != [(str(len(data.get('frames',[]))),str(len(data.get('edges',[]))),str(data.get('outcome')),'0')]: errors.append('missing/mismatched native completion')
+    if re.search(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:|ERROR: Failed to load script|ObjectDB.*leaked|resources? still in use at exit',log): errors.append('engine script error')
+    if not level_formal.engine_log_matches(data.get('engine'),log): errors.append('engine identity mismatch')
+    if data.get('route_reached') is not (data.get('outcome')=='route_target_reached'): errors.append('route outcome mismatch')
+    return errors
+
+
+def finalize_existing(original_receipt,folder,frame_stride=120):
+    """Repair only failed postprocessing in a NEW receipt, without invoking Godot or changing history."""
+    original_receipt=Path(original_receipt).resolve();folder=Path(folder).resolve()
+    if folder.exists() or not folder.is_relative_to(ROOT/'build') or not 1<=frame_stride<=3600:
+        raise ValueError('Use a new bounded build/ finalization directory')
+    original=read(original_receipt)
+    if original.get('status')!='failed' or original.get('artifact_kind')!='actual_formal_visual_capture':
+        raise ValueError('Original must be a preserved FAILED visual adapter receipt')
+    process=original.get('capture_process',{})
+    if process.get('status')!='passed' or type(process.get('exit_code')) is not int or process['exit_code']!=0:
+        raise ValueError('Cannot rescue a failed/timed-out native process')
+    native=bound_file(original['native_capture']);log=bound_file(original['native_log'])
+    data=read(native)
+    errors=validate_native(data,original,log.read_text())
+    if errors: raise ValueError('Original native data is not admissible: '+'; '.join(errors))
+    avi=native.parent/'gameplay.avi'
+    if not avi.is_file(): raise ValueError('Original complete movie AVI missing')
+    origin=producer_command_origin(original,native,log.read_text())
+    folder.mkdir(parents=True)
+    adapter_source=folder/'adapter_source.py'
+    adapter_source.write_bytes(Path(__file__).read_bytes())
+    report=copy_json(original)
+    report.update(status='running',errors=[],adaptation={'kind':'postprocessing_only_no_engine_rerun',
+        'contract_version':2,'original_receipt':artifact(original_receipt),'original_status':'failed','original_errors':original.get('errors'),
+        'adapter':artifact(adapter_source),'producer_origin':origin,'scope':'Original failed receipt stays FAILED. Revalidate native data with original formal source projection; encode retained real AVI and extract actual video frames. No game input/state/source changes or engine rerun.'})
+    report.pop('error',None)
+    destination=folder/'visual_capture.json';write(destination,report);started=time.monotonic()
+    movie=folder/'gameplay.mp4'
+    try:
+        composition=original.get('composition_capture')
+        if composition:
+            # native_command above checks that this is exactly the original
+            # repository-relative producer output, never a design-plan JSON.
+            raw=ROOT/composition['raw_path']
+            if not raw.is_file(): raise ValueError('Original measured composition raw missing')
+            raw_receipt=artifact(raw)
+            observation=folder/'composition_observation.json'
+            bind_composition(raw,native,original['source_before'],observation)
+            report['composition_observation']=artifact(observation)
+            report['composition_observation_status']='measured'
+            report['adaptation']['original_composition_raw']=raw_receipt
+        avi_hash=file_hash(avi)
+        with (folder/'encode.log').open('w') as out:
+            subprocess.run(['ffmpeg','-n','-i',str(avi),'-c:v','libx264','-crf','21','-pix_fmt','yuv420p','-c:a','aac',str(movie)],stdout=out,stderr=subprocess.STDOUT,timeout=180,check=True)
+        media=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_streams','-show_format','-of','json',str(movie)],timeout=30))
+        video=next(s for s in media['streams'] if s['codec_type']=='video');audio=next(s for s in media['streams'] if s['codec_type']=='audio');count=int(video['nb_frames'])
+        if (video['width'],video['height'],video['avg_frame_rate'],int(audio['sample_rate']),audio['channels'])!=(1280,720,'60/1',48000,2) or count<data['tick_count']:
+            raise RuntimeError('Formal movie coverage mismatch')
+        numbers=sorted(set([0,count-1]+list(range(frame_stride,count,frame_stride))))
+        images=folder/'video_frames';images.mkdir()
+        select='select='+'+'.join('eq(n\\,'+str(n)+')' for n in numbers)
+        with (folder/'extract.log').open('w') as out:
+            subprocess.run(['ffmpeg','-n','-i',str(movie),'-vf',select,'-vsync','0',str(images/'extracted_%06d.png')],stdout=out,stderr=subprocess.STDOUT,timeout=180,check=True)
+        outputs=sorted(images.glob('extracted_*.png'))
+        if len(outputs)!=len(numbers):raise RuntimeError('Video extraction incomplete')
+        frames=[]
+        for p,n in zip(outputs,numbers):
+            target=images/f'video_frame_{n:06d}.png';p.rename(target)
+            frames.append(dict(**artifact(target),video_frame_index_zero_based=n,video_time_seconds=n/60,scope='post-extracted actual MP4 frame; not physics tick'))
+        report.update(status='captured',outcome=data['outcome'],route_reached=data['route_reached'],tick_count=data['tick_count'],
+                      movie=artifact(movie),media=media,video_frames=frames,original_avi_sha256=avi_hash)
+        if composition and artifact(raw)!=raw_receipt:
+            raise RuntimeError('Original measured composition changed during finalization')
+        if file_hash(original_receipt)!=report['adaptation']['original_receipt']['sha256'] or file_hash(avi)!=avi_hash:
+            raise RuntimeError('Original evidence changed during finalization')
+    except Exception as exc:
+        report['status']='failed';report['errors'].append(type(exc).__name__+': '+str(exc))
+    finally:
+        report['adaptation'].update(wall_seconds=time.monotonic()-started,finished_utc=time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()))
+        write(destination,report)
+    return report
+
+
+def copy_json(value):
+    return json.loads(json.dumps(value))
+
+
+def bound_file(item):
+    if not isinstance(item,dict) or set(('path','sha256'))-item.keys():
+        raise ValueError('Missing path/hash binding')
+    path=(ROOT/item['path']).resolve()
+    if not path.is_relative_to(ROOT) or not path.is_file() or file_hash(path)!=item['sha256']:
+        raise ValueError('Missing/changed evidence: '+str(item.get('path')))
+    return path
+
+
+def load_capture(receipt_path):
+    """Recheck retained bytes and native producer; does not authenticate a human reviewer."""
+    receipt_path=Path(receipt_path).resolve()
+    report=read(receipt_path)
+    # Admission metadata is computed, never inherited from caller JSON.
+    report.pop('adaptation_validation',None)
+    if report.get('schema_version')!=1 or report.get('artifact_kind')!='actual_formal_visual_capture' or report.get('status')!='captured' or report.get('errors')!=[]:
+        raise ValueError('Not a terminal actual rendered capture')
+    if report.get('capture_process',{}).get('status')!='passed' or type(report.get('capture_process',{}).get('exit_code')) is not int or report['capture_process']['exit_code']!=0:
+        raise ValueError('Native process failed')
+    adaptation=report.get('adaptation')
+    if adaptation:
+        original=read(bound_file(adaptation['original_receipt']))
+        if adaptation.get('kind')!='postprocessing_only_no_engine_rerun' or original.get('status')!='failed' or adaptation.get('original_status')!='failed':
+            raise ValueError('Adaptation must preserve the original FAILED receipt')
+        for key in ('request','source_before','source_after','native_capture','native_log','capture_process','command'):
+            if original.get(key)!=report.get(key): raise ValueError('Adaptation changed original native facts/'+key)
+        version=adaptation.get('contract_version',1)
+        if version not in (1,2): raise ValueError('Unknown adaptation contract version')
+        if version==2:
+            adapter=bound_file(adaptation.get('adapter'))
+            if adapter != receipt_path.parent/'adapter_source.py':
+                raise ValueError('Adaptation adapter must be archived beside its new receipt')
+            if adaptation.get('original_errors')!=original.get('errors'):
+                raise ValueError('Adaptation changed original errors')
+            origin=producer_command_origin(original,bound_file(original['native_capture']),bound_file(original['native_log']).read_text())
+            if adaptation.get('producer_origin')!=origin:
+                raise ValueError('Adaptation producer origin differs from actual native log')
+            composition=original.get('composition_capture')
+            if composition:
+                raw=bound_file(adaptation.get('original_composition_raw'))
+                if raw!=ROOT/composition['raw_path'] or not report.get('composition_observation') or report.get('composition_observation_status')!='measured':
+                    raise ValueError('Adaptation lacks original measured composition binding')
+                observation=read(bound_file(report['composition_observation']))
+                if observation.get('raw_measurements')!=artifact(raw):
+                    raise ValueError('Adaptation composition differs from original raw')
+            elif adaptation.get('original_composition_raw') is not None:
+                raise ValueError('Unexpected original composition raw')
+            report['adaptation_validation']={'contract_version':2,'adapter_identity':'archived_bytes_verified','limits':'Byte binding, not authentication of the executing process.'}
+        else:
+            report['adaptation_validation']={'contract_version':1,'adapter_identity':'unverified','limits':'Legacy receipt references a mutable adapter path; native evidence revalidated, adapter identity is not proven.'}
+    data=read(bound_file(report['native_capture']))
+    log=bound_file(report['native_log']).read_text()
+    errors=validate_native(data,report,log)
+    movie=bound_file(report['movie'])
+    try:
+        producer_command_origin(report, bound_file(report['native_capture']), log)
+    except ValueError as error:
+        errors.append(str(error))
+    if report.get('environment',{}).get('LP_NUM_THREADS')!='1' or report.get('environment',{}).get('LIBGL_ALWAYS_SOFTWARE')!='1': errors.append('unmatched rendering environment')
+    try:
+        video=next(s for s in report['media']['streams'] if s['codec_type']=='video')
+        audio=next(s for s in report['media']['streams'] if s['codec_type']=='audio')
+        count=int(video['nb_frames'])
+        if (video['width'],video['height'],video['avg_frame_rate'],int(audio['sample_rate']),audio['channels'])!=(1280,720,'60/1',48000,2) or count<data['tick_count']: errors.append('invalid formal media coverage')
+        if not report.get('video_frames'): errors.append('no actual game pixels')
+        last=-1
+        from PIL import Image
+        for item in report.get('video_frames',[]):
+            path=bound_file(item)
+            n=item['video_frame_index_zero_based']
+            if type(n) is not int or not last<n<count or item['video_time_seconds']!=n/60: errors.append('invalid video frame/time binding')
+            last=n
+            with Image.open(path) as image:
+                if image.size!=(1280,720): errors.append('non-formal image dimensions')
+    except (KeyError,TypeError,ValueError,StopIteration) as exc: errors.append('invalid media/frame metadata: '+str(exc))
+    if report.get('outcome')!=data.get('outcome') or report.get('route_reached')!=data.get('route_reached') or report.get('tick_count')!=data.get('tick_count'): errors.append('route summary mismatch')
+    if report.get('composition_observation'):
+        observation=read(bound_file(report['composition_observation']))
+        validate_composition_binding(observation,report['native_capture']['sha256'],report['source_before'])
+    if errors: raise ValueError('; '.join(errors))
+    return report,data
+
+
+def validate_review(review,report):
+    """Pixel-review attestations must bind known actual frames; no metadata-only acceptance."""
+    if not isinstance(review,dict) or not review.get('reviewer') or review.get('scope')!='observed_actual_game_pixels':
+        raise ValueError('Reviewer must declare actual pixel observation and identity')
+    known={(x['path'],x['sha256'],x['video_frame_index_zero_based']) for x in report['video_frames']}
+    seen=review.get('observed_frames')
+    if not isinstance(seen,list) or not seen: raise ValueError('Empty visual review')
+    for item in seen:
+        bound_file(item)
+        if (item['path'],item['sha256'],item.get('video_frame_index_zero_based')) not in known: raise ValueError('Concept/foreign image is not this actual gameplay frame')
+    if not isinstance(review.get('findings'),list) or review.get('verdict') not in ('ACCEPT','REJECT','UNVERIFIED'): raise ValueError('Missing visual judgment/findings')
+    return {'kind':'reviewer_attestation_not_machine_proof_of_viewing','reviewer':review['reviewer'],'observed_frames':seen,'verdict':review['verdict'],'findings':review['findings']}
+
+
+def _rect(value):
+    if not isinstance(value,list) or len(value)!=4 or any(type(x) not in (int,float) or not math.isfinite(x) for x in value) or value[2]<=0 or value[3]<=0:
+        raise ValueError('Bounds must be finite [x,y,width,height] with positive dimensions')
+    return value
+
+
+def overlap(a,b):
+    return max(0,min(a[0]+a[2],b[0]+b[2])-max(a[0],b[0]))*max(0,min(a[1]+a[3],b[1]+b[3])-max(a[1],b[1]))
+
+
+def composition_candidates(observation,native_capture_sha256,sources_at_capture):
+    """Optional measured Node observation contract. Never infer opacity or beauty from AABBs."""
+    if observation.get('artifact_kind')!='actual_scene_composition_observation' or observation.get('capture_sha256')!=native_capture_sha256:
+        raise ValueError('Composition observation must bind this native capture')
+    observer=observation.get('observer',{})
+    if not observer.get('path') or sources_at_capture.get(observer['path'])!=observer.get('sha256'):
+        raise ValueError('Composition observer absent/changed in capture source inventory')
+    nodes=observation.get('nodes')
+    if not isinstance(nodes,list) or not nodes: raise ValueError('Empty composition observation')
+    candidates=[];layers=set();paths=set()
+    for node in nodes:
+        name=node.get('node_path')
+        if not isinstance(name,str) or not name or name in paths: raise ValueError('Missing/duplicate observed Node path')
+        paths.add(name);bounds=_rect(node['world_bounds']);layer=node.get('layer')
+        if layer not in ('extreme_far','far','middle_far','middle','gameplay','near','atmosphere'): raise ValueError('Unknown layer role')
+        layers.add(layer)
+        if node.get('semantic') in ('rooted_architecture','hanging_plant','ground_vegetation') and not node.get('attachment_node_path'):
+            candidates.append({'code':'unobserved_attachment','kind':'computed_proxy','node_path':name,'owner_skill':'scene-composer','reason':'Root/hanger attachment missing from measured scene observation; pixel review required, not proof of floating'})
+        family=node.get('asset_family',{})
+        if family.get('intended_use') and node.get('spatial_use')!=family['intended_use']:
+            candidates.append({'code':'asset_use_mismatch','kind':'contract_fact','node_path':name,'owner_skill':'art-director','reason':'Observed spatial_use differs from supplied family intended_use'})
+        if layer=='near':
+            for zone in observation.get('protected_world_bounds',[]):
+                target=_rect(zone['bounds'])
+                if overlap(bounds,target)>0:
+                    candidates.append({'code':'foreground_protected_bounds_overlap','kind':'computed_proxy','node_path':name,'target':zone.get('id'),'owner_skill':'scene-composer','reason':'AABBs overlap; opacity, depth, camera and actual pixels must establish occlusion'})
+    for node in nodes:
+        if node.get('attachment_node_path') and node['attachment_node_path'] not in paths:
+            candidates.append({'code':'attachment_not_observed','kind':'computed_proxy','node_path':node['node_path'],'owner_skill':'scene-composer','reason':'Attachment reference has no measured Node in this observation'})
+    if len(layers-{'gameplay','atmosphere'})<2:
+        candidates.append({'code':'depth_roles_not_observed','kind':'observation_gap','owner_skill':'scene-composer','reason':'Fewer than two measured environmental depth roles; not proof that image lacks depth'})
+    return candidates
+
+
+def inspect_capture(receipt_path,review_path=None,observation_path=None):
+    report,data=load_capture(receipt_path)
+    nodes=[child for group in data['initial_scenery_inventory'] for child in group.get('descendants',[])]
+    cameras=[{'tick':f['tick'],'camera':f['runtime']['camera'],'player_position':f['position'],'edge':f.get('edge')} for f in data['frames'] if f.get('runtime',{}).get('camera')]
+    findings=[]
+    if not cameras: findings.append({'code':'camera_observation_missing','kind':'observation_gap','owner_skill':'scene-composer'})
+    missing=['Actual z_index/opacity/texture bounds/anchor attachment and parallax are not present in the original formal observer; no inferred occlusion/root acceptance']
+    if not observation_path and report.get('composition_observation'):
+        observation_path=bound_file(report['composition_observation'])
+    if observation_path:
+        observation=read(observation_path)
+        validate_composition_binding(observation,report['native_capture']['sha256'],report['source_before'])
+        findings+=composition_candidates(observation,report['native_capture']['sha256'],report['source_before'])
+        missing=['Bounds/attachments are actual last-sample measurements; opacity, parallax and whole-route protected-zone coverage still require actual pixels and complete sampled coverage.']
+    review=validate_review(read(review_path),report) if review_path else None
+    return {'schema_version':1,'artifact_kind':'visual_director_diagnostic','status':'review_required',
+            'receipt':artifact(receipt_path),'conditions':report['request'],'outcome':data['outcome'],'route_reached':data['route_reached'],
+            'native_capture':report['native_capture'],'actual_game_movie':report['movie'],'actual_video_frames':report['video_frames'],
+            'observed_scenery_nodes':nodes,'camera_trajectory':cameras,'findings':findings,'observation_gaps':missing,
+            'adaptation_validation':report.get('adaptation_validation'),'review':review,'subjective_acceptance':'unverified','device_acceptance':'unverified',
+            'composition_observation':artifact(observation_path) if observation_path else None,
+            'review_source':artifact(review_path) if review_path else None,
+            'limits':'Hashes establish byte provenance only. AABB candidates are not visual defects or aesthetic scores. Reviewer declarations are not authenticated proof of attention.'}
+
+
+def compare_captures(before_path,after_path):
+    before,old=load_capture(before_path);after,new=load_capture(after_path)
+    errors=[]
+    for key in ('root_seed','map_index','strategy','phase_wait_ticks','max_ticks','encounter_policy','capture_script'):
+        if before['request'].get(key)!=after['request'].get(key): errors.append('condition mismatch/'+key)
+    if before.get('capture_extension') != after.get('capture_extension'):
+        errors.append('capture extension/route source mismatch')
+    for key in ('driver_sources','core_invariants'):
+        if not old.get('policy_basis',{}).get(key) or old['policy_basis'][key]!=new.get('policy_basis',{}).get(key): errors.append('actual driver/core mismatch/'+key)
+    if old.get('initial_capability')!=new.get('initial_capability'): errors.append('initial actual capability mismatch')
+    for key in ('LP_NUM_THREADS','LIBGL_ALWAYS_SOFTWARE'):
+        if before['environment'].get(key)!=after['environment'].get(key): errors.append('render environment mismatch/'+key)
+    if old.get('engine')!=new.get('engine'): errors.append('engine mismatch')
+    # Art-only changes require exactly the same generated playable route input.
+    for key in ('manifest','formal_run_manifest_initial'):
+        if old.get(key)!=new.get(key): errors.append('generated route input mismatch/'+key)
+    if errors: raise ValueError('; '.join(errors))
+    changed=[name for name in sorted(before['source_before'].keys()|after['source_before'].keys()) if before['source_before'].get(name)!=after['source_before'].get(name)]
+    return {'schema_version':1,'artifact_kind':'actual_visual_comparison','status':'comparable_for_review',
+            'before':artifact(before_path),'after':artifact(after_path),'conditions':{k:v for k,v in before['request'].items() if k!='source_commit'},
+            'source_changes':changed,'before_source_commit':before['request']['source_commit'],'after_source_commit':after['request']['source_commit'],
+            'visual_treatments': {'before': before['request'].get('visual_sample', ''), 'after': after['request'].get('visual_sample', '')},
+            'before_movie':before['movie'],'after_movie':after['movie'],
+            'route_outcomes':{'before':old['outcome'],'after':new['outcome']},
+            'adaptation_validation':{'before':before.get('adaptation_validation'),'after':after.get('adaptation_validation')},
+            'producer_origins':{
+                'before':producer_command_origin(before,bound_file(before['native_capture']),bound_file(before['native_log']).read_text()),
+                'after':producer_command_origin(after,bound_file(after['native_capture']),bound_file(after['native_log']).read_text())},
+            'subjective_acceptance':'unverified','limits':'Same actual driver/core/entry/manifest conditions, not byte-identical trajectory, pixel registration, performance, full route success or beauty proof.'}
+
+
+def route(request,task_id,quality_record,allowed_paths,max_calls=10,max_rounds=2,call_timeout=1800,phase='full'):
+    """Build actual existing production_loop input, no separate AI scheduling or gate system."""
+    import production_loop
+    from level_region_context import build_region_context,resolve_region_id
+    from level_experience import load_lessons
+    if not request.strip() or not re.fullmatch(r'[A-Za-z0-9_-]+',task_id): raise ValueError('Concrete request and safe task id required')
+    region_id=resolve_region_id(request)
+    tasks=[];previous=[]
+    groups=[('audit',['art-director','scene-composer'],'Read actual gameplay pixels and continuous footage; audit asset consumer/semantic gaps, measured scale/roots/layers; propose one original spatial silhouette.',True),
+            ('golden',['art-director','scene-composer','animation-vfx'],'Register G0 visual design/family contract; implement ONE static golden in the real consumer, then wind/light; capture actual same-condition footage, inspect, compare and request independent pixel review. Fix actual observed defects with bounded attempts; never change core gameplay.',False),
+            ('review',['gameplay-reviewer','art-director','scene-composer'],'Independently view actual PNG pixels and continuous normal-speed game footage; bind exact observed refs. Reject semantic misuse, visible cuts/unsupported roots, dangerous occlusion and weak composition. Technical pass never grants commercial quality/user/device acceptance.',True)]
+    if phase not in ('full','audit','golden','review'): raise ValueError('Unknown visual production phase')
+    for name,skills,goal,readonly in groups:
+        if phase!='full' and name!=phase: continue
+        entry={'id':task_id+'-'+name if phase=='full' else task_id,'goal':request+' — '+goal,'skills':['visual-director',*skills],'checks':(['visual-director-tests'] if readonly else ['visual-director-tests','art-art','capture-tests'] + (['visual-director-space'] if region_id == 'windchime_plains' else [])),
+               'depends_on':previous,'read_only':readonly,'allowed_paths':allowed_paths,'quality_record':quality_record}
+        if readonly: entry['completion']='scope'
+        else: entry.update(completion='stage',required_gates=['G0','G1'],quality_task_id=entry['id'])
+        tasks.append(entry);previous=[entry['id']]
+    m={'schema_version':1,'objective':request,'workflow':'visual_golden','scope':'offline_production_plan_not_executed',
+       'max_calls':max_calls,'max_rounds':max_rounds,'call_timeout_seconds':call_timeout,'tasks':tasks,
+       'preparation':{'region_context':build_region_context(region_id) if region_id else {'status':'unregistered','runtime_available':None},'lessons':load_lessons(region_id)},
+       'constraints':['Freeze Motor, weapons/resources/progression, RNG, generated geometry/route and saves','Admission is scoped to this family and actual consumer: independently evidenced actual-pixel G2 is required before its descendants expand; a rejected unrelated mother does not block independently qualified units. Preserve rejected contracts; a different limited pilot role requires its own actual-pixel review, never retroactive approval','No conceptual image posing as actual gameplay; no subjective score from hashes','Two no-progress visual rounds stop. Preserve every failed native/model/review attempt.','Host mode needs an active real Codex host, distinct implementation/review agents; otherwise block with original Harness lease/timeout','Use existing G0–G5/eleven quality dimensions; G0/G1 stage is not G2 beauty approval or full content completion']}
+    production_loop.validate(m)
+    return m
+
+
+def main(argv=None):
+    parser=argparse.ArgumentParser(description=__doc__)
+    sub=parser.add_subparsers(dest='command',required=True)
+    p=sub.add_parser('capture')
+    p.add_argument('--seed',default='level-design-v2-baseline');p.add_argument('--map-index',type=int,choices=(1,2),default=1)
+    p.add_argument('--strategy',choices=('fast','growth','deep','return'),default='growth');p.add_argument('--output',required=True)
+    p.add_argument('--max-ticks',type=int,default=6000);p.add_argument('--timeout',type=int,default=900)
+    p.add_argument('--phase-wait-ticks',type=int,default=0);p.add_argument('--frame-stride',type=int,default=120)
+    p.add_argument('--capture-script',choices=sorted(CAPTURE_SCRIPTS),help='Explicit spatial fixture adapter; default formal capture unchanged')
+    p.add_argument('--visual-sample',choices=(VISUAL_SAMPLE_CATALOG,),default='',help='Explicit visual-only candidate catalog; requires spatial capture adapter')
+    p.add_argument('--composition',action='store_true',help='Request actual read-only scene measurements; absent consumer remains an explicit gap')
+    p.add_argument('--encounter-policy',choices=level_formal.ENCOUNTER_POLICIES,default='kill_from_bank_v1')
+    p=sub.add_parser('finalize-existing');p.add_argument('--original-receipt',required=True);p.add_argument('--output',required=True);p.add_argument('--frame-stride',type=int,default=120)
+    for name in ('inspect','analyze'):
+        p=sub.add_parser(name);p.add_argument('--capture',required=True);p.add_argument('--output',required=True)
+        p.add_argument('--review');p.add_argument('--composition-observation')
+    p=sub.add_parser('compare');p.add_argument('--before',required=True);p.add_argument('--after',required=True);p.add_argument('--output',required=True)
+    p=sub.add_parser('route');p.add_argument('--request',required=True);p.add_argument('--task-id',required=True)
+    p.add_argument('--quality-record',required=True);p.add_argument('--allowed-path',action='append',required=True)
+    p.add_argument('--phase',choices=('full','audit','golden','review'),default='full')
+    p.add_argument('--output',required=True);p.add_argument('--max-calls',type=int,default=10);p.add_argument('--max-rounds',type=int,default=2);p.add_argument('--call-timeout',type=int,default=1800)
+    p=sub.add_parser('run');p.add_argument('--mission',required=True);p.add_argument('--evidence-dir',required=True)
+    p.add_argument('--execute',action='store_true');p.add_argument('--worker-mode',choices=('host','codex'),default='host')
+    args=parser.parse_args(argv)
+    try:
+        if args.command=='capture':
+            report=capture(args.seed,args.map_index,args.strategy,args.output,args.max_ticks,args.timeout,args.encounter_policy,args.phase_wait_ticks,args.frame_stride,args.composition,args.capture_script,args.visual_sample)
+            print(json.dumps({'status':report['status'],'outcome':report.get('outcome'),'route_reached':report.get('route_reached'), 'receipt':str(Path(args.output)/'visual_capture.json')},ensure_ascii=False))
+            return 0 if report['status']=='captured' else 1
+        if args.command=='finalize-existing':
+            result=finalize_existing(args.original_receipt,args.output,args.frame_stride)
+            print(json.dumps({'status':result['status'],'receipt':str(Path(args.output)/'visual_capture.json')}))
+            return 0 if result['status']=='captured' else 1
+        if args.command in ('inspect','analyze'):
+            result=inspect_capture(args.capture,args.review,args.composition_observation)
+        elif args.command=='compare': result=compare_captures(args.before,args.after)
+        elif args.command=='route': result=route(args.request,args.task_id,args.quality_record,args.allowed_path,args.max_calls,args.max_rounds,args.call_timeout,args.phase)
+        else:
+            command=[sys.executable,str(ROOT/'tools/harness.py'),'--mission',args.mission,'--evidence-dir',args.evidence_dir,'--worker-mode',args.worker_mode]
+            if args.execute: command.append('--execute')
+            return subprocess.call(command,cwd=ROOT)
+        output=Path(args.output).resolve()
+        if not output.is_relative_to(ROOT/'build') or output.exists(): raise ValueError('Use a new build/ output, retain previous diagnostics')
+        write(output,result)
+        print('PASS: visual director '+args.command+' evidence written; subjective/device acceptance remains unverified')
+        return 0
+    except (ValueError,KeyError,OSError) as exc:
+        print('BLOCKED: '+str(exc),file=sys.stderr);return 2
+
+if __name__=='__main__': raise SystemExit(main())

@@ -1,6 +1,7 @@
 """Validate project documentation without claiming game runtime coverage."""
 from pathlib import Path
 import json
+import os
 import re
 import sys
 import xml.etree.ElementTree as ET
@@ -20,9 +21,18 @@ required = ['README.md', 'AGENTS.md'] + [f'docs/{name}.md' for name in
 for name in required:
     if not (ROOT / name).is_file():
         errors.append(f'Missing {name}')
-for path in ROOT.rglob('*.md'):
-    if '.git' in path.parts:
-        continue
+def documentation_paths(root):
+    # Generated review projects/reports are not authoritative documentation.
+    # Keep every canonical/historical docs file; prune only derived workspace roots.
+    for base, directories, filenames in os.walk(root):
+        directories[:] = [name for name in directories if name not in {'.git', '.godot', '__pycache__'}
+                          and not (Path(base) == root and name == 'build')]
+        for name in sorted(filenames):
+            if name.endswith('.md'):
+                yield Path(base) / name
+
+
+for path in documentation_paths(ROOT):
     content = path.read_text(encoding='utf-8')
     if not content.strip():
         errors.append(f'Empty {path.relative_to(ROOT)}')

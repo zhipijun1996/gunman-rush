@@ -457,9 +457,9 @@ class LoopTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError,'previously implemented'):
                 loop.run(mission,Path(tmp),worker)
 
-    def test_route_stage_and_final_content_are_distinct(self):
-        from level_design import route_request
-        m=route_request('优化风铃平原')
+    def test_explicit_content_plan_stage_and_final_content_are_distinct(self):
+        from level_design import content_plan
+        m=content_plan('优化风铃平原')
         loop.validate(m)
         self.assertEqual(m['tasks'][1]['completion'],'stage')
         self.assertEqual(m['tasks'][1]['required_gates'],['G0'])
@@ -847,7 +847,7 @@ class CompletedReviewCollectionTests(unittest.TestCase):
         self.git('config', 'user.name', 'SIMULATED contract fixture')
         self.git('config', 'user.email', 'fixture@example.invalid')
         (self.main / 'tools').mkdir()
-        for name in ('production_loop.py', 'harness.py', 'quality.py'):
+        for name in ('production_loop.py', 'harness.py', 'quality.py', 'region_creative_direction.py', 'level_design.py'):
             (self.main / 'tools' / name).write_bytes((self.repo / 'tools' / name).read_bytes())
         (self.main / '.gitignore').write_text('build/\n__pycache__/\n')
         skill = self.main / '.agents/skills/gameplay-reviewer/SKILL.md'
@@ -870,10 +870,12 @@ class CompletedReviewCollectionTests(unittest.TestCase):
     def git(self, *args):
         return subprocess.check_output(['git', '-C', str(self.main), *args], stderr=subprocess.STDOUT)
 
-    def fixture(self, name='case', verdict='reject'):
+    def fixture(self, name='case', verdict='reject', creative=False):
         m = copy.deepcopy(MISSION)
         m.update(max_rounds=1, max_calls=2)
         task = m['tasks'][0]
+        if creative:
+            _, task['creative_direction'] = CreativeLoopTests().direction(self.target)
         evidence = self.target / 'build/verification' / name
         impl = evidence / 'DRILL/1/implement'
         review = evidence / 'DRILL/1/review'
@@ -920,6 +922,10 @@ class CompletedReviewCollectionTests(unittest.TestCase):
                    'source_hash': source, 'expires_at': loop.time.time()+600, 'task_contract': task,
                    'skills': skills, 'prompt': 'SIMULATED fixture only',
                    'feedback': json.dumps({'dependencies': {}, 'previous_rounds': [], 'implementation': result, 'checks': checks})}
+        if creative:
+            request['source_inputs'] = [{k: task['creative_direction'][k] for k in ('path', 'sha256')}]
+            with patch.object(loop, 'ROOT', self.main), loop._collection_worktree(self.target):
+                request['resolved_checks'] = loop.resolved_check_contracts(task)
         request['request_hash'] = loop.digest(request)
         loop.save(review / 'host_request.json', request)
         (review / 'prompt.txt').write_text(request['prompt'])
@@ -934,6 +940,17 @@ class CompletedReviewCollectionTests(unittest.TestCase):
             '--execute', '--worker-mode', 'host', '--evidence-dir', str(evidence), '--collect-completed-review',
             '--collector-worktree', str(self.target), '--controller-pid', str(self.vanished_pid), *extra],
             capture_output=True, text=True, timeout=20)
+
+    def test_actual_cli_collector_preserves_creative_sources_and_terminal_rethink(self):
+        mission, evidence, review = self.fixture(verdict='rethink', creative=True)
+        result = self.cli(mission, evidence)
+        self.assertEqual(result.returncode, 2, result.stdout + result.stderr)
+        state = json.loads((evidence/'state.json').read_text())
+        self.assertEqual(state['tasks']['DRILL']['status'], 'rethink')
+        self.assertTrue(state['tasks']['DRILL']['preproduction_required'])
+        self.assertEqual(state['calls'], 2)
+        self.assertEqual(json.loads((review/'invocation.json').read_text())['source_inputs'],
+                         json.loads((review/'host_request.json').read_text())['source_inputs'])
 
     def test_actual_cli_collects_reject_without_new_calls_or_target_source_changes(self):
         mission, evidence, review = self.fixture()
@@ -1297,7 +1314,12 @@ class SelectedInputPreflightTests(unittest.TestCase):
         with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
             folder=self.target/'build/verification/command/DRILL/1/implement';folder.mkdir(parents=True)
             original_save=loop.save
+            original_sleep=loop.time.sleep
             def respond(unused):
+                # subprocess.wait shares the time module; do not synthesize a
+                # response before the real Git snapshot has created its lease.
+                if not (folder/'host_request.json').is_file():
+                    return original_sleep(unused)
                 request=json.loads((folder/'host_request.json').read_text())
                 response={'schema_version':1,**{k:request[k] for k in ('request_hash','task_id','attempt','role')},
                           'agent_id':'/root/SIMULATED_command_fixture','result':{'status':'ready_for_review',
@@ -1564,6 +1586,511 @@ class SelectedInputPreflightTests(unittest.TestCase):
             (self.target/'fixtures/family/proof.txt').unlink()
             result=loop.required_input_preflight({**task,'checks':['quality-tests']})
             self.assertEqual([x['path'] for x in result['missing_tracked_inputs']],['fixtures/family/proof.txt'])
+
+
+class SpatialLeaseBoundaryTests(unittest.TestCase):
+    def test_core_quality_record_and_foreign_direction_block_before_worker(self):
+        import level_design
+        for case in ('core_quality_record', 'wrong_direction_path', 'wrong_direction_sha', 'missing_direction', 'valid'):
+            with self.subTest(case=case), tempfile.TemporaryDirectory() as tmp, patch.object(loop, 'ROOT', Path(tmp)):
+                root = Path(tmp); data, direction = CreativeLoopTests().direction(root)
+                subprocess.run(['git', 'init', '-q', str(root)], check=True, capture_output=True)
+                (root/'.gitignore').write_text('build/\n')
+                skill=root/'.agents/skills/gameplay-reviewer/SKILL.md';skill.parent.mkdir(parents=True);skill.write_text('Reviewer')
+                design={'direction_path': direction['path'], 'direction_sha256': direction['sha256'], 'room':'one'}
+                experiment={'schema_version':1, 'region_id':direction['region_id'], 'authorization_basis':'SIMULATED exact experiment',
+                    'design':design, 'allowed_paths':['scripts/generation/room.gd'], 'validation':['Actual room route and media']}
+                if case=='wrong_direction_path':design['direction_path']='different.json'
+                if case=='wrong_direction_sha':design['direction_sha256']='0'*64
+                if case=='missing_direction':del design['direction_path']
+                (root/'experiment.json').write_text(json.dumps(experiment))
+                _, binding=level_design.load_spatial_experiment('experiment.json',direction['region_id'],root)
+                task={**copy.deepcopy(MISSION['tasks'][0]), 'read_only':False, 'completion':'stage', 'required_gates':['G0'],
+                    'creative_direction':direction, 'spatial_experiment':binding, 'quality_record':'docs/quality/records/DRILL.json'}
+                if case=='core_quality_record':task['quality_record']='scripts/player/player_motor.gd'
+                task['allowed_paths']=binding['allowed_paths']+[task['quality_record'],'docs/tasks.md']
+                if case=='valid':
+                    self.assertEqual(loop.spatial_experiment_input(task)['content'],experiment)
+                    continue
+                mission={**copy.deepcopy(MISSION),'tasks':[task]}
+                state=loop.run(mission,root/'build/verification/rejected',lambda *args:self.fail('Invalid spatial lease reached worker'))
+                self.assertEqual(state['calls'],0)
+                self.assertEqual(state['status'],'blocked')
+                self.assertEqual(state['tasks']['DRILL']['input_preflight']['uncertain_inputs'][0]['reason'],'spatial_experiment_invalid')
+
+
+class NativeVisualMediaAdmissionTests(unittest.TestCase):
+    """Real PNG/ffprobe checks over synthetic native receipts; not real Godot execution proof."""
+    def fixture(self):
+        import visual_director as vd
+        from test_visual_director import VisualDirectorTests
+        fixture=VisualDirectorTests();fixture.setUp();self.addCleanup(fixture.doCleanups)
+        fixture.data.update(outcome='route_target_reached',route_reached=True)
+        fixture.report.update(outcome='route_target_reached',route_reached=True)
+        fixture.logpath.write_text(fixture.log.replace('outcome=route_policy_failed','outcome=route_target_reached'))
+        fixture.report['native_log']=vd.artifact(fixture.logpath)
+        subprocess.run(['ffmpeg','-v','error','-f','lavfi','-i','color=c=gray:s=1280x720:r=60',
+            '-f','lavfi','-i','anullsrc=r=48000:cl=stereo','-t','0.05','-c:v','libx264','-threads','1',
+            '-pix_fmt','yuv420p','-c:a','aac','-shortest','-y',str(fixture.movie)],check=True,capture_output=True,timeout=20)
+        fixture.report['movie']=vd.artifact(fixture.movie)
+        fixture.report['media']=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_streams','-show_format','-of','json',str(fixture.movie)],timeout=10))
+        frame_count=int(next(item for item in fixture.report['media']['streams'] if item['codec_type']=='video')['nb_frames'])
+        fixture.report['video_frames'].append({**vd.artifact(fixture.png),'video_frame_index_zero_based':frame_count-1,'video_time_seconds':(frame_count-1)/60})
+        fixture.save()
+        review={'reviewer':'fixture-reviewer','scope':'observed_actual_game_pixels','observed_frames':copy.deepcopy(fixture.report['video_frames']),
+            'review_method':'Synthetic first/last frame contract fixture, not a claim of full playback',
+            'limits':'No real Godot execution, no listening, no human or device acceptance',
+            'observed_movie':{**vd.artifact(fixture.movie),'normal_speed':True,'route_complete':True},
+            'verdict':'ACCEPT','findings':['SYNTHETIC CONTRACT FIXTURE']}
+        attestation=fixture.folder/'review.json';vd.write(attestation,review)
+        record={'visual_capture':{**vd.artifact(fixture.receipt),'review_attestation':vd.artifact(attestation)}}
+        evidence={'shot':{'kind':'screenshot',**vd.artifact(fixture.png)},'movie':{'kind':'video',**vd.artifact(fixture.movie)},
+                  'review':{'kind':'review','verdict':'ACCEPT','reviewer':'fixture-reviewer','reviewed_evidence':['shot','movie']}}
+        return vd,fixture,record,evidence
+
+    def test_real_media_native_binding_and_review_lease_identity(self):
+        vd,fixture,record,evidence=self.fixture()
+        with patch.object(vd,'sources',return_value=fixture.source):
+            self.assertEqual(loop.visual_capture_admission(record,{'shot','movie'},evidence,'fixture-reviewer'),'fixture-reviewer')
+            with self.assertRaisesRegex(ValueError,'current independent review lease'):
+                loop.visual_capture_admission(record,{'shot','movie'},evidence,'foreign-agent')
+        with patch.object(vd,'sources',return_value={'changed':'source'}),self.assertRaisesRegex(ValueError,'current production sources'):
+            loop.visual_capture_admission(record,{'shot','movie'},evidence,'fixture-reviewer')
+
+    def test_still_only_or_foreign_movie_attestation_cannot_admit_golden(self):
+        vd,fixture,record,evidence=self.fixture()
+        path=vd.bound_file(record['visual_capture']['review_attestation'])
+        original=vd.read(path)
+        for case in ('missing_movie','foreign_movie','not_normal_speed','incomplete_route','single_frame','missing_limits'):
+            with self.subTest(case=case):
+                review=copy.deepcopy(original)
+                if case=='missing_movie':del review['observed_movie']
+                elif case=='foreign_movie':review['observed_movie']['sha256']='0'*64
+                elif case=='not_normal_speed':review['observed_movie']['normal_speed']=False
+                elif case=='incomplete_route':review['observed_movie']['route_complete']=False
+                elif case=='single_frame':review['observed_frames']=review['observed_frames'][:1]
+                else:del review['limits']
+                vd.write(path,review);record['visual_capture']['review_attestation']=vd.artifact(path)
+                with patch.object(vd,'sources',return_value=fixture.source),self.assertRaisesRegex(ValueError,'normal-speed movie'):
+                    loop.visual_capture_admission(record,{'shot','movie'},evidence,'fixture-reviewer')
+
+    def test_text_named_png_or_mp4_is_rejected_by_real_decoders(self):
+        for media in ('png','mp4'):
+            with self.subTest(media=media):
+                vd,fixture,record,evidence=self.fixture()
+                if media=='png':
+                    fixture.png.write_text('TEXT IS NOT A GAME SCREENSHOT')
+                    for item in fixture.report['video_frames']:item.update(vd.artifact(fixture.png))
+                    evidence['shot'].update(vd.artifact(fixture.png))
+                else:
+                    fixture.movie.write_text('TEXT IS NOT A GAME MOVIE')
+                    fixture.report['movie']=vd.artifact(fixture.movie)
+                    evidence['movie'].update(vd.artifact(fixture.movie))
+                vd.write(fixture.receipt,fixture.report);record['visual_capture'].update(vd.artifact(fixture.receipt))
+                with patch.object(vd,'sources',return_value=fixture.source),self.assertRaises((ValueError,OSError,subprocess.SubprocessError)):
+                    loop.visual_capture_admission(record,{'shot','movie'},evidence,'fixture-reviewer')
+
+
+class VisualGoldenAdmissionTests(unittest.TestCase):
+    """SIMULATED card/controller tests; never certify actual media or creative quality."""
+    def test_technical_acceptance_cannot_release_expansion_without_g2_and_media_review(self):
+        for case in ('technical_only', 'unreviewed', 'rejected', 'missing_video', 'uncovered_media', 'revoked_at_expansion', 'admitted'):
+            with self.subTest(case=case), tempfile.TemporaryDirectory() as tmp:
+                golden = {'id': 'GOLDEN', 'goal': 'SIMULATED joint golden', 'skills': ['gameplay-reviewer'],
+                    'read_only': True, 'checks': ['docs'], 'completion': 'stage', 'quality_record': 'card.json',
+                    'required_gates': ['G0', 'G1', 'G2'], 'requires_visual_admission': True}
+                mission = {**copy.deepcopy(MISSION), 'tasks': [golden,
+                    {'id': 'EXPAND', 'goal': 'Second space and seeds', 'skills': ['gameplay-reviewer'],
+                     'read_only': True, 'checks': ['docs'], 'depends_on': ['GOLDEN']}]}
+                record = {'task_id': 'GOLDEN', 'owner': '/root/SIMULATED_author', 'production_snapshot': loop.digest({}),
+                    'deliverables': ['one playable golden'], 'affected_paths': ['scene.gd'], 'creative_decisions': [],
+                    'gates': {gate: {'status': 'passed', 'evidence': ['shot', 'movie'] if gate == 'G2' else []} for gate in ('G0','G1','G2')},
+                    'criteria': [{'gate': gate, 'status': 'passed'} for gate in ('G0','G1','G2')],
+                    'dimensions': {'independent_review': {'status': 'passed', 'evidence': ['visual_review']}},
+                    'evidence': [{'id': 'shot', 'kind': 'screenshot'}, {'id': 'movie', 'kind': 'video'},
+                        {'id': 'visual_review', 'kind': 'review', 'verdict': 'ACCEPT', 'independent': True,
+                         'reviewer': '/root/SIMULATED_visual_reviewer', 'implementers': ['/root/SIMULATED_author'],
+                         'independence_basis': 'Different actual reviewer in production; this fixture is simulated',
+                         'reviewed_evidence': ['shot', 'movie']}]}
+                if case == 'technical_only': record['gates']['G2']['status'] = 'unverified'
+                if case == 'unreviewed': record['dimensions']['independent_review']['status'] = 'unverified'
+                if case == 'rejected': record['evidence'][-1]['verdict'] = 'REJECT'
+                if case == 'missing_video': record['gates']['G2']['evidence'] = ['shot']
+                if case == 'uncovered_media': record['evidence'][-1]['reviewed_evidence'] = ['shot']
+                validation = {'errors': [], 'blockers': ['G5 unverified'], 'verdict': 'UNVERIFIED', 'task_complete': False}
+                calls = []; admissions = []; original = loop.check_task_quality
+                original_read = loop.quality.read_json
+                def check_quality(task):
+                    result = original(task)
+                    if task['id'] == 'GOLDEN':
+                        admissions.append(result)
+                        if case == 'revoked_at_expansion' and len(admissions) == 1:
+                            record['dimensions']['independent_review']['status'] = 'failed'
+                    return result
+                def worker(task, mission, role, folder, feedback):
+                    calls.append((task['id'], role))
+                    return {'status': 'ready_for_review' if role == 'implement' else 'accept', 'summary': 'SIMULATED technical review', 'findings': []}
+                with patch.object(loop, 'snapshot', return_value={}), patch.object(loop, 'required_input_preflight', return_value={'status':'passed'}), patch.object(loop.harness, 'run_check', return_value={'status':'passed'}), patch.object(loop.quality, 'local_file', return_value=Path('card.json')), patch.object(loop.quality, 'read_json', side_effect=lambda path: record if str(path) == 'card.json' else original_read(path)), patch.object(loop.quality, 'validate_record', side_effect=lambda *a, **k: copy.deepcopy(validation)), patch.object(loop, 'check_task_quality', side_effect=check_quality), patch.object(loop, 'visual_capture_admission', return_value='/root/SIMULATED_visual_reviewer'):
+                    state = loop.run(mission, Path(tmp), worker)
+                if case == 'admitted':
+                    self.assertEqual(state['tasks']['EXPAND']['status'], 'complete')
+                    self.assertEqual(state['calls'], 4)
+                else:
+                    self.assertEqual(state['tasks']['EXPAND']['status'], 'dependency_blocked')
+                    self.assertEqual(state['calls'], 2)
+                    self.assertEqual(calls, [('GOLDEN','implement'), ('GOLDEN','review')])
+                    if case == 'revoked_at_expansion': self.assertTrue(state['tasks']['EXPAND']['visual_admission_blocked'])
+
+
+class NativeImportPreflightTests(unittest.TestCase):
+    """Actual filesystem/Git boundaries with a SIMULATED importer, not native Godot proof."""
+    def project(self, root):
+        subprocess.run(['git', 'init', '-q', str(root)], check=True, capture_output=True)
+        (root/'.gitignore').write_text('build/\n')
+        (root/'actor.gd').write_text('extends Node\n')
+        (root/'effect.gdshader').write_text('shader_type canvas_item;\n')
+        skill = root/'.agents/skills/gameplay-reviewer/SKILL.md'
+        skill.parent.mkdir(parents=True); skill.write_text('Reviewer')
+        mission = copy.deepcopy(MISSION); mission['native_import_preflight'] = True
+        return mission
+
+    def check(self, root, mutation, calls):
+        def simulate(check, log, **kwargs):
+            if '--editor' in check['argv']:
+                calls.append('import')
+                self.assertEqual(check['argv'], ['bash', 'tools/godot.sh', '--headless', '--path', '.', '--editor', '--quit'])
+                self.assertEqual(kwargs['root'], root)
+                log.write_text('SIMULATED import, not a Godot execution\n')
+                mutation(root)
+            else:
+                log.write_text('PASS: SIMULATED checks\n')
+            return {'status': 'passed', 'exit_code': 0, 'duration_seconds': 0.1}
+        return simulate
+
+    def test_new_uid_sidecars_allow_new_baseline_and_resume_never_reimports(self):
+        with tempfile.TemporaryDirectory() as tmp, patch.object(loop, 'ROOT', Path(tmp)):
+            root = Path(tmp); mission = self.project(root); calls = []; roles = []
+            def mutation(root):
+                (root/'actor.gd.uid').write_text('uid://abc123\n')
+                (root/'effect.gdshader.uid').write_text('uid://def456\n')
+            def worker(task, mission, role, folder, feedback):
+                roles.append(role)
+                self.assertTrue((root/'actor.gd.uid').is_file())
+                return {'status': 'ready_for_review' if role == 'implement' else 'accept', 'summary': 'SIMULATED worker', 'findings': []}
+            with patch.object(loop, 'required_input_preflight', return_value={'status': 'passed'}), patch.object(loop.harness, 'run_check', side_effect=self.check(root, mutation, calls)):
+                folder = root/'build/verification/run'
+                state = loop.run(mission, folder, worker)
+                self.assertEqual(state['status'], 'complete')
+                self.assertEqual(state['native_import_preflight']['allowed_new_uids'], ['actor.gd.uid', 'effect.gdshader.uid'])
+                self.assertEqual(state['source_hash'], loop.digest(loop.snapshot()))
+                loop.run(mission, folder, worker)
+            self.assertEqual(calls, ['import'])
+            self.assertEqual(roles, ['implement', 'review'])
+            receipt = json.loads((folder/'native_import_preflight.json').read_text())
+            self.assertIn('actor.gd.uid', receipt['after'])
+            self.assertNotIn('actor.gd.uid', receipt['before'])
+            self.assertTrue((folder/'native_import_preflight.log').is_file())
+
+    def test_source_changes_unknown_new_files_and_existing_sidecars_block_calls_zero(self):
+        for mutation in ('source', 'unknown', 'existing_uid', 'orphan_uid'):
+            with self.subTest(mutation=mutation), tempfile.TemporaryDirectory() as tmp, patch.object(loop, 'ROOT', Path(tmp)):
+                root = Path(tmp); mission = self.project(root); calls = []
+                if mutation == 'existing_uid': (root/'actor.gd.uid').write_text('uid://old123\n')
+                def mutate(root):
+                    if mutation == 'source': (root/'actor.gd').write_text('extends Node2D\n')
+                    elif mutation == 'unknown': (root/'unexpected.json').write_text('{}')
+                    elif mutation == 'existing_uid': (root/'actor.gd.uid').write_text('uid://new456\n')
+                    else: (root/'missing.gd.uid').write_text('uid://new456\n')
+                folder = root/'build/verification/run'
+                with patch.object(loop.harness, 'run_check', side_effect=self.check(root, mutate, calls)):
+                    state = loop.run(mission, folder, lambda *args: self.fail('Importer mutation must block before workers'))
+                    self.assertEqual(state['status'], 'blocked')
+                    self.assertEqual(state['calls'], 0)
+                    self.assertTrue(state['native_import_preflight']['rejected_changes'])
+                    loop.run(mission, folder, lambda *args: self.fail('Blocked resume must not invoke worker'))
+                self.assertEqual(calls, ['import'])
+                self.assertEqual(json.loads((folder/'native_import_preflight.json').read_text())['status'], 'blocked')
+
+    def test_failed_import_retains_evidence_and_allocates_no_worker(self):
+        with tempfile.TemporaryDirectory() as tmp, patch.object(loop, 'ROOT', Path(tmp)):
+            root = Path(tmp); mission = self.project(root)
+            def failed(check, log, **kwargs):
+                log.write_text('SIMULATED native failure\n')
+                return {'status': 'failed', 'exit_code': 1, 'duration_seconds': 0.1}
+            folder = root/'build/verification/run'
+            with patch.object(loop.harness, 'run_check', side_effect=failed):
+                state = loop.run(mission, folder, lambda *args: self.fail('Engine failure must block'))
+            self.assertEqual(state['calls'], 0)
+            self.assertEqual(state['native_import_preflight']['result']['exit_code'], 1)
+            self.assertEqual(state['native_import_preflight']['before'], state['native_import_preflight']['after'])
+            self.assertTrue((folder/'native_import_preflight.log').is_file())
+
+
+class CreativeLoopTests(unittest.TestCase):
+    """Controller contracts only; these workers do not certify creative quality."""
+    def direction(self, root):
+        import region_creative_direction as creative
+        authority = root / "authority.txt"
+        authority.write_text("Actual temporary design authority")
+        candidate_fields = ("experience", "space", "ecology_boss", "art_emotion", "originality", "feasibility", "player_appeal", "risk")
+        data = {"schema_version": 1, "region_id": "test_region", "version": "creative-v1",
+                "direction_id": "chosen", "title": "A unified playable theme",
+                "decision": "selected", "acceptance": "professional_recommendation",
+                "selection_rationale": "SIMULATED comparison, not user approval",
+                "candidates": [{"id": candidate, **{key: candidate + " " + key for key in candidate_fields}}
+                               for candidate in ("chosen", "alternative")],
+                "authority_sources": [{"path": authority.name, "sha256": loop.hashlib.sha256(authority.read_bytes()).hexdigest()}],
+                **{key: {"theme": "A unified playable theme, not user approval"} for key in creative.COVERAGE}}
+        path = root / "direction.json"
+        path.write_text(json.dumps(data))
+        ref = {"path": path.name, "sha256": loop.hashlib.sha256(path.read_bytes()).hexdigest(),
+               "region_id": data["region_id"], "version": data["version"]}
+        return data, ref
+
+    def test_direction_real_bytes_selected_version_and_acceptance(self):
+        with tempfile.TemporaryDirectory() as tmp, patch.object(loop, "ROOT", Path(tmp)):
+            root = Path(tmp)
+            data, ref = self.direction(root)
+            task = {"creative_direction": ref}
+            self.assertEqual(loop.creative_direction_input(task)["content"], data)
+            for field, value in (("decision", "candidate"), ("version", "other"),
+                                 ("region_id", "other"), ("acceptance", "ai_approved"), ("acceptance", []),
+                                 ("schema_version", True)):
+                bad = {**data, field: value}
+                (root / ref["path"]).write_text(json.dumps(bad))
+                changed = {**ref, "sha256": loop.hashlib.sha256((root / ref["path"]).read_bytes()).hexdigest()}
+                with self.subTest(field=field), self.assertRaises(ValueError):
+                    loop.creative_direction_input({"creative_direction": changed})
+            (root / ref["path"]).write_text(json.dumps(data) + " ")
+            with self.assertRaisesRegex(ValueError, "SHA256 changed"):
+                loop.creative_direction_input(task)
+            for bad in ({**ref, "path": "../direction.json"}, {**ref, "sha256": "old"}, None):
+                if bad is not None:
+                    with self.assertRaises(ValueError): loop.creative_direction_input({"creative_direction": bad})
+
+    def test_invalid_direction_stops_before_allocating_calls(self):
+        mission = copy.deepcopy(MISSION)
+        mission["tasks"][0]["creative_direction"] = {"path": "missing-direction.json", "sha256": "0" * 64,
+                                                    "region_id": "test", "version": "v1"}
+        with tempfile.TemporaryDirectory() as tmp, patch.object(loop, "snapshot", return_value={}):
+            state = loop.run(mission, Path(tmp), lambda *args: self.fail("Must preflight before worker"))
+            self.assertEqual(state["calls"], 0)
+            entry = state["tasks"]["DRILL"]
+            self.assertEqual(entry["status"], "blocked")
+            self.assertEqual(entry["input_preflight"]["uncertain_inputs"][0]["reason"], "creative_direction_invalid")
+            self.assertFalse(list(Path(tmp).glob("*/*/prompt.txt")))
+
+    def test_handwritten_mission_cannot_bypass_full_authority_preflight(self):
+        for failure in ('authority_changed', 'minimal_direction', 'unbacked_user_confirmation', 'duplicate_key'):
+            with self.subTest(failure=failure), tempfile.TemporaryDirectory() as tmp, patch.object(loop, 'ROOT', Path(tmp)), patch.object(loop, 'snapshot', return_value={}):
+                root = Path(tmp)
+                subprocess.run(['git', 'init', '-q', str(root)], check=True, capture_output=True)
+                data, ref = self.direction(root)
+                skill = root/'.agents/skills/gameplay-reviewer/SKILL.md'
+                skill.parent.mkdir(parents=True); skill.write_text('Reviewer')
+                task = {**copy.deepcopy(MISSION['tasks'][0]), 'creative_direction': ref}
+                self.assertEqual(loop.creative_direction_input(task)['content'], data)
+                path = root/ref['path']
+                if failure == 'authority_changed':
+                    (root/'authority.txt').write_text('Changed actual design authority')
+                    self.assertEqual(loop.hashlib.sha256(path.read_bytes()).hexdigest(), ref['sha256'])
+                elif failure == 'minimal_direction':
+                    data = {key: data[key] for key in ('schema_version', 'region_id', 'version', 'decision', 'acceptance')}
+                    path.write_text(json.dumps(data))
+                elif failure == 'unbacked_user_confirmation':
+                    data['acceptance'] = 'user_confirmed'
+                    path.write_text(json.dumps(data))
+                else:
+                    path.write_text(json.dumps(data)[:-1] + ', "decision": "selected"}')
+                ref['sha256'] = loop.hashlib.sha256(path.read_bytes()).hexdigest()
+                mission = {**copy.deepcopy(MISSION), 'tasks': [task]}
+                state = loop.run(mission, root/'evidence', lambda *args: self.fail('Invalid authority must stop before worker'))
+                self.assertEqual(state['calls'], 0)
+                self.assertEqual(state['status'], 'blocked')
+                entry = state['tasks']['DRILL']
+                self.assertEqual(entry['input_preflight']['uncertain_inputs'][0]['reason'], 'creative_direction_invalid')
+                self.assertFalse(list((root/'evidence').glob('*/*/prompt.txt')))
+                if failure == 'authority_changed':
+                    self.assertIn('Authority changed', entry['input_preflight']['uncertain_inputs'][0]['error'])
+
+    def test_prepare_call_embeds_selected_json_and_counts_real_context_bytes(self):
+        with tempfile.TemporaryDirectory() as tmp, patch.object(loop, "ROOT", Path(tmp)):
+            root = Path(tmp)
+            data, ref = self.direction(root)
+            skill = root / ".agents/skills/gameplay-reviewer/SKILL.md"
+            skill.parent.mkdir(parents=True)
+            skill.write_text("Independent review")
+            task = {**MISSION["tasks"][0], "creative_direction": ref}
+            folder = root / "call"; folder.mkdir()
+            prompt, *_ = loop.prepare_call(task, MISSION, "review", folder, "{}", check_contracts={"checks": []})
+            self.assertIn(data["intent"]["theme"], prompt)
+            self.assertIn("professional_recommendation", prompt)
+            self.assertIn("rethink (return to pre-production)", prompt)
+            metrics = json.loads((folder / "context_metrics.json").read_text())
+            self.assertEqual(metrics["prompt_bytes"], len(prompt.encode()))
+            self.assertEqual(metrics["creative_direction"], {k: ref[k] for k in ("path", "sha256")})
+
+    def test_rethink_and_discard_stop_only_dependent_work_and_resume_without_calls(self):
+        for verdict, marker in (("rethink", "preproduction_required"), ("discard", "quarantine_required")):
+            mission = copy.deepcopy(MISSION); mission["max_calls"] = 6
+            mission["tasks"].extend([{**copy.deepcopy(mission["tasks"][0]), "id": "CHILD", "depends_on": ["DRILL"]},
+                                     {**copy.deepcopy(mission["tasks"][0]), "id": "OTHER"}])
+            calls = []
+            def worker(task, mission, role, folder, feedback):
+                calls.append((task["id"], role))
+                return {"status": "ready_for_review" if role == "implement" else verdict if task["id"] == "DRILL" else "accept",
+                        "summary": "SIMULATED decision", "findings": ["Coherence fails"]}
+            with tempfile.TemporaryDirectory() as tmp, patch.object(loop, "snapshot", return_value={}), patch.object(loop.harness, "run_check", return_value={"status": "passed"}):
+                state = loop.run(mission, Path(tmp), worker)
+                self.assertEqual(state["tasks"]["DRILL"]["status"], verdict)
+                self.assertTrue(state["tasks"]["DRILL"][marker])
+                self.assertEqual(state["tasks"]["CHILD"]["status"], "dependency_blocked")
+                self.assertEqual(state["tasks"]["OTHER"]["status"], "complete")
+                self.assertEqual(state["calls"], 4)
+                loop.run(mission, Path(tmp), worker)
+                self.assertEqual(len(calls), 4)
+                self.assertFalse(state["content_complete"])
+
+    def test_rework_keeps_original_bounds_and_quality_gate(self):
+        mission = copy.deepcopy(MISSION)
+        mission["tasks"][0].update(read_only=False, allowed_paths=["candidate"], quality_record="quality.json")
+        source = {}; calls = []
+        def worker(task, mission, role, folder, feedback):
+            calls.append(role)
+            if role == "implement": source["candidate"] = str(len(calls))
+            return {"status": "ready_for_review" if role == "implement" else "rework" if len(calls) == 2 else "accept",
+                    "summary": "SIMULATED bounded local repair", "findings": ["Correct local silhouette"]}
+        with tempfile.TemporaryDirectory() as tmp, patch.object(loop, "snapshot", side_effect=lambda: dict(source)), patch.object(loop.harness, "run_check", return_value={"status": "passed"}), patch.object(loop, "check_task_quality", return_value={"scope_complete": False, "content_complete": False}) as quality_gate:
+            state = loop.run(mission, Path(tmp), worker)
+            self.assertEqual(calls, ["implement", "review", "implement", "review"])
+            self.assertEqual(state["status"], "awaiting_acceptance")
+            self.assertEqual(state["calls"], 4)
+            quality_gate.assert_called_once()
+        state, calls = LoopTests().run_case(["ready_for_review", "rework"])
+        self.assertEqual(state["status"], "blocked")
+        self.assertEqual(len(calls), 2)
+        for status in ("rework", "rethink", "discard"):
+            with self.assertRaises(ValueError):
+                loop.validate_result({"status": status, "summary": "Self decision", "findings": []}, "implement")
+
+    def test_direction_change_inside_worker_cannot_receive_acceptance(self):
+        with tempfile.TemporaryDirectory() as tmp, patch.object(loop, 'ROOT', Path(tmp)), patch.object(loop, 'snapshot', return_value={}):
+            root = Path(tmp); _, ref = self.direction(root)
+            skill = root/'.agents/skills/gameplay-reviewer/SKILL.md'
+            skill.parent.mkdir(parents=True); skill.write_text('Reviewer')
+            mission = copy.deepcopy(MISSION); mission['tasks'][0]['creative_direction'] = ref
+            def worker(*args):
+                (root/ref['path']).write_text('{}')
+                return {'status': 'ready_for_review', 'summary': 'SIMULATED unauthorized authority change', 'findings': []}
+            with patch.object(loop, 'required_input_preflight', return_value={'status': 'passed'}), self.assertRaisesRegex(ValueError, 'SHA256 changed'):
+                loop.run(mission, root/'evidence', worker)
+            state = json.loads((root/'evidence/state.json').read_text())
+            self.assertEqual(state['status'], 'blocked')
+            self.assertEqual(state['calls'], 1)
+            self.assertFalse(state['content_complete'])
+
+    def test_run_delivers_compact_dependency_index_and_keeps_disk_history(self):
+        with tempfile.TemporaryDirectory() as tmp, patch.object(loop, 'ROOT', Path(tmp)), patch.object(loop, 'snapshot', return_value={}):
+            root = Path(tmp); _, ref = self.direction(root)
+            skill = root/'.agents/skills/gameplay-reviewer/SKILL.md'
+            skill.parent.mkdir(parents=True); skill.write_text('Reviewer')
+            mission = copy.deepcopy(MISSION)
+            mission['tasks'][0]['creative_direction'] = ref
+            mission['tasks'].append({**copy.deepcopy(mission['tasks'][0]), 'id': 'NEXT', 'depends_on': ['DRILL']})
+            contexts = []
+            def worker(task, mission, role, folder, feedback):
+                contexts.append((task['id'], role, json.loads(feedback)))
+                return {'status': 'ready_for_review' if role == 'implement' else 'accept',
+                        'summary': 'SIMULATED accepted evidence ' + 'details ' * 200, 'findings': ['retain causal result']}
+            with patch.object(loop, 'required_input_preflight', return_value={'status': 'passed'}), patch.object(loop.harness, 'run_check', return_value={'status': 'passed'}):
+                state = loop.run(mission, root/'evidence', worker)
+            dependency = contexts[2][2]['dependencies']['DRILL'][0]
+            self.assertIn('record_path', dependency)
+            self.assertNotIn('roles', dependency)
+            self.assertEqual(dependency['result']['findings'], ['retain causal result'])
+            self.assertIn('roles', state['tasks']['DRILL']['history'][0])
+            metrics = state['tasks']['NEXT']['history'][0]['context_metrics']
+            self.assertLess(metrics['historical_delivered_bytes'], metrics['historical_full_bytes'])
+            saved = json.loads((root/'evidence/state.json').read_text())
+            self.assertIn('roles', saved['tasks']['DRILL']['history'][0])
+
+    def test_host_lease_binds_direction_hash_separately_from_skills(self):
+        with tempfile.TemporaryDirectory() as tmp, patch.object(loop, 'ROOT', Path(tmp)), patch.object(loop, 'snapshot', return_value={}):
+            root = Path(tmp); _, ref = self.direction(root)
+            skill = root / '.agents/skills/gameplay-reviewer/SKILL.md'
+            skill.parent.mkdir(parents=True); skill.write_text('Independent reviewer')
+            folder = root/'1/review'; folder.mkdir(parents=True)
+            task = {**MISSION['tasks'][0], 'creative_direction': ref}
+            def reply(*unused):
+                request = json.loads((folder/'host_request.json').read_text())
+                loop.save(folder/'host_response.json', {**{k: request[k] for k in ('schema_version', 'request_hash', 'task_id', 'attempt', 'role')},
+                    'agent_id': '/root/SIMULATED_direction_reviewer',
+                    'result': {'status': 'rethink', 'summary': 'SIMULATED theme mismatch', 'findings': []}})
+            with patch.object(loop, 'resolved_check_contracts', return_value={'checks': []}), patch.object(loop.time, 'sleep', side_effect=reply):
+                result = loop.invoke_host(task, MISSION, 'review', folder, '{}')
+            self.assertEqual(result['status'], 'rethink')
+            request = json.loads((folder/'host_request.json').read_text())
+            self.assertEqual(request['source_inputs'], [{k: ref[k] for k in ('path', 'sha256')}])
+            self.assertEqual(len(request['skills']), 1)
+            loop._verify_invocation(folder, 'review', 'invoke_host')
+            meta = json.loads((folder/'invocation.json').read_text())
+            meta['source_inputs'][0]['sha256'] = '0' * 64
+            loop.save(folder/'invocation.json', meta)
+            with self.assertRaisesRegex(ValueError, 'creative input hashes'):
+                loop._verify_invocation(folder, 'review', 'invoke_host')
+
+    def test_repeated_review_findings_rethink_despite_edits_but_new_findings_and_engineering_failures_do_not(self):
+        for case in ('repeated', 'new_findings', 'engineering_failure'):
+            with self.subTest(case=case), tempfile.TemporaryDirectory() as tmp, patch.object(loop, 'ROOT', Path(tmp)):
+                root = Path(tmp); _, ref = self.direction(root)
+                skill = root/'.agents/skills/gameplay-reviewer/SKILL.md'
+                skill.parent.mkdir(parents=True); skill.write_text('Reviewer')
+                mission = copy.deepcopy(MISSION); mission.update(max_calls=6, max_rounds=3)
+                mission['tasks'][0].update(creative_direction=ref, read_only=False, allowed_paths=['unrelated_patch'], quality_record='quality.json')
+                source = {}; roles = []
+                def worker(task, mission, role, folder, feedback):
+                    roles.append(role)
+                    round_id = int(folder.parent.name)
+                    if role == 'implement':
+                        source['unrelated_patch'] = str(round_id)
+                        return {'status': 'ready_for_review', 'summary': 'SIMULATED source byte changes', 'findings': []}
+                    findings = ['  Poor focus ', ' Unclear   return  '] if round_id == 1 else ['Unclear return', 'Poor focus']
+                    if case == 'new_findings' and round_id == 2: findings = ['A different unresolved creative issue']
+                    return {'status': 'accept' if round_id == 3 else 'rework', 'summary': 'SIMULATED independent review', 'findings': findings}
+                check = {'status': 'failed' if case == 'engineering_failure' else 'passed'}
+                with patch.object(loop, 'snapshot', side_effect=lambda: dict(source)), patch.object(loop, 'required_input_preflight', return_value={'status': 'passed'}), patch.object(loop.harness, 'run_check', return_value=check), patch.object(loop, 'check_task_quality', return_value={'scope_complete': True, 'content_complete': False}):
+                    state = loop.run(mission, root/'evidence', worker)
+                entry = state['tasks']['DRILL']
+                if case == 'repeated':
+                    self.assertEqual(entry['status'], 'rethink')
+                    self.assertTrue(entry['preproduction_required'])
+                    self.assertEqual(state['calls'], 4)
+                    self.assertEqual(entry['history'][-1]['roles']['review']['status'], 'rework')
+                    self.assertEqual(entry['history'][-1]['creative_stagnation']['normalized_findings'], ['Poor focus', 'Unclear return'])
+                elif case == 'new_findings':
+                    self.assertEqual(entry['status'], 'complete')
+                    self.assertEqual(state['calls'], 6)
+                    self.assertEqual(len(entry['history']), 3)
+                else:
+                    self.assertEqual(entry['status'], 'budget_exhausted')
+                    self.assertNotIn('review', roles)
+                    self.assertFalse(entry.get('preproduction_required', False))
+
+    def test_compact_feedback_preserves_latest_findings_and_old_missions(self):
+        records = [{"round": i, "evidence": f"build/task/{i}",
+                    "result": {"status": "rework", "summary": f"Round {i}", "findings": ["specific correction"]},
+                    "roles": {"implement": {"summary": "large historical content" * 500}}} for i in range(1, 4)]
+        dependencies = {"UPSTREAM": copy.deepcopy(records)}
+        original = copy.deepcopy(records)
+        full = loop.feedback_context({}, dependencies, records)
+        compact = loop.feedback_context({"creative_direction": {"path": "direction.json"}}, dependencies, records)
+        self.assertEqual(full, {"dependencies": dependencies, "previous_rounds": records})
+        self.assertEqual(len(compact["previous_rounds"]), 1)
+        self.assertEqual(compact["previous_rounds"][0]["result"]["findings"], ["specific correction"])
+        self.assertEqual(compact["dependencies"]["UPSTREAM"][0]["record_path"], "build/task/3/checkpoint.json")
+        self.assertLess(len(json.dumps(compact).encode()), len(json.dumps(full).encode()) // 10)
+        self.assertEqual(records, original)
+        self.assertEqual(loop.feedback_context({"creative_direction": {}, "feedback_context": "full"}, dependencies, records), full)
 
 
 if __name__=='__main__':unittest.main()

@@ -1,0 +1,207 @@
+{
+  "schema_version": 1,
+  "stages": {
+    "model_implementation": {
+      "status": "unknown",
+      "events": 0,
+      "summed_command_seconds": null,
+      "interval_union_seconds": null,
+      "outputs": [],
+      "duration_only_records": [],
+      "reported_seconds_without_interval_sum": null
+    },
+    "image_generation": {
+      "status": "unknown",
+      "events": 0,
+      "summed_command_seconds": null,
+      "interval_union_seconds": null,
+      "outputs": [],
+      "duration_only_records": [],
+      "reported_seconds_without_interval_sum": null
+    },
+    "game_integration": {
+      "status": "observed",
+      "events": 4,
+      "summed_command_seconds": 343.6788937600004,
+      "interval_union_seconds": 343.6788935661316,
+      "outputs": [],
+      "duration_only_records": [],
+      "reported_seconds_without_interval_sum": null
+    },
+    "verification": {
+      "status": "observed",
+      "events": 4,
+      "summed_command_seconds": 5.6370000000000005,
+      "interval_union_seconds": 5.637598991394043,
+      "outputs": [],
+      "duration_only_records": [],
+      "reported_seconds_without_interval_sum": null
+    },
+    "independent_review": {
+      "status": "unknown",
+      "events": 0,
+      "summed_command_seconds": null,
+      "interval_union_seconds": null,
+      "outputs": [],
+      "duration_only_records": [],
+      "reported_seconds_without_interval_sum": null
+    },
+    "rework": {
+      "status": "unknown",
+      "events": 0,
+      "summed_command_seconds": null,
+      "interval_union_seconds": null,
+      "outputs": [],
+      "duration_only_records": [],
+      "reported_seconds_without_interval_sum": null
+    },
+    "network_wait": {
+      "status": "unknown",
+      "events": 0,
+      "summed_command_seconds": null,
+      "interval_union_seconds": null,
+      "outputs": [],
+      "duration_only_records": [],
+      "reported_seconds_without_interval_sum": null
+    },
+    "release": {
+      "status": "observed",
+      "events": 1,
+      "summed_command_seconds": 27.391906023025513,
+      "interval_union_seconds": 27.391906023025513,
+      "outputs": [],
+      "duration_only_records": [],
+      "reported_seconds_without_interval_sum": null
+    }
+  },
+  "events": [
+    {
+      "id": "native-first_01",
+      "stage": "game_integration",
+      "label": "first_01",
+      "evidence": "docs/evidence/p1_native/first_01/visual_capture.json",
+      "started_at_unix": 1792240768.0,
+      "ended_at_unix": 1792240858.1882308,
+      "duration_seconds": 90.18823083799998,
+      "outputs": [],
+      "measurement_scope": "native capture inclusive command envelope; start timestamp precision one second",
+      "price": "not_exposed"
+    },
+    {
+      "id": "native-baseline_01",
+      "stage": "game_integration",
+      "label": "baseline_01",
+      "evidence": "docs/evidence/p1_native/baseline_01/visual_capture.json",
+      "started_at_unix": 1792240899.0,
+      "ended_at_unix": 1792240980.4412327,
+      "duration_seconds": 81.44123276899973,
+      "outputs": [],
+      "measurement_scope": "native capture inclusive command envelope; start timestamp precision one second",
+      "price": "not_exposed"
+    },
+    {
+      "id": "native-second_01",
+      "stage": "game_integration",
+      "label": "second_01",
+      "evidence": "docs/evidence/p1_native/second_01/visual_capture.json",
+      "started_at_unix": 1792241631.0,
+      "ended_at_unix": 1792241721.988241,
+      "duration_seconds": 90.98824088400033,
+      "outputs": [],
+      "measurement_scope": "native capture inclusive command envelope; start timestamp precision one second",
+      "price": "not_exposed"
+    },
+    {
+      "id": "native-final_a_01",
+      "stage": "game_integration",
+      "label": "final_a_01",
+      "evidence": "docs/evidence/p1_native/final_a_01/visual_capture.json",
+      "started_at_unix": 1792241769.0,
+      "ended_at_unix": 1792241850.0611892,
+      "duration_seconds": 81.06118926900035,
+      "outputs": [],
+      "measurement_scope": "native capture inclusive command envelope; start timestamp precision one second",
+      "price": "not_exposed"
+    },
+    {
+      "id": "targeted-docs",
+      "stage": "verification",
+      "evidence": "docs/evidence/p1_native/verification/targeted-harness/report.json",
+      "started_at_unix": 1792241882.9597442,
+      "ended_at_unix": 1792241883.0783672,
+      "duration_seconds": 0.119,
+      "outputs": []
+    },
+    {
+      "id": "targeted-art-art",
+      "stage": "verification",
+      "evidence": "docs/evidence/p1_native/verification/targeted-harness/report.json",
+      "started_at_unix": 1792241891.809804,
+      "ended_at_unix": 1792241891.928164,
+      "duration_seconds": 0.118,
+      "outputs": []
+    },
+    {
+      "id": "targeted-capture-tests",
+      "stage": "verification",
+      "evidence": "docs/evidence/p1_native/verification/targeted-harness/report.json",
+      "started_at_unix": 1792241901.4657753,
+      "ended_at_unix": 1792241901.5841615,
+      "duration_seconds": 0.118,
+      "outputs": []
+    },
+    {
+      "id": "targeted-visual-director-tests",
+      "stage": "verification",
+      "evidence": "docs/evidence/p1_native/verification/targeted-harness/report.json",
+      "started_at_unix": 1792241910.2519057,
+      "ended_at_unix": 1792241915.5341353,
+      "duration_seconds": 5.282,
+      "outputs": []
+    },
+    {
+      "id": "local-package",
+      "stage": "release",
+      "evidence": "docs/evidence/p1_native/delivery/build_receipt.json",
+      "started_at_unix": 1792241975.8697655,
+      "ended_at_unix": 1792242003.2616715,
+      "duration_seconds": 27.391906023025513,
+      "outputs": [],
+      "measurement_scope": "source copy/export/PCK/headless+GUI smoke envelope, NOT formal release"
+    }
+  ],
+  "unknown_records": [
+    {
+      "stage": "image_generation",
+      "evidence": "assets/visual_development/p1_native/*.record.json plus revisions/first_01 and failed",
+      "actual_calls": 18,
+      "initial_calls": 11,
+      "alpha_edits": 4,
+      "native_readability_edits": 3,
+      "reason": "Calls and raw outputs recorded; complete per-call interval, model, token and price not exposed/collected. Four alpha edits not proved necessary."
+    },
+    {
+      "stage": "model_implementation",
+      "evidence": "Git7472637c / 2be5e1f6 and chat active workers",
+      "reason": "Agent envelope/compute/token timing not completely instrumented; do not invent"
+    },
+    {
+      "stage": "independent_review",
+      "evidence": "independent-first-01.md / independent-second-01.md",
+      "reason": "Actual images/decisions preserved but precise model compute duration unavailable"
+    }
+  ],
+  "observed_interval_union_seconds": 376.70839858055115,
+  "overlap_seconds": 0.0,
+  "unobserved_gap_seconds": 858.5532729625702,
+  "usage": {
+    "tokens": "not_exposed",
+    "price": "not_exposed"
+  },
+  "interpretation": "Command envelopes may overlap or contain other stages; sums are not elapsed production time. Host worker time includes dispatch/wait and cannot isolate model compute. Unknown is not zero. No inference from leases, expiry, file mtimes or historical totals.",
+  "task_id": "P1-NATIVE-01",
+  "task_start_utc": "2026-10-17T12:12:48Z",
+  "local_package_ready_utc": "2026-10-17T13:00:03.261672+00:00",
+  "wall_task_to_package_seconds": 2835.2616715431213,
+  "limits": "Time to package includes parallel authoring, audits, waiting, captures and review. Documentation/checks/PR delivery after package are not included; stage overlap is not added as pure compute. Different PR scope cannot establish causal speedup."
+}

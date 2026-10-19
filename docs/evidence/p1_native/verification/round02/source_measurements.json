@@ -1,0 +1,1004 @@
+{
+  "task_id": "P1-NATIVE-01",
+  "section": {
+    "sha256": "008ba4ed763235e30ff4e89391a9cba6927d535cf205257c41a9030ad6ba1488",
+    "dimensions": [
+      1254,
+      1254
+    ],
+    "standing_profile_method": "Initial P1 pale walking-plane center from actual original pixels/visual inspection, not alpha vegetation outline; GPU footline alignment pending",
+    "band_method": "Top vegetation/back100src to24world; first70src lip to22world; selective-root shoulder to source+260src/180world; quiet lower planes continue to source1253 without repeat"
+  },
+  "source_surface_profile": [
+    [
+      0,
+      526
+    ],
+    [
+      150,
+      528
+    ],
+    [
+      300,
+      531
+    ],
+    [
+      450,
+      535
+    ],
+    [
+      600,
+      544
+    ],
+    [
+      750,
+      537
+    ],
+    [
+      900,
+      545
+    ],
+    [
+      1050,
+      540
+    ],
+    [
+      1200,
+      548
+    ],
+    [
+      1253,
+      542
+    ]
+  ],
+  "tree": {
+    "dimensions": [
+      1366,
+      1152
+    ],
+    "alpha128_bbox": [
+      17,
+      9,
+      1354,
+      1138
+    ],
+    "root_alpha128_range": [
+      17,
+      1090,
+      607,
+      1137
+    ],
+    "pivot": [
+      350,
+      1132
+    ],
+    "uniform_scale": 0.15943312666076173,
+    "display_world_height": 180,
+    "expected_screen_height_at_zoom1_25": 225,
+    "placement": {
+      "component": "tree",
+      "position": [
+        1040,
+        668
+      ],
+      "scale": 0.15943312666076173,
+      "layer": -4,
+      "placement_note": "One wind-tree focal silhouette on the actual recovery-shore 660 standing plane, 8world root burial. Crown remains before original enemy1240; entering/receiving/lookback reveal P1 tree and open shelter together, no duplicated tree on every bank. Native dynamic occlusion pending."
+    }
+  },
+  "native_status": "round02_not_run_waiting_observer",
+  "shelter": {
+    "dimensions": [
+      1524,
+      1032
+    ],
+    "alpha128_bbox": [
+      191,
+      43,
+      1463,
+      997
+    ],
+    "pivot": [
+      827,
+      985
+    ],
+    "uniform_scale": 0.13364779874213836,
+    "display_world_width": 170,
+    "expected_screen_width_at_zoom1_25": 212.5,
+    "display_world_height": 127.5
+  },
+  "distant": {
+    "texture": "res://assets/visual_development/p1_native/distant.png",
+    "pivot": [
+      768,
+      615
+    ],
+    "position": [
+      1000,
+      650
+    ],
+    "scale": 0.82,
+    "layer": -65,
+    "parallax": 0.1,
+    "source_sha256": "5017ca3fb03c76a54d5142375dbbe17405aff96957a062e20ba2aa9746050dd6",
+    "source_dimensions": [
+      1536,
+      1024
+    ],
+    "sampling": "Full original image including paper sky, no atlas crop/repeat or baked gameplay; finite overscan covers existing three-bank camera range",
+    "status": "initial_P1_far_depth_pending_native_and_meadow_layer"
+  },
+  "meadow": {
+    "texture": "res://assets/visual_development/p1_native/meadow.png",
+    "pivot": [
+      768,
+      870
+    ],
+    "position": [
+      1000,
+      2540
+    ],
+    "scale": 0.84,
+    "layer": -50,
+    "parallax": 0.15,
+    "source_sha256": "b53fc8d14d29e65d5dbdad2b900720ac8eeb5c3d8db90bb64c03b6f3abb0b68a",
+    "source_dimensions": [
+      1536,
+      1024
+    ],
+    "alpha128_bbox": [
+      0,
+      444,
+      1536,
+      958
+    ],
+    "sampling": "Full original finite transparent meadow with natural upper/lower mist; no gameplay objects, crop, repeat, tint wash or baked foreground",
+    "status": "bounded_first_native_hierarchy_rework_pending_round02",
+    "opacity": 0.55,
+    "projection_reason": "First01 actual midground competed at physical footline. Move source650 horizon toward screen500 and source800 seed-wing field toward658 under same camera; original source575 transparent air sits behind real footline. Finite full-image extent checked against all actual recorded camera x512..1488; no source crop/repeat/whole-screen fog."
+  },
+  "ends": {
+    "left": {
+      "texture": "res://assets/visual_development/p1_native/left_end.png",
+      "source_surface_y": 325,
+      "outer_profile": [
+        [
+          225,
+          331
+        ],
+        [
+          250,
+          274
+        ],
+        [
+          275,
+          173
+        ],
+        [
+          300,
+          143
+        ],
+        [
+          325,
+          103
+        ],
+        [
+          350,
+          91
+        ],
+        [
+          400,
+          95
+        ],
+        [
+          450,
+          135
+        ],
+        [
+          500,
+          173
+        ],
+        [
+          600,
+          172
+        ],
+        [
+          700,
+          219
+        ],
+        [
+          800,
+          297
+        ],
+        [
+          900,
+          289
+        ],
+        [
+          1000,
+          287
+        ],
+        [
+          1100,
+          243
+        ],
+        [
+          1200,
+          276
+        ],
+        [
+          1300,
+          265
+        ],
+        [
+          1400,
+          260
+        ],
+        [
+          1500,
+          240
+        ],
+        [
+          1535,
+          224
+        ]
+      ],
+      "source_width": 200,
+      "world_width": 56,
+      "blend_start": 0.4,
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "source_sha256": "ba3dd93b0e4e00fc442b25b34d1e3526e99e5d193cd545a811464c5171a8dbc8",
+      "calibration": "Actual current-source alpha>=128 exposed profile; pale foot-plane visual hinge; independent inward turn socket, GPU joint/color alignment pending. Hidden low-alpha RGB is not included as physical material."
+    },
+    "right": {
+      "texture": "res://assets/visual_development/p1_native/right_end.png",
+      "source_surface_y": 245,
+      "outer_profile": [
+        [
+          145,
+          729
+        ],
+        [
+          170,
+          817
+        ],
+        [
+          195,
+          860
+        ],
+        [
+          220,
+          861
+        ],
+        [
+          245,
+          914
+        ],
+        [
+          350,
+          907
+        ],
+        [
+          400,
+          883
+        ],
+        [
+          450,
+          857
+        ],
+        [
+          500,
+          823
+        ],
+        [
+          600,
+          807
+        ],
+        [
+          700,
+          821
+        ],
+        [
+          800,
+          827
+        ],
+        [
+          900,
+          796
+        ],
+        [
+          1000,
+          797
+        ],
+        [
+          1100,
+          801
+        ],
+        [
+          1200,
+          800
+        ],
+        [
+          1300,
+          776
+        ],
+        [
+          1400,
+          807
+        ],
+        [
+          1500,
+          843
+        ],
+        [
+          1535,
+          849
+        ]
+      ],
+      "source_width": 200,
+      "world_width": 56,
+      "blend_start": 0.4,
+      "source_dimensions": [
+        1024,
+        1536
+      ],
+      "source_sha256": "5e74256b09fced794954e5dc67e918bf907f8728a5a59cc00f144cb791bf14c1",
+      "calibration": "Actual current-source alpha>=128 exposed profile; pale foot-plane visual hinge; independent inward turn socket, GPU joint/color alignment pending. Hidden low-alpha RGB is not included as physical material."
+    }
+  },
+  "device": {
+    "texture": "res://assets/visual_development/p1_native/device.png",
+    "status": "actual_P1_source_initial_foot_calibration_pending_native",
+    "region": [
+      272,
+      9,
+      702,
+      1489
+    ],
+    "pivot": [
+      228,
+      1488
+    ],
+    "alpha128_bbox": [
+      272,
+      9,
+      974,
+      1498
+    ],
+    "source_dimensions": [
+      1024,
+      1536
+    ],
+    "source_sha256": "802abc8ee5857bf83f87e87166d352c51b17dff26d51e6eea3e049a75ef34c1a",
+    "anchor_semantics": "Two original feet kept; hinge between feet, placed2world inside actual safe receiving bank; visual reacts only to accepted checkpoint"
+  },
+  "saw": {
+    "texture": "res://assets/visual_development/p1_native/saw.png",
+    "region": [
+      50,
+      33,
+      1186,
+      1148
+    ],
+    "source_sha256": "70aafd43e7a1808a49dd33490d36850c69cd6ca505dec141b8521ddbdcafe84d",
+    "source_dimensions": [
+      1283,
+      1226
+    ],
+    "alpha128_bbox": [
+      50,
+      33,
+      1236,
+      1181
+    ],
+    "calibration": "Round02 actual edited source alpha>=128 bbox1186x1148; equalxy scaling by unchanged actual radius26 gives52world maximum diameter/50.3339world height. Approximate original axle[645,610] lies within0.2world of tight-region center; no physics change. Native motion readability pending."
+  },
+  "supersedes": "First01 remains preserved, not relabeled",
+  "actors": {
+    "hero_source_sha256": "f14951c643fb33fe788fb524a3b82a5973f75eff808907e37a27dff98691bc7c",
+    "hero_actual_dimensions": [
+      1254,
+      1254
+    ],
+    "hero_alpha_range": [
+      0,
+      255
+    ],
+    "alpha_threshold_for_measurement_only": 128,
+    "no_source_pixels_modified": true,
+    "hero_reference_idle_visible_height_source_pixels": 411,
+    "hero_target_visible_height_world": 40,
+    "camera_zoom": 1.25,
+    "hero_expected_idle_visible_height_screen": 50,
+    "pivot_method": "Manual hip-projection x plus actual lowest boot y; region-local coordinates, same uniform scale for all poses. Alpha bbox includes scarf; no pose-wise height normalization.",
+    "poses": {
+      "idle": {
+        "region_xywh": [
+          10,
+          70,
+          265,
+          430
+        ],
+        "alpha128_bbox_local": [
+          13,
+          11,
+          246,
+          422
+        ],
+        "alpha_range": [
+          0,
+          255
+        ],
+        "foot_or_root_anchor_local": [
+          140,
+          422
+        ],
+        "foreign_main_component_alpha128_pixels_in_rectangle": 0,
+        "status": "readability_edit_actual_source_native_unverified_not_clean_packing"
+      },
+      "run_a": {
+        "region_xywh": [
+          290,
+          100,
+          300,
+          400
+        ],
+        "alpha128_bbox_local": [
+          8,
+          11,
+          282,
+          390
+        ],
+        "alpha_range": [
+          0,
+          255
+        ],
+        "foot_or_root_anchor_local": [
+          170,
+          390
+        ],
+        "foreign_main_component_alpha128_pixels_in_rectangle": 0,
+        "status": "readability_edit_actual_source_native_unverified_not_clean_packing"
+      },
+      "run_b": {
+        "region_xywh": [
+          605,
+          110,
+          325,
+          380
+        ],
+        "alpha128_bbox_local": [
+          13,
+          11,
+          306,
+          369
+        ],
+        "alpha_range": [
+          0,
+          255
+        ],
+        "foot_or_root_anchor_local": [
+          185,
+          369
+        ],
+        "foreign_main_component_alpha128_pixels_in_rectangle": 0,
+        "status": "readability_edit_actual_source_native_unverified_not_clean_packing"
+      },
+      "run_c": {
+        "region_xywh": [
+          940,
+          105,
+          310,
+          385
+        ],
+        "alpha128_bbox_local": [
+          11,
+          12,
+          296,
+          374
+        ],
+        "alpha_range": [
+          0,
+          255
+        ],
+        "foot_or_root_anchor_local": [
+          180,
+          374
+        ],
+        "foreign_main_component_alpha128_pixels_in_rectangle": 0,
+        "status": "readability_edit_actual_source_native_unverified_not_clean_packing"
+      },
+      "jump_start": {
+        "region_xywh": [
+          10,
+          625,
+          310,
+          270
+        ],
+        "alpha128_bbox_local": [
+          13,
+          3,
+          310,
+          256
+        ],
+        "alpha_range": [
+          0,
+          255
+        ],
+        "foot_or_root_anchor_local": [
+          175,
+          256
+        ],
+        "foreign_main_component_alpha128_pixels_in_rectangle": 51,
+        "status": "readability_edit_actual_source_native_unverified_not_clean_packing"
+      },
+      "jump": {
+        "region_xywh": [
+          305,
+          500,
+          290,
+          390
+        ],
+        "alpha128_bbox_local": [
+          0,
+          6,
+          278,
+          381
+        ],
+        "alpha_range": [
+          0,
+          255
+        ],
+        "foot_or_root_anchor_local": [
+          175,
+          381
+        ],
+        "foreign_main_component_alpha128_pixels_in_rectangle": 111,
+        "status": "readability_edit_actual_source_native_unverified_not_clean_packing"
+      },
+      "fall": {
+        "region_xywh": [
+          615,
+          545,
+          325,
+          340
+        ],
+        "alpha128_bbox_local": [
+          13,
+          9,
+          315,
+          327
+        ],
+        "alpha_range": [
+          0,
+          255
+        ],
+        "foot_or_root_anchor_local": [
+          195,
+          327
+        ],
+        "foreign_main_component_alpha128_pixels_in_rectangle": 0,
+        "status": "readability_edit_actual_source_native_unverified_not_clean_packing"
+      },
+      "recoil": {
+        "region_xywh": [
+          945,
+          580,
+          300,
+          315
+        ],
+        "alpha128_bbox_local": [
+          7,
+          6,
+          291,
+          308
+        ],
+        "alpha_range": [
+          0,
+          255
+        ],
+        "foot_or_root_anchor_local": [
+          170,
+          308
+        ],
+        "foreign_main_component_alpha128_pixels_in_rectangle": 0,
+        "status": "readability_edit_actual_source_native_unverified_not_clean_packing"
+      },
+      "land": {
+        "region_xywh": [
+          10,
+          980,
+          290,
+          230
+        ],
+        "alpha128_bbox_local": [
+          13,
+          12,
+          279,
+          220
+        ],
+        "alpha_range": [
+          0,
+          255
+        ],
+        "foot_or_root_anchor_local": [
+          165,
+          220
+        ],
+        "foreign_main_component_alpha128_pixels_in_rectangle": 0,
+        "status": "readability_edit_actual_source_native_unverified_not_clean_packing"
+      },
+      "hurt": {
+        "region_xywh": [
+          320,
+          915,
+          261,
+          300
+        ],
+        "alpha128_bbox_local": [
+          6,
+          14,
+          261,
+          290
+        ],
+        "alpha_range": [
+          0,
+          255
+        ],
+        "foot_or_root_anchor_local": [
+          150,
+          290
+        ],
+        "foreign_main_component_alpha128_pixels_in_rectangle": 69,
+        "status": "readability_edit_actual_source_native_unverified_not_clean_packing"
+      },
+      "death": {
+        "region_xywh": [
+          570,
+          1095,
+          420,
+          120
+        ],
+        "alpha128_bbox_local": [
+          6,
+          4,
+          414,
+          100
+        ],
+        "alpha_range": [
+          0,
+          255
+        ],
+        "foot_or_root_anchor_local": [
+          200,
+          100
+        ],
+        "foreign_main_component_alpha128_pixels_in_rectangle": 0,
+        "status": "readability_edit_actual_source_native_unverified_not_clean_packing"
+      },
+      "gun": {
+        "region_xywh": [
+          995,
+          1000,
+          250,
+          190
+        ],
+        "alpha128_bbox_local": [
+          13,
+          13,
+          237,
+          177
+        ],
+        "alpha_range": [
+          0,
+          255
+        ],
+        "foot_or_root_anchor_local": null,
+        "foreign_main_component_alpha128_pixels_in_rectangle": 0,
+        "status": "readability_edit_actual_source_native_unverified_not_clean_packing"
+      }
+    },
+    "actual_original_consumer_states": [
+      "idle",
+      "run",
+      "jump",
+      "fall",
+      "recoil",
+      "hurt",
+      "death",
+      "double_jump",
+      "wall_attach",
+      "wall_kick",
+      "hook_cast",
+      "hook_fly",
+      "hook_pull",
+      "hook_kick",
+      "hook_miss",
+      "hook_contact_kick",
+      "hook_retract",
+      "land",
+      "machine_recoil",
+      "jump_start",
+      "blade_throw",
+      "blade_catch",
+      "bomb_place",
+      "laser_fire",
+      "singularity_hold",
+      "weapon_charge",
+      "weapon_skill"
+    ],
+    "missing_states_fall_back_to_idle_and_are_not_complete": [
+      "double_jump",
+      "wall_attach",
+      "wall_kick",
+      "hook_cast",
+      "hook_fly",
+      "hook_pull",
+      "hook_kick",
+      "hook_miss",
+      "hook_contact_kick",
+      "hook_retract",
+      "machine_recoil",
+      "blade_throw",
+      "blade_catch",
+      "bomb_place",
+      "laser_fire",
+      "singularity_hold",
+      "weapon_charge",
+      "weapon_skill"
+    ],
+    "packing_failures": {
+      "current_edit": {
+        "hurt_foreign_alpha128_pixels": 69,
+        "jump_start_foreign_alpha128_pixels": 51,
+        "jump_foreign_alpha128_pixels": 111,
+        "death_foreign_alpha128_pixels": 0,
+        "scope": "4-neighbor alpha128 main-component rectangles; source not masked or altered; tiny neighboring pixels remain candidate and require actual native motion review, not clean packing"
+      },
+      "historical_first_01": {
+        "hurt_foreign_pixels": 1004,
+        "death_foreign_pixels": 229,
+        "fallback": "hurt=recoil;death omitted; preserved first metadata and assets, not retroactively accepted"
+      }
+    },
+    "enemy_original_source_risk": "Earlier viewer appearance prompted halo concern but does not prove alpha blending: current independently edited source has tested brown RGB background alpha0. Original failed/source records retained by coordinator; no program mask/threshold edits applied.",
+    "enemy_current_source_sha256": "fda75f611584417fad03ed9983fb7273388c8d9199d90095cdada2638df1b60f",
+    "enemy_actual_dimensions": [
+      1536,
+      1024
+    ],
+    "enemy_alpha_range": [
+      0,
+      254
+    ],
+    "enemy_background_rgba_samples": [
+      {
+        "position": [
+          250,
+          50
+        ],
+        "rgba": [
+          61,
+          25,
+          10,
+          0
+        ]
+      },
+      {
+        "position": [
+          250,
+          150
+        ],
+        "rgba": [
+          101,
+          53,
+          32,
+          0
+        ]
+      },
+      {
+        "position": [
+          300,
+          500
+        ],
+        "rgba": [
+          110,
+          58,
+          34,
+          0
+        ]
+      },
+      {
+        "position": [
+          600,
+          200
+        ],
+        "rgba": [
+          70,
+          47,
+          28,
+          0
+        ]
+      }
+    ],
+    "enemy_target_idle_total_height_world": 45,
+    "enemy_expected_idle_total_height_screen": 56.25,
+    "enemy_target_includes": "Top seed branch to lowest foot, not just wing/body envelope",
+    "enemy_actual_idle_alpha128_width_world": 52.888888888888886,
+    "enemy_pose_measurements": {
+      "idle": {
+        "region_xywh": [
+          15,
+          75,
+          500,
+          430
+        ],
+        "alpha128_bbox_local": [
+          13,
+          16,
+          489,
+          421
+        ],
+        "alpha_range": [
+          0,
+          254
+        ],
+        "foot_anchor_local": [
+          325,
+          421
+        ],
+        "status": "actual_readability_source_measured_native_unverified",
+        "scope": "Six poses, not six complete continuous animations; death includes separate seed-leaf source component"
+      },
+      "telegraph": {
+        "region_xywh": [
+          510,
+          155,
+          510,
+          350
+        ],
+        "alpha128_bbox_local": [
+          12,
+          17,
+          499,
+          342
+        ],
+        "alpha_range": [
+          0,
+          254
+        ],
+        "foot_anchor_local": [
+          330,
+          342
+        ],
+        "status": "actual_readability_source_measured_native_unverified",
+        "scope": "Six poses, not six complete continuous animations; death includes separate seed-leaf source component"
+      },
+      "attack": {
+        "region_xywh": [
+          1025,
+          55,
+          500,
+          450
+        ],
+        "alpha128_bbox_local": [
+          10,
+          16,
+          480,
+          442
+        ],
+        "alpha_range": [
+          0,
+          254
+        ],
+        "foot_anchor_local": [
+          340,
+          442
+        ],
+        "status": "actual_readability_source_measured_native_unverified",
+        "scope": "Six poses, not six complete continuous animations; death includes separate seed-leaf source component"
+      },
+      "recovery": {
+        "region_xywh": [
+          10,
+          530,
+          520,
+          410
+        ],
+        "alpha128_bbox_local": [
+          13,
+          19,
+          504,
+          396
+        ],
+        "alpha_range": [
+          0,
+          254
+        ],
+        "foot_anchor_local": [
+          330,
+          396
+        ],
+        "status": "actual_readability_source_measured_native_unverified",
+        "scope": "Six poses, not six complete continuous animations; death includes separate seed-leaf source component"
+      },
+      "hurt": {
+        "region_xywh": [
+          565,
+          520,
+          415,
+          420
+        ],
+        "alpha128_bbox_local": [
+          12,
+          13,
+          406,
+          407
+        ],
+        "alpha_range": [
+          0,
+          254
+        ],
+        "foot_anchor_local": [
+          275,
+          407
+        ],
+        "status": "actual_readability_source_measured_native_unverified",
+        "scope": "Six poses, not six complete continuous animations; death includes separate seed-leaf source component"
+      },
+      "death": {
+        "region_xywh": [
+          980,
+          660,
+          550,
+          280
+        ],
+        "alpha128_bbox_local": [
+          10,
+          14,
+          539,
+          260
+        ],
+        "alpha_range": [
+          0,
+          254
+        ],
+        "foot_anchor_local": [
+          360,
+          260
+        ],
+        "status": "actual_readability_source_measured_native_unverified",
+        "scope": "Six poses, not six complete continuous animations; death includes separate seed-leaf source component"
+      }
+    },
+    "enemy_physical_consumers_unchanged": {
+      "collision_size_world": [
+        36,
+        40
+      ],
+      "pulse_size_world": [
+        52,
+        36
+      ],
+      "body_presentation": "six original RootBell state keys only; original telegraph/burst/timing/damage untouched"
+    },
+    "source_edit_scope": "Actual root imagegen readability edit enlarged dark hair/waist/legs and coherent scarf shapes; no pixel processing by consumer",
+    "enemy_reference_idle_visible_height_source_pixels": 405,
+    "hero_missing_runtime_states_count": 18,
+    "native_first01_observed_hero_frames": {
+      "run": 401,
+      "idle": 286,
+      "fall": 155,
+      "jump": 130,
+      "land": 70,
+      "recoil": 32,
+      "jump_start": 30,
+      "hurt": 16
+    },
+    "first01_frame_count_scope": "Render-process observations from original capture, not physics ticks; prior16hurtframes used explicit recoil fallback, not new actual hurt pose"
+  },
+  "actor_calibration_sha256": "a3934ea8bba87f2cbda28c4906f057cb8ee06e88b88ce61fa95b912eec4749a3"
+}

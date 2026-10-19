@@ -1,0 +1,97 @@
+{
+  "task_id": "PLAINS-JOINT-RECOIL-01",
+  "tool": "image_gen.imagegen",
+  "model": "unknown",
+  "commercial_license_status": "unknown",
+  "calls": [
+    {
+      "round": 1,
+      "operation": "reference-guided generation",
+      "elapsed_tool_seconds": 44.5,
+      "references": [
+        "docs/evidence/p1_environment/environment_master_v1.png",
+        "assets/visual_development/p1_regional/geological_volume.png"
+      ],
+      "original": "/workspace/generated_images/exec-9b1c3275-6d6a-4a8a-a84a-a3b0c84b6351.png",
+      "retained": "docs/evidence/plains_joint_recoil/source_candidate_01.png",
+      "result": "Source silhouette rejected: lower flare contrary to intended bank contour; not integrated.",
+      "source_sha256": "4ab6b1e23f2947e007d26f28284ab1239d18cdfbbf83b36168d611a11509b7b5"
+    },
+    {
+      "round": 2,
+      "operation": "image edit",
+      "elapsed_tool_seconds": 43.9,
+      "references": [
+        "/workspace/generated_images/exec-9b1c3275-6d6a-4a8a-a84a-a3b0c84b6351.png"
+      ],
+      "original": "/workspace/generated_images/exec-c652343e-4fbe-4c52-8a42-15dff4f50f1f.png",
+      "retained": "assets/visual_development/p1_joint_recoil/whole_banks.png",
+      "result": "Tapered upper banks and coherent painted volume; modest lower buttress remains. Candidate for measured semantic calibration; not artistic approval.",
+      "source_sha256": "7e36f24789d104b23e1c2a33a1ae88e761f24ac978d56170dbb79d812fecb314"
+    },
+    {
+      "round": 3,
+      "operation": "new finite connected-landmass family, reference-guided",
+      "elapsed_tool_seconds": 55.4,
+      "references": [
+        "assets/visual_development/p1_joint_recoil/whole_banks.png"
+      ],
+      "original": "/workspace/generated_images/exec-b3692c9b-4b36-4b2f-895b-3333bc3793af.png",
+      "retained": "assets/visual_development/p1_joint_recoil/connected_receiving_banks.png",
+      "source_sha256": "0926bf311cd7b29393b994c580d5b17f867905a7891ad2b18992b31a07c8ef0f",
+      "result": "Preflight rejected as exact old-union fit: about8.5% sampled physical mass transparent under naive affine mapping, upper shoulder insufficient for retained40px slab; not integrated or art-reviewed. Replaced by source/physics joint design, old source retained."
+    },
+    {
+      "round": 4,
+      "operation": "edit connected family to provide genuinely opaque retained upper caps",
+      "elapsed_tool_seconds": 42.3,
+      "references": [
+        "/workspace/generated_images/exec-b3692c9b-4b36-4b2f-895b-3333bc3793af.png"
+      ],
+      "original": "/workspace/generated_images/exec-a32b9efd-26b3-4161-acbc-230c07552b7d.png",
+      "retained": "assets/visual_development/p1_joint_recoil/connected_receiving_banks_v2.png",
+      "source_sha256": "306f21e3e0239327ab68bb279b6bf5895b03606f318aaa7a12c07912b23a3c57",
+      "result": "Actual painted vertical shoulders added before inward curve. Candidate geometry will derive from this complete body, preserving standing caps and true route airspace; not yet artistic approval."
+    },
+    {
+      "round": 5,
+      "operation": "actual-screen reference paintover; design only",
+      "elapsed_tool_seconds": 119.0,
+      "references": [
+        "build/plains_joint_recoil/fixed_visible_v4_01/frames/frame_001260.png",
+        "build/plains_joint_recoil/fixed_visible_v4_01/frames/frame_001620.png",
+        "docs/evidence/p1_environment/environment_master_v1.png"
+      ],
+      "original": "/workspace/generated_images/exec-b7732b9e-4642-408c-bda4-9745538b1300.png",
+      "retained": "docs/evidence/plains_joint_recoil/paintover_design_only.png",
+      "result": "Not integrated. Requested camera/geometry lock was not achieved: returned two horizontally compressed panels with reframed context. Visual cues only, neither actual Godot nor frozen geometry proof.",
+      "source_sha256": "c95fd07e85c91366f61bb06255b6bb40a37470d629290f2a7b300fe53d08d992"
+    },
+    {
+      "round": 6,
+      "operation": "paintover-derived same-world-scale atlas candidate",
+      "elapsed_tool_seconds": 69.8,
+      "references": [
+        "docs/evidence/plains_joint_recoil/paintover_design_only.png",
+        "assets/visual_development/p1_joint_recoil/whole_banks.png",
+        "assets/visual_development/p1_joint_recoil/connected_receiving_banks_v2.png"
+      ],
+      "original": "/workspace/generated_images/exec-ea62b849-b7ee-472f-a91c-d8ee4b6a7dc8.png",
+      "retained": "docs/evidence/plains_joint_recoil/rejected_same_scale_atlas.png",
+      "result": "Not integrated. Upper contours conflict with experiment-owned retained40px rectangular caps; measured minimum tested warp1.545 exceeds retained1.35. This does not prove natural contours impossible: 40px full rectangular thickness is our chosen compatibility boundary, not a user art requirement. More fundamentally still isolated bodies without environmental identity/support. No further atlas patch.",
+      "source_sha256": "4746b68a7a969f35dba0a77d67a69532a367b9d20e3fcf0b25b53bbef7e6a320"
+    }
+  ],
+  "images": [
+    {
+      "name": "source_candidate_01.png",
+      "sha256": "4ab6b1e23f2947e007d26f28284ab1239d18cdfbbf83b36168d611a11509b7b5"
+    },
+    {
+      "name": "whole_banks.png",
+      "sha256": "7e36f24789d104b23e1c2a33a1ae88e761f24ac978d56170dbb79d812fecb314"
+    }
+  ],
+  "processing": "Byte-for-byte copies only. PIL used for alpha/contour analysis, not image editing. Source images are assets/design tools, never full-screen game backgrounds.",
+  "total_image_tool_seconds": 374.9
+}

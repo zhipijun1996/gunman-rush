@@ -1,0 +1,35 @@
+from pathlib import Path
+p=Path('build/p1_native/prepare_local_review_bundle.py');s=p.read_text()
+a=s.index('FORMAL_SMOKE =');b=s.index("PLAY = '''",a);s=s[:a]+s[b:]
+s=s.replace("    p.add_argument('--expected-formal-capture', type=Path, help='Original real two-bank capture reference for unchanged static collision verification')\n",'')
+s='\n'.join(l for l in s.split('\n') if "p.add_argument('--expected-formal-capture'" not in l)
+a=s.index('    if not a.expected_formal_capture:');b=s.index('    if not a.expected_commit',a);s=s[:a]+s[b:]
+s=s.replace("        (project/'formal_review_smoke.gd').write_text(FORMAL_SMOKE)\n",'')
+a=s.index('            formal_log=');b=s.index('        finally:',a);s=s[:a]+s[b:]
+s=s.replace(",('second','formal_review_smoke.gd','FORMAL REVIEW PACK SMOKE COMPLETE:')",'')
+s='\n'.join(l for l in s.split('\n') if "(bundle/'play-second.sh')" not in l)
+s=s.replace('resources/visual_development/painted_terrain_candidate.json','resources/visual_development/p1_candidate.json').replace('build/painted_terrain','build/p1_native').replace('gunman-rush-painted-terrain-review-linux-x86_64','gunman-rush-p1-native-review-linux-x86_64')
+s=s.replace('连续手绘地形首空间有限评审','P1原生首空间有限评审').replace('运行：解压后执行 ./play.sh 进入首空间；./play-second.sh 进入正式平原08两薄岸有限迁移，其余地形保留原貌。','运行：解压后执行 ./play.sh，仅进入P1首空间。')
+s=s.replace('首04仅获首空间静态呈现 ACCEPT_SCOPED，不代表完整G2、动态艺术、真人体验或商业认可；一次不同结构迁移另有独立证据。此包不是完整地区或正式发布。','P1目前仅为候选实机验证，不继承历史B或首04准入，不代表用户最终艺术认可、完整G2、真人体验、完整地区或正式发布。')
+s=s.replace("'scope':'explicit first experimental space; static first-space ACCEPT_SCOPED only; not full G2 or release'", "'scope':'P1 single first experimental space only; candidate visual language; not full G2, region or release'").replace("'art_admission':'first_space_static_ACCEPT_SCOPED', 'second_space_and_multi_seed_admission':'separate_evidence_required'", "'art_admission':'P1_candidate_not_inherited_B_admission', 'second_space_and_multi_seed_admission':'not_in_this_task'")
+s=s.replace('# Two actual GUI consumers from one exported PCK, no source-project fallback.','# One actual P1 GUI consumer from exported PCK, no source-project fallback.')
+# Reuse current real PCK parser and imported-backend target verification.
+needle="        if not pack.is_file() or pack.stat().st_size==0:raise RuntimeError('No nonempty exported PCK')"
+extra=needle+'''
+        from check_web_bundle import Pack, texture_import_targets
+        actual_pack=Pack(pack)
+        catalog_resource='resources/visual_development/p1_candidate.json'
+        if actual_pack.read(catalog_resource)!=(ROOT/catalog_resource).read_bytes():raise RuntimeError('P1 catalog raw JSON missing or changed in actual PCK')
+        texture_closure=[]
+        for source in sorted(needed):
+            if not source.endswith('.png'):continue
+            imported=actual_pack.read(source+'.import').decode('utf-8')
+            targets=texture_import_targets(imported)
+            local_targets=texture_import_targets((project/(source+'.import')).read_text())
+            if not targets:raise RuntimeError('No actual PCK import target: '+source)
+            for key,target in targets.items():
+                if local_targets.get(key)!=target or actual_pack.read(target)!=(project/target).read_bytes():raise RuntimeError('Actual P1 imported backend bytes differ: '+source)
+            texture_closure.append({'source':source,'source_sha256':sha(ROOT/source),'targets':{key:{'path':target,'sha256':hashlib.sha256(actual_pack.read(target)).hexdigest()} for key,target in targets.items()}})
+        results['actual_pck_runtime_closure']={'catalog_raw_sha256':hashlib.sha256(actual_pack.read(catalog_resource)).hexdigest(),'textures':texture_closure,'scope':'Actual directory/remap/backend bytes checked; raw PNG not required for ResourceLoader-only texture consumers'}
+'''
+assert needle in s;s=s.replace(needle,extra);p.write_text(s)

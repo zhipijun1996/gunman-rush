@@ -1,0 +1,216 @@
+{
+  "source_commit": "ef6a8b4f1d06406b6b5f0a3db658902c15c1084e",
+  "capture_receipt": {
+    "path": "build/plains_places/full_03/visual_capture.json",
+    "sha256": "5da97eb554da0494cd5653e5f4b839f7717846c96308a1933b520177b04ce1bd"
+  },
+  "movie": {
+    "path": "build/plains_places/full_03/gameplay.mp4",
+    "sha256": "5af2780e02957bda575b3674238f59cb1a986be87bd8a7d5204efdc3ba002ab2"
+  },
+  "windows": [
+    {
+      "space": "lee_court",
+      "video_frames": [
+        {
+          "path": "build/plains_places/full_03/video_frames/video_frame_000120.png",
+          "sha256": "21ecc8a086135bfa4641e117d658f3f239f097f7abef72a857d10a3cea82db1d",
+          "video_frame_index_zero_based": 120,
+          "video_time_seconds": 2.0,
+          "scope": "post-extracted actual MP4 frame; not physics tick"
+        },
+        {
+          "path": "build/plains_places/full_03/video_frames/video_frame_000240.png",
+          "sha256": "fdc9714499adf4d4aca02f0ec41e334311d7400f6c86039ea5ce0059ee1a7cf7",
+          "video_frame_index_zero_based": 240,
+          "video_time_seconds": 4.0,
+          "scope": "post-extracted actual MP4 frame; not physics tick"
+        }
+      ],
+      "movie_time_window_seconds": [
+        2.0,
+        4.0
+      ],
+      "native_case_context": [
+        {
+          "id": "place_0_lee_court/arrival",
+          "start_tick": 31,
+          "end_tick": 74,
+          "passed": true
+        },
+        {
+          "id": "place_0_lee_court/departure",
+          "start_tick": 249,
+          "end_tick": 278,
+          "passed": true
+        }
+      ],
+      "time_binding_scope": "Movie frame/time exact; native case ticks identify route context separately, with no exact movie-to-physics tick equivalence asserted."
+    },
+    {
+      "space": "court_to_meadow",
+      "video_frames": [
+        {
+          "path": "build/plains_places/full_03/video_frames/video_frame_000240.png",
+          "sha256": "fdc9714499adf4d4aca02f0ec41e334311d7400f6c86039ea5ce0059ee1a7cf7",
+          "video_frame_index_zero_based": 240,
+          "video_time_seconds": 4.0,
+          "scope": "post-extracted actual MP4 frame; not physics tick"
+        },
+        {
+          "path": "build/plains_places/full_03/video_frames/video_frame_000360.png",
+          "sha256": "f617ae4244dad0057f854793cc25cdb96112708cd4a60d5039dea595d65fcdb4",
+          "video_frame_index_zero_based": 360,
+          "video_time_seconds": 6.0,
+          "scope": "post-extracted actual MP4 frame; not physics tick"
+        }
+      ],
+      "movie_time_window_seconds": [
+        4.0,
+        6.0
+      ],
+      "native_case_context": [
+        {
+          "id": "edge_0/forward",
+          "start_tick": 279,
+          "end_tick": 356,
+          "passed": true
+        }
+      ],
+      "time_binding_scope": "Movie frame/time exact; native case ticks identify route context separately, with no exact movie-to-physics tick equivalence asserted."
+    },
+    {
+      "space": "wind_meadow",
+      "video_frames": [
+        {
+          "path": "build/plains_places/full_03/video_frames/video_frame_000360.png",
+          "sha256": "f617ae4244dad0057f854793cc25cdb96112708cd4a60d5039dea595d65fcdb4",
+          "video_frame_index_zero_based": 360,
+          "video_time_seconds": 6.0,
+          "scope": "post-extracted actual MP4 frame; not physics tick"
+        },
+        {
+          "path": "build/plains_places/full_03/video_frames/video_frame_000480.png",
+          "sha256": "f81317169539cc615fd553ea8a0aa1256a8d53c080dec8507d1c89a0060470b1",
+          "video_frame_index_zero_based": 480,
+          "video_time_seconds": 8.0,
+          "scope": "post-extracted actual MP4 frame; not physics tick"
+        }
+      ],
+      "movie_time_window_seconds": [
+        6.0,
+        8.0
+      ],
+      "native_case_context": [
+        {
+          "id": "place_1_wind_meadow/arrival",
+          "start_tick": 357,
+          "end_tick": 370,
+          "passed": true
+        },
+        {
+          "id": "place_1_wind_meadow/departure",
+          "start_tick": 449,
+          "end_tick": 574,
+          "passed": true
+        }
+      ],
+      "time_binding_scope": "Movie frame/time exact; native case ticks identify route context separately, with no exact movie-to-physics tick equivalence asserted."
+    },
+    {
+      "space": "meadow_to_postal",
+      "video_frames": [
+        {
+          "path": "build/plains_places/full_03/video_frames/video_frame_000600.png",
+          "sha256": "1d711bda9a800c997c6669ba45b9adbbda5d77e62b17b2073ff56147a57e0c11",
+          "video_frame_index_zero_based": 600,
+          "video_time_seconds": 10.0,
+          "scope": "post-extracted actual MP4 frame; not physics tick"
+        },
+        {
+          "path": "build/plains_places/full_03/video_frames/video_frame_000720.png",
+          "sha256": "1beaf032888fc530defa38f54a7f98cc7f0a37c971ceeb86ca5d6942800b79a1",
+          "video_frame_index_zero_based": 720,
+          "video_time_seconds": 12.0,
+          "scope": "post-extracted actual MP4 frame; not physics tick"
+        }
+      ],
+      "movie_time_window_seconds": [
+        10.0,
+        12.0
+      ],
+      "native_case_context": [
+        {
+          "id": "edge_1/forward",
+          "start_tick": 575,
+          "end_tick": 652,
+          "passed": true
+        }
+      ],
+      "time_binding_scope": "Movie frame/time exact; native case ticks identify route context separately, with no exact movie-to-physics tick equivalence asserted."
+    },
+    {
+      "space": "postal_valley",
+      "video_frames": [
+        {
+          "path": "build/plains_places/full_03/video_frames/video_frame_000720.png",
+          "sha256": "1beaf032888fc530defa38f54a7f98cc7f0a37c971ceeb86ca5d6942800b79a1",
+          "video_frame_index_zero_based": 720,
+          "video_time_seconds": 12.0,
+          "scope": "post-extracted actual MP4 frame; not physics tick"
+        },
+        {
+          "path": "build/plains_places/full_03/video_frames/video_frame_000840.png",
+          "sha256": "b36d0877a5d00698917d7609da8fa7a185799dfc37251ed94f7bf97336c2541d",
+          "video_frame_index_zero_based": 840,
+          "video_time_seconds": 14.0,
+          "scope": "post-extracted actual MP4 frame; not physics tick"
+        },
+        {
+          "path": "build/plains_places/full_03/video_frames/video_frame_000960.png",
+          "sha256": "0f05fc7dfcd031ac473a0c91f7ed22614d2759e26e7108f6a0e31712fea5ca1b",
+          "video_frame_index_zero_based": 960,
+          "video_time_seconds": 16.0,
+          "scope": "post-extracted actual MP4 frame; not physics tick"
+        },
+        {
+          "path": "build/plains_places/full_03/video_frames/video_frame_001080.png",
+          "sha256": "664d52799387130a29cbdc3603fa1d442fdeb48edd1a09f21cb4d1a2d846daf0",
+          "video_frame_index_zero_based": 1080,
+          "video_time_seconds": 18.0,
+          "scope": "post-extracted actual MP4 frame; not physics tick"
+        }
+      ],
+      "movie_time_window_seconds": [
+        12.0,
+        18.0
+      ],
+      "native_case_context": [
+        {
+          "id": "place_2_postal_valley/arrival",
+          "start_tick": 653,
+          "end_tick": 666,
+          "passed": true
+        },
+        {
+          "id": "place_2_postal_valley/departure",
+          "start_tick": 1048,
+          "end_tick": 1135,
+          "passed": true
+        }
+      ],
+      "time_binding_scope": "Movie frame/time exact; native case ticks identify route context separately, with no exact movie-to-physics tick equivalence asserted."
+    }
+  ],
+  "technical_summary": {
+    "ticks": 2174,
+    "completed_cases": 35,
+    "health_values": [
+      5.0
+    ],
+    "max_recovery_count": 0,
+    "accepted_shots": 6,
+    "art_omissions": []
+  },
+  "scope": "Actual one-seed three-place chain with outward and return operation. Technical capture is not art admission, multi-seed live variation, campaign/device/release acceptance."
+}

@@ -49,3 +49,9 @@ player 类型记录全部十一维，遵守 [总门槛](../../../docs/developmen
 读取 [设计入口](../../../docs/design/player_actions/README.md)、[动作与harness规划](../../../docs/quality/player_action_plan.md)，使用 [动作覆盖卡](../../../docs/templates/player_action_coverage.md)。
 
 先建立实际角色与正式场景inventory，填写动作覆盖卡；逐角色列身体、上身/武器、能力附件的叠加/覆盖与中断恢复。每个角色仅一个当前武器运行实例；敌人/Boss按自身动作盘点，不复制玩家武器能力矩阵。先黄金样板后扩产，禁止将Courier通过外推所有人物。
+
+## 共同创作契约
+
+[预制作→制作→验收及版本总谱](../../../docs/creative_direction/README.md)是共同执行依据。总谱SHA变更须RETHINK并复验；交付写贡献、协作、新行为/视觉、主题冲突和实机验证。REWORK局部修复，DISCARD隔离候选；ACCEPT只限真实已验范围，审美不绕过工程红灯。
+
+历史复现按需读取[原始Skill与迁移索引](../../../docs/archive/skill_history/README.md)，不默认加载旧轮授权、PR实录或失败数字。
