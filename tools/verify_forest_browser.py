@@ -55,13 +55,20 @@ def locate(path: Path, phrase: str):
         original = Image.open(path)
         width,height=original.size
         boxes=[(int(width*.899),int(height*.104),int(width*.985),int(height*.171)),(int(width*.909),int(height*.004),int(width*.997),int(height*.093)),(int(width*.84),0,width,int(height*.1)),(int(width*.84),int(height*.075),width,int(height*.21)),(int(width*.84),int(height*.82),width,height)]
-        for index,box in enumerate(boxes):
+        # A line-sized crop avoids treating the surrounding translucent button
+        # and sky as a text block. Match the actual OCR word, then map its box.
+        line_box=(int(width*.921),int(height*.025),int(width*.981),int(height*.078))
+        regions=[(box,"6") for box in boxes]+[(line_box,"7")]
+        for index,(box,psm) in enumerate(regions):
             crop=original.crop(box).resize(((box[2]-box[0])*4,(box[3]-box[1])*4)).convert("L")
             for style,processed in (("gray",crop),("binary",ImageOps.invert(crop.point(lambda value:255 if value>180 else 0)))):
                 derived=path.with_name(path.stem+f"-actual-menu-roi-{index}-{style}.png")
                 processed.save(derived)
-                result=subprocess.run(["tesseract",str(derived),"stdout","--psm","6","tsv"],capture_output=True,text=True,check=True,timeout=10,env={**os.environ,"OMP_THREAD_LIMIT":"1"})
-                for word in csv.DictReader(io.StringIO(result.stdout),delimiter="\t"):
+                result=subprocess.run(["tesseract",str(derived),"stdout","--psm",psm,"tsv"],capture_output=True,text=True,check=True,timeout=10,env={**os.environ,"OMP_THREAD_LIMIT":"1"})
+                words=list(csv.DictReader(io.StringIO(result.stdout),delimiter="\t"))
+                if psm=="7" and norm(" ".join(word.get("text","") for word in words))!="MENU":
+                    continue # MENU2 may be segmented into separate MENU and 2.
+                for word in words:
                     if norm(word.get("text",""))=="MENU":
                         return box[0]+(int(word["left"])+int(word["width"])/2)/4,box[1]+(int(word["top"])+int(word["height"])/2)/4
         raise ValueError("Actual MENU text not found in original canvas or enlarged HUD pixels")

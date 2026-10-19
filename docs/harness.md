@@ -93,3 +93,10 @@ mission默认只规划；`--execute`才调用现有生产循环。诊断候选�
 原80／600秒检查在修正真实起跳策略后完成59条严格通过，但整组600.167秒超时仍为FAIL；内层receipt被终止时保留running，不能后补source_stable或passed。`run_forest_depth_region.py` 的每例seconds包含native、JSON读取、validate和rawSHA，不能直接称引擎耗时。先用一份已有capture做有界离线profile：本例2214帧读取0.174秒、带profiler校验0.275秒，不足解释整组缺口，故未凭假设修改校验器。后续同原案例／上限的CI结果另记，不覆写本机失败。详见[原件](evidence/forest_grapple02/release02/README.md)。
 
 Driver为通关证据提交的输入可以改进，但不得改原断言、case、能力、资源或预算；改进后必须重采并保留旧FAIL。固定短跳失效不证明完整跳跃失效，强删动作对照也必须允许剩余能力的合理使用。本次完整跳跃→H实测成功，冠叉R不能继续宣称必需。驱动策略收益与内容收益分开，仍使用原Harness与独审，不新增平行评分体系。
+
+
+### 公开GUI采证的OCR返工边界（FOREST-GRAPPLE-02）
+
+S3实际CI／公网包通过后，GUI01因可见MENU未被识别而在3/20退出。先保存原截图／失败，再在真实像素上做黄金；初版追加单行ROI虽识别真实按钮，却把MENU2拆词误收，独审真实REJECT保留。仅新增PSM7路径改为整ROI归一化文本必须恰为MENU、再读取实际MENU单词字框；原5ROI、真实输入／事件／PCK身份／8入口／20检查／480秒均不改。整图抹字、真实无MENU、同字节MENU2等负例拒绝后才执行完整GUI02（最终378.771秒、20／8实测通过），不用固定点击坐标或游戏JS钩子绕过OCR。
+
+发布游戏仍为S3原PCK；后续采证工具以自己的源码SHA绑定，不把工具修复后的GUI误称新游戏HEAD构建。CI ZIP代理403与公开GUI是不同证据：前者原包72未执行，后者只按实际结果记录，不相互替代。详见[原始失败／REJECT／复验](evidence/forest_grapple02/release03/README.md)。

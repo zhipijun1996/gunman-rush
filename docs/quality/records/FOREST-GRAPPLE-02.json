@@ -4,7 +4,7 @@
   "task_type": "region",
   "workflow": "in_progress",
   "baseline_commit": "6c61faadd511c48a267b975550da897e701fd09f",
-  "reviewed_commit": "6c61faadd511c48a267b975550da897e701fd09f",
+  "reviewed_commit": "93c202568d154e37b1d57de1e08ba0c42820e828",
   "content_version": "grapple-feel-v2 / forest-woven-trunk-v12",
   "owner": "/root",
   "purpose": "Fix collision-safe diagonal-down grapple and stable upper contact, hanging rings, 15% gun/hook aiming; replace low-density bypass with vertical compound forest traversal",
@@ -171,6 +171,46 @@
     "docs/evidence/forest_grapple02/release02/source-identity.json",
     "docs/evidence/forest_grapple02/release02/timeout59-prefix-index01.json",
     "docs/evidence/forest_grapple02/release02/timeout80-custody01.json",
+    "docs/evidence/forest_grapple02/release03/CASE_INDEX_ERRATUM.md",
+    "docs/evidence/forest_grapple02/release03/CI_TERMINAL_STATUS01.json",
+    "docs/evidence/forest_grapple02/release03/README.md",
+    "docs/evidence/forest_grapple02/release03/copy-plan.json",
+    "docs/evidence/forest_grapple02/release03/gui01-exit1-derived-receipt01.json",
+    "docs/evidence/forest_grapple02/release03/gui01-ocr-failure-index01.json",
+    "docs/evidence/forest_grapple02/release03/gui01-ocr-failure-originals01.zip",
+    "docs/evidence/forest_grapple02/release03/gui02-public-success-index01.json",
+    "docs/evidence/forest_grapple02/release03/gui02-public-success-originals01.zip",
+    "docs/evidence/forest_grapple02/release03/inventory.json",
+    "docs/evidence/forest_grapple02/release03/observed-status01.json",
+    "docs/evidence/forest_grapple02/release03/ocr-repair-goldens-and-reviews01.zip",
+    "docs/evidence/forest_grapple02/release03/ocr-repair-index01.json",
+    "docs/evidence/forest_grapple02/release03/original-copy-custody.json",
+    "docs/evidence/forest_grapple02/release03/originals/browser_gui_review03.json",
+    "docs/evidence/forest_grapple02/release03/originals/browser_gui_review03.md",
+    "docs/evidence/forest_grapple02/release03/originals/browser_menu_ocr_review01.json",
+    "docs/evidence/forest_grapple02/release03/originals/browser_menu_ocr_review01.md",
+    "docs/evidence/forest_grapple02/release03/originals/browser_menu_ocr_review02.json",
+    "docs/evidence/forest_grapple02/release03/originals/browser_menu_ocr_review02.md",
+    "docs/evidence/forest_grapple02/release03/originals/commit_s3_probe.py",
+    "docs/evidence/forest_grapple02/release03/originals/commit_s3_review.json",
+    "docs/evidence/forest_grapple02/release03/originals/commit_s3_review.md",
+    "docs/evidence/forest_grapple02/release03/originals/duplicate_cancel01.json",
+    "docs/evidence/forest_grapple02/release03/originals/duplicate_terminal_api01.json",
+    "docs/evidence/forest_grapple02/release03/originals/gui02-cli-receipt.json",
+    "docs/evidence/forest_grapple02/release03/originals/gui02-report.json",
+    "docs/evidence/forest_grapple02/release03/originals/public_build_info01.json",
+    "docs/evidence/forest_grapple02/release03/originals/publisher-terminal-allowlisted01.json",
+    "docs/evidence/forest_grapple02/release03/originals/same-source-runs-terminal02.json",
+    "docs/evidence/forest_grapple02/release03/originals/selected-artifacts-terminal01.json",
+    "docs/evidence/forest_grapple02/release03/originals/selected-jobs-terminal01.json",
+    "docs/evidence/forest_grapple02/release03/originals/selected-run-terminal01.json",
+    "docs/evidence/forest_grapple02/release03/originals/web-download403-redacted01.json",
+    "docs/evidence/forest_grapple02/release03/package_gui02_release03.py",
+    "docs/evidence/forest_grapple02/release03/package_ocr_release03.py",
+    "docs/evidence/forest_grapple02/release03/prior-releases-reference.json",
+    "docs/evidence/forest_grapple02/release03/production-S1-S3-diff.txt",
+    "docs/evidence/forest_grapple02/release03/production-S2-S3-diff.txt",
+    "docs/evidence/forest_grapple02/release03/source-identity.json",
     "docs/evidence/forest_grapple02/save01/inventory.json",
     "docs/evidence/forest_grapple02/save01/selected-originals.zip",
     "docs/evidence/forest_grapple02/shortcut01/README.md",
@@ -404,14 +444,19 @@
       "evidence": []
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Scoped native mechanics/save/goldens/versions and representative16+extraHH1 passed; final full same-SHA CI89 and original80/600s/public runtime pending",
-      "evidence": []
+      "status": "passed",
+      "reason": "Bounded technical regression: published gameS3 original89 CI checks including original80 succeed; new OCR-only consumer additionally tested by actual original20/8/480 GUI. No player, design or commercial admission; local600 timeout and exactZIP403 retained.",
+      "evidence": [
+        "s3-final-ci-status",
+        "s3-public-gui02-cli"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "Public actual debug GUI20/8 passes; native campaign checks are in S3 CI. Full natural campaign browser play and physical-device integration remain separately unverified.",
+      "evidence": [
+        "s3-public-gui02"
+      ]
     },
     "visual": {
       "status": "unverified",
@@ -444,7 +489,8 @@
       "evidence": [
         "neighbor-design-review",
         "laser-scope-review",
-        "decision-fix-review"
+        "decision-fix-review",
+        "final-consumer-public-review03"
       ]
     },
     "device": {
@@ -657,6 +703,68 @@
       "environment": "Godot4.7.2 Standard local workspace; normal GitHub API status separate from unavailable remote raw",
       "scenario": "Fixed original80 real two-map four-route corpus; local original600 timeout; same-case failed/golden/fullJH counterfactual",
       "budget_source": "tools/harness/profiles.json forest-depth-region unchanged600 seconds, native240/import90 unchanged"
+    },
+    {
+      "producer": "/root/forest_acceptance_inventory",
+      "source_commit": "93c202568d154e37b1d57de1e08ba0c42820e828",
+      "content_version": "grapple-feel-v2 / forest-woven-trunk-v12",
+      "id": "s3-final-ci-status",
+      "path": "docs/evidence/forest_grapple02/release03/originals/selected-jobs-terminal01.json",
+      "sha256": "739a1b9c61dacf9375bdbc330a48e93a64b244bf205d30baf026cbc3debb1094",
+      "kind": "command",
+      "command": "gh api repos/zhipijun1996/gunman-rush/actions/runs/39207127333/jobs",
+      "exit_code": 0,
+      "environment": "Ordinary authenticated Actions terminal API; original Godot4.7.2 workflow, unchanged per-check and job caps",
+      "method": "Successful actual API query preserves original job/step statuses; core verifies exact same-source89=18+71. Inner artifact unavailable via403, not individually reviewed.",
+      "observed": "S3 prepare, serial18, parallel71 including original80, aggregate core, Web, Windows, deploy and verify_public reported success. Android skipped by false input; local original600 timeout retained."
+    },
+    {
+      "producer": "/root/forest_acceptance_inventory",
+      "source_commit": "93c202568d154e37b1d57de1e08ba0c42820e828",
+      "content_version": "grapple-feel-v2 / forest-woven-trunk-v12",
+      "id": "s3-public-gui02",
+      "path": "docs/evidence/forest_grapple02/release03/originals/gui02-report.json",
+      "sha256": "3bf19e48155ddd909d2640bc08b37086eb9e3bce13a29879939cfddb13fd0c11",
+      "kind": "gui",
+      "method": "Original20/8/480 public mouse+emulated DOM touch CLI, actual rendered controls and assembled forest events; new verification toolSHA independently reviewed",
+      "observed": "20checks/8entries/errors0, two forest maps actualV12/H-only/Boss identities. Full90390548B PCK before and after everycase verified by unchanged code, buildf7e22bcfaf40/sourceS3. No natural browser campaign, physical device or whole-route claim.",
+      "verification_tool_sha256": "3f542a8b4a97dd8678ab45d5ef185ce8c47f6f753ec4bb6ef52eb2408890e422",
+      "verification_tool_context": "S3 game immutable; OCR-only tool working-treeSHA differs from its S3 blob"
+    },
+    {
+      "producer": "/root/forest_acceptance_inventory",
+      "source_commit": "93c202568d154e37b1d57de1e08ba0c42820e828",
+      "content_version": "grapple-feel-v2 / forest-woven-trunk-v12",
+      "id": "s3-public-gui02-cli",
+      "path": "docs/evidence/forest_grapple02/release03/originals/gui02-cli-receipt.json",
+      "sha256": "cbaa8587fd1438bc1ba7efee67ac26d982b3c43416312865906fd57880b9c552",
+      "kind": "command",
+      "command": "python3 tools/verify_forest_browser.py 'https://zhipijun1996.github.io/gunman-rush/?v=f7e22bcfaf40' --output-dir /workspace/gunman-rush-design/build/forest_grapple02/browser_gui02 --expected-commit 93c202568d154e37b1d57de1e08ba0c42820e828 --expected-build-id f7e22bcfaf40 --expected-forest-version thorn-forest-region-v2 --expected-forest-layout forest-woven-trunk-v12 --proxy-from-environment",
+      "exit_code": 0,
+      "environment": "Local Chromium software renderer, publicHTTPS through explicitly selected environment proxy, Godot web game sourceS3",
+      "method": "Actual CLI stdout/log, report and before/after tool hashes archived; original480 cap unchanged",
+      "observed": "exit0,378.77094069s,20checks,8identities,toolSHA3f542a8b... stable; GUI01 failure and initial OCR REJECT preserved"
+    },
+    {
+      "id": "final-consumer-public-review03",
+      "path": "docs/evidence/forest_grapple02/release03/originals/browser_gui_review03.json",
+      "sha256": "f3fc04e9e62c64a581a0d07e0d7c2922788293f7b7c749b0f9651216eeb5fc52",
+      "kind": "review",
+      "producer": "/root/verifier_migration_review",
+      "source_commit": "93c202568d154e37b1d57de1e08ba0c42820e828",
+      "content_version": "grapple-feel-v2 / forest-woven-trunk-v12",
+      "method": "Different-author read-only final43-path coverage using frozen S3/02 reviews plus actualGUI02 report/log/receipt; no re-execution of browser/native or independent PCK refetch",
+      "observed": "Literal ACCEPT scoped technical consumers+publicGUI:42S3 same bytes plus helper3f542a8b...;20checks/8entries/378.771s/errors0. SourceS3 game and changed verification-tool SHA distinct. Original REJECT/GUI01/600timeout59 and designREVISE preserved; no raw89/72/human/device approval.",
+      "reviewer": "/root/verifier_migration_review",
+      "implementers": [
+        "/root",
+        "/root/forest_vertical",
+        "/root/aim_save_migration"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Reviewer authored no reviewed production or verification-tool change; separate bounded expert review, not user or device acceptance",
+      "verification_tool_sha256": "3f542a8b4a97dd8678ab45d5ef185ce8c47f6f753ec4bb6ef52eb2408890e422"
     }
   ],
   "consumer_coverage": null,
@@ -668,8 +776,9 @@
     "Parent Queen H attack value and living-anchor route value are not resolved by this scoped followup",
     "Main seven-phrase order and some repetitions remain fixed; stronger random exploration and human/device handfeel are unverified",
     "Confirmed cheaper tail alternative: after the observed five-phrase9H prefix, ordinary jump to old catch then JR reaches W, skipping upper_spiral/canopy; recommended seven phrases are not all mandatory. Upper route has no exclusive reward and its attraction is not proven.",
-    "S2 CI39200142616 failed at original80 case33. Corrected driver local original80/600 timed out600.167s after59 completed strict passes; interrupted and remaining cases unverified. Final same-source CI/Web pending.",
-    "Canopy RH strong full-jump+H counterfactual succeeds eight ticks later and saves ammo: R is optional, no proven required recoil combination here; height tolerance and injury recovery unverified."
+    "Canopy RH strong full-jump+H counterfactual succeeds eight ticks later and saves ammo: R is optional, no proven required recoil combination here; height tolerance and injury recovery unverified.",
+    "S3 CI39207127333 and public GUI02 pass separately; publisher exactartifact403/live_verifiedfalse and same-package72 not executed. Local original80 remains600.167timeout59complete/21unfinished.",
+    "Published game source is S3; later verification-tool and documentation commit is not a fresh game build. Human/device/fun/commercial quality remains unverified."
   ],
-  "production_snapshot": "ec20a8324046209cfdf91ca996f42fd11348f39c4000f66be2762901d80ed503"
+  "production_snapshot": "6e315646368ab237f83e4e3b5ca65c230b1bae08ce898d612c9ca62bd734551c"
 }

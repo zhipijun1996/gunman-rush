@@ -3,6 +3,14 @@
 基线 `6c61faadd511c48a267b975550da897e701fd09f`，承接PR83／PR76。本轮需求原文见[user_request.txt](user_request.txt)，设计见[森林钩索与纵向主路](../../design/forest_grapple_vertical.md)。本页区分真实运行、不同作者审查、原失败与未验品质；不把技术通过当作玩家认可。
 
 
+## 最新可试玩技术交付：S3
+
+[打开build f7e22bcfaf40](https://zhipijun1996.github.io/gunman-rush/?v=f7e22bcfaf40)，游戏源码 `93c202568d154e37b1d57de1e08ba0c42820e828`，默认v12。[CI39207127333](https://github.com/zhipijun1996/gunman-rush/actions/runs/39207127333)实际SUCCESS：原89检查同源汇总（18＋71）、其中原森林80路线、Web／Windows、部署及公开资源校验通过。它不覆盖本机原600.167秒超时与59条前缀通过，也不冒充逐个审查远端raw。精确CI ZIP唯一正常下载proxy403，publisher live_verified仍false，原包72未执行。
+
+[release03](release03/README.md)保存普通API、限定提交审查、原GUI01 3/20 OCR失败与原截图、ROI初版MENU2误报REJECT、返工后真实正反例独审。公开GUI02按原20／8／480实测通过，378.771秒、20检查、8入口、零引擎错误；工具SHA `3f542a8b…` 与已发布游戏S3分开绑定；无固定点、JS玩法钩子或跳案例。快速入口：`DEBUG / SELECT REGION + MAP → THORN_FOREST → MAP 1 / MAP 2`。
+
+冠叉R可由完整持跳＋H替代，较易根尾可省最后两句，上层无独占收益、主干顺序固定、随机探索／Boss H价值和真人／实体设备仍需返工或验证，整体REVISE。原速电影按生产字节零差异限定复用，不标为新HEAD重拍。S2失败编号按零起索引33＝第34条，前33条通过；早先“第33例”属于编号用语勘误，不改原raw或结果。
+
 ## S2路线失败、真实输入修正与原80超时
 
 S2 `6adc5ff3`／[CI39200142616](https://github.com/zhipijun1996/gunman-rush/actions/runs/39200142616)实际FAIL：Web／Windows／serial18成功，parallel在hollow-04／图1／growth第33例死亡，部署跳过。[release02](release02/README.md)保留普通API、单次原artifact下载403脱敏收据、干净失败、高跳输入成功和无R强反事实。远端原phase ZIP未取得，不能把本地复现冒充远端raw审查。
@@ -21,7 +29,7 @@ S1 `7ba2e92d`／CI39194694146实际FAIL，Web、Windows与serial18成功，paral
 
 [检查点06](checkpoint06/README.md)公开有限反例：aperture03从真实起点/前缀，经catch、普通跳与一次空中向上R，851帧/HP5→5走到W；该探针前五句9H后无H，实际可省upper_spiral/canopy_fork两句。02已到联合岸却误判negative、01首R接地的局限均原样保存，不能拿native0或未到W标签签blocked。七句仅为已制作推荐主线，观察到的前五句也不是穷尽必经证明；当前保留便宜尾替代，不再加高孔位/加锁。上层无独占奖励或熟练玩家吸引力证据，父任务REVISE。
 
-同包含原shortcut_final02两scenario PASS（仅已知deepcatch/HHHR恢复）和额外Seed17/图2/growth的HH+west_reward完整strictPASS，后者是代表16之外的1例，不是原80的一部分。原80/600秒、全CI89/发布仍待，完整原件及source身份见包内清单。
+同包含原shortcut_final02两scenario PASS（仅已知deepcatch/HHHR恢复）和额外Seed17/图2/growth的HH+west_reward完整strictPASS，后者是代表16之外的1例，不是原80的一部分。该历史包当时原80／600、CI89和发布待验；后续实际结果以本页S3最新段为准，包内原source身份不变。
 
 ## 最新正常速影片：同源两条受控正式路线采集完成
 
