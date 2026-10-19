@@ -686,7 +686,9 @@
       "timeout_seconds": 360,
       "success_pattern": "^ROOT BELL FORMAL VERIFIED:",
       "weight_seconds": 30,
-      "artifact_paths": ["build/root_bell/formal_v2"],
+      "artifact_paths": [
+        "build/root_bell/formal_v2"
+      ],
       "inputs": [
         "project.godot",
         "tools/run_root_bell_tests.py",
@@ -1411,6 +1413,45 @@
       "artifact_paths": [
         "build/verification/forest-vertical-shortcut"
       ]
+    },
+    "blob47-foundation": {
+      "argv": [
+        "python3",
+        "tools/run_blob47_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^PASS: blob47 foundation",
+      "weight_seconds": 12
+    },
+    "windchime-plains": {
+      "argv": [
+        "python3",
+        "tools/run_windchime_tests.py"
+      ],
+      "timeout_seconds": 200,
+      "success_pattern": "^PASS: windchime tiles",
+      "weight_seconds": 20,
+      "serial": true
+    },
+    "pixel-plains": {
+      "argv": [
+        "python3",
+        "tools/run_pixel_plains_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^PASS: pixel plains actual",
+      "weight_seconds": 20,
+      "serial": true
+    },
+    "pixel-formal": {
+      "argv": [
+        "python3",
+        "tools/run_pixel_formal_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^PASS: current formal pixel",
+      "weight_seconds": 20,
+      "serial": true
     }
   },
   "profiles": {
@@ -1540,7 +1581,11 @@
       "forest-depth-queen-canopy",
       "forest-depth-campaign-canopy",
       "forest-air-chain",
-      "forest-vertical-shortcut"
+      "forest-vertical-shortcut",
+      "blob47-foundation",
+      "windchime-plains",
+      "pixel-plains",
+      "pixel-formal"
     ],
     "art": [
       "docs",
@@ -1593,7 +1638,11 @@
       "web-resource-contract-tests",
       "runtime-raw-export-tests",
       "asset-family-tests",
-      "connected-family-tests"
+      "connected-family-tests",
+      "blob47-foundation",
+      "windchime-plains",
+      "pixel-plains",
+      "pixel-formal"
     ],
     "web": [
       "docs",
@@ -1715,7 +1764,11 @@
       "forest-depth-queen-canopy",
       "forest-depth-campaign-canopy",
       "forest-air-chain",
-      "forest-vertical-shortcut"
+      "forest-vertical-shortcut",
+      "blob47-foundation",
+      "windchime-plains",
+      "pixel-plains",
+      "pixel-formal"
     ]
   }
 }

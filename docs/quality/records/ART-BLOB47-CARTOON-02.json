@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "task_id": "ART-BLOB47-CARTOON-02",
+  "task_type": "art",
+  "workflow": "review",
+  "baseline_commit": "459dcc3e26acdb674e568d0a6abc4c9007dd1895",
+  "reviewed_commit": "459dcc3e26acdb674e568d0a6abc4c9007dd1895",
+  "content_version": "cartoon-direction-b-v1",
+  "owner": "/root",
+  "purpose": "落实用户新反馈：淘汰V1色块视觉，向Spelunky2/MarioMaker2的饱满卡通风格重定向并给出具体合屏概念",
+  "player_experience": "新候选在实际镜头比例上体现干净轮廓、厚实体积、鲜明配色、草土石层次与协调小物",
+  "constraints": [
+    "保留47-tile技术地基及已验玩法，不用被拒截图作新图参考",
+    "新图明确标为离线概念，不冒称实机、47图集、最终母版或用户认可",
+    "既有Web包没有被本概念替换"
+  ],
+  "affected_paths": [
+    "docs/art_foundation_v1.md",
+    "docs/current_state.md",
+    "docs/evidence/blob47_cartoon_02/README.md",
+    "docs/evidence/blob47_cartoon_02/concept.png",
+    "docs/evidence/blob47_cartoon_02/docs-report.json",
+    "docs/evidence/blob47_cartoon_02/docs.log",
+    "docs/evidence/blob47_cartoon_02/generation.json",
+    "docs/evidence/blob47_cartoon_02/prompt.txt",
+    "docs/evidence/blob47_cartoon_02/user_feedback.txt",
+    "docs/evidence/blob47_foundation/spec_v1.md",
+    "docs/handoff.md",
+    "docs/quality/asset_records/blob47_cartoon_02.json",
+    "docs/quality/asset_records/blob47_foundation_v1.json",
+    "docs/quality/records/ART-BLOB47-CARTOON-02.json",
+    "docs/quality/records/ART-BLOB47-FOUNDATION-01.json",
+    "docs/tasks.md"
+  ],
+  "deliverables": [
+    "docs/art_foundation_v1.md",
+    "docs/evidence/blob47_cartoon_02/concept.png",
+    "docs/evidence/blob47_cartoon_02/generation.json"
+  ],
+  "creative_decisions": [
+    {
+      "decision": "以洞窟探险2和马里奥制造2的实际卡通画风为主参照",
+      "status": "proposed",
+      "basis": "依据本轮用户方向要求制作具体候选；本图尚未获用户认可"
+    }
+  ],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "本任务仅离线视觉方向与概念，不修改游戏运行内容；实际资产生产/接入另行验收",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "本任务仅离线视觉方向与概念，不修改游戏运行内容；实际资产生产/接入另行验收",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "本任务仅离线视觉方向与概念，不修改游戏运行内容；实际资产生产/接入另行验收",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "本任务仅离线视觉方向与概念，不修改游戏运行内容；实际资产生产/接入另行验收",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "本任务仅离线视觉方向与概念，不修改游戏运行内容；实际资产生产/接入另行验收",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "本任务仅离线视觉方向与概念，不修改游戏运行内容；实际资产生产/接入另行验收",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [
+    {
+      "id": "concept-source",
+      "path": "docs/evidence/blob47_cartoon_02/generation.json",
+      "sha256": "4206fda403f6171f4ad921ecbc534c69994cd4e4c0ceb0a97ede7a3fd1c118f2",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "459dcc3e26acdb674e568d0a6abc4c9007dd1895",
+      "content_version": "cartoon-direction-b-v1",
+      "method": "记录真实图生提示/工具/原图哈希及用途",
+      "observed": "1次实际图生，无旧图参考，模型与许可未暴露"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "新画风的用户认可",
+    "完整tile接口母版及47态图集",
+    "运行接入与实际GPU合屏",
+    "独立审查、目标设备、完整动画音画、性能",
+    "docs profile首项因本地历史证据未物化失败，未声明全仓验证通过"
+  ]
+}

@@ -11,6 +11,13 @@ func _process(delta:float)->void:
 	age+=delta;queue_redraw()
 	if age>=.9:queue_free()
 func _draw()->void:
+	if PixelFormalActors.pixel_context(self) or get_meta("pixel_style",false):
+		var opacity := maxf(0,1-age/.9)
+		for i: int in 16:
+			var axis := Vector2.from_angle(i*TAU/16)
+			var p := (axis*(12+age*(90 if mini else 150))+Vector2(0,age*age*35)).snapped(Vector2(2,2))
+			draw_rect(Rect2(p,Vector2(4,4)),Color(PixelFormalActors.CREAM if i%2==0 else PixelFormalActors.MOSS,opacity))
+		return
 	var t:=clampf(age/.9,0,1)
 	var size:float=(130 if mini else 220)*(.35+.65*sin(minf(1,t*2)*PI/2))
 	var source:Rect2=PlainsCohesionArt.MINI_BURST if mini else PlainsCohesionArt.WIND_BURST

@@ -1,0 +1,975 @@
+{
+  "schema_version": 1,
+  "task_id": "WINDCHIME-PIXEL-01",
+  "task_type": "art",
+  "workflow": "review",
+  "baseline_commit": "300d65c81b61fdfd8d0e7223e9e5a7a60e32e8de",
+  "reviewed_commit": "c0f8e50770145795db5affd4afdbffff2479f1ea",
+  "content_version": "pixel-formal-v1",
+  "owner": "/root",
+  "purpose": "按用户认可的小样感觉重做正式风铃平原两图，并用三张独立大图实现不同速度视差；纹理简洁",
+  "player_experience": "晨光、青绿风蚀石体、麦金植生与铜风铃；可站/单向/移动/危险语义清晰，所有正式演员同风格",
+  "constraints": [
+    "不以旧失败美术作创意输入",
+    "保持物理/生成/资源/RNG/保存与两图流程",
+    "精确并集适配不冒称已实现47或dual-grid正式地形",
+    "用户认可小样感觉不代签最终整区或实体设备"
+  ],
+  "affected_paths": [
+    "AGENTS.md",
+    "assets/manifest.json",
+    "assets/pixel_plains/dawn_distance.png",
+    "assets/pixel_plains/dawn_distance.png.import",
+    "assets/pixel_plains/manifest.json",
+    "assets/pixel_plains/parallax_far.png",
+    "assets/pixel_plains/parallax_far.png.import",
+    "assets/pixel_plains/parallax_middle.png",
+    "assets/pixel_plains/parallax_middle.png.import",
+    "assets/pixel_plains/parallax_near.png",
+    "assets/pixel_plains/parallax_near.png.import",
+    "assets/pixel_plains/props.svg",
+    "assets/pixel_plains/props.svg.import",
+    "assets/pixel_plains/stone_blob47.svg",
+    "assets/pixel_plains/stone_blob47.svg.import",
+    "docs/art_foundation_v1.md",
+    "docs/current_state.md",
+    "docs/evidence/windchime_pixel_01/README.md",
+    "docs/evidence/windchime_pixel_01/actors/README.md",
+    "docs/evidence/windchime_pixel_01/actors/pixel-study-regression.log",
+    "docs/evidence/windchime_pixel_01/actors/player_feedback_probe.gd",
+    "docs/evidence/windchime_pixel_01/actors/player_feedback_probe.log",
+    "docs/evidence/windchime_pixel_01/actors/probe.gd",
+    "docs/evidence/windchime_pixel_01/actors/probe.log",
+    "docs/evidence/windchime_pixel_01/actors/sources.json",
+    "docs/evidence/windchime_pixel_01/background_prompt.txt",
+    "docs/evidence/windchime_pixel_01/delivery.json",
+    "docs/evidence/windchime_pixel_01/formal_audit/adversarial_union.gd",
+    "docs/evidence/windchime_pixel_01/formal_audit/adversarial_union.json",
+    "docs/evidence/windchime_pixel_01/formal_audit/adversarial_union.log",
+    "docs/evidence/windchime_pixel_01/formal_audit/geometry_inventory.gd",
+    "docs/evidence/windchime_pixel_01/formal_audit/geometry_inventory.json",
+    "docs/evidence/windchime_pixel_01/formal_audit/geometry_inventory.log",
+    "docs/evidence/windchime_pixel_01/formal_audit/implementation_review.md",
+    "docs/evidence/windchime_pixel_01/formal_audit/implemented_tests.log",
+    "docs/evidence/windchime_pixel_01/formal_audit/report.md",
+    "docs/evidence/windchime_pixel_01/formal_audit/reviewed_sources.json",
+    "docs/evidence/windchime_pixel_01/formal_review/final-gui/console.log",
+    "docs/evidence/windchime_pixel_01/formal_review/final-gui/map1-boss-01.png",
+    "docs/evidence/windchime_pixel_01/formal_review/final-gui/map1-boss-02.png",
+    "docs/evidence/windchime_pixel_01/formal_review/final-gui/map1-enemy-00.png",
+    "docs/evidence/windchime_pixel_01/formal_review/final-gui/map1-enemy-01.png",
+    "docs/evidence/windchime_pixel_01/formal_review/final-gui/map1-enemy-02.png",
+    "docs/evidence/windchime_pixel_01/formal_review/final-gui/map1-enemy-03.png",
+    "docs/evidence/windchime_pixel_01/formal_review/final-gui/map1-enemy-04.png",
+    "docs/evidence/windchime_pixel_01/formal_review/final-gui/map1-enemy-05.png",
+    "docs/evidence/windchime_pixel_01/formal_review/final-gui/map2-boss-01.png",
+    "docs/evidence/windchime_pixel_01/formal_review/final-gui/map2-boss-02.png",
+    "docs/evidence/windchime_pixel_01/formal_review/final-gui/map2-enemy-00.png",
+    "docs/evidence/windchime_pixel_01/formal_review/final-gui/map2-enemy-01.png",
+    "docs/evidence/windchime_pixel_01/formal_review/final-gui/map2-enemy-02.png",
+    "docs/evidence/windchime_pixel_01/formal_review/final-gui/map2-enemy-03.png",
+    "docs/evidence/windchime_pixel_01/formal_review/final-gui/map2-enemy-04.png",
+    "docs/evidence/windchime_pixel_01/formal_review/final-gui/map2-enemy-05.png",
+    "docs/evidence/windchime_pixel_01/formal_review/final-gui/ordinary-entry.png",
+    "docs/evidence/windchime_pixel_01/formal_review/final-gui/ordinary-jump.png",
+    "docs/evidence/windchime_pixel_01/formal_review/final-gui/ordinary-pause.png",
+    "docs/evidence/windchime_pixel_01/formal_review/final-gui/ordinary-title.png",
+    "docs/evidence/windchime_pixel_01/formal_review/final-gui/report.json",
+    "docs/evidence/windchime_pixel_01/formal_review/final_gui.py",
+    "docs/evidence/windchime_pixel_01/formal_review/final_observed_frames.json",
+    "docs/evidence/windchime_pixel_01/formal_review/final_source_snapshot.json",
+    "docs/evidence/windchime_pixel_01/formal_review/formal-enemy-gui/console.log",
+    "docs/evidence/windchime_pixel_01/formal_review/formal-enemy-gui/map1-enemy-00.png",
+    "docs/evidence/windchime_pixel_01/formal_review/formal-enemy-gui/map1-enemy-01.png",
+    "docs/evidence/windchime_pixel_01/formal_review/formal-enemy-gui/map1-enemy-02.png",
+    "docs/evidence/windchime_pixel_01/formal_review/formal-enemy-gui/map1-enemy-03.png",
+    "docs/evidence/windchime_pixel_01/formal_review/formal-enemy-gui/map1-enemy-04.png",
+    "docs/evidence/windchime_pixel_01/formal_review/formal-enemy-gui/map1-enemy-05.png",
+    "docs/evidence/windchime_pixel_01/formal_review/formal-enemy-gui/map2-enemy-00.png",
+    "docs/evidence/windchime_pixel_01/formal_review/formal-enemy-gui/map2-enemy-01.png",
+    "docs/evidence/windchime_pixel_01/formal_review/formal-enemy-gui/map2-enemy-02.png",
+    "docs/evidence/windchime_pixel_01/formal_review/formal-enemy-gui/map2-enemy-03.png",
+    "docs/evidence/windchime_pixel_01/formal_review/formal-enemy-gui/map2-enemy-04.png",
+    "docs/evidence/windchime_pixel_01/formal_review/formal-enemy-gui/map2-enemy-05.png",
+    "docs/evidence/windchime_pixel_01/formal_review/formal-enemy-gui/report.json",
+    "docs/evidence/windchime_pixel_01/formal_review/formal-gui/console.log",
+    "docs/evidence/windchime_pixel_01/formal_review/formal-gui/map1-boss-01.png",
+    "docs/evidence/windchime_pixel_01/formal_review/formal-gui/map1-boss-02.png",
+    "docs/evidence/windchime_pixel_01/formal_review/formal-gui/map1-enemy.png",
+    "docs/evidence/windchime_pixel_01/formal_review/formal-gui/map2-boss-01.png",
+    "docs/evidence/windchime_pixel_01/formal_review/formal-gui/map2-boss-02.png",
+    "docs/evidence/windchime_pixel_01/formal_review/formal-gui/map2-enemy.png",
+    "docs/evidence/windchime_pixel_01/formal_review/formal-gui/ordinary-entry.png",
+    "docs/evidence/windchime_pixel_01/formal_review/formal-gui/ordinary-jump.png",
+    "docs/evidence/windchime_pixel_01/formal_review/formal-gui/ordinary-pause.png",
+    "docs/evidence/windchime_pixel_01/formal_review/formal-gui/ordinary-title.png",
+    "docs/evidence/windchime_pixel_01/formal_review/formal-gui/report.json",
+    "docs/evidence/windchime_pixel_01/formal_review/formal_breakage-recheck.log",
+    "docs/evidence/windchime_pixel_01/formal_review/formal_breakage-run2.log",
+    "docs/evidence/windchime_pixel_01/formal_review/formal_breakage.gd",
+    "docs/evidence/windchime_pixel_01/formal_review/formal_breakage.json",
+    "docs/evidence/windchime_pixel_01/formal_review/formal_breakage.log",
+    "docs/evidence/windchime_pixel_01/formal_review/formal_enemy_gui.py",
+    "docs/evidence/windchime_pixel_01/formal_review/formal_gui.py",
+    "docs/evidence/windchime_pixel_01/formal_review/formal_inventory-run2.log",
+    "docs/evidence/windchime_pixel_01/formal_review/formal_inventory-run3.log",
+    "docs/evidence/windchime_pixel_01/formal_review/formal_inventory.gd",
+    "docs/evidence/windchime_pixel_01/formal_review/formal_inventory.json",
+    "docs/evidence/windchime_pixel_01/formal_review/formal_inventory.log",
+    "docs/evidence/windchime_pixel_01/formal_review/formal_lifecycle.log",
+    "docs/evidence/windchime_pixel_01/formal_review/formal_route-settled.log",
+    "docs/evidence/windchime_pixel_01/formal_review/formal_route.gd",
+    "docs/evidence/windchime_pixel_01/formal_review/formal_route.json",
+    "docs/evidence/windchime_pixel_01/formal_review/formal_route.log",
+    "docs/evidence/windchime_pixel_01/formal_review/report.md",
+    "docs/evidence/windchime_pixel_01/formal_review/source_snapshot.json",
+    "docs/evidence/windchime_pixel_01/generation.json",
+    "docs/evidence/windchime_pixel_01/independent/branch-trace.json",
+    "docs/evidence/windchime_pixel_01/independent/branch.gd",
+    "docs/evidence/windchime_pixel_01/independent/branch.log",
+    "docs/evidence/windchime_pixel_01/independent/draft-01-entry.png",
+    "docs/evidence/windchime_pixel_01/independent/draft-04-jump.png",
+    "docs/evidence/windchime_pixel_01/independent/draft-05-catalog.png",
+    "docs/evidence/windchime_pixel_01/independent/draft-console.log",
+    "docs/evidence/windchime_pixel_01/independent/draft-metadata.json",
+    "docs/evidence/windchime_pixel_01/independent/probe-catalog-recheck.json",
+    "docs/evidence/windchime_pixel_01/independent/probe-catalog-recheck.log",
+    "docs/evidence/windchime_pixel_01/independent/probe-catalog.log",
+    "docs/evidence/windchime_pixel_01/independent/probe-recheck.log",
+    "docs/evidence/windchime_pixel_01/independent/probe.gd",
+    "docs/evidence/windchime_pixel_01/independent/probe.log",
+    "docs/evidence/windchime_pixel_01/independent/review.md",
+    "docs/evidence/windchime_pixel_01/parallax_far_prompt.txt",
+    "docs/evidence/windchime_pixel_01/parallax_middle_prompt.txt",
+    "docs/evidence/windchime_pixel_01/parallax_near_prompt.txt",
+    "docs/evidence/windchime_pixel_01/parallax_regression/README.md",
+    "docs/evidence/windchime_pixel_01/parallax_regression/manifest.json",
+    "docs/evidence/windchime_pixel_01/parallax_regression/original-region-failure.log.gz",
+    "docs/evidence/windchime_pixel_01/parallax_regression/portrait-before.gd",
+    "docs/evidence/windchime_pixel_01/parallax_regression/portrait-before.log",
+    "docs/evidence/windchime_pixel_01/parallax_regression/suite-fixed.log",
+    "docs/evidence/windchime_pixel_01/reference_observations.md",
+    "docs/evidence/windchime_pixel_01/root/art.log",
+    "docs/evidence/windchime_pixel_01/root/build-info.json",
+    "docs/evidence/windchime_pixel_01/root/consumer-inventory.json",
+    "docs/evidence/windchime_pixel_01/root/core.log",
+    "docs/evidence/windchime_pixel_01/root/final-web-contract.log",
+    "docs/evidence/windchime_pixel_01/root/foundry.log",
+    "docs/evidence/windchime_pixel_01/root/frozen-inventory.json",
+    "docs/evidence/windchime_pixel_01/root/frozen-inventory.log",
+    "docs/evidence/windchime_pixel_01/root/frozen-targeted.log",
+    "docs/evidence/windchime_pixel_01/root/harness-applicable-failed.log",
+    "docs/evidence/windchime_pixel_01/root/harness-tests.log",
+    "docs/evidence/windchime_pixel_01/root/inspect-initial-failed.json",
+    "docs/evidence/windchime_pixel_01/root/inspect-initial-failed.log",
+    "docs/evidence/windchime_pixel_01/root/published/01-published-entry.png",
+    "docs/evidence/windchime_pixel_01/root/published/02-published-moved.png",
+    "docs/evidence/windchime_pixel_01/root/published/capture.py",
+    "docs/evidence/windchime_pixel_01/root/published/console.log",
+    "docs/evidence/windchime_pixel_01/root/published/report.json",
+    "docs/evidence/windchime_pixel_01/root/quality-diff-blocked.log",
+    "docs/evidence/windchime_pixel_01/root/region-initial-failed.log",
+    "docs/evidence/windchime_pixel_01/root/region-remaining.log",
+    "docs/evidence/windchime_pixel_01/root/region-second-failed.log",
+    "docs/evidence/windchime_pixel_01/root/study.log",
+    "docs/evidence/windchime_pixel_01/root/terrain.log",
+    "docs/evidence/windchime_pixel_01/root/web-cache-policy.log",
+    "docs/evidence/windchime_pixel_01/runtime_freeze.md",
+    "docs/evidence/windchime_pixel_01/teardown_diagnosis/README.md",
+    "docs/evidence/windchime_pixel_01/teardown_diagnosis/baseline-source-check.json",
+    "docs/evidence/windchime_pixel_01/teardown_diagnosis/baseline300d65c-expansion-verbose.log.gz",
+    "docs/evidence/windchime_pixel_01/teardown_diagnosis/current-expansion-failure-verbose.log.gz",
+    "docs/evidence/windchime_pixel_01/teardown_diagnosis/expansion-scratch-split-pass.log.gz",
+    "docs/evidence/windchime_pixel_01/teardown_diagnosis/expansion-working-source-strict-pass.log.gz",
+    "docs/evidence/windchime_pixel_01/teardown_diagnosis/manifest.json",
+    "docs/evidence/windchime_pixel_01/teardown_diagnosis/mini-annotation-only-failure.log.gz",
+    "docs/evidence/windchime_pixel_01/teardown_diagnosis/mini-leaf-diagnostic-pass.log.gz",
+    "docs/evidence/windchime_pixel_01/teardown_diagnosis/mini-localcache-diagnostic-failure.log.gz",
+    "docs/evidence/windchime_pixel_01/teardown_diagnosis/mini-original-failure.log.gz",
+    "docs/evidence/windchime_pixel_01/teardown_diagnosis/original-region-failure.log.gz",
+    "docs/evidence/windchime_pixel_01/unused_stone_prompt.txt",
+    "docs/evidence/windchime_pixel_01/user_request.txt",
+    "docs/handoff.md",
+    "docs/quality/asset_records/windchime_pixel_dawn_distance.json",
+    "docs/quality/asset_records/windchime_pixel_parallax_far.json",
+    "docs/quality/asset_records/windchime_pixel_parallax_middle.json",
+    "docs/quality/asset_records/windchime_pixel_parallax_near.json",
+    "docs/quality/asset_records/windchime_pixel_vectors.json",
+    "docs/quality/records/WINDCHIME-PIXEL-01.json",
+    "docs/tasks.md",
+    "docs/windchime_pixel_study.md",
+    "resources/foundry/batch.json",
+    "resources/foundry/export_basis.json",
+    "resources/foundry/replays/climb_change_height-air_chain-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p1.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p1.json",
+    "resources/foundry/replays/climb_change_height-double_jump-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-air_chain-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p1.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p1.json",
+    "resources/foundry/replays/height_then_precision-double_jump-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-air_chain-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p1.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p1.json",
+    "resources/foundry/replays/precision_to_transfer-double_jump-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-air_chain-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p1.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p1.json",
+    "resources/foundry/replays/read_ride_release-double_jump-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-air_chain-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-double_jump-v0-p0.json",
+    "resources/foundry/replays/route-0e61faed40.json",
+    "resources/foundry/replays/route-0efaee5828.json",
+    "resources/foundry/replays/route-122d7f6e2a.json",
+    "resources/foundry/replays/route-1521b6b7c3.json",
+    "resources/foundry/replays/route-2860deda61.json",
+    "resources/foundry/replays/route-2d706b6f11.json",
+    "resources/foundry/replays/route-2d7d2e4612.json",
+    "resources/foundry/replays/route-2f6354523f.json",
+    "resources/foundry/replays/route-3aa2ad4cba.json",
+    "resources/foundry/replays/route-4bec60578b.json",
+    "resources/foundry/replays/route-5798c84cea.json",
+    "resources/foundry/replays/route-7da5a6c16f.json",
+    "resources/foundry/replays/route-908c475df3.json",
+    "resources/foundry/replays/route-93acd6603f.json",
+    "resources/foundry/replays/route-ad7b9db895.json",
+    "resources/foundry/replays/route-b4df2effd8.json",
+    "resources/foundry/replays/route-cf73f3c620.json",
+    "resources/foundry/replays/route-f91361b454.json",
+    "resources/foundry/replays/short_long_rise-air_chain-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p1.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p1.json",
+    "resources/foundry/replays/short_long_rise-double_jump-v0-p0.json",
+    "scenes/demo/pixel_plains_preview.tscn",
+    "scripts/art/defeat_burst.gd",
+    "scripts/art/plains_stage_visual.gd",
+    "scripts/art/plains_terrain_study.gd",
+    "scripts/art/plains_wood_platform_art.gd",
+    "scripts/art_foundation/pixel_formal_actors.gd",
+    "scripts/art_foundation/pixel_formal_actors.gd.uid",
+    "scripts/art_foundation/pixel_formal_inspector.gd",
+    "scripts/art_foundation/pixel_formal_inspector.gd.uid",
+    "scripts/art_foundation/pixel_formal_style_installer.gd",
+    "scripts/art_foundation/pixel_formal_style_installer.gd.uid",
+    "scripts/art_foundation/pixel_formal_terrain.gd",
+    "scripts/art_foundation/pixel_formal_terrain.gd.uid",
+    "scripts/art_foundation/pixel_plains_actor.gd",
+    "scripts/art_foundation/pixel_plains_actor.gd.uid",
+    "scripts/art_foundation/pixel_plains_backdrop.gd",
+    "scripts/art_foundation/pixel_plains_backdrop.gd.uid",
+    "scripts/art_foundation/pixel_plains_decoration.gd",
+    "scripts/art_foundation/pixel_plains_decoration.gd.uid",
+    "scripts/art_foundation/pixel_plains_enemy.gd",
+    "scripts/art_foundation/pixel_plains_enemy.gd.uid",
+    "scripts/art_foundation/pixel_plains_hud.gd",
+    "scripts/art_foundation/pixel_plains_hud.gd.uid",
+    "scripts/art_foundation/pixel_plains_layout.gd",
+    "scripts/art_foundation/pixel_plains_layout.gd.uid",
+    "scripts/art_foundation/pixel_plains_parallax.gd",
+    "scripts/art_foundation/pixel_plains_parallax.gd.uid",
+    "scripts/art_foundation/pixel_plains_platform.gd",
+    "scripts/art_foundation/pixel_plains_platform.gd.uid",
+    "scripts/art_foundation/pixel_plains_preview.gd",
+    "scripts/art_foundation/pixel_plains_preview.gd.uid",
+    "scripts/art_foundation/pixel_plains_projectile.gd",
+    "scripts/art_foundation/pixel_plains_projectile.gd.uid",
+    "scripts/art_foundation/pixel_plains_room.gd",
+    "scripts/art_foundation/pixel_plains_room.gd.uid",
+    "scripts/art_foundation/pixel_plains_scenery.gd",
+    "scripts/art_foundation/pixel_plains_scenery.gd.uid",
+    "scripts/art_foundation/pixel_region_scenery.gd",
+    "scripts/art_foundation/pixel_region_scenery.gd.uid",
+    "scripts/art_foundation/pixel_terrain_gpu_probe.gd",
+    "scripts/art_foundation/pixel_terrain_gpu_probe.gd.uid",
+    "scripts/art_foundation/windchime_lab.gd",
+    "scripts/bosses/bellstrider_bell_projectile.gd",
+    "scripts/bosses/bellstrider_presentation.gd",
+    "scripts/bosses/boss_arena_seal.gd",
+    "scripts/bosses/boss_arrival_presentation.gd",
+    "scripts/bosses/boss_projectile.gd",
+    "scripts/bosses/windkeeper_presentation.gd",
+    "scripts/demo/demo_app.gd",
+    "scripts/demo/plains_region_stage.gd",
+    "scripts/enemies/enemy_attack_projectile.gd",
+    "scripts/generation/module_moving_platform.gd",
+    "scripts/generation/module_saw_hazard.gd",
+    "scripts/generation/plains_region_assembler.gd",
+    "scripts/generation/platforming_module.gd",
+    "scripts/ui/demo_menu.gd",
+    "scripts/world/shot_latch.gd",
+    "shaders/pixel_formal_terrain.gdshader",
+    "shaders/pixel_formal_terrain.gdshader.uid",
+    "shaders/pixel_parallax_edge.gdshader",
+    "shaders/pixel_parallax_edge.gdshader.uid",
+    "tests/plains_pressure_boss_runner.gd",
+    "tests/test_pixel_formal_terrain.gd",
+    "tests/test_pixel_formal_terrain.gd.uid",
+    "tests/test_pixel_plains.gd",
+    "tests/test_pixel_plains.gd.uid",
+    "tools/build_pixel_plains_art.py",
+    "tools/harness/profiles.json",
+    "tools/run_pixel_formal_tests.py",
+    "tools/run_pixel_plains_tests.py"
+  ],
+  "deliverables": [
+    "scripts/demo/plains_region_stage.gd",
+    "scripts/art_foundation/pixel_formal_terrain.gd",
+    "scripts/art_foundation/pixel_plains_parallax.gd",
+    "assets/pixel_plains/parallax_far.png",
+    "assets/pixel_plains/parallax_middle.png",
+    "assets/pixel_plains/parallax_near.png",
+    "docs/evidence/windchime_pixel_01/README.md"
+  ],
+  "creative_decisions": [
+    {
+      "decision": "采用用户认可的小样像素感觉扩展整个平原，纹理简洁、三张独立视差",
+      "status": "user_confirmed",
+      "basis": "最新用户原话",
+      "evidence_id": "direction"
+    },
+    {
+      "decision": "现有非整格地图保留碰撞，以精确边界视觉适配；新模块可dual-grid",
+      "status": "not_required",
+      "basis": "正式几何盘点和用户允许dual-grid，未冒称正式实现dual-grid"
+    }
+  ],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Explicit latest user scope and concrete source/spec",
+      "evidence": [
+        "direction",
+        "spec"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Final source and scoped GUI review pending; no user/device signature",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Final source and scoped GUI review pending; no user/device signature",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Resource cycle and unsupported decor defects repaired, frozen technical consumers clean; full visual state coverage and performance/device remain bounded",
+      "evidence": [
+        "frozen-targeted",
+        "frozen-inventory",
+        "final-independent"
+      ]
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Five targeted fresh harness lanes pass; full applicable profile attempt still fails first at historical sparse docs evidence, so G4 not claimed complete.",
+      "evidence": [
+        "frozen-targeted",
+        "harness-final-targeted",
+        "harness-final-applicable"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Final source and scoped GUI review pending; no user/device signature",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "明确用户认可小样方向并扩为整区，最新spec约束simple texture/3independentparallax；不签最终整区审美",
+      "evidence": [
+        "spec"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Bounded frozen-source current technical/native consumer checks pass cleanly; original regression failures and repairs retained. Full harness/user/device are separate unresolved dimensions.",
+      "evidence": [
+        "frozen-targeted",
+        "frozen-inventory"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Both actual maps use new consumers and final GUI samples render; complete enemy/projectile/state/seed visual matrix still explicitly limited",
+      "evidence": [
+        "frozen-inventory",
+        "published",
+        "final-independent"
+      ]
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "User endorsed study feel and authorized full expansion; final ordinary/two-map samples observed, final whole-region user aesthetic approval pending",
+      "evidence": [
+        "published-shot",
+        "final-independent"
+      ]
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "No claim beyond scoped evidence; final whole-region/device/user acceptance pending",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "No claim beyond scoped evidence; final whole-region/device/user acceptance pending",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Actual unchanged tutorial and lifecycle checked; not all long routes/worst seeds replayed",
+      "evidence": [
+        "route",
+        "inventory"
+      ]
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "No claim beyond scoped evidence; final whole-region/device/user acceptance pending",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Independent limited technical and observed-pixel ACCEPT exists; report does not sign complete whole-region all-state/audio/device approval",
+      "evidence": [
+        "final-independent"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "No claim beyond scoped evidence; final whole-region/device/user acceptance pending",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "No claim beyond scoped evidence; final whole-region/device/user acceptance pending",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "scope-user",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Latest user approved small-study feel and expanded whole formal region/3layers/simpletexture, permits dual-grid",
+      "status": "passed",
+      "evidence": [
+        "direction",
+        "spec"
+      ],
+      "method": "Actual user/spec comparison",
+      "expected": "Scope/spec agrees with latest authorization",
+      "failure": "Scope contradicts latest user instruction",
+      "reason": "Latest user explicitly expanded formal scope"
+    },
+    {
+      "id": "teardown",
+      "gate": "G3",
+      "dimension": "technical",
+      "scenario": "Frozen actual native consumers release owners during original/current regression exits",
+      "status": "passed",
+      "evidence": [
+        "frozen-targeted",
+        "frozen-inventory"
+      ],
+      "method": "Strict existing original regression process and teardown guard",
+      "expected": "All actual checks pass with no ObjectDB/resource/script leak at shutdown",
+      "failure": "Any assertion, script error, leak or missing completion",
+      "reason": "Original2871 leak cause repaired with evidence; frozen4suites and actual21000 inventory exit cleanly"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "direction",
+      "path": "docs/evidence/windchime_pixel_01/user_request.txt",
+      "sha256": "4c307fbbc974a7cb0cb0b5803d9435c247b9751b52db36472a8d7066a29e64d8",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "300d65c81b61fdfd8d0e7223e9e5a7a60e32e8de",
+      "content_version": "pixel-formal-v1",
+      "method": "Actual execution or source/user record; working-tree source snapshots retained",
+      "observed": "小样感觉与扩区授权；最终整区未代签",
+      "source": "conversation",
+      "quote": "大概就是这种感觉。基于这种风格重做整个风铃平原。",
+      "covers": [
+        "direction",
+        "formal_scope",
+        "three_background_images",
+        "simple_texture",
+        "dual_grid_option"
+      ],
+      "accepted": true
+    },
+    {
+      "id": "spec",
+      "path": "docs/windchime_pixel_study.md",
+      "sha256": "479a330414d73d6ffc6e87c6d56a781c50392aff5ddc52423819cc0298aa5a64",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "300d65c81b61fdfd8d0e7223e9e5a7a60e32e8de",
+      "content_version": "pixel-formal-v1",
+      "method": "Actual execution or source/user record; working-tree source snapshots retained",
+      "observed": "最新整区边界覆盖旧一屏范围"
+    },
+    {
+      "id": "core",
+      "path": "docs/evidence/windchime_pixel_01/root/core.log",
+      "sha256": "502cd4f94e75d344b799088c6b7868e2c73cb42b74050c19e4ce492507f6abec",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "300d65c81b61fdfd8d0e7223e9e5a7a60e32e8de",
+      "content_version": "pixel-formal-v1-working-tree",
+      "method": "Actual execution or source/user record; working-tree source snapshots retained",
+      "observed": "5676/0 and strict exit0",
+      "command": "python3 tools/run_tests.py",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 / Linux headless; 300d65c+working-tree; independent source snapshots separate"
+    },
+    {
+      "id": "study",
+      "path": "docs/evidence/windchime_pixel_01/root/study.log",
+      "sha256": "499150b0be065ea6cadcbbc8d348e66df32a299cccd5130aec506327bb217c7a",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "300d65c81b61fdfd8d0e7223e9e5a7a60e32e8de",
+      "content_version": "pixel-formal-v1-working-tree",
+      "method": "Actual execution or source/user record; working-tree source snapshots retained",
+      "observed": "19/0 actual Motor/lifetime and atlas consumed",
+      "command": "python3 tools/run_pixel_plains_tests.py",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 / Linux headless; 300d65c+working-tree; independent source snapshots separate"
+    },
+    {
+      "id": "terrain",
+      "path": "docs/evidence/windchime_pixel_01/root/terrain.log",
+      "sha256": "0e4acd52a27d65f2dafd5f10d81cdf856a41fd3501837312a05b437a1ae521a7",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "300d65c81b61fdfd8d0e7223e9e5a7a60e32e8de",
+      "content_version": "pixel-formal-v1-working-tree",
+      "method": "Actual execution or source/user record; working-tree source snapshots retained",
+      "observed": "2097/0 actual platform and geometry",
+      "command": "python3 tools/run_pixel_formal_tests.py",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 / Linux headless; 300d65c+working-tree; independent source snapshots separate"
+    },
+    {
+      "id": "foundry",
+      "path": "docs/evidence/windchime_pixel_01/root/foundry.log",
+      "sha256": "1c16ccf8a480fd61a31adaa161b4ba42479df07f1af1bac09c0486054ff3e1b2",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "300d65c81b61fdfd8d0e7223e9e5a7a60e32e8de",
+      "content_version": "pixel-formal-v1-working-tree",
+      "method": "Actual execution or source/user record; working-tree source snapshots retained",
+      "observed": "36 phrases/18 itineraries; not formal campaign completion",
+      "command": "python3 tools/foundry.py build --promote",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 / Linux headless; 300d65c+working-tree; independent source snapshots separate"
+    },
+    {
+      "id": "art",
+      "path": "docs/evidence/windchime_pixel_01/root/art.log",
+      "sha256": "a148829f66c479329013c23bcecb1895df66b4269080cfedf787d2f6711aa5a8",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "300d65c81b61fdfd8d0e7223e9e5a7a60e32e8de",
+      "content_version": "pixel-formal-v1-working-tree",
+      "method": "Actual execution or source/user record; working-tree source snapshots retained",
+      "observed": "121 source assets/hash/dimensions; no user visual pass",
+      "command": "python3 tools/check_art.py",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 / Linux headless; 300d65c+working-tree; independent source snapshots separate"
+    },
+    {
+      "id": "region-failed",
+      "path": "docs/evidence/windchime_pixel_01/root/region-initial-failed.log",
+      "sha256": "884c64963c352e111cecbaa33ad57f8d224ae738f913a4d922a189d6a4fe8be3",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "300d65c81b61fdfd8d0e7223e9e5a7a60e32e8de",
+      "content_version": "pixel-formal-v1-working-tree",
+      "method": "Actual execution or source/user record; working-tree source snapshots retained",
+      "observed": "2871 functional assertions0 but314ObjectDB/180Resource teardown failure, not pass",
+      "command": "python3 tools/run_plains_region_tests.py",
+      "exit_code": 1,
+      "environment": "Godot4.7.2 / Linux headless; 300d65c+working-tree; independent source snapshots separate"
+    },
+    {
+      "id": "harness-failed",
+      "path": "docs/evidence/windchime_pixel_01/root/harness-applicable-failed.log",
+      "sha256": "10cb1e7975e7b3b692380db93440d669f86ab7a2693412c2d82b916715e25f29",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "300d65c81b61fdfd8d0e7223e9e5a7a60e32e8de",
+      "content_version": "pixel-formal-v1-working-tree",
+      "method": "Actual execution or source/user record; working-tree source snapshots retained",
+      "observed": "full applicable selected but first docs check blocked by sparse historical evidence links",
+      "command": "python3 tools/harness.py --profile docs --profile art --profile gameplay --profile web --jobs 1",
+      "exit_code": 1,
+      "environment": "Godot4.7.2 / Linux headless; 300d65c+working-tree; independent source snapshots separate"
+    },
+    {
+      "id": "inventory",
+      "path": "docs/evidence/windchime_pixel_01/formal_review/formal_inventory.json",
+      "sha256": "45b3176d059385167ed12f20304d9aa3556b18ef3019099a61c5215739f47d0f",
+      "kind": "runtime_trace",
+      "producer": "/root/pixel_golden_review",
+      "source_commit": "300d65c81b61fdfd8d0e7223e9e5a7a60e32e8de",
+      "content_version": "pixel-formal-v1-working-tree",
+      "method": "Actual execution or source/user record; working-tree source snapshots retained",
+      "observed": "Actual ordinary menu/map1/reload and explicit second-map fixture;21000/0, not campaign completion"
+    },
+    {
+      "id": "route",
+      "path": "docs/evidence/windchime_pixel_01/formal_review/formal_route.json",
+      "sha256": "5f4d68a478c1d0113dae0111c4730e977675c9cfff3da5608e300502c8653ad8",
+      "kind": "runtime_trace",
+      "producer": "/root/pixel_golden_review",
+      "source_commit": "300d65c81b61fdfd8d0e7223e9e5a7a60e32e8de",
+      "content_version": "pixel-formal-v1-working-tree",
+      "method": "Actual execution or source/user record; working-tree source snapshots retained",
+      "observed": "574 real physics frames,2jumps/3shots, no reset, actual camera and3distinct sources/ordered parallax"
+    },
+    {
+      "id": "gpu-draft",
+      "path": "docs/evidence/windchime_pixel_01/root/inspect-initial-failed.json",
+      "sha256": "d3dc2d287767a8ed192cc9801ac57460702f591d3bbdd752ac2e106507415ec7",
+      "kind": "gui",
+      "producer": "/root",
+      "source_commit": "300d65c81b61fdfd8d0e7223e9e5a7a60e32e8de",
+      "content_version": "pixel-formal-v1-working-tree",
+      "method": "Actual execution or source/user record; working-tree source snapshots retained",
+      "observed": "Real GPU each map552960/0; same initial visual fixture retained3Nil errors after natural player death, cannot report clean GUI"
+    },
+    {
+      "id": "geometry-review",
+      "path": "docs/evidence/windchime_pixel_01/formal_audit/implementation_review.md",
+      "sha256": "e321569bdb03278eeb34e294c2b8cffd750d96bdea1b93e228b1bf524bcaea05",
+      "kind": "review",
+      "producer": "/root/formal_terrain_audit",
+      "source_commit": "300d65c81b61fdfd8d0e7223e9e5a7a60e32e8de",
+      "content_version": "pixel-formal-v1-working-tree",
+      "method": "Actual execution or source/user record; working-tree source snapshots retained",
+      "observed": "LIMITED ACCEPT exact geometry/source32231/0; pixels/user/device separate",
+      "reviewer": "/root/formal_terrain_audit",
+      "implementers": [
+        "/root/formal_pixel_terrain",
+        "/root"
+      ],
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "teardown-repair",
+      "path": "docs/evidence/windchime_pixel_01/teardown_diagnosis/README.md",
+      "sha256": "b83b17bce335a36c18c9e20661df638d8bbbc56f5e10141eaf87c5b29bb522a2",
+      "kind": "spec",
+      "producer": "/root/formal_pixel_terrain",
+      "source_commit": "300d65c81b61fdfd8d0e7223e9e5a7a60e32e8de",
+      "content_version": "pixel-formal-v1-working-tree",
+      "method": "Same original expansion test on source-verified baseline and corrected working source through unchanged strict guard",
+      "observed": "Original2871/0 exits clean after dependency repair; original failure and ineffective attempts retained"
+    },
+    {
+      "id": "frozen-targeted",
+      "path": "docs/evidence/windchime_pixel_01/root/frozen-targeted.log",
+      "sha256": "1140157457f6b184f0a58434cf0211ede894386d0358b23adfef023aa87fd8f6",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "c0f8e50770145795db5affd4afdbffff2479f1ea",
+      "content_version": "pixel-formal-v1",
+      "method": "Actual execution against frozen runtime source; see original logs and version identity",
+      "observed": "Current frozen4suites:2097/0 terrain,19/0 actual small-world Motor/lifetime,27/0 formal lifecycle,488/0 originalBoss+legacybackground+new3plane actualCamera2D/aspects; strict no errors/leaks",
+      "command": "run_engine frozen tests/test_pixel_formal_terrain.gd + test_pixel_plains.gd + plains_region_lifecycle_runner.gd + plains_pressure_boss_runner.gd",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 stable / Linux headless; actual HEAD=c0f8e50770145795db5affd4afdbffff2479f1ea"
+    },
+    {
+      "id": "frozen-inventory",
+      "path": "docs/evidence/windchime_pixel_01/root/frozen-inventory.log",
+      "sha256": "1da0f3a4eff6f22a7974c918458da440cd9c520f2ab684e497707dc9182beb7e",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "c0f8e50770145795db5affd4afdbffff2479f1ea",
+      "content_version": "pixel-formal-v1",
+      "method": "Actual execution against frozen runtime source; see original logs and version identity",
+      "observed": "21000 checks0fail; actual ordinary menu/map1/reload/explicit outcome fixture map2, root rerun of independent-authored probe",
+      "command": "run_engine --headless --fixed-fps60 --script docs/evidence/windchime_pixel_01/formal_review/formal_inventory.gd",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 stable / Linux headless; frozen c0f8e50"
+    },
+    {
+      "id": "consumer-groups",
+      "path": "docs/evidence/windchime_pixel_01/root/consumer-inventory.json",
+      "sha256": "6ef5bf83b08293e4782e4274b6ffc5af41990f9dfa638fdd4087cd3c15420036",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "c0f8e50770145795db5affd4afdbffff2479f1ea",
+      "content_version": "pixel-formal-v1",
+      "method": "Actual execution against frozen runtime source; see original logs and version identity",
+      "observed": "Exact category counts derived from actual frozen inventory; no claim that every state/rendering mode has been seen"
+    },
+    {
+      "id": "published",
+      "path": "docs/evidence/windchime_pixel_01/root/published/report.json",
+      "sha256": "cda96e6896c2cd343c19f0c63ca7ca7d4b9d8fb0b343f0591ac41c80931920c5",
+      "kind": "gui",
+      "producer": "/root",
+      "source_commit": "c0f8e50770145795db5affd4afdbffff2479f1ea",
+      "content_version": "pixel-formal-v1",
+      "method": "Actual execution against frozen runtime source; see original logs and version identity",
+      "observed": "Published HTTPS build d2c684ef8fc0/source c0f8e50 verified; actual ordinary map1 keyboard move/jump,0script/shader/page/request failures"
+    },
+    {
+      "id": "published-shot",
+      "path": "docs/evidence/windchime_pixel_01/root/published/02-published-moved.png",
+      "sha256": "bc87eb7fc4cd8a010b5fe1e05bd21518de11b79f2c335286e8957c47c7108105",
+      "kind": "screenshot",
+      "producer": "/root",
+      "source_commit": "c0f8e50770145795db5affd4afdbffff2479f1ea",
+      "content_version": "pixel-formal-v1",
+      "method": "Actual execution against frozen runtime source; see original logs and version identity",
+      "observed": "Actual published formal map1 moved camera, downloaded full Web and rendered in Chromium softwareGPU; not device or campaign acceptance"
+    },
+    {
+      "id": "final-independent",
+      "path": "docs/evidence/windchime_pixel_01/formal_review/report.md",
+      "sha256": "38616f4486688e343c1f1053d3eef8537fa8e9547022df743dcc9cf8ca9edb90",
+      "kind": "review",
+      "producer": "/root/pixel_golden_review",
+      "source_commit": "c0f8e50770145795db5affd4afdbffff2479f1ea",
+      "content_version": "pixel-formal-v1",
+      "method": "Actual execution against frozen runtime source; see original logs and version identity",
+      "observed": "Limited ACCEPT actual consumers, technical checks and observed final ordinary/two-map samples; complete all-state/user/audio/device UNVERIFIED",
+      "reviewer": "/root/pixel_golden_review",
+      "implementers": [
+        "/root",
+        "/root/formal_pixel_terrain",
+        "/root/formal_pixel_actors"
+      ],
+      "verdict": "UNVERIFIED",
+      "independent": true,
+      "independence_basis": "Read-only reviewer wrote own probes/reports; did not edit production implementation or existing assertions"
+    },
+    {
+      "id": "harness-final-targeted",
+      "path": "docs/evidence/windchime_pixel_01/root/harness-final/targeted-command.log",
+      "sha256": "e30e6c569a77e6c5ab3b35b08329ec8f4e8089d388f4ecf49c92bfde9821948f",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "c0f8e50770145795db5affd4afdbffff2479f1ea",
+      "content_version": "pixel-formal-v1",
+      "method": "Actual harness execution on frozen runtime and stable source snapshot; raw report retained losslessly",
+      "observed": "Five fresh targeted lanes passed with frozen source snapshot; does not equal full-profile approval",
+      "command": "python3 tools/harness.py --check pixel-plains --check pixel-formal --check art-art --check web-cache --check web-bundle --jobs 1",
+      "exit_code": 0,
+      "environment": "Linux / Godot4.7.2 / jobs1; runtime c0f8e50, documentation worktree overlays; no physical device"
+    },
+    {
+      "id": "harness-final-applicable",
+      "path": "docs/evidence/windchime_pixel_01/root/harness-final/applicable-command.log",
+      "sha256": "7f6457689414eceb2d04c04df4e83d63a8284f82127a0684dbe93a478a0962b5",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "c0f8e50770145795db5affd4afdbffff2479f1ea",
+      "content_version": "pixel-formal-v1",
+      "method": "Actual harness execution on frozen runtime and stable source snapshot; raw report retained losslessly",
+      "observed": "All applicable profiles selected; first docs lane failed due sparse missing historical evidence links, later checks not run",
+      "command": "python3 tools/harness.py --profile docs --profile art --profile gameplay --profile web --jobs 1",
+      "exit_code": 1,
+      "environment": "Linux / Godot4.7.2 / jobs1; runtime c0f8e50, documentation worktree overlays; no physical device"
+    }
+  ],
+  "consumer_coverage": {
+    "scope": "Grouped actual runtime instances from frozen map1 and map2 fixture; partial real GUI output only, every all-state visual group remains unverified",
+    "inventory_evidence": "consumer-groups",
+    "observations": [
+      {
+        "consumer": "map1.solid_modules",
+        "status": "unverified",
+        "output": "visual",
+        "reason": "Actual runtime inventory confirms new consumer and some final samples were observed; not all instances/states/Seeds independently seen",
+        "evidence": [
+          "published",
+          "final-independent"
+        ]
+      },
+      {
+        "consumer": "map1.one_way",
+        "status": "unverified",
+        "output": "visual",
+        "reason": "Actual runtime inventory confirms new consumer and some final samples were observed; not all instances/states/Seeds independently seen",
+        "evidence": [
+          "published",
+          "final-independent"
+        ]
+      },
+      {
+        "consumer": "map1.moving",
+        "status": "unverified",
+        "output": "visual",
+        "reason": "Actual runtime inventory confirms new consumer and some final samples were observed; not all instances/states/Seeds independently seen",
+        "evidence": [
+          "published",
+          "final-independent"
+        ]
+      },
+      {
+        "consumer": "map1.enemies",
+        "status": "unverified",
+        "output": "visual",
+        "reason": "Actual runtime inventory confirms new consumer and some final samples were observed; not all instances/states/Seeds independently seen",
+        "evidence": [
+          "published",
+          "final-independent"
+        ]
+      },
+      {
+        "consumer": "map1.boss",
+        "status": "unverified",
+        "output": "visual",
+        "reason": "Actual runtime inventory confirms new consumer and some final samples were observed; not all instances/states/Seeds independently seen",
+        "evidence": [
+          "published",
+          "final-independent"
+        ]
+      },
+      {
+        "consumer": "map1.decor",
+        "status": "unverified",
+        "output": "visual",
+        "reason": "Actual runtime inventory confirms new consumer and some final samples were observed; not all instances/states/Seeds independently seen",
+        "evidence": [
+          "published",
+          "final-independent"
+        ]
+      },
+      {
+        "consumer": "map1.background_planes",
+        "status": "unverified",
+        "output": "visual",
+        "reason": "Actual runtime inventory confirms new consumer and some final samples were observed; not all instances/states/Seeds independently seen",
+        "evidence": [
+          "published",
+          "final-independent"
+        ]
+      },
+      {
+        "consumer": "map1.sprites",
+        "status": "unverified",
+        "output": "visual",
+        "reason": "Actual runtime inventory confirms new consumer and some final samples were observed; not all instances/states/Seeds independently seen",
+        "evidence": [
+          "published",
+          "final-independent"
+        ]
+      },
+      {
+        "consumer": "map2.solid_modules",
+        "status": "unverified",
+        "output": "visual",
+        "reason": "Actual runtime inventory confirms new consumer and some final samples were observed; not all instances/states/Seeds independently seen",
+        "evidence": [
+          "published",
+          "final-independent"
+        ]
+      },
+      {
+        "consumer": "map2.one_way",
+        "status": "unverified",
+        "output": "visual",
+        "reason": "Actual runtime inventory confirms new consumer and some final samples were observed; not all instances/states/Seeds independently seen",
+        "evidence": [
+          "published",
+          "final-independent"
+        ]
+      },
+      {
+        "consumer": "map2.moving",
+        "status": "unverified",
+        "output": "visual",
+        "reason": "Actual runtime inventory confirms new consumer and some final samples were observed; not all instances/states/Seeds independently seen",
+        "evidence": [
+          "published",
+          "final-independent"
+        ]
+      },
+      {
+        "consumer": "map2.enemies",
+        "status": "unverified",
+        "output": "visual",
+        "reason": "Actual runtime inventory confirms new consumer and some final samples were observed; not all instances/states/Seeds independently seen",
+        "evidence": [
+          "published",
+          "final-independent"
+        ]
+      },
+      {
+        "consumer": "map2.boss",
+        "status": "unverified",
+        "output": "visual",
+        "reason": "Actual runtime inventory confirms new consumer and some final samples were observed; not all instances/states/Seeds independently seen",
+        "evidence": [
+          "published",
+          "final-independent"
+        ]
+      },
+      {
+        "consumer": "map2.decor",
+        "status": "unverified",
+        "output": "visual",
+        "reason": "Actual runtime inventory confirms new consumer and some final samples were observed; not all instances/states/Seeds independently seen",
+        "evidence": [
+          "published",
+          "final-independent"
+        ]
+      },
+      {
+        "consumer": "map2.background_planes",
+        "status": "unverified",
+        "output": "visual",
+        "reason": "Actual runtime inventory confirms new consumer and some final samples were observed; not all instances/states/Seeds independently seen",
+        "evidence": [
+          "published",
+          "final-independent"
+        ]
+      },
+      {
+        "consumer": "map2.sprites",
+        "status": "unverified",
+        "output": "visual",
+        "reason": "Actual runtime inventory confirms new consumer and some final samples were observed; not all instances/states/Seeds independently seen",
+        "evidence": [
+          "published",
+          "final-independent"
+        ]
+      }
+    ]
+  },
+  "unverified_items": [
+    "Final whole-region user aesthetic acceptance",
+    "Physical touch device, performance budget and complete audio listening",
+    "All long formal live-enemy campaign routes and worst Seeds",
+    "Every enemy warning/projectile/boss phase complete visual sequence",
+    "Full applicable harness: missing historical sparse docs evidence; inherited asset-consumer path audit issue"
+  ]
+}

@@ -1,0 +1,30 @@
+BLOB47 ART OK: 47 canonical tiles x 3 variants; 3 background layers; 6 props
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+BLOB47_LAYOUT checks=19491 failures=0; grid/semantic/port validation only; Motor traversal unverified
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+STEP 0 (80.0, 608.0) false false j=0 mods=["terraced_court", "sheltered_basin", "open_arch", "terraced_court"]
+STEP 100 (492.9255, 621.9252) true false j=1 mods=["terraced_court", "sheltered_basin", "open_arch", "terraced_court"]
+STEP 200 (883.9251, 538.0352) false true j=3 mods=["terraced_court", "sheltered_basin", "open_arch", "terraced_court"]
+STEP 300 (883.9251, 455.5144) false true j=8 mods=["terraced_court", "sheltered_basin", "open_arch", "terraced_court"]
+STEP 400 (883.9251, 484.481) false true j=13 mods=["terraced_court", "sheltered_basin", "open_arch", "terraced_court"]
+STEP 500 (883.9251, 519.0699) false true j=17 mods=["terraced_court", "sheltered_basin", "open_arch", "terraced_court"]
+STEP 600 (883.9251, 479.3477) false true j=22 mods=["terraced_court", "sheltered_basin", "open_arch", "terraced_court"]
+STEP 700 (883.9251, 457.6811) false true j=27 mods=["terraced_court", "sheltered_basin", "open_arch", "terraced_court"]
+STEP 800 (883.9251, 474.1033) false true j=32 mods=["terraced_court", "sheltered_basin", "open_arch", "terraced_court"]
+STEP 900 (883.924, 525.9922) true true j=36 mods=["terraced_court", "sheltered_basin", "open_arch", "terraced_court"]
+STEP 1000 (883.9251, 485.8477) false true j=41 mods=["terraced_court", "sheltered_basin", "open_arch", "terraced_court"]
+STEP 1100 (883.9251, 460.5699) false true j=46 mods=["terraced_court", "sheltered_basin", "open_arch", "terraced_court"]
+STEP 1200 (883.9251, 463.7255) false true j=51 mods=["terraced_court", "sheltered_basin", "open_arch", "terraced_court"]
+STEP 1300 (883.9255, 515.6144) false true j=56 mods=["terraced_court", "sheltered_basin", "open_arch", "terraced_court"]
+STEP 1400 (883.9251, 493.07) false true j=60 mods=["terraced_court", "sheltered_basin", "open_arch", "terraced_court"]
+FAIL: real Motor reaches sample end, x=883.925109863281
+BLOB47_FOUNDATION checks=944 failures=1
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-work/tools/run_blob47_tests.py", line 9, in <module>
+    output = run_engine(['--headless', '--fixed-fps', '60', '--path', '.', '--script', runner], 90)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush-work/tools/run_tests.py", line 42, in run_engine
+    raise RuntimeError(f"Godot returned {process.returncode}")
+RuntimeError: Godot returned 1

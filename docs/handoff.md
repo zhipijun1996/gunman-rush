@@ -1,65 +1,81 @@
-# FOREST-GRAPPLE-02：实现与验证交接
 
-2026-10-19最新技术交付：[试玩build f7e22bcfaf40](https://zhipijun1996.github.io/gunman-rush/?v=f7e22bcfaf40)，游戏源码 `93c202568d154e37b1d57de1e08ba0c42820e828`，默认 `forest-woven-trunk-v12`。选定CI39207127333／attempt1实际SUCCESS：serial18＋parallel71共89项同源汇总、原森林80路线、Web／Windows／deploy／verify_public通过；两轮docs也成功。本机原80仍单独为600.167秒超时、59例完整通过、索引59中断／21未完成，不由CI绿覆盖。publisher正常下载精确CI ZIP被proxy403阻断，live_verified=false、原包72未执行；公网源码／资源包校验另已通过。公开GUI01实际OCR失败3/20、未到森林，真实MENU可见；保留原失败及初版ROI误收MENU2的REJECT，整行严格匹配修正后真实正反例获独审限定接受。新采证工具与已发布游戏源码分开绑定，公开GUI02原20项／8入口实测通过（378.771秒<480），两图实际v12、前后完整PCK身份一致、零引擎错误；该证据只覆盖GUI入口，不代自然战役／整图浏览器路线或实体设备。见[最终技术交付与明确边界](evidence/forest_grapple02/release03/README.md)。整体仍REVISE／in_progress：冠叉R可被完整跳跃→H替代、较易尾路可省末两句、上层收益和随机探索／Boss钩索价值、真人手感及实体设备仍未通过。以下旧v11与失败记录均保留历史身份。
+# 已部署：风铃平原正式两图像素重制候选
 
-当前分支 `feature/thorn-forest-depth`，PR83保持draft、未合并main，基线 `6c61faadd511c48a267b975550da897e701fd09f`。已发布游戏保持S3 `93c20256`；后续改动仅采证工具和证据／文档，不冒称新HEAD重新构建。原正常60fps两片按生产字节零差异限定复用，原240秒失败和真实修复全保留。终态publisher的403不是待轮询超时，不重复恢复下载或绕过代理；原包72仍未执行，公开GUI单独按实况记录。
+试玩：https://zhipijun1996.github.io/gunman-rush/?plains=1&v=d2c684ef8fc0
+Web build `d2c684ef8fc0`；运行源 `c0f8e50770145795db5affd4afdbffff2479f1ea`；PR91仍draft、未合main。[交付身份](evidence/windchime_pixel_01/delivery.json)与[独立审查](evidence/windchime_pixel_01/formal_review/report.md)。后续证据/交接提交不改变该运行源。
 
-下一轮应先做有价值的设计返工：冠叉完整持跳→H可省R、较易根尾可省末两句、上层缺独占收益、主干顺序基本固定、Boss钩索战斗价值仍REVISE。先用同条件真实强替代与不同体验假设做黄金，再扩产；不能靠缩台、加锁或更差驾驶强迫连招。真人手感、实体设备、趣味、美术／商业品质仍未验，FOREST-GRAPPLE-02及父任务保持in_progress。当前技术回归无需重复整组；仅后续新改动／失败／未决技术顾虑才触发相应检查。以下旧身份、命令与当时待验结论均为历史。
+最新用户认可小样感觉后授权整个平原、3张独立大图视差、纹理简洁，并允许dual-grid。两张正式地图的地形、主角、敌人、两Boss、机关、拾取与装饰已接新像素表现。正式非整格平台使用精确并集边界适配，**不是已实现dual-grid/47正式TileMap**；47小样独立保留，新网格模块可选dual-grid，其他15区不复制同色遗迹。
 
-2026-10-18最新可试玩交付：[build5fd40a31c4be](https://zhipijun1996.github.io/gunman-rush/?v=5fd40a31c4be)，游戏源码 `5a9f4bdaf846a635eb2659080d563b865758ab87`，默认 `forest-expedition-airborne-v11`。[实际证据及边界](evidence/forest_depth_v2/forest_feedback01/release01/README.md)。选定CI39160856629完整SUCCESS：86项gameplay/art同源汇总、Web/Windows/deploy/verify_public通过；公开PCK校验与GUI02八入口20/20通过，森林两图实际v11。原GUI01 OCR失败、原本机600秒/长片240秒失败不覆盖；仅浏览器采证工具窗口后修并独审负例，不冒称后续工具/文档HEAD重新构建游戏。CI ZIP受proxy403阻断，publisher live_verified仍false，原包72未执行。原质量记录glob漏覆盖已doc-only修正且push/PR两docs通过。整体REVISE/in_progress，摆荚价值、QueenH、巨木轮廓/荆棘宿主、真人/设备/商业仍未认可。以下H与其他旧交付段仅为历史。
+已修脚本退出依赖环、破桥后悬空装饰、受伤反馈与竖屏天空覆盖。基础5676/0；区域15套分批完成（原失败保留，旧双背景断言保留为legacyfixture，新三层默认另验）。最终冻结源又复跑地形2097/0、小样19/0、生命周期27/0、背景/Boss兼容488/0和实际正式消费者21000/0，严格退出干净。独立最终普通入口/两图敌人和Boss前段0脚本/着色器错误，GPU每图552960/0；发布后HTTPS实际走跳/版本核对也0错误。
 
+任务 `WINDCHIME-PIXEL-01` 保持review：完整全区审美/所有敌人警示与Boss阶段、完整听音、实体设备/性能和最差Seed未签；不能用定位fixture冒充自然通关。适用docs/art/gameplay/web全量harness在稀疏历史证据断链处阻塞；继承asset-consumer审计`assets/production_repair/`路径问题仍在，未降标准。下一步按用户实际试玩反馈精修，未来新模块先验证dual-grid对角/孔洞/薄台/返程净空；不自动开放后续地区。
 
-2026-10-18四项反馈续轮：默认布局已改为 `forest-expedition-airborne-v11`；扩大实际探索到5630px，接入H→H、R→H、四连和经删动作对照保留的五连，新增方向盾甲虫与摆荚，所有实际支持面消费森林结构/材质身份。详见[本轮设计](design/forest_feedback_expedition.md)和[证据及未通过项](evidence/forest_depth_v2/forest_feedback01/README.md)。原固定80案例已同源分组实测且独审逐原raw通过；原整组Harness600秒仍超时失败，不由分组覆盖改签。实际原速两图影片、最终CI/Web发布与浏览器以证据页最新结果为准。质量记录FOREST-FEEDBACK-01及父任务保持in_progress／REVISE，尤其摆荚实际路线收益、QueenH、初见手感、真人／真机与商业品质仍未认证。以下旧v10与H交付段为历史检查点，不覆盖此默认布局，也不冒充新版已发布。
+最后专项harness 5/5（pixel-plains、pixel-formal、art-art、web-cache、web-bundle）fresh通过；原始压缩报告与全部日志在 `docs/evidence/windchime_pixel_01/root/harness-final/`。适用全量profile原失败继续保留。
 
+关键命令：`python3 tools/run_pixel_plains_tests.py`、`python3 tools/run_pixel_formal_tests.py`、`python3 tools/harness.py --profile docs --profile art --profile gameplay --profile web --jobs 1`（完整历史证据未取齐时仍失败）。所有来源/失败/限定证据见[本轮目录](evidence/windchime_pixel_01/README.md)。
 
-交接身份：分支 `feature/thorn-forest-depth`；实际可玩源 `367b7c1a594beaa99df60c3cd8fc7e5ebe73d7e0`，build `ab99155b1b88`。[源／包／部署边界](evidence/forest_depth_v2/H_release01/README.md)。
+以下为历史，不覆盖本节。
 
-2026-10-18最新交付：[H技术发布原件与边界](evidence/forest_depth_v2/H_release01/README.md)。H `367b7c1a`／CI39105617804实际SUCCESS：85=67+18及serial5附加，Web／Windows／两docs22／deploy／verify_public通过；准确原包72/72、errors0、359.125秒。publisher verified，试玩[build ab99155b1b88](https://zhipijun1996.github.io/gunman-rush/?v=ab99155b1b88)。额外公开森林GUI因IPv6网络不可达0/20执行，属blocked_network，既非20通过也非玩法失败。独审仅技术ACCEPT，整体REVISE／in_progress及QueenH、探索密度、真人设备缺口保持。旧pending段为当时快照，最新段只覆盖对应已实证技术结果；bare1481=0cf不等于prepared56Foundry同旧版。
+---
 
+# 当前：正式风铃平原像素重制候选，准备冻结与交付
 
-最新有界跟进：[G真实FAIL与依赖／词法计算收口](evidence/forest_depth_v2/G_bounded_followup01/README.md)。G整轮为failure非cancel：serial16PASS后旧asset缺失、parallel11PASS后原87超时60.041秒；Web／Windows／两docs成功，准确CI包浏览器72/72（build30220a607325）不代全CI。补两真实bee旧raw后原历史matrix60与formal27/0一次严格PASS；单次词法memo保FS每次新读，原87本地24.368秒PASS获限定独审。历史与局部成功不重签G失败，H完整同源CI／HTTPS仍待，整体REVISE不升。
+用户已认可新小样的感觉，授权整个风铃平原、3张独立视差远景，并要求纹理简洁、允许dual-grid。任务 `WINDCHIME-PIXEL-01` 覆盖旧“一屏不扩区”边界；不重开预算、旧暖色失败不追认。
 
+两张真实PlainsRegionStage与普通标题主按钮已迁移新地形/主角/敌人/两Boss/机关/拾取/箱子商人和独立小物，3张新PNG分别随实际相机移动。现有非整格碰撞由精确矩形并集表现适配，**不是已实现dual-grid正式地图**；新网格模块可选dual-grid，47小样保留。见[本轮证据](evidence/windchime_pixel_01/README.md)。
 
-最新限定修复：[F旧平原体验夹具实际退出泄漏](evidence/forest_depth_v2/plains_experience_release01/README.md)。F serial负例8/2之外真实6对象／2资源泄漏被原严格拒绝；whole run终态cancelled，Web／parallel等取消、Windows成功，core缺lane失败。复用原AudioTeardown的两文件修复后唯一原CLI49.675秒PASS、292/0与9/2／cleanup真／无leak获限定独审；原动作／180和900预算不变。F PRdocs87dots／60timeout与同FpushdocsPASS分列，1.432秒preflight不证根因；E未知仍未知。新源完整CI／部署／浏览器／HTTPS待，整体REVISE不变。
+已取得core5676/0、专项2097/0、独立几何32231/0、两图普通消费者21000/0、真实教程574帧/独立视差16/0，GPU两图各552960/0。定位艺术工具自然死亡后的Nil错误已加有效性守卫并在build4独立GUI0脚本/着色器错误复验。新helper脚本依赖环引起退出资源泄漏，已保留原失败、300d65c对照和修复后的原2871/0严格干净退出，正在完整15套回归。
 
+当前draft Web d54a2ddedf5f是300d65c+dirty，尚未上线；最终将从冻结提交重新导出、复验并替换HTTPS，不能给旧45c1a10f8767冒充新版。适用harness因稀疏历史docs断链先失败；并行clone还受promisor历史对象缺失影响，未降标准。最终整区用户审美、实体设备/完整听音和全部最差种子仍未签。分支feature/blob47-art-foundation，PR91保持draft且不合main。
 
-最新CI跟进：[E旧平原体验检查与原件收集](evidence/forest_depth_v2/plains_experience_artifacts01/README.md)。E的serial原plains-experience-golden实际FAIL且inner未收；root取消余下parallel，整轮terminal cancelled／core不完整，Web／Windows／docs实际PASS。唯一原CLI本地53.483秒PASS与255/0、预期negative8/2、42变造拒绝分账，CI原因UNKNOWN。仅profile三行artifact_paths补收inner获限定独审，不是已证根因修复；publisher exit1／ci_failed，无部署或E浏览器。新源最终CI待运行，整体REVISE不变。
+以下为历史，不覆盖本节。
 
+---
 
-交付验证跟进：[Git临时夹具生命周期隔离](evidence/forest_depth_v2/git_fixture_lifecycle01/README.md)。D的PR docs／选定Web job实际清理FAIL，随后root停止其余长core，整轮为cancelled／非完整CI；同D先前pushdocs与Windows成功。两行本地Git配置后原87测试32.892秒PASS、342断言／清理／60秒预算不变，独审仅限定ACCEPT；原CI写入者未证。pubcheckpoint为ci_failed，未部署／无新D Web包或浏览器验证；仍待修后最终同源验证，整体REVISE。
+# 最新用户反馈：暖色平原候选被拒，停止扩产
 
+用户认为“本来是有特色的美术，突然又变得廉价了”，并提出参考《动物井》。本轮暖灰绿石体、规则砌石与通用草甸组合未通过用户视觉验收，停止作为母版扩产和发布。已有47态/碰撞、实际Motor与生命周期技术结果保留，不签美术。Animal Well的像素材质、自然轮廓、光照和环境生态是下一步讨论/小样方向，不能自动将16区全部改成暗色地穴，也未据此完成新素材或新画风。下面暖色候选与16区配色仅供失败溯源，不能覆盖本节用户判断。
 
-当前交付边界：[Twin01–02停止档案](evidence/forest_depth_v2/twin_port_rejected01/README.md)。真实上H／一弹／右岸12只属局部进展，两整段仍FAIL；独审DROP且不做第三驾驶修。生产Boss几何未改，实验fixture／CLI已恢复e840，runner／UID已封后删除。本轮有实据淘汰，尚未填平QueenH核心、随机探索与密度缺口；仍是可玩候选／整体REVISE，非商业完成。最终同源CI／Web／浏览器／HTTPS及真人设备认可仍待，不标done；原电影仅可按0cf游戏字节绑定复用，不冒新片。
+---
 
+# 最新：风铃平原暖石灰岩手工样板与16区视觉分工
 
-最新探索取舍：[root11入口v11退休档案](evidence/forest_depth_v2/root11_entry_rejected01/README.md)。四路线JSON／原生PASS及兼容126/0保留；新growth比旧W多527帧且末少1HP，自动拾心并非主动claim，冠路短327帧不等于整体探索改进。root据独审决定DROP此扩展，六源已精确恢复6b132007，默认仍v10。后续双洞黄金亦已淘汰，整体REVISE／未商业完成，不关闭whole任务。
+任务 `WINDCHIME-STYLE-01`。用户对简化画法给出“差不多这样”的有限正向反馈，要求增加肌理，并指出深蓝配色不适合平原、需考虑16区。已按[视觉分工表](region_visual_identity.md)将平原改为暖石灰岩/鼠尾草/麦金、草甸风车和低钟塔；原天空钟城首稿只保留证据，不再运行。新47态×3、8件小物、跨格砌石/轻颗粒、独立视差和真实演员已接入 `WindchimeLab`，提供MAP00材料场与MAP01手工石拱庭。
 
+实际主路往返、上层支路与木桥下穿1800/0；集成120/0；独审发现并修复死亡Restart的失效scope、旧弹体绘制、中文缺字与HUD对比。新图最终用户认可、实体设备、完整听音与正式两图随机迁移未验；MAP02/模块随机按原阶段在首样板后推进。最终冻结源与Web交付正在收口，不能用旧build当新版。[本轮证据](evidence/windchime_style_01/README.md)。
 
-最新黄金结论：[trailing-bud01–03停止档案](evidence/forest_depth_v2/trailing_bud_rejected01/README.md)。03真实cast／fly后miss，未到达且整体3FAIL；固定对照935击杀／HP5保持。独审DROP当前120px方案，不等于物理不可能。已封927成员实际源，生产／消费者指定文件恢复0cf原字节，whole-body与尾苞实验组件已删除；不重签旧CI或体验。后续root11探索黄金已实测后退休，原件见对应档案。
+以下为历史，不覆盖本节最新方向与实现范围。
 
+---
 
-最新玩法返工：[whole-body实验淘汰档案](evidence/forest_depth_v2/mobile_anchor_rejected01/README.md)。9ca／5bd真实普通、H-only与mixed-chase对照后独审DROP；技术PASS不改设计淘汰，原context／partial-foot／死亡FAIL保留。内容未商业完成，整体REVISE；该时点trailing-bud仅opt-in G0；后续03已停止，非当前v10。后续实际移除与尾苞停止结果见最新段。
+# 最新：参考瓦片视频的后续map规划已交付，生产尚未执行
 
+任务 `TILE-MAP-PLAN-01`。已读取用户给定B站视频的关键画面与烧录字幕，按[后续Tile Map制作规划](tile_map_production_plan.md)组织同族素材→手工样板→模块库→受约束随机。首期一套草土石，先代表块与接口，再完整47态；MAP-00材料验收场、MAP-01横向草坡石拱、MAP-02回廊井庭逐步验证，之后才拆6–8个模块和抽样Seed。
 
-CI基础设施跟进：0cf旧身份reader失败后，A/df3f定向7通过；实测单core60分钟风险后，原85项按67/18分机、原预算不增。C路径独审REVISE保留；C2（`5ec5e9e3`）仅基础设施独审ACCEPT。新CI待运行；原浏览器4项FAIL／未证根因和整体体验REVISE不变。[限定记录](quality/records/FOREST-DEPTH-CI-LANES-01.json)。
+[视频来源与观察](evidence/tile_map_plan_01/observations.md)注明43个抽样时刻及字幕方式；没有声称完整听读/逐字转录。尺寸、模块数量、地图拓扑与Seed规模是项目候选，不是视频结论。卡通画风要求和V1拒绝状态保留；本轮没有新素材、实机地图、生成器改动或Web发布。
 
-最新验证跟进：[原CI失败与限定修复](evidence/forest_depth_v2/release_followup01/README.md)。0cf完整CI49项通过（含当前固定80路线），Guardian原生25/0后因旧map2身份reader失败；df3f版本严格迁移已获独审，干净源原Harness定向7实际通过，非最终完整CI。当前0cf正常影片的16px结标记已获实景限定接受，“岸”正式objective未展示；原浏览器首20/24与唯一诊断24/24分账，首发根因仍未证，另两组48/48不消除原FAIL。整体仍REVISE，最新完整CI／部署以PR与元数据实际终态为准。
+以下为历史记录，不覆盖本节规划边界。
 
-2026-10-18，`/workspace/gunman-rush-design`，分支 `feature/thorn-forest-depth`。PR76仍OPEN/DRAFT，基线 `bee850c66b2f402d644d7daa4c13db91c8abe8f8`；实现历史 `9fdf7fad08550ea0da46b59ef7126fa721571f28` 与生态检查点 `dd214dde`保留，不改写／压掉。当前实际实现见[当前状态](current_state.md)，以最新源与独立证据为准。
+---
 
-默认v10／Canopy-v3已接入真实地图、自然入口、封场和奖励消费者。女王两部正常完整片、三种黄金完整打法、正式App03真实保存恢复和24HP击杀、9个实际畸形原子拒绝、GOLD/D/Home闭环均已有[便携证据](evidence/forest_depth_v2/canopy_app03/README.md)。原01／02失败不覆盖；03战斗HP4→4，恢复按原checkpointS，HP/E/上限保持，不能称保留空中位置。原生读取器与后续离线补强分账。
+# 最新画风反馈：V1已被用户拒绝，转向洞窟探险2/马里奥制造2的饱满卡通
 
-新N推荐回程已由单root00／map2／growth真实1013帧严格通过；最初1ULP方向误比较失败保留，修复只观测真实Router队列，不改输入、Player或原exact断言。旧V7／V9整Manifest与原哈希重建126/0；旧版本、旧Queen194／schema13 App强回归仍必跑，当前默认另验精确Canopy scene/resource／v10，不能互相代签。
+2026-10-19，用户认为已交付截图画风“太丑”，明确要求靠近《洞窟探险2》或《马里奥制造2》。V1 SVG色块方案停止扩产；47-tile、碰撞/模块语义等技术地基继续有效。新[风格规范](art_foundation_v1.md)落实厚实圆润地形、饱满草帽、清晰体积/轮廓、鲜明配色与协调道具，[方向B概念](evidence/blob47_cartoon_02/concept.png)为本轮从零图生原件；[来源与边界](evidence/blob47_cartoon_02/README.md)完整保留。
 
-H已实际完成适用gameplay/art85项（67+18）及serial5额外、两docs各22检查，Web／Windows／deploy／verify_public成功。实际源H与build_id见顶部最新交付；不因本次文档记录重跑H整套原生长测。公开森林GUI额外20项因网络0执行，待可用网络；内容／玩家／设备仍未认可。PR基于`feature/playable-thorn-forest`保持draft，不合main。
+新图仅是游戏比例概念，未切成47格图集、未接入Godot、未获用户认可。当前Web build `45c1a10f8767`仍显示被拒绝的V1；不能冒称新图已上线。原V1质量记录的visual/G2已按本次反馈改为failed；原技术通过不被抹掉。任务 `ART-BLOB47-CARTOON-02` 为review；下一步依据画风反馈制作接口母版与实际合屏，不继续微调旧SVG配色。
 
-质量记录仍in_progress／整体REVISE：H核心与大部分区域的体验价值、广泛探索差异、有效遭遇密度、高结保留／诱导收益、初见可读性、音频、玩家与真机均未认证。普通快解保留，不靠加血、缩台、加刺或禁普通策略突出钩索。新16px活结文字后补0cf正常片／密帧获限定接受，headless不签像素，正式“岸”目标未展示。技术回归不能签商业品质。
+以下为历史记录，不覆盖本节最新用户视觉判断。
 
-仅用Godot4.7.2及现有工具链。全局`build/verification/engine.lock`单引擎；派生缓存清理26／27只涉及终止快照import／shader，源／raw／收据／电影SHA均保持，终态N02的可重建导入缓存已回收，源码／raw／收据前后SHA保持。源码、失败与正常影片原件不得删除；重放旧快照可能需重新导入。
+---
 
-发布命令沿用 `python3 tools/publish_playtest.py --ref feature/thorn-forest-depth --repo zhipijun1996/gunman-rush --expected-commit <SHA> --checkpoint build/verification/publish-playtest/<SHA>/checkpoint.json`。同一dispatch轮询超时用同checkpoint的`--resume`，不盲重派失败CI；必要修复须先有明确诊断和新提交。最后验证真实CI产物的鼠标／仿触屏入口、暂停及元数据，物理设备仍awaiting-device。后续内容以[森林设计](design/forest_depth_v2/README.md)和[新女王设计](design/thorn_queen_canopy_v3.md)的未通过项继续，不重新扩张已淘汰候选。
+# ART-BLOB47-FOUNDATION-01：新地基与独立试验场
 
-上一检查点交接全文（含其他阶段背景）按原字节保留为[历史交接](archive/handoff_before_canopy_v3.md.txt)，来源和SHA见[归档说明](archive/handoff_before_canopy_v3.provenance.json)；历史待办不覆盖本页。
+2026-10-19最新用户要求：完全抛弃过去美术方向，以[新地基规范](art_foundation_v1.md)覆盖所有历史风格/母版/地形制作要求；取消空洞/奥日目标。新增 `Blob47Lab` 独立标题入口，47状态图集、三层背景/玩家/装饰、严格模块卡与可复现拼接。保留正式玩法运行兼容，不以旧资产作新创意输入。
 
+核心专项20356/0 + 958/0，独审另验10种子低层双向20路线；完整合屏黄金、可选上路、用户画风/实体设备与正式地图迁移未验。当前完整profiles因本地稀疏检出未物化历史证据停止，不删检查或冒称全绿。[独审](quality/blob47_independent_review.md)仅接受限定地基技术范围。已导出并部署[新地基独立试玩](https://zhipijun1996.github.io/gunman-rush/?foundation=1&v=45c1a10f8767)，build `45c1a10f8767`，游戏源码 `222ee12fa002710de104d31f660ee275c1e6d2f6`；部署运行 [39201666634](https://github.com/zhipijun1996/gunman-rush/actions/runs/39201666634) 成功。浏览器真实7项通过，最终7图已不同作者实看；[精选证据](evidence/blob47_foundation/README.md)。[草稿PR91](https://github.com/zhipijun1996/gunman-rush/pull/91)不合并main；后续证据提交不冒称重新导出。 任务review。
 
-四项反馈续轮已推送游戏5a9f与记录修复c5d；后续只收采证工具ROI和文档，不合main。不要因旧publisher waiting_ci误派新CI：原run39160856629已完整成功并实际部署5fd40a31c4be，只是本机取CI ZIP遭proxy403，原checkpoint不verified。后续优先处理森林场景宿主/轮廓和摆荚真正路线价值、QueenH体验；全局引擎锁沿用，当前无需重跑已成功86项。最终工具差异与两次GUI必须分别绑定，真人/真机仍待，不标done。
+以下为历史记录，不覆盖本节新美术要求。
+
+---
+
+# GRAPPLE-FIX-01：钩索小修已验证，完整回归仍有阻塞

@@ -1,0 +1,404 @@
+{
+  "schema_version": 1,
+  "task_id": "ART-BLOB47-FOUNDATION-01",
+  "task_type": "art",
+  "workflow": "review",
+  "baseline_commit": "e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7",
+  "reviewed_commit": "222ee12fa002710de104d31f660ee275c1e6d2f6",
+  "content_version": "blob47-v1",
+  "owner": "/root",
+  "purpose": "从零建立47-tile blob美术地基、分层流程和独立可试玩候选；不继承旧画风，不声称全区已重制",
+  "player_experience": "实体可站面/单向/移动/危险语义明确，模块可由tile实现；装饰灯光有界且不影响玩法",
+  "constraints": [
+    "不参考历史美术素材或画风",
+    "保留核心Motor/资源/保存/正式生成池",
+    "候选画风不冒签用户认可",
+    "不合并main；新入口独立"
+  ],
+  "affected_paths": [
+    ".agents/skills/art-director/SKILL.md",
+    ".agents/skills/level-module-creator/SKILL.md",
+    ".agents/skills/region-generator/SKILL.md",
+    "AGENTS.md",
+    "assets/art_foundation_v1/far.svg",
+    "assets/art_foundation_v1/far.svg.import",
+    "assets/art_foundation_v1/manifest.json",
+    "assets/art_foundation_v1/middle.svg",
+    "assets/art_foundation_v1/middle.svg.import",
+    "assets/art_foundation_v1/props.svg",
+    "assets/art_foundation_v1/props.svg.import",
+    "assets/art_foundation_v1/sandstone_blob47.svg",
+    "assets/art_foundation_v1/sandstone_blob47.svg.import",
+    "assets/art_foundation_v1/sky.svg",
+    "assets/art_foundation_v1/sky.svg.import",
+    "assets/manifest.json",
+    "docs/art_foundation_v1.md",
+    "docs/art_quality_target.md",
+    "docs/content_pipeline.md",
+    "docs/current_state.md",
+    "docs/handoff.md",
+    "docs/quality/asset_records/blob47_foundation_v1.json",
+    "docs/quality/blob47_independent_review.md",
+    "docs/quality/records/ART-BLOB47-FOUNDATION-01.json",
+    "docs/tasks.md",
+    "docs/visual_and_gamefeel.md",
+    "docs/visual_bible.md",
+    "scenes/demo/blob47_lab.tscn",
+    "scripts/art_foundation/blob47_backdrop.gd",
+    "scripts/art_foundation/blob47_backdrop.gd.uid",
+    "scripts/art_foundation/blob47_decoration.gd",
+    "scripts/art_foundation/blob47_decoration.gd.uid",
+    "scripts/art_foundation/blob47_lab.gd",
+    "scripts/art_foundation/blob47_lab.gd.uid",
+    "scripts/art_foundation/blob47_layout.gd",
+    "scripts/art_foundation/blob47_layout.gd.uid",
+    "scripts/art_foundation/blob47_platform.gd",
+    "scripts/art_foundation/blob47_platform.gd.uid",
+    "scripts/art_foundation/blob47_player_visual.gd",
+    "scripts/art_foundation/blob47_player_visual.gd.uid",
+    "scripts/art_foundation/blob47_rules.gd",
+    "scripts/art_foundation/blob47_rules.gd.uid",
+    "scripts/art_foundation/blob47_terrain.gd",
+    "scripts/art_foundation/blob47_terrain.gd.uid",
+    "scripts/demo/demo_app.gd",
+    "scripts/ui/demo_menu.gd",
+    "tests/test_blob47_foundation.gd",
+    "tests/test_blob47_foundation.gd.uid",
+    "tests/test_blob47_layout.gd",
+    "tests/test_blob47_layout.gd.uid",
+    "tools/build_blob47_art.py",
+    "tools/harness/profiles.json",
+    "tools/run_blob47_tests.py"
+  ],
+  "deliverables": [
+    "docs/art_foundation_v1.md",
+    "scenes/demo/blob47_lab.tscn",
+    "tools/run_blob47_tests.py"
+  ],
+  "creative_decisions": [
+    {
+      "decision": "47-tile地基、三层组织、取消空洞/奥日目标",
+      "status": "user_confirmed",
+      "basis": "本轮用户原话1–4要求",
+      "evidence_id": "user-requirements"
+    },
+    {
+      "decision": "原创SVG暖砂岩与冷色多层远景",
+      "status": "proposed",
+      "basis": "本轮新绘候选，等待实际画面反馈"
+    }
+  ],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "本轮新地基需求和明确范围有原始来源",
+      "evidence": [
+        "spec"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "限定候选技术证据已具备，完整内容门槛/全仓回归/用户与设备仍未齐备",
+      "evidence": []
+    },
+    "G2": {
+      "status": "failed",
+      "reason": "V1视觉候选被用户明确拒绝，新方向另立ART-BLOB47-CARTOON-02",
+      "evidence": [
+        "user-rejected-v1"
+      ]
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "限定候选技术证据已具备，完整内容门槛/全仓回归/用户与设备仍未齐备",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "限定候选技术证据已具备，完整内容门槛/全仓回归/用户与设备仍未齐备",
+      "evidence": [
+        "targeted",
+        "independent"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "限定候选技术证据已具备，完整内容门槛/全仓回归/用户与设备仍未齐备",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "本轮用户约束及可执行新地基范围明确，具体画风仍proposed",
+      "evidence": [
+        "spec",
+        "user-requirements"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "限定新地基专项和包/浏览器运行通过；完整profiles失败另列，非全仓回归通过",
+      "evidence": [
+        "targeted",
+        "browser"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "新标题入口与独立候选GUI已过；正式地图未迁移，无完整正式consumer inventory",
+      "evidence": [
+        "browser"
+      ]
+    },
+    "visual": {
+      "status": "failed",
+      "reason": "用户明确拒绝V1画风，停止按该风格扩产；技术通过不改变此结论",
+      "evidence": [
+        "user-rejected-v1"
+      ]
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "本轮未获得该维完整证据；候选技术不代签完整音画/设备/审美",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "本轮未获得该维完整证据；候选技术不代签完整音画/设备/审美",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "候选10seed双向低路可通，不覆盖所有可选上路/完整正式玩法",
+      "evidence": [
+        "routes"
+      ]
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "本轮未获得该维完整证据；候选技术不代签完整音画/设备/审美",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "不同作者实际反证、拓扑/装饰/路线复跑与最终7图审查，限定scope",
+      "evidence": [
+        "independent"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "本轮未获得该维完整证据；候选技术不代签完整音画/设备/审美",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "本轮未获得该维完整证据；候选技术不代签完整音画/设备/审美",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "B47-SCOPE",
+      "scenario": "从零建立新47tile地基",
+      "method": "核对用户输入、新权威和实际模块/图集入口",
+      "expected": "取消旧风格参考，配置和边界明确",
+      "failure": "沿用旧母版或冒称全地图已完成",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "文档及实际候选明确",
+      "evidence": [
+        "spec",
+        "user-requirements"
+      ]
+    },
+    {
+      "id": "B47-TECH",
+      "scenario": "冻结候选源执行拓扑/语义/真实Motor",
+      "method": "fresh Harness四项+实际浏览器",
+      "expected": "完成标记、0 failures、退出干净",
+      "failure": "映射/碰撞/下穿/携带/状态序列失败",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "限定技术专项通过",
+      "evidence": [
+        "targeted",
+        "browser"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "spec",
+      "path": "docs/evidence/blob47_foundation/spec_v1.md",
+      "kind": "spec",
+      "producer": "/root/foundation_contract",
+      "source_commit": "222ee12fa002710de104d31f660ee275c1e6d2f6",
+      "content_version": "blob47-v1",
+      "sha256": "be8baa513d0300816dcec511e5c431c610b51259b02a5b4134105a7afe46fd2b",
+      "method": "本轮新权威+实施边界",
+      "observed": "47-tile、三层、模块卡、有限家族、bucket预算与未验范围明确"
+    },
+    {
+      "id": "user-requirements",
+      "path": "docs/evidence/blob47_foundation/user_request.txt",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "222ee12fa002710de104d31f660ee275c1e6d2f6",
+      "content_version": "blob47-v1",
+      "sha256": "e22460d582e56100d7e97d32334ce733aeaf0b60fcda68ef99e0f0aaf12638eb",
+      "method": "保留本轮原始任务文字，只确认约束",
+      "observed": "用户指定新地基与流程，不是对实现视觉/设备的验收",
+      "source": "current user message 2026-10-19",
+      "quote": "完全忘记过去的所有美术！！完全忘记！完全不要参考！\n重新制定一套新的美术流程和基本地基。\n1，使用47-tile blob autotiling作为美术地基。",
+      "accepted": true,
+      "covers": [
+        "design_requirements"
+      ]
+    },
+    {
+      "id": "targeted",
+      "path": "docs/evidence/blob47_foundation/harness/report.json",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "222ee12fa002710de104d31f660ee275c1e6d2f6",
+      "content_version": "blob47-v1",
+      "sha256": "52a79ee2ba64fa8f6e40b9f35702067acd08b6f2b332036e02c76cc1d2290de9",
+      "method": "冻结源fresh Harness四项实际执行",
+      "observed": "新地基、素材、结构、工具链通过，20356+958专项零失败",
+      "command": "python3 tools/harness.py --check blob47-foundation --check environment --check art-art --check structure --release --jobs 1",
+      "exit_code": 0,
+      "environment": "Godot 4.7.2 Standard, Linux cloud"
+    },
+    {
+      "id": "full-profiles-failed",
+      "path": "docs/evidence/blob47_foundation/full-profiles/report.json",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7",
+      "content_version": "blob47-v1",
+      "sha256": "4138dc57491c4b2ac6c13faa1e7898530a50d05e0d0d2b99191ddd9855a53874",
+      "method": "源码检查点之前的真实工作区尝试，report中保留e8ee344基线与diff；不是222ee12冻结全profile通过",
+      "observed": "首项docs因本地稀疏检出未物化历史证据停止；后继未执行；整体失败",
+      "command": "python3 tools/harness.py --profile docs --profile art --profile gameplay --jobs 1 --release",
+      "exit_code": 1,
+      "environment": "Linux cloud; sparse checkout excludes historical docs/evidence"
+    },
+    {
+      "id": "independent",
+      "path": "docs/quality/blob47_independent_review.md",
+      "kind": "review",
+      "producer": "/root/foundation_review",
+      "source_commit": "222ee12fa002710de104d31f660ee275c1e6d2f6",
+      "content_version": "blob47-v1",
+      "sha256": "353ceb4c652d286921b8981aa89f25345b000f6be8b876a497115b74bd0583f5",
+      "method": "不同代理只读探针、失败反例、实看最终7图",
+      "observed": "限定地基技术接受，10seed双向20低路；完整golden/审美/设备未签",
+      "reviewer": "/root/foundation_review",
+      "implementers": [
+        "/root",
+        "/root/tile_layout",
+        "/root/foundation_contract"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Reviewer did not edit production code or author tests; authored isolated read-only probes and examined actual GPU originals"
+    },
+    {
+      "id": "browser",
+      "path": "docs/evidence/blob47_foundation/browser/final/report.json",
+      "kind": "gui",
+      "producer": "/root",
+      "source_commit": "222ee12fa002710de104d31f660ee275c1e6d2f6",
+      "content_version": "blob47-v1",
+      "sha256": "82682808f8e24873ccec348531bdfba5a087aeebff3c756cec7f1ac7435c266c",
+      "method": "真实Chromium WebGL点击、键盘、重启、换种子、入口",
+      "observed": "7项通过，build45c1a10f8767；software WebGL不代表真机"
+    },
+    {
+      "id": "screenshot",
+      "path": "docs/evidence/blob47_foundation/browser/final/01-playable.png",
+      "kind": "screenshot",
+      "producer": "/root",
+      "source_commit": "222ee12fa002710de104d31f660ee275c1e6d2f6",
+      "content_version": "blob47-v1",
+      "sha256": "e1fe7c38b73227122995e76200f54dce3081c4f9758e9643cfe15255249c46c3",
+      "method": "冻结Web包真实GPU screenshot",
+      "observed": "新候选合屏；不含完整敌人golden"
+    },
+    {
+      "id": "video",
+      "path": "docs/evidence/blob47_foundation/browser/final/video/page@1c075a7033d42bb48a22164a30122591.webm",
+      "kind": "video",
+      "producer": "/root",
+      "source_commit": "222ee12fa002710de104d31f660ee275c1e6d2f6",
+      "content_version": "blob47-v1",
+      "sha256": "de4c8d938b91ca8ef3a2fb14a915cc965aa59c5dc5ec9a5bc9f57897f6ad391a",
+      "method": "Playwright实际连续屏幕录像",
+      "observed": "菜单目录、种子与景层切换、真实按键移动；非完整战役，不签听音"
+    },
+    {
+      "id": "routes",
+      "path": "docs/evidence/blob47_foundation/independent/routes.log",
+      "kind": "runtime_trace",
+      "producer": "/root/foundation_review",
+      "source_commit": "222ee12fa002710de104d31f660ee275c1e6d2f6",
+      "content_version": "blob47-v1",
+      "sha256": "778154f8c220a207e2ba45e0af4b709a56e28bd2f8fa1510c5b6d77de2f1c204",
+      "method": "原Motor+router连续出返、无路线位置写入或重启",
+      "observed": "10seed × 双向20路线通过，仅低层候选"
+    },
+    {
+      "id": "public-hash",
+      "path": "docs/evidence/blob47_foundation/public/hash-verification.log",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "222ee12fa002710de104d31f660ee275c1e6d2f6",
+      "content_version": "blob47-v1",
+      "sha256": "5b9c85d2972825f7c659187e2900f2af35ea53a34e621d74f1b9cb96aaa6113e",
+      "method": "公网metadata、HTML和完整PCK逐字节SHA校验",
+      "observed": "HTTPS当前包build45c1a10f8767/source222ee12与本地受测包一致",
+      "command": "python3 tools/verify_published_build.py --url https://zhipijun1996.github.io/gunman-rush/ --build-id 45c1a10f8767 --commit 222ee12fa002710de104d31f660ee275c1e6d2f6",
+      "exit_code": 0,
+      "environment": "Public GitHub Pages via cloud HTTPS"
+    },
+    {
+      "id": "public-gui",
+      "path": "docs/evidence/blob47_foundation/public/report.json",
+      "kind": "gui",
+      "producer": "/root",
+      "source_commit": "222ee12fa002710de104d31f660ee275c1e6d2f6",
+      "content_version": "blob47-v1",
+      "sha256": "6296db1f63d7eecf24651dacef4780ddfe326ded0370c33a6783ef06dbcd8a53",
+      "method": "公网真实Chromium WebGL，核对版本badge与新地基文字/画面",
+      "observed": "HTTPS新候选可直接进入，非旧包；不签实体设备或审美"
+    },
+    {
+      "id": "user-rejected-v1",
+      "path": "docs/evidence/blob47_cartoon_02/user_feedback.txt",
+      "sha256": "4e770c44e8a0047380ad35e94196f2208eb9c25866ac8597309364fbafa7524e",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "222ee12fa002710de104d31f660ee275c1e6d2f6",
+      "content_version": "blob47-v1",
+      "method": "本轮用户直接评价已交付V1截图",
+      "observed": "画风被明确拒绝；技术证据仍仅限地基",
+      "source": "Current user message 2026-10-19",
+      "quote": "我看你的截图，感觉画风又太丑了。风格还是得想洞窟探险2或者马里奥制造2那种靠。",
+      "accepted": false,
+      "covers": [
+        "visual"
+      ]
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "完整docs/art/gameplay profile因本地稀疏检出未物化历史证据而未通过",
+    "最终用户视觉认可/实体设备/完整敌人黄金/纵向镜头/可选上路/正式地图迁移未验",
+    "V1视觉已被用户拒绝，后续新卡通概念不追认V1通过"
+  ]
+}

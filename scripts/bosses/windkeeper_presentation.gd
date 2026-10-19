@@ -1,5 +1,6 @@
 class_name WindkeeperPresentation
 extends Node2D
+var pixel_style := false
 @export var encounter: WindkeeperEncounter
 const CORE_FONT := preload("res://assets/fonts/windkeeper_ui.ttf")
 const BODY := preload("res://assets/plains_v4/windkeeper/body_actions.png")
@@ -47,6 +48,7 @@ func _process(delta: float) -> void:
 	if encounter == null or get_tree().paused: return
 	visual_clock += delta
 	if encounter.health.terminal:_death_age+=delta
+	if pixel_style: modulate.a=maxf(0,1-_death_age/.65)
 	if _form_phase!=encounter.stage_phase:
 		_old_form=_form_phase;_form_phase=encounter.stage_phase;_form_blend=0
 	_form_blend=minf(1,_form_blend+delta/.9)
@@ -99,44 +101,51 @@ func _process(delta: float) -> void:
 	queue_redraw()
 func _draw() -> void:
 	if encounter == null: return
-	var frame := 0
-	if encounter.health.terminal: frame = 5
-	elif encounter.mode in [&"stomp_warning", &"stomp", &"intro", &"phase_transition"]: frame = 1
-	elif encounter.mode in [&"charge",&"charge_warning",&"chase", &"pier_warning", &"pier_impact"]: frame = 2
-	elif encounter.core_open: frame = 3
-	elif encounter.stage_phase == 2: frame = 4
-	var facing := 1.0 if encounter.direction > 0 else -1.0
-	if frame != _frame:
-		_previous_frame = _frame
-		_frame = frame
-		_blend = 0
-	var tint := Color(1.3,1.15,.8) if hurt_flash > 0 else Color.WHITE
-	if encounter.health.terminal:tint.a=maxf(0,1-_death_age/.65)
-	# Piecewise shear around the common foot origin; feet never bob off floor.
-	var form_scale:float=lerpf(.54 if _old_form==3 else .35,.54 if _form_phase==3 else .35,smoothstep(0,1,_form_blend)) if (encounter.definition as WindkeeperDefinition).platform_trials else .35
-	var transform := Transform2D(Vector2(facing * form_scale * _weight.x,0), Vector2(_lean * form_scale, form_scale * _weight.y), Vector2(0,65))
-	draw_set_transform_matrix(transform)
-	if (encounter.definition as WindkeeperDefinition).platform_trials:
-		_draw_form(tint)
-	elif _blend < 1:
-		draw_texture_rect_region(BODY,Rect2(-FOOT_ANCHORS[_previous_frame],BODY_REGIONS[_previous_frame].size),BODY_REGIONS[_previous_frame],Color(tint,1-_blend))
-	if (encounter.definition as WindkeeperDefinition).platform_trials:
-		pass
-	elif _mode in [&"charge", &"chase"] and absf(_actual_speed) > 2:
-		_draw_stride(frame, Color(tint,_blend))
+	if pixel_style:
+		PixelFormalActors.draw_windkeeper(self,encounter,_stride,_actual_speed,hurt_flash>0,_old_form,_form_blend)
+		if not encounter.health.terminal and (not (encounter.definition as WindkeeperDefinition).platform_trials or encounter.stage_phase==2):
+			var angle := encounter.blade_angle if encounter.stage_phase==2 and encounter.mode==&"blades" else _rotor_angle
+			PixelFormalActors.draw_rotor(self,Vector2(0,-75),angle)
 	else:
-		draw_texture_rect_region(BODY,Rect2(-FOOT_ANCHORS[frame],BODY_REGIONS[frame].size),BODY_REGIONS[frame],Color(tint,_blend))
-	draw_set_transform(Vector2.ZERO)
-	if not encounter.health.terminal and (not (encounter.definition as WindkeeperDefinition).platform_trials or encounter.stage_phase==2):
-		# Independent genuine painted rotor rotates around measured hub.
-		var angle := (encounter.blade_angle if encounter.mode==&"blades" else _rotor_angle) if (encounter.definition as WindkeeperDefinition).storm_profile else encounter.blade_angle if encounter.stage_phase==2 else visual_clock*.4
-		draw_set_transform(Vector2(_secondary * -75,-75),angle,Vector2.ONE*.34)
-		draw_texture_rect_region(PARTS,Rect2(-Vector2(323,286),Vector2(640,605)),Rect2(5,5,640,605))
+		var frame := 0
+		if encounter.health.terminal: frame = 5
+		elif encounter.mode in [&"stomp_warning", &"stomp", &"intro", &"phase_transition"]: frame = 1
+		elif encounter.mode in [&"charge",&"charge_warning",&"chase", &"pier_warning", &"pier_impact"]: frame = 2
+		elif encounter.core_open: frame = 3
+		elif encounter.stage_phase == 2: frame = 4
+		var facing := 1.0 if encounter.direction > 0 else -1.0
+		if frame != _frame:
+			_previous_frame = _frame
+			_frame = frame
+			_blend = 0
+		var tint := Color(1.3,1.15,.8) if hurt_flash > 0 else Color.WHITE
+		if encounter.health.terminal:tint.a=maxf(0,1-_death_age/.65)
+		# Piecewise shear around the common foot origin; feet never bob off floor.
+		var form_scale:float=lerpf(.54 if _old_form==3 else .35,.54 if _form_phase==3 else .35,smoothstep(0,1,_form_blend)) if (encounter.definition as WindkeeperDefinition).platform_trials else .35
+		var transform := Transform2D(Vector2(facing * form_scale * _weight.x,0), Vector2(_lean * form_scale, form_scale * _weight.y), Vector2(0,65))
+		draw_set_transform_matrix(transform)
+		if (encounter.definition as WindkeeperDefinition).platform_trials:
+			_draw_form(tint)
+		elif _blend < 1:
+			draw_texture_rect_region(BODY,Rect2(-FOOT_ANCHORS[_previous_frame],BODY_REGIONS[_previous_frame].size),BODY_REGIONS[_previous_frame],Color(tint,1-_blend))
+		if (encounter.definition as WindkeeperDefinition).platform_trials:
+			pass
+		elif _mode in [&"charge", &"chase"] and absf(_actual_speed) > 2:
+			_draw_stride(frame, Color(tint,_blend))
+		else:
+			draw_texture_rect_region(BODY,Rect2(-FOOT_ANCHORS[frame],BODY_REGIONS[frame].size),BODY_REGIONS[frame],Color(tint,_blend))
 		draw_set_transform(Vector2.ZERO)
+		if not encounter.health.terminal and (not (encounter.definition as WindkeeperDefinition).platform_trials or encounter.stage_phase==2):
+			# Independent genuine painted rotor rotates around measured hub.
+			var angle := (encounter.blade_angle if encounter.mode==&"blades" else _rotor_angle) if (encounter.definition as WindkeeperDefinition).storm_profile else encounter.blade_angle if encounter.stage_phase==2 else visual_clock*.4
+			draw_set_transform(Vector2(_secondary * -75,-75),angle,Vector2.ONE*.34)
+			draw_texture_rect_region(PARTS,Rect2(-Vector2(323,286),Vector2(640,605)),Rect2(5,5,640,605))
+			draw_set_transform(Vector2.ZERO)
 	if (encounter.definition as WindkeeperDefinition).platform_trials and encounter.stage_phase==3 and encounter.active and encounter._platform_piers.size()==3:
 		var at:=Vector2(encounter._platform_piers[clampi(encounter.chase_segment,0,2)]-encounter.motor.global_position.x,encounter._floor_y-155-encounter.motor.global_position.y)
 		var charged:bool=encounter.rune_platform==encounter.chase_segment
-		PlainsInteractiveArt.draw_sigil(self,at,1,42)
+		if pixel_style: PixelFormalActors.bell(self,at,charged)
+		else: PlainsInteractiveArt.draw_sigil(self,at,1,42)
 		draw_arc(at,26,0,TAU,36,Color("aee8bc") if charged else Color("f4d887"),2)
 		var caption:String="RUNE READY / JUMP" if charged else "LAND ON LIT SHELF"
 		var size:Vector2=CORE_FONT.get_string_size(caption,HORIZONTAL_ALIGNMENT_LEFT,-1,12)
@@ -147,7 +156,10 @@ func _draw() -> void:
 	if encounter.core_open:
 		var core := encounter.core_offset()
 		if (encounter.definition as WindkeeperDefinition).storm_profile and encounter.stage_phase>=2:
-			PlainsInteractiveArt.draw_aim(self,core+Vector2(0,-66),44)
+			if pixel_style:
+				PixelFormalActors.pixel_line(self,core+Vector2(-12,-78),core+Vector2(0,-66),PixelFormalActors.CREAM)
+				PixelFormalActors.pixel_line(self,core+Vector2(12,-78),core+Vector2(0,-66),PixelFormalActors.CREAM)
+			else: PlainsInteractiveArt.draw_aim(self,core+Vector2(0,-66),44)
 			draw_line(core+Vector2(0,-50),core+Vector2(0,-25),Color("ffe9a8"),3)
 			draw_string(CORE_FONT,core+Vector2(-30,-55),"空中下射" if encounter.stage_phase==3 else "上侧射击",HORIZONTAL_ALIGNMENT_LEFT,-1,13,Color("ffe9a8"))
 		draw_circle(core,25+sin(visual_clock*9)*2,Color(1,.83,.33,.3))
@@ -158,7 +170,8 @@ func _draw() -> void:
 		for side: int in [-1, 1]:
 			draw_line(core + Vector2(side * 23, -3), core + Vector2(side * 30, -3), Color("ffe9a8"), 2)
 		draw_string(CORE_FONT, core + Vector2(-20, -33), "铃芯", HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("ffe9a8"))
-		draw_texture_rect_region(PARTS,Rect2(core-Vector2(11,14),Vector2(22,29)),Rect2(735,20,435,575))
+		if pixel_style: PixelFormalActors.bell(self,core,true,hurt_flash>0)
+		else: draw_texture_rect_region(PARTS,Rect2(core-Vector2(11,14),Vector2(22,29)),Rect2(735,20,435,575))
 
 	if (encounter.definition as WindkeeperDefinition).storm_profile and encounter.mode in [&"blade_warning",&"blades"]:
 		for i: int in 8:
@@ -178,7 +191,8 @@ func _draw() -> void:
 		draw_arc(point,24,0,TAU,32,Color(1,.69,.25,.7),2)
 	for leaf:Dictionary in _leaves:
 		var point:Vector2=leaf.point-encounter.motor.global_position
-		draw_texture_rect_region(PlainsInteractiveArt.ATLAS,Rect2(point,Vector2(8,8)),PlainsInteractiveArt.SIGILS[2],Color(1,1,1,1-leaf.age/.9))
+		if pixel_style: draw_rect(Rect2(point.snapped(Vector2(2,2)),Vector2(4,2)),Color(PixelFormalActors.MOSS,1-leaf.age/.9))
+		else: draw_texture_rect_region(PlainsInteractiveArt.ATLAS,Rect2(point,Vector2(8,8)),PlainsInteractiveArt.SIGILS[2],Color(1,1,1,1-leaf.age/.9))
 	if _armour_flash > 0:
 		var point := _armour_point
 		for spark: int in 4:

@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "started_at": "20261019T044829.318355Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "blob47-foundation",
+      "argv": [
+        "python3",
+        "tools/run_blob47_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "c2314500f1042c3d9bdfc7963ce5cd62fc576f56e265d5c1cd29a4c48ec598a3",
+      "log": "blob47-foundation.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792385309.9546297,
+      "ended_at_unix": 1792385311.7818456,
+      "duration_seconds": 1.827,
+      "artifact_directory": "/workspace/gunman-rush-work/build/verification/harness/20261019T044829.318355Z/artifacts/blob47-foundation",
+      "reused": false
+    },
+    {
+      "id": "environment",
+      "argv": [
+        "bash",
+        "tools/cloud_start.sh",
+        "--godot-only"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "c92ad26388ddd6ad00cb0fc5d0b87ea9577f6d1aaa99d9eac218660cf856223a",
+      "log": "environment.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792385313.4501336,
+      "ended_at_unix": 1792385313.5694284,
+      "duration_seconds": 0.119,
+      "artifact_directory": "/workspace/gunman-rush-work/build/verification/harness/20261019T044829.318355Z/artifacts/environment",
+      "reused": false
+    },
+    {
+      "id": "art-art",
+      "argv": [
+        "python3",
+        "tools/check_art.py"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "4e53a20cb13f28f992fada2541ad0b70e5dfecf956fc55b6e97bd26030677dca",
+      "log": "art-art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792385312.2603128,
+      "ended_at_unix": 1792385312.3772604,
+      "duration_seconds": 0.117,
+      "artifact_directory": "/workspace/gunman-rush-work/build/verification/harness/20261019T044829.318355Z/artifacts/art-art",
+      "reused": false
+    },
+    {
+      "id": "structure",
+      "argv": [
+        "python3",
+        "tools/check_project.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "794472c7c52902266ce7ceecef370c26f57de2194533db95d188ada6aabc1978",
+      "log": "structure.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792385312.8786244,
+      "ended_at_unix": 1792385312.9456193,
+      "duration_seconds": 0.067,
+      "artifact_directory": "/workspace/gunman-rush-work/build/verification/harness/20261019T044829.318355Z/artifacts/structure",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "e61e03ba4f7e0f07bd128292eae21ec734e2cd618e2c395c8636b0373363c4ab",
+  "working_files": {},
+  "commit": "222ee12fa002710de104d31f660ee275c1e6d2f6",
+  "git_status": "",
+  "diff": "",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 4.681,
+  "jobs": 1,
+  "release": true
+}

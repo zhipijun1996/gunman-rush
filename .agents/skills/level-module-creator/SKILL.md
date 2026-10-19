@@ -5,6 +5,12 @@ description: 制作或修改平台模块、连续挑战的物理实现、入口�
 
 # level-module-creator
 
+## 2026-10-19 最新覆盖：美术地基 V1
+
+先读 [美术地基 V1](../../../docs/art_foundation_v1.md)；本节覆盖下文所有历史美术风格、参考母版、视觉目标和冲突的地形制作规则。每张新模块卡先填写 tile_family_ids、tile_size、solid_cells/one_way/moving、ports_and_halo、mechanism_sockets、decoration_keepouts/density_profile、background_profile/visual_role 和 exceptions。先证明平台、墙、障碍及机关挂点可由已登记家族表达，再实现或准入；拼接先合并占用再求 47-mask。solid、单向与移动平台不得混邻接。保留真实 Motor/资源/能力和反向恢复验证，不为 tile 改已验物理。
+
+首轮基准为 32 世界单位/格、64px 源 tile，参数以实际唯一配置为准。当前范围是新地基与试验场；正式迁移、用户视觉认可与设备验收分别留证，不冒称完整重制。
+
 ## 触发与边界
 
 新增平台跳跃挑战、模块端口/时序/连接改动及模块准入。 从仓库根目录调用 `$level-module-creator`。使用 [总门槛](../../../docs/development_quality.md)；重要内容由 game-quality-gate 建立一次任务，专业技能补充同一记录，不重复执行共用阶段。

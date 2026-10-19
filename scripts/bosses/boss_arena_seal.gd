@@ -51,7 +51,8 @@ func _draw()->void:
 	var alpha:=1.0 if closed else .4+.3*sin(clock*20)
 	for x:float in [arena.position.x,arena.end.x]:
 		var target:=Rect2(x-12,arena.position.y,24,arena.size.y)
-		draw_texture_rect_region(ShotLatch.GATE_ART,target,Rect2(366,47,105,320),Color(.75,.9,.75,alpha))
+		if PixelFormalActors.pixel_context(self): PixelFormalActors.gate(self,target,alpha)
+		else: draw_texture_rect_region(ShotLatch.GATE_ART,target,Rect2(366,47,105,320),Color(.75,.9,.75,alpha))
 		draw_line(Vector2(x,arena.position.y),Vector2(x,arena.end.y),Color(.55,.9,.76,alpha*.7),3)
 	var text:="BOSS ARENA SEALED" if closed else "WIND GATES CLOSING"
 	var font:=ThemeDB.fallback_font;var size:=font.get_string_size(text,HORIZONTAL_ALIGNMENT_LEFT,-1,18)

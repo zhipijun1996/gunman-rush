@@ -10,6 +10,9 @@ signal requested_debug_region(region: StringName, map_index: int, seed: String)
 signal requested_upgrade
 signal requested_lab
 signal requested_actions
+signal requested_foundation
+signal requested_windchime
+signal requested_pixel_plains
 signal requested_foundry
 signal requested_random(seed: String)
 signal requested_resume
@@ -75,6 +78,15 @@ func show_title() -> void:
 	logo.custom_minimum_size = Vector2(400, 170)
 	_content.add_child(logo)
 	_title("GUNMAN RUSH", "A painted world. A shot that carries you forward.")
+	_button(_content, "风铃平原 / WIND CHIME PLAINS", func() -> void:
+		_hide()
+		requested_plains.emit("level-design-v2-baseline/08"))
+	_button(_content, "PIXEL MATERIAL / SMALL STUDY", func() -> void:
+		_hide()
+		requested_pixel_plains.emit())
+	_button(_content, "47 TILE / LEGACY TECH LAB", func() -> void:
+		_hide()
+		requested_foundation.emit())
 	_button(_content, "ENTER HOME", func() -> void:
 		_hide()
 		requested_enter_home.emit())

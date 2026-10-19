@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "content_version": "warm-limestone-v2",
+  "usage_scope": "WindchimeLab MAP00/MAP01 handmade samples; not formal random maps; user-rejected warm candidate, no promotion or public deployment",
+  "visual_status": "failed",
+  "user_acceptance_evidence": [],
+  "disposition": "runtime_candidate",
+  "asset_id": "windchime_meadow_distance",
+  "source_path": "assets/windchime_plains/meadow_distance.png",
+  "source_sha256": "9ac1c0a2625c39604c9f7e1d4a1a9553d56764a7bcd8dbe38593f01ba6ba3784",
+  "runtime_paths": [
+    "assets/windchime_plains/meadow_distance.png",
+    "assets/windchime_plains/middle_ruins.svg",
+    "assets/windchime_plains/cloud_veil.svg"
+  ],
+  "tool": "image_gen.imagegen (distance PNG); original SVG paths (nearer hills/clouds)",
+  "model": "not_exposed",
+  "prompt_or_reference": "docs/evidence/windchime_style_01/background_meadow_prompt.txt",
+  "processing": "PNG copied byte-for-byte, no editing or cropping. Separate SVG planes use independent parallax. Retired skycity PNG evidence only.",
+  "license_status": "unknown",
+  "license_source": "No license attestation exposed by image tool; user reference rights unknown. SVG planes original authored.",
+  "associated_files": [
+    {
+      "path": "docs/evidence/windchime_style_01/generation.json",
+      "sha256": "ecbcc9b8457c9f3c07865d2d4d89d1a5ca6398ae8e2c6064d4fe61c5622988d2",
+      "role": "generation_record"
+    },
+    {
+      "path": "docs/evidence/windchime_style_01/background_meadow_prompt.txt",
+      "sha256": "a2f3497e89a828dba5cdf22412a33ea7422b120fccf769e0cae6e4fe643500d0",
+      "role": "source_contract"
+    }
+  ]
+}

@@ -13,5 +13,8 @@ func advance(delta: float) -> void:
 	super.advance(delta)
 	flight_velocity.y+=gravity*delta
 func _draw() -> void:
+	if PixelFormalActors.pixel_context(self):
+		PixelFormalActors.projectile(self,radius,direction,true)
+		return
 	var parts: Texture2D=preload("res://assets/plains_v4/windkeeper/parts.png")
 	draw_texture_rect_region(parts,Rect2(-11,-14,22,29),Rect2(735,20,435,575))

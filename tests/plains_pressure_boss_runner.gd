@@ -179,13 +179,15 @@ func run() -> void:
 	await frames(2)
 	check(background.continuous_panorama and background.panels.size()==1 and background.panels[0].texture==PlainsBackground.PANORAMA,"formal background uses cohesive AI panorama with no stacked image baselines")
 	world.free();await process_frame
+	await check_legacy_shared_background()
 	await check_current_formal_background()
 	print("PLAINS PRESSURE BOSS: %s assertions, %s failures" % [assertions,failures])
 	quit(1 if failures else 0)
 
-func check_current_formal_background() -> void:
+func check_legacy_shared_background() -> void:
+	# Explicit historical two-plane renderer fixture; never the current default.
 	# Preserve the complete historical Boss/one-panorama regression above.
-	# This additional fixture exercises the default consumer on a real formal map.
+	# Its unchanged projection assertions still use an actual formal Manifest.
 	var viewport:=SubViewport.new()
 	viewport.size=Vector2i(1280,720)
 	root.add_child(viewport)
@@ -200,8 +202,11 @@ func check_current_formal_background() -> void:
 		return
 	var stage:=app.stage as PlainsRegionStage
 	var manifest_before:=JSON.stringify(stage.generated.manifest)
-	var background:=app.get_node_or_null("PlainsBackground") as PlainsBackground
-	check(background!=null and background.shared_environment_enabled and background.panels.size()==2,"untouched formal default creates independent sky and ridge")
+	var background:=PlainsBackground.new()
+	background.name="LegacyTwoPlaneFixture"
+	app.add_child(background)
+	await frames(2)
+	check(background!=null and background.shared_environment_enabled and background.panels.size()==2,"explicit legacy renderer fixture creates independent sky and ridge")
 	if background==null or background.panels.size()!=2:
 		viewport.free()
 		return
@@ -235,6 +240,90 @@ func check_current_formal_background() -> void:
 		check(vertical[0].y<middle[0].y and vertical[1].y<middle[1].y and absf(vertical[1].y-middle[1].y)>3.0*absf(vertical[0].y-middle[0].y),"actual formal sky and ridge respond differently to vertical camera travel")
 		check(is_equal_approx(horizontal[0].y,middle[0].y) and is_equal_approx(horizontal[1].y,middle[1].y) and is_equal_approx(vertical[0].x,middle[0].x) and is_equal_approx(vertical[1].x,middle[1].x),"actual formal background keeps both camera axes independent")
 	check(JSON.stringify(stage.generated.manifest)==manifest_before,"camera-domain checks preserve the complete actual gameplay Manifest")
+	app.abandon_run()
 	if not await load("res://tests/audio_teardown.gd").drain_world(app):
 		failures += 1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
 	viewport.free()
+
+# This separately verifies the actual current default, using its real Camera2D.
+func check_current_formal_background() -> void:
+	var viewport:=SubViewport.new()
+	viewport.size=Vector2i(1280,720)
+	root.add_child(viewport)
+	var app:=DemoApp.new()
+	app.meta_persistence_enabled=false
+	viewport.add_child(app)
+	check(app.start_plains("pressure-background-pixel-current"),"pixel default test starts actual formal DemoApp")
+	await frames(10)
+	check(app.stage is PlainsRegionStage and app.stage.assembly_ok,"pixel background receives an assembled formal Manifest")
+	var stage:=app.stage as PlainsRegionStage
+	var manifest_before:=JSON.stringify(stage.generated.manifest)
+	var background:=app.get_node_or_null("PixelPlainsParallax") as PixelPlainsParallax
+	var camera:=viewport.get_camera_2d()
+	check(background!=null and background.panels.size()==9,"current formal default owns three source layers and nine horizontal copies")
+	check(camera is StageCameraRig and camera==app._run_camera,"current test drives the actual formal Camera2D")
+	camera.set_physics_process(false)
+	camera.set_process(false)
+	camera.position_smoothing_enabled=false
+	var sources: Dictionary={}
+	var native_hashes: Dictionary={}
+	for i: int in 3:
+		var source:=PixelPlainsParallax.TEXTURES[i]
+		var hash_value:=FileAccess.get_sha256(source.resource_path)
+		check(not sources.has(source.resource_path) and not native_hashes.has(hash_value) and hash_value.length()==64,"current native sources are three distinct independent PNGs with real hashes")
+		sources[source.resource_path]=true
+		native_hashes[hash_value]=true
+		for copy: int in 3:
+			check(background.panels[i*3+copy].texture==source,"each current layer owns exactly three copies of its own source")
+	# At zero offset desktop coordinates and scale retain the admitted layout.
+	camera.global_position=background.origin
+	camera.force_update_scroll()
+	background._update()
+	for i: int in 3:
+		var width: float=1280.0*[1.5,1.8,1.5][i]
+		var factor: float=width/PixelPlainsParallax.TEXTURES[i].get_width()
+		var height: float=PixelPlainsParallax.TEXTURES[i].get_height()*factor
+		var y: float=720-height if i==0 else 720*.81-height*.90 if i==1 else 720*1.20-height
+		for copy: int in 3:
+			check(background.panels[i*3+copy].position==Vector2(-width+copy*width,y).snapped(Vector2(2,2)) and is_equal_approx(background.panels[i*3+copy].scale.x,factor),"desktop zero-offset layout retains original source scale and pixels")
+	for size: Vector2i in [Vector2i(1280,720),Vector2i(720,1280),Vector2i(2560,720)]:
+		viewport.size=size
+		await frames(2)
+		var center:=background.origin+Vector2(-2000,-500)
+		var middle: Array[Vector2]=[]
+		var horizontal: Array[Vector2]=[]
+		var vertical: Array[Vector2]=[]
+		for location: Vector2 in [center,center+Vector2(1000,0),center+Vector2(0,-400),background.origin+Vector2(100000,100000),background.origin-Vector2(100000,100000)]:
+			camera.global_position=location
+			camera.force_update_scroll()
+			background._update()
+			check(camera.get_screen_center_position().is_equal_approx(location),"actual Camera2D supplies the requested inspection center")
+			var positions: Array[Vector2]=[]
+			for i: int in 3:
+				var first:=background.panels[i*3]
+				var last:=background.panels[i*3+2]
+				var extent:=first.texture.get_size()*first.scale
+				positions.append(background.panels[i*3+1].position)
+				check(first.visible and not first.centered and is_equal_approx(first.scale.x,first.scale.y),"current planes keep uniform source geometry in every aspect")
+				check(first.position.x<=0 and last.position.x+extent.x>=size.x,"current three-copy layer covers the viewport at large positive and negative camera travel")
+				for copy: int in 2:
+					check(background.panels[i*3+copy].position.x+extent.x>=background.panels[i*3+copy+1].position.x-.01,"current horizontally repeated source canvases have no fractional gaps")
+				if i==0:
+					check(first.position.y<=0 and first.position.y+extent.y>=size.y-.01,"current sky covers the whole screen in desktop portrait and ultrawide including bounded Y extremes")
+				else:
+					check(first.position.y<size.y*.85,"current transparent landscape canvases retain a horizon band in every aspect")
+			if location==center: middle=positions
+			elif location==center+Vector2(1000,0): horizontal=positions
+			elif location==center+Vector2(0,-400): vertical=positions
+		for i: int in 3:
+			check(absf((horizontal[i].x-middle[i].x)+1000*PixelPlainsParallax.RATES[i].x)<=2.01,"actual horizontal motion matches this plane's distinct rate within pixel snapping")
+			check(absf((vertical[i].y-middle[i].y)-400*PixelPlainsParallax.RATES[i].y)<=2.01,"actual unclamped vertical motion matches this plane's distinct rate within pixel snapping")
+			check(horizontal[i].y==middle[i].y and vertical[i].x==middle[i].x,"current actual camera axes remain independent")
+		check(absf(horizontal[0].x-middle[0].x)<absf(horizontal[1].x-middle[1].x) and absf(horizontal[1].x-middle[1].x)<absf(horizontal[2].x-middle[2].x),"current three actual horizontal layer speeds establish depth order")
+		check(absf(vertical[0].y-middle[0].y)<absf(vertical[1].y-middle[1].y) and absf(vertical[1].y-middle[1].y)<absf(vertical[2].y-middle[2].y),"current three actual unclamped vertical layer speeds establish depth order")
+	check(JSON.stringify(stage.generated.manifest)==manifest_before,"new current-default inspection preserves the complete formal gameplay Manifest")
+	app.abandon_run()
+	if not await load("res://tests/audio_teardown.gd").drain_world(app):
+		failures+=1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
+	viewport.free()
+	await process_frame

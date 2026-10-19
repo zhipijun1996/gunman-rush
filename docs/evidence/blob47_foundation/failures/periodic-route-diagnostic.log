@@ -1,0 +1,30 @@
+BLOB47 ART OK: 47 canonical tiles x 3 variants; 3 background layers; 6 props
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+BLOB47_LAYOUT checks=19491 failures=0; grid/semantic/port validation only; Motor traversal unverified
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ROUTE tick=0 x=80.00 y=608.00 floor=false jumps=0 used=0 focus=true
+ROUTE tick=100 x=463.21 y=419.55 floor=false jumps=3 used=1 focus=true
+ROUTE tick=200 x=755.93 y=611.62 floor=false jumps=4 used=1 focus=true
+ROUTE tick=300 x=947.93 y=419.55 floor=false jumps=6 used=1 focus=true
+ROUTE tick=400 x=1355.44 y=547.58 floor=false jumps=7 used=1 focus=true
+ROUTE tick=500 x=110.33 y=611.55 floor=false jumps=10 used=1 focus=true
+ROUTE tick=600 x=467.98 y=429.31 floor=true jumps=12 used=1 focus=true
+ROUTE tick=700 x=870.53 y=515.55 floor=false jumps=14 used=1 focus=true
+ROUTE tick=800 x=319.59 y=547.55 floor=false jumps=16 used=1 focus=true
+ROUTE tick=900 x=651.49 y=557.35 floor=false jumps=17 used=1 focus=true
+ROUTE tick=1000 x=115.93 y=611.55 floor=false jumps=20 used=1 focus=true
+ROUTE tick=1100 x=464.05 y=419.55 floor=false jumps=22 used=1 focus=true
+ROUTE tick=1200 x=755.93 y=611.62 floor=false jumps=23 used=1 focus=true
+ROUTE tick=1300 x=115.93 y=611.55 floor=false jumps=25 used=1 focus=true
+ROUTE tick=1400 x=420.66 y=419.55 floor=false jumps=27 used=1 focus=true
+FAIL: real Motor reaches sample end, x=755.99072265625
+BLOB47_FOUNDATION checks=944 failures=1
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-work/tools/run_blob47_tests.py", line 9, in <module>
+    output = run_engine(['--headless', '--fixed-fps', '60', '--path', '.', '--script', runner], 90)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush-work/tools/run_tests.py", line 42, in run_engine
+    raise RuntimeError(f"Godot returned {process.returncode}")
+RuntimeError: Godot returned 1

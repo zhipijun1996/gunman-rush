@@ -1,0 +1,28 @@
+{
+  "task_id": "WINDCHIME-STYLE-01",
+  "calls": 2,
+  "tool": "image_gen.imagegen",
+  "model": "not_exposed",
+  "cost": "not_exposed",
+  "reference_path": "docs/evidence/windchime_style_01/user_reference.jpg",
+  "reference_sha256": "87afc39797133337b1cf23b775f6f8fae81a7a42da021420ece2f2d048e4e9e8",
+  "reference_rights": "unknown; user supplied style reference, not embedded/traced into terrain",
+  "outputs": [
+    {
+      "path": "docs/evidence/windchime_style_01/skycity_draft.png",
+      "sha256": "c30362e5a510472bd27ddc885a2da78a81eb09a64dc6e4ec796937a359c16108",
+      "runtime": false,
+      "prompt": null,
+      "processing": "Original generated PNG, copied byte-for-byte; no crop, repaint, compositing or pixel processing",
+      "disposition": "retired after user region-identity feedback; original retained as evidence"
+    },
+    {
+      "path": "assets/windchime_plains/meadow_distance.png",
+      "sha256": "9ac1c0a2625c39604c9f7e1d4a1a9553d56764a7bcd8dbe38593f01ba6ba3784",
+      "runtime": true,
+      "prompt": "docs/evidence/windchime_style_01/background_meadow_prompt.txt",
+      "processing": "Original generated PNG, copied byte-for-byte; no crop, repaint, compositing or pixel processing",
+      "disposition": "background only; gameplay terrain is separate tile occupancy"
+    }
+  ]
+}

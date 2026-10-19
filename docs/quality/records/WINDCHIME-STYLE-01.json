@@ -1,0 +1,320 @@
+{
+  "schema_version": 1,
+  "task_id": "WINDCHIME-STYLE-01",
+  "task_type": "art",
+  "workflow": "review",
+  "baseline_commit": "a39a56a85282ba86a642e8263cbbfc28cadc47e1",
+  "reviewed_commit": "a39a56a85282ba86a642e8263cbbfc28cadc47e1",
+  "content_version": "warm-limestone-v2",
+  "owner": "/root",
+  "purpose": "切换到用户新参考的简化分层画法，补充16区视觉分工并制作暖色风铃平原47tile/肌理与可游玩手工样板",
+  "player_experience": "明亮草甸风车背景，暖石灰岩/鼠尾草/麦金，真实走跳、木桥、铜移动台、风铃与同风格角色敌人",
+  "constraints": [
+    "核心Motor/武器与资源参数、RNG和存档不变",
+    "先实际素材及手工样板，不把独立概念或材料场冒充正式全区随机迁移",
+    "技术/像素审查/用户审美/听音与实体设备分别记录"
+  ],
+  "affected_paths": [
+    "assets/manifest.json",
+    "assets/windchime_plains/cloud_veil.svg",
+    "assets/windchime_plains/cloud_veil.svg.import",
+    "assets/windchime_plains/limestone_blob47.svg",
+    "assets/windchime_plains/limestone_blob47.svg.import",
+    "assets/windchime_plains/manifest.json",
+    "assets/windchime_plains/meadow_distance.png",
+    "assets/windchime_plains/meadow_distance.png.import",
+    "assets/windchime_plains/middle_ruins.svg",
+    "assets/windchime_plains/middle_ruins.svg.import",
+    "assets/windchime_plains/props.svg",
+    "assets/windchime_plains/props.svg.import",
+    "docs/art_foundation_v1.md",
+    "docs/current_state.md",
+    "docs/evidence/windchime_style_01/README.md",
+    "docs/evidence/windchime_style_01/background_meadow_prompt.txt",
+    "docs/evidence/windchime_style_01/generation.json",
+    "docs/evidence/windchime_style_01/independent/court_gui.py",
+    "docs/evidence/windchime_style_01/independent/draft-source-hashes.json",
+    "docs/evidence/windchime_style_01/independent/draft_review.md",
+    "docs/evidence/windchime_style_01/independent/gui_probe.py",
+    "docs/evidence/windchime_style_01/independent/lifecycle-failed.log",
+    "docs/evidence/windchime_style_01/independent/lifecycle-retest.log",
+    "docs/evidence/windchime_style_01/independent/lifecycle_probe.gd",
+    "docs/evidence/windchime_style_01/independent/lifecycle_retest.gd",
+    "docs/evidence/windchime_style_01/independent/masonry.log",
+    "docs/evidence/windchime_style_01/independent/masonry_probe.gd",
+    "docs/evidence/windchime_style_01/independent/muzzle.log",
+    "docs/evidence/windchime_style_01/independent/muzzle_probe.gd",
+    "docs/evidence/windchime_style_01/independent/production-tests.log",
+    "docs/evidence/windchime_style_01/independent/repeat.log",
+    "docs/evidence/windchime_style_01/independent/repeat_probe.gd",
+    "docs/evidence/windchime_style_01/independent/technical_retest.md",
+    "docs/evidence/windchime_style_01/independent/user_rejection_addendum.md",
+    "docs/evidence/windchime_style_01/independent/warm-gui/console.log",
+    "docs/evidence/windchime_style_01/independent/warm-gui/result.json",
+    "docs/evidence/windchime_style_01/independent/warm-gui/route-06.png",
+    "docs/evidence/windchime_style_01/independent/warm-gui/route-10.png",
+    "docs/evidence/windchime_style_01/independent/warm-lifecycle_retest.log",
+    "docs/evidence/windchime_style_01/independent/warm-masonry_probe.log",
+    "docs/evidence/windchime_style_01/independent/warm-repeat_probe.log",
+    "docs/evidence/windchime_style_01/independent/warm_review.md",
+    "docs/evidence/windchime_style_01/skycity_draft.png",
+    "docs/evidence/windchime_style_01/user_reference.jpg",
+    "docs/evidence/windchime_style_01/user_request.txt",
+    "docs/handoff.md",
+    "docs/quality/asset_records/windchime_limestone_v2.json",
+    "docs/quality/asset_records/windchime_meadow_v2.json",
+    "docs/quality/records/WINDCHIME-STYLE-01.json",
+    "docs/region_visual_identity.md",
+    "docs/tasks.md",
+    "docs/tile_map_production_plan.md",
+    "resources/foundry/batch.json",
+    "resources/foundry/export_basis.json",
+    "resources/foundry/replays/climb_change_height-air_chain-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p1.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p1.json",
+    "resources/foundry/replays/climb_change_height-double_jump-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-air_chain-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p1.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p1.json",
+    "resources/foundry/replays/height_then_precision-double_jump-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-air_chain-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p1.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p1.json",
+    "resources/foundry/replays/precision_to_transfer-double_jump-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-air_chain-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p1.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p1.json",
+    "resources/foundry/replays/read_ride_release-double_jump-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-air_chain-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-double_jump-v0-p0.json",
+    "resources/foundry/replays/route-0e61faed40.json",
+    "resources/foundry/replays/route-0efaee5828.json",
+    "resources/foundry/replays/route-122d7f6e2a.json",
+    "resources/foundry/replays/route-1521b6b7c3.json",
+    "resources/foundry/replays/route-2860deda61.json",
+    "resources/foundry/replays/route-2d706b6f11.json",
+    "resources/foundry/replays/route-2d7d2e4612.json",
+    "resources/foundry/replays/route-2f6354523f.json",
+    "resources/foundry/replays/route-3aa2ad4cba.json",
+    "resources/foundry/replays/route-4bec60578b.json",
+    "resources/foundry/replays/route-5798c84cea.json",
+    "resources/foundry/replays/route-7da5a6c16f.json",
+    "resources/foundry/replays/route-908c475df3.json",
+    "resources/foundry/replays/route-93acd6603f.json",
+    "resources/foundry/replays/route-ad7b9db895.json",
+    "resources/foundry/replays/route-b4df2effd8.json",
+    "resources/foundry/replays/route-cf73f3c620.json",
+    "resources/foundry/replays/route-f91361b454.json",
+    "resources/foundry/replays/short_long_rise-air_chain-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p1.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p1.json",
+    "resources/foundry/replays/short_long_rise-double_jump-v0-p0.json",
+    "scenes/demo/windchime_lab.tscn",
+    "scripts/art_foundation/blob47_terrain.gd",
+    "scripts/art_foundation/windchime_actor_visual.gd",
+    "scripts/art_foundation/windchime_actor_visual.gd.uid",
+    "scripts/art_foundation/windchime_backdrop.gd",
+    "scripts/art_foundation/windchime_backdrop.gd.uid",
+    "scripts/art_foundation/windchime_decoration.gd",
+    "scripts/art_foundation/windchime_decoration.gd.uid",
+    "scripts/art_foundation/windchime_enemy_visual.gd",
+    "scripts/art_foundation/windchime_enemy_visual.gd.uid",
+    "scripts/art_foundation/windchime_hud.gd",
+    "scripts/art_foundation/windchime_hud.gd.uid",
+    "scripts/art_foundation/windchime_lab.gd",
+    "scripts/art_foundation/windchime_lab.gd.uid",
+    "scripts/art_foundation/windchime_layout.gd",
+    "scripts/art_foundation/windchime_layout.gd.uid",
+    "scripts/art_foundation/windchime_masonry.gd",
+    "scripts/art_foundation/windchime_masonry.gd.uid",
+    "scripts/art_foundation/windchime_platform.gd",
+    "scripts/art_foundation/windchime_platform.gd.uid",
+    "scripts/art_foundation/windchime_projectile_visual.gd",
+    "scripts/art_foundation/windchime_projectile_visual.gd.uid",
+    "scripts/art_foundation/windchime_scenery.gd",
+    "scripts/art_foundation/windchime_scenery.gd.uid",
+    "scripts/art_foundation/windchime_terrain.gd",
+    "scripts/art_foundation/windchime_terrain.gd.uid",
+    "scripts/combat/player_projectile.gd",
+    "scripts/demo/demo_app.gd",
+    "scripts/ui/demo_menu.gd",
+    "tests/test_windchime_lab.gd",
+    "tests/test_windchime_lab.gd.uid",
+    "tests/test_windchime_layout.gd",
+    "tests/test_windchime_layout.gd.uid",
+    "tools/build_windchime_art.py",
+    "tools/harness/profiles.json",
+    "tools/run_windchime_tests.py"
+  ],
+  "deliverables": [
+    "scenes/demo/windchime_lab.tscn",
+    "assets/windchime_plains/manifest.json",
+    "docs/region_visual_identity.md"
+  ],
+  "creative_decisions": [
+    {
+      "decision": "简化轮廓和分层画法",
+      "status": "user_confirmed",
+      "basis": "user_request.txt:差不多这样；同时要求肌理与地区配色调整",
+      "evidence_id": "user-direction"
+    },
+    {
+      "decision": "平原暖石灰岩/鼠尾草/麦金，后续15区各自材质轮廓与光照",
+      "status": "proposed",
+      "basis": "依据用户要求与现有16区主题制作候选，尚未签最终样板"
+    }
+  ],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "failed",
+      "reason": "暖色候选被用户否定为失去特色/廉价，停止扩产与发布；技术通过不代签审美",
+      "evidence": [
+        "user-warm-rejection"
+      ]
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "failed",
+      "reason": "暖色候选被用户否定为失去特色/廉价，停止扩产与发布；技术通过不代签审美",
+      "evidence": [
+        "user-warm-rejection"
+      ]
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [
+    {
+      "id": "user-direction",
+      "path": "docs/evidence/windchime_style_01/user_request.txt",
+      "sha256": "e9dfefba07afabe9221634b3460fecdd1fd1f22755bf3db2df60c3a0cb1bc74a",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "a39a56a85282ba86a642e8263cbbfc28cadc47e1",
+      "content_version": "warm-limestone-v2",
+      "method": "Actual user conversation and attached reference; scope limited to general rendering language",
+      "observed": "User approximately endorses simplified graphic direction and requires texture plus 16-region-specific palette",
+      "source": "2026-10-19 user conversation",
+      "quote": "差不多这样，再加点纹理和肌理。然后这个色调不太适合风铃平原，要考虑后续16个区域的设计。",
+      "covers": [
+        "general_simplified_graphic_style_only"
+      ],
+      "accepted": true
+    },
+    {
+      "id": "user-warm-rejection",
+      "path": "docs/evidence/windchime_style_01/user_request.txt",
+      "sha256": "e9dfefba07afabe9221634b3460fecdd1fd1f22755bf3db2df60c3a0cb1bc74a",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "a39a56a85282ba86a642e8263cbbfc28cadc47e1",
+      "content_version": "warm-limestone-v2",
+      "method": "Actual user message on warm candidate, not an inferred reviewer verdict",
+      "observed": "User rejects loss of distinctive art and asks about Animal Well reference",
+      "source": "2026-10-19 user conversation",
+      "quote": "本来是有特色的美术，突然又变得廉价了。参考动物井那样吗？",
+      "covers": [
+        "warm_candidate_visual_quality"
+      ],
+      "accepted": false
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "暖色视觉失败；后续Animal Well材料语言先小样验证，不部署被拒候选",
+    "最终暖色输出用户审美尚未认可",
+    "正式两图随机/Boss/保存未迁移，纵向MAP02与模块随机阶段待首样板反馈",
+    "完整profile被稀疏检出历史证据缺失阻断；目标专项分开记录",
+    "实体设备、完整听音与用户玩法体验未验"
+  ]
+}
