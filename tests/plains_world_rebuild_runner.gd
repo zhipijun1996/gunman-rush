@@ -185,6 +185,26 @@ func verify_stage(plan: Dictionary, tuning: PlayerTuning) -> Dictionary:
 			material_samples.append(pixels)
 		actual.installed_paint_diagnostics.append({"id":source.id,"max_source_collider_mismatch":max_mismatch,"contact_material_samples":material_samples,"source":frame.source_path,"uniform_scale":frame.uniform_scale})
 
+	if variant_id==1:
+		var lower_y := maxf(float(plan.bodies[0].top_surfaces[-1].to[1]),float(plan.bodies[1].top_surfaces[0].from[1]))+20
+		var upper_y := float(plan.bodies[2].top_surfaces[0].from[1])-40
+		var air_samples: Array = []
+		for weight: float in [.2,.5,.8]:
+			var y := lerpf(lower_y,upper_y,weight)
+			var west_wall: float = WORLD._outline_x_at_y(plan.bodies[0].polygon,y,true)
+			var east_wall: float = WORLD._outline_x_at_y(plan.bodies[1].polygon,y,false)
+			var sample := Vector2((west_wall+east_wall)*.5,y)
+			check(east_wall-west_wall>=float(plan.player_source.body_size[0]),"Second construction retains an actual player-width open air column between solid banks")
+			var max_alpha := 0.0
+			for source: Dictionary in plan.bodies:
+				var sprite := composer.get_node(str(source.id).validate_node_name()+"CompletePainting") as Sprite2D
+				var pixel := world_to_source_pixel(sprite,sample)
+				var image := sprite.texture.get_image()
+				if pixel.x>=0 and pixel.y>=0 and pixel.x<image.get_width() and pixel.y<image.get_height():
+					max_alpha=maxf(max_alpha,image.get_pixel(int(pixel.x),int(pixel.y)).a)
+			check(max_alpha<.05,"Actual source Sprite terrain keeps declared interior valley air transparent")
+			air_samples.append({"world":[sample.x,sample.y],"physical_air_width":east_wall-west_wall,"actual_terrain_max_alpha":max_alpha})
+		actual["migration_air_samples"] = air_samples
 	check(not actual.production_pool, "Experiment not added to formal pool")
 	stage.queue_free()
 	await process_frame
