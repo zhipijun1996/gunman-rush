@@ -39,13 +39,13 @@ EXTRA = tuple(dict.fromkeys(EXTRA + tuple(path.relative_to(ROOT).as_posix()
     for path in sorted((ROOT/"assets/visual_development/plains_world_rebuild").glob("*.png")))))
 
 
-def capture(folder, route, route_kind="main"):
+def capture(folder, route, route_kind="main", variant=0):
     """Use the existing harness process gate and live preview, never a fixture."""
     env = os.environ.copy()
     env.update(LIBGL_ALWAYS_SOFTWARE="1", LP_NUM_THREADS="1", OMP_NUM_THREADS="1")
     env["REGIONAL_SOURCE_COMMIT"] = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip()
     display = None
-    report = {"status": "failed", "source_commit": env["REGIONAL_SOURCE_COMMIT"],
+    report = {"status": "failed", "source_commit": env["REGIONAL_SOURCE_COMMIT"], "variant": variant,
               "scope": "Actual normal follow-camera screenshot and optional input-only route movie; not art, user or device admission"}
     before = source_files(EXTRA)
     report["source_before"] = before
@@ -63,7 +63,7 @@ def capture(folder, route, route_kind="main"):
             command = ["bash", "tools/godot.sh", "--rendering-method", "gl_compatibility", "--audio-driver", "Dummy"]
             movie = folder / "gameplay.avi"
             if route: command += ["--write-movie", str(movie), "--fixed-fps", "60"]
-            command += ["--path", ".", "--script", "tools/plains_world_rebuild_preview.gd", "--", "--seed=world-rebuild-01", "--variant=0", "--capture-output=" + str(folder / "frames")]
+            command += ["--path", ".", "--script", "tools/plains_world_rebuild_preview.gd", "--", "--seed=world-rebuild-01", "--variant=" + str(variant), "--capture-output=" + str(folder / "frames")]
             if route: command += ["--route=" + route_kind]
             report["command"] = command
             result = harness.run_check({"argv": command, "timeout_seconds": 600 if route else 90,
@@ -104,13 +104,13 @@ def capture(folder, route, route_kind="main"):
         print(folder / "report.json", flush=True)
 
 
-def trace(folder, route):
+def trace(folder, route, variant=0):
     """Short real DemoApp/Router feedback without recording or actor relocation."""
     started = time.monotonic()
     before = source_files(EXTRA)
-    report = {"status": "failed", "source_before": before,
+    report = {"status": "failed", "source_before": before, "variant": variant,
               "scope": "Actual headless PlayerMotor/Router traversal; not rendered art or device evidence"}
-    command = ["--headless", "--fixed-fps", "60", "--path", ".", "--script", "tools/plains_world_rebuild_preview.gd", "--", "--seed=world-rebuild-01", "--variant=0", "--route="+route, "--trace-output="+str(folder/"trace")]
+    command = ["--headless", "--fixed-fps", "60", "--path", ".", "--script", "tools/plains_world_rebuild_preview.gd", "--", "--seed=world-rebuild-01", "--variant="+str(variant), "--route="+route, "--trace-output="+str(folder/"trace")]
     report["command"] = ["bash", "tools/godot.sh", *command]
     try:
         output = logged_engine(command, 120, folder/"trace.log")
@@ -136,6 +136,7 @@ def trace(folder, route):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, help="New evidence directory; defaults to /tmp to avoid filling workspace")
+    parser.add_argument("--variant", type=int, choices=(0,1), default=0, help="Explicit registered layout; 1 requires first-sample admission")
     parser.add_argument("--route-kind", choices=("main","lower"), default="main", help="Existing normal-camera route to record")
     parser.add_argument("--trace", choices=("main","lower"), help="Cheap actual headless input trace before movies")
     parser.add_argument("--capture", action="store_true", help="Actual first candidate normal-camera image")
@@ -145,15 +146,15 @@ def main():
     folder.mkdir(parents=True, exist_ok=False)
     actual = folder / "actual.json"
     started = time.monotonic()
-    report = {"status": "failed", "scope": "World-first source, rejection and installed collision/painting contracts; not art quality, complete playable region, device or production-pool admission"}
-    command = ["--headless", "--path", ".", "--script", "tests/plains_world_rebuild_runner.gd", "--", "--output=" + str(actual)]
+    report = {"status": "failed", "variant": args.variant, "scope": "World-first source, rejection and installed collision/painting contracts; not art quality, complete playable region, device or production-pool admission"}
+    command = ["--headless", "--path", ".", "--script", "tests/plains_world_rebuild_runner.gd", "--", "--output=" + str(actual), "--variant="+str(args.variant)]
     with godot_lock_path(ROOT).open("a") as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
         if args.trace:
-            trace(folder, args.trace)
+            trace(folder, args.trace, args.variant)
             return
         if args.capture or args.route:
-            capture(folder, args.route, args.route_kind)
+            capture(folder, args.route, args.route_kind, args.variant)
             return
         before = source_files(EXTRA)
         report["source_before"] = before

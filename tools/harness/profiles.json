@@ -1016,6 +1016,17 @@
       "weight_seconds": 20,
       "serial": true,
       "cacheable": false
+    },
+    "plains-world-rebuild-contract": {
+      "argv": [
+        "python3",
+        "tools/run_plains_world_rebuild_tests.py"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PLAINS WORLD REBUILD: [1-9][0-9]* assertions, 0 failures$",
+      "weight_seconds": 20,
+      "serial": true,
+      "cacheable": false
     }
   },
   "profiles": {

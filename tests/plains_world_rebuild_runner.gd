@@ -6,6 +6,7 @@ const PRIOR_DEFAULT := "98a71fc9d52471dfbc8ec6b25dfb09d1a1326d158cd9dbc71367966e
 var assertions := 0
 var failures: Array[String] = []
 var output_path := ""
+var variant_id := 0
 
 func check(ok: bool, label: String) -> void:
 	assertions += 1
@@ -16,6 +17,7 @@ func check(ok: bool, label: String) -> void:
 func _initialize() -> void:
 	for arg: String in OS.get_cmdline_user_args():
 		if arg.begins_with("--output="): output_path = arg.trim_prefix("--output=")
+		elif arg.begins_with("--variant="): variant_id = int(arg.trim_prefix("--variant="))
 	if output_path.is_empty(): quit(2); return
 	run.call_deferred()
 
@@ -189,19 +191,49 @@ func verify_stage(plan: Dictionary, tuning: PlayerTuning) -> Dictionary:
 	await process_frame
 	return actual
 
+func verify_layout_reuse(plan: Dictionary, actual: Dictionary) -> void:
+	# Exact four-image fingerprints from admitted first-sample main02 receipt,
+	# 97703a8f. This scoped reuse experiment does not freeze future art globally.
+	var first_sources: Dictionary = {
+		"res://assets/visual_development/plains_world_rebuild/creek_bed_v3.png":"e6fc061529c850c200a847bf59c63798a870087c9d2744c06ed50da4205b9842",
+		"res://assets/visual_development/plains_world_rebuild/environment_source.png":"782e81756e8b11d5557838818973c89f94e41393e599581608c56230a7aa97e6",
+		"res://assets/visual_development/plains_world_rebuild/terrain_cliff_v2.png":"8b0e39bb1cb05f91501e6c3d121498b25d82c0f17725108853daae73d2056b5d",
+		"res://assets/visual_development/plains_world_rebuild/terrain_east_v3.png":"703dfdbbadecc40965bb7d7cffa9477df1e4b7e23331a01a1c678e161425b131"
+	}
+	var consumed: Dictionary = {}
+	for row: Dictionary in actual.painting.bodies: consumed[str(row.source)]=str(row.source_sha256)
+	for row: Dictionary in actual.painting.layers:
+		if row.has("source"): consumed[str(row.source)]=str(row.source_sha256)
+	check(consumed==first_sources,"Second layout really consumes exactly the same four first-sample image bytes")
+	for path: String in first_sources:
+		check(FileAccess.get_sha256(path)==str(first_sources[path]),"Second structure has not silently painted a per-layout replacement image")
+	var first: Dictionary = WORLD.generate("world-rebuild-01",0)
+	check(first.validation_errors.is_empty(),"First registered layout remains legal after migration extension")
+	var original: Array = first.routes[0].points
+	var migrated: Array = plan.routes[0].points
+	var first_profile: Array = []
+	var migrated_profile: Array = []
+	for p: Array in original:first_profile.append([float(p[0])-float(original[0][0]),float(p[1])-float(original[0][1])])
+	for p: Array in migrated:migrated_profile.append([float(p[0])-float(migrated[0][0]),float(p[1])-float(migrated[0][1])])
+	check(first_profile!=migrated_profile,"Actual second main route changes relative geometry rather than translating the first")
+	var first_height := float(first.bodies[1].top_surfaces[0].from[1])-float(first.bodies[0].top_surfaces[-1].to[1])
+	var second_height := float(plan.bodies[1].top_surfaces[0].from[1])-float(plan.bodies[0].top_surfaces[-1].to[1])
+	check(absf(first_height-second_height)>=float(plan.player_source.body_size[1])*2,"Second structure changes relative rim height by at least two actual player heights")
+	actual["reuse_comparison"]={"first_source_commit":"97703a8ff4ca9a86c7fb92ff2d182d0595ffce96","same_painting_sources":consumed,"first_relative_route":first_profile,"second_relative_route":migrated_profile,"first_relative_rim_height":first_height,"second_relative_rim_height":second_height,"scope":"Two explicit construction layouts; not random region or all-Seed quality"}
+
 func run() -> void:
 	var tuning := PlayerTuning.load_default()
 	var generator := PlainsRegionGenerator.new()
 	generator.root_bell_mode = "v3"
 	var old := generator.generate(PlainsRegionCampaign.seed_for("joint-recoil-01", 1), tuning, false, "", "intro")
 	check(old.get("ok", false) and old.manifest.manifest_hash == PRIOR_DEFAULT, "Original default Manifest exact baseline remains unchanged")
-	var plan: Dictionary = WORLD.generate("world-rebuild-01", 0)
+	var plan: Dictionary = WORLD.generate("world-rebuild-01", variant_id)
 	check(not plan.has("error") and plan.validation_errors.is_empty(), "First world structure passes actual grammar")
-	check(plan == WORLD.generate("world-rebuild-01", 0), "Same Seed replays complete world source")
+	check(plan == WORLD.generate("world-rebuild-01", variant_id), "Same Seed replays complete world source")
 	var replay: Dictionary = JSON.parse_string(JSON.stringify(plan))
 	check(WORLD.validate(replay).is_empty(), "Ordinary JSON replay preserves accepted complete bodies: "+str(WORLD.validate(replay)))
 	check(RandomStageGenerator.new()._canonical(plan) == RandomStageGenerator.new()._canonical(replay), "Ordinary JSON retains complete plan semantics")
-	check(not plan.formal_pool and plan.variant == 0, "First candidate isolated and second layout not expanded")
+	check(not plan.formal_pool and plan.variant == variant_id, "Explicit selected prototype remains outside formal pool")
 	check(plan.bodies.size() == 3 and plan.interfaces.size() == 4, "Two complete ridges and common foundation own explicit extension/root interfaces")
 	for body: Dictionary in plan.bodies:
 		check(body.collision_source == "polygon" and body.painting_source == "paint_frame", "Physics polygon and direct painting frame share the registered source")
@@ -209,6 +241,7 @@ func run() -> void:
 		check(body.polygon.size() > 4 or body.id == "creek_foundation", "Ridges carry shaped complete volume rather than slab plus alpha skirt")
 	verify_negative(plan)
 	var actual: Dictionary = await verify_stage(plan, tuning)
+	if variant_id==1: verify_layout_reuse(plan,actual)
 	var file := FileAccess.open(output_path, FileAccess.WRITE)
 	if file == null: check(false, "Native evidence can be preserved")
 	else:

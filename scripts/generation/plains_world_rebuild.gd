@@ -14,11 +14,13 @@ static func generate(seed: String, variant: int = 0) -> Dictionary:
 	var tuning_source: Variant = JSON.parse_string(FileAccess.get_file_as_string("res://config/player_tuning.json"))
 	if not source is Dictionary or not tuning_source is Dictionary:
 		return {"error": "missing_world_or_actual_player_configuration"}
-	if variant != 0:
-		return {"error": "v3_first_source_layout_not_admitted_no_second_layout_expansion"}
 	var catalog: Dictionary = source
+	if not catalog.get("layout_variants", {}).has(str(variant)):
+		return {"error": "unregistered_source_layout_variant"}
 	var tuning: Dictionary = tuning_source
-	var geometry: Dictionary = catalog["source_geometry"]
+	var geometry := _layout_geometry(catalog, variant)
+	var layout: Dictionary = catalog["layout_variants"][str(variant)]
+	var route_mode := str(layout["route_mode"])
 	var enemy_definition: EnemyDefinition = load("res://resources/enemies/plains_charger.tres")
 	if enemy_definition == null:
 		return {"error": "missing_existing_enemy_definition"}
@@ -61,14 +63,26 @@ static func generate(seed: String, variant: int = 0) -> Dictionary:
 	var layers := _layers(float(west_rim[0]), float(east_rim[0]), float(west_rim[1]), creek, far_right, bodies)
 	var shed_anchor := _surface_anchor(bodies[1], float(east_rim[0]) + 490.0)
 	layers["composition_assets"][1]["anchor"] = shed_anchor
+	var west_entry := _standing_anchor(bodies[0], float(west_rim[0]) - 30.0)
+	var east_landing := _standing_anchor(bodies[1], float(east_rim[0]) + 54.0)
+	var creek_launch: Array = [_q((west_wall + east_wall) * 0.5), _q(creek - 18.0)]
+	var creek_walk: Array = [_q((west_wall + east_wall) * 0.5 + (east_wall - west_wall) * 0.25), _q(creek - 18.0)]
+	if route_mode == "lower_pass":
+		# Both recovery launches have actual body-width clearance to the cliff;
+		# return to the west uses the same floor instead of an unproven rim leap.
+		creek_launch = [_q(west_wall + player_size.x * 0.5 + 20.0), _q(creek - player_size.y * 0.5)]
+		creek_walk = [_q(east_wall - player_size.x * 0.5 - 20.0), _q(creek - player_size.y * 0.5)]
+	var main_points: Array = [spawn, _standing_anchor(bodies[0], 600.0), west_entry, east_landing, exit_position]
+	if route_mode == "lower_pass":
+		main_points = [spawn, west_entry, creek_launch, creek_walk, east_landing, exit_position]
 	var data: Dictionary = {
 		"version": VERSION, "root_seed": seed, "variant": variant, "geometry_revision": "v3_source_painting_is_world_construction", "previous_source_commit": PREVIOUS_SOURCE_COMMIT,
-		"status": "single_source_anchored_candidate_not_art_approved", "bounds": [float(west_top[0]["from"][0]), 140.0, _q(far_right-float(west_top[0]["from"][0])), world_root_extent + 40.0],
+		"status": str(layout["status"]), "bounds": [float(west_top[0]["from"][0]), 140.0, _q(far_right-float(west_top[0]["from"][0])), world_root_extent + 40.0],
 		"spawn": spawn, "exit": exit_position, "bodies": bodies, "formal_pool": false,
-		"construction": {"source_geometry": geometry.duplicate(true), "main_contact_gap": float(east_rim[0]) - float(west_rim[0]), "creek_open_width": east_wall - west_wall, "root_depth": root - creek, "registered_unit_source": CATALOG_PATH, "randomness_status": "seed_recorded_no_structure_randomization_until_first_art_admission", "extension_join_status":"external_source_cross_sections_not_connected_in_this_finite_preview"},
+		"construction": {"source_geometry": geometry.duplicate(true), "main_contact_gap": float(east_rim[0]) - float(west_rim[0]), "creek_open_width": east_wall - west_wall, "root_depth": root - creek, "registered_unit_source": CATALOG_PATH, "randomness_status": "seed_recorded_finite_registered_layouts_not_random_region", "route_mode": route_mode, "upper_shortcut_status": "unverified_optional" if route_mode == "lower_pass" else "actual_route_evidence_separate", "extension_join_status":"external_source_cross_sections_not_connected_in_this_finite_preview"},
 		"routes": [
-			{"id": "main", "required_action": "walk_source_derived_surface_then_legal_recoil_crossing", "points": [spawn, _standing_anchor(bodies[0], 600.0), _standing_anchor(bodies[0], float(west_rim[0]) - 30.0), _standing_anchor(bodies[1], float(east_rim[0]) + 54.0), exit_position], "validation_status": "unverified_motor"},
-			{"id": "lower_creek", "required_action": "controlled_drop_then_legal_downshot_recoil_return", "points": [_standing_anchor(bodies[0], float(west_rim[0]) - 30.0), [_q((west_wall + east_wall) * 0.5), _q(creek - 18.0)], [_q((west_wall + east_wall) * 0.5 + (east_wall - west_wall) * 0.25), _q(creek - 18.0)], _standing_anchor(bodies[1], float(east_rim[0]) + 54.0)], "validation_status": "unverified_motor"}
+			{"id": "main", "mode": route_mode, "required_action": "descend_creek_walk_then_legal_recoil_climb_return_to_west" if route_mode == "lower_pass" else "walk_source_derived_surface_then_legal_recoil_crossing", "points": main_points, "validation_status": "unverified_motor"},
+			{"id": "lower_creek", "required_action": "controlled_drop_then_legal_downshot_recoil_return", "points": [west_entry, creek_launch, creek_walk, east_landing], "validation_status": "unverified_motor"}
 		],
 		"enemy_spawns": [{"id": "east_guard", "definition": "res://resources/enemies/plains_charger.tres", "position": [enemy_anchor[0], float(enemy_anchor[1]) - enemy_definition.collision_size.y * 0.5], "body": "east_meadow_ridge"}], "device_spawns": [],
 		"encounter_reservations": [{"id": "east_guard", "position": enemy_anchor, "clear_landing_radius": 160.0, "status": "runtime_existing_enemy_contract_required"}], "layers": layers,
@@ -156,6 +170,11 @@ static func validate(data: Dictionary) -> Array[String]:
 		errors.append("external_catalog_version_mismatch")
 	if str(data.get("version", "")) != VERSION:
 		errors.append("unregistered_world_version")
+	var variant := int(data.get("variant", -1))
+	if not registered_catalog.get("layout_variants", {}).has(str(variant)):
+		errors.append("unregistered_source_layout_variant")
+		return errors
+	var registered_layout: Dictionary = registered_catalog["layout_variants"][str(variant)]
 	var bodies: Array = data.get("bodies", [])
 	if bodies.size() != 3:
 		errors.append("expected_two_full_ridges_and_shared_creek_foundation")
@@ -166,7 +185,7 @@ static func validate(data: Dictionary) -> Array[String]:
 		if id.is_empty() or id in ids:
 			errors.append("missing_or_duplicate_body_id")
 		ids.append(id)
-		var expected_body := _registered_source_body(id, registered_catalog)
+		var expected_body := _registered_source_body(id, registered_catalog, int(data.get("variant", -1)))
 		if expected_body.is_empty():
 			errors.append("body_id_not_registered_in_external_source_catalog:" + id)
 			continue
@@ -211,7 +230,7 @@ static func validate(data: Dictionary) -> Array[String]:
 			var b := Vector2(float(surface["to"][0]), float(surface["to"][1]))
 			if b.x <= a.x:
 				errors.append("surface_not_forward:" + id)
-			if absf(rad_to_deg((b - a).angle())) > float(data.get("planning_limits", {}).get("max_walk_slope_degrees", 0)):
+			if absf(rad_to_deg((b - a).angle())) > float(registered_catalog.get("limits", {}).get("max_walk_slope_degrees", 0)):
 				errors.append("main_surface_slope_outside_grammar:" + id)
 			var midpoint := (a + b) * 0.5
 			if not Geometry2D.is_point_in_polygon(midpoint + Vector2(0, 2), points):
@@ -223,7 +242,7 @@ static func validate(data: Dictionary) -> Array[String]:
 		var east_surfaces: Array = east.get("top_surfaces", [])
 		if not west_surfaces.is_empty() and not east_surfaces.is_empty():
 			var gap := float(east_surfaces[0]["from"][0]) - float(west_surfaces[-1]["to"][0])
-			if gap < 72.0 or gap > float(data.get("planning_limits", {}).get("max_source_rim_gap", 240.0)):
+			if gap < 72.0 or (str(registered_layout["route_mode"]) == "upper_fissure" and gap > float(registered_catalog.get("limits", {}).get("max_source_rim_gap", 240.0))):
 				errors.append("fissure_width_outside_registered_jump_and_painting_interface")
 	if bodies.size() == 3:
 		var west_polygon := _packed(bodies[0]["polygon"])
@@ -233,6 +252,13 @@ static func validate(data: Dictionary) -> Array[String]:
 			errors.append("creek_foundation_must_physically_join_both_ridge_roots")
 		if not Geometry2D.intersect_polygons(west_polygon, east_polygon).is_empty():
 			errors.append("open_fissure_must_not_be_filled_by_ridges")
+		var actual_creek_y: float = float(bodies[2]["top_surfaces"][0]["from"][1])
+		var wall_left := _outline_x_at_y(bodies[0]["polygon"], actual_creek_y, true)
+		var wall_right := _outline_x_at_y(bodies[1]["polygon"], actual_creek_y, false)
+		var bed_frame: Dictionary = bodies[2]["paint_frame"]
+		var actual_overlap := _q(float(bed_frame["source_size"][0]) * float(bed_frame["uniform_scale"]) * 0.5 - (wall_right - wall_left) * 0.5)
+		if actual_overlap < float(registered_layout["minimum_root_overlap"]):
+			errors.append("actual_source_root_overlap_below_registered_layout_minimum")
 	var layer_plan: Dictionary = data.get("layers", {})
 	for asset: Dictionary in layer_plan.get("composition_assets", []):
 		var body_found := false
@@ -247,18 +273,31 @@ static func validate(data: Dictionary) -> Array[String]:
 			errors.append("composition_asset_missing_parent_body:" + str(asset.get("id", "")))
 	return errors
 
-static func _registered_source_body(id: String, catalog: Dictionary) -> Dictionary:
+static func _layout_geometry(catalog: Dictionary, variant: int) -> Dictionary:
+	if not catalog.get("layout_variants", {}).has(str(variant)):
+		return {}
+	var geometry: Dictionary = catalog["source_geometry"].duplicate(true)
+	var layout: Dictionary = catalog["layout_variants"][str(variant)]
+	# Only finite registered frame origins and creek elevation vary. Source
+	# pixels, source bytes and uniform scale remain the frozen family.
+	for key: String in ["west_origin", "east_origin", "creek_surface_y"]:
+		geometry[key] = layout[key]
+	return geometry
+
+static func _registered_source_body(id: String, catalog: Dictionary, variant: int = 0) -> Dictionary:
 	# Trust the external catalog and actual source bytes, never a body's copied
 	# provenance fields. Rebuild the expected frame and geometry independently.
-	var geometry: Dictionary = catalog["source_geometry"]
+	var geometry := _layout_geometry(catalog, variant)
+	if geometry.is_empty():
+		return {}
 	if id == "west_meadow_ridge" or id == "east_meadow_ridge":
 		var is_east := id == "east_meadow_ridge"
 		var ridge_frame: Dictionary = {"source_path": geometry["east_source_path"] if is_east else geometry["source_path"], "source_size": geometry["source_size"], "origin": geometry["east_origin"] if is_east else geometry["west_origin"], "uniform_scale": geometry["east_scale"] if is_east else geometry["west_scale"], "mirror_x": is_east, "source_coordinate_mode": "full_image_pixels"}
 		return _source_body(id, ridge_frame, geometry)
 	if id != "creek_foundation":
 		return {}
-	var west_registered := _registered_source_body("west_meadow_ridge", catalog)
-	var east_registered := _registered_source_body("east_meadow_ridge", catalog)
+	var west_registered := _registered_source_body("west_meadow_ridge", catalog, variant)
+	var east_registered := _registered_source_body("east_meadow_ridge", catalog, variant)
 	var creek: float = float(geometry["creek_surface_y"])
 	var west_wall := _outline_x_at_y(west_registered["polygon"], creek, true)
 	var east_wall := _outline_x_at_y(east_registered["polygon"], creek, false)

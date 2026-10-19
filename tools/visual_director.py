@@ -1221,10 +1221,37 @@ def route(request,task_id,quality_record,allowed_paths,max_calls=10,max_rounds=2
        'preparation':{'region_context':build_region_context(region_id) if region_id else {'status':'unregistered','runtime_available':None},'lessons':load_lessons(region_id)},
        'constraints':['Freeze Motor, weapons/resources/progression, RNG, actual collision geometry/route and saves; within the authorized art scope visual mesh, source profiles and UV mapping may be redesigned, not collision or gameplay','Admission is scoped to this family and actual consumer: independently evidenced actual-pixel G2 is required before its descendants expand; a rejected unrelated mother does not block independently qualified units. Preserve rejected contracts; a different limited pilot role requires its own actual-pixel review, never retroactive approval','No conceptual image posing as actual gameplay; no subjective score from hashes','Two no-progress visual rounds stop. Preserve every failed native/model/review attempt.','Host mode needs an active real Codex host, distinct implementation/review agents; otherwise block with original Harness lease/timeout','Use existing G0–G5/eleven quality dimensions; G0/G1 stage is not G2 beauty approval or full content completion']}
     regional_request = region_id == 'windchime_plains' and not re.search(r'场所|局部|另一段|钟庭|\blocal\b|\bplace\b', request, re.I)
-    from level_design import joint_landform_request, art_language_request
+    from level_design import joint_landform_request, art_language_request, world_rebuild_request
     language_request = art_language_request(request, region_id)
     joint_request = joint_landform_request(request, region_id)
-    if language_request:
+    if world_rebuild_request(request, region_id):
+        paths = ['scripts/generation/plains_world_rebuild.gd', 'resources/generation/plains_world_rebuild.json',
+                 'scripts/art/plains_world_rebuild_composer.gd', 'scripts/demo/plains_world_rebuild_stage.gd',
+                 'tools/plains_world_rebuild_preview.gd', 'tools/run_plains_world_rebuild_tests.py',
+                 'docs/evidence/plains_world_rebuild/recipe.md']
+        m['constraints'][0] = ('Explicit isolated source-painting reconstruction. Derive actual collision, trusted contacts and painting frame from complete source forms; keep equal-scale Sprite/physics alignment. Preserve Motor, combat, inputs, resources, saves, enemy contracts and forest. This is a limited construct, not arbitrary geometry wrapping or complete procedural-region production.')
+        m['preparation']['visual_recipe'] = {
+            'status': 'first_construct_ACCEPT_SCOPED_not_user_or_region_gold',
+            'scope': 'Source-form continuous terrain pilot; only evidenced layouts/routes are admitted',
+            'sources': [{'path': path, 'sha256': file_hash(ROOT / path)} for path in paths if (ROOT / path).is_file()],
+            'profile': 'scripts/art/plains_world_rebuild_composer.gd',
+            'generation_profile': 'plains-world-rebuild-v3',
+            'recipe': 'docs/evidence/plains_world_rebuild/recipe.md',
+            'quality_record': 'docs/quality/records/PLAINS-WORLD-REBUILD-01.json',
+            'preview_script': 'tools/plains_world_rebuild_preview.gd',
+            'capture_script': None, 'capture_wrapper': 'tools/run_plains_world_rebuild_tests.py',
+            'capture_status': 'actual_wrapper_route_main_or_lower_only_not_full_region',
+            'capture_commands': ['python3 tools/run_plains_world_rebuild_tests.py --route --route-kind=main',
+                                 'python3 tools/run_plains_world_rebuild_tests.py --route --route-kind=lower'],
+            'method': 'Source form, contact line and equal-scale frame jointly define collision, route and actual Sprite. Reject invalid source/contact/scale instead of stretching paintings.',
+            'expansion': 'Only after actual independent art and input-route admission; seeds do not yet prove random structure or complete region'}
+        for task in tasks:
+            task['skills'] = list(dict.fromkeys(task['skills'] + ['level-module-creator', 'region-generator']))
+            task['goal'] += ' Read the current world-rebuild recipe and failed methods. Preserve source forms and actual trusted contact/Sprite/physics alignment; inspect real follow-camera pixels and limited main/lower movies. This pilot is not full-region autonomous production or user style approval.'
+            if not task['read_only']:
+                task['quality_task_id'] = 'PLAINS-WORLD-REBUILD-01'
+                task['checks'] = list(dict.fromkeys([c for c in task['checks'] if c not in ('visual-director-terrain', 'visual-director-space')] + ['plains-world-rebuild-contract']))
+    elif language_request:
         paths = ['scripts/generation/plains_art_language.gd', 'resources/generation/plains_art_language.json',
                  'scripts/generation/plains_region_generator.gd', 'scripts/generation/plains_region_art_plan.gd',
                  'scripts/art/plains_regional_composer.gd', 'tools/plains_art_language_preview.gd',
