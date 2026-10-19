@@ -12,3 +12,5 @@
 原始报告保留当时绝对路径和工作区指纹；随附本目录原件可离线查看，不将原静帧收据改签为通关。最终45张GPU图、7段动态影片、独审及公开浏览器证据各在同级独立目录。全项目release、实体设备与商业美术终审仍未通过。
 
 质量卡单项schema/来源一致性检查exit0；商业内容准入仍REJECT/未完备，任务review。全局quality exit1（历史证据/skill断链，无本任务专属错误），原件分别保留为 `task_quality_consistency.log`、`global_quality_failure.log`。
+
+精确Git树闭包：提交 `7e778b7b75f468d018bea804c4ebeba7bc4c7623` 的 `check_release_evidence.py` exit0，普通文件树中的全部质量卡证据路径通过（只检查路径，不代签schema/质量）。后续本目录记录提交不更换游戏源B。原生GitHub/浏览器日志中的尾部空白原样保存；未为diff整洁改写原证据。
