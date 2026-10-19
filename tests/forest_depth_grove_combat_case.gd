@@ -24,7 +24,7 @@ var flank_side := 0.0
 var flank_crossed := false
 
 func drive(trace: Node,leg: Dictionary) -> bool:
-	if trace.manifest.get("layout_version","")!="forest-expedition-airborne-v11":return false
+	if trace.manifest.get("layout_version","") not in ["forest-expedition-airborne-v11","forest-woven-trunk-v12"]:return false
 	if state.is_empty():
 		if not _ordinary_ground(trace,leg):return false
 		var destination: Vector2=_destination(trace,leg)

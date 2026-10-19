@@ -3,6 +3,9 @@ extends RefCounted
 ## Recorded-layout replay extracted from dd214ddec4394758d3d3efb71d604b86b7fdb7a3.
 ## One bounded itinerary switch also preserves the actually recorded pre-N movie14 layout.
 ## Forest depth playtest candidate. Default selection is owned by the registry; data is not Motor proof.
+# Historical generation basis, not the current runtime movement/aim contract.
+# Baseline 6c61faadd511c48a267b975550da897e701fd09f config bytes.
+const GENERATION_TUNING_HASH := "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
 const VERSION := "thorn-forest-region-v2"
 const LAYOUT_VERSION := "shared-tree-living-detour-v9"
 const FAMILIES := ["hollow_inner_first","hollow_root_first","clearing_shared_edge","clearing_shared_node"]
@@ -32,7 +35,7 @@ func _candidate(seed_value: String,map_index: int) -> Dictionary:
 	var variant:=topology.next_int(2)
 	var family: String=FAMILIES[variant+(2 if map_index==2 else 0)]
 	var m: Dictionary={"version":VERSION,"layout_version":LAYOUT_VERSION,"region":"thorn_forest","map_index":map_index,"seed":seed_value,"family":family,"layout_id":family,"fallback_id":"","requires":["grapple"],"production_pool":false,
-		"player_tuning_hash":FileAccess.get_sha256("res://config/player_tuning.json"),"traversal_hash":FileAccess.get_sha256("res://resources/player/traversal.tres"),
+		"player_tuning_hash":GENERATION_TUNING_HASH,"traversal_hash":FileAccess.get_sha256("res://resources/player/traversal.tres"),
 		"platforms":[],"hook_anchors":[],"areas":[],"connections":[],"rewards":[],"pickups":[],"enemies":[],"enemy_drops":{},"dangers":[],"geometry_instances":[],"nodes":[{"id":"forest_v2","mirrored":false}],
 		"merchant_id":"root_camp","shop":{"item":"health_blue","price":5,"stock":1},"shot_latch_plan":{"version":1,"latches":[]},"terminal_exits":[],
 		"choices":{"skeleton":variant,"cache_route":topology.next_int(2),"enemy_mix":content.next_int(2),"cavity_direction":(topology.next_int(2) if map_index==2 else 0)},"streams":{"topology":"forest_topology","content":"forest_ecology","version":VERSION},

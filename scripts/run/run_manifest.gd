@@ -201,6 +201,13 @@ static func _region_tuning(output:Dictionary)->PlayerTuning:
 	var items:Variant=capability.get("items",[])
 	if not items is Array:return null
 	var tuning:=PlayerTuning.load_default()
+	var stored: Variant=output.get("stage_tuning")
+	var keys: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://config/player_tuning.json"))
+	if not stored is Dictionary or stored.size()!=keys.size():return null
+	# Keep immutable saved metadata at .2; runtime always loads current .15.
+	# The sole historical exception is bound to the exact pre-change config.
+	if output.get("generated_layout",{}).get("player_tuning_hash")==PlainsRegionGenerator.PRE_FOCUS_15_TUNING_HASH and stored.get("focus_time_scale")==0.2:
+		tuning.focus_time_scale=0.2
 	var build:=BuildState.new()
 	for stat:StringName in BuildState.STATS:
 		build._base[stat]=5.0 if stat==&"max_health" else tuning.get(stat)
@@ -219,6 +226,9 @@ static func _region_tuning(output:Dictionary)->PlayerTuning:
 		if stat==&"max_health":continue
 		if not is_finite(float(values[stat])) or float(values[stat])<0:return null
 		tuning.set(stat,int(values[stat]) if stat in [&"max_jumps",&"max_air_shots"] else values[stat])
+	var checker:=RandomStageGenerator.new()
+	for key: String in keys:
+		if not stored.has(key) or not checker._same_data(stored[key],tuning.get(key)):return null
 	return tuning
 
 static func _campaign_compatible(data: Dictionary) -> bool:

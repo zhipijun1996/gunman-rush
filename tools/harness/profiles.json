@@ -1329,10 +1329,86 @@
         "build/forest_feedback/air/harness-{check_token}"
       ],
       "timeout_seconds": 600,
-      "success_pattern": "^FOREST AIR CHAIN SUITE: passed / 9 cases$",
+      "success_pattern": "^FOREST AIR CHAIN SUITE: passed / 18 cases$",
       "weight_seconds": 60,
       "artifact_paths": [
         "build/forest_feedback/air"
+      ]
+    },
+    "grapple-feel": {
+      "argv": [
+        "python3",
+        "tools/run_grapple_feel_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: grapple feel, hanging lifecycle and dual aim input$",
+      "weight_seconds": 15,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/verification/grapple_feel.json"
+      ]
+    },
+    "aim-save-compat": {
+      "argv": [
+        "python3",
+        "tools/run_aim_save_compat_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: historical aim tuning and actual saved-map compatibility$",
+      "weight_seconds": 20,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/verification/aim_save_compat.json"
+      ]
+    },
+    "forest-vertical-shortcut": {
+      "argv": [
+        "python3",
+        "tools/run_forest_vertical_shortcut.py",
+        "--scenario",
+        "all",
+        "--output",
+        "build/verification/forest-vertical-shortcut/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^FOREST VERTICAL SHORTCUT: passed$",
+      "weight_seconds": 20,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/verification/forest-vertical-shortcut"
       ]
     }
   },
@@ -1405,6 +1481,8 @@
       "consumer-coverage-tests",
       "wood-platforms",
       "actor-actions",
+      "grapple-feel",
+      "aim-save-compat",
       "all-weapons",
       "studio-input",
       "weapon-feel",
@@ -1460,7 +1538,8 @@
       "forest-depth-crossbranch-lifecycle",
       "forest-depth-queen-canopy",
       "forest-depth-campaign-canopy",
-      "forest-air-chain"
+      "forest-air-chain",
+      "forest-vertical-shortcut"
     ],
     "art": [
       "docs",
@@ -1484,6 +1563,8 @@
       "consumer-coverage-tests",
       "wood-platforms",
       "actor-actions",
+      "grapple-feel",
+      "aim-save-compat",
       "all-weapons",
       "studio-input",
       "weapon-feel",
@@ -1572,6 +1653,8 @@
       "consumer-coverage-tests",
       "wood-platforms",
       "actor-actions",
+      "grapple-feel",
+      "aim-save-compat",
       "all-weapons",
       "studio-input",
       "weapon-feel",
@@ -1630,7 +1713,8 @@
       "forest-depth-crossbranch-lifecycle",
       "forest-depth-queen-canopy",
       "forest-depth-campaign-canopy",
-      "forest-air-chain"
+      "forest-air-chain",
+      "forest-vertical-shortcut"
     ]
   }
 }

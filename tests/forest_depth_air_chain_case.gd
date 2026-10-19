@@ -9,9 +9,12 @@ var entry_support := ""
 var exit_support := ""
 var start := Vector2.ZERO
 var goal := Vector2.ZERO
+var rest_anchor_id := ""
+var hang_started := -1
 func drive(trace: Node, leg: Dictionary) -> void:
 	if active_leg != int(trace.leg_index):
 		active_leg = int(trace.leg_index)
+		rest_anchor_id=str(leg.get("rest_anchor_id",""));hang_started=-1
 		step_index = 0
 		step_started = -1
 		instance_data = trace.instance(leg)
@@ -45,15 +48,25 @@ func drive(trace: Node, leg: Dictionary) -> void:
 		# First H shares the human jump-and-hook intent; never reset the body.
 		var first: Dictionary = program[0]
 		if str(first.action)=="R" and trace.age==6: trace.jump(false)
-		var delay_frames: int = int(leg.get("first_hook_delay",1)) if str(first.action)=="H" else 7
-		if str(first.action)=="H" and (delay_frames < 1 or delay_frames > 5):
+		var delay_frames: int = int(leg.get("first_hook_delay",1)) if str(first.action) in ["H","HANG"] else 7
+		if str(first.action) in ["H","HANG"] and (delay_frames < 1 or delay_frames > 5):
 			trace.fail("air_chain_invalid_first_hook_delay")
 			return
 		if trace.age == delay_frames:
 			_submit(trace)
 	elif trace.phase == "air_chain_action":
 		var action: Dictionary = program[step_index]
-		if str(action.action) == "H":
+		if str(action.action) == "HANG":
+			if trace.controller.traversal.state==&"hook_hang":
+				trace.jump(false);trace.controller.router.set_move_axis(0)
+				if hang_started<0:
+					hang_started=int(trace.tick)
+					trace.event("rest_branch_observation",{"target":rest_anchor_id,"grounded":trace.player.is_on_floor(),"shots":trace.controller.action_resources.shot_charges})
+				if int(trace.tick)-hang_started>=int(leg.get("hang_observation_frames",18)):
+					trace.event("rest_branch_departure",{"target":rest_anchor_id,"held_frames":int(trace.tick)-hang_started,"grounded":trace.player.is_on_floor()})
+					_advance(trace)
+			elif trace.controller.traversal.state in [&"hook_miss",&"hook_retract"]:trace.fail("rest_branch_actual_hook_failed")
+		elif str(action.action) == "H":
 			if trace.controller.traversal.state in [&"hook_miss",&"hook_retract"]:
 				trace.jump(false)
 				trace.fail("air_chain_actual_H_failed/"+str(step_index))
@@ -84,12 +97,12 @@ func drive(trace: Node, leg: Dictionary) -> void:
 			trace.event("air_chain_arrival",{"geometry_instance":instance_data.id,"exit_support":exit_support,"program_steps":program.size(),"shots":trace.controller.action_resources.shot_charges,"hook_used":trace.controller.traversal.hook_used})
 			trace.complete_leg()
 func _target(action: Dictionary) -> String:
-	return str(instance_data.anchor_id_map.get(str(action.get("anchor","")),""))
+	return rest_anchor_id if str(action.action)=="HANG" else str(instance_data.anchor_id_map.get(str(action.get("anchor","")),""))
 func _submit(trace: Node) -> void:
 	var action: Dictionary = program[step_index]
 	step_started = int(trace.tick)
 	trace.controller.router.set_move_axis(0)
-	if str(action.action)=="H":
+	if str(action.action) in ["H","HANG"]:
 		var target := _target(action)
 		if target.is_empty():
 			trace.fail("air_chain_missing_anchor_mapping/"+str(step_index))
@@ -104,7 +117,7 @@ func _submit(trace: Node) -> void:
 	else:
 		trace.fail("air_chain_unknown_action/"+str(step_index))
 		return
-	trace.event("air_chain_action_requested",{"step":step_index,"action":str(action.action),"mapped_target":_target(action) if str(action.action)=="H" else "","grounded":trace.player.is_on_floor(),"hook_used":trace.controller.traversal.hook_used,"shots":trace.controller.action_resources.shot_charges})
+	trace.event("air_chain_action_requested",{"step":step_index,"action":str(action.action),"mapped_target":_target(action) if str(action.action) in ["H","HANG"] else "","grounded":trace.player.is_on_floor(),"hook_used":trace.controller.traversal.hook_used,"shots":trace.controller.action_resources.shot_charges})
 	trace.set_phase("air_chain_action")
 func _advance(trace: Node) -> void:
 	step_index += 1

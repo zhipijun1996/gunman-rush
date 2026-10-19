@@ -1,0 +1,54 @@
+{
+  "captured_utc": "2026-10-19T01:09:56.416771+00:00",
+  "base_commit": "6c61faadd511c48a267b975550da897e701fd09f",
+  "scope": "working-tree dependency hashes captured after local runs; not final release source identity",
+  "dependency_sha256": {
+    "scripts/input/keyboard_mouse_adapter.gd": "870b7a5e8f9324308a807c271a05b357baa79f0539b1962b4a4e7a31fd19657b",
+    "scripts/input/gamepad_adapter.gd": "39773c3335795602e534a6b9dab338796665e6da153850c01b1459dfd7117b80",
+    "scripts/ui/touch_overlay.gd": "031264ad5f7080d29e8d538362b0edd5861fbb02c4ad8144b5d4184e708d7805",
+    "tests/grapple_aim_input_runner.gd": "9e653ab2eaeb4c4eaebb969801028265b5f6563fdb4bdc0e8dc6cfd168a3f92d",
+    "tests/actor_actions_runner.gd": "cdcc8e6605660345c3315e786ecb532cbcab76a2fcd5f4c1ab18f989b006b325",
+    "config/player_tuning.json": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c",
+    "scripts/player/player_controller.gd": "09c5d758d4b702045a8a3b5db27002757779dac566562925792fde6df7f5906d",
+    "scripts/player/traversal_ability.gd": "3cba33dfc9bdc3f17a5f8e9a5db55c57b7ae1844cf526523717b9893b87fead3",
+    "tests/air_focus_tests.gd": "d40dd9969646938f3ff542adbc73b8056bc088d0f529f903b3af6149b737727c"
+  },
+  "runs": [
+    {
+      "log": "grapple_aim_input01.log",
+      "exit_code": 1,
+      "checks": 133,
+      "failures": 1,
+      "note": "includes original31 air-focus tests; expected fixed pointer-relative 30deg after real motion was incorrect; failure retained."
+    },
+    {
+      "log": "grapple_aim_input02.log",
+      "exit_code": 0,
+      "checks": 134,
+      "failures": 0,
+      "note": "release expected vector derived from real moved origin; original31 air-focus repeated with world/projectile0.138 within original unchanged0.02 tolerance."
+    },
+    {
+      "log": "grapple_aim_input03.log",
+      "exit_code": 0,
+      "checks": 106,
+      "failures": 0,
+      "note": "original31 no longer repeated; original input suite retained; added E+RMB aggregation and real gun focus."
+    },
+    {
+      "log": "grapple_aim_input04.log",
+      "exit_code": 0,
+      "checks": 113,
+      "failures": 0,
+      "note": "adds actual tree pause, unavailable ability, centered LB fallback, reverse device-switch."
+    },
+    {
+      "log": "grapple_actor_actions01.log",
+      "exit_code": 0,
+      "assertions": 2872,
+      "failures": 0,
+      "timeout_seconds": 180,
+      "note": "original direct --max-fps120 runtime; held-LB assertion added and exactly-one-hook-on-release retained."
+    }
+  ]
+}

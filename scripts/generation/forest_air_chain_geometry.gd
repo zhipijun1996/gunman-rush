@@ -15,6 +15,8 @@ static func build(layout: String = "arch_four") -> Dictionary:
 		data = {"spawn":[0.0,0.0],"goal":[355.0,-42.0],"world_bounds":[-320.0,-450.0,1250.0,800.0],"platforms":[{"id":"entry","rect":[-220.0,18.0,300.0,60.0],"one_way":false},{"id":"crown","rect":[250.0,-24.0,320.0,24.0],"one_way":true},{"id":"recovery","rect":[-310.0,220.0,1190.0,40.0],"one_way":false},{"id":"recovery_step","rect":[-305.0,118.0,65.0,20.0],"one_way":true}],"hook_anchors":[{"id":"relay_a","position":[300.0,-70.0]}],"dangers":[],"return":{"via":"recovery","goal_support":"entry"},"recovery":{"support":"recovery","walk_x":-275.0,"via":"recovery_step","exit":"entry"}}
 		if layout == "recoil_hook":
 			data.action_program = [{"action":"R","direction":[-1,0]},{"action":"H","anchor":"relay_a"}]
+		elif layout == "recoil_hook_recoil":
+			data.action_program = [{"action":"R","direction":[-1,0]},{"action":"H","anchor":"relay_a"},{"action":"R","direction":[0,1]}]
 		elif layout == "hook_hook":
 			data.spawn = [0.0,0.0]
 			data.goal = [355.0,-42.0]
@@ -35,7 +37,7 @@ static func for_region(layout: String = "arch_four") -> Dictionary:
 	# supply recovery. Core entry/receiver/anchors/action program stay exact.
 	var data := build(layout)
 	if data.is_empty() or layout == "arch_four": return data
-	if layout not in ["hook_hook", "recoil_hook", "bridge_five"]: return {}
+	if layout not in ["hook_hook", "recoil_hook", "recoil_hook_recoil", "bridge_five"]: return {}
 	var supports: Array = []
 	for row: Dictionary in data.platforms:
 		if str(row.id) not in REGIONAL_OMITTED_SUPPORTS: supports.append(row)

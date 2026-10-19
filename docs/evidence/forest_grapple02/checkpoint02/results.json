@@ -1,0 +1,115 @@
+{
+  "scope": "selected historical actual evidence, no new gameplay execution or whole pass",
+  "harness": {
+    "1": {
+      "actual_status": "interrupted",
+      "checks": []
+    },
+    "2": {
+      "actual_status": "failed",
+      "checks": [
+        {
+          "id": "grapple-feel",
+          "status": "passed"
+        },
+        {
+          "id": "aim-save-compat",
+          "status": "passed"
+        },
+        {
+          "id": "forest-vertical-shortcut",
+          "status": "failed"
+        }
+      ]
+    },
+    "3": {
+      "actual_status": "failed",
+      "checks": [
+        {
+          "id": "forest-vertical-shortcut",
+          "status": "failed"
+        }
+      ]
+    },
+    "4": {
+      "actual_status": "failed",
+      "checks": [
+        {
+          "id": "forest-vertical-shortcut",
+          "status": "passed"
+        },
+        {
+          "id": "forest-air-chain",
+          "status": "passed"
+        },
+        {
+          "id": "forest-depth-versions",
+          "status": "passed"
+        },
+        {
+          "id": "forest-depth-region",
+          "status": "failed"
+        }
+      ]
+    }
+  },
+  "runs": {
+    "air18_final01": {
+      "status": "passed",
+      "source_stable": true,
+      "requested_count": 18,
+      "executed_count": 18,
+      "passed_count": 18,
+      "failed_count": 0
+    },
+    "matrix16_final01": {
+      "status": "failed",
+      "source_stable": true,
+      "requested_count": 16,
+      "executed_count": 10,
+      "passed_count": 9,
+      "failed_count": 1
+    },
+    "north_side_ring_fix01": {
+      "status": "failed",
+      "source_stable": true,
+      "requested_count": 1,
+      "executed_count": 1,
+      "passed_count": 0,
+      "failed_count": 1
+    },
+    "change_mind_fix01": {
+      "status": "passed",
+      "source_stable": true,
+      "requested_count": 1,
+      "executed_count": 1,
+      "passed_count": 1,
+      "failed_count": 0
+    },
+    "canopy_rhr_trial/native01": {
+      "status": "failed",
+      "source_stable": true,
+      "requested_count": 1,
+      "executed_count": 1,
+      "passed_count": 0,
+      "failed_count": 1
+    },
+    "migrant_clearance01": {
+      "status": "failed",
+      "source_stable": true,
+      "requested_count": 1,
+      "executed_count": 1,
+      "passed_count": 0,
+      "failed_count": 1
+    }
+  },
+  "pending": "return_via/drop_through receiver integration not verified at packaging cutoff",
+  "human_device_fun": "unverified",
+  "archive": {
+    "archive_sha256": "abc45125951a832cd2ea08807c17e1213e48950d55154e2b51e831a6c470fdc3",
+    "archive_bytes": 16830821,
+    "archive_member_count_including_inventory": 847,
+    "raw_bytes": 274462300,
+    "full_readback_verified": true
+  }
+}

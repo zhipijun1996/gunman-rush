@@ -1,0 +1,719 @@
+{
+  "scope": "selected pixels only; not complete playback/audio/human handfeel",
+  "frames": [
+    {
+      "frame": 18,
+      "seconds": 0.3,
+      "reason": "actual first hanging phrase; event stamps in original capture",
+      "path": "map1-growth/frame_001.png",
+      "sha256": "c445469eb197adc7a0a2ccd98d66e8953bf7607ad2b3cc5bf52b50f1feac762d"
+    },
+    {
+      "frame": 51,
+      "seconds": 0.85,
+      "reason": "actual first hanging phrase; event stamps in original capture",
+      "path": "map1-growth/frame_002.png",
+      "sha256": "01325c338439ca651cfd2231ce861f772de137f8fd016fd742cdddc4a3c194e7"
+    },
+    {
+      "frame": 60,
+      "seconds": 1.0,
+      "reason": "actual first hanging phrase; event stamps in original capture",
+      "path": "map1-growth/frame_003.png",
+      "sha256": "e36ba2d492d8fbaff0509772ebc688b1b3cc97887b6ec119384d1d4eb76c3d2f"
+    },
+    {
+      "frame": 68,
+      "seconds": 1.1333333333333333,
+      "reason": "actual first hanging phrase; event stamps in original capture",
+      "path": "map1-growth/frame_004.png",
+      "sha256": "7dd8685f7fd05e41694c22736791ee1e1670aa2e33fb28e164ffc7c10917e29c"
+    },
+    {
+      "frame": 70,
+      "seconds": 1.1666666666666667,
+      "reason": "actual first hanging phrase; event stamps in original capture",
+      "path": "map1-growth/frame_005.png",
+      "sha256": "3961aa865d23219cc2edb0adcd42e0d218aea95f22de4b263a6e2c02e46df45b"
+    },
+    {
+      "frame": 93,
+      "seconds": 1.55,
+      "reason": "actual first hanging phrase; event stamps in original capture",
+      "path": "map1-growth/frame_006.png",
+      "sha256": "ea1b526f0c82b1cbcbb7df779e6b607086b34542271d0893c3374b2536c15613"
+    },
+    {
+      "frame": 108,
+      "seconds": 1.8,
+      "reason": "actual first hanging phrase; event stamps in original capture",
+      "path": "map1-growth/frame_007.png",
+      "sha256": "e0a624cd5f8c36bfc81c3cdec1211f86bbf6fb88be76e51818d293d552bd83bf"
+    },
+    {
+      "frame": 141,
+      "seconds": 2.35,
+      "reason": "actual first hanging phrase; event stamps in original capture",
+      "path": "map1-growth/frame_008.png",
+      "sha256": "be4a0e04621e2ceb825d25487f505e96e5e8ae560840673be139debef384ea2a"
+    },
+    {
+      "frame": 171,
+      "seconds": 2.85,
+      "reason": "actual first hanging phrase; event stamps in original capture",
+      "path": "map1-growth/frame_009.png",
+      "sha256": "706c70e69515b28213aca8dde179046289d2ac75cb5979e975646b69713e9d35"
+    }
+  ],
+  "argv": [
+    "ffmpeg",
+    "-nostdin",
+    "-v",
+    "error",
+    "-threads",
+    "1",
+    "-i",
+    "build/forest_grapple02/movie_final_map1_growth02/00-map1-growth/gameplay.avi",
+    "-vf",
+    "select=eq(n\\,18)+eq(n\\,51)+eq(n\\,60)+eq(n\\,68)+eq(n\\,70)+eq(n\\,93)+eq(n\\,108)+eq(n\\,141)+eq(n\\,171)",
+    "-fps_mode",
+    "vfr",
+    "docs/evidence/forest_grapple02/movies02/map1-growth/frame_%03d.png"
+  ],
+  "first_phrase_events": [
+    {
+      "from": "align",
+      "kind": "phase",
+      "leg": 1,
+      "position": [
+        -2200.0,
+        1882.0
+      ],
+      "presentation_frame": 19,
+      "process_frame": 19,
+      "tick": 12,
+      "to": "align"
+    },
+    {
+      "entry_support": "root_spiral__entry",
+      "geometry_instance": "root_spiral",
+      "grounded": true,
+      "hook_used": false,
+      "kind": "air_chain_departure",
+      "leg": 1,
+      "position": [
+        -2200.0,
+        1882.0
+      ],
+      "presentation_frame": 32,
+      "process_frame": 32,
+      "program": [
+        {
+          "action": "HANG",
+          "anchor": "rest_ring"
+        },
+        {
+          "action": "H",
+          "anchor": "spiral_middle"
+        },
+        {
+          "action": "R",
+          "direction": [
+            0,
+            1
+          ]
+        },
+        {
+          "action": "H",
+          "anchor": "spiral_crown"
+        }
+      ],
+      "shots": 2,
+      "tick": 25
+    },
+    {
+      "from": "align",
+      "kind": "phase",
+      "leg": 1,
+      "position": [
+        -2200.0,
+        1882.0
+      ],
+      "presentation_frame": 32,
+      "process_frame": 32,
+      "tick": 25,
+      "to": "air_chain_launch"
+    },
+    {
+      "kind": "jumped",
+      "leg": 1,
+      "position": [
+        -2200.0,
+        1882.0
+      ],
+      "presentation_frame": 32,
+      "process_frame": 32,
+      "tick": 25
+    },
+    {
+      "action": "HANG",
+      "grounded": false,
+      "hook_used": false,
+      "kind": "air_chain_action_requested",
+      "leg": 1,
+      "mapped_target": "root_spiral__rest_ring",
+      "position": [
+        -2200.0,
+        1871.54748535156
+      ],
+      "presentation_frame": 33,
+      "process_frame": 33,
+      "shots": 2,
+      "step": 0,
+      "tick": 26
+    },
+    {
+      "from": "air_chain_launch",
+      "kind": "phase",
+      "leg": 1,
+      "position": [
+        -2200.0,
+        1871.54748535156
+      ],
+      "presentation_frame": 33,
+      "process_frame": 33,
+      "tick": 26,
+      "to": "air_chain_action"
+    },
+    {
+      "hook_tip": [
+        -2200.0,
+        1865.54748535156
+      ],
+      "hook_used_at_event": true,
+      "kind": "hook_cast",
+      "leg": 1,
+      "position": [
+        -2200.0,
+        1871.54748535156
+      ],
+      "presentation_frame": 33,
+      "process_frame": 33,
+      "target": "",
+      "tick": 26
+    },
+    {
+      "hook_tip": [
+        -2200.0,
+        1865.54748535156
+      ],
+      "hook_used_at_event": true,
+      "kind": "hook_fly",
+      "leg": 1,
+      "position": [
+        -2200.0,
+        1837.25866699219
+      ],
+      "presentation_frame": 37,
+      "process_frame": 37,
+      "target": "",
+      "tick": 30
+    },
+    {
+      "hook_tip": [
+        -2312.61083984375,
+        1721.455078125
+      ],
+      "hook_used_at_event": true,
+      "kind": "hook_pull",
+      "leg": 1,
+      "position": [
+        -2200.0,
+        1805.05859375
+      ],
+      "presentation_frame": 44,
+      "process_frame": 44,
+      "target": "root_spiral__rest_ring",
+      "tick": 37
+    },
+    {
+      "hook_tip": [
+        -2312.61083984375,
+        1721.455078125
+      ],
+      "hook_used_at_event": false,
+      "kind": "hook_hang",
+      "leg": 1,
+      "position": [
+        -2288.34814453125,
+        1739.09936523438
+      ],
+      "presentation_frame": 50,
+      "process_frame": 50,
+      "target": "root_spiral__rest_ring",
+      "tick": 43
+    },
+    {
+      "grounded": false,
+      "kind": "rest_branch_observation",
+      "leg": 1,
+      "position": [
+        -2288.34814453125,
+        1739.09936523438
+      ],
+      "presentation_frame": 51,
+      "process_frame": 51,
+      "shots": 2,
+      "target": "root_spiral__rest_ring",
+      "tick": 44
+    },
+    {
+      "grounded": false,
+      "held_frames": 18,
+      "kind": "rest_branch_departure",
+      "leg": 1,
+      "position": [
+        -2288.34814453125,
+        1739.09936523438
+      ],
+      "presentation_frame": 69,
+      "process_frame": 69,
+      "target": "root_spiral__rest_ring",
+      "tick": 62
+    },
+    {
+      "action": "H",
+      "grounded": false,
+      "hook_used": false,
+      "kind": "air_chain_action_requested",
+      "leg": 1,
+      "mapped_target": "root_spiral__spiral_middle",
+      "position": [
+        -2288.34814453125,
+        1739.09936523438
+      ],
+      "presentation_frame": 69,
+      "process_frame": 69,
+      "shots": 2,
+      "step": 1,
+      "tick": 62
+    },
+    {
+      "from": "air_chain_action",
+      "kind": "phase",
+      "leg": 1,
+      "position": [
+        -2288.34814453125,
+        1739.09936523438
+      ],
+      "presentation_frame": 69,
+      "process_frame": 69,
+      "tick": 62,
+      "to": "air_chain_action"
+    },
+    {
+      "hook_tip": [
+        -2312.61083984375,
+        1721.455078125
+      ],
+      "hook_used_at_event": false,
+      "kind": "free",
+      "leg": 1,
+      "position": [
+        -2288.34814453125,
+        1739.09936523438
+      ],
+      "presentation_frame": 69,
+      "process_frame": 69,
+      "target": "root_spiral__rest_ring",
+      "tick": 62
+    },
+    {
+      "hook_tip": [
+        -2288.34814453125,
+        1733.09936523438
+      ],
+      "hook_used_at_event": true,
+      "kind": "hook_cast",
+      "leg": 1,
+      "position": [
+        -2288.34814453125,
+        1739.09936523438
+      ],
+      "presentation_frame": 69,
+      "process_frame": 69,
+      "target": "root_spiral__rest_ring",
+      "tick": 62
+    },
+    {
+      "hook_tip": [
+        -2288.34814453125,
+        1733.09936523438
+      ],
+      "hook_used_at_event": true,
+      "kind": "hook_fly",
+      "leg": 1,
+      "position": [
+        -2288.34814453125,
+        1746.32153320312
+      ],
+      "presentation_frame": 73,
+      "process_frame": 73,
+      "target": "root_spiral__rest_ring",
+      "tick": 66
+    },
+    {
+      "hook_tip": [
+        -2233.50439453125,
+        1553.47692871094
+      ],
+      "hook_used_at_event": true,
+      "kind": "hook_pull",
+      "leg": 1,
+      "position": [
+        -2288.34814453125,
+        1786.76599121094
+      ],
+      "presentation_frame": 80,
+      "process_frame": 80,
+      "target": "root_spiral__spiral_middle",
+      "tick": 73
+    },
+    {
+      "hook_tip": [
+        -2233.50439453125,
+        1553.47692871094
+      ],
+      "hook_used_at_event": true,
+      "kind": "hook_contact_kick",
+      "leg": 1,
+      "position": [
+        -2240.13623046875,
+        1582.73474121094
+      ],
+      "presentation_frame": 92,
+      "process_frame": 92,
+      "target": "root_spiral__spiral_middle",
+      "tick": 85
+    },
+    {
+      "hook_tip": [
+        -2233.50439453125,
+        1553.47692871094
+      ],
+      "hook_used_at_event": false,
+      "kind": "hook_kick",
+      "leg": 1,
+      "position": [
+        -2240.13623046875,
+        1582.73474121094
+      ],
+      "presentation_frame": 99,
+      "process_frame": 99,
+      "target": "root_spiral__spiral_middle",
+      "tick": 92
+    },
+    {
+      "hook_tip": [
+        -2264.13623046875,
+        1552.73474121094
+      ],
+      "hook_used_at_event": false,
+      "kind": "free",
+      "leg": 1,
+      "position": [
+        -2264.13623046875,
+        1558.73474121094
+      ],
+      "presentation_frame": 106,
+      "process_frame": 106,
+      "target": "root_spiral__spiral_middle",
+      "tick": 99
+    },
+    {
+      "grounded": false,
+      "hook_tip": [
+        -2264.13623046875,
+        1552.73474121094
+      ],
+      "hook_used": false,
+      "kind": "air_chain_H_completed",
+      "leg": 1,
+      "position": [
+        -2264.13623046875,
+        1558.73474121094
+      ],
+      "presentation_frame": 107,
+      "process_frame": 107,
+      "step": 1,
+      "target": "root_spiral__spiral_middle",
+      "tick": 100
+    },
+    {
+      "action": "R",
+      "grounded": false,
+      "hook_used": false,
+      "kind": "air_chain_action_requested",
+      "leg": 1,
+      "mapped_target": "",
+      "position": [
+        -2264.13623046875,
+        1558.73474121094
+      ],
+      "presentation_frame": 107,
+      "process_frame": 107,
+      "shots": 2,
+      "step": 2,
+      "tick": 100
+    },
+    {
+      "from": "air_chain_action",
+      "kind": "phase",
+      "leg": 1,
+      "position": [
+        -2264.13623046875,
+        1558.73474121094
+      ],
+      "presentation_frame": 107,
+      "process_frame": 107,
+      "tick": 100,
+      "to": "air_chain_action"
+    },
+    {
+      "aim": [
+        0.0,
+        1.0
+      ],
+      "kind": "shot_fired",
+      "leg": 1,
+      "position": [
+        -2264.13623046875,
+        1558.73474121094
+      ],
+      "presentation_frame": 107,
+      "process_frame": 107,
+      "serial": 1,
+      "tick": 100
+    },
+    {
+      "direction": [
+        0.0,
+        1.0
+      ],
+      "fired_airborne": true,
+      "kind": "actual_projectile_spawned",
+      "leg": 1,
+      "lifetime": 2.0,
+      "owner_id": 157336733882,
+      "packet": 1,
+      "position": [
+        -2264.13623046875,
+        1558.73474121094
+      ],
+      "presentation_frame": 107,
+      "process_frame": 107,
+      "projectile_position": [
+        -2264.13623046875,
+        1558.73474121094
+      ],
+      "serial": 1,
+      "session_id": 2,
+      "tick": 100,
+      "weapon_epoch": 0
+    },
+    {
+      "grounded": false,
+      "kind": "air_chain_R_completed",
+      "leg": 1,
+      "position": [
+        -2264.13623046875,
+        1404.734375
+      ],
+      "presentation_frame": 116,
+      "process_frame": 116,
+      "shots": 1,
+      "step": 2,
+      "tick": 109
+    },
+    {
+      "action": "H",
+      "grounded": false,
+      "hook_used": false,
+      "kind": "air_chain_action_requested",
+      "leg": 1,
+      "mapped_target": "root_spiral__spiral_crown",
+      "position": [
+        -2264.13623046875,
+        1404.734375
+      ],
+      "presentation_frame": 116,
+      "process_frame": 116,
+      "shots": 1,
+      "step": 3,
+      "tick": 109
+    },
+    {
+      "from": "air_chain_action",
+      "kind": "phase",
+      "leg": 1,
+      "position": [
+        -2264.13623046875,
+        1404.734375
+      ],
+      "presentation_frame": 116,
+      "process_frame": 116,
+      "tick": 109,
+      "to": "air_chain_action"
+    },
+    {
+      "hook_tip": [
+        -2264.13623046875,
+        1398.734375
+      ],
+      "hook_used_at_event": true,
+      "kind": "hook_cast",
+      "leg": 1,
+      "position": [
+        -2264.13623046875,
+        1404.734375
+      ],
+      "presentation_frame": 116,
+      "process_frame": 116,
+      "target": "root_spiral__spiral_middle",
+      "tick": 109
+    },
+    {
+      "hook_tip": [
+        -2264.13623046875,
+        1398.734375
+      ],
+      "hook_used_at_event": true,
+      "kind": "hook_fly",
+      "leg": 1,
+      "position": [
+        -2264.13623046875,
+        1404.734375
+      ],
+      "presentation_frame": 120,
+      "process_frame": 120,
+      "target": "root_spiral__spiral_middle",
+      "tick": 113
+    },
+    {
+      "hook_tip": [
+        -2117.63916015625,
+        1221.25439453125
+      ],
+      "hook_used_at_event": true,
+      "kind": "hook_pull",
+      "leg": 1,
+      "position": [
+        -2264.13623046875,
+        1411.19262695312
+      ],
+      "presentation_frame": 128,
+      "process_frame": 128,
+      "target": "root_spiral__spiral_crown",
+      "tick": 121
+    },
+    {
+      "hook_tip": [
+        -2117.63916015625,
+        1221.25439453125
+      ],
+      "hook_used_at_event": true,
+      "kind": "hook_contact_kick",
+      "leg": 1,
+      "position": [
+        -2135.77465820312,
+        1245.15209960938
+      ],
+      "presentation_frame": 140,
+      "process_frame": 140,
+      "target": "root_spiral__spiral_crown",
+      "tick": 133
+    },
+    {
+      "hook_tip": [
+        -2117.63916015625,
+        1221.25439453125
+      ],
+      "hook_used_at_event": false,
+      "kind": "hook_kick",
+      "leg": 1,
+      "position": [
+        -2135.77465820312,
+        1245.15209960938
+      ],
+      "presentation_frame": 147,
+      "process_frame": 147,
+      "target": "root_spiral__spiral_crown",
+      "tick": 140
+    },
+    {
+      "hook_tip": [
+        -2159.77465820312,
+        1215.15209960938
+      ],
+      "hook_used_at_event": false,
+      "kind": "free",
+      "leg": 1,
+      "position": [
+        -2159.77465820312,
+        1221.15209960938
+      ],
+      "presentation_frame": 154,
+      "process_frame": 154,
+      "target": "root_spiral__spiral_crown",
+      "tick": 147
+    },
+    {
+      "grounded": false,
+      "hook_tip": [
+        -2159.77465820312,
+        1215.15209960938
+      ],
+      "hook_used": false,
+      "kind": "air_chain_H_completed",
+      "leg": 1,
+      "position": [
+        -2159.77465820312,
+        1221.15209960938
+      ],
+      "presentation_frame": 155,
+      "process_frame": 155,
+      "step": 3,
+      "target": "root_spiral__spiral_crown",
+      "tick": 148
+    },
+    {
+      "from": "air_chain_action",
+      "kind": "phase",
+      "leg": 1,
+      "position": [
+        -2159.77465820312,
+        1221.15209960938
+      ],
+      "presentation_frame": 155,
+      "process_frame": 155,
+      "tick": 148,
+      "to": "air_chain_receive"
+    },
+    {
+      "exit_support": "root_spiral__crown",
+      "geometry_instance": "root_spiral",
+      "hook_used": false,
+      "kind": "air_chain_arrival",
+      "leg": 1,
+      "position": [
+        -2050.37744140625,
+        1321.92407226562
+      ],
+      "presentation_frame": 193,
+      "process_frame": 193,
+      "program_steps": 4,
+      "shots": 2,
+      "tick": 186
+    }
+  ]
+}

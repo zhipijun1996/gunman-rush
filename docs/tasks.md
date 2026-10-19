@@ -37,6 +37,8 @@ FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试�
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
+| FOREST-GRAPPLE-CONSUMERS-02 | 本轮动作／版本与严格因果验收消费者迁移 | FOREST-GRAPPLE-02 | in_progress | [限定记录](quality/records/FOREST-GRAPPLE-CONSUMERS-02.json)；仅工具和测试迁移，不代签森林玩法；原断言、预算、历史原件与失败保留 |
+| FOREST-GRAPPLE-02 | 钩拉手感／停留环／15%双瞄准／纵向连续动作密度 | FOREST-FEEDBACK-01 | in_progress | [质量记录](quality/records/FOREST-GRAPPLE-02.json)；最新用户反馈续轮，专项、代表16+额外HH1及两图正常片已实测；原80/CI与Web待；尾路省两句及上层吸引力REVISE，真人/设备未验 |
 | FOREST-FEEDBACK-01 | 扩大森林／真实空中连续动作／生态与地块场景语言 | FOREST-DEPTH-02 | in_progress | [质量记录](quality/records/FOREST-FEEDBACK-01.json)；用户四项反馈续轮；v11已发布5fd40a31c4be，CI86/GUI20通过，体验仍REVISE；[发布证据](evidence/forest_depth_v2/forest_feedback01/release01/README.md) |
 | FOREST-DEPTH-02 | 森林动作空间／探索／生态／两Boss重构及现有流程改进 | FOREST-PLAYABLE-01 | in_progress | v10可玩候选，Canopy黄金／App03／N回程已采；整体设计REVISE，最终同源结果以PR／分支检查与实际构建元数据为准，原失败保留 |
 | FOREST-DEPTH-TEST-CONSUMERS-01 | 测试消费者真实App／Node生命周期／严格退出与证据修复 | FOREST-DEPTH-02 | review | [有界质量记录](quality/records/FOREST-DEPTH-TEST-CONSUMERS-01.json)；原断言／预算／strict守卫不减，精确S已获不同作者限定独审，fresh完整CI仍待验 |

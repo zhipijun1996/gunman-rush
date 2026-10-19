@@ -596,5 +596,13 @@ class ProductionTimingTests(unittest.TestCase):
             self.assertEqual(timing.collect([ledger])["events"][-1]["captured_log"]["status"],"not_created")
 
 
+def load_tests(loader, standard_tests, pattern):
+    # Keep the original suite and run new completion/forgery guards through
+    # the same CI entry point and existing 60-second budget.
+    for module_name in ("test_grapple_feel_wrapper", "test_forest_vertical_shortcut"):
+        standard_tests.addTests(loader.loadTestsFromName(module_name))
+    return standard_tests
+
+
 if __name__ == "__main__":
     unittest.main()

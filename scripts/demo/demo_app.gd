@@ -291,12 +291,18 @@ func _load_stage() -> void:
 				forest_capability.forest_content_version = recorded_version
 		# Hash-bound replay of both prior admitted versions; no save rewrite.
 		if active_region_id == &"plains" and region_state != null and not region_state.manifest_hash.is_empty() and generated.ok and region_state.manifest_hash != generated.manifest.manifest_hash:
-			for prior_mode: String in ["v2", "legacy_v10"]:
+			var matched_saved_map := false
+			for prior_mode: String in [_root_bell_run_mode,"v2", "legacy_v10"]:
 				region_generator.root_bell_mode = prior_mode
-				var prior_generated := region_generator.generate(actual_seed, controller.motor.tuning,false,"",difficulty)
-				if prior_generated.ok and prior_generated.manifest.manifest_hash == region_state.manifest_hash:
-					generated = prior_generated
-					break
+				for historical_focus: bool in [false,true]:
+					var prior_generated := region_generator.generate_before_focus_15(actual_seed,controller.motor.tuning,false,"",difficulty) if historical_focus else region_generator.generate(actual_seed,controller.motor.tuning,false,"",difficulty)
+					if prior_generated.ok and prior_generated.manifest.manifest_hash == region_state.manifest_hash:
+						generated = prior_generated
+						matched_saved_map = true
+						break
+				if matched_saved_map: break
+			if not matched_saved_map:
+				generated = {"ok":false,"error":"Recorded plains hash does not match a supported content/tuning version"}
 		if not generated.ok:
 			_status = "GENERATION FAILED / " + str(generated.error)
 			abandon_run()

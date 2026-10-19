@@ -1,10 +1,10 @@
 class_name ThornForestRegionV2
 extends RefCounted
-## Expanded playtest candidate. Historical v10 is pinned in its own producer.
+## Expanded playtest candidate. Historical v11 is pinned in its own producer.
 const VERSION := "thorn-forest-region-v2"
-const LAYOUT_VERSION := "forest-expedition-airborne-v11"
+const LAYOUT_VERSION := "forest-woven-trunk-v12"
 const BASE := preload("res://scripts/generation/thorn_forest_region_v2_v10.gd")
-const EXPEDITION := preload("res://scripts/generation/forest_expedition_layout.gd")
+const EXPEDITION := preload("res://scripts/generation/forest_vertical_expedition.gd")
 const LANGUAGE := preload("res://scripts/generation/forest_scene_language.gd")
 const FAMILIES := BASE.FAMILIES
 
@@ -30,6 +30,7 @@ func generate_spatial_candidate(seed_value: String,tuning: PlayerTuning,map_inde
 func _candidate(seed_value: String,map_index: int) -> Dictionary:
 	var m: Dictionary=BASE.new()._candidate(seed_value,map_index)
 	m.layout_version=LAYOUT_VERSION
+	m.player_tuning_hash=FileAccess.get_sha256("res://config/player_tuning.json")
 	EXPEDITION.install(m)
 	LANGUAGE.annotate(m)
 	m.topology_signature=BASE.topology_signature(m)

@@ -1,6 +1,9 @@
 class_name ThornForestRegionV1
 extends RefCounted
 ## Forest-owned semantic graph. Geometry, grants and encounters are recorded before assembly.
+# Historical generation basis, not the current runtime movement/aim contract.
+# Baseline 6c61faadd511c48a267b975550da897e701fd09f config bytes.
+const GENERATION_TUNING_HASH := "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
 const VERSION := "thorn-forest-region-v1"
 const FAMILIES := ["embracing_trunks", "slant_canopy", "hollow_heart"]
 const TRAVERSAL := preload("res://resources/player/traversal.tres")
@@ -26,7 +29,7 @@ func _candidate(seed_value: String, map_index: int) -> Dictionary:
 	var mirror := topology.next_int(2) == 1
 	var m := {"version":VERSION, "region":"thorn_forest", "map_index":map_index, "seed":seed_value,
 		"family":family, "layout_id":"forest_canopy_loops", "fallback_id":"", "requires":["grapple"],
-		"player_tuning_hash":FileAccess.get_sha256("res://config/player_tuning.json"),
+		"player_tuning_hash":GENERATION_TUNING_HASH,
 		"traversal_hash":FileAccess.get_sha256("res://resources/player/traversal.tres"),
 		"platforms":[], "hook_anchors":[], "areas":[], "connections":[], "rewards":[],
 		"pickups":[], "enemies":[], "enemy_drops":{}, "dangers":[], "nodes":[{"id":"forest", "mirrored":mirror}],
@@ -156,7 +159,7 @@ func validate(m: Dictionary, tuning: PlayerTuning) -> bool:
 	if tuning == null or m.get("version") != VERSION or m.get("region") != "thorn_forest" or not m.get("seed") is String or str(m.seed).is_empty(): return false
 	var map_number: Variant = m.get("map_index")
 	if not (map_number is int or map_number is float) or not is_finite(float(map_number)) or float(map_number) != float(int(map_number)) or int(map_number) not in [1,2]: return false
-	if m.get("player_tuning_hash") != FileAccess.get_sha256("res://config/player_tuning.json") or m.get("traversal_hash") != FileAccess.get_sha256("res://resources/player/traversal.tres"): return false
+	if m.get("player_tuning_hash") != GENERATION_TUNING_HASH or m.get("traversal_hash") != FileAccess.get_sha256("res://resources/player/traversal.tres"): return false
 	if m.get("manifest_hash") != _hash(m) or m.get("requires") != ["grapple"]: return false
 	if not m.get("family") in FAMILIES: return false
 	# Compare arbitrary replay data before accessing nested geometry. Rehashed malformed

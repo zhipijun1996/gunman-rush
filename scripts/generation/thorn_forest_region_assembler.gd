@@ -46,6 +46,7 @@ func build(recorded: Dictionary, tuning: PlayerTuning) -> Dictionary:
 		var target := GrappleAnchor.new()
 		target.name = row.id
 		target.position = Vector2(row.position[0],row.position[1])
+		target.hang_enabled = bool(row.get("hang_enabled",false))
 		add_child(target)
 		hook_targets[row.id] = target
 	var gate := ThornForestRegionGenerator._rect(manifest.vine_gate.rect)
@@ -118,6 +119,9 @@ func module_index_at(point: Vector2) -> int:
 	return -1
 
 func _draw() -> void:
+	for anchor: Dictionary in manifest.get("hook_anchors",[]):
+		if bool(anchor.get("hang_enabled",false)) and anchor.has("tether_origin"):
+			draw_line(Vector2(anchor.tether_origin[0],anchor.tether_origin[1]),Vector2(anchor.position[0],anchor.position[1]),Color("527e5a"),3.0,true)
 	if manifest.get("scene_language_version", 0) == ForestSceneLanguage.VERSION:
 		ForestSceneLanguage.draw_structure_backdrops(self, manifest)
 	if is_instance_valid(vine_shape) and not vine_shape.disabled:

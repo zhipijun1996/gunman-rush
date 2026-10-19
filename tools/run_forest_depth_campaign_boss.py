@@ -98,7 +98,7 @@ def validate_pointer_and_map2(data):
         require(finite(frame.get('hp')) and 0<frame['hp']<=after['capacity'] and frame['hp']<=after['hp'],'Every map2 coast observation must be alive within captured entry health/capacity')
         require(frame.get('map')==after['map']==2 and frame.get('session')==after['session'] and vector(frame.get('position')) and type(frame.get('grounded')) is bool,'Every coast observation must belong to actual second-map actor with finite position')
 
-CANOPY_LAYOUTS = frozenset({'shared-tree-canopy-hunt-v10', 'forest-expedition-airborne-v11'})
+CANOPY_LAYOUTS = frozenset({'shared-tree-canopy-hunt-v10', 'forest-expedition-airborne-v11', 'forest-woven-trunk-v12'})
 CANOPY_CONTENT = {'contract':'forest-queen-canopy-v3',
                   'scene':'res://scenes/bosses/thorn_queen_canopy.tscn',
                   'resource':'res://resources/bosses/thorn_queen_canopy.tres'}

@@ -196,6 +196,117 @@ def validate_current(data):
                 or not all(n.get('rejected') is True for n in negatives)):
             raise ValueError('Every typed current-layout negative must actually reject')
 
+
+def validate_latest(data):
+    """Preserve exact old readers; require additional independently expected v12."""
+    if data.get('capture_schema') != 4:
+        raise ValueError('Woven-trunk version capture schema required')
+    if type(data.get('assertions')) is not int or data['assertions'] < 212:
+        raise ValueError('All historical and added v12/native replay assertions required')
+    cases = data.get('cases', [])
+    rows = [r for r in cases if r.get('id') == 'vertical_content_contract']
+    if len(cases) != 20 or len(rows) != 2 or {r.get('map') for r in rows} != {1, 2}:
+        raise ValueError('Exact historical sixteen, two actual final v11 fixtures and two v12 cases required')
+    recorded = dict(data)
+    recorded['capture_schema'] = 3
+    recorded['cases'] = [r for r in cases if r.get('id') not in {'vertical_content_contract', 'recorded_expedition_layout'}]
+    validate_current(recorded)
+    actual_v11 = [r for r in cases if r.get('id') == 'recorded_expedition_layout']
+    fixture_hashes = {1:'ddd26758ae3d968927a16bfaa94c89366e00a443120b6441fc2a285df615a2ff',
+                      2:'85e7ef09f8fbc59a4f0f5f70d2286200bb9e86bb55db6fcc029a08847949cf72'}
+    if len(actual_v11) != 2 or {r.get('map') for r in actual_v11} != {1, 2}:
+        raise ValueError('Both source-bound original final v11 map fixtures required')
+    for row in actual_v11:
+        index = row['map']
+        if type(index) is not int:
+            raise ValueError('Typed original final v11 map identity required')
+        p = ROOT / f'tests/fixtures/forest_recorded_layouts/v11_corpus_map{index}.json'
+        original = json.loads(p.read_text())
+        if (hashlib.sha256(p.read_bytes()).hexdigest() != fixture_hashes[index]
+                or row.get('fixture_sha256') != fixture_hashes[index]
+                or row.get('original') != original or row.get('rebuilt') != original
+                or row.get('current_tuning_mutation_rejected') is not True):
+            raise ValueError('Entire final v11 original hash/geometry must exactly replay')
+    expected_flights = ['root_spiral_flight', 'lower_fork_flight',
+        'thorn_mouth_flight', 'middle_fork_flight', 'broken_arch_flight',
+        'upper_spiral_flight', 'canopy_fork_flight']
+    expected_hangs = ['root_spiral__rest_ring', 'thorn_mouth__rest_ring',
+        'thorn_retry_low_ring', 'thorn_retry_high_ring', 'thorn_retry_exit_ring',
+        'upper_spiral__rest_ring']
+    for row in rows:
+        index = row['map']
+        m = row.get('manifest', {})
+        boss = 'rootbell_guardian_v2' if index == 1 else 'thorn_queen_canopy'
+        if (type(index) is not int or m.get('layout_version') != 'forest-woven-trunk-v12'
+                or m.get('version') != 'thorn-forest-region-v2'
+                or m.get('region') != 'thorn_forest' or type(m.get('map_index')) is not int
+                or m['map_index'] != index or m.get('seed') != f'version-woven-map-{index}'
+                or m.get('production_pool') is not False or m.get('requires') != ['grapple']
+                or not re.fullmatch(r'[0-9a-f]{64}', str(m.get('manifest_hash', '')))
+                or row.get('complete_output_equal') is not True or row.get('default_manifest') != m
+                or row.get('boss_scene') != f'res://scenes/bosses/{boss}.tscn'
+                or row.get('boss_resource') != f'res://resources/bosses/{boss}.tres'):
+            raise ValueError('Exact explicit v12/default identity and Boss pair required')
+        if m.get('player_tuning_hash') != hashlib.sha256((ROOT / 'config/player_tuning.json').read_bytes()).hexdigest():
+            raise ValueError('Actual current v12 tuning fingerprint required')
+        edges = [e for e in m.get('connections', []) if e.get('id') in expected_flights]
+        if (len(edges) != 7 or [e['id'] for e in edges] != expected_flights
+                or row.get('primary_flights') != expected_flights
+                or any(e.get('kind') != 'airborne_chain'
+                    or e.get('continuous_airborne') is not True
+                    or e.get('optional_lower_alternative') is not False
+                    or not isinstance(e.get('action_program'), list)
+                    or len(e['action_program']) < 2
+                    or e['id'] not in m.get('routes', {}).get('fast', []) for e in edges)):
+            raise ValueError('Seven actual distinct primary compound edges required; not playability proof')
+        hangs = [a.get('id') for a in m.get('hook_anchors', []) if a.get('hang_enabled') is True]
+        if hangs != expected_hangs or row.get('hang_ids') != expected_hangs:
+            raise ValueError('Six exact declared hanging objects required')
+        rest_ids = [a['id'] for a in m['hook_anchors'] if a.get('hang_enabled') is True
+                    and a.get('scene_kind') == 'hanging_growth_ring']
+        if rest_ids != ['root_spiral__rest_ring', 'thorn_mouth__rest_ring', 'upper_spiral__rest_ring']:
+            raise ValueError('Three original rest-ring declarations must remain distinct')
+        recovery_ids = [a['id'] for a in m['hook_anchors'] if a.get('hang_enabled') is True
+            and a.get('scene_kind') == 'hanging_root_ring'
+            and a.get('tether_host_support_id') == 'thorn_mouth__entry'
+            and a.get('recovery_role') == 'deep_catch_return_to_thorn_mouth']
+        if recovery_ids != ['thorn_retry_low_ring', 'thorn_retry_high_ring', 'thorn_retry_exit_ring']:
+            raise ValueError('Three recovery stages must share the real unchanged one-way host')
+        rests = [e for e in m['connections'] if e.get('id') == 'root_spiral_rest_flight']
+        if (len(rests) != 1 or rests[0].get('kind') != 'hanging_chain'
+                or rests[0].get('a') != 'root_spiral_mouth' or rests[0].get('b') != 'root_spiral_crown'
+                or rests[0].get('rest_anchor_id') != 'root_spiral__rest_ring'
+                or rests[0].get('hang_observation_frames') != 18
+                or not isinstance(rests[0].get('action_program'), list)
+                or len(rests[0]['action_program']) < 2):
+            raise ValueError('Exact early hanging alternative and declared observation contract required')
+        routes = m.get('routes', {})
+        if ('root_spiral_rest_flight' in routes.get('fast', [])
+                or 'root_spiral_flight' not in routes.get('fast', [])
+                or any('root_spiral_rest_flight' not in routes.get(key, [])
+                    or 'root_spiral_flight' in routes.get(key, []) for key in ('growth', 'high_return'))):
+            raise ValueError('Growth/high routes must actually choose the alternate same-crown path')
+        rise = m.get('vertical_contract', {}).get('primary_rise')
+        if (type(rise) not in (int, float) or rise != 1528.0
+                or m['spawn'][1] - edges[-1]['landing'][1] != 1528.0):
+            raise ValueError('Primary rise must match actual starting and final banks')
+        hosts = [p for p in m['platforms'] if p.get('id') == 'thorn_mouth__entry']
+        recovery = m.get('expedition_recovery', {})
+        if (len(hosts) != 1 or hosts[0].get('one_way') is not True
+                or recovery.get('support') != 'thorn_mouth__recovery'
+                or recovery.get('mouth') != 'thorn_mouth_mouth'):
+            raise ValueError('Recovery must use the legitimate bough to return to SAME thorn mouth')
+        if index == 2:
+            from run_forest_depth_campaign_boss import validate_map2_boss_identity
+            validate_map2_boss_identity(m)
+        expected = {'relabeled/forest-woven-trunk-v999',
+                    'relabeled/forest-expedition-airborne-v11', 'missing_hang', 'missing_flight', 'historical_tuning',
+                    'missing_rest_choice', 'wrong_recovery_mouth'}
+        negatives = row.get('negative_cases', [])
+        if (len(negatives) != 7 or {n.get('kind') for n in negatives} != expected
+                or not all(n.get('rejected') is True for n in negatives)):
+            raise ValueError('Every typed v12 version/semantic negative must reject')
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output-dir', default='build/forest_depth/versions/native')
@@ -228,7 +339,7 @@ def main():
             raise RuntimeError('Complete native version result missing')
         if re.search(r'(^|\n)(?:SCRIPT )?ERROR:', text):
             raise RuntimeError('Unexpected native engine ERROR')
-        validate_current(json.loads((out / 'capture.json').read_text()))
+        validate_latest(json.loads((out / 'capture.json').read_text()))
         receipt['passed'] = True
     finally:
         receipt['source_after'] = level_formal.source_files()

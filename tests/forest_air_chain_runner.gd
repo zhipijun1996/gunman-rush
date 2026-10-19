@@ -29,7 +29,7 @@ func run() -> void:
 	driver.set_physics_process(false);observer.set_physics_process(false)
 	controller.router.clear("golden_capture_complete")
 	var data: Dictionary={"source_scope":"development_golden_not_formal_region_admission","variant":variant,"manifest":room.manifest,"frames":frames,"events":events,"requests":requests,"danger_contacts":danger_contacts,"reached":reached,"returned":returned,"recovered":recovered,"failure":failure,"manual_motor_step":false,"midroute_injection":false,"engine":Engine.get_version_info().string,"layout":layout,"first_hook_delay":first_hook_delay}
-	var expected: bool = reached and returned and danger_contacts.is_empty() if variant=="intended" else not reached and recovered
+	var expected: bool = reached and returned and danger_contacts.is_empty() if variant in ["intended","skipLowerH"] else not reached and recovered
 	if variant == "skipLastH": expected = (reached and returned and danger_contacts.is_empty()) or (not reached and recovered)
 	data["passed"]=expected
 	var audio_ok: bool=await preload("res://tests/audio_teardown.gd").drain_world(room)
@@ -59,15 +59,39 @@ func drive() -> void:
 	tick += 1
 	age += 1
 	steps_before = player.motion_steps
+	if layout=="hollow_spiral" and variant=="skipLowerH":
+		if phase=="settle" and age==12:
+			jump();set_phase("spiral_alt_launch")
+		elif phase=="spiral_alt_launch" and age==24:
+			action(&"shoot_release",Vector2.DOWN);release_jump();set_phase("spiral_alt_recoil")
+		elif phase=="spiral_alt_recoil" and age>=9 and player.recoil_burst_remaining<=0:
+			program_index=1;_next_program_action()
+		if phase in ["settle","spiral_alt_launch","spiral_alt_recoil"]:return
+	if layout=="hollow_spiral" and variant in ["onlyR","naivejump"]:
+		if phase=="settle" and age==12:
+			jump();set_phase("spiral_ordinary")
+		elif phase=="spiral_ordinary":
+			controller.router.set_move_axis(clampf((float(room.manifest.goal[0])-player.position.x)/20,-1,1))
+			# Full held jump followed by two straight-up bursts at their real
+			# apexes is a stronger vertical alternative than removing H inputs.
+			if variant=="onlyR" and age==24: action(&"shoot_release",Vector2.DOWN)
+			if variant=="onlyR" and age==42: action(&"shoot_release",Vector2.DOWN)
+			if age==43 or (variant=="naivejump" and age==24):release_jump()
+			if age>70 and on_support("entry"):
+				controller.router.set_move_axis(0);recovered=true;finished=true
+			elif age>70 and on_support("recovery"):set_phase("recover_walk")
+		if phase in ["settle","spiral_ordinary"]:return
+	if layout=="hollow_spiral" and phase=="land_crown" and age>15 and on_support("entry"):
+		controller.router.set_move_axis(0);set_phase("catch")
 	if tick > 1100:
 		failure = "bounded_route_timeout/"+phase
 		finished = true
 		return
-	if layout == "bridge_five" and not reached and on_support("recovery") and phase not in ["recover_walk","recover_step","recover_entry"]:
+	if layout in ["bridge_five","hollow_spiral"] and not reached and on_support("recovery") and phase not in ["recover_walk","recover_step","recover_entry"]:
 		release_jump()
 		controller.router.clear("bridge_real_root_recovery")
 		set_phase("recover_walk")
-	if layout == "bridge_five" and phase == "catch" and on_support("entry"):
+	if layout in ["bridge_five","hollow_spiral"] and phase == "catch" and on_support("entry"):
 		var entry_rect: Array = room.manifest.platforms[0].rect
 		var full_entry: bool = player.is_on_floor() and player.position.x-12 >= float(entry_rect[0])-.1 and player.position.x+12 <= float(entry_rect[0])+float(entry_rect[2])+.1 and absf(player.position.y+18-float(entry_rect[1]))<1
 		stable = stable+1 if full_entry else 0
@@ -114,7 +138,7 @@ func drive() -> void:
 			controller.router.set_move_axis(1)
 			set_phase("bank_return")
 	elif phase == "bank_return":
-		var crown_row: Dictionary = room.manifest.platforms[1]
+		var crown_row: Dictionary = room.manifest.platforms.filter(func(row: Dictionary) -> bool:return row.id=="crown")[0]
 		var clear_x: float = float(crown_row.rect[0])+float(crown_row.rect[2])+36.0
 		if layout == "bridge_five": clear_x = float(room.manifest.return.drop_outside_x)
 		controller.router.set_move_axis(1 if player.position.x < clear_x else 0)
@@ -141,12 +165,12 @@ func _next_program_action() -> void:
 		set_phase("land_crown")
 		return
 	var row: Dictionary = room.manifest.action_program[program_index]
-	if layout == "bridge_five" and variant == "skipLastH" and program_index == room.manifest.action_program.size()-1:
+	if layout in ["bridge_five","hollow_spiral"] and variant == "skipLastH" and program_index == room.manifest.action_program.size()-1:
 		program_index += 1
 		_next_program_action()
 		return
 	program_started = tick
-	if layout == "bridge_five" and variant == "skipR" and row.action == "R":
+	if layout in ["bridge_five","hollow_spiral"] and variant == "skipR" and row.action == "R":
 		program_index += 1
 		_next_program_action()
 		return

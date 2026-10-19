@@ -1,4 +1,6 @@
-# FOREST-DEPTH-02：新版森林试玩候选
+# FOREST-GRAPPLE-02：钩索与纵向森林
+
+2026-10-19开发修订：默认布局现为 `forest-woven-trunk-v12`。修复斜下钩实际碰撞拉动、近垂直小踢，新增青色停留环，枪／钩空中瞄准世界速度15%，PC右键/E和LB按住瞄准松手发钩。七段推荐主线累计纵升1528px，实际HHRH、HR、HRHH、条件RHR与挂环分路；树皮、枝冠、荆棘窄口和返程树洞均有明确场景身份。专项手感38／输入119／激光174／保存122、18黄金、212兼容分别实测通过；最终当前源两图×两Seed×四路线16/16实际严格通过，旧失败与删案保留。最终源正常60fps两片实际通过（图2快路1769帧、图1挂环成长2038帧）；完整80／600s、同SHA gameplay/art89、Web发布与GUI仍待实际结果。见[本轮证据与明确缺口](evidence/forest_grapple02/README.md)。实证旧根JR尾路可省最后两句，当前上层无独占奖励，不能称七句全部必经或高难替代；主干跨Seed顺序仍固定、部分模板复用，真人手感／设备／随机探索与商业品质未通过；任务保持in_progress。以下旧交付身份和旧默认仅为历史。
 
 2026-10-18最新可试玩交付：[build5fd40a31c4be](https://zhipijun1996.github.io/gunman-rush/?v=5fd40a31c4be)，游戏源码 `5a9f4bdaf846a635eb2659080d563b865758ab87`，默认 `forest-expedition-airborne-v11`。[实际证据及边界](evidence/forest_depth_v2/forest_feedback01/release01/README.md)。选定CI39160856629完整SUCCESS：86项gameplay/art同源汇总、Web/Windows/deploy/verify_public通过；公开PCK校验与GUI02八入口20/20通过，森林两图实际v11。原GUI01 OCR失败、原本机600秒/长片240秒失败不覆盖；仅浏览器采证工具窗口后修并独审负例，不冒称后续工具/文档HEAD重新构建游戏。CI ZIP受proxy403阻断，publisher live_verified仍false，原包72未执行。原质量记录glob漏覆盖已doc-only修正且push/PR两docs通过。整体REVISE/in_progress，摆荚价值、QueenH、巨木轮廓/荆棘宿主、真人/设备/商业仍未认可。以下H与其他旧交付段仅为历史。
 

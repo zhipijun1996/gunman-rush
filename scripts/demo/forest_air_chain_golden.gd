@@ -7,7 +7,8 @@ var module: PlatformingModule
 var player: PlayerMotor
 var controller: PlayerController
 func _ready() -> void:
-	manifest = FACTORY.build(layout)
+	manifest = preload("res://scripts/generation/forest_vertical_chain_geometry.gd").build() if layout=="hollow_spiral" else FACTORY.build(layout)
+	if layout=="thorn_mouth":manifest=preload("res://scripts/generation/forest_thorn_mouth_geometry.gd").build()
 	assert(not manifest.is_empty())
 	module = PlatformingModule.new()
 	module.definition = ForestDirectionalGeometry.as_module(manifest)

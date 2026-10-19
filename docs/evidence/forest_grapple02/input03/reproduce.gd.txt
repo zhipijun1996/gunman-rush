@@ -1,0 +1,35 @@
+extends SceneTree
+var failures := 0
+func _initialize() -> void: run.call_deferred()
+func mouse(adapter: KeyboardMouseAdapter, button: MouseButton, pressed: bool) -> void:
+	var event := InputEventMouseButton.new()
+	event.button_index=button;event.pressed=pressed;event.position=Vector2(350,-1000)
+	adapter._unhandled_input(event)
+func run() -> void:
+	var fixture := preload("res://tests/combat_tests.gd").new()
+	fixture.tree=self
+	for active_beam: bool in [false,true]:
+		await fixture.fixture(Vector2(80,-1000))
+		var c: PlayerController=fixture.controller
+		c.traversal.grant(&"grapple")
+		c.shoot_ability.equip(preload("res://resources/weapons/sustained_laser.tres"))
+		c.physics_tick(1.0/60)
+		var overlay:=InputSetup.attach(fixture.motor,c.router)
+		overlay.set_enabled(false)
+		(fixture.motor.get_node("GamepadAdapter") as GamepadAdapter).set_physics_process(false)
+		var adapter: KeyboardMouseAdapter=fixture.motor.get_node("KeyboardMouseAdapter")
+		if active_beam:
+			mouse(adapter,MOUSE_BUTTON_LEFT,true)
+			c.physics_tick(1.0/60)
+		var packet_before:=c.shoot_ability.packet_id
+		var shots_before:=c.action_resources.shot_charges
+		var stamina_before:=c.actor_resources.stamina.current
+		mouse(adapter,MOUSE_BUTTON_RIGHT,true)
+		c.physics_tick(1.0/60)
+		var good:=c.shoot_ability.behavior().phase==&"idle" and c.shoot_ability.packet_id==packet_before and c.action_resources.shot_charges==shots_before and is_equal_approx(c.actor_resources.stamina.current,stamina_before)
+		print("LASER HOOK REPRO: active_beam=",active_beam," mode=",c.router.aim_mode," phase=",c.shoot_ability.behavior().phase," packet=",packet_before,"->",c.shoot_ability.packet_id," shots=",shots_before,"->",c.action_resources.shot_charges," stamina=",stamina_before,"->",c.actor_resources.stamina.current," valid=",good)
+		if not good:failures+=1
+		c.router.clear("cleanup")
+	fixture.world.free()
+	await process_frame
+	quit(0 if failures==0 else 1)

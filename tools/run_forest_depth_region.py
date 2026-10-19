@@ -103,7 +103,7 @@ def expected_itinerary(manifest,route):
                 if i==0:row.update({k:edge[k] for k in ('claim_before_edge','claim_area','claim_id') if k in edge})
                 result.append(row)
             result.append({'kind':'walk','edge_id':id,'landing':edge['path'][-1],'step_index':len(edge['steps'])})
-            if manifest.get('layout_version')=='forest-expedition-airborne-v11':result[-1]['b']=edge['b']
+            if manifest.get('layout_version') in ('forest-expedition-airborne-v11','forest-woven-trunk-v12'):result[-1]['b']=edge['b']
         else:
             result.append({**edge,'edge_id':id,'landing':edge.get('landing',edge['path'][-1])})
             for i,step in enumerate(edge.get('post_landing_steps',[])):result.append({**step,'edge_id':id,'step_index':i,'post_landing':True})
@@ -351,6 +351,26 @@ def _air_chain_authoritative_factory(layout,regional=False):
     No runtime source execution, defaults, or captured self-reported geometry.
     The old arch geometry remains the original literal authoritative factory.
     """
+    if layout=='thorn_mouth':
+        source=(ROOT/'scripts/generation/forest_thorn_mouth_geometry.gd').read_text()
+        version=re.search(r'const VERSION := "([^"]+)"',source).group(1)
+        spec=__import__('importlib.util',fromlist=['']).spec_from_file_location('narrow_factory_reader',ROOT/'tools/run_forest_directional_golden.py')
+        reader=__import__('importlib.util',fromlist=['']).module_from_spec(spec);spec.loader.exec_module(reader)
+        data=reader._narrow_manifest()
+        for line in source.split('static func build() -> Dictionary:',1)[1].splitlines():
+            line=line.strip()
+            if not line or line.startswith('#') or line in ['var data:=BASE.build_narrow().duplicate(true)','return data']:continue
+            match=re.fullmatch(r'data\.([a-z_]+)(?:\[(\d+)\]\.rect)?=(.+)',line)
+            if match is None:raise ValueError('unknown thorn mouth factory statement')
+            field,index,value=match.groups();parsed=version if value=='VERSION' else json.loads(value)
+            if index is None:data[field]=parsed
+            else:data[field][int(index)]['rect']=parsed
+        return data
+    if layout=='hollow_spiral':
+        source=(ROOT/'scripts/generation/forest_vertical_chain_geometry.gd').read_text()
+        version=re.search(r'const VERSION := "([^"]+)"',source).group(1)
+        literal=source.split('static func build() -> Dictionary:',1)[1].strip().removeprefix('return ')
+        return json.JSONDecoder().raw_decode(literal.replace('"version":VERSION','"version":'+json.dumps(version)))[0]
     source=(ROOT/'scripts/generation/forest_air_chain_geometry.gd').read_text()
     version=re.search(r'const VERSION := "([^"]+)"',source).group(1)
     decoder=json.JSONDecoder()
@@ -366,10 +386,10 @@ def _air_chain_authoritative_factory(layout,regional=False):
         block=source.split('if layout == "arch_four":',1)[1].split('\n\telse:',1)[0]
         value=block.split('data["action_program"] = ',1)[1]
         data['action_program']=decoder.raw_decode(value)[0]
-    elif layout in ('hook_hook','recoil_hook'):
+    elif layout in ('hook_hook','recoil_hook','recoil_hook_recoil'):
         literal=source.split('\n\telse:',1)[1].split('data = ',1)[1]
         data=decoder.raw_decode(literal)[0]
-        start='if layout == "recoil_hook":' if layout=='recoil_hook' else 'elif layout == "hook_hook":'
+        start={'recoil_hook':'if layout == "recoil_hook":', 'recoil_hook_recoil':'elif layout == "recoil_hook_recoil":', 'hook_hook':'elif layout == "hook_hook":'}[layout]
         block=source.split(start,1)[1].split('\n\t\telif ',1)[0].split('\n\t\telse:',1)[0]
         for line in block.splitlines():
             line=line.strip()
@@ -384,7 +404,7 @@ def _air_chain_authoritative_factory(layout,regional=False):
     for field in (() if layout=='bridge_five' else ('scene_language','chain_contract')):
         literal=source.split('data["'+field+'"] = ',1)[1]
         data[field]=decoder.raw_decode(literal)[0]
-    if regional and layout in ('hook_hook','recoil_hook','bridge_five'):
+    if regional and layout in ('hook_hook','recoil_hook','recoil_hook_recoil','bridge_five'):
         omitted=decoder.decode(re.search(r'(?m)^const REGIONAL_OMITTED_SUPPORTS := (.+)$',source).group(1))
         contract=decoder.decode(re.search(r'(?m)^const REGIONAL_RECOVERY := (.+)$',source).group(1))
         if omitted!=['recovery','recovery_step'] or contract!='shared-regional-roots-v1':
@@ -414,8 +434,62 @@ def validate_airborne_chain_leg(data,leg,completion,frames,events,requests,platf
     if not isinstance(raw,dict) or not xy(translation) or not isinstance(ids,dict) or not isinstance(anchors,dict):return ['air_chain_actual_geometry_malformed']
     try:factory=_air_chain_authoritative_factory(raw.get('id'),regional=True)
     except (OSError,KeyError,IndexError,TypeError,ValueError,AttributeError):return ['air_chain_authoritative_factory_unreadable']
+    if manifest.get('layout_version')=='forest-woven-trunk-v12' and instance.get('id') in ['broken_arch','upper_spiral']:
+        need(instance.get('regional_derivation')=='omit_isolated_catch_above_previous_ascent','air_chain_exact_regional_arch_derivation')
+        factory['platforms']=[p for p in factory['platforms'] if p['id'] not in ['recovery','recovery_step']]
+        factory['regional_recovery']='previous-woven-hollow-catch-v1'
+    if manifest.get('layout_version')=='forest-woven-trunk-v12' and 'entry_derivation' in instance:
+        derivation=instance.get('entry_derivation',{})
+        prior=[g for g in manifest.get('geometry_instances',[]) if g.get('id')==derivation.get('previous_instance')]
+        need(derivation.get('rule')=='intersection_with_previous_crown' and len(prior)==1,'air_chain_exact_entry_derivation')
+        if len(prior)==1:
+            prior_factory=_air_chain_authoritative_factory(prior[0]['local_geometry']['id'],regional=True)
+            receiving=next(p['rect'] for p in prior_factory['platforms'] if p['id']=='crown')
+            original=next(p for p in factory['platforms'] if p['id']=='entry')
+            r=original['rect']; pt=prior[0]['translation']
+            left=max(r[0]+translation[0],receiving[0]+pt[0]);right=min(r[0]+r[2]+translation[0],receiving[0]+receiving[2]+pt[0])
+            need(right-left>=48 and abs(r[1]+translation[1]-receiving[1]-pt[1])<.01,'air_chain_entry_intersection_has_real_support')
+            original['rect']=[left-translation[0],r[1],right-left,r[3]]
+            original['one_way']=next(p['one_way'] for p in prior_factory['platforms'] if p['id']=='crown')
+    if manifest.get('layout_version')=='forest-woven-trunk-v12' and instance.get('id')=='upper_spiral':
+        source=(ROOT/'scripts/generation/forest_vertical_expedition.gd').read_text()
+        exit_position=json.loads(re.search(r'(?m)^const UPPER_EXIT_RING := (.+)$',source).group(1))
+        need(instance.get('anchor_derivation')=={'rule':'upper_exit_below_legacy_far_bough','anchor':'spiral_crown','position':exit_position},'air_chain_exact_upper_anchor_clearance')
+        next(a for a in factory['hook_anchors'] if a['id']=='spiral_crown')['position']=exit_position
+        if manifest.get('choices',{}).get('west_reward') is True:
+            aperture=json.loads(re.search(r'(?m)^const RETURN_APERTURE := (.+)$',source).group(1))
+            need(instance.get('aperture_derivation')=={'rule':'tree_return_hollow','aperture':aperture,'scene_kind':'hollow_tree_return_opening'},'air_chain_exact_return_aperture_derivation')
+            bark=next(p for p in factory['platforms'] if p['id']==aperture['support'])
+            rect=bark['rect'];old_bottom=rect[1]+rect[3]
+            bark['rect']=[rect[0],rect[1],rect[2],aperture['top']-translation[1]-rect[1]]
+            factory['platforms'].append({'id':aperture['lower_support'],'rect':[rect[0],aperture['bottom']-translation[1],rect[2],old_bottom-(aperture['bottom']-translation[1])],'one_way':False})
+        else:need('aperture_derivation' not in instance,'air_chain_unexpected_return_aperture')
+    elif 'aperture_derivation' in instance:need(False,'air_chain_unexpected_return_aperture')
+    if manifest.get('layout_version')=='forest-woven-trunk-v12' and instance.get('id')=='thorn_mouth':
+        source=(ROOT/'scripts/generation/forest_vertical_expedition.gd').read_text()
+        rect=json.loads(re.search(r'(?m)^const THORN_CATCH_RECT := (.+)$',source).group(1))
+        bounds=json.loads(re.search(r'(?m)^const THORN_CATCH_BOUNDS := (.+)$',source).group(1))
+        need(instance.get('recovery_derivation')=={'rule':'deep_catch_with_hanging_return','rect':rect,'bounds':bounds,'return_area':'thorn_mouth_mouth'},'air_chain_exact_deep_catch_derivation')
+        next(p for p in factory['platforms'] if p['id']=='recovery')['rect']=rect
+        factory['world_bounds']=bounds
+    if manifest.get('layout_version')=='forest-woven-trunk-v12' and instance.get('id')=='canopy_fork' and manifest.get('choices',{}).get('west_reward') is True:
+        source=(ROOT/'scripts/generation/forest_vertical_expedition.gd').read_text()
+        left=float(re.search(r'(?m)^const CANOPY_RETURN_LEFT := ([-\d.]+)$',source).group(1))
+        goal_x=float(re.search(r'(?m)^const CANOPY_RETURN_GOAL_X := ([-\d.]+)$',source).group(1))
+        need(instance.get('receiver_derivation')=={'rule':'canopy_leave_migrant_return_gap','world_left':left,'world_goal_x':goal_x},'air_chain_exact_migrant_return_derivation')
+        receiving=next(p for p in factory['platforms'] if p['id']=='crown')
+        rect=receiving['rect'];right=rect[0]+rect[2]+translation[0]
+        receiving['rect']=[left-translation[0],rect[1],right-left,rect[3]]
+        factory['goal'][0]=goal_x-translation[0]
+        need(actual_log:=next((p for p in manifest.get('platforms',[]) if p.get('id')=='east_descent_log'),None),'air_chain_migrant_return_log_missing')
+        if actual_log is not None:need(actual_log.get('rect')==[left,372.0,170.0-left,24.0],'air_chain_exact_migrant_return_log')
+        descent=next((e for e in manifest.get('connections',[]) if e.get('id')=='woven_descent'),{})
+        need(descent.get('path',[None])[0]==[goal_x,354.0],'air_chain_exact_migrant_return_descent')
+    else:
+        need('receiver_derivation' not in instance,'air_chain_unexpected_receiver_derivation')
     need(raw==factory,'air_chain_local_geometry_not_current_factory')
-    need(instance.get('factory')=='res://scripts/generation/forest_air_chain_geometry.gd' and instance.get('geometry_version')==factory['version'],'air_chain_actual_factory_identity')
+    expected_factory={'hollow_spiral':'res://scripts/generation/forest_vertical_chain_geometry.gd','thorn_mouth':'res://scripts/generation/forest_thorn_mouth_geometry.gd'}.get(raw.get('id'),'res://scripts/generation/forest_air_chain_geometry.gd')
+    need(instance.get('factory')==expected_factory and instance.get('geometry_version')==factory['version'],'air_chain_actual_factory_identity')
     def world(point):return [point[0]+translation[0],point[1]+translation[1]]
     actual_platforms={p['id']:p for p in manifest.get('platforms',[])};actual_anchors={a['id']:a for a in manifest.get('hook_anchors',[])}
     need(set(ids)=={p['id'] for p in factory['platforms']} and len(set(ids.values()))==len(ids),'air_chain_exact_platform_mapping')
@@ -429,8 +503,18 @@ def validate_airborne_chain_leg(data,leg,completion,frames,events,requests,platf
     need(isinstance(danger_indices,list) and len(danger_indices)==len(factory['dangers']),'air_chain_actual_danger_indices')
     for index,danger in zip(danger_indices,factory['dangers']):
         need(type(index) is int and 0<=index<len(manifest.get('dangers',[])) and manifest['dangers'][index]==world(danger[:2])+danger[2:],'air_chain_translated_actual_danger')
+    hanging=leg.get('kind')=='hanging_chain'
+    expected_program=factory['action_program']
+    rest_target=None
+    if hanging:
+        need(manifest.get('layout_version')=='forest-woven-trunk-v12' and instance.get('id')=='root_spiral' and leg.get('id')=='root_spiral_rest_flight','hang_chain_explicit_current_identity')
+        expected_program=factory.get('rest_program',[])
+        rest_target=leg.get('rest_anchor_id')
+        rest=actual_anchors.get(rest_target,{})
+        need(rest_target=='root_spiral__rest_ring' and rest.get('position')==world([-120.0,-170.0]) and rest.get('hang_enabled') is True,'hang_chain_actual_environment_ring')
+        need(leg.get('hang_observation_frames')==18,'hang_chain_explicit_observation_contract')
     program=leg.get('action_program',raw.get('action_program'))
-    if not need(program==factory['action_program'],'air_chain_program_not_factory'):return errors
+    if not need(program==expected_program,'air_chain_program_not_factory'):return errors
     entry=ids.get('entry');exit=ids.get('crown');start,end=completion['start_tick'],completion['tick'];leg_index=completion.get('leg')
     need(leg.get('landing')==world(factory['goal']) and leg.get('landing_support_id')==exit and leg.get('from_support_id',entry)==entry,'air_chain_actual_port_contract')
     by={f['tick']:f for f in frames};path=[f for f in frames if start<=f['tick']<=end];actual=[e for e in events if start<=e.get('tick',-1)<=end and e.get('leg')==leg_index];inputs=[r for r in requests if start<=r.get('tick',-1)<=end and r.get('leg')==leg_index]
@@ -483,14 +567,43 @@ def validate_airborne_chain_leg(data,leg,completion,frames,events,requests,platf
     need(not any(e.get('kind')=='committed_damage' and e.get('target')=='player' for e in actual),'air_chain_player_damaged_or_returned')
     # A direct success requires the entire ordered H/R sequence before the first
     # real landing. Phase labels and self-reported step counters are not proof.
-    accepted=[e for e in actual if e.get('kind') in ('hook_contact_kick','shot_fired')]
-    need([('H' if e['kind']=='hook_contact_kick' else 'R') for e in accepted]==[p['action'] for p in program],'air_chain_accepted_action_sequence')
+    accepted=[e for e in actual if e.get('kind') in (('hook_contact_kick','shot_fired','hook_hang') if hanging else ('hook_contact_kick','shot_fired'))]
+    need([('H' if e['kind']=='hook_contact_kick' else 'HANG' if e['kind']=='hook_hang' else 'R') for e in accepted]==[p['action'] for p in program],'air_chain_accepted_action_sequence')
     if takeoff and first_floor:need(all(takeoff<=e['tick']<first_floor for e in accepted),'air_chain_action_outside_air_window')
-    casts=[e for e in actual if e.get('kind')=='hook_cast'];shots=[e for e in actual if e.get('kind')=='shot_fired'];need(len(casts)==sum(p['action']=='H' for p in program),'air_chain_actual_H_count')
+    casts=[e for e in actual if e.get('kind')=='hook_cast'];shots=[e for e in actual if e.get('kind')=='shot_fired'];need(len(casts)==sum(p['action'] in ('H','HANG') for p in program),'air_chain_actual_H_count')
     states=('hook_cast','hook_fly','hook_pull','hook_contact_kick','hook_kick','free')
     last_end=takeoff-1 if takeoff else start-1;h_index=0
     for action,accepted_event in zip(program,accepted):
-        if action['action']=='R':
+        if action['action']=='HANG':
+            if h_index>=len(casts):need(False,'hang_chain_cast_missing');continue
+            cast=casts[h_index];next_cast=casts[h_index+1]['tick'] if h_index+1<len(casts) else end+1;h_index+=1
+            group=actual[actual.index(cast):]
+            group=[e for e in group if e.get('tick',-1)<next_cast]
+            hang_states=('hook_cast','hook_fly','hook_pull','hook_hang');chain=[]
+            for state in hang_states:
+                found=[e for e in group if e.get('kind')==state];need(len(found)==1,'hang_chain_unique_'+state)
+                if len(found)==1:chain.append(found[0])
+            if len(chain)!=4:continue
+            c,fly,pull,held=chain;anchor=actual_anchors.get(rest_target,{}).get('position')
+            need(held is accepted_event and [e['tick'] for e in chain]==sorted(set(e['tick'] for e in chain)) and c['tick']>last_end,'hang_chain_actual_state_order')
+            need(all(e.get('target')==rest_target for e in chain[2:]),'hang_chain_actual_target')
+            origin=[c['position'][0],c['position'][1]-6];length=math.dist(origin,anchor) if xy(anchor) else math.inf
+            need(length<=number('hook_range')+12.01,'hang_chain_real_range')
+            aim=[(anchor[k]-origin[k])/length for k in (0,1)] if xy(anchor) and 0<length<math.inf else [0,0]
+            need(len([r for r in inputs if r.get('kind')=='grapple' and r.get('tick')==c['tick'] and r.get('queued') is True and near(r.get('aim'),aim,.002)])==1,'hang_chain_real_router_request')
+            need(near(by.get(c['tick'],{}).get('hook_start'),origin,.05),'hang_chain_real_hook_origin')
+            for a,b,state in zip(chain,chain[1:],hang_states):
+                need(all(by.get(t,{}).get('hook_state')==state for t in range(a['tick'],b['tick'])),'hang_chain_actual_flight_interval')
+            need(xy(held.get('hook_tip')) and xy(anchor) and math.dist(held['hook_tip'],anchor)<=12.1 and math.dist(held['position'],held['hook_tip'])<=number('hook_stop_distance')+.1,'hang_chain_real_body_contact')
+            dwell=[by[t] for t in range(held['tick']+1,next_cast) if t in by]
+            need(len(dwell)>=18 and all(f.get('hook_state')=='hook_hang' and f.get('grounded') is False and f.get('hook_used') is False and near(f.get('position'),held['position'],.1) for f in dwell),'hang_chain_real_stable_airborne_observation')
+            need(held.get('hook_used_at_event') is False,'hang_chain_actual_token_restore')
+            departures=[e for e in group if e.get('kind')=='rest_branch_departure' and e.get('target')==rest_target]
+            # The departure request and its accepted next cast share a tick.
+            departures += [e for e in actual if e.get('kind')=='rest_branch_departure' and e.get('tick')==next_cast and e.get('target')==rest_target and e not in departures]
+            need(len(departures)==1 and departures[0].get('held_frames',0)>=18 and departures[0].get('grounded') is False,'hang_chain_actual_departure_intent')
+            last_end=held['tick']+17
+        elif action['action']=='R':
             shot=accepted_event;tick=shot['tick'];aim=action['direction'];length=math.hypot(*aim);aim=[n/length for n in aim]
             need(shot.get('kind')=='shot_fired' and near(shot.get('aim'),aim,.001) and tick>last_end,'air_chain_R_actual_order_direction')
             matching=[r for r in inputs if r.get('kind')=='shoot_release' and r.get('tick')==tick and r.get('queued') is True and r.get('aim')==shot.get('aim')]
@@ -506,7 +619,7 @@ def validate_airborne_chain_leg(data,leg,completion,frames,events,requests,platf
         else:
             if h_index>=len(casts):need(False,'air_chain_H_cast_missing');continue
             cast=casts[h_index];next_cast=casts[h_index+1]['tick'] if h_index+1<len(casts) else end+1;h_index+=1
-            group=[e for e in actual if cast['tick']<=e.get('tick',-1)<next_cast];chain=[]
+            group=[e for e in actual[actual.index(cast):] if e.get('tick',-1)<next_cast];chain=[]
             for state in states:
                 found=[e for e in group if e.get('kind')==state];need(len(found)==1,'air_chain_H_unique_'+state)
                 if len(found)==1:chain.append(found[0])
@@ -523,7 +636,17 @@ def validate_airborne_chain_leg(data,leg,completion,frames,events,requests,platf
                 need(all(by.get(t,{}).get('hook_state')==state for t in range(a['tick'],b['tick'])),'air_chain_H_live_state_interval')
             need(near(contact.get('hook_tip'),by.get(contact['tick'],{}).get('hook_tip'),.05) and xy(contact.get('hook_tip')) and math.dist(contact['position'],contact['hook_tip'])<=number('hook_stop_distance')+.1,'air_chain_H_actual_body_stop')
             need(xy(contact.get('hook_tip')) and xy(anchor) and math.dist(contact['hook_tip'],anchor)<=12.1,'air_chain_H_tip_actual_anchor_surface')
-            need(contact.get('hook_used_at_event') is True and kick.get('hook_used_at_event') is False and by.get(kick['tick'],{}).get('hook_used') is False,'air_chain_H_actual_contact_restoration')
+            expected_used=True
+            if contact.get('hook_used_at_event') is False:
+                # Existing airborne projectile-hit receipts can restore H while
+                # its head is in flight. Verify the same concrete receipt/target
+                # ledger, rather than treating an arbitrary boolean as a reset.
+                gain=number('target_gain',(ROOT/'resources/player/combat_energy.tres').read_text(),(ROOT/'scripts/resources/definitions/combat_energy_definition.gd').read_text())
+                for t in range(c['tick'],contact['tick']+1):
+                    credits,credit_errors=actual_projectile_energy_credits(data,by.get(t,{}),by.get(t-1,{}),events,1/tuning['physics_hz'],gain)
+                    errors.extend(credit_errors)
+                    if any(credit.get('fired_airborne') is True for credit in credits):expected_used=False
+            need(contact.get('hook_used_at_event') is expected_used and kick.get('hook_used_at_event') is False and by.get(kick['tick'],{}).get('hook_used') is False,'air_chain_H_actual_contact_restoration')
             if takeoff is not None and c['tick']>takeoff:need(by.get(c['tick']-1,{}).get('hook_used') is False,'air_chain_H_requires_restored_token')
             need((kick['tick']-contact['tick'])/tuning['physics_hz']>=number('hook_contact_seconds')-1e-8,'air_chain_H_actual_contact_duration')
             for e in chain:
@@ -565,7 +688,7 @@ def validate_airborne_chain_leg(data,leg,completion,frames,events,requests,platf
         for e in actual:
             if e['tick']!=tick:continue
             if e.get('kind')=='hook_cast':hook_used=True
-            elif e.get('kind')=='hook_kick':hook_used=False
+            elif e.get('kind')=='hook_kick' or (hanging and e.get('kind')=='hook_hang' and e.get('target')==rest_target):hook_used=False
             elif e.get('kind')=='actual_shot_energy_credit' and any(c is e and c.get('fired_airborne') is True for c in credits):hook_used=False
         if f['grounded']:hook_used=False
         need(f.get('hook_used') is hook_used,'air_chain_H_token_without_real_cause')
@@ -586,7 +709,7 @@ def completed_forest_encounter_jump_ticks(data):
     manifest = data.get('manifest', {})
     if not isinstance(manifest, dict):
         return set()
-    if manifest.get('version') != VERSION or manifest.get('layout_version') != 'forest-expedition-airborne-v11' or data.get('manual_motor_step') is not False or data.get('position_or_resource_injection') is not False:
+    if manifest.get('version') != VERSION or manifest.get('layout_version') not in ('forest-expedition-airborne-v11','forest-woven-trunk-v12') or data.get('manual_motor_step') is not False or data.get('position_or_resource_injection') is not False:
         return set()
     events, frames, requests = data.get('events', []), data.get('frames', []), data.get('requests', [])
     if not all(isinstance(rows, list) and all(isinstance(row, dict) for row in rows) for rows in (events, frames, requests)):
@@ -705,7 +828,7 @@ def validate(data):
         target=leg.get('landing')
         if not target or any(abs(f['position'][0]-target[0])>8 or abs(f['position'][1]-target[1])>2 for f in window):fail(f'leg_{i}_actual_destination')
         actual=[e for e in events if row['start_tick']<=e.get('tick',-1)<=row['tick']]
-        if leg['kind']=='airborne_chain':
+        if leg['kind'] in ('airborne_chain','hanging_chain'):
             for reason in validate_airborne_chain_leg(data,leg,row,frames,events,requests,platforms,full):fail(f'leg_{i}_'+reason)
         if leg['kind']=='hollow_cavity':
             is_elbow=leg.get('motion')=='descending_elbow' or any(g.get('id')==leg.get('geometry_instance') and g.get('local_geometry',{}).get('cavity_contract',{}).get('variant')=='horizontal_then_airborne_descending_elbow' for g in manifest.get('geometry_instances',[]))
@@ -814,6 +937,31 @@ def validate(data):
                     if len(air)!=2 or any(e.get('velocity',[0,-1])[1]<0 for e in air) or any(e.get('kind')=='hook_cast' for e in actual):fail(f'leg_{i}_crossbranch_ordinary_two_real_R')
             else:
                 if leg.get('edge_id') not in (contract.get('return_edge'),contract.get('decline_edge')):fail(f'leg_{i}_crossbranch_return_identity')
+                if manifest.get('layout_version')=='forest-woven-trunk-v12' and manifest.get('choices',{}).get('west_reward') is True:
+                    source=(ROOT/'scripts/generation/forest_vertical_expedition.gd').read_text()
+                    via=json.loads(re.search(r'(?m)^const RETURN_VIA := (.+)$',source).group(1))
+                    if leg.get('return_via')!=via or leg.get('path',[])[2:4]!=[via['position'],via['next']]:fail(f'leg_{i}_crossbranch_exact_return_via')
+                    arrivals=[e for e in actual if e.get('kind')=='candidate_return_via_arrival']
+                    drops=[e for e in actual if e.get('kind')=='candidate_return_via_drop_requested']
+                    lower=[e for e in actual if e.get('kind')=='phase' and e.get('to')=='candidate_return_lower_gap']
+                    if len(arrivals)!=1 or len(drops)!=1 or len(lower)!=1:fail(f'leg_{i}_crossbranch_return_via_events')
+                    else:
+                        arrival=arrivals[0];drop=drops[0];end=lower[0]['tick']
+                        held=[f for f in frames if arrival['tick']-12<=f['tick']<arrival['tick']]
+                        if arrival.get('via')!=via or len(held)!=12 or not all(full(f,via['support_id']) and math.dist(f['position'],via['position'])<=2 for f in held):fail(f'leg_{i}_crossbranch_return_via_twelve_support')
+                        accepted=[r for r in requests if r.get('leg')==i and r.get('kind')=='drop_through' and r.get('tick')==drop['tick'] and r.get('queued') is True and r.get('router_type')=='drop_through']
+                        if drop.get('support_id')!=via['support_id'] or drop['tick']!=arrival['tick'] or len(accepted)!=1:fail(f'leg_{i}_crossbranch_return_actual_drop_request')
+                        falling=[f for f in frames if drop['tick']<f['tick']<end and not f['grounded'] and via['position'][1]+60<f['position'][1]<via['next'][1]-20 and f['velocity'][1]>0]
+                        if len(falling)<3 or any(e.get('kind') in ('jumped','hook_cast','shot_fired') and drop['tick']<e['tick']<end for e in actual):fail(f'leg_{i}_crossbranch_return_real_oneway_descent')
+                    aperture=json.loads(re.search(r'(?m)^const RETURN_APERTURE := (.+)$',source).group(1))
+                    bark=platforms.get('upper_spiral__'+aperture['support']);lower_bark=platforms.get('upper_spiral__'+aperture['lower_support'])
+                    walk=[e for e in actual if e.get('kind')=='phase' and e.get('to')=='candidate_same_reward_return_to_W']
+                    if not bark or not lower_bark or bark[1]+bark[3]!=aperture['top'] or lower_bark[1]!=aperture['bottom'] or len(walk)!=1:fail(f'leg_{i}_crossbranch_return_aperture_identity')
+                    else:
+                        through=[f for f in frames if walk[0]['tick']<=f['tick']<=row['tick'] and f['position'][0]+12>bark[0] and f['position'][0]-12<bark[0]+bark[2]]
+                        if len(through)<3 or any(f['position'][1]-18<aperture['top'] or f['position'][1]+18>aperture['bottom'] for f in through):fail(f'leg_{i}_crossbranch_return_full_body_through_hollow')
+                        if any(e.get('kind') in ('jumped','hook_cast','shot_fired') and walk[0]['tick']<e['tick']<=row['tick'] for e in actual):fail(f'leg_{i}_crossbranch_return_hollow_walk_no_extra_actions')
+                elif 'return_via' in leg:fail(f'leg_{i}_crossbranch_unexpected_return_via')
                 for phase_name,support_key in [('candidate_return_lower_gap','lower'),('candidate_same_reward_return_to_W','step1')]:
                     arrivals=[e for e in actual if e.get('kind')=='phase' and e.get('to')==phase_name]
                     if len(arrivals)!=1 or not all(full(f,ids.get(support_key)) for f in frames if arrivals[0]['tick']-12<=f['tick']<arrivals[0]['tick']) or len([f for f in frames if arrivals[0]['tick']-12<=f['tick']<arrivals[0]['tick']])!=12:fail(f'leg_{i}_crossbranch_actual_{support_key}_twelve_support')
@@ -822,7 +970,7 @@ def validate(data):
                 if not any(e['kind']==kind for e in actual):fail(f'leg_{i}_actual_{kind}')
         if leg['kind'] in ('directional_phrase','directional_return','narrow_reward','ecology_choice') and not any(e['kind']=='shot_fired' for e in actual):fail(f'leg_{i}_actual_R')
     by_tick={f['tick']:f for f in frames}
-    encounter_jumps=completed_forest_encounter_jump_ticks(data) if manifest.get('layout_version')=='forest-expedition-airborne-v11' else set()
+    encounter_jumps=completed_forest_encounter_jump_ticks(data) if manifest.get('layout_version') in ('forest-expedition-airborne-v11','forest-woven-trunk-v12') else set()
     for e in events:
         if e.get('kind')=='jump_gap_vertical_clearance_release':
             rect=platforms.get(e.get('support_id'));position=e.get('position',[]);foot=e.get('foot',[]);velocity=e.get('velocity',[])
@@ -830,7 +978,7 @@ def validate(data):
             expected_hold=math.ceil(json.loads((ROOT/'config/player_tuning.json').read_text())['jump_hold_duration']*json.loads((ROOT/'config/player_tuning.json').read_text())['physics_hz'])
             actual_leg=expected[leg_index] if isinstance(leg_index,int) and 0<=leg_index<len(expected) else {}
             jump_events=[j for j in events if j.get('kind')=='jumped' and j.get('leg')==leg_index and j.get('tick',0)<=e.get('tick',-1)]
-            if manifest.get('layout_version')=='forest-expedition-airborne-v11':jump_events=[j for j in jump_events if j.get('tick') not in encounter_jumps]
+            if manifest.get('layout_version') in ('forest-expedition-airborne-v11','forest-woven-trunk-v12'):jump_events=[j for j in jump_events if j.get('tick') not in encounter_jumps]
             if not rect or actual_leg.get('kind')!='jump_gap' or actual_leg.get('support_id')!=e.get('support_id') or e.get('target_rect')!=rect or len(position)!=2 or len(foot)!=2 or len(velocity)!=2:
                 fail('gap_vertical_release_missing_actual_geometry')
             elif math.dist(foot,[position[0],position[1]+18])>1e-6 or foot[1]>rect[1]-1 or velocity[1]>=0 or e.get('minimum_hold_ticks')!=expected_hold or e.get('held_ticks',0)<expected_hold or len(jump_events)!=1 or e['tick']-jump_events[0]['tick']!=e['held_ticks']:
@@ -885,7 +1033,7 @@ def validate(data):
     return errors
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,required=True);parser.add_argument('--seed',default='forest-depth-00');parser.add_argument('--map',type=int,choices=(1,2),default=1);parser.add_argument('--route',choices=ROUTES+('all',),default='all');parser.add_argument('--routes',nargs='+',choices=ROUTES[:4]+('borer',),help='Finite explicit unique route group, sharing one import');parser.add_argument('--matrix',action='store_true',help='Explicit finite4representatives (two seeds x two maps) x4routes; requires actual map2 entry contract');parser.add_argument('--corpus',action='store_true',help='Fixed10roots00..09 x2maps x4originalroutes; original matrix16 first; one import90/native240 each, stop on first failure');parser.add_argument('--validate-only',type=Path);parser.add_argument('--movie',action='store_true',help='One explicit original route, real GL 60fps AVI; same import90/native240 and validation');parser.add_argument("--layout",choices=("shared-tree-directional-cavities-v7","shared-tree-living-detour-v9","shared-tree-canopy-hunt-v10","forest-expedition-airborne-v11"),default="",help="Explicit registered layout for exact historical replay or new candidate validation");args=parser.parse_args()
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,required=True);parser.add_argument('--seed',default='forest-depth-00');parser.add_argument('--map',type=int,choices=(1,2),default=1);parser.add_argument('--route',choices=ROUTES+('all',),default='all');parser.add_argument('--routes',nargs='+',choices=ROUTES[:4]+('borer',),help='Finite explicit unique route group, sharing one import');parser.add_argument('--matrix',action='store_true',help='Explicit finite4representatives (two seeds x two maps) x4routes; requires actual map2 entry contract');parser.add_argument('--corpus',action='store_true',help='Fixed10roots00..09 x2maps x4originalroutes; original matrix16 first; one import90/native240 each, stop on first failure');parser.add_argument('--validate-only',type=Path);parser.add_argument('--movie',action='store_true',help='One explicit original route, real GL 60fps AVI; same import90/native240 and validation');parser.add_argument("--layout",choices=("shared-tree-directional-cavities-v7","shared-tree-living-detour-v9","shared-tree-canopy-hunt-v10","forest-expedition-airborne-v11","forest-woven-trunk-v12"),default="",help="Explicit registered layout for exact historical replay or new candidate validation");args=parser.parse_args()
     if args.validate_only:
         errors=validate(json.loads(args.validate_only.read_text()));print(json.dumps({'errors':errors}));return int(bool(errors))
     if args.corpus and (args.matrix or args.routes or args.route!='all'):parser.error('--corpus is the fixed80 requests and cannot combine with --matrix/--routes/a specific --route')
