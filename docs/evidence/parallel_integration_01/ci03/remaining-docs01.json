@@ -1,0 +1,100 @@
+[
+  {
+    "id": "level-design-golden-tests",
+    "exit_code": 0,
+    "status": "passed",
+    "seconds": 0.5658109640062321,
+    "command": [
+      "python3",
+      "tests/test_level_design_golden.py"
+    ],
+    "log": "build/integration01/remaining-docs01-level-design-golden-tests.log",
+    "timeout_seconds": 60
+  },
+  {
+    "id": "level-region-context",
+    "exit_code": 0,
+    "status": "passed",
+    "seconds": 0.36787587899016216,
+    "command": [
+      "python3",
+      "tests/test_level_region_context.py"
+    ],
+    "log": "build/integration01/remaining-docs01-level-region-context.log",
+    "timeout_seconds": 60
+  },
+  {
+    "id": "level-experience",
+    "exit_code": 0,
+    "status": "passed",
+    "seconds": 2.6816223330097273,
+    "command": [
+      "python3",
+      "tests/test_level_experience.py"
+    ],
+    "log": "build/integration01/remaining-docs01-level-experience.log",
+    "timeout_seconds": 60
+  },
+  {
+    "id": "level-formal-receipts",
+    "exit_code": 0,
+    "status": "passed",
+    "seconds": 1.6684387650020653,
+    "command": [
+      "python3",
+      "tests/test_level_formal_receipts.py"
+    ],
+    "log": "build/integration01/remaining-docs01-level-formal-receipts.log",
+    "timeout_seconds": 60
+  },
+  {
+    "id": "visual-director-tests",
+    "exit_code": 0,
+    "status": "passed",
+    "seconds": 10.052125296002487,
+    "command": [
+      "python3",
+      "tests/test_visual_director.py"
+    ],
+    "log": "build/integration01/remaining-docs01-visual-director-tests.log",
+    "timeout_seconds": 60
+  },
+  {
+    "id": "asset-family-tests",
+    "exit_code": 0,
+    "status": "passed",
+    "seconds": 0.16712218199972995,
+    "command": [
+      "python3",
+      "tests/test_asset_family.py"
+    ],
+    "log": "build/integration01/remaining-docs01-asset-family-tests.log",
+    "timeout_seconds": 60
+  },
+  {
+    "id": "creative-direction",
+    "exit_code": 1,
+    "status": "failed",
+    "seconds": 0.06552208799985237,
+    "command": [
+      "python3",
+      "tools/region_creative_direction.py",
+      "--directory",
+      "docs/creative_direction"
+    ],
+    "log": "build/integration01/remaining-docs01-creative-direction.log",
+    "timeout_seconds": 30
+  },
+  {
+    "id": "creative-direction-tests",
+    "exit_code": 1,
+    "status": "failed",
+    "seconds": 0.8203011529985815,
+    "command": [
+      "python3",
+      "tests/test_region_creative_direction.py"
+    ],
+    "log": "build/integration01/remaining-docs01-creative-direction-tests.log",
+    "timeout_seconds": 60
+  }
+]

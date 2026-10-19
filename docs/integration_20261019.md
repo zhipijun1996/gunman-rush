@@ -36,3 +36,11 @@
 一次完整只读profile定位112次真实输入预检中的重复纯词法路径计算；只优化POSIX component前缀与相对名称切片，Windows保留原pathlib规则，不缓存文件系统或预检结果。107个原测试和60秒上限保持，原symlink案例补祖先symlink→还原→fresh成功的实际反例。最终冻结源原CLI实测107/26.802秒，process27.034秒/exit0/60秒cap，完整raw及前后3个保护源SHA一致；此前29.380秒观察缺raw与Windows补前的局限单独保留。独立21项/路径等价及最终日志审查见review04/05，最终新CI仍待。
 
 本机一次去重错误使固定可写aim_save输出与两历史文件共用inode，随后真实测试更新了历史路径。已从两份未改写的Git原始ZIP精确恢复两原件并将可写输出隔离；全1870路径核对仅current raw合法变化，另212个潜在可写路径断开。此为真实保管失败及恢复，不能称原去重安全。原件、SHA、恢复方法见`evidence/parallel_integration_01/custody01/`；现行测试与历史证据未互相冒名。
+
+## 第三候选与最终文档预检
+
+ff143c91的push docs39232313993中，生产原107项实际39.996秒通过；随后路由24项/16errors因旧总谱的20%/旧controls权威被正确拒绝。准确ZIP artifact12178082160/SHA4085967e50a2f3449c028a4faeff4d644afbd8e636b0b5666c3503a4762dad8b保留。full39232336288终态cancelled、未发布，不标完整通过。
+
+现沿既有总谱schema升级两active creative-v3，完整归档旧v2字节/SHA，旧版用当前权威仍被拒绝；正式Plains对应PR91像素，森林对应v12/15%/挂环及REVISE。旧P1/PR90配方与素材没有升为当前默认；generic美术planner仍走旧候选，当前像素生产用途明确blocked，本轮不执行这类mission。原校验器未改；当前版本精确断言更新v3，新增原v2身份/bytes/拒绝反例。相关专项2方向/10creative/原24routing全通过。
+
+本机原docs Harness --release一次完整24项实际PASS，原收据/全stdout日志无损ZIP在`evidence/parallel_integration_01/docs_final01/`；这是工作候选的本机证明，不冒最终CI。两原生正常速电影真实源ff143c91，2038/1769帧、60FPS、无注入/手动Motor、严格source_stable；后续只有docs与独立Python版本测试变动，2716项采集库存仅该非运行Python测试不同，运行/电影驱动零字节变化，最终Git绑定另验；绝不改签raw影片源。独审实际看8原AVI样帧，限定角色/树壁/环可读，没有全片听音或玩家认可；map2 HUD边缘可读性候选未证新回归，仍未签商业美术。见`movies01/`及review06。

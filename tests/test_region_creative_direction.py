@@ -29,6 +29,19 @@ class CreativeTests(unittest.TestCase):
                 self.assertIn('scope', data['user_evidence'])
             self.assertEqual(ref['sha256'], hashlib.sha256((creative.ROOT/ref['path']).read_bytes()).hexdigest())
 
+    def test_historical_v2_bytes_keep_identity_and_reject_current_authority(self):
+        expected = {
+            'windchime_plains': '8f07e1c3d8fdd3553f7bf373075a52b2b900aac703b4789cead2cc5ebeeb0fa4',
+            'thorn_forest': 'c79445e94ed41217ec326b0a928f1b6e723a754d66a8cc3eabcfd08e6c01b150',
+        }
+        for region, digest in expected.items():
+            path = 'docs/creative_direction/archive/creative-v2/' + region + '.json'
+            raw = (creative.ROOT/path).read_bytes()
+            self.assertEqual(hashlib.sha256(raw).hexdigest(), digest)
+            self.assertEqual(json.loads(raw)['version'], 'creative-v2')
+            with self.assertRaisesRegex(ValueError, 'Authority changed'):
+                creative.load_direction(path, region)
+
     def test_missing_theme_or_whole_screen_coverage_is_refused(self):
         for key in creative.COVERAGE:
             bad = copy.deepcopy(self.data); del bad[key]
@@ -73,7 +86,7 @@ class CreativeTests(unittest.TestCase):
         self.assertEqual(mission['phase'], 'production')
         for task in mission['tasks']:
             self.assertEqual(task['creative_direction']['region_id'], 'thorn_forest')
-            self.assertEqual(task['creative_direction']['version'], 'creative-v2')
+            self.assertEqual(task['creative_direction']['version'], 'creative-v3')
             self.assertEqual(task['feedback_context'], 'compact')
         self.assertEqual(mission['tasks'][-1]['completion'], 'content')
         self.assertIn('G2', mission['tasks'][-2]['required_gates'])
