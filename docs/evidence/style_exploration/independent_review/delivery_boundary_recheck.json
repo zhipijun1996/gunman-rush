@@ -1,0 +1,30 @@
+{
+  "scope": "independent frozen helper tiny fixtures, no export or publication",
+  "source_commit": "32200d04fe233bda16cf50f678aabee51a9715e5",
+  "cases": [
+    {
+      "case": "valid small exact chunk",
+      "accepted": true,
+      "bytes_match": true
+    },
+    {
+      "case": "chunk symlink outside bundle",
+      "rejected": true,
+      "reason": "Chunk escapes bundle directory",
+      "partial_cleaned": true
+    },
+    {
+      "case": "same-length corrupt gzip",
+      "rejected": true,
+      "exception": "BadGzipFile",
+      "partial_cleaned": true
+    },
+    {
+      "case": "pack filename hex prefix differs from actual build_id",
+      "accepted": true,
+      "bytes_match": true,
+      "observation": "nonblocking schema hardening gap: name pattern validated, content hash/length validated, filename prefix not cross-checked; actual frozen bundle uses matching name"
+    }
+  ],
+  "failed": 0
+}

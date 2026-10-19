@@ -89,6 +89,8 @@ def reconstruct_pack(bundle):
     pack_name = info["pack"]
     if not isinstance(pack_name, str) or Path(pack_name).name != pack_name or not re.fullmatch(r"index\.[0-9a-f]{12}\.pck", pack_name):
         raise ValueError("Unsafe or unexpected pack name")
+    if pack_name != "index." + str(info["build_id"]) + ".pck":
+        raise ValueError("Pack filename differs from build ID")
     worker = (bundle / "index.cache-sw.js").read_text()
     match = re.search(r"^const RESOURCE_MAP = (.*);$", worker, re.MULTILINE)
     if not match:

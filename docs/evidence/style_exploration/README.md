@@ -13,5 +13,7 @@
 - [景层/限位失败与修复](scenery_validation/README.md)
 - [独立审查](independent_review/report.md)
 - [工具链与交付](delivery/)
+- [最终冻结专项通过与完整profile失败原件](final_verification/README.md)
+- [六组与最弱种子7段移动影片](motion/README.md)
 
-最终截图、影片和交付身份将在冻结后补入。本目录的技术通过不替代商业美术、用户最终选择或实体设备验收。图集拓扑与绘制路径真实；本轮地区改色为明确source亮度ramp，新增地区主体材料并未因此变成新绘制的完整树皮/金属47格。
+[六组实机总览](comparison_six_regions.png)、[五风格总览](comparison_five_styles.png)、[全部45实机/目录图](final_capture/portable_index.json)、[准确交付身份](delivery/final_delivery.json)。实际试玩 https://zhipijun1996.github.io/gunman-rush/?styles=1&v=d2d469f81582 ，运行源32200d04fe233bda16cf50f678aabee51a9715e5。本目录的技术通过不替代商业美术、用户最终选择或实体设备验收。图集拓扑与绘制路径真实；本轮地区改色为明确source亮度ramp，新增地区主体材料并未因此变成新绘制的完整树皮/金属47格。

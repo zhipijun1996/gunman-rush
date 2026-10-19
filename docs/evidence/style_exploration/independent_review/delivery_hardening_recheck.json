@@ -1,0 +1,17 @@
+{
+  "scope": "post-freeze helper-only hardening, no runtime PCK change",
+  "helper_sha256": "582a88b0438753b04d771a479aa4d13f923b4387938252f09428773375391a43",
+  "cases": [
+    {
+      "case": "correct existing fixture remains accepted",
+      "passed": true,
+      "rewritten": false
+    },
+    {
+      "case": "prior mismatched filename now rejected",
+      "passed": true,
+      "reason": "Pack filename differs from build ID"
+    }
+  ],
+  "failed": 0
+}
