@@ -10,14 +10,24 @@ import csv
 import hashlib
 import io
 import json
+import os
 import re
 import shutil
 import subprocess
 from pathlib import Path
-from urllib.parse import parse_qsl, urlencode, urljoin, urlsplit, urlunsplit
+from urllib.parse import parse_qsl, quote, urlencode, urljoin, urlsplit, urlunsplit
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = next(parent for parent in Path(__file__).resolve().parents if (parent / "project.godot").is_file())
 ASSETS = ROOT / "assets/underworld_plains"
+RAW_UNDERWORLD_PATHS = (
+    "assets/underworld_plains/backgrounds/far.png",
+    "assets/underworld_plains/backgrounds/middle.png",
+    "assets/underworld_plains/backgrounds/near.png",
+    "assets/underworld_plains/terrain/source.png",
+    "assets/underworld_plains/decor/chime_props.png",
+    "assets/underworld_plains/decor/native_underworld.png",
+    "assets/underworld_plains/decor/identity_props.png",
+)
 
 
 def sha(path):
@@ -31,6 +41,37 @@ def sha(path):
 def write(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n")
+
+
+def check_raw_sources(pack):
+    """Imported derivatives do not substitute for FileAccess-readable bytes."""
+    checked = []
+    for name in RAW_UNDERWORLD_PATHS:
+        if name not in pack.entries:
+            raise ValueError("Runtime FileAccess raw PNG missing from actual PCK: " + name)
+        path = ROOT / name
+        if pack.read(name) != path.read_bytes():
+            raise ValueError("Runtime FileAccess raw PNG differs from source bytes: " + name)
+        checked.append({"path": name, "sha256": sha(path), "bytes": path.stat().st_size})
+    return checked
+
+
+def check_parallax_hashes(console):
+    """Read emitted cooked-runtime observations, not editor-only source hashes."""
+    expected = {"res://" + name: sha(ROOT / name) for name in RAW_UNDERWORLD_PATHS[:3]}
+    observed = {}
+    for line in console:
+        if not line.startswith("PIXEL_INSPECT "):
+            continue
+        fixture = json.loads(line.split(" ", 1)[1])
+        for layer in fixture.get("parallax", []):
+            name = layer.get("texture_path")
+            if name not in expected or layer.get("texture_sha256") != expected[name]:
+                raise ValueError("Actual exported parallax raw-source SHA is missing or wrong: " + str(name))
+            observed[name] = layer["texture_sha256"]
+    if set(observed) != set(expected):
+        raise ValueError("Actual exported browser did not observe all three raw-source parallax SHA fields")
+    return observed
 
 
 def closure(args):
@@ -54,6 +95,7 @@ def closure(args):
         raise ValueError("Bundle bytes differ from build ID/length")
     pack = Pack(pack_path)
     checked = {"textures": [], "resources": [], "raw_metadata": []}
+    checked["raw_png"] = check_raw_sources(pack)
     provenance_entries = [name for name in sorted(pack.entries)
                           if name.startswith("assets/underworld_plains/")
                           and any(part in name.split("/") for part in ("generated", "source"))]
@@ -103,7 +145,7 @@ def public_bytes(args):
         target = destination / name
         target.parent.mkdir(parents=True, exist_ok=True)
         subprocess.run(["curl", "--ipv4", "--fail", "--silent", "--show-error", "--location",
-                        "--retry", "3", "--max-time", "240", urljoin(args.url, name), "--output", str(target)],
+                        "--retry", "3", "--max-time", "240", urljoin(args.url, quote(name)), "--output", str(target)],
                        check=True, timeout=260)
         return target
 
@@ -137,13 +179,13 @@ def query(url, **values):
 
 
 async def browser(args):
-    from PIL import Image, ImageChops
+    from PIL import Image, ImageChops, ImageOps
     from playwright.async_api import async_playwright
 
     folder = args.output.parent / args.output.stem
     folder.mkdir(parents=True, exist_ok=True)
     report = {"status": "failed", "source_commit": args.source, "build_id": args.build_id,
-              "url": args.url, "checks": [], "console": [], "http_failures": [],
+              "url": args.url, "checks": [], "console": [], "http_failures": [], "validator_sha256": sha(Path(__file__)),
               "scope": "actual Chromium canvas, ordinary title and movement; second-map positioned art fixture explicitly separated",
               "physical_device": "unverified", "full_route": "unverified", "audio": "unverified"}
     async with async_playwright() as playwright:
@@ -164,11 +206,20 @@ async def browser(args):
 
         def ocr(path):
             result = subprocess.run(["tesseract", str(path), "stdout", "--psm", "11", "tsv"],
-                                    capture_output=True, text=True, check=True, timeout=15)
+                                    capture_output=True, text=True, check=True, timeout=15, env={**os.environ, "OMP_THREAD_LIMIT": "1"})
             path.with_suffix(".tsv").write_text(result.stdout)
             words = [row for row in csv.DictReader(io.StringIO(result.stdout), delimiter="\t")
                      if row.get("text", "").strip()]
-            return words, " ".join(row["text"] for row in words).upper()
+            # Small authored HUD text needs its own pixel-based OCR window.
+            # Preserve full originals and exact crop; use full-image word boxes
+            # for the ordinary title click, never synthetic GUI coordinates.
+            crop = ImageOps.invert(ImageOps.grayscale(Image.open(path).crop((12, 12, 255, 39)))).resize((972, 108))
+            hud_path = path.with_name(path.stem + "-hud.png")
+            crop.save(hud_path)
+            hud = subprocess.run(["tesseract", str(hud_path), "stdout", "--psm", "7"],
+                                 capture_output=True, text=True, check=True, timeout=15, env={**os.environ, "OMP_THREAD_LIMIT": "1"})
+            hud_path.with_suffix(".txt").write_text(hud.stdout)
+            return words, (" ".join(row["text"] for row in words) + " " + hud.stdout).upper()
 
         async def load(url):
             await page.goto(url, wait_until="domcontentloaded", timeout=60000)
@@ -220,8 +271,8 @@ async def browser(args):
             difference = ImageChops.difference(Image.open(spawn).convert("RGB"), Image.open(moving).convert("RGB")).crop((0, 140, 1250, 700)).getbbox()
             if not difference:
                 raise ValueError("Actual rendered movement sequence did not change world pixels")
-            report["checks"].append({"action": "ordinary KeyD/Space accepted by rendered game", "world_pixel_change": list(difference),
-                                     "limit": "fresh native Motor acceptance and exact parallax ratios are separately tested"})
+            report["checks"].append({"action": "ordinary KeyD/Space dispatched; captured world pixels changed", "world_pixel_change": list(difference),
+                                     "limit": "world pixel change alone does not prove Actor movement or Motor acceptance; independent original-frame review and native Motor traces are separate"})
             await load(query(args.url, plains="1", pixel_inspect="2"))
             await page.wait_for_timeout(1800)
             path = await capture("04-map2-positioned-spawn")
@@ -254,6 +305,7 @@ async def browser(args):
                 raise ValueError("Actual Web asset HTTP failure")
             if not any("Godot Engine v4.7.2" in line for line in report["console"]):
                 raise ValueError("Expected engine did not report startup")
+            report["raw_parallax_source_hashes"] = check_parallax_hashes(report["console"])
             report["status"] = "passed"
         except BaseException as error:
             report["error"] = str(error)

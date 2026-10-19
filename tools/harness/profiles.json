@@ -939,7 +939,8 @@
         "tests/underworld_plains/test_underworld_scenery.gd",
         "project.godot",
         "tools/underworld_pipeline.py",
-        "tools/run_tests.py"
+        "tools/run_tests.py",
+        "tests/underworld_plains/test_underworld_identity_population.gd"
       ]
     },
     "underworld-hazards": {
@@ -1030,6 +1031,27 @@
         "project.godot",
         "tools/run_tests.py",
         "tools/run_underworld_formal_tests.py"
+      ]
+    },
+    "underworld-raw-export": {
+      "argv": [
+        "python3",
+        "tests/test_underworld_raw_export.py"
+      ],
+      "timeout_seconds": 120,
+      "success_pattern": "^OK$",
+      "weight_seconds": 5,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "addons/runtime_raw_export",
+        "export_presets.cfg",
+        "assets/underworld_plains",
+        "assets/manifest.json",
+        "tests/test_underworld_raw_export.py",
+        "tests/underworld_raw_export_runner.gd",
+        "tools/underworld_delivery.py",
+        "tools/run_tests.py"
       ]
     }
   },
@@ -1142,7 +1164,8 @@
       "underworld-hazards",
       "underworld-terrain",
       "underworld-formal-terrain",
-      "underworld-formal"
+      "underworld-formal",
+      "underworld-raw-export"
     ],
     "art": [
       "docs",
@@ -1203,7 +1226,8 @@
       "underworld-hazards",
       "underworld-terrain",
       "underworld-formal-terrain",
-      "underworld-formal"
+      "underworld-formal",
+      "underworld-raw-export"
     ],
     "web": [
       "docs",
@@ -1230,7 +1254,8 @@
       "level-formal-receipts",
       "visual-director-tests",
       "web-resource-contract-tests",
-      "runtime-raw-export-tests"
+      "runtime-raw-export-tests",
+      "underworld-raw-export"
     ],
     "full": [
       "docs",
@@ -1307,7 +1332,8 @@
       "underworld-hazards",
       "underworld-terrain",
       "underworld-formal-terrain",
-      "underworld-formal"
+      "underworld-formal",
+      "underworld-raw-export"
     ]
   }
 }
