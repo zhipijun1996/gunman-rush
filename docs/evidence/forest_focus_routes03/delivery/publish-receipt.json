@@ -1,0 +1,44 @@
+{
+  "transport": {
+    "source_commit": "315f4972081f17128fa2a499a2169ae65010bcaf",
+    "build_id": "91280a1ade48",
+    "pack": "index.91280a1ade48.pck",
+    "pack_bytes": 140589880,
+    "pack_sha256": "91280a1ade48520424f75e3d647fae57fe72aefd34cb5d3c6acad625f1c70eb6",
+    "prepared_branch": "playtest/forest-v13-91280a1ade48",
+    "prepared_commit": "94e1576ae65e042bc8cb44aad661cc11a3ce9502",
+    "prepared_path": "/dev/shm/gunman-forest-v13-preview-91280a1ade48",
+    "excluded_derived_file": "index.91280a1ade48.pck",
+    "method": "existing reconstruct-pack restores original full PCK from SHA-bound gzip chunks"
+  },
+  "operations": [
+    {
+      "argv": [
+        "git",
+        "-C",
+        "/dev/shm/gunman-forest-v13-preview-91280a1ade48",
+        "push",
+        "https://github.com/zhipijun1996/gunman-rush.git",
+        "HEAD:refs/heads/playtest/forest-v13-91280a1ade48"
+      ],
+      "exit_code": 0,
+      "seconds": 15.221482374996413
+    },
+    {
+      "argv": [
+        "gh",
+        "workflow",
+        "run",
+        "deploy-prepared-playtest.yml",
+        "--repo",
+        "zhipijun1996/gunman-rush",
+        "--ref",
+        "main",
+        "-f",
+        "prepared_ref=playtest/forest-v13-91280a1ade48"
+      ],
+      "exit_code": 0,
+      "seconds": 1.87740875199961
+    }
+  ]
+}

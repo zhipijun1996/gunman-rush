@@ -1,0 +1,22 @@
+# 森林v13发布证据（运行源码315）
+
+运行游戏源码：315f4972081f17128fa2a499a2169ae65010bcaf（PR97 main，与实现71c29dfc同树）。build91280a1ade48，完整PCK140589880B/SHA91280a1ade48520424f75e3d647fae57fe72aefd34cb5d3c6acad625f1c70eb6。
+
+Pages run39308213581实际API completed/success；Prepared分支playtest/forest-v13-91280a1ade48的94e1576ae65e042bc8cb44aad661cc11a3ce9502是静态传输身份，不是另一游戏源。公网public-bytes.json实际核全PCK长度/SHA与12份许可。原stock export四闭包和完整分块重建也已有原件。copy_manifest.json逐项绑定原路径与普通文件SHA；PCK自身留RAM不复制。
+
+原public GUI20断言/8入口已实际exit0通过（原480 cap）；main315 fullCI39307414057仍in_progress，不能称绿色。后续纯文档提交HEAD与已发布315运行PCK分开，不能用文档HEAD冒已发布游戏源。
+
+试玩发布不改变整体in_progress/REVISE、HH无H替代/推荐bit非世界随机/设备真人FUN未验。PR96独立DRAFT未合并，本轮按默认先发布森林的授权，不把它偷偷纳入。
+
+工程保全原件保留checkout ENOSPC当时recovering身份；根任务报告已从完整提交恢复315、30 ignored原件RAM校验迁移、12656 readonly aliases审计完整。此只属工程保全，不是游戏设计或独立体验证明，不复制1GB custody。
+
+## 公网GUI最终终态（仅该范围PASS）
+
+原CLI实际exit0，原480秒cap未改；report SHA b8a6e6d94f31ed09679ce9d34891a20c596bffd756280926818a7aada025fb48，20断言/8 identities/errors[]。public-gui-originals.zip保存全部139原输出截图、OCR TSV、原小receipt和report；public-gui-index逐项SHA/大小/entry，CRC通过。普通public-gui-exec.json保存根工具观察终态，不补造未记录的进程耗时。
+
+范围是runtime315/build91280a1ade48鼠标与仿真触屏、平原/森林两图实际入口/暂停恢复。自然奖励/跨区GUI、整条浏览器路线和实体设备仍unverified；native战役证据属于此前明确源快照，不能移作浏览器证明。main315 fullCI39307414057仍未绿。
+
+后续docs-only提交计划带[skip ci]，目的仅为保留正在执行的315代码CI、避免代码未变重复约1h流程；不改assertions/workflow/source，不把docsHEAD说成通过运行源码CI。运行源码始终315、Prepared94e157为静态传输身份，docs-only HEAD另记。PR96仍独立DRAFT未合并。整体REVISE/in_progress不变。
+
+精确315的Documentation39307414111实际completed/SUCCESS；runtime39307414057仍in_progress，未称全CI绿色。最终独立交付审查限定接受公网20/8与身份，但实看森林1右上MENU下辅助hint有缺字方框，仍未解决，不能把GUI验收当全部UI品质通过。后续docs-only [skip ci]仅保留315代码CI不被取消/避免未改代码约1h重跑，不修改workflow、断言或运行源。
+最终review02保留原SHA身份，review01作为历史pending快照；copy_manifest列全部原件SHA。
