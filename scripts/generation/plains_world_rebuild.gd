@@ -63,9 +63,9 @@ static func generate(seed: String, variant: int = 0) -> Dictionary:
 	layers["composition_assets"][1]["anchor"] = shed_anchor
 	var data: Dictionary = {
 		"version": VERSION, "root_seed": seed, "variant": variant, "geometry_revision": "v3_source_painting_is_world_construction", "previous_source_commit": PREVIOUS_SOURCE_COMMIT,
-		"status": "single_source_anchored_candidate_not_art_approved", "bounds": [-240.0, 140.0, far_right + 480.0, world_root_extent + 40.0],
+		"status": "single_source_anchored_candidate_not_art_approved", "bounds": [float(west_top[0]["from"][0]), 140.0, _q(far_right-float(west_top[0]["from"][0])), world_root_extent + 40.0],
 		"spawn": spawn, "exit": exit_position, "bodies": bodies, "formal_pool": false,
-		"construction": {"source_geometry": geometry.duplicate(true), "main_contact_gap": float(east_rim[0]) - float(west_rim[0]), "creek_open_width": east_wall - west_wall, "root_depth": root - creek, "registered_unit_source": CATALOG_PATH, "randomness_status": "seed_recorded_no_structure_randomization_until_first_art_admission"},
+		"construction": {"source_geometry": geometry.duplicate(true), "main_contact_gap": float(east_rim[0]) - float(west_rim[0]), "creek_open_width": east_wall - west_wall, "root_depth": root - creek, "registered_unit_source": CATALOG_PATH, "randomness_status": "seed_recorded_no_structure_randomization_until_first_art_admission", "extension_join_status":"external_source_cross_sections_not_connected_in_this_finite_preview"},
 		"routes": [
 			{"id": "main", "required_action": "walk_source_derived_surface_then_legal_recoil_crossing", "points": [spawn, _standing_anchor(bodies[0], 600.0), _standing_anchor(bodies[0], float(west_rim[0]) - 30.0), _standing_anchor(bodies[1], float(east_rim[0]) + 54.0), exit_position], "validation_status": "unverified_motor"},
 			{"id": "lower_creek", "required_action": "controlled_drop_then_legal_downshot_recoil_return", "points": [_standing_anchor(bodies[0], float(west_rim[0]) - 30.0), [_q((west_wall + east_wall) * 0.5), _q(creek - 18.0)], [_q((west_wall + east_wall) * 0.5 + (east_wall - west_wall) * 0.25), _q(creek - 18.0)], _standing_anchor(bodies[1], float(east_rim[0]) + 54.0)], "validation_status": "unverified_motor"}
