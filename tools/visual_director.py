@@ -1245,7 +1245,10 @@ def route(request,task_id,quality_record,allowed_paths,max_calls=10,max_rounds=2
                                  'python3 tools/run_plains_world_rebuild_tests.py --route --route-kind=lower'],
             'method': 'Source form, contact line and equal-scale frame jointly define collision, route and actual Sprite. Reject invalid source/contact/scale instead of stretching paintings.',
             'expansion': 'Only after actual independent art and input-route admission; seeds do not yet prove random structure or complete region'}
+        worker_ids = {task['id']: 'PLAINS-WORLD-REBUILD-01' for task in tasks if not task['read_only']}
         for task in tasks:
+            task['id'] = worker_ids.get(task['id'], task['id'])
+            task['depends_on'] = [worker_ids.get(dep, dep) for dep in task['depends_on']]
             task['skills'] = list(dict.fromkeys(task['skills'] + ['level-module-creator', 'region-generator']))
             task['goal'] += ' Read the current world-rebuild recipe and failed methods. Preserve source forms and actual trusted contact/Sprite/physics alignment; inspect real follow-camera pixels and limited main/lower movies. This pilot is not full-region autonomous production or user style approval.'
             if not task['read_only']:
