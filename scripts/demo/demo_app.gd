@@ -247,7 +247,7 @@ func _load_stage() -> void:
 	if plains_regional_art_candidate_requested:
 		var planner := load("res://scripts/generation/plains_region_art_plan.gd") as Script
 		var actual_seed := PlainsRegionCampaign.seed_for(director.seed,director.stage_index)
-		var candidate: Dictionary = planner.generate(actual_seed,controller.motor.tuning,"intro" if director.stage_index==1 else "advanced","",plains_joint_recoil_candidate_requested)
+		var candidate: Dictionary = planner.generate(actual_seed,controller.motor.tuning,"intro" if director.stage_index==1 else "advanced","",plains_joint_recoil_candidate_requested,str(get_meta("plains_art_language_candidate","")))
 		if not candidate.get("ok",false):
 			push_error(str(candidate.get("error","Regional art generation failed")))
 			abandon_run()

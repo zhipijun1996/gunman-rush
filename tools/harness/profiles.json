@@ -1005,6 +1005,17 @@
       "artifact_paths": [
         "build/plains_joint_recoil/contracts"
       ]
+    },
+    "plains-art-language-contract": {
+      "argv": [
+        "python3",
+        "tools/run_plains_art_language_tests.py"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PLAINS ART LANGUAGE: [1-9][0-9]* assertions, 0 failures$",
+      "weight_seconds": 20,
+      "serial": true,
+      "cacheable": false
     }
   },
   "profiles": {

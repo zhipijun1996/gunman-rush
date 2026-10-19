@@ -2,6 +2,7 @@ class_name PlainsRegionalComposer
 extends Node2D
 ## Actual candidate consumer of the complete formal region's world-space plan.
 ## No collision, layout, supports, Seed or decoration coordinates are authored here.
+const LANGUAGE_PAINT_CATALOG := "res://resources/visual_development/p1_landform_assets.json"
 const CATALOG := "res://resources/visual_development/p1_regional_assets.json"
 const DISTANCE_SHADER := preload("res://scripts/art/distant_plains.gdshader")
 const GROUND_SHADER := preload("res://shaders/plains_regional_ground.gdshader")
@@ -15,10 +16,15 @@ var _old_background: CanvasLayer
 var _background_was_visible := false
 var _background_panels: Array[Sprite2D]=[]
 var _camera_reference:=Vector2.ZERO
+var _language_expressions: Dictionary={}
+var _source_solids: Dictionary={}
 
 func install(stage: Node2D, plan: Dictionary) -> void:
 	_stage=stage
 	_plan=plan
+	_language_expressions.clear();_source_solids.clear()
+	for expression: Dictionary in plan.get("module_art_expressions",[]):_language_expressions[str(expression.node_id)]=expression
+	for solid: Dictionary in plan.get("solids",[]):_source_solids[str(solid.id)]=solid
 	_facts={"version":"plains-regional-consumer-v1","seed":plan.get("seed",""),"manifest_hash":plan.get("manifest_hash",""),"plan_hash":plan.get("plan_hash",""),"production_pool":false,"terrain":[],"objects":[],"layers":[],"omitted":[],"surfaces":plan.get("surfaces",[]).duplicate(true),"renderer_writes_collision":false,"renderer_authored_layout":false,"material_coordinate_space":"world","terrain_method":"complete painted geological material on shared world-union geometry, opaque full-depth volume","rng_used":false}
 	if not FileAccess.file_exists(CATALOG):
 		_facts.omitted.append({"reason":"regional_catalog_missing"})
@@ -32,9 +38,17 @@ func install(stage: Node2D, plan: Dictionary) -> void:
 	_facts.catalog_path=CATALOG
 	_facts.catalog_sha256=FileAccess.get_sha256(CATALOG)
 	_build_sky()
-	_build_layers()
+	if plan.has("art_language_world"):
+		_build_finite_language_landforms()
+	else:
+		_build_layers()
 	_build_terrain()
 	_build_landmarks()
+	if plan.has("art_language_world"):
+		_facts.art_status="design_debug_not_art_admission"
+		_facts.front_terrain_scope=plan.front_terrain_scope
+		_facts.module_art_expressions=plan.module_art_expressions.duplicate(true)
+		_facts.asset_requirements=plan.art_language_world.get("asset_requirements",[]).duplicate(true)
 	validate_installed_foundations()
 	_retire_original_terrain()
 	publish_facts()
@@ -140,7 +154,7 @@ func _build_terrain() -> void:
 		node.material=material
 		node.z_index=-3
 		add_child(node)
-		_facts.terrain.append({"id":body.get("id",node.name),"source_ids":body.get("source_ids",[]),"source":spec.texture,"source_sha256":source_sha,"source_dimensions":[texture.get_width(),texture.get_height()],"points":raw,"exposed_top_count":top_count,"node_path":str(node.get_path()),"coordinate_space":"one global world phase","opaque_full_volume":true,"deep_core_mapping":spec.get("deep_core",{}),"hole_safe_decomposition":body.get("hole_safe_decomposition",false),"collision_written":false})
+		_facts.terrain.append({"id":body.get("id",node.name),"source_ids":body.get("source_ids",[]),"source":spec.texture,"source_sha256":source_sha,"source_dimensions":[texture.get_width(),texture.get_height()],"points":raw,"exposed_top_count":top_count,"node_path":str(node.get_path()),"coordinate_space":"one global world phase","opaque_full_volume":true,"deep_core_mapping":spec.get("deep_core",{}),"hole_safe_decomposition":body.get("hole_safe_decomposition",false),"collision_written":false,"art_unit_bindings":_language_unit_bindings(body.get("source_ids",[]),polygon),"asset_status":"legacy_material_probe_pending_family_assets" if _plan.has("art_language_world") else "existing_candidate"})
 	if _facts.terrain.is_empty():_facts.omitted.append({"reason":"no_regional_terrain_installed"})
 
 func _bounded_chunks(bodies: Array) -> Array:
@@ -168,6 +182,89 @@ func _bounded_chunks(bodies: Array) -> Array:
 				output.append(item)
 			start=end
 	return output
+
+func _language_unit_bindings(source_ids: Array, installed_polygon: PackedVector2Array) -> Array:
+	var groups: Dictionary={}
+	for source_id: String in source_ids:
+		if not _source_solids.has(source_id):continue
+		var solid: Dictionary=_source_solids[source_id]
+		var node_id:=str(solid.source_node)
+		if not _language_expressions.has(node_id):continue
+		var rect:=_rect(solid.rect)
+		var source_polygon:=PackedVector2Array([rect.position,Vector2(rect.end.x,rect.position.y),rect.end,Vector2(rect.position.x,rect.end.y)])
+		var domains: Array=[]
+		for part: PackedVector2Array in Geometry2D.intersect_polygons(installed_polygon,source_polygon):
+			var area:=0.0
+			for index: int in part.size():area+=part[index].cross(part[(index+1)%part.size()])
+			if absf(area)>0.00001:domains.append(_packed_data(part))
+		if domains.is_empty():continue
+		if not groups.has(node_id):
+			var expression: Dictionary=_language_expressions[node_id]
+			groups[node_id]={"node_id":node_id,"source_ids":[],"actual_source_rects":[],"actual_consumed_domains":[],"expression":expression.expression.duplicate(true),"consumer_scope":"actual visible render chunk intersects these source-platform domains; clipped domain polygons identify consumed portions, not whole-unit painting; family-specific painting still required"}
+		groups[node_id].source_ids.append(source_id)
+		groups[node_id].actual_source_rects.append(solid.rect.duplicate())
+		groups[node_id].actual_consumed_domains.append({"source_id":source_id,"polygons":domains,"coordinate_space":"shared_region"})
+	return groups.values()
+
+func _build_finite_language_landforms() -> void:
+	# This candidate consumes closed, finite world geometry literally. It never
+	# derives a background from collision rectangles or closes a skyline to a
+	# regional floor. Existing paintings are material/interface probes, not a
+	# completed new terrain asset family or artistic admission.
+	var world: Dictionary=_plan.art_language_world
+	_facts.finite_landforms=[]
+	_facts.open_valleys=world.get("open_valleys",[]).duplicate(true)
+	_facts.language_world_version=world.get("version","")
+	_facts.language_catalog_sha256=world.get("catalog_sha256","")
+	if not FileAccess.file_exists(LANGUAGE_PAINT_CATALOG):
+		_facts.omitted.append({"reason":"language_paint_catalog_missing"});return
+	var parsed: Variant=JSON.parse_string(FileAccess.get_file_as_string(LANGUAGE_PAINT_CATALOG))
+	if not parsed is Dictionary:
+		_facts.omitted.append({"reason":"language_paint_catalog_invalid"});return
+	var spec: Dictionary=parsed.get("materials",{}).get("rear_substrate",{})
+	var path:=str(spec.get("texture",""))
+	if path.is_empty() or FileAccess.get_sha256(path)!=str(spec.get("source_sha256","")):
+		_facts.omitted.append({"reason":"language_paint_source_mismatch"});return
+	var texture:=_texture(path)
+	if texture==null:return
+	var density:=float(spec.get("pixel_world_density",0.0))
+	if density<=0.0:
+		_facts.omitted.append({"reason":"language_paint_scale_missing"});return
+	for body: Dictionary in world.get("finite_landforms",[]):
+		var polygon:=_points(body.get("points",[]))
+		if polygon.size()<3 or Geometry2D.triangulate_polygon(polygon).is_empty():
+			_facts.omitted.append({"reason":"finite_landform_polygon_invalid","id":body.get("id","")});continue
+		var assembly: Dictionary=body.get("assembly",{})
+		if float(assembly.get("pixels_per_world_unit",0.0))!=density or assembly.get("method","")!="finite_closed_massif_polygon":
+			_facts.omitted.append({"reason":"finite_landform_unregistered_paint_mapping","id":body.id});continue
+		var origin:=_pair(assembly.get("world_material_origin",[0.0,0.0]))
+		var node:=Polygon2D.new()
+		node.name="FiniteLanguageLandform_"+str(body.id).validate_node_name()
+		node.polygon=polygon
+		var uv:=PackedVector2Array()
+		for point: Vector2 in polygon:uv.append((point-origin)*density)
+		node.uv=uv
+		node.texture=texture
+		node.texture_repeat=CanvasItem.TEXTURE_REPEAT_ENABLED
+		# Original opaque pigment repeats through the exact fixed world UV.
+		# The old distant shader clamps UV and must not be reused here.
+		node.modulate=Color(0.82,0.88,0.85,1.0)
+		node.z_index=-30
+		add_child(node)
+		_facts.finite_landforms.append({"id":body.id,"node_path":str(node.get_path()),"points":body.points.duplicate(true),"ridge_line":body.get("ridge_line",[]).duplicate(true),"actual_world_points":_node_world_points(node),"actual_uv":_packed_data(node.uv),"source":path,"source_sha256":FileAccess.get_sha256(path),"source_dimensions":[texture.get_width(),texture.get_height()],"pixels_per_world_unit":density,"world_material_origin":[origin.x,origin.y],"material_family":body.get("material_family",""),"assembly":body.get("assembly",{}).duplicate(true),"source_area_ids":body.get("source_area_ids",[]).duplicate(),"source_edge_ids":body.get("source_edge_ids",[]).duplicate(),"layer":"rear_landform","actual_z_index":node.z_index,"collision_written":false,"mapping":"original hand-painted material; fixed world UV; candidate design probe, repeated pigment not finished terrain painting","no_world_floor_extension":true})
+		_facts.layers.append({"id":body.id,"node_path":str(node.get_path()),"source":path,"source_sha256":FileAccess.get_sha256(path),"depth_factor":1.0,"geometry_source":"pre_embedding_art_language_world.finite_landforms","reset_per_place":false,"finite_closed_source_polygon":true})
+
+static func _packed_data(points: PackedVector2Array) -> Array:
+	var result: Array=[]
+	for point: Vector2 in points:result.append([point.x,point.y])
+	return result
+
+static func _node_world_points(node: Polygon2D) -> Array:
+	var result: Array=[]
+	for point: Vector2 in node.polygon:
+		var actual:=node.global_transform*point
+		result.append([actual.x,actual.y])
+	return result
 
 func _build_layers() -> void:
 	var bounds:=_rect(_plan.bounds)

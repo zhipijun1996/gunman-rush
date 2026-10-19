@@ -14,7 +14,7 @@ func run() -> void:
 	root.size = Vector2i(1280,720)
 	root.content_scale_size = Vector2i(1280,720)
 	root.title = "失序之钟 · 完整平原联合美术实验（未正式准入）"
-	app = DemoApp.new()
+	app = make_review_application()
 	app.set("plains_regional_art_candidate_requested",true)
 	app.avatar_selection_id = "p1_girl"
 	app.meta_persistence_enabled = false
@@ -41,3 +41,6 @@ func run() -> void:
 			return
 	push_error("Regional art review stage timeout")
 	await close_review()
+
+func make_review_application() -> DemoApp:
+	return DemoApp.new()
