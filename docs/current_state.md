@@ -1,3 +1,15 @@
+## 2026-10-19：PR94已包含于main，网页待GitHub故障恢复
+
+PR92与导出修复PR95已普通合入main；实际游戏源码 `b8dc8c51dc68c4d1e2e70302ec9eb8d94e9e237c` 包含PR94最新 `0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad`，六个输入祖先关系已逐项核实。后续本记录提交只更新文档/证据，不改游戏。
+
+新Web构建 `2985982ee612`（PCK完整SHA `2985982ee612882e20a717e7140225a25aba5ce5194abbed58666141bd1422a1`，140571760B）完成原导出、通用/Underworld/风格资源闭包与许可复制。原20项/8上下文GUI检查实际通过全部四图鼠标/仿真触屏入口和暂停恢复；是同一已上传包的本地浏览器证据，不是公网或完整关卡、Boss、真机/玩家认可。原守门首次拒绝外置cache的导入目标，之后原1408缓存文件逐SHA核实移回仓库内合法路径，检查未改、原失败保留。
+
+现有prepared Pages任务 https://github.com/zhipijun1996/gunman-rush/actions/runs/39283872207 已提交，prepared commit `27a40730b45cd82c4b8f5e845dfb702573a39cc2`，PCK从原分块完整还原SHA验证通过。当前仍queued/无runner，GitHub官方Actions/Pages/Webhooks故障 https://stspg.io/nrv2k8s68bwn 。**尚未部署新main**，公网最后实测仍c65a111旧包6b3093b929c0；不能把排队或本地20项通过说成发布成功。完整main CI原门保持，仍待运行；菜单strict49/37失败未修，森林整体REVISE。
+
+继续：保留同一部署任务，不重复dispatch/不改原门槛；成功后用现有underworld_delivery.py public-bytes核验b8dc8c5/build2985982ee612/fullPCK，再执行公网实际浏览器检查。精确状态、原API/故障和本地媒体见 docs/evidence/parallel_integration_01/main_preview09/delivery-status.json 及 main-build-and-local-browser09.zip。
+
+存储：当前Git944449275B pack已恢复为持久普通文件；为腾空间，五份已完成旧诊断产物逐SHA/ZIP CRC核实后保留在session Vault，通过原路径symlink可读，没有删除字节。历史全量raw Vault是临时内存，非永久证据服务；当前main小型交付证据和本地GUI媒体已在本提交普通文件内，当前准备包已推远端独立分支。
+
 ## 2026-10-19 main 已合并，导出批次刷新
 
 PR #92已合入main `fe704f9717dc1109605a5186b2acd94ba5b58792`。首次导出被真实Foundry basis守门拒绝；按原base24/double_jump6/air_chain6重建36短句、18连续路线，全三profile failures0，再执行原export stamp；没有减少数量或更改验证器。此后续提交只刷新开发练习场验证产物、修正actors JSON为声明路径而非实际读取的来源描述和交付记录，正式关卡池不变。网页仍待此后续main精确提交导出及公开字节验真；菜单strict49/37与完整回归未通过仍保留。

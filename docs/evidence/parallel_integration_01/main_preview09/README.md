@@ -1,3 +1,7 @@
+# Current actual delivery status
+
+PR94 is already an ancestor of integrated main b8dc8c5. Export and exact-pack local20/8 GUI passed. Prepared Pages run39283872207 is QUEUED behind the official GitHub Actions/Pages incident; public current-main bytes and GUI are NOT VERIFIED and new deployment is NOT COMPLETE. See delivery-status.json and main-build-and-local-browser09.zip. A later documentation-only main commit is distinct from runtime source b8dc8c5.
+
 # Latest-main quick playtest, with explicit failed checks
 
 The user explicitly authorized merging the latest parallel branches into main and a quick playable Web deployment. PR94 Underworld formal Plains, Home and shared UI join Forest v12/15%/hanging rings and the five already integrated inputs. Formal pool and isolated experiments remain separate.
