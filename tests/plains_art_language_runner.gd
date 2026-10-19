@@ -10,6 +10,7 @@ class NativeArtStage:
 var assertions:=0
 var failures:Array[String]=[]
 var output_path:=""
+var baseline_cache:Dictionary={}
 
 func check(ok:bool,label:String)->void:
 	assertions+=1
@@ -39,6 +40,51 @@ func verify_baselines(tuning:PlayerTuning)->void:
 		check(ordinary.get("ok",false) and ordinary.manifest.manifest_hash==PRIOR_MANIFESTS[root_seed].default,root_seed+": original default Manifest bytes unchanged")
 		var deep:=PlainsRegionArtPlan.generate(seed,tuning)
 		check(deep.get("ok",false) and deep.manifest.manifest_hash==PRIOR_MANIFESTS[root_seed].deep,root_seed+": original noncandidate deep profile unchanged")
+		if deep.get("ok",false):baseline_cache[seed]=deep.manifest
+
+func verify_embedding_counterfactual(manifest:Dictionary)->Dictionary:
+	var baseline:Dictionary=baseline_cache.get(str(manifest.seed),{})
+	var origin:="cached_actual_regional_baseline_same_seed_family_attempt"
+	if baseline.is_empty() or baseline.family!=manifest.family or baseline.attempt!=manifest.attempt:
+		var generator:=PlainsRegionGenerator.new()
+		generator.root_bell_mode="v3";generator.regional_art_profile="continuous_plains_v1"
+		baseline=generator._candidate(str(manifest.seed),false,str(manifest.family),int(manifest.attempt),str(manifest.difficulty))
+		origin="actual_regional_candidate_same_seed_family_attempt_no_reroll"
+	check(baseline.seed==manifest.seed and baseline.family==manifest.family and baseline.attempt==manifest.attempt,"Counterfactual holds exact Seed, topology family and attempt constant")
+	check(PlainsRegionArtPlan.topology_signature(baseline)==PlainsRegionArtPlan.topology_signature(manifest),"Art-aware embedding preserves exact topology while changing spatial allocation")
+	var before_recipes:Array=[]
+	var after_recipes:Array=[]
+	for edge:Dictionary in baseline.connections:
+		if edge.kind=="horizontal":before_recipes.append([edge.id,edge.design_recipe])
+	for edge:Dictionary in manifest.connections:
+		if edge.kind=="horizontal":after_recipes.append([edge.id,edge.design_recipe])
+	check(before_recipes==after_recipes,"Counterfactual keeps actual operation recipes and action order unchanged")
+	var old_columns:Array=baseline.topology.column_positions
+	var new_columns:Array=manifest.topology.column_positions
+	check(old_columns!=new_columns,"Selected art language really changes world coordinates, not only metadata")
+	var minimums:Dictionary=manifest.art_language_intent.minimum_column_spans
+	for index:int in range(new_columns.size()-1):
+		check(float(new_columns[index+1])-float(new_columns[index])>=float(minimums[str(index)]),"Actual embedded column honors precomputed art minimum span")
+	var edge_budgets:Array=[]
+	for edge:Dictionary in manifest.connections:
+		if edge.kind!="horizontal":continue
+		var from_area:Dictionary={};var to_area:Dictionary={}
+		for area:Dictionary in manifest.areas:
+			if area.id==edge.a:from_area=area
+			if area.id==edge.b:to_area=area
+		var operation_end:=-INF
+		for node_index:int in edge.modules:
+			var node:Dictionary=manifest.nodes[node_index]
+			var definition:=PlainsRegionGenerator.definition(node)
+			operation_end=maxf(operation_end,float(node.offset[0])+definition.world_bounds.end.x)
+		var arrival_boundary:=float(to_area.position[0])-PlainsRegionGenerator.HALF
+		var available:=arrival_boundary-operation_end
+		var modules:Array=edge.art_language.modules
+		var shoulder:=maxf(float(modules[0].assembly.shoulder_width),float(modules[-1].assembly.shoulder_width))
+		var quiet:=float(edge.art_language.quiet_arrival_width)
+		check(available>=2.0*shoulder+quiet+80.0,"Measured actual operation endpoint leaves both shoulder budgets and quiet arrival before neighbor")
+		edge_budgets.append({"edge_id":edge.id,"column":from_area.col,"actual_operation_end_x":operation_end,"neighbor_arrival_boundary_x":arrival_boundary,"remaining_world_span":available,"shoulder_budget_each":shoulder,"quiet_arrival_width":quiet,"existing_join_reserve":80.0})
+	return {"baseline_origin":origin,"seed":manifest.seed,"family":manifest.family,"attempt":manifest.attempt,"baseline_manifest_hash":baseline.manifest_hash,"before_column_positions":old_columns,"after_column_positions":new_columns,"minimum_column_spans":minimums,"unchanged_topology_signature":PlainsRegionArtPlan.topology_signature(baseline),"actual_edge_budgets":edge_budgets,"scope":"Actual layout allocation proof; shoulder/root painted pieces are still missing and not claimed instantiated"}
 
 func verify_language_negatives()->void:
 	var catalog:=PlainsArtLanguage.catalog()
@@ -64,6 +110,7 @@ func verify_language_negatives()->void:
 	check(not PlainsArtLanguage._assemble_parts(40.0,"grounded_bank",catalog.part_grammar).get("ok",false),"Unexpressible small bank is rejected, not compressed or truncated")
 	for span:float in [70.0,85.0,90.0]:
 		check(PlainsArtLanguage._assemble_parts(span,"supported_lintel",catalog.part_grammar).get("ok",false),"Registered short beam variant has legal fixed pieces: "+str(span))
+	check(not PlainsArtLanguage._assemble_parts(100.25,"grounded_bank",catalog.part_grammar).get("ok",false),"Off-source-pixel contact length is refused without coordinate rounding")
 	var definition:=RandomStageGenerator.new().definition_for("plains_recoil_span",false,false)
 	var expression:=PlainsArtLanguage.plan_definition(definition,"fissure_banks","native/recoil")
 	check(expression.get("ok",false) and PlainsArtLanguage.expression_errors(expression).is_empty(),"Actual recoil Definition has registered finite family expression")
@@ -108,6 +155,36 @@ func verify_language_negatives()->void:
 		check(not PlainsArtLanguage.expression_errors(broken).is_empty(),"Deleted source-owned finite part relation is rejected: "+field)
 	check(not PlainsArtLanguage.plan_recipe({"id":"unknown","modules":["plains_missing_module"]},"creek_well","native/unknown").get("ok",false),"Unknown operation never falls through to arbitrary art family")
 
+func generated_floor(width:float,module_id:String="region_connection")->Dictionary:
+	var generator:=PlainsRegionGenerator.new()
+	var manifest:Dictionary={"nodes":[]}
+	var definition:=generator._floor_definition(module_id,Rect2(0.0,18.0,width,32.0))
+	generator._add_inline(manifest,"native/generated",Vector2.ZERO,definition)
+	return manifest.nodes[0]
+
+func verify_generated_negatives()->void:
+	var source:=generated_floor(480.0)
+	var expression:=PlainsArtLanguage.plan_generated(source)
+	check(expression.get("ok",false) and PlainsArtLanguage.expression_errors(expression,source).is_empty(),"Generated connector art expression is bound to real external node geometry")
+	if not expression.get("ok",false):return
+	check(PlainsArtLanguage.expression_errors(JSON.parse_string(JSON.stringify(expression)),JSON.parse_string(JSON.stringify(source))).is_empty(),"Generated expression and real source survive independent JSON roundtrip")
+	check(not PlainsArtLanguage.expression_errors(expression).is_empty(),"Generated expression cannot self-authorize without external source node")
+	var other:=generated_floor(300.0)
+	var other_expression:=PlainsArtLanguage.plan_generated(other)
+	check(other_expression.get("ok",false) and PlainsArtLanguage.expression_errors(other_expression,other).is_empty(),"Different legitimate generated width uses finite parts")
+	check(expression.assembly.platforms[0].assembly_plan.pieces!=other_expression.assembly.platforms[0].assembly_plan.pieces,"Changing real source width changes actual finite assembly rather than a label")
+	check(not PlainsArtLanguage.expression_errors(other_expression,source).is_empty(),"Fully self-consistent counterfeit expression is refused against different real source")
+	var narrow:=generated_floor(70.0)
+	check(PlainsRegionGenerator.definition(narrow).is_valid(),"Narrow art counterexample retains a legal original physical Definition")
+	check(not PlainsArtLanguage.plan_generated(narrow).get("ok",false),"Physically legal but unexpressible generated bank is rejected before scene instantiation")
+	check(not PlainsArtLanguage.plan_generated(generated_floor(100.25)).get("ok",false),"Generated source cannot hide off-grid artwork length")
+	var unknown:Dictionary=source.duplicate(true);unknown.module_id="region_stairs"
+	check(not PlainsArtLanguage.plan_generated(unknown).get("ok",false),"Unowned inline structure is not silently reclassified as plain bank")
+	var bad_source:Dictionary=source.duplicate(true);bad_source.geometry.platforms="fake"
+	check(not PlainsArtLanguage.plan_generated(bad_source).get("ok",false),"Invalid generated geometry input returns explicit refusal")
+	var moved:Dictionary=source.duplicate(true);moved.offset[0]+=1.0
+	check(not PlainsArtLanguage.expression_errors(expression,moved).is_empty(),"Source relocation invalidates old world attachment expression")
+
 func verify_world(manifest:Dictionary,plan:Dictionary)->void:
 	var world:Dictionary=manifest.art_language_world
 	check(world.intent.source_order=="topology_recipe_and_art_intent_before_world_coordinates","World art intent is recorded before coordinate embedding")
@@ -119,6 +196,18 @@ func verify_world(manifest:Dictionary,plan:Dictionary)->void:
 		if not edge.has("art_language"):continue
 		for expression:Dictionary in edge.art_language.modules:
 			check(PlainsArtLanguage.expression_errors(expression).is_empty(),"Recorded module has exact source-backed finite size and construction")
+	var generated_count:=0
+	for node:Dictionary in manifest.nodes:
+		if node.module_id not in ["region_junction","region_connection"]:continue
+		generated_count+=1
+		check(node.has("art_expression") and PlainsArtLanguage.expression_errors(node.get("art_expression",{}),node).is_empty(),"Expanded generated junction or connector has source-verified part grammar")
+	check(generated_count>0 and manifest.art_language_coverage.unresolved_inline_or_tutorial_node_ids.size()<40,"Tested inline expansion actually reduces unresolved geometry rather than adding unused schema")
+	var counterfeit:Dictionary=manifest.duplicate(true)
+	for node:Dictionary in counterfeit.nodes:
+		if node.module_id not in ["region_junction","region_connection"]:continue
+		node.art_expression.source_geometry_hash="counterfeit"
+		break
+	check(not PlainsRegionArtPlan.compile(counterfeit).get("ok",false),"Actual regional compiler rejects inline expression source forgery")
 	var broken:Dictionary=manifest.duplicate(true)
 	broken.art_language_world.finite_landforms[0].points=world.open_valleys[0].points.duplicate(true)
 	check(not PlainsRegionArtPlan.compile(broken).get("ok",false),"Actual compiler rejects mountain geometry occupying registered exterior air")
@@ -210,6 +299,7 @@ func run()->void:
 	var tuning:=PlayerTuning.load_default()
 	verify_baselines(tuning)
 	verify_language_negatives()
+	verify_generated_negatives()
 	check(not PlainsRegionArtPlan.generate("invalid_profile",tuning,"intro","",false,"unknown_profile").get("ok",false),"Unknown profile cannot fall back to legacy generation")
 	check(not PlainsRegionArtPlan.generate("mixed_profile",tuning,"intro","",true,"bounded_plains_v1").get("ok",false),"Legacy joint profile and new bounded world cannot share ambiguous consumers")
 	var rows:Array=[]
@@ -233,12 +323,14 @@ func run()->void:
 		check(PlainsRegionGenerator.new().validate(JSON.parse_string(JSON.stringify(manifest)),tuning),"New Manifest has real JSON replay validation")
 		check(PlainsRegionArtPlan.validate_recorded(JSON.parse_string(JSON.stringify(generated.regional_art_plan)),manifest),"Companion plan has real source-bound JSON replay validation")
 		verify_world(manifest,generated.regional_art_plan)
+		var embedding_counterfactual:Dictionary={}
+		if root_seed in PRIOR_MANIFESTS:embedding_counterfactual=verify_embedding_counterfactual(manifest)
 		var topology:Array=manifest.connections.map(func(edge:Dictionary)->Array:return [edge.a,edge.b,edge.kind])
 		if topology not in prior_topologies:prior_topologies.append(topology)
 		var shapes:Array=manifest.art_language_world.finite_landforms.map(func(body:Dictionary)->Array:return body.points)
 		if shapes not in prior_landforms:prior_landforms.append(shapes)
 		var facts:Dictionary=await verify_consumer(generated,tuning)
-		rows.append({"root_seed":root_seed,"manifest":manifest,"plan":generated.regional_art_plan,"actual_consumer":facts})
+		rows.append({"root_seed":root_seed,"manifest":manifest,"plan":generated.regional_art_plan,"actual_consumer":facts,"embedding_counterfactual":embedding_counterfactual})
 	check(prior_topologies.size()>1,"Preregistered Seed sample changes actual area connectivity, not only phases or labels")
 	check(prior_landforms.size()>1,"Preregistered Seed sample changes actual finite mass polygons, not only hashes")
 	var file:=FileAccess.open(output_path,FileAccess.WRITE)

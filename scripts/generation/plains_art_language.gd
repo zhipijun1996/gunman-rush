@@ -52,7 +52,54 @@ static func plan_definition(definition: PlatformingModuleDefinition, family_id: 
 	var errors := expression_errors(planned)
 	return _failure("Invalid module art expression: "+str(errors)) if not errors.is_empty() else planned
 
-static func expression_errors(expression: Dictionary) -> Array:
+static func plan_generated(node: Dictionary) -> Dictionary:
+	var data:=catalog()
+	var module_id:=str(node.get("module_id",""))
+	if not data.get("generated_module_families",{}).has(module_id):return _failure("Generated module type has no admitted art-language interface")
+	if str(node.get("id","")).is_empty() or not node.get("geometry",null) is Dictionary or not node.get("offset",null) is Array:return _failure("Generated art requires an actual node identity geometry and offset")
+	var offset: Array=node.offset
+	if offset.size()!=2 or not _finite_numeric_array(offset):return _failure("Generated node offset must be finite")
+	if node.get("mirrored",false) or node.get("reverse_traversal",false):return _failure("Generated inline reflection needs a separately registered interface")
+	var geometry: Dictionary=node.geometry
+	if not geometry.get("bounds",null) is Array or not geometry.get("platforms",null) is Array or not geometry.get("one_way",null) is Array:return _failure("Generated geometry requires bounds platforms and one-way ownership")
+	var bounds: Array=geometry.bounds
+	if bounds.size()!=4 or not _finite_numeric_array(bounds) or float(bounds[2])<=0.0 or float(bounds[3])<=0.0:return _failure("Generated bounds must be a finite positive rectangle")
+	# This expansion owns only the existing plain-floor junction and connector.
+	# Shafts, ferries, tutorials and newly invented inline geometries remain out.
+	if geometry.platforms.size()!=1 or not geometry.platforms[0] is Array or geometry.platforms[0].size()!=4 or not _finite_numeric_array(geometry.platforms[0]):return _failure("Generated floor interface requires exactly one actual contact rectangle")
+	var rect: Array=geometry.platforms[0]
+	if float(rect[2])<=0.0 or float(rect[3])<=0.0 or float(rect[3])>=float(rect[2]):return _failure("Generated floor must retain a horizontal contact cross-section")
+	if not geometry.get("ferries",[]) is Array or not geometry.get("ferries",[]).is_empty():return _failure("Generated floor interface does not own moving mechanisms")
+	if bool(geometry.get("junction",false))!=(module_id=="region_junction"):return _failure("Generated junction identity does not match the source geometry")
+	for index: Variant in geometry.one_way:
+		if not index is int and not index is float:return _failure("Generated one-way ownership must use actual platform indices")
+		if float(index)!=0.0:return _failure("Generated one-way ownership references a missing platform")
+	if geometry.has("standing_margin") and (not geometry.standing_margin is int and not geometry.standing_margin is float):return _failure("Generated standing margin must remain numeric")
+	var definition:=PlainsRegionGenerator.definition(node)
+	if not definition.is_valid():return _failure("Generated source Definition violates the existing physical contract")
+	var family_id:=str(data.generated_module_families[module_id])
+	var family: Dictionary=data.families[family_id]
+	var platforms: Array=[]
+	for index: int in definition.platforms.size():
+		var surface:=_surface_expression(definition,index,family_id,data)
+		if not surface.get("ok",false):return surface
+		platforms.append(surface)
+	var depth_id:=str(family.body_depth_spec)
+	var source_hash:=JSON.stringify(RandomStageGenerator.new()._canonical(geometry),"",true).sha256_text()
+	return {"ok":true,"version":VERSION,"id":str(node.id)+"/art_language","module_id":module_id,"family_id":family_id,"source_kind":"generated_inline","source_node_id":str(node.id),"source_offset":offset.duplicate(),"source_geometry_hash":source_hash,"definition_source":"manifest_node_geometry","definition_sha256":source_hash,"definition_content_hash":JSON.stringify(RandomStageGenerator.new()._canonical(RandomStageGenerator.new()._resource_data(definition)),"",true).sha256_text(),"source_order":"connection_source_and_art_before_scene_instantiation","size_spec":{"kind":"bounded_part_assembly_span","operation_width":definition.world_bounds.size.x,"operation_height":definition.world_bounds.size.y,"visual_body_depth_spec":depth_id,"visual_body_depth":float(data.body_depth_specs[depth_id]),"collision_thickness_is_not_visual_depth":true},"assembly":{"construction":family.construction,"contour":family.contour,"support":family.support,"material_family":family.material_family,"shoulder_width":float(family.shoulder_width),"pixels_per_world_unit":float(data.world_grammar.material_pixels_per_world_unit),"scale":1.0,"allow_free_floating_rock":false,"platforms":platforms,"moving_mechanisms":"existing_generated_floor_has_no_mechanism"},"ports":{"entry":_port(definition.entry_port),"exit":_port(definition.exit_port),"boundary":data.interfaces.common_boundary,"connection_mode":data.interfaces.connection_mode},"clearance":{"quiet_arrival_width":float(family.quiet_arrival_width),"operation_envelopes":"existing_generated_floor_contract","do_not_occlude_standing_surface":true},"asset_readiness":family.asset_readiness,"scope":"generated_floor_dimension_contract_pending_painted_parts"}
+
+static func _finite_numeric_array(values: Array) -> bool:
+	for value: Variant in values:
+		if not value is int and not value is float:return false
+		if not is_finite(float(value)):return false
+	return true
+
+static func expression_errors(expression: Dictionary, source_node: Dictionary = {}) -> Array:
+	if expression.get("source_kind","")=="generated_inline":
+		if source_node.is_empty():return ["missing_external_generated_source"]
+		var expected:=plan_generated(source_node)
+		if not expected.get("ok",false):return ["invalid_external_generated_source"]
+		return [] if JSON.stringify(RandomStageGenerator.new()._canonical(expected),"",true)==JSON.stringify(RandomStageGenerator.new()._canonical(expression),"",true) else ["generated_source_or_expression_drift"]
 	var errors: Array = []
 	var data := catalog()
 	var family_id := str(expression.get("family_id",""))

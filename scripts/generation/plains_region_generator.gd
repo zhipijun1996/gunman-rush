@@ -434,7 +434,7 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 		for node: Dictionary in m.nodes:
 			if node.has("art_expression"):planned.append(str(node.id))
 			else:unresolved.append(str(node.id))
-		m.art_language_coverage={"planned_node_ids":planned,"unresolved_inline_or_tutorial_node_ids":unresolved,"whole_region_front_art_ready":false,"scope":"all_selected_horizontal_recipe_modules; generated_inline_and_tutorial_geometry_are_explicit_remainder"}
+		m.art_language_coverage={"planned_node_ids":planned,"unresolved_inline_or_tutorial_node_ids":unresolved,"whole_region_front_art_ready":false,"scope":"horizontal_recipe_modules_and_registered_junction_connection; remaining_vertical_tutorial_reward_boss_are_explicit_remainder"}
 	m.manifest_hash = _hash(m)
 	return m
 
@@ -710,8 +710,9 @@ func _fill_edge(m: Dictionary, e: Dictionary, rng: RunRandomStream) -> void:
 			join.anchors.assign([Vector2(-4,0), Vector2(4,0)])
 			join.entry_port = _port("entry", join.anchors[0])
 			join.exit_port = _port("exit", join.anchors[1])
-		_add_inline(m, e.id + "_join", Vector2(x, a.y), join)
-		if overlap > 0.0: m.nodes[-1].geometry.standing_margin = 16.0
+		# Bind art expression to the final source geometry, including the old
+		# certified 20px overlap correction; never mutate it after binding.
+		_add_inline(m, e.id + "_join", Vector2(x, a.y), join,{"standing_margin":16.0} if overlap>0.0 else {})
 	e.path = [[a.x,a.y],[b.x,b.y]]
 
 func _connection_actions(m: Dictionary,e: Dictionary) -> Dictionary:
@@ -755,12 +756,18 @@ func _add_existing(m: Dictionary, id: String, module_id: String, entry: Vector2,
 		m.joint_recoil_target=id
 	m.nodes.append(node)
 
-func _add_inline(m: Dictionary, id: String, p: Vector2, d: PlatformingModuleDefinition) -> void:
+func _add_inline(m: Dictionary, id: String, p: Vector2, d: PlatformingModuleDefinition, geometry_overrides: Dictionary = {}) -> void:
 	var slabs: Array = []
 	for rect: Rect2 in d.platforms: slabs.append([rect.position.x,rect.position.y,rect.size.x,rect.size.y])
 	var carriers: Array=[]
 	for f: ModuleMovingPlatformDefinition in d.ferries: carriers.append({"id":str(f.platform_id),"start":[f.start.x,f.start.y],"finish":[f.finish.x,f.finish.y],"size":[f.size.x,f.size.y],"travel":f.travel_duration,"dwell":f.dwell_duration,"phase":f.initial_phase})
-	m.nodes.append({"id": id, "module_id": str(d.module_id), "offset": [p.x,p.y], "mirrored": false, "reverse_traversal": false, "initial_phases": [], "geometry": {"bounds": [d.world_bounds.position.x,d.world_bounds.position.y,d.world_bounds.size.x,d.world_bounds.size.y], "platforms": slabs, "one_way": d.one_way_platform_indices, "ferries":carriers, "junction": str(d.module_id) == "region_junction"}})
+	var node := {"id": id, "module_id": str(d.module_id), "offset": [p.x,p.y], "mirrored": false, "reverse_traversal": false, "initial_phases": [], "geometry": {"bounds": [d.world_bounds.position.x,d.world_bounds.position.y,d.world_bounds.size.x,d.world_bounds.size.y], "platforms": slabs, "one_way": d.one_way_platform_indices, "ferries":carriers, "junction": str(d.module_id) == "region_junction"}}
+	node.geometry.merge(geometry_overrides,true)
+	if art_language_profile!="" and str(d.module_id) in ["region_junction","region_connection"]:
+		var expression := PlainsArtLanguage.plan_generated(node)
+		if expression.get("ok",false):node.art_expression=expression
+		else:m.art_language_error=expression.get("error","Generated connection has no legal finite painting assembly")
+	m.nodes.append(node)
 
 static func definition(node: Dictionary) -> PlatformingModuleDefinition:
 	if not node.has("geometry"):

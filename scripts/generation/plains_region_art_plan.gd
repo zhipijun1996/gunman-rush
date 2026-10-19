@@ -193,6 +193,14 @@ static func compile(manifest: Dictionary) -> Dictionary:
 	return {"ok":true,"plan":plan}
 
 static func _language_world_error(manifest: Dictionary) -> String:
+	# Generated inline units must bind to the independently supplied real node;
+	# an expression's own geometry is not proof of its source Definition.
+	for node: Dictionary in manifest.get("nodes",[]):
+		if not node.has("art_expression"):continue
+		var expression: Variant=node.art_expression
+		if not expression is Dictionary:return "Invalid module art expression for "+str(node.get("id",""))
+		var expression_issues: Array=PlainsArtLanguage.expression_errors(expression,node)
+		if not expression_issues.is_empty():return "Module art expression/source rejected for "+str(node.get("id",""))+": "+str(expression_issues)
 	var world: Variant=manifest.get("art_language_world",{})
 	if not world is Dictionary or not world.get("ok",false):return "Missing pre-embedding bounded art world"
 	if world.get("finite_landforms",[]).is_empty() or world.get("open_valleys",[]).is_empty():return "Bounded language requires finite masses and exterior air"
