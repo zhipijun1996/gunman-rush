@@ -7,6 +7,7 @@ the original matrix16 first. Every requested case still enters the actual App.
 """
 import argparse
 import contextlib
+from concurrent.futures import ThreadPoolExecutor, wait, FIRST_COMPLETED
 import fcntl
 import hashlib
 import json
@@ -1032,6 +1033,75 @@ def validate(data):
         if len(modal)<5 or any(f.get('paused') is not True or not f.get('supports') or f['position']!=modal[0]['position'] or f['motion_steps']!=modal[0]['motion_steps'] for f in modal):fail('modal_not_actual_frozen_world')
     return errors
 
+def run_region_case(i, case, output, layout="", movie=False):
+    """One original native process with its own capture, log and user/cache roots."""
+    seed,index,route=case
+    path=output/f'{i:02d}-map{index}-{route}';path.mkdir();capture=path/'capture.json';log=path/'native.log'
+    argv=['bash','tools/godot.sh','--headless','--fixed-fps','60','--path','.','--script','tests/forest_depth_region_runner.gd','--',f'--seed={seed}',f'--map={index}',f'--route={route}',f'--output={capture}']
+    if layout:argv.append('--layout='+layout)
+    if movie:
+        argv=['bash','tools/godot.sh','--rendering-method','gl_compatibility','--audio-driver','Dummy','--write-movie',str(path/'gameplay.avi')]+argv[3:]+['--capture-movie']
+    start=time.monotonic();row={'seed':seed,'map':index,'route':route,'argv':argv}
+    if movie:row['mode']='actual_GL_60fps_original_route_movie'
+    try:
+        env={**os.environ,'GUNMAN_DATA_HOME':str(path/'user-data'),'XDG_CONFIG_HOME':str(path/'config'),'XDG_CACHE_HOME':str(path/'cache'),'LP_NUM_THREADS':'1'}
+        with movie_display(env,path,movie) as native_env:
+            with log.open('w') as stream:result=subprocess.run(argv,cwd=ROOT,env=native_env,stdout=stream,stderr=subprocess.STDOUT,timeout=240)
+        text=log.read_text();data=json.loads(capture.read_text()) if capture.exists() else {};errors=validate(data) if capture.exists() else ['capture_absent']
+        if layout and data.get('manifest',{}).get('layout_version')!=layout:errors.append('actual_layout_does_not_match_explicit_request')
+        if movie:
+            row['movie']=inspect_movie(path/'gameplay.avi',data);errors.extend(row['movie']['errors'])
+            if 'OpenGL API' not in text:errors.append('movie_actual_GL_context_missing')
+        if result.returncode!=0:errors.append('native_nonzero')
+        if ERRORS.search(text):errors.append('native_script_error_or_leak')
+        if not re.search(r'^FOREST DEPTH ROUTE: .* / 0 failures$',text,re.M):errors.append('native_completion_missing')
+        row.update(status='passed' if not errors else 'failed',errors=errors,exit_code=result.returncode,log_sha256=sha(log),capture_sha256=sha(capture) if capture.exists() else None)
+    except subprocess.TimeoutExpired:row.update(status='timeout',errors=['original_240s_native_cap'])
+    except (OSError,ValueError,TypeError,KeyError,RuntimeError) as error:row.update(status='failed',errors=[type(error).__name__+': '+str(error)])
+    row['seconds']=time.monotonic()-start
+    return row
+
+
+def schedule_cases(cases, run_case, on_result, workers=1):
+    """Bound in-flight cases; the caller alone writes ordered receipts.
+
+    On the first observed failure no further cases are submitted. Already active
+    original processes finish under their own unchanged timeout and teardown.
+    No future cancellation can leave an unobserved native process behind.
+    """
+    if workers not in (1,2):raise ValueError('case workers must be1or2')
+    completed={}
+    def record(i,row):
+        completed[i]=row
+        on_result(i,row,[(j,completed[j]) for j in sorted(completed)])
+    if workers==1:
+        for i,case in enumerate(cases):
+            row=run_case(i,case);record(i,row)
+            if row['status']!='passed':break
+        return completed
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        active={};next_index=0;failed=False
+        def submit():
+            nonlocal next_index
+            i=next_index;next_index+=1
+            active[pool.submit(run_case,i,cases[i])]=i
+        while next_index<len(cases) and len(active)<2:submit()
+        while active:
+            done,_=wait(active,return_when=FIRST_COMPLETED)
+            # Observe the entire completed batch before deciding to launch more.
+            for future in sorted(done,key=lambda f:active[f]):
+                i=active.pop(future)
+                try:row=future.result()
+                except Exception as error:
+                    seed,index,route=cases[i]
+                    row={'seed':seed,'map':index,'route':route,'status':'failed',
+                         'errors':['case_worker_exception/'+type(error).__name__+': '+str(error)]}
+                failed=failed or row['status']!='passed'
+                record(i,row)
+            while not failed and next_index<len(cases) and len(active)<2:submit()
+    return completed
+
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,required=True);parser.add_argument('--seed',default='forest-depth-00');parser.add_argument('--map',type=int,choices=(1,2),default=1);parser.add_argument('--route',choices=ROUTES+('all',),default='all');parser.add_argument('--routes',nargs='+',choices=ROUTES[:4]+('borer',),help='Finite explicit unique route group, sharing one import');parser.add_argument('--matrix',action='store_true',help='Explicit finite4representatives (two seeds x two maps) x4routes; requires actual map2 entry contract');parser.add_argument('--corpus',action='store_true',help='Fixed10roots00..09 x2maps x4originalroutes; original matrix16 first; one import90/native240 each, stop on first failure');parser.add_argument('--validate-only',type=Path);parser.add_argument('--movie',action='store_true',help='One explicit original route, real GL 60fps AVI; same import90/native240 and validation');parser.add_argument("--layout",choices=("shared-tree-directional-cavities-v7","shared-tree-living-detour-v9","shared-tree-canopy-hunt-v10","forest-expedition-airborne-v11","forest-woven-trunk-v12"),default="",help="Explicit registered layout for exact historical replay or new candidate validation");args=parser.parse_args()
     if args.validate_only:
@@ -1067,32 +1137,17 @@ def main():
         report['source_after_import']=inventory();report['import_source_guard']=import_inventory_guard(report['source_before'],report['source_after_import']);report['import']=import_row;save()
         if import_row['errors'] or not report['import_source_guard']['passed']:
             report['source_after']=report['source_after_import'];report['source_stable']=report['import_source_guard']['passed'];report['status']='failed';save();print('FOREST DEPTH REGION: failed import',output);return 1
-        for i,(seed,index,route) in enumerate(cases):
-            path=output/f'{i:02d}-map{index}-{route}';path.mkdir();capture=path/'capture.json';log=path/'native.log'
-            argv=['bash','tools/godot.sh','--headless','--fixed-fps','60','--path','.','--script','tests/forest_depth_region_runner.gd','--',f'--seed={seed}',f'--map={index}',f'--route={route}',f'--output={capture}']
-            if args.layout:argv.append('--layout='+args.layout)
-            if args.movie:
-                argv=['bash','tools/godot.sh','--rendering-method','gl_compatibility','--audio-driver','Dummy','--write-movie',str(path/'gameplay.avi')]+argv[3:]+['--capture-movie']
-            start=time.monotonic();row={'seed':seed,'map':index,'route':route,'argv':argv}
-            if args.movie:row['mode']='actual_GL_60fps_original_route_movie'
-            try:
-                env={**os.environ,'GUNMAN_DATA_HOME':str(path/'user-data'),'XDG_CONFIG_HOME':str(path/'config'),'XDG_CACHE_HOME':str(path/'cache'),'LP_NUM_THREADS':'1'}
-                with movie_display(env,path,args.movie) as native_env:
-                    with log.open('w') as stream:result=subprocess.run(argv,cwd=ROOT,env=native_env,stdout=stream,stderr=subprocess.STDOUT,timeout=240)
-                text=log.read_text();data=json.loads(capture.read_text()) if capture.exists() else {};errors=validate(data) if capture.exists() else ['capture_absent']
-                if args.layout and data.get('manifest',{}).get('layout_version')!=args.layout:errors.append('actual_layout_does_not_match_explicit_request')
-                if args.movie:
-                    row['movie']=inspect_movie(path/'gameplay.avi',data);errors.extend(row['movie']['errors'])
-                    if 'OpenGL API' not in text:errors.append('movie_actual_GL_context_missing')
-                if result.returncode!=0:errors.append('native_nonzero')
-                if ERRORS.search(text):errors.append('native_script_error_or_leak')
-                if not re.search(r'^FOREST DEPTH ROUTE: .* / 0 failures$',text,re.M):errors.append('native_completion_missing')
-                row.update(status='passed' if not errors else 'failed',errors=errors,exit_code=result.returncode,log_sha256=sha(log),capture_sha256=sha(capture) if capture.exists() else None)
-            except subprocess.TimeoutExpired:row.update(status='timeout',errors=['original_240s_native_cap'])
-            except (OSError,ValueError,TypeError,KeyError,RuntimeError) as error:row.update(status='failed',errors=[type(error).__name__+': '+str(error)])
-            row['seconds']=time.monotonic()-start;report['runs'].append(row);save()
+        workers=2 if args.corpus else 1
+        report['case_workers']=workers
+        report['completed_case_indices']=[]
+        def record_case(i,row,ordered):
+            report['runs']=[result for _,result in ordered]
+            report['completed_case_indices']=[index for index,_ in ordered]
+            save()
             print(json.dumps(row),flush=True)
-            if row['status']!='passed':break
+        completed=schedule_cases(cases,lambda i,case:run_region_case(i,case,output,args.layout,args.movie),record_case,workers)
+        report['not_executed_case_indices']=[i for i in range(len(cases)) if i not in completed]
+        save()
     report['source_after']=inventory();report['source_stable']=report['import_source_guard']['passed'] and report['source_after_import']==report['source_after'];report['status']='passed' if len(report['runs'])==len(cases) and all(r['status']=='passed' for r in report['runs']) and report['source_stable'] else 'failed';save()
     print('FOREST DEPTH REGION:',report['status'],output)
     return 0 if report['status']=='passed' else 1

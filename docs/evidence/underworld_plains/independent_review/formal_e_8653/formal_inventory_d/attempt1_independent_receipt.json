@@ -1,0 +1,27 @@
+{
+  "reviewed_commit": "14e81362fcc33995bf6929ee13e83cf973d483e0",
+  "head_at_start": "14e81362fcc33995bf6929ee13e83cf973d483e0",
+  "head_at_end": "14e81362fcc33995bf6929ee13e83cf973d483e0",
+  "command": [
+    "bash",
+    "tools/godot.sh",
+    "--headless",
+    "--audio-driver",
+    "Dummy",
+    "--fixed-fps",
+    "60",
+    "--path",
+    ".",
+    "--script",
+    "build/underworld_plains/independent_review/formal_inventory_d/runner.gd"
+  ],
+  "exit_code": 1,
+  "seconds": 0.2096991420003178,
+  "log": "build/underworld_plains/independent_review/formal_inventory_d/native.log",
+  "log_sha256": "b566a4587b2d8f4e47013340c2bc6b4fa0355b0cc6f0e2dd034fad26af8e7b6e",
+  "probe_change": "Only original output directory literals changed, plus read-only inventory metadata function and one extra returned dictionary key. All native assertions retained.",
+  "errors": [
+    "SCRIPT ERROR: Parse Error: Used space character for indentation instead of tab as used before in the file.",
+    "ERROR: Failed to load script \"res://build/underworld_plains/independent_review/formal_inventory_d/runner.gd\" with error \"Parse error\"."
+  ]
+}

@@ -1,0 +1,5 @@
+# 历史输入真实物化与绑定修复
+
+从同一Git树精确恢复稀疏缺失原件，未造证据或改旧expected SHA。第一次711路径restore遇HTTP503，635文件/1,249,864,605字节已物化；之后批量fetch与原restore成功，按真实Markdown/质量卡/资产卡/level_lessons/原preflight追闭包。两项mutable历史绑定另见historical_bindings原件与独审。
+
+知识簿48条原expectedSHA逐项命中，未改book/hash；原生产loop仍因132个未物化Markdown在worker前被preflight拒绝，因此44/18连锁失败。按原preflight精确恢复132Markdown及60链接后preflightpassed，同一原87测试41.555秒全PASS。失败日志保留，不能把此前通过技术专项写成原全量通过。完整profile最新实际结果另见最终report。

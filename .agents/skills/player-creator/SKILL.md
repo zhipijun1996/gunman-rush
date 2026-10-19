@@ -55,3 +55,7 @@ player 类型记录全部十一维，遵守 [总门槛](../../../docs/developmen
 [预制作→制作→验收及版本总谱](../../../docs/creative_direction/README.md)是共同执行依据。总谱SHA变更须RETHINK并复验；交付写贡献、协作、新行为/视觉、主题冲突和实机验证。REWORK局部修复，DISCARD隔离候选；ACCEPT只限真实已验范围，审美不绕过工程红灯。
 
 历史复现按需读取[原始Skill与迁移索引](../../../docs/archive/skill_history/README.md)，不默认加载旧轮授权、PR实录或失败数字。
+
+## Underworld试玩反馈生产补充
+
+当前Underworld实际身体帧见 `assets/underworld_plains/player_animation/animation_build.json`：校准实际alpha身体高度与脚底锚点，不按画布尺寸缩放；移动朝向跟随Motor，与武器瞄准分层。以 `underworld-player-animation` 检查真实左右Motor/状态/枪口/epoch，正式平原与家园连续操作另验。

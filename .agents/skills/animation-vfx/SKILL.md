@@ -78,3 +78,7 @@ gameplay-reviewer 检查正常速度动作再逐帧定位；最终依据连续�
 [预制作→制作→验收及版本总谱](../../../docs/creative_direction/README.md)是共同执行依据。总谱SHA变更须RETHINK并复验；交付写贡献、协作、新行为/视觉、主题冲突和实机验证。REWORK局部修复，DISCARD隔离候选；ACCEPT只限真实已验范围，审美不绕过工程红灯。
 
 历史复现按需读取[原始Skill与迁移索引](../../../docs/archive/skill_history/README.md)，不默认加载旧轮授权、PR实录或失败数字。
+
+## Underworld试玩反馈生产补充
+
+Underworld机关复用同一功能铃图及accepted事件反馈；平台材质按独立长宽平铺。绘制纹理必须持续持有，纯headless成功不能排除GPU白块。运行 `underworld-mechanisms` 并检查真实截图像素/弹丸时间轴；失败白块与修复源分别保留。

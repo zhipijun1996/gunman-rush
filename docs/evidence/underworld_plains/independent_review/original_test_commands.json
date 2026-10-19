@@ -1,0 +1,224 @@
+{
+  "task_id": "UNDERWORLD-PLAINS-01",
+  "status": "plan_not_executed",
+  "baseline_commit": "8382a41cb0ccf9a8e2e56075ade9edaceb4ff67a",
+  "commands": [
+    {
+      "check": "core",
+      "argv": [
+        "python3",
+        "tools/run_tests.py"
+      ],
+      "timeout_seconds": 720,
+      "classification": "applicable formal/core regression"
+    },
+    {
+      "check": "generated-consumers",
+      "argv": [
+        "python3",
+        "tools/run_generated_consumer_tests.py"
+      ],
+      "timeout_seconds": 2100,
+      "classification": "applicable formal/core regression"
+    },
+    {
+      "check": "region",
+      "argv": [
+        "python3",
+        "tools/run_plains_region_tests.py"
+      ],
+      "timeout_seconds": 1500,
+      "classification": "applicable formal/core regression"
+    },
+    {
+      "check": "terrain-production",
+      "argv": [
+        "python3",
+        "tools/run_terrain_production_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "classification": "applicable formal/core regression"
+    },
+    {
+      "check": "wood-platforms",
+      "argv": [
+        "python3",
+        "tools/run_wood_platform_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "classification": "applicable formal/core regression"
+    },
+    {
+      "check": "actor-actions",
+      "argv": [
+        "python3",
+        "tools/run_actor_action_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "classification": "applicable formal/core regression"
+    },
+    {
+      "check": "all-weapons",
+      "argv": [
+        "python3",
+        "tools/run_all_weapon_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "classification": "applicable formal/core regression"
+    },
+    {
+      "check": "studio-input",
+      "argv": [
+        "python3",
+        "tools/run_studio_input_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "classification": "applicable formal/core regression"
+    },
+    {
+      "check": "weapon-feel",
+      "argv": [
+        "python3",
+        "tools/run_weapon_feel_tests.py"
+      ],
+      "timeout_seconds": 210,
+      "classification": "applicable formal/core regression"
+    },
+    {
+      "check": "action-budget",
+      "argv": [
+        "python3",
+        "tools/run_action_budget_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "classification": "applicable formal/core regression"
+    },
+    {
+      "check": "blob47-foundation",
+      "argv": [
+        "python3",
+        "tools/run_blob47_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "classification": "retain historical baseline; current Underworld needs independent new consumer coverage"
+    },
+    {
+      "check": "windchime-plains",
+      "argv": [
+        "python3",
+        "tools/run_windchime_tests.py"
+      ],
+      "timeout_seconds": 200,
+      "classification": "retain historical baseline; current Underworld needs independent new consumer coverage"
+    },
+    {
+      "check": "pixel-plains",
+      "argv": [
+        "python3",
+        "tools/run_pixel_plains_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "classification": "retain historical baseline; current Underworld needs independent new consumer coverage"
+    },
+    {
+      "check": "pixel-formal",
+      "argv": [
+        "python3",
+        "tools/run_pixel_formal_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "classification": "retain historical baseline; current Underworld needs independent new consumer coverage"
+    },
+    {
+      "check": "terrain-family-tests",
+      "argv": [
+        "python3",
+        "tools/run_plains_terrain_family_tests.py",
+        "--all-maps"
+      ],
+      "timeout_seconds": 720,
+      "classification": "applicable formal/core regression"
+    },
+    {
+      "check": "connected-family-tests",
+      "argv": [
+        "python3",
+        "tools/run_connected_family_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "classification": "applicable formal/core regression"
+    },
+    {
+      "check": "plains-redesign-scene",
+      "argv": [
+        "python3",
+        "tools/run_plains_redesign_scene_tests.py"
+      ],
+      "timeout_seconds": 900,
+      "classification": "applicable formal/core regression"
+    },
+    {
+      "check": "plains-redesign-spatial",
+      "argv": [
+        "python3",
+        "tools/run_plains_redesign_spatial_tests.py"
+      ],
+      "timeout_seconds": 900,
+      "classification": "applicable formal/core regression"
+    },
+    {
+      "check": "root-bell-tests",
+      "argv": [
+        "python3",
+        "tools/run_root_bell_formal.py",
+        "--g1"
+      ],
+      "timeout_seconds": 360,
+      "classification": "applicable formal/core regression"
+    },
+    {
+      "check": "root-bell-spaces",
+      "argv": [
+        "python3",
+        "tools/run_root_bell_spaces.py"
+      ],
+      "timeout_seconds": 360,
+      "classification": "applicable formal/core regression"
+    },
+    {
+      "check": "root-bell-ecology",
+      "argv": [
+        "python3",
+        "tools/run_root_bell_ecology.py",
+        "--default"
+      ],
+      "timeout_seconds": 420,
+      "classification": "applicable formal/core regression"
+    },
+    {
+      "check": "web-resource-contract-tests",
+      "argv": [
+        "python3",
+        "tests/test_web_bundle.py"
+      ],
+      "timeout_seconds": 60,
+      "classification": "applicable formal/core regression"
+    },
+    {
+      "check": "runtime-raw-export-tests",
+      "argv": [
+        "python3",
+        "tests/test_runtime_raw_export.py"
+      ],
+      "timeout_seconds": 60,
+      "classification": "applicable formal/core regression"
+    }
+  ],
+  "profiles_required": [
+    "docs",
+    "art",
+    "gameplay",
+    "web if export changes"
+  ],
+  "warning": "These are actual existing registered commands, not execution results. Historical coordinate/asset contracts remain unchanged; incompatible historical source must be preserved reproducibly and current default receive separate strong verification."
+}

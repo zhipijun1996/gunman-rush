@@ -1,0 +1,305 @@
+{
+  "scope": "User six concrete rework requests; read-only preparation, notimplementation/finalacceptance",
+  "task_parent": "UNDERWORLD-PLAINS-01 user-feedback rework",
+  "baseline_source": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+  "baseline_web_build": "4b01de439c24",
+  "new_frozen_source": null,
+  "oldF_media_relabelled": false,
+  "prior_F_bounded_ACCEPT_cannot_close_new_six": true,
+  "production_or_originaltests_edited_by_reviewer": false,
+  "lightweight_only": true,
+  "new_runtime_GPU_tests_executed": false,
+  "scope_boundaries": [
+    "No newregions/16regionunlocks/physics/economy/ability/weapon/RNG/save design",
+    "No user/device/audio/aesthetic signoff inferredfromtechnicaltests",
+    "Actualfieldbehavior evidence separatedfromtechnicalpositionfixture,sourcePNGgolden,andmetadata",
+    "PreserveoriginalF30stills,local/publicdriverfailures,woodtestadapterworkingdiff,actorfull2871/2failureanduntouchedretry2871/0"
+  ],
+  "F_source_hashes": {
+    "scripts/underworld_plains/underworld_player.gd": "1a0094d16fd31595750ff922548a5500a9bc0a76e096b4cd02467e09ccd5a478",
+    "scripts/underworld_plains/underworld_actors.gd": "f16bc05d44275eb8bdf9cd82b5caeca0dbf1e1e55eb6c7a667ed8f2fd759fc76",
+    "scripts/underworld_plains/underworld_terrain.gd": "1b806e6c8b2d81f75edb4a5cc3e671b84d1d3d383536670234cbdc0232170e3f",
+    "scripts/generation/module_moving_platform.gd": "66ebc53b5732079255faf17c7a786063ac8bcb097eb44979dcf24e88fc3a90c5",
+    "scripts/world/shot_latch.gd": "34c1a376d9c20dc5fb589a82dd6076807caef9e89de6d1406268e4e292223bad",
+    "scripts/demo/plains_region_stage.gd": "14643402d3f633bb4516a2fcc0555576d57281dee9ae3923cedd34378c12ddd7",
+    "scripts/demo/home_scene.gd": "9ed3216e6b184612f5fe5ec9e0c475a34dbc8d24c062bf20f8cab6bdee6bb255",
+    "scripts/demo/demo_app.gd": "e8f677fee66698fd7bb150a83feb825838127a6e02bb9f193cdc3cd2a30fde54",
+    "scripts/ui/demo_menu.gd": "b9ea4932edaa1205f1b9e24629659cec155f1ad467e81d243982a5849ffb8c7b",
+    "scripts/ui/actor_resources_hud.gd": "4b63f093cfb59d07b9c9d6ee6cae849da5a79d0487e157400dd103c41716ff53",
+    "scripts/ui/touch_overlay.gd": "60fe708122a2491c37e7fb389a414521b12dfbde3ee6ba35bc8ee4b6fbcb37b6",
+    "scripts/ui/item_shop_modal.gd": "b7198887c0aac12eb976372e354dc769fcfff286a44f1499fd47df845113034c",
+    "scripts/ui/stage_reward_modal.gd": "6cc1554e101f67c5f85c21792235c4fe3a83b3690881820dc63ae344270ba193",
+    "scripts/ui/stage_exit_modal.gd": "fdd59b98db277e26b9c099280c3d794b12f1ae8cd19853c4692376e668250684",
+    "scripts/ui/windkeeper_hud.gd": "909182490871fb6eee57295560e43ec495caf78083c1b92f079e49449440b929"
+  },
+  "items": [
+    {
+      "id": "UW-REWORK-01",
+      "request": "真正多帧角色动作及向左走",
+      "consumers": [
+        "DemoApp connectedregion -> UnderworldPlayer",
+        "new HomeScene actualPlayer presentation, if reused",
+        "existing PlayerMotor/Controller/Router acceptedstate and CourierVisual muzzleanchor"
+      ],
+      "F_gap": "One COURIER PNG drawn eachframe; bob/squash only; facing fromaim_direction.x>=0 givesright facing atzeroaim despiteleftwalking.",
+      "must_observe": [
+        "Frozennewsource realinput normal-speedvideo D -> neutral -> A -> neutral onactualformalground; mouse/aim remainsunchanged, prove actorworlddisplacement andleft/right orientation relativeplatform",
+        "Viewactual fullresolution consecutivebodyframes registeredtoroot: arm/leg/cloth silhouettes change, notjusttranslation/flip/bob/squash/color; comparedeclaredframe index toactualPNGrect and actualrender",
+        "Idle/run/rise/fall/land/hurt/death source states used bynewimplementation eachhave honestcoverage; realjump/shoot acceptedstate/muzzle overlaynot invented. No claim eightdirections or allenemy/Bossfullframeanimation unlessexecuted",
+        "Footpivot/headscale stable duringwalkcycle; left/right mirroring doesnot invertHUD or decouplebulletorigin; stop/inputcancel doesnot keep running"
+      ],
+      "reject_if": [
+        "Facingstill followsdefaultaimright whilemovingA",
+        "Animation isstill identicalbodyimage transformed orframeindex changeswithoutpixelshapechanges",
+        "Playbackframegrids only, noactualinputgamevideo",
+        "Artificiallymoveactor orforceanimstate toclaimruntimebehavior"
+      ],
+      "evidence": [
+        "normal-speed originalinput movie withsource/build/inputtimeline",
+        "selected originalframes andframe/state/worldposition/velocity/facing receipt",
+        "realframe atlases+generation/crop source records"
+      ],
+      "user_feedback_status_for_F": "FAILED user-reported unmet target; bounded oldF review isnot acceptance ofthisrequest",
+      "new_version_status": "UNVERIFIED awaitingnewfreezeandactualindependentreview",
+      "reviewer_executes_after_freeze": true
+    },
+    {
+      "id": "UW-REWORK-02",
+      "request": "移动平台使用完成的同族材质",
+      "consumers": [
+        "ModuleMovingPlatform AnimatableBody2D -> UnderworldCarrierPaint/UnderworldTerrain.draw_moving",
+        "actualformal ferry/nonbell moving andbellcontrolled ferry"
+      ],
+      "F_gap": "draw_moving currently fillsdarkrectangle plusgold/brownstrips andtwo2pxrivets.",
+      "must_observe": [
+        "Actualcarrier visibletexturedtop/body/endcaps inUnderworldstyle, includeslong/short/thin/fractionalactualdefinitionbounds andtransitionends",
+        "Normal-speedmotion withplayer standingthenjumpingon/off; artroot followsactualmovingbody throughend/return, nofixedworldphase/sliding/duplicatebody",
+        "Actualspritebounds/platformrect/colliderbounds andbodyIDs captured atstart/middle/end; originalcarrierphase/speed/pause andMotorcarry contractremainunchanged",
+        "Atleastone uncontrolledcarrier andonebellstart/park control, markwhichactuallyexistsinformalseed vsisolatedfixture"
+      ],
+      "reject_if": [
+        "Coloredrectangle simplyrenamedmaterial",
+        "Artseparatesfromcarrier or depictsunsupportedwalkableextensions",
+        "Collider/port/routegeometrychanged tomatchart",
+        "OnlystaticmaternalPNGwithoutactualcarrierconsumer"
+      ],
+      "evidence": [
+        "same-screen originalmovingvideo",
+        "physical/artbounds+bodyID+phase receipt",
+        "sourcePNG+tiling/nineslice/crop rules+short/longGPUstills"
+      ],
+      "user_feedback_status_for_F": "FAILED user-reported unmet target; bounded oldF review isnot acceptance ofthisrequest",
+      "new_version_status": "UNVERIFIED awaitingnewfreezeandactualindependentreview",
+      "reviewer_executes_after_freeze": true
+    },
+    {
+      "id": "UW-REWORK-03",
+      "request": "商人与主角同尺度",
+      "consumers": [
+        "PlainsRegionStage merchantSprite2D",
+        "UnderworldPlayer runtimecurrentframe body",
+        "ordinaryshopinteraction -> ItemShopModal realofferquote"
+      ],
+      "F_gap": "Merchant currentdrawrectangle58x76wu vsplayer nominalhumanbody44wu, visually~1.73xheight.",
+      "must_observe": [
+        "Samefloor/samecamera/sameframe merchantandplayer sidebyside withoutocclusion; reportactualnontransparentbodyheadtofeetheightandwidth, sourcecrop,pivot,globalscale andfootworldY",
+        "Useonehumanworldunitbaseline sharedwithnewplayer44wu insteadscalingcanvaspadding; preserveimageaspectratio andvisiblefootroot",
+        "Bothformalmapmerchantinstances andHomehumanNPCsharedscale ifreused; merchantinteractionrange/stock/wallet/purchase remainexistingconsumer"
+      ],
+      "reject_if": [
+        "NominalSpritecanvasheightequalbutalphabodyremainsgiant",
+        "Screenshotdifferentzoom/camera usedtoimplysamescale",
+        "Nonuniformsquashing orfloatingfeet",
+        "Merchantresizedonlyinnewlabbutformalinstanceunchanged"
+      ],
+      "evidence": [
+        "map1/map2 sidebysidefullresolutionstills",
+        "visiblebodybounds andscale/pivot receipt",
+        "actualpointer/Routerinteractopensshop, buy/cancelexistingsemantic"
+      ],
+      "user_feedback_status_for_F": "FAILED user-reported unmet target; bounded oldF review isnot acceptance ofthisrequest",
+      "new_version_status": "UNVERIFIED awaitingnewfreezeandactualindependentreview",
+      "reviewer_executes_after_freeze": true
+    },
+    {
+      "id": "UW-REWORK-04",
+      "request": "真实风铃机关画法",
+      "consumers": [
+        "ShotLatch primarybell",
+        "sequence secondbell",
+        "add_access_bell entry/returnsidebell",
+        "closed/open/timed/sequence gate",
+        "motion_target start/parkcontrol"
+      ],
+      "F_gap": "Primary/second drawPixelFormalActors.bell geometry whileaccesscanuseUnderworldPNG; gates/support stillmixedprimitives.",
+      "must_observe": [
+        "Allbellrolevariants useconsistentrealbellsource/support/gatefamily; closedtarget/hanger/gate relation readableactualsame-screen",
+        "RealacceptedRouter shoot_release -> realprojectile -> Damageable receiver -> _receive_projectile -> _commit_open -> opened/open_count +actualgatecollider ORferryrunning statechange; capturebefore/hit/aftervideo andacceptedshotID/session/lifetime",
+        "Misseventdoesnotwiggle/openasacceptedhit; repeated/stale/wrongepochcallbacks stillrejected; sequencefirst/second correctorder, accessbell onlymatchingoriginaltarget",
+        "Decorativebells remainvisuallyquieterandnondamageable, actualinteractivebellidentifiable withnormalcamera/UI; supportsroot/negative-space consistent"
+      ],
+      "reject_if": [
+        "Directcall_commit_open/is_open orfakeeventusedasinputproof",
+        "Onlyaccessbellreplaced, primary/sequenceleftgeometric",
+        "Gateartimpliescollisionafteropening orhidesclosedsolid",
+        "Newartchangeseligibility/timing/resource/routepolicy"
+      ],
+      "evidence": [
+        "normal-speed actualacceptedshotfilm+eventstate receipt",
+        "allroleinventory inclmissingrolesunverified",
+        "originalshotlatch/epoch/sequence/motionnegativecontracts logs"
+      ],
+      "user_feedback_status_for_F": "FAILED user-reported unmet target; bounded oldF review isnot acceptance ofthisrequest",
+      "new_version_status": "UNVERIFIED awaitingnewfreezeandactualindependentreview",
+      "reviewer_executes_after_freeze": true
+    },
+    {
+      "id": "UW-REWORK-05",
+      "request": "重做同族可走家园及NPC功能预留位",
+      "consumers": [
+        "ordinarytitle ENTERHOME -> DemoApp._show_home -> actualHomeScene",
+        "HomeScene PlayerMotor/Controller/Router -> nearest_candidate/interact -> requested_interaction(function_id)",
+        "DemoMenu.show_home_panel currentservices"
+      ],
+      "F_gap": "Oldpaintedhome_background/npcs; onlyupgradeNPCactuallydrawn, character/achievements slots havefunction IDsbutreservedpanels.",
+      "must_observe": [
+        "OriginalordinaryUIentry intoactualwalkablehome, realD/A walkthrough toallvisibleNPCslots anddeparturewithoutteleport; newUnderworldground/back/mid/front/decor/actors coherewithformalPlains",
+        "Inventoryeveryslot withfunction_id,position/support,collision=falseNPC,nearest-distance/interaction policy,implemented/reserved state,actualpanelaction; nofunctioninvention",
+        "ExistingIDcharacter reserved:Courieronly/developmentmessage; upgrade implemented:actualMetaNOTES/vitalityexistingservice; achievements reserved:no reward; departure implemented:actualnewPlainsrun",
+        "NewfutureNPCspaces visiblyreservedandnoninteractiveordisplayexplicitdevelopmentstate; no fakecompletedachievements/characterunlock/economy",
+        "Panelopenblocksoldmovement/aim/shoot, closewaitsreleaseandreturnscontrolsameHome; HomecreatesnoRunwallet/lifetimeuntilactualdeparture; returnhomepreservessave/Meta"
+      ],
+      "reject_if": [
+        "Staticnewbackgroundwithunwalkablepaintedfloormismatch",
+        "VisibleNPCmissingactualID orplaceholderbutton silentlydoesnothing",
+        "Placeholderpresentedasimplementedservice/grantsresources",
+        "Addedunrequestedhomegameplay/16regionentryunlocks",
+        "Homeplayerstilloldartfamilywhileformalupdated"
+      ],
+      "evidence": [
+        "actualinput Homevisitmovie",
+        "slot/functionimplementationinventory withreservedexplicit",
+        "pointerinteractioneachimplemented/reservedpanel,close/resume andactualdeparture",
+        "originalhome_app/core lifecyclecontract logs"
+      ],
+      "user_feedback_status_for_F": "FAILED user-reported unmet target; bounded oldF review isnot acceptance ofthisrequest",
+      "new_version_status": "UNVERIFIED awaitingnewfreezeandactualindependentreview",
+      "reviewer_executes_after_freeze": true
+    },
+    {
+      "id": "UW-REWORK-06",
+      "request": "UI菜单整套统一",
+      "consumers": [
+        "DemoMenu title/home_navigation/home_function/pause/settings/help/build/confirmhome",
+        "ActorResourcesHud run+home",
+        "TouchOverlay pause/reset/jump/aim",
+        "ItemShopModal/ItemCard/StageRewardModal/StageExitModal",
+        "WindkeeperHud intro/core/hints andexistingmapmodal",
+        "oldstylelab preservedentry, developmententry clearlylabelled"
+      ],
+      "F_gap": "Currentpaintedtitlelogo/homebackground andlightpaperroundedtheme remain; independentmodals/HUD/touchoverlayhaveownstyles.",
+      "must_observe": [
+        "Ordinarypointertitle -> Home/Plains; pause/resume,settingsapply/back,help/back,build,returnhomecancel/confirm,shopbuy/back,rewardpick/exitconfirm useactualhitrect+Controlsignal+Apptransition, notdirectsignal.emitfuncalls asGUIproof",
+        "SharednewUnderworldpalette/type/border/buttoniconrules appliedtoexistingpanels+HUD+touchcontrols; nooldpaintedlogo/homepage behindnewskin",
+        "Hover/pressed/disabled/focus/readability actualpixels; menu/clickdoesnotshoot/jump/restart/spendwallet, pausedrunstate preserved",
+        "Desktop1280x720 andoneconstrainedviewport,safearea/scroll/nooverlaporclippedinteractivecontrols; touchUIwhenenabled/keyboardfocus do notstealSpace orblockworldinputafterclose",
+        "Existingservices/developmentlimits labelsremainhonest; nohiddenfeatureexpansion ormenuitemremovaltoavoidcoverage"
+      ],
+      "reject_if": [
+        "Onlytitlecolorschangedwhilefunctionalmodalsremainoldstyle",
+        "Screenshotonly/noactualpointerroute",
+        "Stalehittestrect/menuoverlaysinterceptworldafterclose",
+        "Clickproducesshot/jump/forcednewrun orunexpectedpurchase",
+        "NewUIclaimsunfinishedcharacter/achievement/16regionfeaturescomplete"
+      ],
+      "evidence": [
+        "actualpointerUIjourney screenshots+originalnormal-speedvideo+actions/visible_panel/Appstate receipt",
+        "panelinventory+themeusage+buttondisabledstate",
+        "constrainedviewportactualcaptures/input",
+        "originalmenu/home/inputcancel/shop/reward tests"
+      ],
+      "user_feedback_status_for_F": "FAILED user-reported unmet target; bounded oldF review isnot acceptance ofthisrequest",
+      "new_version_status": "UNVERIFIED awaitingnewfreezeandactualindependentreview",
+      "reviewer_executes_after_freeze": true
+    }
+  ],
+  "source_golden_preliminary": {
+    "viewed": [
+      "assets/underworld_plains/player_animation/generated/run_source.png",
+      "assets/underworld_plains/player_animation/run_sheet.png"
+    ],
+    "verdict": "Asset-familygolden onlyACCEPT fornecessaryposes,notwalkcycleornewruntimeacceptance",
+    "observations": "Actualarm/leg/boot/cloth silhouettevaries; noobvioussheetcroppedfeet/neighborbleed; loopingcadence/head/footstability pending1xgameinputfilm"
+  },
+  "existing_original_verification_entrypoints": [
+    {
+      "argv": [
+        "python3",
+        "tools/run_tests.py"
+      ],
+      "scope": "includesexisting player_visual_tests/menu_tests/dynamic_module_tests/shot_latch_tests; unmodifiedoriginalassertions"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/run_actor_action_tests.py"
+      ],
+      "scope": "sharedacceptedactions; priorfull2fail/retry0 preserved, reasonUNVERIFIED"
+    },
+    {
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--max-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/home_app_runner.gd"
+      ],
+      "scope": "actualHomeApp walking/function/pause/Meta lifecycle; GUIstillrequiresactualpointer"
+    },
+    {
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--path",
+        ".",
+        "--script",
+        "tests/player_visual_runner.gd"
+      ],
+      "scope": "sharedplayer acceptedvisualsemantics; newUnderworldframeconsumeralsoexplicitlyrequired"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/run_underworld_formal_tests.py"
+      ],
+      "scope": "existingformalUnderworldentry/integration; notreplacementfornewmovie/GUI"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/run_underworld_formal_terrain_tests.py"
+      ],
+      "scope": "originaltwo-map10seedgeometry/adapter/collision remainswhenartchanges"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/run_wood_platform_tests.py"
+      ],
+      "scope": "reviewedpostFtest-onlyadapterdefault+explicitreplay; workingdiffnotcleanF"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/run_wood_platform_tests.py",
+        "--capture"
+      ],
+      "scope": "realGPUoriginalterminal/translationthreshold,displayrequiresworkingXserver"
+    }
+  ]
+}

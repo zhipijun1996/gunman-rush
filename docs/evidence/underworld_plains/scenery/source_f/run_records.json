@@ -1,0 +1,61 @@
+[
+  {
+    "slot": "map1",
+    "argv": [
+      "bash",
+      "tools/godot.sh",
+      "--path",
+      ".",
+      "--rendering-method",
+      "gl_compatibility",
+      "--audio-driver",
+      "Dummy",
+      "--script",
+      "tests/underworld_plains/capture_scenery_windows.gd"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 12.56257963180542,
+    "samples": 8,
+    "actual_rays": 3
+  },
+  {
+    "slot": "map2",
+    "argv": [
+      "bash",
+      "tools/godot.sh",
+      "--path",
+      ".",
+      "--rendering-method",
+      "gl_compatibility",
+      "--audio-driver",
+      "Dummy",
+      "--script",
+      "tests/underworld_plains/capture_scenery_windows.gd",
+      "--",
+      "--scenery-map=2"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 17.12085509300232,
+    "samples": 8,
+    "actual_rays": 3
+  },
+  {
+    "slot": "seed0",
+    "argv": [
+      "bash",
+      "tools/godot.sh",
+      "--path",
+      ".",
+      "--rendering-method",
+      "gl_compatibility",
+      "--audio-driver",
+      "Dummy",
+      "--script",
+      "build/underworld_plains/source_f_scenery/capture_seed0.gd"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 14.3000648021698,
+    "samples": 9,
+    "actual_rays": 4
+  }
+]

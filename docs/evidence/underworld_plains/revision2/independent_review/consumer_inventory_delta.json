@@ -1,0 +1,998 @@
+{
+  "schema": "underworld-revision2-consumer-delta-preparation-v1",
+  "parent_inventory": "docs/evidence/underworld_plains/consumer_inventory.json",
+  "parent_source": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+  "scope": "Only changed/new R2 consumers; retains F72 inventory unchanged. Required observations and component evidence links, not passed G cases or richness score.",
+  "new_frozen_source": null,
+  "all_new_source_status": "unverified",
+  "delta_row_count": 75,
+  "G_pass_count": 0,
+  "rows": [
+    {
+      "id": "r2/player/idle/left",
+      "runtime_consumer": "UnderworldPlayer._select_state/_draw",
+      "required_actual_observation": "Actual idle body keyframe rendered facing left; distinct source pixels and world foot/head/muzzle readout",
+      "existing_component_evidence": [
+        "build/underworld_player_animation/result_capture.json",
+        "build/underworld_player_animation/player_motion_current_F_dirty.mp4"
+      ],
+      "evidence_scope": "isolated Router/Motor fixture; hurt/death explicit HealthState lifecycle",
+      "new_frozen_source_status": "unverified",
+      "gap": "Component recorded seven states but only run demonstrates both orientations; no claim all14 branches viewed; G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/player/idle/right",
+      "runtime_consumer": "UnderworldPlayer._select_state/_draw",
+      "required_actual_observation": "Actual idle body keyframe rendered facing right; distinct source pixels and world foot/head/muzzle readout",
+      "existing_component_evidence": [
+        "build/underworld_player_animation/result_capture.json",
+        "build/underworld_player_animation/player_motion_current_F_dirty.mp4"
+      ],
+      "evidence_scope": "isolated Router/Motor fixture; hurt/death explicit HealthState lifecycle",
+      "new_frozen_source_status": "unverified",
+      "gap": "Component recorded seven states but only run demonstrates both orientations; no claim all14 branches viewed; G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/player/run/left",
+      "runtime_consumer": "UnderworldPlayer._select_state/_draw",
+      "required_actual_observation": "Actual run body keyframe rendered facing left; distinct source pixels and world foot/head/muzzle readout",
+      "existing_component_evidence": [
+        "build/underworld_player_animation/result_capture.json",
+        "build/underworld_player_animation/player_motion_current_F_dirty.mp4"
+      ],
+      "evidence_scope": "isolated Router/Motor fixture; hurt/death explicit HealthState lifecycle",
+      "new_frozen_source_status": "unverified",
+      "gap": "Component recorded seven states but only run demonstrates both orientations; no claim all14 branches viewed; G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/player/run/right",
+      "runtime_consumer": "UnderworldPlayer._select_state/_draw",
+      "required_actual_observation": "Actual run body keyframe rendered facing right; distinct source pixels and world foot/head/muzzle readout",
+      "existing_component_evidence": [
+        "build/underworld_player_animation/result_capture.json",
+        "build/underworld_player_animation/player_motion_current_F_dirty.mp4"
+      ],
+      "evidence_scope": "isolated Router/Motor fixture; hurt/death explicit HealthState lifecycle",
+      "new_frozen_source_status": "unverified",
+      "gap": "Component recorded seven states but only run demonstrates both orientations; no claim all14 branches viewed; G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/player/rise/left",
+      "runtime_consumer": "UnderworldPlayer._select_state/_draw",
+      "required_actual_observation": "Actual rise body keyframe rendered facing left; distinct source pixels and world foot/head/muzzle readout",
+      "existing_component_evidence": [
+        "build/underworld_player_animation/result_capture.json",
+        "build/underworld_player_animation/player_motion_current_F_dirty.mp4"
+      ],
+      "evidence_scope": "isolated Router/Motor fixture; hurt/death explicit HealthState lifecycle",
+      "new_frozen_source_status": "unverified",
+      "gap": "Component recorded seven states but only run demonstrates both orientations; no claim all14 branches viewed; G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/player/rise/right",
+      "runtime_consumer": "UnderworldPlayer._select_state/_draw",
+      "required_actual_observation": "Actual rise body keyframe rendered facing right; distinct source pixels and world foot/head/muzzle readout",
+      "existing_component_evidence": [
+        "build/underworld_player_animation/result_capture.json",
+        "build/underworld_player_animation/player_motion_current_F_dirty.mp4"
+      ],
+      "evidence_scope": "isolated Router/Motor fixture; hurt/death explicit HealthState lifecycle",
+      "new_frozen_source_status": "unverified",
+      "gap": "Component recorded seven states but only run demonstrates both orientations; no claim all14 branches viewed; G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/player/fall/left",
+      "runtime_consumer": "UnderworldPlayer._select_state/_draw",
+      "required_actual_observation": "Actual fall body keyframe rendered facing left; distinct source pixels and world foot/head/muzzle readout",
+      "existing_component_evidence": [
+        "build/underworld_player_animation/result_capture.json",
+        "build/underworld_player_animation/player_motion_current_F_dirty.mp4"
+      ],
+      "evidence_scope": "isolated Router/Motor fixture; hurt/death explicit HealthState lifecycle",
+      "new_frozen_source_status": "unverified",
+      "gap": "Component recorded seven states but only run demonstrates both orientations; no claim all14 branches viewed; G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/player/fall/right",
+      "runtime_consumer": "UnderworldPlayer._select_state/_draw",
+      "required_actual_observation": "Actual fall body keyframe rendered facing right; distinct source pixels and world foot/head/muzzle readout",
+      "existing_component_evidence": [
+        "build/underworld_player_animation/result_capture.json",
+        "build/underworld_player_animation/player_motion_current_F_dirty.mp4"
+      ],
+      "evidence_scope": "isolated Router/Motor fixture; hurt/death explicit HealthState lifecycle",
+      "new_frozen_source_status": "unverified",
+      "gap": "Component recorded seven states but only run demonstrates both orientations; no claim all14 branches viewed; G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/player/land/left",
+      "runtime_consumer": "UnderworldPlayer._select_state/_draw",
+      "required_actual_observation": "Actual land body keyframe rendered facing left; distinct source pixels and world foot/head/muzzle readout",
+      "existing_component_evidence": [
+        "build/underworld_player_animation/result_capture.json",
+        "build/underworld_player_animation/player_motion_current_F_dirty.mp4"
+      ],
+      "evidence_scope": "isolated Router/Motor fixture; hurt/death explicit HealthState lifecycle",
+      "new_frozen_source_status": "unverified",
+      "gap": "Component recorded seven states but only run demonstrates both orientations; no claim all14 branches viewed; G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/player/land/right",
+      "runtime_consumer": "UnderworldPlayer._select_state/_draw",
+      "required_actual_observation": "Actual land body keyframe rendered facing right; distinct source pixels and world foot/head/muzzle readout",
+      "existing_component_evidence": [
+        "build/underworld_player_animation/result_capture.json",
+        "build/underworld_player_animation/player_motion_current_F_dirty.mp4"
+      ],
+      "evidence_scope": "isolated Router/Motor fixture; hurt/death explicit HealthState lifecycle",
+      "new_frozen_source_status": "unverified",
+      "gap": "Component recorded seven states but only run demonstrates both orientations; no claim all14 branches viewed; G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/player/hurt/left",
+      "runtime_consumer": "UnderworldPlayer._select_state/_draw",
+      "required_actual_observation": "Actual hurt body keyframe rendered facing left; distinct source pixels and world foot/head/muzzle readout",
+      "existing_component_evidence": [
+        "build/underworld_player_animation/result_capture.json",
+        "build/underworld_player_animation/player_motion_current_F_dirty.mp4"
+      ],
+      "evidence_scope": "isolated Router/Motor fixture; hurt/death explicit HealthState lifecycle",
+      "new_frozen_source_status": "unverified",
+      "gap": "Component recorded seven states but only run demonstrates both orientations; no claim all14 branches viewed; G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/player/hurt/right",
+      "runtime_consumer": "UnderworldPlayer._select_state/_draw",
+      "required_actual_observation": "Actual hurt body keyframe rendered facing right; distinct source pixels and world foot/head/muzzle readout",
+      "existing_component_evidence": [
+        "build/underworld_player_animation/result_capture.json",
+        "build/underworld_player_animation/player_motion_current_F_dirty.mp4"
+      ],
+      "evidence_scope": "isolated Router/Motor fixture; hurt/death explicit HealthState lifecycle",
+      "new_frozen_source_status": "unverified",
+      "gap": "Component recorded seven states but only run demonstrates both orientations; no claim all14 branches viewed; G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/player/death/left",
+      "runtime_consumer": "UnderworldPlayer._select_state/_draw",
+      "required_actual_observation": "Actual death body keyframe rendered facing left; distinct source pixels and world foot/head/muzzle readout",
+      "existing_component_evidence": [
+        "build/underworld_player_animation/result_capture.json",
+        "build/underworld_player_animation/player_motion_current_F_dirty.mp4"
+      ],
+      "evidence_scope": "isolated Router/Motor fixture; hurt/death explicit HealthState lifecycle",
+      "new_frozen_source_status": "unverified",
+      "gap": "Component recorded seven states but only run demonstrates both orientations; no claim all14 branches viewed; G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/player/death/right",
+      "runtime_consumer": "UnderworldPlayer._select_state/_draw",
+      "required_actual_observation": "Actual death body keyframe rendered facing right; distinct source pixels and world foot/head/muzzle readout",
+      "existing_component_evidence": [
+        "build/underworld_player_animation/result_capture.json",
+        "build/underworld_player_animation/player_motion_current_F_dirty.mp4"
+      ],
+      "evidence_scope": "isolated Router/Motor fixture; hurt/death explicit HealthState lifecycle",
+      "new_frozen_source_status": "unverified",
+      "gap": "Component recorded seven states but only run demonstrates both orientations; no claim all14 branches viewed; G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/player/install/formal-map1",
+      "runtime_consumer": "DemoApp or HomeScene -> UnderworldPlayer",
+      "required_actual_observation": "One body renderer; old CourierVisual hidden, original authoritative muzzle node alive, collider/tuning unchanged",
+      "existing_component_evidence": [
+        "build/underworld_player_animation/receipt.json"
+      ],
+      "evidence_scope": "source review and isolated animation fixture only",
+      "new_frozen_source_status": "unverified",
+      "gap": "Home double-body missinghide found and acknowledged; three-line fix now codefrozen but GPU/context resampling pending; formal G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/player/install/formal-map2",
+      "runtime_consumer": "DemoApp or HomeScene -> UnderworldPlayer",
+      "required_actual_observation": "One body renderer; old CourierVisual hidden, original authoritative muzzle node alive, collider/tuning unchanged",
+      "existing_component_evidence": [
+        "build/underworld_player_animation/receipt.json"
+      ],
+      "evidence_scope": "source review and isolated animation fixture only",
+      "new_frozen_source_status": "unverified",
+      "gap": "Home double-body missinghide found and acknowledged; three-line fix now codefrozen but GPU/context resampling pending; formal G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/player/install/home",
+      "runtime_consumer": "DemoApp or HomeScene -> UnderworldPlayer",
+      "required_actual_observation": "One body renderer; old CourierVisual hidden, original authoritative muzzle node alive, collider/tuning unchanged",
+      "existing_component_evidence": [
+        "build/underworld_player_animation/receipt.json"
+      ],
+      "evidence_scope": "source review and isolated animation fixture only",
+      "new_frozen_source_status": "unverified",
+      "gap": "Home double-body missinghide found and acknowledged; three-line fix now codefrozen but GPU/context resampling pending; formal G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/player/input/formal/KeyD",
+      "runtime_consumer": "KeyboardMouseAdapter -> InputRouter -> PlayerController -> PlayerMotor -> UnderworldPlayer",
+      "required_actual_observation": "Actual KeyD key event accepted, measurable actor/platform relative motion, no-aim or opposing right-aim body orientation, stop preserves facing",
+      "existing_component_evidence": [
+        "build/underworld_player_animation/result_capture.json",
+        "build/underworld_player_animation/player_motion_current_F_dirty.mp4"
+      ],
+      "evidence_scope": "Router-axis evidence not keyboard-adapter evidence",
+      "new_frozen_source_status": "unverified",
+      "gap": "Existing component disables KeyboardMouseAdapter and sets Router axis; actual keyboard ordinary entry not yet observed",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/player/input/formal/KeyA",
+      "runtime_consumer": "KeyboardMouseAdapter -> InputRouter -> PlayerController -> PlayerMotor -> UnderworldPlayer",
+      "required_actual_observation": "Actual KeyA key event accepted, measurable actor/platform relative motion, no-aim or opposing right-aim body orientation, stop preserves facing",
+      "existing_component_evidence": [
+        "build/underworld_player_animation/result_capture.json",
+        "build/underworld_player_animation/player_motion_current_F_dirty.mp4"
+      ],
+      "evidence_scope": "Router-axis evidence not keyboard-adapter evidence",
+      "new_frozen_source_status": "unverified",
+      "gap": "Existing component disables KeyboardMouseAdapter and sets Router axis; actual keyboard ordinary entry not yet observed",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/player/input/home/KeyD",
+      "runtime_consumer": "KeyboardMouseAdapter -> InputRouter -> PlayerController -> PlayerMotor -> UnderworldPlayer",
+      "required_actual_observation": "Actual KeyD key event accepted, measurable actor/platform relative motion, no-aim or opposing right-aim body orientation, stop preserves facing",
+      "existing_component_evidence": [
+        "build/underworld_player_animation/result_capture.json",
+        "build/underworld_player_animation/player_motion_current_F_dirty.mp4"
+      ],
+      "evidence_scope": "Router-axis evidence not keyboard-adapter evidence",
+      "new_frozen_source_status": "unverified",
+      "gap": "Existing component disables KeyboardMouseAdapter and sets Router axis; actual keyboard ordinary entry not yet observed",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/player/input/home/KeyA",
+      "runtime_consumer": "KeyboardMouseAdapter -> InputRouter -> PlayerController -> PlayerMotor -> UnderworldPlayer",
+      "required_actual_observation": "Actual KeyA key event accepted, measurable actor/platform relative motion, no-aim or opposing right-aim body orientation, stop preserves facing",
+      "existing_component_evidence": [
+        "build/underworld_player_animation/result_capture.json",
+        "build/underworld_player_animation/player_motion_current_F_dirty.mp4"
+      ],
+      "evidence_scope": "Router-axis evidence not keyboard-adapter evidence",
+      "new_frozen_source_status": "unverified",
+      "gap": "Existing component disables KeyboardMouseAdapter and sets Router axis; actual keyboard ordinary entry not yet observed",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/merchant/map1",
+      "runtime_consumer": "PlainsRegionStage.UnderworldMerchant + current UnderworldPlayer",
+      "required_actual_observation": "Same-camera side-by-side opaque humanbody height/foot placement, aspect ratio and shared44wu baseline; actual nearby shop entry",
+      "existing_component_evidence": [],
+      "evidence_scope": "none",
+      "new_frozen_source_status": "unverified",
+      "gap": "place_humanoid now used in source, but revised merchant two-map actual same-screen height images not yet reviewed",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/merchant/map2",
+      "runtime_consumer": "PlainsRegionStage.UnderworldMerchant + current UnderworldPlayer",
+      "required_actual_observation": "Same-camera side-by-side opaque humanbody height/foot placement, aspect ratio and shared44wu baseline; actual nearby shop entry",
+      "existing_component_evidence": [],
+      "evidence_scope": "none",
+      "new_frozen_source_status": "unverified",
+      "gap": "place_humanoid now used in source, but revised merchant two-map actual same-screen height images not yet reviewed",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/carrier/material-lengths",
+      "runtime_consumer": "ModuleMovingPlatform -> UnderworldCarrierPaint -> UnderworldTerrain.mechanism_texture/draw_moving",
+      "required_actual_observation": "Source-derived terminal/body patches on actual short/long/thin/thick/fractional carrier bounds",
+      "existing_component_evidence": [
+        "build/underworld_plains/mechanisms/material_catalog.png",
+        "build/underworld_plains/mechanisms/gpu_runtime.json",
+        "build/underworld_plains/mechanisms/actual_ferry_shots.mp4"
+      ],
+      "evidence_scope": "actual component GPU and authored ferry driver, not formal full route",
+      "new_frozen_source_status": "unverified",
+      "gap": "Seven true-texture rectangles personally seen; source RID-lifetime white failure preserved. Older939movie predates final local bell feedback; G consumer still pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/carrier/ordinary-motion",
+      "runtime_consumer": "ModuleMovingPlatform -> UnderworldCarrierPaint -> UnderworldTerrain.mechanism_texture/draw_moving",
+      "required_actual_observation": "Moving/uncontrolled carrier start-mid-end art matches body position/velocity and carries actual player",
+      "existing_component_evidence": [
+        "build/underworld_plains/mechanisms/material_catalog.png",
+        "build/underworld_plains/mechanisms/gpu_runtime.json",
+        "build/underworld_plains/mechanisms/actual_ferry_shots.mp4"
+      ],
+      "evidence_scope": "actual component GPU and authored ferry driver, not formal full route",
+      "new_frozen_source_status": "unverified",
+      "gap": "Seven true-texture rectangles personally seen; source RID-lifetime white failure preserved. Older939movie predates final local bell feedback; G consumer still pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/carrier/bell-controlled-motion",
+      "runtime_consumer": "ModuleMovingPlatform -> UnderworldCarrierPaint -> UnderworldTerrain.mechanism_texture/draw_moving",
+      "required_actual_observation": "Actual shot starts/parks/resumes carrier, phase/pose preserved",
+      "existing_component_evidence": [
+        "build/underworld_plains/mechanisms/material_catalog.png",
+        "build/underworld_plains/mechanisms/gpu_runtime.json",
+        "build/underworld_plains/mechanisms/actual_ferry_shots.mp4"
+      ],
+      "evidence_scope": "actual component GPU and authored ferry driver, not formal full route",
+      "new_frozen_source_status": "unverified",
+      "gap": "Seven true-texture rectangles personally seen; source RID-lifetime white failure preserved. Older939movie predates final local bell feedback; G consumer still pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/carrier/lifetime-strong-textures",
+      "runtime_consumer": "ModuleMovingPlatform -> UnderworldCarrierPaint -> UnderworldTerrain.mechanism_texture/draw_moving",
+      "required_actual_observation": "Real GPU material remains textured across frames/reloads; native resource cleanup strict",
+      "existing_component_evidence": [
+        "build/underworld_plains/mechanisms/material_catalog.png",
+        "build/underworld_plains/mechanisms/gpu_runtime.json",
+        "build/underworld_plains/mechanisms/actual_ferry_shots.mp4"
+      ],
+      "evidence_scope": "actual component GPU and authored ferry driver, not formal full route",
+      "new_frozen_source_status": "unverified",
+      "gap": "Seven true-texture rectangles personally seen; source RID-lifetime white failure preserved. Older939movie predates final local bell feedback; G consumer still pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/carrier/save-restore",
+      "runtime_consumer": "ModuleMovingPlatform -> UnderworldCarrierPaint -> UnderworldTerrain.mechanism_texture/draw_moving",
+      "required_actual_observation": "Park/running phase restore and stage reload preserve original physical state",
+      "existing_component_evidence": [
+        "build/underworld_plains/mechanisms/material_catalog.png",
+        "build/underworld_plains/mechanisms/gpu_runtime.json",
+        "build/underworld_plains/mechanisms/actual_ferry_shots.mp4"
+      ],
+      "evidence_scope": "actual component GPU and authored ferry driver, not formal full route",
+      "new_frozen_source_status": "unverified",
+      "gap": "Seven true-texture rectangles personally seen; source RID-lifetime white failure preserved. Older939movie predates final local bell feedback; G consumer still pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/bell/primary/material",
+      "runtime_consumer": "ShotLatch primary _draw/receiver -> real _commit_open",
+      "required_actual_observation": "Actual same-source bell/support/gate rendering",
+      "existing_component_evidence": [
+        "build/underworld_plains/mechanisms/feedback_frames.json",
+        "build/underworld_plains/mechanisms/feedback_gpu_runtime.json",
+        "build/underworld_plains/mechanisms/actual_access_feedback.mp4"
+      ],
+      "evidence_scope": "103frame final local feedback component, explicit initial grounded fixture",
+      "new_frozen_source_status": "unverified",
+      "gap": "Primary/access103frames3accepted toggles personally sampled; sequence second actual collision native tests cited but final GPU feedback window not personally observed; G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/bell/primary/accepted-feedback",
+      "runtime_consumer": "ShotLatch primary _draw/receiver -> real _commit_open",
+      "required_actual_observation": "Accepted Router shot -> live projectile -> Damageable -> exact target/epoch commit -> local bell ring/glint/shortflash and actual collider/motion state",
+      "existing_component_evidence": [
+        "build/underworld_plains/mechanisms/feedback_frames.json",
+        "build/underworld_plains/mechanisms/feedback_gpu_runtime.json",
+        "build/underworld_plains/mechanisms/actual_access_feedback.mp4"
+      ],
+      "evidence_scope": "103frame final local feedback component, explicit initial grounded fixture",
+      "new_frozen_source_status": "unverified",
+      "gap": "Primary/access103frames3accepted toggles personally sampled; sequence second actual collision native tests cited but final GPU feedback window not personally observed; G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/bell/sequence-second/material",
+      "runtime_consumer": "ShotLatch sequence-second _draw/receiver -> real _commit_open",
+      "required_actual_observation": "Actual same-source bell/support/gate rendering",
+      "existing_component_evidence": [
+        "build/underworld_plains/mechanisms/feedback_frames.json",
+        "build/underworld_plains/mechanisms/feedback_gpu_runtime.json",
+        "build/underworld_plains/mechanisms/actual_access_feedback.mp4"
+      ],
+      "evidence_scope": "103frame final local feedback component, explicit initial grounded fixture",
+      "new_frozen_source_status": "unverified",
+      "gap": "Primary/access103frames3accepted toggles personally sampled; sequence second actual collision native tests cited but final GPU feedback window not personally observed; G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/bell/sequence-second/accepted-feedback",
+      "runtime_consumer": "ShotLatch sequence-second _draw/receiver -> real _commit_open",
+      "required_actual_observation": "Accepted Router shot -> live projectile -> Damageable -> exact target/epoch commit -> local bell ring/glint/shortflash and actual collider/motion state",
+      "existing_component_evidence": [
+        "build/underworld_plains/mechanisms/feedback_frames.json",
+        "build/underworld_plains/mechanisms/feedback_gpu_runtime.json",
+        "build/underworld_plains/mechanisms/actual_access_feedback.mp4"
+      ],
+      "evidence_scope": "103frame final local feedback component, explicit initial grounded fixture",
+      "new_frozen_source_status": "unverified",
+      "gap": "Primary/access103frames3accepted toggles personally sampled; sequence second actual collision native tests cited but final GPU feedback window not personally observed; G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/bell/access-return/material",
+      "runtime_consumer": "ShotLatch access-return _draw/receiver -> real _commit_open",
+      "required_actual_observation": "Actual same-source bell/support/gate rendering",
+      "existing_component_evidence": [
+        "build/underworld_plains/mechanisms/feedback_frames.json",
+        "build/underworld_plains/mechanisms/feedback_gpu_runtime.json",
+        "build/underworld_plains/mechanisms/actual_access_feedback.mp4"
+      ],
+      "evidence_scope": "103frame final local feedback component, explicit initial grounded fixture",
+      "new_frozen_source_status": "unverified",
+      "gap": "Primary/access103frames3accepted toggles personally sampled; sequence second actual collision native tests cited but final GPU feedback window not personally observed; G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/bell/access-return/accepted-feedback",
+      "runtime_consumer": "ShotLatch access-return _draw/receiver -> real _commit_open",
+      "required_actual_observation": "Accepted Router shot -> live projectile -> Damageable -> exact target/epoch commit -> local bell ring/glint/shortflash and actual collider/motion state",
+      "existing_component_evidence": [
+        "build/underworld_plains/mechanisms/feedback_frames.json",
+        "build/underworld_plains/mechanisms/feedback_gpu_runtime.json",
+        "build/underworld_plains/mechanisms/actual_access_feedback.mp4"
+      ],
+      "evidence_scope": "103frame final local feedback component, explicit initial grounded fixture",
+      "new_frozen_source_status": "unverified",
+      "gap": "Primary/access103frames3accepted toggles personally sampled; sequence second actual collision native tests cited but final GPU feedback window not personally observed; G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/bell/sequence",
+      "runtime_consumer": "ShotLatch original policy/receiver/gate code",
+      "required_actual_observation": "Correct first/second order and wrong-order rejection",
+      "existing_component_evidence": [
+        "build/underworld_plains/mechanisms/runtime.json"
+      ],
+      "evidence_scope": "component test trace; previous unpaced failures preserved",
+      "new_frozen_source_status": "unverified",
+      "gap": "1425/0 component logs contain original old assertions; not independently rerun by reviewer, G fresh test and actual selected visuals pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/bell/timed-gate",
+      "runtime_consumer": "ShotLatch original policy/receiver/gate code",
+      "required_actual_observation": "Actual accepted open -> safe timed reclose; no art/collision mismatch",
+      "existing_component_evidence": [
+        "build/underworld_plains/mechanisms/runtime.json"
+      ],
+      "evidence_scope": "component test trace; previous unpaced failures preserved",
+      "new_frozen_source_status": "unverified",
+      "gap": "1425/0 component logs contain original old assertions; not independently rerun by reviewer, G fresh test and actual selected visuals pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/bell/reject",
+      "runtime_consumer": "ShotLatch original policy/receiver/gate code",
+      "required_actual_observation": "Miss, stale epochs, duplicate callback do not mint fake accepted feedback or new charges",
+      "existing_component_evidence": [
+        "build/underworld_plains/mechanisms/runtime.json"
+      ],
+      "evidence_scope": "component test trace; previous unpaced failures preserved",
+      "new_frozen_source_status": "unverified",
+      "gap": "1425/0 component logs contain original old assertions; not independently rerun by reviewer, G fresh test and actual selected visuals pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/home/slot/character",
+      "runtime_consumer": "HomeScene nearest_candidate/interact -> DemoMenu.show_home_panel",
+      "required_actual_observation": "Emit original functionID and show existing explicit development placeholder panel after real walking/Router interact",
+      "existing_component_evidence": [
+        "build/underworld_home/receipt.json",
+        "build/underworld_home/component_headless_binding.json"
+      ],
+      "evidence_scope": "actual Router walkthrough; original four IDs retained, development panel",
+      "new_frozen_source_status": "unverified",
+      "gap": "Old93/0 and4oldUIgoldens personally read/seen; corrected bodyhide/shortlabels/CJK/newUI source final capture pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/home/slot/upgrade",
+      "runtime_consumer": "HomeScene nearest_candidate/interact -> DemoMenu.show_home_panel",
+      "required_actual_observation": "Emit original functionID and show existing implemented service after real walking/Router interact",
+      "existing_component_evidence": [
+        "build/underworld_home/receipt.json",
+        "build/underworld_home/component_headless_binding.json"
+      ],
+      "evidence_scope": "actual Router walkthrough; original four IDs retained, implemented service",
+      "new_frozen_source_status": "unverified",
+      "gap": "Old93/0 and4oldUIgoldens personally read/seen; corrected bodyhide/shortlabels/CJK/newUI source final capture pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/home/slot/achievements",
+      "runtime_consumer": "HomeScene nearest_candidate/interact -> DemoMenu.show_home_panel",
+      "required_actual_observation": "Emit original functionID and show existing explicit development placeholder panel after real walking/Router interact",
+      "existing_component_evidence": [
+        "build/underworld_home/receipt.json",
+        "build/underworld_home/component_headless_binding.json"
+      ],
+      "evidence_scope": "actual Router walkthrough; original four IDs retained, development panel",
+      "new_frozen_source_status": "unverified",
+      "gap": "Old93/0 and4oldUIgoldens personally read/seen; corrected bodyhide/shortlabels/CJK/newUI source final capture pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/home/slot/departure",
+      "runtime_consumer": "HomeScene nearest_candidate/interact -> DemoMenu.show_home_panel",
+      "required_actual_observation": "Emit original functionID and show existing implemented service after real walking/Router interact",
+      "existing_component_evidence": [
+        "build/underworld_home/receipt.json",
+        "build/underworld_home/component_headless_binding.json"
+      ],
+      "evidence_scope": "actual Router walkthrough; original four IDs retained, implemented service",
+      "new_frozen_source_status": "unverified",
+      "gap": "Old93/0 and4oldUIgoldens personally read/seen; corrected bodyhide/shortlabels/CJK/newUI source final capture pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/home/slot/arms",
+      "runtime_consumer": "UnderworldHomeWorld slot + HomeScene reserved prompt",
+      "required_actual_observation": "Reserved world label/prompt; actual interact emits no functionID/no resources/no fake panel",
+      "existing_component_evidence": [
+        "build/underworld_home/receipt.json",
+        "build/underworld_home/component_headless_binding.json"
+      ],
+      "evidence_scope": "actual Router walkthrough; original four IDs retained, inactive reserved slot",
+      "new_frozen_source_status": "unverified",
+      "gap": "Old93/0 and4oldUIgoldens personally read/seen; corrected bodyhide/shortlabels/CJK/newUI source final capture pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/home/slot/relics",
+      "runtime_consumer": "UnderworldHomeWorld slot + HomeScene reserved prompt",
+      "required_actual_observation": "Reserved world label/prompt; actual interact emits no functionID/no resources/no fake panel",
+      "existing_component_evidence": [
+        "build/underworld_home/receipt.json",
+        "build/underworld_home/component_headless_binding.json"
+      ],
+      "evidence_scope": "actual Router walkthrough; original four IDs retained, inactive reserved slot",
+      "new_frozen_source_status": "unverified",
+      "gap": "Old93/0 and4oldUIgoldens personally read/seen; corrected bodyhide/shortlabels/CJK/newUI source final capture pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/home/slot/herbs",
+      "runtime_consumer": "UnderworldHomeWorld slot + HomeScene reserved prompt",
+      "required_actual_observation": "Reserved world label/prompt; actual interact emits no functionID/no resources/no fake panel",
+      "existing_component_evidence": [
+        "build/underworld_home/receipt.json",
+        "build/underworld_home/component_headless_binding.json"
+      ],
+      "evidence_scope": "actual Router walkthrough; original four IDs retained, inactive reserved slot",
+      "new_frozen_source_status": "unverified",
+      "gap": "Old93/0 and4oldUIgoldens personally read/seen; corrected bodyhide/shortlabels/CJK/newUI source final capture pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/home/slot/kitchen",
+      "runtime_consumer": "UnderworldHomeWorld slot + HomeScene reserved prompt",
+      "required_actual_observation": "Reserved world label/prompt; actual interact emits no functionID/no resources/no fake panel",
+      "existing_component_evidence": [
+        "build/underworld_home/receipt.json",
+        "build/underworld_home/component_headless_binding.json"
+      ],
+      "evidence_scope": "actual Router walkthrough; original four IDs retained, inactive reserved slot",
+      "new_frozen_source_status": "unverified",
+      "gap": "Old93/0 and4oldUIgoldens personally read/seen; corrected bodyhide/shortlabels/CJK/newUI source final capture pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/home/slot/courier",
+      "runtime_consumer": "UnderworldHomeWorld slot + HomeScene reserved prompt",
+      "required_actual_observation": "Reserved world label/prompt; actual interact emits no functionID/no resources/no fake panel",
+      "existing_component_evidence": [
+        "build/underworld_home/receipt.json",
+        "build/underworld_home/component_headless_binding.json"
+      ],
+      "evidence_scope": "actual Router walkthrough; original four IDs retained, inactive reserved slot",
+      "new_frozen_source_status": "unverified",
+      "gap": "Old93/0 and4oldUIgoldens personally read/seen; corrected bodyhide/shortlabels/CJK/newUI source final capture pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/home/slot/songs",
+      "runtime_consumer": "UnderworldHomeWorld slot + HomeScene reserved prompt",
+      "required_actual_observation": "Reserved world label/prompt; actual interact emits no functionID/no resources/no fake panel",
+      "existing_component_evidence": [
+        "build/underworld_home/receipt.json",
+        "build/underworld_home/component_headless_binding.json"
+      ],
+      "evidence_scope": "actual Router walkthrough; original four IDs retained, inactive reserved slot",
+      "new_frozen_source_status": "unverified",
+      "gap": "Old93/0 and4oldUIgoldens personally read/seen; corrected bodyhide/shortlabels/CJK/newUI source final capture pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/home/slot/stories",
+      "runtime_consumer": "UnderworldHomeWorld slot + HomeScene reserved prompt",
+      "required_actual_observation": "Reserved world label/prompt; actual interact emits no functionID/no resources/no fake panel",
+      "existing_component_evidence": [
+        "build/underworld_home/receipt.json",
+        "build/underworld_home/component_headless_binding.json"
+      ],
+      "evidence_scope": "actual Router walkthrough; original four IDs retained, inactive reserved slot",
+      "new_frozen_source_status": "unverified",
+      "gap": "Old93/0 and4oldUIgoldens personally read/seen; corrected bodyhide/shortlabels/CJK/newUI source final capture pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/home/slot/garden",
+      "runtime_consumer": "UnderworldHomeWorld slot + HomeScene reserved prompt",
+      "required_actual_observation": "Reserved world label/prompt; actual interact emits no functionID/no resources/no fake panel",
+      "existing_component_evidence": [
+        "build/underworld_home/receipt.json",
+        "build/underworld_home/component_headless_binding.json"
+      ],
+      "evidence_scope": "actual Router walkthrough; original four IDs retained, inactive reserved slot",
+      "new_frozen_source_status": "unverified",
+      "gap": "Old93/0 and4oldUIgoldens personally read/seen; corrected bodyhide/shortlabels/CJK/newUI source final capture pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/home/journey",
+      "runtime_consumer": "HomeScene actual PlayerMotor + UnderworldHomeWorld",
+      "required_actual_observation": "True title pointer Home entry -> all12slots walking +back west -> actual departure/return, camera follows without teleport",
+      "existing_component_evidence": [
+        "build/underworld_home/receipt.json"
+      ],
+      "evidence_scope": "source-changing component stages, not G",
+      "new_frozen_source_status": "unverified",
+      "gap": "4oldUIwindows show direction/style; current label/body fixes need G actual input movie; old UI images not relabelled",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/home/body-scale-root",
+      "runtime_consumer": "HomeScene actual PlayerMotor + UnderworldHomeWorld",
+      "required_actual_observation": "HumanNPCs andplayer same44wu alpha-body baseline; all20actualspritefoot rays hit true floor; no duplicate player body",
+      "existing_component_evidence": [
+        "build/underworld_home/receipt.json"
+      ],
+      "evidence_scope": "source-changing component stages, not G",
+      "new_frozen_source_status": "unverified",
+      "gap": "4oldUIwindows show direction/style; current label/body fixes need G actual input movie; old UI images not relabelled",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/ui/title",
+      "runtime_consumer": "DemoMenu / UnderworldUI or actual owning modal/HUD branch title",
+      "required_actual_observation": "Real owning App/pointer/touch/focus action to existing service state; matching theme, text, disabled state and safe rectangles; no spurious shoot/jump/purchase/reset",
+      "existing_component_evidence": [
+        "build/underworld_plains/ui_rework/ui_inventory.json",
+        "build/underworld_plains/ui_rework/handoff.json"
+      ],
+      "evidence_scope": "new native component inputs, not cooked Web/physical device",
+      "new_frozen_source_status": "unverified",
+      "gap": "GPU265/0 andheadless243/0 component now strictclean per logs; 6originalUIviews personally viewed. Some panels are direct UI-class quote fixtures, distinguish from formal economic settlement; actual G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/ui/home_navigation",
+      "runtime_consumer": "DemoMenu / UnderworldUI or actual owning modal/HUD branch home_navigation",
+      "required_actual_observation": "Real owning App/pointer/touch/focus action to existing service state; matching theme, text, disabled state and safe rectangles; no spurious shoot/jump/purchase/reset",
+      "existing_component_evidence": [
+        "build/underworld_plains/ui_rework/ui_inventory.json",
+        "build/underworld_plains/ui_rework/handoff.json"
+      ],
+      "evidence_scope": "new native component inputs, not cooked Web/physical device",
+      "new_frozen_source_status": "unverified",
+      "gap": "GPU265/0 andheadless243/0 component now strictclean per logs; 6originalUIviews personally viewed. Some panels are direct UI-class quote fixtures, distinguish from formal economic settlement; actual G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/ui/home_character",
+      "runtime_consumer": "DemoMenu / UnderworldUI or actual owning modal/HUD branch home_character",
+      "required_actual_observation": "Real owning App/pointer/touch/focus action to existing service state; matching theme, text, disabled state and safe rectangles; no spurious shoot/jump/purchase/reset",
+      "existing_component_evidence": [
+        "build/underworld_plains/ui_rework/ui_inventory.json",
+        "build/underworld_plains/ui_rework/handoff.json"
+      ],
+      "evidence_scope": "new native component inputs, not cooked Web/physical device",
+      "new_frozen_source_status": "unverified",
+      "gap": "GPU265/0 andheadless243/0 component now strictclean per logs; 6originalUIviews personally viewed. Some panels are direct UI-class quote fixtures, distinguish from formal economic settlement; actual G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/ui/home_achievements",
+      "runtime_consumer": "DemoMenu / UnderworldUI or actual owning modal/HUD branch home_achievements",
+      "required_actual_observation": "Real owning App/pointer/touch/focus action to existing service state; matching theme, text, disabled state and safe rectangles; no spurious shoot/jump/purchase/reset",
+      "existing_component_evidence": [
+        "build/underworld_plains/ui_rework/ui_inventory.json",
+        "build/underworld_plains/ui_rework/handoff.json"
+      ],
+      "evidence_scope": "new native component inputs, not cooked Web/physical device",
+      "new_frozen_source_status": "unverified",
+      "gap": "GPU265/0 andheadless243/0 component now strictclean per logs; 6originalUIviews personally viewed. Some panels are direct UI-class quote fixtures, distinguish from formal economic settlement; actual G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/ui/home_upgrade",
+      "runtime_consumer": "DemoMenu / UnderworldUI or actual owning modal/HUD branch home_upgrade",
+      "required_actual_observation": "Real owning App/pointer/touch/focus action to existing service state; matching theme, text, disabled state and safe rectangles; no spurious shoot/jump/purchase/reset",
+      "existing_component_evidence": [
+        "build/underworld_plains/ui_rework/ui_inventory.json",
+        "build/underworld_plains/ui_rework/handoff.json"
+      ],
+      "evidence_scope": "new native component inputs, not cooked Web/physical device",
+      "new_frozen_source_status": "unverified",
+      "gap": "GPU265/0 andheadless243/0 component now strictclean per logs; 6originalUIviews personally viewed. Some panels are direct UI-class quote fixtures, distinguish from formal economic settlement; actual G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/ui/home_departure",
+      "runtime_consumer": "DemoMenu / UnderworldUI or actual owning modal/HUD branch home_departure",
+      "required_actual_observation": "Real owning App/pointer/touch/focus action to existing service state; matching theme, text, disabled state and safe rectangles; no spurious shoot/jump/purchase/reset",
+      "existing_component_evidence": [
+        "build/underworld_plains/ui_rework/ui_inventory.json",
+        "build/underworld_plains/ui_rework/handoff.json"
+      ],
+      "evidence_scope": "new native component inputs, not cooked Web/physical device",
+      "new_frozen_source_status": "unverified",
+      "gap": "GPU265/0 andheadless243/0 component now strictclean per logs; 6originalUIviews personally viewed. Some panels are direct UI-class quote fixtures, distinguish from formal economic settlement; actual G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/ui/pause",
+      "runtime_consumer": "DemoMenu / UnderworldUI or actual owning modal/HUD branch pause",
+      "required_actual_observation": "Real owning App/pointer/touch/focus action to existing service state; matching theme, text, disabled state and safe rectangles; no spurious shoot/jump/purchase/reset",
+      "existing_component_evidence": [
+        "build/underworld_plains/ui_rework/ui_inventory.json",
+        "build/underworld_plains/ui_rework/handoff.json"
+      ],
+      "evidence_scope": "new native component inputs, not cooked Web/physical device",
+      "new_frozen_source_status": "unverified",
+      "gap": "GPU265/0 andheadless243/0 component now strictclean per logs; 6originalUIviews personally viewed. Some panels are direct UI-class quote fixtures, distinguish from formal economic settlement; actual G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/ui/settings",
+      "runtime_consumer": "DemoMenu / UnderworldUI or actual owning modal/HUD branch settings",
+      "required_actual_observation": "Real owning App/pointer/touch/focus action to existing service state; matching theme, text, disabled state and safe rectangles; no spurious shoot/jump/purchase/reset",
+      "existing_component_evidence": [
+        "build/underworld_plains/ui_rework/ui_inventory.json",
+        "build/underworld_plains/ui_rework/handoff.json"
+      ],
+      "evidence_scope": "new native component inputs, not cooked Web/physical device",
+      "new_frozen_source_status": "unverified",
+      "gap": "GPU265/0 andheadless243/0 component now strictclean per logs; 6originalUIviews personally viewed. Some panels are direct UI-class quote fixtures, distinguish from formal economic settlement; actual G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/ui/help",
+      "runtime_consumer": "DemoMenu / UnderworldUI or actual owning modal/HUD branch help",
+      "required_actual_observation": "Real owning App/pointer/touch/focus action to existing service state; matching theme, text, disabled state and safe rectangles; no spurious shoot/jump/purchase/reset",
+      "existing_component_evidence": [
+        "build/underworld_plains/ui_rework/ui_inventory.json",
+        "build/underworld_plains/ui_rework/handoff.json"
+      ],
+      "evidence_scope": "new native component inputs, not cooked Web/physical device",
+      "new_frozen_source_status": "unverified",
+      "gap": "GPU265/0 andheadless243/0 component now strictclean per logs; 6originalUIviews personally viewed. Some panels are direct UI-class quote fixtures, distinguish from formal economic settlement; actual G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/ui/build",
+      "runtime_consumer": "DemoMenu / UnderworldUI or actual owning modal/HUD branch build",
+      "required_actual_observation": "Real owning App/pointer/touch/focus action to existing service state; matching theme, text, disabled state and safe rectangles; no spurious shoot/jump/purchase/reset",
+      "existing_component_evidence": [
+        "build/underworld_plains/ui_rework/ui_inventory.json",
+        "build/underworld_plains/ui_rework/handoff.json"
+      ],
+      "evidence_scope": "new native component inputs, not cooked Web/physical device",
+      "new_frozen_source_status": "unverified",
+      "gap": "GPU265/0 andheadless243/0 component now strictclean per logs; 6originalUIviews personally viewed. Some panels are direct UI-class quote fixtures, distinguish from formal economic settlement; actual G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/ui/confirm_home_cancel",
+      "runtime_consumer": "DemoMenu / UnderworldUI or actual owning modal/HUD branch confirm_home_cancel",
+      "required_actual_observation": "Real owning App/pointer/touch/focus action to existing service state; matching theme, text, disabled state and safe rectangles; no spurious shoot/jump/purchase/reset",
+      "existing_component_evidence": [
+        "build/underworld_plains/ui_rework/ui_inventory.json",
+        "build/underworld_plains/ui_rework/handoff.json"
+      ],
+      "evidence_scope": "new native component inputs, not cooked Web/physical device",
+      "new_frozen_source_status": "unverified",
+      "gap": "GPU265/0 andheadless243/0 component now strictclean per logs; 6originalUIviews personally viewed. Some panels are direct UI-class quote fixtures, distinguish from formal economic settlement; actual G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/ui/confirm_home_leave",
+      "runtime_consumer": "DemoMenu / UnderworldUI or actual owning modal/HUD branch confirm_home_leave",
+      "required_actual_observation": "Real owning App/pointer/touch/focus action to existing service state; matching theme, text, disabled state and safe rectangles; no spurious shoot/jump/purchase/reset",
+      "existing_component_evidence": [
+        "build/underworld_plains/ui_rework/ui_inventory.json",
+        "build/underworld_plains/ui_rework/handoff.json"
+      ],
+      "evidence_scope": "new native component inputs, not cooked Web/physical device",
+      "new_frozen_source_status": "unverified",
+      "gap": "GPU265/0 andheadless243/0 component now strictclean per logs; 6originalUIviews personally viewed. Some panels are direct UI-class quote fixtures, distinguish from formal economic settlement; actual G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/ui/fog_map",
+      "runtime_consumer": "DemoMenu / UnderworldUI or actual owning modal/HUD branch fog_map",
+      "required_actual_observation": "Real owning App/pointer/touch/focus action to existing service state; matching theme, text, disabled state and safe rectangles; no spurious shoot/jump/purchase/reset",
+      "existing_component_evidence": [
+        "build/underworld_plains/ui_rework/ui_inventory.json",
+        "build/underworld_plains/ui_rework/handoff.json"
+      ],
+      "evidence_scope": "new native component inputs, not cooked Web/physical device",
+      "new_frozen_source_status": "unverified",
+      "gap": "GPU265/0 andheadless243/0 component now strictclean per logs; 6originalUIviews personally viewed. Some panels are direct UI-class quote fixtures, distinguish from formal economic settlement; actual G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/ui/touch_jump",
+      "runtime_consumer": "DemoMenu / UnderworldUI or actual owning modal/HUD branch touch_jump",
+      "required_actual_observation": "Real owning App/pointer/touch/focus action to existing service state; matching theme, text, disabled state and safe rectangles; no spurious shoot/jump/purchase/reset",
+      "existing_component_evidence": [
+        "build/underworld_plains/ui_rework/ui_inventory.json",
+        "build/underworld_plains/ui_rework/handoff.json"
+      ],
+      "evidence_scope": "new native component inputs, not cooked Web/physical device",
+      "new_frozen_source_status": "unverified",
+      "gap": "GPU265/0 andheadless243/0 component now strictclean per logs; 6originalUIviews personally viewed. Some panels are direct UI-class quote fixtures, distinguish from formal economic settlement; actual G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/ui/touch_menu_cancel",
+      "runtime_consumer": "DemoMenu / UnderworldUI or actual owning modal/HUD branch touch_menu_cancel",
+      "required_actual_observation": "Real owning App/pointer/touch/focus action to existing service state; matching theme, text, disabled state and safe rectangles; no spurious shoot/jump/purchase/reset",
+      "existing_component_evidence": [
+        "build/underworld_plains/ui_rework/ui_inventory.json",
+        "build/underworld_plains/ui_rework/handoff.json"
+      ],
+      "evidence_scope": "new native component inputs, not cooked Web/physical device",
+      "new_frozen_source_status": "unverified",
+      "gap": "GPU265/0 andheadless243/0 component now strictclean per logs; 6originalUIviews personally viewed. Some panels are direct UI-class quote fixtures, distinguish from formal economic settlement; actual G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/ui/formal_hud",
+      "runtime_consumer": "DemoMenu / UnderworldUI or actual owning modal/HUD branch formal_hud",
+      "required_actual_observation": "Real owning App/pointer/touch/focus action to existing service state; matching theme, text, disabled state and safe rectangles; no spurious shoot/jump/purchase/reset",
+      "existing_component_evidence": [
+        "build/underworld_plains/ui_rework/ui_inventory.json",
+        "build/underworld_plains/ui_rework/handoff.json"
+      ],
+      "evidence_scope": "new native component inputs, not cooked Web/physical device",
+      "new_frozen_source_status": "unverified",
+      "gap": "GPU265/0 andheadless243/0 component now strictclean per logs; 6originalUIviews personally viewed. Some panels are direct UI-class quote fixtures, distinguish from formal economic settlement; actual G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/ui/home_hud",
+      "runtime_consumer": "DemoMenu / UnderworldUI or actual owning modal/HUD branch home_hud",
+      "required_actual_observation": "Real owning App/pointer/touch/focus action to existing service state; matching theme, text, disabled state and safe rectangles; no spurious shoot/jump/purchase/reset",
+      "existing_component_evidence": [
+        "build/underworld_plains/ui_rework/ui_inventory.json",
+        "build/underworld_plains/ui_rework/handoff.json"
+      ],
+      "evidence_scope": "new native component inputs, not cooked Web/physical device",
+      "new_frozen_source_status": "unverified",
+      "gap": "GPU265/0 andheadless243/0 component now strictclean per logs; 6originalUIviews personally viewed. Some panels are direct UI-class quote fixtures, distinguish from formal economic settlement; actual G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/ui/shop_unaffordable",
+      "runtime_consumer": "DemoMenu / UnderworldUI or actual owning modal/HUD branch shop_unaffordable",
+      "required_actual_observation": "Real owning App/pointer/touch/focus action to existing service state; matching theme, text, disabled state and safe rectangles; no spurious shoot/jump/purchase/reset",
+      "existing_component_evidence": [
+        "build/underworld_plains/ui_rework/ui_inventory.json",
+        "build/underworld_plains/ui_rework/handoff.json"
+      ],
+      "evidence_scope": "new native component inputs, not cooked Web/physical device",
+      "new_frozen_source_status": "unverified",
+      "gap": "GPU265/0 andheadless243/0 component now strictclean per logs; 6originalUIviews personally viewed. Some panels are direct UI-class quote fixtures, distinguish from formal economic settlement; actual G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/ui/shop_affordable",
+      "runtime_consumer": "DemoMenu / UnderworldUI or actual owning modal/HUD branch shop_affordable",
+      "required_actual_observation": "Real owning App/pointer/touch/focus action to existing service state; matching theme, text, disabled state and safe rectangles; no spurious shoot/jump/purchase/reset",
+      "existing_component_evidence": [
+        "build/underworld_plains/ui_rework/ui_inventory.json",
+        "build/underworld_plains/ui_rework/handoff.json"
+      ],
+      "evidence_scope": "new native component inputs, not cooked Web/physical device",
+      "new_frozen_source_status": "unverified",
+      "gap": "GPU265/0 andheadless243/0 component now strictclean per logs; 6originalUIviews personally viewed. Some panels are direct UI-class quote fixtures, distinguish from formal economic settlement; actual G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/ui/reward_choice",
+      "runtime_consumer": "DemoMenu / UnderworldUI or actual owning modal/HUD branch reward_choice",
+      "required_actual_observation": "Real owning App/pointer/touch/focus action to existing service state; matching theme, text, disabled state and safe rectangles; no spurious shoot/jump/purchase/reset",
+      "existing_component_evidence": [
+        "build/underworld_plains/ui_rework/ui_inventory.json",
+        "build/underworld_plains/ui_rework/handoff.json"
+      ],
+      "evidence_scope": "new native component inputs, not cooked Web/physical device",
+      "new_frozen_source_status": "unverified",
+      "gap": "GPU265/0 andheadless243/0 component now strictclean per logs; 6originalUIviews personally viewed. Some panels are direct UI-class quote fixtures, distinguish from formal economic settlement; actual G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/ui/stage_exit",
+      "runtime_consumer": "DemoMenu / UnderworldUI or actual owning modal/HUD branch stage_exit",
+      "required_actual_observation": "Real owning App/pointer/touch/focus action to existing service state; matching theme, text, disabled state and safe rectangles; no spurious shoot/jump/purchase/reset",
+      "existing_component_evidence": [
+        "build/underworld_plains/ui_rework/ui_inventory.json",
+        "build/underworld_plains/ui_rework/handoff.json"
+      ],
+      "evidence_scope": "new native component inputs, not cooked Web/physical device",
+      "new_frozen_source_status": "unverified",
+      "gap": "GPU265/0 andheadless243/0 component now strictclean per logs; 6originalUIviews personally viewed. Some panels are direct UI-class quote fixtures, distinguish from formal economic settlement; actual G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/ui/viewport_960x540",
+      "runtime_consumer": "DemoMenu / UnderworldUI or actual owning modal/HUD branch viewport_960x540",
+      "required_actual_observation": "Real owning App/pointer/touch/focus action to existing service state; matching theme, text, disabled state and safe rectangles; no spurious shoot/jump/purchase/reset",
+      "existing_component_evidence": [
+        "build/underworld_plains/ui_rework/ui_inventory.json",
+        "build/underworld_plains/ui_rework/handoff.json"
+      ],
+      "evidence_scope": "new native component inputs, not cooked Web/physical device",
+      "new_frozen_source_status": "unverified",
+      "gap": "GPU265/0 andheadless243/0 component now strictclean per logs; 6originalUIviews personally viewed. Some panels are direct UI-class quote fixtures, distinguish from formal economic settlement; actual G pending",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/ui/viewport_portrait",
+      "runtime_consumer": "DemoMenu / UnderworldUI or actual owning modal/HUD branch viewport_portrait",
+      "required_actual_observation": "Real owning App/pointer/touch/focus action to existing service state; matching theme, text, disabled state and safe rectangles; no spurious shoot/jump/purchase/reset",
+      "existing_component_evidence": [
+        "build/underworld_plains/ui_rework/ui_inventory.json",
+        "build/underworld_plains/ui_rework/handoff.json"
+      ],
+      "evidence_scope": "new native component inputs, not cooked Web/physical device",
+      "new_frozen_source_status": "unverified",
+      "gap": "GPU265/0 andheadless243/0 component now strictclean per logs; 6originalUIviews personally viewed. Requested720x1280 produced actual720x405 texture: portrait not demonstrated",
+      "inherits_F_pass": false
+    },
+    {
+      "id": "r2/ui/boss_intro_core_hints",
+      "runtime_consumer": "DemoMenu / UnderworldUI or actual owning modal/HUD branch boss_intro_core_hints",
+      "required_actual_observation": "Real owning App/pointer/touch/focus action to existing service state; matching theme, text, disabled state and safe rectangles; no spurious shoot/jump/purchase/reset",
+      "existing_component_evidence": [
+        "build/underworld_plains/ui_rework/ui_inventory.json",
+        "build/underworld_plains/ui_rework/handoff.json"
+      ],
+      "evidence_scope": "new native component inputs, not cooked Web/physical device",
+      "new_frozen_source_status": "unverified",
+      "gap": "GPU265/0 andheadless243/0 component now strictclean per logs; 6originalUIviews personally viewed. Some panels are direct UI-class quote fixtures, distinguish from formal economic settlement; actual G pending",
+      "inherits_F_pass": false
+    }
+  ],
+  "not_implemented_services": [
+    "character selection additional characters",
+    "achievement system",
+    "eight reserved Home services",
+    "other15 regions"
+  ],
+  "safety_of_claims": [
+    "Hurt/death component HealthState submissions are not natural combat",
+    "Router axis intent is not real KeyA/KeyD delivery",
+    "Source-cropped textures and counters are not actual GPU readability proof",
+    "UI quote fixture emits purchase/choice request but does not establish economic settlement",
+    "requested Window dimensions are not necessarily actual rendered viewport dimensions",
+    "F source/media and component-dirty media are never relabelled G"
+  ]
+}

@@ -1,0 +1,3 @@
+# F三轮实际身份窗口及一次严格退出复采
+
+精确F源a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2，两图默认各8窗、seed0九窗。原source_binding保留首轮map2退出资源警告，不视为严格干净。map2_verbose_retry为同fixture唯一一次--verbose复采，exit0、8窗、无资源警告；独立retry_binding绑定其原件。源文件与游戏未改。初次无效:99显示器失败日志也保留。

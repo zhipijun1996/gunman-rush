@@ -69,10 +69,12 @@ static func invariant(app: DemoApp) -> String:
 
 static func pixel_default(app: DemoApp) -> bool:
 	var stage := app.stage as PlainsRegionStage
-	var background := app.get_node_or_null("PixelPlainsParallax") as PixelPlainsParallax
+	var background := app.get_node_or_null("PixelPlainsParallax") as UnderworldParallax
 	return stage != null and not stage.has_meta("legacy_presentation_fixture") \
-		and stage.terrain_art != null and stage.terrain_art.art is PixelFormalTerrain \
-		and stage.get_node_or_null("PixelRegionScenery") is PixelRegionScenery \
+		and stage.terrain_art != null and stage.terrain_art.art is UnderworldTerrain \
+		and stage.get_node_or_null("PixelRegionScenery") is UnderworldScenery \
+		and app.player.get_node_or_null("PixelPlainsActor") is UnderworldPlayer \
+		and stage.get_meta("underworld_formal_style",false) \
 		and stage.find_child("DirectedSemanticLandscape",true,false) == null \
 		and stage.find_child("ConnectedLandscape",true,false) == null \
 		and stage.find_child("CreekWaterworksSpace",true,false) == null \

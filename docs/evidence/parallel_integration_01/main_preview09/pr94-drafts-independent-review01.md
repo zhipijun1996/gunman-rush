@@ -1,0 +1,7 @@
+Bounded static-draft ACCEPT; runtime remains UNVERIFIED. Independently bound allfourruntimeproposal files, bothrunners andfiveSkill drafts to exactSHA. No implementation, Godotparser, engine orbrowser run.
+
+Priorcross-regionrendererregression is staticallyfixed: unchangedstart_demo leavescreationtoone region-aware_sync, whichnowcreatesUnderworldPlayer. Forestremoval andPlainsrecreation guardremain. Candidateartflags/composer/chest/merchant areexplicitlyisolatedfromformalUnderworld. Menuadapterpreload/cancel/install, buttonPASS/46height andfallbackFontVariation/Notochain remain. Actualroundtrip/native43/mobile/newtitlefontlayout stillneedfreshproof.
+
+Wood originalcheck_module, check_pixel_module andcheck_legacy_geometry arebyte-identical. Independently scanned balancedcheckcalls: everyoriginalpredicate/message callfrombothbranches ispreserved inbothdrafts. Guardednegativechecker aftermissingmaterialinjection recordsexpectedfailure ratherthannullcrash; originalnormalcheck runsbeforemutation. No GPU/translationthreshold orbudgetweakening found. Scene retainsactualSpriteinventory/identity/lifecycle/cancellation/audio/unwind andunionUnderworldconsumers. Thesearestaticfacts, notactualassertioncounts ornegativeexitproof.
+
+Allnewfixturecosts, parser/types, exportclosure, Underworld/Forest/Plainsroundtrip, canonicalGUI, actualwood/scene/GPUnegative andoriginalcaps remainunverified. Skillscurrentproductionwordingdescribesproposedmergedstate; do notretagclean64orC8evidenceasnewUnderworldsourcePASS.

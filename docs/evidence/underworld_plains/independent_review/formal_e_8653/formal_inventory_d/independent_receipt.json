@@ -1,0 +1,22 @@
+{
+  "reviewed_commit": "14e81362fcc33995bf6929ee13e83cf973d483e0",
+  "command": [
+    "bash",
+    "tools/godot.sh",
+    "--headless",
+    "--audio-driver",
+    "Dummy",
+    "--fixed-fps",
+    "60",
+    "--path",
+    ".",
+    "--script",
+    "build/underworld_plains/independent_review/formal_inventory_d/runner.gd"
+  ],
+  "exit_code": 0,
+  "seconds": 30.09997061700051,
+  "log": "build/underworld_plains/independent_review/formal_inventory_d/native.log",
+  "log_sha256": "689933c5ae9360ea56209f3648a57f8ec6569f20c78f5d4c986c8ae603aad66d",
+  "probe_change": "Original native assertions retained; output path literal replaced and read-only runtime_inventory plus one returned key added. Reviewer initial mixed-indentation parse attempt preserved.",
+  "errors": []
+}

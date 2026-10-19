@@ -1,0 +1,76 @@
+{
+  "schema": "underworld-identity-landmarks-generation-v1",
+  "task": "UNDERWORLD-PLAINS-01",
+  "tool": "image_gen.imagegen",
+  "calls": 1,
+  "model": "not_exposed",
+  "prompt": "Create an ORIGINAL dark fairy-tale pixel-art GAME PROP SHEET, matching the attached selected Underworld windchime props exactly in sparse near-black navy silhouettes, thin moss-green clusters, very sparse dull brass pixels, crisp tiny 16-pixel-inspired construction, NOT detailed illustration. TRUE TRANSPARENT background. Exactly THREE whole independent objects in ONE HORIZONTAL ROW on a wide 3:1 canvas; objects fully separate with at least 8% blank margin at outer edges and between objects, all complete on a common foot baseline. Each object compact, no taller than 70% canvas, no background or terrain. LEFT: an old CREEK WELL, round low masonry well opening with a small crooked wooden waterwheel on its right, few reeds rooted at base, unmistakably a well and wheel, not windmill. MIDDLE: a BROKEN CLOCK ARCH, two squat weathered stone piers supporting one fractured circular clock ring, half the ring missing, no readable numbers or lettering, small lichen on broken stones, wide empty center. RIGHT: a SMALL REPAIR SHELTER, low asymmetrical timber lean-to with patched cloth roof, one small hanging hand-tool and brass gear on its rear wall, squat grounded base, no character. Objects are distant non-interactive landmarks for Windchime Plains: no walkable-looking straight horizontal green ledges, NO huge luminous lamps, no red danger colors, no borders, words, logos, UI, weapons, scenery, ground slab or shadows outside object. Keep simple macro silhouettes suitable at 90\u2013140 world units tall; wells are squat. The reference sheet has a tree, windmill, flowers and courier: do not copy those objects, use only its coherent dark silhouette pixel language for the three new regional landmarks.",
+  "reference": "assets/underworld_plains/decor/chime_props.png",
+  "reference_provenance": "assets/underworld_plains/decor/provenance.json",
+  "source": "assets/underworld_plains/decor/sources/identity_props_original.png",
+  "image": "assets/underworld_plains/decor/identity_props.png",
+  "processing": "byte-identical original image reused through exact whole-object AtlasTexture regions; no repaint, recolor or resampling",
+  "cost": "not_exposed",
+  "source_sha256": "f13c4e0c9f699f3c53625649159c0852aacc097861d1772f1784fec500b94f11",
+  "image_sha256": "f13c4e0c9f699f3c53625649159c0852aacc097861d1772f1784fec500b94f11",
+  "reference_sha256": "a956c984f4a839f08dc7a9e6dbd5e145a348efa36221e308d964b5cb0fb8cf06",
+  "regions_metadata": "assets/underworld_plains/decor/chime_props.json",
+  "actual_alpha_bbox": [
+    0,
+    21,
+    2172,
+    724
+  ],
+  "region_extraction": "Within actual 724px cells, alpha>=2 bbox plus8px sampling margin, foot at alpha>=128 lower edge; no original pixels edited",
+  "strict_equal_cell_margin_status": "not fully satisfied: central arch comes within15px cell edge; complete measured region used, original alpha1 noise retained",
+  "regions": [
+    {
+      "kind": "well",
+      "atlas": "assets/underworld_plains/decor/identity_props.png",
+      "region": [
+        84,
+        247,
+        576,
+        406
+      ],
+      "foot": [
+        288.0,
+        394
+      ],
+      "world_height": 112,
+      "source_semantics": "complete original landmark at alpha>=2 plus 8px region margin; raw alpha1 noise retained in original sheet"
+    },
+    {
+      "kind": "clock_arch",
+      "atlas": "assets/underworld_plains/decor/identity_props.png",
+      "region": [
+        733,
+        100,
+        689,
+        564
+      ],
+      "foot": [
+        344.5,
+        548
+      ],
+      "world_height": 112,
+      "source_semantics": "complete original landmark at alpha>=2 plus 8px region margin; raw alpha1 noise retained in original sheet"
+    },
+    {
+      "kind": "repair_shelter",
+      "atlas": "assets/underworld_plains/decor/identity_props.png",
+      "region": [
+        1501,
+        224,
+        606,
+        434
+      ],
+      "foot": [
+        303.0,
+        423
+      ],
+      "world_height": 112,
+      "source_semantics": "complete original landmark at alpha>=2 plus 8px region margin; raw alpha1 noise retained in original sheet"
+    }
+  ]
+}

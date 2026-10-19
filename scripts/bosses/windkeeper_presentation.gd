@@ -101,7 +101,12 @@ func _process(delta: float) -> void:
 	queue_redraw()
 func _draw() -> void:
 	if encounter == null: return
-	if pixel_style:
+	if UnderworldActors.enabled(self):
+		UnderworldActors.draw_windkeeper(self,encounter,_stride,_actual_speed,hurt_flash>0,_old_form,_form_blend)
+		if not encounter.health.terminal and (not (encounter.definition as WindkeeperDefinition).platform_trials or encounter.stage_phase==2):
+			var angle := encounter.blade_angle if encounter.stage_phase==2 and encounter.mode==&"blades" else _rotor_angle
+			PixelFormalActors.draw_rotor(self,Vector2(0,-75),angle)
+	elif pixel_style:
 		PixelFormalActors.draw_windkeeper(self,encounter,_stride,_actual_speed,hurt_flash>0,_old_form,_form_blend)
 		if not encounter.health.terminal and (not (encounter.definition as WindkeeperDefinition).platform_trials or encounter.stage_phase==2):
 			var angle := encounter.blade_angle if encounter.stage_phase==2 and encounter.mode==&"blades" else _rotor_angle

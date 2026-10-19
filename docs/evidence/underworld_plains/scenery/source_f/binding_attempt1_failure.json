@@ -1,0 +1,7 @@
+{
+  "schema": "capture-wrapper-validation-failure-v1",
+  "stage": "CPU binding, after all three clean engine captures",
+  "failure": "Wrapper looked for source_hash, actual measured_nodes field is texture_sha256; len(empty)==64 assertion failed",
+  "action": "Read actual measured_nodes schema and require original texture_sha256 to be64 chars; no receipt/image/runtime changes",
+  "note": "Summary of tool traceback, not a separately captured raw stderr log"
+}

@@ -37,7 +37,7 @@ FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试�
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
-| PARALLEL-INTEGRATION-01 | 最新并行分支整合与Web重部署 | FOREST-GRAPPLE-02 | in_progress | [输入、冲突与验证边界](integration_20261019.md)；保持森林v12和正式像素平原，实验独立；新CI/公开包正在验证 |
+| PARALLEL-INTEGRATION-01 | 最新并行分支整合与Web重部署 | FOREST-GRAPPLE-02 | in_progress | [输入、冲突与验证边界](integration_20261019.md)；最新用户授权合main并快速试玩；PR94正式Underworld+森林v12/15%，实验独立；完整CI失败/菜单退出泄漏如实保留，预览非全验收 |
 | FOREST-GRAPPLE-CONSUMERS-02 | 本轮动作／版本与严格因果验收消费者迁移 | FOREST-GRAPPLE-02 | in_progress | [限定记录](quality/records/FOREST-GRAPPLE-CONSUMERS-02.json)；仅工具和测试迁移，不代签森林玩法；原断言、预算、历史原件与失败保留 |
 | FOREST-GRAPPLE-02 | 钩拉手感／停留环／15%双瞄准／纵向连续动作密度 | FOREST-FEEDBACK-01 | in_progress | [质量记录](quality/records/FOREST-GRAPPLE-02.json)；最新用户反馈续轮，专项、代表16+额外HH1及两图正常片已实测；S3同源89／原80与Web发布通过，[交付与边界](evidence/forest_grapple02/release03/README.md)；本机600超时59通过仍保留，公开GUI20／8实测通过；冠叉R可选、尾路省两句及上层吸引力REVISE，真人/设备未验 |
 | FOREST-FEEDBACK-01 | 扩大森林／真实空中连续动作／生态与地块场景语言 | FOREST-DEPTH-02 | in_progress | [质量记录](quality/records/FOREST-FEEDBACK-01.json)；用户四项反馈续轮；v11已发布5fd40a31c4be，CI86/GUI20通过，体验仍REVISE；[发布证据](evidence/forest_depth_v2/forest_feedback01/release01/README.md) |
@@ -57,6 +57,7 @@ FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试�
 | FOREST-PLAYABLE-01 | 森林两图／能力和地区选择／调试直选 | FOREST-DESIGN-01 | review | 原host七项全过／两轮60路线／不同作者原生ACCEPT／真实Web鼠标触摸8入口通过；完整旧回归和发布仍阻塞，艺术／玩家／设备未验 |
 | FOREST-DESIGN-01 | 荆棘森林随机区域／怪物G0设计 | GRAPPLE-FIX-01 | review | [设计卡](design/thorn_forest_region.md)：短H／两图三骨架／地块端口／活锚生态／三策略返程；仅候选设计，不签物理或开放 |
 
+| UNDERWORLD-PLAINS-01 | Underworld正式平原、玩家动作/机关/商人、家园与UI及Tile生产流程 | WINDCHIME-FIVE-STYLE-01 | review | 六项返工G/build6b3093b929c0已上线，专项12/12、实际输入及限定独审通过；HomeUI退出泄漏/地图间歇失败与用户设备验收保留 |
 | WINDCHIME-FIVE-STYLE-01 | 五锚点与Underworld/Cavern三地区实机比较 | WINDCHIME-PIXEL-01 | review | Web d2d469f81582/source32200d0；17215/0+1706/0、20主路/80上层、45实机/图集与独审；森林/工城独立新景层，主体材料/商业/用户/设备仍未签 |
 | WINDCHIME-PIXEL-01 | 新像素风格重制正式平原两图、三层独立视差 | WINDCHIME-STYLE-01 | review | 已部署d2c684ef8fc0/source c0f8e50；全体表现迁移、简洁纹理、动态支撑装饰与三图视差；冻结技术/有限GUI通过，整区审美/全警示/设备未签 |
 | WINDCHIME-STYLE-01 | 风铃平原新参考风格素材与手工实景 | TILE-MAP-PLAN-01 | review | 暖色候选被用户拒绝为廉价，停止扩产/发布；47态、样板与技术修复保留，Animal Well方向待小样 |

@@ -1,0 +1,46 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Unable to open Android 'build-tools' directory.
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Scanning file structure...[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started Registering global classes... (5 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | HomeScene[39m[0m
+[  16% ] [90m[1mupdate_scripts_classes[22m | UnderworldActors[39m[0m
+[  33% ] [90m[1mupdate_scripts_classes[22m | UnderworldHomeWorld[39m[0m
+[  50% ] [90m[1mupdate_scripts_classes[22m | UnderworldPlayer[39m[0m
+[  66% ] [90m[1mupdate_scripts_classes[22m | UnderworldTerrain[39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Loading editor (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Loading editor layout...[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Loading docks...[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver.
+     at: set_use_vsync (platform/linuxbsd/x11/gl_manager_x11.cpp:372)
+OpenGL API 4.5 (Core Profile) Mesa 25.0.7-2+deb13u1 - Compatibility - Using Device: Mesa - llvmpipe (LLVM 19.1.7, 256 bits)
+
+PLAINS REGION: family=woven_layers areas=20 fallback=
+TERRAIN STUDY: solids=79 pieces=288 setup_ms=81
+FAIL: actual minimap pointer opens original fog map
+SCRIPT ERROR: Invalid access to property or key 'zoom' on a base object of type 'Nil'.
+          at: run (res://tests/underworld_plains/test_underworld_ui.gd:113)
+          GDScript backtrace (most recent call first):
+              [0] run (res://tests/underworld_plains/test_underworld_ui.gd:113)
+              [1] click (res://tests/underworld_plains/test_underworld_ui.gd:34)
+              [2] frames (res://tests/underworld_plains/test_underworld_ui.gd:14)
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tools/run_underworld_ui_tests.py", line 7, in <module>
+    text=run_engine([*mode,'--path','.','--script','tests/underworld_plains/test_underworld_ui.gd',*(['--','--capture'] if args.capture else [])],180)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/clock-style-lab/tools/run_tests.py", line 38, in run_engine
+    raise RuntimeError("Godot emitted a script/shader error; aborted immediately")
+RuntimeError: Godot emitted a script/shader error; aborted immediately

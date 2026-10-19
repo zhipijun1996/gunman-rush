@@ -91,19 +91,19 @@ func _gui_input(event: InputEvent) -> void:
 func _draw() -> void:
 	if not is_instance_valid(stage) or not stage.assembly_ok: return
 	draw_style_box(panel(),Rect2(Vector2.ZERO,size))
-	var font:=ThemeDB.fallback_font
+	var font:=UnderworldUI.FONT
 	if region_chip and not expanded:
-		draw_string(font,Vector2(12,21),"MAP %s/2  ·  EXPLORE" % stage.map_index,HORIZONTAL_ALIGNMENT_LEFT,-1,12,Color("dbd7ab"))
+		draw_string(font,Vector2(12,21),"MAP %s/2  ·  EXPLORE" % stage.map_index,HORIZONTAL_ALIGNMENT_LEFT,-1,12,UnderworldUI.TEXT)
 		return
 	if not expanded:
-		draw_string(font,Vector2(10,18),"MAP %s/2 / CLICK TO EXPLORE" % stage.map_index,HORIZONTAL_ALIGNMENT_LEFT,-1,12,Color("dbd7ab"))
-		draw_string(font,Vector2(10,148),"Fog: unexplored   B Boss   C Camp",HORIZONTAL_ALIGNMENT_LEFT,-1,10,Color("d0d0ae"))
+		draw_string(font,Vector2(10,18),"MAP %s/2 / CLICK TO EXPLORE" % stage.map_index,HORIZONTAL_ALIGNMENT_LEFT,-1,12,UnderworldUI.TEXT)
+		draw_string(font,Vector2(10,148),"Fog: unexplored   B Boss   C Camp",HORIZONTAL_ALIGNMENT_LEFT,-1,10,UnderworldUI.MUTED)
 	var bounds:=_world_rect()
 	# Only reveal tiles already visited physically; unknown land remains opaque.
 	for key: String in stage.region_state.explored:
 		var coords:=key.split(":")
 		var world_cell:=Rect2(Vector2(float(coords[0]),float(coords[1]))*PlainsMapExploration.CELL,Vector2.ONE*PlainsMapExploration.CELL).intersection(bounds)
-		if world_cell.has_area(): draw_rect(Rect2(project_point(world_cell.position),world_cell.size*_fit_scale()*zoom),Color("233b32"))
+		if world_cell.has_area(): draw_rect(Rect2(project_point(world_cell.position),world_cell.size*_fit_scale()*zoom),Color("233329"))
 	var g:=PlainsRegionGenerator.new()
 	for e: Dictionary in stage.generated.manifest.connections:
 		var path: Array=e.get("path",[g._area(stage.generated.manifest,e.a).position,g._area(stage.generated.manifest,e.b).position])
@@ -114,12 +114,12 @@ func _draw() -> void:
 			for n: int in steps:
 				var start:=a.lerp(b,float(n)/steps); var end:=a.lerp(b,float(n+1)/steps)
 				if PlainsMapExploration.revealed(stage.region_state,start) and PlainsMapExploration.revealed(stage.region_state,end):
-					draw_line(project_point(start),project_point(end),Color("dfb66e") if locked else Color("a6c7a3"),2 if expanded else 1)
+					draw_line(project_point(start),project_point(end),UnderworldUI.BRASS if locked else UnderworldUI.MOSS,2 if expanded else 1)
 	for a: Dictionary in visible_areas():
 		var p:=project(a.position)
 		var color:=Color("d2d9ac") if stage.region_state.visited.has(a.id) else Color("8aab8f")
 		if a.role=="boss": color=Color("e8b76c")
-		if a.role=="merchant": color=Color("9fccdb")
+		if a.role=="merchant": color=UnderworldUI.COOL
 		draw_circle(p,5 if expanded else 3,color)
 		if a.role in ["merchant","boss","challenge_reward"]:
 			draw_string(font,p+Vector2(7,-4),"B" if a.role=="boss" else "C" if a.role=="merchant" else "*",HORIZONTAL_ALIGNMENT_LEFT,-1,14 if expanded else 10,color)
@@ -128,7 +128,4 @@ func _draw() -> void:
 	var player:=stage.global_player_position()
 	if player.is_finite(): draw_circle(project_point(player),5 if expanded else 3,Color("fff5ca"))
 func panel() -> StyleBoxFlat:
-	var box:=StyleBoxFlat.new()
-	box.bg_color=Color(0.04,0.08,0.09,0.96)
-	box.set_corner_radius_all(8)
-	return box
+	return UnderworldUI.box(Color(0.035,0.06,0.055,0.97),UnderworldUI.BORDER,4)

@@ -1,0 +1,61 @@
+{
+  "schema": "underworld-revision2-gpu-source-attribution-v1",
+  "runtime_source_commit": "c65a111015d032211bb8c54aaae9b322401349d4",
+  "worktree_head_at_binding": "8972f92fdd5e1334ea313d5201c62b2a267fbffe",
+  "runtime_and_committed_producer_paths_differing_from_G": [],
+  "scope": "Isolated identical-command265/0 after one mapclick/Nil failure. Both original logs retained; cause unverified. Logical viewport remains1280x720, portrait layout not accepted.",
+  "source_method": "Frozen runtime and committed producer bytes checked against G. Binding assembled after actual execution; this is not a before/after whole-tree source guard. Source owners were frozen. Native logs and output hashes are separate from subjective/device acceptance.",
+  "component_current_hashes_equal_to_G_except_explicit_build_fixture": {
+    "scripts/demo/home_scene.gd": "c8550c834188a038f445ddfd92be88a82995e0b34fe514393f1c89fb8e4c7168",
+    "scripts/generation/module_moving_platform.gd": "c3c3c7d068f5bcef692eabe4a2110aaa6308d4379623b09e652062f29c0f0fd5",
+    "scripts/ui/underworld_ui.gd": "0a6d717ef7a9f02e40b003a8f40850b4007634485b1f7ca6882086b43ec378ce",
+    "scripts/underworld_plains/underworld_actors.gd": "22c243ca87c683a694cc7c5a355616405398c929c444845b24077ec0bcbd68cf",
+    "scripts/underworld_plains/underworld_player.gd": "b0e2f51c4c0828685835888d9bfe2f8115f8c5bea11b9fd33af8bd6cfd53ebf0",
+    "scripts/underworld_plains/underworld_terrain.gd": "a330045721df6d82589bfdc0208ed9d1de2930f6c50c1c30ea93d86ce12d5427",
+    "scripts/world/shot_latch.gd": "5744542fe1bc8e5a561bb58926b414a85359dc1693f7e733930d1f194b64beb5",
+    "tests/underworld_plains/test_underworld_ui.gd": "e7d5c99128fb339d62cec99fb68d5016bcc44c9f1ecfe0e7cf46a0808d7f0dee",
+    "tools/run_tests.py": "4dca5f5f9ea6345f5caffc3de51fce5f48d1fa0267c26c74e0d061a6f6a97abb",
+    "tools/run_underworld_ui_tests.py": "7c2c9f6942051d0a7f6fd054e9026063ba1cfcfc3766ecfb450e88376ce37b41"
+  },
+  "command": [
+    "python3",
+    "tools/run_underworld_ui_tests.py",
+    "--capture"
+  ],
+  "environment": {
+    "DISPLAY": ":98",
+    "LIBGL_ALWAYS_SOFTWARE": "1",
+    "LP_NUM_THREADS": "1",
+    "renderer": "llvmpipe software OpenGL",
+    "audio_driver": "Dummy"
+  },
+  "artifacts": {
+    "build/underworld_plains/ui_gpu_G_isolated_retry.log": "1b90832bf7e6fbd0357ce124b884f3f3819fc7ba2372eb54a6dd55b2324f3dce",
+    "build/underworld_plains/ui_gpu_G_final.log": "6f4a690437585f514ae610e7318ee5e0ae46d4f19ba8ddd1036c7fdca4aa06e7",
+    "build/underworld_plains/ui_rework/ui_inventory.json": "201652ee1e31a645786e95cf17792902f6132e63344ef9356a14a74161ff3637",
+    "build/underworld_plains/ui_rework/actual_build.png": "afc0d115bd23b5b058adec244172ff2fec8763ede0386086952000e5f3a32777",
+    "build/underworld_plains/ui_rework/actual_fog_map.png": "a13f657f32ea920fe4677e6832366d7371ac92963c0c75fab1cb0904315a42b9",
+    "build/underworld_plains/ui_rework/actual_formal_hud.png": "a3dcfd8f5bb1674d42f4623fe7a17b0e4fd479f12208aac135b0a145981304c9",
+    "build/underworld_plains/ui_rework/actual_home_return.png": "c5ba88b6a42bbcbbf65456dc9000933236798259c661300360f6d1a41dceef6c",
+    "build/underworld_plains/ui_rework/actual_run_settings.png": "b2381565b4e966a6c3b5c1b167f73e6c05718b2b5326e1ac32158fbf5e27bac8",
+    "build/underworld_plains/ui_rework/actual_touch_hud.png": "0210d7ff68323e95b6b47706e8cdfd728b132c219358ed02e97b647587f0752d",
+    "build/underworld_plains/ui_rework/help.png": "2928f40893e8ee58d4290b29c156a656fc7add9806c28f3e8b7d005ccb98fa61",
+    "build/underworld_plains/ui_rework/home_achievements.png": "fb50c07ebaf8687c90d41b339bf7904caf12e028c8fea9d76fab49fa57be1339",
+    "build/underworld_plains/ui_rework/home_character.png": "640f80cfc465c7c43288caab772cccc9c3331f02d91c8fe8548f2529796148f5",
+    "build/underworld_plains/ui_rework/home_departure.png": "1a5b573fe607ad9bfd96c1d056c1cc6332884154559bd04d716da52d3a636945",
+    "build/underworld_plains/ui_rework/home_navigation.png": "ade31c275b3f3c5ac74b2b3ee471455ec7f5709ed988f25b6b1c8b8ac8d9832d",
+    "build/underworld_plains/ui_rework/home_upgrade.png": "5fcaf8702a8c90deb789b35480f0059b8a920e45522b843546fb4854b41dcde6",
+    "build/underworld_plains/ui_rework/leave_confirmation.png": "5b387a83ec913cf58e3d29187daee9a832477b912a7dca5c9cf5eb27cb845bad",
+    "build/underworld_plains/ui_rework/pause.png": "00da42f88d3ea6e1951730a5afe29c1755db0fafea600934b0d6bbea8ebbb5e1",
+    "build/underworld_plains/ui_rework/reward.png": "a171d73d01a432c2492e5e7d5a177bb1a50b9aa1d61e6b6a9e4c877d1386748b",
+    "build/underworld_plains/ui_rework/settings.png": "8137dabbec7cb981d7234c776479a1be0d6167d1bf1307f9956f3bb5e93b9609",
+    "build/underworld_plains/ui_rework/shop.png": "0d9603c2c10aff5eecd9a5c02d5dd6a2f0eefe101014f22b59925f51b8996071",
+    "build/underworld_plains/ui_rework/shop_unaffordable.png": "326b4758ac756ab5cb6ddabac41ec665c21efb6738f4724ef58817bf8ab68755",
+    "build/underworld_plains/ui_rework/stage_exit.png": "e541b251bd9fb6d907d9cdb909d842182a2e6d2bf86f3b05982e7687eee6e17d",
+    "build/underworld_plains/ui_rework/title.png": "e4a4fd86584093475e37ea8de83156fb9d96d62b34a0cd877c0da6c4784d9bb4",
+    "build/underworld_plains/ui_rework/viewport_720x1280.png": "1e3d8358851d3a8938dc9719e044925bb1b16d2acf943ac8339d27241d3c73cc",
+    "build/underworld_plains/ui_rework/viewport_960x540.png": "69cdcc7111e314ea75bd05efa7e54deb8ea1895d8d696c6d21a3548f8c56e585"
+  },
+  "status": "attributed",
+  "device_and_user_acceptance": false
+}

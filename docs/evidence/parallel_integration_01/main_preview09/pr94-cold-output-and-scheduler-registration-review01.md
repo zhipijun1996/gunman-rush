@@ -1,0 +1,5 @@
+Bounded static ACCEPT. Cold-outputfix isexactlytwo commentsandone mkdir beforeoriginalrun_engine; removingthosethreelines restoresincomingPR94byteforbyte. GDwrite119/120requiresparentdirectory; originalmarkers/validators/120nativecap/150outer remain. Oldfailurepreserved; coldactualrerunpending.
+
+All110originaldefinitionobjects and11newPR94definitions unchanged; onlyadditiveforest-region-scheduler-tests (11realtinyprocesschecks,30s,^OK$,nocache) registeredincore/gameplay/art/full. Originalprofilemembersretained. Releasegameplay+artselectedunion110differsfromtotaldefinitions122/fullprofile113.
+
+Noengine/browser/sourceedit. ColdsceneryactualPASS, menu43strictleakresolution, nativepair/80/600,freshCI/publicremainpending.

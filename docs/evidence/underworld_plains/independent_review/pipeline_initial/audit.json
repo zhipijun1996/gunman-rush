@@ -1,0 +1,1188 @@
+{
+  "schema": "underworld-pipeline-audit-v1",
+  "scope": "Source provenance and production-manifest assembly contract only; GPU, Motor, visual quality and device acceptance are separate.",
+  "passed": true,
+  "check_count": 201,
+  "failure_count": 0,
+  "checks": [
+    {
+      "code": "production.manifest",
+      "passed": true,
+      "detail": "assets/underworld_plains/production_manifest.json"
+    },
+    {
+      "code": "production.manifest.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/production_manifest.json"
+    },
+    {
+      "code": "production.manifest.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/production_manifest.json"
+    },
+    {
+      "code": "production.manifest.object",
+      "passed": true,
+      "detail": "/workspace/clock-style-lab/assets/underworld_plains/production_manifest.json"
+    },
+    {
+      "code": "production.schema",
+      "passed": true,
+      "detail": "underworld-production-v1"
+    },
+    {
+      "code": "terrain.manifest",
+      "passed": true,
+      "detail": "assets/underworld_plains/terrain/terrain_build.json"
+    },
+    {
+      "code": "terrain.manifest.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/terrain/terrain_build.json"
+    },
+    {
+      "code": "terrain.manifest.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/terrain/terrain_build.json"
+    },
+    {
+      "code": "terrain.manifest.object",
+      "passed": true,
+      "detail": "/workspace/clock-style-lab/assets/underworld_plains/terrain/terrain_build.json"
+    },
+    {
+      "code": "terrain.consumer",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_terrain.gd"
+    },
+    {
+      "code": "terrain.consumer.inside_repo",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_terrain.gd"
+    },
+    {
+      "code": "terrain.consumer.exists",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_terrain.gd"
+    },
+    {
+      "code": "terrain.read_by_runtime",
+      "passed": true,
+      "detail": "assets/underworld_plains/terrain/terrain_build.json"
+    },
+    {
+      "code": "reference.recipe",
+      "passed": true,
+      "detail": "assets/style_exploration/anchors.json"
+    },
+    {
+      "code": "reference.recipe.inside_repo",
+      "passed": true,
+      "detail": "assets/style_exploration/anchors.json"
+    },
+    {
+      "code": "reference.recipe.exists",
+      "passed": true,
+      "detail": "assets/style_exploration/anchors.json"
+    },
+    {
+      "code": "reference.recipe.object",
+      "passed": true,
+      "detail": "/workspace/clock-style-lab/assets/style_exploration/anchors.json"
+    },
+    {
+      "code": "reference.bits",
+      "passed": true,
+      "detail": "Project clockwise neighbour order"
+    },
+    {
+      "code": "reference.47_masks",
+      "passed": true,
+      "detail": "All canonical masks, including missing-diagonal inner corners"
+    },
+    {
+      "code": "reference.source",
+      "passed": true,
+      "detail": "res://assets/underworld_plains/terrain/source.png"
+    },
+    {
+      "code": "reference.source.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/terrain/source.png"
+    },
+    {
+      "code": "reference.source.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/terrain/source.png"
+    },
+    {
+      "code": "reference.source_sha256",
+      "passed": true,
+      "detail": "Frozen licensed Underworld source bytes"
+    },
+    {
+      "code": "terrain.declared_source_sha256",
+      "passed": true,
+      "detail": "Runtime provenance agrees with actual copied source"
+    },
+    {
+      "code": "reference.license",
+      "passed": true,
+      "detail": "res://assets/style_exploration/underworld/source/licenses/publisher_page.txt"
+    },
+    {
+      "code": "reference.license.inside_repo",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/source/licenses/publisher_page.txt"
+    },
+    {
+      "code": "reference.license.exists",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/source/licenses/publisher_page.txt"
+    },
+    {
+      "code": "reference.permission",
+      "passed": true,
+      "detail": "Custom publisher permission; not CC0"
+    },
+    {
+      "code": "reference.no_false_cc0",
+      "passed": true,
+      "detail": "Underworld has a custom permission statement"
+    },
+    {
+      "code": "terrain.native_pixel_scale",
+      "passed": true,
+      "detail": "16"
+    },
+    {
+      "code": "terrain.world_scale",
+      "passed": true,
+      "detail": "32"
+    },
+    {
+      "code": "terrain.mask_mapping",
+      "passed": true,
+      "detail": "Runtime mask coordinates equal immutable crop recipe"
+    },
+    {
+      "code": "terrain.source_regions",
+      "passed": true,
+      "detail": "Runtime boundary source regions match the original quarter-crop recipe"
+    },
+    {
+      "code": "terrain.atlas",
+      "passed": true,
+      "detail": "res://assets/underworld_plains/terrain/terrain.png"
+    },
+    {
+      "code": "terrain.atlas.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/terrain/terrain.png"
+    },
+    {
+      "code": "terrain.atlas.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/terrain/terrain.png"
+    },
+    {
+      "code": "terrain.declared_atlas",
+      "passed": true,
+      "detail": "res://assets/underworld_plains/terrain/terrain.png"
+    },
+    {
+      "code": "terrain.declared_atlas.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/terrain/terrain.png"
+    },
+    {
+      "code": "terrain.declared_atlas.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/terrain/terrain.png"
+    },
+    {
+      "code": "terrain.declared_atlas_sha256",
+      "passed": true,
+      "detail": "Runtime provenance agrees with actual atlas"
+    },
+    {
+      "code": "terrain.crop_coverage",
+      "passed": true,
+      "detail": "All pixels covered exactly once by bounded unscaled original-source crops"
+    },
+    {
+      "code": "terrain.source_reconstruction",
+      "passed": true,
+      "detail": "Runtime atlas RGBA exactly equals source crop replay"
+    },
+    {
+      "code": "terrain.tileset",
+      "passed": true,
+      "detail": "res://assets/underworld_plains/terrain/terrain.tres"
+    },
+    {
+      "code": "terrain.tileset.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/terrain/terrain.tres"
+    },
+    {
+      "code": "terrain.tileset.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/terrain/terrain.tres"
+    },
+    {
+      "code": "terrain.real_tileset",
+      "passed": true,
+      "detail": "Godot TileSetAtlasSource resource"
+    },
+    {
+      "code": "terrain.tileset_consumes_atlas",
+      "passed": true,
+      "detail": "res://assets/underworld_plains/terrain/terrain.png"
+    },
+    {
+      "code": "terrain.honest_geometry_mode",
+      "passed": true,
+      "detail": "Formal non-grid boundaries remain exact; only interior cells use Blob47 TileMapLayer"
+    },
+    {
+      "code": "scenery.manifest",
+      "passed": true,
+      "detail": "assets/underworld_plains/scenery_build.json"
+    },
+    {
+      "code": "scenery.manifest.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/scenery_build.json"
+    },
+    {
+      "code": "scenery.manifest.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/scenery_build.json"
+    },
+    {
+      "code": "scenery.manifest.object",
+      "passed": true,
+      "detail": "/workspace/clock-style-lab/assets/underworld_plains/scenery_build.json"
+    },
+    {
+      "code": "scenery.consumer",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_parallax.gd"
+    },
+    {
+      "code": "scenery.consumer.inside_repo",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_parallax.gd"
+    },
+    {
+      "code": "scenery.consumer.exists",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_parallax.gd"
+    },
+    {
+      "code": "scenery.consumer",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_scenery.gd"
+    },
+    {
+      "code": "scenery.consumer.inside_repo",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_scenery.gd"
+    },
+    {
+      "code": "scenery.consumer.exists",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_scenery.gd"
+    },
+    {
+      "code": "scenery.read_by_runtime",
+      "passed": true,
+      "detail": "assets/underworld_plains/scenery_build.json"
+    },
+    {
+      "code": "background.three_layers",
+      "passed": true,
+      "detail": "Sky base excluded"
+    },
+    {
+      "code": "background.0.image",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/far.png"
+    },
+    {
+      "code": "background.0.image.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/far.png"
+    },
+    {
+      "code": "background.0.image.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/far.png"
+    },
+    {
+      "code": "background.0.factor",
+      "passed": true,
+      "detail": "[0.035, 0.015]"
+    },
+    {
+      "code": "background.0.role",
+      "passed": true,
+      "detail": "opaque_evening_sky_and_low_remote_hills"
+    },
+    {
+      "code": "background.0.transparent_depth",
+      "passed": true,
+      "detail": "Far may contain sky; middle and near require transparent empty space"
+    },
+    {
+      "code": "background.0.generation_record",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/far_generation.json"
+    },
+    {
+      "code": "background.0.generation_record.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/far_generation.json"
+    },
+    {
+      "code": "background.0.generation_record.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/far_generation.json"
+    },
+    {
+      "code": "background.0.generation_record.object",
+      "passed": true,
+      "detail": "/workspace/clock-style-lab/assets/underworld_plains/backgrounds/far_generation.json"
+    },
+    {
+      "code": "background.0.generation_record.prompt",
+      "passed": true,
+      "detail": "Actual nonempty generation prompt"
+    },
+    {
+      "code": "background.0.generation_record.tool",
+      "passed": true,
+      "detail": "image_gen.imagegen"
+    },
+    {
+      "code": "background.0.generation_record.model_disclosure",
+      "passed": true,
+      "detail": "not_exposed / unknown is valid; invented model names are not required"
+    },
+    {
+      "code": "background.0.generation_record.source",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/sources/far_original.png"
+    },
+    {
+      "code": "background.0.generation_record.source.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/sources/far_original.png"
+    },
+    {
+      "code": "background.0.generation_record.source.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/sources/far_original.png"
+    },
+    {
+      "code": "background.0.generation_record.source_sha256",
+      "passed": true,
+      "detail": "Recorded lineage agrees with real source bytes"
+    },
+    {
+      "code": "background.0.generation_record.reference",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/original/TileSet.png"
+    },
+    {
+      "code": "background.0.generation_record.reference.inside_repo",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/original/TileSet.png"
+    },
+    {
+      "code": "background.0.generation_record.reference.exists",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/original/TileSet.png"
+    },
+    {
+      "code": "background.0.generation_record.reference_sha256",
+      "passed": true,
+      "detail": "Recorded lineage agrees with real source bytes"
+    },
+    {
+      "code": "background.0.generation_record.image",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/far.png"
+    },
+    {
+      "code": "background.0.generation_record.image.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/far.png"
+    },
+    {
+      "code": "background.0.generation_record.image.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/far.png"
+    },
+    {
+      "code": "background.0.generation_record.image_sha256",
+      "passed": true,
+      "detail": "Recorded lineage agrees with real source bytes"
+    },
+    {
+      "code": "background.0.generation_record.consumed_output",
+      "passed": true,
+      "detail": "Generation record describes the actual runtime image"
+    },
+    {
+      "code": "background.1.image",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/middle.png"
+    },
+    {
+      "code": "background.1.image.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/middle.png"
+    },
+    {
+      "code": "background.1.image.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/middle.png"
+    },
+    {
+      "code": "background.1.factor",
+      "passed": true,
+      "detail": "[0.12, 0.04]"
+    },
+    {
+      "code": "background.1.role",
+      "passed": true,
+      "detail": "transparent_sky_remote_bell_tower_and_wind_bent_meadow_trees"
+    },
+    {
+      "code": "background.1.transparent_depth",
+      "passed": true,
+      "detail": "Far may contain sky; middle and near require transparent empty space"
+    },
+    {
+      "code": "background.1.generation_record",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/middle_generation.json"
+    },
+    {
+      "code": "background.1.generation_record.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/middle_generation.json"
+    },
+    {
+      "code": "background.1.generation_record.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/middle_generation.json"
+    },
+    {
+      "code": "background.1.generation_record.object",
+      "passed": true,
+      "detail": "/workspace/clock-style-lab/assets/underworld_plains/backgrounds/middle_generation.json"
+    },
+    {
+      "code": "background.1.generation_record.prompt",
+      "passed": true,
+      "detail": "Actual nonempty generation prompt"
+    },
+    {
+      "code": "background.1.generation_record.tool",
+      "passed": true,
+      "detail": "image_gen.imagegen"
+    },
+    {
+      "code": "background.1.generation_record.model_disclosure",
+      "passed": true,
+      "detail": "not_exposed / unknown is valid; invented model names are not required"
+    },
+    {
+      "code": "background.1.generation_record.source",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/sources/middle_original.png"
+    },
+    {
+      "code": "background.1.generation_record.source.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/sources/middle_original.png"
+    },
+    {
+      "code": "background.1.generation_record.source.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/sources/middle_original.png"
+    },
+    {
+      "code": "background.1.generation_record.source_sha256",
+      "passed": true,
+      "detail": "Recorded lineage agrees with real source bytes"
+    },
+    {
+      "code": "background.1.generation_record.reference",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/original/TileSet.png"
+    },
+    {
+      "code": "background.1.generation_record.reference.inside_repo",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/original/TileSet.png"
+    },
+    {
+      "code": "background.1.generation_record.reference.exists",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/original/TileSet.png"
+    },
+    {
+      "code": "background.1.generation_record.reference_sha256",
+      "passed": true,
+      "detail": "Recorded lineage agrees with real source bytes"
+    },
+    {
+      "code": "background.1.generation_record.image",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/middle.png"
+    },
+    {
+      "code": "background.1.generation_record.image.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/middle.png"
+    },
+    {
+      "code": "background.1.generation_record.image.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/middle.png"
+    },
+    {
+      "code": "background.1.generation_record.image_sha256",
+      "passed": true,
+      "detail": "Recorded lineage agrees with real source bytes"
+    },
+    {
+      "code": "background.1.generation_record.consumed_output",
+      "passed": true,
+      "detail": "Generation record describes the actual runtime image"
+    },
+    {
+      "code": "background.2.image",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/near.png"
+    },
+    {
+      "code": "background.2.image.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/near.png"
+    },
+    {
+      "code": "background.2.image.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/near.png"
+    },
+    {
+      "code": "background.2.factor",
+      "passed": true,
+      "detail": "[0.28, 0.075]"
+    },
+    {
+      "code": "background.2.role",
+      "passed": true,
+      "detail": "transparent_sky_low_grass_bank_and_sparse_wooden_chime_frame"
+    },
+    {
+      "code": "background.2.transparent_depth",
+      "passed": true,
+      "detail": "Far may contain sky; middle and near require transparent empty space"
+    },
+    {
+      "code": "background.2.generation_record",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/near_generation.json"
+    },
+    {
+      "code": "background.2.generation_record.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/near_generation.json"
+    },
+    {
+      "code": "background.2.generation_record.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/near_generation.json"
+    },
+    {
+      "code": "background.2.generation_record.object",
+      "passed": true,
+      "detail": "/workspace/clock-style-lab/assets/underworld_plains/backgrounds/near_generation.json"
+    },
+    {
+      "code": "background.2.generation_record.prompt",
+      "passed": true,
+      "detail": "Actual nonempty generation prompt"
+    },
+    {
+      "code": "background.2.generation_record.tool",
+      "passed": true,
+      "detail": "image_gen.imagegen"
+    },
+    {
+      "code": "background.2.generation_record.model_disclosure",
+      "passed": true,
+      "detail": "not_exposed / unknown is valid; invented model names are not required"
+    },
+    {
+      "code": "background.2.generation_record.source",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/sources/near_original.png"
+    },
+    {
+      "code": "background.2.generation_record.source.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/sources/near_original.png"
+    },
+    {
+      "code": "background.2.generation_record.source.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/sources/near_original.png"
+    },
+    {
+      "code": "background.2.generation_record.source_sha256",
+      "passed": true,
+      "detail": "Recorded lineage agrees with real source bytes"
+    },
+    {
+      "code": "background.2.generation_record.reference",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/original/TileSet.png"
+    },
+    {
+      "code": "background.2.generation_record.reference.inside_repo",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/original/TileSet.png"
+    },
+    {
+      "code": "background.2.generation_record.reference.exists",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/original/TileSet.png"
+    },
+    {
+      "code": "background.2.generation_record.reference_sha256",
+      "passed": true,
+      "detail": "Recorded lineage agrees with real source bytes"
+    },
+    {
+      "code": "background.2.generation_record.image",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/near.png"
+    },
+    {
+      "code": "background.2.generation_record.image.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/near.png"
+    },
+    {
+      "code": "background.2.generation_record.image.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/backgrounds/near.png"
+    },
+    {
+      "code": "background.2.generation_record.image_sha256",
+      "passed": true,
+      "detail": "Recorded lineage agrees with real source bytes"
+    },
+    {
+      "code": "background.2.generation_record.consumed_output",
+      "passed": true,
+      "detail": "Generation record describes the actual runtime image"
+    },
+    {
+      "code": "background.independent_pixels",
+      "passed": true,
+      "detail": "Three different source images, not one panorama copied three times"
+    },
+    {
+      "code": "background.ordered_factors",
+      "passed": true,
+      "detail": "[[0.035, 0.015], [0.12, 0.04], [0.28, 0.075]]"
+    },
+    {
+      "code": "decor.independent_seed",
+      "passed": true,
+      "detail": "Does not consume gameplay RNG"
+    },
+    {
+      "code": "decor.keepout",
+      "passed": true,
+      "detail": "whole_display_bounds_plus_8"
+    },
+    {
+      "code": "decor.support",
+      "passed": true,
+      "detail": "full_root_span_on_exposed_static_solid"
+    },
+    {
+      "code": "decor.no_collision",
+      "passed": true,
+      "detail": "Presentation-only supported props"
+    },
+    {
+      "code": "decor.atlas",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/chime_props.png"
+    },
+    {
+      "code": "decor.atlas.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/chime_props.png"
+    },
+    {
+      "code": "decor.atlas.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/chime_props.png"
+    },
+    {
+      "code": "decor.generation_record",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/provenance.json"
+    },
+    {
+      "code": "decor.generation_record.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/provenance.json"
+    },
+    {
+      "code": "decor.generation_record.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/provenance.json"
+    },
+    {
+      "code": "decor.generation_record.object",
+      "passed": true,
+      "detail": "/workspace/clock-style-lab/assets/underworld_plains/decor/provenance.json"
+    },
+    {
+      "code": "decor.generation_record.prompt",
+      "passed": true,
+      "detail": "Actual nonempty generation prompt"
+    },
+    {
+      "code": "decor.generation_record.tool",
+      "passed": true,
+      "detail": "image_gen.imagegen"
+    },
+    {
+      "code": "decor.generation_record.model_disclosure",
+      "passed": true,
+      "detail": "not_exposed / unknown is valid; invented model names are not required"
+    },
+    {
+      "code": "decor.generation_record.source",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/sources/original_props.png"
+    },
+    {
+      "code": "decor.generation_record.source.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/sources/original_props.png"
+    },
+    {
+      "code": "decor.generation_record.source.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/sources/original_props.png"
+    },
+    {
+      "code": "decor.generation_record.source_sha256",
+      "passed": true,
+      "detail": "Recorded lineage agrees with real source bytes"
+    },
+    {
+      "code": "decor.generation_record.atlas",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/chime_props.png"
+    },
+    {
+      "code": "decor.generation_record.atlas.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/chime_props.png"
+    },
+    {
+      "code": "decor.generation_record.atlas.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/decor/chime_props.png"
+    },
+    {
+      "code": "decor.generation_record.atlas_sha256",
+      "passed": true,
+      "detail": "Recorded lineage agrees with real source bytes"
+    },
+    {
+      "code": "decor.generation_record.consumed_output",
+      "passed": true,
+      "detail": "Generation record describes the actual runtime image"
+    },
+    {
+      "code": "hazards.manifest",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/hazard_build.json"
+    },
+    {
+      "code": "hazards.manifest.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/hazard_build.json"
+    },
+    {
+      "code": "hazards.manifest.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/hazard_build.json"
+    },
+    {
+      "code": "hazards.manifest.object",
+      "passed": true,
+      "detail": "/workspace/clock-style-lab/assets/underworld_plains/hazards/hazard_build.json"
+    },
+    {
+      "code": "hazards.consumer",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_hazard_tiles.gd"
+    },
+    {
+      "code": "hazards.consumer.inside_repo",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_hazard_tiles.gd"
+    },
+    {
+      "code": "hazards.consumer.exists",
+      "passed": true,
+      "detail": "scripts/underworld_plains/underworld_hazard_tiles.gd"
+    },
+    {
+      "code": "hazards.read_by_runtime",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/hazard_build.json"
+    },
+    {
+      "code": "hazards.source",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/source/TileSet.png"
+    },
+    {
+      "code": "hazards.source.inside_repo",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/source/TileSet.png"
+    },
+    {
+      "code": "hazards.source.exists",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/source/TileSet.png"
+    },
+    {
+      "code": "hazards.source.sha256",
+      "passed": true,
+      "detail": "assets/style_exploration/underworld/source/TileSet.png"
+    },
+    {
+      "code": "hazards.generated_reference",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/generated_reference.png"
+    },
+    {
+      "code": "hazards.generated_reference.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/generated_reference.png"
+    },
+    {
+      "code": "hazards.generated_reference.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/generated_reference.png"
+    },
+    {
+      "code": "hazards.generated_reference.sha256",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/generated_reference.png"
+    },
+    {
+      "code": "hazards.generation_record",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/generation_call.json"
+    },
+    {
+      "code": "hazards.generation_record.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/generation_call.json"
+    },
+    {
+      "code": "hazards.generation_record.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/generation_call.json"
+    },
+    {
+      "code": "hazards.generation_record.object",
+      "passed": true,
+      "detail": "/workspace/clock-style-lab/assets/underworld_plains/hazards/generation_call.json"
+    },
+    {
+      "code": "hazards.generation_record.prompt",
+      "passed": true,
+      "detail": "Actual nonempty generation prompt"
+    },
+    {
+      "code": "hazards.generation_record.tool",
+      "passed": true,
+      "detail": "image_gen.imagegen"
+    },
+    {
+      "code": "hazards.generation_record.model_disclosure",
+      "passed": true,
+      "detail": "not_exposed / unknown is valid; invented model names are not required"
+    },
+    {
+      "code": "hazards.model_status",
+      "passed": true,
+      "detail": "Unknown model is allowed when not exposed"
+    },
+    {
+      "code": "hazards.atlas",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/hazard_surface.png"
+    },
+    {
+      "code": "hazards.atlas.inside_repo",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/hazard_surface.png"
+    },
+    {
+      "code": "hazards.atlas.exists",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/hazard_surface.png"
+    },
+    {
+      "code": "hazards.atlas.sha256",
+      "passed": true,
+      "detail": "assets/underworld_plains/hazards/hazard_surface.png"
+    },
+    {
+      "code": "hazards.native_scale",
+      "passed": true,
+      "detail": "[16, 16]"
+    },
+    {
+      "code": "hazards.transitions",
+      "passed": true,
+      "detail": "Start, repeat, end and single-span material variants"
+    },
+    {
+      "code": "hazards.atlas_size",
+      "passed": true,
+      "detail": "(64, 16)"
+    },
+    {
+      "code": "hazards.root_and_tip",
+      "passed": true,
+      "detail": "4+12"
+    },
+    {
+      "code": "hazards.material_continuity",
+      "passed": true,
+      "detail": "Visible tips and embedded root pixels, not an empty overlay"
+    },
+    {
+      "code": "hazards.damage_source",
+      "passed": true,
+      "detail": "Existing authoritative damage definition"
+    },
+    {
+      "code": "hazards.orientations",
+      "passed": true,
+      "detail": "['top', 'left', 'right', 'bottom']"
+    },
+    {
+      "code": "hazards.preserve_collision",
+      "passed": true,
+      "detail": "No additional solid base or changed hazard extent"
+    },
+    {
+      "code": "hazards.no_floating_base",
+      "passed": true,
+      "detail": "Danger material uses the supporting platform boundary"
+    },
+    {
+      "code": "hazards.material_family",
+      "passed": true,
+      "detail": "underworld_green_rock"
+    }
+  ],
+  "measurements": {
+    "files": {
+      "assets/underworld_plains/production_manifest.json": {
+        "sha256": "0bc2603f7733b5c675bafa1caaecccba44c947c4e47342b741ffe3e8dc534b46",
+        "bytes": 715
+      },
+      "assets/underworld_plains/terrain/terrain_build.json": {
+        "sha256": "64f0c0fb88271e0e25684c8a4e4099af7135e5001c6604126485c9bb6c511c5d",
+        "bytes": 50757
+      },
+      "scripts/underworld_plains/underworld_terrain.gd": {
+        "sha256": "1b806e6c8b2d81f75edb4a5cc3e671b84d1d3d383536670234cbdc0232170e3f",
+        "bytes": 7420
+      },
+      "assets/style_exploration/anchors.json": {
+        "sha256": "622dec4f962557dd77902cb9f3cb5ee6fc412d9d931e0773dacc58ed8ba0e656",
+        "bytes": 279289
+      },
+      "assets/underworld_plains/terrain/source.png": {
+        "sha256": "a369175ccef5fca5ab363f140252d1f0f38b5eafb5d541605c601ea4ac56f88c",
+        "bytes": 6674
+      },
+      "assets/style_exploration/underworld/source/licenses/publisher_page.txt": {
+        "sha256": "9dcb86357ece8650bcb8be5798b02167b8d8735a475e3ec4e31518e1b744b270",
+        "bytes": 1282
+      },
+      "assets/underworld_plains/terrain/terrain.png": {
+        "sha256": "908a3541feccc0e7abdd629c3a0bb8ce22693e22e89ea153cc7d80a411cbfba9",
+        "bytes": 3689
+      },
+      "assets/underworld_plains/terrain/terrain.tres": {
+        "sha256": "02fa0bf8a764fd6307d47b9bf802066c6374d7a7c2d93060ec099289cbde3770",
+        "bytes": 799
+      },
+      "assets/underworld_plains/scenery_build.json": {
+        "sha256": "9876cb7696b058f9c5b05bab29ecdd7e8ba0dc03183f207fcca2cc63ddcf549e",
+        "bytes": 2941
+      },
+      "scripts/underworld_plains/underworld_parallax.gd": {
+        "sha256": "7096ce79f54a2b7906e3071e0ce906732aeb9c6217395791f133832de81ddde0",
+        "bytes": 4435
+      },
+      "scripts/underworld_plains/underworld_scenery.gd": {
+        "sha256": "c4bcd819484d4a13566c3c93e6660da53880b55012fdaa0189b137dcf35a8a2a",
+        "bytes": 6609
+      },
+      "assets/underworld_plains/backgrounds/far.png": {
+        "sha256": "c99e5c0c7d86710345f291baf7ee4950995b59b3e0da8034be7fe5f145a78e3e",
+        "bytes": 1284637
+      },
+      "assets/underworld_plains/backgrounds/far_generation.json": {
+        "sha256": "efb8fad802ff83a8403b1d40e4fe5e5493294d10b2eebc8c6c2cf3721a076ac2",
+        "bytes": 2438
+      },
+      "assets/underworld_plains/backgrounds/sources/far_original.png": {
+        "sha256": "c99e5c0c7d86710345f291baf7ee4950995b59b3e0da8034be7fe5f145a78e3e",
+        "bytes": 1284637
+      },
+      "assets/style_exploration/underworld/original/TileSet.png": {
+        "sha256": "a369175ccef5fca5ab363f140252d1f0f38b5eafb5d541605c601ea4ac56f88c",
+        "bytes": 6674
+      },
+      "assets/underworld_plains/backgrounds/middle.png": {
+        "sha256": "b736998135fcc8f7a9a740634dbc33e585f3ebfdf79b4a55395405ae2365e4c2",
+        "bytes": 405153
+      },
+      "assets/underworld_plains/backgrounds/middle_generation.json": {
+        "sha256": "01b3cd55dc3d7d35f38479c421c5c9091fee8be1cb4e51d67d9f57f6e33e617f",
+        "bytes": 2681
+      },
+      "assets/underworld_plains/backgrounds/sources/middle_original.png": {
+        "sha256": "b736998135fcc8f7a9a740634dbc33e585f3ebfdf79b4a55395405ae2365e4c2",
+        "bytes": 405153
+      },
+      "assets/underworld_plains/backgrounds/near.png": {
+        "sha256": "32ea3038c8388b4df3898e0803d02ca7ad76634d5745019cbde3057d66c6ccf2",
+        "bytes": 434467
+      },
+      "assets/underworld_plains/backgrounds/near_generation.json": {
+        "sha256": "fe948fd3af73546f037009463d68ca1096006a7dbad90def18bf96b36925a419",
+        "bytes": 2741
+      },
+      "assets/underworld_plains/backgrounds/sources/near_original.png": {
+        "sha256": "32ea3038c8388b4df3898e0803d02ca7ad76634d5745019cbde3057d66c6ccf2",
+        "bytes": 434467
+      },
+      "assets/underworld_plains/decor/chime_props.png": {
+        "sha256": "a956c984f4a839f08dc7a9e6dbd5e145a348efa36221e308d964b5cb0fb8cf06",
+        "bytes": 845602
+      },
+      "assets/underworld_plains/decor/provenance.json": {
+        "sha256": "16e14281f40d70b7f7b7941f13fa4400ab7839f33c8fcc9769a3f6f17f459009",
+        "bytes": 5456
+      },
+      "assets/underworld_plains/decor/sources/original_props.png": {
+        "sha256": "a956c984f4a839f08dc7a9e6dbd5e145a348efa36221e308d964b5cb0fb8cf06",
+        "bytes": 845602
+      },
+      "assets/underworld_plains/hazards/hazard_build.json": {
+        "sha256": "5af7e15d7c0e11359536a2fa37273834c69003274a7c260405e02c705f1bb16e",
+        "bytes": 2795
+      },
+      "scripts/underworld_plains/underworld_hazard_tiles.gd": {
+        "sha256": "f494e1047d394af6792451c7b33cd6292f84615226b99f3699f657d8be8e78fd",
+        "bytes": 5248
+      },
+      "assets/style_exploration/underworld/source/TileSet.png": {
+        "sha256": "a369175ccef5fca5ab363f140252d1f0f38b5eafb5d541605c601ea4ac56f88c",
+        "bytes": 6674
+      },
+      "assets/underworld_plains/hazards/generated_reference.png": {
+        "sha256": "a12fa0e2524fc7f7b5ff7febce23bbd4c5203f8599b0b92f281695dfcf99eb0a",
+        "bytes": 663613
+      },
+      "assets/underworld_plains/hazards/generation_call.json": {
+        "sha256": "ba18c64acf6b1cafe3becbdf3be6278b5ecb0ed71ad251c0b0b3a6780512db6d",
+        "bytes": 2288
+      },
+      "assets/underworld_plains/hazards/hazard_surface.png": {
+        "sha256": "bc08926de44fe34bf28948ac242b60895b18805ab1fdbc2f847b546684f4ba98",
+        "bytes": 806
+      }
+    },
+    "terrain": {
+      "native_tile_px": 16,
+      "world_tile_wu": 32,
+      "canonical_masks": 47,
+      "unique_tile_pixels": 47
+    },
+    "backgrounds": [
+      {
+        "size": [
+          1672,
+          941
+        ],
+        "alpha_range": [
+          255,
+          255
+        ],
+        "factor": [
+          0.035,
+          0.015
+        ]
+      },
+      {
+        "size": [
+          1672,
+          941
+        ],
+        "alpha_range": [
+          0,
+          255
+        ],
+        "factor": [
+          0.12,
+          0.04
+        ]
+      },
+      {
+        "size": [
+          1672,
+          941
+        ],
+        "alpha_range": [
+          0,
+          255
+        ],
+        "factor": [
+          0.28,
+          0.075
+        ]
+      }
+    ]
+  }
+}

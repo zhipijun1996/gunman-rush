@@ -40,7 +40,9 @@ func _process(delta: float) -> void:
 	queue_redraw()
 func _draw() -> void:
 	if encounter==null: return
-	if pixel_style:
+	if UnderworldActors.enabled(self):
+		UnderworldActors.draw_bellstrider(self,encounter,spring,wheel_angle,flash>0)
+	elif pixel_style:
 		PixelFormalActors.draw_bellstrider(self,encounter,clock,spring,wheel_angle,flash>0)
 	else:
 		# Wheel rotation follows real movement; chassis suspension is visual only.

@@ -1,5 +1,18 @@
 # PARALLEL-INTEGRATION-01：并行分支整合与重新部署
 
+## 最新用户授权：合入 main，快速交付有明确未通过项的试玩
+
+新增 PR94 `feature/underworld-plains-production`／`0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad`（15:54UTC远端复核仍为该head）。它基于PR93，更新正式平原、人物、机关、Home和共享UI，不是仅Lab。现合成保森林v12、15%、231射程、碰撞、RNG/保存，保正式与候选分离、当前触屏适配、Latin/CJK fallback和真实同一player跨区重建。新增真实Campaign H账本前置修复仅测试fixture，逆向回程明确不是自然战役。
+
+用户现在明确授权合main并快速试玩。采用既有prepared Pages试玩传输，原完整CI110、600秒、每case240秒、原GD与所有断言不放宽；预览不冒称完整release。main提交/线上source/PCK须后续独立核实。原普通merge在本地浅克隆stash读取历史对象失败，源未改；以独审过的75份解决稿构建精确tree并用干净索引受保护two-tree checkout应用，最后保64/PR94双父普通merge拓扑，不强推、不覆盖用户改动。
+
+CI8 `39268123826/1` 实际FAIL：serial22PASS；parallel50PASS+forest-depth-region600.045秒TIMEOUT+25未执行。完整80中70真实PASS，耗时590.620秒，加导入7.488秒几乎耗尽预算，后10未完成；不是workflow60分钟总上限。准确source64包本机73/23/20八场景PASS，但未部署且不转签PR94。现有runner改为仅corpus有界2worker，保原80/240/90/600、validator、父lease、独立进程/输出/用户目录和有序父收据；11实际小进程及独审通过，真80仍未证明。
+
+当前dirty整合源：core5676严格PASS；原共享native脚本73/0与campaign fixture56/0干净；原menu43功能全过但严格退出49ObjectDB/37resourcesFAIL，音频／旧overlay／去menu注解／完整旧menu四次有界对照均未消除，根因UNKNOWN，没有屏蔽leak。原scenery冷checkout因缺输出父目录FAIL，只修CLI创建目录，原GD不动；同原150秒cap冷测41.967秒PASS，实际20图20802/0。pipeline audit869／原107测试55.485秒PASS（后仅CLI mkdir，audit与断言不变）。新Underworld其余检查/完整新CI/新Web仍待。
+
+[选择性原始证据及限定审查](evidence/parallel_integration_01/main_preview09/README.md)。完整大包与旧失败原件仍保留本机会话Vault；不冒称全部原件永久可下载。森林设计REVISE、旧fan首次点击UNKNOWN、真人趣味／审美／实体设备均不改签。
+
+
 ## 第七候选实际失败与第八候选准备
 
 第七候选运行源 `1fd766e9d76e84289a51e47b13633969d48d0eeb`，dispatch `39259805819/1`：Web/Windows导出成功，完整98项尚未通过；串行lane实际16项通过后，历史v1矩阵在restore阶段因缺旧 `assets/manifest.json` 原blob失败，尚未启动该矩阵断言。已从真实Git对象保留原blob `01393ff2484e4e9541c7f96f067e17688f63607f`，原restore/verify闭包通过，不改冻结夹具清单、原测试或时限。docs原24项通过，production-loop原107项42.563秒通过（原60秒预算）。

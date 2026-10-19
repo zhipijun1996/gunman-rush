@@ -1,0 +1,94 @@
+{
+  "task": "UNDERWORLD-PLAINS-01",
+  "reviewer": "independent production_review; read-only production/test inspection",
+  "source_commit": "a44b856e1730e81ed74aa5eb1c8999e8d2bb8ff2",
+  "parent_source": "86535886c5b86e95bea094d7e92e57354be3d76e",
+  "verdict": "ACCEPT export-only raw-source fix, bounded to verified bytes and tests; final F scene review pending",
+  "production_directories_changed": [],
+  "changed_paths": [
+    "addons/runtime_raw_export/raw_exporter.gd",
+    "export_presets.cfg",
+    "tests/test_underworld_raw_export.py",
+    "tests/underworld_raw_export_runner.gd",
+    "tests/underworld_raw_export_runner.gd.uid",
+    "tools/harness/profiles.json",
+    "tools/underworld_delivery.py"
+  ],
+  "plan_review": [
+    "Reuses existing EditorExportPlugin; explicit seven approved source PNGs, no wildcard, no unknown alias, no exclusion conflict",
+    "Source SHA from existing assets/manifest and terrain_build records, no new runtime manifest",
+    "add_file(...,false) preserves PNG source while imported Texture2D remap/ctex remain unchanged",
+    "All three existing shipping presets enumerate exact seven source paths",
+    "Actual PCK seven source bytes match existing bindings; all33 imported textures match real local imported bytes",
+    "No original test assertion or source collector altered; old28 native and2 Python still pass",
+    "Harness underworld-raw-export registered command runs Python5 tests; independent native80 invocation separately recorded"
+  ],
+  "tests": [
+    {
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--path",
+        ".",
+        "--script",
+        "tests/runtime_raw_export_runner.gd"
+      ],
+      "exit_code": 0,
+      "assertions": 28,
+      "failures": 0,
+      "log": "old_native.log"
+    },
+    {
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--path",
+        ".",
+        "--script",
+        "tests/underworld_raw_export_runner.gd"
+      ],
+      "exit_code": 0,
+      "assertions": 80,
+      "failures": 0,
+      "log": "new_native.log"
+    },
+    {
+      "argv": [
+        "python3",
+        "tests/test_runtime_raw_export.py"
+      ],
+      "exit_code": 0,
+      "tests": 2,
+      "log": "old_python.log"
+    },
+    {
+      "argv": [
+        "python3",
+        "tests/test_underworld_raw_export.py"
+      ],
+      "exit_code": 0,
+      "tests": 5,
+      "log": "new_python.log"
+    }
+  ],
+  "evidence": [
+    "actual_pack_bytes.json",
+    "observer_source_comparison.json",
+    "browser_local_three_frames.json"
+  ],
+  "source_equivalence": {
+    "existing_947_source_files": "all bytes/SHA equal",
+    "new_file": "tests/underworld_raw_export_runner.gd",
+    "whole_collection_equal": false,
+    "E_routes_relabelled_as_F": false
+  },
+  "pending": [
+    "F new20 formal views+8 composition views+rare RootBell realGPU",
+    "F independent20seed consumer population if parent permits",
+    "F browser actual motion/landing sample limited evidence",
+    "Public F deployed bytes/browser if deployed"
+  ],
+  "user_aesthetic_physical_device_audio": "UNVERIFIED"
+}

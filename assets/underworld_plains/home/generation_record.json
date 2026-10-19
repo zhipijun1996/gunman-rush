@@ -1,0 +1,109 @@
+{
+  "schema": "underworld-home-generation-v1",
+  "tool": "image_gen.imagegen",
+  "model": "not_exposed",
+  "calls": 1,
+  "prompt": "Create ONE original coherent Underworld-style dark fairytale PIXEL ART sprite atlas for a warm peaceful windchime repair village. Match attached reference's near-black navy body masses, sparse controlled moss highlights and dull brass; add small warm amber windows, handcrafted wooden cloth roofs. Genuine transparent background, no world background, no words, no text, no ground spanning cells. SIX complete independent sprites in a strict 3-COLUMN by 2-ROW grid, generous clean transparent gutters: each object wholly inside its cell, including ALL chimneys/roof tips/feet, at least 10% empty padding around every object. TOP LEFT: compact wardrobe cottage with rounded patched canvas awning, little hanging coat emblem, glowing square window, grounded stone foot. TOP CENTER: low asymmetrical repair workshop with a modest brick chimney, brass gear over a dark doorway, timber braces and a single tiny amber lantern, stone footing. TOP RIGHT: tiny archive house, a crooked low bell-roof and closed shelf of books under an awning, warm window, stone footing. BOTTOM LEFT: ONE small friendly human tailor keeper in patched olive/navy coat with tan scarf, standing 3/4 facing right, hands relaxed, entire figure and both feet. BOTTOM CENTER: ONE small friendly human artisan keeper in navy apron, dull amber cap, holding a small spanner at waist, standing 3/4 facing left, entire figure and feet. BOTTOM RIGHT: ONE small friendly human archivist keeper in dusty blue coat and pale hood, holding a closed book, standing 3/4 facing left, entire figure and feet. Buildings should each fill about 75% cell width, squat silhouette; people should fill about 60% cell height and 25% cell width, no big heads, no caricature, game character proportions, no floor shadow outside foot. Crisp pixel clusters, limited palette, avoid smooth painting, noise and dense tiny shading. Side-on 2D platform game, no isometric floors, no perspective ground plane, each base flat horizontal. Buildings are visual BACKdrops with doors at player scale; not enemy towers or giant monuments. Plain side-profile silhouettes readable after reducing buildings to 100-130 pixels tall and keepers to 40 pixels tall. Do not reproduce reference well/clock arch/shelter, use only its visual language.",
+  "reference": "assets/underworld_plains/decor/identity_props.png",
+  "reference_sha256": "f13c4e0c9f699f3c53625649159c0852aacc097861d1772f1784fec500b94f11",
+  "raw_tool_path": "/workspace/generated_images/exec-f20d55b5-358d-4012-84bf-58b563a88d5f.png",
+  "source": "assets/underworld_plains/home/sources/home_props_original.png",
+  "image": "assets/underworld_plains/home/home_props.png",
+  "source_sha256": "28d5b5113068d5fee56e199b7d8917437c2b33059245e09501372a3d3e3eee63",
+  "processing": "exact byte-identical raw PNG; runtime AtlasTexture whole-object regions only; no repaint or alpha edits",
+  "strict_grid_status": "strict equal row boundary not satisfied: complete building bases extend below y512. Not accepted as equal3x2 fixed-cell atlas. Measured complete-object crops in explicit independent zones y0..580 and600..1024 are used instead; original preserved.",
+  "region_method": "alpha>=2 body bbox plus3 original-pixel margin, opaque foot alpha>=128; raw hidden RGB in transparent pixels is preserved, not treated as opaque backdrop; lower-row narrow whole-person zones exclude upper-building alpha noise without repainting source",
+  "regions": [
+    {
+      "id": "wardrobe",
+      "image": "assets/underworld_plains/home/home_props.png",
+      "region": [
+        32,
+        131,
+        467,
+        432
+      ],
+      "foot": [
+        233.5,
+        422
+      ],
+      "opaque_height": 413
+    },
+    {
+      "id": "workshop",
+      "image": "assets/underworld_plains/home/home_props.png",
+      "region": [
+        515,
+        55,
+        534,
+        508
+      ],
+      "foot": [
+        267.0,
+        499
+      ],
+      "opaque_height": 493
+    },
+    {
+      "id": "archive",
+      "image": "assets/underworld_plains/home/home_props.png",
+      "region": [
+        1053,
+        111,
+        454,
+        453
+      ],
+      "foot": [
+        227.0,
+        442
+      ],
+      "opaque_height": 436
+    },
+    {
+      "id": "tailor",
+      "image": "assets/underworld_plains/home/home_props.png",
+      "region": [
+        178,
+        651,
+        189,
+        344
+      ],
+      "foot": [
+        93.5,
+        333
+      ],
+      "opaque_height": 328
+    },
+    {
+      "id": "artisan",
+      "image": "assets/underworld_plains/home/home_props.png",
+      "region": [
+        672,
+        654,
+        202,
+        341
+      ],
+      "foot": [
+        102.5,
+        332
+      ],
+      "opaque_height": 326
+    },
+    {
+      "id": "archivist",
+      "image": "assets/underworld_plains/home/home_props.png",
+      "region": [
+        1192,
+        666,
+        191,
+        329
+      ],
+      "foot": [
+        95.5,
+        320
+      ],
+      "opaque_height": 314
+    }
+  ],
+  "license": "AI-generated output used within provider terms; reference lineage original Asouris custom broad-use source / selected generated Underworld props, not CC0"
+}

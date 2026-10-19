@@ -1,0 +1,364 @@
+{
+  "schema": "underworld-exact-d-scenery-capture-v1",
+  "runtime_source_commit": "14e81362fcc33995bf6929ee13e83cf973d483e0",
+  "capture_fixture_source_commit": "14e81362fcc33995bf6929ee13e83cf973d483e0",
+  "worktree_head": "14e81362fcc33995bf6929ee13e83cf973d483e0",
+  "runtime_paths_differing_from_source": [],
+  "component_files_equal_to_commit": {
+    "scripts/underworld_plains/underworld_scenery.gd": "12490675556a470900fc6bfe095de6fe2fa1bf50d40e8bcbcf2af00742f1bd3b",
+    "scripts/underworld_plains/underworld_local_composition.gd": "fb01e3eada902832091f8a54cff3d3f82feb48757bc414cfed7dc5dbace789be",
+    "scripts/underworld_plains/underworld_parallax.gd": "7096ce79f54a2b7906e3071e0ce906732aeb9c6217395791f133832de81ddde0",
+    "scripts/underworld_plains/underworld_parallax_edge.gdshader": "e4e553a40279d83379f4c59a158443953703a57a55f6d917ad7e0ccdd3b29c8b",
+    "tests/underworld_plains/capture_scenery_windows.gd": "517307a5cb080a655198498049717b811781d6ece13e20bf0cb035a45fc27c9f",
+    "assets/underworld_plains/scenery_build.json": "4e66a47882ca01aeaca8cfe5315912ea955acdc8edbee5a4420315dac9be96ba",
+    "assets/underworld_plains/decor/chime_props.json": "832df0f54eb964ee1c6761d45ae92c521856b4cc5c57d8aec6cfeb1bad7370ff",
+    "assets/underworld_plains/decor/identity_props.png": "f13c4e0c9f699f3c53625649159c0852aacc097861d1772f1784fec500b94f11"
+  },
+  "maps": [
+    {
+      "map": 1,
+      "exit_code": 0,
+      "log": "build/underworld_plains/source_d_scenery/map1/capture.log",
+      "log_sha256": "02b74ef2da79ec22b1e98b1aadbc8fca32366b97e1d203472688b7328bfa0f7f",
+      "receipts": "build/underworld_plains/source_d_scenery/map1/receipts.json",
+      "receipts_sha256": "0542fcc1bf6369ff03defccb8091045454683e27ed68a30da4331e4ac56ab620",
+      "actual_identity_set": [
+        "clock_court",
+        "creek_well",
+        "repair_gallery",
+        "windmill_plateau"
+      ],
+      "grounded_landmark_rays": [
+        {
+          "actual_bottom_center": "(302.3304, 18.0)",
+          "collider": "/root/@Node2D@2/@Node2D@73/@Node2D@74/plains_passage_area_0_1_area_1_1_0/Platform0",
+          "hit_static_body": true,
+          "identity": "windmill_plateau"
+        },
+        {
+          "actual_bottom_center": "(509.5063, -682.0)",
+          "collider": "/root/@Node2D@2/@Node2D@73/@Node2D@74/plains_passage_area_0_0_area_1_0_0/Platform0",
+          "hit_static_body": true,
+          "identity": "clock_court"
+        },
+        {
+          "actual_bottom_center": "(2627.224, 18.0)",
+          "collider": "/root/@Node2D@2/@Node2D@73/@Node2D@74/plains_passage_area_1_1_area_2_1_0/Platform1",
+          "hit_static_body": true,
+          "identity": "repair_gallery"
+        }
+      ],
+      "local_compositions": [
+        {
+          "actual_solid_visibility_samples_hidden": 0,
+          "area_id": "area_1_2",
+          "asset_id": "well",
+          "asset_source": "assets/underworld_plains/decor/identity_props.png",
+          "collision": false,
+          "depth": "distant_local_architecture",
+          "foreground_keepout": "whole_bounds_plus_8_preserved",
+          "identity": "creek_well",
+          "image_base": "complete original well stone footing, wheel and reeds form its painted base; no physical support claim",
+          "node": "DistantCreekWell_area_1_2",
+          "physical_support": false,
+          "source_sha256": "f13c4e0c9f699f3c53625649159c0852aacc097861d1772f1784fec500b94f11",
+          "standing_edge": false,
+          "virtual_root": [
+            1360.0,
+            650.0
+          ],
+          "visibility_samples": 25,
+          "world_bounds": [
+            1292.75122070312,
+            558.0,
+            134.497467041016,
+            94.8020324707031
+          ]
+        }
+      ]
+    },
+    {
+      "map": 2,
+      "exit_code": 0,
+      "log": "build/underworld_plains/source_d_scenery/map2/capture.log",
+      "log_sha256": "0cfecd8fdf9533a16d4c7bb72895bd9795aece9111f3896978828575faa79a68",
+      "receipts": "build/underworld_plains/source_d_scenery/map2/receipts.json",
+      "receipts_sha256": "8ec4d73869b31878bbf3add027cf0d32e741145ab6a964ce90e8f7a2cae31ad7",
+      "actual_identity_set": [
+        "clock_court",
+        "creek_well",
+        "repair_gallery",
+        "windmill_plateau"
+      ],
+      "grounded_landmark_rays": [
+        {
+          "actual_bottom_center": "(-797.8148, 18.0)",
+          "collider": "/root/@Node2D@2/@Node2D@628/@Node2D@629/tutorial_recoil/Platform1",
+          "hit_static_body": true,
+          "identity": "windmill_plateau"
+        },
+        {
+          "actual_bottom_center": "(509.5063, -682.0)",
+          "collider": "/root/@Node2D@2/@Node2D@628/@Node2D@629/plains_passage_area_0_0_area_1_0_0/Platform0",
+          "hit_static_body": true,
+          "identity": "clock_court"
+        },
+        {
+          "actual_bottom_center": "(2247.224, 18.0)",
+          "collider": "/root/@Node2D@2/@Node2D@628/@Node2D@629/plains_passage_area_1_1_area_2_1_0/Platform1",
+          "hit_static_body": true,
+          "identity": "repair_gallery"
+        }
+      ],
+      "local_compositions": [
+        {
+          "actual_solid_visibility_samples_hidden": 0,
+          "area_id": "area_0_2",
+          "asset_id": "well",
+          "asset_source": "assets/underworld_plains/decor/identity_props.png",
+          "collision": false,
+          "depth": "distant_local_architecture",
+          "foreground_keepout": "whole_bounds_plus_8_preserved",
+          "identity": "creek_well",
+          "image_base": "complete original well stone footing, wheel and reeds form its painted base; no physical support claim",
+          "node": "DistantCreekWell_area_0_2",
+          "physical_support": false,
+          "source_sha256": "f13c4e0c9f699f3c53625649159c0852aacc097861d1772f1784fec500b94f11",
+          "standing_edge": false,
+          "virtual_root": [
+            -400.0,
+            650.0
+          ],
+          "visibility_samples": 25,
+          "world_bounds": [
+            -467.248718261719,
+            558.0,
+            134.497467041016,
+            94.8020324707031
+          ]
+        }
+      ]
+    }
+  ],
+  "selected_identity_images": [
+    {
+      "path": "build/underworld_plains/source_d_scenery/map1/golden_identity_clock_court.png",
+      "sha256": "43b79231f912dd9df288d7ee92fd614e32ce123b784a067315839cccc626991d",
+      "size": [
+        1280,
+        720
+      ],
+      "map": 1
+    },
+    {
+      "path": "build/underworld_plains/source_d_scenery/map1/golden_identity_repair_gallery.png",
+      "sha256": "46acbcbd7df7768bfd608d1d26df421cad4f048ffa6588d33922652f9d56c08c",
+      "size": [
+        1280,
+        720
+      ],
+      "map": 1
+    },
+    {
+      "path": "build/underworld_plains/source_d_scenery/map1/golden_identity_windmill_plateau.png",
+      "sha256": "fb1e7eb52b572a3c30bc2bffc45f9a142ca976e59deb184abb81e32acfe8ac71",
+      "size": [
+        1280,
+        720
+      ],
+      "map": 1
+    },
+    {
+      "path": "build/underworld_plains/source_d_scenery/map1/golden_local_creek_well.png",
+      "sha256": "d81fbc7de9d6d3f09d9fddee813bb304845e576f65245232d86e318d71b7f919",
+      "size": [
+        1280,
+        720
+      ],
+      "map": 1
+    },
+    {
+      "path": "build/underworld_plains/source_d_scenery/map2/golden_map2_identity_clock_court.png",
+      "sha256": "d833c67b37d652d48a2e6a530154243662252baa117a3d35e2730753820e3844",
+      "size": [
+        1280,
+        720
+      ],
+      "map": 2
+    },
+    {
+      "path": "build/underworld_plains/source_d_scenery/map2/golden_map2_identity_repair_gallery.png",
+      "sha256": "1299f7a395b50ffff3dea98ff9a7868022abac63e600d6f84fe969a6fec55a1b",
+      "size": [
+        1280,
+        720
+      ],
+      "map": 2
+    },
+    {
+      "path": "build/underworld_plains/source_d_scenery/map2/golden_map2_identity_windmill_plateau.png",
+      "sha256": "27d024894e0eee8889a105c7ea632ec9b0a4d1f160f9d830230cf4e56395f4a2",
+      "size": [
+        1280,
+        720
+      ],
+      "map": 2
+    },
+    {
+      "path": "build/underworld_plains/source_d_scenery/map2/golden_map2_local_creek_well.png",
+      "sha256": "c8e69e64e1a41a5c0ded88704684a65cbd78da2e87cac9624b0d54aa9a63f1ad",
+      "size": [
+        1280,
+        720
+      ],
+      "map": 2
+    }
+  ],
+  "all_images": [
+    {
+      "path": "build/underworld_plains/source_d_scenery/map1/golden_deep_creek.png",
+      "sha256": "95dda58f230e811d4de59e52bedfd33ed92a11891facfdaa17a9aff2c49ca83c",
+      "size": [
+        1280,
+        720
+      ],
+      "map": 1
+    },
+    {
+      "path": "build/underworld_plains/source_d_scenery/map1/golden_identity_clock_court.png",
+      "sha256": "43b79231f912dd9df288d7ee92fd614e32ce123b784a067315839cccc626991d",
+      "size": [
+        1280,
+        720
+      ],
+      "map": 1
+    },
+    {
+      "path": "build/underworld_plains/source_d_scenery/map1/golden_identity_repair_gallery.png",
+      "sha256": "46acbcbd7df7768bfd608d1d26df421cad4f048ffa6588d33922652f9d56c08c",
+      "size": [
+        1280,
+        720
+      ],
+      "map": 1
+    },
+    {
+      "path": "build/underworld_plains/source_d_scenery/map1/golden_identity_windmill_plateau.png",
+      "sha256": "fb1e7eb52b572a3c30bc2bffc45f9a142ca976e59deb184abb81e32acfe8ac71",
+      "size": [
+        1280,
+        720
+      ],
+      "map": 1
+    },
+    {
+      "path": "build/underworld_plains/source_d_scenery/map1/golden_junction.png",
+      "sha256": "c38cdef67b869f64594e76c093e7a4b5d786d3cdbe1455c46b5db4acd33260aa",
+      "size": [
+        1280,
+        720
+      ],
+      "map": 1
+    },
+    {
+      "path": "build/underworld_plains/source_d_scenery/map1/golden_local_creek_well.png",
+      "sha256": "d81fbc7de9d6d3f09d9fddee813bb304845e576f65245232d86e318d71b7f919",
+      "size": [
+        1280,
+        720
+      ],
+      "map": 1
+    },
+    {
+      "path": "build/underworld_plains/source_d_scenery/map1/golden_middle.png",
+      "sha256": "f0fc489249619096959d2bc10656c7089323ff0c1cc7c70c74b547ff00f86d2e",
+      "size": [
+        1280,
+        720
+      ],
+      "map": 1
+    },
+    {
+      "path": "build/underworld_plains/source_d_scenery/map1/golden_spawn.png",
+      "sha256": "4623c1db507834b59f40e655cb05d5ffeb895855c303e0d3d87c42e1b462fa4a",
+      "size": [
+        1280,
+        720
+      ],
+      "map": 1
+    },
+    {
+      "path": "build/underworld_plains/source_d_scenery/map2/golden_map2_deep_creek.png",
+      "sha256": "b286830feb06ad6d255c160f5dce70243528b3936150a2802043450ac4d5bf54",
+      "size": [
+        1280,
+        720
+      ],
+      "map": 2
+    },
+    {
+      "path": "build/underworld_plains/source_d_scenery/map2/golden_map2_identity_clock_court.png",
+      "sha256": "d833c67b37d652d48a2e6a530154243662252baa117a3d35e2730753820e3844",
+      "size": [
+        1280,
+        720
+      ],
+      "map": 2
+    },
+    {
+      "path": "build/underworld_plains/source_d_scenery/map2/golden_map2_identity_repair_gallery.png",
+      "sha256": "1299f7a395b50ffff3dea98ff9a7868022abac63e600d6f84fe969a6fec55a1b",
+      "size": [
+        1280,
+        720
+      ],
+      "map": 2
+    },
+    {
+      "path": "build/underworld_plains/source_d_scenery/map2/golden_map2_identity_windmill_plateau.png",
+      "sha256": "27d024894e0eee8889a105c7ea632ec9b0a4d1f160f9d830230cf4e56395f4a2",
+      "size": [
+        1280,
+        720
+      ],
+      "map": 2
+    },
+    {
+      "path": "build/underworld_plains/source_d_scenery/map2/golden_map2_junction.png",
+      "sha256": "179cbb63928e545ec869eed00c8ae0ad04623095a6b7924b72b1e787531002ad",
+      "size": [
+        1280,
+        720
+      ],
+      "map": 2
+    },
+    {
+      "path": "build/underworld_plains/source_d_scenery/map2/golden_map2_local_creek_well.png",
+      "sha256": "c8e69e64e1a41a5c0ded88704684a65cbd78da2e87cac9624b0d54aa9a63f1ad",
+      "size": [
+        1280,
+        720
+      ],
+      "map": 2
+    },
+    {
+      "path": "build/underworld_plains/source_d_scenery/map2/golden_map2_middle.png",
+      "sha256": "c1dc511431835b424a18173571078aa625887b86215d02aa7cc473bf2485c808",
+      "size": [
+        1280,
+        720
+      ],
+      "map": 2
+    },
+    {
+      "path": "build/underworld_plains/source_d_scenery/map2/golden_map2_spawn.png",
+      "sha256": "e46507ce35996baef954d38be9d8691e63cb0e487cd34cba4ef5ea0e2043fb74",
+      "size": [
+        1280,
+        720
+      ],
+      "map": 2
+    }
+  ],
+  "scope": "Positioned real formal consumers, source D; controller and camera cut fixture; no traversal/no-damage/device/performance acceptance claim"
+}

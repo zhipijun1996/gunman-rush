@@ -325,30 +325,31 @@ func _cancel(_reason: String) -> void:
 
 func _draw() -> void:
 	if enabled and router.weapon_context_available:
-		draw_circle(context_center,hook_radius*.8,Color(.55,.65,.4,.6))
-		draw_string(ThemeDB.fallback_font,context_center+Vector2(-23,4),router.weapon_context_label,HORIZONTAL_ALIGNMENT_LEFT,-1,10,Color.WHITE)
+		draw_circle(context_center,hook_radius*.8,Color(UnderworldUI.MOSS,0.28))
+		draw_string(UnderworldUI.FONT,context_center+Vector2(-23,4),router.weapon_context_label,HORIZONTAL_ALIGNMENT_LEFT,-1,10,UnderworldUI.TEXT)
 	if enabled and router.weapon_skill_available:
-		draw_circle(skill_center,hook_radius*.8,Color(.35,.45,.8,.65))
-		draw_circle(skill_center,5,Color(.8,.8,1,.8))
-		draw_string(ThemeDB.fallback_font,skill_center+Vector2(-16,4),"SKILL",HORIZONTAL_ALIGNMENT_LEFT,-1,11,Color.WHITE)
+		draw_circle(skill_center,hook_radius*.8,Color(UnderworldUI.COOL,0.28))
+		draw_circle(skill_center,5,Color(UnderworldUI.TEXT,0.65))
+		draw_string(UnderworldUI.FONT,skill_center+Vector2(-16,4),"SKILL",HORIZONTAL_ALIGNMENT_LEFT,-1,11,UnderworldUI.TEXT)
 	if not enabled:
 		return
 	for center: Vector2 in [left_center, right_center]:
-		draw_circle(center, radius, Color(0.4, 0.65, 0.8, 0.08))
-		draw_arc(center, radius, 0, TAU, 48, Color(0.7, 0.85, 0.9, 0.30), 2)
-	draw_circle(left_center + _left_offset, radius * 0.25, Color(0.8, 0.9, 1, 0.35))
-	draw_circle(right_center + _right_offset, radius * 0.25, Color(1, 0.65, 0.3, 0.35))
+		draw_circle(center, radius, Color(UnderworldUI.INK,0.10))
+		draw_arc(center, radius, 0, TAU, 48, Color(UnderworldUI.MOSS,0.32), 2)
+	draw_circle(left_center + _left_offset, radius * 0.25, Color(UnderworldUI.MOSS,0.38))
+	draw_circle(right_center + _right_offset, radius * 0.25, Color(UnderworldUI.BRASS,0.38))
 	if router.grapple_available:
-		draw_circle(hook_center,hook_radius,Color(.85,.67,.26,.12))
-		draw_arc(hook_center,hook_radius,0,TAU,48,Color(.95,.78,.40,.65),2)
-		draw_circle(hook_center+_hook_offset,hook_radius*.25,Color(.95,.78,.40,.6))
-		draw_string(ThemeDB.fallback_font,hook_center+Vector2(-20,5),"HOOK",HORIZONTAL_ALIGNMENT_LEFT,-1,14)
-	draw_circle(jump_center, jump_radius, Color(0.35, 0.8, 0.6, 0.32))
-	var font := ThemeDB.fallback_font
-	draw_string(font, jump_center + Vector2(-22, 6), "JUMP", HORIZONTAL_ALIGNMENT_LEFT, -1, 16)
-	draw_rect(_pause_rect, Color(0.2, 0.3, 0.4, 0.8))
+		draw_circle(hook_center,hook_radius,Color(UnderworldUI.INK,0.18))
+		draw_arc(hook_center,hook_radius,0,TAU,48,Color(UnderworldUI.BRASS,0.48),2)
+		draw_circle(hook_center+_hook_offset,hook_radius*.25,Color(UnderworldUI.BRASS,0.42))
+		draw_string(UnderworldUI.FONT,hook_center+Vector2(-20,5),"HOOK",HORIZONTAL_ALIGNMENT_LEFT,-1,14)
+	draw_circle(jump_center, jump_radius, Color(UnderworldUI.MOSS,0.30 if _captures.values().has(&"jump") else 0.16))
+	draw_arc(jump_center,jump_radius,0,TAU,48,Color(UnderworldUI.BRASS,0.48),1)
+	var font := UnderworldUI.FONT
+	draw_string(font, jump_center + Vector2(-22, 6), "JUMP", HORIZONTAL_ALIGNMENT_LEFT, -1, 16,UnderworldUI.TEXT)
+	draw_rect(_pause_rect, Color(UnderworldUI.INK,0.84))
 	if not hide_reset_button:
-		draw_rect(_reset_rect, Color(0.2, 0.3, 0.4, 0.8))
+		draw_rect(_reset_rect, Color(UnderworldUI.INK,0.84))
 	draw_string(font, _pause_rect.position + Vector2(12, 30), "RESUME" if get_tree().paused else pause_label, HORIZONTAL_ALIGNMENT_LEFT, -1, 16)
 	if not hide_reset_button:
 		draw_string(font, _reset_rect.position + Vector2(12, 30), reset_label, HORIZONTAL_ALIGNMENT_LEFT, -1, 16)

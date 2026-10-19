@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "method": "Native Godot Theme/StyleBox layout. One genuinely generated item atlas and declared source-native Underworld Tile frame; no program-painted image is claimed as AI artwork.",
+  "consumer": "scripts/ui/underworld_ui.gd",
+  "panel": {
+    "texture": "assets/underworld_plains/terrain/source.png",
+    "region": [16, 64, 48, 48],
+    "slice_margin": 6,
+    "source_license": "Asouris Underworld custom publisher terms; see assets/style_exploration/underworld/source/licenses/NOTICE.md",
+    "semantics": "UI border only; no world/collision meaning"
+  },
+  "icons": "assets/underworld_plains/ui/icon_regions.json",
+  "production_roots": ["DemoMenu", "DemoApp._canvas", "HomeScene._hud", "ActorResourcesHud", "WindkeeperHud", "ItemCard", "ItemShopModal", "ItemAcquiredToast", "StageRewardModal", "StageExitModal", "PlainsRegionMapModal", "PlainsRegionMap", "TouchOverlay"],
+  "input_contract": "Existing signals, stable item and service IDs, quote validation, cancel/reopen, focus and touch geometry remain owned by their original UI/controller services. Theme does not dispatch gameplay actions."
+}

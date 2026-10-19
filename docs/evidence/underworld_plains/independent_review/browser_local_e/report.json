@@ -1,0 +1,43 @@
+{
+  "task_id": "UNDERWORLD-PLAINS-01",
+  "reviewer": "/root/production_review",
+  "reviewed_commit": "86535886c5b86e95bea094d7e92e57354be3d76e",
+  "build_id": "7915c17348c0",
+  "verdict": "ACCEPT",
+  "scope": "Actual local Chromium rendered behavior only: title entry, horizontal movement relative to actual platform, visible jump across gap and landing. Not browser InputRouter event-log proof, full route or physical device.",
+  "original_video": "build/underworld_plains/delivery/browser_local_E/video/page@3bd780d59020c6e913e101d695265710.webm",
+  "original_video_sha256": "163dccfc36703d1553581a48e12e41c41c8dfe71d7278a93e8477d2392c75103",
+  "video_properties": {
+    "width": 1280,
+    "height": 720,
+    "fps": 25,
+    "duration_seconds": 136.76,
+    "time_note": "Browser recording time, not native physics tick."
+  },
+  "actually_viewed": [
+    "3 original full-resolution screenshots: ordinary spawn, real move-jump, after-landing",
+    "47.5..51.4sec at10Hz:40frame contact, including title->formal entry and later movement/jump start",
+    "51.2..54.1sec at10Hz:30frame contact, ascent/airborne/descent/right-platform landing; overlap with first window;70samples does not mean70unique times",
+    "51.36sec full1280x720 actual airborne frame",
+    "51.08sec provisional full frame (file named jump_apex_full_frame.png) actually precedes jump; retained but NOT used as airborne proof"
+  ],
+  "facts": [
+    "Original3 isolated screenshots alone show horizontal relative movement but actor feet gap4–5px is consistent with standing sprite padding and does not establish jump.",
+    "Actual original video51.36sec visibly places actor feet approximately y237 while real platform top approximately y454, gap~217screenpx. HUD JUMP0/1 corroborates an airborne accepted game action; this is not merely changing scenery pixels.",
+    "Original after-landing screenshot/video53.5sec returns feet near right-platform top and JUMP1/1; continuous sampled sequence visually shows ascent/landing relative to solid geometry."
+  ],
+  "interpretation": "Rendered walk/jump/landing is directly observed. Exact Router action acceptance is not independently logged in browser and is not inferred solely from world_pixel_change.",
+  "unverified": [
+    "Physical devices",
+    "Uninterrupted full recording playback/audio listening",
+    "Browser InputRouter accepted-action event telemetry",
+    "Complete formal route or all states"
+  ],
+  "local_review_artifacts": {
+    "actually_airborne_51_36.png": "acf69f1550e749ad10cfd10999d98669ed52ba74a08c65079cfcead059e662f6",
+    "jump_apex_full_frame.png": "2b9cca7e8bec22b28ab82a2f980770d97dbfe2ae0d90576240df918020b3bef8",
+    "normal_speed_transition_sequence.png": "78c7672f5295cf7dbf024cb5a59e5445ad53b3d224664d8f157363d290794107",
+    "landing_transition_sequence.png": "8ae9f8b1603f482b825adc466ebf61efe5c9676bec4b7d45cae3572b8c59b3d1",
+    "video_alignment.json": "a0e00e5444e0067715d97075856fd8602796e914a32a3101dc7de8b61482df6d"
+  }
+}

@@ -98,7 +98,7 @@ func _ready() -> void:
 	add_child(GameAudio.new())
 	process_physics_priority = 900
 	lifetime.end() # TITLE/Home do not own an active Run token.
-	var backdrop := PixelPlainsParallax.new()
+	var backdrop := UnderworldParallax.new()
 	backdrop.name = "PixelPlainsParallax"
 	add_child(backdrop)
 	var legacy_backdrop := PlainsBackground.new()
@@ -1557,6 +1557,12 @@ func _make_ui() -> void:
 		_reduced_effects = reduced
 		AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"),muted))
 	menu.menu_opened.connect(_pause_for_menu)
+	UnderworldUI.style_canvas(_canvas)
+	# Keep current system glyph coverage after applying the Underworld palette.
+	var ui_font: Font = DemoMenu.create_theme().default_font
+	for control: Node in _canvas.get_children():
+		if control is Control and control.theme != null:
+			control.theme.default_font = ui_font
 
 func _label(location: Vector2, font_size: int) -> Label:
 	var label := Label.new()
@@ -2204,7 +2210,7 @@ func _sync_region_presentation(home := false) -> void:
 	if home or not is_instance_valid(player): return
 	var visual := player.get_node_or_null("PixelPlainsActor") as PixelPlainsActor
 	if pixel and visual == null:
-		visual = PixelPlainsActor.new()
+		visual = UnderworldPlayer.new()
 		visual.name = "PixelPlainsActor"
 		visual.motor = player
 		visual.controller = controller

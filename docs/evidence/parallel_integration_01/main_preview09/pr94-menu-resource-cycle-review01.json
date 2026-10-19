@@ -1,0 +1,663 @@
+{
+  "reviewer": "/root/integration_review",
+  "verdict": "BLOCKED_UNRESOLVED_STRICT_EXIT_LEAK",
+  "scope": "Read-onlyactual37resource inventory/sourceidentity/syntacticdependency audit; nocausalfixclaim",
+  "failure_log": "build/integration01/pr94-menu-leak-verbose01.log",
+  "failure_log_SHA256": "839607abdbc74e636b2705cf797e5f1e670fe8d6400b94705332475ac12fda57",
+  "actual_failure": "43functionchecks/0failures but49ObjectDB/37resources strictFAIL",
+  "survivors": {
+    "GDScript": 32,
+    "Resource": 5,
+    "GDScriptNativeClass": 12,
+    "live_Node_or_UI_or_font_listed": 0
+  },
+  "all37resource_bytes_equal_source64": true,
+  "resource_bindings": [
+    {
+      "path": "scripts/input/input_profile.gd",
+      "kind": "GDScript",
+      "SHA256": "1c36a6b4e65f4430de820ae9dbe5581e5de0b6ef39bea342ad551ed1b4f95028",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "scripts/audio/game_audio.gd",
+      "kind": "GDScript",
+      "SHA256": "3fd4873f47a3efbd584b1ff4bbf605cc3dce98f8eefc6bdda0c6a54645c26f59",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "scripts/player/player_tuning.gd",
+      "kind": "GDScript",
+      "SHA256": "4cd18aefd536247d6665b5e3d6e0709cd479eebdb248231de758de500226d0c7",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "scripts/combat/weapon_motion_definition.gd",
+      "kind": "GDScript",
+      "SHA256": "0cf44896ac61ec146ac6c646f51f4fd7f7b5b1b223c2481ba7de5fd27ac61545",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "resources/weapons/motion.tres",
+      "kind": "Resource",
+      "SHA256": "745e34841342f71402bcc7a41f32e092d60cca475e560820943aa81b3dfefc10",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "scripts/player/player_motor.gd",
+      "kind": "GDScript",
+      "SHA256": "718a6c96ada9d3cd9134e24158a3fd730574166b1193e2770f098978d863ad5b",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "scripts/combat/weapon_definition.gd",
+      "kind": "GDScript",
+      "SHA256": "76d52bf44579fa57ccd14851e46b2db925068ae7b00b4021604dabc16e991c8d",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "resources/weapons/pulse_gun.tres",
+      "kind": "Resource",
+      "SHA256": "d9c7341e1ae5bacb74740996215fac8e1173a1053a6d492333a8593adddb5b6a",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "scripts/resources/definitions/stamina_definition.gd",
+      "kind": "GDScript",
+      "SHA256": "03f2361e278908483fa03a22aba621ae474f7e1c77efd7dbef0baf48adf577b7",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "scripts/resources/definitions/shot_energy_definition.gd",
+      "kind": "GDScript",
+      "SHA256": "a2bc142334add1b2f0bc4059ae3392559460e71c4cd4f2c879b97aeea19770a4",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "resources/player/plains_shot_energy.tres",
+      "kind": "Resource",
+      "SHA256": "c4f5570999639b349a5568db095cccad18a38be67d88dc3456a6ec2acf291770",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "scripts/player/traversal_definition.gd",
+      "kind": "GDScript",
+      "SHA256": "5d212b12fd4ac72422addfa6d35de176ccae9e5f08593a8064a7f71be6183c49",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "resources/player/traversal.tres",
+      "kind": "Resource",
+      "SHA256": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "assets/characters/courier/courier_visual.gd",
+      "kind": "GDScript",
+      "SHA256": "fd07fc967903aeda0c952192ecd4d37adffa944fa3fcaae9a1092e0f58919378",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "scripts/resources/contracts/actor_resource_result.gd",
+      "kind": "GDScript",
+      "SHA256": "dd6ba3419b0bd5faa28ae6fc158e444ee11d134ef6ad3d4979355fd78b954e4e",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "scripts/resources/state/actor_resource_state.gd",
+      "kind": "GDScript",
+      "SHA256": "16860c344cbe0c3bae68040c6841b69dc67f15025e15c1f1d4e1ef4d0e3d3878",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "scripts/combat/damageable.gd",
+      "kind": "GDScript",
+      "SHA256": "bd7e16e0d90d5df0853277fd5c292770d9660f40b31a936b72ed1c079df53a48",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "scripts/world/grapple_anchor.gd",
+      "kind": "GDScript",
+      "SHA256": "9f6a613dcbea0f63b83e0e271e63621513f0503950a6d6899377cd9fda899863",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "scripts/player/jump_ability.gd",
+      "kind": "GDScript",
+      "SHA256": "013f58557b92de0929cc8ea6d4a41fd42d2becdbee94ca2d30b714567a58004a",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "scripts/combat/action_resources.gd",
+      "kind": "GDScript",
+      "SHA256": "dece732bb1d78131bd5beda69f8e83473daabadb6bcef2a608c7f5d21192e8b9",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "scripts/combat/recoil_ability.gd",
+      "kind": "GDScript",
+      "SHA256": "6563b48450568c7ebcf37d6f0bc003cb1040795ec5c6f4bd43df0d1d1616b0dc",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "scripts/combat/weapon_entity.gd",
+      "kind": "GDScript",
+      "SHA256": "7a58d24cd204b9f031150c5bf56f2b73677e2934ff6af4f5fa90475308061fb8",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "scripts/resources/definitions/combat_energy_definition.gd",
+      "kind": "GDScript",
+      "SHA256": "7b2db3eac8310754ad8de0f9234074c285249ea401f78ca683cec544cd11a2c3",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "resources/player/combat_energy.tres",
+      "kind": "Resource",
+      "SHA256": "f454cecd12532df56121b01c6d98cc1032bdd3b215377ea8d14eaee821b24fd7",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "scripts/resources/state/combat_energy_state.gd",
+      "kind": "GDScript",
+      "SHA256": "183f77dc86b98493773e0d604a200f430497202806786f1896c6eb5ffc6bf0e6",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "scripts/resources/state/stamina_state.gd",
+      "kind": "GDScript",
+      "SHA256": "1ccda3df78f66b4c2a4950cb5504e0e5668cd595e1ad7a86a5e5e9d00072e1d8",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "scripts/actors/actor_resources.gd",
+      "kind": "GDScript",
+      "SHA256": "41467bc2b0fdae130a8cd52aee90fe14e87a97010ab1d38cb3fcedb6be91b16c",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "scripts/combat/shot_energy_policy.gd",
+      "kind": "GDScript",
+      "SHA256": "446602eb4991970b7ae8b84226f9243af34a2c0f113415bba0344f5c8ad9dbbe",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "scripts/input/input_router.gd",
+      "kind": "GDScript",
+      "SHA256": "386d6cee6aad24598ffbbca96efac590d475a3072502ceac3812c60b5c8aa429",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "scripts/combat/weapon_action_runtime.gd",
+      "kind": "GDScript",
+      "SHA256": "ae106158dffb85efde0f02ea5b302ab94bcea13a00a6ba70acc3297977d2c2b5",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "scripts/combat/player_projectile.gd",
+      "kind": "GDScript",
+      "SHA256": "b9c3f6a1071e16c3c5f8574a609744632321af51d578ca233e06c6cc446f3c04",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "scripts/combat/shoot_ability.gd",
+      "kind": "GDScript",
+      "SHA256": "bb2895138a6b2bdee9959313597ec2eb765eca4ffe80e2ac3e6d3e72aed148bd",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "scripts/player/traversal_ability.gd",
+      "kind": "GDScript",
+      "SHA256": "3cba33dfc9bdc3f17a5f8e9a5db55c57b7ae1844cf526523717b9893b87fead3",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "scripts/player/air_focus_ability.gd",
+      "kind": "GDScript",
+      "SHA256": "9f297fbf812db5f51bc9c417404d395557f2c2cbab61832902f2ab74eb0b3332",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "scripts/actors/player_action_resource_view.gd",
+      "kind": "GDScript",
+      "SHA256": "c0b557b848b961117ea421c4e836b025351dec54717b58cff0baca0f86d9cbab",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "scripts/enemies/enemy_actor.gd",
+      "kind": "GDScript",
+      "SHA256": "8b0ef3d97c75b09c62d98a0f08e6430e3c396bbdb6e91930a7d8ad215872a7cd",
+      "byte_equal_C8_source64": true
+    },
+    {
+      "path": "scripts/player/player_controller.gd",
+      "kind": "GDScript",
+      "SHA256": "4505eb52802b1a1830e9fd7ac4e6b76e87f51aad4cc449d87f00edb48a414353",
+      "byte_equal_C8_source64": true
+    }
+  ],
+  "syntactic_dependency_graph": {
+    "WeaponEntity": {
+      "WeaponActionRuntime": [
+        4
+      ],
+      "Damageable": [
+        85
+      ]
+    },
+    "PlayerTuning": {},
+    "ActionResources": {
+      "PlayerTuning": [
+        4
+      ]
+    },
+    "WeaponDefinition": {},
+    "ActorResourceState": {
+      "ActorResourceResult": [
+        4,
+        34,
+        37,
+        38,
+        45,
+        47,
+        49,
+        53,
+        54,
+        55,
+        60,
+        64,
+        66,
+        76,
+        79,
+        80,
+        86,
+        88,
+        90,
+        92
+      ]
+    },
+    "ActorResources": {
+      "StaminaState": [
+        7
+      ],
+      "StaminaDefinition": [
+        9
+      ]
+    },
+    "InputRouter": {
+      "InputProfile": [
+        28
+      ]
+    },
+    "Damageable": {
+      "ActorResourceResult": [
+        49,
+        81
+      ]
+    },
+    "CombatEnergyDefinition": {},
+    "PlayerProjectile": {
+      "PlayerController": [
+        17
+      ],
+      "Damageable": [
+        111,
+        113
+      ]
+    },
+    "PlayerMotor": {
+      "WeaponMotionDefinition": [
+        4
+      ],
+      "PlayerTuning": [
+        8
+      ]
+    },
+    "ShotEnergyPolicy": {
+      "PlayerController": [
+        5,
+        14
+      ],
+      "ShotEnergyDefinition": [
+        6,
+        14
+      ],
+      "ActorResourceResult": [
+        32,
+        51
+      ]
+    },
+    "RecoilAbility": {
+      "PlayerMotor": [
+        9
+      ]
+    },
+    "WeaponActionRuntime": {
+      "WeaponEntity": [
+        6,
+        11,
+        64,
+        65,
+        66,
+        78,
+        147,
+        149,
+        238,
+        242,
+        309,
+        320,
+        327,
+        330
+      ],
+      "ShootAbility": [
+        7
+      ],
+      "CourierVisual": [
+        40,
+        189,
+        257,
+        343
+      ],
+      "GameAudio": [
+        45,
+        110,
+        221,
+        319,
+        326,
+        329,
+        331
+      ],
+      "PlayerController": [
+        46
+      ],
+      "WeaponDefinition": [
+        47,
+        87,
+        89,
+        94,
+        99,
+        102,
+        110,
+        111,
+        117,
+        121,
+        122,
+        129,
+        131,
+        134,
+        137,
+        143,
+        145,
+        188,
+        298,
+        302
+      ],
+      "Damageable": [
+        250,
+        273,
+        286
+      ]
+    },
+    "ShotEnergyDefinition": {
+      "StaminaDefinition": [
+        2
+      ]
+    },
+    "InputProfile": {},
+    "ActorResourceResult": {},
+    "ShootAbility": {
+      "PlayerController": [
+        14
+      ],
+      "ActionResources": [
+        15
+      ],
+      "RecoilAbility": [
+        16
+      ],
+      "PlayerTuning": [
+        17
+      ],
+      "PlayerProjectile": [
+        20,
+        113,
+        135,
+        136,
+        137,
+        149,
+        164
+      ],
+      "WeaponDefinition": [
+        21,
+        39,
+        75,
+        176
+      ],
+      "WeaponActionRuntime": [
+        30,
+        32,
+        34
+      ],
+      "CourierVisual": [
+        46,
+        103,
+        173
+      ]
+    },
+    "AirFocusAbility": {
+      "PlayerTuning": [
+        13,
+        26
+      ],
+      "StaminaState": [
+        14,
+        26
+      ],
+      "StaminaDefinition": [
+        74
+      ]
+    },
+    "CourierVisual": {},
+    "PlayerController": {
+      "AirFocusAbility": [
+        9
+      ],
+      "PlayerMotor": [
+        10
+      ],
+      "InputRouter": [
+        11
+      ],
+      "JumpAbility": [
+        12
+      ],
+      "ShootAbility": [
+        13
+      ],
+      "ActionResources": [
+        14
+      ],
+      "ActorResources": [
+        15
+      ],
+      "RecoilAbility": [
+        16
+      ],
+      "PlayerActionResourceView": [
+        17
+      ],
+      "CombatEnergyState": [
+        18
+      ],
+      "TraversalAbility": [
+        19,
+        35,
+        36
+      ],
+      "ShotEnergyPolicy": [
+        20,
+        156
+      ],
+      "PlayerTuning": [
+        29
+      ],
+      "ActorResourceResult": [
+        39,
+        40
+      ],
+      "StaminaDefinition": [
+        46
+      ],
+      "WeaponDefinition": [
+        118,
+        124,
+        182
+      ],
+      "StaminaState": [
+        159
+      ],
+      "Damageable": [
+        174
+      ],
+      "EnemyActor": [
+        179
+      ]
+    },
+    "JumpAbility": {
+      "PlayerTuning": [
+        13
+      ],
+      "PlayerMotor": [
+        46,
+        101,
+        111,
+        126
+      ]
+    },
+    "GameAudio": {},
+    "EnemyActor": {
+      "Damageable": [
+        8
+      ],
+      "GameAudio": [
+        65
+      ],
+      "PlayerController": [
+        73
+      ]
+    },
+    "CombatEnergyState": {
+      "CombatEnergyDefinition": [
+        5
+      ]
+    },
+    "TraversalDefinition": {},
+    "WeaponMotionDefinition": {
+      "PlayerTuning": [
+        9
+      ]
+    },
+    "StaminaDefinition": {
+      "PlayerTuning": [
+        16
+      ]
+    },
+    "TraversalAbility": {
+      "PlayerController": [
+        6,
+        39
+      ],
+      "TraversalDefinition": [
+        7
+      ],
+      "CourierVisual": [
+        66
+      ],
+      "Damageable": [
+        166,
+        206
+      ],
+      "GrappleAnchor": [
+        213
+      ]
+    },
+    "PlayerActionResourceView": {
+      "JumpAbility": [
+        5,
+        8
+      ],
+      "ActionResources": [
+        6,
+        8
+      ]
+    },
+    "GrappleAnchor": {},
+    "StaminaState": {
+      "ActorResourceState": [
+        2
+      ],
+      "StaminaDefinition": [
+        4
+      ],
+      "ActorResourceResult": [
+        10,
+        13,
+        16,
+        19
+      ]
+    }
+  },
+  "syntactic_scc": [
+    "EnemyActor",
+    "PlayerController",
+    "PlayerProjectile",
+    "ShootAbility",
+    "ShotEnergyPolicy",
+    "TraversalAbility",
+    "WeaponActionRuntime",
+    "WeaponEntity"
+  ],
+  "specific_cycles": [
+    "PlayerController.gd:13 ShootAbility -> ShootAbility.gd:20/113 PlayerProjectile -> PlayerProjectile.gd:17 PlayerController",
+    "PlayerController.gd:179 EnemyActor -> EnemyActor.gd:73 PlayerController",
+    "PlayerController.gd:19 TraversalAbility -> TraversalAbility.gd:6/39 PlayerController",
+    "ShootAbility.gd:30 WeaponActionRuntime -> WeaponActionRuntime.gd:6 ShootAbility and:46 PlayerController"
+  ],
+  "interpretation": "Theseunchangedsourcecyclesarecompiledtype/functionreferences, notprovenheapownershipcyclesornewPR94codecycles. SurvivingcoreSCCplusdownstreamleaves isconsistentwithloading/unloadingrootorder, butactualretentionroot UNKNOWN. GameAudiohasnosyntacticbackedgetocore; itisdownstreamstaticcueleaf, notproofliveAudioStreamowner.",
+  "new_touched_edges": [
+    "DemoMenu -> UnderworldUI constants/create_theme/icon/box",
+    "TouchOverlay -> UnderworldUI colors/font in_draw",
+    "UnderworldUI -> Font/Texture/nativeTheme only; noPlayerController/EnemyActor/PlayerMotor/GameAudio backreferencefound"
+  ],
+  "prior_counterfactuals": {
+    "menu-fallback-audio-diagnosis01": {
+      "diagnosis_SHA256": "4e842e1c7c220cd639a2b6c8c77a73f5c94533eb38a31f854d5701bbb17cd37e",
+      "result": "FAIL: original43 functional predicates pass, strict resource exit guard rejects",
+      "scope": "Prioractualsinglecounterfactualexecution; reviewerdidnotrunengine"
+    },
+    "menu-loading-graph-counterfactual02": {
+      "diagnosis_SHA256": "f2d43783dc641e62bb172dd978b45517b4da97565789a482a6556f9c56a96a39",
+      "result": "FAIL original43 function checks pass; strict exit49/37 rejects",
+      "scope": "Prioractualsinglecounterfactualexecution; reviewerdidnotrunengine"
+    },
+    "menu-loading-graph-counterfactual03": {
+      "diagnosis_SHA256": "32fabd1f12c6df4ce2d0fd52c289d248da5c1ec8cc77c289ee934b2b58b06b76",
+      "result": "FAIL original43 function checks pass; strict exit49/37 rejects",
+      "scope": "Prioractualsinglecounterfactualexecution; reviewerdidnotrunengine"
+    }
+  },
+  "minimum_next_causal_probe": {
+    "when": "Onlyaftersuiteendsandrootauthorizesengine/sourcelease",
+    "control": "Keeporiginalmenu_scroll_touch_tests.gd43andstrictleakguard byteexact. Temporarilyrestoreonlyfullscripts/ui/demo_menu.gdfrom64, withallotheractualPR94filesandcache/environmentunchanged; useoneoriginalCLIexecutionthenexactrestorecurrentfile andbindbefore/afterSHA. Thisisnotmerelydeletingstatic_unload oraddingunrelatedpreload.",
+    "positive_outcome": "If37disappear, currentMenu-sidechangesarenecessaryintestedcontext; narrowthemeicon/creation/staticloadsubgraph next, noclaimfullrollbackisdesiredfix.",
+    "negative_outcome": "Ifsame37remain, entireMenuimplementationchangealoneisnotnecessary; donotrepeatthatprobe. Nextisolateactualplayer-onlylifecycle sameexistingproductionpathwithoutUI, thencompareexplicitload-order/resource-cacheguardwithinboundedbuildfixture.",
+    "limits": "Noarbitrarypreloadsuccessallowedtooverwriteoriginal43FAIL; noClassDBglobalcleanuporassertweakening justified."
+  },
+  "not_approved": [
+    "Audioteardownasleakfix",
+    "Newstatic_unloadannotation/preloadasuntestedfix",
+    "IgnoringObjectDB/resourceswarning",
+    "Native43exitPASS/newintegrationorCI/public"
+  ],
+  "reviewer_no_engine_browser_or_trackedwrite": true
+}

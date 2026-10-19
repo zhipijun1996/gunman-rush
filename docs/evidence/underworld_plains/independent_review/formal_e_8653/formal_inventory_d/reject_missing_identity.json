@@ -1,0 +1,117 @@
+{
+  "task_id": "UNDERWORLD-PLAINS-01",
+  "reviewer": "/root/production_review",
+  "reviewed_commit": "14e81362fcc33995bf6929ee13e83cf973d483e0",
+  "finding_id": "UW-G3-04",
+  "verdict": "REJECT",
+  "severity": "major for claimed complete four-identity random-region coverage",
+  "fact": "Native terrain checks40374/0 pass, but actual instance inventory has no real repair_shelter in4of20generated maps; empty identity cannot be counted from metadata.",
+  "expected": "Complete required local scenery identities in the declared20-map random validation scope, while preserving original full keepout/support/physics.",
+  "observations": [
+    {
+      "seed": "underworld-formal/0",
+      "map_index": 1,
+      "manifest_hash": "f37ad92a2bb31dea76d13cb7a6a7c1d0e4484f4cb5ee4482801e247fcb41ef1e",
+      "omission": {
+        "candidate_count": 2,
+        "identity": "repair_gallery",
+        "kind": "repair_shelter",
+        "reason": "no_clear_actual_static_root_span_in_identity_area"
+      },
+      "actually_drawn_prop_kinds": [
+        "tower",
+        "well",
+        "clock_arch",
+        "grass",
+        "flowers",
+        "grass",
+        "flowers",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass"
+      ]
+    },
+    {
+      "seed": "underworld-formal/2",
+      "map_index": 1,
+      "manifest_hash": "86c8d7617ed1b99dd1fd85cb35cca49032a4594815b09b2907ebe760d6a2dcf0",
+      "omission": {
+        "candidate_count": 2,
+        "identity": "repair_gallery",
+        "kind": "repair_shelter",
+        "reason": "no_clear_actual_static_root_span_in_identity_area"
+      },
+      "actually_drawn_prop_kinds": [
+        "tower",
+        "well",
+        "clock_arch",
+        "grass",
+        "flowers",
+        "grass",
+        "tower",
+        "grass",
+        "grass",
+        "tree"
+      ]
+    },
+    {
+      "seed": "underworld-formal/3",
+      "map_index": 1,
+      "manifest_hash": "17fcbd2e183381242496372ff66bb2997f0b6cad3416869704a3cb61bc0711f1",
+      "omission": {
+        "candidate_count": 2,
+        "identity": "repair_gallery",
+        "kind": "repair_shelter",
+        "reason": "no_clear_actual_static_root_span_in_identity_area"
+      },
+      "actually_drawn_prop_kinds": [
+        "tower",
+        "well",
+        "clock_arch",
+        "grass",
+        "tower",
+        "tree",
+        "flowers",
+        "grass",
+        "grass",
+        "grass",
+        "tower",
+        "tree",
+        "tower",
+        "grass"
+      ]
+    },
+    {
+      "seed": "underworld-formal/8",
+      "map_index": 1,
+      "manifest_hash": "b1b91b3055c5477f86240069feec3020e78d37bf068691d78e720f272268eb92",
+      "omission": {
+        "candidate_count": 2,
+        "identity": "repair_gallery",
+        "kind": "repair_shelter",
+        "reason": "no_clear_actual_static_root_span_in_identity_area"
+      },
+      "actually_drawn_prop_kinds": [
+        "tower",
+        "clock_arch",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "grass",
+        "tree",
+        "grass",
+        "flowers",
+        "grass",
+        "grass"
+      ]
+    }
+  ],
+  "native_evidence": "formal_result.json",
+  "minimum_rework": "Find legitimate smaller complete-object scale/socket without relaxing support/keepout/physics. Preserve D failure. Rerun original20App test plus actual inventory and affected GPU composition.",
+  "not_claimed": "No assertion that route is impossible, no user aesthetic rejection, no physical-device judgment."
+}

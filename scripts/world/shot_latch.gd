@@ -146,6 +146,11 @@ func _physics_process(delta: float) -> void:
 			_eligible_shots.erase(key)
 	if motion_mode or _opened_at>=0 and _clock-_opened_at < 0.70:
 		queue_redraw()
+	if UnderworldActors.enabled(self):
+		for child: Node in get_children():
+			if child is Sprite2D and child.get_meta("underworld_access_bell",false):
+				child.rotation = _underworld_bell_swing()
+				child.modulate = Color(1.18,1.12,1) if is_open or _opened_at>=0 and _clock-_opened_at<.16 else Color.WHITE
 	if _pending.is_empty():
 		return
 	var request := _pending
@@ -214,7 +219,11 @@ func _draw() -> void:
 	if not sequence_offset.is_zero_approx():
 		var second := bell_position + sequence_offset
 		draw_line(second + Vector2(0,-62),second + Vector2(0,-17),Color("8b6744"),3)
-		if PixelFormalActors.pixel_context(self): PixelFormalActors.bell(self,second,sequence_step==1 or is_open)
+		if UnderworldActors.enabled(self):
+			draw_set_transform(second,_underworld_bell_swing())
+			UnderworldTerrain.draw_mechanism_bell(self,Vector2.ZERO,sequence_step==1 or is_open,_opened_at>=0 and _clock-_opened_at<.16)
+			draw_set_transform(Vector2.ZERO)
+		elif PixelFormalActors.pixel_context(self): PixelFormalActors.bell(self,second,sequence_step==1 or is_open)
 		else: draw_texture_rect_region(BELL_ART,Rect2(second-Vector2(14,26),Vector2(28,49.4)),Rect2(200,8,746,1316), Color.WHITE if sequence_step == 1 else Color(.55,.55,.55))
 		draw_string(ThemeDB.fallback_font, bell_position+Vector2(-4,-36), "1", HORIZONTAL_ALIGNMENT_LEFT,-1,16)
 		draw_string(ThemeDB.fallback_font, second+Vector2(-4,-36), "2", HORIZONTAL_ALIGNMENT_LEFT,-1,16)
@@ -222,26 +231,33 @@ func _draw() -> void:
 	var gold := link_color if not is_open else Color("89d5ac")
 	draw_line(bell_position + Vector2(0, -62), bell_position + Vector2(0, -17), Color("8b6744"), 3)
 	if region_presentation:
-		draw_set_transform(bell_position-Vector2(34,64),-PI*.5)
-		if PixelFormalActors.pixel_context(self): PixelFormalActors.gate(self,Rect2(0,0,8,68),1)
-		else: draw_texture_rect_region(GATE_ART,Rect2(0,0,8,68),Rect2(366,127,105,892.5))
-		draw_set_transform(Vector2.ZERO)
+		if UnderworldActors.enabled(self): UnderworldTerrain.draw_mechanism_beam(self,Rect2(bell_position-Vector2(34,64),Vector2(68,8)))
+		else:
+			draw_set_transform(bell_position-Vector2(34,64),-PI*.5)
+			if PixelFormalActors.pixel_context(self): PixelFormalActors.gate(self,Rect2(0,0,8,68),1)
+			else: draw_texture_rect_region(GATE_ART,Rect2(0,0,8,68),Rect2(366,127,105,892.5))
+			draw_set_transform(Vector2.ZERO)
 	else:
-		draw_rect(Rect2(bell_position - Vector2(34, 64), Vector2(68, 8)), Color("765b41"))
+		if UnderworldActors.enabled(self): UnderworldTerrain.draw_mechanism_beam(self,Rect2(bell_position-Vector2(34,64),Vector2(68,8)))
+		else: draw_rect(Rect2(bell_position - Vector2(34, 64), Vector2(68, 8)), Color("765b41"))
 	var opened_time := _clock - _opened_at if _opened_at>=0 else 1.0
 	var swing := sin(opened_time * 28.0) * 0.16 * maxf(0.0, 1.0-opened_time/0.5) if is_open else 0.0
+	if UnderworldActors.enabled(self): swing = _underworld_bell_swing()
 	draw_set_transform(bell_position, swing)
-	if PixelFormalActors.pixel_context(self): PixelFormalActors.bell(self,Vector2.ZERO,is_open)
+	if UnderworldActors.enabled(self): UnderworldTerrain.draw_mechanism_bell(self,Vector2.ZERO,is_open,_opened_at>=0 and opened_time<.16)
+	elif PixelFormalActors.pixel_context(self): PixelFormalActors.bell(self,Vector2.ZERO,is_open)
 	else: draw_texture_rect_region(BELL_ART, Rect2(Vector2(-14,-26), Vector2(28,49.4)), Rect2(200,8,746,1316))
 	draw_set_transform(Vector2.ZERO)
 	if opened_time < 0.65 and _opened_at>=0:
-		for ring: int in 2:
-			var age := maxf(0.0, opened_time - float(ring) * 0.10)
-			draw_arc(bell_position, 15.0 + age * 75.0, 0.0, TAU, 32, Color(gold, maxf(0.0, 1.0 - age / 0.55) * 0.7), 1.4)
-		for glint: int in 8:
-			var direction := Vector2.RIGHT.rotated(float(glint) * TAU / 8.0)
-			var point := bell_position + direction * (12.0 + opened_time * 40.0)
-			draw_line(point, point + direction * 3.0, Color("ffe7a0", maxf(0.0, 1.0 - opened_time / 0.65)), 1.5)
+		var origins := _underworld_feedback_origins() if UnderworldActors.enabled(self) else PackedVector2Array([bell_position])
+		for origin: Vector2 in origins:
+			for ring: int in 2:
+				var age := maxf(0.0, opened_time - float(ring) * 0.10)
+				draw_arc(origin, 15.0 + age * 75.0, 0.0, TAU, 32, Color(gold, maxf(0.0, 1.0 - age / 0.55) * 0.7), 1.4)
+			for glint: int in 8:
+				var direction := Vector2.RIGHT.rotated(float(glint) * TAU / 8.0)
+				var point := origin + direction * (12.0 + opened_time * 40.0)
+				draw_line(point, point + direction * 3.0, Color("ffe7a0", maxf(0.0, 1.0 - opened_time / 0.65)), 1.5)
 	if not formal_presentation:
 		draw_rect(Rect2(bell_position - Vector2(14, 17), Vector2(28, 34)), gold, false, 2)
 	var wire_y := gate_rect.position.y + 40.0
@@ -285,6 +301,9 @@ func _draw() -> void:
 		draw_string(ThemeDB.fallback_font, Vector2(gate_rect.position.x-4,gate_rect.position.y-12),link_id,HORIZONTAL_ALIGNMENT_LEFT,-1,20,gold)
 
 func _draw_gate(rect: Rect2, opacity: float) -> void:
+	if UnderworldActors.enabled(self):
+		UnderworldTerrain.draw_mechanism_beam(self,rect,opacity)
+		return
 	if PixelFormalActors.pixel_context(self):
 		PixelFormalActors.gate(self,rect,opacity)
 		return
@@ -343,10 +362,15 @@ func add_access_bell(location: Vector2, second := false, return_side_only := fal
 		marker.position=location+Vector2(-5,-38)
 		add_child(marker)
 	var sprite := Sprite2D.new()
-	sprite.texture = PixelFormalActors.icon_texture(&"bell") if PixelFormalActors.pixel_context(self) else BELL_ART
+	sprite.texture = UnderworldActors.icon_texture(&"bell") if UnderworldActors.enabled(self) else PixelFormalActors.icon_texture(&"bell") if PixelFormalActors.pixel_context(self) else BELL_ART
 	sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST if PixelFormalActors.pixel_context(self) else CanvasItem.TEXTURE_FILTER_PARENT_NODE
 	sprite.scale = Vector2(28,34)/sprite.texture.get_size() if PixelFormalActors.pixel_context(self) else Vector2(38,48)/BELL_ART.get_size()
 	sprite.position = location
+	if UnderworldActors.enabled(self):
+		sprite.texture = UnderworldTerrain.mechanism_bell_texture()
+		sprite.scale = UnderworldTerrain.mechanism_bell_size()/sprite.texture.get_size()
+		sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		sprite.set_meta("underworld_access_bell",true)
 	add_child(sprite)
 
 func bind_motion(platform:ModuleMovingPlatform)->void:
@@ -374,8 +398,30 @@ func _draw_sigil(at: Vector2, index: int, size: float) -> void:
 func refresh_pixel_presentation() -> void:
 	if not PixelFormalActors.pixel_context(self): return
 	for child: Node in get_children():
+		if child is Sprite2D and UnderworldActors.enabled(self):
+			child.texture=UnderworldTerrain.mechanism_bell_texture()
+			child.scale=UnderworldTerrain.mechanism_bell_size()/child.texture.get_size()
+			child.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
+			child.set_meta("underworld_access_bell",true)
+			continue
 		if child is Sprite2D and child.texture==BELL_ART:
-			child.texture=PixelFormalActors.icon_texture(&"bell")
+			child.texture=UnderworldActors.icon_texture(&"bell") if UnderworldActors.enabled(self) else PixelFormalActors.icon_texture(&"bell")
 			child.scale=Vector2(28,34)/child.texture.get_size()
 			child.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
 	queue_redraw()
+
+func _underworld_bell_swing() -> float:
+	# Both accepted start *and* accepted park ring the same bell. Visual clock only;
+	# the moving carrier's phase and the accepted projectile transaction stay owned
+	# by the original mechanism. Paused SceneTree freezes this clock naturally.
+	var elapsed := _clock-_opened_at
+	return sin(elapsed*28.0)*0.16*maxf(0,1-elapsed/.5) if _opened_at>=0 and elapsed<.5 else 0.0
+
+func _underworld_feedback_origins() -> PackedVector2Array:
+	# Every actual linked receiver shares the accepted state, so a return-side
+	# shot gets local visual feedback instead of ringing only the distant primary.
+	# This reads receiver placement; it never adds or changes hit targets.
+	var result := PackedVector2Array([bell_position])
+	if not sequence_offset.is_zero_approx(): result.append(bell_position+sequence_offset)
+	result.append_array(PackedVector2Array(access_positions))
+	return result
