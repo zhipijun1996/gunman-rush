@@ -1,4 +1,5 @@
 extends SceneTree
+const PRE_FOCUS := preload("res://tests/plains_pre_focus_baseline.gd")
 # PR87 actual frozen manifests: scan/actual.json and contracts/20261018T165911Z.
 # Keep the original default and deep-profile digest guard independent of v5.
 const PRIOR_MANIFESTS:Dictionary={
@@ -166,10 +167,16 @@ func run()->void:
 		var seed:=PlainsRegionCampaign.seed_for(root_seed,1)
 		var default_generator:=PlainsRegionGenerator.new()
 		default_generator.root_bell_mode="v3"
-		var ordinary:=default_generator.generate(seed,tuning,false,"","intro")
+		var ordinary:=PRE_FOCUS.historical(seed)
 		check(ordinary.get("ok",false) and ordinary.manifest.manifest_hash==PRIOR_MANIFESTS[root_seed]["default"],root_seed+": frozen PR87 default Manifest unchanged")
+		var current_ordinary:=default_generator.generate(seed,tuning,false,"","intro")
+		var ordinary_errors:Array[String]=PRE_FOCUS.current_errors(current_ordinary,ordinary)
+		check(ordinary_errors.is_empty(),root_seed+": actual .15 ordinary complete Manifest: "+str(ordinary_errors))
+		var historical_deep:=PRE_FOCUS.historical(seed,true)
 		var plain:=PlainsRegionArtPlan.generate(seed,tuning)
-		check(plain.get("ok",false) and plain.manifest.manifest_hash==PRIOR_MANIFESTS[root_seed].deep,root_seed+": frozen PR87 nonjoint deep-profile Manifest unchanged")
+		check(historical_deep.get("ok",false) and historical_deep.manifest.manifest_hash==PRIOR_MANIFESTS[root_seed].deep,root_seed+": frozen PR87 nonjoint deep-profile Manifest unchanged")
+		var deep_errors:Array[String]=PRE_FOCUS.current_errors(plain,historical_deep,true)
+		check(deep_errors.is_empty(),root_seed+": actual .15 deep complete Manifest: "+str(deep_errors))
 		var joint:=PlainsRegionArtPlan.generate(seed,tuning,"intro","",true)
 		check(plain.get("ok",false) and joint.get("ok",false),root_seed+": actual candidate generation")
 		if not plain.get("ok",false) or not joint.get("ok",false):

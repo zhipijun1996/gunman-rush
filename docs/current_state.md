@@ -1,3 +1,9 @@
+# 最新：并行分支整合候选（尚待新包验证）
+
+2026-10-19，`integration/forest-plains-20261019` 已整合最新PR91正式像素平原、PR90累积独立实验、PR80剧情及PR83森林。森林仍v12/15%双瞄准，正式平原采用像素表现，候选不替换正式池。共享入口跨区表现已修复，正在回归与重新部署；旧公开包不作为整合包。见[精确输入与验证边界](integration_20261019.md)。整体品质仍REVISE，真人/实体设备未验。以下段落保留各历史分支身份。
+
+---
+
 # FOREST-GRAPPLE-02：钩索与纵向森林
 
 2026-10-19最新技术交付：[试玩build f7e22bcfaf40](https://zhipijun1996.github.io/gunman-rush/?v=f7e22bcfaf40)，游戏源码 `93c202568d154e37b1d57de1e08ba0c42820e828`，默认 `forest-woven-trunk-v12`。选定CI39207127333／attempt1实际SUCCESS：serial18＋parallel71共89项同源汇总、原森林80路线、Web／Windows／deploy／verify_public通过；两轮docs也成功。本机原80仍单独为600.167秒超时、59例完整通过、索引59中断／21未完成，不由CI绿覆盖。publisher正常下载精确CI ZIP被proxy403阻断，live_verified=false、原包72未执行；公网源码／资源包校验另已通过。公开GUI01实际OCR失败3/20、未到森林，真实MENU可见；保留原失败及初版ROI误收MENU2的REJECT，整行严格匹配修正后真实正反例获独审限定接受。新采证工具与已发布游戏源码分开绑定，公开GUI02原20项／8入口实测通过（378.771秒<480），两图实际v12、前后完整PCK身份一致、零引擎错误；该证据只覆盖GUI入口，不代自然战役／整图浏览器路线或实体设备。见[最终技术交付与明确边界](evidence/forest_grapple02/release03/README.md)。整体仍REVISE／in_progress：冠叉R可被完整跳跃→H替代、较易尾路可省末两句、上层收益和随机探索／Boss钩索价值、真人手感及实体设备仍未通过。以下旧v11与失败记录均保留历史身份。

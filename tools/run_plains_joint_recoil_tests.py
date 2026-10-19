@@ -39,7 +39,7 @@ def main():
     lock_path.parent.mkdir(parents=True, exist_ok=True)
     lock = lock_path.open('a')
     fcntl.flock(lock, fcntl.LOCK_EX)
-    before = source_files(("tools/run_plains_joint_recoil_tests.py",))
+    before = source_files(("tools/run_plains_joint_recoil_tests.py", "tests/fixtures/root_bell/pre_focus_15_player_tuning.json"))
     report = {'status': 'failed', 'source_before': before,
               'scope': 'Environment-first ridge/paired-creek replay, actual source-derived solid bodies, unchanged mechanisms, player contact and no-shot/no-rescue-floor negatives; not complete playable route, art, device or production-pool admission'}
     args = ['--headless', '--path', '.', '--script', 'tests/plains_joint_recoil_runner.gd']
@@ -55,7 +55,7 @@ def main():
         actual = ROOT / 'build/plains_joint_recoil/contract.json'
         (folder / 'actual.json').write_bytes(actual.read_bytes())
         report['actual_sha256'] = hashlib.sha256(actual.read_bytes()).hexdigest()
-        report['source_after'] = source_files(("tools/run_plains_joint_recoil_tests.py",))
+        report['source_after'] = source_files(("tools/run_plains_joint_recoil_tests.py", "tests/fixtures/root_bell/pre_focus_15_player_tuning.json"))
         if report['source_after'] != before:
             raise RuntimeError('Source changed during native contract')
         report['status'] = 'passed'
@@ -63,7 +63,7 @@ def main():
         report['error'] = str(exc)
         raise
     finally:
-        report['source_after'] = source_files(("tools/run_plains_joint_recoil_tests.py",))
+        report['source_after'] = source_files(("tools/run_plains_joint_recoil_tests.py", "tests/fixtures/root_bell/pre_focus_15_player_tuning.json"))
         actual = ROOT / 'build/plains_joint_recoil/contract.json'
         if actual.is_file() and actual.stat().st_mtime >= started_epoch:
             (folder / 'actual.json').write_bytes(actual.read_bytes())

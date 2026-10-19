@@ -37,6 +37,7 @@ FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试�
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
+| PARALLEL-INTEGRATION-01 | 最新并行分支整合与Web重部署 | FOREST-GRAPPLE-02 | in_progress | [输入、冲突与验证边界](integration_20261019.md)；保持森林v12和正式像素平原，实验独立；新CI/公开包正在验证 |
 | FOREST-GRAPPLE-CONSUMERS-02 | 本轮动作／版本与严格因果验收消费者迁移 | FOREST-GRAPPLE-02 | in_progress | [限定记录](quality/records/FOREST-GRAPPLE-CONSUMERS-02.json)；仅工具和测试迁移，不代签森林玩法；原断言、预算、历史原件与失败保留 |
 | FOREST-GRAPPLE-02 | 钩拉手感／停留环／15%双瞄准／纵向连续动作密度 | FOREST-FEEDBACK-01 | in_progress | [质量记录](quality/records/FOREST-GRAPPLE-02.json)；最新用户反馈续轮，专项、代表16+额外HH1及两图正常片已实测；S3同源89／原80与Web发布通过，[交付与边界](evidence/forest_grapple02/release03/README.md)；本机600超时59通过仍保留，公开GUI20／8实测通过；冠叉R可选、尾路省两句及上层吸引力REVISE，真人/设备未验 |
 | FOREST-FEEDBACK-01 | 扩大森林／真实空中连续动作／生态与地块场景语言 | FOREST-DEPTH-02 | in_progress | [质量记录](quality/records/FOREST-FEEDBACK-01.json)；用户四项反馈续轮；v11已发布5fd40a31c4be，CI86/GUI20通过，体验仍REVISE；[发布证据](evidence/forest_depth_v2/forest_feedback01/release01/README.md) |

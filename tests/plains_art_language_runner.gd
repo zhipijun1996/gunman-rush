@@ -1,4 +1,5 @@
 extends SceneTree
+const PRE_FOCUS := preload("res://tests/plains_pre_focus_baseline.gd")
 ## Source and installed-node contract. No screenshot or artistic approval claim.
 const PRIOR_MANIFESTS:Dictionary={
 	"joint-recoil-01":{"default":"98a71fc9d52471dfbc8ec6b25dfb09d1a1326d158cd9dbc71367966ef0ec2a51","deep":"a8e7bf5fffeb893539711577b0fb7c0809e42c9d425e7f20c48f673e5576d5f8"},
@@ -36,10 +37,16 @@ func verify_baselines(tuning:PlayerTuning)->void:
 	for root_seed:String in PRIOR_MANIFESTS:
 		var seed:=PlainsRegionCampaign.seed_for(root_seed,1)
 		var generator:=PlainsRegionGenerator.new();generator.root_bell_mode="v3"
-		var ordinary:=generator.generate(seed,tuning,false,"","intro")
+		var ordinary:=PRE_FOCUS.historical(seed)
 		check(ordinary.get("ok",false) and ordinary.manifest.manifest_hash==PRIOR_MANIFESTS[root_seed].default,root_seed+": original default Manifest bytes unchanged")
+		var current_ordinary:=generator.generate(seed,tuning,false,"","intro")
+		var ordinary_errors:Array[String]=PRE_FOCUS.current_errors(current_ordinary,ordinary)
+		check(ordinary_errors.is_empty(),root_seed+": actual .15 ordinary complete Manifest: "+str(ordinary_errors))
+		var historical_deep:=PRE_FOCUS.historical(seed,true)
 		var deep:=PlainsRegionArtPlan.generate(seed,tuning)
-		check(deep.get("ok",false) and deep.manifest.manifest_hash==PRIOR_MANIFESTS[root_seed].deep,root_seed+": original noncandidate deep profile unchanged")
+		check(historical_deep.get("ok",false) and historical_deep.manifest.manifest_hash==PRIOR_MANIFESTS[root_seed].deep,root_seed+": original noncandidate deep profile unchanged")
+		var deep_errors:Array[String]=PRE_FOCUS.current_errors(deep,historical_deep,true)
+		check(deep_errors.is_empty(),root_seed+": actual .15 deep complete Manifest: "+str(deep_errors))
 		if deep.get("ok",false):baseline_cache[seed]=deep.manifest
 
 func verify_embedding_counterfactual(manifest:Dictionary)->Dictionary:

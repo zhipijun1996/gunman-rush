@@ -21,7 +21,7 @@ from run_plains_joint_recoil_tests import logged_engine
 from run_root_bell_ecology import godot_lock_path
 
 ROOT = Path(__file__).resolve().parents[1]
-EXTRA = ("tools/run_plains_world_rebuild_tests.py", "tools/run_plains_joint_recoil_tests.py",
+EXTRA = ("tests/fixtures/root_bell/pre_focus_15_player_tuning.json", "tools/run_plains_world_rebuild_tests.py", "tools/run_plains_joint_recoil_tests.py",
          "tools/run_tests.py", "tools/run_root_bell_ecology.py",
          "tools/plains_world_rebuild_preview.gd",
          "assets/visual_development/plains_world_rebuild/terrain_source.png",

@@ -1,0 +1,14 @@
+PASS pixel plains: 47 masks × 3 variants; boundary locks; 8 anchored props; exact source/provenance
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT ERROR: Cannot call method 'store_string' on a null value.
+          at: _run (res://tests/test_pixel_plains.gd:52)
+          GDScript backtrace (most recent call first):
+              [0] _run (res://tests/test_pixel_plains.gd:52)
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-design/tools/run_pixel_plains_tests.py", line 5, in <module>
+    output=run_engine(['--headless','--fixed-fps','60','--path','.','--script','tests/test_pixel_plains.gd'],90)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush-design/tools/run_tests.py", line 38, in run_engine
+    raise RuntimeError("Godot emitted a script/shader error; aborted immediately")
+RuntimeError: Godot emitted a script/shader error; aborted immediately

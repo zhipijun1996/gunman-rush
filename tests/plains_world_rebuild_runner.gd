@@ -3,6 +3,7 @@ extends SceneTree
 const WORLD := preload("res://scripts/generation/plains_world_rebuild.gd")
 const STAGE := preload("res://scripts/demo/plains_world_rebuild_stage.gd")
 const PRIOR_DEFAULT := "98a71fc9d52471dfbc8ec6b25dfb09d1a1326d158cd9dbc71367966ef0ec2a51"
+const PRE_FOCUS := preload("res://tests/plains_pre_focus_baseline.gd")
 var assertions := 0
 var failures: Array[String] = []
 var output_path := ""
@@ -245,8 +246,20 @@ func run() -> void:
 	var tuning := PlayerTuning.load_default()
 	var generator := PlainsRegionGenerator.new()
 	generator.root_bell_mode = "v3"
-	var old := generator.generate(PlainsRegionCampaign.seed_for("joint-recoil-01", 1), tuning, false, "", "intro")
+	var seed := PlainsRegionCampaign.seed_for("joint-recoil-01", 1)
+	var old := PRE_FOCUS.historical(seed)
 	check(old.get("ok", false) and old.manifest.manifest_hash == PRIOR_DEFAULT, "Original default Manifest exact baseline remains unchanged")
+	var current := generator.generate(seed,tuning,false,"","intro")
+	var current_errors: Array[String] = PRE_FOCUS.current_errors(current,old)
+	check(current_errors.is_empty(),"Actual .15 default complete Manifest retained: "+str(current_errors))
+	var changed_geometry: Dictionary = current.duplicate(true)
+	changed_geometry.manifest.areas[0].position[0] += 1
+	changed_geometry.manifest.manifest_hash = generator._hash(changed_geometry.manifest)
+	check(not PRE_FOCUS.current_errors(changed_geometry,old).is_empty(),"Rehashed changed geometry cannot impersonate preserved current baseline")
+	var unknown_tuning: Dictionary = current.duplicate(true)
+	unknown_tuning.manifest.player_tuning_hash = "f".repeat(64)
+	unknown_tuning.manifest.manifest_hash = generator._hash(unknown_tuning.manifest)
+	check(not PRE_FOCUS.current_errors(unknown_tuning,old).is_empty(),"Rehashed unknown tuning cannot impersonate authorized current profile")
 	var plan: Dictionary = WORLD.generate("world-rebuild-01", variant_id)
 	check(not plan.has("error") and plan.validation_errors.is_empty(), "First world structure passes actual grammar")
 	check(plan == WORLD.generate("world-rebuild-01", variant_id), "Same Seed replays complete world source")

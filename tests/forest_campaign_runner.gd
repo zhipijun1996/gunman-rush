@@ -62,6 +62,7 @@ func pointer_click(owner: Node, prefix: String) -> bool:
 		return true
 	return false
 func check_default_forest_identity(map_index: int) -> void:
+	check_region_presentation(&"thorn_forest")
 	check(app.stage is ThornForestRegionStage and is_instance_valid(app.stage.boss),"default forest actual stage and Boss exist")
 	if not app.stage is ThornForestRegionStage or not is_instance_valid(app.stage.boss): return
 	var expected: Dictionary=EXPECTED_FOREST_BOSSES[EXPECTED_PUBLIC_FOREST][map_index]
@@ -70,6 +71,11 @@ func check_default_forest_identity(map_index: int) -> void:
 	check(encounter!=null and encounter.definition!=null and encounter.definition.resource_path==expected.definition,"natural default forest actual Boss Definition matches selected version map%s"%map_index)
 	check(app.stage.boss.scene_file_path==expected.scene,"natural default forest actual Boss scene matches selected version map%s"%map_index)
 	check(app.stage.generated.manifest.layout_version=="forest-woven-trunk-v12","fresh default uses independently expected woven-trunk layout; historical replay is separately mandatory")
+func check_region_presentation(region: StringName) -> void:
+	# Reuse actual consumers, not a second region transition implementation.
+	# Existing Boss/reward reset_at fixtures remain explicit settlement evidence.
+	var errors: Array[String] = load("res://tests/parallel_region_presentation_tests.gd").presentation_errors(app,region)
+	check(errors.is_empty(),"actual shared presentation: %s" % [errors])
 func run() -> void:
 	app=DemoApp.new()
 	app.meta_persistence_enabled=false
@@ -80,12 +86,14 @@ func run() -> void:
 	check(app.start_plains("campaign-integration"),"formal campaign starts plains map1")
 	await frames(12)
 	check(app.stage != null and app.stage.assembly_ok and app.director.region_map_index==1,"formal first map assembled")
+	check_region_presentation(&"plains")
 	if not is_instance_valid(app.stage) or not app.stage.assembly_ok: await finish(); return
 	check(RunManifest.from_snapshot(JSON.parse_string(app.director.manifest.canonical_json()))!=null,"schema1 Plains manifest roundtrip")
 	check(await defeat_fixture(),"explicit Plains mini settlement fixture")
 	check(await gate_fixture(),"formal mini gate accepts")
 	await frames(12)
 	check(app.director.region_map_index==2 and app.director.stage_index==2,"formal Plains map2 follows map1")
+	check_region_presentation(&"plains")
 	app.wallet.grant(31,&"fixture_initial_coins")
 	var actor_id := app.player.get_instance_id()
 	var health := app.controller.actor_resources.health
@@ -136,6 +144,8 @@ func run() -> void:
 	check(await pointer_click(app.progression_modal,"END THIS RUN"),"actual mouse confirms explicit end boundary")
 	await frames(5)
 	check(app.director.state==DemoRunDirector.State.HOME and app.wallet.balance==0 and app.build.item_ids().is_empty() and app.campaign.abilities.is_empty(),"boundary ends run and clears coins/build/abilities")
+	var presentation_home_errors: Array[String] = load("res://tests/parallel_region_presentation_tests.gd").home_errors(app)
+	check(presentation_home_errors.is_empty(),"campaign Home has no stale presentation owner: %s" % [presentation_home_errors])
 	await finish()
 func finish() -> void:
 	write_fixture_evidence("res://build/forest_playable/progression/campaign_pointer_events.json",JSON.stringify({"scope":"Godot real Viewport mouse press/release into actual Button; boss outcomes explicit fixtures; no OS/Web pointer claim","events":pointer_events,"callbacks":callback_counts,"assertions":assertions,"failures":failures}))

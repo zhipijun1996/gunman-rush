@@ -14,7 +14,7 @@ PRODUCTION = ('scripts/', 'scenes/', 'resources/', 'config/', 'assets/', 'shader
 # the hash does not replace runtime_contract's manifest/path/PNG/SHA checks.
 CONNECTED_CONSUMER_SHA256 = {
     CONNECTED: '2ed6debb226892b29be4988a9355357be4020780fe6bdd25a82b10aa0eefa65d',
-    'scripts/art/plains_region_composition.gd': 'a17e1c9c6610053aac7807f251f96347bf4d523abcee436be573d5a9a46a4a16',
+    'scripts/art/plains_region_composition.gd': '0849d8ccffac023150f73d3f701c5878c5badc49883d6fdf3857fe4d6cdeb745',
     'scripts/art/plains_landscape_observer.gd': '19cdab9eed2c620931fbf248599dd1df72a4705935d6b1f37235f77a4322080e',
 }
 
