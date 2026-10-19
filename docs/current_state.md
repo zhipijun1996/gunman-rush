@@ -2,7 +2,7 @@
 
 2026-10-19最新用户要求：完全抛弃过去美术方向，以[新地基规范](art_foundation_v1.md)覆盖所有历史风格/母版/地形制作要求；取消空洞/奥日目标。新增 `Blob47Lab` 独立标题入口，47状态图集、三层背景/玩家/装饰、严格模块卡与可复现拼接。保留正式玩法运行兼容，不以旧资产作新创意输入。
 
-核心专项20356/0 + 958/0，独审另验10种子低层双向20路线；完整合屏黄金、可选上路、用户画风/实体设备与正式地图迁移未验。当前完整profiles因本地稀疏检出未物化历史证据停止，不删检查或冒称全绿。[独审](quality/blob47_independent_review.md)仅接受限定地基技术范围。Web构建及准确公开身份将在收口补入；任务review，不合并main。
+核心专项20356/0 + 958/0，独审另验10种子低层双向20路线；完整合屏黄金、可选上路、用户画风/实体设备与正式地图迁移未验。当前完整profiles因本地稀疏检出未物化历史证据停止，不删检查或冒称全绿。[独审](quality/blob47_independent_review.md)仅接受限定地基技术范围。已导出并部署[新地基独立试玩](https://zhipijun1996.github.io/gunman-rush/?foundation=1&v=45c1a10f8767)，build `45c1a10f8767`，游戏源码 `222ee12fa002710de104d31f660ee275c1e6d2f6`；部署运行 [39201666634](https://github.com/zhipijun1996/gunman-rush/actions/runs/39201666634) 成功。浏览器真实7项通过，最终7图已不同作者实看；[精选证据](evidence/blob47_foundation/README.md)。[草稿PR91](https://github.com/zhipijun1996/gunman-rush/pull/91)不合并main；后续证据提交不冒称重新导出。 任务review。
 
 以下为历史记录，不覆盖本节新美术要求。
 

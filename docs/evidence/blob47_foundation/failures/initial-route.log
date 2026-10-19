@@ -1,0 +1,15 @@
+BLOB47 ART OK: 47 canonical tiles x 3 variants; 3 background layers; 6 props
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+BLOB47_LAYOUT checks=19491 failures=0; grid/semantic/port validation only; Motor traversal unverified
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FAIL: real Motor reaches sample end, x=755.99072265625
+BLOB47_FOUNDATION checks=944 failures=1
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-work/tools/run_blob47_tests.py", line 9, in <module>
+    output = run_engine(['--headless', '--fixed-fps', '60', '--path', '.', '--script', runner], 90)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush-work/tools/run_tests.py", line 42, in run_engine
+    raise RuntimeError(f"Godot returned {process.returncode}")
+RuntimeError: Godot returned 1
