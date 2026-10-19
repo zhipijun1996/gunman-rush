@@ -108,3 +108,7 @@ python3 tools/harness.py --check underworld-pipeline --check underworld-terrain 
 UI使用共享原生Theme/StyleBox、来自已核许可Tile的九宫边框，以及有真实来源的物品图。窗口、按钮、disabled/focus、取消/重开、HUD、地图、触屏与窄屏都走原控制器；换肤不能重写交易、奖励和导航。中文字体必须实际包含所用glyph或显式打包fallback，不能依赖开发机系统字体。表现层不缓存含有业务owner的Callable/Resource循环引用；卸载检查保留严格资源守门。
 
 新增Harness检查 `underworld-player-animation`、`underworld-mechanisms`、`underworld-home`、`underworld-ui` 与原七项共存。它们分别测试真实左右动作与生命周期、弹丸触发/平台携带、家园真实往返/预留语义、实际鼠标/触屏/应用UI路径。各自连续画面、正式场景合屏和网页仍需独立验证，数值通过不等于用户审美认可。
+
+## 战斗与多层空间返工的经验入口
+
+本轮十一项实际缺陷、根因、修复/反例与适用范围见[第三轮战斗与场景经验](underworld_feedback_r3.md)。受伤从实际已提交事件进入表现，环境原点退场和出生点恢复分开；surface危险与旧fall_plane分开而保留真实地形合同。门的实际actuator、宝箱的已领取ledger、弹体最终绘制消费者先盘点，不能只改同名helper。家园锚点按真实二维足点查询，多层必须实际基础单跳到达/返回；新检查计数不能替代旧适用守门逐条迁移。

@@ -1,0 +1,42 @@
+{
+  "schema": "underworld-home-r2-frozen-replay-v1",
+  "source_commit": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+  "reason": "R3 user explicitly changes flat four anchors to multi-tier settlement and east departure road. Original assertions remain unchanged; replay original fixture in this exact frozen whole source, not against the new default.",
+  "files": [
+    {
+      "source": "scripts/demo/home_scene.gd",
+      "snapshot": "tests/fixtures/underworld_home_r2/scripts__demo__home_scene.gd.source",
+      "sha256": "c8550c834188a038f445ddfd92be88a82995e0b34fe514393f1c89fb8e4c7168"
+    },
+    {
+      "source": "scripts/underworld_plains/underworld_home_world.gd",
+      "snapshot": "tests/fixtures/underworld_home_r2/scripts__underworld_plains__underworld_home_world.gd.source",
+      "sha256": "3ab69ab80c19d31cff545a1c128b6eaf5bfeabf410e2f1d0b79e579c1185201e"
+    },
+    {
+      "source": "assets/underworld_plains/home/home_build.json",
+      "snapshot": "tests/fixtures/underworld_home_r2/assets__underworld_plains__home__home_build.json.source",
+      "sha256": "86fb16c9dff11ff3841b3121d46f9af74a4968c9b65741c81c0d2e90b384ab76"
+    },
+    {
+      "source": "tests/underworld_plains/test_underworld_home.gd",
+      "snapshot": "tests/fixtures/underworld_home_r2/tests__underworld_plains__test_underworld_home.gd.source",
+      "sha256": "f88e7ac7c48a6c0dffbd75c6c210ebc0acfef388b158fc7dcf8e2783d493c2a1"
+    },
+    {
+      "source": "tests/home_ui_tests.gd",
+      "snapshot": "tests/fixtures/underworld_home_r2/tests__home_ui_tests.gd.source",
+      "sha256": "664df9ae500828caf1541ccc9a121a5001b66736776d6140e088d7adf3c5d75f"
+    },
+    {
+      "source": "tests/home_app_runner.gd",
+      "snapshot": "tests/fixtures/underworld_home_r2/tests__home_app_runner.gd.source",
+      "sha256": "9c69f3992deb9480378c476df3729e2ef979fa2cad561f14b293c0441e6ac834"
+    },
+    {
+      "source": "tools/run_underworld_home_tests.py",
+      "snapshot": "tests/fixtures/underworld_home_r2/tools__run_underworld_home_tests.py.source",
+      "sha256": "5b6df1fed17db1490db494808f10cdd82b8631963258cfaea9e0e64ed062d83b"
+    }
+  ]
+}

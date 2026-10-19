@@ -76,3 +76,7 @@ gameplay-reviewer 检查正常速度动作再逐帧定位；最终依据连续�
 ## Underworld试玩反馈生产补充
 
 Underworld机关复用同一功能铃图及accepted事件反馈；平台材质按独立长宽平铺。绘制纹理必须持续持有，纯headless成功不能排除GPU白块。运行 `underworld-mechanisms` 并检查真实截图像素/弹丸时间轴；失败白块与修复源分别保留。
+
+## Underworld第三轮实证回流
+
+环境返回同tick时分别表现原伤点退场与安全点淡入；发射光点按真实muzzle，接触火花不等于accepted HP命中，取消/到期不产假命中。 来源、真实失败、适用版本与待验见[第三轮经验](../../../docs/underworld_feedback_r3.md)；本条不代签最终用户手感或实体设备。

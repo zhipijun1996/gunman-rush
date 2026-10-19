@@ -53,3 +53,7 @@ player 类型记录全部十一维，遵守 [总门槛](../../../docs/developmen
 ## Underworld试玩反馈生产补充
 
 当前Underworld实际身体帧见 `assets/underworld_plains/player_animation/animation_build.json`：校准实际alpha身体高度与脚底锚点，不按画布尺寸缩放；移动朝向跟随Motor，与武器瞄准分层。以 `underworld-player-animation` 检查真实左右Motor/状态/枪口/epoch，正式平原与家园连续操作另验。
+
+## Underworld第三轮实证回流
+
+受伤进入/退出由实际已提交HP驱动；短hurt击退的物理优先级、窗口内射击及窗口后恢复分别测试，不能以动画控制伤害或让旧反冲延迟爆发。 来源、真实失败、适用版本与待验见[第三轮经验](../../../docs/underworld_feedback_r3.md)；本条不代签最终用户手感或实体设备。

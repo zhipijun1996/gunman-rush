@@ -7,6 +7,7 @@ const BELL_ART := preload("res://assets/plains_v3/windchime_switch.png")
 const BELL_SOUND := preload("res://assets/audio/kenney/bell.ogg")
 var access_bodies: Array[StaticBody2D] = []
 var access_positions: Array[Vector2] = []
+var access_sequence_steps: Array[int] = []
 var _bell_audio: AudioStreamPlayer2D
 var link_id := "A"
 var sigil_index := 0
@@ -28,6 +29,7 @@ var gate_shape: CollisionShape2D
 var bell_position := Vector2.ZERO
 var gate_rect := Rect2()
 var is_open := false
+var gate_visual_enabled := true
 var open_seconds := 0.0
 var sequence_offset := Vector2.ZERO
 var sequence_gate_rect:=Rect2()
@@ -225,8 +227,12 @@ func _draw() -> void:
 			draw_set_transform(Vector2.ZERO)
 		elif PixelFormalActors.pixel_context(self): PixelFormalActors.bell(self,second,sequence_step==1 or is_open)
 		else: draw_texture_rect_region(BELL_ART,Rect2(second-Vector2(14,26),Vector2(28,49.4)),Rect2(200,8,746,1316), Color.WHITE if sequence_step == 1 else Color(.55,.55,.55))
-		draw_string(ThemeDB.fallback_font, bell_position+Vector2(-4,-36), "1", HORIZONTAL_ALIGNMENT_LEFT,-1,16)
-		draw_string(ThemeDB.fallback_font, second+Vector2(-4,-36), "2", HORIZONTAL_ALIGNMENT_LEFT,-1,16)
+		if UnderworldActors.enabled(self):
+			UnderworldObjects.sequence_plate(self,bell_position+Vector2(20,-36),1,sequence_step==0 and not is_open)
+			UnderworldObjects.sequence_plate(self,second+Vector2(20,-36),2,sequence_step==1 or is_open)
+		else:
+			draw_string(ThemeDB.fallback_font, bell_position+Vector2(-4,-36), "1", HORIZONTAL_ALIGNMENT_LEFT,-1,16)
+			draw_string(ThemeDB.fallback_font, second+Vector2(-4,-36), "2", HORIZONTAL_ALIGNMENT_LEFT,-1,16)
 	# The closed gate has matching solid collision, never a misleading platform.
 	var gold := link_color if not is_open else Color("89d5ac")
 	draw_line(bell_position + Vector2(0, -62), bell_position + Vector2(0, -17), Color("8b6744"), 3)
@@ -263,9 +269,9 @@ func _draw() -> void:
 	var wire_y := gate_rect.position.y + 40.0
 	if not formal_presentation:
 		draw_polyline(PackedVector2Array([bell_position + Vector2(0,-65), Vector2(bell_position.x,wire_y), Vector2(gate_rect.get_center().x,wire_y), Vector2(gate_rect.get_center().x,gate_rect.position.y)]), Color(gold,0.5), 2)
-	if not is_open and not motion_mode:
+	if not is_open and not motion_mode and gate_visual_enabled:
 		_draw_gate(gate_rect, 1.0)
-	elif not motion_mode:
+	elif not motion_mode and gate_visual_enabled:
 		if opened_time < 0.35:
 			var raised := gate_rect
 			raised.position.y -= gate_rect.size.y * opened_time/0.35
@@ -284,6 +290,11 @@ func _draw() -> void:
 		draw_rect(plaque, Color(gold, 0.65), false, 1)
 	draw_string(ThemeDB.fallback_font, caption_position, caption, HORIZONTAL_ALIGNMENT_LEFT, -1, 16, gold)
 
+	if UnderworldActors.enabled(self):
+		for access_index: int in access_positions.size():
+			if access_sequence_steps[access_index]>0:
+				var step := access_sequence_steps[access_index]
+				UnderworldObjects.sequence_plate(self,access_positions[access_index]+Vector2(20,-36),step,is_open or sequence_step==step-1)
 	if formal_presentation:
 		var target:=motion_target.position if motion_mode and is_instance_valid(motion_target) else gate_rect.position
 		_draw_sigil(bell_position+Vector2(-28,-45),sigil_index,28)
@@ -354,11 +365,13 @@ func add_access_bell(location: Vector2, second := false, return_side_only := fal
 		return _receive_projectile(context)
 	access_bodies.append(body)
 	access_positions.append(location)
+	access_sequence_steps.append((2 if second else 1) if not sequence_offset.is_zero_approx() else 0)
 	if return_side_only:
 		var hint:=Label.new();hint.text="RETURN / RIGHT SIDE";hint.position=location+Vector2(-65,-58);hint.add_theme_font_size_override("font_size",12);add_child(hint)
-	if not sequence_offset.is_zero_approx():
+	if not sequence_offset.is_zero_approx() and not UnderworldActors.enabled(self):
 		var marker:=Label.new()
 		marker.text="2" if second else "1"
+		marker.set_meta("sequence_order_marker",true)
 		marker.position=location+Vector2(-5,-38)
 		add_child(marker)
 	var sprite := Sprite2D.new()
@@ -392,12 +405,15 @@ func restore_sequence_gate()->void:
 		if sequence_step>0:prompt_text="CLIMB / FIND REMOTE RING 2"
 
 func _draw_sigil(at: Vector2, index: int, size: float) -> void:
-	if PixelFormalActors.pixel_context(self): PixelFormalActors.sigil(self,at,index,size)
+	if UnderworldActors.enabled(self): UnderworldObjects.link_sigil(self,at,index,size)
+	elif PixelFormalActors.pixel_context(self): PixelFormalActors.sigil(self,at,index,size)
 	else: PlainsInteractiveArt.draw_sigil(self,at,index,size)
 
 func refresh_pixel_presentation() -> void:
 	if not PixelFormalActors.pixel_context(self): return
 	for child: Node in get_children():
+		if child is Label and child.get_meta("sequence_order_marker",false) and UnderworldActors.enabled(self):
+			child.visible = false
 		if child is Sprite2D and UnderworldActors.enabled(self):
 			child.texture=UnderworldTerrain.mechanism_bell_texture()
 			child.scale=UnderworldTerrain.mechanism_bell_size()/child.texture.get_size()

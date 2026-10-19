@@ -23,7 +23,8 @@ func objective() -> String:
 	if mode==&"roll_warning": return "离开金色车道 / LEAVE THE MARKED ROLL LANE"
 	if mode==&"ring_warning": return "跳过铃波，留意第二声 / JUMP THE RING WAVES"
 	if mode==&"lob_warning" or mode==&"lob": return "落点已锁定，换一个平台 / MOVE OFF THE LOCKED LANDING"
-	if core_open: return "停机散热！射中央发光铃芯 / SHOOT THE CENTRAL BELL"
+	if core_open: return "停机散热，抓紧追击 / RECOVERY — PRESS THE ATTACK" if continuous_combat() else "停机散热！射中央发光铃芯 / SHOOT THE CENTRAL BELL"
+	if continuous_combat(): return "随时可攻击，留意冲撞、铃波和落点 / WATCH THE ROLL, RINGS AND LANDING"
 	return "滚轮冲刺、铃波、投铃 / ROLL • RINGS • LOB"
 
 func physics_tick(delta: float) -> void:
@@ -68,9 +69,7 @@ func physics_tick(delta: float) -> void:
 	elif mode==&"neck" and clock<=0:
 		pattern_index+=1
 		_enter(&"observe",.6 if stage_phase==2 else .85)
-	_core.position=core_offset()
-	_core.collision_layer=4 if core_open else 0
-	motor.collision_layer=0 if core_open or mode==&"intro" else 4
+	_update_combat_shapes()
 	motor.queue_redraw()
 
 func _cool_down() -> void:

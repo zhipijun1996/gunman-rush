@@ -1,3 +1,9 @@
+# 最新：十一项战斗与场景反馈实施中
+
+任务UNDERWORLD-FEEDBACK-03，分支feature/underworld-combat-world-feedback，基线0fab13f。最新用户授权受击音效/闪烁/hurt/击退、修复跨层坠落、环境伤害进出过渡、远程特效、风铃/攻击开门/开箱、装饰增补、多层家园与清楚出村入口、Boss全活动战斗可伤及接触判定。见[本轮规格](evidence/underworld_feedback_03/spec.md)。本轮代码未冻结、尚未发布；下方build6b3093b929c0是R2对照，不包含本轮修改。原失败不抹去。
+
+---
+
 # 最新：Underworld六项返工已部署，待试玩审阅
 
 任务 `UNDERWORLD-PLAINS-01` 保持 **review**，未合main。运行源 `c65a111015d032211bb8c54aaae9b322401349d4`（G），Web build `6b3093b929c0`；[直接试玩](https://zhipijun1996.github.io/gunman-rush/?v=6b3093b929c0)，标题进入平原或家园。[六项结果、截图与录像](evidence/underworld_plains/revision2/README.md)、[实际画面对照](evidence/underworld_plains/revision2/overview.png)、[准确交付](evidence/underworld_plains/delivery/source_G_c65a/final_delivery_G.json)。

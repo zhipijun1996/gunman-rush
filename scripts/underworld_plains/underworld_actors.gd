@@ -87,4 +87,6 @@ static func draw_windkeeper(canvas: Node2D, encounter: Node, stride: float, spee
 			canvas.draw_rect(Rect2(-72+leg*43,59-lift,22,6),Color("141e18"))
 	canvas.draw_set_transform(Vector2.ZERO)
 	if not encounter.core_open:
-		PixelFormalActors.bell(canvas,encounter.core_offset(),false,flash)
+		var bell := icon_texture(&"bell")
+		var size := bell.get_size() * (32.0 / bell.get_height())
+		canvas.draw_texture_rect(bell,Rect2(encounter.core_offset()-size*.5,size),false,Color(1.5,1.3,1.0) if flash else Color.WHITE)

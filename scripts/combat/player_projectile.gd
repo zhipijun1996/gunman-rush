@@ -21,6 +21,7 @@ var skill_attack := false
 var spent := false
 var fired_airborne := false
 var _age := 0.0
+var _visual_launched := false
 var launch_motion := Vector2.ZERO
 var trail: Array[Vector2] = []
 ## Optional sample skin; movement, swept contacts and damage remain here.
@@ -36,6 +37,9 @@ func _ready() -> void:
 
 func _draw() -> void:
 	if is_instance_valid(presentation): return
+	if UnderworldProjectileVisual.enabled(self):
+		UnderworldProjectileVisual.paint(self,direction,radius,_age,trail,art_kind,true,skill_attack,weapon_blade_texture())
+		return
 	for i: int in range(1, trail.size()):
 		draw_line(to_local(trail[i-1]), to_local(trail[i]), Color(1,.83,.38,float(i)/trail.size()*.7), 2.5)
 	draw_set_transform(Vector2.ZERO, direction.angle())
@@ -68,6 +72,9 @@ func advance(delta: float) -> void:
 	if _age >= lifetime:
 		dispose()
 		return
+	if not _visual_launched:
+		_visual_launched = true
+		UnderworldProjectileVisual.emit(self,global_position+launch_motion,direction,true,false)
 	var query := PhysicsShapeQueryParameters2D.new()
 	query.shape = _shape
 	query.transform = Transform2D(0.0, global_position)
@@ -122,7 +129,9 @@ func advance(delta: float) -> void:
 		if receiver != null:
 			receiver.receive_damage({"session_id": session_id, "event_id": "%d:%d:%d" % [owner_id, session_id, shot_id], "source_actor_id": owner_id, "target_actor_id": receiver.actor_id, "target_epoch": receiver.damage_epoch, "attack_id": shot_id, "shot_id": shot_id, "amount": damage, "damage_type": &"projectile", "hit_direction": direction, "fired_airborne": fired_airborne, "source_faction": faction, "hit_point": query.transform.origin, "on_committed": owner_controller.on_weapon_damage.bind(session_id,energy_receipt_id if energy_receipt_id > 0 else shot_id,shot_id,fired_airborne,(receiver.actor_id if receiver.actor_id!=0 else receiver.get_instance_id()) if receiver.faction==&"enemy" else 0,skill_attack,receiver,weapon_epoch)})
 		# Boss armour/core presentation subscribes to armour contact / committed HP.
-		if receiver == null or receiver.impact_style() != &"boss": impacted.emit(query.transform.origin, direction)
+		if receiver == null or receiver.impact_style() != &"boss":
+			UnderworldProjectileVisual.emit(self,query.transform.origin,direction,true,true)
+			impacted.emit(query.transform.origin, direction)
 		dispose()
 		return
 	# Pathological overlapping geometry fails closed rather than tunnelling.
@@ -132,3 +141,9 @@ func dispose() -> void:
 	spent = true
 	set_physics_process(false)
 	queue_free()
+
+func weapon_blade_texture() -> Texture2D:
+	if art_kind != &"blade" or not is_instance_valid(owner_controller): return null
+	var catalog: Dictionary = owner_controller.shoot_ability.behavior().art_catalog()
+	if catalog.is_empty(): return null
+	return PlainsActorAssets.region_texture(catalog.texture,catalog.regions[1])

@@ -27,7 +27,8 @@ func fixture(mini: bool, at: Vector2=Vector2(350,582)) -> void:
 	life=DemoLifetime.new();policy=FrameDamagePolicy.new();policy.lifetime=life;world.add_child(policy)
 	policy.register_target(&"player",controller.actor_resources.health,true)
 	boss=load("res://scenes/bosses/bellstrider.tscn" if mini else "res://scenes/bosses/windkeeper.tscn").instantiate()
-	if not mini: (boss.get_node("Encounter") as BossEncounter).definition=preload("res://resources/bosses/windkeeper_storm.tres")
+	# Historical D077 window/armour contract; R3 continuous fights have a separate actual-consumer suite.
+	(boss.get_node("Encounter") as BossEncounter).definition=load("res://resources/bosses/legacy/bellstrider_window_v1.tres" if mini else "res://resources/bosses/legacy/windkeeper_storm_window_v4.tres")
 	boss.position=Vector2(560,535);world.add_child(boss)
 	encounter=boss.get_node("Encounter");encounter.configure_arena(125,995,player)
 	policy.bind_damageable(&"boss",boss.get_node("Damageable"),encounter.health)
@@ -245,7 +246,9 @@ func check_legacy_shared_background() -> void:
 		failures += 1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
 	viewport.free()
 
-# This separately verifies the actual current default, using its real Camera2D.
+# Historical pixel three-plane renderer fixture on a real current Manifest/Camera.
+# Original assertions and labels below are retained verbatim for that renderer.
+# Current Underworld default is verified by the underworld-scenery/formal suites.
 func check_current_formal_background() -> void:
 	var viewport:=SubViewport.new()
 	viewport.size=Vector2i(1280,720)
@@ -258,7 +261,15 @@ func check_current_formal_background() -> void:
 	check(app.stage is PlainsRegionStage and app.stage.assembly_ok,"pixel background receives an assembled formal Manifest")
 	var stage:=app.stage as PlainsRegionStage
 	var manifest_before:=JSON.stringify(stage.generated.manifest)
-	var background:=app.get_node_or_null("PixelPlainsParallax") as PixelPlainsParallax
+	var current_background:=app.get_node_or_null("PixelPlainsParallax") as PixelPlainsParallax
+	check(current_background is UnderworldParallax,"fixture begins from the actual current Underworld default")
+	if current_background!=null:
+		app.remove_child(current_background)
+		current_background.queue_free()
+	var background:=PixelPlainsParallax.new()
+	background.name="LegacyPixelThreePlaneFixture"
+	background.origin=stage.spawn
+	app.add_child(background)
 	var camera:=viewport.get_camera_2d()
 	check(background!=null and background.panels.size()==9,"current formal default owns three source layers and nine horizontal copies")
 	check(camera is StageCameraRig and camera==app._run_camera,"current test drives the actual formal Camera2D")

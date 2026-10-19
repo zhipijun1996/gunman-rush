@@ -91,6 +91,28 @@ func world_static_dangers() -> Array[Rect2]:
 		result.append(Rect2(to_global(rect.position), rect.size))
 	return result
 
+func world_static_hazard_records() -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	# Iterate the authoritative deduplicated array, so shape order and legacy
+	# generated_spikes_N identities remain byte-for-byte compatible.
+	for rect: Rect2 in definition.static_dangers():
+		var surface_id := ""
+		for thorn: PlatformThornDefinition in definition.surface_thorns:
+			if thorn != null and thorn.is_valid(definition.platforms) and thorn.danger(definition.platforms)==rect: surface_id=String(thorn.surface_id)
+		var attached := false
+		var lowest_solid := -INF
+		for host: Rect2 in definition.platforms:
+			lowest_solid = maxf(lowest_solid,host.end.y)
+			var horizontal_overlap := rect.position.x < host.end.x and rect.end.x > host.position.x
+			var vertical_overlap := rect.position.y < host.end.y and rect.end.y > host.position.y
+			if horizontal_overlap and (absf(rect.end.y-host.position.y)<.01 or absf(rect.position.y-host.end.y)<.01): attached=true
+			if vertical_overlap and (absf(rect.end.x-host.position.x)<.01 or absf(rect.position.x-host.end.x)<.01): attached=true
+		# Only historical unattached, horizontal, below-all-solids bands are local
+		# pit planes. Attached terrain and every authored thorn stay damaging.
+		var pit_plane := surface_id.is_empty() and not attached and rect.size.x > rect.size.y*2 and rect.position.y >= lowest_solid
+		result.append({"rect":Rect2(to_global(rect.position),rect.size),"role":"fall_plane" if pit_plane else "surface","module_id":String(definition.module_id),"authored_id":surface_id if not surface_id.is_empty() else "danger_%d" % definition.danger_bounds.find(rect)})
+	return result
+
 func port_accepts(port: PlatformingModulePort, motor: PlayerMotor) -> bool:
 	if port == null or motor == null or motor.tuning == null or not port.is_valid() or not motor.is_on_floor() or not motor.global_position.is_finite():
 		return false

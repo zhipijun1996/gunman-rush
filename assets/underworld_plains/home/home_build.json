@@ -1,7 +1,7 @@
 {
-  "schema": "underworld-home-v1",
-  "task": "UNDERWORLD-PLAYTEST-REWORK-01-HOME",
-  "world_width": 3520,
+  "schema": "underworld-home-v2-terraces",
+  "task": "UNDERWORLD-FEEDBACK-03-HOME",
+  "world_width": 3280,
   "floor_y": 432,
   "safe_noncombat_settlement": true,
   "currency_and_save": "unchanged real Meta service; reserved slots do not emit function IDs or grant resources",
@@ -118,117 +118,231 @@
         303.0,
         423
       ]
+    },
+    "clock_arch": {
+      "image": "assets/underworld_plains/decor/identity_props.png",
+      "region": [
+        733,
+        100,
+        689,
+        564
+      ],
+      "foot": [
+        344.5,
+        548
+      ]
     }
   },
   "slots": [
     {
       "id": "character",
-      "x": 250,
+      "x": 300,
       "label": "衣装守护者 / CHARACTER",
       "active": true,
       "building": "wardrobe",
       "keeper": "tailor",
-      "building_height": 124
+      "building_height": 124,
+      "y": 432
     },
     {
       "id": "upgrade",
-      "x": 600,
+      "x": 620,
       "label": "维修工坊 / UPGRADES",
       "active": true,
       "building": "workshop",
       "keeper": "artisan",
-      "building_height": 136
+      "building_height": 136,
+      "y": 336
     },
     {
       "id": "achievements",
-      "x": 930,
+      "x": 920,
       "label": "钟之档案 / ARCHIVE",
       "active": true,
       "building": "archive",
       "keeper": "archivist",
-      "building_height": 120
-    },
-    {
-      "id": "departure",
-      "x": 1160,
-      "label": "风铃平原 / DEPARTURE",
-      "active": true,
-      "building": "tower",
-      "keeper": "",
-      "building_height": 144
+      "building_height": 120,
+      "y": 240
     },
     {
       "id": "arms",
-      "x": 1450,
+      "x": 1250,
       "label": "武器工坊",
       "active": false,
       "building": "archive",
       "keeper": "",
-      "building_height": 86
+      "building_height": 86,
+      "y": 336
     },
     {
       "id": "relics",
-      "x": 1710,
+      "x": 1550,
       "label": "遗物鉴定",
       "active": false,
       "building": "shelter",
       "keeper": "",
-      "building_height": 62
+      "building_height": 62,
+      "y": 240
     },
     {
       "id": "herbs",
-      "x": 1970,
+      "x": 1770,
       "label": "草药花园",
       "active": false,
       "building": "shelter",
       "keeper": "",
-      "building_height": 62
+      "building_height": 62,
+      "y": 432
     },
     {
       "id": "kitchen",
-      "x": 2230,
+      "x": 1920,
       "label": "旅人食堂",
       "active": false,
       "building": "archive",
       "keeper": "",
-      "building_height": 86
+      "building_height": 86,
+      "y": 336
     },
     {
       "id": "courier",
-      "x": 2490,
+      "x": 2160,
       "label": "信使驿站",
       "active": false,
       "building": "shelter",
       "keeper": "",
-      "building_height": 62
+      "building_height": 62,
+      "y": 240
     },
     {
       "id": "songs",
-      "x": 2750,
+      "x": 2230,
       "label": "钟音工房",
       "active": false,
       "building": "shelter",
       "keeper": "",
-      "building_height": 62
+      "building_height": 62,
+      "y": 432
     },
     {
       "id": "stories",
-      "x": 3010,
+      "x": 2460,
       "label": "故事访客",
       "active": false,
       "building": "archive",
       "keeper": "",
-      "building_height": 86
+      "building_height": 86,
+      "y": 336
     },
     {
       "id": "garden",
-      "x": 3270,
+      "x": 2690,
       "label": "栖风苗圃",
       "active": false,
       "building": "shelter",
       "keeper": "",
-      "building_height": 62
+      "building_height": 62,
+      "y": 432
+    },
+    {
+      "id": "departure",
+      "x": 3070,
+      "label": "走出聚落 · 风铃平原 / DEPARTURE",
+      "active": true,
+      "building": "clock_arch",
+      "keeper": "",
+      "building_height": 228,
+      "y": 432
     }
   ],
-  "source_record": "assets/underworld_plains/home/generation_record.json"
+  "source_record": "assets/underworld_plains/home/generation_record.json",
+  "camera_y": 310,
+  "layout_contract": {
+    "authorized_change": "R3 user 9/10 explicitly relocates function anchors onto reachable multi-tier platforms and makes east departure road distinct",
+    "legacy_source": "tests/fixtures/underworld_home_r2/replay.json",
+    "tier_step_wu": 96,
+    "movement": "same basic single jump, no recoil, wall jump, grapple or new ability required",
+    "interaction": "grounded, same vertical tier within 32wu and x range90/115 hysteresis; reserved has no business request",
+    "return": "walk off platform ends or original S one-way drop-through; safe ground below all tiers"
+  },
+  "platforms": [
+    {
+      "id": "artisan_terrace",
+      "rect": [
+        470,
+        336,
+        400,
+        24
+      ],
+      "one_way": true
+    },
+    {
+      "id": "archive_terrace",
+      "rect": [
+        780,
+        240,
+        350,
+        24
+      ],
+      "one_way": true
+    },
+    {
+      "id": "arms_terrace",
+      "rect": [
+        1100,
+        336,
+        400,
+        24
+      ],
+      "one_way": true
+    },
+    {
+      "id": "relic_terrace",
+      "rect": [
+        1400,
+        240,
+        340,
+        24
+      ],
+      "one_way": true
+    },
+    {
+      "id": "kitchen_terrace",
+      "rect": [
+        1770,
+        336,
+        360,
+        24
+      ],
+      "one_way": true
+    },
+    {
+      "id": "courier_terrace",
+      "rect": [
+        2030,
+        240,
+        340,
+        24
+      ],
+      "one_way": true
+    },
+    {
+      "id": "story_terrace",
+      "rect": [
+        2290,
+        336,
+        350,
+        24
+      ],
+      "one_way": true
+    }
+  ],
+  "departure_road": {
+    "from_x": 2810,
+    "gate_x": 3070,
+    "to_x": 3260,
+    "direction": "east",
+    "ground_y": 432,
+    "collision": "existing safe floor only; arch is non-colliding; W opens original departure panel"
+  }
 }

@@ -44,3 +44,7 @@ G5：真实设备长战斗性能、控制方式、玩家学习/掌握与记忆�
 ## 完成与证据
 
 使用 [质量报告](../../../docs/templates/quality_gate_acceptance.md) 和 docs/quality/records/<task_id>.json，逐项记录 design/technical/formal_integration/visual/animation/audio_vfx/gameplay/performance/independent_review/device/player_acceptance。只允许 passed/failed/unverified/not_applicable（有理由）；证据需路径、SHA256、提交/内容版本、观察和来源。技术通过不能宣称完整内容完成；所有适用条件具备才可 done。本技能文档本身不提供任何内容的 PASS 或用户认可。
+
+## Underworld第三轮实证回流
+
+伤害资格与前摇/攻击/收招风险分开设计。当前正式连续合同可随时受击，不能用弱点窗口制造回合制；接触体与可打躯干按实际图形分别校准，必须有不躲受伤与真实正确躲过对照。 来源、真实失败、适用版本与待验见[第三轮经验](../../../docs/underworld_feedback_r3.md)；本条不代签最终用户手感或实体设备。

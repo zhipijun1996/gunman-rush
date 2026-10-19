@@ -57,6 +57,8 @@ func run() -> void:
 	await fixture()
 	target.free()
 	var armour_boss:=load("res://scenes/bosses/bellstrider.tscn").instantiate() as BossMotor
+	# Explicit historical armoured target; current continuous Bosses are shootable during attacks.
+	(armour_boss.get_node("Encounter") as BossEncounter).definition=preload("res://resources/bosses/legacy/bellstrider_window_v1.tres")
 	armour_boss.position=Vector2(200,550);world.add_child(armour_boss)
 	var encounter:=armour_boss.get_node("Encounter") as BellstriderEncounter
 	encounter.configure_arena(0,800,player);encounter.activate();encounter._enter(&"observe",5);encounter.set_physics_process(false)

@@ -341,7 +341,7 @@ class UnderworldPipelineTest(unittest.TestCase):
         self.reject('home',lambda v:v['slots'][4].update(id='character'),'home.unique_slots')
 
     def test_home_slot_cannot_reference_nonexistent_source(self):
-        self.reject('home',lambda v:v['slots'][4].update(building='missing_house'),'home.slot.arms.source')
+        self.reject('home',lambda v:next(slot for slot in v['slots'] if slot['id']=='arms').update(building='missing_house'),'home.slot.arms.source')
 
     def test_home_slots_within_actual_world(self):
         self.reject('home',lambda v:v['slots'][4].update(x=99999),'home.slot_bounds')
@@ -393,6 +393,33 @@ class UnderworldPipelineTest(unittest.TestCase):
 
     def test_actual_entry_inventory_is_not_empty(self):
         self.reject_json(DEFAULT_MANIFEST,lambda v:v.update(runtime_entries=[]),'production.runtime_entries')
+
+    def test_home_requires_current_terrace_contract(self):
+        self.reject('home',lambda v:v.update(schema='unknown-future-layout'),'home.schema')
+
+    def test_home_all_plots_cannot_collapse_to_one_floor(self):
+        self.reject('home',lambda v:[slot.update(y=v['floor_y']) for slot in v['slots']],'home.three_tiers')
+
+    def test_home_terrace_cannot_be_fake_solid(self):
+        self.reject('home',lambda v:v['platforms'][0].update(one_way=False),'home.platform.0.one_way')
+
+    def test_home_slot_cannot_float_between_tiers(self):
+        self.reject('home',lambda v:v['slots'][1].update(y=333),'home.slot.upgrade.supported')
+
+    def test_home_departure_must_follow_the_village_road(self):
+        self.reject('home',lambda v:v['departure_road'].update(direction='west'),'home.departure_road')
+
+    def test_objects_raw_generation_hash(self):
+        self.reject_json('assets/underworld_plains/objects/objects_build.json',lambda v:v['generation'].update(source_sha256='0'*64),'objects.original.sha256')
+
+    def test_objects_original_crop_bounds(self):
+        self.reject_json('assets/underworld_plains/objects/objects_build.json',lambda v:v['opened_chest'].update(crop=[0,0,99999,2]),'objects.complete_crop')
+
+    def test_objects_raised_lid_cannot_be_cropped_off(self):
+        self.reject_json('assets/underworld_plains/objects/objects_build.json',lambda v:v['opened_chest'].update(crop=[241,300,1272,977]),'objects.whole_pose')
+
+    def test_objects_runtime_requires_the_actual_open_pose(self):
+        self.reject_text('scripts/underworld_plains/underworld_objects.gd','OPEN_CHEST if claimed else CLOSED_CHEST','CLOSED_CHEST if claimed else CLOSED_CHEST','objects.actual_dispatch')
 
 
 if __name__ == '__main__':

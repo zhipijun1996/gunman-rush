@@ -70,6 +70,7 @@ func _physics_process(_delta: float) -> void:
 	request.kind = DamageRequest.Kind.ENVIRONMENT
 	request.amount = definition.damage
 	request.physics_tick = Engine.get_physics_frames()
+	request.hit_direction = (actor_position-global_position).normalized()
 	policy.submit(request)
 
 func _draw() -> void:

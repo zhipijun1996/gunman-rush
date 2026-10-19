@@ -347,6 +347,7 @@ func _load_stage() -> void:
 	policy.lifetime = lifetime
 	add_child(policy)
 	policy.register_target(&"player", controller.actor_resources.health, true)
+	policy.register_player_controller(controller)
 	policy.player_fatal.connect(_player_fatal)
 	policy.environment_return_requested.connect(_environment_return)
 	policy.batch_resolved.connect(_damage_resolved.bind(policy, lifetime.stage_epoch, lifetime.epoch))
@@ -364,11 +365,21 @@ func _load_stage() -> void:
 			_status = "GENERATION FAILED / invalid windchime layout"
 			abandon_run()
 			return
+		if connected_region:
+			(random_stage.assembler as PlainsRegionAssembler).attack_shortcut_opened.connect(_record_attack_shortcut_opened.bind(lifetime.stage_epoch,lifetime.epoch))
 		director.manifest.record_output(director.stage_index, &"shot_latch_layout", random_stage.generated.manifest.shot_latch_plan)
-		for index: int in random_stage.assembler.world_static_dangers().size():
-			var danger: Rect2 = random_stage.assembler.world_static_dangers()[index]
+		var static_records: Array[Dictionary] = random_stage.assembler.world_static_hazard_records() if connected_region else []
+		var static_dangers := random_stage.assembler.world_static_dangers()
+		for index: int in static_dangers.size():
+			var danger: Rect2 = static_dangers[index]
 			var emitter := _contact(stage, StringName("generated_spikes_%s" % index), DamageRequest.Kind.ENVIRONMENT, danger.size / 2)
 			emitter.position = danger.get_center()
+			if connected_region:
+				var record: Dictionary = static_records[index]
+				emitter.fall_plane = record.role == "fall_plane"
+				emitter.set_meta("hazard_role",record.role)
+				emitter.set_meta("hazard_module",record.module_id)
+				emitter.set_meta("hazard_authored_id",record.authored_id)
 	else:
 		segment.danger_bounds = [Rect2(780, 530, 80, 110)]
 	await get_tree().physics_frame
@@ -460,6 +471,8 @@ func _load_stage() -> void:
 		if not generated_plains:
 			encounter.activate()
 		_boss_contact = _contact(stage.boss, &"boss_contact", DamageRequest.Kind.MONSTER, Vector2(72,62).min(encounter.definition.collision_size/2) if encounter is WindkeeperEncounter else Vector2(25,27))
+		if encounter is WindkeeperEncounter:
+			_boss_contact.contact_rect_provider = encounter.body_contact_rect
 		_boss_contact.enabled = not generated_plains
 	if director.stage_type_id == &"item_reward":
 		var candidates: Array[ItemDefinition] = []
@@ -520,7 +533,7 @@ func _physics_process(_delta: float) -> void:
 		segment.activate_anchor(&"midpoint")
 	if generated_plains:
 		var random_stage := stage as GeneratedDemoStage
-		if not random_stage.bounds.grow(100).has_point(position_now):
+		if DamageBoundary.should_return(player, random_stage.bounds):
 			_submit_damage(&"bounds", DamageRequest.Kind.ENVIRONMENT, 1.0)
 		if player.is_on_floor():
 			for index: int in random_stage.anchors.size():
@@ -1672,14 +1685,13 @@ func _cancel_enemy_attacks() -> void:
 			_boss_eligible_shots.clear()
 			if is_instance_valid(controller): controller.shoot_ability.clear_projectiles()
 
+func _record_attack_shortcut_opened(id: String, stage_epoch: int, run_epoch: int) -> void:
+	if not lifetime.active or lifetime.stage_epoch != stage_epoch or lifetime.epoch != run_epoch or not connected_region:
+		return
+	director.manifest.record_output(director.stage_index,StringName("shortcut/"+id),{"opened":true,"trigger":"accepted_attack"})
+
 func _region_interact() -> void:
 	var rs := stage as PlainsRegionStage
-	var shortcut_id := rs.nearby_shortcut(player.global_position)
-	if not shortcut_id.is_empty():
-		if (rs.assembler as PlainsRegionAssembler).open_shortcut(shortcut_id,player.global_position):
-			GameAudio.cue(self,&"door")
-			director.manifest.record_output(director.stage_index,StringName("shortcut/"+shortcut_id),{"opened": true})
-		return
 	var index := rs.nearby_chest(player.global_position)
 	if index >= 0:
 		var chest: Dictionary = rs.chests[index]

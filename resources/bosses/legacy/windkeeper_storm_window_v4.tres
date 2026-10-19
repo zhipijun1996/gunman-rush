@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="WindkeeperDefinition" load_steps=3 format=3]
+[ext_resource type="Script" path="res://scripts/bosses/windkeeper_definition.gd" id="1"]
+[ext_resource type="Resource" path="res://resources/bosses/windkeeper_storm_health.tres" id="2"]
+[resource]
+script = ExtResource("1")
+stable_id = &"plains_windkeeper"
+definition_version = 4
+health_definition = ExtResource("2")
+collision_size = Vector2(150, 130)
+patrol_speed = 225.0
+projectile_speed = 180.0
+projectile_radius = 10.0
+projectile_lifetime = 6.0
+
+storm_profile = true
+warning_seconds = 0.9
+exposed_seconds = 2.2
+charge_speed = 300.0
+blade_period = 3.0
+pier_warning_seconds = 0.75
+pier_recovery_seconds = 0.7
+
+platform_trials = true
+phase_warning_seconds = 3.2

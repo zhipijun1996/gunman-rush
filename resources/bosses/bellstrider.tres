@@ -4,10 +4,14 @@
 [resource]
 script = ExtResource("1")
 stable_id = &"plains_bellstrider"
-definition_version = 1
+definition_version = 2
+continuous_combat = true
 display_name = "鸣铃巡游机 / BELLSTRIDER"
 health_definition = ExtResource("2")
-collision_size = Vector2(104, 92)
+collision_size = Vector2(140, 144)
+collision_offset = Vector2(0, -6)
+contact_size = Vector2(128, 110)
+contact_offset = Vector2(0, 10)
 patrol_speed = 225.0
 projectile_speed = 180.0
 projectile_radius = 10.0

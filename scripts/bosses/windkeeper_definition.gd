@@ -1,6 +1,13 @@
 class_name WindkeeperDefinition
 extends BossDefinition
 
+# The formal continuous fight accepts hits throughout combat. Historical
+# window/core fixtures keep the original contract unless explicitly enabled.
+@export var continuous_combat := false
+# Contact can exclude an elevated pendant/antlers while the complete torso is
+# still shootable. Zero uses the historical Motor collision shape.
+@export var contact_size := Vector2.ZERO
+@export var contact_offset := Vector2.ZERO
 @export var storm_profile := false
 @export var platform_trials := false
 @export var final_upper_core_dot := 0.85
@@ -25,6 +32,8 @@ extends BossDefinition
 @export var pier_recovery_seconds := .8
 
 func is_valid() -> bool:
+	if not contact_size.is_finite() or not contact_offset.is_finite(): return false
+	if contact_size != Vector2.ZERO and (contact_size.x <= 0 or contact_size.y <= 0): return false
 	if not is_finite(final_upper_core_dot) or final_upper_core_dot<upper_core_dot or final_upper_core_dot>1:return false
 	if not crosswind_velocity.is_finite() or crosswind_velocity.length()>80 or not is_finite(upper_core_dot) or upper_core_dot<0 or upper_core_dot>1: return false
 	if not super.is_valid() or not wind_velocity.is_finite() or wind_velocity.length() > 80: return false

@@ -26,7 +26,11 @@ func step(intent: EnemyIntent, delta: float) -> bool:
 	if _knockback_seconds>0:
 		motion+=_knockback*minf(delta,_knockback_seconds);_knockback_seconds=maxf(0,_knockback_seconds-delta)
 	_attraction=Vector2.ZERO
-	return move_and_collide(motion)!=null if not motion.is_zero_approx() else false
+	velocity = motion / delta
+	var collision := move_and_collide(motion) if not motion.is_zero_approx() else null
+	if collision != null and _knockback.dot(collision.get_normal()) < 0:
+		_knockback = _knockback.slide(collision.get_normal())
+	return collision != null
 
 func stop() -> void:
 	_knockback=Vector2.ZERO;_knockback_seconds=0;_attraction=Vector2.ZERO;_attraction_tick=-1

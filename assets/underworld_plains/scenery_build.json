@@ -67,7 +67,7 @@
     "keepout_policy": "whole_display_bounds_plus_8",
     "support_policy": "full_root_span_on_exposed_static_solid",
     "max_landmarks_per_1280": 2,
-    "max_small_accents_per_1280": 2,
+    "max_small_accents_per_1280": 6,
     "identity_landmarks": {
       "windmill_plateau": {
         "kind": "tower",
@@ -148,6 +148,22 @@
         "red_not_above_blue": true
       },
       "foreground_visibility_policy": "complete_display_bounds_plus_2_not_intersect_actual_solid"
+    },
+    "small_accent_policy": {
+      "scope": "quiet exposed static banks only; no added tall landmark budget",
+      "kinds": [
+        "grass",
+        "flowers"
+      ],
+      "height_world_units": [
+        12,
+        20
+      ],
+      "minimum_foot_spacing": 82,
+      "total_per_1280_budget": 6,
+      "seed": "existing independent decoration namespace, no gameplay RNG",
+      "source": "existing licensed native grass and complete generated flower object",
+      "keepout": "whole display bounds plus8 unchanged"
     }
   },
   "consumer_scripts": [

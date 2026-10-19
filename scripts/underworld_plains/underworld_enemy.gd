@@ -1,6 +1,18 @@
 class_name UnderworldEnemy
 extends PixelPlainsEnemy
 ## Genuine new body art. Original state-based telegraphs remain authoritative.
+var feedback: DamageFeedbackDefinition = preload("res://resources/damage/feedback.tres")
+var accepted_hurt_count := 0
+
+func _ready() -> void:
+	super._ready()
+	actor.health.changed.connect(_accepted_damage)
+
+func _accepted_damage(result: ActorResourceResult) -> void:
+	if result == null or result.operation != &"damage" or result.status != ActorResourceResult.Status.APPLIED or result.amount_applied >= 0 or result.snapshot.terminal: return
+	_hurt = feedback.hurt_seconds
+	accepted_hurt_count += 1
+
 const SPRITES := {
 	"patrol":preload("res://assets/underworld_plains/actors/patrol.png"),
 	"hopper":preload("res://assets/underworld_plains/actors/hopper.png"),
@@ -28,9 +40,13 @@ func _draw() -> void:
 	var pose := Vector2.ONE
 	if state==&"telegraph": pose=Vector2(1.06,.94)
 	elif state==&"attack": pose=Vector2(.96,1.04)
+	if _hurt > 0 and not actor.health.terminal:
+		var age := feedback.hurt_seconds-_hurt
+		pose = Vector2(.86,1.10) if age < .10 else Vector2(1.06,.96)
+		dip -= sin(age/feedback.hurt_seconds*PI)*3
 	var flutter := 2*roundf(sin(_clock*12)) if actor.definition.aerial else 0.0
 	draw_set_transform(Vector2(0,dip+flutter),0,Vector2(float(actor.brain.direction)*pose.x,pose.y))
-	draw_texture_rect(source,Rect2(-width*.5,floor_y-height,width,height),false,Color(1.8,1.6,1.3) if _hurt>0 else Color.WHITE)
+	draw_texture_rect(source,Rect2(-width*.5,floor_y-height,width,height),false,Color(1.4,.72,.48) if _hurt>0 and int(_hurt*feedback.flash_frequency)%2==0 else Color.WHITE)
 	draw_set_transform(Vector2.ZERO)
 	if actor.health.terminal: return
 	var top := -size.y*.5
