@@ -9,6 +9,7 @@ signal requested_plains(seed: String)
 signal requested_upgrade
 signal requested_lab
 signal requested_actions
+signal requested_foundation
 signal requested_foundry
 signal requested_random(seed: String)
 signal requested_resume
@@ -74,6 +75,9 @@ func show_title() -> void:
 	logo.custom_minimum_size = Vector2(400, 170)
 	_content.add_child(logo)
 	_title("GUNMAN RUSH", "A painted world. A shot that carries you forward.")
+	_button(_content, "NEW ART FOUNDATION / 47 TILE", func() -> void:
+		_hide()
+		requested_foundation.emit())
 	_button(_content, "ENTER HOME", func() -> void:
 		_hide()
 		requested_enter_home.emit())

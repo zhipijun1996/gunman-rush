@@ -852,6 +852,15 @@
       "artifact_paths": [
         "build/production_repair/art"
       ]
+    },
+    "blob47-foundation": {
+      "argv": [
+        "python3",
+        "tools/run_blob47_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^PASS: blob47 foundation",
+      "weight_seconds": 12
     }
   },
   "profiles": {
@@ -951,7 +960,8 @@
       "root-bell-spaces",
       "root-bell-ecology",
       "forest-h-slice",
-      "connected-family-tests"
+      "connected-family-tests",
+      "blob47-foundation"
     ],
     "art": [
       "docs",
@@ -1001,7 +1011,8 @@
       "web-resource-contract-tests",
       "runtime-raw-export-tests",
       "asset-family-tests",
-      "connected-family-tests"
+      "connected-family-tests",
+      "blob47-foundation"
     ],
     "web": [
       "docs",
@@ -1094,7 +1105,8 @@
       "web-resource-contract-tests",
       "runtime-raw-export-tests",
       "asset-family-tests",
-      "connected-family-tests"
+      "connected-family-tests",
+      "blob47-foundation"
     ]
   }
 }

@@ -21,6 +21,7 @@ var _meta_purchase_sequence := 0
 var _run_camera: StageCameraRig
 var _lab: ModuleLab
 var _action_studio: ActionStudio
+var _foundation_lab: Blob47Lab
 var _foundry: FoundryLab
 var _preview: RandomStagePreview
 var lifetime := DemoLifetime.new()
@@ -96,6 +97,10 @@ func _ready() -> void:
 	_refresh_home_meta()
 	_hide_run_hud()
 	menu.show_title()
+	var foundation_requested := "--blob47" in OS.get_cmdline_user_args()
+	if OS.has_feature("web"):
+		foundation_requested = bool(JavaScriptBridge.eval("new URLSearchParams(location.search).has('foundation')"))
+	if foundation_requested: _open_foundation.call_deferred()
 
 var connected_region := false
 # Explicit pilot request is read only at run start; saved map hashes can replay v10.
@@ -1244,6 +1249,7 @@ func _make_ui() -> void:
 	menu.requested_upgrade.connect(_purchase_meta_upgrade)
 	menu.requested_lab.connect(_open_module_lab)
 	menu.requested_actions.connect(_open_action_studio)
+	menu.requested_foundation.connect(_open_foundation)
 	menu.requested_foundry.connect(_open_foundry)
 	menu.requested_random.connect(_open_random_preview)
 	menu.requested_resume.connect(_resume_from_menu)
@@ -1760,3 +1766,15 @@ func _open_action_studio() -> void:
 		_action_studio = null
 		_show_home())
 	add_child(_action_studio)
+
+func _open_foundation() -> void:
+	if director.state != DemoRunDirector.State.HOME or is_instance_valid(_foundation_lab): return
+	_remove_home_scene()
+	menu.hide_home()
+	_foundation_lab = preload("res://scenes/demo/blob47_lab.tscn").instantiate()
+	_foundation_lab.input_values = _session_input.duplicate(true)
+	_foundation_lab.home_requested.connect(func() -> void:
+		_foundation_lab.queue_free()
+		_foundation_lab = null
+		_show_home())
+	add_child(_foundation_lab)

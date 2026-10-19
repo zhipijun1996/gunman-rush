@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "task_id": "ART-BLOB47-FOUNDATION-01",
+  "task_type": "art",
+  "workflow": "review",
+  "baseline_commit": "e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7",
+  "reviewed_commit": "e8ee34446aa82b4e64f5cdc414a22f5b6e2a6ca7",
+  "content_version": "blob47-v1",
+  "owner": "/root",
+  "purpose": "从零建立47-tile blob美术地基、分层流程和独立可试玩候选；不继承旧画风，不声称全区已重制",
+  "player_experience": "实体可站面/单向/移动/危险语义明确，模块可由tile实现；装饰灯光有界且不影响玩法",
+  "constraints": [
+    "不参考历史美术素材或画风",
+    "保留核心Motor/资源/保存/正式生成池",
+    "候选画风不冒签用户认可",
+    "不合并main；新入口独立"
+  ],
+  "affected_paths": [
+    ".agents/skills/art-director/SKILL.md",
+    ".agents/skills/level-module-creator/SKILL.md",
+    ".agents/skills/region-generator/SKILL.md",
+    "AGENTS.md",
+    "assets/art_foundation_v1/far.svg",
+    "assets/art_foundation_v1/far.svg.import",
+    "assets/art_foundation_v1/manifest.json",
+    "assets/art_foundation_v1/middle.svg",
+    "assets/art_foundation_v1/middle.svg.import",
+    "assets/art_foundation_v1/props.svg",
+    "assets/art_foundation_v1/props.svg.import",
+    "assets/art_foundation_v1/sandstone_blob47.svg",
+    "assets/art_foundation_v1/sandstone_blob47.svg.import",
+    "assets/art_foundation_v1/sky.svg",
+    "assets/art_foundation_v1/sky.svg.import",
+    "assets/manifest.json",
+    "docs/art_foundation_v1.md",
+    "docs/art_quality_target.md",
+    "docs/content_pipeline.md",
+    "docs/quality/asset_records/blob47_foundation_v1.json",
+    "docs/quality/blob47_independent_review.md",
+    "docs/quality/records/ART-BLOB47-FOUNDATION-01.json",
+    "docs/visual_and_gamefeel.md",
+    "docs/visual_bible.md",
+    "scenes/demo/blob47_lab.tscn",
+    "scripts/art_foundation/blob47_backdrop.gd",
+    "scripts/art_foundation/blob47_backdrop.gd.uid",
+    "scripts/art_foundation/blob47_decoration.gd",
+    "scripts/art_foundation/blob47_decoration.gd.uid",
+    "scripts/art_foundation/blob47_lab.gd",
+    "scripts/art_foundation/blob47_lab.gd.uid",
+    "scripts/art_foundation/blob47_layout.gd",
+    "scripts/art_foundation/blob47_layout.gd.uid",
+    "scripts/art_foundation/blob47_platform.gd",
+    "scripts/art_foundation/blob47_platform.gd.uid",
+    "scripts/art_foundation/blob47_player_visual.gd",
+    "scripts/art_foundation/blob47_player_visual.gd.uid",
+    "scripts/art_foundation/blob47_rules.gd",
+    "scripts/art_foundation/blob47_rules.gd.uid",
+    "scripts/art_foundation/blob47_terrain.gd",
+    "scripts/art_foundation/blob47_terrain.gd.uid",
+    "scripts/demo/demo_app.gd",
+    "scripts/ui/demo_menu.gd",
+    "tests/test_blob47_foundation.gd",
+    "tests/test_blob47_foundation.gd.uid",
+    "tests/test_blob47_layout.gd",
+    "tests/test_blob47_layout.gd.uid",
+    "tools/build_blob47_art.py",
+    "tools/harness/profiles.json",
+    "tools/run_blob47_tests.py"
+  ],
+  "deliverables": [
+    "docs/art_foundation_v1.md",
+    "scenes/demo/blob47_lab.tscn",
+    "tools/run_blob47_tests.py"
+  ],
+  "creative_decisions": [
+    {
+      "decision": "47-tile地基、三层组织、取消空洞/奥日目标",
+      "status": "user_confirmed",
+      "basis": "本轮用户原话1–4要求"
+    },
+    {
+      "decision": "原创SVG暖砂岩与冷色多层远景",
+      "status": "proposed",
+      "basis": "本轮新绘候选，等待实际画面反馈"
+    }
+  ],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "完整docs/art/gameplay profile因本地稀疏检出未物化历史证据而未通过",
+    "最终用户视觉认可/实体设备/完整敌人黄金/纵向镜头/可选上路/正式地图迁移未验"
+  ]
+}
