@@ -1,0 +1,795 @@
+{
+  "scope": "two source-bound actual GL60fps controlled movies and selected frames, not human/audio/whole-film acceptance",
+  "matrix16_receipt_sha256": "8516c6167a0c7df33f508a174f3588647886523500e3ca204a43f0cf16b8622f",
+  "prior_source_archive": "docs/evidence/forest_grapple02/checkpoint04/selected-originals.zip",
+  "prior_source_archive_sha256": "b3f0fa0ba2a13d6decc4d8505d481c168e3cfe392f7122762943e801c50c83b2",
+  "movies": [
+    {
+      "route": "map2-fast",
+      "source_before_exact_matrix16": true,
+      "original_input_count": 2127,
+      "original_cli_native_seconds": 154.9296488980035,
+      "original_cap_seconds": 240,
+      "actual_input_mode": "original controlled normal InputRouter/Motor route; not a human recording",
+      "capture_position_or_resource_injection": false,
+      "capture_manual_motor_step": false,
+      "media": {
+        "mp4": {
+          "path": "docs/evidence/forest_grapple02/movies02/map2-fast.mp4",
+          "bytes": 6775868,
+          "sha256": "3a1b72f84cec62e09d94d049dbd8f5c3d45b6792593416fc4f23beecd6dacc07",
+          "ffprobe_argv": [
+            "ffprobe",
+            "-v",
+            "error",
+            "-count_frames",
+            "-show_streams",
+            "-show_format",
+            "-of",
+            "json",
+            "/workspace/gunman-rush-design/docs/evidence/forest_grapple02/movies02/map2-fast.mp4"
+          ],
+          "ffprobe": {
+            "streams": [
+              {
+                "index": 0,
+                "codec_name": "h264",
+                "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+                "profile": "High",
+                "codec_type": "video",
+                "codec_tag_string": "avc1",
+                "codec_tag": "0x31637661",
+                "width": 1280,
+                "height": 720,
+                "coded_width": 1280,
+                "coded_height": 720,
+                "closed_captions": 0,
+                "film_grain": 0,
+                "has_b_frames": 2,
+                "sample_aspect_ratio": "1:1",
+                "display_aspect_ratio": "16:9",
+                "pix_fmt": "yuvj420p",
+                "level": 32,
+                "color_range": "pc",
+                "color_space": "bt470bg",
+                "chroma_location": "center",
+                "field_order": "progressive",
+                "refs": 4,
+                "is_avc": "true",
+                "nal_length_size": "4",
+                "id": "0x1",
+                "r_frame_rate": "60/1",
+                "avg_frame_rate": "60/1",
+                "time_base": "1/15360",
+                "start_pts": 0,
+                "start_time": "0.000000",
+                "duration_ts": 452864,
+                "duration": "29.483333",
+                "bit_rate": "1698849",
+                "bits_per_raw_sample": "8",
+                "nb_frames": "1769",
+                "nb_read_frames": "1769",
+                "extradata_size": 50,
+                "disposition": {
+                  "default": 1,
+                  "dub": 0,
+                  "original": 0,
+                  "comment": 0,
+                  "lyrics": 0,
+                  "karaoke": 0,
+                  "forced": 0,
+                  "hearing_impaired": 0,
+                  "visual_impaired": 0,
+                  "clean_effects": 0,
+                  "attached_pic": 0,
+                  "timed_thumbnails": 0,
+                  "non_diegetic": 0,
+                  "captions": 0,
+                  "descriptions": 0,
+                  "metadata": 0,
+                  "dependent": 0,
+                  "still_image": 0,
+                  "multilayer": 0
+                },
+                "tags": {
+                  "language": "und",
+                  "handler_name": "VideoHandler",
+                  "vendor_id": "[0][0][0][0]",
+                  "encoder": "Lavc61.19.101 libx264"
+                }
+              },
+              {
+                "index": 1,
+                "codec_name": "aac",
+                "codec_long_name": "AAC (Advanced Audio Coding)",
+                "profile": "LC",
+                "codec_type": "audio",
+                "codec_tag_string": "mp4a",
+                "codec_tag": "0x6134706d",
+                "sample_fmt": "fltp",
+                "sample_rate": "48000",
+                "channels": 2,
+                "channel_layout": "stereo",
+                "bits_per_sample": 0,
+                "initial_padding": 0,
+                "id": "0x2",
+                "r_frame_rate": "0/0",
+                "avg_frame_rate": "0/0",
+                "time_base": "1/48000",
+                "start_pts": 0,
+                "start_time": "0.000000",
+                "duration_ts": 1415184,
+                "duration": "29.483000",
+                "bit_rate": "126671",
+                "nb_frames": "1384",
+                "nb_read_frames": "1383",
+                "extradata_size": 5,
+                "disposition": {
+                  "default": 1,
+                  "dub": 0,
+                  "original": 0,
+                  "comment": 0,
+                  "lyrics": 0,
+                  "karaoke": 0,
+                  "forced": 0,
+                  "hearing_impaired": 0,
+                  "visual_impaired": 0,
+                  "clean_effects": 0,
+                  "attached_pic": 0,
+                  "timed_thumbnails": 0,
+                  "non_diegetic": 0,
+                  "captions": 0,
+                  "descriptions": 0,
+                  "metadata": 0,
+                  "dependent": 0,
+                  "still_image": 0,
+                  "multilayer": 0
+                },
+                "tags": {
+                  "language": "und",
+                  "handler_name": "SoundHandler",
+                  "vendor_id": "[0][0][0][0]"
+                }
+              }
+            ],
+            "format": {
+              "filename": "/workspace/gunman-rush-design/docs/evidence/forest_grapple02/movies02/map2-fast.mp4",
+              "nb_streams": 2,
+              "nb_programs": 0,
+              "nb_stream_groups": 0,
+              "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+              "format_long_name": "QuickTime / MOV",
+              "start_time": "0.000000",
+              "duration": "29.483333",
+              "size": "6775868",
+              "bit_rate": "1838562",
+              "probe_score": 100,
+              "tags": {
+                "major_brand": "isom",
+                "minor_version": "512",
+                "compatible_brands": "isomiso2avc1mp41",
+                "encoder": "Lavf61.7.103"
+              }
+            }
+          },
+          "video_frames_counted": 1769,
+          "video_duration_seconds": 29.483333,
+          "audio_stream_present": true
+        },
+        "original_avi": {
+          "path": "build/forest_grapple02/movie_final_map2_fast02/00-map2-fast/gameplay.avi",
+          "bytes": 100100952,
+          "sha256": "68ee234f4c7eefc6ced059b78acb9720d994a15d4ff2417c32fcce89bd7379ad",
+          "ffprobe_argv": [
+            "ffprobe",
+            "-v",
+            "error",
+            "-count_frames",
+            "-show_streams",
+            "-show_format",
+            "-of",
+            "json",
+            "/workspace/gunman-rush-design/build/forest_grapple02/movie_final_map2_fast02/00-map2-fast/gameplay.avi"
+          ],
+          "ffprobe": {
+            "streams": [
+              {
+                "index": 0,
+                "codec_name": "mjpeg",
+                "codec_long_name": "Motion JPEG",
+                "profile": "Baseline",
+                "codec_type": "video",
+                "codec_tag_string": "MJPG",
+                "codec_tag": "0x47504a4d",
+                "width": 1280,
+                "height": 720,
+                "coded_width": 1280,
+                "coded_height": 720,
+                "closed_captions": 0,
+                "film_grain": 0,
+                "has_b_frames": 0,
+                "sample_aspect_ratio": "1:1",
+                "display_aspect_ratio": "16:9",
+                "pix_fmt": "yuvj420p",
+                "level": -99,
+                "color_range": "pc",
+                "color_space": "bt470bg",
+                "chroma_location": "center",
+                "refs": 1,
+                "r_frame_rate": "60/1",
+                "avg_frame_rate": "60/1",
+                "time_base": "1/60",
+                "start_pts": 0,
+                "start_time": "0.000000",
+                "duration_ts": 1769,
+                "duration": "29.483333",
+                "bit_rate": "25616715",
+                "bits_per_raw_sample": "8",
+                "nb_frames": "1769",
+                "nb_read_frames": "1769",
+                "disposition": {
+                  "default": 0,
+                  "dub": 0,
+                  "original": 0,
+                  "comment": 0,
+                  "lyrics": 0,
+                  "karaoke": 0,
+                  "forced": 0,
+                  "hearing_impaired": 0,
+                  "visual_impaired": 0,
+                  "clean_effects": 0,
+                  "attached_pic": 0,
+                  "timed_thumbnails": 0,
+                  "non_diegetic": 0,
+                  "captions": 0,
+                  "descriptions": 0,
+                  "metadata": 0,
+                  "dependent": 0,
+                  "still_image": 0,
+                  "multilayer": 0
+                }
+              },
+              {
+                "index": 1,
+                "codec_name": "pcm_s16le",
+                "codec_long_name": "PCM signed 16-bit little-endian",
+                "codec_type": "audio",
+                "codec_tag_string": "[1][0][0][0]",
+                "codec_tag": "0x0001",
+                "sample_fmt": "s16",
+                "sample_rate": "48000",
+                "channels": 2,
+                "bits_per_sample": 16,
+                "initial_padding": 0,
+                "r_frame_rate": "0/0",
+                "avg_frame_rate": "0/0",
+                "time_base": "1/48000",
+                "start_pts": 0,
+                "start_time": "0.000000",
+                "bit_rate": "1536000",
+                "nb_frames": "1415200",
+                "nb_read_frames": "1769",
+                "disposition": {
+                  "default": 0,
+                  "dub": 0,
+                  "original": 0,
+                  "comment": 0,
+                  "lyrics": 0,
+                  "karaoke": 0,
+                  "forced": 0,
+                  "hearing_impaired": 0,
+                  "visual_impaired": 0,
+                  "clean_effects": 0,
+                  "attached_pic": 0,
+                  "timed_thumbnails": 0,
+                  "non_diegetic": 0,
+                  "captions": 0,
+                  "descriptions": 0,
+                  "metadata": 0,
+                  "dependent": 0,
+                  "still_image": 0,
+                  "multilayer": 0
+                }
+              }
+            ],
+            "format": {
+              "filename": "/workspace/gunman-rush-design/build/forest_grapple02/movie_final_map2_fast02/00-map2-fast/gameplay.avi",
+              "nb_streams": 2,
+              "nb_programs": 0,
+              "nb_stream_groups": 0,
+              "format_name": "avi",
+              "format_long_name": "AVI (Audio Video Interleaved)",
+              "start_time": "0.000000",
+              "duration": "29.483333",
+              "size": "100100952",
+              "bit_rate": "27161366",
+              "probe_score": 100
+            }
+          },
+          "video_frames_counted": 1769,
+          "video_duration_seconds": 29.483333,
+          "audio_stream_present": true
+        }
+      },
+      "scope": "Same frame count/rate/duration verifies no temporal speed change; encoding not byte/pixel identical. Audio presence not listening. No reviewer whole-film viewing or G5/device acceptance."
+    },
+    {
+      "route": "map1-growth",
+      "source_before_exact_matrix16": true,
+      "original_input_count": 2127,
+      "original_cli_native_seconds": 184.48031158800586,
+      "original_cap_seconds": 240,
+      "actual_input_mode": "original controlled normal InputRouter/Motor route; not a human recording",
+      "capture_position_or_resource_injection": false,
+      "capture_manual_motor_step": false,
+      "media": {
+        "mp4": {
+          "path": "docs/evidence/forest_grapple02/movies02/map1-growth.mp4",
+          "bytes": 6934707,
+          "sha256": "49cf33eab3a76965658172a3fec581a41d2c73e4b6c657603cf43a7c20447c56",
+          "ffprobe_argv": [
+            "ffprobe",
+            "-v",
+            "error",
+            "-count_frames",
+            "-show_streams",
+            "-show_format",
+            "-of",
+            "json",
+            "/workspace/gunman-rush-design/docs/evidence/forest_grapple02/movies02/map1-growth.mp4"
+          ],
+          "ffprobe": {
+            "streams": [
+              {
+                "index": 0,
+                "codec_name": "h264",
+                "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+                "profile": "High",
+                "codec_type": "video",
+                "codec_tag_string": "avc1",
+                "codec_tag": "0x31637661",
+                "width": 1280,
+                "height": 720,
+                "coded_width": 1280,
+                "coded_height": 720,
+                "closed_captions": 0,
+                "film_grain": 0,
+                "has_b_frames": 2,
+                "sample_aspect_ratio": "1:1",
+                "display_aspect_ratio": "16:9",
+                "pix_fmt": "yuvj420p",
+                "level": 32,
+                "color_range": "pc",
+                "color_space": "bt470bg",
+                "chroma_location": "center",
+                "field_order": "progressive",
+                "refs": 4,
+                "is_avc": "true",
+                "nal_length_size": "4",
+                "id": "0x1",
+                "r_frame_rate": "60/1",
+                "avg_frame_rate": "60/1",
+                "time_base": "1/15360",
+                "start_pts": 0,
+                "start_time": "0.000000",
+                "duration_ts": 521728,
+                "duration": "33.966667",
+                "bit_rate": "1494803",
+                "bits_per_raw_sample": "8",
+                "nb_frames": "2038",
+                "nb_read_frames": "2038",
+                "extradata_size": 50,
+                "disposition": {
+                  "default": 1,
+                  "dub": 0,
+                  "original": 0,
+                  "comment": 0,
+                  "lyrics": 0,
+                  "karaoke": 0,
+                  "forced": 0,
+                  "hearing_impaired": 0,
+                  "visual_impaired": 0,
+                  "clean_effects": 0,
+                  "attached_pic": 0,
+                  "timed_thumbnails": 0,
+                  "non_diegetic": 0,
+                  "captions": 0,
+                  "descriptions": 0,
+                  "metadata": 0,
+                  "dependent": 0,
+                  "still_image": 0,
+                  "multilayer": 0
+                },
+                "tags": {
+                  "language": "und",
+                  "handler_name": "VideoHandler",
+                  "vendor_id": "[0][0][0][0]",
+                  "encoder": "Lavc61.19.101 libx264"
+                }
+              },
+              {
+                "index": 1,
+                "codec_name": "aac",
+                "codec_long_name": "AAC (Advanced Audio Coding)",
+                "profile": "LC",
+                "codec_type": "audio",
+                "codec_tag_string": "mp4a",
+                "codec_tag": "0x6134706d",
+                "sample_fmt": "fltp",
+                "sample_rate": "48000",
+                "channels": 2,
+                "channel_layout": "stereo",
+                "bits_per_sample": 0,
+                "initial_padding": 0,
+                "id": "0x2",
+                "r_frame_rate": "0/0",
+                "avg_frame_rate": "0/0",
+                "time_base": "1/48000",
+                "start_pts": 0,
+                "start_time": "0.000000",
+                "duration_ts": 1630368,
+                "duration": "33.966000",
+                "bit_rate": "125468",
+                "nb_frames": "1594",
+                "nb_read_frames": "1593",
+                "extradata_size": 5,
+                "disposition": {
+                  "default": 1,
+                  "dub": 0,
+                  "original": 0,
+                  "comment": 0,
+                  "lyrics": 0,
+                  "karaoke": 0,
+                  "forced": 0,
+                  "hearing_impaired": 0,
+                  "visual_impaired": 0,
+                  "clean_effects": 0,
+                  "attached_pic": 0,
+                  "timed_thumbnails": 0,
+                  "non_diegetic": 0,
+                  "captions": 0,
+                  "descriptions": 0,
+                  "metadata": 0,
+                  "dependent": 0,
+                  "still_image": 0,
+                  "multilayer": 0
+                },
+                "tags": {
+                  "language": "und",
+                  "handler_name": "SoundHandler",
+                  "vendor_id": "[0][0][0][0]"
+                }
+              }
+            ],
+            "format": {
+              "filename": "/workspace/gunman-rush-design/docs/evidence/forest_grapple02/movies02/map1-growth.mp4",
+              "nb_streams": 2,
+              "nb_programs": 0,
+              "nb_stream_groups": 0,
+              "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+              "format_long_name": "QuickTime / MOV",
+              "start_time": "0.000000",
+              "duration": "33.966667",
+              "size": "6934707",
+              "bit_rate": "1633297",
+              "probe_score": 100,
+              "tags": {
+                "major_brand": "isom",
+                "minor_version": "512",
+                "compatible_brands": "isomiso2avc1mp41",
+                "encoder": "Lavf61.7.103"
+              }
+            }
+          },
+          "video_frames_counted": 2038,
+          "video_duration_seconds": 33.966667,
+          "audio_stream_present": true
+        },
+        "original_avi": {
+          "path": "build/forest_grapple02/movie_final_map1_growth02/00-map1-growth/gameplay.avi",
+          "bytes": 108078324,
+          "sha256": "262e328be9b3aa9f5263e670b0960878a34e945ed88a1392f9b48e3358d37b2a",
+          "ffprobe_argv": [
+            "ffprobe",
+            "-v",
+            "error",
+            "-count_frames",
+            "-show_streams",
+            "-show_format",
+            "-of",
+            "json",
+            "/workspace/gunman-rush-design/build/forest_grapple02/movie_final_map1_growth02/00-map1-growth/gameplay.avi"
+          ],
+          "ffprobe": {
+            "streams": [
+              {
+                "index": 0,
+                "codec_name": "mjpeg",
+                "codec_long_name": "Motion JPEG",
+                "profile": "Baseline",
+                "codec_type": "video",
+                "codec_tag_string": "MJPG",
+                "codec_tag": "0x47504a4d",
+                "width": 1280,
+                "height": 720,
+                "coded_width": 1280,
+                "coded_height": 720,
+                "closed_captions": 0,
+                "film_grain": 0,
+                "has_b_frames": 0,
+                "sample_aspect_ratio": "1:1",
+                "display_aspect_ratio": "16:9",
+                "pix_fmt": "yuvj420p",
+                "level": -99,
+                "color_range": "pc",
+                "color_space": "bt470bg",
+                "chroma_location": "center",
+                "refs": 1,
+                "r_frame_rate": "60/1",
+                "avg_frame_rate": "60/1",
+                "time_base": "1/60",
+                "start_pts": 0,
+                "start_time": "0.000000",
+                "duration_ts": 2038,
+                "duration": "33.966667",
+                "bit_rate": "23907761",
+                "bits_per_raw_sample": "8",
+                "nb_frames": "2038",
+                "nb_read_frames": "2038",
+                "disposition": {
+                  "default": 0,
+                  "dub": 0,
+                  "original": 0,
+                  "comment": 0,
+                  "lyrics": 0,
+                  "karaoke": 0,
+                  "forced": 0,
+                  "hearing_impaired": 0,
+                  "visual_impaired": 0,
+                  "clean_effects": 0,
+                  "attached_pic": 0,
+                  "timed_thumbnails": 0,
+                  "non_diegetic": 0,
+                  "captions": 0,
+                  "descriptions": 0,
+                  "metadata": 0,
+                  "dependent": 0,
+                  "still_image": 0,
+                  "multilayer": 0
+                }
+              },
+              {
+                "index": 1,
+                "codec_name": "pcm_s16le",
+                "codec_long_name": "PCM signed 16-bit little-endian",
+                "codec_type": "audio",
+                "codec_tag_string": "[1][0][0][0]",
+                "codec_tag": "0x0001",
+                "sample_fmt": "s16",
+                "sample_rate": "48000",
+                "channels": 2,
+                "bits_per_sample": 16,
+                "initial_padding": 0,
+                "r_frame_rate": "0/0",
+                "avg_frame_rate": "0/0",
+                "time_base": "1/48000",
+                "start_pts": 0,
+                "start_time": "0.000000",
+                "bit_rate": "1536000",
+                "nb_frames": "1630400",
+                "nb_read_frames": "2038",
+                "disposition": {
+                  "default": 0,
+                  "dub": 0,
+                  "original": 0,
+                  "comment": 0,
+                  "lyrics": 0,
+                  "karaoke": 0,
+                  "forced": 0,
+                  "hearing_impaired": 0,
+                  "visual_impaired": 0,
+                  "clean_effects": 0,
+                  "attached_pic": 0,
+                  "timed_thumbnails": 0,
+                  "non_diegetic": 0,
+                  "captions": 0,
+                  "descriptions": 0,
+                  "metadata": 0,
+                  "dependent": 0,
+                  "still_image": 0,
+                  "multilayer": 0
+                }
+              }
+            ],
+            "format": {
+              "filename": "/workspace/gunman-rush-design/build/forest_grapple02/movie_final_map1_growth02/00-map1-growth/gameplay.avi",
+              "nb_streams": 2,
+              "nb_programs": 0,
+              "nb_stream_groups": 0,
+              "format_name": "avi",
+              "format_long_name": "AVI (Audio Video Interleaved)",
+              "start_time": "0.000000",
+              "duration": "33.966667",
+              "size": "108078324",
+              "bit_rate": "25455149",
+              "probe_score": 100
+            }
+          },
+          "video_frames_counted": 2038,
+          "video_duration_seconds": 33.966667,
+          "audio_stream_present": true
+        }
+      },
+      "scope": "Same frame count/rate/duration verifies no temporal speed change; encoding not byte/pixel identical. Audio presence not listening. No reviewer whole-film viewing or G5/device acceptance."
+    }
+  ],
+  "durable_files": [
+    {
+      "path": "map1-growth/frame_001.png",
+      "bytes": 217201,
+      "sha256": "c445469eb197adc7a0a2ccd98d66e8953bf7607ad2b3cc5bf52b50f1feac762d"
+    },
+    {
+      "path": "map1-growth/frame_002.png",
+      "bytes": 134402,
+      "sha256": "01325c338439ca651cfd2231ce861f772de137f8fd016fd742cdddc4a3c194e7"
+    },
+    {
+      "path": "map1-growth/frame_003.png",
+      "bytes": 117942,
+      "sha256": "e36ba2d492d8fbaff0509772ebc688b1b3cc97887b6ec119384d1d4eb76c3d2f"
+    },
+    {
+      "path": "map1-growth/frame_004.png",
+      "bytes": 114402,
+      "sha256": "7dd8685f7fd05e41694c22736791ee1e1670aa2e33fb28e164ffc7c10917e29c"
+    },
+    {
+      "path": "map1-growth/frame_005.png",
+      "bytes": 114825,
+      "sha256": "3961aa865d23219cc2edb0adcd42e0d218aea95f22de4b263a6e2c02e46df45b"
+    },
+    {
+      "path": "map1-growth/frame_006.png",
+      "bytes": 122945,
+      "sha256": "ea1b526f0c82b1cbcbb7df779e6b607086b34542271d0893c3374b2536c15613"
+    },
+    {
+      "path": "map1-growth/frame_007.png",
+      "bytes": 130461,
+      "sha256": "e0a624cd5f8c36bfc81c3cdec1211f86bbf6fb88be76e51818d293d552bd83bf"
+    },
+    {
+      "path": "map1-growth/frame_008.png",
+      "bytes": 128417,
+      "sha256": "be4a0e04621e2ceb825d25487f505e96e5e8ae560840673be139debef384ea2a"
+    },
+    {
+      "path": "map1-growth/frame_009.png",
+      "bytes": 150393,
+      "sha256": "706c70e69515b28213aca8dde179046289d2ac75cb5979e975646b69713e9d35"
+    },
+    {
+      "path": "map1-growth/index.json",
+      "bytes": 16434,
+      "sha256": "5d1c5037f3f1ff66450e8521d59205562af21b20f7157b27adfb238457b1bf73"
+    },
+    {
+      "path": "map1-growth/native.log",
+      "bytes": 2407,
+      "sha256": "18cfefe02af43b3fdf9dd6227b854de27cb6c58f137b72f08ee6044e91acecb0"
+    },
+    {
+      "path": "map1-growth/raw-capture.zip",
+      "bytes": 357532,
+      "sha256": "2eeff8c4b43cc5f9a6dee96eb8a3d0fd3336972ebfe58aea5c4550317a3e8625"
+    },
+    {
+      "path": "map1-growth/receipt.json",
+      "bytes": 762037,
+      "sha256": "22c42890a16f3bd7cef7ae7af2a396fa6ac4fde7dfb437f46aececf56b78a656"
+    },
+    {
+      "path": "map1-growth.mp4",
+      "bytes": 6934707,
+      "sha256": "49cf33eab3a76965658172a3fec581a41d2c73e4b6c657603cf43a7c20447c56"
+    },
+    {
+      "path": "map2-fast/frame_001.png",
+      "bytes": 218222,
+      "sha256": "d4c62a2f0f2a49475fb9109b098f6dfbd26467c10e8bbfe1b443349ba7c08fdb"
+    },
+    {
+      "path": "map2-fast/frame_002.png",
+      "bytes": 142277,
+      "sha256": "aa116f8aa4c7a6687c99bf695701c94cee3a8fd3a1757151d7e9957d14cd7f00"
+    },
+    {
+      "path": "map2-fast/frame_003.png",
+      "bytes": 147073,
+      "sha256": "8c2c3ac1272e967bf7e38bc2191f7e005a5d1a5b83effbb3ebb513a8acae3c38"
+    },
+    {
+      "path": "map2-fast/frame_004.png",
+      "bytes": 158246,
+      "sha256": "3a76fc84f36b4e447dcf61dfe0366817cd6fd891aae4311cfae508287de8b2e2"
+    },
+    {
+      "path": "map2-fast/frame_005.png",
+      "bytes": 154014,
+      "sha256": "e08168b76303eb0ff7ee844bbcfd128081a8eed44ff6626cf14a7f8c3b71391e"
+    },
+    {
+      "path": "map2-fast/frame_006.png",
+      "bytes": 242490,
+      "sha256": "716ec2ca8a3151a238dfd1a447f2dbf6cba3cbc6be2114efc06b3ddea59fcd5b"
+    },
+    {
+      "path": "map2-fast/frame_007.png",
+      "bytes": 247220,
+      "sha256": "d2660369f38204aa2faaeccc1eed83e354821293bdba783bf1a7594e3f528c36"
+    },
+    {
+      "path": "map2-fast/frame_008.png",
+      "bytes": 190626,
+      "sha256": "226522baafb64b480b72c6e69a6b3c218457a93cefd9d3af9f1194b81e51ad0f"
+    },
+    {
+      "path": "map2-fast/frame_009.png",
+      "bytes": 171717,
+      "sha256": "2236aca75364d4a5510f5b7e768d24efde74fa3b9b1d7c4ceb594765ab609492"
+    },
+    {
+      "path": "map2-fast/frame_010.png",
+      "bytes": 178130,
+      "sha256": "03b295dd26b81314bf5ad6683ac71ef4e528c8cfad40c17861b723834f0f6c4a"
+    },
+    {
+      "path": "map2-fast/frame_011.png",
+      "bytes": 217336,
+      "sha256": "8ed40a470628acd44809336d2757990ccd582d60e237317ac98e084f66ba7998"
+    },
+    {
+      "path": "map2-fast/frame_012.png",
+      "bytes": 243738,
+      "sha256": "2808c02f4521af1a8fa2e0f2a8485d0857c46add9e5ee2abb0b1bd4bbf72f68e"
+    },
+    {
+      "path": "map2-fast/frame_013.png",
+      "bytes": 263438,
+      "sha256": "eb837aff2ae6d58b6016701f93929e546dff4e75e90e60b63cd53105593bb93a"
+    },
+    {
+      "path": "map2-fast/index.json",
+      "bytes": 5012,
+      "sha256": "6305abe0f4360307869a071aa0f16fac69850488434dfd61e1288cf9ce585911"
+    },
+    {
+      "path": "map2-fast/native.log",
+      "bytes": 2356,
+      "sha256": "02c245ad8d97b4a557ba1eaee533abf4bd7b2b8835302e785445e666ba52e040"
+    },
+    {
+      "path": "map2-fast/raw-capture.zip",
+      "bytes": 365910,
+      "sha256": "8789babbc410bf313b6082b35405cf69b5956c187067f251d2591a93723202a4"
+    },
+    {
+      "path": "map2-fast/receipt.json",
+      "bytes": 762015,
+      "sha256": "85cebba84a2af67417341fdde1591cee4a7cf96a5c96e0cdb39620974b31c44e"
+    },
+    {
+      "path": "map2-fast/tree_return_view_1078.png",
+      "bytes": 264470,
+      "sha256": "932795c5ade441b23b8905deffcfd23e8fee9a1a776f099053395e013cfcf7d9"
+    },
+    {
+      "path": "map2-fast.mp4",
+      "bytes": 6775868,
+      "sha256": "3a1b72f84cec62e09d94d049dbd8f5c3d45b6792593416fc4f23beecd6dacc07"
+    }
+  ],
+  "media_modified_by_indexing": false,
+  "original_AVIs_retained_not_bundled": true
+}

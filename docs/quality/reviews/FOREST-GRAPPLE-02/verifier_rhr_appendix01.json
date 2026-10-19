@@ -1,0 +1,62 @@
+{
+  "scope": "read-only RHR factory/reader/suite migration; synthetic negatives and old actual capture, no native run",
+  "checks": {
+    "RHR_exact_program": true,
+    "same_geometry_as_original_RH": true,
+    "unknown_factory_rejected/recoil_hook_recoil_typo": true,
+    "unknown_factory_rejected/recoil_hook_recoil_v999": true,
+    "regional_omission_exact": true,
+    "suite_exact18_and_newlast": true,
+    "only_exact_new_golden_factory_case_choice_and_count_changes": true,
+    "profile_only17_to18": true,
+    "region_only_two_finite_membership_and_literal_branch_mapping_changes": true
+  },
+  "source_sha256": {
+    "scripts/generation/forest_air_chain_geometry.gd": "4d900bcbf8303a43ac73e9a75ac1d58a1dbde6e7616f83ace48e73f252a4543a",
+    "scripts/generation/forest_vertical_expedition.gd": "339bed3a4a4d665481b91ea85c39b733fdeb07928d1a7d4f3c79aeb9201e8bc2",
+    "tools/run_forest_depth_region.py": "ba42d42015e3427494a20f46f8a88efa3fbd7c8c5174b4e4c4d79e137732d146",
+    "tools/run_forest_air_chain.py": "499d61e03c3503301e3f026d4ee49a998be5e8a018b29f67cb0d05a41869665b",
+    "tools/harness/profiles.json": "219d0b494262939ecef57a64fc210ec4dd8a6da18a04e357f72e675aff28a99e"
+  },
+  "old_actual_RH": {
+    "path": "build/forest_grapple02/air18_final01/02-recoil_hook-intended/capture.json",
+    "sha256": "8da410b53c7df3edbfd3ebcea9f0db7b98874e05be11c855d8c9e36b471ee25a",
+    "errors": []
+  },
+  "synthetic_mutations": [
+    {
+      "kind": "fake_RHR_program",
+      "errors": [
+        "bridge_manifest_not_authoritative_factory"
+      ],
+      "rejected": true
+    },
+    {
+      "kind": "declare_RHR_without_actual_final_R",
+      "errors": [
+        "accepted_airborne_action_program_differs"
+      ],
+      "rejected": true
+    },
+    {
+      "kind": "changed_RHR_geometry",
+      "errors": [
+        "bridge_manifest_not_authoritative_factory",
+        "accepted_airborne_action_program_differs"
+      ],
+      "rejected": true
+    }
+  ],
+  "verdict": "ACCEPT",
+  "new_actual_RHR": {
+    "path": "build/forest_grapple02/air18_final01/17-recoil_hook_recoil-intended/capture.json",
+    "sha256": "887619d57334ef4f0746914dc3f8a2d624f7a4f5acd8ab1a8aed1033d0e183e6",
+    "frames": 452,
+    "errors": []
+  },
+  "author_actual_suite": {
+    "status": "passed",
+    "source_stable": true,
+    "cases": 18
+  }
+}

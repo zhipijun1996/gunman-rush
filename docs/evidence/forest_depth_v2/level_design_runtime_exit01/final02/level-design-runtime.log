@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-design/build/forest_depth/snapshots/level_capability02/tools/run_level_design_tests.py", line 32, in <module>
+    main()
+  File "/workspace/gunman-rush-design/build/forest_depth/snapshots/level_capability02/tools/run_level_design_tests.py", line 20, in main
+    if level_design.main(["capture", "--output", str(folder / "capture.json")]):
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush-design/build/forest_depth/snapshots/level_capability02/tools/level_design.py", line 362, in main
+    capture(args)
+  File "/workspace/gunman-rush-design/build/forest_depth/snapshots/level_capability02/tools/level_design.py", line 129, in capture
+    output = run_engine(command, 480)
+             ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush-design/build/forest_depth/snapshots/level_capability02/tools/run_tests.py", line 47, in run_engine
+    raise RuntimeError("Godot leaked ObjectDB instances or live resources at exit")
+RuntimeError: Godot leaked ObjectDB instances or live resources at exit

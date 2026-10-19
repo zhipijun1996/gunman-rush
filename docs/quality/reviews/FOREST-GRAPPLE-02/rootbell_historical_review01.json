@@ -1,0 +1,76 @@
+{
+  "reviewer": "/root/verifier_migration_review",
+  "scope": "Limited test-code contract migration acceptance, Python historical replay independently executed; GD40/native360 current gameplay not executed by reviewer and not yet claimed",
+  "checks": {
+    "fixture_exact_base_commit_bytes": true,
+    "pinned_original_capture": true,
+    "pinned_original_delta": true,
+    "independent_cli_original27_plus9": true,
+    "all9_authority_files_original_inventory_bound": true,
+    "before_scope_current_rejects_old": true,
+    "outer_main_ROOT_not_overridden": true,
+    "scoped_historical_positive": true,
+    "ROOT_restored_after_actual_predicate_exception": true,
+    "ROOT_and_strict_function_restored_after_context": true,
+    "after_scope_current_still_rejects_old": true,
+    "ROOT_changed_only_during_predicate": true,
+    "exception_not_suppressed": true,
+    "exception_restores_ROOT_and_wrapped_function": true,
+    "final_function_and_ROOT_identity": true,
+    "production_formal_file_unchanged_S1": true,
+    "artifact_only_profile_addition": true,
+    "actual_predicate_exception_observed": true,
+    "GD_non_audit_functions_byteidentical": true,
+    "original9_mutation_variants_byteidentical": true,
+    "original40_fixture_bytes_unchanged_S1": true,
+    "current_config_only_authorized_focus_change": true
+  },
+  "negative_probes": [
+    {
+      "kind": "fixture15",
+      "refused": true,
+      "reason": "Historical tuning bytes differ from pinned original source inventory"
+    },
+    {
+      "kind": "fixture_extra_byte",
+      "refused": true,
+      "reason": "Historical tuning bytes differ from pinned original source inventory"
+    },
+    {
+      "kind": "fake_inventory",
+      "refused": true,
+      "reason": "Historical tuning bytes differ from pinned original source inventory"
+    },
+    {
+      "kind": "initial_config_identity",
+      "refused": true,
+      "reason": "Historical capture config identity differs from original inventory"
+    },
+    {
+      "kind": "final_config_identity",
+      "refused": true,
+      "reason": "Historical capture config identity differs from original inventory"
+    },
+    {
+      "kind": "different_current_resource_cannot_be_reused",
+      "refused": true,
+      "reason": "Historical authority source mismatch resources/weapons/pulse_gun.tres"
+    }
+  ],
+  "original_capture_sha256": "f51bfaf0cdd27b22715e02923a1afd8b919e03eb44ce8b8189ea7d3b150a8a0f",
+  "source_inventory_count": 972,
+  "independent_cli_report": "build/root_bell/verifier_focus15_reader01/report.json",
+  "independent_cli_report_sha256": "14cd47533ade20eabbcb4a9c4c8cd4ec3e140fe4c3ccc8a8b6e769e53a59894e",
+  "reviewed_sha256": {
+    "tools/test_root_bell_formal_verifier.py": "b88176c688159a5252f41f94c34e860812cd7a65bb3cf976122cc65669d8298e",
+    "tests/fixtures/root_bell/pre_focus_15_player_tuning.json": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+    "tools/harness/profiles.json": "cbf0908795f90a77a796294520ac31eda6985f82d10b2ed07383846371cdf895",
+    "tools/run_root_bell_formal.py": "76e3aee0953bc9995851915a40eb7e47419a3e1ccc091af52bbd9c261666f2ae",
+    "config/player_tuning.json": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c",
+    "tests/root_bell_formal_tests.gd": "2df8559092e1601791c23605ad56c4a8fab47f580fc3cec4b2329490746afd47",
+    "docs/evidence/region_production_v3/enemy_encounter_v2/legacy_manifest_strings.json": "b7030e635a7e940fc1eabb6a2c88f9a1ab0578f80be115d41e618f1b4e016419"
+  },
+  "verdict": "ACCEPT_SCOPED_TEST_CONTRACT",
+  "actual_predicate_exception_reason": "Player dead/invalid HP during claimed surviving route",
+  "pending_native_evidence": "Original360-second root-bell-tests Harness consumer; actual40rows/current15/exacthistorical replay/strict clean native/source guard still pending"
+}

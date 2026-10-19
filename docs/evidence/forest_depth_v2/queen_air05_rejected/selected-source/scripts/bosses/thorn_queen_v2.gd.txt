@@ -1,0 +1,312 @@
+class_name ThornQueenV2
+extends ThornForestEncounter
+## Persistent weaving network; actual high/low migration, never a timed weak point.
+signal weave_event(event: Dictionary)
+var geometry: Dictionary = {}
+var knot: ThornQueenWeaveKnot
+var band: ThornQueenWeaveBand
+var knots: Array[ThornQueenWeaveKnot] = []
+var bands: Array[ThornQueenWeaveBand] = []
+var route_phase := 1
+var perch_index := 0
+var motion_mode := "perched"
+var motion_clock := 0.0
+var motion_leg := 0
+var migrations := 0
+var sampled_shore := 0
+var sampled_player := Vector2.ZERO
+var transition_origin := Vector2.ZERO
+var transition_from_phase := 0
+var _weave_life: DemoLifetime
+var _weave_bound := false
+var _weave_policy: FrameDamagePolicy
+var _weave_controller: PlayerController
+var _collision_player: PlayerMotor
+var last_restore_accepted := false
+var _restored_field := false
+var _fields_started := false
+func _ready() -> void:
+	super._ready()
+	motor.collision_mask=1;core_open=true;mode=&"perched"
+func bind_duel(data: Dictionary,controller: PlayerController,policy: FrameDamagePolicy,lifetime: DemoLifetime) -> bool:
+	if data.get("air_motion",false): return _air_bind(data,controller,policy,lifetime)
+	if not geometry.is_empty():
+		if not _weave_bound or geometry!=data or _weave_life!=lifetime or _weave_policy!=policy or controller==null: return false
+		if not _bind_current_player_collision(controller): return false
+		_weave_controller=controller
+		for field: ThornQueenWeaveBand in bands:
+			if is_instance_valid(field):
+				field.controller=controller
+				if active: field.resume_restored()
+		return true
+	if not definition is ThornQueenWeaveDefinition or not data.get("ok",false) or data.get("version")!="forest-queen-weave-golden-v2": return false
+	if policy==null or lifetime==null or controller==null: return false
+	if not data.get("weave_fields") is Array or data.weave_fields.size()!=3 or not data.get("phase_perches") is Array or data.phase_perches.size()!=3 or not data.get("phase_waypoints") is Array or data.phase_waypoints.size()!=3: return false
+	for row: Variant in data.weave_fields:
+		if not row is Dictionary: return false
+		for key: String in ["knot_position","strand_start","strand_tip"]:
+			if not _valid_point(row.get(key)): return false
+	for points: Variant in data.phase_perches+data.phase_waypoints:
+		if not points is Array: return false
+		for point: Variant in points:
+			if not _valid_point(point): return false
+	for points: Array in data.phase_perches:
+		if points.size()!=2: return false
+	geometry=data.duplicate(true);_weave_life=lifetime;_weave_policy=policy;_weave_controller=controller
+	if not _bind_current_player_collision(controller): return false
+	knots.resize(3);bands.resize(3)
+	if not _spawn_field(0) or not _spawn_field((definition as ThornQueenWeaveDefinition).rotating_field_index): return false
+	knot=knots[0];band=bands[0]
+	motion_clock=(definition as ThornQueenWeaveDefinition).perch_seconds
+	_weave_bound=true
+	return true
+func _bind_current_player_collision(controller: PlayerController) -> bool:
+	if controller==null or not is_instance_valid(controller.motor): return false
+	if is_instance_valid(_collision_player) and _collision_player!=controller.motor:
+		motor.remove_collision_exception_with(_collision_player)
+	_collision_player=controller.motor
+	motor.add_collision_exception_with(_collision_player)
+	return true
+func _spawn_field(index: int) -> bool:
+	if is_instance_valid(knots[index]): return true
+	var row: Dictionary=geometry.weave_fields[index]
+	var config := definition as ThornQueenWeaveDefinition
+	var next_knot := ThornQueenWeaveKnot.new()
+	next_knot.name="QueenWeaveKnot%s"%index;next_knot.position=_point(row.knot_position)
+	next_knot.bare_stem_tip=_point(row.strand_start)-next_knot.position
+	motor.get_parent().add_child(next_knot)
+	if not next_knot.configure(config,_weave_policy,&"queen/weave_knot" if index==0 else StringName("queen/weave_knot/%s"%index)): return false
+	var next_band := ThornQueenWeaveBand.new()
+	next_band.name="QueenGrowingWeave%s"%index;next_band.field_id=str(index)
+	motor.get_parent().add_child(next_band)
+	next_band.configure(config,_point(row.strand_start),_point(row.strand_tip),_weave_controller,_weave_policy,_weave_life)
+	motor.add_collision_exception_with(next_band.body)
+	next_band.weave_event.connect(func(event: Dictionary) -> void:
+		var tagged := event.duplicate(true);tagged.field=index;weave_event.emit(tagged))
+	next_knot.severed.connect(func() -> void:
+		next_band.cut();weave_event.emit({"event":"knot_health_severed","field":index,"health":next_knot.health.current}))
+	knots[index]=next_knot;bands[index]=next_band
+	weave_event.emit({"event":"new_field_spawned","field":index,"phase":index+1})
+	return true
+func activate() -> bool:
+	if not _weave_bound or not super.activate(): return false
+	core_open=true
+	for field: ThornQueenWeaveBand in bands:
+		if not is_instance_valid(field): continue
+		if _restored_field or _fields_started: field.resume_restored()
+		elif not field.begin(): return false
+	_fields_started=true
+	return true
+func origin_at() -> Vector2:
+	return _point(geometry.boss_position)-(definition as ThornQueenWeaveDefinition).boss_offset
+func perch_at(index: int,phase: int = -1) -> Vector2:
+	return _point(geometry.phase_perches[(route_phase if phase<0 else phase)-1][index])
+func normal_path(phase: int,index: int,shore: int = -1) -> Array[Vector2]:
+	var result: Array[Vector2]=[perch_at(index,phase)]
+	var rows: Array=geometry.phase_waypoints[phase-1].duplicate(true)
+	if phase==1:
+		var config := definition as ThornQueenWeaveDefinition
+		var chosen := sampled_shore if shore<0 else shore
+		for point: Vector2 in (config.near_right_patrol if chosen==1 else config.near_left_patrol): result.append(origin_at()+point)
+		result.append(perch_at(1-index,phase))
+		return result
+	if index==1: rows.reverse()
+	for point: Array in rows: result.append(_point(point))
+	result.append(perch_at(1-index,phase))
+	return result
+func transition_path(phase: int,first: Vector2,target_index: int) -> Array[Vector2]:
+	var config := definition as ThornQueenWeaveDefinition
+	var at := origin_at()
+	if phase==2:
+		var gaps := config.inner_gap_centers()
+		var x := gaps.x if absf(first.x-at.x-gaps.x)<=absf(first.x-at.x-gaps.y) else gaps.y
+		var low := perch_at(target_index,phase)
+		return [first,at+Vector2(x,config.upper_transit_y),Vector2(at.x+x,low.y),low]
+	var side_x := config.outer_right_x if first.x>=at.x+config.arena_size.x*.5 else config.outer_left_x
+	var passage_y := _point(geometry.phase_waypoints[2][1]).y
+	return [first,at+Vector2(side_x,config.lower_transit_y),Vector2(at.x+side_x,passage_y),_point(geometry.phase_waypoints[2][1]),_point(geometry.phase_waypoints[2][0]),perch_at(target_index,phase)]
+func motion_path() -> Array[Vector2]:
+	if _air_bound: return air_path()
+	return transition_path(route_phase,transition_origin,perch_index) if motion_mode in ["phase_preview","phase_flight"] else normal_path(route_phase,perch_index)
+func _start_phase(next: int) -> void:
+	# New network is announced immediately; physical migration never restarts mid-flight.
+	stage_phase=next;phases.phase=next
+	var existed := is_instance_valid(bands[next-1])
+	if _spawn_field(next-1) and not existed: bands[next-1].begin()
+	phase_changed.emit(next)
+	weave_event.emit({"event":"network_phase_started","phase":next,"route_phase":route_phase,"origin":[motor.position.x,motor.position.y]})
+func _start_route(next: int) -> void:
+	transition_from_phase=route_phase;transition_origin=motor.global_position
+	route_phase=next
+	if next==2:
+		sampled_player=_weave_controller.motor.global_position
+		sampled_shore=1 if sampled_player.x>=origin_at().x+(definition as ThornQueenWeaveDefinition).arena_size.x*.5 else 0
+	perch_index=(0 if sampled_shore==1 else 1) if next==2 else 0
+	motion_mode="phase_preview";motion_leg=0;motion_clock=(definition as ThornQueenWeaveDefinition).migration_preview_seconds
+	weave_event.emit({"event":"route_phase_started","phase":route_phase,"network_phase":stage_phase,"origin":[motor.position.x,motor.position.y],"target_perch":perch_index,"sampled_shore":sampled_shore,"sampled_player":[sampled_player.x,sampled_player.y],"shore_selected_route":next==2})
+func physics_tick(delta: float) -> void:
+	if _air_bound: _air_tick(delta);return
+	if not active or health.terminal or not is_finite(delta) or delta<=0: return
+	if _weave_life==null or not _weave_life.active or not combat_target_active(): motor.stop();return
+	core_open=true
+	var config := definition as ThornQueenWeaveDefinition
+	var main_cut := is_instance_valid(knots[config.rotating_field_index]) and knots[config.rotating_field_index].health.terminal
+	var wanted := 3 if health.current<=health.capacity*config.phase_three_health or (stage_phase>=2 and main_cut) else (2 if health.current<=health.capacity*config.phase_two_threshold else 1)
+	if wanted>stage_phase: _start_phase(stage_phase+1)
+	if route_phase<stage_phase and motion_mode not in ["flight","phase_preview","phase_flight"]: _start_route(route_phase+1)
+	if motion_mode=="phase_preview":
+		motor.stop();motion_clock=maxf(0,motion_clock-delta)
+		if motion_clock==0: motion_mode="phase_flight"
+	elif motion_mode in ["flight","phase_flight"]:
+		var path := motion_path()
+		if (motor as ThornQueenWeaveMotor).travel_to(path[motion_leg+1],config.migration_speed,delta):
+			if motion_leg<path.size()-2: motion_leg+=1
+			else:
+				if motion_mode=="flight": perch_index=1-perch_index;migrations+=1
+				motion_leg=0;motion_mode="perched";motion_clock=config.perch_seconds
+				weave_event.emit({"event":"perch_arrived","phase":route_phase,"network_phase":stage_phase,"perch":perch_index,"migrations":migrations,"position":[motor.position.x,motor.position.y]})
+	else:
+		motor.stop();motion_clock=maxf(0,motion_clock-delta)
+		if motion_clock==0:
+			if motion_mode=="perched":
+				sampled_player=_weave_controller.motor.global_position
+				sampled_shore=1 if sampled_player.x>=origin_at().x+config.arena_size.x*.5 else 0
+				motion_mode="migration_preview";motion_clock=config.migration_preview_seconds
+				var shown: Array=[]
+				for point: Vector2 in motion_path(): shown.append([point.x,point.y])
+				weave_event.emit({"event":"migration_preview","phase":route_phase,"network_phase":stage_phase,"from":perch_index,"to":1-perch_index,"sampled_shore":sampled_shore,"sampled_player":[sampled_player.x,sampled_player.y],"shore_selected_route":route_phase==1,"path":shown})
+			else: motion_mode="flight";motion_leg=0
+	mode=StringName(motion_mode)
+func accepts_core_direction(context: Dictionary) -> bool:
+	return active and not health.terminal and bool(context.get("amount",0)>0)
+func objective() -> String:
+	return "借结越地网 / BORROW ABOVE GROUND WEAVE" if stage_phase==1 else ("旋丝织场：借结换侧 / BORROW TO CROSS THE SWEEP" if stage_phase==2 else "新网长成：保结或剪断 / KEEP OR CUT THE LIVING KNOT")
+func cancel_pending_attacks() -> void: attack_epoch+=1
+func cancel() -> void:
+	cancel_pending_attacks()
+	for field: ThornQueenWeaveBand in bands:
+		if is_instance_valid(field): field.pause_battle()
+	super.cancel()
+func combat_snapshot() -> Dictionary:
+	var fields: Array[Dictionary]=[]
+	for index: int in knots.size():
+		fields.append({"spawned":true,"health":knots[index].health.current,"weave":bands[index].snapshot()} if is_instance_valid(knots[index]) else {"spawned":false})
+	return {"weave_schema":13,"sampled_shore":sampled_shore,"sampled_player":[sampled_player.x,sampled_player.y],"mode":motion_mode,"stage_phase":stage_phase,"route_phase":route_phase,"body_position":[motor.position.x,motor.position.y],"geometry_version":str(geometry.get("version","")),"fields":fields,
+		"knot_health":knot.health.current if is_instance_valid(knot) else 0,"weave":band.snapshot() if is_instance_valid(band) else {},"perch_index":perch_index,"motion_leg":motion_leg,"motion_clock":motion_clock,"migrations":migrations,"transition_origin":[transition_origin.x,transition_origin.y],"transition_from_phase":transition_from_phase,"attack_epoch":attack_epoch,"golden_only":true}
+func serialize_combat_state() -> Dictionary: return combat_snapshot()
+func valid_duel_snapshot(data: Dictionary) -> bool:
+	if not _weave_bound or not _valid_integer(data.get("weave_schema")): return false
+	if int(data.weave_schema)!=13 or typeof(data.get("geometry_version"))!=TYPE_STRING or typeof(data.get("mode"))!=TYPE_STRING: return false
+	if data.geometry_version!=geometry.get("version") or not _valid_point(data.get("body_position")) or not _valid_number(data.get("knot_health")): return false
+	if data.has("position") and not RandomStageGenerator.new()._same_data(data.body_position,data.position): return false
+	for key: String in ["stage_phase","route_phase","perch_index","motion_leg","migrations","attack_epoch","transition_from_phase"]:
+		if not _valid_integer(data.get(key)): return false
+	if not _valid_integer(data.get("sampled_shore")) or int(data.sampled_shore)>1 or not _valid_point(data.get("sampled_player")): return false
+	var network_phase := int(data.stage_phase)
+	var phase := int(data.route_phase);var index := int(data.perch_index)
+	if phase<1 or phase>network_phase or network_phase>3 or index>1 or data.get("mode") not in ["perched","migration_preview","flight","phase_preview","phase_flight"] or not _valid_point(data.get("transition_origin")): return false
+	if int(data.transition_from_phase)>=phase: return false
+	for future: int in range(network_phase,3):
+		if future!=(definition as ThornQueenWeaveDefinition).rotating_field_index and is_instance_valid(knots[future]): return false
+	if not _valid_number(data.get("motion_clock")) or float(data.motion_clock)<0: return false
+	var config := definition as ThornQueenWeaveDefinition
+	var at := _point(data.body_position)
+	if data.mode in ["perched","migration_preview"]:
+		if at.distance_to(perch_at(index,phase))>.001 or int(data.motion_leg)!=0: return false
+		if float(data.motion_clock)>(config.perch_seconds if data.mode=="perched" else config.migration_preview_seconds)+.00001: return false
+	else:
+		var path := normal_path(phase,index,int(data.sampled_shore))
+		if data.mode in ["phase_preview","phase_flight"]:
+			var previous := int(data.transition_from_phase)
+			if previous!=phase-1 or not _on_normal_route(_point(data.transition_origin),previous): return false
+			if phase==3 and index!=0: return false
+			if phase==2:
+				if int(data.sampled_shore)!=(1 if _point(data.sampled_player).x>=origin_at().x+config.arena_size.x*.5 else 0): return false
+				if index!=(0 if int(data.sampled_shore)==1 else 1): return false
+			path=transition_path(phase,_point(data.transition_origin),index)
+		var leg := int(data.motion_leg)
+		if data.mode=="phase_preview":
+			if leg!=0 or at.distance_to(_point(data.transition_origin))>.001 or float(data.motion_clock)>config.migration_preview_seconds+.00001: return false
+		elif leg>=path.size()-1 or Geometry2D.get_closest_point_to_segment(at,path[leg],path[leg+1]).distance_to(at)>.001 or float(data.motion_clock)!=0: return false
+	if not data.get("fields") is Array or data.fields.size()!=3: return false
+	for field_index: int in 3:
+		var field: Variant=data.fields[field_index]
+		if not field is Dictionary or typeof(field.get("spawned"))!=TYPE_BOOL: return false
+		if bool(field.spawned)!=(field_index<network_phase or field_index==config.rotating_field_index): return false
+		if not field.spawned:
+			if field.size()!=1: return false
+			continue
+		if not _valid_number(field.get("health")) or float(field.health)<0 or float(field.health)>config.knot_health_definition.max_health: return false
+		if not field.get("weave") is Dictionary or not ThornQueenWeaveBand.valid_snapshot_for(field.weave,config) or bool(field.weave.severed)!=(float(field.health)==0): return false
+		if bool(field.weave.suspended): return false
+		var expected_angle := (config.weave_tips[field_index]-config.weave_starts[field_index]).angle() if field_index==config.rotating_field_index else 0.0
+		if absf(float(field.weave.initial_angle)-expected_angle)>.000001: return false
+	return RandomStageGenerator.new()._same_data(data.get("weave"),data.fields[0].weave) and data.get("knot_health")==data.fields[0].health
+func restore_combat_state(data: Dictionary) -> void:
+	last_restore_accepted=false
+	if not valid_duel_snapshot(data): return
+	for index: int in 3:
+		if not data.fields[index].spawned: continue
+		if not _spawn_field(index) or not knots[index].restore_health(float(data.fields[index].health)) or not bands[index].restore(data.fields[index].weave): return
+	attack_epoch=maxi(attack_epoch,int(data.attack_epoch))+1
+	stage_phase=int(data.stage_phase);route_phase=int(data.route_phase);phases.phase=stage_phase;motion_mode=str(data.mode);mode=StringName(motion_mode)
+	sampled_shore=int(data.sampled_shore);sampled_player=_point(data.sampled_player)
+	perch_index=int(data.perch_index);motion_leg=int(data.motion_leg);motion_clock=float(data.motion_clock);migrations=int(data.migrations)
+	transition_origin=_point(data.transition_origin);transition_from_phase=int(data.transition_from_phase)
+	motor.position=_point(data.body_position);_restored_field=true;last_restore_accepted=true
+	if active:
+		for field: ThornQueenWeaveBand in bands:
+			if is_instance_valid(field): field.resume_restored()
+func _on_normal_route(at: Vector2,phase: int) -> bool:
+	for index: int in 2:
+		for shore: int in (2 if phase==1 else 1):
+			var path := normal_path(phase,index,shore)
+			for leg: int in path.size()-1:
+				if Geometry2D.get_closest_point_to_segment(at,path[leg],path[leg+1]).distance_to(at)<.001: return true
+	return false
+func _point(value: Array) -> Vector2: return Vector2(value[0],value[1])
+func _valid_point(value: Variant) -> bool:
+	return value is Array and value.size()==2 and _valid_number(value[0]) and _valid_number(value[1])
+func _valid_number(value: Variant) -> bool:
+	return typeof(value) in [TYPE_INT,TYPE_FLOAT] and is_finite(float(value))
+func _valid_integer(value: Variant) -> bool:
+	return _valid_number(value) and float(value)>=0 and float(value)<=1000000000 and float(value)==floorf(float(value))
+
+# Build-only one continuous actual collision-body attack. Original Definition untouched.
+var _air_bound := false
+var air_section := 0
+var air_cycles := 0
+var air_clock := 0.0
+var air_leg := 0
+func _air_bind(data: Dictionary,controller: PlayerController,policy: FrameDamagePolicy,lifetime: DemoLifetime) -> bool:
+	if _weave_bound or controller==null or policy==null or lifetime==null or data.get("version")!="forest-queen-air-motion-golden-only": return false
+	geometry=data.duplicate(true);_weave_life=lifetime;_weave_controller=controller;_weave_policy=policy
+	if not _bind_current_player_collision(controller): return false
+	_air_bound=true;_weave_bound=true;core_open=true
+	return true
+func air_path() -> Array[Vector2]:
+	var result: Array[Vector2]=[]
+	for a: Array in geometry.air_paths[air_section]: result.append(Vector2(a[0],a[1]))
+	return result
+func air_preview() -> void:
+	motion_mode="migration_preview";mode=&"air_preview";air_clock=float(geometry.air_preview);air_leg=0
+	weave_event.emit({"event":"air_attack_preview","section":air_section,"cycle":air_cycles,"path":geometry.air_paths[air_section],"seconds":air_clock})
+func _air_tick(delta: float) -> void:
+	if not active or health.terminal or not combat_target_active() or _weave_life==null or not _weave_life.active: motor.stop();return
+	core_open=true
+	if mode==&"intro":
+		clock=maxf(0,clock-delta);motor.stop()
+		if clock==0: air_preview()
+		return
+	if motion_mode=="migration_preview":
+		air_clock=maxf(0,air_clock-delta);motor.stop()
+		if air_clock==0: motion_mode="flight";mode=&"air_flight"
+		return
+	var path := air_path()
+	if (motor as ThornQueenWeaveMotor).travel_to(path[air_leg+1],float(geometry.air_speed),delta):
+		if air_leg<path.size()-2: air_leg+=1
+		else:
+			weave_event.emit({"event":"air_section_completed","section":air_section,"cycle":air_cycles,"position":[motor.position.x,motor.position.y]})
+			air_section=(air_section+1)%geometry.air_paths.size()
+			if air_section==0: air_cycles+=1
+			air_preview()

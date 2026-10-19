@@ -1,0 +1,162 @@
+# Finite control drivers; all motion, damage and refunds remain original actor APIs.
+func air_control_open(id: String, h_enabled: bool) -> void:
+	await fixture(id,h_enabled)
+	var supported := 0
+	for i: int in 80:
+		if whole_body_on_branch(Rect2(400,360,100,460)): supported+=1
+		else: supported=0
+		if supported>=12: break
+		await frames(1)
+	check(supported>=12,"same natural initial S whole-foot support12")
+	check(controller.actor_resources.health.current==5 and queen.health.current==24,"same actual full health, no resource or actor-position writes")
+	check(controller.action_resources.shot_charges==2 and controller.actor_resources.stamina.current==100,"same two actual air shots and energy100")
+	controller.energy_recovered.connect(func(amount: float,airborne: bool) -> void: events.append({"event":"air_actual_energy_recovery","case":current,"tick":tick+1,"amount":amount,"airborne":airborne}))
+func air_control_fire() -> bool:
+	if queen.health.terminal or controller.actor_resources.health.terminal: return false
+	if controller.shoot_ability.cooldown_remaining>0 or controller.actor_resources.stamina.current<20: return false
+	if not player.is_on_floor() and controller.action_resources.shot_charges<=0: return false
+	var solution := air_aim(false)
+	if solution.is_empty(): return false
+	events.append({"event":"air_continuous_shot_request","case":current,"tick":tick,"muzzle":[solution.muzzle.x,solution.muzzle.y],"aim":[solution.aim.x,solution.aim.y],"predicted_center":[solution.predicted_center.x,solution.predicted_center.y],"grounded":player.is_on_floor()})
+	return controller.router.request_action(&"shoot_release",solution.aim)
+func air_full_support() -> String:
+	for row: Dictionary in geometry.platforms:
+		var a: Array=row.rect
+		if whole_body_on_branch(Rect2(a[0],a[1],a[2],a[3])): return str(row.id)
+	return ""
+func air_control_record(start: int, goal: String) -> Dictionary:
+	var own := frames_data.filter(func(f: Dictionary) -> bool: return f.case==current)
+	var commits := events.filter(func(e: Dictionary) -> bool: return e.get("case")==current and e.get("event")=="policy_result" and e.get("target")=="boss")
+	var damage := events.filter(func(e: Dictionary) -> bool: return e.get("case")==current and e.get("event")=="policy_result" and e.get("target")=="player")
+	var hook_inputs := events.filter(func(e: Dictionary) -> bool: return e.get("case")==current and e.get("event")=="actual_queued_input" and e.get("action")=="grapple")
+	check(not own.is_empty() and own.all(func(f: Dictionary) -> bool: return Rect2(0,0,960,820).encloses(Rect2(Vector2(f.player[0],f.player[1])-actual_body_half,actual_body_half*2))),"actual whole Player remains in sealed arena on every captured frame")
+	check(own.all(func(f: Dictionary) -> bool: return f.actual_time_scale==1 and not f.actual_focus),"ordinary keyboard/mouse real-time contract, no focus/time manipulation")
+	return {"id":current,"explicit_initial_probe":true,"scope":goal,"initial_player_hp":5,"initial_boss_hp":24,"initial_energy":100,"initial_fields":[],"ticks":tick,"elapsed":tick-start,"boss_hp":queen.health.current,"player_hp":controller.actor_resources.health.current,"boss_defeated":queen.health.terminal,"player_dead":controller.actor_resources.health.terminal,"energy":controller.actor_resources.stamina.current,"charges":controller.action_resources.shot_charges,"boss_commits":commits.size(),"player_commits":damage.size(),"grapple_inputs":hook_inputs.size(),"air_cycles":queen.air_cycles,"support":air_full_support(),"final_position":[player.position.x,player.position.y]}
+func air_ordinary() -> void:
+	await air_control_open("air_ordinary",false)
+	var start := tick
+	var holding := 0
+	var jumped := false
+	var support := 0
+	var killed_at := -1
+	for i: int in 1800:
+		if controller.actor_resources.health.terminal: break
+		if queen.health.terminal:
+			if killed_at<0: killed_at=tick
+			controller.router.set_move_axis(0)
+			if not air_full_support().is_empty(): support+=1
+			else: support=0
+			if support>=12: break
+		else:
+			# First readable approaching A sweep: ordinary jump, not a fixed two-shot sequence.
+			if not jumped and queen.motion_mode=="migration_preview":
+				controller.router.set_jump_held(&"air_ordinary",true);holding=23;jumped=true
+			# Normal pursuit with full body clearance over the right rib, then bank-side tracking.
+			var target_x := 850.0
+			controller.router.set_move_axis(0 if absf(target_x-player.position.x)<3 else signf(target_x-player.position.x))
+			if not jumped: controller.router.set_move_axis(0)
+			# At real bank sweep approach, ordinary jump is legal, never a damage immunity.
+			if holding==0 and player.is_on_floor() and queen.motor.position.distance_to(player.position)<140 and absf(queen.motor.position.y-player.position.y)<100:
+				controller.router.set_jump_held(&"air_ordinary",true);holding=23
+			air_control_fire()
+		if holding>0:
+			holding-=1
+			if holding==0: controller.router.set_jump_held(&"air_ordinary",false)
+		await frames(1)
+	controller.router.set_jump_held(&"air_ordinary",false)
+	var row := air_control_record(start,"1800-frame genuine continuous ordinary attack; no fixed shot limit; real hit refunds")
+	row.kill_tick=killed_at;row.wide_support_frames=support
+	check(row.grapple_inputs==0,"ordinary has zero actual H input")
+	check(row.boss_commits>0,"continuous normal projectiles cause actual Boss Policy commits")
+	check(jumped,"ordinary reacts to actual body-attack preview with a real normal jump")
+	check(row.boss_defeated and not row.player_dead and support>=12,"ordinary truly defeats full24HP and recovers whole-foot12 within bound; death/timeout is retained failure")
+	cases.append(row);persist_response_partial()
+func air_camp() -> void:
+	for witness: String in ["canopy","left_floor"]:
+		await air_control_open("air_camp_"+witness,false)
+		var start := tick
+		var settled := false
+		var settled_tick := -1
+		var holding := 0
+		var jumped := false
+		var observed := 0
+		var start_cycle := 0
+		var min_hp := 5
+		for i: int in 1200:
+			if controller.actor_resources.health.terminal or queen.health.terminal: break
+			min_hp=mini(min_hp,controller.actor_resources.health.current)
+			if witness=="canopy":
+				controller.router.set_move_axis(0 if absf(450-player.position.x)<3 else signf(450-player.position.x))
+				if not jumped and queen.motion_mode=="migration_preview": controller.router.set_jump_held(&"air_camp",true);holding=23;jumped=true
+				air_control_fire()
+				if not settled and player.position.y<180: settled=true;settled_tick=tick;start_cycle=queen.air_cycles
+			else:
+				controller.router.set_move_axis(0 if absf(320-player.position.x)<3 else signf(320-player.position.x))
+				if not settled and player.is_on_floor() and absf(player.position.y-802)<1 and absf(player.position.x-320)<4:
+					settled=true;settled_tick=tick;start_cycle=queen.air_cycles
+				if settled: air_control_fire()
+			if holding>0:
+				holding-=1
+				if holding==0: controller.router.set_jump_held(&"air_camp",false)
+			if settled: observed+=1
+			if settled and queen.air_cycles>=start_cycle+2: break
+			await frames(1)
+		controller.router.set_jump_held(&"air_camp",false)
+		var row := air_control_record(start,"fresh same-resource "+witness+" full-path camp observation, max1200frames or two cycles; no kill requirement")
+		row.camp=witness;row.reached=settled;row.settled_tick=settled_tick;row.observed_frames=observed;row.minimum_hp=min_hp;row.cycles_observed=queen.air_cycles-start_cycle
+		check(row.grapple_inputs==0,"camp uses zero actual H inputs")
+		check(settled,"strong camp candidate is reached by normal input, never actor relocation")
+		check(row.cycles_observed>=2 or row.boss_defeated or row.player_dead,"camp observes whole repeated path or a real terminal outcome, not a selected safe segment")
+		cases.append(row);persist_response_partial()
+		await cleanup()
+		if not failures.is_empty(): return
+func air_wrong() -> void:
+	await air_control_open("air_wrong",true)
+	for i: int in 180:
+		if queen.motion_mode=="migration_preview": break
+		await frames(1)
+	var first_hook := await air_request_hook(air_anchor("A"),"A")
+	check(first_hook,"recovery prefix has real H1 contact, not injected air state")
+	if not first_hook: persist_response_partial();return
+	var shot := air_aim(false)
+	check(not shot.is_empty(),"recovery prefix obtains actual visible Boss shot")
+	if shot.is_empty(): persist_response_partial();return
+	controller.router.request_action(&"shoot_release",shot.aim);controller.router.set_move_axis(1)
+	await frames(10)
+	for i: int in 40:
+		if player.recoil_burst_remaining<=0 and controller.traversal.state==&"free": break
+		await frames(1)
+	for i: int in 50:
+		await frames(1)
+		if player.normal_velocity.y>0 and player.position.y+18>=188: break
+	var start := tick
+	var before := queen.health.current
+	var wrong_point := player.position+Vector2(0,-200)
+	var wrong_success := await air_request_hook(wrong_point,"intentional_UP_into_real_canopy")
+	check(not wrong_success,"one wrong real upward cast hits non-anchor world/misses, no fabricated refund")
+	var support := 0
+	var recovery_jump := -1
+	var support_reached := false
+	for i: int in 900:
+		if controller.actor_resources.health.terminal: break
+		controller.router.set_move_axis(0 if absf(850-player.position.x)<3 else signf(850-player.position.x))
+		if player.is_on_floor() and absf(player.position.y-802)<1 and player.position.x>=732 and recovery_jump<0:
+			controller.router.set_jump_held(&"air_recovery",true);recovery_jump=0
+		if recovery_jump>=0:
+			recovery_jump+=1
+			if recovery_jump==8 and controller.shoot_ability.cooldown_remaining<=0: controller.router.request_action(&"shoot_release",Vector2.DOWN)
+			if recovery_jump==23: controller.router.set_jump_held(&"air_recovery",false)
+		if whole_body_on_branch(Rect2(720,560,240,24)):
+			support+=1
+			if support>=12: support_reached=true
+		else: support=0
+		if support_reached: air_control_fire()
+		if support_reached and queen.health.current<before: break
+		await frames(1)
+	controller.router.set_jump_held(&"air_recovery",false)
+	var row := air_control_record(start,"single wrong UP cast, natural fall/hurt, real ordinary support12 and renewed Boss hit within900frames")
+	row.support_reached=support_reached;row.boss_hp_before_recovery=before;row.wrong_cast_borrowed=wrong_success
+	check(support_reached,"after actual failed H normal inputs regain original right wide bank whole-foot12")
+	check(queen.health.current<before,"after support recovery ordinary real projectile again damages actual moving Queen")
+	check(not controller.actor_resources.health.terminal,"natural H mistake remains recoverable without HP/actor reset")
+	cases.append(row);persist_response_partial()

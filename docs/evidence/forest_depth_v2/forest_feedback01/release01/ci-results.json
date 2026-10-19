@@ -1,0 +1,562 @@
+{
+  "scope": "Derived from original official API and full CI stdout; not downloaded merged/raw artifact or independent rerun. Technical coverage only, not fun",
+  "source_commit": "5a9f4bdaf846a635eb2659080d563b865758ab87",
+  "run_id": 39160856629,
+  "attempt": 1,
+  "ci_conclusion": "success",
+  "selected_profiles": [
+    "gameplay",
+    "art"
+  ],
+  "expected_unique_checks": 86,
+  "lanes": {
+    "parallel": {
+      "count": 68,
+      "fresh_start_ids": [
+        "docs",
+        "world",
+        "world-design-tests",
+        "structure",
+        "harness-tests",
+        "quality-drills",
+        "quality-tests",
+        "quality",
+        "core",
+        "generated-consumers",
+        "region",
+        "production-loop-tests",
+        "quality-review-engine",
+        "terrain-tile-tests",
+        "terrain-production",
+        "consumer-coverage-tests",
+        "wood-platforms",
+        "actor-actions",
+        "all-weapons",
+        "studio-input",
+        "weapon-feel",
+        "action-budget",
+        "capture-tests",
+        "level-design-contracts",
+        "mechanism-comparisons",
+        "level-design-analysis",
+        "level-design-routing",
+        "level-design-golden-tests",
+        "level-region-context",
+        "level-experience",
+        "level-formal-receipts",
+        "plains-action-golden",
+        "plains-redesign-golden",
+        "visual-director-tests",
+        "visual-director-space",
+        "directed-space-tests",
+        "root-bell-tests",
+        "root-bell-spaces",
+        "root-bell-ecology",
+        "connected-family-tests",
+        "forest-depth-guardian",
+        "forest-depth-guardian-tolerance",
+        "forest-depth-enemies",
+        "forest-depth-versions",
+        "forest-depth-restore",
+        "forest-depth-queen",
+        "forest-depth-cavity",
+        "forest-depth-cavity-controls",
+        "forest-depth-region",
+        "forest-depth-campaign-guardian",
+        "forest-depth-campaign-queen",
+        "forest-depth-ecology-expedition",
+        "forest-depth-root-entry",
+        "forest-depth-crossbranch-lifecycle",
+        "forest-depth-queen-canopy",
+        "forest-depth-campaign-canopy",
+        "forest-air-chain",
+        "art-art",
+        "art-painterly_pack",
+        "art-plains_v3",
+        "art-meadow_enemy_art",
+        "art-plains_ground_art",
+        "art-windkeeper_art",
+        "art-plains_spatial_art",
+        "art-plains_item_art",
+        "web-resource-contract-tests",
+        "runtime-raw-export-tests",
+        "asset-family-tests"
+      ],
+      "passed_ids": [
+        "docs",
+        "world",
+        "world-design-tests",
+        "structure",
+        "harness-tests",
+        "quality-drills",
+        "quality-tests",
+        "quality",
+        "core",
+        "generated-consumers",
+        "region",
+        "production-loop-tests",
+        "quality-review-engine",
+        "terrain-tile-tests",
+        "terrain-production",
+        "consumer-coverage-tests",
+        "wood-platforms",
+        "actor-actions",
+        "all-weapons",
+        "studio-input",
+        "weapon-feel",
+        "action-budget",
+        "capture-tests",
+        "level-design-contracts",
+        "mechanism-comparisons",
+        "level-design-analysis",
+        "level-design-routing",
+        "level-design-golden-tests",
+        "level-region-context",
+        "level-experience",
+        "level-formal-receipts",
+        "plains-action-golden",
+        "plains-redesign-golden",
+        "visual-director-tests",
+        "visual-director-space",
+        "directed-space-tests",
+        "root-bell-tests",
+        "root-bell-spaces",
+        "root-bell-ecology",
+        "connected-family-tests",
+        "forest-depth-guardian",
+        "forest-depth-guardian-tolerance",
+        "forest-depth-enemies",
+        "forest-depth-versions",
+        "forest-depth-restore",
+        "forest-depth-queen",
+        "forest-depth-cavity",
+        "forest-depth-cavity-controls",
+        "forest-depth-region",
+        "forest-depth-campaign-guardian",
+        "forest-depth-campaign-queen",
+        "forest-depth-ecology-expedition",
+        "forest-depth-root-entry",
+        "forest-depth-crossbranch-lifecycle",
+        "forest-depth-queen-canopy",
+        "forest-depth-campaign-canopy",
+        "forest-air-chain",
+        "art-art",
+        "art-painterly_pack",
+        "art-plains_v3",
+        "art-meadow_enemy_art",
+        "art-plains_ground_art",
+        "art-windkeeper_art",
+        "art-plains_spatial_art",
+        "art-plains_item_art",
+        "web-resource-contract-tests",
+        "runtime-raw-export-tests",
+        "asset-family-tests"
+      ],
+      "stdout_times": {
+        "docs": {
+          "start": "2026-10-18T19:58:47.5253204Z",
+          "pass": "2026-10-18T19:58:55.6800673Z"
+        },
+        "world": {
+          "start": "2026-10-18T19:58:55.7044388Z",
+          "pass": "2026-10-18T19:59:03.7300503Z"
+        },
+        "world-design-tests": {
+          "start": "2026-10-18T19:59:03.7538848Z",
+          "pass": "2026-10-18T19:59:11.9348249Z"
+        },
+        "structure": {
+          "start": "2026-10-18T19:59:11.9595590Z",
+          "pass": "2026-10-18T19:59:20.1020851Z"
+        },
+        "harness-tests": {
+          "start": "2026-10-18T19:59:20.1262017Z",
+          "pass": "2026-10-18T19:59:33.6264692Z"
+        },
+        "quality-drills": {
+          "start": "2026-10-18T19:59:33.6502957Z",
+          "pass": "2026-10-18T19:59:41.8230702Z"
+        },
+        "quality-tests": {
+          "start": "2026-10-18T19:59:41.8469144Z",
+          "pass": "2026-10-18T19:59:50.3723352Z"
+        },
+        "quality": {
+          "start": "2026-10-18T19:59:50.3965270Z",
+          "pass": "2026-10-18T19:59:59.0148424Z"
+        },
+        "core": {
+          "start": "2026-10-18T19:59:59.0365174Z",
+          "pass": "2026-10-18T20:00:56.6570805Z"
+        },
+        "generated-consumers": {
+          "start": "2026-10-18T20:00:56.6784110Z",
+          "pass": "2026-10-18T20:09:19.8714562Z"
+        },
+        "region": {
+          "start": "2026-10-18T20:09:19.8934343Z",
+          "pass": "2026-10-18T20:15:18.5452578Z"
+        },
+        "production-loop-tests": {
+          "start": "2026-10-18T20:15:18.5696362Z",
+          "pass": "2026-10-18T20:15:57.2791355Z"
+        },
+        "quality-review-engine": {
+          "start": "2026-10-18T20:15:57.3026346Z",
+          "pass": "2026-10-18T20:16:15.2549989Z"
+        },
+        "terrain-tile-tests": {
+          "start": "2026-10-18T20:16:15.2796609Z",
+          "pass": "2026-10-18T20:16:23.3515002Z"
+        },
+        "terrain-production": {
+          "start": "2026-10-18T20:16:23.3745176Z",
+          "pass": "2026-10-18T20:16:40.9723590Z"
+        },
+        "consumer-coverage-tests": {
+          "start": "2026-10-18T20:16:40.9972919Z",
+          "pass": "2026-10-18T20:16:49.1117750Z"
+        },
+        "wood-platforms": {
+          "start": "2026-10-18T20:16:49.1334002Z",
+          "pass": "2026-10-18T20:17:07.0190022Z"
+        },
+        "actor-actions": {
+          "start": "2026-10-18T20:17:07.0403076Z",
+          "pass": "2026-10-18T20:17:53.5665442Z"
+        },
+        "all-weapons": {
+          "start": "2026-10-18T20:17:53.5881538Z",
+          "pass": "2026-10-18T20:18:45.7742420Z"
+        },
+        "studio-input": {
+          "start": "2026-10-18T20:18:45.7978628Z",
+          "pass": "2026-10-18T20:19:03.4789825Z"
+        },
+        "weapon-feel": {
+          "start": "2026-10-18T20:19:03.5009683Z",
+          "pass": "2026-10-18T20:19:37.2532984Z"
+        },
+        "action-budget": {
+          "start": "2026-10-18T20:19:37.2746683Z",
+          "pass": "2026-10-18T20:21:34.9291460Z"
+        },
+        "capture-tests": {
+          "start": "2026-10-18T20:21:34.9545051Z",
+          "pass": "2026-10-18T20:21:43.0966109Z"
+        },
+        "level-design-contracts": {
+          "start": "2026-10-18T20:21:43.1176228Z",
+          "pass": "2026-10-18T20:22:00.7226994Z"
+        },
+        "mechanism-comparisons": {
+          "start": "2026-10-18T20:22:00.7464872Z",
+          "pass": "2026-10-18T20:22:08.9412794Z"
+        },
+        "level-design-analysis": {
+          "start": "2026-10-18T20:22:08.9651480Z",
+          "pass": "2026-10-18T20:22:17.4268978Z"
+        },
+        "level-design-routing": {
+          "start": "2026-10-18T20:22:17.4509038Z",
+          "pass": "2026-10-18T20:22:26.2328636Z"
+        },
+        "level-design-golden-tests": {
+          "start": "2026-10-18T20:22:26.2566376Z",
+          "pass": "2026-10-18T20:22:34.8183413Z"
+        },
+        "level-region-context": {
+          "start": "2026-10-18T20:22:34.8426999Z",
+          "pass": "2026-10-18T20:22:43.1637410Z"
+        },
+        "level-experience": {
+          "start": "2026-10-18T20:22:43.1876301Z",
+          "pass": "2026-10-18T20:22:53.7251706Z"
+        },
+        "level-formal-receipts": {
+          "start": "2026-10-18T20:22:53.7492526Z",
+          "pass": "2026-10-18T20:23:03.2884007Z"
+        },
+        "plains-action-golden": {
+          "start": "2026-10-18T20:23:03.3126830Z",
+          "pass": "2026-10-18T20:23:24.4761609Z"
+        },
+        "plains-redesign-golden": {
+          "start": "2026-10-18T20:23:24.5003657Z",
+          "pass": "2026-10-18T20:24:08.0487108Z"
+        },
+        "visual-director-tests": {
+          "start": "2026-10-18T20:24:08.0627303Z",
+          "pass": "2026-10-18T20:24:21.1213855Z"
+        },
+        "visual-director-space": {
+          "start": "2026-10-18T20:24:21.1383866Z",
+          "pass": "2026-10-18T20:25:36.1650970Z"
+        },
+        "directed-space-tests": {
+          "start": "2026-10-18T20:25:36.1838660Z",
+          "pass": "2026-10-18T20:26:45.2109910Z"
+        },
+        "root-bell-tests": {
+          "start": "2026-10-18T20:26:45.2474694Z",
+          "pass": "2026-10-18T20:28:13.0878421Z"
+        },
+        "root-bell-spaces": {
+          "start": "2026-10-18T20:28:13.1224462Z",
+          "pass": "2026-10-18T20:29:07.2960672Z"
+        },
+        "root-bell-ecology": {
+          "start": "2026-10-18T20:29:07.3307186Z",
+          "pass": "2026-10-18T20:29:44.4742337Z"
+        },
+        "connected-family-tests": {
+          "start": "2026-10-18T20:29:44.4933262Z",
+          "pass": "2026-10-18T20:29:56.7237662Z"
+        },
+        "forest-depth-guardian": {
+          "start": "2026-10-18T20:29:56.7474218Z",
+          "pass": "2026-10-18T20:30:14.8389881Z"
+        },
+        "forest-depth-guardian-tolerance": {
+          "start": "2026-10-18T20:30:14.8630353Z",
+          "pass": "2026-10-18T20:30:31.2113546Z"
+        },
+        "forest-depth-enemies": {
+          "start": "2026-10-18T20:30:31.2354966Z",
+          "pass": "2026-10-18T20:30:47.6692881Z"
+        },
+        "forest-depth-versions": {
+          "start": "2026-10-18T20:30:47.6934367Z",
+          "pass": "2026-10-18T20:31:06.6958885Z"
+        },
+        "forest-depth-restore": {
+          "start": "2026-10-18T20:31:06.7203008Z",
+          "pass": "2026-10-18T20:31:27.0740206Z"
+        },
+        "forest-depth-queen": {
+          "start": "2026-10-18T20:31:27.0977378Z",
+          "pass": "2026-10-18T20:31:50.8681071Z"
+        },
+        "forest-depth-cavity": {
+          "start": "2026-10-18T20:31:50.8920105Z",
+          "pass": "2026-10-18T20:32:05.0211377Z"
+        },
+        "forest-depth-cavity-controls": {
+          "start": "2026-10-18T20:32:05.0448770Z",
+          "pass": "2026-10-18T20:32:21.7524314Z"
+        },
+        "forest-depth-region": {
+          "start": "2026-10-18T20:32:21.7759258Z",
+          "pass": "2026-10-18T20:42:07.9549680Z"
+        },
+        "forest-depth-campaign-guardian": {
+          "start": "2026-10-18T20:42:07.9791762Z",
+          "pass": "2026-10-18T20:42:29.2988330Z"
+        },
+        "forest-depth-campaign-queen": {
+          "start": "2026-10-18T20:42:29.3225026Z",
+          "pass": "2026-10-18T20:42:48.2759068Z"
+        },
+        "forest-depth-ecology-expedition": {
+          "start": "2026-10-18T20:42:48.2997743Z",
+          "pass": "2026-10-18T20:43:16.4942111Z"
+        },
+        "forest-depth-root-entry": {
+          "start": "2026-10-18T20:43:16.5181909Z",
+          "pass": "2026-10-18T20:43:32.7017099Z"
+        },
+        "forest-depth-crossbranch-lifecycle": {
+          "start": "2026-10-18T20:43:32.7255077Z",
+          "pass": "2026-10-18T20:43:49.9560927Z"
+        },
+        "forest-depth-queen-canopy": {
+          "start": "2026-10-18T20:43:49.9802264Z",
+          "pass": "2026-10-18T20:44:06.6810968Z"
+        },
+        "forest-depth-campaign-canopy": {
+          "start": "2026-10-18T20:44:06.7058525Z",
+          "pass": "2026-10-18T20:44:28.3420100Z"
+        },
+        "forest-air-chain": {
+          "start": "2026-10-18T20:44:28.3665118Z",
+          "pass": "2026-10-18T20:44:56.8610214Z"
+        },
+        "art-art": {
+          "start": "2026-10-18T20:44:56.8851037Z",
+          "pass": "2026-10-18T20:45:05.0746253Z"
+        },
+        "art-painterly_pack": {
+          "start": "2026-10-18T20:45:05.0989608Z",
+          "pass": "2026-10-18T20:45:13.2952227Z"
+        },
+        "art-plains_v3": {
+          "start": "2026-10-18T20:45:13.3193868Z",
+          "pass": "2026-10-18T20:45:21.4931941Z"
+        },
+        "art-meadow_enemy_art": {
+          "start": "2026-10-18T20:45:21.5179713Z",
+          "pass": "2026-10-18T20:45:29.7577141Z"
+        },
+        "art-plains_ground_art": {
+          "start": "2026-10-18T20:45:29.7822592Z",
+          "pass": "2026-10-18T20:45:37.9383377Z"
+        },
+        "art-windkeeper_art": {
+          "start": "2026-10-18T20:45:37.9632091Z",
+          "pass": "2026-10-18T20:45:46.2422545Z"
+        },
+        "art-plains_spatial_art": {
+          "start": "2026-10-18T20:45:46.2663257Z",
+          "pass": "2026-10-18T20:45:54.4730949Z"
+        },
+        "art-plains_item_art": {
+          "start": "2026-10-18T20:45:54.4973457Z",
+          "pass": "2026-10-18T20:46:02.8066857Z"
+        },
+        "web-resource-contract-tests": {
+          "start": "2026-10-18T20:46:02.8314066Z",
+          "pass": "2026-10-18T20:46:11.2692120Z"
+        },
+        "runtime-raw-export-tests": {
+          "start": "2026-10-18T20:46:11.2932875Z",
+          "pass": "2026-10-18T20:46:19.4866683Z"
+        },
+        "asset-family-tests": {
+          "start": "2026-10-18T20:46:19.4933266Z",
+          "pass": "2026-10-18T20:46:27.6058953Z"
+        }
+      }
+    },
+    "serial": {
+      "count": 18,
+      "fresh_start_ids": [
+        "environment",
+        "level-design-runtime",
+        "level-design-golden",
+        "level-formal-runtime",
+        "plains-autonomy-golden",
+        "plains-redesign-spatial",
+        "plains-experience-golden",
+        "plains-encounter-policy",
+        "plains-redesign-scene",
+        "terrain-family-tests",
+        "forest-h-slice",
+        "forest-ecology",
+        "forest-progression",
+        "forest-campaign",
+        "forest-debug",
+        "forest-traversal",
+        "forest-region-matrix",
+        "forest-formal-combat"
+      ],
+      "passed_ids": [
+        "environment",
+        "level-design-runtime",
+        "level-design-golden",
+        "level-formal-runtime",
+        "plains-autonomy-golden",
+        "plains-redesign-spatial",
+        "plains-experience-golden",
+        "plains-encounter-policy",
+        "plains-redesign-scene",
+        "terrain-family-tests",
+        "forest-h-slice",
+        "forest-ecology",
+        "forest-progression",
+        "forest-campaign",
+        "forest-debug",
+        "forest-traversal",
+        "forest-region-matrix",
+        "forest-formal-combat"
+      ],
+      "stdout_times": {
+        "environment": {
+          "start": "2026-10-18T19:59:11.5697921Z",
+          "pass": "2026-10-18T19:59:20.3136449Z"
+        },
+        "level-design-runtime": {
+          "start": "2026-10-18T19:59:20.3456638Z",
+          "pass": "2026-10-18T20:00:21.1656648Z"
+        },
+        "level-design-golden": {
+          "start": "2026-10-18T20:00:21.1981069Z",
+          "pass": "2026-10-18T20:00:53.6250599Z"
+        },
+        "level-formal-runtime": {
+          "start": "2026-10-18T20:00:53.6567673Z",
+          "pass": "2026-10-18T20:01:17.4143294Z"
+        },
+        "plains-autonomy-golden": {
+          "start": "2026-10-18T20:01:17.4460738Z",
+          "pass": "2026-10-18T20:01:38.6566293Z"
+        },
+        "plains-redesign-spatial": {
+          "start": "2026-10-18T20:01:38.6883517Z",
+          "pass": "2026-10-18T20:04:07.1575135Z"
+        },
+        "plains-experience-golden": {
+          "start": "2026-10-18T20:04:07.1894501Z",
+          "pass": "2026-10-18T20:05:22.2069808Z"
+        },
+        "plains-encounter-policy": {
+          "start": "2026-10-18T20:05:22.2389763Z",
+          "pass": "2026-10-18T20:11:30.6110864Z"
+        },
+        "plains-redesign-scene": {
+          "start": "2026-10-18T20:11:30.6427907Z",
+          "pass": "2026-10-18T20:15:01.1073828Z"
+        },
+        "terrain-family-tests": {
+          "start": "2026-10-18T20:15:01.1556707Z",
+          "pass": "2026-10-18T20:15:51.6828682Z"
+        },
+        "forest-h-slice": {
+          "start": "2026-10-18T20:15:51.7143804Z",
+          "pass": "2026-10-18T20:16:11.4168419Z"
+        },
+        "forest-ecology": {
+          "start": "2026-10-18T20:16:11.4415083Z",
+          "pass": "2026-10-18T20:16:25.9589069Z"
+        },
+        "forest-progression": {
+          "start": "2026-10-18T20:16:25.9837821Z",
+          "pass": "2026-10-18T20:16:39.9537402Z"
+        },
+        "forest-campaign": {
+          "start": "2026-10-18T20:16:39.9787397Z",
+          "pass": "2026-10-18T20:16:59.2776517Z"
+        },
+        "forest-debug": {
+          "start": "2026-10-18T20:16:59.3028156Z",
+          "pass": "2026-10-18T20:17:17.7047554Z"
+        },
+        "forest-traversal": {
+          "start": "2026-10-18T20:17:17.7319475Z",
+          "pass": "2026-10-18T20:17:37.2120157Z"
+        },
+        "forest-region-matrix": {
+          "start": "2026-10-18T20:17:37.2459175Z",
+          "pass": "2026-10-18T20:22:37.4674060Z"
+        },
+        "forest-formal-combat": {
+          "start": "2026-10-18T20:22:37.5013168Z",
+          "pass": "2026-10-18T20:23:33.1469210Z"
+        }
+      }
+    }
+  },
+  "same_source_merge_observed": true,
+  "region_original_timeout_seconds": 600,
+  "region_stdout_start_to_pass_seconds": 586.179043,
+  "region_span_is_not_inner_native_duration": true,
+  "original_local_600_timeout_retained": true,
+  "actual_public_build": "5fd40a31c4be",
+  "original_api_and_log_sha256": {
+    "terminal-run-api.json": "aef034325fa5a5f286477c49cd2d5edbcfe098f86ebdbad7d8c41cdb4b4403dd",
+    "terminal-jobs-api.json": "df74899d1bd8b12fe499b50f7de2919af7d4cb75f7dbef27f94cfeac15a215cd",
+    "terminal-run.log": "397e3fd6b28c812bca4c45c10073ecdd931f602787fe997075de4c251ce743f4"
+  },
+  "artifact_zip_not_downloaded_due_to_proxy403": true,
+  "publisher_live_verified": false,
+  "commercial_fun_device_acceptance": false
+}

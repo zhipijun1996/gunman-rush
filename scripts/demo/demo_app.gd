@@ -109,6 +109,11 @@ var connected_region := false
 var root_bell_space_pilot_requested := false
 var root_bell_pilot_requested := false
 var _root_bell_run_mode := "legacy_v10"
+var forest_content_version := ThornForestRegionGenerator.VERSION
+var _forest_layout_version := ThornForestRegionGenerator.CURRENT_DEPTH_LAYOUT
+var _forest_v9_north_return := true
+var _requested_forest_version := ""
+var _requested_forest_layout := ""
 var region_state: PlainsRegionState
 var region_states: Dictionary = {}
 var _region_loaded_map := 0
@@ -127,10 +132,16 @@ func start_plains(seed_value: String = "plains-run") -> bool:
 	_debug_region = &""
 	return start_demo(seed_value, true)
 
-func start_debug_region(region: StringName, map_index: int, seed_value: String) -> bool:
+func start_debug_region(region: StringName, map_index: int, seed_value: String, content_version: String = "", layout_version: String = "") -> bool:
 	if region not in [&"plains", &"thorn_forest"] or map_index not in [1,2]: return false
+	if not content_version.is_empty() and (region != &"thorn_forest" or not ThornForestRegionGenerator.supported(content_version)): return false
+	if not layout_version.is_empty() and (region != &"thorn_forest" or content_version != ThornForestRegionGenerator.DEPTH_VERSION or not ThornForestRegionGenerator.DEPTH_LAYOUT_SCRIPTS.has(layout_version)): return false
+	# Rejected entries must not replace the next run's region/version request.
+	if director.state != DemoRunDirector.State.HOME or seed_value.is_empty() or is_instance_valid(_lab) or is_instance_valid(_preview) or is_instance_valid(_foundry): return false
 	_debug_region = region
 	_debug_map = map_index
+	_requested_forest_version = content_version
+	_requested_forest_layout = layout_version
 	var accepted := start_demo(seed_value,true)
 	if accepted: print("FOREST_UI_EVENT " + JSON.stringify({"event":"debug_entry","region":String(region),"map_index":map_index,"seed":seed_value,"natural_progression":false}))
 	return accepted
@@ -149,6 +160,11 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 		return false
 	_remove_home_scene()
 	active_region_id = _debug_region if region_map and not _debug_region.is_empty() else &"plains"
+	forest_content_version = _requested_forest_version if not _requested_forest_version.is_empty() else ThornForestRegionGenerator.VERSION
+	_forest_layout_version = _requested_forest_layout if not _requested_forest_layout.is_empty() else ThornForestRegionGenerator.CURRENT_DEPTH_LAYOUT
+	_forest_v9_north_return = true
+	_requested_forest_version = ""
+	_requested_forest_layout = ""
 	campaign = RunCampaignProgression.new()
 	campaign.debug_entry = region_map and not _debug_region.is_empty()
 	if active_region_id == &"thorn_forest": campaign.abilities.append(&"grapple")
@@ -249,15 +265,44 @@ func _load_stage() -> void:
 		region_generator.root_bell_mode = _root_bell_run_mode
 		var actual_seed := _region_seed()
 		var difficulty := "intro" if director.region_map_index==1 else "advanced"
-		var generated := ThornForestRegionGenerator.new().generate(actual_seed,controller.motor.tuning,director.region_map_index,{"grapple":controller.traversal.hook_enabled,"weapon_id":"pulse_gun","abilities":Array(campaign.abilities),"items":build.item_ids()}) if active_region_id == &"thorn_forest" else region_generator.generate(actual_seed, controller.motor.tuning,false,"",difficulty)
+		var forest_capability := {"grapple":controller.traversal.hook_enabled,"weapon_id":"pulse_gun","abilities":Array(campaign.abilities),"items":build.item_ids(),"forest_content_version":forest_content_version,"forest_layout_version":_forest_layout_version,"forest_v9_north_return":_forest_v9_north_return}
+		var generated := ThornForestRegionGenerator.new().generate(actual_seed,controller.motor.tuning,director.region_map_index,forest_capability) if active_region_id == &"thorn_forest" else region_generator.generate(actual_seed, controller.motor.tuning,false,"",difficulty)
+		# A pre-existing map owns its content version. Match the actual old hash;
+		# never overwrite old actors/claims with a new layout or silently clear it.
+		if active_region_id == &"thorn_forest" and region_state != null and not region_state.manifest_hash.is_empty() and generated.ok and region_state.manifest_hash != generated.manifest.manifest_hash:
+			var recorded_version := ""
+			for recorded: Dictionary in ThornForestRegionGenerator.recorded_variants():
+				var prior_capability := forest_capability.duplicate(true)
+				prior_capability.forest_layout_version = recorded.layout
+				prior_capability.forest_v9_north_return = recorded.get("north_return",true)
+				var prior := ThornForestRegionGenerator.new().generate_version(recorded.version,actual_seed,controller.motor.tuning,director.region_map_index,prior_capability)
+				if prior.ok and prior.manifest.manifest_hash == region_state.manifest_hash:
+					generated = prior
+					recorded_version = recorded.version
+					_forest_layout_version = str(prior.manifest.get("layout_version",ThornForestRegionGenerator.CURRENT_DEPTH_LAYOUT))
+					_forest_v9_north_return = bool(prior_capability.forest_v9_north_return)
+					forest_capability.forest_layout_version = _forest_layout_version
+					forest_capability.forest_v9_north_return = _forest_v9_north_return
+					break
+			if recorded_version.is_empty():
+				generated = {"ok":false,"error":"Recorded forest hash does not match a supported content version"}
+			else:
+				forest_content_version = recorded_version
+				forest_capability.forest_content_version = recorded_version
 		# Hash-bound replay of both prior admitted versions; no save rewrite.
 		if active_region_id == &"plains" and region_state != null and not region_state.manifest_hash.is_empty() and generated.ok and region_state.manifest_hash != generated.manifest.manifest_hash:
-			for prior_mode: String in ["v2", "legacy_v10"]:
+			var matched_saved_map := false
+			for prior_mode: String in [_root_bell_run_mode,"v2", "legacy_v10"]:
 				region_generator.root_bell_mode = prior_mode
-				var prior_generated := region_generator.generate(actual_seed, controller.motor.tuning,false,"",difficulty)
-				if prior_generated.ok and prior_generated.manifest.manifest_hash == region_state.manifest_hash:
-					generated = prior_generated
-					break
+				for historical_focus: bool in [false,true]:
+					var prior_generated := region_generator.generate_before_focus_15(actual_seed,controller.motor.tuning,false,"",difficulty) if historical_focus else region_generator.generate(actual_seed,controller.motor.tuning,false,"",difficulty)
+					if prior_generated.ok and prior_generated.manifest.manifest_hash == region_state.manifest_hash:
+						generated = prior_generated
+						matched_saved_map = true
+						break
+				if matched_saved_map: break
+			if not matched_saved_map:
+				generated = {"ok":false,"error":"Recorded plains hash does not match a supported content/tuning version"}
 		if not generated.ok:
 			_status = "GENERATION FAILED / " + str(generated.error)
 			abandon_run()
@@ -394,16 +439,58 @@ func _load_stage() -> void:
 			protected_points.append(encounter_stage.spawn)
 			protected_points.append_array(encounter_stage.exit_positions)
 			actor.bind_encounter(controller, policy, lifetime, id, protected_points)
+			var placement: Dictionary = encounter_stage.enemy_manifest[index]
+			if actor.attack_behavior is ForestCrossbranchBehavior:
+				var migration := actor.attack_behavior as ForestCrossbranchBehavior
+				var shore_rows: Variant=placement.get("shore_rows")
+				var valid_shores: bool=shore_rows is Array and shore_rows.size()==2
+				var configured_shores: Array[Dictionary]=[]
+				if valid_shores:
+					for raw: Variant in shore_rows:
+						if not raw is Dictionary or not raw.get("id") is String or not raw.get("rect") is Array or not raw.get("position") is Array:
+							valid_shores=false;break
+						if raw.rect.size()!=4 or raw.position.size()!=2:
+							valid_shores=false;break
+						for value: Variant in raw.rect+raw.position:
+							if not (value is int or value is float) or not is_finite(float(value)):valid_shores=false
+						if not valid_shores:break
+						configured_shores.append({"id":raw.id,"rect":Rect2(raw.rect[0],raw.rect[1],raw.rect[2],raw.rect[3]),"position":Vector2(raw.position[0],raw.position[1])})
+				var restoring: bool=connected_region and region_state.actors.has(String(id))
+				if not valid_shores or not migration.configure_shores(configured_shores,not restoring):
+					push_error("Recorded forest migration shores rejected")
+					abandon_run()
+					return
+				if restoring and not region_state.actors[String(id)].has("depth_state"):
+					push_error("Recorded forest migration state missing")
+					abandon_run()
+					return
+			if actor.attack_behavior != null and actor.attack_behavior.has_method("configure_transfer_points"):
+				var transfers: Array[Vector2] = []
+				for point: Array in placement.get("transfer_points",[]): transfers.append(Vector2(point[0],point[1]))
+				actor.attack_behavior.call("configure_transfer_points",transfers)
+			if actor.attack_behavior != null and actor.attack_behavior.has_method("configure_line"):
+				var first: Array = placement.get("line_start",[])
+				var last: Array = placement.get("line_end",[])
+				if first.size()!=2 or last.size()!=2 or not actor.attack_behavior.call("configure_line",Vector2(first[0],first[1]),Vector2(last[0],last[1])):
+					push_error("Recorded forest thread geometry rejected")
+					abandon_run()
+					return
 			if connected_region and region_state.actors.has(String(id)) and actor.attack_behavior!=null:
 				var saved: Dictionary=region_state.actors[String(id)]
-				actor.attack_behavior.state=StringName(saved.get("state","idle"))
-				actor.attack_behavior.state_time=float(saved.get("state_time",0.0))
-				actor.attack_behavior.cooldown=float(saved.get("cooldown",0.0))
-				actor.attack_behavior._serial=int(saved.get("serial",0))
-				if saved.has("home"): actor.attack_behavior.home=Vector2(saved.home[0],saved.home[1])
-				for field: String in ["locked_direction","attack_goal","attack_origin"]:
-					if saved.has(field): actor.attack_behavior.set(field,Vector2(saved[field][0],saved[field][1]))
-				actor.brain.direction=int(saved.get("direction",1))
+				if not actor.attack_behavior is ForestCrossbranchBehavior:
+					actor.attack_behavior.state=StringName(saved.get("state","idle"))
+					actor.attack_behavior.state_time=float(saved.get("state_time",0.0))
+					actor.attack_behavior.cooldown=float(saved.get("cooldown",0.0))
+					actor.attack_behavior._serial=int(saved.get("serial",0))
+					if saved.has("home"): actor.attack_behavior.home=Vector2(saved.home[0],saved.home[1])
+					for field: String in ["locked_direction","attack_goal","attack_origin"]:
+						if saved.has(field): actor.attack_behavior.set(field,Vector2(saved[field][0],saved[field][1]))
+					actor.brain.direction=int(saved.get("direction",1))
+				if saved.has("depth_state") and actor.attack_behavior.has_method("restore_depth_state"):
+					if not actor.attack_behavior.call("restore_depth_state",saved.depth_state):
+						push_error("Recorded forest actor state rejected")
+						abandon_run()
+						return
 			if actor.attack_behavior: actor.attack_behavior.max_concurrent_attacks = (1 if director.region_map_index==1 else 2) if connected_region else (1 if director.stage_index<=3 else 2)
 			_enemy_contacts.append(_contact(drone, StringName(str(id) + "_contact"), DamageRequest.Kind.MONSTER, actor.definition.collision_size / 2.0 + Vector2.ONE))
 		if not encounter_stage.enemies.is_empty():
@@ -425,9 +512,19 @@ func _load_stage() -> void:
 			var arena := (stage as GeneratedDemoStage).boss_arena
 			encounter.configure_arena(arena.position.x + 25, arena.end.x - 25, player)
 			if encounter.has_method("configure_forest_floor"): encounter.call("configure_forest_floor",arena.end.y)
+			if encounter.has_method("bind_duel"):
+				if not encounter.call("bind_duel",(stage as GeneratedDemoStage).generated.manifest.get("boss_geometry",{}),controller,policy,lifetime):
+					push_error("Forest duel geometry or local damage targets rejected")
+					abandon_run()
+					return
 			if connected_region and not (stage as PlainsRegionStage).restored_boss.is_empty():
 				var saved: Dictionary=(stage as PlainsRegionStage).restored_boss
-				stage.boss.position=Vector2(saved.position[0],saved.position[1])
+				if encounter.has_method("bind_duel"):
+					if not _restore_forest_duel(encounter,saved):
+						push_error("Recorded forest duel state rejected after physical target binding")
+						abandon_run()
+						return
+				else: stage.boss.position=Vector2(saved.position[0],saved.position[1])
 		else:
 			encounter.configure_arena(890.0, 1240.0, player)
 		if generated_plains and encounter is WindkeeperEncounter:
@@ -440,12 +537,15 @@ func _load_stage() -> void:
 			region.boss_seal=BossArenaSeal.new();region.add_child(region.boss_seal)
 			region.boss_seal.setup(region.boss_arena,region.bounds,controller,encounter,lifetime)
 			region.boss_seal.restore_closed(bool(region.restored_boss.get("seal_closed",false)))
-			segment.add_anchor(&"boss_enter",Vector2(region.boss_arena.position.x+70,region.boss_arena.end.y-18))
+			var boss_entry := (region as ThornForestRegionStage).forest_boss_entry_position() if region is ThornForestRegionStage else Vector2(region.boss_arena.position.x+70,region.boss_arena.end.y-18)
+			segment.add_anchor(&"boss_enter",boss_entry)
 			if region.boss_seal.closed:segment.activate_anchor(&"boss_enter")
 		encounter.projectile_created.connect(_boss_projectile_created)
 		if not generated_plains:
 			encounter.activate()
-		_boss_contact = _contact(stage.boss, &"boss_contact", DamageRequest.Kind.MONSTER, Vector2(72,62).min(encounter.definition.collision_size/2) if encounter is WindkeeperEncounter else Vector2(25,27))
+		var boss_contact_half: Vector2 = Vector2(72,62).min(encounter.definition.collision_size/2) if encounter is WindkeeperEncounter else Vector2(25,27)
+		if encounter.has_method("bind_duel"): boss_contact_half = encounter.definition.collision_size/2
+		_boss_contact = _contact(stage.boss, &"boss_contact", DamageRequest.Kind.MONSTER,boss_contact_half)
 		_boss_contact.enabled = not generated_plains
 	if director.stage_type_id == &"item_reward":
 		var candidates: Array[ItemDefinition] = []
@@ -488,13 +588,19 @@ func _load_stage() -> void:
 	if connected_region:
 		var stock: Dictionary=(stage as PlainsRegionStage).generated.manifest.shop
 		shop.add_offer(_region_shop_id(),load("res://resources/items/%s.tres" % stock.item) as ItemDefinition,int(stock.price),int(stock.stock))
-		director.manifest.record_output(director.stage_index,&"region_map",{"version":ThornForestRegionGenerator.VERSION if active_region_id == &"thorn_forest" else PlainsRegionCampaign.VERSION,"map_index":director.region_map_index,"seed":_region_seed(),"instance_prefix":_region_prefix(),"boss_role":PlainsRegionCampaign.role(director.region_map_index)})
+		director.manifest.record_output(director.stage_index,&"region_map",{"version":(stage as GeneratedDemoStage).generated.stage_generator_version if active_region_id == &"thorn_forest" else PlainsRegionCampaign.VERSION,"map_index":director.region_map_index,"seed":_region_seed(),"instance_prefix":_region_prefix(),"boss_role":PlainsRegionCampaign.role(director.region_map_index)})
 	if connected_region:
 		var boss_definition: BossDefinition=(stage.boss.get_node("Encounter") as BossEncounter).definition
 		director.manifest.record_output(director.stage_index,&"boss_layout",{"id":String(boss_definition.stable_id),"version":boss_definition.definition_version,"health":boss_definition.health_definition.max_health})
 	_status = ("Explore forest branches / fixed rings stay after enemies die / gold flags lead to the guardian" if active_region_id == &"thorn_forest" else "Explore freely / gold flags lead to Windkeeper / no enemy-clear requirement") if connected_region else "Room %s: %s. Reach markers and use Interact." % [director.stage_index, director.stage_type_id]
 	_shown_actions = ""
 	_stage_pending = false
+	if connected_region:
+		# Report the actually assembled consumer after generation, binding and
+		# restore have succeeded; an accepted menu request alone proves none of it.
+		var actual_manifest: Dictionary=(stage as GeneratedDemoStage).generated.manifest
+		var actual_boss: BossEncounter=stage.boss.get_node("Encounter") as BossEncounter
+		print("FOREST_UI_EVENT " + JSON.stringify({"event":"region_assembled","region":String(active_region_id),"map_index":director.region_map_index,"seed":_region_seed(),"content_version":actual_manifest.version,"layout_version":actual_manifest.get("layout_version", ""),"manifest_hash":actual_manifest.manifest_hash,"boss_definition":actual_boss.definition.resource_path,"boss_scene":stage.boss.scene_file_path,"abilities":Array(campaign.abilities),"debug_entry":campaign.debug_entry}))
 
 func _physics_process(_delta: float) -> void:
 	if get_tree().paused or _stage_pending or not lifetime.active or not is_instance_valid(stage) or not is_instance_valid(controller):
@@ -1024,6 +1130,7 @@ func _process(_delta: float) -> void:
 	if is_instance_valid(_run_camera):
 		_run_camera.route_focus = Vector2.INF
 		_run_camera.region_focus = (stage as PlainsRegionStage).composition_focus() if connected_region and stage is PlainsRegionStage else Vector2.INF
+		_run_camera.observation_focus = stage.call("observation_composition_focus") if connected_region and is_instance_valid(stage) and stage.has_method("observation_composition_focus") else Vector2.INF
 		if shown_boss != null and shown_boss.active:
 			if shown_boss.stage_phase == 3 and shown_boss.reward_stands.size() == 3:
 				_run_camera.route_focus = shown_boss.reward_stands[mini(shown_boss.chase_segment+1,2)]
@@ -1462,6 +1569,25 @@ func _record_boss_shot(_direction: Vector2, shot_id: int) -> void:
 	if generated_plains and _boss_started and _in_boss_core() and lifetime.active:
 		_boss_eligible_shots["%s:%s" % [controller.session_id, shot_id]] = lifetime.actor_epoch
 
+func _restore_forest_duel(encounter: BossEncounter, data: Dictionary) -> bool:
+	if not encounter.has_method("valid_duel_snapshot") or not encounter.call("valid_duel_snapshot",data): return false
+	var saved_health: Variant = data.get("health")
+	if typeof(saved_health) not in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(saved_health)) or float(saved_health) < 0 or float(saved_health) > encounter.health.capacity: return false
+	var saved_position: Variant = data.get("position")
+	if not saved_position is Array or saved_position.size() != 2: return false
+	for coordinate: Variant in saved_position:
+		if typeof(coordinate) not in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(coordinate)): return false
+	var body_position: Variant = data.get("body_position")
+	if not body_position is Array or body_position.size() != 2: return false
+	for index: int in 2:
+		if typeof(body_position[index]) not in [TYPE_INT,TYPE_FLOAT] or not is_finite(float(body_position[index])) or not is_equal_approx(float(body_position[index]),float(saved_position[index])): return false
+	var restored := encounter.definition.health_definition.duplicate(true) as HealthDefinition
+	restored.initial_current = float(saved_health)
+	encounter.health.configure(restored)
+	encounter.damageable.bind_health(encounter.health)
+	encounter.call("restore_combat_state",data)
+	return encounter.get("last_restore_accepted") == true and encounter.motor.position.is_equal_approx(Vector2(saved_position[0],saved_position[1]))
+
 func _start_generated_boss() -> void:
 	var encounter := stage.boss.get_node("Encounter") as BossEncounter
 	var receiver := stage.boss.get_node("Damageable") as Damageable
@@ -1476,7 +1602,12 @@ func _start_generated_boss() -> void:
 	if connected_region and _boss_started:
 		var data: Dictionary=(stage as PlainsRegionStage).restored_boss
 		if data.get("active",false):
-			if encounter.has_method("restore_combat_state"): encounter.call("restore_combat_state",data)
+			if encounter.has_method("bind_duel"):
+				if not _restore_forest_duel(encounter,data):
+					push_error("Recorded active forest duel rejected")
+					abandon_run()
+					return
+			elif encounter.has_method("restore_combat_state"): encounter.call("restore_combat_state",data)
 		(stage as PlainsRegionStage).restored_boss.clear()
 	if _boss_started and encounter is WindkeeperEncounter: _boss_intros_seen[encounter.definition.stable_id]=true
 	if _boss_started:

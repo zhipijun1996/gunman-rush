@@ -1,0 +1,1905 @@
+{
+  "D14": {
+    "archive": "docs/evidence/forest_depth_v2/ecology/formal_crossbranch13_14/selected-evidence.tar.gz",
+    "archive_sha256": "89bc66f1f0c2dbd1e079ad9233a3699c3078405a007f5b4760c72d1d28f02fd7",
+    "member": "actual14/run/00-crossbranch_live_H/capture.json",
+    "raw_sha256": "470e685a59d8b868315c194c402b4ef6a23a4956e7a98ef733ee3b948cfac2bd",
+    "frames": 1152,
+    "initial": {
+      "config": {
+        "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+        "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+      },
+      "double_enabled": false,
+      "energy": 100.0,
+      "health": 5.0,
+      "hook_enabled": true,
+      "position": [
+        180.0,
+        600.0
+      ],
+      "shots": 2,
+      "tier": 1,
+      "wall_enabled": false,
+      "weapon": "pulse_gun"
+    },
+    "final": {
+      "config": {
+        "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+        "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+      },
+      "double_enabled": false,
+      "energy": 100.0,
+      "health": 5.0,
+      "hook_enabled": true,
+      "position": [
+        1399.98413085938,
+        371.925231933594
+      ],
+      "shots": 2,
+      "tier": 1,
+      "wall_enabled": false,
+      "weapon": "pulse_gun"
+    },
+    "choices": {
+      "cache_route": 1,
+      "cavity_direction": 1,
+      "enemy_mix": 1,
+      "entry_draw": 0,
+      "root_entry": false,
+      "skeleton": 1,
+      "west_reward": true,
+      "west_reward_draw": 1
+    },
+    "layout": "shared-tree-living-detour-v9",
+    "completed_legs": [
+      {
+        "edge_id": "arrival_reading",
+        "leg": 0,
+        "position": [
+          180.0,
+          600.0
+        ],
+        "start_tick": 1,
+        "supports": [
+          "west_court",
+          "far_return_step1"
+        ],
+        "tick": 12
+      },
+      {
+        "edge_id": "west_north",
+        "leg": 1,
+        "position": [
+          200.015853881836,
+          449.925231933594
+        ],
+        "start_tick": 13,
+        "supports": [
+          "north_court"
+        ],
+        "tick": 107
+      },
+      {
+        "edge_id": "camp_north_out",
+        "leg": 2,
+        "position": [
+          200.015853881836,
+          449.925231933594
+        ],
+        "start_tick": 108,
+        "supports": [
+          "north_court"
+        ],
+        "tick": 119
+      },
+      {
+        "edge_id": "camp_north_back",
+        "leg": 3,
+        "position": [
+          200.015853881836,
+          449.925231933594
+        ],
+        "start_tick": 120,
+        "supports": [
+          "north_court"
+        ],
+        "tick": 131
+      },
+      {
+        "edge_id": "north_far_bough",
+        "leg": 4,
+        "position": [
+          -399.985961914062,
+          249.925231933594
+        ],
+        "start_tick": 132,
+        "supports": [
+          "far_reward_branch"
+        ],
+        "tick": 281
+      },
+      {
+        "edge_id": "far_cache",
+        "leg": 5,
+        "position": [
+          -524.963012695312,
+          249.925231933594
+        ],
+        "start_tick": 282,
+        "supports": [
+          "far_reward_branch"
+        ],
+        "tick": 321
+      },
+      {
+        "edge_id": "far_reward_return",
+        "leg": 6,
+        "position": [
+          179.961380004883,
+          599.925170898438
+        ],
+        "start_tick": 322,
+        "supports": [
+          "west_court",
+          "far_return_step1"
+        ],
+        "tick": 534
+      },
+      {
+        "edge_id": "west_to_belly",
+        "leg": 7,
+        "position": [
+          391.985382080078,
+          599.925170898438
+        ],
+        "start_tick": 535,
+        "supports": [
+          "hollow__belly_west"
+        ],
+        "tick": 604
+      },
+      {
+        "edge_id": "west_to_belly",
+        "leg": 8,
+        "position": [
+          531.984802246094,
+          599.925170898438
+        ],
+        "start_tick": 605,
+        "supports": [
+          "hollow__belly_entry"
+        ],
+        "tick": 658
+      },
+      {
+        "edge_id": "west_to_belly",
+        "leg": 9,
+        "position": [
+          599.965454101562,
+          599.925170898438
+        ],
+        "start_tick": 659,
+        "supports": [
+          "hollow__belly_entry"
+        ],
+        "tick": 685
+      },
+      {
+        "edge_id": "belly_borer_access",
+        "leg": 10,
+        "position": [
+          468.015411376953,
+          599.925170898438
+        ],
+        "start_tick": 686,
+        "supports": [
+          "hollow__belly_west"
+        ],
+        "tick": 737
+      },
+      {
+        "edge_id": "belly_borer_access",
+        "leg": 11,
+        "position": [
+          338.017364501953,
+          481.925231933594
+        ],
+        "start_tick": 738,
+        "supports": [
+          "borer_access_low"
+        ],
+        "tick": 783
+      },
+      {
+        "edge_id": "belly_borer_access",
+        "leg": 12,
+        "position": [
+          338.000091552734,
+          381.998901367188
+        ],
+        "start_tick": 784,
+        "supports": [
+          "borer_access_middle"
+        ],
+        "tick": 807
+      },
+      {
+        "edge_id": "belly_borer_access",
+        "leg": 13,
+        "position": [
+          354.984313964844,
+          281.925231933594
+        ],
+        "start_tick": 808,
+        "supports": [
+          "hollow__cavity_observe"
+        ],
+        "tick": 831
+      },
+      {
+        "edge_id": "belly_borer_access",
+        "leg": 14,
+        "position": [
+          354.984313964844,
+          281.925231933594
+        ],
+        "start_tick": 832,
+        "supports": [
+          "hollow__cavity_observe"
+        ],
+        "tick": 843
+      },
+      {
+        "edge_id": "borer_crossing",
+        "leg": 15,
+        "position": [
+          1029.98315429688,
+          371.925231933594
+        ],
+        "start_tick": 844,
+        "supports": [
+          "boss_approach",
+          "hollow__cavity_exit"
+        ],
+        "tick": 1003
+      },
+      {
+        "edge_id": "cavity_prep",
+        "leg": 16,
+        "position": [
+          1299.98205566406,
+          371.925231933594
+        ],
+        "start_tick": 1004,
+        "supports": [
+          "boss_approach",
+          "hollow__cavity_exit"
+        ],
+        "tick": 1088
+      },
+      {
+        "edge_id": "crown_approach",
+        "leg": 17,
+        "position": [
+          1399.98413085938,
+          371.925231933594
+        ],
+        "start_tick": 1089,
+        "supports": [
+          "boss_approach",
+          "hollow__cavity_exit"
+        ],
+        "tick": 1152
+      }
+    ],
+    "enemy_states": {
+      "hollow_route__root_seed_watch": {
+        "states": {
+          "idle": 1152
+        },
+        "HP_min": 3.0,
+        "HP_max": 3.0
+      },
+      "hollow_route__crown_thread": {
+        "states": {
+          "idle": 1152
+        },
+        "HP_min": 2.0,
+        "HP_max": 2.0
+      },
+      "hollow_route__outer_lift_lantern": {
+        "states": {
+          "dwell": 406,
+          "telegraph": 186,
+          "travel": 560
+        },
+        "HP_min": 2.0,
+        "HP_max": 2.0
+      },
+      "hollow_route__inner_thread": {
+        "states": {
+          "idle": 952,
+          "telegraph": 54,
+          "extend": 9,
+          "hold": 39,
+          "retract": 16,
+          "recovery": 82
+        },
+        "HP_min": 2.0,
+        "HP_max": 2.0
+      },
+      "hollow_route__crossbranch": {
+        "states": {
+          "rest": 534,
+          "telegraph": 240,
+          "flight": 294,
+          "settle": 84
+        },
+        "HP_min": 2.0,
+        "HP_max": 3.0
+      }
+    },
+    "significant_events": [
+      {
+        "amount": 1.0,
+        "damage_kind": 0,
+        "event_id": "hook/154283280570/2/2",
+        "health_after": 2.0,
+        "kind": "committed_damage",
+        "leg": 4,
+        "lethal": false,
+        "position": [
+          -199.416641235352,
+          235.844085693359
+        ],
+        "presentation_frame": 224,
+        "process_frame": 224,
+        "source": "player_projectile:154283280570",
+        "target": "hollow_route__crossbranch",
+        "tick": 217
+      },
+      {
+        "kind": "formal_actual_C_thread_apex_release",
+        "leg": 16,
+        "normal_velocity": [
+          260.0,
+          36.0000076293945
+        ],
+        "position": [
+          1133.984375,
+          222.213104248047
+        ],
+        "presentation_frame": 1039,
+        "process_frame": 1039,
+        "snapshot": {
+          "config": {
+            "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+            "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+          },
+          "double_enabled": false,
+          "energy": 81.5,
+          "health": 5.0,
+          "hook_enabled": true,
+          "position": [
+            1133.984375,
+            222.213104248047
+          ],
+          "shots": 2,
+          "tier": 1,
+          "wall_enabled": false,
+          "weapon": "pulse_gun"
+        },
+        "tick": 1028
+      }
+    ],
+    "requests": [
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 0,
+        "presentation_frame": 19,
+        "process_frame": 19,
+        "tick": 12
+      },
+      {
+        "held": true,
+        "kind": "jump_held",
+        "leg": 1,
+        "presentation_frame": 31,
+        "process_frame": 31,
+        "tick": 24
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 1,
+        "presentation_frame": 48,
+        "process_frame": 48,
+        "tick": 41
+      },
+      {
+        "aim": [
+          0.763672530651093,
+          -0.645603895187378
+        ],
+        "kind": "grapple",
+        "leg": 1,
+        "observation": "actual_router_queued_direction",
+        "phase": "relay_launch",
+        "presentation_frame": 48,
+        "process_frame": 48,
+        "queued": true,
+        "raw_aim": [
+          0.763672471046448,
+          -0.645603835582733
+        ],
+        "router_epoch": 3,
+        "router_sequence": 3,
+        "tick": 41
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 1,
+        "presentation_frame": 114,
+        "process_frame": 114,
+        "tick": 107
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 2,
+        "presentation_frame": 126,
+        "process_frame": 126,
+        "tick": 119
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 3,
+        "presentation_frame": 138,
+        "process_frame": 138,
+        "tick": 131
+      },
+      {
+        "held": true,
+        "kind": "jump_held",
+        "leg": 4,
+        "presentation_frame": 181,
+        "process_frame": 181,
+        "tick": 174
+      },
+      {
+        "aim": [
+          -0.888856589794159,
+          -0.458185583353043
+        ],
+        "kind": "grapple",
+        "leg": 4,
+        "observation": "actual_router_queued_direction",
+        "phase": "candidate_full_jump_toward_live_migrant",
+        "presentation_frame": 204,
+        "process_frame": 204,
+        "queued": true,
+        "raw_aim": [
+          -0.888856530189514,
+          -0.45818555355072
+        ],
+        "router_epoch": 3,
+        "router_sequence": 5,
+        "tick": 197
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 4,
+        "presentation_frame": 239,
+        "process_frame": 239,
+        "tick": 232
+      },
+      {
+        "aim": [
+          0.707106828689575,
+          0.707106828689575
+        ],
+        "kind": "shoot_release",
+        "leg": 4,
+        "observation": "actual_router_queued_direction",
+        "phase": "candidate_actual_moving_body_hook",
+        "presentation_frame": 239,
+        "process_frame": 239,
+        "queued": true,
+        "raw_aim": [
+          0.70710676908493,
+          0.70710676908493
+        ],
+        "router_epoch": 3,
+        "router_sequence": 7,
+        "tick": 232
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 4,
+        "presentation_frame": 288,
+        "process_frame": 288,
+        "tick": 281
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 5,
+        "presentation_frame": 328,
+        "process_frame": 328,
+        "tick": 321
+      },
+      {
+        "aim": [
+          0.0,
+          0.0
+        ],
+        "kind": "interact",
+        "leg": 6,
+        "observation": "actual_router_queued_direction",
+        "phase": "align",
+        "presentation_frame": 329,
+        "process_frame": 329,
+        "queued": true,
+        "raw_aim": [
+          0.0,
+          0.0
+        ],
+        "router_epoch": 3,
+        "router_sequence": 8,
+        "tick": 322
+      },
+      {
+        "aim": [
+          0.0,
+          0.0
+        ],
+        "kind": "interact",
+        "leg": 6,
+        "observation": "actual_router_queued_direction",
+        "phase": "align",
+        "presentation_frame": 335,
+        "process_frame": 335,
+        "queued": true,
+        "raw_aim": [
+          0.0,
+          0.0
+        ],
+        "router_epoch": 6,
+        "router_sequence": 9,
+        "tick": 324
+      },
+      {
+        "held": true,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 363,
+        "process_frame": 363,
+        "tick": 352
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 386,
+        "process_frame": 386,
+        "tick": 375
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 387,
+        "process_frame": 387,
+        "tick": 376
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 388,
+        "process_frame": 388,
+        "tick": 377
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 389,
+        "process_frame": 389,
+        "tick": 378
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 390,
+        "process_frame": 390,
+        "tick": 379
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 391,
+        "process_frame": 391,
+        "tick": 380
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 392,
+        "process_frame": 392,
+        "tick": 381
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 393,
+        "process_frame": 393,
+        "tick": 382
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 394,
+        "process_frame": 394,
+        "tick": 383
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 395,
+        "process_frame": 395,
+        "tick": 384
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 396,
+        "process_frame": 396,
+        "tick": 385
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 397,
+        "process_frame": 397,
+        "tick": 386
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 398,
+        "process_frame": 398,
+        "tick": 387
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 399,
+        "process_frame": 399,
+        "tick": 388
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 400,
+        "process_frame": 400,
+        "tick": 389
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 401,
+        "process_frame": 401,
+        "tick": 390
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 402,
+        "process_frame": 402,
+        "tick": 391
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 403,
+        "process_frame": 403,
+        "tick": 392
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 404,
+        "process_frame": 404,
+        "tick": 393
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 405,
+        "process_frame": 405,
+        "tick": 394
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 406,
+        "process_frame": 406,
+        "tick": 395
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 407,
+        "process_frame": 407,
+        "tick": 396
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 408,
+        "process_frame": 408,
+        "tick": 397
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 409,
+        "process_frame": 409,
+        "tick": 398
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 410,
+        "process_frame": 410,
+        "tick": 399
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 411,
+        "process_frame": 411,
+        "tick": 400
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 412,
+        "process_frame": 412,
+        "tick": 401
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 413,
+        "process_frame": 413,
+        "tick": 402
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 414,
+        "process_frame": 414,
+        "tick": 403
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 415,
+        "process_frame": 415,
+        "tick": 404
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 416,
+        "process_frame": 416,
+        "tick": 405
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 417,
+        "process_frame": 417,
+        "tick": 406
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 418,
+        "process_frame": 418,
+        "tick": 407
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 419,
+        "process_frame": 419,
+        "tick": 408
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 420,
+        "process_frame": 420,
+        "tick": 409
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 421,
+        "process_frame": 421,
+        "tick": 410
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 422,
+        "process_frame": 422,
+        "tick": 411
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 423,
+        "process_frame": 423,
+        "tick": 412
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 424,
+        "process_frame": 424,
+        "tick": 413
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 425,
+        "process_frame": 425,
+        "tick": 414
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 426,
+        "process_frame": 426,
+        "tick": 415
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 427,
+        "process_frame": 427,
+        "tick": 416
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 428,
+        "process_frame": 428,
+        "tick": 417
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 429,
+        "process_frame": 429,
+        "tick": 418
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 430,
+        "process_frame": 430,
+        "tick": 419
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 431,
+        "process_frame": 431,
+        "tick": 420
+      },
+      {
+        "held": true,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 443,
+        "process_frame": 443,
+        "tick": 432
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 466,
+        "process_frame": 466,
+        "tick": 455
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 467,
+        "process_frame": 467,
+        "tick": 456
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 468,
+        "process_frame": 468,
+        "tick": 457
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 469,
+        "process_frame": 469,
+        "tick": 458
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 470,
+        "process_frame": 470,
+        "tick": 459
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 471,
+        "process_frame": 471,
+        "tick": 460
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 472,
+        "process_frame": 472,
+        "tick": 461
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 473,
+        "process_frame": 473,
+        "tick": 462
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 474,
+        "process_frame": 474,
+        "tick": 463
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 475,
+        "process_frame": 475,
+        "tick": 464
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 476,
+        "process_frame": 476,
+        "tick": 465
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 477,
+        "process_frame": 477,
+        "tick": 466
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 478,
+        "process_frame": 478,
+        "tick": 467
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 479,
+        "process_frame": 479,
+        "tick": 468
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 480,
+        "process_frame": 480,
+        "tick": 469
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 481,
+        "process_frame": 481,
+        "tick": 470
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 482,
+        "process_frame": 482,
+        "tick": 471
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 483,
+        "process_frame": 483,
+        "tick": 472
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 484,
+        "process_frame": 484,
+        "tick": 473
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 485,
+        "process_frame": 485,
+        "tick": 474
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 6,
+        "presentation_frame": 545,
+        "process_frame": 545,
+        "tick": 534
+      },
+      {
+        "held": true,
+        "kind": "jump_held",
+        "leg": 7,
+        "presentation_frame": 570,
+        "process_frame": 570,
+        "tick": 559
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 7,
+        "presentation_frame": 578,
+        "process_frame": 578,
+        "tick": 567
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 7,
+        "presentation_frame": 615,
+        "process_frame": 615,
+        "tick": 604
+      },
+      {
+        "held": true,
+        "kind": "jump_held",
+        "leg": 8,
+        "presentation_frame": 633,
+        "process_frame": 633,
+        "tick": 622
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 8,
+        "presentation_frame": 641,
+        "process_frame": 641,
+        "tick": 630
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 8,
+        "presentation_frame": 669,
+        "process_frame": 669,
+        "tick": 658
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 9,
+        "presentation_frame": 696,
+        "process_frame": 696,
+        "tick": 685
+      },
+      {
+        "held": true,
+        "kind": "jump_held",
+        "leg": 10,
+        "presentation_frame": 712,
+        "process_frame": 712,
+        "tick": 701
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 10,
+        "presentation_frame": 720,
+        "process_frame": 720,
+        "tick": 709
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 10,
+        "presentation_frame": 748,
+        "process_frame": 748,
+        "tick": 737
+      },
+      {
+        "held": true,
+        "kind": "jump_held",
+        "leg": 11,
+        "presentation_frame": 766,
+        "process_frame": 766,
+        "tick": 755
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 11,
+        "presentation_frame": 779,
+        "process_frame": 779,
+        "tick": 768
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 11,
+        "presentation_frame": 794,
+        "process_frame": 794,
+        "tick": 783
+      },
+      {
+        "held": true,
+        "kind": "jump_held",
+        "leg": 12,
+        "presentation_frame": 795,
+        "process_frame": 795,
+        "tick": 784
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 12,
+        "presentation_frame": 805,
+        "process_frame": 805,
+        "tick": 794
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 12,
+        "presentation_frame": 818,
+        "process_frame": 818,
+        "tick": 807
+      },
+      {
+        "held": true,
+        "kind": "jump_held",
+        "leg": 13,
+        "presentation_frame": 819,
+        "process_frame": 819,
+        "tick": 808
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 13,
+        "presentation_frame": 829,
+        "process_frame": 829,
+        "tick": 818
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 13,
+        "presentation_frame": 842,
+        "process_frame": 842,
+        "tick": 831
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 14,
+        "presentation_frame": 854,
+        "process_frame": 854,
+        "tick": 843
+      },
+      {
+        "aim": [
+          0.992466747760773,
+          -0.122514322400093
+        ],
+        "body_before": [
+          354.984313964844,
+          281.925231933594
+        ],
+        "grounded_before": true,
+        "hook_origin_before": [
+          354.984313964844,
+          275.925231933594
+        ],
+        "kind": "grapple",
+        "leg": 15,
+        "observation": "actual_router_queued_direction",
+        "phase": "align",
+        "presentation_frame": 866,
+        "process_frame": 866,
+        "queued": true,
+        "raw_aim": [
+          0.992466747760773,
+          -0.122514322400093
+        ],
+        "router_epoch": 6,
+        "router_sequence": 26,
+        "tick": 855,
+        "velocity_before": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "aim": [
+          -1.0,
+          0.0
+        ],
+        "body_before": [
+          499.438720703125,
+          232.028564453125
+        ],
+        "grounded_before": false,
+        "hook_origin_before": [
+          499.438720703125,
+          226.028564453125
+        ],
+        "kind": "shoot_release",
+        "leg": 15,
+        "observation": "actual_router_queued_direction",
+        "phase": "cavity_pull",
+        "presentation_frame": 901,
+        "process_frame": 901,
+        "queued": true,
+        "raw_aim": [
+          -1.0,
+          0.0
+        ],
+        "router_epoch": 6,
+        "router_sequence": 27,
+        "tick": 890,
+        "velocity_before": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "aim": [
+          0.887539863586426,
+          0.460730969905853
+        ],
+        "body_before": [
+          787.95947265625,
+          282.647521972656
+        ],
+        "grounded_before": false,
+        "hook_origin_before": [
+          787.95947265625,
+          276.647521972656
+        ],
+        "kind": "grapple",
+        "leg": 15,
+        "observation": "actual_router_queued_direction",
+        "phase": "cavity_elbow_walkoff",
+        "presentation_frame": 952,
+        "process_frame": 952,
+        "queued": true,
+        "raw_aim": [
+          0.887539803981781,
+          0.460730940103531
+        ],
+        "router_epoch": 6,
+        "router_sequence": 28,
+        "tick": 941,
+        "velocity_before": [
+          260.0,
+          43.3333320617676
+        ]
+      },
+      {
+        "aim": [
+          -1.0,
+          0.0
+        ],
+        "body_before": [
+          845.378295898438,
+          309.158355712891
+        ],
+        "grounded_before": false,
+        "hook_origin_before": [
+          845.378295898438,
+          303.158355712891
+        ],
+        "kind": "shoot_release",
+        "leg": 15,
+        "observation": "actual_router_queued_direction",
+        "phase": "cavity_pull",
+        "presentation_frame": 981,
+        "process_frame": 981,
+        "queued": true,
+        "raw_aim": [
+          -1.0,
+          0.0
+        ],
+        "router_epoch": 6,
+        "router_sequence": 29,
+        "tick": 970,
+        "velocity_before": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 15,
+        "presentation_frame": 1014,
+        "process_frame": 1014,
+        "tick": 1003
+      },
+      {
+        "held": true,
+        "kind": "jump_held",
+        "leg": 16,
+        "presentation_frame": 1016,
+        "process_frame": 1016,
+        "tick": 1005
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 16,
+        "presentation_frame": 1039,
+        "process_frame": 1039,
+        "tick": 1028
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 16,
+        "presentation_frame": 1099,
+        "process_frame": 1099,
+        "tick": 1088
+      },
+      {
+        "held": true,
+        "kind": "jump_held",
+        "leg": 17,
+        "presentation_frame": 1100,
+        "process_frame": 1100,
+        "tick": 1089
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 17,
+        "presentation_frame": 1104,
+        "process_frame": 1104,
+        "tick": 1093
+      },
+      {
+        "aim": [
+          0.883494555950165,
+          -0.468441426753998
+        ],
+        "kind": "grapple",
+        "leg": 17,
+        "observation": "actual_router_queued_direction",
+        "phase": "gate_jump",
+        "presentation_frame": 1104,
+        "process_frame": 1104,
+        "queued": true,
+        "raw_aim": [
+          0.88349449634552,
+          -0.468441396951675
+        ],
+        "router_epoch": 6,
+        "router_sequence": 34,
+        "tick": 1093
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 17,
+        "presentation_frame": 1163,
+        "process_frame": 1163,
+        "tick": 1152
+      }
+    ]
+  },
+  "R08crown": {
+    "archive": "docs/evidence/forest_depth_v2/root_entry01/root-entry01-selected.tar.gz",
+    "archive_sha256": "d49a224da324ee5ed563f7a3c0f0b4955e31ad4bd8ccc3ddb288239468b8e7e9",
+    "member": "actual/capture.json.gz",
+    "raw_sha256": "d35c2a3d2539a9814e628df0e50315ca7be0b4c0fedb58d6ddf9b1a78ef6e0ee",
+    "frames": 281,
+    "initial": {
+      "config": {
+        "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+        "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+      },
+      "double_enabled": false,
+      "energy": 100.0,
+      "health": 5.0,
+      "hook_enabled": true,
+      "position": [
+        1020.0,
+        882.0
+      ],
+      "shots": 2,
+      "tier": 1,
+      "wall_enabled": false,
+      "weapon": "pulse_gun"
+    },
+    "final": {
+      "config": {
+        "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+        "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+      },
+      "double_enabled": false,
+      "energy": 100.0,
+      "health": 5.0,
+      "hook_enabled": true,
+      "position": [
+        1399.98413085938,
+        281.925231933594
+      ],
+      "shots": 2,
+      "tier": 1,
+      "wall_enabled": false,
+      "weapon": "pulse_gun"
+    },
+    "choices": {
+      "cache_route": 0,
+      "cavity_direction": 0,
+      "enemy_mix": 0,
+      "entry_draw": 1,
+      "root_entry": true,
+      "skeleton": 0,
+      "west_reward": false,
+      "west_reward_draw": 1
+    },
+    "layout": "shared-tree-living-detour-v9",
+    "completed_legs": [
+      {
+        "edge_id": "arrival_reading",
+        "leg": 0,
+        "position": [
+          1020.0,
+          882.0
+        ],
+        "start_tick": 1,
+        "supports": [
+          "hollow__outer_root"
+        ],
+        "tick": 12
+      },
+      {
+        "edge_id": "outer_lift_return",
+        "leg": 1,
+        "position": [
+          980.014892578125,
+          557.925170898438
+        ],
+        "start_tick": 13,
+        "supports": [
+          "crown_reward_rest",
+          "hollow__outer_crown"
+        ],
+        "tick": 83
+      },
+      {
+        "edge_id": "crown_reverse_return",
+        "leg": 2,
+        "position": [
+          1029.99987792969,
+          281.992858886719
+        ],
+        "start_tick": 84,
+        "supports": [
+          "boss_approach",
+          "hollow__cavity_exit"
+        ],
+        "tick": 144
+      },
+      {
+        "edge_id": "cavity_prep",
+        "leg": 3,
+        "position": [
+          1299.95373535156,
+          281.925231933594
+        ],
+        "start_tick": 145,
+        "supports": [
+          "boss_approach",
+          "hollow__cavity_exit"
+        ],
+        "tick": 217
+      },
+      {
+        "edge_id": "crown_approach",
+        "leg": 4,
+        "position": [
+          1399.98413085938,
+          281.925231933594
+        ],
+        "start_tick": 218,
+        "supports": [
+          "boss_approach",
+          "hollow__cavity_exit"
+        ],
+        "tick": 281
+      }
+    ],
+    "enemy_states": {
+      "hollow_route__root_patrol": {
+        "states": {
+          "idle": 281
+        },
+        "HP_min": 3.0,
+        "HP_max": 3.0
+      },
+      "hollow_route__outer_watch": {
+        "states": {
+          "idle": 281
+        },
+        "HP_min": 3.0,
+        "HP_max": 3.0
+      },
+      "hollow_route__outer_lift_lantern": {
+        "states": {
+          "dwell": 130,
+          "telegraph": 62,
+          "travel": 89
+        },
+        "HP_min": 1.0,
+        "HP_max": 2.0
+      }
+    },
+    "significant_events": [
+      {
+        "enemy_health": 2.0,
+        "enemy_id": "hollow_route__outer_lift_lantern",
+        "kind": "lift_actual_contact",
+        "leg": 1,
+        "position": [
+          1042.2119140625,
+          721.716003417969
+        ],
+        "snapshot": {
+          "config": {
+            "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+            "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+          },
+          "double_enabled": false,
+          "energy": 100.0,
+          "health": 5.0,
+          "hook_enabled": true,
+          "position": [
+            1042.2119140625,
+            721.716003417969
+          ],
+          "shots": 2,
+          "tier": 1,
+          "wall_enabled": false,
+          "weapon": "pulse_gun"
+        },
+        "tick": 33
+      },
+      {
+        "amount": 1.0,
+        "damage_kind": 0,
+        "event_id": "hook/155642235109/2/1",
+        "health_after": 1.0,
+        "kind": "committed_damage",
+        "leg": 1,
+        "lethal": false,
+        "position": [
+          1042.2119140625,
+          721.716003417969
+        ],
+        "source": "player_projectile:155642235109",
+        "target": "hollow_route__outer_lift_lantern",
+        "tick": 33
+      },
+      {
+        "kind": "crown_return_ordinary_real_apex",
+        "leg": 2,
+        "position": [
+          1029.97924804688,
+          408.212951660156
+        ],
+        "snapshot": {
+          "config": {
+            "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+            "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+          },
+          "double_enabled": false,
+          "energy": 86.5,
+          "health": 5.0,
+          "hook_enabled": true,
+          "position": [
+            1029.97924804688,
+            408.212951660156
+          ],
+          "shots": 2,
+          "tier": 1,
+          "wall_enabled": false,
+          "weapon": "pulse_gun"
+        },
+        "tick": 107
+      },
+      {
+        "R_count": 1,
+        "kind": "crown_return_actual_C_arrival",
+        "leg": 2,
+        "position": [
+          1029.99987792969,
+          281.992858886719
+        ],
+        "snapshot": {
+          "config": {
+            "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+            "tuning": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+          },
+          "double_enabled": false,
+          "energy": 72.0,
+          "health": 5.0,
+          "hook_enabled": true,
+          "position": [
+            1029.99987792969,
+            281.992858886719
+          ],
+          "shots": 2,
+          "supports": [
+            "boss_approach",
+            "hollow__cavity_exit"
+          ],
+          "tier": 1,
+          "wall_enabled": false,
+          "weapon": "pulse_gun"
+        },
+        "supports": [
+          "boss_approach",
+          "hollow__cavity_exit"
+        ],
+        "tick": 144
+      }
+    ],
+    "requests": [
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 0,
+        "tick": 12
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 1,
+        "tick": 13
+      },
+      {
+        "aim": [
+          0.151299193501472,
+          -0.988488018512726
+        ],
+        "kind": "grapple",
+        "leg": 1,
+        "observation": "actual_router_queued_direction",
+        "phase": "align",
+        "queued": true,
+        "raw_aim": [
+          0.151299193501472,
+          -0.988488018512726
+        ],
+        "router_epoch": 3,
+        "router_sequence": 1,
+        "tick": 13
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 1,
+        "tick": 48
+      },
+      {
+        "aim": [
+          0.0,
+          1.0
+        ],
+        "kind": "shoot_release",
+        "leg": 1,
+        "observation": "actual_router_queued_direction",
+        "phase": "lift_live_hook",
+        "queued": true,
+        "raw_aim": [
+          0.0,
+          1.0
+        ],
+        "router_epoch": 3,
+        "router_sequence": 2,
+        "tick": 48
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 1,
+        "tick": 83
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 1,
+        "tick": 83
+      },
+      {
+        "held": true,
+        "kind": "jump_held",
+        "leg": 2,
+        "tick": 84
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 2,
+        "tick": 107
+      },
+      {
+        "aim": [
+          0.0,
+          1.0
+        ],
+        "kind": "shoot_release",
+        "leg": 2,
+        "observation": "actual_router_queued_direction",
+        "phase": "crown_return_full_jump",
+        "queued": true,
+        "raw_aim": [
+          0.0,
+          1.0
+        ],
+        "router_epoch": 3,
+        "router_sequence": 5,
+        "tick": 107
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 2,
+        "tick": 144
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 3,
+        "tick": 217
+      },
+      {
+        "held": true,
+        "kind": "jump_held",
+        "leg": 4,
+        "tick": 218
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 4,
+        "tick": 222
+      },
+      {
+        "aim": [
+          0.883463799953461,
+          -0.468499451875687
+        ],
+        "kind": "grapple",
+        "leg": 4,
+        "observation": "actual_router_queued_direction",
+        "phase": "gate_jump",
+        "queued": true,
+        "raw_aim": [
+          0.883463799953461,
+          -0.468499451875687
+        ],
+        "router_epoch": 3,
+        "router_sequence": 8,
+        "tick": 222
+      },
+      {
+        "held": false,
+        "kind": "jump_held",
+        "leg": 4,
+        "tick": 281
+      }
+    ]
+  }
+}

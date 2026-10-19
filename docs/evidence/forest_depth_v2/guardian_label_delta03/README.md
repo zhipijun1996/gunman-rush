@@ -1,0 +1,5 @@
+# Guardian label delta03
+
+Actual4.7.2 complete32HP H fight:717 frames/60fps/11.95s, original45s native cap and clean exit. Exact frozen guardian_label03 snapshot/base51e594b3+declared dirty overlay;906 narrow source guard and2033 full runtime files before/after identical. True Bell counters, HP5 and18 P2 overlap frames retained. Complete MP4, gzip raw, original receipts/log/import/selected source and producer retained. AVI remains build-only and original hash is not rewritten.
+
+Delta03 moves only an overlapping phase label above the actual nearby Bell visual circle, using font/projected bounds; it does not chase remote Bell or alter attacks. [Independent review](../reviews/guardian_label_delta03/REVIEW.md) limited ACCEPT after all73 samples and375/501/585/609 originals; phase text now clears Bell at501,375/585 do not regress. Only this rendering delta is signed. Prior delta01/02 failures remain separate. Per-run native object IDs can differ; no byte-identical raw claim. Not a final all-source or player/commercial approval.

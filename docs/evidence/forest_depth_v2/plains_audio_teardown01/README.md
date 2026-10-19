@@ -1,0 +1,11 @@
+# Plains deleted-bank audio teardown repair
+
+Source89dcc CI run39086547916 failed its existing plains-redesign-golden negative; deployment was skipped. Core/generated-consumers/region and earlier checks passed; later forest-specific checks were not reached. The original artifact, API digest, report and outer logs are retained. That old profile did not collect its inner build/plains_redesign raw/log, so the exact remote failing assertion is not recoverable and is not retrospectively invented.
+
+One actual local4.7.2 verbose negative reproduced strict rejection: the actual missing-bank geometry fails at208ticks, but four Ogg backend objects and two bell.ogg resources also leak at exit. All923 selected source hashes stayed exact. The custom fixture bypassed the existing audio helper initialization and directly freed its world before quitting.
+
+Three-file repair: initialize existing AudioTeardown before world/audio creation; use existing1000ms bounded release_test_world at both world lifetime ends; accumulate cleanup_ok and require its exact boolean true in both positive and negative readers. All33 original GD check calls,11 Router statements,23 loop/budget headers and94 original Python assert ASTs remain. The profile adds only artifact_paths so future failures retain actual inner raw/log;180s child and240s parent budgets remain. No production game/physics/input/resource changes.
+
+The original fresh targeted Harness passes in117.636s overall, check59.707s. Actual full64 positive observations+2 resource controls yield3171/0; original64 strategies and11 evidence corruption rejections remain. The negative still exits1 with11/1, geometry unreached at208ticks; its real bell playback releases in13ms with clean exit. Full209-frame comparison shows only process-local object/event identity, one added cleanup assertion and cleanup_ok; every physical/resource/input fact remains exact. This is not a new full-profile or forest/fun approval.
+
+Independent review is under independent/. selected.tar.gz and members.json retain original failure and revised source-bound raw/log/receipts; no old failure is re-signed. A new committed-source CI and artifact/public identity checks remain required.

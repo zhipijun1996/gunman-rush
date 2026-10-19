@@ -1,0 +1,42 @@
+{
+  "scope": "Controlled load-only dependency boundary; not full41 proof",
+  "source_guard": true,
+  "cases": [
+    {
+      "case": "original",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--verbose",
+        "--path",
+        ".",
+        "--script",
+        "build/capability_boundary/original_load.gd"
+      ],
+      "budget_seconds": 10,
+      "exit": 0,
+      "seconds": 1.7729476729946327,
+      "loaded": true,
+      "strict_clean": false
+    },
+    {
+      "case": "candidate",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--verbose",
+        "--path",
+        ".",
+        "--script",
+        "build/capability_boundary/candidate_load.gd"
+      ],
+      "budget_seconds": 10,
+      "exit": 0,
+      "seconds": 0.3713984240021091,
+      "loaded": true,
+      "strict_clean": true
+    }
+  ]
+}

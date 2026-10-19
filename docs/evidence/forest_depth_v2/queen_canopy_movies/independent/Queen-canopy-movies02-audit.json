@@ -1,0 +1,179 @@
+{
+  "scope": "normal-speed 60fps media verified; independent review by offline stills only, not real-time human playback/audio/input",
+  "H_keys_seen": 22,
+  "keep_keys_seen": 19,
+  "H_independent_extra_frames": [
+    310,
+    317,
+    324,
+    411,
+    418,
+    425,
+    426,
+    427,
+    430,
+    440,
+    548,
+    614,
+    624
+  ],
+  "all_movie_sources_identical": true,
+  "results": [
+    {
+      "label": "H",
+      "movie": "build/forest_depth/queen/canopy_movie02_H/gameplay.mp4",
+      "movie_sha256": "49ce5c3d7e1a8d019f853326ef04f22bee4a5cb4f5e52b45f66bd63205b9da26",
+      "capture_sha256": "221dc9ee5d46e9706005a1de039dfc5d052d1c002a21d5dde40d9388e37396a5",
+      "receipt_sha256": "1c6006ae113505a966d4bb6aca12b57c12774ce76119bc106093079a66db43ba",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "60/1",
+            "duration": "10.433333",
+            "nb_frames": "626"
+          }
+        ]
+      },
+      "source_count": 2083,
+      "source_before_after_equal": true,
+      "keyframe_sha_bad": [],
+      "framecounts_vs_original02": [
+        625,
+        625
+      ],
+      "frame_differences_except_queen_motor_id": [],
+      "difference_count": 0,
+      "case": [
+        {
+          "boss_hp": 0.0,
+          "chain_end": 166.0,
+          "chain_start": 125.0,
+          "energy": 80.0,
+          "high_attempted": true,
+          "high_field": {
+            "health": 1.0,
+            "weave": {
+              "age": 5.26666666666665,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0.0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          "id": "purpose",
+          "initial_boss_hp": 24.0,
+          "initial_energy": 100.0,
+          "initial_player_hp": 5.0,
+          "kill_tick": 614.0,
+          "locked_receiver": "S",
+          "lure_ready_tick": -1.0,
+          "lure_stage_tick": -1.0,
+          "player_hp": 4.0,
+          "receiver_attempted": true,
+          "receiver_field": {
+            "health": 0.0,
+            "weave": {
+              "age": 0.566666666666667,
+              "growth": 0.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0.0,
+              "severed": true,
+              "suspended": false
+            }
+          },
+          "shore_arrived": false,
+          "shore_crossing_R": 0.0,
+          "shore_departure_tick": -1.0,
+          "shore_lock_tick": -1.0,
+          "support12": 12.0,
+          "ticks": 625.0
+        }
+      ]
+    },
+    {
+      "label": "keep",
+      "movie": "build/forest_depth/queen/canopy_movie02_keep/gameplay.mp4",
+      "movie_sha256": "b4ecfc29c47e32d23fe8adde2ee3a92feadbd1671e4b5505815f7b748ee5608e",
+      "capture_sha256": "f65ebed63bf0253561acbf50dbc494e0107695be3e503c36400708f56c99b7cf",
+      "receipt_sha256": "e16400226ff37c8c3c88c68249e31c1078f57bbfdef501105d6270c2d40548f6",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "width": 1280,
+            "height": 720,
+            "r_frame_rate": "60/1",
+            "duration": "8.533333",
+            "nb_frames": "512"
+          }
+        ]
+      },
+      "source_count": 2083,
+      "source_before_after_equal": true,
+      "keyframe_sha_bad": [],
+      "framecounts_vs_original02": [
+        511,
+        511
+      ],
+      "frame_differences_except_queen_motor_id": [],
+      "difference_count": 0,
+      "case": [
+        {
+          "boss_hp": 0.0,
+          "chain_end": -1.0,
+          "chain_start": -1.0,
+          "energy": 65.5,
+          "high_attempted": false,
+          "high_field": {
+            "health": 2.0,
+            "weave": {
+              "age": 5.58333333333332,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0.0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          "id": "ordinary_keep",
+          "initial_boss_hp": 24.0,
+          "initial_energy": 100.0,
+          "initial_player_hp": 5.0,
+          "kill_tick": 500.0,
+          "locked_receiver": "S",
+          "lure_ready_tick": -1.0,
+          "lure_stage_tick": -1.0,
+          "player_hp": 4.0,
+          "receiver_attempted": false,
+          "receiver_field": {
+            "health": 2.0,
+            "weave": {
+              "age": 4.48333333333332,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0.0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          "shore_arrived": true,
+          "shore_crossing_R": 2.0,
+          "shore_departure_tick": 238.0,
+          "shore_lock_tick": 231.0,
+          "support12": 12.0,
+          "ticks": 511.0
+        }
+      ]
+    }
+  ]
+}

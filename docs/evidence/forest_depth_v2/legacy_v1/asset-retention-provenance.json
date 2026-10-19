@@ -1,0 +1,52 @@
+{
+  "scope": "exact historical asset retention only; no native execution or restore; not current gameplay approval",
+  "source_commit": "bee850c66b2f402d644d7daa4c13db91c8abe8f8",
+  "manifest_asset_count": 654,
+  "current_byte_identical_assets": 652,
+  "retained_changed_or_missing_assets": [
+    {
+      "path": "assets/fonts/README.md",
+      "retained_path": "docs/evidence/forest_depth_v2/legacy_v1/asset_blobs/10117d92271015de6344d2f7614fe7c6337b4718",
+      "source_commit": "bee850c66b2f402d644d7daa4c13db91c8abe8f8",
+      "git_blob": "10117d92271015de6344d2f7614fe7c6337b4718",
+      "sha256": "efe874ad7e4ef02c04b8d013cc6ef1c0e6dfd42920badd62a54d77d933fc4175",
+      "bytes": 1796,
+      "current_sha256": "251d49861a19fe959560e3e5337e9b6cc514a2f301997495efa8fbfa679e9c11",
+      "current_bytes": 2452,
+      "tree_path_blob_verified": true,
+      "raw_blob_oid_verified": true,
+      "raw_sha256_verified": true
+    },
+    {
+      "path": "assets/fonts/windkeeper_ui.ttf",
+      "retained_path": "docs/evidence/forest_depth_v2/legacy_v1/asset_blobs/7abcacd8058122de7d8917f75c87bd0b10fdf6c3",
+      "source_commit": "bee850c66b2f402d644d7daa4c13db91c8abe8f8",
+      "git_blob": "7abcacd8058122de7d8917f75c87bd0b10fdf6c3",
+      "sha256": "26796805ce4eaf3ae874cd30cb3c22e4b99acd9686e19fb95cb2093958e4492a",
+      "bytes": 100376,
+      "current_sha256": "10f1b70436e051bca13db2ded17f40771b72beeb96a5cb7e3347711eef0b6e12",
+      "current_bytes": 112840,
+      "tree_path_blob_verified": true,
+      "raw_blob_oid_verified": true,
+      "raw_sha256_verified": true
+    }
+  ],
+  "protected_before": {
+    "manifest.json": "62d751a6b52393367871e4bd7739d6fe0ee9baa00f24203e9ee40f4fec31eac8",
+    "inventory.json": "754173962570ed3578e8e19405ad71455f354d8bb5c9948b33263f5cf70ec6b7",
+    "source.tar.gz": "64d47c39c7dc486c733ea199cd7a342dcc69f7368103fc29d13ed2388f687966"
+  },
+  "protected_after": {
+    "manifest.json": "62d751a6b52393367871e4bd7739d6fe0ee9baa00f24203e9ee40f4fec31eac8",
+    "inventory.json": "754173962570ed3578e8e19405ad71455f354d8bb5c9948b33263f5cf70ec6b7",
+    "source.tar.gz": "64d47c39c7dc486c733ea199cd7a342dcc69f7368103fc29d13ed2388f687966"
+  },
+  "protected_guard": true,
+  "retrieval_argv_template": [
+    "git",
+    "cat-file",
+    "blob",
+    "<manifest.git_blob>"
+  ],
+  "provenance": "Raw bytes retrieved from actual Git object; tree path at authenticated historical commit, Git object framing SHA1, and manifest SHA256 all checked. Existing restore fallback consumes asset_blobs/<git_blob>."
+}

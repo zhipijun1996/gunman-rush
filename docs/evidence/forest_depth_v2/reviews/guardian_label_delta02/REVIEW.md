@@ -1,0 +1,15 @@
+# Guardian label delta02 review
+
+**REVISE, limited to the remaining phase-label/Bell collision.** The original seal-over-lettering issue is genuinely fixed. New technical capture PASS and prior bounded mechanism CONTINUE remain intact; this review does not reject the combat.
+
+I read the actual source diff: only _draw_visible_label changes relative to delta01, with horizontal range intersecting viewport margins and projected configured arena interior. Attack mark/trajectory/body/Bell geometry is untouched. Independently checked906 source hashes, before/after and runner stability, native/import Godot4.7.2 strict clean logs, all four output hashes and7original-key hashes. Original45s native cap remains, actual16.556s. Full32HP kill, PlayerHP5 and18 genuine phase2 overlap frames remain.
+
+I actually viewed all73 complete-time-range every10th-frame-plus-final samples in4sheets and independently extracted original-size375/501/585/609 from the same717-frame60fps/11.95s MP4. This is sampled inspection, not realtime viewing/audio/device. Last blank teardown frame remains.
+
+At375 LOCKED LANDING is now fully inside the wall and readable. At585 the beginning of II BELL + BODY also clears the left seal;609 remains clear. However,501/8.35s now places the latter phase label across the warning Bell’s gold double circle. The right portion of the lettering shares that bright moving outline. This is the specific occlusion transferred from seal to Bell, not evidence all text is fixed. Gold attack arc/body receiver geometry remains understandable at its broad scale.
+
+A single bounded remedy is to keep phase text above the near-body visual union: use the higher of Boss top and the held/warning Bell’s outer visual circle top, then leave10–12px text clearance and apply the existing safe clamp. Do not chase a Bell flying elsewhere across the arena. Equivalently check only the actual nearby Bell screen rectangle against the proposed phase-text rectangle and lift that label enough to separate; preserve target association and existing mechanics. The375 landing label is already improved and need not be moved gratuitously. Right landing text near a fixed ring still has some visual competition, so no universal clarity assertion follows.
+
+Raw JSON is **not byte-identical** to01. I retained a440-entry exact difference list:411bell_id,15owner_id,4event_id,4attack_id,3collider and one each bell/id/source. These contain different run-specific object identities and embedded identity tokens. The complete actual physical sample dictionaries are exact after excluding Bell instance ID; comparisons/HP/timing are unchanged. No original raw was rewritten or normalized in evidence.
+
+I authored an earlier reused base battle/region driver, not this patch/capture. Only this later presentation delta and recorded mechanism are reviewed; not a new independent signature of my whole driver, restore semantics, player fun, final art, all camera positions/devices/audio or release. Old01REVISE is retained. No engine or受审 source modified here.

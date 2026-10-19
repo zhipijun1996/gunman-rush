@@ -1,0 +1,37 @@
+{
+  "scope": "Author local technical evidence; independent review recorded separately. Earlier38/119/action-budget7305 are not relabeled as this laser source.",
+  "runs": [
+    {
+      "log": "reproduce01.log",
+      "exit_code": 1,
+      "cases": 2,
+      "failed_cases": 2,
+      "note": "Before fix, real PC idle H starts laser packet0->1/charges2->1; existing beam continues/drains100->99.783333."
+    },
+    {
+      "log": "reproduce02.log",
+      "exit_code": 0,
+      "cases": 2,
+      "failed_cases": 0,
+      "note": "Identical unchanged native reproducer after production fix; no packet/charge/drain in H aim."
+    },
+    {
+      "log": "conformance01.log",
+      "exit_code": 0,
+      "assertions": 174,
+      "failures": 0,
+      "cases": 12,
+      "command": "GUNMAN_TOOLCHAIN_ROOT=/workspace/toolchains flock -w 120 build/verification/engine.lock timeout 90 bash tools/godot.sh --headless --path . --max-fps 120 --script res://tests/grapple_laser_input_runner.gd",
+      "note": "Two actual laser definitions, PC/gamepad/touch real adapters, idle/existing beam; actual Controller/uniqueMotor/resources/.15 focus; real H release and complete miss/retract; fresh gun resumes exactly one beam; cancel clears motor drive."
+    },
+    {
+      "log": "all_weapons01.log",
+      "exit_code": 0,
+      "assertions": 2381,
+      "failures": 0,
+      "engine_budget_seconds": 240,
+      "command": "GUNMAN_TOOLCHAIN_ROOT=/workspace/toolchains flock -w 120 build/verification/engine.lock timeout 240 bash tools/godot.sh --headless --path . --script tests/all_weapons_runner.gd",
+      "note": "Original full all-weapons runtime, original240-second engine budget unchanged; bounded120-second lock wait separate."
+    }
+  ]
+}

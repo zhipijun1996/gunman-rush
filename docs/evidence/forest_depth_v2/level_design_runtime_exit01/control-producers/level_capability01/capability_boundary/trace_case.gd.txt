@@ -1,0 +1,32 @@
+extends Node
+var SNAPSHOT: Script = load("res://tools/level_capability_snapshot.gd")
+var assertions = 0
+var failures = 0
+
+func verify(ok: bool, label: String) -> void:
+	assertions += 1
+	if not ok: failures += 1; push_error("LEVEL CAPABILITY: " + label)
+
+func run() -> void:
+	var motor = load("res://scenes/player/player.tscn").instantiate()
+	get_tree().root.add_child(motor)
+	var actor = motor.get_node("Controller")
+	actor.set_physics_process(false)
+	verify(actor.enable_shot_energy(), "real energy policy enabled")
+	var build = load("res://scripts/builds/build_state.gd").new()
+	build.configure(actor)
+	var baseline = SNAPSHOT.capture(actor, build)
+	verify(baseline.equipped_weapon.id == "pulse_gun" and baseline.granted_actions == ["jump", "shot_recoil"], "formal default does not inherit studio grants")
+	verify(SNAPSHOT.matches_tuning(actor, load("res://scripts/player/player_tuning.gd").load_default()), "actual default matches request")
+	var wrong = load("res://scripts/player/player_tuning.gd").load_default()
+	wrong.max_air_shots += 1
+	verify(not SNAPSHOT.matches_tuning(actor, wrong), "different requested capacity rejected")
+	var driver = load("res://tests/level_design_trace.gd").new()
+	var rejections: Array = []
+	driver.tree = get_tree()
+	driver.check = func(ok: bool, label: String) -> void:
+		if not ok: rejections.append(label)
+	verify(not await driver.fixture({}, wrong) and driver.capability_mismatch and not rejections.is_empty() and driver.observed_frames.is_empty(), "actual route driver rejects mismatch before creating evidence")
+	motor.free()
+	await get_tree().process_frame
+	print("PREFIX trace: ",assertions," / ",failures)

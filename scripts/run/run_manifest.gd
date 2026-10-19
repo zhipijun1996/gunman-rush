@@ -201,6 +201,13 @@ static func _region_tuning(output:Dictionary)->PlayerTuning:
 	var items:Variant=capability.get("items",[])
 	if not items is Array:return null
 	var tuning:=PlayerTuning.load_default()
+	var stored: Variant=output.get("stage_tuning")
+	var keys: Dictionary=JSON.parse_string(FileAccess.get_file_as_string("res://config/player_tuning.json"))
+	if not stored is Dictionary or stored.size()!=keys.size():return null
+	# Keep immutable saved metadata at .2; runtime always loads current .15.
+	# The sole historical exception is bound to the exact pre-change config.
+	if output.get("generated_layout",{}).get("player_tuning_hash")==PlainsRegionGenerator.PRE_FOCUS_15_TUNING_HASH and stored.get("focus_time_scale")==0.2:
+		tuning.focus_time_scale=0.2
 	var build:=BuildState.new()
 	for stat:StringName in BuildState.STATS:
 		build._base[stat]=5.0 if stat==&"max_health" else tuning.get(stat)
@@ -219,6 +226,9 @@ static func _region_tuning(output:Dictionary)->PlayerTuning:
 		if stat==&"max_health":continue
 		if not is_finite(float(values[stat])) or float(values[stat])<0:return null
 		tuning.set(stat,int(values[stat]) if stat in [&"max_jumps",&"max_air_shots"] else values[stat])
+	var checker:=RandomStageGenerator.new()
+	for key: String in keys:
+		if not stored.has(key) or not checker._same_data(stored[key],tuning.get(key)):return null
 	return tuning
 
 static func _campaign_compatible(data: Dictionary) -> bool:
@@ -229,6 +239,7 @@ static func _campaign_compatible(data: Dictionary) -> bool:
 	if not RandomStageGenerator.new()._same_data(data.get("run_profile"),expected_profile): return false
 	var debug := false
 	var seen_forest := false
+	var forest_content_version := ""
 	var plains: Array = []
 	var previous_map := 0
 	var previous_region := ""
@@ -274,17 +285,23 @@ static func _campaign_compatible(data: Dictionary) -> bool:
 			if not output.get("generated_layout") is Dictionary or not output.get("stage_tuning") is Dictionary or not output.get("stage_generator") is Dictionary or not output.get("capability_snapshot") is Dictionary: return false
 			var m: Dictionary = output.generated_layout
 			var tuning := _region_tuning(output)
-			if tuning == null or output.get("stage_generator",{}).get("version") != FOREST_GENERATOR.VERSION: return false
-			if identity.get("seed") != FOREST_GENERATOR.seed_for(data.root_seed,map_index) or identity.get("instance_prefix") != "thorn_forest/map_%s/" % map_index or identity.get("version") != FOREST_GENERATOR.VERSION: return false
+			var version: String = str(m.get("version",""))
+			if not FOREST_GENERATOR.supported(version): return false
+			if forest_content_version.is_empty(): forest_content_version = version
+			elif forest_content_version != version: return false
+			if tuning == null or output.get("stage_generator",{}).get("version") != version: return false
+			if identity.get("seed") != FOREST_GENERATOR.seed_for(data.root_seed,map_index) or identity.get("instance_prefix") != "thorn_forest/map_%s/" % map_index or identity.get("version") != version: return false
 			var abilities: Variant = output.get("capability_snapshot",{}).get("abilities",[])
 			if not abilities is Array or abilities.size()!=1 or not (abilities[0] is String or abilities[0] is StringName) or str(abilities[0])!="grapple": return false
 			if m.get("seed") != identity.get("seed") or m.get("map_index") != map_index: return false
 			if not FOREST_GENERATOR.new().validate(m,tuning): return false
 			var tuning_keys: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://config/player_tuning.json"))
 			var checker := RandomStageGenerator.new()
-			var boss_definition: BossDefinition = load("res://resources/bosses/thorn_guardian.tres" if map_index==1 else "res://resources/bosses/thorn_queen.tres")
+			var boss_path: String = FOREST_GENERATOR.boss_definition_path(version,map_index,m)
+			if boss_path.is_empty(): return false
+			var boss_definition: BossDefinition = load(boss_path)
 			if not checker._same_data(output.get("boss_layout"),{"id":String(boss_definition.stable_id),"version":boss_definition.definition_version,"health":boss_definition.health_definition.max_health}): return false
-			if not checker._same_data(output.get("enemy_layout"),{"version":FOREST_GENERATOR.VERSION,"enemies":m.enemies}): return false
+			if not checker._same_data(output.get("enemy_layout"),{"version":version,"enemies":m.enemies}): return false
 			if not checker._same_data(output.get("shot_latch_layout"),m.shot_latch_plan): return false
 			for key: String in tuning_keys:
 				if not checker._same_data(output.get("stage_tuning",{}).get(key),tuning.get(key)): return false

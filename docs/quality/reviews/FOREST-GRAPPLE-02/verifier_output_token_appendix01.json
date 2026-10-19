@@ -1,0 +1,21 @@
+{
+  "reviewer": "/root/verifier_migration_review",
+  "scope": "single new-check output argv tokenization only; no native execution",
+  "previous_sha256": "e4bd23e498c5cf7f5629a77db5ee6ce96017a7489f6cfa12dc2b18da43707fe1",
+  "current_sha256": "63e9a01a037b7b162067df805abeee2433f0e2eaae5de3cbe3a369a89e9f5ad8",
+  "exactly_one_output_string_change": true,
+  "argv": [
+    "python3",
+    "tools/run_forest_vertical_shortcut.py",
+    "--scenario",
+    "all",
+    "--output",
+    "build/verification/forest-vertical-shortcut/harness-{check_token}"
+  ],
+  "artifact_paths": [
+    "build/verification/forest-vertical-shortcut"
+  ],
+  "timeout_seconds": 300,
+  "all_checked": true,
+  "verdict": "ACCEPT"
+}

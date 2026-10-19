@@ -1,0 +1,11 @@
+# Twin-port candidate rejected
+
+Independent actual02 verdict **DROP**, recorded as schema **REJECT**. No third driver repair or promotion. Production Boss geometry never changed; the isolated fixture/CLI were restored byte-for-byte to `e84071ec1a560cf40cef8ab4aff5024ffac19b85`, and the sealed experimental runner/UID removed. Original actual cleanup receipt/empty patch are included.
+
+01 retains18 assertions/4FAIL: the head caught the upper target but the player's body fell into wood.02 retains19 assertions/2FAIL: real upperH arrival137/kick144/exit153, one ordinary shot requested154 and committed163 (Queen24→23), rightbank12 at225. Actual Queen at163 was(688,460), still in the lower hole; this is not proof of reaching a unique right-chamber firing angle. LowerH had zero casts: release body449.535 then next step450.257 exceeded the driver's450 window. No lower passage/leftshore12 was completed. This does not prove lower passage physically impossible.
+
+The independent whole-segment radius3 S firing-line counterexamples are static/predicted geometry, not an unrecorded native muzzle hit or full24HP ordinary safe-station test. Upper movement progress is retained, but no new safe firing/escape/recovery tradeoff was established. More driver tuning would not itself close that mechanism-value gap. Current QueenH core, randomized exploration/density and whole-region quality remain REVISE.
+
+`originals.zip` contains original raw gzip/import/native/receipts, independent source/actual reviews, cleanup,01 full925-member source archive once and02 minimal two-file delta. `inventory.json` records every ZIP member SHA and nested raw SHA; everyZIP entry was decompressed/rehashed, and all925 reconstructed02 source members were checked against actual02 inventory. No duplicate complete source archive, cache or movie was copied. The exact cleanup does not retroactively turn the experiments into native PASS.
+
+This is a playable-candidate delivery, not commercial completion. Current production game bytes can be bound to preserved0cf movie sources where root verifies exact equality; those remain historical films, not a newly recorded fullBoss movie. Final same-source CI, Web/browser/HTTPS checks, devices/human experience remain pending. No new gate or Skill requirement is added.

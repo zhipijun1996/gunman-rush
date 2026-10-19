@@ -488,7 +488,9 @@
       ],
       "timeout_seconds": 720,
       "success_pattern": "^PASS: level design runtime",
-      "artifact_paths": ["build/level_design_v2"],
+      "artifact_paths": [
+        "build/level_design_v2"
+      ],
       "weight_seconds": 60,
       "serial": true
     },
@@ -576,7 +578,10 @@
         "tools/run_plains_redesign_golden_tests.py"
       ],
       "timeout_seconds": 240,
-      "success_pattern": "^PLAINS REDESIGN GOLDEN: real positive and negative cases validated$"
+      "success_pattern": "^PLAINS REDESIGN GOLDEN: real positive and negative cases validated$",
+      "artifact_paths": [
+        "build/plains_redesign/golden"
+      ]
     },
     "plains-redesign-spatial": {
       "argv": [
@@ -594,6 +599,9 @@
       ],
       "timeout_seconds": 900,
       "success_pattern": "^PLAINS EXPERIENCE GOLDEN: actual differentiated routes and encounter counterexamples validated$",
+      "artifact_paths": [
+        "build/plains_redesign/experience"
+      ],
       "serial": true
     },
     "plains-encounter-policy": {
@@ -678,6 +686,7 @@
       "timeout_seconds": 360,
       "success_pattern": "^ROOT BELL FORMAL VERIFIED:",
       "weight_seconds": 30,
+      "artifact_paths": ["build/root_bell/formal_v2"],
       "inputs": [
         "project.godot",
         "tools/run_root_bell_tests.py",
@@ -977,10 +986,16 @@
     "forest-formal-combat": {
       "argv": [
         "python3",
-        "tools/run_forest_campaign_combat_tests.py"
+        "tools/run_forest_v1_regressions.py",
+        "--check",
+        "forest-formal-combat",
+        "--output",
+        "build/forest_depth/legacy-runs/forest-formal-combat-{check_token}",
+        "--evidence-output",
+        "build/forest_depth/legacy-evidence/forest-formal-combat-{check_token}"
       ],
       "timeout_seconds": 360,
-      "success_pattern": "^PASSED: formal_DemoApp_forest_combat$",
+      "success_pattern": "^PASSED: historical forest v1 selected original checks; current forest v2 NOT covered$",
       "serial": true,
       "inputs": [
         "scripts",
@@ -989,21 +1004,29 @@
         "config",
         "tests",
         "assets",
-        "tools/run_forest_campaign_combat_tests.py"
+        "tools/run_forest_campaign_combat_tests.py",
+        "tools/run_forest_v1_regressions.py",
+        "tools/forest_legacy_fixture.py",
+        "docs/evidence/forest_depth_v2/legacy_v1"
       ],
-      "cacheable": true
+      "cacheable": true,
+      "artifact_paths": [
+        "build/forest_depth/legacy-evidence"
+      ]
     },
     "forest-region-matrix": {
       "argv": [
         "python3",
-        "tools/run_forest_region_tests.py",
-        "--skip-import",
-        "--region-matrix",
-        "--seed-count",
-        "10"
+        "tools/run_forest_v1_regressions.py",
+        "--check",
+        "forest-region-matrix",
+        "--output",
+        "build/forest_depth/legacy-runs/forest-region-matrix-{check_token}",
+        "--evidence-output",
+        "build/forest_depth/legacy-evidence/forest-region-matrix-{check_token}"
       ],
       "timeout_seconds": 600,
-      "success_pattern": "^PASSED: formal_DemoApp_10roots_two_maps_three_routes$",
+      "success_pattern": "^PASSED: historical forest v1 selected original checks; current forest v2 NOT covered$",
       "serial": true,
       "inputs": [
         "scripts",
@@ -1012,10 +1035,382 @@
         "config",
         "tests",
         "assets",
-        "tools/run_forest_region_tests.py"
+        "tools/run_forest_region_tests.py",
+        "tools/run_forest_v1_regressions.py",
+        "tools/forest_legacy_fixture.py",
+        "docs/evidence/forest_depth_v2/legacy_v1"
       ],
       "cacheable": true,
-      "weight_seconds": 180
+      "weight_seconds": 180,
+      "artifact_paths": [
+        "build/forest_depth/legacy-evidence"
+      ]
+    },
+    "mechanism-comparisons": {
+      "argv": [
+        "python3",
+        "tests/test_mechanism_comparisons.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1
+    },
+    "forest-depth-guardian": {
+      "argv": [
+        "python3",
+        "tools/run_forest_boss_depth.py",
+        "--output-dir",
+        "build/forest_depth/boss/native/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 14,
+      "artifact_paths": [
+        "build/forest_depth/boss"
+      ]
+    },
+    "forest-depth-guardian-tolerance": {
+      "argv": [
+        "python3",
+        "tools/run_forest_boss_depth.py",
+        "--scenario",
+        "tolerance",
+        "--output-dir",
+        "build/forest_depth/boss/tolerance/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 14,
+      "artifact_paths": [
+        "build/forest_depth/boss/tolerance"
+      ]
+    },
+    "forest-depth-enemies": {
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_enemies.py",
+        "--output-dir",
+        "build/forest_depth/ecology/native/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 13,
+      "artifact_paths": [
+        "build/forest_depth/ecology"
+      ]
+    },
+    "forest-depth-versions": {
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_versions.py",
+        "--output-dir",
+        "build/forest_depth/versions/native/harness-{check_token}"
+      ],
+      "timeout_seconds": 210,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 20,
+      "artifact_paths": [
+        "build/forest_depth/versions"
+      ]
+    },
+    "forest-depth-restore": {
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_restore.py",
+        "--output-dir",
+        "build/forest_depth/restore/native/harness-{check_token}"
+      ],
+      "timeout_seconds": 210,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 25,
+      "artifact_paths": [
+        "build/forest_depth/restore"
+      ]
+    },
+    "forest-depth-queen": {
+      "argv": [
+        "python3",
+        "tools/run_thorn_queen_sweep.py",
+        "--output-dir",
+        "build/forest_depth/queen/harness/harness-{check_token}"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 35,
+      "artifact_paths": [
+        "build/forest_depth/queen"
+      ]
+    },
+    "forest-depth-cavity": {
+      "argv": [
+        "python3",
+        "tools/run_forest_hollow_upper.py",
+        "--cavity",
+        "--standing-hook",
+        "--variants",
+        "cavity_HR",
+        "--output-dir",
+        "build/forest_depth/cavity/harness-purpose/harness-{check_token}"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 15,
+      "artifact_paths": [
+        "build/forest_depth/cavity"
+      ]
+    },
+    "forest-depth-cavity-controls": {
+      "argv": [
+        "python3",
+        "tools/run_forest_hollow_upper.py",
+        "--cavity",
+        "--variants",
+        "noH_cavity_twoR",
+        "noH_cavity_outer",
+        "cavity_wrongR",
+        "--output-dir",
+        "build/forest_depth/cavity/harness-controls/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 20,
+      "artifact_paths": [
+        "build/forest_depth/cavity"
+      ]
+    },
+    "forest-depth-region": {
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_region.py",
+        "--corpus",
+        "--output",
+        "build/forest_depth/region/harness-matrix/harness-{check_token}"
+      ],
+      "timeout_seconds": 600,
+      "success_pattern": "^FOREST DEPTH REGION: passed",
+      "weight_seconds": 120,
+      "artifact_paths": [
+        "build/forest_depth/region"
+      ]
+    },
+    "forest-depth-campaign-guardian": {
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_campaign_boss.py",
+        "--boss",
+        "guardian",
+        "--output-dir",
+        "build/forest_depth/campaign/harness-guardian/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 20,
+      "artifact_paths": [
+        "build/forest_depth/campaign"
+      ]
+    },
+    "forest-depth-campaign-queen": {
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_campaign_boss.py",
+        "--boss",
+        "queen",
+        "--output-dir",
+        "build/forest_depth/campaign/harness-queen/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 30,
+      "artifact_paths": [
+        "build/forest_depth/campaign"
+      ]
+    },
+    "forest-depth-ecology-expedition": {
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_enemies.py",
+        "--scenario",
+        "expedition",
+        "--include-map2-expedition",
+        "--expedition-strategies",
+        "alive_lift",
+        "jump_two_R",
+        "--output-dir",
+        "build/forest_depth/ecology/expedition/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 35,
+      "artifact_paths": [
+        "build/forest_depth/ecology"
+      ]
+    },
+    "forest-depth-root-entry": {
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_enemies.py",
+        "--scenario",
+        "root_entry",
+        "--map",
+        "2",
+        "--seed",
+        "forest-depth-hollow-08",
+        "--output-dir",
+        "build/forest_depth/ecology/root-entry/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS: actual R root entry",
+      "weight_seconds": 13,
+      "artifact_paths": [
+        "build/forest_depth/ecology"
+      ]
+    },
+    "forest-depth-crossbranch-lifecycle": {
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_enemies.py",
+        "--scenario",
+        "crossbranch",
+        "--map",
+        "2",
+        "--seed",
+        "forest-depth-hollow-00",
+        "--formal-route",
+        "growth",
+        "--crossbranch-strategies",
+        "lifecycle",
+        "--output-dir",
+        "build/forest_depth/ecology/crossbranch-lifecycle/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 14,
+      "artifact_paths": [
+        "build/forest_depth/ecology"
+      ]
+    },
+    "forest-depth-queen-canopy": {
+      "argv": [
+        "python3",
+        "tools/run_thorn_queen_canopy.py",
+        "--case",
+        "all",
+        "--output-dir",
+        "build/forest_depth/queen/harness-canopy/harness-{check_token}"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 40,
+      "artifact_paths": [
+        "build/forest_depth/queen"
+      ]
+    },
+    "forest-depth-campaign-canopy": {
+      "argv": [
+        "python3",
+        "tools/run_forest_depth_campaign_boss.py",
+        "--boss",
+        "canopy",
+        "--output-dir",
+        "build/forest_depth/campaign/harness-canopy/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS:",
+      "weight_seconds": 35,
+      "artifact_paths": [
+        "build/forest_depth/campaign"
+      ]
+    },
+    "forest-air-chain": {
+      "argv": [
+        "python3",
+        "tools/run_forest_air_chain.py",
+        "--suite",
+        "--output-dir",
+        "build/forest_feedback/air/harness-{check_token}"
+      ],
+      "timeout_seconds": 600,
+      "success_pattern": "^FOREST AIR CHAIN SUITE: passed / 18 cases$",
+      "weight_seconds": 60,
+      "artifact_paths": [
+        "build/forest_feedback/air"
+      ]
+    },
+    "grapple-feel": {
+      "argv": [
+        "python3",
+        "tools/run_grapple_feel_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: grapple feel, hanging lifecycle and dual aim input$",
+      "weight_seconds": 15,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/verification/grapple_feel.json"
+      ]
+    },
+    "aim-save-compat": {
+      "argv": [
+        "python3",
+        "tools/run_aim_save_compat_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: historical aim tuning and actual saved-map compatibility$",
+      "weight_seconds": 20,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/verification/aim_save_compat.json"
+      ]
+    },
+    "forest-vertical-shortcut": {
+      "argv": [
+        "python3",
+        "tools/run_forest_vertical_shortcut.py",
+        "--scenario",
+        "all",
+        "--output",
+        "build/verification/forest-vertical-shortcut/harness-{check_token}"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^FOREST VERTICAL SHORTCUT: passed$",
+      "weight_seconds": 20,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/verification/forest-vertical-shortcut"
+      ]
     }
   },
   "profiles": {
@@ -1033,6 +1428,7 @@
       "consumer-coverage-tests",
       "capture-tests",
       "level-design-contracts",
+      "mechanism-comparisons",
       "level-design-analysis",
       "level-design-routing",
       "level-design-golden-tests",
@@ -1058,6 +1454,7 @@
       "consumer-coverage-tests",
       "capture-tests",
       "level-design-contracts",
+      "mechanism-comparisons",
       "level-design-analysis",
       "level-design-routing",
       "level-design-golden-tests",
@@ -1085,12 +1482,15 @@
       "consumer-coverage-tests",
       "wood-platforms",
       "actor-actions",
+      "grapple-feel",
+      "aim-save-compat",
       "all-weapons",
       "studio-input",
       "weapon-feel",
       "action-budget",
       "capture-tests",
       "level-design-contracts",
+      "mechanism-comparisons",
       "level-design-analysis",
       "level-design-routing",
       "level-design-golden-tests",
@@ -1122,7 +1522,25 @@
       "forest-debug",
       "forest-traversal",
       "forest-region-matrix",
-      "forest-formal-combat"
+      "forest-formal-combat",
+      "forest-depth-guardian",
+      "forest-depth-guardian-tolerance",
+      "forest-depth-enemies",
+      "forest-depth-versions",
+      "forest-depth-restore",
+      "forest-depth-queen",
+      "forest-depth-cavity",
+      "forest-depth-cavity-controls",
+      "forest-depth-region",
+      "forest-depth-campaign-guardian",
+      "forest-depth-campaign-queen",
+      "forest-depth-ecology-expedition",
+      "forest-depth-root-entry",
+      "forest-depth-crossbranch-lifecycle",
+      "forest-depth-queen-canopy",
+      "forest-depth-campaign-canopy",
+      "forest-air-chain",
+      "forest-vertical-shortcut"
     ],
     "art": [
       "docs",
@@ -1146,12 +1564,15 @@
       "consumer-coverage-tests",
       "wood-platforms",
       "actor-actions",
+      "grapple-feel",
+      "aim-save-compat",
       "all-weapons",
       "studio-input",
       "weapon-feel",
       "action-budget",
       "capture-tests",
       "level-design-contracts",
+      "mechanism-comparisons",
       "level-design-analysis",
       "level-design-routing",
       "level-design-golden-tests",
@@ -1191,6 +1612,7 @@
       "consumer-coverage-tests",
       "capture-tests",
       "level-design-contracts",
+      "mechanism-comparisons",
       "level-design-analysis",
       "level-design-routing",
       "level-design-golden-tests",
@@ -1232,12 +1654,15 @@
       "consumer-coverage-tests",
       "wood-platforms",
       "actor-actions",
+      "grapple-feel",
+      "aim-save-compat",
       "all-weapons",
       "studio-input",
       "weapon-feel",
       "action-budget",
       "capture-tests",
       "level-design-contracts",
+      "mechanism-comparisons",
       "level-design-analysis",
       "level-design-routing",
       "level-design-golden-tests",
@@ -1272,7 +1697,25 @@
       "forest-debug",
       "forest-traversal",
       "forest-region-matrix",
-      "forest-formal-combat"
+      "forest-formal-combat",
+      "forest-depth-guardian",
+      "forest-depth-guardian-tolerance",
+      "forest-depth-enemies",
+      "forest-depth-versions",
+      "forest-depth-restore",
+      "forest-depth-queen",
+      "forest-depth-cavity",
+      "forest-depth-cavity-controls",
+      "forest-depth-region",
+      "forest-depth-campaign-guardian",
+      "forest-depth-campaign-queen",
+      "forest-depth-ecology-expedition",
+      "forest-depth-root-entry",
+      "forest-depth-crossbranch-lifecycle",
+      "forest-depth-queen-canopy",
+      "forest-depth-campaign-canopy",
+      "forest-air-chain",
+      "forest-vertical-shortcut"
     ]
   }
 }

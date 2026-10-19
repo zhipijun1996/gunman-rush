@@ -1,0 +1,122 @@
+"""Build-only capture producer: immutable snapshot, one explicitly labelled scenario."""
+import argparse
+import fcntl
+import hashlib
+import json
+import os
+from pathlib import Path
+import re
+import selectors
+import subprocess
+import sys
+import time
+
+ROOT=Path('/workspace/gunman-rush-design')
+p=argparse.ArgumentParser()
+p.add_argument('--snapshot',required=True)
+p.add_argument('--scenario',choices=['H','ground_walk_shoot','jump_no_H','jump_peek_no_H','stationary_shoot','evade_then_stationary'],required=True)
+p.add_argument('--output-dir',required=True)
+p.add_argument('--expected-boss-hp',type=float,default=32.0)
+a=p.parse_args()
+S=(ROOT/a.snapshot).resolve();O=(ROOT/a.output_dir).resolve()
+assert S.is_relative_to(ROOT/'build/forest_depth/snapshots')
+assert O.is_relative_to(ROOT/'build/forest_depth/boss')
+O.mkdir(parents=True,exist_ok=False)
+sys.path.insert(0,str(S/'tools'))
+import level_formal
+sha=lambda path:hashlib.sha256(path.read_bytes()).hexdigest()
+engine=Path('/workspace/toolchains/godot/4.7.2/Godot_v4.7.2-stable_linux.x86_64')
+r={'status':'running','scope':'Guardian actual arena-interior label-clamp rendering delta02 on source-bound guardian_label02 snapshot. Original complete32HP H arrival-counter and independent Body/phase2 chase driver and45s capture budget unchanged. Local normal GL movie, not formal rewards or player/device acceptance','snapshot':str(S),'scenario':a.scenario,'producer_sha256':sha(Path(__file__)),'engine_sha256':sha(engine),'source_before':level_formal.source_files(),'runner_before':sha(S/'tests/forest_boss_depth_runner.gd'),'native_budget_seconds':45,'audio_scope':'Dummy audio driver; no sound-quality acceptance'}
+def save(): (O/'receipt.json').write_text(json.dumps(r,indent=2)+'\n')
+
+def validate_capture(d):
+    assert d.get('version')=='forest-guardian-duel-arena-v4'
+    assert d.get('mechanic_version')=='guardian-two-action-cycle-v6'
+    assert d.get('scenario_selection')==a.scenario and d.get('failures')==0
+    assert d.get('assertions',0)>0 and d.get('samples')
+    if a.scenario=='root_mechanism':
+        assert len(d['cases'])==1 and d['cases'][0]['id']=='physical_root_H_route_change'
+        assert d['cases'][0]['player_hp']==5
+        roots=[e for e in d['events'] if e.get('event')=='physical_root_stagger']
+        assert roots and all(e.get('support_removed') is True for e in roots)
+        assert any(e.get('event')=='hook_contact' for e in d['events'])
+    else:
+        assert len(d['comparisons'])==1 and d['comparisons'][0]['id']==a.scenario
+        row=d['comparisons'][0]
+        assert row['initially_sealed'] is True and row['seal_close_count']==1
+        assert row['initial_boss_hp']==a.expected_boss_hp and row['initial_player_hp']==5
+        assert row['boss_hp']==0 and row['defeats']==1 and row['player_hp']>0
+        assert row['stop_reason']=='normal_projectile_defeat'
+        hits=[e for e in d['events'] if e.get('event')=='policy_result' and e.get('target')=='boss']
+        assert sum(e['amount'] for e in hits)>=a.expected_boss_hp
+        if a.scenario=='H':
+            assert row['offensive_arrived'] and row['counter_hits']>0
+            assert row['learning_cycle_covered'] and row['phase1_body_launches']>0 and row['phase2_body_launches']>0
+            assert row['phase2_overlap_frames']>0 and row['max_phase2_floor_travel']>200
+            import run_forest_boss_depth
+            run_forest_boss_depth.validate_counter_causality(d['events'])
+        assert (row['moving_bell_hooks']>0) if a.scenario=='H' else (row['hook_contacts']==0)
+        if a.scenario in {'stationary_shoot','evade_then_stationary'}:
+            assert row['player_hp'] < row['initial_player_hp']
+            assert any(e.get('event')=='policy_result' and e.get('target')=='player' and (str(e.get('source','')).startswith('guardian-bell:') or e.get('source')=='guardian_body_contact') for e in d['events'])
+        r['actual_phase2_overlap_frames']=sum(s.get('phase')==2 and s.get('mode')=='pursuit_flight' and s.get('bell_state') in {'outbound','returning'} and s.get('bell_moved') is True for s in d['samples'])
+    bounds=d['arena']
+    for frame in d['samples']:
+        if frame['boss_hp']>0:
+            assert bounds[0]+8<=frame['p'][0]<=bounds[0]+bounds[2]-8
+            assert frame['p'][1]<=bounds[1]+bounds[3]+3
+
+save()
+env={**os.environ,'GUNMAN_TOOLCHAIN_ROOT':'/workspace/toolchains','GUNMAN_DATA_HOME':str(O/'userdata'),'XDG_CONFIG_HOME':str(O/'userconfig'),'XDG_CACHE_HOME':str(O/'usercache'),'LIBGL_ALWAYS_SOFTWARE':'1','LP_NUM_THREADS':'1','OMP_NUM_THREADS':'1'}
+try:
+    with (ROOT/'build/verification/engine.lock').open('a') as lock:
+        fcntl.flock(lock,fcntl.LOCK_EX)
+        r['engine_version']=subprocess.check_output([str(engine),'--version'],text=True).strip()
+        assert r['engine_version'].startswith('4.7.2.stable.official.')
+        with (O/'display.log').open('wb') as stream:
+            display=subprocess.Popen(['/workspace/toolchains/xvfb/usr/bin/Xvfb','-displayfd','1','-screen','0','1280x720x24','-nolisten','tcp','-ac'],stdout=subprocess.PIPE,stderr=stream)
+            try:
+                with selectors.DefaultSelector() as selector:
+                    selector.register(display.stdout,selectors.EVENT_READ)
+                    assert selector.select(15)
+                    number=display.stdout.readline().decode().strip();assert number.isdigit()
+                env['DISPLAY']=':'+number
+                argv=['bash','tools/godot.sh','--rendering-method','gl_compatibility','--audio-driver','Dummy','--fixed-fps','60','--write-movie',str(O/'gameplay.avi'),'--path','.','--script','tests/forest_boss_depth_runner.gd','--','--only='+a.scenario,'--output-dir='+str(O)]
+                r['argv']=argv;save();started=time.monotonic()
+                with (O/'native.log').open('w') as log:
+                    result=subprocess.run(argv,cwd=S,env=env,stdout=log,stderr=subprocess.STDOUT,timeout=45)
+                r['native_exit_code']=result.returncode
+                r['wall_seconds']=time.monotonic()-started
+            finally:
+                display.terminate();display.wait(timeout=5)
+                display.stdout.close()
+        r['source_after']=level_formal.source_files()
+        r['runner_after']=sha(S/'tests/forest_boss_depth_runner.gd')
+        r['source_stable']=r['source_before']==r['source_after'] and r['runner_before']==r['runner_after']
+        text=(O/'native.log').read_text()
+        assert r['native_exit_code']==0 and r['source_stable']
+        assert 'OpenGL API' in text
+        assert not re.search(r'(^|\n)(?:SCRIPT )?ERROR:|Parse Error:|ObjectDB.*leaked|resources? still in use at exit',text)
+        validate_capture(json.loads((O/'capture.json').read_text()))
+        r['native_validation']='passed explicit scenario only'
+        save()
+    probe=json.loads(subprocess.check_output(['ffprobe','-v','error','-count_frames','-show_streams','-show_format','-of','json',str(O/'gameplay.avi')]))
+    video=next(x for x in probe['streams'] if x['codec_type']=='video')
+    n,d=map(int,video['avg_frame_rate'].split('/'));fps=n/d;assert fps==60
+    total=int(video['nb_read_frames'])
+    r.update(ffprobe=probe,movie_frames=total,movie_fps=fps,movie_seconds=total/fps)
+    indices=sorted(set(int(total*f) for f in [.10,.25,.40,.55,.70,.85,.95]))
+    filt='select='+'+'.join('eq(n\\,%d)'%i for i in indices)
+    argv=['ffmpeg','-hide_banner','-loglevel','error','-i',str(O/'gameplay.avi'),'-vf',filt,'-vsync','vfr',str(O/'frame-%02d.png')]
+    subprocess.run(argv,check=True,timeout=45);r['frame_extract_argv']=argv
+    r['frames']=[{'movie_frame':i,'movie_seconds':i/fps,'path':str(O/('frame-%02d.png'%(j+1))),'sha256':sha(O/('frame-%02d.png'%(j+1)))} for j,i in enumerate(indices)]
+    argv=['ffmpeg','-hide_banner','-loglevel','error','-i',str(O/'gameplay.avi'),'-c:v','libx264','-preset','veryfast','-crf','20','-pix_fmt','yuv420p','-c:a','aac','-movflags','+faststart',str(O/'gameplay.mp4')]
+    subprocess.run(argv,check=True,timeout=45);r['encoding_argv']=argv
+    r['hashes']={path.name:sha(path) for path in [O/'native.log',O/'capture.json',O/'gameplay.avi',O/'gameplay.mp4']}
+    r['status']='passed explicit GL scenario capture, not gameplay acceptance'
+except BaseException as error:
+    r['status']='failed';r['failure']=repr(error)
+    raise
+finally:
+    save()
+print('GUARDIAN GL MOVIE:',a.scenario,total,'frames',total/fps,'seconds')

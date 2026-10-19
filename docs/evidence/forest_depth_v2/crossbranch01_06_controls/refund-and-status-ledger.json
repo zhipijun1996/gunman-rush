@@ -1,0 +1,222 @@
+{
+  "scope": "Original result/credit custody only, not a new independent gameplay audit or native run",
+  "runs": [
+    {
+      "snapshot": "crossbranch_physics01",
+      "original_wrapper_passed": true,
+      "elapsed_seconds": 30.458862383995438,
+      "source_guard": true,
+      "captures": [
+        {
+          "capture": "build/forest_depth/snapshots/crossbranch_physics01/build/forest_depth/ecology/crossbranch_physics01/00-crossbranch_physics/capture.json",
+          "sha256": "4c27c271c33731283e62a1240146643038f7595f9a6c715d779fbcd8b8fa483f",
+          "observed_frames": 539,
+          "failures": [],
+          "strategy": "crossbranch_physics"
+        }
+      ]
+    },
+    {
+      "snapshot": "crossbranch_view02",
+      "original_wrapper_passed": false,
+      "elapsed_seconds": 54.91452236299665,
+      "source_guard": true,
+      "captures": [
+        {
+          "capture": "build/forest_depth/snapshots/crossbranch_view02/build/forest_depth/ecology/crossbranch_view02/00-crossbranch_physics/capture.json",
+          "sha256": "09518d30cf4e4f9cecb58c4df3d847cf012147c2529ec0df20c6775019478ec4",
+          "observed_frames": 539,
+          "failures": [],
+          "strategy": "crossbranch_physics"
+        }
+      ]
+    },
+    {
+      "snapshot": "crossbranch_view03",
+      "original_wrapper_passed": true,
+      "elapsed_seconds": 48.19955696599936,
+      "source_guard": true,
+      "captures": [
+        {
+          "capture": "build/forest_depth/snapshots/crossbranch_view03/build/forest_depth/ecology/crossbranch_view03/00-crossbranch_physics/capture.json",
+          "sha256": "a98e9ad8c1c4b44654dda2d20eebb1202d6ba0e4f45030dacdb63d0071f48b46",
+          "observed_frames": 539,
+          "failures": [],
+          "strategy": "crossbranch_physics"
+        }
+      ]
+    },
+    {
+      "snapshot": "crossbranch_purpose04",
+      "original_wrapper_passed": true,
+      "elapsed_seconds": 33.520356091001304,
+      "source_guard": true,
+      "captures": [
+        {
+          "capture": "build/forest_depth/snapshots/crossbranch_purpose04/build/forest_depth/ecology/crossbranch_purpose04/00-crossbranch_live_H/capture.json",
+          "sha256": "781977416f029c38667b5364ebb8b185fe6de8352fe67b3ed760a0fbc160123b",
+          "observed_frames": 1044,
+          "failures": [],
+          "strategy": "crossbranch_live_H"
+        }
+      ]
+    },
+    {
+      "snapshot": "crossbranch_controls05",
+      "original_wrapper_passed": false,
+      "elapsed_seconds": 43.653733569000906,
+      "source_guard": true,
+      "captures": [
+        {
+          "capture": "build/forest_depth/snapshots/crossbranch_controls05/build/forest_depth/ecology/crossbranch_controls05/00-crossbranch_ordinary_one_R/capture.json",
+          "sha256": "af2496b99f0fc4c4f46d6818b42dcf156fa9c92df145756fc35615252b5db62c",
+          "observed_frames": 1212,
+          "failures": [],
+          "strategy": "crossbranch_ordinary_one_R"
+        }
+      ]
+    },
+    {
+      "snapshot": "crossbranch_controls06",
+      "original_wrapper_passed": true,
+      "elapsed_seconds": 51.85173960899556,
+      "source_guard": true,
+      "captures": [
+        {
+          "capture": "build/forest_depth/snapshots/crossbranch_controls06/build/forest_depth/ecology/crossbranch_controls06/00-crossbranch_ordinary_one_R/capture.json",
+          "sha256": "551a46631aa75f27b6bf46953bb4a116d02d9426277443d933282d2b0418e234",
+          "observed_frames": 1212,
+          "failures": [],
+          "strategy": "crossbranch_ordinary_one_R"
+        },
+        {
+          "capture": "build/forest_depth/snapshots/crossbranch_controls06/build/forest_depth/ecology/crossbranch_controls06/01-crossbranch_ordinary_two_R/capture.json",
+          "sha256": "eabe9ef09d7ef316f043cbc4ee5b49e92f48bd638af4c0c98a0391b7caf6c2ae",
+          "observed_frames": 997,
+          "failures": [],
+          "strategy": "crossbranch_ordinary_two_R"
+        },
+        {
+          "capture": "build/forest_depth/snapshots/crossbranch_controls06/build/forest_depth/ecology/crossbranch_controls06/02-crossbranch_shoot_then_two_R/capture.json",
+          "sha256": "295150aa921a1374a01466955a66982dde0aac7c054b48d6d9387feecdf9231e",
+          "observed_frames": 1078,
+          "failures": [],
+          "strategy": "crossbranch_shoot_then_two_R"
+        },
+        {
+          "capture": "build/forest_depth/snapshots/crossbranch_controls06/build/forest_depth/ecology/crossbranch_controls06/03-crossbranch_dead_lower_two_R/capture.json",
+          "sha256": "fc047c1b3a8fb2791f61768b32398d2b5850dda49d6fc6e64eb06c5c8fe8f94b",
+          "observed_frames": 1105,
+          "failures": [],
+          "strategy": "crossbranch_dead_lower_two_R"
+        }
+      ]
+    }
+  ],
+  "actual06_original_limited_review": {
+    "path": "build/forest_depth/independent/projectile-refund-review/actual06/review.json",
+    "sha256": "b12061391aeaab182c4070fd416ae54b186329c71f01721e4a3891aa805f73bb",
+    "status": "ACCEPT_BOUNDED_NEW_OBSERVATION_AND_PROJECTILE_REFUND_REPLAY_ACTUAL06",
+    "scope": "Other-author new observation/credit replay only; original base driver previously reviewer-authored and excluded",
+    "native_run_by_reviewer": false
+  },
+  "exact_credit_rows_from_original_review": [
+    {
+      "strategy": "crossbranch_ordinary_one_R",
+      "raw": "build/forest_depth/snapshots/crossbranch_controls06/build/forest_depth/ecology/crossbranch_controls06/00-crossbranch_ordinary_one_R/capture.json",
+      "raw_sha256": "551a46631aa75f27b6bf46953bb4a116d02d9426277443d933282d2b0418e234",
+      "native_log_sha256": "7c6eafac4a02263466648dce6578afacc2c1f711668861fe8ee41bea688c9fc0",
+      "frames": 1212,
+      "credits": [
+        {
+          "tick": 177,
+          "amount": 20.0,
+          "fired_airborne": true,
+          "energy": 100.0
+        },
+        {
+          "tick": 994,
+          "amount": 14.5,
+          "fired_airborne": true,
+          "energy": 100.0
+        }
+      ],
+      "full_consumer_accepted": true
+    },
+    {
+      "strategy": "crossbranch_ordinary_two_R",
+      "raw": "build/forest_depth/snapshots/crossbranch_controls06/build/forest_depth/ecology/crossbranch_controls06/01-crossbranch_ordinary_two_R/capture.json",
+      "raw_sha256": "eabe9ef09d7ef316f043cbc4ee5b49e92f48bd638af4c0c98a0391b7caf6c2ae",
+      "native_log_sha256": "fca1ccebc1fe8e38b1dfa81af331800382338337279114bd7b28f34855b4d2cb",
+      "frames": 997,
+      "credits": [],
+      "full_consumer_accepted": true
+    },
+    {
+      "strategy": "crossbranch_shoot_then_two_R",
+      "raw": "build/forest_depth/snapshots/crossbranch_controls06/build/forest_depth/ecology/crossbranch_controls06/02-crossbranch_shoot_then_two_R/capture.json",
+      "raw_sha256": "295150aa921a1374a01466955a66982dde0aac7c054b48d6d9387feecdf9231e",
+      "native_log_sha256": "c9969362390c039d451fbc49f4360e0e5e8d8675bd603f1539cb3c7a2ff2b337",
+      "frames": 1078,
+      "credits": [
+        {
+          "tick": 129,
+          "amount": 20.0,
+          "fired_airborne": false,
+          "energy": 100.0
+        },
+        {
+          "tick": 157,
+          "amount": 20.0,
+          "fired_airborne": false,
+          "energy": 100.0
+        },
+        {
+          "tick": 196,
+          "amount": 20.0,
+          "fired_airborne": false,
+          "energy": 100.0
+        }
+      ],
+      "full_consumer_accepted": true
+    },
+    {
+      "strategy": "crossbranch_dead_lower_two_R",
+      "raw": "build/forest_depth/snapshots/crossbranch_controls06/build/forest_depth/ecology/crossbranch_controls06/03-crossbranch_dead_lower_two_R/capture.json",
+      "raw_sha256": "fc047c1b3a8fb2791f61768b32398d2b5850dda49d6fc6e64eb06c5c8fe8f94b",
+      "native_log_sha256": "7ff23347ffdfcf8705b1e4ec587779c2e2b52770aa3b6d24d0d2724ff97143b2",
+      "frames": 1105,
+      "credits": [
+        {
+          "tick": 129,
+          "amount": 20.0,
+          "fired_airborne": false,
+          "energy": 100.0
+        },
+        {
+          "tick": 157,
+          "amount": 20.0,
+          "fired_airborne": false,
+          "energy": 100.0
+        },
+        {
+          "tick": 196,
+          "amount": 20.0,
+          "fired_airborne": false,
+          "energy": 100.0
+        }
+      ],
+      "full_consumer_accepted": true
+    }
+  ],
+  "important_scope": [
+    "view02 draw-clock strictFAIL retained",
+    "view03 technical movie pass does not remove invisible receiver finding; original frames retained",
+    "controls05 native complete1212 but original strict economy reader FAIL retained, its missing observations are not backfilled",
+    "controls06 four actual fresh raws and original20mutation audit plus separate limited independent replay are included",
+    "tick177 actual applied20 airborne refund; shot count updates177\u2192178, no invented immediate refill",
+    "tick994 actual fired_airborne=true even when player grounded at hit; applied14.5 (capacity-capped), not20",
+    "ordinary one-R still failed its direct one-R crossing and later recovered; complete route does not relabel that tactic success",
+    "No H-fun/region/CI/public acceptance; no07/Queen43/44 member"
+  ]
+}

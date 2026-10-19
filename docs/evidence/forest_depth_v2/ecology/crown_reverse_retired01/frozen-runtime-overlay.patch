@@ -1,0 +1,932 @@
+diff --git a/scripts/bosses/forest_boss_duel_presentation_v2.gd b/scripts/bosses/forest_boss_duel_presentation_v2.gd
+index eb5ce5ef..7cf887a9 100644
+--- a/scripts/bosses/forest_boss_duel_presentation_v2.gd
++++ b/scripts/bosses/forest_boss_duel_presentation_v2.gd
+@@ -35,7 +35,7 @@ func _draw() -> void:
+ 		if duel.stage_phase == 2:
+ 			# A distinct double rim persists while the actual phase is parallel.
+ 			draw_rect(Rect2(-size*.5-Vector2(5,5),size+Vector2(10,10)),Color("91d9df"),false,2)
+-			_draw_visible_label(Vector2(-67,-size.y*.5-16),"II  BELL + BODY",13,Color("b5eff2"))
++			_draw_visible_label(Vector2(-67,-size.y*.5-16),"II  BELL + BODY",13,Color("b5eff2"),true)
+ 		if duel.has_ground_mark and duel.mode == &"pursuit_warning":
+ 			_draw_body_warning(duel,config,size)
+ 		if duel.mode == &"bell_warning" and is_instance_valid(duel._bell):
+@@ -82,13 +82,34 @@ func _draw_body_warning(duel: RootbellGuardianV2, config: BossDuelDefinition, si
+ 	draw_line(mark-Vector2(size.x*.5,0),mark+Vector2(size.x*.5,0),Color("ffbf6b"),5)
+ 	_draw_visible_label(mark+Vector2(-size.x*.5,-size.y-10),"LOCKED LANDING",13,Color("ffd3a0"))
+ 
+-func _draw_visible_label(at: Vector2, text: String, font_size: int, color: Color) -> void:
++func _draw_visible_label(at: Vector2, text: String, font_size: int, color: Color, avoid_bell := false) -> void:
+ 	# A moving Boss may reach the screen edge. Clamp only the cue's drawing;
+ 	# the locked landing, body footprint and attack trajectory stay untouched.
+ 	var canvas := get_global_transform_with_canvas()
+ 	var screen := canvas*at
+ 	var width := ThemeDB.fallback_font.get_string_size(text,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x*canvas.x.length()
+ 	var viewport := get_viewport_rect()
+-	screen.x=clampf(screen.x,viewport.position.x+12,maxf(viewport.position.x+12,viewport.end.x-12-width))
++	var left := viewport.position.x+12
++	var right := viewport.end.x-12
++	# Keep lettering inside the actual arena as well as the viewport: the
++	# sealed boundary is drawn above this Actor and can obscure warning text.
++	if encounter.arena.right_x > encounter.arena.left_x:
++		var arena_left := canvas*to_local(Vector2(encounter.arena.left_x,encounter.motor.global_position.y))
++		var arena_right := canvas*to_local(Vector2(encounter.arena.right_x,encounter.motor.global_position.y))
++		left=maxf(left,minf(arena_left.x,arena_right.x)+12)
++		right=minf(right,maxf(arena_left.x,arena_right.x)-12)
++	screen.x=clampf(screen.x,left,maxf(left,right-width))
++	# Only move a phase label when its actual screen rectangle overlaps the
++	# nearby Bell cue. A remote flying Bell must not drag this label away.
++	if avoid_bell and encounter is RootbellGuardianV2:
++		var duel := encounter as RootbellGuardianV2
++		if is_instance_valid(duel._bell):
++			var config := duel.definition as BossDuelDefinition
++			var bell_center := canvas*to_local(duel._bell.global_position)
++			var radius := Vector2(canvas.x.length(),canvas.y.length())*(config.bell_radius+8)
++			var height := ThemeDB.fallback_font.get_height(font_size)*canvas.y.length()
++			var letters := Rect2(screen-Vector2(0,height),Vector2(width,height+4))
++			if letters.intersects(Rect2(bell_center-radius,radius*2)):
++				screen.y=minf(screen.y,bell_center.y-radius.y-12)
+ 	screen.y=clampf(screen.y,viewport.position.y+font_size*canvas.y.length()+8,viewport.end.y-12)
+ 	draw_string(ThemeDB.fallback_font,canvas.affine_inverse()*screen,text,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size,color)
+diff --git a/scripts/generation/thorn_forest_region_v2.gd b/scripts/generation/thorn_forest_region_v2.gd
+index 338d9dc6..95678ca1 100644
+--- a/scripts/generation/thorn_forest_region_v2.gd
++++ b/scripts/generation/thorn_forest_region_v2.gd
+@@ -2,7 +2,7 @@ class_name ThornForestRegionV2
+ extends RefCounted
+ ## Forest depth playtest candidate. Default selection is owned by the registry; data is not Motor proof.
+ const VERSION := "thorn-forest-region-v2"
+-const LAYOUT_VERSION := "shared-tree-directional-cavities-v6"
++const LAYOUT_VERSION := "shared-tree-directional-cavities-v7"
+ const FAMILIES := ["hollow_inner_first","hollow_root_first","clearing_shared_edge","clearing_shared_node"]
+ const HOLLOW := preload("res://scripts/generation/forest_hollow_trunk_geometry.gd")
+ const ARENA_FACTORY_PATH := "res://scripts/generation/forest_boss_arena_factory.gd"
+@@ -87,6 +87,15 @@ func _install_optional_live_return(m: Dictionary,p: Dictionary) -> void:
+ 	# Keep the ordinary <=2R solution when the living anchor has been killed.
+ 	# Append AFTER existing routes: admitting this optional relationship must
+ 	# not silently replace their original learning/reward/return itineraries.
++	var side_return_enabled: bool=int(m.map_index)==2 and int(m.choices.skeleton)==0 and int(m.choices.cache_route)==0 and int(m.choices.cavity_direction)==0
++	if side_return_enabled:
++		# Side pull below the crown, then reverse recoil onto the earlier shore.
++		# Original platforms, downward exits and precomputed routes remain intact.
++		var side_ring:=Vector2(1270,p.C.y+108)
++		m.hook_anchors.append({"id":"crown_reverse_ring","position":_pair(side_ring)})
++		_edge(m,"crown_reverse_return","E","C","ecology_return",[_pair(p.E),_pair(side_ring),_pair(p.C)])
++		m.connections[-1].merge({"role":"crown_reverse_return","anchor_id":"crown_reverse_ring","anchor":_pair(side_ring),"landing":_pair(p.C),"from_support_id":"hollow__outer_crown","landing_support_id":"hollow__cavity_exit","optional":true,"strategies":["jump_then_side_H_and_reverse_up_left_recoil","ordinary_jump_one_or_two_recoil_attempts","retain_R_D_M_S_C_return"],"admission":"unverified_golden_direction_change","native_verified":false})
++		m.crown_return_contract={"goal":"E_to_C_and_Queen_not_E_to_D_detour","fixed_lower_return_retained":true,"platforms_changed":false,"native_verified":false}
+ 	var gate_tail:=_route(m,"E","gate_ready")
+ 	_edge(m,"outer_lift_return","R","E","hollow_live_return",[_pair(p.R),_pair(p.E)])
+ 	m.connections[-1].merge({"geometry_instance":"hollow","enemy_id":"hollow_route__outer_lift_lantern","landing":_pair(p.E),"landing_support_id":"hollow__outer_crown","optional":true,"strategies":["living_anchor_then_downward_recoil","ordinary_jump_and_at_most_two_downward_shots"],"admission":"pending_formal_expedition","native_verified":false})
+@@ -96,6 +105,19 @@ func _install_optional_live_return(m: Dictionary,p: Dictionary) -> void:
+ 		expedition.append_array(gate_tail)
+ 		m.routes.ecology_expedition=expedition
+ 		m.ecology_expedition_contract={"prefix":"high_return","decision_after":"actual_reward_and_camp_return","choice":"borrow_live_lantern_or_spend_up_to_two_R_or_return_through_D_M","destination":"gate_ready","admission":"pending_actual_formal_run"}
++	elif side_return_enabled:
++		# Follow the existing reward's other exit to R, then choose a return.
++		# No mandatory camp detour and no replacement of the original routes.
++		var reward_return: Array=[]
++		for edge_id: String in m.routes.high_return:
++			reward_return.append(edge_id)
++			if edge_id=="reward_other_exit":break
++		if not reward_return.is_empty() and reward_return[-1]=="reward_other_exit":
++			reward_return.append("outer_lift_return")
++			reward_return.append_array(gate_tail)
++			m.routes.ecology_expedition=reward_return
++			m.ecology_expedition_contract={"prefix":"actual_reward_other_exit_to_R","decision_after":"actual_reward_not_camp","choice":"borrow_live_lantern_or_spend_up_to_two_R_or_return_through_D_M","destination":"gate_ready","admission":"pending_actual_map2_side_return_golden"}
++
+ func _install_hollow(m: Dictionary,offset: Vector2,split_entry: bool) -> void:
+ 	var descending: bool=int(m.choices.cavity_direction)==1
+ 	var raw: Dictionary=HOLLOW.build_cavity_elbow() if descending else HOLLOW.build_cavity()
+@@ -301,6 +323,7 @@ func _install_encounters(m: Dictionary,content: RunRandomStream) -> void:
+ 	if int(m.map_index)==1:
+ 		rows.append({"id":"borer_entry_thread","behavior":"forest_thread_spider","x":310.0,"floor":568.0,"radius":0.0,"support":"borer_entry_perch","group":"rising_access_thread","line_start":[320.0,540.0],"line_end":[368.0,540.0],"role":"read a short rising-path line before committing from M to the low access branch; keep all three original reception shores clear","approach":"M toward S access; new side perch is also a real recovery surface","alternatives":["shoot from supported M approach","wait for actual retraction before jumping","retreat onto the original belly support"]})
+ 
++
+ 	var camp := _point(m.merchant_position)
+ 	var cache := _point(m.rewards[0].position)
+ 	var camp_rect := Rect2(camp-Vector2(102,108),Vector2(204,216)) # actual shop90 + Player half12/18
+@@ -335,7 +358,7 @@ func _install_encounters(m: Dictionary,content: RunRandomStream) -> void:
+ 	var dropper := EnemyDropService.new()
+ 	dropper.configure(str(m.seed),"thorn_forest/map_%s"%m.map_index)
+ 	for row: Dictionary in m.enemies: m.enemy_drops[row.id]=dropper.settle(StringName(row.id))
+-	m.encounter_plan_contract={"version":"compact-authored-ecology-v3","selected_mix":mix,"mix_consumed":true,"recipe":"root_seed_crown_weave" if line_recipe else "root_charge_crown_seed","active_count":m.enemies.size(),"planned_count":rows.size(),"rejected_placements":rejected,"camp_interaction_radius":90.0,"camp_body_protected_rect":[camp_rect.position.x,camp_rect.position.y,camp_rect.size.x,camp_rect.size.y],"cache_interaction_radius":80.0,"spawn_exclusion_radius":150.0,"protection_scope":"complete initial/authored patrol body and authored thread; ranged flight still requires actual route observations","full_route_phases":"unverified","not_legacy_woven_proof":true,"density_not_final":true}
++	m.encounter_plan_contract={"version":"compact-authored-ecology-v5","selected_mix":mix,"mix_consumed":true,"recipe":"root_seed_crown_weave" if line_recipe else "root_charge_crown_seed","active_count":m.enemies.size(),"planned_count":rows.size(),"rejected_placements":rejected,"camp_interaction_radius":90.0,"camp_body_protected_rect":[camp_rect.position.x,camp_rect.position.y,camp_rect.size.x,camp_rect.size.y],"cache_interaction_radius":80.0,"spawn_exclusion_radius":150.0,"protection_scope":"complete initial/authored patrol body and authored thread; ranged flight still requires actual route observations","full_route_phases":"unverified","not_legacy_woven_proof":true,"density_not_final":true}
+ func _install_boss(m: Dictionary,p: Dictionary) -> void:
+ 	# First map introduces combat at the crown. The final map promotes the
+ 	# horizontal cavity to the approach: the lower crown is now a return shore.
+diff --git a/tests/forest_campaign_runner.gd b/tests/forest_campaign_runner.gd
+index 8b7bbb92..79b846be 100644
+--- a/tests/forest_campaign_runner.gd
++++ b/tests/forest_campaign_runner.gd
+@@ -107,7 +107,7 @@ func run() -> void:
+ 	check(app.player.get_instance_id()==actor_id and app.controller.actor_resources.health==health and app.wallet.balance>=31,"same actor health coins persist across region")
+ 	check(app.build.item_ids().has(&"power_gold") and app.controller.traversal.hook_enabled and not app.controller.traversal.wall_enabled and not app.controller.traversal.double_enabled,"build and H persist; no extra S2 abilities")
+ 	check(not app.lifetime.accepts(old_token),"old region token rejected after crossing")
+-	FileAccess.open("res://build/forest_playable/progression/cross_region_manifest.json",FileAccess.WRITE).store_string(app.director.manifest.canonical_json())
++	write_fixture_evidence("res://build/forest_playable/progression/cross_region_manifest.json",app.director.manifest.canonical_json())
+ 	check(RunManifest.from_snapshot(JSON.parse_string(app.director.manifest.canonical_json()))!=null,"cross-region schema2 replay validates")
+ 	check(RunManifest.from_snapshot(app.director.manifest.snapshot())!=null,"native campaign capability ledger roundtrip")
+ 	var stale_snapshot := app.director.manifest.snapshot()
+@@ -137,10 +137,20 @@ func run() -> void:
+ 	check(app.director.state==DemoRunDirector.State.HOME and app.wallet.balance==0 and app.build.item_ids().is_empty() and app.campaign.abilities.is_empty(),"boundary ends run and clears coins/build/abilities")
+ 	await finish()
+ func finish() -> void:
+-	FileAccess.open("res://build/forest_playable/progression/campaign_pointer_events.json",FileAccess.WRITE).store_string(JSON.stringify({"scope":"Godot real Viewport mouse press/release into actual Button; boss outcomes explicit fixtures; no OS/Web pointer claim","events":pointer_events,"callbacks":callback_counts,"assertions":assertions,"failures":failures}))
++	write_fixture_evidence("res://build/forest_playable/progression/campaign_pointer_events.json",JSON.stringify({"scope":"Godot real Viewport mouse press/release into actual Button; boss outcomes explicit fixtures; no OS/Web pointer claim","events":pointer_events,"callbacks":callback_counts,"assertions":assertions,"failures":failures}))
+ 	paused=false
+ 	if is_instance_valid(app):
+ 		if not await load("res://tests/audio_teardown.gd").drain_world(app): failures += 1
+ 		app.free()
+ 	print("FOREST CAMPAIGN: %s assertions / %s failures" % [assertions,failures])
+ 	quit(1 if failures else 0)
++
++func write_fixture_evidence(path: String, content: String) -> void:
++	var directory_error := DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path(path.get_base_dir()))
++	check(directory_error==OK,"fixture evidence output directory is available")
++	if directory_error!=OK: return
++	var output := FileAccess.open(path,FileAccess.WRITE)
++	check(output!=null,"fixture evidence output file opens")
++	if output==null: return
++	output.store_string(content)
++	output.close()
+diff --git a/tests/forest_depth_ecology_trace.gd b/tests/forest_depth_ecology_trace.gd
+index 903faf6a..4a7164fc 100644
+--- a/tests/forest_depth_ecology_trace.gd
++++ b/tests/forest_depth_ecology_trace.gd
+@@ -23,21 +23,23 @@ var ecology_jump_clear_x := 0.0
+ var ecology_seed_zones_seen: Dictionary = {}
+ var ecology_rejected_goal := Vector2(INF,INF)
+ func request(kind: StringName, aim:=Vector2.ZERO) -> void:
+-	# The Router canonicalizes direction before its consumer sees it. Preserve
+-	# both the requested vector and the actual single queued submission; do not
+-	# normalize a second time in an observer or synthesize an accepted action.
++	# Base owns request timing, pre-Motor state and movie stamps. Augment only
++	# its actual new row with the Router's canonical single queued direction.
+ 	var previous_sequence: int=controller.router.sequence
+ 	var previous_count: int=controller.router._queue.size()
+-	var queued: bool=controller.router.request_action(kind,aim)
+-	var row: Dictionary={"tick":tick,"leg":leg_index,"phase":phase,"kind":String(kind),"raw_aim":pair(aim),"aim":pair(aim),"queued":queued}
+-	if queued:
++	var previous_rows: int=requests.size()
++	super.request(kind,aim)
++	if requests.size()!=previous_rows+1:
++		fail("actual_base_request_not_single_append");return
++	var row: Dictionary=requests.back()
++	row.raw_aim=pair(aim)
++	if bool(row.queued):
+ 		if controller.router._queue.size()!=previous_count+1 or controller.router.sequence!=previous_sequence+1:
+ 			fail("actual_router_submission_not_single_append");return
+ 		var actual: Dictionary=controller.router._queue.back()
+ 		if actual.sequence!=controller.router.sequence or actual.type!=kind or actual.epoch!=controller.router.epoch:
+ 			fail("actual_router_submission_identity_mismatch");return
+ 		row.merge({"aim":pair(actual.direction),"router_sequence":actual.sequence,"router_epoch":actual.epoch,"observation":"actual_router_queued_direction"},true)
+-	requests.append(row)
+ func _hook_event(state: StringName) -> void:
+ 	super._hook_event(state)
+ 	if ecology_started<0: return
+diff --git a/tests/forest_depth_lift_runner.gd b/tests/forest_depth_lift_runner.gd
+index 23e11cce..0481b9e0 100644
+--- a/tests/forest_depth_lift_runner.gd
++++ b/tests/forest_depth_lift_runner.gd
+@@ -5,11 +5,13 @@ var map_index := 1
+ var strategy_name := "alive_lift"
+ var route_name := "high_return"
+ var expedition_mode := false
++var return_strategy := "side_HR"
+ var output := "res://build/forest_depth/region/capture.json"
+ func _initialize() -> void:
+ 	for arg: String in OS.get_cmdline_user_args():
+ 		if arg=="--expedition": expedition_mode=true
+ 		elif arg.begins_with("--seed="): seed_value=arg.trim_prefix("--seed=")
++		elif arg.begins_with("--return-strategy="): return_strategy=arg.trim_prefix("--return-strategy=")
+ 		elif arg.begins_with("--strategy="): strategy_name=arg.trim_prefix("--strategy=")
+ 		elif arg.begins_with("--map="): map_index=int(arg.trim_prefix("--map="))
+ 		elif arg.begins_with("--route="): route_name=arg.trim_prefix("--route=")
+@@ -19,6 +21,7 @@ func run() -> void:
+ 	var trace:=TRACE.new()
+ 	trace.expedition_enabled=expedition_mode
+ 	trace.lift_strategy=strategy_name
++	trace.crown_return_strategy=return_strategy
+ 	trace.seed_value=seed_value;trace.map_index=map_index;trace.route_name=route_name
+ 	root.add_child(trace)
+ 	while not trace.finished or not trace.setup_done: await process_frame
+@@ -29,12 +32,20 @@ func run() -> void:
+ 	var data: Dictionary={"schema_version":1,"ecology_strategy":strategy_name,"ecology_started":trace.ecology_started,"ecology_finished":trace.ecology_finished,"ecology_entry":trace.ecology_entry.duplicate(true),"ecology_exit":trace.ecology_exit.duplicate(true),"scope":"actual_DemoApp_R_E_lift_candidate_not_admitted_route","lift_strategy":strategy_name,"lift_started":trace.lift_started,"lift_finished":trace.lift_finished,"lift_entry":trace.lift_entry.duplicate(true),"lift_exit":trace.lift_exit.duplicate(true),"lift_prefix":trace.lift_prefix.duplicate(true),"lift_original_itinerary":trace.lift_original_itinerary.duplicate(true),"lift_contact_tick":trace.lift_contact_tick,"lift_first_free_tick":trace.lift_first_free_tick,"lift_requested_R":trace.lift_shots,"lift_setup_shots":trace.lift_setup_shots,"lift_motion_started":trace.lift_motion_started,"lift_empty_tick":trace.lift_empty_tick,"lift_floor_recovery_tick":trace.lift_floor_recovery_tick,"seed":seed_value,"map_index":map_index,"route":route_name,"engine":Engine.get_version_info().string,"manifest":trace.manifest.duplicate(true),"itinerary":trace.itinerary.duplicate(true),"completed_legs":trace.completed.duplicate(true),"frames":trace.frames.duplicate(true),"events":trace.events.duplicate(true),"requests":trace.requests.duplicate(true),"failures":trace.failures.duplicate(),"initial_snapshot":trace.initial.duplicate(true),"final_snapshot":trace.snapshot(),"modal_frames":trace.modal_frames.duplicate(true),"pointer_events":trace.pointer_events.duplicate(true),"claim_before":trace.claim_before.duplicate(true),"claim_after":trace.claim_after.duplicate(true),"cache_claimed":trace.cache_claimed,"duplicate_checked":trace.duplicate_checked,"duplicate_before":trace.duplicate_before.duplicate(true),"duplicate_after":trace.duplicate_after.duplicate(true),"manual_motor_step":false,"position_or_resource_injection":false,"tick_budget":18000,"edge_tick_budget":1800,"boss_fight_covered":false}
+ 	if expedition_mode:
+ 		data.scope="formal_DemoApp_forest_v2_continuous_route_not_boss_fight"
+-		data.expedition_scope="actual_reward_camp_then_optional_R_E_and_gate"
++		data.expedition_scope="actual_map2_lower_reward_then_optional_R_E_and_gate" if map_index==2 else "actual_reward_camp_then_optional_R_E_and_gate"
++		data.expedition_reward_R_tick=trace.expedition_reward_R_tick
++		data.expedition_reward_R=trace.expedition_reward_R.duplicate(true)
+ 		data.expedition_camp_tick=trace.expedition_camp_tick
+ 		data.expedition_camp=trace.expedition_camp.duplicate(true)
+ 		data.expedition_prefix_count=trace.expedition_prefix_count
+ 		data.expedition_started_leg=trace.expedition_started_leg
+ 		data.expedition_fallback=trace.expedition_fallback
++		data.crown_return_strategy=return_strategy
++		data.crown_return_started=trace.crown_return_started
++		data.crown_return_finished=trace.crown_return_finished
++		data.crown_return_entry=trace.crown_return_entry.duplicate(true)
++		data.crown_return_exit=trace.crown_return_exit.duplicate(true)
++		data.crown_return_contract=trace.crown_return_contract.duplicate(true)
+ 	if is_instance_valid(trace.stage):
+ 		data["claimed_ids"]=trace.stage.region_state.claimed.keys()
+ 		data["visited_areas"]=trace.stage.region_state.visited.duplicate(true)
+diff --git a/tests/forest_depth_lift_trace.gd b/tests/forest_depth_lift_trace.gd
+index 7006fb3e..03ac8f19 100644
+--- a/tests/forest_depth_lift_trace.gd
++++ b/tests/forest_depth_lift_trace.gd
+@@ -23,11 +23,28 @@ var lift_floor_recovery_tick := -1
+ var expedition_enabled := false
+ var expedition_prefix_count := -1
+ var expedition_camp_tick := -1
++var expedition_reward_R_tick := -1
++var expedition_reward_R: Dictionary = {}
+ var expedition_camp: Dictionary = {}
+ var expedition_prefix: Array = []
+ var expedition_started_leg := -1
+ var expedition_fallback := false
+ var expedition_opposite_phase_seen := false
++var crown_return_strategy := "side_HR"
++var crown_return_started := -1
++var crown_return_finished := -1
++var crown_return_state := "jump"
++var crown_return_entry: Dictionary = {}
++var crown_return_exit: Dictionary = {}
++var crown_return_contract: Dictionary = {}
++var crown_return_ring: Node2D
++var crown_return_probe: ShapeCast2D
++var crown_return_contact := false
++var crown_return_kick := false
++var crown_return_R := 0
++var crown_return_first_free := -1
++var crown_return_jump_released := false
++var crown_return_burst_seen := false
+ 
+ func _ready() -> void:
+ 	ecology_enabled=false
+@@ -37,18 +54,31 @@ func begin() -> void:
+ 	await super.begin()
+ 	if not initialized or not is_instance_valid(controller): return
+ 	if expedition_enabled:
+-		if route_name!="ecology_expedition" or map_index!=1 or int(manifest.choices.skeleton)!=1:
+-			fail("expedition_actual_graph_identity_missing");return
+-		for index: int in itinerary.size():
+-			if str(itinerary[index].get("edge_id",""))=="camp_outer_back":
+-				expedition_prefix_count=index;break
++		if map_index==2:
++			if route_name!="ecology_expedition" or int(manifest.choices.skeleton)!=0 or int(manifest.choices.cache_route)!=0 or int(manifest.choices.cavity_direction)!=0:
++				fail("expedition_map2_natural_lower_cache_identity_missing");return
++			for index: int in itinerary.size():
++				if str(itinerary[index].get("edge_id",""))=="outer_lift_return":
++					expedition_prefix_count=index;break
++		else:
++			if route_name!="ecology_expedition" or map_index!=1 or int(manifest.choices.skeleton)!=1:
++				fail("expedition_actual_graph_identity_missing");return
++			for index: int in itinerary.size():
++				if str(itinerary[index].get("edge_id",""))=="camp_outer_back":
++					expedition_prefix_count=index;break
+ 		if expedition_prefix_count<=0 or not manifest.routes.has("ecology_expedition"):
+ 			fail("expedition_reward_return_prefix_missing");return
++	controller.traversal.hook_contact.connect(_crown_return_head_contact)
+ 	controller.energy_recovered.connect(func(amount: float, airborne: bool) -> void:
+ 		event("actual_shot_energy_recovered",{"amount":amount,"airborne":airborne,"snapshot":snapshot()}))
+ 
+ func _hook_event(state: StringName) -> void:
+ 	super._hook_event(state)
++	if crown_return_started>=0 and controller.traversal.hook_target==crown_return_ring:
++		if state==&"hook_contact_kick":
++			crown_return_contact=true
++			event("crown_return_actual_body_contact",{"snapshot":snapshot(),"anchor_id":"crown_reverse_ring"})
++		if state==&"hook_kick":crown_return_kick=true
+ 	if lift_started<0: return
+ 	if state==&"hook_contact_kick" and is_instance_valid(lift_actor) and controller.traversal.hook_target==lift_actor.motor:
+ 		lift_contact=true;lift_contact_tick=tick
+@@ -57,6 +87,8 @@ func _hook_event(state: StringName) -> void:
+ func observe() -> void:
+ 	super.observe()
+ 	if frames.is_empty() or int(frames[-1].tick)!=tick: return
++	if crown_return_started>=0:
++		frames[-1].merge({"crown_return_recoil_remaining":player.recoil_burst_remaining,"crown_return_recoil_velocity":pair(player.recoil_velocity),"crown_return_normal_velocity":pair(player.normal_velocity),"crown_return_actor_epoch":app.lifetime.actor_epoch,"crown_return_hold_elapsed":controller.jump_ability._hold_elapsed})
+ 	if not expedition_enabled and lift_started<0: return
+ 	frames[-1].combat_energy=controller.combat_energy.current
+ 	frames[-1].combat_hit_packets=controller.combat_energy._packets.duplicate(true)
+@@ -105,7 +137,18 @@ func _seal_lift() -> void:
+ 	event("lift_actual_E_arrival",{"snapshot":lift_exit.duplicate(true),"strategy":lift_strategy})
+ 
+ func complete_leg() -> void:
+-	if expedition_enabled and leg_index==expedition_prefix_count-1:
++	if expedition_enabled and map_index==2 and leg_index==expedition_prefix_count-1:
++		if not cache_claimed or not duplicate_checked or str(itinerary[leg_index].edge_id)!="reward_other_exit" or not at_destination(point(itinerary[leg_index].landing),"hollow__outer_root"):
++			fail("expedition_map2_R_before_actual_lower_reward_claim");return
++		expedition_reward_R_tick=tick
++		expedition_reward_R=snapshot();expedition_reward_R.supports=supports()
++		expedition_reward_R.wallet_balance=app.wallet.balance
++		expedition_reward_R.meta_notes=app.meta.snapshot().get("notes",0)
++		expedition_reward_R.item_ids=app.build.item_ids()
++		expedition_reward_R.claimed_ids=stage.region_state.claimed.keys()
++		expedition_prefix=completed.duplicate(true)
++		event("expedition_reward_R_complete",{"snapshot":expedition_reward_R.duplicate(true),"prefix_final_leg":leg_index,"actual_edge":itinerary[leg_index].edge_id})
++	if expedition_enabled and map_index==1 and leg_index==expedition_prefix_count-1:
+ 		if not cache_claimed or not duplicate_checked:
+ 			fail("expedition_camp_before_actual_reward_claim");return
+ 		expedition_camp_tick=tick
+@@ -141,7 +184,7 @@ func drive_hollow(leg: Dictionary) -> void:
+ 		super.drive_hollow(leg);return
+ 	if lift_started<0:
+ 		if expedition_enabled:
+-			if expedition_camp_tick<0 or leg.kind!="hollow_live_return" or leg.a!="R" or leg.b!="E" or not bool(leg.get("optional",false)) or str(leg.get("enemy_id",""))!="hollow_route__outer_lift_lantern":
++			if (expedition_reward_R_tick<0 if map_index==2 else expedition_camp_tick<0) or leg.kind!="hollow_live_return" or leg.a!="R" or leg.b!="E" or not bool(leg.get("optional",false)) or str(leg.get("enemy_id",""))!="hollow_route__outer_lift_lantern":
+ 				fail("expedition_not_actual_optional_graph_leg_after_reward_return");return
+ 			expedition_started_leg=leg_index
+ 		var R := Vector2.ZERO
+@@ -277,3 +320,97 @@ func _physics_process(delta: float) -> void:
+ 	if tick>18000: fail("route_tick_budget");return
+ 	if tick-leg_started>1800: fail("edge_tick_budget/"+str(leg_index)+"/"+phase);return
+ 	drive_hollow(itinerary[leg_index])
++
++# The existing actual optional itinerary invokes this role after supported E.
++# All strategies share the complete arrival/reward/R/live-lift prefix.
++func drive_ecology(leg: Dictionary) -> void:
++	if str(leg.get("role",""))!="crown_reverse_return":
++		super.drive_ecology(leg);return
++	var goal:=point(leg.landing)
++	if crown_return_started<0:
++		if map_index!=2 or not expedition_enabled or lift_finished<0 or leg.kind!="ecology_return" or leg.a!="E" or leg.b!="C" or not at_destination(point(lift_exit.position),"hollow__outer_crown"):
++			fail("crown_return_actual_supported_E_prefix_missing");return
++		if crown_return_strategy not in ["side_HR","direct_one_R","direct_two_R"]:
++			fail("crown_return_unknown_strategy");return
++		crown_return_ring=stage.assembler.hook_targets.get(str(leg.anchor_id))
++		if not is_instance_valid(crown_return_ring) or crown_return_ring.global_position!=point(leg.anchor):
++			fail("crown_return_actual_ring_identity_missing");return
++		crown_return_started=tick;crown_return_entry=snapshot()
++		crown_return_entry.supports=supports()
++		var collision:=player.get_node("CollisionShape2D") as CollisionShape2D
++		var body_shape:=collision.shape as RectangleShape2D
++		if body_shape==null:fail("crown_return_actual_body_shape_missing");return
++		crown_return_contract={"edge_id":str(leg.edge_id),"leg":leg_index,"anchor_id":str(leg.anchor_id),"anchor":pair(crown_return_ring.global_position),"from_support_id":str(leg.from_support_id),"landing_support_id":str(leg.landing_support_id),"body_size":pair(body_shape.size),"actor_epoch":app.lifetime.actor_epoch,"hook_radius":controller.traversal.definition.hook_capture_radius,"hook_range":controller.traversal.definition.hook_range,"recoil_distance":player.weapon_motion.base_distance(player.tuning,true),"shot_cost":controller.shot_energy.shot_energy_cost,"head_observer":"official_same_circle_mask_origin_exclusion_plus_exact_initial_overlap_rejection"}
++		crown_return_probe=ShapeCast2D.new()
++		var shape:=CircleShape2D.new();shape.radius=controller.traversal.definition.hook_capture_radius
++		crown_return_probe.shape=shape;crown_return_probe.enabled=false;crown_return_probe.exclude_parent=false
++		crown_return_probe.collision_mask=0xFFFFFFFF;crown_return_probe.collide_with_areas=true
++		add_child(crown_return_probe);crown_return_probe.add_exception(player)
++		event("crown_return_E_choice_started",{"strategy":crown_return_strategy,"snapshot":crown_return_entry.duplicate(true)})
++		controller.router.set_move_axis(1 if crown_return_strategy=="side_HR" else clampf((goal.x-player.global_position.x)/12,-1,1))
++		jump(true);set_phase("crown_return_full_jump")
++		return
++	if crown_return_state=="jump":
++		controller.router.set_move_axis(1 if crown_return_strategy=="side_HR" else clampf((goal.x-player.global_position.x)/12,-1,1))
++		if crown_return_strategy=="side_HR":
++			if not player.is_on_floor() and controller.traversal.state==&"free" and _crown_return_head_ready():
++				event("crown_return_side_H_request",{"snapshot":snapshot(),"anchor_id":str(leg.anchor_id),"head_origin":pair(player.global_position+Vector2(0,-6))})
++				hook(str(leg.anchor_id));crown_return_state="hook";set_phase("crown_return_side_hook")
++		elif not player.is_on_floor() and player.normal_velocity.y>=0 and age>1:
++			event("crown_return_ordinary_real_apex",{"snapshot":snapshot()})
++			jump(false);crown_return_jump_released=true
++			event("crown_return_R_request",{"ordinal":1,"aim":[0,1],"snapshot":snapshot(),"shot_cost":controller.shot_energy.shot_energy_cost})
++			request(&"shoot_release",Vector2.DOWN);crown_return_R=1;crown_return_state="land"
++		if not crown_return_jump_released and not player.is_on_floor() and player.normal_velocity.y>=0:
++			jump(false);crown_return_jump_released=true
++		return
++	if crown_return_state=="hook":
++		controller.router.set_move_axis(0)
++		if crown_return_contact and crown_return_kick and controller.traversal.state==&"free" and not player.is_on_floor():
++			crown_return_first_free=tick
++			jump(false);crown_return_jump_released=true
++			var aim:=Vector2(1,2).normalized()
++			event("crown_return_R_request",{"ordinal":1,"aim":pair(aim),"snapshot":snapshot(),"shot_cost":controller.shot_energy.shot_energy_cost,"first_free":true})
++			request(&"shoot_release",aim);crown_return_R=1;crown_return_state="land"
++		return
++	if crown_return_state=="land":
++		crown_return_burst_seen=crown_return_burst_seen or player.recoil_burst_remaining>0
++		controller.router.set_move_axis(clampf((goal.x-player.global_position.x)/12,-1,1))
++		var receiver: Dictionary=platform(str(leg.landing_support_id))
++		var body_half:=point(crown_return_contract.body_size)*.5
++		if crown_return_strategy=="direct_two_R" and crown_return_R==1 and player.global_position.y+body_half.y>=float(receiver.rect[1]) and not player.is_on_floor() and player.recoil_burst_remaining<=0 and controller.shoot_ability.cooldown_remaining<=0:
++			event("crown_return_R_request",{"ordinal":2,"aim":[0,1],"snapshot":snapshot(),"shot_cost":controller.shot_energy.shot_energy_cost})
++			request(&"shoot_release",Vector2.DOWN);crown_return_R=2
++		stable=stable+1 if at_destination(goal,str(leg.landing_support_id)) else 0
++		if stable>=12:
++			crown_return_finished=tick;crown_return_exit=snapshot();crown_return_exit.supports=supports()
++			event("crown_return_actual_C_arrival",{"snapshot":crown_return_exit.duplicate(true),"supports":supports(),"R_count":crown_return_R,"first_free_tick":crown_return_first_free})
++			complete_leg();return
++		if crown_return_burst_seen and player.is_on_floor() and full_support("hollow__outer_crown"):
++			fail("crown_return_bounded_return_to_E_without_C/"+crown_return_strategy)
++
++func _crown_return_head_contact(at: Vector2) -> void:
++	if crown_return_started<0 or controller.traversal.hook_target!=crown_return_ring:return
++	event("crown_return_actual_head_contact",{"anchor_id":"crown_reverse_ring","point":pair(at),"target_position":pair(crown_return_ring.global_position)})
++
++func _crown_return_head_ready() -> bool:
++	var origin:=player.global_position+Vector2(0,-6)
++	var radius: float=controller.traversal.definition.hook_capture_radius
++	for row: Dictionary in manifest.platforms:
++		var r: Array=row.rect;var rect:=Rect2(r[0],r[1],r[2],r[3])
++		if origin.distance_squared_to(origin.clamp(rect.position,rect.end))<=radius*radius:return false
++	var direction: Vector2=(crown_return_ring.global_position-origin).normalized()
++	crown_return_probe.global_position=origin
++	crown_return_probe.target_position=crown_return_probe.to_local(origin+direction*controller.traversal.definition.hook_range)
++	crown_return_probe.force_shapecast_update()
++	var chosen: Node2D=null;var at:=Vector2.ZERO;var nearest:=INF
++	for index: int in crown_return_probe.get_collision_count():
++		var hit:=crown_return_probe.get_collision_point(index)
++		if hit.distance_to(origin)>controller.traversal.definition.hook_range+.01:continue
++		var collider:=crown_return_probe.get_collider(index) as Node2D
++		if collider==null:continue
++		if origin.distance_squared_to(hit)<nearest:chosen=collider;at=hit;nearest=origin.distance_squared_to(hit)
++	if chosen!=crown_return_ring or not chosen.is_in_group(&"grapple_target"):return false
++	var query:=PhysicsRayQueryParameters2D.create(origin,at,1,[player.get_rid()])
++	var obstruction:=player.get_world_2d().direct_space_state.intersect_ray(query)
++	return obstruction.is_empty() or obstruction.collider==chosen
+diff --git a/tests/forest_depth_version_runner.gd b/tests/forest_depth_version_runner.gd
+index 7f9c34fb..824fc7ee 100644
+--- a/tests/forest_depth_version_runner.gd
++++ b/tests/forest_depth_version_runner.gd
+@@ -53,7 +53,7 @@ func run() -> void:
+ 	var malformed: Dictionary = registry.generate("version-invalid",tuning,1,{"grapple":true,"forest_content_version":{"version":LEGACY.VERSION}})
+ 	check(not malformed.ok,"malformed capability version does not become the default")
+ 	var queen: Dictionary = registry.generate_version(ThornForestRegionGenerator.DEPTH_VERSION,"version-queen-unimplemented",tuning,2,{"grapple":true,"abilities":["grapple"]})
+-	check(queen.ok and queen.manifest.version==ThornForestRegionGenerator.DEPTH_VERSION and queen.manifest.map_index==2 and queen.production_pool==false and registry.validate(queen.manifest,tuning),"v2 map2 exposes exact technically valid experimental candidate without default promotion")
++	check(queen.ok and queen.manifest.version==ThornForestRegionGenerator.DEPTH_VERSION and queen.manifest.map_index==2 and queen.production_pool==false and registry.validate(queen.manifest,tuning),"v2 map2 exposes exact technically valid experimental candidate without production/commercial admission")
+ 	var queen_contract: Dictionary=queen.get("manifest",{}).get("boss_contract",{})
+ 	check(queen_contract.get("version")=="forest-queen-weave-golden-v2" and queen_contract.get("boss_contract")=="queen-weave-region-experimental" and queen_contract.get("admission")=="experimental_whole_boss_pending" and queen_contract.get("entry_mapping",{}).get("new_high_bridge")==false,"v2 map2 retains exact pending whole-Boss admission and existing-floor connector")
+ 	cases.append({"id":"v2_map2_experimental","ok":queen.ok,"returned_version":queen.get("manifest",{}).get("version",""),"production_pool":queen.get("production_pool"),"boss_contract":queen_contract.duplicate(true)})
+diff --git a/tests/level_capability_runner.gd b/tests/level_capability_runner.gd
+index 0a01b7c9..05cbe2f5 100644
+--- a/tests/level_capability_runner.gd
++++ b/tests/level_capability_runner.gd
+@@ -1,52 +1,17 @@
+ extends SceneTree
+-const SNAPSHOT := preload("res://tools/level_capability_snapshot.gd")
+-var assertions := 0
+-var failures := 0
+-
++## Keep the capability case inside a real Node lifetime, after normal App setup.
+ func _initialize() -> void: run.call_deferred()
+-func verify(ok: bool, label: String) -> void:
+-	assertions += 1
+-	if not ok: failures += 1; push_error("LEVEL CAPABILITY: " + label)
+-
+ func run() -> void:
+-	var motor := preload("res://scenes/player/player.tscn").instantiate() as PlayerMotor
+-	root.add_child(motor)
+-	var actor := motor.get_node("Controller") as PlayerController
+-	actor.set_physics_process(false)
+-	verify(actor.enable_shot_energy(), "real energy policy enabled")
+-	var build := BuildState.new()
+-	build.configure(actor)
+-	var baseline := SNAPSHOT.capture(actor, build)
+-	verify(baseline.equipped_weapon.id == "pulse_gun" and baseline.granted_actions == ["jump", "shot_recoil"], "formal default does not inherit studio grants")
+-	verify(SNAPSHOT.matches_tuning(actor, PlayerTuning.load_default()), "actual default matches request")
+-	var wrong := PlayerTuning.load_default()
+-	wrong.max_air_shots += 1
+-	verify(not SNAPSHOT.matches_tuning(actor, wrong), "different requested capacity rejected")
+-	var driver = preload("res://tests/level_design_trace.gd").new()
+-	var rejections: Array = []
+-	driver.tree = self
+-	driver.check = func(ok: bool, label: String) -> void:
+-		if not ok: rejections.append(label)
+-	verify(not await driver.fixture({}, wrong) and driver.capability_mismatch and not rejections.is_empty() and driver.observed_frames.is_empty(), "actual route driver rejects mismatch before creating evidence")
+-	verify(actor.traversal.grant(&"double_jump") and actor.traversal.grant(&"grapple"), "grant real independent abilities")
+-	var granted := SNAPSHOT.capture(actor)
+-	verify(granted.effective_max_jumps == 2 and granted.tuning.max_jumps == 1 and "grapple" in granted.granted_actions, "effective capacity includes real grant without rewriting tuning")
+-	for index: int in WeaponCatalog.IDS.size():
+-		var definition := WeaponCatalog.get_loadout(index)
+-		verify(actor.shoot_ability.equip(definition), "equip real weapon/" + str(definition.id))
+-		var snapshot := SNAPSHOT.capture(actor)
+-		verify(snapshot.equipped_weapon.id == str(definition.id) and snapshot.equipped_weapon.tier == definition.tier and not snapshot.has("combined_weapon_abilities"), "one current weapon/" + str(definition.id))
+-	var energy := actor.actor_resources.stamina
+-	verify(energy.consume_continuous(energy.current - 7.0, energy.epoch).accepted(), "low-energy fixture uses real resource transaction")
+-	actor.combat_energy.current = 3.0
+-	actor.shoot_ability.cooldown_remaining = 0.25
+-	var low := SNAPSHOT.capture(actor)
+-	verify(low.shot_energy.current == 7.0 and low.combat_energy.current == 3.0 and low.shot_cooldown == 0.25, "low-resource and cooldown observation is exact")
+-	var runtime_before := actor.shoot_ability.runtime
+-	var before := JSON.stringify(low)
+-	verify(JSON.stringify(SNAPSHOT.capture(actor)) == before and actor.shoot_ability.runtime == runtime_before, "observation does not mutate or refill actor")
+-	verify(low.equipment_capacity.inventory_capacity == "unimplemented", "missing inventory rule is not fabricated")
+-	motor.free()
+-	await process_frame
+-	print("LEVEL CAPABILITY: %d assertions, %d failures" % [assertions, failures])
+-	quit(1 if failures else 0)
++	var script: Script=load("res://tests/level_capability_case.gd")
++	var case: Node=script.new()
++	root.add_child(case)
++	await case.run()
++	var failed: bool=case.failures!=0 or case.assertions!=41 or not case.lifecycle_ok
++	var case_ref: WeakRef=weakref(case)
++	case.free()
++	case=null
++	script=null
++	if case_ref.get_ref()!=null:
++		push_error("LEVEL CAPABILITY: case retained after complete return")
++		failed=true
++	quit(1 if failed else 0)
+diff --git a/tools/level_design_capture.gd b/tools/level_design_capture.gd
+index ebe45c98..1697c467 100644
+--- a/tools/level_design_capture.gd
++++ b/tools/level_design_capture.gd
+@@ -1,87 +1,17 @@
+ extends SceneTree
+-## Real formal manifest plus bounded continuous assembler traces. No promotion.
+-const SNAPSHOT := preload("res://tools/level_capability_snapshot.gd")
+-const TRACE := preload("res://tests/level_design_trace.gd")
+-var report: Dictionary = {}
+-var failures: Array = []
+-var assertions := 0
+-var output := "res://build/level_design_v2/capture.json"
+-var source_commit := ""
+-var seed_value := "level-design-v2-baseline"
+-var strategies: PackedStringArray = ["fast", "growth", "deep"]
+-
++## Exit only after the original complete capture has returned and its Node freed.
+ func _initialize() -> void: run.call_deferred()
+-
+-func verify(ok: bool, label: String) -> void:
+-	assertions += 1
+-	if not ok:
+-		failures.append({"message": label})
+-		print("LEVEL DESIGN CAPTURE FAILURE: ", label)
+-
+-func save_report() -> void:
+-	report["failures"] = failures.duplicate(true)
+-	report["assertions"] = assertions
+-	DirAccess.make_dir_recursive_absolute(output.get_base_dir())
+-	var file := FileAccess.open(output, FileAccess.WRITE)
+-	if file == null:
+-		print("LEVEL DESIGN CAPTURE: cannot write report")
+-		quit(2)
+-		return
+-	file.store_string(JSON.stringify(report) + "\n")
+-	file.close()
+-
+ func run() -> void:
+-	for arg: String in OS.get_cmdline_user_args():
+-		if arg.begins_with("--source-commit="): source_commit = arg.trim_prefix("--source-commit=")
+-		elif arg.begins_with("--output="): output = arg.trim_prefix("--output=")
+-		elif arg.begins_with("--seed="): seed_value = arg.trim_prefix("--seed=")
+-		elif arg.begins_with("--strategies="): strategies = arg.trim_prefix("--strategies=").split(",", false)
+-	report = {"schema_version": 1, "source_commit": source_commit, "engine": Engine.get_version_info().string, "scope": "formal_manifest_and_assembler_shotlatch_traces_not_enemy_or_boss_completion", "manifests": [], "traces": [], "failures": []}
+-	report["source_basis"] = FoundryCatalog.basis()
+-	report["capture_source_hashes"] = {}
+-	for path: String in ["res://tools/level_design_capture.gd", "res://tools/level_capability_snapshot.gd", "res://tests/level_design_trace.gd", "res://tests/plains_region_trace.gd", "res://tests/random_stage_tests.gd"]:
+-		report.capture_source_hashes[path] = FileAccess.get_sha256(path)
+-	verify(source_commit.length() == 40 and source_commit.is_valid_hex_number(false), "full_source_commit_required")
+-	verify(Engine.physics_ticks_per_second == 60, "physics_60hz_required")
+-	verify(not strategies.is_empty() and strategies.size() <= 3, "bounded_strategy_request")
+-	for strategy: String in strategies: verify(strategy in ["fast", "growth", "deep"], "supported_strategy/" + strategy)
+-	if not failures.is_empty(): save_report(); quit(1); return
+-	var app := DemoApp.new()
+-	app.meta_persistence_enabled = false
+-	root.add_child(app)
+-	verify(app.start_plains(seed_value), "formal_consumer_starts")
+-	for unused: int in 10: await physics_frame
+-	verify(app.stage is PlainsRegionStage and app.stage.assembly_ok, "formal_region_assembled")
+-	if not failures.is_empty(): save_report(); app.free(); quit(1); return
+-	var formal := app.director.manifest.snapshot()
+-	verify(RunManifest.from_snapshot(JSON.parse_string(JSON.stringify(formal))) != null, "formal_manifest_roundtrip")
+-	report["formal_run_manifest"] = formal
+-	report["formal_capability"] = SNAPSHOT.capture(app.controller, app.build, "formal_demo_app")
+-	var manifest: Dictionary = app.stage.generated.manifest.duplicate(true)
+-	# PlayerTuning fields are plain variables; Resource.duplicate does not copy
+-	# them. Retain this immutable reference after freeing the formal consumer.
+-	var tuning: PlayerTuning = app.controller.motor.tuning
+-	report.manifests.append(manifest)
+-	verify(manifest.fallback_id.is_empty(), "baseline_is_randomized_not_fallback")
+-	verify(PlainsRegionGenerator.new().validate(manifest, tuning), "formal_manifest_validates")
+-	app.abandon_run()
+-	for unused: int in 3: await physics_frame
+-	app.free()
+-	for strategy: String in strategies:
+-		var driver = TRACE.new()
+-		driver.tree = self
+-		driver.check = verify
+-		var failure_start := failures.size()
+-		if strategy == "deep": await driver.adventure(manifest, tuning)
+-		else: await driver.journey(manifest, tuning, strategy)
+-		verify(not driver.observed_frames.is_empty() and not driver.observed_edges.is_empty(), "nonempty_trace/" + strategy)
+-		verify(driver.safe_trace and driver.continuous_trace and not driver.capability_mismatch, "safe_continuous_matching_capability/" + strategy)
+-		if not driver.observed_frames.is_empty():
+-			var prep: Dictionary = PlainsRegionGenerator.new()._area(manifest, str(manifest.prep_id))
+-			var last: Dictionary = driver.observed_frames.back()
+-			verify(bool(last.grounded) and Vector2(last.position[0], last.position[1]).distance_to(Vector2(prep.position[0], prep.position[1])) < 2.0, "actual_supported_boss_approach_reached/" + strategy)
+-		report.traces.append({"seed": manifest.seed, "manifest_hash": manifest.manifest_hash, "strategy": strategy, "scope": "assembler_shotlatch_without_enemies_or_boss_fight", "enemies_instantiated": false, "device": "synthetic_router", "physics_hz": 60, "actions_semantics": "router_input_requests_not_accepted_action_events", "capability": driver.actual_capability, "final_capability": driver.final_capability, "frames": driver.observed_frames, "edges": driver.observed_edges, "failures": failures.slice(failure_start)})
+-		if is_instance_valid(driver.world): driver.world.free()
+-		save_report()
+-	print("LEVEL DESIGN CAPTURE: %d assertions, %d failures, %d traces" % [assertions, failures.size(), report.traces.size()])
+-	quit(0 if failures.is_empty() else 1)
++	var script: Script=load("res://tools/level_design_capture_case.gd")
++	var capture: Node=script.new()
++	root.add_child(capture)
++	await capture.run()
++	var code: int=capture.exit_code
++	var capture_ref: WeakRef=weakref(capture)
++	capture.free()
++	capture=null
++	script=null
++	if capture_ref.get_ref()!=null:
++		push_error("LEVEL DESIGN CAPTURE: owner retained after complete return")
++		code=1
++	quit(code)
+diff --git a/tools/run_forest_depth_enemies.py b/tools/run_forest_depth_enemies.py
+index f9e024a1..417eb1e3 100644
+--- a/tools/run_forest_depth_enemies.py
++++ b/tools/run_forest_depth_enemies.py
+@@ -3,6 +3,9 @@ import argparse
+ import contextlib
+ import hashlib
+ import json
++import math
++import os
++import subprocess
+ from pathlib import Path
+ import re
+ import time
+@@ -446,9 +449,13 @@ def validate_expedition(data):
+     errors = validate_actual_route(data)
+     if errors:
+         raise ValueError('Complete actual expedition route rejected: ' + ', '.join(errors))
+-    if data.get('expedition_scope') != 'actual_reward_camp_then_optional_R_E_and_gate' or data.get('route') != 'ecology_expedition':
++    expected_scope = 'actual_map2_lower_reward_then_optional_R_E_and_gate' if data.get('map_index') == 2 else 'actual_reward_camp_then_optional_R_E_and_gate'
++    if data.get('expedition_scope') != expected_scope or data.get('route') != 'ecology_expedition':
+         raise ValueError('Explicit complete expedition scope and actual manifest route required')
+     validate_router_observation(data)
++    if data.get('map_index') == 2:
++        validate_map2_expedition(data)
++        return
+     m, frames, events = data['manifest'], data['frames'], data['events']
+     if data.get('map_index') != 1 or m['choices']['skeleton'] != 1:
+         raise ValueError('Only the actual shared-root map1 expedition is admitted here')
+@@ -501,38 +508,216 @@ def validate_expedition(data):
+         raise ValueError('The original full manifest itinerary must not be truncated or rewritten')
+ 
+ 
++def validate_map2_expedition(data):
++    """The actual lower-cache return reaches R before camp; do not invent a loop."""
++    from run_forest_depth_region import expected_itinerary
++    m, frames, events = data['manifest'], data['frames'], data['events']
++    choices = m.get('choices', {})
++    if m.get('map_index') != 2 or any(choices.get(k) != 0 for k in ('skeleton', 'cache_route', 'cavity_direction')):
++        raise ValueError('Actual map2 outer reward family required')
++    full = expected_itinerary(m, 'ecology_expedition')
++    original = expected_itinerary(m, 'high_return')
++    exits = [i for i, leg in enumerate(original) if leg['edge_id'] == 'reward_other_exit']
++    if len(exits) != 1:
++        raise ValueError('Unique original lower reward exit required')
++    prefix = original[:exits[0]+1]
++    n = len(prefix)
++    if full[:n] != prefix or len(full) <= n+1 or data.get('expedition_prefix_count') != n:
++        raise ValueError('Every original arrival/reward/return leg through R must remain unchanged')
++    optional = full[n]
++    if (optional.get('edge_id') != 'outer_lift_return' or optional.get('kind') != 'hollow_live_return'
++            or optional.get('a') != 'R' or optional.get('b') != 'E' or optional.get('optional') is not True
++            or optional.get('enemy_id') != 'hollow_route__outer_lift_lantern'):
++        raise ValueError('Actual optional R-to-E edge identity required')
++    if any(leg['edge_id'] == 'camp_outer_back' for leg in prefix) or data.get('expedition_camp_tick') != -1:
++        raise ValueError('Map2 natural lower reward route must not fabricate a mandatory camp loop')
++    completed = data['completed_legs']
++    row = completed[n-1]
++    markers = [e for e in events if e['kind'] == 'expedition_reward_R_complete']
++    if (data.get('expedition_reward_R_tick') != row['tick'] or len(markers) != 1
++            or markers[0]['tick'] != row['tick'] or markers[0].get('actual_edge') != 'reward_other_exit'
++            or data.get('expedition_started_leg') != n or row['edge_id'] != 'reward_other_exit'):
++        raise ValueError('Real claimed reward then supported natural R checkpoint required')
++    if (data.get('cache_claimed') is not True or data.get('duplicate_checked') is not True
++            or len(data.get('pointer_events', [])) != 2 or data.get('duplicate_before') != data.get('duplicate_after')):
++        raise ValueError('Actual pointer claim, modal and duplicate transaction must remain intact')
++    areas = {a['id']: a['position'] for a in m['areas']}
++    checkpoint = data.get('expedition_reward_R', {})
++    window = [f for f in frames if row['tick']-11 <= f['tick'] <= row['tick']]
++    if (len(window) != 12 or 'hollow__outer_root' not in checkpoint.get('supports', [])
++            or checkpoint.get('health', 0) <= 0 or any(not f['grounded'] or 'hollow__outer_root' not in f['supports']
++            or abs(f['position'][0]-areas['R'][0]) > 7 for f in window)):
++        raise ValueError('Original reward exit must finish on twelve actual R support frames')
++    previous = next((f for f in frames if f['tick'] == row['tick']-1), None)
++    if (previous is None or len(checkpoint.get('position', [])) != 2 or markers[0].get('snapshot') != checkpoint
++            or any(checkpoint.get(k) != previous[k] for k in ('health', 'energy', 'shots', 'wallet_balance', 'meta_notes', 'item_ids', 'claimed_ids'))
++            or any(abs(a-b)>.001 for a,b in zip(checkpoint.get('position', []), previous['position']))):
++        raise ValueError('Reward/R checkpoint must bind its real pre-Motor frame and transaction state')
++    begin, end = data.get('lift_started', -1), data.get('lift_finished', -1)
++    if not row['tick'] < begin < end < frames[-1]['tick'] or completed[n]['tick'] != end:
++        raise ValueError('Reward, R choice, E and complete final gate must occur in actual order')
++    if data.get('lift_prefix') != completed[:n] or data.get('lift_original_itinerary') != full:
++        raise ValueError('Actual complete original itinerary and whole prefix cannot be truncated')
++    if not data.get('gate_saved_open') or not data.get('gate_shape_disabled') or full[-1].get('kind') != 'gate_hook':
++        raise ValueError('Only the actual accepted key can finish the real gate objective')
++    entry, exit = data['lift_entry'], data['lift_exit']
++    for snap, goal, support in ((entry, areas['R'], 'hollow__outer_root'), (exit, areas['E'], 'hollow__outer_crown')):
++        if (len(snap.get('position', [])) != 2 or abs(snap['position'][0]-goal[0]) > 7
++                or abs(snap['position'][1]-goal[1]) > 2 or support not in snap.get('supports', [])):
++            raise ValueError('Actual same supported R and E endpoints required')
++    arrival = [f for f in frames if end-11 <= f['tick'] <= end]
++    if len(arrival) != 12 or any(not f['grounded'] or 'hollow__outer_crown' not in f['supports'] for f in arrival):
++        raise ValueError('Actual twelve full E support frames required')
++    required = ('wallet_balance', 'meta_notes', 'item_ids', 'combat_hit_packets', 'claimed_ids')
++    if any(any(k not in f for k in required) for f in frames):
++        raise ValueError('Read-only full-route wallet/build/claims/combat observations required')
++    actor = next((r for r in m['enemies'] if r['id'] == optional['enemy_id']), {})
++    if actor.get('position') != [1050, 680] or actor.get('stable_id') != 'forest_lantern':
++        raise ValueError('Actual original lower live actor identity required')
++    strategy = data.get('lift_strategy')
++    if strategy not in ('alive_lift', 'jump_two_R') or data.get('expedition_fallback') is not False:
++        raise ValueError('Only requested actual live/strong-two-R comparison admitted here')
++    observed = [e for e in events if begin <= e['tick'] <= end]
++    _validate_lift_motion(data, actor, entry, data['initial_snapshot'], frames, observed, begin, end, strategy)
++    validate_crown_return(data, n+1)
++
++
++def validate_crown_return(data, index):
++    """The new optional side return must really bypass the D/M/S loop."""
++    full = data['itinerary']
++    leg = full[index]
++    contract = data.get('crown_return_contract', {})
++    m, frames, events = data['manifest'], data['frames'], data['events']
++    areas = {a['id']:a['position'] for a in m['areas']}
++    if (leg.get('kind') != 'ecology_return' or leg.get('role') != 'crown_reverse_return'
++            or leg.get('a') != 'E' or leg.get('b') != 'C' or leg.get('edge_id') != 'crown_reverse_return'
++            or contract.get('leg') != index or contract.get('anchor_id') != leg.get('anchor_id')
++            or contract.get('edge_id') != leg['edge_id'] or contract.get('anchor') != leg.get('anchor')):
++        raise ValueError('Actual optional E-to-C side return identity required')
++    anchors = [a for a in m['hook_anchors'] if a['id'] == contract['anchor_id']]
++    if len(anchors) != 1 or anchors[0]['position'] != [1270, areas['C'][1]+108] or anchors[0]['position'] != contract['anchor']:
++        raise ValueError('Unique generated side ring in the unchanged actual level required')
++    if any(x.get('edge_id') in ('lower_in','inner_recovery','belly_borer_access','borer_crossing') for x in full[index+1:]):
++        raise ValueError('The claimed return must not secretly descend D then repeat the original cavity')
++    start, end = data.get('crown_return_started', -1), data.get('crown_return_finished', -1)
++    if not data['lift_finished'] < start < end < frames[-1]['tick'] or data['completed_legs'][index]['tick'] != end:
++        raise ValueError('Supported E, real side/ordinary return, C and gate must complete in actual order')
++    entry, exit = data.get('crown_return_entry', {}), data.get('crown_return_exit', {})
++    for snap, point, support in ((entry,areas['E'],'hollow__outer_crown'),(exit,areas['C'],'hollow__cavity_exit')):
++        if (len(snap.get('position',[])) != 2 or math.dist(snap['position'],point)>8
++                or support not in snap.get('supports',[]) or snap.get('health',0)<=0):
++            raise ValueError('Actual full E and C terminal snapshots required')
++    prefix_end = data['completed_legs'][index-1]['tick']
++    window = [f for f in frames if prefix_end-11<=f['tick']<=prefix_end]
++    branch = [f for f in frames if start<=f['tick']<=end]
++    if (len(window)!=12 or any(not f['grounded'] or 'hollow__outer_crown' not in f['supports'] for f in window)
++            or len(branch)<12 or any(not f['grounded'] or 'hollow__cavity_exit' not in f['supports'] for f in branch[-12:])
++            or any(f.get('crown_return_actor_epoch') != contract.get('actor_epoch') for f in branch)):
++        raise ValueError('Actual twelve-frame E/C supports and stable actor epoch required')
++    observed = [e for e in events if start<=e['tick']<=end]
++    shots = [e for e in observed if e['kind']=='shot_fired']
++    requests = [e for e in observed if e['kind']=='crown_return_R_request']
++    mode = data.get('crown_return_strategy')
++    maximum = 2 if mode=='direct_two_R' else 1
++    if mode not in ('side_HR','direct_one_R','direct_two_R') or not 1<=len(shots)<=maximum or len(requests)!=len(shots):
++        raise ValueError('Real declared one/two-shot return strategy required')
++    by = {f['tick']:f for f in frames}
++    for event, request in zip(shots, requests):
++        if event['tick'] != request['tick'] or math.dist(event['aim'], request['aim'])>.0001:
++            raise ValueError('Every recoil must bind its actual accepted Router shot')
++        f=by[event['tick']];before=request['snapshot']
++        if f['shots'] != before['shots']-1 or abs(before['energy']-f['energy']-request['shot_cost'])>.001 or request['shot_cost'] != data['lift_resource_config']['shot_cost']:
++            raise ValueError('Each actual air shot and normal energy cost must be accounted before any later real hit refund')
++    hs = [e for e in observed if e['kind']=='hook_cast']
++    if mode!='side_HR':
++        if hs or any(e['aim']!=[0,1] for e in shots):
++            raise ValueError('The strong ordinary ascent must use zero H and only real downward recoil')
++        apex = [e for e in observed if e['kind']=='crown_return_ordinary_real_apex']
++        if len(apex)!=1 or apex[0]['tick']!=shots[0]['tick'] or by[shots[0]['tick']-1]['crown_return_normal_velocity'][1]<0:
++            raise ValueError('Ordinary recoil must follow the true full-jump apex, not a weakened short jump')
++        return
++    heads = [e for e in observed if e['kind']=='crown_return_actual_head_contact' and e.get('anchor_id')==leg['anchor_id']]
++    bodies = [e for e in observed if e['kind']=='crown_return_actual_body_contact' and e.get('anchor_id')==leg['anchor_id']]
++    if len(hs)!=1 or len(heads)!=1 or len(bodies)!=1 or not hs[0]['tick']<heads[0]['tick']<=bodies[0]['tick']<shots[0]['tick']:
++        raise ValueError('Actual unique side H, real ring head and body arrival required')
++    first = next((f for f in branch if f['tick']>=bodies[0]['tick'] and f['hook_state']=='free' and not f['grounded']),None)
++    if first is None or shots[0]['tick']!=first['tick']+1 or requests[0].get('first_free') is not True:
++        raise ValueError('Reverse recoil must start on the first actual controllable free-air step')
++    aim=shots[0]['aim']
++    if aim[0]<=0 or aim[1]<=0 or abs(aim[0]*2-aim[1])>.0001:
++        raise ValueError('Real right-down shot must reverse movement left/up')
++    kick = [f for f in branch if bodies[0]['tick']<=f['tick']<shots[0]['tick'] and f['hook_state']=='hook_kick']
++    if not kick or not any(f['crown_return_recoil_velocity'][0]<0 and f['crown_return_recoil_velocity'][1]<0 for f in kick):
++        raise ValueError('Actual arrival from the left must launch back left/up before gun recoil')
++    recoil = [f for f in branch if f['tick']>=shots[0]['tick'] and f['crown_return_recoil_remaining']>0]
++    if not recoil or not all(f['crown_return_recoil_velocity'][0]<0 and f['crown_return_recoil_velocity'][1]<0 for f in recoil):
++        raise ValueError('The actual Motor recoil must really travel left/up, not a cosmetic shot')
++
++
+ def run_formal_choices(out, args, receipt):
+     rows = []
+     is_expedition = args.scenario == 'expedition'
+     is_lift = args.scenario in ('lift', 'expedition')
+-    receipt['lift_runs' if is_lift else 'formal_runs'] = rows
++    receipt[getattr(args, 'receipt_key', 'lift_runs' if is_lift else 'formal_runs')] = rows
+     strategies = args.expedition_strategies if is_expedition else (args.lift_strategies if is_lift else args.formal_strategies)
+     common_R = None
+     common_entry = None
+-    for index, strategy in enumerate(strategies):
+-        folder = out / f'{index:02d}-{strategy}'
++    common_E = {}
++    returns = args.expedition_return_strategies if is_expedition and args.map==2 else ['original']
++    cases = [(strategy, return_strategy) for strategy in strategies for return_strategy in returns]
++    for index, (strategy, return_strategy) in enumerate(cases):
++        suffix = '-'+return_strategy if return_strategy!='original' else ''
++        folder = out / f'{index:02d}-{strategy}{suffix}'
+         folder.mkdir()
+         argv = ['--headless', '--fixed-fps', '60', '--path', '.', '--script',
+                 'tests/forest_depth_lift_runner.gd' if is_lift else 'tests/forest_depth_ecology_runner.gd', '--', f'--seed={args.seed}',
+                 f'--map={args.map}', ('--route=ecology_expedition' if is_expedition else '--route=high_return') if is_lift else f'--route={args.formal_route}', f'--strategy={strategy}',
+                 f'--output=res://{folder.relative_to(ROOT)}/capture.json'] + (['--expedition'] if is_expedition else [])
+-        row = {'strategy': strategy, 'argv': argv, 'timeout_seconds': 240, 'passed': False}
++        if is_expedition and args.map==2:
++            argv.append('--return-strategy='+return_strategy)
++        movie = bool(getattr(args, 'formal_movie', False))
++        if movie:
++            argv = ['--rendering-method', 'gl_compatibility', '--audio-driver', 'Dummy',
++                    '--write-movie', str(folder / 'gameplay.avi')] + argv[1:] + ['--capture-movie']
++        row = {'strategy': strategy, 'return_strategy': return_strategy, 'argv': argv, 'timeout_seconds': 240, 'passed': False}
+         rows.append(row)
+         start = time.monotonic()
+         try:
+-            with (folder / 'native.log').open('w') as log, contextlib.redirect_stdout(log):
+-                text = run_engine(argv, 240)
++            if movie:
++                import run_forest_depth_region as region
++                with region.movie_display(dict(os.environ), folder, True) as env:
++                    with (folder / 'native.log').open('w') as log:
++                        result = subprocess.run(['bash', 'tools/godot.sh', *argv], cwd=ROOT,
++                                                env=env, stdout=log, stderr=subprocess.STDOUT, timeout=240)
++                text = (folder / 'native.log').read_text()
++                if result.returncode or region.ERRORS.search(text) or 'OpenGL API' not in text:
++                    raise ValueError('Actual GL native movie failed strict exit/context guard')
++            else:
++                with (folder / 'native.log').open('w') as log, contextlib.redirect_stdout(log):
++                    text = run_engine(argv, 240)
+             if not re.search(r'FOREST DEPTH ROUTE: .* / 0 failures', text):
+                 raise ValueError('Formal actual route terminal result absent')
+             data = json.loads((folder / 'capture.json').read_text())
+             (validate_expedition if is_expedition else (validate_lift_choice if is_lift else validate_formal_choice))(data)
++            if movie:
++                row['movie'] = region.inspect_movie(folder / 'gameplay.avi', data)
++                if row['movie']['errors']:
++                    raise ValueError('Actual movie timeline rejected: ' + ', '.join(row['movie']['errors']))
+             if is_lift:
+                 signature = {'entry': data['lift_entry'], 'frames': [{k: f[k] for k in ('position', 'health', 'energy', 'shots', 'enemies')} for f in data['frames'] if f['tick'] < data['lift_started']]}
++                if is_expedition and args.map == 2:
++                    signature['requests'] = [r for r in data['requests'] if r['tick'] < data['lift_started']]
++                    signature['full_route_resources'] = [{k:f[k] for k in ('wallet_balance','meta_notes','item_ids','claimed_ids','combat_hit_packets')} for f in data['frames'] if f['tick'] < data['lift_started']]
+                 if common_R is None:
+                     common_R = signature
+                 elif signature != common_R:
+                     raise ValueError('Lift strategies must share the exact natural approach, same R resources and actual enemy phases')
+                 row['common_R_prefix_sha256'] = hashlib.sha256(json.dumps(signature, sort_keys=True).encode()).hexdigest()
++                if is_expedition and args.map==2:
++                    E_signature = {'entry':data['crown_return_entry'], 'frames':[{k:f[k] for k in ('position','health','energy','shots','enemies','wallet_balance','meta_notes','item_ids','claimed_ids','combat_hit_packets')} for f in data['frames'] if f['tick']<data['crown_return_started']], 'requests':[r for r in data['requests'] if r['tick']<data['crown_return_started']]}
++                    if strategy not in common_E: common_E[strategy]=E_signature
++                    elif common_E[strategy]!=E_signature: raise ValueError('Side H and strongest ordinary return must share the entire actual E prefix, resources and enemy phase')
++                    row['common_E_prefix_sha256']=hashlib.sha256(json.dumps(E_signature,sort_keys=True).encode()).hexdigest()
+             if not is_lift and strategy.startswith(('entry_', 'west_')):
+                 signature = {'entry': data['ecology_entry'], 'frames': [{k: f[k] for k in ('position', 'health', 'energy', 'shots', 'enemies')} for f in data['frames'] if f['tick'] < data['ecology_started']]}
+                 if common_entry is None:
+@@ -552,13 +737,20 @@ def main():
+     parser = argparse.ArgumentParser()
+     parser.add_argument('--output-dir', default='build/forest_depth/ecology/native')
+     parser.add_argument('--scenario', choices=('golden', 'formal', 'lift', 'expedition'), default='golden')
++    parser.add_argument('--include-map2-expedition', action='store_true', help='Append actual map2 lower reward return live/two-R controls to the original map1 expedition')
++    parser.add_argument('--formal-movie', action='store_true', help='Record one complete actual formal trace at normal 60fps with the existing region movie guards')
+     parser.add_argument('--seed', default=None)
+     parser.add_argument('--map', type=int, choices=(1, 2), default=1)
+     parser.add_argument('--formal-route', choices=('fast', 'growth', 'borer'), default='fast')
+     parser.add_argument('--formal-strategies', nargs='+', choices=FORMAL_STRATEGIES, default=['wait_phase', 'stand_danger'])
+     parser.add_argument('--lift-strategies', nargs='+', choices=LIFT_STRATEGIES, default=list(LIFT_BASE_STRATEGIES))
+     parser.add_argument('--expedition-strategies', nargs='+', choices=('alive_lift', 'jump_two_R', 'left_phase_lift', 'low_air_recover_lift'), default=['alive_lift'])
++    parser.add_argument('--expedition-return-strategies', nargs='+', choices=('side_HR','direct_two_R','direct_one_R'), default=['side_HR'])
+     args = parser.parse_args()
++    if args.include_map2_expedition and (args.scenario != 'expedition' or args.map != 1):
++        parser.error('--include-map2-expedition requires the original map1 --scenario expedition')
++    if args.formal_movie and (args.scenario not in ('formal', 'expedition') or args.include_map2_expedition or len(args.expedition_strategies if args.scenario == 'expedition' else args.formal_strategies) != 1 or (args.scenario=='expedition' and args.map==2 and len(args.expedition_return_strategies)!=1)):
++        parser.error('--formal-movie requires exactly one formal or expedition strategy')
+     if args.seed is None:
+         args.seed = 'forest-depth-hollow-02' if args.scenario == 'expedition' else 'forest-depth-hollow-00'
+     out = (ROOT / args.output_dir).resolve()
+@@ -577,7 +769,10 @@ def main():
+     if args.scenario == 'lift':
+         receipt['scope'] = 'Actual generated DemoApp R-to-E live lift vs strongest full-jump/two-R and original fixed return, including natural projectile death; not an admitted topology edge'
+     if args.scenario == 'expedition':
+-        receipt['scope'] = 'Complete actual reward/high_return, camp, optional R-to-E lift and real gate objective; no local truncation or altered manifest'
++        receipt['scope'] = 'Complete actual map2 lower reward then natural R-to-E and real gate, without mandatory camp loop' if args.map == 2 else 'Complete actual reward/high_return, camp, optional R-to-E lift and real gate objective; no local truncation or altered manifest'
++    if args.include_map2_expedition:
++        receipt['scope'] += '; appended actual map2 lower-reward-to-R live/two-R return to the real gate, without an invented camp detour'
++        receipt['included_map2_expedition'] = True
+     receipt['scenario'] = args.scenario
+     started = time.monotonic()
+     try:
+@@ -589,6 +784,16 @@ def main():
+             raise RuntimeError('Unexpected native import ERROR')
+         if args.scenario in ('formal', 'lift', 'expedition'):
+             run_formal_choices(out, args, receipt)
++            if args.include_map2_expedition:
++                receipt['passed'] = False
++                other = argparse.Namespace(**vars(args))
++                other.map = 2
++                other.seed = 'forest-depth-hollow-02'
++                other.expedition_strategies = ['alive_lift', 'jump_two_R']
++                other.receipt_key = 'map2_expedition_runs'
++                folder = out / 'map2_expedition'
++                folder.mkdir()
++                run_formal_choices(folder, other, receipt)
+             print('PASS: actual DemoApp ecology choices, strict exit')
+             return
+         with (out / 'native.log').open('w') as log, contextlib.redirect_stdout(log):

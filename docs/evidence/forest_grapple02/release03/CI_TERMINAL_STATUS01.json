@@ -1,0 +1,106 @@
+{
+  "observed_utc": "2026-10-19T06:50:31.538633+00:00",
+  "selected": {
+    "id": 39207127333,
+    "head_sha": "93c202568d154e37b1d57de1e08ba0c42820e828",
+    "run_attempt": 1,
+    "status": "completed",
+    "conclusion": "success"
+  },
+  "jobs": [
+    {
+      "id": 117912293195,
+      "name": "prepare",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 117913370037,
+      "name": "core_checks (serial)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 117913370040,
+      "name": "web",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 117913370109,
+      "name": "windows",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 117913370143,
+      "name": "core_checks (parallel)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 117926553172,
+      "name": "core",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 117927031336,
+      "name": "deploy_web",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 117927032182,
+      "name": "android",
+      "status": "completed",
+      "conclusion": "skipped"
+    },
+    {
+      "id": 117927121754,
+      "name": "verify_public",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "same_source_runs": [
+    {
+      "id": 39207127333,
+      "name": "Godot core",
+      "event": "workflow_dispatch",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 39207111932,
+      "name": "Documentation",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 39207111923,
+      "name": "Godot core",
+      "event": "pull_request",
+      "status": "completed",
+      "conclusion": "cancelled"
+    },
+    {
+      "id": 39207105534,
+      "name": "Godot core",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "cancelled"
+    },
+    {
+      "id": 39207105445,
+      "name": "Documentation",
+      "event": "push",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "browser_gui": "pending real terminal; not signed",
+  "same_package_72": "not executed; artifact403",
+  "publisher_live_verified": false
+}

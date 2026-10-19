@@ -1,0 +1,341 @@
+extends "res://tests/support/forest_queen_gameplay_fixture.gd"
+## Independent actual-App scenarios; inherited fixture world construction is never called.
+## Guardian default preserves05; Queen branch is prepared, not yet native-verified.
+const TRACE := preload("res://tests/forest_depth_region_trace.gd")
+const PILOT := preload("res://tests/forest_depth_guardian_pilot.gd")
+var output := "res://build/forest_depth/campaign/capture.json"
+var seed_value := "forest-depth-hollow-00"
+var checks: Array[Dictionary] = []
+var pointer_events: Array[Dictionary] = []
+var data: Dictionary = {}
+var selected_boss := "guardian"
+var _q_app: DemoApp
+var _q_segment := "before_reload"
+var _q_last_steps := 0
+var _q_defeats := 0
+func _initialize() -> void:
+	for arg: String in OS.get_cmdline_user_args():
+		if arg.begins_with("--output="): output=arg.trim_prefix("--output=")
+		elif arg.begins_with("--seed="): seed_value=arg.trim_prefix("--seed=")
+		elif arg.begins_with("--boss="): selected_boss=arg.trim_prefix("--boss=")
+	run.call_deferred()
+func check(ok: bool, reason: String) -> void:
+	checks.append({"passed":ok,"reason":reason})
+	if not ok: failures.append(reason);printerr("FAIL: "+reason)
+func frames(count: int) -> void:
+	for unused: int in count:
+		if selected_boss!="queen": await physics_frame;continue
+		if is_instance_valid(controller):
+			for action: Dictionary in controller.router._queue:
+				events.append({"case":current,"event":"actual_queued_input","tick":tick+1,"segment":_q_segment,"session":controller.session_id,"action":String(action.type),"direction":_q_pair(action.direction)})
+		await physics_frame
+		await process_frame
+		tick+=1
+		if is_instance_valid(player) and is_instance_valid(queen): _queen_frame()
+func run() -> void:
+	if selected_boss=="queen": await run_queen();return
+	data={"scope":"actual_DemoApp_v2_map1_route_Guardian_fullfight_pointer_reward_map2_entry","seed":seed_value,"expected_version":ThornForestRegionGenerator.DEPTH_VERSION,"initial_debug_entry_only":true,"manual_motor_step":false,"position_health_phase_resource_injection":false,"pointer_scope":"real Godot Viewport InputEventMouseButton, not OS or browser pointer","queen_whole_boss_admission":false}
+	var trace:=TRACE.new();trace.seed_value=seed_value;trace.map_index=1;trace.route_name="fast";root.add_child(trace)
+	while not trace.finished or not trace.setup_done: await process_frame
+	trace.set_physics_process(false)
+	data.route={"manifest":trace.manifest.duplicate(true),"frames":trace.frames.duplicate(true),"events":trace.events.duplicate(true),"requests":trace.requests.duplicate(true),"completed":trace.completed.duplicate(true),"itinerary":trace.itinerary.duplicate(true),"failures":trace.failures.duplicate(),"initial":trace.initial.duplicate(true),"final":trace.snapshot()}
+	check(trace.failures.is_empty() and trace.completed.size()==trace.itinerary.size(),"actual fast route naturally reaches gate_ready")
+	if not trace.failures.is_empty() or not is_instance_valid(trace.app): await finish(trace);return
+	var app: DemoApp=trace.app
+	var stage:=app.stage as ThornForestRegionStage
+	check(stage.generated.stage_generator_version==ThornForestRegionGenerator.DEPTH_VERSION and stage.map_index==1,"actual map1 uses explicitly pinned v2")
+	check(stage.region_state.opened.has("crown_vine") and stage.assembler.vine_shape.disabled,"actual route H opened persistent entry vine")
+	check(app.controller.traversal.hook_enabled and not app.controller.traversal.double_enabled and not app.controller.traversal.wall_enabled,"route retains real H-only entry build")
+	var before_entry:=identity(app)
+	data.map1_before_entry=before_entry
+	var pilot:=PILOT.new()
+	data.combat=await pilot.run(app)
+	if data.combat.has("error"): check(false,data.combat.error);await finish(trace);return
+	check(data.combat.initial.boss_hp==32 and data.combat.initial.boss_started==false,"natural gate exit hands untouched32HP Boss to pilot before arena start")
+	check(data.combat.seal_seen and data.combat.eligible_seen,"natural arena trigger closes real seal and enables actual shot gate")
+	check(data.combat.defeats==1 and data.combat.final.boss_hp==0 and data.combat.final.player_hp>0,"normal full Guardian fight yields unique live-player defeat")
+	check(data.combat.earned_counter_phase2 and data.combat.actual_bell_arrival and data.combat.events.any(func(row: Dictionary)->bool:return row.get("event")=="bell_counter_committed"),"real Player reaches moving Bell and owner contact commits counter")
+	check(data.combat.events.any(func(row: Dictionary)->bool:return row.get("event")=="policy_result" and row.get("target")=="boss" and str(row.get("source","")).begins_with("player_projectile:")),"ordinary projectiles pass formal shot gate and FrameDamagePolicy")
+	check(data.combat.events.any(func(row: Dictionary)->bool:return row.get("event")=="duel_phase_changed" and row.get("phase")==2 and row.get("completed_body_cycles",0)>0),"actual completed Body cycle and normal damage earn phase2")
+	check(app.director.stage_complete and stage.reward_available,"actual App damage consumer marks completion and unique reward")
+	if data.combat.final.boss_hp!=0 or data.combat.final.player_hp<=0: await finish(trace);return
+	data.before_reward=identity(app)
+	data.reward_declaration=reward_declaration()
+	var reward_approach: Array[Dictionary]=[]
+	for tick: int in 900:
+		if app.exit_modal.opened: break
+		var delta:=stage.reward_position.x-app.player.global_position.x
+		app.controller.router.set_move_axis(signf(delta) if absf(delta)>5 else 0)
+		await frames(1)
+		reward_approach.append({"tick":tick,"position":[app.player.global_position.x,app.player.global_position.y],"reward_position":[stage.reward_position.x,stage.reward_position.y],"health":app.controller.actor_resources.health.current})
+	app.controller.router.set_move_axis(0)
+	data.reward_approach=reward_approach
+	check(app.exit_modal.opened and app._offered_exit==&"boss_home","normal walking reaches combat-earned map2 reward gate")
+	data.reward_modal_paused=paused
+	check(paused,"actual reward modal pauses gameplay")
+	if not app.exit_modal.opened: await finish(trace);return
+	check(await pointer(app.exit_modal,"ENTER / CLAIM REWARD"),"real Viewport mouse press/release confirms reward")
+	for unused: int in 120:
+		await process_frame
+		if is_instance_valid(app.stage) and app.director.region_map_index==2 and app.stage!=stage: break
+	var actual_map2:=is_instance_valid(app.stage) and app.stage is ThornForestRegionStage and app.stage!=stage and app.director.region_map_index==2
+	check(actual_map2,"combat-earned formal transition instantiates second forest map")
+	if actual_map2:
+		data.map2_after_entry=identity(app)
+		data.map2_manifest=app.stage.generated.manifest.duplicate(true)
+		check(data.map2_after_entry.version==ThornForestRegionGenerator.DEPTH_VERSION and app.forest_content_version==ThornForestRegionGenerator.DEPTH_VERSION,"map2 retains explicit v2 version pin without legacy fallback")
+		check(data.map2_after_entry.stage_index>before_entry.stage_index and data.map2_after_entry.stage_epoch>before_entry.stage_epoch and data.map2_after_entry.actor_epoch>before_entry.actor_epoch,"cross-map entry ordinal and stage/actor epochs advance")
+		check(data.map2_after_entry.wallet==data.before_reward.wallet+data.reward_declaration.coins,"actual mini-boss settlement matches App-declared coin amount")
+		check(data.map2_after_entry.hp==minf(data.before_reward.capacity,data.before_reward.hp+data.reward_declaration.heal) and data.map2_after_entry.capacity==data.before_reward.capacity,"actual reward matches App-declared capped heal and preserves capacity")
+		check(data.map2_after_entry.build==data.before_reward.build and data.map2_after_entry.hook and not data.map2_after_entry.double and not data.map2_after_entry.wall,"cross-map preserves build and real H-only capabilities")
+		var settled:=identity(app)
+		check(not app._confirm_generated_exit() and not app._advance_region_map(),"already consumed exit/reward rejects duplicate owner submission")
+		check(identity(app)==settled,"duplicate reward submission changes no consumer state")
+		var coast: Array[Dictionary]=[]
+		for unused: int in 30:
+			await frames(1)
+			coast.append({"position":[app.player.global_position.x,app.player.global_position.y],"hp":app.controller.actor_resources.health.current,"grounded":app.player.is_on_floor(),"map":app.stage.map_index,"session":app.controller.session_id})
+		data.map2_normal_frames=coast
+		data.run_manifest=app.director.manifest.snapshot()
+		data.run_manifest_compatible=RunManifest.compatible(data.run_manifest)
+		check(data.run_manifest_compatible,"actual two-map RunManifest preserves schema, resource configuration and transition identity")
+		check(app.controller.actor_resources.health.current>0 and app.stage.map_index==2,"second-map natural spawn remains alive in ordinary physics")
+	await finish(trace)
+func reward_declaration() -> Dictionary:
+	# Read the actual production settlement declaration, never a fixture grant.
+	var source:=FileAccess.get_file_as_string("res://scripts/demo/demo_app.gd")
+	var section:=source.get_slice("func _advance_region_map() -> bool:",1).get_slice("\nfunc ",0)
+	var coins:=RegEx.new();coins.compile("wallet\\.grant\\(([0-9.]+),id\\)")
+	var heal:=RegEx.new();heal.compile("SupplyHealEffect\\.apply\\(controller\\.actor_resources\\.health,([0-9.]+),id\\)")
+	var coin_match:=coins.search(section);var heal_match:=heal.search(section)
+	return {"coins":float(coin_match.get_string(1)) if coin_match!=null else -1.0,"heal":float(heal_match.get_string(1)) if heal_match!=null else -1.0,"app_source_sha256":FileAccess.get_sha256("res://scripts/demo/demo_app.gd")}
+func identity(app: DemoApp) -> Dictionary:
+	return {"map":app.director.region_map_index,"stage_index":app.director.stage_index,"stage_epoch":app.lifetime.stage_epoch,"actor_epoch":app.lifetime.actor_epoch,"session":app.controller.session_id,"version":app.stage.generated.stage_generator_version,"manifest_hash":app.stage.generated.manifest.manifest_hash,"wallet":app.wallet.balance,"hp":app.controller.actor_resources.health.current,"capacity":app.controller.actor_resources.health.capacity,"energy":app.controller.actor_resources.stamina.current,"build":app.build.item_ids(),"hook":app.controller.traversal.hook_enabled,"double":app.controller.traversal.double_enabled,"wall":app.controller.traversal.wall_enabled,"weapon":String(app.controller.shoot_ability.weapon.id),"tier":app.controller.shoot_ability.weapon.tier}
+func pointer(owner: Node, text: String) -> bool:
+	for unused: int in 4: await process_frame
+	for button: Button in owner.find_children("*","Button",true,false):
+		if button.text!=text or button.disabled or not button.visible: continue
+		var point:=button.get_global_rect().get_center()
+		for pressed: bool in [true,false]:
+			var event:=InputEventMouseButton.new();event.position=point;event.global_position=point;event.button_index=MOUSE_BUTTON_LEFT;event.pressed=pressed
+			pointer_events.append({"text":text,"pressed":pressed,"point":[point.x,point.y],"actual_button_rect":[button.get_global_rect().position.x,button.get_global_rect().position.y,button.size.x,button.size.y]})
+			root.push_input(event,true);await process_frame
+		return true
+	return false
+func finish(trace: Node) -> void:
+	paused=false
+	if is_instance_valid(trace.app):
+		trace.app.process_mode=Node.PROCESS_MODE_DISABLED
+		trace.app._cancel_enemy_attacks()
+		check(await AUDIO.drain_world(trace.app),"actual owned App audio releases cleanly")
+	trace.free()
+	await process_frame;await process_frame
+	data.checks=checks;data.failures=failures;data.pointer_events=pointer_events
+	DirAccess.make_dir_recursive_absolute(output.get_base_dir())
+	var file:=FileAccess.open(output,FileAccess.WRITE);file.store_string(JSON.stringify(data));file.close()
+	print("FOREST DEPTH CAMPAIGN: %s assertions / %s failures" % [checks.size(),failures.size()])
+	quit(0 if failures.is_empty() else 1)
+
+
+# Queen branch binds the actual App to the shared input helpers. It never calls
+# fixture(), slab(), configure_arena(), activate(), grant() or a Factory itself.
+func _queen_bind_actual(app: DemoApp) -> bool:
+	if not is_instance_valid(app.stage) or not is_instance_valid(app.stage.boss) or not app.stage.boss.get_node("Encounter") is ThornQueenV2: return false
+	_q_app=app
+	player=app.player;controller=app.controller;queen=app.stage.boss.get_node("Encounter") as ThornQueenV2
+	policy=app.policy;life=app.lifetime;geometry=queen.geometry
+	actual_body_half=(player.get_node("CollisionShape2D") as CollisionShape2D).shape.get_rect().size*.5
+	_q_last_steps=player.motion_steps
+	if not queen.weave_event.is_connected(_queen_weave_event): queen.weave_event.connect(_queen_weave_event)
+	if not policy.batch_resolved.is_connected(_queen_damage): policy.batch_resolved.connect(_queen_damage)
+	queen.defeated.connect(func(_boss: BossEncounter) -> void: _q_defeats+=1)
+	controller.shoot_ability.shot_fired.connect(_queen_shot.bind(controller.session_id,player.get_instance_id()))
+	controller.traversal.action_changed.connect(_queen_hook_state)
+	controller.traversal.hook_contact.connect(_queen_contact)
+	return true
+func _queen_frame() -> void:
+	var sample:={"tick":tick,"physics_frame":Engine.get_physics_frames(),"segment":_q_segment,"player":_q_pair(player.global_position),"velocity":_q_pair(player.velocity),"player_hp":controller.actor_resources.health.current,"energy":controller.actor_resources.stamina.current,"capacity":controller.actor_resources.health.capacity,"session":controller.session_id,"actor_epoch":life.actor_epoch,"stage_epoch":life.stage_epoch,"motor_steps":player.motion_steps-_q_last_steps,"boss_hp":queen.health.current,"boss":_q_pair(queen.motor.global_position),"phase":queen.stage_phase,"route_phase":queen.route_phase,"mode":queen.motion_mode,"fields":queen.combat_snapshot().fields,"hook":String(controller.traversal.state),"seal":_q_app.stage.boss_seal.closed,"eligible":_q_app._boss_eligible_shots.size()}
+	_q_last_steps=player.motion_steps
+	frames_data.append(sample)
+func _q_pair(value: Vector2) -> Array: return [value.x,value.y]
+func _queen_weave_event(row: Dictionary) -> void:
+	var event:=row.duplicate(true);event.case=current;event.tick=tick+1;event.segment=_q_segment;events.append(event)
+func _queen_shot(aim: Vector2,serial: int,session: int,motor_id: int) -> void:
+	events.append({"case":current,"event":"accepted_shot","tick":tick+1,"physics_frame":Engine.get_physics_frames(),"segment":_q_segment,"serial":serial,"session":session,"motor_id":motor_id,"aim":_q_pair(aim)})
+func _queen_damage(results: Array[DamageResult]) -> void:
+	for result: DamageResult in results:
+		events.append({"case":current,"event":"policy_result","tick":tick+1,"physics_frame":Engine.get_physics_frames(),"segment":_q_segment,"target":String(result.request.target_id),"source":String(result.request.source_id),"event_id":String(result.request.event_id),"amount":result.request.amount,"hp":result.health.current if result.health!=null else -1,"lethal":result.lethal})
+func _queen_hook_state(value: StringName) -> void:
+	events.append({"case":current,"event":"hook_state","state":String(value),"tick":tick+1,"segment":_q_segment,"session":controller.session_id})
+func _queen_contact(point: Vector2) -> void:
+	var target: Node2D=controller.traversal.hook_target
+	events.append({"case":current,"event":"actual_hook_target_contact","tick":tick+1,"segment":_q_segment,"point":_q_pair(point),"target_id":target.get_instance_id() if is_instance_valid(target) else 0,"target_position":_q_pair(target.global_position) if is_instance_valid(target) else []})
+func _queen_bank(index: int) -> Rect2:
+	for row: Dictionary in geometry.platforms:
+		if str(row.id)=="queen_branch_%s"%index: return Rect2(row.rect[0],row.rect[1],row.rect[2],row.rect[3])
+	return Rect2()
+func _queen_gap() -> float:
+	return (_queen_bank(1).end.x+_queen_bank(2).position.x)*.5
+# Same real jump/R helpers as the canonical fixture, with targets translated
+# from actual App geometry rather than assuming its zero-origin golden world.
+func right_gap_approach() -> bool:
+	var middle:=_queen_bank(1)
+	if player.global_position.x<middle.get_center().x:
+		if not await walk(middle.position.x+middle.size.x*.2): return false
+		controller.router.set_move_axis(1);controller.router.set_jump_held(&"queen_network",true)
+		await frames(23);controller.router.set_jump_held(&"queen_network",false)
+	if not await walk(_queen_gap()): return false
+	for unused: int in 80:
+		if player.is_on_floor(): return true
+		await frames(1)
+	return false
+func enter_upper(use_hook: bool) -> bool:
+	if not await right_gap_approach(): return false
+	controller.router.set_jump_held(&"queen_network",true);await frames(23);controller.router.set_jump_held(&"queen_network",false)
+	if use_hook and not queen.knot.health.terminal:
+		if not await accepted_hook(queen.knot.global_position): return false
+	else: controller.router.request_action(&"shoot_release",Vector2.DOWN);await frames(15)
+	controller.router.request_action(&"shoot_release",Vector2.LEFT);await frames(15)
+	var target:=_queen_bank(2).get_center().x
+	for unused: int in 100:
+		controller.router.set_move_axis(0 if absf(player.global_position.x-target)<7 else signf(target-player.global_position.x))
+		if player.is_on_floor(): controller.router.set_move_axis(0);return player.global_position.y<_queen_bank(2).position.y
+		await frames(1)
+	return false
+func move_to_middle() -> bool:
+	var right:=_queen_bank(2);var middle:=_queen_bank(1)
+	var takeoff:=right.position.x+right.size.x*.3
+	if player.global_position.x>takeoff:
+		if not await walk(takeoff): return false
+	controller.router.set_move_axis(-1 if player.global_position.x>middle.get_center().x else 1)
+	controller.router.set_jump_held(&"queen_network",true);await frames(23);controller.router.set_jump_held(&"queen_network",false)
+	if not await walk(middle.get_center().x): return false
+	for unused: int in 100:
+		if player.is_on_floor(): return player.global_position.y<middle.position.y
+		await frames(1)
+	return false
+func _queen_regain_middle() -> bool:
+	controller.router.set_move_axis(0)
+	for unused: int in 160:
+		if player.is_on_floor() or controller.actor_resources.health.terminal: break
+		await frames(1)
+	if controller.actor_resources.health.terminal: return false
+	if player.is_on_floor() and player.global_position.y<_queen_bank(1).position.y: return await walk(_queen_bank(1).get_center().x)
+	if not await enter_upper(false): return false
+	return await move_to_middle()
+func _queen_snapshot() -> Dictionary:
+	return {"active":queen.active,"app_boss_started":_q_app._boss_started,"last_restore_accepted":queen.last_restore_accepted,"seal_closed":_q_app.stage.boss_seal.closed,"boss":queen.combat_snapshot().duplicate(true),"boss_hp":queen.health.current,"player_hp":controller.actor_resources.health.current,"energy":controller.actor_resources.stamina.current,"session":controller.session_id,"actor_epoch":life.actor_epoch,"stage_epoch":life.stage_epoch,"boss_instance":queen.get_instance_id(),"player_instance":player.get_instance_id(),"stage_instance":_q_app.stage.get_instance_id(),"manifest_hash":_q_app.stage.generated.manifest.manifest_hash}
+func _queen_pause_reload() -> bool:
+	var before:=_queen_snapshot();var token:=life.token();var prior_state:=_q_app.region_state
+	if not await _queen_send_button(_q_app._pause_button,"pause"): return false
+	check(paused,"actual Queen MENU pointer pauses gameplay")
+	var frozen:=queen.combat_snapshot().duplicate(true)
+	for unused: int in 3: await process_frame
+	check(queen.combat_snapshot()==frozen,"actual Queen state and growing fields freeze in menu")
+	_q_app.stage.capture_state()
+	var saved: Dictionary=_q_app.region_state.boss_state.duplicate(true)
+	check(saved.get("weave_schema")==13 and saved.health>0 and saved.health<data.queen_initial.boss_hp,"actual damaged current-schema Queen state is earned before reload")
+	var paused_player_hp:=controller.actor_resources.health.current
+	await _q_app._load_stage()
+	await process_frame
+	if not _queen_bind_actual(_q_app): return false
+	var bound:=_queen_snapshot()
+	check(_q_app.region_state==prior_state and bound.manifest_hash==before.manifest_hash,"actual App reload preserves same hash-bound Queen map")
+	check(bound.stage_instance!=before.stage_instance and bound.boss_instance!=before.boss_instance and bound.actor_epoch>before.actor_epoch and not life.accepts(token),"fresh real Stage/Boss actor epoch replaces old Queen and rejects old token")
+	check(queen.last_restore_accepted and is_equal_approx(queen.health.current,float(saved.health)) and queen.combat_snapshot().fields==saved.fields,"bound App restore retains actual damaged HP and exact persistent field state")
+	_q_segment="after_reload"
+	if not await _queen_pointer(_q_app.menu,"RESUME","resume"): return false
+	for unused: int in 4: await process_frame
+	var activated:=_queen_snapshot()
+	check(not paused and _q_app._boss_started and queen.active and _q_app.stage.restored_boss.is_empty(),"actual resume and natural in-arena trigger reactivate restored Queen")
+	check(queen.stage_phase==saved.stage_phase and queen.route_phase==saved.route_phase and queen.sampled_shore==saved.sampled_shore,"fresh active Queen preserves earned phase and sampled shore")
+	_q_last_steps=player.motion_steps
+	data.queen_reload={"before":before,"saved":saved,"after_bound":bound,"after_resume":activated,"paused_player_hp":paused_player_hp,"old_token_rejected":not life.accepts(token),"scope":"real MENU/RESUME pointer and App loadStage; no fixture/state patch"}
+	return true
+func _queen_pointer(owner: Node,prefix: String,phase: String) -> bool:
+	for unused: int in 4: await process_frame
+	for button: Button in owner.find_children("*","Button",true,false):
+		if button.text.begins_with(prefix) and button.visible and not button.disabled: return await _queen_send_button(button,phase)
+	return false
+func _queen_send_button(button: Button,phase: String) -> bool:
+	if not is_instance_valid(button) or not button.visible or button.disabled: return false
+	for pressed: bool in [true,false]:
+		var rect:=button.get_global_rect();var point:=rect.get_center()
+		var event:=InputEventMouseButton.new();event.position=point;event.global_position=point;event.button_index=MOUSE_BUTTON_LEFT;event.pressed=pressed
+		pointer_events.append({"phase":phase,"text":button.text,"pressed":pressed,"point":_q_pair(point),"actual_button_rect":[rect.position.x,rect.position.y,rect.size.x,rect.size.y]})
+		root.push_input(event,true);await process_frame
+	return true
+func run_queen() -> void:
+	current="actual_app_queen";tick=0
+	data={"scope":"actual_DemoApp_v2_map2_Queen_route_reload_fullfight_pointer_rewards_boundary","seed":seed_value,"initial_debug_entry_only":true,"expected_version":ThornForestRegionGenerator.DEPTH_VERSION,"manual_motor_step":false,"position_health_phase_resource_injection":false,"queen_whole_boss_admission":false,"pointer_scope":"actual Godot Viewport Button events; no OS/browser claim","input_scope":"shared Queen aim/fire/hook helpers bound to actual App; no fixture world or efficiency comparison","world_constructor_called":false}
+	var trace:=TRACE.new();trace.seed_value=seed_value;trace.map_index=2;trace.route_name="fast";root.add_child(trace)
+	while not trace.finished or not trace.setup_done: await process_frame
+	trace.set_physics_process(false)
+	data.route={"manifest":trace.manifest.duplicate(true),"frames":trace.frames.duplicate(true),"events":trace.events.duplicate(true),"requests":trace.requests.duplicate(true),"completed":trace.completed.duplicate(true),"itinerary":trace.itinerary.duplicate(true),"failures":trace.failures.duplicate(),"initial":trace.initial.duplicate(true),"final":trace.snapshot()}
+	check(trace.failures.is_empty() and trace.completed.size()==trace.itinerary.size(),"actual map2 fast route naturally opens Queen gate")
+	if not trace.failures.is_empty() or not is_instance_valid(trace.app): await finish(trace);return
+	if not _queen_bind_actual(trace.app):
+		check(false,"actual map2 Queen consumer binding failed");await finish(trace);return
+	check(queen!=null and queen._weave_bound and _q_app.forest_content_version==ThornForestRegionGenerator.DEPTH_VERSION,"actual map2 App binds current experimental Queen")
+	data.queen_initial=_queen_snapshot()
+	data.definition={"resource":queen.definition.resource_path,"sha256":FileAccess.get_sha256(queen.definition.resource_path),"health":queen.definition.health_definition.initial_current,"schema":queen.combat_snapshot().weave_schema,"geometry":geometry.duplicate(true)}
+	check(data.queen_initial.boss_hp==data.definition.health and not _q_app._boss_started,"actual uninjured Definition Queen awaits natural arena entry")
+	for unused: int in 300:
+		if _q_app._boss_started and _q_app.stage.boss_seal.closed: break
+		controller.router.set_move_axis(1);await frames(1)
+	controller.router.set_move_axis(0)
+	check(_q_app._boss_started and _q_app.stage.boss_seal.closed,"normal walking enters Queen arena and closes production seal")
+	var upper:=await enter_upper(false)
+	var middle: bool=false
+	if upper: middle=await move_to_middle()
+	check(upper and middle,"real ordinary jump and R reach authored Queen shooting branches")
+	var reloaded:=false;var borrowed:=false;var borrow_attempted:=false
+	for unused: int in 4200:
+		if queen.health.terminal or controller.actor_resources.health.terminal or not life.active: break
+		if not reloaded and queen.stage_phase>=2:
+			reloaded=await _queen_pause_reload()
+			check(reloaded,"actual earned Queen state survives pause and fresh App reload")
+			if not reloaded: break
+		if not player.is_on_floor() or player.global_position.y>=_queen_bank(1).position.y:
+			if not await _queen_regain_middle(): break
+		if not borrow_attempted and queen.stage_phase>=2 and is_instance_valid(queen.knots[1]) and not queen.knots[1].health.terminal:
+			borrow_attempted=true
+			borrowed=await accepted_hook(queen.knots[1].global_position)
+			if borrowed and controller.shoot_ability.cooldown_remaining<=0:
+				controller.router.request_action(&"shoot_release",(queen.knots[1].global_position-player.global_position).normalized());await frames(15)
+			continue
+		var target:=_queen_bank(1).get_center().x
+		controller.router.set_move_axis(0 if absf(player.global_position.x-target)<6 else signf(target-player.global_position.x))
+		continuous_fire();await frames(1)
+	controller.router.set_move_axis(0)
+	data.queen_combat={"initial":data.queen_initial,"final":_queen_snapshot(),"frames":frames_data.duplicate(true),"events":events.duplicate(true),"defeats":_q_defeats,"reloaded":reloaded,"optional_main_borrowed":borrowed,"whole_boss_design_admission":false}
+	check(queen.health.terminal and controller.actor_resources.health.current>0 and _q_defeats==1,"actual normal Queen full fight ends in unique live-player defeat")
+	check(reloaded and _q_app.director.stage_complete,"actual Queen reload and App completion both succeeded")
+	if not queen.health.terminal or controller.actor_resources.health.terminal: await finish(trace);return
+	for unused: int in 900:
+		if _q_app.exit_modal.opened: break
+		var delta:=_q_app.stage.reward_position.x-player.global_position.x
+		controller.router.set_move_axis(signf(delta) if absf(delta)>5 else 0);await frames(1)
+	controller.router.set_move_axis(0)
+	check(_q_app.exit_modal.opened and _q_app._offered_exit==&"boss_home","normal walk reaches Queen combat-earned reward gate")
+	if not _q_app.exit_modal.opened: await finish(trace);return
+	check(await _queen_pointer(_q_app.exit_modal,"ENTER / CLAIM REWARD","reward"),"actual pointer confirms Queen reward gate")
+	check(_q_app.reward_modal.opened and _q_app.current_reward.gold and _q_app.current_reward.candidates[0].stable_id==&"forest_heart_gold","Queen offers actual independent guaranteed GOLD")
+	data.gold_definition={"id":String(_q_app.current_reward.candidates[0].stable_id),"resource":_q_app.current_reward.candidates[0].resource_path,"fingerprint":_q_app.current_reward.candidates[0].fingerprint()}
+	data.before_gold={"hp":controller.actor_resources.health.current,"capacity":controller.actor_resources.health.capacity,"count":_q_app.build.count_item(&"forest_heart_gold")}
+	check(await _queen_pointer(_q_app.reward_modal,"选择 / PICK","gold"),"actual pointer claims combat-earned forest GOLD once")
+	data.after_gold={"hp":controller.actor_resources.health.current,"capacity":controller.actor_resources.health.capacity,"count":_q_app.build.count_item(&"forest_heart_gold")}
+	check(data.after_gold.count==1 and not _q_app._claim_modal_item(&"forest_heart_gold") and _q_app.build.count_item(&"forest_heart_gold")==1,"unique Queen GOLD rejects duplicate owner submission")
+	check(await _queen_pointer(_q_app.progression_modal,"D / DOUBLE JUMP","ability"),"actual pointer selects legal missing D reward")
+	var boundary_text: Array[String]=[]
+	for label: Label in _q_app.progression_modal.find_children("*","Label",true,false): boundary_text.append(label.text)
+	data.boundary_ui_text=boundary_text
+	data.before_boundary={"abilities":Array(_q_app.campaign.abilities),"phase":int(_q_app.campaign.phase),"double":controller.traversal.double_enabled,"map":_q_app.director.region_map_index,"manifest":_q_app.director.manifest.snapshot()}
+	check(controller.traversal.double_enabled and _q_app.campaign.phase==RunCampaignProgression.Phase.BOUNDARY,"actual Queen core reward reaches explicit unbuilt-region boundary")
+	data.before_boundary.manifest_compatible=RunManifest.compatible(data.before_boundary.manifest)
+	check(data.before_boundary.manifest_compatible,"actual Queen completion and ability receipts retain compatible current RunManifest")
+	check(await _queen_pointer(_q_app.progression_modal,"END THIS RUN","finish"),"actual pointer confirms truthful end boundary")
+	for unused: int in 6: await process_frame
+	data.after_boundary={"state":int(_q_app.director.state),"wallet":_q_app.wallet.balance,"items":_q_app.build.item_ids(),"abilities":Array(_q_app.campaign.abilities)}
+	check(_q_app.director.state==DemoRunDirector.State.HOME and _q_app.wallet.balance==0 and _q_app.build.item_ids().is_empty() and _q_app.campaign.abilities.is_empty(),"boundary returns home and clears run items coins and abilities")
+	await finish(trace)

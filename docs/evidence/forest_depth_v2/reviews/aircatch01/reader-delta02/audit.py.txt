@@ -1,0 +1,34 @@
+from pathlib import Path
+import json,hashlib,ast,math,sys,copy,re
+R=Path.cwd();O=R/'build/forest_depth/review/aircatch01/reader-delta02';O.mkdir(parents=True,exist_ok=True);U=R/'build/forest_depth/review/aircatch01/unpacked';S=R/'build/forest_depth/snapshots/aircatch01';sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+inv=json.loads((U/'members.json').read_text());assert len(inv)==22
+for p,row in inv.items():assert sha(U/p)==row['sha256'] and (U/p).stat().st_size==row['bytes']
+r=json.loads((U/'native/receipt.json').read_text());assert r['passed'] and r['source_guard'] and r['snapshot_all_raw_bytes_unchanged'] and r['same_actual_departure'];assert r['source_before']==r['source_after'] and r['producer_before']==r['producer_after']
+full=json.loads((U/'attempt/full-source-snapshot-receipt.json').read_text());assert len(full['source_files'])==2019 and all(sha(S/p)==h for p,h in full['source_files'].items())
+sys.path.insert(0,str(S/'tools'));from run_forest_directional_golden import _resource_errors
+code=ast.parse((R/'tools/run_forest_hollow_trunk.py').read_text());ns={'ROOT':S,'json':json,'math':math,'_resource_errors':_resource_errors};exec(compile(ast.Module(body=[n for n in code.body if isinstance(n,ast.FunctionDef) and n.name.startswith('validate')],type_ignores=[]),'frozen_aircatch_validator','exec'),ns)
+rows={};raw={};err=re.compile(r'SCRIPT ERROR:|Parse Error:|^ERROR:|ObjectDB.*leaked|resources? still in use at exit',re.M)
+for n in ['deepH_zeroR','return_R']:
+ d=json.loads((U/f'native/{n}.json').read_text());raw[n]=d;assert ns['validate'](d,True)==[];assert not err.search((U/f'native/{n}.log').read_text()) and '4.7.2' in (U/f'native/{n}.log').read_text();f=d['frames'];begin=d['return_start_tick'];assert next(e['tick'] for e in d['events'] if e.get('to')=='air_descent')==98
+ D=next(e['tick'] for e in d['events'] if e.get('from')=='air_land_inner' and e.get('to')=='inner_walk');D12=[x for x in f if D-11<=x['tick']<=D];assert len(D12)==12 and all('inner_root' in x['supports'] for x in D12)
+ rows[n]={'D12_tick':D,'D12_energy':next(x for x in f if x['tick']==D)['energy'],'return_shots':len([e for e in d['events'] if e['tick']>begin and e['kind']=='shot_fired']),'last_M12_ticks':[x['tick']for x in f[-12:]],'final_energy':f[-1]['energy'],'final_shots':f[-1]['shots']}
+h=raw['deepH_zeroR'];fs=h['frames'];casts=[e for e in h['events'] if e['tick']>98 and e['kind']=='hook_cast'];contacts=[e for e in h['events']if e['tick']>98 and e['kind']=='hook_contact_kick'];assert len(casts)==len(contacts)==1;cast=casts[0]['tick'];end=contacts[0]['tick'];window=[f for f in fs if 98<=f['tick']<=end];assert all(not f['grounded'] and not f['supports'] and not f['raw_floor_contacts'] and not f['motor_contacts'] for f in window)
+request=next(x for x in h['requests'] if x['tick']==cast and x['kind']=='grapple');origin=[request['body_before'][0],request['body_before'][1]-6];assert all(f['hook_start']==origin for f in fs if cast<=f['tick']<=end);assert any(f['hook_state']=='hook_pull' for f in window)
+mut=[]
+def probe(name,fn):
+ d=copy.deepcopy(h);fn(d);errors=ns['validate'](d,True);mut.append({'name':name,'rejected':bool(errors),'errors':errors})
+probe('ground_contact_during_pull',lambda d:next(f for f in d['frames']if f['tick']==140).update(grounded=True))
+probe('floor_contact_during_pull_without_grounded',lambda d:next(f for f in d['frames']if f['tick']==140).update(raw_floor_contacts=['inner_root']))
+probe('shorten_D_support_below12',lambda d:[f.update(supports=[]) for f in d['frames']if 'inner_root' in f['supports'] and f['tick']%10==0])
+probe('last_M12_gap',lambda d:d['frames'][-5].update(supports=[]))
+probe('request_prestate_move_without_physics',lambda d:next(x for x in d['requests']if x['tick']==121).update(body_before=[300,170]))
+probe('precast_contact_after_departure',lambda d:next(f for f in d['frames']if f['tick']==110).update(raw_floor_contacts=['outer_root']))
+probe('moving_origin_after_cast',lambda d:[f.update(hook_start=f['position'])for f in d['frames']if 122<=f['tick']<=147])
+probe('missing_departure_request',lambda d:d.update(requests=[r for r in d['requests']if r['kind']!='drop_through']))
+probe('duplicate_departure_request',lambda d:d['requests'].append(copy.deepcopy(next(r for r in d['requests']if r['kind']=='drop_through'))))
+probe('deleted_interval_frame',lambda d:d.update(frames=[f for f in d['frames']if f['tick']!=110]))
+probe('wall_contact_while_airborne',lambda d:next(f for f in d['frames']if f['tick']==110).update(motor_contacts=[{'normal':[1,0],'collider':'root'}]))
+probe('late_departure_relabel_hides_early_contact',lambda d:(next(r for r in d['requests']if r['kind']=='drop_through').update(tick=120),next(f for f in d['frames']if f['tick']==110).update(raw_floor_contacts=['outer_root'])))
+assert all(x['rejected']for x in mut)
+result={'status':'ACCEPT_LIMITED_OFFLINE_CAUSAL_READER_DELTA02','scope':'Independent actual continuous-air catch and flight-resource tradeoff, not formal integration or comparative H superiority','members_SHA_verified':22,'full_snapshot_source_SHA_verified':2019,'strict_native_and_sourceguard':True,'normal_departure_to_contact_all50frames_no_Motor_contacts':True,'cast_tick':cast,'contact_tick':end,'fixed_cast_origin':origin,'actual_cast_request':request,'cases':rows,'mutations':mut,'reader_sha256':sha(R/'tools/run_forest_hollow_trunk.py'),'validator_limits':'Actual raw accepted; original seven and five additional mutations rejected, including shifted drop hiding contact. Finite schema/ledger review, not arbitrary fabrication authentication or new native execution.','missing':'Strongest normal zeroR descent / ordinary alternative, intentional miss12 recovery, perturbations, GL, App seams'}
+(O/'actual-review.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))

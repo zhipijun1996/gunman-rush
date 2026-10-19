@@ -1,0 +1,60 @@
+{
+  "status": "ACCEPT_BOUNDED_INACTIVE_QUEEN_INITIAL_ANGLE_FIX",
+  "scope": "Only configure initialization of rotating field angle and preserved strict snapshot/restore contract; not mechanism/fun or general NPC restore certification",
+  "native_run_by_reviewer": false,
+  "sources": {
+    "scripts/bosses/thorn_queen_weave_band.gd": {
+      "before12_sha256": "404fd7f88f65ba2f92ff6191758b1a076f390edd6e791e809d7abcafe33ec8e4",
+      "after13_sha256": "03434df675d0e581164793ac50349045d6f0a1bb5dc551f0d0e441c76160eefc",
+      "current_main_matches13": true
+    },
+    "scripts/bosses/thorn_queen_v2.gd": {
+      "before12_sha256": "3c964fe228f95e796304ce666a3f3e4b651f5a3eb902d05b4ccb252d7fe62026",
+      "after13_sha256": "3c964fe228f95e796304ce666a3f3e4b651f5a3eb902d05b4ccb252d7fe62026",
+      "current_main_matches13": true
+    },
+    "scripts/bosses/thorn_queen_weave_definition.gd": {
+      "before12_sha256": "26b15f4a08bfda9f45ae6899406e9825565b05c85886b1e7bf479f15d9d81257",
+      "after13_sha256": "26b15f4a08bfda9f45ae6899406e9825565b05c85886b1e7bf479f15d9d81257",
+      "current_main_matches13": true
+    },
+    "scripts/demo/demo_app.gd": {
+      "before12_sha256": "f2d7a8b5f9810bdde3b1d6eddaf714919fb4341004e4fc09473a89c9d457b745",
+      "after13_sha256": "f2d7a8b5f9810bdde3b1d6eddaf714919fb4341004e4fc09473a89c9d457b745",
+      "current_main_matches13": true
+    }
+  },
+  "exact_only_band_configure_three_added_lines": true,
+  "all_snapshot_validation_restore_code_unchanged": true,
+  "field_id_assigned_before_configure": true,
+  "actual13": {
+    "wrapper_seconds": 35.294737321004504,
+    "source_hashes_verified": 911,
+    "verifier_hashes_verified": 8,
+    "checks26_passed": true,
+    "malformed16_passed": true,
+    "inactive_boss_snapshot_valid_observed": true,
+    "rotating_angle_observed": -1.57079637050629,
+    "expected_angle": -1.5707963267948966,
+    "nonrotating_angle0_observed": true,
+    "actor_flight_restored_exact_and_three_actual_projectile_death_checks": true
+  },
+  "offline_explicit_angle_guard_negative": {
+    "mutated_initial_angle": 0,
+    "not_an_engine_run_or_full_validator_call": true,
+    "comparison_abs_gt_1e_minus6_rejects": true
+  },
+  "historical12": {
+    "log_sha256": "019fe5b5fb2f6b876dac212954fa3e02b40c11981b5a4442ceaba9a82deb1bd6",
+    "actual_observed": "App duel state rejection then freed-motor secondary error",
+    "missing_intermediate_diagnostic": true,
+    "angle0_is_source_inference_not_observed_saved12": true
+  },
+  "artifacts": {
+    "build/forest_depth/snapshots/forest-v9-golden13/build/forest_depth/ecology/crossbranch_formal_lifecycle13/00-crossbranch_lifecycle/capture.json": "51f64e4a49d5637dda6a115430724a4be5c4c26451ab6ec1d00f7a4463c80f3e",
+    "build/forest_depth/snapshots/forest-v9-golden13/build/forest_depth/ecology/crossbranch_formal_lifecycle13/00-crossbranch_lifecycle/capture-before-reload.json": "5ff79bb2fe3989c051ada90b23f47061a3e8518a17a8926305d3f8d85d44cf06",
+    "build/forest_depth/snapshots/forest-v9-golden13/build/forest_depth/ecology/crossbranch_formal_lifecycle13/00-crossbranch_lifecycle/native.log": "b30a359052878f88000c2b3e414a57f79690e5e992a18a80db105c98b19e99eb",
+    "build/forest_depth/snapshots/forest-v9-golden13/build/forest_depth/ecology/crossbranch_formal_lifecycle13/receipt.json": "6263d6b001b0da42b12f8f533a791ccee1f29437e4aa4bd94dac315beeebdf51",
+    "build/forest_depth/snapshots/forest-v9-golden12/build/forest_depth/ecology/crossbranch_formal_lifecycle12/00-crossbranch_lifecycle/native.log": "019fe5b5fb2f6b876dac212954fa3e02b40c11981b5a4442ceaba9a82deb1bd6"
+  }
+}

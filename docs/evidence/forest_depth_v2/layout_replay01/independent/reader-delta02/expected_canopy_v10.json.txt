@@ -1,0 +1,3523 @@
+{
+  "admission": {
+    "geometry": "new_shared_trunk_experimental",
+    "motor": "unverified",
+    "seams": "unverified",
+    "visual": "unverified"
+  },
+  "areas": [
+    {
+      "id": "M",
+      "label": "TREE BELLY",
+      "position": [
+        600.0,
+        600.0
+      ],
+      "role": "junction"
+    },
+    {
+      "id": "E",
+      "label": "OUTER CROWN",
+      "position": [
+        980.0,
+        558.0
+      ],
+      "role": "junction"
+    },
+    {
+      "id": "D",
+      "label": "INNER ROOT",
+      "position": [
+        720.0,
+        802.0
+      ],
+      "role": "junction"
+    },
+    {
+      "id": "R",
+      "label": "OUTER ROOT",
+      "position": [
+        1020.0,
+        882.0
+      ],
+      "role": "junction"
+    },
+    {
+      "id": "S",
+      "label": "BORER MOUTH",
+      "position": [
+        355.0,
+        282.0
+      ],
+      "role": "junction"
+    },
+    {
+      "id": "C",
+      "label": "EAST HOLLOW",
+      "position": [
+        1030.0,
+        282.0
+      ],
+      "role": "junction"
+    },
+    {
+      "id": "W",
+      "label": "WEST ROOT",
+      "position": [
+        180.0,
+        600.0
+      ],
+      "role": "junction"
+    },
+    {
+      "id": "N",
+      "label": "NORTH COURT",
+      "position": [
+        200.0,
+        450.0
+      ],
+      "role": "junction"
+    },
+    {
+      "id": "arrival",
+      "label": "FOREST ENTRY",
+      "position": [
+        180.0,
+        600.0
+      ],
+      "role": "tutorial"
+    },
+    {
+      "id": "camp",
+      "label": "ROOT CAMP",
+      "position": [
+        200.0,
+        450.0
+      ],
+      "role": "merchant"
+    },
+    {
+      "id": "cache",
+      "label": "BORER CACHE",
+      "position": [
+        1100.0,
+        282.0
+      ],
+      "role": "challenge_reward"
+    },
+    {
+      "id": "prep",
+      "label": "BOSS APPROACH",
+      "position": [
+        1300.0,
+        282.0
+      ],
+      "role": "prep"
+    },
+    {
+      "id": "gate_ready",
+      "label": "BOSS APPROACH",
+      "position": [
+        1400.0,
+        282.0
+      ],
+      "role": "prep"
+    },
+    {
+      "id": "boss",
+      "label": "FOREST BOSS",
+      "position": [
+        1558.0,
+        282.0
+      ],
+      "role": "boss"
+    }
+  ],
+  "borer_loop": {
+    "edges": [
+      "belly_borer_access",
+      "borer_crossing",
+      "borer_crown_descent",
+      "lower_in",
+      "inner_recovery"
+    ],
+    "ports": [
+      "M",
+      "S",
+      "C",
+      "E"
+    ],
+    "risk_reward": "two H+two R retain energy at C; four R cross faster; ordinary roof bypass remains legal",
+    "seams": "unverified_actual_DemoApp"
+  },
+  "boss_approach_contract": {
+    "entry_port": "C",
+    "native_verified": false,
+    "ordinary_roof_bypass_retained": true,
+    "progression": "horizontal_cavity_final_approach"
+  },
+  "boss_approach_origin": [
+    1460.0,
+    282.0
+  ],
+  "boss_arena": [
+    1508.0,
+    -60.0,
+    560.0,
+    600.0
+  ],
+  "boss_content": {
+    "contract": "forest-queen-canopy-v3",
+    "resource": "res://resources/bosses/thorn_queen_canopy.tres",
+    "scene": "res://scenes/bosses/thorn_queen_canopy.tscn"
+  },
+  "boss_contract": {
+    "admission": "candidate_whole_boss_pending",
+    "arena_center": [
+      1788.0,
+      240.0
+    ],
+    "boss_arena": [
+      1508.0,
+      -60.0,
+      560.0,
+      600.0
+    ],
+    "boss_contract": "forest-queen-canopy-v3",
+    "boss_position": [
+      1658.0,
+      380.0
+    ],
+    "entrance_connector": {
+      "id": "canopy_entry",
+      "one_way": false,
+      "rect": [
+        1436.0,
+        300.0,
+        96.0,
+        24.0
+      ]
+    },
+    "entrance_position": [
+      1558.0,
+      282.0
+    ],
+    "external_prep": [
+      1460.0,
+      282.0
+    ],
+    "high_field": {
+      "id": "high",
+      "knot_position": [
+        1838.0,
+        90.0
+      ],
+      "strand_start": [
+        1808.0,
+        170.0
+      ],
+      "strand_tip": [
+        1868.0,
+        170.0
+      ]
+    },
+    "hook_anchors": [
+      {
+        "id": "A",
+        "position": [
+          1748.0,
+          240.0
+        ]
+      },
+      {
+        "id": "B",
+        "position": [
+          1908.0,
+          190.0
+        ]
+      },
+      {
+        "id": "low_recovery",
+        "position": [
+          1683.0,
+          430.0
+        ]
+      }
+    ],
+    "motion_paths": [
+      [
+        [
+          1658.0,
+          380.0
+        ],
+        [
+          1658.0,
+          250.0
+        ],
+        [
+          1534.0,
+          250.0
+        ],
+        [
+          1708.0,
+          140.0
+        ],
+        [
+          1848.0,
+          140.0
+        ],
+        [
+          1848.0,
+          350.0
+        ]
+      ],
+      [
+        [
+          1848.0,
+          350.0
+        ],
+        [
+          1848.0,
+          450.0
+        ],
+        [
+          2038.0,
+          450.0
+        ],
+        [
+          2038.0,
+          50.0
+        ]
+      ],
+      [
+        [
+          2038.0,
+          50.0
+        ],
+        [
+          1534.0,
+          50.0
+        ],
+        [
+          1658.0,
+          50.0
+        ]
+      ],
+      [
+        [
+          1658.0,
+          50.0
+        ],
+        [
+          1658.0,
+          490.0
+        ],
+        [
+          1638.0,
+          490.0
+        ],
+        [
+          1728.0,
+          490.0
+        ],
+        [
+          1658.0,
+          380.0
+        ]
+      ]
+    ],
+    "ok": true,
+    "origin": [
+      1108.0,
+      -60.0
+    ],
+    "platforms": [
+      {
+        "id": "floor",
+        "one_way": false,
+        "rect": [
+          1508.0,
+          540.0,
+          560.0,
+          36.0
+        ]
+      },
+      {
+        "id": "central_rib",
+        "one_way": false,
+        "rect": [
+          1508.0,
+          300.0,
+          100.0,
+          240.0
+        ]
+      },
+      {
+        "id": "right_rib",
+        "one_way": false,
+        "rect": [
+          1758.0,
+          200.0,
+          50.0,
+          340.0
+        ]
+      },
+      {
+        "id": "right_bank",
+        "one_way": false,
+        "rect": [
+          1828.0,
+          500.0,
+          240.0,
+          76.0
+        ]
+      },
+      {
+        "id": "canopy",
+        "one_way": false,
+        "rect": [
+          1508.0,
+          -40.0,
+          560.0,
+          40.0
+        ]
+      },
+      {
+        "id": "canopy_entry",
+        "one_way": false,
+        "rect": [
+          1436.0,
+          300.0,
+          96.0,
+          24.0
+        ]
+      }
+    ],
+    "player_spawn": [
+      1558.0,
+      282.0
+    ],
+    "receiver_fields": [
+      {
+        "id": "S",
+        "knot_position": [
+          1588.0,
+          160.0
+        ],
+        "strand_start": [
+          1520.0,
+          280.0
+        ],
+        "strand_tip": [
+          1596.0,
+          280.0
+        ],
+        "support": [
+          1508.0,
+          300.0,
+          100.0,
+          240.0
+        ]
+      },
+      {
+        "id": "low",
+        "knot_position": [
+          1683.0,
+          390.0
+        ],
+        "strand_start": [
+          1620.0,
+          520.0
+        ],
+        "strand_tip": [
+          1746.0,
+          520.0
+        ],
+        "support": [
+          1608.0,
+          540.0,
+          150.0,
+          36.0
+        ]
+      },
+      {
+        "id": "right",
+        "knot_position": [
+          1958.0,
+          350.0
+        ],
+        "strand_start": [
+          1840.0,
+          480.0
+        ],
+        "strand_tip": [
+          2056.0,
+          480.0
+        ],
+        "support": [
+          1828.0,
+          500.0,
+          240.0,
+          76.0
+        ]
+      }
+    ],
+    "reward_position": [
+      1658.0,
+      522.0
+    ],
+    "root_supports": [],
+    "safe_return": [
+      1558.0,
+      282.0
+    ],
+    "version": "forest-queen-canopy-v3"
+  },
+  "boss_geometry": {
+    "admission": "candidate_whole_boss_pending",
+    "arena_center": [
+      1788.0,
+      240.0
+    ],
+    "boss_arena": [
+      1508.0,
+      -60.0,
+      560.0,
+      600.0
+    ],
+    "boss_contract": "forest-queen-canopy-v3",
+    "boss_position": [
+      1658.0,
+      380.0
+    ],
+    "entrance_connector": {
+      "id": "canopy_entry",
+      "one_way": false,
+      "rect": [
+        1436.0,
+        300.0,
+        96.0,
+        24.0
+      ]
+    },
+    "entrance_position": [
+      1558.0,
+      282.0
+    ],
+    "external_prep": [
+      1460.0,
+      282.0
+    ],
+    "high_field": {
+      "id": "high",
+      "knot_position": [
+        1838.0,
+        90.0
+      ],
+      "strand_start": [
+        1808.0,
+        170.0
+      ],
+      "strand_tip": [
+        1868.0,
+        170.0
+      ]
+    },
+    "hook_anchors": [
+      {
+        "id": "A",
+        "position": [
+          1748.0,
+          240.0
+        ]
+      },
+      {
+        "id": "B",
+        "position": [
+          1908.0,
+          190.0
+        ]
+      },
+      {
+        "id": "low_recovery",
+        "position": [
+          1683.0,
+          430.0
+        ]
+      }
+    ],
+    "motion_paths": [
+      [
+        [
+          1658.0,
+          380.0
+        ],
+        [
+          1658.0,
+          250.0
+        ],
+        [
+          1534.0,
+          250.0
+        ],
+        [
+          1708.0,
+          140.0
+        ],
+        [
+          1848.0,
+          140.0
+        ],
+        [
+          1848.0,
+          350.0
+        ]
+      ],
+      [
+        [
+          1848.0,
+          350.0
+        ],
+        [
+          1848.0,
+          450.0
+        ],
+        [
+          2038.0,
+          450.0
+        ],
+        [
+          2038.0,
+          50.0
+        ]
+      ],
+      [
+        [
+          2038.0,
+          50.0
+        ],
+        [
+          1534.0,
+          50.0
+        ],
+        [
+          1658.0,
+          50.0
+        ]
+      ],
+      [
+        [
+          1658.0,
+          50.0
+        ],
+        [
+          1658.0,
+          490.0
+        ],
+        [
+          1638.0,
+          490.0
+        ],
+        [
+          1728.0,
+          490.0
+        ],
+        [
+          1658.0,
+          380.0
+        ]
+      ]
+    ],
+    "ok": true,
+    "origin": [
+      1108.0,
+      -60.0
+    ],
+    "platforms": [
+      {
+        "id": "floor",
+        "one_way": false,
+        "rect": [
+          1508.0,
+          540.0,
+          560.0,
+          36.0
+        ]
+      },
+      {
+        "id": "central_rib",
+        "one_way": false,
+        "rect": [
+          1508.0,
+          300.0,
+          100.0,
+          240.0
+        ]
+      },
+      {
+        "id": "right_rib",
+        "one_way": false,
+        "rect": [
+          1758.0,
+          200.0,
+          50.0,
+          340.0
+        ]
+      },
+      {
+        "id": "right_bank",
+        "one_way": false,
+        "rect": [
+          1828.0,
+          500.0,
+          240.0,
+          76.0
+        ]
+      },
+      {
+        "id": "canopy",
+        "one_way": false,
+        "rect": [
+          1508.0,
+          -40.0,
+          560.0,
+          40.0
+        ]
+      },
+      {
+        "id": "canopy_entry",
+        "one_way": false,
+        "rect": [
+          1436.0,
+          300.0,
+          96.0,
+          24.0
+        ]
+      }
+    ],
+    "player_spawn": [
+      1558.0,
+      282.0
+    ],
+    "receiver_fields": [
+      {
+        "id": "S",
+        "knot_position": [
+          1588.0,
+          160.0
+        ],
+        "strand_start": [
+          1520.0,
+          280.0
+        ],
+        "strand_tip": [
+          1596.0,
+          280.0
+        ],
+        "support": [
+          1508.0,
+          300.0,
+          100.0,
+          240.0
+        ]
+      },
+      {
+        "id": "low",
+        "knot_position": [
+          1683.0,
+          390.0
+        ],
+        "strand_start": [
+          1620.0,
+          520.0
+        ],
+        "strand_tip": [
+          1746.0,
+          520.0
+        ],
+        "support": [
+          1608.0,
+          540.0,
+          150.0,
+          36.0
+        ]
+      },
+      {
+        "id": "right",
+        "knot_position": [
+          1958.0,
+          350.0
+        ],
+        "strand_start": [
+          1840.0,
+          480.0
+        ],
+        "strand_tip": [
+          2056.0,
+          480.0
+        ],
+        "support": [
+          1828.0,
+          500.0,
+          240.0,
+          76.0
+        ]
+      }
+    ],
+    "reward_position": [
+      1658.0,
+      522.0
+    ],
+    "root_supports": [],
+    "safe_return": [
+      1558.0,
+      282.0
+    ],
+    "version": "forest-queen-canopy-v3"
+  },
+  "boss_root_supports": [],
+  "camp_area": "camp",
+  "cavity_contract": {
+    "admission": "experimental_regional_seams_pending",
+    "from_port": "S",
+    "geometry_instance": "hollow",
+    "motion": "level",
+    "not_inherited_upper_window_value": true,
+    "to_port": "C"
+  },
+  "change_mind_contract": {
+    "actual_input": "unverified",
+    "chosen_goal": "camp",
+    "decision_node": "C",
+    "planned_goal": "gate_ready"
+  },
+  "choices": {
+    "cache_route": 1,
+    "cavity_direction": 0,
+    "enemy_mix": 1,
+    "entry_draw": 0,
+    "root_entry": false,
+    "skeleton": 1,
+    "west_reward": false,
+    "west_reward_draw": 0
+  },
+  "connections": [
+    {
+      "a": "M",
+      "admission": "experimental_pending_formal",
+      "b": "E",
+      "condition": "open",
+      "entry_role": "M",
+      "exit_role": "E",
+      "from_port": "M",
+      "geometry_instance": "hollow",
+      "id": "upper_out",
+      "kind": "hollow_upper",
+      "landing": [
+        980.0,
+        558.0
+      ],
+      "landing_support_id": "hollow__outer_crown",
+      "native_verified": false,
+      "path": [
+        [
+          600.0,
+          600.0
+        ],
+        [
+          980.0,
+          558.0
+        ]
+      ],
+      "steps": [],
+      "to_port": "E"
+    },
+    {
+      "a": "E",
+      "admission": "experimental_pending_formal",
+      "b": "D",
+      "condition": "open",
+      "entry_role": "E",
+      "exit_role": "D",
+      "from_port": "E",
+      "geometry_instance": "hollow",
+      "id": "lower_in",
+      "kind": "hollow_lower",
+      "landing": [
+        720.0,
+        802.0
+      ],
+      "landing_support_id": "hollow__inner_root",
+      "native_verified": false,
+      "path": [
+        [
+          980.0,
+          558.0
+        ],
+        [
+          720.0,
+          802.0
+        ]
+      ],
+      "steps": [],
+      "to_port": "D"
+    },
+    {
+      "a": "D",
+      "admission": "experimental_pending_formal",
+      "b": "M",
+      "condition": "open",
+      "entry_role": "D",
+      "exit_role": "M",
+      "from_port": "D",
+      "geometry_instance": "hollow",
+      "id": "inner_recovery",
+      "kind": "hollow_recovery",
+      "landing": [
+        420.0,
+        600.0
+      ],
+      "landing_support_id": "hollow__belly_west",
+      "native_verified": false,
+      "path": [
+        [
+          720.0,
+          802.0
+        ],
+        [
+          600.0,
+          600.0
+        ]
+      ],
+      "post_landing_steps": [
+        {
+          "from_support_id": "hollow__belly_west",
+          "kind": "jump_gap",
+          "landing": [
+            532.0,
+            600.0
+          ],
+          "support_id": "hollow__belly_entry",
+          "takeoff": [
+            468.0,
+            600.0
+          ]
+        }
+      ],
+      "steps": [],
+      "to_port": "M"
+    },
+    {
+      "a": "M",
+      "admission": "experimental_pending_formal",
+      "b": "D",
+      "condition": "open",
+      "id": "belly_drop",
+      "kind": "drop",
+      "native_verified": false,
+      "path": [
+        [
+          600.0,
+          600.0
+        ],
+        [
+          700.0,
+          600.0
+        ],
+        [
+          700.0,
+          802.0
+        ],
+        [
+          720.0,
+          802.0
+        ]
+      ],
+      "steps": []
+    },
+    {
+      "a": "E",
+      "admission": "experimental_pending_formal",
+      "b": "R",
+      "condition": "open",
+      "id": "outer_drop",
+      "kind": "drop_through",
+      "native_verified": false,
+      "path": [
+        [
+          980.0,
+          558.0
+        ],
+        [
+          1020.0,
+          558.0
+        ],
+        [
+          1020.0,
+          882.0
+        ]
+      ],
+      "steps": []
+    },
+    {
+      "a": "R",
+      "admission": "experimental_pending_formal",
+      "anchor_id": "hollow__lower_window_ring",
+      "b": "D",
+      "condition": "open",
+      "geometry_instance": "hollow",
+      "id": "outer_to_inner",
+      "kind": "hollow_outer_recovery",
+      "native_verified": false,
+      "path": [
+        [
+          1020.0,
+          882.0
+        ],
+        [
+          970.0,
+          882.0
+        ],
+        [
+          720.0,
+          802.0
+        ]
+      ],
+      "steps": []
+    },
+    {
+      "a": "M",
+      "admission": "experimental_pending_formal",
+      "b": "S",
+      "condition": "open",
+      "id": "belly_borer_access",
+      "kind": "ordinary_sequence",
+      "native_verified": false,
+      "path": [
+        [
+          600.0,
+          600.0
+        ],
+        [
+          355.0,
+          282.0
+        ]
+      ],
+      "steps": [
+        {
+          "from_support_id": "hollow__belly_entry",
+          "kind": "jump_gap",
+          "landing": [
+            468.0,
+            600.0
+          ],
+          "support_id": "hollow__belly_west",
+          "takeoff": [
+            532.0,
+            600.0
+          ]
+        },
+        {
+          "from_support_id": "hollow__belly_west",
+          "kind": "jump_rise",
+          "landing": [
+            338.0,
+            482.0
+          ],
+          "support_id": "borer_access_low",
+          "takeoff": [
+            392.0,
+            600.0
+          ]
+        },
+        {
+          "from_support_id": "borer_access_low",
+          "kind": "jump_rise",
+          "landing": [
+            338.0,
+            382.0
+          ],
+          "support_id": "borer_access_middle",
+          "takeoff": [
+            338.0,
+            482.0
+          ]
+        },
+        {
+          "from_support_id": "borer_access_middle",
+          "kind": "jump_rise",
+          "landing": [
+            355.0,
+            282.0
+          ],
+          "support_id": "hollow__cavity_observe",
+          "takeoff": [
+            338.0,
+            382.0
+          ]
+        }
+      ]
+    },
+    {
+      "a": "S",
+      "admission": "experimental_pending_formal",
+      "b": "C",
+      "condition": "open",
+      "entry_role": "S",
+      "exit_role": "C",
+      "from_port": "S",
+      "geometry_instance": "hollow",
+      "id": "borer_crossing",
+      "kind": "hollow_cavity",
+      "landing": [
+        1030.0,
+        282.0
+      ],
+      "landing_support_id": "hollow__cavity_exit",
+      "motion": "level",
+      "native_verified": false,
+      "path": [
+        [
+          355.0,
+          282.0
+        ],
+        [
+          1030.0,
+          282.0
+        ]
+      ],
+      "steps": [],
+      "to_port": "C"
+    },
+    {
+      "a": "C",
+      "admission": "experimental_pending_formal",
+      "b": "E",
+      "condition": "open",
+      "id": "borer_crown_descent",
+      "kind": "drop_through",
+      "native_verified": false,
+      "path": [
+        [
+          1030.0,
+          282.0
+        ],
+        [
+          1030.0,
+          282.0
+        ],
+        [
+          980.0,
+          558.0
+        ]
+      ],
+      "steps": []
+    },
+    {
+      "a": "S",
+      "admission": "experimental_pending_formal",
+      "b": "M",
+      "condition": "open",
+      "id": "borer_belly_return",
+      "kind": "drop_through",
+      "native_verified": false,
+      "path": [
+        [
+          355.0,
+          282.0
+        ],
+        [
+          338.0,
+          282.0
+        ],
+        [
+          338.0,
+          382.0
+        ],
+        [
+          338.0,
+          482.0
+        ],
+        [
+          420.0,
+          600.0
+        ]
+      ],
+      "post_landing_steps": [
+        {
+          "from_support_id": "hollow__belly_west",
+          "kind": "jump_gap",
+          "landing": [
+            532.0,
+            600.0
+          ],
+          "support_id": "hollow__belly_entry",
+          "takeoff": [
+            468.0,
+            600.0
+          ]
+        },
+        {
+          "kind": "walk",
+          "landing": [
+            600.0,
+            600.0
+          ]
+        }
+      ],
+      "steps": []
+    },
+    {
+      "a": "W",
+      "admission": "experimental_pending_formal",
+      "b": "M",
+      "condition": "open",
+      "id": "west_to_belly",
+      "kind": "ordinary_sequence",
+      "native_verified": false,
+      "path": [
+        [
+          180.0,
+          600.0
+        ],
+        [
+          288.0,
+          600.0
+        ],
+        [
+          392.0,
+          600.0
+        ],
+        [
+          600.0,
+          600.0
+        ]
+      ],
+      "steps": [
+        {
+          "from_support_id": "west_court",
+          "kind": "jump_gap",
+          "landing": [
+            392.0,
+            600.0
+          ],
+          "support_id": "hollow__belly_west",
+          "takeoff": [
+            288.0,
+            600.0
+          ]
+        },
+        {
+          "from_support_id": "hollow__belly_west",
+          "kind": "jump_gap",
+          "landing": [
+            532.0,
+            600.0
+          ],
+          "support_id": "hollow__belly_entry",
+          "takeoff": [
+            468.0,
+            600.0
+          ]
+        }
+      ]
+    },
+    {
+      "a": "M",
+      "admission": "experimental_pending_formal",
+      "b": "W",
+      "condition": "open",
+      "id": "belly_to_west",
+      "kind": "ordinary_sequence",
+      "native_verified": false,
+      "path": [
+        [
+          600.0,
+          600.0
+        ],
+        [
+          392.0,
+          600.0
+        ],
+        [
+          288.0,
+          600.0
+        ],
+        [
+          180.0,
+          600.0
+        ]
+      ],
+      "steps": [
+        {
+          "from_support_id": "hollow__belly_entry",
+          "kind": "jump_gap",
+          "landing": [
+            468.0,
+            600.0
+          ],
+          "support_id": "hollow__belly_west",
+          "takeoff": [
+            532.0,
+            600.0
+          ]
+        },
+        {
+          "from_support_id": "hollow__belly_west",
+          "kind": "jump_gap",
+          "landing": [
+            288.0,
+            600.0
+          ],
+          "support_id": "west_court",
+          "takeoff": [
+            392.0,
+            600.0
+          ]
+        }
+      ]
+    },
+    {
+      "a": "W",
+      "admission": "experimental_pending_formal",
+      "anchor_id": "north_court_ring",
+      "b": "N",
+      "condition": "open",
+      "id": "west_north",
+      "kind": "candidate_hook_relay",
+      "native_verified": false,
+      "path": [
+        [
+          180.0,
+          600.0
+        ],
+        [
+          180.0,
+          500.0
+        ],
+        [
+          300.0,
+          350.0
+        ],
+        [
+          200.0,
+          450.0
+        ]
+      ],
+      "steps": []
+    },
+    {
+      "a": "N",
+      "admission": "experimental_pending_formal",
+      "b": "S",
+      "condition": "open",
+      "id": "north_borer_access",
+      "kind": "ordinary_sequence",
+      "native_verified": false,
+      "path": [
+        [
+          200.0,
+          450.0
+        ],
+        [
+          338.0,
+          382.0
+        ],
+        [
+          355.0,
+          282.0
+        ]
+      ],
+      "steps": [
+        {
+          "from_support_id": "north_court",
+          "kind": "jump_rise",
+          "landing": [
+            338.0,
+            382.0
+          ],
+          "support_id": "borer_access_middle",
+          "takeoff": [
+            268.0,
+            450.0
+          ]
+        },
+        {
+          "from_support_id": "borer_access_middle",
+          "kind": "jump_rise",
+          "landing": [
+            355.0,
+            282.0
+          ],
+          "support_id": "hollow__cavity_observe",
+          "takeoff": [
+            338.0,
+            382.0
+          ]
+        }
+      ]
+    },
+    {
+      "a": "N",
+      "admission": "experimental_pending_formal",
+      "b": "M",
+      "condition": "open",
+      "id": "north_belly",
+      "kind": "ordinary_sequence",
+      "native_verified": false,
+      "path": [
+        [
+          200.0,
+          450.0
+        ],
+        [
+          338.0,
+          382.0
+        ],
+        [
+          420.0,
+          600.0
+        ],
+        [
+          600.0,
+          600.0
+        ]
+      ],
+      "steps": [
+        {
+          "from_support_id": "north_court",
+          "kind": "jump_rise",
+          "landing": [
+            338.0,
+            382.0
+          ],
+          "support_id": "borer_access_middle",
+          "takeoff": [
+            268.0,
+            450.0
+          ]
+        },
+        {
+          "kind": "drop_through",
+          "landing": [
+            420.0,
+            600.0
+          ],
+          "path": [
+            [
+              338.0,
+              382.0
+            ],
+            [
+              338.0,
+              382.0
+            ],
+            [
+              338.0,
+              482.0
+            ],
+            [
+              420.0,
+              600.0
+            ]
+          ]
+        },
+        {
+          "from_support_id": "hollow__belly_west",
+          "kind": "jump_gap",
+          "landing": [
+            532.0,
+            600.0
+          ],
+          "support_id": "hollow__belly_entry",
+          "takeoff": [
+            468.0,
+            600.0
+          ]
+        }
+      ]
+    },
+    {
+      "a": "N",
+      "admission": "experimental_pending_formal",
+      "b": "camp",
+      "condition": "open",
+      "id": "camp_north_out",
+      "kind": "walk",
+      "native_verified": false,
+      "path": [
+        [
+          200.0,
+          450.0
+        ],
+        [
+          200.0,
+          450.0
+        ]
+      ],
+      "steps": []
+    },
+    {
+      "a": "camp",
+      "admission": "experimental_pending_formal",
+      "b": "N",
+      "condition": "open",
+      "id": "camp_north_back",
+      "kind": "walk",
+      "native_verified": false,
+      "path": [
+        [
+          200.0,
+          450.0
+        ],
+        [
+          200.0,
+          450.0
+        ]
+      ],
+      "steps": []
+    },
+    {
+      "a": "arrival",
+      "admission": "experimental_pending_formal",
+      "b": "W",
+      "condition": "open",
+      "id": "arrival_reading",
+      "kind": "walk",
+      "native_verified": false,
+      "path": [
+        [
+          180.0,
+          600.0
+        ],
+        [
+          180.0,
+          600.0
+        ]
+      ],
+      "steps": []
+    },
+    {
+      "a": "C",
+      "admission": "experimental_pending_formal",
+      "b": "cache",
+      "condition": "open",
+      "id": "borer_cache",
+      "kind": "walk",
+      "native_verified": false,
+      "path": [
+        [
+          1030.0,
+          282.0
+        ],
+        [
+          1100.0,
+          282.0
+        ]
+      ],
+      "steps": []
+    },
+    {
+      "a": "cache",
+      "admission": "experimental_pending_formal",
+      "b": "C",
+      "claim_area": "cache",
+      "claim_before_edge": true,
+      "claim_id": "clearing_cross_loop_cache",
+      "condition": "open",
+      "id": "cache_borer_back",
+      "kind": "walk",
+      "native_verified": false,
+      "path": [
+        [
+          1100.0,
+          282.0
+        ],
+        [
+          1030.0,
+          282.0
+        ]
+      ],
+      "steps": []
+    },
+    {
+      "a": "cache",
+      "admission": "experimental_pending_formal",
+      "b": "E",
+      "claim_area": "cache",
+      "claim_before_edge": true,
+      "claim_id": "clearing_cross_loop_cache",
+      "condition": "open",
+      "id": "cache_crown_exit",
+      "kind": "drop_through",
+      "native_verified": false,
+      "path": [
+        [
+          1100.0,
+          282.0
+        ],
+        [
+          1030.0,
+          282.0
+        ],
+        [
+          980.0,
+          558.0
+        ]
+      ],
+      "steps": []
+    },
+    {
+      "a": "C",
+      "admission": "experimental_pending_formal",
+      "b": "prep",
+      "condition": "open",
+      "id": "cavity_prep",
+      "kind": "walk",
+      "native_verified": false,
+      "path": [
+        [
+          1030.0,
+          282.0
+        ],
+        [
+          1300.0,
+          282.0
+        ]
+      ],
+      "steps": []
+    },
+    {
+      "a": "prep",
+      "admission": "experimental_pending_formal",
+      "anchor_id": "crown_approach_ring_0",
+      "b": "gate_ready",
+      "condition": "open",
+      "id": "crown_approach",
+      "kind": "gate_hook",
+      "native_verified": false,
+      "path": [
+        [
+          1300.0,
+          282.0
+        ],
+        [
+          1400.0,
+          282.0
+        ]
+      ],
+      "steps": [],
+      "support_id": "boss_approach"
+    },
+    {
+      "a": "gate_ready",
+      "admission": "experimental_pending_formal",
+      "b": "boss",
+      "condition": "open",
+      "id": "arena_entry",
+      "kind": "walk",
+      "native_verified": false,
+      "path": [
+        [
+          1400.0,
+          282.0
+        ],
+        [
+          1558.0,
+          282.0
+        ]
+      ],
+      "steps": []
+    },
+    {
+      "a": "R",
+      "admission": "experimental_pending_formal",
+      "b": "E",
+      "condition": "open",
+      "enemy_id": "hollow_route__outer_lift_lantern",
+      "geometry_instance": "hollow",
+      "id": "outer_lift_return",
+      "kind": "hollow_live_return",
+      "landing": [
+        980.0,
+        558.0
+      ],
+      "landing_support_id": "hollow__outer_crown",
+      "native_verified": false,
+      "optional": true,
+      "path": [
+        [
+          1020.0,
+          882.0
+        ],
+        [
+          980.0,
+          558.0
+        ]
+      ],
+      "steps": [],
+      "strategies": [
+        "living_anchor_then_downward_recoil",
+        "ordinary_jump_and_at_most_two_downward_shots"
+      ]
+    }
+  ],
+  "danger_presentations": [
+    {
+      "facing": "down"
+    },
+    {
+      "facing": "up"
+    },
+    {
+      "facing": "up"
+    }
+  ],
+  "dangers": [
+    [
+      380.0,
+      170.0,
+      550.0,
+      20.0
+    ],
+    [
+      380.0,
+      300.0,
+      260.0,
+      24.0
+    ],
+    [
+      770.0,
+      300.0,
+      160.0,
+      24.0
+    ]
+  ],
+  "discovery_contract": {
+    "entry": "W",
+    "first_choices": [
+      "central_window",
+      "north_camp"
+    ],
+    "loop_sharing": "shared_node",
+    "reward_endpoints": [
+      "C",
+      "E"
+    ],
+    "reward_relationship": "observe upper cavity, choose H/R resource trade or outside roof bypass; descend to original crown after claim",
+    "status": "unverified_actual_visibility"
+  },
+  "encounter_plan_contract": {
+    "active_count": 4,
+    "cache_interaction_radius": 80.0,
+    "camp_body_protected_rect": [
+      98.0,
+      342.0,
+      204.0,
+      216.0
+    ],
+    "camp_interaction_radius": 90.0,
+    "density_not_final": true,
+    "full_route_phases": "unverified",
+    "mix_consumed": true,
+    "not_legacy_woven_proof": true,
+    "planned_count": 4,
+    "protection_scope": "complete initial/authored patrol body and authored thread; ranged flight still requires actual route observations",
+    "recipe": "root_seed_crown_weave",
+    "rejected_placements": [],
+    "selected_mix": 1,
+    "spawn_exclusion_radius": 150.0,
+    "version": "compact-authored-ecology-v5"
+  },
+  "enemies": [
+    {
+      "aerial": false,
+      "alternatives": [
+        "wait on D observation support",
+        "shoot from a supported bank",
+        "retreat toward cache cover"
+      ],
+      "approach": "D toward inner recovery or inner cache",
+      "authored_body_sweep": [
+        605.0,
+        784.0,
+        30.0,
+        36.0
+      ],
+      "behavior_id": "forest_seed_sentry",
+      "definition_path": "res://resources/enemies/forest_seed_sentry.tres",
+      "definition_sha256": "8c48ab8a873de121569d9b67419005f58dd3719c525162c7d1ddd8da22789a28",
+      "ecology_recipe": 1,
+      "encounter_group": "inner_root_support_choice",
+      "encounter_role": "old supported branch is seeded; move during preview or use the cache branch as real projectile cover",
+      "id": "hollow_route__root_seed_watch",
+      "patrol_radius": 0.0,
+      "position": [
+        620.0,
+        802.0
+      ],
+      "stable_id": "forest_seed_sentry",
+      "support_id": "hollow__inner_root"
+    },
+    {
+      "aerial": false,
+      "alternatives": [
+        "wait on E",
+        "shoot the spider",
+        "retreat through R and choose an independently verified return",
+        "return via R"
+      ],
+      "approach": "E toward prep or outer reward descent",
+      "authored_body_sweep": [
+        1117.0,
+        548.0,
+        26.0,
+        28.0
+      ],
+      "behavior_id": "forest_thread_spider",
+      "definition_path": "res://resources/enemies/forest_thread_spider.tres",
+      "definition_sha256": "1726c3629fa6fa7c57d55f2b806e14f9e4580c998fab557ce145c7e7a275a928",
+      "ecology_recipe": 1,
+      "encounter_group": "crown_line_return_choice",
+      "encounter_role": "conditional crown line timing: ordinary jump, wait or supported gunfire; no admitted upper live-anchor bypass",
+      "id": "hollow_route__crown_thread",
+      "line_end": [
+        1105.0,
+        558.0
+      ],
+      "line_start": [
+        1045.0,
+        558.0
+      ],
+      "patrol_radius": 0.0,
+      "position": [
+        1130.0,
+        562.0
+      ],
+      "stable_id": "forest_thread_spider",
+      "support_id": "hollow__outer_crown"
+    },
+    {
+      "aerial": true,
+      "alternatives": [
+        "normal full jump plus at most two downward shots",
+        "existing lower-window D-M-E return",
+        "kill then use unchanged fixed return"
+      ],
+      "approach": "R toward E return; compare normal full jump and at most two downward shots",
+      "authored_body_sweep": [
+        993.0,
+        668.0,
+        114.0,
+        24.0
+      ],
+      "behavior_id": "forest_lantern",
+      "definition_path": "res://resources/enemies/forest_lantern.tres",
+      "definition_sha256": "6858b90b00a1b2d04e33bb1784e42ad1e8617f40be4500d6d0fae0d5c6c789ae",
+      "ecology_recipe": 1,
+      "encounter_group": "outer_root_return_choice",
+      "encounter_role": "R-to-E moving lift: actual grapple then downward shot recoil; seven local controls preserve ordinary two-shot and fixed returns. Current seed integrations require their own evidence",
+      "id": "hollow_route__outer_lift_lantern",
+      "patrol_radius": 45.0,
+      "position": [
+        1050.0,
+        680.0
+      ],
+      "stable_id": "forest_lantern",
+      "support_id": ""
+    },
+    {
+      "aerial": false,
+      "alternatives": [
+        "wait on the root",
+        "shoot from the right bank",
+        "decline the return until line retracts"
+      ],
+      "approach": "inner root toward inner recovery step",
+      "authored_body_sweep": [
+        387.0,
+        792.0,
+        26.0,
+        28.0
+      ],
+      "behavior_id": "forest_thread_spider",
+      "definition_path": "res://resources/enemies/forest_thread_spider.tres",
+      "definition_sha256": "1726c3629fa6fa7c57d55f2b806e14f9e4580c998fab557ce145c7e7a275a928",
+      "ecology_recipe": 1,
+      "encounter_group": "inner_recovery_line",
+      "encounter_role": "left-root line before recovery; a separate supported waiting interval remains before the root watch",
+      "id": "hollow_route__inner_thread",
+      "line_end": [
+        420.0,
+        802.0
+      ],
+      "line_start": [
+        370.0,
+        802.0
+      ],
+      "patrol_radius": 0.0,
+      "position": [
+        400.0,
+        806.0
+      ],
+      "stable_id": "forest_thread_spider",
+      "support_id": "hollow__inner_root"
+    }
+  ],
+  "enemy_drops": {
+    "hollow_route__crown_thread": {
+      "amount": 1,
+      "config_version": 1.0,
+      "content_version": "plains-enemy-drops-v1",
+      "enemy_id": "hollow_route__crown_thread",
+      "kind": "coin",
+      "roll": 43,
+      "stream_namespace": "enemy_drops",
+      "stream_position": 1
+    },
+    "hollow_route__inner_thread": {
+      "amount": 1,
+      "config_version": 1.0,
+      "content_version": "plains-enemy-drops-v1",
+      "enemy_id": "hollow_route__inner_thread",
+      "kind": "coin",
+      "roll": 4,
+      "stream_namespace": "enemy_drops",
+      "stream_position": 1
+    },
+    "hollow_route__outer_lift_lantern": {
+      "amount": 1,
+      "config_version": 1.0,
+      "content_version": "plains-enemy-drops-v1",
+      "enemy_id": "hollow_route__outer_lift_lantern",
+      "kind": "coin",
+      "roll": 53,
+      "stream_namespace": "enemy_drops",
+      "stream_position": 1
+    },
+    "hollow_route__root_seed_watch": {
+      "amount": 1,
+      "config_version": 1.0,
+      "content_version": "plains-enemy-drops-v1",
+      "enemy_id": "hollow_route__root_seed_watch",
+      "kind": "coin",
+      "roll": 6,
+      "stream_namespace": "enemy_drops",
+      "stream_position": 1
+    }
+  },
+  "entry_contract": {
+    "eligible": false,
+    "native_verified": false,
+    "reason": "retain_existing_entry",
+    "requested": 0,
+    "selected": "W"
+  },
+  "fallback_id": "",
+  "family": "clearing_shared_node",
+  "geometry_instances": [
+    {
+      "anchor_id_map": {
+        "cavity_ring_a": "hollow__cavity_ring_a",
+        "cavity_ring_b": "hollow__cavity_ring_b",
+        "lower_window_ring": "hollow__lower_window_ring",
+        "upper_window_ring": "hollow__upper_window_ring"
+      },
+      "danger_indices": [
+        0,
+        1,
+        2
+      ],
+      "derivations": [
+        "shared roof cavity from exact geometry factory; original M/E/D/R retained; new S/C regional seams unverified",
+        "entry floor split at localx[-120,-80] for actual lower-to-upper side cavity; NOT inherited hollow05 proof"
+      ],
+      "enemy_id_map": {},
+      "facing": 1,
+      "factory_entry": "build_cavity",
+      "factory_path": "res://scripts/generation/forest_hollow_trunk_geometry.gd",
+      "factory_sha256": "17e4f89d4180a03a20e01f0cec68738971769c99846b41b3210e26d50f4d4a4c",
+      "factory_version": "forest-hollow-horizontal-cavity-v1",
+      "id": "hollow",
+      "inserted_into_platforms": true,
+      "local_geometry": {
+        "candidate_itinerary": [
+          {
+            "anchor_id": "upper_window_ring",
+            "from": "M",
+            "id": "belly_to_crown",
+            "intent": "horizontal_hook_then_shoot_left_recoil_right",
+            "to": "E"
+          },
+          {
+            "drop_x": 620.0,
+            "from": "E",
+            "id": "crown_to_outer_root",
+            "intent": "walk_past_outer_edge_then_observe_lower_window",
+            "to": "R"
+          },
+          {
+            "anchor_id": "lower_window_ring",
+            "from": "R",
+            "id": "outer_to_inner_root",
+            "intent": "jump_or_descent_side_hook_then_shoot_right_recoil_left",
+            "to": "D"
+          },
+          {
+            "from": "D",
+            "id": "inner_to_belly",
+            "intent": "two_short_recovery_jumps",
+            "to": "M",
+            "via": "inner_recovery_step"
+          }
+        ],
+        "cavity_contract": {
+          "bay_is_real_landing": true,
+          "body": [
+            24,
+            36
+          ],
+          "centres_y": [
+            -392,
+            -318
+          ],
+          "clear_height": 110,
+          "not_yet_verified": [
+            "S_access_from_M",
+            "C_return_to_E",
+            "formal_generation",
+            "viewport",
+            "strong_cheap"
+          ],
+          "preserved_ports": [
+            "M",
+            "E",
+            "D",
+            "R"
+          ],
+          "successful_contact_restores_hook": true,
+          "variant": "two_horizontal_cells_with_safe_observation_bay"
+        },
+        "comparisons": [
+          "ordinary_jump_no_hook_no_shoot",
+          "normal_shots_without_hook",
+          "hook_without_shoot",
+          "intentional_miss_then_local_retry"
+        ],
+        "dangers": [
+          [
+            -220.0,
+            -430.0,
+            550.0,
+            20.0
+          ],
+          [
+            -220.0,
+            -300.0,
+            260.0,
+            24.0
+          ],
+          [
+            170.0,
+            -300.0,
+            160.0,
+            24.0
+          ]
+        ],
+        "evidence_scope": "New solid trunk and lower-window return: NO inherited directional/narrow native approval. No enemies/rewards/seed variation/Boss integration yet.",
+        "goal": [
+          430.0,
+          -318.0
+        ],
+        "hook_anchors": [
+          {
+            "id": "upper_window_ring",
+            "position": [
+              200.0,
+              -40.0
+            ]
+          },
+          {
+            "id": "lower_window_ring",
+            "position": [
+              120.0,
+              155.0
+            ]
+          },
+          {
+            "id": "cavity_ring_a",
+            "position": [
+              -35.0,
+              -350.0
+            ]
+          },
+          {
+            "id": "cavity_ring_b",
+            "position": [
+              330.0,
+              -350.0
+            ]
+          }
+        ],
+        "id": "hollow_horizontal_borer_cavity",
+        "native_verified": false,
+        "nodes": {
+          "B": {
+            "position": [
+              110.0,
+              -318.0
+            ],
+            "role": "observe_second_side_hook",
+            "support_id": "cavity_bay"
+          },
+          "C": {
+            "position": [
+              430.0,
+              -318.0
+            ],
+            "role": "wide_exit_above_original_E",
+            "support_id": "cavity_exit"
+          },
+          "D": {
+            "position": [
+              120.0,
+              202.0
+            ],
+            "role": "inner_recovery",
+            "support_id": "inner_root"
+          },
+          "E": {
+            "position": [
+              380.0,
+              -42.0
+            ],
+            "role": "outer_crown_observe",
+            "support_id": "outer_crown"
+          },
+          "M": {
+            "position": [
+              0.0,
+              0.0
+            ],
+            "role": "belly_observe",
+            "support_id": "belly_entry"
+          },
+          "R": {
+            "position": [
+              420.0,
+              282.0
+            ],
+            "role": "outer_recovery",
+            "support_id": "outer_root"
+          },
+          "S": {
+            "position": [
+              -245.0,
+              -318.0
+            ],
+            "role": "observe_entire_borer_hole",
+            "support_id": "cavity_observe"
+          }
+        },
+        "platforms": [
+          {
+            "id": "belly_entry",
+            "one_way": false,
+            "rect": [
+              -80.0,
+              18.0,
+              160.0,
+              60.0
+            ]
+          },
+          {
+            "id": "belly_roof_upper",
+            "one_way": false,
+            "rect": [
+              -220.0,
+              -520.0,
+              430.0,
+              90.0
+            ]
+          },
+          {
+            "id": "belly_roof",
+            "one_way": false,
+            "rect": [
+              -220.0,
+              -276.0,
+              430.0,
+              166.0
+            ]
+          },
+          {
+            "id": "trunk_upper_cap",
+            "one_way": false,
+            "rect": [
+              210.0,
+              -520.0,
+              120.0,
+              90.0
+            ]
+          },
+          {
+            "id": "trunk_above_window",
+            "one_way": false,
+            "rect": [
+              210.0,
+              -276.0,
+              120.0,
+              182.0
+            ]
+          },
+          {
+            "id": "trunk_between_windows",
+            "one_way": false,
+            "rect": [
+              210.0,
+              -24.0,
+              120.0,
+              164.0
+            ]
+          },
+          {
+            "id": "trunk_below_window",
+            "one_way": false,
+            "rect": [
+              210.0,
+              420.0,
+              120.0,
+              70.0
+            ]
+          },
+          {
+            "id": "outer_crown",
+            "one_way": true,
+            "rect": [
+              330.0,
+              -24.0,
+              270.0,
+              24.0
+            ]
+          },
+          {
+            "id": "inner_root",
+            "one_way": false,
+            "rect": [
+              -310.0,
+              220.0,
+              500.0,
+              40.0
+            ]
+          },
+          {
+            "id": "outer_root",
+            "one_way": false,
+            "rect": [
+              350.0,
+              300.0,
+              350.0,
+              40.0
+            ]
+          },
+          {
+            "id": "outer_sump",
+            "one_way": false,
+            "rect": [
+              330.0,
+              460.0,
+              370.0,
+              30.0
+            ]
+          },
+          {
+            "id": "outer_recovery_step",
+            "one_way": true,
+            "rect": [
+              270.0,
+              350.0,
+              60.0,
+              16.0
+            ]
+          },
+          {
+            "id": "inner_recovery_step",
+            "one_way": true,
+            "rect": [
+              -305.0,
+              118.0,
+              65.0,
+              20.0
+            ]
+          },
+          {
+            "id": "cavity_observe",
+            "one_way": true,
+            "rect": [
+              -350.0,
+              -300.0,
+              130.0,
+              24.0
+            ]
+          },
+          {
+            "id": "cavity_bay",
+            "one_way": true,
+            "rect": [
+              40.0,
+              -300.0,
+              130.0,
+              24.0
+            ]
+          },
+          {
+            "id": "cavity_exit",
+            "one_way": true,
+            "rect": [
+              330.0,
+              -300.0,
+              270.0,
+              24.0
+            ]
+          },
+          {
+            "id": "cavity_right_step",
+            "one_way": true,
+            "rect": [
+              610.0,
+              -400.0,
+              90.0,
+              20.0
+            ]
+          },
+          {
+            "id": "cavity_right_upper",
+            "one_way": true,
+            "rect": [
+              460.0,
+              -490.0,
+              110.0,
+              20.0
+            ]
+          },
+          {
+            "id": "cavity_roof_step",
+            "one_way": true,
+            "rect": [
+              350.0,
+              -500.0,
+              100.0,
+              20.0
+            ]
+          },
+          {
+            "id": "cavity_left_step",
+            "one_way": true,
+            "rect": [
+              -470.0,
+              -400.0,
+              120.0,
+              20.0
+            ]
+          },
+          {
+            "id": "cavity_left_upper",
+            "one_way": true,
+            "rect": [
+              -360.0,
+              -490.0,
+              120.0,
+              20.0
+            ]
+          },
+          {
+            "id": "belly_west",
+            "one_way": false,
+            "rect": [
+              -220.0,
+              18.0,
+              100.0,
+              60.0
+            ]
+          }
+        ],
+        "production_pool": false,
+        "recovery": {
+          "bottom_miss_support": "outer_sump",
+          "bottom_retry_via": [
+            "outer_recovery_step",
+            "outer_root"
+          ],
+          "inner_miss_support": "inner_root",
+          "native_verified": false,
+          "outer_miss_support": "outer_root",
+          "safe_retry": "R",
+          "sump_retry_via": [
+            "trunk_below_window",
+            "outer_recovery_step",
+            "outer_root"
+          ]
+        },
+        "return_style": "deep_zeroR",
+        "spawn": [
+          -245.0,
+          -318.0
+        ],
+        "version": "forest-hollow-horizontal-cavity-v1",
+        "windows": [
+          {
+            "anchor_id": "upper_window_ring",
+            "clear_rect": [
+              210.0,
+              -94.0,
+              120.0,
+              70.0
+            ],
+            "from": "M",
+            "id": "upper_window",
+            "to": "E"
+          },
+          {
+            "anchor_id": "lower_window_ring",
+            "clear_rect": [
+              210.0,
+              140.0,
+              120.0,
+              280.0
+            ],
+            "from": "R",
+            "id": "lower_window",
+            "to": "D"
+          },
+          {
+            "anchor_id": "cavity_ring_a",
+            "clear_rect": [
+              -220.0,
+              -410.0,
+              550.0,
+              110.0
+            ],
+            "from": "S",
+            "id": "cavity",
+            "to": "C"
+          }
+        ],
+        "world_bounds": [
+          -510.0,
+          -570.0,
+          1220.0,
+          1100.0
+        ]
+      },
+      "native_verified": false,
+      "platform_id_map": {
+        "belly_entry": "hollow__belly_entry",
+        "belly_roof": "hollow__belly_roof",
+        "belly_roof_upper": "hollow__belly_roof_upper",
+        "belly_west": "hollow__belly_west",
+        "cavity_bay": "hollow__cavity_bay",
+        "cavity_exit": "hollow__cavity_exit",
+        "cavity_left_step": "hollow__cavity_left_step",
+        "cavity_left_upper": "hollow__cavity_left_upper",
+        "cavity_observe": "hollow__cavity_observe",
+        "cavity_right_step": "hollow__cavity_right_step",
+        "cavity_right_upper": "hollow__cavity_right_upper",
+        "cavity_roof_step": "hollow__cavity_roof_step",
+        "inner_recovery_step": "hollow__inner_recovery_step",
+        "inner_root": "hollow__inner_root",
+        "outer_crown": "hollow__outer_crown",
+        "outer_recovery_step": "hollow__outer_recovery_step",
+        "outer_root": "hollow__outer_root",
+        "outer_sump": "hollow__outer_sump",
+        "trunk_above_window": "hollow__trunk_above_window",
+        "trunk_below_window": "hollow__trunk_below_window",
+        "trunk_between_windows": "hollow__trunk_between_windows",
+        "trunk_upper_cap": "hollow__trunk_upper_cap"
+      },
+      "port_corridors": [],
+      "protected_bounds": [
+        90.0,
+        30.0,
+        1220.0,
+        1100.0
+      ],
+      "source_geometry": {
+        "candidate_itinerary": [
+          {
+            "anchor_id": "upper_window_ring",
+            "from": "M",
+            "id": "belly_to_crown",
+            "intent": "horizontal_hook_then_shoot_left_recoil_right",
+            "to": "E"
+          },
+          {
+            "drop_x": 620.0,
+            "from": "E",
+            "id": "crown_to_outer_root",
+            "intent": "walk_past_outer_edge_then_observe_lower_window",
+            "to": "R"
+          },
+          {
+            "anchor_id": "lower_window_ring",
+            "from": "R",
+            "id": "outer_to_inner_root",
+            "intent": "jump_or_descent_side_hook_then_shoot_right_recoil_left",
+            "to": "D"
+          },
+          {
+            "from": "D",
+            "id": "inner_to_belly",
+            "intent": "two_short_recovery_jumps",
+            "to": "M",
+            "via": "inner_recovery_step"
+          }
+        ],
+        "cavity_contract": {
+          "bay_is_real_landing": true,
+          "body": [
+            24,
+            36
+          ],
+          "centres_y": [
+            -392,
+            -318
+          ],
+          "clear_height": 110,
+          "not_yet_verified": [
+            "S_access_from_M",
+            "C_return_to_E",
+            "formal_generation",
+            "viewport",
+            "strong_cheap"
+          ],
+          "preserved_ports": [
+            "M",
+            "E",
+            "D",
+            "R"
+          ],
+          "successful_contact_restores_hook": true,
+          "variant": "two_horizontal_cells_with_safe_observation_bay"
+        },
+        "comparisons": [
+          "ordinary_jump_no_hook_no_shoot",
+          "normal_shots_without_hook",
+          "hook_without_shoot",
+          "intentional_miss_then_local_retry"
+        ],
+        "dangers": [
+          [
+            -220.0,
+            -430.0,
+            550.0,
+            20.0
+          ],
+          [
+            -220.0,
+            -300.0,
+            260.0,
+            24.0
+          ],
+          [
+            170.0,
+            -300.0,
+            160.0,
+            24.0
+          ]
+        ],
+        "evidence_scope": "New solid trunk and lower-window return: NO inherited directional/narrow native approval. No enemies/rewards/seed variation/Boss integration yet.",
+        "goal": [
+          430.0,
+          -318.0
+        ],
+        "hook_anchors": [
+          {
+            "id": "upper_window_ring",
+            "position": [
+              200.0,
+              -40.0
+            ]
+          },
+          {
+            "id": "lower_window_ring",
+            "position": [
+              120.0,
+              155.0
+            ]
+          },
+          {
+            "id": "cavity_ring_a",
+            "position": [
+              -35.0,
+              -350.0
+            ]
+          },
+          {
+            "id": "cavity_ring_b",
+            "position": [
+              330.0,
+              -350.0
+            ]
+          }
+        ],
+        "id": "hollow_horizontal_borer_cavity",
+        "native_verified": false,
+        "nodes": {
+          "B": {
+            "position": [
+              110.0,
+              -318.0
+            ],
+            "role": "observe_second_side_hook",
+            "support_id": "cavity_bay"
+          },
+          "C": {
+            "position": [
+              430.0,
+              -318.0
+            ],
+            "role": "wide_exit_above_original_E",
+            "support_id": "cavity_exit"
+          },
+          "D": {
+            "position": [
+              120.0,
+              202.0
+            ],
+            "role": "inner_recovery",
+            "support_id": "inner_root"
+          },
+          "E": {
+            "position": [
+              380.0,
+              -42.0
+            ],
+            "role": "outer_crown_observe",
+            "support_id": "outer_crown"
+          },
+          "M": {
+            "position": [
+              0.0,
+              0.0
+            ],
+            "role": "belly_observe",
+            "support_id": "belly_entry"
+          },
+          "R": {
+            "position": [
+              420.0,
+              282.0
+            ],
+            "role": "outer_recovery",
+            "support_id": "outer_root"
+          },
+          "S": {
+            "position": [
+              -245.0,
+              -318.0
+            ],
+            "role": "observe_entire_borer_hole",
+            "support_id": "cavity_observe"
+          }
+        },
+        "platforms": [
+          {
+            "id": "belly_entry",
+            "one_way": false,
+            "rect": [
+              -220.0,
+              18.0,
+              300.0,
+              60.0
+            ]
+          },
+          {
+            "id": "belly_roof_upper",
+            "one_way": false,
+            "rect": [
+              -220.0,
+              -520.0,
+              430.0,
+              90.0
+            ]
+          },
+          {
+            "id": "belly_roof",
+            "one_way": false,
+            "rect": [
+              -220.0,
+              -276.0,
+              430.0,
+              166.0
+            ]
+          },
+          {
+            "id": "trunk_upper_cap",
+            "one_way": false,
+            "rect": [
+              210.0,
+              -520.0,
+              120.0,
+              90.0
+            ]
+          },
+          {
+            "id": "trunk_above_window",
+            "one_way": false,
+            "rect": [
+              210.0,
+              -276.0,
+              120.0,
+              182.0
+            ]
+          },
+          {
+            "id": "trunk_between_windows",
+            "one_way": false,
+            "rect": [
+              210.0,
+              -24.0,
+              120.0,
+              164.0
+            ]
+          },
+          {
+            "id": "trunk_below_window",
+            "one_way": false,
+            "rect": [
+              210.0,
+              420.0,
+              120.0,
+              70.0
+            ]
+          },
+          {
+            "id": "outer_crown",
+            "one_way": true,
+            "rect": [
+              330.0,
+              -24.0,
+              270.0,
+              24.0
+            ]
+          },
+          {
+            "id": "inner_root",
+            "one_way": false,
+            "rect": [
+              -310.0,
+              220.0,
+              500.0,
+              40.0
+            ]
+          },
+          {
+            "id": "outer_root",
+            "one_way": false,
+            "rect": [
+              350.0,
+              300.0,
+              350.0,
+              40.0
+            ]
+          },
+          {
+            "id": "outer_sump",
+            "one_way": false,
+            "rect": [
+              330.0,
+              460.0,
+              370.0,
+              30.0
+            ]
+          },
+          {
+            "id": "outer_recovery_step",
+            "one_way": true,
+            "rect": [
+              270.0,
+              350.0,
+              60.0,
+              16.0
+            ]
+          },
+          {
+            "id": "inner_recovery_step",
+            "one_way": true,
+            "rect": [
+              -305.0,
+              118.0,
+              65.0,
+              20.0
+            ]
+          },
+          {
+            "id": "cavity_observe",
+            "one_way": true,
+            "rect": [
+              -350.0,
+              -300.0,
+              130.0,
+              24.0
+            ]
+          },
+          {
+            "id": "cavity_bay",
+            "one_way": true,
+            "rect": [
+              40.0,
+              -300.0,
+              130.0,
+              24.0
+            ]
+          },
+          {
+            "id": "cavity_exit",
+            "one_way": true,
+            "rect": [
+              330.0,
+              -300.0,
+              270.0,
+              24.0
+            ]
+          },
+          {
+            "id": "cavity_right_step",
+            "one_way": true,
+            "rect": [
+              610.0,
+              -400.0,
+              90.0,
+              20.0
+            ]
+          },
+          {
+            "id": "cavity_right_upper",
+            "one_way": true,
+            "rect": [
+              460.0,
+              -490.0,
+              110.0,
+              20.0
+            ]
+          },
+          {
+            "id": "cavity_roof_step",
+            "one_way": true,
+            "rect": [
+              350.0,
+              -500.0,
+              100.0,
+              20.0
+            ]
+          },
+          {
+            "id": "cavity_left_step",
+            "one_way": true,
+            "rect": [
+              -470.0,
+              -400.0,
+              120.0,
+              20.0
+            ]
+          },
+          {
+            "id": "cavity_left_upper",
+            "one_way": true,
+            "rect": [
+              -360.0,
+              -490.0,
+              120.0,
+              20.0
+            ]
+          }
+        ],
+        "production_pool": false,
+        "recovery": {
+          "bottom_miss_support": "outer_sump",
+          "bottom_retry_via": [
+            "outer_recovery_step",
+            "outer_root"
+          ],
+          "inner_miss_support": "inner_root",
+          "native_verified": false,
+          "outer_miss_support": "outer_root",
+          "safe_retry": "R",
+          "sump_retry_via": [
+            "trunk_below_window",
+            "outer_recovery_step",
+            "outer_root"
+          ]
+        },
+        "return_style": "deep_zeroR",
+        "spawn": [
+          -245.0,
+          -318.0
+        ],
+        "version": "forest-hollow-horizontal-cavity-v1",
+        "windows": [
+          {
+            "anchor_id": "upper_window_ring",
+            "clear_rect": [
+              210.0,
+              -94.0,
+              120.0,
+              70.0
+            ],
+            "from": "M",
+            "id": "upper_window",
+            "to": "E"
+          },
+          {
+            "anchor_id": "lower_window_ring",
+            "clear_rect": [
+              210.0,
+              140.0,
+              120.0,
+              280.0
+            ],
+            "from": "R",
+            "id": "lower_window",
+            "to": "D"
+          },
+          {
+            "anchor_id": "cavity_ring_a",
+            "clear_rect": [
+              -220.0,
+              -410.0,
+              550.0,
+              110.0
+            ],
+            "from": "S",
+            "id": "cavity",
+            "to": "C"
+          }
+        ],
+        "world_bounds": [
+          -510.0,
+          -570.0,
+          1220.0,
+          1100.0
+        ]
+      },
+      "translation": [
+        600.0,
+        600.0
+      ]
+    }
+  ],
+  "hook_anchors": [
+    {
+      "id": "hollow__upper_window_ring",
+      "position": [
+        800.0,
+        560.0
+      ]
+    },
+    {
+      "id": "hollow__lower_window_ring",
+      "position": [
+        720.0,
+        755.0
+      ]
+    },
+    {
+      "id": "hollow__cavity_ring_a",
+      "position": [
+        565.0,
+        250.0
+      ]
+    },
+    {
+      "id": "hollow__cavity_ring_b",
+      "position": [
+        930.0,
+        250.0
+      ]
+    },
+    {
+      "id": "west_gap_ring",
+      "position": [
+        300.0,
+        530.0
+      ]
+    },
+    {
+      "id": "north_court_ring",
+      "position": [
+        300.0,
+        350.0
+      ]
+    },
+    {
+      "id": "crown_approach_ring_0",
+      "position": [
+        1380.0,
+        192.0
+      ]
+    },
+    {
+      "id": "A",
+      "position": [
+        1748.0,
+        240.0
+      ]
+    },
+    {
+      "id": "B",
+      "position": [
+        1908.0,
+        190.0
+      ]
+    },
+    {
+      "id": "low_recovery",
+      "position": [
+        1683.0,
+        430.0
+      ]
+    }
+  ],
+  "layout_id": "clearing_shared_node",
+  "layout_version": "shared-tree-canopy-hunt-v10",
+  "loop_sharing": {
+    "crosslink_endpoints": [
+      "S",
+      "E"
+    ],
+    "kind": "shared_node",
+    "nodes": [
+      "M"
+    ]
+  },
+  "macro_loops": {
+    "borer_reward": [
+      "belly_borer_access",
+      "borer_crossing",
+      "borer_cache",
+      "cache_crown_exit",
+      "lower_in",
+      "inner_recovery"
+    ],
+    "left": [
+      "west_north",
+      "north_belly",
+      "belly_to_west"
+    ],
+    "right": [
+      "upper_out",
+      "lower_in",
+      "inner_recovery"
+    ]
+  },
+  "manifest_hash": "e344e0c9c0042018fa5aa3925c7c35745f354ab1a8c5f0d5b0dd096814bd021c",
+  "map_index": 2,
+  "merchant_id": "root_camp",
+  "merchant_position": [
+    200.0,
+    450.0
+  ],
+  "nodes": [
+    {
+      "id": "forest_v2",
+      "mirrored": false
+    }
+  ],
+  "pickups": [
+    {
+      "amount": 1,
+      "id": "camp_heart",
+      "kind": "heart",
+      "position": [
+        165.0,
+        445.0
+      ]
+    }
+  ],
+  "platforms": [
+    {
+      "id": "hollow__belly_entry",
+      "one_way": false,
+      "rect": [
+        520.0,
+        618.0,
+        160.0,
+        60.0
+      ]
+    },
+    {
+      "id": "hollow__belly_roof_upper",
+      "one_way": false,
+      "rect": [
+        380.0,
+        80.0,
+        430.0,
+        90.0
+      ]
+    },
+    {
+      "id": "hollow__belly_roof",
+      "one_way": false,
+      "rect": [
+        380.0,
+        324.0,
+        430.0,
+        166.0
+      ]
+    },
+    {
+      "id": "hollow__trunk_upper_cap",
+      "one_way": false,
+      "rect": [
+        810.0,
+        80.0,
+        120.0,
+        90.0
+      ]
+    },
+    {
+      "id": "hollow__trunk_above_window",
+      "one_way": false,
+      "rect": [
+        810.0,
+        324.0,
+        120.0,
+        182.0
+      ]
+    },
+    {
+      "id": "hollow__trunk_between_windows",
+      "one_way": false,
+      "rect": [
+        810.0,
+        576.0,
+        120.0,
+        164.0
+      ]
+    },
+    {
+      "id": "hollow__trunk_below_window",
+      "one_way": false,
+      "rect": [
+        810.0,
+        1020.0,
+        120.0,
+        70.0
+      ]
+    },
+    {
+      "id": "hollow__outer_crown",
+      "one_way": true,
+      "rect": [
+        930.0,
+        576.0,
+        270.0,
+        24.0
+      ]
+    },
+    {
+      "id": "hollow__inner_root",
+      "one_way": false,
+      "rect": [
+        290.0,
+        820.0,
+        500.0,
+        40.0
+      ]
+    },
+    {
+      "id": "hollow__outer_root",
+      "one_way": false,
+      "rect": [
+        950.0,
+        900.0,
+        350.0,
+        40.0
+      ]
+    },
+    {
+      "id": "hollow__outer_sump",
+      "one_way": false,
+      "rect": [
+        930.0,
+        1060.0,
+        370.0,
+        30.0
+      ]
+    },
+    {
+      "id": "hollow__outer_recovery_step",
+      "one_way": true,
+      "rect": [
+        870.0,
+        950.0,
+        60.0,
+        16.0
+      ]
+    },
+    {
+      "id": "hollow__inner_recovery_step",
+      "one_way": true,
+      "rect": [
+        295.0,
+        718.0,
+        65.0,
+        20.0
+      ]
+    },
+    {
+      "id": "hollow__cavity_observe",
+      "one_way": true,
+      "rect": [
+        250.0,
+        300.0,
+        130.0,
+        24.0
+      ]
+    },
+    {
+      "id": "hollow__cavity_bay",
+      "one_way": true,
+      "rect": [
+        640.0,
+        300.0,
+        130.0,
+        24.0
+      ]
+    },
+    {
+      "id": "hollow__cavity_exit",
+      "one_way": true,
+      "rect": [
+        930.0,
+        300.0,
+        270.0,
+        24.0
+      ]
+    },
+    {
+      "id": "hollow__cavity_right_step",
+      "one_way": true,
+      "rect": [
+        1210.0,
+        200.0,
+        90.0,
+        20.0
+      ]
+    },
+    {
+      "id": "hollow__cavity_right_upper",
+      "one_way": true,
+      "rect": [
+        1060.0,
+        110.0,
+        110.0,
+        20.0
+      ]
+    },
+    {
+      "id": "hollow__cavity_roof_step",
+      "one_way": true,
+      "rect": [
+        950.0,
+        100.0,
+        100.0,
+        20.0
+      ]
+    },
+    {
+      "id": "hollow__cavity_left_step",
+      "one_way": true,
+      "rect": [
+        130.0,
+        200.0,
+        120.0,
+        20.0
+      ]
+    },
+    {
+      "id": "hollow__cavity_left_upper",
+      "one_way": true,
+      "rect": [
+        240.0,
+        110.0,
+        120.0,
+        20.0
+      ]
+    },
+    {
+      "id": "hollow__belly_west",
+      "one_way": false,
+      "rect": [
+        380.0,
+        618.0,
+        100.0,
+        60.0
+      ]
+    },
+    {
+      "id": "borer_access_low",
+      "one_way": true,
+      "rect": [
+        250.0,
+        500.0,
+        130.0,
+        20.0
+      ]
+    },
+    {
+      "id": "borer_access_middle",
+      "one_way": true,
+      "rect": [
+        300.0,
+        400.0,
+        130.0,
+        20.0
+      ]
+    },
+    {
+      "id": "west_court",
+      "one_way": true,
+      "rect": [
+        40.0,
+        618.0,
+        260.0,
+        28.0
+      ]
+    },
+    {
+      "id": "north_court",
+      "one_way": true,
+      "rect": [
+        60.0,
+        468.0,
+        220.0,
+        24.0
+      ]
+    },
+    {
+      "id": "inner_reward_branch",
+      "one_way": true,
+      "rect": [
+        400.0,
+        738.0,
+        240.0,
+        20.0
+      ]
+    },
+    {
+      "id": "boss_approach",
+      "one_way": true,
+      "rect": [
+        1176.0,
+        300.0,
+        284.0,
+        24.0
+      ]
+    },
+    {
+      "id": "crown_reward_rest",
+      "one_way": true,
+      "rect": [
+        1176.0,
+        576.0,
+        284.0,
+        24.0
+      ]
+    },
+    {
+      "id": "floor",
+      "one_way": false,
+      "rect": [
+        1508.0,
+        540.0,
+        560.0,
+        36.0
+      ]
+    },
+    {
+      "id": "central_rib",
+      "one_way": false,
+      "rect": [
+        1508.0,
+        300.0,
+        100.0,
+        240.0
+      ]
+    },
+    {
+      "id": "right_rib",
+      "one_way": false,
+      "rect": [
+        1758.0,
+        200.0,
+        50.0,
+        340.0
+      ]
+    },
+    {
+      "id": "right_bank",
+      "one_way": false,
+      "rect": [
+        1828.0,
+        500.0,
+        240.0,
+        76.0
+      ]
+    },
+    {
+      "id": "canopy",
+      "one_way": false,
+      "rect": [
+        1508.0,
+        -40.0,
+        560.0,
+        40.0
+      ]
+    },
+    {
+      "id": "canopy_entry",
+      "one_way": false,
+      "rect": [
+        1436.0,
+        300.0,
+        96.0,
+        24.0
+      ]
+    }
+  ],
+  "player_tuning_hash": "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058",
+  "production_pool": false,
+  "region": "thorn_forest",
+  "requires": [
+    "grapple"
+  ],
+  "rewards": [
+    {
+      "admission": "new_reward_geometry_unverified",
+      "area": "cache",
+      "claimed": false,
+      "coins": 18,
+      "crosslink": "S_C_E_shared_loop",
+      "id": "clearing_cross_loop_cache",
+      "items": [
+        "region_health_purple",
+        "region_damage_purple"
+      ],
+      "position": [
+        1100.0,
+        282.0
+      ],
+      "resources": [
+        {
+          "amount": 18,
+          "kind": "coin"
+        },
+        {
+          "amount": 2,
+          "kind": "note"
+        }
+      ],
+      "reward_mode": "item_resource",
+      "tier": "high"
+    }
+  ],
+  "routes": {
+    "borer": [
+      "arrival_reading",
+      "west_to_belly",
+      "belly_borer_access",
+      "borer_crossing",
+      "cavity_prep",
+      "crown_approach"
+    ],
+    "change_mind": [
+      "arrival_reading",
+      "west_to_belly",
+      "belly_borer_access",
+      "borer_crossing",
+      "borer_crown_descent",
+      "lower_in",
+      "inner_recovery",
+      "belly_to_west",
+      "west_north",
+      "camp_north_out"
+    ],
+    "fast": [
+      "arrival_reading",
+      "west_to_belly",
+      "belly_borer_access",
+      "borer_crossing",
+      "cavity_prep",
+      "crown_approach"
+    ],
+    "growth": [
+      "arrival_reading",
+      "west_north",
+      "camp_north_out",
+      "camp_north_back",
+      "north_borer_access",
+      "borer_crossing",
+      "borer_cache",
+      "cache_borer_back",
+      "cavity_prep",
+      "crown_approach"
+    ],
+    "high_return": [
+      "arrival_reading",
+      "west_to_belly",
+      "belly_borer_access",
+      "borer_crossing",
+      "borer_cache",
+      "cache_crown_exit",
+      "lower_in",
+      "inner_recovery",
+      "belly_to_west",
+      "west_north",
+      "camp_north_out"
+    ]
+  },
+  "seed": "version-canopy-current",
+  "shop": {
+    "item": "health_blue",
+    "price": 5,
+    "stock": 1
+  },
+  "shot_latch_plan": {
+    "latches": [],
+    "version": 1
+  },
+  "spawn": [
+    180.0,
+    600.0
+  ],
+  "stream_positions": {
+    "content": 1,
+    "topology": 5
+  },
+  "streams": {
+    "content": "forest_ecology",
+    "topology": "forest_topology",
+    "version": "thorn-forest-region-v2"
+  },
+  "terminal_exits": [],
+  "topology_signature": "C>E:drop_through|C>cache:walk|C>prep:walk|D>M:hollow_recovery|E>D:hollow_lower|E>R:drop_through|M>D:drop|M>E:hollow_upper|M>S:ordinary_sequence|M>W:ordinary_sequence|N>M:ordinary_sequence|N>S:ordinary_sequence|N>camp:walk|R>D:hollow_outer_recovery|R>E:hollow_live_return|S>C:hollow_cavity|S>M:drop_through|W>M:ordinary_sequence|W>N:candidate_hook_relay|arrival>W:walk|cache>C:walk|cache>E:drop_through|camp>N:walk|gate_ready>boss:walk|prep>gate_ready:gate_hook;spawn=[180.0, 600.0]",
+  "traversal_hash": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+  "version": "thorn-forest-region-v2",
+  "vine_gate": {
+    "id": "crown_vine",
+    "key_anchor": "crown_approach_ring_0",
+    "rect": [
+      1456.0,
+      -220.0,
+      16.0,
+      556.0
+    ]
+  },
+  "world_bounds": [
+    -160.0,
+    -240.0,
+    2428.0,
+    1530.0
+  ]
+}

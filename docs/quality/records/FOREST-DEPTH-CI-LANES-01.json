@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "task_id": "FOREST-DEPTH-CI-LANES-01",
+  "task_type": "small_fix",
+  "workflow": "review",
+  "baseline_commit": "5e61afa6233018125ef0fb1d23129d7bc9522f9c",
+  "reviewed_commit": "5ec5e9e3b45bf0ff158c76e8d74f7002837a6b67",
+  "content_version": "harness-ci-lanes-bounded-v1",
+  "owner": "/root",
+  "purpose": "Split unchanged fresh CI checks across bounded machines and strictly verify complete same-source lane evidence.",
+  "player_experience": "Infrastructure-only review; no game quality, human/device, browser, fun or commercial approval.",
+  "constraints": [
+    "Original85 checks partition67/18; all commands/per-check caps and five serial-only appended checks retained.",
+    "Original C symlink failure/REVISE and all prior CI/browser failures preserved.",
+    "C2 review signs infrastructure only; no CI execution result or whole-region completion inferred."
+  ],
+  "affected_paths": [
+    "tools/harness.py",
+    "tests/test_harness.py",
+    ".github/workflows/environment.yml",
+    "docs/quality/records/FOREST-DEPTH-CI-LANES-01.json"
+  ],
+  "deliverables": [
+    "Exact C2 source/author/independent-review packet plus original C REVISE.",
+    "Bounded two-lane workflow with strict same-source full-coverage/log verification; actual new CI remains pending."
+  ],
+  "creative_decisions": [
+    {
+      "status": "not_required",
+      "decision": "No new creative/gameplay design is approved by this infrastructure fix.",
+      "basis": "Checks, physics, input and subjective content contracts are unchanged."
+    }
+  ],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "No whole-source CI/content approval by this infrastructure record.",
+      "evidence": []
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "Outside this infrastructure small_fix; no G5 or human acceptance.",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "Outside this infrastructure small_fix; no G5 or human acceptance.",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "Outside this infrastructure small_fix; no G5 or human acceptance.",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "No whole-source CI/content approval by this infrastructure record.",
+      "evidence": []
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "Outside this infrastructure small_fix; no G5 or human acceptance.",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Bounded infrastructure scope; new CI/content acceptance pending.",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Bounded infrastructure scope; new CI/content acceptance pending.",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "Bounded infrastructure scope; new CI/content acceptance pending.",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "Bounded infrastructure scope; new CI/content acceptance pending.",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "Bounded infrastructure scope; new CI/content acceptance pending.",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "Bounded infrastructure scope; new CI/content acceptance pending.",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "Bounded infrastructure scope; new CI/content acceptance pending.",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "Bounded infrastructure scope; new CI/content acceptance pending.",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Actual C2 independent ACCEPT, limited to CI infrastructure; no whole acceptance.",
+      "evidence": [
+        "bounded-ci-lanes-review"
+      ]
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "Bounded infrastructure scope; new CI/content acceptance pending.",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "not_applicable",
+      "reason": "Bounded infrastructure scope; new CI/content acceptance pending.",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "bounded-ci-lanes-infrastructure",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "status": "passed",
+      "reason": "Actual source-bound C2 infrastructure review only.",
+      "evidence": [
+        "bounded-ci-lanes-review"
+      ],
+      "scenario": "Two fresh lanes report the exact original selected85 checks under original budgets.",
+      "method": "Independent actual source/log/path/coverage contracts and filesystem negatives, not a fake full CI report.",
+      "expected": "Disjoint complete67/18 coverage and exact source/argv/cap/log identity; symlink ancestors rejected.",
+      "failure": "Mixed/partial/reused evidence accepted, weakened original checks, or content/CI overclaim invalidates scope."
+    }
+  ],
+  "evidence": [
+    {
+      "id": "bounded-ci-lanes-review",
+      "kind": "review",
+      "path": "docs/evidence/forest_depth_v2/ci_lanes01/c2_closure01/independent-C2/REVIEW.md",
+      "sha256": "6dd35594202dffc20c66243855dad63cd69617613fd70e087188ef43abc3e194",
+      "producer": "/root/forest_acceptance_inventory",
+      "source_commit": "5ec5e9e3b45bf0ff158c76e8d74f7002837a6b67",
+      "content_version": "harness-ci-lanes-bounded-v1",
+      "method": "Different-author exact immutable source/coverage/strict report-log identity and real path-negative audit; original C failure retained.",
+      "observed": "Actual independent result: ACCEPT. Scope is infrastructure only; no new CI/native/browser/game approval.",
+      "verdict": "ACCEPT",
+      "reported_verdict": "ACCEPT",
+      "reviewer": "/root/forest_acceptance_inventory",
+      "independent": true,
+      "implementers": [
+        "/root",
+        "/root/forest_progression",
+        "/root/forest_runtime_review"
+      ],
+      "independence_basis": "Reviewer is distinct from all implementation/integration authors; actual supplied C2 report is source-bound."
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "New CI execution/build/public result remains pending; script does not dispatch.",
+    "Original0cf readerFAIL and browser4FAIL/rootcause unproven remain preserved.",
+    "Parent overallREVISE/G0failure and user-facing quality defects remain; no fun/device/commercial acceptance."
+  ],
+  "test_change_justification": "Only existing Harness phase/provenance/path handling, workflow split and added bounded infrastructure tests; original default run_check/execute_checks/25 unit AST and85 checks/5 appendices/caps retained by actual independent review. Original C actual symlink acceptance stays REVISE; no original assertion is relaxed. C2 result is bounded infrastructure only, new CI pending."
+}

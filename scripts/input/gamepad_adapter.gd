@@ -18,9 +18,11 @@ var _context_blocked := false
 var _skill_blocked := false
 var _hook_held := false
 var _hook_blocked := false
+var _hook_direction := Vector2.ZERO
 
 func _ready() -> void:
 	router.cancelled.connect(_cancel)
+	router.device_changed.connect(_device_changed)
 	Input.joy_connection_changed.connect(_connection_changed)
 
 func _physics_process(_delta: float) -> void:
@@ -71,18 +73,43 @@ func sample_tick(raw_left: Vector2, raw_right: Vector2, jump_pressed: bool = fal
 		router.activate_device(&"gamepad");router.request_action(&"weapon_skill",_world_direction(right) if active_right else router.skill_direction())
 		state=AimState.WAIT_NEUTRAL
 	_context_held=context_pressed;_skill_held=skill_pressed
-	if router.grapple_available:
-		if not hook_pressed: _hook_blocked = false
-		if hook_pressed and not _hook_held and not _hook_blocked:
-			router.activate_device(&"gamepad")
-			router.aim_mode = &"grapple"
-			router.request_action(&"grapple",_world_direction(right) if active_right else Vector2.ZERO)
-			state = AimState.WAIT_NEUTRAL
-		_hook_held = hook_pressed
-		if hook_pressed:
-			router.set_aim(&"gamepad",_world_direction(right) if active_right else Vector2.ZERO,false)
-			return
-		elif router.aim_mode == &"grapple": router.aim_mode = &"attack"
+	if _hook_blocked:
+		if hook_pressed: return
+		_hook_blocked = false
+		state = AimState.WAIT_NEUTRAL
+		_center_ticks = 0
+	if hook_pressed and not _hook_held and not _hook_blocked and router.grapple_available:
+		router.activate_device(&"gamepad")
+		_hook_direction = _world_direction(right) if active_right else Vector2.ZERO
+		router.cancel_actions_for(&"shoot_release")
+		state = AimState.WAIT_NEUTRAL
+		_arm_ticks = 0
+		_center_ticks = 0
+		last_valid_direction = Vector2.ZERO
+	if hook_pressed and not _hook_blocked and router.grapple_available:
+		_hook_held = true
+		if active_right: _hook_direction = _world_direction(right)
+		router.aim_mode = &"grapple"
+		router.set_aim(&"gamepad", _hook_direction, true)
+		return
+	if not hook_pressed and _hook_held:
+		_hook_held = false
+		if not _hook_blocked and router.grapple_available:
+			if active_right: _hook_direction = _world_direction(right)
+			router.request_action(&"grapple", _hook_direction)
+		_hook_direction = Vector2.ZERO
+		router.aim_mode = &"attack"
+		router.set_aim(&"gamepad", Vector2.ZERO, false)
+		# Require a fresh neutral stick after H; centering its aim must not shoot.
+		state = AimState.WAIT_NEUTRAL
+		_center_ticks = 0
+	if not hook_pressed: _hook_blocked = false
+	if _hook_held and not router.grapple_available:
+		_hook_blocked = hook_pressed
+		_hook_held = false
+		_hook_direction = Vector2.ZERO
+		router.aim_mode = &"attack"
+		router.set_aim(&"gamepad", Vector2.ZERO, false)
 	var centered := right.length() <= float(profile.values.right_exit_deadzone)
 	match state:
 		AimState.WAIT_NEUTRAL:
@@ -129,6 +156,7 @@ func _cancel(_reason: String) -> void:
 	_skill_blocked=_skill_blocked or _skill_held
 	_hook_blocked = _hook_blocked or _hook_held
 	_hook_held = false
+	_hook_direction = Vector2.ZERO
 	state = AimState.WAIT_NEUTRAL
 	last_valid_direction = Vector2.ZERO
 	_arm_ticks = 0
@@ -141,3 +169,17 @@ func _connection_changed(device: int, connected: bool) -> void:
 	if not connected and device == connected_device:
 		connected_device = -1
 		router.clear("gamepad_disconnected")
+
+func _device_changed(source: StringName) -> void:
+	if source == &"gamepad": return
+	# Device ownership cancels aiming but leaves independent jump holds intact.
+	_hook_blocked = _hook_blocked or _hook_held
+	_hook_held = false
+	_hook_direction = Vector2.ZERO
+	state = AimState.WAIT_NEUTRAL
+	last_valid_direction = Vector2.ZERO
+	_arm_ticks = 0
+	_center_ticks = 0
+	router.cancel_actions_for(&"shoot_release")
+	router.cancel_actions_for(&"grapple")
+	router.aim_mode = &"attack"

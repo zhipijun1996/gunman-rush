@@ -95,7 +95,9 @@ func physics_tick(delta: float) -> void:
 	var dropped := false
 	for action: Dictionary in actions:
 		if action.type == &"jump":
-			if not traversal.busy() and not shoot_ability.behavior().locks_movement(): jump_ability.request_jump()
+			if not shoot_ability.behavior().locks_movement():
+				if not traversal.release_hang_for_jump() and not traversal.busy():
+					jump_ability.request_jump()
 		elif action.type == &"jump_release":
 			jump_ability.release_jump(motor)
 		elif action.type == &"drop_through":
@@ -119,7 +121,7 @@ func physics_tick(delta: float) -> void:
 		if action.type == &"weapon_context": shoot_ability.behavior().context()
 		elif action.type == &"weapon_skill" and not traversal.busy() and not weapon_locked:
 			shoot_ability.behavior().begin(action.direction if not action.direction.is_zero_approx() else Vector2.UP,started_grounded,true)
-	if shoot_ability.weapon.mode==WeaponDefinition.Mode.LASER and router.aim_engaged and not traversal.busy() and not weapon_locked and not shoot_ability.behavior().occupied() and not shoot_ability.behavior()._beam_require_release and shoot_ability.cooldown_remaining<=0:
+	if shoot_ability.weapon.mode==WeaponDefinition.Mode.LASER and router.aim_mode==&"attack" and router.aim_engaged and not traversal.busy() and not weapon_locked and not shoot_ability.behavior().occupied() and not shoot_ability.behavior()._beam_require_release and shoot_ability.cooldown_remaining<=0:
 		shoot_ability.try_fire(router.aim_direction,started_grounded)
 	jump_ability.update_hold(delta, motor)
 	var requested_recoil := motor.recoil_velocity

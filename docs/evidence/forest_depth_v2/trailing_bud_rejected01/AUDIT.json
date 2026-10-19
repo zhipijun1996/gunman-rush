@@ -1,0 +1,169 @@
+{
+  "status": "REVISE",
+  "scope": "independent read-only actual dirty prototype; not physical impossibility proof or content approval",
+  "batch_before_head": "fb2c310659a17355c3544d90cf05785b55653a8b",
+  "source_binding": {
+    "scripts/bosses/thorn_queen_canopy_encounter.gd": {
+      "sha256": "407dcfcc845bffc6bde04c0e749ea0f5aadc37821c3145b5a24b71838e5dead4",
+      "matches_batch_before": true
+    },
+    "scripts/bosses/thorn_queen_canopy_definition.gd": {
+      "sha256": "dd043d8471780f86f02afff775f2302ba716c5fd443f74e9f2630c20aba0736a",
+      "matches_batch_before": true
+    },
+    "scripts/bosses/thorn_queen_canopy_presentation.gd": {
+      "sha256": "85ec1ff283e795570f3dcd77a5c19edb4ed81e5a197fcad14f04055c43e964a0",
+      "matches_batch_before": true
+    },
+    "scripts/bosses/thorn_queen_trailing_bud.gd": {
+      "sha256": "8b765a883808d2721a3d76775379eea61540885ff8b7a5a6733886f5bebddeb6",
+      "matches_batch_before": true
+    },
+    "tests/thorn_queen_canopy_trailing_bud_runner.gd": {
+      "sha256": "1282b85f43a31edca60e0b62ca43dc568a2d1b27254a0e1293571954ce74bb11",
+      "matches_batch_before": true
+    },
+    "tests/thorn_queen_canopy_runner.gd": {
+      "sha256": "f396b74e6b9ecd6f400a5e436e617dc52f6366c789d01c495eadd62486fa2be1",
+      "matches_batch_before": true
+    },
+    "tests/support/forest_queen_canopy_fixture.gd": {
+      "sha256": "6f3db7a7d08bf3987e120a1c60eb17be33301166aff931553167bf06f5be01f8",
+      "matches_batch_before": true
+    },
+    "tools/run_thorn_queen_canopy.py": {
+      "sha256": "81836b7662eb8c0361403e756476040be826f17abae1320c19b4b9645660df82",
+      "matches_batch_before": true
+    },
+    "resources/player/traversal.tres": {
+      "sha256": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+      "matches_batch_before": true
+    },
+    "scripts/player/traversal_ability.gd": {
+      "sha256": "d30033d4f07566c6a6917b8d82407f5cbef5e873415e59082ddf844880ddb4ea",
+      "matches_batch_before": true
+    },
+    "scripts/damage/demo_contact_emitter.gd": {
+      "sha256": "060d418317b86c30ca3e3dc7ca90a9a8679c2933a7f56caf6b487fafa2281709",
+      "matches_batch_before": true
+    },
+    "resources/bosses/thorn_queen_canopy.tres": {
+      "sha256": "bbf920724f95209f89fdd5b117c2f6a8344941336cb2e0287258edf77c00aca6",
+      "matches_batch_before": true
+    }
+  },
+  "all_selected_current_bytes_match_actual_batch": true,
+  "actual_165_prefix_equal_except_case": true,
+  "cases": {
+    "trailing-bud-purpose02": {
+      "raw_sha256": "4df0c939fd8736ffc7c750fdd6de8f9ff8aaa6385107bf056a697340696fb566",
+      "receipt_sha256": "ea79c8d1e1f4266744c7adf68a0fda39ec26d27466843ec8326f8b719253c2a3",
+      "original_passed": false,
+      "source_guard": true,
+      "verifier_guard": true,
+      "source_before_after_equal": true,
+      "assertions": 18,
+      "failures": [
+        "trailing_bud/selected one real trailing contact/kick/shot or unchanged fixed control",
+        "trailing_bud/full24HP actual fight and support12 recovery",
+        "trailing_bud/all24 actual Boss Policy commits"
+      ],
+      "summary": {
+        "boss_hp": 17.0,
+        "energy": 80.0,
+        "id": "trailing_bud",
+        "initial_boss_hp": 24.0,
+        "initial_energy": 100.0,
+        "initial_player_hp": 5.0,
+        "kill_tick": -1.0,
+        "player_hp": 5.0,
+        "support12": 0.0,
+        "ticks": 285.0,
+        "trail_arrival": -1.0,
+        "trail_contact": -1.0,
+        "trail_kick": -1.0,
+        "trail_shot": -1.0
+      },
+      "all_ticks_continuous": true,
+      "all_oneMotor": false,
+      "minimum_range_in_first120_after_common": [
+        244.13136856579757,
+        258.0
+      ],
+      "trailing_cast_count": 0,
+      "actual_damage_types": {
+        "projectile": 7
+      },
+      "boss_policy_count": 7,
+      "player_policy": [],
+      "bud_body_min_separation": [
+        33.37880611175872,
+        189.0,
+        [
+          476.71533203125,
+          277.938537597656
+        ],
+        [
+          486.000122070312,
+          310.0
+        ]
+      ],
+      "all_no_body_grapple_group": true,
+      "all_no_body_protection": true,
+      "all_bud_nondamageable": true
+    },
+    "trailing-bud-fixed-control02": {
+      "raw_sha256": "086eaf2fb5e7715b61739dd9ddf2ad4e97d06a527d7e7033ee0d66d1ec98e12a",
+      "receipt_sha256": "9ea3b1567d9b17c069ff5dc34fc1915b1d9d51dae9d2d292189b08d2cce92105",
+      "original_passed": true,
+      "source_guard": true,
+      "verifier_guard": true,
+      "source_before_after_equal": true,
+      "assertions": 19,
+      "failures": [],
+      "summary": {
+        "boss_hp": 0.0,
+        "energy": 100.0,
+        "id": "trailing_fixed_control",
+        "initial_boss_hp": 24.0,
+        "initial_energy": 100.0,
+        "initial_player_hp": 5.0,
+        "kill_tick": 935.0,
+        "player_hp": 5.0,
+        "support12": 12.0,
+        "ticks": 946.0,
+        "trail_arrival": -1.0,
+        "trail_contact": -1.0,
+        "trail_kick": -1.0,
+        "trail_shot": -1.0
+      },
+      "all_ticks_continuous": true,
+      "all_oneMotor": false,
+      "minimum_range_in_first120_after_common": [
+        224.75763576013262,
+        263.0
+      ],
+      "trailing_cast_count": 0,
+      "actual_damage_types": {
+        "projectile": 24
+      },
+      "boss_policy_count": 24,
+      "player_policy": [],
+      "bud_body_min_separation": [
+        0.0,
+        561.0,
+        [
+          486.0,
+          110.0
+        ],
+        [
+          486.0,
+          110.0
+        ]
+      ],
+      "all_no_body_grapple_group": true,
+      "all_no_body_protection": true,
+      "all_bud_nondamageable": true
+    }
+  }
+}

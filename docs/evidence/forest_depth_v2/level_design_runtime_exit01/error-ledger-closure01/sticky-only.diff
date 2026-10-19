@@ -1,0 +1,8 @@
+--- before
++++ after
+@@ -87,4 +87,4 @@
+ 	finish_code(0 if failures.is_empty() else 1)
+ 
+ func finish_code(code: int) -> void:
+-	exit_code=code
++	exit_code=maxi(exit_code,code)

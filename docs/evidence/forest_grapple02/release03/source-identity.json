@@ -1,0 +1,52 @@
+{
+  "source_commit": "93c202568d154e37b1d57de1e08ba0c42820e828",
+  "selected_run": 39207127333,
+  "attempt": 1,
+  "production_comparisons": [
+    {
+      "baseline": "7ba2e92d2c3cb5449ac6648b820f79679548ee89",
+      "final": "93c202568d154e37b1d57de1e08ba0c42820e828",
+      "argv": [
+        "git",
+        "diff",
+        "--name-status",
+        "7ba2e92d2c3cb5449ac6648b820f79679548ee89",
+        "93c202568d154e37b1d57de1e08ba0c42820e828",
+        "--",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "stdout": "production-S1-S3-diff.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "production_diff_paths": []
+    },
+    {
+      "baseline": "6adc5ff30515d7adaf598d5bbba0268d42af44f4",
+      "final": "93c202568d154e37b1d57de1e08ba0c42820e828",
+      "argv": [
+        "git",
+        "diff",
+        "--name-status",
+        "6adc5ff30515d7adaf598d5bbba0268d42af44f4",
+        "93c202568d154e37b1d57de1e08ba0c42820e828",
+        "--",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "stdout": "production-S2-S3-diff.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "production_diff_paths": []
+    }
+  ],
+  "scope": "Git production-byte identity only; declared test inputs differ; no fresh native identity inferred"
+}

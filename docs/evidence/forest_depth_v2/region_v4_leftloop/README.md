@@ -1,0 +1,9 @@
+# Actual final-map approach and left camp loop, v4
+
+Pinned experimental v2, base0dd1fba0 plus declared dirty runtime overlay. Default remains v1. Selected source inventories bind this exact snapshot; later unused candidate retirement, enemies, default promotion and final release need their own proof.
+
+The first v4 batch passed both map2 fast approaches, then failed cache0 growth through real accumulated death. Its graph forced repeated trips to D720 before camp360 and back across the same root sentry; the original death and subsequent freed-stage observer ERROR are retained. Production now includes the physically existing W→camp drop and camp→M two-jump recovery, while preserving deep D routes and all enemies/damage/Player parameters. The observer now reports actual_run_ended before reading a freed stage; death remains failure.
+
+Fresh root02/map2 growth then original16/16 strictly passed:88.265 seconds total, continuous real Motor, actual pointer claims/modal pause/idempotence and persistent gate. New horizontal cavity occurs on7/16 routes (v3:2/16), including both map2 fast approaches. Two map2 change_mind routes actually stand at C and choose the lower return instead of the forward Boss approach. These are scripted decisions, not evidence of human discovery. Lowest finalHP2; cache0 growth1280 frames endsHP4 after two real damage events and reward recovery.
+
+The archive3.22MB contains86 regular members/85 indexed originals: previous v4 death and errors, new focused case/all16 raw logs, full source manifests, selected producers, observer delta and exact resource/coverage audit. No full media/native dependency project or AVI is supplied. This does not establish purposeful enemy engagement, all-seed variety, complete Queen combat, normal-speed exploration film, player/device/commercial quality or final source approval.

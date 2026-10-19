@@ -1,0 +1,13 @@
+# Trailing-bud prototype stopped: rejected
+
+Independent02 **REVISE** and03 **DROP** are preserved as separate decisions. Current120px trailing-bud direction is stopped and unadmitted; this does not prove that moving anchors or a led shot are physically impossible.
+
+01 both CLI attempts failed compilation before physics. Explicit `var bud_ref: WeakRef =` fixes nullable inference; exact before/after hashes and inverse-body proof are retained. No gameplay result is inferred from01 import success.
+
+02 purpose285 frames/Q17/HP5/E80 was FAIL: no cast, no contact/kick/shot, no kill or support12.120 recorded opportunities were all rejected beforeLOS by the driver distance gate; removing descent alone was insufficient. Fixed-control strictPASS killed full24HP at935 and reached support12 at946, HP5/E100. It includes common fixed-anchorH; it is not a zeroH or strongest ordinary benchmark.
+
+03 purpose actually requested at258, accepted cast259, flew263 and missed272; no trailing contact/kick/shot, Q18/HP5/E80,18assertions/3FAIL. This driver used immediate aim without target lead, so the miss is not a proof of physical impossibility. Same-source fixed-control again19/0, killed935/recovered946, HP5/E100. Independent supplement still DROP: no demonstrated safe arrival/exit or new decision value warrants further expansion. These are bounded real results, not a native whole-region certification.
+
+Actual cleanup commit `6b1320073f98060d44754502a674185f987ad50a` records the removal. After sealing actual03, the runtime author restored five consumer/production paths and the original Canopy runner byte-for-byte to `0cf4aa5816c735fdd6e83bfb95d8ee0f70d129ee`, and deleted live whole-body/trailing experiment GD/UID files. Exact `cleanup-receipt.json`, patches and historical source are inside the archive. Restoring those files does not restore whole-source CI status or endorse current v10 quality. The old mobile-anchor packet, CI/browser failures and limited reader/C2 reviews remain unchanged. A possible root11 exploration golden is separate future work, not this evidence or an approved default.
+
+`inventory.json` binds111 outer ZIP members and all927 nested actual03 source TAR members, each decompressed and SHA256 rechecked. `originals.zip` includes exact original01–03 native/import/raw/receipts, selected pre/post-fix source, complete03 text source archive, cleanup and independent reviews. No caches or movies are included. ZIP member names retain original build paths; nested TAR members map directly to `sealed-source-inventory.json`. Original failures are never relabeled as later passes.

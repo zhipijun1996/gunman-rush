@@ -1,0 +1,414 @@
+{
+  "schema": 1,
+  "scope": "read-only follow-up of actual publicGUI02 and independently reviewed additive OCR ROI; original release/GUI01 review not overwritten",
+  "conclusion": "ACCEPT_LIMITED_PUBLIC_GUI20_AND_TECHNICAL_IDENTITY",
+  "overall_experience": "REVISE",
+  "reviewer": "forest_expedition_compat_audit",
+  "game_source": "5a9f4bdaf846a635eb2659080d563b865758ab87",
+  "build_id": "5fd40a31c4be",
+  "pack_sha256": "5fd40a31c4be5282534775dc3026007f8dbbcfb964f5363c07266b52cb590de1",
+  "url": "https://zhipijun1996.github.io/gunman-rush/?v=5fd40a31c4be",
+  "public_gui02": {
+    "status": "passed",
+    "checks": 20,
+    "cases": 8,
+    "identities": 8,
+    "actual_events": 16,
+    "console_errors": [],
+    "producer_process_exit_code": {
+      "parent_observed": 0,
+      "independent_terminal_stdout_matches_full_report": true
+    },
+    "scope": "mouse and emulated DOM touch actual debug entries/pause/resume, both regions and maps; forest actual H-only/v11/Boss identities"
+  },
+  "original_gui01": {
+    "status": "failed",
+    "completed_checks": 11,
+    "report_sha256": "311c4cb41f53c7d8c95a5aaa3e09f7cf6399a11fdbb32ac35b1af3bd2b643143",
+    "failure": "Actual MENU text not found in original canvas or enlarged HUD pixels",
+    "not_rewritten_or_reclassified": true
+  },
+  "tool_change": {
+    "path": "tools/verify_forest_browser.py",
+    "old_sha256": "eef8ca2727f085ad3f6f40a30ca5e594895f73d383fe320cd6df21ce163f2c23",
+    "new_sha256": "07691b5cab72035a68f94d246df320eed5bd57a9f0babe072e5b957544790478",
+    "inverse_original_whole_script_exact": true,
+    "one_added_normalized_crop": true,
+    "original_budget_seconds": 480,
+    "independent_ROI_controls": 5,
+    "negative_controls_all_rejected": true,
+    "old47_files_retention": "attested by separate ROI reviewer before/after inventory; this followup directly verifies original report and actual failure image SHA plus47file count"
+  },
+  "runtime_binding": {
+    "paths": 2096,
+    "only_current_difference": [
+      "tools/verify_forest_browser.py"
+    ],
+    "game_directories_project_unchanged": true,
+    "new_tool_not_retroactively_certified_by_oldCI": true
+  },
+  "retained_limits": {
+    "exact_original_zip_bytes_not_read": true,
+    "exact_original_exported_package_browser72": "UNVERIFIED/not executed",
+    "artifact_zip_bytes": 0,
+    "publisher_live_verified": false,
+    "whole_browser_exploration": "UNVERIFIED",
+    "natural_reward_next_region_GUI": "UNVERIFIED",
+    "physical_devices": "UNVERIFIED",
+    "pod_region_value": "UNVERIFIED",
+    "QueenH_core_value": "UNVERIFIED",
+    "greybox_art": "REVISE",
+    "human_fun_feel_listening": "UNVERIFIED",
+    "commercial_quality": "NOT_PASSED"
+  },
+  "source_references": {
+    "final-delivery-review.json": {
+      "sha256": "baf0c502beddfd7a8f18edaf577e08850eb835269c6c22a13940e2a77cc04085",
+      "bytes": 17592
+    },
+    "public-forest01/report.json": {
+      "sha256": "311c4cb41f53c7d8c95a5aaa3e09f7cf6399a11fdbb32ac35b1af3bd2b643143",
+      "bytes": 7799
+    },
+    "public-forest02/report.json": {
+      "sha256": "27174a385a93de72afba75cacaf3b9cd771625c1fd1e9d3942b0a16195d901c3",
+      "bytes": 12098
+    },
+    "browser-roi-source-binding.json": {
+      "sha256": "adce5b0ab64770b2152d2c3bfc606185a37d3ff1b3b12473d4adba12498ff1fa",
+      "bytes": 563
+    },
+    "menu-roi-review.json": {
+      "sha256": "c2bf60f712fc9ecbd8157136859fc9c75cfc1f9b33d61375cd547f4aa8bd5aea",
+      "bytes": 4705
+    },
+    "public-forest02.log": {
+      "sha256": "5f9a3ddccff9008be3d940c11861f0d9edeedd0a466b1d4c3ce3b7beaa5d72af",
+      "bytes": 10306
+    },
+    "terminal-run-api.json": {
+      "sha256": "aef034325fa5a5f286477c49cd2d5edbcfe098f86ebdbad7d8c41cdb4b4403dd",
+      "bytes": 13128
+    },
+    "public-build-info.json": {
+      "sha256": "d5caca860c796af5b25441a94ac93e1f0608a5742e5478ba59deea549e459384",
+      "bytes": 395
+    },
+    "public-pack-verification.log": {
+      "sha256": "4e6b35b06ed0e5ee5e078e5521869d958aeb253ce40fc92ccdaf11364e43b63e",
+      "bytes": 164
+    }
+  },
+  "checks": [
+    {
+      "check": "original first failure report SHA and previous review unchanged",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "second actual full report terminal PASS/no errors",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "second final process stdout is same complete successful report",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "all20 expected unique check labels and8 cases",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual PNG evidence touch-plains-map1/entry.png",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual PNG evidence touch-plains-map1/pause-0.png",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual PNG evidence touch-plains-map1/resumed.png",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual PNG evidence touch-plains-map2/entry.png",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual PNG evidence touch-plains-map2/pause-0.png",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual PNG evidence touch-plains-map2/resumed.png",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual PNG evidence touch-thorn_forest-map1/entry.png",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual PNG evidence touch-thorn_forest-map1/pause-0.png",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual PNG evidence touch-thorn_forest-map1/resumed.png",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual PNG evidence touch-thorn_forest-map2/entry.png",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual PNG evidence touch-thorn_forest-map2/pause-0.png",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual PNG evidence touch-thorn_forest-map2/resumed.png",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual PNG evidence mouse-plains-map1/entry.png",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual PNG evidence mouse-plains-map1/pause-0.png",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual PNG evidence mouse-plains-map1/resumed.png",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual PNG evidence mouse-plains-map2/entry.png",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual PNG evidence mouse-plains-map2/pause-0.png",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual PNG evidence mouse-plains-map2/resumed.png",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual PNG evidence mouse-thorn_forest-map1/entry.png",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual PNG evidence mouse-thorn_forest-map1/pause-0.png",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual PNG evidence mouse-thorn_forest-map1/resumed.png",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual PNG evidence mouse-thorn_forest-map2/entry.png",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual PNG evidence mouse-thorn_forest-map2/pause-0.png",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual PNG evidence mouse-thorn_forest-map2/resumed.png",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "exact original case/check ordering, no substituted case",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual/expected public game source build fullPCK identity",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "loaded exact PCK/source identity touch-plains-map1",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "loaded exact PCK/source identity touch-plains-map2",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "loaded exact PCK/source identity touch-thorn_forest-map1",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "loaded exact PCK/source identity touch-thorn_forest-map2",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "loaded exact PCK/source identity mouse-plains-map1",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "loaded exact PCK/source identity mouse-plains-map2",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "loaded exact PCK/source identity mouse-thorn_forest-map1",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "loaded exact PCK/source identity mouse-thorn_forest-map2",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "exact actual entry/assembled events touch/plains/1",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "exact actual entry/assembled events touch/plains/2",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "exact actual entry/assembled events touch/thorn_forest/1",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual forest H-only/layout/Boss touch/1",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "exact actual entry/assembled events touch/thorn_forest/2",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual forest H-only/layout/Boss touch/2",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "exact actual entry/assembled events mouse/plains/1",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "exact actual entry/assembled events mouse/plains/2",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "exact actual entry/assembled events mouse/thorn_forest/1",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual forest H-only/layout/Boss mouse/1",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "exact actual entry/assembled events mouse/thorn_forest/2",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual forest H-only/layout/Boss mouse/2",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "current browser tool matches independently reviewed source hashes",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "only single added normalized HUD crop, full original script inverse exact",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "original480 timeout retained",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "independent actual-image ROI review limited ACCEPT",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "five independently executed negative controls all refused",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "old screenshot fails and new actual glyph-center succeeds",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "original failure image SHA intact and47files retention attested",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual game remains5a; current2096 differs only reviewed tool",
+      "passed": true,
+      "facts": [
+        "tools/verify_forest_browser.py"
+      ]
+    },
+    {
+      "check": "same selected CI and public verifier source/PCK build as reviewed first release",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "ZIP0/publisher incomplete boundary preserved",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "human devices/natural progression/full browser route remain unverified",
+      "passed": true,
+      "facts": null
+    }
+  ],
+  "engine_or_browser_reexecuted_by_reviewer": false,
+  "production_docs_quality_modified": false,
+  "finished_utc": "2026-10-18T21:03:09.625896+00:00"
+}

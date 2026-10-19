@@ -1,0 +1,198 @@
+{
+  "scope": "independent reader mutation test on actual full native capture, no engine run",
+  "capture_path": "build/forest_grapple02/migrant_hollow05/00-map2-growth/capture.json",
+  "capture_sha256": "d1f99b78546739ae9e04a571e9087dbd8651ef147635414e4fb46c96277910ef",
+  "native_failures": [],
+  "positive_errors": [],
+  "negatives": [
+    {
+      "kind": "missing_aperture_tag",
+      "errors": [
+        "leg_11_air_chain_exact_return_aperture_derivation"
+      ],
+      "rejected": true
+    },
+    {
+      "kind": "fake_aperture_tag",
+      "errors": [
+        "leg_11_air_chain_exact_return_aperture_derivation"
+      ],
+      "rejected": true
+    },
+    {
+      "kind": "coherent_upper_cut",
+      "errors": [
+        "leg_11_air_chain_exact_return_aperture_derivation",
+        "leg_11_air_chain_local_geometry_not_current_factory",
+        "leg_11_air_chain_translated_actual_platform",
+        "leg_28_crossbranch_return_aperture_identity"
+      ],
+      "rejected": true
+    },
+    {
+      "kind": "coherent_lower_cut",
+      "errors": [
+        "leg_11_air_chain_exact_return_aperture_derivation",
+        "leg_11_air_chain_local_geometry_not_current_factory",
+        "leg_11_air_chain_translated_actual_platform",
+        "leg_28_crossbranch_return_aperture_identity"
+      ],
+      "rejected": true
+    },
+    {
+      "kind": "missing_lower_mapping",
+      "errors": [
+        "leg_11_air_chain_exact_platform_mapping",
+        "leg_11_air_chain_translated_actual_platform"
+      ],
+      "rejected": true
+    },
+    {
+      "kind": "wrong_aperture_instance",
+      "errors": [
+        "leg_3_air_chain_unexpected_return_aperture"
+      ],
+      "rejected": true
+    },
+    {
+      "kind": "no_west_reward",
+      "errors": [
+        "leg_11_air_chain_unexpected_return_aperture",
+        "leg_11_air_chain_local_geometry_not_current_factory",
+        "leg_11_air_chain_exact_platform_mapping",
+        "leg_11_air_chain_translated_actual_platform",
+        "leg_13_air_chain_unexpected_receiver_derivation",
+        "leg_13_air_chain_local_geometry_not_current_factory",
+        "leg_13_air_chain_translated_actual_platform",
+        "leg_13_air_chain_actual_port_contract",
+        "leg_28_crossbranch_unexpected_return_via"
+      ],
+      "rejected": true
+    },
+    {
+      "kind": "coherent_via_metadata",
+      "errors": [
+        "leg_28_crossbranch_exact_return_via"
+      ],
+      "rejected": true
+    },
+    {
+      "kind": "coherent_via_path",
+      "errors": [
+        "leg_28_crossbranch_exact_return_via"
+      ],
+      "rejected": true
+    },
+    {
+      "kind": "missing_arrival",
+      "errors": [
+        "leg_28_crossbranch_return_via_events"
+      ],
+      "rejected": true
+    },
+    {
+      "kind": "missing_drop_event",
+      "errors": [
+        "leg_28_crossbranch_return_via_events"
+      ],
+      "rejected": true
+    },
+    {
+      "kind": "drop_not_queued",
+      "errors": [
+        "leg_28_crossbranch_return_actual_drop_request"
+      ],
+      "rejected": true
+    },
+    {
+      "kind": "drop_wrong_router_type",
+      "errors": [
+        "leg_28_crossbranch_return_actual_drop_request"
+      ],
+      "rejected": true
+    },
+    {
+      "kind": "eleven_via_support_frames",
+      "errors": [
+        "leg_28_crossbranch_return_via_twelve_support"
+      ],
+      "rejected": true
+    },
+    {
+      "kind": "no_three_actual_fall_frames",
+      "errors": [
+        "leg_28_crossbranch_return_real_oneway_descent"
+      ],
+      "rejected": true
+    },
+    {
+      "kind": "extra_H_during_fall",
+      "errors": [
+        "leg_28_crossbranch_return_real_oneway_descent",
+        "H_not_actual_router_request"
+      ],
+      "rejected": true
+    },
+    {
+      "kind": "body_above_hollow",
+      "errors": [
+        "leg_28_crossbranch_return_full_body_through_hollow"
+      ],
+      "rejected": true
+    },
+    {
+      "kind": "missing_through_frames",
+      "errors": [
+        "leg_28_crossbranch_return_full_body_through_hollow"
+      ],
+      "rejected": true
+    },
+    {
+      "kind": "extra_R_during_walk",
+      "errors": [
+        "leg_28_crossbranch_return_hollow_walk_no_extra_actions",
+        "shot_not_actual_router_request"
+      ],
+      "rejected": true
+    },
+    {
+      "kind": "missing_W_final_support",
+      "errors": [
+        "leg_28_full_body_support_window",
+        "leg_28_crossbranch_full_receiving_shore"
+      ],
+      "rejected": true
+    },
+    {
+      "kind": "eleven_lower_support_frames",
+      "errors": [
+        "leg_28_crossbranch_actual_lower_twelve_support"
+      ],
+      "rejected": true
+    },
+    {
+      "kind": "eleven_step1_support_frames",
+      "errors": [
+        "leg_28_crossbranch_actual_step1_twelve_support"
+      ],
+      "rejected": true
+    }
+  ],
+  "source_sha256": {
+    "scripts/generation/forest_vertical_expedition.gd": "8c7b6d4a5ecc9df89d9bb0743be80cfe78b734d187cfd47e3d1277e6a19108e8",
+    "tools/run_forest_depth_region.py": "3762457151ac8c2a5b1e84c005e9d11c1ca163576b609a3d711a7ccc90e07ede",
+    "tests/forest_depth_region_trace.gd": "a592cf48ba431742ccef3dc9a16f23ccfe75bd4fb9ccb1733032a3bf2a427add"
+  },
+  "verdict": "ACCEPT",
+  "actual_summary": {
+    "frames": 2825,
+    "completed_legs": 40,
+    "total_legs": 40,
+    "initial_health": 5.0,
+    "final_health": 5.0,
+    "receipt_status": "passed",
+    "source_stable": true,
+    "receipt_sha256": "3168e4c3c046752787e951b50b46e67430a577019d076fd710f69d48c2d56791",
+    "reviewed_sources_match_actual_receipt": true
+  }
+}

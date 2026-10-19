@@ -1,0 +1,23 @@
+extends SceneTree
+func _initialize() -> void: run_probe.call_deferred()
+func run_probe() -> void:
+	var helper_path := ""
+	var output_path := ""
+	for argument: String in OS.get_cmdline_user_args():
+		if argument.begins_with("--helper="): helper_path=argument.trim_prefix("--helper=")
+		if argument.begins_with("--output="): output_path=argument.trim_prefix("--output=")
+	var script: Script=load(helper_path)
+	var capture: Node=script.new()
+	root.add_child(capture)
+	capture.output=output_path
+	capture.report={"scope":"direct real save_report I/O diagnostic; no world/actor/route instantiated"}
+	capture.save_report()
+	var saved_code: int=capture.exit_code
+	capture.finish_code(0)
+	var final_code: int=capture.exit_code
+	var capture_ref: WeakRef=weakref(capture)
+	capture.free()
+	capture=null
+	script=null
+	print("CAPTURE ERROR LEDGER ",JSON.stringify({"helper":helper_path,"output":output_path,"output_is_directory":DirAccess.dir_exists_absolute(ProjectSettings.globalize_path(output_path)),"code_after_save_report":saved_code,"code_after_finish_zero":final_code,"owner_released":capture_ref.get_ref()==null}))
+	quit(final_code if capture_ref.get_ref()==null else 3)

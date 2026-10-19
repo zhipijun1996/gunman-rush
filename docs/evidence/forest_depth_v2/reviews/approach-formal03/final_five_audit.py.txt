@@ -1,0 +1,32 @@
+from pathlib import Path
+import json,hashlib,sys,copy,importlib.util
+ROOT=Path(__file__).resolve().parents[4];outdir=ROOT/'build/forest_depth/independent/approach-formal03';s=ROOT/'build/forest_depth/snapshots/ecology_harness05';p=s/'build/forest_depth/ecology/expedition/ecology_harness05';sys.path.insert(0,str(s/'tools'));import run_forest_depth_enemies as reader
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
+rec=json.loads((p/'receipt.json').read_text());out={'scope':'Fresh five native originals, independent offline full readers; native not rerun','receipt':str((p/'receipt.json').relative_to(ROOT)),'receipt_sha':sha(p/'receipt.json'),'source_before_after_equal':rec['source_before']==rec['source_after'],'source_current_matches':all((s/k).is_file() and sha(s/k)==h for k,h in rec['source_before'].items()),'source_count':len(rec['source_before']),'new_reader_sha':sha(s/'tools/run_forest_depth_enemies.py'),'base_reader_sha':sha(s/'tools/run_forest_depth_region.py'),'cases':{},'mutants':[]}
+files=[p/'00-alive_lift/capture.json',p/'01-jump_two_R/capture.json']+sorted((p/'upper_approach').glob('*/capture.json'));prefixes=[];live=None
+for f in files:
+ d=json.loads(f.read_text());upper='approach_' in d.get('ecology_strategy','');fn=reader.validate_formal_choice if upper else reader.validate_expedition
+ try:fn(d);ver={'accepted':True}
+ except Exception as e:ver={'accepted':False,'error':str(e)}
+ fs=d['frames'];begin=d['ecology_started'] if upper else d['lift_started'];end=d['ecology_finished'] if upper else d['lift_finished'];key=d['ecology_strategy'] if upper else d['lift_strategy'];by={x['tick']:x for x in fs}
+ q={'raw':str(f.relative_to(ROOT)),'sha':sha(f),'frames':len(fs),'continuous_single_motor':all(x['tick']==i+1 and x['motor_steps']==1 for i,x in enumerate(fs)),**ver,'choice_begin':begin,'choice_end':end,'choice_ticks':end-begin,'entry':d['ecology_entry'] if upper else d['lift_entry'],'exit':d['ecology_exit'] if upper else d['lift_exit'],'final':d['final_snapshot'],'actor_epochs':sorted(set(x['actor_epoch'] for x in fs)),'stage_epochs':sorted(set(x['stage_epoch'] for x in fs)),'damage':[e for e in d['events'] if e['kind']=='committed_damage']}
+ if upper:
+  sig={'entry':d['ecology_entry'],'frames':[{k:x[k] for k in ('position','health','energy','shots','enemies')} for x in fs if x['tick']<begin],'requests':[r for r in d['requests'] if r['tick']<begin]};prefixes.append(sig);q['prefix_sha']=hashlib.sha256(json.dumps(sig,sort_keys=True).encode()).hexdigest();q['prefix_frames']=len(sig['frames']);q['prefix_requests']=len(sig['requests'])
+ if key=='approach_live_jump':live=d
+ out['cases'][key]=q
+out['all_three_upper_prefixes_exact']=prefixes[0]==prefixes[1]==prefixes[2]
+# Original0313 meaningful controls, repeated because the baseline role contract changed.
+def frame(d,t):return next(f for f in d['frames'] if f['tick']==t)
+def event(d,k):return next(e for e in d['events'] if e['kind']==k)
+controls=[('R_start_zero',lambda d:frame(d,535).update(approach_burst_remaining=0)),('R_end_not_zero',lambda d:frame(d,543).update(approach_burst_remaining=.01)),('gate_H_early',lambda d:event(d,'approach_gate_H_request').update(tick=543)),('not_first_free',lambda d:event(d,'approach_first_free_R_request').update(tick=536)),('free_hidden',lambda d:frame(d,534).update(approach_H_state='hook_kick')),('body_deleted',lambda d:d.update(events=[e for e in d['events'] if e['kind']!='approach_actual_body_arrival'])),('stale_actor',lambda d:frame(d,520).update(approach_actor_epoch=2)),('canonical_forged',lambda d:next(r for r in d['requests'] if r['tick']==503).update(aim=[0,1])),('prefix_frame_deleted',lambda d:d.update(frames=[f for f in d['frames'] if f['tick']!=481])),('free_energy_cost',lambda d:event(d,'approach_first_free_R_request').update(shot_cost=0)),('duplicate_head',lambda d:d['events'].append(copy.deepcopy(event(d,'approach_actual_head_contact')))),('premotor_deleted',lambda d:next(r for r in d['requests'] if r['tick']==333).pop('body_before'))]
+def credit(d):
+ f=frame(d,520);k=next(k for k in f['combat_hit_packets'] if '/hook/' in k);f['combat_hit_packets'][k]=100
+controls.append(('fake_combat_credit',credit))
+for name,fn in controls:
+ d=copy.deepcopy(live);fn(d)
+ try:reader.validate_formal_choice(d);v={'accepted':True}
+ except Exception as e:v={'accepted':False,'error':str(e)}
+ out['mutants'].append({'name':name,**v})
+(outdir/'final-five-audit.json').write_text(json.dumps(out,indent=2)+'\n')
+for k,v in out['cases'].items():print(k,v['accepted'],v['frames'],v['final']['health'],v['final']['energy'])
+print('prefixexact',out['all_three_upper_prefixes_exact'],'controlsreject',sum(not x['accepted'] for x in out['mutants']),'sourceguard',out['source_before_after_equal'],out['source_current_matches'])

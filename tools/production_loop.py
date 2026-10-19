@@ -74,6 +74,8 @@ def validate(m):
             raise ValueError("Tasks must be topologically ordered; unknown/cyclic dependency")
         if not t.get("read_only", False) and not t.get("quality_record"):
             raise ValueError("Production task must name its quality record")
+        if "mechanism_review" in t and type(t["mechanism_review"]) is not bool:
+            raise ValueError("mechanism_review must be an explicit boolean")
         completion = t.get("completion", "scope" if t.get("read_only") else "content")
         if completion not in {"scope", "stage", "content"} or (completion == "scope" and not t.get("read_only")):
             raise ValueError("Scope completion is read-only; production requires stage or content")
@@ -144,11 +146,18 @@ def required_input_preflight(task):
     warnings = []
     uncertain = []
 
+    lexical_paths = {}
+    relative_names = {}
+
     def file_state(name):
-        path = ROOT / name
+        key = (ROOT, name)
+        if key not in lexical_paths:
+            path = ROOT / name
+            lexical_paths[key] = (path, tuple(parent for parent in [path, *path.parents]
+                                              if parent == ROOT or parent.is_relative_to(ROOT)))
+        path, parents = lexical_paths[key]
         try:
-            if any(parent.is_symlink() for parent in [path, *path.parents]
-                   if parent == ROOT or parent.is_relative_to(ROOT)):
+            if any(parent.is_symlink() for parent in parents):
                 return "symlink_input"
             path.stat()
             if not path.is_file():
@@ -166,11 +175,13 @@ def required_input_preflight(task):
             return
         # Preserve the Git index identity before touching the filesystem. resolve
         # would erase a broken/external symlink from the tracked dependency set.
-        path = Path(os.path.abspath(ROOT / name))
-        if path.is_relative_to(ROOT):
-            relative = path.relative_to(ROOT).as_posix()
-            if relative in tracked:
-                required.setdefault(relative, set()).add(source)
+        key = (ROOT, name)
+        if key not in relative_names:
+            path = Path(os.path.abspath(ROOT / name))
+            relative_names[key] = path.relative_to(ROOT).as_posix() if path.is_relative_to(ROOT) else None
+        relative = relative_names[key]
+        if relative in tracked:
+            required.setdefault(relative, set()).add(source)
 
     def json_index(name):
         require(name, "selected quality index")
@@ -720,6 +731,11 @@ def check_task_quality(task):
         return {"scope_complete": True, "content_complete": False, "completion": completion}
     record = quality.read_json(quality.local_file(ROOT, task["quality_record"]))
     acceptance = quality.validate_record(record, root=ROOT)
+    if task.get("mechanism_review", False):
+        from level_design_contracts import validate_mechanism_comparisons
+        problems = validate_mechanism_comparisons(record)
+        acceptance["errors"].extend(problems)
+        if problems: acceptance["task_complete"] = False
     if task.get("region_proof"):
         validate_region_production_proof, source_files, engine_log_matches = current_region_validation()
         contract = task["region_proof"]

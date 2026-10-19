@@ -1,0 +1,38 @@
+from pathlib import Path
+import json,hashlib,gzip,subprocess,shutil
+R=Path.cwd();O=R/'docs/evidence/forest_depth_v2/layout_replay01';assert not O.exists();O.mkdir(parents=True);S=R/'build/forest_depth/snapshots/forest-layout-replay01';D=S/'build/forest_depth/versions/layout-replay01';REV=R/'build/independent/layout-replay01';members=[];inputs={}
+sha=lambda b:hashlib.sha256(b).hexdigest()
+def put(source,target,compress=False,scope='exact retained source'):
+ source=Path(source);b=source.read_bytes();inputs[str(source)]=sha(b);out=O/target;out.parent.mkdir(parents=True,exist_ok=True);stored=gzip.compress(b,mtime=0)if compress else b;out.write_bytes(stored);members.append({'path':target,'bytes':len(stored),'sha256':sha(stored),'original_path':str(source.relative_to(R)),'original_bytes':len(b),'original_sha256':sha(b),'encoding':'gzip'if compress else'identity','scope':scope})
+for name in ['capture.json','native.log','import.log','receipt.json']:put(D/name,'native/'+name+('.gz'if name=='capture.json'else''),name=='capture.json','Actual original native126/0; original reader/outer FAIL, not current-reader execution')
+for name in ['receipt.json','offline-current-reader.json','offline-reader-identity-delta.json']:
+ q=R/'build/forest_depth/root/layout-replay01'/name
+ if q.exists():put(q,'host/'+name)
+put(S/'build/snapshot-receipt.json','snapshot/full-2063-snapshot-receipt.json')
+inv=json.loads((S/'build/snapshot-receipt.json').read_text())['source_files'];(O/'snapshot/full-2063-source-inventory.json').write_text(json.dumps(inv,indent=2)+'\n')
+for p in [REV/'REVIEW.md',REV/'review.json',REV/'audit.py',REV/'frozen-source-and-fixture-proof.json',REV/'new-identity-mutants.json',REV/'production-tracked.diff']:
+ if p.exists():put(p,'independent/source-review/'+p.name,'', 'Original bounded source review and initial reader REVISE')
+for sub in ['source','reader-delta02','reader-delta03']:
+ for p in sorted((REV/sub).rglob('*')):
+  if p.is_file():put(p,'independent/'+sub+'/'+str(p.relative_to(REV/sub)),False,'Exact original independent scope; earlier REVISE retained, delta03 bounded CONTINUE')
+# Old fixture inputs from the original frozen native snapshot; new expected fixture is the exact reviewed offline delta artifact.
+for name in ['v7_root00_map2.json','v9_root00_map2_before_north.json']:put(S/'tests/fixtures/forest_recorded_layouts'/name,'tests/fixtures/forest_recorded_layouts/'+name)
+put(REV/'reader-delta03/expected_canopy_v10.json.txt','tests/fixtures/forest_recorded_layouts/expected_canopy_v10.json',False,'Fixed actual native new-case manifest, offline value comparison only')
+prov=R/'tests/fixtures/forest_recorded_layouts/provenance.json';pr=json.loads(prov.read_text());put(prov,'tests/fixtures/forest_recorded_layouts/provenance.json')
+for key,name in [('v7_root00_map2','old-v7-capture.json.gz'),('v9_root00_map2_before_north','old-v9-capture.json.gz')]:
+ row=pr[key];src=R/row['original_capture'];assert sha(src.read_bytes())==row['original_capture_sha256'];put(src,'raw-originals/'+name,True,'Original actual Motor capture solely for entire old fixture manifest provenance')
+# Complete source inventory is recorded; this is a selected textual producer package, not a runnable whole-game snapshot.
+selected=['tests/forest_depth_version_runner.gd','tests/forest_depth_version_case.gd','tools/run_forest_depth_versions.py','scripts/generation/thorn_forest_region_generator.gd','scripts/generation/thorn_forest_region_v2.gd','scripts/generation/thorn_forest_region_v2_v7.gd','scripts/generation/thorn_forest_region_v2_v9.gd','scripts/generation/forest_boss_arena_factory.gd','scripts/demo/demo_app.gd','scripts/demo/thorn_forest_region_stage.gd','scripts/run/run_manifest.gd','scripts/bosses/thorn_queen_canopy_definition.gd','scripts/bosses/thorn_queen_canopy_encounter.gd','resources/bosses/thorn_queen_canopy.tres','scenes/bosses/thorn_queen_canopy.tscn']
+for p in selected:
+ src=S/p
+ if src.is_file():assert sha(src.read_bytes())==inv[p];put(src,'native-source/'+p+'.txt',False,'Exact native source context, not whole new Queen content approval')
+for ref,label in [('9fdf7fad08550ea0da46b59ef7126fa721571f28','v7-S'),('dd214ddec4394758d3d3efb71d604b86b7fdb7a3','v9-dd')]:
+ p='scripts/generation/thorn_forest_region_v2.gd';b=subprocess.check_output(['git','show',ref+':'+p]);q=O/'git-source'/f'{label}.gd.txt';q.parent.mkdir(exist_ok=True);q.write_bytes(b);members.append({'path':str(q.relative_to(O)),'sha256':sha(b),'bytes':len(b),'original_git':ref+':'+p,'encoding':'identity'})
+assert all(sha(Path(p).read_bytes())==h for p,h in inputs.items())
+# Independent stored and decompressed-byte verification before indexing.
+for row in members:
+ b=(O/row['path']).read_bytes();assert len(b)==row['bytes']and sha(b)==row['sha256']
+ if row['encoding']=='gzip':assert len(gzip.decompress(b))==row['original_bytes']and sha(gzip.decompress(b))==row['original_sha256']
+(O/'members.json').write_text(json.dumps({'scope':'Selected actual native FAIL plus offline fixed-case source review; no cache/full assets','files':members},indent=2)+'\n')
+(O/'promotion-receipt.json').write_text(json.dumps({'status':'EXACT_SELECTED_COPY_VERIFIED','source_inputs_unchanged':True,'source_input_count':len(inputs),'members_indexed':len(members),'members_sha256':sha((O/'members.json').read_bytes()),'snapshot_source_inventory_count':len(inv),'original_outer_exit_code':json.loads((R/'build/forest_depth/root/layout-replay01/receipt.json').read_text())['exit_code'],'scope':'Native126/0 original outerFAIL remains FAIL; readerdelta03 bounded fixed-case offline CONTINUE only; no new native invocation','native_run':False,'reviewed_reader_sha256':sha((REV/'reader-delta03/reader.py.txt').read_bytes())},indent=2)+'\n')
+print(O,len(members),sum(p.stat().st_size for p in O.rglob('*')if p.is_file()))

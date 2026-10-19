@@ -1,0 +1,26 @@
+{
+  "scope": "Exact target command development validation, NOT Harness full profile",
+  "snapshot": "/workspace/gunman-rush-design/build/forest_depth/snapshots/level_capability_uidprep01",
+  "checks": [
+    {
+      "name": "cold-import",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--path",
+        ".",
+        "--editor",
+        "--quit"
+      ],
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "elapsed_seconds": 26.88380664899887,
+      "strict_log_clean": true,
+      "success_pattern_found": true,
+      "source_guard": false,
+      "log_sha256": "bc6c0ec9294e4bf2cb72b5a10414d6351c90bf43a9d58a48ae1243d0601158ef"
+    }
+  ],
+  "passed": false
+}

@@ -1,0 +1,547 @@
+{
+  "schema": 1,
+  "scope": "independent read-only CI/API/log/public identity/documentation/runtime-film binding review; NOT direct unread artifact ZIP audit or player/device/fun acceptance",
+  "reviewer": "forest_expedition_compat_audit",
+  "conclusion": "ACCEPT_LIMITED_CI_AND_DEPLOYMENT_EVIDENCE_WITH_GUI_FAILURE",
+  "overall_experience": "REVISE",
+  "game_source": "5a9f4bdaf846a635eb2659080d563b865758ab87",
+  "documentation_head": "c5d841fdf1596263064c74c82d79557efa3d79b1",
+  "build_id": "5fd40a31c4be",
+  "url": "https://zhipijun1996.github.io/gunman-rush/?v=5fd40a31c4be",
+  "selected_run": {
+    "id": 39160856629,
+    "attempt": 1,
+    "head_sha": "5a9f4bdaf846a635eb2659080d563b865758ab87",
+    "conclusion": "success",
+    "html_url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/39160856629"
+  },
+  "jobs": [
+    {
+      "id": 117773672109,
+      "name": "prepare",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 117774296298,
+      "name": "web",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 117774296322,
+      "name": "core_checks (serial)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 117774296332,
+      "name": "windows",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 117774296363,
+      "name": "core_checks (parallel)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 117785560743,
+      "name": "core",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 117785939338,
+      "name": "deploy_web",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 117785940357,
+      "name": "android",
+      "status": "completed",
+      "conclusion": "skipped"
+    },
+    {
+      "id": 117786019263,
+      "name": "verify_public",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "lane_pass_names": {
+    "parallel": [
+      "docs",
+      "world",
+      "world-design-tests",
+      "structure",
+      "harness-tests",
+      "quality-drills",
+      "quality-tests",
+      "quality",
+      "core",
+      "generated-consumers",
+      "region",
+      "production-loop-tests",
+      "quality-review-engine",
+      "terrain-tile-tests",
+      "terrain-production",
+      "consumer-coverage-tests",
+      "wood-platforms",
+      "actor-actions",
+      "all-weapons",
+      "studio-input",
+      "weapon-feel",
+      "action-budget",
+      "capture-tests",
+      "level-design-contracts",
+      "mechanism-comparisons",
+      "level-design-analysis",
+      "level-design-routing",
+      "level-design-golden-tests",
+      "level-region-context",
+      "level-experience",
+      "level-formal-receipts",
+      "plains-action-golden",
+      "plains-redesign-golden",
+      "visual-director-tests",
+      "visual-director-space",
+      "directed-space-tests",
+      "root-bell-tests",
+      "root-bell-spaces",
+      "root-bell-ecology",
+      "connected-family-tests",
+      "forest-depth-guardian",
+      "forest-depth-guardian-tolerance",
+      "forest-depth-enemies",
+      "forest-depth-versions",
+      "forest-depth-restore",
+      "forest-depth-queen",
+      "forest-depth-cavity",
+      "forest-depth-cavity-controls",
+      "forest-depth-region",
+      "forest-depth-campaign-guardian",
+      "forest-depth-campaign-queen",
+      "forest-depth-ecology-expedition",
+      "forest-depth-root-entry",
+      "forest-depth-crossbranch-lifecycle",
+      "forest-depth-queen-canopy",
+      "forest-depth-campaign-canopy",
+      "forest-air-chain",
+      "art-art",
+      "art-painterly_pack",
+      "art-plains_v3",
+      "art-meadow_enemy_art",
+      "art-plains_ground_art",
+      "art-windkeeper_art",
+      "art-plains_spatial_art",
+      "art-plains_item_art",
+      "web-resource-contract-tests",
+      "runtime-raw-export-tests",
+      "asset-family-tests"
+    ],
+    "serial": [
+      "environment",
+      "level-design-runtime",
+      "level-design-golden",
+      "level-formal-runtime",
+      "plains-autonomy-golden",
+      "plains-redesign-spatial",
+      "plains-experience-golden",
+      "plains-encounter-policy",
+      "plains-redesign-scene",
+      "terrain-family-tests",
+      "forest-h-slice",
+      "forest-ecology",
+      "forest-progression",
+      "forest-campaign",
+      "forest-debug",
+      "forest-traversal",
+      "forest-region-matrix",
+      "forest-formal-combat"
+    ]
+  },
+  "lane_artifact_audit_limit": "API/log inspected; original artifact ZIPs unavailable locally, no direct merged-report/each stdout digest reconstruction claimed",
+  "forest600_ci_stdout_timestamps": [
+    "2026-10-18T20:32:21.7759258Z",
+    "2026-10-18T20:42:07.9549680Z"
+  ],
+  "forest600_ci_timing_scope": "stdout interval about586.179s; not independently decoded inner per-case/native duration",
+  "old_local600": "actual600.135s timeout retained; new CI success is a separate execution, not retroactive PASS",
+  "public_verification": {
+    "metadata": {
+      "build_id": "5fd40a31c4be",
+      "pack": "index.5fd40a31c4be.pck",
+      "engine_id": "d20938d2db49",
+      "cache_schema": 2,
+      "loader_id": "9d0ada5274bd",
+      "pack_bytes": 90357852,
+      "download_bytes": 94481515,
+      "chunk_bytes": 524288,
+      "wasm_bytes": 37902138,
+      "wasm_gzip_bytes": 10027646,
+      "jump": "tap/hold",
+      "playtest": "web",
+      "source_commit": "5a9f4bdaf846a635eb2659080d563b865758ab87"
+    },
+    "local_original_verifier": {
+      "status": "passed",
+      "build_id": "5fd40a31c4be",
+      "source_commit": "5a9f4bdaf846a635eb2659080d563b865758ab87",
+      "url": "https://zhipijun1996.github.io/gunman-rush/"
+    },
+    "browser_pack_sha256": "5fd40a31c4be5282534775dc3026007f8dbbcfb964f5363c07266b52cb590de1"
+  },
+  "web_artifact": {
+    "id": 12148549445,
+    "declared_bytes": 199235434,
+    "api_declared_digest": "sha256:36c6de0ec6fa1d765f969be2bd6cf6c394008a462088b18a456d866a6dc821a6",
+    "local_zip_bytes": 0,
+    "local_zip_digest_verified": false,
+    "original_ci_package_browser72_tested": false
+  },
+  "publisher": {
+    "phase": "waiting_ci",
+    "ci_status": "completed",
+    "ci_conclusion": "success",
+    "live_verified": false,
+    "last_error_kind": "permission_or_policy",
+    "status_note": "incomplete publisher checkpoint, deployment occurred via successful selected CI; never call publisher verified"
+  },
+  "documentation_runs": {
+    "docs-pr-run.json": {
+      "id": 39160851552,
+      "head_sha": "5a9f4bdaf846a635eb2659080d563b865758ab87",
+      "run_attempt": 1,
+      "status": "completed",
+      "conclusion": "failure"
+    },
+    "docs-push-run.json": {
+      "id": 39160846575,
+      "head_sha": "5a9f4bdaf846a635eb2659080d563b865758ab87",
+      "run_attempt": 1,
+      "status": "completed",
+      "conclusion": "success"
+    },
+    "docs-fixed-pr-run.json": {
+      "id": 39162037730,
+      "head_sha": "c5d841fdf1596263064c74c82d79557efa3d79b1",
+      "run_attempt": 1,
+      "status": "completed",
+      "conclusion": "success"
+    },
+    "docs-fixed-push-run.json": {
+      "id": 39162032876,
+      "head_sha": "c5d841fdf1596263064c74c82d79557efa3d79b1",
+      "run_attempt": 1,
+      "status": "completed",
+      "conclusion": "success"
+    }
+  },
+  "runtime_binding": {
+    "paths": 2096,
+    "exact_current_and_movie_inventory_match": false,
+    "current_tool_differences": [
+      "tools/verify_forest_browser.py"
+    ],
+    "game_directories_project_unchanged": true,
+    "exact_original_movie_runtime_committed_Game_Git_blobs_modes": true,
+    "current_tool_patch_does_not_retroactively_get_original_CI_validation": true
+  },
+  "movies": [
+    {
+      "receipt_member": "runtime-worktree/build/forest_feedback/movies01-map1/receipt.json",
+      "status": "passed",
+      "source_stable": true,
+      "runs": [
+        {
+          "status": "passed",
+          "movie_frames": 1630,
+          "movie_seconds": 27.166666666666668,
+          "original_avi_sha256": "9926f5ff3e6e944774b2487fa952bbf58741ccadcc6b2ef33511e597f73694c1"
+        }
+      ]
+    },
+    {
+      "receipt_member": "runtime-worktree/build/forest_feedback/movies02-map2/receipt.json",
+      "status": "failed",
+      "source_stable": true,
+      "runs": [
+        {
+          "status": "timeout",
+          "movie_frames": null,
+          "movie_seconds": null,
+          "original_avi_sha256": null
+        }
+      ]
+    },
+    {
+      "receipt_member": "runtime-worktree/build/forest_feedback/movies03-map2-fast/receipt.json",
+      "status": "passed",
+      "source_stable": true,
+      "runs": [
+        {
+          "status": "passed",
+          "movie_frames": 1860,
+          "movie_seconds": 31.0,
+          "original_avi_sha256": "cbbe306b78df3a1e28c3fbee5377ae3cdb987f5a79cf0b024ca108119a1f60f2"
+        }
+      ]
+    }
+  ],
+  "public_gui": {
+    "status": "failed",
+    "completed_checks": 11,
+    "expected_checks": 20,
+    "failure": "Actual MENU text not found in original canvas or enlarged HUD pixels",
+    "console_errors": [],
+    "loaded_identities": 5,
+    "observed_scope": "four emulated-touch entries/pause/resume and mouse plains map1 entry; mouse MENU pixel locator failed",
+    "root_cause": "UNVERIFIED; neither network-only nor game MENU failure proven",
+    "physical_devices": "UNVERIFIED",
+    "whole_route": "UNVERIFIED"
+  },
+  "checks": [
+    {
+      "check": "actual selected GitHub run/attempt/source terminal SUCCESS",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "all required actual jobs same run/source; android intentional skipped",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "official terminal log actually recovered",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual parallel log each unique original check PASS and exact expected lane",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual serial log each unique original check PASS and exact expected lane",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "86=68+18 original actual lane PASS and official strict same-source merger marker",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "original forest600 and new air suite passed in selected CI log",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "two actual original600 start/pass stdout timestamps",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual public metadata/local original verifier identify tested game source/build",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "CI actual verify_public declares same source/build and public verifier success",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "Web artifact API declared identity bound to same run/source",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "publisher incomplete/ZIP0 preserved despite successful CI",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "documentation c5 differs from tested5a only docs and matches HEAD",
+      "passed": true,
+      "facts": [
+        "docs/evidence/forest_depth_v2/forest_feedback01/scope_record_fix01/README.md",
+        "docs/evidence/forest_depth_v2/forest_feedback01/scope_record_fix01/originals.zip",
+        "docs/evidence/forest_depth_v2/forest_feedback01/scope_record_fix01/review.json",
+        "docs/quality/records/FOREST-FEEDBACK-01.json"
+      ]
+    },
+    {
+      "check": "actual separate docs run docs-pr-run.json",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual separate docs run docs-push-run.json",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual separate docs run docs-fixed-pr-run.json",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual separate docs run docs-fixed-push-run.json",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "old local600 timeout retained and not retroactively relabeled",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "overall region quality not promoted by technical CI",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "2096 original movie binding intact; current only explicit browser-tool patch differs",
+      "passed": true,
+      "facts": [
+        "tools/verify_forest_browser.py"
+      ]
+    },
+    {
+      "check": "all2096 movie runtime bytes/modes actually present in game5a Git tree",
+      "passed": true,
+      "facts": []
+    },
+    {
+      "check": "archived actual movie receipt source binding runtime-worktree/build/forest_feedback/movies01-map1/receipt.json",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "archived actual movie receipt source binding runtime-worktree/build/forest_feedback/movies02-map2/receipt.json",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "archived actual movie receipt source binding runtime-worktree/build/forest_feedback/movies03-map2-fast/receipt.json",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "two completed fast films plus original longgrowth timeout preserved",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual delivered MP4 checksum docs/evidence/forest_depth_v2/forest_feedback01/movies/map1-fast.mp4",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual delivered MP4 checksum docs/evidence/forest_depth_v2/forest_feedback01/movies/map2-fast.mp4",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual GUI failure retained rather than claimed20/20",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "all5 actual loaded public identities match source/build",
+      "passed": true,
+      "facts": null
+    },
+    {
+      "check": "actual both touch forest maps bind correct v11 layout",
+      "passed": true,
+      "facts": null
+    }
+  ],
+  "source_references": {
+    "build/forest_feedback/release5a9f/terminal-run-api.json": {
+      "sha256": "aef034325fa5a5f286477c49cd2d5edbcfe098f86ebdbad7d8c41cdb4b4403dd",
+      "bytes": 13128
+    },
+    "build/forest_feedback/release5a9f/terminal-jobs-api.json": {
+      "sha256": "df74899d1bd8b12fe499b50f7de2919af7d4cb75f7dbef27f94cfeac15a215cd",
+      "bytes": 32634
+    },
+    "build/forest_feedback/release5a9f/terminal-artifacts-api.json": {
+      "sha256": "88275cb17746b0ce64ba3cf6556509e6bfb6207a3235e80a08428594157bb886",
+      "bytes": 10908
+    },
+    "build/forest_feedback/release5a9f/terminal-run.log": {
+      "sha256": "397e3fd6b28c812bca4c45c10073ecdd931f602787fe997075de4c251ce743f4",
+      "bytes": 1224395
+    },
+    "build/forest_feedback/release5a9f/public-build-info.json": {
+      "sha256": "d5caca860c796af5b25441a94ac93e1f0608a5742e5478ba59deea549e459384",
+      "bytes": 395
+    },
+    "build/forest_feedback/release5a9f/public-pack-verification.log": {
+      "sha256": "4e6b35b06ed0e5ee5e078e5521869d958aeb253ce40fc92ccdaf11364e43b63e",
+      "bytes": 164
+    },
+    "build/verification/publish-playtest/5a9f4bdaf846a635eb2659080d563b865758ab87/checkpoint.json": {
+      "sha256": "dd558a1383ea766f823d099ec2b71c9cddecc7bc965f3e5306d1baf6cf1ca0e9",
+      "bytes": 28195,
+      "contains_signed_download_error": "original retained, not quoted or embedded in this review"
+    },
+    "build/forest_feedback/release5a9f/docs-pr-run.json": {
+      "sha256": "c9520cb0dec5c0c52336689da2b8709a20d9cc51002770e41958e5e78df82eb9",
+      "bytes": 13194
+    },
+    "build/forest_feedback/release5a9f/docs-push-run.json": {
+      "sha256": "4211af00046ad13134a4a0a0a3c43e8b65d761eb40934a9677150a2d364ec79b",
+      "bytes": 13173
+    },
+    "build/forest_feedback/release5a9f/docs-fixed-pr-run.json": {
+      "sha256": "e518c53376a205d076dd89ec3abca3d0dc730f46038d9216fc0f929c0d205d4f",
+      "bytes": 13179
+    },
+    "build/forest_feedback/release5a9f/docs-fixed-push-run.json": {
+      "sha256": "fdb0b689bb6e3692b91073741d89f42b0c462fa7c3607d08b93e6de08687c32f",
+      "bytes": 13143
+    },
+    "build/verification/harness/20261018T191345.956737Z/report.json": {
+      "sha256": "e757659145975d857fb7066eeeadee682f1a896cfa9865eed6699bb58e938c0d",
+      "bytes": 175023
+    },
+    "build/forest_feedback/commit5a9f-runtime-binding.json": {
+      "sha256": "9733e06304b7f1d7c0772623fcd83ae143b2cb49bf551d65c636a0ecd037771b",
+      "bytes": 248524
+    },
+    "docs/evidence/forest_depth_v2/forest_feedback01/movie-and-final-contract-raw.zip": {
+      "sha256": "ac049d3949329e9b7f20601f1e21495fedb4159abe655e39a0cea19572992d5a",
+      "bytes": 1976196
+    },
+    "docs/evidence/forest_depth_v2/forest_feedback01/movies/metadata.json": {
+      "sha256": "8fa263e5704393b115be63951f3c75ce95b9521f17eb7a65c8cccddf2175fbfc",
+      "bytes": 774
+    },
+    "build/forest_feedback/release5a9f/public-forest01/report.json": {
+      "sha256": "311c4cb41f53c7d8c95a5aaa3e09f7cf6399a11fdbb32ac35b1af3bd2b643143",
+      "bytes": 7799
+    }
+  },
+  "not_signed": [
+    "publisher live_verified",
+    "original exported ZIP bytes/digest",
+    "exact-original-package browser72",
+    "public GUI20/20",
+    "pod actual regional encounter value",
+    "QueenH core value",
+    "finished forest art/greybox readability approval",
+    "human feel/fun/listening",
+    "physical devices",
+    "commercial quality"
+  ],
+  "production_source_modified": false,
+  "engine_executed": false,
+  "finished_utc": "2026-10-18T20:56:07.282062+00:00"
+}

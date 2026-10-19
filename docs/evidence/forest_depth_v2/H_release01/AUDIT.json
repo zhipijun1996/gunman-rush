@@ -1,0 +1,117 @@
+{
+  "verdict": "ACCEPT bounded H technical CI/package evidence; public forest20 pending",
+  "H": "367b7c1a594beaa99df60c3cd8fc7e5ebe73d7e0",
+  "run": 39105617804,
+  "coverage": {
+    "unique": 85,
+    "parallel": 67,
+    "serial": 18,
+    "all_original_argv_caps_markers_fresh_log_SHA_verified": true
+  },
+  "source_files_per_lane": 13335,
+  "prepared_foundry_difference_from_Git": 56,
+  "same_prepared_source_all_lanes_merge": true,
+  "source_game_0cf_files": 1481,
+  "ZIP_API_bindings": {
+    "harness-gameplay-merged": {
+      "path": "/workspace/attachments/56f795fe-c29b-4205-8af0-ee548eb09a80/367b7c1a-harness-merged.zip",
+      "sha256": "aa15380cbf51b3093f1fc657913d08abab9c0d3f6ae310bbacbea0746dc7f634",
+      "api_id": 12129392600
+    },
+    "harness-phase-proof-parallel": {
+      "path": "/workspace/attachments/728de295-8a11-4cb9-a0f1-b66e703e0fc4/367b7c1a-parallel-proof.zip",
+      "sha256": "8d460798fe1510fc139acde760e723d0d1d121fcdc90cb8412d7bb1205efeabd",
+      "api_id": 12129262869
+    },
+    "harness-phase-proof-serial": {
+      "path": "/workspace/attachments/3cccaf37-68de-4882-8d23-289d8c60ff4a/367b7c1a-serial-proof.zip",
+      "sha256": "a830fa326619f971849a98fe9eb00bebc6250917be16fbf89e6ab198fa662414",
+      "api_id": 12127899684
+    },
+    "harness-gameplay-parallel": {
+      "path": "/workspace/attachments/5a749295-1652-41e4-af55-f0b7cf458d1c/367b7c1a-harness-parallel.zip",
+      "sha256": "93b1ec75e89b21861b73e6826d1e7aca53749657989c19f9e770e24d4bce9e32",
+      "api_id": 12129920276
+    },
+    "harness-gameplay-serial": {
+      "path": "/workspace/attachments/1ba0e594-fd70-477d-b6bd-4bb6b465a81c/367b7c1a-harness-serial.zip",
+      "sha256": "a8110233383bcd475b40eed180041a78aca62545982af881f60bd14bbc73a749",
+      "api_id": 12129420267
+    }
+  },
+  "browser_checks": 72,
+  "browser_seconds": 359.1249542236328,
+  "web_artifact": {
+    "path": "/tmp/367b7c1a-web-playtest.zip",
+    "zip_sha256": "561754a8b4357c21611a3774aa9d565412a2f821119f1f8e14f5498443d51280",
+    "zip_bytes": 199129165,
+    "pack_sha256": "ab99155b1b88a164820bca7cea054d21afde5845d73e10cd11317277c3a8c9ce",
+    "pack_bytes": 90293200,
+    "digest_source": "unique run artifact API digest",
+    "artifact_id": 12127824914
+  },
+  "jobs": [
+    {
+      "name": "prepare",
+      "conclusion": "success"
+    },
+    {
+      "name": "web",
+      "conclusion": "success"
+    },
+    {
+      "name": "core_checks (parallel)",
+      "conclusion": "success"
+    },
+    {
+      "name": "core_checks (serial)",
+      "conclusion": "success"
+    },
+    {
+      "name": "windows",
+      "conclusion": "success"
+    },
+    {
+      "name": "core",
+      "conclusion": "success"
+    },
+    {
+      "name": "deploy_web",
+      "conclusion": "success"
+    },
+    {
+      "name": "android",
+      "conclusion": "skipped"
+    },
+    {
+      "name": "verify_public",
+      "conclusion": "success"
+    }
+  ],
+  "limits": [
+    "Original overall content REVISE retained",
+    "Prepared Foundry bytes differ from committed runtime; only same-prepared CI lanes asserted",
+    "No forest20 receipt or public package reviewed yet",
+    "No reviewer execution; not fun/device/commercial acceptance"
+  ],
+  "four_extra_native_log_verified": {
+    "service": {
+      "log": "verification/audio-lifecycle/service/native.log",
+      "sha256": "e5267fcfd1b70621c5e857e554fe01bd09b9e797b36e98217f21eaebfa2f0b63"
+    },
+    "lab": {
+      "log": "verification/audio-lifecycle/lab/native.log",
+      "sha256": "c197c722c3af833d8952ef7075941b3e35c63f95413097aaf0d0db94d19cb626"
+    },
+    "touch": {
+      "log": "verification/audio-lifecycle/touch/native.log",
+      "sha256": "fa12f41b9a79162e3f3f27bb7a1ae60f708745be61352ceb25bc85157dab39f8"
+    },
+    "feedback": {
+      "log": "verification/audio-lifecycle/feedback/native.log",
+      "sha256": "c94b5a258ce6b88d275d42918fb34ae9a2126353af91bccb60b0ce1848d9e209"
+    }
+  },
+  "pixel_extra": "actual successful serial job step + retained original inventory; no reviewer pixel inspection",
+  "docs_PR_report_checks": 22
+}

@@ -124,7 +124,7 @@ func _process(delta: float) -> void:
 			continue
 		particle.point += particle.velocity * delta
 		if particle.kind in [&"dust", &"leaf"]: particle.velocity += Vector2(0, 100) * delta
-	var hook_visible := _controller.traversal.state in [&"hook_cast",&"hook_fly",&"hook_pull",&"hook_kick",&"hook_contact_kick",&"hook_miss",&"hook_retract"]
+	var hook_visible := _controller.traversal.state in [&"hook_cast",&"hook_fly",&"hook_pull",&"hook_kick",&"hook_contact_kick",&"hook_hang",&"hook_miss",&"hook_retract"]
 	if hook_visible: hook_redraw_ticks += 1
 	if had_particles or hook_visible or _hook_was_visible or _controller.traversal.guide_active or _guide_was_visible:
 		queue_redraw()
@@ -142,13 +142,13 @@ func _draw() -> void:
 			var t := float(i)/segments
 			draw_line(origin+offset*t,origin+offset*minf(1,t+.5/segments),color,1.2,true)
 		draw_arc(finish,8,0,TAU,24,color,1.5,true)
-	if _controller != null and _controller.traversal.state in [&"hook_cast",&"hook_fly",&"hook_pull",&"hook_kick",&"hook_contact_kick",&"hook_miss",&"hook_retract"]:
+	if _controller != null and _controller.traversal.state in [&"hook_cast",&"hook_fly",&"hook_pull",&"hook_kick",&"hook_contact_kick",&"hook_hang",&"hook_miss",&"hook_retract"]:
 		var traversal := _controller.traversal
 		var tip := to_local(traversal.hook_tip)
 		var visual := _controller.motor.get_node("CourierVisual") as CourierVisual
 		var start := to_local(visual.grapple_hand_position())
 		if traversal.state == &"hook_cast": tip = start
-		var sag := 0.0 if traversal.state in [&"hook_pull",&"hook_contact_kick"] else 8.0
+		var sag := 0.0 if traversal.state in [&"hook_pull",&"hook_contact_kick",&"hook_hang"] else 8.0
 		var previous := start
 		for i: int in range(1,13):
 			var t := float(i)/12

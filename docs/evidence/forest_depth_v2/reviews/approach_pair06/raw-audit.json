@@ -1,0 +1,3677 @@
+{
+  "scope": "Readonly original06 ten cases; no engine",
+  "wrapper_passed": false,
+  "case_pass_count": 9,
+  "case_fail_count": 1,
+  "source_guard": true,
+  "current_frozen_source_sha_matches": true,
+  "cases": {
+    "00-clear_under": {
+      "raw": "build/forest_depth/snapshots/approach_pair06/build/forest_depth/ecology/approach_pair06/00-clear_under/capture.json",
+      "sha": "bd48e43b305959723d98583ae3c8cc4f5f80025b8208d5ec23385b32316840c0",
+      "completed": true,
+      "failures": 0,
+      "decision_ticks": 269,
+      "initial": {
+        "H_state": "free",
+        "H_target": "",
+        "actors": [
+          {
+            "hp": 3.0,
+            "id": "forest_seed_sentry",
+            "instance_id": "approach_seed",
+            "position": [
+              1230.0,
+              372.0
+            ],
+            "state": "idle",
+            "state_time": 6.29999999999998
+          },
+          {
+            "hp": 2.0,
+            "id": "forest_lantern",
+            "instance_id": "approach_lamp",
+            "position": [
+              1267.63464355469,
+              282.0
+            ],
+            "state": "travel",
+            "state_time": 1.66666666666667
+          }
+        ],
+        "burst_remaining": 0.0,
+        "comparison": "clear_under",
+        "contact_remaining": 0.0,
+        "grounded": true,
+        "hp": 5.0,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "position": [
+          1030.0,
+          372.0
+        ],
+        "recoil_velocity": [
+          0.0,
+          0.0
+        ],
+        "shot_charges": 2,
+        "shot_cost": 20.0,
+        "stamina": 100.0,
+        "support_id": "root_floor",
+        "tick": 378
+      },
+      "final": {
+        "H_state": "free",
+        "H_target": "crown_approach_ring_0",
+        "actors": [
+          {
+            "hp": 0.0,
+            "id": "forest_seed_sentry",
+            "instance_id": "approach_seed",
+            "position": [
+              1230.0,
+              372.0
+            ],
+            "state": "recovery",
+            "state_time": 0.616666666666667
+          },
+          {
+            "hp": 2.0,
+            "id": "forest_lantern",
+            "instance_id": "approach_lamp",
+            "position": [
+              1221.63122558594,
+              282.0
+            ],
+            "state": "travel",
+            "state_time": 1.9
+          }
+        ],
+        "burst_remaining": 0.0,
+        "comparison": "clear_under",
+        "contact_remaining": 0.0,
+        "grounded": true,
+        "hp": 5.0,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "position": [
+          1400.20544433594,
+          371.961120605469
+        ],
+        "recoil_velocity": [
+          0.0,
+          0.0
+        ],
+        "shot_charges": 2,
+        "shot_cost": 20.0,
+        "stamina": 100.0,
+        "support_id": "root_floor",
+        "tick": 647
+      },
+      "contacts": [
+        {
+          "lamp": false,
+          "point": [
+            1371.50537109375,
+            290.475952148438
+          ],
+          "ring": true,
+          "target": "crown_approach_ring_0",
+          "tick": 596
+        }
+      ],
+      "state_changes": [
+        {
+          "tick": 378,
+          "H_state": "free",
+          "H_target": "",
+          "position": [
+            1030.0,
+            372.0
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 589,
+          "H_state": "hook_cast",
+          "H_target": "",
+          "position": [
+            1300.22399902344,
+            371.92529296875
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 593,
+          "H_state": "hook_fly",
+          "H_target": "",
+          "position": [
+            1317.55700683594,
+            371.92529296875
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 597,
+          "H_state": "hook_pull",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1334.89001464844,
+            371.92529296875
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 601,
+          "H_state": "hook_contact_kick",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1359.20483398438,
+            317.838256835938
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 608,
+          "H_state": "hook_kick",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1355.20483398438,
+            313.838256835938
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 615,
+          "H_state": "free",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1343.87158203125,
+            293.838256835938
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        }
+      ],
+      "policy": [
+        {
+          "event_id": "97005864796:1:1",
+          "hp": 2.0,
+          "kind": "policy_result",
+          "source": "player_projectile:97005864796",
+          "target": "approach_seed",
+          "tick": 402
+        },
+        {
+          "event_id": "97005864796:1:2",
+          "hp": 1.0,
+          "kind": "policy_result",
+          "source": "player_projectile:97005864796",
+          "target": "approach_seed",
+          "tick": 452
+        },
+        {
+          "event_id": "97005864796:1:3",
+          "hp": 0.0,
+          "kind": "policy_result",
+          "source": "player_projectile:97005864796",
+          "target": "approach_seed",
+          "tick": 501
+        }
+      ],
+      "misses": [],
+      "requests": [
+        {
+          "action": "shoot_release",
+          "aim": [
+            0.999999821186066,
+            0.000659170094877481
+          ],
+          "before": {
+            "H_state": "free",
+            "H_target": "",
+            "actors": [
+              {
+                "hp": 3.0,
+                "id": "forest_seed_sentry",
+                "instance_id": "approach_seed",
+                "position": [
+                  1230.0,
+                  372.0
+                ],
+                "state": "telegraph",
+                "state_time": 0.15
+              },
+              {
+                "hp": 2.0,
+                "id": "forest_lantern",
+                "instance_id": "approach_lamp",
+                "position": [
+                  1282.96911621094,
+                  282.0
+                ],
+                "state": "travel",
+                "state_time": 2.0
+              }
+            ],
+            "burst_remaining": 0.0,
+            "comparison": "clear_under",
+            "contact_remaining": 0.0,
+            "grounded": true,
+            "hp": 5.0,
+            "normal_velocity": [
+              260.0,
+              0.0
+            ],
+            "position": [
+              1116.6650390625,
+              371.92529296875
+            ],
+            "recoil_velocity": [
+              0.0,
+              0.0
+            ],
+            "shot_charges": 2,
+            "shot_cost": 20.0,
+            "stamina": 100.0,
+            "support_id": "root_floor",
+            "tick": 398
+          },
+          "kind": "router_request",
+          "queued": true,
+          "tick": 398
+        },
+        {
+          "action": "shoot_release",
+          "aim": [
+            0.999999821186066,
+            0.000670798763167113
+          ],
+          "before": {
+            "H_state": "free",
+            "H_target": "",
+            "actors": [
+              {
+                "hp": 2.0,
+                "id": "forest_seed_sentry",
+                "instance_id": "approach_seed",
+                "position": [
+                  1230.0,
+                  372.0
+                ],
+                "state": "attack",
+                "state_time": 0.183333333333333
+              },
+              {
+                "hp": 2.0,
+                "id": "forest_lantern",
+                "instance_id": "approach_lamp",
+                "position": [
+                  1309.03771972656,
+                  282.0
+                ],
+                "state": "dwell",
+                "state_time": 0.25
+              }
+            ],
+            "burst_remaining": 0.0,
+            "comparison": "clear_under",
+            "contact_remaining": 0.0,
+            "grounded": true,
+            "hp": 5.0,
+            "normal_velocity": [
+              260.0,
+              0.0
+            ],
+            "position": [
+              1118.62976074219,
+              371.92529296875
+            ],
+            "recoil_velocity": [
+              0.0,
+              0.0
+            ],
+            "shot_charges": 2,
+            "shot_cost": 20.0,
+            "stamina": 100.0,
+            "support_id": "root_floor",
+            "tick": 448
+          },
+          "kind": "router_request",
+          "queued": true,
+          "tick": 448
+        },
+        {
+          "action": "shoot_release",
+          "aim": [
+            0.999999821186066,
+            0.000656829797662795
+          ],
+          "before": {
+            "H_state": "free",
+            "H_target": "",
+            "actors": [
+              {
+                "hp": 1.0,
+                "id": "forest_seed_sentry",
+                "instance_id": "approach_seed",
+                "position": [
+                  1230.0,
+                  372.0
+                ],
+                "state": "recovery",
+                "state_time": 0.533333333333333
+              },
+              {
+                "hp": 2.0,
+                "id": "forest_lantern",
+                "instance_id": "approach_lamp",
+                "position": [
+                  1309.03771972656,
+                  282.0
+                ],
+                "state": "dwell",
+                "state_time": 1.06666666666667
+              }
+            ],
+            "burst_remaining": 0.0,
+            "comparison": "clear_under",
+            "contact_remaining": 0.0,
+            "grounded": true,
+            "hp": 5.0,
+            "normal_velocity": [
+              260.0,
+              0.0
+            ],
+            "position": [
+              1116.26123046875,
+              371.92529296875
+            ],
+            "recoil_velocity": [
+              0.0,
+              0.0
+            ],
+            "shot_charges": 2,
+            "shot_cost": 20.0,
+            "stamina": 100.0,
+            "support_id": "root_floor",
+            "tick": 497
+          },
+          "kind": "router_request",
+          "queued": true,
+          "tick": 497
+        },
+        {
+          "action": "grapple",
+          "aim": [
+            0.70788049697876,
+            -0.706332266330719
+          ],
+          "before": {
+            "H_state": "free",
+            "H_target": "",
+            "actors": [
+              {
+                "hp": 0.0,
+                "id": "forest_seed_sentry",
+                "instance_id": "approach_seed",
+                "position": [
+                  1230.0,
+                  372.0
+                ],
+                "state": "recovery",
+                "state_time": 0.616666666666667
+              },
+              {
+                "hp": 2.0,
+                "id": "forest_lantern",
+                "instance_id": "approach_lamp",
+                "position": [
+                  1266.86791992188,
+                  282.0
+                ],
+                "state": "travel",
+                "state_time": 0.916666666666668
+              }
+            ],
+            "burst_remaining": 0.0,
+            "comparison": "clear_under",
+            "contact_remaining": 0.0,
+            "grounded": true,
+            "hp": 5.0,
+            "normal_velocity": [
+              260.0,
+              0.0
+            ],
+            "position": [
+              1295.89074707031,
+              371.92529296875
+            ],
+            "recoil_velocity": [
+              0.0,
+              0.0
+            ],
+            "shot_charges": 2,
+            "shot_cost": 20.0,
+            "stamina": 100.0,
+            "support_id": "root_floor",
+            "tick": 588
+          },
+          "kind": "router_request",
+          "queued": true,
+          "tick": 588
+        }
+      ],
+      "shots": [
+        {
+          "aim": [
+            0.999999821186066,
+            0.000659170094877481
+          ],
+          "kind": "accepted_shot",
+          "projectiles": 1,
+          "serial": 1,
+          "tick": 398
+        },
+        {
+          "aim": [
+            0.999999821186066,
+            0.000670798763167113
+          ],
+          "kind": "accepted_shot",
+          "projectiles": 1,
+          "serial": 2,
+          "tick": 448
+        },
+        {
+          "aim": [
+            0.999999821186066,
+            0.000656829797662795
+          ],
+          "kind": "accepted_shot",
+          "projectiles": 1,
+          "serial": 3,
+          "tick": 497
+        }
+      ],
+      "choices": {
+        "cache_route": 1,
+        "cavity_direction": 1,
+        "enemy_mix": 1,
+        "skeleton": 1
+      },
+      "phase_scope": "Selected local warmup, not full route arrival reproduced; wait_phase equal old-clear jump timing only, not same-input ablation"
+    },
+    "00-live_jump": {
+      "raw": "build/forest_depth/snapshots/approach_pair06/build/forest_depth/ecology/approach_pair06/00-live_jump/capture.json",
+      "sha": "b5455d3c1e4c4a5d4f4a7b6c2cebd99b48e81916e493b6fad412575210557b70",
+      "completed": true,
+      "failures": 0,
+      "decision_ticks": 120,
+      "initial": {
+        "H_state": "free",
+        "H_target": "",
+        "actors": [
+          {
+            "hp": 3.0,
+            "id": "forest_seed_sentry",
+            "instance_id": "approach_seed",
+            "position": [
+              1230.0,
+              372.0
+            ],
+            "state": "idle",
+            "state_time": 6.29999999999998
+          },
+          {
+            "hp": 2.0,
+            "id": "forest_lantern",
+            "instance_id": "approach_lamp",
+            "position": [
+              1267.63464355469,
+              282.0
+            ],
+            "state": "travel",
+            "state_time": 1.66666666666667
+          }
+        ],
+        "burst_remaining": 0.0,
+        "comparison": "live_jump",
+        "contact_remaining": 0.0,
+        "grounded": true,
+        "hp": 5.0,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "position": [
+          1030.0,
+          372.0
+        ],
+        "recoil_velocity": [
+          0.0,
+          0.0
+        ],
+        "shot_charges": 2,
+        "shot_cost": 20.0,
+        "stamina": 100.0,
+        "support_id": "root_floor",
+        "tick": 378
+      },
+      "final": {
+        "H_state": "free",
+        "H_target": "crown_approach_ring_0",
+        "actors": [
+          {
+            "hp": 3.0,
+            "id": "forest_seed_sentry",
+            "instance_id": "approach_seed",
+            "position": [
+              1230.0,
+              372.0
+            ],
+            "state": "recovery",
+            "state_time": 0.55
+          },
+          {
+            "hp": 1.0,
+            "id": "forest_lantern",
+            "instance_id": "approach_lamp",
+            "position": [
+              1309.03771972656,
+              282.0
+            ],
+            "state": "dwell",
+            "state_time": 1.08333333333333
+          }
+        ],
+        "burst_remaining": 0.0,
+        "comparison": "live_jump",
+        "contact_remaining": 0.0,
+        "grounded": true,
+        "hp": 5.0,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "position": [
+          1399.07275390625,
+          371.973236083984
+        ],
+        "recoil_velocity": [
+          0.0,
+          0.0
+        ],
+        "shot_charges": 2,
+        "shot_cost": 20.0,
+        "stamina": 85.5,
+        "support_id": "root_floor",
+        "tick": 498
+      },
+      "contacts": [
+        {
+          "lamp": true,
+          "point": [
+            1280.9365234375,
+            278.599334716797
+          ],
+          "ring": false,
+          "target": "forest_lantern",
+          "tick": 411
+        },
+        {
+          "lamp": false,
+          "point": [
+            1384.01989746094,
+            270.693328857422
+          ],
+          "ring": true,
+          "target": "crown_approach_ring_0",
+          "tick": 445
+        }
+      ],
+      "state_changes": [
+        {
+          "tick": 378,
+          "H_state": "free",
+          "H_target": "",
+          "position": [
+            1030.0,
+            372.0
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 402,
+          "H_state": "hook_cast",
+          "H_target": "",
+          "position": [
+            1134.0,
+            248.713104248047
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 406,
+          "H_state": "hook_fly",
+          "H_target": "",
+          "position": [
+            1151.33349609375,
+            229.446441650391
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 412,
+          "H_state": "hook_pull",
+          "H_target": "forest_lantern",
+          "position": [
+            1177.33374023438,
+            222.213104248047
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 417,
+          "H_state": "hook_contact_kick",
+          "H_target": "forest_lantern",
+          "position": [
+            1258.07250976562,
+            264.915893554688
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 424,
+          "H_state": "hook_kick",
+          "H_target": "forest_lantern",
+          "position": [
+            1254.07250976562,
+            260.915893554688
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 431,
+          "H_state": "free",
+          "H_target": "forest_lantern",
+          "position": [
+            1242.7392578125,
+            240.915893554688
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 441,
+          "H_state": "hook_cast",
+          "H_target": "forest_lantern",
+          "position": [
+            1401.07299804688,
+            241.638122558594
+          ],
+          "hp": 5.0,
+          "stamina": 80.0,
+          "shot_charges": 1
+        },
+        {
+          "tick": 445,
+          "H_state": "hook_fly",
+          "H_target": "forest_lantern",
+          "position": [
+            1401.07299804688,
+            251.749237060547
+          ],
+          "hp": 5.0,
+          "stamina": 80.0,
+          "shot_charges": 1
+        },
+        {
+          "tick": 446,
+          "H_state": "hook_pull",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1401.07299804688,
+            256.082580566406
+          ],
+          "hp": 5.0,
+          "stamina": 80.0,
+          "shot_charges": 1
+        },
+        {
+          "tick": 447,
+          "H_state": "hook_contact_kick",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1401.07299804688,
+            256.082580566406
+          ],
+          "hp": 5.0,
+          "stamina": 80.0,
+          "shot_charges": 1
+        },
+        {
+          "tick": 454,
+          "H_state": "hook_kick",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1405.07299804688,
+            252.082580566406
+          ],
+          "hp": 5.0,
+          "stamina": 80.0,
+          "shot_charges": 1
+        },
+        {
+          "tick": 461,
+          "H_state": "free",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1416.40625,
+            232.082580566406
+          ],
+          "hp": 5.0,
+          "stamina": 80.0,
+          "shot_charges": 1
+        }
+      ],
+      "policy": [
+        {
+          "event_id": "hook/97005864796/1/1",
+          "hp": 1.0,
+          "kind": "policy_result",
+          "source": "player_projectile:97005864796",
+          "target": "approach_lamp",
+          "tick": 416
+        }
+      ],
+      "misses": [],
+      "requests": [
+        {
+          "action": "grapple",
+          "aim": [
+            0.978668570518494,
+            0.205445647239685
+          ],
+          "before": {
+            "H_state": "free",
+            "H_target": "",
+            "actors": [
+              {
+                "hp": 3.0,
+                "id": "forest_seed_sentry",
+                "instance_id": "approach_seed",
+                "position": [
+                  1230.0,
+                  372.0
+                ],
+                "state": "telegraph",
+                "state_time": 0.2
+              },
+              {
+                "hp": 2.0,
+                "id": "forest_lantern",
+                "instance_id": "approach_lamp",
+                "position": [
+                  1285.26928710938,
+                  282.0
+                ],
+                "state": "travel",
+                "state_time": 2.05
+              }
+            ],
+            "burst_remaining": 0.0,
+            "comparison": "live_jump",
+            "contact_remaining": 0.0,
+            "grounded": false,
+            "hp": 5.0,
+            "normal_velocity": [
+              260.0,
+              -440.666687011719
+            ],
+            "position": [
+              1129.66662597656,
+              255.335327148438
+            ],
+            "recoil_velocity": [
+              0.0,
+              0.0
+            ],
+            "shot_charges": 2,
+            "shot_cost": 20.0,
+            "stamina": 100.0,
+            "support_id": "",
+            "tick": 401
+          },
+          "kind": "router_request",
+          "queued": true,
+          "tick": 401
+        },
+        {
+          "action": "shoot_release",
+          "aim": [
+            -1.0,
+            0.0
+          ],
+          "before": {
+            "H_state": "free",
+            "H_target": "forest_lantern",
+            "actors": [
+              {
+                "hp": 3.0,
+                "id": "forest_seed_sentry",
+                "instance_id": "approach_seed",
+                "position": [
+                  1230.0,
+                  372.0
+                ],
+                "state": "telegraph",
+                "state_time": 0.700000000000001
+              },
+              {
+                "hp": 1.0,
+                "id": "forest_lantern",
+                "instance_id": "approach_lamp",
+                "position": [
+                  1308.27099609375,
+                  282.0
+                ],
+                "state": "travel",
+                "state_time": 2.55
+              }
+            ],
+            "burst_remaining": 0.0,
+            "comparison": "live_jump",
+            "contact_remaining": 0.133333333333333,
+            "grounded": false,
+            "hp": 5.0,
+            "normal_velocity": [
+              260.0,
+              0.0
+            ],
+            "position": [
+              1242.7392578125,
+              240.915893554688
+            ],
+            "recoil_velocity": [
+              0.0,
+              0.0
+            ],
+            "shot_charges": 2,
+            "shot_cost": 20.0,
+            "stamina": 100.0,
+            "support_id": "",
+            "tick": 431
+          },
+          "kind": "router_request",
+          "queued": true,
+          "tick": 431
+        },
+        {
+          "action": "grapple",
+          "aim": [
+            -0.334984928369522,
+            0.942223429679871
+          ],
+          "before": {
+            "H_state": "free",
+            "H_target": "forest_lantern",
+            "actors": [
+              {
+                "hp": 3.0,
+                "id": "forest_seed_sentry",
+                "instance_id": "approach_seed",
+                "position": [
+                  1230.0,
+                  372.0
+                ],
+                "state": "attack",
+                "state_time": 0.05
+              },
+              {
+                "hp": 1.0,
+                "id": "forest_lantern",
+                "instance_id": "approach_lamp",
+                "position": [
+                  1309.03771972656,
+                  282.0
+                ],
+                "state": "dwell",
+                "state_time": 0.116666666666667
+              }
+            ],
+            "burst_remaining": 0.0,
+            "comparison": "live_jump",
+            "contact_remaining": 0.0,
+            "grounded": false,
+            "hp": 5.0,
+            "normal_velocity": [
+              260.0,
+              0.0
+            ],
+            "position": [
+              1396.73962402344,
+              240.915893554688
+            ],
+            "recoil_velocity": [
+              0.0,
+              0.0
+            ],
+            "shot_charges": 1,
+            "shot_cost": 20.0,
+            "stamina": 80.0,
+            "support_id": "",
+            "tick": 440
+          },
+          "kind": "router_request",
+          "queued": true,
+          "tick": 440
+        }
+      ],
+      "shots": [
+        {
+          "aim": [
+            -1.0,
+            0.0
+          ],
+          "kind": "accepted_shot",
+          "projectiles": 1,
+          "serial": 1,
+          "tick": 431
+        }
+      ],
+      "choices": {
+        "cache_route": 1,
+        "cavity_direction": 1,
+        "enemy_mix": 1,
+        "skeleton": 1
+      },
+      "phase_scope": "Selected local warmup, not full route arrival reproduced; wait_phase equal old-clear jump timing only, not same-input ablation",
+      "R_actual": {
+        "request431": {
+          "H_state": "free",
+          "H_target": "forest_lantern",
+          "actors": [
+            {
+              "hp": 3.0,
+              "id": "forest_seed_sentry",
+              "instance_id": "approach_seed",
+              "position": [
+                1230.0,
+                372.0
+              ],
+              "state": "telegraph",
+              "state_time": 0.700000000000001
+            },
+            {
+              "hp": 1.0,
+              "id": "forest_lantern",
+              "instance_id": "approach_lamp",
+              "position": [
+                1308.27099609375,
+                282.0
+              ],
+              "state": "travel",
+              "state_time": 2.55
+            }
+          ],
+          "burst_remaining": 0.0,
+          "comparison": "live_jump",
+          "contact_remaining": 0.133333333333333,
+          "grounded": false,
+          "hp": 5.0,
+          "normal_velocity": [
+            260.0,
+            0.0
+          ],
+          "position": [
+            1242.7392578125,
+            240.915893554688
+          ],
+          "recoil_velocity": [
+            0.0,
+            0.0
+          ],
+          "shot_charges": 2,
+          "shot_cost": 20.0,
+          "stamina": 100.0,
+          "support_id": "",
+          "tick": 431
+        },
+        "burst432": {
+          "H_state": "free",
+          "H_target": "forest_lantern",
+          "actors": [
+            {
+              "hp": 3.0,
+              "id": "forest_seed_sentry",
+              "instance_id": "approach_seed",
+              "position": [
+                1230.0,
+                372.0
+              ],
+              "state": "telegraph",
+              "state_time": 0.716666666666667
+            },
+            {
+              "hp": 1.0,
+              "id": "forest_lantern",
+              "instance_id": "approach_lamp",
+              "position": [
+                1309.03771972656,
+                282.0
+              ],
+              "state": "travel",
+              "state_time": 2.56666666666666
+            }
+          ],
+          "burst_remaining": 0.123333333333333,
+          "comparison": "live_jump",
+          "contact_remaining": 0.116666666666667,
+          "grounded": false,
+          "hp": 5.0,
+          "normal_velocity": [
+            260.0,
+            0.0
+          ],
+          "position": [
+            1261.07263183594,
+            240.915893554688
+          ],
+          "recoil_velocity": [
+            1100.0,
+            0.0
+          ],
+          "shot_charges": 1,
+          "shot_cost": 20.0,
+          "stamina": 80.0,
+          "support_id": "",
+          "tick": 432
+        },
+        "end440": {
+          "H_state": "free",
+          "H_target": "forest_lantern",
+          "actors": [
+            {
+              "hp": 3.0,
+              "id": "forest_seed_sentry",
+              "instance_id": "approach_seed",
+              "position": [
+                1230.0,
+                372.0
+              ],
+              "state": "attack",
+              "state_time": 0.05
+            },
+            {
+              "hp": 1.0,
+              "id": "forest_lantern",
+              "instance_id": "approach_lamp",
+              "position": [
+                1309.03771972656,
+                282.0
+              ],
+              "state": "dwell",
+              "state_time": 0.116666666666667
+            }
+          ],
+          "burst_remaining": 0.0,
+          "comparison": "live_jump",
+          "contact_remaining": 0.0,
+          "grounded": false,
+          "hp": 5.0,
+          "normal_velocity": [
+            260.0,
+            0.0
+          ],
+          "position": [
+            1396.73962402344,
+            240.915893554688
+          ],
+          "recoil_velocity": [
+            0.0,
+            0.0
+          ],
+          "shot_charges": 1,
+          "shot_cost": 20.0,
+          "stamina": 80.0,
+          "support_id": "",
+          "tick": 440
+        },
+        "delta_x431_to440": 154.00036621094,
+        "energy_drop": 20.0,
+        "air_shot_drop": 1
+      }
+    },
+    "00-ordinary_early": {
+      "raw": "build/forest_depth/snapshots/approach_pair06/build/forest_depth/ecology/approach_pair06/00-ordinary_early/capture.json",
+      "sha": "a74dabec1d3a118447a3ea8484ec510951a78f92fef09423508840c1453357b1",
+      "completed": true,
+      "failures": 0,
+      "decision_ticks": 128,
+      "initial": {
+        "H_state": "free",
+        "H_target": "",
+        "actors": [
+          {
+            "hp": 3.0,
+            "id": "forest_seed_sentry",
+            "instance_id": "approach_seed",
+            "position": [
+              1230.0,
+              372.0
+            ],
+            "state": "idle",
+            "state_time": 6.29999999999998
+          },
+          {
+            "hp": 2.0,
+            "id": "forest_lantern",
+            "instance_id": "approach_lamp",
+            "position": [
+              1267.63464355469,
+              282.0
+            ],
+            "state": "travel",
+            "state_time": 1.66666666666667
+          }
+        ],
+        "burst_remaining": 0.0,
+        "comparison": "ordinary_early",
+        "contact_remaining": 0.0,
+        "grounded": true,
+        "hp": 5.0,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "position": [
+          1030.0,
+          372.0
+        ],
+        "recoil_velocity": [
+          0.0,
+          0.0
+        ],
+        "shot_charges": 2,
+        "shot_cost": 20.0,
+        "stamina": 100.0,
+        "support_id": "root_floor",
+        "tick": 378
+      },
+      "final": {
+        "H_state": "free",
+        "H_target": "crown_approach_ring_0",
+        "actors": [
+          {
+            "hp": 3.0,
+            "id": "forest_seed_sentry",
+            "instance_id": "approach_seed",
+            "position": [
+              1230.0,
+              372.0
+            ],
+            "state": "recovery",
+            "state_time": 0.683333333333334
+          },
+          {
+            "hp": 2.0,
+            "id": "forest_lantern",
+            "instance_id": "approach_lamp",
+            "position": [
+              1309.03771972656,
+              282.0
+            ],
+            "state": "telegraph",
+            "state_time": 0.0666666666666667
+          }
+        ],
+        "burst_remaining": 0.0,
+        "comparison": "ordinary_early",
+        "contact_remaining": 0.0,
+        "grounded": true,
+        "hp": 4.0,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "position": [
+          1401.26586914062,
+          371.97119140625
+        ],
+        "recoil_velocity": [
+          0.0,
+          0.0
+        ],
+        "shot_charges": 2,
+        "shot_cost": 20.0,
+        "stamina": 100.0,
+        "support_id": "root_floor",
+        "tick": 506
+      },
+      "contacts": [
+        {
+          "lamp": false,
+          "point": [
+            1373.82836914062,
+            292.291320800781
+          ],
+          "ring": true,
+          "target": "crown_approach_ring_0",
+          "tick": 456
+        }
+      ],
+      "state_changes": [
+        {
+          "tick": 378,
+          "H_state": "free",
+          "H_target": "",
+          "position": [
+            1030.0,
+            372.0
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 450,
+          "H_state": "hook_cast",
+          "H_target": "",
+          "position": [
+            1342.00073242188,
+            370.147430419922
+          ],
+          "hp": 4.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 454,
+          "H_state": "hook_fly",
+          "H_target": "",
+          "position": [
+            1359.33386230469,
+            371.92529296875
+          ],
+          "hp": 4.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 457,
+          "H_state": "hook_pull",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1372.33361816406,
+            371.92529296875
+          ],
+          "hp": 4.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 460,
+          "H_state": "hook_contact_kick",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1373.26538085938,
+            322.286041259766
+          ],
+          "hp": 4.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 467,
+          "H_state": "hook_kick",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1369.26538085938,
+            318.286041259766
+          ],
+          "hp": 4.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 474,
+          "H_state": "free",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1357.93212890625,
+            298.286041259766
+          ],
+          "hp": 4.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        }
+      ],
+      "policy": [
+        {
+          "event_id": "approach_lamp_body:1:1:1",
+          "hp": 4.0,
+          "kind": "policy_result",
+          "source": "approach_lamp_body",
+          "target": "player",
+          "tick": 436
+        }
+      ],
+      "misses": [],
+      "requests": [
+        {
+          "action": "grapple",
+          "aim": [
+            0.514294803142548,
+            -0.857613444328308
+          ],
+          "before": {
+            "H_state": "free",
+            "H_target": "",
+            "actors": [
+              {
+                "hp": 3.0,
+                "id": "forest_seed_sentry",
+                "instance_id": "approach_seed",
+                "position": [
+                  1230.0,
+                  372.0
+                ],
+                "state": "attack",
+                "state_time": 0.2
+              },
+              {
+                "hp": 2.0,
+                "id": "forest_lantern",
+                "instance_id": "approach_lamp",
+                "position": [
+                  1309.03771972656,
+                  282.0
+                ],
+                "state": "dwell",
+                "state_time": 0.266666666666667
+              }
+            ],
+            "burst_remaining": 0.0,
+            "comparison": "ordinary_early",
+            "contact_remaining": 0.0,
+            "grounded": false,
+            "hp": 4.0,
+            "normal_velocity": [
+              260.0,
+              650.0
+            ],
+            "position": [
+              1337.66735839844,
+              358.591888427734
+            ],
+            "recoil_velocity": [
+              0.0,
+              0.0
+            ],
+            "shot_charges": 2,
+            "shot_cost": 20.0,
+            "stamina": 100.0,
+            "support_id": "",
+            "tick": 449
+          },
+          "kind": "router_request",
+          "queued": true,
+          "tick": 449
+        }
+      ],
+      "shots": [],
+      "choices": {
+        "cache_route": 1,
+        "cavity_direction": 1,
+        "enemy_mix": 1,
+        "skeleton": 1
+      },
+      "phase_scope": "Selected local warmup, not full route arrival reproduced; wait_phase equal old-clear jump timing only, not same-input ablation"
+    },
+    "00-ordinary_low": {
+      "raw": "build/forest_depth/snapshots/approach_pair06/build/forest_depth/ecology/approach_pair06/00-ordinary_low/capture.json",
+      "sha": "ee3b10c1b9899b2fa5821c446a671351511543871bd70142cbd2b61e4e6a0ef3",
+      "completed": true,
+      "failures": 0,
+      "decision_ticks": 128,
+      "initial": {
+        "H_state": "free",
+        "H_target": "",
+        "actors": [
+          {
+            "hp": 3.0,
+            "id": "forest_seed_sentry",
+            "instance_id": "approach_seed",
+            "position": [
+              1230.0,
+              372.0
+            ],
+            "state": "idle",
+            "state_time": 6.29999999999998
+          },
+          {
+            "hp": 2.0,
+            "id": "forest_lantern",
+            "instance_id": "approach_lamp",
+            "position": [
+              1267.63464355469,
+              282.0
+            ],
+            "state": "travel",
+            "state_time": 1.66666666666667
+          }
+        ],
+        "burst_remaining": 0.0,
+        "comparison": "ordinary_low",
+        "contact_remaining": 0.0,
+        "grounded": true,
+        "hp": 5.0,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "position": [
+          1030.0,
+          372.0
+        ],
+        "recoil_velocity": [
+          0.0,
+          0.0
+        ],
+        "shot_charges": 2,
+        "shot_cost": 20.0,
+        "stamina": 100.0,
+        "support_id": "root_floor",
+        "tick": 378
+      },
+      "final": {
+        "H_state": "free",
+        "H_target": "crown_approach_ring_0",
+        "actors": [
+          {
+            "hp": 3.0,
+            "id": "forest_seed_sentry",
+            "instance_id": "approach_seed",
+            "position": [
+              1230.0,
+              372.0
+            ],
+            "state": "recovery",
+            "state_time": 0.683333333333334
+          },
+          {
+            "hp": 2.0,
+            "id": "forest_lantern",
+            "instance_id": "approach_lamp",
+            "position": [
+              1309.03771972656,
+              282.0
+            ],
+            "state": "telegraph",
+            "state_time": 0.0666666666666667
+          }
+        ],
+        "burst_remaining": 0.0,
+        "comparison": "ordinary_low",
+        "contact_remaining": 0.0,
+        "grounded": true,
+        "hp": 4.0,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "position": [
+          1397.40490722656,
+          371.983459472656
+        ],
+        "recoil_velocity": [
+          0.0,
+          0.0
+        ],
+        "shot_charges": 2,
+        "shot_cost": 20.0,
+        "stamina": 100.0,
+        "support_id": "root_floor",
+        "tick": 506
+      },
+      "contacts": [
+        {
+          "lamp": false,
+          "point": [
+            1374.59533691406,
+            292.714019775391
+          ],
+          "ring": true,
+          "target": "crown_approach_ring_0",
+          "tick": 456
+        }
+      ],
+      "state_changes": [
+        {
+          "tick": 378,
+          "H_state": "free",
+          "H_target": "",
+          "position": [
+            1030.0,
+            372.0
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 450,
+          "H_state": "hook_cast",
+          "H_target": "",
+          "position": [
+            1341.99743652344,
+            371.92529296875
+          ],
+          "hp": 4.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 454,
+          "H_state": "hook_fly",
+          "H_target": "",
+          "position": [
+            1359.33044433594,
+            371.92529296875
+          ],
+          "hp": 4.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 457,
+          "H_state": "hook_pull",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1372.33020019531,
+            371.92529296875
+          ],
+          "hp": 4.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 460,
+          "H_state": "hook_contact_kick",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1373.73779296875,
+            322.701751708984
+          ],
+          "hp": 4.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 467,
+          "H_state": "hook_kick",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1369.73779296875,
+            318.701751708984
+          ],
+          "hp": 4.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 474,
+          "H_state": "free",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1358.40454101562,
+            298.701751708984
+          ],
+          "hp": 4.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        }
+      ],
+      "policy": [
+        {
+          "event_id": "approach_seed_body:1:1:1",
+          "hp": 4.0,
+          "kind": "policy_result",
+          "source": "approach_seed_body",
+          "target": "player",
+          "tick": 417
+        }
+      ],
+      "misses": [],
+      "requests": [
+        {
+          "action": "grapple",
+          "aim": [
+            0.450386762619019,
+            -0.892833650112152
+          ],
+          "before": {
+            "H_state": "free",
+            "H_target": "",
+            "actors": [
+              {
+                "hp": 3.0,
+                "id": "forest_seed_sentry",
+                "instance_id": "approach_seed",
+                "position": [
+                  1230.0,
+                  372.0
+                ],
+                "state": "attack",
+                "state_time": 0.2
+              },
+              {
+                "hp": 2.0,
+                "id": "forest_lantern",
+                "instance_id": "approach_lamp",
+                "position": [
+                  1309.03771972656,
+                  282.0
+                ],
+                "state": "dwell",
+                "state_time": 0.266666666666667
+              }
+            ],
+            "burst_remaining": 0.0,
+            "comparison": "ordinary_low",
+            "contact_remaining": 0.0,
+            "grounded": true,
+            "hp": 4.0,
+            "normal_velocity": [
+              260.0,
+              0.0
+            ],
+            "position": [
+              1337.66418457031,
+              371.92529296875
+            ],
+            "recoil_velocity": [
+              0.0,
+              0.0
+            ],
+            "shot_charges": 2,
+            "shot_cost": 20.0,
+            "stamina": 100.0,
+            "support_id": "root_floor",
+            "tick": 449
+          },
+          "kind": "router_request",
+          "queued": true,
+          "tick": 449
+        }
+      ],
+      "shots": [],
+      "choices": {
+        "cache_route": 1,
+        "cavity_direction": 1,
+        "enemy_mix": 1,
+        "skeleton": 1
+      },
+      "phase_scope": "Selected local warmup, not full route arrival reproduced; wait_phase equal old-clear jump timing only, not same-input ablation"
+    },
+    "00-wait_phase": {
+      "raw": "build/forest_depth/snapshots/approach_pair06/build/forest_depth/ecology/approach_pair06/00-wait_phase/capture.json",
+      "sha": "19d161373880e3927c287767c3bb2e3c815be6156e91d81354a0bbe628cf315d",
+      "completed": true,
+      "failures": 0,
+      "decision_ticks": 270,
+      "initial": {
+        "H_state": "free",
+        "H_target": "",
+        "actors": [
+          {
+            "hp": 3.0,
+            "id": "forest_seed_sentry",
+            "instance_id": "approach_seed",
+            "position": [
+              1230.0,
+              372.0
+            ],
+            "state": "idle",
+            "state_time": 6.29999999999998
+          },
+          {
+            "hp": 2.0,
+            "id": "forest_lantern",
+            "instance_id": "approach_lamp",
+            "position": [
+              1267.63464355469,
+              282.0
+            ],
+            "state": "travel",
+            "state_time": 1.66666666666667
+          }
+        ],
+        "burst_remaining": 0.0,
+        "comparison": "wait_phase",
+        "contact_remaining": 0.0,
+        "grounded": true,
+        "hp": 5.0,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "position": [
+          1030.0,
+          372.0
+        ],
+        "recoil_velocity": [
+          0.0,
+          0.0
+        ],
+        "shot_charges": 2,
+        "shot_cost": 20.0,
+        "stamina": 100.0,
+        "support_id": "root_floor",
+        "tick": 378
+      },
+      "final": {
+        "H_state": "free",
+        "H_target": "crown_approach_ring_0",
+        "actors": [
+          {
+            "hp": 3.0,
+            "id": "forest_seed_sentry",
+            "instance_id": "approach_seed",
+            "position": [
+              1230.0,
+              372.0
+            ],
+            "state": "recovery",
+            "state_time": 0.583333333333333
+          },
+          {
+            "hp": 2.0,
+            "id": "forest_lantern",
+            "instance_id": "approach_lamp",
+            "position": [
+              1220.86450195312,
+              282.0
+            ],
+            "state": "travel",
+            "state_time": 1.91666666666666
+          }
+        ],
+        "burst_remaining": 0.0,
+        "comparison": "wait_phase",
+        "contact_remaining": 0.0,
+        "grounded": true,
+        "hp": 5.0,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "position": [
+          1397.27978515625,
+          371.980346679688
+        ],
+        "recoil_velocity": [
+          0.0,
+          0.0
+        ],
+        "shot_charges": 2,
+        "shot_cost": 20.0,
+        "stamina": 100.0,
+        "support_id": "root_floor",
+        "tick": 648
+      },
+      "contacts": [
+        {
+          "lamp": false,
+          "point": [
+            1370.1142578125,
+            275.197692871094
+          ],
+          "ring": true,
+          "target": "crown_approach_ring_0",
+          "tick": 598
+        }
+      ],
+      "state_changes": [
+        {
+          "tick": 378,
+          "H_state": "free",
+          "H_target": "",
+          "position": [
+            1030.0,
+            372.0
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 592,
+          "H_state": "hook_cast",
+          "H_target": "",
+          "position": [
+            1315.99877929688,
+            246.635116577148
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 596,
+          "H_state": "hook_fly",
+          "H_target": "",
+          "position": [
+            1333.33227539062,
+            276.479553222656
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 599,
+          "H_state": "hook_pull",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1346.33239746094,
+            306.446228027344
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 600,
+          "H_state": "hook_contact_kick",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1351.94580078125,
+            299.070404052734
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 607,
+          "H_state": "hook_kick",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1347.94580078125,
+            295.070404052734
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 614,
+          "H_state": "free",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1336.61254882812,
+            275.070404052734
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        }
+      ],
+      "policy": [],
+      "misses": [],
+      "requests": [
+        {
+          "action": "grapple",
+          "aim": [
+            0.823814451694489,
+            0.566859602928162
+          ],
+          "before": {
+            "H_state": "free",
+            "H_target": "",
+            "actors": [
+              {
+                "hp": 3.0,
+                "id": "forest_seed_sentry",
+                "instance_id": "approach_seed",
+                "position": [
+                  1230.0,
+                  372.0
+                ],
+                "state": "attack",
+                "state_time": 0.1
+              },
+              {
+                "hp": 2.0,
+                "id": "forest_lantern",
+                "instance_id": "approach_lamp",
+                "position": [
+                  1264.56774902344,
+                  282.0
+                ],
+                "state": "travel",
+                "state_time": 0.966666666666668
+              }
+            ],
+            "burst_remaining": 0.0,
+            "comparison": "wait_phase",
+            "contact_remaining": 0.0,
+            "grounded": false,
+            "hp": 5.0,
+            "normal_velocity": [
+              260.0,
+              296.0
+            ],
+            "position": [
+              1311.66540527344,
+              240.979553222656
+            ],
+            "recoil_velocity": [
+              0.0,
+              0.0
+            ],
+            "shot_charges": 2,
+            "shot_cost": 20.0,
+            "stamina": 100.0,
+            "support_id": "",
+            "tick": 591
+          },
+          "kind": "router_request",
+          "queued": true,
+          "tick": 591
+        }
+      ],
+      "shots": [],
+      "choices": {
+        "cache_route": 1,
+        "cavity_direction": 1,
+        "enemy_mix": 1,
+        "skeleton": 1
+      },
+      "phase_scope": "Selected local warmup, not full route arrival reproduced; wait_phase equal old-clear jump timing only, not same-input ablation"
+    },
+    "02-clear_under": {
+      "raw": "build/forest_depth/snapshots/approach_pair06/build/forest_depth/ecology/approach_pair06/02-clear_under/capture.json",
+      "sha": "12d7866840304dc0d17f241b506dc50cf1506462ad21a33e5aabea1dc498c228",
+      "completed": true,
+      "failures": 0,
+      "decision_ticks": 269,
+      "initial": {
+        "H_state": "free",
+        "H_target": "",
+        "actors": [
+          {
+            "hp": 3.0,
+            "id": "forest_seed_sentry",
+            "instance_id": "approach_seed",
+            "position": [
+              1230.0,
+              282.0
+            ],
+            "state": "idle",
+            "state_time": 6.29999999999998
+          },
+          {
+            "hp": 2.0,
+            "id": "forest_lantern",
+            "instance_id": "approach_lamp",
+            "position": [
+              1267.63464355469,
+              192.0
+            ],
+            "state": "travel",
+            "state_time": 1.66666666666667
+          }
+        ],
+        "burst_remaining": 0.0,
+        "comparison": "clear_under",
+        "contact_remaining": 0.0,
+        "grounded": true,
+        "hp": 5.0,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "position": [
+          1030.0,
+          282.0
+        ],
+        "recoil_velocity": [
+          0.0,
+          0.0
+        ],
+        "shot_charges": 2,
+        "shot_cost": 20.0,
+        "stamina": 100.0,
+        "support_id": "root_floor",
+        "tick": 378
+      },
+      "final": {
+        "H_state": "free",
+        "H_target": "crown_approach_ring_0",
+        "actors": [
+          {
+            "hp": 0.0,
+            "id": "forest_seed_sentry",
+            "instance_id": "approach_seed",
+            "position": [
+              1230.0,
+              282.0
+            ],
+            "state": "recovery",
+            "state_time": 0.616666666666667
+          },
+          {
+            "hp": 2.0,
+            "id": "forest_lantern",
+            "instance_id": "approach_lamp",
+            "position": [
+              1221.63122558594,
+              192.0
+            ],
+            "state": "travel",
+            "state_time": 1.9
+          }
+        ],
+        "burst_remaining": 0.0,
+        "comparison": "clear_under",
+        "contact_remaining": 0.0,
+        "grounded": true,
+        "hp": 5.0,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "position": [
+          1400.20544433594,
+          281.961090087891
+        ],
+        "recoil_velocity": [
+          0.0,
+          0.0
+        ],
+        "shot_charges": 2,
+        "shot_cost": 20.0,
+        "stamina": 100.0,
+        "support_id": "root_floor",
+        "tick": 647
+      },
+      "contacts": [
+        {
+          "lamp": false,
+          "point": [
+            1371.50537109375,
+            200.475952148438
+          ],
+          "ring": true,
+          "target": "crown_approach_ring_0",
+          "tick": 596
+        }
+      ],
+      "state_changes": [
+        {
+          "tick": 378,
+          "H_state": "free",
+          "H_target": "",
+          "position": [
+            1030.0,
+            282.0
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 589,
+          "H_state": "hook_cast",
+          "H_target": "",
+          "position": [
+            1300.22399902344,
+            281.92529296875
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 593,
+          "H_state": "hook_fly",
+          "H_target": "",
+          "position": [
+            1317.55700683594,
+            281.92529296875
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 597,
+          "H_state": "hook_pull",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1334.89001464844,
+            281.92529296875
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 601,
+          "H_state": "hook_contact_kick",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1359.20483398438,
+            227.838256835938
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 608,
+          "H_state": "hook_kick",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1355.20483398438,
+            223.838256835938
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 615,
+          "H_state": "free",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1343.87158203125,
+            203.838256835938
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        }
+      ],
+      "policy": [
+        {
+          "event_id": "96200558416:1:1",
+          "hp": 2.0,
+          "kind": "policy_result",
+          "source": "player_projectile:96200558416",
+          "target": "approach_seed",
+          "tick": 402
+        },
+        {
+          "event_id": "96200558416:1:2",
+          "hp": 1.0,
+          "kind": "policy_result",
+          "source": "player_projectile:96200558416",
+          "target": "approach_seed",
+          "tick": 452
+        },
+        {
+          "event_id": "96200558416:1:3",
+          "hp": 0.0,
+          "kind": "policy_result",
+          "source": "player_projectile:96200558416",
+          "target": "approach_seed",
+          "tick": 501
+        }
+      ],
+      "misses": [],
+      "requests": [
+        {
+          "action": "shoot_release",
+          "aim": [
+            0.999999821186066,
+            0.000659170094877481
+          ],
+          "before": {
+            "H_state": "free",
+            "H_target": "",
+            "actors": [
+              {
+                "hp": 3.0,
+                "id": "forest_seed_sentry",
+                "instance_id": "approach_seed",
+                "position": [
+                  1230.0,
+                  282.0
+                ],
+                "state": "telegraph",
+                "state_time": 0.15
+              },
+              {
+                "hp": 2.0,
+                "id": "forest_lantern",
+                "instance_id": "approach_lamp",
+                "position": [
+                  1282.96911621094,
+                  192.0
+                ],
+                "state": "travel",
+                "state_time": 2.0
+              }
+            ],
+            "burst_remaining": 0.0,
+            "comparison": "clear_under",
+            "contact_remaining": 0.0,
+            "grounded": true,
+            "hp": 5.0,
+            "normal_velocity": [
+              260.0,
+              0.0
+            ],
+            "position": [
+              1116.6650390625,
+              281.92529296875
+            ],
+            "recoil_velocity": [
+              0.0,
+              0.0
+            ],
+            "shot_charges": 2,
+            "shot_cost": 20.0,
+            "stamina": 100.0,
+            "support_id": "root_floor",
+            "tick": 398
+          },
+          "kind": "router_request",
+          "queued": true,
+          "tick": 398
+        },
+        {
+          "action": "shoot_release",
+          "aim": [
+            0.999999821186066,
+            0.000670798763167113
+          ],
+          "before": {
+            "H_state": "free",
+            "H_target": "",
+            "actors": [
+              {
+                "hp": 2.0,
+                "id": "forest_seed_sentry",
+                "instance_id": "approach_seed",
+                "position": [
+                  1230.0,
+                  282.0
+                ],
+                "state": "attack",
+                "state_time": 0.183333333333333
+              },
+              {
+                "hp": 2.0,
+                "id": "forest_lantern",
+                "instance_id": "approach_lamp",
+                "position": [
+                  1309.03771972656,
+                  192.0
+                ],
+                "state": "dwell",
+                "state_time": 0.25
+              }
+            ],
+            "burst_remaining": 0.0,
+            "comparison": "clear_under",
+            "contact_remaining": 0.0,
+            "grounded": true,
+            "hp": 5.0,
+            "normal_velocity": [
+              260.0,
+              0.0
+            ],
+            "position": [
+              1118.62976074219,
+              281.92529296875
+            ],
+            "recoil_velocity": [
+              0.0,
+              0.0
+            ],
+            "shot_charges": 2,
+            "shot_cost": 20.0,
+            "stamina": 100.0,
+            "support_id": "root_floor",
+            "tick": 448
+          },
+          "kind": "router_request",
+          "queued": true,
+          "tick": 448
+        },
+        {
+          "action": "shoot_release",
+          "aim": [
+            0.999999821186066,
+            0.000656829797662795
+          ],
+          "before": {
+            "H_state": "free",
+            "H_target": "",
+            "actors": [
+              {
+                "hp": 1.0,
+                "id": "forest_seed_sentry",
+                "instance_id": "approach_seed",
+                "position": [
+                  1230.0,
+                  282.0
+                ],
+                "state": "recovery",
+                "state_time": 0.533333333333333
+              },
+              {
+                "hp": 2.0,
+                "id": "forest_lantern",
+                "instance_id": "approach_lamp",
+                "position": [
+                  1309.03771972656,
+                  192.0
+                ],
+                "state": "dwell",
+                "state_time": 1.06666666666667
+              }
+            ],
+            "burst_remaining": 0.0,
+            "comparison": "clear_under",
+            "contact_remaining": 0.0,
+            "grounded": true,
+            "hp": 5.0,
+            "normal_velocity": [
+              260.0,
+              0.0
+            ],
+            "position": [
+              1116.26123046875,
+              281.92529296875
+            ],
+            "recoil_velocity": [
+              0.0,
+              0.0
+            ],
+            "shot_charges": 2,
+            "shot_cost": 20.0,
+            "stamina": 100.0,
+            "support_id": "root_floor",
+            "tick": 497
+          },
+          "kind": "router_request",
+          "queued": true,
+          "tick": 497
+        },
+        {
+          "action": "grapple",
+          "aim": [
+            0.70788049697876,
+            -0.706332266330719
+          ],
+          "before": {
+            "H_state": "free",
+            "H_target": "",
+            "actors": [
+              {
+                "hp": 0.0,
+                "id": "forest_seed_sentry",
+                "instance_id": "approach_seed",
+                "position": [
+                  1230.0,
+                  282.0
+                ],
+                "state": "recovery",
+                "state_time": 0.616666666666667
+              },
+              {
+                "hp": 2.0,
+                "id": "forest_lantern",
+                "instance_id": "approach_lamp",
+                "position": [
+                  1266.86791992188,
+                  192.0
+                ],
+                "state": "travel",
+                "state_time": 0.916666666666668
+              }
+            ],
+            "burst_remaining": 0.0,
+            "comparison": "clear_under",
+            "contact_remaining": 0.0,
+            "grounded": true,
+            "hp": 5.0,
+            "normal_velocity": [
+              260.0,
+              0.0
+            ],
+            "position": [
+              1295.89074707031,
+              281.92529296875
+            ],
+            "recoil_velocity": [
+              0.0,
+              0.0
+            ],
+            "shot_charges": 2,
+            "shot_cost": 20.0,
+            "stamina": 100.0,
+            "support_id": "root_floor",
+            "tick": 588
+          },
+          "kind": "router_request",
+          "queued": true,
+          "tick": 588
+        }
+      ],
+      "shots": [
+        {
+          "aim": [
+            0.999999821186066,
+            0.000659170094877481
+          ],
+          "kind": "accepted_shot",
+          "projectiles": 1,
+          "serial": 1,
+          "tick": 398
+        },
+        {
+          "aim": [
+            0.999999821186066,
+            0.000670798763167113
+          ],
+          "kind": "accepted_shot",
+          "projectiles": 1,
+          "serial": 2,
+          "tick": 448
+        },
+        {
+          "aim": [
+            0.999999821186066,
+            0.000656829797662795
+          ],
+          "kind": "accepted_shot",
+          "projectiles": 1,
+          "serial": 3,
+          "tick": 497
+        }
+      ],
+      "choices": {
+        "cache_route": 0,
+        "cavity_direction": 0,
+        "enemy_mix": 1,
+        "skeleton": 0
+      },
+      "phase_scope": "Selected local warmup, not full route arrival reproduced; wait_phase equal old-clear jump timing only, not same-input ablation"
+    },
+    "02-live_jump": {
+      "raw": "build/forest_depth/snapshots/approach_pair06/build/forest_depth/ecology/approach_pair06/02-live_jump/capture.json",
+      "sha": "8798e55bf0a4ff7721f7c1afaf27dd4e73e223f2a0e852c79245356d65f09a75",
+      "completed": false,
+      "failures": 3,
+      "decision_ticks": 96,
+      "initial": {
+        "H_state": "free",
+        "H_target": "",
+        "actors": [
+          {
+            "hp": 3.0,
+            "id": "forest_seed_sentry",
+            "instance_id": "approach_seed",
+            "position": [
+              1230.0,
+              282.0
+            ],
+            "state": "idle",
+            "state_time": 6.29999999999998
+          },
+          {
+            "hp": 2.0,
+            "id": "forest_lantern",
+            "instance_id": "approach_lamp",
+            "position": [
+              1267.63464355469,
+              192.0
+            ],
+            "state": "travel",
+            "state_time": 1.66666666666667
+          }
+        ],
+        "burst_remaining": 0.0,
+        "comparison": "live_jump",
+        "contact_remaining": 0.0,
+        "grounded": true,
+        "hp": 5.0,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "position": [
+          1030.0,
+          282.0
+        ],
+        "recoil_velocity": [
+          0.0,
+          0.0
+        ],
+        "shot_charges": 2,
+        "shot_cost": 20.0,
+        "stamina": 100.0,
+        "support_id": "root_floor",
+        "tick": 378
+      },
+      "final": {
+        "H_state": "free",
+        "H_target": "",
+        "actors": [
+          {
+            "hp": 3.0,
+            "id": "forest_seed_sentry",
+            "instance_id": "approach_seed",
+            "position": [
+              1230.0,
+              282.0
+            ],
+            "state": "recovery",
+            "state_time": 0.15
+          },
+          {
+            "hp": 2.0,
+            "id": "forest_lantern",
+            "instance_id": "approach_lamp",
+            "position": [
+              1309.03771972656,
+              192.0
+            ],
+            "state": "dwell",
+            "state_time": 0.683333333333334
+          }
+        ],
+        "burst_remaining": 0.0,
+        "comparison": "live_jump",
+        "contact_remaining": 0.0,
+        "grounded": true,
+        "hp": 4.0,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "position": [
+          1398.33288574219,
+          281.92529296875
+        ],
+        "recoil_velocity": [
+          0.0,
+          0.0
+        ],
+        "shot_charges": 2,
+        "shot_cost": 20.0,
+        "stamina": 100.0,
+        "support_id": "root_floor",
+        "tick": 474
+      },
+      "contacts": [],
+      "state_changes": [
+        {
+          "tick": 378,
+          "H_state": "free",
+          "H_target": "",
+          "position": [
+            1030.0,
+            282.0
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 402,
+          "H_state": "hook_cast",
+          "H_target": "",
+          "position": [
+            1134.0,
+            158.713104248047
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 406,
+          "H_state": "hook_fly",
+          "H_target": "",
+          "position": [
+            1151.33349609375,
+            139.446441650391
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 412,
+          "H_state": "hook_miss",
+          "H_target": "",
+          "position": [
+            1177.33374023438,
+            132.213104248047
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 413,
+          "H_state": "hook_retract",
+          "H_target": "",
+          "position": [
+            1181.66711425781,
+            133.53532409668
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 415,
+          "H_state": "free",
+          "H_target": "",
+          "position": [
+            1190.33386230469,
+            138.346435546875
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        }
+      ],
+      "policy": [
+        {
+          "event_id": "approach_lamp_body:1:1:1",
+          "hp": 4.0,
+          "kind": "policy_result",
+          "source": "approach_lamp_body",
+          "target": "player",
+          "tick": 436
+        }
+      ],
+      "misses": [
+        {
+          "cached_shapecast_hits": [
+            {
+              "name": "hollow__cavity_right_step",
+              "path": "/root/@Node2D@2/@Node2D@3/hollow__cavity_right_step",
+              "point": [
+                1266.23107910156,
+                200.0
+              ],
+              "support_ids": [
+                "hollow__cavity_right_step"
+              ]
+            }
+          ],
+          "kind": "passive_hook_miss",
+          "tick": 412,
+          "tip": [
+            1266.23107910156,
+            200.0
+          ]
+        }
+      ],
+      "requests": [
+        {
+          "action": "grapple",
+          "aim": [
+            0.978668570518494,
+            0.205445647239685
+          ],
+          "before": {
+            "H_state": "free",
+            "H_target": "",
+            "actors": [
+              {
+                "hp": 3.0,
+                "id": "forest_seed_sentry",
+                "instance_id": "approach_seed",
+                "position": [
+                  1230.0,
+                  282.0
+                ],
+                "state": "telegraph",
+                "state_time": 0.2
+              },
+              {
+                "hp": 2.0,
+                "id": "forest_lantern",
+                "instance_id": "approach_lamp",
+                "position": [
+                  1285.26928710938,
+                  192.0
+                ],
+                "state": "travel",
+                "state_time": 2.05
+              }
+            ],
+            "burst_remaining": 0.0,
+            "comparison": "live_jump",
+            "contact_remaining": 0.0,
+            "grounded": false,
+            "hp": 5.0,
+            "normal_velocity": [
+              260.0,
+              -440.666687011719
+            ],
+            "position": [
+              1129.66662597656,
+              165.335327148438
+            ],
+            "recoil_velocity": [
+              0.0,
+              0.0
+            ],
+            "shot_charges": 2,
+            "shot_cost": 20.0,
+            "stamina": 100.0,
+            "support_id": "",
+            "tick": 401
+          },
+          "kind": "router_request",
+          "queued": true,
+          "tick": 401
+        }
+      ],
+      "shots": [],
+      "choices": {
+        "cache_route": 0,
+        "cavity_direction": 0,
+        "enemy_mix": 1,
+        "skeleton": 0
+      },
+      "phase_scope": "Selected local warmup, not full route arrival reproduced; wait_phase equal old-clear jump timing only, not same-input ablation"
+    },
+    "02-ordinary_early": {
+      "raw": "build/forest_depth/snapshots/approach_pair06/build/forest_depth/ecology/approach_pair06/02-ordinary_early/capture.json",
+      "sha": "1b49c4930b73ae5538c81d9ae51a4c655a0cb38d125d13faf8d4f25d3e6bf829",
+      "completed": true,
+      "failures": 0,
+      "decision_ticks": 125,
+      "initial": {
+        "H_state": "free",
+        "H_target": "",
+        "actors": [
+          {
+            "hp": 3.0,
+            "id": "forest_seed_sentry",
+            "instance_id": "approach_seed",
+            "position": [
+              1230.0,
+              282.0
+            ],
+            "state": "idle",
+            "state_time": 6.29999999999998
+          },
+          {
+            "hp": 2.0,
+            "id": "forest_lantern",
+            "instance_id": "approach_lamp",
+            "position": [
+              1267.63464355469,
+              192.0
+            ],
+            "state": "travel",
+            "state_time": 1.66666666666667
+          }
+        ],
+        "burst_remaining": 0.0,
+        "comparison": "ordinary_early",
+        "contact_remaining": 0.0,
+        "grounded": true,
+        "hp": 5.0,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "position": [
+          1030.0,
+          282.0
+        ],
+        "recoil_velocity": [
+          0.0,
+          0.0
+        ],
+        "shot_charges": 2,
+        "shot_cost": 20.0,
+        "stamina": 100.0,
+        "support_id": "root_floor",
+        "tick": 378
+      },
+      "final": {
+        "H_state": "free",
+        "H_target": "crown_approach_ring_0",
+        "actors": [
+          {
+            "hp": 3.0,
+            "id": "forest_seed_sentry",
+            "instance_id": "approach_seed",
+            "position": [
+              1230.0,
+              282.0
+            ],
+            "state": "recovery",
+            "state_time": 0.633333333333334
+          },
+          {
+            "hp": 2.0,
+            "id": "forest_lantern",
+            "instance_id": "approach_lamp",
+            "position": [
+              1309.03771972656,
+              192.0
+            ],
+            "state": "telegraph",
+            "state_time": 0.0166666666666667
+          }
+        ],
+        "burst_remaining": 0.0,
+        "comparison": "ordinary_early",
+        "contact_remaining": 0.0,
+        "grounded": true,
+        "hp": 4.0,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "position": [
+          1397.55187988281,
+          281.969085693359
+        ],
+        "recoil_velocity": [
+          0.0,
+          0.0
+        ],
+        "shot_charges": 2,
+        "shot_cost": 20.0,
+        "stamina": 100.0,
+        "support_id": "root_floor",
+        "tick": 503
+      },
+      "contacts": [
+        {
+          "lamp": false,
+          "point": [
+            1368.00280761719,
+            191.742645263672
+          ],
+          "ring": true,
+          "target": "crown_approach_ring_0",
+          "tick": 454
+        }
+      ],
+      "state_changes": [
+        {
+          "tick": 378,
+          "H_state": "free",
+          "H_target": "",
+          "position": [
+            1030.0,
+            282.0
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 450,
+          "H_state": "hook_cast",
+          "H_target": "",
+          "position": [
+            1341.99938964844,
+            202.1474609375
+          ],
+          "hp": 4.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 454,
+          "H_state": "hook_fly",
+          "H_target": "",
+          "position": [
+            1359.33288574219,
+            229.591918945312
+          ],
+          "hp": 4.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 455,
+          "H_state": "hook_pull",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1363.66625976562,
+            238.258590698242
+          ],
+          "hp": 4.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 456,
+          "H_state": "hook_contact_kick",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1365.21801757812,
+            221.61311340332
+          ],
+          "hp": 4.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 463,
+          "H_state": "hook_kick",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1361.21801757812,
+            217.61311340332
+          ],
+          "hp": 4.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 470,
+          "H_state": "free",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1349.884765625,
+            197.61311340332
+          ],
+          "hp": 4.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        }
+      ],
+      "policy": [
+        {
+          "event_id": "approach_lamp_body:1:1:1",
+          "hp": 4.0,
+          "kind": "policy_result",
+          "source": "approach_lamp_body",
+          "target": "player",
+          "tick": 436
+        }
+      ],
+      "misses": [],
+      "requests": [
+        {
+          "action": "grapple",
+          "aim": [
+            0.999769985675812,
+            0.021445831283927
+          ],
+          "before": {
+            "H_state": "free",
+            "H_target": "",
+            "actors": [
+              {
+                "hp": 3.0,
+                "id": "forest_seed_sentry",
+                "instance_id": "approach_seed",
+                "position": [
+                  1230.0,
+                  282.0
+                ],
+                "state": "attack",
+                "state_time": 0.2
+              },
+              {
+                "hp": 2.0,
+                "id": "forest_lantern",
+                "instance_id": "approach_lamp",
+                "position": [
+                  1309.03771972656,
+                  192.0
+                ],
+                "state": "dwell",
+                "state_time": 0.266666666666667
+              }
+            ],
+            "burst_remaining": 0.0,
+            "comparison": "ordinary_early",
+            "contact_remaining": 0.0,
+            "grounded": false,
+            "hp": 4.0,
+            "normal_velocity": [
+              260.0,
+              260.0
+            ],
+            "position": [
+              1337.666015625,
+              197.091903686523
+            ],
+            "recoil_velocity": [
+              0.0,
+              0.0
+            ],
+            "shot_charges": 2,
+            "shot_cost": 20.0,
+            "stamina": 100.0,
+            "support_id": "",
+            "tick": 449
+          },
+          "kind": "router_request",
+          "queued": true,
+          "tick": 449
+        }
+      ],
+      "shots": [],
+      "choices": {
+        "cache_route": 0,
+        "cavity_direction": 0,
+        "enemy_mix": 1,
+        "skeleton": 0
+      },
+      "phase_scope": "Selected local warmup, not full route arrival reproduced; wait_phase equal old-clear jump timing only, not same-input ablation"
+    },
+    "02-ordinary_low": {
+      "raw": "build/forest_depth/snapshots/approach_pair06/build/forest_depth/ecology/approach_pair06/02-ordinary_low/capture.json",
+      "sha": "b61f9906edd81af9ad4cbd9a6377fbd42ea9bb0a8acf04963691c39518569f41",
+      "completed": true,
+      "failures": 0,
+      "decision_ticks": 128,
+      "initial": {
+        "H_state": "free",
+        "H_target": "",
+        "actors": [
+          {
+            "hp": 3.0,
+            "id": "forest_seed_sentry",
+            "instance_id": "approach_seed",
+            "position": [
+              1230.0,
+              282.0
+            ],
+            "state": "idle",
+            "state_time": 6.29999999999998
+          },
+          {
+            "hp": 2.0,
+            "id": "forest_lantern",
+            "instance_id": "approach_lamp",
+            "position": [
+              1267.63464355469,
+              192.0
+            ],
+            "state": "travel",
+            "state_time": 1.66666666666667
+          }
+        ],
+        "burst_remaining": 0.0,
+        "comparison": "ordinary_low",
+        "contact_remaining": 0.0,
+        "grounded": true,
+        "hp": 5.0,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "position": [
+          1030.0,
+          282.0
+        ],
+        "recoil_velocity": [
+          0.0,
+          0.0
+        ],
+        "shot_charges": 2,
+        "shot_cost": 20.0,
+        "stamina": 100.0,
+        "support_id": "root_floor",
+        "tick": 378
+      },
+      "final": {
+        "H_state": "free",
+        "H_target": "crown_approach_ring_0",
+        "actors": [
+          {
+            "hp": 3.0,
+            "id": "forest_seed_sentry",
+            "instance_id": "approach_seed",
+            "position": [
+              1230.0,
+              282.0
+            ],
+            "state": "recovery",
+            "state_time": 0.683333333333334
+          },
+          {
+            "hp": 2.0,
+            "id": "forest_lantern",
+            "instance_id": "approach_lamp",
+            "position": [
+              1309.03771972656,
+              192.0
+            ],
+            "state": "telegraph",
+            "state_time": 0.0666666666666667
+          }
+        ],
+        "burst_remaining": 0.0,
+        "comparison": "ordinary_low",
+        "contact_remaining": 0.0,
+        "grounded": true,
+        "hp": 4.0,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "position": [
+          1397.40490722656,
+          281.983428955078
+        ],
+        "recoil_velocity": [
+          0.0,
+          0.0
+        ],
+        "shot_charges": 2,
+        "shot_cost": 20.0,
+        "stamina": 100.0,
+        "support_id": "root_floor",
+        "tick": 506
+      },
+      "contacts": [
+        {
+          "lamp": false,
+          "point": [
+            1374.59533691406,
+            202.714004516602
+          ],
+          "ring": true,
+          "target": "crown_approach_ring_0",
+          "tick": 456
+        }
+      ],
+      "state_changes": [
+        {
+          "tick": 378,
+          "H_state": "free",
+          "H_target": "",
+          "position": [
+            1030.0,
+            282.0
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 450,
+          "H_state": "hook_cast",
+          "H_target": "",
+          "position": [
+            1341.99743652344,
+            281.92529296875
+          ],
+          "hp": 4.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 454,
+          "H_state": "hook_fly",
+          "H_target": "",
+          "position": [
+            1359.33044433594,
+            281.92529296875
+          ],
+          "hp": 4.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 457,
+          "H_state": "hook_pull",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1372.33020019531,
+            281.92529296875
+          ],
+          "hp": 4.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 460,
+          "H_state": "hook_contact_kick",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1373.73779296875,
+            232.701751708984
+          ],
+          "hp": 4.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 467,
+          "H_state": "hook_kick",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1369.73779296875,
+            228.701751708984
+          ],
+          "hp": 4.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 474,
+          "H_state": "free",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1358.40454101562,
+            208.701751708984
+          ],
+          "hp": 4.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        }
+      ],
+      "policy": [
+        {
+          "event_id": "approach_seed_body:1:1:1",
+          "hp": 4.0,
+          "kind": "policy_result",
+          "source": "approach_seed_body",
+          "target": "player",
+          "tick": 417
+        }
+      ],
+      "misses": [],
+      "requests": [
+        {
+          "action": "grapple",
+          "aim": [
+            0.450386762619019,
+            -0.892833650112152
+          ],
+          "before": {
+            "H_state": "free",
+            "H_target": "",
+            "actors": [
+              {
+                "hp": 3.0,
+                "id": "forest_seed_sentry",
+                "instance_id": "approach_seed",
+                "position": [
+                  1230.0,
+                  282.0
+                ],
+                "state": "attack",
+                "state_time": 0.2
+              },
+              {
+                "hp": 2.0,
+                "id": "forest_lantern",
+                "instance_id": "approach_lamp",
+                "position": [
+                  1309.03771972656,
+                  192.0
+                ],
+                "state": "dwell",
+                "state_time": 0.266666666666667
+              }
+            ],
+            "burst_remaining": 0.0,
+            "comparison": "ordinary_low",
+            "contact_remaining": 0.0,
+            "grounded": true,
+            "hp": 4.0,
+            "normal_velocity": [
+              260.0,
+              0.0
+            ],
+            "position": [
+              1337.66418457031,
+              281.92529296875
+            ],
+            "recoil_velocity": [
+              0.0,
+              0.0
+            ],
+            "shot_charges": 2,
+            "shot_cost": 20.0,
+            "stamina": 100.0,
+            "support_id": "root_floor",
+            "tick": 449
+          },
+          "kind": "router_request",
+          "queued": true,
+          "tick": 449
+        }
+      ],
+      "shots": [],
+      "choices": {
+        "cache_route": 0,
+        "cavity_direction": 0,
+        "enemy_mix": 1,
+        "skeleton": 0
+      },
+      "phase_scope": "Selected local warmup, not full route arrival reproduced; wait_phase equal old-clear jump timing only, not same-input ablation"
+    },
+    "02-wait_phase": {
+      "raw": "build/forest_depth/snapshots/approach_pair06/build/forest_depth/ecology/approach_pair06/02-wait_phase/capture.json",
+      "sha": "9f26b9ddf81fd3d321d597d863143e3554d85975fc0261261f6475961f314355",
+      "completed": true,
+      "failures": 0,
+      "decision_ticks": 268,
+      "initial": {
+        "H_state": "free",
+        "H_target": "",
+        "actors": [
+          {
+            "hp": 3.0,
+            "id": "forest_seed_sentry",
+            "instance_id": "approach_seed",
+            "position": [
+              1230.0,
+              282.0
+            ],
+            "state": "idle",
+            "state_time": 6.29999999999998
+          },
+          {
+            "hp": 2.0,
+            "id": "forest_lantern",
+            "instance_id": "approach_lamp",
+            "position": [
+              1267.63464355469,
+              192.0
+            ],
+            "state": "travel",
+            "state_time": 1.66666666666667
+          }
+        ],
+        "burst_remaining": 0.0,
+        "comparison": "wait_phase",
+        "contact_remaining": 0.0,
+        "grounded": true,
+        "hp": 5.0,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "position": [
+          1030.0,
+          282.0
+        ],
+        "recoil_velocity": [
+          0.0,
+          0.0
+        ],
+        "shot_charges": 2,
+        "shot_cost": 20.0,
+        "stamina": 100.0,
+        "support_id": "root_floor",
+        "tick": 378
+      },
+      "final": {
+        "H_state": "free",
+        "H_target": "crown_approach_ring_0",
+        "actors": [
+          {
+            "hp": 3.0,
+            "id": "forest_seed_sentry",
+            "instance_id": "approach_seed",
+            "position": [
+              1230.0,
+              282.0
+            ],
+            "state": "recovery",
+            "state_time": 0.55
+          },
+          {
+            "hp": 2.0,
+            "id": "forest_lantern",
+            "instance_id": "approach_lamp",
+            "position": [
+              1222.39794921875,
+              192.0
+            ],
+            "state": "travel",
+            "state_time": 1.88333333333333
+          }
+        ],
+        "burst_remaining": 0.0,
+        "comparison": "wait_phase",
+        "contact_remaining": 0.0,
+        "grounded": true,
+        "hp": 5.0,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "position": [
+          1399.05712890625,
+          281.957122802734
+        ],
+        "recoil_velocity": [
+          0.0,
+          0.0
+        ],
+        "shot_charges": 2,
+        "shot_cost": 20.0,
+        "stamina": 100.0,
+        "support_id": "root_floor",
+        "tick": 646
+      },
+      "contacts": [
+        {
+          "lamp": false,
+          "point": [
+            1370.30139160156,
+            184.933349609375
+          ],
+          "ring": true,
+          "target": "crown_approach_ring_0",
+          "tick": 594
+        }
+      ],
+      "state_changes": [
+        {
+          "tick": 378,
+          "H_state": "free",
+          "H_target": "",
+          "position": [
+            1030.0,
+            282.0
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 588,
+          "H_state": "hook_cast",
+          "H_target": "",
+          "position": [
+            1298.66528320312,
+            138.346221923828
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 592,
+          "H_state": "hook_fly",
+          "H_target": "",
+          "position": [
+            1315.99877929688,
+            156.635116577148
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 595,
+          "H_state": "hook_pull",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1328.99890136719,
+            177.935119628906
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 596,
+          "H_state": "hook_contact_kick",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1340.72302246094,
+            179.921630859375
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 603,
+          "H_state": "hook_kick",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1336.72302246094,
+            175.921630859375
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        },
+        {
+          "tick": 610,
+          "H_state": "free",
+          "H_target": "crown_approach_ring_0",
+          "position": [
+            1325.38977050781,
+            155.921630859375
+          ],
+          "hp": 5.0,
+          "stamina": 100.0,
+          "shot_charges": 2
+        }
+      ],
+      "policy": [],
+      "misses": [],
+      "requests": [
+        {
+          "action": "grapple",
+          "aim": [
+            0.808213531970978,
+            0.588889539241791
+          ],
+          "before": {
+            "H_state": "free",
+            "H_target": "",
+            "actors": [
+              {
+                "hp": 3.0,
+                "id": "forest_seed_sentry",
+                "instance_id": "approach_seed",
+                "position": [
+                  1230.0,
+                  282.0
+                ],
+                "state": "attack",
+                "state_time": 0.0333333333333333
+              },
+              {
+                "hp": 2.0,
+                "id": "forest_lantern",
+                "instance_id": "approach_lamp",
+                "position": [
+                  1267.63464355469,
+                  192.0
+                ],
+                "state": "travel",
+                "state_time": 0.900000000000001
+              }
+            ],
+            "burst_remaining": 0.0,
+            "comparison": "wait_phase",
+            "contact_remaining": 0.0,
+            "grounded": false,
+            "hp": 5.0,
+            "normal_velocity": [
+              260.0,
+              122.666679382324
+            ],
+            "position": [
+              1294.33190917969,
+              135.579559326172
+            ],
+            "recoil_velocity": [
+              0.0,
+              0.0
+            ],
+            "shot_charges": 2,
+            "shot_cost": 20.0,
+            "stamina": 100.0,
+            "support_id": "",
+            "tick": 587
+          },
+          "kind": "router_request",
+          "queued": true,
+          "tick": 587
+        }
+      ],
+      "shots": [],
+      "choices": {
+        "cache_route": 0,
+        "cavity_direction": 0,
+        "enemy_mix": 1,
+        "skeleton": 0
+      },
+      "phase_scope": "Selected local warmup, not full route arrival reproduced; wait_phase equal old-clear jump timing only, not same-input ablation"
+    }
+  },
+  "05_06_changed_paths": [
+    "tests/forest_depth_enemy_runner.gd",
+    "tools/run_forest_depth_enemies.py"
+  ]
+}

@@ -5,6 +5,8 @@ extends Camera2D
 # Formal region opts into a wider view; legacy/Lab consumers keep their zoom.
 var region_composition := false
 var region_focus := Vector2.INF
+# Optional authored observation pair; INF retains every existing view policy.
+var observation_focus := Vector2.INF
 var target: PlayerMotor
 var world_bounds := Rect2()
 # World units; independent from player tuning and collision geometry.
@@ -146,6 +148,9 @@ func advance_follow(actor_position: Vector2, movement_speed: float, run_speed: f
 		_anchor.y = move_toward(_anchor.y, actor_position.y - 35.0 + _inspection, delta * 90.0)
 	else:
 		_inspection = move_toward(_inspection, 0.0, delta * 90.0)
+	if region_composition and observation_focus.is_finite() and grounded_follow and not route_focus.is_finite():
+		var pair_margin := (get_viewport_rect().size/(2.0*zoom)-Vector2(48,48)).max(Vector2(24,24))
+		_anchor = ((actor_position+observation_focus)*.5).clamp(actor_position-pair_margin,actor_position+pair_margin)
 	var requested_anchor := _anchor
 	_anchor = bounded_center(_anchor)
 	# Exact critically damped spring for a constant target during this step.

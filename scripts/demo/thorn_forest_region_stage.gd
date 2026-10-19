@@ -3,6 +3,22 @@ extends PlainsRegionStage
 ## Forest formal consumer, retaining shared reward/ledger/map/respawn contracts.
 var _forest_draw_clock := 0.0
 
+func _has_canopy_boss() -> bool:
+	var content: Variant=generated.manifest.get("boss_content")
+	return content is Dictionary and content.get("contract")=="forest-queen-canopy-v3"
+
+func _canopy_point(key: String) -> Vector2:
+	var geometry: Variant=generated.manifest.get("boss_geometry")
+	if not geometry is Dictionary: return Vector2.INF
+	var value: Variant=geometry.get(key)
+	if not value is Array or value.size()!=2: return Vector2.INF
+	for number: Variant in value:
+		if not (number is int or number is float) or not is_finite(float(number)): return Vector2.INF
+	return Vector2(value[0],value[1])
+
+func forest_boss_entry_position() -> Vector2:
+	return _canopy_point("safe_return") if _has_canopy_boss() else Vector2(boss_arena.position.x+70,boss_arena.end.y-18)
+
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	if region_state == null: region_state = PlainsRegionState.new()
@@ -28,14 +44,39 @@ func _ready() -> void:
 	supply_position = merchant_position
 	encounter_plan = generated.encounter_plan
 	for row: Dictionary in encounter_plan.enemies:
-		var scene: PackedScene = preload("res://scenes/enemies/forest_lantern.tscn") if row.behavior_id == "forest_lantern" else preload("res://scenes/enemies/forest_seed_sentry.tscn")
+		var sources := {"forest_bark_beetle":"res://scenes/enemies/forest_bark_beetle.tscn","forest_swing_pod":"res://scenes/enemies/forest_swing_pod.tscn","forest_crossbranch":"res://scenes/enemies/forest_crossbranch.tscn","forest_lantern":"res://scenes/enemies/forest_lantern.tscn","forest_seed_sentry":"res://scenes/enemies/forest_seed_sentry.tscn","forest_thread_spider":"res://scenes/enemies/forest_thread_spider.tscn","charger":"res://scenes/enemies/patrol_drone.tscn"}
+		if not sources.has(row.behavior_id):
+			assembly_ok = false
+			push_error("Unknown recorded forest enemy behavior")
+			return
+		var scene: PackedScene = load(sources[row.behavior_id])
 		var creature := scene.instantiate() as EnemyMotor
 		creature.position = Vector2(row.position[0],row.position[1])
 		var actor := creature.get_node("Actor") as EnemyActor
-		actor.definition = actor.definition.duplicate(true)
+		actor.definition = preload("res://resources/enemies/plains_charger.tres").duplicate(true) if row.behavior_id == "charger" else actor.definition.duplicate(true)
+		if row.behavior_id=="forest_bark_beetle" and row.has("initial_direction"):
+			if not row.initial_direction is int or row.initial_direction not in [-1,1]:
+				assembly_ok=false;push_error("Recorded bark facing rejected");return
+			actor.definition.initial_direction=int(row.initial_direction)
 		actor.definition.patrol_half_width = float(row.patrol_radius)
 		add_child(creature)
 		if region_state.actors.has(row.id):
+			if row.behavior_id in ["forest_crossbranch","forest_bark_beetle","forest_swing_pod"]:
+				var record: Variant=region_state.actors[row.id]
+				if not record is Dictionary or not record.get("depth_state") is Dictionary or not record.get("position") is Array or record.position.size()!=2:
+					assembly_ok=false;push_error("Recorded migration actor shape rejected");return
+				for value: Variant in [record.get("health")]+record.position:
+					if not (value is int or value is float) or not is_finite(float(value)):
+						assembly_ok=false;push_error("Recorded migration actor number rejected");return
+			if row.behavior_id in ["forest_bark_beetle","forest_swing_pod"]:
+				var record: Dictionary=region_state.actors[row.id]
+				if not record.get("state") is String or not record.get("home") is Array or record.home.size()!=2 or record.get("direction") not in [-1,1] or not record.get("serial") is int or record.serial<0:
+					assembly_ok=false;push_error("Recorded rooted actor phase rejected");return
+				for value: Variant in [record.get("state_time"),record.get("cooldown")]+record.home:
+					if not (value is int or value is float) or not is_finite(float(value)):
+						assembly_ok=false;push_error("Recorded rooted actor phase number rejected");return
+				if record.state_time<0 or record.cooldown<0:
+					assembly_ok=false;push_error("Recorded rooted actor phase debt rejected");return
 			var saved: Dictionary = region_state.actors[row.id]
 			if not actor.restore_instance_health(float(saved.health)): assembly_ok = false
 			creature.position = Vector2(saved.position[0],saved.position[1])
@@ -43,20 +84,31 @@ func _ready() -> void:
 		enemies.append(creature)
 		enemy_manifest.append(row.duplicate(true))
 	if not enemies.is_empty(): enemy = enemies[0]
-	boss = (preload("res://scenes/bosses/thorn_guardian.tscn") if map_index == 1 else preload("res://scenes/bosses/thorn_queen.tscn")).instantiate()
-	boss.position = Vector2(boss_arena.get_center().x,boss_arena.end.y-100)
+	var forest_version: String = generated.manifest.version
+	if _has_canopy_boss() and (not _canopy_point("safe_return").is_finite() or not _canopy_point("reward_position").is_finite()):
+		assembly_ok=false;push_error("Recorded canopy entry or reward point rejected");return
+	var boss_path := ThornForestRegionGenerator.boss_scene_path(forest_version,map_index,generated.manifest)
+	if boss_path.is_empty():
+		assembly_ok=false;push_error("Recorded forest Boss content is not in the version whitelist");return
+	var boss_scene: PackedScene = load(boss_path)
+	boss = boss_scene.instantiate()
+	var boss_point: Array = generated.manifest.get("boss_geometry",{}).get("boss_position",[boss_arena.get_center().x,boss_arena.end.y-100])
+	boss.position = Vector2(boss_point[0],boss_point[1])
 	add_child(boss)
 	var encounter := boss.get_node("Encounter") as ThornForestEncounter
 	if not region_state.boss_state.is_empty():
 		restored_boss = region_state.boss_state.duplicate(true)
-		var restored := encounter.definition.health_definition.duplicate(true) as HealthDefinition
-		restored.initial_current = float(restored_boss.health)
-		encounter.health.configure(restored)
-		encounter.damageable.bind_health(encounter.health)
-		encounter.restore_combat_state(restored_boss)
+		# Duels own extra physical targets. App validates/restores them only after
+		# configure_arena + bind_duel; restoring here would discard their ledger.
+		if not encounter.has_method("bind_duel"):
+			var restored := encounter.definition.health_definition.duplicate(true) as HealthDefinition
+			restored.initial_current = float(restored_boss.health)
+			encounter.health.configure(restored)
+			encounter.damageable.bind_health(encounter.health)
+			encounter.restore_combat_state(restored_boss)
 	if bool(restored_boss.get("seal_closed",false)) and encounter.health.current > 0:
-		spawn = Vector2(boss_arena.position.x+70,boss_arena.end.y-18)
-	reward_position = Vector2(boss_arena.get_center().x,boss_arena.end.y-18)
+		spawn = forest_boss_entry_position()
+	reward_position = _canopy_point("reward_position") if _has_canopy_boss() else Vector2(boss_arena.get_center().x,boss_arena.end.y-18)
 	for row: Dictionary in generated.manifest.pickups:
 		pickups.append({"id":row.id,"kind":row.kind,"amount":int(row.amount),"position":Vector2(row.position[0],row.position[1]),"claimed":region_state.claimed.has(row.id)})
 	for id: String in region_state.drops:
@@ -77,9 +129,14 @@ func _ready() -> void:
 	map_view.region_chip = true
 	map_view.position = Vector2(1098,14)
 	map_layer.add_child(map_view)
-	_context_sign(spawn+Vector2(-90,-82),"THORN FOREST  /  AIM RING + GRAPPLE\nShort hook / land on the incoming branch",260)
+	_context_sign(spawn+Vector2(-90,-82),"THORN FOREST / AIM + GRAPPLE\nPull near, kick away, recoil to change lane",290)
+	for hint: Dictionary in generated.manifest.get("expedition_hints",[]):
+		_context_sign(Vector2(hint.position[0],hint.position[1]),str(hint.text),float(hint.radius))
 	_context_sign(merchant_position+Vector2(-100,-82),"ROOT CAMP / INTERACT TO TRADE",180)
-	_context_sign(Vector2(generated.manifest.areas[1].position[0]-100,generated.manifest.areas[1].position[1]-85),"TWO BOUGHS / CROWN CACHE IS OPTIONAL",200)
+	# This old sign describes v1's branch fork. On the shared v2 trunk it also
+	# covers the upper thorn boundary; the cache has its own real prompt/map icon.
+	if forest_version == ThornForestRegionGenerator.LEGACY_VERSION:
+		_context_sign(Vector2(generated.manifest.areas[1].position[0]-100,generated.manifest.areas[1].position[1]-85),"TWO BOUGHS / CROWN CACHE IS OPTIONAL",200)
 	var app := get_parent() as DemoApp
 	if app != null and is_instance_valid(app.controller):
 		app.controller.traversal.action_changed.connect(_accepted_forest_action)
@@ -114,6 +171,8 @@ func capture_state() -> void:
 		var attack := actor.attack_behavior
 		var at := enemies[i].position
 		region_state.actors[enemy_manifest[i].id] = {"health":actor.health.current,"position":[at.x,at.y],"state":String(attack.state) if attack else "idle","state_time":attack.state_time if attack else 0.0,"cooldown":attack.cooldown if attack else 0.0,"serial":attack._serial if attack else 0,"home":[attack.home.x,attack.home.y] if attack else [at.x,at.y],"direction":actor.brain.direction}
+		if attack != null and attack.has_method("depth_snapshot"):
+			region_state.actors[enemy_manifest[i].id].depth_state = attack.call("depth_snapshot")
 	if is_instance_valid(boss):
 		var encounter := boss.get_node("Encounter") as ThornForestEncounter
 		region_state.boss_state = encounter.combat_snapshot()
@@ -128,6 +187,24 @@ func setup_shot_latches(_controller: PlayerController, _lifetime: DemoLifetime) 
 	return generated.manifest.shot_latch_plan.latches.is_empty()
 
 func composition_focus() -> Vector2: return Vector2.INF
+func observation_composition_focus() -> Vector2:
+	# Formal generated relations and historical candidate probes share the
+	# same existing optional camera consumer. Ordinary regions remain INF.
+	var windows: Array=generated.manifest.get("observation_windows",[])
+	var candidate: Dictionary=generated.manifest.get("candidate_overlay",{})
+	if candidate.has("observation_rect"):
+		windows=windows.duplicate();windows.append({"rect":candidate.get("observation_rect",[]),"focus":candidate.get("observation_focus",[])})
+	for window: Variant in windows:
+		if not window is Dictionary:continue
+		var rect: Variant=window.get("rect")
+		var focus: Variant=window.get("focus")
+		if not rect is Array or rect.size()!=4 or not focus is Array or focus.size()!=2:continue
+		var valid := true
+		for value: Variant in rect+focus:
+			if not (value is int or value is float) or not is_finite(float(value)):valid=false
+		if valid and Rect2(rect[0],rect[1],rect[2],rect[3]).has_point(global_player_position()):return Vector2(focus[0],focus[1])
+	return Vector2.INF
+
 func area_label(area: Dictionary) -> String: return str(area.label)
 func nearby_shortcut(_location: Vector2) -> String: return ""
 
@@ -148,7 +225,8 @@ func _draw() -> void:
 	for area: Dictionary in generated.manifest.areas:
 		if area.role == "boss": continue
 		var at := Vector2(area.position[0],area.position[1])
-		draw_arc(at+Vector2(0,70),160,PI,TAU,30,Color("254c3b"),25,true)
+		if not generated.manifest.has("scene_language_version"):
+			draw_arc(at+Vector2(0,70),160,PI,TAU,30,Color("254c3b"),25,true)
 		if area.role == "merchant":
 			draw_circle(at+Vector2(20,-42),38,Color("638063"))
 			draw_circle(at+Vector2(20,-42),28,Color("203c2c"))

@@ -1,0 +1,11 @@
+# S3 commit-bound consumer integration review
+
+**ACCEPT** for test/tool integration only at `93c202568d154e37b1d57de1e08ba0c42820e828`, against base `6c61faadd511c48a267b975550da897e701fd09f`. All43 affected tests/tools have exact final SHA/Git-blob coverage through S1→S2 and the limited canopy driver review. Only the trace driver differs from S2; production paths are unchanged across S1/S2/S3. No engine, full test, or CI was launched by this review.
+
+Golden, no-R and local80 declared source tables independently match S3 Git objects in their stated scope. Their original S2/dirty identities remain intact; this commit binding does not claim fresh S3 execution. The old S1 forest2127 and S2 RootBell1231 bindings retain their earlier scope, rather than being relabelled as fully matching later test bytes.
+
+The no-R local counterexample is confirmed: actual prefix through862 (all frame fields equal except separate-run runtime owner ID), full held jump and rightward movement, queued real H at896 within230.124px of the unchanged231.0px range from `resources/player/traversal.tres`, contact918, full-body crown12-frame arrival973. No shooting or player damage follows the prefix. Therefore R is optional for this challenge; no claim of mandatory RH is accepted. This finite local counterexample does not complete the full route.
+
+The original local80 consumer is **FAIL(timeout)** at600.167s under its original600-second cap. All59 recorded completed prefix cases were independently hash checked and recalculated with the unchanged strict reader; all pass within their original identities. The60th request is interrupted and21 requests remain incomplete. The original inner receipt stays `running`, without final source stability; no final guard is fabricated. S3 source binding is limited to declared before/import tables. Offline reader timings do not establish the native performance bottleneck.
+
+No complete80/89 CI, Web/device, whole-region quality or player acceptance is signed. Parent remains REVISE. Original failures, old movies and raw source identities remain unchanged. Exact43 path hashes, source-table bindings,59 original capture/log hashes, reader results and no-R checks are recorded in `commit_s3_review.json`.

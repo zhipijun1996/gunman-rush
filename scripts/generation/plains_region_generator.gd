@@ -8,25 +8,37 @@ const SAMPLE_DX := 1400.0 # Frozen small regression fixture only.
 const SAMPLE_DY := 700.0 # Formal macros use measured phrase intervals and terrace rises.
 const HALF := 200.0
 const ATTEMPTS := 4
+const PRE_FOCUS_15_TUNING_HASH := "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
 # A run pins content mode; legacy generation remains byte-identical.
 var root_bell_mode := "legacy_v10" # Preserve the old generator API; DemoApp explicitly pins admitted content.
 
 func generate(seed_value: String, tuning: PlayerTuning, sample := false, force_family := "", difficulty := "advanced") -> Dictionary:
+	return _generate_with_fingerprint(seed_value,tuning,sample,force_family,difficulty,FileAccess.get_sha256("res://config/player_tuning.json"))
+
+# Only this immutable historical profile is replayable. The caller still uses
+# current runtime tuning; this fingerprint identifies saved generation bytes.
+func generate_before_focus_15(seed_value: String, tuning: PlayerTuning, sample := false, force_family := "", difficulty := "advanced") -> Dictionary:
+	return _generate_with_fingerprint(seed_value,tuning,sample,force_family,difficulty,PRE_FOCUS_15_TUNING_HASH)
+
+func _generate_with_fingerprint(seed_value: String,tuning: PlayerTuning,sample: bool,force_family: String,difficulty: String,tuning_hash: String) -> Dictionary:
 	if difficulty not in ["intro","advanced"] or seed_value.is_empty() or tuning.max_jumps < 1 or tuning.max_air_shots < 1:
 		return {"ok": false, "error": "Plains requires the existing base jump and recoil shot"}
 	for attempt: int in ATTEMPTS:
-		var m := _candidate(seed_value, sample, force_family, attempt,difficulty)
+		var m := _candidate(seed_value, sample, force_family, attempt,difficulty,tuning_hash)
 		if validate(m, tuning): return _result(m)
-	return verified_fallback(seed_value,tuning,difficulty)
+	return _verified_fallback_with_fingerprint(seed_value,tuning,difficulty,tuning_hash)
 
 func verified_fallback(seed_value: String,tuning: PlayerTuning,difficulty := "advanced") -> Dictionary:
-	var fallback := _candidate("region-woven_layers", false, "woven_layers", 0,difficulty)
+	return _verified_fallback_with_fingerprint(seed_value,tuning,difficulty,FileAccess.get_sha256("res://config/player_tuning.json"))
+
+func _verified_fallback_with_fingerprint(seed_value: String,tuning: PlayerTuning,difficulty: String,tuning_hash: String) -> Dictionary:
+	var fallback := _candidate("region-woven_layers", false, "woven_layers", 0,difficulty,tuning_hash)
 	fallback.seed = seed_value
 	fallback.fallback_id = "verified_exploration_region"
 	fallback.manifest_hash = _hash(fallback)
 	return _result(fallback) if validate(fallback, tuning) else {"ok": false, "error": "Region fallback failed validation"}
 
-func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,difficulty := "advanced") -> Dictionary:
+func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,difficulty := "advanced",tuning_hash := "") -> Dictionary:
 	var topology := RunRandomStream.new(seed_value, "region_topology", str(attempt), RNG_VERSION)
 	var content := RunRandomStream.new(seed_value, "region_content", str(attempt), RNG_VERSION)
 	var reward := RunRandomStream.new(seed_value, "region_reward", str(attempt), RNG_VERSION)
@@ -35,7 +47,7 @@ func _candidate(seed_value: String, sample: bool, forced: String, attempt: int,d
 	var cols := 3 if sample else 5 + topology.next_int(2)
 	if difficulty=="intro" and not sample: cols=5
 	var prep_row := 1 if sample else topology.next_int(3)
-	var m := {"version": PlainsRootBellEncounterV3.CONTENT_VERSION if root_bell_mode == "v3" else PlainsRootBellEncounterV2.CONTENT_VERSION if root_bell_mode == "v2" else VERSION, "difficulty":difficulty, "player_tuning_hash":FileAccess.get_sha256("res://config/player_tuning.json"), "seed": seed_value, "region": "plains", "layout_id": "connected_region", "family": family, "attempt": attempt, "fallback_id": "", "sample": sample, "areas": [], "connections": [], "nodes": [], "rewards": [], "pickups": [], "enemies": [], "terminal_exits": [], "budget": {"ordinary_coins": 24, "medium": 2, "high": 1, "region_top": 1, "finite_hearts": 3,"cache_coin_limit":122,"cache_heart_limit":11,"cache_note_limit":8}, "streams": {"topology": "region_topology", "content": "region_content", "reward": "region_reward", "phases": "region_phases", "generation_seed": seed_value,"derivation_version":RNG_VERSION}}
+	var m := {"version": PlainsRootBellEncounterV3.CONTENT_VERSION if root_bell_mode == "v3" else PlainsRootBellEncounterV2.CONTENT_VERSION if root_bell_mode == "v2" else VERSION, "difficulty":difficulty, "player_tuning_hash":FileAccess.get_sha256("res://config/player_tuning.json") if tuning_hash.is_empty() else tuning_hash, "seed": seed_value, "region": "plains", "layout_id": "connected_region", "family": family, "attempt": attempt, "fallback_id": "", "sample": sample, "areas": [], "connections": [], "nodes": [], "rewards": [], "pickups": [], "enemies": [], "terminal_exits": [], "budget": {"ordinary_coins": 24, "medium": 2, "high": 1, "region_top": 1, "finite_hearts": 3,"cache_coin_limit":122,"cache_heart_limit":11,"cache_note_limit":8}, "streams": {"topology": "region_topology", "content": "region_content", "reward": "region_reward", "phases": "region_phases", "generation_seed": seed_value,"derivation_version":RNG_VERSION}}
 	var footprint: Dictionary={"cells":[],"recipe":"fixed_sample"}
 	if sample:
 		for row: int in 3:
@@ -659,6 +671,7 @@ func semantic_route_errors(m: Dictionary) -> Array[String]:
 	return errors
 
 func validate(m: Dictionary, tuning: PlayerTuning) -> bool:
+	if m.get("player_tuning_hash") not in [FileAccess.get_sha256("res://config/player_tuning.json"),PRE_FOCUS_15_TUNING_HASH]: return false
 	if m.get("version") not in [VERSION, PlainsRootBellEncounterV2.CONTENT_VERSION, PlainsRootBellEncounterV3.CONTENT_VERSION] or m.get("manifest_hash") != _hash(m) or not _connected(m) or _cycles(m) < 3 or not semantic_route_errors(m).is_empty(): return false
 	if m.areas.size() < 12 or m.areas.size() > 24 or _degree(m, m.prep_id) < 2: return false
 	if m.connections.filter(func(e: Dictionary) -> bool: return e.condition == "backside").size() < 2: return false
@@ -674,7 +687,7 @@ func validate(m: Dictionary, tuning: PlayerTuning) -> bool:
 	# pass replay validation. Generation is bounded and each namespace is separate.
 	var previous_mode := root_bell_mode
 	root_bell_mode = "v3" if m.version == PlainsRootBellEncounterV3.CONTENT_VERSION else "v2" if m.version == PlainsRootBellEncounterV2.CONTENT_VERSION else "legacy_v10"
-	var expected := _candidate("region-woven_layers" if m.fallback_id != "" else str(m.seed),bool(m.get("sample",false)),str(m.family),int(m.attempt),str(m.get("difficulty","advanced")))
+	var expected := _candidate("region-woven_layers" if m.fallback_id != "" else str(m.seed),bool(m.get("sample",false)),str(m.family),int(m.attempt),str(m.get("difficulty","advanced")),str(m.player_tuning_hash))
 	root_bell_mode = previous_mode
 	if m.fallback_id != "":
 		expected.seed = m.seed

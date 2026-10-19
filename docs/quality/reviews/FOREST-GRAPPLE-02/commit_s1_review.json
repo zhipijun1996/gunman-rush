@@ -1,0 +1,401 @@
+{
+  "task_id": "FOREST-GRAPPLE-CONSUMERS-02",
+  "reviewer": "/root/verifier_migration_review",
+  "review_type": "commit-bound consumer integration review",
+  "baseline_commit": "6c61faadd511c48a267b975550da897e701fd09f",
+  "reviewed_commit": "7ba2e92d2c3cb5449ac6648b820f79679548ee89",
+  "scope": "Only final test/tool contract migrations and byte binding of prior actual representative evidence; no new native/full-test execution or content/player/device admission",
+  "checks": {
+    "exact_commit_exists": true,
+    "all_final_test_tool_paths_covered_by_child": true,
+    "exact_40_changed_tests_tools": true,
+    "matrix_receipt_same_independent_review_hash": true,
+    "matrix_source_inventory_still_exact": true,
+    "independent_all2127_Git_blob_bindings": true,
+    "all_40_paths_review_chain_or_UID_metadata_covered": true,
+    "all_40_working_bytes_equal_commit": true,
+    "old_profile_check_order_retained": true,
+    "original_check_configs_except_exact18_marker_preserved": true,
+    "original9_and_full18_suite_retained": true,
+    "strict_output_token_marker_retained": true,
+    "original_full_projectile_causal_reader_unchanged": true,
+    "all3_original_version_readers_unchanged": true,
+    "original_forged_credit_REJECT_history_preserved": true,
+    "original_attachment_forgery_REJECT_history_preserved": true,
+    "matrix_raw_source_head_not_retagged": true,
+    "original_corpus80_request_function_byteidentical": true,
+    "original_region_native_90_240_caps_unchanged": true,
+    "all6_declared_native_movie_receipt_bytes_source_bound": true
+  },
+  "independent_Git_input_count": 2127,
+  "independent_Git_mismatches": [],
+  "chain_gaps": [],
+  "affected_tests_tools_sha256": {
+    "tests/actor_actions_runner.gd": {
+      "sha256": "cdcc8e6605660345c3315e786ecb532cbcab76a2fcd5f4c1ab18f989b006b325",
+      "git_blob": "f686e5312d6f5521b3debdefc2c0f61528f8d0c7",
+      "bytes": 24772,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    },
+    "tests/aim_save_compat_case.gd": {
+      "sha256": "1d32006a6c37edf62c7aff165e4c511d15ac8f183675248029a07746b7d9caf0",
+      "git_blob": "ac951157401e8d0e82cc42c2e1b06bdbf2a03c38",
+      "bytes": 7243,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    },
+    "tests/aim_save_compat_case.gd.uid": {
+      "sha256": "ddb1716a507be61fec4a363b70118460054d328cb809ba296bf6d270cd1b8fc8",
+      "git_blob": "70a5dd04b88da54989e024f8c686dcfa84af5a9b",
+      "bytes": 20,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    },
+    "tests/aim_save_compat_runner.gd": {
+      "sha256": "da50470f871b63ef22df1be5723a4928e3c2446e3aaaddc31257e4a18328eb7c",
+      "git_blob": "4e4f9a5585279c5695a2c032129cc49997df8d57",
+      "bytes": 2505,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    },
+    "tests/aim_save_compat_runner.gd.uid": {
+      "sha256": "60dfd16ea3df9491e4675e7eeb97d17ca78890cbd86a58ecaba0bba02b431d18",
+      "git_blob": "2b696b8351c37f81e16515628c1a0ee9333ec5e9",
+      "bytes": 20,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    },
+    "tests/air_focus_tests.gd": {
+      "sha256": "d40dd9969646938f3ff542adbc73b8056bc088d0f529f903b3af6149b737727c",
+      "git_blob": "2dc461b0ecb4d398d4aae154c3eba2acc716966b",
+      "bytes": 6587,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    },
+    "tests/fixtures/forest_recorded_layouts/v11_corpus_map1.json": {
+      "sha256": "ddd26758ae3d968927a16bfaa94c89366e00a443120b6441fc2a285df615a2ff",
+      "git_blob": "48004354b86447a064332cd65dd821c248297818",
+      "bytes": 163430,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    },
+    "tests/fixtures/forest_recorded_layouts/v11_corpus_map2.json": {
+      "sha256": "85e7ef09f8fbc59a4f0f5f70d2286200bb9e86bb55db6fcc029a08847949cf72",
+      "git_blob": "4d12c42c1e5dd06673c106894206c182e297ed75",
+      "bytes": 167907,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    },
+    "tests/forest_air_chain_runner.gd": {
+      "sha256": "6b185de50a5184937c8ca07248390472dedb7e49a41aeef926d0b3dea83029c1",
+      "git_blob": "aa3f66ea8d46142c0f2e6dc3237786d2cfe24fe2",
+      "bytes": 10092,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    },
+    "tests/forest_campaign_runner.gd": {
+      "sha256": "b33fc5f27a5c421cc5911ef11cf92d1457c139b06acc09ecf0ace86d19677eab",
+      "git_blob": "1107736d446958c8379c74fafc26a9b57b5b41c2",
+      "bytes": 11005,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    },
+    "tests/forest_depth_air_chain_case.gd": {
+      "sha256": "e692029b05fc41c0366db556c8c7fcdeb70f035f84a62a911b9ff225990b9429",
+      "git_blob": "d3e1d4a1415b1e316b0b9a358e0533d0859200cb",
+      "bytes": 6988,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    },
+    "tests/forest_depth_grove_combat_case.gd": {
+      "sha256": "e37cdfda8e3f19cf56f3fcda4ee1abcdcc8e604a866de4d04855d46f5449db85",
+      "git_blob": "1d246182be6a04febb5739ad5ae9286ab25125e2",
+      "bytes": 19960,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    },
+    "tests/forest_depth_region_trace.gd": {
+      "sha256": "a592cf48ba431742ccef3dc9a16f23ccfe75bd4fb9ccb1733032a3bf2a427add",
+      "git_blob": "d286e7ab83ad620dff9d52bb707beed572959ea9",
+      "bytes": 77004,
+      "review_chain_evidence": "verifier_return_aperture_appendix01.json",
+      "working_bytes_equal_commit": true
+    },
+    "tests/forest_depth_version_runner.gd": {
+      "sha256": "b465cee226a07238ba8d3c250927753e91fbb816e6333654bd2c0a531a7ae205",
+      "git_blob": "49dc213400d26c325e883077030d05b21d512765",
+      "bytes": 26693,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    },
+    "tests/forest_progression_debug_runner.gd": {
+      "sha256": "8c4d64e10a03a8c763daa1f98eae90f10b6a3d675b8603198d45a51493933e2f",
+      "git_blob": "0de8df3e38724029cd08f8d4019d5faf1dbcaada",
+      "bytes": 4266,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    },
+    "tests/forest_root_retry_runner.gd": {
+      "sha256": "1e1bbe4c4e5ec823a250e3001cb66a4f09ad6d346557090ec444b99c17842e9d",
+      "git_blob": "68a40233f8c6d43cb5c466df9d6266147dde707d",
+      "bytes": 6568,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    },
+    "tests/forest_root_retry_runner.gd.uid": {
+      "sha256": "fe3e11fdf5eee7646e22d4169a643ed931bf3140722d3a6ff55186a37ce6538b",
+      "git_blob": "a99f227016acf92bdb269fddde192710074770d7",
+      "bytes": 20,
+      "review_chain_evidence": "S1 independent single-line UID/uniqueness + original same-source2127 native inventory",
+      "working_bytes_equal_commit": true
+    },
+    "tests/forest_vertical_shortcut_runner.gd": {
+      "sha256": "8df908f6721d6a97dc0bd5e0aefd721713422087d7df64cb663d452bda424dbe",
+      "git_blob": "f0710c6df4c6fac550567dcc7ab30e98ea0c4482",
+      "bytes": 4647,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    },
+    "tests/forest_vertical_shortcut_runner.gd.uid": {
+      "sha256": "50f8e118f556a947d6776fcbcb117524a6b9851de3e03072c18a6adca8a0a192",
+      "git_blob": "218434796563453895cecb12ad1930350cc64f7e",
+      "bytes": 19,
+      "review_chain_evidence": "S1 independent single-line UID/uniqueness + original same-source2127 native inventory",
+      "working_bytes_equal_commit": true
+    },
+    "tests/grapple_aim_input_runner.gd": {
+      "sha256": "f1ea7669cff223141cb56ef90f929f38218a74a581411b1f431c5757325c336d",
+      "git_blob": "2af5a616de8586d40dac40c6059c6c17874a760a",
+      "bytes": 9957,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    },
+    "tests/grapple_aim_input_runner.gd.uid": {
+      "sha256": "1f1c94295b6a6b0054cb37800cde4d19ad1a50ed178ee20d881341e32d687d70",
+      "git_blob": "5cdd467e5c0afa3080871fdcbb03da76233eb20a",
+      "bytes": 20,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    },
+    "tests/grapple_feel_runner.gd": {
+      "sha256": "7a25d7bd836428b16369afaece400006251b29e539d989474d4c764def241791",
+      "git_blob": "c23e4f28e743f69e6f0c6093136e9b4f27a7c55d",
+      "bytes": 10044,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    },
+    "tests/grapple_feel_runner.gd.uid": {
+      "sha256": "ff54beb551efd04bf7bc648231a60f4d5ddfa9205926c39cfc7b08aa643b8192",
+      "git_blob": "baf097e4f8ac968d224601598fc38d3da058f2a3",
+      "bytes": 20,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    },
+    "tests/grapple_laser_input_runner.gd": {
+      "sha256": "e0a58f64254ddd1ab6cee2d696f6bbb5344ae07ca1dfb4227b8dd3835f9b0a5c",
+      "git_blob": "46d6721471c84e1ad426fa1100e42e28577a8afa",
+      "bytes": 6180,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    },
+    "tests/grapple_laser_input_runner.gd.uid": {
+      "sha256": "87f041e9f0664b032ff7d05735a59d80a5c2c40612fad3faf93322eb90dc778d",
+      "git_blob": "80331aa363d65ff37987f9369d9b9b3267cf053b",
+      "bytes": 20,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    },
+    "tests/player_feedback_runner.gd": {
+      "sha256": "3a5d61662b6a9bd4e9f9b7a76c468e044b76234b104f1ed86685815e70ce9a31",
+      "git_blob": "d5f320f46cd5cc204478f6f99fda01ac22c70d25",
+      "bytes": 7029,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    },
+    "tests/support/grapple_legacy_collision.gd": {
+      "sha256": "71ef58237d1549dfdcbf41bf428a3d4d25efee05cd5017bc81bfb6e5a483aef4",
+      "git_blob": "57efed1bbf9b5298c087de8645422723419f17ca",
+      "bytes": 1782,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    },
+    "tests/support/grapple_legacy_collision.gd.uid": {
+      "sha256": "e243f6d4a571b4b0925e54f50a3a2ec09e7ab3511055f90170027f021f482d79",
+      "git_blob": "5c7320b9c2c70bd842cf2639bb8676b08ea01260",
+      "bytes": 20,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    },
+    "tests/test_forest_vertical_shortcut.py": {
+      "sha256": "c095a3159b11dbaf0d36c95ade16fa6d4fc58d61d08fb11c2e84fc78ca62a473",
+      "git_blob": "7598f05fdb11165cac4ae5b0de1ea4f93de8be5b",
+      "bytes": 9835,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    },
+    "tests/test_grapple_feel_wrapper.py": {
+      "sha256": "5baa124422c3f39d6522e2b15de429960c70197f309088cebb6c83f243fae36a",
+      "git_blob": "c4c78140aa426ec8248df42e79e60311aa3a6c57",
+      "bytes": 1835,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    },
+    "tests/test_harness.py": {
+      "sha256": "3449fceb10bf7d27929054d359ede007051f9a28eb4389e2036b3485aca60f10",
+      "git_blob": "7d684aa4d361bcdd7516b44b4dc08bec1a92c6f7",
+      "bytes": 40262,
+      "review_chain_evidence": "verifier_canopy_derivation_appendix01.json",
+      "working_bytes_equal_commit": true
+    },
+    "tools/harness/profiles.json": {
+      "sha256": "219d0b494262939ecef57a64fc210ec4dd8a6da18a04e357f72e675aff28a99e",
+      "git_blob": "d0a3141d8662e86c65271e7ea2d049ba6fa1c96f",
+      "bytes": 44159,
+      "review_chain_evidence": "verifier_rhr_appendix01.json",
+      "working_bytes_equal_commit": true
+    },
+    "tools/run_aim_save_compat_tests.py": {
+      "sha256": "9681b0f4927ccdfe9bf08bf78303c86f6761fde68343f7d1563eef573987c235",
+      "git_blob": "e6a0662a49ecde9ae7c082e1ecddc47c0ab4237e",
+      "bytes": 682,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    },
+    "tools/run_forest_air_chain.py": {
+      "sha256": "499d61e03c3503301e3f026d4ee49a998be5e8a018b29f67cb0d05a41869665b",
+      "git_blob": "9a72b5c979fe88e8db2d1920f9e29cec72c831dc",
+      "bytes": 21483,
+      "review_chain_evidence": "verifier_rhr_appendix01.json",
+      "working_bytes_equal_commit": true
+    },
+    "tools/run_forest_depth_campaign_boss.py": {
+      "sha256": "8039836dfa206c39e38275c077fdfe11c4b14e3ce2055286bc1038aa2fd851a1",
+      "git_blob": "d635820ba1291c4ca54cdabd002bc7a89b21d78a",
+      "bytes": 42963,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    },
+    "tools/run_forest_depth_region.py": {
+      "sha256": "3762457151ac8c2a5b1e84c005e9d11c1ca163576b609a3d711a7ccc90e07ede",
+      "git_blob": "70d42160d10dd1363d5223421ca50a1a29b549cb",
+      "bytes": 106954,
+      "review_chain_evidence": "verifier_return_aperture_appendix01.json",
+      "working_bytes_equal_commit": true
+    },
+    "tools/run_forest_depth_versions.py": {
+      "sha256": "ecb23670976e53021013529c43d86d420a220777e0087229a1f1273d74890ec5",
+      "git_blob": "4fc181a531153e811ce99f562e1c304ed1ddd9ca",
+      "bytes": 23442,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    },
+    "tools/run_forest_vertical_shortcut.py": {
+      "sha256": "a803b0fffbf5224ad61d120e91dce10944b0fa77974bfecf3ee0df4491de663b",
+      "git_blob": "059a43a053be141054fc450c70fea8aa95d75363",
+      "bytes": 18474,
+      "review_chain_evidence": "verifier_marker_appendix01.json",
+      "working_bytes_equal_commit": true
+    },
+    "tools/run_grapple_feel_tests.py": {
+      "sha256": "d00bd59b4f330d5a0684c3aa02ff11c0563d0b6813f0f91e2affa71a1d74e2d2",
+      "git_blob": "519f7e81b1dfc5e2413a46f42397baf7f05a231a",
+      "bytes": 902,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    },
+    "tools/verify_forest_browser.py": {
+      "sha256": "83be1ffe83ee74b1cf8902386575328eefe60aab312bb0d9d397410bf10cd94c",
+      "git_blob": "da7f2e8c710a2170e6f3d7f7dabfccf89a2c7490",
+      "bytes": 18803,
+      "review_chain_evidence": "verifier_counterexamples04.json",
+      "working_bytes_equal_commit": true
+    }
+  },
+  "native_inventory_sha256": "2e27a93d8a3aef0bfe23b1d93e4bbb874ff770fd8a8fb60eb847b73c6ca8e2ae",
+  "matrix_receipt_original_source_head": "6c61faadd511c48a267b975550da897e701fd09f",
+  "matrix_receipt_sha256": "8516c6167a0c7df33f508a174f3588647886523500e3ca204a43f0cf16b8622f",
+  "parent_root_binding_reference": "build/forest_grapple02/committed_native_binding01.json",
+  "evidence_chain": [
+    "docs/quality/reviews/FOREST-GRAPPLE-02/verifier_review01.md",
+    "docs/quality/reviews/FOREST-GRAPPLE-02/verifier_review02.md",
+    "docs/quality/reviews/FOREST-GRAPPLE-02/verifier_counterexamples04.json",
+    "docs/quality/reviews/FOREST-GRAPPLE-02/verifier_marker_appendix01.json",
+    "docs/quality/reviews/FOREST-GRAPPLE-02/verifier_output_token_appendix01.json",
+    "docs/quality/reviews/FOREST-GRAPPLE-02/verifier_rhr_appendix01.md",
+    "docs/quality/reviews/FOREST-GRAPPLE-02/verifier_canopy_harness_appendix01.md",
+    "docs/quality/reviews/FOREST-GRAPPLE-02/verifier_harness_load_tests_appendix01.json",
+    "docs/quality/reviews/FOREST-GRAPPLE-02/verifier_return_aperture_appendix01.md",
+    "docs/quality/reviews/FOREST-GRAPPLE-02/verifier_matrix16_appendix01.md"
+  ],
+  "unverified": [
+    "Final original80-route corpus",
+    "Final full89-check CI",
+    "Whole region gameplay/fun/visual/audio acceptance",
+    "Physical device/player acceptance",
+    "Web release of S1"
+  ],
+  "verdict": "ACCEPT",
+  "additional_receipt_byte_bindings": [
+    {
+      "name": "migrant_hollow05",
+      "sha256": "3168e4c3c046752787e951b50b46e67430a577019d076fd710f69d48c2d56791",
+      "matches_parent_receipt_hash": true,
+      "original_source_before_equals_matrix": true,
+      "original_source_after_equals_matrix": true,
+      "status": "passed",
+      "original_source_head": "6c61faadd511c48a267b975550da897e701fd09f",
+      "scope": "Receipt/source-byte binding only; no replay or movie viewing"
+    },
+    {
+      "name": "matrix16_final02",
+      "sha256": "8516c6167a0c7df33f508a174f3588647886523500e3ca204a43f0cf16b8622f",
+      "matches_parent_receipt_hash": true,
+      "original_source_before_equals_matrix": true,
+      "original_source_after_equals_matrix": true,
+      "status": "passed",
+      "original_source_head": "6c61faadd511c48a267b975550da897e701fd09f",
+      "scope": "Receipt/source-byte binding only; no replay or movie viewing"
+    },
+    {
+      "name": "hh_migrant_context01",
+      "sha256": "127544eeb33a64e5337d7336495960a66d1428bca5aea2f86f598d1a41df5d88",
+      "matches_parent_receipt_hash": true,
+      "original_source_before_equals_matrix": true,
+      "original_source_after_equals_matrix": true,
+      "status": "passed",
+      "original_source_head": "6c61faadd511c48a267b975550da897e701fd09f",
+      "scope": "Receipt/source-byte binding only; no replay or movie viewing"
+    },
+    {
+      "name": "movie_final_map2_fast02",
+      "sha256": "85cebba84a2af67417341fdde1591cee4a7cf96a5c96e0cdb39620974b31c44e",
+      "matches_parent_receipt_hash": true,
+      "original_source_before_equals_matrix": true,
+      "original_source_after_equals_matrix": true,
+      "status": "passed",
+      "original_source_head": "6c61faadd511c48a267b975550da897e701fd09f",
+      "scope": "Receipt/source-byte binding only; no replay or movie viewing"
+    },
+    {
+      "name": "movie_final_map1_growth02",
+      "sha256": "22c42890a16f3bd7cef7ae7af2a396fa6ac4fde7dfb437f46aececf56b78a656",
+      "matches_parent_receipt_hash": true,
+      "original_source_before_equals_matrix": true,
+      "original_source_after_equals_matrix": true,
+      "status": "passed",
+      "original_source_head": "6c61faadd511c48a267b975550da897e701fd09f",
+      "scope": "Receipt/source-byte binding only; no replay or movie viewing"
+    },
+    {
+      "name": "shortcut_final02",
+      "sha256": "d112d7421758e70626a4d2d76611bdf2cd5e8259652b42bea4c6b5a50af6663b",
+      "matches_parent_receipt_hash": true,
+      "original_source_before_equals_matrix": true,
+      "original_source_after_equals_matrix": true,
+      "status": "passed",
+      "original_source_head": null,
+      "scope": "Receipt/source-byte binding only; no replay or movie viewing"
+    }
+  ]
+}

@@ -1,0 +1,186 @@
+{
+  "status": "CONTINUE_TO_INDEPENDENT_LOCAL_REVIEW",
+  "scope": "Actual continuous-air H0R correction, not randomness depth/comfort/full-region/human approval",
+  "actual_receipt": {
+    "scope": "Aircatch first continuous descent local hypothesis; not region/content approval",
+    "argv": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "tools/run_forest_hollow_trunk.py",
+      "--aircatch",
+      "--output-dir",
+      "build/forest_depth/hollow_trunk/aircatch01"
+    ],
+    "cwd": "/workspace/gunman-rush-design/build/forest_depth/snapshots/aircatch01",
+    "cold_import_cap": 90,
+    "combined_native_cap": 90,
+    "engine": "/workspace/toolchains/godot/4.7.2/Godot_v4.7.2-stable_linux.x86_64",
+    "returncode": 0,
+    "elapsed_seconds": 32.61330088400064,
+    "files": {
+      "build/forest_depth/hollow_trunk/aircatch01/deepH_zeroR.log": "5582b80067ca8a9203194663e6f1a31b889f1a02fa07c91bcc052993a6f52477",
+      "build/forest_depth/hollow_trunk/aircatch01/import.log": "37cf7b1460e2e6a5052b1c70a1074d50a96a04a36abef551ed17b0a6cda9ed23",
+      "build/forest_depth/hollow_trunk/aircatch01/receipt.json": "7bb56e60150642cf59121ba9946c97aeac355c06241dae51a3126c7c8767a257",
+      "build/forest_depth/hollow_trunk/aircatch01/return_R.log": "dd357f7219dc64ab76bba652afb92f289194f8ff4b7c0f728565bb691840f7f5",
+      "build/forest_depth/hollow_trunk/aircatch01/deepH_zeroR.json": "c8a1c9febabef258fbd7286cf407ef26a8980888a37f5a9807e21c9cdd2c445d",
+      "build/forest_depth/hollow_trunk/aircatch01/return_R.json": "cf8e3a874d1d765a770d02a65d288ccfcf3bc2b3960fab4cf1ed9b5b6aba322a"
+    },
+    "all_snapshot_source_unchanged": true
+  },
+  "cases": [
+    {
+      "variant": "deepH_zeroR",
+      "raw_sha256": "c8a1c9febabef258fbd7286cf407ef26a8980888a37f5a9807e21c9cdd2c445d",
+      "observed_frames": 330,
+      "driver_terminal_tick": 331,
+      "departure_tick": 98,
+      "D12_tick": 191,
+      "return_shots": 0,
+      "D12_state": {
+        "position": [
+          120.012985229492,
+          201.925216674805
+        ],
+        "velocity": [
+          0.0,
+          0.0
+        ],
+        "health": 5.0,
+        "shots": 2,
+        "energy": 97.5,
+        "supports": [
+          "inner_root"
+        ]
+      },
+      "final_M12": {
+        "tick": 330,
+        "position": [
+          -180.38459777832,
+          -0.0747880041599274
+        ],
+        "health": 5.0,
+        "shots": 2,
+        "energy": 100.0,
+        "supports": [
+          "belly_entry"
+        ]
+      },
+      "cast_tick": 121,
+      "contact_tick": 147,
+      "cast_to_contact_ground_frames": [],
+      "all_Motor_contacts_cast_to_contact": [],
+      "departure_to_contact_ground_frames": [],
+      "cast_request": {
+        "body_before": [
+          344.732482910156,
+          170.814147949219
+        ],
+        "direction": [
+          -0.999047815799713,
+          -0.0436287745833397
+        ],
+        "grounded_before": false,
+        "kind": "grapple",
+        "queued": true,
+        "tick": 121,
+        "velocity_before": [
+          0.0,
+          800.0
+        ]
+      },
+      "contact_state": {
+        "position": [
+          154.436065673828,
+          175.426025390625
+        ],
+        "velocity": [
+          -231.445434570312,
+          -205.205352783203
+        ],
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "hook_tip": [
+          131.988571166992,
+          155.523513793945
+        ],
+        "hook_start": [
+          344.732482910156,
+          164.814147949219
+        ],
+        "recoil_remaining": 0.0
+      },
+      "deepest_before_pull": 344.147521972656,
+      "outer_root_horizontal_gap_min": 9.267517089843977,
+      "inner_root_lip_crossing": [
+        {
+          "between_ticks": [
+            145,
+            146
+          ],
+          "body_center": [
+            162,
+            182.1324021944576
+          ],
+          "feet_y": 200.1324021944576,
+          "inner_lip_top_gap": 19.867597805542403,
+          "scope": "linear interpolation of observed actual Motor endpoints, not extra engine substeps"
+        }
+      ]
+    },
+    {
+      "variant": "return_R",
+      "raw_sha256": "cf8e3a874d1d765a770d02a65d288ccfcf3bc2b3960fab4cf1ed9b5b6aba322a",
+      "observed_frames": 293,
+      "driver_terminal_tick": 294,
+      "departure_tick": 98,
+      "D12_tick": 154,
+      "return_shots": 1,
+      "D12_state": {
+        "position": [
+          120.072868347168,
+          201.925216674805
+        ],
+        "velocity": [
+          -2.47112274169922,
+          0.0
+        ],
+        "health": 5.0,
+        "shots": 2,
+        "energy": 77.5,
+        "supports": [
+          "inner_root"
+        ]
+      },
+      "final_M12": {
+        "tick": 293,
+        "position": [
+          -180.383529663086,
+          -0.0747879594564438
+        ],
+        "health": 5.0,
+        "shots": 2,
+        "energy": 100.0,
+        "supports": [
+          "belly_entry"
+        ]
+      }
+    }
+  ],
+  "comparison": {
+    "H_minus_R_D12_ticks": 37,
+    "H_minus_R_D12_energy": 20.0,
+    "saved_return_shots": 1,
+    "final_both_full_resources": true
+  },
+  "unverified": [
+    "ordinary zeroR direct alternative",
+    "new omission/miss full12 natural recovery",
+    "finite input perturbations",
+    "normal GL/readability/comfort",
+    "current App seamless embedding",
+    "seed-dependent solution changes",
+    "independent mechanism review"
+  ],
+  "changes_after_native": "none"
+}

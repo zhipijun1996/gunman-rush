@@ -1,0 +1,18 @@
+import json,hashlib
+from pathlib import Path
+ROOT=Path(__file__).resolve().parents[4];x=json.loads((ROOT/'build/forest_depth/traversal/cavity_matrix03/actual-results.json').read_text());cases=next(g for g in x['groups'] if g['name']=='matrix03')['cases'];out=[]
+for c in cases:
+ p=Path(c['capture']);d=json.loads(p.read_text());fs=d['frames'];es=d['events'];en={}
+ for f in fs:
+  for e in f['enemies']:
+   v=en.setdefault(e['id'],{'states':{},'first_hp':e['health'],'min_hp':e['health'],'min_distance':1e9,'samples':0});v['min_hp']=min(v['min_hp'],e['health']);v['states'][e['state']]=v['states'].get(e['state'],0)+1;v['min_distance']=min(v['min_distance'],sum((a-b)**2 for a,b in zip(f['position'],e['position']))**.5);v['samples']+=1
+ edges=[]
+ for l in d['completed_legs']:
+  if not edges or edges[-1]['id']!=l['edge_id']:edges.append({'id':l['edge_id'],'first':l['start_tick'],'last':l['tick']})
+  else:edges[-1]['last']=l['tick']
+ hook=[e for e in es if e['kind']=='hook_contact_kick'];shots=[e for e in es if e['kind']=='shot_fired'];dam=[e for e in es if e['kind']=='committed_damage']
+ out.append({'seed':c['seed'],'map':c['map'],'family':c['family'],'route':c['route'],'choices':c['choices'],'raw':str(p),'hash_match':hashlib.sha256(p.read_bytes()).hexdigest()==c['capture_sha256'],'ticks':len(fs),'contiguous':all(f['tick']==i+1 for i,f in enumerate(fs)),'edges':edges,'hooks':hook,'shots':shots,'damage':dam,'enemies':en,'itinerary':d['itinerary'],'visited_areas':d['visited_areas'],'claimed_ids':d['claimed_ids']})
+(ROOT/'build/forest_depth/independent/forest-current-design/actual-route-audit.json').write_text(json.dumps(out,indent=2)+'\n')
+for i,r in enumerate(out):
+ print(i,r['family'],r['route'],'hooks',[e.get('target') for e in r['hooks']],'hurt',[(e['tick'],e['source']) for e in r['damage']],'enemy hp decrease',[(k,v['first_hp']-v['min_hp']) for k,v in r['enemies'].items() if v['min_hp']<v['first_hp']])
+print('all hash/continuous',all(r['hash_match'] and r['contiguous'] for r in out))

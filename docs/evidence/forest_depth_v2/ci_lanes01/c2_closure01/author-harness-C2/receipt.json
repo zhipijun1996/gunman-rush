@@ -1,0 +1,26 @@
+{
+  "scope": "C2 path guards; real tiny Python/Git cases and original unit suite; no native/browser.",
+  "base_commit": "5e61afa6233018125ef0fb1d23129d7bc9522f9c",
+  "argv": [
+    "python3",
+    "-B",
+    "tests/test_harness.py"
+  ],
+  "timeout_seconds": 60,
+  "exit_code": 0,
+  "seconds": 7.939354712994827,
+  "source_before": {
+    "tools/harness.py": "e7e136915675674c2bd7e6ac7db4dcc0aa971542a8812b216d547c978bce9ff5",
+    "tests/test_harness.py": "085869bf47a560af758b0ed0fa7ae3e9f67c31c32331268f191bf517bf1fa50d"
+  },
+  "source_after": {
+    "tools/harness.py": "e7e136915675674c2bd7e6ac7db4dcc0aa971542a8812b216d547c978bce9ff5",
+    "tests/test_harness.py": "085869bf47a560af758b0ed0fa7ae3e9f67c31c32331268f191bf517bf1fa50d"
+  },
+  "source_stable": true,
+  "run_check_AST_exact": true,
+  "execute_checks_AST_exact": true,
+  "original_25_test_classes_AST_exact": true,
+  "all_original_33_test_methods_AST_exact": true,
+  "log_sha256": "851b3f805dc26623d21c95d91b197cc6b52bf145e159c8a01c4dd6ee71afb496"
+}

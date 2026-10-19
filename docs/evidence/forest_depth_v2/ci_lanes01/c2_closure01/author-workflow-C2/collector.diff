@@ -1,0 +1,47 @@
+--- C
++++ C2
+@@ -146,11 +146,29 @@
+           import os
+           from pathlib import Path
+           import shutil
++          import stat
++          ROOT = Path.cwd().resolve()
++          def no_links(path):
++              path = path if path.is_absolute() else ROOT / path
++              if not path.is_relative_to(ROOT) or '..' in path.relative_to(ROOT).parts:
++                  raise SystemExit('Proof path is outside repository root')
++              current = ROOT
++              for component in path.relative_to(ROOT).parts:
++                  current = current / component
++                  if current.is_symlink():
++                      raise SystemExit('Proof path or repository ancestor is a symlink')
++              return path
++          def regular(path):
++              path = no_links(path)
++              if not stat.S_ISREG(path.lstat().st_mode):
++                  raise SystemExit('Original proof input must be a regular file')
++              return path
++          no_links(Path('build/verification/harness'))
+           reports = list(Path('build/verification/harness').glob('*/report.json'))
+           if len(reports) != 1:
+               raise SystemExit('Expected exactly one original Harness phase report')
+-          report = reports[0]
+-          proof = Path('build/verification/ci-lane-proof') / os.environ['HARNESS_LANE']
++          report = regular(reports[0])
++          proof = no_links(Path('build/verification/ci-lane-proof') / os.environ['HARNESS_LANE'])
+           proof.mkdir(parents=True, exist_ok=False)
+           shutil.copy2(report, proof / 'report.json')
+           seen = set()
+@@ -159,10 +177,8 @@
+               if relative.is_absolute() or '..' in relative.parts or relative in seen or relative == Path('report.json'):
+                   raise SystemExit('Invalid or repeated original check log path')
+               seen.add(relative)
+-              source = report.parent / relative
+-              if source.is_symlink() or not source.resolve().is_relative_to(report.parent.resolve()) or not source.is_file():
+-                  raise SystemExit('Original check stdout log missing or outside report directory')
+-              target = proof / relative
++              source = regular(report.parent / relative)
++              target = no_links(proof / relative)
+               target.parent.mkdir(parents=True, exist_ok=True)
+               shutil.copy2(source, target)
+           PYCODE

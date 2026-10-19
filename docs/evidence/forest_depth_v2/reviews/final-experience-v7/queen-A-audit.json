@@ -1,0 +1,840 @@
+{
+  "scope": "Independent offline raw only; not native/film/player acceptance",
+  "shared_prefix": {
+    "equal_physical_frames": 710,
+    "only_excluded": "queen_motor_id",
+    "actual_compared": true
+  },
+  "runs": {
+    "hook40": {
+      "path": "build/forest_depth/snapshots/queen40-third-intercept/build/forest_depth/queen/round40-third_hook/capture.json",
+      "sha256": "a78daf8f4566fbd8bdb90146cf8285455ceef1f57d9b7385a229c04c772237b5",
+      "assertions": 22,
+      "failures": [],
+      "frames": 1496,
+      "tick_continuous": true,
+      "one_actual_motor_every_frame": true,
+      "boss_start_hp": 24.0,
+      "boss_end_hp": 0.0,
+      "player_end_hp": 5.0,
+      "player_end_energy": 100.0,
+      "field2_cut_events": [
+        {
+          "case": "full_H",
+          "event": "knot_health_severed",
+          "field": 2,
+          "health": 0.0,
+          "tick": 736
+        }
+      ],
+      "player_policy_damage": [],
+      "decisions": [
+        {
+          "case": "full_H",
+          "event": "actual_hook_target_contact",
+          "point": [
+            632.0,
+            290.340148925781
+          ],
+          "target_name": "QueenWeaveKnot0",
+          "target_position": [
+            620.0,
+            300.0
+          ],
+          "tick": 200
+        },
+        {
+          "case": "full_H",
+          "event": "actual_hook_target_contact",
+          "point": [
+            441.472259521484,
+            232.0
+          ],
+          "target_name": "QueenWeaveKnot1",
+          "target_position": [
+            430.0,
+            220.0
+          ],
+          "tick": 676
+        },
+        {
+          "case": "full_H",
+          "event": "actual_hook_target_contact",
+          "point": [
+            708.0,
+            271.545104980469
+          ],
+          "target_name": "QueenWeaveKnot2",
+          "target_position": [
+            720.0,
+            260.0
+          ],
+          "tick": 717
+        },
+        {
+          "age": 0.633333333333334,
+          "case": "full_H",
+          "cut": true,
+          "energy": 84.0,
+          "event": "third_response_complete",
+          "mode": "hook",
+          "player": [
+            566.176147460938,
+            341.92529296875
+          ],
+          "shots": 2,
+          "tick": 749
+        }
+      ],
+      "case": {
+        "attack_damage_after_fixed": 0.0,
+        "borrowed_main": true,
+        "boss_damage": 24.0,
+        "boss_defeated": true,
+        "explicit_initial_probe": false,
+        "fields": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "final_energy": 100.0,
+        "final_field_states": [
+          {
+            "health": 0.0,
+            "spawned": true,
+            "weave": {
+              "age": 4.61666666666666,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": true,
+              "suspended": false
+            }
+          },
+          {
+            "health": 0.0,
+            "spawned": true,
+            "weave": {
+              "age": 11.6166666666668,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": true,
+              "suspended": false
+            }
+          },
+          {
+            "health": 0.0,
+            "spawned": true,
+            "weave": {
+              "age": 0.633333333333334,
+              "growth": 0.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": true,
+              "suspended": false
+            }
+          }
+        ],
+        "final_phase": 3,
+        "final_position": [
+          542.773742675781,
+          341.92529296875
+        ],
+        "final_route_phase": 3,
+        "fixed_borrows": 0,
+        "id": "full_H",
+        "initial_boss_hp": 24.0,
+        "initial_energy": 100.0,
+        "initial_fields": [
+          2.0,
+          2.0,
+          null
+        ],
+        "initial_player_hp": 5.0,
+        "low_excursions": 3,
+        "main_backshot_cut": true,
+        "middle_entry": true,
+        "p1_warning_response": {
+          "accepted_response_shots": 10,
+          "body_damage": 0,
+          "borrowed": true,
+          "boss_damage": 8.0,
+          "bounded_local_response": true,
+          "explicit_initial_probe": false,
+          "fallback": false,
+          "final_energy": 69.5,
+          "final_position": [
+            449.180572509766,
+            341.92529296875
+          ],
+          "id": "full_H",
+          "initial_boss_hp": 24.0,
+          "initial_energy": 100.0,
+          "initial_fields": [
+            2.0,
+            2.0,
+            null
+          ],
+          "initial_player_hp": 5.0,
+          "player_damage": 0.0,
+          "preview_player": [
+            688.6669921875,
+            278.245330810547
+          ],
+          "preview_tick": 193,
+          "real_migrations": 1,
+          "retained_in_arena": true,
+          "return_support_frames": 12,
+          "ticks": 569
+        },
+        "player_damage": 0.0,
+        "player_dead": false,
+        "retained_in_arena": true,
+        "third_H_omitted_as_redundant": true,
+        "third_backshot_cut": true,
+        "third_borrow": true,
+        "ticks": 1496,
+        "upper_entry": true
+      }
+    },
+    "shoot40": {
+      "path": "build/forest_depth/snapshots/queen40-third-intercept/build/forest_depth/queen/round40-third_shoot/capture.json",
+      "sha256": "09246f8b895c6bb23247b8d967a058d4f0d0df9400dc0209a64042cc07f725ae",
+      "assertions": 19,
+      "failures": [],
+      "frames": 1479,
+      "tick_continuous": true,
+      "one_actual_motor_every_frame": true,
+      "boss_start_hp": 24.0,
+      "boss_end_hp": 0.0,
+      "player_end_hp": 5.0,
+      "player_end_energy": 100.0,
+      "field2_cut_events": [
+        {
+          "case": "full_H",
+          "event": "knot_health_severed",
+          "field": 2,
+          "health": 0.0,
+          "tick": 736
+        }
+      ],
+      "player_policy_damage": [],
+      "decisions": [
+        {
+          "case": "full_H",
+          "event": "actual_hook_target_contact",
+          "point": [
+            632.0,
+            290.340148925781
+          ],
+          "target_name": "QueenWeaveKnot0",
+          "target_position": [
+            620.0,
+            300.0
+          ],
+          "tick": 200
+        },
+        {
+          "case": "full_H",
+          "event": "actual_hook_target_contact",
+          "point": [
+            441.472259521484,
+            232.0
+          ],
+          "target_name": "QueenWeaveKnot1",
+          "target_position": [
+            430.0,
+            220.0
+          ],
+          "tick": 676
+        },
+        {
+          "age": 0.633333333333334,
+          "case": "full_H",
+          "cut": true,
+          "energy": 84.0,
+          "event": "third_response_complete",
+          "mode": "shoot",
+          "player": [
+            505.874877929688,
+            341.92529296875
+          ],
+          "shots": 2,
+          "tick": 742
+        }
+      ],
+      "case": {
+        "attack_damage_after_fixed": 0.0,
+        "borrowed_main": true,
+        "boss_damage": 24.0,
+        "boss_defeated": true,
+        "explicit_initial_probe": false,
+        "fields": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "final_energy": 100.0,
+        "final_field_states": [
+          {
+            "health": 0.0,
+            "spawned": true,
+            "weave": {
+              "age": 4.61666666666666,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": true,
+              "suspended": false
+            }
+          },
+          {
+            "health": 0.0,
+            "spawned": true,
+            "weave": {
+              "age": 11.6166666666668,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": true,
+              "suspended": false
+            }
+          },
+          {
+            "health": 0.0,
+            "spawned": true,
+            "weave": {
+              "age": 0.633333333333334,
+              "growth": 0.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": true,
+              "suspended": false
+            }
+          }
+        ],
+        "final_phase": 3,
+        "final_position": [
+          543.827026367188,
+          341.92529296875
+        ],
+        "final_route_phase": 3,
+        "fixed_borrows": 0,
+        "id": "full_H",
+        "initial_boss_hp": 24.0,
+        "initial_energy": 100.0,
+        "initial_fields": [
+          2.0,
+          2.0,
+          null
+        ],
+        "initial_player_hp": 5.0,
+        "low_excursions": 3,
+        "main_backshot_cut": true,
+        "middle_entry": true,
+        "p1_warning_response": {
+          "accepted_response_shots": 10,
+          "body_damage": 0,
+          "borrowed": true,
+          "boss_damage": 8.0,
+          "bounded_local_response": true,
+          "explicit_initial_probe": false,
+          "fallback": false,
+          "final_energy": 69.5,
+          "final_position": [
+            449.180572509766,
+            341.92529296875
+          ],
+          "id": "full_H",
+          "initial_boss_hp": 24.0,
+          "initial_energy": 100.0,
+          "initial_fields": [
+            2.0,
+            2.0,
+            null
+          ],
+          "initial_player_hp": 5.0,
+          "player_damage": 0.0,
+          "preview_player": [
+            688.6669921875,
+            278.245330810547
+          ],
+          "preview_tick": 193,
+          "real_migrations": 1,
+          "retained_in_arena": true,
+          "return_support_frames": 12,
+          "ticks": 569
+        },
+        "player_damage": 0.0,
+        "player_dead": false,
+        "retained_in_arena": true,
+        "third_H_omitted_as_redundant": true,
+        "third_backshot_cut": true,
+        "ticks": 1479,
+        "upper_entry": true
+      }
+    },
+    "refuge39": {
+      "path": "build/forest_depth/snapshots/queen39-refuge-lifecycle/build/forest_depth/queen/round39-crossline_refuge/capture.json",
+      "sha256": "b8f7d93f6ad47eb8625511e989f67888ba4c68cb8cf8dad52c6f67ab57f2342c",
+      "assertions": 15,
+      "failures": [],
+      "frames": 1115,
+      "tick_continuous": true,
+      "one_actual_motor_every_frame": true,
+      "boss_start_hp": 24.0,
+      "boss_end_hp": 0.0,
+      "player_end_hp": 4.0,
+      "player_end_energy": 100.0,
+      "field2_cut_events": [],
+      "player_policy_damage": [
+        {
+          "amount": 1.0,
+          "case": "ordinary_crossline_refuge",
+          "event": "policy_result",
+          "hp": 4.0,
+          "id": "queen_body_contact:1:1:1",
+          "source": "queen_body_contact",
+          "target": "player",
+          "tick": 419
+        }
+      ],
+      "decisions": [
+        {
+          "age": 2.41666666666666,
+          "case": "ordinary_crossline_refuge",
+          "decision": "ordinary_jump_to_left_refuge",
+          "event": "crossline_response_decision",
+          "height": 429.950592041016,
+          "tick": 735
+        },
+        {
+          "case": "ordinary_crossline_refuge",
+          "event": "crossline_response_departure",
+          "player": [
+            317.068450927734,
+            341.92529296875
+          ],
+          "target": 178.0,
+          "third_segment": [
+            "(200.0, 401.25)",
+            "(888.0, 416.25)"
+          ],
+          "tick": 766
+        }
+      ],
+      "case": {
+        "boss_damage": 24.0,
+        "boss_defeated": true,
+        "explicit_initial_probe": false,
+        "fields": [
+          2.0,
+          0.0,
+          2.0
+        ],
+        "final_energy": 100.0,
+        "final_field_states": [
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 18.5833333333336,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "health": 0.0,
+            "spawned": true,
+            "weave": {
+              "age": 9.81666666666673,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": true,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 8.75000000000001,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          }
+        ],
+        "final_phase": 3,
+        "final_position": [
+          160.566146850586,
+          381.925262451172
+        ],
+        "final_route_phase": 3,
+        "id": "ordinary_crossline_refuge",
+        "initial_boss_hp": 24.0,
+        "initial_energy": 100.0,
+        "initial_fields": [
+          2.0,
+          2.0,
+          null
+        ],
+        "initial_player_hp": 5.0,
+        "main_cut": true,
+        "middle_entry": true,
+        "player_damage": 1.0,
+        "player_dead": false,
+        "retained_in_arena": true,
+        "ticks": 1115,
+        "transfers": 1,
+        "upper_entry": true
+      }
+    },
+    "oldH37": {
+      "path": "build/forest_depth/snapshots/queen37-crossline-A/build/forest_depth/queen/round37-adaptive_full/capture.json",
+      "sha256": "07fa989fab51fa78b1fa0399506c1519134ea0d1b5cfb643fcc71994afe78bad",
+      "assertions": 18,
+      "failures": [
+        "full_H/purpose complete fight must really defeat Queen"
+      ],
+      "frames": 1411,
+      "tick_continuous": true,
+      "one_actual_motor_every_frame": true,
+      "boss_start_hp": 24.0,
+      "boss_end_hp": 5.0,
+      "player_end_hp": 0.0,
+      "player_end_energy": 80.0,
+      "field2_cut_events": [],
+      "player_policy_damage": [
+        {
+          "amount": 1.0,
+          "case": "full_H",
+          "event": "policy_result",
+          "hp": 4.0,
+          "id": "queen/weave/2/1/0",
+          "source": "queen_growing_weave",
+          "target": "player",
+          "tick": 929
+        },
+        {
+          "amount": 1.0,
+          "case": "full_H",
+          "event": "policy_result",
+          "hp": 3.0,
+          "id": "queen/weave/2/1/1",
+          "source": "queen_growing_weave",
+          "target": "player",
+          "tick": 971
+        },
+        {
+          "amount": 1.0,
+          "case": "full_H",
+          "event": "policy_result",
+          "hp": 2.0,
+          "id": "queen/weave/2/1/2",
+          "source": "queen_growing_weave",
+          "target": "player",
+          "tick": 1106
+        },
+        {
+          "amount": 1.0,
+          "case": "full_H",
+          "event": "policy_result",
+          "hp": 1.0,
+          "id": "queen/weave/2/1/3",
+          "source": "queen_growing_weave",
+          "target": "player",
+          "tick": 1149
+        },
+        {
+          "amount": 1.0,
+          "case": "full_H",
+          "event": "policy_result",
+          "hp": 0.0,
+          "id": "queen/weave/2/1/4",
+          "source": "queen_growing_weave",
+          "target": "player",
+          "tick": 1411
+        }
+      ],
+      "decisions": [
+        {
+          "case": "full_H",
+          "event": "actual_hook_target_contact",
+          "point": [
+            632.0,
+            290.340148925781
+          ],
+          "target_name": "QueenWeaveKnot0",
+          "target_position": [
+            620.0,
+            300.0
+          ],
+          "tick": 200
+        },
+        {
+          "case": "full_H",
+          "event": "actual_hook_target_contact",
+          "point": [
+            441.472259521484,
+            232.0
+          ],
+          "target_name": "QueenWeaveKnot1",
+          "target_position": [
+            430.0,
+            220.0
+          ],
+          "tick": 676
+        }
+      ],
+      "case": {
+        "attack_damage_after_fixed": 0.0,
+        "borrowed_main": true,
+        "boss_damage": 19.0,
+        "boss_defeated": false,
+        "explicit_initial_probe": false,
+        "fields": [
+          0.0,
+          0.0,
+          2.0
+        ],
+        "final_energy": 80.0,
+        "final_field_states": [
+          {
+            "health": 0.0,
+            "spawned": true,
+            "weave": {
+              "age": 4.61666666666666,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": true,
+              "suspended": false
+            }
+          },
+          {
+            "health": 0.0,
+            "spawned": true,
+            "weave": {
+              "age": 11.6166666666668,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": true,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 11.8833333333335,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.683333333333334,
+              "pulse": 5,
+              "severed": false,
+              "suspended": false
+            }
+          }
+        ],
+        "final_phase": 3,
+        "final_position": [
+          548.958984375,
+          341.92529296875
+        ],
+        "final_route_phase": 3,
+        "fixed_borrows": 0,
+        "id": "full_H",
+        "initial_boss_hp": 24.0,
+        "initial_energy": 100.0,
+        "initial_fields": [
+          2.0,
+          2.0,
+          null
+        ],
+        "initial_player_hp": 5.0,
+        "low_excursions": 0,
+        "main_backshot_cut": true,
+        "middle_entry": true,
+        "p1_warning_response": {
+          "accepted_response_shots": 10,
+          "body_damage": 0,
+          "borrowed": true,
+          "boss_damage": 8.0,
+          "bounded_local_response": true,
+          "explicit_initial_probe": false,
+          "fallback": false,
+          "final_energy": 69.5,
+          "final_position": [
+            449.180572509766,
+            341.92529296875
+          ],
+          "id": "full_H",
+          "initial_boss_hp": 24.0,
+          "initial_energy": 100.0,
+          "initial_fields": [
+            2.0,
+            2.0,
+            null
+          ],
+          "initial_player_hp": 5.0,
+          "player_damage": 0.0,
+          "preview_player": [
+            688.6669921875,
+            278.245330810547
+          ],
+          "preview_tick": 193,
+          "real_migrations": 1,
+          "retained_in_arena": true,
+          "return_support_frames": 12,
+          "ticks": 569
+        },
+        "player_damage": 5.0,
+        "player_dead": true,
+        "retained_in_arena": true,
+        "third_H_omitted_as_redundant": true,
+        "ticks": 1411,
+        "upper_entry": true
+      }
+    },
+    "oldedge37": {
+      "path": "build/forest_depth/snapshots/queen37-crossline-A/build/forest_depth/queen/round37-edge-full_edge/capture.json",
+      "sha256": "59c38478a480f4224149417b5163a909c66cac4d993720fefa0ec08eea975f2e",
+      "assertions": 11,
+      "failures": [],
+      "frames": 1115,
+      "tick_continuous": true,
+      "one_actual_motor_every_frame": true,
+      "boss_start_hp": 24.0,
+      "boss_end_hp": 0.0,
+      "player_end_hp": 2.0,
+      "player_end_energy": 80.0,
+      "field2_cut_events": [],
+      "player_policy_damage": [
+        {
+          "amount": 1.0,
+          "case": "edge_repeat_noH",
+          "event": "policy_result",
+          "hp": 4.0,
+          "id": "queen_body_contact:1:1:1",
+          "source": "queen_body_contact",
+          "target": "player",
+          "tick": 419
+        },
+        {
+          "amount": 1.0,
+          "case": "edge_repeat_noH",
+          "event": "policy_result",
+          "hp": 3.0,
+          "id": "queen/weave/2/1/0",
+          "source": "queen_growing_weave",
+          "target": "player",
+          "tick": 953
+        },
+        {
+          "amount": 1.0,
+          "case": "edge_repeat_noH",
+          "event": "policy_result",
+          "hp": 2.0,
+          "id": "queen/weave/2/1/1",
+          "source": "queen_growing_weave",
+          "target": "player",
+          "tick": 1070
+        }
+      ],
+      "decisions": [],
+      "case": {
+        "boss_damage": 24.0,
+        "boss_defeated": true,
+        "explicit_initial_probe": false,
+        "fields": [
+          2.0,
+          2.0,
+          2.0
+        ],
+        "final_energy": 80.0,
+        "final_field_states": [
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 18.5833333333336,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 18.5833333333336,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 7.46666666666665,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 2,
+              "severed": false,
+              "suspended": false
+            }
+          }
+        ],
+        "final_phase": 3,
+        "final_position": [
+          790.970703125,
+          381.92529296875
+        ],
+        "final_route_phase": 3,
+        "id": "edge_repeat_noH",
+        "initial_boss_hp": 24.0,
+        "initial_energy": 100.0,
+        "initial_fields": [
+          2.0,
+          2.0,
+          null
+        ],
+        "initial_player_hp": 5.0,
+        "middle_arrival": true,
+        "ordinary_upper_arrival": true,
+        "player_damage": 3.0,
+        "player_dead": false,
+        "retained_in_arena": true,
+        "ticks": 1115
+      }
+    }
+  }
+}

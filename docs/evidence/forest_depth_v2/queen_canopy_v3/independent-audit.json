@@ -1,0 +1,447 @@
+{
+  "scope": "read-only mechanism review; no native or film/human/device/audio/final product validation",
+  "index": "build/forest_depth/queen/canopy-v3-02/index.json",
+  "index_sha256": "e8edf650551d595c5f6d53958f0ed0601b382a86d954c4411611342da0da0f45",
+  "member_count": 39,
+  "bad_members": [],
+  "results": [
+    {
+      "raw": "build/forest_depth/snapshots/queen-canopy-v3-02/build/forest_depth/queen/canopy-v3-02-ordinary_keep/capture.json",
+      "sha256": "b666783809d712200d082f3b88e3027dea597c912d3df80d74be3972be8fe778",
+      "cases": [
+        {
+          "boss_hp": 0.0,
+          "chain_end": -1.0,
+          "chain_start": -1.0,
+          "energy": 65.5,
+          "high_attempted": false,
+          "high_field": {
+            "health": 2.0,
+            "weave": {
+              "age": 5.58333333333332,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0.0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          "id": "ordinary_keep",
+          "initial_boss_hp": 24.0,
+          "initial_energy": 100.0,
+          "initial_player_hp": 5.0,
+          "kill_tick": 500.0,
+          "locked_receiver": "S",
+          "lure_ready_tick": -1.0,
+          "lure_stage_tick": -1.0,
+          "player_hp": 4.0,
+          "receiver_attempted": false,
+          "receiver_field": {
+            "health": 2.0,
+            "weave": {
+              "age": 4.48333333333332,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0.0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          "shore_arrived": true,
+          "shore_crossing_R": 2.0,
+          "shore_departure_tick": 238.0,
+          "shore_lock_tick": 231.0,
+          "support12": 12.0,
+          "ticks": 511.0
+        }
+      ],
+      "failures": [],
+      "phase_previews": [
+        {
+          "basis": "authored_high_route",
+          "case": "ordinary_keep",
+          "event": "canopy_field_preview",
+          "field": 0.0,
+          "grow": 0.65,
+          "receiver": "high",
+          "row": {
+            "id": "high",
+            "knot_position": [
+              730.0,
+              150.0
+            ],
+            "strand_start": [
+              700.0,
+              230.0
+            ],
+            "strand_tip": [
+              760.0,
+              230.0
+            ]
+          },
+          "sampled_player": [
+            0.0,
+            0.0
+          ],
+          "tick": 165.0,
+          "warning": 1.2
+        },
+        {
+          "basis": "last_actual_full_foot_support",
+          "case": "ordinary_keep",
+          "event": "canopy_field_preview",
+          "field": 1.0,
+          "grow": 0.65,
+          "receiver": "S",
+          "row": {
+            "id": "S",
+            "knot_position": [
+              480.0,
+              220.0
+            ],
+            "strand_start": [
+              412.0,
+              340.0
+            ],
+            "strand_tip": [
+              488.0,
+              340.0
+            ],
+            "support": [
+              400.0,
+              360.0,
+              100.0,
+              240.0
+            ]
+          },
+          "sampled_player": [
+            429.428924560547,
+            85.2588348388672
+          ],
+          "tick": 231.0,
+          "warning": 1.2
+        }
+      ],
+      "weave_severed": [],
+      "player_damage": [
+        {
+          "amount": 1.0,
+          "case": "ordinary_keep",
+          "event": "policy_result",
+          "hp": 4.0,
+          "id": "queen_body_contact:1:1:1",
+          "source": "queen_body_contact",
+          "target": "player",
+          "tick": 358.0
+        }
+      ]
+    },
+    {
+      "raw": "build/forest_depth/snapshots/queen-canopy-v3-02/build/forest_depth/queen/canopy-v3-02-purpose/capture.json",
+      "sha256": "937459bd77a21585059e972a2d2574b1e5c978174bd6b0b68d6290d88889d253",
+      "cases": [
+        {
+          "boss_hp": 0.0,
+          "chain_end": 166.0,
+          "chain_start": 125.0,
+          "energy": 80.0,
+          "high_attempted": true,
+          "high_field": {
+            "health": 1.0,
+            "weave": {
+              "age": 5.26666666666665,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0.0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          "id": "purpose",
+          "initial_boss_hp": 24.0,
+          "initial_energy": 100.0,
+          "initial_player_hp": 5.0,
+          "kill_tick": 614.0,
+          "locked_receiver": "S",
+          "lure_ready_tick": -1.0,
+          "lure_stage_tick": -1.0,
+          "player_hp": 4.0,
+          "receiver_attempted": true,
+          "receiver_field": {
+            "health": 0.0,
+            "weave": {
+              "age": 0.566666666666667,
+              "growth": 0.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0.0,
+              "severed": true,
+              "suspended": false
+            }
+          },
+          "shore_arrived": false,
+          "shore_crossing_R": 0.0,
+          "shore_departure_tick": -1.0,
+          "shore_lock_tick": -1.0,
+          "support12": 12.0,
+          "ticks": 625.0
+        }
+      ],
+      "failures": [],
+      "phase_previews": [
+        {
+          "basis": "authored_high_route",
+          "case": "purpose",
+          "event": "canopy_field_preview",
+          "field": 0.0,
+          "grow": 0.65,
+          "receiver": "high",
+          "row": {
+            "id": "high",
+            "knot_position": [
+              730.0,
+              150.0
+            ],
+            "strand_start": [
+              700.0,
+              230.0
+            ],
+            "strand_tip": [
+              760.0,
+              230.0
+            ]
+          },
+          "sampled_player": [
+            0.0,
+            0.0
+          ],
+          "tick": 298.0,
+          "warning": 1.2
+        },
+        {
+          "basis": "last_actual_full_foot_support",
+          "case": "purpose",
+          "event": "canopy_field_preview",
+          "field": 1.0,
+          "grow": 0.65,
+          "receiver": "S",
+          "row": {
+            "id": "S",
+            "knot_position": [
+              480.0,
+              220.0
+            ],
+            "strand_start": [
+              412.0,
+              340.0
+            ],
+            "strand_tip": [
+              488.0,
+              340.0
+            ],
+            "support": [
+              400.0,
+              360.0,
+              100.0,
+              240.0
+            ]
+          },
+          "sampled_player": [
+            690.170166015625,
+            88.9081573486328
+          ],
+          "tick": 393.0,
+          "warning": 1.2
+        }
+      ],
+      "weave_severed": [
+        {
+          "age": 0.566666666666667,
+          "case": "purpose",
+          "event": "weave_severed",
+          "field": 1.0,
+          "growth": 0.0,
+          "phase": 3.0,
+          "tick": 427.0
+        }
+      ],
+      "player_damage": [
+        {
+          "amount": 1.0,
+          "case": "purpose",
+          "event": "policy_result",
+          "hp": 4.0,
+          "id": "queen_body_contact:1:1:1",
+          "source": "queen_body_contact",
+          "target": "player",
+          "tick": 548.0
+        }
+      ]
+    },
+    {
+      "raw": "build/forest_depth/snapshots/queen-canopy-v3-02/build/forest_depth/queen/canopy-v3-02-lure/capture.json",
+      "sha256": "bf617252cfd94bdad20989b27f1b16cd500634c5720d544243518aa0ebc461f0",
+      "cases": [
+        {
+          "boss_hp": 0.0,
+          "chain_end": -1.0,
+          "chain_start": -1.0,
+          "energy": 100.0,
+          "high_attempted": false,
+          "high_field": {
+            "health": 0.0,
+            "weave": {
+              "age": 0.583333333333333,
+              "growth": 0.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0.0,
+              "severed": true,
+              "suspended": false
+            }
+          },
+          "id": "lure",
+          "initial_boss_hp": 24.0,
+          "initial_energy": 100.0,
+          "initial_player_hp": 5.0,
+          "kill_tick": 876.0,
+          "locked_receiver": "right",
+          "lure_ready_tick": 282.0,
+          "lure_stage_tick": 200.0,
+          "player_hp": 3.0,
+          "receiver_attempted": false,
+          "receiver_field": {
+            "health": 0.0,
+            "weave": {
+              "age": 0.45,
+              "growth": 0.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0.0,
+              "severed": true,
+              "suspended": false
+            }
+          },
+          "shore_arrived": true,
+          "shore_crossing_R": 2.0,
+          "shore_departure_tick": 206.0,
+          "shore_lock_tick": 324.0,
+          "support12": 12.0,
+          "ticks": 887.0
+        }
+      ],
+      "failures": [],
+      "phase_previews": [
+        {
+          "basis": "authored_high_route",
+          "case": "lure",
+          "event": "canopy_field_preview",
+          "field": 0.0,
+          "grow": 0.65,
+          "receiver": "high",
+          "row": {
+            "id": "high",
+            "knot_position": [
+              730.0,
+              150.0
+            ],
+            "strand_start": [
+              700.0,
+              230.0
+            ],
+            "strand_tip": [
+              760.0,
+              230.0
+            ]
+          },
+          "sampled_player": [
+            0.0,
+            0.0
+          ],
+          "tick": 165.0,
+          "warning": 1.2
+        },
+        {
+          "basis": "last_actual_full_foot_support",
+          "case": "lure",
+          "event": "canopy_field_preview",
+          "field": 1.0,
+          "grow": 0.65,
+          "receiver": "right",
+          "row": {
+            "id": "right",
+            "knot_position": [
+              850.0,
+              410.0
+            ],
+            "strand_start": [
+              732.0,
+              540.0
+            ],
+            "strand_tip": [
+              948.0,
+              540.0
+            ],
+            "support": [
+              720.0,
+              560.0,
+              240.0,
+              76.0
+            ]
+          },
+          "sampled_player": [
+            947.924560546875,
+            541.925231933594
+          ],
+          "tick": 324.0,
+          "warning": 1.2
+        }
+      ],
+      "weave_severed": [
+        {
+          "age": 0.583333333333333,
+          "case": "lure",
+          "event": "weave_severed",
+          "field": 0.0,
+          "growth": 0.0,
+          "phase": 2.0,
+          "tick": 200.0
+        },
+        {
+          "age": 0.45,
+          "case": "lure",
+          "event": "weave_severed",
+          "field": 1.0,
+          "growth": 0.0,
+          "phase": 3.0,
+          "tick": 351.0
+        }
+      ],
+      "player_damage": [
+        {
+          "amount": 1.0,
+          "case": "lure",
+          "event": "policy_result",
+          "hp": 4.0,
+          "id": "queen_body_contact:1:1:1",
+          "source": "queen_body_contact",
+          "target": "player",
+          "tick": 224.0
+        },
+        {
+          "amount": 1.0,
+          "case": "lure",
+          "event": "policy_result",
+          "hp": 3.0,
+          "id": "queen_body_contact:1:2:1",
+          "source": "queen_body_contact",
+          "target": "player",
+          "tick": 357.0
+        }
+      ]
+    }
+  ]
+}

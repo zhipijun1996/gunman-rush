@@ -1,3 +1,84 @@
+# FOREST-GRAPPLE-02：钩索与纵向森林
+
+2026-10-19最新技术交付：[试玩build f7e22bcfaf40](https://zhipijun1996.github.io/gunman-rush/?v=f7e22bcfaf40)，游戏源码 `93c202568d154e37b1d57de1e08ba0c42820e828`，默认 `forest-woven-trunk-v12`。选定CI39207127333／attempt1实际SUCCESS：serial18＋parallel71共89项同源汇总、原森林80路线、Web／Windows／deploy／verify_public通过；两轮docs也成功。本机原80仍单独为600.167秒超时、59例完整通过、索引59中断／21未完成，不由CI绿覆盖。publisher正常下载精确CI ZIP被proxy403阻断，live_verified=false、原包72未执行；公网源码／资源包校验另已通过。公开GUI01实际OCR失败3/20、未到森林，真实MENU可见；保留原失败及初版ROI误收MENU2的REJECT，整行严格匹配修正后真实正反例获独审限定接受。新采证工具与已发布游戏源码分开绑定，公开GUI02原20项／8入口实测通过（378.771秒<480），两图实际v12、前后完整PCK身份一致、零引擎错误；该证据只覆盖GUI入口，不代自然战役／整图浏览器路线或实体设备。见[最终技术交付与明确边界](evidence/forest_grapple02/release03/README.md)。整体仍REVISE／in_progress：冠叉R可被完整跳跃→H替代、较易尾路可省末两句、上层收益和随机探索／Boss钩索价值、真人手感及实体设备仍未通过。以下旧v11与失败记录均保留历史身份。
+
+2026-10-19开发修订：默认布局现为 `forest-woven-trunk-v12`。修复斜下钩实际碰撞拉动、近垂直小踢，新增青色停留环，枪／钩空中瞄准世界速度15%，PC右键/E和LB按住瞄准松手发钩。七段推荐主线累计纵升1528px，实际HHRH、HR、HRHH、条件RHR与挂环分路；树皮、枝冠、荆棘窄口和返程树洞均有明确场景身份。专项手感38／输入119／激光174／保存122、18黄金、212兼容分别实测通过；最终当前源两图×两Seed×四路线16/16实际严格通过，旧失败与删案保留。最终源正常60fps两片实际通过（图2快路1769帧、图1挂环成长2038帧）；后续S3原80／600s、同源89及Web发布已实际通过，公开GUI02也20／8通过；本机原600超时另存，详首段。见[本轮证据与明确缺口](evidence/forest_grapple02/README.md)。实证旧根JR尾路可省最后两句，当前上层无独占奖励，不能称七句全部必经或高难替代；主干跨Seed顺序仍固定、部分模板复用，真人手感／设备／随机探索与商业品质未通过；任务保持in_progress。以下旧交付身份和旧默认仅为历史。
+
+2026-10-18最新可试玩交付：[build5fd40a31c4be](https://zhipijun1996.github.io/gunman-rush/?v=5fd40a31c4be)，游戏源码 `5a9f4bdaf846a635eb2659080d563b865758ab87`，默认 `forest-expedition-airborne-v11`。[实际证据及边界](evidence/forest_depth_v2/forest_feedback01/release01/README.md)。选定CI39160856629完整SUCCESS：86项gameplay/art同源汇总、Web/Windows/deploy/verify_public通过；公开PCK校验与GUI02八入口20/20通过，森林两图实际v11。原GUI01 OCR失败、原本机600秒/长片240秒失败不覆盖；仅浏览器采证工具窗口后修并独审负例，不冒称后续工具/文档HEAD重新构建游戏。CI ZIP受proxy403阻断，publisher live_verified仍false，原包72未执行。原质量记录glob漏覆盖已doc-only修正且push/PR两docs通过。整体REVISE/in_progress，摆荚价值、QueenH、巨木轮廓/荆棘宿主、真人/设备/商业仍未认可。以下H与其他旧交付段仅为历史。
+
+
+2026-10-18四项反馈续轮：默认布局已改为 `forest-expedition-airborne-v11`；扩大实际探索到5630px，接入H→H、R→H、四连和经删动作对照保留的五连，新增方向盾甲虫与摆荚，所有实际支持面消费森林结构/材质身份。详见[本轮设计](design/forest_feedback_expedition.md)和[证据及未通过项](evidence/forest_depth_v2/forest_feedback01/README.md)。原固定80案例已同源分组实测且独审逐原raw通过；原整组Harness600秒仍超时失败，不由分组覆盖改签。实际原速两图影片、最终CI/Web发布与浏览器以证据页最新结果为准。质量记录FOREST-FEEDBACK-01及父任务保持in_progress／REVISE，尤其摆荚实际路线收益、QueenH、初见手感、真人／真机与商业品质仍未认证。以下旧v10与H交付段为历史检查点，不覆盖此默认布局，也不冒充新版已发布。
+
+
+2026-10-18最新交付：[H技术发布原件与边界](evidence/forest_depth_v2/H_release01/README.md)。H `367b7c1a`／CI39105617804实际SUCCESS：85=67+18及serial5附加，Web／Windows／两docs22／deploy／verify_public通过；准确原包72/72、errors0、359.125秒。publisher verified，试玩[build ab99155b1b88](https://zhipijun1996.github.io/gunman-rush/?v=ab99155b1b88)。额外公开森林GUI因IPv6网络不可达0/20执行，属blocked_network，既非20通过也非玩法失败。独审仅技术ACCEPT，整体REVISE／in_progress及QueenH、探索密度、真人设备缺口保持。旧pending段为当时快照，最新段只覆盖对应已实证技术结果；bare1481=0cf不等于prepared56Foundry同旧版。
+
+
+最新有界跟进：[G真实FAIL与依赖／词法计算收口](evidence/forest_depth_v2/G_bounded_followup01/README.md)。G整轮为failure非cancel：serial16PASS后旧asset缺失、parallel11PASS后原87超时60.041秒；Web／Windows／两docs成功，准确CI包浏览器72/72（build30220a607325）不代全CI。补两真实bee旧raw后原历史matrix60与formal27/0一次严格PASS；单次词法memo保FS每次新读，原87本地24.368秒PASS获限定独审。历史与局部成功不重签G失败，H完整同源CI／HTTPS仍待，整体REVISE不升。
+
+
+最新限定修复：[F旧平原体验夹具实际退出泄漏](evidence/forest_depth_v2/plains_experience_release01/README.md)。F serial负例8/2之外真实6对象／2资源泄漏被原严格拒绝；whole run终态cancelled，Web／parallel等取消、Windows成功，core缺lane失败。复用原AudioTeardown的两文件修复后唯一原CLI49.675秒PASS、292/0与9/2／cleanup真／无leak获限定独审；原动作／180和900预算不变。F PRdocs87dots／60timeout与同FpushdocsPASS分列，1.432秒preflight不证根因；E未知仍未知。新源完整CI／部署／浏览器／HTTPS待，整体REVISE不变。
+
+
+最新CI跟进：[E旧平原体验检查与原件收集](evidence/forest_depth_v2/plains_experience_artifacts01/README.md)。E的serial原plains-experience-golden实际FAIL且inner未收；root取消余下parallel，整轮terminal cancelled／core不完整，Web／Windows／docs实际PASS。唯一原CLI本地53.483秒PASS与255/0、预期negative8/2、42变造拒绝分账，CI原因UNKNOWN。仅profile三行artifact_paths补收inner获限定独审，不是已证根因修复；publisher exit1／ci_failed，无部署或E浏览器。新源最终CI待运行，整体REVISE不变。
+
+
+交付验证跟进：[Git临时夹具生命周期隔离](evidence/forest_depth_v2/git_fixture_lifecycle01/README.md)。D的PR docs／选定Web job实际清理FAIL，随后root停止其余长core，整轮为cancelled／非完整CI；同D先前pushdocs与Windows成功。两行本地Git配置后原87测试32.892秒PASS、342断言／清理／60秒预算不变，独审仅限定ACCEPT；原CI写入者未证。pubcheckpoint为ci_failed，未部署／无新D Web包或浏览器验证；仍待修后最终同源验证，整体REVISE。
+
+
+当前交付边界：[Twin01–02停止档案](evidence/forest_depth_v2/twin_port_rejected01/README.md)。真实上H／一弹／右岸12只属局部进展，两整段仍FAIL；独审DROP且不做第三驾驶修。生产Boss几何未改，实验fixture／CLI已恢复e840，runner／UID已封后删除。本轮有实据淘汰，尚未填平QueenH核心、随机探索与密度缺口；仍是可玩候选／整体REVISE，非商业完成。最终同源CI／Web／浏览器／HTTPS及真人设备认可仍待，不标done；原电影仅可按0cf游戏字节绑定复用，不冒新片。
+
+
+最新探索取舍：[root11入口v11退休档案](evidence/forest_depth_v2/root11_entry_rejected01/README.md)。四路线JSON／原生PASS及兼容126/0保留；新growth比旧W多527帧且末少1HP，自动拾心并非主动claim，冠路短327帧不等于整体探索改进。root据独审决定DROP此扩展，六源已精确恢复6b132007，默认仍v10。后续双洞黄金亦已淘汰，整体REVISE／未商业完成，不关闭whole任务。
+
+
+最新黄金结论：[trailing-bud01–03停止档案](evidence/forest_depth_v2/trailing_bud_rejected01/README.md)。03真实cast／fly后miss，未到达且整体3FAIL；固定对照935击杀／HP5保持。独审DROP当前120px方案，不等于物理不可能。已封927成员实际源，生产／消费者指定文件恢复0cf原字节，whole-body与尾苞实验组件已删除；不重签旧CI或体验。后续root11探索黄金已实测后退休，原件见对应档案。
+
+
+最新玩法返工：[whole-body实验淘汰档案](evidence/forest_depth_v2/mobile_anchor_rejected01/README.md)。9ca／5bd真实普通、H-only与mixed-chase对照后独审DROP；技术PASS不改设计淘汰，原context／partial-foot／死亡FAIL保留。内容未商业完成，整体REVISE；该时点trailing-bud仅opt-in G0；后续03已停止，非当前v10。后续实际移除与尾苞停止结果见最新段。
+
+
+CI基础设施跟进：0cf旧身份reader失败后，A/df3f定向7通过；实测单core60分钟风险后，原85项按67/18分机、原预算不增。C路径独审REVISE保留；C2（`5ec5e9e3`）仅基础设施独审ACCEPT。新CI待运行；原浏览器4项FAIL／未证根因和整体体验REVISE不变。[限定记录](quality/records/FOREST-DEPTH-CI-LANES-01.json)。
+
+最新验证跟进：[原CI失败与限定修复](evidence/forest_depth_v2/release_followup01/README.md)。0cf完整CI49项通过（含当前固定80路线），Guardian原生25/0后因旧map2身份reader失败；df3f版本严格迁移已获独审，干净源原Harness定向7实际通过，非最终完整CI。当前0cf正常影片的16px结标记已获实景限定接受，“岸”正式objective未展示；原浏览器首20/24与唯一诊断24/24分账，首发根因仍未证，另两组48/48不消除原FAIL。整体仍REVISE，最新完整CI／部署以PR与元数据实际终态为准。
+
+2026-10-18。分支 `feature/thorn-forest-depth` 基于PR76的 `bee850c66b2f402d644d7daa4c13db91c8abe8f8`，当前默认布局 `shared-tree-canopy-hunt-v10`，区域版本仍 `thorn-forest-region-v2`、`production_pool=false`。新版已做成正式可玩消费者，整体H核心价值、丰富度、真人／设备与商业品质仍未通过；[质量记录](quality/records/FOREST-DEPTH-02.json)保持in_progress。
+
+[整体设计](design/forest_depth_v2/README.md)、[探索语法](design/forest_exploration_v2.md)、[敌人生态](design/forest_enemy_ecology_v2.md)、[根铃守卫](design/rootbell_guardian_v2.md)、[新棘冠女王](design/thorn_queen_canopy_v3.md)分别记录实际实现与边界。v10继承v9共享巨木、R／W入口、可选西侧活锚奖励环路及N回程，只替换第二Boss与真实自然入口，不把Boss换版冒称新探索拓扑。
+
+守卫为移动实体铃的真实H夺取返撞、打断及独立身体跨场；新女王为持续可伤的实体巡视、高活结留剪、按最近真实全脚落岸选择一片持续网。新女王02满血24HP实战：H反枪614帧／HP4，普通留网500／HP4，先换岸再压血876／HP3；01普通剪网626／HP5仅属01源。原件及限定独审见[黄金档案](evidence/forest_depth_v2/queen_canopy_v3/README.md)。[两部正常60fps完整片](evidence/forest_depth_v2/queen_canopy_movies/README.md)和独立抽帧审查已保存，不签全速人类手感或听音。新女王16px剩余次数标记后补正常影片／实景密帧获限定接受；headless和旧电影均不代签该像素。
+
+[Canopy App03](evidence/forest_depth_v2/canopy_app03/README.md)实际46/0、严格退出干净、30.884秒：正常路线与完整封门预告、phase2活结暂停保存、新Stage／Boss恢复、旧token拒绝、9个畸形状态原子拒绝、24次正常弹体击杀、GOLD／D／开发边界／Home及实际弱引用／音频清理。保存Boss15、结1、年龄0.516667；玩家HP4／E80／上限5保持，按既有规则从空中回S检查点、空枪恢复2。该场战斗HP4→4，路上受伤与黄金战斗受伤分列。GOLD上限5→7、HP4与金币0不变。01提前查封门、02保存条件未触发均保原FAIL；后续读取器补强只离线复核原raw与变造负例，不倒签03原读取器。
+
+[旧版本重建](evidence/forest_depth_v2/layout_replay01/README.md)原生126/0：V7与V9整份原Manifest／原哈希／旧Boss资源保留，新内容走显式三键白名单。原外层11／14案例数不匹配FAIL保留；新增读者经过独立身份／类型／几何负例复审，只比较固定原生样本，不另算Godot哈希。
+
+[生态生命周期13／正常片14](evidence/forest_depth_v2/ecology/formal_crossbranch13_14/README.md)含正式接触伤害、受阻后的真实重力与支撑恢复、26项检查／16个原子拒绝、1152物理帧完整探索。另[真实R入口替代](evidence/forest_depth_v2/root_entry01/README.md)281帧／5段。不同作者确认F2／F3有实质局部改善，尚不证明整区密度与探索丰富度；D为可选运动表达，普通解更快，不宣称H效率垄断。
+
+新推荐W→N→S回程已在当前完整源root00／图2／成长原路线实际严格通过：1013帧、HP5／E100／余空枪2，全路3次实际射击。原首次完整native虽走到门，但读者把输入意图与实际Router归一方向混比较而FAIL；新观测保原输入与真实入队包，原exact射击断言未变，原FAIL不重签。该单路线不替代最终固定80路线。
+
+原Harness新增检查而未替换历史女王194／V7 App及其余回归，共88项（玩法74）。本提交CI负责最终同源全回归、Web／Windows与公开试玩，结果以[分支检查](https://github.com/zhipijun1996/gunman-rush/actions?query=branch%3Afeature%2Fthorn-forest-depth)及实际构建元数据为准，本页不预签。PR保持draft、不合main；最终试玩应核对源SHA和build_id。
+
+沿现有15 Skills、production_loop、G0–G5与十一维改进，新增最强普通持续输出对照、真实动作包络、前缀／回程／恢复与淘汰决策；补齐输入通道和真实Router命令观测经验。未改Player物理、身体、射程、无敌或基础资源。尚需确认：高结保留与诱导换岸的实际收益、H创造独有进攻机会的程度、主路生态与跨Seed探索差异、初见可读性、完整视听和玩家／设备体验。下方保留旧阶段背景，不覆盖以上最新事实。
+
+## 历史样本与阶段背景
+
+历史v7布局 `shared-tree-directional-cavities-v7` 为共享实体巨木、双窗与双孔。图1保留水平H→kick→R教学；图2独立抽样水平孔或下降转折，必须先离B檐再下瞄H，真实下落后侧接低90px宽岸。左营地直返树腹、西庭直落营地、北庭中继直入S去除无新判断的重复攀爬；下行支线仍保留。A2四局部策略与[独审](evidence/forest_depth_v2/reviews/elbow_A2/REVIEW.md)限定CONTINUE；普通3R最快、H可保资源／改善到岸位置，部分身体合法接岸不被人为禁止。旧A1埋刺已REVISE、修正突出刺边后重采，失败不改签。
+
+V6首条正式路线580真实物理帧／12段，完成北庭短接、下降孔、C节点12帧、真实指针领奖和新高度藤门。原reader误以环中心为30停距而FAIL；按实际采样钩头修正后同raw离线接受，8实际变造全拒。该580帧仅是单路线证据。随后v6固定80条原路线已实际全部通过（root00–09×两图×四路线，384.103秒；冻结候选快照[region_final80_01](evidence/forest_depth_v2/region_final80_01/README.md)含A2上层组合，尚不含后续专用生态驾驶）。该矩阵证明其候选可走通，不证明活锚战术和趣味；最新已删失败上层组合，最终当前源80仍由CI执行。前v4原16／16、7条经过洞、最差末HP2的[原件](evidence/forest_depth_v2/region_v4_leftloop/README.md)仍限其冻结源。最终10root×两图×四路线80次已注册，包含原16而非重复两组。
+
+生态四行为为铃囊萤、棘籽哨、旧根盘charger、新织棘蛛。图1为4–5实例，图2为3–4；实例数不等于有效遭遇。新增同构獾、弱上萤、普通跳支配的C口哨／西庭哨／跃行者均已淘汰，原证据保留。正式[13段生态出返四控制](evidence/forest_depth_v2/ecology/formal_expedition01/README.md)共享逐字相同538帧前缀：真实根哨受伤、指针奖励、自然营地回血后，选择活H、满跳双R、等待另一巡相位或空枪恢复。H运动70tick对普通87tick、少一枪与20精力；H命中只给combat ledger，不补空中枪。后继蛛伤保留。[独审](evidence/forest_depth_v2/reviews/formal-expedition01/REVIEW.md)限定CONTINUE；仍不足以证明图2上层主路密度，下降型C岸→藤门新增地哨／高萤候选在真实完整前缀中被最强普通低跳反证：live603帧／HP5／末E72.5／一枪，LOW607／HP5／E100／零分支枪，同481帧前缀。4帧不足抵消操作负担，虽既有5组专项严格通过，也由[独审DROP](evidence/forest_depth_v2/reviews/approach-formal03/REVIEW.md)。两敌、专用上层边及死reader例外已从当前生成删除，完整失败／成功／影片留档；不把06局部CONTINUE升为准入。下一只复用既有空间，在图2真实低层奖励异口到R后比较活锚返冠／普通双R，不强走camp造循环，不假称填平上层遭遇缺口。
+
+守卫26常态32HP可伤，真实移动实体铃H夺取后返撞4伤／打断，与独立身体跨场在P2叠加。六合法策略＋一返击消融179项，六有限时机84项，两部正常60fps完整影片和[独审](evidence/forest_depth_v2/reviews/guardian26/REVIEW.md)限定CONTINUE；普通快解保留。新增标签仅做viewport边缘夹取；[label03新正常整战](evidence/forest_depth_v2/guardian_label_delta03/README.md)717帧／60fps／11.95秒严格clean，真实返击和18帧P2叠加保留；只避actual arena与近身Bell遮字，[独审有限接受](evidence/forest_depth_v2/reviews/guardian_label_delta03/REVIEW.md)，不追签旧26片。原01封场遮字、02转移到铃圈的两次REVISE完整保留。
+
+女王Def6／schema13常态24HP可伤，锁岸巡视→经真实80px身体通道进入低巢→高低迁移与旋／升降网；借活结和反冲剪同网可主动改变场地。Queen36局部69／0，完整canonical all194／0严格clean；两部正常完整片H1492tick、普通1115tick均伤1，H不最快。[当前原件](evidence/forest_depth_v2/queen36/README.md)与[限定独审](evidence/forest_depth_v2/reviews/queen36/REVIEW.md)。旧32–35、录制超时与失败H完整保留。
+
+正式Queen App05实际1551帧整战、MENU暂停／重载fresh实例、指针奖励／D能力／未实现S3边界／回家28／0；GuardianNode01原32HP／836帧／返铃／指针领奖跨图25／0，均严格clean。[Node边界独审](evidence/forest_depth_v2/reviews/campaign-node-boundary01/REVIEW.md)限定接受流程／退出：同源A/B确认旧SceneTree混合加载泄漏，机械提取既有Guardian case为真实Node，不改Queen驾驶。默认实际版本、Boss资源和scene已由[106／49／50专项](evidence/forest_depth_v2/default_promotion01/README.md)接受；其中内层106与后两项属不同精确source，不合称一次完整profile。原coldimport新增24缺UID导致Harness SOURCE_MUTATION、干净fixture缺输出目录SCRIPT ERROR均保留，补metadata／父目录后重采，不削断言。V6最终全回归仍待执行。
+
+正式探索[电影02](evidence/forest_depth_v2/formal_movie02/README.md)正常60fps、815真实物理帧／18段／831视频帧，实际领奖与藤门，原件source guard完整。[独审](evidence/forest_depth_v2/reviews/formal-movie02/REVIEW.md)接受单证据，同时REVISE北庭重复下行／爬回及上层无遭遇；v6结构与新[正常电影](evidence/forest_depth_v2/region_final80_movie01/README.md)实际596视频帧／60fps、580物理帧关闭北庭重复（334→87帧），[独审](evidence/forest_depth_v2/reviews/region-v6-movie01/REVIEW.md)有限CONTINUE几何；片中上层两敌后来DROP，不能称当前整区影片。深窗[aircatch01](evidence/forest_depth_v2/aircatch01/README.md)为局部无接触真实下落接锚，reader追加离檐／固定原点约束、12变造全拒，不冒签随机丰富度。
+
+Harness沿原体系增加12项检查、固定80语料、正式生态整路与每次唯一输出；历史两项坐标专属检查保留精确bee源／原断言，另有小型SHA证据桥。真实host两租约仅完成narrow02便携证据scope complete／content false。曾有docs release因并行源变化FAIL，不能签最终源；最终fresh适用回归／CI仍待执行。
+
+全部原生4.7.2、独立userdata、唯一引擎锁、真实HEAD＋dirty源清单与前后SHA。只回收终态封存快照的可再生导入缓存，原源／raw／日志／影片不删。最终默认、当前GUI／正常影片、准确源绑定HTTPS预览仍待交付。技术、AI局部设计判断、真人趣味／审美、完整音频与设备／商业品质分别记录；任务in_progress，不以自动评分代签。
+
 # FOREST-PLAYABLE-01：可玩森林与原生技术验收
 
 最新检查点：CDA源`cda8c30`的完整CI实际51通过／1失败／16未执行；level-design-runtime在41项功能断言后因资源退出错误被原守门拒绝，本地多个有界候选仍失败，未采纳生产修复。已保存完整失败、两部60fps影片、准确CI ZIP的原72检查与8真实GUI入口限定通过；公开试玩未更新，完整交付blocked。当前仅复制准确CI实际56份Foundry验证资源对齐160个源依赖，并补内层日志artifact_paths；未证明两lane可用，workflow恢复原jobs1。详见[最终检查点](evidence/forest_playable/final/README.md)，不把局部通过或旧公开包称完整发布。

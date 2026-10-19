@@ -1,0 +1,158 @@
+[
+  {
+    "id": "forest-depth-campaign-guardian",
+    "seconds": 12.916,
+    "status": "passed",
+    "commit": "df3f162ac7c49f0bcdfe56c3d4093a3f49d289aa",
+    "date": "20261018T030615.758607Z",
+    "path": "build/verification/harness/20261018T030615.758607Z/report.json",
+    "argv": [
+      "python3",
+      "tools/run_forest_depth_campaign_boss.py",
+      "--boss",
+      "guardian",
+      "--output-dir",
+      "build/forest_depth/campaign/harness-guardian/harness-{check_token}"
+    ]
+  },
+  {
+    "id": "forest-depth-campaign-queen",
+    "seconds": 12.767,
+    "status": "passed",
+    "commit": "df3f162ac7c49f0bcdfe56c3d4093a3f49d289aa",
+    "date": "20261018T030615.758607Z",
+    "path": "build/verification/harness/20261018T030615.758607Z/report.json",
+    "argv": [
+      "python3",
+      "tools/run_forest_depth_campaign_boss.py",
+      "--boss",
+      "queen",
+      "--output-dir",
+      "build/forest_depth/campaign/harness-queen/harness-{check_token}"
+    ]
+  },
+  {
+    "id": "forest-depth-ecology-expedition",
+    "seconds": 24.626,
+    "status": "passed",
+    "commit": "df3f162ac7c49f0bcdfe56c3d4093a3f49d289aa",
+    "date": "20261018T030615.758607Z",
+    "path": "build/verification/harness/20261018T030615.758607Z/report.json",
+    "argv": [
+      "python3",
+      "tools/run_forest_depth_enemies.py",
+      "--scenario",
+      "expedition",
+      "--include-map2-expedition",
+      "--expedition-strategies",
+      "alive_lift",
+      "jump_two_R",
+      "--output-dir",
+      "build/forest_depth/ecology/expedition/harness-{check_token}"
+    ]
+  },
+  {
+    "id": "forest-depth-root-entry",
+    "seconds": 9.56,
+    "status": "passed",
+    "commit": "df3f162ac7c49f0bcdfe56c3d4093a3f49d289aa",
+    "date": "20261018T030615.758607Z",
+    "path": "build/verification/harness/20261018T030615.758607Z/report.json",
+    "argv": [
+      "python3",
+      "tools/run_forest_depth_enemies.py",
+      "--scenario",
+      "root_entry",
+      "--map",
+      "2",
+      "--seed",
+      "forest-depth-hollow-08",
+      "--output-dir",
+      "build/forest_depth/ecology/root-entry/harness-{check_token}"
+    ]
+  },
+  {
+    "id": "forest-depth-crossbranch-lifecycle",
+    "seconds": 10.973,
+    "status": "passed",
+    "commit": "df3f162ac7c49f0bcdfe56c3d4093a3f49d289aa",
+    "date": "20261018T030615.758607Z",
+    "path": "build/verification/harness/20261018T030615.758607Z/report.json",
+    "argv": [
+      "python3",
+      "tools/run_forest_depth_enemies.py",
+      "--scenario",
+      "crossbranch",
+      "--map",
+      "2",
+      "--seed",
+      "forest-depth-hollow-00",
+      "--formal-route",
+      "growth",
+      "--crossbranch-strategies",
+      "lifecycle",
+      "--output-dir",
+      "build/forest_depth/ecology/crossbranch-lifecycle/harness-{check_token}"
+    ]
+  },
+  {
+    "id": "forest-depth-queen-canopy",
+    "seconds": 11.6,
+    "status": "passed",
+    "commit": "df3f162ac7c49f0bcdfe56c3d4093a3f49d289aa",
+    "date": "20261018T030615.758607Z",
+    "path": "build/verification/harness/20261018T030615.758607Z/report.json",
+    "argv": [
+      "python3",
+      "tools/run_thorn_queen_canopy.py",
+      "--case",
+      "all",
+      "--output-dir",
+      "build/forest_depth/queen/harness-canopy/harness-{check_token}"
+    ]
+  },
+  {
+    "id": "forest-depth-campaign-canopy",
+    "seconds": 12.558,
+    "status": "passed",
+    "commit": "df3f162ac7c49f0bcdfe56c3d4093a3f49d289aa",
+    "date": "20261018T030615.758607Z",
+    "path": "build/verification/harness/20261018T030615.758607Z/report.json",
+    "argv": [
+      "python3",
+      "tools/run_forest_depth_campaign_boss.py",
+      "--boss",
+      "canopy",
+      "--output-dir",
+      "build/forest_depth/campaign/harness-canopy/harness-{check_token}"
+    ]
+  },
+  {
+    "id": "asset-family-tests",
+    "seconds": 0.472,
+    "status": "passed",
+    "commit": "cda8c30ed375a97a53de27d8348a79f137199427",
+    "date": "20261016T232239.952658Z",
+    "path": "build/verification/harness/20261016T232239.952658Z/report.json",
+    "argv": [
+      "python3",
+      "tests/test_asset_family.py"
+    ]
+  },
+  {
+    "id": "forest-depth-campaign-guardian",
+    "seconds": 10.218,
+    "status": "failed",
+    "commit": "0cf4aa5816c735fdd6e83bfb95d8ee0f70d129ee",
+    "date": "20261018T021827.118192Z",
+    "path": "build/verification/0cf-core-selected/verification/harness/20261018T021827.118192Z/report.json",
+    "argv": [
+      "python3",
+      "tools/run_forest_depth_campaign_boss.py",
+      "--boss",
+      "guardian",
+      "--output-dir",
+      "build/forest_depth/campaign/harness-guardian/harness-{check_token}"
+    ]
+  }
+]

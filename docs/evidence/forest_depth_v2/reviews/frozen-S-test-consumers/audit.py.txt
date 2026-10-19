@@ -1,0 +1,92 @@
+from pathlib import Path
+import subprocess,hashlib,json,re,ast,gzip,copy,contextlib,time,argparse,tempfile
+R=Path.cwd(); S='9fdf7fad08550ea0da46b59ef7126fa721571f28';B='bee850c66b2f402d644d7daa4c13db91c8abe8f8';H='51e594b38465326655ae0c8515d686241415ade8';O=R/'build/forest_depth/independent/final-delivery-plan/frozen-S-test-consumers'
+def raw(p,ref=S):return subprocess.check_output(['git','show',f'{ref}:{p}'])
+def text(p,ref=S):return raw(p,ref).decode()
+def digest(b):return hashlib.sha256(b).hexdigest()
+def code(s):return '\n'.join(l for l in s.splitlines() if l.strip() and not l.lstrip().startswith('#'))
+paths=['tests/forest_campaign_runner.gd','tests/level_capability_runner.gd','tests/level_capability_case.gd','tools/level_design_capture.gd','tools/level_design_capture_case.gd','tests/forest_depth_version_runner.gd','tools/run_forest_depth_enemies.py','tools/harness.py','tools/harness/profiles.json','tools/run_level_design_tests.py','tools/level_design.py','tools/run_tests.py','tools/godot.sh','tools/level_capability_snapshot.gd','tests/level_design_trace.gd','tests/plains_region_trace.gd','tests/random_stage_tests.gd','tests/audio_teardown.gd','scripts/demo/demo_app.gd','scripts/builds/build_state.gd','scripts/player/player_tuning.gd']
+paths += [p+'.uid' for p in paths[:5]]
+bind={p:{'git_blob':subprocess.check_output(['git','rev-parse',f'{S}:{p}'],text=True).strip(),'sha256':digest(raw(p)),'bytes':len(raw(p)),'worktree_identical':(R/p).read_bytes()==raw(p)} for p in paths}
+assert all(v['worktree_identical'] for v in bind.values())
+# Exact accepted source binding: review evidence is retained independently of current source.
+P=R/'docs/evidence/forest_depth_v2/reviews'; pairs={
+ 'tests/forest_campaign_runner.gd':P/'campaign-output-helper/reviewed_runner.gd.txt',
+ 'tests/level_capability_runner.gd':P/'level-capability-fixture/source/reviewed_runner.gd.txt',
+ 'tests/level_capability_case.gd':P/'level-capability-fixture/source/reviewed_case.gd.txt',
+ 'tools/level_design_capture.gd':R/'build/forest_depth/snapshots/level_capability04/tools/level_design_capture.gd',
+ 'tools/level_design_capture_case.gd':R/'docs/evidence/forest_depth_v2/level_design_runtime_exit01/error-ledger-closure01/helper-after.gd.txt'}
+for p,q in pairs.items(): assert raw(p)==q.read_bytes(),p
+# Re-run original full campaign inverse, not only a reference hash.
+a=text('tests/forest_campaign_runner.gd',B);b=text('tests/forest_campaign_runner.gd');x=b
+x=re.sub(r'(?ms)^# Independent v2.*?(?=^var assertions)','',x,count=1)
+x=re.sub(r'(?ms)^func check_default_forest_identity\(.*?(?=^func run\()','',x,count=1)
+x=x.replace('\tcheck_default_forest_identity(1)\n','').replace('\tcheck_default_forest_identity(2)\n','');x=x[:x.index('\nfunc write_fixture_evidence(')]
+x=x.replace('write_fixture_evidence("res://build/forest_playable/progression/cross_region_manifest.json",app.director.manifest.canonical_json())','FileAccess.open("res://build/forest_playable/progression/cross_region_manifest.json",FileAccess.WRITE).store_string(app.director.manifest.canonical_json())')
+x=x.replace('write_fixture_evidence("res://build/forest_playable/progression/campaign_pointer_events.json",JSON.stringify(','FileAccess.open("res://build/forest_playable/progression/campaign_pointer_events.json",FileAccess.WRITE).store_string(JSON.stringify(')
+assert code(x)==code(a)
+# Capability original complete check-body comparison.
+old=(P/'level-capability-fixture/source/original_runner.gd.txt').read_text();new=text('tests/level_capability_case.gd')
+def norm(s):return s.replace('load("res://scripts/player/player_tuning.gd")','PlayerTuning').replace('load("res://scripts/combat/weapon_catalog.gd")','WeaponCatalog').replace('= load("res://tests/level_design_trace.gd")','= preload("res://tests/level_design_trace.gd")').replace('driver.tree = get_tree()','driver.tree = self').replace(' := ',' = ')
+assert [norm(l.strip()) for l in old.splitlines() if l.lstrip().startswith('verify(')]==[norm(l.strip()) for l in new.splitlines() if l.lstrip().startswith('verify(')]
+start='\tverify(actor.enable_shot_energy()';end='\tverify(low.equipment_capacity.inventory_capacity == "unimplemented", "missing inventory rule is not fabricated")'
+def core(s):return norm(s[s.index(start):s.index(end)+len(end)].replace('\tvar build := BuildState.new()\n\tbuild.configure(actor)\n','').replace('\tvar build = app.build\n\tSNAPSHOT=load("res://tools/level_capability_snapshot.gd")\n',''))
+assert core(old)==core(new)
+assert 'build.configure(controller)' in text('scripts/demo/demo_app.gd')
+# Capture inverse includes removing only the finish method; sticky is separately proved.
+old=(R/'docs/evidence/forest_depth_v2/level_design_runtime_exit01/mechanical/original_capture.gd.txt').read_text();new=text('tools/level_design_capture_case.gd');x=new.replace('extends Node','extends SceneTree',1).replace('var exit_code := 0\n','').replace('get_tree().root','root').replace('await get_tree().physics_frame','await physics_frame').replace('driver.tree = get_tree()','driver.tree = self').replace('var tuning = app.controller.motor.tuning','var tuning: PlayerTuning = app.controller.motor.tuning').replace('"res://tools/level_design_capture_case.gd", ','').replace('finish_code(', 'quit(')
+x=x[:x.index('\nfunc quit(code: int)')];x=x.replace('func verify(ok:', 'func _initialize() -> void: run.call_deferred()\n\nfunc verify(ok:',1);assert code(x)==code(old)
+assert 'exit_code=maxi(exit_code,code)' in new
+# Original strict runner/provenance/wrapper have no change from PR base.
+for p in ['tools/run_tests.py','tools/run_level_design_tests.py']: assert raw(p)==raw(p,B),p
+for name in ['validate_receipt','source_files','capture','analyze']:
+ def func_at(ref):return next(n for n in ast.parse(text('tools/level_design.py',ref)).body if isinstance(n,ast.FunctionDef) and n.name==name)
+ assert ast.dump(func_at(S),include_attributes=False)==ast.dump(func_at(B),include_attributes=False),name
+# Harness changes are exclusively token expansion and added receipt fields.
+a=text('tools/harness.py',B);b=text('tools/harness.py');x=b.replace('    argv = [value.replace("{check_token}", token) for value in check["argv"]]\n','').replace('    execution = {"expanded_argv": argv, "check_token": token}\n','').replace(', **execution','')
+x=x.replace('    argv = [sys.executable if value == "python3" else value for value in argv]\n','')
+x=x.replace('    status, code = "failed", None\n','    argv = [sys.executable if value == "python3" else value for value in check["argv"]]\n    status, code = "failed", None\n',1)
+assert code(x)==code(a)
+# Version label only, no expression or control flow change from actual prior HEAD.
+p='tests/forest_depth_version_runner.gd';assert text(p).replace('without production/commercial admission','without default promotion')==text(p,H)
+profiles=json.loads(text('tools/harness/profiles.json'));prev=json.loads(text('tools/harness/profiles.json',H));cp=copy.deepcopy(profiles);cp['checks']['forest-depth-ecology-expedition']['argv'].remove('--include-map2-expedition');assert cp==prev
+assert len([k for k in profiles['checks'] if k.startswith('forest-depth-')])==12
+assert profiles['checks']['forest-depth-ecology-expedition']['timeout_seconds']==300
+assert profiles['checks']['level-design-runtime']['timeout_seconds']==720
+# Ecology: simulate first native refusal using the actual immutable function, not Godot.
+tree=ast.parse(text('tools/run_forest_depth_enemies.py'));fn=next(n for n in tree.body if isinstance(n,ast.FunctionDef) and n.name=='run_formal_choices');calls=[]
+def reject(argv,timeout): calls.append({'argv':argv,'timeout':timeout});raise RuntimeError('independent-first-native-rejection')
+g={'time':time,'contextlib':contextlib,'run_engine':reject,'ROOT':R,'re':re,'json':json,'hashlib':hashlib}
+exec(compile(ast.Module(body=[fn],type_ignores=[]),'<S-function>','exec'),g)
+folder=Path(tempfile.mkdtemp(prefix='first-failure-',dir=O));rec={};args=argparse.Namespace(scenario='expedition',expedition_strategies=['alive_lift','jump_two_R'],expedition_return_strategies=['direct_one_R'],map=2,seed='readonly-structure-probe',formal_movie=False)
+try:g['run_formal_choices'](folder,args,rec);raise AssertionError('failure swallowed')
+except RuntimeError as e:assert str(e)=='independent-first-native-rejection'
+assert len(calls)==1 and calls[0]['timeout']==240 and len(rec['lift_runs'])==1 and rec['lift_runs'][0]['passed'] is False
+src=text('tools/run_forest_depth_enemies.py');assert "imported = run_engine(['--headless', '--path', '.', '--editor', '--quit'], 90)" in src
+assert "(validate_expedition if is_expedition else (validate_lift_choice if is_lift else validate_formal_choice))(data)" in src
+# Metadata field removal does not affect the validated capture or original validators.
+oldtree=ast.parse(text('tools/run_forest_depth_enemies.py',H));before={n.name:ast.dump(n,include_attributes=False) for n in oldtree.body if isinstance(n,ast.FunctionDef)};after={n.name:ast.dump(n,include_attributes=False) for n in tree.body if isinstance(n,ast.FunctionDef)}
+base_validators=['validate','validate_formal_choice','validate_lift_choice','validate_router_observation']
+for n in base_validators:assert before[n]==after[n],n
+# Evidence indexes: validate retained normal/failure originals and actual error controls.
+evidence={}
+for directory in ['docs/evidence/forest_depth_v2/level_design_runtime_exit01','docs/evidence/forest_depth_v2/level_design_runtime_exit01/error-ledger-closure01']:
+ p=R/directory;inv=json.loads((p/'inventory.json').read_text());rows=inv['files'];verified=[]
+ for row in rows:
+  q=p/row['path'];data=q.read_bytes();assert digest(data)==row['sha256'] and len(data)==row['bytes'];plain=gzip.decompress(data) if q.suffix=='.gz' else data
+  if 'source_sha256' in row:assert digest(plain)==row['source_sha256'] and len(plain)==row['source_bytes']
+  verified.append(row['path'])
+ evidence[directory]={'inventory_sha256':digest((p/'inventory.json').read_bytes()),'verified_count':len(verified)}
+ep=R/'docs/evidence/forest_depth_v2/level_design_runtime_exit01/error-ledger-closure01'
+er=json.loads((ep/'receipt.json').read_text());expected=[('old_directory',2,0,0,True),('new_directory',2,2,2,False),('new_file',0,0,0,True)]
+for row,(name,saved,finished,exitcode,accepted) in zip(er['cases'],expected):
+ assert row['id']==name and row['observation']['code_after_save_report']==saved and row['observation']['code_after_finish_zero']==finished and row['exit_code']==exitcode and row['actual_reader_accepts']==accepted and row['strict_log_clean'] and row['budget_seconds']==10 and row['observation']['owner_released']
+ log=gzip.decompress((ep/(name+'.log.gz')).read_bytes());assert digest(log)==row['log_sha256'] and b'4.7.2' in log
+# UID ownership unique in immutable Git tree.
+allpaths=subprocess.check_output(['git','ls-tree','-r','--name-only',S],text=True).splitlines();uids={}
+for p in allpaths:
+ if p.endswith('.gd.uid'):uids.setdefault(raw(p).strip().decode(),[]).append(p)
+for p in paths:
+ if p.endswith('.gd.uid'):assert len(uids[raw(p).strip().decode()])==1,p
+result={'status':'ACCEPT_BOUNDED_TEST_CONSUMER_CHANGES_AT_S','reviewed_commit':S,'baseline_commit':B,'recent_delta_baseline':H,'reviewer':'/root/forest_runtime_review','native_executed':False,'source_bindings':bind,'exact_accepted_source_matches':list(pairs),'independent_recomputed_inverses':['campaign whole original executable37 + identity/output additions','capability complete check body41/15 equips','capture entire original executable169/3 strategies','Harness token-only executable inverse','version label-only','profile only append-map2 flag since51e'],'ecology_base_validator_AST_unchanged':base_validators,'ecology_first_native_failure_probe':{'calls':calls,'propagated':True,'next_case_not_started':True,'native_was_mocked_for_controlflow_only':True},'historical_artifact_indexes':evidence,'limits':['No fresh S native or fullCI result','Historical final04 normal PASS old helper SHA stays distinct from new sticky actual I/O controls','No review of unrelated new scenario semantics or own formal base-driver mechanics','No Boss fun, whole region G4/G5, deployment, audio or device acceptance']}
+(O/'review.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({'status':result['status'],'bound_files':len(bind),'artifact_indexes':evidence},indent=2))

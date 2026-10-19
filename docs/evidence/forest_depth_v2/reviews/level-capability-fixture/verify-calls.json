@@ -1,0 +1,32 @@
+{
+  "old": [
+    "verify(actor.enable_shot_energy(), \"real energy policy enabled\")",
+    "verify(baseline.equipped_weapon.id == \"pulse_gun\" and baseline.granted_actions == [\"jump\", \"shot_recoil\"], \"formal default does not inherit studio grants\")",
+    "verify(SNAPSHOT.matches_tuning(actor, PlayerTuning.load_default()), \"actual default matches request\")",
+    "verify(not SNAPSHOT.matches_tuning(actor, wrong), \"different requested capacity rejected\")",
+    "verify(not await driver.fixture({}, wrong) and driver.capability_mismatch and not rejections.is_empty() and driver.observed_frames.is_empty(), \"actual route driver rejects mismatch before creating evidence\")",
+    "verify(actor.traversal.grant(&\"double_jump\") and actor.traversal.grant(&\"grapple\"), \"grant real independent abilities\")",
+    "verify(granted.effective_max_jumps == 2 and granted.tuning.max_jumps == 1 and \"grapple\" in granted.granted_actions, \"effective capacity includes real grant without rewriting tuning\")",
+    "verify(actor.shoot_ability.equip(definition), \"equip real weapon/\" + str(definition.id))",
+    "verify(snapshot.equipped_weapon.id == str(definition.id) and snapshot.equipped_weapon.tier == definition.tier and not snapshot.has(\"combined_weapon_abilities\"), \"one current weapon/\" + str(definition.id))",
+    "verify(energy.consume_continuous(energy.current - 7.0, energy.epoch).accepted(), \"low-energy fixture uses real resource transaction\")",
+    "verify(low.shot_energy.current == 7.0 and low.combat_energy.current == 3.0 and low.shot_cooldown == 0.25, \"low-resource and cooldown observation is exact\")",
+    "verify(JSON.stringify(SNAPSHOT.capture(actor)) == before and actor.shoot_ability.runtime == runtime_before, \"observation does not mutate or refill actor\")",
+    "verify(low.equipment_capacity.inventory_capacity == \"unimplemented\", \"missing inventory rule is not fabricated\")"
+  ],
+  "new": [
+    "verify(actor.enable_shot_energy(), \"real energy policy enabled\")",
+    "verify(baseline.equipped_weapon.id == \"pulse_gun\" and baseline.granted_actions == [\"jump\", \"shot_recoil\"], \"formal default does not inherit studio grants\")",
+    "verify(SNAPSHOT.matches_tuning(actor, PlayerTuning.load_default()), \"actual default matches request\")",
+    "verify(not SNAPSHOT.matches_tuning(actor, wrong), \"different requested capacity rejected\")",
+    "verify(not await driver.fixture({}, wrong) and driver.capability_mismatch and not rejections.is_empty() and driver.observed_frames.is_empty(), \"actual route driver rejects mismatch before creating evidence\")",
+    "verify(actor.traversal.grant(&\"double_jump\") and actor.traversal.grant(&\"grapple\"), \"grant real independent abilities\")",
+    "verify(granted.effective_max_jumps == 2 and granted.tuning.max_jumps == 1 and \"grapple\" in granted.granted_actions, \"effective capacity includes real grant without rewriting tuning\")",
+    "verify(actor.shoot_ability.equip(definition), \"equip real weapon/\" + str(definition.id))",
+    "verify(snapshot.equipped_weapon.id == str(definition.id) and snapshot.equipped_weapon.tier == definition.tier and not snapshot.has(\"combined_weapon_abilities\"), \"one current weapon/\" + str(definition.id))",
+    "verify(energy.consume_continuous(energy.current - 7.0, energy.epoch).accepted(), \"low-energy fixture uses real resource transaction\")",
+    "verify(low.shot_energy.current == 7.0 and low.combat_energy.current == 3.0 and low.shot_cooldown == 0.25, \"low-resource and cooldown observation is exact\")",
+    "verify(JSON.stringify(SNAPSHOT.capture(actor)) == before and actor.shoot_ability.runtime == runtime_before, \"observation does not mutate or refill actor\")",
+    "verify(low.equipment_capacity.inventory_capacity == \"unimplemented\", \"missing inventory rule is not fabricated\")"
+  ]
+}

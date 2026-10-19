@@ -1,0 +1,15 @@
+# Air-motion05 finite controls — actual first failure
+
+Actual ordinary selector: 33.917s, exit1, native18 assertions /2 failures, no parse/script/leak errors. Editor90/native120/outer210 unchanged. All2063 authored source paths match checkpoint before/after. Main Queen and all production remain unchanged. Camp and wrong selectors did **not** run after the first failure. Their producer exists but is unverified.
+
+The ordinary strategy continuously requested genuine visible-surface projectile shots and used real hit refunds, with zero H inputs. It inflicted18 actual Boss Policy commits (24→6) and took zero damage through1800 control ticks. It did not kill by the declared bound; that is retained as a strategy failure, not converted to a pass or H advantage.
+
+Containment independently failed: tick155 body center(90.861,12.303), head−5.697. Repeated backshots had moved the player outside the canopy's left edge240, where the arena has no physical top lid. Tick164 accepted a shot from center(100.081,−2.119); consequently the initial18-hit sequence cannot be advertised as wholly legal in-arena combat. Captured minimum centerY−78.278. Original capture and failed guard remain exact.
+
+A strong camp counterexample nevertheless survives independently: ticks300–1850 are entirely inside the arena, grounded at approximately(387.991,801.998), naturally stopped by the central rib's left wall. With only normal axis and genuine shots, the player deals four damage on each577-tick C traversal: hits545/559/575/591,1122/1136/1152/1168,1699/1713/1729/1745. These12 hits are entirely in-bounds, HP remains5 and energy returns100. The Queen's current loop never attacks that ground pocket. This demonstrates permanently safe repeat output on the current prototype; it does not require completing the unrun camp selector to be a design defect.
+
+H04 intentionally stopped after two shots. Comparing its674-tick observed-loop endpoint against this continuous-fire strategy would be invalid. H2 is already acknowledged as potentially redundant after normal right movement. Neither its hit count nor these failed ordinary assertions establish an essential H combat core.
+
+A single **unimplemented, unverified** content repair for independent consideration is a fully previewed left-floor body sweep: after C reaches(264,110), descend via(280,770), sweep to(30,770)→(370,770), then separately preview the return via(370,310)→(550,310) to the original pocket. Queen half24×27 yields6px side clearance to the left wall/central rib,23px floor clearance, and13px overlap with a standing floor player's upper body. It preserves broad floor/normal jump escape and all existing motion/damage parameters. The exact motion, readable previews, recovery choices and cost remain to be proved; this paper route is not an implementation or an admission.
+
+This is a one-loop24HP experimental prototype. No full3-phase, new main Boss, Factory, save/App or final-play-quality acceptance is claimed. The previous main Queen's structural defect remains unresolved; it has not been silently replaced by this experiment.

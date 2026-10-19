@@ -15,7 +15,7 @@ from pathlib import Path
 import re
 import shutil
 import subprocess
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urljoin, urlparse, unquote
 import urllib.request
 from PIL import Image, ImageOps
 from playwright.async_api import async_playwright
@@ -54,14 +54,21 @@ def locate(path: Path, phrase: str):
         # This never substitutes a fixed click position or bypasses text matching.
         original = Image.open(path)
         width,height=original.size
-        boxes=[(int(width*.909),int(height*.004),int(width*.997),int(height*.093)),(int(width*.84),0,width,int(height*.1)),(int(width*.84),int(height*.075),width,int(height*.21)),(int(width*.84),int(height*.82),width,height)]
-        for index,box in enumerate(boxes):
+        boxes=[(int(width*.899),int(height*.104),int(width*.985),int(height*.171)),(int(width*.909),int(height*.004),int(width*.997),int(height*.093)),(int(width*.84),0,width,int(height*.1)),(int(width*.84),int(height*.075),width,int(height*.21)),(int(width*.84),int(height*.82),width,height)]
+        # A line-sized crop avoids treating the surrounding translucent button
+        # and sky as a text block. Match the actual OCR word, then map its box.
+        line_box=(int(width*.921),int(height*.025),int(width*.981),int(height*.078))
+        regions=[(box,"6") for box in boxes]+[(line_box,"7")]
+        for index,(box,psm) in enumerate(regions):
             crop=original.crop(box).resize(((box[2]-box[0])*4,(box[3]-box[1])*4)).convert("L")
             for style,processed in (("gray",crop),("binary",ImageOps.invert(crop.point(lambda value:255 if value>180 else 0)))):
                 derived=path.with_name(path.stem+f"-actual-menu-roi-{index}-{style}.png")
                 processed.save(derived)
-                result=subprocess.run(["tesseract",str(derived),"stdout","--psm","6","tsv"],capture_output=True,text=True,check=True,timeout=10,env={**os.environ,"OMP_THREAD_LIMIT":"1"})
-                for word in csv.DictReader(io.StringIO(result.stdout),delimiter="\t"):
+                result=subprocess.run(["tesseract",str(derived),"stdout","--psm",psm,"tsv"],capture_output=True,text=True,check=True,timeout=10,env={**os.environ,"OMP_THREAD_LIMIT":"1"})
+                words=list(csv.DictReader(io.StringIO(result.stdout),delimiter="\t"))
+                if psm=="7" and norm(" ".join(word.get("text","") for word in words))!="MENU":
+                    continue # MENU2 may be segmented into separate MENU and 2.
+                for word in words:
                     if norm(word.get("text",""))=="MENU":
                         return box[0]+(int(word["left"])+int(word["width"])/2)/4,box[1]+(int(word["top"])+int(word["height"])/2)/4
         raise ValueError("Actual MENU text not found in original canvas or enlarged HUD pixels")
@@ -125,11 +132,45 @@ async def touch_scroll(page, report, prefix):
         await session.detach()
 
 
-async def verify(url: str, folder: Path, expected_commit: str, expected_build_id: str):
+def environment_proxy():
+    """Opt-in Chromium routing; credentials remain separate and never reported."""
+    value = urllib.request.getproxies().get("https")
+    if not value:
+        raise ValueError("--proxy-from-environment requires an HTTPS proxy in the environment")
+    try:
+        parsed = urlparse(value)
+        if parsed.scheme not in ("http", "https", "socks5") or not parsed.hostname:
+            raise ValueError("invalid proxy")
+        hostname = parsed.hostname
+        host = f"[{hostname}]" if ":" in hostname else hostname
+        port = parsed.port
+    except ValueError:
+        raise ValueError("HTTPS proxy must have a valid scheme, hostname and port") from None
+    proxy = {"server": f"{parsed.scheme}://{host}" + (f":{port}" if port is not None else "")}
+    if parsed.username is not None:
+        proxy["username"] = unquote(parsed.username)
+    if parsed.password is not None:
+        proxy["password"] = unquote(parsed.password)
+    return proxy, {"enabled": True, "hostname": hostname}
+
+
+def validate_assembled_layout(actual, expected_forest_layout):
+    # A menu-accepted event cannot substitute for the assembled consumer.
+    if expected_forest_layout is not None and (actual.get("event") != "region_assembled" or actual.get("layout_version") != expected_forest_layout):
+        raise AssertionError("Actual assembled forest layout differs from selected default")
+
+
+async def verify(url: str, folder: Path, expected_commit: str, expected_build_id: str, expected_forest_version=None, expected_forest_layout=None, proxy_from_environment=False):
     folder.mkdir(parents=True, exist_ok=False)
     report = {"scope":"all_four_region_map_entries_with_actual_mouse_and_emulated_DOM_touch; GUI_only", "url":url, "checks":[], "events":[], "errors":[], "gestures":[], "identities":[], "expected_commit":expected_commit, "expected_build_id":expected_build_id, "physical_devices":"unverified", "natural_reward_and_next_region_gui":"unverified; native actual progression evidence is separate", "whole_browser_route":"unverified"}
+    report["expected_forest_version"] = expected_forest_version
+    report["expected_forest_layout"] = expected_forest_layout
+    report["proxy"] = {"enabled": False, "hostname": None}
+    launch_options = {"executable_path": shutil.which("chromium") or shutil.which("chromium-browser"), "headless": True, "args": ["--no-sandbox","--use-angle=swiftshader","--enable-unsafe-swiftshader"]}
+    if proxy_from_environment:
+        launch_options["proxy"], report["proxy"] = environment_proxy()
     async with async_playwright() as p:
-        browser = await p.chromium.launch(executable_path=shutil.which("chromium") or shutil.which("chromium-browser"),headless=True,args=["--no-sandbox","--use-angle=swiftshader","--enable-unsafe-swiftshader"])
+        browser = await p.chromium.launch(**launch_options)
         try:
             for touch in (True,False):
                 device = "touch" if touch else "mouse"
@@ -195,6 +236,16 @@ async def verify(url: str, folder: Path, expected_commit: str, expected_build_id
                     entry = await capture("entry")
                     expected = [e for e in report["events"] if e.get("device")==device and e.get("event")=="debug_entry" and e.get("region")==region and e.get("map_index")==map_index and e.get("natural_progression") is False]
                     if len(expected) != 1: raise AssertionError(f"{prefix}: real debug button did not accept exactly once: {expected}")
+                    if region=="thorn_forest" and expected_forest_version is not None:
+                        assembled=[e for e in report["events"] if e.get("device")==device and e.get("event")=="region_assembled" and e.get("region")==region and e.get("map_index")==map_index and e.get("debug_entry") is True]
+                        if len(assembled)!=1: raise AssertionError(f"{prefix}: one actually assembled forest consumer required")
+                        actual=assembled[0]
+                        validate_assembled_layout(actual, expected_forest_layout)
+                        boss_names={"thorn-forest-region-v1":("thorn_guardian","thorn_queen"),"thorn-forest-region-v2":("rootbell_guardian_v2","thorn_queen_canopy")}
+                        boss=boss_names[expected_forest_version][map_index-1]
+                        if actual.get("content_version")!=expected_forest_version or not re.fullmatch(r"[0-9a-f]{64}",str(actual.get("manifest_hash",""))) or actual.get("boss_definition")!=f"res://resources/bosses/{boss}.tres" or actual.get("boss_scene")!=f"res://scenes/bosses/{boss}.tscn" or actual.get("abilities")!=["grapple"]:
+                            raise AssertionError(f"{prefix}: actual forest manifest/Boss/H-only build differs from selected default: {actual}")
+                        report["checks"].append(prefix+": actual assembled forest version, manifest, Boss scene/resource and H-only build")
                     locate(entry,"THORN FOREST" if region=="thorn_forest" else "WINDCHIME PLAINS")
                     report["checks"].append(prefix+": actual rendered debug menu enters selected map once; native capability proof is separate")
                     await click_text("MENU","pause-button")
@@ -224,14 +275,19 @@ def main():
     parser.add_argument("--output-dir",type=Path,required=True)
     parser.add_argument("--expected-commit",required=True)
     parser.add_argument("--expected-build-id",required=True)
+    parser.add_argument("--expected-forest-version",choices=("thorn-forest-region-v1","thorn-forest-region-v2"),help="Explicitly verify the actually assembled default forest, beyond menu acceptance")
+    parser.add_argument("--expected-forest-layout",choices=("shared-tree-directional-cavities-v7","shared-tree-living-detour-v9","shared-tree-canopy-hunt-v10","forest-expedition-airborne-v11","forest-woven-trunk-v12"),help="Require the exact layout of the actually assembled forest; requires --expected-forest-version")
+    parser.add_argument("--proxy-from-environment",action="store_true",help="Explicitly route Chromium through urllib's HTTPS proxy environment setting")
     args = parser.parse_args()
+    if args.expected_forest_layout is not None and args.expected_forest_version != "thorn-forest-region-v2":
+        parser.error("expected forest layout requires --expected-forest-version thorn-forest-region-v2")
     if not re.fullmatch(r"[0-9a-f]{40}",args.expected_commit):
         parser.error("expected commit must be a complete lowercase Git SHA")
     if not re.fullmatch(r"[0-9a-f]{12}",args.expected_build_id):
         parser.error("expected build ID must be a complete 12-character PCK content ID")
     if urlparse(args.url).scheme not in ("http","https"):
         parser.error("URL must use HTTP or HTTPS")
-    asyncio.run(asyncio.wait_for(verify(args.url,args.output_dir,args.expected_commit,args.expected_build_id),timeout=480))
+    asyncio.run(asyncio.wait_for(verify(args.url,args.output_dir,args.expected_commit,args.expected_build_id,args.expected_forest_version,args.expected_forest_layout,args.proxy_from_environment),timeout=480))
 
 
 if __name__ == "__main__": main()

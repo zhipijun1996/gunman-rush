@@ -1,0 +1,13 @@
+from pathlib import Path
+import json,hashlib,subprocess,fcntl,os,time
+R=Path('/workspace/gunman-rush-design');S=R/'build/forest_depth/snapshots/canopy_app02';O=R/'build/forest_depth/region/recommended-growth-v10-01-preparation';src=json.loads((S/'build/snapshot-receipt.json').read_text());sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();before={p:sha(S/p) for p in src['source_files']};assert before==src['source_files'];env={**os.environ,'GUNMAN_TOOLCHAIN_ROOT':'/workspace/toolchains','GUNMAN_DATA_HOME':str(S/'build/forest_depth/region/recommended-growth-v10-01-user'),'XDG_CONFIG_HOME':str(S/'build/forest_depth/region/recommended-growth-v10-01-config'),'XDG_CACHE_HOME':str(S/'build/forest_depth/region/recommended-growth-v10-01-cache'),'LP_NUM_THREADS':'1'};argv=['python3','tools/run_forest_depth_region.py','--seed','forest-depth-hollow-00','--map','2','--route','growth','--output','build/forest_depth/region/recommended-growth-v10-01'];receipt={'scope':'Only new recommended W-N-S itinerary; reused exact sealedApp02 source+warm import cache, not fresh wholecurrent clone or fixed80','source_snapshot':str(S),'source_snapshot_receipt_sha256':sha(S/'build/snapshot-receipt.json'),'source_before':before,'argv':argv,'budgets':{'import':90,'native':240,'outer':360},'status':'running'};start=time.monotonic()
+def save():(O/'outer-receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
+save()
+try:
+ with (R/'build/verification/engine.lock').open('a') as lock:
+  fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
+  with (O/'outer.log').open('w') as log:p=subprocess.run(argv,cwd=S,env=env,stdout=log,stderr=subprocess.STDOUT,timeout=360)
+  receipt['exit_code']=p.returncode;receipt['status']='completed' if p.returncode==0 else 'failed'
+finally:
+ receipt['source_after']={p:sha(S/p) for p in before};receipt['all2068_source_guard']=receipt['source_after']==before;receipt['seconds']=time.monotonic()-start;save();print(json.dumps({k:receipt[k] for k in ['status','seconds','all2068_source_guard']},ensure_ascii=False),flush=True);print('global engine FREE',flush=True)
+if receipt.get('exit_code')!=0 or not receipt['all2068_source_guard']:raise SystemExit(1)

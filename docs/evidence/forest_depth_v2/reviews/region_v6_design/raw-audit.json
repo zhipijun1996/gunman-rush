@@ -1,0 +1,330 @@
+{
+  "scope": "offline actual raw inspection; no engine, no production changes; not independent admission for own Queen/A2",
+  "inputs": {
+    "scripts/generation/thorn_forest_region_v2.gd": "7808dd64997f60fbbb27b66b72e1e7b27c98e60773ce9f17cb2d3cf21d806ece",
+    "scripts/generation/forest_hollow_trunk_geometry.gd": "17e4f89d4180a03a20e01f0cec68738971769c99846b41b3210e26d50f4d4a4c",
+    "scripts/enemies/forest_seed_sentry_behavior.gd": "9351a00f6c2cd3d8a86b7f6996e15e53ce2c7144f7539bf5935d3e9d32a5224e",
+    "scripts/enemies/enemy_attack_behavior.gd": "2631c540f3d62b4ea313b60cdf935bf2feacbc998bb6a023afcbf4c98c1afe9d",
+    "docs/design/forest_exploration_v2.md": "fcc86b4d9f98c592f4806fe171a828e1caec0c94a6a470b9e36e95771b1e173e",
+    "docs/evidence/forest_depth_v2/reviews/region_v3/REVIEW.md": "de53573f2a5894f0e12aad7934d74441d0bddc59b0fc321eab1590f3dff293e3",
+    "docs/evidence/forest_depth_v2/reviews/region_v4_difference/REVIEW.md": "25f4b6f426c2a85e1ec0af8a6928bf8db318a83763e05d3f33286ddd3b4d4ea3",
+    "docs/evidence/forest_depth_v2/reviews/formal-movie02/REVIEW.md": "5ca95e6b352611f3c5c38fde7b689eb375218a935132789c2ad57fc99a8a7f46",
+    "docs/evidence/forest_depth_v2/reviews/elbow_A2/REVIEW.md": "719fd9c2db3cc8cc2998cfefc09a19ce3f770aaa50d85a26308225fb98c1ba65",
+    "docs/evidence/forest_depth_v2/reviews/formal-expedition01/REVIEW.md": "d03ccf20bb3df3d8097e3580c73e76139e42191b6796f1643c6b4fd88a120a8a",
+    "docs/evidence/forest_depth_v2/reviews/queen36/REVIEW.md": "24ac3fac3bd54fdfc9cf22376ff3c294dcca568456437a7b31df4991c5ad3158",
+    "docs/evidence/forest_depth_v2/reviews/guardian26/REVIEW.md": "c3f77c88e40fef4aee6f9d0c652775c2ac1727be58413e5f0ebb4dca3f8496e4",
+    "docs/evidence/forest_depth_v2/elbow_formal01/elbow-formal01-selected.tar.gz": "1a9e65f2a62df3221d03a437342992399e7a1e9509dc554aa41c8e3b3d39e7d5",
+    "docs/evidence/forest_depth_v2/ecology/formal_expedition01/originals.tar.gz": "54d7e56a2a1f9589378967f2ea37393608e7e2065aa8fc904c239b64fb6f655a"
+  },
+  "formal_elbow": {
+    "seed": "forest-depth-hollow-00",
+    "map_index": 2,
+    "route": "growth",
+    "layout": "shared-tree-directional-cavities-v6",
+    "choices": {
+      "cache_route": 1,
+      "cavity_direction": 1,
+      "enemy_mix": 1,
+      "skeleton": 1
+    },
+    "frames": 580,
+    "continuous_ticks": true,
+    "failures": [],
+    "completed_legs": [
+      {
+        "edge_id": "arrival_reading",
+        "leg": 0,
+        "position": [
+          180.0,
+          600.0
+        ],
+        "start_tick": 1,
+        "supports": [
+          "west_court"
+        ],
+        "tick": 12
+      },
+      {
+        "edge_id": "west_north",
+        "leg": 1,
+        "position": [
+          200.015853881836,
+          449.925231933594
+        ],
+        "start_tick": 13,
+        "supports": [
+          "north_court"
+        ],
+        "tick": 107
+      },
+      {
+        "edge_id": "camp_north_out",
+        "leg": 2,
+        "position": [
+          200.015853881836,
+          449.925231933594
+        ],
+        "start_tick": 108,
+        "supports": [
+          "north_court"
+        ],
+        "tick": 119
+      },
+      {
+        "edge_id": "camp_north_back",
+        "leg": 3,
+        "position": [
+          200.015853881836,
+          449.925231933594
+        ],
+        "start_tick": 120,
+        "supports": [
+          "north_court"
+        ],
+        "tick": 131
+      },
+      {
+        "edge_id": "north_borer_access",
+        "leg": 4,
+        "position": [
+          337.98486328125,
+          381.925231933594
+        ],
+        "start_tick": 132,
+        "supports": [
+          "borer_access_middle"
+        ],
+        "tick": 182
+      },
+      {
+        "edge_id": "north_borer_access",
+        "leg": 5,
+        "position": [
+          354.984252929688,
+          281.925231933594
+        ],
+        "start_tick": 183,
+        "supports": [
+          "hollow__cavity_observe"
+        ],
+        "tick": 206
+      },
+      {
+        "edge_id": "north_borer_access",
+        "leg": 6,
+        "position": [
+          354.984252929688,
+          281.925231933594
+        ],
+        "start_tick": 207,
+        "supports": [
+          "hollow__cavity_observe"
+        ],
+        "tick": 218
+      },
+      {
+        "edge_id": "borer_crossing",
+        "leg": 7,
+        "position": [
+          1029.98315429688,
+          371.925231933594
+        ],
+        "start_tick": 219,
+        "supports": [
+          "boss_approach",
+          "hollow__cavity_exit"
+        ],
+        "tick": 378
+      },
+      {
+        "edge_id": "borer_cache",
+        "leg": 8,
+        "position": [
+          1099.95678710938,
+          371.925231933594
+        ],
+        "start_tick": 379,
+        "supports": [
+          "boss_approach",
+          "hollow__cavity_exit"
+        ],
+        "tick": 405
+      },
+      {
+        "edge_id": "cache_borer_back",
+        "leg": 9,
+        "position": [
+          1030.04284667969,
+          371.925231933594
+        ],
+        "start_tick": 406,
+        "supports": [
+          "boss_approach",
+          "hollow__cavity_exit"
+        ],
+        "tick": 443
+      },
+      {
+        "edge_id": "cavity_prep",
+        "leg": 10,
+        "position": [
+          1299.95385742188,
+          371.925231933594
+        ],
+        "start_tick": 444,
+        "supports": [
+          "boss_approach",
+          "hollow__cavity_exit"
+        ],
+        "tick": 516
+      },
+      {
+        "edge_id": "crown_approach",
+        "leg": 11,
+        "position": [
+          1399.98413085938,
+          371.925231933594
+        ],
+        "start_tick": 517,
+        "supports": [
+          "boss_approach",
+          "hollow__cavity_exit"
+        ],
+        "tick": 580
+      }
+    ],
+    "frozen_generator_sha256": "41fe8d3690d4316b99f318f8f09c153abbb19b84177203e74d67d0a0e5a0318f",
+    "current_generator_equals_frozen": false,
+    "enemy_observations": {
+      "hollow_route__root_seed_watch": {
+        "states": {
+          "idle": 580
+        },
+        "health_values": [
+          3.0
+        ],
+        "initial_position": [
+          620.0,
+          802.0
+        ]
+      },
+      "hollow_route__crown_thread": {
+        "states": {
+          "idle": 580
+        },
+        "health_values": [
+          2.0
+        ],
+        "initial_position": [
+          1130.0,
+          562.0
+        ]
+      },
+      "hollow_route__outer_lift_lantern": {
+        "states": {
+          "dwell": 199,
+          "telegraph": 93,
+          "travel": 288
+        },
+        "health_values": [
+          2.0
+        ],
+        "initial_position": [
+          1050.0,
+          680.0
+        ]
+      },
+      "hollow_route__inner_thread": {
+        "states": {
+          "idle": 580
+        },
+        "health_values": [
+          2.0
+        ],
+        "initial_position": [
+          400.0,
+          806.0
+        ]
+      }
+    }
+  },
+  "A2": {
+    "A2_HR/elbow_HR": {
+      "sha256": "a1102e980747306743d1754f7c836eebece7d0bd65288ffd2faa62917c7b163e",
+      "frames": 577,
+      "failure": "",
+      "initial_hp": 5.0,
+      "final_hp": 5.0,
+      "damage_events": []
+    },
+    "A2_H0R/elbow_H0R": {
+      "sha256": "3edfed8b4ae49aa060a35b66971bd7026ef6c3652d82766001ebb0c801f4e550",
+      "frames": 587,
+      "failure": "",
+      "initial_hp": 5.0,
+      "final_hp": 5.0,
+      "damage_events": []
+    },
+    "ordinary03/noH_elbow_oneR": {
+      "sha256": "558cec149555062a9cac2ac975300ca64285c436a970fe0d7dfaf6e26869c5e2",
+      "frames": 531,
+      "failure": "",
+      "initial_hp": 5.0,
+      "final_hp": 5.0,
+      "damage_events": []
+    },
+    "A2_roof/noH_cavity_outer": {
+      "sha256": "2c7dfc4e5f184b9d906c8733ca6ba9954e262c4d525496793052feb2a9b33a0c",
+      "frames": 738,
+      "failure": "",
+      "initial_hp": 5.0,
+      "final_hp": 5.0,
+      "damage_events": []
+    }
+  },
+  "expedition": {
+    "captures": {
+      "ecology_expedition01/actual/00-alive_lift/capture.json": {
+        "frames": 758,
+        "failures": [],
+        "first_position": [
+          1020.0,
+          882.0
+        ],
+        "last_health": 4.0,
+        "last_energy": 100.0
+      },
+      "ecology_expedition03/actual/00-jump_two_R/capture.json": {
+        "frames": 775,
+        "failures": [],
+        "first_position": [
+          1020.0,
+          882.0
+        ],
+        "last_health": 4.0,
+        "last_energy": 100.0
+      },
+      "ecology_expedition03/actual/01-left_phase_lift/capture.json": {
+        "frames": 1123,
+        "failures": [],
+        "first_position": [
+          1020.0,
+          882.0
+        ],
+        "last_health": 4.0,
+        "last_energy": 100.0
+      },
+      "ecology_expedition03/actual/02-low_air_recover_lift/capture.json": {
+        "frames": 836,
+        "failures": [],
+        "first_position": [
+          1020.0,
+          882.0
+        ],
+        "last_health": 4.0,
+        "last_energy": 100.0
+      }
+    },
+    "first_538_frames_equal": true
+  }
+}

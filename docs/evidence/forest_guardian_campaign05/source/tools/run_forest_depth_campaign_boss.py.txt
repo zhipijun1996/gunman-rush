@@ -1,0 +1,87 @@
+"""Actual pinned-v2 App route -> Guardian full fight -> Viewport-pointer reward -> map2.
+
+Use a fresh guarded runtime snapshot and the host's global engine lock.
+This is a consumer check, not Queen whole-Boss, device, audio or player acceptance.
+"""
+import argparse
+import contextlib
+import hashlib
+import json
+from pathlib import Path
+import re
+import subprocess
+import time
+import level_formal
+from run_tests import run_engine
+
+ROOT=Path(__file__).resolve().parents[1]
+ERRORS=re.compile(r'(?m)SCRIPT ERROR:|Parse Error:|SHADER ERROR:|^ERROR:|ObjectDB.*leaked|resources? still in use at exit')
+def validate(data):
+    assert data['scope']=='actual_DemoApp_v2_map1_route_Guardian_fullfight_pointer_reward_map2_entry'
+    assert data['failures']==[] and len(data['checks'])>=20 and all(r['passed'] is True for r in data['checks'])
+    assert data['initial_debug_entry_only'] is True and data['manual_motor_step'] is False and data['position_health_phase_resource_injection'] is False
+    route=data['route'];fight=data['combat'];events=fight['events']
+    assert not route['failures'] and len(route['completed'])==len(route['itinerary']) and route['frames'] and route['requests']
+    assert fight['initial']['boss_hp']==32 and fight['initial']['boss_started'] is False
+    assert fight['defeats']==1 and fight['final']['boss_hp']==0 and fight['final']['player_hp']>0
+    assert fight['seal_seen'] and fight['eligible_seen'] and fight['actual_bell_arrival'] and fight['earned_counter_phase2']
+    assert fight['frames'] and all(r['motor_steps']==1 for r in fight['frames'])
+    actual=[r['physics_frame'] for r in fight['frames']]
+    assert actual==list(range(actual[0],actual[0]+len(actual))) and len(actual)==fight['elapsed_actual_physics_frames']
+    assert any(e.get('event')=='actual_traversal' and e.get('bell_target') and e.get('state')=='hook_contact_kick' for e in events)
+    policy=[e for e in events if e.get('event')=='policy_result' and e.get('target')=='boss']
+    assert any(e['source'].startswith('player_projectile:') for e in policy)
+    assert any(e['source'].startswith('guardian_bell_counter:') for e in policy)
+    assert sum(e['amount'] for e in policy)>=32
+    from run_forest_boss_depth import validate_counter_causality
+    validate_counter_causality(events)
+    assert data['reward_modal_paused'] and [r['pressed'] for r in data['pointer_events']]==[True,False]
+    before=data['map1_before_entry'];after=data['map2_after_entry']
+    assert before['map']==1 and after['map']==2 and after['version']=='thorn-forest-region-v2'
+    assert after['stage_index']>before['stage_index'] and after['actor_epoch']>before['actor_epoch'] and after['stage_epoch']>before['stage_epoch']
+    assert after['wallet']==data['before_reward']['wallet']+data['reward_declaration']['coins'] and after['build']==data['before_reward']['build']
+    assert after['hook'] and not after['double'] and not after['wall'] and after['weapon']=='pulse_gun' and after['tier']==1
+    assert data['reward_declaration']['coins']>0 and data['reward_declaration']['heal']>0
+    assert after['hp']==min(data['before_reward']['capacity'], data['before_reward']['hp']+data['reward_declaration']['heal'])
+    manifest=data['map2_manifest']
+    assert manifest['version']=='thorn-forest-region-v2' and manifest['map_index']==2 and manifest['seed']==data['seed']+'/thorn_forest/map_2'
+    assert manifest['boss_contract']['ok'] is True and manifest['boss_contract']['admission']=='experimental_whole_boss_pending'
+    assert data['queen_whole_boss_admission'] is False and len(data['map2_normal_frames'])==30
+    run=data['run_manifest'];assert data['run_manifest_compatible'] is True and run['schema_version']==2 and len(run['stages'])==2
+    assert [s['stage_index'] for s in run['stages']]==[1,2] and [s['outputs']['region_map']['map_index'] for s in run['stages']]==[1,2]
+    assert all(s['biome_id']=='thorn_forest' and s['outputs']['region_map']['version']=='thorn-forest-region-v2' for s in run['stages'])
+    assert run['stages'][0]['outputs']['mini_boss_reward']['coins']==data['reward_declaration']['coins']
+
+def main():
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output-dir',default='build/forest_depth/campaign/native')
+    parser.add_argument('--seed',default='forest-depth-hollow-00')
+    args=parser.parse_args();out=(ROOT/args.output_dir).resolve()
+    if not out.is_relative_to(ROOT/'build/forest_depth/campaign') or out.exists(): parser.error('Fresh output below build/forest_depth/campaign required')
+    out.mkdir(parents=True)
+    before=level_formal.source_files()
+    paths=[Path(__file__).resolve(),ROOT/'tests/forest_depth_campaign_boss_runner.gd',ROOT/'tests/forest_depth_guardian_pilot.gd']
+    verifier={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in paths}
+    receipt={'scope':__doc__,'source_before':before,'verifier_before':verifier,'passed':False,'base_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'native_budget_seconds':180,'import_budget_seconds':90}
+    snapshot=ROOT/'build/snapshot-receipt.json'
+    if snapshot.is_file():receipt['runtime_snapshot_receipt_sha256']=hashlib.sha256(snapshot.read_bytes()).hexdigest()
+    start=time.monotonic()
+    try:
+        with (out/'import.log').open('w') as log,contextlib.redirect_stdout(log):
+            text=run_engine(['--headless','--path','.','--editor','--quit'],90)
+        if ERRORS.search(text):raise RuntimeError('Native import ERROR')
+        with (out/'native.log').open('w') as log,contextlib.redirect_stdout(log):
+            text=run_engine(['--headless','--fixed-fps','60','--path','.','--script','tests/forest_depth_campaign_boss_runner.gd','--','--seed='+args.seed,'--output=res://'+(out/'capture.json').relative_to(ROOT).as_posix()],180)
+        if ERRORS.search(text):raise RuntimeError('Native runtime ERROR')
+        if not re.search(r'^FOREST DEPTH CAMPAIGN: [1-9]\d* assertions / 0 failures$',text,re.M):raise RuntimeError('Complete native campaign marker required')
+        validate(json.loads((out/'capture.json').read_text()));receipt['passed']=True
+    finally:
+        receipt['source_after']=level_formal.source_files()
+        receipt['verifier_after']={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in verifier}
+        receipt['source_guard']=before==receipt['source_after'] and verifier==receipt['verifier_after']
+        receipt['elapsed_seconds']=time.monotonic()-start
+        receipt['logs']={p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in out.iterdir() if p.is_file()}
+        (out/'receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
+        if not receipt['source_guard']:raise RuntimeError('Source changed during actual App campaign')
+    print('PASS: actual App v2 natural Guardian full fight, pointer reward and experimental map2 entry; Queen admission NOT covered')
+if __name__=='__main__':main()
