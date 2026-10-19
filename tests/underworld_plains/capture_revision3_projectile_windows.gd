@@ -60,7 +60,7 @@ func wait_for_formal_map(expected_map: int) -> bool:
 	# never treat start_plains returning true as a synchronously ready scene.
 	for n: int in 180:
 		var loaded := app.stage as PlainsRegionStage
-		if loaded != null and loaded.map_index == expected_map and loaded.is_node_ready() and loaded.assembly_ok: return true
+		if loaded != null and loaded.map_index == expected_map and loaded.is_node_ready() and loaded.assembly_ok and not app._stage_pending and is_instance_valid(loaded.boss_seal) and is_instance_valid(app._boss_contact) and app._boss_contact.get_parent() == loaded.boss: return true
 		await tick()
 	failures.append("actual formal map readiness timed out: " + str(expected_map))
 	return false
