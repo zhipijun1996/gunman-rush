@@ -83,6 +83,7 @@ func _initialize() -> void:
 	run.call_deferred()
 func run() -> void:
 	var trace:=RetryTrace.new()
+	trace.recorded_layout_version="forest-woven-trunk-v12"
 	trace.seed_value="forest-depth-00";trace.map_index=1;trace.route_name="fast"
 	root.add_child(trace)
 	while not trace.finished or not trace.setup_done:await process_frame

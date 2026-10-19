@@ -1,0 +1,5 @@
+Bounded incremental ACCEPT. Exactnewhelperguardremovedreproducesprior1ef4e4c2SHA; recordedfailedcorpus03→correctednativeinventorychangesonlyhelper. Upperprekillnowonlysize3actualcanopy_fork_flightprogram; two-actionR-Hreturnsfalsebeforecombatsetup, keepingoriginallivekeeperhighlaunch/80gapchecks. Oldlayoutsfalse. No reader/production/assertionchange.
+
+Actualroot02/map2fast now10.119s/exit0/source_stable,28legs1792frames; independentlyoriginalstrictreadererrors[]. No upperprekillstart event; actualoldhighlaunchrecordskeeper(-83.0667,402), actualgap85.3204>=80/upwardairborne. Previous13/1/66corpusfailedkeeper_missingrawremainsFAIL.
+
+Originalsize3pathbodyisunchanged, butpreviousRHRnativePASSstaysold1efSHA; thisnewSHAhasnotyetpassedall80ornewRHRcase. Size3gateislength-basedandrequiresreviewifnew3-actionprogramintroduced. Noengine/browser/sourcewrites; noFUN/device/publicapproval.

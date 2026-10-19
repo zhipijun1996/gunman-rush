@@ -1,0 +1,39 @@
+{
+  "verdict": "REVISE_EFFECTIVE_ZOOM",
+  "scope": "Independent read-only camera change and bounded evidence reuse; no engine/browser",
+  "demo_app_sha256": "b0f681137fb60bb8cc589759cabd0c91ac787f7b4434911ab0d377fd1600fc57",
+  "stage_camera_rig_sha256": "be84d6f2195cd4fa5418a2b7fc15ee9244a17b61a1bce2f954375fad00d37490",
+  "old_movie_source_app_sha256": "215c4bc2f4b3d345e5e4a0feac42282e3e3347012d3bdb06fe3f12532f4ba47f",
+  "movie_inventory_count": 3170,
+  "inventory_changed_paths": [
+    "scripts/demo/demo_app.gd"
+  ],
+  "source_delta_proof": "Removing exactly the conditional three assignments plus comments recovers old movie App SHA. HEAD diff includes earlier reviewed HUD changes and is not the camera baseline.",
+  "physical_scope": "No actor/physics/resource/enemy/manifest setter in new block. Rig reads actor and support but moves its own camera. Original 80 corpus remains historical movement/terrain evidence; not rerun under current whole source.",
+  "blocking_finding": {
+    "files": [
+      "scripts/demo/demo_app.gd:507",
+      "scripts/demo/demo_app.gd:511",
+      "scripts/generation/stage_camera_rig.gd:41"
+    ],
+    "description": "Normal forest debug and campaign region flow uses connected_region=true with all explicit plains flags false, hence region_composition=true. configure selects fixed zoom1.60, overriding viewing_zoom1.20. Response/deadzone apply but wider zoom claim is unproven and statically bypassed."
+  },
+  "input_dependency": "Mouse and gamepad adapters invert current canvas transform to obtain world aim. Same screen-space coordinates can produce different world aim with new camera; no claim of unchanged screen-input behavior.",
+  "prefix_receipt": {
+    "path": "build/forest_revision03/aim/camera-fast08-final01/receipt.json",
+    "status": "passed",
+    "legs": 7,
+    "holds": 5,
+    "seconds": 32.320444434008095,
+    "runtime_source_unchanged": true,
+    "limitation": "Target-assisted real adapter prefix, no effective-camera-zoom field and no player approval."
+  },
+  "new_movie_status_at_review": "running",
+  "movie_comparison": "PENDING final capture; compare manifest, every recorded actor state/health/accepted shots/traversal events independently once ready. Do not claim identical before actual comparison.",
+  "limits": [
+    "No new engine or browser run",
+    "No final visual readability approval",
+    "No current-whole-source 80 rerun claim",
+    "No fun/device/Boss/full CI approval"
+  ]
+}

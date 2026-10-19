@@ -105,7 +105,7 @@ func physics_tick(delta: float) -> void:
 		elif action.type == &"interact":
 			interact_requested.emit()
 	for action: Dictionary in actions:
-		if action.type == &"grapple" and not shoot_ability.behavior().locks_movement(): traversal.request_hook(action.direction)
+		if action.type == &"grapple" and not shoot_ability.behavior().locks_movement(): traversal.request_hook(action.direction, action)
 	var wall_jumped := false
 	for action: Dictionary in actions:
 		if action.type == &"jump" and traversal.wall_jump():

@@ -307,6 +307,129 @@ def validate_latest(data):
                 or not all(n.get('rejected') is True for n in negatives)):
             raise ValueError('Every typed v12 version/semantic negative must reject')
 
+def validate_interwoven(data):
+    """Additional v13 layer; all original v1-v12 readers remain unchanged."""
+    if data.get('capture_schema') != 5:
+        raise ValueError('Interwoven version capture schema 5 required')
+    if type(data.get('assertions')) is not int or data['assertions'] < 290:
+        raise ValueError('All historical assertions plus both complete v13 contracts required')
+    cases = data.get('cases', [])
+    rows = [r for r in cases if r.get('id') == 'interwoven_content_contract']
+    if len(cases) != 22 or len(rows) != 2 or {r.get('map') for r in rows} != {1, 2}:
+        raise ValueError('Exact twenty historical cases and both v13 maps required')
+    historical = dict(data)
+    historical['capture_schema'] = 4
+    historical['cases'] = [r for r in cases if r.get('id') != 'interwoven_content_contract']
+    validate_latest(historical)
+    edges_expected = ['root_bay_approach', 'root_bay_lesson_flight', 'inner_hollow_HH',
+        'upper_root_RH', 'upper_root_crown_H', 'inner_thorn_HR',
+        'crown_inner_return', 'inner_bay_return']
+    supports_expected = ['interwoven_root_bridge', 'interwoven_lesson_bough',
+        'interwoven_inner_bough', 'interwoven_upper_launch']
+    negative_expected = {'relabel_v12', 'relabel_future', 'missing_support', 'missing_branch',
+        'wrong_route', 'wrong_return', 'hang_refill', 'historical_tuning',
+        'capability/double_jump', 'capability/wall_climb',
+        'capability/weapon_evolution_1', 'capability/weapon_evolution_2'}
+    for row in rows:
+        index = row['map']
+        m = row.get('manifest', {})
+        boss = 'rootbell_guardian_v2' if index == 1 else 'thorn_queen_canopy'
+        if (type(index) is not int or m.get('map_index') != index
+                or type(m.get('map_index')) is not int
+                or m.get('layout_version') != 'forest-interwoven-canopy-v13'
+                or m.get('version') != 'thorn-forest-region-v2'
+                or m.get('region') != 'thorn_forest'
+                or m.get('seed') != f'version-interwoven-map-{index}'
+                or m.get('production_pool') is not False or m.get('requires') != ['grapple']
+                or not re.fullmatch(r'[0-9a-f]{64}', str(m.get('manifest_hash', '')))
+                or m.get('player_tuning_hash') != hashlib.sha256((ROOT / 'config/player_tuning.json').read_bytes()).hexdigest()
+                or row.get('complete_output_equal') is not True
+                or row.get('default_manifest') != m or row.get('frozen_manifest') != m
+                or row.get('boss_scene') != f'res://scenes/bosses/{boss}.tscn'
+                or row.get('boss_resource') != f'res://resources/bosses/{boss}.tres'):
+            raise ValueError('Exact v13 pinned/frozen/public default identity and Boss pair required')
+        edges = [e for e in m.get('connections', []) if e.get('id') in edges_expected]
+        supports = [p for p in m.get('platforms', []) if p.get('id') in supports_expected]
+        if ([e['id'] for e in edges] != edges_expected or row.get('added_edges') != edges_expected
+                or [p['id'] for p in supports] != supports_expected
+                or row.get('added_supports') != supports_expected
+                or any(p.get('one_way') is not True or len(p.get('rect', [])) != 4
+                    or type(p['rect'][2]) not in (int, float) or p['rect'][2] < 100 for p in supports)):
+            raise ValueError('Exact actual added v13 approach, supports, branches and returns required')
+        entry = m.get('entry_contract', {})
+        contract = m.get('interwoven_contract', {})
+        if (entry.get('selected') != 'root_bay' or entry.get('optional_skill_route') != 'root_spiral'
+                or contract.get('held_hang_resets_focus') is not False
+                or contract.get('splits', [])[:2] != ['arrival', 'interwoven_inner']
+                or contract.get('rejoins', [])[:2] != ['root_spiral_crown', 'thorn_mouth_mouth']):
+            raise ValueError('Explicit short grounded entry, early split/rejoin and no hanging refill required')
+        branch = m.get('choices', {}).get('interwoven_first_branch')
+        if branch not in ('inner', 'upper') or m.get('streams', {}).get('interwoven') != 'forest_interwoven':
+            raise ValueError('Finite v13 branch choice and isolated RNG stream required')
+        inner = ['root_bay_approach', 'root_bay_lesson_flight', 'inner_hollow_HH', 'inner_thorn_HR']
+        upper = ['root_bay_approach', 'root_bay_lesson_flight', 'inner_hollow_HH', 'upper_root_RH', 'upper_root_crown_H']
+        fast, growth = (inner, upper) if branch == 'inner' else (upper, inner)
+        routes = m.get('routes', {})
+        if (routes.get('fast', [])[:len(fast)] != fast or routes.get('growth', [])[:len(growth)] != growth
+                or 'root_spiral_rest_flight' not in routes.get('high_return', [])
+                or 'root_bay_approach' in routes.get('high_return', [])):
+            raise ValueError('Actual route prefixes must select distinct early physical paths; optional skill line retained')
+        validate_interwoven_expansion(m)
+        negatives = row.get('negative_cases', [])
+        if (len(negatives) != 12 or {n.get('kind') for n in negatives} != negative_expected
+                or not all(n.get('rejected') is True for n in negatives)):
+            raise ValueError('All typed v13 semantic and ungranted-capability negatives must reject')
+
+
+def validate_interwoven_expansion(m):
+    c = m.get('interwoven_contract', {})
+    if (c.get('splits') != ['arrival', 'interwoven_inner', 'broken_arch_crown']
+            or c.get('rejoins') != ['root_spiral_crown', 'thorn_mouth_mouth', 'interwoven_root_landing', 'M']):
+        raise ValueError('Exact expanded v13 split/rejoin identities required')
+    def exact_row(category, identity):
+        rows = [r for r in m.get(category, []) if r.get('id') == identity]
+        if len(rows) != 1:
+            raise ValueError('Exactly one actual v13 object required: ' + identity)
+        return rows[0]
+    node = exact_row('areas', 'interwoven_root_landing')
+    ascent = exact_row('connections', 'interwoven_deep_ascent')
+    walk = exact_row('connections', 'interwoven_root_to_D')
+    support = exact_row('platforms', 'hollow__inner_root')
+    if node.get('position') != [400., 802.] or node.get('role') != 'junction':
+        raise ValueError('Actual v13 landing node must describe root lip')
+    if (ascent.get('a') != 'interwoven_deep_basin' or ascent.get('b') != 'interwoven_root_landing'
+            or ascent.get('landing') != [400., 802.] or ascent.get('landing_support_id') != 'hollow__inner_root'):
+        raise ValueError('Actual ascent must land at the root lip, not relabeled D')
+    if (walk.get('a') != 'interwoven_root_landing' or walk.get('b') != 'D'
+            or walk.get('kind') != 'walk' or walk.get('path') != [[400., 802.], [720., 802.]]
+            or support.get('rect') != [290., 820., 500., 40.] or support.get('one_way') is not False):
+        raise ValueError('Exact lip-to-D walk and real shared root support required')
+    camps = [e for e in m.get('connections', []) if e.get('id') == 'interwoven_root_to_camp']
+    at_lip = m.get('merchant_position') == [360., 802.]
+    if at_lip:
+        if (len(camps) != 1 or camps[0].get('a') != 'interwoven_root_landing'
+                or camps[0].get('b') != 'camp' or camps[0].get('kind') != 'walk'
+                or camps[0].get('path') != [[400., 802.], [360., 802.]]):
+            raise ValueError('Actual merchant360 requires exact camp walk')
+    elif camps:
+        raise ValueError('Camp lip edge forbidden when merchant is elsewhere')
+    choices = m.get('choices', {})
+    west = choices.get('west_reward')
+    if (type(west) is not bool
+            or choices.get('interwoven_midroute') != ('upper_west_reward_existing_order' if west else 'deep_root_camp_first')
+            or choices.get('interwoven_midroute_basis') != 'actual_existing_west_reward; no additional random draw'):
+        raise ValueError('Exact existing seed-west policy required')
+    growth = m.get('routes', {}).get('growth', [])
+    descent, ascent_id = 'interwoven_deep_descent', 'interwoven_deep_ascent'
+    if west:
+        if descent in growth or ascent_id in growth:
+            raise ValueError('West-reward growth must preserve existing upper order')
+    elif (descent not in growth or ascent_id not in growth or 'broken_arch_flight' not in growth
+            or growth.index(descent) + 1 != growth.index(ascent_id)
+            or growth.index('broken_arch_flight') >= growth.index(descent)):
+        raise ValueError('Non-west growth requires real contiguous deep route after broken arch')
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output-dir', default='build/forest_depth/versions/native')
@@ -339,7 +462,7 @@ def main():
             raise RuntimeError('Complete native version result missing')
         if re.search(r'(^|\n)(?:SCRIPT )?ERROR:', text):
             raise RuntimeError('Unexpected native engine ERROR')
-        validate_latest(json.loads((out / 'capture.json').read_text()))
+        validate_interwoven(json.loads((out / 'capture.json').read_text()))
         receipt['passed'] = True
     finally:
         receipt['source_after'] = level_formal.source_files()

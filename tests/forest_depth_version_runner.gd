@@ -62,6 +62,7 @@ func run() -> void:
 	check_expedition_contract(registry,tuning)
 	check_vertical_contract(registry,tuning)
 	check_recorded_expedition(registry,tuning)
+	check_interwoven_contract(registry,tuning)
 	for map_index: int in [1,2]:
 		await app_case(map_index)
 	# A bounded lifecycle hypothesis: the long async run() previously quit while
@@ -86,7 +87,7 @@ func deferred_finish() -> void:
 		if argument.begins_with("--output="): output=argument.trim_prefix("--output=")
 	DirAccess.make_dir_recursive_absolute(output.get_base_dir())
 	var file := FileAccess.open(output,FileAccess.WRITE)
-	file.store_string(JSON.stringify({"capture_schema":4,"scope":"runtime version compatibility only; v2 gameplay not covered","assertions":assertions,"failures":failures,"engine":Engine.get_version_info(),"cases":cases,"checks":checks,"exit_lifecycle":exit_observations},"\t"))
+	file.store_string(JSON.stringify({"capture_schema":5,"scope":"runtime version compatibility only; v2 gameplay not covered","assertions":assertions,"failures":failures,"engine":Engine.get_version_info(),"cases":cases,"checks":checks,"exit_lifecycle":exit_observations},"\t"))
 	file.close()
 	file=null
 	print("FOREST DEPTH VERSIONS: %s assertions, %s failures" % [assertions,failures])
@@ -208,12 +209,12 @@ func check_vertical_contract(registry: ThornForestRegionGenerator,tuning: Player
 	for map_index: int in [1,2]:
 		var seed_value := "version-woven-map-%s" % map_index
 		var explicit := registry.generate_version("thorn-forest-region-v2",seed_value,tuning,map_index,{"grapple":true,"abilities":["grapple"],"forest_layout_version":expected_layout})
-		var current := registry.generate(seed_value,tuning,map_index,{"grapple":true,"abilities":["grapple"]})
-		check(explicit.get("ok",false) and current.get("ok",false),"explicit and default woven generation succeeds map%s" % map_index)
+		var current: Dictionary=load("res://scripts/generation/thorn_forest_region_v2.gd").new().generate(seed_value,tuning,map_index,{"grapple":true,"abilities":["grapple"]})
+		check(explicit.get("ok",false) and current.get("ok",false),"explicit pinned v12 and frozen woven producer generation succeeds map%s" % map_index)
 		if not explicit.get("ok",false) or not current.get("ok",false):continue
 		var m: Dictionary=explicit.manifest
 		check(m.version=="thorn-forest-region-v2" and m.layout_version==expected_layout and m.map_index==map_index and m.seed==seed_value and not m.production_pool,"exact independent woven candidate identity map%s" % map_index)
-		check(equality._same_data(explicit,current),"actual default equals complete explicit v12 output map%s" % map_index)
+		check(equality._same_data(explicit,current),"pinned historical v12 equals complete frozen producer output map%s" % map_index)
 		check(m.player_tuning_hash==FileAccess.get_sha256("res://config/player_tuning.json"),"v12 carries actual current tuning fingerprint map%s" % map_index)
 		check(registry.validate(m,tuning) and m.manifest_hash==ThornForestRegionGenerator._hash(m),"complete v12 validates and hashes map%s" % map_index)
 		var actual_phrases: Array=[]
@@ -282,3 +283,88 @@ func check_recorded_expedition(registry: ThornForestRegionGenerator,tuning: Play
 		var rejected:=not registry.validate(edited,tuning)
 		check(rejected,"rehashing cannot change historical generation fingerprint map%s" % index)
 		cases.append({"id":"recorded_expedition_layout","map":index,"fixture_sha256":FileAccess.get_sha256(path),"original":original,"rebuilt":rebuilt.get("manifest",{}),"current_tuning_mutation_rejected":rejected})
+
+func check_interwoven_contract(registry: ThornForestRegionGenerator,tuning: PlayerTuning) -> void:
+	# New default contract is additional; historical v12 keeps all original assertions.
+	var expected_layout := "forest-interwoven-canopy-v13"
+	var expected_edges := ["root_bay_approach","root_bay_lesson_flight","inner_hollow_HH","upper_root_RH","upper_root_crown_H","inner_thorn_HR","crown_inner_return","inner_bay_return"]
+	var expected_supports := ["interwoven_root_bridge","interwoven_lesson_bough","interwoven_inner_bough","interwoven_upper_launch"]
+	var equality := RandomStageGenerator.new()
+	for map_index: int in [1,2]:
+		var seed_value := "version-interwoven-map-%s" % map_index
+		var capabilities := {"grapple":true,"abilities":["grapple"]}
+		var pinned := capabilities.duplicate(true)
+		pinned.forest_layout_version=expected_layout
+		var explicit := registry.generate_version("thorn-forest-region-v2",seed_value,tuning,map_index,pinned)
+		var frozen: Dictionary=load("res://scripts/generation/thorn_forest_region_v2_v13.gd").new().generate(seed_value,tuning,map_index,capabilities)
+		var current := registry.generate(seed_value,tuning,map_index,capabilities)
+		check(explicit.get("ok",false) and frozen.get("ok",false) and current.get("ok",false),"v13 pinned, frozen and actual default generation succeeds map%s" % map_index)
+		if not explicit.get("ok",false) or not frozen.get("ok",false) or not current.get("ok",false):continue
+		var m: Dictionary=explicit.manifest
+		check(m.version=="thorn-forest-region-v2" and m.layout_version==expected_layout and m.seed==seed_value and m.map_index==map_index and m.requires==["grapple"] and not m.production_pool,"independently expected v13 identity, H-only and pending admission map%s" % map_index)
+		check(equality._same_data(explicit,frozen),"explicit v13 equals entire dedicated producer output map%s" % map_index)
+		check(equality._same_data(explicit,current) and current.manifest.layout_version==expected_layout,"actual unversioned default equals entire explicit v13 output map%s" % map_index)
+		check(registry.validate(m,tuning) and registry.validate(current.manifest,tuning) and m.manifest_hash==ThornForestRegionGenerator._hash(m),"v13 complete strict validation and hash map%s" % map_index)
+		check(m.player_tuning_hash==FileAccess.get_sha256("res://config/player_tuning.json"),"v13 uses actual current tuning fingerprint map%s" % map_index)
+		var actual_edges: Array=[]
+		for edge: Dictionary in m.connections:
+			if edge.id in expected_edges:actual_edges.append(edge.id)
+		check(actual_edges==expected_edges,"v13 exact added real approach, branch and return edges map%s" % map_index)
+		var actual_supports: Array=[]
+		for support: Dictionary in m.platforms:
+			if support.id in expected_supports:
+				actual_supports.append(support.id)
+				check(support.one_way==true and support.rect[2]>=100.0,"v13 actual broad grounded bough: "+support.id)
+		check(actual_supports==expected_supports,"v13 exact added grounded supports map%s" % map_index)
+		check(m.entry_contract.selected=="root_bay" and m.entry_contract.optional_skill_route=="root_spiral","short grounded entry and optional original skill line map%s" % map_index)
+		check(m.interwoven_contract.held_hang_resets_focus==false,"v13 explicitly preserves no hanging focus refill map%s" % map_index)
+		check(m.interwoven_contract.splits.slice(0,2)==["arrival","interwoven_inner"] and m.interwoven_contract.rejoins.slice(0,2)==["root_spiral_crown","thorn_mouth_mouth"],"v13 explicit early split and distinct rejoins map%s" % map_index)
+		check(m.interwoven_contract.splits==["arrival","interwoven_inner","broken_arch_crown"] and m.interwoven_contract.rejoins==["root_spiral_crown","thorn_mouth_mouth","interwoven_root_landing","M"],"v13 exact expanded split and rejoin identity map%s" % map_index)
+		var landing_nodes: Array=m.areas.filter(func(row: Dictionary) -> bool:return row.id=="interwoven_root_landing")
+		check(landing_nodes.size()==1 and landing_nodes[0].position==[400.0,802.0] and landing_nodes[0].role=="junction","v13 actual root landing junction map%s" % map_index)
+		var deep_edges: Array=m.connections.filter(func(row: Dictionary) -> bool:return row.id=="interwoven_deep_ascent")
+		check(deep_edges.size()==1 and deep_edges[0].a=="interwoven_deep_basin" and deep_edges[0].b=="interwoven_root_landing" and deep_edges[0].landing==[400.0,802.0] and deep_edges[0].landing_support_id=="hollow__inner_root","v13 ascent reaches actual lip instead of relabeling D map%s" % map_index)
+		var root_walk: Array=m.connections.filter(func(row: Dictionary) -> bool:return row.id=="interwoven_root_to_D")
+		check(root_walk.size()==1 and root_walk[0].a=="interwoven_root_landing" and root_walk[0].b=="D" and root_walk[0].kind=="walk" and root_walk[0].path==[[400.0,802.0],[720.0,802.0]],"v13 actual root lip walk to old D map%s" % map_index)
+		var root_support: Array=m.platforms.filter(func(row: Dictionary) -> bool:return row.id=="hollow__inner_root")
+		check(root_support.size()==1 and root_support[0].rect==[290.0,820.0,500.0,40.0] and not root_support[0].one_way,"v13 root walk shares exact real continuous solid support map%s" % map_index)
+		var camp_walk: Array=m.connections.filter(func(row: Dictionary) -> bool:return row.id=="interwoven_root_to_camp")
+		var camp_at_lip: bool=m.merchant_position==[360.0,802.0]
+		check((camp_at_lip and camp_walk.size()==1 and camp_walk[0].a=="interwoven_root_landing" and camp_walk[0].b=="camp" and camp_walk[0].kind=="walk" and camp_walk[0].path==[[400.0,802.0],[360.0,802.0]]) or (not camp_at_lip and camp_walk.is_empty()),"v13 conditional camp edge uses actual merchant360 source map%s" % map_index)
+		var west_reward: bool=m.choices.west_reward
+		check(m.choices.interwoven_midroute==("upper_west_reward_existing_order" if west_reward else "deep_root_camp_first") and m.choices.interwoven_midroute_basis=="actual_existing_west_reward; no additional random draw","v13 exact seed-west order policy map%s" % map_index)
+		check((west_reward and "interwoven_deep_ascent" not in m.routes.growth and "interwoven_deep_descent" not in m.routes.growth) or (not west_reward and "interwoven_deep_ascent" in m.routes.growth and "interwoven_deep_descent" in m.routes.growth and m.routes.growth.find("interwoven_deep_descent")+1==m.routes.growth.find("interwoven_deep_ascent") and m.routes.growth.find("broken_arch_flight")<m.routes.growth.find("interwoven_deep_descent")),"v13 actual growth respects conditional west-order and deep adjacency map%s" % map_index)
+		check(m.choices.interwoven_first_branch in ["inner","upper"] and m.streams.interwoven=="forest_interwoven","v13 finite branch and isolated random stream map%s" % map_index)
+		var inner := ["root_bay_approach","root_bay_lesson_flight","inner_hollow_HH","inner_thorn_HR"]
+		var upper := ["root_bay_approach","root_bay_lesson_flight","inner_hollow_HH","upper_root_RH","upper_root_crown_H"]
+		var fast_prefix: Array=inner if m.choices.interwoven_first_branch=="inner" else upper
+		var growth_prefix: Array=upper if m.choices.interwoven_first_branch=="inner" else inner
+		check(m.routes.fast.slice(0,fast_prefix.size())==fast_prefix and m.routes.growth.slice(0,growth_prefix.size())==growth_prefix,"v13 actual fast/growth consume different early branch prefixes map%s" % map_index)
+		check("root_spiral_rest_flight" in m.routes.high_return and "root_bay_approach" not in m.routes.high_return,"v13 optional original long skill strategy retained map%s" % map_index)
+		var boss_scene := "res://scenes/bosses/rootbell_guardian_v2.tscn" if map_index==1 else "res://scenes/bosses/thorn_queen_canopy.tscn"
+		var boss_resource := "res://resources/bosses/rootbell_guardian_v2.tres" if map_index==1 else "res://resources/bosses/thorn_queen_canopy.tres"
+		check(ThornForestRegionGenerator.boss_scene_path(m.version,map_index,m)==boss_scene and ThornForestRegionGenerator.boss_definition_path(m.version,map_index,m)==boss_resource,"v13 exact unchanged Boss pair map%s" % map_index)
+		var negatives: Array=[]
+		for mutation: String in ["relabel_v12","relabel_future","missing_support","missing_branch","wrong_route","wrong_return","hang_refill","historical_tuning"]:
+			var edited := m.duplicate(true)
+			if mutation=="relabel_v12":edited.layout_version="forest-woven-trunk-v12"
+			elif mutation=="relabel_future":edited.layout_version="forest-interwoven-canopy-v999"
+			elif mutation=="missing_support":edited.platforms=edited.platforms.filter(func(row: Dictionary) -> bool:return row.id!="interwoven_inner_bough")
+			elif mutation=="missing_branch":edited.connections=edited.connections.filter(func(row: Dictionary) -> bool:return row.id!="inner_thorn_HR")
+			elif mutation=="wrong_route":edited.routes.fast=["inner_bay_return"]
+			elif mutation=="wrong_return":
+				for edge: Dictionary in edited.connections:
+					if edge.id=="inner_bay_return":edge.b="gate_ready"
+			elif mutation=="hang_refill":edited.interwoven_contract.held_hang_resets_focus=true
+			else:edited.player_tuning_hash="e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+			edited.manifest_hash=ThornForestRegionGenerator._hash(edited)
+			var rejected := not registry.validate(edited,tuning)
+			check(rejected,"v13 coherent semantic mutation rejected: "+mutation)
+			negatives.append({"kind":mutation,"rejected":rejected})
+		for forbidden: String in ["double_jump","wall_climb","weapon_evolution_1","weapon_evolution_2"]:
+			var illegal := pinned.duplicate(true);illegal[forbidden]=true
+			var denied := registry.generate_version("thorn-forest-region-v2",seed_value,tuning,map_index,illegal)
+			var rejected: bool=not denied.get("ok",false) and not denied.has("manifest")
+			check(rejected,"v13 rejects ungranted S2 capability: "+forbidden)
+			negatives.append({"kind":"capability/"+forbidden,"rejected":rejected})
+		cases.append({"id":"interwoven_content_contract","map":map_index,"manifest":m,"default_manifest":current.manifest,"frozen_manifest":frozen.manifest,"complete_output_equal":equality._same_data(explicit,current) and equality._same_data(explicit,frozen),"added_edges":actual_edges,"added_supports":actual_supports,"boss_scene":boss_scene,"boss_resource":boss_resource,"negative_cases":negatives})

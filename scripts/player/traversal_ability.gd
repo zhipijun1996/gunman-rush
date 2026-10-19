@@ -35,6 +35,7 @@ var guide_active := false
 var guide_point := Vector2.ZERO
 var guide_target_valid := false
 var _hook_probe: ShapeCast2D
+var _pending_hook: Dictionary = {}
 
 func configure(actor: PlayerController) -> void:
 	controller = actor
@@ -53,9 +54,23 @@ func grant(id: StringName, enabled: bool = true) -> bool:
 func busy() -> bool:
 	return state in [&"hook_cast", &"hook_fly", &"hook_pull", &"hook_miss", &"hook_retract", &"hook_contact_kick"]
 
-func request_hook(direction: Vector2) -> bool:
+func request_hook(direction: Vector2, intent: Dictionary = {}) -> bool:
+	# A real contact has restored H before the short kick pose finishes. Keep
+	# one release for that tail only; accepting input does not interrupt motion.
+	if state == &"hook_kick" and hook_enabled and not hook_used and controller.active and direction.is_finite():
+		if not _pending_hook.is_empty(): return false
+		# Carry the original Router envelope across the pose, not a fresh TTL.
+		# Direct ability callers have no queued envelope and begin their bound now.
+		var now := Time.get_ticks_usec()/1000000.0
+		var issued_at := float(intent.get("timestamp", now))
+		var epoch := int(intent.get("epoch", controller.router.epoch))
+		var sequence := int(intent.get("sequence", controller.router.sequence))
+		if not is_finite(issued_at) or issued_at > now or now-issued_at > InputRouter.MAX_AGE_SECONDS or epoch != controller.router.epoch or sequence != controller.router.sequence: return false
+		_pending_hook = {"direction":direction,"epoch":epoch,"sequence":sequence,"device":controller.router.current_device,"session":controller.session_id,"deadline":int((issued_at+InputRouter.MAX_AGE_SECONDS)*1000000.0)}
+		return true
 	if not hook_enabled or state not in [&"free", &"hook_hang"] or not controller.active or not direction.is_finite(): return false
 	if hook_used and not controller.motor.is_on_floor(): return false
+	_pending_hook.clear()
 	_released_hang_target=hook_target if state == &"hook_hang" else null
 	if state == &"hook_hang":
 		controller.motor.cancel_ability_motion()
@@ -107,6 +122,13 @@ func advance(delta: float) -> void:
 	if state == &"hook_kick":
 		hook_tip = hook_tip.move_toward(motor.global_position+Vector2(0,-6),definition.hook_return_speed*delta)
 		if state_age >= definition.hook_launch_seconds: _set_state(&"free")
+	if not _pending_hook.is_empty():
+		var valid: bool = hook_enabled and not hook_used and controller.active and controller.router.has_application_focus and not get_tree().paused and _pending_hook.epoch == controller.router.epoch and _pending_hook.sequence == controller.router.sequence and _pending_hook.device == controller.router.current_device and _pending_hook.session == controller.session_id and Time.get_ticks_usec() <= int(_pending_hook.deadline) and state in [&"hook_kick", &"free"]
+		if not valid: _pending_hook.clear()
+		elif state == &"free":
+			var direction: Vector2 = _pending_hook.direction
+			_pending_hook.clear()
+			request_hook(direction)
 	if state == &"hook_contact_kick":
 		if state_age < definition.hook_contact_seconds:
 			motor.request_ability_velocity(Vector2.ZERO)
@@ -232,6 +254,7 @@ func release_hang_for_jump() -> bool:
 	return true
 
 func cancel() -> void:
+	_pending_hook.clear()
 	guide_active=false;guide_target_valid=false
 	_contact_target = null
 	_contact_remaining = 0.0
@@ -263,6 +286,7 @@ func protects_contact(source: Node) -> bool:
 	return source == _contact_target or _contact_target.is_ancestor_of(source)
 
 func on_weapon_fired() -> void:
+	_pending_hook.clear()
 	# The accepted recoil takes over from wall adhesion/kick recovery. Keep the
 	# detach token; cancelling a pose must never grant another wall kick.
 	controller.motor.wall_slide_limit = -1
@@ -270,6 +294,7 @@ func on_weapon_fired() -> void:
 	if state in [&"wall_attach",&"wall_kick",&"hook_kick",&"hook_hang"]: _set_state(&"free")
 
 func on_jump_executed() -> void:
+	_pending_hook.clear()
 	if state in [&"wall_kick",&"hook_kick"]: _set_state(&"free")
 
 func restore_air_actions() -> void:
@@ -312,7 +337,7 @@ func _probe_segment(start: Vector2, finish: Vector2) -> Dictionary:
 		if not obstruction.is_empty() and obstruction.collider!=chosen.collider:return {"position":obstruction.position,"collider":obstruction.collider}
 	return chosen
 func _update_guide() -> void:
-	guide_active=hook_enabled and state in [&"free",&"hook_hang"] and controller.active and not hook_used and (controller.router.aim_engaged or controller.router.aim_mode==&"grapple") and not controller.router.aim_direction.is_zero_approx()
+	guide_active=hook_enabled and state in [&"free",&"hook_hang",&"hook_kick"] and controller.active and not hook_used and (controller.router.aim_engaged or controller.router.aim_mode==&"grapple") and not controller.router.aim_direction.is_zero_approx()
 	guide_target_valid=false
 	if not guide_active:return
 	var origin := controller.motor.global_position+Vector2(0,-6)

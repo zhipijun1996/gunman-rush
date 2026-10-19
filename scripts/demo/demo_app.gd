@@ -505,6 +505,12 @@ func _load_stage() -> void:
 			add_child(_run_camera)
 		if connected_region: player.z_index = 5
 		_run_camera.region_composition = connected_region and not _explicit_plains_candidate()
+		if active_region_id == &"thorn_forest":
+			# A full hook reach must remain readable during fast upward/sideways chains.
+			# This changes only the view; the actor, anchors and action budgets stay exact.
+			_run_camera.viewing_zoom = 1.20
+			_run_camera.dead_zone.y = 12.0
+			_run_camera.response_time = Vector2(0.12, 0.05)
 		if plains_environment_candidate_requested:
 			_run_camera.viewing_zoom = float(random_stage.generated.environment_plan.camera.zoom)
 		if plains_regional_art_candidate_requested:
@@ -514,6 +520,11 @@ func _load_stage() -> void:
 			_run_camera.dead_zone.y = float(random_stage.generated.golden_manifest.camera.dead_zone_y)
 			_run_camera.response_time.y = float(random_stage.generated.golden_manifest.camera.response_y)
 		_run_camera.configure(player, random_stage.bounds)
+		if active_region_id == &"thorn_forest":
+			# configure keeps the shared region zoom; apply this region's view afterward.
+			_run_camera.zoom = Vector2.ONE * _run_camera.viewing_zoom
+			_run_camera.snap_to_target()
+			_run_camera.force_update_scroll()
 	controller.return_to_segment(stage.spawn)
 	policy = FrameDamagePolicy.new()
 	policy.lifetime = lifetime
@@ -1304,7 +1315,7 @@ func _process(_delta: float) -> void:
 		_hud.show()
 		_hud.text = "COINS %s   NOTES %s" % [wallet.balance, meta.snapshot().get("notes",0)]
 		_hud.position = Vector2(22,29)
-		_hud_frame.size = Vector2(320, 128 if plains_environment_candidate_requested else 112)
+		_hud_frame.size = Vector2(320, 140)
 		_debug_button.position=Vector2(250,8)
 		_resources_hud.set_region_compact(true)
 		_layout_region_hud()
@@ -1316,10 +1327,11 @@ func _process(_delta: float) -> void:
 		_hud.position=Vector2(22,42)
 		_resources_hud.position=Vector2.ZERO
 		_resources_hud.set_region_compact(false)
-		_hud_frame.size.y = 180 if debug_hud else 144
+		_hud_frame.size.y = 252 if debug_hud else 172
 	if not connected_region or debug_hud: _hud_frame.size.x=760 if connected_region else 500
-	_hint.position.y=150
-	_actions.position.y = 196 if debug_hud else 158
+	_hint.position.y=178
+	_status_label.position.y = 208 if debug_hud else 178
+	_actions.position.y = 268 if debug_hud else 178
 	_pause_button.visible = not overlay.enabled
 	_update_actions()
 

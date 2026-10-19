@@ -1,0 +1,27 @@
+{
+  "verdict": "BOUNDED_STATIC_ACCEPT_RUNTIME_PENDING",
+  "sources": {
+    "scripts/demo/demo_app.gd": "cfd3198b1656ed457a8df5bfb5f791224860bb28bde2ec1194b9cbf0a049dd31",
+    "scripts/generation/stage_camera_rig.gd": "be84d6f2195cd4fa5418a2b7fc15ee9244a17b61a1bce2f954375fad00d37490",
+    "scripts/demo/thorn_forest_region_stage.gd": "5052b3ba56e7bca9a92439c2a604c91813f337661de282c4929d2257fc9001ea"
+  },
+  "change": "Forest-only postconfigure camera.zoom=ONE*viewing_zoom then snap_to_target/force_update_scroll; shared rig and region_composition unchanged.",
+  "effective_zoom_reason": "configure fixed1.60 now precedes final forest override1.20. No later zoom setter found in App or rig physics; snap/scroll do not reset zoom.",
+  "actor_safety": "New code only writes camera properties/camera position via existing snap. No player/terrain/enemy/manifest/resource mutation.",
+  "forest_composition_focus": "ThornForestRegionStage.composition_focus returns INF; observation and Boss route focus remain separate existing view policies.",
+  "historical_evidence": "Old80 retained under its exact source for physics/geometry; no claim current entire source reran80. Camera02 remains historical1.60 recording.",
+  "input_mapping": "New zoom changes screen/world mapping; same screen-coordinate actions not equivalent. Fresh actual adapter and normal movie pending.",
+  "smoke_draft": {
+    "path": "build/forest_revision03/review/actual_camera_smoke_draft.gd",
+    "sha256": "96816d8adaef2b9ec979915ea670b928f2ec39fd6902c4ae9923ca484f40bca5",
+    "status": "UNEXECUTED_UNCOMPILED_DRAFT",
+    "cases": "Forest1/2 effective1.20 versus Plains1/2 effective1.60; actual debug entry two samples; original response/deadzone in Plains; teardown+audio drain",
+    "no_injection": true
+  },
+  "limits": [
+    "No engine/browser run",
+    "No final movie comparison yet",
+    "No static-frame readability approval",
+    "Review01 original REVISE retained unchanged"
+  ]
+}

@@ -104,7 +104,7 @@ def expected_itinerary(manifest,route):
                 if i==0:row.update({k:edge[k] for k in ('claim_before_edge','claim_area','claim_id') if k in edge})
                 result.append(row)
             result.append({'kind':'walk','edge_id':id,'landing':edge['path'][-1],'step_index':len(edge['steps'])})
-            if manifest.get('layout_version') in ('forest-expedition-airborne-v11','forest-woven-trunk-v12'):result[-1]['b']=edge['b']
+            if manifest.get('layout_version') in CANOPY_LAYOUTS:result[-1]['b']=edge['b']
         else:
             result.append({**edge,'edge_id':id,'landing':edge.get('landing',edge['path'][-1])})
             for i,step in enumerate(edge.get('post_landing_steps',[])):result.append({**step,'edge_id':id,'step_index':i,'post_landing':True})
@@ -346,6 +346,200 @@ def validate_cavity_elbow_leg(data,leg,completion,frames,events,requests,platfor
     need(all(by.get(t) and full(by[t],ids[nodes['C']['support_id']]) and abs(by[t]['position'][0]-goal[0])<=8 and abs(by[t]['position'][1]-goal[1])<=2 for t in range(end-11,end+1)),'elbow_actual_C_node_position_full12')
     return list(dict.fromkeys(errors))
 
+INTERWOVEN_LAYOUT='forest-interwoven-canopy-v13'
+INTERWOVEN_FACTORY='res://scripts/generation/forest_interwoven_expedition.gd'
+WOVEN_LAYOUTS=('forest-woven-trunk-v12',INTERWOVEN_LAYOUT)
+CANOPY_LAYOUTS=('forest-expedition-airborne-v11',)+WOVEN_LAYOUTS
+
+def _interwoven_authority():
+    """Reconstruct the current source's literal seven phrases; never trust raw.
+
+    JSON data plus the explicit old placement/intersection rules only. Unknown
+    expressions and changed construction code require a reviewed reader update.
+    """
+    source=(ROOT/'scripts/generation/forest_interwoven_expedition.gd').read_text()
+    version=re.search(r'^const VERSION := "([^"]+)"$',source,re.M).group(1)
+    if version!=INTERWOVEN_LAYOUT:raise ValueError('unknown interwoven version')
+    body=source.split('static func build(phrase: String) -> Dictionary:',1)[1].split('\nstatic func ',1)[0].strip()
+    prefix='var rows: Dictionary = '
+    if not body.startswith(prefix):raise ValueError('nonliteral interwoven rows')
+    rows,end=json.JSONDecoder().raw_decode(body[len(prefix):])
+    tail=body[len(prefix)+end:].strip().splitlines()
+    if len(tail)!=3 or tail[0].strip()!='if not rows.has(phrase):return {}' or tail[1].strip()!='var row: Dictionary = rows[phrase]' or not tail[2].strip().startswith('return '):raise ValueError('unknown interwoven build statement')
+    literal=tail[2].strip()[7:]
+    if set(rows)!={'lesson_H','inner_HH','upper_RH','crown_H','inner_HR','deep_descent_RH','deep_ascent_HRHHR'}:raise ValueError('unknown interwoven phrase set')
+    install=source.split('static func install(m: Dictionary) -> void:',1)[1].split('\nstatic func ',1)[0]
+    deep=source.split('static func _install_deep_root_golden(m: Dictionary) -> void:',1)[1].split('\nstatic func ',1)[0]
+    if install.count('_install_deep_root_golden(m)')!=1:raise ValueError('deep root installer must be explicitly called once')
+    # The additional helper remains data-only: admit just these complete call
+    # forms, never arbitrary helper execution or captured geometry defaults.
+    deep_forms=[r'API\._platform\(m,"[^"\n]+",Rect2\([0-9., -]+\),(true|false),"[^"\n]+","[^"\n]+","[^"\n]+"\)',
+                r'_anchor\(m,"[^"\n]+",Vector2\([0-9., -]+\),"[^"\n]+"\)',
+                r'API\._area\(m,"[^"\n]+",Vector2\([0-9., -]+\),"[^"\n]+","[^"\n]+"\)',
+                r'_phrase\(m,"[^"\n]+","[^"\n]+","[^"\n]+","[^"\n]+","[^"\n]+","[^"\n]+"\)',
+                r'm\.scene_structure_kinds\["interwoven_deep_root"\] = "root_hollow"']
+    # The only conditional topology in this helper is a literal walk along
+    # the existing root, plus the nearby camp when its actual position agrees.
+    topology_tail='\tAPI._edge(m,"interwoven_root_to_D","interwoven_root_landing","D","walk",[[400.0,802.0],[720.0,802.0]])\n\tif API._point(m.merchant_position) == Vector2(360,802):\n\t\tAPI._edge(m,"interwoven_root_to_camp","interwoven_root_landing","camp","walk",[[400.0,802.0],[360.0,802.0]])'
+    if deep.count(topology_tail)!=1 or deep.count('API._edge(')!=2 or deep.count('if API._point(')!=1:raise ValueError('unknown deep root walk or camp condition')
+    deep_forms.extend(re.escape(line.strip()) for line in topology_tail.splitlines())
+    root_landing='API._area(m,"interwoven_root_landing",Vector2(400,802),"INNER ROOT LIP / CAMP OR OLD HOLLOW","junction")'
+    if deep.count(root_landing)!=1:raise ValueError('unknown deep root landing node')
+    for line in deep.splitlines():
+        line=line.strip()
+        if line and not line.startswith('#') and not any(re.fullmatch(pattern,line)for pattern in deep_forms):raise ValueError('unknown deep root helper statement')
+    geometry_source=install+'\n'+deep
+    def numbers(text,size):
+        value=json.loads('['+text+']')
+        if len(value)!=size or any(type(n)not in(int,float)or not math.isfinite(n)for n in value):raise ValueError('nonliteral interwoven coordinates')
+        return value
+    platforms={}
+    for id,rect,one_way in re.findall(r'API\._platform\(m,"([^"]+)",Rect2\(([^)]+)\),(true|false),"[^"]+","[^"]+","[^"]+"\)',geometry_source):
+        if id in platforms:raise ValueError('duplicate interwoven support')
+        platforms[id]={'rect':numbers(rect,4),'one_way':one_way=='true'}
+    anchors={}
+    for id,position in re.findall(r'_anchor\(m,"([^"]+)",Vector2\(([^)]+)\),"[^"]+"\)',geometry_source):
+        if id in anchors:raise ValueError('duplicate interwoven anchor')
+        anchors[id]={'position':numbers(position,2),'hang_enabled':False}
+    if len(platforms)!=5 or len(anchors)!=9:raise ValueError('unknown interwoven declared geometry')
+    vertical=(ROOT/'scripts/generation/forest_vertical_expedition.gd').read_text()
+    placements={id:(numbers(pos,2),layout)for id,pos,layout in re.findall(r'\["([^"]+)",Vector2\(([^)]+)\),"([^"]+)","[^"]+"\]',vertical)}
+    def placed(id,local):
+        offset,layout=placements[id];geometry=_air_chain_authoritative_factory(layout,regional=True)
+        row=next(p for p in geometry['platforms']if p['id']==local)
+        return {'rect':[row['rect'][0]+offset[0],row['rect'][1]+offset[1],*row['rect'][2:]],'one_way':row['one_way']}
+    platforms['root_spiral__crown']=placed('root_spiral','crown')
+    platforms['broken_arch__crown']=placed('broken_arch','crown')
+    hollow=(ROOT/'scripts/generation/forest_hollow_trunk_geometry.gd').read_text()
+    trunk=(ROOT/'scripts/generation/thorn_forest_region_v2_v10.gd').read_text()
+    if 'const HOLLOW := preload("res://scripts/generation/forest_hollow_trunk_geometry.gd")'not in trunk:raise ValueError('unknown hollow region factory')
+    offset_match=re.findall(r'var offset:=Vector2\(([^)]+)\)',trunk)
+    if len(offset_match)!=1 or '_install_hollow(m,offset,'not in trunk:raise ValueError('unknown hollow region placement')
+    hollow_offset=numbers(offset_match[0],2)
+    if hollow_offset!=[600,600]:raise ValueError('unknown hollow region offset')
+    hollow_platforms=json.JSONDecoder().raw_decode(hollow.split('static func build(',1)[1].split('"platforms":',1)[1].lstrip())[0]
+    roots=[p for p in hollow_platforms if p['id']=='inner_root']
+    if len(roots)!=1 or set(roots[0])!={'id','rect','one_way'}:raise ValueError('unknown hollow inner root support')
+    # Both cavity derivations retain this body, while rebuilding only the
+    # explicitly named roof/window bodies. An inner-root edit needs review.
+    cavity=hollow.split('static func build_cavity()',1)[1].split('\nstatic func ',1)[0]
+    elbow=hollow.split('static func build_cavity_elbow()',1)[1].split('\nstatic func ',1)[0]
+    if ('inner_root'in cavity or 'inner_root'in elbow or 'else:bodies.append(row)'not in cavity or '_:bodies.append(row)'not in elbow
+            or 'var data: Dictionary=build("deep_zeroR")'not in cavity or 'var data: Dictionary=build_cavity().duplicate(true)'not in elbow):raise ValueError('unknown inherited hollow inner root derivation')
+    regional=trunk.split('func _install_hollow(',1)[1].split('\nfunc ',1)[0]
+    if ('inner_root'in regional or 'var raw: Dictionary=HOLLOW.build_cavity_elbow() if descending else HOLLOW.build_cavity()'not in regional
+            or 'rect.position+=offset'not in regional or 'var id: String="hollow__"+str(row.id)'not in regional):raise ValueError('unknown hollow regional support derivation')
+    root=roots[0]
+    if len(root['rect'])!=4 or any(type(n)not in(int,float)or not math.isfinite(n)for n in root['rect'])or type(root['one_way'])is not bool:raise ValueError('nonliteral hollow inner root')
+    platforms['hollow__inner_root']={'rect':[root['rect'][0]+hollow_offset[0],root['rect'][1]+hollow_offset[1],*root['rect'][2:]],'one_way':root['one_way']}
+    catch=json.loads(re.search(r'^const THORN_CATCH_RECT := (.+)$',vertical,re.M).group(1));offset=placements['thorn_mouth'][0]
+    platforms['thorn_mouth__recovery']={'rect':[catch[0]+offset[0],catch[1]+offset[1],*catch[2:]],'one_way':False}
+    entry=placed('thorn_mouth','entry');prior=placed('lower_fork','crown');a,b=entry['rect'],prior['rect'];left=max(a[0],b[0]);right=min(a[0]+a[2],b[0]+b[2])
+    if abs(a[1]-b[1])>=.01 or right-left<48:raise ValueError('unknown inherited thorn entry intersection')
+    platforms['thorn_mouth__entry']={'rect':[left,a[1],right-left,a[3]],'one_way':prior['one_way']}
+    retry=json.loads(re.search(r'^const THORN_RETRY_RINGS := (.+)$',vertical,re.M).group(1))
+    if '"hang_enabled":true'not in vertical.split('for ring: Dictionary in THORN_RETRY_RINGS:',1)[1].split('\nstatic func ',1)[0]:raise ValueError('retry ring no longer explicitly hanging')
+    for ring in retry:anchors[ring['id']]={'position':[ring['local_position'][k]+offset[k]for k in(0,1)],'hang_enabled':True}
+    # The surrounding inherited thorn regions stay authoritative even though
+    # these new phrases introduce no new danger rectangles themselves.
+    ambient=[]
+    for id,(at,layout)in placements.items():
+        factory=_air_chain_authoritative_factory(layout,regional=True)
+        ambient.extend([[d[0]+at[0],d[1]+at[1],*d[2:]]for d in factory['dangers']])
+    specs={}
+    for edge,a,b,phrase,entry,crown in re.findall(r'_phrase\(m,"([^"]+)","([^"]+)","([^"]+)","([^"]+)","([^"]+)","([^"]+)"\)',geometry_source):
+        if phrase in specs:raise ValueError('duplicate interwoven phrase binding')
+        specs[phrase]={'id':edge,'a':a,'b':b,'instance':'interwoven_'+phrase,'platform_id_map':{'entry':entry,'crown':crown}}
+    if set(specs)!=set(rows):raise ValueError('interwoven phrase bindings incomplete')
+    if specs['deep_ascent_HRHHR']['b']!='interwoven_root_landing':raise ValueError('unknown deep ascent destination node')
+    # Only this finite, literal install override is admitted. All other new
+    # phrase edges retain the API's absent-key effective default of one tick.
+    delay_override=re.findall(r'(?m)^\tfor edge: Dictionary in m.connections:\n\t\tif str\(edge.id\) in (\[[^\n]+\]):\n\t\t\tedge.first_hook_delay = ([0-9]+)$',install)
+    if len(delay_override)!=1 or install.count('first_hook_delay')!=1:raise ValueError('unknown interwoven first hook delay assignment')
+    delay_edges=json.loads(delay_override[0][0]);delay=int(delay_override[0][1])
+    if delay_edges!=['root_bay_lesson_flight','upper_root_crown_H'] or delay!=5:raise ValueError('unknown interwoven first hook delay contract')
+    for spec in specs.values():
+        if spec['id']in delay_edges:spec['first_hook_delay']=delay
+    producer=(ROOT/'scripts/generation/thorn_forest_region_v2_v13.gd').read_text()
+    if 'const BASE := preload("res://scripts/generation/thorn_forest_region_v2.gd")'not in producer or 'const EXPEDITION := preload("res://scripts/generation/forest_interwoven_expedition.gd")'not in producer:raise ValueError('unknown interwoven base factory')
+    candidate=producer.split('func _candidate(',1)[1].split('func validate(',1)[0]
+    if not re.search(r'var manifest: Dictionary = BASE.new\(\)._candidate\(seed_value,map_index\)\s+manifest.layout_version = LAYOUT_VERSION\s+EXPEDITION.install\(manifest\)',candidate):raise ValueError('unknown interwoven installation order')
+    anchor_body=source.split('static func _anchor(',1)[1].split('\nstatic func ',1)[0].split('\n',1)[1].strip()
+    if anchor_body!='m.hook_anchors.append({"id":id,"position":API.pair(at),"scene_kind":"copper_growth_ring","structure_id":structure})':raise ValueError('unknown interwoven anchor constructor')
+    phrase_body=source.split('static func _phrase(',1)[1].split('\nstatic func ',1)[0]
+    expected_assembly=['var raw: Dictionary = build(phrase)', 'var instance_id: String = "interwoven_"+phrase', 'var platform_map: Dictionary = {"entry":entry,"crown":crown}', 'raw.platforms = []', 'for local: String in ["entry","crown"]:', 'var source: Dictionary = API._platform_by_id(m,str(platform_map[local]))', 'raw.platforms.append({"id":local,"rect":source.rect.duplicate(),"one_way":source.one_way})', 'raw.dangers = []', 'raw.hook_anchors = []', 'for local: String in raw.anchor_bindings:', 'for anchor: Dictionary in m.hook_anchors:', 'if str(anchor.id) == str(raw.anchor_bindings[local]):', 'raw.hook_anchors.append({"id":local,"position":anchor.position.duplicate(),"hang_enabled":bool(anchor.get("hang_enabled",false))})', 'var instance: Dictionary = {"id":instance_id,"factory":"res://scripts/generation/forest_interwoven_expedition.gd","geometry_version":VERSION,"local_geometry":raw,"translation":[0.0,0.0],"platform_id_map":platform_map,"anchor_id_map":raw.anchor_bindings.duplicate(true),"danger_indices":[]}', 'm.geometry_instances.append(instance)', 'API._air_edge(m,id,a,b,instance)', 'm.connections[-1].entry_support_id = entry', 'm.connections[-1].native_verified = false', 'm.connections[-1].focus_recovery = "actual_ground_contact_after_phrase; no hanging refill"', 'if phrase == "inner_HR":', 'm.connections[-1].kind = "hanging_chain"', 'm.connections[-1].rest_anchor_id = "thorn_retry_exit_ring"', 'm.connections[-1].hang_observation_frames = 18']
+    actual_assembly=[line.strip() for line in phrase_body.split('\n',1)[1].splitlines() if line.strip() and not line.lstrip().startswith('#')]
+    if actual_assembly!=expected_assembly:raise ValueError('unknown interwoven phrase assembly statement')
+    required=['raw.dangers = []','raw.hook_anchors = []','raw.platforms = []','"translation":[0.0,0.0]','"danger_indices":[]','raw.anchor_bindings.duplicate(true)','source.rect.duplicate()','"one_way":source.one_way','"hang_enabled":bool(anchor.get("hang_enabled",false))']
+    if any(token not in phrase_body for token in required):raise ValueError('unknown interwoven geometry assembly')
+    # Reject assignments which could silently replace literal factory data.
+    assignments=re.findall(r'(?m)^\t(raw\.[a-z_]+)\s*=',phrase_body)
+    if assignments!=['raw.platforms','raw.dangers','raw.hook_anchors']:raise ValueError('unknown interwoven raw mutation')
+    factories={}
+    for phrase,row in rows.items():
+        if set(row)not in ({'spawn','goal','program','anchors'},{'spawn','goal','program','anchors','bounds'}):raise ValueError('unknown interwoven row fields')
+        value=literal
+        bounds_expr=re.findall(r'row\.get\("bounds",(\[[^\]]+\])\)\.duplicate\(\)',literal)
+        if len(bounds_expr)!=1:raise ValueError('unknown interwoven bounds expression')
+        default_bounds=json.loads(bounds_expr[0]);bounds=row.get('bounds',default_bounds)
+        if not isinstance(bounds,list)or len(bounds)!=4 or any(type(n)not in(int,float)or not math.isfinite(n)for n in bounds)or min(bounds[2:])<=0:raise ValueError('invalid interwoven phrase bounds')
+        value=value.replace('row.get("bounds",'+bounds_expr[0]+').duplicate()',json.dumps(bounds))
+        for expr,data in [('row.program.duplicate(true)',row['program']),('row.anchors.duplicate(true)',row['anchors']),('row.spawn.duplicate()',row['spawn']),('row.goal.duplicate()',row['goal']),('VERSION',version),('phrase',phrase)]:
+            value=re.sub(r'(?<=:)'+re.escape(expr)+r'(?=[,}])',lambda _m:json.dumps(data),value)
+        raw=json.loads(value)
+        if raw['id']!=phrase or raw['version']!=version or raw['anchor_bindings']!=row['anchors']:raise ValueError('interwoven return identity')
+        if set(raw)!=set(['id','version','spawn','goal','action_program','anchor_bindings','world_bounds','chain_contract']):raise ValueError('unknown interwoven return fields')
+        if not raw['chain_contract'].get('continuous_airborne')or raw['chain_contract'].get('midair_floor_allowed')is not False:raise ValueError('unknown interwoven airborne contract')
+        spec=specs[phrase];spec['anchor_id_map']=row['anchors'];raw['platforms']=[{'id':local,**platforms[world]}for local,world in spec['platform_id_map'].items()];raw['hook_anchors']=[{'id':local,**anchors[world]}for local,world in row['anchors'].items()];raw['dangers']=[]
+        for action in raw['action_program']:
+            if action.get('action')in('H','HANG'):
+                if set(action)!={'action','anchor'}or action['anchor']not in row['anchors']:raise ValueError('unknown interwoven hook program')
+                if anchors[row['anchors'][action['anchor']]]['hang_enabled']!=(action['action']=='HANG'):raise ValueError('interwoven hook mode mismatch')
+            elif action.get('action')=='R':
+                if set(action)!={'action','direction'}or not isinstance(action['direction'],list) or len(action['direction'])!=2 or any(type(n)not in(int,float)or not math.isfinite(n)for n in action['direction']) or math.hypot(*action['direction'])==0:raise ValueError('unknown interwoven recoil program')
+            else:raise ValueError('unknown interwoven action')
+        factories[phrase]=raw
+    return {'version':version,'factories':factories,'specs':specs,'platforms':platforms,'anchors':anchors,'ambient_dangers':ambient}
+
+def _validate_interwoven_binding(manifest,leg,instance,authority=None):
+    """Source-backed metadata gate, followed by the unchanged real motor gate."""
+    authority=authority if authority is not None else _interwoven_authority()
+    errors=[]
+    def need(ok,reason):
+        if not ok:errors.append('interwoven_'+reason)
+    raw=instance.get('local_geometry',{});phrase=raw.get('id')
+    if phrase not in authority['specs']:return ['interwoven_unknown_phrase']
+    spec=authority['specs'][phrase];factory=authority['factories'][phrase]
+    need(manifest.get('layout_version')==INTERWOVEN_LAYOUT,'layout_identity')
+    root_nodes=[row for row in manifest.get('areas',[]) if row.get('id')=='interwoven_root_landing']
+    need(len(root_nodes)==1 and root_nodes[0].get('position')==[400,802],'root_landing_node')
+    root_walks={'interwoven_root_to_D':{'a':'interwoven_root_landing','b':'D','kind':'walk','path':[[400.0,802.0],[720.0,802.0]]},
+                'interwoven_root_to_camp':{'a':'interwoven_root_landing','b':'camp','kind':'walk','path':[[400.0,802.0],[360.0,802.0]]}}
+    for walk,expected in root_walks.items():
+        found=[row for row in manifest.get('connections',[]) if row.get('id')==walk]
+        present=walk=='interwoven_root_to_D' or manifest.get('merchant_position')==[360,802]
+        need(len(found)==int(present) and (not present or all(found[0].get(k)==value for k,value in expected.items())),'root_literal_walk')
+    need(instance.get('factory')==INTERWOVEN_FACTORY and instance.get('geometry_version')==authority['version'],'factory_identity')
+    need(instance.get('id')==spec['instance'] and leg.get('geometry_instance')==spec['instance'],'instance_identity')
+    need(all(leg.get(k)==spec[k] for k in ('id','a','b')),'edge_identity')
+    need(('first_hook_delay' in leg)==('first_hook_delay' in spec) and
+         ('first_hook_delay' not in spec or type(leg.get('first_hook_delay')) is int and leg['first_hook_delay']==spec['first_hook_delay']),'first_hook_delay')
+    need(instance.get('translation')==[0.0,0.0],'translation')
+    need(instance.get('platform_id_map')==spec['platform_id_map'],'support_binding')
+    need(instance.get('anchor_id_map')==spec['anchor_id_map'],'anchor_binding')
+    need(instance.get('danger_indices')==[],'danger_binding')
+    need(raw==factory,'current_source_geometry')
+    need(leg.get('action_program')==factory['action_program'],'current_source_program')
+    need(leg.get('kind')==('hanging_chain' if phrase=='inner_HR' else 'airborne_chain'),'phrase_kind')
+    if phrase=='inner_HR':
+        need(leg.get('rest_anchor_id')==spec['anchor_id_map']['a'] and leg.get('hang_observation_frames')==18,'hang_contract')
+    for category,mapping,source_rows,fields in [('platforms',spec['platform_id_map'],authority['platforms'],('rect','one_way')),('hook_anchors',spec['anchor_id_map'],authority['anchors'],('position','hang_enabled'))]:
+        for id in mapping.values():
+            found=[row for row in manifest.get(category,[]) if row.get('id')==id]
+            need(len(found)==1 and all(found[0].get(k,False if k=='hang_enabled' else None)==source_rows[id][k] for k in fields),'actual_'+category)
+    need(all(d in manifest.get('dangers',[]) for d in authority['ambient_dangers']),'inherited_dangers')
+    return list(dict.fromkeys(errors))
+
 def _air_chain_authoritative_factory(layout,regional=False):
     """Read this data-only factory's current literal geometry, fail on unknown edits.
 
@@ -433,13 +627,19 @@ def validate_airborne_chain_leg(data,leg,completion,frames,events,requests,platf
     if len(instances)!=1:return ['air_chain_actual_instance_missing']
     instance=instances[0];raw=instance.get('local_geometry',{});translation=instance.get('translation');ids=instance.get('platform_id_map',{});anchors=instance.get('anchor_id_map',{})
     if not isinstance(raw,dict) or not xy(translation) or not isinstance(ids,dict) or not isinstance(anchors,dict):return ['air_chain_actual_geometry_malformed']
-    try:factory=_air_chain_authoritative_factory(raw.get('id'),regional=True)
+    interwoven=instance.get('factory')==INTERWOVEN_FACTORY or str(instance.get('id','')).startswith('interwoven_')
+    try:
+        if interwoven:
+            authority=_interwoven_authority()
+            errors.extend(_validate_interwoven_binding(manifest,leg,instance,authority))
+            factory=authority['factories'][raw.get('id')]
+        else:factory=_air_chain_authoritative_factory(raw.get('id'),regional=True)
     except (OSError,KeyError,IndexError,TypeError,ValueError,AttributeError):return ['air_chain_authoritative_factory_unreadable']
-    if manifest.get('layout_version')=='forest-woven-trunk-v12' and instance.get('id') in ['broken_arch','upper_spiral']:
+    if manifest.get('layout_version') in WOVEN_LAYOUTS and instance.get('id') in ['broken_arch','upper_spiral']:
         need(instance.get('regional_derivation')=='omit_isolated_catch_above_previous_ascent','air_chain_exact_regional_arch_derivation')
         factory['platforms']=[p for p in factory['platforms'] if p['id'] not in ['recovery','recovery_step']]
         factory['regional_recovery']='previous-woven-hollow-catch-v1'
-    if manifest.get('layout_version')=='forest-woven-trunk-v12' and 'entry_derivation' in instance:
+    if manifest.get('layout_version') in WOVEN_LAYOUTS and 'entry_derivation' in instance:
         derivation=instance.get('entry_derivation',{})
         prior=[g for g in manifest.get('geometry_instances',[]) if g.get('id')==derivation.get('previous_instance')]
         need(derivation.get('rule')=='intersection_with_previous_crown' and len(prior)==1,'air_chain_exact_entry_derivation')
@@ -452,7 +652,7 @@ def validate_airborne_chain_leg(data,leg,completion,frames,events,requests,platf
             need(right-left>=48 and abs(r[1]+translation[1]-receiving[1]-pt[1])<.01,'air_chain_entry_intersection_has_real_support')
             original['rect']=[left-translation[0],r[1],right-left,r[3]]
             original['one_way']=next(p['one_way'] for p in prior_factory['platforms'] if p['id']=='crown')
-    if manifest.get('layout_version')=='forest-woven-trunk-v12' and instance.get('id')=='upper_spiral':
+    if manifest.get('layout_version') in WOVEN_LAYOUTS and instance.get('id')=='upper_spiral':
         source=(ROOT/'scripts/generation/forest_vertical_expedition.gd').read_text()
         exit_position=json.loads(re.search(r'(?m)^const UPPER_EXIT_RING := (.+)$',source).group(1))
         need(instance.get('anchor_derivation')=={'rule':'upper_exit_below_legacy_far_bough','anchor':'spiral_crown','position':exit_position},'air_chain_exact_upper_anchor_clearance')
@@ -466,14 +666,14 @@ def validate_airborne_chain_leg(data,leg,completion,frames,events,requests,platf
             factory['platforms'].append({'id':aperture['lower_support'],'rect':[rect[0],aperture['bottom']-translation[1],rect[2],old_bottom-(aperture['bottom']-translation[1])],'one_way':False})
         else:need('aperture_derivation' not in instance,'air_chain_unexpected_return_aperture')
     elif 'aperture_derivation' in instance:need(False,'air_chain_unexpected_return_aperture')
-    if manifest.get('layout_version')=='forest-woven-trunk-v12' and instance.get('id')=='thorn_mouth':
+    if manifest.get('layout_version') in WOVEN_LAYOUTS and instance.get('id')=='thorn_mouth':
         source=(ROOT/'scripts/generation/forest_vertical_expedition.gd').read_text()
         rect=json.loads(re.search(r'(?m)^const THORN_CATCH_RECT := (.+)$',source).group(1))
         bounds=json.loads(re.search(r'(?m)^const THORN_CATCH_BOUNDS := (.+)$',source).group(1))
         need(instance.get('recovery_derivation')=={'rule':'deep_catch_with_hanging_return','rect':rect,'bounds':bounds,'return_area':'thorn_mouth_mouth'},'air_chain_exact_deep_catch_derivation')
         next(p for p in factory['platforms'] if p['id']=='recovery')['rect']=rect
         factory['world_bounds']=bounds
-    if manifest.get('layout_version')=='forest-woven-trunk-v12' and instance.get('id')=='canopy_fork' and manifest.get('choices',{}).get('west_reward') is True:
+    if manifest.get('layout_version') in WOVEN_LAYOUTS and instance.get('id')=='canopy_fork' and manifest.get('choices',{}).get('west_reward') is True:
         source=(ROOT/'scripts/generation/forest_vertical_expedition.gd').read_text()
         left=float(re.search(r'(?m)^const CANOPY_RETURN_LEFT := ([-\d.]+)$',source).group(1))
         goal_x=float(re.search(r'(?m)^const CANOPY_RETURN_GOAL_X := ([-\d.]+)$',source).group(1))
@@ -490,6 +690,7 @@ def validate_airborne_chain_leg(data,leg,completion,frames,events,requests,platf
         need('receiver_derivation' not in instance,'air_chain_unexpected_receiver_derivation')
     need(raw==factory,'air_chain_local_geometry_not_current_factory')
     expected_factory={'hollow_spiral':'res://scripts/generation/forest_vertical_chain_geometry.gd','thorn_mouth':'res://scripts/generation/forest_thorn_mouth_geometry.gd'}.get(raw.get('id'),'res://scripts/generation/forest_air_chain_geometry.gd')
+    if interwoven:expected_factory=INTERWOVEN_FACTORY
     need(instance.get('factory')==expected_factory and instance.get('geometry_version')==factory['version'],'air_chain_actual_factory_identity')
     def world(point):return [point[0]+translation[0],point[1]+translation[1]]
     actual_platforms={p['id']:p for p in manifest.get('platforms',[])};actual_anchors={a['id']:a for a in manifest.get('hook_anchors',[])}
@@ -507,8 +708,15 @@ def validate_airborne_chain_leg(data,leg,completion,frames,events,requests,platf
     hanging=leg.get('kind')=='hanging_chain'
     expected_program=factory['action_program']
     rest_target=None
-    if hanging:
-        need(manifest.get('layout_version')=='forest-woven-trunk-v12' and instance.get('id')=='root_spiral' and leg.get('id')=='root_spiral_rest_flight','hang_chain_explicit_current_identity')
+    if hanging and interwoven:
+        need(raw.get('id')=='inner_HR' and leg.get('id')=='inner_thorn_HR' and instance.get('id')=='interwoven_inner_HR','hang_chain_explicit_interwoven_identity')
+        rest_target=leg.get('rest_anchor_id')
+        expected_rest=authority['specs']['inner_HR']['anchor_id_map']['a']
+        rest=actual_anchors.get(rest_target,{})
+        need(rest_target==expected_rest and rest.get('position')==authority['anchors'][expected_rest]['position'] and rest.get('hang_enabled') is True,'hang_chain_actual_interwoven_environment_ring')
+        need(leg.get('hang_observation_frames')==18,'hang_chain_explicit_observation_contract')
+    elif hanging:
+        need(manifest.get('layout_version') in WOVEN_LAYOUTS and instance.get('id')=='root_spiral' and leg.get('id')=='root_spiral_rest_flight','hang_chain_explicit_current_identity')
         expected_program=factory.get('rest_program',[])
         rest_target=leg.get('rest_anchor_id')
         rest=actual_anchors.get(rest_target,{})
@@ -578,6 +786,10 @@ def validate_airborne_chain_leg(data,leg,completion,frames,events,requests,platf
         if action['action']=='HANG':
             if h_index>=len(casts):need(False,'hang_chain_cast_missing');continue
             cast=casts[h_index];next_cast=casts[h_index+1]['tick'] if h_index+1<len(casts) else end+1;h_index+=1
+            if interwoven:
+                recoil_departures=[e for e in shots if e.get('tick',-1)>accepted_event['tick']]
+                need(len(recoil_departures)==1,'hang_chain_interwoven_unique_recoil_departure')
+                if len(recoil_departures)==1:next_cast=recoil_departures[0]['tick']
             group=actual[actual.index(cast):]
             group=[e for e in group if e.get('tick',-1)<next_cast]
             hang_states=('hook_cast','hook_fly','hook_pull','hook_hang');chain=[]
@@ -603,6 +815,7 @@ def validate_airborne_chain_leg(data,leg,completion,frames,events,requests,platf
             # The departure request and its accepted next cast share a tick.
             departures += [e for e in actual if e.get('kind')=='rest_branch_departure' and e.get('tick')==next_cast and e.get('target')==rest_target and e not in departures]
             need(len(departures)==1 and departures[0].get('held_frames',0)>=18 and departures[0].get('grounded') is False,'hang_chain_actual_departure_intent')
+            if interwoven:need(len(departures)==1 and departures[0].get('tick')==next_cast,'hang_chain_interwoven_departure_at_recoil')
             last_end=held['tick']+17
         elif action['action']=='R':
             shot=accepted_event;tick=shot['tick'];aim=action['direction'];length=math.hypot(*aim);aim=[n/length for n in aim]
@@ -710,7 +923,7 @@ def completed_forest_encounter_jump_ticks(data):
     manifest = data.get('manifest', {})
     if not isinstance(manifest, dict):
         return set()
-    if manifest.get('version') != VERSION or manifest.get('layout_version') not in ('forest-expedition-airborne-v11','forest-woven-trunk-v12') or data.get('manual_motor_step') is not False or data.get('position_or_resource_injection') is not False:
+    if manifest.get('version') != VERSION or manifest.get('layout_version') not in CANOPY_LAYOUTS or data.get('manual_motor_step') is not False or data.get('position_or_resource_injection') is not False:
         return set()
     events, frames, requests = data.get('events', []), data.get('frames', []), data.get('requests', [])
     if not all(isinstance(rows, list) and all(isinstance(row, dict) for row in rows) for rows in (events, frames, requests)):
@@ -938,7 +1151,7 @@ def validate(data):
                     if len(air)!=2 or any(e.get('velocity',[0,-1])[1]<0 for e in air) or any(e.get('kind')=='hook_cast' for e in actual):fail(f'leg_{i}_crossbranch_ordinary_two_real_R')
             else:
                 if leg.get('edge_id') not in (contract.get('return_edge'),contract.get('decline_edge')):fail(f'leg_{i}_crossbranch_return_identity')
-                if manifest.get('layout_version')=='forest-woven-trunk-v12' and manifest.get('choices',{}).get('west_reward') is True:
+                if manifest.get('layout_version') in WOVEN_LAYOUTS and manifest.get('choices',{}).get('west_reward') is True:
                     source=(ROOT/'scripts/generation/forest_vertical_expedition.gd').read_text()
                     via=json.loads(re.search(r'(?m)^const RETURN_VIA := (.+)$',source).group(1))
                     if leg.get('return_via')!=via or leg.get('path',[])[2:4]!=[via['position'],via['next']]:fail(f'leg_{i}_crossbranch_exact_return_via')
@@ -971,7 +1184,7 @@ def validate(data):
                 if not any(e['kind']==kind for e in actual):fail(f'leg_{i}_actual_{kind}')
         if leg['kind'] in ('directional_phrase','directional_return','narrow_reward','ecology_choice') and not any(e['kind']=='shot_fired' for e in actual):fail(f'leg_{i}_actual_R')
     by_tick={f['tick']:f for f in frames}
-    encounter_jumps=completed_forest_encounter_jump_ticks(data) if manifest.get('layout_version') in ('forest-expedition-airborne-v11','forest-woven-trunk-v12') else set()
+    encounter_jumps=completed_forest_encounter_jump_ticks(data) if manifest.get('layout_version') in CANOPY_LAYOUTS else set()
     for e in events:
         if e.get('kind')=='jump_gap_vertical_clearance_release':
             rect=platforms.get(e.get('support_id'));position=e.get('position',[]);foot=e.get('foot',[]);velocity=e.get('velocity',[])
@@ -979,7 +1192,7 @@ def validate(data):
             expected_hold=math.ceil(json.loads((ROOT/'config/player_tuning.json').read_text())['jump_hold_duration']*json.loads((ROOT/'config/player_tuning.json').read_text())['physics_hz'])
             actual_leg=expected[leg_index] if isinstance(leg_index,int) and 0<=leg_index<len(expected) else {}
             jump_events=[j for j in events if j.get('kind')=='jumped' and j.get('leg')==leg_index and j.get('tick',0)<=e.get('tick',-1)]
-            if manifest.get('layout_version') in ('forest-expedition-airborne-v11','forest-woven-trunk-v12'):jump_events=[j for j in jump_events if j.get('tick') not in encounter_jumps]
+            if manifest.get('layout_version') in CANOPY_LAYOUTS:jump_events=[j for j in jump_events if j.get('tick') not in encounter_jumps]
             if not rect or actual_leg.get('kind')!='jump_gap' or actual_leg.get('support_id')!=e.get('support_id') or e.get('target_rect')!=rect or len(position)!=2 or len(foot)!=2 or len(velocity)!=2:
                 fail('gap_vertical_release_missing_actual_geometry')
             elif math.dist(foot,[position[0],position[1]+18])>1e-6 or foot[1]>rect[1]-1 or velocity[1]>=0 or e.get('minimum_hold_ticks')!=expected_hold or e.get('held_ticks',0)<expected_hold or len(jump_events)!=1 or e['tick']-jump_events[0]['tick']!=e['held_ticks']:
@@ -1103,7 +1316,7 @@ def schedule_cases(cases, run_case, on_result, workers=1):
 
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,required=True);parser.add_argument('--seed',default='forest-depth-00');parser.add_argument('--map',type=int,choices=(1,2),default=1);parser.add_argument('--route',choices=ROUTES+('all',),default='all');parser.add_argument('--routes',nargs='+',choices=ROUTES[:4]+('borer',),help='Finite explicit unique route group, sharing one import');parser.add_argument('--matrix',action='store_true',help='Explicit finite4representatives (two seeds x two maps) x4routes; requires actual map2 entry contract');parser.add_argument('--corpus',action='store_true',help='Fixed10roots00..09 x2maps x4originalroutes; original matrix16 first; one import90/native240 each, stop on first failure');parser.add_argument('--validate-only',type=Path);parser.add_argument('--movie',action='store_true',help='One explicit original route, real GL 60fps AVI; same import90/native240 and validation');parser.add_argument("--layout",choices=("shared-tree-directional-cavities-v7","shared-tree-living-detour-v9","shared-tree-canopy-hunt-v10","forest-expedition-airborne-v11","forest-woven-trunk-v12"),default="",help="Explicit registered layout for exact historical replay or new candidate validation");args=parser.parse_args()
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,required=True);parser.add_argument('--seed',default='forest-depth-00');parser.add_argument('--map',type=int,choices=(1,2),default=1);parser.add_argument('--route',choices=ROUTES+('all',),default='all');parser.add_argument('--routes',nargs='+',choices=ROUTES[:4]+('borer',),help='Finite explicit unique route group, sharing one import');parser.add_argument('--matrix',action='store_true',help='Explicit finite4representatives (two seeds x two maps) x4routes; requires actual map2 entry contract');parser.add_argument('--corpus',action='store_true',help='Fixed10roots00..09 x2maps x4originalroutes; original matrix16 first; one import90/native240 each, stop on first failure');parser.add_argument('--validate-only',type=Path);parser.add_argument('--movie',action='store_true',help='One explicit original route, real GL 60fps AVI; same import90/native240 and validation');parser.add_argument("--layout",choices=("shared-tree-directional-cavities-v7","shared-tree-living-detour-v9","shared-tree-canopy-hunt-v10","forest-expedition-airborne-v11","forest-woven-trunk-v12","forest-interwoven-canopy-v13"),default="",help="Explicit registered layout for exact historical replay or new candidate validation");args=parser.parse_args()
     if args.validate_only:
         errors=validate(json.loads(args.validate_only.read_text()));print(json.dumps({'errors':errors}));return int(bool(errors))
     if args.corpus and (args.matrix or args.routes or args.route!='all'):parser.error('--corpus is the fixed80 requests and cannot combine with --matrix/--routes/a specific --route')

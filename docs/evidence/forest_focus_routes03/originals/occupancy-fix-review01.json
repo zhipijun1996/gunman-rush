@@ -1,0 +1,191 @@
+{
+  "verdict": "SCOPED_ACCEPT",
+  "scope": "v13 root02/map1/growth landing occupancy relocation only; not 80-case corpus acceptance, not FUN acceptance",
+  "production_source_sha256": "6c7fd60c1cf5419528e117c52ec2445001ae6a5cecb1bcd3dcf83352f09e31a3",
+  "original_quality_failure": {
+    "capture": "build/forest_revision03/corpus-final01/05-map1-growth/capture.json",
+    "sha256": "9223d22955113d139cb6bc852b6a1d709446a50dc78357f9908b8b144eb63d4b",
+    "native_failures": [],
+    "note": "Original native completion does not excuse landing-body collision; preserve original raw and quality rejection.",
+    "contact_tick": 1144,
+    "player_center": [
+      378.9381,
+      792.3263
+    ],
+    "old_spider_body": [
+      387,
+      792,
+      26,
+      28
+    ]
+  },
+  "current_native": {
+    "receipt": "build/forest_revision03/occupancy-fix-native01/receipt.json",
+    "receipt_sha256": "ffa96192abd42416e024d0eb42f6e95e7a5d15b126a67eaa9672556124a1b713",
+    "capture": "build/forest_revision03/occupancy-fix-native01/00-map1-growth/capture.json",
+    "capture_sha256": "45cdafaf85f4f2c63187b5b8bcb0faf1fb9e58bed817aefa66a8fd01bfc76585",
+    "status": "passed",
+    "source_stable": true,
+    "run": {
+      "seed": "forest-depth-hollow-02",
+      "map": 1,
+      "route": "growth",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_depth_region_runner.gd",
+        "--",
+        "--seed=forest-depth-hollow-02",
+        "--map=1",
+        "--route=growth",
+        "--output=/workspace/gunman-rush-design/build/forest_revision03/occupancy-fix-native01/00-map1-growth/capture.json",
+        "--layout=forest-interwoven-canopy-v13"
+      ],
+      "status": "passed",
+      "errors": [],
+      "exit_code": 0,
+      "log_sha256": "f54e7926d793f7fd99d454a5530269fea814b461650ae42fa1d631cda5ecf049",
+      "capture_sha256": "45cdafaf85f4f2c63187b5b8bcb0faf1fb9e58bed817aefa66a8fd01bfc76585",
+      "seconds": 14.796315033992869
+    },
+    "failures": [],
+    "leg13_frame_count": 151,
+    "leg13_health_min": 5.0,
+    "leg13_health_max": 5.0,
+    "full_foot_last12_ticks": [
+      1150,
+      1151,
+      1152,
+      1153,
+      1154,
+      1155,
+      1156,
+      1157,
+      1158,
+      1159,
+      1160,
+      1161
+    ],
+    "full_foot_support_rect": [
+      290,
+      820,
+      500,
+      40
+    ],
+    "full_foot_end_position": [
+      399.57080078125,
+      801.925170898438
+    ],
+    "player_damage_leg13_or14": []
+  },
+  "exact_content_change": [
+    {
+      "id": "hollow_route__inner_thread",
+      "changed_fields": {
+        "authored_body_sweep": {
+          "before": [
+            387.0,
+            792.0,
+            26.0,
+            28.0
+          ],
+          "after": [
+            487.0,
+            792.0,
+            26.0,
+            28.0
+          ]
+        },
+        "line_end": {
+          "before": [
+            420.0,
+            802.0
+          ],
+          "after": [
+            520.0,
+            802.0
+          ]
+        },
+        "line_start": {
+          "before": [
+            370.0,
+            802.0
+          ],
+          "after": [
+            470.0,
+            802.0
+          ]
+        },
+        "position": {
+          "before": [
+            400.0,
+            806.0
+          ],
+          "after": [
+            500.0,
+            806.0
+          ]
+        }
+      }
+    }
+  ],
+  "unchanged_source_files_between_receipts_except": [
+    "scripts/generation/forest_interwoven_expedition.gd",
+    "tests/forest_interwoven_contract_runner.gd"
+  ],
+  "manifest_invariants": {
+    "streams": true,
+    "stream_positions": true,
+    "player_tuning_hash": true,
+    "choices": true,
+    "rewards": true,
+    "enemy_drops": true
+  },
+  "enemy_count": {
+    "before": 15,
+    "after": 15
+  },
+  "static_review": {
+    "landing_center": [
+      400,
+      802
+    ],
+    "thread_physical_safe_center_before_x": 450,
+    "landing_observation_center_margin_px": 50,
+    "between_thread_and_sentry_safe_center_open_interval": [
+      540,
+      593
+    ],
+    "between_guard_full_body_center_span_px": 53,
+    "line_clearance_to_root_top_px": 18,
+    "thread_line_distance_to_protected_landing_px": 70,
+    "thread_protection_required_distance_px": 53,
+    "thread_can_engage_at_landing_distance_px": 100,
+    "notes": [
+      "x540 alternative leaves only 13px between-guard safe center span; x500 preferred.",
+      "Upper reward branch remains an alternative; no enemy removed or attack disabled.",
+      "Protected points are non-boss/non-challenge_reward areas plus spawn/exits. Cache is excluded; landing is 70px from line and does not disable _safe_line."
+    ]
+  },
+  "test_scope": {
+    "existing_contract_report": "build/forest_revision03/contracts/final01/report.json",
+    "existing_contract_sha256": "b14d98f5914e9d77af9f377c0ab5298c0367d4bafc062a84c9d66f95518dbae0",
+    "existing_checks": 242,
+    "existing_failures": 0,
+    "existing_cases": 20,
+    "current_expected_checks": 262,
+    "current_contract_execution": "NOT EXECUTED by this review; old 242 must not be represented as current 262",
+    "expected_change": "Exact old enemy array copied, precisely four fields projected for one named spider, full equality retained for all other enemy fields/rewards/drops; added per-case enemy count assertion. This is a narrow content expectation update, not looser collision/route validation."
+  },
+  "limits": [
+    "No engine or production source modified by reviewer.",
+    "Native evidence proves this one route and actual full-foot landing without player damage on leg13/14.",
+    "Does not prove all 80 corpus cases, commercial quality, player preference, or overall enemy ecology depth."
+  ]
+}

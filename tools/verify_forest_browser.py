@@ -346,7 +346,7 @@ def main():
     parser.add_argument("--expected-commit",required=True)
     parser.add_argument("--expected-build-id",required=True)
     parser.add_argument("--expected-forest-version",choices=("thorn-forest-region-v1","thorn-forest-region-v2"),help="Explicitly verify the actually assembled default forest, beyond menu acceptance")
-    parser.add_argument("--expected-forest-layout",choices=("shared-tree-directional-cavities-v7","shared-tree-living-detour-v9","shared-tree-canopy-hunt-v10","forest-expedition-airborne-v11","forest-woven-trunk-v12"),help="Require the exact layout of the actually assembled forest; requires --expected-forest-version")
+    parser.add_argument("--expected-forest-layout",choices=("shared-tree-directional-cavities-v7","shared-tree-living-detour-v9","shared-tree-canopy-hunt-v10","forest-expedition-airborne-v11","forest-woven-trunk-v12","forest-interwoven-canopy-v13"),help="Require the exact layout of the actually assembled forest; requires --expected-forest-version")
     parser.add_argument("--proxy-from-environment",action="store_true",help="Explicitly route Chromium through urllib's HTTPS proxy environment setting")
     args = parser.parse_args()
     if args.expected_forest_layout is not None and args.expected_forest_version != "thorn-forest-region-v2":
