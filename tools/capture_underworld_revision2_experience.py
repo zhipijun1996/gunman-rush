@@ -42,10 +42,11 @@ def main():
         for mode in modes:
             folder=target/mode;folder.mkdir()
             started=time.monotonic();log=folder/'capture.log'
-            item={'mode':mode,'argv':['bash',str(ROOT/'tools/godot.sh'),*commands[mode]],'timeout_seconds':150,'status':'failed'}
+            timeout = 300 if mode == 'home' else 150
+            item={'mode':mode,'argv':['bash',str(ROOT/'tools/godot.sh'),*commands[mode]],'timeout_seconds':timeout,'timeout_basis':'Home full east/west real-keyboard tour needs roughly30s playback; G formal movie measured9s playback in55s software recording (~16% realtime), estimating Home190s. Bounded300s Home only; formal150s and original inputTTL/physics unchanged.','status':'failed'}
             report['captures'].append(item)
             with log.open('w') as stream,contextlib.redirect_stdout(Tee(sys.stdout,stream)):
-                output=run_engine(commands[mode],150)
+                output=run_engine(commands[mode],timeout)
             item['engine_exit_code']=0;item['wall_seconds']=time.monotonic()-started
             if re.search(r'SCRIPT ERROR:|SHADER ERROR:|ERROR:',output):raise RuntimeError('Capture emitted actual engine error')
             matches=re.findall(r'^REVISION2 EXPERIENCE: '+mode+r' ([1-9]\d*) frames, ([1-9]\d*) assertions, 0 failures$',output,re.M)

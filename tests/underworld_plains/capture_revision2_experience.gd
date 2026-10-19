@@ -180,7 +180,7 @@ func formal() -> void:
 	if not is_instance_valid(actor()):return
 	key(KEY_D,true);await ticks("formal_run_D_aim_right",20);key(KEY_D,false)
 	await ticks("formal_neutral_after_D",30)
-	key(KEY_A,true);await ticks("formal_run_A_aim_right",20);key(KEY_A,false)
+	key(KEY_A,true);await ticks("formal_run_A_aim_right",26);key(KEY_A,false)
 	await ticks("formal_neutral_after_A",30)
 	check(artwork(actor()).facing<0 and control().router.aim_direction.x>.98,"body faces left while independent actual mouse aim stays right")
 	var shots:=control().shoot_ability._shot_serial
