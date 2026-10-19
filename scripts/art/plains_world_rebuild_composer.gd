@@ -138,9 +138,12 @@ func _source_uv(body: Dictionary,point: Vector2,_minimum_x: float,_maximum_x: fl
 	else:
 		var boundary := _world_boundary(body,point.y,west)
 		var distance := boundary-point.x if west else point.x-boundary
-		for iteration: int in 3:
-			source_x = _profile_at(source_mapping.right_opaque_boundary,source_y)-distance*density
-			source_y = _profile_at(source_mapping.source_contact_profile,source_x)+depth*density
+		# One fixed painted shoulder depth frame. Contact-height correction must
+		# never feed back into the cross-section boundary (would collapse a long
+		# interior span onto the short early grass rows of the source).
+		var shoulder_depth := float(source_mapping.source_shoulder_rim_y)+depth*density
+		source_x = _profile_at(source_mapping.right_opaque_boundary,shoulder_depth)-distance*density
+		source_y = _profile_at(source_mapping.source_contact_profile,source_x)+depth*density
 	return Vector2(source_x/1536.0,source_y/1024.0)
 
 func _profile_at(rows: Array,value: float) -> float:

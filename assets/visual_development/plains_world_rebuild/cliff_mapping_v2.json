@@ -480,5 +480,7 @@
     ]
   ],
   "method": "Fixed shared x/y painting scale. Real source shoulder contour sampled at each depth, corresponds to world side profile. No per-body width or depth normalization; source pixels unchanged.",
-  "forbidden_fallback": "Never clamp bad source span to fake success; UV outside image is rejected"
+  "forbidden_fallback": "Never clamp bad source span to fake success; UV outside image is rejected",
+  "source_shoulder_rim_y": 320.0,
+  "correspondence": "Side cross-section uses one fixed rim-depth frame; source contact-y adjusts top only and does not feed back into shoulder-boundary lookup."
 }
