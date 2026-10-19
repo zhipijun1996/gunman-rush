@@ -23,6 +23,7 @@ var _lab: ModuleLab
 var _action_studio: ActionStudio
 var _foundation_lab: Blob47Lab
 var _windchime_lab: WindchimeLab
+var _pixel_plains: PixelPlainsPreview
 var _foundry: FoundryLab
 var _preview: RandomStagePreview
 var lifetime := DemoLifetime.new()
@@ -87,8 +88,8 @@ func _ready() -> void:
 	add_child(GameAudio.new())
 	process_physics_priority = 900
 	lifetime.end() # TITLE/Home do not own an active Run token.
-	var backdrop := PlainsBackground.new()
-	backdrop.name = "PlainsBackground"
+	var backdrop := PixelPlainsParallax.new()
+	backdrop.name = "PixelPlainsParallax"
 	add_child(backdrop)
 	director.stage_entered.connect(_stage_entered)
 	director.run_ended.connect(_run_ended)
@@ -106,6 +107,19 @@ func _ready() -> void:
 	if OS.has_feature("web"):
 		windchime_requested = bool(JavaScriptBridge.eval("new URLSearchParams(location.search).has('windchime')"))
 	if windchime_requested: _open_windchime.call_deferred()
+	var pixel_requested := "--pixel-plains" in OS.get_cmdline_user_args()
+	if OS.has_feature("web"):
+		pixel_requested=bool(JavaScriptBridge.eval("new URLSearchParams(location.search).has('pixel_plains')"))
+	if pixel_requested: _open_pixel_plains.call_deferred()
+	var plains_requested := "--plains" in OS.get_cmdline_user_args()
+	if OS.has_feature("web"):
+		plains_requested=bool(JavaScriptBridge.eval("new URLSearchParams(location.search).has('plains')"))
+	if plains_requested: start_plains.call_deferred("level-design-v2-baseline/08")
+	if OS.has_feature("web") and bool(JavaScriptBridge.eval("new URLSearchParams(location.search).has('pixel_inspect')")):
+		var inspector := PixelFormalInspector.new()
+		inspector.app = self
+		inspector.second_map = bool(JavaScriptBridge.eval("new URLSearchParams(location.search).get('pixel_inspect') === '2'"))
+		add_child(inspector)
 
 var connected_region := false
 # Explicit pilot request is read only at run start; saved map hashes can replay v10.
@@ -129,6 +143,15 @@ var _shop_token: DemoToken
 func start_plains(seed_value: String = "plains-run") -> bool:
 	return start_demo(seed_value, true)
 
+func _pixel_projectiles(_direction: Vector2, _shot_id: int) -> void:
+	if not is_instance_valid(controller): return
+	for projectile: PlayerProjectile in controller.shoot_ability.get_projectiles():
+		if is_instance_valid(projectile.presentation):continue
+		var visual := PixelPlainsProjectile.new()
+		visual.projectile = projectile
+		projectile.presentation = visual
+		projectile.add_child(visual)
+
 func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) -> bool:
 	if director.state != DemoRunDirector.State.HOME or seed_value.is_empty() or is_instance_valid(_lab) or is_instance_valid(_preview) or is_instance_valid(_foundry):
 		return false
@@ -149,6 +172,16 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 	player.process_mode = Node.PROCESS_MODE_PAUSABLE
 	add_child(player)
 	controller = player.get_node("Controller") as PlayerController
+	if connected_region:
+		player.get_node("CourierVisual").hide()
+		player.get_node("PlayerVisualAdapter").process_mode = Node.PROCESS_MODE_DISABLED
+		player.get_node("PlayerFeedback").hide()
+		var visual := PixelPlainsActor.new()
+		visual.name = "PixelPlainsActor"
+		visual.motor = player
+		visual.controller = controller
+		player.add_child(visual)
+		controller.shoot_ability.shot_fired.connect(_pixel_projectiles)
 	if connected_region and not controller.enable_shot_energy(): return false
 	controller.interact_requested.connect(interact)
 	controller.shoot_ability.shot_fired.connect(_record_boss_shot)
@@ -300,6 +333,8 @@ func _load_stage() -> void:
 		if connected_region: player.z_index = 5
 		_run_camera.region_composition = connected_region
 		_run_camera.configure(player, random_stage.bounds)
+		var parallax := get_node("PixelPlainsParallax") as PixelPlainsParallax
+		parallax.origin = stage.spawn
 	controller.return_to_segment(stage.spawn)
 	policy = FrameDamagePolicy.new()
 	policy.lifetime = lifetime
@@ -1164,7 +1199,7 @@ func _update_actions() -> void:
 		_button(_actions,"OPEN RETURN SHORTCUT",interact)
 	elif key == "region_shop":
 		var quote := shop.quote(_region_shop_id())
-		_button(_actions,"MERCHANT / PREVIEW / STOCK %s" % quote.stock,_open_region_shop)
+		_button(_actions,"MERCHANT / STOCK %s" % quote.stock,_open_region_shop)
 	elif key.begins_with("reward:"):
 		for item: ItemDefinition in current_reward.candidates:
 			var selected_id := item.stable_id
@@ -1256,6 +1291,7 @@ func _make_ui() -> void:
 	menu.requested_actions.connect(_open_action_studio)
 	menu.requested_foundation.connect(_open_foundation)
 	menu.requested_windchime.connect(_open_windchime)
+	menu.requested_pixel_plains.connect(_open_pixel_plains)
 	menu.requested_foundry.connect(_open_foundry)
 	menu.requested_random.connect(_open_random_preview)
 	menu.requested_resume.connect(_resume_from_menu)
@@ -1772,6 +1808,18 @@ func _open_action_studio() -> void:
 		_action_studio = null
 		_show_home())
 	add_child(_action_studio)
+
+func _open_pixel_plains() -> void:
+	if director.state!=DemoRunDirector.State.HOME or is_instance_valid(_pixel_plains):return
+	_remove_home_scene()
+	menu.hide_home()
+	_pixel_plains=preload("res://scenes/demo/pixel_plains_preview.tscn").instantiate()
+	_pixel_plains.input_values=_session_input.duplicate(true)
+	_pixel_plains.home_requested.connect(func() -> void:
+		_pixel_plains.queue_free()
+		_pixel_plains=null
+		_show_home())
+	add_child(_pixel_plains)
 
 func _open_windchime() -> void:
 	if director.state != DemoRunDirector.State.HOME or is_instance_valid(_windchime_lab): return

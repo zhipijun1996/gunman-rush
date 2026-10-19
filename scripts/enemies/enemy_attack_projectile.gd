@@ -77,4 +77,7 @@ func dispose() -> void:
 	queue_free()
 
 func _draw() -> void:
+	if PixelFormalActors.pixel_context(self):
+		PixelFormalActors.projectile(self,radius,direction)
+		return
 	ProjectileArt.paint(self, 0, direction, radius)

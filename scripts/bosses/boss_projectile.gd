@@ -76,4 +76,7 @@ func dispose() -> void:
 
 func _draw() -> void:
 	if str(event_id).begins_with("windblade") or str(event_id).begins_with("pier-"): return
+	if PixelFormalActors.pixel_context(self):
+		PixelFormalActors.projectile(self,radius,direction)
+		return
 	ProjectileArt.paint(self, 3 if (str(event_id).begins_with("windkeeper") or str(event_id).begins_with("bellstrider_ring")) else 2, direction, radius)

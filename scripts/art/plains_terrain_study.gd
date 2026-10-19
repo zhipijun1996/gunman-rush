@@ -1,6 +1,6 @@
 class_name PlainsTerrainStudy
 extends Node2D
-## Approved formal terrain presentation. Historical class name retained for UID stability.
+## Pixel candidate formal terrain presentation. Historical class name retained for UID stability.
 ## Optional comparison controls are development-only; never changes physics/RNG.
 var stage:PlainsRegionStage
 var art:Node2D
@@ -24,7 +24,7 @@ func refresh_geometry()->void:
 	if is_instance_valid(art):art.free()
 	authored_solids=solids
 	var started:=Time.get_ticks_msec()
-	art=PlainsTerrainFamilySampler.build(stage,solids)
+	art=PixelFormalTerrain.build(solids)
 	if art==null:push_warning("Terrain study refused unsupported local boundary density; baseline preserved");return
 	print("TERRAIN STUDY: solids=%s pieces=%s setup_ms=%s"%[solids.size(),art.get_child_count(),Time.get_ticks_msec()-started])
 	art.z_index=-1;add_child(art)

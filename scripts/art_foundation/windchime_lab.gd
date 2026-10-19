@@ -26,12 +26,12 @@ var masonry: WindchimeMasonry
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
-	layout = WindchimeLayout.build_map(seed_text)
+	layout = _make_layout()
 	assert(layout.ok, "Tile layout rejected")
 	var background_layer := CanvasLayer.new()
 	background_layer.layer = -20
 	add_child(background_layer)
-	backdrop = WindchimeBackdrop.new()
+	backdrop = _make_backdrop()
 	background_layer.add_child(backdrop)
 	_world = Node2D.new()
 	_world.name = "TileWorld"
@@ -48,7 +48,7 @@ func _ready() -> void:
 	controller.enable_shot_energy()
 	controller.shoot_ability.shot_fired.connect(_skin_projectiles)
 	if not input_values.is_empty(): controller.router.reconfigure(input_values)
-	var actor_visual := WindchimeActorVisual.new()
+	var actor_visual := _make_actor_visual()
 	actor_visual.motor = player
 	actor_visual.controller = controller
 	player.add_child(actor_visual)
@@ -73,6 +73,21 @@ func _ready() -> void:
 	_install_enemies()
 	_make_ui()
 	queue_redraw()
+
+func _make_layout() -> Dictionary:
+	return WindchimeLayout.build_map(seed_text)
+
+func _make_backdrop() -> WindchimeBackdrop:
+	return WindchimeBackdrop.new()
+
+func _make_actor_visual() -> WindchimeActorVisual:
+	return WindchimeActorVisual.new()
+
+func _make_enemy_visual() -> WindchimeEnemyVisual:
+	return WindchimeEnemyVisual.new()
+
+func _make_projectile_visual() -> WindchimeProjectileVisual:
+	return WindchimeProjectileVisual.new()
 
 func _install_world() -> void:
 	terrain = WindchimeTerrain.build(layout.cells, seed_text)
@@ -230,7 +245,7 @@ func _toggle_material_map() -> void:
 func _skin_projectiles(_aim: Vector2, _shot_id: int) -> void:
 	for projectile: PlayerProjectile in controller.shoot_ability.get_projectiles():
 		if is_instance_valid(projectile.presentation): continue
-		var visual := WindchimeProjectileVisual.new()
+		var visual := _make_projectile_visual()
 		visual.projectile = projectile
 		projectile.presentation = visual
 		projectile.add_child(visual)
@@ -246,7 +261,7 @@ func _install_enemies() -> void:
 		old.free()
 		_world.add_child(enemy)
 		var actor := enemy.get_node("Actor") as EnemyActor
-		var visual := WindchimeEnemyVisual.new()
+		var visual := _make_enemy_visual()
 		visual.actor = actor
 		enemy.add_child(visual)
 		var id := StringName("windchime/enemy/" + str(_enemy_motors.size()))

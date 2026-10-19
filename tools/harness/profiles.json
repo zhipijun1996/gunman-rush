@@ -871,6 +871,26 @@
       "success_pattern": "^PASS: windchime tiles",
       "weight_seconds": 20,
       "serial": true
+    },
+    "pixel-plains": {
+      "argv": [
+        "python3",
+        "tools/run_pixel_plains_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^PASS: pixel plains actual",
+      "weight_seconds": 20,
+      "serial": true
+    },
+    "pixel-formal": {
+      "argv": [
+        "python3",
+        "tools/run_pixel_formal_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^PASS: current formal pixel",
+      "weight_seconds": 20,
+      "serial": true
     }
   },
   "profiles": {
@@ -972,7 +992,9 @@
       "forest-h-slice",
       "connected-family-tests",
       "blob47-foundation",
-      "windchime-plains"
+      "windchime-plains",
+      "pixel-plains",
+      "pixel-formal"
     ],
     "art": [
       "docs",
@@ -1024,7 +1046,9 @@
       "asset-family-tests",
       "connected-family-tests",
       "blob47-foundation",
-      "windchime-plains"
+      "windchime-plains",
+      "pixel-plains",
+      "pixel-formal"
     ],
     "web": [
       "docs",
@@ -1119,7 +1143,9 @@
       "asset-family-tests",
       "connected-family-tests",
       "blob47-foundation",
-      "windchime-plains"
+      "windchime-plains",
+      "pixel-plains",
+      "pixel-formal"
     ]
   }
 }

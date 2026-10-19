@@ -73,4 +73,5 @@ func _physics_process(_delta: float) -> void:
 	policy.submit(request)
 
 func _draw() -> void:
-	PlainsTerrainSkin.draw_saw(self, definition.radius)
+	if module.pixel_mechanism_art: PixelFormalTerrain.draw_saw(self, definition.radius)
+	else: PlainsTerrainSkin.draw_saw(self, definition.radius)
