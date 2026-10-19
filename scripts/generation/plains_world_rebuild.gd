@@ -48,8 +48,12 @@ static func generate(seed: String, variant: int = 0) -> Dictionary:
 	var east_top: Array = bodies[1]["top_surfaces"]
 	var west_rim: Array = west_top[-1]["to"]
 	var east_rim: Array = east_top[0]["from"]
-	var spawn := _surface_anchor(bodies[0], 100.0)
-	spawn[1] = _q(float(spawn[1]) - 18.0)
+	var player_size := _player_body_size()
+	var spawn := _surface_anchor(bodies[0],100.0)
+	# Clear the high side across the actual player's complete rectangular feet.
+	# SegmentRespawn's existing full-body/three-foot safety query is unchanged.
+	var high_foot := minf(float(_surface_anchor(bodies[0],100.0-player_size.x*0.5)[1]),float(_surface_anchor(bodies[0],100.0+player_size.x*0.5)[1]))
+	spawn[1] = _q(high_foot-player_size.y*0.5-0.1)
 	var far_right: float = float(east_top[-1]["to"][0])
 	var exit_position := _surface_anchor(bodies[1], far_right - 140.0)
 	exit_position[1] = _q(float(exit_position[1]) - 18.0)
