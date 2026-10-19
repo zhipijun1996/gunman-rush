@@ -1,0 +1,777 @@
+{
+  "conclusion": "cancelled",
+  "databaseId": 39229199208,
+  "event": "workflow_dispatch",
+  "headSha": "2cb6272b6c7cdda1dbc3f45b3aac1759a9201ea8",
+  "jobs": [
+    {
+      "completedAt": "2026-10-19T09:25:17Z",
+      "conclusion": "success",
+      "databaseId": 117982782992,
+      "name": "prepare",
+      "startedAt": "2026-10-19T09:19:36Z",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Select absolute external toolchain path",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/setup-python@v5",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Check committed quality evidence before toolchain work",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Check exact portable frozen assets before toolchain work",
+          "number": 6,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/cache/restore@v4",
+          "number": 7,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/cache/restore@v4",
+          "number": 8,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Exercise real downloader recovery and terminal failures",
+          "number": 9,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Install verified toolchain (resumable bounded downloads)",
+          "number": 10,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/cache/save@v4",
+          "number": 11,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/cache/save@v4",
+          "number": 12,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 13,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run python3 tools/foundry.py build --count 24 --promote",
+          "number": 14,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run bash tools/godot.sh --headless --path . --script tools/foundry_export_stamp.gd",
+          "number": 15,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 16,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@v5",
+          "number": 31,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 32,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 33,
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/39229199208/job/117982782992"
+    },
+    {
+      "completedAt": "2026-10-19T09:26:39Z",
+      "conclusion": "cancelled",
+      "databaseId": 117985140502,
+      "name": "windows",
+      "startedAt": "2026-10-19T09:25:21Z",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "cancelled",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Select absolute external toolchain path",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/setup-python@v5",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/cache/restore@v4",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/cache/restore@v4",
+          "number": 6,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Install verified toolchain (resumable bounded downloads)",
+          "number": 7,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/cache/save@v4",
+          "number": 8,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/cache/save@v4",
+          "number": 9,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 10,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/download-artifact@v4",
+          "number": 11,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run python3 tools/build.py windows",
+          "number": 12,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 13,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 26,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 27,
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/39229199208/job/117985140502"
+    },
+    {
+      "completedAt": "2026-10-19T09:26:39Z",
+      "conclusion": "cancelled",
+      "databaseId": 117985140779,
+      "name": "web",
+      "startedAt": "2026-10-19T09:25:21Z",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "cancelled",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Select absolute external toolchain path",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/setup-python@v5",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/cache/restore@v4",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/cache/restore@v4",
+          "number": 6,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Install verified toolchain (resumable bounded downloads)",
+          "number": 7,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/cache/save@v4",
+          "number": 8,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/cache/save@v4",
+          "number": 9,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 10,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/download-artifact@v4",
+          "number": 11,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run python3 -m pip install --disable-pip-version-check --retries 1 --timeout 20 -r tools/requirements_art.txt",
+          "number": 12,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run python3 tools/harness.py --profile web --release",
+          "number": 13,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Show failed Harness checks without requiring artifact download",
+          "number": 14,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run python3 -c \"import json, os; d=json.load(open('build/web/build-info.json')); f=open(os.environ['GITHUB_OUTPUT'], 'a'); f.write('build_id='+d['build_id']+'\\nsource_commit='+d['source_commit']+'\\n')\"",
+          "number": 15,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 16,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 17,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/upload-pages-artifact@v3",
+          "number": 18,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 36,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 37,
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/39229199208/job/117985140779"
+    },
+    {
+      "completedAt": "2026-10-19T09:26:39Z",
+      "conclusion": "cancelled",
+      "databaseId": 117985140786,
+      "name": "core_checks (parallel)",
+      "startedAt": "2026-10-19T09:25:21Z",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "cancelled",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Select absolute external toolchain path",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/setup-python@v5",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/cache/restore@v4",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/cache/restore@v4",
+          "number": 6,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Install verified toolchain (resumable bounded downloads)",
+          "number": 7,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/cache/save@v4",
+          "number": 8,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/cache/save@v4",
+          "number": 9,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 10,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/download-artifact@v4",
+          "number": 11,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run python3 -m pip install --disable-pip-version-check --retries 1 --timeout 20 -r tools/requirements_art.txt",
+          "number": 12,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run python3 tools/harness.py --profile gameplay --profile art --jobs 1 --release --lane parallel",
+          "number": 13,
+          "status": "completed"
+        },
+        {
+          "conclusion": "failure",
+          "name": "Collect the unique original phase report and check stdout logs",
+          "number": 14,
+          "status": "completed"
+        },
+        {
+          "conclusion": "failure",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 15,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Show failed Harness checks without requiring artifact download",
+          "number": 16,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Check actual platform pixels (software GPU, not device approval)",
+          "number": 17,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run python3 tools/run_audio_lifecycle_tests.py --script tests/audio_lifecycle_runner.gd --marker \"^AUDIO LIFECYCLE: [1-9][0-9]* assertions, 0 failures$\" --output build/verification/audio-lifecycle/service",
+          "number": 18,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run python3 tools/run_audio_lifecycle_tests.py --script tests/foundry_lab_runner.gd --marker \"^FOUNDRY LAB: [1-9][0-9]* assertions, 0 failures$\" --output build/verification/audio-lifecycle/lab",
+          "number": 19,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run python3 tools/run_audio_lifecycle_tests.py --script tests/foundry_touch_runner.gd --marker \"^FOUNDRY TOUCH: [1-9][0-9]* assertions, 0 failures$\" --output build/verification/audio-lifecycle/touch",
+          "number": 20,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run python3 tools/run_audio_lifecycle_tests.py --script tests/foundry_feedback_runner.gd --marker \"^LAB FEEDBACK: [1-9][0-9]* assertions, 0 failures$\" --output build/verification/audio-lifecycle/feedback",
+          "number": 21,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 22,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 44,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 45,
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/39229199208/job/117985140786"
+    },
+    {
+      "completedAt": "2026-10-19T09:26:41Z",
+      "conclusion": "cancelled",
+      "databaseId": 117985140883,
+      "name": "core_checks (serial)",
+      "startedAt": "2026-10-19T09:25:21Z",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "cancelled",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Select absolute external toolchain path",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/setup-python@v5",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/cache/restore@v4",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/cache/restore@v4",
+          "number": 6,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Install verified toolchain (resumable bounded downloads)",
+          "number": 7,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/cache/save@v4",
+          "number": 8,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/cache/save@v4",
+          "number": 9,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 10,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/download-artifact@v4",
+          "number": 11,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run python3 -m pip install --disable-pip-version-check --retries 1 --timeout 20 -r tools/requirements_art.txt",
+          "number": 12,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run python3 tools/harness.py --profile gameplay --profile art --jobs 1 --release --lane serial",
+          "number": 13,
+          "status": "completed"
+        },
+        {
+          "conclusion": "failure",
+          "name": "Collect the unique original phase report and check stdout logs",
+          "number": 14,
+          "status": "completed"
+        },
+        {
+          "conclusion": "failure",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 15,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Show failed Harness checks without requiring artifact download",
+          "number": 16,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Check actual platform pixels (software GPU, not device approval)",
+          "number": 17,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run python3 tools/run_audio_lifecycle_tests.py --script tests/audio_lifecycle_runner.gd --marker \"^AUDIO LIFECYCLE: [1-9][0-9]* assertions, 0 failures$\" --output build/verification/audio-lifecycle/service",
+          "number": 18,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run python3 tools/run_audio_lifecycle_tests.py --script tests/foundry_lab_runner.gd --marker \"^FOUNDRY LAB: [1-9][0-9]* assertions, 0 failures$\" --output build/verification/audio-lifecycle/lab",
+          "number": 19,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run python3 tools/run_audio_lifecycle_tests.py --script tests/foundry_touch_runner.gd --marker \"^FOUNDRY TOUCH: [1-9][0-9]* assertions, 0 failures$\" --output build/verification/audio-lifecycle/touch",
+          "number": 20,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run python3 tools/run_audio_lifecycle_tests.py --script tests/foundry_feedback_runner.gd --marker \"^LAB FEEDBACK: [1-9][0-9]* assertions, 0 failures$\" --output build/verification/audio-lifecycle/feedback",
+          "number": 21,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 22,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 44,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 45,
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/39229199208/job/117985140883"
+    },
+    {
+      "completedAt": "2026-10-19T09:26:48Z",
+      "conclusion": "failure",
+      "databaseId": 117985723894,
+      "name": "core",
+      "startedAt": "2026-10-19T09:26:44Z",
+      "status": "completed",
+      "steps": [
+        {
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "status": "completed"
+        },
+        {
+          "conclusion": "failure",
+          "name": "Require both matrix lanes to have succeeded",
+          "number": 2,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/checkout@v4",
+          "number": 3,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/setup-python@v5",
+          "number": 4,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/download-artifact@v4",
+          "number": 5,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/download-artifact@v4",
+          "number": 6,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Run actions/download-artifact@v4",
+          "number": 7,
+          "status": "completed"
+        },
+        {
+          "conclusion": "skipped",
+          "name": "Verify exact same-source complete fresh check coverage and original logs",
+          "number": 8,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 9,
+          "status": "completed"
+        },
+        {
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 10,
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/39229199208/job/117985723894"
+    },
+    {
+      "completedAt": "2026-10-19T09:26:48Z",
+      "conclusion": "cancelled",
+      "databaseId": 117985773905,
+      "name": "deploy_web",
+      "startedAt": "2026-10-19T09:26:49Z",
+      "status": "completed",
+      "steps": [],
+      "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/39229199208/job/117985773905"
+    },
+    {
+      "completedAt": "2026-10-19T09:26:48Z",
+      "conclusion": "cancelled",
+      "databaseId": 117985774367,
+      "name": "android",
+      "startedAt": "2026-10-19T09:26:49Z",
+      "status": "completed",
+      "steps": [],
+      "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/39229199208/job/117985774367"
+    },
+    {
+      "completedAt": "2026-10-19T09:26:48Z",
+      "conclusion": "cancelled",
+      "databaseId": 117985775194,
+      "name": "verify_public",
+      "startedAt": "2026-10-19T09:26:49Z",
+      "status": "completed",
+      "steps": [],
+      "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/39229199208/job/117985775194"
+    }
+  ],
+  "status": "completed"
+}

@@ -1,0 +1,58 @@
+{
+  "task_id": "PARALLEL-INTEGRATION-01",
+  "reviewer": "/root/integration_review",
+  "timestamp_utc": "2026-10-19T09:27:27.949649+00:00",
+  "reviewed_commit": "2cb6272b6c7cdda1dbc3f45b3aac1759a9201ea8",
+  "source_state": "Two workflow files have uncommitted additive dependency setup; exact reviewed SHA below. Final repaired commit binding pending.",
+  "verdict": "ACCEPT",
+  "scope": "Bounded ffmpeg/ffprobe CI environment dependency repair and original failure/local log review only. Does not certify repaired CI or public deployment.",
+  "sources": {
+    ".github/workflows/docs.yml": "3634f8e5371b48ea33a9b7c8561ef0c3ebe4cf9825f7e753db28c66f5f4ea8d5",
+    ".github/workflows/environment.yml": "02c77c383b62910525fe53324b4468f2b9b2b626b7d73e463c43a3fc5dff3bb4",
+    "tests/test_production_loop.py": "5f2c3c6f06128819bc14ed8e71b66f7062fa482a9bc4a5992ae2fba773522320",
+    "tools/production_loop.py": "62625f10716781168d5cb7331785aabdf5a4a98fbe11bb56e6086e8a058c17f4",
+    "tools/harness/profiles.json": "23c6c97eb8a5f5dac7befd37e3d91f371f7a92a6abc197e7bcc48d514f222792",
+    "docs/evidence/parallel_integration_01/ci01/ci-docs-fail01.zip": "1c6229bb648328393916ec5bd305c3467b23382ff8e9cc3361b54a3b69eae5e5",
+    "docs/evidence/parallel_integration_01/ci01/diagnosis.json": "2e7e66e2a8f6ee241eb6e21ae32c83a3cd53dff62897857cbf98e0f570fc6238",
+    "docs/evidence/parallel_integration_01/ci01/production-loop-local01.log": "135d30384f6e33e249f4134af17ed6129f0f9c81c44d6ce0a6657b1851c97686"
+  },
+  "independent_checks": [
+    {
+      "method": "Read-only Python exact diff removal against frozen2cb source",
+      "result": "docs one block, environment two blocks; removing exactly those blocks reproduces old files byte-for-byte; no existing job command/guard/budget edits"
+    },
+    {
+      "method": "bash -n of actual added shell block",
+      "result": "PASS"
+    },
+    {
+      "method": "SHA256 full CI ZIP against diagnosis declared exactAPI artifact digest",
+      "result": "1c6229bb648328393916ec5bd305c3467b23382ff8e9cc3361b54a3b69eae5e5 matches actual ZIP"
+    },
+    {
+      "method": "Read ZIP original production-loop-tests.log",
+      "result": "107 tests,52.576s,4 errors, all FileNotFoundError ffmpeg; original failure preserved"
+    },
+    {
+      "method": "Read author local original107 suite log",
+      "result": "107 tests45.396s OK; invalid-media moov-atom output retained as expected rejection context; not a newCI pass"
+    },
+    {
+      "method": "Frozen source byte equality",
+      "result": "test_production_loop.py,production_loop.py,harness/profiles.json unchanged from2cb;60second test cap unchanged"
+    }
+  ],
+  "rationale": [
+    "Original test executes ffmpeg to create real encoded fixtures; production admission invokes ffprobe. Ubuntu environment must have both installed. Missing executable is established by original trace, rather than inferred from local pass.",
+    "Three added setup blocks cover docs, core matrix job and Web job that run relevant Harness profiles. Install only when either executable missing, use package ffmpeg supplying both, bounded Acquire::Retries=1 and5minute step timeout, verify both executable versions afterward.",
+    "Default Actions bash failure handling preserves nonzero install/version failure; no continue-on-error, skipping tests, retrying suite, changing assertions or increasing original60second test budget. Setup time cap applies solely dependency preparation."
+  ],
+  "unverified": [
+    "No apt install or repairedCI executed by reviewer",
+    "Selectedfull39229199208 cancellation requested; terminal status not independently checked",
+    "Final repaired SHA and fresh completeCI still pending",
+    "Public build identity/browser checks pending",
+    "No engine/full suite rerun, actual visual/device/human evaluation"
+  ],
+  "independence": "Reviewer did not edit workflows, production or tests and did not run engine/full suite; only wrote review03 documents"
+}

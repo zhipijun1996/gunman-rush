@@ -26,3 +26,5 @@
 独立只读审查接受源码整合、有限资产适配、元数据保管与表现消费者的限定范围，未观察实际画面/听音或签手感。72份新增资产carrier记录逐项保留实际来源，license unknown、visual unverified，不把Git来源等同商业许可或艺术准入。完整CI与新公开包仍待；原失败、专项日志与独审见[证据目录](evidence/parallel_integration_01/review01.md)。
 
 三族消费者原CLI复验全通过；world随后新增两项重新派生hash的变造负例（地形位置+未知调优）也被严格拒绝，最终127/0。质量记录criteria格式错误曾被静态校验拒绝，随后修正记录格式，未修改校验器或豁免记录。
+
+首候选2cb的push docs CI39229170834实际FAIL：107测试中4项缺ffmpeg（52.576秒），准确artifact12176782322/SHA绑定原ZIP保留；本地原107项45.396秒PASS。完整dispatch39229199208在已知CI缺依赖后终态cancelled（prepare成功，后续四任务取消、汇总缺lane失败，部署跳过），不能标完整通过或发布。修复只给docs/core/web安装ffmpeg/ffprobe，原测试与60秒预算不变；新源另跑正式CI。
