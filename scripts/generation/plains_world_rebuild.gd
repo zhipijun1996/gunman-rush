@@ -39,7 +39,7 @@ static func generate(seed: String, variant: int = 0) -> Dictionary:
 	foundation["kind"] = "source_anchored_creek_bedrock"
 	foundation["top_surfaces"] = [{"from": [west_wall, creek], "to": [east_wall, creek], "role": "lower_recovery"}]
 	foundation["connections"] = ["west_creek_root", "east_creek_root"]
-	foundation["paint_z"] = -2
+	foundation["paint_z"] = -3
 	bodies.append(foundation)
 	var root := _q(float(creek_origin[1]) + float(creek_size[1]) * creek_scale)
 	var overlap := float(creek_size[0]) * creek_scale * 0.5 - (east_wall - west_wall) * 0.5
@@ -305,7 +305,7 @@ static func _packed(values: Array) -> PackedVector2Array:
 	return result
 
 static func _body(id: String, kind: String, polygon: Array, surfaces: Array, connections: Array) -> Dictionary:
-	return {"id": id, "kind": kind, "polygon": polygon, "top_surfaces": surfaces, "collision_source": "polygon", "painting_source": "paint_frame", "paint_family": "p1_continuous_meadow_candidate", "paint_z": 0, "connections": connections, "visual_status": "source_frame_candidate_requires_actual_art_admission"}
+	return {"id": id, "kind": kind, "polygon": polygon, "top_surfaces": surfaces, "collision_source": "polygon", "painting_source": "paint_frame", "paint_family": "p1_continuous_meadow_candidate", "paint_z": -2, "connections": connections, "visual_status": "source_frame_candidate_requires_actual_art_admission"}
 
 static func _surfaces(points: Array, role: String) -> Array:
 	var surfaces: Array = []
