@@ -103,9 +103,11 @@
       "evidence": []
     },
     "G2": {
-      "status": "unverified",
-      "reason": "限定候选技术证据已具备，完整内容门槛/全仓回归/用户与设备仍未齐备",
-      "evidence": []
+      "status": "failed",
+      "reason": "V1视觉候选被用户明确拒绝，新方向另立ART-BLOB47-CARTOON-02",
+      "evidence": [
+        "user-rejected-v1"
+      ]
     },
     "G3": {
       "status": "unverified",
@@ -151,11 +153,10 @@
       ]
     },
     "visual": {
-      "status": "unverified",
-      "reason": "最终候选GPU已看；背景地标/地面纹样待精修，用户美术未认可",
+      "status": "failed",
+      "reason": "用户明确拒绝V1画风，停止按该风格扩产；技术通过不改变此结论",
       "evidence": [
-        "screenshot",
-        "independent"
+        "user-rejected-v1"
       ]
     },
     "animation": {
@@ -233,7 +234,7 @@
   "evidence": [
     {
       "id": "spec",
-      "path": "docs/art_foundation_v1.md",
+      "path": "docs/evidence/blob47_foundation/spec_v1.md",
       "kind": "spec",
       "producer": "/root/foundation_contract",
       "source_commit": "222ee12fa002710de104d31f660ee275c1e6d2f6",
@@ -375,11 +376,29 @@
       "sha256": "6296db1f63d7eecf24651dacef4780ddfe326ded0370c33a6783ef06dbcd8a53",
       "method": "公网真实Chromium WebGL，核对版本badge与新地基文字/画面",
       "observed": "HTTPS新候选可直接进入，非旧包；不签实体设备或审美"
+    },
+    {
+      "id": "user-rejected-v1",
+      "path": "docs/evidence/blob47_cartoon_02/user_feedback.txt",
+      "sha256": "4e770c44e8a0047380ad35e94196f2208eb9c25866ac8597309364fbafa7524e",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "222ee12fa002710de104d31f660ee275c1e6d2f6",
+      "content_version": "blob47-v1",
+      "method": "本轮用户直接评价已交付V1截图",
+      "observed": "画风被明确拒绝；技术证据仍仅限地基",
+      "source": "Current user message 2026-10-19",
+      "quote": "我看你的截图，感觉画风又太丑了。风格还是得想洞窟探险2或者马里奥制造2那种靠。",
+      "accepted": false,
+      "covers": [
+        "visual"
+      ]
     }
   ],
   "consumer_coverage": null,
   "unverified_items": [
     "完整docs/art/gameplay profile因本地稀疏检出未物化历史证据而未通过",
-    "最终用户视觉认可/实体设备/完整敌人黄金/纵向镜头/可选上路/正式地图迁移未验"
+    "最终用户视觉认可/实体设备/完整敌人黄金/纵向镜头/可选上路/正式地图迁移未验",
+    "V1视觉已被用户拒绝，后续新卡通概念不追认V1通过"
   ]
 }
