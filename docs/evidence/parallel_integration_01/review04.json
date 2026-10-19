@@ -1,0 +1,58 @@
+{
+  "task_id": "PARALLEL-INTEGRATION-01",
+  "reviewer": "/root/integration_review",
+  "timestamp_utc": "2026-10-19T09:41:22.136812+00:00",
+  "reviewed_commit": "d7f745568f632aed75231667f160a663b702796f",
+  "source_state": "tools/production_loop.py and tests/test_production_loop.py worktree changes, selected SHA below; final Git binding pending",
+  "verdict": "ACCEPT",
+  "scope": "Limited lexical-only preflight performance repair and bounded custody recovery verification. Does not accept original hardlink dedup decision, completeCI/public release or content quality.",
+  "sources": {
+    "tools/production_loop.py": "6e113ff1f26cd6287680daeba196ace28c5eccb0277347c9e09096282cbb1214",
+    "tests/test_production_loop.py": "59c3a4e78a94825f398fab813948ff52f347a2992ab0a16f79f41bdee8e32fe0",
+    "tools/harness/profiles.json": "23c6c97eb8a5f5dac7befd37e3d91f371f7a92a6abc197e7bcc48d514f222792",
+    "docs/evidence/parallel_integration_01/ci02/ci-docs-fail02.zip": "93e8070ae230dce6c4fa0c715899881650e97ce8297f48c21aeb9f24e2640eb5",
+    "docs/evidence/parallel_integration_01/ci02/diagnosis.json": "71ec21b91012d614faa0651cbdaef2db02bcfb30bce118c20669fd86860f84cd",
+    "docs/evidence/parallel_integration_01/ci02/status-39230314758.json": "40d35568e85e9d727c7e3608b0c9eed2eec40f8e3b0740cf91b6ae0d09da7f7f",
+    "docs/evidence/parallel_integration_01/custody01/repair-receipt.json": "a35e416063b4ac4cf7a4f00d5d0b727f15bec3befd0baca60d583a98bd44d539",
+    "docs/evidence/parallel_integration_01/custody01/inventory.json": "1edc8f3226bbf4baaa4b9ba40ec5bf1a7ae1be7aa9dec2ebcf26cace3b96d45f",
+    "docs/evidence/parallel_integration_01/custody01/custody-originals01.zip": "e04ddadee9c74a31ce2be5f95c81354454978b624c2959b47315ec57a86be0c8",
+    "build/integration01/production-loop-performance/paired.json": "076c184f2e3dbbb109b3913beb8a33c0a28d926bfc53b0d826bdbe804d718ce4",
+    "build/integration01/review04_checks01.json": "7f9b3d5634ee1cc91482b6d5993eb5f3d69c0d45b672e010c31596dbf2d43337"
+  },
+  "independent_execution": [
+    {
+      "command": "PYTHONPATH=tools:tests python3 -m unittest test_production_loop.SelectedInputPreflightTests -v",
+      "exit_code": 0,
+      "result": "21 original tests PASS3.220s, includes real ancestor symlink and same-task filesystem restoration probe"
+    },
+    {
+      "command": "Read-only inline96POSIX path/root equivalence combinations plus exact custody SHA/Git/archive/inode checks",
+      "exit_code": 0,
+      "result": {
+        "lexical_equivalence_cases": 96,
+        "custody_zip_sha256": "e04ddadee9c74a31ce2be5f95c81354454978b624c2959b47315ec57a86be0c8",
+        "custody_inventory_members_verified": 10,
+        "original_git_archives_exact": 2,
+        "restored_historical_files_exact": 2,
+        "current_raw_preserved": true,
+        "four_files_separate_inodes": true,
+        "ci02_zip_digest_match": true,
+        "scope": "No full5GB/1870path rehash; metadata report1870 coverage is author evidence, independent checks limited above. Does not accept original dedup decision."
+      }
+    }
+  ],
+  "findings": [
+    "The two optimizations only compute lexical parent containment and already-abspath normalized relative-name identity. POSIX component-prefix equality matches original pathlib containment; join of suffix parts preserves POSIX relative_to.as_posix including root dot. No resolve() introduced, so symlinks remain visible. Windows retains original path comparisons/case semantics; not executed on Windows.",
+    "Caches remain function-local lexical dictionaries only. Every file_state still checks ancestor is_symlink,stat,is_file,open/read; no filesystem state cached. Existing107 test methods retained, test addition strengthens ancestor symlink/restoration freshness. Original60second cap unchanged.",
+    "ExactCI ZIP93e807... verified; original production-loop-tests report timeout60.040s and no OK completion. Earlier failed/cancelled runs are not reclassified. Full39230314758 statusJSON terminalcancelled read; no deployed source certified.",
+    "Author paired profile source SHA equals current production source6e113...; same real preflight result digest before/after,2.03854→0.70764seconds with profiler instrumentation. Full profiled107 takes128.315s, with109.609s in112 preflight calls; profiling overhead separated and not used as release threshold or claiming fullCLI result.",
+    "Custody incident is actual historical overwrite by unsafe shared inode, not accepted original decision. Independently verified10 archiveinventory members,2 originalZIPs equal committed Git bytes,2 originalmembers equal restored historical files with56f5... hash; live newraw b472... preserved, and currentraw/preserved/two restored files are4 different inodes.",
+    "Author report covers1870 inventorypaths with sole currentraw expected change and212 mutable detaches; reviewer reads authenticated receipts but does not independently rehash5GB/1870paths or assert arbitrary future historical reuse safe."
+  ],
+  "unverified": [
+    "Final repair Git SHA and freshCI/public pending",
+    "Full107 postrepair CLI not independently executed by reviewer; targeted21 only",
+    "Windows branch algebra/source equivalence, no Windows execution",
+    "No engine, game pixels/videos/audio, physical device or user feel/quality review"
+  ]
+}

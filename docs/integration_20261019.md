@@ -28,3 +28,11 @@
 三族消费者原CLI复验全通过；world随后新增两项重新派生hash的变造负例（地形位置+未知调优）也被严格拒绝，最终127/0。质量记录criteria格式错误曾被静态校验拒绝，随后修正记录格式，未修改校验器或豁免记录。
 
 首候选2cb的push docs CI39229170834实际FAIL：107测试中4项缺ffmpeg（52.576秒），准确artifact12176782322/SHA绑定原ZIP保留；本地原107项45.396秒PASS。完整dispatch39229199208在已知CI缺依赖后终态cancelled（prepare成功，后续四任务取消、汇总缺lane失败，部署跳过），不能标完整通过或发布。修复只给docs/core/web安装ffmpeg/ffprobe，原测试与60秒预算不变；新源另跑正式CI。
+
+## 第二候选实际超时与词法优化
+
+第二候选d7f74556的push docs39230300225实际60.040秒超时；准确artifact12175224986/SHA93e8070ae230dce6c4fa0c715899881650e97ce8297f48c21aeb9f24e2640eb5原ZIP保留，不能把未完成107项计作通过。完整dispatch39230314758终态cancelled，未部署。原件见`evidence/parallel_integration_01/ci02/`。
+
+一次完整只读profile定位112次真实输入预检中的重复纯词法路径计算；只优化POSIX component前缀与相对名称切片，Windows保留原pathlib规则，不缓存文件系统或预检结果。107个原测试和60秒上限保持，原symlink案例补祖先symlink→还原→fresh成功的实际反例。最终冻结源原CLI实测107/26.802秒，process27.034秒/exit0/60秒cap，完整raw及前后3个保护源SHA一致；此前29.380秒观察缺raw与Windows补前的局限单独保留。独立21项/路径等价及最终日志审查见review04/05，最终新CI仍待。
+
+本机一次去重错误使固定可写aim_save输出与两历史文件共用inode，随后真实测试更新了历史路径。已从两份未改写的Git原始ZIP精确恢复两原件并将可写输出隔离；全1870路径核对仅current raw合法变化，另212个潜在可写路径断开。此为真实保管失败及恢复，不能称原去重安全。原件、SHA、恢复方法见`evidence/parallel_integration_01/custody01/`；现行测试与历史证据未互相冒名。

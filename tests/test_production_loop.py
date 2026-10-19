@@ -1403,6 +1403,16 @@ class SelectedInputPreflightTests(unittest.TestCase):
                 self.assertEqual(result['status'],'blocked')
                 self.assertEqual(result['missing_tracked_inputs'][0]['path'],self.proof)
                 self.assertEqual(result['missing_tracked_inputs'][0]['reason'],'symlink_input')
+        # A readable leaf must not conceal a symlinked ancestor. Rechecking the
+        # same task after restoring the directory must observe the real change;
+        # lexical path reuse must never become filesystem/preflight memoization.
+        proof.unlink();proof.write_text('actual tracked fixture input\n')
+        directory=proof.parent;relocated=directory.with_name(directory.name+'-relocated')
+        directory.rename(relocated);directory.symlink_to(relocated,target_is_directory=True)
+        with patch.object(loop,'ROOT',self.main),loop._collection_worktree(self.target):
+            self.assertEqual(loop.required_input_preflight(task)['missing_tracked_inputs'][0]['reason'],'symlink_input')
+            directory.unlink();relocated.rename(directory)
+            self.assertEqual(loop.required_input_preflight(task)['status'],'passed')
 
     def test_real_unreadable_index_evidence_directory_and_binary_index_block_unknown(self):
         task=self.configure();self.materialize_proof();proof=self.target/self.proof

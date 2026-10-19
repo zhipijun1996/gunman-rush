@@ -254,13 +254,18 @@ def required_input_preflight(task):
 
     lexical_paths = {}
     relative_names = {}
+    root_parts = ROOT.parts
 
     def file_state(name):
         key = (ROOT, name)
         if key not in lexical_paths:
             path = ROOT / name
+            # This is lexical containment, deliberately not resolve(): symlinks
+            # must remain visible to every subsequent filesystem check. Comparing
+            # component prefixes avoids rebuilding relative paths for each parent.
             lexical_paths[key] = (path, tuple(parent for parent in [path, *path.parents]
-                                              if parent == ROOT or parent.is_relative_to(ROOT)))
+                                              if ((parent == ROOT or parent.is_relative_to(ROOT)) if os.name == "nt"
+                                                  else parent.parts[:len(root_parts)] == root_parts)))
         path, parents = lexical_paths[key]
         try:
             if any(parent.is_symlink() for parent in parents):
@@ -284,7 +289,12 @@ def required_input_preflight(task):
         key = (ROOT, name)
         if key not in relative_names:
             path = Path(os.path.abspath(ROOT / name))
-            relative_names[key] = path.relative_to(ROOT).as_posix() if path.is_relative_to(ROOT) else None
+            parts = path.parts
+            if os.name == "nt":
+                # Windows drive/case semantics stay with pathlib's original rule.
+                relative_names[key] = path.relative_to(ROOT).as_posix() if path.is_relative_to(ROOT) else None
+            else:
+                relative_names[key] = ("/".join(parts[len(root_parts):]) or ".") if parts[:len(root_parts)] == root_parts else None
         relative = relative_names[key]
         if relative in tracked:
             required.setdefault(relative, set()).add(source)
