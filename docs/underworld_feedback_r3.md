@@ -1,6 +1,6 @@
 # Underworld第三轮：战斗反馈与场景交互
 
-任务UNDERWORLD-FEEDBACK-03。实现基线0fab13f，运行源/build待最终冻结与发布；当前尚不能将R2的6b3093b929c0称为本轮结果。[用户十一项原话与澄清](evidence/underworld_feedback_03/user_feedback.txt)、[可证伪验收范围](evidence/underworld_feedback_03/spec.md)。本页记录实际经验及适用边界，结果与源绑定在最终验证后补齐。
+任务UNDERWORLD-FEEDBACK-03，状态review。实现基线0fab13f，准确运行源P `9402bf92fa9be16b10d401db5e02b5c63124ff3c`、[试玩build74431d31fbfd](https://zhipijun1996.github.io/gunman-rush/?v=74431d31fbfd)。[十一项结果、六段影片与已知失败](evidence/underworld_feedback_03/README.md)、[用户原话与澄清](evidence/underworld_feedback_03/user_feedback.txt)、[可证伪范围](evidence/underworld_feedback_03/spec.md)。Q只改录制驾驶器，1885项运行树与P相同，媒体保留各自原源标签。17项新鲜专项通过，不代表完整85项/完整CI全绿或用户体验认可。
 
 ## 已定位的问题与生产规则
 
@@ -33,3 +33,13 @@
 最终独审必须实际看当前源连续像素和正式合屏；组件数值、定位图、完整Boss战、自然整图路线、听音、设备与用户审美是不同范围，不互相代签。
 
 实机复审追加：Encounter的objective更新不会自动更新独立WindkeeperHud。连续合同须同步检查护甲状态行、命中词、阶段大字与方向箭头，legacy窗口提示只留在legacy分支。本轮N原片保留旧提示REJECT，后续仅HUD修正另绑定源。录制脚本必须等待真实异步Stage ready/assembly，而不能以start_plains返回值当同步就绪。
+
+## 连续录制与最终守门经验
+
+远程测试的初始站位必须同时满足真实激活净空、实际LOS和平台脚底。旧180wu定位在当前activation180−20条件外，不能以单独发弹或暂停敌人救证据。Q改为合法120wu间距；三发真实主角弹击杀实际哨兵，对方弹也实际扣主角1HP。反冲补偿用真实A/D，输入在物理边界交给原适配器，原100ms请求TTL不改；慢宿主曾真实过期的日志保留。真正Input、Router驱动、初始定位及自然整图路线须分别声明。
+
+使用单一固定回执路径的工具应串行执行，避免并发写者造成看似正确的SHA。P家园影片与17项专项曾时间重叠，按写入时间和唯一结束写者独审确认：headless回执先写，影片后写，间隔188.341秒，复制所得对应影片；相同确定性内容的SHA单独不能证明来源。后续录制按case隔离路径、整段前后核对全部运行源与六个producer，保留原MovieMaker、trace和音频日志，raw AVI不入库。
+
+正常退出也是原验收条件。断言0失败但ObjectDB/resource泄漏，或根本没等到完成标记的超时，都保持失败；单次隔离通过和后来新鲜通过不能追签原失败。P完整CI的generated-consumers严格泄漏与level-design-contracts超时独立于本轮17专项，尚未修复。软件录制时间和固定60fps媒体不是目标设备性能测试；有声轨不等于听音验收。
+
+公开浏览器同样要读原始console。P9原42操作谓词通过、http_failures为空，console却仍有一条未知URL的generic404。报告应同时保留这两个事实，列定Godot错误为0不能扩写成所有资源错误为0；不猜favicon，不通过改过滤器或重跑擦除原记录。

@@ -1,0 +1,55 @@
+{
+  "id": "R3-IR-16",
+  "reviewer": "/root/r3_review",
+  "verdict": "REJECT complete regression claim pending actual motion ownership repair",
+  "source_runtime": "c259f8cf1093102e53a1c34d19936e55f61f2839",
+  "kind": "independent source followup on real full-profile failure",
+  "raw_log": {
+    "path": "build/verification/harness/20261019T170151.131746Z/action-budget.log",
+    "sha256": "766a350ad51b7e139c2cbff8b7481202e727382f21b6f0998168d7f81247c2db"
+  },
+  "actual_result": "ACTION BUDGET7305/13:12moving-hook-target position failures across30/60/120Hz ×2targetside ×2direction; one airborne30Hz shadow_shuriken0vs154 budget failure",
+  "read_files": [
+    {
+      "path": "tests/action_budget_runner.gd",
+      "sha256": "3228a50c45108e712ac3f5490148f4b2e93a6cff977d47974f07a1a5d3ac4907"
+    },
+    {
+      "path": "scripts/enemies/enemy_actor.gd",
+      "sha256": "ebca71140fe2b497600a3440867ba353eb1a7faa779612ca999aa000a88a1304"
+    },
+    {
+      "path": "scripts/player/traversal_ability.gd",
+      "sha256": "d30033d4f07566c6a6917b8d82407f5cbef5e873415e59082ddf844880ddb4ea"
+    },
+    {
+      "path": "scripts/player/player_controller.gd",
+      "sha256": "74280298977140c4cfe6abb1bfffd8390fd96e3e4df5ef94ca247e4c9e6315e2"
+    },
+    {
+      "path": "scripts/combat/weapon_action_runtime.gd",
+      "sha256": "62a7f42f92d41757a09afb48f0ee2cefaea5fe6404f534caab031f272f9eda39"
+    },
+    {
+      "path": "scripts/combat/player_projectile.gd",
+      "sha256": "0537b760050a2e0717daf2fa6b8ae811c3b88debd7931eecae08c708201b8d53"
+    }
+  ],
+  "independently_deduced_facts": [
+    "Actual hook contact submits damage_type=grapple with real hook_direction via Damageable; new generic _accepted_hit receives this and inserts ordinary stun+knockback.",
+    "Old moving hook contract intentionally drives real EnemyActor/AI/Motor after each player step and requires its full natural travel while hook relative-space transition succeeds. It must not be replaced by a static/frozen enemy.",
+    "Explicit weapon skill applies authored stagger/force in on_committed, after generic damaged callback. Generic _damage_stun_remaining has higher tick priority than explicit _stagger_remaining, potentially extending authored skill stun and competing for motor knockback ownership.",
+    "The shadow_shuriken budget fixture has no enemy or DamagePolicy at all, so that single failure has no demonstrated ordinary-hurt cause."
+  ],
+  "required_rework": [
+    "Preserve original moving-hook and action-budget assertions. Route actual grapple/special-skill context so their existing motion owners remain authoritative, while actual accepted hurt audio/flash/body pose can still play.",
+    "Add explicit real producer special-skill field if needed; do not infer from arbitrary UI labels or callback names.",
+    "Ordinary projectiles must retain new bounded knockback, support guard and exact-once audio.",
+    "Separate shadow_shuriken investigation: actual accepted packet/event/TTL/rate evidence, baseline comparison if necessary; no expected distance/threshold reduction."
+  ],
+  "limits": [
+    "Reviewer did not run additional native/GPU concurrently",
+    "Skill duration conflict is source-based candidate, not yet separately runtime reproduced",
+    "Current surface/gear movies remain valid L bounded samples, not proof of all action consumers or future repaired source"
+  ]
+}

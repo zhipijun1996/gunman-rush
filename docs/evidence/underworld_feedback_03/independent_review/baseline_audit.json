@@ -1,0 +1,243 @@
+{
+  "schema": 1,
+  "reviewer": "/root/r3_review",
+  "independent_of_implementation": true,
+  "reviewed_baseline": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+  "method": "AGENTS and gameplay-reviewer read; static actual consumer audit. No Godot/GPU/movie executed. Implementation source is mutable and not accepted.",
+  "findings": [
+    {
+      "id": "R3-IR-01",
+      "code": "direction_loss",
+      "severity": "high",
+      "baseline_source": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+      "source": "scripts/damage/frame_damage_policy.gd:bind_damageable; scripts/damage/demo_contact_emitter.gd:_physics_process",
+      "static_observation": "Player projectile context hit_direction is not copied into DamageRequest and contact requests lack a direction.",
+      "minimal_counterexample": "Commit one real left and one real right hit. Assert response is opposite incoming direction and no second move_and_slide occurs.",
+      "owner": "damage",
+      "status": "unverified_runtime",
+      "evidence_kind": "baseline_source_read"
+    },
+    {
+      "id": "R3-IR-02",
+      "code": "hidden_feedback_audio",
+      "severity": "medium",
+      "baseline_source": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+      "source": "scripts/demo/demo_app.gd:start_plains; scripts/art/player_feedback.gd:_health_changed",
+      "static_observation": "Formal Underworld hides PlayerFeedback without disabling its accepted Health audio subscriptions.",
+      "minimal_counterexample": "One accepted hit must generate exactly one hurt audio cue, no cue for denied duplicate/i-frame/stale epoch.",
+      "owner": "damage",
+      "status": "unverified_runtime",
+      "evidence_kind": "baseline_source_read"
+    },
+    {
+      "id": "R3-IR-03",
+      "code": "instant_environment_feedback",
+      "severity": "high",
+      "baseline_source": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+      "source": "scripts/damage/frame_damage_policy.gd:resolve_batch; scripts/damage/segment_respawn.gd:return_to_anchor",
+      "static_observation": "Environment Health change and SegmentRespawn occur in one batch before next render. A health-only local effect may render at the restored anchor or be cleared immediately.",
+      "minimal_counterexample": "Record actual hazard contact, exit at hazard, epoch invalidation, spawn entry/recovery, pause/reload transitions; no delayed duplicate HP or grants.",
+      "owner": "damage",
+      "status": "unverified_runtime",
+      "evidence_kind": "baseline_source_read"
+    },
+    {
+      "id": "R3-IR-04",
+      "code": "boss_attack_window",
+      "severity": "high",
+      "baseline_source": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+      "source": "scripts/bosses/windkeeper_damageable.gd:receive_damage/receive_core",
+      "static_observation": "Body rejects every hit; bell damage additionally requires core_open and direction acceptance.",
+      "minimal_counterexample": "Real player swept projectile must deal damage during all active attack/telegraph/recovery modes; intro/dead/outside arena and stale shots must reject.",
+      "owner": "boss",
+      "status": "unverified_runtime",
+      "evidence_kind": "baseline_source_read"
+    },
+    {
+      "id": "R3-IR-05",
+      "code": "boss_contact_dimensions",
+      "severity": "high",
+      "baseline_source": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+      "source": "scripts/demo/demo_app.gd:_load_stage/_physics_process",
+      "static_observation": "Bellstrider contact emitter uses fixed half_size 25x27 rather than the authoritative encounter body bounds. Windkeeper clamps to 72x62.",
+      "minimal_counterexample": "Traverse left/right/top/bottom actual body and just-outside; moving body sweep, phase transition, death, pause, reload; compare accepted contact to true shape.",
+      "owner": "boss",
+      "status": "unverified_runtime",
+      "evidence_kind": "baseline_source_read"
+    },
+    {
+      "id": "R3-IR-06",
+      "code": "shortcut_parallel_path",
+      "severity": "high",
+      "baseline_source": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+      "source": "scripts/demo/demo_app.gd:_region_interact; scripts/generation/plains_region_assembler.gd:open_shortcut",
+      "static_observation": "Backside shortcut opens through W/interact proximity, outside ShotLatch path.",
+      "minimal_counterexample": "W/contact cannot open. A real current player projectile from valid side can; wrong side/enemy/stale/occluded hit cannot. Persistent opened ledger and real collision must survive reload.",
+      "owner": "objects/root",
+      "status": "unverified_runtime",
+      "evidence_kind": "baseline_source_read"
+    },
+    {
+      "id": "R3-IR-07",
+      "code": "claimed_chest_pose",
+      "severity": "medium",
+      "baseline_source": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+      "source": "scripts/demo/plains_region_stage.gd:_ready/capture_state",
+      "static_observation": "Claimed chests retain closed PNG and only lower alpha to .35; reload installs same closed art.",
+      "minimal_counterexample": "Actual successful claim gives opaque open lid state; cancel/denied claim stays closed. Reload retains open pose without repeating reward.",
+      "owner": "objects",
+      "status": "unverified_runtime",
+      "evidence_kind": "baseline_source_read"
+    },
+    {
+      "id": "R3-IR-08",
+      "code": "home_vertical_interaction",
+      "severity": "high",
+      "baseline_source": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+      "source": "scripts/demo/home_scene.gd:nearest_candidate/_physics_process",
+      "static_observation": "Active NPC distance uses FLOOR_Y-18 for all entries and reserved proximity uses abs(x) only.",
+      "minimal_counterexample": "Different floors sharing x cannot open wrong NPC. Every original four function plus all eight reservations reachable with baseline legal jumps, no granted future abilities.",
+      "owner": "home",
+      "status": "unverified_runtime",
+      "evidence_kind": "baseline_source_read"
+    },
+    {
+      "id": "R3-IR-09",
+      "code": "projectile_hit_vs_acceptance",
+      "severity": "high",
+      "baseline_source": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+      "source": "scripts/combat/player_projectile.gd:advance; scripts/enemies/enemy_attack_projectile.gd:_physics_process; scripts/bosses/boss_projectile.gd:advance",
+      "static_observation": "Wall contacts, rejected receivers, and accepted HP changes are distinct; terrain occlusion must keep precedence when adding VFX.",
+      "minimal_counterexample": "Blocked/denied hits may show material impact but never accepted-health blood/sound/energy grant; all hostile projectile subclasses covered, pause/epoch disposal produces no fake explosion.",
+      "owner": "projectiles",
+      "status": "unverified_runtime",
+      "evidence_kind": "baseline_source_read"
+    },
+    {
+      "id": "R3-IR-10",
+      "code": "fall_under_ground_unproven",
+      "severity": "high",
+      "baseline_source": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+      "source": "scripts/demo/demo_app.gd:_physics_process; scripts/generation/plains_region_generator.gd:world_bounds; scripts/generation/plains_ground_supports.gd:plan",
+      "static_observation": "Connected region is generated_plains branch using global assembler bounds.grow(100); fixed y690 is not its consumer. Exact reported false fall source requires runtime geometry and source_id.",
+      "minimal_counterexample": "Legitimate lower floor/one-way/carrier/diagonal landing and leave-upper-room are safe; actual unsupported abyss still returns once. Record policy request source and world support, not camera viewport.",
+      "owner": "damage/root",
+      "status": "unverified_runtime",
+      "evidence_kind": "baseline_source_read"
+    },
+    {
+      "id": "R3-IR-11",
+      "code": "decoration_keepout",
+      "severity": "medium",
+      "baseline_source": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+      "source": "scripts/underworld_plains/underworld_scenery.gd; scripts/demo/plains_region_stage.gd:geometry_changed",
+      "static_observation": "Adding decoration must respect dynamic platforms, hazard edges, gate shot lines, reward markers and legal landing space.",
+      "minimal_counterexample": "Same-seed before/after collision/resource/AI/RNG equality, actual camera samples both maps, no root-floating or foreground occlusion of body/projectile/sole landing.",
+      "owner": "root",
+      "status": "unverified_runtime",
+      "evidence_kind": "baseline_source_read"
+    }
+  ],
+  "coverage_matrix": [
+    {
+      "user_item": 1,
+      "required_outputs": [
+        "player committed hurt audio/flash/pose/knockback",
+        "enemy same responses",
+        "duplicate/stale/iframe reject"
+      ],
+      "status": "unverified"
+    },
+    {
+      "user_item": 2,
+      "required_outputs": [
+        "real lower surfaces safe",
+        "true abyss return once",
+        "global and all local damage source attribution"
+      ],
+      "status": "unverified"
+    },
+    {
+      "user_item": 3,
+      "required_outputs": [
+        "hazard exit/entry sequence",
+        "import/export snapshot mid reaction",
+        "pause/lifetime/reload"
+      ],
+      "status": "unverified"
+    },
+    {
+      "user_item": 4,
+      "required_outputs": [
+        "player/mob/boss projectile visible trails",
+        "accepted and blocked actual impact",
+        "no phantom damage"
+      ],
+      "status": "unverified"
+    },
+    {
+      "user_item": 5,
+      "required_outputs": [
+        "new glyph readable at actual camera",
+        "linked sequence/motion/remote states"
+      ],
+      "status": "unverified"
+    },
+    {
+      "user_item": 6,
+      "required_outputs": [
+        "real shoot-only shortcut both directions",
+        "gate art and boss seal collision/readability"
+      ],
+      "status": "unverified"
+    },
+    {
+      "user_item": 7,
+      "required_outputs": [
+        "open chest live and reload",
+        "cancelled/unpaid/unclaimed closed"
+      ],
+      "status": "unverified"
+    },
+    {
+      "user_item": 8,
+      "required_outputs": [
+        "both maps rooted decor",
+        "dynamic keepout and geometry unchanged"
+      ],
+      "status": "unverified"
+    },
+    {
+      "user_item": 9,
+      "required_outputs": [
+        "Home actual exit silhouette",
+        "ordinary approach/leave/fresh adventure"
+      ],
+      "status": "unverified"
+    },
+    {
+      "user_item": 10,
+      "required_outputs": [
+        "Home 12 multilevel reachable baseline",
+        "correct nearby selection/camera/return"
+      ],
+      "status": "unverified"
+    },
+    {
+      "user_item": 11,
+      "required_outputs": [
+        "both bosses active continuous damage",
+        "ordered readable AI",
+        "actual body collision/all boundaries",
+        "same tick defeat/fatal reward priority"
+      ],
+      "status": "unverified"
+    }
+  ],
+  "limits": [
+    "No actual runtime inspected yet",
+    "No user aesthetic/gamefeel acceptance",
+    "No physical device/performance acceptance",
+    "No full audio track listening"
+  ]
+}

@@ -1,0 +1,189 @@
+{
+  "reviewer": "/root/r3_review",
+  "verdict": "ACCEPT bounded actual L attached-surface animation entry/exit visual sample",
+  "source_commit": "c259f8cf1093102e53a1c34d19936e55f61f2839",
+  "source_before_after_equal": true,
+  "source_files": 1077,
+  "bound_artifact_audit": [
+    {
+      "path": "build/underworld_r3/captures_L/surface_attempt1/audio_measurement.log",
+      "exists": true,
+      "sha_match": true,
+      "bytes_match": true
+    },
+    {
+      "path": "build/underworld_r3/captures_L/surface_attempt1/capture.log",
+      "exists": true,
+      "sha_match": true,
+      "bytes_match": true
+    },
+    {
+      "path": "build/underworld_r3/captures_L/surface_attempt1/encode.log",
+      "exists": true,
+      "sha_match": true,
+      "bytes_match": true
+    },
+    {
+      "path": "build/underworld_r3/captures_L/surface_attempt1/movie.mp4",
+      "exists": true,
+      "sha_match": true,
+      "bytes_match": true
+    },
+    {
+      "path": "build/underworld_r3/captures_L/surface_attempt1/trace.json",
+      "exists": true,
+      "sha_match": true,
+      "bytes_match": true
+    }
+  ],
+  "critical_git_blob_audit": [
+    {
+      "path": "scripts/underworld_plains/underworld_player.gd",
+      "bound_matches_git_blob": true
+    },
+    {
+      "path": "scripts/damage/damage_return_echo.gd",
+      "bound_matches_git_blob": true
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "bound_matches_git_blob": true
+    },
+    {
+      "path": "tests/underworld_plains/capture_revision3_environment.gd",
+      "bound_matches_git_blob": true
+    }
+  ],
+  "actually_opened_full_native_frames": [
+    92,
+    95,
+    96,
+    101,
+    110,
+    116,
+    150
+  ],
+  "actually_viewed_consecutive_raw_crops": {
+    "rows": [
+      94,
+      131
+    ],
+    "count": 38,
+    "crop": [
+      520,
+      330,
+      840,
+      550
+    ],
+    "scale": "1:1, review-only layout; original files untouched"
+  },
+  "actually_viewed_whole_sample_overview": [
+    0,
+    15,
+    30,
+    45,
+    60,
+    75,
+    90,
+    105,
+    120,
+    135,
+    150,
+    165,
+    180,
+    195,
+    209
+  ],
+  "review_layouts": [
+    {
+      "path": "build/underworld_r3/review/surface_L_consecutive_94_131.png",
+      "sha256": "b4842ee6e2bb05bbbccea82585fc53922fde2937cf0c5c4b59ea4efc2c77a091"
+    },
+    {
+      "path": "build/underworld_r3/review/surface_L_full_interval.png",
+      "sha256": "4a1220ce978c81bf9c1fad9533f38c9c282effbb79aa00b5bf619ec68ed8291c"
+    }
+  ],
+  "full_native_viewed_artifacts": [
+    {
+      "path": "build/underworld_r3/captures_L/surface_attempt1/postdraw_frames/frame_0092.png",
+      "sha256": "1a51563d5eb1bedabad668a6c9a21897136e605090894c375ed4d37ab448719d"
+    },
+    {
+      "path": "build/underworld_r3/captures_L/surface_attempt1/postdraw_frames/frame_0095.png",
+      "sha256": "58112551489b6f037435a14748d8668cdb0ea68142778365d9243ac5094015bb"
+    },
+    {
+      "path": "build/underworld_r3/captures_L/surface_attempt1/postdraw_frames/frame_0096.png",
+      "sha256": "b510a158271791e8d0d1114dd33d80e2ed3d7ca05da20260483921daac06b3e9"
+    },
+    {
+      "path": "build/underworld_r3/captures_L/surface_attempt1/postdraw_frames/frame_0101.png",
+      "sha256": "5393cb29b5832e9f55a7ca7c2f0855e38f58fc316bfc488467fe97b3c91dbe84"
+    },
+    {
+      "path": "build/underworld_r3/captures_L/surface_attempt1/postdraw_frames/frame_0110.png",
+      "sha256": "df2493e75051170ea515068ea34bd91fbc22181611cbcb26cdef8b0ed752eb9d"
+    },
+    {
+      "path": "build/underworld_r3/captures_L/surface_attempt1/postdraw_frames/frame_0116.png",
+      "sha256": "1e3b6b19c8eaf52a90509b5657b158f18ff83d76ac445970fbad69cf63e82b5d"
+    },
+    {
+      "path": "build/underworld_r3/captures_L/surface_attempt1/postdraw_frames/frame_0150.png",
+      "sha256": "08c2308ec2a55822632da35c0a32a0e42844aacd0d9523fbb0dca620a7fc0640"
+    }
+  ],
+  "observations": [
+    "Actual authored platform thorns visually root into terrain, not an extra floating object.",
+    "Row95 visible running body approaches real thorn edge; row96 HP5→4 and source residual at actual world hit while safe body begins faint/red hurt pose.",
+    "Rows96–109 show distinct old source echo and safe body fade; generated hurt frame0 then1; no world-spanning particle streak from teleport.",
+    "Rows115+ body returns to idle while bounded invulnerability flash continues; row150 clear opaque ordinary idle.",
+    "Exactly one accepted environment damage/return, no duplicate HP/entry/exit; 210rows original trace and two native D Input events.",
+    "Native viewport shows actual floor/support and HUD; fixture initialization explicitly places on existing stage anchor, not a natural route from entrance."
+  ],
+  "actual_health_commits": [
+    {
+      "amount_applied": -1.0,
+      "engine_drawn_frame": 133,
+      "event_id": "generated_spikes_6:3:1:1",
+      "health": 4.0,
+      "old_hit_position": [
+        4568.30908203125,
+        1209.92529296875
+      ],
+      "physics_tick": 134,
+      "terminal": false,
+      "trace_row": 96
+    }
+  ],
+  "actual_segment_returns": [
+    {
+      "hurt_remaining": 0.32,
+      "physics_tick": 134,
+      "return_fade": 0.24,
+      "safe_entry_position": [
+        4200.0,
+        1210.0
+      ],
+      "trace_row": 96
+    }
+  ],
+  "media_measurement": {
+    "mp4_seconds": 4.2,
+    "mp4_frames": 252,
+    "trace_rows": 210,
+    "checks": 225,
+    "failures": [],
+    "audio_nonzero_rms_db": [
+      "-36.491733"
+    ],
+    "software_wall_seconds": 105.64606865500173
+  },
+  "limits": [
+    "Did not play whole movie in realtime or listen to sound track",
+    "Consecutive image/crop review is frame-level visual evidence, not physical normal-speed gamefeel",
+    "Not full natural region route or every hazard face",
+    "No device/performance/user final acceptance"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "source": "9402bf92fa9be16b10d401db5e02b5c63124ff3c",
+  "status": "ACCEPT bounded static readiness repair and continuous HUD routing; current native P pixels pending",
+  "runtime_paths_changed_since_N": [
+    "scripts/ui/windkeeper_hud.gd"
+  ],
+  "producer_condition": "actual ready assembled expectedmap AND !app._stage_pending AND actual BossSeal AND BossContact.parent==actualnewBoss",
+  "minimal_counterexample_closed": "Even directmap2 synchronous stage assembly cannot satisfy actual newly-bound seal/contact at pre-await midpoint; old contact parent cannot equal newboss. Pendingfalse marks App end after allrealbindings.",
+  "HUD_review": [
+    "Legacy text/core hints/phase arrow remain in original branch.",
+    "Continuous intro prepare, damage neutralHIT, phases landing/dodge&attack directions remove former weakpointdownarrow.",
+    "Protectedshield continuous reads actual accepts_combat_damage; old core_open preserved for legacy.",
+    "Shownstate active&&!terminal implies accepts iff notintro, so KEEPATTACKING text agrees with policy boundary."
+  ],
+  "native_scope": "No P media yet actually reviewed; N environmental films remain explicitly N."
+}

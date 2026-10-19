@@ -1,0 +1,34 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: Actual keyboard/Motor reaches relics
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/underworld_plains/test_underworld_home_terraces.gd:13)
+       [1] run (res://tests/underworld_plains/test_underworld_home_terraces.gd:64)
+       [2] reach (res://tests/underworld_plains/home_terrace_driver.gd:84)
+       [3] drop_to_floor (res://tests/underworld_plains/home_terrace_driver.gd:57)
+       [4] frames (res://tests/underworld_plains/home_terrace_driver.gd:28)
+ERROR: Feet rest on correct actual tier relics
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/underworld_plains/test_underworld_home_terraces.gd:13)
+       [1] run (res://tests/underworld_plains/test_underworld_home_terraces.gd:66)
+       [2] reach (res://tests/underworld_plains/home_terrace_driver.gd:84)
+       [3] drop_to_floor (res://tests/underworld_plains/home_terrace_driver.gd:57)
+       [4] frames (res://tests/underworld_plains/home_terrace_driver.gd:28)
+ERROR: Reserved status matches actual tier relics
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/underworld_plains/test_underworld_home_terraces.gd:13)
+       [1] run (res://tests/underworld_plains/test_underworld_home_terraces.gd:92)
+       [2] frames (res://tests/underworld_plains/home_terrace_driver.gd:28)
+PLAINS REGION: family=crossroads areas=20 fallback=
+TERRAIN STUDY: solids=81 pieces=274 setup_ms=77
+ERROR: No hidden driver reachability failures
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/underworld_plains/test_underworld_home_terraces.gd:13)
+       [1] run (res://tests/underworld_plains/test_underworld_home_terraces.gd:136)
+       [2] frames (res://tests/underworld_plains/test_underworld_home_terraces.gd:15)
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/PlayableDemo/@Node@2","played":{"click":4,"confirm":1,"death":1,"jump":2,"land":8,"step":27},"service":"GameAudio"}],"released":true,"seconds":0.084}
+UNDERWORLD HOME TERRACES: 145 assertions, 4 failures

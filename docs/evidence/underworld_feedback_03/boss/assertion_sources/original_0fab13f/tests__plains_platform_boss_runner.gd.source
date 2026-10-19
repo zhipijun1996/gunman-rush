@@ -1,0 +1,90 @@
+extends SceneTree
+## Isolated phase-entry fixtures; real shots and real platform jumps thereafter.
+var assertions:=0
+var failures:=0
+var world:Node2D
+var trace:Variant
+var boss:Node2D
+var e:WindkeeperEncounter
+func _initialize()->void:run.call_deferred()
+func check(ok:bool,message:String)->void:
+	assertions+=1
+	if not ok:failures+=1;printerr("FAIL: "+message)
+func shot()->void:
+	var target:Vector2=boss.position+e.core_offset()
+	trace.controller.router.request_action(&"shoot_release",(target-trace.motor.position).normalized())
+	await trace.tick(32)
+func set_phase(phase:int,mode:StringName)->void:
+	var target_hp:float=36 if phase==1 else 24 if phase==2 else 12
+	if e.health.current>target_hp:e.health.apply_damage(ActorResourceRequest.new(StringName("phase-entry-%s"%phase),e.health.epoch,e.health.current-target_hp,e.health.get_instance_id()))
+	e.stage_phase=phase;e._enter(mode,15);e.physics_tick(1.0/60)
+func run()->void:
+	trace=load("res://tests/plains_region_trace.gd").new();trace.tree=self;trace.check=check
+	trace.world=Node2D.new();root.add_child(trace.world);world=trace.world
+	trace.stage=PlainsRegionAssembler.new();world.add_child(trace.stage)
+	var module:=PlatformingModule.new();module.definition=preload("res://resources/generation/modules/plains_boss_arena.tres");trace.stage.add_child(module);trace.stage.modules.append(module)
+	trace.motor=preload("res://scenes/player/player.tscn").instantiate();trace.motor.position=Vector2(400,582);world.add_child(trace.motor);trace.controller=trace.motor.get_node("Controller");trace.controller.enable_shot_energy();trace.controller.set_physics_process(false);trace.motor.get_node("KeyboardMouseAdapter").set_process_unhandled_input(false)
+	trace.previous_body=Rect2(trace.motor.position-Vector2(12,18),Vector2(24,36))
+	boss=preload("res://scenes/bosses/windkeeper.tscn").instantiate();e=boss.get_node("Encounter");e.definition=preload("res://resources/bosses/windkeeper_storm.tres");boss.position=Vector2(650,535);world.add_child(boss);e.set_physics_process(false);e.configure_arena(255,1000,trace.motor);e.activate()
+	var policy:=FrameDamagePolicy.new();policy.lifetime=trace.lifetime;world.add_child(policy);policy.register_target(&"player",trace.controller.actor_resources.health,true)
+	var segment:=SegmentRespawn.new();segment.configure(trace.controller,trace.lifetime)
+	e.bind_stage_geometry(module,trace.controller,policy,trace.lifetime,segment)
+	await trace.tick(4)
+	set_phase(1,&"neck");await trace.tick(2);var hp:float=e.health.current
+	check(trace.motor.is_on_floor(),"fixture starts on actual floor")
+	await shot();check(e.health.current==hp-1,"phase I actual ground projectile damages painted neck bell")
+	set_phase(2,&"back");await trace.tick(2);hp=e.health.current
+	await shot();check(e.health.current==hp,"phase II actual ground-side shot rejected")
+	var driver=load("res://tests/branch_module_driver.gd").new();driver.module=module;driver.motor=trace.motor;driver.controller=trace.controller;driver.tick_callback=trace.tick;driver.check=check
+	await driver.move_to(350);check(await driver.jump_to(Vector2(420,452)),"actual base jump climbs first shelf")
+	check(await driver.jump_to(Vector2(640,452)),"actual jump transfers to middle shelf")
+	await driver.move_to(boss.position.x+e.core_offset().x)
+	await shot();check(e.health.current==hp-1,"phase II actual upper shelf shot reaches bell aperture")
+	await driver.land()
+	await driver.move_to(565)
+	set_phase(3,&"pier_open");e.chase_segment=1;await trace.tick(2);hp=e.health.current
+	await shot();check(e.health.current==hp,"phase III standing shot rejected even on elevated shelf")
+	# Move within this shelf, then truly jump above the painted top cup.
+	await driver.move_to(565)
+	trace.controller.router.request_action(&"jump");await trace.tick(15)
+	check(not trace.motor.is_on_floor(),"phase III firing actor physically airborne")
+	await shot();check(e.health.current==hp-1,"phase III actual airborne downward shot commits damage")
+	trace.controller.router.request_action(&"jump_release");await driver.land()
+	# Snapshot proof: suspend only a newly fired projectile, while the real Motor lands.
+	await driver.move_to(565)
+	trace.controller.router.request_action(&"jump");await trace.tick(15)
+	hp=e.health.current
+	trace.controller.router.request_action(&"shoot_release",(boss.position+e.core_offset()-trace.motor.position).normalized())
+	await trace.tick(1)
+	var projectiles:Array[PlayerProjectile]=trace.controller.shoot_ability.get_projectiles()
+	check(projectiles.size()==1,"snapshot fixture owns actual accepted shot")
+	var bullet:PlayerProjectile=projectiles[0]
+	bullet.set_physics_process(false)
+	var sid:int=bullet.shot_id
+	check(e._rune_shots.has("%s:%s"%[trace.controller.session_id,sid]),"actual airborne shot receives previously landed current shelf qualification")
+	trace.controller.router.request_action(&"jump_release");await driver.land()
+	check(trace.motor.is_on_floor(),"real Motor has landed before delayed projectile contact")
+	bullet.advance(.1);await trace.tick(2)
+	check(e.health.current==hp-1,"accepted airborne pose remains valid when actual shot contacts after landing")
+	print("SNAPSHOT HP=",e.health.current," rune=",e.rune_platform," grounded=",trace.motor.is_on_floor())
+	# Isolated history-container fixture after real movement assertions.
+	e.rune_platform=e.chase_segment
+	for serial:int in 50:e.register_rune_shot(trace.controller.session_id,1000+serial)
+	check(e._rune_shots.size()==32,"rune qualification history bounded at 32")
+	var snapshot:Dictionary=e.combat_snapshot()
+	e.restore_combat_state(snapshot)
+	check(e._rune_shots.is_empty(),"restore keeps no previous shot qualifications")
+	e.register_rune_shot(trace.controller.session_id,2000)
+	e.cancel_pending_attacks()
+	check(e._rune_shots.is_empty(),"segment cancellation clears previous shot qualifications")
+	check(trace.safe_trace and trace.continuous_trace,"legal attacks use continuous input-only motion")
+	# Same fixed shelf cannot cover other piers within the narrow cone at base jump height.
+	var env:Dictionary=MovementCapabilityEnvelope.snapshot(PlayerTuning.load_default())
+	var highest:Vector2=Vector2(640,452-env.held_jump_height-8)
+	var can:Array=[]
+	for pier:float in [350,640,870]:
+		var core:Vector2=Vector2(pier+84,395)
+		can.append((core-highest).normalized().y>=e.definition.final_upper_core_dot)
+	check(can.count(true)<=1,"one stationary base-jump perch cannot aim into all three top apertures")
+	world.free()
+	print("PLAINS PLATFORM BOSS: %s assertions, %s failures"%[assertions,failures]);quit(1 if failures else 0)

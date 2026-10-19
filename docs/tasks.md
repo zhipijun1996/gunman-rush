@@ -4,7 +4,7 @@
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
-| UNDERWORLD-FEEDBACK-03 | 受伤/坠落、弹体、机关宝箱、家园多层与Boss连续战斗返工 | UNDERWORLD-PLAINS-01 | in_progress | 用户十一项新反馈，原伤害/物理/资源/交易底线保留；真实消费者与正反例验证 |
+| UNDERWORLD-FEEDBACK-03 | 受伤/坠落、弹体、机关宝箱、家园多层与Boss连续战斗返工 | UNDERWORLD-PLAINS-01 | review | [十一项结果与六影片](evidence/underworld_feedback_03/README.md)；P build74431d31fbfd，17专项fresh通过；完整CI泄漏/超时仍失败，听音/设备/玩家手感未验 |
 | UNDERWORLD-PLAINS-01 | Underworld正式平原、玩家动作/机关/商人、家园与UI及Tile生产流程 | WINDCHIME-FIVE-STYLE-01 | review | 六项返工G/build6b3093b929c0已上线，专项12/12、实际输入及限定独审通过；HomeUI退出泄漏/地图间歇失败与用户设备验收保留 |
 | WINDCHIME-FIVE-STYLE-01 | 五锚点与Underworld/Cavern三地区实机比较 | WINDCHIME-PIXEL-01 | review | Web d2d469f81582/source32200d0；17215/0+1706/0、20主路/80上层、45实机/图集与独审；森林/工城独立新景层，主体材料/商业/用户/设备仍未签 |
 | WINDCHIME-PIXEL-01 | 新像素风格重制正式平原两图、三层独立视差 | WINDCHIME-STYLE-01 | review | 已部署d2c684ef8fc0/source c0f8e50；全体表现迁移、简洁纹理、动态支撑装饰与三图视差；冻结技术/有限GUI通过，整区审美/全警示/设备未签 |

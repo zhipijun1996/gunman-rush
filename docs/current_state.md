@@ -1,6 +1,16 @@
-# 最新：十一项战斗与场景反馈实施中
+# 最新：十一项返工已部署，待试玩审阅
 
-任务UNDERWORLD-FEEDBACK-03，分支feature/underworld-combat-world-feedback，基线0fab13f。最新用户授权受击音效/闪烁/hurt/击退、修复跨层坠落、环境伤害进出过渡、远程特效、风铃/攻击开门/开箱、装饰增补、多层家园与清楚出村入口、Boss全活动战斗可伤及接触判定。见[本轮规格](evidence/underworld_feedback_03/spec.md)。本轮代码未冻结、尚未发布；下方build6b3093b929c0是R2对照，不包含本轮修改。原失败不抹去。
+任务 **UNDERWORLD-FEEDBACK-03** 保持 **review**，分支 `feature/underworld-combat-world-feedback`，未合 main。准确游戏源 P `9402bf92fa9be16b10d401db5e02b5c63124ff3c`，Web build **74431d31fbfd**；[直接试玩](https://zhipijun1996.github.io/gunman-rush/?v=74431d31fbfd)，标题进入平原或家园。[十一项结果、六段实机影片与总览](evidence/underworld_feedback_03/README.md)、[Harness/八份Skills经验](underworld_feedback_r3.md)。Q `3e5b19408829dc915912e964d5df511893491918` 只优化真实交战录制驾驶器，1885项游戏运行树与P相同，P/Q原媒体源标签保留。
+
+已接入双方真实受伤音画与击退、合法下层落地修复、荆棘/齿轮进出过渡、双方弹体与命中特效、铜牌风铃、攻击开捷径与同族门、真开盖箱、小型装饰、多层12站家园及明显东侧出村；两Boss活动战斗持续可伤，有规律预告/行动/收招与独立接触底盘，HUD同步。16区共用画法与接口，各自色域/材料/生态，本轮未开放其他地区。
+
+P冻结源17项串行fresh **17/17通过**（554.538秒，无缓存），包括core5680、20正式地图40374、伤害317、原15武器2450、对象83、Home180、Boss100+16+44及两完整正式战斗。六段MovieMaker与源绑定已保留：P家园52.8秒/12站/102实际输入，Q双方交战/两Boss/荆棘/齿轮。初始定位与经济fixture明确标注，不冒充自然全地图通关。新公开PCK140212588bytes、SHA74431d31fbfd2a2efb2cc0d85d8de47f1580159cda6d26a2ea4309888510e091；Pages39297048564/1成功，准确源P。公开Chromium9/9既有操作守门通过，捕获HTTP失败0、列定Godot/脚本错误0，但原console保留1条URL未知的generic404；未归因，不推定favicon。真实露台升级面板与独立D/A输入已验，不等于自然整图路线。
+
+**完整CI未绿：** P `39296218971` core9项后generated-consumers子项23180/0但退出4对象/2资源严格失败；web13项后level-design-contracts超时，子项断言数未知，后续未运行不算通过。原HomeUI27条业务通过但335对象/204资源也严格失败；N场景身份一次退出泄漏后单次隔离和P新鲜通过，原失败保留、根因未证。不是完整85项通过。完整听音、实体设备/性能、Boss所有招式/最差seed自然路线、用户最终审美/贪刀手感未验，不标done。
+
+下一步依据实际试玩调整反馈与战斗节奏，并独立定位上述生命周期和完整合同超时；保留原断言与严格退出守门。可复验 `python3 tools/harness.py --check underworld-damage-feedback --check underworld-projectile-vfx --check underworld-world-objects --check underworld-continuous-bosses --check underworld-home --release --jobs 1`。本轮交付证据/文档提交不冒称新导出。
+
+以下为历史，不覆盖本节。
 
 ---
 

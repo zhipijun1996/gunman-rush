@@ -1,0 +1,15 @@
+{
+  "status": "REJECT producer readiness initial O diff; production not implicated",
+  "producer_sha256": "08bbca34523ba82885fea535c6d554a87a1617bd3071764fc244d9456a445483",
+  "minimal_counterexample": {
+    "case": "focus=windkeeper map2",
+    "steps": [
+      "Direct app._load_stage() creates/add_child actualmap2, completes stage.ready/assembly, then awaits physics_frame at DemoApp385.",
+      "wait_for_formal_map checks loaded/map_index/ready/assembly immediately before its first await, so all checks already true and returns.",
+      "Fixture places player in boss arena and subscribes, but next physics resumes _load_stage: activates entry spawn then binds real enemies/Boss and creates seal.",
+      "Thus initial fixture position can be overwritten and readiness claim precedes actual App consumers."
+    ]
+  },
+  "fix_scope": "Producer only: observe actual App completion/bound consumers or cross initial physics/postdraw boundary then check; no delays in gameplay logic.",
+  "verification_boundary": "Static call-order counterexample; reviewer did not run concurrent engine/GPU."
+}

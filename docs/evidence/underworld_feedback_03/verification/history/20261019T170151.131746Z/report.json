@@ -1,0 +1,693 @@
+{
+  "schema_version": 1,
+  "started_at": "20261019T170151.131746Z",
+  "profiles": [
+    "docs",
+    "art",
+    "gameplay",
+    "web"
+  ],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "docs",
+      "argv": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "a9ceb200e37c6c3436ca77525bf903406cd816667ae3954fd35b1574c2e96962",
+      "log": "docs.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429322.1460416,
+      "ended_at_unix": 1792429322.7110243,
+      "duration_seconds": 0.565,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/docs",
+      "reused": false
+    },
+    {
+      "id": "world",
+      "argv": [
+        "python3",
+        "tools/check_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "76339a5fe52f7359ed6200dfdc840508d930de37a7892a1686536726b8d3e864",
+      "log": "world.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429329.355747,
+      "ended_at_unix": 1792429329.715947,
+      "duration_seconds": 0.36,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/world",
+      "reused": false
+    },
+    {
+      "id": "world-design-tests",
+      "argv": [
+        "python3",
+        "tests/test_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "3a7d7e2fc90f0ef7c334c51d785308c0878675e91a1f0c47e50be989276531a2",
+      "log": "world-design-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429336.2454298,
+      "ended_at_unix": 1792429336.680785,
+      "duration_seconds": 0.435,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/world-design-tests",
+      "reused": false
+    },
+    {
+      "id": "structure",
+      "argv": [
+        "python3",
+        "tools/check_project.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "32e167cbcefe56749b3299a235c131e1cec3c56982533a2a130959e1b36f2a88",
+      "log": "structure.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429343.3744125,
+      "ended_at_unix": 1792429343.688548,
+      "duration_seconds": 0.314,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/structure",
+      "reused": false
+    },
+    {
+      "id": "harness-tests",
+      "argv": [
+        "python3",
+        "tests/test_harness.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "0efd2cf6af8e6d62ea2ec0bd40737842821ffc60fbf0b0d3597b7621856fd9df",
+      "log": "harness-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429351.9994593,
+      "ended_at_unix": 1792429362.284423,
+      "duration_seconds": 10.285,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/harness-tests",
+      "reused": false
+    },
+    {
+      "id": "quality-drills",
+      "argv": [
+        "python3",
+        "tools/quality_drills.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "69935b7bec5702e2bf3307397fd094e270e39b862757296b86236b6b800ffe22",
+      "log": "quality-drills.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429373.1654584,
+      "ended_at_unix": 1792429373.480947,
+      "duration_seconds": 0.315,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/quality-drills",
+      "reused": false
+    },
+    {
+      "id": "quality-tests",
+      "argv": [
+        "python3",
+        "tests/test_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "18d23a77347c22c930a9694875c8117e57970ad61151a2ecc4212a5adb351533",
+      "log": "quality-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429380.575996,
+      "ended_at_unix": 1792429381.504692,
+      "duration_seconds": 0.929,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/quality-tests",
+      "reused": false
+    },
+    {
+      "id": "quality",
+      "argv": [
+        "python3",
+        "tools/check_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "dec5c7713ffe8ef63671f1ddc181e52f3890a468bb84940e958fd8f5c5fb1f6f",
+      "log": "quality.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429390.4847848,
+      "ended_at_unix": 1792429391.983821,
+      "duration_seconds": 1.499,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/quality",
+      "reused": false
+    },
+    {
+      "id": "production-loop-tests",
+      "argv": [
+        "python3",
+        "tests/test_production_loop.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "4830520dfe6c08d5c054d0a63b2ebeb09811173077b91da3ead4058e92b28468",
+      "log": "production-loop-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429400.9351819,
+      "ended_at_unix": 1792429450.1041045,
+      "duration_seconds": 49.169,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/production-loop-tests",
+      "reused": false
+    },
+    {
+      "id": "terrain-tile-tests",
+      "argv": [
+        "python3",
+        "tests/test_terrain_tiles.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "66c62e6e25535700a0da4f21616159c8b2092989bee02efd618e742e9354da54",
+      "log": "terrain-tile-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429460.3247902,
+      "ended_at_unix": 1792429460.7666728,
+      "duration_seconds": 0.442,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/terrain-tile-tests",
+      "reused": false
+    },
+    {
+      "id": "consumer-coverage-tests",
+      "argv": [
+        "python3",
+        "tests/test_consumer_coverage.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "0a1a4eeae6c982b7edc69e8557a2d6300b71f61a6f8aa71a23f5cf8357baba99",
+      "log": "consumer-coverage-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429468.0847702,
+      "ended_at_unix": 1792429468.4988244,
+      "duration_seconds": 0.414,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/consumer-coverage-tests",
+      "reused": false
+    },
+    {
+      "id": "capture-tests",
+      "argv": [
+        "python3",
+        "tests/test_capture_actions.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "2dbba27cc67743acbe7857ecb9d23a489df3683d90768e2c80a636fa47927be0",
+      "log": "capture-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429479.2503247,
+      "ended_at_unix": 1792429479.7864783,
+      "duration_seconds": 0.536,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/capture-tests",
+      "reused": false
+    },
+    {
+      "id": "level-design-contracts",
+      "argv": [
+        "python3",
+        "tests/test_level_design_contracts.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "2eaccaf85641397b952f9fad4ecedcb2d46b8e97bbcfdc1c82df548844e6e8a2",
+      "log": "level-design-contracts.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429487.8668036,
+      "ended_at_unix": 1792429541.0689268,
+      "duration_seconds": 53.202,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/level-design-contracts",
+      "reused": false
+    },
+    {
+      "id": "level-design-analysis",
+      "argv": [
+        "python3",
+        "tests/test_level_design_analysis.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "9fcd334d5480e4a60d22d51b443b522000e05d248eda4b55596c6a85e11a861a",
+      "log": "level-design-analysis.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429548.312485,
+      "ended_at_unix": 1792429549.0960922,
+      "duration_seconds": 0.784,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/level-design-analysis",
+      "reused": false
+    },
+    {
+      "id": "level-design-routing",
+      "argv": [
+        "python3",
+        "tests/test_level_design_routing.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "036c908a8a301a14910818e384d22ed76d455a104af4604f88acea33a5cc64fe",
+      "log": "level-design-routing.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429556.431745,
+      "ended_at_unix": 1792429557.6724703,
+      "duration_seconds": 1.241,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/level-design-routing",
+      "reused": false
+    },
+    {
+      "id": "level-design-golden-tests",
+      "argv": [
+        "python3",
+        "tests/test_level_design_golden.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "aca5a39ca6ccd363b2a21822b5cf37ce201af7c4fdc3838d38043c245074c518",
+      "log": "level-design-golden-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429566.3234153,
+      "ended_at_unix": 1792429567.201565,
+      "duration_seconds": 0.878,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/level-design-golden-tests",
+      "reused": false
+    },
+    {
+      "id": "level-region-context",
+      "argv": [
+        "python3",
+        "tests/test_level_region_context.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "bd2c986a018fb28f640de25820e717b78a956174b07d713b68140f6a13756679",
+      "log": "level-region-context.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429574.5980341,
+      "ended_at_unix": 1792429575.2907615,
+      "duration_seconds": 0.693,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/level-region-context",
+      "reused": false
+    },
+    {
+      "id": "level-experience",
+      "argv": [
+        "python3",
+        "tests/test_level_experience.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "a8fb763e7de4514126517d6108926a8d703bc1a2a48e582b805ccd1bafa7e9f8",
+      "log": "level-experience.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429582.5555527,
+      "ended_at_unix": 1792429586.012118,
+      "duration_seconds": 3.457,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/level-experience",
+      "reused": false
+    },
+    {
+      "id": "level-formal-receipts",
+      "argv": [
+        "python3",
+        "tests/test_level_formal_receipts.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "b7be7ecc401f6f7ae720a3d3e72e49aa929daec3cd9e7d8ee82f15839dd8cd02",
+      "log": "level-formal-receipts.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429595.0013993,
+      "ended_at_unix": 1792429596.8927827,
+      "duration_seconds": 1.891,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/level-formal-receipts",
+      "reused": false
+    },
+    {
+      "id": "visual-director-tests",
+      "argv": [
+        "python3",
+        "tests/test_visual_director.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "4c666bd2918f2fadd5aa3c2969dbf51a300f306a139e012396f64bedc73925b5",
+      "log": "visual-director-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429605.773476,
+      "ended_at_unix": 1792429615.2181582,
+      "duration_seconds": 9.445,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/visual-director-tests",
+      "reused": false
+    },
+    {
+      "id": "asset-family-tests",
+      "argv": [
+        "python3",
+        "tests/test_asset_family.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "e4aa2acffcb7a4408e92867324d8ab8a02e1c20c8ec1c9e4871b857d4fefcfeb",
+      "log": "asset-family-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429624.1914494,
+      "ended_at_unix": 1792429624.5848038,
+      "duration_seconds": 0.393,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/asset-family-tests",
+      "reused": false
+    },
+    {
+      "id": "underworld-pipeline",
+      "argv": [
+        "python3",
+        "tests/test_underworld_pipeline.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "fa0731c8101991f07e308ce913c57544cd84d48c0a941357a39fd54c234b2e2d",
+      "log": "underworld-pipeline.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429631.5871918,
+      "ended_at_unix": 1792429720.7206883,
+      "duration_seconds": 89.133,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/underworld-pipeline",
+      "reused": false
+    },
+    {
+      "id": "underworld-home-guard-tests",
+      "argv": [
+        "python3",
+        "tests/test_underworld_home_terrace_wrapper.py"
+      ],
+      "timeout_seconds": 90,
+      "input_digest": "dba9bfed62dca293999580f7c822cbd3924b2260a2a6332d9fc1d50067b659a9",
+      "log": "underworld-home-guard-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429731.546877,
+      "ended_at_unix": 1792429732.1060083,
+      "duration_seconds": 0.559,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/underworld-home-guard-tests",
+      "reused": false
+    },
+    {
+      "id": "art-art",
+      "argv": [
+        "python3",
+        "tools/check_art.py"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "a138cd86fffb4358560007db1df4464466d6d5eb50b6e9160d874f66b444346f",
+      "log": "art-art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429740.5014932,
+      "ended_at_unix": 1792429740.9507396,
+      "duration_seconds": 0.449,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/art-art",
+      "reused": false
+    },
+    {
+      "id": "art-painterly_pack",
+      "argv": [
+        "python3",
+        "tools/check_painterly_pack.py"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "77f03ef9d19ad167642b873a9b1f2ce6af74955679a59b0698022ae49e7fee20",
+      "log": "art-painterly_pack.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429749.716355,
+      "ended_at_unix": 1792429750.165946,
+      "duration_seconds": 0.45,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/art-painterly_pack",
+      "reused": false
+    },
+    {
+      "id": "art-plains_v3",
+      "argv": [
+        "python3",
+        "tools/check_plains_v3.py"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "cb69849404899fb90c419475a1533da4b73e9f19f681fdd3f2acf22c097ee305",
+      "log": "art-plains_v3.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429760.0147865,
+      "ended_at_unix": 1792429760.4626703,
+      "duration_seconds": 0.448,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/art-plains_v3",
+      "reused": false
+    },
+    {
+      "id": "art-meadow_enemy_art",
+      "argv": [
+        "python3",
+        "tools/check_meadow_enemy_art.py"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "68a99a2ff0b22ac2919c833d4a8de02ac779998232fd2fa19b619894908cae91",
+      "log": "art-meadow_enemy_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429771.389233,
+      "ended_at_unix": 1792429772.3037648,
+      "duration_seconds": 0.915,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/art-meadow_enemy_art",
+      "reused": false
+    },
+    {
+      "id": "art-plains_ground_art",
+      "argv": [
+        "python3",
+        "tools/check_plains_ground_art.py"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "b327502c1af90e8cb61f46293a6abac0d63847895fdf8dd8a4d75305ec37b718",
+      "log": "art-plains_ground_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429781.7201123,
+      "ended_at_unix": 1792429782.0749397,
+      "duration_seconds": 0.355,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/art-plains_ground_art",
+      "reused": false
+    },
+    {
+      "id": "art-windkeeper_art",
+      "argv": [
+        "python3",
+        "tools/check_windkeeper_art.py"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "be4b97e1a9ebf3a690fd9659928c1525be95850e4787059721cedd6f3ddcb165",
+      "log": "art-windkeeper_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429789.39322,
+      "ended_at_unix": 1792429789.9103556,
+      "duration_seconds": 0.517,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/art-windkeeper_art",
+      "reused": false
+    },
+    {
+      "id": "art-plains_spatial_art",
+      "argv": [
+        "python3",
+        "tools/check_plains_spatial_art.py"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "5e9f50979549c2cadcf54440c4ac1a38663e9811e1ad8e8c1ab13804f081b34f",
+      "log": "art-plains_spatial_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429796.5239193,
+      "ended_at_unix": 1792429797.034736,
+      "duration_seconds": 0.511,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/art-plains_spatial_art",
+      "reused": false
+    },
+    {
+      "id": "art-plains_item_art",
+      "argv": [
+        "python3",
+        "tools/check_plains_item_art.py"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "9eabc9dfedf1a9ff4c993df34fb6f1576ebafaf13ee1c5cb154d964f6cb8ce27",
+      "log": "art-plains_item_art.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429804.8606782,
+      "ended_at_unix": 1792429805.4378872,
+      "duration_seconds": 0.577,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/art-plains_item_art",
+      "reused": false
+    },
+    {
+      "id": "wood-platforms",
+      "argv": [
+        "python3",
+        "tools/run_wood_platform_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "input_digest": "057f32cabc8c6af8dad2909959129c7a013ca4fce38a3a6c230ae9d3843ea029",
+      "log": "wood-platforms.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429813.6690474,
+      "ended_at_unix": 1792429833.729175,
+      "duration_seconds": 20.06,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/wood-platforms",
+      "reused": false
+    },
+    {
+      "id": "actor-actions",
+      "argv": [
+        "python3",
+        "tools/run_actor_action_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "input_digest": "5c4b42c92280eba239666480c2490f0c337c80d12d23d24ddbe1407b1289eb9d",
+      "log": "actor-actions.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429841.1003907,
+      "ended_at_unix": 1792429888.3965418,
+      "duration_seconds": 47.296,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/actor-actions",
+      "reused": false
+    },
+    {
+      "id": "all-weapons",
+      "argv": [
+        "python3",
+        "tools/run_all_weapon_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "input_digest": "280b644cfa4de24ae41db71e8fb8fe1aab80a5d9453d5fc2466ea73f6bbf94f5",
+      "log": "all-weapons.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429903.631398,
+      "ended_at_unix": 1792429963.522752,
+      "duration_seconds": 59.891,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/all-weapons",
+      "reused": false
+    },
+    {
+      "id": "studio-input",
+      "argv": [
+        "python3",
+        "tools/run_studio_input_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "07d937358ca0b30cec1024c6c5726300ea63c334b4191454ed15a75f2612f215",
+      "log": "studio-input.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792429972.2533557,
+      "ended_at_unix": 1792429989.3134265,
+      "duration_seconds": 17.06,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/studio-input",
+      "reused": false
+    },
+    {
+      "id": "weapon-feel",
+      "argv": [
+        "python3",
+        "tools/run_weapon_feel_tests.py"
+      ],
+      "timeout_seconds": 210,
+      "input_digest": "0c87874fa51c1322efe611817c3b3ec4a2e1b54a9b0d132871fde60a124fff40",
+      "log": "weapon-feel.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792430001.6847918,
+      "ended_at_unix": 1792430036.5990021,
+      "duration_seconds": 34.914,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/weapon-feel",
+      "reused": false
+    },
+    {
+      "id": "action-budget",
+      "argv": [
+        "python3",
+        "tools/run_action_budget_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "input_digest": "50bb23f263cfc42e522be4661c21e0b7c89b32c30322404b6745c26a8caff793",
+      "log": "action-budget.log",
+      "status": "failed",
+      "exit_code": 1,
+      "failure_reason": "nonzero_exit",
+      "started_at_unix": 1792430052.288101,
+      "ended_at_unix": 1792430173.6285162,
+      "duration_seconds": 121.34,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T170151.131746Z/artifacts/action-budget",
+      "reused": false
+    }
+  ],
+  "status": "failed",
+  "targeted_checks": false,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "9b1c9e027a03c2ccd0324cfecd0664960e5c2cbe2fda56eb90af9dc86d812552",
+  "working_files": {},
+  "commit": "c259f8cf1093102e53a1c34d19936e55f61f2839",
+  "git_status": "",
+  "diff": "",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 883.936,
+  "jobs": 1,
+  "release": true
+}

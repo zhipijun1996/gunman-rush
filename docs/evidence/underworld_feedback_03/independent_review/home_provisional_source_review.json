@@ -1,0 +1,237 @@
+{
+  "reviewer": "/root/r3_review",
+  "status": "unverified_visual_and_final_source",
+  "source_scope": "Owned Home frozen according to author, shared root checkout mutable; not exact committed whole-product review",
+  "files": [
+    {
+      "path": "scripts/demo/home_scene.gd",
+      "sha256": "ce1da1283860f3d2ee1d33ab50a6b8ba7d6c4c851ddf538045591854eedf897b"
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_home_world.gd",
+      "sha256": "155b2538dc70096f995b9adf043f231d298fb1ab5446077c1c4533fa61b5489a"
+    },
+    {
+      "path": "assets/underworld_plains/home/home_build.json",
+      "sha256": "52640cae9fc275439478285405b509dcb40b55b2e1c7dbcce81a996aff986a35"
+    },
+    {
+      "path": "tests/underworld_plains/home_terrace_driver.gd",
+      "sha256": "f3d7413a1973f28c07df95637dd057b6017b2e1b71c123ba38a5cf13119dfdac"
+    },
+    {
+      "path": "tests/underworld_plains/test_underworld_home_terraces.gd",
+      "sha256": "d9772bc9f014ed054f4ec50cd0c558098d5c26ee70e13596524996db997f1882"
+    },
+    {
+      "path": "tools/run_underworld_home_terrace_tests.py",
+      "sha256": "557135a59652dd7f76ed80aae602a2f3430fa69f33a30f77cae5b206b8ad2bf9"
+    },
+    {
+      "path": "tests/home_ui_tests.gd",
+      "sha256": "37ea852ca11ae6b917ec823e2c8652b7f9895cd1c075d95bdb8128931054a64a"
+    },
+    {
+      "path": "tests/home_app_runner.gd",
+      "sha256": "218720765141c64f6bf60426534ef4d5d2a2e9d9faf4a704fb27687879e80760"
+    }
+  ],
+  "actually_read": [
+    "all Home production diffs",
+    "full native Input driver and new terrace test",
+    "strict wrapper",
+    "old HomeApp/UI test diffs",
+    "raw author receipt 12 visits and 3051 frames/102 Input events"
+  ],
+  "observations": {
+    "all_visits": [
+      {
+        "expected_action": "character",
+        "floor": true,
+        "foot": [
+          300.0,
+          432.0
+        ],
+        "id": "character",
+        "position": [
+          300.666625976562,
+          413.92529296875
+        ],
+        "tick": 57
+      },
+      {
+        "expected_action": "upgrade",
+        "floor": true,
+        "foot": [
+          620.0,
+          336.0
+        ],
+        "id": "upgrade",
+        "position": [
+          621.334838867188,
+          317.995635986328
+        ],
+        "tick": 195
+      },
+      {
+        "expected_action": "achievements",
+        "floor": true,
+        "foot": [
+          920.0,
+          240.0
+        ],
+        "id": "achievements",
+        "position": [
+          920.33740234375,
+          221.925277709961
+        ],
+        "tick": 418
+      },
+      {
+        "expected_action": "",
+        "floor": true,
+        "foot": [
+          1250.0,
+          336.0
+        ],
+        "id": "arms",
+        "position": [
+          1245.333984375,
+          317.92529296875
+        ],
+        "tick": 600
+      },
+      {
+        "expected_action": "",
+        "floor": true,
+        "foot": [
+          1550.0,
+          240.0
+        ],
+        "id": "relics",
+        "position": [
+          1552.9951171875,
+          221.925277709961
+        ],
+        "tick": 822
+      },
+      {
+        "expected_action": "",
+        "floor": true,
+        "foot": [
+          1770.0,
+          432.0
+        ],
+        "id": "herbs",
+        "position": [
+          1773.99096679688,
+          413.92529296875
+        ],
+        "tick": 925
+      },
+      {
+        "expected_action": "",
+        "floor": true,
+        "foot": [
+          1920.0,
+          336.0
+        ],
+        "id": "kitchen",
+        "position": [
+          1921.32153320312,
+          317.995635986328
+        ],
+        "tick": 1020
+      },
+      {
+        "expected_action": "",
+        "floor": true,
+        "foot": [
+          2160.0,
+          240.0
+        ],
+        "id": "courier",
+        "position": [
+          2163.98999023438,
+          221.925277709961
+        ],
+        "tick": 1227
+      },
+      {
+        "expected_action": "",
+        "floor": true,
+        "foot": [
+          2230.0,
+          432.0
+        ],
+        "id": "songs",
+        "position": [
+          2233.32568359375,
+          413.92529296875
+        ],
+        "tick": 1295
+      },
+      {
+        "expected_action": "",
+        "floor": true,
+        "foot": [
+          2460.0,
+          336.0
+        ],
+        "id": "stories",
+        "position": [
+          2463.0009765625,
+          317.995635986328
+        ],
+        "tick": 1409
+      },
+      {
+        "expected_action": "",
+        "floor": true,
+        "foot": [
+          2690.0,
+          432.0
+        ],
+        "id": "garden",
+        "position": [
+          2692.67626953125,
+          413.92529296875
+        ],
+        "tick": 1514
+      },
+      {
+        "expected_action": "departure",
+        "floor": true,
+        "foot": [
+          3070.0,
+          432.0
+        ],
+        "id": "departure",
+        "position": [
+          3074.02392578125,
+          413.92529296875
+        ],
+        "tick": 1615
+      }
+    ],
+    "trace_frames": 3051,
+    "input_events": 102,
+    "HP_values": [
+      5.0
+    ],
+    "max_jumps_used": 1
+  },
+  "conclusions": [
+    "Active and reserved nearby interaction now account for actual vertical tier and require physical floor.",
+    "Native Input driver does not move actor, grant movement abilities or rewrite router TTL. Initial 9 Meta notes explicitly scoped to existing economic fixture, actual purchase deducts 5 once.",
+    "All four business IDs plus eight no-op reservations retained; actual departure to new formal Run and confirmed return exercised by fixture.",
+    "Original HomeApp/UI assertion counts/labels retained but driving and coordinate expressions adapted to authorized new layout; exact original test files separately preserved, not byte-identical current tests."
+  ],
+  "remaining": [
+    "Reviewer did not independently run native yet",
+    "GPU actual original frames and continuous tier/departure motion",
+    "Final exact source-bound pass",
+    "Known standalone HomeUI resource leak remains failed",
+    "User aesthetics/gamefeel and device/performance unverified"
+  ]
+}
