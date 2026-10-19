@@ -66,6 +66,81 @@ def _studio_ready_event(event):
          and isinstance(event.get('position'),list)and len(event['position'])==2
          and isinstance(event.get('detail'),dict))
 
+def _studio_button_boxes(image):
+ """Complete visible rectangular borders, derived only from screenshot pixels."""
+ from PIL import ImageFilter
+ import numpy as np
+ image=image.convert('RGB');width,height=image.size
+ palette=Counter(image.getdata()).most_common(16)
+ background=np.asarray(palette[0][0],dtype=np.float32)
+ values=np.asarray(image,dtype=np.float32)-background
+ boxes=set()
+ for color,_count in palette:
+  direction=np.asarray(color,dtype=np.float32)-background
+  squared=float(np.dot(direction,direction))
+  if not squared:continue
+  # Subpixel UI borders are the observed anchor blended with the observed
+  # panel background. Accept only that color segment (<=3/channel residual),
+  # never a broad color-distance threshold or alterations to OCR source pixels.
+  alpha=np.sum(values*direction,axis=2)/squared
+  residual=np.max(np.abs(values-alpha[:,:,None]*direction),axis=2)
+  coverage=(alpha>=.25)&(alpha<=1)&(residual<=3)
+  mask=Image.fromarray(coverage.astype(np.uint8)*255)
+  # Join only antialiased corner gaps; OCR always uses unaltered source pixels.
+  mask=mask.filter(ImageFilter.MaxFilter(5))
+  pixels={(i%width,i//width)for i,value in enumerate(mask.getdata())if value}
+  while pixels:
+   seed=pixels.pop();pending=[seed];left=right=seed[0];top=bottom=seed[1];count=0
+   while pending:
+    x,y=pending.pop();count+=1
+    left=min(left,x);right=max(right,x);top=min(top,y);bottom=max(bottom,y)
+    for point in ((x-1,y),(x+1,y),(x,y-1),(x,y+1)):
+     if point in pixels:pixels.remove(point);pending.append(point)
+   w=right-left+1;h=bottom-top+1
+   if not(80<=w<=width*.9 and 20<=h<=height*.15 and 2<=w/h<=24 and count/(w*h)<.6):continue
+   # Every complete border must have all four straight central edges. Text
+   # components and partially visible buttons must never define a crop.
+   xs=range(left+w//4,right-w//4+1);ys=range(top+h//4,bottom-h//4+1)
+   edges=([mask.getpixel((x,top))for x in xs],
+          [mask.getpixel((x,bottom))for x in xs],
+          [mask.getpixel((left,y))for y in ys],
+          [mask.getpixel((right,y))for y in ys])
+   if all(sum(bool(value)for value in edge)/len(edge)>=.8 for edge in edges):boxes.add((left,top,right+1,bottom+1))
+ # Refuse complexity rather than truncating candidate geometry and hiding an
+ # ambiguous second button. This cap is not a gameplay assertion/attempt cap.
+ if len(boxes)>32:raise AssertionError('More than 32 complete screenshot button borders')
+ return sorted(boxes)
+
+def _studio_actions_from_pixels(pixels,folder,stem,observation):
+ """OCR every complete button, then require one actual ACTIONS glyph rectangle."""
+ import csv,json,os,subprocess,time
+ image=Image.open(io.BytesIO(pixels)).convert('RGB');started=time.monotonic()
+ boxes=_studio_button_boxes(image);observation['button_geometry_seconds']=time.monotonic()-started
+ observation['button_rois']=[];matches={}
+ for index,box in enumerate(boxes):
+  name=f'{stem}-button-{index}';roi=image.crop(box).convert('L')
+  roi=roi.resize((roi.width*6,roi.height*6),Image.Resampling.LANCZOS)
+  path=folder/(name+'.png');roi.save(path);started=time.monotonic()
+  result=subprocess.run(['tesseract',str(path),'stdout','--psm','7','tsv'],capture_output=True,text=True,check=True,timeout=10,env={**os.environ,'OMP_THREAD_LIMIT':'1'})
+  (folder/(name+'.tsv')).write_text(result.stdout)
+  item={'bounds':box,'screenshot':name+'.png','ocr':name+'.tsv','seconds':time.monotonic()-started}
+  observation['button_rois'].append(item)
+  try:local=_studio_label_box(result.stdout,'ACTIONS',6)
+  except StudioMenuLabelMissing as exc:item.update(result='missing',error=str(exc));continue
+  # Any ambiguity within a complete button is immediately a failure.
+  item['result']='complete_label';point=(local[0]+box[0],local[1]+box[1]);item['point']=point
+  words=[word for word in csv.DictReader(io.StringIO(result.stdout),delimiter='\t')
+         if word.get('text','').strip().upper()=='ACTIONS'
+         and int(word['left'])<=local[0]*6<=int(word['left'])+int(word['width'])
+         and int(word['top'])<=local[1]*6<=int(word['top'])+int(word['height'])]
+  assert len(words)==1,'Complete ACTIONS label has no unique actual glyph bounds'
+  word=words[0];glyph=(box[0]+int(word['left'])/6,box[1]+int(word['top'])/6,
+                     box[0]+(int(word['left'])+int(word['width']))/6,box[1]+(int(word['top'])+int(word['height']))/6)
+  item['actual_glyph_bounds']=glyph;matches[glyph]=point
+ if not matches:raise StudioMenuLabelMissing("Expected one complete rendered menu label 'ACTIONS'; found 0 complete button matches")
+ assert len(matches)==1,f"Expected one complete rendered menu label 'ACTIONS'; found {len(matches)} complete button matches"
+ return next(iter(matches.values()))
+
 async def enter_action_studio(page,touch=False,between_clicks_ms=300):
  """Navigate visible menus with actual pointer input; require a fresh Studio event.
 
@@ -108,14 +183,18 @@ async def enter_action_studio(page,touch=False,between_clicks_ms=300):
   for attempt in range(5):
    stem=f'{name}-{attempt}'
    pixels=await page.screenshot();(folder/(stem+'.png')).write_bytes(pixels)
-   im=Image.open(io.BytesIO(pixels)).convert('L');im=im.resize((im.width*3,im.height*3))
-   data=io.BytesIO();im.save(data,format='PNG')
-   result=subprocess.run(['tesseract','stdin','stdout','--psm','11','tsv'],input=data.getvalue(),capture_output=True,check=True,timeout=10,env={**os.environ,'OMP_THREAD_LIMIT':'1'})
-   tsv=result.stdout.decode();(folder/(stem+'.tsv')).write_text(tsv)
-   observation={'label':label,'attempt':attempt,'screenshot':stem+'.png','ocr':stem+'.tsv'}
+   observation={'label':label,'attempt':attempt,'screenshot':stem+'.png'}
    receipt['observations'].append(observation)
    try:
-    point=_studio_label_box(tsv,label,3)
+    if label=='ACTIONS':
+     point=_studio_actions_from_pixels(pixels,folder,stem,observation)
+    else:
+     im=Image.open(io.BytesIO(pixels)).convert('L');im=im.resize((im.width*3,im.height*3))
+     data=io.BytesIO();im.save(data,format='PNG')
+     result=subprocess.run(['tesseract','stdin','stdout','--psm','11','tsv'],input=data.getvalue(),capture_output=True,check=True,timeout=10,env={**os.environ,'OMP_THREAD_LIMIT':'1'})
+     tsv=result.stdout.decode();(folder/(stem+'.tsv')).write_text(tsv)
+     observation['ocr']=stem+'.tsv'
+     point=_studio_label_box(tsv,label,3)
    except StudioMenuLabelMissing as exc:
     observation['result']='missing';observation['error']=str(exc)
     if attempt==4:raise

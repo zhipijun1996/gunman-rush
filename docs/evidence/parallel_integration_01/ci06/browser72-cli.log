@@ -1,0 +1,10 @@
+{"status": "failed", "source_commit": "afd84ec6fa4ad080abece91c1343838fb759d140", "run_id": 39253468792, "duration_seconds": 56.45849823951721, "error": "verify_action_budget_browser failed; original preserved"}
+Traceback (most recent call last):
+  File "/workspace/gunman-rush-design/tools/verify_ci_artifact_browser.py", line 113, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/workspace/gunman-rush-design/tools/verify_ci_artifact_browser.py", line 93, in main
+    require(result['status'] == 'passed', f'{name} failed; original preserved')
+  File "/workspace/gunman-rush-design/tools/verify_ci_artifact_browser.py", line 13, in require
+    raise ValueError(message)
+ValueError: verify_action_budget_browser failed; original preserved

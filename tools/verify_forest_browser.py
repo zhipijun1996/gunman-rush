@@ -229,7 +229,7 @@ async def verify(url: str, folder: Path, expected_commit: str, expected_build_id
                             await page.wait_for_timeout(300)
                             return
                         raise failure
-                    await click_text("DEVELOPMENT DEMOS","title")
+                    await click_text("DEVELOPMENT DEMOS","title",scroll=True)
                     await click_text("SELECT REGION","home",scroll=True)
                     await click_text(f"{region.upper()} MAP {map_index}","region")
                     await page.wait_for_timeout(900)

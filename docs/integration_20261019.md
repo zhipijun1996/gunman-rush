@@ -77,3 +77,11 @@ d86完整39237985979终态FAIL，未发布。Web/Windows/push docs24通过；两
 最终ready05原connected完整wrapper实际10.505秒通过：23断言/0失败、3株真实植物，完整源码守卫一致。原153检查与四预算/env AST独审保持；review02限定接受，未将分来源terrain/direct/visual/connected拼成最终同源98通过。validation04 ZIP七成员均逐项SHA/bytes/CRC验证。最终冻结源码完整CI、原包72、公开20/8尚待。
 
 输入五分支于12:14 UTC复查保持所列精确head。原第五候选FAIL、所有局部失败和不同source边界均保留。接下来冻结新提交，只用其完整gameplay/art 98项、准确CI Web原包72、Style Lab实际入口和公开GUI20/8及完整PCK判定技术交付；正常原速影片另做同源新片。整体森林体验与真人/设备仍REVISE，不因技术通过升为商业完成。
+
+## 第六候选原包采证失败与停止
+
+精确候选afd84ec6/CI39253468792的Web、Windows与push/PR docs均成功，push原24项333.753秒；准确WebZIP与完整PCK核验通过。原coordinator56.5595秒真实失败于清晰可见ACTIONS被全幅OCR漏掉，72动作断言未开始；root在部署前取消剩余lane，终态cancelled、无完整98收据、不称98通过。准确同包独立Style23原23项实际PASS。候选6原native单路线186.522秒/1769帧60fps/source_stable并完整无损AVI+MP4/原样帧独审通过，仍只签单路线。见[完整失败、局部通过与来源](evidence/parallel_integration_01/ci06/README.md)。
+
+发现新增Lab使DEV在标题页折叠，公网工具尚未实际运行，不能编造公网失败；collector仅改原有限真实scroll启用。完整按钮像素ROI方案在桌面实际通过后，首手机live11因抗锯齿不同边色真实FAIL；中文模型和Nearest重采样诊断未解决，均保留。后续只用真实背景/16实际锚色的alpha混合捕获边框，四边/完整label/全局唯一性/原5观察和各300、公开480预算不降；固定6xLANCZOS重采样需实际双viewport与独审，再冻结新候选。正式游戏/runtime无改动，新源完整CI和准确包72/公开20/8另验，不通过静态反例替代。
+
+第七候选采证修复限定独审已接受：最终c722…完整border/alpha-mask与固定6xLANCZOS下原桌面、原手机PNG正例及四真实像素负例、36候选溢出均正确；live12桌面和844×390手机fresh Studio/一次装备及手机DOM取消后导航实际PASS。原72/公开检查未改断言或预算；这些仅同CI6包dirty工具专项，新source完整验证仍待。见[保留失败与最终有界接受](evidence/parallel_integration_01/collector07/README.md)。

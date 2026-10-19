@@ -1,0 +1,7 @@
+# Candidate6 发布前限定审查
+
+**限定ACCEPT**：`afd84ec6fa4ad080abece91c1343838fb759d140` 与此前legacy02／menu-touch／pixel地标实际受审字节和Git blob绑定一致，工作树clean，本范围未发现新阻断。不是最终同源CI／原72／公网通过。
+
+test-only四legacy fixture的153原检查／profile／完整physics签名保持，分源本机结果不冒最终98。原生菜单43／fallback资源／最终helper正确绑定；FontVariation实际preload既有CJK字体，所有export仍all_resources且未排字体、精确Git含font和adapterUID，tests/*排除保证历史夹具不混成production。新菜单43仅追加到原presentationwrapper，原两child和120秒／注册outer300预算未松。
+
+live gh run39253468792状态及各job原观察存JSON，尚未完成不计PASS。没有运行engine/browser或重复长suite。最终准确CI artifact72、公开20/8及手机字体仍待；设计REVISE／generic美术plannerblocked／真人设备和趣味未验边界保持。只写build。
