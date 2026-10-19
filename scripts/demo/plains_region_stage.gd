@@ -13,6 +13,7 @@ var boss_seal:BossArenaSeal
 
 func _ready() -> void:
 	set_meta("pixel_formal_style",true)
+	set_meta("underworld_formal_style",true)
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 	if region_state == null: region_state = PlainsRegionState.new()
@@ -81,7 +82,7 @@ func _ready() -> void:
 		chest.claimed = region_state.claimed.has(chest.id)
 		chests.append(chest)
 	install_visual_layer(VISUAL_LAYER.new())
-	var scenery:=PixelRegionScenery.new()
+	var scenery:=UnderworldScenery.new()
 	scenery.name = "PixelRegionScenery"
 	scenery.configure(self)
 	add_child(scenery)
@@ -102,16 +103,16 @@ func _ready() -> void:
 			_context_sign(chest.position+Vector2(-95,-80), "CACHE  ·  ↓ + JUMP TO RETURN", 170)
 	for c: Dictionary in chests:
 		var sprite:=Sprite2D.new()
-		sprite.texture=PixelFormalActors.icon_texture(&"chest")
+		sprite.texture=UnderworldActors.icon_texture(&"chest")
 		sprite.scale=Vector2(58,48)/sprite.texture.get_size()
 		sprite.position=c.position+Vector2(0,-3)
 		sprite.modulate=Color("ddb1ff") if c.tier=="high" else Color("ffe7a0") if c.tier=="region_top" else Color.WHITE
 		add_child(sprite)
 		c.sprite=sprite
 	var merchant:=Sprite2D.new()
-	merchant.texture=PixelFormalActors.icon_texture(&"merchant")
-	merchant.scale=Vector2(95,90)/merchant.texture.get_size()
-	merchant.position=merchant_position+Vector2(0,-30)
+	merchant.texture=UnderworldActors.icon_texture(&"merchant")
+	merchant.scale=Vector2(58,76)/merchant.texture.get_size()
+	merchant.position=merchant_position+Vector2(0,-22)
 	add_child(merchant)
 	var map_layer:=CanvasLayer.new()
 	map_layer.layer=1
@@ -129,6 +130,7 @@ func _ready() -> void:
 		scenery.configure(self)
 		scenery.queue_redraw())
 	PixelFormalActors.install(self)
+	UnderworldActors.install(self)
 	queue_redraw()
 
 func _physics_process(delta: float) -> void:

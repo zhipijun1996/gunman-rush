@@ -5,11 +5,11 @@ description: 制作或修改平台模块、连续挑战的物理实现、入口�
 
 # level-module-creator
 
-## 2026-10-19 最新覆盖：美术地基 V1
+## 当前生产入口：平台与危险同材质接口
 
-先读 [美术地基 V1](../../../docs/art_foundation_v1.md)；本节覆盖下文所有历史美术风格、参考母版、视觉目标和冲突的地形制作规则。每张新模块卡先填写 tile_family_ids、tile_size、solid_cells/one_way/moving、ports_and_halo、mechanism_sockets、decoration_keepouts/density_profile、background_profile/visual_role 和 exceptions。先证明平台、墙、障碍及机关挂点可由已登记家族表达，再实现或准入；拼接先合并占用再求 47-mask。solid、单向与移动平台不得混邻接。保留真实 Motor/资源/能力和反向恢复验证，不为 tile 改已验物理。
+先读 [Tile 生产流程](../../../docs/underworld_tile_production.md)，模块卡声明实际 tile 家族、像素/世界尺度、solid/one-way/moving、端口 halo、危险占据的表面区间、装饰 keepout 与例外。平台和刺的**可见材质**共边：尖端、根部与安全边过渡由同一平台表面家族表达，不另垫一块实体或改变可站立边界。伤害 Area/原 hazard 语义保持独立且沿原接触范围；视觉融合不等于把伤害隐藏进无预告安全地面。
 
-首轮基准为 32 世界单位/格、64px 源 tile，参数以实际唯一配置为准。当前范围是新地基与试验场；正式迁移、用户视觉认可与设备验收分别留证，不冒称完整重制。
+先组合世界实体再求邻接；单向/移动平台分家族与参考系。正式非整格地图走精确边界适配而非伪 47TileMap。验证危险边界内外接触、原伤害次数/无敌窗、移动/删除支撑、seed/回程与真实 Motor；额外浮刺、悬空根和被装饰遮住的危险皆为失败。技术正例及故意坏例入口见 `underworld-pipeline`，正式危险行为由运行专项补足。
 
 ## 触发与边界
 

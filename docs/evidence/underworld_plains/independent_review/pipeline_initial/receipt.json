@@ -1,0 +1,25 @@
+[
+  {
+    "command": [
+      "python3",
+      "tools/underworld_pipeline.py",
+      "audit",
+      "--output",
+      "build/underworld_plains/independent_review/pipeline_initial/audit.json"
+    ],
+    "exit_code": 0,
+    "seconds": 0.2876532390000648,
+    "log": "build/underworld_plains/independent_review/pipeline_initial/audit.log",
+    "log_sha256": "b85cc60154319b7287ab8e0edc1e0ea261e0bf2b3697dba9c6eb239779c38517"
+  },
+  {
+    "command": [
+      "python3",
+      "tests/test_underworld_pipeline.py"
+    ],
+    "exit_code": 0,
+    "seconds": 4.541494179000438,
+    "log": "build/underworld_plains/independent_review/pipeline_initial/negative_suite.log",
+    "log_sha256": "61a069163a4469e2a508a63697694014b7c4d8ca6708c791c3441a62237128d3"
+  }
+]

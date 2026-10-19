@@ -1,0 +1,164 @@
+{
+  "schema_version": 1,
+  "task_id": "UNDERWORLD-PLAINS-01",
+  "task_type": "art",
+  "workflow": "in_progress",
+  "baseline_commit": "8382a41cb0ccf9a8e2e56075ade9edaceb4ff67a",
+  "reviewed_commit": "8382a41cb0ccf9a8e2e56075ade9edaceb4ff67a",
+  "content_version": "underworld-formal-v1",
+  "owner": "root",
+  "purpose": "Apply user-selected Underworld style to both formal Windchime Plains maps and executable Tile production workflow",
+  "player_experience": "Consistent dark fairy-tale landscape, three genuine depth planes, grounded sparse chimes, integrated readable hazardous surfaces",
+  "constraints": [
+    "Preserve existing gameplay contracts"
+  ],
+  "affected_paths": [
+    "assets/underworld_plains/",
+    "scripts/underworld_plains/",
+    "scripts/demo/",
+    "scripts/art/",
+    "scripts/generation/",
+    "scripts/bosses/",
+    "scripts/world/shot_latch.gd",
+    ".agents/skills/",
+    "tools/harness/profiles.json",
+    "export_presets.cfg"
+  ],
+  "deliverables": [
+    "Formal two-map art migration",
+    "Executable Tile source/generation/assembly/parallax/decor/hazard workflow",
+    "Same-source actual static and dynamic evidence",
+    "Exact source Web preview"
+  ],
+  "creative_decisions": [
+    {
+      "decision": "Prioritize Underworld visual language for formal Windchime Plains and integrated damage terrain surfaces",
+      "status": "user_confirmed",
+      "basis": "Current conversation explicit user selection and implementation request",
+      "evidence_id": "user_scope"
+    }
+  ],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [
+    {
+      "id": "spec",
+      "kind": "spec",
+      "path": "docs/evidence/underworld_plains/spec.md",
+      "sha256": "0d1f8756042bef839596a03e247d7b968df7e5e69e0c456e88883a872340d499",
+      "producer": "root",
+      "source_commit": "8382a41cb0ccf9a8e2e56075ade9edaceb4ff67a",
+      "content_version": "underworld-formal-v1",
+      "method": "Latest user scope and immutable core boundaries",
+      "observed": "Production scope confirmed; implementation and final visual/device acceptance remain separate"
+    },
+    {
+      "id": "user_scope",
+      "kind": "user_feedback",
+      "path": "docs/evidence/underworld_plains/user_scope.txt",
+      "sha256": "2f2124155a0da8ee11521483d4298dc22b20598613641f0886af4052c63a1388",
+      "producer": "user",
+      "source_commit": "8382a41cb0ccf9a8e2e56075ade9edaceb4ff67a",
+      "content_version": "underworld-formal-v1",
+      "accepted": true,
+      "source": "Current conversation explicit user request",
+      "quote": "我更偏向于Underworld风格；然后整体修改风铃平原；荆棘或者其他碰撞伤害tile和平台层的tile融合",
+      "covers": [
+        "design"
+      ]
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Design and all relevant acceptance remain unverified"
+  ]
+}

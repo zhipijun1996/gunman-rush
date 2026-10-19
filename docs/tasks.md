@@ -4,6 +4,7 @@
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
+| UNDERWORLD-PLAINS-01 | Underworld正式平原两图、Tile生产Harness/Skills、三景深与融合危险材质 | WINDCHIME-FIVE-STYLE-01 | in_progress | 用户选定方向；真实TileMap核心/精确边界、三独立PNG、整体演员物件、四向伤害根植；正在最终动态独审与Web交付 |
 | WINDCHIME-FIVE-STYLE-01 | 五锚点与Underworld/Cavern三地区实机比较 | WINDCHIME-PIXEL-01 | review | Web d2d469f81582/source32200d0；17215/0+1706/0、20主路/80上层、45实机/图集与独审；森林/工城独立新景层，主体材料/商业/用户/设备仍未签 |
 | WINDCHIME-PIXEL-01 | 新像素风格重制正式平原两图、三层独立视差 | WINDCHIME-STYLE-01 | review | 已部署d2c684ef8fc0/source c0f8e50；全体表现迁移、简洁纹理、动态支撑装饰与三图视差；冻结技术/有限GUI通过，整区审美/全警示/设备未签 |
 | WINDCHIME-STYLE-01 | 风铃平原新参考风格素材与手工实景 | TILE-MAP-PLAN-01 | review | 暖色候选被用户拒绝为廉价，停止扩产/发布；47态、样板与技术修复保留，Animal Well方向待小样 |

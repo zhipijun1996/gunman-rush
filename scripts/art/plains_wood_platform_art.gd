@@ -12,7 +12,8 @@ static func build(rect: Rect2, pixel_style: bool = true) -> CanvasItem:
 class PixelOneWayPaint extends Node2D:
 	var bounds: Rect2
 	func _draw() -> void:
-		PixelFormalTerrain.draw_one_way(self, bounds)
+		if UnderworldActors.enabled(self): UnderworldTerrain.draw_one_way(self, bounds)
+		else: PixelFormalTerrain.draw_one_way(self, bounds)
 
 # Historical fixture-only renderer; never an input to the new pixel material.
 static func _legacy_build(rect: Rect2) -> ColorRect:

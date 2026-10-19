@@ -1,0 +1,15 @@
+{
+  "schema": "underworld-production-v1",
+  "task_id": "UNDERWORLD-PLAINS-01",
+  "identity": "Underworld windchime plains / S1, two formal maps",
+  "terrain_manifest": "assets/underworld_plains/terrain/terrain_build.json",
+  "scenery_manifest": "assets/underworld_plains/scenery_build.json",
+  "hazards_manifest": "assets/underworld_plains/hazards/hazard_build.json",
+  "actors_manifest": "assets/underworld_plains/actors/actors_build.json",
+  "constraints": [
+    "original collision/physics/RNG/save unchanged",
+    "16 regional identities share style, never one palette",
+    "hazards use same rooted terrain material, semantic damage independent"
+  ],
+  "runtime_entry": "scripts/demo/plains_region_stage.gd"
+}

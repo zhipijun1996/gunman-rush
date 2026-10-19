@@ -343,7 +343,7 @@ func add_access_bell(location: Vector2, second := false, return_side_only := fal
 		marker.position=location+Vector2(-5,-38)
 		add_child(marker)
 	var sprite := Sprite2D.new()
-	sprite.texture = PixelFormalActors.icon_texture(&"bell") if PixelFormalActors.pixel_context(self) else BELL_ART
+	sprite.texture = UnderworldActors.icon_texture(&"bell") if UnderworldActors.enabled(self) else PixelFormalActors.icon_texture(&"bell") if PixelFormalActors.pixel_context(self) else BELL_ART
 	sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST if PixelFormalActors.pixel_context(self) else CanvasItem.TEXTURE_FILTER_PARENT_NODE
 	sprite.scale = Vector2(28,34)/sprite.texture.get_size() if PixelFormalActors.pixel_context(self) else Vector2(38,48)/BELL_ART.get_size()
 	sprite.position = location
@@ -375,7 +375,7 @@ func refresh_pixel_presentation() -> void:
 	if not PixelFormalActors.pixel_context(self): return
 	for child: Node in get_children():
 		if child is Sprite2D and child.texture==BELL_ART:
-			child.texture=PixelFormalActors.icon_texture(&"bell")
+			child.texture=UnderworldActors.icon_texture(&"bell") if UnderworldActors.enabled(self) else PixelFormalActors.icon_texture(&"bell")
 			child.scale=Vector2(28,34)/child.texture.get_size()
 			child.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST
 	queue_redraw()

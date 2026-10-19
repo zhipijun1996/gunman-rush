@@ -1,3 +1,11 @@
+# 当前：Underworld正式平原整体迁移
+
+任务 `UNDERWORLD-PLAINS-01`，分支 `feature/underworld-plains-production`，基线8382a41。用户选择Underworld并授权整体正式两图及Harness/Skills整理、三独立景层、装饰和融合危险材质。实现已接普通正式入口，物理/原伤害矩形/RNG/保存不改；正在冻结运行源、动态独审与准确版本Web交付。当前公开d2d469仍是上轮实验，不能当成本轮新版。
+
+实际生产流程见[Underworld Tile流程](underworld_tile_production.md)，旧五风格实验保留。完整原回归、用户审美和实体设备状态分别记录，缺项不签。以下为历史，不覆盖本节。
+
+---
+
 # 已交付候选：五风格TileSet与Underworld/Cavern三地区比较
 
 任务 `WINDCHIME-FIVE-STYLE-01`，分支 `feature/windchime-five-style-lab`，基线为当前最新开发源 `feature/blob47-art-foundation` / `2f25083`。运行源冻结 `32200d04fe233bda16cf50f678aabee51a9715e5`，Web build `d2d469f81582`；[直接试玩](https://zhipijun1996.github.io/gunman-rush/?styles=1&v=d2d469f81582)，未合并main。
