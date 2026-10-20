@@ -2,9 +2,9 @@
   "schema_version": 1,
   "task_id": "MAIN-PR96-REPAIR-01",
   "task_type": "mechanic",
-  "workflow": "in_progress",
+  "workflow": "review",
   "baseline_commit": "dbc6ba081321637a3eef71979ecf2cf564eb6064",
-  "reviewed_commit": "dbc6ba081321637a3eef71979ecf2cf564eb6064",
+  "reviewed_commit": "2cd7fa05356c1b8e537b624329cbb4ee0b65ef66",
   "content_version": "pr96-main-stable-camera-v1",
   "owner": "/root",
   "purpose": "Integrate PR96 with main; repair observed Home/Boss/strict teardown failures and stable forest camera",
@@ -134,7 +134,10 @@
     "tools/run_forest_hazard_records_tests.py",
     "tools/run_generated_consumer_tests.py"
   ],
-  "deliverables": [],
+  "deliverables": [
+    "docs/evidence/main_pr96_repair01/README.md",
+    "docs/design/forest_camera_stability.md"
+  ],
   "creative_decisions": [
     {
       "status": "user_confirmed",
@@ -218,9 +221,11 @@
       "evidence": []
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Independent frozen-code and sensitive test-change review accepted; excludes unexecuted whole CI, movie, player/device and whole-region taste",
+      "evidence": [
+        "W1-independent-code-review"
+      ]
     },
     "device": {
       "status": "unverified",
@@ -251,10 +256,33 @@
       "covers": [
         "authorized_scope"
       ]
+    },
+    {
+      "id": "W1-independent-code-review",
+      "path": "docs/evidence/main_pr96_repair01/review/W1_code_review.json",
+      "sha256": "ff3698b2120ed1d01008d12b3780603d9fce76429c18421585f963f78468f52e",
+      "kind": "review",
+      "producer": "/root/independent_review",
+      "source_commit": "2cd7fa05356c1b8e537b624329cbb4ee0b65ef66",
+      "content_version": "pr96-main-stable-camera-v1",
+      "method": "Separate read-only agent read frozen full code/test/check diff and explicit reader/failure controls; actual scoped pixel observations are separately recorded",
+      "observed": "Frozen W1 code and sensitive test/check changes; local UI, terrain and finite static visual evidence remain separately scoped. Not an acceptance of unexecuted fixed80/fullCI/movie/user/device.",
+      "reviewer": "/root/independent_review",
+      "implementers": [
+        "/root",
+        "/root/ci_diagnosis",
+        "/root/forest_design_review"
+      ],
+      "independent": true,
+      "independence_basis": "Separate read-only review agent; no production scripts, tests, tools, resources, author records or original evidence were edited. Only new review files were written.",
+      "verdict": "ACCEPT"
     }
   ],
   "consumer_coverage": null,
   "unverified_items": [
-    "Design and all relevant acceptance remain unverified"
-  ]
+    "Final fresh full CI and Web/GUI receipts tracked separately; no local subset substitutes for them",
+    "Physical device and player/visual/gameplay acceptance remain unverified",
+    "Forest targets without credible local support retain functional markers and are not declared full-region art completion"
+  ],
+  "test_change_justification": "HomeUI retains all original 27 business assertions but obtains real shared Home/Menu through DemoApp TITLE to HOME; a 28th WeakRef assertion proves owner release. Audio teardown observes actual shared service release. The old arbitrary standalone assembly script-cache leak is retained as failed and not claimed repaired. Formal terrain now actually selects region_map_index=2 and asserts scene map identity; after the real Boss callback it waits up to eight process frames for the actual geometry_changed observer and requires exactly one event. Original four geometry outcomes remain. V14 reader adds an explicit presentation contract and layout identity; schema6 removes only its two new cases before invoking the unmodified complete schema5 historical reader on the remaining 22 cases. V13 pinned output remains exact; new public-default identity is independently literal. Grove combat detects a real low raised departure enemy, walks backward 32wu via the real Router to a full same-bank firing envelope, aims at actual upper body, consumes real shots and terminal damage, and returns to the prior route origin. No teleport, enemy/resource/health edits, assertion removal, budget relaxation or death/epoch bypass is introduced. Crown combat and existing route helpers only add the explicit v14 accepted layout. Original fixed80 schedule and per-native 240s policy remain. Generated-consumers retains all prior suites and adds real Menu settings/audio and Avatar ownership consumers; Harness adds uncached camera/hazard/fruit checks without dropping prior IDs. New fruit ablation runner makes one explicit test-only target removal before route tick zero and reuses the strict route validator; it does not mutate the production Manifest. The old failed baseline and single-target controls remain."
 }
