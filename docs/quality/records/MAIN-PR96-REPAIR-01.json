@@ -4,7 +4,7 @@
   "task_type": "mechanic",
   "workflow": "review",
   "baseline_commit": "dbc6ba081321637a3eef71979ecf2cf564eb6064",
-  "reviewed_commit": "c77f920bd8c31ce7640b6db44fb049efc863370b",
+  "reviewed_commit": "169ef171fee3f70911847fb2c2890351ee3468bb",
   "content_version": "pr96-main-stable-camera-v1",
   "owner": "/root",
   "purpose": "Integrate PR96 with main; repair observed Home/Boss/strict teardown failures and stable forest camera; remove user-authorized retired room-mode UI and genuinely obsolete exclusive dependencies",
@@ -91,6 +91,7 @@
     "scenes/",
     "scripts/",
     "scripts/art/avatar_presentation.gd",
+    "scripts/bosses/boss_arena_seal.gd",
     "scripts/demo/demo_app.gd",
     "scripts/demo/home_scene.gd",
     "scripts/demo/plains_region_stage.gd",
@@ -124,9 +125,17 @@
     "scripts/world/forest_fruit_anchor.gd.uid",
     "scripts/world/forest_fruit_bough.gd",
     "scripts/world/forest_fruit_bough.gd.uid",
+    "scripts/world/forest_target_hosts.gd",
+    "scripts/world/forest_target_hosts.gd.uid",
     "tests/",
+    "tests/aim_save_compat_case.gd",
+    "tests/aim_save_compat_data.gd",
+    "tests/aim_save_compat_data.gd.uid",
+    "tests/aim_save_compat_runner.gd",
     "tests/avatar_presentation_ownership_runner.gd",
     "tests/avatar_presentation_ownership_runner.gd.uid",
+    "tests/fixtures/main_dbc6ba08_actual_plains_prefixes.json",
+    "tests/fixtures/main_dbc6ba08_actual_plains_prefixes.provenance.json",
     "tests/forest_camera_stability_runner.gd",
     "tests/forest_camera_stability_runner.gd.uid",
     "tests/forest_campaign_runner.gd",
@@ -165,6 +174,7 @@
     "tests/plains_polish_routes_runner.gd",
     "tests/plains_polish_routes_runner.gd.uid",
     "tests/plains_pressure_boss_runner.gd",
+    "tests/plains_redesign_scene_runner.gd",
     "tests/plains_region_trace.gd",
     "tests/plains_room_grammar_runner.gd",
     "tests/plains_room_grammar_runner.gd.uid",
@@ -188,10 +198,17 @@
     "tests/underworld_plains/test_underworld_ui.gd",
     "tests/windkeeper_runner.gd",
     "tools/",
+    "tools/audit_forest_target_hosts.gd",
+    "tools/audit_forest_target_hosts.gd.uid",
+    "tools/audit_forest_target_hosts.py",
     "tools/capture_forest_fruit_composition.gd",
     "tools/capture_forest_fruit_composition.gd.uid",
     "tools/capture_forest_fruit_composition.py",
+    "tools/capture_forest_target_hosts.gd",
+    "tools/capture_forest_target_hosts.gd.uid",
+    "tools/capture_forest_target_hosts.py",
     "tools/harness/profiles.json",
+    "tools/run_aim_save_compat_tests.py",
     "tools/run_forest_camera_stability.py",
     "tools/run_forest_depth_campaign_boss.py",
     "tools/run_forest_depth_region.py",
@@ -299,9 +316,9 @@
     },
     "independent_review": {
       "status": "passed",
-      "reason": "Independent W6 review of exact retirement source and actual bounded local preservation proofs, with earlier W1-W5 reports retained. Does not sign final80/policy600/fullCI, full forest taste or user/device.",
+      "reason": "Final R bounded source closure independently accepts exact reviewed source and W9 local preservation. All stated missing fullCI/user/device gates remain separate.",
       "evidence": [
-        "W6-independent-legacy-retirement-review"
+        "W9-final-bounded-source-closure-review"
       ]
     },
     "device": {
@@ -471,13 +488,89 @@
       "independent": true,
       "independence_basis": "Separate reviewer did not author production/tests/tools; only new review reports written.",
       "verdict": "ACCEPT"
+    },
+    {
+      "id": "W6-exact6b-local-complete-proof-index",
+      "path": "docs/evidence/main_pr96_repair01/verification-W6/index.json",
+      "sha256": "5ba62e584cb7bdc4c9a45240799eced063a1d543667c0c3ad363cd164f930af8",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "6b2a13f1445038c9bcd8f2fd9cd2f4d639d1ec8d",
+      "content_version": "pr96-main-stable-camera-v1",
+      "method": "Immutable selected raw lineage and explicit execution-versus-code SHA comparison; see original archive index for raw execution provenance",
+      "observed": "Archive index for actual exact6b full policy600/forest80 only. Adjacent movie-index and web-index separately cover scoped movie/localWeb. Same-source fullCI failure preserved; no later-source test execution."
+    },
+    {
+      "id": "W7-actual-execution-code-lineage",
+      "path": "docs/evidence/main_pr96_repair01/compat-W7/execution-vs-final-code.json",
+      "sha256": "776bf824c06990fb774bbecc190dd3b666604b5ea35278be5794f103f33533a0",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "6dd6db7a28a6e1defeb8a29aba389bc824dda697",
+      "content_version": "pr96-main-stable-camera-v1",
+      "method": "Immutable selected raw lineage and explicit execution-versus-code SHA comparison; see original archive index for raw execution provenance",
+      "observed": "Exact five-path code lineage, with four actual execution fingerprints; actual raw run heads/dirty states preserved. Original positive176/negative121+1/17refusals archived, not arbitrary mixed-graph fix."
+    },
+    {
+      "id": "W8-actual-host-commit-binding",
+      "path": "docs/evidence/forest_fruit_routes04/hosts-W8/commit-source-binding.json",
+      "sha256": "d0c985e6740f43e2ea08e152a18d4c168b53a20f3b2d9ebd6f675fe7e91a5be7",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4b36203c634ed5e8339c13b809dd77c7a0c4d76e",
+      "content_version": "pr96-main-stable-camera-v1",
+      "method": "Immutable selected raw lineage and explicit execution-versus-code SHA comparison; see original archive index for raw execution provenance",
+      "observed": "Twelve code-path binding to actual twentyApp inventory, 737targets/149pending and scoped G2 windows; actual executionHEAD retained, no global taste approval."
+    },
+    {
+      "id": "W8-one-visible-hint-source-binding",
+      "path": "docs/evidence/forest_fruit_routes04/tinyhint-W8/summary.json",
+      "sha256": "2327565126803ca74f75b0686b4eef43e8ff94d9f5935f6d5c1d8c285c177ee4",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "8f0c7927a8ed31d0b32bcb5358ebe684ef022056",
+      "content_version": "pr96-main-stable-camera-v1",
+      "method": "Immutable selected raw lineage and explicit execution-versus-code SHA comparison; see original archive index for raw execution provenance",
+      "observed": "Three code blobs equal actual successful visible GL window and original24leg run; first hidden keepout failure preserved; actual captureHEAD6dd+dirty retained."
+    },
+    {
+      "id": "W9-actual-native-source-provenance",
+      "path": "docs/evidence/main_pr96_repair01/final-W9/handoff-summary.json",
+      "sha256": "d64cbd33755abc744962b1bd22c38ca8d9c8190996139830d73d959c028771e1",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "8f0c7927a8ed31d0b32bcb5358ebe684ef022056",
+      "content_version": "pr96-main-stable-camera-v1",
+      "method": "Immutable selected raw lineage and explicit execution-versus-code SHA comparison; see original archive index for raw execution provenance",
+      "observed": "Actual original36/18 build/stamp strict0 and54/56113 fullfield equality with exact basis/hash pointers; outputs committed atR169ef171, not a fullCI receipt."
+    },
+    {
+      "id": "W9-final-bounded-source-closure-review",
+      "path": "docs/evidence/main_pr96_repair01/review/W9_final_source_closure_review.json",
+      "sha256": "a46aba531551d14fb196674d1f33d99f2c7abee72b7ce61261742a2fad21658e",
+      "kind": "review",
+      "producer": "/root/independent_review",
+      "source_commit": "169ef171fee3f70911847fb2c2890351ee3468bb",
+      "content_version": "pr96-main-stable-camera-v1",
+      "method": "Independent read-only final77 runtime-path closure, exact Git blobs and full54 replay56113frame typed comparison; original source and native execution boundaries retained",
+      "observed": "Scoped ACCEPT of reviewed W7/W7b/W8/hint source closure and W9 provenance-only56 resource rebuild; all derived hashes recomputed, exact326 exceptions, 1861 before/after source inventory checked. Does not sign final-head fullCI,80/policy/core/generated/browser/movie,user/device.",
+      "reviewer": "/root/independent_review",
+      "implementers": [
+        "/root",
+        "/root/ci_diagnosis",
+        "/root/forest_design_review",
+        "/root/legacy_room_cleanup"
+      ],
+      "independent": true,
+      "independence_basis": "Separate read-only reviewer wrote only new ignored reports; no implementation, tests, wrappers or original evidence edits.",
+      "verdict": "ACCEPT"
     }
   ],
   "consumer_coverage": null,
   "unverified_items": [
-    "Final fresh full CI and Web/GUI receipts tracked separately; no local subset substitutes for them",
-    "Physical device and player/visual/gameplay acceptance remain unverified",
-    "Forest targets without credible local support retain functional markers and are not declared full-region art completion"
+    "Fresh final exact-head full CI, normal main merge and accurate public Web/GUI remain pending actual terminal results",
+    "Physical device, player FUN, whole-forest composition and final user visual acceptance remain unverified",
+    "Runtime hosts resolve frozen pending annotations only in the actual sampled20 Apps; Queen return HUD overlap/cropped Boss framing remains a local limitation"
   ],
-  "test_change_justification": "HomeUI retains all original 27 business assertions but obtains real shared Home/Menu through DemoApp TITLE to HOME; a 28th WeakRef assertion proves owner release. Audio teardown observes actual shared service release. The old arbitrary standalone assembly script-cache leak is retained as failed and not claimed repaired. Formal terrain now actually selects region_map_index=2 and asserts scene map identity; after the real Boss callback it waits up to eight process frames for the actual geometry_changed observer and requires exactly one event. Original four geometry outcomes remain. V14 reader adds an explicit presentation contract and layout identity; schema6 removes only its two new cases before invoking the unmodified complete schema5 historical reader on the remaining 22 cases. V13 pinned output remains exact; new public-default identity is independently literal. Grove combat detects a real low raised departure enemy, walks backward 32wu via the real Router to a full same-bank firing envelope, aims at actual upper body, consumes real shots and terminal damage, and returns to the prior route origin. No teleport, enemy/resource/health edits, assertion removal, budget relaxation or death/epoch bypass is introduced. Crown combat and existing route helpers only add the explicit v14 accepted layout. Original fixed80 schedule and per-native 240s policy remain. Generated-consumers retains all prior suites and adds real Menu settings/audio and Avatar ownership consumers; Harness adds uncached camera/hazard/fruit checks without dropping prior IDs. New fruit ablation runner makes one explicit test-only target removal before route tick zero and reuses the strict route validator; it does not mutate the production Manifest. The old failed baseline and single-target controls remain. The original global no-grey substring incorrectly rejected the explicitly opted-in regional_art_plan legacy candidate while the formal else uses the complete opened texture. The new finite adapter requires exactly one whole unchanged capture_state chest block with the guarded legacy alpha and actual formal opened-pose call, then forbids simple/compound modulate.a assignments everywhere outside it. Original dispatch guard and all original tests remain. All 116 original test ASTs unchanged; nine actual-source mutation regressions added and passed. W3 updates three literal fresh-default expectations and both aim entry defaults to v14, appends v14 to exact canopy/Boss and GUI CLI whitelists, retaining every explicit historical pin and exact negative rejection. The v13/v14 canopy R-H-R driver waits on actual supported bank while a real moving NPC clears the next hook flight corridor; original phase400/edge1800/native240 and fixed80 requests remain. No NPC, player position, health, resource, collision, eligibility, phase clock or accepted contact identity is changed. Original map2 high-return failures and identical pinned-v13 control remain evidence. W4 retains the menu-scroll fixture original43 native GUI/real-player checks but obtains Menu and shared services from the formal DemoApp owner, replacing only the original test ACTIONS callback routing. Its test-spawned actual player belongs to that owner. Actual audio release and WeakRef checks cover owner/menu/player/overlay teardown. The standalone compiler graph cache failure is retained rather than claimed fixed; strict run_engine and120s remain unchanged. W5: Seven actual map2 fixtures/captures select region_map_index and assert map/derived seed identity. The pressure fixture restores its borrowed default parallax owner before Home. The full Boss consumer retains defeat/unique Gold and checks actual ability grant, region selection and same-player Forest continuation. The current attack latch is opened by real shoot_release and observed shot/latch/ledger/collision, preserving the normal threat schedule and historical base interact path. The unsafe-entry checker requires exact same-frame authored entry-guard contact journal/accepted event/HP loss, real grounded entrance bank and coherent positive frame ordering; original return-negative logic and all original22 tests remain. Original full policy failure remains REWORK; final three controls are not relabelled full600. Grove firing prechecks static circle visibility with actual projectile radius and full recoil bank support, then requires actual terminal damage and Router return; original full80 remains pending. W6 user explicitly authorizes retiring old eight-room features. Delete only seven suites exclusive to the retired generator (room grammar, blueprint, schedule, weak capabilities, branch, polish routes, ten-generation), plus their two exclusive helper drivers. Current generated-consumer inventory becomes26, not the old33; historical33 evidence is not rebound. Mixed feedback/spatial/Windkeeper/camera suites retire only old-generator distribution/metadata/route blocks and retain current audio/input/projectile/Motor/hazard/Boss framing. Ground-support keeps original twelve real shape/recorded-plan/PhysicsPoint/tamper cases using current generic manifests. An unsolicited twelve-full-route addition timed out under original90 and is withdrawn, preserving the failed REWORK log; no budget change or fixed-fps policy change. Old branch ternaries in core assertions are reduced only to their always-current seamless-port expression, retaining exits count, authored port identity and actual world-coordinate ownership. Old Home eight-room-exclusive expectations are replaced by explicit absence plus all current Explore/quick3/Lab/Random routes. CLI palette/storage helpers move byte-for-byte to current consumers before obsolete ten-room CLI deletion. Current core/26/Foundry and stable before-after proof must be observed separately; retirement is not generic assertion relaxation."
+  "test_change_justification": "HomeUI retains all original 27 business assertions but obtains real shared Home/Menu through DemoApp TITLE to HOME; a 28th WeakRef assertion proves owner release. Audio teardown observes actual shared service release. The old arbitrary standalone assembly script-cache leak is retained as failed and not claimed repaired. Formal terrain now actually selects region_map_index=2 and asserts scene map identity; after the real Boss callback it waits up to eight process frames for the actual geometry_changed observer and requires exactly one event. Original four geometry outcomes remain. V14 reader adds an explicit presentation contract and layout identity; schema6 removes only its two new cases before invoking the unmodified complete schema5 historical reader on the remaining 22 cases. V13 pinned output remains exact; new public-default identity is independently literal. Grove combat detects a real low raised departure enemy, walks backward 32wu via the real Router to a full same-bank firing envelope, aims at actual upper body, consumes real shots and terminal damage, and returns to the prior route origin. No teleport, enemy/resource/health edits, assertion removal, budget relaxation or death/epoch bypass is introduced. Crown combat and existing route helpers only add the explicit v14 accepted layout. Original fixed80 schedule and per-native 240s policy remain. Generated-consumers retains all prior suites and adds real Menu settings/audio and Avatar ownership consumers; Harness adds uncached camera/hazard/fruit checks without dropping prior IDs. New fruit ablation runner makes one explicit test-only target removal before route tick zero and reuses the strict route validator; it does not mutate the production Manifest. The old failed baseline and single-target controls remain. The original global no-grey substring incorrectly rejected the explicitly opted-in regional_art_plan legacy candidate while the formal else uses the complete opened texture. The new finite adapter requires exactly one whole unchanged capture_state chest block with the guarded legacy alpha and actual formal opened-pose call, then forbids simple/compound modulate.a assignments everywhere outside it. Original dispatch guard and all original tests remain. All 116 original test ASTs unchanged; nine actual-source mutation regressions added and passed. W3 updates three literal fresh-default expectations and both aim entry defaults to v14, appends v14 to exact canopy/Boss and GUI CLI whitelists, retaining every explicit historical pin and exact negative rejection. The v13/v14 canopy R-H-R driver waits on actual supported bank while a real moving NPC clears the next hook flight corridor; original phase400/edge1800/native240 and fixed80 requests remain. No NPC, player position, health, resource, collision, eligibility, phase clock or accepted contact identity is changed. Original map2 high-return failures and identical pinned-v13 control remain evidence. W4 retains the menu-scroll fixture original43 native GUI/real-player checks but obtains Menu and shared services from the formal DemoApp owner, replacing only the original test ACTIONS callback routing. Its test-spawned actual player belongs to that owner. Actual audio release and WeakRef checks cover owner/menu/player/overlay teardown. The standalone compiler graph cache failure is retained rather than claimed fixed; strict run_engine and120s remain unchanged. W5: Seven actual map2 fixtures/captures select region_map_index and assert map/derived seed identity. The pressure fixture restores its borrowed default parallax owner before Home. The full Boss consumer retains defeat/unique Gold and checks actual ability grant, region selection and same-player Forest continuation. The current attack latch is opened by real shoot_release and observed shot/latch/ledger/collision, preserving the normal threat schedule and historical base interact path. The unsafe-entry checker requires exact same-frame authored entry-guard contact journal/accepted event/HP loss, real grounded entrance bank and coherent positive frame ordering; original return-negative logic and all original22 tests remain. Original full policy failure remains REWORK; final three controls are not relabelled full600. Grove firing prechecks static circle visibility with actual projectile radius and full recoil bank support, then requires actual terminal damage and Router return; original full80 remains pending. W6 user explicitly authorizes retiring old eight-room features. Delete only seven suites exclusive to the retired generator (room grammar, blueprint, schedule, weak capabilities, branch, polish routes, ten-generation), plus their two exclusive helper drivers. Current generated-consumer inventory becomes26, not the old33; historical33 evidence is not rebound. Mixed feedback/spatial/Windkeeper/camera suites retire only old-generator distribution/metadata/route blocks and retain current audio/input/projectile/Motor/hazard/Boss framing. Ground-support keeps original twelve real shape/recorded-plan/PhysicsPoint/tamper cases using current generic manifests. An unsolicited twelve-full-route addition timed out under original90 and is withdrawn, preserving the failed REWORK log; no budget change or fixed-fps policy change. Old branch ternaries in core assertions are reduced only to their always-current seamless-port expression, retaining exits count, authored port identity and actual world-coordinate ownership. Old Home eight-room-exclusive expectations are replaced by explicit absence plus all current Explore/quick3/Lab/Random routes. CLI palette/storage helpers move byte-for-byte to current consumers before obsolete ten-room CLI deletion. Current core/26/Foundry and stable before-after proof must be observed separately; retirement is not generic assertion relaxation. W7 preserves original scene route branches/frame caps and adds real upward guard combat with projectile-radius LOS/full directional recoil, no enemy/HP/resources edits. The historical Plains reader admits only current tuples or exact old Bellstrider1/Windkeeper4 tuples for the three supported region versions, after all original canonical/config/map checks; actual old-main producer fixtures and refusal controls retained. AIM original176 assertions/8 cases retain sequence and semantics, split into actual data56/world120 native consumers with the original shared120-second total, import90, unchanged strict run_engine and fail-closed fresh UUID/PID/SHA/raw/case validation; actual complete failure probe and17artifact refusals preserved. Old mixed-compiler-graph leaks and withdrawn geometry/class/order hypotheses remain failures, not claimed repaired. W8 hosts are presentation-only, original20 Manifest bytes/target physics preserved; root_hint adds one visible-window fixture without reducing original three-window groups. W9 original36/18 validation and54replay56113frames equal except exact provenance pointers."
 }

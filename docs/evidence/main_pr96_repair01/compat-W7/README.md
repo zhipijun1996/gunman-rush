@@ -1,0 +1,13 @@
+# W7 / AIM selected raw delivery
+
+`selected-evidence.zip` contains 134 byte-for-byte raw/receipt/source-lineage files. SHA-256: `20493c9e6824f3c1f1eb8db848abaa15bfc9a324e2aa39b44e401641d9e35294`; CRC32: `93db5525`; size: 7605607 bytes. ZIP member CRC and decompression checks passed. `index.json` lists every member's original path, size, SHA-256 and CRC32. Original evidence was read only; no native engine was launched for packaging.
+
+- Remote complete CI39366400677 executed exact6b2a13f1 and failed in serial118445775035/parallel118445774985. Original terminal jobs and full raw logs remain failures.
+- Scene W7 original wrapper passed in257.800s:91/0 positive, all10 real native mutations rejected with exit1 and all12 semantic refusals passed. Its receipt truthfully says execution HEAD6b2a13f1 plus development changes matching bfb90ac2; it is not relabeled as a final W8 execution.
+- Actual old-main dbc6ba08 producer/provenance and complete clean import/reader logs are included. The initial incomplete shader attempt remains a rejected attempt. The current tracked actual-old-main fixture and original archive are referenced by exact hash in the index, not duplicated under another fixture name. These are generated canonical schema1 record fixtures, not naturally completed campaigns or full-run resume proofs.
+- Original AIM122/1 also leaked242/164; W7 combined176/0 and the failed first domain candidate likewise remain strict failures. `withdrawn-causal-claims.md` records the corrected omission, unused-preload confound, rejected geometry/class/order explanations and real weak-reference evidence.
+- Final AIM unique wrapper passed48.576s with actual separate data56/world120,176 checks and8 cases. Both use the unchanged strict run_engine, import90 and a shared native120-second deadline (actual41.7713s). Each native PID/argv/timeout/elapsed/source/raw/JSON receipt is retained. The complete failure probe ran the original checks then deliberately failed world121/1 and exited1; no new aggregate remained. All17 real-artifact identity/count/case/log refusal controls rejected.
+
+Execution HEAD for both final AIM runs was4b36203c with four uncommitted executable changes. Those bytes match final code commit6dd6db7a28a6e1defeb8a29aba389bc824dda697. The fifth committed path is the new `.gd.uid` sidecar, included in the exact five-path patch but not falsely added to the four-path execution fingerprint. See `execution-vs-final-code.json`.
+
+Final independent review is pending and will be delivered separately. This package does not approve final main/whole CI, final forest presentation, arbitrary mixed script-graph teardown, historical full-run resume, or movie/audio review. The later forest hint change has its own source boundary and proof.

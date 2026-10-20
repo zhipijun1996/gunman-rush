@@ -1,3 +1,17 @@
+## 2026-10-20 最终候选：主线修复、森林宿主与旧房间退休已冻结
+
+最终运行源 `169ef171fee3f70911847fb2c2890351ee3468bb`；远端 main 仍为 `dbc6ba081321637a3eef71979ecf2cf564eb6064`，PR96 尚未合并，新 Web 尚未发布。接下来推送这一候选的完整 CI；不能以旧公开 v13 包代替。
+
+旧八房间入口及专属生成/房间语法/蓝图链已退休：55路径、30删除、净减少149325源码字节（非安装包体积）。正式两图、quick3、Random Stage、Foundry及历史保存 pin 保留。森林普通跳跃镜头稳定；v14 的实际路线果实接到连续树枝，门/Boss目标保留专属标识。20个真实App、737目标/149个原注记待支承挂点的运行装配合同通过，两图原24/29段通过；这是特定20实例和局部构图审查，非全区审美验收。原Manifest字节、目标位置/碰撞/钩索资格均保持。唯一提示词ring→fruit已实际显示并复验24段。
+
+精确6b原完整森林80/80（511.82s/600）、policy600、电影及本地GUI通过，但同源远端完整CI真实失败，两原生日志保留。W7修复场景真实射击驾驶及旧Plains记录兼容；场景原完整入口257.8s、91正例检查及10真实失败变体通过。保存测试拆为两个真实原生消费者，共享原120秒：56+120=176项/8案例严格通过，失败探针真实退出1且无成功聚合，17聚合篡改均拒绝；任意旧同进程编译图泄漏并未被宣称修复。
+
+最终Foundry原36短句/18路线重建及stamp严格通过；54回放56113帧逐值保持，只有列明的来源basis/直接派生hash改变。见[W6完整本机原件](evidence/main_pr96_repair01/verification-W6/README.md)、[W7失败与修复](evidence/main_pr96_repair01/compat-W7/README.md)、[W8宿主与果实](evidence/forest_fruit_routes04/hosts-W8/README.md)、[最终Foundry](evidence/main_pr96_repair01/final-W9/README.md)。
+
+完整新HEAD CI、main合并、准确版本公网预览尚待实际终态；任务保持review。Queen返回视角的局部HUD遮挡、全区构图、真人FUN、实体设备与用户最终认可仍未签署。下文为保留的历史检查点，不覆盖本节。
+
+---
+
 ## 2026-10-20 W6已冻结：旧功能退休与当前消费者通过
 
 最新运行源`c77f920bd8c31ce7640b6db44fb049efc863370b`，旧八房间清理55路径/30删除/净149325B；另56Foundry来源更新净字节0。原core5681/0、完整退休后26套/158.95秒、Underworld UI243/0、styles20route/16variant/3CLI、world0/1均严格exit0且1257源库存稳定，已获[有限独审](evidence/main_pr96_repair01/review/W6_legacy_retirement_review.json)。前后60地图/10随机流/46App及54回放56113帧比较等值，仅明确列出的来源/死stamp/开发身份例外；43现行Manifest接受+2world仍拒绝。原world typed崩溃与新增12Motor90s超时REWORK保留，后者已撤、原支持面188/0及90预算保留。见[W6完整实证](evidence/main_pr96_repair01/cleanup-W6/README.md)。

@@ -1,0 +1,608 @@
+{
+  "reviewer": "/root/independent_review",
+  "independent": true,
+  "verdict": "ACCEPT",
+  "scope": "Final original policy600 execution, all14reward+4native raw/log hashes and semantic validators, immutable history8 exact frozen-reader revalidation, current6 revalidation and full source guards. No forest/wholeCI/player/device inference.",
+  "source_head": "6b2a13f1445038c9bcd8f2fd9cd2f4d639d1ec8d",
+  "runtime_source_commit": "c77f920bd8c31ce7640b6db44fb049efc863370b",
+  "outer": {
+    "command": [
+      "python3",
+      "tools/harness.py",
+      "--check",
+      "plains-encounter-policy",
+      "--release"
+    ],
+    "source_head": "6b2a13f1445038c9bcd8f2fd9cd2f4d639d1ec8d",
+    "runtime_source_commit": "c77f920bd8c31ce7640b6db44fb049efc863370b",
+    "status": "passed",
+    "started": 1792467682.387798,
+    "exit_code": 0,
+    "seconds": 467.54143047332764,
+    "head_after": "6b2a13f1445038c9bcd8f2fd9cd2f4d639d1ec8d"
+  },
+  "harness_check": {
+    "id": "plains-encounter-policy",
+    "argv": [
+      "python3",
+      "tools/run_plains_encounter_policy_tests.py"
+    ],
+    "timeout_seconds": 600,
+    "input_digest": "ba80755a4c8caeb78ef2a04f0c338fd312de76973fa8d223db19bcf558229e3a",
+    "log": "plains-encounter-policy.log",
+    "status": "passed",
+    "exit_code": 0,
+    "failure_reason": null,
+    "started_at_unix": 1792467703.9018648,
+    "ended_at_unix": 1792468132.3794808,
+    "duration_seconds": 428.478,
+    "expanded_argv": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "tools/run_plains_encounter_policy_tests.py"
+    ],
+    "check_token": "64ad1f6b39c947328bd7ca0285d1bd27",
+    "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261020T034122.447897Z/artifacts/plains-encounter-policy",
+    "reused": false
+  },
+  "source_guard": {
+    "receipt_source_before_equals_after": true,
+    "inventory_entries": 1257,
+    "all14_reward_subprocess_source_pairs_equal": true,
+    "historical_runtime_before_equals_after": true,
+    "historical_observer_before_equals_after": true,
+    "head_before_equals_after": true,
+    "fresh_harness_no_reuse": true,
+    "strictness": "Original harness input-digest and specialty source/verifier guards remain; after forest80 ended, all1257 current specialty hashes were independently rehashed and match.",
+    "independent_current_1257_hash_recomputation_matches": true
+  },
+  "reward14": [
+    {
+      "name": "reward_kill0",
+      "expected_physical_failure": false,
+      "exit_code": 0,
+      "output": "build/verification/plains-encounter/run_vs12o4rc/reward_kill0.json",
+      "sha256": "c5066de35d8473a39fb5f523af08cb459423331f77978e763726ec802a34985d",
+      "log": "build/verification/plains-encounter/run_vs12o4rc/reward_kill0.log",
+      "log_sha256": "cb1450bc4e8755bfffc19a9e3ba59a003d1060f834f67885d8754ff77af6a149",
+      "source_before_equals_after": true,
+      "log_SHA_independently_verified": true
+    },
+    {
+      "name": "reward_kill100",
+      "expected_physical_failure": false,
+      "exit_code": 0,
+      "output": "build/verification/plains-encounter/run_vs12o4rc/reward_kill100.json",
+      "sha256": "a16551200eb8076504863c694d4c014beacaa8c8e5f6ff852e805a900cb463d7",
+      "log": "build/verification/plains-encounter/run_vs12o4rc/reward_kill100.log",
+      "log_sha256": "fd2d5a4858b5a1e2faa5a30b89bae90f076f8034ab1b2111e68765a713d2fb11",
+      "source_before_equals_after": true,
+      "log_SHA_independently_verified": true
+    },
+    {
+      "name": "reward_bypass0",
+      "expected_physical_failure": false,
+      "exit_code": 0,
+      "output": "build/verification/plains-encounter/run_vs12o4rc/reward_bypass0.json",
+      "sha256": "24ca0cc8baad902f4af9418a7d3a7bb9b30fe22d9d0fb9571647fc131e06f988",
+      "log": "build/verification/plains-encounter/run_vs12o4rc/reward_bypass0.log",
+      "log_sha256": "6d04f918fa355900f5c1195b156eac7df72494396ca19539f5df557dab658a27",
+      "source_before_equals_after": true,
+      "log_SHA_independently_verified": true
+    },
+    {
+      "name": "reward_bypass100",
+      "expected_physical_failure": false,
+      "exit_code": 0,
+      "output": "build/verification/plains-encounter/run_vs12o4rc/reward_bypass100.json",
+      "sha256": "9aa5e367fd08c4114a94e699270e481d78161ba4b0b481d7723aa724042776d1",
+      "log": "build/verification/plains-encounter/run_vs12o4rc/reward_bypass100.log",
+      "log_sha256": "da089536abc7dac64ebb2999ffd27bd02e810a247848a0e249132a15a0d16f38",
+      "source_before_equals_after": true,
+      "log_SHA_independently_verified": true
+    },
+    {
+      "name": "reward_low",
+      "expected_physical_failure": false,
+      "exit_code": 0,
+      "output": "build/verification/plains-encounter/run_vs12o4rc/reward_low.json",
+      "sha256": "5a4c686a6911efdb532a983bc7331c19b074dad9ac72507764ce286c8a0db77f",
+      "log": "build/verification/plains-encounter/run_vs12o4rc/reward_low.log",
+      "log_sha256": "f0c05811ca57622cddcfa5a9c120f965a5db356d9a783ee5385dc8cc2b089d02",
+      "source_before_equals_after": true,
+      "log_SHA_independently_verified": true
+    },
+    {
+      "name": "reward_top1",
+      "expected_physical_failure": false,
+      "exit_code": 0,
+      "output": "build/verification/plains-encounter/run_vs12o4rc/reward_top1.json",
+      "sha256": "ce3bb09c23f1d20a57081cbf34488f1f10e5c4eee42eed41eb43ac91a0f4ea9b",
+      "log": "build/verification/plains-encounter/run_vs12o4rc/reward_top1.log",
+      "log_sha256": "7799cfebd35d39eb0a2b968ffb47dc1a0336554d14573253296ec61edad8f9bd",
+      "source_before_equals_after": true,
+      "log_SHA_independently_verified": true
+    },
+    {
+      "name": "reward_high2",
+      "expected_physical_failure": false,
+      "exit_code": 0,
+      "output": "build/verification/plains-encounter/run_vs12o4rc/reward_high2.json",
+      "sha256": "f41b64c65071ba6192bd62d2549eba7844051d388746ef225c699cad6d785d62",
+      "log": "build/verification/plains-encounter/run_vs12o4rc/reward_high2.log",
+      "log_sha256": "37aec9d0f09cd952aa9edcc8d067a46e7c5886a423767bf0d10e93c2f74878ba",
+      "source_before_equals_after": true,
+      "log_SHA_independently_verified": true
+    },
+    {
+      "name": "reward_top2",
+      "expected_physical_failure": false,
+      "exit_code": 0,
+      "output": "build/verification/plains-encounter/run_vs12o4rc/reward_top2.json",
+      "sha256": "50eea49f7c7b677356e7db2153001ab2d94a6b6c5d1f4bb39d22f6be8b432764",
+      "log": "build/verification/plains-encounter/run_vs12o4rc/reward_top2.log",
+      "log_sha256": "ee208a6b661f6169ad799f7a82f06701d2430d317dd439cf641be2e215dd1cfe",
+      "source_before_equals_after": true,
+      "log_SHA_independently_verified": true
+    },
+    {
+      "name": "reward_dead_low2",
+      "expected_physical_failure": false,
+      "exit_code": 0,
+      "output": "build/verification/plains-encounter/run_vs12o4rc/reward_dead_low2.json",
+      "sha256": "52d0aa4644250022990c1d853bf2f60d61e5903823bb98439c773f470075008d",
+      "log": "build/verification/plains-encounter/run_vs12o4rc/reward_dead_low2.log",
+      "log_sha256": "5364319d83ec875f671c21b784e6adc280a4b5a5668b5776f985773f959d406a",
+      "source_before_equals_after": true,
+      "log_SHA_independently_verified": true
+    },
+    {
+      "name": "reward_worst_return",
+      "expected_physical_failure": false,
+      "exit_code": 0,
+      "output": "build/verification/plains-encounter/run_vs12o4rc/reward_worst_return.json",
+      "sha256": "e20e9275006c8e79931a9a456f932421fa851917bf93fb38a852bd2394f2d6e7",
+      "log": "build/verification/plains-encounter/run_vs12o4rc/reward_worst_return.log",
+      "log_sha256": "7583d29a11bbf2fa57115d5d52f8cc533a2a6514236d8fbfea5da1ce25a6e51c",
+      "source_before_equals_after": true,
+      "log_SHA_independently_verified": true
+    },
+    {
+      "name": "reward_worst_return_bypass",
+      "expected_physical_failure": false,
+      "exit_code": 0,
+      "output": "build/verification/plains-encounter/run_vs12o4rc/reward_worst_return_bypass.json",
+      "sha256": "9a43fbf98c29281eb795b1241583bfc407a8f6b709717815e0c98ff7f9a8193c",
+      "log": "build/verification/plains-encounter/run_vs12o4rc/reward_worst_return_bypass.log",
+      "log_sha256": "5a94660d652734a5df90056f6ae39e18088a5a1e494b470c9b0f7bee62856750",
+      "source_before_equals_after": true,
+      "log_SHA_independently_verified": true
+    },
+    {
+      "name": "reward_original_conflict_kill",
+      "expected_physical_failure": true,
+      "exit_code": 1,
+      "output": "build/verification/plains-encounter/run_vs12o4rc/reward_original_conflict_kill.json",
+      "sha256": "54e28350814b31a311f8e0a796f9193a116a9c7505d46b94e01bbc71459cc7d6",
+      "log": "build/verification/plains-encounter/run_vs12o4rc/reward_original_conflict_kill.log",
+      "log_sha256": "4ab6f2ae4354f73efafc54234584de57724effcae3d991a5db9f66da5feb5759",
+      "source_before_equals_after": true,
+      "log_SHA_independently_verified": true
+    },
+    {
+      "name": "reward_original_conflict_bypass",
+      "expected_physical_failure": true,
+      "exit_code": 1,
+      "output": "build/verification/plains-encounter/run_vs12o4rc/reward_original_conflict_bypass.json",
+      "sha256": "29b0ca806718237a323155a934c9602b66c86f95726b12b57e6807e24c0bedcf",
+      "log": "build/verification/plains-encounter/run_vs12o4rc/reward_original_conflict_bypass.log",
+      "log_sha256": "c225039ed6a40257270168f53d919f0dc28ecf12f276d636493d96383b516d03",
+      "source_before_equals_after": true,
+      "log_SHA_independently_verified": true
+    },
+    {
+      "name": "reward_original_return_conflict",
+      "expected_physical_failure": "return",
+      "exit_code": 1,
+      "output": "build/verification/plains-encounter/run_vs12o4rc/reward_original_return_conflict.json",
+      "sha256": "6c572a2be34a4e5b88801d48e19617d3f828218f0fe2b7607ea888c7f528eb0f",
+      "log": "build/verification/plains-encounter/run_vs12o4rc/reward_original_return_conflict.log",
+      "log_sha256": "9cdbdf09d7614f3f77485d2fe6ca6c897f3eab06f443e99abef601bd6fffc52c",
+      "source_before_equals_after": true,
+      "log_SHA_independently_verified": true
+    }
+  ],
+  "critical_negative_raw": [
+    {
+      "name": "reward_original_conflict_kill",
+      "raw_SHA_independently_verified": true,
+      "assertions": 9,
+      "failures": 2,
+      "claimed": false,
+      "trial": false,
+      "diagnostics": [],
+      "entry_exact_contact_validator_independently_replayed": true
+    },
+    {
+      "name": "reward_original_conflict_bypass",
+      "raw_SHA_independently_verified": true,
+      "assertions": 10,
+      "failures": 2,
+      "claimed": false,
+      "trial": false,
+      "diagnostics": [],
+      "entry_exact_contact_validator_independently_replayed": true
+    },
+    {
+      "name": "reward_original_return_conflict",
+      "raw_SHA_independently_verified": true,
+      "assertions": 9,
+      "failures": 1,
+      "claimed": true,
+      "trial": false,
+      "diagnostics": [
+        {
+          "edge": "deep_high",
+          "message": "enemy bank unsafe/no damage progress within budget plains/enemy/lane/plains/passage/area_0_0/area_1_0_join",
+          "position": [
+            1840.666015625,
+            -700.074890136719
+          ],
+          "tick": 1717
+        }
+      ],
+      "entry_exact_contact_validator_independently_replayed": false
+    }
+  ],
+  "native4": [
+    {
+      "output": "build/verification/plains-encounter/run_vs12o4rc/native.json",
+      "log": "build/verification/plains-encounter/run_vs12o4rc/native.log",
+      "process": {
+        "status": "passed",
+        "exit_code": 0,
+        "failure_reason": null,
+        "started_at_unix": 1792467862.4228482,
+        "ended_at_unix": 1792467867.0688689,
+        "duration_seconds": 4.646,
+        "expanded_argv": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_encounter_policy_runner.gd",
+          "--",
+          "--output=res://build/verification/plains-encounter/run_vs12o4rc/native.json"
+        ],
+        "check_token": "25ad17add3de45ac96af8d5535157256"
+      },
+      "log_SHA_independently_verified": true
+    },
+    {
+      "output": "build/verification/plains-encounter/run_vs12o4rc/recovery.json",
+      "log": "build/verification/plains-encounter/run_vs12o4rc/recovery.log",
+      "process": {
+        "status": "passed",
+        "exit_code": 0,
+        "failure_reason": null,
+        "started_at_unix": 1792467867.0770805,
+        "ended_at_unix": 1792467877.9017744,
+        "duration_seconds": 10.825,
+        "expanded_argv": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_encounter_policy_runner.gd",
+          "--",
+          "--output=res://build/verification/plains-encounter/run_vs12o4rc/recovery.json",
+          "--recovery-only"
+        ],
+        "check_token": "ec26ffaf91fe4348bebefc27e25bc41f"
+      },
+      "log_SHA_independently_verified": true
+    },
+    {
+      "output": "build/verification/plains-encounter/run_vs12o4rc/recovery_heart.json",
+      "log": "build/verification/plains-encounter/run_vs12o4rc/recovery_heart.log",
+      "process": {
+        "status": "passed",
+        "exit_code": 0,
+        "failure_reason": null,
+        "started_at_unix": 1792467877.9512875,
+        "ended_at_unix": 1792467889.377765,
+        "duration_seconds": 11.426,
+        "expanded_argv": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_encounter_policy_runner.gd",
+          "--",
+          "--output=res://build/verification/plains-encounter/run_vs12o4rc/recovery_heart.json",
+          "--recovery-only",
+          "--reward-resource=heart"
+        ],
+        "check_token": "42f62948d08e411690ed5f1682c4b02b"
+      },
+      "log_SHA_independently_verified": true
+    },
+    {
+      "output": "build/verification/plains-encounter/run_vs12o4rc/recovery_note.json",
+      "log": "build/verification/plains-encounter/run_vs12o4rc/recovery_note.log",
+      "process": {
+        "status": "passed",
+        "exit_code": 0,
+        "failure_reason": null,
+        "started_at_unix": 1792467889.4297733,
+        "ended_at_unix": 1792467899.849223,
+        "duration_seconds": 10.419,
+        "expanded_argv": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_encounter_policy_runner.gd",
+          "--",
+          "--output=res://build/verification/plains-encounter/run_vs12o4rc/recovery_note.json",
+          "--recovery-only",
+          "--reward-resource=note"
+        ],
+        "check_token": "66b59526fffa4bc69065cc24d3ce1f1b"
+      },
+      "log_SHA_independently_verified": true
+    }
+  ],
+  "history8": {
+    "receipt": "build/verification/plains-encounter/run_vs12o4rc/frozen_50fb10c/project/build/historical_encounter/historical_receipt.json",
+    "SHA_independently_verified": true,
+    "status": "passed",
+    "cases": [
+      {
+        "side": "before",
+        "case": 0,
+        "producer_exit_code": 0,
+        "captured": true,
+        "errors": [],
+        "outcome": "route_target_reached"
+      },
+      {
+        "side": "before",
+        "case": 1,
+        "producer_exit_code": 0,
+        "captured": true,
+        "errors": [],
+        "outcome": "route_target_reached"
+      },
+      {
+        "side": "before",
+        "case": 2,
+        "producer_exit_code": 0,
+        "captured": true,
+        "errors": [],
+        "outcome": "route_target_reached"
+      },
+      {
+        "side": "before",
+        "case": 3,
+        "producer_exit_code": 0,
+        "captured": true,
+        "errors": [],
+        "outcome": "route_target_reached"
+      },
+      {
+        "side": "after",
+        "case": 0,
+        "producer_exit_code": 0,
+        "captured": true,
+        "errors": [],
+        "outcome": "route_target_reached"
+      },
+      {
+        "side": "after",
+        "case": 1,
+        "producer_exit_code": 0,
+        "captured": true,
+        "errors": [],
+        "outcome": "route_target_reached"
+      },
+      {
+        "side": "after",
+        "case": 2,
+        "producer_exit_code": 0,
+        "captured": true,
+        "errors": [],
+        "outcome": "route_target_reached"
+      },
+      {
+        "side": "after",
+        "case": 3,
+        "producer_exit_code": 0,
+        "captured": true,
+        "errors": [],
+        "outcome": "route_target_reached"
+      }
+    ],
+    "comparison_boundary": {
+      "schema_version": 1,
+      "artifact_kind": "historical_comparison_boundary",
+      "status": "not_comparable",
+      "strict_rejection": "Encounter/reward policy, transitive driver or core implementation changed",
+      "before_fingerprint": "3b281a9b82cf5a22ff60d36ce786d4d5a11d09d68079da61cde088c83ec00bb4",
+      "after_fingerprint": "39bc82844fa4ef0e00c55a4f084ee617b5e4dbfba63205ded6e0d91ce6b14a4b",
+      "audited_core_transition": {
+        "res://project.godot": [
+          "7d43a5938001621a9af9280e8c5dced19f45c6bd93fb4d18321d7f876b9603f9",
+          "a030a1a30866efb861745dce9ae25a11c04dd0dc9f823bc3ee271f66285d9a5a"
+        ],
+        "res://scripts/run/run_manifest.gd": [
+          "0a1afd795890be411e1a689733ca5fd31548ec94d2ed2e9c7427b6f5013b83b5",
+          "e8baabdbe23c1515a1b9cc8442657a042713e5bf611a99b516d335821017e7f9"
+        ]
+      },
+      "scope": "Four retained v9/current cases; expected strict rejection, no content-improvement inference"
+    },
+    "limit": "Immutable historical endpoints are not relabelled as current release content, nor used to claim a causal content improvement."
+  },
+  "current6": {
+    "current_four_paths": [
+      "build/verification/plains-encounter/run_vs12o4rc/after/case_0/capture.json",
+      "build/verification/plains-encounter/run_vs12o4rc/after/case_1/capture.json",
+      "build/verification/plains-encounter/run_vs12o4rc/after/case_2/capture.json",
+      "build/verification/plains-encounter/run_vs12o4rc/after/case_3/capture.json"
+    ],
+    "current_four_report": [
+      {
+        "case": {
+          "root_seed": "level-design-v2-baseline",
+          "map_index": 1,
+          "strategy": "return",
+          "phase_wait_ticks": 0
+        },
+        "source_commit": "6b2a13f1445038c9bcd8f2fd9cd2f4d639d1ec8d",
+        "outcome": "route_target_reached",
+        "route_reached": true
+      },
+      {
+        "case": {
+          "root_seed": "level-design-v2-baseline",
+          "map_index": 2,
+          "strategy": "fast",
+          "phase_wait_ticks": 0
+        },
+        "source_commit": "6b2a13f1445038c9bcd8f2fd9cd2f4d639d1ec8d",
+        "outcome": "route_target_reached",
+        "route_reached": true
+      },
+      {
+        "case": {
+          "root_seed": "level-design-v2-baseline",
+          "map_index": 2,
+          "strategy": "growth",
+          "phase_wait_ticks": 0
+        },
+        "source_commit": "6b2a13f1445038c9bcd8f2fd9cd2f4d639d1ec8d",
+        "outcome": "route_target_reached",
+        "route_reached": true
+      },
+      {
+        "case": {
+          "root_seed": "level-design-v2-baseline/01",
+          "map_index": 1,
+          "strategy": "fast",
+          "phase_wait_ticks": 0
+        },
+        "source_commit": "6b2a13f1445038c9bcd8f2fd9cd2f4d639d1ec8d",
+        "outcome": "route_target_reached",
+        "route_reached": true
+      }
+    ],
+    "independent_current_repeat": {
+      "capture": "build/verification/plains-encounter/run_vs12o4rc/current_repeat/capture.json",
+      "captured": true,
+      "errors": [],
+      "outcome": "route_target_reached",
+      "route_reached": true,
+      "seed": "level-design-v2-baseline",
+      "map_index": 1,
+      "strategy": "return",
+      "phase_wait_ticks": 0,
+      "encounter_policy": "kill_from_bank_v1",
+      "frames": 2306,
+      "wall_seconds": 12.356945085999541
+    },
+    "bait": {
+      "capture": "build/verification/plains-encounter/run_vs12o4rc/bait/capture.json",
+      "captured": true,
+      "errors": [],
+      "outcome": "route_target_reached",
+      "route_reached": true,
+      "seed": "level-design-v2-baseline",
+      "map_index": 1,
+      "strategy": "fast",
+      "phase_wait_ticks": 0,
+      "encounter_policy": "bait_then_bypass_v1",
+      "frames": 3783,
+      "wall_seconds": 19.44148590000077
+    },
+    "limit": "Four current cases plus actual independent repeated return and bait; counts are distinct from eight historical captures."
+  },
+  "guard_refusals": {
+    "native": [
+      "remove_committed",
+      "remove_input",
+      "remove_return",
+      "fake_claim",
+      "fake_ui_rejection"
+    ],
+    "causal": [
+      "empty_frames",
+      "missing_shot_receipt",
+      "missing_shot_event",
+      "forged_damage_event",
+      "missing_driver_dependency",
+      "missing_core_dependency",
+      "unknown_mode"
+    ],
+    "claim": [
+      "missing_wallet_receipt",
+      "missing_wallet_effect",
+      "forged_reward_amount",
+      "forged_resource_type",
+      "wrong_cache_output",
+      "wrong_stage",
+      "wrong_selected_offer",
+      "wrong_transaction_receipt"
+    ],
+    "reward_validator_refusal_count": 32
+  },
+  "strict_logs": {
+    "all14_reward_and4native_log_SHA_match": true,
+    "all14_reward_and4native_no_forbidden_runtime_diagnostics": true,
+    "specialty_final_original_marker_observed": true,
+    "specialty_log_no_forbidden_runtime_diagnostics": true,
+    "intentional_negatives_exit1_not_suppressed": true
+  },
+  "proof_SHA256": {
+    "build/forest_revision04/final-W6/policy600-outer.json": "7cb0696ed667e3877cce51a10634f7aacbca0d0187efb92b42856f0f413add9d",
+    "build/forest_revision04/final-W6/policy600-outer.log": "2abbdbd4d9f8b71bc199e75843382ba938c43def2762693b3b0b1370152b47a5",
+    "build/verification/harness/20261020T034122.447897Z/report.json": "1662260e274fe03d17ee2adf2b5af6692559fff5de1022f28f301391932eb50e",
+    "build/verification/harness/20261020T034122.447897Z/plains-encounter-policy.log": "a6a68ba4fcb8711aac298cd8c1d7d8263b9414bb14f68dc490aca50b8c5f6a4e",
+    "build/verification/plains-encounter/run_vs12o4rc/receipt.json": "05c8cd6d610b1487ba83c13afe89b334a2c52311e063681baaabec587076c761",
+    "build/verification/plains-encounter/run_vs12o4rc/frozen_50fb10c/project/build/historical_encounter/historical_receipt.json": "94bc16250258f84da6f85046dc7cbfe2edf98b83fdcf379cdfae2577d040c3f0"
+  },
+  "retained_prior_failure": "The earlier temporary policy-mask whole600 execution remains a failed REWORK artifact; this fresh original-entry execution on finalW6 independently passes. It does not erase earlier failures.",
+  "limits": [
+    "No final remoteCI, all possible routes, player or physical-device acceptance inferred.",
+    "All previously deferred bulk raw hash/semantic validations are now complete, sequentially, after the forest80 native window ended.",
+    "Historical content remains immutable with correct not-comparable boundary; no content improvement is claimed."
+  ],
+  "bulk_audit": {
+    "path": "build/forest_revision04/final-W6/bulk-audit-result.json",
+    "SHA256": "f5a7bc827035c42f0e3474d49357324390d75f83d00f9149cb12615a7f3fb9b2",
+    "failures": [],
+    "reward14_native4_revalidated": 18,
+    "historical8_revalidated": 8,
+    "current6_revalidated": 6,
+    "bait_full_formal_reader_errors": []
+  },
+  "historical_reader_scope_correction": {
+    "retained_log": "build/forest_revision04/final-W6/bulk-audit-first-context-error.log",
+    "explanation": "First independent bulk attempt incorrectly applied current decoder core closure to immutable historical raw and refused its different dependency set. Preserved this reviewer context error. Corrected only the ignored reviewer script to invoke the unchanged exact reader inside the original frozen project; all8 then pass with raw/invocation hashes matching. No validator, historical raw or source was modified."
+  }
+}

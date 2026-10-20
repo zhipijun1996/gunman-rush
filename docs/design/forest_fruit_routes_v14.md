@@ -1,5 +1,14 @@
 # FOREST-FRUIT-ROUTES-04：果实目标与有限空间整理
 
+## W8最新修订：其余挂点已有运行时宿主，历史Manifest不重写
+
+本节覆盖下文旧“其余无支承仍待改造”的时点说明。`ForestTargetHosts`仅在v14为实际pending目标增加从既有SupportRect边界长出的连续枝条：fallen-log、pod、crown/relay、藤门、Guardian、Queen rib及cavity均有不同局部结构；原已接根目标不再加第二枝。门/Boss保留功能环，路线目标表现为果实，短果梗连接真实连续枝条。无新增碰撞/支持面/抽样，无目标位移或钩索规则改变，原Manifest/历史pin保持。
+
+20个原corpus实际App共737目标、149个冻结pending注记在运行装配中获宿主；注记是历史序列化状态，不改写为美术已认可。45张G2原图和两图24/29段原路线获限定独审；推荐、可选、恢复用途仍按真实消费者区分，proposal行程不是强制唯一通路。仅两处有逐点消融证据的rest删除，returncatch/恢复/门/Boss消费者保留。
+
+唯一实际v14提示“hanging ring”在显示消费者适配为“hanging fruit”，原Manifest文字和v13不变；首张因角色keepout隐藏的图仍为失败，新站位实际可见，原24段动作raw与前W8逐字相同。详细原件见[W8空间](../evidence/forest_fruit_routes04/hosts-W8/README.md)。新源码完整80/连续影片/全CI仍待实际结果；Queen返程局部HUD遮挡、全区美感、真人FUN和实体设备未代签。
+
+
 当前已将 `forest-fruit-routes-v14` 切为**试玩默认候选**，进入原固定80、历史版本重建和正式电影的统一验证；不是全森林终审通过。技术、构图、用户审美和实体设备证据分开。原 v13 的历史生产者、坐标、完整 Manifest 与已保存 run pin 保留。
 
 本任务采用 region-generator 的推荐/实体区别、scene-composer 的可信挂点与负空间、art-director 的像素尺度和真实合屏流程。当前程序绘制果实是有限技术候选，不是 AI 原画或已认可的新美术母版；后续独审由另一代理负责，作者不签独立审查。

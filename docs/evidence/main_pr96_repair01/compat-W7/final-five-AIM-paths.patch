@@ -1,0 +1,515 @@
+commit 6dd6db7a28a6e1defeb8a29aba389bc824dda697
+Author:     Zipei Su <zhipijun1996@gmail.com>
+AuthorDate: Tue Oct 20 05:46:47 2026 +0000
+Commit:     Zipei Su <zhipijun1996@gmail.com>
+CommitDate: Tue Oct 20 05:46:47 2026 +0000
+
+    Isolate save compatibility data and world consumers within original budget
+
+diff --git a/tests/aim_save_compat_case.gd b/tests/aim_save_compat_case.gd
+index ac951157..b7d6dd7c 100644
+--- a/tests/aim_save_compat_case.gd
++++ b/tests/aim_save_compat_case.gd
+@@ -1,6 +1,10 @@
+ extends Node
+ const OLD_HASH := "e5161bb8ef1855b9eda515ab0613a4a738b47abc43b0f2dc118d2e45f71b2058"
+ var reporter: WeakRef
++# Data validation and the actual world use the same Scripts without a static
++# dependency from this scene consumer back into the complete Manifest graph.
++func data_script(path: String) -> Script:
++	return load(path) as Script
+ func check(ok: bool,label: String) -> void:reporter.get_ref().check(ok,label)
+ func frames(n: int) -> void:
+ 	for i: int in n:await get_tree().physics_frame;await get_tree().process_frame
+@@ -12,15 +16,15 @@ func run(region: String,map_index: int) -> void:
+ 		expected=JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/forest_recorded_layouts/v11_corpus_map%s.json" % map_index))
+ 		root_seed=str(expected.seed).split("/thorn_forest/")[0]
+ 	else:
+-		var generator:=PlainsRegionGenerator.new();generator.root_bell_mode="v3"
+-		expected=generator.generate_before_focus_15(PlainsRegionCampaign.seed_for(root_seed,map_index),PlayerTuning.load_default(),false,"","intro" if map_index==1 else "advanced").manifest
+-	var state:=PlainsRegionState.new()
++		var generator =data_script("res://scripts/generation/plains_region_generator.gd").new();generator.root_bell_mode="v3"
++		expected=generator.generate_before_focus_15(data_script("res://scripts/run/plains_region_campaign.gd").seed_for(root_seed,map_index),data_script("res://scripts/player/player_tuning.gd").load_default(),false,"","intro" if map_index==1 else "advanced").manifest
++	var state =data_script("res://scripts/run/plains_region_state.gd").new()
+ 	check(state.bind_map(expected.manifest_hash),label+" initialize exact historical map hash")
+ 	state.claimed["historical_claim"]=true
+ 	state.opened["historical_open"]=true
+ 	state.mechanisms["historical_switch"]={"open":true}
+ 	var encoded_state: Dictionary=JSON.parse_string(JSON.stringify(state.snapshot()))
+-	var restored:=PlainsRegionState.new()
++	var restored =data_script("res://scripts/run/plains_region_state.gd").new()
+ 	check(restored.restore(encoded_state,expected.manifest_hash),label+" serialized map state restores")
+ 	var app:=DemoApp.new();app.meta_persistence_enabled=false
+ 	get_tree().root.add_child(app)
+@@ -32,15 +36,15 @@ func run(region: String,map_index: int) -> void:
+ 	if not app.stage is PlainsRegionStage or not app.stage.assembly_ok:
+ 		await dispose(app);return
+ 	var actual: Dictionary=app.stage.generated.manifest
+-	check(RandomStageGenerator.new()._same_data(actual,expected),label+" exact historical full manifest hash seed geometry retained")
++	check(data_script("res://scripts/generation/random_stage_generator.gd").new()._same_data(actual,expected),label+" exact historical full manifest hash seed geometry retained")
+ 	check(app.region_state==restored and restored.claimed.has("historical_claim") and restored.opened.has("historical_open") and restored.mechanisms.get("historical_switch")=={"open":true},label+" saved state identity and claims retained")
+ 	check(app.controller.motor.tuning.focus_time_scale==0.15,label+" actual restored runtime focus is fifteen percent")
+ 	var fresh: Dictionary=JSON.parse_string(app.director.manifest.canonical_json())
+-	check(fresh.stages[0].outputs.stage_tuning.focus_time_scale==0.15 and RunManifest.from_snapshot(fresh)!=null,label+" freshly recorded historical map runs at .15 and validates")
++	check(fresh.stages[0].outputs.stage_tuning.focus_time_scale==0.15 and data_script("res://scripts/run/run_manifest.gd").from_snapshot(fresh)!=null,label+" freshly recorded historical map runs at .15 and validates")
+ 	var historical:=fresh.duplicate(true)
+ 	historical.stages[0].outputs.stage_tuning.focus_time_scale=0.2
+ 	var canonical_before:=JSON.stringify(historical,"",true)
+-	var decoded:=RunManifest.from_snapshot(historical)
++	var decoded =data_script("res://scripts/run/run_manifest.gd").from_snapshot(historical)
+ 	check(decoded!=null,label+" original twenty percent stage tuning accepted only for known historical hash")
+ 	check(JSON.stringify(historical,"",true)==canonical_before and decoded!=null and decoded.canonical_json()==canonical_before,label+" replay leaves entire historical metadata unchanged")
+ 	for mutation: String in ["focus","physics","hash","items","missing","extra","current_hash_old_focus"]:
+@@ -49,17 +53,17 @@ func run(region: String,map_index: int) -> void:
+ 		match mutation:
+ 			"focus":output.stage_tuning.focus_time_scale=0.19
+ 			"physics":output.stage_tuning.gravity+=1
+-			"hash":output.generated_layout.player_tuning_hash="a".repeat(64);output.generated_layout.manifest_hash=RandomStageGenerator.new()._manifest_hash(output.generated_layout)
++			"hash":output.generated_layout.player_tuning_hash="a".repeat(64);output.generated_layout.manifest_hash=data_script("res://scripts/generation/random_stage_generator.gd").new()._manifest_hash(output.generated_layout)
+ 			"items":output.capability_snapshot.items=["missing_item"]
+ 			"missing":output.stage_tuning.erase("focus_time_scale")
+ 			"extra":output.stage_tuning.unknown_physics=1
+-			"current_hash_old_focus":output.generated_layout.player_tuning_hash=FileAccess.get_sha256("res://config/player_tuning.json");output.generated_layout.manifest_hash=RandomStageGenerator.new()._manifest_hash(output.generated_layout)
+-		check(RunManifest.from_snapshot(bad)==null,label+" tampering rejects "+mutation)
++			"current_hash_old_focus":output.generated_layout.player_tuning_hash=FileAccess.get_sha256("res://config/player_tuning.json");output.generated_layout.manifest_hash=data_script("res://scripts/generation/random_stage_generator.gd").new()._manifest_hash(output.generated_layout)
++		check(data_script("res://scripts/run/run_manifest.gd").from_snapshot(bad)==null,label+" tampering rejects "+mutation)
+ 	var actor:=app.stage.enemies[0].get_node("Actor") as EnemyActor
+ 	var saved_health:=actor.health.current-1.0
+ 	check(saved_health>0 and actor.restore_instance_health(saved_health),label+" prepare actual nondefault enemy health")
+ 	app.stage.capture_state()
+-	var actors_before:=restored.actors.duplicate(true)
++	var actors_before: Dictionary =restored.actors.duplicate(true)
+ 	var health:=app.controller.actor_resources.health
+ 	check(health.apply_damage(ActorResourceRequest.new(&"save_fixture_damage",health.epoch,1.0,health.get_instance_id())).accepted(),label+" nondefault player health prepared by real resource transaction")
+ 	var items_before:=app.build.item_ids()
+@@ -76,10 +80,10 @@ func run(region: String,map_index: int) -> void:
+ func invalid_state(region: String,kind: String) -> void:
+ 	var app:=DemoApp.new();app.meta_persistence_enabled=false
+ 	get_tree().root.add_child(app)
+-	var state:=PlainsRegionState.new()
++	var state =data_script("res://scripts/run/plains_region_state.gd").new()
+ 	state.manifest_hash="0".repeat(64) if kind=="zero" else FileAccess.get_sha256("res://config/player_tuning.json") if kind=="config_sha" else "foreign/"+"a".repeat(64)
+ 	state.claimed["must_not_clear"]=true
+-	var original_hash:=state.manifest_hash
++	var original_hash: String =state.manifest_hash
+ 	check(app.start_debug_region(StringName(region),1,"invalid-save-state"),region+" invalid saved state request starts "+kind)
+ 	app.region_states[1]=state
+ 	await frames(10)
+@@ -87,6 +91,17 @@ func invalid_state(region: String,kind: String) -> void:
+ 	check(state.manifest_hash==original_hash and state.claimed.has("must_not_clear"),region+" rejected map retains original evidence ledger "+kind)
+ 	await dispose(app)
+ func dispose(app: DemoApp) -> void:
++	var owners := {}
++	for label: String in ["app","menu","stage","player","controller"]:
++		var value: Object = app if label=="app" else app.get(label)
++		owners[label] = weakref(value) if is_instance_valid(value) else null
++		value = null
+ 	app.abandon_run();await frames(4)
+ 	check(await load("res://tests/audio_teardown.gd").drain_world(app),"actual owned audio drains")
+ 	app.free();await frames(2)
++	var released := {}
++	for label: String in owners:
++		var reference: WeakRef = owners[label]
++		released[label] = reference == null or reference.get_ref() == null
++		if not released[label]:check(false,"actual owned "+label+" released after existing teardown")
++	reporter.get_ref().owner_observations.append({"kind":"actual_app_teardown","released":released})
+diff --git a/tests/aim_save_compat_data.gd b/tests/aim_save_compat_data.gd
+new file mode 100644
+index 00000000..6942ef4c
+--- /dev/null
++++ b/tests/aim_save_compat_data.gd
+@@ -0,0 +1,93 @@
++extends SceneTree
++# Immutable replay consumer, with no actual-world scene ownership.
++func data_script(path: String) -> Script:
++	return load(path) as Script
++var checks: Array = []
++var cases: Array = []
++var phase_identity: Dictionary
++func _initialize() -> void:
++	phase_identity={"phase":"data","engine_pid":OS.get_process_id(),"run_id":"","script":get_script().resource_path,"script_sha256":FileAccess.get_sha256(get_script().resource_path)}
++	for arg: String in OS.get_cmdline_user_args():
++		if arg.begins_with("--run-id="):phase_identity.run_id=arg.trim_prefix("--run-id=")
++	print("AIM SAVE PHASE: ",JSON.stringify(phase_identity))
++	execute.call_deferred()
++func execute() -> void:
++	var result := run()
++	var failures := 0
++	for row: Dictionary in result.checks:
++		if not row.passed:
++			failures+=1
++			printerr("AIM SAVE FAIL: "+str(row.label))
++	var output := "res://build/forest_grapple02/aim_save_compat_data.json"
++	for arg: String in OS.get_cmdline_user_args():
++		if arg.begins_with("--output="):output=arg.trim_prefix("--output=")
++	DirAccess.make_dir_recursive_absolute(output.get_base_dir())
++	var file:=FileAccess.open(output,FileAccess.WRITE)
++	file.store_string(JSON.stringify({"identity":phase_identity,"checks":result.checks,"cases":result.cases,"failures":failures,"scope":"immutable historical prefix replay only; no full-run resume API exists"},"\t"))
++	file.close()
++	print("AIM SAVE DATA: %s assertions / %s failures" % [result.checks.size(),failures])
++	quit(1 if failures else 0)
++func check(ok: bool,label: String) -> void:
++	checks.append({"passed":ok,"label":label})
++func run() -> Dictionary:
++	var archive := "res://docs/evidence/forest_depth_v2/reviews/campaign-output-helper/cross_region_manifest.json"
++	check(FileAccess.get_sha256(archive)=="82d6ef43b5f8bbd0f14cdff9468cdc7dae17c5c986d78a447935982c46475efa","original historical campaign bytes retained")
++	# The source's forest-v6 suffix is not in today's whitelist. Its two actual
++	# Plains outputs still reproduce the exact schema-1 prefix before transition.
++	var recorded: Dictionary=JSON.parse_string(FileAccess.get_file_as_string(archive))
++	recorded.schema_version=1
++	recorded.versions=recorded.legacy_versions.duplicate(true)
++	recorded.erase("legacy_versions")
++	recorded.stages=recorded.stages.slice(0,2)
++	var historical_json:=JSON.stringify(recorded,"",true)
++	var restored: RefCounted =data_script("res://scripts/run/run_manifest.gd").from_snapshot(recorded)
++	check(restored!=null and restored.canonical_json()==historical_json,"both real archived Plains outputs replay unchanged at historical .2")
++	cases.append({"kind":"original_archived_plains_prefix","source":archive,"source_sha256":FileAccess.get_sha256(archive),"recorded":recorded})
++	for index: int in [0,1]:
++		for field: String in ["id","version","health"]:
++			var invalid := recorded.duplicate(true)
++			invalid.stages[index].outputs.boss_layout[field] = "foreign_boss" if field=="id" else 999
++			check(data_script("res://scripts/run/run_manifest.gd").from_snapshot(invalid)==null,"archived map %s rejects foreign Boss %s" % [index+1,field])
++		var mismatched := recorded.duplicate(true)
++		mismatched.stages[index].outputs.generated_layout.player_tuning_hash = FileAccess.get_sha256("res://config/player_tuning.json")
++		mismatched.stages[index].outputs.generated_layout.manifest_hash = data_script("res://scripts/generation/random_stage_generator.gd").new()._manifest_hash(mismatched.stages[index].outputs.generated_layout)
++		check(data_script("res://scripts/run/run_manifest.gd").from_snapshot(mismatched)==null,"archived map %s rejects historical Boss under foreign configuration" % [index+1])
++		var swapped := recorded.duplicate(true)
++		swapped.stages[index].outputs.boss_layout = recorded.stages[1-index].outputs.boss_layout.duplicate(true)
++		check(data_script("res://scripts/run/run_manifest.gd").from_snapshot(swapped)==null,"archived map %s rejects other map historical Boss tuple" % [index+1])
++	check_historical_plains_prefixes()
++	restored=null
++	return {"checks":checks,"cases":cases}
++func check_historical_plains_prefixes() -> void:
++	var path := "res://tests/fixtures/main_dbc6ba08_actual_plains_prefixes.json"
++	check(FileAccess.get_sha256(path)=="7ae2d91b83974849edfc3777f1c940a1e924c412b18b6c2fcbd30b99166fea87","actual old-source three-version prefix bytes retained")
++	var prefixes: Array = JSON.parse_string(FileAccess.get_file_as_string(path))
++	check(prefixes.size()==3,"all three original supported Plains versions covered")
++	for row: Dictionary in prefixes:
++		var recorded: Dictionary = row.recorded
++		var label := "main dbc6ba08 / " + str(row.mode)
++		var canonical := JSON.stringify(recorded,"",true)
++		var restored: RefCounted = data_script("res://scripts/run/run_manifest.gd").from_snapshot(recorded)
++		check(restored!=null and restored.canonical_json()==canonical,label+" actual .15 old-Boss snapshot replays unchanged")
++		var current := recorded.duplicate(true)
++		for index: int in [0,1]:
++			var definition: Resource = load("res://resources/bosses/bellstrider.tres" if index==0 else "res://resources/bosses/windkeeper_storm.tres")
++			assert(is_instance_of(definition,data_script("res://scripts/bosses/boss_definition.gd")))
++			current.stages[index].outputs.boss_layout = {"id":str(definition.stable_id),"version":definition.definition_version,"health":definition.health_definition.max_health}
++		var current_restored: RefCounted = data_script("res://scripts/run/run_manifest.gd").from_snapshot(current)
++		check(current_restored!=null and current_restored.canonical_json()==JSON.stringify(current,"",true),label+" current-Boss tuple remains canonical")
++		for index: int in [0,1]:
++			for field: String in ["id","version","health","configuration","focus","map_identity"]:
++				var bad := recorded.duplicate(true)
++				var output: Dictionary = bad.stages[index].outputs
++				match field:
++					"id":output.boss_layout.id="foreign_boss"
++					"version":output.boss_layout.version=999
++					"health":output.boss_layout.health+=1
++					"configuration":
++						output.generated_layout.player_tuning_hash="f".repeat(64)
++						output.generated_layout.manifest_hash=data_script("res://scripts/generation/random_stage_generator.gd").new()._manifest_hash(output.generated_layout)
++					"focus":output.stage_tuning.focus_time_scale=0.19
++					"map_identity":output.region_map.map_index=2 if index==0 else 1
++				check(data_script("res://scripts/run/run_manifest.gd").from_snapshot(bad)==null,label+" map%s rejects foreign %s" % [index+1,field])
++		cases.append({"kind":"actual_old_source_plains_prefix","source_commit":row.source_commit,"mode":row.mode,"source":path,"source_sha256":FileAccess.get_sha256(path),"recorded":recorded})
+diff --git a/tests/aim_save_compat_data.gd.uid b/tests/aim_save_compat_data.gd.uid
+new file mode 100644
+index 00000000..5bf24afe
+--- /dev/null
++++ b/tests/aim_save_compat_data.gd.uid
+@@ -0,0 +1 @@
++uid://c76i4283sqyo2
+diff --git a/tests/aim_save_compat_runner.gd b/tests/aim_save_compat_runner.gd
+index e61345dd..458ffb30 100644
+--- a/tests/aim_save_compat_runner.gd
++++ b/tests/aim_save_compat_runner.gd
+@@ -1,88 +1,43 @@
+ extends SceneTree
+-const MANIFEST := preload("res://scripts/run/run_manifest.gd")
+ var failures := 0
+ var checks: Array = []
+ var cases: Array = []
+-func _initialize() -> void: run.call_deferred()
++var owner_observations: Array = []
++var helper_reference: WeakRef
++var phase_identity: Dictionary
++func _initialize() -> void:
++	phase_identity={"phase":"world","engine_pid":OS.get_process_id(),"run_id":"","script":get_script().resource_path,"script_sha256":FileAccess.get_sha256(get_script().resource_path)}
++	for arg: String in OS.get_cmdline_user_args():
++		if arg.begins_with("--run-id="):phase_identity.run_id=arg.trim_prefix("--run-id=")
++	print("AIM SAVE PHASE: ",JSON.stringify(phase_identity))
++	run.call_deferred()
+ func check(ok: bool,label: String) -> void:
+ 	checks.append({"passed":ok,"label":label})
+ 	if not ok: failures+=1;printerr("AIM SAVE FAIL: "+label)
+ func run() -> void:
+-	var archive := "res://docs/evidence/forest_depth_v2/reviews/campaign-output-helper/cross_region_manifest.json"
+-	check(FileAccess.get_sha256(archive)=="82d6ef43b5f8bbd0f14cdff9468cdc7dae17c5c986d78a447935982c46475efa","original historical campaign bytes retained")
+-	# The source's forest-v6 suffix is not in today's whitelist. Its two actual
+-	# Plains outputs still reproduce the exact schema-1 prefix before transition.
+-	var recorded: Dictionary=JSON.parse_string(FileAccess.get_file_as_string(archive))
+-	recorded.schema_version=1
+-	recorded.versions=recorded.legacy_versions.duplicate(true)
+-	recorded.erase("legacy_versions")
+-	recorded.stages=recorded.stages.slice(0,2)
+-	var historical_json:=JSON.stringify(recorded,"",true)
+-	var restored:=MANIFEST.from_snapshot(recorded)
+-	check(restored!=null and restored.canonical_json()==historical_json,"both real archived Plains outputs replay unchanged at historical .2")
+-	cases.append({"kind":"original_archived_plains_prefix","source":archive,"source_sha256":FileAccess.get_sha256(archive),"recorded":recorded})
+-	for index: int in [0,1]:
+-		for field: String in ["id","version","health"]:
+-			var invalid := recorded.duplicate(true)
+-			invalid.stages[index].outputs.boss_layout[field] = "foreign_boss" if field=="id" else 999
+-			check(MANIFEST.from_snapshot(invalid)==null,"archived map %s rejects foreign Boss %s" % [index+1,field])
+-		var mismatched := recorded.duplicate(true)
+-		mismatched.stages[index].outputs.generated_layout.player_tuning_hash = FileAccess.get_sha256("res://config/player_tuning.json")
+-		mismatched.stages[index].outputs.generated_layout.manifest_hash = RandomStageGenerator.new()._manifest_hash(mismatched.stages[index].outputs.generated_layout)
+-		check(MANIFEST.from_snapshot(mismatched)==null,"archived map %s rejects historical Boss under foreign configuration" % [index+1])
+-		var swapped := recorded.duplicate(true)
+-		swapped.stages[index].outputs.boss_layout = recorded.stages[1-index].outputs.boss_layout.duplicate(true)
+-		check(MANIFEST.from_snapshot(swapped)==null,"archived map %s rejects other map historical Boss tuple" % [index+1])
+-	check_historical_plains_prefixes()
+-	restored=null
++
+ 	var helper: Node=load("res://tests/aim_save_compat_case.gd").new()
+ 	helper.reporter=weakref(self)
++	helper_reference=weakref(helper)
+ 	root.add_child(helper)
+ 	for region: String in ["plains","thorn_forest"]:
+ 		for map_index: int in [1,2]:await helper.run(region,map_index)
+ 	for region: String in ["plains","thorn_forest"]:
+ 		for kind: String in ["zero","config_sha","foreign_prefix"]:await helper.invalid_state(region,kind)
+ 	helper.free()
++	helper=null
+ 	finish.call_deferred()
+-func check_historical_plains_prefixes() -> void:
+-	var path := "res://tests/fixtures/main_dbc6ba08_actual_plains_prefixes.json"
+-	check(FileAccess.get_sha256(path)=="7ae2d91b83974849edfc3777f1c940a1e924c412b18b6c2fcbd30b99166fea87","actual old-source three-version prefix bytes retained")
+-	var prefixes: Array = JSON.parse_string(FileAccess.get_file_as_string(path))
+-	check(prefixes.size()==3,"all three original supported Plains versions covered")
+-	for row: Dictionary in prefixes:
+-		var recorded: Dictionary = row.recorded
+-		var label := "main dbc6ba08 / " + str(row.mode)
+-		var canonical := JSON.stringify(recorded,"",true)
+-		var restored := MANIFEST.from_snapshot(recorded)
+-		check(restored!=null and restored.canonical_json()==canonical,label+" actual .15 old-Boss snapshot replays unchanged")
+-		var current := recorded.duplicate(true)
+-		for index: int in [0,1]:
+-			var definition: BossDefinition = load("res://resources/bosses/bellstrider.tres" if index==0 else "res://resources/bosses/windkeeper_storm.tres")
+-			current.stages[index].outputs.boss_layout = {"id":str(definition.stable_id),"version":definition.definition_version,"health":definition.health_definition.max_health}
+-		var current_restored := MANIFEST.from_snapshot(current)
+-		check(current_restored!=null and current_restored.canonical_json()==JSON.stringify(current,"",true),label+" current-Boss tuple remains canonical")
+-		for index: int in [0,1]:
+-			for field: String in ["id","version","health","configuration","focus","map_identity"]:
+-				var bad := recorded.duplicate(true)
+-				var output: Dictionary = bad.stages[index].outputs
+-				match field:
+-					"id":output.boss_layout.id="foreign_boss"
+-					"version":output.boss_layout.version=999
+-					"health":output.boss_layout.health+=1
+-					"configuration":
+-						output.generated_layout.player_tuning_hash="f".repeat(64)
+-						output.generated_layout.manifest_hash=RandomStageGenerator.new()._manifest_hash(output.generated_layout)
+-					"focus":output.stage_tuning.focus_time_scale=0.19
+-					"map_identity":output.region_map.map_index=2 if index==0 else 1
+-				check(MANIFEST.from_snapshot(bad)==null,label+" map%s rejects foreign %s" % [index+1,field])
+-		cases.append({"kind":"actual_old_source_plains_prefix","source_commit":row.source_commit,"mode":row.mode,"source":path,"source_sha256":FileAccess.get_sha256(path),"recorded":recorded})
+ func finish() -> void:
+-	var output := "res://build/forest_grapple02/aim_save_compat.json"
++	var helper_released := helper_reference.get_ref()==null
++	owner_observations.append({"kind":"scene_helper","released":helper_released})
++	if not helper_released:check(false,"actual scene helper released after its async run returned")
++	if "--failure-probe" in OS.get_cmdline_user_args():check(false,"explicit failure probe after all real checks")
++	var output := "res://build/forest_grapple02/aim_save_compat_world.json"
+ 	for arg: String in OS.get_cmdline_user_args():
+ 		if arg.begins_with("--output="):output=arg.trim_prefix("--output=")
+ 	DirAccess.make_dir_recursive_absolute(output.get_base_dir())
+ 	var file:=FileAccess.open(output,FileAccess.WRITE)
+-	file.store_string(JSON.stringify({"checks":checks,"cases":cases,"failures":failures,"scope":"immutable RunManifest replay and actual map-state reload; no historical full-run resume API exists"},"\t"))
++	file.store_string(JSON.stringify({"identity":phase_identity,"checks":checks,"cases":cases,"failures":failures,"owner_observations":owner_observations,"scope":"immutable RunManifest replay and actual map-state reload; no historical full-run resume API exists"},"\t"))
+ 	file.close()
+ 	print("AIM SAVE COMPAT: %s assertions / %s failures" % [checks.size(),failures])
+ 	quit(1 if failures else 0)
+diff --git a/tools/run_aim_save_compat_tests.py b/tools/run_aim_save_compat_tests.py
+index e6a0662a..12698c4c 100644
+--- a/tools/run_aim_save_compat_tests.py
++++ b/tools/run_aim_save_compat_tests.py
+@@ -1,13 +1,173 @@
+-"""Finite historical aim-tuning replay and actual saved-map reload regressions."""
++"""Verify immutable replay and real saved-map reload in isolated compiler domains.
++
++The decoded historical prefix was never passed to the independent actual App.
++Each consumer retains strict native teardown; both share the original 120 seconds.
++"""
++import argparse
++import contextlib
++import hashlib
++import json
++from pathlib import Path
+ import re
+-from run_tests import run_engine
++import time
++import uuid
++
++from run_tests import REPO, run_engine
++
++SOURCES = ('tests/aim_save_compat_data.gd', 'tests/aim_save_compat_runner.gd',
++           'tests/aim_save_compat_case.gd', 'tools/run_aim_save_compat_tests.py')
++COUNTS = {'data': 56, 'world': 120}
++SCRIPTS = {'data': SOURCES[0], 'world': SOURCES[1]}
++SUMMARY = {'data': 'AIM SAVE DATA', 'world': 'AIM SAVE COMPAT'}
++
++
++class Tee:
++    def __init__(self, target, raw):
++        self.target, self.raw = target, raw
++
++    def write(self, value):
++        self.raw.write(value)
++        return self.target.write(value)
++
++    def flush(self):
++        self.raw.flush()
++        self.target.flush()
++
++
++def source_identity():
++    return {name: hashlib.sha256((REPO / name).read_bytes()).hexdigest() for name in SOURCES}
++
++
++def case_ids(phase, cases):
++    if not isinstance(cases, list) or len(cases) != 4:
++        raise RuntimeError(f'{phase}: incomplete case report')
++    if phase == 'world':
++        identities = [(row.get('region'), row.get('map')) for row in cases]
++        if identities != [('plains', 1), ('plains', 2), ('thorn_forest', 1), ('thorn_forest', 2)]:
++            raise RuntimeError('world: unexpected case identities or ordering')
++        return [f'world/{region}/map{index}' for region, index in identities]
++    expected = [('original_archived_plains_prefix', None),
++                ('actual_old_source_plains_prefix', 'legacy_v10'),
++                ('actual_old_source_plains_prefix', 'v2'),
++                ('actual_old_source_plains_prefix', 'v3')]
++    if [(row.get('kind'), row.get('mode')) for row in cases] != expected:
++        raise RuntimeError('data: unexpected historical case identities or ordering')
++    return ['data/original_archive', 'data/main_dbc6ba08/legacy_v10',
++            'data/main_dbc6ba08/v2', 'data/main_dbc6ba08/v3']
++
++
++def validate_phase(phase, report, raw, run_id, sources):
++    starts = re.findall(r'^AIM SAVE PHASE: (.+)$', raw, re.M)
++    if len(starts) != 1:
++        raise RuntimeError(f'{phase}: missing or ambiguous native identity')
++    identity = json.loads(starts[0])
++    expected = {'phase': phase, 'run_id': run_id, 'script': 'res://' + SCRIPTS[phase],
++                'script_sha256': sources[SCRIPTS[phase]]}
++    if (not isinstance(identity, dict) or any(identity.get(k) != v for k, v in expected.items())
++            or type(identity.get('engine_pid')) is not int or identity['engine_pid'] <= 0
++            or report.get('identity') != identity):
++        raise RuntimeError(f'{phase}: stale or foreign native report identity')
++    checks = report.get('checks')
++    if (type(report.get('failures')) is not int or report['failures'] != 0
++            or not isinstance(checks, list) or len(checks) != COUNTS[phase]
++            or any(not isinstance(row, dict) or type(row.get('passed')) is not bool
++                   or not row['passed'] or not isinstance(row.get('label'), str)
++                   or not row['label'] for row in checks)):
++        raise RuntimeError(f'{phase}: incomplete or failed business checks')
++    if not re.search(r'^' + SUMMARY[phase] + ': ' + str(COUNTS[phase]) + r' assertions / 0 failures$', raw, re.M):
++        raise RuntimeError(f'{phase}: missing complete native summary')
++    ids = case_ids(phase, report.get('cases'))
++    return identity, ids
++
++
++def aggregate(reports, receipts, run_id, sources):
++    if list(reports) != ['data', 'world'] or list(receipts) != ['data', 'world']:
++        raise RuntimeError('Missing or reordered consumer phase')
++    checks, cases = [], []
++    for phase in ('data', 'world'):
++        receipt = receipts[phase]
++        if receipt.get('status') != 'passed' or receipt.get('exit_code') != 0:
++            raise RuntimeError(f'{phase}: native phase did not succeed')
++        raw = (REPO / receipt['rawlog']).read_text()
++        if hashlib.sha256(raw.encode()).hexdigest() != receipt['rawlog_sha256']:
++            raise RuntimeError(f'{phase}: native raw log changed')
++        _, ids = validate_phase(phase, reports[phase], raw, run_id, sources)
++        checks.extend(dict(row, check_id=f'{phase}/{index:03d}')
++                      for index, row in enumerate(reports[phase]['checks']))
++        cases.extend(dict(row, case_id=case_id) for row, case_id in zip(reports[phase]['cases'], ids))
++    if len(checks) != 176 or len(cases) != 8 or len({row['case_id'] for row in cases}) != 8:
++        raise RuntimeError('Incomplete historical data and actual-world aggregate')
++    return {'checks': checks, 'cases': cases, 'failures': 0, 'run_id': run_id,
++            'phases': receipts, 'source_sha256': sources,
++            'owner_observations': reports['world']['owner_observations'],
++            'scope': 'Two independent native consumers: immutable prefix replay followed by actual map-state reload. No historical full-run resume API exists.'}
++
++
++def run_phase(phase, directory, run_id, deadline, sources, failure_probe):
++    remaining = deadline - time.monotonic()
++    if remaining <= 0:
++        raise RuntimeError('Original shared 120-second native budget exhausted')
++    report_path, raw_path = directory / f'{phase}.json', directory / f'{phase}.log'
++    # Unique run directory plus fresh paths prevent any previous output being reused.
++    report_path.unlink(missing_ok=True)
++    arguments = ['--headless', '--path', '.', '--script', SCRIPTS[phase], '--',
++                 '--output=res://' + str(report_path.relative_to(REPO)), '--run-id=' + run_id]
++    if failure_probe and phase == 'world':
++        arguments.append('--failure-probe')
++    started = time.monotonic()
++    receipt = {'phase': phase, 'argv': ['bash', str(REPO / 'tools/godot.sh'), *arguments],
++               'timeout_seconds': remaining, 'source_sha256': sources, 'status': 'failed',
++               'exit_code': None, 'rawlog': str(raw_path.relative_to(REPO))}
++    try:
++        import sys
++        with raw_path.open('w') as raw, contextlib.redirect_stdout(Tee(sys.stdout, raw)):
++            output = run_engine(arguments, remaining)
++        receipt['exit_code'] = 0
++        report = json.loads(report_path.read_text())
++        identity, _ = validate_phase(phase, report, output, run_id, sources)
++        receipt.update({'status': 'passed', 'engine_pid': identity['engine_pid']})
++        return report, receipt
++    except Exception as error:
++        receipt['error'] = str(error)
++        match = re.fullmatch(r'Godot returned (-?\d+)', str(error))
++        if match:
++            receipt['exit_code'] = int(match.group(1))
++        raise
++    finally:
++        receipt['duration_seconds'] = time.monotonic() - started
++        if raw_path.exists():
++            raw = raw_path.read_text()
++            receipt['rawlog_sha256'] = hashlib.sha256(raw.encode()).hexdigest()
++            starts = re.findall(r'^AIM SAVE PHASE: (.+)$', raw, re.M)
++            if len(starts) == 1:
++                receipt['native_identity'] = json.loads(starts[0])
++                receipt['engine_pid'] = receipt['native_identity']['engine_pid']
++        (directory / f'{phase}-receipt.json').write_text(json.dumps(receipt, indent=2) + '\n')
+ 
+ 
+ def main():
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument('--failure-probe', action='store_true')
++    args = parser.parse_args()
++    output = REPO / 'build/verification/aim_save_compat.json'
++    output.parent.mkdir(parents=True, exist_ok=True)
++    output.unlink(missing_ok=True)
++    sources = source_identity()
+     run_engine(['--headless', '--path', '.', '--editor', '--quit'], 90)
+-    output = run_engine(['--headless', '--path', '.', '--script', 'tests/aim_save_compat_runner.gd', '--', '--output=res://build/verification/aim_save_compat.json'], 120)
+-    if not re.search(r'^AIM SAVE COMPAT: [1-9]\d* assertions / 0 failures$', output, re.M):
+-        raise RuntimeError('Missing complete historical tuning/save compatibility result')
++    run_id = uuid.uuid4().hex
++    directory = output.parent / 'aim_save_compat' / run_id
++    directory.mkdir(parents=True)
++    native_started = time.monotonic()
++    deadline = native_started + 120
++    reports, receipts = {}, {}
++    for phase in ('data', 'world'):
++        reports[phase], receipts[phase] = run_phase(phase, directory, run_id, deadline, sources, args.failure_probe)
++    if time.monotonic() > deadline or source_identity() != sources:
++        raise RuntimeError('Shared native budget exceeded or fixture source changed')
++    result = aggregate(reports, receipts, run_id, sources)
++    result['native_duration_seconds'] = time.monotonic() - native_started
++    output.write_text(json.dumps(result, indent=2) + '\n')
++    print('AIM SAVE AGGREGATE: 176 assertions / 0 failures across 2 native consumers')
+     print('PASS: historical aim tuning and actual saved-map compatibility')
+ 
+ 

@@ -1,0 +1,78 @@
+{
+  "reviewer": "/root/independent_review",
+  "independent": true,
+  "verdict": "SCOPED_ACCEPT",
+  "reviewed_commit": "8f0c7927a8ed31d0b32bcb5358ebe684ef022056",
+  "changed_paths_SHA256": {
+    "scripts/demo/thorn_forest_region_stage.gd": "c6597525056945699f5d08b6861eb6da3a63f501273e2b50944206144aee0765",
+    "tools/capture_forest_target_hosts.gd": "16ec0eeee8c99dd4dbedf6ad0a5a4206e1a5e0d5ae3077543130e68bf5f9cdf9",
+    "tools/capture_forest_target_hosts.py": "c74a075b28645de715f164e2c8a373f5c0a4efb3b7285980824c4ac36f59eb1d"
+  },
+  "scope": "Only exact v14 ring→fruit hint consumption plus dedicated one-window capture and original24-leg feedback. No new host layout or whole-zone acceptance.",
+  "code_review": [
+    "Only the exact sentence Right: recoil toward the hanging ring, then fire down. is replaced by hanging fruit when layout matches ForestTargetHosts.LAYOUT v14. The replacement uses a local string, without writing frozen Manifest data.",
+    "Historical v13/other layout text paths remain unchanged. Existing actor keepout/nearest-sign rules are unchanged.",
+    "New root_hint capture mode requires exactly one expected visible two-line hint and no stale hanging ring text. All preexisting capture groups still require exactly three observations in Python and native fixtures."
+  ],
+  "source_binding": {
+    "actual_execution_head": "6dd6db7a28a6e1defeb8a29aba389bc824dda697",
+    "dirty_execution_provenance_preserved": true,
+    "all_three_frozen_commit_blob_hashes_equal_capture_and_route_source_after": true,
+    "original_before_after_equal": true,
+    "visible_capture_actual_exit": 0,
+    "visible_capture_seconds": 13.608629689002555,
+    "artifacts_SHA_sourceZIP_CRC_verified": true
+  },
+  "actually_viewed": [
+    "build/forest_revision04/hosts-W8-hint-visible-final/map1_hanging_fruit_hint.png"
+  ],
+  "pixel_result": "New second line hanging fruit is readable near y418, with player to the lower left. The first line lies close to an existing fruit; this tiny change is not a redesign or universal text/target separation guarantee.",
+  "first_failed_fixture_preserved": {
+    "directory": "build/forest_revision04/hosts-W8-hint-final",
+    "status": "failed",
+    "reported_errors": [
+      "actual_visible_fruit_hint/hanging_fruit_hint"
+    ],
+    "source_stable": true,
+    "interpretation": "The first initial bank position had no visible hint because the existing actor keepout hid it. Only the later initial observation station on the same real bough changed; the keepout rule was not bypassed. Failure is not relabeled passed."
+  },
+  "original_route_feedback": {
+    "receipt": "build/forest_revision04/hosts-W8-hint-route-final/receipt.json",
+    "actual_exit": 0,
+    "seconds": 11.799463088998891,
+    "completed_legs": 24,
+    "frames": 2274,
+    "validator_errors": [],
+    "source_guard_equal": true,
+    "raw_log_SHA_and_strict_marker_verified": true,
+    "raw_capture_SHA256": "ffa275379e66cb3e1a9389c78d64c188b5c59293077ff44bf42b47bcf7d3106b",
+    "actual_bytes_equal_prior_W8_map1_capture": true,
+    "prior_capture": "build/forest_revision04/hosts-W8-final-route-map1-r4-ui/00-map1-high_return/capture.json",
+    "scope": "A fresh actual native execution with its own source provenance; byte equality does not replace its new receipt. Headless route is not a rendered movie."
+  },
+  "archive": {
+    "path": "build/forest_revision04/hosts-W8-hint-delivery/tinyhint-evidence.zip",
+    "sha256": "1083176d670b51453594557f9204d9632c14f4ada3b2a0761f890a36667c1f94",
+    "bytes": 5240501,
+    "entries": 25,
+    "CRC_verified": true
+  },
+  "proof_SHA256": {
+    "build/forest_revision04/hosts-W8-hint-visible-final/source-binding.json": "fa33c7a02fdf37caedfea79e62d333a88327ab599307eb254ba71bb6b81abfba",
+    "build/forest_revision04/hosts-W8-hint-visible-final/report.json": "0e9070cf16880590c42396caf5f5e51272d0335666293a74f29d64fc0b1fa851",
+    "build/forest_revision04/hosts-W8-hint-visible-final/source-delta.zip": "84da698110a37647d89144c1a03f2d4ded2e8a830a64f0573fa5c98273e6ed39",
+    "build/forest_revision04/hosts-W8-hint-visible-final/native.log": "849cfb028613e3323c5e27759b2eb59158ee7748013b4b4fe153250139a5f311",
+    "build/forest_revision04/hosts-W8-hint-visible-final/map1_hanging_fruit_hint.png": "b5b411b093734bf0217584dfb81bcfed0034f0b0a9ce1a509212bd2c93448c12",
+    "build/forest_revision04/hosts-W8-hint-route-final/receipt.json": "a20712142748498cba0bfbbf2602790cea58d41d6a9724f0e0f92c3c46700871",
+    "build/forest_revision04/hosts-W8-hint-route-final/00-map1-high_return/capture.json": "ffa275379e66cb3e1a9389c78d64c188b5c59293077ff44bf42b47bcf7d3106b",
+    "build/forest_revision04/hosts-W8-hint-route-final/00-map1-high_return/native.log": "05144c862a4b4aef146d20dec55269384bc784dcb34e5777f636b09d14e891a6",
+    "build/forest_revision04/hosts-W8-hint-final/source-binding.json": "a6a4a84ea734e2687dfac99da1fac2687bcc7b659e30ceb3a55bfed88c3323b3",
+    "build/forest_revision04/hosts-W8-hint-final/report.json": "1d89f72e18d1a80c13d0a30a4b8557b6007bc44b9b5c7b78624c94ff6709571c",
+    "build/forest_revision04/hosts-W8-hint-final/native.log": "1861a198af5f10ef1e5deea64a39167dceb43edab476c73a78c9fd0caeafee66"
+  },
+  "limits": [
+    "Earlier W8 source/art scoped reports and failed observations preserved.",
+    "No complete80/new continuous movie/full Boss dynamics/audio/remote CI/user taste/device approval.",
+    "No source/tests/docs/author proof modified and no Godot launched; only new ignored addendum."
+  ]
+}

@@ -1,0 +1,197 @@
+{
+  "reviewer": "/root/independent_review",
+  "independent": true,
+  "verdict": "SCOPED_ACCEPT",
+  "reviewed_final_runtime_commit": "169ef171fee3f70911847fb2c2890351ee3468bb",
+  "scope": "Final source-delta closure over previously independently reviewed W6 baseline, W7 reader/scene, W7b isolated aim, W8 runtime hosts/UI/hint and W9 resource-only provenance rebuild. Source closure and specific local proofs, not current full-runtime validation or player/art/device acceptance.",
+  "frozen_source_coverage": {
+    "baseline_commit": "c77f920bd8c31ce7640b6db44fb049efc863370b",
+    "runtime_delta_paths": 77,
+    "reviewed_code_fixture_tool_paths": 21,
+    "Foundry_resource_paths": 56,
+    "all_paths_last_reviewed_commit_blob_equal_final_R": true,
+    "map": "build/foundry_final_W9/independent_source_delta_map.json",
+    "no_unreviewed_runtime_path_outside_reviewed_commit_union": true,
+    "limits": "Documentation/evidence updates are outside runtime map. Earlier source-bound suites retain their original runtime bytes and are not relabeled final-R executions."
+  },
+  "W9_actual_native": {
+    "execution_source_commit": "8f0c7927a8ed31d0b32bcb5358ebe684ef022056",
+    "commands": [
+      {
+        "argv": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "tools/foundry.py",
+          "build",
+          "--count",
+          "24",
+          "--profiles",
+          "base",
+          "double_jump",
+          "air_chain",
+          "--promote"
+        ],
+        "timeout_seconds": 1000,
+        "log": "build/foundry_final_W9/build36_18.log",
+        "started_utc": "2026-10-20T05:50:40.560090+00:00",
+        "exit_code": 0,
+        "timed_out": false,
+        "elapsed_seconds": 59.153969322997,
+        "completion_markers": [
+          "Validated 36 development phrases; 18 continuous itineraries. Fun: awaiting playtest."
+        ]
+      },
+      {
+        "argv": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--path",
+          ".",
+          "--script",
+          "tools/foundry_export_stamp.gd"
+        ],
+        "timeout_seconds": 90,
+        "log": "build/foundry_final_W9/export_stamp.log",
+        "started_utc": "2026-10-20T05:51:39.714712+00:00",
+        "exit_code": 0,
+        "timed_out": false,
+        "elapsed_seconds": 1.4170919349999167,
+        "completion_markers": [
+          "f3e060598385696137aa40910811fcbfed931853fe7f4c9992b11cf1af0263cb"
+        ]
+      }
+    ],
+    "original_caps": "Unchanged tools/foundry.py import120 and each of3 profile native consumers300; original W9 build wrapper1000 and stamp90. Count24/base,6/double_jump,6/air_chain; no timeout increase or altered validators.",
+    "phrases": 36,
+    "continuous_itineraries": 18,
+    "actual_replays": 54,
+    "frames": 56113,
+    "native_and_profile_logs_independently_strict_scanned": true,
+    "native_source_not_rewritten_to_resource_commit": "Actual runs used8f0c7927; R is the following commit of exactly56 generated outputs. Both inventories are independently bound to their actual Git trees."
+  },
+  "W9_independent_recomputation": {
+    "baseline": "All56 original blobs reconstructed directly using git cat-file at c77f, each equals prepared baseline inventory SHA; no old-W6 ZIP substitution.",
+    "final": "All56 generated resource hashes match committed R blobs and current disk.",
+    "exact_comparison": "Type-sensitive full JSON comparison of batch, export stamp and all54 replays. Only326 independently enumerated exact provenance locations excluded; set equals prepared whitelist. No wildcard hash/id removal.",
+    "derived_hashes": "Every old/new phrase and itinerary manifest checksum independently recomputed; nested phrase references and replay manifest_hash/basis links checked.",
+    "nonprovenance_result": "All actions, axis, positions, shots, repair, route IDs, array ordering, numeric types and other nonwhitelist values equal; zero differences.",
+    "refusal_checks": "Reviewer-owned changes to nested nonprovenance hash, route ID, position, epoch and numeric type rejected. A same-value float→int change is explicitly rejected by type-sensitive comparison.",
+    "source_guard": "1861 recorded input paths before/after independently fetched from8f/R Git blobs; every SHA matches, keysets equal and exactly56 Foundry outputs differ.",
+    "archive": "717296bytes/SHA403cd983aa2d90f325426e43768f8cb96aac1e3ffc1f5ae76ad0b6c855de98a3; CRC clean,78 indexed members independently rehashed, archived new56 resources equal R bytes.",
+    "basis": "f3e060598385696137aa40910811fcbfed931853fe7f4c9992b11cf1af0263cb",
+    "audit_details": {
+      "reviewer": "/root/independent_review",
+      "status": "passed",
+      "final_commit": "169ef171fee3f70911847fb2c2890351ee3468bb",
+      "native_execution_source": "8f0c7927a8ed31d0b32bcb5358ebe684ef022056",
+      "baseline_reconstructed_from_actual_Git_commit": "c77f920bd8c31ce7640b6db44fb049efc863370b",
+      "files": 56,
+      "phrases": 36,
+      "itineraries": 18,
+      "replays": 54,
+      "frames": 56113,
+      "profiles": {
+        "air_chain": 12,
+        "base": 30,
+        "double_jump": 12
+      },
+      "exact_nonwhitelist_changes": [],
+      "independently_derived_whitelist_paths": 326,
+      "all_manifest_derived_hashes_recomputed": true,
+      "all_replay_hash_links_valid": true,
+      "source_inventory_entries": 1861,
+      "both_before_and_after_match_actual_committed_Git_bytes": true,
+      "source_changed_exact_expected56": true,
+      "reviewer_owned_negative_controls": [
+        [
+          "nested_nonprovenance_hash",
+          true
+        ],
+        [
+          "route_id",
+          true
+        ],
+        [
+          "position",
+          true
+        ],
+        [
+          "epoch",
+          true
+        ],
+        [
+          "numeric_type",
+          true
+        ]
+      ],
+      "archive_index_all_members_and_new_raw_match_committed_bytes": true,
+      "native_profile_logs_strict_clean": true,
+      "original_author_reports_not_modified": true,
+      "numeric_type_control_detail": {
+        "original_type": "float",
+        "mutated_type": "int",
+        "same_numeric_value": true,
+        "strict_type_comparison_rejects": true
+      }
+    }
+  },
+  "carried_scoped_results": {
+    "W7": "Reader exact historical tuples and scene code/local original wrapper review remain scoped to original proofs; original failed same-process aim is retained.",
+    "W7b": "Authorized unique aim wrapper now truly passes data56+world120/8cases in two strict processes under one120sec native budget. Real world121/1 failure blocks aggregate;17 refusal controls independently revalidated. This does not fix or endorse arbitrary mixed same-process graphs.",
+    "W8": "Previously inspected rooted fruit/ring host groups, latest21 G2 images, actual20/737targets/149pending canonical-equivalent assemblies and24/29leg controls remain local scoped approvals. Partial target clipping and Queen upper branch/patrol-arrow behind-HUD limits remain.",
+    "hint": "Exact v14 one-word ring→fruit presentation adaptation accepted with actual visible single window and fresh24leg control; keepout-hidden first fixture remains a failure."
+  },
+  "prior_independent_reports": {
+    "W6_baseline_code_and_local_proofs": {
+      "path": "docs/evidence/main_pr96_repair01/review/W6_legacy_retirement_review.json",
+      "sha256": "f69e693317bd2b35c1661a64bb8925b2c2218ebb92869a8bed84216bbe4aeb78"
+    },
+    "W7_reader_and_scene_with_original_aim_failure": {
+      "path": "build/forest_revision04/ci-W7/review/W7_limited_review.json",
+      "sha256": "8449378280e5657db27ab960c49f54d080c1d87a7d03db3fb1a3d0289a839383"
+    },
+    "W7b_failed_same_process_candidate": {
+      "path": "build/forest_revision04/ci-W7/review/W7b_initial_domain_split_review.json",
+      "sha256": "ca1aacf4992b1799ad420e3b59d763c205a905a31893bf040987255958688482"
+    },
+    "W7b_final_two_process_aim": {
+      "path": "build/forest_revision04/ci-W7/review/W7b_isolated_aim_source_review.json",
+      "sha256": "6885efb43464abb12dd0b785708237a8800a1a02ac060533f0d93c36c1fa59e4"
+    },
+    "W8_source_and_local_pixel_contracts": {
+      "path": "build/forest_revision04/W8-review/W8_source_and_local_review.json",
+      "sha256": "5322d976e770665c3a06b56b510ee8e5d583b8176afe2302eb5da21832746442"
+    },
+    "W8_tinyhint_addendum": {
+      "path": "build/forest_revision04/W8-review/W8_tinyhint_addendum_review.json",
+      "sha256": "e0ff47d4da4d6db750b29403a5c918b3a1e3560bcb4ec7a19d1bfa8f9cf20a0f"
+    }
+  },
+  "explicit_nonclaims": [
+    "No new final-R original80, policy600, core/generated/browser suite execution is asserted by this source closure. Existing W6 original80/policy/movie are historical source-bound passes.",
+    "No new final-R continuous movie/full Boss motion/frame-by-frame whole-forest aesthetic review or audio listening.",
+    "Final remote fullCI and browser validation are pending; no overall project-green or main-merged claim.",
+    "No physical-device/user/taste approval; runtime host resolved is not whole-forest artistic acceptance.",
+    "Canonical preservation is not an invented full historical campaign resume API."
+  ],
+  "all_previous_REWORK_and_causal_exclusions_retained": true,
+  "proof_SHA256": {
+    "build/foundry_final_W9/handoff-summary.json": "d64cbd33755abc744962b1bd22c38ca8d9c8190996139830d73d959c028771e1",
+    "build/foundry_final_W9/index.json": "bc905a229492397f137c0bc7bf49fbb8220cca6d1870e893fe6e9a30f46c07fd",
+    "build/foundry_final_W9/generated_resource_manifest.json": "b6ec0e82e2829f7ac4e62c4a44ad781972e2a0e6feef34689454d2834097e261",
+    "build/foundry_final_W9/baseline_inventory.json": "293e5b6de4662dbe5feb38136ac4e8aefd1fc4af0492657d45633eef5a3212ca",
+    "build/foundry_final_W9/comparison.json": "23644ac4397255cfe6da6db9736e186b8fa52614172940c071ffe867d75b445d",
+    "build/foundry_final_W9/comparer_preparation_checks.json": "ceca5a4e4b7cf089275459c7dbce93957892bc42bcfdc6f3329d35541fa2e737",
+    "build/foundry_final_W9/source_before.json": "1d478ab2a61124fcb2beb83f7d8794fdea7ec8179b8b1d58432cd87d318ec320",
+    "build/foundry_final_W9/source_after.json": "46e1d439ce4525158901ab7c534bcee56b06fd9aa99aea1d51572c171acfeee1",
+    "build/foundry_final_W9/build36_18.json": "71e305e7f00b78003a629eacea1239b69e240319eff89c23786e06255ba2ee4f",
+    "build/foundry_final_W9/build36_18.log": "d25788dc381570f13feb9340917902539beee932b9ecf5dc48cad4087e175092",
+    "build/foundry_final_W9/export_stamp.json": "4b0fe8bba86e01c76c6a4c3add52a26d6af851ceb51d12e2d7c211cdec267fc0",
+    "build/foundry_final_W9/export_stamp.log": "3ab3cf4a0497b01d88b218badbcbef94158ef691af9be80bb26da252ee832a78",
+    "build/foundry_final_W9/archive-recheck.json": "679a4befff903ca8fdef178bf8ff9041ea0ffaef33d26e63e6aeec12e9967a44",
+    "build/foundry_final_W9/independent_audit_result.json": "424d5f979fd9bf4a07f255dd6fcb66d61e601deaa13f87403278789d08720ae6",
+    "build/foundry_final_W9/independent_source_delta_map.json": "8f187a4d32d6e5ff7cdfa19d14b883b419d962d90d12e84c37c2f56748421e55",
+    "build/foundry_final_W9/foundry-final-W9-proofs.zip": "403cd983aa2d90f325426e43768f8cb96aac1e3ffc1f5ae76ad0b6c855de98a3"
+  },
+  "reviewer_actions": "Only read-only Git/files/JSON/hash/ZIP checks and pure Python comparisons. No Godot/native test launch and no source/tests/checkers/docs/original proof changes. New ignored independent reports only."
+}

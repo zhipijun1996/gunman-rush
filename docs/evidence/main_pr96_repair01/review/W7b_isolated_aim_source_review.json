@@ -1,0 +1,170 @@
+{
+  "reviewer": "/root/independent_review",
+  "independent": true,
+  "verdict": "SCOPED_ACCEPT",
+  "reviewed_commit": "6dd6db7a28a6e1defeb8a29aba389bc824dda697",
+  "changed_paths_SHA256": {
+    "tests/aim_save_compat_case.gd": "5ee85eb63687af1fbf6f1d672212a41be1085de1a6cf8c3d875de774ab00b600",
+    "tests/aim_save_compat_data.gd": "9b1f7971cc64b15a988d5750f9ac98082e51fcbbe1158b9258670c7e6f5868f9",
+    "tests/aim_save_compat_data.gd.uid": "0f4fb33de684f3a72600019317691995b252ba8b2a7e106345db3c973d715015",
+    "tests/aim_save_compat_runner.gd": "a74230fe9395b9b8c57fae99ca03318b85452e63218cda0aacee00ef59322609",
+    "tools/run_aim_save_compat_tests.py": "30fd156013f99912c830e85011ae1fe3aaa53a10b0571b89395baab29141c061"
+  },
+  "scope": "Five test/registration/wrapper paths only. The original unique aim-save wrapper now executes two independent strict native consumers under the original shared budget, preserving immutable replay and actual-world reload semantics. Not a repair of arbitrary mixed same-process script graphs or a full historical-run resume API.",
+  "source_binding": {
+    "actual_execution_head": "4b36203c634ed5e8339c13b809dd77c7a0c4d76e",
+    "original_dirty_source_provenance_preserved": true,
+    "four_executed_fixture_protocol_hashes_equal_frozen_commit": true,
+    "positive_source_guard": "Exact four fixture/wrapper files plus unchanged RunManifest reader before==after; reader SHA equals previously reviewed bfb90ac2 source.",
+    "negative_source_guard": "Exact four fixture/wrapper files before==after.",
+    "uid_scope": "Fifth committed file is the new data entry UID, recorded in changed-path SHA map. Existing receipts guard four executable sources, not UID or the complete game inventory; no stronger source-guard claim is made.",
+    "original_execution_receipts_not_rewritten_to_commit_SHA": true
+  },
+  "semantic_preservation": {
+    "data_check_expressions": "Original runner10 direct check expressions equal new data10 in exact order after normalizing original MANIFEST alias/runtime same-script method references. All original loops/mutations and immutable fixture hashes remain.",
+    "world_check_expressions": "Original case21 direct check expressions equal final21 in exact order after normalizing six same-resource Script calls.",
+    "all176_executed_business_checks": "Every (passed,label) pair and its order equals the prior176-check combined execution raw. No count padding, canned checks or removal of original122+54.",
+    "actual_world": "Real DemoApp.new, PlainsRegionStage assembly, EnemyActor casts, ActorResourceRequest damage, actual resource/item state, second real reload, six invalid-map refusal cases and evidence ledgers are retained. New weakrefs observe actual10 App owner sets and helper release, adding failures only if retained.",
+    "historical_data": "Actual original archive and three old-main version fixtures decode with original full canonical comparisons and strict foreign Boss/config/focus/mapidentity refusals. Actual Boss resources remain type-checked through original BossDefinition Script is_instance_of.",
+    "why_two_processes_preserve_existing_contract": "Old runner disposed/nullified its decoded immutable prefix before independent map-state helper calls. It did not pass a full historical campaign object into App and no full-run resume API exists. Current world process still independently invokes the real reader on actual App-generated snapshots.",
+    "actual_Script_identity": "Six literal res:// paths point to the original class_name implementations; game/world types are preserved. No substitute implementation, production cache reset or leak scanner weakening."
+  },
+  "wrapper_review": {
+    "native_execution": "Data then world are distinct real processes with unique positive PIDs; scope and aggregate state this explicitly.",
+    "budgets": "Original import90 and outer harness240 retained. A single monotonic native deadline=120 is established once; phase2 receives deadline-now after phase1 actual wall time and preparation. No new phase120 reset or integer budget inflation.",
+    "freshness": "Main aggregate unlinked before import; UUID directory and fresh phase JSON/log paths prevent stale reuse.",
+    "identity": "Native actual phase/run_id/script SHA/OS PID headers must be unique and equal their JSON report. Script identity matches fixed source hashes. Exact56/120 boolean checks and four named/ordered cases per phase are validated.",
+    "fail_closed": "Both original strict run_engine calls must return cleanly; missing phase, any native failure, incorrect reports or changed source prevent aggregate. Raw log SHA revalidated before aggregate;176checks and8unique cases required.",
+    "guard_boundaries": "The wrapper protects its four executed source files. Full runtime guard/release review is outside this local consumer claim."
+  },
+  "actual_positive": {
+    "unique_original_entry": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "tools/run_aim_save_compat_tests.py"
+    ],
+    "actual_outer_exit": 0,
+    "outer_seconds": 48.576,
+    "data_checks": 56,
+    "world_checks": 120,
+    "total_checks": 176,
+    "cases": 8,
+    "native_total_seconds": 41.77130342700184,
+    "phases": [
+      {
+        "phase": "data",
+        "actual_OS_engine_pid": 65235,
+        "actual_exit": 0,
+        "duration_seconds": 13.894274449001387,
+        "timeout_seconds": 119.99999689099786,
+        "rawlog": "build/verification/aim_save_compat/6dd18b794ea742298c81e1d672c4e743/data.log",
+        "raw_report": "build/verification/aim_save_compat/6dd18b794ea742298c81e1d672c4e743/data.json",
+        "actual_argv": [
+          "bash",
+          "/workspace/gunman-rush/tools/godot.sh",
+          "--headless",
+          "--path",
+          ".",
+          "--script",
+          "tests/aim_save_compat_data.gd",
+          "--",
+          "--output=res://build/verification/aim_save_compat/6dd18b794ea742298c81e1d672c4e743/data.json",
+          "--run-id=6dd18b794ea742298c81e1d672c4e743"
+        ],
+        "strict_log_clean": true,
+        "raw_SHA_independently_verified": true
+      },
+      {
+        "phase": "world",
+        "actual_OS_engine_pid": 65314,
+        "actual_exit": 0,
+        "duration_seconds": 27.875733466000383,
+        "timeout_seconds": 106.10530735700013,
+        "rawlog": "build/verification/aim_save_compat/6dd18b794ea742298c81e1d672c4e743/world.log",
+        "raw_report": "build/verification/aim_save_compat/6dd18b794ea742298c81e1d672c4e743/world.json",
+        "actual_argv": [
+          "bash",
+          "/workspace/gunman-rush/tools/godot.sh",
+          "--headless",
+          "--path",
+          ".",
+          "--script",
+          "tests/aim_save_compat_runner.gd",
+          "--",
+          "--output=res://build/verification/aim_save_compat/6dd18b794ea742298c81e1d672c4e743/world.json",
+          "--run-id=6dd18b794ea742298c81e1d672c4e743"
+        ],
+        "strict_log_clean": true,
+        "raw_SHA_independently_verified": true
+      }
+    ],
+    "both_native_logs_and_outer_strict_scans_clean": true
+  },
+  "actual_negative": {
+    "entry": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "tools/run_aim_save_compat_tests.py",
+      "--failure-probe"
+    ],
+    "actual_outer_exit": 1,
+    "outer_seconds": 50.154,
+    "data": "All56 real checks pass, actual exit0.",
+    "world": "Original120 business check (passed,label) prefix equals successful world raw, then one explicit false check =>121/1, actual exit1.",
+    "only_false_label": "explicit failure probe after all real checks",
+    "no_script_or_leak_diagnostics": true,
+    "aggregate_absent_receipt_and_actual_disk_verified": true,
+    "scope": "Real phase2 native failure proves fail-closed after a successful phase1; not a mocked engine failure."
+  },
+  "artifact_rejection_controls": {
+    "total": 17,
+    "rejected": 17,
+    "independently_reexecuted_read_only": true,
+    "method": "Executed only reviewed Python control prefix before its output-writing code, using actual phase reports/logs and current aggregate validator. No native launched or mocked, original control artifact unchanged.",
+    "examples": [
+      "missing/reordered phase",
+      "stale run/foreign phase/PID/script",
+      "missing/false/nonboolean check",
+      "wrong/duplicate/missing map/version case",
+      "native phase failed",
+      "changed/crossed native log"
+    ]
+  },
+  "prior_failures_preserved": {
+    "original_W7_partial": "build/forest_revision04/ci-W7/review/W7_limited_review.json",
+    "same_process_W7b_REWORK": "build/forest_revision04/ci-W7/review/W7b_initial_domain_split_review.json",
+    "same_process_complete": "176/0 still had242 ObjectDB/164resources+RID; not relabeled passed.",
+    "causal_exclusions": "Standalone/load-only/manifest-only, order/Boss-preload/type-edge, owner and data-before/after-world probes remain diagnostics. Clean isolated consumers do not establish a universal single root-cause class or fix the arbitrary mixed graph."
+  },
+  "not_covered": [
+    "Final Foundry rebuild/core/fullCI on the subsequent repository head.",
+    "Original80 or continuous movie/Boss artistic review/current physical devices/user taste.",
+    "Any pending three-sentence hint draft or later source delta."
+  ],
+  "proof_SHA256": {
+    "build/forest_revision04/ci-6b/aim-final-handoff.json": "3107817f8e188b4b3d42c28d92ffe94edf6965cf782f721304519532d84de0ed",
+    "build/forest_revision04/ci-6b/aim-final-four-paths.patch": "ac9ab25011ed396eefec8e3392b3c7c46d2e7ec17b5c43f5108dd9d149ea182a",
+    "build/forest_revision04/ci-6b/aim-isolated-original-wrapper.log": "68b4d7ba66cc3341513e503a893b531c1d1fafe98cf5d29fb4d015b3418991fe",
+    "build/forest_revision04/ci-6b/aim-isolated-original-wrapper-receipt.json": "58aa4665db60c44c5774dd8628725754d840a011d6aee7d048cebd18b0a7a4aa",
+    "build/forest_revision04/ci-6b/aim-isolated-original-wrapper-result.json": "ce27e158989d2bbf1d03fff6c331974acdd7ea1451648534e5d82b2fa25c22f8",
+    "build/forest_revision04/ci-6b/aim-isolated-failure-probe.log": "9bc3d0ee644a78d024b646e721334efa1b8182a7c45abb71ae8945c972672c3a",
+    "build/forest_revision04/ci-6b/aim-isolated-failure-probe-receipt.json": "e069a75c21821f46756033b9cd5d0cbf569cad59ab7c0404d00abb31a12a63c6",
+    "build/forest_revision04/ci-6b/aim-aggregate-rejection-controls.json": "1a97a34bb97873ece50aa2045f5706975ca2735e45c1a3ee5e625f68379a14f0",
+    "build/forest_revision04/ci-6b/run_aim_aggregate_rejection_controls.py": "fce0a1b0fff4efb19ce1e31fa410b639e81db37192446dc90a350da1615b0054",
+    "build/forest_revision04/ci-6b/aim-complete-domain-boundary-wrapper.log": "73782e0c6b24b7b69b9f6450f7883abc9816575f53676b7a4eed34ddbcf8e692",
+    "build/forest_revision04/ci-6b/aim-complete-domain-boundary-result.json": "59e2f9d395a05b08ba01c125e782c1c27583c6aaf7a563ff99cd5241916e4e8d",
+    "build/verification/aim_save_compat/6dd18b794ea742298c81e1d672c4e743/data.log": "59278443073da1314665c6564da551f4d716b669162cf91c13387bdfc1e618b8",
+    "build/verification/aim_save_compat/6dd18b794ea742298c81e1d672c4e743/data.json": "de29d665320ff5bf0f2f29b7e9e2f9202311f353db2c098c1419c4415766104c",
+    "build/verification/aim_save_compat/6dd18b794ea742298c81e1d672c4e743/data-receipt.json": "414db35b3cd376c315dd26a5608201126d90a81b509da1b41731fe4e3970ace4",
+    "build/verification/aim_save_compat/6dd18b794ea742298c81e1d672c4e743/world.log": "9da2bde2e9b8576e804b6ee7d42c16410cb2fb14b69262690d16a9c2932e9ae3",
+    "build/verification/aim_save_compat/6dd18b794ea742298c81e1d672c4e743/world.json": "8db044fab5b166059a25b70c824915bed4ca38cdd9fb32dd862f703101d34c75",
+    "build/verification/aim_save_compat/6dd18b794ea742298c81e1d672c4e743/world-receipt.json": "e9060dec920f4a6fa5c266a3aceaeef5b616e846fe93fd55d862418b88034e19",
+    "build/verification/aim_save_compat/d0a3321814934bf5bd0094eb04a10e5c/data.json": "0e543d1e74edfa4a138db73fd28e2dd11ef57c48bb42d7a1507bb84dbad01eed",
+    "build/verification/aim_save_compat/d0a3321814934bf5bd0094eb04a10e5c/data.log": "ba97a802f39fc506aee9a053f97a9bbb851ac7a4cd3def4d2bb80dbc98541164",
+    "build/verification/aim_save_compat/d0a3321814934bf5bd0094eb04a10e5c/data-receipt.json": "0f7bfa8f675d708e3a3ee985e5ce047125dd802b8dbcd5066a4cca7ee66f51c0",
+    "build/verification/aim_save_compat/d0a3321814934bf5bd0094eb04a10e5c/world.json": "66a151ab5fe5f16aa5985f6cd32e7ffbe9b3e1cfddd0ccdc137a774ae1cc0947",
+    "build/verification/aim_save_compat/d0a3321814934bf5bd0094eb04a10e5c/world.log": "1afa80501209e6968015f0ec656c87b17e510daed1d5ebf6d8c9be8626b11cc8",
+    "build/verification/aim_save_compat/d0a3321814934bf5bd0094eb04a10e5c/world-receipt.json": "b675bf034c359af2d6f76cf998c5ec5ccb1837f391ad8f6e629b48358752c405",
+    "build/forest_revision04/ci-W7/review/W7b_initial_domain_split_review.json": "ca1aacf4992b1799ad420e3b59d763c205a905a31893bf040987255958688482",
+    "build/forest_revision04/ci-W7/review/W7_limited_review.json": "8449378280e5657db27ab960c49f54d080c1d87a7d03db3fb1a3d0289a839383"
+  },
+  "writes": "Only new ignored independent report JSON/MD; no implementation/test/checker/docs/original evidence edits or Godot launches."
+}

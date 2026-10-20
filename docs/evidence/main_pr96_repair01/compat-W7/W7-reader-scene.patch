@@ -1,0 +1,155 @@
+commit bfb90ac2dbfae912c1d26c37ab771a7285dc0875
+Author:     Zipei Su <zhipijun1996@gmail.com>
+AuthorDate: Tue Oct 20 04:46:42 2026 +0000
+Commit:     Zipei Su <zhipijun1996@gmail.com>
+CommitDate: Tue Oct 20 04:46:42 2026 +0000
+
+    fix: preserve historical Plains records and drive scene guard combat
+
+diff --git a/scripts/run/run_manifest.gd b/scripts/run/run_manifest.gd
+index 45a75ce6..b6b9adec 100644
+--- a/scripts/run/run_manifest.gd
++++ b/scripts/run/run_manifest.gd
+@@ -123,8 +123,6 @@ static func compatible(data: Dictionary) -> bool:
+ 			if output.get("stage_generator",{}).get("version")!=region_version or m.get("version")!=region_version: return false
+ 			var identity: Dictionary={"version":PlainsRegionCampaign.VERSION,"map_index":index,"seed":PlainsRegionCampaign.seed_for(data.root_seed,index),"instance_prefix":PlainsRegionCampaign.prefix(index),"boss_role":PlainsRegionCampaign.role(index)}
+ 			if not checker._same_data(output.get("region_map",{}),identity): return false
+-			var boss_definition: BossDefinition=load("res://resources/bosses/bellstrider.tres" if index==1 else "res://resources/bosses/windkeeper_storm.tres")
+-			if not checker._same_data(output.get("boss_layout",{}),{"id":String(boss_definition.stable_id),"version":boss_definition.definition_version,"health":boss_definition.health_definition.max_health}): return false
+ 			if m.get("seed")!=identity.seed or m.get("difficulty")!=("intro" if index==1 else "advanced"): return false
+ 			if not checker._same_data(output.get("shot_latch_layout",{}),m.get("shot_latch_plan",{})): return false
+ 			if not checker._same_data(output.get("enemy_layout",{}),{"version":region_version,"enemies":m.get("enemies",[])}): return false
+@@ -133,12 +131,26 @@ static func compatible(data: Dictionary) -> bool:
+ 				if not output.stage_tuning.has(key): return false
+ 				if not checker._same_data(output.stage_tuning[key],tuning.get(key)): return false
+ 			if not PlainsRegionGenerator.new().validate(m,tuning): return false
++			if not _plains_boss_output_compatible(output,index): return false
+ 		if data.stages.size()==2:
+ 			var transition: Dictionary=data.stages[0].outputs.get("map_transition",{})
+ 			if transition.get("from_map")!=1 or transition.get("to_map")!=2 or transition.get("reason")!="mini_boss_defeated": return false
+ 		return data.schema_version==SCHEMA_VERSION and data.rng_algorithm==RunRandomStream.ALGORITHM and data.stream_derivation_version==RunRandomStream.DERIVATION_VERSION
+ 	return _versions_equal(data.get("versions", {}), fixed_versions) and data.get("schema_version", -1) == SCHEMA_VERSION and data.get("rng_algorithm", "") == RunRandomStream.ALGORITHM and data.get("stream_derivation_version", -1) == RunRandomStream.DERIVATION_VERSION
+ 
++static func _plains_boss_output_compatible(output: Dictionary, index: int) -> bool:
++	var definition: BossDefinition = load("res://resources/bosses/bellstrider.tres" if index==1 else "res://resources/bosses/windkeeper_storm.tres")
++	var checker := RandomStageGenerator.new()
++	if checker._same_data(output.get("boss_layout",{}),{"id":String(definition.stable_id),"version":definition.definition_version,"health":definition.health_definition.max_health}): return true
++	# The caller has validated the full tuning, manifest and map identity. All
++	# three supported Plains versions also recorded these exact Boss definitions
++	# before continuous combat, under both supported focus configurations.
++	# Replay that metadata unchanged; runtime still loads current definitions.
++	var layout: Dictionary = output.get("generated_layout",{})
++	if layout.get("version") not in [PlainsRegionGenerator.VERSION,PlainsRootBellEncounterV2.CONTENT_VERSION,PlainsRootBellEncounterV3.CONTENT_VERSION]: return false
++	var historical := {"id":"plains_bellstrider","version":1,"health":16.0} if index==1 else {"id":"plains_windkeeper","version":4,"health":36.0}
++	return checker._same_data(output.get("boss_layout",{}),historical)
++
+ static func _versions_equal(stored: Variant, expected: Dictionary) -> bool:
+ 	if not stored is Dictionary or stored.size() != expected.size():
+ 		return false
+diff --git a/tests/plains_redesign_scene_runner.gd b/tests/plains_redesign_scene_runner.gd
+index b6c2a59f..c3a5dc84 100644
+--- a/tests/plains_redesign_scene_runner.gd
++++ b/tests/plains_redesign_scene_runner.gd
+@@ -25,6 +25,85 @@ class SceneTrace extends "res://tests/level_formal_trace.gd":
+ 	var observer: Callable
+ 	var visual_frames: Array = []
+ 	var observe_every_tick := false
++	var clear_slalom_landing := false
++	var landing_combat: Array = []
++	func forward_module(module: PlatformingModule) -> bool:
++		if not clear_slalom_landing or module.definition.module_id != &"plains_thorn_slalom":
++			return await super.forward_module(module)
++		var guard: EnemyMotor = null
++		var guard_id := ""
++		var node_id: String = str(stage.manifest.nodes[stage.modules.find(module)].id)
++		for index: int in formal_stage.enemy_manifest.size():
++			var authored: Dictionary = formal_stage.enemy_manifest[index]
++			if str(authored.get("area", "")) == node_id and str(authored.get("pattern", "")) == "gear_landing_intercept":
++				guard = formal_stage.enemies[index]
++				guard_id = str(authored.id)
++		if guard == null: return await super.forward_module(module)
++		# Keep the original slalom islands and jumps. Its shared geometry driver
++		# has no combat stop between the first landing and the guarded gear jump.
++		policy_move_goal = module.world_exit().x
++		_enemy_policy_busy = true
++		var ready := await prepare_threats()
++		_enemy_policy_busy = false
++		if is_trace_cancelled() or not ready: return false
++		var driver = load("res://tests/branch_module_driver.gd").new()
++		driver.module = module; driver.motor = motor; driver.controller = controller
++		driver.tick_callback = tick; driver.check = check
++		critical_traversal += 1
++		var ok: bool = await driver.wait_for_shot_energy(1)
++		if ok: ok = await driver.move_to(module.position.x + 145)
++		if ok: ok = await driver.jump_to(module.position + Vector2(350, 282))
++		if ok and not is_trace_cancelled():
++			# The first island is narrow. Check the actual upward aim's horizontal
++			# recoil projection; the downward component meets the real solid floor.
++			var origin := motor.global_position
++			var found_bank := false
++			for shift: float in [0.0,16.0,32.0,48.0,64.0,-16.0,-32.0,-48.0,-64.0]:
++				var candidate := origin + Vector2(shift,0)
++				var aim := (guard.global_position-candidate).normalized()
++				var retreat := Vector2(-aim.x*motor.weapon_motion.base_distance(motor.tuning,true),0)
++				if aim.y>=0 or not bank_supported(origin,candidate-origin) or not bank_supported(candidate,retreat): continue
++				found_bank = await driver.move_to(candidate.x)
++				break
++			ok = found_bank and not is_trace_cancelled()
++		if ok and not is_trace_cancelled():
++			var before := {"tick":trace_ticks,"position":SNAPSHOT.pair(motor.global_position),"grounded":motor.is_on_floor(),"health":controller.actor_resources.health.current,"enemy_health":(guard.get_node("Actor") as EnemyActor).health.current}
++			var requests: Array = []
++			_enemy_policy_busy = true
++			ok = await clear_landing_guard(guard,requests)
++			_enemy_policy_busy = false
++			if not is_trace_cancelled(): landing_combat.append({"guard":guard_id,"module":node_id,"before":before,"tick":trace_ticks,"enemy_health":(guard.get_node("Actor") as EnemyActor).health.current,"position":SNAPSHOT.pair(motor.global_position),"grounded":motor.is_on_floor(),"health":controller.actor_resources.health.current,"completed":ok,"requests":requests})
++		if ok: ok = await driver.jump_to(module.position + Vector2(520, 282))
++		if ok: ok = await driver.move_to(module.position.x + 540)
++		if ok: ok = await driver.jump_to(module.position + Vector2(735, 282))
++		if ok: ok = await driver.move_to(module.world_exit().x)
++		critical_traversal -= 1
++		return ok and not is_trace_cancelled()
++	func clear_landing_guard(enemy: EnemyMotor, requests: Array) -> bool:
++		var actor := enemy.get_node("Actor") as EnemyActor
++		var bank := motor.global_position
++		var initial_health := controller.actor_resources.health.current
++		# Same six-shot / 900-tick ceiling as the existing kill policy. All
++		# movement, cooldowns, projectiles, damage and hazards run normally.
++		for unused: int in 900:
++			if actor.health.terminal:
++				for settle: int in 110:
++					controller.router.set_move_axis(clampf((bank.x-motor.global_position.x)/5.5,-1,1))
++					await tick()
++					if is_trace_cancelled(): return false
++					if motor.is_on_floor() and absf(motor.global_position.x-bank.x)<1 and controller.shoot_ability.cooldown_remaining<=0: break
++				return motor.is_on_floor() and absf(motor.global_position.x-bank.x)<2 and controller.actor_resources.health.current==initial_health
++			if controller.actor_resources.health.current<initial_health: return false
++			controller.router.set_move_axis(clampf((bank.x-motor.global_position.x)/5.5,-1,1))
++			if motor.is_on_floor() and absf(motor.global_position.x-bank.x)<1 and controller.shoot_ability.cooldown_remaining<=0 and controller.shot_energy.can_fire() and clear_shot(enemy):
++				var direction := (enemy.global_position-motor.global_position).normalized()
++				var retreat := Vector2(-direction.x*motor.weapon_motion.base_distance(motor.tuning,true),0)
++				if requests.size()>=6 or direction.y>=0 or not bank_supported(motor.global_position,retreat): return false
++				requests.append({"tick":trace_ticks+1,"position":SNAPSHOT.pair(motor.global_position),"target":SNAPSHOT.pair(enemy.global_position),"direction":SNAPSHOT.pair(direction),"retreat":SNAPSHOT.pair(retreat),"grounded":motor.is_on_floor(),"supported":true,"clear_shot":true})
++				controller.router.request_action(&"shoot_release",direction)
++			await tick()
++			if is_trace_cancelled(): return false
++		return false
+ 	func tick(count: int = 1) -> void:
+ 		for unused: int in count:
+ 			await super.tick()
+@@ -240,6 +319,7 @@ func run_case(map_index: int, strategy: String, custom: String="", seed_value: S
+ 	check(_fixture_identity_matches(app, map_index, seed_value), "actual stage/map/manifest seed+difficulty matches requested fixture")
+ 	var trace:=SceneTrace.new();active_trace=trace
+ 	check(trace.attach(app,strategy,0,"kill_from_bank_v1"),"unchanged real policy attaches")
++	trace.clear_slalom_landing = custom in ["outer_return", "outer_upper_alternative"]
+ 	trace.frame_budget=15000;trace.observer=observe
+ 	if custom=="touch_geometry":
+ 		trace.observe_every_tick=true
+@@ -260,7 +340,7 @@ func run_case(map_index: int, strategy: String, custom: String="", seed_value: S
+ 		observe(trace)
+ 		check(current_issues.is_empty(),"deliberate real scene mutation rejected: "+mutation)
+ 	check(JSON.stringify(app.stage.generated.manifest)==manifest_before,"presentation observation does not mutate actual manifest")
+-	var frozen_case: Dictionary = ({"map":map_index,"actual_map_index":app.stage.map_index,"actual_manifest_seed":app.stage.generated.manifest.seed,"actual_manifest_difficulty":app.stage.generated.manifest.difficulty,"strategy":strategy,"custom":custom,"outcome":trace.outcome,"finished":trace.finished,"ticks":trace.trace_ticks,"manifest":app.stage.generated.manifest.duplicate(true),"visual_frames":trace.visual_frames,"frames":trace.observed_frames,"events":trace.events,"runtime":trace.runtime_snapshot(true),"mutation":mutation_receipt,"seed":seed_value,"issues":current_issues.duplicate(),"scenery":scene_inventory(app.stage),"elective_receipts":elective_receipts.duplicate(true),"route_comparison":route_comparison.duplicate(true)}).duplicate(true)
++	var frozen_case: Dictionary = ({"map":map_index,"actual_map_index":app.stage.map_index,"actual_manifest_seed":app.stage.generated.manifest.seed,"actual_manifest_difficulty":app.stage.generated.manifest.difficulty,"strategy":strategy,"custom":custom,"outcome":trace.outcome,"finished":trace.finished,"ticks":trace.trace_ticks,"manifest":app.stage.generated.manifest.duplicate(true),"visual_frames":trace.visual_frames,"frames":trace.observed_frames,"events":trace.events,"runtime":trace.runtime_snapshot(true),"mutation":mutation_receipt,"seed":seed_value,"issues":current_issues.duplicate(),"scenery":scene_inventory(app.stage),"elective_receipts":elective_receipts.duplicate(true),"route_comparison":route_comparison.duplicate(true),"landing_combat":trace.landing_combat.duplicate(true)}).duplicate(true)
+ 	cases.append(frozen_case)
+ 	var sealed_hash := JSON.stringify(frozen_case).sha256_text()
+ 	var cleanup: Dictionary = await unwind_scene_execution(trace,execution)

@@ -1,0 +1,1286 @@
+{
+  "schema_version": 1,
+  "scope": "Selected raw evidence. No full final main/CI pass or arbitrary mixed script-graph repair is claimed.",
+  "archive": {
+    "path": "selected-evidence.zip",
+    "bytes": 7605607,
+    "sha256": "20493c9e6824f3c1f1eb8db848abaa15bfc9a324e2aa39b44e401641d9e35294",
+    "crc32": "93db5525",
+    "entries": 134,
+    "crc_test": "all members and whole archive CRC32 verified"
+  },
+  "execution_binding": {
+    "remote_CI_execution_head": "6b2a13f1445038c9bcd8f2fd9cd2f4d639d1ec8d",
+    "scene_receipt_execution_head": "6b2a13f1445038c9bcd8f2fd9cd2f4d639d1ec8d",
+    "scene_development_code_commit": "bfb90ac2dbfae912c1d26c37ab771a7285dc0875",
+    "AIM_positive_and_negative_execution_HEAD": "4b36203c634ed5e8339c13b809dd77c7a0c4d76e",
+    "AIM_final_code_commit": "6dd6db7a28a6e1defeb8a29aba389bc824dda697",
+    "scope": "Actual AIM runs used HEAD4b36203c plus uncommitted four-path fixture changes; those executable bytes match final6dd6 commit. The UID sidecar is included in final patch, not claimed as part of the four-path execution fingerprint. No final full CI result is claimed.",
+    "files": [
+      {
+        "path": "tests/aim_save_compat_case.gd",
+        "final_commit_sha256": "5ee85eb63687af1fbf6f1d672212a41be1085de1a6cf8c3d875de774ab00b600",
+        "current_file_sha256": "5ee85eb63687af1fbf6f1d672212a41be1085de1a6cf8c3d875de774ab00b600",
+        "execution_fingerprinted": true,
+        "execution_sha256": "5ee85eb63687af1fbf6f1d672212a41be1085de1a6cf8c3d875de774ab00b600",
+        "matches_actual_execution": true
+      },
+      {
+        "path": "tests/aim_save_compat_data.gd",
+        "final_commit_sha256": "9b1f7971cc64b15a988d5750f9ac98082e51fcbbe1158b9258670c7e6f5868f9",
+        "current_file_sha256": "9b1f7971cc64b15a988d5750f9ac98082e51fcbbe1158b9258670c7e6f5868f9",
+        "execution_fingerprinted": true,
+        "execution_sha256": "9b1f7971cc64b15a988d5750f9ac98082e51fcbbe1158b9258670c7e6f5868f9",
+        "matches_actual_execution": true
+      },
+      {
+        "path": "tests/aim_save_compat_data.gd.uid",
+        "final_commit_sha256": "0f4fb33de684f3a72600019317691995b252ba8b2a7e106345db3c973d715015",
+        "current_file_sha256": "0f4fb33de684f3a72600019317691995b252ba8b2a7e106345db3c973d715015",
+        "execution_fingerprinted": false
+      },
+      {
+        "path": "tests/aim_save_compat_runner.gd",
+        "final_commit_sha256": "a74230fe9395b9b8c57fae99ca03318b85452e63218cda0aacee00ef59322609",
+        "current_file_sha256": "a74230fe9395b9b8c57fae99ca03318b85452e63218cda0aacee00ef59322609",
+        "execution_fingerprinted": true,
+        "execution_sha256": "a74230fe9395b9b8c57fae99ca03318b85452e63218cda0aacee00ef59322609",
+        "matches_actual_execution": true
+      },
+      {
+        "path": "tools/run_aim_save_compat_tests.py",
+        "final_commit_sha256": "30fd156013f99912c830e85011ae1fe3aaa53a10b0571b89395baab29141c061",
+        "current_file_sha256": "30fd156013f99912c830e85011ae1fe3aaa53a10b0571b89395baab29141c061",
+        "execution_fingerprinted": true,
+        "execution_sha256": "30fd156013f99912c830e85011ae1fe3aaa53a10b0571b89395baab29141c061",
+        "matches_actual_execution": true
+      }
+    ]
+  },
+  "remote_original": {
+    "execution_head": "6b2a13f1445038c9bcd8f2fd9cd2f4d639d1ec8d",
+    "run_id": 39366400677,
+    "serial_job": 118445775035,
+    "parallel_job": 118445774985,
+    "status": "terminal failure, not cancelled"
+  },
+  "scene": {
+    "execution_head": "6b2a13f1445038c9bcd8f2fd9cd2f4d639d1ec8d",
+    "development_code_commit": "bfb90ac2dbfae912c1d26c37ab771a7285dc0875",
+    "wrapper_seconds": 257.8,
+    "positive_assertions": 91,
+    "positive_failures": 0,
+    "native_mutations": 10,
+    "semantic_refusals": 12,
+    "source_stable": true
+  },
+  "AIM": {
+    "positive": {
+      "wrapper_seconds": 48.576,
+      "original_checks": 176,
+      "cases": 8,
+      "native_shared_budget_seconds": 120,
+      "native_actual_seconds": 41.77130342700184,
+      "run_id": "6dd18b794ea742298c81e1d672c4e743",
+      "separate_phases": {
+        "data": {
+          "phase": "data",
+          "argv": [
+            "bash",
+            "/workspace/gunman-rush/tools/godot.sh",
+            "--headless",
+            "--path",
+            ".",
+            "--script",
+            "tests/aim_save_compat_data.gd",
+            "--",
+            "--output=res://build/verification/aim_save_compat/6dd18b794ea742298c81e1d672c4e743/data.json",
+            "--run-id=6dd18b794ea742298c81e1d672c4e743"
+          ],
+          "timeout_seconds": 119.99999689099786,
+          "source_sha256": {
+            "tests/aim_save_compat_data.gd": "9b1f7971cc64b15a988d5750f9ac98082e51fcbbe1158b9258670c7e6f5868f9",
+            "tests/aim_save_compat_runner.gd": "a74230fe9395b9b8c57fae99ca03318b85452e63218cda0aacee00ef59322609",
+            "tests/aim_save_compat_case.gd": "5ee85eb63687af1fbf6f1d672212a41be1085de1a6cf8c3d875de774ab00b600",
+            "tools/run_aim_save_compat_tests.py": "30fd156013f99912c830e85011ae1fe3aaa53a10b0571b89395baab29141c061"
+          },
+          "status": "passed",
+          "exit_code": 0,
+          "rawlog": "build/verification/aim_save_compat/6dd18b794ea742298c81e1d672c4e743/data.log",
+          "engine_pid": 65235,
+          "duration_seconds": 13.894274449001387,
+          "rawlog_sha256": "59278443073da1314665c6564da551f4d716b669162cf91c13387bdfc1e618b8",
+          "native_identity": {
+            "engine_pid": 65235,
+            "phase": "data",
+            "run_id": "6dd18b794ea742298c81e1d672c4e743",
+            "script": "res://tests/aim_save_compat_data.gd",
+            "script_sha256": "9b1f7971cc64b15a988d5750f9ac98082e51fcbbe1158b9258670c7e6f5868f9"
+          }
+        },
+        "world": {
+          "phase": "world",
+          "argv": [
+            "bash",
+            "/workspace/gunman-rush/tools/godot.sh",
+            "--headless",
+            "--path",
+            ".",
+            "--script",
+            "tests/aim_save_compat_runner.gd",
+            "--",
+            "--output=res://build/verification/aim_save_compat/6dd18b794ea742298c81e1d672c4e743/world.json",
+            "--run-id=6dd18b794ea742298c81e1d672c4e743"
+          ],
+          "timeout_seconds": 106.10530735700013,
+          "source_sha256": {
+            "tests/aim_save_compat_data.gd": "9b1f7971cc64b15a988d5750f9ac98082e51fcbbe1158b9258670c7e6f5868f9",
+            "tests/aim_save_compat_runner.gd": "a74230fe9395b9b8c57fae99ca03318b85452e63218cda0aacee00ef59322609",
+            "tests/aim_save_compat_case.gd": "5ee85eb63687af1fbf6f1d672212a41be1085de1a6cf8c3d875de774ab00b600",
+            "tools/run_aim_save_compat_tests.py": "30fd156013f99912c830e85011ae1fe3aaa53a10b0571b89395baab29141c061"
+          },
+          "status": "passed",
+          "exit_code": 0,
+          "rawlog": "build/verification/aim_save_compat/6dd18b794ea742298c81e1d672c4e743/world.log",
+          "engine_pid": 65314,
+          "duration_seconds": 27.875733466000383,
+          "rawlog_sha256": "9da2bde2e9b8576e804b6ee7d42c16410cb2fb14b69262690d16a9c2932e9ae3",
+          "native_identity": {
+            "engine_pid": 65314,
+            "phase": "world",
+            "run_id": "6dd18b794ea742298c81e1d672c4e743",
+            "script": "res://tests/aim_save_compat_runner.gd",
+            "script_sha256": "a74230fe9395b9b8c57fae99ca03318b85452e63218cda0aacee00ef59322609"
+          }
+        }
+      }
+    },
+    "failure_probe": {
+      "status": "failed",
+      "exit_code": 1,
+      "failure_reason": "nonzero_exit",
+      "started_at_unix": 1792474934.065227,
+      "ended_at_unix": 1792474984.2194521,
+      "duration_seconds": 50.154,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_aim_save_compat_tests.py",
+        "--failure-probe"
+      ],
+      "check_token": "5044414cba184f0cb2718d0fd58ab46d",
+      "expected_rejection": true,
+      "aggregate_absent": true,
+      "input_sha256_before": {
+        "tests/aim_save_compat_runner.gd": "a74230fe9395b9b8c57fae99ca03318b85452e63218cda0aacee00ef59322609",
+        "tests/aim_save_compat_case.gd": "5ee85eb63687af1fbf6f1d672212a41be1085de1a6cf8c3d875de774ab00b600",
+        "tests/aim_save_compat_data.gd": "9b1f7971cc64b15a988d5750f9ac98082e51fcbbe1158b9258670c7e6f5868f9",
+        "tools/run_aim_save_compat_tests.py": "30fd156013f99912c830e85011ae1fe3aaa53a10b0571b89395baab29141c061"
+      },
+      "input_sha256_after": {
+        "tests/aim_save_compat_runner.gd": "a74230fe9395b9b8c57fae99ca03318b85452e63218cda0aacee00ef59322609",
+        "tests/aim_save_compat_case.gd": "5ee85eb63687af1fbf6f1d672212a41be1085de1a6cf8c3d875de774ab00b600",
+        "tests/aim_save_compat_data.gd": "9b1f7971cc64b15a988d5750f9ac98082e51fcbbe1158b9258670c7e6f5868f9",
+        "tools/run_aim_save_compat_tests.py": "30fd156013f99912c830e85011ae1fe3aaa53a10b0571b89395baab29141c061"
+      }
+    },
+    "artifact_refusals": {
+      "actual_rejected": 17,
+      "total": 17
+    }
+  },
+  "references_not_duplicated": [
+    {
+      "path": "tests/fixtures/main_dbc6ba08_actual_plains_prefixes.json",
+      "archive_member": null,
+      "reason": "Current tracked 474010-byte actual-old-main fixture authority; do not duplicate main315-recorded-prefixes.json.",
+      "bytes": 474010,
+      "sha256": "7ae2d91b83974849edfc3777f1c940a1e924c412b18b6c2fcbd30b99166fea87",
+      "crc32": "66c6a61d"
+    },
+    {
+      "path": "docs/evidence/forest_depth_v2/reviews/campaign-output-helper/cross_region_manifest.json",
+      "archive_member": null,
+      "reason": "Original immutable archived campaign; current tracked authority is referenced, not duplicated.",
+      "bytes": 198451,
+      "sha256": "82d6ef43b5f8bbd0f14cdff9468cdc7dae17c5c986d78a447935982c46475efa",
+      "crc32": "a24c8dbb"
+    }
+  ],
+  "entries": [
+    {
+      "member": "build/forest_revision04/ci-6b/aim-aggregate-rejection-controls.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-aggregate-rejection-controls.json",
+      "purpose": "final original unique wrapper positive/actual failure/17 identity refusal evidence",
+      "bytes": 2928,
+      "sha256": "1a97a34bb97873ece50aa2045f5706975ca2735e45c1a3ee5e625f68379a14f0",
+      "crc32": "dcd846cf"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-boss-identity-probe.gd",
+      "source_path": "build/forest_revision04/ci-6b/aim-boss-identity-probe.gd",
+      "purpose": "actual old-main generation/reader evidence; first incomplete shader attempt remains failed",
+      "bytes": 1369,
+      "sha256": "7c0e453242e56386b5360ff0dcf56f0c6ac43beebb10852062e2fda69fcfcc56",
+      "crc32": "33bb77a4"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-boss-identity-probe.log",
+      "source_path": "build/forest_revision04/ci-6b/aim-boss-identity-probe.log",
+      "purpose": "actual old-main generation/reader evidence; first incomplete shader attempt remains failed",
+      "bytes": 518,
+      "sha256": "dad0a8556391f7ea1580c96569d49e395a7425204bedb3392b7458ecb67b1b1a",
+      "crc32": "dbaa9a82"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-candidate03.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-candidate03.json",
+      "purpose": "retained original/W7/failed-combined AIM evidence; functional zero failures was not strict success",
+      "bytes": 2838734,
+      "sha256": "f91312e6891bb1150c0efce109d70d20f0657dc6f7934fd5133681b71f86725f",
+      "crc32": "04327ff7"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-case-before-lifecycle-fix.gd",
+      "source_path": "build/forest_revision04/ci-6b/aim-case-before-lifecycle-fix.gd",
+      "purpose": "retained original/W7/failed-combined AIM evidence; functional zero failures was not strict success",
+      "bytes": 7243,
+      "sha256": "1d32006a6c37edf62c7aff165e4c511d15ac8f183675248029a07746b7d9caf0",
+      "crc32": "ab66ccea"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-case-lifecycle-probe.gd",
+      "source_path": "build/forest_revision04/ci-6b/aim-case-lifecycle-probe.gd",
+      "purpose": "selected diagnostic source; not substituted for final consumer checks",
+      "bytes": 8768,
+      "sha256": "a9b2072a4c6b0bc76e1587abe92998802a0ebbdc61707c2d03eb1aead3442fc2",
+      "crc32": "ee9031b3"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-case-runtime-data-domain-probe.gd",
+      "source_path": "build/forest_revision04/ci-6b/aim-case-runtime-data-domain-probe.gd",
+      "purpose": "selected diagnostic source; not substituted for final consumer checks",
+      "bytes": 9348,
+      "sha256": "07a8f52f394120e7b279de6f7d13f1f0e5618172ad67ea47233c72e8bb4adbe7",
+      "crc32": "d6daf277"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-case-runtime-data-domain02-probe.gd",
+      "source_path": "build/forest_revision04/ci-6b/aim-case-runtime-data-domain02-probe.gd",
+      "purpose": "selected diagnostic source; not substituted for final consumer checks",
+      "bytes": 9368,
+      "sha256": "cda3f71ec4ea17bc4e608dd2db5ff396c3350f2a131943b92b8948c7964611b8",
+      "crc32": "3a5c37ac"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-complete-domain-boundary-result.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-complete-domain-boundary-result.json",
+      "purpose": "retained original/W7/failed-combined AIM evidence; functional zero failures was not strict success",
+      "bytes": 2837918,
+      "sha256": "59e2f9d395a05b08ba01c125e782c1c27583c6aaf7a563ff99cd5241916e4e8d",
+      "crc32": "1cd952c6"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-complete-domain-boundary-wrapper-receipt.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-complete-domain-boundary-wrapper-receipt.json",
+      "purpose": "retained original/W7/failed-combined AIM evidence; functional zero failures was not strict success",
+      "bytes": 1469,
+      "sha256": "4b31962b6dce4cd54a102f0f3cb6211e7c8ad8bf2f14b55a17b34478c6ca4167",
+      "crc32": "551f6152"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-complete-domain-boundary-wrapper.log",
+      "source_path": "build/forest_revision04/ci-6b/aim-complete-domain-boundary-wrapper.log",
+      "purpose": "retained original/W7/failed-combined AIM evidence; functional zero failures was not strict success",
+      "bytes": 10078,
+      "sha256": "73782e0c6b24b7b69b9f6450f7883abc9816575f53676b7a4eed34ddbcf8e692",
+      "crc32": "d6d03c17"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-current-reader-no-data.log",
+      "source_path": "build/forest_revision04/ci-6b/aim-current-reader-no-data.log",
+      "purpose": "causal withdrawal and controls; old unused preload confound is explicit",
+      "bytes": 1946837,
+      "sha256": "2c7940e8a52db703b2e087d8b4755019d8ff15926c598aa825684b96609241b3",
+      "crc32": "114458f4"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-data-after-one-world-probe.gd",
+      "source_path": "build/forest_revision04/ci-6b/aim-data-after-one-world-probe.gd",
+      "purpose": "selected diagnostic source; not substituted for final consumer checks",
+      "bytes": 2253,
+      "sha256": "cf0336f27aae98661e45e6d339d694c5065f11a2f2ae152b3cc3d3ba654e76e5",
+      "crc32": "51c9285a"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-data-only-domain-probe.gd",
+      "source_path": "build/forest_revision04/ci-6b/aim-data-only-domain-probe.gd",
+      "purpose": "selected diagnostic source; not substituted for final consumer checks",
+      "bytes": 813,
+      "sha256": "1c5287499f28adb76e48d2f598e87d3b2ef5eee897273da18cc709c460a718bd",
+      "crc32": "e162813d"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-data-runtime-leaf-probe.gd",
+      "source_path": "build/forest_revision04/ci-6b/aim-data-runtime-leaf-probe.gd",
+      "purpose": "selected diagnostic source; not substituted for final consumer checks",
+      "bytes": 5291,
+      "sha256": "ecf804119b819187d4f8bf33f67125f8ea755aee6bdca2c0c1179a03958c20b1",
+      "crc32": "cde810b9"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-domain-control-summary.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-domain-control-summary.json",
+      "purpose": "causal withdrawal and controls; old unused preload confound is explicit",
+      "bytes": 5275,
+      "sha256": "21f056f29255a62c83f3758eaaddd1e7cecb7b58bbc1ea97b35a2e560c8df65d",
+      "crc32": "397031e6"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-failed-combined-source/aim_save_compat_case.gd",
+      "source_path": "build/forest_revision04/ci-6b/aim-failed-combined-source/aim_save_compat_case.gd",
+      "purpose": "exact failed formal combined candidate source, never replaced",
+      "bytes": 8559,
+      "sha256": "5ee85eb63687af1fbf6f1d672212a41be1085de1a6cf8c3d875de774ab00b600",
+      "crc32": "8c5a7119"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-failed-combined-source/aim_save_compat_data.gd",
+      "source_path": "build/forest_revision04/ci-6b/aim-failed-combined-source/aim_save_compat_data.gd",
+      "purpose": "exact failed formal combined candidate source, never replaced",
+      "bytes": 4885,
+      "sha256": "eddc555e6294ce5544b2e4eb12438400212fc46c3bf79c26bf678d76de998703",
+      "crc32": "5a3fd7cb"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-failed-combined-source/aim_save_compat_runner.gd",
+      "source_path": "build/forest_revision04/ci-6b/aim-failed-combined-source/aim_save_compat_runner.gd",
+      "purpose": "exact failed formal combined candidate source, never replaced",
+      "bytes": 2458,
+      "sha256": "abb7eb62c80d251c0bf9ac4a501a4150bcf4ab86b049efa0c889daf78a3650ae",
+      "crc32": "2dd89845"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-failed-combined-source/inventory.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-failed-combined-source/inventory.json",
+      "purpose": "exact failed formal combined candidate source, never replaced",
+      "bytes": 422,
+      "sha256": "6b3f0f7d3f7a6610e38c32941489bca987be597850858dba3fdc03538aa33bb9",
+      "crc32": "6687486f"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-failed-combined-source/run_aim_save_compat_tests.py",
+      "source_path": "build/forest_revision04/ci-6b/aim-failed-combined-source/run_aim_save_compat_tests.py",
+      "purpose": "exact failed formal combined candidate source, never replaced",
+      "bytes": 682,
+      "sha256": "9681b0f4927ccdfe9bf08bf78303c86f6761fde68343f7d1563eef573987c235",
+      "crc32": "8fcd021d"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-final-handoff.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-final-handoff.json",
+      "purpose": "final original unique wrapper positive/actual failure/17 identity refusal evidence",
+      "bytes": 2049,
+      "sha256": "3107817f8e188b4b3d42c28d92ffe94edf6965cf782f721304519532d84de0ed",
+      "crc32": "25e7d0f2"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-isolated-failure-probe-receipt.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-isolated-failure-probe-receipt.json",
+      "purpose": "final original unique wrapper positive/actual failure/17 identity refusal evidence",
+      "bytes": 1385,
+      "sha256": "e069a75c21821f46756033b9cd5d0cbf569cad59ab7c0404d00abb31a12a63c6",
+      "crc32": "98f04acf"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-isolated-failure-probe.log",
+      "source_path": "build/forest_revision04/ci-6b/aim-isolated-failure-probe.log",
+      "purpose": "final original unique wrapper positive/actual failure/17 identity refusal evidence",
+      "bytes": 9774,
+      "sha256": "9bc3d0ee644a78d024b646e721334efa1b8182a7c45abb71ae8945c972672c3a",
+      "crc32": "3e7e13ec"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-isolated-original-wrapper-receipt.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-isolated-original-wrapper-receipt.json",
+      "purpose": "final original unique wrapper positive/actual failure/17 identity refusal evidence",
+      "bytes": 1703,
+      "sha256": "58aa4665db60c44c5774dd8628725754d840a011d6aee7d048cebd18b0a7a4aa",
+      "crc32": "8ffad3b6"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-isolated-original-wrapper-result.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-isolated-original-wrapper-result.json",
+      "purpose": "final original unique wrapper positive/actual failure/17 identity refusal evidence",
+      "bytes": 4069511,
+      "sha256": "ce27e158989d2bbf1d03fff6c331974acdd7ea1451648534e5d82b2fa25c22f8",
+      "crc32": "122aecda"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-isolated-original-wrapper.log",
+      "source_path": "build/forest_revision04/ci-6b/aim-isolated-original-wrapper.log",
+      "purpose": "final original unique wrapper positive/actual failure/17 identity refusal evidence",
+      "bytes": 9329,
+      "sha256": "68b4d7ba66cc3341513e503a893b531c1d1fafe98cf5d29fb4d015b3418991fe",
+      "crc32": "47e7db0b"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-load-probes-receipt.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-load-probes-receipt.json",
+      "purpose": "causal withdrawal and controls; old unused preload confound is explicit",
+      "bytes": 2820,
+      "sha256": "04ed89d82bbd2b382b9dc626805b0a8f728966643a65c74233e19eb906cbd365",
+      "crc32": "e532c048"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-next-baseline-receipt.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-next-baseline-receipt.json",
+      "purpose": "fresh same-source compiler-domain/ownership controls; parse-failed prototype retained",
+      "bytes": 2085,
+      "sha256": "95857fc7a9045e48c93fc36c9031835341fbe2621d2d8cfbac33fb3c5772e2b9",
+      "crc32": "872bf1ad"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-next-baseline.log",
+      "source_path": "build/forest_revision04/ci-6b/aim-next-baseline.log",
+      "purpose": "fresh same-source compiler-domain/ownership controls; parse-failed prototype retained",
+      "bytes": 1946765,
+      "sha256": "c2957f05fe55592f43668327395630609b9a21acc013897116654b7d39e49d74",
+      "crc32": "3656d279"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-next-data-after-world-receipt.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-next-data-after-world-receipt.json",
+      "purpose": "fresh same-source compiler-domain/ownership controls; parse-failed prototype retained",
+      "bytes": 1889,
+      "sha256": "2c99bd9a927b5dce83984c223eee742f3ee7c2713b4274ab980b43bbd1c49451",
+      "crc32": "d38bcd9e"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-next-data-after-world.log",
+      "source_path": "build/forest_revision04/ci-6b/aim-next-data-after-world.log",
+      "purpose": "fresh same-source compiler-domain/ownership controls; parse-failed prototype retained",
+      "bytes": 6255700,
+      "sha256": "c8568364f796803a1bff53ba16660ac2fa578262c28c15af3df19618290430c1",
+      "crc32": "29dd7f58"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-next-data-only-receipt.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-next-data-only-receipt.json",
+      "purpose": "fresh same-source compiler-domain/ownership controls; parse-failed prototype retained",
+      "bytes": 1864,
+      "sha256": "4adabcc8bbe0d4649fc7e3fed27e82f3b8f948b00fbc567605740a1008599596",
+      "crc32": "e6fbe66a"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-next-data-only.log",
+      "source_path": "build/forest_revision04/ci-6b/aim-next-data-only.log",
+      "purpose": "fresh same-source compiler-domain/ownership controls; parse-failed prototype retained",
+      "bytes": 6361785,
+      "sha256": "f8c2cf0d2368cb9ee4502953ef385b15d3e7b84bbbfcdb34313e354a1e4475b8",
+      "crc32": "af2e14e3"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-next-no-preload-receipt.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-next-no-preload-receipt.json",
+      "purpose": "fresh same-source compiler-domain/ownership controls; parse-failed prototype retained",
+      "bytes": 2033,
+      "sha256": "4962aaaeadcd2f97b459900413afc33510eb1a4af92d469fa407025b7b7431db",
+      "crc32": "0d309eec"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-next-no-preload.log",
+      "source_path": "build/forest_revision04/ci-6b/aim-next-no-preload.log",
+      "purpose": "fresh same-source compiler-domain/ownership controls; parse-failed prototype retained",
+      "bytes": 1823337,
+      "sha256": "c192cdd859969c4a495b4e9b823820e89ee00016ea221b02369ac828e760f3dc",
+      "crc32": "8d43eb85"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-next-reload-receipt.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-next-reload-receipt.json",
+      "purpose": "fresh same-source compiler-domain/ownership controls; parse-failed prototype retained",
+      "bytes": 2040,
+      "sha256": "0fb2af61450fb1f7f0fa76eaac75c498438c61c26b06d64cf8a6f3ded58a59e1",
+      "crc32": "c9579052"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-next-reload.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-next-reload.json",
+      "purpose": "actual weak-reference phase observations; clean/failed helper Script survival is not a leak predicate",
+      "bytes": 354300,
+      "sha256": "c0acc6bc041b47df039b8ff7bbc3da24051298fd24462cb399b919b1c9cf6fbc",
+      "crc32": "220d8110"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-next-reload.log",
+      "source_path": "build/forest_revision04/ci-6b/aim-next-reload.log",
+      "purpose": "fresh same-source compiler-domain/ownership controls; parse-failed prototype retained",
+      "bytes": 1828914,
+      "sha256": "d4d475b973bf78633c22fa0cc3455c5a989a0857ebc9fbdbaaea359fc27fb80d",
+      "crc32": "43260187"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-next-runtime-data-domain-receipt.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-next-runtime-data-domain-receipt.json",
+      "purpose": "fresh same-source compiler-domain/ownership controls; parse-failed prototype retained",
+      "bytes": 1973,
+      "sha256": "5705c69bcc69e63f93c81d527431ab5d7e7cb6caa79f23f439c50f22e334e54e",
+      "crc32": "a751c6e4"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-next-runtime-data-domain.log",
+      "source_path": "build/forest_revision04/ci-6b/aim-next-runtime-data-domain.log",
+      "purpose": "fresh same-source compiler-domain/ownership controls; parse-failed prototype retained",
+      "bytes": 2618,
+      "sha256": "b1206724094a2183e320fd2269888659d4ae415a07e71b6ce350bb32dc041bfe",
+      "crc32": "bf9de758"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-next-runtime-data-domain02-receipt.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-next-runtime-data-domain02-receipt.json",
+      "purpose": "fresh same-source compiler-domain/ownership controls; parse-failed prototype retained",
+      "bytes": 2020,
+      "sha256": "773dd86ef7d541659da5ccb67b2c1f6eeb508b8ae75494e24cdd6ecd02e02fb5",
+      "crc32": "86e4ca82"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-next-runtime-data-domain02.log",
+      "source_path": "build/forest_revision04/ci-6b/aim-next-runtime-data-domain02.log",
+      "purpose": "fresh same-source compiler-domain/ownership controls; parse-failed prototype retained",
+      "bytes": 1787048,
+      "sha256": "71f513b68d48ba1f791d3abf663446680dd3bab61b7f9592f9f473c75fa2bc9d",
+      "crc32": "6e4cc903"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-next-runtime-data-leaf-receipt.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-next-runtime-data-leaf-receipt.json",
+      "purpose": "fresh same-source compiler-domain/ownership controls; parse-failed prototype retained",
+      "bytes": 2128,
+      "sha256": "3269609a77beb28e517be1d55e8870d9b963fc4d98239b360312bac697e0235d",
+      "crc32": "e7d6fff9"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-next-runtime-data-leaf.log",
+      "source_path": "build/forest_revision04/ci-6b/aim-next-runtime-data-leaf.log",
+      "purpose": "fresh same-source compiler-domain/ownership controls; parse-failed prototype retained",
+      "bytes": 8289838,
+      "sha256": "b3651b5f58a297c391ac543874c3581e15343c9418bdc7134a61f9bdb601a739",
+      "crc32": "233b7e0d"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-next-runtime-manifest-only-receipt.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-next-runtime-manifest-only-receipt.json",
+      "purpose": "fresh same-source compiler-domain/ownership controls; parse-failed prototype retained",
+      "bytes": 2186,
+      "sha256": "d28d75cec03f2b95d65a1b35a1fdd3334c7e7df9a16d7afe2553219cbba796c0",
+      "crc32": "49641540"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-next-runtime-manifest-only.log",
+      "source_path": "build/forest_revision04/ci-6b/aim-next-runtime-manifest-only.log",
+      "purpose": "fresh same-source compiler-domain/ownership controls; parse-failed prototype retained",
+      "bytes": 1815391,
+      "sha256": "c3ac9cb2d37f7fe14339ae3c4c7fc7d494eef0d18a1fb98ffac73a1df55946aa",
+      "crc32": "47834a09"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-next-start-only-receipt.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-next-start-only-receipt.json",
+      "purpose": "fresh same-source compiler-domain/ownership controls; parse-failed prototype retained",
+      "bytes": 2057,
+      "sha256": "f4a487d272c841d1424224080dc440c2fa8bc6eafcf07509668e715020e05147",
+      "crc32": "326a3e66"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-next-start-only.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-next-start-only.json",
+      "purpose": "actual weak-reference phase observations; clean/failed helper Script survival is not a leak predicate",
+      "bytes": 352891,
+      "sha256": "cfef92bf6042894398912fa9de4673cd677e52b7bfb63c3bad863742a679f4bd",
+      "crc32": "485be9f6"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-next-start-only.log",
+      "source_path": "build/forest_revision04/ci-6b/aim-next-start-only.log",
+      "purpose": "fresh same-source compiler-domain/ownership controls; parse-failed prototype retained",
+      "bytes": 1166810,
+      "sha256": "43a4d28298e71c895d08d59a9e50791efb87b1a13c626dffa01659d6ec0fda10",
+      "crc32": "1f3374a0"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-next-static-manifest-only-receipt.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-next-static-manifest-only-receipt.json",
+      "purpose": "fresh same-source compiler-domain/ownership controls; parse-failed prototype retained",
+      "bytes": 2018,
+      "sha256": "8cd1b78dcd7c1c24ef8239a84457e127a8c00efe0f1b1760c2b65f06b7052f6f",
+      "crc32": "57f7e5d1"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-next-static-manifest-only.log",
+      "source_path": "build/forest_revision04/ci-6b/aim-next-static-manifest-only.log",
+      "purpose": "fresh same-source compiler-domain/ownership controls; parse-failed prototype retained",
+      "bytes": 1852382,
+      "sha256": "bace293e483db79568c98629f26b031d949b4f5694002667d32473e19e7858a4",
+      "crc32": "920b1697"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-next-world-only-receipt.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-next-world-only-receipt.json",
+      "purpose": "fresh same-source compiler-domain/ownership controls; parse-failed prototype retained",
+      "bytes": 1868,
+      "sha256": "fc0b8d10ee67d65cbbb1b225e18ca801b542b7c133071098a01d7e4536d750cc",
+      "crc32": "9021e188"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-next-world-only.log",
+      "source_path": "build/forest_revision04/ci-6b/aim-next-world-only.log",
+      "purpose": "fresh same-source compiler-domain/ownership controls; parse-failed prototype retained",
+      "bytes": 6417939,
+      "sha256": "53d1d4f42e110df1099a8a5240cecde73568a180cb42db14dcbd6fec4ca95034",
+      "crc32": "b88d2924"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-no-data-reader-controls-receipt.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-no-data-reader-controls-receipt.json",
+      "purpose": "causal withdrawal and controls; old unused preload confound is explicit",
+      "bytes": 1413,
+      "sha256": "6d00ae51d80eef195e3c9cf6f61532daf1152b8632bab0dc4b2071075242dc75",
+      "crc32": "7d29f3ff"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-one-app-lifecycle-probe.gd",
+      "source_path": "build/forest_revision04/ci-6b/aim-one-app-lifecycle-probe.gd",
+      "purpose": "selected diagnostic source; not substituted for final consumer checks",
+      "bytes": 2647,
+      "sha256": "8e9ba0f9007dedcd0374280b987b749eede17007dedc942ffb6b6d90693d74ee",
+      "crc32": "85f4b3e1"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-one-app-no-data-no-preload.gd",
+      "source_path": "build/forest_revision04/ci-6b/aim-one-app-no-data-no-preload.gd",
+      "purpose": "causal withdrawal and controls; old unused preload confound is explicit",
+      "bytes": 1135,
+      "sha256": "3bcc9787e1623635e392aca656fefc8976f74737288d55336f34e5f86aa9cb35",
+      "crc32": "bda41982"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-one-app-no-data.gd",
+      "source_path": "build/forest_revision04/ci-6b/aim-one-app-no-data.gd",
+      "purpose": "causal withdrawal and controls; old unused preload confound is explicit",
+      "bytes": 1198,
+      "sha256": "ff65afe35ff1186f8a76bab11fad64f987703f300a8d4a0834a815f60d4a2bf1",
+      "crc32": "d00bc7cc"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-one-app-probes-receipt.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-one-app-probes-receipt.json",
+      "purpose": "causal withdrawal and controls; old unused preload confound is explicit",
+      "bytes": 2913,
+      "sha256": "f6f95b8139bef73ff10d00035736320efce89a1c7d98aaeedfd9816ac9b90742",
+      "crc32": "4c0deca3"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-order-baseline-receipt.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-order-baseline-receipt.json",
+      "purpose": "all four order changes failed; no order-only patch accepted",
+      "bytes": 623,
+      "sha256": "22d18177da45b7e024ff86eefec98ec67afabaf3efe404ce32c73aca7681cc84",
+      "crc32": "0c4e691f"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-order-history-first-original-position-receipt.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-order-history-first-original-position-receipt.json",
+      "purpose": "all four order changes failed; no order-only patch accepted",
+      "bytes": 647,
+      "sha256": "2cdf2a238cf3ea2b5e293332479fa1be6d7e40856536178010394ffe7bca38c6",
+      "crc32": "53416b52"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-order-history-first-post-position-receipt.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-order-history-first-post-position-receipt.json",
+      "purpose": "all four order changes failed; no order-only patch accepted",
+      "bytes": 643,
+      "sha256": "16f349ee4f518140235144497b1e4b1fcbc70a543c2d33d43e7945ef2f78d7d9",
+      "crc32": "1c1e17db"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-order-restored-position-receipt.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-order-restored-position-receipt.json",
+      "purpose": "all four order changes failed; no order-only patch accepted",
+      "bytes": 632,
+      "sha256": "97e86ccd39a74d33747f25e5d5dc83eea84f25aad2a1f7c08298fac09b5173a3",
+      "crc32": "8e026c63"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-original-6b-reader-no-data.log",
+      "source_path": "build/forest_revision04/ci-6b/aim-original-6b-reader-no-data.log",
+      "purpose": "causal withdrawal and controls; old unused preload confound is explicit",
+      "bytes": 1946694,
+      "sha256": "5dc85f17b1d17d1c5e3d09095f16f0cd1dbf2d22b99b87b9d84d2500f098aaa3",
+      "crc32": "26f23d1c"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-original-wrapper.log",
+      "source_path": "build/forest_revision04/ci-6b/aim-original-wrapper.log",
+      "purpose": "retained original/W7/failed-combined AIM evidence; functional zero failures was not strict success",
+      "bytes": 9764,
+      "sha256": "690a0a7d21e9fd920eb074c4fa2223281301b0d9c94ae24dd33224a6f2555dac",
+      "crc32": "942f19e8"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-original.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-original.json",
+      "purpose": "retained original/W7/failed-combined AIM evidence; functional zero failures was not strict success",
+      "bytes": 1866688,
+      "sha256": "1842672535c548e6b220e3b7b191fb2de0bd284996d76bd7d989d981d6b11350",
+      "crc32": "2ab1b39c"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-region-plan-versus-definitions-receipt.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-region-plan-versus-definitions-receipt.json",
+      "purpose": "causal withdrawal and controls; old unused preload confound is explicit",
+      "bytes": 1227,
+      "sha256": "ce94ea0649356937b23935cc49702001e68076f4742a98534dde658079a6baa2",
+      "crc32": "a88366ea"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-runner-before-lifecycle-fix.gd",
+      "source_path": "build/forest_revision04/ci-6b/aim-runner-before-lifecycle-fix.gd",
+      "purpose": "retained original/W7/failed-combined AIM evidence; functional zero failures was not strict success",
+      "bytes": 5955,
+      "sha256": "acc467a810e230c9617a4091d52af98273086d4ac14bd841df5627a2bca395b8",
+      "crc32": "2088b267"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-runner-original.gd",
+      "source_path": "build/forest_revision04/ci-6b/aim-runner-original.gd",
+      "purpose": "retained original/W7/failed-combined AIM evidence; functional zero failures was not strict success",
+      "bytes": 2505,
+      "sha256": "da50470f871b63ef22df1be5723a4928e3c2446e3aaaddc31257e4a18328eb7c",
+      "crc32": "a7658ede"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-save-compat-candidate03-wrapper.log",
+      "source_path": "build/forest_revision04/ci-6b/aim-save-compat-candidate03-wrapper.log",
+      "purpose": "retained original/W7/failed-combined AIM evidence; functional zero failures was not strict success",
+      "bytes": 10088,
+      "sha256": "db8ff2738bec4ed63bb92fc451dbb005a5bee62f13c0badb3937217873b29e2d",
+      "crc32": "c9a858ba"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-validation-versus-object-receipt.json",
+      "source_path": "build/forest_revision04/ci-6b/aim-validation-versus-object-receipt.json",
+      "purpose": "causal withdrawal and controls; old unused preload confound is explicit",
+      "bytes": 1213,
+      "sha256": "ccbd1afed06e791f3f6e3be3ee60234a70fe3c15986bce98f1ade8021f222caa",
+      "crc32": "cd03585c"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/aim-world-only-domain-probe.gd",
+      "source_path": "build/forest_revision04/ci-6b/aim-world-only-domain-probe.gd",
+      "purpose": "selected diagnostic source; not substituted for final consumer checks",
+      "bytes": 1869,
+      "sha256": "61dd8b1240d8381e6563d93fecc525eafff7f42cc21ff8db52faff3607f762b0",
+      "crc32": "11b82eec"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/candidate03-receipt.json",
+      "source_path": "build/forest_revision04/ci-6b/candidate03-receipt.json",
+      "purpose": "original scene baseline/candidate lineage; final native scene receipt does not relabel original failures",
+      "bytes": 873,
+      "sha256": "f4fff2d69b8359349399c1f019d6b59dda2dabded136e65bd19d746ab054d6ea",
+      "crc32": "99653dbc"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/main-replay-project/replay_probe.gd",
+      "source_path": "build/forest_revision04/ci-6b/main-replay-project/replay_probe.gd",
+      "purpose": "actual old-source producer pinned by tracked provenance",
+      "bytes": 2867,
+      "sha256": "5152c726a0a8acb0c2c4a8c9d987dc98dba173696920f5bc990c283518b0ce3f",
+      "crc32": "59ef35c8"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/main315-import-complete.log",
+      "source_path": "build/forest_revision04/ci-6b/main315-import-complete.log",
+      "purpose": "actual old-main generation/reader evidence; first incomplete shader attempt remains failed",
+      "bytes": 1208,
+      "sha256": "f5ecddcad6db0839ecefb61124897dc4f5c49aa4b93a8d94674376066b88799f",
+      "crc32": "d178cd55"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/main315-import.log",
+      "source_path": "build/forest_revision04/ci-6b/main315-import.log",
+      "purpose": "actual old-main generation/reader evidence; first incomplete shader attempt remains failed",
+      "bytes": 136193,
+      "sha256": "594e894dcb4fd4be42a6cc4ed06c95852c1fbf45aee063696d42852b8df6b940",
+      "crc32": "4e66d5d4"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/main315-replay-probe-complete.log",
+      "source_path": "build/forest_revision04/ci-6b/main315-replay-probe-complete.log",
+      "purpose": "actual old-main generation/reader evidence; first incomplete shader attempt remains failed",
+      "bytes": 603,
+      "sha256": "fdd7494ea35fcc75074ffb19a77251a38febd2a173e95f35a64ee019258fcd1f",
+      "crc32": "7c18c8b4"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/main315-replay-probe.log",
+      "source_path": "build/forest_revision04/ci-6b/main315-replay-probe.log",
+      "purpose": "actual old-main generation/reader evidence; first incomplete shader attempt remains failed",
+      "bytes": 2541,
+      "sha256": "532b6e799d5a39f1ebf836b0f119fba8a0680b373e08d9dbd5c39f5f2aea52f1",
+      "crc32": "28089939"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/parallel-118445774985.log",
+      "source_path": "build/forest_revision04/ci-6b/parallel-118445774985.log",
+      "purpose": "original terminal full remote CI; both failures remain failures",
+      "bytes": 131646,
+      "sha256": "ef2d54274a40319bf8238f8da709dceb628843314b7a7a5d754b1ef29ae4e50f",
+      "crc32": "e49911b1"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/plains-redesign-scene-candidate03-wrapper.log",
+      "source_path": "build/forest_revision04/ci-6b/plains-redesign-scene-candidate03-wrapper.log",
+      "purpose": "original scene baseline/candidate lineage; final native scene receipt does not relabel original failures",
+      "bytes": 1220,
+      "sha256": "3a6bd178169814b9464c381dfffd15e79c6c5e35d8c7787fee5b437d01e797c2",
+      "crc32": "c3b722e4"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/run-manifest-original.gd",
+      "source_path": "build/forest_revision04/ci-6b/run-manifest-original.gd",
+      "purpose": "retained original/W7/failed-combined AIM evidence; functional zero failures was not strict success",
+      "bytes": 17735,
+      "sha256": "155561fa44fba92870f3442e83bfee4e49995c1ab545c331a807be6b210a49d3",
+      "crc32": "20dd1a07"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/run_aim_aggregate_rejection_controls.py",
+      "source_path": "build/forest_revision04/ci-6b/run_aim_aggregate_rejection_controls.py",
+      "purpose": "final original unique wrapper positive/actual failure/17 identity refusal evidence",
+      "bytes": 3109,
+      "sha256": "fce0a1b0fff4efb19ce1e31fa410b639e81db37192446dc90a350da1615b0054",
+      "crc32": "e357a1da"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/scene-candidate01-wrapper.log",
+      "source_path": "build/forest_revision04/ci-6b/scene-candidate01-wrapper.log",
+      "purpose": "original scene baseline/candidate lineage; final native scene receipt does not relabel original failures",
+      "bytes": 1753,
+      "sha256": "71820f59265a038c882f25e855ec914e555d12b4201f6b436ff8f7eb27094f87",
+      "crc32": "59dfe3dd"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/scene-candidate02-wrapper.log",
+      "source_path": "build/forest_revision04/ci-6b/scene-candidate02-wrapper.log",
+      "purpose": "original scene baseline/candidate lineage; final native scene receipt does not relabel original failures",
+      "bytes": 2099,
+      "sha256": "99aa8734c0585bb7d5ce9c3b2fd75049829682f4eafafa12e149a0a17defeaa6",
+      "crc32": "1d932599"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/scene-original-wrapper.log",
+      "source_path": "build/forest_revision04/ci-6b/scene-original-wrapper.log",
+      "purpose": "original scene baseline/candidate lineage; final native scene receipt does not relabel original failures",
+      "bytes": 1753,
+      "sha256": "27935fbc1f2f62640bc177246ea624435383da9b6de81780cc077e0f711d5fad",
+      "crc32": "7c759d45"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/scene-runner-original.gd",
+      "source_path": "build/forest_revision04/ci-6b/scene-runner-original.gd",
+      "purpose": "original scene baseline/candidate lineage; final native scene receipt does not relabel original failures",
+      "bytes": 33291,
+      "sha256": "752635831ad7647440521fa02bf206313453544b1e2558f74ab63ce2275161fb",
+      "crc32": "4b70c1de"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/scene-wrapper-original.py",
+      "source_path": "build/forest_revision04/ci-6b/scene-wrapper-original.py",
+      "purpose": "original scene baseline/candidate lineage; final native scene receipt does not relabel original failures",
+      "bytes": 16389,
+      "sha256": "d32d99940915f973b6c6fbe3ea3eca5645757530dc2775eafc420fbcb3304693",
+      "crc32": "0ce155a0"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/serial-118445775035.log",
+      "source_path": "build/forest_revision04/ci-6b/serial-118445775035.log",
+      "purpose": "original terminal full remote CI; both failures remain failures",
+      "bytes": 115234,
+      "sha256": "22c7c1f9cffe657f0510d1e95686e8e99cde57449149dcc9cf868051cfb1cbe9",
+      "crc32": "f8b1eb0e"
+    },
+    {
+      "member": "build/forest_revision04/ci-6b/terminal-jobs.json",
+      "source_path": "build/forest_revision04/ci-6b/terminal-jobs.json",
+      "purpose": "original terminal full remote CI; both failures remain failures",
+      "bytes": 23327,
+      "sha256": "c580029d97796f0027c8b08d8482043afb6bc5f51dd552be58a4959fe0610fb1",
+      "crc32": "bffede1c"
+    },
+    {
+      "member": "build/forest_revision04/ci-W7/delivery/W7-reader-scene.patch",
+      "source_path": "build/forest_revision04/ci-W7/delivery/W7-reader-scene.patch",
+      "purpose": "delivery metadata: precise code binding, five final paths and explicit withdrawn causes",
+      "bytes": 12571,
+      "sha256": "32670ece97f935e98030fb6f9536b6e0e20e8cdd95cc777ded2af96e40264b87",
+      "crc32": "0577e70c"
+    },
+    {
+      "member": "build/forest_revision04/ci-W7/delivery/execution-vs-final-code.json",
+      "source_path": "build/forest_revision04/ci-W7/delivery/execution-vs-final-code.json",
+      "purpose": "delivery metadata: precise code binding, five final paths and explicit withdrawn causes",
+      "bytes": 2699,
+      "sha256": "776bf824c06990fb774bbecc190dd3b666604b5ea35278be5794f103f33533a0",
+      "crc32": "ef818956"
+    },
+    {
+      "member": "build/forest_revision04/ci-W7/delivery/final-five-AIM-paths.patch",
+      "source_path": "build/forest_revision04/ci-W7/delivery/final-five-AIM-paths.patch",
+      "purpose": "delivery metadata: precise code binding, five final paths and explicit withdrawn causes",
+      "bytes": 32993,
+      "sha256": "5a4a59121a84a8be855d768acf59c73b869b00a62df63ee0151d99b059b2eec9",
+      "crc32": "695f8af0"
+    },
+    {
+      "member": "build/forest_revision04/ci-W7/delivery/withdrawn-causal-claims.md",
+      "source_path": "build/forest_revision04/ci-W7/delivery/withdrawn-causal-claims.md",
+      "purpose": "delivery metadata: precise code binding, five final paths and explicit withdrawn causes",
+      "bytes": 2327,
+      "sha256": "bffe8f1791b9b41ab6141208d45c6066b498712ce8f4cad56ee20d15c2a9ad65",
+      "crc32": "3d05d4a0"
+    },
+    {
+      "member": "build/plains_redesign/scene/run_r4ei9_3l/positive.json",
+      "source_path": "build/plains_redesign/scene/run_r4ei9_3l/positive.json",
+      "purpose": "actual scene baseline failure or final full positive and all10 native mutations, byte-for-byte",
+      "bytes": 38430257,
+      "sha256": "a615b5ae0d513e924038340899250f1beba4a2ca5d104d38e8e74ddb7e7d2575",
+      "crc32": "c5bb6380"
+    },
+    {
+      "member": "build/plains_redesign/scene/run_r4ei9_3l/positive.log",
+      "source_path": "build/plains_redesign/scene/run_r4ei9_3l/positive.log",
+      "purpose": "actual scene baseline failure or final full positive and all10 native mutations, byte-for-byte",
+      "bytes": 9780,
+      "sha256": "842e90d65c2afdab99cfe3c5ba100b3d8caf5c887b41f3d1dd85b208cf28e4e2",
+      "crc32": "e58d6dd3"
+    },
+    {
+      "member": "build/plains_redesign/scene/run_r4ei9_3l/receipt.json",
+      "source_path": "build/plains_redesign/scene/run_r4ei9_3l/receipt.json",
+      "purpose": "actual scene baseline failure or final full positive and all10 native mutations, byte-for-byte",
+      "bytes": 155140,
+      "sha256": "c9a4acbb6d15ac852e98a3e3a13e71a9b14ddce5d02aeb2b6e03b5e5ce83e3a1",
+      "crc32": "5bf01411"
+    },
+    {
+      "member": "build/plains_redesign/scene/run_r4ei9_3l/source_snapshot.json",
+      "source_path": "build/plains_redesign/scene/run_r4ei9_3l/source_snapshot.json",
+      "purpose": "actual scene baseline failure or final full positive and all10 native mutations, byte-for-byte",
+      "bytes": 150375,
+      "sha256": "71e93b5c08e10c98d337b0c8605f98868eb3623cc21269fc59b8d633bd3e1d40",
+      "crc32": "a817d6be"
+    },
+    {
+      "member": "build/plains_redesign/scene/run_x816eg6t/floating_landmark.json",
+      "source_path": "build/plains_redesign/scene/run_x816eg6t/floating_landmark.json",
+      "purpose": "actual scene baseline failure or final full positive and all10 native mutations, byte-for-byte",
+      "bytes": 128548,
+      "sha256": "eadc14d161be2ad667525c6fa6eb429bdf43f289d39010d99a0c860e6cbada47",
+      "crc32": "6f03619e"
+    },
+    {
+      "member": "build/plains_redesign/scene/run_x816eg6t/floating_landmark.log",
+      "source_path": "build/plains_redesign/scene/run_x816eg6t/floating_landmark.log",
+      "purpose": "actual scene baseline failure or final full positive and all10 native mutations, byte-for-byte",
+      "bytes": 862,
+      "sha256": "a8df6ca672915d92133d05242e5870ffd5a88d4c24eab6ed700a4d611992c2c7",
+      "crc32": "7c0a3c58"
+    },
+    {
+      "member": "build/plains_redesign/scene/run_x816eg6t/foreground_actor.json",
+      "source_path": "build/plains_redesign/scene/run_x816eg6t/foreground_actor.json",
+      "purpose": "actual scene baseline failure or final full positive and all10 native mutations, byte-for-byte",
+      "bytes": 128691,
+      "sha256": "7ddea10cbcd717ef83a90f787fd57f9f78e60d8f154ad241eed7f5a1cfcfdf1c",
+      "crc32": "31c1ab6b"
+    },
+    {
+      "member": "build/plains_redesign/scene/run_x816eg6t/foreground_actor.log",
+      "source_path": "build/plains_redesign/scene/run_x816eg6t/foreground_actor.log",
+      "purpose": "actual scene baseline failure or final full positive and all10 native mutations, byte-for-byte",
+      "bytes": 860,
+      "sha256": "7da97f592516458b8090fac0b02be7ac9b93f0e5a7bd521011042ab4032458f8",
+      "crc32": "335bad9d"
+    },
+    {
+      "member": "build/plains_redesign/scene/run_x816eg6t/foreground_bell.json",
+      "source_path": "build/plains_redesign/scene/run_x816eg6t/foreground_bell.json",
+      "purpose": "actual scene baseline failure or final full positive and all10 native mutations, byte-for-byte",
+      "bytes": 596742,
+      "sha256": "43336bc99e8685920b967b45c7933fd89a0fd0860e98d7b449c26b234c472bfb",
+      "crc32": "7f1fff73"
+    },
+    {
+      "member": "build/plains_redesign/scene/run_x816eg6t/foreground_bell.log",
+      "source_path": "build/plains_redesign/scene/run_x816eg6t/foreground_bell.log",
+      "purpose": "actual scene baseline failure or final full positive and all10 native mutations, byte-for-byte",
+      "bytes": 920,
+      "sha256": "8b16b1103add111630f97d63acbef879ec672a514d4ec35b1d94e4272a5d3b0a",
+      "crc32": "dbc315bb"
+    },
+    {
+      "member": "build/plains_redesign/scene/run_x816eg6t/foreground_ferry.json",
+      "source_path": "build/plains_redesign/scene/run_x816eg6t/foreground_ferry.json",
+      "purpose": "actual scene baseline failure or final full positive and all10 native mutations, byte-for-byte",
+      "bytes": 1891329,
+      "sha256": "e0584c31eb4552a005ffebe3067263e2105b27758c5f6f417bea10d31ad70fb9",
+      "crc32": "457badc8"
+    },
+    {
+      "member": "build/plains_redesign/scene/run_x816eg6t/foreground_ferry.log",
+      "source_path": "build/plains_redesign/scene/run_x816eg6t/foreground_ferry.log",
+      "purpose": "actual scene baseline failure or final full positive and all10 native mutations, byte-for-byte",
+      "bytes": 950,
+      "sha256": "ede1a2f4dbf03b9f1cb3d216cdcd78008a59492f0748955a5b685b193fb36163",
+      "crc32": "1f2e90db"
+    },
+    {
+      "member": "build/plains_redesign/scene/run_x816eg6t/foreground_landing.json",
+      "source_path": "build/plains_redesign/scene/run_x816eg6t/foreground_landing.json",
+      "purpose": "actual scene baseline failure or final full positive and all10 native mutations, byte-for-byte",
+      "bytes": 1046216,
+      "sha256": "92e462a71fdba7d1e0422ffbf12278773b0add512bc2e150099874b0b2bdab67",
+      "crc32": "7e48d403"
+    },
+    {
+      "member": "build/plains_redesign/scene/run_x816eg6t/foreground_landing.log",
+      "source_path": "build/plains_redesign/scene/run_x816eg6t/foreground_landing.log",
+      "purpose": "actual scene baseline failure or final full positive and all10 native mutations, byte-for-byte",
+      "bytes": 931,
+      "sha256": "3b0d1ee0dea80280b3d9bb1faaf0f33b5e2783ec8fbbf4fe2413c32a6f3cc5e0",
+      "crc32": "0098873f"
+    },
+    {
+      "member": "build/plains_redesign/scene/run_x816eg6t/heading_actor.json",
+      "source_path": "build/plains_redesign/scene/run_x816eg6t/heading_actor.json",
+      "purpose": "actual scene baseline failure or final full positive and all10 native mutations, byte-for-byte",
+      "bytes": 128932,
+      "sha256": "51bc6a87e03dacf745dea4e63056f59e90c04e0026463d696dd860a4b69e06f5",
+      "crc32": "cdff61a4"
+    },
+    {
+      "member": "build/plains_redesign/scene/run_x816eg6t/heading_actor.log",
+      "source_path": "build/plains_redesign/scene/run_x816eg6t/heading_actor.log",
+      "purpose": "actual scene baseline failure or final full positive and all10 native mutations, byte-for-byte",
+      "bytes": 857,
+      "sha256": "e0597fa1143ff2233f6d6e911be3d23f8ccf351fca1ad1634b2f2599c3dced9d",
+      "crc32": "4d08d142"
+    },
+    {
+      "member": "build/plains_redesign/scene/run_x816eg6t/hud_actor.json",
+      "source_path": "build/plains_redesign/scene/run_x816eg6t/hud_actor.json",
+      "purpose": "actual scene baseline failure or final full positive and all10 native mutations, byte-for-byte",
+      "bytes": 128449,
+      "sha256": "f0e14be9d2c3db676aa32e2ffdb8b66e665a17d0cf179315ce697511167b5372",
+      "crc32": "00ef7aca"
+    },
+    {
+      "member": "build/plains_redesign/scene/run_x816eg6t/hud_actor.log",
+      "source_path": "build/plains_redesign/scene/run_x816eg6t/hud_actor.log",
+      "purpose": "actual scene baseline failure or final full positive and all10 native mutations, byte-for-byte",
+      "bytes": 852,
+      "sha256": "46df505070b533277c1ede1bfe127d2e815c6fb98604c416a9c802cc02ae397e",
+      "crc32": "591f936e"
+    },
+    {
+      "member": "build/plains_redesign/scene/run_x816eg6t/info_actor.json",
+      "source_path": "build/plains_redesign/scene/run_x816eg6t/info_actor.json",
+      "purpose": "actual scene baseline failure or final full positive and all10 native mutations, byte-for-byte",
+      "bytes": 128523,
+      "sha256": "b4fb0d1f0af686aa62c85a1ea894d22c4db35a777a62829af1cf727207c2f823",
+      "crc32": "8a510a51"
+    },
+    {
+      "member": "build/plains_redesign/scene/run_x816eg6t/info_actor.log",
+      "source_path": "build/plains_redesign/scene/run_x816eg6t/info_actor.log",
+      "purpose": "actual scene baseline failure or final full positive and all10 native mutations, byte-for-byte",
+      "bytes": 854,
+      "sha256": "54cd8c5599b8f2ca3d06542a7b42b9d6b6bda268166efcebdae6086c5434c13a",
+      "crc32": "86dd1a96"
+    },
+    {
+      "member": "build/plains_redesign/scene/run_x816eg6t/positive.json",
+      "source_path": "build/plains_redesign/scene/run_x816eg6t/positive.json",
+      "purpose": "actual scene baseline failure or final full positive and all10 native mutations, byte-for-byte",
+      "bytes": 49768750,
+      "sha256": "89aabae56dd73d40cd35de3da8748c68cbe5b01a7afef003170bfa506106de3e",
+      "crc32": "0ff4821f"
+    },
+    {
+      "member": "build/plains_redesign/scene/run_x816eg6t/positive.log",
+      "source_path": "build/plains_redesign/scene/run_x816eg6t/positive.log",
+      "purpose": "actual scene baseline failure or final full positive and all10 native mutations, byte-for-byte",
+      "bytes": 9874,
+      "sha256": "d7276902320bd506bdcc0cc2cc01c36f214741b09df9b679233f4f4d59dcb918",
+      "crc32": "184c4b0e"
+    },
+    {
+      "member": "build/plains_redesign/scene/run_x816eg6t/receipt.json",
+      "source_path": "build/plains_redesign/scene/run_x816eg6t/receipt.json",
+      "purpose": "actual scene baseline failure or final full positive and all10 native mutations, byte-for-byte",
+      "bytes": 170425,
+      "sha256": "187c5f1f7d2d19701f761eb6068562fd282ba13789ba9501371e6d9c706b8280",
+      "crc32": "8a62c3ee"
+    },
+    {
+      "member": "build/plains_redesign/scene/run_x816eg6t/required_outside.json",
+      "source_path": "build/plains_redesign/scene/run_x816eg6t/required_outside.json",
+      "purpose": "actual scene baseline failure or final full positive and all10 native mutations, byte-for-byte",
+      "bytes": 128625,
+      "sha256": "f146cbfad9409d5f836c7da0c01cee21595af39bd28f301d273fbedd26b7efaa",
+      "crc32": "78255e1c"
+    },
+    {
+      "member": "build/plains_redesign/scene/run_x816eg6t/required_outside.log",
+      "source_path": "build/plains_redesign/scene/run_x816eg6t/required_outside.log",
+      "purpose": "actual scene baseline failure or final full positive and all10 native mutations, byte-for-byte",
+      "bytes": 860,
+      "sha256": "a228dc520d3647108b83a16e3f320035550459b45b866652138b0bec9c061eb0",
+      "crc32": "c3f9e540"
+    },
+    {
+      "member": "build/plains_redesign/scene/run_x816eg6t/source_snapshot.json",
+      "source_path": "build/plains_redesign/scene/run_x816eg6t/source_snapshot.json",
+      "purpose": "actual scene baseline failure or final full positive and all10 native mutations, byte-for-byte",
+      "bytes": 150375,
+      "sha256": "6d7e28c15ad86a79efbd3941a4660ff52b0f820ba5c657ed543c5f93b790ac98",
+      "crc32": "f06cac3e"
+    },
+    {
+      "member": "build/plains_redesign/scene/run_x816eg6t/touch_controls_overlap.json",
+      "source_path": "build/plains_redesign/scene/run_x816eg6t/touch_controls_overlap.json",
+      "purpose": "actual scene baseline failure or final full positive and all10 native mutations, byte-for-byte",
+      "bytes": 129682,
+      "sha256": "9b40ccfb2c22b3ac36e747bfc2662489cb7eadd2fe02499b3ebac11e242bcfe8",
+      "crc32": "d416976d"
+    },
+    {
+      "member": "build/plains_redesign/scene/run_x816eg6t/touch_controls_overlap.log",
+      "source_path": "build/plains_redesign/scene/run_x816eg6t/touch_controls_overlap.log",
+      "purpose": "actual scene baseline failure or final full positive and all10 native mutations, byte-for-byte",
+      "bytes": 865,
+      "sha256": "0ed71a81c76dc15012b333fb61f4a6f538c9e204cbf1d218b079549dddd0a6e1",
+      "crc32": "89d68dfe"
+    },
+    {
+      "member": "build/verification/aim_save_compat/6dd18b794ea742298c81e1d672c4e743/data-receipt.json",
+      "source_path": "build/verification/aim_save_compat/6dd18b794ea742298c81e1d672c4e743/data-receipt.json",
+      "purpose": "actual original run_engine phase raw output/report/receipt, separate real PID and shared native budget",
+      "bytes": 1390,
+      "sha256": "414db35b3cd376c315dd26a5608201126d90a81b509da1b41731fe4e3970ace4",
+      "crc32": "d8e1a858"
+    },
+    {
+      "member": "build/verification/aim_save_compat/6dd18b794ea742298c81e1d672c4e743/data.json",
+      "source_path": "build/verification/aim_save_compat/6dd18b794ea742298c81e1d672c4e743/data.json",
+      "purpose": "actual original run_engine phase raw output/report/receipt, separate real PID and shared native budget",
+      "bytes": 1291096,
+      "sha256": "de29d665320ff5bf0f2f29b7e9e2f9202311f353db2c098c1419c4415766104c",
+      "crc32": "0ae54a32"
+    },
+    {
+      "member": "build/verification/aim_save_compat/6dd18b794ea742298c81e1d672c4e743/data.log",
+      "source_path": "build/verification/aim_save_compat/6dd18b794ea742298c81e1d672c4e743/data.log",
+      "purpose": "actual original run_engine phase raw output/report/receipt, separate real PID and shared native budget",
+      "bytes": 341,
+      "sha256": "59278443073da1314665c6564da551f4d716b669162cf91c13387bdfc1e618b8",
+      "crc32": "27e597b9"
+    },
+    {
+      "member": "build/verification/aim_save_compat/6dd18b794ea742298c81e1d672c4e743/world-receipt.json",
+      "source_path": "build/verification/aim_save_compat/6dd18b794ea742298c81e1d672c4e743/world-receipt.json",
+      "purpose": "actual original run_engine phase raw output/report/receipt, separate real PID and shared native budget",
+      "bytes": 1398,
+      "sha256": "e9060dec920f4a6fa5c266a3aceaeef5b616e846fe93fd55d862418b88034e19",
+      "crc32": "3d7c97ed"
+    },
+    {
+      "member": "build/verification/aim_save_compat/6dd18b794ea742298c81e1d672c4e743/world.json",
+      "source_path": "build/verification/aim_save_compat/6dd18b794ea742298c81e1d672c4e743/world.json",
+      "purpose": "actual original run_engine phase raw output/report/receipt, separate real PID and shared native budget",
+      "bytes": 1547365,
+      "sha256": "8db044fab5b166059a25b70c824915bed4ca38cdd9fb32dd862f703101d34c75",
+      "crc32": "1e26d8cf"
+    },
+    {
+      "member": "build/verification/aim_save_compat/6dd18b794ea742298c81e1d672c4e743/world.log",
+      "source_path": "build/verification/aim_save_compat/6dd18b794ea742298c81e1d672c4e743/world.log",
+      "purpose": "actual original run_engine phase raw output/report/receipt, separate real PID and shared native budget",
+      "bytes": 7509,
+      "sha256": "9da2bde2e9b8576e804b6ee7d42c16410cb2fb14b69262690d16a9c2932e9ae3",
+      "crc32": "90a8d597"
+    },
+    {
+      "member": "build/verification/aim_save_compat/d0a3321814934bf5bd0094eb04a10e5c/data-receipt.json",
+      "source_path": "build/verification/aim_save_compat/d0a3321814934bf5bd0094eb04a10e5c/data-receipt.json",
+      "purpose": "actual original run_engine phase raw output/report/receipt, separate real PID and shared native budget",
+      "bytes": 1390,
+      "sha256": "0f7bfa8f675d708e3a3ee985e5ce047125dd802b8dbcd5066a4cca7ee66f51c0",
+      "crc32": "93160407"
+    },
+    {
+      "member": "build/verification/aim_save_compat/d0a3321814934bf5bd0094eb04a10e5c/data.json",
+      "source_path": "build/verification/aim_save_compat/d0a3321814934bf5bd0094eb04a10e5c/data.json",
+      "purpose": "actual original run_engine phase raw output/report/receipt, separate real PID and shared native budget",
+      "bytes": 1291096,
+      "sha256": "0e543d1e74edfa4a138db73fd28e2dd11ef57c48bb42d7a1507bb84dbad01eed",
+      "crc32": "f1550261"
+    },
+    {
+      "member": "build/verification/aim_save_compat/d0a3321814934bf5bd0094eb04a10e5c/data.log",
+      "source_path": "build/verification/aim_save_compat/d0a3321814934bf5bd0094eb04a10e5c/data.log",
+      "purpose": "actual original run_engine phase raw output/report/receipt, separate real PID and shared native budget",
+      "bytes": 341,
+      "sha256": "ba97a802f39fc506aee9a053f97a9bbb851ac7a4cd3def4d2bb80dbc98541164",
+      "crc32": "ee77ada6"
+    },
+    {
+      "member": "build/verification/aim_save_compat/d0a3321814934bf5bd0094eb04a10e5c/world-receipt.json",
+      "source_path": "build/verification/aim_save_compat/d0a3321814934bf5bd0094eb04a10e5c/world-receipt.json",
+      "purpose": "actual original run_engine phase raw output/report/receipt, separate real PID and shared native budget",
+      "bytes": 1450,
+      "sha256": "b675bf034c359af2d6f76cf998c5ec5ccb1837f391ad8f6e629b48358752c405",
+      "crc32": "c00c53e7"
+    },
+    {
+      "member": "build/verification/aim_save_compat/d0a3321814934bf5bd0094eb04a10e5c/world.json",
+      "source_path": "build/verification/aim_save_compat/d0a3321814934bf5bd0094eb04a10e5c/world.json",
+      "purpose": "actual original run_engine phase raw output/report/receipt, separate real PID and shared native budget",
+      "bytes": 1547094,
+      "sha256": "66a151ab5fe5f16aa5985f6cd32e7ffbe9b3e1cfddd0ccdc137a774ae1cc0947",
+      "crc32": "fddaf519"
+    },
+    {
+      "member": "build/verification/aim_save_compat/d0a3321814934bf5bd0094eb04a10e5c/world.log",
+      "source_path": "build/verification/aim_save_compat/d0a3321814934bf5bd0094eb04a10e5c/world.log",
+      "purpose": "actual original run_engine phase raw output/report/receipt, separate real PID and shared native budget",
+      "bytes": 7568,
+      "sha256": "1afa80501209e6968015f0ec656c87b17e510daed1d5ebf6d8c9be8626b11cc8",
+      "crc32": "6528d4aa"
+    },
+    {
+      "member": "tests/fixtures/main_dbc6ba08_actual_plains_prefixes.provenance.json",
+      "source_path": "tests/fixtures/main_dbc6ba08_actual_plains_prefixes.provenance.json",
+      "purpose": "tracked provenance; fixture body referenced, not duplicated",
+      "bytes": 1876,
+      "sha256": "67050527ba9f84716454c2123159f839a9aeb1aea6d131c0eb4bdbaf588455f0",
+      "crc32": "d39ae84d"
+    }
+  ],
+  "independent_review": {
+    "status": "pending final report; intentionally not bundled yet"
+  }
+}

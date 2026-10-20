@@ -1,0 +1,152 @@
+{
+  "reviewer": "/root/independent_review",
+  "independent": true,
+  "verdict": "REWORK",
+  "scope": "First complete W7b test-only data/world compiler-domain split; no final frozen SHA acceptance.",
+  "inspection_head": "4b36203c634ed5e8339c13b809dd77c7a0c4d76e",
+  "dirty_candidate_source_SHA256": {
+    "tests/aim_save_compat_runner.gd": "abb7eb62c80d251c0bf9ac4a501a4150bcf4ab86b049efa0c889daf78a3650ae",
+    "tests/aim_save_compat_case.gd": "5ee85eb63687af1fbf6f1d672212a41be1085de1a6cf8c3d875de774ab00b600",
+    "tests/aim_save_compat_data.gd": "eddc555e6294ce5544b2e4eb12438400212fc46c3bf79c26bf678d76de998703"
+  },
+  "assertion_preservation_independently_checked": {
+    "historical_runner_to_data_leaf": "All10 direct check-call expressions copied verbatim and in order. Existing loops/mutations and case record appends remain.",
+    "actual_world_case": "All21 direct check-call expressions copied verbatim/in order after normalizing only six exact runtime Script references to their original class names. Real DemoApp.new, PlainsRegionStage checks, EnemyActor cast and ActorResourceRequest remain.",
+    "six_actual_script_resource_identities": "Each literal res:// path maps to its original class_name in the actual source; no fake/mock implementation or game-cache clearing is introduced.",
+    "aggregation": "SceneTree calls real data leaf run, forwards each passed/label to the actual failure-counting check, and appends real historical cases. No count padding or unconditional success found."
+  },
+  "actual_complete_result": {
+    "business_checks": 176,
+    "business_failures": 0,
+    "reported_cases": 8,
+    "strict_wrapper": "FAILED: Godot leaked ObjectDB instances or live resources at exit",
+    "ObjectDB_leaks": 242,
+    "resource_leaks": 164,
+    "RID_diagnostics_also_present": true,
+    "source": "aim-complete-domain-boundary-wrapper.log"
+  },
+  "owner_observations": [
+    {
+      "kind": "historical_data_leaf",
+      "released": true,
+      "script_alive": true
+    },
+    {
+      "kind": "actual_app_teardown",
+      "released": {
+        "app": true,
+        "controller": true,
+        "menu": true,
+        "player": true,
+        "stage": true
+      }
+    },
+    {
+      "kind": "actual_app_teardown",
+      "released": {
+        "app": true,
+        "controller": true,
+        "menu": true,
+        "player": true,
+        "stage": true
+      }
+    },
+    {
+      "kind": "actual_app_teardown",
+      "released": {
+        "app": true,
+        "controller": true,
+        "menu": true,
+        "player": true,
+        "stage": true
+      }
+    },
+    {
+      "kind": "actual_app_teardown",
+      "released": {
+        "app": true,
+        "controller": true,
+        "menu": true,
+        "player": true,
+        "stage": true
+      }
+    },
+    {
+      "kind": "actual_app_teardown",
+      "released": {
+        "app": true,
+        "controller": true,
+        "menu": true,
+        "player": true,
+        "stage": true
+      }
+    },
+    {
+      "kind": "actual_app_teardown",
+      "released": {
+        "app": true,
+        "controller": true,
+        "menu": true,
+        "player": true,
+        "stage": true
+      }
+    },
+    {
+      "kind": "actual_app_teardown",
+      "released": {
+        "app": true,
+        "controller": true,
+        "menu": true,
+        "player": true,
+        "stage": true
+      }
+    },
+    {
+      "kind": "actual_app_teardown",
+      "released": {
+        "app": true,
+        "controller": true,
+        "menu": true,
+        "player": true,
+        "stage": true
+      }
+    },
+    {
+      "kind": "actual_app_teardown",
+      "released": {
+        "app": true,
+        "controller": true,
+        "menu": true,
+        "player": true,
+        "stage": true
+      }
+    },
+    {
+      "kind": "actual_app_teardown",
+      "released": {
+        "app": true,
+        "controller": true,
+        "menu": true,
+        "player": true,
+        "stage": true
+      }
+    },
+    {
+      "kind": "scene_helper",
+      "released": true
+    }
+  ],
+  "interpretation": [
+    "All real owner weakrefs released does not establish complete script/resource teardown.",
+    "Leaf script_alive=true is an observation, not independently established sufficient root cause. Prior clean live-script controls and other failed edge probes must remain.",
+    "The24-check causal group is not evidence that this original complete176-check consumer is fixed.",
+    "Meaningful explicit failure-probe and final code acceptance must wait for a full strict positive candidate."
+  ],
+  "proof_SHA256": {
+    "build/forest_revision04/ci-6b/aim-complete-domain-boundary-wrapper.log": "73782e0c6b24b7b69b9f6450f7883abc9816575f53676b7a4eed34ddbcf8e692",
+    "build/verification/aim_save_compat.json": "59e2f9d395a05b08ba01c125e782c1c27583c6aaf7a563ff99cd5241916e4e8d",
+    "build/forest_revision04/ci-6b/aim-runner-before-lifecycle-fix.gd": "acc467a810e230c9617a4091d52af98273086d4ac14bd841df5627a2bca395b8",
+    "build/forest_revision04/ci-6b/aim-case-before-lifecycle-fix.gd": "1d32006a6c37edf62c7aff165e4c511d15ac8f183675248029a07746b7d9caf0"
+  },
+  "limits": "No production/tests/docs/original proof edits or Godot executions. Existing W7 partial report remains unchanged."
+}

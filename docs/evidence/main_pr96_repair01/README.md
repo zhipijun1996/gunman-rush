@@ -1,3 +1,16 @@
+## 最终候选 W7–W9（尚未合main/发布）
+
+运行源 `169ef171fee3f70911847fb2c2890351ee3468bb`。原完整6b CI失败保留；已完成实际场景驾驶修复、严格双消费者存档检查、森林剩余挂点宿主和旧八房间退休。新完整CI仍待实际终态。
+
+- [精确6b完整本机证明及其范围](verification-W6/README.md)：原80、policy600、电影、本地Web/GUI，不重绑后续源码。
+- [W7原CI失败、实际旧源与原完整修复证据](compat-W7/README.md)：真实176项/8案例、共享120秒、负例和严格退出；错误因果已撤回。
+- [W8实际果实宿主和限定构图](../forest_fruit_routes04/hosts-W8/README.md)，唯一提示词的原始失败/新可见图及24段证据另存tinyhint-W8。
+- [W9原36/18和54回放56113帧等值](final-W9/README.md)。
+
+各原始收据保留实际执行HEAD与dirty状态，commit-source映射只证明列明源码字节相同，不能冒称后来HEAD重新运行。独审原件在review；全CI、用户审美/FUN和实体设备分开验收。下文为历史时点。
+
+---
+
 # MAIN-PR96-REPAIR-01：主线失败修复与 PR96 整合
 
 原 main：`dbc6ba081321637a3eef71979ecf2cf564eb6064`；输入 PR96：`2fcddc0eaca0d5f15fc0429cde2f29f98c103e0b`。本地三方合并提交：`e7286da1`，未冒称已合入远端 main。
