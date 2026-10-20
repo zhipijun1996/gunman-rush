@@ -1,0 +1,40 @@
+{
+  "scope": "Actual execution H and fresh movies only. Successful AVIs and interrupted partial AVI remain build-only and are not inside this archive. MP4 is a lossy viewing derivative; PNG is direct decoded AVI frame (source AVI is itself MJPEG). No complete Boss fight, full-film viewing, audio, player/device or public/main claim.",
+  "execution_head": "562542bd458f25c8fb5f6e56e74c69d363976735",
+  "successful_original_AVIs": [
+    {
+      "execution_head": "562542bd458f25c8fb5f6e56e74c69d363976735",
+      "map": 1,
+      "avi": "build/forest_revision04/movie-final-H/map1/00-map1-high_return/gameplay.avi",
+      "avi_sha256": "1498ec48509e3dba1ae01d1a7bdd7e8ea33f7cae3cb8cd6c6097ccde9891e49f",
+      "avi_bytes": 134452680,
+      "video_frames": 2290,
+      "fps": "60/1",
+      "width": 1280,
+      "height": 720,
+      "video_seconds": 38.166666666666664
+    },
+    {
+      "execution_head": "562542bd458f25c8fb5f6e56e74c69d363976735",
+      "map": 2,
+      "avi": "build/forest_revision04/movie-final-H/map2-original-caps/00-map2-high_return/gameplay.avi",
+      "avi_sha256": "c6d224a2a906a28f36ac93621d9e002f71bf3a6e862cec0a22d1c1526e2c4af3",
+      "avi_bytes": 167596790,
+      "video_frames": 2788,
+      "fps": "60/1",
+      "width": 1280,
+      "height": 720,
+      "video_seconds": 46.46666666666667
+    }
+  ],
+  "interrupted_first_map2": {
+    "receipt": "build/forest_revision04/movie-final-H/map2/receipt.json",
+    "capture_json_exists": false,
+    "partial_avi": "build/forest_revision04/movie-final-H/map2/00-map2-high_return/gameplay.avi",
+    "partial_avi_bytes": 165138432,
+    "scope": "Extra total240 outer instrumentation interruption; original public CLI import90/native240 unchanged. Original receipt running/raw missing, never validated as PASS. See original map2-outer-instrumentation-erratum.json."
+  },
+  "map2_timing_note": "Successful run row.seconds244.051357 includes display setup and inspect_movie/ffprobe postprocessing, not standalone native duration. Original subprocess.run(timeout=240) unchanged and successful exit0/no TimeoutExpired; native log records00:03:58. Outer254.177 includes import8.286 and postprocessing. No claim244<240.",
+  "caption_policy": "Only actual event kind, leg, target/mapped_target/anchor fields, recorded presentation_frame plus explicit offset. Movie time = selected AVI frame/60, never physics tick/60. Original raw events embedded unchanged in frame indices.",
+  "derivative_failure": "First ffmpeg select command lacked escaped commas and failed exit8; no native game error inferred. Original script/error retained. Final map1-final/map2-final regenerated fresh from successful original AVIs."
+}

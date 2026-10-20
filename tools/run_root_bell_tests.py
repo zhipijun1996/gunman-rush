@@ -84,7 +84,61 @@ def _events(case, kind):
     return [e for e in case['events'] if e['kind'] == kind]
 
 
-def _coherent_frames(case):
+DAMAGE_FEEDBACK_PATHS = ('resources/damage/feedback.tres', 'scripts/damage/damage_feedback_definition.gd')
+
+
+def damage_feedback_sources():
+    return {path: sha(ROOT/path) for path in DAMAGE_FEEDBACK_PATHS}
+
+
+def _damage_stun_frames(case):
+    """Observe EnemyActor's existing HP-committed, bounded motor-only branch.
+
+    DamagePolicy resolves after actors (priority1000), so accepted damage sets
+    the full duration in that frame; subsequent actor ticks consume exactly dt.
+    A last tick which reaches zero still returns before advancing behavior.
+    """
+    name, frames = case['id'], case['frames']
+    text = (ROOT/DAMAGE_FEEDBACK_PATHS[0]).read_text()
+    value = re.search(r'^enemy_knockback_seconds\s*=\s*([0-9.]+)$', text, re.M)
+    if value is None:
+        text = (ROOT/DAMAGE_FEEDBACK_PATHS[1]).read_text()
+        value = re.search(r'^@export var enemy_knockback_seconds\s*:=\s*([0-9.]+)$', text, re.M)
+    require(value is not None, name+': actual damage feedback duration missing')
+    duration = float(value[1])
+    declared = case.get('damage_feedback', {})
+    require(isinstance(declared, dict) and set(declared) == {'resource_path', 'enemy_knockback_seconds'} and
+            declared['resource_path'] == 'res://'+DAMAGE_FEEDBACK_PATHS[0] and
+            _near(declared['enemy_knockback_seconds'], duration), name+': damage feedback differs from actual Resource/default')
+    frozen = set()
+    for index, frame in enumerate(frames):
+        remaining = frame.get('damage_stun_remaining')
+        require(_finite(remaining) and 0 <= remaining <= duration+1e-5, name+': missing or invalid actual damage stun')
+        if not index:
+            require(remaining == 0, name+': fixture starts with uncaused stun')
+            continue
+        previous = frames[index-1]
+        hits = [e for e in case['events'] if isinstance(e, dict) and e.get('kind') == 'damage' and e.get('target') == 'root_fixture' and e.get('tick') == frame['tick']]
+        drop = previous['enemy_hp']-frame['enemy_hp']
+        committed = (drop > 0 and len(hits) == 1 and
+                     _near(hits[0].get('health'), frame['enemy_hp']) and _near(hits[0].get('amount'), drop))
+        if committed and frame['enemy_hp'] > 0:
+            expected = duration
+        elif previous['enemy_hp'] > 0:
+            expected = max(0, previous['damage_stun_remaining']-1/60)
+        else:
+            expected = previous['damage_stun_remaining']
+        require(remaining == 0 if expected == 0 else _near(remaining, expected), name+': stun lacks committed HP cause, decrements incorrectly or was reset/extended')
+        if previous['damage_stun_remaining'] > 0 and previous['enemy_hp'] > 0:
+            frozen.add(index)
+            if not committed:
+                require(frame['state'] == previous['state'] and _near(frame['time'], previous['time']) and
+                        frame['serial'] == previous['serial'] and _near(frame['goal'], previous['goal']),
+                        name+': motor-only damage stun advanced/reset behavior')
+    return frozen
+
+
+def _coherent_frames(case, *, historical_no_stun=False):
     name, frames = case['id'], case['frames']
     require(case.get('scope') == CASE_SCOPE and len(frames) >= 2, name+': missing or wrong native fixture scope/frames')
     required = {'tick', 'process_frame', 'physics_frame', 'position', 'grounded', 'player_hp', 'energy', 'enemy_hp', 'state', 'time', 'goal', 'serial', 'active', 'axis'}
@@ -97,6 +151,8 @@ def _coherent_frames(case):
         require(_finite(frame['axis']) and -1 <= frame['axis'] <= 1, name+': invalid axis')
         require(frame['state'] in ('idle', 'telegraph', 'attack', 'recovery'), name+': unknown enemy state')
         require(all(isinstance(frame[key], list) and len(frame[key]) == 2 and all(_finite(v) for v in frame[key]) for key in ('position', 'goal')), name+': invalid position/mark')
+    frozen = set() if historical_no_stun else _damage_stun_frames(case)
+    for index, frame in enumerate(frames):
         if not index:
             continue
         previous = frames[index-1]
@@ -104,7 +160,7 @@ def _coherent_frames(case):
         if name != 'pause_actor_epoch':
             require(frame['physics_frame'] == previous['physics_frame']+1, name+': omitted native physics samples')
         if frame['state'] == previous['state'] and frame['active'] and previous['active'] and frame['enemy_hp'] > 0 and previous['enemy_hp'] > 0:
-            require(_near(frame['time']-previous['time'], 1/60), name+': state clock was erased/reset/frozen')
+            require(_near(frame['time']-previous['time'], 0 if index in frozen else 1/60), name+': state clock was erased/reset/frozen outside actual damage stun')
         if frame['state'] in ('telegraph', 'attack') and previous['state'] in ('telegraph', 'attack'):
             require(_near(frame['goal'], previous['goal']), name+': locked mark tracked the player')
         require(0 <= frame['serial']-previous['serial'] <= 1, name+': attack serial regressed/jumped')
@@ -170,7 +226,7 @@ def _interrupt_causality(case, definition, terminal):
     require(not _events(case, 'pulse'), case['id']+': interrupted warning still pulsed')
 
 
-def _validate_structure_and_lifecycle(data):
+def _validate_structure_and_lifecycle(data, *, historical_no_stun=False):
     require(isinstance(data, dict) and set(data) == {'cases', 'production_pool', 'scope'}, 'Unknown capture declarations; raw source provenance belongs in a bound receipt')
     require(data['production_pool'] is False and data['scope'] == CAPTURE_SCOPE, 'Fixture capture cannot declare production/formal admission')
     require(isinstance(data['cases'], list) and all(isinstance(c, dict) and isinstance(c.get('id'), str) for c in data['cases']), 'Invalid case inventory')
@@ -180,7 +236,7 @@ def _validate_structure_and_lifecycle(data):
     for case in data['cases']:
         require(isinstance(case.get('frames'), list) and isinstance(case.get('events'), list), case['id']+': no frame/event arrays')
         if case['id'] != 'actual_formal_manifest_gated_candidates':
-            _coherent_frames(case)
+            _coherent_frames(case, historical_no_stun=historical_no_stun)
     definition = _definition_values()
     _interrupt_causality(cases['real_projectile_interrupt'], definition, True)
     duplicate = cases['duplicate_hit_does_not_interrupt']
@@ -236,7 +292,7 @@ def _validate_structure_and_lifecycle(data):
     require(all(re.fullmatch('[0-9a-f]{64}', r.get('manifest_hash', '')) for r in rows), 'Manifest matrix lacks actual hashes')
 
 
-def validate_evidence(capture_bytes, report, runtime_bytes, expected_sources, expected_commit):
+def validate_evidence(capture_bytes, report, runtime_bytes, expected_sources, expected_commit, *, historical_no_stun=False):
     """Complete explicit receipt binding. validate_capture alone is content/scope
     validation; it never turns an unbound dictionary into authenticated runtime.
     Historical rechecks pass their archived exact source map explicitly.
@@ -248,13 +304,15 @@ def validate_evidence(capture_bytes, report, runtime_bytes, expected_sources, ex
     require(hashlib.sha256(runtime_bytes).hexdigest() == report.get('runtime_log_sha256'), 'Runtime log differs from native receipt')
     match = re.search(rb'^ROOT BELL: ([1-9]\d*) assertions, 0 failures$', runtime_bytes, re.M)
     require(match is not None and int(match[1]) == report.get('assertions') and b'ERROR:' not in runtime_bytes, 'Missing actual native completion or stale assertion receipt')
+    if not historical_no_stun:
+        require(report.get("damage_feedback_source_before") == report.get("damage_feedback_source_after") == damage_feedback_sources(), "Damage feedback dependency receipt mismatch or drift")
     data = json.loads(capture_bytes)
-    validate_capture(data)
+    validate_capture(data, historical_no_stun=historical_no_stun)
     return {'scope': CAPTURE_SCOPE, 'essential_cases': len(ESSENTIAL_CASES), 'width_direction_pairs': sorted([list(pair) for pair in CALIBRATION_MATRIX]), 'native_assertions': report['assertions'], 'native_reexecuted': False}
 
 
-def validate_capture(data):
-    _validate_structure_and_lifecycle(data)
+def validate_capture(data, *, historical_no_stun=False):
+    _validate_structure_and_lifecycle(data, historical_no_stun=historical_no_stun)
     cases = {c['id']: c for c in data['cases']}
     def events(name, kind):
         return [e for e in cases[name]['events'] if e['kind'] == kind]
@@ -296,7 +354,7 @@ def validate_capture(data):
     rows = cases['actual_formal_manifest_gated_candidates']['frames'][0]['manifest_rows']
     require(len(rows) == 20 and all(r['candidate']['replaced'] <= 1 for r in rows), 'missing formal manifest budget matrix')
 
-def tamper_checks(data):
+def tamper_checks(data, *, historical_no_stun=False):
     def remove(case, kind):
         def mutation(row):
             target = next(c for c in row['cases'] if c['id'] == case)
@@ -363,19 +421,63 @@ def tamper_checks(data):
         'missing_actual_recovery_event': remove('real_projectile_interrupt', 'state'),
         'missing_actual_snapshot_pulse': remove('actual_stage_capture_and_ledger_roundtrip', 'pulse'),
     })
+    if not historical_no_stun:
+        def interrupt_frames(data):
+            return one(data, 'real_projectile_interrupt')['frames']
+        def first_stun_index(data):
+            return next(i for i, f in enumerate(interrupt_frames(data)) if f['damage_stun_remaining'] > 0)
+        def uncaused_stun(data):
+            frames = one(data, 'stand_in_pulse_positive_damage')['frames']
+            frames[10]['damage_stun_remaining'] = .12
+        def epsilon_stun_without_damage(data):
+            frames = one(data, 'solid_occlusion_negative')['frames']
+            original_time = frames[0]['time']
+            for frame in frames:
+                frame['damage_stun_remaining'] = 1e-6
+                frame['time'] = original_time
+        def change_stun(data, offset, value):
+            frames = interrupt_frames(data)
+            index = first_stun_index(data)+offset
+            frames[index]['damage_stun_remaining'] = value(frames, index)
+        def freeze_after_stun(data):
+            frames = interrupt_frames(data)
+            start = first_stun_index(data)
+            index = next(i for i in range(start+1, len(frames)) if frames[i-1]['damage_stun_remaining'] == 0)
+            frames[index]['time'] = frames[index-1]['time']
+        def advance_during_stun(data):
+            frames = interrupt_frames(data); index = first_stun_index(data)+1
+            frames[index]['time'] = frames[index-1]['time']+1/60
+        def missing_stun(data):
+            for frame in interrupt_frames(data): frame.pop('damage_stun_remaining')
+        mutations.update({
+            'current_frame_missing_original_hp_key': lambda d: interrupt_frames(d)[10].pop('enemy_hp'),
+            'current_frame_invalid_original_hp_type': lambda d: interrupt_frames(d)[10].update(enemy_hp='3'),
+            'current_frame_not_a_dictionary': lambda d: interrupt_frames(d).__setitem__(10, None),
+            'current_capture_missing_actual_stun_trace': missing_stun,
+            'current_capture_missing_feedback_identity': lambda d: one(d, 'real_projectile_interrupt').pop('damage_feedback'),
+            'stun_configuration_differs_from_actual_resource': lambda d: one(d, 'real_projectile_interrupt')['damage_feedback'].update(enemy_knockback_seconds=9),
+            'stun_without_actual_committed_enemy_damage': uncaused_stun,
+            'epsilon_fake_stun_freezes_undamaged_actor': epsilon_stun_without_damage,
+            'accepted_damage_stun_erased': lambda d: change_stun(d, 0, lambda f, i: 0),
+            'stun_exceeds_actual_configured_duration': lambda d: change_stun(d, 0, lambda f, i: 9),
+            'stun_timer_reset_without_new_damage': lambda d: change_stun(d, 1, lambda f, i: f[i-1]['damage_stun_remaining']),
+            'stun_timer_ends_before_actual_duration': lambda d: change_stun(d, 1, lambda f, i: 0),
+            'behavior_clock_advanced_during_actual_stun': advance_during_stun,
+            'behavior_clock_frozen_after_stun_release': freeze_after_stun,
+        })
     rejected = []
     for name, mutate in mutations.items():
         altered = copy.deepcopy(data)
         mutate(altered)
         try:
-            validate_capture(altered)
+            validate_capture(altered, historical_no_stun=historical_no_stun)
         except ValueError:
             rejected.append(name)
         else:
             raise RuntimeError('Evidence validator accepted deliberate erasure: ' + name)
     return rejected
 
-def provenance_tamper_checks(capture_bytes, report, runtime_bytes, expected_sources, expected_commit):
+def provenance_tamper_checks(capture_bytes, report, runtime_bytes, expected_sources, expected_commit, *, historical_no_stun=False):
     """Wrong source/scope is rejected at the actual receipt-consuming boundary,
     not merely labelled unsupported by the capture-only helper.
     """
@@ -390,6 +492,9 @@ def provenance_tamper_checks(capture_bytes, report, runtime_bytes, expected_sour
     mutations['missing_native_source_after'] = edit_report('source_after', {})
     mutations['stale_native_assertion_count'] = edit_report('assertions', report['assertions']+1)
     mutations['failed_native_receipt_labelled_success'] = edit_report('status', 'failed')
+    if not historical_no_stun:
+        mutations['missing_actual_feedback_source_receipt'] = edit_report('damage_feedback_source_before', {})
+        mutations['wrong_actual_feedback_source_receipt'] = edit_report('damage_feedback_source_after', {name:'0'*64 for name in DAMAGE_FEEDBACK_PATHS})
     def changed_capture(capture, receipt, runtime):
         return capture+b' ', receipt, runtime
     mutations['raw_capture_not_bound_to_receipt'] = changed_capture
@@ -412,7 +517,7 @@ def provenance_tamper_checks(capture_bytes, report, runtime_bytes, expected_sour
     for name, mutation in mutations.items():
         changed = mutation(capture_bytes, copy.deepcopy(report), runtime_bytes)
         try:
-            validate_evidence(*changed, expected_sources, expected_commit)
+            validate_evidence(*changed, expected_sources, expected_commit, historical_no_stun=historical_no_stun)
         except ValueError:
             refused.append(name)
         else:
@@ -435,10 +540,10 @@ def recheck_existing(folder, source_archive, expected_commit):
             expected_sources = json.loads(archive.read('source_manifest.json'))['source_sha256']
             require(set(expected_sources) == set(SOURCES), 'Historical source manifest incomplete')
             require(all(hashlib.sha256(archive.read(name)).hexdigest() == digest for name, digest in expected_sources.items()), 'Historical source bytes do not match archived SHA')
-        stats = validate_evidence(capture_bytes, native, runtime_bytes, expected_sources, expected_commit)
+        stats = validate_evidence(capture_bytes, native, runtime_bytes, expected_sources, expected_commit, historical_no_stun=True)
         data = json.loads(capture_bytes)
-        content_refusals = tamper_checks(data)
-        source_refusals = provenance_tamper_checks(capture_bytes, native, runtime_bytes, expected_sources, expected_commit)
+        content_refusals = tamper_checks(data, historical_no_stun=True)
+        source_refusals = provenance_tamper_checks(capture_bytes, native, runtime_bytes, expected_sources, expected_commit, historical_no_stun=True)
         unchanged = [name for name in SOURCES if name != 'tools/run_root_bell_tests.py']
         require(all(sources()[name] == expected_sources[name] for name in unchanged), 'R2 unexpectedly changed gameplay/art/native producer; original native scope cannot be reused')
         report.update(status='passed', observed_native=stats, historical_native_sources=expected_sources, content_mutation_refusals=content_refusals, receipt_mutation_refusals=source_refusals, unchanged_native_art_dependencies=unchanged, original_capture_sha256=hashlib.sha256(capture_bytes).hexdigest(), original_report_sha256=sha(folder/'g1_report.json'), original_runtime_sha256=hashlib.sha256(runtime_bytes).hexdigest())
@@ -582,7 +687,7 @@ def main():
     if args.movie_only:
         movie()
         return
-    report = {'output_policy': policy_result, 'status': 'failed', 'source_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(), 'source_before': sources(), 'scope': 'G0/G1 actual Motor/collision/projectile/phase/snapshot/placement tests; promotion gated; no independent/device/player approval', 'started_epoch': time.time()}
+    report = {'output_policy': policy_result, 'status': 'failed', 'source_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(), 'source_before': sources(), 'damage_feedback_source_before': damage_feedback_sources(), 'scope': 'G0/G1 actual Motor/collision/projectile/phase/snapshot/placement tests; promotion gated; no independent/device/player approval', 'started_epoch': time.time()}
     try:
         report['strict_formal_python'] = strict_formal_python_checks()
         output = run_engine(['--headless', '--path', '.', '--editor', '--quit'], 120)
@@ -600,7 +705,7 @@ def main():
         require(strict['verifier_sha256'] == sha(ROOT/'tools/run_root_bell_formal.py') and
                 strict['test_sha256'] == sha(ROOT/'tools/test_root_bell_formal_verifier.py'),
                 'Strict formal Python source drift during native tests')
-        native_receipt = dict(report, status='passed', assertions=int(match[1]), source_after=sources(), capture_sha256=sha(OUT/'capture.json'), runtime_log_sha256=sha(OUT/'runtime.log'))
+        native_receipt = dict(report, status='passed', assertions=int(match[1]), source_after=sources(), damage_feedback_source_after=damage_feedback_sources(), capture_sha256=sha(OUT/'capture.json'), runtime_log_sha256=sha(OUT/'runtime.log'))
         validate_evidence((OUT/'capture.json').read_bytes(), native_receipt, (OUT/'runtime.log').read_bytes(), sources(), native_receipt['source_commit'])
         native_receipt['receipt_mutation_refusals'] = provenance_tamper_checks((OUT/'capture.json').read_bytes(), native_receipt, (OUT/'runtime.log').read_bytes(), sources(), native_receipt['source_commit'])
         report.update(native_receipt)
