@@ -58,6 +58,10 @@ func bind(value: WindkeeperEncounter) -> void:
 		value.health.changed.connect(_core_damage)
 
 func _armour_hit(_point: Vector2) -> void:
+	if is_instance_valid(encounter) and (encounter.definition as WindkeeperDefinition).continuous_combat:
+		_hit_hint = "登场预告 / PREPARE" if encounter.mode == &"intro" else "检查攻击范围 / CHECK YOUR RANGE"
+		_hint_age = 0.8
+		return
 	_hit_hint = "护甲挡弹：等发光铃芯暴露，再瞄准铃芯"
 	if encounter!=null and encounter.core_open and encounter.stage_phase>=2 and (encounter.definition as WindkeeperDefinition).storm_profile:
 		_hit_hint="背铃只接受上侧射击：上台向下瞄准"
@@ -67,7 +71,8 @@ func _armour_hit(_point: Vector2) -> void:
 
 func _core_damage(result: ActorResourceResult) -> void:
 	if result.operation == &"damage" and result.status == ActorResourceResult.Status.APPLIED:
-		_hit_hint = "核心命中 −%s / CORE HIT" % snappedf(absf(result.amount_applied),.01)
+		var hit_label := "命中 −%s / HIT" if is_instance_valid(encounter) and (encounter.definition as WindkeeperDefinition).continuous_combat else "核心命中 −%s / CORE HIT"
+		_hit_hint = hit_label % snappedf(absf(result.amount_applied),.01)
 		_hint_age = 0.8
 
 func _process(delta: float) -> void:
@@ -94,16 +99,21 @@ func _process(delta: float) -> void:
 	if shown:
 		_name.text=(encounter.definition as WindkeeperDefinition).display_name
 		_intro_name.text=("风车苏醒 / II\nCLIMB / AIM DOWN" if encounter.stage_phase==2 else "风暴追逐 / III\nLIT SHELF / JUMP / AIM DOWN") if transition else (encounter.definition as WindkeeperDefinition).display_name.replace(" / ","\n")
+		var continuous := (encounter.definition as WindkeeperDefinition).continuous_combat
+		if continuous and transition:
+			_intro_name.text = "风车苏醒 / II\nWATCH THE LANDINGS" if encounter.stage_phase == 2 else "风暴追逐 / III\nDODGE & KEEP ATTACKING"
 		if not get_tree().paused: _hint_age = maxf(0, _hint_age - delta)
 		var state := "铃芯开放 %.1fs / SHOOT THE GLOWING BELL" % maxf(0, encounter.clock) if encounter.core_open else "护甲关闭 / 等待铃芯发光"
+		if continuous:
+			state = "登场预告 / PREPARE" if intro else "可持续攻击 / KEEP ATTACKING"
 		_objective.text = (_hit_hint if _hint_age > 0 else state) + "\n" + encounter.objective()
-		_objective.modulate = Color("ffe3a0") if encounter.core_open else Color("c1d4cb")
+		_objective.modulate = Color("ffe3a0") if continuous or encounter.core_open else Color("c1d4cb")
 	queue_redraw()
 func _draw() -> void:
 	if is_instance_valid(encounter) and encounter.active and encounter.mode in [&"intro",&"phase_transition"] and (encounter.definition as WindkeeperDefinition).platform_trials:
 		draw_rect(Rect2(-position.x,-position.y,1280,54),Color(0.03,.07,.06,.7))
 		draw_rect(Rect2(-position.x,666-position.y,1280,54),Color(0.03,.07,.06,.7))
-		if encounter.stage_phase>=2:PlainsInteractiveArt.draw_aim(self,Vector2(150,165),66)
+		if encounter.stage_phase>=2 and not (encounter.definition as WindkeeperDefinition).continuous_combat:PlainsInteractiveArt.draw_aim(self,Vector2(150,165),66)
 	if intro_only: return
 	if not is_instance_valid(encounter): return
 	var bar := Rect2(0, 32, 550, 14)
@@ -117,6 +127,7 @@ func _draw() -> void:
 	for threshold: float in thresholds:
 		var x := bar.size.x * threshold
 		draw_line(Vector2(x, 32), Vector2(x, 46), Color("344840"), 2)
-	if not encounter.core_open:
-		# Shield silhouette communicates armour even in muted/low effects mode.
+	var protected_state := not encounter.accepts_combat_damage() if definition.continuous_combat else not encounter.core_open
+	if protected_state:
+		# Shield silhouette communicates an actually protected state even in muted/low effects mode.
 		draw_colored_polygon(PackedVector2Array([Vector2(557,32),Vector2(568,32),Vector2(568,40),Vector2(562,47),Vector2(557,40)]), Color("98a9a5"))

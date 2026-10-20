@@ -1,0 +1,152 @@
+{
+  "baseline": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+  "status": "production_and_fixture_frozen_for_root_source_commit",
+  "sampling_scope": "dirty shared-worktree preflight; source SHAs below are a post-execution snapshot, not global before/after guard; root will recapture from committed source",
+  "owned_files": {
+    "scripts/bosses/boss_definition.gd": "ec5bfb51585b3a19dd0a14e59a4364fd1e5557db5277c40320206046fde299e3",
+    "scripts/bosses/boss_motor.gd": "35215febee9b663d6b7478c2b92faac83e85a6d729bca4b9c8407653f0f91cbc",
+    "scripts/bosses/windkeeper_definition.gd": "1a02f38f0044ff1a0954fb4d3f3ea952400445953c2e6df9298cc948086f2274",
+    "scripts/bosses/windkeeper_encounter.gd": "1cca2641a95f7fdcf35588c2f68a580f0e2b58789a62ab42ee729669a146e2fd",
+    "scripts/bosses/windkeeper_damageable.gd": "75fea5d059e04dfc82f264d47dff28d0302a1529248a3f4a882565db760a7e1a",
+    "scripts/bosses/bellstrider_encounter.gd": "cfc323b25deb903e5a74f83a9f3a26199cbfe73f7e9e48a72711ee163415a98b",
+    "scripts/bosses/bellstrider_presentation.gd": "cbd817b87769019c0739b204df2acae7ffe702b3a4157b83b5f82f4af5f9d98d",
+    "scripts/bosses/windkeeper_presentation.gd": "6ec67a16e49a32792c9a9109f3a7561b7b0439c7162025a1b0cb13b17a2013cd",
+    "resources/bosses/bellstrider.tres": "882af5e59b5999d1bb71213d1332ecc3bcd8f6019fa49cb7373312015f8f4c05",
+    "resources/bosses/windkeeper_storm.tres": "723d24df7ad2c55c163b589557bab720dc1b37dc3bd318db591e069296a055b5",
+    "resources/bosses/legacy/bellstrider_window_v1.tres": "14bcb17cc4a3af32c764b00a60d9e49370604ad236297fcc9646d6fa136eee48",
+    "resources/bosses/legacy/windkeeper_storm_window_v4.tres": "9fa6325e53d6078bea41bc0d9d53819b61586ceaed091da2da0db9737e6dc5d1",
+    "tests/underworld_plains/test_underworld_r3_boss.gd": "4910b405f1cb249bb3f78faf356328733b0305c2fb9e90d713a9e44030bf7fcf",
+    "tests/underworld_plains/test_underworld_r3_boss_lifecycle.gd": "2951c63aa7010f7e69245f1a48cfbb3e0b7860ba7a479f36f5f14d7fc3e59ef5",
+    "tests/underworld_plains/capture_underworld_r3_boss_fight.gd": "09bd59d90c175e19f20e320d2c6bcbd4cd1f2e66b503ec9195c47c5a7d2ba11d",
+    "tools/run_underworld_r3_boss_tests.py": "22f4daa908350141234099ffbe502a694f6ee2e7a965a63b87553ee885a7c2a2",
+    "tests/plains_pressure_boss_runner.gd": "6393b18132220fd6c29c8ac848e46d9b267d9548dafd71a7243116a817f4c0a1",
+    "tests/plains_platform_boss_runner.gd": "f2088dbb6f51c8d1653945aded120e2e3f6cea5220cb25ce5d56c316883b2597",
+    "tests/plains_interactive_platforms_runner.gd": "faf0cfefd088f08d82207d52bbe7fcdf1b214a06aafb0ef9e2a3c6d96d3370fb",
+    "tests/plains_experience_energy_runner.gd": "184daba448a2b14120f0d6f6c1558f5095007fbc7bb2ce5899aa861494ae727f"
+  },
+  "original_assertions_audit": {
+    "tests/plains_pressure_boss_runner.gd": {
+      "original_check_lines": 72,
+      "current_check_lines": 73,
+      "removed_or_rewritten_original_check_lines": []
+    },
+    "tests/plains_platform_boss_runner.gd": {
+      "original_check_lines": 19,
+      "current_check_lines": 19,
+      "removed_or_rewritten_original_check_lines": []
+    },
+    "tests/plains_interactive_platforms_runner.gd": {
+      "original_check_lines": 21,
+      "current_check_lines": 21,
+      "removed_or_rewritten_original_check_lines": []
+    },
+    "tests/plains_experience_energy_runner.gd": {
+      "original_check_lines": 66,
+      "current_check_lines": 66,
+      "removed_or_rewritten_original_check_lines": []
+    }
+  },
+  "receipts": {
+    "continuous_combat": {
+      "checks": 100,
+      "failures": [],
+      "scope": "actual formal resources and real Router/ShootAbility/body/core physics; state entries explicit fixtures; not complete user normal battle acceptance"
+    },
+    "lifecycle": {
+      "checks": 44,
+      "failures": [],
+      "scope": "actual App projectile transactions; HP1/frozen-AI are explicit initial boundary fixtures, not full fight evidence"
+    },
+    "full_fight_map1": {
+      "accepted_shots": 16,
+      "boss_hp": 0.0,
+      "failures": [],
+      "initial_room_placement_fixture": true,
+      "map": 1,
+      "no_midfight_injection": true,
+      "player_hp": 4.0,
+      "requested_shots": 16,
+      "roll_crossings": 1,
+      "settlement": {
+        "coin_delta": 12,
+        "first_advance": true,
+        "gold": false,
+        "mini_exit_open": true,
+        "mini_recorded": false,
+        "next_map": 2,
+        "repeat_advance_rejected": true,
+        "reward_available": true,
+        "reward_offer": "",
+        "stage_complete": true
+      },
+      "visited": [
+        "1",
+        "2"
+      ]
+    },
+    "full_fight_map2": {
+      "accepted_shots": 39,
+      "boss_hp": 0.0,
+      "failures": [],
+      "initial_room_placement_fixture": true,
+      "map": 2,
+      "no_midfight_injection": true,
+      "player_hp": 5.0,
+      "requested_shots": 39,
+      "roll_crossings": 0,
+      "settlement": {
+        "completed_biomes": 1,
+        "first_claim": true,
+        "gold": true,
+        "gold_choice_open": true,
+        "gold_exit_open": true,
+        "mini_recorded": false,
+        "repeat_claim_rejected": true,
+        "returned_home": true,
+        "reward_available": true,
+        "reward_offer": "gold_stage_2",
+        "stage_complete": true
+      },
+      "visited": [
+        "1",
+        "2",
+        "3"
+      ]
+    }
+  },
+  "legacy_results": {
+    "pressure": {
+      "assertions": 489,
+      "failures": 0,
+      "log": "legacy_pressure_final.log"
+    },
+    "platform": {
+      "assertions": 18,
+      "failures": 0,
+      "log": "legacy_platform_final.log"
+    },
+    "interactive": {
+      "assertions": 109,
+      "failures": 0,
+      "log": "legacy_interactive_final.log"
+    },
+    "energy": {
+      "assertions": 528,
+      "failures": 0,
+      "log": "legacy_energy_final.log"
+    }
+  },
+  "known_failed_attempts": [
+    "legacy_unadapted_failure.log (import in progress; not contract result)",
+    "continuous_combat_first.log (fixture typed-array runtime error)",
+    "continuous_combat_second.log (insufficient projectile flight wait and too-early roll assertion)",
+    "continuous_combat_third.log (expanded Bell contact impossible to clear)",
+    "continuous_combat_fourth.log (new chassis but jump too late)",
+    "roll_diagnostic.log (subpixel rise edge contact)",
+    "full_fight_map1_settlement.log (fixture skipped actual exit confirmation/token, correctly rejected)",
+    "legacy_contract_replaced_failure.log (3 superseded Boss checks+19 historical renderer/default mismatch)",
+    "legacy_window_adapted_before_background.log (19 historical renderer/default mismatch)",
+    "lifecycle_first.log (fixture attempted enemy hit during unchanged spawn protection, correctly rejected)"
+  ],
+  "remaining": "GPU continuous pictures/audio/fairness review, user gameplay/device acceptance remain separate; no full-suite or performance PASS claimed"
+}

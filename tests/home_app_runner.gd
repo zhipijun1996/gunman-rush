@@ -26,10 +26,10 @@ func run() -> void:
 	var actor := home.player
 	check(actor.is_on_floor() and home.controller.actor_resources.health.current == 5, "Actual home motor rests on safe ground with meta-derived base health")
 	var began := actor.position
-	home.controller.router.set_source_axis(&"keyboard_mouse", 1.0)
-	await frames(ceili(451.0 / actor.tuning.ground_speed * 60.0))
-	home.controller.router.set_source_axis(&"keyboard_mouse", 0.0)
-	await frames(3)
+	# R3 explicitly moves services to terraces. Retain every original business
+	# assertion; replace only the old flat-map timed-axis driving strategy.
+	var route_driver:=preload("res://tests/underworld_plains/home_terrace_driver.gd").new(home)
+	await route_driver.reach(&"upgrade")
 	check(actor.position.x > began.x + 350 and home.nearest_id == &"upgrade", "Real Motor walking reaches upgrade NPC without teleport")
 	home.controller.router.request_action(&"interact")
 	await frames(3)
@@ -61,14 +61,12 @@ func run() -> void:
 	await frames(2)
 	home.set_input_blocked(false)
 	check(not keyboard._blocked_until_release.has(KEY_W), "Real W released under covered panel does not swallow next interaction")
-	home.controller.router.set_source_axis(&"keyboard_mouse", 1.0)
-	await frames(ceili(561.0 / actor.tuning.ground_speed * 60.0))
-	home.controller.router.set_source_axis(&"keyboard_mouse", 0.0)
-	await frames(3)
+	await route_driver.reach(&"departure")
 	check(home.nearest_id == &"departure", "Real walk reaches the fixed adventure gate")
 	home.controller.router.request_action(&"interact")
 	await frames(3)
 	check(home.input_blocked and app.menu.visible_panel == &"home_function", "Gate opens departure confirmation")
+	route_driver=null
 	app.menu.requested_plains.emit("home-app-test")
 	await frames(10)
 	check(app.generated_plains and app.director.stage_index == 1 and app.home_scene == null and is_instance_valid(app.player), "Departure creates one formal run and unloads Home and its HUD")

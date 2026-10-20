@@ -1,0 +1,119 @@
+{
+  "id": "R3-IR-16",
+  "reviewer": "/root/r3_review",
+  "verdict": "ACCEPT bounded special-motion owner repair source/317fixture; unchanged7305 action-budget still pending",
+  "previous_reject": "build/underworld_r3/review/special_motion_ownership_review.json",
+  "source": "dirty changes onL before next source freeze, no new commit claim",
+  "files": [
+    {
+      "path": "scripts/enemies/enemy_actor.gd",
+      "sha256": "7d2538cad3a3c7b9529d050c5d65801b5ad11b3b2a70b54a0a40acb896ee61c9"
+    },
+    {
+      "path": "scripts/combat/player_projectile.gd",
+      "sha256": "99fef328e592797cd9cc3c4abb46be212f284d11122d1e5d9de3ee6c2bf6b333"
+    },
+    {
+      "path": "scripts/combat/weapon_action_runtime.gd",
+      "sha256": "6f9192c451acf9b45064a838bbac7bbb4b1ebe2f55aebb3037eec32d4823faa6"
+    },
+    {
+      "path": "tests/underworld_plains/damage_response_ownership_cases.gd",
+      "sha256": "d069496fcca2271bc190982a221bf0b0a3f7182a626f0d7fa8689194856e6dfb"
+    },
+    {
+      "path": "tests/enemy_tests.gd",
+      "sha256": "2fa008b0a5531f0f24bacf2e53c94088404a4ad22532432f777ed76b1bac5dfb"
+    },
+    {
+      "path": "tools/harness/profiles.json",
+      "sha256": "247f86759dfd79184ad8de6d400002bd7fa54eca96b7261ad5bfb1497363506c"
+    }
+  ],
+  "actual_component_checks": 317,
+  "actual_component_failures": [],
+  "actual_response_owner_cases": [
+    {
+      "actual_x": 322.0,
+      "expected_x": 322.0,
+      "hits": 1,
+      "kind": "grapple",
+      "moved_ticks": 28
+    },
+    {
+      "contexts": [
+        {
+          "damage_type": "projectile",
+          "direction": "(1.0, 0.0)",
+          "event_id": "709105813464:1:6",
+          "skill_attack": true
+        }
+      ],
+      "first_hit": 13,
+      "initial_force": 500.000030517578,
+      "initial_stagger": 0.12,
+      "kind": "skill",
+      "stagger_finished": 21,
+      "weapon": "blade_bloom"
+    },
+    {
+      "contexts": [
+        {
+          "damage_type": "weapon",
+          "direction": "(1.0, 0.0)",
+          "event_id": "719876786174:1:weapon:1:1:beam",
+          "skill_attack": true
+        }
+      ],
+      "first_hit": 17,
+      "initial_force": 0.0,
+      "initial_stagger": 0.12,
+      "kind": "skill",
+      "stagger_finished": 25,
+      "weapon": "laser_cannon"
+    }
+  ],
+  "observations": [
+    "Only real skill producers add explicit skill_attack context; actual grapple already carries damage_type=grapple.",
+    "All accepted nonterminal hurt still emits one GameAudio cue and Health-driven body flash/pose; only generic ordinary motion skipped for grapple/skill owners.",
+    "Ordinary finite knockback and edge-support guard remain untouched.",
+    "Actual moving grapple target obeys original full AI expected travel, real physical fan/cannon keep authored stagger and original force/no-force policy."
+  ],
+  "enemy_pause_driver_audit": {
+    "all_original_check_lines_preserved": true,
+    "old_check_call_lines": 39,
+    "new_check_call_lines": 43,
+    "approved": "Four new hurt-state pause/countdown/natural-exit checks plus bounded wait precede original unchanged3tick pause/resume movement test. No production timer clearing or physics alteration."
+  },
+  "production_loop_timeout_audit": {
+    "old": {
+      "argv": [
+        "python3",
+        "tests/test_production_loop.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 0.125
+    },
+    "new": {
+      "argv": [
+        "python3",
+        "tests/test_production_loop.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^OK$",
+      "weight_seconds": 50
+    },
+    "justification": "Original87 tests and success regex retained; actual48.371sec pass and prior69.65sec exceeds old60sec. New180sec bounded, weight realistic50."
+  },
+  "shadow_budget_separate": {
+    "proof": "Current diagnostic observed shadow request age.075545 packet1 distance154; triple request age.121483 > originalTTL.1 packet0 distance0, HP5/damageRemaining0.",
+    "scope": "Instrumented build-only original budgets probe, not full7305 acceptance and not a generalized production causal conclusion.",
+    "required": "Preserve all original budget conditions and rerun unchanged suite in isolated bounded scheduling; never raise InputTTL for a test."
+  },
+  "limits": [
+    "Reviewer source+raw read, no extra concurrent engine run",
+    "Final repaired frozen source, actual full action-budget/native media/current public delivery pending",
+    "PriorLsurface/gear movies keepLlabels, no automatic future-source retag"
+  ]
+}

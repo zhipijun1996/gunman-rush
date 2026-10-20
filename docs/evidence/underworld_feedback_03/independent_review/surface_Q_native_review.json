@@ -1,0 +1,188 @@
+{
+  "schema": "independent-native-review-v1",
+  "producer_source": "3e5b19408829dc915912e964d5df511893491918",
+  "runtime_equivalent_exported_source": "9402bf92fa9be16b10d401db5e02b5c63124ff3c",
+  "verdict": "LIMITED_ACCEPT actual reviewed consumer/window",
+  "status": "passed",
+  "source_before_after_equal": true,
+  "source_snapshot_count": 1077,
+  "binding_artifacts_SHA_independent": [
+    {
+      "path": "build/underworld_r3/captures_Q/surface_attempt1/audio_measurement.log",
+      "matches": true
+    },
+    {
+      "path": "build/underworld_r3/captures_Q/surface_attempt1/capture.log",
+      "matches": true
+    },
+    {
+      "path": "build/underworld_r3/captures_Q/surface_attempt1/encode.log",
+      "matches": true
+    },
+    {
+      "path": "build/underworld_r3/captures_Q/surface_attempt1/movie.mp4",
+      "matches": true
+    },
+    {
+      "path": "build/underworld_r3/captures_Q/surface_attempt1/trace.json",
+      "matches": true
+    }
+  ],
+  "not_claimed": [
+    "human fun/commercialbeauty approval",
+    "physicaldevice/performance",
+    "audio listening",
+    "whole real-time film playback",
+    "natural full-map traversal",
+    "all authored actions/weapon forms video-covered"
+  ],
+  "actual_viewed_pixels": {
+    "native_full_postdraw_frames": [
+      96,
+      101,
+      116,
+      150
+    ],
+    "consecutive_native_body_crop_frames": [
+      94,
+      131
+    ],
+    "crop": [
+      520,
+      330,
+      320,
+      220
+    ],
+    "layout": "surface_Q_consecutive_94_131.png",
+    "observation": "Actual anchored hurt echo stays at true hazard hit origin near right screen edge while safe spawn fades in; hurt crouch frame→standing and bounded blink restore; one5→4HP commit, no fake preservedworldreset."
+  },
+  "actual_receipts": {
+    "checks": 225,
+    "failures": [],
+    "damage_receipts": [
+      {
+        "actor_epoch": 3,
+        "amount": 1.0,
+        "commit_physics_tick": 134,
+        "event_id": "generated_spikes_6:3:1:1",
+        "health": 4.0,
+        "hit_direction": [
+          -0.995552003383636,
+          -0.0942140594124794
+        ],
+        "kind": 1,
+        "request_physics_tick": 134,
+        "source_id": "generated_spikes_6",
+        "stage_epoch": 3,
+        "trace_row": 96
+      }
+    ],
+    "health_commits": [
+      {
+        "amount_applied": -1.0,
+        "engine_drawn_frame": 133,
+        "event_id": "generated_spikes_6:3:1:1",
+        "health": 4.0,
+        "old_hit_position": [
+          4568.30908203125,
+          1209.92529296875
+        ],
+        "physics_tick": 134,
+        "terminal": false,
+        "trace_row": 96
+      }
+    ],
+    "segment_returns": [
+      {
+        "hurt_remaining": 0.32,
+        "physics_tick": 134,
+        "return_fade": 0.24,
+        "safe_entry_position": [
+          4200.0,
+          1210.0
+        ],
+        "trace_row": 96
+      }
+    ],
+    "actual_input_events": [
+      {
+        "event": "InputEventKey",
+        "key": "D",
+        "physics_tick": 49,
+        "pressed": true,
+        "trace_row": 12
+      },
+      {
+        "event": "InputEventKey",
+        "key": "D",
+        "physics_tick": 134,
+        "pressed": false,
+        "trace_row": 97
+      }
+    ],
+    "fixture": {
+      "active_anchor_before_input": "generated_14",
+      "actual_danger": [
+        4580.0,
+        1204.0,
+        105.0,
+        24.0
+      ],
+      "authored_id": "slalom_first",
+      "candidates": [
+        {
+          "actual_danger": [
+            4580.0,
+            1204.0,
+            105.0,
+            24.0
+          ],
+          "authored_id": "slalom_first",
+          "expected_source_id": "generated_spikes_6",
+          "initial_position": [
+            4200.0,
+            1210.0
+          ],
+          "module_id": "plains_thorn_slalom",
+          "module_path": "/root/PlayableDemo/@Node2D@80/@Node2D@81/plains_passage_area_3_3_area_4_3_0",
+          "preferred": true,
+          "role": "attached_surface"
+        },
+        {
+          "actual_danger": [
+            3440.0,
+            1204.0,
+            128.0,
+            24.0
+          ],
+          "authored_id": "left_two_cells",
+          "expected_source_id": "generated_spikes_5",
+          "initial_position": [
+            3040.0,
+            1210.0
+          ],
+          "module_id": "plains_thorn_cells",
+          "module_path": "/root/PlayableDemo/@Node2D@80/@Node2D@81/plains_passage_area_2_3_area_3_3_0",
+          "preferred": false,
+          "role": "attached_surface"
+        }
+      ],
+      "expected_source_id": "generated_spikes_6",
+      "initial_position": [
+        4200.0,
+        1210.0
+      ],
+      "initial_position_assignments": 1,
+      "initialization_policy": "one explicit fixture position on existing safe platform anchor; then only real D input; no HP grant, manual damage, enemy pause or later actor position write",
+      "manifest_hash": "47abf16ac1e85fe3e51bf447e75c553df6b766c4aab452a867bba437e80a954d",
+      "map_index": 1,
+      "module_id": "plains_thorn_slalom",
+      "module_path": "/root/PlayableDemo/@Node2D@80/@Node2D@81/plains_passage_area_3_3_area_4_3_0",
+      "original_HP": 5.0,
+      "preferred": true,
+      "role": "attached_surface",
+      "seed": "level-design-v2-baseline/08"
+    }
+  },
+  "postdraw_count": 210
+}

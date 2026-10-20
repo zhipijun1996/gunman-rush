@@ -13,6 +13,10 @@ var _queue: Array[DamageRequest] = []
 var _seen: Dictionary = {}
 var _monster_until := 0.0
 var _protected_until := 0.0
+var _player_controller: PlayerController
+
+func register_player_controller(value: PlayerController) -> void:
+	_player_controller = value
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -34,6 +38,12 @@ func bind_damageable(id: StringName, receiver: Damageable, health: HealthState) 
 		request.source_id = StringName("player_projectile:%s" % context.get("source_actor_id", 0))
 		request.target_id = id
 		request.amount = float(context.get("amount", 0.0))
+		var incoming: Variant = context.get("hit_direction", Vector2.ZERO)
+		if not incoming is Vector2 or not (incoming as Vector2).is_finite(): return false
+		request.hit_direction = incoming
+		var committed_context := context.duplicate()
+		request.on_damage_applied = func() -> void:
+			if is_instance_valid(receiver): receiver.damaged.emit(committed_context)
 		request.health_epoch = health.epoch
 		request.actor_epoch = lifetime.actor_epoch
 		request.on_committed = context.get("on_committed",Callable())
@@ -45,7 +55,7 @@ func submit(request: DamageRequest) -> bool:
 		return false
 	var target: Dictionary = _targets[request.target_id]
 	var health: HealthState = target.health
-	if request.event_id.is_empty() or request.source_id.is_empty() or not is_finite(request.amount) or request.amount <= 0.0 or request.kind not in [DamageRequest.Kind.MONSTER, DamageRequest.Kind.ENVIRONMENT]:
+	if request.event_id.is_empty() or request.source_id.is_empty() or not is_finite(request.amount) or request.amount <= 0.0 or not request.hit_direction.is_finite() or request.kind not in [DamageRequest.Kind.MONSTER, DamageRequest.Kind.ENVIRONMENT]:
 		return false
 	if health.terminal or request.health_epoch != health.epoch or request.actor_epoch != lifetime.actor_epoch:
 		return false
@@ -100,12 +110,18 @@ func resolve_batch() -> Array[DamageResult]:
 			return_needed = not fatal and result.request.kind == DamageRequest.Kind.ENVIRONMENT
 			if not fatal and not return_needed:
 				_monster_until = clock + maxf(0.0, monster_iframe)
+	if not fatal and not return_needed and is_instance_valid(_player_controller):
+		for result: DamageResult in results:
+			if _targets[result.request.target_id].player:
+				_player_controller.motor.accept_damage_knockback(result.request.hit_direction)
 	if fatal:
 		# Invalidate before any consumer can claim a reward in batch_resolved.
 		lifetime.end()
 		player_fatal.emit()
 	elif return_needed:
 		environment_return_requested.emit()
+	for result: DamageResult in results:
+		if result.request.on_damage_applied.is_valid(): result.request.on_damage_applied.call()
 	# Refund only selected, actually committed hits after death/return priority.
 	if not fatal:
 		for result: DamageResult in results:

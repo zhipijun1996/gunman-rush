@@ -1,0 +1,25 @@
+{
+  "id": "R3-IR-15",
+  "reviewer": "/root/r3_review",
+  "status": "runtime_unverified_candidate",
+  "severity": "high_if_reproduced",
+  "source_commit": "05721c3c0cc8a221b6c33e6a051ab6fe53df199c",
+  "current_files": [
+    {
+      "path": "scripts/enemies/enemy_actor.gd",
+      "sha256": "9ee9bbe04f51e3f43d52bc06f2797ef6b69d434895cb1f8a3a3120fca140eb9d"
+    },
+    {
+      "path": "scripts/enemies/enemy_motor.gd",
+      "sha256": "8dc6c412aff8b681d6316061b3f6b9119c276f3c46d41ffb9836d600fe5f9a0f"
+    }
+  ],
+  "source_facts": [
+    "EnemyMotor has no gravity; ordinary actor step moves horizontally via move_and_collide.",
+    "New accepted hit restricts non-aerial force to horizontal but requests 135speed for .12seconds.",
+    "That step lacks floor-support gating, while existing move_attack(require_floor) explicitly checks future feet."
+  ],
+  "minimal_counterexample": "Place actual ground-definition enemy less than16.2wu inside platform edge, real player projectile from safe opposite side pushes toward edge. Keep AI native after accepted HP. Observe true foot ray/position through hurt and recovery, compare aerial definition allowed free displacement.",
+  "expected": "Ground enemy should not remain permanently suspended after its own hit reaction; if no gravity contract exists, bounded hurt force must stop at last supported location.",
+  "do_not_claim": "No runtime reproduced yet; author only informed, no reviewer engine run or production edit."
+}

@@ -1,0 +1,45 @@
+{
+  "schema": "underworld-r3-objects-v1",
+  "source_record": "assets/underworld_plains/objects/generation_request.json",
+  "generation": {
+    "tool": "image_gen.imagegen",
+    "model": "unknown",
+    "call_count": 1,
+    "result_path": "/workspace/generated_images/exec-64548c19-c4b2-472f-aab4-50df01ac24a4.png",
+    "source_sha256": "e7778bdda68a47fb416d9b9dbe0aa36341f123103b6ff0603594944817b5414b",
+    "returned_size": [
+      1512,
+      1040
+    ],
+    "transparency": "native RGBA, preserved",
+    "output_hint": "Generated images are saved to /workspace/generated_images as /workspace/generated_images/exec-64548c19-c4b2-472f-aab4-50df01ac24a4.png by default. Original preserved; complete returned PNG copied byte-for-byte."
+  },
+  "opened_chest": {
+    "texture": "res://assets/underworld_plains/objects/opened_chest.png",
+    "sha256": "5f4f72179df29eb576664d3896784ad6b209c106ec45088ad9148afb5306f2a5",
+    "crop_alpha_threshold": 8,
+    "crop": [
+      241,
+      77,
+      1272,
+      977
+    ],
+    "size_px": [
+      48,
+      42
+    ],
+    "operations": [
+      "whole-object crop",
+      "proportional nearest resize"
+    ],
+    "runtime_width_wu": 58,
+    "foot_anchor": "bottom center shared closed/open world foot",
+    "gameplay_owner": "PlainsRegionStage.chests.claimed original accepted reward transaction",
+    "crop_alpha_comparison": "strictly_greater",
+    "excluded_fringe": "Original measured crop uses alpha >8. Three alpha==8 pixels lie outside the crop; retained original contains them. This is recorded fringe, not a claim that alpha>=8 crop passed."
+  },
+  "runtime_geometry": {
+    "bell_plate": "native CanvasItem polygon/line, no generated illustration claim",
+    "shortcut_and_boss_gate": "existing generated carrier material caps/body repeated by UnderworldTerrain.draw_mechanism_beam"
+  }
+}

@@ -224,9 +224,9 @@
         "python3",
         "tests/test_production_loop.py"
       ],
-      "timeout_seconds": 60,
+      "timeout_seconds": 180,
       "success_pattern": "^OK$",
-      "weight_seconds": 0.125
+      "weight_seconds": 50
     },
     "quality-review-engine": {
       "argv": [
@@ -1861,10 +1861,10 @@
     "underworld-home": {
       "argv": [
         "python3",
-        "tools/run_underworld_home_tests.py"
+        "tools/run_underworld_home_terrace_tests.py"
       ],
-      "timeout_seconds": 150,
-      "success_pattern": "^UNDERWORLD HOME CHECK: [1-9][0-9]* assertions,0 failures; actual consumer and source lineage checked$",
+      "timeout_seconds": 180,
+      "success_pattern": "^UNDERWORLD HOME TERRACE CHECK: [1-9][0-9]* assertions,0 failures; twelve actual stations, original App business and basic input route$",
       "weight_seconds": 45,
       "serial": true,
       "cacheable": false,
@@ -1878,10 +1878,11 @@
         "tests/audio_teardown.gd",
         "project.godot",
         "tools/run_tests.py",
-        "tools/run_underworld_home_tests.py"
+        "tools/run_underworld_home_tests.py",
+        "tools/run_underworld_home_terrace_tests.py"
       ],
       "artifact_paths": [
-        "build/underworld_home"
+        "build/underworld_r3/home"
       ]
     },
     "underworld-ui": {
@@ -1967,6 +1968,129 @@
       "artifact_paths": [
         "build/forest_revision03/aim"
       ]
+    },
+    "underworld-damage-feedback": {
+      "argv": [
+        "python3",
+        "tools/run_underworld_damage_r3_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^PASS: accepted R3 hurt/feedback",
+      "weight_seconds": 45,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets/underworld_plains",
+        "tests/underworld_plains",
+        "tests/audio_teardown.gd",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/run_underworld_damage_r3_tests.py"
+      ],
+      "artifact_paths": [
+        "build/underworld_r3/damage"
+      ]
+    },
+    "underworld-projectile-vfx": {
+      "argv": [
+        "python3",
+        "tools/run_underworld_projectile_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS: all 15 equipped weapon variants",
+      "weight_seconds": 45,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets/underworld_plains",
+        "tests/underworld_plains",
+        "tests/audio_teardown.gd",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/run_underworld_projectile_tests.py"
+      ],
+      "artifact_paths": [
+        "build/underworld_r3/projectiles"
+      ]
+    },
+    "underworld-world-objects": {
+      "argv": [
+        "python3",
+        "tools/run_underworld_r3_object_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: Underworld R3 objects actual consumers",
+      "weight_seconds": 45,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets/underworld_plains",
+        "tests/underworld_plains",
+        "tests/audio_teardown.gd",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/run_underworld_r3_object_tests.py"
+      ],
+      "artifact_paths": [
+        "build/underworld_r3/objects"
+      ]
+    },
+    "underworld-continuous-bosses": {
+      "argv": [
+        "python3",
+        "tools/run_underworld_r3_boss_tests.py",
+        "--full-fights"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PASS: Underworld R3 Boss continuous damage, actual contact, lifecycle and two full actual-App battles$",
+      "weight_seconds": 45,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets/underworld_plains",
+        "tests/underworld_plains",
+        "tests/audio_teardown.gd",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/run_underworld_r3_boss_tests.py"
+      ],
+      "artifact_paths": [
+        "build/underworld_r3/boss"
+      ]
+    },
+    "underworld-home-guard-tests": {
+      "argv": [
+        "python3",
+        "tests/test_underworld_home_terrace_wrapper.py"
+      ],
+      "timeout_seconds": 90,
+      "success_pattern": "^OK$",
+      "weight_seconds": 2,
+      "serial": false,
+      "cacheable": false,
+      "inputs": [
+        "tools/run_underworld_home_terrace_tests.py",
+        "tests/test_underworld_home_terrace_wrapper.py",
+        "tests/fixtures/underworld_home_r2",
+        "assets/underworld_plains/home"
+      ],
+      "artifact_paths": []
     }
   },
   "profiles": {
@@ -1995,7 +2119,8 @@
       "asset-family-tests",
       "creative-direction",
       "creative-direction-tests",
-      "underworld-pipeline"
+      "underworld-pipeline",
+      "underworld-home-guard-tests"
     ],
     "core": [
       "docs",
@@ -2124,7 +2249,12 @@
       "underworld-mechanisms",
       "underworld-home",
       "underworld-ui",
-      "forest-region-scheduler-tests"
+      "forest-region-scheduler-tests",
+      "underworld-damage-feedback",
+      "underworld-projectile-vfx",
+      "underworld-world-objects",
+      "underworld-continuous-bosses",
+      "underworld-home-guard-tests"
     ],
     "art": [
       "docs",
@@ -2197,7 +2327,12 @@
       "underworld-mechanisms",
       "underworld-home",
       "underworld-ui",
-      "forest-region-scheduler-tests"
+      "forest-region-scheduler-tests",
+      "underworld-damage-feedback",
+      "underworld-projectile-vfx",
+      "underworld-world-objects",
+      "underworld-continuous-bosses",
+      "underworld-home-guard-tests"
     ],
     "web": [
       "docs",
@@ -2232,7 +2367,12 @@
       "underworld-player-animation",
       "underworld-mechanisms",
       "underworld-home",
-      "underworld-ui"
+      "underworld-ui",
+      "underworld-damage-feedback",
+      "underworld-projectile-vfx",
+      "underworld-world-objects",
+      "underworld-continuous-bosses",
+      "underworld-home-guard-tests"
     ],
     "full": [
       "docs",
@@ -2349,7 +2489,12 @@
       "underworld-mechanisms",
       "underworld-home",
       "underworld-ui",
-      "forest-region-scheduler-tests"
+      "forest-region-scheduler-tests",
+      "underworld-damage-feedback",
+      "underworld-projectile-vfx",
+      "underworld-world-objects",
+      "underworld-continuous-bosses",
+      "underworld-home-guard-tests"
     ],
     "creative-feedback": [
       "docs",

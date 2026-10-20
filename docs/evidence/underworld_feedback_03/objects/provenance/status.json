@@ -1,0 +1,54 @@
+{
+  "scope": "R3 feedback 5/6/7 bounded implementation",
+  "runtime_files": [
+    "scripts/world/shot_latch.gd",
+    "scripts/world/backside_shot_latch.gd",
+    "scripts/generation/plains_region_assembler.gd",
+    "scripts/bosses/boss_arena_seal.gd",
+    "scripts/underworld_plains/underworld_objects.gd",
+    "assets/underworld_plains/objects/"
+  ],
+  "root_integration": [
+    "scripts/demo/plains_region_stage.gd",
+    "scripts/demo/demo_app.gd"
+  ],
+  "headless_latest": {
+    "checks": 83,
+    "failures": 0,
+    "log": "offset83_headless.log",
+    "scope": "original actual projectile suite plus dedicated bank constraints, assembler ledger, two actual formal maps, original real claim and reload"
+  },
+  "gpu_first": {
+    "checks": 84,
+    "failures": 0,
+    "directory": "first_gpu_84",
+    "technical": "passed",
+    "door_material_catalog": "observed no white block, shared material",
+    "formal_cache_visual": "rejected: player overlaps chest; not accepted visual evidence"
+  },
+  "gpu_cache_offset": {
+    "status": "passed_bounded_observation",
+    "checks": 83,
+    "failures": 0,
+    "log": "gpu_cache_offset_run.log",
+    "binding": "gpu_cache_binding.json",
+    "receipt": "gpu_cache_receipt.json",
+    "observed_images": [
+      "map1_cache_closed.png",
+      "map1_cache_open.png",
+      "map1_cache_reloaded.png",
+      "map2_cache_closed.png",
+      "map2_cache_open.png",
+      "map2_cache_reloaded.png"
+    ],
+    "observation": "Viewed all six actual native Godot PNGs. Player no longer occludes chest. Both maps show complete closed versus lifted-lid open silhouette, dark empty cavity, original brass/wood/moss colors, same width/world foot, and open state after real stage reload. Original claim denial/open-offer controls preserved. Static observation only, not continuous animation or device/player approval."
+  },
+  "asset_generation": {
+    "real_calls": 1,
+    "model": "unknown",
+    "source": "assets/underworld_plains/objects/opened_chest_original.png",
+    "recipe": "strict alpha>8 bbox, whole crop, proportional nearest48x42",
+    "declared_native_geometry": "tally plaques and matching link glyphs only"
+  },
+  "remaining": "Final whole-source freeze/release, independent review, continuous normal-speed video and user/device acceptance remain root integration scope. No more GPU or source edits by object agent."
+}

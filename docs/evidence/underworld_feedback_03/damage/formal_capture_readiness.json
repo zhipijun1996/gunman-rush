@@ -1,0 +1,208 @@
+{
+  "producer": "tests/underworld_plains/capture_revision3_environment.gd",
+  "producer_sha256": "7f8d5f77687a658927730d591233b1977c59f955c5194596c1c4d207dd7b054e",
+  "runs": [
+    {
+      "kind": "surface",
+      "checks": 15,
+      "failures": [],
+      "frames": 210,
+      "fixture": {
+        "active_anchor_before_input": "generated_14",
+        "actual_danger": [
+          4580.0,
+          1204.0,
+          105.0,
+          24.0
+        ],
+        "authored_id": "slalom_first",
+        "candidates": [
+          {
+            "actual_danger": [
+              4580.0,
+              1204.0,
+              105.0,
+              24.0
+            ],
+            "authored_id": "slalom_first",
+            "expected_source_id": "generated_spikes_6",
+            "initial_position": [
+              4200.0,
+              1210.0
+            ],
+            "module_id": "plains_thorn_slalom",
+            "module_path": "/root/PlayableDemo/@Node2D@80/@Node2D@81/plains_passage_area_3_3_area_4_3_0",
+            "preferred": true,
+            "role": "attached_surface"
+          },
+          {
+            "actual_danger": [
+              3440.0,
+              1204.0,
+              128.0,
+              24.0
+            ],
+            "authored_id": "left_two_cells",
+            "expected_source_id": "generated_spikes_5",
+            "initial_position": [
+              3040.0,
+              1210.0
+            ],
+            "module_id": "plains_thorn_cells",
+            "module_path": "/root/PlayableDemo/@Node2D@80/@Node2D@81/plains_passage_area_2_3_area_3_3_0",
+            "preferred": false,
+            "role": "attached_surface"
+          }
+        ],
+        "expected_source_id": "generated_spikes_6",
+        "initial_position": [
+          4200.0,
+          1210.0
+        ],
+        "initial_position_assignments": 1,
+        "initialization_policy": "one explicit fixture position on existing safe platform anchor; then only real D input; no HP grant, manual damage, enemy pause or later actor position write",
+        "manifest_hash": "47abf16ac1e85fe3e51bf447e75c553df6b766c4aab452a867bba437e80a954d",
+        "map_index": 1,
+        "module_id": "plains_thorn_slalom",
+        "module_path": "/root/PlayableDemo/@Node2D@80/@Node2D@81/plains_passage_area_3_3_area_4_3_0",
+        "original_HP": 5.0,
+        "preferred": true,
+        "role": "attached_surface",
+        "seed": "level-design-v2-baseline/08"
+      },
+      "source": [
+        {
+          "actor_epoch": 3,
+          "amount": 1.0,
+          "commit_physics_tick": 134,
+          "event_id": "generated_spikes_6:3:1:1",
+          "health": 4.0,
+          "hit_direction": [
+            -0.995552003383636,
+            -0.0942140594124794
+          ],
+          "kind": 1,
+          "request_physics_tick": 134,
+          "source_id": "generated_spikes_6",
+          "stage_epoch": 3,
+          "trace_row": 96
+        }
+      ],
+      "returns": [
+        {
+          "hurt_remaining": 0.32,
+          "physics_tick": 134,
+          "return_fade": 0.24,
+          "safe_entry_position": [
+            4200.0,
+            1210.0
+          ],
+          "trace_row": 96
+        }
+      ],
+      "log": "build/underworld_r3/damage/formal_surface_headless_v2.log",
+      "trace": "build/underworld_r3/damage/formal_surface_headless_v2/trace.json",
+      "trace_sha256": "248137fc7bcffb3283fd964836958f130fe002f2e7a9ee2e282d657b52b07ce7"
+    },
+    {
+      "kind": "gear",
+      "checks": 15,
+      "failures": [],
+      "frames": 210,
+      "fixture": {
+        "active_anchor_before_input": "generated_2",
+        "actual_danger": [
+          2119.0,
+          -738.0,
+          122.0,
+          52.0
+        ],
+        "authored_id": "rhythm_first",
+        "candidates": [
+          {
+            "actual_danger": [
+              2119.0,
+              -738.0,
+              122.0,
+              52.0
+            ],
+            "authored_id": "rhythm_first",
+            "expected_source_id": "rhythm_first@567355116476",
+            "gear_clock_at_selection": 0.6,
+            "gear_period": 3.2,
+            "gear_travel": [
+              35.0,
+              0.0
+            ],
+            "initial_position": [
+              1760.0,
+              -700.0
+            ],
+            "module_id": "plains_twin_gears",
+            "module_path": "/root/PlayableDemo/@Node2D@80/@Node2D@81/plains_passage_area_1_0_area_2_0_0",
+            "preferred": false,
+            "role": "moving_gear"
+          }
+        ],
+        "expected_source_id": "rhythm_first@567355116476",
+        "gear_clock_at_selection": 0.6,
+        "gear_period": 3.2,
+        "gear_travel": [
+          35.0,
+          0.0
+        ],
+        "initial_position": [
+          1760.0,
+          -700.0
+        ],
+        "initial_position_assignments": 1,
+        "initialization_policy": "one explicit fixture position on existing safe platform anchor; then only real D input; no HP grant, manual damage, enemy pause or later actor position write",
+        "manifest_hash": "47abf16ac1e85fe3e51bf447e75c553df6b766c4aab452a867bba437e80a954d",
+        "map_index": 1,
+        "module_id": "plains_twin_gears",
+        "module_path": "/root/PlayableDemo/@Node2D@80/@Node2D@81/plains_passage_area_1_0_area_2_0_0",
+        "original_HP": 5.0,
+        "preferred": false,
+        "role": "moving_gear",
+        "seed": "level-design-v2-baseline/08"
+      },
+      "source": [
+        {
+          "actor_epoch": 3,
+          "amount": 1.0,
+          "commit_physics_tick": 131,
+          "event_id": "rhythm_first@567355116476:3:1:1",
+          "health": 4.0,
+          "hit_direction": [
+            -0.941381931304932,
+            0.33734267950058
+          ],
+          "kind": 1,
+          "request_physics_tick": 131,
+          "source_id": "rhythm_first@567355116476",
+          "stage_epoch": 3,
+          "trace_row": 93
+        }
+      ],
+      "returns": [
+        {
+          "hurt_remaining": 0.32,
+          "physics_tick": 131,
+          "return_fade": 0.24,
+          "safe_entry_position": [
+            1760.0,
+            -700.0
+          ],
+          "trace_row": 93
+        }
+      ],
+      "log": "build/underworld_r3/damage/formal_gear_headless.log",
+      "trace": "build/underworld_r3/damage/formal_gear_headless/trace.json",
+      "trace_sha256": "132fa21174f5b76cbf4d2f11f71de0319d7149555c5fcfbee4d81ba69c792b84"
+    }
+  ],
+  "scope": "Headless real DemoApp, actual InputEventKey and original adapters/policy/world; one explicit fixture initialization at existing registered anchor. GPU postdraw screenshots, movie and audio listening not yet run.",
+  "failure_preserved": "formal_surface_headless.log + formal_surface_headless/trace.json: wrong fixture anchor and legitimate initial birth protection caused another real hazard source, preserved failed source assertion; production unmodified.",
+  "gpu_command_template": "DISPLAY=:98 LIBGL_ALWAYS_SOFTWARE=1 bash tools/godot.sh --path . --rendering-method gl_compatibility --audio-driver Dummy --fixed-fps 60 --write-movie build/underworld_r3/damage/formal_KIND_gpu/raw.avi --script tests/underworld_plains/capture_revision3_environment.gd -- --kind=KIND --capture --output=res://build/underworld_r3/damage/formal_KIND_gpu/trace.json",
+  "gpu_bound_note": "Create output directory before --write-movie. 210 recorded postdraw frames =3.5 game seconds; ordinary load/startup protection frames add to MovieMaker total. Root should use strict source guard and ~180s bounded native software capture per case; no claim of device FPS."
+}

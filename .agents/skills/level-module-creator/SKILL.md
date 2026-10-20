@@ -96,3 +96,7 @@ G5：玩家实操可读性、手感、公平性和设备控制；有证据才允
 显式短请求“从源画重建风铃平原连续地貌与美术”沿现有 `level_design.py route` / production_loop，读取[实际制作范例与失败](../../../docs/evidence/plains_world_rebuild/recipe.md)。`plains-world-rebuild-v3` 首构造已取得限定艺术/操作准入，非用户审美定稿或整区黄金。先设计完整可延伸源形体及可信接触线，等比frame同时派生实际Sprite、碰撞与路线；不能先定任意平台再拉伸源画，不能恢复已被RETHINK的反投影补缝方法。
 
 使用现有 `plains-world-rebuild-contract` 短反馈；真实预览和 main/lower 输入录像均由范例中的新wrapper启动，不能借旧profile电影。新布局先验证实际接触/往返/战斗再独审；未消费接口、Seed结构随机、整区连接和设备验证均不得从首构造成功推导。保留失败，源图、比例与消费者变化复验相关合同，不重写核心契约。
+
+## Underworld第三轮实证回流
+
+先区分实体surface伤害与无实体附着的历史fall_plane；跨层下方实际有可落地支持时后者不能误扣血，表面危险仍有效。机关先追正式actuator，不能遗留W打开攻击门的旁路。 来源、真实失败、适用版本与待验见[第三轮经验](../../../docs/underworld_feedback_r3.md)；本条不代签最终用户手感或实体设备。

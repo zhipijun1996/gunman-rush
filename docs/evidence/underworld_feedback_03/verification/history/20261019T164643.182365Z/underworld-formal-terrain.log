@@ -1,0 +1,11 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+SCRIPT ERROR: Parse Error: Could not resolve class "DemoStage".
+          at: GDScript::reload (res://scripts/demo/generated_demo_stage.gd:1)
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/tools/run_underworld_formal_terrain_tests.py", line 5, in <module>
+    output=run_engine(['--headless','--audio-driver','Dummy','--path','.','--script','tests/underworld_plains/test_underworld_formal_terrain.gd'],240)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/clock-style-lab/tools/run_tests.py", line 38, in run_engine
+    raise RuntimeError("Godot emitted a script/shader error; aborted immediately")
+RuntimeError: Godot emitted a script/shader error; aborted immediately

@@ -1,0 +1,160 @@
+{
+  "schema": "independent-native-review-v1",
+  "source_commit": "466cf79e3971a6069976d2cc9bad83faf16354b2",
+  "review_time_utc": "2026-10-19T17:37:54.115325+00:00",
+  "case": "boss1_N",
+  "verdict": "LIMITED_ACCEPT actual combat; REJECT stale continuous-mode HUD UX pending bounded repair",
+  "actual_visual_method": {
+    "all_media_1fps_images_actually_viewed": [
+      {
+        "path": "build/underworld_r3/captures_N/boss1_attempt1/decoded_1fps/frame_0001.png",
+        "movie_frame": 0,
+        "sha256": "d24ca5fe1fc2cadfba93e02cafad4d2ffc938ac8fce735127790bf3c15d743f8",
+        "index_matches": true
+      },
+      {
+        "path": "build/underworld_r3/captures_N/boss1_attempt1/decoded_1fps/frame_0002.png",
+        "movie_frame": 60,
+        "sha256": "1faebbe259733d227fa98c201814ec57f0ba06817a6f3432b613abd6072cb7a4",
+        "index_matches": true
+      },
+      {
+        "path": "build/underworld_r3/captures_N/boss1_attempt1/decoded_1fps/frame_0003.png",
+        "movie_frame": 120,
+        "sha256": "d5d532a19b3e674e9a5bed01acea09509e72001244b358307c3604690a0213f1",
+        "index_matches": true
+      },
+      {
+        "path": "build/underworld_r3/captures_N/boss1_attempt1/decoded_1fps/frame_0004.png",
+        "movie_frame": 180,
+        "sha256": "42cdfdf65930c12ee2b90f326d31068fc9ce154a80bc6b4c6e4eb458cf081258",
+        "index_matches": true
+      },
+      {
+        "path": "build/underworld_r3/captures_N/boss1_attempt1/decoded_1fps/frame_0005.png",
+        "movie_frame": 240,
+        "sha256": "a5cb3f3cc733adee39f695288eb600698629eda445d16ed7a112072d15535885",
+        "index_matches": true
+      },
+      {
+        "path": "build/underworld_r3/captures_N/boss1_attempt1/decoded_1fps/frame_0006.png",
+        "movie_frame": 300,
+        "sha256": "6328b5f4de18ad7f3178fcf816d0841709d71e7eccd99cf556b956a15f2c64d7",
+        "index_matches": true
+      },
+      {
+        "path": "build/underworld_r3/captures_N/boss1_attempt1/decoded_1fps/frame_0007.png",
+        "movie_frame": 360,
+        "sha256": "3aa3c59f1e34c0a3c51e3882c0b998b1fd7990c616cc81088e87e49686d609f2",
+        "index_matches": true
+      },
+      {
+        "path": "build/underworld_r3/captures_N/boss1_attempt1/decoded_1fps/frame_0008.png",
+        "movie_frame": 420,
+        "sha256": "f7d6c07c7c0c82f65f413deb9230ee3ebe1211bc38e745268db549f9cb8a7b3e",
+        "index_matches": true
+      },
+      {
+        "path": "build/underworld_r3/captures_N/boss1_attempt1/decoded_1fps/frame_0009.png",
+        "movie_frame": 480,
+        "sha256": "99849609e19ca51f81ed47121071e1763b9ebd0a5033269a343b4d7b4000256d",
+        "index_matches": true
+      },
+      {
+        "path": "build/underworld_r3/captures_N/boss1_attempt1/decoded_1fps/frame_0010.png",
+        "movie_frame": 540,
+        "sha256": "ef24cb5620308c8f449935ba5d3248172cc243acefb8acfd7e785b77096bb4d9",
+        "index_matches": true
+      }
+    ],
+    "additional_full_native_images": [
+      3,
+      6,
+      8
+    ],
+    "consecutive_frames_actually_viewed": {
+      "media_zero_based_frame_range": [
+        350,
+        410
+      ],
+      "method": "ffmpeg raw decoded contiguous frame crop tiled in original order, no generated art; 1040x400 crop (160,160) for Mini,1040x440 (240,100) for Main",
+      "layout": "boss1_N_contiguous_350_410.png"
+    },
+    "mapping_limit": "media frames are not battle-relative movie_seconds; no assertion of precise tick-to-encoded-frame alignment",
+    "not_done": [
+      "real-time whole-movie playback",
+      "audio listening",
+      "physical device",
+      "human greed/fun or commercial beauty approval"
+    ]
+  },
+  "binding_status": "passed",
+  "before_after_equal": true,
+  "critical_git_blob_matches": {
+    "scripts/demo/demo_app.gd": true,
+    "scripts/bosses/bellstrider_encounter.gd": true,
+    "scripts/bosses/windkeeper_encounter.gd": true,
+    "scripts/bosses/boss_projectile.gd": true,
+    "scripts/underworld_plains/underworld_projectile_visual.gd": true
+  },
+  "binding_artifacts_independently_hash_checked": [
+    {
+      "path": "build/underworld_r3/captures_N/boss1_attempt1/audio_measurement.log",
+      "sha_matches": true
+    },
+    {
+      "path": "build/underworld_r3/captures_N/boss1_attempt1/capture.log",
+      "sha_matches": true
+    },
+    {
+      "path": "build/underworld_r3/captures_N/boss1_attempt1/encode.log",
+      "sha_matches": true
+    },
+    {
+      "path": "build/underworld_r3/captures_N/boss1_attempt1/movie.mp4",
+      "sha_matches": true
+    },
+    {
+      "path": "build/underworld_r3/captures_N/boss1_attempt1/trace.json",
+      "sha_matches": true
+    }
+  ],
+  "actual_trace_summary": {
+    "boss_hp": 0.0,
+    "player_hp": 4.0,
+    "requested_shots": 16,
+    "accepted_shots": 16,
+    "initial_room_placement_fixture": true,
+    "no_midfight_injection": true,
+    "settlement": {
+      "coin_delta": 12,
+      "first_advance": true,
+      "gold": false,
+      "mini_exit_open": true,
+      "mini_recorded": false,
+      "next_map": 2,
+      "repeat_advance_rejected": true,
+      "reward_available": true,
+      "reward_offer": "",
+      "stage_complete": true
+    }
+  },
+  "mode_population": {
+    "intro": 189,
+    "observe": 42,
+    "roll_warning": 51,
+    "roll": 81,
+    "neck": 96
+  },
+  "observed_pixels": [
+    "True body roll closes distance, Router-driven player jumps; actual body contact shown as red/translucent hurt then grounded continued shooting.",
+    "Native cream projectiles visible between source and target; HP drains outside the old neck-only window.",
+    "Death fades real Boss and opens route/reward, following map2 visible after actual unique settlement."
+  ],
+  "actual_ux_defect": "Intro claims closed armour/waiting bellcore; continuous mode still presents CLIMB/AIM DOWN and large aimed weakpoint arrow, contradictory to accepted any-body attacks. Root independently spotted, bounded Hud-only fix planned.",
+  "scope_limits": [
+    "Initial room placement is explicit fixture, subsequent battle uses actual Router/Motor/AI/projectile/Health, not true keyboard or natural full-map travel.",
+    "Post-victory reward/exit positioning explicit; business reward outcome is real, natural approach route unproved.",
+    "Fast complete kill is not proof of all authored actions, difficulty, greed opportunity balance or user enjoyment."
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "schema": "r3-original-home-business-assertion-preservation-v1",
+  "entries": [
+    {
+      "source": "tests/home_ui_tests.gd",
+      "old_checks": 28,
+      "current_checks": 28,
+      "changed_checks": [
+        {
+          "index": 8,
+          "old": "check(home.nearest_candidate(Vector2(600, HomeScene.FLOOR_Y - 18)) == &\"upgrade\", \"Nearest upgrade candidate\")",
+          "current": "check(home.nearest_candidate(upgrade_foot-Vector2(0,18)) == &\"upgrade\", \"Nearest upgrade candidate\")"
+        },
+        {
+          "index": 9,
+          "old": "check(home.nearest_candidate(Vector2(1160, HomeScene.FLOOR_Y - 18)) == &\"departure\", \"Departure candidate\")",
+          "current": "check(home.nearest_candidate(departure_foot-Vector2(0,18)) == &\"departure\", \"Departure candidate\")"
+        },
+        {
+          "index": 11,
+          "old": "check(home.nearest_candidate(Vector2(708, HomeScene.FLOOR_Y - 18)) == &\"upgrade\", \"Current candidate hysteresis\")",
+          "current": "check(home.nearest_candidate(upgrade_foot+Vector2(108,-18)) == &\"upgrade\", \"Current candidate hysteresis\")"
+        }
+      ],
+      "old_source_sha256": "664df9ae500828caf1541ccc9a121a5001b66736776d6140e088d7adf3c5d75f",
+      "current_source_sha256": "37ea852ca11ae6b917ec823e2c8652b7f9895cd1c075d95bdb8128931054a64a",
+      "scope": "UI three authorized coordinate queries use actual slot foot, including same +108 hysteresis; App all 19 original check expressions unchanged. Only movement drivers replaced.",
+      "normal_runtime_assertions": 27,
+      "additional_check_is_optional_failure_probe": true
+    },
+    {
+      "source": "tests/home_app_runner.gd",
+      "old_checks": 20,
+      "current_checks": 20,
+      "changed_checks": [],
+      "old_source_sha256": "9c69f3992deb9480378c476df3729e2ef979fa2cad561f14b293c0441e6ac834",
+      "current_source_sha256": "218720765141c64f6bf60426534ef4d5d2a2e9d9faf4a704fb27687879e80760",
+      "scope": "UI three authorized coordinate queries use actual slot foot, including same +108 hysteresis; App all 19 original check expressions unchanged. Only movement drivers replaced.",
+      "normal_runtime_assertions": 19,
+      "additional_check_is_optional_failure_probe": true
+    }
+  ]
+}

@@ -172,7 +172,7 @@ def closure(args):
     for name in sorted(fonts):
         checked["fonts"].append(check_imported_font(pack, name))
     components = {}
-    for group in ("player_animation", "mechanisms", "home", "ui"):
+    for group in ("player_animation", "mechanisms", "home", "ui", "objects"):
         prefix = "assets/underworld_plains/" + group + "/"
         components[group] = {
             "textures": [item["path"] for item in checked["textures"] if item["path"].startswith(prefix)],

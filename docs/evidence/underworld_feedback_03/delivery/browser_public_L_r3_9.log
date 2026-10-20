@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/workspace/clock-style-lab/build/underworld_r3/delivery/browser_validator_L_r3.py", line 507, in <module>
+    main()
+  File "/workspace/clock-style-lab/build/underworld_r3/delivery/browser_validator_L_r3.py", line 501, in main
+    result = asyncio.run(browser(args)) if args.command == "browser" else globals()[args.command.replace("-", "_")](args)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/workspace/clock-style-lab/build/underworld_r3/delivery/browser_validator_L_r3.py", line 471, in browser
+    raise ValueError("Actual runtime emitted script/resource/shader errors: " + str(errors))
+ValueError: Actual runtime emitted script/resource/shader errors: ['PAGE ERROR: Failed to load worklet module script: https://zhipijun1996.github.io/gunman-rush/index.d20938d2db49.engine.audio.worklet.js (HTTP status: 503)', 'PAGE ERROR: Failed to load worklet module script: https://zhipijun1996.github.io/gunman-rush/index.d20938d2db49.engine.audio.position.worklet.js (HTTP status: 503)']

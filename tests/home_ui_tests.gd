@@ -33,11 +33,17 @@ func _run() -> void:
 	check(home.controller.shoot_ability._shot_serial==shots+1 and home.controller.actor_resources.stamina.current<energy,"Home actual airborne shot spends the same shot energy")
 	await frames(90)
 	check(home.player.is_on_floor(),"Home same airborne recoil returns to safe real floor")
-	check(home.nearest_candidate(Vector2(600, HomeScene.FLOOR_Y - 18)) == &"upgrade", "Nearest upgrade candidate")
-	check(home.nearest_candidate(Vector2(1160, HomeScene.FLOOR_Y - 18)) == &"departure", "Departure candidate")
+	var upgrade_foot:=home.slot_world_foot(&"upgrade")
+	var departure_foot:=home.slot_world_foot(&"departure")
+	check(home.nearest_candidate(upgrade_foot-Vector2(0,18)) == &"upgrade", "Nearest upgrade candidate")
+	check(home.nearest_candidate(departure_foot-Vector2(0,18)) == &"departure", "Departure candidate")
 	check(home.nearest_candidate(Vector2(40, 40)).is_empty(), "No remote NPC interaction")
 	home.nearest_id = &"upgrade"
-	check(home.nearest_candidate(Vector2(708, HomeScene.FLOOR_Y - 18)) == &"upgrade", "Current candidate hysteresis")
+	check(home.nearest_candidate(upgrade_foot+Vector2(108,-18)) == &"upgrade", "Current candidate hysteresis")
+	# Only the obsolete flat-map driving strategy changes. The original 27
+	# business assertions remain intact; the new route uses real keyboard input.
+	var route_driver:=preload("res://tests/underworld_plains/home_terrace_driver.gd").new(home)
+	await route_driver.reach(&"upgrade")
 	var requests: Array[StringName] = []
 	home.requested_interaction.connect(func(id: StringName) -> void: requests.append(id))
 	home.nearest_id = &"upgrade"
@@ -85,6 +91,7 @@ func _run() -> void:
 	menu._confirm_home()
 	check(menu.visible_panel == &"confirm_home", "Destructive Run return still requires confirmation")
 	check(DemoMenu.atlas_region(Rect2(914, 278, 412, 363)).region == Rect2(914, 278, 412, 363), "PR33 atlas region preserves source geometry")
+	route_driver=null
 	home.queue_free()
 	menu.queue_free()
 	await frames(2)

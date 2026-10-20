@@ -1,0 +1,19 @@
+{
+  "command": [
+    "bash",
+    "tools/godot.sh",
+    "--headless",
+    "--fixed-fps",
+    "60",
+    "--path",
+    ".",
+    "--audio-driver",
+    "Dummy",
+    "--script",
+    "tests/home_ui_tests.gd"
+  ],
+  "source_scope": "current shared worktree; unchanged original assertions, authorized driver coordinate adaptation only",
+  "started_ns": 1792427287141662777,
+  "strict_status": "failed",
+  "error": "Godot leaked ObjectDB instances or live resources at exit"
+}

@@ -1,0 +1,42 @@
+{
+  "reviewer": "/root/r3_review",
+  "id": "R3-IR-16",
+  "verdict": "ACCEPT bounded genuine moving-hook regression repair after actual original7305pass; future exact source/native/all-profile still separate",
+  "actually_read_artifacts": [
+    {
+      "path": "build/underworld_r3/damage/action_budget_after_response_owner.log",
+      "sha256": "e585bae95e8ced1b63c5698a94345e00ccf267d0cde258cb3e1ac4ca4a8541a5"
+    },
+    {
+      "path": "build/underworld_r3/damage/action_budget_after_response_owner_trace.json",
+      "sha256": "0749452f7cbb51e2ddcc5c658bbc7164c0e67d7b854710084eef7e7f68f6f05e"
+    },
+    {
+      "path": "build/underworld_r3/damage/response_owner_fix_report.json",
+      "sha256": "f5973b4359d175377ba14d7ababf552ff75240d6fc6229c2ab3d9a13eccb37b6"
+    },
+    {
+      "path": "build/underworld_r3/damage/response_owner317_runtime.json",
+      "sha256": "8e6481e04e925268b10c46559a6e21d6bba7dc4841c2ae2c80887d15d70ee133"
+    }
+  ],
+  "actual_completion": "ACTION BUDGET7305assertions/0failures and original PASS:action budgets and shared aim",
+  "unchanged_sources": [
+    {
+      "path": "tests/action_budget_runner.gd",
+      "same_bytes_baseline": true,
+      "sha256": "3228a50c45108e712ac3f5490148f4b2e93a6cff977d47974f07a1a5d3ac4907"
+    },
+    {
+      "path": "scripts/input/input_router.gd",
+      "same_bytes_baseline": true,
+      "sha256": "386d6cee6aad24598ffbbca96efac590d475a3072502ceac3812c60b5c8aa429"
+    },
+    {
+      "path": "config/input_profile.json",
+      "same_bytes_baseline": true,
+      "sha256": "4b32d1d2a2ae930d649ed4a02c19833a725b9e8669ec33a9c5393229433ad64e"
+    }
+  ],
+  "separate_unproven_causality": "Observed shadow_shuriken budget pass in this rerun is not proof that ordinary-enemy motion fix caused its earlier packet0 failure. Parent instrumented wall-clock TTL boundary separately; keep all original raw failures."
+}

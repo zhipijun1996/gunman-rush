@@ -4,6 +4,8 @@ extends RandomStageAssembler
 var region_state: PlainsRegionState
 var shortcut_bodies: Dictionary = {}
 var shortcut_shapes: Dictionary = {}
+var attack_shortcuts: Array[BacksideShotLatch] = []
+signal attack_shortcut_opened(id: String)
 
 func build(recorded: Dictionary, tuning: PlayerTuning) -> Dictionary:
 	if not is_inside_tree() or not modules.is_empty() or not PlainsRegionGenerator.new().validate(recorded, tuning):
@@ -50,6 +52,39 @@ func build(recorded: Dictionary, tuning: PlayerTuning) -> Dictionary:
 		shortcut_shapes[e.id] = shape
 	return {"ok": true}
 
+func install_attack_shortcuts(player: PlayerController, lifetime: DemoLifetime) -> void:
+	if not attack_shortcuts.is_empty(): return
+	for edge: Dictionary in manifest.connections:
+		if edge.condition != "backside": continue
+		var latch := BacksideShotLatch.new()
+		latch.shortcut_id = edge.id
+		latch.upper_control = Vector2(edge.control[0],edge.control[1])
+		latch.formal_presentation = true
+		latch.gate_visual_enabled = false
+		latch.region_presentation = true
+		latch.link_id = str(edge.id)
+		add_child(latch)
+		latch.setup(player,lifetime,latch.upper_control+Vector2(0,-45),Rect2(edge.gate[0],edge.gate[1],edge.gate[2],edge.gate[3]))
+		# Existing assembler owns the only shortcut wall. Latch is its accepted
+		# attack actuator; its duplicate wall is disabled immediately.
+		latch.gate_body.collision_layer = 0
+		latch.gate_shape.set_deferred("disabled",true)
+		if region_state.opened.has(edge.id):
+			latch.is_open = true
+			latch.bell_body.collision_layer = 0
+		latch.opened.connect(_commit_attack_shortcut.bind(latch))
+		attack_shortcuts.append(latch)
+
+func _commit_attack_shortcut(latch: BacksideShotLatch) -> void:
+	if open_shortcut(latch.shortcut_id,latch.upper_control):
+		GameAudio.cue(self,&"door")
+		attack_shortcut_opened.emit(latch.shortcut_id)
+
+func cancel_attack_shortcuts(permanent: bool = false) -> void:
+	for latch: BacksideShotLatch in attack_shortcuts:
+		if permanent: latch.cancel()
+		else: latch.cancel_pending()
+
 func open_shortcut(id: String, location: Vector2) -> bool:
 	for e: Dictionary in manifest.connections:
 		if e.id != id or e.condition != "backside" or region_state.opened.has(id): continue
@@ -79,7 +114,8 @@ func _draw() -> void:
 		var shape := shortcut_shapes[id] as CollisionShape2D
 		var rect := (shape.shape as RectangleShape2D).size
 		if manifest.get("regional_art_profile", "").is_empty() and not manifest.get("joint_recoil_profile",false):
-			PixelFormalTerrain.draw_gate(self,Rect2(body.position-rect/2,rect))
+			if UnderworldActors.enabled(self): UnderworldTerrain.draw_mechanism_beam(self,Rect2(body.position-rect/2,rect),1.0)
+			else: PixelFormalTerrain.draw_gate(self,Rect2(body.position-rect/2,rect))
 		else:
 			PlainsTerrainSkin.draw_moving_platform(self,Rect2(body.position-rect/2,rect))
 

@@ -19,12 +19,21 @@ var _ability_velocity := Vector2.ZERO
 var _horizontal_lock := 0.0
 var _horizontal_value := 0.0
 var motion_steps := 0
+var damage_feedback: DamageFeedbackDefinition = preload("res://resources/damage/feedback.tres")
+var damage_velocity := Vector2.ZERO
+var damage_remaining := 0.0
 var _blink_motion := Vector2.ZERO
 var _blink_requested := false
 var _sustained_recoil := false
 signal weapon_blinked(start: Vector2, finish: Vector2)
 
 func step(move_axis: float, delta: float) -> void:
+	# Accepted hurt owns its short motion window. Firing remains legal, but a
+	# burst requested inside it cannot freeze gravity or resume after hurt ends.
+	if damage_remaining > 0:
+		cancel_ability_motion()
+		clear_recoil()
+		cancel_weapon_apex()
 	var blink_committing := _blink_requested
 	_advance_drop(delta)
 	var acceleration := tuning.ground_acceleration if is_on_floor() else tuning.air_acceleration
@@ -72,10 +81,17 @@ func step(move_axis: float, delta: float) -> void:
 	if weapon_pause_remaining>0:
 		if not blink_committing:weapon_pause_remaining=maxf(0,weapon_pause_remaining-delta)
 		normal_velocity=Vector2.ZERO;clear_recoil();velocity=Vector2.ZERO
+	if damage_remaining > 0:
+		var fraction := minf(1.0, damage_remaining / delta)
+		velocity = Vector2(lerpf(normal_velocity.x,damage_velocity.x,fraction),normal_velocity.y+damage_velocity.y*fraction)
+		damage_remaining = maxf(0.0, damage_remaining - delta)
+		if damage_remaining <= 0: damage_velocity = Vector2.ZERO
 	motion_steps += 1
 	move_and_slide()
 	for index: int in get_slide_collision_count():
 		var normal := get_slide_collision(index).get_normal()
+		if damage_velocity.dot(normal) < 0.0:
+			damage_velocity = damage_velocity.slide(normal)
 		if normal_velocity.dot(normal) < 0.0:
 			normal_velocity -= normal * normal_velocity.dot(normal)
 		if recoil_velocity.dot(normal) < 0.0:
@@ -96,6 +112,8 @@ func reset_at(location: Vector2) -> void:
 	reset_motion()
 
 func reset_motion() -> void:
+	damage_velocity = Vector2.ZERO
+	damage_remaining = 0.0
 	cancel_ability_motion()
 	clear_local_velocity()
 	_clear_drop()
@@ -235,3 +253,14 @@ func finish_weapon_drive() -> void:
 	_weapon_drive_end_pending=true
 func stop_weapon_drive() -> void:
 	cancel_ability_motion();clear_recoil();_start_weapon_apex()
+
+# A committed damage transaction queues force; only step() moves the body.
+func accept_damage_knockback(incoming: Vector2) -> void:
+	if not incoming.is_finite(): return
+	var side := signf(incoming.x) if absf(incoming.x) > .05 else -signf(normal_velocity.x) if absf(normal_velocity.x) > 1 else -1.0
+	cancel_ability_motion()
+	clear_recoil()
+	cancel_weapon_apex()
+	normal_velocity = Vector2.ZERO
+	damage_velocity = Vector2(side * damage_feedback.player_knockback.x, damage_feedback.player_knockback.y)
+	damage_remaining = damage_feedback.player_knockback_seconds

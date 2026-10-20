@@ -100,16 +100,19 @@ func _ready() -> void:
 			var entrance := PlainsRegionGenerator.new()._area(generated.manifest, str(connection.a))
 			_context_sign(Vector2(entrance.position[0]-110,entrance.position[1]-135), "↑ OPTIONAL TRIAL  ·  RARE CACHE", 170)
 		if connection.condition == "backside":
-			_context_sign(Vector2(connection.control[0]-110,connection.control[1]-75), "SHORTCUT  ·  INTERACT", 130)
+			_context_sign(Vector2(connection.control[0]-110,connection.control[1]-75), "SHORTCUT  ·  SHOOT THE UPPER BELL", 190)
 	for chest: Dictionary in chests:
 		if chest.tier in ["high", "region_top"]:
 			_context_sign(chest.position+Vector2(-95,-80), "CACHE  ·  ↓ + JUMP TO RETURN", 170)
 	for c: Dictionary in chests:
 		var sprite:=Sprite2D.new()
-		sprite.texture=PixelFormalActors.icon_texture(&"chest") if generated.has("regional_art_plan") else UnderworldActors.icon_texture(&"chest")
-		sprite.scale=Vector2(58,48)/sprite.texture.get_size()
-		sprite.position=c.position+Vector2(0,-3)
-		sprite.modulate=Color("ddb1ff") if c.tier=="high" else Color("ffe7a0") if c.tier=="region_top" else Color.WHITE
+		if generated.has("regional_art_plan"):
+			sprite.texture=PixelFormalActors.icon_texture(&"chest")
+			sprite.scale=Vector2(58,48)/sprite.texture.get_size()
+			sprite.position=c.position+Vector2(0,-3)
+			sprite.modulate=Color("ddb1ff") if c.tier=="high" else Color("ffe7a0") if c.tier=="region_top" else Color.WHITE
+		else:
+			UnderworldObjects.place_chest(sprite,c.position+Vector2(0,21),bool(c.claimed))
 		add_child(sprite)
 		c.sprite=sprite
 	var merchant:=Sprite2D.new()
@@ -231,7 +234,7 @@ func capture_state() -> void:
 			region_state.visited[a.id] = true
 			visited_area = "TUTORIAL" if a.role=="tutorial" else area_label(a)
 	for c: Dictionary in chests:
-		if c.has("sprite"): (c.sprite as Sprite2D).modulate.a=0.35 if c.claimed else 1.0
+		if c.has("sprite"): UnderworldObjects.place_chest(c.sprite as Sprite2D,c.position+Vector2(0,21),bool(c.claimed))
 	for p: Dictionary in pickups:
 		if p.claimed: region_state.claimed[p.id] = true
 	for index: int in assembler.modules.size():
@@ -262,6 +265,7 @@ func area_label(area: Dictionary) -> String:
 
 func setup_shot_latches(controller: PlayerController, lifetime: DemoLifetime) -> bool:
 	if not super.setup_shot_latches(controller,lifetime): return false
+	(assembler as PlainsRegionAssembler).install_attack_shortcuts(controller,lifetime)
 	for latch: ShotLatch in shot_latches: latch.set_region_presentation(true)
 	for i: int in shot_latches.size():
 		var id: String=generated.manifest.shot_latch_plan.latches[i].id
@@ -293,10 +297,15 @@ func show_boss_reward_portal() -> void:
 		queue_redraw()
 	else: super.show_boss_reward_portal()
 
-func nearby_shortcut(location: Vector2) -> String:
-	for e: Dictionary in generated.manifest.connections:
-		if e.condition == "backside" and not region_state.opened.has(e.id) and location.distance_to(Vector2(e.control[0],e.control[1])) < 80: return e.id
+func nearby_shortcut(_location: Vector2) -> String:
+	# Backside shortcuts are now accepted-shot mechanisms, never W actions.
+	# Keep the query for existing HUD callers; it offers no interaction target.
 	return ""
+
+func cancel_shot_latch_requests(permanent: bool = false) -> void:
+	super.cancel_shot_latch_requests(permanent)
+	if is_instance_valid(assembler):
+		(assembler as PlainsRegionAssembler).cancel_attack_shortcuts(permanent)
 
 func _draw() -> void:
 	super._draw()

@@ -1,0 +1,43 @@
+{
+  "reviewer": "/root/r3_review",
+  "status": "bounded_native_static_acceptance",
+  "actually_viewed": [
+    {
+      "path": "build/underworld_r3/objects/map1_cache_closed.png",
+      "sha256": "06044e164642091f2ec5ba3356bb2dd522d6129edd6f54c2748f3c5b93dbbf6e"
+    },
+    {
+      "path": "build/underworld_r3/objects/map1_cache_open.png",
+      "sha256": "abba335b38ead886cfff0669c895f23d07f46b17edd225c6a7526ced71c8cd32"
+    },
+    {
+      "path": "build/underworld_r3/objects/map1_cache_reloaded.png",
+      "sha256": "bb7557cdfcf3462e0b0ebfad633176ecf36df75c5766af9da9bd9aca4276dbad"
+    },
+    {
+      "path": "build/underworld_r3/objects/map2_cache_closed.png",
+      "sha256": "a6d3bd556a2cd85dbe599059edc8ae8d8ee17b74b8893721b7597f9163460a1b"
+    },
+    {
+      "path": "build/underworld_r3/objects/map2_cache_open.png",
+      "sha256": "3aae6c3477c5d71baeed7a2b6dfb8058b1e26322e8060bb0de39319430b3e4e1"
+    },
+    {
+      "path": "build/underworld_r3/objects/map2_cache_reloaded.png",
+      "sha256": "974b20be813fc89f9b910421a92c8fb1234bb0b2692bfdada25c90430591ee6f"
+    }
+  ],
+  "source_binding": "build/underworld_r3/objects/gpu_cache_binding.json",
+  "observations": [
+    "All six native original images actually opened by reviewer, not contact sheet or catalog-only.",
+    "Player is beside the chest rather than occluding it. Closed rounded lid and open lifted lid/dark interior are clearly different.",
+    "Both maps retain dark metal/gold/moss color and opaque opened body at common floor foot, same visual width.",
+    "Reload keeps the opened pose; visible wallet18/map1 and36/map2 does not duplicate payout.",
+    "Actual object test fixture explicitly initializes room/chest positions and commits original transaction; this is not a natural walked route."
+  ],
+  "preserved_rejection": "first_gpu_84 original chest images actor-occluded and rejected as visual proof; same production did not need an art workaround",
+  "limits": [
+    "No full normal-speed movie/audio or device acceptance",
+    "Final committed source attribution still separate"
+  ]
+}

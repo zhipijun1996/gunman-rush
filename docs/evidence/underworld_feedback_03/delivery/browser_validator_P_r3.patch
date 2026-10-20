@@ -1,0 +1,94 @@
+--- frozen_P/tools/underworld_delivery.py
++++ build-only/browser_validator_P_r3.py
+@@ -17,7 +17,7 @@
+ from pathlib import Path
+ from urllib.parse import parse_qsl, quote, urlencode, urljoin, urlsplit, urlunsplit
+ 
+-ROOT = next(parent for parent in Path(__file__).resolve().parents if (parent / "project.godot").is_file())
++ROOT = Path("/workspace/clock-style-preview-k")
+ ASSETS = ROOT / "assets/underworld_plains"
+ RAW_UNDERWORLD_PATHS = (
+     "assets/underworld_plains/backgrounds/far.png",
+@@ -269,7 +269,14 @@
+             hud = subprocess.run(["tesseract", str(hud_path), "stdout", "--psm", "7"],
+                                  capture_output=True, text=True, check=True, timeout=15, env={**os.environ, "OMP_THREAD_LIMIT": "1"})
+             hud_path.with_suffix(".txt").write_text(hud.stdout)
+-            return words, (" ".join(row["text"] for row in words) + " " + hud.stdout).upper()
++            # Build-only pixel sampling adaptation, unchanged Home predicate.
++            home_crop = ImageOps.invert(ImageOps.grayscale(Image.open(path).crop((350, 16, 800, 70)))).resize((1350, 162))
++            home_path = path.with_name(path.stem + "-home-title.png")
++            home_crop.save(home_path)
++            home = subprocess.run(["tesseract", str(home_path), "stdout", "--psm", "7"],
++                                  capture_output=True, text=True, check=True, timeout=15, env={**os.environ, "OMP_THREAD_LIMIT": "1"})
++            home_path.with_suffix(".txt").write_text(home.stdout)
++            return words, (" ".join(row["text"] for row in words) + " " + hud.stdout + " " + home.stdout).upper()
+ 
+         async def load(url):
+             await page.goto(url, wait_until="domcontentloaded", timeout=60000)
+@@ -398,6 +405,66 @@
+             if "UNDERWORLD" not in text:
+                 raise ValueError("Original experimental style lab no longer accessible: " + text)
+             report["checks"].append({"action": "preserved ?styles entry and style4", "ocr": text})
++            # R3 additional real Home terrace consumer. All original seven
++            # checks above remain. No DOM/private Actor, pose or resource edits.
++            await load(args.url)
++            path = await capture("08-title-for-terrace")
++            words, text = ocr(path)
++            await click_observed(words, r"\bENTER\s+HOME\b", "ordinary title enters Home for actual upstairs service")
++            await page.wait_for_timeout(1000)
++            await capture("08a-home-ground-before-jumps")
++            terrace_inputs = []
++            for attempt in range(8):
++                started = asyncio.get_running_loop().time()
++                await page.keyboard.down("KeyD")
++                await page.keyboard.down("Space")
++                await page.wait_for_timeout(480)
++                await page.keyboard.up("Space")
++                await page.keyboard.up("KeyD")
++                released = asyncio.get_running_loop().time()
++                await page.wait_for_timeout(240)
++                path = await capture("08b-home-real-jump-terrace-" + str(attempt))
++                _, text = ocr(path)
++                terrace_inputs.append({"attempt": attempt, "keys": ["KeyD", "Space"], "requested_wait_ms": 480,
++                                       "actual_hold_ms": round((released-started)*1000, 2), "all_keys_released_before_screenshot": True,
++                                       "observed_upgrade_prompt": "PERMANENT UPGRADES" in text})
++                if "PERMANENT UPGRADES" in text:
++                    break
++            else:
++                raise ValueError("Real Home jumps never reached actual upstairs upgrade prompt within eight attempts")
++            await page.keyboard.press("KeyW")
++            await page.wait_for_timeout(300)
++            path = await capture("08c-home-upstairs-upgrade-panel")
++            words, text = ocr(path)
++            if "PERMANENT VITALITY" not in text:
++                raise ValueError("Actual upstairs W did not open original upgrade service: " + text)
++            await click_observed(words, r"\bBACK\s+TO\s+HOME\b", "return from actual upstairs upgrade without purchasing")
++            await page.wait_for_timeout(300)
++            await capture("08d-home-upstairs-after-panel")
++            report["terrace_jump_inputs"] = terrace_inputs
++            report["checks"].append({"action": "real D/Space jumps reach upstairs upgrade; W opens original service and pointer closes it",
++                                     "limit": "fixture-free real browser consumer; interaction guard requires correct floor/tier; video and original pixels reviewed separately, no full Home route/device claim"})
++            # A separate safe ground sequence tests both directions. Screenshot
++            # follows release, so slow software capture never extends movement.
++            await load(args.url)
++            path = await capture("09-title-for-direction")
++            words, text = ocr(path)
++            await click_observed(words, r"\bENTER\s+HOME\b", "ordinary Home for separate left and right input")
++            await page.wait_for_timeout(1000)
++            await page.mouse.move(1050,360)
++            await capture("09a-home-ground-neutral")
++            direction_inputs = []
++            for code, name in (("KeyD","09b-home-right"),("KeyA","09c-home-left")):
++                started = asyncio.get_running_loop().time()
++                await page.keyboard.down(code)
++                await page.wait_for_timeout(300)
++                await page.keyboard.up(code)
++                released = asyncio.get_running_loop().time()
++                await page.wait_for_timeout(80)
++                await capture(name)
++                direction_inputs.append({"key":code,"requested_wait_ms":300,"actual_hold_ms":round((released-started)*1000,2),"released_before_screenshot":True})
++            report["home_direction_input_dispatches"] = direction_inputs
++            report["checks"].append({"action":"separate real Home D and A inputs captured after release","limit":"input dispatch and actual pixels; accepted Motor direction remains independently reviewed native/browser media"})
+             errors = [line for line in report["console"] if any(token in line for token in
+                 ("SCRIPT ERROR:", "Parse Error:", "SHADER ERROR:", "PAGE ERROR:", "Resource file not found:", "Failed to load script"))]
+             if errors:

@@ -1,0 +1,105 @@
+{
+  "reviewer": "/root/r3_review",
+  "verdict": "ACCEPT bounded finalN attached-surface hurt entry/exit native visual sample",
+  "source_commit": "466cf79e3971a6069976d2cc9bad83faf16354b2",
+  "source_before_after_equal": true,
+  "source_files": 1077,
+  "critical_sources": [
+    {
+      "path": "scripts/underworld_plains/underworld_player.gd",
+      "bound_equals_N_gitblob": true
+    },
+    {
+      "path": "scripts/damage/damage_return_echo.gd",
+      "bound_equals_N_gitblob": true
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "bound_equals_N_gitblob": true
+    },
+    {
+      "path": "tests/underworld_plains/capture_revision3_environment.gd",
+      "bound_equals_N_gitblob": true
+    }
+  ],
+  "actually_opened_full_original_frames": [
+    95,
+    96,
+    101,
+    116,
+    150
+  ],
+  "actually_opened_consecutive_review_crop": {
+    "path": "build/underworld_r3/review/surface_N_consecutive_94_131.png",
+    "sha256": "2ce14c7e37e43b505b52088ce313d746595f87a8e6b010193409403ded6e8ec8",
+    "rows_inclusive": [
+      94,
+      131
+    ],
+    "native_1_to_1_crop": [
+      520,
+      330,
+      840,
+      550
+    ],
+    "original_unchanged": true
+  },
+  "native_frame_inventory": "build/underworld_r3/review/surface_N_raw_frame_hashes.json",
+  "observations": [
+    "This is a newly executed finalN sample, not a renamedL movie. Five N full native images and all38consecutive N body crops actually opened.",
+    "Run reaches real embedded thorn; row96 performs a single acceptedHP5→4 at true source, source hurt echo remains at old point while safe body fades in.",
+    "Generated hurt0→hurt1→idle is visible, followed by bounded flash and fully opaque idle. No duplicate return/HP, no world-spanning trail.",
+    "Safe spawn support/whole body/HUD are visible and consistent with reported stage."
+  ],
+  "actual_health_commits": [
+    {
+      "amount_applied": -1.0,
+      "engine_drawn_frame": 133,
+      "event_id": "generated_spikes_6:3:1:1",
+      "health": 4.0,
+      "old_hit_position": [
+        4568.30908203125,
+        1209.92529296875
+      ],
+      "physics_tick": 134,
+      "terminal": false,
+      "trace_row": 96
+    }
+  ],
+  "actual_segment_returns": [
+    {
+      "hurt_remaining": 0.32,
+      "physics_tick": 134,
+      "return_fade": 0.24,
+      "safe_entry_position": [
+        4200.0,
+        1210.0
+      ],
+      "trace_row": 96
+    }
+  ],
+  "actual_Input": [
+    {
+      "event": "InputEventKey",
+      "key": "D",
+      "physics_tick": 49,
+      "pressed": true,
+      "trace_row": 12
+    },
+    {
+      "event": "InputEventKey",
+      "key": "D",
+      "physics_tick": 134,
+      "pressed": false,
+      "trace_row": 97
+    }
+  ],
+  "checks": 225,
+  "failures": [],
+  "scope": "Ordinary formal App, one explicitly initialized existing anchor then realD Input; no natural full-region route claim",
+  "limits": [
+    "Not real-time whole-movie playback or audio listening",
+    "No every-seed/hazard-face/device/performance/user acceptance",
+    "L original reports/media retained independently"
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "schema": "underworld-home-terrace-source-binding-v1",
+  "head": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+  "command": [
+    "bash",
+    "tools/godot.sh",
+    "--path",
+    ".",
+    "--audio-driver",
+    "Dummy",
+    "--fixed-fps",
+    "60",
+    "--rendering-method",
+    "gl_compatibility",
+    "--script",
+    "tests/underworld_plains/test_underworld_home_terraces.gd",
+    "--",
+    "--capture"
+  ],
+  "capture": true,
+  "source_before": {
+    "scripts/demo/home_scene.gd": "ce1da1283860f3d2ee1d33ab50a6b8ba7d6c4c851ddf538045591854eedf897b",
+    "scripts/underworld_plains/underworld_home_world.gd": "155b2538dc70096f995b9adf043f231d298fb1ab5446077c1c4533fa61b5489a",
+    "assets/underworld_plains/home/home_build.json": "52640cae9fc275439478285405b509dcb40b55b2e1c7dbcce81a996aff986a35",
+    "tests/underworld_plains/home_terrace_driver.gd": "f3d7413a1973f28c07df95637dd057b6017b2e1b71c123ba38a5cf13119dfdac",
+    "tests/underworld_plains/test_underworld_home_terraces.gd": "d9772bc9f014ed054f4ec50cd0c558098d5c26ee70e13596524996db997f1882",
+    "tools/run_underworld_home_terrace_tests.py": "557135a59652dd7f76ed80aae602a2f3430fa69f33a30f77cae5b206b8ad2bf9"
+  },
+  "guard_scope": "Six owned Home production/driver/wrapper files; shared-worktree component, not whole-product freeze or final commit acceptance",
+  "status": "passed",
+  "fixed_fps_note": "fixed 60 Hz engine physics, native Input.parse_input_event; simulation may run faster/slower than wall time; not a performance result",
+  "exit_code": 0,
+  "source_after": {
+    "scripts/demo/home_scene.gd": "ce1da1283860f3d2ee1d33ab50a6b8ba7d6c4c851ddf538045591854eedf897b",
+    "scripts/underworld_plains/underworld_home_world.gd": "155b2538dc70096f995b9adf043f231d298fb1ab5446077c1c4533fa61b5489a",
+    "assets/underworld_plains/home/home_build.json": "52640cae9fc275439478285405b509dcb40b55b2e1c7dbcce81a996aff986a35",
+    "tests/underworld_plains/home_terrace_driver.gd": "f3d7413a1973f28c07df95637dd057b6017b2e1b71c123ba38a5cf13119dfdac",
+    "tests/underworld_plains/test_underworld_home_terraces.gd": "d9772bc9f014ed054f4ec50cd0c558098d5c26ee70e13596524996db997f1882",
+    "tools/run_underworld_home_terrace_tests.py": "557135a59652dd7f76ed80aae602a2f3430fa69f33a30f77cae5b206b8ad2bf9"
+  },
+  "checks": 164,
+  "failures": 0,
+  "receipt": "build/underworld_r3/home/runs/1792427521699169667/receipt.json",
+  "receipt_sha256": "7c7842800798b44d7c830adf33d2f25a093371d35d5be81b3d150289743d4cd9",
+  "elapsed_seconds": 160.63329217299906,
+  "log": "build/underworld_r3/home/runs/1792427521699169667/engine.log",
+  "log_sha256": "495ade5e8f81c74acba379fb46808aae7f786866d30b11196e49ab9e9b02c23d"
+}

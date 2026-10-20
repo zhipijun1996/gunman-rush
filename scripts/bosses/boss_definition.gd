@@ -5,6 +5,7 @@ extends Resource
 @export var definition_version := 1
 @export var health_definition: HealthDefinition
 @export var collision_size := Vector2(72, 84)
+@export var collision_offset := Vector2.ZERO
 @export var patrol_speed := 42.0
 @export var phase_two_threshold := 0.5
 @export var attack_interval := 2.0
@@ -19,7 +20,7 @@ extends Resource
 func is_valid() -> bool:
 	if stable_id.is_empty() or definition_version < 1 or health_definition == null or not health_definition.is_valid():
 		return false
-	if not collision_size.is_finite() or collision_size.x <= 0.0 or collision_size.y <= 0.0:
+	if not collision_offset.is_finite() or not collision_size.is_finite() or collision_size.x <= 0.0 or collision_size.y <= 0.0:
 		return false
 	for number: float in [patrol_speed, attack_interval, telegraph_duration, phase_two_interval_scale, projectile_speed, projectile_radius, projectile_damage, projectile_lifetime]:
 		if not is_finite(number) or number <= 0.0:

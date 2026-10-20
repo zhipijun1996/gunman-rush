@@ -4,7 +4,7 @@ var pixel_style := false
 @export var encounter: BellstriderEncounter
 const BODY:=preload("res://assets/plains_v4/spatial/actors.png")
 const CHASSIS:=preload("res://assets/plains_v4/spatial/chassis.png")
-const CORE_FONT:=preload("res://assets/fonts/windkeeper_ui.ttf")
+const CORE_FONT:=preload("res://assets/fonts/foundry_notes.otf")
 const PARTS:=preload("res://assets/plains_v4/windkeeper/parts.png")
 var clock:=0.0
 var wheel_angle:=0.0
@@ -25,6 +25,7 @@ func _ready() -> void:
 			flash=.16;GameAudio.cue(self,&"core"))
 	encounter.armour_hit.connect(func(_p: Vector2) -> void: GameAudio.cue(self,&"armour"))
 func _process(delta: float) -> void:
+	if get_tree().paused: return
 	clock+=delta
 	if encounter.health.terminal:death_age+=delta;modulate.a=maxf(0,1-death_age/.45)
 	wheel_angle+=(global_position.x-_last.x)/25
@@ -60,13 +61,17 @@ func _draw() -> void:
 	if encounter.core_open:
 		var p:=encounter.core_offset()
 		draw_string(CORE_FONT,p+Vector2(-20,-34),"铃芯",HORIZONTAL_ALIGNMENT_LEFT,-1,13,Color("ffe9a8"))
-		if pixel_style: PixelFormalActors.bell(self,p,true,flash>0)
+		if UnderworldActors.enabled(self):
+			var bell := UnderworldActors.icon_texture(&"bell")
+			var size := bell.get_size() * (32.0 / bell.get_height())
+			draw_texture_rect(bell,Rect2(p-size*.5,size),false,Color(1.5,1.3,1.0) if flash>0 else Color.WHITE)
+		elif pixel_style: PixelFormalActors.bell(self,p,true,flash>0)
 		else: draw_texture_rect_region(PARTS,Rect2(p-Vector2(11,14),Vector2(22,29)),Rect2(735,20,435,575))
 		draw_circle(p,25,Color(1,.85,.4,.3))
 		draw_arc(p,18,0,TAU,32,Color("ffe59b"),2)
 		var remaining:=clampf(encounter.clock/(encounter.definition as WindkeeperDefinition).exposed_seconds,0,1)
 		draw_arc(p,29,-PI/2,-PI/2+TAU*remaining,40,Color("95dab0"),2)
-		draw_string(CORE_FONT,p+Vector2(25,-20),"OPEN %.1fs" % maxf(0,encounter.clock),HORIZONTAL_ALIGNMENT_LEFT,-1,12,Color("d6f3d1"))
+		draw_string(CORE_FONT,p+Vector2(25,-20),"收招" if encounter.continuous_combat() else "OPEN %.1fs" % maxf(0,encounter.clock),HORIZONTAL_ALIGNMENT_LEFT,-1,12,Color("d6f3d1"))
 	if encounter.mode==&"roll_warning":
 		var distance:=encounter.roll_warning_distance()
 		var end:=Vector2(encounter.direction*distance,48)

@@ -1,0 +1,126 @@
+{
+  "source_commit": "c259f8cf1093102e53a1c34d19936e55f61f2839",
+  "run_id": 39290446277,
+  "attempt": 1,
+  "conclusion": "failure",
+  "full_log": "remote_full_L.log",
+  "full_log_sha256": "743c4e69c304c37eaae86733569d811b7cffff36711e1109239100fa6416c44d",
+  "observed_harness_statuses": {
+    "core": [
+      {
+        "id": "docs",
+        "status": "passed",
+        "raw_line": "core\tRun python3 tools/harness.py --profile gameplay --profile art --jobs 1 --release\t2026-10-19T17:10:28.1649259Z docs: passed"
+      },
+      {
+        "id": "world",
+        "status": "passed",
+        "raw_line": "core\tRun python3 tools/harness.py --profile gameplay --profile art --jobs 1 --release\t2026-10-19T17:10:38.3615058Z world: passed"
+      },
+      {
+        "id": "world-design-tests",
+        "status": "passed",
+        "raw_line": "core\tRun python3 tools/harness.py --profile gameplay --profile art --jobs 1 --release\t2026-10-19T17:10:48.5931779Z world-design-tests: passed"
+      },
+      {
+        "id": "structure",
+        "status": "passed",
+        "raw_line": "core\tRun python3 tools/harness.py --profile gameplay --profile art --jobs 1 --release\t2026-10-19T17:10:58.8226486Z structure: passed"
+      },
+      {
+        "id": "harness-tests",
+        "status": "passed",
+        "raw_line": "core\tRun python3 tools/harness.py --profile gameplay --profile art --jobs 1 --release\t2026-10-19T17:11:12.3655041Z harness-tests: passed"
+      },
+      {
+        "id": "quality-drills",
+        "status": "passed",
+        "raw_line": "core\tRun python3 tools/harness.py --profile gameplay --profile art --jobs 1 --release\t2026-10-19T17:11:21.3941140Z quality-drills: passed"
+      },
+      {
+        "id": "quality-tests",
+        "status": "passed",
+        "raw_line": "core\tRun python3 tools/harness.py --profile gameplay --profile art --jobs 1 --release\t2026-10-19T17:11:30.9080033Z quality-tests: passed"
+      },
+      {
+        "id": "quality",
+        "status": "passed",
+        "raw_line": "core\tRun python3 tools/harness.py --profile gameplay --profile art --jobs 1 --release\t2026-10-19T17:11:40.7047286Z quality: passed"
+      },
+      {
+        "id": "core",
+        "status": "failed",
+        "raw_line": "core\tRun python3 tools/harness.py --profile gameplay --profile art --jobs 1 --release\t2026-10-19T17:13:03.7046788Z core: failed"
+      }
+    ],
+    "web": [
+      {
+        "id": "docs",
+        "status": "passed",
+        "raw_line": "web\tRun python3 tools/harness.py --profile web --release\t2026-10-19T17:10:49.3301418Z docs: passed"
+      },
+      {
+        "id": "world",
+        "status": "passed",
+        "raw_line": "web\tRun python3 tools/harness.py --profile web --release\t2026-10-19T17:10:59.0941650Z world: passed"
+      },
+      {
+        "id": "world-design-tests",
+        "status": "passed",
+        "raw_line": "web\tRun python3 tools/harness.py --profile web --release\t2026-10-19T17:11:09.0083082Z world-design-tests: passed"
+      },
+      {
+        "id": "structure",
+        "status": "passed",
+        "raw_line": "web\tRun python3 tools/harness.py --profile web --release\t2026-10-19T17:11:18.7978811Z structure: passed"
+      },
+      {
+        "id": "harness-tests",
+        "status": "passed",
+        "raw_line": "web\tRun python3 tools/harness.py --profile web --release\t2026-10-19T17:11:32.7488046Z harness-tests: passed"
+      },
+      {
+        "id": "quality-drills",
+        "status": "passed",
+        "raw_line": "web\tRun python3 tools/harness.py --profile web --release\t2026-10-19T17:11:42.5014060Z quality-drills: passed"
+      },
+      {
+        "id": "quality-tests",
+        "status": "passed",
+        "raw_line": "web\tRun python3 tools/harness.py --profile web --release\t2026-10-19T17:11:52.7171303Z quality-tests: passed"
+      },
+      {
+        "id": "quality",
+        "status": "passed",
+        "raw_line": "web\tRun python3 tools/harness.py --profile web --release\t2026-10-19T17:12:03.2425229Z quality: passed"
+      },
+      {
+        "id": "web-cache",
+        "status": "passed",
+        "raw_line": "web\tRun python3 tools/harness.py --profile web --release\t2026-10-19T17:12:13.6120852Z web-cache: passed"
+      },
+      {
+        "id": "production-loop-tests",
+        "status": "timeout",
+        "raw_line": "web\tRun python3 tools/harness.py --profile web --release\t2026-10-19T17:13:23.2959617Z production-loop-tests: timeout"
+      }
+    ]
+  },
+  "core_first_failure": {
+    "check": "core",
+    "actual_message": "ERROR: FAIL: unpause resumes enemy simulation",
+    "status": "failed; original functional regression not waived",
+    "limit": "later generated-consumers/art/GPU/audio checks not run"
+  },
+  "web_first_failure": {
+    "check": "production-loop-tests",
+    "status": "timeout",
+    "limit": "later original web export/GUI checks not run"
+  },
+  "prepare": "success",
+  "windows": "success",
+  "deploy_web": "skipped",
+  "verify_public": "skipped",
+  "prepared_preview": "separate existing prepared workflow39291083808 passed; does not make this full CI pass",
+  "root_followup": "Root independently identified original pause driver assumes movement resumes within3ticks while newly accepted0.12s hurt is still active; any later test-only fix must retain original assertion, new hurt-paused checks and its own exact source tag; not retroactively applied to L CI"
+}

@@ -54,3 +54,13 @@ G5：真实设备长战斗性能、控制方式、玩家学习/掌握与记忆�
 [预制作→制作→验收及版本总谱](../../../docs/creative_direction/README.md)是共同执行依据。总谱SHA变更须RETHINK并复验；交付写贡献、协作、新行为/视觉、主题冲突和实机验证。REWORK局部修复，DISCARD隔离候选；ACCEPT只限真实已验范围，审美不绕过工程红灯。
 
 历史复现按需读取[原始Skill与迁移索引](../../../docs/archive/skill_history/README.md)，不默认加载旧轮授权、PR实录或失败数字。
+
+使用 [质量报告](../../../docs/templates/quality_gate_acceptance.md) 和 docs/quality/records/<task_id>.json，逐项记录 design/technical/formal_integration/visual/animation/audio_vfx/gameplay/performance/independent_review/device/player_acceptance。只允许 passed/failed/unverified/not_applicable（有理由）；证据需路径、SHA256、提交/内容版本、观察和来源。技术通过不能宣称完整内容完成；所有适用条件具备才可 done。本技能文档本身不提供任何内容的 PASS 或用户认可。
+
+## Underworld第三轮实证回流
+
+伤害资格与前摇/攻击/收招风险分开设计。当前正式连续合同可随时受击，不能用弱点窗口制造回合制；接触体与可打躯干按实际图形分别校准，必须有不躲受伤与真实正确躲过对照。 来源、真实失败、适用版本与待验见[第三轮经验](../../../docs/underworld_feedback_r3.md)；本条不代签最终用户手感或实体设备。
+
+远程伤害必须传碰撞step的实际弹道方向；至少真实左右弹体各命中一次，检查accepted请求和唯一Motor位移，不用伪造hit信号替代。
+
+战斗资格修改后同步实际Hud的状态行、命中词、阶段大字、盾标和方向箭头；continuous提示必须读真实accepts_combat_damage，旧窗口提示仅保留legacy。Encounter.objective改动不能代替Hud实机复审。

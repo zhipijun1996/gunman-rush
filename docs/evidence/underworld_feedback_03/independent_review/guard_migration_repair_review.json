@@ -1,0 +1,95 @@
+{
+  "reviewer": "/root/r3_review",
+  "previous_rejection": "build/underworld_r3/review/guard_migration_initial_reject.json",
+  "verdict": "ACCEPT bounded guard migration repair source/parser scope",
+  "old_97_invariants_restored": [
+    "typed Underworld player",
+    "PlayerFeedback drawing hidden",
+    "legacy adapter disabled",
+    "ready finite actual muzzle",
+    "exactly one body",
+    "reserved world labels explicit",
+    "full per-visit Meta equality outside legal purchase"
+  ],
+  "original155_checks": "Preserved plus25 additions, author strict native180/0 postrepair receipt read, not independently rerun engine",
+  "wrapper_dependencies": 27,
+  "all_old_original_dependencies_restored": true,
+  "preflight": "Original generation source/runtime byte equality, prompt/tool and original/reference SHA checked before and after run",
+  "cpu_parser_command": [
+    "python3",
+    "-m",
+    "unittest",
+    "tests/test_underworld_home_terrace_wrapper.py",
+    "-v"
+  ],
+  "cpu_parser_exit_code": 0,
+  "cpu_parser_log": "build/underworld_r3/review/home_wrapper_independent.log",
+  "cpu_parser_tests": 36,
+  "cpu_parser_negative_controls": 34,
+  "pipeline_test_preservation": {
+    "old_count": 107,
+    "current_count": 116,
+    "deleted": [],
+    "added": [
+      "test_home_all_plots_cannot_collapse_to_one_floor",
+      "test_home_departure_must_follow_the_village_road",
+      "test_home_requires_current_terrace_contract",
+      "test_home_slot_cannot_float_between_tiers",
+      "test_home_terrace_cannot_be_fake_solid",
+      "test_objects_original_crop_bounds",
+      "test_objects_raised_lid_cannot_be_cropped_off",
+      "test_objects_raw_generation_hash",
+      "test_objects_runtime_requires_the_actual_open_pose"
+    ]
+  },
+  "legacy_frozen_files": [
+    {
+      "source": "scripts/demo/home_scene.gd",
+      "snapshot": "tests/fixtures/underworld_home_r2/scripts__demo__home_scene.gd.source",
+      "hash_matches_manifest": true,
+      "byte_equal_base": true
+    },
+    {
+      "source": "scripts/underworld_plains/underworld_home_world.gd",
+      "snapshot": "tests/fixtures/underworld_home_r2/scripts__underworld_plains__underworld_home_world.gd.source",
+      "hash_matches_manifest": true,
+      "byte_equal_base": true
+    },
+    {
+      "source": "assets/underworld_plains/home/home_build.json",
+      "snapshot": "tests/fixtures/underworld_home_r2/assets__underworld_plains__home__home_build.json.source",
+      "hash_matches_manifest": true,
+      "byte_equal_base": true
+    },
+    {
+      "source": "tests/underworld_plains/test_underworld_home.gd",
+      "snapshot": "tests/fixtures/underworld_home_r2/tests__underworld_plains__test_underworld_home.gd.source",
+      "hash_matches_manifest": true,
+      "byte_equal_base": true
+    },
+    {
+      "source": "tests/home_ui_tests.gd",
+      "snapshot": "tests/fixtures/underworld_home_r2/tests__home_ui_tests.gd.source",
+      "hash_matches_manifest": true,
+      "byte_equal_base": true
+    },
+    {
+      "source": "tests/home_app_runner.gd",
+      "snapshot": "tests/fixtures/underworld_home_r2/tests__home_app_runner.gd.source",
+      "hash_matches_manifest": true,
+      "byte_equal_base": true
+    },
+    {
+      "source": "tools/run_underworld_home_tests.py",
+      "snapshot": "tests/fixtures/underworld_home_r2/tools__run_underworld_home_tests.py.source",
+      "hash_matches_manifest": true,
+      "byte_equal_base": true
+    }
+  ],
+  "remaining": [
+    "Final harness config/source snapshot and new frozen native run needed",
+    "Previous164 GPU source differs from current exit text and current180/189 fixture; do not retag",
+    "Standalone HomeUI strict exit failure remains failed",
+    "CPU verifier negatives do not prove native art/gameplay/performance"
+  ]
+}

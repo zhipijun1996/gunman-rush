@@ -252,7 +252,7 @@ func hit(receiver: Damageable, packet: int, serial: int, stage: String, skill: b
 	var damage := amount if amount>0 else _packet_damage
 	var event := "%s:%s:weapon:%s:%s:%s" % [actor().motor.get_instance_id(),_session,packet,serial,stage]
 	var target_id := receiver.actor_id if receiver.actor_id!=0 else receiver.get_instance_id()
-	return receiver.receive_damage({"session_id":_session,"event_id":event,"source_actor_id":actor().motor.get_instance_id(),"source_faction":&"player","target_actor_id":receiver.actor_id,"target_epoch":receiver.damage_epoch,"amount":damage,"damage_type":&"weapon","hit_point":point,"hit_direction":unit,"on_committed":actor().on_weapon_damage.bind(_session,packet,serial,not actor().motor.is_on_floor(),target_id,skill,receiver,ability.weapon_epoch)})
+	return receiver.receive_damage({"session_id":_session,"event_id":event,"source_actor_id":actor().motor.get_instance_id(),"source_faction":&"player","target_actor_id":receiver.actor_id,"target_epoch":receiver.damage_epoch,"amount":damage,"damage_type":&"weapon","skill_attack":skill,"hit_point":point,"hit_direction":unit,"on_committed":actor().on_weapon_damage.bind(_session,packet,serial,not actor().motor.is_on_floor(),target_id,skill,receiver,ability.weapon_epoch)})
 func beam_damage(unit: Vector2, amount: float, skill: bool, pierce: bool, commit: bool = true) -> void:
 	var visual := actor().motor.get_node("CourierVisual") as CourierVisual
 	var start := visual.muzzle_position(unit)
@@ -345,51 +345,53 @@ func beam_visual_segment() -> PackedVector2Array:
 	if offset.dot(direction)<=0:return PackedVector2Array()
 	return PackedVector2Array([start,start+offset.limit_length(definition().range_limit)])
 func _draw() -> void:
+	var underworld := UnderworldProjectileVisual.enabled(self)
 	var beam := beam_visual_segment()
 	if beam.size()==2:
-		draw_line(to_local(beam[0]),to_local(beam[1]),Color(.15,.55,.8,.4),8,true)
-		draw_line(to_local(beam[0]),to_local(beam[1]),Color(.65,.95,1),2,true)
+		draw_line(to_local(beam[0]),to_local(beam[1]),Color(.67,.52,.29,.4) if underworld else Color(.15,.55,.8,.4),8,not underworld)
+		draw_line(to_local(beam[0]),to_local(beam[1]),Color("f3dda0") if underworld else Color(.65,.95,1),2,not underworld)
 	for fx: Dictionary in _fx:
 		var duration := fx_duration(fx)
 		var alpha := 1-float(fx.age)/duration
 		if fx.kind=="blink":
 			var start := to_local(fx.start);var end := to_local(fx.end)
-			draw_line(start,end,Color(.35,.65,1,alpha*.45),3,true)
+			draw_line(start,end,Color(.67,.52,.29,alpha*.45) if underworld else Color(.35,.65,1,alpha*.45),3,not underworld)
 			for position: Vector2 in [fx.start,fx.end]:
 				var transform: Transform2D=fx.transform
 				transform.origin+=position-fx.start
 				draw_set_transform_matrix(global_transform.affine_inverse()*transform)
-				draw_texture(fx.texture,Vector2.ZERO,Color(.65,.8,1,alpha*.65))
+				draw_texture(fx.texture,Vector2.ZERO,Color(.82,.76,.52,alpha*.65) if underworld else Color(.65,.8,1,alpha*.65))
 				draw_set_transform_matrix(Transform2D.IDENTITY)
 			for i: int in 8:
 				var angle := float(i)*TAU/8
 				var offset := Vector2.from_angle(angle)*(8+float(fx.age)*100)
-				draw_line(end+offset,end+offset+Vector2.from_angle(angle)*7,Color(.7,.85,1,alpha),1.5,true)
+				draw_line(end+offset,end+offset+Vector2.from_angle(angle)*7,Color(.95,.86,.63,alpha) if underworld else Color(.7,.85,1,alpha),1.5,not underworld)
 		elif fx.kind=="blast":
 			_draw_blast(fx,alpha)
 		elif fx.kind in ["beam","arc"]:
-			var color := Color(.35,.86,1,alpha)
-			draw_line(to_local(fx.start),to_local(fx.end),Color(.2,.5,.8,alpha*.4),14 if fx.skill else 6,true)
+			var color := Color(.95,.86,.63,alpha) if underworld else Color(.35,.86,1,alpha)
+			draw_line(to_local(fx.start),to_local(fx.end),Color(.67,.52,.29,alpha*.4) if underworld else Color(.2,.5,.8,alpha*.4),14 if fx.skill else 6,true)
 			draw_line(to_local(fx.start),to_local(fx.end),color,5 if fx.skill else 2,true)
 		else:
 			var progress := float(fx.age)/duration
-			draw_arc(to_local(fx.start),float(fx.radius)*(.2+.8*progress),0,TAU,64,Color(.45,.65,.8,alpha) if fx.kind=="fizzle" else Color(1,.65,.25,alpha),4,true)
+			draw_arc(to_local(fx.start),float(fx.radius)*(.2+.8*progress),0,TAU,64,(Color(.57,.58,.43,alpha) if underworld else Color(.45,.65,.8,alpha)) if fx.kind=="fizzle" else Color(1,.65,.25,alpha),4,true)
 	if phase==&"singularity":
 		var center := to_local(_center);var progress := clampf(age/definition().hold_seconds,0,1)
-		draw_circle(center,24,Color(.3,.1,.5,.4))
-		for i: int in 4:draw_arc(center,12+i*10,age*7+i,age*7+i+PI*1.3,24,Color(.6,.5,1,.7),2,true)
-		draw_arc(center,definition().attract_radius,0,TAU*progress,64,Color(.6,.55,1,.2),1,true)
-		draw_line(center,center+direction*60,Color(1,.85,.45),2,true)
+		draw_circle(center,24,Color(.22,.35,.27,.4) if underworld else Color(.3,.1,.5,.4))
+		for i: int in 4:draw_arc(center,12+i*10,age*7+i,age*7+i+PI*1.3,24,Color(.62,.71,.49,.7) if underworld else Color(.6,.5,1,.7),2,not underworld)
+		draw_arc(center,definition().attract_radius,0,TAU*progress,64,Color(.62,.71,.49,.2) if underworld else Color(.6,.55,1,.2),1,not underworld)
+		draw_line(center,center+direction*60,Color(1,.85,.45),2,not underworld)
 		draw_circle(center+direction*60,4,Color(1,.85,.45))
 	elif phase==&"fan_wait" and age>.13:
 		var center := to_local(actor().motor.global_position)
 		var progress := clampf((age-.13)/maxf(.01,definition().second_flash_delay-.13),0,1)
-		draw_arc(center,23,0,TAU*progress,32,Color(.45,.8,1,.6),1.5,true)
-		draw_line(center,center-direction*32,Color(.6,.85,1,.65),1,true)
+		draw_arc(center,23,0,TAU*progress,32,Color(.83,.72,.45,.6) if underworld else Color(.45,.8,1,.6),1.5,not underworld)
+		draw_line(center,center-direction*32,Color(.95,.86,.63,.65) if underworld else Color(.6,.85,1,.65),1,not underworld)
 	elif phase==&"charge":
-		draw_arc(to_local(actor().motor.global_position),25,0,TAU*minf(1,age/definition().skill_charge),32,Color(.3,.9,1),3,true)
+		draw_arc(to_local(actor().motor.global_position),25,0,TAU*minf(1,age/definition().skill_charge),32,Color("f3dda0") if underworld else Color(.3,.9,1),3,not underworld)
 
 func _draw_blast(fx: Dictionary, alpha: float) -> void:
+	var underworld := UnderworldProjectileVisual.enabled(self)
 	var center := to_local(fx.start)
 	var age_value: float=fx.age
 	var radius: float=fx.radius
@@ -411,7 +413,7 @@ func _draw_blast(fx: Dictionary, alpha: float) -> void:
 	for i: int in 18:
 		var unit := Vector2.from_angle(float(i)*TAU/18+.17*sin(float(i)))
 		var point := center+unit*radius*(.2+age_value*(1.1+.2*sin(float(i)*7)))+Vector2.DOWN*age_value*age_value*90
-		draw_line(point-unit*8*alpha,point,Color(1,.8,.3,alpha),1.5,true)
+		draw_line(point-unit*8*alpha,point,Color(1,.8,.3,alpha),1.5,not underworld)
 	if age_value>.08:
 		for i: int in 7:
 			var unit := Vector2.from_angle(float(i)*TAU/7)

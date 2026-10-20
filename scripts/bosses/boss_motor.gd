@@ -8,6 +8,7 @@ func configure(definition: BossDefinition) -> void:
 	var rectangle := RectangleShape2D.new()
 	rectangle.size = definition.collision_size
 	($CollisionShape2D as CollisionShape2D).shape = rectangle
+	($CollisionShape2D as CollisionShape2D).position = definition.collision_offset
 
 func step(direction: int, limit: float, delta: float) -> bool:
 	velocity = Vector2.ZERO
