@@ -1,3 +1,13 @@
+## 2026-10-20：PR96已合main，完整CI成功，菜单裁字续修
+
+实际main游戏源`9757ddf2ee20b5620c4a34ecc5d51186f018513b`（M），PR96已普通合并。Godot39405664436与Docs39405664424均SUCCESS；120核心fresh/0、Web41/0、森林当前v2原80/80（338.415s/600）、GPU/audio、Windows、Pages与公网前缀检查通过，Androidskipped。[M原件](evidence/main_pr96_repair01/main-M9757/README.md)单列来源。M两图连续影片24/29段与32原帧有限独审已完成。
+
+完整交付仍未通过：原三浏览器首action-budget95.12s/exit1，真实菜单将完整ACTIONS裁成ACTI；后两项未运行。公开build71e66c98bb16仅属M，未签完整公网PCK/森林20/8 GUI或用户设备。续修只让该按钮的完整文字决定侧栏宽度，原native三套（触屏44/0）36.71s通过；新Web/新源码完整CI及准确公开包仍待实际结果，原失败不改签。
+
+旧八房间专属30文件退休、55路径净减149325源码字节；正式两图、quick3、Lab/Foundry及旧存档保留。森林短跳连续死区、有根果实宿主及推荐/可选/恢复用途保持，只有两处消融确认的rest删除。任务继续review：全区构图、局部HUD遮挡、真人FUN/设备与用户最终认可未签。104远端分支86已被M包含，18为旧art/UI候选或部署快照，未批删或盲合。以下历史检查点保留原来源。
+
+---
+
 ## 2026-10-20：Q源码已闭合，完整新CI待实际执行
 
 最新代码源 `4be8eeb932d24866a49379f0d33f16f00125711d`（Q），生产与56份Foundry资源逐字节等于C2 `3affbc89011bce1ef206ce377f9ebdfc724880d4`。main仍为`dbc6ba081321637a3eef71979ecf2cf564eb6064`，PR96尚未合并，新Web尚未发布。[本轮追加原件](evidence/main_pr96_repair01/followup-H2-C2/README.md)保留实际HEAD/dirty源，不把旧K网页或H影片改签Q。

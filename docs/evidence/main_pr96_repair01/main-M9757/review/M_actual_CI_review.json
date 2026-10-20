@@ -1,0 +1,249 @@
+{
+  "decision": "SCOPED_ACCEPT",
+  "scope": "Actual main M core technical CI results; workflow deployment/public stage not signed",
+  "actual_source_commit": "9757ddf2ee20b5620c4a34ecc5d51186f018513b",
+  "API_snapshot": "build/forest_revision04/ci-main-M-9757ddf2/status-20261020T110038946Z.json",
+  "API_snapshot_sha256": "299933e63e30075401e10d6d53d0633782f85d84c3f1a2597e4483dec4987195",
+  "jobs_at_snapshot": [
+    {
+      "id": 118570849005,
+      "name": "docs",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 118570848748,
+      "name": "prepare",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 118573318684,
+      "name": "windows",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 118573318791,
+      "name": "core_checks (parallel)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 118573318800,
+      "name": "core_checks (serial)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 118573318926,
+      "name": "web",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 118589575806,
+      "name": "core",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 118591229003,
+      "name": "deploy_web",
+      "status": "in_progress",
+      "conclusion": null
+    },
+    {
+      "id": 118591229707,
+      "name": "android",
+      "status": "completed",
+      "conclusion": "skipped"
+    }
+  ],
+  "fresh_reports": [
+    {
+      "kind": "serial",
+      "actual_source_commit": "9757ddf2ee20b5620c4a34ecc5d51186f018513b",
+      "fresh_passes": 39,
+      "wall_seconds": 1825.201,
+      "report_path": "build/forest_revision04/ci-main-M-9757ddf2/artifact-serial/verification/harness/20261020T101901.759781Z/report.json",
+      "report_sha256": "ad75072745ee2d801f17887772c42c2c3071e321422181e2b126eb9958f643fb",
+      "source_guard": "before/after actual source inventory equal"
+    },
+    {
+      "kind": "parallel",
+      "actual_source_commit": "9757ddf2ee20b5620c4a34ecc5d51186f018513b",
+      "fresh_passes": 81,
+      "wall_seconds": 2198.949,
+      "report_path": "build/forest_revision04/ci-main-M-9757ddf2/artifact-parallel/verification/harness/20261020T101841.347336Z/report.json",
+      "report_sha256": "51e8c3d8ccc447614ece093a1dcd96fa4cd01536a8e046df4b8e2ff18ed727e4",
+      "source_guard": "before/after actual source inventory equal"
+    },
+    {
+      "kind": "web",
+      "actual_source_commit": "9757ddf2ee20b5620c4a34ecc5d51186f018513b",
+      "fresh_passes": 41,
+      "wall_seconds": 289.902,
+      "report_path": "build/forest_revision04/ci-main-M-9757ddf2/artifact-web/20261020T101833.483682Z/report.json",
+      "report_sha256": "c7bde57e09cc59f385f5e9f858d026aa0ccb4a37eeb0f78439e749aea8795088",
+      "source_guard": "actual cleanM report and original wrapper guards"
+    },
+    {
+      "kind": "merged",
+      "actual_source_commit": "9757ddf2ee20b5620c4a34ecc5d51186f018513b",
+      "fresh_passes": 120,
+      "wall_seconds": 13.68,
+      "report_path": "build/forest_revision04/ci-main-M-9757ddf2/artifact-merged/20261020T105939.416691Z/report.json",
+      "report_sha256": "87d051b9172cc392ee30c996570fd4eef8c6a3291e88842ea66caa05d4ea7bc5",
+      "source_guard": "before/after actual source inventory equal"
+    }
+  ],
+  "complete_fresh_selected_profiles": 120,
+  "merged_rows_exact_lane_union": true,
+  "current_v2_actual_matrix": {
+    "source_commit": "9757ddf2ee20b5620c4a34ecc5d51186f018513b",
+    "fixed_requested_cases": 80,
+    "actual_terminal_passes": 80,
+    "not_executed": [],
+    "workers": 2,
+    "source_stable": true,
+    "native_case_cap": 240,
+    "original_harness_cap": 600,
+    "actual_harness_seconds": 338.415,
+    "receipt_path": "build/forest_revision04/ci-main-M-9757ddf2/artifact-parallel/verification/harness/20261020T101841.347336Z/artifacts/forest-depth-region/build/forest_depth/region/harness-matrix/harness-ec9157ae78534e3bbf93d6f62d33b00d/receipt.json",
+    "receipt_sha256": "e159021fa32583854cd0e145ffb88212cccedcf5526cf6412ee47f3f92765d39",
+    "scope": "Light actual receipt/80percase exit/errors/declared rawSHA audit; not new bulk raw capture hash/frame validation."
+  },
+  "source_guards": "Actual M lane snapshots before/after agree, original merged guard passes; no H3/S execution source relabelled. Prior source reviews inherited only through byte-exact tree closure.",
+  "original_job_logs_SHA_checked": [
+    {
+      "log": "build/forest_revision04/ci-main-M-9757ddf2/core-118589575806.log",
+      "SHA256": "8b9b7d10a347854c4b8b7443722d4c8f47b0c93057d9c44020dcc09c18f2b564",
+      "bytes": 35655
+    },
+    {
+      "log": "build/forest_revision04/ci-main-M-9757ddf2/serial-118573318800.log",
+      "SHA256": "372b84f39b78dc35b346a1bf3721079db06007dd018619611f69ed879ccd11e1",
+      "bytes": 126481
+    },
+    {
+      "log": "build/forest_revision04/ci-main-M-9757ddf2/parallel-118573318791.log",
+      "SHA256": "9a9b94338ad07e2667723d757bfa14ccb84b7e88204df1334270031d9b91f0a7",
+      "bytes": 125884
+    },
+    {
+      "log": "build/forest_revision04/ci-main-M-9757ddf2/web-118573318926.log",
+      "SHA256": "676db786349ee743d0622742b805d08729081bf9e3523990fd47db7ebd88d999",
+      "bytes": 159660
+    },
+    {
+      "log": "build/forest_revision04/ci-main-M-9757ddf2/windows-118573318684.log",
+      "SHA256": "8c03dc8de8ba4de5f9957f441df10dacee11aea10a5d578380befc850d49c07e",
+      "bytes": 560891
+    },
+    {
+      "log": "build/forest_revision04/ci-main-M-9757ddf2/docs-118570849005.log",
+      "SHA256": "18a3ae7786312649131d8963774ec248acf0f91d4d7a8070f0da82293c547475",
+      "bytes": 101894
+    }
+  ],
+  "actual_GPU": "original7205/0 and GPU invariantsPASS",
+  "real_audio_processes": [
+    {
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--verbose",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/audio_lifecycle_runner.gd"
+      ],
+      "status": "passed",
+      "failure_kind": null,
+      "exit_code": 0,
+      "seconds": 0.41575794600021254,
+      "timing_scope": "native process including audio teardown; not device acceptance"
+    },
+    {
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--verbose",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/foundry_lab_runner.gd"
+      ],
+      "status": "passed",
+      "failure_kind": null,
+      "exit_code": 0,
+      "seconds": 6.53437839199978,
+      "timing_scope": "native process including audio teardown; not device acceptance"
+    },
+    {
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--verbose",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/foundry_touch_runner.gd"
+      ],
+      "status": "passed",
+      "failure_kind": null,
+      "exit_code": 0,
+      "seconds": 4.228144315999998,
+      "timing_scope": "native process including audio teardown; not device acceptance"
+    },
+    {
+      "command": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--verbose",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/foundry_feedback_runner.gd"
+      ],
+      "status": "passed",
+      "failure_kind": null,
+      "exit_code": 0,
+      "seconds": 3.7771106099999088,
+      "timing_scope": "native process including audio teardown; not device acceptance"
+    }
+  ],
+  "audio_listening_or_device_acceptance": false,
+  "damage_actual": {
+    "checks": 317,
+    "failures": 0,
+    "raw_path": "build/forest_revision04/ci-main-M-9757ddf2/artifact-web/20261020T101833.483682Z/artifacts/underworld-damage-feedback/build/underworld_r3/damage/runtime.json",
+    "raw_sha256": "ae443f9c865e47c7e7e67a270972067b432039c627812af6cba38bec1788e5a3",
+    "scope": "Original runtime317/0 proof only. Intermittent old failure retained; passive observer not declared causal production fix."
+  },
+  "Android": "skipped, not passed",
+  "pending_not_signed": [
+    "Full Godotcore workflow conclusion while deploy_web still inprogress at this snapshot",
+    "Public verify job, complete deployedPCK/license bytes and actualpublicGUI",
+    "ActualCI-artifact3 original browser consumers pending",
+    "Physicaldevices/audio listening/user/FUN/whole-forest aesthetics"
+  ],
+  "limitations": [
+    "Receipt/raw metadata and original job logs checked; did not bulk rehash every80 capture or rerun native.",
+    "OldT local80timeout stays failed; successfulM remote run does not rewrite it."
+  ],
+  "reviewer_activity": "Only light Git/JSON/job log reads and ignored reports. No browser/native/network/tracked writes."
+}

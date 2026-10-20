@@ -4,7 +4,7 @@
   "task_type": "region",
   "workflow": "review",
   "baseline_commit": "dbc6ba081321637a3eef71979ecf2cf564eb6064",
-  "reviewed_commit": "4be8eeb932d24866a49379f0d33f16f00125711d",
+  "reviewed_commit": "9757ddf2ee20b5620c4a34ecc5d51186f018513b",
   "content_version": "forest-fruit-routes-v14",
   "owner": "/root+forest_design_review",
   "purpose": "Resolve forest hook target clutter and replace supported targets with rooted fruits, classify real vs proposed paths and remove verified redundancy",
@@ -50,6 +50,7 @@
     "docs/evidence/main_pr96_repair01/followup-H2-C2/rooted-C1-W11/rooted-hit-C1-W11-selected.zip",
     "docs/evidence/main_pr96_repair01/followup-H2-C2/rooted-C1-W11/rooted-hit-index.json",
     "docs/evidence/main_pr96_repair01/followup-H2-C2/source-blobs.json",
+    "docs/evidence/main_pr96_repair01/main-M9757/",
     "docs/handoff.md",
     "docs/plains_playful_blueprints.md",
     "docs/tasks.md",
@@ -64,6 +65,7 @@
     "scripts/generation/thorn_forest_region_generator.gd",
     "scripts/generation/thorn_forest_region_v2_v14.gd",
     "scripts/generation/thorn_forest_region_v2_v14.gd.uid",
+    "scripts/ui/demo_menu.gd",
     "scripts/world/forest_fruit_anchor.gd",
     "scripts/world/forest_fruit_anchor.gd.uid",
     "scripts/world/forest_fruit_bough.gd",
@@ -160,9 +162,11 @@
       "evidence": []
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "failed",
+      "reason": "M core120/Web41/currentforest80/GPU/audio/Windows CI passed, but actual three-browser first original consumer failed on genuinely clipped ACTIONS label; two notrun. New UI-only width correction awaits exact-source Web/CI.",
+      "evidence": [
+        "M-CI-and-browser-failure"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
@@ -196,9 +200,9 @@
     },
     "independent_review": {
       "status": "passed",
-      "reason": "Scoped exact Q code closure and inherited C1/C2/T/Queen local proof review only; fresh fullCI/main/public/device/user remain separate.",
+      "reason": "Scoped actual M technical CI audit only; does not sign new width candidate, browser/public/fullforest/device or user acceptance.",
       "evidence": [
-        "Q-final-code-closure-review"
+        "M-actual-technical-CI-review"
       ]
     },
     "device": {
@@ -574,13 +578,48 @@
       "independent": true,
       "independence_basis": "Read-only reviewer wrote new ignored audit reports and did not implement reviewed source or alter raw receipts.",
       "verdict": "ACCEPT"
+    },
+    {
+      "id": "M-CI-and-browser-failure",
+      "path": "docs/evidence/main_pr96_repair01/main-M9757/CI-M/Main-M9757ddf2-CI-and-first-browser-failure-selected.zip",
+      "sha256": "ee65099b9b5de8004b686455aa752080f1a0a7f2bba98fad6b4526751010f786",
+      "kind": "command",
+      "producer": "GitHub Actions",
+      "source_commit": "9757ddf2ee20b5620c4a34ecc5d51186f018513b",
+      "content_version": "forest-fruit-routes-v14",
+      "method": "Original exact-source receipts, raw reports and actual screenshot; no changed original checks.",
+      "observed": "Actual M sources retained; new UI candidate remains unverified.",
+      "command": "tools/verify_ci_artifact_browser.py against actual CI API-bound ZIP: first action-budget original CLI",
+      "exit_code": 1,
+      "environment": "Linux Chromium actual source M, original timeout300 per consumer; actual first95.12s/exit1, two notrun"
+    },
+    {
+      "id": "M-actual-technical-CI-review",
+      "path": "docs/evidence/main_pr96_repair01/main-M9757/review/M_actual_CI_review.json",
+      "sha256": "09955040daec08796759a224055b0481e65fadb8970ee7e306e96cef171bd5c0",
+      "kind": "review",
+      "producer": "/root/independent_review",
+      "source_commit": "9757ddf2ee20b5620c4a34ecc5d51186f018513b",
+      "content_version": "forest-fruit-routes-v14",
+      "method": "Original exact-source receipts, raw reports and actual screenshot; no changed original checks.",
+      "observed": "Actual M sources retained; new UI candidate remains unverified.",
+      "reviewer": "/root/independent_review",
+      "implementers": [
+        "/root",
+        "/root/forest_design_review",
+        "/root/legacy_room_cleanup",
+        "/root/ci_diagnosis"
+      ],
+      "independent": true,
+      "independence_basis": "Read-only independent reviewer did not implement reviewed runtime/tests and wrote separate ignored audits.",
+      "verdict": "ACCEPT"
     }
   ],
   "consumer_coverage": null,
   "unverified_items": [
-    "Fresh final exact-head full CI, normal main merge and accurate public Web/GUI remain pending actual terminal results",
+    "Action-menu intrinsic label width followup awaits fresh exact-source Web original3 consumers/fullCI and accurate public fullPCK/forestGUI; actual M firstbrowser failure is retained",
     "Physical device, player FUN, whole-forest composition and final user visual acceptance remain unverified",
-    "Runtime hosts resolve frozen pending annotations only in the actual sampled20 Apps; Queen return HUD overlap/cropped Boss framing remains a local limitation"
+    "Runtime hosts resolve frozen pending annotations only in sampled20 Apps; Queen return HUD overlap/cropped Boss framing remains a local limitation"
   ],
   "test_change_justification": "HomeUI retains all original 27 business assertions but obtains real shared Home/Menu through DemoApp TITLE to HOME; a 28th WeakRef assertion proves owner release. Audio teardown observes actual shared service release. The old arbitrary standalone assembly script-cache leak is retained as failed and not claimed repaired. Formal terrain now actually selects region_map_index=2 and asserts scene map identity; after the real Boss callback it waits up to eight process frames for the actual geometry_changed observer and requires exactly one event. Original four geometry outcomes remain. V14 reader adds an explicit presentation contract and layout identity; schema6 removes only its two new cases before invoking the unmodified complete schema5 historical reader on the remaining 22 cases. V13 pinned output remains exact; new public-default identity is independently literal. Grove combat detects a real low raised departure enemy, walks backward 32wu via the real Router to a full same-bank firing envelope, aims at actual upper body, consumes real shots and terminal damage, and returns to the prior route origin. No teleport, enemy/resource/health edits, assertion removal, budget relaxation or death/epoch bypass is introduced. Crown combat and existing route helpers only add the explicit v14 accepted layout. Original fixed80 schedule and per-native 240s policy remain. Generated-consumers retains all prior suites and adds real Menu settings/audio and Avatar ownership consumers; Harness adds uncached camera/hazard/fruit checks without dropping prior IDs. New fruit ablation runner makes one explicit test-only target removal before route tick zero and reuses the strict route validator; it does not mutate the production Manifest. The old failed baseline and single-target controls remain. W3 updates three literal fresh-default expectations and both aim entry defaults to v14, appends v14 to exact canopy/Boss and GUI CLI whitelists, retaining every explicit historical pin and exact negative rejection. The v13/v14 canopy R-H-R driver waits on actual supported bank while a real moving NPC clears the next hook flight corridor; original phase400/edge1800/native240 and fixed80 requests remain. No NPC, player position, health, resource, collision, eligibility, phase clock or accepted contact identity is changed. Original map2 high-return failures and identical pinned-v13 control remain evidence. W5 Grove driver: the actual spider line is tested against the takeoff-to-landing player sweep before starting, actual projectile-radius circle visibility chooses an upper-body aim through static geometry, and actual floor bounds contain the complete firing recoil interval. Real Router walking, shot/contact/terminal damage, original threat scheduling, exact return and full-foot support remain mandatory. No enemy/health/resource/position/physics edits or budget increases. The four old failures and final five27-leg controls are preserved; original80 is not yet passed. W7 preserves original scene route branches/frame caps and adds real upward guard combat with projectile-radius LOS/full directional recoil, no enemy/HP/resources edits. The historical Plains reader admits only current tuples or exact old Bellstrider1/Windkeeper4 tuples for the three supported region versions, after all original canonical/config/map checks; actual old-main producer fixtures and refusal controls retained. AIM original176 assertions/8 cases retain sequence and semantics, split into actual data56/world120 native consumers with the original shared120-second total, import90, unchanged strict run_engine and fail-closed fresh UUID/PID/SHA/raw/case validation; actual complete failure probe and17artifact refusals preserved. Old mixed-compiler-graph leaks and withdrawn geometry/class/order hypotheses remain failures, not claimed repaired. W8 hosts are presentation-only, original20 Manifest bytes/target physics preserved; root_hint adds one visible-window fixture without reducing original three-window groups. W9 original36/18 validation and54replay56113frames equal except exact provenance pointers. F2: Population retains original20 cases/21167 business checks and exact rows;20 actual owned-audio drain guards and a real borrowed-playback timeout refusal are added, original4-frame tail and240/150 caps retained. RootBell retains all original165 native assertions/40-map audit/41content/9receipt refusals; current captures must record actual committed-hit stun and actual config sources, with exact-zero release,14 extra content/2 receipt refusals. Original explicit historical archived no-stun reader keeps strict1/60; no automatic current downgrade, production knockback or budgets changed. Font change is the existing packaged leaf theme, no new asset or mechanics. H2 followup: production RootBell stays rooted only during actual accepted-hit stun; ordinary enemy knockback unchanged, actual damage317 and rooted/ecology consumers passed. W11 regenerates original36/18 and54 replays with56113 typed frames equal except exact provenance. Version original327 assertions/24cases partition into fresh data280/world47 engines under unchanged shared90/import90/manifest210; typed full original equality, real failure-probe and45 artifact refusals retain strict nonzero. Harness cache uses Linux per-execution full stat inventory and stable file identity, with independent complete byte guards at execution/phase end; all original tests preserved plus12 FS mutations (77total), no persistent digest/schema/cap/workflow change. Damage ownership retains original317 assertions and exact frame awaits; only passive actual shot/muzzle/clock observations, no claimed intermittent bug fix. Queen runner retains all original30 static check calls and23/15/100/160 subcaps, actual v7/schema13/24HP, real inputs/resources and original native180/import90; observes actual hurt/jump and complete supported bank, retries alive recovery within original4200 recorded driver-tick deadline; actual30 executed checks and reload/reward/boundary passed. No production/shared fixture edits for Queen, no disabled threats, movement/HP injection, assertion/case removal or budget increase. T80 timeout and rejected render flag remain failed/DROP."
 }

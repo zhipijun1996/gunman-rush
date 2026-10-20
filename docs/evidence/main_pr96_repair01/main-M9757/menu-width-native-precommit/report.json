@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "started_at": "20261020T111047.277447Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "parallel-region-presentation",
+      "argv": [
+        "python3",
+        "tools/run_parallel_region_presentation_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "input_digest": "6825c0de1055854a5f9829f7d63d94cd76aa8f0dd3a89dae3b0b761645859a73",
+      "log": "parallel-region-presentation.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792494662.3075576,
+      "ended_at_unix": 1792494699.0180104,
+      "duration_seconds": 36.71,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_parallel_region_presentation_tests.py"
+      ],
+      "check_token": "92934ac8d46e48fb93b04d43a315f40e",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261020T111047.277447Z/artifacts/parallel-region-presentation",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "54743d6156db576ee4251f27ea0e9353a0e5828429bcf383146a4ef9f9764514",
+  "working_files": {
+    "scripts/ui/demo_menu.gd": "084e838415853a976e3b7354ddfb050d96294a333e5d0a6260086bbd5c3d766e"
+  },
+  "commit": "9757ddf2ee20b5620c4a34ecc5d51186f018513b",
+  "git_status": "M scripts/ui/demo_menu.gd",
+  "diff": "diff --git a/scripts/ui/demo_menu.gd b/scripts/ui/demo_menu.gd\nindex 067c8052..a0383324 100644\n--- a/scripts/ui/demo_menu.gd\n+++ b/scripts/ui/demo_menu.gd\n@@ -193,6 +193,8 @@ func show_home(summary: String = \"\") -> void:\n \tvar action_button := _button(rail,\"动作练习 / ACTIONS\",func() -> void:\n \t\t_hide()\n \t\trequested_actions.emit())\n+\t# Let the bilingual entry determine the rail width instead of clipping its label.\n+\taction_button.clip_text = false\n \tfor style: String in [\"normal\",\"hover\",\"pressed\",\"focus\"]:\n \t\taction_button.add_theme_stylebox_override(style,_box(CARD,TEAL,4))\n \t_button(rail, \"HOME\", func() -> void:",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 60.084,
+  "jobs": 1,
+  "release": false
+}
