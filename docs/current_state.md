@@ -1,3 +1,7 @@
+## 2026-10-20：动作25项通过，手机菜单像素相位续修
+
+T真实复测首原消费者25/25通过163.120s；第二项desktop15与touch1..9各真实count1，touch10选择前popup解析失败229.859s，第三项未运行；全包与源码两端稳定。首次加载超时和环境probe截图失败同样保留。真实9×10圈的对称轴偏半像素，最小像素测量续修35/35通过、原30方法与6CLI保持，新live待验。[完整证据](evidence/main_pr96_repair01/popup-phase-followup/README.md)。附加clock r2因普通短跳已落地而无实体，三判据未运行，不能算负例通过；r3只修该附加准备。最终新main CI/原三/公网完整SHA仍待实际结果。
+
 ## 2026-10-20：手机弹窗实际标记续修
 
 S原三首158.797s/exit1（outer160.257），双端source/bundle稳，desktop/mobile真实菜单导航已PASS，手机weapon11前popup0候选；0mobile业务，桌面无final ledger不签通过。新纯像素定位候选30/30、41.039s，保原25方法及6CLI，仍须实见完整唯一15项。附加clock r1仅正例2.7906s/True；两负例H准备失败未进判据，不算False/PASS。r2将用真实普通jump隔离观测目标，原三消费者H序列不动。原件见[手机弹窗续修](evidence/main_pr96_repair01/mobile-popup-followup/README.md)，最终新mainCI/原3/公开完整包仍待实际结果。

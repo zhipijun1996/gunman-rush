@@ -368,7 +368,16 @@ def _weapon_popup_from_pixels(image,scale,start_y):
     cx,cy=origin[0]+l+mw//2,origin[1]+t+mh//2
     center=int(np.sum(rgb[cy,cx]))
     if not all(int(np.sum(rgb[origin[1]+t+y,origin[0]+l+x]))>center for x,y in ((mw//2,0),(mw//2,mh-1),(0,mh//2),(mw-1,mh//2))):continue
-   if not(.65<=density and np.mean(silhouette==silhouette[:,::-1])>=.9 and np.mean(silhouette==silhouette[::-1,:])>=.9):continue
+   # Fractional rasterization can place the circle's reflection center half a
+   # pixel from its bounding-box center. Compare actual pixels at the original
+   # center and each adjacent half-pixel center; discard at most one outer row
+   # or column for this symmetry measurement only. The complete component,
+   # density, empty corners and full cardinal cross remain required below.
+   def reflected(axis):
+    views=(silhouette,)+tuple(np.take(silhouette,range(start,end),axis=axis)
+                             for start,end in ((0,silhouette.shape[axis]-1),(1,silhouette.shape[axis])))
+    return max(np.mean(view==np.flip(view,axis=axis))for view in views)
+   if not(.65<=density and reflected(1)>=.9 and reflected(0)>=.9):continue
    if any(silhouette[y,x]for x,y in ((0,0),(mw-1,0),(0,mh-1),(mw-1,mh-1))):continue
    if not(silhouette[mh//2,:].all() and silhouette[:,mw//2].all()):continue
    yield (origin[0]+l,origin[1]+t,origin[0]+r,origin[1]+b)

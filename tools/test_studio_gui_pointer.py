@@ -458,5 +458,87 @@ class MobilePopupTests(unittest.TestCase):
                     self.parse(image)
 
 
+class MobilePopupPhaseTests(unittest.TestCase):
+    # Actual rectangles from original T click-consumer failure PNG. The second
+    # unselected circle has a fractional reflection center, not a missing row.
+    BOXES = [(104, 129, 113, 138), (104, 144, 113, 154),
+             (104, 160, 113, 170), (104, 176, 113, 186),
+             (104, 192, 113, 201), (104, 207, 113, 217),
+             (104, 223, 113, 233), (104, 239, 113, 248),
+             (104, 254, 113, 264), (104, 270, 113, 280),
+             (104, 286, 113, 295), (104, 302, 113, 311),
+             (104, 317, 113, 327), (104, 333, 113, 343),
+             (104, 349, 113, 358)]
+
+    def image(self):
+        return Image.open(FIXTURES / 'popup_T_mobile_selected9.png').convert('RGB')
+
+    def parse(self, image):
+        return helper._weapon_popup_from_pixels(image, 390 / 720, 106)
+
+    def erase(self, image, box):
+        MobilePopupTests.erase(self, image, box)
+
+    def test_actual_T_half_pixel_circle_and_fifteen_complete_observed_boxes(self):
+        import numpy as np
+        image = self.image()
+        silhouette = np.any(np.asarray(image.crop(self.BOXES[1])) !=
+                            np.asarray(image.crop((113, 144, 114, 154))), axis=2)
+        self.assertEqual(int(silhouette.sum()), 80)
+        self.assertLess(np.mean(silhouette == silhouette[::-1]), .9)
+        self.assertEqual(np.mean(silhouette[1:] == silhouette[:0:-1]), 1)
+        popup = self.parse(image)
+        self.assertEqual(popup['marker_boxes'], self.BOXES)
+        self.assertEqual(popup['bounds'], (96, 119, 230, 369))
+        self.assertEqual(popup['marker_x'], 108)
+        self.assertEqual(popup['rows'], [133, 148.5, 164.5, 180.5, 196,
+                         211.5, 227.5, 243, 258.5, 274.5, 290, 306,
+                         321.5, 337.5, 353])
+
+    def test_same_complete_popup_translated_uses_observed_component_bounds(self):
+        image = self.image()
+        control = Image.new('RGB', image.size, (0, 0, 0))
+        control.paste(image.crop((90, 115, 235, 374)), (360, 84))
+        popup = self.parse(control)
+        self.assertEqual(popup['marker_boxes'],
+                         [(l + 270, t - 31, r + 270, b - 31)
+                          for l, t, r, b in self.BOXES])
+        self.assertEqual(popup['marker_x'], 378)
+
+    def test_missing_phase_shifted_selected_middle_or_all_circles_still_rejected(self):
+        for name, boxes in [('phase_shifted', self.BOXES[1:2]),
+                            ('selected', self.BOXES[9:10]),
+                            ('middle', self.BOXES[7:8]), ('all', self.BOXES)]:
+            with self.subTest(control=name):
+                image = self.image()
+                for box in boxes:
+                    self.erase(image, box)
+                with self.assertRaisesRegex(AssertionError, '0 complete popup/column'):
+                    self.parse(image)
+
+    def test_two_pixel_asymmetry_rejected_with_full_bounds_corners_and_cross(self):
+        import numpy as np
+        image = self.image()
+        for y in range(146, 149):
+            ImageDraw.Draw(image).line((111, y, 112, y),
+                                      fill=image.getpixel((113, y)))
+        silhouette = np.any(np.asarray(image.crop(self.BOXES[1])) !=
+                            np.asarray(image.crop((113, 144, 114, 154))), axis=2)
+        self.assertEqual(silhouette.shape, (10, 9))
+        self.assertTrue(silhouette[5, :].all() and silhouette[:, 4].all())
+        self.assertFalse(silhouette[0, 0] or silhouette[0, -1] or
+                         silhouette[-1, 0] or silhouette[-1, -1])
+        self.assertTrue(silhouette[0].any() and silhouette[-1].any() and
+                        silhouette[:, 0].any() and silhouette[:, -1].any())
+        with self.assertRaisesRegex(AssertionError, '0 complete popup/column'):
+            self.parse(image)
+
+    def test_T_duplicate_complete_panel_stays_ambiguous(self):
+        image = self.image()
+        image.paste(image.crop((94, 117, 232, 371)), (340, 117))
+        with self.assertRaisesRegex(AssertionError, '2 complete popup/column'):
+            self.parse(image)
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)
