@@ -156,6 +156,61 @@ def _studio_actions_from_pixels(pixels,folder,stem,observation):
  assert len(matches)==1,f"Expected one complete rendered menu label 'ACTIONS'; found {len(matches)} complete button matches"
  return next(iter(matches.values()))
 
+def _studio_title_from_pixels(pixels,folder,stem,observation,whole_tsv):
+ """Full-frame title first; only missing text permits same-frame complete ROIs."""
+ label='DEVELOPMENT DEMOS / ALL ENTRIES'
+ try:return _studio_label_box(whole_tsv,label,3)
+ except StudioMenuLabelMissing:observation['whole_frame_title']='missing'
+ import numpy as np
+ import os,subprocess,time
+ image=Image.open(io.BytesIO(pixels)).convert('RGB');started=time.monotonic()
+ rgb=np.asarray(image,dtype=np.uint32);packed=(rgb[:,:,0]<<16)|(rgb[:,:,1]<<8)|rgb[:,:,2]
+ def run_colors(lines,minimum):
+  colors=set()
+  for line in lines:
+   starts=np.r_[0,np.flatnonzero(line[1:]!=line[:-1])+1]
+   ends=np.r_[starts[1:],line.size]
+   colors.update(line[starts[(ends-starts)>=minimum]].tolist())
+  return colors
+ boxes=set()
+ for color in run_colors(packed,80)&run_colors(packed.T,20):
+  remaining={(int(x),int(y))for y,x in np.argwhere(packed==color)}
+  while remaining:
+   seed=remaining.pop();pending=[seed];points=[]
+   while pending:
+    x,y=pending.pop();points.append((x,y))
+    for point in ((x-1,y),(x+1,y),(x,y-1),(x,y+1)):
+     if point in remaining:remaining.remove(point);pending.append(point)
+   xs,ys=zip(*points);left,top,right,bottom=min(xs),min(ys),max(xs)+1,max(ys)+1
+   w,h=right-left,bottom-top
+   if not(80<=w<=image.width*.9 and 20<=h<=image.height*.15 and 2<=w/h<=24 and len(points)/(w*h)>.6):continue
+   if left<1 or top<1 or right>=image.width or bottom>=image.height:continue
+   # Fractional rasterization can omit a colored outline pixel on one side.
+   # Require all FOUR actual straight fill boundaries instead: central inner
+   # edges are the observed fill, immediately outer edges must not be that fill.
+   xs=slice(left+w//4,right-w//4);ys=slice(top+h//4,bottom-h//4)
+   inside=[packed[top,xs],packed[bottom-1,xs],packed[ys,left],packed[ys,right-1]]
+   outside=[packed[top-1,xs],packed[bottom,xs],packed[ys,left-1],packed[ys,right]]
+   if all(np.mean(edge==color)>=.8 for edge in inside) and all(np.mean(edge!=color)>=.8 for edge in outside):boxes.add((left,top,right,bottom))
+ observation['title_geometry_seconds']=time.monotonic()-started
+ observation['title_button_rois']=[];matches={}
+ for index,box in enumerate(sorted(boxes)):
+  name=f'{stem}-title-button-{index}';roi=image.crop(box).convert('L')
+  # Nearest copies the actual small glyph pixels; it neither reconstructs
+  # missing letters nor blurs the tiny native gaps into different letters.
+  roi=roi.resize((roi.width*6,roi.height*6),Image.Resampling.NEAREST)
+  path=folder/(name+'.png');roi.save(path);started=time.monotonic()
+  result=subprocess.run(['tesseract',str(path),'stdout','--psm','7','tsv'],capture_output=True,text=True,check=True,timeout=10,env={**os.environ,'OMP_THREAD_LIMIT':'1'})
+  (folder/(name+'.tsv')).write_text(result.stdout)
+  item={'bounds':box,'screenshot':name+'.png','ocr':name+'.tsv','seconds':time.monotonic()-started};observation['title_button_rois'].append(item)
+  try:local=_studio_label_box(result.stdout,label,6)
+  except StudioMenuLabelMissing as exc:item.update(result='missing',error=str(exc));continue
+  point=(local[0]+box[0],local[1]+box[1]);item.update(result='complete_label',actual_glyph_center=point)
+  matches[point]=point
+ if not matches:raise StudioMenuLabelMissing(f'Expected one complete rendered menu label {label!r}; found 0 complete button matches')
+ assert len(matches)==1,f'Expected one complete rendered menu label {label!r}; found {len(matches)} complete button matches'
+ return next(iter(matches.values()))
+
 async def enter_action_studio(page,touch=False,between_clicks_ms=300):
  """Navigate visible menus with actual pointer input; require a fresh Studio event.
 
@@ -209,7 +264,7 @@ async def enter_action_studio(page,touch=False,between_clicks_ms=300):
      result=subprocess.run(['tesseract','stdin','stdout','--psm','11','tsv'],input=data.getvalue(),capture_output=True,check=True,timeout=10,env={**os.environ,'OMP_THREAD_LIMIT':'1'})
      tsv=result.stdout.decode();(folder/(stem+'.tsv')).write_text(tsv)
      observation['ocr']=stem+'.tsv'
-     point=_studio_label_box(tsv,label,3)
+     point=_studio_title_from_pixels(pixels,folder,stem,observation,tsv) if label=='DEVELOPMENT DEMOS / ALL ENTRIES' else _studio_label_box(tsv,label,3)
    except StudioMenuLabelMissing as exc:
     observation['result']='missing';observation['error']=str(exc)
     if attempt==4:raise

@@ -1,4 +1,6 @@
-## 2026-10-20：入口真实通过，武器弹窗定位续修
+## 2026-10-20：移动标题完整标签识别续修
+
+P09f0原导出27.195s/0，源码前后干净；首action-budget201.741s/exit1/outer203.354，原300秒预算、源码与bundle双端稳定。真实桌面导航通过并有5操作PNG，但无最终业务ledger，不签桌面断言/15武器全通过；首次mobile844×390标题OCR漏掉完整可见英文按钮，尚未进入移动练习，后两消费者未执行。原图/5TSV/trace及独立边界审查见[原件](evidence/main_pr96_repair01/menu-title-followup/README.md)。完整按钮区域识别续修在验收，最终源码原三浏览器/mainCI/公开完整SHA仍待实际结果。
 
 W5a4d本地原导出26.065s/0，完整source前后干净；原浏览器桌面ACTIONS真实导航通过。首action-budget随后在第一个weapon选择前因旧固定列/近灰像素契约失败57.607s/exit1，0业务断言完成、后两/mobile未执行；source/PCK双端稳定。原图完整15条绿色菜单，现按真实完整popup/radio发现唯一15行，原CLI/预算/间距/完整性保留，15纯测试通过但尚非live点击证据。详见[原件](evidence/main_pr96_repair01/menu-popup-followup/README.md)。新源码原三浏览器/最终mainCI/公开完整SHA待实际结果；M发布与旧失败不改签。
 

@@ -7,6 +7,8 @@ import asyncio
 import hashlib
 import io
 import json
+import os
+import subprocess
 from collections import Counter
 from pathlib import Path
 import tempfile
@@ -205,6 +207,88 @@ class WeaponPopupTests(unittest.TestCase):
         image.paste(icon, (53, 420))
         with self.assertRaisesRegex(AssertionError, 'not uniquely observed'):
             self.parse(image)
+
+
+class MobileTitleTests(unittest.TestCase):
+    def image(self):
+        return Image.open(FIXTURES / 'title_P_mobile.png').convert('RGB')
+
+    def locate(self, image, whole_tsv=''):
+        pixels = io.BytesIO()
+        image.save(pixels, format='PNG')
+        observation = {}
+        with tempfile.TemporaryDirectory() as directory:
+            point = helper._studio_title_from_pixels(
+                pixels.getvalue(), Path(directory), 'title', observation, whole_tsv)
+        return point, observation
+
+    def test_actual_mobile_wholeframe_missing_same_frame_roi_full_title(self):
+        image = self.image()
+        # Replay the unchanged original whole-frame OCR, not a synthesized miss.
+        full = image.convert('L').resize((image.width * 3, image.height * 3))
+        data = io.BytesIO()
+        full.save(data, format='PNG')
+        result = subprocess.run(
+            ['tesseract', 'stdin', 'stdout', '--psm', '11', 'tsv'],
+            input=data.getvalue(), capture_output=True, check=True, timeout=10,
+            env={**os.environ, 'OMP_THREAD_LIMIT': '1'})
+        tsv = result.stdout.decode()
+        with self.assertRaises(helper.StudioMenuLabelMissing):
+            helper._studio_label_box(tsv, 'DEVELOPMENT DEMOS / ALL ENTRIES', 3)
+        point, observation = self.locate(image, tsv)
+        self.assertEqual(point, (509.5, 262.0))
+        matches = [row for row in observation['title_button_rois']
+                   if row['result'] == 'complete_label']
+        self.assertEqual(len(matches), 1)
+        self.assertEqual(matches[0]['bounds'], (430, 250, 631, 274))
+        self.assertEqual(observation['whole_frame_title'], 'missing')
+
+    def test_fullframe_ambiguity_rejects_before_any_roi_inspection(self):
+        rows = ExactLabelTests().tsv(['DEVELOPMENT DEMOS / ALL ENTRIES'] * 2)
+        with tempfile.TemporaryDirectory() as directory:
+            # Invalid image would fail differently if ambiguity attempted ROI.
+            with self.assertRaisesRegex(AssertionError, 'found 2'):
+                helper._studio_title_from_pixels(
+                    b'not an image', Path(directory), 'title', {}, rows)
+
+    def test_each_missing_fill_boundary_rejected_with_all_title_glyphs_retained(self):
+        for edge, notch in {
+                'left': (430, 258, 433, 265),
+                'right': (627, 258, 630, 265),
+                'top': (500, 250, 560, 252),
+                'bottom': (500, 271, 560, 273)}.items():
+            with self.subTest(edge=edge):
+                image = self.image()
+                # Notches avoid actual text (x437..582/y259..264). All words
+                # remain visible; a missing straight boundary still forbids ROI.
+                ImageDraw.Draw(image).rectangle(notch,
+                                               fill=image.getpixel((631, 262)))
+                with self.assertRaises(helper.StudioMenuLabelMissing):
+                    self.locate(image)
+
+    def test_image_clipped_through_title_button_rejected(self):
+        with self.assertRaises(helper.StudioMenuLabelMissing):
+            self.locate(self.image().crop((0, 0, 565, 390)))
+
+    def test_two_complete_real_mobile_title_buttons_rejected(self):
+        image = self.image()
+        image.paste(image.crop((429, 249, 632, 275)), (429, 310))
+        with self.assertRaisesRegex(AssertionError, 'found 2 complete button matches'):
+            self.locate(image)
+
+    def test_partial_phrase_and_full_phrase_with_real_glyph_suffix_rejected(self):
+        image = self.image()
+        partial = image.copy()
+        ImageDraw.Draw(partial).rectangle((550, 258, 583, 266),
+                                         fill=image.getpixel((440, 255)))
+        suffix = image.copy()
+        # Copy the actual ALL word into the same visible line after ENTRIES;
+        # OCR must reject the resulting complete phrase plus extra word.
+        suffix.paste(image.crop((534, 259, 548, 265)), (591, 259))
+        for name, control in [('partial', partial), ('extra_ALL', suffix)]:
+            with self.subTest(control=name):
+                with self.assertRaises(helper.StudioMenuLabelMissing):
+                    self.locate(control)
 
 
 if __name__ == '__main__':
