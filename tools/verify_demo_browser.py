@@ -1,4 +1,5 @@
-"""Optional real Web renderer smoke: needs Playwright, Pillow and Chromium.
+"""Historical quick-demo Web fixture: needs Playwright, Pillow and Chromium.
+Current connected-region GUI checks use verify_plains_region_browser.py.
 Run from the repository root: python3 tools/verify_demo_browser.py URL
 The default URL starts a temporary local build/web server. Mobile emulation
 is deliberately reported separately from real Android/iPhone validation.
@@ -75,21 +76,12 @@ async def main():
   if focus.getpixel((20,300))[0]-start.getpixel((20,300))[0]<30 or focus.getpixel((640,300))!=start.getpixel((640,300)):raise RuntimeError('Focus edge/transparent center regressed')
   if max(abs(a-b) for a,b in zip(start.getpixel((20,300)),shot.getpixel((20,300))))>3:raise RuntimeError('Focus did not stop')
   if home.getpixel((100,82))[0]>180:raise RuntimeError('Run did not return Home and remove HP HUD')
-  await page.touchscreen.tap(735,337)
-  await page.wait_for_timeout(500)
-  await page.screenshot(path=str(folder/'ten-stage.png'))
-  await page.touchscreen.tap(1220,35)
-  await page.wait_for_timeout(100)
-  await page.touchscreen.tap(640,445)
-  await page.wait_for_timeout(100)
-  await page.touchscreen.tap(640,265)
-  await page.wait_for_timeout(200)
   small=await browser.new_page(viewport={'width':960,'height':540},is_mobile=True,has_touch=True)
   await small.goto(sys.argv[1],wait_until='networkidle',timeout=45000)
   await small.wait_for_timeout(700)
   await small.screenshot(path=str(folder/'home-960.png'))
   await small.close()
-  report={'checks':['home start','touch movement','air focus yellow edge and clear center','physical release shots defeat drone','pause settings and Escape back','confirm keep playing then leave returns Home','ten-room entry','960x540 menu render'], 'url':page.url,'build_id':await page.locator('#playtest-version').get_attribute('data-build-id'),'packs':packs,'logs':logs,'browser':'Chromium mobile touch emulation','real_device':'unverified'}
+  report={'checks':['home start','touch movement','air focus yellow edge and clear center','physical release shots defeat drone','pause settings and Escape back','confirm keep playing then leave returns Home','960x540 menu render'], 'url':page.url,'build_id':await page.locator('#playtest-version').get_attribute('data-build-id'),'packs':packs,'logs':logs,'browser':'Chromium mobile touch emulation','real_device':'unverified'}
   if any('SCRIPT ERROR:' in x or 'PAGE ERROR:' in x or 'Parse Error:' in x for x in logs):raise RuntimeError(str(logs))
   (folder/'browser-report.json').write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(report))
   await browser.close()

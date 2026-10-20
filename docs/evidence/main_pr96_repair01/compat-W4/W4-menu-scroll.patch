@@ -1,0 +1,61 @@
+diff --git a/tests/menu_scroll_touch_tests.gd b/tests/menu_scroll_touch_tests.gd
+index 515e000f..6a7c4ea7 100644
+--- a/tests/menu_scroll_touch_tests.gd
++++ b/tests/menu_scroll_touch_tests.gd
+@@ -4,6 +4,7 @@ extends SceneTree
+ var checks := 0
+ var failures := 0
+ var accepted := 0
++var app: DemoApp
+ var menu: DemoMenu
+ var spawn_consumer := false
+ var player: PlayerMotor
+@@ -56,7 +57,7 @@ func actions_accepted() -> void:
+ 	accepted += 1
+ 	if not spawn_consumer: return
+ 	player = load("res://scenes/player/player.tscn").instantiate() as PlayerMotor
+-	root.add_child(player)
++	app.add_child(player)
+ 	controller = player.get_node("Controller") as PlayerController
+ 	controller.traversal.grant(&"grapple")
+ 	overlay = InputSetup.attach(player,controller.router)
+@@ -77,8 +78,14 @@ func run() -> void:
+ 	canceled.pressed = false
+ 	canceled.canceled = true
+ 	check(not canceled.is_pressed() and not canceled.is_released(),"actual native canceled mouse is neither press nor release")
+-	menu = DemoMenu.new()
+-	root.add_child(menu)
++	app = preload("res://scenes/demo/demo.tscn").instantiate() as DemoApp
++	app.meta_persistence_enabled = false
++	root.add_child(app)
++	menu = app.menu
++	# The real App owns the shared menu and its resource graph. This GUI
++	# fixture replaces only ACTIONS navigation with its original real-player
++	# callback so every touch-routing assertion below retains its meaning.
++	menu.requested_actions.disconnect(app._open_action_studio)
+ 	menu.requested_actions.connect(actions_accepted)
+ 	var point: Vector2 = await open_menu()
+ 	check(is_instance_valid(menu._scroll_touch) and menu._scroll_touch.scroll is ScrollContainer,"actual DemoMenu installs adapter on real ScrollContainer")
+@@ -178,10 +185,20 @@ func run() -> void:
+ 	check(controller.router.sequence == sequence_before and controller.router._queue.is_empty(),"old extra finger produces zero actual router action intents after menu changes")
+ 	check(controller.router.axis == 0.0 and controller.router.look_axis == 0.0 and not controller.router.aim_engaged and overlay._captures.is_empty(),"old extra finger leaves actual movement/aim/capture state neutral")
+ 	check(shots == 0 and traversal_actions == 0,"real player accepts neither projectile nor H action from trailing menu finger")
++	var player_ref: WeakRef = weakref(player)
++	var controller_ref: WeakRef = weakref(controller)
++	var overlay_ref: WeakRef = weakref(overlay)
+ 	player.queue_free()
+ 	await frame()
+ 	check(not Input.emulate_mouse_from_touch and not Input.emulate_touch_from_mouse,"extended actual consumers preserve global settings")
+-	menu.queue_free()
+-	await frame()
++	if not await load("res://tests/audio_teardown.gd").drain_world(app):
++		check(false,"actual App audio releases before GUI fixture exit")
++	var app_ref: WeakRef = weakref(app)
++	var menu_ref: WeakRef = weakref(menu)
++	app.queue_free()
++	for attempt: int in 8:
++		if app_ref.get_ref() == null:break
++		await process_frame
++	check(app_ref.get_ref() == null and menu_ref.get_ref() == null and player_ref.get_ref() == null and controller_ref.get_ref() == null and overlay_ref.get_ref() == null,"actual App releases its menu and the callback gameplay owners")
+ 	print("MENU SCROLL TOUCH: %s checks / %s failures; native GUI lifecycle only, Web scrolling separate" % [checks,failures])
+ 	quit(1 if failures else 0)

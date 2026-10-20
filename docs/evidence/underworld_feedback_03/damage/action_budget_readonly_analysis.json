@@ -1,0 +1,63 @@
+{
+  "schema": "r3-action-budget-readonly-causality-v1",
+  "operation": "read-only source/log/trace analysis; no engine/GPU/process mutation or shared source edits",
+  "head": "c259f8cf1093102e53a1c34d19936e55f61f2839",
+  "observed_failure": {
+    "log": "build/verification/harness/20261019T170151.131746Z/action-budget.log",
+    "completion": "ACTION BUDGET:7305 assertions,13 failures",
+    "shadow": "shadow_shuriken total1.0D airborne30Hz actual0 expected154",
+    "hook": "all12 combinations of30/60/120Hz × target side±1 × patrol direction±1 fail exact original continuing-AI displacement"
+  },
+  "confirmed_hook_cause": {
+    "chain": [
+      "tests/action_budget_runner.gd moving_hook_targets runs actual hook, actual EnemyActor and actual motor per tick",
+      "TraversalAbility.after_move commits receive_damage with damage_type=grapple and hit_direction",
+      "Damageable.receive_damage applies actual HP then damaged.emit(context)",
+      "new EnemyActor._accepted_hit unconditionally gives every damage type .12s ordinary stun and135 knockback",
+      "next EnemyActor.physics_tick enters ordinary damage-stun branch and motor.step(neutral) instead of actual EnemyPatrolAI intent",
+      "original exact patrol_speed*direction*moved_ticks*dt assertion is correctly violated"
+    ],
+    "classification": "genuine new production regression, not an obsolete coordinate fixture",
+    "minimal_fix_plan": "preserve actual HP/hurt visuals/audio, but ordinary hit response must not take physical ownership from grapple; skip ordinary stun/force when actual context damage_type=grapple"
+  },
+  "custom_skill_overlap": {
+    "chain": [
+      "PlayerProjectile / WeaponActionRuntime.hit currently carry damage_type but do not expose actual skill_attack flag in damage context",
+      "Damageable.damaged fires new ordinary .12 stun before on_committed",
+      "on_committed calls PlayerController.on_weapon_damage(...skill=true...)",
+      "existing apply_skill_impact owns its configured stagger/knockback and optional fan force",
+      "ordinary damage-stun is checked before _stagger_remaining and delays its countdown, changing old custom skill response even if its force later overwrites ordinary force"
+    ],
+    "risk": "confirmed ownership overlap by source; no new runtime claim without scheduled run",
+    "minimal_fix_plan": "carry existing skill boolean explicitly in both actual damage contexts (PlayerProjectile skill_attack and WeaponActionRuntime.hit skill); new ordinary responder skips its force/stun for skill and keeps the existing skill owner. Hurt audio and Health-driven visuals may remain once. Do not inspect Callable bound-argument positions or broadly exclude all weapon damage."
+  },
+  "shadow_zero_analysis": {
+    "facts": [
+      "budgets() creates a new ordinary fixture per weapon with new PlayerMotor and no FrameDamagePolicy/contact sources",
+      "airborne shadow budget at(100,-1000) has no enemy/actual player HP damage fixture",
+      "PlayerMotor new hurt branch only executes when damage_remaining>0, initially0 and only accepted monster callback sets it",
+      "trace has shadow distance0 and empty blinks, while pulse and bomb next cases both154; repeated shadow later rates reportedly do not fail"
+    ],
+    "conclusion": "the new accepted-hit force/stun path has no source-level trigger in this shadow budget case. Cannot attribute shadow0 to it or classify the test obsolete.",
+    "candidate_not_proven": "InputRouter silently drops queued action when real-wall timestamp age>MAX_AGE_SECONDS=.1. First-time new visual/weapon resource work or host load between request_action and next physics tick could cause a one-off lost input, but current trace lacks request acceptance/time/phase to prove this. Other startup/weapon cancellation paths must also remain open.",
+    "next_check_after_current_full_finishes": "Preserve original7305/13 log and native trace. Root may run unchanged action-budget once under isolated same source; if shadow repeats, add a separate diagnostic actual Controller first-shadow fixture logging request timestamp/consume delta, accepted shot/phase/bink/rejection, HP and damage_remaining per tick. Keep original154 expectation, .1sTTL, actual adapters and original assertions unchanged. Do not waive failure based on a hypothesis."
+  },
+  "source_hashes": {
+    "tests/action_budget_runner.gd": "3228a50c45108e712ac3f5490148f4b2e93a6cff977d47974f07a1a5d3ac4907",
+    "tests/actor_actions_runner.gd": "4e5d10db6353ac390235c5f2dadd487f87cf2708c13e2ff2cd8a25a390532adf",
+    "scripts/enemies/enemy_actor.gd": "ebca71140fe2b497600a3440867ba353eb1a7faa779612ca999aa000a88a1304",
+    "scripts/combat/damageable.gd": "bd7e16e0d90d5df0853277fd5c292770d9660f40b31a936b72ed1c079df53a48",
+    "scripts/player/traversal_ability.gd": "d30033d4f07566c6a6917b8d82407f5cbef5e873415e59082ddf844880ddb4ea",
+    "scripts/player/player_controller.gd": "74280298977140c4cfe6abb1bfffd8390fd96e3e4df5ef94ca247e4c9e6315e2",
+    "scripts/combat/player_projectile.gd": "0537b760050a2e0717daf2fa6b8ae811c3b88debd7931eecae08c708201b8d53",
+    "scripts/combat/weapon_action_runtime.gd": "62a7f42f92d41757a09afb48f0ee2cefaea5fe6404f534caab031f272f9eda39",
+    "scripts/player/player_motor.gd": "9192a3b031cce875cfac47373e00f0a57a755ce2dfc481e6d4d0667df1410a56",
+    "scripts/input/input_router.gd": "386d6cee6aad24598ffbbca96efac590d475a3072502ceac3812c60b5c8aa429"
+  },
+  "preservation": {
+    "original_assertions": "no edits made, including all7305 old assertions and 154 exact expected distance",
+    "scope": "only build/action-budget analysis artifact written",
+    "engine_runs": 0,
+    "GPU_runs": 0
+  }
+}

@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parents[1]
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, required=True)
-    parser.add_argument('--layout', choices=('forest-woven-trunk-v12', 'forest-interwoven-canopy-v13'), default='forest-interwoven-canopy-v13')
+    parser.add_argument('--layout', choices=('forest-woven-trunk-v12', 'forest-interwoven-canopy-v13', 'forest-fruit-routes-v14'), default='forest-fruit-routes-v14')
     parser.add_argument('--seed', default='forest-depth-00')
     parser.add_argument('--map', type=int, choices=(1, 2), default=1)
     parser.add_argument('--route', choices=('fast', 'growth', 'high_return', 'change_mind', 'borer'), default='fast')

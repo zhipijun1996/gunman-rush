@@ -1,3 +1,69 @@
+## 2026-10-20：Q源码已闭合，完整新CI待实际执行
+
+最新代码源 `4be8eeb932d24866a49379f0d33f16f00125711d`（Q），生产与56份Foundry资源逐字节等于C2 `3affbc89011bce1ef206ce377f9ebdfc724880d4`。main仍为`dbc6ba081321637a3eef71979ecf2cf564eb6064`，PR96尚未合并，新Web尚未发布。[本轮追加原件](evidence/main_pr96_repair01/followup-H2-C2/README.md)保留实际HEAD/dirty源，不把旧K网页或H影片改签Q。
+
+上轮H2完整CI终态：两路serial39（含真实GPU/audio）、Docs、Windows通过；两路parallel42通过后RootBell实体受击位移失败、38未执行；PR Web34通过/伤害4断言失败/6未执行，push Web40通过/最后1项未完成后原20分钟超时，整轮cancelled。RootBell现仅root_bell受伤期间保持根部，普通敌人击退保留；原3专项250.282s通过。W11原36短句/18路线、54回放56113帧等值，仅来源字段更新。
+
+版本检查原327项/24case完整保留，拆真实data280/world47两引擎，原共享native90/import90/manifest210不变；实际正例、真实失败负例和45篡改测试通过。Harness执行内SHA缓存保留每轮全库存stat与最终独立完整字节守门，77测试通过；完整8467029779B库存冷读10.669s/热0.349s/独立新读8.442s等值，不预签新CI。伤害317项只加被动观察，尚无证据宣称间歇blade问题已修。
+
+本地原T森林80在600s超时，78完成、2未终态，严格失败保留；禁用render-loop对照无改善已撤，无代码改动。另原Queen v7/schema13驾驶因受击中断起跳失败，Q仅测试runner按实际高度/完整落岸/受伤状态恢复；原wrapper30/0、Boss24→0、重载/Gold/D/边界完成，1327驾驶tick含恢复小于原4200，未改生产/共享fixture。Q剩余原42项实际全部通过（631.118s），不与旧部分批次拼成完整120通过。[独审](evidence/main_pr96_repair01/followup-H2-C2/review-Q/Q_code_source_closure_review.json)只签列明代码与局部实证。
+
+旧八房间专属30文件已删除，55关联路径净减149325源码字节；正式两图、quick3、Lab/Foundry及历史存档保留。森林短跳镜头稳定、果实接到有根枝条，仅两处实际消融确认的冗余rest退休；[推荐/可选/恢复职责](design/forest_fruit_routes_v14.md)不等于强制通路。任务保持review，Queen返回HUD局部遮挡、全区空间美感、真人FUN/实体设备/用户认可另验。
+
+接续：推送同源候选，等待原完整CI（尤其80/600与伤害317）真实终态；全绿后普通合PR96，核实际main完整CI/部署、同源影片/三个原浏览器消费者及公网完整PCK SHA/森林GUI。以下为历史检查点。
+
+---
+
+## 2026-10-20：冻结K候选，本地Web完成，新完整CI待执行
+
+本轮验证源 `8f803e2f04b17db3ed725df9071669fe78cadeea`（K）。本地Web build `1630e2150b59`、PCK141171220B，完整SHA `1630e2150b599c6f316fe57a5b81f1a063f83aadd9c948213c11b62d77213cf2`。原20项/8上下文GUI实际355.158s/原480s通过；独立菜单补充43.348s/120s，三张原图确认中文与展开/Escape收起，19张原图单列像素独审。源码和完整包前后冻结。它是[精确K本地验证](evidence/main_pr96_repair01/local-Web-K/README.md)，不冒充公网。main仍为 `dbc6ba081321637a3eef71979ecf2cf564eb6064`，PR96尚未合并，新Web尚未发布。
+
+上轮已推送H `562542bd458f25c8fb5f6e56e74c69d363976735` 完整CI失败：Docs/Windows/Web通过；serial22项通过后场景退出资源失败、16未执行；parallel40项通过后Root Bell命中后时钟校验失败、40未执行。两图新原24/29段电影、32帧限定独审、本地H GUI及完整失败原件[原样保留](evidence/main_pr96_repair01/verification-H/README.md)，没有合并未执行项为通过，也没有把H的中文缺字改签为已修。
+
+K修复：外观菜单复用已有中文主题；场景测试保原20case/21167业务并新增20真实音频释放守门，原完整450+21187通过，真实持有Land播放资源负例21187/1退出1；Root Bell逐帧记录真实受伤暂停，绑定实际伤害、配置、倒计时和恢复，最终原165项/40地图准入、55内容及11来源篡改拒绝通过121.421s/原360s。前两轮REWORK、epsilon伪暂停反例和真实执行HEAD/dirty源保留。[专项原件与精确K独审](evidence/main_pr96_repair01/ci-fixes-F2/README.md)只签有限代码与局部证据，不签新完整CI或设备。
+
+旧八房间入口及专属生成/房间语法/蓝图链已退休：55相关路径、30删除、净减149325源码字节，非包体积。正式两图、quick3、当前Lab/Foundry及历史保存读取保留。森林短跳镜头稳定；v14果实接到有根树枝，两处经实际消融验证的冗余rest退休，推荐、可选、恢复、门/Boss职责见[v14设计](design/forest_fruit_routes_v14.md)。推荐行程不等于强制通路，未按未被推荐经过批删恢复目标。
+
+R169→K仅1个字体表现与3个测试/校验路径变化；Foundry203个basis输入及56资源保持R169逐字节，W10重建预案[核对后取消](evidence/main_pr96_repair01/final-W10-cancelled/README.md)，原W9的36短句/18路线、54回放56113帧保留原来源。6b的完整森林80、policy600等旧实跑不改签K。
+
+接续：推送精确候选新完整CI，与原56未执行检查本地诊断并行；实际全绿后普通合并PR96，等待main完整CI/部署并核对准确公开PCK和GUI。任务保持review；Queen返回局部HUD遮挡、全区构图、真人FUN、实体设备及用户最终认可未签。以下为历史检查点。
+
+---
+
+## 2026-10-20 W6已冻结：旧功能退休与当前消费者通过
+
+最新运行源`c77f920bd8c31ce7640b6db44fb049efc863370b`，旧八房间清理55路径/30删除/净149325B；另56Foundry来源更新净字节0。原core5681/0、完整退休后26套/158.95秒、Underworld UI243/0、styles20route/16variant/3CLI、world0/1均严格exit0且1257源库存稳定，已获[有限独审](evidence/main_pr96_repair01/review/W6_legacy_retirement_review.json)。前后60地图/10随机流/46App及54回放56113帧比较等值，仅明确列出的来源/死stamp/开发身份例外；43现行Manifest接受+2world仍拒绝。原world typed崩溃与新增12Motor90s超时REWORK保留，后者已撤、原支持面188/0及90预算保留。见[W6完整实证](evidence/main_pr96_repair01/cleanup-W6/README.md)。
+
+当前准备执行原policy600（含历史矩阵）、原森林80/600及fresh docs/完整CI；尚未合main、未发布新Web。全部后续结果必须以新收据更新，下面为历史时点。
+
+---
+
+## 2026-10-20 当前交接：W5已提交，W6旧八房退休验证中
+
+分支`fix/main-pr96-forest-composition`，本地HEAD W5 `54eacfd811fe538d79d374393f10754f1efdc94b`；远端PR96分支仍`ae53321af384ae64d027028ae1b42d59b180766e`，main仍`dbc6ba081321637a3eef71979ecf2cf564eb6064`。未合main/未发布新Web。用户追加授权瘦身见[原话](evidence/main_pr96_repair01/user_cleanup_request.txt)。
+
+W5十三测试/工具文件，生产零改：真实map2/对象/背景所有权、实际Boss→Gold→H→森林、attack-latch合法射击、严格入口危险伤害因果及Grove合法预清。原80与policy失败、两个checker拒绝及mask REWORK均保留，[精选原件](evidence/main_pr96_repair01/compat-W5/README.md)，[限定独审](evidence/main_pr96_repair01/review/W5_code_and_local_proofs_review.json)。完整80、policy600、历史矩阵未签通过。
+
+W6 `/root/legacy_room_cleanup`独占源码/Godot窗口：退休旧八房间与旧十房CLI，保留shared/current消费者。60地图/10streams/46App before-after已独核；43当前Manifest接受+2world保持拒绝。单处typed-empty修复独立baseline。Foundry36/18已实跑重建，54回放56113帧完全同动作/位置/射击，仅明确来源stamp变化。当前core/保留26套与混合物理实跑，source/evidence在`build/legacy_eight_retirement/`；冻结audit旧原件不动。不得并行写源码或启动Godot抢600预算。
+
+接续：完成W6局部与准确退休清单→联合源码提交→绑定独审/质量记录并提交文档→在独占CPU跑原固定80（原600cap/native240/2workers、不传layout）→最终policy600/历史矩阵、fresh docs与完整精确HEAD CI。全部相关发布门实际通过后普通merge PR96/main，构建/发布并核验准确PCK、许可与20项/8入口GUI；不以旧包代新包。若新失败保留原件修复，不能降断言/删现行case/放宽预算。下文为历史。
+
+---
+
+## 2026-10-20：主线修复、PR96 整合与森林果实试玩候选
+
+本轮用户明确授权修复主线失败并整合 [PR96](https://github.com/zhipijun1996/gunman-rush/pull/96)。运行修复与证据见 [MAIN-PR96-REPAIR-01](evidence/main_pr96_repair01/README.md)，森林空间与冗余取舍见 [v14 设计](design/forest_fruit_routes_v14.md)。原 315/main CI 的三项实际失败已复现并作正式消费者专项修复；原失败、退出泄漏与返工图均保留。当前分支 `fix/main-pr96-forest-composition`，本地三方整合基点 e7286da1，最终运行源、完整CI与发布身份以本轮证据及 PR/Actions 实际终态为准，旧公开 v13 包不能代签新版本。
+
+森林试玩默认为 `forest-fruit-routes-v14`，历史 v13 及全部旧保存 pin 不变。短跳镜头使用连续地空死区，不在起跳撤销观察提示后猛移全景；同 Motor A/B 短跳旧位移124.970wu、新0，204/0，通用镜头831/0。内洞两枝三果、深处年轻曲干双果、根湾单一提示与下窗短垂经过真实四窗限定独审；两 rest 点单独实际消融各24leg通过并退休，returncatch/恢复/藤门/Boss目标保留。推荐、可选与恢复职责按真实路线消费者区分，不将 proposal 行程当强制通路。
+
+运行源W1 `2cd7fa05` 的core5680/0、完整generated33/33严格通过；正式HomeUI保留原27业务+释放28/0、设置14/0、角色所有权25/0、地形20消费者40395/0、台地180/0。W2 `50c9ed89` 修复严格源检查器误拒旧显式画风分支，原116单测AST不变+9反例共125通过；当前角色合同20case4215/0、历史22+新2版本实际通过。正常60fps电影24leg/37.35秒及17帧限定独审见证据；不是全区或用户设备验收。
+
+最终验证源现冻结W4 `7a58c819de52bba68594b406c07b2a940b2c5a8f`。W3精确修正默认v14消费者/白名单，旧pin保持；map2高返的真实迁移敌人截钩在v13/v14失败430帧完全相同，驾驶器改为原400帧预算内真实岸上等70帧，两版本各29/29。W4仅触屏菜单fixture使用正式App共享所有权，保原43手势断言+释放1；原parallel完整73/0、56/0、44/0严格退出0，故意失败45/1仍退出1，原独立拼装缓存泄漏保留。debug52/0、默认aim6leg/3hold通过。原Foundry36短语/18路线已按新游戏源重建。原80固定案例当前执行，完整新HEAD CI、main合并及准确Web仍待实际终态；不把启动写成通过。
+
+任务保持 review/in_progress：无可信局部支承的目标仍为明确空间缺口；全森林美感、真人操作/FUN、实体设备及最终用户认可尚未完成。下一步完成原80、fresh docs与完整CI，普通合main并验真同版本试玩包。下面均为历史时点，不覆盖本节。
+
+---
+
 ## 2026-10-19：森林v13发布后交接（公网GUI通过、完整CI尚待）
 
 运行游戏为main315f4972081f17128fa2a499a2169ae65010bcaf（PR97），build91280a1ade48/PCK140589880B，完整SHA91280a1ade48520424f75e3d647fae57fe72aefd34cb5d3c6acad625f1c70eb6。Pages39308213581实际SUCCESS，公网完整字节/12许可通过；原GUI20/8实际exit0通过，8identities/errors[]，原480cap未改，main fullCI39307414057仍in_progress。后续纯文档HEAD不可冒运行源；PR96独立DRAFT保留，未合并。

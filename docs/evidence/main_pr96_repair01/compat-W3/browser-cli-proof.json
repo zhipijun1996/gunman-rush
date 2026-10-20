@@ -1,0 +1,51 @@
+{
+  "status": "passed",
+  "scope": "CLI argument forwarding and existing exact assembled consumer rejection; no browser execution",
+  "checks": [
+    {
+      "case": "CLI preserves exact expected layout shared-tree-directional-cavities-v7",
+      "passed": true
+    },
+    {
+      "case": "CLI preserves exact expected layout shared-tree-living-detour-v9",
+      "passed": true
+    },
+    {
+      "case": "CLI preserves exact expected layout shared-tree-canopy-hunt-v10",
+      "passed": true
+    },
+    {
+      "case": "CLI preserves exact expected layout forest-expedition-airborne-v11",
+      "passed": true
+    },
+    {
+      "case": "CLI preserves exact expected layout forest-woven-trunk-v12",
+      "passed": true
+    },
+    {
+      "case": "CLI preserves exact expected layout forest-interwoven-canopy-v13",
+      "passed": true
+    },
+    {
+      "case": "CLI preserves exact expected layout forest-fruit-routes-v14",
+      "passed": true
+    },
+    {
+      "case": "reject wrong assembled consumer {'event': 'region_assembled', 'layout_version': 'forest-interwoven-canopy-v13'}",
+      "passed": true
+    },
+    {
+      "case": "reject wrong assembled consumer {'event': 'debug_menu_accepted', 'layout_version': 'forest-fruit-routes-v14'}",
+      "passed": true
+    },
+    {
+      "case": "reject wrong assembled consumer {'event': 'region_assembled', 'layout_version': 'forest-fruit-routes-v14-fake'}",
+      "passed": true
+    },
+    {
+      "case": "accept exact assembled v14",
+      "passed": true
+    }
+  ],
+  "count": 11
+}

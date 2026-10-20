@@ -1,0 +1,7 @@
+# 最终Foundry来源刷新
+
+实际执行源8f0c7927，56资源提交于最终运行源169ef171fee3f70911847fb2c2890351ee3468bb。原36短句/18连续路线实际59.154秒严格退出0，原预算不变；stamp1.417秒退出0，新basis f3e060598385696137aa40910811fcbfed931853fe7f4c9992b11cf1af0263cb。
+
+foundry-final-W9-proofs.zip包含新54回放全部56113帧、原生日志、收据、完整源库存与逐56资源SHA。对照c77f不可变Git原件逐值比较，仅明确JSON指针上的来源basis及直接派生hash可变，动作/轴/位置/射击/repair/ticks/routeID全部保持。archive-recheck从ZIP脱离workspace并按Git原字节恢复基线，独立重验通过。index.json逐项列SHA/大小/CRC，不错误引用W6较早before_foundry包作为c77f基线。
+
+这是当前练习场重新验证和来源刷新，不恢复旧八房间、不签全CI/全游戏/真人FUN/设备。

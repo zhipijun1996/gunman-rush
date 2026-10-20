@@ -1,0 +1,204 @@
+{
+  "source": "3e5b19408829dc915912e964d5df511893491918",
+  "runtime_equivalence": "Q producer source; gameplay byte-equivalent to publicly exported P; not falsely P-labelled movie",
+  "verdict": "LIMITED_ACCEPT real ordinary player/enemy projectile/contact and accepted hurt/knockback in one formal window",
+  "method": {
+    "native_full_movie_decodes_actually_viewed": [
+      60,
+      120,
+      180
+    ],
+    "consecutive_actual_media_frames": [
+      {
+        "range": [
+          90,
+          129
+        ],
+        "crop": [
+          500,
+          230,
+          500,
+          250
+        ],
+        "layout": "enemy_Q_contiguous_90_129.png"
+      },
+      {
+        "range": [
+          26,
+          45
+        ],
+        "crop": [
+          820,
+          0,
+          440,
+          260
+        ],
+        "layout": "enemy_Q_early_hurt_26_45.png"
+      }
+    ],
+    "media_mapping": "Actual encoded frame indices, not assumed exact battle-row correlation",
+    "not_claimed": [
+      "full9.2667s real-time movie playback",
+      "all other13actor forms observed",
+      "audio listening",
+      "natural route/acquisition",
+      "device/performance/aesthetic final acceptance"
+    ]
+  },
+  "observed_pixels": [
+    "Cream shot travels from player to real grounded enemy; impact sparks and enemy rust flash appear at contact, enemy shifts to right across support.",
+    "Enemy telegraph precedes rust diamond seed; seed visibly traverses left with clear darkborder, no full-screen glow or fake persistent beam.",
+    "At actual seed contact player red/translucent hurt pose kicks back left, sparkle clears and boundedflash restores; player then resumes original aiming/shooting.",
+    "Third accepted shot produces actual enemy death fade and coin; no continued firing/HP injection after terminal."
+  ],
+  "trace_facts": {
+    "rows": 540,
+    "accepted_shots": 3,
+    "accepted_damage": 4,
+    "visible_enemy_projectile_rows": 28,
+    "actual_damage_events": [
+      {
+        "amount": 1.0,
+        "direction": [
+          0.999674141407013,
+          0.0255273077636957
+        ],
+        "event": "187451837074:2:1",
+        "health": 2.0,
+        "kind": "committed_damage",
+        "row": 17,
+        "source": "player_projectile:187451837074",
+        "target": "plains/enemy/lane/plains/passage/area_0_0/area_1_0_join"
+      },
+      {
+        "amount": 1.0,
+        "direction": [
+          0.999853014945984,
+          -0.0171476844698191
+        ],
+        "event": "187451837074:2:2",
+        "health": 1.0,
+        "kind": "committed_damage",
+        "row": 84,
+        "source": "player_projectile:187451837074",
+        "target": "plains/enemy/lane/plains/passage/area_0_0/area_1_0_join"
+      },
+      {
+        "amount": 1.0,
+        "direction": [
+          -0.99999988079071,
+          -0.000539680826477706
+        ],
+        "event": "plains/enemy/lane/plains/passage/area_0_0/area_1_0_join:seed:1",
+        "health": 4.0,
+        "kind": "committed_damage",
+        "row": 109,
+        "source": "plains/enemy/lane/plains/passage/area_0_0/area_1_0_join",
+        "target": "player"
+      },
+      {
+        "amount": 1.0,
+        "direction": [
+          0.999603509902954,
+          0.0281574558466673
+        ],
+        "event": "187451837074:2:3",
+        "health": 0.0,
+        "kind": "committed_damage",
+        "row": 150,
+        "source": "player_projectile:187451837074",
+        "target": "plains/enemy/lane/plains/passage/area_0_0/area_1_0_join"
+      }
+    ],
+    "initialization": {
+      "AI_state_injection": false,
+      "after_initialization": "actual Input.parse_input_event mouse/keyboard, original KeyboardMouseAdapter/Router/PlayerMotor and AI",
+      "focus": "enemy",
+      "initial_solid_support": [
+        1100.0,
+        -682.0,
+        460.0,
+        32.0
+      ],
+      "input_submission_timing": "actual native InputEvents at SceneTree.physics_frame before ordinary Controller step; original wall-clock TTL unchanged",
+      "manifest_hash": "47abf16ac1e85fe3e51bf447e75c553df6b766c4aab452a867bba437e80a954d",
+      "map_index": 1,
+      "operation": "DemoApp.start_plains(seed)",
+      "resource_or_health_injection": false,
+      "scope": "real formal consumer combat window, initialized fixture position; not natural route or acquisition proof",
+      "seed": "level-design-v2-baseline/08",
+      "selected_shooter_position": [
+        1330.0,
+        -700.0
+      ],
+      "selected_source_id": "plains/enemy/lane/plains/passage/area_0_0/area_1_0_join",
+      "single_initialized_player_position": [
+        1210.0,
+        -700.0
+      ],
+      "source_actors_and_AI_unchanged": true,
+      "trigger": "ordinary actual AI idle -> telegraph -> attack with line of sight and unprotected target; no _fire/state invocation"
+    },
+    "target_start": {
+      "health": 3.0,
+      "ordinary_hurt_remaining": 0.0,
+      "point": [
+        1330.0,
+        -700.0
+      ],
+      "terminal": false,
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    "target_end": {
+      "health": 0.0,
+      "ordinary_hurt_remaining": 0.0,
+      "point": [
+        1362.39990234375,
+        -700.0
+      ],
+      "terminal": true,
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    },
+    "player_hp_end": 4.0
+  },
+  "physical_contact_vs_accepted": "Trace separately names physical_contact_only vs committed_damage; frame sparks do not alone prove accepted HP. This window contains3playeraccepted damage and1hostileaccepted damage through real policy.",
+  "binding_status": "passed",
+  "source_before_after_equal": true,
+  "artifact_SHA_independent": [
+    {
+      "path": "build/underworld_r3/captures_Q/enemy_attempt1/audio_measurement.log",
+      "matches": true
+    },
+    {
+      "path": "build/underworld_r3/captures_Q/enemy_attempt1/capture.log",
+      "matches": true
+    },
+    {
+      "path": "build/underworld_r3/captures_Q/enemy_attempt1/encode.log",
+      "matches": true
+    },
+    {
+      "path": "build/underworld_r3/captures_Q/enemy_attempt1/movie.mp4",
+      "matches": true
+    },
+    {
+      "path": "build/underworld_r3/captures_Q/enemy_attempt1/trace.json",
+      "matches": true
+    }
+  ],
+  "initial_failures_retained": [
+    "N asynchronous stage-null producer failed",
+    "P selector stand-off180 failed allcandidates; no actual shot, explicitlyFAIL not game success"
+  ],
+  "limitations": [
+    "Initialplayerposition1210,-700 explicit fixture; normalactualAI/Ctrl/Router/Input/Motor afterward.",
+    "Player firstshot occurs while camera eases to fixture location; it is not a naturally approached combat encounter.",
+    "This proves this actor seed and original weapon sample. Component43/15weapon2450/otherBoss tests have distinct numerical and fixture scope."
+  ]
+}

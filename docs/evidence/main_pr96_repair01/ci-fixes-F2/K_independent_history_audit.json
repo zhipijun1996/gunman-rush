@@ -1,0 +1,100 @@
+{
+  "status": "PASS",
+  "historical_capture_sha256": "eebefac37b559336edbcd74770bff74e0c512725bf02b0cbb71384a15342903d",
+  "historical14_source_bytes_verified": true,
+  "historical_stats": {
+    "scope": "G0/G1 fixtures and actual spawn consumer; formal route/visual/audio/device unverified",
+    "essential_cases": 19,
+    "width_direction_pairs": [
+      [
+        400,
+        -1
+      ],
+      [
+        400,
+        1
+      ],
+      [
+        440,
+        -1
+      ],
+      [
+        440,
+        1
+      ],
+      [
+        560,
+        -1
+      ],
+      [
+        560,
+        1
+      ]
+    ],
+    "native_assertions": 165,
+    "native_reexecuted": false
+  },
+  "historical_content_refusals": [
+    "erase_actual_pulse_damage",
+    "erase_actual_projectile_damage",
+    "erase_accepted_shot",
+    "erase_accepted_jump",
+    "erase_death_hits",
+    "erase_required_case/actual_formal_manifest_gated_candidates",
+    "erase_required_case/actual_stage_capture_and_ledger_roundtrip",
+    "erase_required_case/base_jump_nonkill",
+    "erase_required_case/duplicate_hit_does_not_interrupt",
+    "erase_required_case/early_real_death_and_walk_through",
+    "erase_required_case/inactive_target",
+    "erase_required_case/miss_does_not_interrupt",
+    "erase_required_case/pause_actor_epoch",
+    "erase_required_case/real_projectile_interrupt",
+    "erase_required_case/restored_pending_pulse_is_cancelled",
+    "erase_required_case/solid_occlusion_negative",
+    "erase_required_case/stand_in_pulse_positive_damage",
+    "erase_required_case/walk_out_alive_nonkill",
+    "erase_required_case/width_400_dir_-1",
+    "erase_required_case/width_400_dir_1",
+    "erase_required_case/width_440_dir_-1",
+    "erase_required_case/width_440_dir_1",
+    "erase_required_case/width_560_dir_-1",
+    "erase_required_case/width_560_dir_1",
+    "review_001_erase_pause_inactive_save_duplicate_cases",
+    "review_001_erase_interrupt_warning_frames",
+    "review_001_empty_restored_trace",
+    "review_002_six_copies_one_width_direction",
+    "review_002_forge_unique_metadata_over_same_physical_run",
+    "restore_serial_erased",
+    "restore_time_frozen",
+    "restore_hp_disagrees_with_snapshot",
+    "restore_mark_disagrees_with_snapshot",
+    "duplicate_case_identity",
+    "wrong_real_calibration_endpoint",
+    "no_real_calibration_final_support",
+    "wrong_capture_scope",
+    "wrong_production_admission_claim",
+    "undeclared_source_identity_in_capture",
+    "missing_actual_recovery_event",
+    "missing_actual_snapshot_pulse"
+  ],
+  "historical_receipt_refusals": [
+    "wrong_native_source_commit",
+    "wrong_native_source_before",
+    "missing_native_source_after",
+    "stale_native_assertion_count",
+    "failed_native_receipt_labelled_success",
+    "raw_capture_not_bound_to_receipt",
+    "raw_native_log_not_bound_to_receipt",
+    "rehashed_forged_formal_scope",
+    "rehashed_old_success_without_native_completion"
+  ],
+  "all_old_refusals_retained_in_current": true,
+  "current_default_historical_refusal": "Damage feedback dependency receipt mismatch or drift",
+  "epsilon_actual02_counterexample": {
+    "old_reconstructed_source_exact_execution_sha": true,
+    "old_candidate_accepted": true,
+    "final_rejected": true,
+    "reason": "solid_occlusion_negative: fixture starts with uncaused stun"
+  },
+  "no_native_reexecution": true
+}

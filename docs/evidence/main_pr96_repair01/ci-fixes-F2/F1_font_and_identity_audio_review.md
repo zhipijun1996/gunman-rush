@@ -1,0 +1,9 @@
+F1/identity有限独审：SCOPED_ACCEPT。
+
+F1绑定 `5182ace20c66b36aa9d6ec6fa38da9791adf2280` 的AvatarPresentation单文件4行，复用已有MenuTheme/打包CJK字体并显式赋给独立selector及popup，未引入导航/Avatar回向依赖。实际字体覆盖全部3标题/tooltip字符；正确r2原Avatar25严格通过17.031秒，首undeclared MenuTheme parse失败原件保留。尚未执行F1 Web像素，不将原H中文tofu写为已修。
+
+identity绑定单fixture SHA `40975b16b7a0e97847da0e915201e318733da13c06d66fc6afe152755745ea64`，实际在精确H稀疏工作树实跑。原全部业务段和9静态check保留；20行结果含数值类型在旧/正/负raw完全相同。只在原检查结束后用已有drain等待真实audio释放再free，新增20守门。原pipeline450+21187/0严格exit0；真实最后Land playback借用导致1.006秒释放超时，21187/1实际exit1；丢弃借用后0.001秒恢复，无native泄漏。原125Python检查也通过。
+
+证据限定：4/2 Ogg泄漏是加WeakRef观察的fixture，不冒称逐字未改原fixture/远端类型实证；三次未改H本地重复干净。另38项旧索引有一条生成时未完成的unit log，原索引保留，新addendum已核完成日志SHA与来源。
+
+不签RootBell候选、联合最终源码、全CI、Web字体像素或用户/设备；后续分别取证。

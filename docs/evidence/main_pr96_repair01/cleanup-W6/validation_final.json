@@ -1,0 +1,79 @@
+[
+  {
+    "phase": "R2 final source",
+    "name": "core_final",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "tools/run_tests.py"
+    ],
+    "exit_code": 0,
+    "seconds": 36.906760779998876,
+    "log": "build/legacy_eight_retirement/core_final.log"
+  },
+  {
+    "phase": "R2 final source",
+    "name": "generated26_final",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "tools/run_generated_consumer_tests.py"
+    ],
+    "exit_code": 0,
+    "seconds": 158.9505154340004,
+    "log": "build/legacy_eight_retirement/generated26_final.log"
+  },
+  {
+    "phase": "R2 final source",
+    "name": "underworld_ui",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "tools/run_underworld_ui_tests.py"
+    ],
+    "exit_code": 0,
+    "seconds": 15.013704101000258,
+    "log": "build/legacy_eight_retirement/underworld_ui.log"
+  },
+  {
+    "phase": "R2 final source",
+    "name": "styles",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "tools/run_style_exploration_tests.py",
+      "--skip-import",
+      "--output",
+      "build/legacy_eight_retirement/styles"
+    ],
+    "exit_code": 0,
+    "seconds": 32.34175473599862,
+    "log": "build/legacy_eight_retirement/styles.log"
+  },
+  {
+    "phase": "R2 final source",
+    "name": "world0",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "tools/run_plains_world_rebuild_tests.py",
+      "--variant",
+      "0",
+      "--output",
+      "build/legacy_eight_retirement/world0"
+    ],
+    "exit_code": 0,
+    "seconds": 14.648147390000304,
+    "log": "build/legacy_eight_retirement/world0.log"
+  },
+  {
+    "phase": "R2 final source",
+    "name": "world1",
+    "command": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "tools/run_plains_world_rebuild_tests.py",
+      "--variant",
+      "1",
+      "--output",
+      "build/legacy_eight_retirement/world1"
+    ],
+    "exit_code": 0,
+    "seconds": 14.8469353090004,
+    "log": "build/legacy_eight_retirement/world1.log"
+  }
+]

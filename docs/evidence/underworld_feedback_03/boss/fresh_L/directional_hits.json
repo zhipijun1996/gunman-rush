@@ -1,0 +1,23 @@
+{
+	"checks": 16,
+	"failures": [],
+	"observations": [
+		{
+			"after": "(6348.472, -2.928881)",
+			"before": "(6360.0, 0.0)",
+			"hp": 4.0,
+			"queued_direction": "(-1.0, 0.0)",
+			"side": -1,
+			"source": "actual encounter._wave -> BossProjectile collision -> DemoApp -> FrameDamagePolicy"
+		},
+		{
+			"after": "(6771.528, -2.928881)",
+			"before": "(6760.0, 0.0)",
+			"hp": 4.0,
+			"queued_direction": "(1.0, 0.0)",
+			"side": 1,
+			"source": "actual encounter._wave -> BossProjectile collision -> DemoApp -> FrameDamagePolicy"
+		}
+	],
+	"scope": "actual formal App left/right wave collision and Motor; one room initialization/frozen AI boundary fixture, not complete fight"
+}

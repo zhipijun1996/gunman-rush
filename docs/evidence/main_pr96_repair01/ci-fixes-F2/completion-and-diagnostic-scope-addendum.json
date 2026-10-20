@@ -1,0 +1,36 @@
+{
+  "scope": "Completion/index and diagnostic instrumentation erratum; original rawlogs and index retained unchanged",
+  "completed_python_original_tests": {
+    "tests": 125,
+    "status": "OK",
+    "native_reexecuted": false
+  },
+  "completed_file_bindings": [
+    {
+      "path": "/workspace/gunman-rush-ci-H/build/ci-H-identity/original-pipeline-refusal-tests.log",
+      "bytes": 15438,
+      "sha256": "18ab98498338a7049c6b3cb574eca0cef492f5ab80f0188a02512537f742dca6",
+      "crc32": "92d4f277"
+    },
+    {
+      "path": "/workspace/gunman-rush-ci-H/build/ci-H-identity/original-pipeline-refusal-tests-receipt.json",
+      "bytes": 143,
+      "sha256": "3f5fae917ecdd715559199a0d3a138aa83308f2623c943918401a900e6c43305",
+      "crc32": "ab15d946"
+    },
+    {
+      "path": "/workspace/gunman-rush-ci-H/build/ci-H-identity/audio-drain-handoff.json",
+      "bytes": 2286,
+      "sha256": "8b2302152cf50bc84a05935c42fe46bf170dfde795a506093ea53dbc133b86a8",
+      "crc32": "0c04858e"
+    },
+    {
+      "path": "/workspace/gunman-rush-ci-H/build/ci-H-identity/file-index.json",
+      "bytes": 7062,
+      "sha256": "f121de0aac239dbfb15ac0ba95d86c79a22a71c6897a98811089bbe57796e774",
+      "crc32": "a81952e4"
+    }
+  ],
+  "index_correction": "Original file-index.json was generated while pure Python unit log was still being written; only its unfinished-unit-log entry is stale. This addendum binds the completed log/receipt, without overwriting original index.",
+  "diagnostic_scope_correction": "The 4 objects/2 resources Land Ogg leak was observed in identity-voice-observer.gd, an instrumented copy of the H fixture with added WeakRef observations and same original business assertions/4-frame teardown. It is not a byte-identical unmodified-fixture failure. Original-H verbose and both unmodified noverbose pipeline runs were clean. Production/runtime/assets were exact H in the isolated sparse worktree. The nonspatial weak observer independently found20 owned Land playbacks,18 still alive after4frames; its native exit was clean. Final real borrowed-playback refusal uses the proposed test-only candidate."
+}

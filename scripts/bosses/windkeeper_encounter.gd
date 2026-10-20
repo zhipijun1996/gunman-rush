@@ -19,6 +19,7 @@ var _home_x := 0.0
 var _stomp_next := true
 var _core: Area2D
 var _core_receiver: WindkeeperDamageable
+var _contact_shape: CollisionShape2D
 var _blade_last_hit := -1
 var _phase_cycle := 0
 var _storm_fired := false
@@ -28,6 +29,24 @@ var transition_target := 1
 var intro_seen := false
 var intro_duration := 0.0
 var reward_stands: Array[Vector2] = []
+
+func continuous_combat() -> bool:
+	return (definition as WindkeeperDefinition).continuous_combat
+
+func accepts_combat_damage() -> bool:
+	return active and not health.terminal and mode != &"intro"
+
+# World bounds used by actual contact consumers; artwork never defines damage.
+func body_contact_rect() -> Rect2:
+	var shape := _contact_shape if is_instance_valid(_contact_shape) else motor.get_node("CollisionShape2D") as CollisionShape2D
+	return shape.global_transform * shape.shape.get_rect()
+
+func _update_combat_shapes() -> void:
+	_core.position = core_offset()
+	_core.collision_layer = 4 if accepts_combat_damage() and (continuous_combat() or core_open) else 0
+	# Continuous fights retain a shootable body through attacks and recovery.
+	# Body contact eligibility is a separate accepted encounter state.
+	motor.collision_layer = (4 if accepts_combat_damage() else 0) if continuous_combat() else (0 if core_open or mode in [&"intro", &"phase_transition"] else 4)
 
 func _ready() -> void:
 	super._ready()
@@ -54,6 +73,19 @@ func _ready() -> void:
 	_core.add_child(_core_receiver)
 	motor.add_child.call_deferred(_core)
 	_core_receiver.bind_health(health)
+	var config := definition as WindkeeperDefinition
+	if continuous_combat() and config.contact_size != Vector2.ZERO:
+		var volume := Area2D.new()
+		volume.name = "BodyContactVolume"
+		volume.collision_layer = 0
+		volume.collision_mask = 0
+		_contact_shape = CollisionShape2D.new()
+		_contact_shape.position = config.contact_offset
+		var rect := RectangleShape2D.new()
+		rect.size = config.contact_size
+		_contact_shape.shape = rect
+		volume.add_child(_contact_shape)
+		motor.add_child.call_deferred(volume)
 
 func configure_arena(left: float, right: float, target: Node2D) -> bool:
 	if not super.configure_arena(left, right, target): return false
@@ -84,21 +116,32 @@ func physics_tick(delta: float) -> void:
 		if clock <= 0: _enter(&"observe", 1.0)
 	elif mode == &"phase_transition":
 		if clock <= 0:
-			var destination := arena.left_x + 95 if transition_target == 3 else _home_x
-			var distance := destination - motor.global_position.x
-			motor.speed = (definition as WindkeeperDefinition).chase_speed
-			motor.step(1 if distance > 0 else -1, absf(distance), delta)
-			# Wait for a genuine safe shelf or shore before withdrawing the floor.
-			var safe := _target.global_position.y <= _floor_y - 130 or _target.global_position.x < arena.left_x + 165 or _target.global_position.x > arena.right_x + 5
-			if absf(distance) < 2 and (transition_target != 3 or safe):
+			if continuous_combat():
+				# R3: a bounded, visible warning replaces the old indefinite safe
+				# waiting/return walk. Select the closest existing pier without
+				# teleporting; the following chase still uses the actual Motor.
+				if transition_target == 3 and _platform_piers.size() == 3:
+					var nearest := INF
+					for index:int in 3:
+						var distance := absf(_platform_piers[index]-motor.global_position.x)
+						if distance < nearest: nearest=distance;chase_segment=index
+					_pier_direction = -1 if chase_segment == 2 else 1
 				phase_changed.emit(stage_phase)
-				_enter(&"observe", 1.2)
+				_enter(&"observe", .35)
+			else:
+				var destination := arena.left_x + 95 if transition_target == 3 else _home_x
+				var distance := destination - motor.global_position.x
+				motor.speed = (definition as WindkeeperDefinition).chase_speed
+				motor.step(1 if distance > 0 else -1, absf(distance), delta)
+				# Historical aperture fixture waits for a safe shelf or shore.
+				var safe := _target.global_position.y <= _floor_y - 130 or _target.global_position.x < arena.left_x + 165 or _target.global_position.x > arena.right_x + 5
+				if absf(distance) < 2 and (transition_target != 3 or safe):
+					phase_changed.emit(stage_phase)
+					_enter(&"observe", 1.2)
 	elif stage_phase == 1: _ground_pattern(delta)
 	elif stage_phase == 2: _wind_pattern(delta)
 	else: _chase_pattern(delta)
-	_core.position = core_offset()
-	_core.collision_layer = 4 if core_open else 0
-	motor.collision_layer = 0 if core_open or mode in [&"intro", &"phase_transition"] else 4
+	_update_combat_shapes()
 	motor.queue_redraw()
 
 func _enter(next: StringName, duration: float) -> void:
@@ -112,6 +155,12 @@ func _enter(next: StringName, duration: float) -> void:
 
 func objective() -> String:
 	if mode == &"intro": return (definition as WindkeeperDefinition).display_name
+	if continuous_combat():
+		if mode == &"phase_transition": return "地形将变化，先找落脚点 / FIND YOUR NEXT LANDING"
+		if mode in [&"neck", &"back", &"pier_open"]: return "收招恢复，抓紧追击 / RECOVERY — PRESS THE ATTACK"
+		if stage_phase == 1: return "随时可攻击，跳过地波并避开冲撞 / WATCH THE STOMP AND CHARGE"
+		if stage_phase == 2: return "借平台躲开旋叶与风籽 / USE THE SHELVES TO EVADE"
+		return "跨越断桥，避开落击后追击 / CROSS THE PIERS AND PUNISH THE LANDING"
 	if mode == &"phase_transition": return "BRIDGE CRACKING — CLIMB TO THE GRASS SHELVES" if stage_phase == 3 else "WINDMILL AWAKENING — WATCH THE BACK BELL"
 	if (definition as WindkeeperDefinition).storm_profile and stage_phase==2: return "持续左风：上草台，从上侧射背铃 / LEFT WIND / SHOOT BELL FROM ABOVE"
 	if (definition as WindkeeperDefinition).storm_profile and stage_phase==3: return "踏亮当前草台，再起跳下射 / LAND ON LIT SHELF / JUMP & AIM DOWN" if (definition as WindkeeperDefinition).platform_trials else "跨断桥追逐，避开落击与双种子 / BROKEN BRIDGE + CROSS FIRE"
@@ -120,6 +169,7 @@ func objective() -> String:
 	return "跨桥墩，落击后转身射铃芯 / SHOOT EXPOSED BELL"
 
 func accepts_core_direction(context: Dictionary) -> bool:
+	if continuous_combat(): return true
 	var config:=definition as WindkeeperDefinition
 	if config.platform_trials and stage_phase==3:
 		var incoming:Vector2=context.get("hit_direction",Vector2.ZERO)
@@ -342,6 +392,7 @@ func restore_combat_state(data: Dictionary) -> void:
 	_rune_shots.clear()
 	var p: Array=data.get("locked_aim",[0,0]);_locked_aim=Vector2(p[0],p[1])
 	core_open=mode in [&"neck",&"back",&"pier_open"]
+	if is_instance_valid(_core): _update_combat_shapes()
 
 func register_rune_shot(session:int,shot_id:int)->void:
 	if not active or stage_phase!=3 or mode!=&"pier_open" or rune_platform!=chase_segment:return

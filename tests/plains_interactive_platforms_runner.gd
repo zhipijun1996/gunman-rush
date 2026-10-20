@@ -1,4 +1,5 @@
 extends SceneTree
+# Explicit historical aperture/rune contract, replaced in formal R3 continuous fights.
 var assertions:=0
 var failures:=0
 func _initialize()->void:run.call_deferred()
@@ -56,7 +57,7 @@ func run()->void:
 func boss_rules()->void:
 	var world:=Node2D.new();root.add_child(world)
 	var player:=preload("res://scenes/player/player.tscn").instantiate();world.add_child(player)
-	var boss:=preload("res://scenes/bosses/windkeeper.tscn").instantiate();var e:WindkeeperEncounter=boss.get_node("Encounter");e.definition=preload("res://resources/bosses/windkeeper_storm.tres");world.add_child(boss);e.configure_arena(255,1000,player);e.set_physics_process(false);e.activate()
+	var boss:=preload("res://scenes/bosses/windkeeper.tscn").instantiate();var e:WindkeeperEncounter=boss.get_node("Encounter");e.definition=preload("res://resources/bosses/legacy/windkeeper_storm_window_v4.tres");world.add_child(boss);e.configure_arena(255,1000,player);e.set_physics_process(false);e.activate()
 	e.stage_phase=1
 	check(e.accepts_core_direction({"hit_direction":Vector2.UP,"fired_airborne":false}),"stage I permits ground-fired attack")
 	e.stage_phase=2

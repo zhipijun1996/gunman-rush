@@ -1,0 +1,3 @@
+SCOPED_ACCEPT for exact observer fixture0a23e56a…; original13 check expressions/order,4 physics+8 process awaits,65 manual steps and action requests remain. Added code only samples values and listens to existing signals with weak node ownership. The visible muzzle getter is read-only; the aim/pose-mutating muzzle method is not called.
+
+Actual original317 assertions pass locally with both65-frame skill observations, source guard stable. This is instrumentation: the remoteH2 failure was not reproduced or repaired by this local pass. No production change, new native run or fullCI approval is claimed.

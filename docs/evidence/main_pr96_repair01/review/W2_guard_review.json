@@ -1,0 +1,42 @@
+{
+  "reviewer": "/root/independent_review",
+  "independent": true,
+  "independence_basis": "Separate read-only agent; production checker/test files were not edited. Counterexamples were actual-source mutations passed in memory to the real helper.",
+  "implementers": [
+    "/root"
+  ],
+  "baseline_review": "W1_code_review.json",
+  "reviewed_commit": "50c9ed89e5cf632d8e2a58db03f83df8fb573589",
+  "verdict": "ACCEPT",
+  "scope": "W2 finite source checker adapter and nine retained/new source-corruption tests only; no game runtime change",
+  "source_sha256": {
+    "tools/underworld_pipeline.py": "e9916e6fd5cce3d63d9e0af30a49156d7412e4ea0aeb4ec19a9dfb21444dc7b5",
+    "tests/test_underworld_pipeline.py": "f303307be321a59c4e2cb557eb284df425a42a2633a4afc3ce9e04ad207d4117"
+  },
+  "test_change_justification": "The original global no-grey substring incorrectly rejected the explicitly opted-in regional_art_plan legacy candidate while the formal else uses the complete opened texture. The new finite adapter requires exactly one whole unchanged capture_state chest block with the guarded legacy alpha and actual formal opened-pose call, then forbids simple/compound modulate.a assignments everywhere outside it. Original dispatch guard and all original tests remain.",
+  "independent_observations": [
+    "Independently verified W2 commit changes only tools/underworld_pipeline.py and tests/test_underworld_pipeline.py.",
+    "AST comparison verifies all 116 prior test functions retain exactly the same AST; none deleted or changed. Nine deliberate actual text_override corruptions were added.",
+    "Initial W2 accepted legal *= and += alpha edits in the formal branch; actual independently reproduced rejection is preserved in W2_initial_guard_rejection.json.",
+    "After repair, independently reran baseline=True and actual-source formal-branch mutations for =, *=, +=, -=, /=, %=, **=, <<=, >>=, &=, |=, ^=. All mutations return False.",
+    "Final complete raw pipeline log contains exactly 125 test ok lines and final Ran 125 tests in 69.252s / OK, with no FAIL/ERROR/traceback. The actual operator-corruption tests are included.",
+    "Final original Home guard wrapper log contains exactly 36 test ok lines and Ran 36 tests / OK."
+  ],
+  "logs": [
+    {
+      "path": "build/forest_revision04/underworld-pipeline-W2-final.log",
+      "sha256": "1a1beb50ef1507c6f4d753286312df88935039fcb653d5811b143dcdfb9751f3"
+    },
+    {
+      "path": "build/forest_revision04/home-guard-W2.log",
+      "sha256": "b085d68de8ef8ba1ecf450e7f885d27ef5b8d561dbc0ba166fc9c6c84bd58751"
+    }
+  ],
+  "retained_rejection": "W2_initial_guard_rejection.json",
+  "limits": [
+    "This is a deliberately finite GDScript source-shape adapter, not a general GDScript AST parser or proof against arbitrary equivalent rewrites.",
+    "Original full docs profile failure remains failed; complete fresh docs profile and remote CI still require their own current result.",
+    "W1 runtime/Godot results remain bound to W1 unchanged game bytes; W2 does not re-execute or re-sign those runs.",
+    "Movie/audio/player/device and whole-region acceptance remain separate."
+  ]
+}

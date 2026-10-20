@@ -37,6 +37,7 @@ var jump_released := false
 var drop_cursor := 1
 var last_drop_tick := -1000
 var last_hook := ""
+var canopy_lane_wait_leg := -1
 var cache_claimed := false
 var cache_pending := false
 var modal_frames: Array[Dictionary] = []
@@ -85,7 +86,7 @@ func begin() -> void:
 						if edge.has(key): step[key]=edge[key]
 				itinerary.append(step)
 			itinerary.append({"kind":"walk","edge_id":id,"landing":edge.path[-1].duplicate(),"step_index":edge.steps.size()})
-			if manifest.get("layout_version") in ["forest-expedition-airborne-v11","forest-woven-trunk-v12","forest-interwoven-canopy-v13"]:itinerary[-1].b=edge.b
+			if manifest.get("layout_version") in ["forest-expedition-airborne-v11","forest-woven-trunk-v12","forest-interwoven-canopy-v13","forest-fruit-routes-v14"]:itinerary[-1].b=edge.b
 		else:
 			edge.edge_id=id;edge.landing=edge.get("landing",edge.path[-1]).duplicate();itinerary.append(edge)
 			if edge.has("post_landing_steps"):
@@ -212,7 +213,7 @@ func _physics_process(_delta: float) -> void:
 	if (leg.kind=="narrow_return" or bool(leg.get("claim_before_edge",false))) and not duplicate_checked:
 		claim_local_id=str(leg.get("claim_id","crown_cache"));drive_cache();return
 	if interwoven_crown_case.drive(self,leg):return
-	if manifest.get("layout_version") in ["forest-expedition-airborne-v11","forest-woven-trunk-v12","forest-interwoven-canopy-v13"] and grove_combat_case.drive(self,leg):return
+	if manifest.get("layout_version") in ["forest-expedition-airborne-v11","forest-woven-trunk-v12","forest-interwoven-canopy-v13","forest-fruit-routes-v14"] and grove_combat_case.drive(self,leg):return
 	match str(leg.kind):
 		"walk": drive_walk(point(leg.landing))
 		"drop","drop_through": drive_drop(leg)
@@ -223,7 +224,7 @@ func _physics_process(_delta: float) -> void:
 			else: drive_hollow(leg)
 		"hollow_cavity": drive_cavity_kind(leg)
 		"airborne_chain", "hanging_chain":
-			if not _drive_canopy_bark_high_launch(leg):air_chain_case.drive(self,leg)
+			if not _wait_canopy_crossbranch_lane(leg) and not _drive_canopy_bark_high_launch(leg):air_chain_case.drive(self,leg)
 		"candidate_hook_relay": drive_candidate_relay(leg)
 		"gate_hook": drive_gate(leg)
 		"ecology_choice","ecology_return": drive_ecology(leg)
@@ -239,11 +240,42 @@ func drive_walk(destination: Vector2) -> void:
 	controller.router.set_move_axis(clampf((destination.x-player.global_position.x)/12,-1,1))
 	stable=stable+1 if at_destination(destination) else 0
 	if stable>=12: complete_leg()
+func _wait_canopy_crossbranch_lane(leg: Dictionary) -> bool:
+	# Observe the real passing body from the actual launch bank before committing
+	# R-H-R. An airborne pause would spend the jump while the cast lane is blocked.
+	var program: Array=leg.get("action_program",[])
+	if manifest.get("layout_version") not in ["forest-interwoven-canopy-v13","forest-fruit-routes-v14"] or str(leg.get("geometry_instance",""))!="canopy_fork" or phase!="align" or stable<12 or program.size()!=3:return false
+	if str(program[0].get("action",""))!="R" or str(program[1].get("action",""))!="H" or str(program[2].get("action",""))!="R":return false
+	var support_id := str(leg.get("from_support_id",""))
+	if not full_support(support_id) or absf(player.velocity.x)>=1:return false
+	var enemy_id := str(manifest.get("crossbranch_contract",{}).get("enemy_id",""))
+	var passing: EnemyActor
+	for index: int in stage.enemy_manifest.size():
+		if str(stage.enemy_manifest[index].id)==enemy_id:passing=stage.enemies[index].get_node("Actor") as EnemyActor
+	if not is_instance_valid(passing) or passing.health.terminal or not passing.attack_behavior is ForestCrossbranchBehavior:return false
+	var behavior := passing.attack_behavior as ForestCrossbranchBehavior
+	var npc: Vector2=passing.motor.global_position
+	var body: Vector2=passing.definition.collision_size
+	var clearance: float=controller.traversal.definition.hook_capture_radius
+	var wholly_left := npc.x+body.x*.5 < player.global_position.x-clearance
+	var moving_away := behavior.state==&"flight" and behavior.flight_velocity.x<0
+	var on_far_shore := behavior.current_shore==1 and behavior._on_shore(1)
+	var observation := {"enemy_id":enemy_id,"enemy_position":pair(npc),"enemy_body":pair(body),"enemy_health":passing.health.current,"enemy_state":String(behavior.state),"enemy_velocity":pair(behavior.flight_velocity),"current_shore":behavior.current_shore,"committed_shore":behavior.committed_shore,"whole_body_left":wholly_left,"hook_capture_radius":clearance,"supports":supports(),"snapshot":snapshot(),"phase_age":age}
+	if wholly_left and (moving_away or on_far_shore):
+		if canopy_lane_wait_leg==leg_index:event("canopy_crossbranch_lane_clear",observation)
+		return false
+	controller.router.set_move_axis(0)
+	if canopy_lane_wait_leg!=leg_index:
+		canopy_lane_wait_leg=leg_index
+		event("canopy_crossbranch_lane_wait",observation)
+	# This wait never resets the original phase age or the global edge budget.
+	if age>400:fail("air_chain_bounded_phase/"+phase)
+	return true
 func _drive_canopy_bark_high_launch(leg: Dictionary) -> bool:
 	# Candidate ecology strategy: use the real jump's height before the
 	# horizontal recoil, rather than flying through the patrolling shield.
 	var program: Array=leg.get("action_program",[])
-	if manifest.get("layout_version") not in ["forest-woven-trunk-v12","forest-interwoven-canopy-v13"] or str(leg.get("geometry_instance",""))!="canopy_fork" or phase!="air_chain_launch" or program.size()!=2:return false
+	if manifest.get("layout_version") not in ["forest-woven-trunk-v12","forest-interwoven-canopy-v13","forest-fruit-routes-v14"] or str(leg.get("geometry_instance",""))!="canopy_fork" or phase!="air_chain_launch" or program.size()!=2:return false
 	if str(program[0].get("action",""))!="R" or str(program[1].get("action",""))!="H":return false
 	var keeper: EnemyActor
 	for i: int in stage.enemy_manifest.size():
@@ -297,7 +329,7 @@ func drive_jump(leg: Dictionary) -> void:
 		controller.router.set_move_axis(clampf((landing.x-player.global_position.x)/12,-1,1))
 		if leg.kind=="jump_gap":
 			release_gap_before_ceiling(str(leg.support_id))
-			if not (manifest.get("layout_version") in ["forest-expedition-airborne-v11","forest-woven-trunk-v12","forest-interwoven-canopy-v13"] and leg.get("hold_to_receiver",false)):
+			if not (manifest.get("layout_version") in ["forest-expedition-airborne-v11","forest-woven-trunk-v12","forest-interwoven-canopy-v13","forest-fruit-routes-v14"] and leg.get("hold_to_receiver",false)):
 				release_gap_after_vertical_clearance(str(leg.support_id))
 		release_jump_after_clearance(str(leg.support_id))
 		stable=stable+1 if at_destination(landing,str(leg.support_id)) else 0

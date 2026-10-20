@@ -1,0 +1,71 @@
+{
+  "reviewer": "/root/independent_review",
+  "independent": true,
+  "scope": "observed actual game pixels: finite map1 four observation fixtures; two candidate target retirements",
+  "reviewed_head": "e7286da14189f35d166e43179babd5b689e8e747",
+  "reviewed_manifest": "c4a677cbc013ecbe53ff319e2cf2d56626748499ea4527eebb6180673b1555f4",
+  "source_binding": {
+    "path": "build/forest_revision04/composition-deep-r3/source-binding.json",
+    "sha256": "486221250d159389408730c16ad5ed0ac4ab4b8c1bc05db9def42bf0213f0874",
+    "source_count": 3267,
+    "before_after_equal": true,
+    "all_artifact_hashes_independently_verified": true,
+    "archive_crc_verified": true
+  },
+  "observed_frames": [
+    {
+      "path": "build/forest_revision04/composition-deep-r3/map1_interwoven_deep_basin.png",
+      "sha256": "1f52eefc8c05bf572e007ba04729a48b22ee2b5d30c4aa839d6777eb37e43d91",
+      "view_method": "tools.view_image actual original 1280x720 PNG",
+      "kind": "static G2 observation fixture, not route/movie"
+    },
+    {
+      "path": "build/forest_revision04/composition-deep-r3/map1_root_bay.png",
+      "sha256": "73a77dca1c4a08f719f15d9e8883970bdd5b832649822d35e9da1cd456568307",
+      "view_method": "tools.view_image actual original 1280x720 PNG",
+      "kind": "static G2 observation fixture, not route/movie"
+    },
+    {
+      "path": "build/forest_revision04/composition-deep-r3/map1_interwoven_inner.png",
+      "sha256": "fb575c07c778822b75defe026f361efaab340d964939141920ace48087bee516",
+      "view_method": "tools.view_image actual original 1280x720 PNG",
+      "kind": "static G2 observation fixture, not route/movie"
+    },
+    {
+      "path": "build/forest_revision04/composition-deep-r3/map1_interwoven_root_landing.png",
+      "sha256": "c3710bbea6feaa18f0eb522815fae9d8ac5854c74d9706503fafff0bd8d31340",
+      "view_method": "tools.view_image actual original 1280x720 PNG",
+      "kind": "static G2 observation fixture, not route/movie"
+    }
+  ],
+  "verdict": "ACCEPT",
+  "accepted_scope": [
+    "Deep_root_sapling roots into existing island edge near pixel (530,476), bends toward (420,345), and tapers to the upper fruit (472,58); the a-fruit (496,286) joins by a distinct side branch. No bright standing-edge promise; actor and upper/right observation space remain open.",
+    "Root bay entry/recommendation text no longer overlaps; the two direction lines remain readable in the observed window.",
+    "Inner target count decreases from 13 to 12 by removing the top-edge rest; the three previously accepted fruit/branch relationships remain.",
+    "Root landing lower-window fruit now hangs down from an existing upper support instead of a tall pole from the foot platform.",
+    "Two auxiliary rest target retirements may continue as a reversible versioned playtest candidate after finite single-target ablations; return catch remains."
+  ],
+  "ablation_review": {
+    "report": "build/forest_fruit_routes04/ablation03/report.json",
+    "sha256": "0a5b256fbb02d2e6d11cce2e41f29d73403ab922e30ea4fc0f4522bbe194f95a",
+    "route": "high_return",
+    "seed": "forest-depth-00",
+    "map": 1,
+    "baseline_and_each_single_omission": "24/24 legs, no failures, no position/resource injection",
+    "independent_static_search": "In the actual baseline Manifest both retired rest IDs occur only in hook_anchors.id. Broken arch return catch additionally occurs in geometry_instances.anchor_id_map.return_catch_ring; it is retained.",
+    "limit": "Finite evidence does not prove universal redundancy for arbitrary freeform player routes."
+  },
+  "promotion": "May become default playtest candidate for original fixed 80 and normal speed movie validation; not whole region/player/device acceptance.",
+  "remaining": [
+    "Full original fixed 80 not yet reviewed.",
+    "Normal speed camera and traversal movie, audio listening, actual gameplay learnability and free-route clarity unverified.",
+    "Map2 and other seeds not visually inspected.",
+    "Remaining pending support gaps must stay explicit.",
+    "No final user aesthetic or physical device approval."
+  ],
+  "previous_reports": [
+    "initial_review.md (first-round rejection preserved)",
+    "inner_r2_review.json (three local attachment acceptance)"
+  ]
+}

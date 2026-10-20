@@ -1,0 +1,67 @@
+{
+  "reviewer": "/root/r3_review",
+  "kind": "actual native original static image review",
+  "status": "bounded_static_sample_only",
+  "actually_viewed": [
+    {
+      "path": "build/underworld_r3/objects/map1_shortcut_closed.png",
+      "sha256": "bc3e6b2a700ffef6cfa1300d34cc587a7cd682880f09aa901ea13798f1ae16f9"
+    },
+    {
+      "path": "build/underworld_r3/objects/map1_shortcut_open.png",
+      "sha256": "887c1db4172a3594d0a84b81878e250905a3084285e435db9d2354b022cedd4e"
+    },
+    {
+      "path": "build/underworld_r3/objects/map2_boss_seal_saved_closed.png",
+      "sha256": "6fefdd4c22554e3bc4310981b1566eeee8a7c5e3386dc883b7e3b1e9afa82b58"
+    },
+    {
+      "path": "build/underworld_r3/objects/material_catalog.png",
+      "sha256": "45c8858ed41225311272a24915ab5fb248c6081259f1c26b056619e357a8224d"
+    },
+    {
+      "path": "build/underworld_r3/home/returned_west.png",
+      "sha256": "a918434050052b911a749ecf91e805a46eef681f148048ca5c3a5198e3493a81"
+    },
+    {
+      "path": "build/underworld_r3/home/station_upgrade.png",
+      "sha256": "18596b26d71e18ea2f9c32778162fb70691adcb5bd98be3fafd9da79e54a77b7"
+    },
+    {
+      "path": "build/underworld_r3/home/station_achievements.png",
+      "sha256": "d8d45b7cd75f1cbaaed36df92f6660aa9b7978e93495c9485ae85ccd4e7a2b97"
+    },
+    {
+      "path": "build/underworld_r3/home/station_departure.png",
+      "sha256": "d29c8e67aefa27523991bd28fbe08a3702aa767b094b1749e15437d97df8c97a"
+    },
+    {
+      "path": "build/underworld_r3/home/station_courier.png",
+      "sha256": "ae748994efbab3ee50def5dd264889ef60ab37f8a47889007ec18a87e7796c8d"
+    }
+  ],
+  "observations": [
+    "Matching dark copper/stone gate material is visible in formal shortcut and default Boss seal samples; no plain-white GPU carrier/gate texture regression.",
+    "Formal horizontal gate clears the actual under-platform corridor after accepted projectile opening.",
+    "Catalog original closed and newly generated lifted-lid open chest poses are visibly distinct, full color and opaque. This catalog does not prove actual claimed formal pose yet.",
+    "Five actual Home views show grounded/terraced house feet, complete on-screen actor, three building elevations and nearby service selection.",
+    "Eastern open clock arch and road distinguish departure from service houses; no NPC storefront silhouette at the exit."
+  ],
+  "minor_subjective_candidates": [
+    {
+      "id": "R3-IR-12",
+      "severity": "minor",
+      "scene": "Home station_departure",
+      "observation": "Slot title, two-line direction label inside arch, and bottom interaction HUD repeat near-identical departure copy.",
+      "classification": "AI aesthetic judgement, not confirmed input/visibility failure",
+      "suggestion": "Keep a single in-world direction label and leave W interaction to nearby HUD."
+    }
+  ],
+  "limits": [
+    "No entire movie or normal-speed continuous motion viewed yet",
+    "No audio listened",
+    "No physical device or user acceptance",
+    "First cache images known actor-occluded and not used as claimed-chest acceptance",
+    "Source currently shared mutable checkout, not final exact whole-product binding"
+  ]
+}

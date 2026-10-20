@@ -1,0 +1,668 @@
+{
+  "scope": "actual same-case old/new layout controls and driver-only repair, not level quality/player approval",
+  "seed": "forest-depth-hollow-00",
+  "map": 2,
+  "route": "high_return",
+  "failure_root_cause": "real migrating crossbranch body intercepted the physical hook aimed at canopy_fork relay_a; exact target contact assertion correctly rejected",
+  "original_leg13_frames_exactly_equal": true,
+  "original_leg13_frame_count": 430,
+  "old_new_unchanged_manifest_fields": {
+    "platforms": true,
+    "dangers": true,
+    "connections": true,
+    "geometry_instances": true,
+    "enemies": true,
+    "routes": true
+  },
+  "strategy": "only canopy_fork R-H-R, grounded full-support and12 stable align frames: axis0 wait until actual whole NPC body moves left beyond launch bank or is supported at left shore; original actions/400phase/1800edge/18000route budgets unchanged",
+  "not_modified": [
+    "production enemy/physics/resources",
+    "NPC phase",
+    "player position",
+    "hook target eligibility/collision",
+    "case matrix",
+    "strict reader/target contact assertions"
+  ],
+  "runs": [
+    {
+      "id": "original_v14_failure",
+      "capture": "build/forest_revision04/matrix16-W2/10-map2-high_return/capture.json",
+      "capture_sha256": "4a129a813fb70a891568cbd3bc50d2e1bdfc9b038f4bd7f4aec5db9823d95280",
+      "layout": "forest-fruit-routes-v14",
+      "status": "failed",
+      "source_stable": true,
+      "native_exit": 1,
+      "seconds": 10.100704733000384,
+      "failures": [
+        "air_chain_bounded_phase/air_chain_action"
+      ],
+      "completed_legs": 13,
+      "requested_legs": 29,
+      "final_player_health": 5.0,
+      "leg13_events": [
+        {
+          "entry_support": "canopy_fork__entry",
+          "geometry_instance": "canopy_fork",
+          "grounded": true,
+          "hook_used": false,
+          "kind": "air_chain_departure",
+          "leg": 13,
+          "position": [
+            -284.999572753906,
+            395.926849365234
+          ],
+          "program": [
+            {
+              "action": "R",
+              "direction": [
+                -1,
+                0
+              ]
+            },
+            {
+              "action": "H",
+              "anchor": "relay_a"
+            },
+            {
+              "action": "R",
+              "direction": [
+                0,
+                1
+              ]
+            }
+          ],
+          "shots": 2,
+          "tick": 1213
+        },
+        {
+          "hook_tip": [
+            -49.6955947875977,
+            327.248687744141
+          ],
+          "hook_used_at_event": true,
+          "kind": "hook_pull",
+          "leg": 13,
+          "position": [
+            -130.999603271484,
+            354.601806640625
+          ],
+          "target": "forest_crossbranch",
+          "tick": 1236
+        },
+        {
+          "hook_tip": [
+            -67.3327026367188,
+            310.840362548828
+          ],
+          "hook_used_at_event": true,
+          "kind": "hook_contact_kick",
+          "leg": 13,
+          "position": [
+            -88.7873001098633,
+            331.809387207031
+          ],
+          "target": "forest_crossbranch",
+          "tick": 1239
+        },
+        {
+          "hook_tip": [
+            -67.3327026367188,
+            310.840362548828
+          ],
+          "hook_used_at_event": false,
+          "kind": "hook_kick",
+          "leg": 13,
+          "position": [
+            -88.7873001098633,
+            331.809387207031
+          ],
+          "target": "forest_crossbranch",
+          "tick": 1246
+        }
+      ],
+      "receipt": "build/forest_revision04/matrix16-W2/receipt.json",
+      "receipt_sha256": "7dcdb0ea638e5eb0cb51ed24ca9c44d66790ffe6358df72de1519b098ceaf084"
+    },
+    {
+      "id": "explicit_v13_control_failure",
+      "capture": "build/forest_revision04/v13-map2-high-return-control/00-map2-high_return/capture.json",
+      "capture_sha256": "e7bfcffc711eae9c0e627e414b51fbe2e7233a4bcd17041c1e4fcaf9318f9040",
+      "layout": "forest-interwoven-canopy-v13",
+      "status": "failed",
+      "source_stable": true,
+      "native_exit": 1,
+      "seconds": 10.774437397999463,
+      "failures": [
+        "air_chain_bounded_phase/air_chain_action"
+      ],
+      "completed_legs": 13,
+      "requested_legs": 29,
+      "final_player_health": 5.0,
+      "leg13_events": [
+        {
+          "entry_support": "canopy_fork__entry",
+          "geometry_instance": "canopy_fork",
+          "grounded": true,
+          "hook_used": false,
+          "kind": "air_chain_departure",
+          "leg": 13,
+          "position": [
+            -284.999572753906,
+            395.926849365234
+          ],
+          "program": [
+            {
+              "action": "R",
+              "direction": [
+                -1,
+                0
+              ]
+            },
+            {
+              "action": "H",
+              "anchor": "relay_a"
+            },
+            {
+              "action": "R",
+              "direction": [
+                0,
+                1
+              ]
+            }
+          ],
+          "shots": 2,
+          "tick": 1213
+        },
+        {
+          "hook_tip": [
+            -49.6955947875977,
+            327.248687744141
+          ],
+          "hook_used_at_event": true,
+          "kind": "hook_pull",
+          "leg": 13,
+          "position": [
+            -130.999603271484,
+            354.601806640625
+          ],
+          "target": "forest_crossbranch",
+          "tick": 1236
+        },
+        {
+          "hook_tip": [
+            -67.3327026367188,
+            310.840362548828
+          ],
+          "hook_used_at_event": true,
+          "kind": "hook_contact_kick",
+          "leg": 13,
+          "position": [
+            -88.7873001098633,
+            331.809387207031
+          ],
+          "target": "forest_crossbranch",
+          "tick": 1239
+        },
+        {
+          "hook_tip": [
+            -67.3327026367188,
+            310.840362548828
+          ],
+          "hook_used_at_event": false,
+          "kind": "hook_kick",
+          "leg": 13,
+          "position": [
+            -88.7873001098633,
+            331.809387207031
+          ],
+          "target": "forest_crossbranch",
+          "tick": 1246
+        }
+      ],
+      "receipt": "build/forest_revision04/v13-map2-high-return-control/receipt.json",
+      "receipt_sha256": "e76c840373084779c5ba1f96b12c2cc9f26093e03045da84cdbb90837c202d93"
+    },
+    {
+      "id": "fixed_v13",
+      "capture": "build/forest_revision04/canopy-lane-fix-v13/00-map2-high_return/capture.json",
+      "capture_sha256": "9fcd4a157cf07a5823a9a5bd844af9620b7dd80583708e23dc68bb80e857fb1e",
+      "layout": "forest-interwoven-canopy-v13",
+      "status": "passed",
+      "source_stable": true,
+      "native_exit": 0,
+      "seconds": 17.205744478999804,
+      "failures": [],
+      "completed_legs": 29,
+      "requested_legs": 29,
+      "final_player_health": 6.0,
+      "leg13_events": [
+        {
+          "committed_shore": 1,
+          "current_shore": 0,
+          "enemy_body": [
+            28.0,
+            32.0
+          ],
+          "enemy_health": 3.0,
+          "enemy_id": "hollow_route__crossbranch",
+          "enemy_position": [
+            76.0371246337891,
+            451.992736816406
+          ],
+          "enemy_state": "telegraph",
+          "enemy_velocity": [
+            0.0,
+            0.0
+          ],
+          "hook_capture_radius": 12.0,
+          "kind": "canopy_crossbranch_lane_wait",
+          "leg": 13,
+          "phase_age": 13,
+          "position": [
+            -284.999572753906,
+            395.926849365234
+          ],
+          "snapshot": {
+            "config": {
+              "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+              "tuning": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c"
+            },
+            "double_enabled": false,
+            "energy": 98.0,
+            "health": 5.0,
+            "hook_enabled": true,
+            "position": [
+              -284.999572753906,
+              395.926849365234
+            ],
+            "shots": 2,
+            "tier": 1,
+            "wall_enabled": false,
+            "weapon": "pulse_gun"
+          },
+          "supports": [
+            "canopy_fork__entry",
+            "upper_spiral__crown"
+          ],
+          "tick": 1213,
+          "whole_body_left": false
+        },
+        {
+          "committed_shore": 1,
+          "current_shore": 0,
+          "enemy_body": [
+            28.0,
+            32.0
+          ],
+          "enemy_health": 3.0,
+          "enemy_id": "hollow_route__crossbranch",
+          "enemy_position": [
+            -312.010040283203,
+            233.045791625977
+          ],
+          "enemy_state": "flight",
+          "enemy_velocity": [
+            -352.742065429688,
+            142.00016784668
+          ],
+          "hook_capture_radius": 12.0,
+          "kind": "canopy_crossbranch_lane_clear",
+          "leg": 13,
+          "phase_age": 83,
+          "position": [
+            -284.999572753906,
+            395.926849365234
+          ],
+          "snapshot": {
+            "config": {
+              "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+              "tuning": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c"
+            },
+            "double_enabled": false,
+            "energy": 100.0,
+            "health": 5.0,
+            "hook_enabled": true,
+            "position": [
+              -284.999572753906,
+              395.926849365234
+            ],
+            "shots": 2,
+            "tier": 1,
+            "wall_enabled": false,
+            "weapon": "pulse_gun"
+          },
+          "supports": [
+            "canopy_fork__entry",
+            "upper_spiral__crown"
+          ],
+          "tick": 1283,
+          "whole_body_left": true
+        },
+        {
+          "entry_support": "canopy_fork__entry",
+          "geometry_instance": "canopy_fork",
+          "grounded": true,
+          "hook_used": false,
+          "kind": "air_chain_departure",
+          "leg": 13,
+          "position": [
+            -284.999572753906,
+            395.926849365234
+          ],
+          "program": [
+            {
+              "action": "R",
+              "direction": [
+                -1,
+                0
+              ]
+            },
+            {
+              "action": "H",
+              "anchor": "relay_a"
+            },
+            {
+              "action": "R",
+              "direction": [
+                0,
+                1
+              ]
+            }
+          ],
+          "shots": 2,
+          "tick": 1283
+        },
+        {
+          "hook_tip": [
+            3.0015926361084,
+            326.195556640625
+          ],
+          "hook_used_at_event": true,
+          "kind": "hook_pull",
+          "leg": 13,
+          "position": [
+            -130.999603271484,
+            366.879577636719
+          ],
+          "target": "canopy_fork__relay_a",
+          "tick": 1308
+        },
+        {
+          "hook_tip": [
+            3.0015926361084,
+            326.195556640625
+          ],
+          "hook_used_at_event": true,
+          "kind": "hook_contact_kick",
+          "leg": 13,
+          "position": [
+            -25.2474193572998,
+            336.294738769531
+          ],
+          "target": "canopy_fork__relay_a",
+          "tick": 1314
+        },
+        {
+          "hook_tip": [
+            3.0015926361084,
+            326.195556640625
+          ],
+          "hook_used_at_event": false,
+          "kind": "hook_kick",
+          "leg": 13,
+          "position": [
+            -25.2474193572998,
+            336.294738769531
+          ],
+          "target": "canopy_fork__relay_a",
+          "tick": 1321
+        },
+        {
+          "grounded": false,
+          "hook_tip": [
+            -49.2474174499512,
+            306.294738769531
+          ],
+          "hook_used": false,
+          "kind": "air_chain_H_completed",
+          "leg": 13,
+          "position": [
+            -49.2474174499512,
+            312.294738769531
+          ],
+          "step": 1,
+          "target": "canopy_fork__relay_a",
+          "tick": 1329
+        }
+      ],
+      "receipt": "build/forest_revision04/canopy-lane-fix-v13/receipt.json",
+      "receipt_sha256": "35bda10512821077d243ef1b7ef52331d5c148fb8a94d822fcffbea4b497f7f0"
+    },
+    {
+      "id": "fixed_v14",
+      "capture": "build/forest_revision04/canopy-lane-fix-v14/00-map2-high_return/capture.json",
+      "capture_sha256": "40a3eb02c2c7ee605291e56d5a4b08894a04d7a9e6bd4a7998dc82cff77d8ae2",
+      "layout": "forest-fruit-routes-v14",
+      "status": "passed",
+      "source_stable": true,
+      "native_exit": 0,
+      "seconds": 13.238374625999313,
+      "failures": [],
+      "completed_legs": 29,
+      "requested_legs": 29,
+      "final_player_health": 6.0,
+      "leg13_events": [
+        {
+          "committed_shore": 1,
+          "current_shore": 0,
+          "enemy_body": [
+            28.0,
+            32.0
+          ],
+          "enemy_health": 3.0,
+          "enemy_id": "hollow_route__crossbranch",
+          "enemy_position": [
+            76.0371246337891,
+            451.992736816406
+          ],
+          "enemy_state": "telegraph",
+          "enemy_velocity": [
+            0.0,
+            0.0
+          ],
+          "hook_capture_radius": 12.0,
+          "kind": "canopy_crossbranch_lane_wait",
+          "leg": 13,
+          "phase_age": 13,
+          "position": [
+            -284.999572753906,
+            395.926849365234
+          ],
+          "snapshot": {
+            "config": {
+              "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+              "tuning": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c"
+            },
+            "double_enabled": false,
+            "energy": 98.0,
+            "health": 5.0,
+            "hook_enabled": true,
+            "position": [
+              -284.999572753906,
+              395.926849365234
+            ],
+            "shots": 2,
+            "tier": 1,
+            "wall_enabled": false,
+            "weapon": "pulse_gun"
+          },
+          "supports": [
+            "canopy_fork__entry",
+            "upper_spiral__crown"
+          ],
+          "tick": 1213,
+          "whole_body_left": false
+        },
+        {
+          "committed_shore": 1,
+          "current_shore": 0,
+          "enemy_body": [
+            28.0,
+            32.0
+          ],
+          "enemy_health": 3.0,
+          "enemy_id": "hollow_route__crossbranch",
+          "enemy_position": [
+            -312.010040283203,
+            233.045791625977
+          ],
+          "enemy_state": "flight",
+          "enemy_velocity": [
+            -352.742065429688,
+            142.00016784668
+          ],
+          "hook_capture_radius": 12.0,
+          "kind": "canopy_crossbranch_lane_clear",
+          "leg": 13,
+          "phase_age": 83,
+          "position": [
+            -284.999572753906,
+            395.926849365234
+          ],
+          "snapshot": {
+            "config": {
+              "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+              "tuning": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c"
+            },
+            "double_enabled": false,
+            "energy": 100.0,
+            "health": 5.0,
+            "hook_enabled": true,
+            "position": [
+              -284.999572753906,
+              395.926849365234
+            ],
+            "shots": 2,
+            "tier": 1,
+            "wall_enabled": false,
+            "weapon": "pulse_gun"
+          },
+          "supports": [
+            "canopy_fork__entry",
+            "upper_spiral__crown"
+          ],
+          "tick": 1283,
+          "whole_body_left": true
+        },
+        {
+          "entry_support": "canopy_fork__entry",
+          "geometry_instance": "canopy_fork",
+          "grounded": true,
+          "hook_used": false,
+          "kind": "air_chain_departure",
+          "leg": 13,
+          "position": [
+            -284.999572753906,
+            395.926849365234
+          ],
+          "program": [
+            {
+              "action": "R",
+              "direction": [
+                -1,
+                0
+              ]
+            },
+            {
+              "action": "H",
+              "anchor": "relay_a"
+            },
+            {
+              "action": "R",
+              "direction": [
+                0,
+                1
+              ]
+            }
+          ],
+          "shots": 2,
+          "tick": 1283
+        },
+        {
+          "hook_tip": [
+            3.0015926361084,
+            326.195556640625
+          ],
+          "hook_used_at_event": true,
+          "kind": "hook_pull",
+          "leg": 13,
+          "position": [
+            -130.999603271484,
+            366.879577636719
+          ],
+          "target": "canopy_fork__relay_a",
+          "tick": 1308
+        },
+        {
+          "hook_tip": [
+            3.0015926361084,
+            326.195556640625
+          ],
+          "hook_used_at_event": true,
+          "kind": "hook_contact_kick",
+          "leg": 13,
+          "position": [
+            -25.2474193572998,
+            336.294738769531
+          ],
+          "target": "canopy_fork__relay_a",
+          "tick": 1314
+        },
+        {
+          "hook_tip": [
+            3.0015926361084,
+            326.195556640625
+          ],
+          "hook_used_at_event": false,
+          "kind": "hook_kick",
+          "leg": 13,
+          "position": [
+            -25.2474193572998,
+            336.294738769531
+          ],
+          "target": "canopy_fork__relay_a",
+          "tick": 1321
+        },
+        {
+          "grounded": false,
+          "hook_tip": [
+            -49.2474174499512,
+            306.294738769531
+          ],
+          "hook_used": false,
+          "kind": "air_chain_H_completed",
+          "leg": 13,
+          "position": [
+            -49.2474174499512,
+            312.294738769531
+          ],
+          "step": 1,
+          "target": "canopy_fork__relay_a",
+          "tick": 1329
+        }
+      ],
+      "receipt": "build/forest_revision04/canopy-lane-fix-v14/receipt.json",
+      "receipt_sha256": "9ced56e7b0eef6b6637a6a92ec34414030ca4243115a2984838b5c5f4a2bcfac"
+    }
+  ],
+  "full80": "pending original frozen corpus execution",
+  "limitations": [
+    "Four same-case observations cover map2 seed00 high_return only; full original80 still pending.",
+    "Driver scheduling improved, no claim that level quality or player discovery improved.",
+    "G2 composition/static freeze and real player/device acceptance remain separate."
+  ],
+  "source_hashes": {
+    "tests/forest_depth_region_trace.gd": "c73e5ef0ee7c487e512d5f2fe396bc3bbed34831952aa002324f7f2bdc0bc156",
+    "tools/run_forest_depth_region.py": "3b903090fe5314e9af79a7704242193d75dfc773abe33e7e3669faa6930cbb6d"
+  }
+}

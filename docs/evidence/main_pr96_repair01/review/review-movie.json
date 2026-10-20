@@ -1,0 +1,307 @@
+{
+  "reviewer": "/root/independent_review",
+  "independent": true,
+  "verdict": "ACCEPT",
+  "scope": "Limited actual-pixel review of sixteen directly AVI-decoded frames: two jump sequences, sampled pull/hang/kick and root_spiral continuous H. Actual native/source/timeline proof also verified. Not full movie playback/audio, all frames, whole forest composition, device or player acceptance.",
+  "source_head": "6b2a13f1445038c9bcd8f2fd9cd2f4d639d1ec8d",
+  "runtime_source_commit": "c77f920bd8c31ce7640b6db44fb049efc863370b",
+  "outer": {
+    "argv": [
+      "python3",
+      "tools/run_forest_depth_region.py",
+      "--output",
+      "build/forest_revision04/movie-final-W6",
+      "--seed",
+      "forest-depth-00",
+      "--map",
+      "1",
+      "--route",
+      "high_return",
+      "--movie"
+    ],
+    "native_timeout_seconds": 240,
+    "outer_exit_code": 0,
+    "seconds": 197.67042634000063,
+    "source_head": "6b2a13f1445038c9bcd8f2fd9cd2f4d639d1ec8d",
+    "env": {
+      "DISPLAY": ":99",
+      "LIBGL_ALWAYS_SOFTWARE": "1",
+      "LP_NUM_THREADS": "1"
+    },
+    "native_receipt": "build/forest_revision04/movie-final-W6/receipt.json",
+    "scope": "original formal App movie actual default v14; real jumps/hooks; no layout override"
+  },
+  "native": {
+    "exit_code": 0,
+    "seconds": 187.4642875339996,
+    "original_cap_seconds": 240,
+    "status": "passed",
+    "errors": [],
+    "seed": "forest-depth-00",
+    "map": 1,
+    "route": "high_return",
+    "completed_legs": 24,
+    "default_layout": "forest-fruit-routes-v14",
+    "actual_GL_context": true,
+    "strict_log_clean": true
+  },
+  "independent_proof_checks": {
+    "avi_sha256": "ddef2af6e3efcfd9045b387ee73e310515ef7f29f06749d2d3d2a0982b3b48db",
+    "old_avi_actual_sha256": "ddef2af6e3efcfd9045b387ee73e310515ef7f29f06749d2d3d2a0982b3b48db",
+    "all_PNG_SHA_match": true,
+    "MP4_SHA_match": true,
+    "capture_validator_errors": [],
+    "timeline_errors": [],
+    "event_bindings_match": true,
+    "independent_ffprobe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_type": "video",
+          "width": 1280,
+          "height": 720,
+          "avg_frame_rate": "60/1",
+          "nb_read_frames": "2241"
+        },
+        {
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "avg_frame_rate": "0/0",
+          "nb_read_frames": "2241"
+        }
+      ]
+    }
+  },
+  "source_guard": {
+    "stable": true,
+    "after_import_equals_after": true,
+    "before_matches_fresh_forest80_full_inventory": true,
+    "no_source_edit_by_reviewer": true
+  },
+  "pixel_observations": [
+    {
+      "frames": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "AVI_indices": [
+        31,
+        32,
+        33,
+        40
+      ],
+      "finding": "Actually viewed all four original PNGs. Initial jump platform remains approximately y477 while the visible character rises. Fruit/branches/background/HUD retain composition through adjacent before/event/next samples; no abrupt whole-screen vertical recenter or zoom change observed at this takeoff."
+    },
+    {
+      "frames": [
+        12,
+        13,
+        14,
+        15,
+        16
+      ],
+      "AVI_indices": [
+        1445,
+        1446,
+        1447,
+        1454,
+        1462
+      ],
+      "finding": "Actually viewed all five original PNGs. Ordinary jump platform top remains approximately y506 while the character rises and the world scrolls horizontally with travel. No takeoff-triggered full vertical cut/scale jump visible in these samples."
+    },
+    {
+      "frames": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "AVI_indices": [
+        44,
+        48,
+        50,
+        92
+      ],
+      "finding": "Actually viewed all four original PNGs. Rope attachment, fruit target, character body and pull/hang/kick state remain readable. Later sustained ascent produces vertical follow; widely spaced samples cannot certify its complete intermediate motion."
+    },
+    {
+      "frames": [
+        9,
+        10,
+        11
+      ],
+      "AVI_indices": [
+        116,
+        128,
+        140
+      ],
+      "finding": "Actually viewed all three original PNGs. Branch/fruit ownership and root_spiral continuous H are visible; upper target can be cropped. Frame009 cast raw.target is root_spiral__spiral_middle;010/011 pull/kick target root_spiral__spiral_crown. This group is not interwoven_inner."
+    }
+  ],
+  "caption_correction": {
+    "original_index_not_overwritten": true,
+    "frames": [
+      9,
+      10,
+      11
+    ],
+    "original_labels": [
+      "inner_hook_cast",
+      "inner_hook_pull",
+      "inner_hook_contact_kick"
+    ],
+    "actual_scope": "root_spiral continuous H; do not treat as interwoven_inner golden-window evidence",
+    "basis": "Actual event.target and observed composition; root requested a separate caption-errata artifact.",
+    "actual_event_targets": {
+      "009": "root_spiral__spiral_middle",
+      "010": "root_spiral__spiral_crown",
+      "011": "root_spiral__spiral_crown"
+    }
+  },
+  "frame_index": [
+    {
+      "file": "build/forest_revision04/movie-final-W6/00-map1-high_return/event-frames/frame-001.png",
+      "frame_index_zero_based": 31,
+      "seconds": 0.5166666666666667,
+      "SHA256": "c71fed1e88ce4c4e1c0fad7ea40b6f44ee70e905d6f83f0e91c8d22ae7bdf1c6",
+      "actually_viewed": true
+    },
+    {
+      "file": "build/forest_revision04/movie-final-W6/00-map1-high_return/event-frames/frame-002.png",
+      "frame_index_zero_based": 32,
+      "seconds": 0.5333333333333333,
+      "SHA256": "9e8ebd60f19c6486553875b5c9b2a45737bcccd3198c7f2c185e564009bd1764",
+      "actually_viewed": true
+    },
+    {
+      "file": "build/forest_revision04/movie-final-W6/00-map1-high_return/event-frames/frame-003.png",
+      "frame_index_zero_based": 33,
+      "seconds": 0.55,
+      "SHA256": "b488658807aea69cfbbd5c8fb077205a21875eb0097d9d2c77e774ee948bd195",
+      "actually_viewed": true
+    },
+    {
+      "file": "build/forest_revision04/movie-final-W6/00-map1-high_return/event-frames/frame-004.png",
+      "frame_index_zero_based": 40,
+      "seconds": 0.6666666666666666,
+      "SHA256": "53a35db822726aa60e1284349d56c6a008115e3ae7bae9320e1024dd13db613e",
+      "actually_viewed": true
+    },
+    {
+      "file": "build/forest_revision04/movie-final-W6/00-map1-high_return/event-frames/frame-005.png",
+      "frame_index_zero_based": 44,
+      "seconds": 0.7333333333333333,
+      "SHA256": "15082b402412cb7c1062a251c874a1f07ad893b50178ee77d61213cadd905fa1",
+      "actually_viewed": true
+    },
+    {
+      "file": "build/forest_revision04/movie-final-W6/00-map1-high_return/event-frames/frame-006.png",
+      "frame_index_zero_based": 48,
+      "seconds": 0.8,
+      "SHA256": "e74a0b521949a015fd63aed66dde47ddd8892c30c723ccb991e27ed8ee22da03",
+      "actually_viewed": true
+    },
+    {
+      "file": "build/forest_revision04/movie-final-W6/00-map1-high_return/event-frames/frame-007.png",
+      "frame_index_zero_based": 50,
+      "seconds": 0.8333333333333334,
+      "SHA256": "65b4652818bbeab545c815e596d175e77004044fea95a1110dea3c3256b35c40",
+      "actually_viewed": true
+    },
+    {
+      "file": "build/forest_revision04/movie-final-W6/00-map1-high_return/event-frames/frame-008.png",
+      "frame_index_zero_based": 92,
+      "seconds": 1.5333333333333334,
+      "SHA256": "64fc29910e5feb30570f53933ff9a6da75606895cdc1fd94814f79544098fe7d",
+      "actually_viewed": true
+    },
+    {
+      "file": "build/forest_revision04/movie-final-W6/00-map1-high_return/event-frames/frame-009.png",
+      "frame_index_zero_based": 116,
+      "seconds": 1.9333333333333333,
+      "SHA256": "e6324b44361772075045de3fdeb671e5c284f1fb4f11bf51bc55ad97fe3490ad",
+      "actually_viewed": true
+    },
+    {
+      "file": "build/forest_revision04/movie-final-W6/00-map1-high_return/event-frames/frame-010.png",
+      "frame_index_zero_based": 128,
+      "seconds": 2.1333333333333333,
+      "SHA256": "3fd1080be899f678c3bf8510b0855ae9957fecaf02197929d62f1b4f8f613061",
+      "actually_viewed": true
+    },
+    {
+      "file": "build/forest_revision04/movie-final-W6/00-map1-high_return/event-frames/frame-011.png",
+      "frame_index_zero_based": 140,
+      "seconds": 2.3333333333333335,
+      "SHA256": "35a0db45506e98fc372561c794b982b97eb8e13e2452740fc299acc3a16cf12e",
+      "actually_viewed": true
+    },
+    {
+      "file": "build/forest_revision04/movie-final-W6/00-map1-high_return/event-frames/frame-012.png",
+      "frame_index_zero_based": 1445,
+      "seconds": 24.083333333333332,
+      "SHA256": "9191ea850eb8ff15d4737e6c40dafd2c0a5cab5d85946b48e0cb6dd11bd7d891",
+      "actually_viewed": true
+    },
+    {
+      "file": "build/forest_revision04/movie-final-W6/00-map1-high_return/event-frames/frame-013.png",
+      "frame_index_zero_based": 1446,
+      "seconds": 24.1,
+      "SHA256": "edf85f40d2a917f65b7d86a311781c6921b906001247ecc3c4d021f0d0cf0f91",
+      "actually_viewed": true
+    },
+    {
+      "file": "build/forest_revision04/movie-final-W6/00-map1-high_return/event-frames/frame-014.png",
+      "frame_index_zero_based": 1447,
+      "seconds": 24.116666666666667,
+      "SHA256": "6d0ef0d64cb8ce806c930e96418b5b5643afc587e5129dcc5d685ecc1aa6f2f2",
+      "actually_viewed": true
+    },
+    {
+      "file": "build/forest_revision04/movie-final-W6/00-map1-high_return/event-frames/frame-015.png",
+      "frame_index_zero_based": 1454,
+      "seconds": 24.233333333333334,
+      "SHA256": "b6ab195a700174795bd8b0b6afb3101a6d0eaeee31fecef65c1ec1cfce0b2a75",
+      "actually_viewed": true
+    },
+    {
+      "file": "build/forest_revision04/movie-final-W6/00-map1-high_return/event-frames/frame-016.png",
+      "frame_index_zero_based": 1462,
+      "seconds": 24.366666666666667,
+      "SHA256": "fb77a8170a7757d47190a12ad632ca3e0adce578bff7ebc9eae40bde783fc24c",
+      "actually_viewed": true
+    }
+  ],
+  "retained_visual_limits": [
+    "Top-edge fruit/target clipping remains in sampled sustained climb.",
+    "Circular markers remain visible elsewhere in the ordinary-jump view; these sampled pixels do not prove universal fruit conversion or resolve every target composition.",
+    "This particular root_spiral route view does not replace the separate interwoven_inner/deep_basin local composition reviews or prove whole-region aesthetics.",
+    "Only actual body/input/presentation event trace exists; no numerical camera telemetry was invented."
+  ],
+  "reproduction": {
+    "new_avi_sha256": "ddef2af6e3efcfd9045b387ee73e310515ef7f29f06749d2d3d2a0982b3b48db",
+    "old_avi_actual_sha256": "ddef2af6e3efcfd9045b387ee73e310515ef7f29f06749d2d3d2a0982b3b48db",
+    "equal_independently_rehashed": true,
+    "new_native_and_guard_independently_exist": true,
+    "scope": "New frozen-source execution independently produced a matching AVI. Original W2 provenance remains original; reuse of identical viewing MP4 is storage deduplication, not replacement of the new execution receipt."
+  },
+  "proof_SHA256": {
+    "build/forest_revision04/movie-final-W6/receipt.json": "898875bb75956f3323afbd7a472d55cd38783c466419ec2cccae29ebeef33f84",
+    "build/forest_revision04/movie-final-W6-outer-receipt.json": "b26a2791fa0c19f117defd84c1a47c8a1474e67b41a1b7a5437540b4d350ad38",
+    "build/forest_revision04/movie-final-W6/00-map1-high_return/event-frame-index.json": "d585f006d7a4f9179c6e8e218a42f80e9328b632f7033718de9debf02abaab51",
+    "build/forest_revision04/movie-final-W6/00-map1-high_return/capture.json": "1ea0c660eb4fd6866cd2394b3bdd51e373038098ebea49dea6ab9fcce611169a",
+    "build/forest_revision04/movie-final-W6/00-map1-high_return/native.log": "62673d6da2e932a1598c8cb8e2d051c498c4a80123ac3630a758bffa86f80252",
+    "build/forest_revision04/movie-final-W6/reproduction-vs-W2.json": "30b873c134395fba6545b16fe78991e72806ce4e0443e2922e71ab81b14e14e7",
+    "build/forest_revision04/final-W6/movie-independent-checks.json": "841ffec9d617139f584a102999d732adb28eb088e9da2885f9d698b3efe9bd5d",
+    "build/forest_revision04/movie-final-W6/caption-errata.json": "41aa6df0e3b8fc860f334f1f3f506e2c2c397f6c0058e1c0efb45244cbe53922"
+  },
+  "not_reviewed": [
+    "Full37.35-second movie playback was not performed; only these sixteen original frames were visually viewed.",
+    "Audio track48kHz stereo exists but was not listened to.",
+    "No physical device/user comfort approval or final whole remoteCI acceptance."
+  ]
+}

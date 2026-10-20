@@ -1,0 +1,58 @@
+{
+  "reviewer": "/root/r3_review",
+  "status": "unverified_runtime_and_visual",
+  "version": "mutable pre-freeze",
+  "files": [
+    {
+      "path": "tests/underworld_plains/test_underworld_projectiles.gd",
+      "sha256": "9e1a5ee4e4f6198c13fbf408a9c3a007744650b0371b52521da09653ff3e1335"
+    },
+    {
+      "path": "tools/run_underworld_projectile_tests.py",
+      "sha256": "d1ef7cee9ce31b5b4fddf9266c35f34e9aa84c3422421ce9633b152b6d006dab"
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_projectile_visual.gd",
+      "sha256": "cab4f239d1a8bff7a0d730d9754d693ac802b99cc616baa1c095c13279baaef2"
+    },
+    {
+      "path": "scripts/combat/player_projectile.gd",
+      "sha256": "0537b760050a2e0717daf2fa6b8ae811c3b88debd7931eecae08c708201b8d53"
+    },
+    {
+      "path": "scripts/enemies/enemy_attack_projectile.gd",
+      "sha256": "33297253497b4ac28396a61efcc9343c5970d6fd5565e09556b8acba9fce2d18"
+    },
+    {
+      "path": "scripts/bosses/boss_projectile.gd",
+      "sha256": "d642507e051b598611d5c92ea2d8c3f0e35a2b0c0e96c94c618d2e95aa6fe53f"
+    },
+    {
+      "path": "scripts/bosses/bellstrider_bell_projectile.gd",
+      "sha256": "84f6d87017ec39048e6991cee32b38f402696b4822eaf47f2992a3af3412c051"
+    },
+    {
+      "path": "scripts/combat/weapon_entity.gd",
+      "sha256": "1158586a9c13a17a257feafde649d273742572caf3deb26bc533309d1e1a44bc"
+    },
+    {
+      "path": "scripts/combat/weapon_action_runtime.gd",
+      "sha256": "62a7f42f92d41757a09afb48f0ee2cefaea5fe6404f534caab031f272f9eda39"
+    }
+  ],
+  "method": "Actually read full new fixture, strict wrapper, shared visual helper and production diffs against 0fab13f. No engine run by reviewer. Author 43/0 is reported, not independently reproduced yet.",
+  "source_observations": [
+    "Projectile sweep/HP/resource ordering not altered for art except hostile hit_direction propagation.",
+    "Material contact spark semantics are distinct from committed HP; effects never apply damage or grants.",
+    "Muzzle weak source and stage sibling impacts have bounded .18-second life; cancellation/lifetime emits no impact.",
+    "WeaponEntity/WeaponActionRuntime changes are draw-only and retain actual weapon art/catalog shapes.",
+    "windblade/pier invisible proxy behavior remains intentionally owned by actual Boss presentation."
+  ],
+  "remaining": [
+    "Frozen source binding",
+    "Actual native PNG and continuous formal projectile/attack presentation",
+    "Actual audio/hurt synchronization",
+    "Formal installed consumer for each family",
+    "Physical device/performance and subjective acceptance"
+  ]
+}

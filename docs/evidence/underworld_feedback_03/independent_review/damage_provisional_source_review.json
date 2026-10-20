@@ -1,0 +1,134 @@
+{
+  "reviewer": "/root/r3_review",
+  "status": "unverified_visual_and_final_runtime",
+  "kind": "source_and_author_raw_receipt_independent_audit",
+  "baseline": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+  "owned_sha_current_match": {
+    "scripts/damage/damage_feedback_definition.gd": true,
+    "resources/damage/feedback.tres": true,
+    "scripts/damage/damage_boundary.gd": true,
+    "scripts/damage/damage_return_echo.gd": true,
+    "scripts/damage/damage_request.gd": true,
+    "scripts/damage/frame_damage_policy.gd": true,
+    "scripts/damage/demo_contact_emitter.gd": true,
+    "scripts/player/player_motor.gd": true,
+    "scripts/enemies/enemy_motor.gd": true,
+    "scripts/enemies/enemy_actor.gd": true,
+    "scripts/underworld_plains/underworld_player.gd": true,
+    "scripts/underworld_plains/underworld_enemy.gd": true,
+    "scripts/generation/module_saw_hazard.gd": true,
+    "scripts/generation/platforming_module.gd": true,
+    "scripts/generation/random_stage_assembler.gd": true,
+    "tests/underworld_plains/test_underworld_damage_r3.gd": true,
+    "tools/run_underworld_damage_r3_tests.py": true
+  },
+  "author_receipt_checks": 273,
+  "method": "Read full new wrapper/test and actual policy, request, contact, fall, Actor/Motor/Underworld diffs. Read actual raw outcomes; reviewer did not independently execute engine.",
+  "counterexample_results": {
+    "old_lower_route": {
+      "actual_sources": [
+        "actual_ferry_channel_pit_plane"
+      ],
+      "health": 4.0,
+      "lower_present": true,
+      "new_semantics": false,
+      "on_floor": true,
+      "position": "(400.0, 709.9581)",
+      "rect": "[P: (2400.0, 430.0), S: (400.0, 24.0)]",
+      "role": "fall_plane"
+    },
+    "new_lower_route": {
+      "actual_sources": [],
+      "health": 5.0,
+      "lower_present": true,
+      "new_semantics": true,
+      "on_floor": true,
+      "position": "(400.0, 709.9581)",
+      "rect": "[P: (2400.0, 430.0), S: (400.0, 24.0)]",
+      "role": "fall_plane"
+    },
+    "true_pit": {
+      "actual_sources": [
+        "actual_ferry_channel_pit_plane"
+      ],
+      "health": 4.0,
+      "lower_present": false,
+      "new_semantics": true,
+      "on_floor": false,
+      "position": "(400.0, 1273.5)",
+      "rect": "[P: (2400.0, 430.0), S: (400.0, 24.0)]",
+      "role": "fall_plane"
+    },
+    "hurt_shoot_orders": [
+      {
+        "HP": 4.0,
+        "normal_velocity": "(0.0, 0.0)",
+        "order": "shoot_before_hit",
+        "recoil": "(605.0, 0.0)",
+        "shots": [
+          {
+            "cooldown": 0.25,
+            "damage_remaining": 0.0,
+            "direction": "(-1.0, 0.0)",
+            "id": 1
+          },
+          {
+            "cooldown": 0.25,
+            "damage_remaining": 0.0,
+            "direction": "(-1.0, 0.0)",
+            "id": 2
+          }
+        ]
+      },
+      {
+        "HP": 4.0,
+        "normal_velocity": "(0.0, 0.0)",
+        "order": "hit_before_shoot",
+        "recoil": "(605.0, 0.0)",
+        "shots": [
+          {
+            "cooldown": 0.25,
+            "damage_remaining": 0.18,
+            "direction": "(-1.0, 0.0)",
+            "id": 1
+          },
+          {
+            "cooldown": 0.25,
+            "damage_remaining": 0.0,
+            "direction": "(-1.0, 0.0)",
+            "id": 2
+          }
+        ]
+      },
+      {
+        "HP": 4.0,
+        "normal_velocity": "(0.0, 0.0)",
+        "order": "mid_hurt_fresh_shot",
+        "recoil": "(605.0, 0.0)",
+        "shots": [
+          {
+            "cooldown": 0.25,
+            "damage_remaining": 0.0966666666666667,
+            "direction": "(-1.0, 0.0)",
+            "id": 1
+          },
+          {
+            "cooldown": 0.25,
+            "damage_remaining": 0.0,
+            "direction": "(-1.0, 0.0)",
+            "id": 2
+          }
+        ]
+      }
+    ]
+  },
+  "scope_notes": [
+    "Real existing ferry_channel bottom band with explicitly assembled lower static floor, not a discovered ordinary random seed route. Same geometry old/new sensor semantics, old HP4/new HP5; removing lower floor retains HP4.",
+    "Actual gear and attached surface real Router/Motor/Health/epoch contact traces each 80ticks; no direct presentation callback injection.",
+    "User-approved hurt entry/exit implemented; no speculative import/export save API.",
+    "Damageable applied observers now after fatal invalidation and both target submission orders tested.",
+    "Hurt owns bounded Motor channel while legal shot/cooldown remains; all three hit/fire orders tested for gravity, no delayed recoil and fresh normal recoil after.",
+    "Original damage_tests source untouched and executed by new fixture.",
+    "GPU appearance, normal-speed audio, natural whole-region route, devices and final whole-source regression still unverified"
+  ]
+}

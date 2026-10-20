@@ -2,6 +2,7 @@ class_name ThornForestRegionStage
 extends PlainsRegionStage
 ## Forest formal consumer, retaining shared reward/ledger/map/respawn contracts.
 var _forest_draw_clock := 0.0
+var _gate_hint: Label
 
 func _has_canopy_boss() -> bool:
 	var content: Variant=generated.manifest.get("boss_content")
@@ -131,7 +132,10 @@ func _ready() -> void:
 	map_layer.add_child(map_view)
 	_context_sign(spawn+Vector2(-90,-82),"THORN FOREST / AIM + GRAPPLE\nPull near, kick away, recoil to change lane",290)
 	for hint: Dictionary in generated.manifest.get("expedition_hints",[]):
-		_context_sign(Vector2(hint.position[0],hint.position[1]),str(hint.text),float(hint.radius))
+		var hint_text := str(hint.text)
+		if generated.manifest.get("layout_version")==ForestTargetHosts.LAYOUT:
+			hint_text=hint_text.replace("Right: recoil toward the hanging ring, then fire down.","Right: recoil toward the hanging fruit, then fire down.")
+		_context_sign(Vector2(hint.position[0],hint.position[1]),hint_text,float(hint.radius))
 	_context_sign(merchant_position+Vector2(-100,-82),"ROOT CAMP / INTERACT TO TRADE",180)
 	# This old sign describes v1's branch fork. On the shared v2 trunk it also
 	# covers the upper thorn boundary; the cache has its own real prompt/map icon.
@@ -141,7 +145,10 @@ func _ready() -> void:
 	if app != null and is_instance_valid(app.controller):
 		app.controller.traversal.action_changed.connect(_accepted_forest_action)
 	var ring: Dictionary = generated.manifest.hook_anchors.filter(func(row: Dictionary) -> bool: return row.id == generated.manifest.vine_gate.key_anchor)[0]
-	_context_sign(Vector2(ring.position[0]-100,ring.position[1]-65),"HOOK THE BRASS RING / UNFURL THE VINE GATE",230)
+	var gate_target: Node2D = (assembler as ThornForestRegionAssembler).hook_targets.get(str(ring.id))
+	var target_name := "RIPE FRUIT" if gate_target is ForestFruitAnchor else "BRASS RING"
+	_context_sign(Vector2(ring.position[0]-100,ring.position[1]-65),"HOOK THE %s / UNFURL THE VINE GATE" % target_name,230)
+	_gate_hint=context_signs[-1].label
 	queue_redraw()
 
 func _accepted_forest_action(action: StringName) -> void:
@@ -187,6 +194,30 @@ func setup_shot_latches(_controller: PlayerController, _lifetime: DemoLifetime) 
 	return generated.manifest.shot_latch_plan.latches.is_empty()
 
 func composition_focus() -> Vector2: return Vector2.INF
+
+func _update_context_signs() -> void:
+	# Keep each historical sign's wording and actor keepout, but show the
+	# nearest applicable lesson once. Root-bay and old arrival hints overlap
+	# in world space; drawing both is unreadable even if each passes its radius.
+	super._update_context_signs()
+	# A completed gate must not consume the nearest lesson slot.
+	var forest_assembler := assembler as ThornForestRegionAssembler
+	if is_instance_valid(_gate_hint) and is_instance_valid(forest_assembler) and forest_assembler.region_state != null and forest_assembler.region_state.opened.has("crown_vine"):
+		_gate_hint.hide()
+	var selected: Label
+	var nearest := INF
+	var at := global_player_position()
+	for row: Dictionary in context_signs:
+		var label: Label = row.label
+		if not label.visible: continue
+		var distance := at.distance_squared_to(row.origin)
+		if distance < nearest:
+			nearest = distance
+			selected = label
+	for row: Dictionary in context_signs:
+		var label: Label = row.label
+		if label != selected: label.hide()
+
 func observation_composition_focus() -> Vector2:
 	# Formal generated relations and historical candidate probes share the
 	# same existing optional camera consumer. Ordinary regions remain INF.

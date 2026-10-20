@@ -10,6 +10,12 @@ var radius := 4.0
 var remaining := 0.9
 var spent := false
 var _shape := CircleShape2D.new()
+var _visual_age := 0.0
+var _visual_launched := false
+var _visual_trail: Array[Vector2] = []
+
+func _ready() -> void:
+	if UnderworldProjectileVisual.enabled(self): z_index = 8
 
 func configure(owner_behavior: EnemyAttackBehavior, id: StringName, aim: Vector2) -> void:
 	behavior = owner_behavior
@@ -34,6 +40,13 @@ func _physics_process(delta: float) -> void:
 		if DemoContactEmitter.segment_intersects_bounds(global_position, global_position + direction * speed * delta, Rect2(point - Vector2.ONE * behavior.actor.definition.protected_radius, Vector2.ONE * behavior.actor.definition.protected_radius * 2.0)):
 			dispose()
 			return
+	_visual_age += delta
+	_visual_trail.append(global_position)
+	if _visual_trail.size() > 7: _visual_trail.pop_front()
+	if not _visual_launched:
+		_visual_launched = true
+		UnderworldProjectileVisual.emit(self,global_position,direction,false,false)
+	queue_redraw()
 	var query := PhysicsShapeQueryParameters2D.new()
 	query.shape = _shape
 	query.transform = Transform2D(0, global_position)
@@ -50,6 +63,7 @@ func _physics_process(delta: float) -> void:
 		query.transform.origin += query.motion * minf(1, fraction + 0.001)
 		query.motion = Vector2.ZERO
 		var hits := overlaps if not overlaps.is_empty() else space.intersect_shape(query, 8)
+		UnderworldProjectileVisual.emit(self,query.transform.origin,direction,false,true)
 		# Simultaneous wall/target contact is occluded by the wall, independent
 		# of physics query result ordering.
 		if hits.any(func(hit: Dictionary): return hit.get("collider") != behavior.controller.motor):
@@ -63,6 +77,7 @@ func _physics_process(delta: float) -> void:
 				request.source_id = behavior.source_id
 				request.target_id = &"player"
 				request.amount = 1
+				request.hit_direction = direction
 				request.actor_epoch = token.actor_epoch
 				request.health_epoch = behavior.controller.actor_resources.health.epoch
 				behavior.policy.submit(request)
@@ -77,6 +92,9 @@ func dispose() -> void:
 	queue_free()
 
 func _draw() -> void:
+	if UnderworldProjectileVisual.enabled(self):
+		UnderworldProjectileVisual.paint(self,direction,radius,_visual_age,_visual_trail,&"seed",false)
+		return
 	if PixelFormalActors.pixel_context(self):
 		PixelFormalActors.projectile(self,radius,direction)
 		return

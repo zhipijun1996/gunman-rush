@@ -13,6 +13,9 @@ func advance(delta: float) -> void:
 	super.advance(delta)
 	flight_velocity.y+=gravity*delta
 func _draw() -> void:
+	if UnderworldProjectileVisual.enabled(self):
+		UnderworldProjectileVisual.paint(self,direction,radius,_visual_age,_visual_trail,&"bell",false)
+		return
 	if PixelFormalActors.pixel_context(self):
 		PixelFormalActors.projectile(self,radius,direction,true)
 		return

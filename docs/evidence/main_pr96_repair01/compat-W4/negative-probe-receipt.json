@@ -1,0 +1,24 @@
+{
+  "id": "negative-probe",
+  "argv": [
+    "bash",
+    "tools/godot.sh",
+    "--headless",
+    "--fixed-fps",
+    "60",
+    "--path",
+    ".",
+    "--script",
+    "build/forest_revision04/compat-W4/menu_scroll_negative_probe.gd"
+  ],
+  "timeout_seconds": 120,
+  "actual_exit_code": 1,
+  "expected_rejection": true,
+  "seconds": 3.9768227060003483,
+  "forbidden_diagnostics": [],
+  "log": "build/forest_revision04/compat-W4/negative-probe.log",
+  "log_sha256": "7301e98640540ec8b00827a5522ad88d349a170bb9fd98fd2f84ae9e7cfb7150",
+  "summaries": [
+    "MENU SCROLL TOUCH: 45 checks / 1 failures; native GUI lifecycle only, Web scrolling separate"
+  ]
+}

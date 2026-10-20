@@ -1,0 +1,92 @@
+{
+  "decision": "SCOPED_ACCEPT__EXACT_FROZEN_TEST_TOOL_BLOBS",
+  "execution_base_commit": "3affbc89011bce1ef206ce377f9ebdfc724880d4",
+  "tested_reviewed_source_sha256": {
+    "tests/forest_depth_version_runner.gd": "c42c56684276870548603acc8e566682642281effebaab1f96c23536df2958a3",
+    "tests/forest_depth_version_world_runner.gd": "4e9eed97587582285cef0a4d07438c30f34a84fc67c0b03ee1102f6f9de59059",
+    "tests/forest_depth_version_world_runner.gd.uid": "71d9f032540bb6f1b3b3b4cb18db8a7b5fc47f3cf4ac11162bf6ad524d13e862",
+    "tools/run_forest_depth_versions.py": "32821ec570cf3c4e5a9790fb15deb1ea29069b2b97c7dc7aa12d90cfb41d03db",
+    "tools/test_forest_depth_versions.py": "a9c3a3f165bc3c199c6ce9df5423ed450fd4fc12df61707aa3ccd92b5fa978f6",
+    "tests/forest_depth_version_app_case.gd": "2632f7744906afc1929225d5731b6ee2d02f95001a40c8a727fa70f97c3e8274"
+  },
+  "read_only_original_App_helper": "tests/forest_depth_version_app_case.gd",
+  "original_validators_prefix_byte_exact": true,
+  "original_all_contract_GDScript_methods_byte_exact": true,
+  "exact_original_assertions": 327,
+  "exact_original_cases": 24,
+  "all_case_and_check_values_types_engine_lifecycle_exact_original": true,
+  "ledger_order": "data276 + actualApp47 + data localrelease4",
+  "native_domains": {
+    "data_assertions": 280,
+    "world_assertions": 47,
+    "distinct_PIDs": [
+      98914,
+      98933
+    ],
+    "actual_shared90_seconds": 20.746023110998067,
+    "world_remaining_seconds": 74.52422099700198,
+    "import90_unchanged": true,
+    "original_manifest210_unchanged": true,
+    "positive_outer_seconds": 28.796932403001847
+  },
+  "actual_negative": {
+    "outer_exit": 1,
+    "seconds": 28.081918160001806,
+    "data280_kept": true,
+    "world_original47true_then48false": true,
+    "native_exit1": true,
+    "source_guard": true,
+    "aggregate_absent": true,
+    "no_engine_leaks_errors": true
+  },
+  "independent_pure_checks": {
+    "original45_tests": {
+      "tests_run": 45,
+      "failures": 0,
+      "errors": 0,
+      "actual_native_receipt": "/workspace/gunman-rush/build/forest_depth/versions/split-C2-positive-r3/receipt.json",
+      "actual_native_receipt_sha256": "2364e95ac86e4f3053ec7efe02bdc04ae2ae252ab73001fac38257c837cb64c7",
+      "test_source_sha256": "a9c3a3f165bc3c199c6ce9df5423ed450fd4fc12df61707aa3ccd92b5fa978f6",
+      "scope": "One positive and cross-channel tamper/reuse refusals; Python validation only, no new native execution"
+    },
+    "extra31_type_budget_identity_mutants_all_refused": true,
+    "old_counterexamples_reproduced_on_exact_old_actual_source": [
+      {
+        "case": "nested_PID_float",
+        "old_actual_r2_guard_accepted": true,
+        "final_guard_rejected": true,
+        "reason": "Actual native process identity differs across evidence channels"
+      },
+      {
+        "case": "engine_major_float",
+        "old_actual_r2_guard_accepted": true,
+        "final_guard_rejected": true,
+        "reason": "Complete typed actual Engine.get_version_info identity required"
+      },
+      {
+        "case": "both_engine_null",
+        "old_actual_r2_guard_accepted": true,
+        "final_guard_rejected": true,
+        "reason": "Complete typed actual Engine.get_version_info identity required"
+      }
+    ]
+  },
+  "failed_history_preserved": [
+    "original combined327/0 exit223objects/150resources",
+    "runtime-comparator same327/24 and same223 leak, not a repair",
+    "r1 missing argv/sequence/PID/duration guards; r2 type-coercion and missing-engine artifact holes, preserved as REWORK",
+    "C2_domain_budget_erratum corrects preliminary180 to actual original210 without changing source"
+  ],
+  "delivery": {
+    "sha256": "ef48ba4d95f9c3271e6cbdc74a138d84bc77f613cb621ae7c2f8edfd71c7f001",
+    "bytes": 9430184,
+    "members": 129,
+    "index_members_verified": 126
+  },
+  "not_approved": [
+    "whole project CI/remaining49/merge or public deployment",
+    "same-process mixed data+world lifetime root fix",
+    "forest route/Boss/taste/device/user acceptance"
+  ],
+  "reviewer_started_native_or_changed_tracked_source": false
+}

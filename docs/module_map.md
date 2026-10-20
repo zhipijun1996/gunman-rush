@@ -96,9 +96,9 @@ challenge_recoil_climb/long_gap/ferry_ascent分别由真实反冲、弹体与Ani
 PlainsTerrainSkin仅绘制既有Rect2，端头裁剪/中段重复/填充裁剪，顶面精确对齐；PlainsBackground一个区域一实例，横向视差/无竖向循环，任意高差与镜像使用同一背景。PlayerVisualAdapter只观察角色与能力，枪/飘带纯视觉超出碰撞但不增加命中体。本轮平原随机八关、固定回归与独立练习共用平原候选皮肤。手机美术可读性/性能及风格最终确认仍待用户试玩；最新草木PNG按局部裁切接入，未通过接缝的rock_fill仍不用，角色候选没有独立瞄准枪时不强行替换。
 
 
-本轮新增PlainsStageGenerator（类型与关数生成配方）、GeneratedDemoStage（共享Assembler/内容布置消费者）、MetaProgression音符/升级与MetaSaveService存储。DemoMenu只发送开始平原/购买请求；DemoApp在伤害批次后校验拾取，再调用RunWallet或永久钱包。存储拒绝不把音符标为已领取，段回退保留Stage实例和收据。各模块实际验证状态见handoff，不用目录存在代替测试。
+历史八房曾使用的 PlainsStageGenerator 已按用户授权退休；当前保留 GeneratedDemoStage（共享Assembler/内容布置消费者）、MetaProgression音符/升级与MetaSaveService存储。DemoMenu只发送开始平原/购买请求；DemoApp在伤害批次后校验拾取，再调用RunWallet或永久钱包。存储拒绝不把音符标为已领取，段回退保留Stage实例和收据。各模块实际验证状态见handoff，不用目录存在代替测试。
 
 
-## D074 房间连接模板
+## D074 房间连接模板（历史退休）
 
-`PlainsStageGenerator → PlainsRoomGrammar.plan → PlainsBranchLayout.generate/choose/phrase → RandomStageAssembler`为正式消费者链。实际Manifest的room_grammar节点角色由PlainsEncounterPlanner消费，观察/恢复节点不生成敌人；原独立巡逻遭遇保持。模板目录在config/plains_room_templates.json，源与技术门槛见[十轮记录](plains_room_grammar.md)。
+旧八房生成链、专有配置和测试已退休；历史设计与当时技术结果见[十轮记录](plains_room_grammar.md)。当前正式入口为 DemoApp → PlainsRegionGenerator / ThornForestRegionGenerator → 对应 RegionStage / Assembler。RandomStageGenerator、模块库、Foundry 与三房快速演示继续保留。

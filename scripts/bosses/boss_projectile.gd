@@ -12,6 +12,12 @@ var spent := false
 var _target: Node2D
 var _owner_body: PhysicsBody2D
 var _shape := CircleShape2D.new()
+var _visual_age := 0.0
+var _visual_launched := false
+var _visual_trail: Array[Vector2] = []
+
+func _ready() -> void:
+	if UnderworldProjectileVisual.enabled(self): z_index = 8
 
 func configure(definition: BossDefinition, attack_id: StringName, aim: Vector2, target: Node2D, owner_body: PhysicsBody2D) -> void:
 	event_id = attack_id
@@ -34,6 +40,13 @@ func advance(delta: float) -> void:
 	if lifetime <= 0.0:
 		dispose()
 		return
+	_visual_age += delta
+	_visual_trail.append(global_position)
+	if _visual_trail.size() > 7: _visual_trail.pop_front()
+	if not _visual_launched:
+		_visual_launched = true
+		if _visible_attack(): UnderworldProjectileVisual.emit(self,global_position,direction,false,false)
+	queue_redraw()
 	var query := PhysicsShapeQueryParameters2D.new()
 	query.shape = _shape
 	query.transform = Transform2D(0.0, global_position)
@@ -56,6 +69,7 @@ func advance(delta: float) -> void:
 		query.motion = Vector2.ZERO
 		query.transform.origin = contact_point + direction * 0.1
 		var collisions := initial if not initial.is_empty() else space.intersect_shape(query, 8)
+		if _visible_attack(): UnderworldProjectileVisual.emit(self,contact_point,direction,false,true)
 		spent = true
 		# Terrain occludes simultaneous wall/actor contacts, independent of query order.
 		for contact: Dictionary in collisions:
@@ -74,8 +88,14 @@ func dispose() -> void:
 	spent = true
 	queue_free()
 
+func _visible_attack() -> bool:
+	return not (str(event_id).begins_with("windblade") or str(event_id).begins_with("pier-"))
+
 func _draw() -> void:
-	if str(event_id).begins_with("windblade") or str(event_id).begins_with("pier-"): return
+	if not _visible_attack(): return
+	if UnderworldProjectileVisual.enabled(self):
+		UnderworldProjectileVisual.paint(self,direction,radius,_visual_age,_visual_trail,&"ring",false)
+		return
 	if PixelFormalActors.pixel_context(self):
 		PixelFormalActors.projectile(self,radius,direction)
 		return

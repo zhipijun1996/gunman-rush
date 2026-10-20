@@ -1,0 +1,48 @@
+{
+  "reviewer": "/root/independent_review",
+  "independent": true,
+  "independence_basis": "Separate read-only agent; source/test/proofs not modified. Only new independent review documents written.",
+  "implementers": [
+    "/root/ci_diagnosis"
+  ],
+  "reviewed_commit": "7a58c819de52bba68594b406c07b2a940b2c5a8f",
+  "verdict": "ACCEPT",
+  "scope": "One native menu_scroll touch test fixture owner migration, original gestures/player-input semantics, actual positive/negative exits; not Web touch or universal resource-cache lifecycle.",
+  "prior_reviews": [
+    "W1_code_review.json",
+    "W2_guard_review.json",
+    "W3_compat_and_lane_review.json"
+  ],
+  "source_sha256": {
+    "tests/menu_scroll_touch_tests.gd": "57f291f41d0660c04a0d6c6f36274dc145cf02dcd3b92c45d74d413b323218cd"
+  },
+  "test_change_justification": "The previous standalone Menu/Player composition passed43 actual native business assertions but leaked49ObjectDB/38Resources at exit. The real DemoApp now owns its shared Menu and callback-created real Player. Only its ACTIONS navigation callback is replaced with the original test callback. All original check expressions remain; audio teardown observes real service release and a new WeakRef check confirms all owners free. Production code and thresholds are unchanged.",
+  "independent_observations": [
+    "Verified W4 commit source diff is only tests/menu_scroll_touch_tests.gd.",
+    "Independently compared original29 check call-site expressions against new31: no original check was deleted or changed. Runtime original43 business checks remain plus one owner-release check; the other added check is failure-only if actual audio teardown fails.",
+    "Touch ownership/cancellation/multi-finger/Slider STOP and exact Router neutral/zero-shot/zero-grapple assertions remain unchanged, as do global mouse-touch emulation guards.",
+    "The actual App ACTIONS navigation connection is explicitly disconnected before installing the original test callback, which still constructs a real PlayerMotor/Controller/TouchOverlay using the same resources; only owning parent changes to App.",
+    "Independently inspected raw whole parallel wrapper log:73 presentation assertions/0,56 campaign assertions/0,44 native menu touch checks/0; final wrapper PASS; actual exit0;31.363s within original300s cap; no SCRIPT/SHADER/ERROR/leak diagnostics.",
+    "Independently diffed the build-only negative fixture against current test source: the only extra line is a final check(false). Raw log reports45/1 and actual exit1, with no extra forbidden runtime diagnostic or leak."
+  ],
+  "positive_receipt": {
+    "path": "build/forest_revision04/compat-W4/parallel-region-presentation-receipt.json",
+    "sha256": "422a97bf80570d5b93e17464e966ad1c0cc0b99f8da241567a5faa8e7a0b7b9b",
+    "raw_log_sha256_independently_verified": "2bc6be511613953fe7097c6732193946eef9a105c7c63c182293b2030e53ca2b"
+  },
+  "negative_receipt": {
+    "path": "build/forest_revision04/compat-W4/negative-probe-receipt.json",
+    "sha256": "91ef077076f42ddf15f5482df7a65708736a54faff9bf920629671d23073891f",
+    "raw_log_sha256_independently_verified": "7301e98640540ec8b00827a5522ad88d349a170bb9fd98fd2f84ae9e7cfb7150"
+  },
+  "retained_failure": {
+    "path": "build/forest_revision04/compat-W3/parallel-region-presentation.log",
+    "sha256": "bad89a9f194372f31bef6fa7223c084941aadf0c0a67a039885e98464d585712",
+    "status": "failed; original43/0 functional summary does not override49ObjectDB/38resource exit leak"
+  },
+  "limits": [
+    "Arbitrary independent Home/Menu/Player GDScript resource compilation/cache boundary remains a recorded failed diagnostic, not universally repaired.",
+    "Native injected Viewport GUI events are not actual Web scrolling, DOM touchcancel, physical touchscreen or player/device approval.",
+    "No full80/remoteCI/movie reassignment is implied by this test-only migration."
+  ]
+}

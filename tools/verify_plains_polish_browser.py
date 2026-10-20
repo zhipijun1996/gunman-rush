@@ -2,14 +2,28 @@
 Ordinary keyboard/touch only. Seeded 9-note browser save is a purchase fixture,
 not evidence of earning notes. Optional first positional argument is a URL.
 """
-import asyncio,json,os,re,shutil,subprocess,sys
+import asyncio,hashlib,json,os,re,shutil,subprocess,sys
 from pathlib import Path
 from playwright.async_api import async_playwright
 from PIL import ImageChops
 import verify_random_stage_browser as h
-from verify_plains_ten_browser import storage_fixture,WEB_KEY
 FOLDER=Path('build/verification/plains-polish-browser')
 h.FOLDER=FOLDER
+WEB_KEY = "gunman_rush.plains_meta.v2"
+
+
+def storage_fixture():
+    payload = {"notes": 9, "upgrades": {}, "receipts": {}, "settled": {},
+               "completed_runs": 0, "failed_runs": 0, "completed_biomes": 0,
+               "last_summary": {}}
+    envelope = {"schema_version": 2, "content_version": "plains_meta_1",
+                "profile_id": "local", "profile_revision": 1, "payload": payload}
+    compact = json.dumps(envelope, sort_keys=True, separators=(",", ":"))
+    envelope["checksum"] = hashlib.sha256(compact.encode()).hexdigest()
+    return json.dumps(envelope, separators=(",", ":"))
+
+
+
 async def main(url,touch_probe=None):
  FOLDER.mkdir(parents=True,exist_ok=True)
  report={'url':url,'failed':1,'checks':[],'scope':'Real GUI Home purchase, reload, departure and formal connected-region entrance movement only','device':'Chromium mobile touch emulation; real Android and iPhone unverified','storage_fixture':'9 notes installed once in isolated profile; not earned through gameplay'}

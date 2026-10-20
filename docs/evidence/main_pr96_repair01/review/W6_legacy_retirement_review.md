@@ -1,0 +1,11 @@
+# W6 independent limited review
+
+**ACCEPT**, at `c77f920bd8c31ce7640b6db44fb049efc863370b`, for the explicitly authorized obsolete eight-room retirement and affected local R2 checks. This does not approve original forest80, whole policy600/history, final remote CI or player/device quality. Exact proof identities are in [the JSON review](W6_legacy_retirement_review.json).
+
+The111 committed paths equal55 cleanup paths plus56 fresh Foundry provenance resources; every after-SHA and deletion matches the submitted manifests. Seven feature-exclusive suites retire with their producers. The remaining26 all run once with their original success conditions, actual exit0 in158.95s and a clean strict log. Historical33 success stays bound to its historical source. Final-source core5681/0, UI243/0, styles20 routes/16 variants/3CLI starts and both world candidates also actually pass.
+
+Independent recomputation finds no unapproved differences in60 current maps,10 independent streams,46 actual App starts/snapshots and54 Foundry replays/56113 original frames. All43 supported current snapshots stay accepted; the two development world snapshots stay rejected. Their actual geometry is unchanged, and only their incorrect old-room version identity is corrected. The45-case old-snapshot decoder preserves both acceptance and rejection. Full schema1/schema2 and forest version pins remain.
+
+The necessary typed-array crash repair is explicit: the recorded before baseline reconstructs exactly from W5 plus that one fix; all44 unaffected original App rows are identical. The original world failure remains failed evidence. An additional twelve-whole-route diagnostic exceeded the original90-second cap and was withdrawn as REWORK. The pre-existing twelve physical ground-support samples, native shapes/PhysicsPointQuery/plan/tamper assertions remain, passing188 checks over43 real columns. No budget is enlarged.
+
+Shared generic routes, actual Motor/module checks, Boss combat/lifecycle, camera comfort and current forest coverage remain. Parent port assertions only lose their unreachable retired branch alternative. Both browser helper migrations are AST-identical; imports pass. Real browser/device acceptance still requires its own evidence.

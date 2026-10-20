@@ -1,0 +1,9 @@
+# Exact H verification and retained full-CI failure
+
+All executions here belong to `562542bd458f25c8fb5f6e56e74c69d363976735` (H), before the later font/fixture fixes. Main was `dbc6ba081321637a3eef71979ecf2cf564eb6064`. These results cannot approve a later source or a public deployment. Full source/bundle/media SHA and provenance are inside the archives and reviews.
+
+- Two original native continuous movies: map1 24 legs/2274 physics frames, map2 29/2772; strict native exits and original caps retained. MP4s are viewing derivatives; 32 PNGs decoded from original AVI, without cropping, overlays or recoloring. Independent review viewed those 32 frames, not full audio/video. The map2 incomplete first run and outer-timer instrumentation erratum are retained. Its successful row duration244.051s includes postprocessing; the original native240s subprocess cap was unchanged and completed.
+- Local H Web: build9769c4bff442, PCK141171044B; original20checks/8identities passed in356.436s under480s, errors empty. Exact full PCK stayed equal before/after. This was local, not public. Independent review found actual pre-existing Chinese missing-glyph boxes on the AvatarSelector: functional acceptance with UI REWORK, not all-UI acceptance.
+- Full H CI FAILED. Docs, Windows and Web passed. Serial passed22 then failed underworld-scenery (20cases/21167 business checks passed but4objects/2resources leaked), leaving16 unexecuted. Parallel passed40 then failed root-bell-tests: actual native165 passed, Python rejected the real post-hit state clock;40 unexecuted. Android/deploy/public checks skipped. The original complete parallel artifact ZIP is preserved, including nested native capture/log and strict Python refusal records.
+
+These are exact historical observations. Later repairs and new source-bound verification must be separately recorded. Global composition/FUN, user and physical-device acceptance remain unverified.

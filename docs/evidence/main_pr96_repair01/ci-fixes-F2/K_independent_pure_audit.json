@@ -1,0 +1,276 @@
+{
+  "status": "PASS",
+  "reviewed_final_runtime_commit": "8f803e2f04b17db3ed725df9071669fe78cadeea",
+  "execution_commit_preserved": "5182ace20c66b36aa9d6ec6fa38da9791adf2280",
+  "stats": {
+    "scope": "G0/G1 fixtures and actual spawn consumer; formal route/visual/audio/device unverified",
+    "essential_cases": 19,
+    "width_direction_pairs": [
+      [
+        400,
+        -1
+      ],
+      [
+        400,
+        1
+      ],
+      [
+        440,
+        -1
+      ],
+      [
+        440,
+        1
+      ],
+      [
+        560,
+        -1
+      ],
+      [
+        560,
+        1
+      ]
+    ],
+    "native_assertions": 165,
+    "native_reexecuted": false
+  },
+  "source_map": {
+    "scripts/art/avatar_presentation.gd": "83b38f4ba417ca65d7ab318bb3f9e29a24907d52adbdeb6aa9604704f98352db",
+    "tests/root_bell_tests.gd": "5cd4285069df954e941c9b7f91155295f6234bc8004bd8eac790054b4c2a21a3",
+    "tests/underworld_plains/test_underworld_identity_population.gd": "40975b16b7a0e97847da0e915201e318733da13c06d66fc6afe152755745ea64",
+    "tools/run_root_bell_tests.py": "8ab78bd6a8c2ca338ed8947a6889440cce215080762e74a1a93a633aea8eb1e4"
+  },
+  "root_bell": {
+    "content_refusals_reexecuted": [
+      "erase_actual_pulse_damage",
+      "erase_actual_projectile_damage",
+      "erase_accepted_shot",
+      "erase_accepted_jump",
+      "erase_death_hits",
+      "erase_required_case/actual_formal_manifest_gated_candidates",
+      "erase_required_case/actual_stage_capture_and_ledger_roundtrip",
+      "erase_required_case/base_jump_nonkill",
+      "erase_required_case/duplicate_hit_does_not_interrupt",
+      "erase_required_case/early_real_death_and_walk_through",
+      "erase_required_case/inactive_target",
+      "erase_required_case/miss_does_not_interrupt",
+      "erase_required_case/pause_actor_epoch",
+      "erase_required_case/real_projectile_interrupt",
+      "erase_required_case/restored_pending_pulse_is_cancelled",
+      "erase_required_case/solid_occlusion_negative",
+      "erase_required_case/stand_in_pulse_positive_damage",
+      "erase_required_case/walk_out_alive_nonkill",
+      "erase_required_case/width_400_dir_-1",
+      "erase_required_case/width_400_dir_1",
+      "erase_required_case/width_440_dir_-1",
+      "erase_required_case/width_440_dir_1",
+      "erase_required_case/width_560_dir_-1",
+      "erase_required_case/width_560_dir_1",
+      "review_001_erase_pause_inactive_save_duplicate_cases",
+      "review_001_erase_interrupt_warning_frames",
+      "review_001_empty_restored_trace",
+      "review_002_six_copies_one_width_direction",
+      "review_002_forge_unique_metadata_over_same_physical_run",
+      "restore_serial_erased",
+      "restore_time_frozen",
+      "restore_hp_disagrees_with_snapshot",
+      "restore_mark_disagrees_with_snapshot",
+      "duplicate_case_identity",
+      "wrong_real_calibration_endpoint",
+      "no_real_calibration_final_support",
+      "wrong_capture_scope",
+      "wrong_production_admission_claim",
+      "undeclared_source_identity_in_capture",
+      "missing_actual_recovery_event",
+      "missing_actual_snapshot_pulse",
+      "current_frame_missing_original_hp_key",
+      "current_frame_invalid_original_hp_type",
+      "current_frame_not_a_dictionary",
+      "current_capture_missing_actual_stun_trace",
+      "current_capture_missing_feedback_identity",
+      "stun_configuration_differs_from_actual_resource",
+      "stun_without_actual_committed_enemy_damage",
+      "epsilon_fake_stun_freezes_undamaged_actor",
+      "accepted_damage_stun_erased",
+      "stun_exceeds_actual_configured_duration",
+      "stun_timer_reset_without_new_damage",
+      "stun_timer_ends_before_actual_duration",
+      "behavior_clock_advanced_during_actual_stun",
+      "behavior_clock_frozen_after_stun_release"
+    ],
+    "receipt_refusals_reexecuted": [
+      "wrong_native_source_commit",
+      "wrong_native_source_before",
+      "missing_native_source_after",
+      "stale_native_assertion_count",
+      "failed_native_receipt_labelled_success",
+      "missing_actual_feedback_source_receipt",
+      "wrong_actual_feedback_source_receipt",
+      "raw_capture_not_bound_to_receipt",
+      "raw_native_log_not_bound_to_receipt",
+      "rehashed_forged_formal_scope",
+      "rehashed_old_success_without_native_completion"
+    ],
+    "independent_extra_mutations": [
+      {
+        "name": "hit_cause_wrong_target",
+        "rejected": true,
+        "reason": "real_projectile_interrupt: stun lacks committed HP cause, decrements incorrectly or was reset/extended"
+      },
+      {
+        "name": "hit_cause_wrong_projectile_identity",
+        "rejected": true,
+        "reason": "real_projectile_interrupt: HP commitment lacks its real accepted projectile"
+      },
+      {
+        "name": "hit_cause_shifted_tick",
+        "rejected": true,
+        "reason": "real_projectile_interrupt: stun lacks committed HP cause, decrements incorrectly or was reset/extended"
+      },
+      {
+        "name": "hit_cause_wrong_amount",
+        "rejected": true,
+        "reason": "real_projectile_interrupt: stun lacks committed HP cause, decrements incorrectly or was reset/extended"
+      },
+      {
+        "name": "wrong_feedback_resource",
+        "rejected": true,
+        "reason": "real_projectile_interrupt: damage feedback differs from actual Resource/default"
+      },
+      {
+        "name": "initial_epsilon_stun",
+        "rejected": true,
+        "reason": "real_projectile_interrupt: fixture starts with uncaused stun"
+      },
+      {
+        "name": "epsilon_after_exact_zero",
+        "rejected": true,
+        "reason": "real_projectile_interrupt: stun lacks committed HP cause, decrements incorrectly or was reset/extended"
+      },
+      {
+        "name": "frozen_tick_advances_clock",
+        "rejected": true,
+        "reason": "real_projectile_interrupt: motor-only damage stun advanced/reset behavior"
+      },
+      {
+        "name": "frozen_tick_changes_goal",
+        "rejected": true,
+        "reason": "real_projectile_interrupt: motor-only damage stun advanced/reset behavior"
+      },
+      {
+        "name": "frozen_tick_changes_serial",
+        "rejected": true,
+        "reason": "real_projectile_interrupt: motor-only damage stun advanced/reset behavior"
+      },
+      {
+        "name": "resume_tick_keeps_frozen_clock",
+        "rejected": true,
+        "reason": "real_projectile_interrupt: state clock was erased/reset/frozen outside actual damage stun"
+      },
+      {
+        "name": "stun_missing_cannot_select_history_implicitly",
+        "rejected": true,
+        "reason": "stand_in_pulse_positive_damage: missing or invalid actual damage stun"
+      },
+      {
+        "name": "coherent_no_hit_epsilon_and_frozen_clock",
+        "rejected": true,
+        "reason": "solid_occlusion_negative: fixture starts with uncaused stun"
+      }
+    ],
+    "original_gd_text_exact_after_only_observational_fields_removed": true,
+    "original_check_calls": 58,
+    "admission_actual_maps": 40,
+    "admission_failures": [],
+    "outer_elapsed": 121.42085089199827,
+    "outer_cap": 360,
+    "hit_tick": 44,
+    "observed_stun_and_clock": [
+      {
+        "tick": 43,
+        "enemy_hp": 3.0,
+        "damage_stun_remaining": 0.0,
+        "time": 0.116666666666667
+      },
+      {
+        "tick": 44,
+        "enemy_hp": 2.0,
+        "damage_stun_remaining": 0.12,
+        "time": 0.0
+      },
+      {
+        "tick": 45,
+        "enemy_hp": 2.0,
+        "damage_stun_remaining": 0.103333333333333,
+        "time": 0.0
+      },
+      {
+        "tick": 46,
+        "enemy_hp": 2.0,
+        "damage_stun_remaining": 0.0866666666666667,
+        "time": 0.0
+      },
+      {
+        "tick": 47,
+        "enemy_hp": 2.0,
+        "damage_stun_remaining": 0.07,
+        "time": 0.0
+      },
+      {
+        "tick": 48,
+        "enemy_hp": 2.0,
+        "damage_stun_remaining": 0.0533333333333333,
+        "time": 0.0
+      },
+      {
+        "tick": 49,
+        "enemy_hp": 2.0,
+        "damage_stun_remaining": 0.0366666666666667,
+        "time": 0.0
+      },
+      {
+        "tick": 50,
+        "enemy_hp": 2.0,
+        "damage_stun_remaining": 0.02,
+        "time": 0.0
+      },
+      {
+        "tick": 51,
+        "enemy_hp": 2.0,
+        "damage_stun_remaining": 0.00333333333333335,
+        "time": 0.0
+      },
+      {
+        "tick": 52,
+        "enemy_hp": 2.0,
+        "damage_stun_remaining": 0.0,
+        "time": 0.0
+      },
+      {
+        "tick": 53,
+        "enemy_hp": 2.0,
+        "damage_stun_remaining": 0.0,
+        "time": 0.0166666666666667
+      }
+    ]
+  },
+  "source_closure": {
+    "non_docs_paths_R_to_K": [
+      "scripts/art/avatar_presentation.gd",
+      "tests/root_bell_tests.gd",
+      "tests/underworld_plains/test_underworld_identity_population.gd",
+      "tools/run_root_bell_tests.py"
+    ],
+    "basis_inputs": 203,
+    "basis": "f3e060598385696137aa40910811fcbfed931853fe7f4c9992b11cf1af0263cb",
+    "resources_R_to_K_byte_equal": 56,
+    "W10_native_executed": false
+  },
+  "selected_zip": {
+    "path": "build/forest_revision04/ci-final-H/root-bell-fix/selected-evidence-compact.zip",
+    "sha256": "c50208b4214b98b2dbba2c6f968027830bef8ff25ce36c5905e4a5f1d017e216",
+    "members": 62,
+    "index_members_verified": 59
+  },
+  "scope": "Pure read-only validation; no Godot/browser. No new Web/fullCI/full80/movie/device claim."
+}

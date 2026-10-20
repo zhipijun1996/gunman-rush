@@ -1,0 +1,267 @@
+{
+  "schema": "r3-home-delivery-summary-v1",
+  "task": "UNDERWORLD-FEEDBACK-03-HOME",
+  "base_source": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+  "scope": "Current shared-worktree component, six Home files guarded before/after; other agents change unrelated production paths. Not final release-source binding.",
+  "production_files": [
+    {
+      "source": "scripts/demo/home_scene.gd",
+      "snapshot": "build/underworld_r3/home/component_source/scripts__demo__home_scene.gd.source",
+      "sha256": "ce1da1283860f3d2ee1d33ab50a6b8ba7d6c4c851ddf538045591854eedf897b"
+    },
+    {
+      "source": "scripts/underworld_plains/underworld_home_world.gd",
+      "snapshot": "build/underworld_r3/home/component_source/scripts__underworld_plains__underworld_home_world.gd.source",
+      "sha256": "155b2538dc70096f995b9adf043f231d298fb1ab5446077c1c4533fa61b5489a"
+    },
+    {
+      "source": "assets/underworld_plains/home/home_build.json",
+      "snapshot": "build/underworld_r3/home/component_source/assets__underworld_plains__home__home_build.json.source",
+      "sha256": "52640cae9fc275439478285405b509dcb40b55b2e1c7dbcce81a996aff986a35"
+    },
+    {
+      "source": "tests/underworld_plains/home_terrace_driver.gd",
+      "snapshot": "build/underworld_r3/home/component_source/tests__underworld_plains__home_terrace_driver.gd.source",
+      "sha256": "f3d7413a1973f28c07df95637dd057b6017b2e1b71c123ba38a5cf13119dfdac"
+    },
+    {
+      "source": "tests/underworld_plains/test_underworld_home_terraces.gd",
+      "snapshot": "build/underworld_r3/home/component_source/tests__underworld_plains__test_underworld_home_terraces.gd.source",
+      "sha256": "d9772bc9f014ed054f4ec50cd0c558098d5c26ee70e13596524996db997f1882"
+    },
+    {
+      "source": "tools/run_underworld_home_terrace_tests.py",
+      "snapshot": "build/underworld_r3/home/component_source/tools__run_underworld_home_terrace_tests.py.source",
+      "sha256": "557135a59652dd7f76ed80aae602a2f3430fa69f33a30f77cae5b206b8ad2bf9"
+    },
+    {
+      "source": "tests/home_ui_tests.gd",
+      "snapshot": "build/underworld_r3/home/component_source/tests__home_ui_tests.gd.source",
+      "sha256": "37ea852ca11ae6b917ec823e2c8652b7f9895cd1c075d95bdb8128931054a64a"
+    },
+    {
+      "source": "tests/home_app_runner.gd",
+      "snapshot": "build/underworld_r3/home/component_source/tests__home_app_runner.gd.source",
+      "sha256": "218720765141c64f6bf60426534ef4d5d2a2e9d9faf4a704fb27687879e80760"
+    }
+  ],
+  "native_input_headless": {
+    "checks": 155,
+    "failures": 0,
+    "ticks": 3051,
+    "input_events": 102,
+    "visits": [
+      {
+        "expected_action": "character",
+        "floor": true,
+        "foot": [
+          300.0,
+          432.0
+        ],
+        "id": "character",
+        "position": [
+          300.666625976562,
+          413.92529296875
+        ],
+        "tick": 57
+      },
+      {
+        "expected_action": "upgrade",
+        "floor": true,
+        "foot": [
+          620.0,
+          336.0
+        ],
+        "id": "upgrade",
+        "position": [
+          621.334838867188,
+          317.995635986328
+        ],
+        "tick": 195
+      },
+      {
+        "expected_action": "achievements",
+        "floor": true,
+        "foot": [
+          920.0,
+          240.0
+        ],
+        "id": "achievements",
+        "position": [
+          920.33740234375,
+          221.925277709961
+        ],
+        "tick": 418
+      },
+      {
+        "expected_action": "",
+        "floor": true,
+        "foot": [
+          1250.0,
+          336.0
+        ],
+        "id": "arms",
+        "position": [
+          1245.333984375,
+          317.92529296875
+        ],
+        "tick": 600
+      },
+      {
+        "expected_action": "",
+        "floor": true,
+        "foot": [
+          1550.0,
+          240.0
+        ],
+        "id": "relics",
+        "position": [
+          1552.9951171875,
+          221.925277709961
+        ],
+        "tick": 822
+      },
+      {
+        "expected_action": "",
+        "floor": true,
+        "foot": [
+          1770.0,
+          432.0
+        ],
+        "id": "herbs",
+        "position": [
+          1773.99096679688,
+          413.92529296875
+        ],
+        "tick": 925
+      },
+      {
+        "expected_action": "",
+        "floor": true,
+        "foot": [
+          1920.0,
+          336.0
+        ],
+        "id": "kitchen",
+        "position": [
+          1921.32153320312,
+          317.995635986328
+        ],
+        "tick": 1020
+      },
+      {
+        "expected_action": "",
+        "floor": true,
+        "foot": [
+          2160.0,
+          240.0
+        ],
+        "id": "courier",
+        "position": [
+          2163.98999023438,
+          221.925277709961
+        ],
+        "tick": 1227
+      },
+      {
+        "expected_action": "",
+        "floor": true,
+        "foot": [
+          2230.0,
+          432.0
+        ],
+        "id": "songs",
+        "position": [
+          2233.32568359375,
+          413.92529296875
+        ],
+        "tick": 1295
+      },
+      {
+        "expected_action": "",
+        "floor": true,
+        "foot": [
+          2460.0,
+          336.0
+        ],
+        "id": "stories",
+        "position": [
+          2463.0009765625,
+          317.995635986328
+        ],
+        "tick": 1409
+      },
+      {
+        "expected_action": "",
+        "floor": true,
+        "foot": [
+          2690.0,
+          432.0
+        ],
+        "id": "garden",
+        "position": [
+          2692.67626953125,
+          413.92529296875
+        ],
+        "tick": 1514
+      },
+      {
+        "expected_action": "departure",
+        "floor": true,
+        "foot": [
+          3070.0,
+          432.0
+        ],
+        "id": "departure",
+        "position": [
+          3074.02392578125,
+          413.92529296875
+        ],
+        "tick": 1615
+      }
+    ],
+    "driver_errors": [],
+    "tiers": [
+      240.0,
+      336.0,
+      432.0
+    ],
+    "future_movement_grants": false,
+    "route_hp_min": 5.0,
+    "route_hp_max": 5.0,
+    "max_used_jumps": 1,
+    "strict_binding": "build/underworld_r3/home/headless_binding.json"
+  },
+  "original_business_regression": {
+    "home_app": "19/0, strict clean",
+    "home_ui": "27/0 functionality, STRICT FAILED 335 ObjectDB instances /204 live resources and RID diagnostics",
+    "preservation": "build/underworld_r3/home/assertion_preservation.json"
+  },
+  "first_failure": {
+    "path": "build/underworld_r3/home/first_failure",
+    "cause": "relic upper and lower terraces had only30wu overlap, rejected by route safety margins",
+    "fix": "arms lower terrace extended70wu from1430 to1500; original physics unchanged"
+  },
+  "art": "Reuse existing complete Home houses/NPC, full clock arch as open east exit, existing rooted trees/flowers. No new generated image claimed. Same native TileMap and three distinct background layers.",
+  "gpu": {
+    "status": "Historical164/0 strict clean before root text cleanup and guard additions; not current189 proof",
+    "elapsed_seconds": 160.63329217299906,
+    "native_images": 9,
+    "actual_pixels_viewed": 9,
+    "review": "build/underworld_r3/home/gpu_review.json",
+    "immutable_pre_text_cleanup": "build/underworld_r3/home/gpu_before_text_cleanup"
+  },
+  "device": "unverified",
+  "user_acceptance": "unverified",
+  "current_expanded_guard_headless": {
+    "checks": 180,
+    "failures": 0,
+    "guard_files": 27,
+    "repair_report": "build/underworld_r3/home/guard_migration_repair.json"
+  },
+  "guard_unit_controls": {
+    "tests": 36,
+    "failures": 0,
+    "new_engine_execution": false
+  }
+}

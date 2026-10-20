@@ -490,8 +490,55 @@ def audit_mechanisms(a: Audit, spec: dict):
     a.check('moving_patch_plan(rect)' in text and 'mechanism_specification().carrier' in text and 'draw_texture_rect_region(texture,part.target,part.source)' in text,'mechanisms.runtime_patch_consumer','Actual carrier uses repeated source cap/body patches')
 
 
+def formal_chest_alpha_isolated(stage: str) -> bool:
+    """Finite adapter for the explicit legacy candidate, not a GDScript parser.
+
+    The complete, unique block must remain inside capture_state. Everything
+    outside it still rejects alpha setters, regardless of whitespace or value.
+    Changes to this consumer shape require another adapter review.
+    """
+    block = (
+        '\tfor c: Dictionary in chests:\n'
+        '\t\tif c.has("sprite"):\n'
+        '\t\t\tif generated.has("regional_art_plan"):\n'
+        '\t\t\t\t(c.sprite as Sprite2D).modulate.a=0.35 if c.claimed else 1.0\n'
+        '\t\t\telse:\n'
+        '\t\t\t\tUnderworldObjects.place_chest(c.sprite as Sprite2D,c.position+Vector2(0,21),bool(c.claimed))\n'
+    )
+    capture = re.search(r'(?ms)^func capture_state\(\) -> void:\n(.*?)(?=^func |\Z)', stage)
+    if stage.count(block) != 1 or capture is None or block not in capture.group(1):
+        return False
+    return re.search(r'\.\s*modulate\s*\.\s*a\s*(?:\*\*|<<|>>|[+\-*/%&|^])?=', stage.replace(block, '', 1)) is None
+
+
+def audit_objects(a: Audit, spec: dict):
+    """Offline crop provenance; runtime preloads the result, not the recipe JSON."""
+    a.check(spec.get('schema')=='underworld-r3-objects-v1','objects.schema','Opened chest and declared native mechanism geometry')
+    request=a.json(spec.get('source_record'),'objects.generation')
+    a.check(request.get('tool')=='image_gen.imagegen' and bool(request.get('model')) and bool(request.get('request')),'objects.real_generation_request','Original actual edit request and honest model disclosure')
+    a.hashed({'path':request.get('reference'),'sha256':request.get('reference_sha256')},'objects.reference')
+    generation=spec.get('generation',{})
+    source=a.image({'path':'assets/underworld_plains/objects/opened_chest_original.png','sha256':generation.get('source_sha256')},'objects.original')
+    opened=spec.get('opened_chest',{})
+    a.check(opened.get('crop_alpha_comparison')=='strictly_greater','objects.crop_comparison','Actual retained builder uses alpha strictly greater than the declared threshold, not greater-or-equal')
+    runtime=a.image({'path':opened.get('texture'),'sha256':opened.get('sha256')},'objects.opened')
+    crop=opened.get('crop',[]);size=opened.get('size_px',[])
+    valid=source is not None and isinstance(crop,list) and len(crop)==4 and all(isinstance(x,int) for x in crop) and 0<=crop[0]<crop[2]<=source.width and 0<=crop[1]<crop[3]<=source.height
+    a.check(valid,'objects.complete_crop','Measured whole-object original crop bounds')
+    if valid and runtime is not None:
+        alpha=source.getchannel('A').point(lambda v:255 if v>opened.get('crop_alpha_threshold',8) else 0).getbbox()
+        a.check(alpha is not None and crop[0]<=alpha[0] and crop[1]<=alpha[1] and crop[2]>=alpha[2] and crop[3]>=alpha[3],'objects.whole_pose','Entire visible raised lid and box preserved')
+        a.check(list(runtime.size)==size and abs((crop[2]-crop[0])/(crop[3]-crop[1])-runtime.width/runtime.height)<.025,'objects.uniform_aspect','Proportional nearest resize; no padded-box distortion')
+        reconstructed=source.crop(crop).resize(runtime.size,Image.Resampling.NEAREST)
+        a.check(reconstructed.tobytes()==runtime.tobytes(),'objects.exact_source_recipe','Runtime pixels exactly reconstruct from the retained generated original')
+    text=a.script('scripts/underworld_plains/underworld_objects.gd','objects.consumer')
+    stage=a.script('scripts/demo/plains_region_stage.gd','objects.stage')
+    a.check(str(opened.get('texture')) in text and 'OPEN_CHEST if claimed else CLOSED_CHEST' in text and 'UnderworldObjects.place_chest' in stage,'objects.actual_dispatch','Actual claimed ledger chooses the complete open texture; transaction itself remains gameplay-owned')
+    a.check(formal_chest_alpha_isolated(stage),'objects.no_grey_claimed','Only the exact opt-in legacy candidate may fade; formal claimed chests use the opened pose')
+
+
 def audit_home(a: Audit, home: dict):
-    a.check(home.get('schema')=='underworld-home-v1','home.schema','Actual Home world manifest')
+    a.check(home.get('schema')=='underworld-home-v2-terraces','home.schema','Current user-authorized multi-tier Home world manifest; R2 v1 remains a frozen fixture')
     record=audit_generation(a,home.get('source_record'),'home.generation')
     source=a.hashed({'path':record.get('source'),'sha256':record.get('source_sha256')},'home.generation.raw_source')
     runtime=a.path(record.get('image'),'home.generation.image')
@@ -522,6 +569,22 @@ def audit_home(a: Audit, home: dict):
     a.check(isinstance(width,(int,float)) and width>0 and all(isinstance(slot.get('x'),(int,float)) and 0<slot['x']<width for slot in slots),'home.slot_bounds','All service plots occupy actual Home world extent')
     for slot in slots:
         a.check(slot.get('building') in assets and (not slot.get('keeper') or slot.get('keeper') in assets),'home.slot.'+str(slot.get('id'))+'.source','Real building and optional keeper asset')
+    floor=home.get('floor_y')
+    platforms=home.get('platforms',[])
+    levels={slot.get('y') for slot in slots if isinstance(slot.get('y'),(int,float))}
+    a.check(isinstance(floor,(int,float)) and len(levels)==3 and all(isinstance(slot.get('y'),(int,float)) and 0<slot['y']<=floor for slot in slots),'home.three_tiers','Every socket has a genuine world foot height; three inhabited tiers')
+    valid_platforms=[]
+    for index,platform in enumerate(platforms):
+        r=platform.get('rect',[])
+        valid=isinstance(r,list) and len(r)==4 and all(isinstance(x,(int,float)) for x in r) and r[2]>0 and r[3]>0
+        a.check(valid and platform.get('one_way') is True,'home.platform.'+str(index)+'.one_way','Real positive one-way terrace geometry, never a decorative fake platform')
+        if valid:valid_platforms.append(r)
+    for slot in slots:
+        supported=slot.get('y')==floor or any(r[1]==slot.get('y') and r[0]+18<=slot.get('x',-999)<=r[0]+r[2]-18 for r in valid_platforms)
+        a.check(supported,'home.slot.'+str(slot.get('id'))+'.supported','World foot has ground or a real terrace landing span; actual single-jump traversal is verified separately')
+    road=home.get('departure_road',{})
+    departure=next((slot for slot in slots if slot.get('id')=='departure'),{})
+    a.check(road.get('direction')=='east' and isinstance(road.get('from_x'),(int,float)) and road['from_x']<departure.get('x',-1)<width and departure.get('y')==floor,'home.departure_road','Actual departure is on the ground east of the village road, with original service identity')
     a.check(home.get('safe_noncombat_settlement') is True and home.get('player_height_source')=='UnderworldActors.HUMANOID_HEIGHT','home.safe_shared_height','Safe Home shares real actor scale')
     text=a.runtime_text.get('home','')
     a.check('sprite.scale=Vector2.ONE*factor' in text and 'UnderworldActors.HUMANOID_HEIGHT' in text,'home.runtime_uniform_aspect','Actual world consumer preserves source aspect and shared humanoid scale')
@@ -613,6 +676,8 @@ def audit(root: Path = ROOT, manifest_path: str = DEFAULT_MANIFEST, overrides: d
     for index, entry in enumerate(entries if isinstance(entries, list) else []):
         text = a.script(entry, 'production.entry.' + str(index))
         a.check('Underworld' in text, 'production.entry.' + str(index) + '.linked', 'Entry actually references the Underworld presentation family')
+    objects=a.json(manifest.get('objects_manifest'),'objects.manifest')
+    audit_objects(a,objects)
     return a.result()
 
 

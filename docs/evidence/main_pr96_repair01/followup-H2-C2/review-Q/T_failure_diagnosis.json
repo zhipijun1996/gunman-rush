@@ -1,0 +1,263 @@
+{
+  "decision": "DIAGNOSTIC_ONLY__ORIGINAL_QUEEN_BUSINESS_FAIL",
+  "execution_source_commit": "1352f59f1b4761fe0ed806b0c0a165bcc7d54fab",
+  "original44_attempt": {
+    "passes": [
+      [
+        "forest-depth-campaign-guardian",
+        "passed"
+      ]
+    ],
+    "failed": [
+      [
+        "forest-depth-campaign-queen",
+        "failed"
+      ]
+    ],
+    "not_executed": 42
+  },
+  "original_contracts_preserve": {
+    "actual_App_route_layout": "shared-tree-directional-cavities-v7",
+    "Queen_definition_initial_HP": 24,
+    "weave_schema": 13,
+    "resource_geometry_unchanged_required": true,
+    "native180_import90": true,
+    "original_full_fight_for4200_iterations": true,
+    "all_assertions_and_Python_validator_intact": true,
+    "no_Canopy_substitution_or_HP_position_resource_phase_injection": true
+  },
+  "observed_failure": {
+    "checks": 10,
+    "failed_checks": [
+      "actual normal Queen full fight ends in unique live-player defeat",
+      "actual Queen reload and App completion both succeeded"
+    ],
+    "route_entry_and_initial_upper_middle_checks": true,
+    "fight_recorded_frames": 600,
+    "terminal_snapshot": {
+      "active": true,
+      "actor_epoch": 3,
+      "app_boss_started": true,
+      "boss": {
+        "attack_epoch": 0,
+        "body_position": [
+          1658.0,
+          -30.0
+        ],
+        "fields": [
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 9.58333333333339,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 9.58333333333339,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.0,
+              "pulse": 1,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "spawned": false
+          }
+        ],
+        "geometry_version": "forest-queen-weave-golden-v2",
+        "golden_only": true,
+        "knot_health": 2.0,
+        "migrations": 1,
+        "mode": "perched",
+        "motion_clock": 1.71666666666667,
+        "motion_leg": 0,
+        "perch_index": 1,
+        "route_phase": 1,
+        "sampled_player": [
+          2291.98315429688,
+          68.2456436157227
+        ],
+        "sampled_shore": 1,
+        "stage_phase": 1,
+        "transition_from_phase": 0,
+        "transition_origin": [
+          0.0,
+          0.0
+        ],
+        "weave": {
+          "age": 9.58333333333339,
+          "growth": 1.0,
+          "initial_angle": 0.0,
+          "next_damage_in": 0.0,
+          "pulse": 0,
+          "severed": false,
+          "suspended": false
+        },
+        "weave_schema": 13
+      },
+      "boss_hp": 19.0,
+      "boss_instance": 222902095057,
+      "energy": 35.0,
+      "last_restore_accepted": false,
+      "manifest_hash": "1574654473154392741010f48a3dcd10f3a2b41d4621f7be91c3296e46f9bdc7",
+      "player_hp": 3.0,
+      "player_instance": 208456911775,
+      "seal_closed": true,
+      "session": 2,
+      "stage_epoch": 3,
+      "stage_instance": 215100689425
+    },
+    "reloaded": false,
+    "defeats": 0,
+    "early_helper_false_stops_fight_not_budget_exhaustion": true,
+    "events": [
+      {
+        "event": "policy_result",
+        "tick": 447,
+        "target": "player",
+        "source": "boss_contact",
+        "hp": 4.0,
+        "action": null
+      },
+      {
+        "event": "actual_queued_input",
+        "tick": 539,
+        "target": null,
+        "source": null,
+        "hp": null,
+        "action": "jump"
+      },
+      {
+        "event": "policy_result",
+        "tick": 541,
+        "target": "player",
+        "source": "queen_growing_weave",
+        "hp": 3.0,
+        "action": null
+      },
+      {
+        "event": "actual_queued_input",
+        "tick": 562,
+        "target": null,
+        "source": null,
+        "hp": null,
+        "action": "jump_release"
+      },
+      {
+        "event": "actual_queued_input",
+        "tick": 562,
+        "target": null,
+        "source": null,
+        "hp": null,
+        "action": "shoot_release"
+      },
+      {
+        "event": "actual_queued_input",
+        "tick": 577,
+        "target": null,
+        "source": null,
+        "hp": null,
+        "action": "shoot_release"
+      }
+    ],
+    "tail_frame": {
+      "actor_epoch": 3,
+      "boss": [
+        1658.0,
+        -30.0
+      ],
+      "boss_hp": 19.0,
+      "capacity": 5.0,
+      "eligible": 11,
+      "energy": 35.0,
+      "fields": [
+        {
+          "health": 2.0,
+          "spawned": true,
+          "weave": {
+            "age": 9.58333333333339,
+            "growth": 1.0,
+            "initial_angle": 0.0,
+            "next_damage_in": 0.0,
+            "pulse": 0,
+            "severed": false,
+            "suspended": false
+          }
+        },
+        {
+          "health": 2.0,
+          "spawned": true,
+          "weave": {
+            "age": 9.58333333333339,
+            "growth": 1.0,
+            "initial_angle": -1.57079637050629,
+            "next_damage_in": 0.0,
+            "pulse": 1,
+            "severed": false,
+            "suspended": false
+          }
+        },
+        {
+          "spawned": false
+        }
+      ],
+      "hook": "free",
+      "mode": "perched",
+      "motor_steps": 1,
+      "phase": 1,
+      "physics_frame": 1226,
+      "player": [
+        2265.6494140625,
+        371.977935791016
+      ],
+      "player_hp": 3.0,
+      "route_phase": 1,
+      "seal": true,
+      "segment": "before_reload",
+      "session": 2,
+      "stage_epoch": 3,
+      "tick": 600,
+      "velocity": [
+        0.0,
+        0.0
+      ]
+    }
+  },
+  "static_driver_constraints": {
+    "regain_final_state": "Original early branch returns walk(midcenter), but walk validates only x; new recovery should positively verify actual middle support/height/fullbody at return, not just x.",
+    "blind_jump": "A real newly accepted takeoff can be interrupted by hurt; queuedjump539 and hurt541 precede fixedDOWN_R562/LEFT_R577 and final ground at600. New passive telemetry should establish exact grounding/hurt/phase cause before choosing bounded real Router recovery.",
+    "shared_firing_guard_gap": "If grounded platform loop finds no height+complete-body matching bank, original continuous_fire falls through to shot request anyway. Failclosed bank matching can be legitimate, but this gap is not proven to cause this original447/541 hit sequence.",
+    "do_not_disable_threats": "Damage, Queen fields/migration, natural seal and other actors continue normally during recovery; no critical-traversal threat mask or fake resource recovery."
+  },
+  "limits": "OriginalQueenframes omit grounded/hurt_remaining/driverphase; do not infer exact helper subbranch or claim new driver passed from this analysis. Current author observer source differs and must bind separately.",
+  "raw_hashes": [
+    {
+      "path": "build/forest_depth/campaign/harness-queen/harness-7b50c8f10c6541feb9c92301e2701783/capture.json",
+      "sha256": "e9cf26f2c252aac95a95899deb338ec7a679baf554a97443b5b6bb1139576237"
+    },
+    {
+      "path": "build/forest_depth/campaign/harness-queen/harness-7b50c8f10c6541feb9c92301e2701783/receipt.json",
+      "sha256": "0a56639cfd09181204637b588bc68c896739add6e983965c9c4deb446aad72ad"
+    },
+    {
+      "path": "build/forest_depth/campaign/harness-queen/harness-7b50c8f10c6541feb9c92301e2701783/native.log",
+      "sha256": "ab7ea9c1f3ae449515f40714c69793eedb5e969a98ade0cf3b6efbce616ef8c6"
+    }
+  ],
+  "source_T_sha256": {
+    "tests/forest_depth_campaign_boss_runner.gd": "a26665efaddda1462b707d729f6fac7909567f48cb72f965a0253256f98a2ccc",
+    "tests/support/forest_queen_gameplay_fixture.gd": "142a8c6ce0d04253fc3fe7dd86d46eb6e6e89c1dcb3ef2aad4aee7a748727b45"
+  },
+  "native_or_tracked_write_by_reviewer": false
+}

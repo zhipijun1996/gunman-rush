@@ -1,0 +1,62 @@
+{
+  "status": "passed",
+  "source_commit": "8f0c7927a8ed31d0b32bcb5358ebe684ef022056",
+  "commands": [
+    {
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/foundry.py",
+        "build",
+        "--count",
+        "24",
+        "--profiles",
+        "base",
+        "double_jump",
+        "air_chain",
+        "--promote"
+      ],
+      "timeout_seconds": 1000,
+      "log": "build/foundry_final_W9/build36_18.log",
+      "started_utc": "2026-10-20T05:50:40.560090+00:00",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 59.153969322997,
+      "completion_markers": [
+        "Validated 36 development phrases; 18 continuous itineraries. Fun: awaiting playtest."
+      ]
+    },
+    {
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--path",
+        ".",
+        "--script",
+        "tools/foundry_export_stamp.gd"
+      ],
+      "timeout_seconds": 90,
+      "log": "build/foundry_final_W9/export_stamp.log",
+      "started_utc": "2026-10-20T05:51:39.714712+00:00",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 1.4170919349999167,
+      "completion_markers": [
+        "f3e060598385696137aa40910811fcbfed931853fe7f4c9992b11cf1af0263cb"
+      ]
+    }
+  ],
+  "comparison": "build/foundry_final_W9/comparison.json",
+  "baseline": "build/foundry_final_W9/baseline_inventory.json",
+  "native_counts": {
+    "phrases": 36,
+    "itineraries": 18,
+    "replays": 54,
+    "frames": 56113
+  },
+  "source_stable_except_expected56_Foundry_outputs": true,
+  "resource_manifest": "build/foundry_final_W9/generated_resource_manifest.json",
+  "before_basis": "7b41ed4f6d1b76ba90a5f09f701170d28d7b4a7a5812628826e8f50e8a3c08c4",
+  "after_basis": "f3e060598385696137aa40910811fcbfed931853fe7f4c9992b11cf1af0263cb",
+  "scope": "Original native validation and exact c77f actions/axis/position/shots/repair/routeIDs; only explicit source basis and direct derived hashes differ. No globalCI, browser, device or aesthetic admission."
+}

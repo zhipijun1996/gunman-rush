@@ -1,0 +1,89 @@
+{
+  "reviewer": "/root/independent_review",
+  "independent": true,
+  "independence_basis": "Separate read-only reviewer; no scripts/tests/tools/resources or author evidence modified. Independently loaded raw captures and original strict reader.",
+  "implementers": [
+    "/root",
+    "/root/forest_design_review"
+  ],
+  "baseline_commit": "9df75c650aade9db9333f7361a555fc0655d10a6",
+  "reviewed_commit": "2dd657f13b57a15ea14e9f6caed8cf45eafbfd71",
+  "verdict": "ACCEPT",
+  "scope": "Seven default compatibility updates plus one legal input-pilot waiting strategy; two29-leg single-case successes and their retained old/new failure controls. Not original80/fullCI/level/player acceptance.",
+  "prior_code_reviews": [
+    "W1_code_review.json",
+    "W2_guard_review.json"
+  ],
+  "source_sha256": {
+    "tests/forest_campaign_runner.gd": "48bdbf54ee9c63d66e6caa9385db39e58213842ff6ee47ad9737a9560a3272dd",
+    "tests/forest_depth_region_trace.gd": "c73e5ef0ee7c487e512d5f2fe396bc3bbed34831952aa002324f7f2bdc0bc156",
+    "tests/forest_player_aim_runner.gd": "092612c391e1f29e7ed258f43de2578ac58cd5cd6af1947af2a2e58094d3e9ef",
+    "tests/forest_progression_debug_runner.gd": "d677c0fc3a4f3ee81a54e6d0896c65598591044fdb808af7535a3712e8aa81c4",
+    "tests/parallel_region_presentation_tests.gd": "4cb90c1e242b6336460b085a090445222cf3f1895d1d3d1eed3874c6a73cdd13",
+    "tools/run_forest_depth_campaign_boss.py": "4e5e6d1746ef2a08fef8bff7aa3260ecb1166a912a220ca8e41f2d77e029d75e",
+    "tools/run_forest_player_aim.py": "a3d4acbee09f387beb5942f17b86c428a8c316b2d01a7020da412294496e71c5",
+    "tools/verify_forest_browser.py": "856a095cd8fb9754596a6e7cc84a3b275d9a0a7cae7e5c1c9d9f1b7860baab44"
+  },
+  "test_change_justification": [
+    "Four actual fresh/default consumer assertions move the literal expected default from v13 to v14 while retaining generator-v2, actual map, Boss Definition/scene, H-only capability, save and pause assertions.",
+    "Aim native runner and CLI choose v14 by default while preserving explicit v12/v13 historical choices. Campaign canopy whitelist appends only v14; browser CLI appends only exact v14 and retains its version-v2 gate. No budget change.",
+    "The input-pilot helper acts only on v13/v14 canopy_fork R-H-R while phase=align, stable>=12, full true departure support and speed<1. It waits with axis0 while the actual whole NPC has not passed to the left; it does not change player/NPC positions, health, actions, eligibility, phases or clocks.",
+    "Actual Manifest confirms shore0 north_court at x76 and shore1 far_reward_branch at x-350; launch x-285. Wholly-left full-body inequality plus negative actual flight vx or actual supported shore1 therefore identifies the clear side.",
+    "Existing phase400/edge1800/route18000 budgets remain: phase age increments during the wait and the helper itself rejects over400; handing back to the original air-chain driver over400 is also rejected before departure.",
+    "Invalid/terminal/non-crossbranch NPC returns control to the original strict action program; it neither marks completion nor fabricates exact target contact. That original path may still genuinely fail."
+  ],
+  "actual_control_evidence": {
+    "summary": "build/forest_revision04/compat-W3/canopy-lane-control-summary.json",
+    "summary_sha256": "fce241a066d924b53a4a18a5c5b8e1d9a4f0e087ab8faf395a8758f552ff4a3e",
+    "all_four_raw_capture_and_receipt_hashes_independently_verified": true,
+    "original_v13_and_v14_leg13": "430 actual frames each; independently compared all recorded fields equal; both legitimately fail air_chain_bounded_phase/air_chain_action at wrong living NPC target.",
+    "repaired_v13_and_v14": "Both actual raw captures have29/29 completions, no failures, no strict-reader errors, source_stable=true, native exit0, matching capture/log SHA and no forbidden runtime diagnostics.",
+    "observed_wait": "tick1213/age13 waits on same departure bank; tick1283/age83 clears after70 real frames. NPC x-312.010+half14 < player-284.999-capture12 and flight vx-352.742. Exact relay_a contact/kick later observed.",
+    "run_identities": [
+      {
+        "id": "original_v14_failure",
+        "capture": "build/forest_revision04/matrix16-W2/10-map2-high_return/capture.json",
+        "capture_sha256": "4a129a813fb70a891568cbd3bc50d2e1bdfc9b038f4bd7f4aec5db9823d95280",
+        "receipt": "build/forest_revision04/matrix16-W2/receipt.json",
+        "receipt_sha256": "7dcdb0ea638e5eb0cb51ed24ca9c44d66790ffe6358df72de1519b098ceaf084",
+        "status": "failed",
+        "native_exit": 1
+      },
+      {
+        "id": "explicit_v13_control_failure",
+        "capture": "build/forest_revision04/v13-map2-high-return-control/00-map2-high_return/capture.json",
+        "capture_sha256": "e7bfcffc711eae9c0e627e414b51fbe2e7233a4bcd17041c1e4fcaf9318f9040",
+        "receipt": "build/forest_revision04/v13-map2-high-return-control/receipt.json",
+        "receipt_sha256": "e76c840373084779c5ba1f96b12c2cc9f26093e03045da84cdbb90837c202d93",
+        "status": "failed",
+        "native_exit": 1
+      },
+      {
+        "id": "fixed_v13",
+        "capture": "build/forest_revision04/canopy-lane-fix-v13/00-map2-high_return/capture.json",
+        "capture_sha256": "9fcd4a157cf07a5823a9a5bd844af9620b7dd80583708e23dc68bb80e857fb1e",
+        "receipt": "build/forest_revision04/canopy-lane-fix-v13/receipt.json",
+        "receipt_sha256": "35bda10512821077d243ef1b7ef52331d5c148fb8a94d822fcffbea4b497f7f0",
+        "status": "passed",
+        "native_exit": 0
+      },
+      {
+        "id": "fixed_v14",
+        "capture": "build/forest_revision04/canopy-lane-fix-v14/00-map2-high_return/capture.json",
+        "capture_sha256": "40a3eb02c2c7ee605291e56d5a4b08894a04d7a9e6bd4a7998dc82cff77d8ae2",
+        "receipt": "build/forest_revision04/canopy-lane-fix-v14/receipt.json",
+        "receipt_sha256": "9ced56e7b0eef6b6637a6a92ec34414030ca4243115a2984838b5c5f4a2bcfac",
+        "status": "passed",
+        "native_exit": 0
+      }
+    ]
+  },
+  "independent_execution": "Actual run_forest_depth_region.validate(raw capture) returned[] independently for both repaired v13/v14 cases; no Godot was launched by reviewer.",
+  "limitations": [
+    "Only map2/forest-depth-hollow-00/high_return single-case strategy is established.",
+    "Full16/fixed80 aggregate remains pending and retains earlier failed matrix.",
+    "Browser CLI forwarding proof is not browser GUI execution.",
+    "Current movie remains bound to prior W2 production bytes and old input-pilot source; no retroactive rebind to W3.",
+    "No final remote CI, whole-level aesthetic, human learning/player/device or audio approval."
+  ]
+}

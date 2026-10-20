@@ -14,6 +14,8 @@ var _spawn := Vector2.ZERO
 var _collision_layer := 0
 var _collision_mask := 0
 var _restoring_instance := false
+var damage_feedback: DamageFeedbackDefinition = preload("res://resources/damage/feedback.tres")
+var _damage_stun_remaining := 0.0
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -28,6 +30,7 @@ func _ready() -> void:
 	damageable.faction = definition.faction
 	damageable.actor_id = motor.get_instance_id()
 	damageable.died.connect(_on_death)
+	damageable.damaged.connect(_accepted_hit)
 	reset(&"initial")
 
 func _physics_process(delta: float) -> void:
@@ -35,6 +38,12 @@ func _physics_process(delta: float) -> void:
 
 func physics_tick(delta: float) -> void:
 	if health.terminal:
+		return
+	if _damage_stun_remaining > 0:
+		_damage_stun_remaining = maxf(0, _damage_stun_remaining-delta)
+		# Root Bell owns a fixed rooted body; hurt pauses its phase, not its roots.
+		if definition.behavior_id != &"root_bell":
+			motor.step(EnemyIntent.new(),delta)
 		return
 	_stagger_cooldown=maxf(0,_stagger_cooldown-delta)
 	if _stagger_remaining>0:
@@ -51,6 +60,7 @@ func reset(_policy: StringName = &"legacy_test") -> void:
 	# retain this actor's health and phase, not invoke reset on all world objects.
 	if definition == null or not definition.is_valid():
 		return
+	_damage_stun_remaining = 0.0
 	_stagger_remaining=0;_stagger_cooldown=0
 	motor.reset_at(_spawn)
 	motor.collision_layer = _collision_layer
@@ -100,3 +110,21 @@ func apply_skill_impact(unit: Vector2, stagger_seconds: float, stagger_cooldown:
 	_stagger_remaining=stagger_seconds;_stagger_cooldown=stagger_cooldown
 	if attack_behavior!=null:attack_behavior.cancel()
 	if knockback_speed>0:motor.request_knockback(unit.normalized()*knockback_speed,knockback_seconds)
+
+func _accepted_hit(context: Dictionary) -> void:
+	if health.terminal or _restoring_instance: return
+	var raw_direction: Variant = context.get("hit_direction", Vector2.ZERO)
+	if not raw_direction is Vector2 or not (raw_direction as Vector2).is_finite(): return
+	# Grapple and active skills already own their target motion contract. HP
+	# still drives the shared hurt animation/audio; generic hit motion must not
+	# stop a moving hook target or extend the authored skill stagger clock.
+	GameAudio.cue(self, &"hurt")
+	if context.get("damage_type", &"") == &"grapple" or context.get("skill_attack", false) == true: return
+	var direction: Vector2 = raw_direction
+	if direction.is_zero_approx(): direction = Vector2(-brain.direction,0)
+	# Ground actors have no gravity policy in EnemyMotor; a vertical force must
+	# not leave a walking beetle permanently hovering above its authored floor.
+	if not definition.aerial: direction=Vector2(signf(direction.x) if absf(direction.x)>.05 else -brain.direction,0)
+	_damage_stun_remaining = damage_feedback.enemy_knockback_seconds
+	if definition.behavior_id == &"root_bell": return
+	motor.request_knockback(direction.normalized()*damage_feedback.enemy_knockback_speed,damage_feedback.enemy_knockback_seconds,not definition.aerial)

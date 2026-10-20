@@ -1,0 +1,154 @@
+{
+  "schema": "underworld-r3-runtime-consumer-collection-v1",
+  "collected_for_reviewed_commit": "3e5b19408829dc915912e964d5df511893491918",
+  "game_runtime_commit": "9402bf92fa9be16b10d401db5e02b5c63124ff3c",
+  "scope": "Eleven changed runtime consumer families assembled from actual original P17 receipts plus P/Q native trace; original source labels retained; not exhaustive all regions/random routes/weapons",
+  "runtime_tree_equivalence": "verification/runtime_equivalence_P_Q.json",
+  "inputs": [
+    {
+      "path": "native/P_home/trace.json",
+      "sha256": "88d5b945199cd84c528f14014588cfba8565ed8143479f77c7c709709a5b1218"
+    },
+    {
+      "path": "native/Q_enemy/trace.json",
+      "sha256": "ceb8ed3e0b0aa4e81e3f92c59d60d5596c99035906fbed08ea4b3b8217d3428c"
+    },
+    {
+      "path": "native/Q_boss1/trace.json",
+      "sha256": "712633f1d7f9e21c3f2a36600655e9c76538c1a68673445c20156449300aa02f"
+    },
+    {
+      "path": "native/Q_boss2/trace.json",
+      "sha256": "ac7cebd7766376bc6784b4614dcc671fcdece71fe75d98b99e1d422cc7307563"
+    },
+    {
+      "path": "native/Q_surface/trace.json",
+      "sha256": "053d95ab5b617a498c5d788d0c19009172c1c20867ad6503005b6d8b81786015"
+    },
+    {
+      "path": "native/Q_gear/trace.json",
+      "sha256": "419069d62eebbff5907e53e66f56b325757caf7ad7112964231e78300da606c2"
+    }
+  ],
+  "consumers": [
+    {
+      "id": "player_hurt",
+      "actual_consumer": "PlayerMotor/UnderworldPlayer actual accepted hostile hit",
+      "runtime_receipt": "native/Q_enemy/trace.json",
+      "source_binding": "native/Q_enemy/source_binding.json",
+      "scope_note": "Runtime-observed bounded consumer family, not exhaustive arbitrary seed/weapon/state inventory"
+    },
+    {
+      "id": "enemy_hurt",
+      "actual_consumer": "Actual sentry and accepted three player shots",
+      "runtime_receipt": "native/Q_enemy/trace.json",
+      "source_binding": "native/Q_enemy/source_binding.json",
+      "scope_note": "Runtime-observed bounded consumer family, not exhaustive arbitrary seed/weapon/state inventory"
+    },
+    {
+      "id": "player_projectile",
+      "actual_consumer": "Actual Input release projectile, muzzle/trail/contact",
+      "runtime_receipt": "native/Q_enemy/trace.json",
+      "source_binding": "native/Q_enemy/source_binding.json",
+      "scope_note": "Runtime-observed bounded consumer family, not exhaustive arbitrary seed/weapon/state inventory"
+    },
+    {
+      "id": "enemy_projectile",
+      "actual_consumer": "Actual sentry activation/AI projectile accepted damage",
+      "runtime_receipt": "native/Q_enemy/trace.json",
+      "source_binding": "native/Q_enemy/source_binding.json",
+      "scope_note": "Runtime-observed bounded consumer family, not exhaustive arbitrary seed/weapon/state inventory"
+    },
+    {
+      "id": "attached_thorns",
+      "actual_consumer": "Actual generated_spikes_6 platform-surface material/contact",
+      "runtime_receipt": "native/Q_surface/trace.json",
+      "source_binding": "native/Q_surface/source_binding.json",
+      "scope_note": "Runtime-observed bounded consumer family, not exhaustive arbitrary seed/weapon/state inventory"
+    },
+    {
+      "id": "gear_hazard",
+      "actual_consumer": "Actual authored gear contact and accepted return",
+      "runtime_receipt": "native/Q_gear/trace.json",
+      "source_binding": "native/Q_gear/source_binding.json",
+      "scope_note": "Runtime-observed bounded consumer family, not exhaustive arbitrary seed/weapon/state inventory"
+    },
+    {
+      "id": "bellstrider",
+      "actual_consumer": "Map1 actual continuous encounter/AI/health/reward",
+      "runtime_receipt": "native/Q_boss1/trace.json",
+      "source_binding": "native/Q_boss1/source_binding.json",
+      "scope_note": "Runtime-observed bounded consumer family, not exhaustive arbitrary seed/weapon/state inventory"
+    },
+    {
+      "id": "windkeeper",
+      "actual_consumer": "Map2 actual continuous encounter/AI/health/Gold",
+      "runtime_receipt": "native/Q_boss2/trace.json",
+      "source_binding": "native/Q_boss2/source_binding.json",
+      "scope_note": "Runtime-observed bounded consumer family, not exhaustive arbitrary seed/weapon/state inventory"
+    },
+    {
+      "id": "home_terraces",
+      "actual_consumer": "12 actual Home stations/three vertical tiers",
+      "runtime_receipt": "native/P_home/trace.json",
+      "source_binding": "native/P_home/source_binding.json",
+      "scope_note": "Runtime-observed bounded consumer family, not exhaustive arbitrary seed/weapon/state inventory"
+    },
+    {
+      "id": "home_departure",
+      "actual_consumer": "Actual Home east exit/return",
+      "runtime_receipt": "native/P_home/trace.json",
+      "source_binding": "native/P_home/source_binding.json",
+      "scope_note": "Runtime-observed bounded consumer family, not exhaustive arbitrary seed/weapon/state inventory"
+    },
+    {
+      "id": "legal_lower_floor",
+      "actual_consumer": "Actual assembled ferry lower landing/removed-floor countercase",
+      "runtime_receipt": null,
+      "source_binding": "verification/final_P_17/report.json",
+      "scope_note": "Runtime-observed bounded consumer family, not exhaustive arbitrary seed/weapon/state inventory"
+    },
+    {
+      "id": "windchime_labels",
+      "actual_consumer": "Actual shot-bell instance and native owned component images",
+      "runtime_receipt": null,
+      "source_binding": "verification/final_P_17/report.json",
+      "scope_note": "Runtime-observed bounded consumer family, not exhaustive arbitrary seed/weapon/state inventory"
+    },
+    {
+      "id": "upper_attack_shortcut",
+      "actual_consumer": "Formal assembler attack-only upper actuator and persistent opened ledger",
+      "runtime_receipt": null,
+      "source_binding": "verification/final_P_17/report.json",
+      "scope_note": "Runtime-observed bounded consumer family, not exhaustive arbitrary seed/weapon/state inventory"
+    },
+    {
+      "id": "gates",
+      "actual_consumer": "Actual shortcut and Boss-seal same-family renderers",
+      "runtime_receipt": null,
+      "source_binding": "verification/final_P_17/report.json",
+      "scope_note": "Runtime-observed bounded consumer family, not exhaustive arbitrary seed/weapon/state inventory"
+    },
+    {
+      "id": "cache_open",
+      "actual_consumer": "Actual App reward claim/reloaded open lid",
+      "runtime_receipt": null,
+      "source_binding": "verification/final_P_17/report.json",
+      "scope_note": "Runtime-observed bounded consumer family, not exhaustive arbitrary seed/weapon/state inventory"
+    },
+    {
+      "id": "rooted_decor",
+      "actual_consumer": "Actual formal scene rooted accents and keepouts",
+      "runtime_receipt": null,
+      "source_binding": "verification/final_P_17/report.json",
+      "scope_note": "Runtime-observed bounded consumer family, not exhaustive arbitrary seed/weapon/state inventory"
+    },
+    {
+      "id": "legacy_home_ui",
+      "actual_consumer": "Original27 business checks with strict exit leak",
+      "runtime_receipt": null,
+      "source_binding": "verification/final_P_17/report.json",
+      "scope_note": "Runtime-observed bounded consumer family, not exhaustive arbitrary seed/weapon/state inventory"
+    }
+  ]
+}

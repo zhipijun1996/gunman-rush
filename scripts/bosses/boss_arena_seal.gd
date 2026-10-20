@@ -11,6 +11,7 @@ var armed:=false
 var closed:=false
 var clock:=0.0
 var close_count:=0
+var world_status_text_enabled:=true
 func setup(bounds:Rect2,world_bounds:Rect2,player:PlayerController,boss:BossEncounter,scope:DemoLifetime)->void:
 	arena=bounds;controller=player;encounter=boss;lifetime=scope
 	containment=Rect2(bounds.position.x,world_bounds.position.y-200,bounds.size.x,world_bounds.size.y+400)
@@ -51,9 +52,11 @@ func _draw()->void:
 	var alpha:=1.0 if closed else .4+.3*sin(clock*20)
 	for x:float in [arena.position.x,arena.end.x]:
 		var target:=Rect2(x-12,arena.position.y,24,arena.size.y)
-		if PixelFormalActors.pixel_context(self): PixelFormalActors.gate(self,target,alpha)
+		if UnderworldActors.enabled(self): UnderworldTerrain.draw_mechanism_beam(self,target,alpha)
+		elif PixelFormalActors.pixel_context(self): PixelFormalActors.gate(self,target,alpha)
 		else: draw_texture_rect_region(ShotLatch.GATE_ART,target,Rect2(366,47,105,320),Color(.75,.9,.75,alpha))
-		draw_line(Vector2(x,arena.position.y),Vector2(x,arena.end.y),Color(.55,.9,.76,alpha*.7),3)
+		draw_line(Vector2(x,arena.position.y),Vector2(x,arena.end.y),Color(.63,.57,.34,alpha*.5),1)
+	if not world_status_text_enabled:return
 	var text:="BOSS ARENA SEALED" if closed else "WIND GATES CLOSING"
 	var font:=ThemeDB.fallback_font;var size:=font.get_string_size(text,HORIZONTAL_ALIGNMENT_LEFT,-1,18)
 	var at:=Vector2(arena.get_center().x-size.x/2,arena.position.y+24)

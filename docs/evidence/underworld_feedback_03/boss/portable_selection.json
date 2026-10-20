@@ -1,0 +1,823 @@
+{
+  "schema_version": 1,
+  "prepared_for": "UNDERWORLD R3 portable Boss evidence",
+  "mode": "selection plus build-only immutable snapshots; no shared source changes or engine/GPU runs",
+  "selected_fresh_source": "c259f8cf1093102e53a1c34d19936e55f61f2839",
+  "baseline": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+  "copy_policy": {
+    "verify_each_sha_before_copy": true,
+    "preserve_original_receipt_bytes": true,
+    "do_not_retag_preflight_or_baseline_as_L": true,
+    "do_not_retag_headless_as_GPU": true,
+    "raw_AVI_or_MovieMaker_media": "Root will add independently source-bound formal Boss movies later; none selected here"
+  },
+  "fresh_harness": {
+    "report": "build/verification/harness/20261019T170413.566287Z/report.json",
+    "check": "underworld-continuous-bosses",
+    "status": "passed",
+    "reused": false,
+    "exit_code": 0,
+    "started_at_unix": 1792429786.1152134,
+    "ended_at_unix": 1792429846.966273,
+    "duration_seconds": 60.851
+  },
+  "concrete_failure_selection": [
+    "preflight/continuous_combat_third.log",
+    "preflight/continuous_combat_fourth.log",
+    "preflight/direction_before_fix.log"
+  ],
+  "old_phase_no_progress": {
+    "status": "source_audit_risk_only_not_runtime_reproduced",
+    "finding": "Old transition could wait indefinitely for a safe shelf after the return walk. Continuous damage made this a free-DPS staging risk; latest user-authorized formal profile has bounded 1.4s transition. No independent old phase-stall runtime/video artifact exists in this agent output.",
+    "do_not_claim": "Do not describe it as a recorded reproduced phase deadlock or failed old full battle."
+  },
+  "original_assertion_preservation_audit": {
+    "tests/plains_pressure_boss_runner.gd": {
+      "original_check_lines": 72,
+      "source_L_check_lines": 73,
+      "removed_or_rewritten_original_check_lines": []
+    },
+    "tests/plains_platform_boss_runner.gd": {
+      "original_check_lines": 19,
+      "source_L_check_lines": 19,
+      "removed_or_rewritten_original_check_lines": []
+    },
+    "tests/plains_interactive_platforms_runner.gd": {
+      "original_check_lines": 21,
+      "source_L_check_lines": 21,
+      "removed_or_rewritten_original_check_lines": []
+    },
+    "tests/plains_experience_energy_runner.gd": {
+      "original_check_lines": 66,
+      "source_L_check_lines": 66,
+      "removed_or_rewritten_original_check_lines": []
+    }
+  },
+  "legacy_definition_audit": {
+    "resources/bosses/legacy/bellstrider_window_v1.tres": {
+      "sha256": "14bcb17cc4a3af32c764b00a60d9e49370604ad236297fcc9646d6fa136eee48",
+      "exact_baseline_bytes": true
+    },
+    "resources/bosses/legacy/windkeeper_storm_window_v4.tres": {
+      "sha256": "9fa6325e53d6078bea41bc0d9d53819b61586ceaed091da2da0db9737e6dc5d1",
+      "exact_baseline_bytes": true
+    }
+  },
+  "items": [
+    {
+      "source_path": "build/underworld_r3/boss/portable_snapshot_L_c259/fresh_L/harness_report.json",
+      "original_path": "build/verification/harness/20261019T170413.566287Z/report.json",
+      "destination_relative": "fresh_L/harness_report.json",
+      "sha256": "230a2537d24818fe1b0c8e69c672b89537875c97ccf66d4ac527245584b9c3d0",
+      "bytes": 10079,
+      "source_label": {
+        "kind": "source_committed_fresh_headless",
+        "commit": "c259f8cf1093102e53a1c34d19936e55f61f2839",
+        "harness_report": "build/verification/harness/20261019T170413.566287Z/report.json",
+        "check": "underworld-continuous-bosses",
+        "original_bytes_retained": true,
+        "scope": "headless technical verification, not GPU/audio/device/user acceptance"
+      },
+      "reason": "Exact fourteen-check report: source commit, clean worktree, non-reused passing Boss check, device/fun unverified",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/portable_snapshot_L_c259/fresh_L/check.log",
+      "original_path": "build/verification/harness/20261019T170413.566287Z/underworld-continuous-bosses.log",
+      "destination_relative": "fresh_L/check.log",
+      "sha256": "782e5d8bc07cb8d189d9b1854bb75aeb2f0c9f83585056b9bf42dc55c202e5f7",
+      "bytes": 5696,
+      "source_label": {
+        "kind": "source_committed_fresh_headless",
+        "commit": "c259f8cf1093102e53a1c34d19936e55f61f2839",
+        "harness_report": "build/verification/harness/20261019T170413.566287Z/report.json",
+        "check": "underworld-continuous-bosses",
+        "original_bytes_retained": true,
+        "scope": "headless technical verification, not GPU/audio/device/user acceptance"
+      },
+      "reason": "Exact combined execution log verifies actual 100 + 16 + 44 + both full-App scripts ran",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/portable_snapshot_L_c259/fresh_L/continuous_combat.json",
+      "original_path": "build/underworld_r3/boss/continuous_combat.json",
+      "destination_relative": "fresh_L/continuous_combat.json",
+      "sha256": "8baf2f3774076b24c56dbe0688dc9b35976cf96aee847287708f6690b6302f62",
+      "bytes": 93088,
+      "source_label": {
+        "kind": "source_committed_fresh_headless",
+        "commit": "c259f8cf1093102e53a1c34d19936e55f61f2839",
+        "harness_report": "build/verification/harness/20261019T170413.566287Z/report.json",
+        "check": "underworld-continuous-bosses",
+        "original_bytes_retained": true,
+        "scope": "headless technical verification, not GPU/audio/device/user acceptance"
+      },
+      "reason": "Actual producer receipt and trace from the selected fresh source-L check",
+      "priority": "required",
+      "facts": {
+        "checks": 100,
+        "failures": [],
+        "roll_frames": 296,
+        "explicit_fixtures": "initial phase/mode entries; actual Router and player bullets thereafter",
+        "original_mtime_within_harness_check_window": true,
+        "attribution_limit": "Associated with the exact wrapper/check execution by report interval and matching summary; JSON has no fabricated embedded source_commit"
+      }
+    },
+    {
+      "source_path": "build/underworld_r3/boss/portable_snapshot_L_c259/fresh_L/directional_hits.json",
+      "original_path": "build/underworld_r3/boss/directional_hits.json",
+      "destination_relative": "fresh_L/directional_hits.json",
+      "sha256": "a0db91c949eb7d1def2cf08e2cad2d385b4ed900ff759b54dba25c925eaa5b46",
+      "bytes": 675,
+      "source_label": {
+        "kind": "source_committed_fresh_headless",
+        "commit": "c259f8cf1093102e53a1c34d19936e55f61f2839",
+        "harness_report": "build/verification/harness/20261019T170413.566287Z/report.json",
+        "check": "underworld-continuous-bosses",
+        "original_bytes_retained": true,
+        "scope": "headless technical verification, not GPU/audio/device/user acceptance"
+      },
+      "reason": "Actual producer receipt and trace from the selected fresh source-L check",
+      "priority": "required",
+      "facts": {
+        "checks": 16,
+        "failures": [],
+        "explicit_fixtures": "actual formal App left/right encounter waves; room setup/frozen AI boundary fixture",
+        "original_mtime_within_harness_check_window": true,
+        "attribution_limit": "Associated with the exact wrapper/check execution by report interval and matching summary; JSON has no fabricated embedded source_commit"
+      }
+    },
+    {
+      "source_path": "build/underworld_r3/boss/portable_snapshot_L_c259/fresh_L/lifecycle.json",
+      "original_path": "build/underworld_r3/boss/lifecycle.json",
+      "destination_relative": "fresh_L/lifecycle.json",
+      "sha256": "a48d0c553da4ee6c32290dd22ef1c6ae1a24e8cea58ffb0e27f628d41ab6cdfa",
+      "bytes": 565,
+      "source_label": {
+        "kind": "source_committed_fresh_headless",
+        "commit": "c259f8cf1093102e53a1c34d19936e55f61f2839",
+        "harness_report": "build/verification/harness/20261019T170413.566287Z/report.json",
+        "check": "underworld-continuous-bosses",
+        "original_bytes_retained": true,
+        "scope": "headless technical verification, not GPU/audio/device/user acceptance"
+      },
+      "reason": "Actual producer receipt and trace from the selected fresh source-L check",
+      "priority": "required",
+      "facts": {
+        "checks": 44,
+        "failures": [],
+        "explicit_fixtures": "initial HP1/frozen AI, real opposing collisions in both callback orders; distinct from full battles",
+        "original_mtime_within_harness_check_window": true,
+        "attribution_limit": "Associated with the exact wrapper/check execution by report interval and matching summary; JSON has no fabricated embedded source_commit"
+      }
+    },
+    {
+      "source_path": "build/underworld_r3/boss/portable_snapshot_L_c259/fresh_L/full_fight_map1.json",
+      "original_path": "build/underworld_r3/boss/full_fight_map1.json",
+      "destination_relative": "fresh_L/full_fight_map1.json",
+      "sha256": "e6f468ad7194b14ed1ad80f04e7e890bf3d6e80ba55ff598ad72de815a0d7994",
+      "bytes": 176376,
+      "source_label": {
+        "kind": "source_committed_fresh_headless",
+        "commit": "c259f8cf1093102e53a1c34d19936e55f61f2839",
+        "harness_report": "build/verification/harness/20261019T170413.566287Z/report.json",
+        "check": "underworld-continuous-bosses",
+        "original_bytes_retained": true,
+        "scope": "headless technical verification, not GPU/audio/device/user acceptance"
+      },
+      "reason": "Actual producer receipt and trace from the selected fresh source-L check",
+      "priority": "required",
+      "facts": {
+        "map": 1,
+        "failures": [],
+        "boss_hp": 0.0,
+        "player_hp": 4.0,
+        "accepted_shots": 16,
+        "no_midfight_injection": true,
+        "settlement": {
+          "coin_delta": 12,
+          "first_advance": true,
+          "gold": false,
+          "mini_exit_open": true,
+          "mini_recorded": false,
+          "next_map": 2,
+          "repeat_advance_rejected": true,
+          "reward_available": true,
+          "reward_offer": "",
+          "stage_complete": true
+        },
+        "visited": [
+          "1",
+          "2"
+        ],
+        "battle_trace_frames": 459,
+        "explicit_fixtures": "one initial room placement and post-victory reward placement; uninterrupted battle has no HP/phase/resource/AI injection",
+        "original_mtime_within_harness_check_window": true,
+        "attribution_limit": "Associated with the exact wrapper/check execution by report interval and matching summary; JSON has no fabricated embedded source_commit"
+      }
+    },
+    {
+      "source_path": "build/underworld_r3/boss/portable_snapshot_L_c259/fresh_L/full_fight_map2.json",
+      "original_path": "build/underworld_r3/boss/full_fight_map2.json",
+      "destination_relative": "fresh_L/full_fight_map2.json",
+      "sha256": "3f5692db49ed05888628bb40528ec1fa999eeb032c9150119a5db6c36de9dcdb",
+      "bytes": 304123,
+      "source_label": {
+        "kind": "source_committed_fresh_headless",
+        "commit": "c259f8cf1093102e53a1c34d19936e55f61f2839",
+        "harness_report": "build/verification/harness/20261019T170413.566287Z/report.json",
+        "check": "underworld-continuous-bosses",
+        "original_bytes_retained": true,
+        "scope": "headless technical verification, not GPU/audio/device/user acceptance"
+      },
+      "reason": "Actual producer receipt and trace from the selected fresh source-L check",
+      "priority": "required",
+      "facts": {
+        "map": 2,
+        "failures": [],
+        "boss_hp": 0.0,
+        "player_hp": 5.0,
+        "accepted_shots": 39,
+        "no_midfight_injection": true,
+        "settlement": {
+          "completed_biomes": 1,
+          "first_claim": true,
+          "gold": true,
+          "gold_choice_open": true,
+          "gold_exit_open": true,
+          "mini_recorded": false,
+          "repeat_claim_rejected": true,
+          "returned_home": true,
+          "reward_available": true,
+          "reward_offer": "gold_stage_2",
+          "stage_complete": true
+        },
+        "visited": [
+          "1",
+          "2",
+          "3"
+        ],
+        "battle_trace_frames": 801,
+        "explicit_fixtures": "one initial room placement and post-victory reward placement; uninterrupted battle has no HP/phase/resource/AI injection",
+        "original_mtime_within_harness_check_window": true,
+        "attribution_limit": "Associated with the exact wrapper/check execution by report interval and matching summary; JSON has no fabricated embedded source_commit"
+      }
+    },
+    {
+      "source_path": "build/underworld_r3/boss/portable_snapshot_L_c259/fresh_L/runtime.log",
+      "original_path": "build/underworld_r3/boss/runtime.log",
+      "destination_relative": "fresh_L/runtime.log",
+      "sha256": "7ed83f2068c97e3e7e815b028f70b076d1a88eea88de6bbd7d6b3da98d6bceb3",
+      "bytes": 701,
+      "source_label": {
+        "kind": "source_committed_fresh_headless",
+        "commit": "c259f8cf1093102e53a1c34d19936e55f61f2839",
+        "harness_report": "build/verification/harness/20261019T170413.566287Z/report.json",
+        "check": "underworld-continuous-bosses",
+        "original_bytes_retained": true,
+        "scope": "headless technical verification, not GPU/audio/device/user acceptance"
+      },
+      "reason": "Exact individual wrapper output, including strict completion and clean teardown",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/portable_snapshot_L_c259/fresh_L/directional_hits_runtime.log",
+      "original_path": "build/underworld_r3/boss/directional_hits_runtime.log",
+      "destination_relative": "fresh_L/directional_hits_runtime.log",
+      "sha256": "ac812afc43050d974c56a95afd5ab11302515c813eb5d5d1336c91a2f7bc744d",
+      "bytes": 715,
+      "source_label": {
+        "kind": "source_committed_fresh_headless",
+        "commit": "c259f8cf1093102e53a1c34d19936e55f61f2839",
+        "harness_report": "build/verification/harness/20261019T170413.566287Z/report.json",
+        "check": "underworld-continuous-bosses",
+        "original_bytes_retained": true,
+        "scope": "headless technical verification, not GPU/audio/device/user acceptance"
+      },
+      "reason": "Exact individual wrapper output, including strict completion and clean teardown",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/portable_snapshot_L_c259/fresh_L/lifecycle_runtime.log",
+      "original_path": "build/underworld_r3/boss/lifecycle_runtime.log",
+      "destination_relative": "fresh_L/lifecycle_runtime.log",
+      "sha256": "12eb33a9413657233539ada46a30802c4c5a630d0431e34371ba2871883875b3",
+      "bytes": 1901,
+      "source_label": {
+        "kind": "source_committed_fresh_headless",
+        "commit": "c259f8cf1093102e53a1c34d19936e55f61f2839",
+        "harness_report": "build/verification/harness/20261019T170413.566287Z/report.json",
+        "check": "underworld-continuous-bosses",
+        "original_bytes_retained": true,
+        "scope": "headless technical verification, not GPU/audio/device/user acceptance"
+      },
+      "reason": "Exact individual wrapper output, including strict completion and clean teardown",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/portable_snapshot_L_c259/fresh_L/full_fight_map1_runtime.log",
+      "original_path": "build/underworld_r3/boss/full_fight_map1_runtime.log",
+      "destination_relative": "fresh_L/full_fight_map1_runtime.log",
+      "sha256": "c4d2c28060594400eda8b13cec19777b8ca4c9334a85230df94a36ae41ba9cfa",
+      "bytes": 570,
+      "source_label": {
+        "kind": "source_committed_fresh_headless",
+        "commit": "c259f8cf1093102e53a1c34d19936e55f61f2839",
+        "harness_report": "build/verification/harness/20261019T170413.566287Z/report.json",
+        "check": "underworld-continuous-bosses",
+        "original_bytes_retained": true,
+        "scope": "headless technical verification, not GPU/audio/device/user acceptance"
+      },
+      "reason": "Exact individual wrapper output, including strict completion and clean teardown",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/portable_snapshot_L_c259/fresh_L/full_fight_map2_runtime.log",
+      "original_path": "build/underworld_r3/boss/full_fight_map2_runtime.log",
+      "destination_relative": "fresh_L/full_fight_map2_runtime.log",
+      "sha256": "08d2403327027277d563765ff81147292ba62542012519aca563e502cb83fad5",
+      "bytes": 642,
+      "source_label": {
+        "kind": "source_committed_fresh_headless",
+        "commit": "c259f8cf1093102e53a1c34d19936e55f61f2839",
+        "harness_report": "build/verification/harness/20261019T170413.566287Z/report.json",
+        "check": "underworld-continuous-bosses",
+        "original_bytes_retained": true,
+        "scope": "headless technical verification, not GPU/audio/device/user acceptance"
+      },
+      "reason": "Exact individual wrapper output, including strict completion and clean teardown",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/continuous_combat_third.log",
+      "original_path": "build/underworld_r3/boss/continuous_combat_third.log",
+      "destination_relative": "preflight/continuous_combat_third.log",
+      "sha256": "aee3b7a7b26012a1e9caf7b10cdcf69823e1d1210c8faaaf4e68090b2f055b98",
+      "bytes": 689,
+      "source_label": {
+        "kind": "original_dirty_preflight",
+        "baseline": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+        "source_commit": "unbound dirty shared worktree",
+        "scope": "Original labels retained; do not retag as source L or GPU evidence"
+      },
+      "reason": "Concrete rejected expanded-Bell-contact trial: 96 checks, one actual held-jump/roll failure; entire shootable body was unsuitable as contact hazard",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/continuous_combat_fourth.log",
+      "original_path": "build/underworld_r3/boss/continuous_combat_fourth.log",
+      "destination_relative": "preflight/continuous_combat_fourth.log",
+      "sha256": "28529c617ac42871cfac1e1e0f65e3cac24acee3a5e7d334f5309ed9d64219f9",
+      "bytes": 689,
+      "source_label": {
+        "kind": "original_dirty_preflight",
+        "baseline": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+        "source_commit": "unbound dirty shared worktree",
+        "scope": "Original labels retained; do not retag as source L or GPU evidence"
+      },
+      "reason": "Preserved second actual jump failure after chassis separation; timing still too late, not a passed dodge",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/roll_diagnostic.log",
+      "original_path": "build/underworld_r3/boss/roll_diagnostic.log",
+      "destination_relative": "preflight/roll_diagnostic.log",
+      "sha256": "6e8633d8c12cdf99887d58dff030561f3eae0a3a1e9d36a8c96df1e86a050f9a",
+      "bytes": 296,
+      "source_label": {
+        "kind": "original_dirty_preflight",
+        "baseline": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+        "source_commit": "unbound dirty shared worktree",
+        "scope": "Original labels retained; do not retag as source L or GPU evidence"
+      },
+      "reason": "Actual late-jump edge-contact diagnostic log; do not claim the overwritten original full trace is preserved",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/roll_diagnostic_timing68.log",
+      "original_path": "build/underworld_r3/boss/roll_diagnostic_timing68.log",
+      "destination_relative": "preflight/roll_diagnostic_timing68.log",
+      "sha256": "74b0e91ad3f039a04f0d346a84ce1d00df41910dea4f78d6437c33a68a4f5f15",
+      "bytes": 246,
+      "source_label": {
+        "kind": "original_dirty_preflight",
+        "baseline": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+        "source_commit": "unbound dirty shared worktree",
+        "scope": "Original labels retained; do not retag as source L or GPU evidence"
+      },
+      "reason": "Bounded repaired jump-vs-standing actual Motor comparison, 8/0; preflight only",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/direction_before_fix.log",
+      "original_path": "build/underworld_r3/boss/direction_before_fix.log",
+      "destination_relative": "preflight/direction_before_fix.log",
+      "sha256": "4178238d8b8e7c4a8c9c31de6ac6259ef76e0bb9740f10946781d94de6504edd",
+      "bytes": 955,
+      "source_label": {
+        "kind": "original_dirty_preflight",
+        "baseline": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+        "source_commit": "unbound dirty shared worktree",
+        "scope": "Original labels retained; do not retag as source L or GPU evidence"
+      },
+      "reason": "Concrete rejected left/right Boss hit-direction trial: 16 checks, four failures. Incoming direction was lost before Motor",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/direction_after_fix.log",
+      "original_path": "build/underworld_r3/boss/direction_after_fix.log",
+      "destination_relative": "preflight/direction_after_fix.log",
+      "sha256": "291c02607011c969d34ed368ca0ec5293219988cae9f1396d07ab2d0cb59cbc8",
+      "bytes": 713,
+      "source_label": {
+        "kind": "original_dirty_preflight",
+        "baseline": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+        "source_commit": "unbound dirty shared worktree",
+        "scope": "Original labels retained; do not retag as source L or GPU evidence"
+      },
+      "reason": "Original same-scope hit-direction fix trial, 16/0; latest source-L rerun is archived separately",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/legacy_contract_replaced_failure.log",
+      "original_path": "build/underworld_r3/boss/legacy_contract_replaced_failure.log",
+      "destination_relative": "preflight/legacy_contract_replaced_failure.log",
+      "sha256": "f0357de80af7391260f08d9f7d815bd4e85ea8059db4c9ff9c24436c8a98a193",
+      "bytes": 2264,
+      "source_label": {
+        "kind": "original_dirty_preflight",
+        "baseline": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+        "source_commit": "unbound dirty shared worktree",
+        "scope": "Original labels retained; do not retag as source L or GPU evidence"
+      },
+      "reason": "Unadapted original pressure suite against new formal contract: 22 failures including three superseded Boss assertions and nineteen historical renderer/default mismatches",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/legacy_window_adapted_before_background.log",
+      "original_path": "build/underworld_r3/boss/legacy_window_adapted_before_background.log",
+      "destination_relative": "preflight/legacy_window_adapted_before_background.log",
+      "sha256": "33e4e94543861fc6dd8595545ab51b6a543bbace2e9e2aa16da3c3479009d83b",
+      "bytes": 2067,
+      "source_label": {
+        "kind": "original_dirty_preflight",
+        "baseline": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+        "source_commit": "unbound dirty shared worktree",
+        "scope": "Original labels retained; do not retag as source L or GPU evidence"
+      },
+      "reason": "After explicit legacy Boss Definitions, nineteen historical renderer/default mismatches remained",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/legacy_pressure_final.log",
+      "original_path": "build/underworld_r3/boss/legacy_pressure_final.log",
+      "destination_relative": "preflight/legacy_pressure_final.log",
+      "sha256": "ae02734d02df38be07729c2a91573aa13bff06532b0ba5740c393af142dba389",
+      "bytes": 673,
+      "source_label": {
+        "kind": "original_dirty_preflight",
+        "baseline": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+        "source_commit": "unbound dirty shared worktree",
+        "scope": "Original labels retained; do not retag as source L or GPU evidence"
+      },
+      "reason": "489/0: original pressure assertions retained with explicit real historical renderer/Definition fixture plus one actual-current-default starting check",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/legacy_platform_final.log",
+      "original_path": "build/underworld_r3/boss/legacy_platform_final.log",
+      "destination_relative": "preflight/legacy_platform_final.log",
+      "sha256": "9e818fe4f10cca8fdf27ddd7bc01e567d7919332e77ab53290a29dd396fb545c",
+      "bytes": 160,
+      "source_label": {
+        "kind": "original_dirty_preflight",
+        "baseline": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+        "source_commit": "unbound dirty shared worktree",
+        "scope": "Original labels retained; do not retag as source L or GPU evidence"
+      },
+      "reason": "18/0: original platform/aperture checks retained under explicit historical Definition",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/legacy_interactive_final.log",
+      "original_path": "build/underworld_r3/boss/legacy_interactive_final.log",
+      "destination_relative": "preflight/legacy_interactive_final.log",
+      "sha256": "759b870892449a0e5d99bc646703e9163a1ea9f18dc73223ba3e039992b12fa0",
+      "bytes": 5021,
+      "source_label": {
+        "kind": "original_dirty_preflight",
+        "baseline": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+        "source_commit": "unbound dirty shared worktree",
+        "scope": "Original labels retained; do not retag as source L or GPU evidence"
+      },
+      "reason": "109/0: original interactive/rune checks retained under explicit historical Definition",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/legacy_energy_final.log",
+      "original_path": "build/underworld_r3/boss/legacy_energy_final.log",
+      "destination_relative": "preflight/legacy_energy_final.log",
+      "sha256": "a88f895263ef4c500dbabe9154bfbc8246c82a53d86f3b00dd08ed4f0c071b29",
+      "bytes": 385,
+      "source_label": {
+        "kind": "original_dirty_preflight",
+        "baseline": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+        "source_commit": "unbound dirty shared worktree",
+        "scope": "Original labels retained; do not retag as source L or GPU evidence"
+      },
+      "reason": "528/0: original armour/refund negative retained under explicit historical target Definition",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/legacy_resource_provenance.json",
+      "original_path": "build/underworld_r3/boss/legacy_resource_provenance.json",
+      "destination_relative": "preflight/legacy_resource_provenance.json",
+      "sha256": "3b01b5e3a1fcef41d7c7cfac84cb530b4f8c4a2d5074f3273b15f274802ebe77",
+      "bytes": 530,
+      "source_label": {
+        "kind": "original_dirty_preflight",
+        "baseline": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+        "source_commit": "unbound dirty shared worktree",
+        "scope": "Original labels retained; do not retag as source L or GPU evidence"
+      },
+      "reason": "Exact preflight byte-equality record for two legacy tres against baseline 0fab13f",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/implementation_handoff.json",
+      "original_path": "build/underworld_r3/boss/implementation_handoff.json",
+      "destination_relative": "preflight/implementation_handoff.json",
+      "sha256": "541cb17f778af02e4c23fe910966cab78e65e6ec98ab81dd2a183fbffa3b93d6",
+      "bytes": 6835,
+      "source_label": {
+        "kind": "original_dirty_preflight",
+        "baseline": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+        "source_commit": "unbound dirty shared worktree",
+        "scope": "Original labels retained; do not retag as source L or GPU evidence"
+      },
+      "reason": "Original preflight source hashes and all four old scripts check-line preservation audit; some owned hashes predate later direction fix, so this is not source-L coverage",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/harness_skills_lessons.md",
+      "original_path": "build/underworld_r3/boss/harness_skills_lessons.md",
+      "destination_relative": "preflight/harness_skills_lessons.md",
+      "sha256": "4fa1fa0454ca46f9f223b5e2d0ae10027548809d8d92f633d64216fd9d353cc1",
+      "bytes": 3290,
+      "source_label": {
+        "kind": "original_dirty_preflight",
+        "baseline": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+        "source_commit": "unbound dirty shared worktree",
+        "scope": "Original labels retained; do not retag as source L or GPU evidence"
+      },
+      "reason": "Bounded production lessons and rejected attempts; an implementation note, not a check PASS",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/design.md",
+      "original_path": "build/underworld_r3/boss/design.md",
+      "destination_relative": "preflight/design.md",
+      "sha256": "eb15371ffc9425ab1fdd242b3312be8609eb1612b714a7bd29dec28111633d8e",
+      "bytes": 2133,
+      "source_label": {
+        "kind": "original_dirty_preflight",
+        "baseline": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+        "source_commit": "unbound dirty shared worktree",
+        "scope": "Original labels retained; do not retag as source L or GPU evidence"
+      },
+      "reason": "Original R3 design rationale and explicit legacy/formal distinction, not runtime evidence",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/full_fight_map1_settlement.log",
+      "original_path": "build/underworld_r3/boss/full_fight_map1_settlement.log",
+      "destination_relative": "preflight/fixture_refusals/full_fight_map1_settlement.log",
+      "sha256": "4e344f3a25f6732c7a9b35d56c9ffa63307c5a0227bce6eb7cbce1140f5af008",
+      "bytes": 458,
+      "source_label": {
+        "kind": "original_dirty_preflight",
+        "baseline": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+        "source_commit": "unbound dirty shared worktree",
+        "scope": "Original labels retained; do not retag as source L or GPU evidence"
+      },
+      "reason": "Fixture incorrectly skipped actual exit confirmation/token and was correctly rejected; not a production reward bug",
+      "priority": "optional"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/lifecycle_first.log",
+      "original_path": "build/underworld_r3/boss/lifecycle_first.log",
+      "destination_relative": "preflight/fixture_refusals/lifecycle_first.log",
+      "sha256": "5b84885d7ca44be32d2ee82251301f08844053a833064313872a5a46a19985ac",
+      "bytes": 2812,
+      "source_label": {
+        "kind": "original_dirty_preflight",
+        "baseline": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+        "source_commit": "unbound dirty shared worktree",
+        "scope": "Original labels retained; do not retag as source L or GPU evidence"
+      },
+      "reason": "Fixture attempted actual enemy hit during unchanged spawn protection and was correctly rejected; not a production damage bug",
+      "priority": "optional"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/baseline_windkeeper_encounter_0fab13f.gd.source",
+      "original_path": "build/underworld_r3/boss/baseline_windkeeper_encounter_0fab13f.gd.source",
+      "destination_relative": "preflight/baseline_windkeeper_encounter_0fab13f.gd.source",
+      "sha256": "94a1bf744194ba1336286dbfde232c5f2c94d52aefa0767beeb6a66dc62902e3",
+      "bytes": 17359,
+      "source_label": {
+        "kind": "exact_historical_git_blob",
+        "commit": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+        "original_path": "scripts/bosses/windkeeper_encounter.gd"
+      },
+      "reason": "Source-only audit of 3.2s warning plus return-to-shore and safe-position wait; no fabricated old phase-stall reproduction",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/portable_snapshot_L_c259/assertion_sources/original_0fab13f/tests__plains_pressure_boss_runner.gd.source",
+      "original_path": "build/underworld_r3/boss/portable_snapshot_L_c259/assertion_sources/original_0fab13f/tests__plains_pressure_boss_runner.gd.source",
+      "destination_relative": "assertion_sources/original_0fab13f/tests__plains_pressure_boss_runner.gd.source",
+      "sha256": "8b0343c76ff0d936cd65cdba398d2fbaaf8f2a41f0b3cb419c4f3bc4cf75d09c",
+      "bytes": 21518,
+      "source_label": {
+        "kind": "exact_git_blob",
+        "commit": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+        "original_path": "tests/plains_pressure_boss_runner.gd"
+      },
+      "reason": "Exact script text permits independent all-original-check-line comparison",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/portable_snapshot_L_c259/assertion_sources/source_L/tests__plains_pressure_boss_runner.gd.source",
+      "original_path": "build/underworld_r3/boss/portable_snapshot_L_c259/assertion_sources/source_L/tests__plains_pressure_boss_runner.gd.source",
+      "destination_relative": "assertion_sources/source_L/tests__plains_pressure_boss_runner.gd.source",
+      "sha256": "6393b18132220fd6c29c8ac848e46d9b267d9548dafd71a7243116a817f4c0a1",
+      "bytes": 22228,
+      "source_label": {
+        "kind": "exact_git_blob",
+        "commit": "c259f8cf1093102e53a1c34d19936e55f61f2839",
+        "original_path": "tests/plains_pressure_boss_runner.gd"
+      },
+      "reason": "Exact script text permits independent all-original-check-line comparison",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/portable_snapshot_L_c259/assertion_sources/original_0fab13f/tests__plains_platform_boss_runner.gd.source",
+      "original_path": "build/underworld_r3/boss/portable_snapshot_L_c259/assertion_sources/original_0fab13f/tests__plains_platform_boss_runner.gd.source",
+      "destination_relative": "assertion_sources/original_0fab13f/tests__plains_platform_boss_runner.gd.source",
+      "sha256": "ac837c04e3fb667b1a7d606d6fef3c34ffb301cd1cc89aadd51ca089cdb153ec",
+      "bytes": 6560,
+      "source_label": {
+        "kind": "exact_git_blob",
+        "commit": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+        "original_path": "tests/plains_platform_boss_runner.gd"
+      },
+      "reason": "Exact script text permits independent all-original-check-line comparison",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/portable_snapshot_L_c259/assertion_sources/source_L/tests__plains_platform_boss_runner.gd.source",
+      "original_path": "build/underworld_r3/boss/portable_snapshot_L_c259/assertion_sources/source_L/tests__plains_platform_boss_runner.gd.source",
+      "destination_relative": "assertion_sources/source_L/tests__plains_platform_boss_runner.gd.source",
+      "sha256": "f2088dbb6f51c8d1653945aded120e2e3f6cea5220cb25ce5d56c316883b2597",
+      "bytes": 6664,
+      "source_label": {
+        "kind": "exact_git_blob",
+        "commit": "c259f8cf1093102e53a1c34d19936e55f61f2839",
+        "original_path": "tests/plains_platform_boss_runner.gd"
+      },
+      "reason": "Exact script text permits independent all-original-check-line comparison",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/portable_snapshot_L_c259/assertion_sources/original_0fab13f/tests__plains_interactive_platforms_runner.gd.source",
+      "original_path": "build/underworld_r3/boss/portable_snapshot_L_c259/assertion_sources/original_0fab13f/tests__plains_interactive_platforms_runner.gd.source",
+      "destination_relative": "assertion_sources/original_0fab13f/tests__plains_interactive_platforms_runner.gd.source",
+      "sha256": "11bf8236a9f8efff9094f776b4787def0e107278207affbc9bccd7e5a65bf36a",
+      "bytes": 10318,
+      "source_label": {
+        "kind": "exact_git_blob",
+        "commit": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+        "original_path": "tests/plains_interactive_platforms_runner.gd"
+      },
+      "reason": "Exact script text permits independent all-original-check-line comparison",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/portable_snapshot_L_c259/assertion_sources/source_L/tests__plains_interactive_platforms_runner.gd.source",
+      "original_path": "build/underworld_r3/boss/portable_snapshot_L_c259/assertion_sources/source_L/tests__plains_interactive_platforms_runner.gd.source",
+      "destination_relative": "assertion_sources/source_L/tests__plains_interactive_platforms_runner.gd.source",
+      "sha256": "faf0cfefd088f08d82207d52bbe7fcdf1b214a06aafb0ef9e2a3c6d96d3370fb",
+      "bytes": 10422,
+      "source_label": {
+        "kind": "exact_git_blob",
+        "commit": "c259f8cf1093102e53a1c34d19936e55f61f2839",
+        "original_path": "tests/plains_interactive_platforms_runner.gd"
+      },
+      "reason": "Exact script text permits independent all-original-check-line comparison",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/portable_snapshot_L_c259/assertion_sources/original_0fab13f/tests__plains_experience_energy_runner.gd.source",
+      "original_path": "build/underworld_r3/boss/portable_snapshot_L_c259/assertion_sources/original_0fab13f/tests__plains_experience_energy_runner.gd.source",
+      "destination_relative": "assertion_sources/original_0fab13f/tests__plains_experience_energy_runner.gd.source",
+      "sha256": "96e017fb93e05bb079a31e279f129bc82c1fe0268e50b40d9f7dc4512eb26e71",
+      "bytes": 15159,
+      "source_label": {
+        "kind": "exact_git_blob",
+        "commit": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad",
+        "original_path": "tests/plains_experience_energy_runner.gd"
+      },
+      "reason": "Exact script text permits independent all-original-check-line comparison",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/portable_snapshot_L_c259/assertion_sources/source_L/tests__plains_experience_energy_runner.gd.source",
+      "original_path": "build/underworld_r3/boss/portable_snapshot_L_c259/assertion_sources/source_L/tests__plains_experience_energy_runner.gd.source",
+      "destination_relative": "assertion_sources/source_L/tests__plains_experience_energy_runner.gd.source",
+      "sha256": "184daba448a2b14120f0d6f6c1558f5095007fbc7bb2ce5899aa861494ae727f",
+      "bytes": 15388,
+      "source_label": {
+        "kind": "exact_git_blob",
+        "commit": "c259f8cf1093102e53a1c34d19936e55f61f2839",
+        "original_path": "tests/plains_experience_energy_runner.gd"
+      },
+      "reason": "Exact script text permits independent all-original-check-line comparison",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/portable_snapshot_L_c259/definition_sources/bellstrider_window_v1.tres.source",
+      "original_path": "build/underworld_r3/boss/portable_snapshot_L_c259/definition_sources/bellstrider_window_v1.tres.source",
+      "destination_relative": "definition_sources/bellstrider_window_v1.tres.source",
+      "sha256": "14bcb17cc4a3af32c764b00a60d9e49370604ad236297fcc9646d6fa136eee48",
+      "bytes": 694,
+      "source_label": {
+        "kind": "exact_git_blob",
+        "commit": "c259f8cf1093102e53a1c34d19936e55f61f2839",
+        "original_path": "resources/bosses/legacy/bellstrider_window_v1.tres",
+        "byte_identical_baseline_resource": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad:resources/bosses/bellstrider.tres"
+      },
+      "reason": "Explicit real legacy Definition, including original collision/timing/window profile",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/portable_snapshot_L_c259/definition_sources/windkeeper_storm_window_v4.tres.source",
+      "original_path": "build/underworld_r3/boss/portable_snapshot_L_c259/definition_sources/windkeeper_storm_window_v4.tres.source",
+      "destination_relative": "definition_sources/windkeeper_storm_window_v4.tres.source",
+      "sha256": "9fa6325e53d6078bea41bc0d9d53819b61586ceaed091da2da0db9737e6dc5d1",
+      "bytes": 750,
+      "source_label": {
+        "kind": "exact_git_blob",
+        "commit": "c259f8cf1093102e53a1c34d19936e55f61f2839",
+        "original_path": "resources/bosses/legacy/windkeeper_storm_window_v4.tres",
+        "byte_identical_baseline_resource": "0fab13fcc446bf9abd3c6beaf21e0fc5b76bd9ad:resources/bosses/windkeeper_storm.tres"
+      },
+      "reason": "Explicit real legacy Definition, including original collision/timing/window profile",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/portable_snapshot_L_c259/definition_sources/resources__bosses__bellstrider.tres.source",
+      "original_path": "build/underworld_r3/boss/portable_snapshot_L_c259/definition_sources/resources__bosses__bellstrider.tres.source",
+      "destination_relative": "definition_sources/resources__bosses__bellstrider.tres.source",
+      "sha256": "882af5e59b5999d1bb71213d1332ecc3bcd8f6019fa49cb7373312015f8f4c05",
+      "bytes": 819,
+      "source_label": {
+        "kind": "exact_git_blob",
+        "commit": "c259f8cf1093102e53a1c34d19936e55f61f2839",
+        "original_path": "resources/bosses/bellstrider.tres"
+      },
+      "reason": "Actual formal continuous-combat Definition/source, separate from the explicit historical windows",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/portable_snapshot_L_c259/definition_sources/resources__bosses__windkeeper_storm.tres.source",
+      "original_path": "build/underworld_r3/boss/portable_snapshot_L_c259/definition_sources/resources__bosses__windkeeper_storm.tres.source",
+      "destination_relative": "definition_sources/resources__bosses__windkeeper_storm.tres.source",
+      "sha256": "723d24df7ad2c55c163b589557bab720dc1b37dc3bd318db591e069296a055b5",
+      "bytes": 810,
+      "source_label": {
+        "kind": "exact_git_blob",
+        "commit": "c259f8cf1093102e53a1c34d19936e55f61f2839",
+        "original_path": "resources/bosses/windkeeper_storm.tres"
+      },
+      "reason": "Actual formal continuous-combat Definition/source, separate from the explicit historical windows",
+      "priority": "required"
+    },
+    {
+      "source_path": "build/underworld_r3/boss/portable_snapshot_L_c259/definition_sources/scripts__bosses__windkeeper_definition.gd.source",
+      "original_path": "build/underworld_r3/boss/portable_snapshot_L_c259/definition_sources/scripts__bosses__windkeeper_definition.gd.source",
+      "destination_relative": "definition_sources/scripts__bosses__windkeeper_definition.gd.source",
+      "sha256": "1a02f38f0044ff1a0954fb4d3f3ea952400445953c2e6df9298cc948086f2274",
+      "bytes": 2347,
+      "source_label": {
+        "kind": "exact_git_blob",
+        "commit": "c259f8cf1093102e53a1c34d19936e55f61f2839",
+        "original_path": "scripts/bosses/windkeeper_definition.gd"
+      },
+      "reason": "Actual formal continuous-combat Definition/source, separate from the explicit historical windows",
+      "priority": "required"
+    }
+  ],
+  "item_count": 44,
+  "total_selected_bytes": 756383,
+  "remaining": "GPU source-bound normal-speed movies/audio/independent visual/playability review and physical-device/user acceptance remain separate."
+}

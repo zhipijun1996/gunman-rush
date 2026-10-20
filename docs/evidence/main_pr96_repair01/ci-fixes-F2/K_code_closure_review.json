@@ -1,0 +1,245 @@
+{
+  "decision": "SCOPED_ACCEPT",
+  "reviewed_final_runtime_commit": "8f803e2f04b17db3ed725df9071669fe78cadeea",
+  "source_commit": "8f803e2f04b17db3ed725df9071669fe78cadeea",
+  "reviewed_commit": "8f803e2f04b17db3ed725df9071669fe78cadeea",
+  "independent_reviewer": "independent_review",
+  "reviewer_changed_production_tests_or_tools": false,
+  "scope": "Four executable source changes since reviewed R169; final RootBell fixture/validator and existing F1 font / identity lifecycle local proofs. Source equivalence is separate from actual execution provenance.",
+  "source_closure": {
+    "non_docs_paths_R_to_K": [
+      "scripts/art/avatar_presentation.gd",
+      "tests/root_bell_tests.gd",
+      "tests/underworld_plains/test_underworld_identity_population.gd",
+      "tools/run_root_bell_tests.py"
+    ],
+    "basis_inputs": 203,
+    "basis": "f3e060598385696137aa40910811fcbfed931853fe7f4c9992b11cf1af0263cb",
+    "resources_R_to_K_byte_equal": 56,
+    "W10_native_executed": false
+  },
+  "final_source_sha256": {
+    "scripts/art/avatar_presentation.gd": "83b38f4ba417ca65d7ab318bb3f9e29a24907d52adbdeb6aa9604704f98352db",
+    "tests/root_bell_tests.gd": "5cd4285069df954e941c9b7f91155295f6234bc8004bd8eac790054b4c2a21a3",
+    "tests/underworld_plains/test_underworld_identity_population.gd": "40975b16b7a0e97847da0e915201e318733da13c06d66fc6afe152755745ea64",
+    "tools/run_root_bell_tests.py": "8ab78bd6a8c2ca338ed8947a6889440cce215080762e74a1a93a633aea8eb1e4"
+  },
+  "source_equivalence_and_execution": {
+    "root_bell_actual_execution_head": "5182ace20c66b36aa9d6ec6fa38da9791adf2280",
+    "dirty_candidate_sources_preserved": true,
+    "tested_root_bell_and_identity_blobs_equal_K": true,
+    "font_native_actual_execution": "H plus dirty corrected F1 candidate; source byte-equivalent to F1 and K, not relabelled K execution",
+    "identity_actual_execution": "isolated exact-H workspace plus dirty fixture; tested SHA equals K",
+    "prior_f1_identity_report": "build/forest_revision04/fix-F2-review/F1_font_and_identity_audio_review.json"
+  },
+  "root_bell": {
+    "production_damage_behavior_unchanged": true,
+    "native_fixture_text_exact_to_R_after_removing_two_observational_fields": true,
+    "original_static_check_calls": 58,
+    "actual_full_original_cli": "python3 tools/run_root_bell_formal.py --g1 --output-dir build/root_bell/fix_H_damage_stun03",
+    "actual_outer_exit": 0,
+    "actual_outer_seconds": 121.42085089199827,
+    "outer_cap": 360,
+    "native_cap": 300,
+    "admission_cap": 120,
+    "native_assertions": 165,
+    "actual_admission_maps": 40,
+    "admission_failures": [],
+    "current_content_refusals_reexecuted": 55,
+    "current_receipt_refusals_reexecuted": 11,
+    "independent_additional_mutations_rejected": [
+      {
+        "name": "hit_cause_wrong_target",
+        "rejected": true,
+        "reason": "real_projectile_interrupt: stun lacks committed HP cause, decrements incorrectly or was reset/extended"
+      },
+      {
+        "name": "hit_cause_wrong_projectile_identity",
+        "rejected": true,
+        "reason": "real_projectile_interrupt: HP commitment lacks its real accepted projectile"
+      },
+      {
+        "name": "hit_cause_shifted_tick",
+        "rejected": true,
+        "reason": "real_projectile_interrupt: stun lacks committed HP cause, decrements incorrectly or was reset/extended"
+      },
+      {
+        "name": "hit_cause_wrong_amount",
+        "rejected": true,
+        "reason": "real_projectile_interrupt: stun lacks committed HP cause, decrements incorrectly or was reset/extended"
+      },
+      {
+        "name": "wrong_feedback_resource",
+        "rejected": true,
+        "reason": "real_projectile_interrupt: damage feedback differs from actual Resource/default"
+      },
+      {
+        "name": "initial_epsilon_stun",
+        "rejected": true,
+        "reason": "real_projectile_interrupt: fixture starts with uncaused stun"
+      },
+      {
+        "name": "epsilon_after_exact_zero",
+        "rejected": true,
+        "reason": "real_projectile_interrupt: stun lacks committed HP cause, decrements incorrectly or was reset/extended"
+      },
+      {
+        "name": "frozen_tick_advances_clock",
+        "rejected": true,
+        "reason": "real_projectile_interrupt: motor-only damage stun advanced/reset behavior"
+      },
+      {
+        "name": "frozen_tick_changes_goal",
+        "rejected": true,
+        "reason": "real_projectile_interrupt: motor-only damage stun advanced/reset behavior"
+      },
+      {
+        "name": "frozen_tick_changes_serial",
+        "rejected": true,
+        "reason": "real_projectile_interrupt: motor-only damage stun advanced/reset behavior"
+      },
+      {
+        "name": "resume_tick_keeps_frozen_clock",
+        "rejected": true,
+        "reason": "real_projectile_interrupt: state clock was erased/reset/frozen outside actual damage stun"
+      },
+      {
+        "name": "stun_missing_cannot_select_history_implicitly",
+        "rejected": true,
+        "reason": "stand_in_pulse_positive_damage: missing or invalid actual damage stun"
+      },
+      {
+        "name": "coherent_no_hit_epsilon_and_frozen_clock",
+        "rejected": true,
+        "reason": "solid_occlusion_negative: fixture starts with uncaused stun"
+      }
+    ],
+    "causal_boundary": "HP drop plus one same-frame root damage amount/health event and actual accepted projectile identity; real Resource/default and two extra source hashes bind duration. Existing motor-only branch consumes dt, freezes behavior even on final zero-reaching tick, and resumes next tick. Initial and expected-zero stun require exact zero.",
+    "observed_actual_hit_and_clock": [
+      {
+        "tick": 43,
+        "enemy_hp": 3.0,
+        "damage_stun_remaining": 0.0,
+        "time": 0.116666666666667
+      },
+      {
+        "tick": 44,
+        "enemy_hp": 2.0,
+        "damage_stun_remaining": 0.12,
+        "time": 0.0
+      },
+      {
+        "tick": 45,
+        "enemy_hp": 2.0,
+        "damage_stun_remaining": 0.103333333333333,
+        "time": 0.0
+      },
+      {
+        "tick": 46,
+        "enemy_hp": 2.0,
+        "damage_stun_remaining": 0.0866666666666667,
+        "time": 0.0
+      },
+      {
+        "tick": 47,
+        "enemy_hp": 2.0,
+        "damage_stun_remaining": 0.07,
+        "time": 0.0
+      },
+      {
+        "tick": 48,
+        "enemy_hp": 2.0,
+        "damage_stun_remaining": 0.0533333333333333,
+        "time": 0.0
+      },
+      {
+        "tick": 49,
+        "enemy_hp": 2.0,
+        "damage_stun_remaining": 0.0366666666666667,
+        "time": 0.0
+      },
+      {
+        "tick": 50,
+        "enemy_hp": 2.0,
+        "damage_stun_remaining": 0.02,
+        "time": 0.0
+      },
+      {
+        "tick": 51,
+        "enemy_hp": 2.0,
+        "damage_stun_remaining": 0.00333333333333335,
+        "time": 0.0
+      },
+      {
+        "tick": 52,
+        "enemy_hp": 2.0,
+        "damage_stun_remaining": 0.0,
+        "time": 0.0
+      },
+      {
+        "tick": 53,
+        "enemy_hp": 2.0,
+        "damage_stun_remaining": 0.0,
+        "time": 0.0166666666666667
+      }
+    ],
+    "historical": {
+      "explicit_mode_only": true,
+      "original_source14_zip_hash_verified": true,
+      "native_assertions": 165,
+      "original_content_refusals_reexecuted": 41,
+      "original_receipt_refusals_reexecuted": 9,
+      "all_original_refusal_identities_retained": true,
+      "default_current_rejects_missing_feedback_sources_or_fields": true,
+      "native_reexecuted": false
+    },
+    "prior_REWORK_preserved": {
+      "rounds": "01 and 02 remain REWORK despite exit0; first420 outer is not evidence of original360 budget",
+      "epsilon_counterexample": {
+        "old_reconstructed_source_exact_execution_sha": true,
+        "old_candidate_accepted": true,
+        "final_rejected": true,
+        "reason": "solid_occlusion_negative: fixture starts with uncaused stun"
+      },
+      "candidate02_source_is_exact_execution_SHA_reconstruction_not_original_copy": true
+    },
+    "original_execution_receipt": "build/forest_revision04/ci-final-H/root-bell-fix/original-g1-full03-receipt.json",
+    "native_receipt": "build/root_bell/fix_H_damage_stun03/native165/report.json"
+  },
+  "F1_font": {
+    "accepted": "One CanvasLayer selector/popup receives existing leaf MenuTheme and existing CJK font; no new resource/navigation backedge; corrected native original25 assertions strict PASS. Final blob matches prior independent F1 report.",
+    "prior_failed_candidate": "Unresolved MenuTheme parse failure retained; only r2 corrected source signed.",
+    "Web_font_status": "Not signed by this code closure; awaiting K actual browser pixel review. H tofu remains real historical UI REWORK."
+  },
+  "identity_audio": {
+    "accepted": "Existing AudioTeardown.drain_world before app.free, original20 rows and21167 business assertions/AST preserved, plus20 actual release guards =21187. Prior independent source/positive/negative review applies to exact same K blob.",
+    "actual_negative": "Borrowed real last-case Land playback makes existing drain time out, actual21187/1 exit1 then release recovery, no leak; no global cache purge or weaker scanner.",
+    "diagnostic_errata_preserved": "Instrumented voice observer is not byte-identical original fixture; completed125-test log SHA corrected in separate preserved addendum, old index not overwritten."
+  },
+  "foundry": {
+    "W10": "CANCELLED, no new native proof",
+    "reason": "All actual203 basis inputs and56 resource Git bytes equal R169. AvatarPresentation is outside declared basis, and hashing PlayerVisualAdapter does not recursively hash preload dependencies.",
+    "basis": "f3e060598385696137aa40910811fcbfed931853fe7f4c9992b11cf1af0263cb",
+    "retained_native_proof": "Original W9 build36/18 and54 replays/56113 frame comparison; unchanged, not rerun or relabelled."
+  },
+  "independent_reproduction_files": [
+    "K_independent_pure_audit.json",
+    "K_independent_history_audit.json",
+    "audit_K_pure.py",
+    "audit_K_history.py"
+  ],
+  "selected_original_evidence": {
+    "path": "build/forest_revision04/ci-final-H/root-bell-fix/selected-evidence-compact.zip",
+    "sha256": "c50208b4214b98b2dbba2c6f968027830bef8ff25ce36c5905e4a5f1d017e216",
+    "members": 62,
+    "index_members_verified": 59
+  },
+  "original_full_194_index_scope": "Compact62-member archive CRC verified;59 members matched independent original index. Did not reread390MB duplicated synthetic captures while browser owns CPU; actual final capture/runtime/report, selected evidence, history original14 sources and required negatives verified.",
+  "not_accepted_by_this_report": [
+    "K browser typography or full UI until separate actual pixels",
+    "new full80 matrix or policy600 on K",
+    "new continuous movie or all Boss movement/whole-forest taste",
+    "pending56 targeted/full CI or public deployment",
+    "user acceptance or physical device/audio acceptance"
+  ]
+}

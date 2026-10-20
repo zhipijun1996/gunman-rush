@@ -61,12 +61,6 @@ func world_exits() -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
 	if modules.is_empty():
 		return result
-	if manifest.layout_id == "branched_terminal_paths":
-		for recorded: Dictionary in manifest.terminal_exits:
-			var module: PlatformingModule = modules[int(recorded.node)]
-			var port := module.definition.exit_port
-			result.append({"id": StringName(recorded.id), "position": module.to_global(port.position), "port": port})
-		return result
 	var last: PlatformingModule = modules.back()
 	for recorded: Dictionary in manifest.terminal_exits:
 		if recorded.id == "exit_lower_left_safe":
@@ -106,3 +100,11 @@ func module_index_at(point: Vector2) -> int:
 		if module.definition.world_bounds.has_point(module.to_local(point)):
 			return index
 	return -1
+
+# Keeps static_dangers() historical collision/validation order unchanged while
+# formal connected maps can distinguish old local pit planes from real thorns.
+func world_static_hazard_records() -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	for module: PlatformingModule in modules:
+		result.append_array(module.world_static_hazard_records())
+	return result

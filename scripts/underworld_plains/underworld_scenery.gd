@@ -73,13 +73,15 @@ func configure_geometry(slabs: Array[Rect2], blocked: Array[Rect2], seed_value: 
 							placed = true
 							break
 					if placed: break
-			if width >= 82.0 and roll % 5 == 0:
-				var x := lerpf(left + 38.0, right - 38.0, .36 if roll % 2 == 0 else .72)
-				_try_place("flowers", Vector2(x, edge.y), 22.0, edge, 180.0)
 			if width >= 84.0 and int(accent_counts.get(zone,0)) < int(_spec.max_small_accents_per_1280):
-				for ratio: float in [.23,.77]:
+				# Small rooted clusters enrich quiet banks without adding tall
+				# landmarks or covering playable rims, signals or landing routes.
+				for ratio: float in [.14,.38,.62,.86]:
 					var x := lerpf(left + 24.0,right - 24.0,ratio)
-					if _try_place("grass",Vector2(x,edge.y),18.0,edge,210.0):
+					var accent_roll := posmod((_seed+":accent:"+str(zone)+":"+str(edge.y)+":"+str(ratio)).hash(),100)
+					var kind := "flowers" if accent_roll % 4 == 0 else "grass"
+					var height := 16.0 + 2.0 * (accent_roll % 3) if kind == "flowers" else 12.0 + 3.0 * (accent_roll % 3)
+					if _try_place(kind,Vector2(x,edge.y),height,edge,82.0):
 						accent_counts[zone] = int(accent_counts.get(zone,0)) + 1
 						if int(accent_counts[zone]) >= int(_spec.max_small_accents_per_1280): break
 	presentation_manifest = {"schema": "underworld-scenery-runtime-v1", "seed_namespace": _spec.seed_namespace, "independent_seed": _seed, "collision": false, "items":identity_items.duplicate(true), "placements": placements.duplicate(true), "omitted": omitted.duplicate(true), "source": _spec.atlas}

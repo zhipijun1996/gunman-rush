@@ -91,7 +91,7 @@ func advance(count := 1) -> void:
 		await tree.physics_frame
 		await tree.process_frame
 		tick += 1
-		frames.append({"tick": tick, "process_frame": Engine.get_process_frames(), "physics_frame": Engine.get_physics_frames(), "position": [player.global_position.x, player.global_position.y], "grounded": player.is_on_floor(), "player_hp": controller.actor_resources.health.current, "energy": controller.actor_resources.stamina.current, "enemy_hp": actor.health.current, "state": str(behavior.state), "time": behavior.state_time, "goal": [behavior.attack_goal.x, behavior.attack_goal.y], "serial": behavior._serial, "active": controller.active, "axis": controller.router.axis})
+		frames.append({"tick": tick, "process_frame": Engine.get_process_frames(), "physics_frame": Engine.get_physics_frames(), "position": [player.global_position.x, player.global_position.y], "grounded": player.is_on_floor(), "player_hp": controller.actor_resources.health.current, "energy": controller.actor_resources.stamina.current, "enemy_hp": actor.health.current, "damage_stun_remaining": actor._damage_stun_remaining, "state": str(behavior.state), "time": behavior.state_time, "goal": [behavior.attack_goal.x, behavior.attack_goal.y], "serial": behavior._serial, "active": controller.active, "axis": controller.router.axis})
 
 func warning() -> bool:
 	for unused: int in 100:
@@ -100,7 +100,7 @@ func warning() -> bool:
 	return false
 
 func record(id: String, extra: Dictionary = {}) -> void:
-	var row := {"id": id, "scope": "actual_normal_scheduled_Motor_damage_and_GeneratedDemoStage_spawn_fixture", "frames": frames.duplicate(true), "events": events.duplicate(true)}
+	var row := {"id": id, "scope": "actual_normal_scheduled_Motor_damage_and_GeneratedDemoStage_spawn_fixture", "frames": frames.duplicate(true), "events": events.duplicate(true), "damage_feedback": {"resource_path": actor.damage_feedback.resource_path, "enemy_knockback_seconds": actor.damage_feedback.enemy_knockback_seconds}}
 	row.merge(extra)
 	cases.append(row)
 

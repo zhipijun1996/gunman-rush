@@ -3,11 +3,30 @@ extends SceneTree
 var checks := 0
 var failures := 0
 var rows: Array[Dictionary] = []
+var audio_observations: Array[Dictionary] = []
+
+func live_playbacks(references: Array[WeakRef]) -> int:
+	var count := 0
+	for reference: WeakRef in references:
+		if reference.get_ref()!=null:count+=1
+	return count
+
+func borrow_owned_playback(world: Node) -> AudioStreamPlayback:
+	for service: Node in get_nodes_in_group(&"game_audio"):
+		if not world.is_ancestor_of(service):continue
+		for voice: AudioStreamPlayer in service.find_children("*","AudioStreamPlayer",true,false):
+			if voice.has_stream_playback():return voice.get_stream_playback()
+		# A real existing service/real clip is used only by the refusal probe.
+		service.call("play",&"confirm")
+		for voice: AudioStreamPlayer in service.find_children("*","AudioStreamPlayer",true,false):
+			if voice.has_stream_playback():return voice.get_stream_playback()
+	return null
 func _initialize() -> void: run.call_deferred()
 func check(value: bool, label: String) -> void:
 	checks+=1
 	if not value: failures+=1;printerr("FAIL: "+label)
 func run() -> void:
+	var map_hashes: Dictionary = {}
 	for number: int in 10:
 		for map_index: int in [1,2]:
 			var seed_text := "underworld-formal/"+str(number)
@@ -17,10 +36,14 @@ func run() -> void:
 			await process_frame
 			app.start_plains(seed_text)
 			if map_index==2:
-				app.director.stage_index=2
+				app.director.stage_index=2;app.director.region_map_index=2
 				app._load_stage()
 			for n: int in 3: await physics_frame
 			var stage := app.stage as PlainsRegionStage
+			check(stage.map_index == map_index and app.director.region_map_index == map_index and str(stage.generated.manifest.seed) == PlainsRegionCampaign.seed_for(app.director.seed,map_index) and str(stage.generated.manifest.manifest_hash).length() == 64,"actual formal map, derived seed and hash match the requested consumer")
+			var actual_hash := str(stage.generated.manifest.manifest_hash)
+			check(not map_hashes.has(actual_hash),"requested formal map owns a distinct actual Manifest hash")
+			map_hashes[actual_hash] = true
 			check(stage!=null and stage.assembly_ok,seed_text+" map"+str(map_index)+" actual assembly")
 			var scenery := stage.get_node("PixelRegionScenery") as UnderworldScenery
 			var actual_identities: Array[String] = []
@@ -47,10 +70,31 @@ func run() -> void:
 			for identity: String in ["windmill_plateau","clock_court","repair_gallery","creek_well"]:
 				check(identity in actual_identities,seed_text+" map"+str(map_index)+" actual "+identity)
 			rows.append({"seed":seed_text,"map":map_index,"manifest_hash":stage.generated.manifest.manifest_hash,"identities":actual_identities,"grounded_items":scenery.identity_items.duplicate(true),"grounded_rays":rays,"local_compositions":local.compositions.duplicate(true) if local!=null else [],"identity_omissions":scenery.omitted.filter(func(x:Dictionary)->bool:return x.has("identity")),"local_omissions":local.omitted.duplicate(true) if local!=null else []})
+			var held: AudioStreamPlayback
+			if "--retain-owned-audio" in OS.get_cmdline_user_args() and number==9 and map_index==2:
+				held=borrow_owned_playback(app)
+				if held==null:check(false,"refusal probe acquires actual world-owned playback")
+			var pending: Array[WeakRef] = []
+			var owners: Array[Dictionary] = []
+			for service: Node in get_nodes_in_group(&"game_audio"):
+				if not app.is_ancestor_of(service):continue
+				pending.append_array(service.get("_playbacks"))
+				owners.append({"node":str(service.get_path()),"script":service.get_script().resource_path,"played":service.get("played").duplicate(true)})
+			var pending_before := live_playbacks(pending)
+			var borrowed := held!=null
+			var released: bool=await load("res://tests/audio_teardown.gd").drain_world(app)
+			check(released,"actual owned audio releases before freeing population world")
+			var pending_after := live_playbacks(pending)
+			var recovered := true
+			if held!=null:
+				held=null
+				recovered=await load("res://tests/audio_teardown.gd").drain_world(app)
+				if not recovered:check(false,"actual borrowed playback releases after refusal probe")
+			audio_observations.append({"seed":seed_text,"map":map_index,"owners":owners,"pending_before":pending_before,"pending_after":pending_after,"released":released,"borrowed_for_refusal_probe":borrowed,"recovered_after_borrower_release":recovered})
 			app.free()
 			for n: int in 4: await process_frame
 	var file := FileAccess.open("res://build/underworld_plains/identity_population.json",FileAccess.WRITE)
-	file.store_string(JSON.stringify({"schema":"underworld-formal-identity-population-v1","checks":checks,"failures":failures,"cases":rows},"\t"))
+	file.store_string(JSON.stringify({"schema":"underworld-formal-identity-population-v1","checks":checks,"failures":failures,"cases":rows,"audio_observations":audio_observations},"\t"))
 	file.close()
 	print("Underworld identity population: %d cases, %d checks, %d failures" % [rows.size(),checks,failures])
 	quit(1 if failures else 0)

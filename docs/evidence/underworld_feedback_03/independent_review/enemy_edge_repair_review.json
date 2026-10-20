@@ -1,0 +1,230 @@
+{
+  "id": "R3-IR-15",
+  "reviewer": "/root/r3_review",
+  "original_candidate": "build/underworld_r3/review/enemy_edge_candidate.json",
+  "old_verdict": "REJECT confirmed ordinary ground-enemy hit can leave persistent unsupported actor",
+  "new_verdict": "ACCEPT bounded actual edge counterexample repair; final whole-source and native art still separate",
+  "evidence": [
+    {
+      "path": "build/underworld_r3/damage/ground_edge_before_fix.log",
+      "sha256": "cf318c737ec51738b2f41ab760d75daed1f1718b85b42b484f2c8a9bce35a2fe"
+    },
+    {
+      "path": "build/underworld_r3/damage/ground_edge_before_fix_runtime.json",
+      "sha256": "c4f66eb1bc220bf7309b1f9542543114b19923ef98b10f1f149910ccec4ac154"
+    },
+    {
+      "path": "build/underworld_r3/damage/final_edge_guard.log",
+      "sha256": "f9b1b59f9ab73bb4e9e0afe9f517fdbd744b43c1c00b675fbd8c43a91fc0cfaf"
+    },
+    {
+      "path": "build/underworld_r3/damage/runtime.json",
+      "sha256": "39402e1bd48029d09afefd90b444a44a9382cbbca12500af4b0a51054f7f322c"
+    },
+    {
+      "path": "scripts/enemies/enemy_actor.gd",
+      "sha256": "ebca71140fe2b497600a3440867ba353eb1a7faa779612ca999aa000a88a1304"
+    },
+    {
+      "path": "scripts/enemies/enemy_motor.gd",
+      "sha256": "3f36d8c9c4a0a7cf58483a784cd7a425053722c3736dd888c1eab9c5b2afdad8"
+    },
+    {
+      "path": "tests/underworld_plains/damage_enemy_edge_cases.gd",
+      "sha256": "251d54f7841bbdabb77ab19326b94c7df56ff9a21cfa642c08fd6aa82f0271e7"
+    }
+  ],
+  "method": "Independently read complete new real-shot fixture, old297/2 raw/log, new297/0 raw/log and exact Actor/Motor diff. No reviewer engine started concurrently.",
+  "old_outcomes": [
+    {
+      "case": {
+        "aerial": false,
+        "edge": 600.0,
+        "enemy_x": 585.0,
+        "name": "right_ground_edge",
+        "player_x": 430.0,
+        "side": 1.0,
+        "width": 600.0
+      },
+      "definition": "res://resources/enemies/plains_sentry.tres",
+      "final_position": "(601.2002, 372.0)",
+      "final_supported": false,
+      "hits": [
+        {
+          "direction": "(1.0, 0.0)",
+          "event_id": "681490515953:1:1",
+          "position": "(585.0, 372.0)",
+          "tick": 7105
+        }
+      ]
+    },
+    {
+      "case": {
+        "aerial": false,
+        "edge": 0.0,
+        "enemy_x": 15.0,
+        "name": "left_ground_edge",
+        "player_x": 170.0,
+        "side": -1.0,
+        "width": 600.0
+      },
+      "definition": "res://resources/enemies/plains_sentry.tres",
+      "final_position": "(-1.200195, 372.0)",
+      "final_supported": false,
+      "hits": [
+        {
+          "direction": "(-1.0, 0.0)",
+          "event_id": "687228323780:1:1",
+          "position": "(15.0, 372.0)",
+          "tick": 7135
+        }
+      ]
+    },
+    {
+      "case": {
+        "aerial": false,
+        "edge": 1000.0,
+        "enemy_x": 585.0,
+        "name": "wide_ground",
+        "player_x": 430.0,
+        "side": 1.0,
+        "width": 1000.0
+      },
+      "definition": "res://resources/enemies/plains_sentry.tres",
+      "final_position": "(601.2002, 372.0)",
+      "final_supported": true,
+      "hits": [
+        {
+          "direction": "(1.0, 0.0)",
+          "event_id": "692328597501:1:1",
+          "position": "(585.0, 372.0)",
+          "tick": 7165
+        }
+      ]
+    },
+    {
+      "case": {
+        "aerial": true,
+        "edge": 600.0,
+        "enemy_x": 585.0,
+        "name": "right_aerial_edge",
+        "player_x": 430.0,
+        "side": 1.0,
+        "width": 600.0
+      },
+      "definition": "res://resources/enemies/plains_diver.tres",
+      "final_position": "(605.4561, 371.9999)",
+      "final_supported": false,
+      "hits": [
+        {
+          "direction": "(1.0, 0.0)",
+          "event_id": "697428871128:1:1",
+          "position": "(586.9316, 371.9996)",
+          "tick": 7195
+        }
+      ]
+    }
+  ],
+  "new_outcomes": [
+    {
+      "case": {
+        "aerial": false,
+        "edge": 600.0,
+        "enemy_x": 585.0,
+        "name": "right_ground_edge",
+        "player_x": 430.0,
+        "side": 1.0,
+        "width": 600.0
+      },
+      "definition": "res://resources/enemies/plains_sentry.tres",
+      "final_position": "(585.0, 372.0)",
+      "final_supported": true,
+      "hits": [
+        {
+          "direction": "(1.0, 0.0)",
+          "event_id": "740076554225:1:1",
+          "position": "(585.0, 372.0)",
+          "tick": 7829
+        }
+      ]
+    },
+    {
+      "case": {
+        "aerial": false,
+        "edge": 0.0,
+        "enemy_x": 15.0,
+        "name": "left_ground_edge",
+        "player_x": 170.0,
+        "side": -1.0,
+        "width": 600.0
+      },
+      "definition": "res://resources/enemies/plains_sentry.tres",
+      "final_position": "(15.0, 372.0)",
+      "final_supported": true,
+      "hits": [
+        {
+          "direction": "(-1.0, 0.0)",
+          "event_id": "745831139266:1:1",
+          "position": "(15.0, 372.0)",
+          "tick": 7859
+        }
+      ]
+    },
+    {
+      "case": {
+        "aerial": false,
+        "edge": 1000.0,
+        "enemy_x": 585.0,
+        "name": "wide_ground",
+        "player_x": 430.0,
+        "side": 1.0,
+        "width": 1000.0
+      },
+      "definition": "res://resources/enemies/plains_sentry.tres",
+      "final_position": "(601.2002, 372.0)",
+      "final_supported": true,
+      "hits": [
+        {
+          "direction": "(1.0, 0.0)",
+          "event_id": "750948190207:1:1",
+          "position": "(585.0, 372.0)",
+          "tick": 7889
+        }
+      ]
+    },
+    {
+      "case": {
+        "aerial": true,
+        "edge": 600.0,
+        "enemy_x": 585.0,
+        "name": "right_aerial_edge",
+        "player_x": 430.0,
+        "side": 1.0,
+        "width": 600.0
+      },
+      "definition": "res://resources/enemies/plains_diver.tres",
+      "final_position": "(605.4561, 371.9999)",
+      "final_supported": false,
+      "hits": [
+        {
+          "direction": "(1.0, 0.0)",
+          "event_id": "756182681532:1:1",
+          "position": "(586.9316, 371.9996)",
+          "tick": 7919
+        }
+      ]
+    }
+  ],
+  "findings": [
+    "Actual authored plains_sentry definition (stationary base speed) and active native AI; no enemy pause/direct damage or fake animation callback.",
+    "Both edge directions fail originally and retain actual foot support after local accepted-hurt require_floor guard.",
+    "Wide ground retains >12wu horizontal reaction; aerial diver remains allowed beyond edge.",
+    "Old skill/patrol/attack/attraction motion unchanged because new optional argument defaults false; non-aerial accepted hurt explicitly opts into support check.",
+    "Original273 assertions retained; new exact-one ordinary enemy audio/replay controls included in297."
+  ],
+  "limits": [
+    "This is an explicit bounded narrow-platform fixture, not proof of every natural map surface",
+    "No actual sound listened",
+    "Final committed repaired source still pending at review time"
+  ]
+}

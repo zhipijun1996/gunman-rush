@@ -82,3 +82,15 @@ gameplay-reviewer 检查正常速度动作再逐帧定位；最终依据连续�
 ## Underworld试玩反馈生产补充
 
 Underworld机关复用同一功能铃图及accepted事件反馈；平台材质按独立长宽平铺。绘制纹理必须持续持有，纯headless成功不能排除GPU白块。运行 `underworld-mechanisms` 并检查真实截图像素/弹丸时间轴；失败白块与修复源分别保留。
+
+## Underworld第三轮实证回流
+
+环境返回同tick时分别表现原伤点退场与安全点淡入；发射光点按真实muzzle，接触火花不等于accepted HP命中，取消/到期不产假命中。 来源、真实失败、适用版本与待验见[第三轮经验](../../../docs/underworld_feedback_r3.md)；本条不代签最终用户手感或实体设备。
+
+叶节点VFX不得反向依赖整套Actor/场景预加载链；编辑器/导出通过后仍独立加载正式消费者，循环解析原失败与单改修复对照保留。
+
+为实际接受事件新增表现时区分普通受伤与已有技能运动：共用音画不等于叠加force/stagger。软件录制或并发主机上的输入TTL过期必须保留actual age/packet证据，不能延长生产TTL来签位移预算。
+
+正式录制须有界等待真实异步Stage ready与assembly，启动API返回true不代表场景已加载；未实际发射敌弹的窗口必须失败，不能拿目录或摆拍代签远程效果。
+
+连续采证须等待真实异步Stage就绪，初始fixture满足实际AI激活/LOS/支撑；用原Input或Router驱动并标明，反冲补偿不能改位置/AI/TTL。受伤进入、命中点残影、安全点淡入、身体hurt退出及闪烁退出分别采实际连续像素。有声轨与音量测量不代替听音，软件MovieMaker耗时不代替设备FPS。实例与失败见[本轮实证](../../../docs/underworld_feedback_r3.md)。

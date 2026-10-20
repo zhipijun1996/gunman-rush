@@ -1,0 +1,48 @@
+{
+  "remote_CI_execution_head": "6b2a13f1445038c9bcd8f2fd9cd2f4d639d1ec8d",
+  "scene_receipt_execution_head": "6b2a13f1445038c9bcd8f2fd9cd2f4d639d1ec8d",
+  "scene_development_code_commit": "bfb90ac2dbfae912c1d26c37ab771a7285dc0875",
+  "AIM_positive_and_negative_execution_HEAD": "4b36203c634ed5e8339c13b809dd77c7a0c4d76e",
+  "AIM_final_code_commit": "6dd6db7a28a6e1defeb8a29aba389bc824dda697",
+  "scope": "Actual AIM runs used HEAD4b36203c plus uncommitted four-path fixture changes; those executable bytes match final6dd6 commit. The UID sidecar is included in final patch, not claimed as part of the four-path execution fingerprint. No final full CI result is claimed.",
+  "files": [
+    {
+      "path": "tests/aim_save_compat_case.gd",
+      "final_commit_sha256": "5ee85eb63687af1fbf6f1d672212a41be1085de1a6cf8c3d875de774ab00b600",
+      "current_file_sha256": "5ee85eb63687af1fbf6f1d672212a41be1085de1a6cf8c3d875de774ab00b600",
+      "execution_fingerprinted": true,
+      "execution_sha256": "5ee85eb63687af1fbf6f1d672212a41be1085de1a6cf8c3d875de774ab00b600",
+      "matches_actual_execution": true
+    },
+    {
+      "path": "tests/aim_save_compat_data.gd",
+      "final_commit_sha256": "9b1f7971cc64b15a988d5750f9ac98082e51fcbbe1158b9258670c7e6f5868f9",
+      "current_file_sha256": "9b1f7971cc64b15a988d5750f9ac98082e51fcbbe1158b9258670c7e6f5868f9",
+      "execution_fingerprinted": true,
+      "execution_sha256": "9b1f7971cc64b15a988d5750f9ac98082e51fcbbe1158b9258670c7e6f5868f9",
+      "matches_actual_execution": true
+    },
+    {
+      "path": "tests/aim_save_compat_data.gd.uid",
+      "final_commit_sha256": "0f4fb33de684f3a72600019317691995b252ba8b2a7e106345db3c973d715015",
+      "current_file_sha256": "0f4fb33de684f3a72600019317691995b252ba8b2a7e106345db3c973d715015",
+      "execution_fingerprinted": false
+    },
+    {
+      "path": "tests/aim_save_compat_runner.gd",
+      "final_commit_sha256": "a74230fe9395b9b8c57fae99ca03318b85452e63218cda0aacee00ef59322609",
+      "current_file_sha256": "a74230fe9395b9b8c57fae99ca03318b85452e63218cda0aacee00ef59322609",
+      "execution_fingerprinted": true,
+      "execution_sha256": "a74230fe9395b9b8c57fae99ca03318b85452e63218cda0aacee00ef59322609",
+      "matches_actual_execution": true
+    },
+    {
+      "path": "tools/run_aim_save_compat_tests.py",
+      "final_commit_sha256": "30fd156013f99912c830e85011ae1fe3aaa53a10b0571b89395baab29141c061",
+      "current_file_sha256": "30fd156013f99912c830e85011ae1fe3aaa53a10b0571b89395baab29141c061",
+      "execution_fingerprinted": true,
+      "execution_sha256": "30fd156013f99912c830e85011ae1fe3aaa53a10b0571b89395baab29141c061",
+      "matches_actual_execution": true
+    }
+  ]
+}

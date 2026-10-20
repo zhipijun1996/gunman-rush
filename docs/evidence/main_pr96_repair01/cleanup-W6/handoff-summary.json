@@ -1,0 +1,436 @@
+{
+  "task": "MAIN-PR96-REPAIR-01 / explicitly authorized old-eight retirement",
+  "base_commit": "54eacfd811fe538d79d374393f10754f1efdc94b",
+  "phase": "Final R2 source frozen; no source commit made by this agent",
+  "source_stability": {
+    "r2_start_inventory": "build/legacy_eight_retirement/r2_final_source_inventory.json",
+    "r2_after_inventory": "build/legacy_eight_retirement/r2_final_source_after.json",
+    "exact_equal": true,
+    "runtime_prefixes_unchanged_between_R1_data_proofs_and_R2": true,
+    "strict_logs_scanned": 21,
+    "strict_unexpected_errors_or_leaks": []
+  },
+  "retirement": {
+    "paths": 55,
+    "deleted_files": 30,
+    "net_bytes_removed": 149325,
+    "exact_paths": [
+      "scripts/generation/plains_stage_generator.gd",
+      "scripts/generation/plains_branch_layout.gd",
+      "scripts/generation/plains_room_grammar.gd",
+      "scripts/generation/plains_blueprint_schedule.gd",
+      "tests/plains_room_grammar_runner.gd",
+      "tests/plains_blueprint_runner.gd",
+      "tests/plains_blueprint_schedule_runner.gd",
+      "tests/plains_weak_capabilities_runner.gd",
+      "tests/plains_branch_runner.gd",
+      "tests/plains_polish_routes_runner.gd",
+      "tests/plains_ten_generation_runner.gd",
+      "tests/plains_polish_density_report.gd",
+      "tests/plains_camera_trace_driver.gd",
+      "scripts/generation/plains_stage_generator.gd.uid",
+      "scripts/generation/plains_branch_layout.gd.uid",
+      "scripts/generation/plains_room_grammar.gd.uid",
+      "scripts/generation/plains_blueprint_schedule.gd.uid",
+      "tests/plains_room_grammar_runner.gd.uid",
+      "tests/plains_blueprint_runner.gd.uid",
+      "tests/plains_blueprint_schedule_runner.gd.uid",
+      "tests/plains_weak_capabilities_runner.gd.uid",
+      "tests/plains_branch_runner.gd.uid",
+      "tests/plains_polish_routes_runner.gd.uid",
+      "tests/plains_ten_generation_runner.gd.uid",
+      "tests/plains_polish_density_report.gd.uid",
+      "tests/plains_camera_trace_driver.gd.uid",
+      "config/plains_branch_profile.json",
+      "config/plains_room_templates.json",
+      "tools/verify_plains_browser.py",
+      "scripts/run/run_manifest.gd",
+      "scripts/demo/demo_app.gd",
+      "scripts/generation/random_stage_generator.gd",
+      "scripts/generation/random_stage_assembler.gd",
+      "scripts/generation/plains_region_assembler.gd",
+      "scripts/ui/demo_menu.gd",
+      "tests/menu_tests.gd",
+      "tests/home_ui_tests.gd",
+      "tests/underworld_plains/test_underworld_ui.gd",
+      "tests/plains_feedback_runner.gd",
+      "tests/plains_spatial_runner.gd",
+      "tests/windkeeper_runner.gd",
+      "tests/plains_camera_trace_runner.gd",
+      "tests/plains_ground_support_runner.gd",
+      "tests/plains_run_trace.gd",
+      "tools/run_generated_consumer_tests.py",
+      "tools/verify_plains_capability_browser.py",
+      "tools/verify_random_stage_browser.py",
+      "docs/module_map.md",
+      "docs/procedural_generation.md",
+      "docs/plains_room_grammar.md",
+      "docs/plains_hazard_density.md",
+      "tools/verify_plains_ten_browser.py",
+      "tools/verify_plains_polish_browser.py",
+      "tools/verify_demo_browser.py",
+      "tests/random_stage_tests.gd"
+    ],
+    "manifest": "build/legacy_eight_retirement/applied_manifest.json",
+    "diff": "build/legacy_eight_retirement/applied_retirement.diff",
+    "producer_scripts_deleted": 4,
+    "exclusive_configs_deleted": 2,
+    "pure_feature_suites_deleted": 7,
+    "auxiliary_feature_test_scripts_deleted": 2,
+    "old_browser_CLIs_deleted": 2,
+    "old_generated_wrapper_suites": 33,
+    "retirement_wrapper_suites": 26,
+    "count_scope": "33 historical suites remain historical; 7 feature-exclusive suites retired by user request; final26 is a fresh complete run of retained scope"
+  },
+  "foundry": {
+    "files": 56,
+    "net_bytes_delta": 0,
+    "manifest": "build/legacy_eight_retirement/foundry_resource_manifest.json",
+    "commands": [
+      {
+        "name": "foundry36_18",
+        "command": [
+          "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+          "tools/foundry.py",
+          "build",
+          "--count",
+          "24",
+          "--profiles",
+          "base",
+          "double_jump",
+          "air_chain",
+          "--promote"
+        ],
+        "exit_code": 0,
+        "seconds": 58.25980917199922,
+        "log": "build/legacy_eight_retirement/foundry36_18.log"
+      },
+      {
+        "name": "foundry_stamp",
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--path",
+          ".",
+          "--script",
+          "tools/foundry_export_stamp.gd"
+        ],
+        "exit_code": 0,
+        "seconds": 1.4681949120003992,
+        "log": "build/legacy_eight_retirement/foundry_stamp.log"
+      }
+    ],
+    "original_counts": [
+      36,
+      18
+    ],
+    "comparison": "build/legacy_eight_retirement/foundry_comparison.json",
+    "replays": 54,
+    "original_frames_compared": 56113,
+    "result": "all original frame actions/axis/positions/shots and all non-whitelist Manifest/proof fields exactly equal; only enumerated provenance basis/derived hashes differ"
+  },
+  "native_final_commands": [
+    {
+      "phase": "R2 final source",
+      "name": "core_final",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_tests.py"
+      ],
+      "exit_code": 0,
+      "seconds": 36.906760779998876,
+      "log": "build/legacy_eight_retirement/core_final.log"
+    },
+    {
+      "phase": "R2 final source",
+      "name": "generated26_final",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_generated_consumer_tests.py"
+      ],
+      "exit_code": 0,
+      "seconds": 158.9505154340004,
+      "log": "build/legacy_eight_retirement/generated26_final.log"
+    },
+    {
+      "phase": "R2 final source",
+      "name": "underworld_ui",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_underworld_ui_tests.py"
+      ],
+      "exit_code": 0,
+      "seconds": 15.013704101000258,
+      "log": "build/legacy_eight_retirement/underworld_ui.log"
+    },
+    {
+      "phase": "R2 final source",
+      "name": "styles",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_style_exploration_tests.py",
+        "--skip-import",
+        "--output",
+        "build/legacy_eight_retirement/styles"
+      ],
+      "exit_code": 0,
+      "seconds": 32.34175473599862,
+      "log": "build/legacy_eight_retirement/styles.log"
+    },
+    {
+      "phase": "R2 final source",
+      "name": "world0",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_plains_world_rebuild_tests.py",
+        "--variant",
+        "0",
+        "--output",
+        "build/legacy_eight_retirement/world0"
+      ],
+      "exit_code": 0,
+      "seconds": 14.648147390000304,
+      "log": "build/legacy_eight_retirement/world0.log"
+    },
+    {
+      "phase": "R2 final source",
+      "name": "world1",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_plains_world_rebuild_tests.py",
+        "--variant",
+        "1",
+        "--output",
+        "build/legacy_eight_retirement/world1"
+      ],
+      "exit_code": 0,
+      "seconds": 14.8469353090004,
+      "log": "build/legacy_eight_retirement/world1.log"
+    }
+  ],
+  "native_completions": {
+    "core": "ALL TESTS: 5681 assertions, 0 failures",
+    "generated": "GENERATED CONSUMER SUITES: 26 suites passed",
+    "underworld_ui": "UNDERWORLD UI: 243 checks, 0 failures",
+    "styles": [
+      "STYLE_BIOMES checks=1706 failures=0 variants=16",
+      "STYLE_BIOME_CLI style=basic biome=plains failures=0",
+      "STYLE_BIOME_CLI style=cavern biome=forest failures=0",
+      "STYLE_BIOME_CLI style=underworld biome=gear failures=0",
+      "STYLE_EXPLORATION checks=17215 failures=0 routes=20"
+    ],
+    "worlds": [
+      "PLAINS WORLD REBUILD: 127 assertions, 0 failures",
+      "PLAINS WORLD REBUILD: 141 assertions, 0 failures"
+    ]
+  },
+  "retained_suite_results": [
+    {
+      "suite": "tests/plains_feedback_runner.gd",
+      "completion": "PLAINS FEEDBACK: 69 assertions, 0 failures",
+      "original_timeout_seconds": 90
+    },
+    {
+      "suite": "tests/plains_core_access_runner.gd",
+      "completion": "PLAINS CORE ACCESS: 17 assertions, 0 failures",
+      "original_timeout_seconds": 90
+    },
+    {
+      "suite": "tests/plains_final_pier_repro.gd",
+      "completion": "FINAL PIER REPRO: rewinds=0 final_pier=2 x=833.998 assertions=3 failures=0",
+      "original_timeout_seconds": 120
+    },
+    {
+      "suite": "tests/plains_polish_boss_runner.gd",
+      "completion": "PLAINS POLISH BOSS: 2642 assertions, 0 failures",
+      "original_timeout_seconds": 150
+    },
+    {
+      "suite": "tests/plains_camera_trace_runner.gd",
+      "completion": "PLAINS CAMERA TRACE: 2 assertions, 0 failures",
+      "original_timeout_seconds": 180
+    },
+    {
+      "suite": "tests/windkeeper_runner.gd",
+      "completion": "WINDKEEPER: 170 assertions, 0 failures",
+      "original_timeout_seconds": 180
+    },
+    {
+      "suite": "tests/plains_terrain_cohesion_runner.gd",
+      "completion": "PLAINS TERRAIN COHESION: 735 assertions, 0 failures",
+      "original_timeout_seconds": 90
+    },
+    {
+      "suite": "tests/generated_latch_trajectory_runner.gd",
+      "completion": "GENERATED LATCH TRAJECTORIES: 577 assertions, 0 failures",
+      "original_timeout_seconds": 100
+    },
+    {
+      "suite": "tests/plains_ground_support_runner.gd",
+      "completion": "PLAINS GROUND SUPPORT: 188 assertions, 0 failures",
+      "original_timeout_seconds": 90
+    },
+    {
+      "suite": "tests/plains_recoil_margin_runner.gd",
+      "completion": "PLAINS RECOIL MARGIN: 1490 assertions, 0 failures",
+      "original_timeout_seconds": 420
+    },
+    {
+      "suite": "tests/camera_comfort_runner.gd",
+      "completion": "CAMERA COMFORT: 831 assertions, 0 failures",
+      "original_timeout_seconds": 45
+    },
+    {
+      "suite": "tests/recoil_recovery_runner.gd",
+      "completion": "RECOIL RECOVERY: 93 assertions, 0 failures",
+      "original_timeout_seconds": 100
+    },
+    {
+      "suite": "tests/jump_chain_measurement_runner.gd",
+      "completion": "JUMP CHAIN: 7 assertions, 0 failures",
+      "original_timeout_seconds": 30
+    },
+    {
+      "suite": "tests/floating_touch_runner.gd",
+      "completion": "FLOATING TOUCH: 203 assertions, 0 failures",
+      "original_timeout_seconds": 60
+    },
+    {
+      "suite": "tests/branch_library_runner.gd",
+      "completion": "BRANCH LIBRARY: 1310 assertions, 0 failures",
+      "original_timeout_seconds": 540
+    },
+    {
+      "suite": "tests/plains_refresh_art_runner.gd",
+      "completion": "PLAINS REFRESH ART: 27 assertions, 0 failures; actual GPU/device visual review pending",
+      "original_timeout_seconds": 60
+    },
+    {
+      "suite": "tests/plains_spatial_runner.gd",
+      "completion": "PLAINS SPATIAL: 957 assertions, 0 failures",
+      "original_timeout_seconds": 240
+    },
+    {
+      "suite": "tests/jump_height_measurement_runner.gd",
+      "completion": "JUMP MEASUREMENT: 3 assertions, 0 failures",
+      "original_timeout_seconds": 100
+    },
+    {
+      "suite": "tests/plains_exit_routes_runner.gd",
+      "completion": "PLAINS EXIT ROUTES: 123 assertions, 0 failures",
+      "original_timeout_seconds": 90
+    },
+    {
+      "suite": "tests/home_app_runner.gd",
+      "completion": "HOME APP: 19 assertions, 0 failures",
+      "original_timeout_seconds": 90
+    },
+    {
+      "suite": "tests/home_ui_tests.gd",
+      "completion": "HOME UI TESTS: 28 assertions, 0 failures",
+      "original_timeout_seconds": 60
+    },
+    {
+      "suite": "tests/menu_settings_lifecycle_runner.gd",
+      "completion": "MENU SETTINGS LIFECYCLE: 14 assertions, 0 failures",
+      "original_timeout_seconds": 60
+    },
+    {
+      "suite": "tests/avatar_presentation_ownership_runner.gd",
+      "completion": "AVATAR OWNERSHIP: 25 assertions, 0 failures",
+      "original_timeout_seconds": 90
+    },
+    {
+      "suite": "tests/player_feedback_runner.gd",
+      "completion": "PLAYER FEEDBACK: 29 assertions, 0 failures",
+      "original_timeout_seconds": 60
+    },
+    {
+      "suite": "tests/painterly_skin_runner.gd",
+      "completion": "PAINTERLY SKIN: 204 assertions, 0 failures; real raster appearance/device performance pending",
+      "original_timeout_seconds": 60
+    },
+    {
+      "suite": "tests/meta_notes_save_tests.gd",
+      "completion": "META NOTES SAVE: 39 assertions, 0 failures",
+      "original_timeout_seconds": 90
+    }
+  ],
+  "before_after": {
+    "baseline_phase": "W5 + one typed-empty-array repair, before retirement",
+    "phase_manifest": "build/legacy_eight_retirement/baseline_phase.json",
+    "data": {
+      "before": "build/legacy_eight_retirement/before_worlds.json",
+      "after": "build/legacy_eight_retirement/after_worlds.json",
+      "comparison": "build/legacy_eight_retirement/worlds_comparison.json",
+      "maps": 60,
+      "independent_streams": 10,
+      "foundry_manifests": 54,
+      "schema1_and_schema2_version_construction": 12
+    },
+    "apps": {
+      "before": "build/legacy_eight_retirement/before_apps.json",
+      "after": "build/legacy_eight_retirement/after_apps.json",
+      "comparison": "build/legacy_eight_retirement/apps_comparison.json",
+      "cases": 46,
+      "matrix": {
+        "plains_schema1_three_pins_two_seeds": 6,
+        "forest_schema2_all_recorded_pins_two_maps_two_seeds": 36,
+        "world_candidates": 2,
+        "quick3": 1,
+        "style_menu": 1
+      },
+      "old_manifest_decoder": "build/legacy_eight_retirement/prior_decoder.json",
+      "old_decoder_cases": 45,
+      "restorable_current_preserved": 43,
+      "development_world_refusals_preserved": 2,
+      "exceptions": "44 generated-App config_hashes.branch_profile dead stamps; world0/1 versions.generated_layout/run_policy/pickups/encounters only, actual fixture version now accurate. Exact indexed paths in apps_comparison.json; no other field removed."
+    },
+    "foundry_exceptions": "Only each Foundry manifest basis/hash, itinerary phrases[i].basis/hash, replay basis/manifest_hash and batch basis; exact indexed paths in comparison reports. No recursive hash/ID erasure. All semantic fields and56113 original input/position/resource frames compared."
+  },
+  "original_failures_and_rework": [
+    {
+      "name": "original W5 world candidate typed[] crash",
+      "log": "build/legacy_eight_retirement/world_before_failure.log",
+      "data": "build/legacy_eight_retirement/world_before_failure.json",
+      "exit_code": 1,
+      "reason": "DemoApp:546 conditional generic empty Array assigned to Array[Dictionary], both world variants could not complete setup",
+      "repair": "Initialize typed empty Array, assign actual records only when connected. Actual original44 current snapshots identical after repair; repaired fullworld0/1 baseline completes but restore remains unsupported as before."
+    },
+    {
+      "name": "additional diagnostic12 whole Motor routes timed out",
+      "log": "build/legacy_eight_retirement/generated26_added_motor_timeout.log",
+      "record": "build/legacy_eight_retirement/validation_initial_with_rework.json",
+      "exit_code": 1,
+      "timeout_seconds": 90,
+      "disposition": "REWORK preserved. Retracted only newly added12 whole-map diagnostic route loops. All original12 ground-support shape/plan/PhysicsPoint/tamper assertions remain, generic samples now produce43 real solid columns/188 assertions. Original90s budget and FIXED_STEP set unchanged. Current real Motor coverage remains core/spatial/shared routes."
+    }
+  ],
+  "runner_negatives": {
+    "actual_nonzero": "build/legacy_eight_retirement/camera_failure_probe.json",
+    "actual_timeout_rejected": "build/legacy_eight_retirement/generated26_added_motor_timeout.log",
+    "missing_marker_mock": "build/legacy_eight_retirement/missing_marker_negative.log",
+    "scope": "camera intentional failure exit1; real timeout wrapper exit1; separate mocked exit0 missing marker rejected. These are guard negatives, not gameplay acceptance."
+  },
+  "browser_helpers": {
+    "actual_import_smoke": "build/legacy_eight_retirement/browser_import_smoke.json",
+    "storage_key_envelope_equal": true,
+    "original_rendered_art_palette_functions_equal": true,
+    "real_browser_runtime": "not run by this agent; Python import smoke is not GUI/browser/device evidence"
+  },
+  "preserved": {
+    "frozen_audit_sha256": "c47e366e9fbc1e3584a7c7e3eb8b983422156e21eb420a34456a2d8eb7219791",
+    "audit_unchanged": true,
+    "historical_raw_evidence": "preserved",
+    "user_save_files": "not touched",
+    "forest_original80": "not modified or removed; root runs new freeze",
+    "camera_comfort": "831 original assertions retained/passed",
+    "world_and_five_style_candidates": "preserved and actual app starts/native suites passed"
+  },
+  "remaining": [
+    "Root commits55 retirement paths +56 Foundry files; root-owned docs/evidence kept separate as planned.",
+    "Independent review final source binding and root exact-source policy600/forest80/integration CI still pending.",
+    "Public Web browser/package/real-device/user aesthetic and jump-camera feel acceptance are outside this child’s evidence."
+  ]
+}

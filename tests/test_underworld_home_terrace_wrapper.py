@@ -1,0 +1,190 @@
+#!/usr/bin/env python3
+"""Pure verifier controls for the actual R3 Home wrapper, never engine passes."""
+from copy import deepcopy
+import io
+import json
+from pathlib import Path
+import sys
+import tempfile
+import time
+import unittest
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / 'tools'))
+import run_underworld_home_terrace_tests as wrapper
+
+EXPECTED = 180
+MARKER = f'UNDERWORLD HOME TERRACES: {EXPECTED} assertions, 0 failures\n'
+
+
+def receipt():
+    ids = ['character', 'upgrade', 'achievements', 'arms', 'relics', 'herbs', 'kitchen', 'courier', 'songs', 'stories', 'garden', 'departure']
+    active = {'character', 'upgrade', 'achievements', 'departure'}
+    meta = {'notes': 4, 'upgrades': {'vitality': 1}, 'profile_revision': 2, 'completed_runs': 0, 'failed_runs': 0, 'last_summary': {}}
+    visits = [{'id': name, 'foot': [index * 200, [432, 336, 240][index % 3]], 'expected_action': name if name in active else '', 'meta_before': deepcopy(meta), 'meta_after': deepcopy(meta)} for index, name in enumerate(ids)]
+    return {'schema': 'underworld-home-terraces-v1', 'checks': EXPECTED, 'failures': 0, 'driver_errors': [], 'visits': visits, 'trace': [{'hp': 5, 'jumps': 1}], 'events': [{'key': code} for code in ['A', 'D', 'S', 'W', 'Space']]}
+
+
+class HomeTerraceGuardTests(unittest.TestCase):
+    def setUp(self):
+        self.value = receipt()
+        self.before = {'source': 'original_sha256'}
+        self.after = dict(self.before)
+        self.output = MARKER
+        self.exit_code = 0
+
+    def rejected(self):
+        with self.assertRaises(RuntimeError):
+            wrapper.verify(self.output, self.value, self.before, self.after, EXPECTED, self.exit_code)
+
+    # The original seventeen R2 refusal classes now exercise the NEW verifier.
+    def test_01_source_drift(self):
+        self.after['source'] = 'changed_sha256'; self.rejected()
+
+    def test_02_source_removal(self):
+        self.after.pop('source'); self.rejected()
+
+    def test_03_nonzero_exit(self):
+        self.exit_code = 1; self.rejected()
+
+    def test_04_missing_marker(self):
+        self.output = ''; self.rejected()
+
+    def test_05_partial_marker(self):
+        self.output = f'UNDERWORLD HOME TERRACES: {EXPECTED} assertions'; self.rejected()
+
+    def test_06_zero_checks(self):
+        self.output = 'UNDERWORLD HOME TERRACES: 0 assertions, 0 failures\n'; self.rejected()
+
+    def test_07_nonzero_failures(self):
+        self.output = f'UNDERWORLD HOME TERRACES: {EXPECTED} assertions, 1 failures\n'; self.rejected()
+
+    def test_08_duplicate_completion(self):
+        self.output = MARKER * 2; self.rejected()
+
+    def test_09_receipt_count_mismatch(self):
+        self.value['checks'] -= 1; self.rejected()
+
+    def test_10_receipt_failure(self):
+        self.value['failures'] = 1; self.rejected()
+
+    def test_11_script_error(self):
+        self.output += 'SCRIPT ERROR: test error\n'; self.rejected()
+
+    def test_12_shader_error(self):
+        self.output += 'SHADER ERROR: test error\n'; self.rejected()
+
+    def test_13_runtime_error(self):
+        self.output += 'ERROR: test runtime error\n'; self.rejected()
+
+    def test_14_objectdb_leak(self):
+        self.output += 'WARNING: ObjectDB instances leaked at exit\n'; self.rejected()
+
+    def test_15_resource_leak(self):
+        self.output += 'WARNING: 1 resource still in use at exit\n'; self.rejected()
+
+    def test_16_missing_current_receipt(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            with self.assertRaises(RuntimeError):
+                wrapper.read_fresh_receipt(Path(tmp) / 'missing.json', time.time_ns())
+
+    def test_17_stale_previous_receipt(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / 'receipt.json'; path.write_text(json.dumps(self.value))
+            with self.assertRaises(RuntimeError):
+                wrapper.read_fresh_receipt(path, path.stat().st_mtime_ns + 1)
+
+    def test_18_synthetic_parser_and_fresh_receipt_positive(self):
+        wrapper.verify(self.output, self.value, self.before, self.after, EXPECTED, 0)
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / 'receipt.json'; path.write_text(json.dumps(self.value))
+            self.assertEqual(wrapper.read_fresh_receipt(path, 0), self.value)
+
+    def test_19_wrong_schema(self):
+        self.value['schema'] = 'old_fixture_schema'; self.rejected()
+
+    def test_20_hidden_driver_failure(self):
+        self.value['driver_errors'] = ['reach failed']; self.rejected()
+
+    def test_21_missing_station(self):
+        self.value['visits'].pop(); self.rejected()
+
+    def test_22_missing_tiers(self):
+        for visit in self.value['visits']: visit['foot'][1] = 432
+        self.rejected()
+
+    def test_23_invented_function_id(self):
+        self.value['visits'][0]['expected_action'] = 'fake_unlock'; self.rejected()
+
+    def test_24_hidden_route_health_loss(self):
+        self.value['trace'][0]['hp'] = 4; self.rejected()
+
+    def test_25_hidden_future_jump(self):
+        self.value['trace'][0]['jumps'] = 2; self.rejected()
+
+    def test_26_unexpected_route_input(self):
+        self.value['events'].append({'key': 'E'}); self.rejected()
+
+    def test_27_missing_full_meta_snapshot(self):
+        del self.value['visits'][3]['meta_before']; self.rejected()
+
+    def test_28_reserved_alters_an_unselected_meta_field(self):
+        # notes/vitality/revision alone would miss this business regression.
+        self.value['visits'][3]['meta_after']['last_summary']['illegal_reward'] = True
+        self.rejected()
+
+    def generation_fixture(self, mutate):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            record_path = root / 'assets/underworld_plains/home/generation_record.json'
+            record_path.parent.mkdir(parents=True)
+            for name in ['source.bin', 'image.bin', 'reference.bin']:
+                (root / name).write_bytes(b'synthetic provenance control, not runtime image')
+            record = {'tool': 'image_gen.imagegen', 'prompt': 'Synthetic metadata guard control only', 'source': 'source.bin', 'image': 'image.bin', 'reference': 'reference.bin', 'source_sha256': wrapper.digest(root/'source.bin'), 'reference_sha256': wrapper.digest(root/'reference.bin')}
+            slots = [{'id': visit['id'], 'active': bool(visit['expected_action'])} for visit in receipt()['visits']]
+            spec = {'slots': slots}
+            mutate(root, record, spec)
+            record_path.write_text(json.dumps(record))
+            (record_path.parent / 'home_build.json').write_text(json.dumps(spec))
+            return wrapper.preflight(root)
+
+    def rejected_generation(self, mutate):
+        with self.assertRaises(RuntimeError): self.generation_fixture(mutate)
+
+    def test_29_generation_preflight_positive(self):
+        self.generation_fixture(lambda root, record, spec: None)
+        # Also inspect the real checked-in provenance without launching Godot.
+        wrapper.preflight()
+
+    def test_30_generation_missing_prompt(self):
+        self.rejected_generation(lambda root, record, spec: record.update(prompt=''))
+
+    def test_31_generation_wrong_tool(self):
+        self.rejected_generation(lambda root, record, spec: record.update(tool='invented_tool'))
+
+    def test_32_generation_raw_consumed_bytes_differ(self):
+        self.rejected_generation(lambda root, record, spec: (root/'image.bin').write_bytes(b'changed'))
+
+    def test_33_generation_wrong_raw_hash(self):
+        self.rejected_generation(lambda root, record, spec: record.update(source_sha256='0'*64))
+
+    def test_34_generation_wrong_reference_hash(self):
+        self.rejected_generation(lambda root, record, spec: record.update(reference_sha256='0'*64))
+
+    def test_35_generation_missing_original_slot(self):
+        self.rejected_generation(lambda root, record, spec: spec['slots'].pop())
+
+    def test_36_generation_invents_active_business(self):
+        self.rejected_generation(lambda root, record, spec: spec['slots'][0].update(id='fake_business'))
+
+
+if __name__ == '__main__':
+    stream = io.StringIO()
+    result = unittest.TextTestRunner(stream=stream, verbosity=2).run(unittest.defaultTestLoader.loadTestsFromTestCase(HomeTerraceGuardTests))
+    output = stream.getvalue(); print(output, end='')
+    out = ROOT / 'build/underworld_r3/home'
+    out.mkdir(parents=True, exist_ok=True)
+    (out / 'wrapper_guard_negatives.log').write_text(output)
+    report = {'schema': 'underworld-home-terrace-wrapper-guards-v1', 'scope': 'Pure verifier/source/provenance controls; synthetic parser positive and deliberate corrupted inputs. Not additional engine runs, image quality, motion, or final release acceptance.', 'expected_headless_checks': EXPECTED, 'expected_gpu_checks': EXPECTED+9, 'original_refusal_classes_retested_against_new_verifier': 17, 'unit_tests_run': result.testsRun, 'unit_test_failures': len(result.failures), 'unit_test_errors': len(result.errors), 'successful': result.wasSuccessful(), 'new_engine_execution': False, 'negative_controls': 34, 'synthetic_or_readonly_preflight_positives': 2}
+    (out / 'wrapper_guard_negatives.json').write_text(json.dumps(report, indent=2)+'\n')
+    sys.exit(0 if result.wasSuccessful() else 1)

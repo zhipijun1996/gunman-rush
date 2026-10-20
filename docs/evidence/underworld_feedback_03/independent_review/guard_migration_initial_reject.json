@@ -1,0 +1,57 @@
+{
+  "reviewer": "/root/r3_review",
+  "verdict": "REJECT proposed guard equivalence until gaps restored",
+  "scope": "underworld-home wrapper migration; not an assertion that new Home runtime fails",
+  "files": [
+    {
+      "path": "tests/fixtures/underworld_home_r2/tests__underworld_plains__test_underworld_home.gd.source",
+      "sha256": "f88e7ac7c48a6c0dffbd75c6c210ebc0acfef388b158fc7dcf8e2783d493c2a1"
+    },
+    {
+      "path": "tests/underworld_plains/test_underworld_home_terraces.gd",
+      "sha256": "d9772bc9f014ed054f4ec50cd0c558098d5c26ee70e13596524996db997f1882"
+    },
+    {
+      "path": "tests/fixtures/underworld_home_r2/tools__run_underworld_home_tests.py.source",
+      "sha256": "5b6df1fed17db1490db494808f10cdd82b8631963258cfaea9e0e64ed062d83b"
+    },
+    {
+      "path": "tools/run_underworld_home_terrace_tests.py",
+      "sha256": "557135a59652dd7f76ed80aae602a2f3430fa69f33a30f77cae5b206b8ad2bf9"
+    }
+  ],
+  "findings": [
+    {
+      "id": "R3-IR-13",
+      "kind": "lost_actual_consumer_checks",
+      "severity": "high",
+      "facts": [
+        "Old actual Home fixture separately verifies hidden legacy PlayerFeedback, disabled PlayerVisualAdapter, ready finite authority muzzle and exactly one UnderworldPlayer. New155 only node presence and hidden Courier, leaving the four original mutants uncovered.",
+        "Old reserved slot checks both in-world label and contextual prompt declare reservation; new155 only checks prompt.",
+        "Old no-transaction visits assert exact whole Meta snapshot equality; new155 final notes/vitality/profile_revision checks are narrower after one deliberate upgrade purchase."
+      ],
+      "required_rework": "Reinstate all applicable actual checks. Per visit exact Meta equality outside explicit upgrade transaction. Keep new multilevel/native input/movement/business checks."
+    },
+    {
+      "id": "R3-IR-14",
+      "kind": "wrapper_guard_scope_narrowed",
+      "severity": "medium",
+      "facts": [
+        "Old wrapper tracks 10 files including raw source/generation record/player/actors/UI. New wrapper owns6 and omits those dependencies.",
+        "Old wrapper performs real generation prompt/tool/source PNG equality/source and reference SHA preflight. New wrapper omits these.",
+        "Original17 parser negatives target old wrapper; new verify has no equivalent independent refusal test yet."
+      ],
+      "required_rework": "Retain old dependencies/preflight in current wrapper or formally ensure mandatory actual pipeline dependency. Add bounded new-wrapper rejection proofs without running new Godot processes concurrently."
+    }
+  ],
+  "enemy_audio_static_audit": {
+    "hurt_emitters": [
+      "scripts/enemies/enemy_actor.gd:_accepted_hit",
+      "scripts/art/player_feedback.gd:_health_changed"
+    ],
+    "enemy_presentation_audio_emitters": [],
+    "old_presentations": "UnderworldActors.install removes child then queue_frees original, not a hidden active audio drawer",
+    "conclusion": "No static duplicate enemy hurt emission path found. Runtime exact-one ordinary enemy sound assertion still recommended."
+  },
+  "runtime_limit": "No reviewer Godot executed. New runtime155/old97 counts are author receipts, not pass-equivalence evidence."
+}

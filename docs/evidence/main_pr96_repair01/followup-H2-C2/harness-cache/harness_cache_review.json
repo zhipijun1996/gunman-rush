@@ -1,0 +1,117 @@
+{
+  "decision": "SCOPED_ACCEPT__EXACT_TWO_SOURCE_BLOBS",
+  "baseline_commit": "3affbc89011bce1ef206ce377f9ebdfc724880d4",
+  "tested_and_reviewed_source_sha256": {
+    "tools/harness.py": "c66f84af0fe5300a171f6377872e8e4e166a9d64e114e5b416f0de1bf5526fa3",
+    "tests/test_harness.py": "50e34a111c858b4ac79c7f85bd8d958431747300e0748663529dc302b77be7e2"
+  },
+  "original_test_classes_functions_AST_exact": true,
+  "original_unchanged_harness_helpers_AST_count": 19,
+  "only_modified_harness_functions": [
+    "input_digest",
+    "execute_checks",
+    "source_inventory",
+    "main"
+  ],
+  "independent_new12_tests_actual_exit": 0,
+  "independent_test_seconds": 1.2013425560035103,
+  "author_original77_actual_exit": 0,
+  "source_guard_policy": {
+    "reuse": "execution-local, Linux ctime only",
+    "key": [
+      "absolute_path",
+      "st_dev",
+      "st_ino",
+      "st_size",
+      "st_mtime_ns",
+      "st_ctime_ns"
+    ],
+    "enumeration": "every guard re-enumerates Git inputs and stats each path",
+    "read_validation": "initial path stat, descriptor before/after hash, final path stat; reject changes",
+    "terminal_guard": "all source bytes freshly hashed again, independent of metadata cache",
+    "other_platforms": "full bytes at every lookup",
+    "persistent_proof_payload": "unchanged",
+    "artifact_hashing": "unchanged full-byte validation"
+  },
+  "benchmark": {
+    "source_only_no_native": true,
+    "actual_inventory_entries": 21176,
+    "recorded_byte_volume_per_fresh_pass": 8467029779,
+    "three_inventory_and_persistent_digests_independently_recomputed_equal": true,
+    "passes": [
+      {
+        "deleted": 0,
+        "files": 21176,
+        "inventory_sha256": "7a4ae9087319b59c203c298253a07e0e5dfd6abddfc7188c500f2bd2c457784a",
+        "name": "cold",
+        "persistent_input_digest": "a05d32565ecd0516428449b1cc50b6a4b0b30ece9b67782b3bf944bde144bcd2",
+        "read_bytes": 8467029779,
+        "read_calls": 21176,
+        "seconds": 10.668961991999822
+      },
+      {
+        "deleted": 0,
+        "files": 21176,
+        "inventory_sha256": "7a4ae9087319b59c203c298253a07e0e5dfd6abddfc7188c500f2bd2c457784a",
+        "name": "hot",
+        "persistent_input_digest": "a05d32565ecd0516428449b1cc50b6a4b0b30ece9b67782b3bf944bde144bcd2",
+        "read_bytes": 0,
+        "read_calls": 0,
+        "seconds": 0.349037218002195
+      },
+      {
+        "deleted": 0,
+        "files": 21176,
+        "inventory_sha256": "7a4ae9087319b59c203c298253a07e0e5dfd6abddfc7188c500f2bd2c457784a",
+        "name": "fresh",
+        "persistent_input_digest": "a05d32565ecd0516428449b1cc50b6a4b0b30ece9b67782b3bf944bde144bcd2",
+        "read_bytes": 8467029779,
+        "read_calls": 21176,
+        "seconds": 8.441886648000946
+      }
+    ],
+    "cold_means_execution_cache_empty_not_OS_cache_flushed": true,
+    "reviewer_did_not_rehash_8GB_or_repeat_benchmark": true
+  },
+  "unchanged_scope": [
+    "proof/artifact source hashing uses unchanged original functions",
+    "original report schema/check IDs/profiles/caps/argv/test coverage unchanged",
+    "persistent input digest still contains only original source hashes/check/toolchain payload, no stat metadata"
+  ],
+  "native_by_reviewer": false,
+  "not_accepted": [
+    "whole CI runtime benefit or fresh CI budget pass",
+    "current full regression suite",
+    "source mutation impossibility against a hostile filesystem; intermediate reuse trusts Linux ctime, terminal byte guard remains authoritative"
+  ],
+  "source_proof_files": [
+    {
+      "path": "build/harness_hash_cache/handoff-summary.json",
+      "sha256": "62172ebe38e13053483397bad602f7310c8eda37477b6a17197cfb9997005a61"
+    },
+    {
+      "path": "build/harness_hash_cache/benchmark.json",
+      "sha256": "96bfdad05ea933625539617e3f68c33718c2f5b3040920fca347583bc4e19f72"
+    },
+    {
+      "path": "build/harness_hash_cache/benchmark.log",
+      "sha256": "e9663375e4b97629fd80a070d25a8efc3f4896396d56098640fdf60db7a95ee7"
+    },
+    {
+      "path": "build/harness_hash_cache/inventory.json",
+      "sha256": "d2c93d58cd22e0d84fe8324ba139530c0addc2f3154d43fffa2abd1e728eaed2"
+    },
+    {
+      "path": "build/harness_hash_cache/tests-77.log",
+      "sha256": "14f1cc2f95f42c7ea0d410e7b749fb824532ab1e98cf34bee9d1f50c86b89e36"
+    },
+    {
+      "path": "build/harness_hash_cache/benchmark.py",
+      "sha256": "796fa41108e8f8ad475cb538334f527a8b98ee0b938f1946b12f8b2012f584da"
+    },
+    {
+      "path": "build/harness_hash_cache/harness-source-cache.patch",
+      "sha256": "4b381f1d73de3af112a9fc8ec2948c5cd953963c23792af52aa50b92e1e054b6"
+    }
+  ]
+}

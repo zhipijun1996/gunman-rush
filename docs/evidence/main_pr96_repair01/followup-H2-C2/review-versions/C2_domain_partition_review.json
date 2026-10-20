@@ -1,0 +1,154 @@
+{
+  "decision": "DIAGNOSTIC_ONLY__SEPARATE_DOMAINS_CLEAN__FORMAL_PROTOCOL_PENDING",
+  "source_commit": "3affbc89011bce1ef206ce377f9ebdfc724880d4",
+  "original_combined_and_runtime_comparator": {
+    "both_327_business_pass": true,
+    "all_assertions_cases_lifecycle_typed_exact": true,
+    "same_223_leak_class_counts": {
+      "GDScriptNativeClass": 27,
+      "GDScript": 108,
+      "Resource": 6,
+      "Shader": 4,
+      "CompressedTexture2D": 35,
+      "Image": 35,
+      "AtlasTexture": 8
+    },
+    "runtime_same_script_loading_experiment_not_a_fix": true,
+    "saved_original_and_tried_source_normalization_verified": true
+  },
+  "independent_domain_partition": {
+    "data_assertions": 280,
+    "app_assertions": 47,
+    "data_cases": 22,
+    "app_cases": 2,
+    "exact_original_full327_ledger": "data first276 + app47 + data last4 = original327, all labels/passed fields and scalar types equal",
+    "exact_original_full24cases": "data22 + app2 = original24, all fields/scalar types equal, no dynamic-field exclusions",
+    "actual_data_lifecycle_equal_original": true,
+    "data_script_exact_original_minus_app_calls_and_app_case_function": true,
+    "same_actual_App_helper_unchanged_for_probe": true,
+    "actual_strict_domains": [
+      {
+        "mode": "data-only",
+        "argv": [
+          "--verbose",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "build/forest_revision04/versions-C2-diagnosis/data-only.gd",
+          "--",
+          "--output=res://build/forest_revision04/versions-C2-diagnosis/data-only.json"
+        ],
+        "error": null,
+        "seconds": 17.368173025999567,
+        "scope": "diagnostic independent domains; not a full original wrapper pass"
+      },
+      {
+        "mode": "app-only",
+        "argv": [
+          "--verbose",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "build/forest_revision04/versions-C2-diagnosis/app-only.gd",
+          "--",
+          "--output=res://build/forest_revision04/versions-C2-diagnosis/app-only.json"
+        ],
+        "error": null,
+        "seconds": 5.055734199999279,
+        "scope": "diagnostic independent domains; not a full original wrapper pass"
+      }
+    ],
+    "each_diagnostic_native_budget": 90,
+    "diagnostic_caps_not_a_formal_shared_budget_proof": true
+  },
+  "next_formal_requirements": [
+    "Preserve unique original CLI import90/outer180 and native shared90 monotonic total across two true processes, not90 each",
+    "Exact327 checks reconstructed in original276+47+4 order and24 cases/schema6 through unchanged original validator",
+    "Fresh run/PID/phase/script/source/raw identities; strict failures cannot produce aggregate; actual negative and artifact refusals",
+    "Preserve combined original and runtime-call failed trials; no production change or resource-cache purge"
+  ],
+  "raw_hashes": [
+    {
+      "path": "build/forest_depth/versions/diagnosis-C2-verbose/capture.json",
+      "sha256": "c665c666526ce7cd012c3cfad453de33d9ed58b8a6eea1ab9f2553b410297bff",
+      "bytes": 4227302
+    },
+    {
+      "path": "build/forest_depth/versions/diagnosis-C2-verbose/native.log",
+      "sha256": "c6060efe5d03c76f039b635eec7370ebe9270ba8176a645c314a250907ace1d3",
+      "bytes": 928405
+    },
+    {
+      "path": "build/forest_depth/versions/diagnosis-C2-verbose/receipt.json",
+      "sha256": "11a98886d67bb35afbc8fe79e2cbfb31011ebd16135b1f5fa4de1c0cae363d92",
+      "bytes": 307255
+    },
+    {
+      "path": "build/forest_depth/versions/diagnosis-C2-runtime-comparator/capture.json",
+      "sha256": "c665c666526ce7cd012c3cfad453de33d9ed58b8a6eea1ab9f2553b410297bff",
+      "bytes": 4227302
+    },
+    {
+      "path": "build/forest_depth/versions/diagnosis-C2-runtime-comparator/native.log",
+      "sha256": "37bfce13d6f0cb1c174694e9d256ece75a85f57f33f44940475b4a5c064a70fa",
+      "bytes": 928406
+    },
+    {
+      "path": "build/forest_depth/versions/diagnosis-C2-runtime-comparator/receipt.json",
+      "sha256": "65d972223e039273c938ec3a5cb9d7b177f2ca9552ac40e6b9e42c285b1ffe78",
+      "bytes": 307255
+    },
+    {
+      "path": "build/forest_revision04/versions-C2-diagnosis/data-only.gd",
+      "sha256": "5063e53f98bf093f3af2840d318297c141a497aae9c879bb6f6f935446464d7c",
+      "bytes": 40296
+    },
+    {
+      "path": "build/forest_revision04/versions-C2-diagnosis/data-only.json",
+      "sha256": "87ab033e233ddd52c8a9f91a1f762a3dc33e181fa1437d86563aacc7f304329b",
+      "bytes": 4180051
+    },
+    {
+      "path": "build/forest_revision04/versions-C2-diagnosis/data-only.log",
+      "sha256": "d0ac5fc708bb4d08bd7b93ee7be6cda5d2e3d1dd60956d6fa3cb71c0bcdac953",
+      "bytes": 681633
+    },
+    {
+      "path": "build/forest_revision04/versions-C2-diagnosis/app-only.gd",
+      "sha256": "1f032fdb039387e1ceedc58e17aff49ef09f7a8939a79c68534b7e56ce2a2f16",
+      "bytes": 968
+    },
+    {
+      "path": "build/forest_revision04/versions-C2-diagnosis/app-only.json",
+      "sha256": "86cc10de1604af96f4eea320277803a2bb2781833d8d895b5588ed2aa4b90d65",
+      "bytes": 26598
+    },
+    {
+      "path": "build/forest_revision04/versions-C2-diagnosis/app-only.log",
+      "sha256": "598faaa408014e4fadbd52d24c7221a1a21ffb58c8580913e75ed472a3c629cd",
+      "bytes": 112223
+    },
+    {
+      "path": "build/forest_revision04/versions-C2-diagnosis/domain-results.json",
+      "sha256": "5b0ff0cff4270e8bb9ac7bdbe23e82810e22b44a7fedc79180610b9d9fdbae37",
+      "bytes": 938
+    },
+    {
+      "path": "build/forest_revision04/versions-C2-diagnosis/run-domains.py",
+      "sha256": "2d1e520c5888cd06f596f4e9ee438daebe21b9f418a3361fa5743f6f3b32e598",
+      "bytes": 818
+    },
+    {
+      "path": "build/forest_revision04/versions-C2-diagnosis/runtime-comparator-tried.gd",
+      "sha256": "809cf4e3095f4711195f925ff5673c4e49b5c03f1323a50a91b202b8e1918ff6",
+      "bytes": 41105
+    }
+  ],
+  "reviewer_started_native_or_changed_tracked_files": false
+}

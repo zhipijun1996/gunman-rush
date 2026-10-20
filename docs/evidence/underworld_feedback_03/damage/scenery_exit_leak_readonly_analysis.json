@@ -1,0 +1,109 @@
+{
+  "schema": "r3-scenery-exit-leak-readonly-analysis-v1",
+  "operation": "source/log inspection only, build-only report; no engine/GPU and no source/test edits",
+  "head": "466cf79e3971a6069976d2cc9bad83faf16354b2",
+  "observed": {
+    "N": "underworld-scenery preliminary450/0 and actual identity20cases21127/0, followed by strict4ObjectDB/2resources exit failure",
+    "L": "same450/0 +20cases21127/0 completed strict clean in earlier L14 log",
+    "K_remote": "generated-consumers actual room grammar23180/0 followed by4ObjectDB/2resources; original remote log has no resource names, so same cause not proved"
+  },
+  "unchanged_source_comparisons": [
+    {
+      "path": "tests/underworld_plains/test_underworld_identity_population.gd",
+      "L_commit": "c259f8c",
+      "L_sha256": "9b81415eb05779bd459366da894d47d5a8c0bc85e78d04dbeb9cf93d717a4dc0",
+      "current_sha256": "9b81415eb05779bd459366da894d47d5a8c0bc85e78d04dbeb9cf93d717a4dc0",
+      "byte_identical": true
+    },
+    {
+      "path": "scripts/audio/game_audio.gd",
+      "L_commit": "c259f8c",
+      "L_sha256": "3fd4873f47a3efbd584b1ff4bbf605cc3dce98f8eefc6bdda0c6a54645c26f59",
+      "current_sha256": "3fd4873f47a3efbd584b1ff4bbf605cc3dce98f8eefc6bdda0c6a54645c26f59",
+      "byte_identical": true
+    },
+    {
+      "path": "tests/audio_teardown.gd",
+      "L_commit": "c259f8c",
+      "L_sha256": "b2ff397c59cb5e4d7014b27f540e73b0c3127ebf4e0352ad7f01856bf90f36da",
+      "current_sha256": "b2ff397c59cb5e4d7014b27f540e73b0c3127ebf4e0352ad7f01856bf90f36da",
+      "byte_identical": true
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_projectile_visual.gd",
+      "L_commit": "c259f8c",
+      "L_sha256": "7e163ae414f921bc8addf463f924fda34c6708fe67465f2fae0dc5429bf96054",
+      "current_sha256": "7e163ae414f921bc8addf463f924fda34c6708fe67465f2fae0dc5429bf96054",
+      "byte_identical": true
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "L_commit": "c259f8c",
+      "L_sha256": "bd8abfdeaad45f4993e206cde5d95afdc5e8dfe2ac09af262f9bd71d819bd7ef",
+      "current_sha256": "bd8abfdeaad45f4993e206cde5d95afdc5e8dfe2ac09af262f9bd71d819bd7ef",
+      "byte_identical": true
+    }
+  ],
+  "reference_chain_findings": [
+    "N owner fix adds scalar skill boolean to existing context dictionaries and early classification before existing force/stun; no new object/Callable reference in those edits. This narrows mechanisms, does not prove unrelatedness.",
+    "UnderworldProjectileVisual leaf has const BELL Texture2D, no AudioStream, a weakref to origin, finite.18-second sibling lifetime, no Actor/UnderworldActors class back-edge. Parent free should free these effects; weakref does not own origin.",
+    "identity_population creates20 separate DemoApps and immediately app.free() each; only4 process_frame waits after free, with no explicit playback drain before each actual App teardown.",
+    "Each DemoApp._ready owns GameAudio. Actual second-map _load_stage emits door cue; original PlayerFeedback can emit land during first3 physics ticks. These are real expected sounds in this no-input population fixture.",
+    "GameAudio holds strong streams/voice nodes and weak playback observations. _exit_tree calls stop()/sets stream=null/clears dictionary, while its explicit shutdown() separately waits for actual native mixing-thread playback release. Current identity fixture never calls shutdown()/drain_world.",
+    "tests/audio_teardown.gd already provides bounded observed drain for actual descendant GameAudio and fallback AudioStreamPlayer2D; it does not waive leakage or mute sounds.",
+    "ShotLatch owns fallback bell AudioStreamPlayer2D even though ordinary App uses GameAudio when present. Without actual shot input population should not ring it by normal path. Its native stream allocation alone is not proof of active playback."
+  ],
+  "ranked_hypotheses": [
+    {
+      "candidate": "pending native audio playback after immediate fixture app.free()",
+      "why_testable": "exact4ObjectDB/2resources shape can be oneOggStream+OggPacketSequence and their2 playback objects; final app may stop a real door/land cue and quit before independent mixer releases it",
+      "current_support": "same repo objects/leak_verbose.log actually names this4-object audio class shape and bell.ogg2resources in another earlier fixture",
+      "not_proved": "N scenery current log and K CI log lack verbose names; objects bell precedent is not a cause attribution for either",
+      "falsifier": "N verbose leak names are GDScript/Texture/Node rather than audio, or actual bounded drain completes but same objects leak"
+    },
+    {
+      "candidate": "actual object/reference retention via projectile/FX or an actor/context callback",
+      "why_testable": "any new strong-cycle claim must identify exact leaked classes/resources and then an owning path",
+      "current_support": "no new strong ref found in N scalar metadata/actor branch; FX origin weakref and unchanged L/N leaf argue against direct new leaf edge, but timing may expose an existing path",
+      "falsifier": "N verbose shows only native Ogg playback classes and controlled per-App drain clears failure while all original21127 functional assertions stay"
+    },
+    {
+      "candidate": "fixture rapid rebuild/free timing exposes prior cleanup gap",
+      "why_testable": "L pass and N fail on unchanged lifecycle fixture are compatible with a race but do not prove a race or absolve the failure",
+      "falsifier": "repeat verbose has deterministic nonaudio retained object graph, or controlled same teardown at later frames still leaks"
+    }
+  ],
+  "proposed_bounded_diagnostics_after_parent_GPU_finishes": [
+    "First preserve N17 raw failure. Run exact current original population script command plus--verbose once, timeout240; no source or assertion changes, strict raw outcome saved. Read exact leaked instance classes and Resource still in use paths.",
+    "If named audio, a separate build-only diagnostic script may keep all original20cases21127 original assertions and add actual tests/audio_teardown.drain_world(app) immediately before each app.free(), with a success assertion and bounded release. Compare both functional markers and exit cleanup, retain original failing script/source untouched until parent approves a concrete fix.",
+    "If drain fails, record which original actual GameAudio/AudioStreamPlayer2D owner and playback ID remains, rather than muting or extending unbounded sleep. If nonaudio, inspect leaf cached resource/class graph and detached child ownership using the named classes.",
+    "Treat any retry success as a scoped fresh result; do not replace N17 failure or infer K remote same cause from4/2 counts alone."
+  ],
+  "not_allowed_shortcuts": [
+    "waiving leak because all21127 functional assertions pass",
+    "marking old CI failure identical without resource names",
+    "muting/disabling real sounds or deleting audio checks",
+    "blind sleeps or more than one unplanned repeated engine run",
+    "changing production or headless scope during ongoing N GPU capture"
+  ],
+  "log_hashes": {
+    "build/verification/harness/20261019T172607.437562Z/underworld-scenery.log": "8ac40587c4f717d67f43d4e9678b034fadf0cd9e6f5304ca33d01193fa932749",
+    "build/verification/harness/20261019T170413.566287Z/underworld-scenery.log": "cc0f8e42d519ab6d863a3d96ac55a6faea85060511db72e5c41d9e995c9e33b8",
+    "build/underworld_r3/objects/leak_verbose.log": "b75fd8165a7724632eb1fc2fa4c436aa6a47f02e82d7756050187c21de833b15",
+    "build/underworld_r3/delivery/remote_full_K.log": "cdf7c00055ee2b3c003e13aaf7747e6a71eb08e215b46b89a458fe8f529b1b93"
+  },
+  "engine_runs": 0,
+  "GPU_runs": 0,
+  "source_edits": 0,
+  "parent_single_isolated_verbose_followup": {
+    "log": "build/underworld_r3/identity_population_N_verbose.log",
+    "sha256": "f1e9d7d7b5b032cb32ea9122f81cfc1461006a2c3c846f2d1868b3d6ed58d824",
+    "observed_summary": "Underworld identity population:20cases21127checks0failures; strict clean parent-reported exit0; raw verbose contains no leaked instance/resource names",
+    "raw_completion_present": true,
+    "leak_marker_present": false,
+    "source_scope": "Parent reports unchanged exact N production/test source; this agent only inspected log and did not run engine",
+    "conclusion": "This isolated success is a separate fresh result. It does not erase the original N17 strict4/2 failure or identify its cause. Audio mixing cleanup remains an unproved hypothesis; unrelated objects bell.ogg proof is not assigned to N or K.",
+    "stopping_rule": "Parent explicitly stops retries and teardown edits; preserve both outcomes as a traceable technical gap. Production and test source remain frozen."
+  },
+  "diagnostic_execution_status": "Original proposed one verbose diagnostic was performed by parent and passed clean. Further controlled-drain proposal is not authorized/executed and is retained only as historical analysis, not an active next action."
+}

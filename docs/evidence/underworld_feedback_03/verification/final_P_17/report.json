@@ -1,0 +1,335 @@
+{
+  "schema_version": 1,
+  "started_at": "20261019T174118.626717Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "underworld-pipeline",
+      "argv": [
+        "python3",
+        "tests/test_underworld_pipeline.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "1eeddb4d53b208536b55d82fb3f68b27ec8a9ca4b98d28c7040a56758be07d04",
+      "log": "underworld-pipeline.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792431689.1106267,
+      "ended_at_unix": 1792431766.7051463,
+      "duration_seconds": 77.595,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T174118.626717Z/artifacts/underworld-pipeline",
+      "reused": false
+    },
+    {
+      "id": "underworld-home-guard-tests",
+      "argv": [
+        "python3",
+        "tests/test_underworld_home_terrace_wrapper.py"
+      ],
+      "timeout_seconds": 90,
+      "input_digest": "dba9bfed62dca293999580f7c822cbd3924b2260a2a6332d9fc1d50067b659a9",
+      "log": "underworld-home-guard-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792431778.2952695,
+      "ended_at_unix": 1792431778.6224399,
+      "duration_seconds": 0.327,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T174118.626717Z/artifacts/underworld-home-guard-tests",
+      "reused": false
+    },
+    {
+      "id": "core",
+      "argv": [
+        "python3",
+        "tools/run_tests.py"
+      ],
+      "timeout_seconds": 720,
+      "input_digest": "016726d6d223ac0c59ba348f8a8c4cc0276b7e3fce9ac230cb8032cfdef19df3",
+      "log": "core.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792431785.091698,
+      "ended_at_unix": 1792431837.8638864,
+      "duration_seconds": 52.772,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T174118.626717Z/artifacts/core",
+      "reused": false
+    },
+    {
+      "id": "underworld-terrain",
+      "argv": [
+        "python3",
+        "tools/run_underworld_terrain_tests.py"
+      ],
+      "timeout_seconds": 150,
+      "input_digest": "c411f98693f6190ad346b3490fc5de2e46f0db77d99cfa4aca24f87742dee3ad",
+      "log": "underworld-terrain.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792431848.801849,
+      "ended_at_unix": 1792431850.8534346,
+      "duration_seconds": 2.052,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T174118.626717Z/artifacts/underworld-terrain",
+      "reused": false
+    },
+    {
+      "id": "underworld-formal-terrain",
+      "argv": [
+        "python3",
+        "tools/run_underworld_formal_terrain_tests.py"
+      ],
+      "timeout_seconds": 270,
+      "input_digest": "e41e83678a7aa891f2f56ed67bff8106b71393fd8e34c7623e6a4385d5ea8e88",
+      "log": "underworld-formal-terrain.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792431858.6254582,
+      "ended_at_unix": 1792431894.4361856,
+      "duration_seconds": 35.811,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T174118.626717Z/artifacts/underworld-formal-terrain",
+      "reused": false
+    },
+    {
+      "id": "underworld-scenery",
+      "argv": [
+        "python3",
+        "tools/underworld_pipeline.py",
+        "runtime",
+        "--suite",
+        "scenery"
+      ],
+      "timeout_seconds": 150,
+      "input_digest": "af58a72214136ed3d6d4f4c9a36ef56b438b5ca1d2b14b01427d730af0bc2e45",
+      "log": "underworld-scenery.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792431910.6587236,
+      "ended_at_unix": 1792431951.3896673,
+      "duration_seconds": 40.731,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T174118.626717Z/artifacts/underworld-scenery",
+      "reused": false
+    },
+    {
+      "id": "underworld-hazards",
+      "argv": [
+        "python3",
+        "tools/underworld_pipeline.py",
+        "runtime",
+        "--suite",
+        "hazards"
+      ],
+      "timeout_seconds": 150,
+      "input_digest": "402d5fd4df2782e4dfe74359d7dc320e44375f25236ddae69ce5f3854852b211",
+      "log": "underworld-hazards.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792431958.3505325,
+      "ended_at_unix": 1792431966.3665287,
+      "duration_seconds": 8.016,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T174118.626717Z/artifacts/underworld-hazards",
+      "reused": false
+    },
+    {
+      "id": "underworld-formal",
+      "argv": [
+        "python3",
+        "tools/run_underworld_formal_tests.py"
+      ],
+      "timeout_seconds": 150,
+      "input_digest": "9001931809578bbe6d8ac89dd223182c4ea21c40e53ceec4e4d3fe4a9032f3e4",
+      "log": "underworld-formal.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792431972.8978672,
+      "ended_at_unix": 1792431978.8859844,
+      "duration_seconds": 5.988,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T174118.626717Z/artifacts/underworld-formal",
+      "reused": false
+    },
+    {
+      "id": "underworld-raw-export",
+      "argv": [
+        "python3",
+        "tests/test_underworld_raw_export.py"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "52cdbae98b7c9b5493aac106fa9bbeab6d8293ad3bebbe0eead30fb50fe813b1",
+      "log": "underworld-raw-export.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792431986.2378325,
+      "ended_at_unix": 1792431986.7939925,
+      "duration_seconds": 0.556,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T174118.626717Z/artifacts/underworld-raw-export",
+      "reused": false
+    },
+    {
+      "id": "underworld-player-animation",
+      "argv": [
+        "python3",
+        "tools/run_underworld_player_animation_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "9c76aa2c1eac5b74c09b7d1e0257104b900ceffb41184183d46e1a7508abcaf4",
+      "log": "underworld-player-animation.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792431995.5361657,
+      "ended_at_unix": 1792431998.1868067,
+      "duration_seconds": 2.651,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T174118.626717Z/artifacts/underworld-player-animation",
+      "reused": false
+    },
+    {
+      "id": "underworld-mechanisms",
+      "argv": [
+        "python3",
+        "tools/run_underworld_mechanism_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "input_digest": "2a37e12ff21eb91b48d69a37ade73eddab859a90757a184863348c9567584482",
+      "log": "underworld-mechanisms.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792432008.1800907,
+      "ended_at_unix": 1792432029.3036923,
+      "duration_seconds": 21.124,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T174118.626717Z/artifacts/underworld-mechanisms",
+      "reused": false
+    },
+    {
+      "id": "underworld-home",
+      "argv": [
+        "python3",
+        "tools/run_underworld_home_terrace_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "ad14b35c4370cff71073f1ba2a714627bd5dfdf8032715071b8d6a1b7d53a8a2",
+      "log": "underworld-home.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792432040.8770394,
+      "ended_at_unix": 1792432051.0931842,
+      "duration_seconds": 10.216,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T174118.626717Z/artifacts/underworld-home",
+      "reused": false
+    },
+    {
+      "id": "underworld-ui",
+      "argv": [
+        "python3",
+        "tools/run_underworld_ui_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "input_digest": "4278a340a2b9c4ebf8c6a8db301eba31674a4defc68f65af8e2b54757b87a13e",
+      "log": "underworld-ui.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792432061.0557199,
+      "ended_at_unix": 1792432084.3148413,
+      "duration_seconds": 23.259,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T174118.626717Z/artifacts/underworld-ui",
+      "reused": false
+    },
+    {
+      "id": "underworld-damage-feedback",
+      "argv": [
+        "python3",
+        "tools/run_underworld_damage_r3_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "e8db197a9428093c40a60e74a6162bed5f0a24650b55e9158604c6cd6752b932",
+      "log": "underworld-damage-feedback.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792432094.6044095,
+      "ended_at_unix": 1792432101.7476342,
+      "duration_seconds": 7.143,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T174118.626717Z/artifacts/underworld-damage-feedback",
+      "reused": false
+    },
+    {
+      "id": "underworld-projectile-vfx",
+      "argv": [
+        "python3",
+        "tools/run_underworld_projectile_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "input_digest": "f4acae18dc20e9d28fdc02ca5b0bd35f6a440702b8f5b4eeb2fdef6d73c982f2",
+      "log": "underworld-projectile-vfx.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792432109.5774903,
+      "ended_at_unix": 1792432115.7378032,
+      "duration_seconds": 6.16,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T174118.626717Z/artifacts/underworld-projectile-vfx",
+      "reused": false
+    },
+    {
+      "id": "underworld-world-objects",
+      "argv": [
+        "python3",
+        "tools/run_underworld_r3_object_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "input_digest": "240815fd2eaa1536e26249dd35438631fef16ad0772a1c243ae5e30051ff78e2",
+      "log": "underworld-world-objects.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792432122.8239162,
+      "ended_at_unix": 1792432143.4073803,
+      "duration_seconds": 20.583,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T174118.626717Z/artifacts/underworld-world-objects",
+      "reused": false
+    },
+    {
+      "id": "underworld-continuous-bosses",
+      "argv": [
+        "python3",
+        "tools/run_underworld_r3_boss_tests.py",
+        "--full-fights"
+      ],
+      "timeout_seconds": 360,
+      "input_digest": "c576559f9fa0c944543e9a06aee7a850e4e7f6ea7d68a5afba59bd053722a39f",
+      "log": "underworld-continuous-bosses.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792432151.0727453,
+      "ended_at_unix": 1792432217.1908033,
+      "duration_seconds": 66.118,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T174118.626717Z/artifacts/underworld-continuous-bosses",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "247f86759dfd79184ad8de6d400002bd7fa54eca96b7261ad5bfb1497363506c",
+  "working_files": {},
+  "commit": "9402bf92fa9be16b10d401db5e02b5c63124ff3c",
+  "git_status": "",
+  "diff": "",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 554.538,
+  "jobs": 1,
+  "release": true
+}

@@ -1,0 +1,42 @@
+{
+  "scope": "same actual Motor input/collision fixture, presentation-only A/B; not complete forest or device acceptance",
+  "old_camera_parameters": {
+    "zoom": 1.2,
+    "vertical_dead_zone": 12,
+    "response_seconds": [
+      0.12,
+      0.05
+    ],
+    "ground_only_observation": true
+  },
+  "fixed_camera_parameters": {
+    "zoom": 1.2,
+    "vertical_dead_zone": 90,
+    "response_seconds": [
+      0.18,
+      0.24
+    ],
+    "continuous_ground_air_dead_zone": true
+  },
+  "identical_body_trajectories": true,
+  "baseline": {
+    "checks": 204,
+    "climb": 246.434173583984,
+    "failures": 4,
+    "follow": 234.434112548828,
+    "scope": "real_collision_jump_and_recoil_camera_fixture_not_device_approval",
+    "short_jump_excursion": 124.970039129257,
+    "short_jump_peak_step": 15.0511312484741
+  },
+  "fixed": {
+    "checks": 204,
+    "climb": 246.434173583984,
+    "failures": 0,
+    "follow": 106.188070297241,
+    "scope": "real_collision_jump_and_recoil_camera_fixture_not_device_approval",
+    "short_jump_excursion": 0.0,
+    "short_jump_peak_step": 0.0
+  },
+  "comparison_source": "Explicit old presentation branch in new fixture; production Motor/body unchanged",
+  "general_camera_comfort": "831 assertions,0 failures; ascent peak old808.85 vs new315.48 wu/s in original generic fixture"
+}

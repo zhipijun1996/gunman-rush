@@ -1,0 +1,96 @@
+{
+  "reviewer": "/root/independent_review",
+  "independent": true,
+  "verdict": "SCOPED_FUNCTIONAL_ACCEPT_WITH_UI_REWORK",
+  "execution_head": "562542bd458f25c8fb5f6e56e74c69d363976735",
+  "scope": "Actual local127.0.0.1 H Web build and original8-context GUI region entry/pause/resume test. Not public deployment, full route/campaign or physical device review.",
+  "actual_build": {
+    "entry": [
+      "python3",
+      "tools/build.py",
+      "web"
+    ],
+    "actual_exit": 0,
+    "seconds": 24.85914714899991,
+    "original_caps": {
+      "environment": 120,
+      "import": 90,
+      "stamp": 30,
+      "export": 180
+    },
+    "clean_HEAD_status_before_after_equal": true
+  },
+  "actual_browser": {
+    "entry": [
+      "python3",
+      "tools/verify_forest_browser.py",
+      "http://127.0.0.1:8779/",
+      "--output-dir",
+      "build/forest_revision04/final-H-local-web/gui",
+      "--expected-commit",
+      "562542bd458f25c8fb5f6e56e74c69d363976735",
+      "--expected-build-id",
+      "9769c4bff442",
+      "--expected-forest-version",
+      "thorn-forest-region-v2",
+      "--expected-forest-layout",
+      "forest-fruit-routes-v14"
+    ],
+    "actual_exit": 0,
+    "seconds": 356.4359792139985,
+    "original480_cap_retained": true,
+    "functional_checks": 20,
+    "identities": 8,
+    "errors": [],
+    "contexts": "Mouse and emulated DOM touch × Plains/Forest × map1/2, fresh browser context per case.",
+    "events": "Each requested entry emitted exactly one debug_entry and one actual region_assembled; all four Forest cases confirmv2/defaultv14, correct actual map/Boss resource andgrapple-only capability.",
+    "pause_resume_semantics": "Existing original checker uses actual rendered MENU and RESUME controls via mouse or page.touchscreen.tap and captures the resumed canvas. No direct game-state forced pause/resume found.",
+    "identity_semantics": "Original checker fetches full PCK hash/source metadata, checks HTML mainPack and actual loaded version badge, and verifies bundle identity again after each case. All8 identities equal.",
+    "source_guard_scope": "Original outer receipts record HEAD H and empty tracked Git status before==after. These are not per-file source inventories and are not mislabeled as such."
+  },
+  "independent_evidence_checks": {
+    "actual_viewed_entry_resumed_PNGs": 16,
+    "complete_map_heading_OCR_receipts": 8,
+    "actual_matched_original_TSV_words_independently_equal_expected": true,
+    "PCK": {
+      "path": "build/web/index.9769c4bff442.pck",
+      "sha256": "9769c4bff4425160f276ec42443df1aadea12ae221bc24b7496f5a3c7a527a25",
+      "bytes": 141171044,
+      "equal_frozen_before_after": true
+    },
+    "frozen_before_after_bundle_equal": true,
+    "selected_archive": "66entries/4583919bytes/SHA765a9ff5da9dda1a2ff36d1e7144815e654482d8f2bfb7e6cdf08c0711a57835; original indexed files SHA and ZIP CRC independently verified. PCK/WASM not in ZIP.",
+    "details": "build/forest_revision04/final-H-local-web-review/independent-local-web-audit.json",
+    "details_SHA256": "02f41abc155484ca6142e2b07bfbbadfd51d63630e9f26bdc5b7af94f0f28e8d"
+  },
+  "pixel_findings": {
+    "functional": "All16 actual entry/resume images show requested Plains/Forest1/2 headings, world/player and active HUD. Mouse controls and emulated touch pads/Menu/HOOK/JUMP remain visible after resume.",
+    "UI_defect": {
+      "verdict": "REWORK",
+      "affected": "All8 reviewed Forest entry/resume images across mouse/touch and map1/2.",
+      "pixel_location": "Skin selection OptionButton below upper-right Menu, approximatelyx1067..1150,y145.",
+      "observed": "Chinese skin caption renders as missing-glyph boxes, so the selected appearance label is unreadable.",
+      "not_a_new_regression_claim": "This H evidence demonstrates the defect; it does not establish when it was introduced. No claim of fullUI text/font acceptance.",
+      "repair_status_in_this_review": "Unresolved in H. Any later theme fix needs separate source-bound evidence; a proposed fix is not treated as completed."
+    }
+  },
+  "not_covered": [
+    "Public/main deployment or public URL/cache verification.",
+    "Natural campaign reward→next-region flow, full browser route/movement/grapple/Boss/action comfort.",
+    "Physical touch devices, audio listening or user taste.",
+    "Final wholeCI/80-case result."
+  ],
+  "proof_SHA256": {
+    "build/forest_revision04/final-H-local-web/build-outer.json": "51928fd83d02d6615c1423b17c7739fc0851726e36da776166c3d658bd5d9dad",
+    "build/forest_revision04/final-H-local-web/browser-outer.json": "bd70c544e1cd6a31cf19219f1859fa4164bbe8a9d0f2c4a20df5e7327a7f2da5",
+    "build/forest_revision04/final-H-local-web/build.log": "c8bcbc460f8c58d9fecf83f84e66a51278aecdc7d40e140484f84e78d73b7d22",
+    "build/forest_revision04/final-H-local-web/browser.log": "42fcda21d18094417b62ba08f2b7ef7ecad5475b2a45243329d10bde01a5802e",
+    "build/forest_revision04/final-H-local-web/local-frozen-bundle.json": "a6c2917cee0e4d70f4903b18b553db553dd3f0c49a4f76a4f415a7fb2212c046",
+    "build/forest_revision04/final-H-local-web/local-bundle-after.json": "7bd393b4ee1b59a15c122d056fb4d144f0e8bc084e416a79b32396333761863a",
+    "build/forest_revision04/final-H-local-web/gui/report.json": "ec994218edd67f18cd87b747ca42d2342dc013acf511e60f967ca56577109f3f",
+    "build/forest_revision04/final-H-local-web-delivery/archive-receipt.json": "cd3f7b6b0b9f0fdd5b50041a7d5cffd8de951de9f0a46aec59661b6143525f91",
+    "build/forest_revision04/final-H-local-web-delivery/index.json": "dc93c484bc3f583624f93a8881e5f2abc72e595ebf5862df913541464f557a00",
+    "build/forest_revision04/final-H-local-web-delivery/omitted-image-index.json": "3fd85e821726839ec6f5e54988741423a29b00426dde02a742d85be870c66398"
+  },
+  "reviewer_actions": "Only read original16 images/JSON/OCR TSV/log/code, independently hash existing PCK and validate selectedZIP. No new browser, Godot, builds or tracked/docs/source/original evidence changes. New ignored review reports only."
+}

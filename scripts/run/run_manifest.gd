@@ -10,12 +10,12 @@ func _init(seed := "0", profile: RunProfile = null) -> void:
 		profile = RunProfile.development()
 	_data = {"schema_version": SCHEMA_VERSION, "root_seed": seed, "rng_algorithm": RunRandomStream.ALGORITHM, "stream_derivation_version": RunRandomStream.DERIVATION_VERSION, "run_profile": {"id": String(profile.profile_id), "version": profile.definition_version, "development_only": profile.development_only, "stages_per_biome": profile.stages_per_biome, "boss_stage": profile.boss_stage}, "versions": {"route": 1, "reward": 2, "shop": 1, "fixed_layout": 1, "damage_policy": "D028_v1", "boss_outcome_policy": "D029_v1", "run_policy": "DEMO_NO_TRANSFER_v1"}, "content_manifest": [], "config_hashes": {}, "initial_character": {}, "stages": [], "decisions": [], "end": {}}
 
-func enable_plains_generation() -> void:
+func enable_development_generation(content_version: String) -> void:
+	# Independent world candidates are live development fixtures, never old rooms.
+	# Preserve their actual content identity without claiming restorable run data.
 	_data.versions.erase("fixed_layout")
-	_data.versions.generated_layout = PlainsStageGenerator.VERSION
-	_data.versions.pickups = "plains-pickups-v1"
-	_data.versions.encounters = PlainsEncounterPlanner.VERSION
-	_data.versions.run_policy = "PLAINS_BANK_NOTES_v1"
+	_data.versions.generated_layout = content_version
+	_data.versions.run_policy = "DEVELOPMENT_GENERATED_FIXTURE_v1"
 
 func enable_plains_region(content_version: String = PlainsRegionGenerator.VERSION) -> bool:
 	var campaign := int(_data.schema_version) == 2
@@ -99,13 +99,8 @@ static func compatible(data: Dictionary) -> bool:
 		if index + 1 == profile.boss_stage and entry.type_id != "boss":
 			return false
 	var fixed_versions := {"route": 1, "reward": 2, "shop": 1, "fixed_layout": 1, "damage_policy": "D028_v1", "boss_outcome_policy": "D029_v1", "run_policy": "DEMO_NO_TRANSFER_v1"}
-	var generated_versions := fixed_versions.duplicate(true)
-	generated_versions.erase("fixed_layout")
-	generated_versions.generated_layout = PlainsStageGenerator.VERSION
-	generated_versions.pickups = "plains-pickups-v1"
-	generated_versions.encounters = PlainsEncounterPlanner.VERSION
-	generated_versions.run_policy = "PLAINS_BANK_NOTES_v1"
-	var region_versions := generated_versions.duplicate(true)
+	var region_versions := fixed_versions.duplicate(true)
+	region_versions.erase("fixed_layout")
 	var declared_versions: Variant = data.get("versions", {})
 	var region_version := PlainsRegionGenerator.VERSION
 	if declared_versions is Dictionary and declared_versions.get("generated_layout") in [PlainsRootBellEncounterV2.CONTENT_VERSION, PlainsRootBellEncounterV3.CONTENT_VERSION]:
@@ -128,8 +123,6 @@ static func compatible(data: Dictionary) -> bool:
 			if output.get("stage_generator",{}).get("version")!=region_version or m.get("version")!=region_version: return false
 			var identity: Dictionary={"version":PlainsRegionCampaign.VERSION,"map_index":index,"seed":PlainsRegionCampaign.seed_for(data.root_seed,index),"instance_prefix":PlainsRegionCampaign.prefix(index),"boss_role":PlainsRegionCampaign.role(index)}
 			if not checker._same_data(output.get("region_map",{}),identity): return false
-			var boss_definition: BossDefinition=load("res://resources/bosses/bellstrider.tres" if index==1 else "res://resources/bosses/windkeeper_storm.tres")
-			if not checker._same_data(output.get("boss_layout",{}),{"id":String(boss_definition.stable_id),"version":boss_definition.definition_version,"health":boss_definition.health_definition.max_health}): return false
 			if m.get("seed")!=identity.seed or m.get("difficulty")!=("intro" if index==1 else "advanced"): return false
 			if not checker._same_data(output.get("shot_latch_layout",{}),m.get("shot_latch_plan",{})): return false
 			if not checker._same_data(output.get("enemy_layout",{}),{"version":region_version,"enemies":m.get("enemies",[])}): return false
@@ -138,48 +131,25 @@ static func compatible(data: Dictionary) -> bool:
 				if not output.stage_tuning.has(key): return false
 				if not checker._same_data(output.stage_tuning[key],tuning.get(key)): return false
 			if not PlainsRegionGenerator.new().validate(m,tuning): return false
+			if not _plains_boss_output_compatible(output,index): return false
 		if data.stages.size()==2:
 			var transition: Dictionary=data.stages[0].outputs.get("map_transition",{})
 			if transition.get("from_map")!=1 or transition.get("to_map")!=2 or transition.get("reason")!="mini_boss_defeated": return false
 		return data.schema_version==SCHEMA_VERSION and data.rng_algorithm==RunRandomStream.ALGORITHM and data.stream_derivation_version==RunRandomStream.DERIVATION_VERSION
-	var versions_supported: bool = _versions_equal(data.get("versions", {}), fixed_versions) or _versions_equal(data.get("versions", {}), generated_versions)
-	if _versions_equal(data.get("versions", {}), generated_versions):
-		var generator := RandomStageGenerator.new()
-		var tuning_keys: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://config/player_tuning.json"))
-		for entry: Dictionary in data.stages:
-			var outputs: Variant = entry.get("outputs")
-			if not outputs is Dictionary or not outputs.get("stage_tuning") is Dictionary or not outputs.get("generated_layout") is Dictionary:
-				return false
-			if entry.get("biome_id", "") != "plains" or outputs.get("stage_generator", {}).get("version", "") != PlainsStageGenerator.VERSION or outputs.generated_layout.get("profile_id", "") != PlainsStageGenerator.new().profile_for(int(entry.stage_index), StringName(entry.type_id)):
-				return false
-			if not generator._same_data(outputs.generated_layout.get("blueprint_plan", {}), PlainsBlueprintSchedule.plan(str(data.root_seed), int(entry.stage_index), StringName(entry.type_id))):
-				return false
-			if not generator._same_data(outputs.generated_layout.get("room_template_plan", {}), PlainsRoomGrammar.plan(str(data.root_seed), int(entry.stage_index), StringName(entry.type_id))):
-				return false
-			var tuning := PlayerTuning.load_default()
-			for key: String in tuning_keys:
-				if not outputs.stage_tuning.has(key):
-					return false
-				if key == "jump_speeds":
-					if not outputs.stage_tuning[key] is Array:
-						return false
-					for speed: Variant in outputs.stage_tuning[key]:
-						if not (speed is int or speed is float) or not is_finite(float(speed)):
-							return false
-					tuning.jump_speeds.assign(outputs.stage_tuning[key])
-				else:
-					var value: Variant = outputs.stage_tuning[key]
-					if typeof(value) != typeof(tuning.get(key)) and not ((value is float or value is int) and (tuning.get(key) is float or tuning.get(key) is int)) or (value is float and not is_finite(value)):
-						return false
-					tuning.set(key, value)
-			var checked := generator.validate_manifest(outputs.generated_layout, tuning)
-			if not checked.ok:
-				return false
-			if not PlainsShotLatchPlanner.validate(outputs.generated_layout) or not generator._same_data(outputs.get("shot_latch_layout", {}), PlainsShotLatchPlanner.recorded_plan(outputs.generated_layout)):
-				return false
-			if not generator._same_data(outputs.get("enemy_layout", {}), PlainsEncounterPlanner.recorded_plan(outputs.generated_layout)):
-				return false
-	return versions_supported and data.get("schema_version", -1) == SCHEMA_VERSION and data.get("rng_algorithm", "") == RunRandomStream.ALGORITHM and data.get("stream_derivation_version", -1) == RunRandomStream.DERIVATION_VERSION
+	return _versions_equal(data.get("versions", {}), fixed_versions) and data.get("schema_version", -1) == SCHEMA_VERSION and data.get("rng_algorithm", "") == RunRandomStream.ALGORITHM and data.get("stream_derivation_version", -1) == RunRandomStream.DERIVATION_VERSION
+
+static func _plains_boss_output_compatible(output: Dictionary, index: int) -> bool:
+	var definition: BossDefinition = load("res://resources/bosses/bellstrider.tres" if index==1 else "res://resources/bosses/windkeeper_storm.tres")
+	var checker := RandomStageGenerator.new()
+	if checker._same_data(output.get("boss_layout",{}),{"id":String(definition.stable_id),"version":definition.definition_version,"health":definition.health_definition.max_health}): return true
+	# The caller has validated the full tuning, manifest and map identity. All
+	# three supported Plains versions also recorded these exact Boss definitions
+	# before continuous combat, under both supported focus configurations.
+	# Replay that metadata unchanged; runtime still loads current definitions.
+	var layout: Dictionary = output.get("generated_layout",{})
+	if layout.get("version") not in [PlainsRegionGenerator.VERSION,PlainsRootBellEncounterV2.CONTENT_VERSION,PlainsRootBellEncounterV3.CONTENT_VERSION]: return false
+	var historical := {"id":"plains_bellstrider","version":1,"health":16.0} if index==1 else {"id":"plains_windkeeper","version":4,"health":36.0}
+	return checker._same_data(output.get("boss_layout",{}),historical)
 
 static func _versions_equal(stored: Variant, expected: Dictionary) -> bool:
 	if not stored is Dictionary or stored.size() != expected.size():

@@ -1,0 +1,37 @@
+{
+  "run_id": "39307414057",
+  "source_commit": "315f4972081f17128fa2a499a2169ae65010bcaf",
+  "status": "completed",
+  "conclusion": "failure",
+  "updated_at": "2026-10-19T19:41:33Z",
+  "source": "https://github.com/zhipijun1996/gunman-rush/actions/runs/39307414057",
+  "observed_via": "GitHub Actions API and original job log endpoints, read 2026-10-20",
+  "failures": [
+    {
+      "job_id": 118251401464,
+      "excerpts": [
+        "2026-10-19T19:26:05.8923203Z Failed check: underworld-home failed",
+        "2026-10-19T19:26:05.8926029Z ERROR: Legacy body and feedback drawings are hidden",
+        "2026-10-19T19:26:05.8932098Z UNDERWORLD HOME: 97 assertions, 1 failures",
+        "ERROR: Legacy body and feedback drawings are hidden",
+        "UNDERWORLD HOME: 97 assertions, 1 failures"
+      ]
+    },
+    {
+      "job_id": 118251401491,
+      "excerpts": [
+        "2026-10-19T19:41:19.3082529Z Failed check: underworld-formal-terrain failed",
+        "2026-10-19T19:41:19.3299619Z FAIL: actual second-map Boss bound one arena consumer",
+        "2026-10-19T19:41:19.3300618Z UNDERWORLD_FORMAL_TERRAIN checks=41443 failures=1 consumers=20"
+      ]
+    },
+    {
+      "job_id": 118251401503,
+      "excerpts": [
+        "2026-10-19T19:25:26.3993504Z Failed check: generated-consumers failed",
+        "2026-10-19T19:25:26.4064559Z WARNING: 297 ObjectDB instances were leaked at exit (run with `--verbose` for details).",
+        "2026-10-19T19:25:26.4065452Z ERROR: 208 resources still in use at exit (run with --verbose for details)."
+      ]
+    }
+  ]
+}

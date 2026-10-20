@@ -348,8 +348,117 @@ def validate_cavity_elbow_leg(data,leg,completion,frames,events,requests,platfor
 
 INTERWOVEN_LAYOUT='forest-interwoven-canopy-v13'
 INTERWOVEN_FACTORY='res://scripts/generation/forest_interwoven_expedition.gd'
-WOVEN_LAYOUTS=('forest-woven-trunk-v12',INTERWOVEN_LAYOUT)
+FRUIT_LAYOUT='forest-fruit-routes-v14'
+WOVEN_LAYOUTS=('forest-woven-trunk-v12',INTERWOVEN_LAYOUT,FRUIT_LAYOUT)
 CANOPY_LAYOUTS=('forest-expedition-airborne-v11',)+WOVEN_LAYOUTS
+
+def fruit_route_bindings(manifest):
+    """Trace displayed recommendations to the actual fixed-target consumers."""
+    edges={row['id']:row for row in manifest['connections']}
+    instances={row['id']:row for row in manifest['geometry_instances']}
+    result={}
+    def bind(target,reason):
+        if target and reason not in result.setdefault(target,[]):result[target].append(reason)
+    for route in ('fast','growth','high_return','change_mind','borer','available'):
+        route_edges=list(edges) if route=='available' else manifest['routes'].get(route,[])
+        for edge_id in route_edges:
+            edge=edges[edge_id];instance=instances.get(edge.get('geometry_instance'),{})
+            mapping=instance.get('anchor_id_map',{})
+            for action in edge.get('action_program',[]):
+                if action.get('action')in('H','HANG'):
+                    fallback=edge.get('rest_anchor_id','') if action['action']=='HANG' else ''
+                    bind(mapping.get(action['anchor'],fallback),route+':'+edge_id+':'+action['action'])
+            if 'anchor_id'in edge:bind(edge['anchor_id'],route+':'+edge_id+':explicit_target')
+            locals={'hollow_upper':['upper_window_ring'],'hollow_lower':['lower_window_ring'],
+                    'hollow_cavity':['cavity_ring_a','cavity_ring_b']}.get(edge['kind'],[])
+            for local in locals:bind(mapping.get(local,''),route+':'+edge_id+':'+local)
+    return result
+
+def validate_fruit_presentation(manifest):
+    """V14 adds a finite rooted presentation over the unchanged v13 geometry.
+
+    A new layout identity is admitted only through the explicit wrapper and
+    bounded retirement source. Existing v13 geometry/action readers stay exact.
+    """
+    errors=[]
+    def need(ok,reason):
+        if not ok:errors.append('fruit_'+reason)
+    source=(ROOT/'scripts/generation/forest_fruit_routes.gd').read_text()
+    producer=(ROOT/'scripts/generation/thorn_forest_region_v2_v14.gd').read_text()
+    try:
+        version=re.search(r'^const VERSION := "([^"]+)"$',source,re.M).group(1)
+        retired=json.loads(re.search(r'^const RETIRED_ANCHORS: Array\[String\] = (\[[^\n]*\])$',source,re.M).group(1))
+        limit=float(re.search(r'^const MAX_LOCAL_STEM := ([\d.]+)$',source,re.M).group(1))
+        boughs,_=json.JSONDecoder().raw_decode(source.split('const INNER_BOUGHS := ',1)[1])
+        deep_boughs,_=json.JSONDecoder().raw_decode(source.split('const DEEP_BOUGHS := ',1)[1])
+        boughs=boughs+deep_boughs
+        need(version==FRUIT_LAYOUT and limit==128.0,'explicit_version_and_local_budget')
+        need(retired==['thorn_mouth__rest_ring','upper_spiral__rest_ring'],'exact_two_ablated_auxiliary_retirements')
+        need('const BASE := preload("res://scripts/generation/thorn_forest_region_v2_v13.gd")' in producer and
+             re.search(r'var manifest: Dictionary = BASE.new\(\)._candidate\(seed_value, map_index\)\s+manifest.layout_version = LAYOUT_VERSION\s+FRUIT.install\(manifest\)\s+manifest.manifest_hash = BASE._hash\(manifest\)',producer) is not None,'frozen_v13_wrapper_order')
+        platforms=manifest['platforms'];anchors=manifest['hook_anchors'];pending=[]
+        bindings=fruit_route_bindings(manifest)
+        need(manifest.get('fruit_boughs')==boughs,'exact_authored_boughs')
+        attachments={}
+        support_rows={row['id']:row['rect'] for row in platforms}
+        for bough in boughs:
+            x,y,w,h=support_rows[bough['host_support_id']];root=bough['root']
+            need(bough['standing_edge'] is False and bough['points'][0]==root and
+                 x<=root[0]<=x+w and y<=root[1]<=y+h and
+                 (root[0]in(x,x+w) or root[1]in(y,y+h)),'actual_bough_root_and_no_standing_edge')
+            all_points=list(bough['points'])
+            for branch in bough.get('branches',[]):
+                need(len(branch)>=2 and branch[0] in bough['points'],'side_branch_joins_actual_trunk')
+                all_points.extend(branch)
+            for target,point in bough['attachments'].items():
+                need(point in all_points,'bough_attachment_on_authored_wood')
+                attachments[target]=(bough['id'],bough['host_support_id'],point)
+        ids=[row['id'] for row in anchors]
+        need(len(ids)==len(set(ids)) and not set(retired)&set(ids),'retired_targets_absent')
+        need('broken_arch__return_catch_ring' in ids,'real_return_catch_retained')
+        arena=manifest['boss_arena']
+        for anchor in anchors:
+            id=anchor['id'];at=anchor['position'];nearest=limit;host=None
+            role=('gate' if id==manifest['vine_gate']['key_anchor'] else
+                  'boss' if arena[0]-32<=at[0]<arena[0]+arena[2]+32 and arena[1]-32<=at[1]<arena[1]+arena[3]+32 else
+                  'recovery' if 'recovery_role'in anchor or id.endswith('return_catch_ring') else
+                  'recommended' if any(value.startswith(('fast:','growth:')) for value in bindings.get(id,[])) else 'optional')
+            need(anchor.get('fruit_role')==role,'functional_role')
+            basis={'gate':'actual_vine_gate_key_anchor','boss':'actual_boss_arena_target',
+                   'recovery':'authored_failure_recovery_or_factory_return_catch',
+                   'recommended':'actual_fast_or_growth_edge_target_binding',
+                   'optional':'optional_route_or_auxiliary_target;_not_fast_growth_recommended'}[role]
+            need(anchor.get('fruit_role_basis')==basis and anchor.get('fruit_route_bindings')==bindings.get(id,[]),'actual_route_role_basis')
+            for platform in platforms:
+                x,y,w,h=platform['rect']
+                if y>at[1]-18:continue
+                if x<=at[0]<x+w and y<=at[1]<y+h:continue
+                point=[max(x,min(at[0],x+w)),min(y+h,at[1]-18)]
+                if not(point[0]in(x,x+w) or point[1]in(y,y+h)):continue
+                distance=math.dist(at,point)
+                if distance<nearest:
+                    nearest=distance;host=(platform['id'],point)
+            if id in attachments:
+                bough,host_id,point=attachments[id]
+                need(anchor.get('fruit_presentation')=='rooted_fruit' and anchor.get('fruit_bough_id')==bough and
+                     anchor.get('fruit_host_support_id')==host_id and anchor.get('fruit_stem_root')==point and
+                     point[1]<=at[1]-18 and math.dist(point,at)<=32,'short_bough_suspension')
+            elif host is None:
+                pending.append(id)
+                need(anchor.get('fruit_presentation')=='existing_marker_pending_local_support' and 'fruit_stem_root'not in anchor and 'fruit_host_support_id'not in anchor,'unsupported_position_disclosed')
+            else:
+                need(anchor.get('fruit_presentation')=='rooted_fruit' and anchor.get('fruit_host_support_id')==host[0] and anchor.get('fruit_stem_root')==host[1],'local_perimeter_root')
+        expected={'version':FRUIT_LAYOUT,'retired_anchors':retired,'pending_spatial_redesign':pending,
+                  'retained_target_positions':'exact_v13','target_physics':'unchanged_grapple_target_layer8_radius12_and_hang_contract',
+                  'roles':['recommended','optional','recovery','gate','boss'],
+                  'route_semantics':'recommendations_and_free_player_alternatives;_not_world_randomization',
+                  'visual_admission':'proposed_pending_actual_composition_review_and_player','max_local_stem':128.0,
+                  'support_provenance':'actual_upper_perimeter_or_explicit_rooted_bough',
+                  'bough_geometry':'presentation_only_no_collision_or_standing_edge'}
+        need(manifest.get('fruit_routes_contract')==expected,'complete_explicit_presentation_contract')
+    except (KeyError,ValueError,TypeError,AttributeError,IndexError):
+        errors.append('fruit_authority_or_manifest_unreadable')
+    return list(dict.fromkeys(errors))
 
 def _interwoven_authority():
     """Reconstruct the current source's literal seven phrases; never trust raw.
@@ -510,7 +619,7 @@ def _validate_interwoven_binding(manifest,leg,instance,authority=None):
     raw=instance.get('local_geometry',{});phrase=raw.get('id')
     if phrase not in authority['specs']:return ['interwoven_unknown_phrase']
     spec=authority['specs'][phrase];factory=authority['factories'][phrase]
-    need(manifest.get('layout_version')==INTERWOVEN_LAYOUT,'layout_identity')
+    need(manifest.get('layout_version') in (INTERWOVEN_LAYOUT,FRUIT_LAYOUT),'layout_identity')
     root_nodes=[row for row in manifest.get('areas',[]) if row.get('id')=='interwoven_root_landing']
     need(len(root_nodes)==1 and root_nodes[0].get('position')==[400,802],'root_landing_node')
     root_walks={'interwoven_root_to_D':{'a':'interwoven_root_landing','b':'D','kind':'walk','path':[[400.0,802.0],[720.0,802.0]]},
@@ -1012,6 +1121,7 @@ def completed_forest_encounter_jump_ticks(data):
 def validate(data):
     if data.get('route')=='upper_noH':return validate_upper_noH(data)
     errors=list(data.get('failures',[]));frames=data.get('frames',[]);manifest=data.get('manifest',{});events=data.get('events',[]);requests=data.get('requests',[])
+    if manifest.get('layout_version')==FRUIT_LAYOUT:errors.extend(validate_fruit_presentation(manifest))
     def fail(reason):
         if reason not in errors:errors.append(reason)
     if data.get('scope')!='formal_DemoApp_forest_v2_continuous_route_not_boss_fight' or data.get('boss_fight_covered') is not False:fail('scope_or_boss_claim')
@@ -1316,7 +1426,7 @@ def schedule_cases(cases, run_case, on_result, workers=1):
 
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,required=True);parser.add_argument('--seed',default='forest-depth-00');parser.add_argument('--map',type=int,choices=(1,2),default=1);parser.add_argument('--route',choices=ROUTES+('all',),default='all');parser.add_argument('--routes',nargs='+',choices=ROUTES[:4]+('borer',),help='Finite explicit unique route group, sharing one import');parser.add_argument('--matrix',action='store_true',help='Explicit finite4representatives (two seeds x two maps) x4routes; requires actual map2 entry contract');parser.add_argument('--corpus',action='store_true',help='Fixed10roots00..09 x2maps x4originalroutes; original matrix16 first; one import90/native240 each, stop on first failure');parser.add_argument('--validate-only',type=Path);parser.add_argument('--movie',action='store_true',help='One explicit original route, real GL 60fps AVI; same import90/native240 and validation');parser.add_argument("--layout",choices=("shared-tree-directional-cavities-v7","shared-tree-living-detour-v9","shared-tree-canopy-hunt-v10","forest-expedition-airborne-v11","forest-woven-trunk-v12","forest-interwoven-canopy-v13"),default="",help="Explicit registered layout for exact historical replay or new candidate validation");args=parser.parse_args()
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,required=True);parser.add_argument('--seed',default='forest-depth-00');parser.add_argument('--map',type=int,choices=(1,2),default=1);parser.add_argument('--route',choices=ROUTES+('all',),default='all');parser.add_argument('--routes',nargs='+',choices=ROUTES[:4]+('borer',),help='Finite explicit unique route group, sharing one import');parser.add_argument('--matrix',action='store_true',help='Explicit finite4representatives (two seeds x two maps) x4routes; requires actual map2 entry contract');parser.add_argument('--corpus',action='store_true',help='Fixed10roots00..09 x2maps x4originalroutes; original matrix16 first; one import90/native240 each, stop on first failure');parser.add_argument('--validate-only',type=Path);parser.add_argument('--movie',action='store_true',help='One explicit original route, real GL 60fps AVI; same import90/native240 and validation');parser.add_argument("--layout",choices=("shared-tree-directional-cavities-v7","shared-tree-living-detour-v9","shared-tree-canopy-hunt-v10","forest-expedition-airborne-v11","forest-woven-trunk-v12","forest-interwoven-canopy-v13","forest-fruit-routes-v14"),default="",help="Explicit registered layout for exact historical replay or new candidate validation");args=parser.parse_args()
     if args.validate_only:
         errors=validate(json.loads(args.validate_only.read_text()));print(json.dumps({'errors':errors}));return int(bool(errors))
     if args.corpus and (args.matrix or args.routes or args.route!='all'):parser.error('--corpus is the fixed80 requests and cannot combine with --matrix/--routes/a specific --route')

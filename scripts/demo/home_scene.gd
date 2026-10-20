@@ -4,16 +4,10 @@ extends Node2D
 signal requested_interaction(function_id: StringName)
 signal requested_navigation
 const FLOOR_Y := 432.0
-const WORLD_WIDTH := 3520.0
 var world: UnderworldHomeWorld
 var parallax: UnderworldParallax
 var reserved_id := ""
-const NPCS := [
-	{"id": &"character", "x": 250.0, "name": "Wardrobe / Character"},
-	{"id": &"upgrade", "x": 600.0, "name": "Artisan / Permanent upgrades"},
-	{"id": &"achievements", "x": 930.0, "name": "Archivist / Achievements"},
-	{"id": &"departure", "x": 1160.0, "name": "Plains / Begin adventure"},
-]
+const FUNCTION_NAMES := {"character":"衣装守护者 / Character","upgrade":"维修工坊 / Permanent upgrades","achievements":"钟之档案 / Achievements","departure":"走出聚落 · 风铃平原 / Begin adventure"}
 var player: PlayerMotor
 var controller: PlayerController
 var camera: Camera2D
@@ -27,12 +21,16 @@ var _resource_hud: ActorResourcesHud
 var _hud: CanvasLayer
 
 func _ready() -> void:
-	_ground(Rect2(-100,FLOOR_Y,WORLD_WIDTH+200,640))
-	_ground(Rect2(-28,-400,28,1100))
-	_ground(Rect2(WORLD_WIDTH,-400,28,1100))
 	world=UnderworldHomeWorld.new()
 	add_child(world)
 	world.configure(FLOOR_Y)
+	var width:=float(world.specification.world_width)
+	_ground(Rect2(-100,FLOOR_Y,width+200,640))
+	_ground(Rect2(-28,-400,28,1100))
+	_ground(Rect2(width,-400,28,1100))
+	for platform: Dictionary in world.specification.get("platforms",[]):
+		var rect: Array=platform.rect
+		_ground(Rect2(rect[0],rect[1],rect[2],rect[3]),true,str(platform.id))
 	player = preload("res://scenes/player/player.tscn").instantiate() as PlayerMotor
 	player.position = Vector2(110, FLOOR_Y - 18)
 	add_child(player)
@@ -46,7 +44,7 @@ func _ready() -> void:
 	var guide:=DemoAimGuide.new();guide.controller=controller;player.add_child(guide)
 	var vignette:=FocusVignette.new();vignette.ability=controller.air_focus_ability;player.add_child(vignette)
 	camera = Camera2D.new()
-	camera.position = Vector2(640, 360)
+	camera.position = Vector2(640, float(world.specification.get("camera_y",360)))
 	add_child(camera)
 	camera.make_current()
 	parallax=UnderworldParallax.new()
@@ -65,7 +63,7 @@ func _ready() -> void:
 	add_child(_hud)
 	var backing:=ColorRect.new();backing.position=Vector2(12,8);backing.size=Vector2(340,132);backing.color=Color(.055,.10,.095,.84);backing.mouse_filter=Control.MOUSE_FILTER_IGNORE;_hud.add_child(backing)
 	var top := HBoxContainer.new()
-	top.theme = DemoMenu.create_theme()
+	top.theme = preload("res://scripts/ui/menu_theme.gd").create_theme()
 	top.position = Vector2(370, 16)
 	top.size = Vector2(886, 52)
 	_hud.add_child(top)
@@ -95,7 +93,7 @@ func _ready() -> void:
 	_prompt.add_theme_color_override("font_color", Color("ffe6a0"))
 	_hud.add_child(_prompt)
 	_controls = HBoxContainer.new()
-	_controls.theme = DemoMenu.create_theme()
+	_controls.theme = preload("res://scripts/ui/menu_theme.gd").create_theme()
 	_controls.position = Vector2(390, 636)
 	_controls.add_theme_constant_override("separation", 12)
 	_hud.add_child(_controls)
@@ -111,13 +109,17 @@ func _ready() -> void:
 	set_meta_state({"notes": 0})
 	UnderworldUI.style_canvas(_hud)
 
-func _ground(rect: Rect2) -> void:
+func _ground(rect: Rect2,one_way: bool=false,id: String="") -> void:
 	var body := StaticBody2D.new()
+	if not id.is_empty():body.name=id
+	if one_way:body.add_to_group("one_way_platform")
 	body.position = rect.get_center()
 	var collision := CollisionShape2D.new()
 	var shape := RectangleShape2D.new()
 	shape.size = rect.size
 	collision.shape = shape
+	collision.name="CollisionShape2D"
+	collision.one_way_collision=one_way
 	body.add_child(collision)
 	add_child(body)
 
@@ -127,35 +129,43 @@ func set_meta_state(snapshot: Dictionary) -> void:
 
 func nearest_candidate(point: Vector2) -> StringName:
 	var candidates: Array[Dictionary] = []
-	for entry: Dictionary in NPCS:
-		var distance := point.distance_to(Vector2(entry.x, FLOOR_Y - 18))
-		var threshold := 115.0 if entry.id == nearest_id else 90.0
-		if distance <= threshold:
-			candidates.append({"id": entry.id, "distance": distance})
+	for entry: Dictionary in world.specification.slots:
+		if not bool(entry.active):continue
+		var foot:=slot_world_foot(StringName(entry.id))
+		var distance:=absf(point.x-foot.x)
+		var threshold := 115.0 if StringName(entry.id) == nearest_id else 90.0
+		# Tier proximity is deliberate: a lower-floor player must never open an
+		# upstairs service, even if its x is directly over the player's head.
+		if distance<=threshold and absf(point.y+18-foot.y)<32:
+			candidates.append({"id":StringName(entry.id),"distance":distance})
 	candidates.sort_custom(func(a: Dictionary, b: Dictionary) -> bool:
 		return str(a.id) < str(b.id) if is_equal_approx(a.distance, b.distance) else a.distance < b.distance)
 	return candidates[0].id if not candidates.is_empty() else &""
 
+func slot_world_foot(id: StringName) -> Vector2:
+	for entry: Dictionary in world.specification.slots:
+		if StringName(entry.id)==id:return Vector2(float(entry.x),float(entry.get("y",FLOOR_Y)))
+	return Vector2.INF
+
 func _physics_process(_delta: float) -> void:
 	if not is_instance_valid(player):
 		return
-	nearest_id = nearest_candidate(player.position)
-	_prompt.text = "向守护者靠近 · W 交互 / 前往东侧查看预留工坊"
-	for entry: Dictionary in NPCS:
-		if entry.id == nearest_id:
-			_prompt.text = "%s\nW / Left stick up / INTERACT" % entry.name
+	nearest_id = nearest_candidate(player.position) if player.is_on_floor() else &""
+	_prompt.text = "空中工坊 · Space 跳跃 / S 下穿平台\n向东走出聚落 → 风铃平原"
+	if not nearest_id.is_empty():
+		_prompt.text = "%s\nW / Left stick up / INTERACT" % FUNCTION_NAMES[str(nearest_id)]
 	reserved_id=""
 	if nearest_id.is_empty():
 		for entry: Dictionary in world.specification.slots:
-			if not bool(entry.active) and absf(player.position.x-float(entry.x))<100:
+			if not bool(entry.active) and player.is_on_floor() and absf(player.position.x-float(entry.x))<90 and absf(player.position.y+18-float(entry.get("y",FLOOR_Y)))<32:
 				reserved_id=str(entry.id)
 				_prompt.text=str(entry.label)+" · 功能预留，尚未开放"
-	world.update_focus(player.position.x,camera.get_screen_center_position().x)
+	world.update_focus(player.position,camera.get_screen_center_position().x)
 	_controls.visible = not input_blocked and controller.router.touch_enabled and controller.router.current_device != &"gamepad"
 	overlay.visible=not input_blocked and overlay.enabled and controller.router.current_device!=&"gamepad"
 
 func interact() -> void:
-	if input_blocked or nearest_id.is_empty():
+	if input_blocked or not player.is_on_floor() or nearest_id.is_empty():
 		return
 	requested_interaction.emit(nearest_id)
 
@@ -193,4 +203,4 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _process(_delta: float) -> void:
 	if is_instance_valid(player) and is_instance_valid(camera):
-		camera.position.x=clampf(player.position.x,640.0,WORLD_WIDTH-640.0)
+		camera.position.x=clampf(player.position.x,640.0,float(world.specification.world_width)-640.0)

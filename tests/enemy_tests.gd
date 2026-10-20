@@ -125,6 +125,21 @@ func run(tree: SceneTree, check: Callable) -> void:
 	fixture.world.process_mode = Node.PROCESS_MODE_ALWAYS
 	actor.set_physics_process(true)
 	await tree.physics_frame
+	# Accepted hurt is a new authored motion state. Prove pause freezes that
+	# state before isolating the original ordinary-AI pause/resume contract.
+	var hurt_before_pause := actor._damage_stun_remaining
+	check.call(hurt_before_pause > 0, "fresh accepted hit enters authored enemy hurt motion")
+	tree.paused = true
+	for index: int in 3:
+		await tree.physics_frame
+	check.call(actor._damage_stun_remaining == hurt_before_pause, "actual pause freezes accepted hurt duration")
+	tree.paused = false
+	for index: int in 3:
+		await tree.physics_frame
+	check.call(actor._damage_stun_remaining < hurt_before_pause, "unpause resumes accepted hurt countdown")
+	for index: int in ceili(actor.damage_feedback.enemy_knockback_seconds / DT) + 1:
+		await tree.physics_frame
+	check.call(actor._damage_stun_remaining == 0, "ordinary AI pause fixture waits for natural authored hurt exit")
 	var before_pause := actor.motor.global_position
 	tree.paused = true
 	for index: int in 3:

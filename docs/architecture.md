@@ -79,7 +79,9 @@ CameraRig负责世界边界与预告视野，不改物理和输入意图；非�
 多端口与镜像接入：PlatformingModuleDefinition提供类型化entry_ports/exit_ports及canonical选择，ModuleReflection只反射数据；RandomStageAssembler消费记录的反射和端口，RandomStagePreview消费过滤后的终端world_exits并记录唯一chosen_exit_id。资源/输入/Motor与选择结算分别管理，练习多终点不更新正式Run/Meta。正式RoutePlanner出口数量未来配置化，当前固定demo默认两选项不变。
 
 
-## 平原区域美术接入（ART-PLAINS-01）
+## 历史平原区域美术接入（ART-PLAINS-01）
+
+本节记录旧美术接入。八关消费者已退休；当前正式两图与美术方向以[当前状态](current_state.md)及[美术地基](art_foundation_v1.md)为准。
 
 用户授权复用美术分支风格作为第一个平原大关基础。权威素材与连接规范见[美术接入](demo_art_route.md)、[地形](terrain_art.md)、[背景](background_art.md)、[角色](character_art.md)。草顶冷灰岩石、低饱和青绿远山与旧黄铜机械保持跨模块连续；前景危险红橙、射击青色/跳跃琥珀语义保持。后续小模块、大动作段、转折/分叉均沿用功能轮廓与连接契约，不以装饰改变关卡可达性。
 
@@ -91,10 +93,10 @@ PlainsTerrainSkin仅绘制既有Rect2，端头裁剪/中段重复/填充裁剪�
 世界区域白名单与故事层级来自[世界锚点](world_and_story.md)及design-only目录，不是万能全局管理器。未来BiomeRoutePlanner负责跨地区候选，现有RoutePlanner负责小关类型；RunDirector拥有阶段/唯一切换和终局。StoryService局部去重发现、StoryDefinition保存层级与等效投放、MetaProgression保存已发现集合、SaveService负责实际持久提交；表现不能决定胜负/奖励。只在后续任务有消费者时实现这些接口，不本轮创建16个空场景。
 
 
-## 平原八关与音符切片职责
+## 当前区域与音符职责
 
-PlainsStageGenerator根据Run Seed、stage_index、StageType和当前PlayerTuning生成严格版本化模块manifest与安全布置点；GeneratedDemoStage仅实例化几何/机关/内容，不决定胜负与钱币结算。DemoApp编排已有RunDirector/FrameDamagePolicy/SegmentRespawn/RewardService，在伤害批次后处理拾取请求，死亡取消当帧未提交动作。镜头与出界检测来自实际world_bounds，不沿用固定房间坐标。
+正式入口由 DemoApp 编排 PlainsRegionGenerator / ThornForestRegionGenerator 与对应 RegionStage / Assembler，按地区和地图索引消费版本化 Manifest。RandomStageGenerator 与 GeneratedDemoStage 继续服务共享模块和三段快速演示。旧 PlainsStageGenerator 八房间链已删除。伤害批次后处理拾取请求，死亡取消当帧未提交动作；镜头与出界检测来自实际 world_bounds。
 
 RunWallet拥有金币；MetaProgression拥有音符/永久升级/收据，MetaSaveService负责版本与存储适配，不隐式转换。永久升级通过新局HealthDefinition克隆基础注入，然后BuildState捕获基线；临时道具来源撤销不消除永久基线，不直接改PlayerController。Boss核心固定、随机入口与阶段/伤害/金奖职责分离。
 
-D065：PlainsBlueprintSchedule纯函数从独立Seed命名空间选编排，PlainsStageGenerator记录计划，PlainsBranchLayout记录实际几何、节奏和分支风险，GeneratedDemoStage只消费奖励位置与表现；RunManifest复核计划。见[趣味性切片](plains_playful_blueprints.md)。
+历史 D065 的 PlainsBlueprintSchedule / PlainsBranchLayout 与专属八房间配置、验证已退休。[趣味性切片](plains_playful_blueprints.md)保留当时的设计和证据；当前模块、随机流与保存职责见[模块地图](module_map.md)。

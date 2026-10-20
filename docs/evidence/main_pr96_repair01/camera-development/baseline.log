@@ -1,0 +1,32 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+ERROR: automatic observation hint does not pan the stable forest view
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/forest_camera_stability_runner.gd:21)
+       [1] run (res://tests/forest_camera_stability_runner.gd:70)
+       [2] tick (res://tests/forest_camera_stability_runner.gd:27)
+ERROR: ordinary short jump keeps the world vertically stable
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/forest_camera_stability_runner.gd:21)
+       [1] run (res://tests/forest_camera_stability_runner.gd:91)
+       [2] tick (res://tests/forest_camera_stability_runner.gd:27)
+ERROR: ground to air and hint exit have no abrupt camera impulse
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/forest_camera_stability_runner.gd:21)
+       [1] run (res://tests/forest_camera_stability_runner.gd:92)
+       [2] tick (res://tests/forest_camera_stability_runner.gd:27)
+ERROR: landing does not recenter the entire screen
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] check (res://tests/forest_camera_stability_runner.gd:21)
+       [1] run (res://tests/forest_camera_stability_runner.gd:93)
+       [2] tick (res://tests/forest_camera_stability_runner.gd:27)
+FOREST CAMERA STABILITY: 204 assertions, 4 failures
+Traceback (most recent call last):
+  File "<stdin>", line 4, in <module>
+  File "/workspace/gunman-rush/tools/run_tests.py", line 42, in run_engine
+    raise RuntimeError(f"Godot returned {process.returncode}")
+RuntimeError: Godot returned 1

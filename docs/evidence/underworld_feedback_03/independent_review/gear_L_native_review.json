@@ -1,0 +1,179 @@
+{
+  "reviewer": "/root/r3_review",
+  "verdict": "ACCEPT bounded actual L moving-gear hurt entry/exit visual sample",
+  "source_commit": "c259f8cf1093102e53a1c34d19936e55f61f2839",
+  "source_before_after_equal": true,
+  "source_files": 1077,
+  "bound_artifact_audit": [
+    {
+      "path": "build/underworld_r3/captures_L/gear_attempt1/audio_measurement.log",
+      "sha_match": true,
+      "bytes_match": true
+    },
+    {
+      "path": "build/underworld_r3/captures_L/gear_attempt1/capture.log",
+      "sha_match": true,
+      "bytes_match": true
+    },
+    {
+      "path": "build/underworld_r3/captures_L/gear_attempt1/encode.log",
+      "sha_match": true,
+      "bytes_match": true
+    },
+    {
+      "path": "build/underworld_r3/captures_L/gear_attempt1/movie.mp4",
+      "sha_match": true,
+      "bytes_match": true
+    },
+    {
+      "path": "build/underworld_r3/captures_L/gear_attempt1/trace.json",
+      "sha_match": true,
+      "bytes_match": true
+    }
+  ],
+  "critical_source_audit": [
+    {
+      "path": "scripts/underworld_plains/underworld_player.gd",
+      "bound_matches_git_blob": true
+    },
+    {
+      "path": "scripts/generation/module_saw_hazard.gd",
+      "bound_matches_git_blob": true
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "bound_matches_git_blob": true
+    },
+    {
+      "path": "tests/underworld_plains/capture_revision3_environment.gd",
+      "bound_matches_git_blob": true
+    }
+  ],
+  "actually_opened_full_native_frames": [
+    80,
+    90,
+    92,
+    93,
+    98,
+    108,
+    115,
+    150
+  ],
+  "actually_viewed_consecutive_raw_crops": {
+    "rows": [
+      91,
+      128
+    ],
+    "count": 38,
+    "crop": [
+      520,
+      330,
+      840,
+      550
+    ],
+    "scale": "1:1 review-only layout"
+  },
+  "actually_viewed_whole_sample_overview": [
+    0,
+    15,
+    30,
+    45,
+    60,
+    75,
+    90,
+    105,
+    120,
+    135,
+    150,
+    165,
+    180,
+    195,
+    209
+  ],
+  "native_sha_inventory": "build/underworld_r3/review/gear_L_raw_frame_hashes.json",
+  "observations": [
+    "Frames80→92 actual moving gear visibly approaches accepted running body; gear keeps rotating/translating.",
+    "Row93 health5→4 at one true gear contact; old source red hurt echo remains next to actual gear while safe body fades in under real upper shortcut bell.",
+    "Two hurt poses and pulsed tint are visible during38-consecutive-row review; body exits hurt into ordinary idle and all flash/echo fades finish without replay.",
+    "No delayed HP deduction or extra epoch return, no stretched particle streak, no reset of world gear phase.",
+    "Existing safe anchor/heart/gate floor remains visible; heart is not auto-granted by the fixture.",
+    "One initial fixture positioning then only realD press/release; ordinary AI/world left active; not a natural full region walk."
+  ],
+  "health_commits": [
+    {
+      "amount_applied": -1.0,
+      "engine_drawn_frame": 130,
+      "event_id": "rhythm_first@566700804966:3:1:1",
+      "health": 4.0,
+      "old_hit_position": [
+        2115.3310546875,
+        -700.074768066406
+      ],
+      "physics_tick": 131,
+      "terminal": false,
+      "trace_row": 93
+    }
+  ],
+  "damage_receipts": [
+    {
+      "actor_epoch": 3,
+      "amount": 1.0,
+      "commit_physics_tick": 131,
+      "event_id": "rhythm_first@566700804966:3:1:1",
+      "health": 4.0,
+      "hit_direction": [
+        -0.941381931304932,
+        0.33734267950058
+      ],
+      "kind": 1,
+      "request_physics_tick": 131,
+      "source_id": "rhythm_first@566700804966",
+      "stage_epoch": 3,
+      "trace_row": 93
+    }
+  ],
+  "segment_returns": [
+    {
+      "hurt_remaining": 0.32,
+      "physics_tick": 131,
+      "return_fade": 0.24,
+      "safe_entry_position": [
+        1760.0,
+        -700.0
+      ],
+      "trace_row": 93
+    }
+  ],
+  "actual_inputs": [
+    {
+      "event": "InputEventKey",
+      "key": "D",
+      "physics_tick": 49,
+      "pressed": true,
+      "trace_row": 12
+    },
+    {
+      "event": "InputEventKey",
+      "key": "D",
+      "physics_tick": 131,
+      "pressed": false,
+      "trace_row": 94
+    }
+  ],
+  "media": {
+    "trace_rows": 210,
+    "checks": 225,
+    "failures": [],
+    "rms_db": [
+      "-30.622058"
+    ],
+    "wall_seconds": 115.00791824300177,
+    "duration": "4.200000"
+  },
+  "limits": [
+    "No full movie realtime playback or sound listening",
+    "No device/user gamefeel acceptance",
+    "Specific actual moving-gear sample only, not every region/seed/gear",
+    "Software host wall speed is not device FPS"
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "decision": "SCOPED_ACCEPT",
+  "source_commit": "3affbc89011bce1ef206ce377f9ebdfc724880d4",
+  "reviewed_commit": "3affbc89011bce1ef206ce377f9ebdfc724880d4",
+  "reviewed_final_runtime_commit": "3affbc89011bce1ef206ce377f9ebdfc724880d4",
+  "reviewer": "independent_review",
+  "scope": "Final C2 exact code/resource closure of independently reviewed C1 rooted-hit repair plus original W11 Foundry build/stamp and typed replay equivalence.",
+  "independent_reviewer_changed_tracked_files": false,
+  "execution_provenance": {
+    "rooted_fix_proof": "Actual H2cea407 plus dirty Actor; original receipts preserved. Exact tested Actor SHA equals C1 and C2. See C1_rooted_fix_review.",
+    "Foundry_actual_execution_source_commit": "220fe7dec48e46ad52b8a83302f6c46e8352bac8",
+    "Foundry_final_resource_commit": "3affbc89011bce1ef206ce377f9ebdfc724880d4",
+    "C1_to_C2_changed_paths": "Exactly56 resources/foundry JSON outputs; no other production/test/tool delta.",
+    "prior_K_Web": "Original19 viewed Web PNGs and20/8 GUI remain source K8f803e2f04b17db3ed725df9071669fe78cadeea. They are not relabelled C2, public or user/device evidence."
+  },
+  "final_code": {
+    "C1_scoped_review": "build/forest_revision04/rooted-fix-review/C1_rooted_fix_review.json",
+    "Actor_sha256": "fd0472ed114bbe1dfccc8b3bcd569fecd54ad3473a14b3a31ac8af71cc2186d8",
+    "code_byte_equal_C1": true,
+    "prior_K_four_source_repairs_unchanged_except_additional_Actor_fix": true
+  },
+  "W11_actual_proof": {
+    "original_build_phrases": 36,
+    "original_continuous_itineraries": 18,
+    "replays": 54,
+    "replay_frames": 56113,
+    "build_exit": 0,
+    "build_seconds": 56.650100539998675,
+    "build_cap": 1000,
+    "stamp_exit": 0,
+    "stamp_seconds": 1.4173609879981086,
+    "stamp_cap": 90,
+    "original_three_capability_profiles": [
+      "base",
+      "double_jump",
+      "air_chain"
+    ],
+    "completion_and_strict_error_scan_verified": true,
+    "fresh_build_source_C1": true,
+    "new_native_requested_by_reviewer": false
+  },
+  "independent_data_verification": {
+    "baseline": "All56 frozen H2 Git blobs independently equal R169 and preserved baseline_H2 bytes; no obsolete c77f baseline substitution.",
+    "after": "All56 C2 Git blobs equal actual source_after and archived new outputs.",
+    "typed_compare": "Every field/value and scalar type compared across54 complete replays plus batch/export, excluding independently derived exact326 provenance paths. Actions/axis/positions/shots/repair attempts/route identities all unchanged.",
+    "exact_provenance_exceptions": 326,
+    "108_direct_old_new_manifest_checksums_recomputed": true,
+    "nested_phrase_and_replay_manifest_links_verified": true,
+    "independent_mutation_refusals": [
+      {
+        "name": "same_value_axis_float_to_int",
+        "refused": "/replays/climb_change_height-air_chain-v0-p0.json/frames/0/axis:type"
+      },
+      {
+        "name": "same_value_position_float_to_int",
+        "refused": "/replays/climb_change_height-air_chain-v0-p0.json/frames/0/position/0:type"
+      },
+      {
+        "name": "shot_count_changed",
+        "refused": "/replays/climb_change_height-air_chain-v0-p0.json/frames/0/shots:value"
+      },
+      {
+        "name": "action_added",
+        "refused": "/replays/climb_change_height-air_chain-v0-p0.json/frames/0/actions:length"
+      },
+      {
+        "name": "repair_attempt_changed",
+        "refused": "/batch/accepted/0/repair_attempt:value"
+      },
+      {
+        "name": "route_identity_changed",
+        "refused": "/batch/accepted/0/manifest/id:value"
+      }
+    ],
+    "source_guard_entries": 1861,
+    "only_expected56_output_changes": true,
+    "full_inventory_binding": {
+      "prior_independent_W9_all1861_Git_blob_audit": "build/foundry_final_W9/independent_audit_result.json",
+      "prior_W9_after_inventory_same_paths": true,
+      "R169_to_C1_changed_inventory_entries": [
+        "scripts/art/avatar_presentation.gd",
+        "scripts/enemies/enemy_actor.gd",
+        "tests/root_bell_tests.gd",
+        "tests/underworld_plains/test_underworld_identity_population.gd",
+        "tools/run_root_bell_tests.py"
+      ],
+      "all5_changed_entries_hash_equal_C1": true,
+      "all_others_equal_verified_R169_and_Git_unchanged": true
+    },
+    "basis": {
+      "inputs": 203,
+      "only_changed_input": "scripts/enemies/enemy_actor.gd",
+      "before": "f3e060598385696137aa40910811fcbfed931853fe7f4c9992b11cf1af0263cb",
+      "after": "6323c953b6d79b79b401659338da5c37bc8cd49853554593b9323717fc8ca70e",
+      "both_basis_strings_independently_recomputed_from_actual_Git_blobs": true
+    }
+  },
+  "archive": {
+    "sha256": "7137c210cf6c329e0f1a7eea29413ec7c0060bf0adf5d6e0398c0d7399d65f50",
+    "bytes": 733481,
+    "members": 82,
+    "indexed_members_verified": 82,
+    "all56_output_bytes_equal_C2": true
+  },
+  "preserved_errata": {
+    "logger_scope": "Preserved raw outer logger says c77f in scope string. Actual compare.py baseline_H2, baseline inventory and all56 independently compared Git H2 blobs are correct. Authored handoff corrects text separately; original raw was not rewritten.",
+    "W10": "Prior cancelled W10 remains cancelled: font-only did not enter basis. C1 Actor does enter basis, hence this new W11 build is necessary. Old W9/W10 evidence not modified or retrospectively relabelled.",
+    "H2_first56": "Original1pass/1fail/54notexecuted retained. C1 three-check pass is separate; currently running55 is not signed."
+  },
+  "independent_audit_files": [
+    "build/forest_revision04/rooted-fix-review/C2_W11_independent_audit.json",
+    "build/forest_revision04/rooted-fix-review/audit_C2_W11_readonly.py"
+  ],
+  "not_accepted": [
+    "Currently running55 targeted checks or final fullCI",
+    "New full80/policy600 or continuous films on C2",
+    "K localWeb report as currentC2/public deployment proof",
+    "RootBell wholecampaign ecology/wholeforest aesthetics from Foundry replays",
+    "Audio/physical device/user acceptance"
+  ],
+  "reviewer_started_native_or_browser": false
+}

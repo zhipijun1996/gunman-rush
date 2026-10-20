@@ -1,0 +1,344 @@
+{
+	"checks": 84,
+	"failures": 0,
+	"observations": [
+		{
+			"label": "windchime has a real solid door and a shot-only bell collision layer",
+			"ok": true
+		},
+		{
+			"label": "closed door physically blocks Motor before any switch opens",
+			"ok": true
+		},
+		{
+			"label": "real projectile that misses bell cannot open gate",
+			"ok": true
+		},
+		{
+			"label": "real Router release projectile physically hits bell and opens first door once",
+			"ok": true
+		},
+		{
+			"label": "deferred opening actually removes door collision",
+			"ok": true
+		},
+		{
+			"label": "actual Motor crosses the opened first gate without teleport or position fixture",
+			"ok": true
+		},
+		{
+			"label": "bank-origin real projectile reaches the well bell before committing to jump",
+			"ok": true
+		},
+		{
+			"label": "actual downward release shot gives existing aerial upward recoil during the gap jump",
+			"ok": true
+		},
+		{
+			"label": "real one-jump Motor route crosses both open doors and well to exit without damage",
+			"ok": true
+		},
+		{
+			"label": "repeated physical downward shots do not reopen or duplicate switch settlement",
+			"ok": true
+		},
+		{
+			"label": "windchime fixture uses actual validated SegmentRespawn",
+			"ok": true
+		},
+		{
+			"label": "selective segment return preserves opened doors without scene reset",
+			"ok": true
+		},
+		{
+			"label": "combo route reaches the well with second gate still closed",
+			"ok": true
+		},
+		{
+			"label": "the SAME actual aerial downward shot hits bell opens gate and produces upward recoil",
+			"ok": true
+		},
+		{
+			"label": "combined shot-and-recoil route physically lands and clears both gates without damage",
+			"ok": true
+		},
+		{
+			"label": "opened latch clears its projectile eligibility ledger",
+			"ok": true
+		},
+		{
+			"label": "a real blocking wall consumes projectile before it reaches the bell",
+			"ok": true
+		},
+		{
+			"label": "live projectile records bounded switch eligibility",
+			"ok": true
+		},
+		{
+			"label": "unopened switch expires missed projectile eligibility after configured projectile lifetime",
+			"ok": true
+		},
+		{
+			"label": "eligible pending shot fixture accepted before return",
+			"ok": true
+		},
+		{
+			"label": "deferred request revalidates life and cannot open after return",
+			"ok": true
+		},
+		{
+			"label": "eligible pending shot fixture accepted before end",
+			"ok": true
+		},
+		{
+			"label": "deferred request revalidates life and cannot open after end",
+			"ok": true
+		},
+		{
+			"label": "eligible pending shot fixture accepted before cancel",
+			"ok": true
+		},
+		{
+			"label": "deferred request revalidates life and cannot open after cancel",
+			"ok": true
+		},
+		{
+			"label": "eligible pending shot fixture accepted before pending_cancel",
+			"ok": true
+		},
+		{
+			"label": "deferred request revalidates life and cannot open after pending_cancel",
+			"ok": true
+		},
+		{
+			"label": "eligible pending shot fixture accepted before death",
+			"ok": true
+		},
+		{
+			"label": "deferred request revalidates life and cannot open after death",
+			"ok": true
+		},
+		{
+			"label": "interact/contact alone cannot open upper-bank attack gate",
+			"ok": true
+		},
+		{
+			"label": "real accepted upper-bank projectile opens gate once",
+			"ok": true
+		},
+		{
+			"label": "repeat real projectile does not duplicate settlement",
+			"ok": true
+		},
+		{
+			"label": "real lower-side projectile within90wu cannot open shortcut",
+			"ok": true
+		},
+		{
+			"label": "real occluded shot cannot activate shortcut",
+			"ok": true
+		},
+		{
+			"label": "enemy damage context rejected by player-only switch",
+			"ok": true
+		},
+		{
+			"label": "stale actor token cannot open shortcut",
+			"ok": true
+		},
+		{
+			"label": "assembler remains sole actual wall and gate visual owner",
+			"ok": true
+		},
+		{
+			"label": "actual assembler accepts attack and persists original opened ledger",
+			"ok": true
+		},
+		{
+			"label": "actual assembler shortcut settles once",
+			"ok": true
+		},
+		{
+			"label": "assembler reload restores opened shortcut and disables receiver/wall",
+			"ok": true
+		},
+		{
+			"label": "segment request cancellation preserves opened state",
+			"ok": true
+		},
+		{
+			"label": "actual claimed state selects corresponding body pose",
+			"ok": true
+		},
+		{
+			"label": "opened chest is opaque original-color art, never greyed",
+			"ok": true
+		},
+		{
+			"label": "both chest bodies preserve source aspect",
+			"ok": true
+		},
+		{
+			"label": "both chest poses retain same world foot",
+			"ok": true
+		},
+		{
+			"label": "actual claimed state selects corresponding body pose",
+			"ok": true
+		},
+		{
+			"label": "opened chest is opaque original-color art, never greyed",
+			"ok": true
+		},
+		{
+			"label": "both chest bodies preserve source aspect",
+			"ok": true
+		},
+		{
+			"label": "both chest poses retain same world foot",
+			"ok": true
+		},
+		{
+			"label": "actual claimed state selects corresponding body pose",
+			"ok": true
+		},
+		{
+			"label": "opened chest is opaque original-color art, never greyed",
+			"ok": true
+		},
+		{
+			"label": "both chest bodies preserve source aspect",
+			"ok": true
+		},
+		{
+			"label": "both chest poses retain same world foot",
+			"ok": true
+		},
+		{
+			"label": "actual claimed state selects corresponding body pose",
+			"ok": true
+		},
+		{
+			"label": "opened chest is opaque original-color art, never greyed",
+			"ok": true
+		},
+		{
+			"label": "both chest bodies preserve source aspect",
+			"ok": true
+		},
+		{
+			"label": "both chest poses retain same world foot",
+			"ok": true
+		},
+		{
+			"label": "real generated opened chest has nonempty texture",
+			"ok": true
+		},
+		{
+			"label": "actual ordinary formal entry accepted",
+			"ok": true
+		},
+		{
+			"label": "actual formal map installs attack-only shortcut consumers",
+			"ok": true
+		},
+		{
+			"label": "actual Stage exposes no interact shortcut route",
+			"ok": true
+		},
+		{
+			"label": "actual default Boss seal inherits Underworld material context",
+			"ok": true
+		},
+		{
+			"label": "actual application interact cannot activate shortcut",
+			"ok": true
+		},
+		{
+			"label": "actual formal Router projectile activates upper shortcut and ledger",
+			"ok": true
+		},
+		{
+			"label": "actual formal unclaimed cache starts closed",
+			"ok": true
+		},
+		{
+			"label": "merely opening real offer does not open cache body",
+			"ok": true
+		},
+		{
+			"label": "denied actual claim leaves closed cache",
+			"ok": true
+		},
+		{
+			"label": "actual original cache reward transaction accepts legal choice",
+			"ok": true
+		},
+		{
+			"label": "actual accepted claim displays opaque colored open chest",
+			"ok": true
+		},
+		{
+			"label": "actual stage reload restores open chest from existing claimed ledger",
+			"ok": true
+		},
+		{
+			"label": "actual formal map installs attack-only shortcut consumers",
+			"ok": true
+		},
+		{
+			"label": "actual Stage exposes no interact shortcut route",
+			"ok": true
+		},
+		{
+			"label": "actual default Boss seal inherits Underworld material context",
+			"ok": true
+		},
+		{
+			"label": "actual application interact cannot activate shortcut",
+			"ok": true
+		},
+		{
+			"label": "actual formal Router projectile activates upper shortcut and ledger",
+			"ok": true
+		},
+		{
+			"label": "actual formal unclaimed cache starts closed",
+			"ok": true
+		},
+		{
+			"label": "merely opening real offer does not open cache body",
+			"ok": true
+		},
+		{
+			"label": "denied actual claim leaves closed cache",
+			"ok": true
+		},
+		{
+			"label": "actual original cache reward transaction accepts legal choice",
+			"ok": true
+		},
+		{
+			"label": "actual accepted claim displays opaque colored open chest",
+			"ok": true
+		},
+		{
+			"label": "actual stage reload restores open chest from existing claimed ledger",
+			"ok": true
+		},
+		{
+			"label": "formal application tears down audio strictly",
+			"ok": true
+		},
+		{
+			"label": "native catalog actual viewport1280x720",
+			"ok": true
+		},
+		{
+			"label": "actual GameAudio shutdown waits for mixer playback release",
+			"ok": true
+		}
+	],
+	"schema": "underworld-r3-objects-actual-v1",
+	"scope": "Original real ShotLatch route and rejection tests preserved, dedicated upper-bank physical projectile, lower bank, occlusion, interact, duplicate, enemy/stale contexts and actual chest textures/foot. Formal claim/reload and GPU separate."
+}

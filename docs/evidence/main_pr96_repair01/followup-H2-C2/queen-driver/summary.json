@@ -1,0 +1,1934 @@
+{
+  "scope": "Recorded v7/schema13 actual-App Queen fixture driver repair only; no production/shared fixture changes; no whole-Boss design or visual/device admission",
+  "actual_execution_head": "1352f59f1b4761fe0ed806b0c0a165bcc7d54fab",
+  "actual_execution_dirty_paths": [
+    "tests/forest_depth_campaign_boss_runner.gd"
+  ],
+  "source": {
+    "original_runner_sha256": "a26665efaddda1462b707d729f6fac7909567f48cb72f965a0253256f98a2ccc",
+    "observer_runner_sha256": "450c54004b0ad19367e5b28cf7864270ab5baba6cf69c8215effc02307b44b1c",
+    "final_runner_sha256": "7d874d6956b47a7cca85704a59b45a5ce3f5d3df1e59aa29690ca1ccb399fc49",
+    "unchanged_shared_fixture_sha256": "142a8c6ce0d04253fc3fe7dd86d46eb6e6e89c1dcb3ef2aad4aee7a748727b45"
+  },
+  "original_failure": "build/forest_depth/campaign/harness-queen/harness-7b50c8f10c6541feb9c92301e2701783",
+  "passive_reproduction": "build/forest_depth/campaign/queen-driver-T-observe-r1",
+  "final_strict_wrapper": "build/forest_depth/campaign/queen-driver-T-fix-r1",
+  "original_caps": {
+    "import_seconds": 90,
+    "native_seconds": 180,
+    "combat_physics_frames": 4200,
+    "jump_frames": 23,
+    "R_wait_frames": 15,
+    "receive_frames": 100,
+    "floor_wait_frames": 160,
+    "walk_frames": 180
+  },
+  "final": {
+    "outer_exit": 0,
+    "outer_seconds": 17.643195867538452,
+    "wrapper_seconds": 17.431156908001867,
+    "source_guard": true,
+    "checks": 30,
+    "failures": [],
+    "combat_start_tick": 308,
+    "combat_elapsed_frames": 1327,
+    "boss_hp_before": 24.0,
+    "boss_hp_after": 0.0,
+    "player_hp_after": 3.0,
+    "defeats": 1,
+    "reloaded": true,
+    "capture_sha256": "4cd10f96252cecd7f798a15b9606b0138f19d6a4c018caeb9061d4cf3942f272"
+  },
+  "causality": {
+    "observed_old_frames": [
+      {
+        "actor_epoch": 3,
+        "actual_contacts": [
+          {
+            "collider": "/root/@Node@2/@Node2D@3/@Node2D@98/@Node2D@99/queen_branch_1",
+            "normal": [
+              0.0,
+              -1.0
+            ]
+          },
+          {
+            "collider": "/root/@Node@2/@Node2D@3/@Node2D@98/@Node2D@99/queen_branch_1",
+            "normal": [
+              0.0,
+              -1.0
+            ]
+          },
+          {
+            "collider": "/root/@Node@2/@Node2D@3/@Node2D@98/@Node2D@99/queen_branch_1",
+            "normal": [
+              0.0,
+              -1.0
+            ]
+          }
+        ],
+        "air_shots": 2,
+        "axis": 1.0,
+        "boss": [
+          1862.0,
+          90.0
+        ],
+        "boss_hp": 20.0,
+        "capacity": 5.0,
+        "damage_remaining": 0.18,
+        "driver_phase": "fight",
+        "eligible": 8,
+        "energy": 52.5,
+        "fields": [
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 7.03333333333331,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 7.03333333333331,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "spawned": false
+          }
+        ],
+        "grounded": true,
+        "hook": "free",
+        "mode": "flight",
+        "motor_steps": 1,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "phase": 1,
+        "physics_frame": 1073,
+        "player": [
+          1826.17138671875,
+          131.925277709961
+        ],
+        "player_hp": 4.0,
+        "recoil_remaining": 0.0,
+        "route_phase": 1,
+        "seal": true,
+        "segment": "before_reload",
+        "session": 2,
+        "shot_cooldown": 0.1,
+        "stage_epoch": 3,
+        "tick": 447,
+        "used_jumps": 0,
+        "velocity": [
+          260.0,
+          0.0
+        ]
+      },
+      {
+        "actor_epoch": 3,
+        "actual_contacts": [],
+        "air_shots": 2,
+        "axis": 1.0,
+        "boss": [
+          1858.0,
+          90.0
+        ],
+        "boss_hp": 20.0,
+        "capacity": 5.0,
+        "damage_remaining": 0.163333333333333,
+        "driver_phase": "fight",
+        "eligible": 8,
+        "energy": 52.5,
+        "fields": [
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 7.04999999999998,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 7.04999999999998,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "spawned": false
+          }
+        ],
+        "grounded": false,
+        "hook": "free",
+        "mode": "flight",
+        "motor_steps": 1,
+        "normal_velocity": [
+          260.0,
+          43.3333320617676
+        ],
+        "phase": 1,
+        "physics_frame": 1074,
+        "player": [
+          1822.33764648438,
+          130.230621337891
+        ],
+        "player_hp": 4.0,
+        "recoil_remaining": 0.0,
+        "route_phase": 1,
+        "seal": true,
+        "segment": "before_reload",
+        "session": 2,
+        "shot_cooldown": 0.0833333333333334,
+        "stage_epoch": 3,
+        "tick": 448,
+        "used_jumps": 0,
+        "velocity": [
+          -230.0,
+          -101.66667175293
+        ]
+      },
+      {
+        "actor_epoch": 3,
+        "actual_contacts": [],
+        "air_shots": 2,
+        "axis": 0.0,
+        "boss": [
+          1658.0,
+          -30.0
+        ],
+        "boss_hp": 19.0,
+        "capacity": 5.0,
+        "damage_remaining": 0.0,
+        "driver_phase": "enter_upper_jump",
+        "eligible": 9,
+        "energy": 71.0,
+        "fields": [
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 8.56666666666667,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 8.56666666666667,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "spawned": false
+          }
+        ],
+        "grounded": false,
+        "hook": "free",
+        "mode": "perched",
+        "motor_steps": 1,
+        "normal_velocity": [
+          0.0,
+          -622.666687011719
+        ],
+        "phase": 1,
+        "physics_frame": 1165,
+        "player": [
+          2144.3828125,
+          361.546264648438
+        ],
+        "player_hp": 4.0,
+        "recoil_remaining": 0.0,
+        "route_phase": 1,
+        "seal": true,
+        "segment": "before_reload",
+        "session": 2,
+        "shot_cooldown": 0.0,
+        "stage_epoch": 3,
+        "tick": 539,
+        "used_jumps": 1,
+        "velocity": [
+          0.0,
+          -622.666687011719
+        ]
+      },
+      {
+        "actor_epoch": 3,
+        "actual_contacts": [],
+        "air_shots": 2,
+        "axis": 0.0,
+        "boss": [
+          1658.0,
+          -30.0
+        ],
+        "boss_hp": 19.0,
+        "capacity": 5.0,
+        "damage_remaining": 0.0,
+        "driver_phase": "enter_upper_jump",
+        "eligible": 9,
+        "energy": 71.0,
+        "fields": [
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 8.58333333333334,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 8.58333333333334,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "spawned": false
+          }
+        ],
+        "grounded": false,
+        "hook": "free",
+        "mode": "perched",
+        "motor_steps": 1,
+        "normal_velocity": [
+          0.0,
+          -622.666687011719
+        ],
+        "phase": 1,
+        "physics_frame": 1166,
+        "player": [
+          2144.3828125,
+          351.168487548828
+        ],
+        "player_hp": 4.0,
+        "recoil_remaining": 0.0,
+        "route_phase": 1,
+        "seal": true,
+        "segment": "before_reload",
+        "session": 2,
+        "shot_cooldown": 0.0,
+        "stage_epoch": 3,
+        "tick": 540,
+        "used_jumps": 1,
+        "velocity": [
+          0.0,
+          -622.666687011719
+        ]
+      },
+      {
+        "actor_epoch": 3,
+        "actual_contacts": [],
+        "air_shots": 2,
+        "axis": 0.0,
+        "boss": [
+          1658.0,
+          -30.0
+        ],
+        "boss_hp": 19.0,
+        "capacity": 5.0,
+        "damage_remaining": 0.18,
+        "driver_phase": "enter_upper_jump",
+        "eligible": 9,
+        "energy": 71.0,
+        "fields": [
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 8.60000000000001,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 8.60000000000001,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.683333333333334,
+              "pulse": 1,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "spawned": false
+          }
+        ],
+        "grounded": false,
+        "hook": "free",
+        "mode": "perched",
+        "motor_steps": 1,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "phase": 1,
+        "physics_frame": 1167,
+        "player": [
+          2144.3828125,
+          340.790710449219
+        ],
+        "player_hp": 3.0,
+        "recoil_remaining": 0.0,
+        "route_phase": 1,
+        "seal": true,
+        "segment": "before_reload",
+        "session": 2,
+        "shot_cooldown": 0.0,
+        "stage_epoch": 3,
+        "tick": 541,
+        "used_jumps": 1,
+        "velocity": [
+          0.0,
+          -622.666687011719
+        ]
+      },
+      {
+        "actor_epoch": 3,
+        "actual_contacts": [],
+        "air_shots": 2,
+        "axis": 0.0,
+        "boss": [
+          1658.0,
+          -30.0
+        ],
+        "boss_hp": 19.0,
+        "capacity": 5.0,
+        "damage_remaining": 0.03,
+        "driver_phase": "enter_upper_jump",
+        "eligible": 9,
+        "energy": 71.0,
+        "fields": [
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 8.75000000000001,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 8.75000000000001,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.533333333333342,
+              "pulse": 1,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "spawned": false
+          }
+        ],
+        "grounded": false,
+        "hook": "free",
+        "mode": "perched",
+        "motor_steps": 1,
+        "normal_velocity": [
+          0.0,
+          390.000030517578
+        ],
+        "phase": 1,
+        "physics_frame": 1176,
+        "player": [
+          2109.88354492188,
+          351.540710449219
+        ],
+        "player_hp": 3.0,
+        "recoil_remaining": 0.0,
+        "route_phase": 1,
+        "seal": true,
+        "segment": "before_reload",
+        "session": 2,
+        "shot_cooldown": 0.0,
+        "stage_epoch": 3,
+        "tick": 550,
+        "used_jumps": 1,
+        "velocity": [
+          -230.0,
+          245.000030517578
+        ]
+      },
+      {
+        "actor_epoch": 3,
+        "actual_contacts": [
+          {
+            "collider": "/root/@Node@2/@Node2D@3/@Node2D@98/@Node2D@99/queen_floor",
+            "normal": [
+              0.0,
+              -1.0
+            ]
+          }
+        ],
+        "air_shots": 2,
+        "axis": 0.0,
+        "boss": [
+          1658.0,
+          -30.0
+        ],
+        "boss_hp": 19.0,
+        "capacity": 5.0,
+        "damage_remaining": 0.0,
+        "driver_phase": "enter_upper_jump",
+        "eligible": 9,
+        "energy": 74.5,
+        "fields": [
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 8.93333333333336,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 8.93333333333336,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.350000000000019,
+              "pulse": 1,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "spawned": false
+          }
+        ],
+        "grounded": true,
+        "hook": "free",
+        "mode": "perched",
+        "motor_steps": 1,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "phase": 1,
+        "physics_frame": 1187,
+        "player": [
+          2102.98364257812,
+          371.995910644531
+        ],
+        "player_hp": 3.0,
+        "recoil_remaining": 0.0,
+        "route_phase": 1,
+        "seal": true,
+        "segment": "before_reload",
+        "session": 2,
+        "shot_cooldown": 0.0,
+        "stage_epoch": 3,
+        "tick": 561,
+        "used_jumps": 0,
+        "velocity": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "actor_epoch": 3,
+        "actual_contacts": [],
+        "air_shots": 1,
+        "axis": 0.0,
+        "boss": [
+          1658.0,
+          -30.0
+        ],
+        "boss_hp": 19.0,
+        "capacity": 5.0,
+        "damage_remaining": 0.0,
+        "driver_phase": "enter_upper_down_R",
+        "eligible": 10,
+        "energy": 55.0,
+        "fields": [
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 8.95000000000002,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 8.95000000000002,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.333333333333353,
+              "pulse": 1,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "spawned": false
+          }
+        ],
+        "grounded": false,
+        "hook": "free",
+        "mode": "perched",
+        "motor_steps": 1,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "phase": 1,
+        "physics_frame": 1188,
+        "player": [
+          2102.98364257812,
+          361.841888427734
+        ],
+        "player_hp": 3.0,
+        "recoil_remaining": 0.123333333333333,
+        "route_phase": 1,
+        "seal": true,
+        "segment": "before_reload",
+        "session": 2,
+        "shot_cooldown": 0.25,
+        "stage_epoch": 3,
+        "tick": 562,
+        "used_jumps": 0,
+        "velocity": [
+          0.0,
+          -605.0
+        ]
+      },
+      {
+        "actor_epoch": 3,
+        "actual_contacts": [],
+        "air_shots": 0,
+        "axis": 0.0,
+        "boss": [
+          1658.0,
+          -30.0
+        ],
+        "boss_hp": 19.0,
+        "capacity": 5.0,
+        "damage_remaining": 0.0,
+        "driver_phase": "enter_upper_left_R",
+        "eligible": 11,
+        "energy": 35.0,
+        "fields": [
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 9.20000000000004,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 9.20000000000004,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.0833333333333677,
+              "pulse": 1,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "spawned": false
+          }
+        ],
+        "grounded": false,
+        "hook": "free",
+        "mode": "perched",
+        "motor_steps": 1,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "phase": 1,
+        "physics_frame": 1203,
+        "player": [
+          2121.31689453125,
+          287.257873535156
+        ],
+        "player_hp": 3.0,
+        "recoil_remaining": 0.123333333333333,
+        "route_phase": 1,
+        "seal": true,
+        "segment": "before_reload",
+        "session": 2,
+        "shot_cooldown": 0.25,
+        "stage_epoch": 3,
+        "tick": 577,
+        "used_jumps": 1,
+        "velocity": [
+          1100.0,
+          0.0
+        ]
+      },
+      {
+        "actor_epoch": 3,
+        "actual_contacts": [
+          {
+            "collider": "/root/@Node@2/@Node2D@3/@Node2D@98/@Node2D@99/queen_floor",
+            "normal": [
+              0.0,
+              -1.0
+            ]
+          }
+        ],
+        "air_shots": 2,
+        "axis": 0.0,
+        "boss": [
+          1658.0,
+          -30.0
+        ],
+        "boss_hp": 19.0,
+        "capacity": 5.0,
+        "damage_remaining": 0.0,
+        "driver_phase": "enter_upper_receive",
+        "eligible": 11,
+        "energy": 35.0,
+        "fields": [
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 9.58333333333339,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 9.58333333333339,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.0,
+              "pulse": 1,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "spawned": false
+          }
+        ],
+        "grounded": true,
+        "hook": "free",
+        "mode": "perched",
+        "motor_steps": 1,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "phase": 1,
+        "physics_frame": 1226,
+        "player": [
+          2265.6494140625,
+          371.977935791016
+        ],
+        "player_hp": 3.0,
+        "recoil_remaining": 0.0,
+        "route_phase": 1,
+        "seal": true,
+        "segment": "before_reload",
+        "session": 2,
+        "shot_cooldown": 0.0,
+        "stage_epoch": 3,
+        "tick": 600,
+        "used_jumps": 0,
+        "velocity": [
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "fact": "Actual contact knocked body off middle bank; weave hurt cancelled accepted jump at541; old fixed-delay driver issued DOWN-R562 after actual floor contact561, then LEFT-R577, and failed receiving branch at600 with player alive. Original4200 loop was not exhausted.",
+    "final_recovery_frames": [
+      {
+        "actor_epoch": 3,
+        "actual_contacts": [
+          {
+            "collider": "/root/@Node@2/@Node2D@3/@Node2D@98/@Node2D@99/queen_branch_1",
+            "normal": [
+              0.0,
+              -1.0
+            ]
+          },
+          {
+            "collider": "/root/@Node@2/@Node2D@3/@Node2D@98/@Node2D@99/queen_branch_1",
+            "normal": [
+              0.0,
+              -1.0
+            ]
+          },
+          {
+            "collider": "/root/@Node@2/@Node2D@3/@Node2D@98/@Node2D@99/queen_branch_1",
+            "normal": [
+              0.0,
+              -1.0
+            ]
+          }
+        ],
+        "air_shots": 2,
+        "axis": 1.0,
+        "boss": [
+          1862.0,
+          90.0
+        ],
+        "boss_hp": 20.0,
+        "capacity": 5.0,
+        "damage_remaining": 0.18,
+        "driver_phase": "fight",
+        "eligible": 8,
+        "energy": 52.5,
+        "fields": [
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 7.03333333333331,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 7.03333333333331,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "spawned": false
+          }
+        ],
+        "grounded": true,
+        "hook": "free",
+        "mode": "flight",
+        "motor_steps": 1,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "phase": 1,
+        "physics_frame": 1073,
+        "player": [
+          1826.17138671875,
+          131.925277709961
+        ],
+        "player_hp": 4.0,
+        "recoil_remaining": 0.0,
+        "route_phase": 1,
+        "seal": true,
+        "segment": "before_reload",
+        "session": 2,
+        "shot_cooldown": 0.1,
+        "stage_epoch": 3,
+        "tick": 447,
+        "used_jumps": 0,
+        "velocity": [
+          260.0,
+          0.0
+        ]
+      },
+      {
+        "actor_epoch": 3,
+        "actual_contacts": [],
+        "air_shots": 2,
+        "axis": 0.0,
+        "boss": [
+          1854.0,
+          90.0
+        ],
+        "boss_hp": 20.0,
+        "capacity": 5.0,
+        "damage_remaining": 0.146666666666667,
+        "driver_phase": "regain_wait_floor",
+        "eligible": 8,
+        "energy": 52.5,
+        "fields": [
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 7.06666666666665,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 7.06666666666665,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "spawned": false
+          }
+        ],
+        "grounded": false,
+        "hook": "free",
+        "mode": "flight",
+        "motor_steps": 1,
+        "normal_velocity": [
+          0.0,
+          86.6666641235352
+        ],
+        "phase": 1,
+        "physics_frame": 1075,
+        "player": [
+          1818.50427246094,
+          129.258392333984
+        ],
+        "player_hp": 4.0,
+        "recoil_remaining": 0.0,
+        "route_phase": 1,
+        "seal": true,
+        "segment": "before_reload",
+        "session": 2,
+        "shot_cooldown": 0.0666666666666667,
+        "stage_epoch": 3,
+        "tick": 449,
+        "used_jumps": 0,
+        "velocity": [
+          -230.0,
+          -58.3333358764648
+        ]
+      },
+      {
+        "actor_epoch": 3,
+        "actual_contacts": [
+          {
+            "collider": "/root/@Node@2/@Node2D@3/@Node2D@98/@Node2D@99/queen_floor",
+            "normal": [
+              0.0,
+              -1.0
+            ]
+          },
+          {
+            "collider": "/root/@Node@2/@Node2D@3/@Node2D@98/@Node2D@99/queen_floor",
+            "normal": [
+              0.0,
+              -1.0
+            ]
+          },
+          {
+            "collider": "/root/@Node@2/@Node2D@3/@Node2D@98/@Node2D@99/queen_floor",
+            "normal": [
+              0.0,
+              -1.0
+            ]
+          }
+        ],
+        "air_shots": 2,
+        "axis": 1.0,
+        "boss": [
+          1658.0,
+          -30.0
+        ],
+        "boss_hp": 20.0,
+        "capacity": 5.0,
+        "damage_remaining": 0.18,
+        "driver_phase": "right_gap_approach",
+        "eligible": 8,
+        "energy": 70.5,
+        "fields": [
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 8.90000000000002,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 8.90000000000002,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.683333333333334,
+              "pulse": 1,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "spawned": false
+          }
+        ],
+        "grounded": true,
+        "hook": "free",
+        "mode": "perched",
+        "motor_steps": 1,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "phase": 1,
+        "physics_frame": 1185,
+        "player": [
+          2122.77392578125,
+          371.92529296875
+        ],
+        "player_hp": 3.0,
+        "recoil_remaining": 0.0,
+        "route_phase": 1,
+        "seal": true,
+        "segment": "before_reload",
+        "session": 2,
+        "shot_cooldown": 0.0,
+        "stage_epoch": 3,
+        "tick": 559,
+        "used_jumps": 0,
+        "velocity": [
+          260.0,
+          0.0
+        ]
+      },
+      {
+        "actor_epoch": 3,
+        "actual_contacts": [],
+        "air_shots": 2,
+        "axis": 1.0,
+        "boss": [
+          1658.0,
+          -30.0
+        ],
+        "boss_hp": 20.0,
+        "capacity": 5.0,
+        "damage_remaining": 0.163333333333333,
+        "driver_phase": "right_gap_approach",
+        "eligible": 8,
+        "energy": 71.0,
+        "fields": [
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 8.91666666666669,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 8.91666666666669,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.666666666666668,
+              "pulse": 1,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "spawned": false
+          }
+        ],
+        "grounded": false,
+        "hook": "free",
+        "mode": "perched",
+        "motor_steps": 1,
+        "normal_velocity": [
+          260.0,
+          43.3333320617676
+        ],
+        "phase": 1,
+        "physics_frame": 1186,
+        "player": [
+          2118.94018554688,
+          370.230651855469
+        ],
+        "player_hp": 3.0,
+        "recoil_remaining": 0.0,
+        "route_phase": 1,
+        "seal": true,
+        "segment": "before_reload",
+        "session": 2,
+        "shot_cooldown": 0.0,
+        "stage_epoch": 3,
+        "tick": 560,
+        "used_jumps": 0,
+        "velocity": [
+          -230.0,
+          -101.66667175293
+        ]
+      },
+      {
+        "actor_epoch": 3,
+        "actual_contacts": [
+          {
+            "collider": "/root/@Node@2/@Node2D@3/@Node2D@98/@Node2D@99/queen_floor",
+            "normal": [
+              0.0,
+              -1.0
+            ]
+          },
+          {
+            "collider": "/root/@Node@2/@Node2D@3/@Node2D@98/@Node2D@99/queen_floor",
+            "normal": [
+              0.0,
+              -1.0
+            ]
+          },
+          {
+            "collider": "/root/@Node@2/@Node2D@3/@Node2D@98/@Node2D@99/queen_floor",
+            "normal": [
+              0.0,
+              -1.0
+            ]
+          }
+        ],
+        "air_shots": 2,
+        "axis": 1.0,
+        "boss": [
+          1658.0,
+          -30.0
+        ],
+        "boss_hp": 20.0,
+        "capacity": 5.0,
+        "damage_remaining": 0.0,
+        "driver_phase": "right_gap_approach",
+        "eligible": 8,
+        "energy": 78.0,
+        "fields": [
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 9.31666666666671,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 9.31666666666671,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.266666666666691,
+              "pulse": 1,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "spawned": false
+          }
+        ],
+        "grounded": true,
+        "hook": "free",
+        "mode": "perched",
+        "motor_steps": 1,
+        "normal_velocity": [
+          260.0,
+          0.0
+        ],
+        "phase": 1,
+        "physics_frame": 1210,
+        "player": [
+          2142.90893554688,
+          371.92529296875
+        ],
+        "player_hp": 3.0,
+        "recoil_remaining": 0.0,
+        "route_phase": 1,
+        "seal": true,
+        "segment": "before_reload",
+        "session": 2,
+        "shot_cooldown": 0.0,
+        "stage_epoch": 3,
+        "tick": 584,
+        "used_jumps": 0,
+        "velocity": [
+          260.0,
+          0.0
+        ]
+      },
+      {
+        "actor_epoch": 3,
+        "actual_contacts": [],
+        "air_shots": 2,
+        "axis": 0.0,
+        "boss": [
+          1658.0,
+          -30.0
+        ],
+        "boss_hp": 20.0,
+        "capacity": 5.0,
+        "damage_remaining": 0.0,
+        "driver_phase": "enter_upper_jump",
+        "eligible": 8,
+        "energy": 78.5,
+        "fields": [
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 9.33333333333338,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 9.33333333333338,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.250000000000025,
+              "pulse": 1,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "spawned": false
+          }
+        ],
+        "grounded": false,
+        "hook": "free",
+        "mode": "perched",
+        "motor_steps": 1,
+        "normal_velocity": [
+          0.0,
+          -622.666687011719
+        ],
+        "phase": 1,
+        "physics_frame": 1211,
+        "player": [
+          2142.90893554688,
+          361.546264648438
+        ],
+        "player_hp": 3.0,
+        "recoil_remaining": 0.0,
+        "route_phase": 1,
+        "seal": true,
+        "segment": "before_reload",
+        "session": 2,
+        "shot_cooldown": 0.0,
+        "stage_epoch": 3,
+        "tick": 585,
+        "used_jumps": 1,
+        "velocity": [
+          0.0,
+          -622.666687011719
+        ]
+      },
+      {
+        "actor_epoch": 3,
+        "actual_contacts": [],
+        "air_shots": 2,
+        "axis": 0.0,
+        "boss": [
+          1658.0,
+          -30.0
+        ],
+        "boss_hp": 20.0,
+        "capacity": 5.0,
+        "damage_remaining": 0.0,
+        "driver_phase": "enter_upper_jump",
+        "eligible": 8,
+        "energy": 78.5,
+        "fields": [
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 9.70000000000006,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 9.70000000000006,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.0,
+              "pulse": 1,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "spawned": false
+          }
+        ],
+        "grounded": false,
+        "hook": "free",
+        "mode": "perched",
+        "motor_steps": 1,
+        "normal_velocity": [
+          0.0,
+          36.0000076293945
+        ],
+        "phase": 1,
+        "physics_frame": 1233,
+        "player": [
+          2142.90893554688,
+          222.212921142578
+        ],
+        "player_hp": 3.0,
+        "recoil_remaining": 0.0,
+        "route_phase": 1,
+        "seal": true,
+        "segment": "before_reload",
+        "session": 2,
+        "shot_cooldown": 0.0,
+        "stage_epoch": 3,
+        "tick": 607,
+        "used_jumps": 1,
+        "velocity": [
+          0.0,
+          36.0000076293945
+        ]
+      },
+      {
+        "actor_epoch": 3,
+        "actual_contacts": [],
+        "air_shots": 1,
+        "axis": 0.0,
+        "boss": [
+          1658.0,
+          -30.0
+        ],
+        "boss_hp": 20.0,
+        "capacity": 5.0,
+        "damage_remaining": 0.0,
+        "driver_phase": "enter_upper_down_R",
+        "eligible": 9,
+        "energy": 58.5,
+        "fields": [
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 9.71666666666673,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 9.71666666666673,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.0,
+              "pulse": 1,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "spawned": false
+          }
+        ],
+        "grounded": false,
+        "hook": "free",
+        "mode": "perched",
+        "motor_steps": 1,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "phase": 1,
+        "physics_frame": 1234,
+        "player": [
+          2142.90893554688,
+          203.879592895508
+        ],
+        "player_hp": 3.0,
+        "recoil_remaining": 0.123333333333333,
+        "route_phase": 1,
+        "seal": true,
+        "segment": "before_reload",
+        "session": 2,
+        "shot_cooldown": 0.25,
+        "stage_epoch": 3,
+        "tick": 608,
+        "used_jumps": 1,
+        "velocity": [
+          0.0,
+          -1100.0
+        ]
+      },
+      {
+        "actor_epoch": 3,
+        "actual_contacts": [
+          {
+            "collider": "/root/@Node@2/@Node2D@3/@Node2D@98/@Node2D@99/queen_branch_2",
+            "normal": [
+              0.0,
+              -1.0
+            ]
+          }
+        ],
+        "air_shots": 2,
+        "axis": 0.0,
+        "boss": [
+          1658.0,
+          -30.0
+        ],
+        "boss_hp": 20.0,
+        "capacity": 5.0,
+        "damage_remaining": 0.0,
+        "driver_phase": "enter_upper_receive",
+        "eligible": 10,
+        "energy": 38.5,
+        "fields": [
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 10.3833333333334,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 10.3833333333334,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.0,
+              "pulse": 1,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "spawned": false
+          }
+        ],
+        "grounded": true,
+        "hook": "free",
+        "mode": "perched",
+        "motor_steps": 1,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "phase": 1,
+        "physics_frame": 1274,
+        "player": [
+          2275.24194335938,
+          171.983276367188
+        ],
+        "player_hp": 3.0,
+        "recoil_remaining": 0.0,
+        "route_phase": 1,
+        "seal": true,
+        "segment": "before_reload",
+        "session": 2,
+        "shot_cooldown": 0.0,
+        "stage_epoch": 3,
+        "tick": 648,
+        "used_jumps": 0,
+        "velocity": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "actor_epoch": 3,
+        "actual_contacts": [
+          {
+            "collider": "/root/@Node@2/@Node2D@3/@Node2D@98/@Node2D@99/queen_branch_2",
+            "normal": [
+              0.0,
+              -1.0
+            ]
+          },
+          {
+            "collider": "/root/@Node@2/@Node2D@3/@Node2D@98/@Node2D@99/queen_branch_2",
+            "normal": [
+              0.0,
+              -1.0
+            ]
+          },
+          {
+            "collider": "/root/@Node@2/@Node2D@3/@Node2D@98/@Node2D@99/queen_branch_2",
+            "normal": [
+              0.0,
+              -1.0
+            ]
+          }
+        ],
+        "air_shots": 2,
+        "axis": -1.0,
+        "boss": [
+          1658.0,
+          -30.0
+        ],
+        "boss_hp": 20.0,
+        "capacity": 5.0,
+        "damage_remaining": 0.0,
+        "driver_phase": "move_to_middle",
+        "eligible": 10,
+        "energy": 39.0,
+        "fields": [
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 10.4000000000001,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 10.4000000000001,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.0,
+              "pulse": 1,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "spawned": false
+          }
+        ],
+        "grounded": true,
+        "hook": "free",
+        "mode": "perched",
+        "motor_steps": 1,
+        "normal_velocity": [
+          -260.0,
+          0.0
+        ],
+        "phase": 1,
+        "physics_frame": 1275,
+        "player": [
+          2270.90844726562,
+          171.925231933594
+        ],
+        "player_hp": 3.0,
+        "recoil_remaining": 0.0,
+        "route_phase": 1,
+        "seal": true,
+        "segment": "before_reload",
+        "session": 2,
+        "shot_cooldown": 0.0,
+        "stage_epoch": 3,
+        "tick": 649,
+        "used_jumps": 0,
+        "velocity": [
+          -260.0,
+          0.0
+        ]
+      },
+      {
+        "actor_epoch": 3,
+        "actual_contacts": [
+          {
+            "collider": "/root/@Node@2/@Node2D@3/@Node2D@98/@Node2D@99/queen_branch_1",
+            "normal": [
+              0.0,
+              -1.0
+            ]
+          },
+          {
+            "collider": "/root/@Node@2/@Node2D@3/@Node2D@98/@Node2D@99/queen_branch_1",
+            "normal": [
+              0.0,
+              -1.0
+            ]
+          },
+          {
+            "collider": "/root/@Node@2/@Node2D@3/@Node2D@98/@Node2D@99/queen_branch_1",
+            "normal": [
+              0.0,
+              -1.0
+            ]
+          }
+        ],
+        "air_shots": 2,
+        "axis": 0.0,
+        "boss": [
+          1658.0,
+          -30.0
+        ],
+        "boss_hp": 20.0,
+        "capacity": 5.0,
+        "damage_remaining": 0.0,
+        "driver_phase": "move_to_middle",
+        "eligible": 11,
+        "energy": 35.5,
+        "fields": [
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 11.6000000000002,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 11.6000000000002,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.0,
+              "pulse": 1,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "spawned": false
+          }
+        ],
+        "grounded": true,
+        "hook": "free",
+        "mode": "migration_preview",
+        "motor_steps": 1,
+        "normal_velocity": [
+          0.0,
+          0.0
+        ],
+        "phase": 1,
+        "physics_frame": 1347,
+        "player": [
+          1972.12927246094,
+          131.925262451172
+        ],
+        "player_hp": 3.0,
+        "recoil_remaining": 0.123333333333333,
+        "route_phase": 1,
+        "seal": true,
+        "segment": "before_reload",
+        "session": 2,
+        "shot_cooldown": 0.25,
+        "stage_epoch": 3,
+        "tick": 721,
+        "used_jumps": 0,
+        "velocity": [
+          533.103515625,
+          0.0
+        ]
+      },
+      {
+        "actor_epoch": 3,
+        "actual_contacts": [
+          {
+            "collider": "/root/@Node@2/@Node2D@3/@Node2D@98/@Node2D@99/queen_branch_1",
+            "normal": [
+              0.0,
+              -1.0
+            ]
+          }
+        ],
+        "air_shots": 2,
+        "axis": -1.0,
+        "boss": [
+          1658.0,
+          -30.0
+        ],
+        "boss_hp": 20.0,
+        "capacity": 5.0,
+        "damage_remaining": 0.0,
+        "driver_phase": "fight",
+        "eligible": 11,
+        "energy": 35.5,
+        "fields": [
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 11.6166666666668,
+              "growth": 1.0,
+              "initial_angle": 0.0,
+              "next_damage_in": 0.0,
+              "pulse": 0,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "health": 2.0,
+            "spawned": true,
+            "weave": {
+              "age": 11.6166666666668,
+              "growth": 1.0,
+              "initial_angle": -1.57079637050629,
+              "next_damage_in": 0.0,
+              "pulse": 1,
+              "severed": false,
+              "suspended": false
+            }
+          },
+          {
+            "spawned": false
+          }
+        ],
+        "grounded": true,
+        "hook": "free",
+        "mode": "migration_preview",
+        "motor_steps": 1,
+        "normal_velocity": [
+          -260.0,
+          0.0
+        ],
+        "phase": 1,
+        "physics_frame": 1348,
+        "player": [
+          1981.01428222656,
+          131.925262451172
+        ],
+        "player_hp": 3.0,
+        "recoil_remaining": 0.106666666666667,
+        "route_phase": 1,
+        "seal": true,
+        "segment": "before_reload",
+        "session": 2,
+        "shot_cooldown": 0.233333333333333,
+        "stage_epoch": 3,
+        "tick": 722,
+        "used_jumps": 0,
+        "velocity": [
+          533.103515625,
+          0.0
+        ]
+      }
+    ],
+    "final_fact": "Contact still deals real damage447; second weave hit559 occurs during approach. Driver waits for grounded/hurt-free state before actual jump585, real DOWN-R608/LEFT-R623 and actual right receiving649; middle support restored722. Reload later and all original reward/boundary checks complete.",
+    "limitation": "Final timing differs due support guards, so the541 hurt-during-jump branch itself is not claimed replayed in passing run. Its guard is statically reviewed against passive failure evidence; no production hurt/collision/resource changes."
+  },
+  "changes": [
+    "passive real ground/hurt/jump/collision/driver phase trace",
+    "Actual complete receiving-bank checks, failclosed shot when only partial support",
+    "Observe original23-frame actual jump and abort on real hurt; actual height plus actual current Definition R displacement required",
+    "Wait real floor and hurt end; require final actual middle support rather than x-only walk success",
+    "Alive failed recovery can retry within original4200 elapsed-tick deadline enforced by frames(); original assertions all retained plus deadline check"
+  ],
+  "artifacts": [
+    {
+      "path": "build/forest_depth/campaign/harness-queen/harness-7b50c8f10c6541feb9c92301e2701783/capture.json",
+      "bytes": 1538267,
+      "sha256": "e9cf26f2c252aac95a95899deb338ec7a679baf554a97443b5b6bb1139576237"
+    },
+    {
+      "path": "build/forest_depth/campaign/harness-queen/harness-7b50c8f10c6541feb9c92301e2701783/native.log",
+      "bytes": 1288,
+      "sha256": "ab7ea9c1f3ae449515f40714c69793eedb5e969a98ade0cf3b6efbce616ef8c6"
+    },
+    {
+      "path": "build/forest_depth/campaign/harness-queen/harness-7b50c8f10c6541feb9c92301e2701783/import.log",
+      "bytes": 1065,
+      "sha256": "401b37fc5223bf108aa68163de7feae8073a148bdf29dd418816660bfac8a66b"
+    },
+    {
+      "path": "build/forest_depth/campaign/harness-queen/harness-7b50c8f10c6541feb9c92301e2701783/receipt.json",
+      "bytes": 308996,
+      "sha256": "0a56639cfd09181204637b588bc68c896739add6e983965c9c4deb446aad72ad"
+    },
+    {
+      "path": "build/forest_depth/campaign/queen-driver-T-observe-r1/capture.json",
+      "bytes": 1753730,
+      "sha256": "e0f832a5d4757a5a019ae50c2a3c9e5d8a30de94ee04c893ea9a97d3fef7a5d8"
+    },
+    {
+      "path": "build/forest_depth/campaign/queen-driver-T-observe-r1/native.log",
+      "bytes": 1280,
+      "sha256": "3c427c2299432c66f05088a224ca65c32a2e241ff11c128868750e9b1d6b3c08"
+    },
+    {
+      "path": "build/forest_depth/campaign/queen-driver-T-observe-r1/import.log",
+      "bytes": 1065,
+      "sha256": "401b37fc5223bf108aa68163de7feae8073a148bdf29dd418816660bfac8a66b"
+    },
+    {
+      "path": "build/forest_depth/campaign/queen-driver-T-observe-r1/receipt.json",
+      "bytes": 308996,
+      "sha256": "bee90e477d5b4574f08d1fd0920bc35958e90c36e14f3bab937e5ab722fd1faf"
+    },
+    {
+      "path": "build/forest_depth/campaign/queen-driver-T-fix-r1/capture.json",
+      "bytes": 3021187,
+      "sha256": "4cd10f96252cecd7f798a15b9606b0138f19d6a4c018caeb9061d4cf3942f272"
+    },
+    {
+      "path": "build/forest_depth/campaign/queen-driver-T-fix-r1/native.log",
+      "bytes": 1831,
+      "sha256": "b6f92051f1cedaecd11baf0b8740355e2c4b23f403849e2d6007b706f4f791ce"
+    },
+    {
+      "path": "build/forest_depth/campaign/queen-driver-T-fix-r1/import.log",
+      "bytes": 1065,
+      "sha256": "401b37fc5223bf108aa68163de7feae8073a148bdf29dd418816660bfac8a66b"
+    },
+    {
+      "path": "build/forest_depth/campaign/queen-driver-T-fix-r1/receipt.json",
+      "bytes": 308995,
+      "sha256": "14134abb824e36a17ec389d890db1c0ea52d66f74e65244aad5142eb7fe768f1"
+    }
+  ]
+}

@@ -24,7 +24,7 @@ var flank_side := 0.0
 var flank_crossed := false
 
 func drive(trace: Node,leg: Dictionary) -> bool:
-	if trace.manifest.get("layout_version","") not in ["forest-expedition-airborne-v11","forest-woven-trunk-v12","forest-interwoven-canopy-v13"]:return false
+	if trace.manifest.get("layout_version","") not in ["forest-expedition-airborne-v11","forest-woven-trunk-v12","forest-interwoven-canopy-v13","forest-fruit-routes-v14"]:return false
 	if state.is_empty():
 		if not _ordinary_ground(trace,leg):return false
 		var destination: Vector2=_destination(trace,leg)
@@ -35,18 +35,31 @@ func drive(trace: Node,leg: Dictionary) -> bool:
 			var actor: EnemyActor=trace.stage.enemies[index].get_node("Actor")
 			if actor.health.terminal or actor.definition.aerial or actor.definition.behavior_id not in GROUND_BEHAVIORS:continue
 			var delta: Vector2=actor.motor.global_position-trace.player.global_position
-			if absf(delta.y)>45 or delta.x*direction<=0 or absf(delta.x)>150:continue
-			if (actor.motor.global_position.x-destination.x)*direction>25:continue
-			if not _clear(trace,actor):continue
+			# A low spider above the departure shore can intercept the first
+			# jump frame. PR96's real hurt recoil makes blindly accepting this
+			# contact an invalid route pilot, even if the old pilot survived it.
+			var raised_departure: bool=str(leg.kind).begins_with("jump_") and delta.y < -45.0 and delta.y >= -85.0
+			if (absf(delta.y)>45 and not raised_departure) or delta.x*direction<=0 or absf(delta.x)>150:continue
+			# A jump's authored takeoff is not its threat boundary. A real
+			# spider line can cross the rising body beyond that takeoff shore.
+			if (actor.motor.global_position.x-destination.x)*direction>25 and not _jump_thread_threat(trace,leg,actor):continue
 			for id: String in trace.supports():
 				if trace.full_support(id):origin_support=id;break
 			if origin_support.is_empty():return false
+			var retreat_bank: Vector2=trace.player.global_position-Vector2(direction*32.0,0)
+			var need_retreat := not _clear(trace,actor)
+			if need_retreat and (not raised_departure or not _ground_bank_safe(trace,retreat_bank,actor.motor.global_position) or not _clear_from(trace,actor,retreat_bank)):continue
 			target=actor;target_id=str(row.id);origin=trace.player.global_position
 			saved_leg=int(trace.leg_index);saved_phase=str(trace.phase);started=int(trace.tick)
 			saved_actor_epoch=int(trace.app.lifetime.actor_epoch)
 			shots=0;intent_requests=0;air_shots=0;flight_started=-1;return_stable=0;state="fight"
+			if raised_departure:
+				firing_bank=origin;firing_support=origin_support;state="raised_firing_bank"
+			if need_retreat:
+				firing_bank=retreat_bank;firing_support=origin_support;state="retreat_bank"
 			trace.controller.router.set_move_axis(0)
 			trace.event("forest_encounter_start",_data(trace))
+			if need_retreat:trace.event("forest_encounter_raised_departure_retreat",_data(trace).merged({"firing_bank":trace.pair(firing_bank),"reason":"real_departure_collision_and_occluded_near_shore_shot"}))
 			break
 		if state.is_empty():return false
 	if trace.controller.actor_resources.health.terminal:
@@ -68,6 +81,15 @@ func drive(trace: Node,leg: Dictionary) -> bool:
 	var position: Vector2=trace.player.global_position
 	if _recover_origin_layer(trace):return true
 	var offset: Vector2=target.motor.global_position-position
+	if state in ["retreat_bank","raised_firing_bank"]:
+		trace.jump(false)
+		trace.controller.router.set_move_axis(clampf((firing_bank.x-position.x)/12.0,-1,1))
+		# Track the real body after hurt knockback as well as its initial pose.
+		# The upper-body cast may clear while a center-of-body ray stays blocked.
+		var body_aim := _raised_body_aim(trace)
+		if trace.at_destination(firing_bank,firing_support) and _ground_bank_safe(trace,position,target.motor.global_position) and _ready_shot(trace) and not body_aim.is_zero_approx():
+			_ground_shot(trace,body_aim)
+		return true
 	var bark: bool=target.definition.behavior_id==&"forest_bark_beetle"
 	var front: bool=bark and offset.normalized().dot(Vector2(target.brain.direction,0)) < -cos(deg_to_rad((target.definition as ForestEnemyDefinition).bark_shield_half_angle_degrees))
 	var side: float=signf(target.motor.global_position.x-origin.x)
@@ -198,6 +220,15 @@ func _drive_flank(trace: Node) -> void:
 		trace.event("forest_encounter_shield_turn_reselect",_data(trace));return
 	if state=="flank_set_bank":
 		var bank:=Vector2(enemy.x-signf(enemy.x-pos.x)*(body_gap+24),origin.y)
+		# Fit the near-side bank to the full real ground-recoil envelope before
+		# choosing an overhead flank jump. A low ceiling may prevent that jump.
+		var recoil: float=trace.player.weapon_motion.base_distance(trace.player.tuning,true)
+		var incoming_side := signf(enemy.x-pos.x)
+		var safe_min := root.position.x+half.x+maxf(0,incoming_side*recoil)
+		var safe_max := root.end.x-half.x+minf(0,incoming_side*recoil)
+		if safe_min<=safe_max:
+			var fitted := Vector2(clampf(bank.x,safe_min,safe_max),bank.y)
+			if (fitted.x-enemy.x)*-incoming_side>=body_gap+8 and _ground_bank_safe(trace,fitted,enemy):bank=fitted
 		if not _ground_bank_safe(trace,bank,enemy):
 			# A narrow near shore cannot absorb a ground recoil. Reuse the real
 			# no-shot crossing only if its far shore owns a full firing envelope.
@@ -253,6 +284,21 @@ func _ordinary_ground(trace: Node,leg: Dictionary) -> bool:
 	if kind not in ["walk","drop","drop_through","jump_gap","jump_rise","jump_rise_through_gap"]:return false
 	return trace.player.is_on_floor() and (str(trace.phase)=="align" or kind in ["walk","drop","drop_through"])
 
+func _jump_thread_threat(trace: Node,leg: Dictionary,actor: EnemyActor) -> bool:
+	if not str(leg.get("kind","")).begins_with("jump_") or not leg.has("takeoff") or not leg.has("landing") or not actor.attack_behavior is ForestThreadSpiderBehavior:return false
+	var thread := actor.attack_behavior as ForestThreadSpiderBehavior
+	if not thread.line_configured:return false
+	var direction := (thread.line_end-thread.line_start).normalized()
+	var normal := Vector2(-direction.y,direction.x)
+	var half: Vector2=(trace.player.get_node("CollisionShape2D") as CollisionShape2D).shape.get_rect().size*.5
+	var radius: float=(actor.definition as ForestEnemyDefinition).line_radius
+	var along := absf(direction.x)*half.x+absf(direction.y)*half.y+radius
+	var across := absf(normal.x)*half.x+absf(normal.y)*half.y+radius
+	var from: Vector2=trace.point(leg.takeoff)-thread.line_start
+	var to: Vector2=trace.point(leg.landing)-thread.line_start
+	var bounds := Rect2(Vector2(-along,-across),Vector2(thread.line_start.distance_to(thread.line_end)+along*2,across*2))
+	return DemoContactEmitter.segment_intersects_bounds(Vector2(from.dot(direction),from.dot(normal)),Vector2(to.dot(direction),to.dot(normal)),bounds)
+
 func _destination(trace: Node,leg: Dictionary) -> Vector2:
 	if str(leg.kind) in ["drop","drop_through"]:
 		var path: Array=leg.get("path",[])
@@ -262,7 +308,10 @@ func _destination(trace: Node,leg: Dictionary) -> Vector2:
 	return trace.point(leg.landing)
 
 func _clear(trace: Node,actor: EnemyActor) -> bool:
-	var query: PhysicsRayQueryParameters2D=PhysicsRayQueryParameters2D.create(trace.player.global_position,actor.motor.global_position,1,[trace.player.get_rid(),actor.motor.get_rid()])
+	return _clear_from(trace,actor,trace.player.global_position)
+
+func _clear_from(trace: Node,actor: EnemyActor,from: Vector2) -> bool:
+	var query: PhysicsRayQueryParameters2D=PhysicsRayQueryParameters2D.create(from,actor.motor.global_position,1,[trace.player.get_rid(),actor.motor.get_rid()])
 	return trace.player.get_world_2d().direct_space_state.intersect_ray(query).is_empty()
 
 func _ready_shot(trace: Node) -> bool:
@@ -295,6 +344,27 @@ func _direction_hits_body(trace: Node,unit: Vector2) -> bool:
 	var ray:=PhysicsRayQueryParameters2D.create(position,closest,5,[trace.player.get_rid()])
 	var hit: Dictionary=trace.player.get_world_2d().direct_space_state.intersect_ray(ray)
 	return hit.is_empty() or hit.get("collider")==target.motor
+
+func _raised_body_aim(trace: Node) -> Vector2:
+	var radius: float=trace.player.tuning.projectile_radius
+	var height: float=target.definition.collision_size.y
+	# Real hurt knockback changes the corner angle after each hit. Check the
+	# actual projectile circle as well as the body ray before spending a shot.
+	for rise: float in [height*.25,height*.5-radius-1.0]:
+		var offset: Vector2=target.motor.global_position-Vector2(0,rise)-trace.player.global_position
+		var unit := offset.normalized()
+		if not _direction_hits_body(trace,unit):continue
+		var shape := CircleShape2D.new()
+		shape.radius=radius
+		var query := PhysicsShapeQueryParameters2D.new()
+		query.shape=shape;query.transform=Transform2D(0,trace.player.global_position)
+		query.collision_mask=1;query.exclude=[trace.player.get_rid()]
+		var space: PhysicsDirectSpaceState2D=trace.player.get_world_2d().direct_space_state
+		if not space.intersect_shape(query).is_empty():continue
+		query.motion=offset
+		var fractions := space.cast_motion(query)
+		if fractions.size()==2 and fractions[0]>=1.0:return unit
+	return Vector2.ZERO
 
 func _ground_shot(trace: Node,requested: Vector2) -> void:
 	var final_aim: Vector2=_shot_aim(trace,requested)

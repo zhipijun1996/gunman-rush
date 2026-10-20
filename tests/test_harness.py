@@ -1,6 +1,8 @@
 """Exercise failure classification and scope selection without requiring Godot."""
 import importlib.util
+import hashlib
 import json
+import os
 import sys
 from pathlib import Path
 import tempfile
@@ -332,6 +334,204 @@ class HarnessTests(unittest.TestCase):
                 fail = {**check, "argv": ["python3", "-c", "print('COMPLETE'); raise SystemExit(4)"]}
                 result = h.execute_checks({"checks": {"good": check, "bad": fail}}, ['good', 'bad'], folder, jobs=2)
                 self.assertEqual(next(r['status'] for r in result if r['id']=='bad'), 'failed')
+
+
+class SourceHashCacheTests(unittest.TestCase):
+    """Real file mutations must invalidate the execution-local source optimization."""
+    def setUp(self):
+        self.temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temporary.cleanup)
+        self.root = Path(self.temporary.name)
+        self.path = self.root / "input"
+        self.path.write_bytes(b"original")
+
+    def repository(self):
+        for args in (("init", "-q"), ("config", "user.email", "hash@example.invalid"),
+                     ("config", "user.name", "Hash test")):
+            subprocess.run(["git", *args], cwd=self.root, check=True, capture_output=True)
+        (self.root / ".gitignore").write_text("build/\n")
+        subprocess.run(["git", "add", "."], cwd=self.root, check=True, capture_output=True)
+        subprocess.run(["git", "commit", "-qm", "hash fixture"], cwd=self.root, check=True, capture_output=True)
+
+    def test_unchanged_bytes_are_read_once_with_identical_persistent_digest(self):
+        cache = h.SourceHashCache()
+        check = {"argv": ["run"], "inputs": ["input", "missing"]}
+        files = ["input", "missing"]
+        identity = {"engine": "same"}
+        # This is the original persisted payload, without stat/cache metadata.
+        payload = {"inputs": [("input", hashlib.sha256(b"original").hexdigest()),
+                              ("missing", "deleted")], "check": check, "toolchain": identity}
+        expected = hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()
+        with patch.object(h.hashlib, "file_digest", wraps=hashlib.file_digest) as read:
+            for unused in range(3):
+                self.assertEqual(h.input_digest(check, files, identity, root=self.root, hash_cache=cache), expected)
+            self.assertEqual(read.call_count, 1 if sys.platform.startswith("linux") else 3)
+        self.assertEqual(h.input_digest(check, files, identity, root=self.root), expected)
+
+    def test_non_linux_platforms_always_read_full_source_bytes(self):
+        for platform in ("win32", "darwin"):
+            with self.subTest(platform=platform), patch.object(h.sys, "platform", platform):
+                cache = h.SourceHashCache()
+                with patch.object(h.hashlib, "file_digest", wraps=hashlib.file_digest) as read:
+                    first = cache.digest(self.path)
+                    self.assertEqual(cache.digest(self.path), first)
+                    self.assertEqual(read.call_count, 2, "Creation-time metadata cannot authorize cached bytes")
+
+    def test_equal_length_edit_with_restored_mtime_is_rehashed(self):
+        cache = h.SourceHashCache()
+        before = self.path.stat()
+        first = cache.digest(self.path)
+        self.path.write_bytes(b"mutated!")
+        os.utime(self.path, ns=(before.st_atime_ns, before.st_mtime_ns))
+        after = self.path.stat()
+        self.assertEqual((before.st_ino, before.st_size, before.st_mtime_ns),
+                         (after.st_ino, after.st_size, after.st_mtime_ns))
+        if sys.platform.startswith("linux"):
+            self.assertNotEqual(before.st_ctime_ns, after.st_ctime_ns)
+        self.assertNotEqual(cache.digest(self.path), first)
+        self.assertEqual(cache.digest(self.path), hashlib.sha256(b"mutated!").hexdigest())
+
+    def test_atomic_replacement_with_restored_size_and_mtime_is_rehashed(self):
+        cache = h.SourceHashCache()
+        first = cache.digest(self.path)
+        before = self.path.stat()
+        replacement = self.root / "replacement"
+        replacement.write_bytes(b"mutated!")
+        os.utime(replacement, ns=(before.st_atime_ns, before.st_mtime_ns))
+        replacement.replace(self.path)
+        self.assertEqual(self.path.stat().st_mtime_ns, before.st_mtime_ns)
+        self.assertNotEqual(self.path.stat().st_ino, before.st_ino)
+        self.assertNotEqual(cache.digest(self.path), first)
+
+    def test_full_enumeration_detects_new_deleted_and_recreated_sources(self):
+        self.repository()
+        cache = h.SourceHashCache()
+        with patch.object(h, "ROOT", self.root):
+            before = h.source_inventory(hash_cache=cache)
+            extra = self.root / "new.gd"
+            extra.write_text("extends Node")
+            added = h.source_inventory(hash_cache=cache)
+            self.assertEqual(set(added) - set(before), {"new.gd"})
+            self.path.unlink()
+            removed = h.source_inventory(hash_cache=cache)
+            self.assertEqual(removed["input"], "deleted")
+            extra.unlink()
+            self.assertNotIn("new.gd", h.source_inventory(hash_cache=cache))
+            self.path.write_bytes(b"mutated!")
+            self.assertNotEqual(h.source_inventory(hash_cache=cache)["input"], before["input"])
+
+    def test_distinct_roots_and_retargeted_links_do_not_share_stale_bytes(self):
+        cache = h.SourceHashCache()
+        first = cache.digest(self.path)
+        other = self.root / "other"
+        other.mkdir()
+        second = other / "input"
+        second.write_bytes(b"mutated!")
+        before = self.path.stat()
+        os.utime(second, ns=(before.st_atime_ns, before.st_mtime_ns))
+        self.assertNotEqual(cache.digest(second), first)
+        link = self.root / "linked"
+        link.symlink_to(self.path)
+        self.assertEqual(cache.digest(link), first)
+        link.unlink(); link.symlink_to(second)
+        self.assertEqual(cache.digest(link), hashlib.sha256(b"mutated!").hexdigest())
+
+    def test_real_mutation_during_read_is_rejected_and_not_cached(self):
+        cache = h.SourceHashCache()
+        before = self.path.stat()
+        original = hashlib.file_digest
+        def mutate(source, algorithm):
+            result = original(source, algorithm)
+            self.path.write_bytes(b"mutated!")
+            os.utime(self.path, ns=(before.st_atime_ns, before.st_mtime_ns))
+            return result
+        with patch.object(h.hashlib, "file_digest", side_effect=mutate):
+            with self.assertRaisesRegex(RuntimeError, "Source changed while hashing"):
+                cache.digest(self.path)
+        self.assertEqual(cache.digest(self.path), hashlib.sha256(b"mutated!").hexdigest())
+
+    def test_real_path_swap_between_stat_and_open_is_rejected(self):
+        cache = h.SourceHashCache()
+        replacement = self.root / "replacement"
+        replacement.write_bytes(b"mutated!")
+        original = Path.open
+        def swap(path, *args, **kwargs):
+            if path == self.path:
+                replacement.replace(self.path)
+            return original(path, *args, **kwargs)
+        with patch.object(Path, "open", new=swap):
+            with self.assertRaisesRegex(RuntimeError, "Source changed while hashing"):
+                cache.digest(self.path)
+
+    @unittest.skipUnless(sys.platform.startswith("linux"), "Stat reuse requires Linux change-time")
+    def test_cache_hit_still_rechecks_metadata_after_lookup(self):
+        cache = h.SourceHashCache()
+        cache.digest(self.path)
+        original = Path.stat
+        calls = []
+        def mutate(path, *args, **kwargs):
+            if path == self.path:
+                calls.append(path)
+                if len(calls) == 2:
+                    self.path.write_bytes(b"mutated!")
+            return original(path, *args, **kwargs)
+        with patch.object(Path, "stat", new=mutate), patch.object(h.hashlib, "file_digest") as read:
+            with self.assertRaisesRegex(RuntimeError, "Source changed while hashing"):
+                cache.digest(self.path)
+            read.assert_not_called()
+
+    def test_guards_enumerate_and_reuse_bytes_until_fresh_final_guard(self):
+        self.repository()
+        check = {"argv": ["python3", "-c", "print('COMPLETE')"],
+                 "timeout_seconds": 5, "success_pattern": "^COMPLETE$"}
+        data = {"checks": {"a": check, "b": check, "c": {**check, "serial": True}}}
+        original = hashlib.file_digest
+        reads = []
+        def counted(source, algorithm):
+            reads.append(Path(source.name))
+            return original(source, algorithm)
+        with patch.object(h, "ROOT", self.root), patch.object(h, "toolchain_identity", return_value={}), \
+                patch.object(h.hashlib, "file_digest", side_effect=counted), \
+                patch.object(h, "source_files", wraps=h.source_files) as enumerate_files:
+            for run in ("first", "second"):
+                folder = self.root / "build" / run
+                folder.mkdir(parents=True)
+                results = h.execute_checks(data, ["a", "b", "c"], folder)
+                self.assertEqual([r["status"] for r in results], ["passed"] * 3)
+            self.assertEqual(reads.count(self.path), 4 if sys.platform.startswith("linux") else 16,
+                             "Separate executions read fresh source bytes at both start and final approval")
+            self.assertEqual(enumerate_files.call_count, 16, "Initial, before/after every check and final guards all enumerate")
+
+    def test_real_check_cannot_hide_equal_size_mtime_edit_or_atomic_replacement(self):
+        self.repository()
+        prefix = "import os; from pathlib import Path; p=Path('input'); old=p.stat(); "
+        mutations = ["p.write_bytes(b'mutated!'); os.utime(p,ns=(old.st_atime_ns,old.st_mtime_ns)); ",
+                     "q=Path('build/replacement'); q.write_bytes(b'mutated!'); os.utime(q,ns=(old.st_atime_ns,old.st_mtime_ns)); q.replace(p); "]
+        for index, mutation in enumerate(mutations):
+            with self.subTest(mutation=index):
+                self.path.write_bytes(b"original")
+                folder = self.root / "build" / str(index)
+                folder.mkdir(parents=True)
+                bad = {"argv": ["python3", "-c", prefix + mutation + "print('COMPLETE')"],
+                       "timeout_seconds": 5, "success_pattern": "^COMPLETE$"}
+                later = {**bad, "argv": ["python3", "-c", "from pathlib import Path; Path('build/should-not-run').touch(); print('COMPLETE')"]}
+                with patch.object(h, "ROOT", self.root), patch.object(h, "toolchain_identity", return_value={}):
+                    with self.assertRaisesRegex(RuntimeError, "Source changed during validation"):
+                        h.execute_checks({"checks": {"bad": bad, "later": later}}, ["bad", "later"], folder)
+                self.assertFalse((self.root / "build/should-not-run").exists())
+
+    def test_fresh_final_guard_catches_real_write_hidden_from_stat_cache(self):
+        self.repository()
+        folder = self.root / "build" / "final-guard"
+        folder.mkdir(parents=True)
+        source = ("import os; from pathlib import Path; p=Path('input'); old=p.stat(); "
+                  "p.write_bytes(b'mutated!'); os.utime(p,ns=(old.st_atime_ns,old.st_mtime_ns)); print('COMPLETE')")
+        check = {"argv": ["python3", "-c", source], "timeout_seconds": 5, "success_pattern": "^COMPLETE$"}
+        with patch.object(h, "ROOT", self.root), patch.object(h, "toolchain_identity", return_value={}), \
+                patch.object(h.SourceHashCache, "_key", return_value=(0, 0, 0, 0, 0)):
+            with self.assertRaisesRegex(RuntimeError, "Source changed during validation"):
+                h.execute_checks({"checks": {"changed": check}}, ["changed"], folder)
+        self.assertEqual(self.path.read_bytes(), b"mutated!", "Mutation is real; only metadata observation is mocked")
 
 
 class HarnessLaneTests(unittest.TestCase):

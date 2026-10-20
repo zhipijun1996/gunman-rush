@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Real Home consumer: strict completion, fresh receipts, source guard and teardown."""
+"""Legacy R2 one-floor Home fixture: strict receipt/source/teardown checks.
+
+Current production uses run_underworld_home_terrace_tests.py (155 assertions,
+real three-tier input route and original App business). This v1 fixture and its
+exact matching source are retained under tests/fixtures/underworld_home_r2/.
+Run this historical entry only in the matching frozen 0fab13f checkout.
+"""
 from pathlib import Path
 import argparse
 import contextlib

@@ -4,6 +4,9 @@ extends Camera2D
 @export var viewing_zoom := 1.95
 # Formal region opts into a wider view; legacy/Lab consumers keep their zoom.
 var region_composition := false
+# Forest traversal shares a continuous dead zone on ground and in the air.
+# Authored observation hints never switch the whole view at takeoff/landing.
+var stable_vertical_follow := false
 var region_focus := Vector2.INF
 # Optional authored observation pair; INF retains every existing view policy.
 var observation_focus := Vector2.INF
@@ -33,12 +36,20 @@ var _support: Node2D
 var _support_transform := Transform2D.IDENTITY
 var _support_point := Vector2.ZERO
 var _support_delta := Vector2.ZERO
+
+func use_stable_forest_view() -> void:
+	stable_vertical_follow = true
+	viewing_zoom = 1.20
+	dead_zone.y = 90.0
+	vertical_lower_zone = 90.0
+	response_time = Vector2(0.18,0.24)
+
 func add_impulse(amplitude:float,duration:float)->void:
 	_shake_amplitude=maxf(_shake_amplitude,clampf(amplitude,0,7))
 	_shake_age=maxf(_shake_age,clampf(duration,0,.8))
 
 func configure(actor: PlayerMotor, bounds: Rect2) -> void:
-	zoom = Vector2.ONE * (1.60 if region_composition else viewing_zoom)
+	zoom = Vector2.ONE * (1.60 if region_composition and not stable_vertical_follow else viewing_zoom)
 	target = actor
 	terrain_bounds = bounds
 	world_bounds = bounds.grow_individual(0, 180, 0, 180)
@@ -117,9 +128,16 @@ func advance_follow(actor_position: Vector2, movement_speed: float, run_speed: f
 	# Recoil and aim direction do not steer lookahead. Slew limits reversals.
 	var requested := clampf(movement_speed / run_speed, -1.0, 1.0) * lookahead_distance
 	_lookahead = move_toward(_lookahead, requested, lookahead_speed * delta)
+	if stable_vertical_follow:
+		var controller := target.get_node_or_null("Controller") as PlayerController if is_instance_valid(target) else null
+		var look := controller.router.look_axis if controller and target.is_on_floor() else 0.0
+		var before_inspection := _inspection
+		_inspection = move_toward(_inspection,look*100.0,delta*90.0)
+		_anchor.y += _inspection-before_inspection
 	if is_instance_valid(target) and target.is_on_floor():
 		_composition_offset = move_toward(_composition_offset, 35.0, delta * 90.0)
 	var point := actor_position + Vector2(_lookahead, -_composition_offset)
+	if stable_vertical_follow: point.y += _inspection
 	if region_composition and region_focus.is_finite() and not route_focus.is_finite():
 		point.x += clampf((region_focus.x-actor_position.x)*.35,-100,100)
 	if route_focus.is_finite():
@@ -127,7 +145,7 @@ func advance_follow(actor_position: Vector2, movement_speed: float, run_speed: f
 		point.x += clampf(route_focus.x - actor_position.x, -96,96)
 		point.y = clampf((actor_position.y + route_focus.y) * .5 - 10, actor_position.y - 90, actor_position.y + 40)
 	_anchor.x = clampf(_anchor.x, point.x - dead_zone.x, point.x + dead_zone.x)
-	var grounded_follow := is_instance_valid(target) and target.is_on_floor() and not route_focus.is_finite()
+	var grounded_follow := is_instance_valid(target) and target.is_on_floor() and not route_focus.is_finite() and not stable_vertical_follow
 	if not grounded_follow:
 		# Preserve the highest useful route view through small-platform landings.
 		if point.y < _anchor.y - dead_zone.y:
@@ -146,7 +164,7 @@ func advance_follow(actor_position: Vector2, movement_speed: float, run_speed: f
 		var look := controller.router.look_axis if controller else 0.0
 		_inspection = move_toward(_inspection, look * 100.0, delta * 90.0)
 		_anchor.y = move_toward(_anchor.y, actor_position.y - 35.0 + _inspection, delta * 90.0)
-	else:
+	elif not stable_vertical_follow:
 		_inspection = move_toward(_inspection, 0.0, delta * 90.0)
 	if region_composition and observation_focus.is_finite() and grounded_follow and not route_focus.is_finite():
 		var pair_margin := (get_viewport_rect().size/(2.0*zoom)-Vector2(48,48)).max(Vector2(24,24))

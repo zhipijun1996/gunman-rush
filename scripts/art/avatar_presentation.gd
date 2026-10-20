@@ -2,6 +2,7 @@ class_name AvatarPresentation
 extends Node
 ## Session appearance only. The original CourierVisual still owns arm/muzzle state.
 const CATALOG := "res://resources/art/avatars.json"
+const UI_THEME := preload("res://scripts/ui/menu_theme.gd")
 var selected_id := "courier"
 var _app: Node
 var _visual: CourierVisual
@@ -28,6 +29,8 @@ func _ready() -> void:
 	layer.layer=21;layer.name="AvatarSelectorLayer";add_child(layer)
 	_selector=OptionButton.new()
 	_selector.name="AvatarSelector"
+	# This layer is outside DemoApp's styled canvas; Web needs packaged CJK glyphs.
+	_selector.theme=UI_THEME.create_theme()
 	_selector.focus_mode=Control.FOCUS_NONE
 	_selector.tooltip_text="选择人物外观；玩法与能力保持一致"
 	_selector.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
@@ -37,6 +40,7 @@ func _ready() -> void:
 		_selector.add_item("外观 · "+str(entry.display_name))
 		_selector.set_item_disabled(_selector.item_count-1,not _available(entry))
 	layer.add_child(_selector)
+	_selector.get_popup().theme=_selector.theme
 	_selector.item_selected.connect(_selected)
 	_selector.gui_input.connect(_selector_gui_input)
 	_selector.get_popup().about_to_popup.connect(_cancel_ui_input)
@@ -151,7 +155,21 @@ func _dispose_painted() -> void:
 		if _painted.get_parent()!=null:_painted.get_parent().remove_child(_painted)
 		_painted.queue_free()
 	_painted=null
-	if is_instance_valid(_visual):_visual.show()
+	_restore_default_body()
+
+func _default_body() -> CanvasItem:
+	if not is_instance_valid(_visual):return null
+	# A formal consumer may keep CourierVisual alive only as its authoritative
+	# weapon anchor. Its generated body owns the default appearance instead.
+	for child: Node in _visual.get_parent().get_children():
+		if child is PixelPlainsActor and not child.is_queued_for_deletion():return child
+	return _visual
+
+func _restore_default_body() -> void:
+	var body := _default_body()
+	if body == null:return
+	_visual.visible = body == _visual
+	body.show()
 
 func _apply_selected() -> void:
 	if not is_instance_valid(_visual):return
@@ -180,6 +198,7 @@ func _try_apply_specification(spec: Dictionary, source_path: String) -> bool:
 	_visual.get_parent().add_child(body)
 	body._process(0.0) # Prime the existing pose/gun even when the player is paused.
 	_painted=body
+	_default_body().hide()
 	_visual.hide()
 	_source_path=source_path
 	_source_sha=FileAccess.get_sha256(_source_path)

@@ -461,7 +461,7 @@ func _load_stage() -> void:
 					abandon_run()
 					return
 			else:
-				director.manifest.enable_plains_generation()
+				director.manifest.enable_development_generation((stage as GeneratedDemoStage).generated.stage_generator_version)
 		var initial_character := {"id": "prototype_player", "weapon": "release_shot", "max_jumps": controller.motor.tuning.max_jumps, "max_air_shots": controller.motor.tuning.max_air_shots, "input_values": _session_input.duplicate(true)}
 		var config_hashes := {"physics": FileAccess.get_sha256("res://config/player_tuning.json"), "input": FileAccess.get_sha256("res://config/input_profile.json"), "health": FileAccess.get_sha256("res://resources/actors/prototype_health.tres")}
 		config_hashes.enemy_drops = FileAccess.get_sha256(EnemyDropService.CONFIG_PATH)
@@ -473,7 +473,6 @@ func _load_stage() -> void:
 			initial_character.meta_content_version = meta_config.version
 			initial_character.meta_save_schema_version = MetaSaveService.SCHEMA_VERSION
 			config_hashes.meta_upgrades = FileAccess.get_sha256("res://config/meta_upgrades.json")
-			config_hashes.branch_profile = FileAccess.get_sha256(PlainsBranchLayout.PROFILE_PATH)
 		director.manifest.record_configuration([
 			{"id": "plains_generated_layout" if generated_plains else "demo_fixed_layout", "version": 1},
 			{"id": String(JUMP_ITEM.stable_id), "version": JUMP_ITEM.definition_version},
@@ -506,11 +505,8 @@ func _load_stage() -> void:
 		if connected_region: player.z_index = 5
 		_run_camera.region_composition = connected_region and not _explicit_plains_candidate()
 		if active_region_id == &"thorn_forest":
-			# A full hook reach must remain readable during fast upward/sideways chains.
-			# This changes only the view; the actor, anchors and action budgets stay exact.
-			_run_camera.viewing_zoom = 1.20
-			_run_camera.dead_zone.y = 12.0
-			_run_camera.response_time = Vector2(0.12, 0.05)
+			# Keep short jumps inside a stable view; a continuous climb still follows.
+			_run_camera.use_stable_forest_view()
 		if plains_environment_candidate_requested:
 			_run_camera.viewing_zoom = float(random_stage.generated.environment_plan.camera.zoom)
 		if plains_regional_art_candidate_requested:
@@ -520,16 +516,12 @@ func _load_stage() -> void:
 			_run_camera.dead_zone.y = float(random_stage.generated.golden_manifest.camera.dead_zone_y)
 			_run_camera.response_time.y = float(random_stage.generated.golden_manifest.camera.response_y)
 		_run_camera.configure(player, random_stage.bounds)
-		if active_region_id == &"thorn_forest":
-			# configure keeps the shared region zoom; apply this region's view afterward.
-			_run_camera.zoom = Vector2.ONE * _run_camera.viewing_zoom
-			_run_camera.snap_to_target()
-			_run_camera.force_update_scroll()
 	controller.return_to_segment(stage.spawn)
 	policy = FrameDamagePolicy.new()
 	policy.lifetime = lifetime
 	add_child(policy)
 	policy.register_target(&"player", controller.actor_resources.health, true)
+	policy.register_player_controller(controller)
 	policy.player_fatal.connect(_player_fatal)
 	policy.environment_return_requested.connect(_environment_return)
 	policy.batch_resolved.connect(_damage_resolved.bind(policy, lifetime.stage_epoch, lifetime.epoch))
@@ -547,11 +539,22 @@ func _load_stage() -> void:
 			_status = "GENERATION FAILED / invalid windchime layout"
 			abandon_run()
 			return
+		if connected_region:
+			(random_stage.assembler as PlainsRegionAssembler).attack_shortcut_opened.connect(_record_attack_shortcut_opened.bind(lifetime.stage_epoch,lifetime.epoch))
 		director.manifest.record_output(director.stage_index, &"shot_latch_layout", random_stage.generated.manifest.shot_latch_plan)
-		for index: int in random_stage.assembler.world_static_dangers().size():
-			var danger: Rect2 = random_stage.assembler.world_static_dangers()[index]
+		var static_records: Array[Dictionary] = []
+		if connected_region: static_records.assign(random_stage.assembler.world_static_hazard_records())
+		var static_dangers := random_stage.assembler.world_static_dangers()
+		for index: int in static_dangers.size():
+			var danger: Rect2 = static_dangers[index]
 			var emitter := _contact(stage, StringName("generated_spikes_%s" % index), DamageRequest.Kind.ENVIRONMENT, danger.size / 2)
 			emitter.position = danger.get_center()
+			if connected_region:
+				var record: Dictionary = static_records[index]
+				emitter.fall_plane = record.role == "fall_plane"
+				emitter.set_meta("hazard_role",record.role)
+				emitter.set_meta("hazard_module",record.module_id)
+				emitter.set_meta("hazard_authored_id",record.authored_id)
 	else:
 		segment.danger_bounds = [Rect2(780, 530, 80, 110)]
 	await get_tree().physics_frame
@@ -687,7 +690,10 @@ func _load_stage() -> void:
 					if connected_region and encounter.stage_phase==3: arena_consumer._phase_changed(3)
 		if connected_region:
 			var region:=stage as PlainsRegionStage
-			region.boss_seal=BossArenaSeal.new();region.add_child(region.boss_seal)
+			region.boss_seal=BossArenaSeal.new()
+			if region is ThornForestRegionStage and region.generated.manifest.get("layout_version")==ForestTargetHosts.LAYOUT:
+				region.boss_seal.world_status_text_enabled=false
+			region.add_child(region.boss_seal)
 			region.boss_seal.setup(region.boss_arena,region.bounds,controller,encounter,lifetime)
 			region.boss_seal.restore_closed(bool(region.restored_boss.get("seal_closed",false)))
 			var boss_entry := (region as ThornForestRegionStage).forest_boss_entry_position() if region is ThornForestRegionStage else Vector2(region.boss_arena.position.x+70,region.boss_arena.end.y-18)
@@ -699,6 +705,8 @@ func _load_stage() -> void:
 		var boss_contact_half: Vector2 = Vector2(72,62).min(encounter.definition.collision_size/2) if encounter is WindkeeperEncounter else Vector2(25,27)
 		if encounter.has_method("bind_duel"): boss_contact_half = encounter.definition.collision_size/2
 		_boss_contact = _contact(stage.boss, &"boss_contact", DamageRequest.Kind.MONSTER,boss_contact_half)
+		if encounter is WindkeeperEncounter:
+			_boss_contact.contact_rect_provider = encounter.body_contact_rect
 		_boss_contact.enabled = not generated_plains
 	if director.stage_type_id == &"item_reward":
 		var candidates: Array[ItemDefinition] = []
@@ -765,7 +773,7 @@ func _physics_process(_delta: float) -> void:
 		segment.activate_anchor(&"midpoint")
 	if generated_plains:
 		var random_stage := stage as GeneratedDemoStage
-		if not random_stage.bounds.grow(100).has_point(position_now):
+		if DamageBoundary.should_return(player, random_stage.bounds):
 			_submit_damage(&"bounds", DamageRequest.Kind.ENVIRONMENT, 1.0)
 		if player.is_on_floor():
 			for index: int in random_stage.anchors.size():
@@ -799,7 +807,7 @@ func _physics_process(_delta: float) -> void:
 		else:
 			_boss_contact.enabled = not stage.boss.get_node("Encounter").health.terminal
 
-func _submit_damage(source: StringName, kind: DamageRequest.Kind, amount: float, event: StringName = &"") -> void:
+func _submit_damage(source: StringName, kind: DamageRequest.Kind, amount: float, event: StringName = &"", hit_direction: Vector2 = Vector2.ZERO) -> void:
 	var request := DamageRequest.new()
 	request.token = lifetime.token()
 	request.event_id = _next_id(str(source)) if event.is_empty() else event
@@ -807,6 +815,7 @@ func _submit_damage(source: StringName, kind: DamageRequest.Kind, amount: float,
 	request.target_id = &"player"
 	request.kind = kind
 	request.amount = amount
+	request.hit_direction = hit_direction
 	request.health_epoch = controller.actor_resources.health.epoch
 	request.actor_epoch = lifetime.actor_epoch
 	policy.submit(request)
@@ -814,7 +823,7 @@ func _submit_damage(source: StringName, kind: DamageRequest.Kind, amount: float,
 func _boss_projectile_created(projectile: Node) -> void:
 	projectile.hit.connect(func(body: Node, event_id: StringName, amount: float) -> void:
 		if body == player and lifetime.active and is_instance_valid(policy) and (not generated_plains or (_boss_started and _in_boss_core())):
-			_submit_damage(&"boss_projectile", DamageRequest.Kind.MONSTER, amount, event_id)
+			_submit_damage(&"boss_projectile", DamageRequest.Kind.MONSTER, amount, event_id, projectile.direction)
 	)
 
 func _damage_resolved(_results: Array[DamageResult], batch_policy: FrameDamagePolicy = null, batch_stage_epoch: int = -1, batch_run_epoch: int = -1) -> void:
@@ -1300,7 +1309,11 @@ func _process(_delta: float) -> void:
 		var boss_encounter = stage.boss.get_node("Encounter")
 		if not boss_encounter is WindkeeperEncounter and boss_encounter.active and boss_encounter.has_method("objective") and not boss_encounter.health.terminal:
 			var boss_title: String = boss_encounter.definition.display_name if boss_encounter is ThornForestEncounter else "THE WINDKEEPER"
-			_boss_status.text = "%s  /  %.0f / %.0f\n%s" % [boss_title,boss_encounter.health.current, boss_encounter.health.capacity, boss_encounter.call("objective")]
+			var seal_status := ""
+			if stage is ThornForestRegionStage and is_instance_valid(stage.boss_seal) and not stage.boss_seal.world_status_text_enabled:
+				if stage.boss_seal.closed:seal_status=" / ARENA SEALED"
+				elif stage.boss_seal.armed:seal_status=" / GATES CLOSING"
+			_boss_status.text = "%s  /  %.0f / %.0f%s\n%s" % [boss_title,boss_encounter.health.current, boss_encounter.health.capacity,seal_status,boss_encounter.call("objective")]
 			_boss_status.show()
 	_hint.text = _device_hint()
 	if generated_plains:
@@ -1545,7 +1558,7 @@ func _make_ui() -> void:
 	menu.set_input_values(_session_input)
 	menu.requested_enter_home.connect(_show_home)
 	menu.home_panel_closed.connect(_close_home_panel)
-	menu.requested_start.connect(start_demo)
+	menu.requested_start.connect(func(seed: String) -> void: start_demo(seed, false))
 	menu.requested_plains.connect(start_plains)
 	menu.requested_debug_region.connect(start_debug_region)
 	progression_modal = RegionProgressionModal.new()
@@ -1963,14 +1976,13 @@ func _cancel_enemy_attacks() -> void:
 			_boss_eligible_shots.clear()
 			if is_instance_valid(controller): controller.shoot_ability.clear_projectiles()
 
+func _record_attack_shortcut_opened(id: String, stage_epoch: int, run_epoch: int) -> void:
+	if not lifetime.active or lifetime.stage_epoch != stage_epoch or lifetime.epoch != run_epoch or not connected_region:
+		return
+	director.manifest.record_output(director.stage_index,StringName("shortcut/"+id),{"opened":true,"trigger":"accepted_attack"})
+
 func _region_interact() -> void:
 	var rs := stage as PlainsRegionStage
-	var shortcut_id := rs.nearby_shortcut(player.global_position)
-	if not shortcut_id.is_empty():
-		if (rs.assembler as PlainsRegionAssembler).open_shortcut(shortcut_id,player.global_position):
-			GameAudio.cue(self,&"door")
-			director.manifest.record_output(director.stage_index,StringName("shortcut/"+shortcut_id),{"opened": true})
-		return
 	var index := rs.nearby_chest(player.global_position)
 	if index >= 0:
 		var chest: Dictionary = rs.chests[index]

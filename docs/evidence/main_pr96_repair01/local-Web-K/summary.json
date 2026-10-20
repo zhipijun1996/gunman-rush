@@ -1,0 +1,87 @@
+{
+  "execution_head": "8f803e2f04b17db3ed725df9071669fe78cadeea",
+  "local_url": "http://127.0.0.1:37139/",
+  "technical_status": "technical_pass_pixels_pending_independent_review",
+  "pixel_status": "pixels_pending_independent_review",
+  "source_stable": true,
+  "bundle_stable": true,
+  "build_id": "1630e2150b59",
+  "pack_sha256": "1630e2150b599c6f316fe57a5b81f1a063f83aadd9c948213c11b62d77213cf2",
+  "pack_bytes": 141171220,
+  "original_gui_checks": 20,
+  "original_gui_identities": 8,
+  "gui_errors": [],
+  "selector_status": "pixels_pending_independent_review",
+  "selector_errors": [],
+  "original_selected_png": 19,
+  "gui_original_png": 16,
+  "selector_original_png": 3,
+  "steps": [
+    {
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/build.py",
+        "web"
+      ],
+      "exit_code": 0,
+      "seconds": 25.40448811999886,
+      "original_caps": {
+        "environment": 120,
+        "import": 90,
+        "stamp": 30,
+        "export": 180,
+        "original_prepare_web_playtest_postprocessing": "unchanged, no new aggregate timer"
+      },
+      "extra_total_timer": null
+    },
+    {
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/verify_forest_browser.py",
+        "http://127.0.0.1:37139/",
+        "--output-dir",
+        "/workspace/gunman-rush/build/forest_revision04/final-F2-local-web/gui",
+        "--expected-commit",
+        "8f803e2f04b17db3ed725df9071669fe78cadeea",
+        "--expected-build-id",
+        "1630e2150b59",
+        "--expected-forest-version",
+        "thorn-forest-region-v2",
+        "--expected-forest-layout",
+        "forest-fruit-routes-v14"
+      ],
+      "exit_code": 0,
+      "seconds": 355.15754645700144,
+      "original_caps": {
+        "original_complete_gui": 480
+      },
+      "extra_total_timer": null
+    },
+    {
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/workspace/gunman-rush/build/forest_revision04/selector-popup-F2-draft/capture_selector_popup.py",
+        "http://127.0.0.1:37139/",
+        "--output-dir",
+        "/workspace/gunman-rush/build/forest_revision04/final-F2-local-web/selector-popup",
+        "--expected-commit",
+        "8f803e2f04b17db3ed725df9071669fe78cadeea",
+        "--expected-build-id",
+        "1630e2150b59",
+        "--expected-pck-sha256",
+        "1630e2150b599c6f316fe57a5b81f1a063f83aadd9c948213c11b62d77213cf2",
+        "--expected-pack-bytes",
+        "141171220"
+      ],
+      "exit_code": 0,
+      "seconds": 43.34782912999799,
+      "original_caps": {
+        "supplemental_actual_mouse_case": 120,
+        "original_gui480": "unchanged separate completed CLI"
+      },
+      "extra_total_timer": null
+    }
+  ],
+  "scope": "Exact frozen K local Web build/original20/8/supplemental selector120 only. No public deployment, physical device, natural campaign or full forest/whole UI visual approval. H UI defect evidence remains historical and unchanged.",
+  "packaging_utc": "2026-10-20T07:17:54.755942+00:00"
+}

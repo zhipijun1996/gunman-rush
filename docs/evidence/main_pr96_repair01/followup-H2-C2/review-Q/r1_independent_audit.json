@@ -1,0 +1,563 @@
+{
+  "status": "SCOPED_ACCEPT",
+  "execution_head": "1352f59f1b4761fe0ed806b0c0a165bcc7d54fab",
+  "execution_dirty_path": "tests/forest_depth_campaign_boss_runner.gd",
+  "source_sha256": "7d874d6956b47a7cca85704a59b45a5ce3f5d3df1e59aa29690ca1ccb399fc49",
+  "original_static_check_calls": 30,
+  "current_static_check_calls": 31,
+  "original_calls_byte_exact_multiset": true,
+  "added_check_call": [
+    "check(tick-combat_start<=4200,\"actual Queen combat including recovery stays within original 4200 physics frames\")"
+  ],
+  "runtime_check_count": 30,
+  "python_original_validator_passed": true,
+  "independent_corrupted_actual_capture_rejections": [
+    {
+      "name": "Boss HP remains nonterminal",
+      "rejected": true,
+      "reason": "Actual live-player unique Queen kill and mid-fight reload required"
+    },
+    {
+      "name": "Live player lost",
+      "rejected": true,
+      "reason": "Actual live-player unique Queen kill and mid-fight reload required"
+    },
+    {
+      "name": "Duplicate defeat",
+      "rejected": true,
+      "reason": "Actual live-player unique Queen kill and mid-fight reload required"
+    },
+    {
+      "name": "Skip actual reload",
+      "rejected": true,
+      "reason": "Actual live-player unique Queen kill and mid-fight reload required"
+    },
+    {
+      "name": "Missing real motor frame",
+      "rejected": true,
+      "reason": "Recorded Queen frame HP must agree with full normal damage ledger"
+    },
+    {
+      "name": "Damage from injected source",
+      "rejected": true,
+      "reason": "Queen damage must come from normal actual projectiles"
+    },
+    {
+      "name": "Reload heals earned health",
+      "rejected": true,
+      "reason": "Bound App restore must preserve exact persistent field state and damaged health"
+    },
+    {
+      "name": "Gold granted twice",
+      "rejected": true,
+      "reason": "Independent combat-earned GOLD must be claimed once without free healing"
+    },
+    {
+      "name": "Boundary hides unsupported region",
+      "rejected": true,
+      "reason": "Actual boundary must visibly explain unavailable next regions"
+    },
+    {
+      "name": "Old assertion false",
+      "rejected": true,
+      "reason": "All Queen consumer runtime assertions required"
+    },
+    {
+      "name": "Manual motor injected",
+      "rejected": true,
+      "reason": "Queen scenario must use actual debug-pinned App and normal inputs without fixture world"
+    }
+  ],
+  "source_and_log_bindings_verified": true,
+  "strict_log_scan_clean": true,
+  "native_budget_seconds": 180,
+  "import_budget_seconds": 90,
+  "wrapper_seconds": 17.431156908001867,
+  "combat_driver_ticks": 1327,
+  "combat_driver_limit": 4200,
+  "damage_events": [
+    {
+      "tick": 359,
+      "target": "boss",
+      "hp": 23.0,
+      "source": "player_projectile:208456911775"
+    },
+    {
+      "tick": 400,
+      "target": "boss",
+      "hp": 22.0,
+      "source": "player_projectile:208456911775"
+    },
+    {
+      "tick": 422,
+      "target": "boss",
+      "hp": 21.0,
+      "source": "player_projectile:208456911775"
+    },
+    {
+      "tick": 439,
+      "target": "boss",
+      "hp": 20.0,
+      "source": "player_projectile:208456911775"
+    },
+    {
+      "tick": 447,
+      "target": "player",
+      "hp": 4.0,
+      "source": "boss_contact"
+    },
+    {
+      "tick": 559,
+      "target": "player",
+      "hp": 3.0,
+      "source": "queen_growing_weave"
+    },
+    {
+      "tick": 736,
+      "target": "boss",
+      "hp": 19.0,
+      "source": "player_projectile:208456911775"
+    },
+    {
+      "tick": 753,
+      "target": "boss",
+      "hp": 18.0,
+      "source": "player_projectile:208456911775"
+    },
+    {
+      "tick": 773,
+      "target": "boss",
+      "hp": 17.0,
+      "source": "player_projectile:208456911775"
+    },
+    {
+      "tick": 794,
+      "target": "boss",
+      "hp": 16.0,
+      "source": "player_projectile:208456911775"
+    },
+    {
+      "tick": 813,
+      "target": "boss",
+      "hp": 15.0,
+      "source": "player_projectile:208456911775"
+    },
+    {
+      "tick": 830,
+      "target": "boss",
+      "hp": 14.0,
+      "source": "player_projectile:208456911775"
+    },
+    {
+      "tick": 845,
+      "target": "boss",
+      "hp": 13.0,
+      "source": "player_projectile:208456911775"
+    },
+    {
+      "tick": 863,
+      "target": "boss",
+      "hp": 12.0,
+      "source": "player_projectile:208456911775"
+    },
+    {
+      "tick": 1040,
+      "target": "boss",
+      "hp": 11.0,
+      "source": "player_projectile:208456911775"
+    },
+    {
+      "tick": 1146,
+      "target": "boss",
+      "hp": 10.0,
+      "source": "player_projectile:208456911775"
+    },
+    {
+      "tick": 1165,
+      "target": "boss",
+      "hp": 9.0,
+      "source": "player_projectile:208456911775"
+    },
+    {
+      "tick": 1187,
+      "target": "boss",
+      "hp": 8.0,
+      "source": "player_projectile:208456911775"
+    },
+    {
+      "tick": 1215,
+      "target": "boss",
+      "hp": 7.0,
+      "source": "player_projectile:208456911775"
+    },
+    {
+      "tick": 1242,
+      "target": "boss",
+      "hp": 6.0,
+      "source": "player_projectile:208456911775"
+    },
+    {
+      "tick": 1265,
+      "target": "boss",
+      "hp": 5.0,
+      "source": "player_projectile:208456911775"
+    },
+    {
+      "tick": 1289,
+      "target": "boss",
+      "hp": 4.0,
+      "source": "player_projectile:208456911775"
+    },
+    {
+      "tick": 1316,
+      "target": "boss",
+      "hp": 3.0,
+      "source": "player_projectile:208456911775"
+    },
+    {
+      "tick": 1594,
+      "target": "boss",
+      "hp": 2.0,
+      "source": "player_projectile:208456911775"
+    },
+    {
+      "tick": 1613,
+      "target": "boss",
+      "hp": 1.0,
+      "source": "player_projectile:208456911775"
+    },
+    {
+      "tick": 1635,
+      "target": "boss",
+      "hp": 0.0,
+      "source": "player_projectile:208456911775"
+    }
+  ],
+  "driver_transitions": [
+    {
+      "tick": 1,
+      "driver_phase": "entry",
+      "player": [
+        1404.3173828125,
+        371.92529296875
+      ],
+      "grounded": true,
+      "damage_remaining": 0.0,
+      "used_jumps": 0
+    },
+    {
+      "tick": 74,
+      "driver_phase": "right_gap_approach",
+      "player": [
+        1720.64758300781,
+        371.92529296875
+      ],
+      "grounded": true,
+      "damage_remaining": 0.0,
+      "used_jumps": 0
+    },
+    {
+      "tick": 173,
+      "driver_phase": "enter_upper_jump",
+      "player": [
+        2145.31713867188,
+        361.546264648438
+      ],
+      "grounded": false,
+      "damage_remaining": 0.0,
+      "used_jumps": 1
+    },
+    {
+      "tick": 196,
+      "driver_phase": "enter_upper_down_R",
+      "player": [
+        2145.31713867188,
+        203.879592895508
+      ],
+      "grounded": false,
+      "damage_remaining": 0.0,
+      "used_jumps": 1
+    },
+    {
+      "tick": 211,
+      "driver_phase": "enter_upper_left_R",
+      "player": [
+        2163.650390625,
+        68.2456436157227
+      ],
+      "grounded": false,
+      "damage_remaining": 0.0,
+      "used_jumps": 1
+    },
+    {
+      "tick": 226,
+      "driver_phase": "enter_upper_receive",
+      "player": [
+        2294.98315429688,
+        88.4678649902344
+      ],
+      "grounded": false,
+      "damage_remaining": 0.0,
+      "used_jumps": 1
+    },
+    {
+      "tick": 237,
+      "driver_phase": "move_to_middle",
+      "player": [
+        2268.9833984375,
+        171.925231933594
+      ],
+      "grounded": true,
+      "damage_remaining": 0.0,
+      "used_jumps": 0
+    },
+    {
+      "tick": 309,
+      "driver_phase": "fight",
+      "player": [
+        1951.27893066406,
+        130.994094848633
+      ],
+      "grounded": false,
+      "damage_remaining": 0.0,
+      "used_jumps": 0
+    },
+    {
+      "tick": 310,
+      "driver_phase": "regain_wait_floor",
+      "player": [
+        1941.23864746094,
+        130.062911987305
+      ],
+      "grounded": false,
+      "damage_remaining": 0.0,
+      "used_jumps": 0
+    },
+    {
+      "tick": 350,
+      "driver_phase": "fight",
+      "player": [
+        1934.81335449219,
+        131.925933837891
+      ],
+      "grounded": true,
+      "damage_remaining": 0.0,
+      "used_jumps": 0
+    },
+    {
+      "tick": 449,
+      "driver_phase": "regain_wait_floor",
+      "player": [
+        1818.50427246094,
+        129.258392333984
+      ],
+      "grounded": false,
+      "damage_remaining": 0.146666666666667,
+      "used_jumps": 0
+    },
+    {
+      "tick": 482,
+      "driver_phase": "right_gap_approach",
+      "player": [
+        1789.10375976562,
+        371.925231933594
+      ],
+      "grounded": true,
+      "damage_remaining": 0.0,
+      "used_jumps": 0
+    },
+    {
+      "tick": 585,
+      "driver_phase": "enter_upper_jump",
+      "player": [
+        2142.90893554688,
+        361.546264648438
+      ],
+      "grounded": false,
+      "damage_remaining": 0.0,
+      "used_jumps": 1
+    },
+    {
+      "tick": 608,
+      "driver_phase": "enter_upper_down_R",
+      "player": [
+        2142.90893554688,
+        203.879592895508
+      ],
+      "grounded": false,
+      "damage_remaining": 0.0,
+      "used_jumps": 1
+    },
+    {
+      "tick": 623,
+      "driver_phase": "enter_upper_left_R",
+      "player": [
+        2161.2421875,
+        68.2456436157227
+      ],
+      "grounded": false,
+      "damage_remaining": 0.0,
+      "used_jumps": 1
+    },
+    {
+      "tick": 638,
+      "driver_phase": "enter_upper_receive",
+      "player": [
+        2292.57495117188,
+        88.4678649902344
+      ],
+      "grounded": false,
+      "damage_remaining": 0.0,
+      "used_jumps": 1
+    },
+    {
+      "tick": 649,
+      "driver_phase": "move_to_middle",
+      "player": [
+        2270.90844726562,
+        171.925231933594
+      ],
+      "grounded": true,
+      "damage_remaining": 0.0,
+      "used_jumps": 0
+    },
+    {
+      "tick": 722,
+      "driver_phase": "fight",
+      "player": [
+        1981.01428222656,
+        131.925262451172
+      ],
+      "grounded": true,
+      "damage_remaining": 0.0,
+      "used_jumps": 0
+    },
+    {
+      "tick": 865,
+      "driver_phase": "right_gap_approach",
+      "player": [
+        1582.33325195312,
+        371.925262451172
+      ],
+      "grounded": true,
+      "damage_remaining": 0.0,
+      "used_jumps": 0
+    },
+    {
+      "tick": 995,
+      "driver_phase": "enter_upper_jump",
+      "player": [
+        2141.33349609375,
+        361.546264648438
+      ],
+      "grounded": false,
+      "damage_remaining": 0.0,
+      "used_jumps": 1
+    },
+    {
+      "tick": 1018,
+      "driver_phase": "enter_upper_down_R",
+      "player": [
+        2141.33349609375,
+        203.879592895508
+      ],
+      "grounded": false,
+      "damage_remaining": 0.0,
+      "used_jumps": 1
+    },
+    {
+      "tick": 1033,
+      "driver_phase": "enter_upper_left_R",
+      "player": [
+        2159.66674804688,
+        68.2456436157227
+      ],
+      "grounded": false,
+      "damage_remaining": 0.0,
+      "used_jumps": 1
+    },
+    {
+      "tick": 1048,
+      "driver_phase": "enter_upper_receive",
+      "player": [
+        2290.99951171875,
+        88.4678649902344
+      ],
+      "grounded": false,
+      "damage_remaining": 0.0,
+      "used_jumps": 1
+    },
+    {
+      "tick": 1059,
+      "driver_phase": "move_to_middle",
+      "player": [
+        2269.3330078125,
+        171.925231933594
+      ],
+      "grounded": true,
+      "damage_remaining": 0.0,
+      "used_jumps": 0
+    },
+    {
+      "tick": 1142,
+      "driver_phase": "fight",
+      "player": [
+        1956.43579101562,
+        131.925216674805
+      ],
+      "grounded": true,
+      "damage_remaining": 0.0,
+      "used_jumps": 0
+    },
+    {
+      "tick": 1307,
+      "driver_phase": "regain_wait_floor",
+      "player": [
+        1887.16223144531,
+        130.510848999023
+      ],
+      "grounded": false,
+      "damage_remaining": 0.0,
+      "used_jumps": 0
+    },
+    {
+      "tick": 1358,
+      "driver_phase": "fight",
+      "player": [
+        1952.78552246094,
+        131.925277709961
+      ],
+      "grounded": true,
+      "damage_remaining": 0.0,
+      "used_jumps": 0
+    },
+    {
+      "tick": 1536,
+      "driver_phase": "regain_wait_floor",
+      "player": [
+        1972.84252929688,
+        129.822937011719
+      ],
+      "grounded": false,
+      "damage_remaining": 0.0,
+      "used_jumps": 0
+    },
+    {
+      "tick": 1575,
+      "driver_phase": "fight",
+      "player": [
+        1983.1875,
+        131.925262451172
+      ],
+      "grounded": true,
+      "damage_remaining": 0.0,
+      "used_jumps": 0
+    }
+  ],
+  "limits": [
+    "4200 counts frames() driver observations; existing direct process-frame waits during pause/reload are not newly counted global Engine frames.",
+    "Changed legal timing avoided repeat of old hurt during second jump; observed final growing-weave damage is tick559 during approach, then hurt-free jump585.",
+    "Actual one seed recorded v7/schema13 scenario, not current Canopy admission or full matrix/CI.",
+    "No native launched by independent reviewer."
+  ]
+}

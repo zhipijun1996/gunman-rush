@@ -2,7 +2,7 @@ class_name WindkeeperPresentation
 extends Node2D
 var pixel_style := false
 @export var encounter: WindkeeperEncounter
-const CORE_FONT := preload("res://assets/fonts/windkeeper_ui.ttf")
+const CORE_FONT := preload("res://assets/fonts/foundry_notes.otf")
 const BODY := preload("res://assets/plains_v4/windkeeper/body_actions.png")
 const PARTS := preload("res://assets/plains_v4/windkeeper/parts.png")
 const BODY_REGIONS := [Rect2(8,45,482,463),Rect2(520,35,450,473),Rect2(985,105,543,403),Rect2(10,575,512,390),Rect2(515,550,490,420),Rect2(1010,590,515,378)]
@@ -146,7 +146,7 @@ func _draw() -> void:
 			draw_set_transform(Vector2(_secondary * -75,-75),angle,Vector2.ONE*.34)
 			draw_texture_rect_region(PARTS,Rect2(-Vector2(323,286),Vector2(640,605)),Rect2(5,5,640,605))
 			draw_set_transform(Vector2.ZERO)
-	if (encounter.definition as WindkeeperDefinition).platform_trials and encounter.stage_phase==3 and encounter.active and encounter._platform_piers.size()==3:
+	if not encounter.continuous_combat() and (encounter.definition as WindkeeperDefinition).platform_trials and encounter.stage_phase==3 and encounter.active and encounter._platform_piers.size()==3:
 		var at:=Vector2(encounter._platform_piers[clampi(encounter.chase_segment,0,2)]-encounter.motor.global_position.x,encounter._floor_y-155-encounter.motor.global_position.y)
 		var charged:bool=encounter.rune_platform==encounter.chase_segment
 		if pixel_style: PixelFormalActors.bell(self,at,charged)
@@ -160,7 +160,7 @@ func _draw() -> void:
 		draw_arc(Vector2(0,65),88,PI,TAU,24,Color(1,.65,.23,.7),4)
 	if encounter.core_open:
 		var core := encounter.core_offset()
-		if (encounter.definition as WindkeeperDefinition).storm_profile and encounter.stage_phase>=2:
+		if not encounter.continuous_combat() and (encounter.definition as WindkeeperDefinition).storm_profile and encounter.stage_phase>=2:
 			if pixel_style:
 				PixelFormalActors.pixel_line(self,core+Vector2(-12,-78),core+Vector2(0,-66),PixelFormalActors.CREAM)
 				PixelFormalActors.pixel_line(self,core+Vector2(12,-78),core+Vector2(0,-66),PixelFormalActors.CREAM)
@@ -171,11 +171,15 @@ func _draw() -> void:
 		draw_arc(core, 18, 0, TAU, 32, Color("ffe9a8"), 1.5)
 		var remaining:=clampf(encounter.clock/(encounter.definition as WindkeeperDefinition).exposed_seconds,0,1)
 		draw_arc(core,30,-PI/2,-PI/2+TAU*remaining,40,Color("95dab0"),2)
-		draw_string(CORE_FONT,core+Vector2(30,-20),"OPEN %.1fs" % maxf(0,encounter.clock),HORIZONTAL_ALIGNMENT_LEFT,-1,12,Color("d6f3d1"))
+		draw_string(CORE_FONT,core+Vector2(30,-20),"收招" if encounter.continuous_combat() else "OPEN %.1fs" % maxf(0,encounter.clock),HORIZONTAL_ALIGNMENT_LEFT,-1,12,Color("d6f3d1"))
 		for side: int in [-1, 1]:
 			draw_line(core + Vector2(side * 23, -3), core + Vector2(side * 30, -3), Color("ffe9a8"), 2)
 		draw_string(CORE_FONT, core + Vector2(-20, -33), "铃芯", HORIZONTAL_ALIGNMENT_LEFT, -1, 13, Color("ffe9a8"))
-		if pixel_style: PixelFormalActors.bell(self,core,true,hurt_flash>0)
+		if UnderworldActors.enabled(self):
+			var bell := UnderworldActors.icon_texture(&"bell")
+			var size := bell.get_size() * (32.0 / bell.get_height())
+			draw_texture_rect(bell,Rect2(core-size*.5,size),false,Color(1.5,1.3,1.0) if hurt_flash>0 else Color.WHITE)
+		elif pixel_style: PixelFormalActors.bell(self,core,true,hurt_flash>0)
 		else: draw_texture_rect_region(PARTS,Rect2(core-Vector2(11,14),Vector2(22,29)),Rect2(735,20,435,575))
 
 	if (encounter.definition as WindkeeperDefinition).storm_profile and encounter.mode in [&"blade_warning",&"blades"]:

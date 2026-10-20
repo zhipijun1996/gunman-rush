@@ -1,0 +1,66 @@
+{
+  "base_source_head": "562542bd458f25c8fb5f6e56e74c69d363976735",
+  "worktree": "/workspace/gunman-rush-ci-H",
+  "sparse_scope": "all tracked root directories except docs; actual runtime/assets/scripts/tests/tools are exact H",
+  "changed_paths": [
+    "tests/underworld_plains/test_underworld_identity_population.gd"
+  ],
+  "fixture_sha256": "40975b16b7a0e97847da0e915201e318733da13c06d66fc6afe152755745ea64",
+  "production_changes": false,
+  "original_business_checks": 21167,
+  "new_release_checks": 20,
+  "original_case_rows_exact_equal": true,
+  "original_wrapper_unchanged": true,
+  "native_cap_unchanged": 240,
+  "outer_cap_unchanged": 150,
+  "positive": {
+    "checks_scenery": 450,
+    "population_cases": 20,
+    "population_checks": 21187,
+    "failures": 0,
+    "strict_returncode": 0,
+    "elapsed": 39.95412886300255
+  },
+  "negative": {
+    "actual_borrowed_playback": "world-owned land AudioStreamPlaybackOggVorbis",
+    "population_cases": 20,
+    "population_checks": 21187,
+    "failures": 1,
+    "strict_returncode": 1,
+    "actual_release_timeout_seconds": 1.006,
+    "borrower_release_recovery_seconds": 0.001,
+    "native_leaks": false
+  },
+  "original_leak_reproduced": {
+    "native_objects": 4,
+    "resources": 2,
+    "classes": [
+      "OggPacketSequencePlayback",
+      "OggPacketSequence",
+      "AudioStreamOggVorbis",
+      "AudioStreamPlaybackOggVorbis"
+    ],
+    "resource": "res://assets/audio/kenney/land.ogg"
+  },
+  "observed_original_release_lifecycle": {
+    "actual_nonspatial_owned_Land_playbacks": 20,
+    "still_alive_after_original4frames": 18
+  },
+  "limitations": [
+    "Original-H native leak is intermittent; original full positive rounds also passed before patch",
+    "Spatial-only observer saw zero AudioStreamPlayer2D and did not observe GameAudio nonspatial voices",
+    "Remote serial native log did not expose verbose class types; class evidence comes from matching local exact-H4/2 failure",
+    "No claim fixes arbitrary script/resource compilation graphs",
+    "No full H2 CI or unexecuted lanes signed"
+  ],
+  "original_pipeline_refusal_tests": {
+    "argv": [
+      "python3",
+      "tests/test_underworld_pipeline.py"
+    ],
+    "tests": 125,
+    "returncode": 0,
+    "elapsed": 76.84002748399871,
+    "timeout": 180
+  }
+}

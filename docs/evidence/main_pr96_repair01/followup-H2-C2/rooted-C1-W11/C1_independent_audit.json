@@ -1,0 +1,269 @@
+{
+  "status": "PASS",
+  "reviewed_commit": "220fe7dec48e46ad52b8a83302f6c46e8352bac8",
+  "actual_execution_head": "cea407025bb3a31be745c440efb85920307679a3",
+  "actual_actor_dirty_before_after_sha": "fd0472ed114bbe1dfccc8b3bcd569fecd54ad3473a14b3a31ac8af71cc2186d8",
+  "only_changed_path_C1_parent_to_C1": "scripts/enemies/enemy_actor.gd",
+  "old_actor_byte_exact_after_removing_two_guards": true,
+  "harness_checks": [
+    {
+      "id": "root-bell-tests",
+      "argv": [
+        "python3",
+        "tools/run_root_bell_formal.py",
+        "--g1"
+      ],
+      "timeout_seconds": 360,
+      "input_digest": "0ccdc80f7c8b9e4427badc015dd9775c97e0aecd2f69713dab2b8b1e881c4938",
+      "log": "root-bell-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792481713.0549297,
+      "ended_at_unix": 1792481829.9612923,
+      "duration_seconds": 116.906,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_root_bell_formal.py",
+        "--g1"
+      ],
+      "check_token": "9158fd3c90d140e98739291c86d72d82",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261020T073450.354937Z/artifacts/root-bell-tests",
+      "reused": false
+    },
+    {
+      "id": "root-bell-ecology",
+      "argv": [
+        "python3",
+        "tools/run_root_bell_ecology.py",
+        "--default"
+      ],
+      "timeout_seconds": 420,
+      "input_digest": "d7848815f4858b4ce4ef799e423419846dec4eaa73c89c274af5757f3c997d81",
+      "log": "root-bell-ecology.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792481851.90007,
+      "ended_at_unix": 1792481892.197744,
+      "duration_seconds": 40.298,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_root_bell_ecology.py",
+        "--default"
+      ],
+      "check_token": "f9011718f14d4180bb82da7c28aa320c",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261020T073450.354937Z/artifacts/root-bell-ecology",
+      "reused": false
+    },
+    {
+      "id": "underworld-damage-feedback",
+      "argv": [
+        "python3",
+        "tools/run_underworld_damage_r3_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "a61bad22f38dd4353a971867801d04921d6fd028924522db102b6943d1d15961",
+      "log": "underworld-damage-feedback.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792481915.1565018,
+      "ended_at_unix": 1792481920.2218497,
+      "duration_seconds": 5.065,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_underworld_damage_r3_tests.py"
+      ],
+      "check_token": "fdcba3ac527740bb8066977c3c5a0c7d",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261020T073450.354937Z/artifacts/underworld-damage-feedback",
+      "reused": false
+    }
+  ],
+  "outer_seconds": 250.2815952259989,
+  "g1": {
+    "stats": {
+      "scope": "G0/G1 fixtures and actual spawn consumer; formal route/visual/audio/device unverified",
+      "essential_cases": 19,
+      "width_direction_pairs": [
+        [
+          400,
+          -1
+        ],
+        [
+          400,
+          1
+        ],
+        [
+          440,
+          -1
+        ],
+        [
+          440,
+          1
+        ],
+        [
+          560,
+          -1
+        ],
+        [
+          560,
+          1
+        ]
+      ],
+      "native_assertions": 165,
+      "native_reexecuted": false
+    },
+    "current_content_refusals": 55,
+    "current_receipt_refusals": 11
+  },
+  "ecology": {
+    "before_error": "Rooted body moved",
+    "before_home": [
+      3940.0,
+      1208.0
+    ],
+    "accepted_hit": {
+      "actor_epoch": 5,
+      "amount": 1.0,
+      "damage_kind": 0,
+      "edge": "plains/passage/area_2_3/area_3_3",
+      "event_id": "237045287808:3:18",
+      "health_after": 2.0,
+      "health_epoch": 1,
+      "kind": "damage_committed",
+      "lethal": false,
+      "source": "player_projectile:237045287808",
+      "target": "plains/enemy/lane/plains/passage/area_2_3/area_3_3_join",
+      "tick": 4118
+    },
+    "first_bad_body_tick": 4119,
+    "first_bad_body_position": [
+      3942.25,
+      1208.0
+    ],
+    "per_tick_force_x": 2.25,
+    "actual_default_after": {
+      "cases": 19,
+      "frames": 5195,
+      "root_pulses": 12,
+      "scope": "One actual formal map2 pilot; not full campaign/player/device/visual admission"
+    },
+    "all_actual_root_body_positions_equal_home": true,
+    "original_scope_and_budgets_unchanged": true,
+    "original_mutation_refusals": 27,
+    "independent_body_displacement_refusals": [
+      {
+        "case": "actual_first_hit_displacement",
+        "reason": "Rooted body moved"
+      },
+      {
+        "case": "tiny_root_displacement",
+        "reason": "Rooted body moved"
+      }
+    ],
+    "original_source_code_blobs_verified_against_C1": [
+      "scripts/bosses/guardian_root_bell_v2.gd",
+      "scripts/damage/damage_feedback_definition.gd",
+      "scripts/enemies/enemy_actor.gd",
+      "scripts/enemies/enemy_definition.gd",
+      "scripts/enemies/enemy_motor.gd",
+      "scripts/enemies/root_bell_behavior.gd",
+      "scripts/enemies/root_bell_presentation.gd",
+      "scripts/generation/plains_root_bell_encounter_v2.gd",
+      "scripts/generation/plains_root_bell_encounter_v3.gd",
+      "scripts/generation/plains_root_bell_placement.gd",
+      "tests/root_bell_ecology_trace.gd",
+      "tests/root_bell_formal_runner.gd",
+      "tests/root_bell_formal_tests.gd",
+      "tests/root_bell_formal_trace.gd",
+      "tests/root_bell_runner.gd",
+      "tests/root_bell_spaces_runner.gd",
+      "tests/root_bell_tests.gd",
+      "tools/run_root_bell_formal.py",
+      "tools/test_root_bell_runtime_paths.py",
+      "tools/run_root_bell_spaces.py",
+      "tools/run_root_bell_ecology.py",
+      "tools/root_bell_ecology_capture.gd"
+    ],
+    "source_before_after_equal_entries": 1830
+  },
+  "moving_enemy_damage": {
+    "checks": 317,
+    "failures": [],
+    "wide_ground": {
+      "hit_position": "(585.0, 372.0)",
+      "final_position": "(601.2002, 372.0)",
+      "supported": true
+    },
+    "aerial": {
+      "hit_position": "(586.9316, 371.9996)",
+      "final_position": "(605.4561, 371.9999)"
+    },
+    "two_ground_edges_supported": true,
+    "artifact_equals_current_runtime_bytes": true
+  },
+  "raw_bindings": [
+    {
+      "path": "build/verification/harness/20261020T073450.354937Z/report.json",
+      "bytes": 4657,
+      "sha256": "26e054105bfc2987ceb449e72e6b51929fd41c54813d164a3cfe4d743528a812"
+    },
+    {
+      "path": "build/forest_revision04/rooted-fix-H2/outer-receipt.json",
+      "bytes": 828,
+      "sha256": "80d90c7b33cf356daa97eceed5958cea1c69cec23572e12ed917f281f4254b49"
+    },
+    {
+      "path": "build/root_bell/formal_v2/1792481713118958419/native165/capture.json",
+      "bytes": 937043,
+      "sha256": "fc58815554f7bf8a2c177025a981522d673bc6c30432858c785ecf415d2eab7b"
+    },
+    {
+      "path": "build/root_bell/formal_v2/1792481713118958419/native165/report.json",
+      "bytes": 8796,
+      "sha256": "6bb8ef74a0b968f9663a5b1debe31ac501f5aea17cad748efee4385eda66ac9d"
+    },
+    {
+      "path": "build/root_bell/formal_v2/1792481713118958419/native165/runtime.log",
+      "bytes": 111,
+      "sha256": "0426889f01a71e653310e69b5f0aa44a61efeb2e94f49053113fe3d1f9568492"
+    },
+    {
+      "path": "build/production_repair/ecology/formal_1792481240261501741/capture.json",
+      "bytes": 9738602,
+      "sha256": "610dc38f1b25c6ad29d0a66228e05b41094e98a1cc64258a04a0d206ca5d174f"
+    },
+    {
+      "path": "build/production_repair/ecology/formal_1792481240261501741/report.json",
+      "bytes": 225455,
+      "sha256": "c35b65b65bd1a20d54e8bfb77577ec60c363a3814b4d766c6c76b0e81266d8d2"
+    },
+    {
+      "path": "build/production_repair/ecology/formal_1792481240261501741/runtime.log",
+      "bytes": 1301,
+      "sha256": "3216968690c894eaa20618702696d4a97ee5b6f2be51b8d7b491be27bfb2d0a0"
+    },
+    {
+      "path": "build/production_repair/ecology/formal_1792481851996734819/capture.json",
+      "bytes": 9719272,
+      "sha256": "c97d4811ad9d4986228ec8617d583a0580922f93833f2a526f350619eda7d2a4"
+    },
+    {
+      "path": "build/production_repair/ecology/formal_1792481851996734819/report.json",
+      "bytes": 451048,
+      "sha256": "653c4c59e8f25ff16fd2703f789752ab247c776ac79bf4906c8b6f5091114af7"
+    },
+    {
+      "path": "build/production_repair/ecology/formal_1792481851996734819/runtime.log",
+      "bytes": 1301,
+      "sha256": "6d70f4a382347502695b4c198ebd05edfd063bd8953a002aef5f67923c31de4c"
+    },
+    {
+      "path": "build/verification/harness/20261020T073450.354937Z/artifacts/underworld-damage-feedback/build/underworld_r3/damage/runtime.json",
+      "bytes": 347853,
+      "sha256": "2be556ba068c399e05e264835c5b06fc72a9177a06eb8f1c22e867b2cca4bc86"
+    }
+  ],
+  "native_run_by_reviewer": false
+}

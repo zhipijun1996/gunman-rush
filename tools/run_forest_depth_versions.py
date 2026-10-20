@@ -347,7 +347,7 @@ def validate_interwoven(data):
                 or row.get('default_manifest') != m or row.get('frozen_manifest') != m
                 or row.get('boss_scene') != f'res://scenes/bosses/{boss}.tscn'
                 or row.get('boss_resource') != f'res://resources/bosses/{boss}.tres'):
-            raise ValueError('Exact v13 pinned/frozen/public default identity and Boss pair required')
+            raise ValueError('Exact v13 pinned/frozen registry identity and Boss pair required')
         edges = [e for e in m.get('connections', []) if e.get('id') in edges_expected]
         supports = [p for p in m.get('platforms', []) if p.get('id') in supports_expected]
         if ([e['id'] for e in edges] != edges_expected or row.get('added_edges') != edges_expected
@@ -430,50 +430,306 @@ def validate_interwoven_expansion(m):
         raise ValueError('Non-west growth requires real contiguous deep route after broken arch')
 
 
+def validate_fruit_version(data):
+    """Schema6 adds candidate/default v14; schema5's full old reader is retained."""
+    if data.get('capture_schema') != 6:
+        raise ValueError('Fruit version capture schema6 required')
+    cases = data.get('cases', [])
+    rows = [row for row in cases if row.get('id') == 'fruit_candidate_and_public_layout']
+    if len(cases) != 24 or len(rows) != 2 or {row.get('map') for row in rows} != {1, 2}:
+        raise ValueError('All twenty-two historical cases plus both v14 maps required')
+    previous = dict(data)
+    previous['capture_schema'] = 5
+    previous['cases'] = [row for row in cases if row.get('id') != 'fruit_candidate_and_public_layout']
+    validate_interwoven(previous)
+    from run_forest_depth_region import validate_fruit_presentation
+    source = (ROOT / 'tests/forest_depth_version_runner.gd').read_text()
+    expected_default = re.search(r'^const EXPECTED_PUBLIC_LAYOUT := "([^"]+)"$', source, re.M).group(1)
+    if expected_default not in ('forest-interwoven-canopy-v13', 'forest-fruit-routes-v14'):
+        raise ValueError('Independently selected known public layout required')
+    for row in rows:
+        index = row['map']
+        manifest = row.get('candidate_manifest', {})
+        current = row.get('default_manifest', {})
+        if (manifest.get('version') != 'thorn-forest-region-v2'
+                or manifest.get('layout_version') != 'forest-fruit-routes-v14'
+                or manifest.get('map_index') != index
+                or manifest.get('seed') != f'version-fruit-map-{index}'
+                or manifest.get('requires') != ['grapple']
+                or manifest.get('production_pool') is not False
+                or row.get('dedicated_complete_equal') is not True
+                or row.get('expected_public_layout') != expected_default
+                or current.get('layout_version') != expected_default
+                or current.get('map_index') != index
+                or current.get('seed') != manifest.get('seed')
+                or validate_fruit_presentation(manifest)):
+            raise ValueError('Complete registered v14 candidate, typed defaults and exact presentation required')
+        if expected_default == 'forest-fruit-routes-v14' and current != manifest:
+            raise ValueError('New public default must equal the complete explicit v14 output')
+
+
+
+PHASES = ('data', 'world')
+PHASE_SCRIPTS = {'data': 'tests/forest_depth_version_runner.gd',
+                 'world': 'tests/forest_depth_version_world_runner.gd'}
+PHASE_COUNTS = {'data': 280, 'world': 47}
+# Independently frozen complete original ledgers, preserving duplicate labels too.
+PHASE_LABEL_SHA256 = {
+    'data': '2a3cd81345d66c75bf6af12f4fa5390b3ce854fb860ebb7a86877a0dd6d5081d',
+    'world': '8f2e7fd257fd6eed1b63887317f3f7587fbeeda2e2cb6ae071cc1c9884622c41',
+}
+VERIFIER_PATHS = (str(Path(__file__).resolve().relative_to(ROOT)), *PHASE_SCRIPTS.values(),
+                  'tests/forest_depth_version_app_case.gd', 'tools/test_forest_depth_versions.py')
+
+
+def file_sha(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+
+
+def verifier_identity():
+    return {name: file_sha(ROOT / name) for name in VERIFIER_PATHS}
+
+
+def case_signature(row):
+    if not isinstance(row, dict):
+        raise ValueError('Native case must be a dictionary')
+    for name in ('map',):
+        if name in row and type(row[name]) is not int:
+            raise ValueError('Typed case map required')
+    return (row.get('id'), row.get('map'), row.get('seed'), row.get('fixture'))
+
+
+def expected_case_signatures(phase):
+    if phase == 'world':
+        return [('app_legacy', 1, None, None), ('app_legacy', 2, None, None)]
+    return [('delegate', index, f'version-contract-{seed:02d}/thorn_forest/map_{index}', None)
+            for seed in range(4) for index in (1, 2)] + [
+        ('v2_map2_experimental', None, None, None),
+        ('recorded_depth_layout', None, None, 'v7_root00_map2.json'),
+        ('recorded_depth_layout', None, None, 'v9_root00_map2_before_north.json'),
+        ('canopy_content_contract', None, None, None),
+        *[(name, index, None, None) for name in (
+            'expedition_content_contract', 'vertical_content_contract',
+            'recorded_expedition_layout', 'interwoven_content_contract',
+            'fruit_candidate_and_public_layout') for index in (1, 2)],
+    ]
+
+
+
+def same_native_identity(left, right):
+    """Native identity is flat: strings and exact int PID, never equal floats/bools."""
+    return (type(left) is dict and type(right) is dict and left.keys() == right.keys()
+            and all(type(left[key]) is type(right[key]) and left[key] == right[key] for key in left))
+
+
+def validate_phase(phase, data, raw, run_id, sources):
+    if phase not in PHASES or not isinstance(run_id, str) or not re.fullmatch(r'[0-9a-f]{32}', run_id):
+        raise ValueError('Explicit current native run identity required')
+    starts = re.findall(r'^FOREST VERSION PHASE: (.+)$', raw, re.M)
+    if len(starts) != 1:
+        raise ValueError('Missing or ambiguous native phase identity')
+    identity = json.loads(starts[0])
+    expected = {'phase': phase, 'run_id': run_id, 'script': 'res://' + PHASE_SCRIPTS[phase],
+                'script_sha256': sources[PHASE_SCRIPTS[phase]]}
+    if (not isinstance(identity, dict) or set(identity) != set(expected) | {'engine_pid'}
+            or any(identity.get(k) != v for k, v in expected.items())
+            or type(identity.get('engine_pid')) is not int or identity['engine_pid'] <= 0
+            or not same_native_identity(data.get('identity'), identity)):
+        raise ValueError('Stale, mixed-source or foreign native identity')
+    if (type(data.get('capture_schema')) is not int or data['capture_schema'] != 6
+            or type(data.get('assertions')) is not int or data['assertions'] != PHASE_COUNTS[phase]
+            or type(data.get('failures')) is not int or data['failures'] != 0):
+        raise ValueError('Exact original phase assertions/schema required')
+    engine = data.get('engine')
+    engine_fields = {'major': int, 'minor': int, 'patch': int, 'hex': int, 'timestamp': int,
+                     'status': str, 'build': str, 'hash': str, 'string': str}
+    if (type(engine) is not dict or set(engine) != set(engine_fields)
+            or any(type(engine[key]) is not kind for key, kind in engine_fields.items())
+            or any(not engine[key] for key in ('status', 'build', 'hash', 'string'))):
+        raise ValueError('Complete typed actual Engine.get_version_info identity required')
+    checks = data.get('checks')
+    if (not isinstance(checks, list) or len(checks) != PHASE_COUNTS[phase]
+            or any(not isinstance(r, dict) or set(r) != {'label', 'passed'}
+                   or not isinstance(r['label'], str) or type(r['passed']) is not bool
+                   or not r['passed'] for r in checks)):
+        raise ValueError('Complete original typed native assertion ledger required')
+    labels = json.dumps([r['label'] for r in checks], ensure_ascii=False, separators=(',', ':')).encode()
+    if hashlib.sha256(labels).hexdigest() != PHASE_LABEL_SHA256[phase]:
+        raise ValueError('Original native labels changed, omitted, duplicated or reordered')
+    if (not isinstance(data.get('cases'), list)
+            or [case_signature(r) for r in data['cases']] != expected_case_signatures(phase)):
+        raise ValueError('Complete original phase case identities/order required')
+    summary = f'FOREST DEPTH VERSION {phase.upper()}: {PHASE_COUNTS[phase]} assertions, 0 failures'
+    if len(re.findall('^' + re.escape(summary) + '$', raw, re.M)) != 1:
+        raise ValueError('Missing or ambiguous complete native phase summary')
+    if re.search(r'(^|\n)(?:SCRIPT )?ERROR:|ObjectDB.*leaked|resources? still in use at exit', raw):
+        raise ValueError('Native error or teardown failure cannot be aggregated')
+    return identity
+
+
+def aggregate(reports, receipts, run_id, sources, directory):
+    """Bind both fresh native consumers, then restore the entire original order."""
+    if list(reports) != list(PHASES) or list(receipts) != list(PHASES):
+        raise ValueError('Both native consumers in original phase order required')
+    pids, prior_end = [], 0.0
+    for ordinal, phase in enumerate(PHASES):
+        receipt = receipts[phase]
+        if (receipt.get('status') != 'passed' or type(receipt.get('exit_code')) is not int
+                or receipt['exit_code'] != 0 or receipt.get('phase') != phase
+                or type(receipt.get('sequence')) is not int or receipt['sequence'] != ordinal or receipt.get('run_id') != run_id
+                or receipt.get('source_sha256') != sources):
+            raise ValueError('Missing, stale or failed actual native receipt')
+        raw_path, report_path = directory / f'{phase}.log', directory / f'{phase}.json'
+        original_args = ['--headless', '--fixed-fps', '60', '--path', '.', '--script',
+                         PHASE_SCRIPTS[phase], '--',
+                         '--output=res://' + str(report_path.relative_to(ROOT)), '--run-id=' + run_id]
+        prefix = ['bash', str(ROOT / 'tools/godot.sh')]
+        if receipt.get('argv') not in (prefix + original_args, prefix + ['--verbose'] + original_args):
+            raise ValueError('Exact original native argv required; successful phase cannot be a failure probe')
+        if (receipt.get('rawlog') != str(raw_path.relative_to(ROOT))
+                or receipt.get('report') != str(report_path.relative_to(ROOT))
+                or file_sha(raw_path) != receipt.get('rawlog_sha256')
+                or file_sha(report_path) != receipt.get('report_sha256')):
+            raise ValueError('Original native raw/report identity changed')
+        # Caller-provided report cannot substitute for the exact fresh native file.
+        if json.dumps(json.loads(report_path.read_text()), sort_keys=True, allow_nan=False) != json.dumps(reports[phase], sort_keys=True, allow_nan=False):
+            raise ValueError('In-memory report differs from actual native bytes')
+        identity = validate_phase(phase, reports[phase], raw_path.read_text(), run_id, sources)
+        if (not same_native_identity(identity, receipt.get('native_identity')) or type(receipt.get('engine_pid')) is not int
+                or receipt['engine_pid'] != identity['engine_pid']):
+            raise ValueError('Actual native process identity differs across evidence channels')
+        pids.append(identity['engine_pid'])
+        start, end = receipt.get('shared_elapsed_start'), receipt.get('shared_elapsed_end')
+        remaining = receipt.get('timeout_seconds')
+        duration = receipt.get('duration_seconds')
+        if (any(type(v) not in (int, float) or not math.isfinite(v) for v in (start, end, remaining, duration))
+                or not 0 <= prior_end <= start < end <= 90
+                or remaining <= 0 or abs(start + remaining - 90) > 1e-5
+                or duration <= 0 or abs(duration - (end - start)) > 1e-6):
+            raise ValueError('Original shared 90-second budget or actual phase ordering violated')
+        prior_end = end
+    if len(set(pids)) != 2:
+        raise ValueError('Data and App require two distinct native processes')
+    data, world = reports['data'], reports['world']
+    if not same_native_identity(data.get('engine'), world.get('engine')):
+        raise ValueError('Native engine versions differ')
+    result = {'capture_schema': 6,
+              'scope': 'Two independent native consumers, data then actual App. Original 276+47+4 ledger preserved; not one native process or v2 gameplay admission.',
+              'assertions': 327, 'failures': 0, 'engine': data['engine'],
+              'cases': data['cases'] + world['cases'],
+              'checks': data['checks'][:-4] + world['checks'] + data['checks'][-4:],
+              'exit_lifecycle': data['exit_lifecycle'], 'run_id': run_id,
+              'native_consumer_count': 2, 'phases': receipts, 'verifier_sources': sources}
+    # Keep every existing schema6→schema5→... historical/typed/Boss/fruit validator.
+    validate_fruit_version(result)
+    return result
+
+
+def run_phase(phase, directory, run_id, native_start, deadline, sources, verbose, failure_probe):
+    start = time.monotonic()
+    remaining = deadline - start
+    if remaining <= 0:
+        raise RuntimeError('Original shared90 native budget exhausted')
+    report_path, raw_path = directory / f'{phase}.json', directory / f'{phase}.log'
+    if report_path.exists() or raw_path.exists():
+        raise RuntimeError('Fresh phase paths required; never reuse or overwrite native evidence')
+    argv = (['--verbose'] if verbose else []) + ['--headless', '--fixed-fps', '60', '--path', '.',
+            '--script', PHASE_SCRIPTS[phase], '--',
+            '--output=res://' + str(report_path.relative_to(ROOT)), '--run-id=' + run_id]
+    if phase == 'world' and failure_probe:
+        argv.append('--failure-probe')
+    receipt = {'phase': phase, 'sequence': PHASES.index(phase), 'run_id': run_id,
+               'argv': ['bash', str(ROOT / 'tools/godot.sh'), *argv],
+               'timeout_seconds': remaining, 'shared_elapsed_start': start - native_start,
+               'source_sha256': sources, 'status': 'failed', 'exit_code': None,
+               'rawlog': str(raw_path.relative_to(ROOT)), 'report': str(report_path.relative_to(ROOT))}
+    try:
+        with raw_path.open('x') as log, contextlib.redirect_stdout(log):
+            text = run_engine(argv, remaining)
+        receipt['exit_code'] = 0
+        data = json.loads(report_path.read_text())
+        identity = validate_phase(phase, data, text, run_id, sources)
+        receipt.update(status='passed', native_identity=identity, engine_pid=identity['engine_pid'])
+        return data, receipt
+    except BaseException as error:
+        receipt['error'] = type(error).__name__ + ': ' + str(error)
+        match = re.fullmatch(r'Godot returned (-?\d+)', str(error))
+        if match:
+            receipt['exit_code'] = int(match[1])
+        raise
+    finally:
+        receipt['shared_elapsed_end'] = time.monotonic() - native_start
+        receipt['duration_seconds'] = receipt['shared_elapsed_end'] - receipt['shared_elapsed_start']
+        if raw_path.is_file():
+            receipt['rawlog_sha256'] = file_sha(raw_path)
+            starts = re.findall(r'^FOREST VERSION PHASE: (.+)$', raw_path.read_text(), re.M)
+            if len(starts) == 1:
+                receipt['native_identity'] = json.loads(starts[0])
+                receipt['engine_pid'] = receipt['native_identity']['engine_pid']
+        if report_path.is_file():
+            receipt['report_sha256'] = file_sha(report_path)
+        (directory / f'{phase}-receipt.json').write_text(json.dumps(receipt, indent=2) + '\n')
+
+
 def main():
+    import uuid
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output-dir', default='build/forest_depth/versions/native')
     parser.add_argument('--verbose', action='store_true', help='Preserve engine verbose exit diagnostics; strict guards unchanged')
+    parser.add_argument('--failure-probe', action='store_true', help='Real final-world check fails after all original business checks; never produces successful aggregate')
     args = parser.parse_args()
     out = (ROOT / args.output_dir).resolve()
     if not out.is_relative_to(ROOT / 'build/forest_depth/versions') or out.exists():
         parser.error('Fresh output below build/forest_depth/versions required')
     out.mkdir(parents=True)
-    before = level_formal.source_files()
-    verifier = {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
-                for p in (Path(__file__).resolve(), ROOT / 'tests/forest_depth_version_runner.gd')}
-    receipt = {'scope': 'Runtime registry/legacy compatibility, NOT v2 gameplay admission',
+    before = level_formal.source_files(extra_paths=VERIFIER_PATHS)
+    verifier = verifier_identity()
+    run_id = uuid.uuid4().hex
+    receipt = {'scope': 'Two independent native consumers; all original runtime registry/legacy compatibility checks. NOT one-native or v2 gameplay admission',
                'base_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(),
-               'source_before': before, 'verifier_before': verifier, 'passed': False}
+               'source_before': before, 'verifier_before': verifier, 'run_id': run_id,
+               'original_shared_native_cap_seconds': 90, 'original_import_cap_seconds': 90,
+               'native_consumer_count': 2, 'passed': False, 'phases': {}}
     snapshot = ROOT / 'build/snapshot-receipt.json'
     if snapshot.is_file():
-        receipt['runtime_snapshot_receipt_sha256'] = hashlib.sha256(snapshot.read_bytes()).hexdigest()
+        receipt['runtime_snapshot_receipt_sha256'] = file_sha(snapshot)
     started = time.monotonic()
     try:
-        with (out / 'import.log').open('w') as log, contextlib.redirect_stdout(log):
+        with (out / 'import.log').open('x') as log, contextlib.redirect_stdout(log):
             import_text = run_engine(['--headless', '--path', '.', '--editor', '--quit'], 90)
         if re.search(r'(^|\n)(?:SCRIPT )?ERROR:', import_text):
             raise RuntimeError('Unexpected native import ERROR')
-        with (out / 'native.log').open('w') as log, contextlib.redirect_stdout(log):
-            text = run_engine((['--verbose'] if args.verbose else []) + ['--headless', '--fixed-fps', '60', '--path', '.', '--script',
-                'tests/forest_depth_version_runner.gd', '--',
-                '--output=res://' + str((out / 'capture.json').relative_to(ROOT))], 90)
-        if not re.search(r'^FOREST DEPTH VERSIONS: [1-9]\d* assertions, 0 failures$', text, re.M):
-            raise RuntimeError('Complete native version result missing')
-        if re.search(r'(^|\n)(?:SCRIPT )?ERROR:', text):
-            raise RuntimeError('Unexpected native engine ERROR')
-        validate_interwoven(json.loads((out / 'capture.json').read_text()))
+        native_start = time.monotonic()
+        deadline = native_start + 90
+        reports, phases = {}, {}
+        for phase in PHASES:
+            reports[phase], phases[phase] = run_phase(phase, out, run_id, native_start, deadline, verifier, args.verbose, args.failure_probe)
+            receipt['phases'] = phases
+        if time.monotonic() > deadline:
+            raise RuntimeError('Original shared90 native budget exceeded')
+        receipt['native_elapsed_seconds'] = time.monotonic() - native_start
+        result = aggregate(reports, phases, run_id, verifier, out)
+        if before != level_formal.source_files(extra_paths=VERIFIER_PATHS) or verifier != verifier_identity():
+            raise RuntimeError('Source changed during version consumers')
+        (out / 'capture.json').write_text(json.dumps(result, ensure_ascii=False, indent=2) + '\n')
         receipt['passed'] = True
+    except BaseException as error:
+        receipt['error'] = type(error).__name__ + ': ' + str(error)
+        raise
     finally:
-        receipt['source_after'] = level_formal.source_files()
-        receipt['verifier_after'] = {p: hashlib.sha256((ROOT / p).read_bytes()).hexdigest() for p in verifier}
+        receipt['source_after'] = level_formal.source_files(extra_paths=VERIFIER_PATHS)
+        receipt['verifier_after'] = verifier_identity()
         receipt['source_guard'] = before == receipt['source_after'] and verifier == receipt['verifier_after']
+        if not receipt['source_guard']:
+            receipt['passed'] = False
+            if (out / 'capture.json').is_file():
+                (out / 'capture.json').rename(out / 'source-invalid-aggregate.json')
         receipt['elapsed_seconds'] = time.monotonic() - started
-        receipt['logs'] = {p.name: hashlib.sha256(p.read_bytes()).hexdigest()
-                           for p in out.iterdir() if p.is_file()}
+        receipt['logs'] = {p.name: file_sha(p) for p in out.iterdir() if p.is_file()}
         (out / 'receipt.json').write_text(json.dumps(receipt, indent=2) + '\n')
         if not receipt['source_guard']:
             raise RuntimeError('Source changed during native version check')
+    print('FOREST DEPTH VERSIONS: 327 assertions, 0 failures across 2 native consumers')
     print('PASS: forest depth runtime registry and actual legacy entry/state; v2 gameplay NOT covered')
 
 

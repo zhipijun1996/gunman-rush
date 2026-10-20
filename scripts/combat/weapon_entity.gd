@@ -104,8 +104,11 @@ func dispose() -> void:
 	if spent:return
 	spent=true;set_physics_process(false);queue_free()
 func _draw() -> void:
+	var underworld := UnderworldProjectileVisual.enabled(self)
 	for i: int in range(1,trail.size()):
-		draw_line(to_local(trail[i-1]),to_local(trail[i]),Color(.3,.85,1,float(i)/trail.size()*.65),3 if skill else 1.5,true)
+		var color := Color("aa854b") if underworld else Color(.3,.85,1)
+		color.a = float(i)/trail.size()*.65
+		draw_line(to_local(trail[i-1]),to_local(trail[i]),color,3 if skill else 1.5,not underworld)
 	var art_index := 2 if kind==&"boomerang" else 4 if kind==&"mine" else 3
 	var catalog := runtime.art_catalog()
 	if catalog.is_empty():return
@@ -118,4 +121,6 @@ func _draw() -> void:
 	draw_texture_rect(texture,Rect2(-size/2,size),false)
 	draw_set_transform(Vector2.ZERO)
 	if kind==&"mine":
-		draw_arc(Vector2.ZERO,18,0,TAU*minf(1,age/.25),24,Color(1,.48,.3,.5+.25*sin(age*8)),1.5,true)
+		var color := Color("d4ac64") if underworld else Color(1,.48,.3)
+		color.a = .5+.25*sin(age*8)
+		draw_arc(Vector2.ZERO,18,0,TAU*minf(1,age/.25),12 if underworld else 24,color,2 if underworld else 1.5,not underworld)

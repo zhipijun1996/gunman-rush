@@ -1,0 +1,45 @@
+{
+  "schema": "underworld-r3-response-ownership-fix-v1",
+  "source_scope": "shared dirty tree, files frozen after317 pass; parent exact source commit/release verification separate",
+  "head": "c259f8cf1093102e53a1c34d19936e55f61f2839",
+  "source_hashes": {
+    "scripts/enemies/enemy_actor.gd": "7d2538cad3a3c7b9529d050c5d65801b5ad11b3b2a70b54a0a40acb896ee61c9",
+    "scripts/combat/player_projectile.gd": "99fef328e592797cd9cc3c4abb46be212f284d11122d1e5d9de3ee6c2bf6b333",
+    "scripts/combat/weapon_action_runtime.gd": "6f9192c451acf9b45064a838bbac7bbb4b1ebe2f55aebb3037eec32d4823faa6",
+    "tests/underworld_plains/damage_response_ownership_cases.gd": "d069496fcca2271bc190982a221bf0b0a3f7182a626f0d7fa8689194856e6dfb",
+    "tests/underworld_plains/test_underworld_damage_r3.gd": "c6d532a515932865efbd67f9c2d9fdf2723f570585d2e4be5da973d4648d4a0d"
+  },
+  "original_failure": "build/verification/harness/20261019T170151.131746Z/action-budget.log:7305assertions/13 failures; original12moving-hook AI displacement cases are a genuine new production regression",
+  "original_trace_preserved": "build/underworld_r3/damage/action_budget_original_L_7305_13_trace.json",
+  "confirmed_correction": "grapple and actual active skills retain their original physical response owner while actual accepted HP still drives common hurt/audio. Producers explicitly carry their already-existing skill boolean. No Callable argument inspection, new generalized event API, TTL relaxation, old assertion change or skipped hook motion.",
+  "new_component_result": {
+    "command": "python3 tools/run_underworld_damage_r3_tests.py",
+    "log": "build/underworld_r3/damage/response_owner_initial.log",
+    "trace": "build/underworld_r3/damage/response_owner317_runtime.json",
+    "assertions": 317,
+    "failures": 0,
+    "exit_code": 0,
+    "old297_assertions": "retained; ordinary hurt force/edge guard/audio still passes"
+  },
+  "observations": {
+    "actual_grapple": "28 actual AI ticks at90/sec => x322 exactly, common ordinary force/stun absent; real HP damage1 hook event and launch retained",
+    "actual_projectile_skill": "blade_bloom actual blades→original policy→HP; explicitskill flag true, ordinary stun always0, original stagger.12 from row13 to21; original force500",
+    "actual_runtime_skill": "laser_cannon actual charged ray→runtime.hit→original policy→HP; explicitskill flag true, ordinary stun always0, original stagger.12 from row17 to25; original force0 and targetx250 unchanged"
+  },
+  "original7305_rerun": {
+    "state": "completed",
+    "command": "python3 tools/run_action_budget_tests.py",
+    "log": "build/underworld_r3/damage/action_budget_after_response_owner.log",
+    "assertions": 7305,
+    "failures": 0,
+    "exit_code": 0,
+    "trace": "build/underworld_r3/damage/action_budget_after_response_owner_trace.json",
+    "assertions_changed": false,
+    "note": "original full wrapper and original test source unmodified. Passing this source after confirmed owner fix covers old twelve hook cases; earlier isolated-budget packet0/age diagnosis remains separately attributed and original13fail evidence preserved."
+  },
+  "separate_budget_failure": {
+    "own_static_finding": "budgets shadowair fixture has fresh player with noHP damage or accepted-hit source; cannot be same hurt-force cause",
+    "parent_reported_runtime_evidence": "Root reports original shadow packet0,HP5,damage_remaining0; diagnostic retry shadow age.075545→packet1/154 passes, another machine request age.121483 > original .1TTL→packet0. This is attributed parent evidence, not this agent running a second engine.",
+    "policy": "keep original .1TTL and154/1.5D assertions; preserve any remaining failure and root schedules at most one isolated source-identical check after concurrent GUI/diagnostics stop."
+  }
+}

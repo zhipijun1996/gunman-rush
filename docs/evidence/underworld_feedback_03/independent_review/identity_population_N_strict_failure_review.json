@@ -1,0 +1,23 @@
+{
+  "source_commit": "466cf79e3971a6069976d2cc9bad83faf16354b2",
+  "status": "STRICT_FAIL retained; independent verbose same-source PASS does not erase",
+  "actual_consumer": "tests/underworld_plains/test_underworld_identity_population.gd",
+  "actual_result": "20cases21127functional checks0failed, exit4ObjectDB/2live resources",
+  "source_observations": [
+    "Each actualDemoApp frees immediately and waits4processframes. No existing tests/audio_teardown.gd::drain_world or actual playback-release observation.",
+    "GameAudio._exit_tree stops voices/nulls streams, while shutdown comments and weakrefs explicitly model separate mixing-thread release.",
+    "DemoApp._load_stage has await physics_frame; population waits3physicsframes before deleting. No proof active suspended invocation remains.",
+    "N-L3production edits add scalar context flags and choose motion owner only; no addedResource/Callable/await."
+  ],
+  "falsifiable_candidates": [
+    "If leaked concrete resources are AudioStreamOggVorbisPlayback/stream instances, independent audio owner-release timing becomes supported; need actual verbose identities from a failing run.",
+    "If leaked resources are GDScript/function states, inspect _load_stage suspended lifetime and leaf dependencies instead."
+  ],
+  "not_claimed": [
+    "known root cause",
+    "N regression disproved",
+    "new test teardown repair accepted",
+    "full17green"
+  ],
+  "root_boundary": "Root stopped retries on this path after one verbose standalone PASS; no engine run by reviewer."
+}

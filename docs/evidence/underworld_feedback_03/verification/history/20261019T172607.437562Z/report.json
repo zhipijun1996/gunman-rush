@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "started_at": "20261019T172607.437562Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "underworld-pipeline",
+      "argv": [
+        "python3",
+        "tests/test_underworld_pipeline.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "fa0731c8101991f07e308ce913c57544cd84d48c0a941357a39fd54c234b2e2d",
+      "log": "underworld-pipeline.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792430783.4696555,
+      "ended_at_unix": 1792430878.0989375,
+      "duration_seconds": 94.629,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T172607.437562Z/artifacts/underworld-pipeline",
+      "reused": false
+    },
+    {
+      "id": "underworld-home-guard-tests",
+      "argv": [
+        "python3",
+        "tests/test_underworld_home_terrace_wrapper.py"
+      ],
+      "timeout_seconds": 90,
+      "input_digest": "dba9bfed62dca293999580f7c822cbd3924b2260a2a6332d9fc1d50067b659a9",
+      "log": "underworld-home-guard-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792430888.643352,
+      "ended_at_unix": 1792430889.0438251,
+      "duration_seconds": 0.4,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T172607.437562Z/artifacts/underworld-home-guard-tests",
+      "reused": false
+    },
+    {
+      "id": "core",
+      "argv": [
+        "python3",
+        "tools/run_tests.py"
+      ],
+      "timeout_seconds": 720,
+      "input_digest": "1b3cf6f94c3002ab75e949c85bbee1efc03844879b626d7899f08e46b6b61b0f",
+      "log": "core.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792430897.2479992,
+      "ended_at_unix": 1792430939.4947033,
+      "duration_seconds": 42.247,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T172607.437562Z/artifacts/core",
+      "reused": false
+    },
+    {
+      "id": "underworld-terrain",
+      "argv": [
+        "python3",
+        "tools/run_underworld_terrain_tests.py"
+      ],
+      "timeout_seconds": 150,
+      "input_digest": "aece8d7e6e72d6c64b2926bf457e4c38bca9545977cbbbce2c31abf0d5e94d95",
+      "log": "underworld-terrain.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792430951.5618346,
+      "ended_at_unix": 1792430953.4806807,
+      "duration_seconds": 1.919,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T172607.437562Z/artifacts/underworld-terrain",
+      "reused": false
+    },
+    {
+      "id": "underworld-formal-terrain",
+      "argv": [
+        "python3",
+        "tools/run_underworld_formal_terrain_tests.py"
+      ],
+      "timeout_seconds": 270,
+      "input_digest": "331305298e493fd5ef44b3cd02a475d3f30fcc568fa7876fa054a13f6c9474aa",
+      "log": "underworld-formal-terrain.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792430962.4184182,
+      "ended_at_unix": 1792430991.821736,
+      "duration_seconds": 29.403,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T172607.437562Z/artifacts/underworld-formal-terrain",
+      "reused": false
+    },
+    {
+      "id": "underworld-scenery",
+      "argv": [
+        "python3",
+        "tools/underworld_pipeline.py",
+        "runtime",
+        "--suite",
+        "scenery"
+      ],
+      "timeout_seconds": 150,
+      "input_digest": "af58a72214136ed3d6d4f4c9a36ef56b438b5ca1d2b14b01427d730af0bc2e45",
+      "log": "underworld-scenery.log",
+      "status": "failed",
+      "exit_code": 1,
+      "failure_reason": "nonzero_exit",
+      "started_at_unix": 1792431002.623927,
+      "ended_at_unix": 1792431043.6757827,
+      "duration_seconds": 41.052,
+      "artifact_directory": "/workspace/clock-style-lab/build/verification/harness/20261019T172607.437562Z/artifacts/underworld-scenery",
+      "reused": false
+    }
+  ],
+  "status": "failed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "247f86759dfd79184ad8de6d400002bd7fa54eca96b7261ad5bfb1497363506c",
+  "working_files": {},
+  "commit": "466cf79e3971a6069976d2cc9bad83faf16354b2",
+  "git_status": "",
+  "diff": "",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 283.963,
+  "jobs": 1,
+  "release": true
+}

@@ -1,0 +1,27 @@
+{
+  "reviewer": "/root/r3_review",
+  "source_runtime": "c259f8cf1093102e53a1c34d19936e55f61f2839",
+  "status": "ACCEPT proposed bounded driver migration; new actual core rerun pending",
+  "failure": "L fresh17 core5676/1 old unpause-resumes assertion; raworiginal retained",
+  "exact_original_test_sha256": "38fa429845ff04a3d695c1665af1e3855a04febb2fedbc4013e573048f897417",
+  "original_snapshot": "build/underworld_r3/review/enemy_tests_L_before_driver_migration.gd.source",
+  "independent_read": [
+    "Read full enemy_tests fixture setup and repeated reset/fresh-after-restart Health event before pause",
+    "Read actual L core failure original log",
+    "Read new accepted-hurt .12s state and floor-required local force in historical no-floor hover fixture"
+  ],
+  "reason": "Old pause segment begins only1tick after newly accepted damage. New user-authorized hurt state still active through next3tick resume and historical no-floor ground hurt motion is safely blocked. Unchanged position does not establish a pause regression.",
+  "approved_scope": [
+    "Keep productionL byte-identical",
+    "Only wait naturally ceil(authored enemy_knockback_seconds/DT)+1tick before old before_pause capture; no direct timer clear, damage disabling or definition mutation",
+    "Add exact hurt-ended assertion before original AI pause proof",
+    "Preserve original pause3ticks and resume3ticks and all original assertions verbatim",
+    "Freeze exact old test source as historical artifact",
+    "Add complementary actual hurt-state pause timer frozen / resume3ticks decrements proof"
+  ],
+  "limits": [
+    "Core actual rerun not executed at draft time",
+    "Approval of a new test driver is not a green whole suite",
+    "Do not relabel L failed5676/1 as passed or use M source label for unchanged prior media"
+  ]
+}

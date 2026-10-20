@@ -341,7 +341,7 @@ class UnderworldPipelineTest(unittest.TestCase):
         self.reject('home',lambda v:v['slots'][4].update(id='character'),'home.unique_slots')
 
     def test_home_slot_cannot_reference_nonexistent_source(self):
-        self.reject('home',lambda v:v['slots'][4].update(building='missing_house'),'home.slot.arms.source')
+        self.reject('home',lambda v:next(slot for slot in v['slots'] if slot['id']=='arms').update(building='missing_house'),'home.slot.arms.source')
 
     def test_home_slots_within_actual_world(self):
         self.reject('home',lambda v:v['slots'][4].update(x=99999),'home.slot_bounds')
@@ -393,6 +393,95 @@ class UnderworldPipelineTest(unittest.TestCase):
 
     def test_actual_entry_inventory_is_not_empty(self):
         self.reject_json(DEFAULT_MANIFEST,lambda v:v.update(runtime_entries=[]),'production.runtime_entries')
+
+    def test_home_requires_current_terrace_contract(self):
+        self.reject('home',lambda v:v.update(schema='unknown-future-layout'),'home.schema')
+
+    def test_home_all_plots_cannot_collapse_to_one_floor(self):
+        self.reject('home',lambda v:[slot.update(y=v['floor_y']) for slot in v['slots']],'home.three_tiers')
+
+    def test_home_terrace_cannot_be_fake_solid(self):
+        self.reject('home',lambda v:v['platforms'][0].update(one_way=False),'home.platform.0.one_way')
+
+    def test_home_slot_cannot_float_between_tiers(self):
+        self.reject('home',lambda v:v['slots'][1].update(y=333),'home.slot.upgrade.supported')
+
+    def test_home_departure_must_follow_the_village_road(self):
+        self.reject('home',lambda v:v['departure_road'].update(direction='west'),'home.departure_road')
+
+    def test_objects_raw_generation_hash(self):
+        self.reject_json('assets/underworld_plains/objects/objects_build.json',lambda v:v['generation'].update(source_sha256='0'*64),'objects.original.sha256')
+
+    def test_objects_original_crop_bounds(self):
+        self.reject_json('assets/underworld_plains/objects/objects_build.json',lambda v:v['opened_chest'].update(crop=[0,0,99999,2]),'objects.complete_crop')
+
+    def test_objects_raised_lid_cannot_be_cropped_off(self):
+        self.reject_json('assets/underworld_plains/objects/objects_build.json',lambda v:v['opened_chest'].update(crop=[241,300,1272,977]),'objects.whole_pose')
+
+    def test_objects_runtime_requires_the_actual_open_pose(self):
+        self.reject_text('scripts/underworld_plains/underworld_objects.gd','OPEN_CHEST if claimed else CLOSED_CHEST','CLOSED_CHEST if claimed else CLOSED_CHEST','objects.actual_dispatch')
+
+    def test_objects_legacy_alpha_cannot_move_into_formal_branch(self):
+        self.reject_text('scripts/demo/plains_region_stage.gd',
+                         '\t\t\telse:\n\t\t\t\tUnderworldObjects.place_chest',
+                         '\t\t\telse:\n\t\t\t\t(c.sprite as Sprite2D).modulate.a=0.35 if c.claimed else 1.0\n\t\t\t\tUnderworldObjects.place_chest',
+                         'objects.no_grey_claimed')
+
+    def test_objects_legacy_alpha_guard_cannot_invert(self):
+        self.reject_text('scripts/demo/plains_region_stage.gd',
+                         '\t\t\tif generated.has("regional_art_plan"):',
+                         '\t\t\tif not generated.has("regional_art_plan"):',
+                         'objects.no_grey_claimed')
+
+    def test_objects_legacy_alpha_guard_cannot_disappear(self):
+        self.reject_text('scripts/demo/plains_region_stage.gd',
+                         '\t\t\tif generated.has("regional_art_plan"):\n',
+                         '', 'objects.no_grey_claimed')
+
+    def test_objects_legacy_alpha_cannot_leave_capture_consumer(self):
+        path = 'scripts/demo/plains_region_stage.gd'
+        source = (ROOT / path).read_text()
+        start = source.index('\tfor c: Dictionary in chests:', source.index('func capture_state()'))
+        end = source.index('\tfor p: Dictionary in pickups:', start)
+        block = source[start:end]
+        moved = source[:start] + source[end:] + '\nfunc wrong_chest_consumer() -> void:\n' + block
+        result = audit(text_overrides={path: moved})
+        self.assertFalse(result['passed'])
+        self.assertIn('objects.no_grey_claimed', {item['code'] for item in result['checks'] if not item['passed']})
+
+    def test_objects_duplicate_legacy_alpha_is_rejected(self):
+        call = '\t\t\t\tUnderworldObjects.place_chest(c.sprite as Sprite2D,c.position+Vector2(0,21),bool(c.claimed))'
+        self.reject_text('scripts/demo/plains_region_stage.gd',
+                         call, call + '\n\t\t\t\t(c.sprite as Sprite2D).modulate . a = 0.8 if c.claimed else 1.0',
+                         'objects.no_grey_claimed')
+
+    def test_objects_legacy_alpha_value_cannot_change(self):
+        self.reject_text('scripts/demo/plains_region_stage.gd',
+                         '.modulate.a=0.35 if c.claimed',
+                         '.modulate.a=0.9 if c.claimed',
+                         'objects.no_grey_claimed')
+
+    def test_objects_formal_alpha_multiply_is_rejected(self):
+        call = '\t\t\t\tUnderworldObjects.place_chest(c.sprite as Sprite2D,c.position+Vector2(0,21),bool(c.claimed))'
+        self.reject_text('scripts/demo/plains_region_stage.gd', call,
+                         call + '\n\t\t\t\t(c.sprite as Sprite2D).modulate.a *= 0.35 if c.claimed else 1.0',
+                         'objects.no_grey_claimed')
+
+    def test_objects_formal_alpha_addition_is_rejected(self):
+        call = '\t\t\t\tUnderworldObjects.place_chest(c.sprite as Sprite2D,c.position+Vector2(0,21),bool(c.claimed))'
+        self.reject_text('scripts/demo/plains_region_stage.gd', call,
+                         call + '\n\t\t\t\t(c.sprite as Sprite2D).modulate.a += -0.65 if c.claimed else 0.0',
+                         'objects.no_grey_claimed')
+
+    def test_objects_legacy_block_cannot_duplicate(self):
+        path = 'scripts/demo/plains_region_stage.gd'
+        source = (ROOT / path).read_text()
+        start = source.index('\tfor c: Dictionary in chests:', source.index('func capture_state()'))
+        end = source.index('\tfor p: Dictionary in pickups:', start)
+        duplicated = source + '\nfunc duplicate_chest_consumer() -> void:\n' + source[start:end]
+        result = audit(text_overrides={path: duplicated})
+        self.assertFalse(result['passed'])
+        self.assertIn('objects.no_grey_claimed', {item['code'] for item in result['checks'] if not item['passed']})
 
 
 if __name__ == '__main__':

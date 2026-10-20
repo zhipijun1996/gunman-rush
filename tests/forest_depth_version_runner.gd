@@ -3,13 +3,21 @@ extends SceneTree
 const LEGACY := preload("res://scripts/generation/thorn_forest_region_v1.gd")
 # Independently selected v2 playtest-default contract; not production admission.
 const EXPECTED_PUBLIC_DEFAULT := ThornForestRegionGenerator.DEPTH_VERSION
+# Deliberate independent expectation; updated only after the candidate golden.
+const EXPECTED_PUBLIC_LAYOUT := "forest-fruit-routes-v14"
 var assertions := 0
 var failures := 0
 var cases: Array[Dictionary] = []
 var checks: Array[Dictionary] = []
+var phase_identity: Dictionary = {}
 var exit_weak_refs: Dictionary = {}
 var exit_observations: Dictionary = {}
-func _initialize() -> void: run.call_deferred()
+func _initialize() -> void:
+	phase_identity={"phase":"data","engine_pid":OS.get_process_id(),"run_id":"","script":get_script().resource_path,"script_sha256":FileAccess.get_sha256(get_script().resource_path)}
+	for argument: String in OS.get_cmdline_user_args():
+		if argument.begins_with("--run-id="):phase_identity.run_id=argument.trim_prefix("--run-id=")
+	print("FOREST VERSION PHASE: ",JSON.stringify(phase_identity))
+	run.call_deferred()
 func check(ok: bool, label: String) -> void:
 	assertions += 1
 	checks.append({"label":label,"passed":ok})
@@ -63,8 +71,7 @@ func run() -> void:
 	check_vertical_contract(registry,tuning)
 	check_recorded_expedition(registry,tuning)
 	check_interwoven_contract(registry,tuning)
-	for map_index: int in [1,2]:
-		await app_case(map_index)
+	check_fruit_contract(registry,tuning)
 	# A bounded lifecycle hypothesis: the long async run() previously quit while
 	# these local RefCounteds were still on its suspended coroutine stack.
 	# Observe them weakly, release only runner-owned locals, then return before quit.
@@ -82,26 +89,16 @@ func deferred_finish() -> void:
 		var alive := is_instance_valid((exit_weak_refs[label] as WeakRef).get_ref())
 		exit_observations[label]["after_run_return_alive"]=alive
 		if label!="tuning_script": check(not alive,"owned local released after run returns: "+label)
-	var output := "res://build/forest_depth/versions/native/capture.json"
+	var output := "res://build/forest_depth/versions/native/data.json"
 	for argument: String in OS.get_cmdline_user_args():
 		if argument.begins_with("--output="): output=argument.trim_prefix("--output=")
 	DirAccess.make_dir_recursive_absolute(output.get_base_dir())
 	var file := FileAccess.open(output,FileAccess.WRITE)
-	file.store_string(JSON.stringify({"capture_schema":5,"scope":"runtime version compatibility only; v2 gameplay not covered","assertions":assertions,"failures":failures,"engine":Engine.get_version_info(),"cases":cases,"checks":checks,"exit_lifecycle":exit_observations},"\t"))
+	file.store_string(JSON.stringify({"identity":phase_identity,"capture_schema":6,"scope":"runtime version compatibility only; v2 gameplay not covered","assertions":assertions,"failures":failures,"engine":Engine.get_version_info(),"cases":cases,"checks":checks,"exit_lifecycle":exit_observations},"\t"))
 	file.close()
 	file=null
-	print("FOREST DEPTH VERSIONS: %s assertions, %s failures" % [assertions,failures])
+	print("FOREST DEPTH VERSION DATA: %s assertions, %s failures" % [assertions,failures])
 	quit(1 if failures else 0)
-func app_case(map_index: int) -> void:
-	# Dynamic actual Node consumer avoids compiling App's typed graph into this
-	# generator runner. All original checks/cases are forwarded by the helper.
-	var helper: Node=load("res://tests/forest_depth_version_app_case.gd").new()
-	helper.reporter=weakref(self)
-	helper.legacy_version=LEGACY.VERSION
-	root.add_child(helper)
-	await helper.run(map_index)
-	helper.free()
-
 func check_recorded_layouts(registry: ThornForestRegionGenerator,tuning: PlayerTuning) -> void:
 	# Expected outputs are extracted from actual old Motor captures, not generated
 	# by either implementation under comparison. Their original hashes stay fixed.
@@ -285,7 +282,7 @@ func check_recorded_expedition(registry: ThornForestRegionGenerator,tuning: Play
 		cases.append({"id":"recorded_expedition_layout","map":index,"fixture_sha256":FileAccess.get_sha256(path),"original":original,"rebuilt":rebuilt.get("manifest",{}),"current_tuning_mutation_rejected":rejected})
 
 func check_interwoven_contract(registry: ThornForestRegionGenerator,tuning: PlayerTuning) -> void:
-	# New default contract is additional; historical v12 keeps all original assertions.
+	# V13 is an immutable recorded layout even after a later default is selected.
 	var expected_layout := "forest-interwoven-canopy-v13"
 	var expected_edges := ["root_bay_approach","root_bay_lesson_flight","inner_hollow_HH","upper_root_RH","upper_root_crown_H","inner_thorn_HR","crown_inner_return","inner_bay_return"]
 	var expected_supports := ["interwoven_root_bridge","interwoven_lesson_bough","interwoven_inner_bough","interwoven_upper_launch"]
@@ -297,13 +294,13 @@ func check_interwoven_contract(registry: ThornForestRegionGenerator,tuning: Play
 		pinned.forest_layout_version=expected_layout
 		var explicit := registry.generate_version("thorn-forest-region-v2",seed_value,tuning,map_index,pinned)
 		var frozen: Dictionary=load("res://scripts/generation/thorn_forest_region_v2_v13.gd").new().generate(seed_value,tuning,map_index,capabilities)
-		var current := registry.generate(seed_value,tuning,map_index,capabilities)
-		check(explicit.get("ok",false) and frozen.get("ok",false) and current.get("ok",false),"v13 pinned, frozen and actual default generation succeeds map%s" % map_index)
+		var current := registry.generate(seed_value,tuning,map_index,pinned)
+		check(explicit.get("ok",false) and frozen.get("ok",false) and current.get("ok",false),"v13 explicit, frozen and pinned registry generation succeeds map%s" % map_index)
 		if not explicit.get("ok",false) or not frozen.get("ok",false) or not current.get("ok",false):continue
 		var m: Dictionary=explicit.manifest
 		check(m.version=="thorn-forest-region-v2" and m.layout_version==expected_layout and m.seed==seed_value and m.map_index==map_index and m.requires==["grapple"] and not m.production_pool,"independently expected v13 identity, H-only and pending admission map%s" % map_index)
 		check(equality._same_data(explicit,frozen),"explicit v13 equals entire dedicated producer output map%s" % map_index)
-		check(equality._same_data(explicit,current) and current.manifest.layout_version==expected_layout,"actual unversioned default equals entire explicit v13 output map%s" % map_index)
+		check(equality._same_data(explicit,current) and current.manifest.layout_version==expected_layout,"actual pinned registry equals entire explicit v13 output map%s" % map_index)
 		check(registry.validate(m,tuning) and registry.validate(current.manifest,tuning) and m.manifest_hash==ThornForestRegionGenerator._hash(m),"v13 complete strict validation and hash map%s" % map_index)
 		check(m.player_tuning_hash==FileAccess.get_sha256("res://config/player_tuning.json"),"v13 uses actual current tuning fingerprint map%s" % map_index)
 		var actual_edges: Array=[]
@@ -368,3 +365,40 @@ func check_interwoven_contract(registry: ThornForestRegionGenerator,tuning: Play
 			check(rejected,"v13 rejects ungranted S2 capability: "+forbidden)
 			negatives.append({"kind":"capability/"+forbidden,"rejected":rejected})
 		cases.append({"id":"interwoven_content_contract","map":map_index,"manifest":m,"default_manifest":current.manifest,"frozen_manifest":frozen.manifest,"complete_output_equal":equality._same_data(explicit,current) and equality._same_data(explicit,frozen),"added_edges":actual_edges,"added_supports":actual_supports,"boss_scene":boss_scene,"boss_resource":boss_resource,"negative_cases":negatives})
+
+func check_fruit_contract(registry: ThornForestRegionGenerator,tuning: PlayerTuning) -> void:
+	var equality := RandomStageGenerator.new()
+	for map_index: int in [1,2]:
+		var seed_value := "version-fruit-map-%s" % map_index
+		var capabilities := {"grapple":true,"abilities":["grapple"]}
+		var pinned := capabilities.duplicate(true)
+		pinned.forest_layout_version = "forest-fruit-routes-v14"
+		var explicit := registry.generate_version("thorn-forest-region-v2",seed_value,tuning,map_index,pinned)
+		var dedicated: Dictionary = load("res://scripts/generation/thorn_forest_region_v2_v14.gd").new().generate(seed_value,tuning,map_index,capabilities)
+		var current := registry.generate(seed_value,tuning,map_index,capabilities)
+		check(explicit.get("ok",false) and dedicated.get("ok",false) and current.get("ok",false),"registered candidate and public layout generate map%s" % map_index)
+		if not explicit.get("ok",false) or not dedicated.get("ok",false) or not current.get("ok",false):continue
+		var m: Dictionary = explicit.manifest
+		check(m.layout_version=="forest-fruit-routes-v14" and equality._same_data(explicit,dedicated),"explicit v14 equals complete dedicated output map%s" % map_index)
+		check(registry.validate(m,tuning) and m.manifest_hash==ThornForestRegionGenerator._hash(m),"strict registered v14 and hash validate map%s" % map_index)
+		var expected_pin := capabilities.duplicate(true)
+		expected_pin.forest_layout_version = EXPECTED_PUBLIC_LAYOUT
+		var expected := registry.generate_version("thorn-forest-region-v2",seed_value,tuning,map_index,expected_pin)
+		check(current.manifest.layout_version==EXPECTED_PUBLIC_LAYOUT and equality._same_data(current,expected),"independently selected public layout equals whole explicit output map%s" % map_index)
+		var previous: Dictionary = load("res://scripts/generation/thorn_forest_region_v2_v13.gd").new().generate(seed_value,tuning,map_index,capabilities)
+		for field: String in ["platforms","dangers","connections","geometry_instances","enemies","rewards","enemy_drops","streams","stream_positions","routes","choices"]:
+			check(equality._same_data(m[field],previous.manifest[field]),"v14 preserves old actual "+field+" map%s"%map_index)
+		var boss_scene := "res://scenes/bosses/rootbell_guardian_v2.tscn" if map_index==1 else "res://scenes/bosses/thorn_queen_canopy.tscn"
+		check(ThornForestRegionGenerator.boss_scene_path(m.version,map_index,m)==boss_scene,"v14 resolves unchanged exact Boss whitelist map%s" % map_index)
+		var edited := m.duplicate(true)
+		edited.hook_anchors[0].position[0] += 1.0
+		edited.manifest_hash = ThornForestRegionGenerator._hash(edited)
+		check(not registry.validate(edited,tuning),"v14 refuses coherently rehashed target movement map%s" % map_index)
+		edited = m.duplicate(true)
+		edited.fruit_routes_contract.max_local_stem = 1000.0
+		edited.manifest_hash = ThornForestRegionGenerator._hash(edited)
+		check(not registry.validate(edited,tuning),"v14 refuses coherently rehashed long-stem policy map%s" % map_index)
+		if map_index==2:
+			edited=m.duplicate(true);edited.erase("boss_content");edited.manifest_hash=ThornForestRegionGenerator._hash(edited)
+			check(not registry.validate(edited,tuning) and ThornForestRegionGenerator.boss_scene_path(m.version,map_index,edited).is_empty(),"v14 missing Queen whitelist content cannot fall back")
+		cases.append({"id":"fruit_candidate_and_public_layout","map":map_index,"candidate_manifest":m,"default_manifest":current.manifest,"expected_public_layout":EXPECTED_PUBLIC_LAYOUT,"dedicated_complete_equal":equality._same_data(explicit,dedicated)})

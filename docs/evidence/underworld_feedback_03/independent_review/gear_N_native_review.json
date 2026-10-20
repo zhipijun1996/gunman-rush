@@ -1,0 +1,105 @@
+{
+  "reviewer": "/root/r3_review",
+  "verdict": "ACCEPT bounded finalN moving-gear hurt entry/exit native visual sample",
+  "source_commit": "466cf79e3971a6069976d2cc9bad83faf16354b2",
+  "source_before_after_equal": true,
+  "source_files": 1077,
+  "critical_sources": [
+    {
+      "path": "scripts/underworld_plains/underworld_player.gd",
+      "bound_equals_N_gitblob": true
+    },
+    {
+      "path": "scripts/generation/module_saw_hazard.gd",
+      "bound_equals_N_gitblob": true
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "bound_equals_N_gitblob": true
+    },
+    {
+      "path": "tests/underworld_plains/capture_revision3_environment.gd",
+      "bound_equals_N_gitblob": true
+    }
+  ],
+  "actually_opened_full_original_frames": [
+    92,
+    93,
+    98,
+    115,
+    150
+  ],
+  "actually_opened_consecutive_review_crop": {
+    "path": "build/underworld_r3/review/gear_N_consecutive_91_128.png",
+    "sha256": "0f8285e96f82a3eabebb7f9650e850b80a88f7998a2bf5f972d95635737805bc",
+    "rows_inclusive": [
+      91,
+      128
+    ],
+    "native_1_to_1_crop": [
+      520,
+      330,
+      840,
+      550
+    ],
+    "original_unchanged": true
+  },
+  "native_frame_inventory": "build/underworld_r3/review/gear_N_raw_frame_hashes.json",
+  "observations": [
+    "New exactN execution independently inspected, not relabeledL.",
+    "Actual gear contacts running body at row93 and one real damageHP5→4; old-point red generated hurt echo remains by gear while safe-spawn body fades in.",
+    "Hurt0→hurt1→idle and bounded pulsed tint appear across38consecutive native body crops; later fully opaque idle, no replay or repeated HP.",
+    "Gear world motion continues through return rather than reset; nearby ordinary actor/world remain live."
+  ],
+  "actual_health_commits": [
+    {
+      "amount_applied": -1.0,
+      "engine_drawn_frame": 130,
+      "event_id": "rhythm_first@566700804966:3:1:1",
+      "health": 4.0,
+      "old_hit_position": [
+        2115.3310546875,
+        -700.074768066406
+      ],
+      "physics_tick": 131,
+      "terminal": false,
+      "trace_row": 93
+    }
+  ],
+  "actual_segment_returns": [
+    {
+      "hurt_remaining": 0.32,
+      "physics_tick": 131,
+      "return_fade": 0.24,
+      "safe_entry_position": [
+        1760.0,
+        -700.0
+      ],
+      "trace_row": 93
+    }
+  ],
+  "actual_Input": [
+    {
+      "event": "InputEventKey",
+      "key": "D",
+      "physics_tick": 49,
+      "pressed": true,
+      "trace_row": 12
+    },
+    {
+      "event": "InputEventKey",
+      "key": "D",
+      "physics_tick": 131,
+      "pressed": false,
+      "trace_row": 94
+    }
+  ],
+  "checks": 225,
+  "failures": [],
+  "scope": "Actual formal world, one explicitly initialized safe anchor then realD nativeInput; not natural whole-region traversal",
+  "limits": [
+    "No realtime whole-video playback or audio listening",
+    "No every-gear/seed/device/performance/user acceptance",
+    "L independent historical evidence retained"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "reviewer": "/root/independent_review",
+  "independent": true,
+  "reviewed_commit": "2cd7fa05356c1b8e537b624329cbb4ee0b65ef66",
+  "verdict": "ACCEPT",
+  "scope": "Original generated consumer driver, exact W1 runtime/test/tool trees, 33 suites only",
+  "receipt": "build/forest_revision04/ci_fixes/generated-consumers-final-receipt.json",
+  "receipt_sha256": "81b13f5d26e4f54cf36b0b11e458cd41559d3764f24890ef7c38aee6dd43775d",
+  "raw_log_sha256_independently_verified": "6b31e2e7cb6c98d84bd01befa416bfd1ed767f09fdf5dc365f9236e3b232afe2",
+  "actual_driver_exit_code": 0,
+  "elapsed_seconds": 718.6267170910005,
+  "observations": [
+    "Independently parsed actual Python SUITES assignment via AST: 33 expected suites. Each script Running marker occurs exactly once and each original full success regex matches raw log.",
+    "Raw full aggregate ends GENERATED CONSUMER SUITES: 33 suites passed, with no SCRIPT/SHADER/ERROR/resource/ObjectDB leak diagnostic.",
+    "Independently invoked git ls-tree on all addons/assets/config/export/project/resources/scenes/scripts/shaders/tests/tools paths for W1 and 6b558dc0; complete tree IDs match each other and both receipt projections.",
+    "Independently checked the retained original head-gate receipt SHA. Only seven docs paths differ between actual before/after commits."
+  ],
+  "metadata_boundary": {
+    "original_head_gate": false,
+    "original_outer_orchestration_exit_code": 1,
+    "actual_native_driver_exit_code": 0,
+    "interpretation": "The new receipt explains an actual docs-only HEAD change with identical runtime/test/tool bytes. It preserves the original failed metadata receipt and does not redefine that wrapper run as exit0."
+  },
+  "remaining": [
+    "Fixed80 forest routes, final remote full CI, movie/audio and player/device evidence separate.",
+    "W2 later checker changes are not claimed covered by this W1 run."
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "decision": "SCOPED_ACCEPT_OBSERVATION_ONLY",
+  "source_commit_at_execution": "3affbc89011bce1ef206ce377f9ebdfc724880d4",
+  "dirty_fixture_path": "tests/underworld_plains/damage_response_ownership_cases.gd",
+  "tested_reviewed_sha256": "0a23e56a47a49c853b705f22223ce60307cef0eb243f25e4f1a199ed1e477b48",
+  "scope": "Passive observation of original existing ownership cases, not a production/CI failure repair",
+  "original_checks13_exact_text_order": true,
+  "original_await_physics4_process8_exact_sequence": true,
+  "original65_manual_steps_and_action_requests_unchanged": true,
+  "new_observation": "Synchronous value snapshots and existing signals. Controller/projectile signal handlers use WeakRef to node owners; observed values are vectors/scalars/dictionaries, not strong node ownership. visible_muzzle_position is an actual pure getter, unlike muzzle_position(direction) which changes aim/facing/paint and is not used.",
+  "actual_local_proof": {
+    "original_cli": [
+      "python3",
+      "tools/harness.py",
+      "--check",
+      "underworld-damage-feedback",
+      "--release"
+    ],
+    "exit": 0,
+    "outer_seconds": 45.79467333299908,
+    "original_wrapper_cap": 120,
+    "original_harness_cap": 180,
+    "no_extra_outer_timer": true,
+    "actual317_assertions_failures0": true,
+    "blade_hit_row": 13,
+    "laser_hit_row": 17,
+    "both_cases65_frames65_observation_boundaries": true
+  },
+  "limits": [
+    "One local317strict pass did not reproduce remoteH2 failure; does not prove that failure fixed or nonexistent",
+    "Added synchronous reads may incur wall-time/observation cost; fixed physics/input/step65 protocol remains unchanged",
+    "No source mutation or native launched by independent reviewer"
+  ],
+  "evidence": [
+    {
+      "path": "build/forest_revision04/blade-observation-C2-r1/outer.json",
+      "sha256": "325b24cbbd0fbf8fa22033353bcaf1591bff63ca7eec5884554d1b2b73a0fc21"
+    },
+    {
+      "path": "build/forest_revision04/blade-observation-C2-r1/observed-summary.json",
+      "sha256": "8b56c471d2f0811d089934a2b7f31cdc0bb4b5ce84b0f72beec41eccc84c2174"
+    },
+    {
+      "path": "build/forest_revision04/blade-observation-C2-r1/instrumented-sha.json",
+      "sha256": "f467136d41b912a73a9ea29d6e8cdcf721cc1806867ecab63cbf903e26754732"
+    },
+    {
+      "path": "build/verification/harness/20261020T080336.114424Z/artifacts/underworld-damage-feedback/build/underworld_r3/damage/runtime.json",
+      "sha256": "2ff78063fe982302bdd9ffecece909e35d55b1d738359fee489d815ad0f2884d"
+    }
+  ]
+}

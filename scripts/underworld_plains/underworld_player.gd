@@ -11,6 +11,12 @@ var facing := 1.0
 var _state_age := 0.0
 var _landing_remaining := 0.0
 var _build: Dictionary = {}
+var feedback: DamageFeedbackDefinition = preload("res://resources/damage/feedback.tres")
+var _damage_flash_remaining := 0.0
+var _hurt_origin := Vector2.ZERO
+var _accepted_hurt_count := 0
+var _return_fade_remaining := 0.0
+var return_echo_count := 0
 var _frames_by_state: Dictionary = {}
 
 func _ready() -> void:
@@ -28,12 +34,46 @@ func _accepted_landing() -> void:
 	if not _dead: _landing_remaining = .16
 
 func _segment_returned() -> void:
+	# HP commits before the synchronous segment relocation. Keep an actual old
+	# body silhouette in the old world while the safe-spawn body fades in.
+	if _hurt_remaining > 0 and not _frames_by_state.is_empty():
+		var frame: Dictionary = _frames_by_state["hurt"][0]
+		var r: Array = frame.rect
+		var echo := DamageReturnEcho.new()
+		echo.name = "AcceptedEnvironmentReturnEcho"
+		echo.source = STATES_SHEET
+		echo.source_rect = Rect2(r[0],r[1],r[2],r[3])
+		var factor := UnderworldActors.HUMANOID_HEIGHT/float(_build.standing_body_source_height)
+		echo.destination = Rect2(Vector2(-float(_build.anchor[0]),-float(_build.anchor[1]))*factor+Vector2(0,18),Vector2(_build.canvas[0],_build.canvas[1])*factor)
+		echo.facing = facing
+		echo.duration = feedback.return_transition_seconds
+		motor.get_parent().add_child(echo)
+		echo.global_position = _hurt_origin
+		return_echo_count += 1
+		_return_fade_remaining = echo.duration
 	_landing_remaining = 0.0
 	_state_age = 0.0
 	frame_index = 0
+	_hurt_origin = motor.global_position
+
+func _health_changed(result: ActorResourceResult) -> void:
+	super._health_changed(result)
+	if result == null or result.status != ActorResourceResult.Status.APPLIED or result.operation != &"damage" or result.amount_applied >= 0: return
+	if result.snapshot.terminal:
+		_damage_flash_remaining = 0.0
+		return
+	_hurt_remaining = feedback.hurt_seconds
+	_damage_flash_remaining = feedback.flash_seconds
+	_hurt_origin = motor.global_position
+	_accepted_hurt_count += 1
 
 func _process(delta: float) -> void:
 	super._process(delta)
+	_damage_flash_remaining = maxf(0, _damage_flash_remaining-delta)
+	_return_fade_remaining = maxf(0, _return_fade_remaining-delta)
+	var flash_on := _damage_flash_remaining > 0 and int((feedback.flash_seconds-_damage_flash_remaining)*feedback.flash_frequency)%2 == 0
+	modulate = Color(1,.62,.48,.52) if flash_on and not _dead else Color.WHITE
+	if _return_fade_remaining > 0: modulate.a *= lerpf(.25,1.0,1-_return_fade_remaining/feedback.return_transition_seconds)
 	if _build.is_empty(): return
 	_landing_remaining = maxf(0.0, _landing_remaining-delta)
 	# normal_velocity is the Motor's accepted locomotion channel; recoil and aim
@@ -76,6 +116,9 @@ func animation_receipt() -> Dictionary:
 		"muzzle_world":(motor.get_node("CourierVisual") as CourierVisual).visible_muzzle_position(),
 		"motor_position":motor.position,"normal_velocity":motor.normal_velocity,
 		"aim":controller.router.aim_direction,"router_epoch":controller.router.epoch,
+		"hurt_remaining":_hurt_remaining,"flash_remaining":_damage_flash_remaining,"accepted_hurt_count":_accepted_hurt_count,
+		"return_fade_remaining":_return_fade_remaining,"return_echo_count":return_echo_count,
+		"damage_remaining":motor.damage_remaining,"damage_velocity":motor.damage_velocity,
 		"dead":_dead,"generated_body_keyframes":int(_build.get("generated_keyframes",0))}
 
 func _draw() -> void:
@@ -91,6 +134,15 @@ func _draw() -> void:
 	draw_texture_rect_region(RUN_SHEET if frame.atlas=="run_sheet.png" else STATES_SHEET,target,rect)
 	draw_set_transform(Vector2.ZERO)
 	if _dead: return
+	# Bounded generated-body hit burst. World-anchored origin is relocated only by
+	# the accepted segment_returned event, never stretched across the teleport.
+	if _hurt_remaining > 0:
+		var age := feedback.hurt_seconds-_hurt_remaining
+		var origin := to_local(_hurt_origin)
+		for i: int in 8:
+			var direction := Vector2.from_angle(i*TAU/8+.2)
+			var point := origin+direction*(5+age*65)
+			draw_line(point,point+direction*3,Color("ead8a3",1-age/feedback.hurt_seconds),2,false)
 	var anchor := motor.get_node("CourierVisual") as CourierVisual
 	var muzzle := to_local(anchor.visible_muzzle_position())
 	var aim := controller.router.aim_direction.normalized()

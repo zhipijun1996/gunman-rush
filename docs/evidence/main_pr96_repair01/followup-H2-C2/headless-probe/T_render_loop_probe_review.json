@@ -1,0 +1,64 @@
+{
+  "decision": "DROP_RENDER_LOOP_FLAG__NO_DEMONSTRATED_SPEED_BENEFIT",
+  "source_commit": "1352f59f1b4761fe0ed806b0c0a165bcc7d54fab",
+  "tracked_implementation_changed": false,
+  "actual_case": {
+    "seed": "forest-depth-hollow-00",
+    "map": 1,
+    "route": "high_return"
+  },
+  "correctness_control": {
+    "normal_parallel_T_capture_equals_flag_capture_equals_solo_normal_capture_bytes": true,
+    "full_capture_sha256": "4cc1036cdd55908c6871a5a7f4f80863c75631c9968b07bd2f1d582bc8dd0c65",
+    "no_field_or_type_or_ID_or_draw_exceptions": true,
+    "all_three_complete_payloads_included": "Manifest/body/modal/request/event/geometry and all other original serialized fields",
+    "both_native0_original_validator_empty_errors_no_leak": true,
+    "same_T_source_before_after_equal": true,
+    "headless_probe_not_visual_or_full80_acceptance": true
+  },
+  "performance": {
+    "flag_solo_native_seconds": 12.694771141999809,
+    "flag_CPU_measured": false,
+    "flag_CPU_seconds": null,
+    "normal_solo_native_seconds": 12.549241270000493,
+    "normal_solo_child_user_CPU_seconds": 11.889131,
+    "normal_solo_child_system_CPU_seconds": 0.9827619999999999,
+    "normal_solo_child_total_CPU_seconds": 12.871893,
+    "flag_to_normal_solo_wall_ratio": 1.0115967068341583,
+    "interpretation": "Flag is about1.2% slower in this one comparable wall sample; noise/repetition unknown. This shows no demonstrated improvement, not a causal claim that flag is intrinsically slower. Original2worker timing cannot substitute for the solo control.",
+    "old6b_vs_T_causal_origin": "Not established; no CPU/profile/source-attribution claim."
+  },
+  "unchanged_limits": {
+    "native": 240,
+    "corpus_original_requests": 80,
+    "workers": 2,
+    "harness": 600,
+    "movie_real_GL_and_browser_not_disabled": true
+  },
+  "original_T80_status": "78 completed native passes,2 in-flight without terminal result at original600 timeout; original receipt running retained, not80pass or two business failures.",
+  "followup": "Flag abandoned without tracked patch. Original44 previously unexecuted checks may run; no approval of their pending results or futureCI/main/public identity.",
+  "evidence": [
+    {
+      "path": "build/forest_revision04/render-loop-T-probe-r1/receipt.json",
+      "sha256": "ac57afe947b785e716b5fa612c4a04a257dc4dde067777b739c64c9becca9e0e"
+    },
+    {
+      "path": "build/forest_revision04/render-loop-T-control-r1/receipt.json",
+      "sha256": "f5a989da7cef502e038dc1552272b0806c6e982b0eb2ed61d7e6ee35b181a95d"
+    },
+    {
+      "path": "build/forest_revision04/render-loop-T-probe-r1/typed-full-diff.json",
+      "sha256": "5f0aeada0e1809f5f9fe9c1c2fc9f34504bfec3c89a644ee9dddf7f488225ee8"
+    },
+    {
+      "path": "build/forest_revision04/render-loop-T-probe-r1/controlled-conclusion.json",
+      "sha256": "aa77282dccbf2aa181e1cb14a1de1fd87edff49891dd4dbcba5b6896a5987116"
+    },
+    {
+      "path": "build/forest_depth/region/harness-matrix/harness-bf830e3a8e3c46e3aa3afa3e8c9f44e4/02-map1-high_return/capture.json",
+      "sha256": "4cc1036cdd55908c6871a5a7f4f80863c75631c9968b07bd2f1d582bc8dd0c65"
+    }
+  ],
+  "reviewer_native_or_benchmark_executed": false,
+  "scope": "Light receipt/hash and one complete native capture comparison; no full repository reread, full80 rerun or native by reviewer."
+}

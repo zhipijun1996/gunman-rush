@@ -1,0 +1,325 @@
+{
+  "reviewer": "/root/independent_review",
+  "independent": true,
+  "verdict": "SCOPED_ACCEPT",
+  "reviewed_commit": "4b36203c634ed5e8339c13b809dd77c7a0c4d76e",
+  "parent_commit": "bfb90ac2dbfae912c1d26c37ab771a7285dc0875",
+  "commit_was_local_unpushed_at_review": true,
+  "reviewer_did_not_edit_implementation_tests_checkers_or_original_evidence": true,
+  "scope": "Frozen W8 exact12-path code review plus actual local target-host composition/assembly/canonical identity/two route controls already independently examined. Not final release or whole-forest artistic approval.",
+  "changed_paths_SHA256": {
+    "scripts/bosses/boss_arena_seal.gd": "24829163abe653021f9270eb82344566660647e20f357d5cc23ceb9205d3de7f",
+    "scripts/demo/demo_app.gd": "fa810901d75930b9179b068d7d743082954afadbf7784b257a5a7da73b79b147",
+    "scripts/demo/thorn_forest_region_stage.gd": "eee94af0a428836068c4231bc703c8e81c6e74a191f0bd7efee06934db4f3f26",
+    "scripts/generation/thorn_forest_region_assembler.gd": "4219a9c590fc5e3dc4f24bd9274ef4a4b20998d41f3a40f178a19677a5815aca",
+    "scripts/world/forest_target_hosts.gd": "521a11191812a6d331d06f8642f0b8b7e771f1fa8dff060da59a29670dcfc043",
+    "scripts/world/forest_target_hosts.gd.uid": "c871957ede58f5c57cb188e784615d7d4a1846d3b5ff92493987f63fa4f0e8ed",
+    "tools/audit_forest_target_hosts.gd": "e32d48c4b0e0ad309ed5da24ab01e7ee15319b547e30e7499314728bb4ecc71a",
+    "tools/audit_forest_target_hosts.gd.uid": "25183e050b1370d291faec0974d6ed0f271815605bd43e8b6b535d58276bac75",
+    "tools/audit_forest_target_hosts.py": "62bac1a182a0b0a45dfcfbe0e6a8a515b139d59e12546b43914e4bdf21bd4f8f",
+    "tools/capture_forest_target_hosts.gd": "568c93863c3a3ab420a76a985b639eb565befa7e6e197d45874f250dd0da7f77",
+    "tools/capture_forest_target_hosts.gd.uid": "1f3cb0dbec98eb39165baf7a28b9c79d68641f8c6950648a7691273d12d14440",
+    "tools/capture_forest_target_hosts.py": "bd700a098def284048467189fd8d990c87e8d232d875331f01c32369c9a9fff6"
+  },
+  "source_to_execution_bindings": [
+    {
+      "receipt": "build/forest_revision04/hosts-W8-gate-map1-r4-ui/source-binding.json",
+      "receipt_SHA256": "cd82e1b41405d8706f0b48b49f756ba3471f4bd91e28be9899eedfe076c8db50",
+      "execution_head_preserved": "bfb90ac2dbfae912c1d26c37ab771a7285dc0875",
+      "execution_was_dirty_source_snapshot": true,
+      "actual_exit": 0,
+      "seconds": 18.666044543999305,
+      "original_source_stable": true,
+      "matches_frozen_paths": [
+        "scripts/bosses/boss_arena_seal.gd",
+        "scripts/demo/demo_app.gd",
+        "scripts/demo/thorn_forest_region_stage.gd",
+        "scripts/generation/thorn_forest_region_assembler.gd",
+        "scripts/world/forest_target_hosts.gd",
+        "scripts/world/forest_target_hosts.gd.uid",
+        "tools/capture_forest_target_hosts.gd",
+        "tools/capture_forest_target_hosts.gd.uid",
+        "tools/capture_forest_target_hosts.py"
+      ],
+      "missing_paths": [
+        "tools/audit_forest_target_hosts.gd",
+        "tools/audit_forest_target_hosts.gd.uid",
+        "tools/audit_forest_target_hosts.py"
+      ],
+      "missing_reason": "Unused audit producer was not yet authored for these earlier image captures; all six production/UID paths and three capture producer paths match. No original inventory rewritten.",
+      "mismatched_paths": []
+    },
+    {
+      "receipt": "build/forest_revision04/hosts-W8-guardian-map1-r4-ui/source-binding.json",
+      "receipt_SHA256": "f3c535c73c11ab88d3510488923f9a375feb404a2ffaeac86d49dc1057ff1a48",
+      "execution_head_preserved": "bfb90ac2dbfae912c1d26c37ab771a7285dc0875",
+      "execution_was_dirty_source_snapshot": true,
+      "actual_exit": 0,
+      "seconds": 20.305081066999264,
+      "original_source_stable": true,
+      "matches_frozen_paths": [
+        "scripts/bosses/boss_arena_seal.gd",
+        "scripts/demo/demo_app.gd",
+        "scripts/demo/thorn_forest_region_stage.gd",
+        "scripts/generation/thorn_forest_region_assembler.gd",
+        "scripts/world/forest_target_hosts.gd",
+        "scripts/world/forest_target_hosts.gd.uid",
+        "tools/capture_forest_target_hosts.gd",
+        "tools/capture_forest_target_hosts.gd.uid",
+        "tools/capture_forest_target_hosts.py"
+      ],
+      "missing_paths": [
+        "tools/audit_forest_target_hosts.gd",
+        "tools/audit_forest_target_hosts.gd.uid",
+        "tools/audit_forest_target_hosts.py"
+      ],
+      "missing_reason": "Unused audit producer was not yet authored for these earlier image captures; all six production/UID paths and three capture producer paths match. No original inventory rewritten.",
+      "mismatched_paths": []
+    },
+    {
+      "receipt": "build/forest_revision04/hosts-W8-gate-map2-high-r4-ui/source-binding.json",
+      "receipt_SHA256": "c8944ee2a879daff240aad290ef65dec5bf9dd55a5f8fbab779271936c025020",
+      "execution_head_preserved": "bfb90ac2dbfae912c1d26c37ab771a7285dc0875",
+      "execution_was_dirty_source_snapshot": true,
+      "actual_exit": 0,
+      "seconds": 19.000845429000037,
+      "original_source_stable": true,
+      "matches_frozen_paths": [
+        "scripts/bosses/boss_arena_seal.gd",
+        "scripts/demo/demo_app.gd",
+        "scripts/demo/thorn_forest_region_stage.gd",
+        "scripts/generation/thorn_forest_region_assembler.gd",
+        "scripts/world/forest_target_hosts.gd",
+        "scripts/world/forest_target_hosts.gd.uid",
+        "tools/capture_forest_target_hosts.gd",
+        "tools/capture_forest_target_hosts.gd.uid",
+        "tools/capture_forest_target_hosts.py"
+      ],
+      "missing_paths": [
+        "tools/audit_forest_target_hosts.gd",
+        "tools/audit_forest_target_hosts.gd.uid",
+        "tools/audit_forest_target_hosts.py"
+      ],
+      "missing_reason": "Unused audit producer was not yet authored for these earlier image captures; all six production/UID paths and three capture producer paths match. No original inventory rewritten.",
+      "mismatched_paths": []
+    },
+    {
+      "receipt": "build/forest_revision04/hosts-W8-queen-map2-high-r4-ui/source-binding.json",
+      "receipt_SHA256": "39d8c28af479b2ad55d2e71812b2df4827f9dda7a79a03fd331eee7eee1e75fe",
+      "execution_head_preserved": "bfb90ac2dbfae912c1d26c37ab771a7285dc0875",
+      "execution_was_dirty_source_snapshot": true,
+      "actual_exit": 0,
+      "seconds": 20.030446340002527,
+      "original_source_stable": true,
+      "matches_frozen_paths": [
+        "scripts/bosses/boss_arena_seal.gd",
+        "scripts/demo/demo_app.gd",
+        "scripts/demo/thorn_forest_region_stage.gd",
+        "scripts/generation/thorn_forest_region_assembler.gd",
+        "scripts/world/forest_target_hosts.gd",
+        "scripts/world/forest_target_hosts.gd.uid",
+        "tools/capture_forest_target_hosts.gd",
+        "tools/capture_forest_target_hosts.gd.uid",
+        "tools/capture_forest_target_hosts.py"
+      ],
+      "missing_paths": [
+        "tools/audit_forest_target_hosts.gd",
+        "tools/audit_forest_target_hosts.gd.uid",
+        "tools/audit_forest_target_hosts.py"
+      ],
+      "missing_reason": "Unused audit producer was not yet authored for these earlier image captures; all six production/UID paths and three capture producer paths match. No original inventory rewritten.",
+      "mismatched_paths": []
+    },
+    {
+      "receipt": "build/forest_revision04/hosts-W8-queen-map2-low-r4-ui/source-binding.json",
+      "receipt_SHA256": "42a514d540e1592390df68c3bee8b581c64abc2ef0fdd11a83158512899d214d",
+      "execution_head_preserved": "bfb90ac2dbfae912c1d26c37ab771a7285dc0875",
+      "execution_was_dirty_source_snapshot": true,
+      "actual_exit": 0,
+      "seconds": 28.49627239199981,
+      "original_source_stable": true,
+      "matches_frozen_paths": [
+        "scripts/bosses/boss_arena_seal.gd",
+        "scripts/demo/demo_app.gd",
+        "scripts/demo/thorn_forest_region_stage.gd",
+        "scripts/generation/thorn_forest_region_assembler.gd",
+        "scripts/world/forest_target_hosts.gd",
+        "scripts/world/forest_target_hosts.gd.uid",
+        "tools/audit_forest_target_hosts.gd",
+        "tools/audit_forest_target_hosts.gd.uid",
+        "tools/audit_forest_target_hosts.py",
+        "tools/capture_forest_target_hosts.gd",
+        "tools/capture_forest_target_hosts.gd.uid",
+        "tools/capture_forest_target_hosts.py"
+      ],
+      "missing_paths": [],
+      "missing_reason": null,
+      "mismatched_paths": []
+    },
+    {
+      "receipt": "build/forest_revision04/hosts-W8-runtime20-r4-ui/source-binding.json",
+      "receipt_SHA256": "62add5e1b68292e345f67c9076cc304bc889d457e293914e6f8e7dca13de4c53",
+      "execution_head_preserved": "bfb90ac2dbfae912c1d26c37ab771a7285dc0875",
+      "execution_was_dirty_source_snapshot": true,
+      "actual_exit": 0,
+      "seconds": 35.509659272000135,
+      "original_source_stable": true,
+      "matches_frozen_paths": [
+        "scripts/bosses/boss_arena_seal.gd",
+        "scripts/demo/demo_app.gd",
+        "scripts/demo/thorn_forest_region_stage.gd",
+        "scripts/generation/thorn_forest_region_assembler.gd",
+        "scripts/world/forest_target_hosts.gd",
+        "scripts/world/forest_target_hosts.gd.uid",
+        "tools/audit_forest_target_hosts.gd",
+        "tools/audit_forest_target_hosts.gd.uid",
+        "tools/audit_forest_target_hosts.py",
+        "tools/capture_forest_target_hosts.gd",
+        "tools/capture_forest_target_hosts.gd.uid",
+        "tools/capture_forest_target_hosts.py"
+      ],
+      "missing_paths": [],
+      "missing_reason": null,
+      "mismatched_paths": []
+    },
+    {
+      "receipt": "build/forest_revision04/hosts-W8-final-route-map1-r4-ui/receipt.json",
+      "receipt_SHA256": "5a0f1a0892370fb82f5f16171e6f588994af0a3c54757c6f5e824f8ad31b7f14",
+      "execution_head_preserved": "bfb90ac2dbfae912c1d26c37ab771a7285dc0875",
+      "matches_frozen_paths": [
+        "scripts/bosses/boss_arena_seal.gd",
+        "scripts/demo/demo_app.gd",
+        "scripts/demo/thorn_forest_region_stage.gd",
+        "scripts/generation/thorn_forest_region_assembler.gd",
+        "scripts/world/forest_target_hosts.gd",
+        "scripts/world/forest_target_hosts.gd.uid",
+        "tools/audit_forest_target_hosts.gd",
+        "tools/audit_forest_target_hosts.gd.uid",
+        "tools/audit_forest_target_hosts.py",
+        "tools/capture_forest_target_hosts.gd",
+        "tools/capture_forest_target_hosts.gd.uid",
+        "tools/capture_forest_target_hosts.py"
+      ],
+      "missing_paths": [],
+      "mismatched_paths": [],
+      "original_source_stable": true
+    },
+    {
+      "receipt": "build/forest_revision04/hosts-W8-final-route-map2-r4-ui/receipt.json",
+      "receipt_SHA256": "a53b3c569c886391f596dae67e7b3e4f1d573659e932cd5fa02d241883b1c490",
+      "execution_head_preserved": "bfb90ac2dbfae912c1d26c37ab771a7285dc0875",
+      "matches_frozen_paths": [
+        "scripts/bosses/boss_arena_seal.gd",
+        "scripts/demo/demo_app.gd",
+        "scripts/demo/thorn_forest_region_stage.gd",
+        "scripts/generation/thorn_forest_region_assembler.gd",
+        "scripts/world/forest_target_hosts.gd",
+        "scripts/world/forest_target_hosts.gd.uid",
+        "tools/audit_forest_target_hosts.gd",
+        "tools/audit_forest_target_hosts.gd.uid",
+        "tools/audit_forest_target_hosts.py",
+        "tools/capture_forest_target_hosts.gd",
+        "tools/capture_forest_target_hosts.gd.uid",
+        "tools/capture_forest_target_hosts.py"
+      ],
+      "missing_paths": [],
+      "mismatched_paths": [],
+      "original_source_stable": true
+    }
+  ],
+  "provenance": "Original execution receipts retain HEAD bfb90ac2dbfae912c1d26c37ab771a7285dc0875 plus exact dirty source-delta ZIP and before/after inventory. Frozen commit is independently linked by each file SHA above, not substituted into original native provenance. Earlier r1/r2/r3 and preUI images remain historical developmental observations, not falsely promoted to identical final-source executions.",
+  "code_review": {
+    "presentation_boundary": [
+      "Runtime helper is v14-only; it consumes pending annotations and real support rectangles without changing the serialized Manifest. It returns draw data and does not create collision/target/terrain nodes.",
+      "Candidates are filtered to pending before building branches. Partial fallen/crown groups do not draw missing-endpoint branches; actual map2 already-rooted crown has no second runtime mount.",
+      "Assembler preserves exact target positions, layer8/mask0/circle radius12/hang eligibility and group membership. Route points use existing ForestFruitAnchor drawing; intentional Boss/gate rings use original GrappleAnchor. Original rooted fruit keeps its serialized stem and bough.",
+      "Resolved rings use local short neck and no obsolete long tether; unresolved/non-v14 rendering remains the prior path. Recommended/optional/recovery role data and route eligibility are not edited."
+    ],
+    "UI_boundary": [
+      "Completed gate hint is excluded before nearest lesson selection after actual opened state, with the closed target-specific instruction retained.",
+      "ArenaSeal world text defaults enabled. Only forest v14 disables duplicate world status, after drawing actual walls; armed/closed physics, setup and restore are unchanged.",
+      "The existing active Boss HUD shows real SEALED/CLOSING on its title row."
+    ],
+    "producer_review": [
+      "Capture wrapper keeps fresh output directories, source delta/untracked files, import and before/after source guards, strict run_engine, actual GL PNGs and artifact SHA. G2 fixtures use explicit initial placement and do not claim traversed routes.",
+      "Actual20 producer uses ten fixed corpus roots times two maps, fresh default App entry without layout override, exact original canonical Manifest comparison, real target script/shape/group/position/hang checks and real host roots. All original nonpending rows require empty runtime mount.",
+      "No original test, budget, route assertion or checker was changed in this12-file commit. New optional capture/audit producers complement the existing route proofs."
+    ]
+  },
+  "actual_local_evidence": {
+    "prior_independent_review": "build/forest_revision04/W8-review/r4-final-local-review.json",
+    "prior_review_SHA256": "1e2a1ec30635686803fcc9b584a2f256e49bf43193d457bb2166bb9851de8a36",
+    "actual_viewed_in_latest_review": 21,
+    "earlier_actual_windows": "Previously viewed fallen r1/r2 three-window groups; spiral RH three windows; true RHR crown/return; map2 partial three windows. Their exact limited approvals and source deltas remain in prior reports.",
+    "actual20": {
+      "fresh_App_cases": 20,
+      "actual_targets": 737,
+      "pending_runtime_hosts": 149,
+      "canonical_equal_original_W6_all20": true,
+      "artifact_SHA_ZIP_and_before_after_guards_independently_checked": true,
+      "reference_SHA_crosschecked_against_prior_independent_W6_bulk_audit": true,
+      "old_W6_large_capture_bytes_not_rehashed_this_light_review": true,
+      "actual_node_contracts_host_roots_and_no_duplicate_rooted_mounts_checked": true
+    },
+    "two_original_route_controls": [
+      {
+        "receipt": "build/forest_revision04/hosts-W8-final-route-map1-r4-ui/receipt.json",
+        "receipt_SHA256": "5a0f1a0892370fb82f5f16171e6f588994af0a3c54757c6f5e824f8ad31b7f14",
+        "map": 1,
+        "seed": "forest-depth-hollow-00",
+        "actual_exit": 0,
+        "seconds": 12.15923180000027,
+        "completed_legs": 24,
+        "frames": 2274,
+        "capture_and_log_SHA_match": true,
+        "full_unchanged_validator_errors": [],
+        "strict_marker_clean": true,
+        "source_guard_equal": true,
+        "five_reviewed_production_paths_equal_UI_capture": true,
+        "scope": "Only one default high_return route per map; headless Motor contract, not dynamic rendered Boss/movie or original80 rerun."
+      },
+      {
+        "receipt": "build/forest_revision04/hosts-W8-final-route-map2-r4-ui/receipt.json",
+        "receipt_SHA256": "a53b3c569c886391f596dae67e7b3e4f1d573659e932cd5fa02d241883b1c490",
+        "map": 2,
+        "seed": "forest-depth-hollow-00",
+        "actual_exit": 0,
+        "seconds": 14.477163734998612,
+        "completed_legs": 29,
+        "frames": 2772,
+        "capture_and_log_SHA_match": true,
+        "full_unchanged_validator_errors": [],
+        "strict_marker_clean": true,
+        "source_guard_equal": true,
+        "five_reviewed_production_paths_equal_UI_capture": true,
+        "scope": "Only one default high_return route per map; headless Motor contract, not dynamic rendered Boss/movie or original80 rerun."
+      }
+    ],
+    "UI_REWORK_followup": "Old stale-open hint and duplicate Guardian world text remain preserved failures. New map1/map2 gate and Guardian/low/high Queen UI captures directly demonstrate fixes in the reviewed views."
+  },
+  "save_preservation_scope": {
+    "actual_comparison": "All20 fresh runtime Manifest canonical values equal the original W6 corpus; each capture/audit additionally checks no Manifest mutation. Frozen W8 changes no schema, RunManifest reader, reward ledger, generation coordinates/RNG or serialized fruit annotations.",
+    "not_claimed": "No new W8 full old-save decode/playback/restore execution was performed by this review. Canonical identity is not mislabeled an end-to-end save recovery test."
+  },
+  "retained_pixel_limits": [
+    "Some entry/upper target framing remains cropped; Guardian right ring is partly outside the entry window.",
+    "Queen return-low-bank upper bough/leaves and real patrol arrows can enter the fixed HUD area, although B ring remains visible. Queen body is partly cut at the bottom in a right-bank view. No full-motion HUD/shot/collision clearance is certified.",
+    "Runtime resolved/support-root contracts are not whole-region aesthetic acceptance or player approval."
+  ],
+  "explicitly_not_passed_or_not_covered": [
+    "W7 aim_save complete native strict resource lifecycle remains a known blocker.",
+    "Original80 has not been rerun on this final W8 commit; earlier W6 original80 remains a valid historical source-bound result.",
+    "No new W8 continuous rendered movie, complete Boss motion/art sweep, audio listening, remote fullCI, user taste or physical-device acceptance.",
+    "Proposed three new hint sentences remain a read-only draft and are not in this commit or review."
+  ],
+  "prior_reports_preserved": {
+    "build/forest_revision04/W8-review/fallen-r1-host-review.json": "cc2c15650c8e4dc8834975b05a45a910d7caf75b3518e34704f21d1f61db1e7d",
+    "build/forest_revision04/W8-review/fallen-fruit-r2-review.json": "03cf65a3b0a882d65fcb3f8dd1245c87388da6d66ca09b446823e5703130acc3",
+    "build/forest_revision04/W8-review/spiral-crown-r3-review.json": "9ad66a8c70fd5e04eaddc344f1968b05705804f1f00e6a2f4c766c5e9af1f0c6",
+    "build/forest_revision04/W8-review/gate-map1-r4-review.json": "f606f286f5f64fcaf1a0bf31243b56877a556b37bb1170c82d7f2c7b10235be7",
+    "build/forest_revision04/W8-review/guardian-map1-r4-review.json": "946db5ad16eb71e355fcd1cb5a6e411acf5fec1875247e4e50ed9a853b91c0ed",
+    "build/forest_revision04/W8-review/spiral-map2-partial00-r4-review.json": "2790b3800972d5b72320f31afbb2e37d3fa9bea4304021623a7036caf1092a39",
+    "build/forest_revision04/W8-review/r4-final-local-review.json": "1e2a1ec30635686803fcc9b584a2f256e49bf43193d457bb2166bb9851de8a36"
+  },
+  "review_outputs_only_ignored": true
+}

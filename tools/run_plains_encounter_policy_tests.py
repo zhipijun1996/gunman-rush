@@ -479,6 +479,83 @@ def native_run(folder, recovery=False, reward_resource=""):
 
 
 
+def validate_early_entry_contact_conflict(row):
+    """Recognize the same unsafe entrance when accepted hurt interrupts ascent early.
+
+    This is only an entry counterexample, with an actual declared guard contact,
+    matching accepted events and an exact adjacent-frame HP reduction.
+    """
+    state = row.get("state", {})
+    require(row.get("restored_unsafe") is True and not row.get("restored_unsafe_return", False)
+            and row.get("claimed") is False and state.get("approach") is True
+            and state.get("trial") is False, "not an unclaimed failed unsafe entry")
+    manifest = row.get("manifest", {})
+    edges = [e for e in manifest.get("connections", [])
+             if e.get("kind") == "challenge" and e.get("b") == "deep_" + str(row.get("tier", ""))]
+    require(len(edges) == 1, "ambiguous unsafe entry route")
+    area = edges[0].get("a")
+    guard_id = "plains/enemy/" + str(area)
+    guards = [e for e in manifest.get("enemies", []) if e.get("id") == guard_id]
+    require(len(guards) == 1 and guards[0].get("area") == area
+            and row.get("guard_id") == guard_id, "unsafe entry guard is absent/wrong/ambiguous")
+    entry_guards = state.get("entry_guard", [])
+    require(len(entry_guards) == 1 and entry_guards[0].get("id") == guard_id
+            and entry_guards[0].get("health", 0) > 0 and entry_guards[0].get("terminal") is False,
+            "unsafe entry lacks its observed live guard")
+    frames = row.get("frames", [])
+    require(frames and all(type(f.get("tick")) is int and f["tick"] > 0 for f in frames),
+            "unsafe entry capture has invalid frame ticks")
+    by_tick = {f.get("tick"): f for f in frames}
+    require(len(frames) == len(by_tick), "ambiguous unsafe entry frame ticks")
+    entry, start, end = (state.get(key) for key in ("entry_tick", "trial_start_tick", "trial_end_tick"))
+    require(all(type(tick) is int and tick > 0 and tick in by_tick for tick in (entry, start, end))
+            and min(by_tick) <= entry <= start < end <= max(by_tick), "invalid unsafe entry interval")
+    entry_frame = by_tick[entry]
+    require(state.get("entry_position") == entry_frame.get("position")
+            and isinstance(state.get("entry_position"), list) and len(state["entry_position"]) == 2
+            and state["entry_guard"] == entry_frame.get("reward_guard"),
+            "unsafe entry position/guard does not match its actual entry frame")
+    entry_areas = [a for a in manifest.get("areas", []) if a.get("id") == area]
+    require(len(entry_areas) == 1 and entry_frame.get("grounded") is True
+            and isinstance(entry_areas[0].get("position"), list) and len(entry_areas[0]["position"]) == 2
+            and all(type(value) in (int, float) and math.isfinite(value)
+                    for value in state["entry_position"] + entry_areas[0]["position"])
+            and math.dist(state["entry_position"], entry_areas[0]["position"]) < 3,
+            "unsafe entry is not the actual grounded authored entrance bank")
+    contacts = [e for e in row.get("events", []) if e.get("kind") == "damage_committed"
+                and e.get("source") == guard_id + "_contact" and e.get("target") == "player"
+                and type(e.get("tick")) is int and start <= e["tick"] <= end]
+    require(len(contacts) == 1, "missing/ambiguous declared guard contact")
+    event = contacts[0]
+    tick = event["tick"]
+    require(tick - 1 in by_tick and tick in by_tick, "contact lacks adjacent actual frames")
+    before, after = by_tick[tick - 1], by_tick[tick]
+    accepted = after.get("accepted_events", [])
+    require(accepted.count(event) == 1, "contact lacks its exact accepted frame event")
+    amount, health = event.get("amount", 0), event.get("health_after", -1)
+    require(type(amount) in (int, float) and math.isfinite(amount) and amount > 0
+            and type(health) in (int, float) and math.isfinite(health) and health > 0
+            and event.get("lethal") is False and after.get("health") == health
+            and before.get("health", -1) - health == amount,
+            "contact HP does not equal the actual adjacent-frame loss")
+    health_events = [e for e in accepted if e.get("kind") == "player_health"
+                     and e.get("tick") == tick and e.get("operation") == "damage"
+                     and e.get("status") == 0 and e.get("amount") == -amount
+                     and e.get("current") == health]
+    require(len(health_events) == 1, "contact lacks its accepted health application")
+    require(row.get("events", []).count(health_events[0]) == 1,
+            "contact health application lacks its exact global accepted event")
+    observed = after.get("reward_guard", [])
+    require(len(observed) == 1 and observed[0].get("id") == guard_id
+            and observed[0].get("health", 0) > 0 and observed[0].get("terminal") is False,
+            "contact frame does not observe the declared live guard")
+    jumps = [e for e in row.get("events", []) if e.get("kind") == "jump_accepted"
+             and start <= e.get("tick", -1) <= tick]
+    require(any(e in by_tick.get(e["tick"], {}).get("accepted_events", []) for e in jumps),
+            "contact did not interrupt an accepted entry ascent")
+    return True
+
+
 def reward_entry_run(folder, name, args, broken=False):
     folder=folder.resolve();folder.mkdir(parents=True,exist_ok=True)
     output=folder/(name+".json");log=output.with_suffix(".log")
@@ -507,7 +584,12 @@ def reward_entry_run(folder, name, args, broken=False):
         require(row["state"]["approach"] and not row["state"]["trial"] and min(f["health"] for f in row["frames"])<row["frames"][0]["health"],"counterexample lacks actual failed contact")
         if broken=="return":require(row.get("restored_unsafe_return") and row["claimed"],"return counterexample never completes actual high claim first")
         else:require(row["restored_unsafe"] and not row["claimed"],"entry counterexample not at first ascent")
-        require(any("unsafe recoil bank" in d["message"] or "no safe non-kill" in d["message"] or (broken=="return" and "enemy bank unsafe/no damage progress" in d["message"]) for d in row["diagnostics"]),"negative is not the intended physical conflict")
+        intended = any("unsafe recoil bank" in d["message"] or "no safe non-kill" in d["message"] or (broken=="return" and "enemy bank unsafe/no damage progress" in d["message"]) for d in row["diagnostics"])
+        if not intended and broken is True:
+            try: validate_early_entry_contact_conflict(row)
+            except ValueError: pass
+            else: intended = True
+        require(intended,"negative is not the intended physical conflict")
         try:validate_reward_entry(data,before)
         except ValueError:pass
         else:raise ValueError("bad physical encounter accepted")

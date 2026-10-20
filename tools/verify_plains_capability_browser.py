@@ -17,11 +17,44 @@ import sys
 from PIL import ImageChops
 from playwright.async_api import async_playwright
 import verify_random_stage_browser as helpers
-import verify_plains_browser as art
 
 FOLDER = Path("build/verification/plains-capability-browser")
 helpers.FOLDER = FOLDER
-art.FOLDER = FOLDER
+
+
+PALETTES = {
+    "grass": [(143, 159, 79), (79, 101, 58), (215, 204, 115)],
+    "rock": [(114, 119, 106), (75, 81, 74), (49, 58, 54)],
+    "courier_cream": [(245, 238, 219), (241, 230, 201)],
+    "courier_scarf": [(167, 69, 54)],
+}
+
+
+def palette_count(image, palette, tolerance=5):
+    return sum(count for count, pixel in image.getcolors(image.width * image.height)
+               if any(max(abs(value - target) for value, target in zip(pixel, color)) <= tolerance
+                      for color in palette))
+
+
+def rendered_art(name, overview=False, courier=True):
+    image = helpers.picture(name)
+    world = image.crop((0, 150, 1070, 710))
+    counts = {key: palette_count(world, palette) for key, palette in PALETTES.items()}
+    sky = image.crop((0, 160, 1050, 410))
+    counts["sky_blue_pixels"] = sum(90 < r < 235 and 125 < g < 245 and 140 < b < 245 and b > r
+                                    for r, g, b in sky.get_flattened_data())
+    if counts["sky_blue_pixels"] < 10000 or counts["grass"] < 15 or counts["rock"] < 100:
+        raise RuntimeError("Actual plains sky/grass/rock did not render: " + str(counts))
+    if overview:
+        grass_rows = {index // world.width for index, pixel in enumerate(world.get_flattened_data())
+                      if any(max(abs(value - target) for value, target in zip(pixel, color)) <= 5
+                             for color in PALETTES["grass"])}
+        counts["grass_vertical_span_px"] = max(grass_rows) - min(grass_rows) if grass_rows else 0
+        if counts["grass_vertical_span_px"] < 90:
+            raise RuntimeError("Artistic overview unexpectedly lost its substantial vertical course: " + str(counts))
+    if courier and not overview and (counts["courier_cream"] < 5 or counts["courier_scarf"] < 2):
+        raise RuntimeError("Actual original courier artwork did not render: " + str(counts))
+    return counts
 
 
 def map_hash(name):
@@ -89,7 +122,7 @@ async def main(url):
                 raise RuntimeError("Actual fourteen-module preview did not start: " + str(initial))
             if "JUMP" not in helpers.ocr("entry", (895, 620, 1030, 710)).upper():
                 raise RuntimeError("Mobile play view lacks jump control")
-            probes["entry"] = art.rendered_art("entry", courier=False)
+            probes["entry"] = rendered_art("entry", courier=False)
             checks.append("Home opens actual fourteen-module generated preview with plains sky/grass/rock and touch controls")
             initial_map = await overview("overview")
             await page.wait_for_timeout(400)
@@ -115,7 +148,7 @@ async def main(url):
                 raise RuntimeError("Real touch movement failed to cross first seamless dock: " + str(moved))
             if abs(moved["camera_x"] - moved["world_x"]) > 630:
                 raise RuntimeError("Bounded camera lost the actual moving player")
-            probes["courier"] = art.rendered_art("touch-seam")
+            probes["courier"] = rendered_art("touch-seam")
             report["touch_progress"] = {"initial": initial, "after_touch": moved}
             checks.append("Original courier crosses first seamless dock with real touch input and remains in bounded camera")
 

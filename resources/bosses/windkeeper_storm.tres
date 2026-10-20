@@ -4,9 +4,11 @@
 [resource]
 script = ExtResource("1")
 stable_id = &"plains_windkeeper"
-definition_version = 4
+definition_version = 5
+continuous_combat = true
 health_definition = ExtResource("2")
-collision_size = Vector2(150, 130)
+collision_size = Vector2(150, 190)
+collision_offset = Vector2(0, -30)
 patrol_speed = 225.0
 projectile_speed = 180.0
 projectile_radius = 10.0
@@ -21,4 +23,4 @@ pier_warning_seconds = 0.75
 pier_recovery_seconds = 0.7
 
 platform_trials = true
-phase_warning_seconds = 3.2
+phase_warning_seconds = 1.4

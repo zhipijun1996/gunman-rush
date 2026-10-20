@@ -1,0 +1,56 @@
+{
+  "kind": "post_execution_owned_file_attribution",
+  "baseline": "05721c3c0cc8a221b6c33e6a051ab6fe53df199c",
+  "working_tree": "dirty shared concurrent R3 implementation; not an exact committed-source or whole-tree pre/post guard",
+  "owned_files": {
+    "scripts/damage/damage_feedback_definition.gd": "634f57a8d1b1bfb81a7377a78062b7878a38bf3f2824824eb619e26c19e1f229",
+    "resources/damage/feedback.tres": "5f9ab9dbb18b175c43034e4d2082b3cc0210f53d73495e154f5febaeb40f02e4",
+    "scripts/damage/damage_boundary.gd": "6dc0c130edc18555fc01ab0fb156c383ffc16a3a3e4970176cbef9a1bfc1c221",
+    "scripts/damage/damage_return_echo.gd": "899f629991904f158332200ba76c76e542be371df57f041c3ee4e031dcb40215",
+    "scripts/damage/damage_request.gd": "5a1e68d65f0e525ef766fd9460033f7ca3c80690f4ba2cbf7dd67e20bf80bc04",
+    "scripts/damage/frame_damage_policy.gd": "083c8e177d1a23e4f11e61d6bd2afe69654d97a2516d72647a872b61ccd03b5e",
+    "scripts/damage/demo_contact_emitter.gd": "8fdc91b9df6378251578ac5ff25d9b30735411f7b2665b673ee151299946d62f",
+    "scripts/player/player_motor.gd": "9192a3b031cce875cfac47373e00f0a57a755ce2dfc481e6d4d0667df1410a56",
+    "scripts/enemies/enemy_motor.gd": "3f36d8c9c4a0a7cf58483a784cd7a425053722c3736dd888c1eab9c5b2afdad8",
+    "scripts/enemies/enemy_actor.gd": "ebca71140fe2b497600a3440867ba353eb1a7faa779612ca999aa000a88a1304",
+    "scripts/underworld_plains/underworld_player.gd": "f4243c83fb51ce85e34a95e736676a971339708537755683214f9b47cbc1bfb6",
+    "scripts/underworld_plains/underworld_enemy.gd": "5a89783a2bc54dbd6ded0183bef7680a9c50619d9a3cb8da3cd7bfa5bdccaed1",
+    "scripts/generation/module_saw_hazard.gd": "5d31ef8f40ed756840417d1c7d727f8995688bd5616a7f4f5e2413fdd5e0ee91",
+    "scripts/generation/platforming_module.gd": "705af1d3d9354d8bf4ba86ea3b1d1b4eea33ae414019dc122c32e0aed1c08a30",
+    "scripts/generation/random_stage_assembler.gd": "db2780ba806f88232c54f10ad75efd996e18d7faf58bc9f70bc08d802b07a2ef",
+    "tests/underworld_plains/test_underworld_damage_r3.gd": "3178064493059d61ab8f20093283cd3d4be09814e8784b04fc9c983004fc0e7a",
+    "tools/run_underworld_damage_r3_tests.py": "d5d7e8593aaba43d552760f54e8bed764b1b1dbd4c84dc0b32c82f0d9d58ce5c",
+    "tests/underworld_plains/damage_enemy_edge_cases.gd": "251d54f7841bbdabb77ab19326b94c7df56ff9a21cfa642c08fd6aa82f0271e7",
+    "tests/underworld_plains/capture_revision3_environment.gd": "7f8d5f77687a658927730d591233b1977c59f955c5194596c1c4d207dd7b054e"
+  },
+  "latest_runtime_receipt": {
+    "path": "build/underworld_r3/damage/runtime.json",
+    "sha256": "39402e1bd48029d09afefd90b444a44a9382cbbca12500af4b0a51054f7f322c"
+  },
+  "checks": [
+    {
+      "command": "python3 tools/run_underworld_damage_r3_tests.py",
+      "log": "build/underworld_r3/damage/final_edge_guard.log",
+      "exit_code": 0,
+      "assertions": 297,
+      "failures": 0
+    },
+    {
+      "command": "python3 tools/run_underworld_player_animation_tests.py",
+      "log": "build/underworld_r3/damage/final_player_animation.log",
+      "exit_code": 0,
+      "assertions": 607,
+      "frames": 583,
+      "states": 7,
+      "failures": 0,
+      "note": "607/0 was before local edge-only enemy guard; no player code changed by this guard; parent final source regression still required"
+    }
+  ],
+  "unverified": [
+    "native rendered damage appearance",
+    "audio listening and timing",
+    "natural complete formal region route",
+    "phone device and player feel",
+    "whole-game regression"
+  ]
+}
