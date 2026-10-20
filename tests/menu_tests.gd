@@ -3,29 +3,32 @@ extends RefCounted
 func run(tree: SceneTree, check: Callable) -> void:
 	var menu := DemoMenu.new()
 	tree.root.add_child(menu)
-	var starts: Array[Dictionary] = []
+	var starts: Array[String] = []
+	var plains: Array[String] = []
 	var resumes: Array[int] = []
 	var homes: Array[int] = []
 	var patches: Array[Dictionary] = []
-	menu.requested_start.connect(func(seed: String, formal_ten: bool) -> void: starts.append({"seed": seed, "formal": formal_ten}))
+	menu.requested_start.connect(func(seed: String) -> void: starts.append(seed))
+	menu.requested_plains.connect(func(seed: String) -> void: plains.append(seed))
 	menu.requested_resume.connect(func() -> void: resumes.append(1))
 	menu.requested_home.connect(func() -> void: homes.append(1))
 	menu.settings_changed.connect(func(patch: Dictionary) -> void: patches.append(patch))
 	menu.show_home("Last run: Boss defeated")
 	check.call(menu.visible_panel == &"home" and menu._root.visible, "home menu blocks gameplay while showing run modes")
 	menu._seed = " seeded trial "
-	var formal_button := button(menu, "8 rooms   /   Regression fixture")
-	check.call(formal_button != null, "menu preserves explicit eight-stage development regression option")
-	if formal_button == null:
+	check.call(button(menu, "8 rooms   /   Regression fixture") == null, "retired eight-room option is absent")
+	var explore_button := button(menu, "Explore   /   Windchime Plains")
+	check.call(explore_button != null, "current two-map Explore option remains available")
+	if explore_button == null:
 		menu.queue_free()
 		await tree.process_frame
 		return
-	formal_button.pressed.emit()
-	check.call(starts == [{"seed": "seeded trial", "formal": true}] and menu.visible_panel == &"", "eight-room button sends trimmed seed and selected profile then hides")
+	explore_button.pressed.emit()
+	check.call(plains == ["seeded trial"] and starts.is_empty() and menu.visible_panel == &"", "Explore sends trimmed seed to current region flow then hides")
 	menu.show_home()
 	menu._seed = " "
 	button(menu, "3 rooms   /   A quick taste").pressed.emit()
-	check.call(starts[1] == {"seed": "rush-demo", "formal": false}, "blank seed uses explicit demo fallback without changing mode")
+	check.call(starts == ["rush-demo"], "blank seed uses explicit demo fallback without changing mode")
 	menu.show_pause("Double Jump")
 	button(menu, "RETURN TO HOME").pressed.emit()
 	check.call(menu.visible_panel == &"confirm_home" and homes.is_empty(), "return home first opens confirmation without ending the run")

@@ -211,16 +211,6 @@ func run() -> void:
 		await frames(1)
 		encounter._prune_attacks()
 		check(encounter._projectiles.is_empty(), "disposed attack references pruned during long encounter")
-	# Formal generator binds the sheep contract and rejects forged phase metadata.
-	var tuning := PlayerTuning.load_default()
-	tuning.max_jumps = 1
-	var generated := PlainsStageGenerator.new().generate("windkeeper-test",8,&"boss",tuning)
-	check(generated.ok, "formal Boss 8 generator succeeds")
-	if generated.ok:
-		check(generated.manifest.boss_encounter.id == "plains_windkeeper" and generated.manifest.boss_encounter.phases == 3, "formal manifest records exact sheep encounter")
-		var forged: Dictionary = generated.manifest.duplicate(true)
-		forged.boss_encounter.phases = 1
-		check(not RandomStageGenerator.new().validate_manifest(forged,tuning).ok, "forged Boss manifest is rejected")
 	world.free()
 	await process_frame
 	if "--failure-probe" in OS.get_cmdline_user_args(): check(false, "intentional Windkeeper failure probe")

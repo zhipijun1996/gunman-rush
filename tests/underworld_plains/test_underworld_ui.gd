@@ -78,7 +78,7 @@ func run() -> void:
 	menu.show_home_navigation();await frames();await observe("home_navigation",menu._root)
 	var text := ""
 	for node: Node in menu._content.find_children("*","Button",true,false):text+=node.text
-	check(text.contains("MODULE LAB") and text.contains("RANDOM STAGE") and text.contains("3 rooms") and text.contains("8 rooms"),"all original development routes preserved")
+	check(text.contains("MODULE LAB") and text.contains("RANDOM STAGE") and text.contains("3 rooms") and not text.contains("8 rooms"),"current development routes preserved; retired eight-room option absent")
 	for service: StringName in [&"character",&"achievements",&"departure",&"upgrade"]:
 		menu.set_meta_state({"notes":0,"upgrade_quote":{"level":0,"max_level":3,"price":5,"available":true}});menu.show_home_panel(service);await frames();await observe("home_"+str(service),menu._root)
 	menu.set_meta_state({"notes":0,"upgrade_quote":{"level":0,"max_level":3,"price":5,"available":true}});menu.show_home_panel(&"upgrade");await click(button(menu._content,"PERMANENT"));check(upgrades.is_empty(),"actual disabled upgrade rejects native click")

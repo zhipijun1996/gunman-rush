@@ -1,6 +1,6 @@
 class_name PlainsRegionAssembler
 extends RandomStageAssembler
-## Explicit region assembler, leaves the eight-room regression assembler intact.
+## Explicit current-region assembler using the shared module consumer.
 var region_state: PlainsRegionState
 var shortcut_bodies: Dictionary = {}
 var shortcut_shapes: Dictionary = {}

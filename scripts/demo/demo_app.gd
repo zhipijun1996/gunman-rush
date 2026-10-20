@@ -461,7 +461,7 @@ func _load_stage() -> void:
 					abandon_run()
 					return
 			else:
-				director.manifest.enable_plains_generation()
+				director.manifest.enable_development_generation((stage as GeneratedDemoStage).generated.stage_generator_version)
 		var initial_character := {"id": "prototype_player", "weapon": "release_shot", "max_jumps": controller.motor.tuning.max_jumps, "max_air_shots": controller.motor.tuning.max_air_shots, "input_values": _session_input.duplicate(true)}
 		var config_hashes := {"physics": FileAccess.get_sha256("res://config/player_tuning.json"), "input": FileAccess.get_sha256("res://config/input_profile.json"), "health": FileAccess.get_sha256("res://resources/actors/prototype_health.tres")}
 		config_hashes.enemy_drops = FileAccess.get_sha256(EnemyDropService.CONFIG_PATH)
@@ -473,7 +473,6 @@ func _load_stage() -> void:
 			initial_character.meta_content_version = meta_config.version
 			initial_character.meta_save_schema_version = MetaSaveService.SCHEMA_VERSION
 			config_hashes.meta_upgrades = FileAccess.get_sha256("res://config/meta_upgrades.json")
-			config_hashes.branch_profile = FileAccess.get_sha256(PlainsBranchLayout.PROFILE_PATH)
 		director.manifest.record_configuration([
 			{"id": "plains_generated_layout" if generated_plains else "demo_fixed_layout", "version": 1},
 			{"id": String(JUMP_ITEM.stable_id), "version": JUMP_ITEM.definition_version},
@@ -543,7 +542,8 @@ func _load_stage() -> void:
 		if connected_region:
 			(random_stage.assembler as PlainsRegionAssembler).attack_shortcut_opened.connect(_record_attack_shortcut_opened.bind(lifetime.stage_epoch,lifetime.epoch))
 		director.manifest.record_output(director.stage_index, &"shot_latch_layout", random_stage.generated.manifest.shot_latch_plan)
-		var static_records: Array[Dictionary] = random_stage.assembler.world_static_hazard_records() if connected_region else []
+		var static_records: Array[Dictionary] = []
+		if connected_region: static_records.assign(random_stage.assembler.world_static_hazard_records())
 		var static_dangers := random_stage.assembler.world_static_dangers()
 		for index: int in static_dangers.size():
 			var danger: Rect2 = static_dangers[index]
@@ -1551,7 +1551,7 @@ func _make_ui() -> void:
 	menu.set_input_values(_session_input)
 	menu.requested_enter_home.connect(_show_home)
 	menu.home_panel_closed.connect(_close_home_panel)
-	menu.requested_start.connect(start_demo)
+	menu.requested_start.connect(func(seed: String) -> void: start_demo(seed, false))
 	menu.requested_plains.connect(start_plains)
 	menu.requested_debug_region.connect(start_debug_region)
 	progression_modal = RegionProgressionModal.new()

@@ -16,58 +16,6 @@ func fixture(manifest: Dictionary, tuning: PlayerTuning) -> bool:
 	return true
 
 
-func route(manifest: Dictionary, tuning: PlayerTuning, label: String) -> void:
-	if is_trace_cancelled(): return
-	if manifest.get("layout_id", "") == "branched_terminal_paths":
-		await branch_route(manifest, tuning, label + " upper", 0)
-		if is_trace_cancelled(): return
-		await branch_route(manifest, tuning, label + " lower", 1)
-		if is_trace_cancelled(): return
-	else:
-		await super.route(manifest, tuning, label)
-		if is_trace_cancelled(): return
-
-func branch_route(manifest: Dictionary, tuning: PlayerTuning, label: String, branch_index: int) -> void:
-	if is_trace_cancelled(): return
-	check.call(branch_index in [0, 1] and manifest.get("layout_id") == "branched_terminal_paths", "branch driver receives a real terminal-path recording")
-	if branch_index not in [0, 1] or not await fixture(manifest, tuning): return
-	var visited: Array = manifest.common_path.duplicate()
-	visited.append_array(manifest.terminal_paths[branch_index])
-	var expected_shots := 0
-	for node_index: Variant in visited:
-		var index := int(node_index)
-		var module: PlatformingModule = stage.modules[index]
-		check.call(module.port_accepts(module.definition.entry_port, motor), label + " actual entry resource contract %d" % index)
-		if index == int(manifest.fork_node) and branch_index == 0:
-			var route: Array[int] = [module.definition.main_route[0]]
-			route.append_array(Array(module.definition.branch_routes[0]))
-			var _cancel_await_1: bool = await load("res://tests/branch_module_driver.gd").new().follow_path(module, motor, tick, check, route)
-			if is_trace_cancelled(): return
-			check.call(_cancel_await_1, label + " shared fork climbs actual upper route without teleport")
-		else:
-			await traverse(module)
-			if is_trace_cancelled(): return
-		controller.router.set_move_axis(0)
-		await tick(3)
-		if is_trace_cancelled(): return
-		var exit_port := module.definition.exit_port
-		if index == int(manifest.fork_node) and branch_index == 0:
-			for port: PlatformingModulePort in module.definition.get_exit_ports():
-				if port.port_id == &"fork_up": exit_port = port
-		var expected_position := module.to_global(exit_port.position)
-		check.call(motor.is_on_floor() and motor.global_position.distance_to(expected_position) < 1, label + " grounded selected module exit %d" % index)
-		check.call(module.port_accepts(exit_port, motor), label + " real selected exit contract %d" % index)
-		check.call(controller.action_resources.shot_charges == tuning.max_air_shots and controller.jump_ability.used_jumps == 0, label + " real floor resets action resources %d" % index)
-		if motor.global_position.distance_to(expected_position) >= 1: break
-		var id := str(module.definition.module_id)
-		expected_shots += 2 if id == "plains_windchime_sequence" else 1 if id in ["plains_recoil_span", "plains_recoil_step", "plains_windchime_lesson", "plains_windchime_well", "plains_windchime_timed", "plains_windchime_ferry"] else (2 if id in ["plains_recoil_double", "plains_recoil_chasm", "plains_recoil_chasm_wide", "challenge_long_gap"] else 0)
-	var terminal: Dictionary = manifest.terminal_exits[branch_index]
-	check.call(motor.is_on_floor() and motor.global_position.distance_to(Vector2(terminal.position[0], terminal.position[1])) < 1, label + " reaches selected door at end of its branch")
-	check.call(shots == expected_shots, label + " exact actual released projectile count")
-	check.call(safe_trace and continuous_trace, label + " full swept body avoids all static and moving hazards without teleport")
-	check.call(trace_ticks > 100 and stage.modules.size() == manifest.nodes.size(), label + " traverses a whole generated branch in the actual assembled world")
-	print("PLAINS BRANCH TRACE: seed=%s branch=%d nodes=%s ticks=%d shots=%d safe=%s" % [manifest.seed, branch_index, visited, trace_ticks, shots, safe_trace])
-
 func traverse(module: PlatformingModule) -> void:
 	if is_trace_cancelled(): return
 	if str(module.definition.module_id).begins_with("plains_windchime_"):

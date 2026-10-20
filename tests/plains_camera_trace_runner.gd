@@ -9,23 +9,6 @@ func check(ok: bool,message: String) -> void:
 		push_error(message)
 func run() -> void:
 	root.size = Vector2i(1280,720)
-	DirAccess.make_dir_recursive_absolute("res://build/verification/camera-traces")
-	var driver = load("res://tests/plains_camera_trace_driver.gd").new()
-	driver.tree = self
-	driver.check = check
-	var data := PlainsStageGenerator.new().generate("polish-camera",5,&"combat",PlayerTuning.load_default())
-	check(data.ok,"actual seeded multi-module route generates")
-	if data.ok:
-		driver.output = FileAccess.open("res://build/verification/camera-traces/polish-camera.csv",FileAccess.WRITE)
-		driver.output.store_line("tick,actor_x,actor_y,camera_x,camera_y,anchor_x,anchor_y,session,landings,bounds_clamp,safety_correction,grounded")
-		await driver.route(data.manifest,PlayerTuning.load_default(),"camera5 fixed Seed actual upper/lower")
-		driver.output.close()
-	if is_instance_valid(driver.world):
-		if not await load("res://tests/audio_teardown.gd").drain_world(driver.world):
-			push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms")
-			quit(1)
-			return
-		driver.world.free()
 	var boss_camera := StageCameraRig.new()
 	root.add_child(boss_camera)
 	boss_camera.zoom = Vector2.ONE * boss_camera.viewing_zoom

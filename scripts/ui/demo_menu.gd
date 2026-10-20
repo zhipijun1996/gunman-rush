@@ -5,7 +5,7 @@ extends CanvasLayer
 
 signal requested_enter_home
 signal home_panel_closed
-signal requested_start(seed: String, formal_ten: bool)
+signal requested_start(seed: String)
 signal requested_plains(seed: String)
 signal requested_debug_region(region: StringName, map_index: int, seed: String)
 signal requested_upgrade
@@ -227,9 +227,7 @@ func show_home(summary: String = "") -> void:
 	_upgrade_controls(body)
 	_button(body, "DEBUG / SELECT REGION + MAP", show_debug_regions)
 	_label(body, "QUICK DEMO", 12, TEAL)
-	_button(body, "3 rooms   /   A quick taste", func() -> void: _start(false))
-	_label(body, "DEVELOPMENT / OLD EIGHT-ROOM TRIAL", 12, GOLD)
-	_button(body, "8 rooms   /   Regression fixture", func() -> void: _start(true))
+	_button(body, "3 rooms   /   A quick taste", _start_quick_demo)
 	_label(body, "RUN SEED", 12, MUTED)
 	var seed_edit := LineEdit.new()
 	seed_edit.text = _seed
@@ -374,12 +372,12 @@ func _plains_seed() -> String:
 	# existing independent deterministic streams and recorded RunManifest.
 	return chosen if not chosen.is_empty() else "plains-" + Crypto.new().generate_random_bytes(16).hex_encode()
 
-func _start(formal_ten: bool) -> void:
+func _start_quick_demo() -> void:
 	var seed := _seed.strip_edges()
 	if seed.is_empty():
 		seed = "rush-demo"
 	_hide()
-	requested_start.emit(seed, formal_ten)
+	requested_start.emit(seed)
 
 func _confirm_home() -> void:
 	_begin(&"confirm_home", true)

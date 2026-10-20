@@ -59,10 +59,13 @@ func run() -> void:
 	var generator := RandomStageGenerator.new()
 	var total := 0
 	for index: int in 12:
-		var data := PlainsStageGenerator.new().generate("ground-support-%d" % index, 1 + index % 7, &"combat", tuning)
-		check(data.ok, "formal generated map succeeds")
+		var data := generator.generate(("ground-support-%d" % index).hash(), tuning, 14, "plains_standard")
+		check(data.ok, "shared generic generated map succeeds")
 		if not data.ok: continue
 		var recorded: Dictionary = JSON.parse_string(JSON.stringify(data.manifest))
+		recorded.ground_support_version = PlainsGroundSupports.VERSION
+		recorded.ground_supports = PlainsGroundSupports.recorded_plan(recorded, generator)
+		recorded.manifest_hash = generator._manifest_hash(recorded)
 		check(generator.validate_manifest(recorded, tuning).ok, "JSON replay preserves exact support rectangles")
 		var assembler := RandomStageAssembler.new()
 		root.add_child(assembler)
@@ -91,8 +94,8 @@ func run() -> void:
 		forged.manifest_hash = generator._manifest_hash(forged)
 		check(not generator.validate_manifest(forged, tuning).ok, "missing support version rejected instead of silently changing old collision")
 		assembler.free()
-	check(total >= 12, "formal sample receives actual grounded earth, not empty cosmetic feature")
-	print("GROUND SUPPORT COVERAGE: %d solid columns / 12 formal rooms" % total)
+	check(total >= 12, "generic sample receives actual grounded earth, not empty cosmetic feature")
+	print("GROUND SUPPORT COVERAGE: %d solid columns / 12 shared generic samples" % total)
 	if "--prove-failure" in OS.get_cmdline_user_args(): check(false, "intentional failure")
 	print("PLAINS GROUND SUPPORT: %d assertions, %d failures" % [checks, failures])
 	quit(1 if failures else 0)

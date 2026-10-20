@@ -394,13 +394,13 @@ func validate_manifest(manifest: Dictionary, tuning: PlayerTuning) -> Dictionary
 	var result := _validate_geometry_manifest(manifest, tuning)
 	if not result.ok:
 		return result
-	if manifest.has("stage_type") or manifest.has("ground_support_version") or manifest.has("ground_supports"):
+	if manifest.has("ground_support_version") or manifest.has("ground_supports"):
 		if manifest.get("ground_support_version") != PlainsGroundSupports.VERSION or not _same_data(manifest.get("ground_supports"), PlainsGroundSupports.recorded_plan(manifest, self)):
 			return _failure("Invalid recorded solid ground supports")
 	return result
 
 func _validate_geometry_manifest(manifest: Dictionary, tuning: PlayerTuning) -> Dictionary:
-	if tuning == null or not _numeric(manifest.get("manifest_version")) or manifest.get("manifest_version") != MANIFEST_VERSION or not manifest.get("generator_version") is String or manifest.get("generator_version") != GENERATOR_VERSION or not manifest.get("validator_version") is String or manifest.get("validator_version") != VALIDATOR_VERSION or not manifest.get("development_only") is bool  or not manifest.get("layout_id") is String or manifest.get("layout_id") not in ["seamless_port_chain", "branched_terminal_paths"] or not manifest.get("mirrored") is bool:
+	if tuning == null or not _numeric(manifest.get("manifest_version")) or manifest.get("manifest_version") != MANIFEST_VERSION or not manifest.get("generator_version") is String or manifest.get("generator_version") != GENERATOR_VERSION or not manifest.get("validator_version") is String or manifest.get("validator_version") != VALIDATOR_VERSION or not manifest.get("development_only") is bool  or not manifest.get("layout_id") is String or manifest.get("layout_id") != "seamless_port_chain" or not manifest.get("mirrored") is bool:
 		return _failure("Incompatible manifest version or layout")
 	if not manifest.get("camera_profile_id") is String or manifest.get("camera_profile_id") != "horizontal_preview_follow" or not _numeric(manifest.get("camera_profile_version")) or manifest.get("camera_profile_version") != CAMERA_PROFILE_VERSION:
 		return _failure("Incompatible camera profile")
@@ -414,17 +414,7 @@ func _validate_geometry_manifest(manifest: Dictionary, tuning: PlayerTuning) -> 
 	if not manifest.get("local_reflections") is bool or manifest.get("spawn_policy") != ("left_lowest_safe_landing" if manifest.local_reflections else "legacy_handedness") or manifest.local_reflections and (manifest.development_only or manifest.mirrored):
 		return _failure("Invalid formal spawn/reflection policy")
 	if manifest.has("stage_type"):
-		if manifest.get("map_stream_version") != PlainsStageGenerator.MAP_STREAM_VERSION:
-			return _failure("Incompatible map random stream version")
-		var formal_type: Variant = manifest.get("stage_type")
-		var formal_index: Variant = manifest.get("stage_index")
-		if not manifest.local_reflections or not formal_type is String or formal_type not in ["combat", "shop", "coin_reward", "health_reward", "item_reward", "boss"] or not _numeric(formal_index) or formal_index != floorf(formal_index) or formal_index < 1 or formal_index > 8 or (formal_index == 8) != (formal_type == "boss") or manifest.profile_id != PlainsStageGenerator.new().profile_for(int(formal_index), StringName(formal_type)):
-			return _failure("Invalid formal room type/index/profile contract")
-		if not _same_data(manifest.get("boss_encounter", null), {"id": "plains_windkeeper", "version": 2, "arena_version": 4, "phases": 3} if formal_type == "boss" else {}):
-			return _failure("Invalid Windkeeper Boss contract")
-		var variants := {"coin_reward": "open_meadow_exploration", "shop": "short_respite", "health_reward": "short_respite", "item_reward": "challenge_gauntlet", "boss": "fixed_core_random_approach", "combat": "ascending_combat_ridge"}
-		if manifest.get("layout_variant") != variants[formal_type]:
-			return _failure("Invalid recorded spatial content variant")
+		return _failure("Retired eight-room manifest format")
 	var attempt: Variant = manifest.get("attempt_index")
 	if not _numeric(attempt) or attempt != floorf(float(attempt)) or attempt < 0 or attempt > MAX_ATTEMPTS or not manifest.get("fallback_id") is String or not manifest.get("fallback_reason") is String:
 		return _failure("Invalid bounded attempt metadata")
@@ -438,8 +428,6 @@ func _validate_geometry_manifest(manifest: Dictionary, tuning: PlayerTuning) -> 
 		return _failure("Incompatible seed or physics/capability snapshot")
 	if not manifest.get("manifest_hash") is String or manifest.get("manifest_hash", "") != _manifest_hash(manifest):
 		return _failure("Manifest integrity mismatch")
-	if manifest.layout_id == "branched_terminal_paths":
-		return PlainsBranchLayout.new().validate(manifest, tuning, self)
 	var nodes: Variant = manifest.get("nodes")
 	var seams: Variant = manifest.get("seams")
 	if not nodes is Array or nodes.size() < 6 or nodes.size() > 24 or not seams is Array or seams.size() != nodes.size() - 1:

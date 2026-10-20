@@ -10,17 +10,6 @@ func check(ok: bool, label: String) -> void:
 		push_error(label)
 func run() -> void:
 	root.size = Vector2i(1280, 720)
-	var occurrences := {"plains_recoil_span": 0, "plains_ferry_gears": 0, "plains_recoil_double": 0}
-	for seed_index: int in 48:
-		for stage_index: int in [3, 4, 5, 6]:
-			var generated := PlainsStageGenerator.new().generate("feedback-variety-%d" % seed_index, stage_index, &"combat", PlayerTuning.load_default())
-			check(generated.ok, "new combo corpus retains bounded capability-valid generation")
-			if generated.ok:
-				for node: Dictionary in generated.manifest.nodes:
-					if occurrences.has(node.module_id): occurrences[node.module_id] += 1
-	for id: String in occurrences:
-		check(occurrences[id] > 0, "new combination appears in real formal manifests: %s" % id)
-	print("FORMAL COMBO OCCURRENCES: ", occurrences)
 	var ui_font := preload("res://assets/fonts/windkeeper_ui.ttf")
 	for glyph: String in "护甲挡弹核心命中空弹药尽落地补充铃芯音量会话":
 		check(ui_font.has_char(glyph.unicode_at(0)), "Chinese feedback has a real included glyph: %s" % glyph)
