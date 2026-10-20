@@ -234,7 +234,11 @@ func capture_state() -> void:
 			region_state.visited[a.id] = true
 			visited_area = "TUTORIAL" if a.role=="tutorial" else area_label(a)
 	for c: Dictionary in chests:
-		if c.has("sprite"): UnderworldObjects.place_chest(c.sprite as Sprite2D,c.position+Vector2(0,21),bool(c.claimed))
+		if c.has("sprite"):
+			if generated.has("regional_art_plan"):
+				(c.sprite as Sprite2D).modulate.a=0.35 if c.claimed else 1.0
+			else:
+				UnderworldObjects.place_chest(c.sprite as Sprite2D,c.position+Vector2(0,21),bool(c.claimed))
 	for p: Dictionary in pickups:
 		if p.claimed: region_state.claimed[p.id] = true
 	for index: int in assembler.modules.size():

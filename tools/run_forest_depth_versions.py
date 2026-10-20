@@ -347,7 +347,7 @@ def validate_interwoven(data):
                 or row.get('default_manifest') != m or row.get('frozen_manifest') != m
                 or row.get('boss_scene') != f'res://scenes/bosses/{boss}.tscn'
                 or row.get('boss_resource') != f'res://resources/bosses/{boss}.tres'):
-            raise ValueError('Exact v13 pinned/frozen/public default identity and Boss pair required')
+            raise ValueError('Exact v13 pinned/frozen registry identity and Boss pair required')
         edges = [e for e in m.get('connections', []) if e.get('id') in edges_expected]
         supports = [p for p in m.get('platforms', []) if p.get('id') in supports_expected]
         if ([e['id'] for e in edges] != edges_expected or row.get('added_edges') != edges_expected
@@ -430,6 +430,44 @@ def validate_interwoven_expansion(m):
         raise ValueError('Non-west growth requires real contiguous deep route after broken arch')
 
 
+def validate_fruit_version(data):
+    """Schema6 adds candidate/default v14; schema5's full old reader is retained."""
+    if data.get('capture_schema') != 6:
+        raise ValueError('Fruit version capture schema6 required')
+    cases = data.get('cases', [])
+    rows = [row for row in cases if row.get('id') == 'fruit_candidate_and_public_layout']
+    if len(cases) != 24 or len(rows) != 2 or {row.get('map') for row in rows} != {1, 2}:
+        raise ValueError('All twenty-two historical cases plus both v14 maps required')
+    previous = dict(data)
+    previous['capture_schema'] = 5
+    previous['cases'] = [row for row in cases if row.get('id') != 'fruit_candidate_and_public_layout']
+    validate_interwoven(previous)
+    from run_forest_depth_region import validate_fruit_presentation
+    source = (ROOT / 'tests/forest_depth_version_runner.gd').read_text()
+    expected_default = re.search(r'^const EXPECTED_PUBLIC_LAYOUT := "([^"]+)"$', source, re.M).group(1)
+    if expected_default not in ('forest-interwoven-canopy-v13', 'forest-fruit-routes-v14'):
+        raise ValueError('Independently selected known public layout required')
+    for row in rows:
+        index = row['map']
+        manifest = row.get('candidate_manifest', {})
+        current = row.get('default_manifest', {})
+        if (manifest.get('version') != 'thorn-forest-region-v2'
+                or manifest.get('layout_version') != 'forest-fruit-routes-v14'
+                or manifest.get('map_index') != index
+                or manifest.get('seed') != f'version-fruit-map-{index}'
+                or manifest.get('requires') != ['grapple']
+                or manifest.get('production_pool') is not False
+                or row.get('dedicated_complete_equal') is not True
+                or row.get('expected_public_layout') != expected_default
+                or current.get('layout_version') != expected_default
+                or current.get('map_index') != index
+                or current.get('seed') != manifest.get('seed')
+                or validate_fruit_presentation(manifest)):
+            raise ValueError('Complete registered v14 candidate, typed defaults and exact presentation required')
+        if expected_default == 'forest-fruit-routes-v14' and current != manifest:
+            raise ValueError('New public default must equal the complete explicit v14 output')
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output-dir', default='build/forest_depth/versions/native')
@@ -462,7 +500,7 @@ def main():
             raise RuntimeError('Complete native version result missing')
         if re.search(r'(^|\n)(?:SCRIPT )?ERROR:', text):
             raise RuntimeError('Unexpected native engine ERROR')
-        validate_interwoven(json.loads((out / 'capture.json').read_text()))
+        validate_fruit_version(json.loads((out / 'capture.json').read_text()))
         receipt['passed'] = True
     finally:
         receipt['source_after'] = level_formal.source_files()

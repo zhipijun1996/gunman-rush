@@ -1,0 +1,260 @@
+{
+  "schema_version": 1,
+  "task_id": "MAIN-PR96-REPAIR-01",
+  "task_type": "mechanic",
+  "workflow": "in_progress",
+  "baseline_commit": "dbc6ba081321637a3eef71979ecf2cf564eb6064",
+  "reviewed_commit": "dbc6ba081321637a3eef71979ecf2cf564eb6064",
+  "content_version": "pr96-main-stable-camera-v1",
+  "owner": "/root",
+  "purpose": "Integrate PR96 with main; repair observed Home/Boss/strict teardown failures and stable forest camera",
+  "player_experience": "One owned player body, correct second-map Boss, clean teardown; ordinary forest jumps no longer pan the whole scene",
+  "constraints": [
+    "Preserve main physical contact and forest duel/restore consumers during merge",
+    "No dropped assertions, no relaxed strict leak checks, no changed player tuning or action budgets",
+    "Scope includes previously authorized PR96 damage/knockback rules; forest camera is presentation only",
+    "Original PR96 evidence bytes retained, including pre-existing raw whitespace"
+  ],
+  "affected_paths": [
+    "assets/",
+    "docs/current_state.md",
+    "docs/evidence/main_pr96_repair01/",
+    "docs/handoff.md",
+    "docs/tasks.md",
+    "resources/",
+    "resources/foundry/batch.json",
+    "resources/foundry/export_basis.json",
+    "resources/foundry/replays/climb_change_height-air_chain-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p1.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p1.json",
+    "resources/foundry/replays/climb_change_height-double_jump-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-air_chain-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p1.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p1.json",
+    "resources/foundry/replays/height_then_precision-double_jump-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-air_chain-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p1.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p1.json",
+    "resources/foundry/replays/precision_to_transfer-double_jump-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-air_chain-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p1.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p1.json",
+    "resources/foundry/replays/read_ride_release-double_jump-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-air_chain-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-double_jump-v0-p0.json",
+    "resources/foundry/replays/route-0e61faed40.json",
+    "resources/foundry/replays/route-0efaee5828.json",
+    "resources/foundry/replays/route-122d7f6e2a.json",
+    "resources/foundry/replays/route-1521b6b7c3.json",
+    "resources/foundry/replays/route-2860deda61.json",
+    "resources/foundry/replays/route-2d706b6f11.json",
+    "resources/foundry/replays/route-2d7d2e4612.json",
+    "resources/foundry/replays/route-2f6354523f.json",
+    "resources/foundry/replays/route-3aa2ad4cba.json",
+    "resources/foundry/replays/route-4bec60578b.json",
+    "resources/foundry/replays/route-5798c84cea.json",
+    "resources/foundry/replays/route-7da5a6c16f.json",
+    "resources/foundry/replays/route-908c475df3.json",
+    "resources/foundry/replays/route-93acd6603f.json",
+    "resources/foundry/replays/route-ad7b9db895.json",
+    "resources/foundry/replays/route-b4df2effd8.json",
+    "resources/foundry/replays/route-cf73f3c620.json",
+    "resources/foundry/replays/route-f91361b454.json",
+    "resources/foundry/replays/short_long_rise-air_chain-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p1.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p1.json",
+    "resources/foundry/replays/short_long_rise-double_jump-v0-p0.json",
+    "scenes/",
+    "scripts/",
+    "scripts/art/avatar_presentation.gd",
+    "scripts/demo/demo_app.gd",
+    "scripts/demo/home_scene.gd",
+    "scripts/demo/plains_region_stage.gd",
+    "scripts/demo/thorn_forest_region_stage.gd",
+    "scripts/generation/forest_fruit_routes.gd",
+    "scripts/generation/forest_fruit_routes.gd.uid",
+    "scripts/generation/stage_camera_rig.gd",
+    "scripts/generation/thorn_forest_region_assembler.gd",
+    "scripts/generation/thorn_forest_region_generator.gd",
+    "scripts/generation/thorn_forest_region_v2_v14.gd",
+    "scripts/generation/thorn_forest_region_v2_v14.gd.uid",
+    "scripts/ui/demo_menu.gd",
+    "scripts/ui/menu_theme.gd",
+    "scripts/ui/menu_theme.gd.uid",
+    "scripts/underworld_plains/underworld_actor_installer.gd",
+    "scripts/underworld_plains/underworld_actor_installer.gd.uid",
+    "scripts/underworld_plains/underworld_actors.gd",
+    "scripts/world/forest_fruit_anchor.gd",
+    "scripts/world/forest_fruit_anchor.gd.uid",
+    "scripts/world/forest_fruit_bough.gd",
+    "scripts/world/forest_fruit_bough.gd.uid",
+    "tests/",
+    "tests/avatar_presentation_ownership_runner.gd",
+    "tests/avatar_presentation_ownership_runner.gd.uid",
+    "tests/forest_camera_stability_runner.gd",
+    "tests/forest_camera_stability_runner.gd.uid",
+    "tests/forest_depth_grove_combat_case.gd",
+    "tests/forest_depth_region_trace.gd",
+    "tests/forest_depth_version_runner.gd",
+    "tests/forest_fruit_ablation_runner.gd",
+    "tests/forest_fruit_ablation_runner.gd.uid",
+    "tests/forest_fruit_contract_runner.gd",
+    "tests/forest_fruit_contract_runner.gd.uid",
+    "tests/forest_hazard_records_runner.gd",
+    "tests/forest_hazard_records_runner.gd.uid",
+    "tests/forest_interwoven_crown_combat_case.gd",
+    "tests/home_ui_tests.gd",
+    "tests/menu_settings_lifecycle_runner.gd",
+    "tests/menu_settings_lifecycle_runner.gd.uid",
+    "tests/underworld_plains/test_underworld_formal_terrain.gd",
+    "tools/",
+    "tools/capture_forest_fruit_composition.gd",
+    "tools/capture_forest_fruit_composition.gd.uid",
+    "tools/capture_forest_fruit_composition.py",
+    "tools/harness/profiles.json",
+    "tools/run_forest_camera_stability.py",
+    "tools/run_forest_depth_region.py",
+    "tools/run_forest_depth_versions.py",
+    "tools/run_forest_fruit_ablation.py",
+    "tools/run_forest_fruit_contract.py",
+    "tools/run_forest_hazard_records_tests.py",
+    "tools/run_generated_consumer_tests.py"
+  ],
+  "deliverables": [],
+  "creative_decisions": [
+    {
+      "status": "user_confirmed",
+      "decision": "Fix main failures and integrate PR96; remove violent whole-screen change during takeoff",
+      "basis": "User request 2026-10-20",
+      "evidence_id": "user-authorized-scope"
+    }
+  ],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [
+    {
+      "id": "user-authorized-scope",
+      "path": "docs/evidence/main_pr96_repair01/user_request.txt",
+      "sha256": "8daf8bbb971e2179a6a8e2ed2ef45ffa373df573f2c52cc105bdbdb47b8b637e",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "dbc6ba081321637a3eef71979ecf2cf564eb6064",
+      "content_version": "pr96-main-stable-camera-v1",
+      "method": "Verbatim request in this conversation on 2026-10-20",
+      "observed": "Authorization to fix main, integrate PR96 and revise camera/fruit target composition; no final subjective approval",
+      "accepted": true,
+      "source": "Current user message, 2026-10-20",
+      "quote": "修复主线失败，整合pr96。起跳整个镜头剧烈变化这个不是想要的。森林关卡中钩锁目标可以是果实。现在钩锁目标位置放的没有空间美感。需要考虑哪些是冗余，哪些是proposal的路线。",
+      "covers": [
+        "authorized_scope"
+      ]
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Design and all relevant acceptance remain unverified"
+  ]
+}

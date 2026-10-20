@@ -34,6 +34,8 @@ SUITES = [
     ("tests/plains_exit_routes_runner.gd", r"PLAINS EXIT ROUTES: [1-9]\d* assertions, 0 failures", 90),
     ("tests/home_app_runner.gd", r"HOME APP: [1-9]\d* assertions, 0 failures", 90),
     ("tests/home_ui_tests.gd", r"HOME UI TESTS: [1-9]\d* assertions, 0 failures", 60),
+    ("tests/menu_settings_lifecycle_runner.gd", r"MENU SETTINGS LIFECYCLE: [1-9]\d* assertions, 0 failures", 60),
+    ("tests/avatar_presentation_ownership_runner.gd", r"AVATAR OWNERSHIP: [1-9]\d* assertions, 0 failures", 90),
     ("tests/player_feedback_runner.gd", r"PLAYER FEEDBACK: [1-9]\d* assertions, 0 failures", 60),
     ("tests/painterly_skin_runner.gd", r"PAINTERLY SKIN: [1-9]\d* assertions, 0 failures; real raster appearance/device performance pending", 60),
     ("tests/meta_notes_save_tests.gd", r"META NOTES SAVE: [1-9]\d* assertions, 0 failures", 90),

@@ -71,9 +71,10 @@ func run()->void:
 		for frame:int in 4:await physics_frame
 		for map_index:int in [1,2]:
 			if map_index==2:
-				consumer.director.stage_index=2;consumer._load_stage()
+				consumer.director.stage_index=2;consumer.director.region_map_index=2;consumer._load_stage()
 				for frame:int in 4:await physics_frame
 			var stage:=consumer.stage as PlainsRegionStage
+			check(stage.map_index==map_index,"actual formal consumer selects requested region map")
 			inventory.append(inspect(stage,seed_value,map_index))
 			print("UNDERWORLD_FORMAL_CONSUMER ",JSON.stringify(inventory[-1]))
 		if not await load("res://tests/audio_teardown.gd").drain_world(consumer):check(false,"actual App inventory audio drained")
@@ -83,9 +84,7 @@ func run()->void:
 	# Explicit lifecycle fixture: select actual second map via DemoApp, invoke
 	# actual committed Boss break callback, and observe study refresh. Not play.
 	var app:=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
-	check(app.start_plains("underworld-break-refresh"),"actual App starts for break fixture")
-	for frame:int in 4:await physics_frame
-	app.director.stage_index=2;app._load_stage()
+	check(app.start_debug_region(&"plains",2,"underworld-break-refresh"),"actual App starts second map for break fixture")
 	for frame:int in 4:await physics_frame
 	var stage:=app.stage as PlainsRegionStage
 	var art_before:=stage.terrain_art.art as UnderworldTerrain
@@ -98,8 +97,15 @@ func run()->void:
 		var arena:=arena_nodes[0] as WindkeeperArena
 		var cut_probe:=arena.module.position+Vector2(645,640)
 		check(coverage(art_before,cut_probe),"actual bridge middle drawn before actual break")
+		var refreshes: Array[int]=[0]
+		stage.terrain_art.geometry_changed.connect(func() -> void:refreshes[0]+=1)
 		arena._break_ground()
-		for frame:int in 3:await physics_frame
+		# The actual observer runs in _process, independently of physics ticks.
+		# Wait for its accepted event, never invoke refresh from the fixture.
+		for frame:int in 8:
+			if refreshes[0]>0:break
+			await process_frame
+		check(refreshes[0]==1,"actual geometry observer emitted one committed refresh")
 		var art_after:=stage.terrain_art.art as UnderworldTerrain
 		check(arena.broken,"actual arena callback committed")
 		check(art_after.get_instance_id()!=old_id,"geometry observer replaced actual material after break")

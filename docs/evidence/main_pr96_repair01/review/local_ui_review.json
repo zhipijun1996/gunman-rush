@@ -1,0 +1,65 @@
+{
+  "reviewer": "/root/independent_review",
+  "independent": true,
+  "read_only_production": true,
+  "head": "e7286da14189f35d166e43179babd5b689e8e747",
+  "working_tree_mutable": true,
+  "verdict": "ACCEPT",
+  "scope": "current local Home/Menu/Avatar production consumer repair and test migration; not full CI or arbitrary standalone compiler-cache lifecycle",
+  "source_hashes": {
+    "scripts/art/avatar_presentation.gd": "d58ddd5244de483e29ebef619aaedc84b7758af41830edf6063190f329845368",
+    "scripts/demo/home_scene.gd": "e86061f264729de0b98357f692de9410550903d0fb95e729f51d5a446e78083d",
+    "scripts/ui/demo_menu.gd": "2a01b64b5cb7af29b4d4faae49c8c7051cc6cf82a7d7885ba8e8603c9c6d4dae",
+    "scripts/ui/menu_theme.gd": "aeb24a69ec8b76d10e200f178ab901c9133463fefaa553fab00860be4bcd870f",
+    "scripts/underworld_plains/underworld_actors.gd": "28c126fbc2104ed81cd670f57be98ce39c1372714fa7f11f94a7501dbae4eda6",
+    "scripts/underworld_plains/underworld_actor_installer.gd": "49cee240d1b2f0984cfafbf976860c21d9ff9074190494619e597f30e655dfb5",
+    "tests/home_ui_tests.gd": "f544eb3070ac106fa62461153fd5a9a14a648a9fdc62b7405935941eb3ba482c",
+    "tests/menu_settings_lifecycle_runner.gd": "25511da828115fa8f5f5861a7bfbb71357bf028bb601663d23b7f43c32a6e5eb",
+    "tests/avatar_presentation_ownership_runner.gd": "9d0a6b8fb188fb170913ae8de1f28970f057d2124d0fe81402b731ebbfaf5d83"
+  },
+  "logs": [
+    {
+      "path": "build/forest_revision04/ci_fixes/home-ui-actual-app-final.log",
+      "sha256": "88c5555702b67fc34204e1e7391170b37e85f24f6bf4421c6d6bc22677d46cef"
+    },
+    {
+      "path": "build/forest_revision04/ci_fixes/menu-settings-final.log",
+      "sha256": "8bb4c9ffaca857b2919f7242a88e570439377d34b63ff0872ba1a9b936990ad7"
+    },
+    {
+      "path": "build/forest_revision04/ci_fixes/avatar-ownership-final.log",
+      "sha256": "910469af4b17f791e45ff2a7ebe0515a6d9fe980c8e8fe6f52dfc6d06a9949b2"
+    }
+  ],
+  "method": [
+    "Read actual production diffs and test bodies; did not modify them or launch Godot.",
+    "Independently scanned all three raw verbose logs for SCRIPT ERROR, SHADER ERROR, ERROR:, leaked ObjectDB or resource exit warnings; none found.",
+    "Confirmed original 27 Home business assertions retained; formal App TITLE to HOME owns actual shared Home and Menu; 28th asserts App/Home/Menu WeakRef release.",
+    "Confirmed MenuTheme function body equals prior DemoMenu.create_theme styling operations; no event, geometry or focus changes in Home call redirection.",
+    "Confirmed menu settings uses actual default InputProfile with JSON normalization only for representation; rejected patch retains exact original values and legal patch emits once; actual playing voice attenuation and volume clamps checked.",
+    "Confirmed avatar own-body count, rejected selection, repeated bind, Home to Forest to Home default restoration included in real App runner."
+  ],
+  "observed_results": {
+    "Home UI": {
+      "assertions": 28,
+      "failures": 0,
+      "strict_error_scan": "clean"
+    },
+    "Menu settings lifecycle": {
+      "assertions": 14,
+      "failures": 0,
+      "strict_error_scan": "clean"
+    },
+    "Avatar ownership": {
+      "assertions": 25,
+      "failures": 0,
+      "strict_error_scan": "clean"
+    }
+  },
+  "remaining": [
+    "Standalone Home plus Menu script/compiler reference-cache exit leak remains a recorded failed diagnostic; not claimed repaired by formal consumer migration.",
+    "Formal HomeUI intentional failure probe not yet reviewed.",
+    "Original generated-consumers full entry and formal map2 terrain test await new frozen-source result.",
+    "No final main CI, web build, GUI, audio listening, player or physical device signoff."
+  ]
+}

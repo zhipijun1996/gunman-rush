@@ -13,7 +13,7 @@ var return_goal := Vector2.ZERO
 var return_support := ""
 
 func drive(trace: Node, leg: Dictionary) -> bool:
-	if trace.manifest.get("layout_version") != "forest-interwoven-canopy-v13":return false
+	if trace.manifest.get("layout_version") not in ["forest-interwoven-canopy-v13","forest-fruit-routes-v14"]:return false
 	var edge_id := str(leg.get("edge_id",""))
 	var enemy_id := "root_spiral_bark_keeper" if edge_id == "lower_fork_approach" else "upper_spiral_bark_keeper" if edge_id == "canopy_fork_approach" else ""
 	if enemy_id.is_empty() or completed_encounters.has(enemy_id):return false

@@ -151,7 +151,21 @@ func _dispose_painted() -> void:
 		if _painted.get_parent()!=null:_painted.get_parent().remove_child(_painted)
 		_painted.queue_free()
 	_painted=null
-	if is_instance_valid(_visual):_visual.show()
+	_restore_default_body()
+
+func _default_body() -> CanvasItem:
+	if not is_instance_valid(_visual):return null
+	# A formal consumer may keep CourierVisual alive only as its authoritative
+	# weapon anchor. Its generated body owns the default appearance instead.
+	for child: Node in _visual.get_parent().get_children():
+		if child is PixelPlainsActor and not child.is_queued_for_deletion():return child
+	return _visual
+
+func _restore_default_body() -> void:
+	var body := _default_body()
+	if body == null:return
+	_visual.visible = body == _visual
+	body.show()
 
 func _apply_selected() -> void:
 	if not is_instance_valid(_visual):return
@@ -180,6 +194,7 @@ func _try_apply_specification(spec: Dictionary, source_path: String) -> bool:
 	_visual.get_parent().add_child(body)
 	body._process(0.0) # Prime the existing pose/gun even when the player is paused.
 	_painted=body
+	_default_body().hide()
 	_visual.hide()
 	_source_path=source_path
 	_source_sha=FileAccess.get_sha256(_source_path)

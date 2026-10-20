@@ -2091,6 +2091,80 @@
         "assets/underworld_plains/home"
       ],
       "artifact_paths": []
+    },
+    "forest-camera-stability": {
+      "argv": [
+        "python3",
+        "tools/run_forest_camera_stability.py"
+      ],
+      "timeout_seconds": 90,
+      "success_pattern": "^FOREST CAMERA STABILITY: [1-9]\\d* assertions, 0 failures$",
+      "weight_seconds": 6,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "scripts/generation/stage_camera_rig.gd",
+        "scripts/demo/demo_app.gd",
+        "scripts/player",
+        "scripts/input",
+        "scenes/player",
+        "config",
+        "tests/forest_camera_stability_runner.gd",
+        "tools/run_forest_camera_stability.py",
+        "tools/run_tests.py"
+      ],
+      "artifact_paths": [
+        "build/forest_revision04/camera"
+      ]
+    },
+    "forest-hazard-records": {
+      "argv": [
+        "python3",
+        "tools/run_forest_hazard_records_tests.py"
+      ],
+      "timeout_seconds": 120,
+      "success_pattern": "^FOREST HAZARD RECORDS: [1-9]\\d* checks / 0 failures$",
+      "weight_seconds": 6,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "scripts/generation",
+        "scenes",
+        "resources",
+        "config",
+        "tests/forest_hazard_records_runner.gd",
+        "tools/run_forest_hazard_records_tests.py",
+        "tools/run_tests.py"
+      ],
+      "artifact_paths": [
+        "build/forest_revision04/hazard-records.json"
+      ]
+    },
+    "forest-fruit-contract": {
+      "argv": [
+        "python3",
+        "tools/run_forest_fruit_contract.py",
+        "--output",
+        "build/forest_fruit_routes04/harness-{check_token}"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "^PASS: v14 candidate contracts; no Motor or visual acceptance claim$",
+      "weight_seconds": 25,
+      "serial": true,
+      "cacheable": false,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests/forest_fruit_contract_runner.gd",
+        "tools/run_forest_fruit_contract.py",
+        "tools/run_tests.py"
+      ],
+      "artifact_paths": [
+        "build/forest_fruit_routes04"
+      ]
     }
   },
   "profiles": {
@@ -2254,7 +2328,10 @@
       "underworld-projectile-vfx",
       "underworld-world-objects",
       "underworld-continuous-bosses",
-      "underworld-home-guard-tests"
+      "underworld-home-guard-tests",
+      "forest-camera-stability",
+      "forest-hazard-records",
+      "forest-fruit-contract"
     ],
     "art": [
       "docs",
@@ -2332,7 +2409,10 @@
       "underworld-projectile-vfx",
       "underworld-world-objects",
       "underworld-continuous-bosses",
-      "underworld-home-guard-tests"
+      "underworld-home-guard-tests",
+      "forest-camera-stability",
+      "forest-hazard-records",
+      "forest-fruit-contract"
     ],
     "web": [
       "docs",
@@ -2372,7 +2452,10 @@
       "underworld-projectile-vfx",
       "underworld-world-objects",
       "underworld-continuous-bosses",
-      "underworld-home-guard-tests"
+      "underworld-home-guard-tests",
+      "forest-camera-stability",
+      "forest-hazard-records",
+      "forest-fruit-contract"
     ],
     "full": [
       "docs",
@@ -2494,7 +2577,10 @@
       "underworld-projectile-vfx",
       "underworld-world-objects",
       "underworld-continuous-bosses",
-      "underworld-home-guard-tests"
+      "underworld-home-guard-tests",
+      "forest-camera-stability",
+      "forest-hazard-records",
+      "forest-fruit-contract"
     ],
     "creative-feedback": [
       "docs",

@@ -43,10 +43,19 @@ func build(recorded: Dictionary, tuning: PlayerTuning) -> Dictionary:
 		body.set_meta("support_world_rect", rect)
 		add_child(body)
 	for row: Dictionary in manifest.hook_anchors:
-		var target := GrappleAnchor.new()
+		var target: GrappleAnchor
+		if manifest.get("layout_version") == "forest-fruit-routes-v14" and row.get("fruit_presentation") == "rooted_fruit":
+			var fruit := ForestFruitAnchor.new()
+			fruit.fruit_role = str(row.fruit_role)
+			fruit.stem_root = Vector2(row.fruit_stem_root[0],row.fruit_stem_root[1]) - Vector2(row.position[0],row.position[1])
+			target = fruit
+		else:
+			target = GrappleAnchor.new()
 		target.name = row.id
 		target.position = Vector2(row.position[0],row.position[1])
 		target.hang_enabled = bool(row.get("hang_enabled",false))
+		if manifest.get("layout_version") == "forest-fruit-routes-v14" and row.get("fruit_role") == "optional" and row.get("fruit_presentation") != "rooted_fruit":
+			target.modulate = Color(0.72,0.76,0.67,0.78)
 		add_child(target)
 		hook_targets[row.id] = target
 	var gate := ThornForestRegionGenerator._rect(manifest.vine_gate.rect)
@@ -111,6 +120,25 @@ func world_static_dangers() -> Array[Rect2]:
 	for r: Array in manifest.dangers: output.append(ThornForestRegionGenerator._rect(r))
 	return output
 
+func world_static_hazard_records() -> Array[Dictionary]:
+	# Forest builds real rectangles directly, not PlatformingModules. Keep
+	# manifest order exactly aligned with generated_spikes_N in DemoApp.
+	# These are authored forest thorns; the plains pit-plane heuristic does
+	# not apply to a large recovery-root hazard or a thin hanging thorn band.
+	var output: Array[Dictionary] = []
+	var presentations: Array = manifest.get("danger_presentations", [])
+	for index: int in manifest.dangers.size():
+		var presentation: Dictionary = presentations[index] if index < presentations.size() and presentations[index] is Dictionary else {}
+		output.append({
+			"rect": ThornForestRegionGenerator._rect(manifest.dangers[index]),
+			"role": "surface",
+			"module_id": str(presentation.get("host_structure_id", "thorn_forest")),
+			"authored_id": "forest_thorn_%s" % index,
+			"source_kind": "forest_thorn",
+			"host_support_id": str(presentation.get("host_support_id", "")),
+		})
+	return output
+
 func world_dangers() -> Array[Rect2]: return world_static_dangers()
 
 func module_index_at(point: Vector2) -> int:
@@ -120,10 +148,13 @@ func module_index_at(point: Vector2) -> int:
 
 func _draw() -> void:
 	for anchor: Dictionary in manifest.get("hook_anchors",[]):
-		if bool(anchor.get("hang_enabled",false)) and anchor.has("tether_origin"):
+		if bool(anchor.get("hang_enabled",false)) and anchor.has("tether_origin") and not (manifest.get("layout_version") == "forest-fruit-routes-v14" and anchor.get("fruit_presentation") == "rooted_fruit"):
 			draw_line(Vector2(anchor.tether_origin[0],anchor.tether_origin[1]),Vector2(anchor.position[0],anchor.position[1]),Color("527e5a"),3.0,true)
 	if manifest.get("scene_language_version", 0) == ForestSceneLanguage.VERSION:
 		ForestSceneLanguage.draw_structure_backdrops(self, manifest)
+	if manifest.get("layout_version") == "forest-fruit-routes-v14":
+		for bough: Dictionary in manifest.get("fruit_boughs", []):
+			ForestFruitBough.draw(self,bough)
 	if is_instance_valid(vine_shape) and not vine_shape.disabled:
 		var gate := ThornForestRegionGenerator._rect(manifest.vine_gate.rect)
 		draw_rect(gate,Color("5c5542"))

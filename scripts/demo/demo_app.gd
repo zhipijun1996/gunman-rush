@@ -506,11 +506,8 @@ func _load_stage() -> void:
 		if connected_region: player.z_index = 5
 		_run_camera.region_composition = connected_region and not _explicit_plains_candidate()
 		if active_region_id == &"thorn_forest":
-			# A full hook reach must remain readable during fast upward/sideways chains.
-			# This changes only the view; the actor, anchors and action budgets stay exact.
-			_run_camera.viewing_zoom = 1.20
-			_run_camera.dead_zone.y = 12.0
-			_run_camera.response_time = Vector2(0.12, 0.05)
+			# Keep short jumps inside a stable view; a continuous climb still follows.
+			_run_camera.use_stable_forest_view()
 		if plains_environment_candidate_requested:
 			_run_camera.viewing_zoom = float(random_stage.generated.environment_plan.camera.zoom)
 		if plains_regional_art_candidate_requested:
@@ -520,11 +517,6 @@ func _load_stage() -> void:
 			_run_camera.dead_zone.y = float(random_stage.generated.golden_manifest.camera.dead_zone_y)
 			_run_camera.response_time.y = float(random_stage.generated.golden_manifest.camera.response_y)
 		_run_camera.configure(player, random_stage.bounds)
-		if active_region_id == &"thorn_forest":
-			# configure keeps the shared region zoom; apply this region's view afterward.
-			_run_camera.zoom = Vector2.ONE * _run_camera.viewing_zoom
-			_run_camera.snap_to_target()
-			_run_camera.force_update_scroll()
 	controller.return_to_segment(stage.spawn)
 	policy = FrameDamagePolicy.new()
 	policy.lifetime = lifetime

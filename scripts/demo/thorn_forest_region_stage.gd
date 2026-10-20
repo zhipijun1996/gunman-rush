@@ -141,7 +141,9 @@ func _ready() -> void:
 	if app != null and is_instance_valid(app.controller):
 		app.controller.traversal.action_changed.connect(_accepted_forest_action)
 	var ring: Dictionary = generated.manifest.hook_anchors.filter(func(row: Dictionary) -> bool: return row.id == generated.manifest.vine_gate.key_anchor)[0]
-	_context_sign(Vector2(ring.position[0]-100,ring.position[1]-65),"HOOK THE BRASS RING / UNFURL THE VINE GATE",230)
+	var gate_target: Node2D = (assembler as ThornForestRegionAssembler).hook_targets.get(str(ring.id))
+	var target_name := "RIPE FRUIT" if gate_target is ForestFruitAnchor else "BRASS RING"
+	_context_sign(Vector2(ring.position[0]-100,ring.position[1]-65),"HOOK THE %s / UNFURL THE VINE GATE" % target_name,230)
 	queue_redraw()
 
 func _accepted_forest_action(action: StringName) -> void:
@@ -187,6 +189,26 @@ func setup_shot_latches(_controller: PlayerController, _lifetime: DemoLifetime) 
 	return generated.manifest.shot_latch_plan.latches.is_empty()
 
 func composition_focus() -> Vector2: return Vector2.INF
+
+func _update_context_signs() -> void:
+	# Keep each historical sign's wording and actor keepout, but show the
+	# nearest applicable lesson once. Root-bay and old arrival hints overlap
+	# in world space; drawing both is unreadable even if each passes its radius.
+	super._update_context_signs()
+	var selected: Label
+	var nearest := INF
+	var at := global_player_position()
+	for row: Dictionary in context_signs:
+		var label: Label = row.label
+		if not label.visible: continue
+		var distance := at.distance_squared_to(row.origin)
+		if distance < nearest:
+			nearest = distance
+			selected = label
+	for row: Dictionary in context_signs:
+		var label: Label = row.label
+		if label != selected: label.hide()
+
 func observation_composition_focus() -> Vector2:
 	# Formal generated relations and historical candidate probes share the
 	# same existing optional camera consumer. Ordinary regions remain INF.

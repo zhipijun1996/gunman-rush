@@ -1,3 +1,15 @@
+## 2026-10-20：主线修复、PR96 整合与森林果实试玩候选
+
+本轮用户明确授权修复主线失败并整合 [PR96](https://github.com/zhipijun1996/gunman-rush/pull/96)。运行修复与证据见 [MAIN-PR96-REPAIR-01](evidence/main_pr96_repair01/README.md)，森林空间与冗余取舍见 [v14 设计](design/forest_fruit_routes_v14.md)。原 315/main CI 的三项实际失败已复现并作正式消费者专项修复；原失败、退出泄漏与返工图均保留。当前分支 `fix/main-pr96-forest-composition`，本地三方整合基点 e7286da1，最终运行源、完整CI与发布身份以本轮证据及 PR/Actions 实际终态为准，旧公开 v13 包不能代签新版本。
+
+森林试玩默认为 `forest-fruit-routes-v14`，历史 v13 及全部旧保存 pin 不变。短跳镜头使用连续地空死区，不在起跳撤销观察提示后猛移全景；同 Motor A/B 短跳旧位移124.970wu、新0，204/0，通用镜头831/0。内洞两枝三果、深处年轻曲干双果、根湾单一提示与下窗短垂经过真实四窗限定独审；两 rest 点单独实际消融各24leg通过并退休，returncatch/恢复/藤门/Boss目标保留。推荐、可选与恢复职责按真实路线消费者区分，不将 proposal 行程当强制通路。
+
+正式HomeUI保留27原业务断言+所有者释放28/0；设置14/0；Home↔Forest角色所有权25/0；20个两图地形消费者40395/0；Home台地180/0，以上专项严格退出干净。独立Home+Menu拼装的脚本缓存反例仍为已保存边界，不冒称任意组装已修。最终同源generated、原80、24版本、完整Harness/CI与Web仍以新鲜收据为准，不用局部通过推成全绿。
+
+任务保持 review/in_progress 范围：现有无可信局部支承的目标保留功能标记；全森林美感、真人操作/FUN、实体设备及最终用户认可尚未完成。下一步按同源冻结执行原Foundry36短语/18路线、generated全入口、原80与全部profile，记录真实失败并修复，再普通合入main及验证准确试玩包。下面均为历史时点，不覆盖本节。
+
+---
+
 ## 2026-10-19：森林v13发布后交接（公网GUI通过、完整CI尚待）
 
 运行游戏为main315f4972081f17128fa2a499a2169ae65010bcaf（PR97），build91280a1ade48/PCK140589880B，完整SHA91280a1ade48520424f75e3d647fae57fe72aefd34cb5d3c6acad625f1c70eb6。Pages39308213581实际SUCCESS，公网完整字节/12许可通过；原GUI20/8实际exit0通过，8identities/errors[]，原480cap未改，main fullCI39307414057仍in_progress。后续纯文档HEAD不可冒运行源；PR96独立DRAFT保留，未合并。

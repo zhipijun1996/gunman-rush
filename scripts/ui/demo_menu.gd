@@ -55,7 +55,9 @@ const TOUCH_MOVE_MODES := ["two_step", "digital", "analog"]
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	layer = 20
-	var profile := InputProfile.load_default()
+	# Resolve the resource at use time. A hard script reference here keeps its
+	# shared player dependency graph alive after standalone menus are freed.
+	var profile: Variant = load("res://scripts/input/input_profile.gd").load_default()
 	if profile != null:
 		_defaults = profile.values.duplicate(true)
 		_values = _defaults.duplicate(true)
@@ -312,8 +314,8 @@ func show_settings(in_run: bool = false) -> void:
 	volume_slider.custom_minimum_size = Vector2(300, 20)
 	volume_slider.value_changed.connect(func(value: float) -> void:
 		_audio_volume = value
-		var service := get_tree().get_first_node_in_group(&"game_audio") as GameAudio
-		if service: service.volume = value)
+		var service := get_tree().get_first_node_in_group(&"game_audio")
+		if service: service.set("volume", value))
 	_content.add_child(volume_slider)
 	_settings_error = _label(_content, "", 14, GOLD)
 	_button(_content, "APPLY", _apply_settings)
@@ -483,7 +485,7 @@ func _apply_settings() -> void:
 	var patch: Dictionary = {"touch_move_mode": TOUCH_MOVE_MODES[_movement_mode.selected]}
 	for key: String in _sliders:
 		patch[key] = (_sliders[key] as HSlider).value
-	var candidate := InputProfile.new()
+	var candidate: Variant = load("res://scripts/input/input_profile.gd").new()
 	candidate.values = _values.duplicate(true)
 	if not candidate.configure(patch):
 		_settings_error.text = "Center threshold must be lower than aim threshold."
@@ -554,12 +556,7 @@ static func atlas_region(region: Rect2) -> AtlasTexture:
 	return atlas
 
 static func create_theme() -> Theme:
-	var theme := UnderworldUI.create_theme()
-	var menu_font := FontVariation.new()
-	menu_font.base_font = ThemeDB.fallback_font
-	menu_font.fallbacks = [preload("res://assets/fonts/foundry_notes.otf")]
-	theme.default_font = menu_font
-	return theme
+	return preload("res://scripts/ui/menu_theme.gd").create_theme()
 
 static func _box(color: Color, border: Color, radius: int) -> StyleBoxFlat:
 	var style := UnderworldUI.box(color, border)
