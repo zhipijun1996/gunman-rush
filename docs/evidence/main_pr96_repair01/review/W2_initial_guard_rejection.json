@@ -1,0 +1,38 @@
+{
+  "reviewer": "/root/independent_review",
+  "independent": true,
+  "reviewed_state": "W2 proposed guard, uncommitted working source",
+  "verdict": "REJECT",
+  "scope": "formal_chest_alpha_isolated alpha-assignment guard only",
+  "source_sha256": {
+    "tools/underworld_pipeline.py": "1ac47c13116cef2c8981645022b468d0bc7b6361d64e45d4c1835373003640e8",
+    "tests/test_underworld_pipeline.py": "56518d17e02f69ebf39785fffeeb0b7e5a6e8679e360bd8b45368fc7e3cfc070"
+  },
+  "finding": {
+    "id": "MAIN-W2-GUARD-01",
+    "severity": "moderate",
+    "fact": "The guard scans only .modulate.a followed by =. Legal compound alpha assignments in the formal else branch are accepted.",
+    "actual_minimal_probes": [
+      {
+        "inserted_after": "actual formal UnderworldObjects.place_chest call in capture_state",
+        "statement": "(c.sprite as Sprite2D).modulate.a *= 0.35 if c.claimed else 1.0",
+        "actual_helper_result": true,
+        "expected_helper_result": false
+      },
+      {
+        "statement": "(c.sprite as Sprite2D).modulate.a += -0.65 if c.claimed else 0.0",
+        "actual_helper_result": true,
+        "expected_helper_result": false
+      }
+    ],
+    "method": "Independent read-only Python import of actual helper with in-memory actual source mutations; no production/test files modified.",
+    "baseline_helper_result": true,
+    "simple_spaced_assignment_result": false,
+    "fix": "Reject valid compound assignment operators as well as simple equals; preserve exact unique capture_state legacy block exception and add actual text_override negative cases."
+  },
+  "limitations": [
+    "Not a claim that current production code uses compound alpha assignment.",
+    "Original complete test suite was still running at review time.",
+    "No GDScript execution or rendering performed for these deterministic source-guard counterexamples."
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "schema": "main-ci-repair-final-handoff-v1",
+  "execution_source_commit": "2cd7fa05356c1b8e537b624329cbb4ee0b65ef66",
+  "source_files_match_frozen_commit": {
+    "scripts/art/avatar_presentation.gd": true,
+    "scripts/demo/home_scene.gd": true,
+    "scripts/ui/demo_menu.gd": true,
+    "scripts/ui/menu_theme.gd": true,
+    "scripts/underworld_plains/underworld_actors.gd": true,
+    "scripts/underworld_plains/underworld_actor_installer.gd": true,
+    "tests/home_ui_tests.gd": true,
+    "tests/underworld_plains/test_underworld_formal_terrain.gd": true,
+    "tests/avatar_presentation_ownership_runner.gd": true,
+    "tests/menu_settings_lifecycle_runner.gd": true,
+    "tools/run_generated_consumer_tests.py": true
+  },
+  "source_scope": "11 files listed in repair-review.json; agent made no commits. Root owns the committed integration.",
+  "final_status": "accepted within actual production consumer scope; user/device/aesthetic approval excluded",
+  "strict_positive_results": {
+    "home_ui": "28 assertions /0 failures",
+    "menu_settings": "14/0",
+    "avatar_ownership": "25/0",
+    "formal_terrain": "40395/0; 20 actual map consumers and one actual Boss geometry event",
+    "home_terraces": "180/0",
+    "generated_consumers": "33 suites; original strict driver exit0; 718.626717091 seconds",
+    "core": "5680/0; original strict driver exit0; 46.591699821 seconds"
+  },
+  "expected_rejection": "HomeUI --failure-probe completed all 28 normal guards then rejected intentional guard29; actual exit1, no script/shader/leak diagnostics",
+  "receipts": [
+    "repair-review.json",
+    "consumer-results.json",
+    "home-ui-intentional-failure-receipt.json",
+    "generated-consumers-final-receipt.json",
+    "generated-consumers-final-receipt-original-head-gate.json",
+    "core-frozen-final-receipt.json"
+  ],
+  "known_boundaries": [
+    "Independent reverse-order Home/Menu assembly retains GDScript resources in minimal counterexamples. The final HomeUI fixture uses the actual App TITLE→HOME consumer, preserves all original 27 business assertions, and adds real owner-release verification.",
+    "Original extra-frame/static_unload/named-callback/dynamic-is attempts are retained as failed diagnostics, not claimed fixes.",
+    "A later W2 static checker revision planned by root is outside these W1 execution source proofs."
+  ],
+  "next_owner": "root: W2 checker repair, GPU movies, final whole-CI/merge/delivery; no active agent Godot processes"
+}

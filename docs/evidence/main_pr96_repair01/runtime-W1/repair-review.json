@@ -1,0 +1,90 @@
+{
+  "schema": "main-pr96-ci-repair-source-and-results-v1",
+  "base_head": "e7286da14189f35d166e43179babd5b689e8e747",
+  "source_sha256": {
+    "scripts/art/avatar_presentation.gd": "d58ddd5244de483e29ebef619aaedc84b7758af41830edf6063190f329845368",
+    "scripts/demo/home_scene.gd": "e86061f264729de0b98357f692de9410550903d0fb95e729f51d5a446e78083d",
+    "scripts/ui/demo_menu.gd": "2a01b64b5cb7af29b4d4faae49c8c7051cc6cf82a7d7885ba8e8603c9c6d4dae",
+    "scripts/ui/menu_theme.gd": "aeb24a69ec8b76d10e200f178ab901c9133463fefaa553fab00860be4bcd870f",
+    "scripts/underworld_plains/underworld_actors.gd": "28c126fbc2104ed81cd670f57be98ce39c1372714fa7f11f94a7501dbae4eda6",
+    "scripts/underworld_plains/underworld_actor_installer.gd": "49cee240d1b2f0984cfafbf976860c21d9ff9074190494619e597f30e655dfb5",
+    "tests/home_ui_tests.gd": "f544eb3070ac106fa62461153fd5a9a14a648a9fdc62b7405935941eb3ba482c",
+    "tests/underworld_plains/test_underworld_formal_terrain.gd": "dbe9a201ffe9b87b2aa0f8e42921221e1d0afb1233a5aef569dc45a8162157f7",
+    "tests/avatar_presentation_ownership_runner.gd": "9d0a6b8fb188fb170913ae8de1f28970f057d2124d0fe81402b731ebbfaf5d83",
+    "tests/menu_settings_lifecycle_runner.gd": "25511da828115fa8f5f5861a7bfbb71357bf028bb601663d23b7f43c32a6e5eb",
+    "tools/run_generated_consumer_tests.py": "0e42ab693fb308a24ee9b95fedefdf685be6d4d71ce0820a23b3ab9a965e8b9b"
+  },
+  "checks": [
+    {
+      "id": "home-ui-actual-app-final",
+      "log": "build/forest_revision04/ci_fixes/home-ui-actual-app-final.log",
+      "log_sha256": "88c5555702b67fc34204e1e7391170b37e85f24f6bf4421c6d6bc22677d46cef",
+      "summary": "HOME UI TESTS: 28 assertions, 0 failures",
+      "summary_present": true,
+      "strict_diagnostic_matches": [],
+      "exit_code": 0,
+      "scope": "actual App/component, not user/device approval"
+    },
+    {
+      "id": "menu-settings-final",
+      "log": "build/forest_revision04/ci_fixes/menu-settings-final.log",
+      "log_sha256": "8bb4c9ffaca857b2919f7242a88e570439377d34b63ff0872ba1a9b936990ad7",
+      "summary": "MENU SETTINGS LIFECYCLE: 14 assertions, 0 failures",
+      "summary_present": true,
+      "strict_diagnostic_matches": [],
+      "exit_code": 0,
+      "scope": "actual App/component, not user/device approval"
+    },
+    {
+      "id": "avatar-ownership-final",
+      "log": "build/forest_revision04/ci_fixes/avatar-ownership-final.log",
+      "log_sha256": "910469af4b17f791e45ff2a7ebe0515a6d9fe980c8e8fe6f52dfc6d06a9949b2",
+      "summary": "AVATAR OWNERSHIP: 25 assertions, 0 failures",
+      "summary_present": true,
+      "strict_diagnostic_matches": [],
+      "exit_code": 0,
+      "scope": "actual App/component, not user/device approval"
+    },
+    {
+      "id": "formal-terrain-observed-final",
+      "log": "build/forest_revision04/ci_fixes/formal-terrain-observed-final.log",
+      "log_sha256": "7de34c75252f77df7b7fef80630f9c657d268c5be062b3f22d2f4e6bf47e0025",
+      "summary": "UNDERWORLD_FORMAL_TERRAIN checks=40395 failures=0 consumers=20",
+      "summary_present": true,
+      "strict_diagnostic_matches": [],
+      "exit_code": 0,
+      "scope": "actual App/component, not user/device approval"
+    },
+    {
+      "id": "home-terraces-final",
+      "log": "build/forest_revision04/ci_fixes/home-terraces-final.log",
+      "log_sha256": "33831bea5d1625eb80b758325d38d4644d70638133779415e13ea21d4ca79af7",
+      "summary": "UNDERWORLD HOME TERRACES: 180 assertions, 0 failures",
+      "summary_present": true,
+      "strict_diagnostic_matches": [],
+      "exit_code": 0,
+      "scope": "actual App/component, not user/device approval"
+    }
+  ],
+  "unresolved_scope": "Independent reverse-order Home/Menu assembly still has GDScript resource-cache counterexamples. Actual App TITLE→HOME owns the accepted HomeUI fixture. No assertion was removed or threshold weakened. Full generated consumer aggregate still pending.",
+  "refuted_candidates": [
+    "Waiting extra physics/process frames alone does not repair independent assembly resource retention.",
+    "Two static_unload annotations did not improve the remaining 88 resources; neither annotation was kept.",
+    "Named audio callback and explicit preload aliases did not resolve the class dependency issue."
+  ],
+  "retained_failures": [
+    "home-ui-after-verbose.log",
+    "home-ui-lazy-installer-verbose.log",
+    "home-ui-static-unload-verbose.log",
+    "home-ui-leaf-theme-verbose.log",
+    "home-ui-final-verbose.log",
+    "formal-terrain-final.log",
+    "avatar-ownership.log",
+    "menu-settings.log"
+  ],
+  "design_notes": [
+    "Default generated body retains sole presentation ownership; CourierVisual remains the real muzzle anchor.",
+    "Theme leaf reproduces original FontVariation/base font/fallback and public wrapper.",
+    "Second-map terrain fixture now selects region_map_index, and bounds its wait on the real process observer geometry_changed signal."
+  ]
+}

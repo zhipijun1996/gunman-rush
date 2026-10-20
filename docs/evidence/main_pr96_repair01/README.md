@@ -38,3 +38,11 @@ PR96 首次整合的森林入口暴露静态危险矩形与元数据不同步：
 实现 W1：`2cd7fa05356c1b8e537b624329cbb4ee0b65ef66`。后续 `28fb95b1` 仅绑定实际独审和质量记录，游戏/测试/工具/资源字节没有改变。PR96 已普通快进推回原分支，并改以 main 为目标；本轮不强推、不另留含糊的未整合原草稿。GitHub [PR96](https://github.com/zhipijun1996/gunman-rush/pull/96) 与对应 Actions 是远端检查/合并真实状态入口，本记录不以启动检查代替成功。
 
 [W1 独立代码审查](review/W1_code_review.json)接受代码与敏感测试变更保护，明确不预签原80、聚合CI、影片或用户设备；[HomeUI负例审查](review/W1_home_ui_rejection_review.json)确认第29项故意失败造成真实exit1，原28项业务/释放检查先通过，严格拒绝保留。原Foundry按base24/double_jump6/air_chain6重建，36短语/18路线、三profile failures0，export basis `1f5d502c905d8b2df21c41cf26dda761c8ae8314f5f4406703c6b58e278ad90a`，未混用旧批次。
+
+## W2 检查器修复及最终局部结果
+
+完整docs profile真实停在原`objects.no_grey_claimed`：它以全文件禁串误拒显式旧画风候选。W2 `50c9ed89e5cf632d8e2a58db03f83df8fb573589`仅修改两个Python checker/test文件，游戏/资源与全部Godot测试均保持W1字节。有限适配器要求capture_state内完整、唯一、精确的legacy分支及正式opened-pose分派；其余直接/复合alpha写入拒绝。独审实际发现并退回初版*=、+=漏口，修后125tests/0（原116 AST不变+新增9）、Home wrapper36/0。原失败、初轮拒绝和最终原日志见[guard-W2](guard-W2/README.md)，[独审](review/W2_guard_review.json)。
+
+W1正式全generated 33/33/native exit0和core5680/0原件已精选至[runtime-W1](runtime-W1/README.md)，其中原HEAD-only外层metadata guard的exit1原样保留，另以逐runtime Git tree相等核实docs-only变化，未篡改原driver退出码。W2不冒称与W1所有工具同源。
+
+W2当前森林合同20seed/map4215/0，版本schema6实际24case完整历史22+新2；实际默认v14高返路线电影24leg/0、2241帧60fps=37.35秒、186.21秒<原240cap、source stable与严格exit0，见[完整局部原件与影片](../forest_fruit_routes04/final-W2/README.md)。独审实际看17帧接受限定起跳/落地纵向连续性和长链跟随，未完整播放/听音/验用户设备，也不称所有目标始终完整入镜或全森林美感完成。完整新HEAD原80、fresh全CI和准确Web发布仍由后续实际收据决定。

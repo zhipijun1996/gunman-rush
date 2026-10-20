@@ -1,0 +1,22 @@
+{
+  "schema": "home-ui-expected-reject-v1",
+  "commit": "2cd7fa05356c1b8e537b624329cbb4ee0b65ef66",
+  "command": [
+    "bash",
+    "tools/godot.sh",
+    "--headless",
+    "--path",
+    ".",
+    "--script",
+    "tests/home_ui_tests.gd",
+    "--",
+    "--failure-probe"
+  ],
+  "actual_exit_code": 1,
+  "expected_exit_code": 1,
+  "expected_rejection_observed": true,
+  "elapsed_seconds": 9.562043117999565,
+  "log": "build/forest_revision04/ci_fixes/home-ui-intentional-failure.log",
+  "log_sha256": "ffca7740c2a5bf40678645f01c8abc721c5f0c80c3a86b25008d999336e46acf",
+  "forbidden_diagnostics": []
+}
