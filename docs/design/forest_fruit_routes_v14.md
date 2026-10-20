@@ -1,3 +1,9 @@
+## 2026-10-20：main M森林回归通过，完整浏览器交付续修
+
+PR96已普通合main`9757ddf2ee20b5620c4a34ecc5d51186f018513b`，实际核心120、Web41、当前v2固定80/80通过；两图24/29段M影片与32原帧有限独审见[实际M](../evidence/main_pr96_repair01/main-M9757/README.md)。推荐/可选/恢复职责、果实宿主及仅两rest退休保持。M的原浏览器首项因动作练习按钮文字被裁而失败，后两项未运行；该单按钮宽度续修及新公开完整SHA/GUI尚待实证。全区美感、HUD/边缘裁切、真人FUN/设备/用户认可未签。下面均为历史来源。
+
+---
+
 ## 2026-10-20 Q检查点
 
 代码源`4be8eeb932d24866a49379f0d33f16f00125711d`，生产/56Foundry=C2。果实宿主与推荐/可选/恢复点位保持既有v14；后续只修真实RootBell根部受伤位移及测试驾驶/退出/源验证。原T固定80在600s超时，78完成、2非终态，失败保留；Q原剩余42项通过，不拼为完整120。PR96未合main、新完整CI与准确Web待验。详见[追加原件](../evidence/main_pr96_repair01/followup-H2-C2/README.md)及[源码闭合独审](../evidence/main_pr96_repair01/followup-H2-C2/review-Q/Q_code_source_closure_review.json)。全区美感、Queen返回局部HUD遮挡、真人FUN/设备/用户仍未签。以下历史证据保持原来源。

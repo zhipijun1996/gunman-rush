@@ -1,0 +1,110 @@
+{
+  "decision": "SOURCE_CLOSURE_AND_OBSERVED_NAVIGATION_ACCEPT_WITH_ORIGINAL_THREE_FAILED",
+  "reviewed_commit": "f18f23255822eef6b1ecf7fffd3d55a214e17ffd",
+  "source_proof": {
+    "scripts/demo/action_studio.gd": "2f4f750fb72da384995c1d36f22ae8bedf7587a0a25b3101a2581e32927cd909",
+    "tools/studio_gui_pointer.py": "c41f7b473dee081f2b1c6ca17d6c8ce5d0e21508c458131d06fb89988cea60ba",
+    "tools/test_studio_gui_pointer.py": "edfde9f53d414a36662504497fa466eee1375940559d26221ba0a26ecc7038b7",
+    "tests/fixtures/studio_gui_pointer/actions_Q_mobile.png": "5db4a557e08643aa2dfb84de5df625c28153b5c763c20b149f72a4b291f8619d",
+    "tests/fixtures/studio_gui_pointer/provenance.json": "cae4d1fdef55f0fa14df58e1bda3156f0e8394256bca49a0e86d94e05f58ebe8"
+  },
+  "actual_export": {
+    "status": "passed",
+    "exit_code": 0,
+    "seconds": 26.983312153999577,
+    "pack_sha256": "6b7ca2f8fa95c6992ae4df2a702c7d64f36ba7643959438dbe66cd6cade078dd",
+    "pack_bytes": 141171460
+  },
+  "original_three": {
+    "status": "failed",
+    "source_stable": true,
+    "bundle_stable": true,
+    "first_consumer": {
+      "name": "verify_action_budget_browser",
+      "command": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/workspace/gunman-rush/tools/verify_action_budget_browser.py",
+        "http://127.0.0.1:39381/"
+      ],
+      "script": {
+        "path": "tools/verify_action_budget_browser.py",
+        "sha256": "6892d970f6272915cf99b2897d140299d41b744ce76379c7d9f286d5284f48ca"
+      },
+      "status": "failed",
+      "exit_code": 1,
+      "failure_reason": "nonzero_exit",
+      "started_at_unix": 1792499379.7847543,
+      "ended_at_unix": 1792499538.581818,
+      "duration_seconds": 158.797,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "/workspace/gunman-rush/tools/verify_action_budget_browser.py",
+        "http://127.0.0.1:39381/"
+      ],
+      "check_token": "4a6d6e5efec34a9ca340627c6447ce33"
+    },
+    "outer_seconds": 160.2571936519962,
+    "remaining_consumers": "not run",
+    "desktop_final_business_report": "absent",
+    "mobile_business_assertions_reached": 0
+  },
+  "navigation": [
+    {
+      "path": "build/forest_revision04/mobile-Sf18f-three/browser-cwd/build/studio-navigation/1792499527637975160/receipt.json",
+      "touch": true,
+      "clicks": [
+        [
+          "DEVELOPMENT DEMOS / ALL ENTRIES",
+          [
+            509.5,
+            262.0
+          ]
+        ],
+        [
+          "ACTIONS",
+          [
+            286.1875,
+            163.0
+          ]
+        ]
+      ],
+      "observed_event_count": 1
+    },
+    {
+      "path": "build/forest_revision04/mobile-Sf18f-three/browser-cwd/build/studio-navigation/1792499407300055769/receipt.json",
+      "touch": false,
+      "clicks": [
+        [
+          "DEVELOPMENT DEMOS / ALL ENTRIES",
+          [
+            798.8333333333334,
+            484.0
+          ]
+        ],
+        [
+          "ACTIONS",
+          [
+            387.66666666666663,
+            300.0
+          ]
+        ]
+      ],
+      "observed_event_count": 1
+    }
+  ],
+  "failure_png": {
+    "path": "build/forest_revision04/mobile-Sf18f-three/browser-cwd/build/weapon_feel/popup_failure.png",
+    "bytes": 348979,
+    "sha256": "32e1dc9db62ff06c9d2e0afdd85fe8fc334da59d3c16aedfd5408fc44abf6cf3"
+  },
+  "pixel_observation": "Actually viewed the original 844x390 mobile popup failure PNG: complete visible green weapon-list panel and item labels/radio markers occupy the left studio area. The screenshot is evidence of rendered popup, not of a selected weapon ID.",
+  "failure_boundary": "Original verify_action_budget_browser.py line112 select_weapon(page,11,True) -> open_weapon_picker -> _weapon_popup_from_pixels rejects zero complete popup/column candidates, before any mobile gameplay input/check.",
+  "scope_limits": [
+    "Both desktop and mobile original menu navigation receipts passed with real clicks and fresh studio events. This specifically demonstrates the new mobile complete-label helper in live use.",
+    "Five desktop operation PNGs are present, but final business check/event report was not written after exception; no desktop business or sampling-criterion pass is inferred.",
+    "Mobile selection11 did not complete; zero mobile business assertions and no fifteen-ID/equip acceptance.",
+    "Other two original consumers did not execute. Original-three outcome remains failed, not a gameplay regression diagnosis or delivery acceptance.",
+    "No live sampling counterproof, new browser/native, repeated pure tests, public or device acceptance included.",
+    "Execution source S and full bundle inventories before/after are equal; prior Q/observer failure identities remain unchanged."
+  ]
+}

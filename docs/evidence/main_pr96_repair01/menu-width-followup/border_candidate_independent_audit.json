@@ -1,0 +1,85 @@
+{
+  "decision": "SCOPED_ACCEPT_CODE_AND_PURE_PIXEL_PARSER",
+  "base_U": "e4b2132dd30bf8ca176a28eb79d1b32a65bb59e3",
+  "helper_SHA256": "80e96f99549b0da9cc56a44964dbc6574875fa2450ae66f7409af284850f566d",
+  "changed_functions": [
+    "_studio_button_boxes"
+  ],
+  "unchanged_function_AST_count": 9,
+  "original_geometry_acceptance_and_all_later_source_exact": true,
+  "new_source_manifest_all_SHA_match": true,
+  "fixtures_byte_exact_originals": true,
+  "actual_U_border_palette_rank": 84,
+  "independent_additional_controls": [
+    {
+      "kind": "translated arbitrary RGB rectangle",
+      "rgb": [
+        12,
+        160,
+        220
+      ],
+      "boxes": [
+        [
+          111,
+          142,
+          313,
+          193
+        ]
+      ]
+    },
+    {
+      "kind": "translated arbitrary RGB rectangle",
+      "rgb": [
+        220,
+        49,
+        80
+      ],
+      "boxes": [
+        [
+          111,
+          142,
+          313,
+          193
+        ]
+      ]
+    },
+    {
+      "kind": "translated arbitrary RGB rectangle",
+      "rgb": [
+        130,
+        155,
+        119
+      ],
+      "boxes": [
+        [
+          111,
+          142,
+          313,
+          193
+        ]
+      ]
+    },
+    {
+      "kind": "33closed rectangles",
+      "rejected": "More than 32 complete screenshot button borders"
+    }
+  ],
+  "independent_original_eight_suite": {
+    "exit_code": 0,
+    "seconds": 14.458463217000826,
+    "log": "build/forest_revision04/main-M-review/menu-width-followup/independent-border-eight-tests.log",
+    "log_sha256": "4a3340932f4565b79c6470e8277f5f79443487e6c0192e06c76590a90cef40d1"
+  },
+  "original_helper_same_tests_failure": {
+    "scope": "Original unchanged helper replay against exact same realpixel tests; regression must fail complete U screenshot",
+    "tests_run": 8,
+    "failures": [
+      "studio_pointer_test_controls.ScreenshotButtonTests.test_real_U_rare_border_complete_label_and_narrow_glyph_bounds"
+    ],
+    "errors": [],
+    "duration_seconds": 16.578419567005767,
+    "successful": false
+  },
+  "original_U_browser_FAILURE": "Preserved; not retrospectively passed by pure screenshot parsing.",
+  "future_live_browser": "pending; no native/browser/network in independent audit."
+}

@@ -1,0 +1,68 @@
+{
+  "scope": "Screenshot parser regression fixtures only; not live navigation/gameplay/device acceptance",
+  "files": [
+    {
+      "fixture": "menu_U_complete.png",
+      "original_path": "build/forest_revision04/menu-width-U-e4b2/local-three/browser-cwd/build/studio-navigation/1792494964398966499/development-0.png",
+      "source_commit": "e4b2132dd30bf8ca176a28eb79d1b32a65bb59e3",
+      "sha256": "336ed35fcc07a538225b17f49f551ddec696ca0ca8a48fa442410b53bf49695d",
+      "bytes": 316780,
+      "scope": "Original actual U Web development menu screenshot; complete ACTIONS label and rare highlighted border; navigation failed to detect it.",
+      "transforms": "none; byte-for-byte original PNG copy"
+    },
+    {
+      "fixture": "menu_M_clipped.png",
+      "original_path": "build/forest_revision04/main-ci-browser-M9757/original/browser-cwd/build/studio-navigation/1792494435303280907/development-0.png",
+      "source_commit": "9757ddf2ee20b5620c4a34ecc5d51186f018513b",
+      "sha256": "0a51527d2209d8550695d38358516fddf32db4891b6be09b017590c165005aae",
+      "bytes": 316828,
+      "scope": "Original actual main M CI artifact Web screenshot; ACTIONS text clipped by original Control width; must remain rejected.",
+      "transforms": "none; byte-for-byte original PNG copy"
+    },
+    {
+      "fixture": "popup_W_green.png",
+      "original_path": "build/forest_revision04/menu-fixture-W5a4d-three/browser-cwd/build/weapon_feel/popup_failure.png",
+      "source_commit": "5a4d0da86fb217415aeb80c7c2a618ec2565b35b",
+      "sha256": "46c171dabd6d28440179d08de7bc34748e23dd5742bb5599fa28db6b9f23709d",
+      "bytes": 829537,
+      "scope": "Original actual W Web full15-item green Underworld weapon popup. Old fixed-column/gray-threshold helper failed with only center223; actual navigation had passed.",
+      "transforms": "none; byte-for-byte original PNG copy"
+    },
+    {
+      "fixture": "title_P_mobile.png",
+      "original_path": "build/forest_revision04/popup-P09f0-three/browser-cwd/build/studio-navigation/1792497154666907100/title-0.png",
+      "source_commit": "09f09f99d8d3c2a6a1e3ff6edd4a3147814e4b58",
+      "sha256": "c6e8d0532bf8fef1f22c70207da783f6bd371d6aa0ed68e439336c90e19dce63",
+      "bytes": 130566,
+      "scope": "Actual P Web844x390 mobile title screenshot. Original3xwholeframe psm11 misses complete visible title across5observations; standalone6xNEAREST fillROI recovers existing full English phrase.",
+      "transforms": "none; byte-for-byte original PNG copy"
+    },
+    {
+      "fixture": "actions_Q_mobile.png",
+      "original_path": "build/forest_revision04/hook-Q4aec-observer/browser-cwd/build/studio-navigation/1792498706621344467/development-0.png",
+      "source_commit": "4aec8b56743d1a14d1b44ba43d795e56811d7615",
+      "sha256": "5db4a557e08643aa2dfb84de5df625c28153b5c763c20b149f72a4b291f8619d",
+      "bytes": 138748,
+      "scope": "Actual single observer Q Web844x390 mobile development menu. Existing border found ACTIONS rectangle but6xwholeborder OCR missed; fixed8xinnerfill OCR matches unchanged complete bilingual Englishclause. Entire observer failed, not browser acceptance.",
+      "transforms": "none; byte-for-byte original PNG copy"
+    },
+    {
+      "fixture": "popup_S_mobile.png",
+      "original_path": "build/forest_revision04/mobile-Sf18f-three/browser-cwd/build/weapon_feel/popup_failure.png",
+      "source_commit": "f18f23255822eef6b1ecf7fffd3d55a214e17ffd",
+      "sha256": "32e1dc9db62ff06c9d2e0afdd85fe8fc334da59d3c16aedfd5408fc44abf6cf3",
+      "bytes": 348979,
+      "scope": "Actual original S Web844x390 mobile popup. Navigation passed, but original popup parser rejected fractional panel edges and hover-selected9x9circle. Originalthree failed; not browser acceptance.",
+      "transforms": "none; byte-for-byte original PNG copy"
+    },
+    {
+      "fixture": "popup_T_mobile_selected9.png",
+      "original_path": "build/forest_revision04/popup-T9b80-three-r2/browser-cwd/build/weapon_feel/popup_failure.png",
+      "source_commit": "9b803f0cb2dabf24092fe57e7906380f3631099d",
+      "sha256": "327f64186d21c0a2f47270aa257c01591bfa79a1e02a2f211e1895284af85801",
+      "bytes": 349763,
+      "scope": "Actual original T Web844x390 mobile popup, selected index9 machine_storm. Original action-budget passed25; click consumer desktop15 and touch1..9 accepted each once, then next open failed because one actual unselected9x10circle has half-pixel reflection center. Originalthree failed; not browser acceptance.",
+      "transforms": "none; byte-for-byte original PNG copy"
+    }
+  ]
+}

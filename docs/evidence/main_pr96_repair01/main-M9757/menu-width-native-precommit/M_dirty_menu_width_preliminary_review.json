@@ -1,0 +1,50 @@
+{
+  "decision": "SCOPED_ACCEPT_CODE_ONLY_WITH_WEB_PROOF_PENDING",
+  "reviewed_code_path": "scripts/ui/demo_menu.gd",
+  "reviewed_blob_sha256": "084e838415853a976e3b7354ddfb050d96294a333e5d0a6260086bbd5c3d766e",
+  "execution_commit_for_failed_original": "9757ddf2ee20b5620c4a34ecc5d51186f018513b",
+  "candidate_source_status": "M plus dirty demo_menu.gd; not named or rebound as futureU",
+  "exact_delta": "Comment plus action_button.clip_text=false for existing bilingual ACTIONS button only; removing exacttwo added lines yields originalM bytes.",
+  "actual_failure": {
+    "receipt": "build/forest_revision04/main-ci-browser-M9757/original/receipt.json",
+    "receipt_sha256": "70dedba1e5907b5f1385f1aa677db04a34c939bf2e5e4d8588847e83940a7899",
+    "original_child_exit": 1,
+    "original_child_seconds": 95.12,
+    "original_outer_seconds": 97.75149536132812,
+    "original_failure": "Expected one complete rendered menu label ACTIONS; found0",
+    "first_original_consumer": "verify_action_budget_browser.py",
+    "later_original_consumers": "not executed after first failure",
+    "PNG": "build/forest_revision04/main-ci-browser-M9757/original/browser-cwd/build/studio-navigation/1792494435303280907/development-0.png",
+    "PNG_sha256": "0a51527d2209d8550695d38358516fddf32db4891b6be09b017590c165005aae",
+    "actually_viewed": true,
+    "pixel_finding": "1280x720 actual Home rail160px truncates bilingual caption to 动作练习 / ACTI, confirming physical text clipping rather than spuriousOCRfailure."
+  },
+  "code_assessment": "Existing _button setsclip_text=true andrail onlyminimumwidth160. Settingfalse onthisbutton restores intrinsic fulltext minimumsize propagation toVBox/HBox. No newasset,font,signal,clickpath,RNG,gameplay or testchecker dependency. Existing HOME/SETTINGS/etc defaults remain unchanged.",
+  "prior_control_limits": [
+    "Node text endswithACTIONS and menu gestures can pass while pixels remain clipped; old node-based tests are not counterevidence.",
+    "Originalforest20/8 never proves completeACTIONS navigation; retain earlier limitedUI scope."
+  ],
+  "risk_and_required_proof": [
+    "Rail intrinsicwidth grows andmayreduce rightbody space. Horizontal scrolling is disabled in existing frame; actualnarrowportrait layout remains unverified.",
+    "Existingaction-budget includes844x390 emulatedtouch and1280x720desktop, so retain fulloriginal3 browserconsumers, original300each andrealpixel/OCRguards beforeclaiming deliveryfixed.",
+    "View newWebHome image for completecaption and clicknavigation; do not replaceACTIONS OCRtarget or relaxcomplete-label requirement.",
+    "Realphysicaldevices andwholemenu responsiveness areoutside these views."
+  ],
+  "unchanged_paths_verified": [
+    "tests/menu_scroll_touch_tests.gd",
+    "tests/parallel_region_presentation_tests.gd",
+    "tools/verify_action_budget_browser.py",
+    "tools/studio_gui_pointer.py",
+    "tools/verify_studio_click_browser.py",
+    "tools/verify_all_weapon_browser.py"
+  ],
+  "pending": [
+    "Candidatecommit/sourceclosure",
+    "Candidate originalparallel/menu native result",
+    "CandidatefreshWeb3 originalconsumers",
+    "Actualpubliccandidate bytes/GUI/pixels",
+    "WholecandidateCI where required"
+  ],
+  "not_signed": "OriginalM completeCI remains independently green; this localbrowserFAIL prevents claimingM3 browser/public acceptance. No newWeb result is inferred.",
+  "reviewer_activity": "Read-only exactdiff, originalreceipt/log andactualview_image; ignoredJSON/MD only, no native/browser/network/trackedwrites."
+}

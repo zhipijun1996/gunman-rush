@@ -1,0 +1,38 @@
+{
+  "decision": "SCOPED_CANDIDATE_ACCEPT",
+  "base_commit": "4aec8b56743d1a14d1b44ba43d795e56811d7615",
+  "review_scope": "Four frozen OCR helper/test/actual failed screenshot/provenance candidate paths; production clock reviewed separately.",
+  "source_sha256": {
+    "tools/studio_gui_pointer.py": "c41f7b473dee081f2b1c6ca17d6c8ce5d0e21508c458131d06fb89988cea60ba",
+    "tools/test_studio_gui_pointer.py": "edfde9f53d414a36662504497fa466eee1375940559d26221ba0a26ecc7038b7",
+    "tests/fixtures/studio_gui_pointer/actions_Q_mobile.png": "5db4a557e08643aa2dfb84de5df625c28153b5c763c20b149f72a4b291f8619d",
+    "tests/fixtures/studio_gui_pointer/provenance.json": "cae4d1fdef55f0fa14df58e1bda3156f0e8394256bca49a0e86d94e05f58ebe8"
+  },
+  "independent_tests": {
+    "original_entry": "python tools/test_studio_gui_pointer.py",
+    "count": 25,
+    "failures": 0,
+    "exit_code": 0,
+    "seconds": 40.274,
+    "log": "build/forest_revision04/main-M-review/menu-width-followup/mobile_actions_independent_unit.log",
+    "log_sha256": "6567047ab89da9309cd15f06f54534a5174e08784a77b1e46a7a4e4ea22bf0f2",
+    "extra_controls": {
+      "first_pass_ambiguity_raises_before_inner_fallback": true,
+      "missing_inner_top_fill_boundary_rejected_with_actual_glyphs_retained": true
+    }
+  },
+  "verified": [
+    "Actually viewed the unmodified 844x390 Q observer screenshot: complete bilingual ACTIONS label is visible inside its colored button. Raw fixture byte-equals original failed observer image.",
+    "Existing complete four-colored-edge border detector remains prerequisite and AST-identical. Only missing-label exceptions permit one same-frame measured inner-fill crop, fixed 8x Lanczos and psm7; first-pass ambiguity remains fatal.",
+    "Actual closed inner-fill bounds are 214,148..313,175 inside measured border 211,145..316,178. Unchanged complete-label parser requires complete English clause and unique actual glyph geometry. Candidate point286.1875,163 is derived from observed glyphs, not prescribed click coordinates.",
+    "All prior21 test method ASTs and other11 original helper function ASTs preserved; six original CLI bytes and business assertions/caps/observation counts unchanged. Added4 test methods meaningfully reject missing colored edges, partial/suffixed words and duplicate complete buttons.",
+    "Reviewer additionally proved first-pass ambiguity cannot enter inner fallback, and removed inner-fill top boundary rejects while actual glyphs remain intact."
+  ],
+  "limitations": [
+    "Screenshot-only parser replay; no new browser, mobile click, gameplay, equipped-ID, public or device pass.",
+    "Original Q CLI upward failure and later observer mobile ACTIONS failure plus desktop slowtime false remain preserved.",
+    "Bounded offline OCR exploration is retained transparently; runtime uses one fixed derivative without spelling repair, parameter search or coordinate fallback.",
+    "OCR can still fail on other rendering conditions; original live three-consumer validation remains required.",
+    "Original console sampling-clock change is separately scoped and is not justified by this OCR result."
+  ]
+}

@@ -193,6 +193,8 @@ func show_home(summary: String = "") -> void:
 	var action_button := _button(rail,"动作练习 / ACTIONS",func() -> void:
 		_hide()
 		requested_actions.emit())
+	# Let the bilingual entry determine the rail width instead of clipping its label.
+	action_button.clip_text = false
 	for style: String in ["normal","hover","pressed","focus"]:
 		action_button.add_theme_stylebox_override(style,_box(CARD,TEAL,4))
 	_button(rail, "HOME", func() -> void:

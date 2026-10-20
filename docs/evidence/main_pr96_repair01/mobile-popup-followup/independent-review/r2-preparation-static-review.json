@@ -1,0 +1,26 @@
+{
+  "verdict": "ACCEPT_PREPARATION_STATIC_ONLY",
+  "sha256": "a74b86d743d88fa2f2398ce24e260df46df5f72cf956ae5f3797920cfbcb3330",
+  "expected_sha_matches": true,
+  "syntax_parse": "passed",
+  "original_two_second_predicate_ast_equal": true,
+  "source": "build/forest_revision04/web-sampling-counterproof-r2-prepared/sampling_counterproof.py",
+  "reviewed_diff": "change.diff changes ordinary jump setup only, removes H setup from this additional diagnostic, adds actual jump used==1 and actual released-player y delta<-20. It does not edit original browser CLIs.",
+  "retained_guards": [
+    "300s harness cap and actual passed completion marker",
+    "three fresh browser contexts for positive / short-focus / normal",
+    "same actual packet and weapon; one boomerang entity",
+    "nonempty active-motion negative evidence",
+    "strictly increasing real_usec timestamps",
+    "short-focus requires at least3 actual scaled samples and real same-packet caught recall",
+    "evaluation event cutoff frozen before screenshot/cleanup awaits",
+    "source and complete bundle before/after guards",
+    "browser errors and context-close errors remain failure"
+  ],
+  "no_execution": true,
+  "limitations": [
+    "Finite extra clock diagnostic only; original H sequence and original-three failures remain unchanged.",
+    "No positive/false/false runtime results, air-release, recall, clock or two-second behavior is signed here.",
+    "Unused hook_y/deadzone parameters and traversal reads remain from r1; harmless static residue, no acceptance evidence."
+  ]
+}

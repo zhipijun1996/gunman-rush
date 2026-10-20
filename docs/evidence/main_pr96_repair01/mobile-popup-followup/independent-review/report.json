@@ -1,0 +1,114 @@
+{
+  "task": "MAIN-PR96-REPAIR-01 popup-resume independent read-only review",
+  "reviewer": "/root/popup_review_resume",
+  "baseline_commit": "f18f23255822eef6b1ecf7fffd3d55a214e17ffd",
+  "reviewed_candidate": "dirty source at baseline S; hashes bind exact reviewed bytes",
+  "verdict": "ACCEPT_LIMITED_STATIC_AND_PURE_PIXELS",
+  "runtime_verdict": "UNVERIFIED; original-three remains FAILED",
+  "candidate_hashes": {
+    "helper_sha256": "a30654826fcfe669d189ec545c29b8f99f048140c78add8effe79abcbe936156",
+    "tests_sha256": "4f95c8ac3dd89c806b1b4afdf47783a8cc4933bc747765f67b59f11d5c567f21",
+    "provenance_sha256": "c200bd460cf5d4829337329eb789db6bfd573974ac1fd88bff61e2c9238bfe35"
+  },
+  "viewed_original": {
+    "path": "build/forest_revision04/mobile-Sf18f-three/browser-cwd/build/weapon_feel/popup_failure.png",
+    "resolution": [
+      844,
+      390
+    ],
+    "bytes": 348979,
+    "sha256": "32e1dc9db62ff06c9d2e0afdd85fe8fc334da59d3c16aedfd5408fc44abf6cf3",
+    "method": "view_image original detail; original whole image actually viewed",
+    "observed": "Full green weapon popup and15 visible radio/text rows, first selected/hover row; no live interactions observed."
+  },
+  "source_audit": {
+    "exit_code": 0,
+    "seconds": 0.12766874399676453,
+    "artifact": "source-audit.json",
+    "original25_methods_ast_unchanged": true,
+    "other_helper_top_level_functions_ast_unchanged": true,
+    "only_changed_function": [
+      "_weapon_popup_from_pixels"
+    ],
+    "browser_cli25_superset_equal_S_bytes": true,
+    "specified6": [
+      "verify_action_budget_browser.py",
+      "verify_all_weapon_browser.py",
+      "verify_studio_click_browser.py",
+      "verify_weapon_feel_browser.py",
+      "verify_ci_artifact_browser.py",
+      "verify_forest_browser.py"
+    ],
+    "fixture_byte_equal_original": true
+  },
+  "pure_tests_once": {
+    "command": [
+      "python3",
+      "tools/test_studio_gui_pointer.py"
+    ],
+    "exit_code": 0,
+    "seconds": 41.42274520199862,
+    "log": "unit-once.log",
+    "scope": "single independent original25 + candidate5 pure screenshot run; no browser/native",
+    "source_sha256": "a30654826fcfe669d189ec545c29b8f99f048140c78add8effe79abcbe936156",
+    "test_sha256": "4f95c8ac3dd89c806b1b4afdf47783a8cc4933bc747765f67b59f11d5c567f21"
+  },
+  "independent_controls": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 python3 build/forest_revision04/popup-resume-review/independent_controls.py",
+    "exit_code": 0,
+    "outer_tool_seconds": 0.97594374,
+    "artifact": "independent-controls.json",
+    "four_cases_passed": true,
+    "selected_ring": {
+      "width": 9,
+      "height": 9,
+      "actual_foreground": 77,
+      "area": 81,
+      "density": 0.9506172839506173,
+      "ceil_95percent_area": 77,
+      "center_rgb_sum": 78,
+      "cardinal_edge_rgb_sums": [
+        261,
+        272,
+        282,
+        244
+      ]
+    }
+  },
+  "static_findings": [
+    "Actual fill component still needs four visible sampled side boundaries and cannot meet image edge; rare differing outline colors use measured fill/nonfill at all four sides. Retained coverage is80percent over each central-half edge, not a claim that every edge pixel has identical color.",
+    "Only existing observed round components propose a column; per-row adjacent background dehovers the full actual strip, and the15 boxes are rediscovered as actual components. No row/pitch insertion, truncation, fixed coordinate or target index appears in parser.",
+    "Actual selected9x9 has77/81=.9506172839506173; ceil(.95*81)==77. Center RGB sum78; cardinal ring sums261/272/282/244. Flat or reversed ring contrast is independently rejected.",
+    "Original >20*scale minimum gap, <4*scale gap-range, exact15 count, single-column and globally unique complete-popup candidate guards remain.",
+    "All original25 tests preserved and passed; added5 include missing selected/middle/all circles, duplicate popup, crop/four-side notches, solid and flat chamfered-square rejection."
+  ],
+  "original_failure_preserved": {
+    "execution_head": "f18f23255822eef6b1ecf7fffd3d55a214e17ffd",
+    "status": "failed",
+    "first_seconds": 158.797,
+    "first_exit_code": 1,
+    "outer_seconds": 160.2571936519962,
+    "source_stable": true,
+    "bundle_stable": true,
+    "boundary": "Mobile select_weapon11 popup parser failed before mobile gameplay; no desktop final business ledger,15 accepted IDs,slowtime or later two consumers are inferred."
+  },
+  "not_executed": [
+    "browser",
+    "native/Godot",
+    "remote network",
+    "original three consumers",
+    "harness gameplay/art/web",
+    "fullCI",
+    "public bundle or device/player approval"
+  ],
+  "scope_status": {
+    "technical_static_and_pure_pixels": "passed",
+    "live_popup_click_and_item_identity": "unverified",
+    "gameplay": "unverified",
+    "art_animation_audio": "unverified",
+    "integration_fullCI_public_device_user": "unverified"
+  },
+  "review_outputs_only": "ignored build/forest_revision04/popup-resume-review/; no tracked/docs/production mutations, no commit/push",
+  "recommended_next_step": "Author may freeze/commit exact candidate, then run original consumers unchanged under existing caps. Preserve S failure; this review is not live acceptance.",
+  "r2_optional_static_review": "r2-preparation-static-review.json"
+}

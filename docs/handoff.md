@@ -1,3 +1,49 @@
+## 2026-10-20：新菜单原三浏览器完整通过，待合主线
+
+U=19f9ab4a88fb2a96513232dd94bd3b9e70065bac原三消费者完整通过：25/40/8项，161.781/255.717/145.299秒，各原300秒预算；outer564.030，无合并总外限。完整source/Web包两端稳定；PCK完整SHA6b7ca2f8fa95c6992ae4df2a702c7d64f36ba7643959438dbe66cd6cade078dd。附加clock r3整体failed：三份冻结采样判据True/False/False符合预期，但normal飞刃先自然结束，判定后的F回收清理无caught而失败；不改签整报告，不代替原三检查。独立代码/实际结果审核分别限定范围。main仍M9757，后续普通合并、新main完整CI/实际artifact原三/公开完整SHA和同源影片尚待完成。历史失败均保留原SHA，不改签。 [本地原件](evidence/main_pr96_repair01/local-U19f9/README.md)。
+
+## 2026-10-20：动作25项通过，手机菜单像素相位续修
+
+T真实复测首原消费者25/25通过163.120s；第二项desktop15与touch1..9各真实count1，touch10选择前popup解析失败229.859s，第三项未运行；全包与源码两端稳定。首次加载超时和环境probe截图失败同样保留。真实9×10圈的对称轴偏半像素，最小像素测量续修35/35通过、原30方法与6CLI保持，新live待验。[完整证据](evidence/main_pr96_repair01/popup-phase-followup/README.md)。附加clock r2因普通短跳已落地而无实体，三判据未运行，不能算负例通过；r3只修该附加准备。最终新main CI/原三/公网完整SHA仍待实际结果。
+
+## 2026-10-20：手机弹窗实际标记续修
+
+S原三首158.797s/exit1（outer160.257），双端source/bundle稳，desktop/mobile真实菜单导航已PASS，手机weapon11前popup0候选；0mobile业务，桌面无final ledger不签通过。新纯像素定位候选30/30、41.039s，保原25方法及6CLI，仍须实见完整唯一15项。附加clock r1仅正例2.7906s/True；两负例H准备失败未进判据，不算False/PASS。r2将用真实普通jump隔离观测目标，原三消费者H序列不动。原件见[手机弹窗续修](evidence/main_pr96_repair01/mobile-popup-followup/README.md)，最终新mainCI/原3/公开完整包仍待实际结果。
+
+## 2026-10-20：移动动作标签与真实时间观测续修
+
+Q4aec原三首118.239s/1（outer119.478）在向上钩锁原5秒等待无kick，双端source/bundle稳，mobile/后2未执行。单次observer165.775s/1未复现该钩锁失败、真实mobileTITLE已点击通过，但ACTIONS完整边界内OCRmissing；finally桌面23项22true/slowtime连续项false，final追加样本不能覆早判定。原件见[续修证据](evidence/main_pr96_repair01/mobile-actions-clock-followup/README.md)。正在修mobile完整字形识别与仅Web motion观测时钟，玩法/两秒断言不改；最终原3/mainCI/公开包仍待实际结果。
+
+## 2026-10-20：移动标题完整标签识别续修
+
+P09f0原导出27.195s/0，源码前后干净；首action-budget201.741s/exit1/outer203.354，原300秒预算、源码与bundle双端稳定。真实桌面导航通过并有5操作PNG，但无最终业务ledger，不签桌面断言/15武器全通过；首次mobile844×390标题OCR漏掉完整可见英文按钮，尚未进入移动练习，后两消费者未执行。原图/5TSV/trace及独立边界审查见[原件](evidence/main_pr96_repair01/menu-title-followup/README.md)。完整按钮区域识别续修在验收，最终源码原三浏览器/mainCI/公开完整SHA仍待实际结果。
+
+W5a4d本地原导出26.065s/0，完整source前后干净；原浏览器桌面ACTIONS真实导航通过。首action-budget随后在第一个weapon选择前因旧固定列/近灰像素契约失败57.607s/exit1，0业务断言完成、后两/mobile未执行；source/PCK双端稳定。原图完整15条绿色菜单，现按真实完整popup/radio发现唯一15行，原CLI/预算/间距/完整性保留，15纯测试通过但尚非live点击证据。详见[原件](evidence/main_pr96_repair01/menu-popup-followup/README.md)。新源码原三浏览器/最终mainCI/公开完整SHA待实际结果；M发布与旧失败不改签。
+
+---
+
+## 2026-10-20：纯Python截图与游戏导入隔离
+
+V严格边框候选及独审已提交，但本地导出产生2个纯测试PNG.import，sourcefreeze正确拒绝且0浏览器执行。原sidecars/status已保留；仅给该Python fixture目录添加.gdignore，截图原字节与测试保持，不改游戏导入/检查阈值。详见[续修](evidence/main_pr96_repair01/menu-width-followup/README.md)。新干净导出和原三浏览器待验；M线上/CI历史不改签。
+
+---
+
+## 2026-10-20：菜单完整文字已显现，稀有边框识别续修
+
+U=`e4b2132dd30bf8ca176a28eb79d1b32a65bb59e3`本地build442163f49217已实际看到完整“ACTIONS”，但原三浏览器首项仍120.353s/exit1、后两未执行：真实高亮边框频次第84，被前16色候选漏掉。续修按实际横/纵精确色直线提案完整框，保原四边、完整文字、唯一匹配、点击/事件、5观察和300s预算；新增8纯测试通过，旧helper同8项7过1败。详见[续修原件](evidence/main_pr96_repair01/menu-width-followup/README.md)。新源码完整三浏览器及新main/准确公开包仍待实际结果，M CI全绿只属M。下面原检查点来源不变。
+
+---
+
+## 2026-10-20：PR96已合main，完整CI成功，菜单裁字续修
+
+实际main游戏源`9757ddf2ee20b5620c4a34ecc5d51186f018513b`（M），PR96已普通合并。Godot39405664436与Docs39405664424均SUCCESS；120核心fresh/0、Web41/0、森林当前v2原80/80（338.415s/600）、GPU/audio、Windows、Pages与公网前缀检查通过，Androidskipped。[M原件](evidence/main_pr96_repair01/main-M9757/README.md)单列来源。M两图连续影片24/29段与32原帧有限独审已完成。
+
+完整交付仍未通过：原三浏览器首action-budget95.12s/exit1，真实菜单将完整ACTIONS裁成ACTI；后两项未运行。公开build71e66c98bb16仅属M，未签完整公网PCK/森林20/8 GUI或用户设备。续修只让该按钮的完整文字决定侧栏宽度，原native三套（触屏44/0）36.71s通过；新Web/新源码完整CI及准确公开包仍待实际结果，原失败不改签。
+
+旧八房间专属30文件退休、55路径净减149325源码字节；正式两图、quick3、Lab/Foundry及旧存档保留。森林短跳连续死区、有根果实宿主及推荐/可选/恢复用途保持，只有两处消融确认的rest删除。任务继续review：全区构图、局部HUD遮挡、真人FUN/设备与用户最终认可未签。104远端分支86已被M包含，18为旧art/UI候选或部署快照，未批删或盲合。以下历史检查点保留原来源。
+
+---
+
 ## 2026-10-20：Q源码已闭合，完整新CI待实际执行
 
 最新代码源 `4be8eeb932d24866a49379f0d33f16f00125711d`（Q），生产与56份Foundry资源逐字节等于C2 `3affbc89011bce1ef206ce377f9ebdfc724880d4`。main仍为`dbc6ba081321637a3eef71979ecf2cf564eb6064`，PR96尚未合并，新Web尚未发布。[本轮追加原件](evidence/main_pr96_repair01/followup-H2-C2/README.md)保留实际HEAD/dirty源，不把旧K网页或H影片改签Q。

@@ -1,0 +1,26 @@
+{
+  "status": "PREPARED_AST_ONLY_NOT_EXECUTED",
+  "driver": "/workspace/gunman-rush/build/forest_revision04/web-sampling-counterproof-prepared/sampling_counterproof.py",
+  "driver_sha256": "dc6fca1584b838485e9af2dec4bfda4692d7ca5e80b51b91060ae7a5d414ef88",
+  "lines": 264,
+  "original_criterion_AST_identical": true,
+  "independent_cases": [
+    "positive",
+    "short-focus",
+    "normal"
+  ],
+  "expected_outcomes": [
+    true,
+    false,
+    false
+  ],
+  "supervised_worker_cap_seconds": 300,
+  "kick_free_equip_entity_catch_wait_seconds": 5,
+  "explicit_expected_source_sha_required": true,
+  "no_default_dirtyQ_source": true,
+  "no_DOM_game_state_evaluate_or_injection": true,
+  "original_loader_readiness_only": "window.PLAYTEST_LOADING_DONE===true",
+  "full_source_and_full_bundle_both_end_guards": true,
+  "browser_native_worker_executed": false,
+  "tracked_source_modified": false
+}

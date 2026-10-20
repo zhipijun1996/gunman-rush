@@ -1,0 +1,596 @@
+{
+  "decision": "SCOPED_ACCEPT",
+  "reviewed_execution_commit": "9757ddf2ee20b5620c4a34ecc5d51186f018513b",
+  "actual_source": "Fresh main M native GL movies, not H/K rebinding",
+  "evidence_scope": "Actual viewing of all32 direct-AVI extracted PNGs plus independent source/hash/protocol/timeline/raw validation. No full-film playback or audio listening.",
+  "audit": "build/forest_revision04/main-M-review/M_movies_independent_audit.json",
+  "audit_sha256": "11d7f41fc51c2ae3a96596ba94fcdccd0f41b05f3f3288ce19c5ada36e28a9f7",
+  "technical": {
+    "source_commit": "9757ddf2ee20b5620c4a34ecc5d51186f018513b",
+    "decision": "SCOPED_ACCEPT",
+    "maps": [
+      {
+        "map": 1,
+        "actual_source": "9757ddf2ee20b5620c4a34ecc5d51186f018513b",
+        "actual_completed_legs": 24,
+        "actual_physics_observations": 2274,
+        "original_validator_replayed": true,
+        "movie_timeline_validator_replayed": true,
+        "AVI_sha256": "5bddffd277f1cf9a37e26d1421d4b7aabeff12a7c0d41ea0865bb1e3cfd31104",
+        "MP4_sha256": "1035957f26750b370c5dacf4db5af69a967d31570d63298bac58f572912f374f",
+        "all_media_hashes_verified": true,
+        "AVI_video_frames": 2290,
+        "fps": 60,
+        "movie_seconds": 38.166666666666664,
+        "original_native_log_timing": "2290 frames at 60 FPS (movie length: 00:00:38:10), recorded in 00:03:11 (19% of real-time speed).",
+        "original_native_cap_seconds": 240,
+        "original_import_cap_seconds": 90,
+        "outer_seconds_with_initialization_postprocess": 208.2797243629975,
+        "row_seconds_including_display_probe": 196.2759943619967,
+        "selected_16_images_original_AVI_exact_RGB_equal": true,
+        "independent_decode_seconds": 4.484855107002659,
+        "independent_decoder_command": [
+          "ffmpeg",
+          "-hide_banner",
+          "-loglevel",
+          "error",
+          "-threads",
+          "1",
+          "-filter_threads",
+          "1",
+          "-i",
+          "/workspace/gunman-rush/build/forest_revision04/main-movies-M9757/map1/00-map1-high_return/gameplay.avi",
+          "-map",
+          "0:v:0",
+          "-vf",
+          "select=eq(n\\,31)+eq(n\\,32)+eq(n\\,40)+eq(n\\,50)+eq(n\\,795)+eq(n\\,885)+eq(n\\,920)+eq(n\\,964)+eq(n\\,1057)+eq(n\\,1069)+eq(n\\,1139)+eq(n\\,1252)+eq(n\\,1615)+eq(n\\,2045)+eq(n\\,2167)+eq(n\\,2285)",
+          "-fps_mode",
+          "vfr",
+          "-pix_fmt",
+          "rgb24",
+          "-f",
+          "rawvideo",
+          "-threads",
+          "1",
+          "pipe:1"
+        ],
+        "viewed_images": [
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map1/event-frames/001.png",
+            "SHA256": "2409f51ce3a6fa64abf067f65d1c2bf89d9f1956a220880707b8cc02faa299b8",
+            "AVI_zero_based_frame": 31,
+            "event": {
+              "kind": "jumped",
+              "leg": 1
+            },
+            "offset": -1
+          },
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map1/event-frames/002.png",
+            "SHA256": "1f08f9c245f7bfc3b5ef23a55ba8cae213bd2ff23321bd3aa0bf2819bda6701a",
+            "AVI_zero_based_frame": 32,
+            "event": {
+              "kind": "jumped",
+              "leg": 1
+            },
+            "offset": 0
+          },
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map1/event-frames/003.png",
+            "SHA256": "fc09e257193cfe37e5a854c8ae3308905843940029de5ef51bc23fd17862e1dd",
+            "AVI_zero_based_frame": 40,
+            "event": {
+              "kind": "jumped",
+              "leg": 1
+            },
+            "offset": 8
+          },
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map1/event-frames/004.png",
+            "SHA256": "250cacc94792deb6395cf8f4a89e48823de2683628f986e0688a6d6741fec6cd",
+            "AVI_zero_based_frame": 50,
+            "event": {
+              "kind": "hook_hang",
+              "leg": 1,
+              "target": "root_spiral__rest_ring"
+            },
+            "offset": 0
+          },
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map1/event-frames/005.png",
+            "SHA256": "087c970cce14f1b5c0f1d1d20a685f437af0da83a598d00c896f5bfe53860267",
+            "AVI_zero_based_frame": 795,
+            "event": {
+              "kind": "hook_kick",
+              "leg": 9,
+              "target": "broken_arch__crown_ring"
+            },
+            "offset": 0
+          },
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map1/event-frames/006.png",
+            "SHA256": "de6e366d100ea103cb6ccdf6dbc783ae0643aea42cd89d690b78f40e17e406ea",
+            "AVI_zero_based_frame": 885,
+            "event": {
+              "kind": "hook_kick",
+              "leg": 11,
+              "target": "upper_spiral__spiral_lower"
+            },
+            "offset": 0
+          },
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map1/event-frames/007.png",
+            "SHA256": "50a88b04fe6ac9acf3f09164d62f1e5d248a2ef33a7551b0dd50f4f1aed06336",
+            "AVI_zero_based_frame": 920,
+            "event": {
+              "kind": "hook_kick",
+              "leg": 11,
+              "target": "upper_spiral__spiral_middle"
+            },
+            "offset": 0
+          },
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map1/event-frames/008.png",
+            "SHA256": "2acaf270bb8aa0da6b7c45bacc97fc1965ea7c99c6dee471eeb951f247e087bb",
+            "AVI_zero_based_frame": 964,
+            "event": {
+              "kind": "hook_kick",
+              "leg": 11,
+              "target": "upper_spiral__spiral_crown"
+            },
+            "offset": 0
+          },
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map1/event-frames/009.png",
+            "SHA256": "4515596fae01afd148f87ab8c92174991eb935a57794dcf8b4970580d392b830",
+            "AVI_zero_based_frame": 1057,
+            "event": {
+              "kind": "hook_kick",
+              "leg": 13,
+              "target": "canopy_fork__relay_a"
+            },
+            "offset": 0
+          },
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map1/event-frames/010.png",
+            "SHA256": "28854a211dfc4f6c3bd155e0caa24810d3c563cdd6e7afbe2fa9698f02fcca97",
+            "AVI_zero_based_frame": 1069,
+            "event": {
+              "kind": "hook_kick",
+              "leg": 13,
+              "target": "canopy_fork__relay_a"
+            },
+            "offset": 12
+          },
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map1/event-frames/011.png",
+            "SHA256": "49feafcd7c888385e64619a507157ccd9496d9775dfa8e4e0099f417bc4478b8",
+            "AVI_zero_based_frame": 1139,
+            "event": {
+              "kind": "air_chain_arrival",
+              "leg": 13
+            },
+            "offset": 0
+          },
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map1/event-frames/012.png",
+            "SHA256": "ea70957efe19b61e17640a4345dd82494db99d923a60d5d371e8d1b4d5562749",
+            "AVI_zero_based_frame": 1252,
+            "event": {
+              "kind": "forest_encounter_start",
+              "leg": 17
+            },
+            "offset": 0
+          },
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map1/event-frames/013.png",
+            "SHA256": "106896493e090d66228e04416277eed725703b0e7cb1c7a66a1dcb23b7cb30f6",
+            "AVI_zero_based_frame": 1615,
+            "event": {
+              "kind": "hook_kick",
+              "leg": 19,
+              "target": "hollow__upper_window_ring"
+            },
+            "offset": 0
+          },
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map1/event-frames/014.png",
+            "SHA256": "be10e94751a0471dcfb4eeefe3c890c14d0563c1342a2397d92e9843f26485b9",
+            "AVI_zero_based_frame": 2045,
+            "event": {
+              "kind": "hook_kick",
+              "leg": 22,
+              "target": "hollow__lower_window_ring"
+            },
+            "offset": 0
+          },
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map1/event-frames/015.png",
+            "SHA256": "a329fde3b0baed0d620703e270b3679ff49b3d02da741566e0cda142f175cf5b",
+            "AVI_zero_based_frame": 2167,
+            "event": {
+              "kind": "committed_damage",
+              "leg": 23,
+              "target": "hollow_route__root_patrol"
+            },
+            "offset": 0
+          },
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map1/event-frames/016.png",
+            "SHA256": "2be4dd43ce0b0e19ce1cf8a3e5c55374cf0be3d1768b55a24c2e6d46ca48c443",
+            "AVI_zero_based_frame": 2285,
+            "event": {
+              "kind": "phase",
+              "leg": 24
+            },
+            "offset": 0
+          }
+        ],
+        "benign_preserved_native_warning": "Low available disk warning; completed AVI/source/exit guards pass. Not converted to a failed native run."
+      },
+      {
+        "map": 2,
+        "actual_source": "9757ddf2ee20b5620c4a34ecc5d51186f018513b",
+        "actual_completed_legs": 29,
+        "actual_physics_observations": 2772,
+        "original_validator_replayed": true,
+        "movie_timeline_validator_replayed": true,
+        "AVI_sha256": "409722dcd35929b07a6e155556b9a7075fa1e45f44cfde8180c5c995e6c826d5",
+        "MP4_sha256": "d3aa2d45246ccaa79c6283b8db3a4fbfcd0cdca79d1a87cd7745d82aae545a66",
+        "all_media_hashes_verified": true,
+        "AVI_video_frames": 2788,
+        "fps": 60,
+        "movie_seconds": 46.46666666666667,
+        "original_native_log_timing": "2788 frames at 60 FPS (movie length: 00:00:46:28), recorded in 00:03:52 (19% of real-time speed).",
+        "original_native_cap_seconds": 240,
+        "original_import_cap_seconds": 90,
+        "outer_seconds_with_initialization_postprocess": 248.36053182999603,
+        "row_seconds_including_display_probe": 238.08011708200502,
+        "selected_16_images_original_AVI_exact_RGB_equal": true,
+        "independent_decode_seconds": 5.307739053001569,
+        "independent_decoder_command": [
+          "ffmpeg",
+          "-hide_banner",
+          "-loglevel",
+          "error",
+          "-threads",
+          "1",
+          "-filter_threads",
+          "1",
+          "-i",
+          "/workspace/gunman-rush/build/forest_revision04/main-movies-M9757/map2/00-map2-high_return/gameplay.avi",
+          "-map",
+          "0:v:0",
+          "-vf",
+          "select=eq(n\\,31)+eq(n\\,32)+eq(n\\,40)+eq(n\\,50)+eq(n\\,194)+eq(n\\,795)+eq(n\\,885)+eq(n\\,920)+eq(n\\,964)+eq(n\\,1328)+eq(n\\,1340)+eq(n\\,1393)+eq(n\\,1863)+eq(n\\,2332)+eq(n\\,2339)+eq(n\\,2783)",
+          "-fps_mode",
+          "vfr",
+          "-pix_fmt",
+          "rgb24",
+          "-f",
+          "rawvideo",
+          "-threads",
+          "1",
+          "pipe:1"
+        ],
+        "viewed_images": [
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map2/event-frames/001.png",
+            "SHA256": "4939bf73b80cb28761f3a2fe1a560845b69fe1e918ef80036bfc699e8442ad8c",
+            "AVI_zero_based_frame": 31,
+            "event": {
+              "kind": "jumped",
+              "leg": 1
+            },
+            "offset": -1
+          },
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map2/event-frames/002.png",
+            "SHA256": "fbdc8d62df0b2eda2d7a8649e657046973c74605e6b9de2622cadb5ec5e3aa77",
+            "AVI_zero_based_frame": 32,
+            "event": {
+              "kind": "jumped",
+              "leg": 1
+            },
+            "offset": 0
+          },
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map2/event-frames/003.png",
+            "SHA256": "b1f405eebc179a5df42141b05d809069165f78a0b6ccd758c3e4311ab61950b9",
+            "AVI_zero_based_frame": 40,
+            "event": {
+              "kind": "jumped",
+              "leg": 1
+            },
+            "offset": 8
+          },
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map2/event-frames/004.png",
+            "SHA256": "5b98080f93da6a65ac72b1c4be96500918709d5633c8c4e6fc86b08a801b764d",
+            "AVI_zero_based_frame": 50,
+            "event": {
+              "kind": "hook_hang",
+              "leg": 1,
+              "target": "root_spiral__rest_ring"
+            },
+            "offset": 0
+          },
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map2/event-frames/005.png",
+            "SHA256": "4187409a1225f626f9d559283812a3ccdca7452872b44bbf405c32f276774033",
+            "AVI_zero_based_frame": 194,
+            "event": {
+              "kind": "interwoven_crown_combat_start",
+              "leg": 2
+            },
+            "offset": 0
+          },
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map2/event-frames/006.png",
+            "SHA256": "5056019cec4416aff760c9d75981ca444b9600bc8fd7e6e7138fec91921aa0d5",
+            "AVI_zero_based_frame": 795,
+            "event": {
+              "kind": "hook_kick",
+              "leg": 9,
+              "target": "broken_arch__crown_ring"
+            },
+            "offset": 0
+          },
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map2/event-frames/007.png",
+            "SHA256": "8f27aee5ea2659bcf004d454dda05ab33ede3d542886583d786053e3ff3b93c2",
+            "AVI_zero_based_frame": 885,
+            "event": {
+              "kind": "hook_kick",
+              "leg": 11,
+              "target": "upper_spiral__spiral_lower"
+            },
+            "offset": 0
+          },
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map2/event-frames/008.png",
+            "SHA256": "35ef6f32134252ec3d9ae93c8b2188bccd121b24b2d5eade4bd2bbc67466fc99",
+            "AVI_zero_based_frame": 920,
+            "event": {
+              "kind": "hook_kick",
+              "leg": 11,
+              "target": "upper_spiral__spiral_middle"
+            },
+            "offset": 0
+          },
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map2/event-frames/009.png",
+            "SHA256": "1491a160c5c301d00b76d2bbe647178ede7368e65b9763830dd8035a188f9d38",
+            "AVI_zero_based_frame": 964,
+            "event": {
+              "kind": "hook_kick",
+              "leg": 11,
+              "target": "upper_spiral__spiral_crown"
+            },
+            "offset": 0
+          },
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map2/event-frames/010.png",
+            "SHA256": "0e3d03f2593cb7ac6179dd179e996c98a3afcf0a9baada4dd894727d659f9cfe",
+            "AVI_zero_based_frame": 1328,
+            "event": {
+              "kind": "hook_kick",
+              "leg": 13,
+              "target": "canopy_fork__relay_a"
+            },
+            "offset": 0
+          },
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map2/event-frames/011.png",
+            "SHA256": "e75dde0feabad5d21e0f0d587be446bb155ca0d011a2721df431bb03f6733190",
+            "AVI_zero_based_frame": 1340,
+            "event": {
+              "kind": "hook_kick",
+              "leg": 13,
+              "target": "canopy_fork__relay_a"
+            },
+            "offset": 12
+          },
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map2/event-frames/012.png",
+            "SHA256": "fd3b5a67d83005ca81ab4061e671050216b0f20c8ddab90c722358101f7dae66",
+            "AVI_zero_based_frame": 1393,
+            "event": {
+              "kind": "air_chain_arrival",
+              "leg": 13
+            },
+            "offset": 0
+          },
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map2/event-frames/013.png",
+            "SHA256": "839bc73ff2b2bdd995187b08911a6181446f8f06c02cbe5260295de0b125f23a",
+            "AVI_zero_based_frame": 1863,
+            "event": {
+              "kind": "hook_kick",
+              "leg": 23,
+              "target": "north_court_ring"
+            },
+            "offset": 0
+          },
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map2/event-frames/014.png",
+            "SHA256": "cd0b656dbe526b837693256e9c5982f065baab914679845e1a294c29cd6aac31",
+            "AVI_zero_based_frame": 2332,
+            "event": {
+              "kind": "committed_damage",
+              "leg": 24,
+              "target": "hollow_route__crossbranch"
+            },
+            "offset": 0
+          },
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map2/event-frames/015.png",
+            "SHA256": "48a2762e5c516e7126699b8f6cfe87925af7eeb7a856e182a5bb0a774405366d",
+            "AVI_zero_based_frame": 2339,
+            "event": {
+              "kind": "hook_kick",
+              "leg": 24,
+              "target": "forest_crossbranch"
+            },
+            "offset": 0
+          },
+          {
+            "path": "build/forest_revision04/main-movie-derivatives-M9757/map2/event-frames/016.png",
+            "SHA256": "476c7fddc8d41dd95220ecc3c6fbeeaac1ea564582a4df0d9d706b78989ecd05",
+            "AVI_zero_based_frame": 2783,
+            "event": {
+              "kind": "phase",
+              "leg": 29
+            },
+            "offset": 0
+          }
+        ],
+        "benign_preserved_native_warning": "Low available disk warning; completed AVI/source/exit guards pass. Not converted to a failed native run."
+      }
+    ],
+    "source_before_after_equal": true,
+    "original_caps_preserved": true,
+    "selected32_all_exact_AVI_pixel_replay": true,
+    "no_native_or_transcode_launched": true
+  },
+  "pixel_observations": [
+    {
+      "maps": [
+        1,
+        2
+      ],
+      "frames": [
+        "001",
+        "002",
+        "003"
+      ],
+      "actual_frame_indices": [
+        31,
+        32,
+        40
+      ],
+      "observation": "The takeoff platform, right stepping bank, vertical trunks and distant canopy occupy the same image positions. Player rises within that view; no whole-scene jump cut is visible in this sampled first short jump.",
+      "limit": "Offsets are -1/0/+8 from event presentation_frame32, not three consecutive frames, and not proof of every between-frame camera motion."
+    },
+    {
+      "maps": [
+        1,
+        2
+      ],
+      "frames_map1": [
+        "005",
+        "006",
+        "007"
+      ],
+      "frames_map2": [
+        "006",
+        "007",
+        "008"
+      ],
+      "actual_targets": [
+        "broken_arch__crown_ring",
+        "upper_spiral__spiral_lower",
+        "upper_spiral__spiral_middle"
+      ],
+      "observation": "Real hook contact/kick samples show fruit tips on visible short terminal twigs, with broader branches returning into an actual wall/platform edge. Body, hook endpoint and fruit silhouette remain distinct against the dark field.",
+      "limit": "A cut-off distant fruit/branch at image top exists in ascent samples; no claim of complete next-target visibility or continuous full climb comfort."
+    },
+    {
+      "maps": [
+        1
+      ],
+      "frames": [
+        "008",
+        "009",
+        "010",
+        "011"
+      ],
+      "actual_targets": [
+        "upper_spiral__spiral_crown",
+        "canopy_fork__relay_a"
+      ],
+      "observation": "Ascent and relay samples keep the actor and hooked fruit clear. The long crown branch and split hanging tips remain lower contrast than target/body and leave open space around the flight path.",
+      "limit": "Separate event samples show following camera positions, not an independently watched continuous sequence."
+    },
+    {
+      "maps": [
+        2
+      ],
+      "frames": [
+        "009",
+        "010",
+        "011",
+        "012"
+      ],
+      "actual_targets": [
+        "upper_spiral__spiral_crown",
+        "canopy_fork__relay_a"
+      ],
+      "observation": "The already rooted crown and single additional relay branch are visibly separate. Relay fruit hangs from a compact branch tied to the right platform; contact, post-contact airborne body and receiving bank are legible.",
+      "limit": "This supports this actual hollow00/map2 partial-group instance, not all seeds or whole-region spacing."
+    },
+    {
+      "maps": [
+        1
+      ],
+      "frames": [
+        "012",
+        "013",
+        "014",
+        "015",
+        "016"
+      ],
+      "actual_targets": [
+        "hollow__upper_window_ring",
+        "hollow__lower_window_ring",
+        "hollow_route__root_patrol"
+      ],
+      "observation": "Lower routes, hook contacts, real projectile impact and arrival at camp are visible with clear main actor silhouette; source-labelled encounter samples are not presented as a Boss fight.",
+      "limit": "Existing functional rings/green field circles retain their roles; their presence is not a newly failed fruit conversion."
+    },
+    {
+      "maps": [
+        2
+      ],
+      "frames": [
+        "013",
+        "014",
+        "015",
+        "016"
+      ],
+      "actual_targets": [
+        "north_court_ring",
+        "hollow_route__crossbranch",
+        "forest_crossbranch"
+      ],
+      "observation": "The court fruit/contact and the actual moving crossbranch NPC hook are distinguishable; final camp/bank body remains visible.",
+      "limit": "The green moving crossbranch is an actual dynamic target, not a fruit host defect or a false cavity/inner caption."
+    },
+    {
+      "maps": [
+        1,
+        2
+      ],
+      "frames": "all16 per map",
+      "observation": "HUD and selector caption Chinese glyphs are readable in these actual native pixels. Main sampled bodies/active contact targets do not disappear behind HUD.",
+      "limit": "Several peripheral targets/branches are cropped at upper/side edges or behind fixed HUD, e.g. upper ascent peripheral targets and map2 frame009 right fruit. This does not sign global HUD avoidance, popup/UI completeness, whole-Boss views or all target compositions."
+    }
+  ],
+  "unresolved_presentation_limits": [
+    "Some peripheral fruits and branches remain clipped or hidden by upper framing/HUD.",
+    "Sparse angular sapling branches and overall room/block composition remain a limited design candidate; these action samples are not whole-forest taste acceptance.",
+    "New remaining Boss rings/door hints are not covered by these two high_return route movies as complete Boss/HUD animation reviews."
+  ],
+  "duration_precision": "Godot log191s/232s are rounded recording wall times, not independently measured whole-native subprocess elapsed. Whole-native elapsed was not separately recorded. Original subprocess.run(timeout=240) completedexit0 for each map; import90 retained. Outer208.280s/248.361s and original row seconds include initialization/display/ffprobe and must not be labelled native elapsed.",
+  "unchanged_test_controls": "Same committed original route CLI/runner/trace and camera/target code bound to M; no explicit layout override, injection or manual Motor steps; original validate(data) and validate_movie_timeline pass both full captures.",
+  "media_integrity": "Both full AVI/MP4 hashes and bytes verified;32PNG SHA/dimensions verified. Fresh decoder-only replay compared all32 PNG RGB byte-for-byte with actual selected original AVI frames; no scaling/cropping/recolor/overlay or frame interpolation. MP4 is a lossy same-fps/frame-count viewing derivative, not asserted lossless.",
+  "audio_scope": "48kHz stereo tracks present; audio driver Dummy and recording metadata do not constitute listening or physical audio/device acceptance.",
+  "not_signed": [
+    "Complete MP4/AVI watched end-to-end",
+    "Audio heard or judged",
+    "Whole forest/Boss aesthetics, all seeds, all camera transitions, physical devices or user approval",
+    "M new fullCI or public package/browser verification"
+  ],
+  "reviewer_activity": "Only read/hash/decode media, pure original validators, view_image32 frames and new ignored review files. No Godot/native/browser/network/source changes.",
+  "standalone_native_subprocess_elapsed_seconds": null
+}

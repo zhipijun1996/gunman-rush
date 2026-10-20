@@ -71,11 +71,26 @@ def _studio_button_boxes(image):
  from PIL import ImageFilter
  import numpy as np
  image=image.convert('RGB');width,height=image.size
- palette=Counter(image.getdata()).most_common(16)
- background=np.asarray(palette[0][0],dtype=np.float32)
- values=np.asarray(image,dtype=np.float32)-background
+ background=np.asarray(Counter(image.getdata()).most_common(1)[0][0],dtype=np.float32)
+ rgb=np.asarray(image,dtype=np.uint32)
+ packed=(rgb[:,:,0]<<16)|(rgb[:,:,1]<<8)|rgb[:,:,2]
+ def run_colors(lines,minimum):
+  result=set()
+  for line in lines:
+   starts=np.r_[0,np.flatnonzero(line[1:]!=line[:-1])+1]
+   ends=np.r_[starts[1:],line.size]
+   result.update(line[starts[(ends-starts)>=minimum]].tolist())
+  return result
+ # A rare highlighted button border can be absent from any top-N palette.
+ # Observe actual straight runs in both axes instead. These lengths are the
+ # central half-edges of the minimum accepted 80x20 rectangle below; they
+ # propose colors only, never relax complete four-edge/bounds verification.
+ colors=run_colors(packed,40)&run_colors(packed.T,10)
+ values=rgb.astype(np.float32)-background
  boxes=set()
- for color,_count in palette:
+ for packed_color in sorted(colors):
+  color=tuple((packed_color>>shift)&255 for shift in (16,8,0))
+
   direction=np.asarray(color,dtype=np.float32)-background
   squared=float(np.dot(direction,direction))
   if not squared:continue
@@ -111,6 +126,22 @@ def _studio_button_boxes(image):
  if len(boxes)>32:raise AssertionError('More than 32 complete screenshot button borders')
  return sorted(boxes)
 
+def _studio_button_inner_fill(image,box):
+ """An observed inner rectangle, only within an already complete border ROI."""
+ import numpy as np
+ crop=image.crop(box).convert('RGB');rgb=np.asarray(crop)
+ color=Counter(crop.getdata()).most_common(1)[0][0]
+ fill=np.all(rgb==color,axis=2);ys,xs=np.where(fill)
+ left,top,right,bottom=int(xs.min()),int(ys.min()),int(xs.max())+1,int(ys.max())+1
+ w,h=right-left,bottom-top
+ if not(80<=w and 20<=h and left>0 and top>0 and right<crop.width and bottom<crop.height):return None
+ if np.mean(fill[top:bottom,left:right])<=.6:return None
+ xs=slice(left+w//4,right-w//4);ys=slice(top+h//4,bottom-h//4)
+ inside=[fill[top,xs],fill[bottom-1,xs],fill[ys,left],fill[ys,right-1]]
+ outside=[fill[top-1,xs],fill[bottom,xs],fill[ys,left-1],fill[ys,right]]
+ if not(all(np.mean(edge)>=.8 for edge in inside) and all(np.mean(~edge)>=.8 for edge in outside)):return None
+ return (box[0]+left,box[1]+top,box[0]+right,box[1]+bottom)
+
 def _studio_actions_from_pixels(pixels,folder,stem,observation):
  """OCR every complete button, then require one actual ACTIONS glyph rectangle."""
  import csv,json,os,subprocess,time
@@ -125,20 +156,90 @@ def _studio_actions_from_pixels(pixels,folder,stem,observation):
   (folder/(name+'.tsv')).write_text(result.stdout)
   item={'bounds':box,'screenshot':name+'.png','ocr':name+'.tsv','seconds':time.monotonic()-started}
   observation['button_rois'].append(item)
-  try:local=_studio_label_box(result.stdout,'ACTIONS',6)
-  except StudioMenuLabelMissing as exc:item.update(result='missing',error=str(exc));continue
+  origin=box[:2];ocr_scale=6
+  try:local=_studio_label_box(result.stdout,'ACTIONS',ocr_scale)
+  except StudioMenuLabelMissing as first_missing:
+   # Keep the complete four-stroke border requirement above. Only its observed
+   # closed inner fill may omit the border from this one fixed OCR derivative.
+   item['border_ocr_missing']=str(first_missing)
+   inner=_studio_button_inner_fill(image,box)
+   if inner is None:item.update(result='missing',error=str(first_missing));continue
+   name=f'{stem}-button-{index}-inner';roi=image.crop(inner).convert('L')
+   roi=roi.resize((roi.width*8,roi.height*8),Image.Resampling.LANCZOS)
+   path=folder/(name+'.png');roi.save(path);started=time.monotonic()
+   result=subprocess.run(['tesseract',str(path),'stdout','--psm','7','tsv'],capture_output=True,text=True,check=True,timeout=10,env={**os.environ,'OMP_THREAD_LIMIT':'1'})
+   (folder/(name+'.tsv')).write_text(result.stdout)
+   item.update(inner_fill_bounds=inner,inner_screenshot=name+'.png',inner_ocr=name+'.tsv',inner_seconds=time.monotonic()-started)
+   origin=inner[:2];ocr_scale=8
+   try:local=_studio_label_box(result.stdout,'ACTIONS',ocr_scale)
+   except StudioMenuLabelMissing as exc:item.update(result='missing',error=str(exc));continue
   # Any ambiguity within a complete button is immediately a failure.
-  item['result']='complete_label';point=(local[0]+box[0],local[1]+box[1]);item['point']=point
+  item['result']='complete_label';point=(local[0]+origin[0],local[1]+origin[1]);item['point']=point
   words=[word for word in csv.DictReader(io.StringIO(result.stdout),delimiter='\t')
          if word.get('text','').strip().upper()=='ACTIONS'
-         and int(word['left'])<=local[0]*6<=int(word['left'])+int(word['width'])
-         and int(word['top'])<=local[1]*6<=int(word['top'])+int(word['height'])]
+         and int(word['left'])<=local[0]*ocr_scale<=int(word['left'])+int(word['width'])
+         and int(word['top'])<=local[1]*ocr_scale<=int(word['top'])+int(word['height'])]
   assert len(words)==1,'Complete ACTIONS label has no unique actual glyph bounds'
-  word=words[0];glyph=(box[0]+int(word['left'])/6,box[1]+int(word['top'])/6,
-                     box[0]+(int(word['left'])+int(word['width']))/6,box[1]+(int(word['top'])+int(word['height']))/6)
+  word=words[0];glyph=(origin[0]+int(word['left'])/ocr_scale,origin[1]+int(word['top'])/ocr_scale,
+                     origin[0]+(int(word['left'])+int(word['width']))/ocr_scale,origin[1]+(int(word['top'])+int(word['height']))/ocr_scale)
   item['actual_glyph_bounds']=glyph;matches[glyph]=point
  if not matches:raise StudioMenuLabelMissing("Expected one complete rendered menu label 'ACTIONS'; found 0 complete button matches")
  assert len(matches)==1,f"Expected one complete rendered menu label 'ACTIONS'; found {len(matches)} complete button matches"
+ return next(iter(matches.values()))
+
+def _studio_title_from_pixels(pixels,folder,stem,observation,whole_tsv):
+ """Full-frame title first; only missing text permits same-frame complete ROIs."""
+ label='DEVELOPMENT DEMOS / ALL ENTRIES'
+ try:return _studio_label_box(whole_tsv,label,3)
+ except StudioMenuLabelMissing:observation['whole_frame_title']='missing'
+ import numpy as np
+ import os,subprocess,time
+ image=Image.open(io.BytesIO(pixels)).convert('RGB');started=time.monotonic()
+ rgb=np.asarray(image,dtype=np.uint32);packed=(rgb[:,:,0]<<16)|(rgb[:,:,1]<<8)|rgb[:,:,2]
+ def run_colors(lines,minimum):
+  colors=set()
+  for line in lines:
+   starts=np.r_[0,np.flatnonzero(line[1:]!=line[:-1])+1]
+   ends=np.r_[starts[1:],line.size]
+   colors.update(line[starts[(ends-starts)>=minimum]].tolist())
+  return colors
+ boxes=set()
+ for color in run_colors(packed,80)&run_colors(packed.T,20):
+  remaining={(int(x),int(y))for y,x in np.argwhere(packed==color)}
+  while remaining:
+   seed=remaining.pop();pending=[seed];points=[]
+   while pending:
+    x,y=pending.pop();points.append((x,y))
+    for point in ((x-1,y),(x+1,y),(x,y-1),(x,y+1)):
+     if point in remaining:remaining.remove(point);pending.append(point)
+   xs,ys=zip(*points);left,top,right,bottom=min(xs),min(ys),max(xs)+1,max(ys)+1
+   w,h=right-left,bottom-top
+   if not(80<=w<=image.width*.9 and 20<=h<=image.height*.15 and 2<=w/h<=24 and len(points)/(w*h)>.6):continue
+   if left<1 or top<1 or right>=image.width or bottom>=image.height:continue
+   # Fractional rasterization can omit a colored outline pixel on one side.
+   # Require all FOUR actual straight fill boundaries instead: central inner
+   # edges are the observed fill, immediately outer edges must not be that fill.
+   xs=slice(left+w//4,right-w//4);ys=slice(top+h//4,bottom-h//4)
+   inside=[packed[top,xs],packed[bottom-1,xs],packed[ys,left],packed[ys,right-1]]
+   outside=[packed[top-1,xs],packed[bottom,xs],packed[ys,left-1],packed[ys,right]]
+   if all(np.mean(edge==color)>=.8 for edge in inside) and all(np.mean(edge!=color)>=.8 for edge in outside):boxes.add((left,top,right,bottom))
+ observation['title_geometry_seconds']=time.monotonic()-started
+ observation['title_button_rois']=[];matches={}
+ for index,box in enumerate(sorted(boxes)):
+  name=f'{stem}-title-button-{index}';roi=image.crop(box).convert('L')
+  # Nearest copies the actual small glyph pixels; it neither reconstructs
+  # missing letters nor blurs the tiny native gaps into different letters.
+  roi=roi.resize((roi.width*6,roi.height*6),Image.Resampling.NEAREST)
+  path=folder/(name+'.png');roi.save(path);started=time.monotonic()
+  result=subprocess.run(['tesseract',str(path),'stdout','--psm','7','tsv'],capture_output=True,text=True,check=True,timeout=10,env={**os.environ,'OMP_THREAD_LIMIT':'1'})
+  (folder/(name+'.tsv')).write_text(result.stdout)
+  item={'bounds':box,'screenshot':name+'.png','ocr':name+'.tsv','seconds':time.monotonic()-started};observation['title_button_rois'].append(item)
+  try:local=_studio_label_box(result.stdout,label,6)
+  except StudioMenuLabelMissing as exc:item.update(result='missing',error=str(exc));continue
+  point=(local[0]+box[0],local[1]+box[1]);item.update(result='complete_label',actual_glyph_center=point)
+  matches[point]=point
+ if not matches:raise StudioMenuLabelMissing(f'Expected one complete rendered menu label {label!r}; found 0 complete button matches')
+ assert len(matches)==1,f'Expected one complete rendered menu label {label!r}; found {len(matches)} complete button matches'
  return next(iter(matches.values()))
 
 async def enter_action_studio(page,touch=False,between_clicks_ms=300):
@@ -194,7 +295,7 @@ async def enter_action_studio(page,touch=False,between_clicks_ms=300):
      result=subprocess.run(['tesseract','stdin','stdout','--psm','11','tsv'],input=data.getvalue(),capture_output=True,check=True,timeout=10,env={**os.environ,'OMP_THREAD_LIMIT':'1'})
      tsv=result.stdout.decode();(folder/(stem+'.tsv')).write_text(tsv)
      observation['ocr']=stem+'.tsv'
-     point=_studio_label_box(tsv,label,3)
+     point=_studio_title_from_pixels(pixels,folder,stem,observation,tsv) if label=='DEVELOPMENT DEMOS / ALL ENTRIES' else _studio_label_box(tsv,label,3)
    except StudioMenuLabelMissing as exc:
     observation['result']='missing';observation['error']=str(exc)
     if attempt==4:raise
@@ -237,41 +338,112 @@ async def click(page,x,y,touch=False):
  if touch:await page.touchscreen.tap(x,y)
  else:await page.mouse.click(x,y)
 
+def _weapon_popup_from_pixels(image,scale,start_y):
+ """One complete popup and fifteen actual circular radio components, any palette."""
+ import numpy as np
+ rgb=np.asarray(image.convert('RGB'),dtype=np.uint32)
+ height,width=rgb.shape[:2];packed=(rgb[:,:,0]<<16)|(rgb[:,:,1]<<8)|rgb[:,:,2]
+ def components(mask):
+  pixels={(int(x),int(y))for y,x in np.argwhere(mask)}
+  while pixels:
+   seed=pixels.pop();pending=[seed];points=[]
+   while pending:
+    x,y=pending.pop();points.append((x,y))
+    for point in ((x-1,y),(x+1,y),(x,y-1),(x,y+1)):
+     if point in pixels:pixels.remove(point);pending.append(point)
+   xs,ys=zip(*points)
+   yield (min(xs),min(ys),max(xs)+1,max(ys)+1),points
+ def round_boxes(mask,origin):
+  for (l,t,r,b),part in components(mask):
+   mw,mh=r-l,b-t
+   if not(6*scale<=min(mw,mh) and max(mw,mh)<=24*scale and .85<=mw/mh<=1.18):continue
+   silhouette=np.zeros((mh,mw),dtype=bool)
+   for x,y in part:silhouette[y-t,x-l]=True
+   density=silhouette.mean()
+   if density>=.95:
+    # At a fractional scale a true9x9 checked ring occupies77/81 pixels,
+    # one pixel beyond .95. Permit only the rounded-up pixel, with an actual
+    # dark center and brighter cardinal ring edges; flat squares fail closed.
+    if len(part)>int(np.ceil(.95*mw*mh)):continue
+    cx,cy=origin[0]+l+mw//2,origin[1]+t+mh//2
+    center=int(np.sum(rgb[cy,cx]))
+    if not all(int(np.sum(rgb[origin[1]+t+y,origin[0]+l+x]))>center for x,y in ((mw//2,0),(mw//2,mh-1),(0,mh//2),(mw-1,mh//2))):continue
+   # Fractional rasterization can place the circle's reflection center half a
+   # pixel from its bounding-box center. Compare actual pixels at the original
+   # center and each adjacent half-pixel center; discard at most one outer row
+   # or column for this symmetry measurement only. The complete component,
+   # density, empty corners and full cardinal cross remain required below.
+   def reflected(axis):
+    views=(silhouette,)+tuple(np.take(silhouette,range(start,end),axis=axis)
+                             for start,end in ((0,silhouette.shape[axis]-1),(1,silhouette.shape[axis])))
+    return max(np.mean(view==np.flip(view,axis=axis))for view in views)
+   if not(.65<=density and reflected(1)>=.9 and reflected(0)>=.9):continue
+   if any(silhouette[y,x]for x,y in ((0,0),(mw-1,0),(0,mh-1),(mw-1,mh-1))):continue
+   if not(silhouette[mh//2,:].all() and silhouette[:,mw//2].all()):continue
+   yield (origin[0]+l,origin[1]+t,origin[0]+r,origin[1]+b)
+ # A long, exact fill run proposes a panel background; neither gray color nor
+ # a preselected screen column is a popup identity or an item-coordinate fallback.
+ colors=set()
+ for column in packed.T:
+  starts=np.r_[0,np.flatnonzero(column[1:]!=column[:-1])+1]
+  ends=np.r_[starts[1:],column.size]
+  colors.update(column[starts[(ends-starts)>300*scale]].tolist())
+ candidates=[]
+ for color in sorted(colors):
+  for (left,top,right,bottom),points in components(packed==color):
+   w,h=right-left,bottom-top
+   if not(bottom>start_y and h>300*scale and 80*scale<=w<width*.9 and len(points)/(w*h)>.5):continue
+   if left<1 or top<1 or right>=width or bottom>=height:continue
+   # The actual fill must be enclosed by all four matching straight border
+   # edges. A partially clipped popup cannot supply inferred missing items.
+   xs=slice(left+w//4,right-w//4);ys=slice(top+h//4,bottom-h//4)
+   edges=[packed[top-1,xs],packed[bottom,xs],packed[ys,left-1],packed[ys,right]]
+   border=Counter(int(value)for edge in edges for value in edge).most_common(1)[0][0]
+   if border==color or not all(np.mean(edge==border)>=.8 for edge in edges):
+    # Fractional rasterization need not give every outline the same RGB.
+    # Still require FOUR complete visible fill boundaries, never a frame edge.
+    inside=[packed[top,xs],packed[bottom-1,xs],packed[ys,left],packed[ys,right-1]]
+    if not(all(np.mean(edge==color)>=.8 for edge in inside) and all(np.mean(edge!=color)>=.8 for edge in edges)):continue
+   crop=packed[top:bottom,left:right]
+   markers=list(round_boxes(crop!=color,(left,top)))
+   columns={}
+   for box in markers:
+    # Exact observed component centers; no estimates for absent radio rows.
+    columns.setdefault((box[0]+box[2]-1)/2,[]).append(box)
+   observed=set()
+   for _seed_x,seeds in columns.items():
+    # Only an actually seen round component proposes a marker column. A hover
+    # row has a different background; measure the real adjacent gap at EACH
+    # row and rediscover complete circles through the entire panel height.
+    # No pitch/phase is used to infer, insert or truncate a missing marker.
+    marker_left=min(box[0]for box in seeds);marker_right=max(box[2]for box in seeds)
+    if marker_right>=right:continue
+    strip=packed[top:bottom,marker_left:marker_right]
+    gap=packed[top:bottom,marker_right]
+    boxes=list(round_boxes(strip!=gap[:,None],(marker_left,top)))
+    if not set(seeds).issubset(boxes) or len(boxes)!=15:continue
+    if len({(box[0]+box[2]-1)/2 for box in boxes})!=1:continue
+    boxes.sort(key=lambda b:b[1]);signature=tuple(boxes)
+    if signature in observed:continue
+    observed.add(signature)
+    rows=[(box[1]+box[3]-1)/2 for box in boxes]
+    gaps=[b-a for a,b in zip(rows,rows[1:])]
+    if min(gaps)>20*scale and max(gaps)-min(gaps)<4*scale:
+     candidates.append({'marker_x':(boxes[0][0]+boxes[0][2]-1)/2,'rows':rows,'marker_boxes':boxes,'bounds':(left-1,top-1,right+1,bottom+1),'background_rgb':tuple((color>>shift)&255 for shift in (16,8,0))})
+ assert len(candidates)==1,f'actual fifteen evenly spaced item markers not uniquely observed: {len(candidates)} complete popup/column candidates'
+ return candidates[0]
+
 async def open_weapon_picker(page,touch=False):
  scale,pad,h=geometry(page);await click(page,pad+145*scale,await weapon_row_y(page),touch);await page.wait_for_timeout(200)
- im=Image.open(io.BytesIO(await page.screenshot())).convert('RGB');x=round(pad+45*scale);reference_x=round(pad+54*scale)
- # Radio icons are dark/white against the plain gray gap beside each icon.
+ im=Image.open(io.BytesIO(await page.screenshot())).convert('RGB')
  start_y=round((await weapon_row_y(page))+18*scale)
- colors=Counter(im.getpixel((reference_x,yy)) for yy in range(start_y,h) if max(im.getpixel((reference_x,yy)))-min(im.getpixel((reference_x,yy)))<14 and max(im.getpixel((reference_x,yy)))<100)
- assert colors,"native dark menu background not observed"
- background=colors.most_common(1)[0][0]
- bounds=[]
- for yy in range(start_y,h):
-  reference=im.getpixel((reference_x,yy))
-  if max(reference)<min(120,max(background)+50) and max(reference)-min(reference)<14:
-   if not bounds or yy>bounds[-1][-1]+1:bounds.append([yy])
-   else:bounds[-1].append(yy)
- assert bounds,"native popup vertical bounds missing"
- menu=max(bounds,key=len)
- assert len(menu)>300*scale,"full native menu not observed"
- hits=[]
- for yy in menu:
-  pixel=im.getpixel((x,yy));reference=im.getpixel((reference_x,yy))
-  if max(reference)<min(120,max(background)+50) and max(reference)-min(reference)<14 and max(pixel)-min(pixel)<14 and abs(sum(pixel)-sum(reference))>25:hits.append(yy)
- groups=[]
- for yy in hits:
-  if not groups or yy-groups[-1][-1]>10*scale:groups.append([yy])
-  else:groups[-1].append(yy)
- centers=[(g[0]+g[-1])/2 for g in groups];candidates=[]
- for start in range(len(centers)-14):
-  rows=centers[start:start+15];gaps=[b-a for a,b in zip(rows,rows[1:])]
-  if min(gaps)>20*scale and max(gaps)-min(gaps)<4*scale:candidates.append(rows)
- if len(candidates)!=1:
+ try:popup=_weapon_popup_from_pixels(im,scale,start_y)
+ except AssertionError:
   from pathlib import Path
   Path('build/weapon_feel').mkdir(parents=True,exist_ok=True)
   im.save('build/weapon_feel/popup_failure.png')
- assert len(candidates)==1,f'actual fifteen evenly spaced item markers not observed: {centers}'
- return pad+145*scale,candidates[0]
+  raise
+ return popup['marker_x'],popup['rows']
 
 async def select_weapon(page,index,touch=False):
  x,rows=await open_weapon_picker(page,touch);target_y=rows[index]

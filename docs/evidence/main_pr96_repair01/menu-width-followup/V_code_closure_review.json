@@ -1,0 +1,52 @@
+{
+  "decision": "SCOPED_ACCEPT_SOURCE_CLOSURE_ONLY",
+  "reviewed_commit": "bcec19d4e9b6dedc5095af2315adfee87929dd1d",
+  "parent_U": "e4b2132dd30bf8ca176a28eb79d1b32a65bb59e3",
+  "main_baseline": "9757ddf2ee20b5620c4a34ecc5d51186f018513b",
+  "five_candidate_blobs_exact_Git_equivalence": [
+    {
+      "path": "tools/studio_gui_pointer.py",
+      "bytes": 16309,
+      "sha256": "80e96f99549b0da9cc56a44964dbc6574875fa2450ae66f7409af284850f566d"
+    },
+    {
+      "path": "tools/test_studio_gui_pointer.py",
+      "bytes": 5612,
+      "sha256": "19b1cbfbd2704bf2fefeae6ff595d731efa570bd46e7e600a85ce2faa7e1e6a4"
+    },
+    {
+      "path": "tests/fixtures/studio_gui_pointer/menu_U_complete.png",
+      "bytes": 316780,
+      "sha256": "336ed35fcc07a538225b17f49f551ddec696ca0ca8a48fa442410b53bf49695d"
+    },
+    {
+      "path": "tests/fixtures/studio_gui_pointer/menu_M_clipped.png",
+      "bytes": 316828,
+      "sha256": "0a51527d2209d8550695d38358516fddf32db4891b6be09b017590c165005aae"
+    },
+    {
+      "path": "tests/fixtures/studio_gui_pointer/provenance.json",
+      "bytes": 1299,
+      "sha256": "1e3331a39e708c4830ac94ba40ba4b5544ce3f6dd4fe9c4bdf71135f205f3804"
+    }
+  ],
+  "only_runtime_production_change_vs_M": [
+    "scripts/ui/demo_menu.gd"
+  ],
+  "Menu_blob_same_reviewed_U": true,
+  "all56Foundry_resources_equal_M": true,
+  "original3browser_CLIs_and_CI_coordinator_equal_M": true,
+  "inherited_reviews": [
+    "build/forest_revision04/main-M-review/menu-width-followup/M_dirty_menu_width_preliminary_review.json",
+    "build/forest_revision04/main-M-review/menu-width-followup/U_menu_source_and_visible_label_review.json",
+    "build/forest_revision04/main-M-review/menu-width-followup/border_candidate_review.json"
+  ],
+  "actual_execution_provenance": "Menu native proof was M+dirtyMenu; U fullWeb label view retained U while original3first failed. Pure helper proofs were U+fivecandidate blobs, now mapped to V Git bytes. None is rebound as fresh V native/browser execution.",
+  "pending_not_signed": [
+    "FreshV localWeb build or actualoriginal3browser terminal",
+    "VfreshCI andnormalmerge",
+    "Publicnewcandidate bytes/GUI/pixels",
+    "Physicaldevices/user/wholeforestvisualacceptance"
+  ],
+  "reviewer_actions": "SmallGitblob/SHA/path comparisons andnewignoredreports only; no puretest rerun/native/browser/network/ZIP."
+}

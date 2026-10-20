@@ -21,7 +21,7 @@ var _events: Array[Dictionary] = []
 var training_static := false
 var _training_toggle: Button
 var _training_sample_time := 0.0
-var _weapon_sample_time := 0.0
+var _weapon_sample_usec := 0
 var elapsed := 0.0
 var paused := false
 var menu_pointer_block := 0
@@ -219,8 +219,9 @@ func _process(delta: float) -> void:
 			if not _weapon_picker.get_popup().visible and _weapon_picker.selected != i:
 				_weapon_picker.select(i)
 			break
-	if OS.has_feature("web") and elapsed >= _weapon_sample_time and (controller.shoot_ability.behavior().occupied() or not controller.shoot_ability.behavior()._fx.is_empty() or player.weapon_apex_remaining>0):
-		_weapon_sample_time=elapsed+.1
+	# Observe actual Web motion every 100ms of real time, including slow time.
+	if OS.has_feature("web") and Time.get_ticks_usec() >= _weapon_sample_usec and (controller.shoot_ability.behavior().occupied() or not controller.shoot_ability.behavior()._fx.is_empty() or player.weapon_apex_remaining>0):
+		_weapon_sample_usec=Time.get_ticks_usec()+100_000
 		_record(&"weapon_motion",{"entities":entity_states,"phase":String(controller.shoot_ability.behavior().phase),"hp":training_actors.map(func(a: EnemyActor)->float:return a.health.current)})
 	if OS.has_feature("web") and elapsed >= _training_sample_time:
 		_training_sample_time = elapsed+1.0

@@ -1,0 +1,155 @@
+{
+  "decision": "DIAGNOSTIC_OBSERVER_SCOPE_ACCEPT_ONLY",
+  "actual_execution_commit": "4aec8b56743d1a14d1b44ba43d795e56811d7615",
+  "actual_observer_SHA256": "c3e49095067ed4d0d039fb53dfb8a0638353ec793b369169608b80a0c6a599a6",
+  "originalCLI_SHA256": "6892d970f6272915cf99b2897d140299d41b744ce76379c7d9f286d5284f48ca",
+  "observer_changes_independently_isolated": [
+    "CopiedscriptROOT setexplicit originalrepo",
+    "ImmediateJSONL append ofactualacceptedconsoleevents after unchangedappend",
+    "Exception screenshot+failuremetadata thenoriginalraise",
+    "Finally completechecks/events/errors dump"
+  ],
+  "entire_AST_equal_after_only_these_observation_changes_removed": true,
+  "all_original_input_assert_wait_AST_preserved": true,
+  "source_bundle_driver_guards_all_true": true,
+  "receipt_sha256": "8becf3bbfcbf06324b7068bd052616091e91743e456023940b658b7cd1813841",
+  "actual_result": {
+    "status": "observer_failed_original_preserved",
+    "exit_code": 1,
+    "seconds": 165.7750598720013,
+    "original_cap": 300,
+    "extra_total_timeout": null
+  },
+  "actual_JSONL_events_equal_finally_list": {
+    "count": 178,
+    "SHA256": "d1568adb8536f49925d759be275ba949286f2db3e6fbcb04500531c79144544c",
+    "ordered_received_time": true
+  },
+  "actual_upward_chain_thisrun_only": [
+    {
+      "action": "hook_cast",
+      "physics_tick": 3609,
+      "aim": [
+        0.0,
+        -1.0
+      ],
+      "kick_side": -1.0,
+      "recoil": [
+        0.0,
+        0.0
+      ],
+      "hook_tip": [
+        1490.0,
+        345.825042724609
+      ],
+      "position": [
+        1490.0,
+        351.825042724609
+      ],
+      "real_usec": 91144900
+    },
+    {
+      "action": "hook_pull",
+      "physics_tick": 3618,
+      "aim": [
+        0.0,
+        -1.0
+      ],
+      "kick_side": 0.0,
+      "recoil": [
+        0.0,
+        0.0
+      ],
+      "hook_tip": [
+        1490.0,
+        202.0
+      ],
+      "position": [
+        1490.0,
+        397.325042724609
+      ],
+      "real_usec": 91292300
+    },
+    {
+      "action": "hook_kick",
+      "physics_tick": 3635,
+      "aim": [
+        0.0,
+        -1.0
+      ],
+      "kick_side": 0.0,
+      "recoil": [
+        0.0,
+        -240.0
+      ],
+      "hook_tip": [
+        1490.0,
+        202.0
+      ],
+      "position": [
+        1490.0,
+        232.0
+      ],
+      "real_usec": 91592100
+    },
+    {
+      "action": "free",
+      "physics_tick": 3642,
+      "aim": [
+        0.0,
+        -1.0
+      ],
+      "kick_side": 0.0,
+      "recoil": [
+        0.0,
+        0.0
+      ],
+      "hook_tip": [
+        1490.0,
+        202.0
+      ],
+      "position": [
+        1490.0,
+        208.0
+      ],
+      "real_usec": 91746900
+    }
+  ],
+  "checks_at_original_evaluation": {
+    "desktop_count": 23,
+    "true": 22,
+    "false": [
+      "mouse_controlled_blade_continues_slowtime"
+    ],
+    "browser_errors": [],
+    "proof": "Originalunchangedconditions savedfinally. Falsekept; notpromotedtoPASS."
+  },
+  "final_event_stream_timing_caution": {
+    "scaled_entity_motion_rows": 5,
+    "first_real_usec": 92666000,
+    "last_real_usec": 96304000,
+    "final_span_seconds": 3.638,
+    "not_a_recheck": "Finalstreamspan3.638s cannotreplaceearlierevaluationprefixwhichwasfalse. Noevaluationtime/prefixlength snapshot exists. Do notinferactualskillstopped<2s orclaimfalsewasfixed."
+  },
+  "actual_mobile_boundary": {
+    "navigation_receipt_sha256": "8243c28a5dc01d7dd5d778f4d4a66dcde79fa98bfb2ce9c8d3ccf2b161baad61",
+    "TITLEclickpoint": [
+      509.5,
+      262.0
+    ],
+    "actual_TITLE_liveclick": true,
+    "ACTIONS_missing_observations": 5,
+    "actualPNG": "build/forest_revision04/hook-Q4aec-observer/browser-cwd/build/studio-navigation/1792498706621344467/development-0.png",
+    "actualPNG_sha256": "5db4a557e08643aa2dfb84de5df625c28153b5c763c20b149f72a4b291f8619d",
+    "actually_viewed": true,
+    "finding": "MobileHomehasfullvisibleACTIONSbutton andonecompleteROI[211145316178], butROI OCRfailsall5attempts; noActionStudioentry/mobilebusiness afterit."
+  },
+  "not_signed": [
+    "OldQupwardfailure isnotreclassifiedbythisnewsuccess",
+    "Original3browser acceptance ordesktop23businessPASS",
+    "Exacttiming/noobserverperturbation; synchronousJSONL I/Ocanalterbrowsercallback/walltimingdespiteidenticalcommands",
+    "AnyfuturemobileOCR orslowtimeproducerfix",
+    "CurrentCI/public/device/FUN/useracceptance"
+  ],
+  "reviewer_activity": "LightAST/JSONL178events/PILview/receipt reads andignoredreportonly; no browser/native/heavytests/trackedwrite."
+}

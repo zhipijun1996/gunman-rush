@@ -1,0 +1,459 @@
+{
+  "decision": "SCOPED_ACCEPT",
+  "scope": "Normal actual main merge source closure and H3 remote CI original metadata/log light audit",
+  "actual_main_commit": "9757ddf2ee20b5620c4a34ecc5d51186f018513b",
+  "merge_parents": [
+    "dbc6ba081321637a3eef71979ecf2cf564eb6064",
+    "57b3d468df26d378d0321fb2ff7b8b9be2533bcd"
+  ],
+  "entire_tree_equal_H3": true,
+  "Git_tree": "862ff38626b8e1f258ca71983857e22e87cc20e9",
+  "local_main_clean_at_review": true,
+  "H3_workflows": [
+    {
+      "id": 39399633063,
+      "name": "Documentation",
+      "event": "pull_request",
+      "head_sha": "57b3d468df26d378d0321fb2ff7b8b9be2533bcd",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 39399633085,
+      "name": "Godot core",
+      "event": "pull_request",
+      "head_sha": "57b3d468df26d378d0321fb2ff7b8b9be2533bcd",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 39399624064,
+      "name": "Documentation",
+      "event": "push",
+      "head_sha": "57b3d468df26d378d0321fb2ff7b8b9be2533bcd",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 39399624107,
+      "name": "Godot core",
+      "event": "push",
+      "head_sha": "57b3d468df26d378d0321fb2ff7b8b9be2533bcd",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "jobs": [
+    {
+      "id": 118550826059,
+      "name": "docs",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 118550825903,
+      "name": "prepare",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 118553337976,
+      "name": "core_checks (serial)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 118553338057,
+      "name": "windows",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 118553338135,
+      "name": "web",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 118553338156,
+      "name": "core_checks (parallel)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 118568189414,
+      "name": "core",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 118570101483,
+      "name": "deploy_web",
+      "status": "completed",
+      "conclusion": "skipped"
+    },
+    {
+      "id": 118570102024,
+      "name": "android",
+      "status": "completed",
+      "conclusion": "skipped"
+    },
+    {
+      "id": 118570102914,
+      "name": "verify_public",
+      "status": "completed",
+      "conclusion": "skipped"
+    },
+    {
+      "id": 118550795485,
+      "name": "docs",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 118550795720,
+      "name": "prepare",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 118553405494,
+      "name": "core_checks (serial)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 118553405524,
+      "name": "windows",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 118553405596,
+      "name": "core_checks (parallel)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 118553405605,
+      "name": "web",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 118568541464,
+      "name": "core",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 118570376970,
+      "name": "deploy_web",
+      "status": "completed",
+      "conclusion": "skipped"
+    },
+    {
+      "id": 118570377351,
+      "name": "android",
+      "status": "completed",
+      "conclusion": "skipped"
+    },
+    {
+      "id": 118570377789,
+      "name": "verify_public",
+      "status": "completed",
+      "conclusion": "skipped"
+    }
+  ],
+  "CI_execution_tree_mapping": {
+    "PR_source": "61df05218d1a4c928cafd2ed6b91b53ff88c1659",
+    "push_source": "57b3d468df26d378d0321fb2ff7b8b9be2533bcd",
+    "same_tree_as_actual_main": true,
+    "not_relabelled_as_main_execution": true
+  },
+  "fresh_reports": [
+    {
+      "event": "PR",
+      "lane": "serial",
+      "execution_commit": "61df05218d1a4c928cafd2ed6b91b53ff88c1659",
+      "count": 39,
+      "status": "passed",
+      "fresh_release": true,
+      "wall_seconds": 1795.964,
+      "report_sha256": "3a4ecf79e2082af9eb6bf8520ddf6b898b48969573fb5a75601d2758eb965476",
+      "report_path": "build/forest_revision04/ci-H3-57b3d468/artifact-PR-serial/verification/harness/20261020T092857.152105Z/report.json"
+    },
+    {
+      "event": "PR",
+      "lane": "parallel",
+      "execution_commit": "61df05218d1a4c928cafd2ed6b91b53ff88c1659",
+      "count": 81,
+      "status": "passed",
+      "fresh_release": true,
+      "wall_seconds": 1880.075,
+      "report_sha256": "056d26c5769459f032961f3aeefd86f7c7331cf8aa65dcaf36c43a4f1f7cacf4",
+      "report_path": "build/forest_revision04/ci-H3-57b3d468/artifact-PR-parallel/verification/harness/20261020T092916.098509Z/report.json"
+    },
+    {
+      "event": "PR",
+      "lane": "web",
+      "execution_commit": "61df05218d1a4c928cafd2ed6b91b53ff88c1659",
+      "count": 41,
+      "status": "passed",
+      "fresh_release": true,
+      "wall_seconds": 421.498,
+      "report_sha256": "6e1e83771f710faef76388a458a05f72c4251e10e783aff14e2399faa79bf666",
+      "report_path": "build/forest_revision04/ci-H3-57b3d468/artifact-PR-web/20261020T092931.588392Z/report.json"
+    },
+    {
+      "event": "push",
+      "lane": "serial",
+      "execution_commit": "57b3d468df26d378d0321fb2ff7b8b9be2533bcd",
+      "count": 39,
+      "status": "passed",
+      "fresh_release": true,
+      "wall_seconds": 1458.962,
+      "report_sha256": "10c3fb63beb8af6cd620f712a9b6916e26c2b9bbc592d647c95b3174f0ae70ab",
+      "report_path": "build/forest_revision04/ci-H3-57b3d468/artifact-push-serial/verification/harness/20261020T092934.220354Z/report.json"
+    },
+    {
+      "event": "push",
+      "lane": "parallel",
+      "execution_commit": "57b3d468df26d378d0321fb2ff7b8b9be2533bcd",
+      "count": 81,
+      "status": "passed",
+      "fresh_release": true,
+      "wall_seconds": 1950.547,
+      "report_sha256": "94f6874f55e81d4edb04f4fe58cce59ee8c086faaf7421df960d3e64f2d1533b",
+      "report_path": "build/forest_revision04/ci-H3-57b3d468/artifact-push-parallel/verification/harness/20261020T092856.404412Z/report.json"
+    },
+    {
+      "event": "push",
+      "lane": "web",
+      "execution_commit": "57b3d468df26d378d0321fb2ff7b8b9be2533bcd",
+      "count": 41,
+      "status": "passed",
+      "fresh_release": true,
+      "wall_seconds": 430.175,
+      "report_sha256": "c1b789c610adcd7f244389cfe50c864075a09397a73cb578c3f39e9eb1d9c475",
+      "report_path": "build/forest_revision04/ci-H3-57b3d468/artifact-push-web/20261020T092852.582852Z/report.json"
+    }
+  ],
+  "coverage": {
+    "PR": {
+      "fresh_disjoint_serial_parallel_union": 120,
+      "exact_selected_profile_set": true,
+      "actual_coverage_gate_log_sha256": "a1bc3239fc197dccee4d56e6259400154910b5e679551a0a687ca3f9a7662f3d"
+    },
+    "push": {
+      "fresh_disjoint_serial_parallel_union": 120,
+      "exact_selected_profile_set": true,
+      "actual_coverage_gate_log_sha256": "9a0e5dc82a0d78ffd7379cffb10d3e98d9902a5fba9dd583a46e6670715cc1a2"
+    }
+  },
+  "current_v2_matrix": [
+    {
+      "event": "PR",
+      "execution_commit": "61df05218d1a4c928cafd2ed6b91b53ff88c1659",
+      "count": 80,
+      "terminal_passes": 80,
+      "not_executed": 0,
+      "workers": 2,
+      "original_harness_cap": 600,
+      "actual_check_seconds": 282.248,
+      "source_stable": true,
+      "receipt_sha256": "afb122d990f1813ad5304aa48672a5194c31fe7be6e675c903c0ff502f590e5a",
+      "audit_scope": "Receipt identities/status/80 exact requests/per-case exit and declared raw SHA fields only; no bulk capture SHA/frame re-audit in this light review."
+    },
+    {
+      "event": "push",
+      "execution_commit": "57b3d468df26d378d0321fb2ff7b8b9be2533bcd",
+      "count": 80,
+      "terminal_passes": 80,
+      "not_executed": 0,
+      "workers": 2,
+      "original_harness_cap": 600,
+      "actual_check_seconds": 289.764,
+      "source_stable": true,
+      "receipt_sha256": "60fb8455baf98158b8882bc5135b033708a8dc82889040800f3f29bbfd22afcf",
+      "audit_scope": "Receipt identities/status/80 exact requests/per-case exit and declared raw SHA fields only; no bulk capture SHA/frame re-audit in this light review."
+    }
+  ],
+  "strict_provenance_limit": "Used original fetched API metadata, extracted small report/receipts and coverage logs. Did not open ZIPs or bulk rehash/revalidate case captures. Native guard pass is the original consumer result, not new reviewer execution.",
+  "preserved_local_failure": "T local80/600 timeout remains78 terminal pass plus2 active killed; distinct successful H3 remote hosts do not rewrite it. No performance cause established.",
+  "pending_not_signed": [
+    "Actual main M fresh CI run39405664436",
+    "M fresh movies/actual pixel review",
+    "Public deployed M bytes and GUI",
+    "Physical devices/audio listening/user and whole-region aesthetic acceptance"
+  ],
+  "reviewer_actions": "Light Git/JSON/log reads and ignored report only; no native/browser/network/tracked writes.",
+  "actual_GPU_audio_job_logs": [
+    {
+      "event": "PR",
+      "GPU": "actual platform consumer7205/0 and GPU invariants PASS",
+      "real_audio_native_wrappers": [
+        {
+          "command": [
+            "bash",
+            "tools/godot.sh",
+            "--headless",
+            "--verbose",
+            "--fixed-fps",
+            "60",
+            "--path",
+            ".",
+            "--script",
+            "tests/audio_lifecycle_runner.gd"
+          ],
+          "status": "passed",
+          "failure_kind": null,
+          "exit_code": 0,
+          "seconds": 0.415720113000134,
+          "timing_scope": "native process including audio teardown; not device acceptance"
+        },
+        {
+          "command": [
+            "bash",
+            "tools/godot.sh",
+            "--headless",
+            "--verbose",
+            "--fixed-fps",
+            "60",
+            "--path",
+            ".",
+            "--script",
+            "tests/foundry_lab_runner.gd"
+          ],
+          "status": "passed",
+          "failure_kind": null,
+          "exit_code": 0,
+          "seconds": 6.533189368999956,
+          "timing_scope": "native process including audio teardown; not device acceptance"
+        },
+        {
+          "command": [
+            "bash",
+            "tools/godot.sh",
+            "--headless",
+            "--verbose",
+            "--fixed-fps",
+            "60",
+            "--path",
+            ".",
+            "--script",
+            "tests/foundry_touch_runner.gd"
+          ],
+          "status": "passed",
+          "failure_kind": null,
+          "exit_code": 0,
+          "seconds": 4.228156622999904,
+          "timing_scope": "native process including audio teardown; not device acceptance"
+        },
+        {
+          "command": [
+            "bash",
+            "tools/godot.sh",
+            "--headless",
+            "--verbose",
+            "--fixed-fps",
+            "60",
+            "--path",
+            ".",
+            "--script",
+            "tests/foundry_feedback_runner.gd"
+          ],
+          "status": "passed",
+          "failure_kind": null,
+          "exit_code": 0,
+          "seconds": 3.6769007739999324,
+          "timing_scope": "native process including audio teardown; not device acceptance"
+        }
+      ],
+      "serial_job_log_sha256": "9ffd549c1018ca549fed7a6f70b62efb0a809623f88f672216cdd28f9dfc926b"
+    },
+    {
+      "event": "push",
+      "GPU": "actual platform consumer7205/0 and GPU invariants PASS",
+      "real_audio_native_wrappers": [
+        {
+          "command": [
+            "bash",
+            "tools/godot.sh",
+            "--headless",
+            "--verbose",
+            "--fixed-fps",
+            "60",
+            "--path",
+            ".",
+            "--script",
+            "tests/audio_lifecycle_runner.gd"
+          ],
+          "status": "passed",
+          "failure_kind": null,
+          "exit_code": 0,
+          "seconds": 0.3653747769999427,
+          "timing_scope": "native process including audio teardown; not device acceptance"
+        },
+        {
+          "command": [
+            "bash",
+            "tools/godot.sh",
+            "--headless",
+            "--verbose",
+            "--fixed-fps",
+            "60",
+            "--path",
+            ".",
+            "--script",
+            "tests/foundry_lab_runner.gd"
+          ],
+          "status": "passed",
+          "failure_kind": null,
+          "exit_code": 0,
+          "seconds": 5.179200524999942,
+          "timing_scope": "native process including audio teardown; not device acceptance"
+        },
+        {
+          "command": [
+            "bash",
+            "tools/godot.sh",
+            "--headless",
+            "--verbose",
+            "--fixed-fps",
+            "60",
+            "--path",
+            ".",
+            "--script",
+            "tests/foundry_touch_runner.gd"
+          ],
+          "status": "passed",
+          "failure_kind": null,
+          "exit_code": 0,
+          "seconds": 3.5758308129998113,
+          "timing_scope": "native process including audio teardown; not device acceptance"
+        },
+        {
+          "command": [
+            "bash",
+            "tools/godot.sh",
+            "--headless",
+            "--verbose",
+            "--fixed-fps",
+            "60",
+            "--path",
+            ".",
+            "--script",
+            "tests/foundry_feedback_runner.gd"
+          ],
+          "status": "passed",
+          "failure_kind": null,
+          "exit_code": 0,
+          "seconds": 3.1244160710000415,
+          "timing_scope": "native process including audio teardown; not device acceptance"
+        }
+      ],
+      "serial_job_log_sha256": "7ac97042a1566a5a92db7a9e2ec37d23dce9e51a010a86eca15801be8851aef3"
+    }
+  ]
+}

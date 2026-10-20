@@ -1,0 +1,113 @@
+{
+  "decision": "SCOPED_ACCEPT",
+  "scope": "Popup pixel-discovery helper and pureparser evidence only; futureoriginalbrowser notsigned",
+  "reviewed_base_commit": "5a4d0da86fb217415aeb80c7c2a618ec2565b35b",
+  "reviewed_candidate_blobs": [
+    {
+      "path": "tools/studio_gui_pointer.py",
+      "bytes": 18215,
+      "sha256": "b02e6aef03c65d21f8d8222593c95e3f35be0819dd6d4cdeffa64d0a3db77402"
+    },
+    {
+      "path": "tools/test_studio_gui_pointer.py",
+      "bytes": 9820,
+      "sha256": "c3533575a32b16d82adf3dc0de402356489c0f1390fd42f4565de09385ab0e21"
+    },
+    {
+      "path": "tests/fixtures/studio_gui_pointer/popup_W_green.png",
+      "bytes": 829537,
+      "sha256": "46c171dabd6d28440179d08de7bc34748e23dd5742bb5599fa28db6b9f23709d"
+    },
+    {
+      "path": "tests/fixtures/studio_gui_pointer/provenance.json",
+      "bytes": 1887,
+      "sha256": "8eacdafadc43b6b2a7d3766f7c7208131698af4ee0618dd2b93c94053d998fc1"
+    }
+  ],
+  "helper_SHA256": "b02e6aef03c65d21f8d8222593c95e3f35be0819dd6d4cdeffa64d0a3db77402",
+  "independent_audit": "build/forest_revision04/main-M-review/menu-width-followup/popup_candidate_independent_audit.json",
+  "independent_audit_SHA256": "dfa18b4f5056b35321ece5afb65bc0ad38378233791dc5490f8384b0eaeb74f1",
+  "specific_findings": [],
+  "accepted_change": "Only oldfixed-column/nearlygray popup-discovery replaced. Originalclick-open/HUDreader/normalpointer input/selection index remain. NewpureRGB helperrequires anobserved fullpanel withuniformfill andallfourmatching borderedges; exactly15observed near-round components inoneuniqueactualcolumn, original >20scale/even<4scale gapchecks. Returns actualmarkercenters, no absentrows inferred, no newfixedcoords/colors/text/engine-state whitelist.",
+  "preservation": "Originalnineotherhelper functions ASTequal; earlierborder/OCR/readiness/finitefiveattempts/select_weapon unchanged. Originaleighttestmethod ASTexact plussevennew. SixoriginalconsumerCLI bytes unchanged; gameplay/allweaponID assertions and300s budgets retained.",
+  "actual_raw_and_cause": "W completepopup829537B fixture equals originalWPNG/SHA46c171da. All15rows areactualvisible; oldsample45 readsbackground andgraycontrast gate misseslowcontrast darkicons whoseRGBsum delta14<required25. Newpureparse x59.5 androws218.5..624.5 matchesactualcomponents; no equipIDs inferredfrompixels.",
+  "proofs": {
+    "independent_original15_tests": {
+      "exit": 0,
+      "seconds": 16.1684996910044,
+      "log": "build/forest_revision04/main-M-review/menu-width-followup/independent-popup-fifteen-tests.log",
+      "log_sha256": "67409cdebe2e86dba8751cb46c2afe014d17131a5515d96b26789bc1866c5cb2"
+    },
+    "independent_extra_controls": [
+      {
+        "name": "non-green non-gray palette remap",
+        "result": "sameactual15centers"
+      },
+      {
+        "name": "observedpopuptranslated365right10down",
+        "result": "derivedx424.5+allrows10down"
+      },
+      {
+        "name": "15squarefakeiconsretaintext",
+        "result": "rejected"
+      },
+      {
+        "name": "removedactualpanel_top",
+        "result": "rejected"
+      },
+      {
+        "name": "removedactualpanel_bottom",
+        "result": "rejected"
+      },
+      {
+        "name": "removedactualpanel_left",
+        "result": "rejected"
+      },
+      {
+        "name": "removedactualpanel_right",
+        "result": "rejected"
+      }
+    ],
+    "author_original15": {
+      "argv": [
+        "python3",
+        "tools/test_studio_gui_pointer.py"
+      ],
+      "exit_code": 0,
+      "count": 15,
+      "seconds": 15.161,
+      "log": "unit-r2.log",
+      "original8_AST_preserved": true,
+      "added7": [
+        "actual green selected/unselected variants plus original async helper/actual HUD screenshot I/O unit replay",
+        "14 markers with15 textrows reject",
+        "16 actual markers reject",
+        "duplicate popup reject",
+        "partially visible popup reject",
+        "real periodic text columns with radios removed reject",
+        "uneven actual marker gaps reject"
+      ]
+    },
+    "original8_AST_equal": true,
+    "allthree_fixture_originalbytes_equal": true
+  },
+  "preserved_REWORK": [
+    "MactualclippedACTIONS95.12s originalbrowserFAIL",
+    "UvisibleACTIONS120.353s geometryFAIL",
+    "WdesktopnavigationPASS butpicker57.607s originalfirstbrowserFAIL/0gameplayassertions/2laternotrun",
+    "FirstpureHUDgate incorrectlyrequiredpaneltop>=scan197 althoughactualfillstarts192; originalfailure preserved, currentrealasyncHUD179 integration tests correctedcompletepanel extendingbelow scan."
+  ],
+  "pixel_scope": "Prioractualview ofthefullWpopup pluscurrentstrictshape/purevalidation; no newbrowserperformed andtheasyncScreenshotPage unitstub is notactualpointer acceptance.",
+  "remaining_risks": [
+    "Exactcolumncenters/roundness mayfail closed atotheractualzoom/noninteger/mobile scales; currentonlyactualdesktopfixture establishes itscase. Originalthreebrowser mustexecuteactualtouch and15weaponIDs.",
+    "All candidatepanels aresearchedfromactualpixels; uniqueness andequipped-event assertions remain essential. No originalbudget exception orbroadUIproof.",
+    "No generalperformanceclaim fromsinglepuretimings."
+  ],
+  "pending_not_signed": [
+    "FrozenP Git sourceclosure",
+    "Freshoriginal3actualbrowser and15actualequippedIDs",
+    "CandidatefreshCI/APIartifact/publicfullSHA/GUI",
+    "Physicaldevices/user/FUN/allUI/wholeforest"
+  ],
+  "reviewer_activity": "Newignoredreview files andpureAST/hash/PIL/numpy/Tesseract validation only. No native/browser/network/production/test/tool modifications."
+}

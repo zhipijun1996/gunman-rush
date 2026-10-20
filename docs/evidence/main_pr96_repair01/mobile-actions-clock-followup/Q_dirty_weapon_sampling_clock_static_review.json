@@ -1,0 +1,21 @@
+{
+  "decision": "SCOPED_STATIC_ACCEPT",
+  "execution_status": "not_executed_by_reviewer",
+  "reviewed_base_commit": "4aec8b56743d1a14d1b44ba43d795e56811d7615",
+  "path": "scripts/demo/action_studio.gd",
+  "candidate_sha256": "2f4f750fb72da384995c1d36f22ae8bedf7587a0a25b3101a2581e32927cd909",
+  "reverse_exact_four_edits_equals_base": true,
+  "findings": [
+    "Only sample deadline storage/type and the Web-only weapon_motion scheduling clock change; reversing those changes plus comment restores full original file bytes.",
+    "Monotonic microseconds match real_usec used by the unchanged consumer; only actual current frame snapshots are emitted, with no synthetic catch-up samples or backdated timestamps.",
+    "Original occupied/FX/apex eligibility, _record payload, event append/print, elapsed, physics, state, controls, pause early return and other event sampling remain byte-identical.",
+    "GDScript and short-circuits OS.has_feature(web) before Time.get_ticks_usec; non-Web path does not query the new scheduling clock.",
+    "Deadline is set from now, so 100ms is a minimum sampling interval while frames and eligibility permit, not a guaranteed real-time frequency. Paused/stalled frames are not fabricated."
+  ],
+  "limitations": [
+    "No proof that sparse sampling caused the earlier false result; evaluation prefix was not captured.",
+    "No live pass, native pass, full original three-consumer pass, public delivery, performance guarantee, physical-device or full UI acceptance.",
+    "Higher Web event rate during slow time may increase console/serialization overhead; original live consumers remain required.",
+    "Foundry basis membership is separately owned by CI reviewer; this report does not assert a rebuild decision."
+  ]
+}
