@@ -1,0 +1,94 @@
+{
+  "decision": "SCOPED_ACCEPT",
+  "scope": "TITLE-only missing-text pixel fallback andpureproof, not actualbrowseracceptance",
+  "reviewed_base_P": "09f09f99d8d3c2a6a1e3ff6edd4a3147814e4b58",
+  "candidate_blobs": [
+    {
+      "path": "tools/studio_gui_pointer.py",
+      "bytes": 21853,
+      "sha256": "2c17f6d06af3bcbb0308cd8c7590684cce289351c6de125a229b033c2d466894"
+    },
+    {
+      "path": "tools/test_studio_gui_pointer.py",
+      "bytes": 14024,
+      "sha256": "28b465a7467442c2d37fd47358d1b4f2cb1817685e23334bc4d2724b609d9c29"
+    },
+    {
+      "path": "tests/fixtures/studio_gui_pointer/title_P_mobile.png",
+      "bytes": 130566,
+      "sha256": "c6e8d0532bf8fef1f22c70207da783f6bd371d6aa0ed68e439336c90e19dce63"
+    },
+    {
+      "path": "tests/fixtures/studio_gui_pointer/provenance.json",
+      "bytes": 2517,
+      "sha256": "af140c4ea96801ec2459e3d0e820552a5759b09c2316af1a863caf7e7aef446c"
+    }
+  ],
+  "helper_SHA256": "2c17f6d06af3bcbb0308cd8c7590684cce289351c6de125a229b033c2d466894",
+  "independent_audit": "build/forest_revision04/main-M-review/menu-width-followup/title_candidate_independent_audit.json",
+  "independent_audit_SHA256": "aee1aff18328b968bbef9290a59e2b74f14086ed0b2bd934ef4c7ec672156f2b",
+  "findings": [],
+  "control_flow": "Originalwholeframe3xpsm11 remainsfirst. OnlyStudioMenuLabelMissing triggerssamePNG TITLE ROI. Fullframeambiguity/genericassertion remainsfatal; onlyexistingTITLEdispatchoneASTnode changes inenter_action_studio. No extraobservations/retries/timing loops.",
+  "pixel_geometry": "Observedrun colors proposeuniformfill components. Fullrectangles exclude frame-touching crops, satisfybound/ratio/density andall4central insidefill/outside-notfill edges. Thisis4visiblefillboundaries, not4coloredstrokes. ActualP rightx630fill16,24,25 thenx631outside9,4,7; leftx429stroke82,96,75.",
+  "OCR_contract": "Croporiginalinnerpixels, fixed6xNEARESTgrayscale/psm7, callunchangedcompleteEnglishlabelparserandrequireuniquematch. No spellingmap/substring, fixedtargetpoint, missingletter reconstruction, DOM/game-state, keyboard orreadinessfallback.",
+  "preservation": "Originalother10helper ASTincludingActions/border/popup/label/readiness/select_weapon unchanged,15originaltestmethod ASTequal,6CLI byteexact,5observations and300consumer budgets/businessassertions unchanged.",
+  "actual_and_independent_proof": {
+    "rawPfixture_SHA256": "c6e8d0532bf8fef1f22c70207da783f6bd371d6aa0ed68e439336c90e19dce63",
+    "originalPNGandTSV_bytebindings_verified": true,
+    "directactualoriginalfailedTSV_pixel_replay": [
+      509.5,
+      262.0
+    ],
+    "independent21pure": {
+      "exit_code": 0,
+      "seconds": 27.56487255099637,
+      "log": "build/forest_revision04/main-M-review/menu-width-followup/independent-title-twentyone-tests.log",
+      "SHA256": "02d1ddfc388d0f19110034a32677782b452efbea61c33d509011a797599fa98f"
+    },
+    "independent_extra_controls": [
+      {
+        "name": "originalwholeframeuniqueinvalidimage",
+        "result": "originalpoint withoutROI"
+      },
+      {
+        "name": "cropblankrightbuttonedgekeepallglyphs",
+        "result": "rejected"
+      },
+      {
+        "name": "moveactualbutton379left61down",
+        "result": "actualpoint130.5,323 derived"
+      },
+      {
+        "name": "actualcompleteglyphswithoutbuttonfill",
+        "result": "rejected"
+      }
+    ],
+    "author21pure": {
+      "argv": [
+        "python3",
+        "tools/test_studio_gui_pointer.py"
+      ],
+      "exit_code": 0,
+      "count": 21,
+      "seconds": 26.099,
+      "log": "unit-r1.log",
+      "original15_AST_preserved": true,
+      "added6": [
+        "actual P full-frame psm11 real miss to same-frame fullphrase ROI",
+        "fullframe ambiguous complete labels reject before inspecting even invalidimage",
+        "all4 missing fill-boundary notches with actual title glyphs intact reject",
+        "frame cropped through title reject",
+        "duplicate real complete title buttons reject",
+        "partial phrase and fullphrase plus realALL glyph suffix reject"
+      ]
+    },
+    "authornew_controls": "Actualsameframewholemiss→ROI; fullframeambiguousinvalidimage rejectedwithoutROI;4missingfillboundarieswithwholeglyphs;frameclipping;2realbuttonambiguity;partial/realALLsuffix reject."
+  },
+  "preserved_failures": "OriginalPmobile5wholeframemisses/201.741sFAIL remains. Prioroutline/2x/LANCZOSdisproofs andinvalidtimingerratum remainunchanged; fixed6NN isoneboundedruntimealgorithm, not adaptiveparamsearch.",
+  "scope_limits": [
+    "ActualonePmobiletitlewindow andpureproof only. No realtouchclick/ActionStudioevent/mobileACTIONS/popup/gameplaycheckedbythisreport.",
+    "Onlystatic/purepreparationacceptance fornextcommit; freshoriginal3 andreal15equipIDs stillrequired.",
+    "No generalOCR/scale/performance/allUI/device/userclaim."
+  ],
+  "reviewer_activity": "IndependentactualPNGpixelinspection/hash/AST/PIL/Tesseract andnewignoredreports only; no browser/native/network/trackedwrite."
+}

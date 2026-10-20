@@ -1,3 +1,7 @@
+## 2026-10-20：移动动作标签与真实时间观测续修
+
+Q4aec原三首118.239s/1（outer119.478）在向上钩锁原5秒等待无kick，双端source/bundle稳，mobile/后2未执行。单次observer165.775s/1未复现该钩锁失败、真实mobileTITLE已点击通过，但ACTIONS完整边界内OCRmissing；finally桌面23项22true/slowtime连续项false，final追加样本不能覆早判定。原件见[续修证据](evidence/main_pr96_repair01/mobile-actions-clock-followup/README.md)。正在修mobile完整字形识别与仅Web motion观测时钟，玩法/两秒断言不改；最终原3/mainCI/公开包仍待实际结果。
+
 ## 2026-10-20：移动标题完整标签识别续修
 
 P09f0原导出27.195s/0，源码前后干净；首action-budget201.741s/exit1/outer203.354，原300秒预算、源码与bundle双端稳定。真实桌面导航通过并有5操作PNG，但无最终业务ledger，不签桌面断言/15武器全通过；首次mobile844×390标题OCR漏掉完整可见英文按钮，尚未进入移动练习，后两消费者未执行。原图/5TSV/trace及独立边界审查见[原件](evidence/main_pr96_repair01/menu-title-followup/README.md)。完整按钮区域识别续修在验收，最终源码原三浏览器/mainCI/公开完整SHA仍待实际结果。

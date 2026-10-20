@@ -126,6 +126,22 @@ def _studio_button_boxes(image):
  if len(boxes)>32:raise AssertionError('More than 32 complete screenshot button borders')
  return sorted(boxes)
 
+def _studio_button_inner_fill(image,box):
+ """An observed inner rectangle, only within an already complete border ROI."""
+ import numpy as np
+ crop=image.crop(box).convert('RGB');rgb=np.asarray(crop)
+ color=Counter(crop.getdata()).most_common(1)[0][0]
+ fill=np.all(rgb==color,axis=2);ys,xs=np.where(fill)
+ left,top,right,bottom=int(xs.min()),int(ys.min()),int(xs.max())+1,int(ys.max())+1
+ w,h=right-left,bottom-top
+ if not(80<=w and 20<=h and left>0 and top>0 and right<crop.width and bottom<crop.height):return None
+ if np.mean(fill[top:bottom,left:right])<=.6:return None
+ xs=slice(left+w//4,right-w//4);ys=slice(top+h//4,bottom-h//4)
+ inside=[fill[top,xs],fill[bottom-1,xs],fill[ys,left],fill[ys,right-1]]
+ outside=[fill[top-1,xs],fill[bottom,xs],fill[ys,left-1],fill[ys,right]]
+ if not(all(np.mean(edge)>=.8 for edge in inside) and all(np.mean(~edge)>=.8 for edge in outside)):return None
+ return (box[0]+left,box[1]+top,box[0]+right,box[1]+bottom)
+
 def _studio_actions_from_pixels(pixels,folder,stem,observation):
  """OCR every complete button, then require one actual ACTIONS glyph rectangle."""
  import csv,json,os,subprocess,time
@@ -140,17 +156,32 @@ def _studio_actions_from_pixels(pixels,folder,stem,observation):
   (folder/(name+'.tsv')).write_text(result.stdout)
   item={'bounds':box,'screenshot':name+'.png','ocr':name+'.tsv','seconds':time.monotonic()-started}
   observation['button_rois'].append(item)
-  try:local=_studio_label_box(result.stdout,'ACTIONS',6)
-  except StudioMenuLabelMissing as exc:item.update(result='missing',error=str(exc));continue
+  origin=box[:2];ocr_scale=6
+  try:local=_studio_label_box(result.stdout,'ACTIONS',ocr_scale)
+  except StudioMenuLabelMissing as first_missing:
+   # Keep the complete four-stroke border requirement above. Only its observed
+   # closed inner fill may omit the border from this one fixed OCR derivative.
+   item['border_ocr_missing']=str(first_missing)
+   inner=_studio_button_inner_fill(image,box)
+   if inner is None:item.update(result='missing',error=str(first_missing));continue
+   name=f'{stem}-button-{index}-inner';roi=image.crop(inner).convert('L')
+   roi=roi.resize((roi.width*8,roi.height*8),Image.Resampling.LANCZOS)
+   path=folder/(name+'.png');roi.save(path);started=time.monotonic()
+   result=subprocess.run(['tesseract',str(path),'stdout','--psm','7','tsv'],capture_output=True,text=True,check=True,timeout=10,env={**os.environ,'OMP_THREAD_LIMIT':'1'})
+   (folder/(name+'.tsv')).write_text(result.stdout)
+   item.update(inner_fill_bounds=inner,inner_screenshot=name+'.png',inner_ocr=name+'.tsv',inner_seconds=time.monotonic()-started)
+   origin=inner[:2];ocr_scale=8
+   try:local=_studio_label_box(result.stdout,'ACTIONS',ocr_scale)
+   except StudioMenuLabelMissing as exc:item.update(result='missing',error=str(exc));continue
   # Any ambiguity within a complete button is immediately a failure.
-  item['result']='complete_label';point=(local[0]+box[0],local[1]+box[1]);item['point']=point
+  item['result']='complete_label';point=(local[0]+origin[0],local[1]+origin[1]);item['point']=point
   words=[word for word in csv.DictReader(io.StringIO(result.stdout),delimiter='\t')
          if word.get('text','').strip().upper()=='ACTIONS'
-         and int(word['left'])<=local[0]*6<=int(word['left'])+int(word['width'])
-         and int(word['top'])<=local[1]*6<=int(word['top'])+int(word['height'])]
+         and int(word['left'])<=local[0]*ocr_scale<=int(word['left'])+int(word['width'])
+         and int(word['top'])<=local[1]*ocr_scale<=int(word['top'])+int(word['height'])]
   assert len(words)==1,'Complete ACTIONS label has no unique actual glyph bounds'
-  word=words[0];glyph=(box[0]+int(word['left'])/6,box[1]+int(word['top'])/6,
-                     box[0]+(int(word['left'])+int(word['width']))/6,box[1]+(int(word['top'])+int(word['height']))/6)
+  word=words[0];glyph=(origin[0]+int(word['left'])/ocr_scale,origin[1]+int(word['top'])/ocr_scale,
+                     origin[0]+(int(word['left'])+int(word['width']))/ocr_scale,origin[1]+(int(word['top'])+int(word['height']))/ocr_scale)
   item['actual_glyph_bounds']=glyph;matches[glyph]=point
  if not matches:raise StudioMenuLabelMissing("Expected one complete rendered menu label 'ACTIONS'; found 0 complete button matches")
  assert len(matches)==1,f"Expected one complete rendered menu label 'ACTIONS'; found {len(matches)} complete button matches"

@@ -1,0 +1,286 @@
+{
+  "decision": "SCOPED_SOURCE_CLOSURE_AND_FAILURE_BOUNDARY_ONLY",
+  "actual_execution_commit": "4aec8b56743d1a14d1b44ba43d795e56811d7615",
+  "parent_P": "09f09f99d8d3c2a6a1e3ff6edd4a3147814e4b58",
+  "four_title_candidate_blobs_equal_review": [
+    {
+      "path": "tools/studio_gui_pointer.py",
+      "bytes": 21853,
+      "sha256": "2c17f6d06af3bcbb0308cd8c7590684cce289351c6de125a229b033c2d466894"
+    },
+    {
+      "path": "tools/test_studio_gui_pointer.py",
+      "bytes": 14024,
+      "sha256": "28b465a7467442c2d37fd47358d1b4f2cb1817685e23334bc4d2724b609d9c29"
+    },
+    {
+      "path": "tests/fixtures/studio_gui_pointer/title_P_mobile.png",
+      "bytes": 130566,
+      "sha256": "c6e8d0532bf8fef1f22c70207da783f6bd371d6aa0ed68e439336c90e19dce63"
+    },
+    {
+      "path": "tests/fixtures/studio_gui_pointer/provenance.json",
+      "bytes": 2517,
+      "sha256": "af140c4ea96801ec2459e3d0e820552a5759b09c2316af1a863caf7e7aef446c"
+    }
+  ],
+  "only_production_delta_vs_actualmain_M": "PreviouslyreviewedMenu two-lines; otherproduction/56Foundry=M",
+  "actual_export": {
+    "status": "passed",
+    "exit_code": 0,
+    "seconds": 28.517540875000122,
+    "source_clean_stable_both_ends": true,
+    "receipt_sha256": "7c4661c2dc85ae18806cb13bab5bec9915c35ed2b6c8d4102a3c19c74e37fb0b",
+    "build_info": {
+      "build_id": "442163f49217",
+      "pack": "index.442163f49217.pck",
+      "engine_id": "d20938d2db49",
+      "cache_schema": 2,
+      "loader_id": "f9c479ca3cc2",
+      "pack_bytes": 141171348,
+      "download_bytes": 143635814,
+      "chunk_bytes": 524288,
+      "wasm_bytes": 37902138,
+      "wasm_gzip_bytes": 10027646,
+      "jump": "tap/hold",
+      "playtest": "web",
+      "source_commit": "4aec8b56743d1a14d1b44ba43d795e56811d7615"
+    },
+    "PCK_SHA256_declared": "442163f492173fa0aa52f24a21a6e9b0ac7d92d579eb34bdd8f67bce8de5d216"
+  },
+  "actual_original_first_browser": {
+    "status": "failed",
+    "exit_code": 1,
+    "child_seconds": 118.239,
+    "outer_seconds": 119.47796563599695,
+    "original300cap_unchanged": true,
+    "extra_combined_cap": null,
+    "source_stable": true,
+    "bundle_stable": true,
+    "receipt_sha256": "3cd674bec0c5cd415568b6744bcca61377b390c63f66a2fa13ff9c8fb112966c",
+    "log_sha256": "adc90d29c67be7edf8aa1dc784447d9394a67e44022e839d21be55be086b4fba",
+    "later_two": "notexecuted"
+  },
+  "actual_desktop_navigation_pass": [
+    {
+      "path": "build/forest_revision04/title-Q4aec-three/browser-cwd/build/studio-navigation/1792498266493162659/receipt.json",
+      "sha256": "6e230983f0f26ad9afd645f47ff3d13291af8fdc2e75511c69dc48a0226fa1d8",
+      "status": "passed",
+      "touch": false,
+      "actual_clicks": [
+        {
+          "label": "DEVELOPMENT DEMOS / ALL ENTRIES",
+          "attempt": 0,
+          "screenshot": "title-0.png",
+          "ocr": "title-0.tsv",
+          "result": "unique_visible_match",
+          "point": [
+            798.8333333333334,
+            484.0
+          ]
+        },
+        {
+          "label": "ACTIONS",
+          "attempt": 0,
+          "screenshot": "development-0.png",
+          "button_geometry_seconds": 5.648167505001766,
+          "button_rois": [
+            {
+              "bounds": [
+                252,
+                270,
+                441,
+                327
+              ],
+              "screenshot": "development-0-button-0.png",
+              "ocr": "development-0-button-0.tsv",
+              "seconds": 0.16576707900094334,
+              "result": "complete_label",
+              "point": [
+                387.66666666666663,
+                300.0
+              ],
+              "actual_glyph_bounds": [
+                351.5,
+                293.8333333333333,
+                423.83333333333337,
+                306.1666666666667
+              ]
+            },
+            {
+              "bounds": [
+                252,
+                335,
+                441,
+                388
+              ],
+              "screenshot": "development-0-button-1.png",
+              "ocr": "development-0-button-1.tsv",
+              "seconds": 0.13001226900087204,
+              "result": "missing",
+              "error": "Expected one complete rendered menu label 'ACTIONS'; found 0"
+            },
+            {
+              "bounds": [
+                252,
+                396,
+                441,
+                449
+              ],
+              "screenshot": "development-0-button-2.png",
+              "ocr": "development-0-button-2.tsv",
+              "seconds": 0.12364978100231383,
+              "result": "missing",
+              "error": "Expected one complete rendered menu label 'ACTIONS'; found 0"
+            },
+            {
+              "bounds": [
+                252,
+                457,
+                441,
+                510
+              ],
+              "screenshot": "development-0-button-3.png",
+              "ocr": "development-0-button-3.tsv",
+              "seconds": 0.18191641200246522,
+              "result": "missing",
+              "error": "Expected one complete rendered menu label 'ACTIONS'; found 0"
+            },
+            {
+              "bounds": [
+                252,
+                518,
+                441,
+                571
+              ],
+              "screenshot": "development-0-button-4.png",
+              "ocr": "development-0-button-4.tsv",
+              "seconds": 0.15748430600069696,
+              "result": "missing",
+              "error": "Expected one complete rendered menu label 'ACTIONS'; found 0"
+            },
+            {
+              "bounds": [
+                252,
+                579,
+                441,
+                632
+              ],
+              "screenshot": "development-0-button-5.png",
+              "ocr": "development-0-button-5.tsv",
+              "seconds": 0.12417905600159429,
+              "result": "missing",
+              "error": "Expected one complete rendered menu label 'ACTIONS'; found 0"
+            },
+            {
+              "bounds": [
+                467,
+                271,
+                1024,
+                324
+              ],
+              "screenshot": "development-0-button-6.png",
+              "ocr": "development-0-button-6.tsv",
+              "seconds": 0.16729676099930657,
+              "result": "missing",
+              "error": "Expected one complete rendered menu label 'ACTIONS'; found 0"
+            },
+            {
+              "bounds": [
+                467,
+                421,
+                1024,
+                474
+              ],
+              "screenshot": "development-0-button-7.png",
+              "ocr": "development-0-button-7.tsv",
+              "seconds": 0.20103678300074534,
+              "result": "missing",
+              "error": "Expected one complete rendered menu label 'ACTIONS'; found 0"
+            },
+            {
+              "bounds": [
+                467,
+                486,
+                1024,
+                539
+              ],
+              "screenshot": "development-0-button-8.png",
+              "ocr": "development-0-button-8.tsv",
+              "seconds": 0.1778665220044786,
+              "result": "missing",
+              "error": "Expected one complete rendered menu label 'ACTIONS'; found 0"
+            },
+            {
+              "bounds": [
+                467,
+                585,
+                1024,
+                638
+              ],
+              "screenshot": "development-0-button-9.png",
+              "ocr": "development-0-button-9.tsv",
+              "seconds": 0.16594993300532224,
+              "result": "missing",
+              "error": "Expected one complete rendered menu label 'ACTIONS'; found 0"
+            },
+            {
+              "bounds": [
+                1058,
+                124,
+                1262,
+                177
+              ],
+              "screenshot": "development-0-button-10.png",
+              "ocr": "development-0-button-10.tsv",
+              "seconds": 0.1292677680030465,
+              "result": "missing",
+              "error": "Expected one complete rendered menu label 'ACTIONS'; found 0"
+            }
+          ],
+          "result": "unique_visible_match",
+          "point": [
+            387.66666666666663,
+            300.0
+          ]
+        }
+      ],
+      "fresh_STUDIOevents": 1
+    }
+  ],
+  "actual_progress_screenshots_not_business_pass": [
+    {
+      "path": "build/forest_revision04/title-Q4aec-three/browser-cwd/build/action_budget/browser/mouse-laser.png",
+      "sha256": "88149c85c9700574f872dbaef6415f55e83732cf6a111971c8d6efc004b75c66"
+    },
+    {
+      "path": "build/forest_revision04/title-Q4aec-three/browser-cwd/build/action_budget/browser/mouse-blast.png",
+      "sha256": "cd7957066861240f30e4bdd82a03837965130a447b27e145cc41bc63db1f896d"
+    },
+    {
+      "path": "build/forest_revision04/title-Q4aec-three/browser-cwd/build/action_budget/browser/mouse-blink.png",
+      "sha256": "e0e1bab06e1bfa6f5d138bd0c9756df8d326b563219b9932003f3bde197c158d"
+    },
+    {
+      "path": "build/forest_revision04/title-Q4aec-three/browser-cwd/build/action_budget/browser/mouse-recall.png",
+      "sha256": "5c1bbfd70d497bebab7e87d4589af882e9136fa160f06d016acd9ec989749390"
+    }
+  ],
+  "actual_failure_boundary": {
+    "source": "tools/verify_action_budget_browser.py:88",
+    "condition": "No hook_kick event satisfies original upwardhook5secondwait after normaljump andrightmouse(432,230)request.",
+    "what_preceded_without_exception": "DesktopuniqueACTIONS/readiness; initialweaponoperations produced4PNGs; earlierobliquecast sawkick andfree recovery andpassedexplicit obliqueaimassert.",
+    "what_not_proved": "No finalchecks/eventsledger; dictionarymouse_hook_fixed_45 value andallpriorbusinesschecks notsigned merelybecause executioncontinued. No upwardcast/target/geometrycause established fromabsentraw ledger.",
+    "not_helper_failure": "Trace doesnotstopinTitle/button/popupdiscovery. NewTITLEmobilefallback not reached in thisrun; do not callthisitslivePASS.",
+    "future_cause": "Realinput/event/actor/target evidence required beforeclassifying upwardhook asproductionregression versusdriver/timing/targetstate issue. No budget orassertion relaxation."
+  },
+  "preserved_prior_provenance": "ActualMgreenCI/moviesretainM. PmobileTITLEfailure andallU/V/Wparserfailures remain originals; cleanQ+failedbrowser isnot promoted toglobalacceptance.",
+  "pending_not_signed": [
+    "Firstbrowseroverall ordesktopbusinessPASS",
+    "MobileTitle/ACTIONS/popup/anymobilegameplay",
+    "Later2originalconsumers/15actualIDs",
+    "NewfrozenCI/APIartifact/publicbytes/GUI/pixels",
+    "Physicaldevices/user/FUN/wholeforest"
+  ],
+  "reviewer_activity": "LightGit/source/receipts/log reads andnewignoredreport only; no browser/native/puretestheavy/ZIP/trackedwrite."
+}

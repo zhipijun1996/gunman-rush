@@ -291,5 +291,64 @@ class MobileTitleTests(unittest.TestCase):
                     self.locate(control)
 
 
+class MobileActionsTests(unittest.TestCase):
+    def image(self):
+        return Image.open(FIXTURES / 'actions_Q_mobile.png').convert('RGB')
+
+    def locate(self, image):
+        pixels = io.BytesIO()
+        image.save(pixels, format='PNG')
+        observation = {}
+        with tempfile.TemporaryDirectory() as directory:
+            point = helper._studio_actions_from_pixels(
+                pixels.getvalue(), Path(directory), 'actions', observation)
+        return point, observation
+
+    def test_actual_mobile_closed_border_and_inner_full_english_clause(self):
+        point, observation = self.locate(self.image())
+        matches = [row for row in observation['button_rois']
+                   if row['result'] == 'complete_label']
+        self.assertEqual(len(matches), 1)
+        match = matches[0]
+        self.assertEqual(match['bounds'], (211, 145, 316, 178))
+        self.assertIn('border_ocr_missing', match)
+        self.assertEqual(match['inner_fill_bounds'], (214, 148, 313, 175))
+        self.assertEqual(point, (286.1875, 163.0))
+        left, top, right, bottom = match['actual_glyph_bounds']
+        self.assertTrue(left < point[0] < right and top < point[1] < bottom)
+
+    def test_missing_actual_mobile_colored_edges_do_not_get_inner_fallback(self):
+        for edge, strip in {
+                'left': (211, 145, 214, 178),
+                'right': (311, 145, 315, 178),
+                'top': (211, 145, 315, 148),
+                'bottom': (211, 174, 315, 178)}.items():
+            with self.subTest(edge=edge):
+                image = self.image()
+                ImageDraw.Draw(image).rectangle(strip,
+                                               fill=image.getpixel((210, 160)))
+                with self.assertRaises(helper.StudioMenuLabelMissing):
+                    self.locate(image)
+
+    def test_two_actual_mobile_actions_buttons_remain_ambiguous(self):
+        image = self.image()
+        image.paste(image.crop((210, 144, 317, 179)), (400, 340))
+        with self.assertRaisesRegex(AssertionError, 'found 2 complete button matches'):
+            self.locate(image)
+
+    def test_partial_and_suffixed_mobile_english_words_rejected(self):
+        image = self.image()
+        partial = image.copy()
+        ImageDraw.Draw(partial).rectangle((301, 160, 306, 165),
+                                         fill=image.getpixel((270, 150)))
+        suffix = image.copy()
+        # Extra actual terminal S glyph inside the same complete visible button.
+        suffix.paste(image.crop((301, 160, 306, 166)), (307, 160))
+        for name, control in [('partial', partial), ('extra_S', suffix)]:
+            with self.subTest(control=name):
+                with self.assertRaises(helper.StudioMenuLabelMissing):
+                    self.locate(control)
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)
