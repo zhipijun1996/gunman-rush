@@ -1,0 +1,138 @@
+{
+  "source_commit": "14472bd9888d93161790d7c245d0cf5f9b77d48a",
+  "steps": [
+    {
+      "argv": [
+        "git",
+        "init",
+        "--quiet"
+      ],
+      "exit_code": 0,
+      "seconds": 0.004768998005602043
+    },
+    {
+      "argv": [
+        "git",
+        "remote",
+        "add",
+        "origin",
+        "https://github.com/zhipijun1996/gunman-rush.git"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00651621600263752
+    },
+    {
+      "argv": [
+        "git",
+        "-c",
+        "protocol.version=2",
+        "fetch",
+        "--depth=1",
+        "--filter=blob:none",
+        "origin",
+        "14472bd9888d93161790d7c245d0cf5f9b77d48a"
+      ],
+      "exit_code": 0,
+      "seconds": 3.336237983996398
+    },
+    {
+      "argv": [
+        "git",
+        "sparse-checkout",
+        "init",
+        "--no-cone"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0058376570013933815
+    },
+    {
+      "argv": [
+        "git",
+        "sparse-checkout",
+        "set",
+        "--no-cone",
+        "/tools/verify_published_build.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0027984059997834265
+    },
+    {
+      "argv": [
+        "git",
+        "checkout",
+        "--detach",
+        "FETCH_HEAD"
+      ],
+      "exit_code": 0,
+      "seconds": 1.7632556050011772
+    },
+    {
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0,
+      "seconds": 0.002486380995833315
+    },
+    {
+      "argv": [
+        "git",
+        "rev-parse",
+        "--is-shallow-repository"
+      ],
+      "exit_code": 0,
+      "seconds": 0.002287750998220872
+    },
+    {
+      "argv": [
+        "git",
+        "config",
+        "--get",
+        "remote.origin.partialclonefilter"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00238846199499676
+    },
+    {
+      "argv": [
+        "git",
+        "config",
+        "--get",
+        "core.sparseCheckoutCone"
+      ],
+      "exit_code": 0,
+      "seconds": 0.002106514999468345
+    },
+    {
+      "argv": [
+        "git",
+        "show",
+        "14472bd9888d93161790d7c245d0cf5f9b77d48a:tools/verify_published_build.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.002789124002447352
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/verify_published_build.py",
+        "--help"
+      ],
+      "exit_code": 0,
+      "seconds": 0.06890260300133377
+    }
+  ],
+  "head": "14472bd9888d93161790d7c245d0cf5f9b77d48a",
+  "shallow": "true",
+  "remote_partial_filter": "blob:none",
+  "cone_mode": "false",
+  "worktree_files": [
+    "tools/verify_published_build.py"
+  ],
+  "verifier_sha256": "49deb6fb35ee806f97c6e767e180944a19053686dafcf2e54aa344d16a8bcec1",
+  "equals_source_git_show": true,
+  "pack_bytes": 927633,
+  "promisor_files": 2,
+  "result": "passed"
+}

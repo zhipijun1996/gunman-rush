@@ -516,6 +516,10 @@ jobs:
     timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
+        with:
+          # The public verifier uses only the standard library; skip game/evidence blobs.
+          sparse-checkout: /tools/verify_published_build.py
+          sparse-checkout-cone-mode: false
       - name: Select absolute external toolchain path
         run: echo "GUNMAN_TOOLCHAIN_ROOT=$RUNNER_TEMP/gunman-toolchains" >> "$GITHUB_ENV"
       - uses: actions/setup-python@v5

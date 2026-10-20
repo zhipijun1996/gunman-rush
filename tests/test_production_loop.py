@@ -10,6 +10,7 @@ from unittest.mock import patch, Mock
 import subprocess
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
 import production_loop as loop
+from test_production_snapshot import ProductionSnapshotTests
 
 MISSION = {"schema_version":1,"objective":"isolated read-only drill", "max_calls":4,"max_rounds":2,"call_timeout_seconds":60,
            "tasks":[{"id":"DRILL", "goal":"inspect", "skills":["gameplay-reviewer"], "read_only":True,"checks":["docs"]}]}

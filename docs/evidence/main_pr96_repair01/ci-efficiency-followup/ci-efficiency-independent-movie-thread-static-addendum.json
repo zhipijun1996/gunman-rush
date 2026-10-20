@@ -1,0 +1,22 @@
+{
+  "decision": "ACCEPT_SCOPED_STATIC",
+  "scope": [
+    "tools/run_forest_depth_region.py"
+  ],
+  "base_commit": "14472bd9888d93161790d7c245d0cf5f9b77d48a",
+  "file_sha256": "1473a10f1e9f2b306a18b3900a5275ac1d608ca8e44984125d1146274ac2db77",
+  "whole_file_equals_N_after_reverting_only_movie_thread_delta": true,
+  "blocking_findings": [],
+  "findings": [
+    "仅movie=True设置并记录software_render_threads=min(4,os.cpu_count()or1)，传入实际native env的LP_NUM_THREADS；headless分支恒为原1，import分支仍原1。",
+    "完整文件移除精确movie线程delta后与N逐字节相等，因此80cases、CLI、driver、reader、断言、GL/movie60fps设置、native240/import90预算保持。movie_display仅覆盖LIBGL_ALWAYS_SOFTWARE/OMP_NUM_THREADS，保留LP_NUM_THREADS。",
+    "最大4线程、不可用CPU数回退1为有限渲染配置候选；不修改玩法。"
+  ],
+  "limits": [
+    "仅静态审查，未跑native/电影或大回归；不能证明LP1是旧超时唯一原因，不能宣称两图影片已修复。",
+    "原112/31及全库存等值证明仍只属于先前4文件状态，不重新绑定加入第5文件后的整树。",
+    "冻结新source后新main原240秒预算实际完成两部影片并过原完整门槛，才可签该候选实效。"
+  ],
+  "relationship_to_original_review": "review.json的4文件实测结论不变；此文件为随后追加第5文件静态审查。",
+  "tracked_files_modified_by_reviewer": []
+}

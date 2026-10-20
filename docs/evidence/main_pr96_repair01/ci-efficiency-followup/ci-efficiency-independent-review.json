@@ -1,0 +1,68 @@
+{
+  "decision": "ACCEPT_SCOPED",
+  "reviewer": "independent ci_efficiency_review subagent",
+  "scope": [
+    "tools/production_loop.py",
+    "tests/test_production_snapshot.py",
+    "tests/test_production_loop.py",
+    ".github/workflows/environment.yml"
+  ],
+  "base_commit": "14472bd9888d93161790d7c245d0cf5f9b77d48a",
+  "reviewed_file_sha256": {
+    "tools/production_loop.py": "53e8f5f4a5f24a30b98e8572043f352dc925fc0a9968d9bb1dab2c87aa61af62",
+    "tests/test_production_snapshot.py": "63658935738e5d49002b8956b48cedfc03b433487604cd9d334ba70e0afb86ca",
+    "tests/test_production_loop.py": "516ec29a4c12fdcfcf77a6b23a4d1e7ceddaf635e84bc65a78e123300d665f8e",
+    ".github/workflows/environment.yml": "4f75a67906778f4bb1f76b0bde62c5489597bc04a7a6296e744e1a74d155992a"
+  },
+  "skills": [
+    ".agents/skills/project-integration/SKILL.md",
+    ".agents/skills/game-quality-gate/SKILL.md"
+  ],
+  "blocking_findings": [],
+  "findings": [
+    "snapshot保留完整原git ls-files -z --cached --others --exclude-standard命令，不缩库存、不增排除、不引入cache；每次重新读取全部列出文件内容。file_digest SHA256与原sha256(read_bytes)相同；ThreadPoolExecutor.map按输入顺序产出，dict保持原顺序；非文件/deleted与symlink跟随行为保持。线程异常仍传播。并发读取不是原子快照，原实现同样不提供原子快照。",
+    "新增5项真实Git/FS测试由原生产入口import，原107项test方法AST全部逐项相等；独立执行新增5项全部通过，无skip。",
+    "verify_public仅增加checkout sparse参数；移除该精确snippet后整个workflow与N逐字节相同，原8分钟预算、Python3.12、URL/build_id/source_commit参数以及脚本全部断言保持。verifier只import标准库且无本地资源依赖。",
+    "实际GitHub远端depth1+blob:none+非cone精确文件checkout成功，工作树仅tools/verify_published_build.py；HEAD精确N，实际脚本字节与主仓库git show N:path相等，--help成功。所有Git pack相关文件合计927633B，未拉取9GB资产。",
+    "独立读取actions/checkout@v4当前源：sparseCheckout设置会令fetchOptions.filter=blob:none，false cone选择sparseCheckoutNonConeMode；实际Git复现实取语义与此一致。"
+  ],
+  "independent_executions": {
+    "snapshot_tests": {
+      "argv": [
+        "python3",
+        "tests/test_production_snapshot.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "seconds": 0.2088282680051634,
+      "timeout_seconds": 5,
+      "output": "test_each_call_reads_real_same_size_writes_new_files_and_deletions (__main__.ProductionSnapshotTests.test_each_call_reads_real_same_size_writes_new_files_and_deletions) ... ok\ntest_full_inventory_bytes_deleted_and_order_match_original (__main__.ProductionSnapshotTests.test_full_inventory_bytes_deleted_and_order_match_original) ... ok\ntest_git_errors_propagate (__main__.ProductionSnapshotTests.test_git_errors_propagate) ... ok\ntest_symlink_and_broken_symlink_keep_original_filesystem_semantics (__main__.ProductionSnapshotTests.test_symlink_and_broken_symlink_keep_original_filesystem_semantics) ... ok\ntest_unreadable_real_file_errors_propagate (__main__.ProductionSnapshotTests.test_unreadable_real_file_errors_propagate) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.063s\n\nOK\n"
+    },
+    "sparse_git_proof": "sparse-proof.json",
+    "sparse_git_log": "sparse-fetch.log",
+    "checkout_v4_source_provenance": "checkout-source.json"
+  },
+  "verifier_imports": [
+    "argparse",
+    "json",
+    "hashlib",
+    "urllib.request",
+    "urllib.parse",
+    "time"
+  ],
+  "author_evidence_reviewed": [
+    "build/forest_revision04/snapshot-perf-N/baseline-report.json",
+    "build/forest_revision04/snapshot-perf-N/candidate-report.json",
+    "build/forest_revision04/snapshot-perf-N/benchmark-report.json",
+    "build/forest_revision04/ci-main-N-14472bd9/verify-public-118698096688.log"
+  ],
+  "evidence_limits": [
+    "作者原31本地23.101s通过，不是远端60.035s超时的完整复现；不能把主机差异推断为唯一根因。新31/60s与112/180s结果及全库存等值来自作者实际原件，独审未重复耗费大回归或全库存SHA。",
+    "真实旧verify_public日志14:52:21.524开始无filter的全量fetch，15:01:05.953取消；证明取消发生于checkout，不能据此宣称公开verifier断言曾失败或新CI已经通过。",
+    "实取耗时约fetch3.336s+checkout1.763s只属当前云环境；不是GitHub runner最终耗时保证，actions/checkout@v4标签未来也可能移动。",
+    "本审查未执行公开PCK下载、浏览器或原生影片；不签新main完整Docs/Godot CI、发布、用户或设备通过。root另改其他文件不扩大本次4文件的签核范围。"
+  ],
+  "required_followup": "沿原门槛冻结新source后执行完整Docs及新main完整CI；真实CI通过后核实际artifact ZIP原三浏览器消费者、公开完整PCK SHA及同源原生连续影片。不得用此局部ACCEPT替代。",
+  "tracked_files_modified_by_reviewer": [],
+  "reviewed_files_still_unchanged_at_close": true
+}

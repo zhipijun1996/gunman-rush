@@ -1,3 +1,21 @@
+## 2026-10-20：CI效率修复完整本地预验通过
+
+冻结K=4306b753d9ab66e39dc2298974da83f10f93f938，原harness --profile docs --release完整26项全fresh通过，208.030秒，源K两端clean；原112生产测试与31契约在原180/60预算通过。K第二图原high_return电影完整29段，240原native预算下通过；outer153.971秒、原row143.517秒（含录制/ffprobe，不独称native纯耗时），实际LP4、2772物理帧、AVI2788帧/60fps/mjpeg/167943348B，完整SHA409722dcd35929b07a6e155556b9a7075fa1e45f44cfde8180c5c995e6c826d5。原N单线程240timeout不改签。
+
+独立K元数据审查只接受上述精确预验；最终main双图影片/CI/实际CI ZIP原三/公网完整SHA/艺术与设备均未签。原AVI保留本地；ZIP只打包元数据/日志/完整sourceguard/独审/执行脚本，不以预验改签后续main。额外存储审计保留九旧bundle去重首次别名ctime误拒与修正后完整字节/路径/权限等值凭据，未移除独有证据。 [原件](evidence/main_pr96_repair01/ci-efficiency-followup/preflight-K4306/README.md)。下一步普通PR合入后，重新核精确main的全量CI、实际包和双图影片。
+
+## 2026-10-20：主线CI瓶颈已定位，续修验证效率
+
+N=14472bd9888d93161790d7c245d0cf5f9b77d48a实际main。Godot run39433443585的prepare、serial/parallel/core、Web、Windows、部署jobs成功；verify_public在git fetch整仓库耗尽原8分钟，Python验证未启动，整个workflow cancelled。Documentation39433443537失败：原26检查前12通过，level-design-contracts原60秒timeout60.035，后13未执行。这轮不能签完整CI或正式交付。
+
+优化保原门槛：production_loop.snapshot每次仍全量真实SHA，改流式+最多4线程。8,715,254,451B完整对照原9.232秒/stream8.090/parallel4.469，完整dict与Git顺序相同。原107方法AST不变，新增5真实Git/FS语义测试纳入原runner，112/112通过36.716秒；原31契约文件逐字不变，原60预算内11.711秒通过（旧N本地23.101秒已通过，因此没有宣称复现远端超时）。双端21434项fresh SHA一致。Python最低3.12，file_digest兼容。
+
+verify_public仅稀疏检出stdlib验证脚本，原8分钟、脚本、URL/build/commit和校验保持。独立真实远端N实取约928KB，fetch3.336+checkout1.763秒，文件字节等于N；独立新增5测试通过，整个workflow除4行稀疏配置外等于N。
+
+N原生第一张24段电影通过217.066秒；第二张LP1软件渲染在原native240.030秒超时，无第二图完成证据。原AVI保留本地、完整SHA索引入ZIP。新候选仅movie模式允许最多4个渲染线程并记实际值，headless80/import保持1，90/240预算、60fps/路径/断言不动；静态独审不等于已验证实际提速。新main两部完整影片仍须实录。
+
+新候选完整docs profile、新main全freshCI、API绑定实际CI ZIP原三消费者、公开完整PCK SHA及同源双图影片均待执行。N旧失败、U本地73通过、历史M通过各守原来源；全区美感/HUD、真人设备/FUN和用户最终认可未签。 [本轮原件](evidence/main_pr96_repair01/ci-efficiency-followup/README.md)。
+
 ## 2026-10-20：新菜单原三浏览器完整通过，待合主线
 
 U=19f9ab4a88fb2a96513232dd94bd3b9e70065bac原三消费者完整通过：25/40/8项，161.781/255.717/145.299秒，各原300秒预算；outer564.030，无合并总外限。完整source/Web包两端稳定；PCK完整SHA6b7ca2f8fa95c6992ae4df2a702c7d64f36ba7643959438dbe66cd6cade078dd。附加clock r3整体failed：三份冻结采样判据True/False/False符合预期，但normal飞刃先自然结束，判定后的F回收清理无caught而失败；不改签整报告，不代替原三检查。独立代码/实际结果审核分别限定范围。main仍M9757，后续普通合并、新main完整CI/实际artifact原三/公开完整SHA和同源影片尚待完成。历史失败均保留原SHA，不改签。 [本地原件](evidence/main_pr96_repair01/local-U19f9/README.md)。
