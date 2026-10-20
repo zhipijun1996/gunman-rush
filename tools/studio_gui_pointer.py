@@ -252,41 +252,76 @@ async def click(page,x,y,touch=False):
  if touch:await page.touchscreen.tap(x,y)
  else:await page.mouse.click(x,y)
 
+def _weapon_popup_from_pixels(image,scale,start_y):
+ """One complete popup and fifteen actual circular radio components, any palette."""
+ import numpy as np
+ rgb=np.asarray(image.convert('RGB'),dtype=np.uint32)
+ height,width=rgb.shape[:2];packed=(rgb[:,:,0]<<16)|(rgb[:,:,1]<<8)|rgb[:,:,2]
+ def components(mask):
+  pixels={(int(x),int(y))for y,x in np.argwhere(mask)}
+  while pixels:
+   seed=pixels.pop();pending=[seed];points=[]
+   while pending:
+    x,y=pending.pop();points.append((x,y))
+    for point in ((x-1,y),(x+1,y),(x,y-1),(x,y+1)):
+     if point in pixels:pixels.remove(point);pending.append(point)
+   xs,ys=zip(*points)
+   yield (min(xs),min(ys),max(xs)+1,max(ys)+1),points
+ # A long, exact fill run proposes a panel background; neither gray color nor
+ # a preselected screen column is a popup identity or an item-coordinate fallback.
+ colors=set()
+ for column in packed.T:
+  starts=np.r_[0,np.flatnonzero(column[1:]!=column[:-1])+1]
+  ends=np.r_[starts[1:],column.size]
+  colors.update(column[starts[(ends-starts)>300*scale]].tolist())
+ candidates=[]
+ for color in sorted(colors):
+  for (left,top,right,bottom),points in components(packed==color):
+   w,h=right-left,bottom-top
+   if not(bottom>start_y and h>300*scale and 80*scale<=w<width*.9 and len(points)/(w*h)>.5):continue
+   if left<1 or top<1 or right>=width or bottom>=height:continue
+   # The actual fill must be enclosed by all four matching straight border
+   # edges. A partially clipped popup cannot supply inferred missing items.
+   xs=slice(left+w//4,right-w//4);ys=slice(top+h//4,bottom-h//4)
+   edges=[packed[top-1,xs],packed[bottom,xs],packed[ys,left-1],packed[ys,right]]
+   border=Counter(int(value)for edge in edges for value in edge).most_common(1)[0][0]
+   if border==color or not all(np.mean(edge==border)>=.8 for edge in edges):continue
+   crop=packed[top:bottom,left:right];markers=[]
+   for (l,t,r,b),part in components(crop!=color):
+    mw,mh=r-l,b-t
+    if not(6*scale<=min(mw,mh) and max(mw,mh)<=24*scale and .85<=mw/mh<=1.18):continue
+    silhouette=np.zeros((mh,mw),dtype=bool)
+    for x,y in part:silhouette[y-t,x-l]=True
+    # Real selected/unselected radios share a filled, round silhouette even
+    # when their low-contrast RGB values differ from each other/background.
+    if not(.65<=silhouette.mean()<.95 and np.mean(silhouette==silhouette[:,::-1])>=.9 and np.mean(silhouette==silhouette[::-1,:])>=.9):continue
+    if any(silhouette[y,x]for x,y in ((0,0),(mw-1,0),(0,mh-1),(mw-1,mh-1))):continue
+    if not(silhouette[mh//2,:].all() and silhouette[:,mw//2].all()):continue
+    markers.append((left+l,top+t,left+r,top+b))
+   columns={}
+   for box in markers:
+    # Exact observed component centers; no estimates for absent radio rows.
+    columns.setdefault((box[0]+box[2]-1)/2,[]).append(box)
+   for x,boxes in columns.items():
+    if len(boxes)!=15:continue
+    boxes.sort(key=lambda b:b[1]);rows=[(b[1]+b[3]-1)/2 for b in boxes]
+    gaps=[b-a for a,b in zip(rows,rows[1:])]
+    if min(gaps)>20*scale and max(gaps)-min(gaps)<4*scale:
+     candidates.append({'marker_x':x,'rows':rows,'marker_boxes':boxes,'bounds':(left-1,top-1,right+1,bottom+1),'background_rgb':tuple((color>>shift)&255 for shift in (16,8,0))})
+ assert len(candidates)==1,f'actual fifteen evenly spaced item markers not uniquely observed: {len(candidates)} complete popup/column candidates'
+ return candidates[0]
+
 async def open_weapon_picker(page,touch=False):
  scale,pad,h=geometry(page);await click(page,pad+145*scale,await weapon_row_y(page),touch);await page.wait_for_timeout(200)
- im=Image.open(io.BytesIO(await page.screenshot())).convert('RGB');x=round(pad+45*scale);reference_x=round(pad+54*scale)
- # Radio icons are dark/white against the plain gray gap beside each icon.
+ im=Image.open(io.BytesIO(await page.screenshot())).convert('RGB')
  start_y=round((await weapon_row_y(page))+18*scale)
- colors=Counter(im.getpixel((reference_x,yy)) for yy in range(start_y,h) if max(im.getpixel((reference_x,yy)))-min(im.getpixel((reference_x,yy)))<14 and max(im.getpixel((reference_x,yy)))<100)
- assert colors,"native dark menu background not observed"
- background=colors.most_common(1)[0][0]
- bounds=[]
- for yy in range(start_y,h):
-  reference=im.getpixel((reference_x,yy))
-  if max(reference)<min(120,max(background)+50) and max(reference)-min(reference)<14:
-   if not bounds or yy>bounds[-1][-1]+1:bounds.append([yy])
-   else:bounds[-1].append(yy)
- assert bounds,"native popup vertical bounds missing"
- menu=max(bounds,key=len)
- assert len(menu)>300*scale,"full native menu not observed"
- hits=[]
- for yy in menu:
-  pixel=im.getpixel((x,yy));reference=im.getpixel((reference_x,yy))
-  if max(reference)<min(120,max(background)+50) and max(reference)-min(reference)<14 and max(pixel)-min(pixel)<14 and abs(sum(pixel)-sum(reference))>25:hits.append(yy)
- groups=[]
- for yy in hits:
-  if not groups or yy-groups[-1][-1]>10*scale:groups.append([yy])
-  else:groups[-1].append(yy)
- centers=[(g[0]+g[-1])/2 for g in groups];candidates=[]
- for start in range(len(centers)-14):
-  rows=centers[start:start+15];gaps=[b-a for a,b in zip(rows,rows[1:])]
-  if min(gaps)>20*scale and max(gaps)-min(gaps)<4*scale:candidates.append(rows)
- if len(candidates)!=1:
+ try:popup=_weapon_popup_from_pixels(im,scale,start_y)
+ except AssertionError:
   from pathlib import Path
   Path('build/weapon_feel').mkdir(parents=True,exist_ok=True)
   im.save('build/weapon_feel/popup_failure.png')
- assert len(candidates)==1,f'actual fifteen evenly spaced item markers not observed: {centers}'
- return pad+145*scale,candidates[0]
+  raise
+ return popup['marker_x'],popup['rows']
 
 async def select_weapon(page,index,touch=False):
  x,rows=await open_weapon_picker(page,touch);target_y=rows[index]

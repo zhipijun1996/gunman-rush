@@ -3,6 +3,7 @@
 No browser or engine runs. Requires the same Pillow/NumPy/Tesseract toolchain as
 studio_gui_pointer. Test-only derived crops never replace either raw PNG.
 """
+import asyncio
 import hashlib
 import io
 import json
@@ -109,6 +110,101 @@ class ExactLabelTests(unittest.TestCase):
                     helper._studio_label_box(self.tsv([text]), 'ACTIONS')
         with self.assertRaisesRegex(AssertionError, 'found 2'):
             helper._studio_label_box(self.tsv(['ACTIONS', 'ACTIONS']), 'ACTIONS')
+
+
+class WeaponPopupTests(unittest.TestCase):
+    def image(self):
+        return Image.open(FIXTURES / 'popup_W_green.png').convert('RGB')
+
+    def parse(self, image):
+        return helper._weapon_popup_from_pixels(image, 1, 197)
+
+    def erase_marker(self, image, index):
+        # Test-only removal of one actual radio, retaining its real item text.
+        top = 212 + index * 29
+        ImageDraw.Draw(image).rectangle((53, top, 66, top + 13),
+                                        fill=image.getpixel((40, top)))
+
+    def test_actual_green_popup_fifteen_observed_rows_and_selected_variants(self):
+        image = self.image()
+        popup = self.parse(image)
+        # Exercise the unchanged actual HUD scan plus the real async helper,
+        # with screenshot I/O supplied by this fixture; no browser is launched.
+        class ScreenshotPage:
+            viewport_size = {'width': 1280, 'height': 720}
+
+            def __init__(self):
+                self.mouse = self
+                self.clicks = []
+
+            async def screenshot(self):
+                return (FIXTURES / 'popup_W_green.png').read_bytes()
+
+            async def click(self, x, y):
+                self.clicks.append((x, y))
+
+            async def wait_for_timeout(self, _milliseconds):
+                pass
+
+        page = ScreenshotPage()
+        self.assertEqual(asyncio.run(helper.weapon_row_y(page)), 179)
+        self.assertEqual(asyncio.run(helper.open_weapon_picker(page)),
+                         (popup['marker_x'], popup['rows']))
+        self.assertEqual(popup['bounds'], (36, 191, 286, 654))
+        self.assertEqual(popup['marker_x'], 59.5)
+        self.assertEqual(popup['rows'], [218.5 + 29 * i for i in range(15)])
+        # Exact actual selected/unselected pixel patches, not synthesized colors.
+        selected = image.crop((53, 212, 67, 226))
+        unselected = image.crop((53, 241, 67, 255))
+        self.assertNotEqual(selected.tobytes(), unselected.tobytes())
+        image.paste(unselected, (53, 212))
+        image.paste(selected, (53, 618))
+        self.assertEqual(self.parse(image)['rows'], popup['rows'])
+
+    def test_fourteen_markers_rejected_even_with_all_fifteen_text_rows(self):
+        image = self.image()
+        self.erase_marker(image, 7)
+        with self.assertRaisesRegex(AssertionError, 'not uniquely observed'):
+            self.parse(image)
+
+    def test_sixteen_markers_rejected_without_truncating_to_fifteen(self):
+        image = self.image()
+        icon = image.crop((53, 618, 67, 632))
+        # Extend this test panel by one observed row gap, keeping a full border.
+        draw = ImageDraw.Draw(image)
+        draw.rectangle((36, 653, 285, 682), fill=image.getpixel((40, 640)))
+        draw.line((36, 653, 36, 682), fill=(82, 96, 75))
+        draw.line((285, 653, 285, 682), fill=(82, 96, 75))
+        draw.line((36, 682, 285, 682), fill=(82, 96, 75))
+        image.paste(icon, (53, 647))
+        with self.assertRaisesRegex(AssertionError, 'not uniquely observed'):
+            self.parse(image)
+
+    def test_duplicate_complete_popups_rejected(self):
+        image = self.image()
+        image.paste(image.crop((35, 190, 287, 655)), (400, 190))
+        with self.assertRaisesRegex(AssertionError, '2 complete popup/column candidates'):
+            self.parse(image)
+
+    def test_partially_visible_popup_rejected(self):
+        with self.assertRaisesRegex(AssertionError, 'not uniquely observed'):
+            self.parse(self.image().crop((0, 0, 1280, 621)))
+
+    def test_periodic_text_glyph_columns_do_not_substitute_for_radio_markers(self):
+        image = self.image()
+        # Lv./tier/Chinese labels still provide several real 15-row columns.
+        for index in range(15):
+            self.erase_marker(image, index)
+        with self.assertRaisesRegex(AssertionError, 'not uniquely observed'):
+            self.parse(image)
+
+    def test_nonuniform_actual_marker_gaps_rejected(self):
+        image = self.image()
+        icon = image.crop((53, 415, 67, 429))
+        self.erase_marker(image, 7)
+        image.paste(icon, (53, 420))
+        with self.assertRaisesRegex(AssertionError, 'not uniquely observed'):
+            self.parse(image)
 
 
 if __name__ == '__main__':

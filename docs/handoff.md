@@ -1,3 +1,9 @@
+## 2026-10-20：入口真实通过，武器弹窗定位续修
+
+W5a4d本地原导出26.065s/0，完整source前后干净；原浏览器桌面ACTIONS真实导航通过。首action-budget随后在第一个weapon选择前因旧固定列/近灰像素契约失败57.607s/exit1，0业务断言完成、后两/mobile未执行；source/PCK双端稳定。原图完整15条绿色菜单，现按真实完整popup/radio发现唯一15行，原CLI/预算/间距/完整性保留，15纯测试通过但尚非live点击证据。详见[原件](evidence/main_pr96_repair01/menu-popup-followup/README.md)。新源码原三浏览器/最终mainCI/公开完整SHA待实际结果；M发布与旧失败不改签。
+
+---
+
 ## 2026-10-20：纯Python截图与游戏导入隔离
 
 V严格边框候选及独审已提交，但本地导出产生2个纯测试PNG.import，sourcefreeze正确拒绝且0浏览器执行。原sidecars/status已保留；仅给该Python fixture目录添加.gdignore，截图原字节与测试保持，不改游戏导入/检查阈值。详见[续修](evidence/main_pr96_repair01/menu-width-followup/README.md)。新干净导出和原三浏览器待验；M线上/CI历史不改签。
