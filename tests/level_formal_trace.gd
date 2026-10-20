@@ -288,17 +288,51 @@ func tick(count: int = 1) -> void:
 			await RenderingServer.frame_post_draw
 			if is_trace_cancelled(): return
 
+func open_backside_shortcut(edge: Dictionary) -> bool:
+	# Only a real installed attack latch selects the current contract. The
+	# historical fixture actuator remains in the base driver unchanged.
+	var latch: Node2D = null
+	var installed: Variant = stage.get("attack_shortcuts")
+	if not installed is Array:return await super.open_backside_shortcut(edge)
+	for candidate: Node2D in installed:
+		if str(candidate.shortcut_id) == str(edge.id):latch = candidate;break
+	if latch == null:return await super.open_backside_shortcut(edge)
+	var control: Vector2 = latch.upper_control
+	var actor: Vector2 = latch.to_local(motor.global_position)
+	if actor.distance_to(control)>90.0 or actor.y>control.y+24.0:return false
+	controller.router.set_move_axis(0)
+	# Observe the original weapon cooldown/resource policy before submitting
+	# one Router shot. This stays inside the unchanged total route budget.
+	var ready := false
+	for unused: int in 30:
+		if controller.shoot_ability.cooldown_remaining<=0 and controller.shoot_ability.rounds_remaining==0 and controller.shot_energy.can_fire():ready=true;break
+		await tick()
+		if is_trace_cancelled():break
+	var before_serial: int = controller.shoot_ability._shot_serial
+	if ready and not is_trace_cancelled():
+		actor = latch.to_local(motor.global_position)
+		if actor.distance_to(control)>90.0 or actor.y>control.y+24.0:ready=false
+		else:ready=controller.router.request_action(&"shoot_release",(latch.to_global(latch.bell_position)-motor.global_position).normalized())
+	if ready:
+		# Keep the old interaction observation window and normal threat policy.
+		for unused: int in 30:
+			await tick()
+			if is_trace_cancelled() or (unused>=2 and region_state.opened.has(edge.id)):break
+	if is_trace_cancelled():return false
+	var opened: bool = ready and controller.shoot_ability._shot_serial>before_serial and latch.is_open and region_state.opened.has(edge.id) and stage.shortcut_shapes[str(edge.id)].disabled
+	policy_observations.append({"tick":trace_ticks,"kind":"actual_backside_attack","shortcut":str(edge.id),"actor_position":SNAPSHOT.pair(motor.global_position),"before_shot_serial":before_serial,"after_shot_serial":controller.shoot_ability._shot_serial,"opened":opened})
+	return opened
+
 func walk_edge(edge: Dictionary, forward: bool) -> bool:
 	if is_trace_cancelled(): return false
 	current_edge = str(edge.id)
 	var start := trace_ticks + 1
-	# Production shortcut opening must go through nearby input interaction.
+	# Production shortcut opening must go through its actual nearby actuator.
 	if edge.condition == "backside" and not region_state.opened.has(edge.id):
 		if forward: return false
-		controller.router.request_action(&"interact")
-		await tick(3)
+		var shortcut_opened: bool = await open_backside_shortcut(edge)
 		if is_trace_cancelled(): return false
-		if not region_state.opened.has(edge.id):
+		if not shortcut_opened or not region_state.opened.has(edge.id):
 			record_check(false, "formal shortcut interaction not accepted from this position")
 			return false
 	var protected_motion: bool = edge.kind in ["stairs", "diagonal", "drop"]

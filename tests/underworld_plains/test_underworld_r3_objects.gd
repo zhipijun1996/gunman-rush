@@ -64,6 +64,7 @@ func formal_snapshot(app: DemoApp, name: String) -> void:
 	root.get_texture().get_image().save_png("res://build/underworld_r3/objects/%s.png" % name)
 
 func formal_consumers() -> void:
+	var map_hashes: Dictionary = {}
 	var app := DemoApp.new()
 	app.meta_persistence_enabled = false
 	root.add_child(app)
@@ -71,10 +72,14 @@ func formal_consumers() -> void:
 	for frame: int in 6: await physics_frame
 	for map_index: int in [1,2]:
 		if map_index==2:
-			app.director.stage_index = 2
+			app.director.stage_index = 2;app.director.region_map_index = 2
 			app._load_stage()
 			for frame: int in 6: await physics_frame
 		var stage := app.stage as PlainsRegionStage
+		check(stage.map_index == map_index and app.director.region_map_index == map_index and str(stage.generated.manifest.seed) == PlainsRegionCampaign.seed_for(app.director.seed,map_index) and str(stage.generated.manifest.manifest_hash).length() == 64,"actual formal map, derived seed and hash match the requested consumer")
+		var actual_hash := str(stage.generated.manifest.manifest_hash)
+		check(not map_hashes.has(actual_hash),"requested formal map owns a distinct actual Manifest hash")
+		map_hashes[actual_hash] = true
 		var assembler := stage.assembler as PlainsRegionAssembler
 		check(stage.assembly_ok and assembler.attack_shortcuts.size()>=2,"actual formal map installs attack-only shortcut consumers")
 		check(stage.nearby_shortcut(stage.spawn).is_empty(),"actual Stage exposes no interact shortcut route")

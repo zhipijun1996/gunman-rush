@@ -19,15 +19,20 @@ func opaque_height(texture: Texture2D, region: Rect2i = Rect2i()) -> int:
 				top=mini(top,y);bottom=maxi(bottom,y)
 	return maxi(0,bottom-top+1)
 func run() -> void:
+	var map_hashes: Dictionary = {}
 	var tuning_hash:=FileAccess.get_sha256("res://config/player_tuning.json")
 	var app:=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
 	check(app.start_plains("underworld-formal-integrated"),"ordinary formal entry accepted")
 	for frame:int in 8:await physics_frame
 	for map_index:int in [1,2]:
 		if map_index==2:
-			app.director.stage_index=2;app._load_stage()
+			app.director.stage_index=2;app.director.region_map_index=2;app._load_stage()
 			for frame:int in 8:await physics_frame
 		var stage:=app.stage as PlainsRegionStage
+		check(stage.map_index == map_index and app.director.region_map_index == map_index and str(stage.generated.manifest.seed) == PlainsRegionCampaign.seed_for(app.director.seed,map_index) and str(stage.generated.manifest.manifest_hash).length() == 64,"actual formal map, derived seed and hash match the requested consumer")
+		var actual_hash := str(stage.generated.manifest.manifest_hash)
+		check(not map_hashes.has(actual_hash),"requested formal map owns a distinct actual Manifest hash")
+		map_hashes[actual_hash] = true
 		check(stage!=null and stage.assembly_ok,"formal map assembles")
 		check(UnderworldActors.enabled(stage),"formal style bound before module ready")
 		check(stage.terrain_art.art is UnderworldTerrain,"real default terrain")

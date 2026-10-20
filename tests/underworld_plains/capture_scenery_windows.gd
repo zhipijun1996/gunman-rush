@@ -10,11 +10,12 @@ func run() -> void:
 	app.start_plains("level-design-v2-baseline/08")
 	var map_index := 2 if "--scenery-map=2" in OS.get_cmdline_user_args() else 1
 	if map_index==2:
-		app.director.stage_index=2
+		app.director.stage_index=2;app.director.region_map_index=2
 		app._load_stage()
 	for n: int in 10: await physics_frame
 	var stage := app.stage as PlainsRegionStage
 	if stage == null or not stage.assembly_ok: push_error("Real formal stage failed"); quit(1); return
+	if not (stage.map_index == map_index and app.director.region_map_index == map_index and str(stage.generated.manifest.seed) == PlainsRegionCampaign.seed_for(app.director.seed,map_index) and str(stage.generated.manifest.manifest_hash).length() == 64): push_error("Requested scenery map identity mismatch"); quit(1); return
 	var rays: Array[Dictionary] = []
 	for sprite: Node in stage.get_node("PixelRegionScenery").get_children():
 		if not sprite is Sprite2D or not sprite.has_meta("landmark"): continue
@@ -60,7 +61,7 @@ func run() -> void:
 		var scenery := stage.get_node("PixelRegionScenery") as UnderworldScenery
 		receipt.append({"point":point,"camera_center":app._run_camera.get_screen_center_position(),"layers":parallax.measured_nodes(),"decor":scenery.presentation_manifest,"local_compositions":local.compositions if local!=null else [],"local_issues":local.actual_issues() if local!=null else [],"image":path,"traversal_claim":false})
 	var f := FileAccess.open("res://build/underworld_plains/scenery_"+("map2_" if map_index==2 else "")+"golden_receipts.json",FileAccess.WRITE)
-	f.store_string(JSON.stringify({"schema":"underworld-golden-scenery-v1","actual_formal_consumer":true,"fixture":true,"seed":"level-design-v2-baseline/08","map":map_index,"grounded_landmark_rays":rays,"samples":receipt},"\t"))
+	f.store_string(JSON.stringify({"schema":"underworld-golden-scenery-v1","actual_formal_consumer":true,"fixture":true,"seed":"level-design-v2-baseline/08","map":map_index,"actual_map_index":stage.map_index,"manifest_seed":stage.generated.manifest.seed,"manifest_hash":stage.generated.manifest.manifest_hash,"grounded_landmark_rays":rays,"samples":receipt},"\t"))
 	f.close()
 	app.free()
 	for n: int in 4: await process_frame

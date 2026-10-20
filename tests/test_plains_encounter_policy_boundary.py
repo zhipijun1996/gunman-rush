@@ -239,5 +239,102 @@ class ActualMapIdentityTests(unittest.TestCase):
             with self.subTest(change=change),self.assertRaises(ValueError):runner.validate_reward_map_identity(bad)
 
 
+class EarlyEntryContactTests(unittest.TestCase):
+    def setUp(self):
+        guard = {"id": "plains/enemy/entry", "health": 3, "terminal": False}
+        jump = {"kind": "jump_accepted", "tick": 11}
+        contact = {"kind": "damage_committed", "tick": 12,
+                   "source": "plains/enemy/entry_contact", "target": "player",
+                   "amount": 1, "health_after": 4, "lethal": False}
+        health = {"kind": "player_health", "tick": 12, "operation": "damage",
+                  "status": 0, "amount": -1, "current": 4}
+        self.row = {"restored_unsafe": True, "restored_unsafe_return": False,
+                    "claimed": False, "tier": "high", "guard_id": guard["id"],
+                    "manifest": {"connections": [{"kind": "challenge", "a": "entry", "b": "deep_high"}],
+                                 "enemies": [{"id": guard["id"], "area": "entry"}], "areas": [{"id": "entry", "position": [0, 0]}]},
+                    "state": {"approach": True, "trial": False, "entry_tick": 10,
+                              "trial_start_tick": 10, "trial_end_tick": 14, "entry_position": [0, 0],
+                              "entry_guard": [copy.deepcopy(guard)]},
+                    "events": [jump, contact, health],
+                    "frames": [{"tick": 11, "health": 5, "position": [1, -10], "accepted_events": [copy.deepcopy(jump)],
+                                "reward_guard": [copy.deepcopy(guard)]},
+                               {"tick": 12, "health": 4, "position": [2, -20],
+                                "accepted_events": [copy.deepcopy(contact), copy.deepcopy(health)],
+                                "reward_guard": [copy.deepcopy(guard)]},
+                               {"tick": 10, "health": 5, "position": [0, 0], "grounded": True, "accepted_events": [], "reward_guard": [copy.deepcopy(guard)]},
+                               {"tick": 14, "health": 4, "position": [4, -5], "accepted_events": [], "reward_guard": [copy.deepcopy(guard)]}]}
+
+    def test_exact_declared_contact_interrupts_actual_entry_ascent(self):
+        self.assertTrue(runner.validate_early_entry_contact_conflict(self.row))
+
+    def test_unbound_or_forged_contact_counterexamples_rejected(self):
+        def coherent_midair_entry(row):
+            frame = row["frames"][0]
+            frame["grounded"] = False
+            row["state"].update(entry_tick=frame["tick"], trial_start_tick=frame["tick"],
+                                entry_position=copy.deepcopy(frame["position"]),
+                                entry_guard=copy.deepcopy(frame["reward_guard"]))
+
+        def coherent_wrong_bank(row):
+            frame = row["frames"][2]
+            frame["grounded"] = True
+            frame["position"] = [999, 999]
+            row["state"]["entry_position"] = copy.deepcopy(frame["position"])
+
+        mutations = {
+            "coherent_midair_entry": coherent_midair_entry,
+            "coherent_wrong_authored_bank": coherent_wrong_bank,
+            "missing_authored_entrance": lambda r: r["manifest"].update(areas=[]),
+            "ambiguous_authored_entrance": lambda r: r["manifest"]["areas"].append(copy.deepcopy(r["manifest"]["areas"][0])),
+            "missing_entry_tick": lambda r: r["state"].pop("entry_tick"),
+            "missing_start_tick": lambda r: r["state"].pop("trial_start_tick"),
+            "missing_end_tick": lambda r: r["state"].pop("trial_end_tick"),
+            "zero_entry_tick": lambda r: r["state"].update(entry_tick=0),
+            "zero_start_tick": lambda r: r["state"].update(trial_start_tick=0),
+            "zero_end_tick": lambda r: r["state"].update(trial_end_tick=0),
+            "negative_tick": lambda r: r["state"].update(entry_tick=-1),
+            "boolean_tick": lambda r: r["state"].update(entry_tick=True),
+            "fractional_tick": lambda r: r["state"].update(entry_tick=10.0),
+            "end_outside_capture": lambda r: r["state"].update(trial_end_tick=999999),
+            "start_outside_capture": lambda r: r["state"].update(trial_start_tick=999999),
+            "wrong_entry_frame": lambda r: r["state"].update(entry_tick=11, trial_start_tick=11),
+            "wrong_entry_position": lambda r: r["state"].update(entry_position=[999, 999]),
+            "wrong_entry_guard_frame": lambda r: r["state"]["entry_guard"][0].update(health=2),
+            "missing_entry_endpoint_frame": lambda r: r["frames"].pop(2),
+            "missing_trial_end_frame": lambda r: r["frames"].pop(3),
+            "ordinary_entry": lambda r: r.update(restored_unsafe=False),
+            "return_conflict": lambda r: r.update(restored_unsafe_return=True),
+            "claimed": lambda r: r.update(claimed=True),
+            "no_approach": lambda r: r["state"].update(approach=False),
+            "trial_succeeded": lambda r: r["state"].update(trial=True),
+            "wrong_guard": lambda r: r.update(guard_id="plains/enemy/other"),
+            "ambiguous_manifest_guard": lambda r: r["manifest"]["enemies"].append(copy.deepcopy(r["manifest"]["enemies"][0])),
+            "foreign_manifest_area": lambda r: r["manifest"]["enemies"][0].update(area="other"),
+            "ambiguous_route": lambda r: r["manifest"]["connections"].append(copy.deepcopy(r["manifest"]["connections"][0])),
+            "wrong_source": lambda r: r["events"][1].update(source="plains/enemy/foreign_contact"),
+            "erased_source": lambda r: r["events"][1].pop("source"),
+            "wrong_target": lambda r: r["events"][1].update(target="foreign"),
+            "shifted_event_tick": lambda r: r["events"][1].update(tick=13),
+            "damage_outside_trial": lambda r: r["state"].update(trial_start_tick=13),
+            "fake_before_HP": lambda r: r["frames"][0].update(health=6),
+            "fake_after_HP": lambda r: r["frames"][1].update(health=3),
+            "fake_damage_HP": lambda r: r["events"][1].update(health_after=3),
+            "no_frame_acceptance": lambda r: r["frames"][1].update(accepted_events=[]),
+            "forged_health_apply": lambda r: r["frames"][1]["accepted_events"][1].update(amount=-2),
+            "missing_global_health": lambda r: r["events"].pop(2),
+            "missing_guard_observation": lambda r: r["frames"][1].update(reward_guard=[]),
+            "wrong_actual_guard": lambda r: r["frames"][1]["reward_guard"][0].update(id="plains/enemy/foreign"),
+            "dead_actual_guard": lambda r: r["frames"][1]["reward_guard"][0].update(terminal=True, health=0),
+            "missing_accepted_ascent": lambda r: r["frames"][0].update(accepted_events=[]),
+            "ambiguous_frame_tick": lambda r: r["frames"].append(copy.deepcopy(r["frames"][0])),
+        }
+        for name, mutate in mutations.items():
+            with self.subTest(name=name):
+                row = copy.deepcopy(self.row)
+                mutate(row)
+                with self.assertRaises(ValueError):
+                    runner.validate_early_entry_contact_conflict(row)
+
+
 if __name__ == "__main__":
     unittest.main()

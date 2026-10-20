@@ -8,6 +8,7 @@ func check(value: bool, label: String) -> void:
 	checks+=1
 	if not value: failures+=1;printerr("FAIL: "+label)
 func run() -> void:
+	var map_hashes: Dictionary = {}
 	for number: int in 10:
 		for map_index: int in [1,2]:
 			var seed_text := "underworld-formal/"+str(number)
@@ -17,10 +18,14 @@ func run() -> void:
 			await process_frame
 			app.start_plains(seed_text)
 			if map_index==2:
-				app.director.stage_index=2
+				app.director.stage_index=2;app.director.region_map_index=2
 				app._load_stage()
 			for n: int in 3: await physics_frame
 			var stage := app.stage as PlainsRegionStage
+			check(stage.map_index == map_index and app.director.region_map_index == map_index and str(stage.generated.manifest.seed) == PlainsRegionCampaign.seed_for(app.director.seed,map_index) and str(stage.generated.manifest.manifest_hash).length() == 64,"actual formal map, derived seed and hash match the requested consumer")
+			var actual_hash := str(stage.generated.manifest.manifest_hash)
+			check(not map_hashes.has(actual_hash),"requested formal map owns a distinct actual Manifest hash")
+			map_hashes[actual_hash] = true
 			check(stage!=null and stage.assembly_ok,seed_text+" map"+str(map_index)+" actual assembly")
 			var scenery := stage.get_node("PixelRegionScenery") as UnderworldScenery
 			var actual_identities: Array[String] = []

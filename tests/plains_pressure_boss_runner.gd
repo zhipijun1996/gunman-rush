@@ -265,7 +265,8 @@ func check_current_formal_background() -> void:
 	check(current_background is UnderworldParallax,"fixture begins from the actual current Underworld default")
 	if current_background!=null:
 		app.remove_child(current_background)
-		current_background.queue_free()
+		# Borrow the required App owner only for this historical renderer inspection.
+		# Return it before the ordinary Run -> Home lifecycle resumes.
 	var background:=PixelPlainsParallax.new()
 	background.name="LegacyPixelThreePlaneFixture"
 	background.origin=stage.spawn
@@ -333,7 +334,14 @@ func check_current_formal_background() -> void:
 		check(absf(horizontal[0].x-middle[0].x)<absf(horizontal[1].x-middle[1].x) and absf(horizontal[1].x-middle[1].x)<absf(horizontal[2].x-middle[2].x),"current three actual horizontal layer speeds establish depth order")
 		check(absf(vertical[0].y-middle[0].y)<absf(vertical[1].y-middle[1].y) and absf(vertical[1].y-middle[1].y)<absf(vertical[2].y-middle[2].y),"current three actual unclamped vertical layer speeds establish depth order")
 	check(JSON.stringify(stage.generated.manifest)==manifest_before,"new current-default inspection preserves the complete formal gameplay Manifest")
+	background.queue_free()
+	app.add_child(current_background)
+	check(app.get_node("PixelPlainsParallax")==current_background,"historical renderer fixture returns the exact required default owner")
 	app.abandon_run()
+	for attempt: int in 8:
+		if app.director.state==DemoRunDirector.State.HOME and is_instance_valid(app.home_scene):break
+		await process_frame
+	check(app.director.state==DemoRunDirector.State.HOME and current_background.visible,"actual Run exit restores the default Home background owner")
 	if not await load("res://tests/audio_teardown.gd").drain_world(app):
 		failures+=1;push_error("TEST AUDIO TEARDOWN: playback did not release within 1000ms");quit(1);return
 	viewport.free()

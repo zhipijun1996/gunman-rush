@@ -24,9 +24,14 @@ func run()->void:
 	app=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app)
 	app.start_plains("underworld-r3-continuous-boss")
 	await frames(8)
+	var first_map_hash := str((app.stage as PlainsRegionStage).generated.manifest.manifest_hash)
 	if map_index==2:
-		app.director.stage_index=2;app._load_stage();await frames(8)
+		app.director.stage_index=2;app.director.region_map_index=2;app._load_stage();await frames(8)
 	var stage:=app.stage as PlainsRegionStage
+	# Normal post-victory progression may release this map before the receipt.
+	var actual_map_identity := {"map_index":stage.map_index,"manifest_seed":stage.generated.manifest.seed,"manifest_hash":stage.generated.manifest.manifest_hash}
+	if not (stage.map_index == map_index and app.director.region_map_index == map_index and str(stage.generated.manifest.seed) == PlainsRegionCampaign.seed_for(app.director.seed,map_index) and str(stage.generated.manifest.manifest_hash).length() == 64): failure.append("actual fight map identity differs from requested formal map")
+	if map_index==2 and str(stage.generated.manifest.manifest_hash)==first_map_hash: failure.append("actual main fight reused mini map Manifest hash")
 	var boss:=stage.boss as BossMotor
 	var encounter:=boss.get_node("Encounter") as WindkeeperEncounter
 	start_meta=app.meta.snapshot()
@@ -122,9 +127,33 @@ func run()->void:
 		await frames(5)
 		settlement["completed_biomes"]=app.meta.snapshot().completed_biomes
 		settlement["returned_home"]=app.director.state==DemoRunDirector.State.HOME
-		if not settlement.first_claim or not settlement.repeat_claim_rejected or settlement.completed_biomes!=1 or not settlement.returned_home:failure.append("actual main Gold does not settle once and return home")
+		settlement["gold_instances"]=app.build.count_item(selected)
+		if not settlement.first_claim or not settlement.repeat_claim_rejected or settlement.gold_instances!=1:failure.append("actual main Gold does not settle exactly once")
+		# Current two-region play continues through a separate core reward. These
+		# are real production modal callbacks after the uninterrupted Boss battle.
+		settlement["core_choice_open"]=app.progression_modal.opened and app.campaign.phase==RunCampaignProgression.Phase.ABILITY_CHOICE
+		settlement["gold_does_not_grant_hook"]=not app.controller.traversal.hook_enabled
+		if not settlement.core_choice_open or not settlement.gold_does_not_grant_hook or settlement.returned_home or settlement.completed_biomes!=0:failure.append("actual Gold must open the separate current core reward without ending the run")
+		var previous_region_token := app.lifetime.token()
+		var previous_stage_epoch := app.lifetime.stage_epoch
+		var continuing_player_id := app.player.get_instance_id()
+		app.progression_modal.ability_selected.emit(&"grapple")
+		settlement["grapple_granted_once"]=app.controller.traversal.hook_enabled and app.campaign.abilities==[&"grapple"]
+		settlement["region_choice_open"]=app.progression_modal.opened and app.campaign.phase==RunCampaignProgression.Phase.REGION_CHOICE
+		var selected_core_snapshot := app.director.manifest.canonical_json()
+		app.progression_modal.ability_selected.emit(&"grapple")
+		settlement["duplicate_core_has_no_effect"]=app.campaign.abilities==[&"grapple"] and app.director.manifest.canonical_json()==selected_core_snapshot
+		if not settlement.grapple_granted_once or not settlement.region_choice_open or not settlement.duplicate_core_has_no_effect:failure.append("actual core modal must grant grapple once and open region selection")
+		app.progression_modal.region_selected.emit(&"thorn_forest")
+		await frames(8)
+		settlement["forest_entered"]=app.stage is ThornForestRegionStage and app.stage.assembly_ok and app.stage.map_index==1 and app.active_region_id==&"thorn_forest" and app.campaign.phase==RunCampaignProgression.Phase.PLAYING
+		settlement["forest_version"]=str(app.stage.generated.manifest.version) if app.stage is ThornForestRegionStage else ""
+		settlement["forest_layout"]=str(app.stage.generated.manifest.layout_version) if app.stage is ThornForestRegionStage else ""
+		settlement["same_player_with_grapple"]=app.player.get_instance_id()==continuing_player_id and app.controller.traversal.hook_enabled and app.campaign.abilities==[&"grapple"] and app.build.count_item(selected)==1
+		settlement["previous_region_token_rejected"]=not app.lifetime.accepts(previous_region_token) and app.lifetime.stage_epoch>previous_stage_epoch
+		if not settlement.forest_entered or settlement.forest_version!="thorn-forest-region-v2" or settlement.forest_layout!="forest-fruit-routes-v14" or not settlement.same_player_with_grapple or not settlement.previous_region_token_rejected:failure.append("actual post-Boss region selection must assemble the default forest with retained Gold, one grapple and a fresh stage token")
 	DirAccess.make_dir_recursive_absolute("res://build/underworld_r3/boss")
 	var file:=FileAccess.open("res://build/underworld_r3/boss/full_fight_map%d.json"%map_index,FileAccess.WRITE)
-	file.store_string(JSON.stringify({"map":map_index,"failures":failure,"initial_room_placement_fixture":true,"no_midfight_injection":true,"requested_shots":shots,"accepted_shots":accepted_shots,"damage_events":damage_events,"roll_crossings":crossed,"visited":visited.keys(),"boss_hp":hp,"player_hp":actor_hp,"settlement":settlement,"trace":trace},"\t"));file.close()
+	file.store_string(JSON.stringify({"map":map_index,"actual_map_index":actual_map_identity.map_index,"manifest_seed":actual_map_identity.manifest_seed,"manifest_hash":actual_map_identity.manifest_hash,"failures":failure,"initial_room_placement_fixture":true,"no_midfight_injection":true,"requested_shots":shots,"accepted_shots":accepted_shots,"damage_events":damage_events,"roll_crossings":crossed,"visited":visited.keys(),"boss_hp":hp,"player_hp":actor_hp,"settlement":settlement,"trace":trace},"\t"));file.close()
 	app.abandon_run();await load("res://tests/audio_teardown.gd").drain_world(app);app.free();await frames(5)
 	print("UNDERWORLD R3 FULL BOSS MAP%d: %d frames, %d failures"%[map_index,trace.size(),failure.size()]);quit(1 if not failure.is_empty() else 0)

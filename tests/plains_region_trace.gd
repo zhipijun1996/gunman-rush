@@ -421,6 +421,14 @@ func bell_well(module: PlatformingModule, forward: bool) -> bool:
 	if not result: print("WELL LAND FAILED ",forward," actor=",motor.global_position)
 	return result
 
+func open_backside_shortcut(_edge: Dictionary) -> bool:
+	# Legacy assembled fixtures retain their original proximity interaction.
+	# The live formal App overrides this actuator for its attack-only latch.
+	controller.router.request_action(&"interact")
+	await tick(3)
+	if is_trace_cancelled(): return false
+	return region_state.opened.has(_edge.id)
+
 func deep_trial(id: String) -> bool:
 	if is_trace_cancelled(): return false
 	var ferry:=named(id+"_ferry")
@@ -475,11 +483,10 @@ func deep_trial(id: String) -> bool:
 			for shortcut: Dictionary in stage.manifest.connections:
 				if shortcut.condition!="backside" or region_state.opened.has(shortcut.id): continue
 				if motor.global_position.distance_to(Vector2(shortcut.control[0],shortcut.control[1]))>90: continue
-				controller.router.request_action(&"interact")
-				await tick(3)
+				var shortcut_opened: bool = await open_backside_shortcut(shortcut)
 				if is_trace_cancelled(): return false
 				check.call(region_state.opened.has(shortcut.id),"reward return opens actual nearby upper-side hatch through input")
-				if not region_state.opened.has(shortcut.id): return false
+				if not shortcut_opened or not region_state.opened.has(shortcut.id): return false
 			if absf(motor.global_position.y-target.y)<2:
 				if not await move_to(target.x): return false
 				break

@@ -64,7 +64,7 @@ func wait_for_formal_map(expected_map: int) -> bool:
 	# never treat start_plains returning true as a synchronously ready scene.
 	for n: int in 180:
 		var loaded := app.stage as PlainsRegionStage
-		if loaded != null and loaded.map_index == expected_map and loaded.is_node_ready() and loaded.assembly_ok and not app._stage_pending and is_instance_valid(loaded.boss_seal) and is_instance_valid(app._boss_contact) and app._boss_contact.get_parent() == loaded.boss: return true
+		if loaded != null and loaded.map_index == expected_map and app.director.region_map_index == expected_map and str(loaded.generated.manifest.seed) == PlainsRegionCampaign.seed_for(app.director.seed,expected_map) and str(loaded.generated.manifest.manifest_hash).length() == 64 and loaded.is_node_ready() and loaded.assembly_ok and not app._stage_pending and is_instance_valid(loaded.boss_seal) and is_instance_valid(app._boss_contact) and app._boss_contact.get_parent() == loaded.boss: return true
 		await tick()
 	failures.append("actual formal map readiness timed out: " + str(expected_map))
 	return false
@@ -107,13 +107,13 @@ func run() -> void:
 	if not await wait_for_formal_map(1):
 		printerr("FORMAL PROJECTILE WINDOW timed out waiting for actual map1");quit(1);return
 	if focus=="windkeeper":
-		app.director.stage_index=2;app._load_stage()
+		app.director.stage_index=2;app.director.region_map_index=2;app._load_stage()
 		if not await wait_for_formal_map(2):
 			printerr("FORMAL PROJECTILE WINDOW timed out waiting for actual map2");quit(1);return
 	stage=app.stage as PlainsRegionStage
 	if stage==null:
 		printerr("FORMAL PROJECTILE WINDOW failed to create actual formal stage");quit(1);return
-	initialization={"scope":"real formal consumer combat window, initialized fixture position; not natural route or acquisition proof","operation":"DemoApp.start_plains(seed)","seed":seed,"focus":focus,"map_index":app.director.stage_index,"manifest_hash":stage.generated.manifest.manifest_hash,"source_actors_and_AI_unchanged":true,"resource_or_health_injection":false,"AI_state_injection":false,"after_initialization":"actual Input.parse_input_event mouse/keyboard, original KeyboardMouseAdapter/Router/PlayerMotor and AI"}
+	initialization={"scope":"real formal consumer combat window, initialized fixture position; not natural route or acquisition proof","operation":"DemoApp.start_plains(seed)","seed":seed,"focus":focus,"map_index":app.director.stage_index,"actual_map_index":stage.map_index,"manifest_seed":stage.generated.manifest.seed,"manifest_hash":stage.generated.manifest.manifest_hash,"source_actors_and_AI_unchanged":true,"resource_or_health_injection":false,"AI_state_injection":false,"after_initialization":"actual Input.parse_input_event mouse/keyboard, original KeyboardMouseAdapter/Router/PlayerMotor and AI"}
 	var at:=enemy_window() if focus=="enemy" else Vector2(stage.boss_arena.position.x+125,stage.boss_arena.end.y-18)
 	if focus!="enemy":
 		target=stage.boss

@@ -7,6 +7,7 @@ var failures:Array[String]=[]
 var observations:Array[Dictionary]=[]
 var app:DemoApp
 var encounter:WindkeeperEncounter
+var map_hashes: Dictionary = {}
 func _initialize()->void:run.call_deferred()
 func check(ok:bool,label:String)->void:
 	checks+=1
@@ -22,7 +23,12 @@ func fixture(map_index:int,one_hp:bool)->void:
 	await clear_fixture()
 	app=DemoApp.new();app.meta_persistence_enabled=false;root.add_child(app);app.start_plains("underworld-r3-boss-adversarial")
 	await frames(8)
-	if map_index==2:app.director.stage_index=2;app._load_stage();await frames(8)
+	if map_index==2:app.director.stage_index=2;app.director.region_map_index=2;app._load_stage();await frames(8)
+	var stage := app.stage as PlainsRegionStage
+	check(stage.map_index == map_index and app.director.region_map_index == map_index and str(stage.generated.manifest.seed) == PlainsRegionCampaign.seed_for(app.director.seed,map_index) and str(stage.generated.manifest.manifest_hash).length() == 64,"actual Boss fixture map, derived seed and hash match the requested consumer")
+	var actual_hash := str(stage.generated.manifest.manifest_hash)
+	check(not map_hashes.has(3-map_index) or map_hashes[3-map_index] != actual_hash,"mini and main fixtures own distinct actual Manifest hashes")
+	map_hashes[map_index] = actual_hash
 	encounter=app.stage.boss.get_node("Encounter") as WindkeeperEncounter
 	app.player.reset_at(encounter.motor.global_position+Vector2(-200,47));await frames(5)
 	check(app._boss_started,"actual formal core starts encounter")
