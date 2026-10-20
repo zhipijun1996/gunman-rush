@@ -41,7 +41,9 @@ func physics_tick(delta: float) -> void:
 		return
 	if _damage_stun_remaining > 0:
 		_damage_stun_remaining = maxf(0, _damage_stun_remaining-delta)
-		motor.step(EnemyIntent.new(),delta)
+		# Root Bell owns a fixed rooted body; hurt pauses its phase, not its roots.
+		if definition.behavior_id != &"root_bell":
+			motor.step(EnemyIntent.new(),delta)
 		return
 	_stagger_cooldown=maxf(0,_stagger_cooldown-delta)
 	if _stagger_remaining>0:
@@ -124,4 +126,5 @@ func _accepted_hit(context: Dictionary) -> void:
 	# not leave a walking beetle permanently hovering above its authored floor.
 	if not definition.aerial: direction=Vector2(signf(direction.x) if absf(direction.x)>.05 else -brain.direction,0)
 	_damage_stun_remaining = damage_feedback.enemy_knockback_seconds
+	if definition.behavior_id == &"root_bell": return
 	motor.request_knockback(direction.normalized()*damage_feedback.enemy_knockback_speed,damage_feedback.enemy_knockback_seconds,not definition.aerial)
