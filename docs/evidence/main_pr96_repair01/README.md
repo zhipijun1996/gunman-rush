@@ -1,5 +1,10 @@
 ## 最终候选 W7–W9（尚未合main/发布）
 
+## K候选专项与保留H失败
+
+最新冻结K为`8f803e2f04b17db3ed725df9071669fe78cadeea`。[K本地Web](local-Web-K/README.md)原20/8和中文菜单补充通过，[F2专项](ci-fixes-F2/README.md)保留原断言、真实负例与旧失败，[H完整CI失败/电影](verification-H/README.md)与[取消无必要W10](final-W10-cancelled/README.md)均原样记录。新的完整CI、合main和准确公开预览待实际终态；代码/局部像素独审不签全区审美、用户或实体设备。
+
+
 运行源 `169ef171fee3f70911847fb2c2890351ee3468bb`。原完整6b CI失败保留；已完成实际场景驾驶修复、严格双消费者存档检查、森林剩余挂点宿主和旧八房间退休。新完整CI仍待实际终态。
 
 - [精确6b完整本机证明及其范围](verification-W6/README.md)：原80、policy600、电影、本地Web/GUI，不重绑后续源码。

@@ -1,5 +1,10 @@
 # FOREST-FRUIT-ROUTES-04：果实目标与有限空间整理
 
+## 最新证据来源：K本地Web与H完整CI失败分开
+
+K `8f803e2f04b17db3ed725df9071669fe78cadeea` 的原20/8本地GUI和中文弹出菜单补充通过，完整原件见[local-Web-K](../evidence/main_pr96_repair01/local-Web-K/README.md)。H的两图24/29段新电影与32原帧限定独审已完成，但H完整CI真实失败，16+40项未执行仍未计通过。K只新增字体表现与测试/校验修复；新的完整CI、main/公开准确版本与用户/实体设备验收仍待实际结果。本文下方旧待测段落均为各自时点，不覆盖最新当前状态。
+
+
 ## W8最新修订：其余挂点已有运行时宿主，历史Manifest不重写
 
 本节覆盖下文旧“其余无支承仍待改造”的时点说明。`ForestTargetHosts`仅在v14为实际pending目标增加从既有SupportRect边界长出的连续枝条：fallen-log、pod、crown/relay、藤门、Guardian、Queen rib及cavity均有不同局部结构；原已接根目标不再加第二枝。门/Boss保留功能环，路线目标表现为果实，短果梗连接真实连续枝条。无新增碰撞/支持面/抽样，无目标位移或钩索规则改变，原Manifest/历史pin保持。

@@ -4,7 +4,7 @@
   "task_type": "region",
   "workflow": "review",
   "baseline_commit": "dbc6ba081321637a3eef71979ecf2cf564eb6064",
-  "reviewed_commit": "169ef171fee3f70911847fb2c2890351ee3468bb",
+  "reviewed_commit": "8f803e2f04b17db3ed725df9071669fe78cadeea",
   "content_version": "forest-fruit-routes-v14",
   "owner": "/root+forest_design_review",
   "purpose": "Resolve forest hook target clutter and replace supported targets with rooted fruits, classify real vs proposed paths and remove verified redundancy",
@@ -22,6 +22,7 @@
     "docs/evidence/forest_fruit_routes04/",
     "docs/handoff.md",
     "docs/tasks.md",
+    "scripts/art/avatar_presentation.gd",
     "scripts/bosses/boss_arena_seal.gd",
     "scripts/demo/demo_app.gd",
     "scripts/demo/thorn_forest_region_stage.gd",
@@ -156,9 +157,10 @@
     },
     "independent_review": {
       "status": "passed",
-      "reason": "Final R bounded source closure independently accepts exact reviewed source and W9 local preservation. All stated missing fullCI/user/device gates remain separate.",
+      "reason": "ExactK bounded code/source closure and local functional/pixel carrier independently reviewed; fullCI/main/public/user/device remain separate.",
       "evidence": [
-        "W9-final-bounded-source-closure-review"
+        "K-final-bounded-code-closure-review",
+        "K-local-Web-functional-pixel-review"
       ]
     },
     "device": {
@@ -308,6 +310,125 @@
       "independent": true,
       "independence_basis": "Separate read-only reviewer wrote only new ignored reports; no implementation, tests, wrappers or original evidence edits.",
       "verdict": "ACCEPT"
+    },
+    {
+      "id": "H-retained-terminal-CI-failure",
+      "path": "docs/evidence/main_pr96_repair01/verification-H/CI-H-terminal-selected.zip",
+      "sha256": "87b652845eed8f21c73f28e29cd476f0f0930ecf4bf2d383eebe93f065e6eee8",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "562542bd458f25c8fb5f6e56e74c69d363976735",
+      "content_version": "forest-fruit-routes-v14",
+      "method": "Actual immutable raw proof plus separately recorded execution-versus-committed-blob equivalence; original provenance and finite scope retained.",
+      "observed": "Complete exact-H remote job logs/metadata; serial22 pass then failure16 notrun, parallel40 pass then failure40 notrun. Docs/Windows/Web pass; deployment skipped. No full-success claim."
+    },
+    {
+      "id": "H-two-actual-native-movies",
+      "path": "docs/evidence/main_pr96_repair01/verification-H/movies-H-selected.zip",
+      "sha256": "f535a278792a4aa3af9d6d156a0dc7de6bd283d8edb2c3b14f0c94988514f4ad",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "562542bd458f25c8fb5f6e56e74c69d363976735",
+      "content_version": "forest-fruit-routes-v14",
+      "method": "Actual immutable raw proof plus separately recorded execution-versus-committed-blob equivalence; original provenance and finite scope retained.",
+      "observed": "Exact-H original24/29leg native movies,32 original-AVI-derived PNGs, full receipts and failed outer-timer attempt. MP4 viewing derivatives; map2native240 cap unchanged; source K has a separately reviewed font/test-only delta."
+    },
+    {
+      "id": "K-actual-local-Web-carrier",
+      "path": "docs/evidence/main_pr96_repair01/local-Web-K/local-Web-K-selected.zip",
+      "sha256": "52936a53aa1f6540acea4b7116954180b9b81967bd48342580f628647760d0d0",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "8f803e2f04b17db3ed725df9071669fe78cadeea",
+      "content_version": "forest-fruit-routes-v14",
+      "method": "Actual immutable raw proof plus separately recorded execution-versus-committed-blob equivalence; original provenance and finite scope retained.",
+      "observed": "Actual clean-K original20/8 GUI355.158s<480 plus independent mouse selector43.348s<120;19 original PNGs, full source/bundle guards, build1630e2150b59/PCK141171220B. Local only, pixel review separate."
+    },
+    {
+      "id": "K-RootBell-execution-source-binding",
+      "path": "docs/evidence/main_pr96_repair01/ci-fixes-F2/root-bell-final-code-K-binding.json",
+      "sha256": "741349ff34d6c8e2acc772acb5ec22abab3e940b901a18090f6efa57c20662af",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "8f803e2f04b17db3ed725df9071669fe78cadeea",
+      "content_version": "forest-fruit-routes-v14",
+      "method": "Actual immutable raw proof plus separately recorded execution-versus-committed-blob equivalence; original provenance and finite scope retained.",
+      "observed": "Explicit exact-Git-blob map to original dirty5182 execution; final originalg1 native165/40maps/55content/11receipt refusals passed121.421s<360. Old execution HEAD/dirty-source SHA remain untouched."
+    },
+    {
+      "id": "K-RootBell-original-local-raw",
+      "path": "docs/evidence/main_pr96_repair01/ci-fixes-F2/root-bell-selected-evidence-compact.zip",
+      "sha256": "c50208b4214b98b2dbba2c6f968027830bef8ff25ce36c5905e4a5f1d017e216",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "5182ace20c66b36aa9d6ec6fa38da9791adf2280",
+      "content_version": "forest-fruit-routes-v14",
+      "method": "Actual immutable raw proof plus separately recorded execution-versus-committed-blob equivalence; original provenance and finite scope retained.",
+      "observed": "Final03 original complete g1 receipts and actual final dirty source hashes;01/02 REWORK and epsilon accepted-bad-capture preserved. Historical archive original165/41/9 strict recheck; no final fullCI claim."
+    },
+    {
+      "id": "K-identity-release-original-raw",
+      "path": "docs/evidence/main_pr96_repair01/ci-fixes-F2/identity-audio-selected.zip",
+      "sha256": "3cecc2c9dc965dad93ebc95627bc8edccf022750d3c48a8a700ca18bf6994a18",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "562542bd458f25c8fb5f6e56e74c69d363976735",
+      "content_version": "forest-fruit-routes-v14",
+      "method": "Actual immutable raw proof plus separately recorded execution-versus-committed-blob equivalence; original provenance and finite scope retained.",
+      "observed": "Isolated H with explicit dirty fixture40975b16 blob equals K. Original20cases/21167business unchanged,20actual releases added; full450+21187 pass and real borrowedLand21187/1 refusal. WeakRef diagnostic and premature index limitations corrected in preserved addendum."
+    },
+    {
+      "id": "K-Foundry-unchanged-basis-correction",
+      "path": "docs/evidence/main_pr96_repair01/final-W10-cancelled/source-equivalence-report.json",
+      "sha256": "39a0019d84f0a7284a92418ba0ac13fbba73162847751e87211e5ae9b53cb065",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "5182ace20c66b36aa9d6ec6fa38da9791adf2280",
+      "content_version": "forest-fruit-routes-v14",
+      "method": "Actual immutable raw proof plus separately recorded execution-versus-committed-blob equivalence; original provenance and finite scope retained.",
+      "observed": "Read-only203 actual basis inputs and56 resources equalR169, AvatarPresentation excluded. W10 cancelled without native execution; originalW9 receipt retains its actual source."
+    },
+    {
+      "id": "K-final-bounded-code-closure-review",
+      "path": "docs/evidence/main_pr96_repair01/ci-fixes-F2/K_code_closure_review.json",
+      "sha256": "50b4f8f39a452095fd5b791ec1b6ec5682f9e9d6872c1f4da85a97beaafdc476",
+      "kind": "review",
+      "producer": "/root/independent_review",
+      "source_commit": "8f803e2f04b17db3ed725df9071669fe78cadeea",
+      "content_version": "forest-fruit-routes-v14",
+      "method": "Independent read-only Git4-path closure, original AST checks,55/11 actual Python controls plus13 independent counterexamples, historical archive/epsilon reproduction and203basis/56resource equality.",
+      "observed": "Scoped ACCEPT of exactK font/fixture/verifier delta and actual-source mappings. RootBell native165/40 local source binding preserved; Web pixels,56 remaining checks,fullCI/main/public,user/device not signed by this report.",
+      "reviewer": "/root/independent_review",
+      "implementers": [
+        "/root",
+        "/root/ci_diagnosis",
+        "/root/forest_design_review",
+        "/root/legacy_room_cleanup"
+      ],
+      "independent": true,
+      "independence_basis": "Separate reviewer changed no production/test/tool/tracked files and only wrote new ignored audit reports.",
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "K-local-Web-functional-pixel-review",
+      "path": "docs/evidence/main_pr96_repair01/local-Web-K/K_local_web_pixel_review.json",
+      "sha256": "c2611b409f05a00309a6e301627ffcaa9e53ed12fded7e36f569cdb3122d9803",
+      "kind": "review",
+      "producer": "/root/independent_review",
+      "source_commit": "8f803e2f04b17db3ed725df9071669fe78cadeea",
+      "content_version": "forest-fruit-routes-v14",
+      "method": "Independent actual19-PNG viewing and87 ZIP-member/83 indexed-original verification; complete PCK/source and8 heading originalTSV scope crosscheck.",
+      "observed": "Scoped ACCEPT of exactK local20/8 functional carrier and Chinese selector/popup/Escape pixels. Locked grey choices remain dim; favicon404 retained. No wholeUI/tooltip/touchpopup/public/user/device/fullCI/56-check claim.",
+      "reviewer": "/root/independent_review",
+      "implementers": [
+        "/root",
+        "/root/ci_diagnosis",
+        "/root/forest_design_review",
+        "/root/legacy_room_cleanup"
+      ],
+      "independent": true,
+      "independence_basis": "Read-only reviewer viewed original screenshots and wrote only new ignored reports; no implementation or raw-proof edits.",
+      "verdict": "ACCEPT"
     }
   ],
   "consumer_coverage": null,
@@ -316,5 +437,5 @@
     "Physical device, player FUN, whole-forest composition and final user visual acceptance remain unverified",
     "Runtime hosts resolve frozen pending annotations only in the actual sampled20 Apps; Queen return HUD overlap/cropped Boss framing remains a local limitation"
   ],
-  "test_change_justification": "HomeUI retains all original 27 business assertions but obtains real shared Home/Menu through DemoApp TITLE to HOME; a 28th WeakRef assertion proves owner release. Audio teardown observes actual shared service release. The old arbitrary standalone assembly script-cache leak is retained as failed and not claimed repaired. Formal terrain now actually selects region_map_index=2 and asserts scene map identity; after the real Boss callback it waits up to eight process frames for the actual geometry_changed observer and requires exactly one event. Original four geometry outcomes remain. V14 reader adds an explicit presentation contract and layout identity; schema6 removes only its two new cases before invoking the unmodified complete schema5 historical reader on the remaining 22 cases. V13 pinned output remains exact; new public-default identity is independently literal. Grove combat detects a real low raised departure enemy, walks backward 32wu via the real Router to a full same-bank firing envelope, aims at actual upper body, consumes real shots and terminal damage, and returns to the prior route origin. No teleport, enemy/resource/health edits, assertion removal, budget relaxation or death/epoch bypass is introduced. Crown combat and existing route helpers only add the explicit v14 accepted layout. Original fixed80 schedule and per-native 240s policy remain. Generated-consumers retains all prior suites and adds real Menu settings/audio and Avatar ownership consumers; Harness adds uncached camera/hazard/fruit checks without dropping prior IDs. New fruit ablation runner makes one explicit test-only target removal before route tick zero and reuses the strict route validator; it does not mutate the production Manifest. The old failed baseline and single-target controls remain. W3 updates three literal fresh-default expectations and both aim entry defaults to v14, appends v14 to exact canopy/Boss and GUI CLI whitelists, retaining every explicit historical pin and exact negative rejection. The v13/v14 canopy R-H-R driver waits on actual supported bank while a real moving NPC clears the next hook flight corridor; original phase400/edge1800/native240 and fixed80 requests remain. No NPC, player position, health, resource, collision, eligibility, phase clock or accepted contact identity is changed. Original map2 high-return failures and identical pinned-v13 control remain evidence. W5 Grove driver: the actual spider line is tested against the takeoff-to-landing player sweep before starting, actual projectile-radius circle visibility chooses an upper-body aim through static geometry, and actual floor bounds contain the complete firing recoil interval. Real Router walking, shot/contact/terminal damage, original threat scheduling, exact return and full-foot support remain mandatory. No enemy/health/resource/position/physics edits or budget increases. The four old failures and final five27-leg controls are preserved; original80 is not yet passed. W7 preserves original scene route branches/frame caps and adds real upward guard combat with projectile-radius LOS/full directional recoil, no enemy/HP/resources edits. The historical Plains reader admits only current tuples or exact old Bellstrider1/Windkeeper4 tuples for the three supported region versions, after all original canonical/config/map checks; actual old-main producer fixtures and refusal controls retained. AIM original176 assertions/8 cases retain sequence and semantics, split into actual data56/world120 native consumers with the original shared120-second total, import90, unchanged strict run_engine and fail-closed fresh UUID/PID/SHA/raw/case validation; actual complete failure probe and17artifact refusals preserved. Old mixed-compiler-graph leaks and withdrawn geometry/class/order hypotheses remain failures, not claimed repaired. W8 hosts are presentation-only, original20 Manifest bytes/target physics preserved; root_hint adds one visible-window fixture without reducing original three-window groups. W9 original36/18 validation and54replay56113frames equal except exact provenance pointers."
+  "test_change_justification": "HomeUI retains all original 27 business assertions but obtains real shared Home/Menu through DemoApp TITLE to HOME; a 28th WeakRef assertion proves owner release. Audio teardown observes actual shared service release. The old arbitrary standalone assembly script-cache leak is retained as failed and not claimed repaired. Formal terrain now actually selects region_map_index=2 and asserts scene map identity; after the real Boss callback it waits up to eight process frames for the actual geometry_changed observer and requires exactly one event. Original four geometry outcomes remain. V14 reader adds an explicit presentation contract and layout identity; schema6 removes only its two new cases before invoking the unmodified complete schema5 historical reader on the remaining 22 cases. V13 pinned output remains exact; new public-default identity is independently literal. Grove combat detects a real low raised departure enemy, walks backward 32wu via the real Router to a full same-bank firing envelope, aims at actual upper body, consumes real shots and terminal damage, and returns to the prior route origin. No teleport, enemy/resource/health edits, assertion removal, budget relaxation or death/epoch bypass is introduced. Crown combat and existing route helpers only add the explicit v14 accepted layout. Original fixed80 schedule and per-native 240s policy remain. Generated-consumers retains all prior suites and adds real Menu settings/audio and Avatar ownership consumers; Harness adds uncached camera/hazard/fruit checks without dropping prior IDs. New fruit ablation runner makes one explicit test-only target removal before route tick zero and reuses the strict route validator; it does not mutate the production Manifest. The old failed baseline and single-target controls remain. W3 updates three literal fresh-default expectations and both aim entry defaults to v14, appends v14 to exact canopy/Boss and GUI CLI whitelists, retaining every explicit historical pin and exact negative rejection. The v13/v14 canopy R-H-R driver waits on actual supported bank while a real moving NPC clears the next hook flight corridor; original phase400/edge1800/native240 and fixed80 requests remain. No NPC, player position, health, resource, collision, eligibility, phase clock or accepted contact identity is changed. Original map2 high-return failures and identical pinned-v13 control remain evidence. W5 Grove driver: the actual spider line is tested against the takeoff-to-landing player sweep before starting, actual projectile-radius circle visibility chooses an upper-body aim through static geometry, and actual floor bounds contain the complete firing recoil interval. Real Router walking, shot/contact/terminal damage, original threat scheduling, exact return and full-foot support remain mandatory. No enemy/health/resource/position/physics edits or budget increases. The four old failures and final five27-leg controls are preserved; original80 is not yet passed. W7 preserves original scene route branches/frame caps and adds real upward guard combat with projectile-radius LOS/full directional recoil, no enemy/HP/resources edits. The historical Plains reader admits only current tuples or exact old Bellstrider1/Windkeeper4 tuples for the three supported region versions, after all original canonical/config/map checks; actual old-main producer fixtures and refusal controls retained. AIM original176 assertions/8 cases retain sequence and semantics, split into actual data56/world120 native consumers with the original shared120-second total, import90, unchanged strict run_engine and fail-closed fresh UUID/PID/SHA/raw/case validation; actual complete failure probe and17artifact refusals preserved. Old mixed-compiler-graph leaks and withdrawn geometry/class/order hypotheses remain failures, not claimed repaired. W8 hosts are presentation-only, original20 Manifest bytes/target physics preserved; root_hint adds one visible-window fixture without reducing original three-window groups. W9 original36/18 validation and54replay56113frames equal except exact provenance pointers. F2: Population retains original20 cases/21167 business checks and exact rows;20 actual owned-audio drain guards and a real borrowed-playback timeout refusal are added, original4-frame tail and240/150 caps retained. RootBell retains all original165 native assertions/40-map audit/41content/9receipt refusals; current captures must record actual committed-hit stun and actual config sources, with exact-zero release,14 extra content/2 receipt refusals. Original explicit historical archived no-stun reader keeps strict1/60; no automatic current downgrade, production knockback or budgets changed. Font change is the existing packaged leaf theme, no new asset or mechanics."
 }
