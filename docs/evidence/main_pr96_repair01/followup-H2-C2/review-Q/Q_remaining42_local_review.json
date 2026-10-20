@@ -1,0 +1,403 @@
+{
+  "decision": "SCOPED_ACCEPT",
+  "scope": "Q original remaining42 actual fresh consumer execution only",
+  "source_commit": "4be8eeb932d24866a49379f0d33f16f00125711d",
+  "report": "build/verification/harness/20261020T090304.282833Z/report.json",
+  "report_sha256": "9d471cd4fed9ed1cebda32aae4159c9f95b64ca3993864933a1162422feb06b6",
+  "original_previous44_exact_remaining_order": true,
+  "count": 42,
+  "all_exit_zero": true,
+  "all_fresh_release": true,
+  "all_argv_and_caps_exact_Git_Q_manifest": true,
+  "clean_source_before_after": true,
+  "source_guard_method": "Original reviewed harness checks source before/after every check, then final full-byte source digest; successful report/outer cleanQ retained. Did not reread whole repository or rerun native.",
+  "outer_seconds": 631.1179999350024,
+  "harness_seconds": 630.846,
+  "unique_actual_execution_tokens": 42,
+  "strict_engine_diagnostic_scan": [],
+  "checks": [
+    {
+      "id": "underworld-hazards",
+      "timeout_seconds": 150,
+      "duration_seconds": 8.791,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "d2631006e57250ea814086b66e08b275ec4fbe2c7e4ef1dc09665c537eb04d0d",
+      "bytes": 1906
+    },
+    {
+      "id": "underworld-terrain",
+      "timeout_seconds": 150,
+      "duration_seconds": 1.11,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "b72508d562ef378d0a916dcb5a8abf5476329d777fa0a032bf89a12bf9809a56",
+      "bytes": 348
+    },
+    {
+      "id": "underworld-formal-terrain",
+      "timeout_seconds": 270,
+      "duration_seconds": 29.426,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "dd9b740fa6eb53019a7868341cab46f8ede883c53cfe73493474d8927aefb5a7",
+      "bytes": 30732
+    },
+    {
+      "id": "underworld-formal",
+      "timeout_seconds": 150,
+      "duration_seconds": 6.176,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "f85e04d67da72b777c0ff2569403740321f8e1e7889e24ea5c7f889a4569e28a",
+      "bytes": 1397
+    },
+    {
+      "id": "underworld-raw-export",
+      "timeout_seconds": 120,
+      "duration_seconds": 0.305,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "c57bdec5f19166a93690118c71d5c3ee68b3bfc2827da2e950a0cdc421d4bd4f",
+      "bytes": 104
+    },
+    {
+      "id": "underworld-player-animation",
+      "timeout_seconds": 180,
+      "duration_seconds": 1.205,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "511952ff1896a93dea2286a6fdb6296a3d8c30645d8e8138a5167e43d689715d",
+      "bytes": 257
+    },
+    {
+      "id": "underworld-mechanisms",
+      "timeout_seconds": 240,
+      "duration_seconds": 17.122,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "c27cbf5a7dae95467959953810c31709b0324001273a6fdec0053fa160357b21",
+      "bytes": 4737
+    },
+    {
+      "id": "underworld-home",
+      "timeout_seconds": 180,
+      "duration_seconds": 8.389,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "7887d760591dc146049827d5bc7a3cdb5a84006072238fc2a9c5f9a1ac7fff3f",
+      "bytes": 982
+    },
+    {
+      "id": "underworld-ui",
+      "timeout_seconds": 300,
+      "duration_seconds": 14.662,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "4e5d224d24231bedd269f7098a05ee868a2b025a8170bd44e19baa30e5875f3f",
+      "bytes": 1940
+    },
+    {
+      "id": "underworld-damage-feedback",
+      "timeout_seconds": 180,
+      "duration_seconds": 5.277,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "3134b0b0294168f6814651d86f5fc7e89757873e2b60667099659d9936ebfbed",
+      "bytes": 289
+    },
+    {
+      "id": "underworld-projectile-vfx",
+      "timeout_seconds": 300,
+      "duration_seconds": 5.664,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "de34f77e9a7dba90b3f07292480ee98c84d1c396d3f779ff1d6313c25794b81b",
+      "bytes": 420
+    },
+    {
+      "id": "underworld-world-objects",
+      "timeout_seconds": 240,
+      "duration_seconds": 15.616,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "993bfbfe51811d4ece94397487225f69fc01706b8c00e58f630922fe79c6e196",
+      "bytes": 3510
+    },
+    {
+      "id": "underworld-continuous-bosses",
+      "timeout_seconds": 360,
+      "duration_seconds": 47.097,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "9c137a0766440149e4ae09fafd2260a70adee0945528356022df93f5b182f73b",
+      "bytes": 12082
+    },
+    {
+      "id": "forest-camera-stability",
+      "timeout_seconds": 90,
+      "duration_seconds": 6.969,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "37558e54b92d2faa7adff5bdf5ffe02c344bbed6e08dda0e010ed2972bb96395",
+      "bytes": 125
+    },
+    {
+      "id": "forest-hazard-records",
+      "timeout_seconds": 120,
+      "duration_seconds": 3.522,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "b171ac1f92b670d995de1411a7e895d7b0b0f355d2b87049e2e48c22d2d5016b",
+      "bytes": 120
+    },
+    {
+      "id": "forest-fruit-contract",
+      "timeout_seconds": 180,
+      "duration_seconds": 25.293,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "f7278d2290de7af8c212f44fb95f96b4516774f711b92e67ca29537f1ab7e77f",
+      "bytes": 1253
+    },
+    {
+      "id": "forest-depth-ecology-expedition",
+      "timeout_seconds": 300,
+      "duration_seconds": 31.019,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "837485b07ab9199869a3f444b34c3ef53a15daa52043a51a759493768cefd2a4",
+      "bytes": 50
+    },
+    {
+      "id": "forest-depth-root-entry",
+      "timeout_seconds": 300,
+      "duration_seconds": 12.518,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "3a4ed9197c8c114e1f3e8533bb74aa244e524603b0b9c86fa29c927c5121294d",
+      "bytes": 67
+    },
+    {
+      "id": "forest-depth-crossbranch-lifecycle",
+      "timeout_seconds": 300,
+      "duration_seconds": 13.92,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "837485b07ab9199869a3f444b34c3ef53a15daa52043a51a759493768cefd2a4",
+      "bytes": 50
+    },
+    {
+      "id": "forest-depth-queen-canopy",
+      "timeout_seconds": 240,
+      "duration_seconds": 12.352,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "551d8d09acc9b13190589189be4076f9cd3f9d3d36779126498a1b51287aec74",
+      "bytes": 91
+    },
+    {
+      "id": "forest-depth-campaign-canopy",
+      "timeout_seconds": 300,
+      "duration_seconds": 23.391,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "b80f570fcc83e0759552775e961fc24df6952104f6f554eb9d0dd8c81a1521a0",
+      "bytes": 137
+    },
+    {
+      "id": "forest-air-chain",
+      "timeout_seconds": 600,
+      "duration_seconds": 59.63,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "8388164fa793e2bafc072c11f9a05baa826980046afcd9b191b3c60aee3856de",
+      "bytes": 15925
+    },
+    {
+      "id": "forest-vertical-shortcut",
+      "timeout_seconds": 300,
+      "duration_seconds": 23.687,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "162847944ec16a68fa0b99e3aabeb4a67c41392cbb1375f05bba4f4acfd6d8dd",
+      "bytes": 33
+    },
+    {
+      "id": "blob47-foundation",
+      "timeout_seconds": 180,
+      "duration_seconds": 2.256,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "3719b49cd96e5f51c405cf56e13ddb0266f05e49a23046572e6302247508530b",
+      "bytes": 448
+    },
+    {
+      "id": "creative-direction",
+      "timeout_seconds": 30,
+      "duration_seconds": 0.155,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "aea81c35df959832a770d51a27b770f874562e3a096a907d45eb3ccdda231a73",
+      "bytes": 85
+    },
+    {
+      "id": "creative-direction-tests",
+      "timeout_seconds": 60,
+      "duration_seconds": 0.857,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "adcc5cf0ff57180a4551432340a68490a1d378fabd73ec0e74be2000251c67a5",
+      "bytes": 109
+    },
+    {
+      "id": "parallel-region-presentation",
+      "timeout_seconds": 300,
+      "duration_seconds": 30.628,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "cff1589b68d1377ad49856574e15412bd39b51e5e37858b5f2669ac2a2f69483",
+      "bytes": 15817
+    },
+    {
+      "id": "underworld-pipeline",
+      "timeout_seconds": 180,
+      "duration_seconds": 79.4,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "b093b8d3191ad6b569c2524f74a10bc0c27330082c4ed3b5e5e380a812bbbdb2",
+      "bytes": 15438
+    },
+    {
+      "id": "forest-region-scheduler-tests",
+      "timeout_seconds": 30,
+      "duration_seconds": 1.413,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "16b420c58b4a3a368c5a2c0183e3120abab19d19abb85f91ac95f8268a11656b",
+      "bytes": 110
+    },
+    {
+      "id": "underworld-home-guard-tests",
+      "timeout_seconds": 90,
+      "duration_seconds": 0.206,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "3b20ed761b05c6d52cd0ce7937e11db8c8c3c986002a5a16f5139e7f8e38809d",
+      "bytes": 3677
+    },
+    {
+      "id": "art-art",
+      "timeout_seconds": 120,
+      "duration_seconds": 0.301,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "6e4323899bc3a6c76999427b3de1b572e45543481d8b1c71889ebd8c5cfd274e",
+      "bytes": 96
+    },
+    {
+      "id": "art-painterly_pack",
+      "timeout_seconds": 120,
+      "duration_seconds": 0.202,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "f6dbfa921abe41a6157fcf62de3c8cc976d04cdf31c313b12b712caa69015553",
+      "bytes": 110
+    },
+    {
+      "id": "art-plains_v3",
+      "timeout_seconds": 120,
+      "duration_seconds": 0.208,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "627e850859efdfd95b1c695fcfdcb7ddaa78542b88ae068f8217e78e1901c48a",
+      "bytes": 151
+    },
+    {
+      "id": "art-meadow_enemy_art",
+      "timeout_seconds": 120,
+      "duration_seconds": 0.306,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "fc607f4b2a42f919c29e142b93f0f95d69e9d04fe73bdc2af5ace8e002381691",
+      "bytes": 111
+    },
+    {
+      "id": "art-plains_ground_art",
+      "timeout_seconds": 120,
+      "duration_seconds": 0.255,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "e717791b18a7b06a9950b1cc30226b93a1c7af56b53a2786055768e2d20df1f1",
+      "bytes": 152
+    },
+    {
+      "id": "art-windkeeper_art",
+      "timeout_seconds": 120,
+      "duration_seconds": 0.303,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "9f08579cd90e6a456cf8eaa4954a97771305ec7037f3d10e75f369783f66af36",
+      "bytes": 134
+    },
+    {
+      "id": "art-plains_spatial_art",
+      "timeout_seconds": 120,
+      "duration_seconds": 0.249,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "23162faa1f007ba177f4e2624bb04e42b25fe0e86dd02c19a757e489030003a8",
+      "bytes": 133
+    },
+    {
+      "id": "art-plains_item_art",
+      "timeout_seconds": 120,
+      "duration_seconds": 0.352,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "ac3e550d1b1c6a9a0d245e684972c72caac47cb3d2500e508e358b830660e2dd",
+      "bytes": 153
+    },
+    {
+      "id": "web-resource-contract-tests",
+      "timeout_seconds": 60,
+      "duration_seconds": 0.456,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "84aab0d2a1bf6d6529f525d529ca90e518c8c62f913364d6fc4894f81438aff2",
+      "bytes": 143
+    },
+    {
+      "id": "runtime-raw-export-tests",
+      "timeout_seconds": 60,
+      "duration_seconds": 0.302,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "6836608005d72d755f66881a9d7904cd5633f028a7f664119893e6f4d1984be0",
+      "bytes": 100
+    },
+    {
+      "id": "asset-family-tests",
+      "timeout_seconds": 60,
+      "duration_seconds": 0.256,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "86957db5acea453befd84038ccd284de12918f41b981b0ffd1b398a8e6e3eb5c",
+      "bytes": 110
+    },
+    {
+      "id": "visual-director-terrain",
+      "timeout_seconds": 180,
+      "duration_seconds": 13.14,
+      "exit_code": 0,
+      "fresh": true,
+      "log_sha256": "26f832afebef53d913bd8e3c22058955e55df4720b0d9e51dd0deb066322aee0",
+      "bytes": 1388
+    }
+  ],
+  "exclusions": [
+    "Not a fresh complete120 run.",
+    "T80 remains600timeout:78 terminal pass/2 uncompleted.",
+    "Does not approve full CI, main merge or public/device/user acceptance."
+  ]
+}

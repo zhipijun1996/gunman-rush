@@ -1,0 +1,121 @@
+{
+  "status": "scoped_fixture_and_wrapper_repair_verified",
+  "recorded_head": "3affbc89011bce1ef206ce377f9ebdfc724880d4",
+  "scope": "Versions fixture/compiler-domain ownership only. Production and original App helper/content validators unchanged. Positive327 is two-native aggregate, not one-native run or fullrelease/gameplay admission.",
+  "original_failure": {
+    "selected_checks": 55,
+    "executed": 6,
+    "passed": 5,
+    "failed": 1,
+    "not_executed": 49,
+    "report": "build/verification/harness/20261020T074417.243692Z/report.json",
+    "note": "Original cleanC2 strict failure retained; later local repair does not retroactively pass it."
+  },
+  "final_positive": {
+    "path": "build/forest_depth/versions/split-C2-positive-r3",
+    "actual_exit": 0,
+    "outer_seconds": 28.796932403001847,
+    "source_guard": true,
+    "native_consumers": 2,
+    "shared_native_elapsed_seconds": 20.746023110998067,
+    "run_id": "63f21a7b34e241898d1fbb777a03ef43",
+    "phases": [
+      {
+        "phase": "data",
+        "actual_exit": 0,
+        "pid": 98914,
+        "seconds": 15.466558318999887,
+        "timeout_seconds": 89.9999967549993,
+        "raw_sha256": "5b8778853d5e3d6cbbbf1075afa357d74916bde191ebddaa9f7e44b5bc3783a2",
+        "report_sha256": "4728c9e8dd8d4ef25d9e1da13ee6a6b9d85091f3faf8798f6d5fc54cf8a6044f"
+      },
+      {
+        "phase": "world",
+        "actual_exit": 0,
+        "pid": 98933,
+        "seconds": 5.268651990001672,
+        "timeout_seconds": 74.52422099700198,
+        "raw_sha256": "0140f77f7f7e7ab76a5eacba4a2ca9f851196639d88c0c412cc1d8989a2fb544",
+        "report_sha256": "2be3ec5adc262422309d5b63d02da0328a2c1638a5414c8b2df1b76bb9178a67"
+      }
+    ]
+  },
+  "final_real_failure": {
+    "path": "build/forest_depth/versions/split-C2-failure-probe-r2",
+    "actual_exit": 1,
+    "outer_seconds": 28.081918160001806,
+    "source_guard": true,
+    "capture_absent": true,
+    "no_success_stdout": true,
+    "original_world47_preserved_then_actual48th_fails": true
+  },
+  "python": {
+    "tests_run": 45,
+    "failures": 0,
+    "errors": 0,
+    "actual_native_receipt": "/workspace/gunman-rush/build/forest_depth/versions/split-C2-positive-r3/receipt.json",
+    "actual_native_receipt_sha256": "2364e95ac86e4f3053ec7efe02bdc04ae2ae252ab73001fac38257c837cb64c7",
+    "test_source_sha256": "a9c3a3f165bc3c199c6ce9df5423ed450fd4fc12df61707aa3ccd92b5fa978f6",
+    "scope": "One positive and cross-channel tamper/reuse refusals; Python validation only, no new native execution"
+  },
+  "original327_typed_equal": {
+    "capture_schema": true,
+    "assertions": true,
+    "failures": true,
+    "engine": true,
+    "cases": true,
+    "checks": true,
+    "exit_lifecycle": true
+  },
+  "caps": {
+    "import_seconds": 90,
+    "shared_native_total_seconds": 90,
+    "original_harness_seconds": 210,
+    "no_extra_outer_timer": true
+  },
+  "execution_order": "data280 (276content+4release), then world47; aggregate restores original assertion ledger276+47+4. No claim that release chronology occurs after independentworld process.",
+  "new_uid": "Real Godot4.7.2 import generated tests/forest_depth_version_world_runner.gd.uid before finalfreshnative; retained for root commit.",
+  "source_paths_to_commit": [
+    {
+      "path": "tests/forest_depth_version_runner.gd",
+      "sha256": "c42c56684276870548603acc8e566682642281effebaab1f96c23536df2958a3",
+      "bytes": 40752,
+      "scope": "Frozen final implementation source"
+    },
+    {
+      "path": "tests/forest_depth_version_world_runner.gd",
+      "sha256": "4e9eed97587582285cef0a4d07438c30f34a84fc67c0b03ee1102f6f9de59059",
+      "bytes": 2070,
+      "scope": "Frozen final implementation source"
+    },
+    {
+      "path": "tests/forest_depth_version_world_runner.gd.uid",
+      "sha256": "71d9f032540bb6f1b3b3b4cb18db8a7b5fc47f3cf4ac11162bf6ad524d13e862",
+      "bytes": 20,
+      "scope": "Frozen final implementation source"
+    },
+    {
+      "path": "tools/run_forest_depth_versions.py",
+      "sha256": "32821ec570cf3c4e5a9790fb15deb1ea29069b2b97c7dc7aa12d90cfb41d03db",
+      "bytes": 47663,
+      "scope": "Frozen final implementation source"
+    },
+    {
+      "path": "tools/test_forest_depth_versions.py",
+      "sha256": "a9c3a3f165bc3c199c6ce9df5423ed450fd4fc12df61707aa3ccd92b5fa978f6",
+      "bytes": 12639,
+      "scope": "Frozen final implementation source"
+    }
+  ],
+  "unchanged_helper": {
+    "path": "tests/forest_depth_version_app_case.gd",
+    "sha256": "2632f7744906afc1929225d5731b6ee2d02f95001a40c8a727fa70f97c3e8274",
+    "bytes": 6675,
+    "scope": "Unchanged original App helper, readonly source binding"
+  },
+  "limitations": [
+    "Final positive/negative actualsource maps record dirty fixture/wrapper source onbaseC2; root will bind exact5file bytes to latercodecommit, not relabel originalrunHEAD.",
+    "Local scope only; remaining49/fullCI/finalmain deployment and nativefilms are independent tasks.",
+    "Old r1/r2 actualnative outputs predate metadata-only guard refinements; preserved provenance stays separate."
+  ]
+}

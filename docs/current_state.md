@@ -1,3 +1,19 @@
+## 2026-10-20：Q源码已闭合，完整新CI待实际执行
+
+最新代码源 `4be8eeb932d24866a49379f0d33f16f00125711d`（Q），生产与56份Foundry资源逐字节等于C2 `3affbc89011bce1ef206ce377f9ebdfc724880d4`。main仍为`dbc6ba081321637a3eef71979ecf2cf564eb6064`，PR96尚未合并，新Web尚未发布。[本轮追加原件](evidence/main_pr96_repair01/followup-H2-C2/README.md)保留实际HEAD/dirty源，不把旧K网页或H影片改签Q。
+
+上轮H2完整CI终态：两路serial39（含真实GPU/audio）、Docs、Windows通过；两路parallel42通过后RootBell实体受击位移失败、38未执行；PR Web34通过/伤害4断言失败/6未执行，push Web40通过/最后1项未完成后原20分钟超时，整轮cancelled。RootBell现仅root_bell受伤期间保持根部，普通敌人击退保留；原3专项250.282s通过。W11原36短句/18路线、54回放56113帧等值，仅来源字段更新。
+
+版本检查原327项/24case完整保留，拆真实data280/world47两引擎，原共享native90/import90/manifest210不变；实际正例、真实失败负例和45篡改测试通过。Harness执行内SHA缓存保留每轮全库存stat与最终独立完整字节守门，77测试通过；完整8467029779B库存冷读10.669s/热0.349s/独立新读8.442s等值，不预签新CI。伤害317项只加被动观察，尚无证据宣称间歇blade问题已修。
+
+本地原T森林80在600s超时，78完成、2未终态，严格失败保留；禁用render-loop对照无改善已撤，无代码改动。另原Queen v7/schema13驾驶因受击中断起跳失败，Q仅测试runner按实际高度/完整落岸/受伤状态恢复；原wrapper30/0、Boss24→0、重载/Gold/D/边界完成，1327驾驶tick含恢复小于原4200，未改生产/共享fixture。Q剩余原42项实际全部通过（631.118s），不与旧部分批次拼成完整120通过。[独审](evidence/main_pr96_repair01/followup-H2-C2/review-Q/Q_code_source_closure_review.json)只签列明代码与局部实证。
+
+旧八房间专属30文件已删除，55关联路径净减149325源码字节；正式两图、quick3、Lab/Foundry及历史存档保留。森林短跳镜头稳定、果实接到有根枝条，仅两处实际消融确认的冗余rest退休；[推荐/可选/恢复职责](design/forest_fruit_routes_v14.md)不等于强制通路。任务保持review，Queen返回HUD局部遮挡、全区空间美感、真人FUN/实体设备/用户认可另验。
+
+接续：推送同源候选，等待原完整CI（尤其80/600与伤害317）真实终态；全绿后普通合PR96，核实际main完整CI/部署、同源影片/三个原浏览器消费者及公网完整PCK SHA/森林GUI。以下为历史检查点。
+
+---
+
 ## 2026-10-20：冻结K候选，本地Web完成，新完整CI待执行
 
 本轮验证源 `8f803e2f04b17db3ed725df9071669fe78cadeea`（K）。本地Web build `1630e2150b59`、PCK141171220B，完整SHA `1630e2150b599c6f316fe57a5b81f1a063f83aadd9c948213c11b62d77213cf2`。原20项/8上下文GUI实际355.158s/原480s通过；独立菜单补充43.348s/120s，三张原图确认中文与展开/Escape收起，19张原图单列像素独审。源码和完整包前后冻结。它是[精确K本地验证](evidence/main_pr96_repair01/local-Web-K/README.md)，不冒充公网。main仍为 `dbc6ba081321637a3eef71979ecf2cf564eb6064`，PR96尚未合并，新Web尚未发布。

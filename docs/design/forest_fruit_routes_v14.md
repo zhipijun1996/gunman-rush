@@ -1,3 +1,9 @@
+## 2026-10-20 Q检查点
+
+代码源`4be8eeb932d24866a49379f0d33f16f00125711d`，生产/56Foundry=C2。果实宿主与推荐/可选/恢复点位保持既有v14；后续只修真实RootBell根部受伤位移及测试驾驶/退出/源验证。原T固定80在600s超时，78完成、2非终态，失败保留；Q原剩余42项通过，不拼为完整120。PR96未合main、新完整CI与准确Web待验。详见[追加原件](../evidence/main_pr96_repair01/followup-H2-C2/README.md)及[源码闭合独审](../evidence/main_pr96_repair01/followup-H2-C2/review-Q/Q_code_source_closure_review.json)。全区美感、Queen返回局部HUD遮挡、真人FUN/设备/用户仍未签。以下历史证据保持原来源。
+
+---
+
 # FOREST-FRUIT-ROUTES-04：果实目标与有限空间整理
 
 ## 最新证据来源：K本地Web与H完整CI失败分开

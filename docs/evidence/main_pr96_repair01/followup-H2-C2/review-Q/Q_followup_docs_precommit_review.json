@@ -1,0 +1,44 @@
+{
+  "decision": "SCOPED_ACCEPT",
+  "scope": "Current uncommitted docs archive/cards content and exact copies, not future Git commit or runtime acceptance",
+  "reviewed_code": "4be8eeb932d24866a49379f0d33f16f00125711d",
+  "final_copy_index": "docs/evidence/main_pr96_repair01/followup-H2-C2/final-copy-index.json",
+  "verified_file_count": 82,
+  "verified_total_bytes": 81848410,
+  "quality_cards": [
+    {
+      "task_id": "MAIN-PR96-REPAIR-01",
+      "reviewed_commit": "4be8eeb932d24866a49379f0d33f16f00125711d",
+      "workflow": "review",
+      "only_passed_dimension": "independent_review",
+      "all_gates_unverified": true
+    },
+    {
+      "task_id": "FOREST-FRUIT-ROUTES-04",
+      "reviewed_commit": "4be8eeb932d24866a49379f0d33f16f00125711d",
+      "workflow": "review",
+      "only_passed_dimension": "independent_review",
+      "all_gates_unverified": true
+    }
+  ],
+  "tracked_changes_docs_only": [
+    "docs/current_state.md",
+    "docs/design/forest_fruit_routes_v14.md",
+    "docs/evidence/main_pr96_repair01/README.md",
+    "docs/evidence/main_pr96_repair01/followup-H2-C2/README.md",
+    "docs/handoff.md",
+    "docs/quality/records/FOREST-FRUIT-ROUTES-04.json",
+    "docs/quality/records/MAIN-PR96-REPAIR-01.json",
+    "docs/tasks.md"
+  ],
+  "findings": [],
+  "claim_review": "New checkpoints distinguish H2 CI failures/cancellation, T80 timeout, Queen repair and Q42; do not relabel KWeb/Hfilm or claim complete120/fullCI/main/public/device.",
+  "limitations": "Existing CI packet claims are retained historical summaries; this audit verifies archived bytes and metadata scope, not a fresh redownload of every remote native artifact.",
+  "quality_scope_correction": {
+    "original_candidate": "REJECTED by unchanged check_quality: passed dimension referenced T-source reviews while reviewed_commit was Q",
+    "preserved_failure": "build/forest_revision04/Q-docs-checks/r1-rejection.txt plus two r1 card snapshots",
+    "final_corrected_scope": "passed dimension cites only exact-Q closure; historic T evidence sources unchanged",
+    "independent_verification": true
+  },
+  "verified_file_count_explanation": "82 payload paths enumerated by final-copy-index; the index itself is83rd ordinary archived file."
+}

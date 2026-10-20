@@ -1,0 +1,13 @@
+# Exact H2 remote CI selected evidence
+
+Head: `cea407025bb3a31be745c440efb85920307679a3`. The final API snapshot contains all four push/PR workflow runs, all20 terminal jobs, and24 artifact metadata records. Fourteen executed jobs have complete original decoded job logs; six downstream jobs were skipped.
+
+PR Godot failed; push Godot was cancelled. Both Docs and both Windows jobs succeeded; both serial lanes completed all39 original fresh checks. Both parallel lanes passed42 checks then failed `root-bell-ecology` (`Rooted body moved`), leaving38 not run each. PR Web passed34 checks then its real317-check damage consumer failed four blade assertions, leaving six not run. Push Web passed40 checks and started its final fruit check before cancellation; that final check did not complete. Derivative core gate failures are distinguished from independent defects.
+
+`terminal-API-originals.json` is the full final run/jobs/artifacts API response. `selected/terminal-summary.json` maps precise IDs and statuses. All downloaded small raw artifact entries are included unchanged, including both ecology captures, the PR Web failing runtime and push Web passing counterpart. Their source trees are equal as recorded in `PR-push-Git-tree-provenance.json`; user-state equivalence was not captured. The optional local C1 comparison is labelled separately and is not asserted to be exact H2. No actual projectile timing/user-state root cause is inferred from absent fields.
+
+Original downloaded transport ZIPs remain in the ignored source directory and are indexed as references, avoiding ZIP duplication in this selected archive. Their artifact API digests, download receipts and full member lists are included. Successful serial artifact ZIPs were not downloaded; their API metadata and complete job logs are retained. No complete push-Web harness report existed in its artifact: its per-check timing uses explicitly labelled console wall spans. PR-Web report process durations and H2 source-based profile set comparisons are separately retained. Earlier observation snapshots have not been overwritten.
+
+`selected/file-index.json` hashes every selected original before packaging and references the four excluded transport ZIPs by exact hash/CRC/bytes. `selected/github-read-only-artifact-retrieval.md` documents generic GitHub API shapes, PR-only-wrapper caveat, and signed-URL streaming for >32MiB artifacts, without recording signed URLs or tokens.
+
+This package establishes exact H2 terminal results only. It does not establish any later source T/H3 outcome or approval to merge. All caps/checks remained unchanged; this agent did not cancel or rerun CI, modify tracked files, or run Godot while preparing the package.

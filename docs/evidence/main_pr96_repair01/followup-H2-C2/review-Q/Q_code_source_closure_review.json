@@ -1,0 +1,44 @@
+{
+  "decision": "SCOPED_ACCEPT",
+  "reviewed_final_runtime_commit": "4be8eeb932d24866a49379f0d33f16f00125711d",
+  "source_closure_only": true,
+  "base_runtime_and_foundry_commit": "3affbc89011bce1ef206ce377f9ebdfc724880d4",
+  "prior_test_tool_commit": "1352f59f1b4761fe0ed806b0c0a165bcc7d54fab",
+  "Q_minus_T_exact_paths": [
+    "tests/forest_depth_campaign_boss_runner.gd"
+  ],
+  "Q_runner_sha256": "7d874d6956b47a7cca85704a59b45a5ce3f5d3df1e59aa29690ca1ccb399fc49",
+  "T_eight_test_tool_paths_byte_exact_in_Q": [
+    "tests/forest_depth_version_runner.gd",
+    "tests/forest_depth_version_world_runner.gd",
+    "tests/forest_depth_version_world_runner.gd.uid",
+    "tests/test_harness.py",
+    "tests/underworld_plains/damage_response_ownership_cases.gd",
+    "tools/harness.py",
+    "tools/run_forest_depth_versions.py",
+    "tools/test_forest_depth_versions.py"
+  ],
+  "Q_minus_C2_runtime_paths": [],
+  "all56_Foundry_resources_byte_exact_to_C2": true,
+  "actual_execution_head": "1352f59f1b4761fe0ed806b0c0a165bcc7d54fab",
+  "actual_execution_dirty_paths": [
+    "tests/forest_depth_campaign_boss_runner.gd"
+  ],
+  "execution_provenance_preserved": true,
+  "inherited_reviews": [
+    "build/forest_revision04/rooted-fix-review/C1_rooted_fix_review.json",
+    "build/forest_revision04/rooted-fix-review/C2_W11_source_closure_review.json",
+    "build/forest_revision04/forest-versions-review/T_versions_split_review.json",
+    "build/forest_revision04/forest-versions-review/T_code_source_closure_review.json",
+    "build/forest_revision04/queen-campaign-review/Queen_r1_driver_and_local_proof_review.json"
+  ],
+  "new_actual_proof_scope": "Only runner repair actual original Queen wrapper30/0,24HP kill/reload/reward/boundary; see linked detailed review.",
+  "static_check_count_clarification": "30 original invocation expressions excluding func check declaration;31 current;30 executed successful branch.",
+  "not_accepted": [
+    "T original80 timeout remains78 completed/2 active killed, not80 PASS",
+    "Q remaining42 currently running: no terminal assertion",
+    "Fresh fullCI/main/public/device/user acceptance",
+    "New C2/Q Web pixels: K19 images retain K identity"
+  ],
+  "reviewer_activity": "Pure Git/blob comparisons and ignored reports only; no native or production edits."
+}

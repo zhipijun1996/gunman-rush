@@ -1,0 +1,119 @@
+{
+  "decision": "DIAGNOSTIC_ONLY__STRICT_FAIL_UNRESOLVED",
+  "source_commit": "3affbc89011bce1ef206ce377f9ebdfc724880d4",
+  "actual_capture_assertions": 327,
+  "actual_capture_failures": 0,
+  "strict_receipt_passed": false,
+  "source_guard": true,
+  "native_exit_diagnostics": {
+    "objects": 223,
+    "resources": 150,
+    "textures": 35,
+    "shaders": 1,
+    "VariantPools_BucketSmall_error": true
+  },
+  "actual_observations": {
+    "runner_local_RefCounteds": {
+      "equality": {
+        "after_run_return_alive": false,
+        "before_release_alive": true
+      },
+      "legacy": {
+        "after_run_return_alive": false,
+        "before_release_alive": true
+      },
+      "registry": {
+        "after_run_return_alive": false,
+        "before_release_alive": true
+      },
+      "tuning": {
+        "after_run_return_alive": false,
+        "before_release_alive": true
+      },
+      "tuning_script": {
+        "after_run_return_alive": true,
+        "before_release_alive": true
+      }
+    },
+    "audio": "Both existing AUDIO.drain_world(app) return true; original log released in0.052s/0.083s. Existing weakrefs show four data instances dead after run returns, tuning Script still alive. Neither script liveness before engine shutdown nor instance release alone proves a script-cache root.",
+    "original_check_partition": {
+      "generator_data": 276,
+      "legacy_actual_App_map1": 26,
+      "legacy_actual_App_map2": 21,
+      "local_release": 4,
+      "sum": 327
+    },
+    "original_case_count": 24
+  },
+  "static_dependency_evidence": [
+    "Runner statically references Registry/LEGACY/RandomStageGenerator/PlayerTuning and ThornQueenCanopyDefinition; dynamically loads actualApp helper.",
+    "RandomStageGenerator._same_data does not isolate its Script compilation domain: same class references PlainsGroundSupports.recorded_plan; PlainsGroundSupports statically types and instantiates PlatformingModule.",
+    "App helper types actualDemoApp/Stage/Actor/RunManifest, which reference the same generation and data classes. Dynamic helper loading alone therefore does not imply separate compilation graphs.",
+    "Runner receives no decoded historical object into App helper. It passes legacy_version string and reporter WeakRef; app helper produces independent actual old-map state/reload cases."
+  ],
+  "not_proven": [
+    "No verbose inventory yet: retained Node vs GDScript/Resource allocation roots unknown.",
+    "C1 Actor causal origin is not established; C1 only adds existing StringName behavior comparisons, no dependency edge.",
+    "Static dependency path is a candidate, not sufficient cause or proof that replacing one preload fixes the leak."
+  ],
+  "next_minimal_probes": [
+    "Run unchanged original CLI --verbose into fresh original-cap output; retain exit types/resources/allocations and any orphan Nodes.",
+    "If owner Nodes survive: observe WeakRefs for each actualApp/stage/helper after original free and coroutine return; do not clear caches or mute scanner.",
+    "If only scripts/resources survive: exact data-only original276+4release checks and App-only original47 checks in build-only isolated diagnostic consumers, keeping realApp resources/inputs and original source identities.",
+    "Only after proving mixed-domain trigger: replace static puredata references at caller with runtime calls to exactly same Scripts, including implicit type/constant references; compare full original327 check expressions/case rows and strict original entry. Do not replace same_data with a weaker mirror.",
+    "If independent real native domains required: explicit two-phase wrapper sharing original90s native total, import90 and original outer cap, strict perphase logs/UUID/fresh artifacts, all327 assertions/24cases/phase identities/fail-closed aggregation. Preserve old combined strict failure and add actual phase failure refusal. No order-swap-only fix."
+  ],
+  "raw_bindings": [
+    {
+      "path": "build/forest_depth/versions/native/harness-34afec17ad594373902b0a9a9e75f327/native.log",
+      "sha256": "78abf27102e37492129fb66a02be42f08de3c7af815a43afda3aeb2d03f0f7a6"
+    },
+    {
+      "path": "build/forest_depth/versions/native/harness-34afec17ad594373902b0a9a9e75f327/receipt.json",
+      "sha256": "81748d35bf24f26c4690e8c2446bdb8bf3dfefb2adecbf761b118d2bab2caf30"
+    },
+    {
+      "path": "build/forest_depth/versions/native/harness-34afec17ad594373902b0a9a9e75f327/capture.json",
+      "sha256": "c665c666526ce7cd012c3cfad453de33d9ed58b8a6eea1ab9f2553b410297bff"
+    }
+  ],
+  "source_paths_read": [
+    {
+      "path": "tools/run_forest_depth_versions.py",
+      "sha256": "feb327fe7ca9fbe6450b5b54625d86422c9263e2de272ee91917e0b9b8f06b43"
+    },
+    {
+      "path": "tests/forest_depth_version_runner.gd",
+      "sha256": "0807b13aefc695a5d7e2af375098d81ebe74940aa6c3a599f6c49a41c87a5ef6"
+    },
+    {
+      "path": "tests/forest_depth_version_app_case.gd",
+      "sha256": "2632f7744906afc1929225d5731b6ee2d02f95001a40c8a727fa70f97c3e8274"
+    },
+    {
+      "path": "scripts/generation/random_stage_generator.gd",
+      "sha256": "64e3cee561b47119fa2ef0c9b328e7494960efdc6bbc871b766274023855390d"
+    },
+    {
+      "path": "scripts/generation/plains_ground_supports.gd",
+      "sha256": "cc2057c3c1779fa78d322dbf2eedaaa75c769aeba0e667cb88c8a0020662d5bc"
+    },
+    {
+      "path": "scripts/generation/thorn_forest_region_generator.gd",
+      "sha256": "ab7985bbcc32e7a7cbb64520103110c8ec9f99dc58e015e2e1435de328e56606"
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "sha256": "fa810901d75930b9179b068d7d743082954afadbf7784b257a5a7da73b79b147"
+    },
+    {
+      "path": "scripts/demo/thorn_forest_region_stage.gd",
+      "sha256": "c6597525056945699f5d08b6861eb6da3a63f501273e2b50944206144aee0765"
+    },
+    {
+      "path": "scripts/run/run_manifest.gd",
+      "sha256": "87b5ca518f6441ca168ed42bfe516c00eccb8b5c2ee5568a459145795d087618"
+    }
+  ],
+  "reviewer_started_native_or_modified_tracked_files": false
+}

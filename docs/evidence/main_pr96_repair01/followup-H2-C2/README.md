@@ -1,9 +1,9 @@
-# H2 failures and bounded follow-up proofs
+# H2后续修复与Q源码闭合
 
-These records retain their actual execution HEAD and dirty-source identities. `source-blobs.json` binds the current test/tool bytes; runtime production and all 56 Foundry outputs remain byte-identical to C2 (`3affbc89011bce1ef206ce377f9ebdfc724880d4`). Full new-candidate CI, main merge and public delivery are separate pending work.
+Q代码4be8eeb932d24866a49379f0d33f16f00125711d；生产与56资源等于C2。原执行C2/T dirty身份保留，后续SHA只做字节闭合。旧K本地Web与H影片均不重绑，main合并/新完整CI/准确公网待实际终态。
 
-- `rooted-C1-W11/`: original H2 local56 stopped at one pass/one rooted-body failure/54 not run. C1 preserves actual HP, hurt and stun while keeping Root Bell rooted. The original three-check regression passes; other ground/aerial knockback remains exercised. W11 rebuilds the actual changed Actor basis, preserving all 54 replays/56113 typed frames except the exact provenance pointers. Independent C1 and C2/W11 reviews are included.
-- `harness-cache/`: original77 Python tests pass, including real filesystem mutations and a write hidden from the metadata cache that the final fresh guard rejects. Every check still enumerates all sources. Only Linux reuses hashes with unchanged inode/change-time metadata; final execution/lane approval reads every byte afresh. Actual21176-file/8.467GB cold-cache, warm-cache and independent-fresh inventories and persistent digests agree. This does not claim that a new CI job has passed its original20-minute cap.
-- `blade-observation/`: the H2 PR Web's actual missing Blade hit remains unresolved. The observation-only fixture preserves all original317 assertions,65 frames and await order. A local real nine-projectile/HP93 hit passes, with passive clocks, emission, path, impact and batch records. The next full CI retains this observation; no speculative production change is claimed.
+rooted-C1-W11保留真实根部位移失败、C1修后3专项、C2原36/18及54回放等值；CI-H2保存全部四工作流20jobs/14实际执行原日志及两路生态失败、Web阴阳例与20分钟timeout。versions-split保留旧混合图泄漏、原327/24等值、真实两进程正负例与45测试；harness-cache保留77测试和完整8.47GB库存三路径比较；blade-observation只有被动观测，无修复根因声明。queen-driver保存原失败、观察失败及真实30/0修后，review-Q仅签有限源码闭合。
 
-The selected archives include original logs/receipts and per-file hashes. Former K local Web and H films retain their original source identities and are not relabelled as C2/public proofs. Later version-consumer/remote-CI packets and the remaining49-check outcome will be appended after that frozen-source batch terminates.
+local-diagnostics原件中T森林80/600仍失败（78完成/2非终态），render-loop对照无改善已撤；T后续Guardian通过、Queen失败；Q修后原剩42全部通过。不能拼成某个新HEAD完整120通过。summary.json逐一列真实source/dirty/数量/退出码；所有原入口、固定案例、cap和断言保留。
+
+原始路径保留在ZIP内部，file-index按完整SHA核对。initial-copy-index记录早先部分移交，未重写；final-copy-index记录此次Git普通文件。构图/设备/FUN/用户未签。
