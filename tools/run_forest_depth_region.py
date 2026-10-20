@@ -1365,9 +1365,11 @@ def run_region_case(i, case, output, layout="", movie=False):
     if movie:
         argv=['bash','tools/godot.sh','--rendering-method','gl_compatibility','--audio-driver','Dummy','--write-movie',str(path/'gameplay.avi')]+argv[3:]+['--capture-movie']
     start=time.monotonic();row={'seed':seed,'map':index,'route':route,'argv':argv}
-    if movie:row['mode']='actual_GL_60fps_original_route_movie'
+    if movie:
+        row['mode']='actual_GL_60fps_original_route_movie'
+        row['software_render_threads']=min(4,os.cpu_count() or 1)
     try:
-        env={**os.environ,'GUNMAN_DATA_HOME':str(path/'user-data'),'XDG_CONFIG_HOME':str(path/'config'),'XDG_CACHE_HOME':str(path/'cache'),'LP_NUM_THREADS':'1'}
+        env={**os.environ,'GUNMAN_DATA_HOME':str(path/'user-data'),'XDG_CONFIG_HOME':str(path/'config'),'XDG_CACHE_HOME':str(path/'cache'),'LP_NUM_THREADS':str(row['software_render_threads']) if movie else '1'}
         with movie_display(env,path,movie) as native_env:
             with log.open('w') as stream:result=subprocess.run(argv,cwd=ROOT,env=native_env,stdout=stream,stderr=subprocess.STDOUT,timeout=240)
         text=log.read_text();data=json.loads(capture.read_text()) if capture.exists() else {};errors=validate(data) if capture.exists() else ['capture_absent']

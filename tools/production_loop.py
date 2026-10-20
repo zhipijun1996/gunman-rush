@@ -14,6 +14,7 @@ import uuid
 import runpy
 import math
 from contextlib import contextmanager
+from concurrent.futures import ThreadPoolExecutor
 
 import harness
 import quality
@@ -182,8 +183,17 @@ def feedback_context(task, dependencies, history):
 def snapshot():
     result = subprocess.run(["git", "ls-files", "-z", "--cached", "--others", "--exclude-standard"],
                             cwd=ROOT, capture_output=True, check=True, timeout=30)
-    return {p: hashlib.sha256((ROOT / p).read_bytes()).hexdigest() if (ROOT / p).is_file() else "deleted"
-            for p in result.stdout.decode().split("\0") if p}
+    def hash_source(name):
+        path = ROOT / name
+        if not path.is_file():
+            return name, "deleted"
+        with path.open("rb") as source:
+            return name, hashlib.file_digest(source, "sha256").hexdigest()
+
+    # Every call reads every source again; map preserves Git's inventory order.
+    # Stream large historical evidence with bounded concurrent reads and memory.
+    with ThreadPoolExecutor(max_workers=4) as workers:
+        return dict(workers.map(hash_source, (p for p in result.stdout.decode().split("\0") if p)))
 
 
 def save(path, data):
