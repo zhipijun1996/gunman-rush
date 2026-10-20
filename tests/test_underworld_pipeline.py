@@ -421,6 +421,68 @@ class UnderworldPipelineTest(unittest.TestCase):
     def test_objects_runtime_requires_the_actual_open_pose(self):
         self.reject_text('scripts/underworld_plains/underworld_objects.gd','OPEN_CHEST if claimed else CLOSED_CHEST','CLOSED_CHEST if claimed else CLOSED_CHEST','objects.actual_dispatch')
 
+    def test_objects_legacy_alpha_cannot_move_into_formal_branch(self):
+        self.reject_text('scripts/demo/plains_region_stage.gd',
+                         '\t\t\telse:\n\t\t\t\tUnderworldObjects.place_chest',
+                         '\t\t\telse:\n\t\t\t\t(c.sprite as Sprite2D).modulate.a=0.35 if c.claimed else 1.0\n\t\t\t\tUnderworldObjects.place_chest',
+                         'objects.no_grey_claimed')
+
+    def test_objects_legacy_alpha_guard_cannot_invert(self):
+        self.reject_text('scripts/demo/plains_region_stage.gd',
+                         '\t\t\tif generated.has("regional_art_plan"):',
+                         '\t\t\tif not generated.has("regional_art_plan"):',
+                         'objects.no_grey_claimed')
+
+    def test_objects_legacy_alpha_guard_cannot_disappear(self):
+        self.reject_text('scripts/demo/plains_region_stage.gd',
+                         '\t\t\tif generated.has("regional_art_plan"):\n',
+                         '', 'objects.no_grey_claimed')
+
+    def test_objects_legacy_alpha_cannot_leave_capture_consumer(self):
+        path = 'scripts/demo/plains_region_stage.gd'
+        source = (ROOT / path).read_text()
+        start = source.index('\tfor c: Dictionary in chests:', source.index('func capture_state()'))
+        end = source.index('\tfor p: Dictionary in pickups:', start)
+        block = source[start:end]
+        moved = source[:start] + source[end:] + '\nfunc wrong_chest_consumer() -> void:\n' + block
+        result = audit(text_overrides={path: moved})
+        self.assertFalse(result['passed'])
+        self.assertIn('objects.no_grey_claimed', {item['code'] for item in result['checks'] if not item['passed']})
+
+    def test_objects_duplicate_legacy_alpha_is_rejected(self):
+        call = '\t\t\t\tUnderworldObjects.place_chest(c.sprite as Sprite2D,c.position+Vector2(0,21),bool(c.claimed))'
+        self.reject_text('scripts/demo/plains_region_stage.gd',
+                         call, call + '\n\t\t\t\t(c.sprite as Sprite2D).modulate . a = 0.8 if c.claimed else 1.0',
+                         'objects.no_grey_claimed')
+
+    def test_objects_legacy_alpha_value_cannot_change(self):
+        self.reject_text('scripts/demo/plains_region_stage.gd',
+                         '.modulate.a=0.35 if c.claimed',
+                         '.modulate.a=0.9 if c.claimed',
+                         'objects.no_grey_claimed')
+
+    def test_objects_formal_alpha_multiply_is_rejected(self):
+        call = '\t\t\t\tUnderworldObjects.place_chest(c.sprite as Sprite2D,c.position+Vector2(0,21),bool(c.claimed))'
+        self.reject_text('scripts/demo/plains_region_stage.gd', call,
+                         call + '\n\t\t\t\t(c.sprite as Sprite2D).modulate.a *= 0.35 if c.claimed else 1.0',
+                         'objects.no_grey_claimed')
+
+    def test_objects_formal_alpha_addition_is_rejected(self):
+        call = '\t\t\t\tUnderworldObjects.place_chest(c.sprite as Sprite2D,c.position+Vector2(0,21),bool(c.claimed))'
+        self.reject_text('scripts/demo/plains_region_stage.gd', call,
+                         call + '\n\t\t\t\t(c.sprite as Sprite2D).modulate.a += -0.65 if c.claimed else 0.0',
+                         'objects.no_grey_claimed')
+
+    def test_objects_legacy_block_cannot_duplicate(self):
+        path = 'scripts/demo/plains_region_stage.gd'
+        source = (ROOT / path).read_text()
+        start = source.index('\tfor c: Dictionary in chests:', source.index('func capture_state()'))
+        end = source.index('\tfor p: Dictionary in pickups:', start)
+        duplicated = source + '\nfunc duplicate_chest_consumer() -> void:\n' + source[start:end]
+        result = audit(text_overrides={path: duplicated})
+        self.assertFalse(result['passed'])
+        self.assertIn('objects.no_grey_claimed', {item['code'] for item in result['checks'] if not item['passed']})
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

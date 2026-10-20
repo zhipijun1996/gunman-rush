@@ -490,6 +490,27 @@ def audit_mechanisms(a: Audit, spec: dict):
     a.check('moving_patch_plan(rect)' in text and 'mechanism_specification().carrier' in text and 'draw_texture_rect_region(texture,part.target,part.source)' in text,'mechanisms.runtime_patch_consumer','Actual carrier uses repeated source cap/body patches')
 
 
+def formal_chest_alpha_isolated(stage: str) -> bool:
+    """Finite adapter for the explicit legacy candidate, not a GDScript parser.
+
+    The complete, unique block must remain inside capture_state. Everything
+    outside it still rejects alpha setters, regardless of whitespace or value.
+    Changes to this consumer shape require another adapter review.
+    """
+    block = (
+        '\tfor c: Dictionary in chests:\n'
+        '\t\tif c.has("sprite"):\n'
+        '\t\t\tif generated.has("regional_art_plan"):\n'
+        '\t\t\t\t(c.sprite as Sprite2D).modulate.a=0.35 if c.claimed else 1.0\n'
+        '\t\t\telse:\n'
+        '\t\t\t\tUnderworldObjects.place_chest(c.sprite as Sprite2D,c.position+Vector2(0,21),bool(c.claimed))\n'
+    )
+    capture = re.search(r'(?ms)^func capture_state\(\) -> void:\n(.*?)(?=^func |\Z)', stage)
+    if stage.count(block) != 1 or capture is None or block not in capture.group(1):
+        return False
+    return re.search(r'\.\s*modulate\s*\.\s*a\s*(?:\*\*|<<|>>|[+\-*/%&|^])?=', stage.replace(block, '', 1)) is None
+
+
 def audit_objects(a: Audit, spec: dict):
     """Offline crop provenance; runtime preloads the result, not the recipe JSON."""
     a.check(spec.get('schema')=='underworld-r3-objects-v1','objects.schema','Opened chest and declared native mechanism geometry')
@@ -513,7 +534,7 @@ def audit_objects(a: Audit, spec: dict):
     text=a.script('scripts/underworld_plains/underworld_objects.gd','objects.consumer')
     stage=a.script('scripts/demo/plains_region_stage.gd','objects.stage')
     a.check(str(opened.get('texture')) in text and 'OPEN_CHEST if claimed else CLOSED_CHEST' in text and 'UnderworldObjects.place_chest' in stage,'objects.actual_dispatch','Actual claimed ledger chooses the complete open texture; transaction itself remains gameplay-owned')
-    a.check('modulate.a=0.35 if c.claimed' not in stage,'objects.no_grey_claimed','Claimed state is no longer desaturation/alpha on a closed chest')
+    a.check(formal_chest_alpha_isolated(stage),'objects.no_grey_claimed','Only the exact opt-in legacy candidate may fade; formal claimed chests use the opened pose')
 
 
 def audit_home(a: Audit, home: dict):
