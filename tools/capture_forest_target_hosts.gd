@@ -21,7 +21,7 @@ func frames(count: int) -> void:
 func run() -> void:
 	root.size=Vector2i(1280,720)
 	DirAccess.make_dir_recursive_absolute(output)
-	var view_groups := {"fallen_fork":["broken_arch_entry","broken_arch_crown","broken_arch_return_view"],"spiral_crown":["spiral_pod_bank","spiral_crown_bank","canopy_return_view"],"gate_pull":["gate_side_closed","gate_approach_closed","gate_open_after_actual_hook"],"guardian_pair":["guardian_entry","guardian_left_counter","guardian_right_counter"],"queen_rib":["queen_entry","queen_right_bank","queen_right_return"],"hollow_elbow":["hollow_upper_bank","hollow_exit_bank","hollow_return_bank"]}
+	var view_groups := {"root_hint":["hanging_fruit_hint"],"fallen_fork":["broken_arch_entry","broken_arch_crown","broken_arch_return_view"],"spiral_crown":["spiral_pod_bank","spiral_crown_bank","canopy_return_view"],"gate_pull":["gate_side_closed","gate_approach_closed","gate_open_after_actual_hook"],"guardian_pair":["guardian_entry","guardian_left_counter","guardian_right_counter"],"queen_rib":["queen_entry","queen_right_bank","queen_right_return"],"hollow_elbow":["hollow_upper_bank","hollow_exit_bank","hollow_return_bank"]}
 	var views: Array = view_groups.get(group,[])
 	for view: String in views:
 		var app := DemoApp.new()
@@ -51,7 +51,10 @@ func run() -> void:
 				if support.id==support_id:at=Vector2(float(support.rect[0])+float(support.rect[2])*0.5,float(support.rect[1])-18)
 		var support_id := ""
 		var side := 0.5
-		if group=="gate_pull":
+		if group=="root_hint":
+			support_id="interwoven_inner_bough"
+			side=0.37
+		elif group=="gate_pull":
 			support_id="hollow__cavity_exit" if view=="gate_side_closed" else "boss_approach"
 			side=0.55
 		elif group=="guardian_pair":
@@ -92,6 +95,10 @@ func run() -> void:
 		var visible_hints: Array = []
 		for hint: Dictionary in stage.context_signs:
 			if hint.label.visible:visible_hints.append(hint.label.text)
+		if group=="root_hint":
+			var expected_hint := "Left: recoil and hook back toward the crown.\nRight: recoil toward the hanging fruit, then fire down."
+			if not expected_hint in visible_hints:failures.append("actual_visible_fruit_hint/"+view)
+			if visible_hints.any(func(text: String) -> bool:return "hanging ring" in text):failures.append("stale_visible_ring_hint/"+view)
 		var seal: BossArenaSeal = stage.boss_seal
 		var seal_view := {"armed":seal.armed,"closed":seal.closed,"world_status_text_enabled":seal.world_status_text_enabled,"boss_hud_visible":app._boss_status.visible,"boss_hud_text":app._boss_status.text}
 		if group in ["guardian_pair","queen_rib"] and seal.closed and (seal.world_status_text_enabled or not "ARENA SEALED" in app._boss_status.text):failures.append("sealed_HUD/"+view)
@@ -126,4 +133,4 @@ func run() -> void:
 	var file := FileAccess.open(output.path_join("report.json"),FileAccess.WRITE)
 	file.store_string(JSON.stringify({"scope":"source_bound_"+group+"_G2_fixtures_only","presentation_revision":ForestTargetHosts.PRESENTATION_REVISION,"failures":failures,"observations":observations}));file.close()
 	print("FOREST TARGET HOSTS: %s observations / %s failures" % [observations.size(),failures.size()])
-	quit(0 if observations.size()==3 and failures.is_empty() else 1)
+	quit(0 if observations.size()==views.size() and failures.is_empty() else 1)

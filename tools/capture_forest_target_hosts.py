@@ -26,7 +26,7 @@ def main():
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--seed", default="forest-depth-00")
     parser.add_argument("--map", type=int, choices=(1, 2), default=1)
-    parser.add_argument("--group", choices=("fallen_fork", "spiral_crown", "gate_pull", "guardian_pair", "queen_rib", "hollow_elbow"), default="fallen_fork")
+    parser.add_argument("--group", choices=("root_hint", "fallen_fork", "spiral_crown", "gate_pull", "guardian_pair", "queen_rib", "hollow_elbow"), default="fallen_fork")
     parser.add_argument("--display", default=":99")
     args = parser.parse_args()
     output = args.output.resolve()
@@ -71,8 +71,9 @@ def main():
         with (output / "native.log").open("w") as stream, contextlib.redirect_stdout(stream):
             native = run_engine(command, 120)
         data = json.loads((output / "report.json").read_text())
-        if (not re.search(r"^FOREST TARGET HOSTS: 3 observations / 0 failures$", native, re.M)
-                or data.get("failures") or len(data.get("observations", [])) != 3
+        expected_count = 1 if args.group == "root_hint" else 3
+        if (not re.search(rf"^FOREST TARGET HOSTS: {expected_count} observations / 0 failures$", native, re.M)
+                or data.get("failures") or len(data.get("observations", [])) != expected_count
                 or any(row.get("layout") != "forest-fruit-routes-v14" or row.get("map") != args.map or not row.get("grounded") or not row.get("manifest_unchanged") for row in data["observations"])):
             raise RuntimeError("Incomplete or wrong-context native observations")
         record.update(status="passed", exit_code=0)
