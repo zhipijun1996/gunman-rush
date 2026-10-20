@@ -2,6 +2,7 @@ class_name AvatarPresentation
 extends Node
 ## Session appearance only. The original CourierVisual still owns arm/muzzle state.
 const CATALOG := "res://resources/art/avatars.json"
+const UI_THEME := preload("res://scripts/ui/menu_theme.gd")
 var selected_id := "courier"
 var _app: Node
 var _visual: CourierVisual
@@ -28,6 +29,8 @@ func _ready() -> void:
 	layer.layer=21;layer.name="AvatarSelectorLayer";add_child(layer)
 	_selector=OptionButton.new()
 	_selector.name="AvatarSelector"
+	# This layer is outside DemoApp's styled canvas; Web needs packaged CJK glyphs.
+	_selector.theme=UI_THEME.create_theme()
 	_selector.focus_mode=Control.FOCUS_NONE
 	_selector.tooltip_text="选择人物外观；玩法与能力保持一致"
 	_selector.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
@@ -37,6 +40,7 @@ func _ready() -> void:
 		_selector.add_item("外观 · "+str(entry.display_name))
 		_selector.set_item_disabled(_selector.item_count-1,not _available(entry))
 	layer.add_child(_selector)
+	_selector.get_popup().theme=_selector.theme
 	_selector.item_selected.connect(_selected)
 	_selector.gui_input.connect(_selector_gui_input)
 	_selector.get_popup().about_to_popup.connect(_cancel_ui_input)
