@@ -9,9 +9,15 @@ var assertions := 0
 var failures := 0
 var cases: Array[Dictionary] = []
 var checks: Array[Dictionary] = []
+var phase_identity: Dictionary = {}
 var exit_weak_refs: Dictionary = {}
 var exit_observations: Dictionary = {}
-func _initialize() -> void: run.call_deferred()
+func _initialize() -> void:
+	phase_identity={"phase":"data","engine_pid":OS.get_process_id(),"run_id":"","script":get_script().resource_path,"script_sha256":FileAccess.get_sha256(get_script().resource_path)}
+	for argument: String in OS.get_cmdline_user_args():
+		if argument.begins_with("--run-id="):phase_identity.run_id=argument.trim_prefix("--run-id=")
+	print("FOREST VERSION PHASE: ",JSON.stringify(phase_identity))
+	run.call_deferred()
 func check(ok: bool, label: String) -> void:
 	assertions += 1
 	checks.append({"label":label,"passed":ok})
@@ -66,8 +72,6 @@ func run() -> void:
 	check_recorded_expedition(registry,tuning)
 	check_interwoven_contract(registry,tuning)
 	check_fruit_contract(registry,tuning)
-	for map_index: int in [1,2]:
-		await app_case(map_index)
 	# A bounded lifecycle hypothesis: the long async run() previously quit while
 	# these local RefCounteds were still on its suspended coroutine stack.
 	# Observe them weakly, release only runner-owned locals, then return before quit.
@@ -85,26 +89,16 @@ func deferred_finish() -> void:
 		var alive := is_instance_valid((exit_weak_refs[label] as WeakRef).get_ref())
 		exit_observations[label]["after_run_return_alive"]=alive
 		if label!="tuning_script": check(not alive,"owned local released after run returns: "+label)
-	var output := "res://build/forest_depth/versions/native/capture.json"
+	var output := "res://build/forest_depth/versions/native/data.json"
 	for argument: String in OS.get_cmdline_user_args():
 		if argument.begins_with("--output="): output=argument.trim_prefix("--output=")
 	DirAccess.make_dir_recursive_absolute(output.get_base_dir())
 	var file := FileAccess.open(output,FileAccess.WRITE)
-	file.store_string(JSON.stringify({"capture_schema":6,"scope":"runtime version compatibility only; v2 gameplay not covered","assertions":assertions,"failures":failures,"engine":Engine.get_version_info(),"cases":cases,"checks":checks,"exit_lifecycle":exit_observations},"\t"))
+	file.store_string(JSON.stringify({"identity":phase_identity,"capture_schema":6,"scope":"runtime version compatibility only; v2 gameplay not covered","assertions":assertions,"failures":failures,"engine":Engine.get_version_info(),"cases":cases,"checks":checks,"exit_lifecycle":exit_observations},"\t"))
 	file.close()
 	file=null
-	print("FOREST DEPTH VERSIONS: %s assertions, %s failures" % [assertions,failures])
+	print("FOREST DEPTH VERSION DATA: %s assertions, %s failures" % [assertions,failures])
 	quit(1 if failures else 0)
-func app_case(map_index: int) -> void:
-	# Dynamic actual Node consumer avoids compiling App's typed graph into this
-	# generator runner. All original checks/cases are forwarded by the helper.
-	var helper: Node=load("res://tests/forest_depth_version_app_case.gd").new()
-	helper.reporter=weakref(self)
-	helper.legacy_version=LEGACY.VERSION
-	root.add_child(helper)
-	await helper.run(map_index)
-	helper.free()
-
 func check_recorded_layouts(registry: ThornForestRegionGenerator,tuning: PlayerTuning) -> void:
 	# Expected outputs are extracted from actual old Motor captures, not generated
 	# by either implementation under comparison. Their original hashes stay fixed.

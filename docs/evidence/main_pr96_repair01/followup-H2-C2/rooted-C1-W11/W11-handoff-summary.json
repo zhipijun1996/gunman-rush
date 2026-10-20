@@ -1,0 +1,72 @@
+{
+  "status": "passed",
+  "source_commit": "220fe7dec48e46ad52b8a83302f6c46e8352bac8",
+  "commands": [
+    {
+      "argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/foundry.py",
+        "build",
+        "--count",
+        "24",
+        "--profiles",
+        "base",
+        "double_jump",
+        "air_chain",
+        "--promote"
+      ],
+      "timeout_seconds": 1000,
+      "log": "build/foundry_final_W11/build36_18.log",
+      "started_utc": "2026-10-20T07:40:08.887947+00:00",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 56.650100539998675,
+      "completion_markers": [
+        "Validated 36 development phrases; 18 continuous itineraries. Fun: awaiting playtest."
+      ]
+    },
+    {
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--path",
+        ".",
+        "--script",
+        "tools/foundry_export_stamp.gd"
+      ],
+      "timeout_seconds": 90,
+      "log": "build/foundry_final_W11/export_stamp.log",
+      "started_utc": "2026-10-20T07:41:05.538886+00:00",
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 1.4173609879981086,
+      "completion_markers": [
+        "6323c953b6d79b79b401659338da5c37bc8cd49853554593b9323717fc8ca70e"
+      ]
+    }
+  ],
+  "comparison": "build/foundry_final_W11/comparison.json",
+  "baseline": "build/foundry_final_W11/baseline_inventory.json",
+  "native_counts": {
+    "phrases": 36,
+    "itineraries": 18,
+    "replays": 54,
+    "frames": 56113
+  },
+  "source_stable_except_expected56_Foundry_outputs": true,
+  "resource_manifest": "build/foundry_final_W11/generated_resource_manifest.json",
+  "before_basis": "f3e060598385696137aa40910811fcbfed931853fe7f4c9992b11cf1af0263cb",
+  "after_basis": "6323c953b6d79b79b401659338da5c37bc8cd49853554593b9323717fc8ca70e",
+  "scope": "Original native36/18 at frozen C1; exact H2 original54/56113 actions/axis/positions/shots/repair/routeIDs including scalar types and all nonwhitelist fields. H2 resources are byte-identical to R169/W9 originals. Only326 explicit sourcebasis/direct derived hashes differ; all108 old/new direct hashes independently recomputed. No globalCI/browser/device or RootBell ecology admission from this Foundry proof.",
+  "baseline_resource_commit": "cea407025bb3a31be745c440efb85920307679a3",
+  "baseline_label_note": "Copied outer logger raw summary text said c77f. Its raw output is retained in handoff-summary.native_logger_raw.json. Actual comparator and baseline inventory used baseline_H2 and exact H2 Git resource blobs throughout; this authored handoff corrects only that textual label.",
+  "basis_delta": "build/foundry_final_W11/independent_basis_delta.json",
+  "basis_input_count": 203,
+  "changed_basis_inputs": [
+    "scripts/enemies/enemy_actor.gd"
+  ],
+  "actor_sha256": "fd0472ed114bbe1dfccc8b3bcd569fecd54ad3473a14b3a31ac8af71cc2186d8",
+  "exact_provenance_whitelist_count": 326,
+  "direct_manifest_hashes_independently_verified": 108
+}

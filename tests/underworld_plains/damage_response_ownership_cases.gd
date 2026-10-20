@@ -55,14 +55,31 @@ func run(tree: SceneTree, check: Callable) -> Array[Dictionary]:
 		var definition:=controller.shoot_ability.weapon
 		# Explicit resource-boundary initialization, never claimed earned currency.
 		controller.combat_energy.current=definition.skill_cost
-		controller.router.activate_device(&"gamepad");controller.router.set_aim(&"gamepad",Vector2.RIGHT,false);controller.router.request_action(&"weapon_skill",Vector2.RIGHT)
+		# Observation only: weak node handles avoid creating new signal ownership cycles.
+		var observation := {"entry":_sample(controller,actor,policy),"emissions":[],"impacts":[],"exits":[],"packets":[],"rejections":[],"batches":[],"boundaries":[]}
+		controller.shoot_ability.shot_fired.connect(_observe_shot.bind(weakref(controller),observation))
+		controller.shoot_ability.shot_rejected.connect(func(reason):observation.rejections.append({"kind":"shot_rejected","reason":str(reason),"clock":_clock()}))
+		controller.router.action_rejected.connect(func(reason):observation.rejections.append({"kind":"action_rejected","reason":str(reason),"clock":_clock()}))
+		controller.shoot_ability.packet_changed.connect(func(value,packet):observation.packets.append({"state":str(value),"packet":packet,"clock":_clock()}))
+		policy.batch_resolved.connect(func(batch: Array[DamageResult]) -> void:
+			for result: DamageResult in batch:observation.batches.append({"event_id":str(result.request.event_id),"target":str(result.request.target_id),"amount":result.request.amount,"health":result.health.current,"clock":_clock()}))
+		controller.router.activate_device(&"gamepad");controller.router.set_aim(&"gamepad",Vector2.RIGHT,false)
+		observation.request_accepted=controller.router.request_action(&"weapon_skill",Vector2.RIGHT)
 		var first_hit:=-1
 		var first_finished:=-1
 		var initial_stagger:=0.0
 		var initial_force:=0.0
 		var skill_frames: Array[Dictionary]=[]
 		for i: int in 65:
-			await tree.physics_frame;controller.physics_tick(dt);actor.physics_tick(dt);policy.resolve_batch();await tree.process_frame
+			await tree.physics_frame
+			var boundaries := {"row":i,"before_controller":_sample(controller,actor,policy)}
+			controller.physics_tick(dt)
+			boundaries.after_controller=_sample(controller,actor,policy)
+			actor.physics_tick(dt);policy.resolve_batch()
+			boundaries.after_resolve=_sample(controller,actor,policy)
+			await tree.process_frame
+			boundaries.after_process=_sample(controller,actor,policy)
+			observation.boundaries.append(boundaries)
 			if not skill_contexts.is_empty() and first_hit<0:
 				first_hit=i;initial_stagger=actor._stagger_remaining;initial_force=enemy._knockback.length()
 			if first_hit>=0 and first_finished<0 and actor._stagger_remaining<=0:first_finished=i
@@ -74,6 +91,38 @@ func run(tree: SceneTree, check: Callable) -> Array[Dictionary]:
 		check.call(first_hit>=0 and first_finished>first_hit and first_finished-first_hit<=ceili(definition.skill_stagger_seconds/dt)+1,"skill stagger ends without extra ordinary .12 delay "+weapon)
 		if weapon=="blade_bloom":check.call(absf(initial_force-definition.skill_knockback_speed)<.1,"physical fan skill keeps its authored force "+weapon)
 		else:check.call(initial_force==0 and absf(enemy.position.x-250)<.1,"cannon retains original no-knockback skill response")
-		reports.append({"kind":"skill","weapon":weapon,"contexts":skill_contexts,"first_hit":first_hit,"stagger_finished":first_finished,"initial_stagger":initial_stagger,"initial_force":initial_force,"frames":skill_frames})
+		reports.append({"kind":"skill","weapon":weapon,"contexts":skill_contexts,"first_hit":first_hit,"stagger_finished":first_finished,"initial_stagger":initial_stagger,"initial_force":initial_force,"frames":skill_frames,"observation":observation})
 		world.queue_free();await tree.process_frame;await tree.process_frame
 	return reports
+
+# Passive snapshots only. No aim/pose repaint, query, movement or damage calls.
+static func _clock() -> Dictionary:
+	return {"physics":Engine.get_physics_frames(),"process":Engine.get_process_frames(),"time_scale":Engine.time_scale,"physics_hz":Engine.physics_ticks_per_second}
+
+static func _projectile_sample(projectile: PlayerProjectile) -> Dictionary:
+	return {"id":projectile.shot_id,"position":projectile.global_position,"direction":projectile.direction,"age":projectile._age,"launch_motion":projectile.launch_motion,"visual_launched":projectile._visual_launched,"spent":projectile.spent,"speed":projectile.speed,"radius":projectile.radius,"shape_radius":projectile._shape.radius,"lifetime":projectile.lifetime,"session":projectile.session_id,"weapon_epoch":projectile.weapon_epoch,"skill":projectile.skill_attack,"processing":projectile.is_physics_processing(),"clock":_clock()}
+
+static func _sample(controller: PlayerController, actor: EnemyActor, policy: FrameDamagePolicy) -> Dictionary:
+	var projectiles: Array[Dictionary]=[]
+	for projectile: PlayerProjectile in controller.shoot_ability._projectiles:
+		if is_instance_valid(projectile):projectiles.append(_projectile_sample(projectile))
+	var visual := controller.motor.get_node("CourierVisual") as CourierVisual
+	var runtime := controller.shoot_ability.runtime
+	return {"clock":_clock(),"player":controller.motor.global_position,"player_velocity":controller.motor.velocity,"grounded":controller.motor.is_on_floor(),"controller_tick":controller._tick,"active":controller.active,"session":controller.session_id,"weapon_epoch":controller.shoot_ability.weapon_epoch,"packet":controller.shoot_ability.packet_id,"energy":controller.combat_energy.current,"phase":str(runtime.phase),"phase_age":runtime.age,"skill":runtime._skill,"direction":runtime.direction,"queue":policy._queue.size(),"policy_seen":policy._seen.size(),"enemy":actor.motor.global_position,"hp":actor.health.current,"visual_state":str(visual.state),"visual_elapsed":visual.elapsed,"facing":visual.facing,"body_transform":visual.body.global_transform,"muzzle":visual.visible_muzzle_position(),"aim":controller.router.aim_direction,"aim_engaged":controller.router.aim_engaged,"controller_automatic":controller.is_physics_processing(),"actor_automatic":actor.is_physics_processing(),"policy_automatic":policy.is_physics_processing(),"projectiles":projectiles}
+
+static func _observe_shot(direction: Vector2, id: int, owner: WeakRef, observation: Dictionary) -> void:
+	var controller := owner.get_ref() as PlayerController
+	if controller==null:return
+	for projectile: PlayerProjectile in controller.shoot_ability._projectiles:
+		if not is_instance_valid(projectile) or projectile.shot_id!=id:continue
+		observation.emissions.append({"direction":direction,"id":id,"last_muzzle":controller.shoot_ability.last_muzzle,"projectile":_projectile_sample(projectile)})
+		projectile.impacted.connect(_observe_impact.bind(weakref(projectile),observation.impacts))
+		projectile.tree_exiting.connect(_observe_exit.bind(weakref(projectile),observation.exits))
+
+static func _observe_impact(point: Vector2, direction: Vector2, reference: WeakRef, events: Array) -> void:
+	var projectile := reference.get_ref() as PlayerProjectile
+	if projectile!=null:events.append({"point":point,"direction":direction,"projectile":_projectile_sample(projectile)})
+
+static func _observe_exit(reference: WeakRef, events: Array) -> void:
+	var projectile := reference.get_ref() as PlayerProjectile
+	if projectile!=null:events.append(_projectile_sample(projectile))

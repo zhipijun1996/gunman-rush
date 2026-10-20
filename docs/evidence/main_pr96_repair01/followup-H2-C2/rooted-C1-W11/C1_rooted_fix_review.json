@@ -1,0 +1,190 @@
+{
+  "decision": "SCOPED_ACCEPT",
+  "source_commit": "220fe7dec48e46ad52b8a83302f6c46e8352bac8",
+  "reviewed_commit": "220fe7dec48e46ad52b8a83302f6c46e8352bac8",
+  "reviewed_final_runtime_commit": "220fe7dec48e46ad52b8a83302f6c46e8352bac8",
+  "reviewer": "independent_review",
+  "scope": "One production EnemyActor accepted-hit RootBell fix and actual original three-check local proof; no test/checker/budget weakening.",
+  "independent_production_changes": false,
+  "source": {
+    "path": "scripts/enemies/enemy_actor.gd",
+    "sha256": "fd0472ed114bbe1dfccc8b3bcd569fecd54ad3473a14b3a31ac8af71cc2186d8",
+    "only_C1_parent_to_C1_changed_path": true,
+    "parent": "cea407025bb3a31be745c440efb85920307679a3",
+    "actual_execution": "cea407025bb3a31be745c440efb85920307679a3 plus explicitly recorded dirty Actor; exact tested before/after SHA equals C1 committed blob. Original HEAD/receipts unchanged.",
+    "parent_actor_byte_exact_after_removing_two_new_guards": true
+  },
+  "contract_and_minimality": {
+    "RootBell_contract": "RootBellBehavior.advance always owns the rooted body and returns true; authored definition has patrol_speed0 and patrol_half_width0. Existing ecology requires exact original home on every captured frame. Generic accepted-hit force violated that existing contract.",
+    "ordinary_hit_keeps": [
+      "accepted HP transaction and health-change warning interruption",
+      "hurt audio/presentation signal before the new guard",
+      "configured finite stun duration and phase freeze/resumption",
+      "existing terminal/restoring/invalid-direction and skill/grapple ownership rules"
+    ],
+    "two_guards": "After setting actual stun, RootBell returns before queueing generic knockback. During that stun it decrements the same timer and returns before Motor.step. Other behavior IDs retain both existing calls and all remaining text byte-for-byte.",
+    "no_tests_resources_geometry_or_physics_constants_changed": true,
+    "scope_boundary": "This addresses generic accepted-hit feedback. Existing skill/grapple-owned motion and apply_skill_impact paths are unchanged; no blanket proof of immobility under every external ability or custom enemy definition is claimed."
+  },
+  "original_failure": {
+    "first_56_attempt": "1 pass root-bell-spaces, 1 fail root-bell-ecology,54 not executed; not full56 pass",
+    "native_route_exit": 0,
+    "actual_acceptance": "FAIL, ValueError: Rooted body moved",
+    "raw_directory": "build/production_repair/ecology/formal_1792481240261501741",
+    "home": [
+      3940.0,
+      1208.0
+    ],
+    "committed_hit": {
+      "actor_epoch": 5,
+      "amount": 1.0,
+      "damage_kind": 0,
+      "edge": "plains/passage/area_2_3/area_3_3",
+      "event_id": "237045287808:3:18",
+      "health_after": 2.0,
+      "health_epoch": 1,
+      "kind": "damage_committed",
+      "lethal": false,
+      "source": "player_projectile:237045287808",
+      "target": "plains/enemy/lane/plains/passage/area_2_3/area_3_3_join",
+      "tick": 4118
+    },
+    "first_displaced_tick": 4119,
+    "first_displaced_position": [
+      3942.25,
+      1208.0
+    ],
+    "causal_match": "Actual HP3\u21922 on4118, first body motion4119 is+2.25x=135/60. Existing generic EnemyMotor consumes queued135wu/s hit force on following actor tick. Original constant-home assertion correctly rejects; native route success alone is insufficient."
+  },
+  "actual_local_proofs": {
+    "original_harness": "python3 tools/harness.py --jobs 1 --release --check root-bell-tests --check root-bell-ecology --check underworld-damage-feedback",
+    "strict_outer_exit": 0,
+    "outer_seconds": 250.2815952259989,
+    "original_caps": [
+      360,
+      420,
+      180
+    ],
+    "checks_reused": false,
+    "g1": {
+      "native_assertions": 165,
+      "actual_admission_maps": 40,
+      "content_refusals": 55,
+      "receipt_refusals": 11,
+      "original_55_and11_independently_pure_reexecuted": true,
+      "K_stun_source_and_exact_zero_guard_unchanged": true
+    },
+    "ecology": {
+      "default_actual_DemoApp_scope": true,
+      "cases": 19,
+      "frames": 5195,
+      "pulses": 12,
+      "all_frames_exactly_at_original_home": true,
+      "original_max_ticks": 18000,
+      "original_native_timeout": 300,
+      "original_ecology27_refusals_reexecuted": true,
+      "independent_added_displacement_mutations_rejected": [
+        {
+          "case": "actual_first_hit_displacement",
+          "reason": "Rooted body moved"
+        },
+        {
+          "case": "tiny_root_displacement",
+          "reason": "Rooted body moved"
+        }
+      ],
+      "source_guard_before_after_equal_entries": 1830
+    },
+    "underworld_damage": {
+      "checks": 317,
+      "failures": [],
+      "wide_ground": {
+        "hit_position": "(585.0, 372.0)",
+        "final_position": "(601.2002, 372.0)",
+        "supported": true
+      },
+      "aerial": {
+        "hit_position": "(586.9316, 371.9996)",
+        "final_position": "(605.4561, 371.9999)"
+      },
+      "two_ground_edges_supported": true,
+      "artifact_equals_current_runtime_bytes": true
+    },
+    "strict_logs": "All three original check logs independently scanned: no SCRIPT/Parse/Shader error, ERROR, ObjectDB leak or resources-in-use marker. Original317 damage assertions passed.",
+    "sensitive_test_guard": "C1 changes no tests or acceptance tools. Existing fixed-body assertion and all original scopes/caps remain."
+  },
+  "evidence": [
+    {
+      "path": "build/verification/harness/20261020T073450.354937Z/report.json",
+      "bytes": 4657,
+      "sha256": "26e054105bfc2987ceb449e72e6b51929fd41c54813d164a3cfe4d743528a812"
+    },
+    {
+      "path": "build/forest_revision04/rooted-fix-H2/outer-receipt.json",
+      "bytes": 828,
+      "sha256": "80d90c7b33cf356daa97eceed5958cea1c69cec23572e12ed917f281f4254b49"
+    },
+    {
+      "path": "build/root_bell/formal_v2/1792481713118958419/native165/capture.json",
+      "bytes": 937043,
+      "sha256": "fc58815554f7bf8a2c177025a981522d673bc6c30432858c785ecf415d2eab7b"
+    },
+    {
+      "path": "build/root_bell/formal_v2/1792481713118958419/native165/report.json",
+      "bytes": 8796,
+      "sha256": "6bb8ef74a0b968f9663a5b1debe31ac501f5aea17cad748efee4385eda66ac9d"
+    },
+    {
+      "path": "build/root_bell/formal_v2/1792481713118958419/native165/runtime.log",
+      "bytes": 111,
+      "sha256": "0426889f01a71e653310e69b5f0aa44a61efeb2e94f49053113fe3d1f9568492"
+    },
+    {
+      "path": "build/production_repair/ecology/formal_1792481240261501741/capture.json",
+      "bytes": 9738602,
+      "sha256": "610dc38f1b25c6ad29d0a66228e05b41094e98a1cc64258a04a0d206ca5d174f"
+    },
+    {
+      "path": "build/production_repair/ecology/formal_1792481240261501741/report.json",
+      "bytes": 225455,
+      "sha256": "c35b65b65bd1a20d54e8bfb77577ec60c363a3814b4d766c6c76b0e81266d8d2"
+    },
+    {
+      "path": "build/production_repair/ecology/formal_1792481240261501741/runtime.log",
+      "bytes": 1301,
+      "sha256": "3216968690c894eaa20618702696d4a97ee5b6f2be51b8d7b491be27bfb2d0a0"
+    },
+    {
+      "path": "build/production_repair/ecology/formal_1792481851996734819/capture.json",
+      "bytes": 9719272,
+      "sha256": "c97d4811ad9d4986228ec8617d583a0580922f93833f2a526f350619eda7d2a4"
+    },
+    {
+      "path": "build/production_repair/ecology/formal_1792481851996734819/report.json",
+      "bytes": 451048,
+      "sha256": "653c4c59e8f25ff16fd2703f789752ab247c776ac79bf4906c8b6f5091114af7"
+    },
+    {
+      "path": "build/production_repair/ecology/formal_1792481851996734819/runtime.log",
+      "bytes": 1301,
+      "sha256": "6d70f4a382347502695b4c198ebd05edfd063bd8953a002aef5f67923c31de4c"
+    },
+    {
+      "path": "build/verification/harness/20261020T073450.354937Z/artifacts/underworld-damage-feedback/build/underworld_r3/damage/runtime.json",
+      "bytes": 347853,
+      "sha256": "2be556ba068c399e05e264835c5b06fc72a9177a06eb8f1c22e867b2cca4bc86"
+    }
+  ],
+  "independent_reproduction_files": [
+    "build/forest_revision04/rooted-fix-review/C1_independent_audit.json",
+    "build/forest_revision04/rooted-fix-review/audit_C1_readonly.py"
+  ],
+  "remaining_scope": [
+    "Foundry actual basis now includes changed Actor; W11/final resource SHA closure requires separate binding",
+    "Remaining/full56 targeted matrix and new fullCI not signed",
+    "No new browser/movie/wholeBoss action/wholeforest taste on C1",
+    "No user/physical device/audio acceptance"
+  ],
+  "reviewer_ran_native": false,
+  "tracked_writes_by_reviewer": false
+}

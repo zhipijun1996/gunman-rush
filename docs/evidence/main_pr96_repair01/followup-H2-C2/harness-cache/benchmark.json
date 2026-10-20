@@ -1,0 +1,50 @@
+{
+  "cold_definition": "empty execution-local hash cache; OS page cache is not flushed",
+  "commit": "3affbc89011bce1ef206ce377f9ebdfc724880d4",
+  "differences": {
+    "fresh": [],
+    "hot": []
+  },
+  "kind": "source-only hash-cache benchmark",
+  "native_commands": [],
+  "passes": [
+    {
+      "deleted": 0,
+      "files": 21176,
+      "inventory_sha256": "7a4ae9087319b59c203c298253a07e0e5dfd6abddfc7188c500f2bd2c457784a",
+      "name": "cold",
+      "persistent_input_digest": "a05d32565ecd0516428449b1cc50b6a4b0b30ece9b67782b3bf944bde144bcd2",
+      "read_bytes": 8467029779,
+      "read_calls": 21176,
+      "seconds": 10.668961991999822
+    },
+    {
+      "deleted": 0,
+      "files": 21176,
+      "inventory_sha256": "7a4ae9087319b59c203c298253a07e0e5dfd6abddfc7188c500f2bd2c457784a",
+      "name": "hot",
+      "persistent_input_digest": "a05d32565ecd0516428449b1cc50b6a4b0b30ece9b67782b3bf944bde144bcd2",
+      "read_bytes": 0,
+      "read_calls": 0,
+      "seconds": 0.349037218002195
+    },
+    {
+      "deleted": 0,
+      "files": 21176,
+      "inventory_sha256": "7a4ae9087319b59c203c298253a07e0e5dfd6abddfc7188c500f2bd2c457784a",
+      "name": "fresh",
+      "persistent_input_digest": "a05d32565ecd0516428449b1cc50b6a4b0b30ece9b67782b3bf944bde144bcd2",
+      "read_bytes": 8467029779,
+      "read_calls": 21176,
+      "seconds": 8.441886648000946
+    }
+  ],
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "schema_version": 1,
+  "scope": "all Git cached/untracked nonignored source inputs, including historical media",
+  "source_files": {
+    "tests/test_harness.py": "50e34a111c858b4ac79c7f85bd8d958431747300e0748663529dc302b77be7e2",
+    "tools/harness.py": "c66f84af0fe5300a171f6377872e8e4e166a9d64e114e5b416f0de1bf5526fa3"
+  },
+  "status": "PASS"
+}

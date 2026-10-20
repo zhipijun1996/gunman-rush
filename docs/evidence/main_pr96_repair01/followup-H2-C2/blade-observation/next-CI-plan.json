@@ -1,0 +1,41 @@
+{
+  "status": "prepared_only_no_second_native_run",
+  "original_PR_image_evidence": "No PNG exists in original underworld-damage-feedback artifact tree. Original skill raw records enemy only, no failing projectile/muzzle/path/animation. Do not infer its pixels from successful local screenshots or native font/other traces.",
+  "current_local_raw": "build/verification/harness/20261020T080336.114424Z/artifacts/underworld-damage-feedback/build/underworld_r3/damage/runtime.json",
+  "json_paths": [
+    "$.response_owner_cases[?weapon=blade_bloom].observation.entry",
+    "$.response_owner_cases[?weapon=blade_bloom].observation.request_accepted",
+    "$.response_owner_cases[?weapon=blade_bloom].observation.emissions[].projectile",
+    "$.response_owner_cases[?weapon=blade_bloom].observation.boundaries[].{before_controller,after_controller,after_resolve,after_process}",
+    "$.response_owner_cases[?weapon=blade_bloom].observation.{packets,rejections,impacts,exits,batches}"
+  ],
+  "actual_center_causal_chain": "9 emissions atphysics7629; centerID6 launch/muzzle(11116.03,677.3491), circle radius5/speed850. Actual impact atphysics7637 age0.15 point(11231.08,677.3491); one queued realbatch resolves intoHP93 atrow13; skillstagger0.12 releasesrow21.",
+  "clock_evidence_update": "Original PR, original push and new local grapple all27successive gaps=1. Their152main trace rows within each phase alsoallgaps1. Different absolute global physics counters only indicate different priorelapsedframes; no evidence supports dropping frames/time scaling in original skill. New local65observedskill gapsall1/time_scale1, centerage regular. Therefore no inevitable manual1/60-vs-realphysics failure established.",
+  "patch_review": {
+    "path": "tests/underworld_plains/damage_response_ownership_cases.gd",
+    "lines_added": 52,
+    "lines_removed": 3,
+    "fixture_sha256": "0a23e56a47a49c853b705f22223ce60307cef0eb243f25e4f1a199ed1e477b48",
+    "originals_and_hashes": "source-before.json + damage_response_ownership_cases.original.gd",
+    "unchanged": "13check.call source sites/317actual assertions; original65; sameawaits and manualcontroller→actor→policy→process order; no production writes, movement, pose, projectile.advance, physicsqueries ordamage calls added.",
+    "observations": "WeakRef signal handles; onlyreadscalars/transforms/arrays and appends JSON-compatible evidence. Strict native0/noresourceleaks proves this one teardown, not general UI lifecycle.",
+    "instrumentation_limit": "Additional passive callbacks and dictionary snapshots consume time and can influence timing. A pass after observation cannot retroactively repair old failure."
+  },
+  "minimal_next_actual_reproduction": {
+    "authorization": "Parent must explicitly retain/commit this exact one-path diagnostic change and select next frozen CI source. No automatic rerun now.",
+    "execution": "Original unchanged CI Web underworld-damage-feedback step, sameoriginalwrapper120/harness180/fixedfps60. Existing upload artifacts already captures runtime.json; no workflow orconsumer change required. If parentpush/PR naturally triggers both, preserve bothcontexts separately, do not rerun-until-pass.",
+    "collect": [
+      "Exactsuccessful/failedworkflowAPI run/attempt/head/PRmergeSHA + log + source/fixturehash + existing actualruntimeJSON",
+      "Actualengine version/argv already logs; retain CI image/toolchain/env provenance without exposingsecrets. Capture only relevant nonsecret physicsconfig/cache existence if contextual difference remains.",
+      "For each result actual nineemissions count, centerID derived fromdirection(1,0), realproducer/session/weapon epoch/age/path/impact/exits, queuing andcommitted HP; all65boundarieswithactualclocks."
+    ],
+    "decision": [
+      "Missing9emits: actual request/reject/reservephase/cost branch, not collision speculation",
+      "Centeremitted but actualage/distance undertravels: prove engine clock/delta mismatch then proposetestclockownershipchange whilekeeping65trueframes; nochangebeforeproof",
+      "Center exits early withimpact: observeactualcontactpoint/path, then separately authorized collisionqueryinstrument ifcurrent evidencecannot identifycollider; do not pretend observerpreview equals actualinternalcollider",
+      "Center crosses target correctly but no HP: actualpolicybatch/receiverstatusbranch, not fakehurtcallback",
+      "Both CI pass: retain as not-reproduced; preserve originalPRfailureandnarrowinstrumented pass, no productionrepair/sourceclock fix justified by absence"
+    ]
+  },
+  "native_window": "Released to root; no secondrun performed."
+}

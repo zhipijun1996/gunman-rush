@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "started_at": "20261020T072513.257720Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "root-bell-spaces",
+      "argv": [
+        "python3",
+        "tools/run_root_bell_spaces.py"
+      ],
+      "timeout_seconds": 360,
+      "input_digest": "7f4698906827b30dbcfad9ff23533b3b1cfabc64fb817cf63f8aece6e2002f62",
+      "log": "root-bell-spaces.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792481141.159697,
+      "ended_at_unix": 1792481207.3064091,
+      "duration_seconds": 66.147,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_root_bell_spaces.py"
+      ],
+      "check_token": "ec8f5171072f4fe7b84f1bfa20569f8e",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261020T072513.257720Z/artifacts/root-bell-spaces",
+      "reused": false
+    },
+    {
+      "id": "root-bell-ecology",
+      "argv": [
+        "python3",
+        "tools/run_root_bell_ecology.py",
+        "--default"
+      ],
+      "timeout_seconds": 420,
+      "input_digest": "05125241cecf7f87c7eed973d6f0d3de61a95e14d52d7fd3dceeccfcef8b797e",
+      "log": "root-bell-ecology.log",
+      "status": "failed",
+      "exit_code": 1,
+      "failure_reason": "nonzero_exit",
+      "started_at_unix": 1792481240.1733959,
+      "ended_at_unix": 1792481268.4351795,
+      "duration_seconds": 28.262,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_root_bell_ecology.py",
+        "--default"
+      ],
+      "check_token": "5f9f83af29e04e6ebb547fdf5d9f0e88",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261020T072513.257720Z/artifacts/root-bell-ecology",
+      "reused": false
+    }
+  ],
+  "status": "failed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "54743d6156db576ee4251f27ea0e9353a0e5828429bcf383146a4ef9f9764514",
+  "working_files": {},
+  "commit": "cea407025bb3a31be745c440efb85920307679a3",
+  "git_status": "",
+  "diff": "",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 174.664,
+  "jobs": 1,
+  "release": true
+}

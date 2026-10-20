@@ -182,14 +182,60 @@ def source_files(root=None):
     return sorted(set(p for p in result.stdout.decode().split("\0") if p))
 
 
-def input_digest(check, files, toolchain, snapshot=None, root=None):
+class SourceHashCache:
+    """Reuse source bytes only within one execution; every lookup rechecks metadata."""
+    def __init__(self):
+        self._entries = {}
+        # Windows ctime can mean creation time. Reuse only Linux change-time;
+        # other platforms retain full byte reads at every source guard.
+        self._reuse_stat = sys.platform.startswith("linux")
+
+    @staticmethod
+    def _key(info):
+        return (info.st_dev, info.st_ino, info.st_size, info.st_mtime_ns, info.st_ctime_ns)
+
+    def digest(self, path):
+        path = path.absolute()
+        try:
+            before = path.stat()
+        except FileNotFoundError:
+            self._entries.pop(path, None)
+            return "deleted"
+        if not stat.S_ISREG(before.st_mode):
+            self._entries.pop(path, None)
+            return "deleted"
+        key = self._key(before)
+        cached = self._entries.get(path)
+        try:
+            if self._reuse_stat and cached is not None and cached[0] == key:
+                digest = cached[1]
+            else:
+                with path.open("rb") as source:
+                    if self._key(os.fstat(source.fileno())) != key:
+                        raise RuntimeError(f"Source changed while hashing: {path}")
+                    digest = hashlib.file_digest(source, "sha256").hexdigest()
+                    if self._key(os.fstat(source.fileno())) != key:
+                        raise RuntimeError(f"Source changed while hashing: {path}")
+            # Also catch pathname replacement during the read or a cache hit.
+            if self._key(path.stat()) != key:
+                raise RuntimeError(f"Source changed while hashing: {path}")
+        except (OSError, RuntimeError):
+            self._entries.pop(path, None)
+            raise
+        if self._reuse_stat:
+            self._entries[path] = (key, digest)
+        return digest
+
+
+def input_digest(check, files, toolchain, snapshot=None, root=None, hash_cache=None):
     prefixes = check.get("inputs")
     entries = []
+    source_hashes = hash_cache if hash_cache is not None else SourceHashCache()
     for path in files:
         if prefixes and not any(path == prefix or path.startswith(prefix.rstrip("/") + "/") for prefix in prefixes):
             continue
         target = (root or ROOT) / path
-        entries.append((path, snapshot[path] if snapshot is not None else (hashlib.sha256(target.read_bytes()).hexdigest() if target.is_file() else "deleted")))
+        entries.append((path, snapshot[path] if snapshot is not None else source_hashes.digest(target)))
     payload = {"inputs": entries, "check": check, "toolchain": toolchain}
     return hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()
 
@@ -306,11 +352,12 @@ def isolated_workspace(destination, files, setup_log=None):
     return env
 
 
-def execute_checks(data, ids, folder, jobs=1, reuse=False, commit=""):
+def execute_checks(data, ids, folder, jobs=1, reuse=False, commit="", hash_cache=None):
     """Each lane has its own Godot import cache, user data and generated artifacts."""
     files = source_files()
     identity = toolchain_identity()
-    snapshot = {path: hashlib.sha256((ROOT / path).read_bytes()).hexdigest() if (ROOT / path).is_file() else "deleted" for path in files}
+    source_hashes = hash_cache if hash_cache is not None else SourceHashCache()
+    snapshot = {path: source_hashes.digest(ROOT / path) for path in files}
     source_before = input_digest({"argv": []}, files, identity, snapshot)
     cache = ROOT / "build/verification/check-cache"
     cache.mkdir(parents=True, exist_ok=True)
@@ -333,13 +380,13 @@ def execute_checks(data, ids, folder, jobs=1, reuse=False, commit=""):
             result = cached_result(check, cache_file, log, digest) if reuse and check.get("cacheable", False) else None
             print(f"Running {name} ({'reused' if result else 'fresh'}); log: {log.relative_to(ROOT)}", flush=True)
             if result is None:
-                if input_digest({"argv": []}, source_files(root), identity, root=root) != source_before:
+                if input_digest({"argv": []}, source_files(root), identity, root=root, hash_cache=source_hashes) != source_before:
                     raise RuntimeError("Validation lane source differs from frozen snapshot")
                 artifact_paths = ["build/verification", *check.get("artifact_paths", [])]
                 collect_outputs = check.get("cacheable", False) or root != ROOT or bool(check.get("artifact_paths"))
                 before_outputs = verification_outputs(root, folder, artifact_paths) if collect_outputs else {}
                 result = run_check(check, log, root, env)
-                if input_digest({"argv": []}, source_files(root), identity, root=root) != source_before:
+                if input_digest({"argv": []}, source_files(root), identity, root=root, hash_cache=source_hashes) != source_before:
                     result["status"] = "failed"
                     result["reason"] = "Check modified frozen source; result cannot approve later consumers"
                 artifacts = folder / "artifacts" / name
@@ -401,14 +448,15 @@ def execute_checks(data, ids, folder, jobs=1, reuse=False, commit=""):
     if all(result["status"] == "passed" for result in results.values()) and len(results) == len(parallel):
         lane_run(serial, ROOT, None)
     # Never attribute checks to a source that changed while they were running.
+    # Final approval always reads every source byte again, independent of stat reuse.
     if input_digest({"argv": []}, source_files(), identity) != source_before:
         raise RuntimeError("Source changed during validation; results cannot approve the current source")
     return [results[name] for name in ids if name in results]
 
-def source_inventory():
+def source_inventory(hash_cache=None):
     """Exact prepared working inputs, including deletions and untracked files."""
-    return {path: hashlib.sha256((ROOT / path).read_bytes()).hexdigest()
-            if (ROOT / path).is_file() else "deleted" for path in source_files()}
+    source_hashes = hash_cache if hash_cache is not None else SourceHashCache()
+    return {path: source_hashes.digest(ROOT / path) for path in source_files()}
 
 
 def git_metadata():
@@ -610,8 +658,9 @@ def main():
               "targeted_checks": bool(args.check),
               "device_acceptance": "unverified", "fun_acceptance": "unverified"}
     report["manifest_sha256"] = hashlib.sha256(MANIFEST.read_bytes()).hexdigest()
+    source_hashes = SourceHashCache()
     report["working_files"] = {
-        path: hashlib.sha256((ROOT / path).read_bytes()).hexdigest() if (ROOT / path).is_file() else "deleted"
+        path: source_hashes.digest(ROOT / path)
         for path in changed_paths("HEAD")
     }
     for key, args_ in (("commit", ["rev-parse", "HEAD"]), ("git_status", ["status", "--porcelain"]),
@@ -623,7 +672,7 @@ def main():
     try:
         started = time.monotonic()
         if args.lane or args.verify_lanes:
-            inventory = source_inventory()
+            inventory = source_inventory(hash_cache=source_hashes)
             metadata = {key: report[key] for key in ("commit", "git_status", "diff", "untracked", "working_files")}
             report.update(requested_checks=requested_ids, source_files=inventory,
                           partial=bool(args.lane), approval_scope="partial" if args.lane else "selected_profiles_technical")
@@ -646,7 +695,7 @@ def main():
                 print("HARNESS LANES: verified complete fresh selected-profile coverage (technical only)", flush=True)
                 return 0
             report.update(lane=args.lane, toolchain=toolchain_identity(), python_executable=sys.executable)
-        report["checks"] = execute_checks(data, ids, folder, args.jobs, args.reuse and not args.release, report["commit"])
+        report["checks"] = execute_checks(data, ids, folder, args.jobs, args.reuse and not args.release, report["commit"], hash_cache=source_hashes)
         if args.lane:
             bind_lane_logs(data, report["checks"], folder)
             report.update(source_files_after=source_inventory(), toolchain_after=toolchain_identity())
