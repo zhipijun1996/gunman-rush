@@ -8,6 +8,8 @@ var checks: Array[Dictionary] = []
 var pointer_events: Array[Dictionary] = []
 var data: Dictionary = {}
 var selected_boss := "guardian"
+var _q_driver_phase := "entry"
+var _q_combat_deadline := -1
 var _q_app: DemoApp
 var _q_segment := "before_reload"
 var _q_last_steps := 0
@@ -26,6 +28,7 @@ func check(ok: bool, reason: String) -> void:
 	if not ok: failures.append(reason);printerr("FAIL: "+reason)
 func frames(count: int) -> void:
 	for unused: int in count:
+		if selected_boss=="queen" and _q_combat_deadline>=0 and tick>=_q_combat_deadline: return
 		if selected_boss!="queen": await physics_frame;continue
 		if is_instance_valid(controller):
 			for action: Dictionary in controller.router._queue:
@@ -102,6 +105,17 @@ func _queen_bind_actual(app: DemoApp) -> bool:
 	return true
 func _queen_frame() -> void:
 	var sample:={"tick":tick,"physics_frame":Engine.get_physics_frames(),"segment":_q_segment,"player":_q_pair(player.global_position),"velocity":_q_pair(player.velocity),"player_hp":controller.actor_resources.health.current,"energy":controller.actor_resources.stamina.current,"capacity":controller.actor_resources.health.capacity,"session":controller.session_id,"actor_epoch":life.actor_epoch,"stage_epoch":life.stage_epoch,"motor_steps":player.motion_steps-_q_last_steps,"boss_hp":queen.health.current,"boss":_q_pair(queen.motor.global_position),"phase":queen.stage_phase,"route_phase":queen.route_phase,"mode":queen.motion_mode,"fields":queen.combat_snapshot().fields,"hook":String(controller.traversal.state),"seal":_q_app.stage.boss_seal.closed,"eligible":_q_app._boss_eligible_shots.size()}
+	sample.driver_phase=_q_driver_phase
+	sample.grounded=player.is_on_floor();sample.axis=controller.router.axis
+	sample.used_jumps=controller.jump_ability.used_jumps;sample.air_shots=controller.action_resources.shot_charges
+	sample.shot_cooldown=controller.shoot_ability.cooldown_remaining
+	sample.damage_remaining=player.damage_remaining;sample.recoil_remaining=player.recoil_burst_remaining
+	sample.normal_velocity=_q_pair(player.normal_velocity)
+	var contacts: Array=[]
+	for index: int in player.get_slide_collision_count():
+		var hit:=player.get_slide_collision(index)
+		contacts.append({"collider":str(hit.get_collider().get_path()),"normal":_q_pair(hit.get_normal())})
+	sample.actual_contacts=contacts
 	_q_last_steps=player.motion_steps
 	frames_data.append(sample)
 func _q_pair(value: Vector2) -> Array: return [value.x,value.y]
@@ -126,6 +140,7 @@ func _queen_gap() -> float:
 # Same real jump/R helpers as the canonical fixture, with targets translated
 # from actual App geometry rather than assuming its zero-origin golden world.
 func right_gap_approach() -> bool:
+	_q_driver_phase="right_gap_approach"
 	var middle:=_queen_bank(1)
 	if player.global_position.x<middle.get_center().x:
 		if not await walk(middle.position.x+middle.size.x*.2): return false
@@ -136,40 +151,90 @@ func right_gap_approach() -> bool:
 		if player.is_on_floor(): return true
 		await frames(1)
 	return false
+# Receiving-bank decisions use the actual collider size and authored bank, never
+# just horizontal arrival (walk() alone can succeed after falling off a bank).
+func _queen_full_support(bank: Rect2) -> bool:
+	return player.is_on_floor() and absf(player.global_position.y+actual_body_half.y-bank.position.y)<=1 and player.global_position.x-actual_body_half.x>=bank.position.x and player.global_position.x+actual_body_half.x<=bank.end.x
+func _queen_observed_jump() -> bool:
+	if not player.is_on_floor() or player.damage_remaining>0: return false
+	var prior_jumps:=controller.jump_ability.used_jumps
+	var accepted:=false
+	controller.router.set_jump_held(&"queen_network",true)
+	for unused: int in 23:
+		await frames(1)
+		accepted=accepted or controller.jump_ability.used_jumps>prior_jumps
+		if controller.actor_resources.health.terminal or player.damage_remaining>0 or (_q_combat_deadline>=0 and tick>=_q_combat_deadline):
+			controller.router.set_jump_held(&"queen_network",false)
+			return false
+	controller.router.set_jump_held(&"queen_network",false)
+	return accepted and not player.is_on_floor()
 func enter_upper(use_hook: bool) -> bool:
+	_q_driver_phase="enter_upper_approach"
 	if not await right_gap_approach(): return false
-	controller.router.set_jump_held(&"queen_network",true);await frames(23);controller.router.set_jump_held(&"queen_network",false)
+	_q_driver_phase="enter_upper_jump"
+	if not await _queen_observed_jump(): return false
 	if use_hook and not queen.knot.health.terminal:
 		if not await accepted_hook(queen.knot.global_position): return false
-	else: controller.router.request_action(&"shoot_release",Vector2.DOWN);await frames(15)
+	else:
+		# A hurt-cancelled jump cannot borrow the planned jump height. Only fire
+		# when the actual airborne position plus the current real R budget clears
+		# the receiving bank; the accepted action still owns all motion/resources.
+		var rise:=player.weapon_motion.base_distance(controller.shoot_ability.tuning,false)
+		if player.global_position.y+actual_body_half.y-rise>=_queen_bank(2).position.y: return false
+		_q_driver_phase="enter_upper_down_R"
+		controller.router.request_action(&"shoot_release",Vector2.DOWN);await frames(15)
+	if player.damage_remaining>0 or player.global_position.y+actual_body_half.y>=_queen_bank(2).position.y: return false
+	_q_driver_phase="enter_upper_left_R"
 	controller.router.request_action(&"shoot_release",Vector2.LEFT);await frames(15)
-	var target:=_queen_bank(2).get_center().x
+	_q_driver_phase="enter_upper_receive"
+	var bank:=_queen_bank(2)
+	var target:=bank.get_center().x
 	for unused: int in 100:
 		controller.router.set_move_axis(0 if absf(player.global_position.x-target)<7 else signf(target-player.global_position.x))
-		if player.is_on_floor(): controller.router.set_move_axis(0);return player.global_position.y<_queen_bank(2).position.y
+		if player.is_on_floor(): controller.router.set_move_axis(0);return _queen_full_support(bank)
 		await frames(1)
 	return false
 func move_to_middle() -> bool:
+	_q_driver_phase="move_to_middle"
 	var right:=_queen_bank(2);var middle:=_queen_bank(1)
 	var takeoff:=right.position.x+right.size.x*.3
 	if player.global_position.x>takeoff:
 		if not await walk(takeoff): return false
 	controller.router.set_move_axis(-1 if player.global_position.x>middle.get_center().x else 1)
-	controller.router.set_jump_held(&"queen_network",true);await frames(23);controller.router.set_jump_held(&"queen_network",false)
+	if not await _queen_observed_jump(): return false
 	if not await walk(middle.get_center().x): return false
 	for unused: int in 100:
-		if player.is_on_floor(): return player.global_position.y<middle.position.y
+		if player.is_on_floor(): return _queen_full_support(middle)
 		await frames(1)
 	return false
 func _queen_regain_middle() -> bool:
+	_q_driver_phase="regain_wait_floor"
 	controller.router.set_move_axis(0)
 	for unused: int in 160:
-		if player.is_on_floor() or controller.actor_resources.health.terminal: break
+		if (player.is_on_floor() and player.damage_remaining<=0) or controller.actor_resources.health.terminal: break
 		await frames(1)
-	if controller.actor_resources.health.terminal: return false
-	if player.is_on_floor() and player.global_position.y<_queen_bank(1).position.y: return await walk(_queen_bank(1).get_center().x)
-	if not await enter_upper(false): return false
+	if controller.actor_resources.health.terminal or not player.is_on_floor() or player.damage_remaining>0: return false
+	var middle:=_queen_bank(1)
+	if _queen_full_support(middle):
+		if not await walk(middle.get_center().x): return false
+		return _queen_full_support(middle)
+	if not _queen_full_support(_queen_bank(2)) and not await enter_upper(false): return false
 	return await move_to_middle()
+func continuous_fire() -> void:
+	# The shared helper checks recoil containment after it finds a complete bank.
+	# Fail closed here when contact exists only at an edge, so that absence of a
+	# full bank cannot fall through into an otherwise legal but unreceivable R.
+	if player.is_on_floor():
+		var supported:=false
+		var partial:=Rect2()
+		for row: Dictionary in geometry.platforms:
+			var bank:=Rect2(row.rect[0],row.rect[1],row.rect[2],row.rect[3])
+			if _queen_full_support(bank): supported=true;break
+			if absf(player.global_position.y+actual_body_half.y-bank.position.y)<=1 and player.global_position.x+actual_body_half.x>bank.position.x and player.global_position.x-actual_body_half.x<bank.end.x: partial=bank
+		if not supported:
+			controller.router.set_move_axis(0 if partial.size==Vector2.ZERO else signf(partial.get_center().x-player.global_position.x))
+			return
+	super.continuous_fire()
 func _queen_snapshot() -> Dictionary:
 	return {"active":queen.active,"app_boss_started":_q_app._boss_started,"last_restore_accepted":queen.last_restore_accepted,"seal_closed":_q_app.stage.boss_seal.closed,"boss":queen.combat_snapshot().duplicate(true),"boss_hp":queen.health.current,"player_hp":controller.actor_resources.health.current,"energy":controller.actor_resources.stamina.current,"session":controller.session_id,"actor_epoch":life.actor_epoch,"stage_epoch":life.stage_epoch,"boss_instance":queen.get_instance_id(),"player_instance":player.get_instance_id(),"stage_instance":_q_app.stage.get_instance_id(),"manifest_hash":_q_app.stage.generated.manifest.manifest_hash}
 func _queen_pause_reload() -> bool:
@@ -240,14 +305,21 @@ func run_queen() -> void:
 	if upper: middle=await move_to_middle()
 	check(upper and middle,"real ordinary jump and R reach authored Queen shooting branches")
 	var reloaded:=false;var borrowed:=false;var borrow_attempted:=false
+	var combat_start:=tick
+	_q_combat_deadline=combat_start+4200
 	for unused: int in 4200:
+		if tick>=_q_combat_deadline: break
+		_q_driver_phase="fight"
 		if queen.health.terminal or controller.actor_resources.health.terminal or not life.active: break
 		if not reloaded and queen.stage_phase>=2:
 			reloaded=await _queen_pause_reload()
 			check(reloaded,"actual earned Queen state survives pause and fresh App reload")
 			if not reloaded: break
-		if not player.is_on_floor() or player.global_position.y>=_queen_bank(1).position.y:
-			if not await _queen_regain_middle(): break
+		if not _queen_full_support(_queen_bank(1)):
+			if not await _queen_regain_middle():
+				if controller.actor_resources.health.terminal: break
+				await frames(1)
+				continue
 		if not borrow_attempted and queen.stage_phase>=2 and is_instance_valid(queen.knots[1]) and not queen.knots[1].health.terminal:
 			borrow_attempted=true
 			borrowed=await accepted_hook(queen.knots[1].global_position)
@@ -258,7 +330,9 @@ func run_queen() -> void:
 		controller.router.set_move_axis(0 if absf(player.global_position.x-target)<6 else signf(target-player.global_position.x))
 		continuous_fire();await frames(1)
 	controller.router.set_move_axis(0)
-	data.queen_combat={"initial":data.queen_initial,"final":_queen_snapshot(),"frames":frames_data.duplicate(true),"events":events.duplicate(true),"defeats":_q_defeats,"reloaded":reloaded,"optional_main_borrowed":borrowed,"whole_boss_design_admission":false}
+	_q_combat_deadline=-1
+	check(tick-combat_start<=4200,"actual Queen combat including recovery stays within original 4200 physics frames")
+	data.queen_combat={"combat_start_tick":combat_start,"combat_elapsed_frames":tick-combat_start,"combat_budget_frames":4200,"initial":data.queen_initial,"final":_queen_snapshot(),"frames":frames_data.duplicate(true),"events":events.duplicate(true),"defeats":_q_defeats,"reloaded":reloaded,"optional_main_borrowed":borrowed,"whole_boss_design_admission":false}
 	check(queen.health.terminal and controller.actor_resources.health.current>0 and _q_defeats==1,"actual normal Queen full fight ends in unique live-player defeat")
 	check(reloaded and _q_app.director.stage_complete,"actual Queen reload and App completion both succeeded")
 	if not queen.health.terminal or controller.actor_resources.health.terminal: await finish(trace);return
