@@ -6,11 +6,14 @@ var hook_targets: Dictionary = {}
 var support_bodies: Dictionary = {}
 var vine_shape: CollisionShape2D
 var vine_body: StaticBody2D
+var _target_host_presentation: Dictionary = {}
 
 func build(recorded: Dictionary, tuning: PlayerTuning) -> Dictionary:
 	if not is_inside_tree() or not forest_platforms.is_empty() or not ThornForestRegionGenerator.new().validate(recorded,tuning):
 		return {"ok":false,"error":"Invalid forest manifest or occupied assembler"}
 	manifest = recorded.duplicate(true)
+	if manifest.get("layout_version")==ForestTargetHosts.LAYOUT:
+		_target_host_presentation=ForestTargetHosts.build(manifest)
 	bounds = ThornForestRegionGenerator._rect(manifest.world_bounds)
 	for row: Dictionary in manifest.platforms: forest_platforms.append(row.duplicate(true))
 	for group: Dictionary in _support_groups():
@@ -44,17 +47,21 @@ func build(recorded: Dictionary, tuning: PlayerTuning) -> Dictionary:
 		add_child(body)
 	for row: Dictionary in manifest.hook_anchors:
 		var target: GrappleAnchor
-		if manifest.get("layout_version") == "forest-fruit-routes-v14" and row.get("fruit_presentation") == "rooted_fruit":
+		var mount := ForestTargetHosts.mount_for(_target_host_presentation,str(row.id))
+		var runtime_fruit: bool = bool(mount.get("resolved",false)) and mount.get("presentation")=="runtime_rooted_fruit"
+		var is_fruit: bool = manifest.get("layout_version") == "forest-fruit-routes-v14" and (row.get("fruit_presentation") == "rooted_fruit" or runtime_fruit)
+		if is_fruit:
 			var fruit := ForestFruitAnchor.new()
 			fruit.fruit_role = str(row.fruit_role)
-			fruit.stem_root = Vector2(row.fruit_stem_root[0],row.fruit_stem_root[1]) - Vector2(row.position[0],row.position[1])
+			var stem: Array = mount.stem_root if runtime_fruit else row.fruit_stem_root
+			fruit.stem_root = Vector2(stem[0],stem[1]) - Vector2(row.position[0],row.position[1])
 			target = fruit
 		else:
 			target = GrappleAnchor.new()
 		target.name = row.id
 		target.position = Vector2(row.position[0],row.position[1])
 		target.hang_enabled = bool(row.get("hang_enabled",false))
-		if manifest.get("layout_version") == "forest-fruit-routes-v14" and row.get("fruit_role") == "optional" and row.get("fruit_presentation") != "rooted_fruit":
+		if manifest.get("layout_version") == "forest-fruit-routes-v14" and row.get("fruit_role") == "optional" and not is_fruit:
 			target.modulate = Color(0.72,0.76,0.67,0.78)
 		add_child(target)
 		hook_targets[row.id] = target
@@ -141,6 +148,9 @@ func world_static_hazard_records() -> Array[Dictionary]:
 
 func world_dangers() -> Array[Rect2]: return world_static_dangers()
 
+func presentation_host_audit() -> Dictionary:
+	return _target_host_presentation.duplicate(true)
+
 func module_index_at(point: Vector2) -> int:
 	for i: int in forest_platforms.size():
 		if ThornForestRegionGenerator._rect(forest_platforms[i].rect).grow(80).has_point(point): return i
@@ -148,13 +158,15 @@ func module_index_at(point: Vector2) -> int:
 
 func _draw() -> void:
 	for anchor: Dictionary in manifest.get("hook_anchors",[]):
-		if bool(anchor.get("hang_enabled",false)) and anchor.has("tether_origin") and not (manifest.get("layout_version") == "forest-fruit-routes-v14" and anchor.get("fruit_presentation") == "rooted_fruit"):
+		var mount := ForestTargetHosts.mount_for(_target_host_presentation,str(anchor.id))
+		if bool(anchor.get("hang_enabled",false)) and anchor.has("tether_origin") and not (manifest.get("layout_version") == "forest-fruit-routes-v14" and (anchor.get("fruit_presentation") == "rooted_fruit" or bool(mount.get("resolved",false)))):
 			draw_line(Vector2(anchor.tether_origin[0],anchor.tether_origin[1]),Vector2(anchor.position[0],anchor.position[1]),Color("527e5a"),3.0,true)
 	if manifest.get("scene_language_version", 0) == ForestSceneLanguage.VERSION:
 		ForestSceneLanguage.draw_structure_backdrops(self, manifest)
 	if manifest.get("layout_version") == "forest-fruit-routes-v14":
 		for bough: Dictionary in manifest.get("fruit_boughs", []):
 			ForestFruitBough.draw(self,bough)
+		ForestTargetHosts.draw(self,_target_host_presentation)
 	if is_instance_valid(vine_shape) and not vine_shape.disabled:
 		var gate := ThornForestRegionGenerator._rect(manifest.vine_gate.rect)
 		draw_rect(gate,Color("5c5542"))

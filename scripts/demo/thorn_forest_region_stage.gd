@@ -2,6 +2,7 @@ class_name ThornForestRegionStage
 extends PlainsRegionStage
 ## Forest formal consumer, retaining shared reward/ledger/map/respawn contracts.
 var _forest_draw_clock := 0.0
+var _gate_hint: Label
 
 func _has_canopy_boss() -> bool:
 	var content: Variant=generated.manifest.get("boss_content")
@@ -144,6 +145,7 @@ func _ready() -> void:
 	var gate_target: Node2D = (assembler as ThornForestRegionAssembler).hook_targets.get(str(ring.id))
 	var target_name := "RIPE FRUIT" if gate_target is ForestFruitAnchor else "BRASS RING"
 	_context_sign(Vector2(ring.position[0]-100,ring.position[1]-65),"HOOK THE %s / UNFURL THE VINE GATE" % target_name,230)
+	_gate_hint=context_signs[-1].label
 	queue_redraw()
 
 func _accepted_forest_action(action: StringName) -> void:
@@ -195,6 +197,10 @@ func _update_context_signs() -> void:
 	# nearest applicable lesson once. Root-bay and old arrival hints overlap
 	# in world space; drawing both is unreadable even if each passes its radius.
 	super._update_context_signs()
+	# A completed gate must not consume the nearest lesson slot.
+	var forest_assembler := assembler as ThornForestRegionAssembler
+	if is_instance_valid(_gate_hint) and is_instance_valid(forest_assembler) and forest_assembler.region_state != null and forest_assembler.region_state.opened.has("crown_vine"):
+		_gate_hint.hide()
 	var selected: Label
 	var nearest := INF
 	var at := global_player_position()

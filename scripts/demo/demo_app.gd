@@ -690,7 +690,10 @@ func _load_stage() -> void:
 					if connected_region and encounter.stage_phase==3: arena_consumer._phase_changed(3)
 		if connected_region:
 			var region:=stage as PlainsRegionStage
-			region.boss_seal=BossArenaSeal.new();region.add_child(region.boss_seal)
+			region.boss_seal=BossArenaSeal.new()
+			if region is ThornForestRegionStage and region.generated.manifest.get("layout_version")==ForestTargetHosts.LAYOUT:
+				region.boss_seal.world_status_text_enabled=false
+			region.add_child(region.boss_seal)
 			region.boss_seal.setup(region.boss_arena,region.bounds,controller,encounter,lifetime)
 			region.boss_seal.restore_closed(bool(region.restored_boss.get("seal_closed",false)))
 			var boss_entry := (region as ThornForestRegionStage).forest_boss_entry_position() if region is ThornForestRegionStage else Vector2(region.boss_arena.position.x+70,region.boss_arena.end.y-18)
@@ -1306,7 +1309,11 @@ func _process(_delta: float) -> void:
 		var boss_encounter = stage.boss.get_node("Encounter")
 		if not boss_encounter is WindkeeperEncounter and boss_encounter.active and boss_encounter.has_method("objective") and not boss_encounter.health.terminal:
 			var boss_title: String = boss_encounter.definition.display_name if boss_encounter is ThornForestEncounter else "THE WINDKEEPER"
-			_boss_status.text = "%s  /  %.0f / %.0f\n%s" % [boss_title,boss_encounter.health.current, boss_encounter.health.capacity, boss_encounter.call("objective")]
+			var seal_status := ""
+			if stage is ThornForestRegionStage and is_instance_valid(stage.boss_seal) and not stage.boss_seal.world_status_text_enabled:
+				if stage.boss_seal.closed:seal_status=" / ARENA SEALED"
+				elif stage.boss_seal.armed:seal_status=" / GATES CLOSING"
+			_boss_status.text = "%s  /  %.0f / %.0f%s\n%s" % [boss_title,boss_encounter.health.current, boss_encounter.health.capacity,seal_status,boss_encounter.call("objective")]
 			_boss_status.show()
 	_hint.text = _device_hint()
 	if generated_plains:
