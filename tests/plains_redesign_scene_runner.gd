@@ -25,6 +25,85 @@ class SceneTrace extends "res://tests/level_formal_trace.gd":
 	var observer: Callable
 	var visual_frames: Array = []
 	var observe_every_tick := false
+	var clear_slalom_landing := false
+	var landing_combat: Array = []
+	func forward_module(module: PlatformingModule) -> bool:
+		if not clear_slalom_landing or module.definition.module_id != &"plains_thorn_slalom":
+			return await super.forward_module(module)
+		var guard: EnemyMotor = null
+		var guard_id := ""
+		var node_id: String = str(stage.manifest.nodes[stage.modules.find(module)].id)
+		for index: int in formal_stage.enemy_manifest.size():
+			var authored: Dictionary = formal_stage.enemy_manifest[index]
+			if str(authored.get("area", "")) == node_id and str(authored.get("pattern", "")) == "gear_landing_intercept":
+				guard = formal_stage.enemies[index]
+				guard_id = str(authored.id)
+		if guard == null: return await super.forward_module(module)
+		# Keep the original slalom islands and jumps. Its shared geometry driver
+		# has no combat stop between the first landing and the guarded gear jump.
+		policy_move_goal = module.world_exit().x
+		_enemy_policy_busy = true
+		var ready := await prepare_threats()
+		_enemy_policy_busy = false
+		if is_trace_cancelled() or not ready: return false
+		var driver = load("res://tests/branch_module_driver.gd").new()
+		driver.module = module; driver.motor = motor; driver.controller = controller
+		driver.tick_callback = tick; driver.check = check
+		critical_traversal += 1
+		var ok: bool = await driver.wait_for_shot_energy(1)
+		if ok: ok = await driver.move_to(module.position.x + 145)
+		if ok: ok = await driver.jump_to(module.position + Vector2(350, 282))
+		if ok and not is_trace_cancelled():
+			# The first island is narrow. Check the actual upward aim's horizontal
+			# recoil projection; the downward component meets the real solid floor.
+			var origin := motor.global_position
+			var found_bank := false
+			for shift: float in [0.0,16.0,32.0,48.0,64.0,-16.0,-32.0,-48.0,-64.0]:
+				var candidate := origin + Vector2(shift,0)
+				var aim := (guard.global_position-candidate).normalized()
+				var retreat := Vector2(-aim.x*motor.weapon_motion.base_distance(motor.tuning,true),0)
+				if aim.y>=0 or not bank_supported(origin,candidate-origin) or not bank_supported(candidate,retreat): continue
+				found_bank = await driver.move_to(candidate.x)
+				break
+			ok = found_bank and not is_trace_cancelled()
+		if ok and not is_trace_cancelled():
+			var before := {"tick":trace_ticks,"position":SNAPSHOT.pair(motor.global_position),"grounded":motor.is_on_floor(),"health":controller.actor_resources.health.current,"enemy_health":(guard.get_node("Actor") as EnemyActor).health.current}
+			var requests: Array = []
+			_enemy_policy_busy = true
+			ok = await clear_landing_guard(guard,requests)
+			_enemy_policy_busy = false
+			if not is_trace_cancelled(): landing_combat.append({"guard":guard_id,"module":node_id,"before":before,"tick":trace_ticks,"enemy_health":(guard.get_node("Actor") as EnemyActor).health.current,"position":SNAPSHOT.pair(motor.global_position),"grounded":motor.is_on_floor(),"health":controller.actor_resources.health.current,"completed":ok,"requests":requests})
+		if ok: ok = await driver.jump_to(module.position + Vector2(520, 282))
+		if ok: ok = await driver.move_to(module.position.x + 540)
+		if ok: ok = await driver.jump_to(module.position + Vector2(735, 282))
+		if ok: ok = await driver.move_to(module.world_exit().x)
+		critical_traversal -= 1
+		return ok and not is_trace_cancelled()
+	func clear_landing_guard(enemy: EnemyMotor, requests: Array) -> bool:
+		var actor := enemy.get_node("Actor") as EnemyActor
+		var bank := motor.global_position
+		var initial_health := controller.actor_resources.health.current
+		# Same six-shot / 900-tick ceiling as the existing kill policy. All
+		# movement, cooldowns, projectiles, damage and hazards run normally.
+		for unused: int in 900:
+			if actor.health.terminal:
+				for settle: int in 110:
+					controller.router.set_move_axis(clampf((bank.x-motor.global_position.x)/5.5,-1,1))
+					await tick()
+					if is_trace_cancelled(): return false
+					if motor.is_on_floor() and absf(motor.global_position.x-bank.x)<1 and controller.shoot_ability.cooldown_remaining<=0: break
+				return motor.is_on_floor() and absf(motor.global_position.x-bank.x)<2 and controller.actor_resources.health.current==initial_health
+			if controller.actor_resources.health.current<initial_health: return false
+			controller.router.set_move_axis(clampf((bank.x-motor.global_position.x)/5.5,-1,1))
+			if motor.is_on_floor() and absf(motor.global_position.x-bank.x)<1 and controller.shoot_ability.cooldown_remaining<=0 and controller.shot_energy.can_fire() and clear_shot(enemy):
+				var direction := (enemy.global_position-motor.global_position).normalized()
+				var retreat := Vector2(-direction.x*motor.weapon_motion.base_distance(motor.tuning,true),0)
+				if requests.size()>=6 or direction.y>=0 or not bank_supported(motor.global_position,retreat): return false
+				requests.append({"tick":trace_ticks+1,"position":SNAPSHOT.pair(motor.global_position),"target":SNAPSHOT.pair(enemy.global_position),"direction":SNAPSHOT.pair(direction),"retreat":SNAPSHOT.pair(retreat),"grounded":motor.is_on_floor(),"supported":true,"clear_shot":true})
+				controller.router.request_action(&"shoot_release",direction)
+			await tick()
+			if is_trace_cancelled(): return false
+		return false
 	func tick(count: int = 1) -> void:
 		for unused: int in count:
 			await super.tick()
@@ -240,6 +319,7 @@ func run_case(map_index: int, strategy: String, custom: String="", seed_value: S
 	check(_fixture_identity_matches(app, map_index, seed_value), "actual stage/map/manifest seed+difficulty matches requested fixture")
 	var trace:=SceneTrace.new();active_trace=trace
 	check(trace.attach(app,strategy,0,"kill_from_bank_v1"),"unchanged real policy attaches")
+	trace.clear_slalom_landing = custom in ["outer_return", "outer_upper_alternative"]
 	trace.frame_budget=15000;trace.observer=observe
 	if custom=="touch_geometry":
 		trace.observe_every_tick=true
@@ -260,7 +340,7 @@ func run_case(map_index: int, strategy: String, custom: String="", seed_value: S
 		observe(trace)
 		check(current_issues.is_empty(),"deliberate real scene mutation rejected: "+mutation)
 	check(JSON.stringify(app.stage.generated.manifest)==manifest_before,"presentation observation does not mutate actual manifest")
-	var frozen_case: Dictionary = ({"map":map_index,"actual_map_index":app.stage.map_index,"actual_manifest_seed":app.stage.generated.manifest.seed,"actual_manifest_difficulty":app.stage.generated.manifest.difficulty,"strategy":strategy,"custom":custom,"outcome":trace.outcome,"finished":trace.finished,"ticks":trace.trace_ticks,"manifest":app.stage.generated.manifest.duplicate(true),"visual_frames":trace.visual_frames,"frames":trace.observed_frames,"events":trace.events,"runtime":trace.runtime_snapshot(true),"mutation":mutation_receipt,"seed":seed_value,"issues":current_issues.duplicate(),"scenery":scene_inventory(app.stage),"elective_receipts":elective_receipts.duplicate(true),"route_comparison":route_comparison.duplicate(true)}).duplicate(true)
+	var frozen_case: Dictionary = ({"map":map_index,"actual_map_index":app.stage.map_index,"actual_manifest_seed":app.stage.generated.manifest.seed,"actual_manifest_difficulty":app.stage.generated.manifest.difficulty,"strategy":strategy,"custom":custom,"outcome":trace.outcome,"finished":trace.finished,"ticks":trace.trace_ticks,"manifest":app.stage.generated.manifest.duplicate(true),"visual_frames":trace.visual_frames,"frames":trace.observed_frames,"events":trace.events,"runtime":trace.runtime_snapshot(true),"mutation":mutation_receipt,"seed":seed_value,"issues":current_issues.duplicate(),"scenery":scene_inventory(app.stage),"elective_receipts":elective_receipts.duplicate(true),"route_comparison":route_comparison.duplicate(true),"landing_combat":trace.landing_combat.duplicate(true)}).duplicate(true)
 	cases.append(frozen_case)
 	var sealed_hash := JSON.stringify(frozen_case).sha256_text()
 	var cleanup: Dictionary = await unwind_scene_execution(trace,execution)

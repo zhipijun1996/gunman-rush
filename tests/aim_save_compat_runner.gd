@@ -21,6 +21,19 @@ func run() -> void:
 	var restored:=MANIFEST.from_snapshot(recorded)
 	check(restored!=null and restored.canonical_json()==historical_json,"both real archived Plains outputs replay unchanged at historical .2")
 	cases.append({"kind":"original_archived_plains_prefix","source":archive,"source_sha256":FileAccess.get_sha256(archive),"recorded":recorded})
+	for index: int in [0,1]:
+		for field: String in ["id","version","health"]:
+			var invalid := recorded.duplicate(true)
+			invalid.stages[index].outputs.boss_layout[field] = "foreign_boss" if field=="id" else 999
+			check(MANIFEST.from_snapshot(invalid)==null,"archived map %s rejects foreign Boss %s" % [index+1,field])
+		var mismatched := recorded.duplicate(true)
+		mismatched.stages[index].outputs.generated_layout.player_tuning_hash = FileAccess.get_sha256("res://config/player_tuning.json")
+		mismatched.stages[index].outputs.generated_layout.manifest_hash = RandomStageGenerator.new()._manifest_hash(mismatched.stages[index].outputs.generated_layout)
+		check(MANIFEST.from_snapshot(mismatched)==null,"archived map %s rejects historical Boss under foreign configuration" % [index+1])
+		var swapped := recorded.duplicate(true)
+		swapped.stages[index].outputs.boss_layout = recorded.stages[1-index].outputs.boss_layout.duplicate(true)
+		check(MANIFEST.from_snapshot(swapped)==null,"archived map %s rejects other map historical Boss tuple" % [index+1])
+	check_historical_plains_prefixes()
 	restored=null
 	var helper: Node=load("res://tests/aim_save_compat_case.gd").new()
 	helper.reporter=weakref(self)
@@ -31,6 +44,38 @@ func run() -> void:
 		for kind: String in ["zero","config_sha","foreign_prefix"]:await helper.invalid_state(region,kind)
 	helper.free()
 	finish.call_deferred()
+func check_historical_plains_prefixes() -> void:
+	var path := "res://tests/fixtures/main_dbc6ba08_actual_plains_prefixes.json"
+	check(FileAccess.get_sha256(path)=="7ae2d91b83974849edfc3777f1c940a1e924c412b18b6c2fcbd30b99166fea87","actual old-source three-version prefix bytes retained")
+	var prefixes: Array = JSON.parse_string(FileAccess.get_file_as_string(path))
+	check(prefixes.size()==3,"all three original supported Plains versions covered")
+	for row: Dictionary in prefixes:
+		var recorded: Dictionary = row.recorded
+		var label := "main dbc6ba08 / " + str(row.mode)
+		var canonical := JSON.stringify(recorded,"",true)
+		var restored := MANIFEST.from_snapshot(recorded)
+		check(restored!=null and restored.canonical_json()==canonical,label+" actual .15 old-Boss snapshot replays unchanged")
+		var current := recorded.duplicate(true)
+		for index: int in [0,1]:
+			var definition: BossDefinition = load("res://resources/bosses/bellstrider.tres" if index==0 else "res://resources/bosses/windkeeper_storm.tres")
+			current.stages[index].outputs.boss_layout = {"id":str(definition.stable_id),"version":definition.definition_version,"health":definition.health_definition.max_health}
+		var current_restored := MANIFEST.from_snapshot(current)
+		check(current_restored!=null and current_restored.canonical_json()==JSON.stringify(current,"",true),label+" current-Boss tuple remains canonical")
+		for index: int in [0,1]:
+			for field: String in ["id","version","health","configuration","focus","map_identity"]:
+				var bad := recorded.duplicate(true)
+				var output: Dictionary = bad.stages[index].outputs
+				match field:
+					"id":output.boss_layout.id="foreign_boss"
+					"version":output.boss_layout.version=999
+					"health":output.boss_layout.health+=1
+					"configuration":
+						output.generated_layout.player_tuning_hash="f".repeat(64)
+						output.generated_layout.manifest_hash=RandomStageGenerator.new()._manifest_hash(output.generated_layout)
+					"focus":output.stage_tuning.focus_time_scale=0.19
+					"map_identity":output.region_map.map_index=2 if index==0 else 1
+				check(MANIFEST.from_snapshot(bad)==null,label+" map%s rejects foreign %s" % [index+1,field])
+		cases.append({"kind":"actual_old_source_plains_prefix","source_commit":row.source_commit,"mode":row.mode,"source":path,"source_sha256":FileAccess.get_sha256(path),"recorded":recorded})
 func finish() -> void:
 	var output := "res://build/forest_grapple02/aim_save_compat.json"
 	for arg: String in OS.get_cmdline_user_args():

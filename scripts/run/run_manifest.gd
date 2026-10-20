@@ -123,8 +123,6 @@ static func compatible(data: Dictionary) -> bool:
 			if output.get("stage_generator",{}).get("version")!=region_version or m.get("version")!=region_version: return false
 			var identity: Dictionary={"version":PlainsRegionCampaign.VERSION,"map_index":index,"seed":PlainsRegionCampaign.seed_for(data.root_seed,index),"instance_prefix":PlainsRegionCampaign.prefix(index),"boss_role":PlainsRegionCampaign.role(index)}
 			if not checker._same_data(output.get("region_map",{}),identity): return false
-			var boss_definition: BossDefinition=load("res://resources/bosses/bellstrider.tres" if index==1 else "res://resources/bosses/windkeeper_storm.tres")
-			if not checker._same_data(output.get("boss_layout",{}),{"id":String(boss_definition.stable_id),"version":boss_definition.definition_version,"health":boss_definition.health_definition.max_health}): return false
 			if m.get("seed")!=identity.seed or m.get("difficulty")!=("intro" if index==1 else "advanced"): return false
 			if not checker._same_data(output.get("shot_latch_layout",{}),m.get("shot_latch_plan",{})): return false
 			if not checker._same_data(output.get("enemy_layout",{}),{"version":region_version,"enemies":m.get("enemies",[])}): return false
@@ -133,11 +131,25 @@ static func compatible(data: Dictionary) -> bool:
 				if not output.stage_tuning.has(key): return false
 				if not checker._same_data(output.stage_tuning[key],tuning.get(key)): return false
 			if not PlainsRegionGenerator.new().validate(m,tuning): return false
+			if not _plains_boss_output_compatible(output,index): return false
 		if data.stages.size()==2:
 			var transition: Dictionary=data.stages[0].outputs.get("map_transition",{})
 			if transition.get("from_map")!=1 or transition.get("to_map")!=2 or transition.get("reason")!="mini_boss_defeated": return false
 		return data.schema_version==SCHEMA_VERSION and data.rng_algorithm==RunRandomStream.ALGORITHM and data.stream_derivation_version==RunRandomStream.DERIVATION_VERSION
 	return _versions_equal(data.get("versions", {}), fixed_versions) and data.get("schema_version", -1) == SCHEMA_VERSION and data.get("rng_algorithm", "") == RunRandomStream.ALGORITHM and data.get("stream_derivation_version", -1) == RunRandomStream.DERIVATION_VERSION
+
+static func _plains_boss_output_compatible(output: Dictionary, index: int) -> bool:
+	var definition: BossDefinition = load("res://resources/bosses/bellstrider.tres" if index==1 else "res://resources/bosses/windkeeper_storm.tres")
+	var checker := RandomStageGenerator.new()
+	if checker._same_data(output.get("boss_layout",{}),{"id":String(definition.stable_id),"version":definition.definition_version,"health":definition.health_definition.max_health}): return true
+	# The caller has validated the full tuning, manifest and map identity. All
+	# three supported Plains versions also recorded these exact Boss definitions
+	# before continuous combat, under both supported focus configurations.
+	# Replay that metadata unchanged; runtime still loads current definitions.
+	var layout: Dictionary = output.get("generated_layout",{})
+	if layout.get("version") not in [PlainsRegionGenerator.VERSION,PlainsRootBellEncounterV2.CONTENT_VERSION,PlainsRootBellEncounterV3.CONTENT_VERSION]: return false
+	var historical := {"id":"plains_bellstrider","version":1,"health":16.0} if index==1 else {"id":"plains_windkeeper","version":4,"health":36.0}
+	return checker._same_data(output.get("boss_layout",{}),historical)
 
 static func _versions_equal(stored: Variant, expected: Dictionary) -> bool:
 	if not stored is Dictionary or stored.size() != expected.size():
