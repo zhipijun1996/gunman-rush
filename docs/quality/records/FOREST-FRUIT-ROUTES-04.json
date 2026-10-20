@@ -36,6 +36,7 @@
     "tests/",
     "tests/forest_camera_stability_runner.gd",
     "tests/forest_camera_stability_runner.gd.uid",
+    "tests/forest_campaign_runner.gd",
     "tests/forest_depth_grove_combat_case.gd",
     "tests/forest_depth_region_trace.gd",
     "tests/forest_depth_version_runner.gd",
@@ -46,16 +47,22 @@
     "tests/forest_hazard_records_runner.gd",
     "tests/forest_hazard_records_runner.gd.uid",
     "tests/forest_interwoven_crown_combat_case.gd",
+    "tests/forest_player_aim_runner.gd",
+    "tests/forest_progression_debug_runner.gd",
+    "tests/parallel_region_presentation_tests.gd",
     "tools/",
     "tools/capture_forest_fruit_composition.gd",
     "tools/capture_forest_fruit_composition.gd.uid",
     "tools/capture_forest_fruit_composition.py",
     "tools/run_forest_camera_stability.py",
+    "tools/run_forest_depth_campaign_boss.py",
     "tools/run_forest_depth_region.py",
     "tools/run_forest_depth_versions.py",
     "tools/run_forest_fruit_ablation.py",
     "tools/run_forest_fruit_contract.py",
-    "tools/run_forest_hazard_records_tests.py"
+    "tools/run_forest_hazard_records_tests.py",
+    "tools/run_forest_player_aim.py",
+    "tools/verify_forest_browser.py"
   ],
   "deliverables": [
     "docs/design/forest_fruit_routes_v14.md",
@@ -184,5 +191,5 @@
     "Physical device and player/visual/gameplay acceptance remain unverified",
     "Forest targets without credible local support retain functional markers and are not declared full-region art completion"
   ],
-  "test_change_justification": "HomeUI retains all original 27 business assertions but obtains real shared Home/Menu through DemoApp TITLE to HOME; a 28th WeakRef assertion proves owner release. Audio teardown observes actual shared service release. The old arbitrary standalone assembly script-cache leak is retained as failed and not claimed repaired. Formal terrain now actually selects region_map_index=2 and asserts scene map identity; after the real Boss callback it waits up to eight process frames for the actual geometry_changed observer and requires exactly one event. Original four geometry outcomes remain. V14 reader adds an explicit presentation contract and layout identity; schema6 removes only its two new cases before invoking the unmodified complete schema5 historical reader on the remaining 22 cases. V13 pinned output remains exact; new public-default identity is independently literal. Grove combat detects a real low raised departure enemy, walks backward 32wu via the real Router to a full same-bank firing envelope, aims at actual upper body, consumes real shots and terminal damage, and returns to the prior route origin. No teleport, enemy/resource/health edits, assertion removal, budget relaxation or death/epoch bypass is introduced. Crown combat and existing route helpers only add the explicit v14 accepted layout. Original fixed80 schedule and per-native 240s policy remain. Generated-consumers retains all prior suites and adds real Menu settings/audio and Avatar ownership consumers; Harness adds uncached camera/hazard/fruit checks without dropping prior IDs. New fruit ablation runner makes one explicit test-only target removal before route tick zero and reuses the strict route validator; it does not mutate the production Manifest. The old failed baseline and single-target controls remain."
+  "test_change_justification": "HomeUI retains all original 27 business assertions but obtains real shared Home/Menu through DemoApp TITLE to HOME; a 28th WeakRef assertion proves owner release. Audio teardown observes actual shared service release. The old arbitrary standalone assembly script-cache leak is retained as failed and not claimed repaired. Formal terrain now actually selects region_map_index=2 and asserts scene map identity; after the real Boss callback it waits up to eight process frames for the actual geometry_changed observer and requires exactly one event. Original four geometry outcomes remain. V14 reader adds an explicit presentation contract and layout identity; schema6 removes only its two new cases before invoking the unmodified complete schema5 historical reader on the remaining 22 cases. V13 pinned output remains exact; new public-default identity is independently literal. Grove combat detects a real low raised departure enemy, walks backward 32wu via the real Router to a full same-bank firing envelope, aims at actual upper body, consumes real shots and terminal damage, and returns to the prior route origin. No teleport, enemy/resource/health edits, assertion removal, budget relaxation or death/epoch bypass is introduced. Crown combat and existing route helpers only add the explicit v14 accepted layout. Original fixed80 schedule and per-native 240s policy remain. Generated-consumers retains all prior suites and adds real Menu settings/audio and Avatar ownership consumers; Harness adds uncached camera/hazard/fruit checks without dropping prior IDs. New fruit ablation runner makes one explicit test-only target removal before route tick zero and reuses the strict route validator; it does not mutate the production Manifest. The old failed baseline and single-target controls remain. W3 updates three literal fresh-default expectations and both aim entry defaults to v14, appends v14 to exact canopy/Boss and GUI CLI whitelists, retaining every explicit historical pin and exact negative rejection. The v13/v14 canopy R-H-R driver waits on actual supported bank while a real moving NPC clears the next hook flight corridor; original phase400/edge1800/native240 and fixed80 requests remain. No NPC, player position, health, resource, collision, eligibility, phase clock or accepted contact identity is changed. Original map2 high-return failures and identical pinned-v13 control remain evidence."
 }

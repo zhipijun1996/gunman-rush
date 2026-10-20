@@ -26,7 +26,7 @@ static func presentation_errors(app: DemoApp, region: StringName) -> Array[Strin
 	if pixel and (not app.stage is PlainsRegionStage or app.stage is ThornForestRegionStage): errors.append("actual Plains consumer differs")
 	if not pixel:
 		if not app.stage is ThornForestRegionStage: errors.append("actual Forest consumer differs")
-		elif app.stage.generated.manifest.get("layout_version", "") != "forest-interwoven-canopy-v13": errors.append("fresh Forest is not v13")
+		elif app.stage.generated.manifest.get("layout_version", "") != "forest-fruit-routes-v14": errors.append("fresh Forest is not v14")
 	var actors: Array[Node] = []
 	for child: Node in app.player.get_children():
 		if child is PixelPlainsActor: actors.append(child)

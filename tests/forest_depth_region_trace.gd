@@ -37,6 +37,7 @@ var jump_released := false
 var drop_cursor := 1
 var last_drop_tick := -1000
 var last_hook := ""
+var canopy_lane_wait_leg := -1
 var cache_claimed := false
 var cache_pending := false
 var modal_frames: Array[Dictionary] = []
@@ -223,7 +224,7 @@ func _physics_process(_delta: float) -> void:
 			else: drive_hollow(leg)
 		"hollow_cavity": drive_cavity_kind(leg)
 		"airborne_chain", "hanging_chain":
-			if not _drive_canopy_bark_high_launch(leg):air_chain_case.drive(self,leg)
+			if not _wait_canopy_crossbranch_lane(leg) and not _drive_canopy_bark_high_launch(leg):air_chain_case.drive(self,leg)
 		"candidate_hook_relay": drive_candidate_relay(leg)
 		"gate_hook": drive_gate(leg)
 		"ecology_choice","ecology_return": drive_ecology(leg)
@@ -239,6 +240,37 @@ func drive_walk(destination: Vector2) -> void:
 	controller.router.set_move_axis(clampf((destination.x-player.global_position.x)/12,-1,1))
 	stable=stable+1 if at_destination(destination) else 0
 	if stable>=12: complete_leg()
+func _wait_canopy_crossbranch_lane(leg: Dictionary) -> bool:
+	# Observe the real passing body from the actual launch bank before committing
+	# R-H-R. An airborne pause would spend the jump while the cast lane is blocked.
+	var program: Array=leg.get("action_program",[])
+	if manifest.get("layout_version") not in ["forest-interwoven-canopy-v13","forest-fruit-routes-v14"] or str(leg.get("geometry_instance",""))!="canopy_fork" or phase!="align" or stable<12 or program.size()!=3:return false
+	if str(program[0].get("action",""))!="R" or str(program[1].get("action",""))!="H" or str(program[2].get("action",""))!="R":return false
+	var support_id := str(leg.get("from_support_id",""))
+	if not full_support(support_id) or absf(player.velocity.x)>=1:return false
+	var enemy_id := str(manifest.get("crossbranch_contract",{}).get("enemy_id",""))
+	var passing: EnemyActor
+	for index: int in stage.enemy_manifest.size():
+		if str(stage.enemy_manifest[index].id)==enemy_id:passing=stage.enemies[index].get_node("Actor") as EnemyActor
+	if not is_instance_valid(passing) or passing.health.terminal or not passing.attack_behavior is ForestCrossbranchBehavior:return false
+	var behavior := passing.attack_behavior as ForestCrossbranchBehavior
+	var npc: Vector2=passing.motor.global_position
+	var body: Vector2=passing.definition.collision_size
+	var clearance: float=controller.traversal.definition.hook_capture_radius
+	var wholly_left := npc.x+body.x*.5 < player.global_position.x-clearance
+	var moving_away := behavior.state==&"flight" and behavior.flight_velocity.x<0
+	var on_far_shore := behavior.current_shore==1 and behavior._on_shore(1)
+	var observation := {"enemy_id":enemy_id,"enemy_position":pair(npc),"enemy_body":pair(body),"enemy_health":passing.health.current,"enemy_state":String(behavior.state),"enemy_velocity":pair(behavior.flight_velocity),"current_shore":behavior.current_shore,"committed_shore":behavior.committed_shore,"whole_body_left":wholly_left,"hook_capture_radius":clearance,"supports":supports(),"snapshot":snapshot(),"phase_age":age}
+	if wholly_left and (moving_away or on_far_shore):
+		if canopy_lane_wait_leg==leg_index:event("canopy_crossbranch_lane_clear",observation)
+		return false
+	controller.router.set_move_axis(0)
+	if canopy_lane_wait_leg!=leg_index:
+		canopy_lane_wait_leg=leg_index
+		event("canopy_crossbranch_lane_wait",observation)
+	# This wait never resets the original phase age or the global edge budget.
+	if age>400:fail("air_chain_bounded_phase/"+phase)
+	return true
 func _drive_canopy_bark_high_launch(leg: Dictionary) -> bool:
 	# Candidate ecology strategy: use the real jump's height before the
 	# horizontal recoil, rather than flying through the patrolling shield.
