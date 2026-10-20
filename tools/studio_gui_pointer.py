@@ -71,11 +71,26 @@ def _studio_button_boxes(image):
  from PIL import ImageFilter
  import numpy as np
  image=image.convert('RGB');width,height=image.size
- palette=Counter(image.getdata()).most_common(16)
- background=np.asarray(palette[0][0],dtype=np.float32)
- values=np.asarray(image,dtype=np.float32)-background
+ background=np.asarray(Counter(image.getdata()).most_common(1)[0][0],dtype=np.float32)
+ rgb=np.asarray(image,dtype=np.uint32)
+ packed=(rgb[:,:,0]<<16)|(rgb[:,:,1]<<8)|rgb[:,:,2]
+ def run_colors(lines,minimum):
+  result=set()
+  for line in lines:
+   starts=np.r_[0,np.flatnonzero(line[1:]!=line[:-1])+1]
+   ends=np.r_[starts[1:],line.size]
+   result.update(line[starts[(ends-starts)>=minimum]].tolist())
+  return result
+ # A rare highlighted button border can be absent from any top-N palette.
+ # Observe actual straight runs in both axes instead. These lengths are the
+ # central half-edges of the minimum accepted 80x20 rectangle below; they
+ # propose colors only, never relax complete four-edge/bounds verification.
+ colors=run_colors(packed,40)&run_colors(packed.T,10)
+ values=rgb.astype(np.float32)-background
  boxes=set()
- for color,_count in palette:
+ for packed_color in sorted(colors):
+  color=tuple((packed_color>>shift)&255 for shift in (16,8,0))
+
   direction=np.asarray(color,dtype=np.float32)-background
   squared=float(np.dot(direction,direction))
   if not squared:continue

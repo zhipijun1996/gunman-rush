@@ -1,0 +1,23 @@
+{
+  "scope": "Screenshot parser regression fixtures only; not live navigation/gameplay/device acceptance",
+  "files": [
+    {
+      "fixture": "menu_U_complete.png",
+      "original_path": "build/forest_revision04/menu-width-U-e4b2/local-three/browser-cwd/build/studio-navigation/1792494964398966499/development-0.png",
+      "source_commit": "e4b2132dd30bf8ca176a28eb79d1b32a65bb59e3",
+      "sha256": "336ed35fcc07a538225b17f49f551ddec696ca0ca8a48fa442410b53bf49695d",
+      "bytes": 316780,
+      "scope": "Original actual U Web development menu screenshot; complete ACTIONS label and rare highlighted border; navigation failed to detect it.",
+      "transforms": "none; byte-for-byte original PNG copy"
+    },
+    {
+      "fixture": "menu_M_clipped.png",
+      "original_path": "build/forest_revision04/main-ci-browser-M9757/original/browser-cwd/build/studio-navigation/1792494435303280907/development-0.png",
+      "source_commit": "9757ddf2ee20b5620c4a34ecc5d51186f018513b",
+      "sha256": "0a51527d2209d8550695d38358516fddf32db4891b6be09b017590c165005aae",
+      "bytes": 316828,
+      "scope": "Original actual main M CI artifact Web screenshot; ACTIONS text clipped by original Control width; must remain rejected.",
+      "transforms": "none; byte-for-byte original PNG copy"
+    }
+  ]
+}

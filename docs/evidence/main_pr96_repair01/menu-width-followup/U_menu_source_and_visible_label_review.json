@@ -1,0 +1,64 @@
+{
+  "decision": "SCOPED_ACCEPT_SOURCE_AND_ONE_DESKTOP_LABEL_ONLY",
+  "reviewed_commit": "e4b2132dd30bf8ca176a28eb79d1b32a65bb59e3",
+  "parent": "9757ddf2ee20b5620c4a34ecc5d51186f018513b",
+  "only_non_docs_delta": [
+    "scripts/ui/demo_menu.gd"
+  ],
+  "demo_menu_sha256": "084e838415853a976e3b7354ddfb050d96294a333e5d0a6260086bbd5c3d766e",
+  "production_and_all56resources_except_menu_equal_M": true,
+  "actual_precommit_native_mapping": {
+    "execution_head": "9757ddf2ee20b5620c4a34ecc5d51186f018513b",
+    "git_dirty": "Only scripts/ui/demo_menu.gd: comment plus action_button.clip_text=false. This is actual precommit execution, not a clean future commit rerun.",
+    "demo_menu_sha256": "084e838415853a976e3b7354ddfb050d96294a333e5d0a6260086bbd5c3d766e",
+    "command": "python3 tools/harness.py --check parallel-region-presentation --jobs 1",
+    "exit_code": 0,
+    "original_timeout_seconds_per_suite": 120,
+    "harness_check_seconds": 36.71,
+    "menu_scroll_touch_checks": 44,
+    "menu_scroll_touch_failures": 0,
+    "test_and_checker_sources_changed": false,
+    "scope": "Original three native fixtures; actual Web clipping fix is pending real browser verification. No physical-device sign."
+  },
+  "actual_new_local_export": {
+    "execution_head": "e4b2132dd30bf8ca176a28eb79d1b32a65bb59e3",
+    "build_id": "442163f49217",
+    "PCK_bytes": 141171348,
+    "PCK_sha256_declared": "442163f492173fa0aa52f24a21a6e9b0ac7d92d579eb34bdd8f67bce8de5d216",
+    "source_after_build_clean": true,
+    "limitation": "Actual U local debug export only, no CI/public claim. No retained pre-build inventory snapshot."
+  },
+  "actual_failed_browser": {
+    "receipt": "build/forest_revision04/menu-width-U-e4b2/local-three/receipt.json",
+    "receipt_sha256": "b405610082fd65ee7083a19bc2eb5daa9a0857aa6a09f2a8cb342a5d021db4d2",
+    "execution_head": "e4b2132dd30bf8ca176a28eb79d1b32a65bb59e3",
+    "clean_source_before": true,
+    "original_per_consumer_cap": 300,
+    "actual_first_child_seconds": 120.353,
+    "actual_first_child_exit": 1,
+    "outer_seconds": 120.75381280900183,
+    "status": "failed",
+    "remaining_two_consumers": "not executed",
+    "source_after_guard": "absent because exception precedes finalization; do not claim complete before/after source freeze for this failedrun"
+  },
+  "actually_viewed_new_PNG": {
+    "path": "build/forest_revision04/menu-width-U-e4b2/local-three/browser-cwd/build/studio-navigation/1792494964398966499/development-0.png",
+    "sha256": "336ed35fcc07a538225b17f49f551ddec696ca0ca8a48fa442410b53bf49695d",
+    "finding": "Full bilingual 动作练习 / ACTIONS clearly visible at1280x720; rail~185px vs prior~160 and rightbody~25px rightward. Main right controls stay withinpanel in this oneview. Sourcebuild badge442163f4 agrees withU export."
+  },
+  "geometry_failure_evidence": {
+    "navigation_receipt_sha256": "cfac0c5603e31bc69ee735c0ac72f569a8c6e312bd2594b741e6759b679b573b",
+    "actual_detected_ROIs": 9,
+    "missing_target_border": "No leftcolumn ROI at actualACTIONS verticalrange~272..325; first left ROI starts335(HOME). Fulltext exists in originalimage yet never enteredperbuttonOCR.",
+    "interpretation": "Secondary pixelgeometry candidate issue, not a newclaim that full-labelOCRshouldacceptclippedtext.",
+    "not_accepted": "No geometryhelpercandidate reviewed or executed in thisreport."
+  },
+  "unchanged_checks": "OriginalOCR/helper/browser/check sources inGitU equalM; no label/cap/coordinate/assertion weakening inproductionU patch.",
+  "limits": [
+    "One desktopmenu label fixed, not original3browserPASS or broadresponsiveness.",
+    "844x390emulatedtouch andphysicalportraitremainunverified forU.",
+    "Buildreceipt hasnoprebuildinventory, failedbrowserhasnopostinventory; preservesexactknownprovenance.",
+    "MgreenCI andMmovies remainM andnotrelabelledU; UfreshCI/public/movie pending."
+  ],
+  "reviewer_activity": "PureGit/JSON/source reads plusactualview_image; no browser/native/network/trackedwrite. Newignoredreview only."
+}

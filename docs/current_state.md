@@ -1,3 +1,9 @@
+## 2026-10-20：菜单完整文字已显现，稀有边框识别续修
+
+U=`e4b2132dd30bf8ca176a28eb79d1b32a65bb59e3`本地build442163f49217已实际看到完整“ACTIONS”，但原三浏览器首项仍120.353s/exit1、后两未执行：真实高亮边框频次第84，被前16色候选漏掉。续修按实际横/纵精确色直线提案完整框，保原四边、完整文字、唯一匹配、点击/事件、5观察和300s预算；新增8纯测试通过，旧helper同8项7过1败。详见[续修原件](evidence/main_pr96_repair01/menu-width-followup/README.md)。新源码完整三浏览器及新main/准确公开包仍待实际结果，M CI全绿只属M。下面原检查点来源不变。
+
+---
+
 ## 2026-10-20：PR96已合main，完整CI成功，菜单裁字续修
 
 实际main游戏源`9757ddf2ee20b5620c4a34ecc5d51186f018513b`（M），PR96已普通合并。Godot39405664436与Docs39405664424均SUCCESS；120核心fresh/0、Web41/0、森林当前v2原80/80（338.415s/600）、GPU/audio、Windows、Pages与公网前缀检查通过，Androidskipped。[M原件](evidence/main_pr96_repair01/main-M9757/README.md)单列来源。M两图连续影片24/29段与32原帧有限独审已完成。
