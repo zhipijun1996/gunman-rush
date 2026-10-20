@@ -1,3 +1,23 @@
+## 2026-10-20 W6已冻结：旧功能退休与当前消费者通过
+
+最新运行源`c77f920bd8c31ce7640b6db44fb049efc863370b`，旧八房间清理55路径/30删除/净149325B；另56Foundry来源更新净字节0。原core5681/0、完整退休后26套/158.95秒、Underworld UI243/0、styles20route/16variant/3CLI、world0/1均严格exit0且1257源库存稳定，已获[有限独审](evidence/main_pr96_repair01/review/W6_legacy_retirement_review.json)。前后60地图/10随机流/46App及54回放56113帧比较等值，仅明确列出的来源/死stamp/开发身份例外；43现行Manifest接受+2world仍拒绝。原world typed崩溃与新增12Motor90s超时REWORK保留，后者已撤、原支持面188/0及90预算保留。见[W6完整实证](evidence/main_pr96_repair01/cleanup-W6/README.md)。
+
+当前准备执行原policy600（含历史矩阵）、原森林80/600及fresh docs/完整CI；尚未合main、未发布新Web。全部后续结果必须以新收据更新，下面为历史时点。
+
+---
+
+## 2026-10-20 当前交接：W5已提交，W6旧八房退休验证中
+
+分支`fix/main-pr96-forest-composition`，本地HEAD W5 `54eacfd811fe538d79d374393f10754f1efdc94b`；远端PR96分支仍`ae53321af384ae64d027028ae1b42d59b180766e`，main仍`dbc6ba081321637a3eef71979ecf2cf564eb6064`。未合main/未发布新Web。用户追加授权瘦身见[原话](evidence/main_pr96_repair01/user_cleanup_request.txt)。
+
+W5十三测试/工具文件，生产零改：真实map2/对象/背景所有权、实际Boss→Gold→H→森林、attack-latch合法射击、严格入口危险伤害因果及Grove合法预清。原80与policy失败、两个checker拒绝及mask REWORK均保留，[精选原件](evidence/main_pr96_repair01/compat-W5/README.md)，[限定独审](evidence/main_pr96_repair01/review/W5_code_and_local_proofs_review.json)。完整80、policy600、历史矩阵未签通过。
+
+W6 `/root/legacy_room_cleanup`独占源码/Godot窗口：退休旧八房间与旧十房CLI，保留shared/current消费者。60地图/10streams/46App before-after已独核；43当前Manifest接受+2world保持拒绝。单处typed-empty修复独立baseline。Foundry36/18已实跑重建，54回放56113帧完全同动作/位置/射击，仅明确来源stamp变化。当前core/保留26套与混合物理实跑，source/evidence在`build/legacy_eight_retirement/`；冻结audit旧原件不动。不得并行写源码或启动Godot抢600预算。
+
+接续：完成W6局部与准确退休清单→联合源码提交→绑定独审/质量记录并提交文档→在独占CPU跑原固定80（原600cap/native240/2workers、不传layout）→最终policy600/历史矩阵、fresh docs与完整精确HEAD CI。全部相关发布门实际通过后普通merge PR96/main，构建/发布并核验准确PCK、许可与20项/8入口GUI；不以旧包代新包。若新失败保留原件修复，不能降断言/删现行case/放宽预算。下文为历史。
+
+---
+
 ## 2026-10-20：主线修复、PR96 整合与森林果实试玩候选
 
 本轮用户明确授权修复主线失败并整合 [PR96](https://github.com/zhipijun1996/gunman-rush/pull/96)。运行修复与证据见 [MAIN-PR96-REPAIR-01](evidence/main_pr96_repair01/README.md)，森林空间与冗余取舍见 [v14 设计](design/forest_fruit_routes_v14.md)。原 315/main CI 的三项实际失败已复现并作正式消费者专项修复；原失败、退出泄漏与返工图均保留。当前分支 `fix/main-pr96-forest-composition`，本地三方整合基点 e7286da1，最终运行源、完整CI与发布身份以本轮证据及 PR/Actions 实际终态为准，旧公开 v13 包不能代签新版本。

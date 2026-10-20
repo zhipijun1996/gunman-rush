@@ -1,3 +1,23 @@
+## 2026-10-20 W6已冻结：旧功能退休与当前消费者通过
+
+最新运行源`c77f920bd8c31ce7640b6db44fb049efc863370b`，旧八房间清理55路径/30删除/净149325B；另56Foundry来源更新净字节0。原core5681/0、完整退休后26套/158.95秒、Underworld UI243/0、styles20route/16variant/3CLI、world0/1均严格exit0且1257源库存稳定，已获[有限独审](evidence/main_pr96_repair01/review/W6_legacy_retirement_review.json)。前后60地图/10随机流/46App及54回放56113帧比较等值，仅明确列出的来源/死stamp/开发身份例外；43现行Manifest接受+2world仍拒绝。原world typed崩溃与新增12Motor90s超时REWORK保留，后者已撤、原支持面188/0及90预算保留。见[W6完整实证](evidence/main_pr96_repair01/cleanup-W6/README.md)。
+
+当前准备执行原policy600（含历史矩阵）、原森林80/600及fresh docs/完整CI；尚未合main、未发布新Web。全部后续结果必须以新收据更新，下面为历史时点。
+
+---
+
+## 2026-10-20：PR96修复续轮与旧八房间瘦身（尚未合main）
+
+本轮用户授权修复主线、整合PR96、稳定森林起跳镜头、调整果实钩索空间，并追加允许删除旧八房间等冗余功能。远端main仍`dbc6ba081321637a3eef71979ecf2cf564eb6064`；PR96已集成本地main，但未合入远端main。最新已提交修复源W5 `54eacfd811fe538d79d374393f10754f1efdc94b`，W6退休正在验证，最终运行源/CI/发布身份另据实际收据。
+
+W5保留原CI三job日志及固定80失败：原80执行18（17通过/1失败），62未执行；独立诊断其余62为59通过/3失败，不拼成整轮通过。Grove合法射击/返岸修复后四失败种子加显式v13对照各27/27；对象、地图、背景与真实Boss金币→能力→森林专项通过。policy原完整失败仍为REWORK；独审退回的威胁调度屏蔽已撤回，最终三对照保持原负例退出1/两正例退出0，尚不签完整600/历史矩阵。见[W5原件和范围](evidence/main_pr96_repair01/compat-W5/README.md)。
+
+旧八房间菜单误导入口、专属生成/分支/房间语法/蓝图与配置正在退休。保留现行正式两图及历史pin、quick3、Random Stage、Foundry与混合套件的实际物理/战斗/镜头检查。清理前后60地图/10随机流数据及46真实App case限定等值，43份现行Manifest继续兼容、2份world开发fixture保持不兼容；world原有typed-empty数组崩溃已作单处修复并单独重建退休前基线。Foundry原36短语/18路线实跑重建，54回放56113帧的动作/轴/位置/射击与原件完全相同，例外仅明确列出的basis/直接派生hash。最终保留26套、core、独审与整源回归仍在执行。
+
+森林v14镜头/果实限定空间候选及历史原件保持，旧v13保存输出不变。无支承空间的其余目标仍为明确设计缺口；全森林美感、真人FUN、实体设备及用户最终认可未完成。新完整80、fresh docs/CI、main合并和准确Web尚未完成。下文均为历史时点，不覆盖本节。
+
+---
+
 ## 2026-10-20：主线修复、PR96 整合与森林果实试玩候选
 
 本轮用户明确授权修复主线失败并整合 [PR96](https://github.com/zhipijun1996/gunman-rush/pull/96)。运行修复与证据见 [MAIN-PR96-REPAIR-01](evidence/main_pr96_repair01/README.md)，森林空间与冗余取舍见 [v14 设计](design/forest_fruit_routes_v14.md)。原 315/main CI 的三项实际失败已复现并作正式消费者专项修复；原失败、退出泄漏与返工图均保留。当前分支 `fix/main-pr96-forest-composition`，本地三方整合基点 e7286da1，最终运行源、完整CI与发布身份以本轮证据及 PR/Actions 实际终态为准，旧公开 v13 包不能代签新版本。

@@ -1,0 +1,272 @@
+{
+  "reviewer": "/root/independent_review",
+  "independent": true,
+  "implementers": [
+    "/root/ci_diagnosis",
+    "/root/forest_design_review"
+  ],
+  "independence_basis": "Separate read-only review of source diffs, original raw/log/receipts and actual mutation counterexamples. Reviewer modified no implementation, test or proof; wrote only new review documents. No Godot process started by reviewer.",
+  "reviewed_commit": "54eacfd811fe538d79d374393f10754f1efdc94b",
+  "verdict": "ACCEPT",
+  "scope": "W5 code and affected local proofs only: thirteen test/tool files, zero production changes. Does not accept final whole-source CI, full original600/history, original80 forest corpus, whole-region/player/device quality.",
+  "prior_reviews": [
+    "W1_code_review.json",
+    "W2_guard_review.json",
+    "W3_compat_and_lane_review.json",
+    "W4_menu_fixture_review.json"
+  ],
+  "source_sha256": {
+    "tests/forest_depth_grove_combat_case.gd": "9b587cc131f31c4abc6cf31042868ba5620570b3eccce2a81c79fd93d5917994",
+    "tests/level_formal_trace.gd": "cba3e6c681a9ef6df55904c123d4a2e616eefc4644e000f3fe1f4c65b609ffd1",
+    "tests/plains_pressure_boss_runner.gd": "6b701707a62278eda2af7aa229865c1eaeb53a82e0558288c057ddd09e5e2276",
+    "tests/plains_region_trace.gd": "7aab73c68e2fe1cdf308ff18d606006570c654bfcec1902d1a7e85405b40cb12",
+    "tests/test_plains_encounter_policy_boundary.py": "4a21a234d44e159e9674eaafe290d6742b372267ba3b09077cdf45ea158d697e",
+    "tests/underworld_plains/capture_revision3_projectile_windows.gd": "51c8a40e3260a384dd28601a9234f2e1c8190e58858958a20879c6245f6473aa",
+    "tests/underworld_plains/capture_scenery_windows.gd": "1821dc1147873fa70bfceec22845e78ec664942a89a9a915e679a465d7a60e79",
+    "tests/underworld_plains/capture_underworld_r3_boss_fight.gd": "6b85dfb7159684f3a878fa3886c35d6a1b37dc78a53bd5807569a8d54792861d",
+    "tests/underworld_plains/test_underworld_formal.gd": "d7e1f38949b8671b73bcaea5baf2ba8765d654115f953ad13051e35b8fa3595c",
+    "tests/underworld_plains/test_underworld_identity_population.gd": "b7a113750f18456918b134a6023f28821f86a385c30b8e9edf24e5d285799500",
+    "tests/underworld_plains/test_underworld_r3_boss_lifecycle.gd": "b3e1db56b22e25cb519a00b43e651a577d7e9ad8fa668f0fdddb91c55899ed3a",
+    "tests/underworld_plains/test_underworld_r3_objects.gd": "89ad392b39b24a522693140d6ee4a858af3b77a21425c05b03c8a68562d8f8fd",
+    "tools/run_plains_encounter_policy_tests.py": "4aa9f92c0579ef4b06fb11cdeafc55a2149e471d38b0023716dd05550786ce9c"
+  },
+  "code_findings": [
+    "Seven actual-map fixtures now synchronize stage_index and region_map_index; actual stage/map/derived-seed/hash checks replace accidental map1 duplication. Both real map identities and distinct content are asserted. RewardService idempotency is not weakened.",
+    "Pressure legacy-background observation borrows and restores the exact required production background owner before normal abandon/Home transition, with identity/visibility checks. No production null suppression.",
+    "Continuous actual Boss fight keeps HP0/player alive, unique Gold claim and duplicate rejection; replaces obsolete immediate Home completion expectation with actual separate core modal, one grapple grant, real region modal, default forest v2/v14 assembly, same player/Gold/H retained and previous stage token rejected.",
+    "Grove jump threat filtering uses configured real thread segment versus takeoff-to-landing expanded body; raised aiming uses actual body/tuning projectile radius and static geometry only as an input preview. Real full-mask projectile HP0 and twelve supported return frames remain authoritative.",
+    "Near firing bank fits real support and full recoil envelope while retaining whole-body plus eight-unit clearance and original ground-bank safety. No character/NPC transform, HP, resource, collision or clock mutation.",
+    "Backside actuator retains historical base interact plus three ticks when no actual installed latch exists. Current latch uses real Router shot, cooldown/resources, accepted shot serial, real latch, ledger and disabled gate shape. Object.get handles historical assembler lacking attack_shortcuts.",
+    "Final latch helper no longer masks prepare_threats; observes at least the original three ticks, retaining original policy scheduling and global route budget. The rejected temporary policy mask is not accepted as mere actuator migration.",
+    "New early-entry negative recognition is limited to broken is True, not return. It requires restored unsafe entrance, unique authored challenge/guard, real grounded entry bank and bounded integer endpoint ticks, matching frame snapshots, exact accepted guard-contact source, adjacent HP loss, accepted health application, live guard and accepted entry jump. Original diagnostic-marker alternatives remain.",
+    "Independently compared baseline ae53321 test AST: all twenty-six original methods including twenty-two tests are exact; two new tests with setup and forty-five refusal mutations are appended. Read actual twenty-four-test passing log.",
+    "Original twelve-shot/six-hundred encounter/four-hundred phase/eighteen-hundred edge/eighteen-thousand route and native/outer time budgets remain; completion, failure, recovery and physical-consumer assertions are not removed."
+  ],
+  "local_native_observations": [
+    {
+      "log": "build/forest_revision04/ci-next/r3-objects-fixed.log",
+      "log_sha256": "bc1d3cdabe1d096b079fcf34f090260b1bebab3bc6e76ebe6a5b7a93cadf6902",
+      "actual_exit_code": 0,
+      "seconds": 16.00650933900033,
+      "summaries": [
+        "UNDERWORLD R3 OBJECTS: 87 assertions, 0 failures",
+        "PASS: Underworld R3 objects actual consumers; GPU pixels separate"
+      ]
+    },
+    {
+      "log": "build/forest_revision04/ci-next/pressure-boss-fixed.log",
+      "log_sha256": "8e950d86065cd48d7bc799a36502bd27255c89491a209c16d20384ea91562d21",
+      "actual_exit_code": 0,
+      "seconds": 6.637279681999644,
+      "summaries": [
+        "PLAINS PRESSURE BOSS: 491 assertions, 0 failures"
+      ]
+    },
+    {
+      "log": "build/forest_revision04/ci-next/underworld-formal-fixed.log",
+      "log_sha256": "735476480e6e0150f5b14d4d4b6f85a5b7d98dcfb039b1d85f094f8f20dc9123",
+      "actual_exit_code": 0,
+      "seconds": 5.677910989999873,
+      "summaries": [
+        "UNDERWORLD_FORMAL checks=96 failures=0 maps=2",
+        "PASS: Underworld default formal actor/UI consumers and lifecycle"
+      ]
+    },
+    {
+      "log": "build/forest_revision04/ci-next/r3-boss-lifecycle-fixed.log",
+      "log_sha256": "6f6349b93a5ee17e6ade8ebdebd1c657f0ca013ad120f8f30a95eb2981ccc4ae",
+      "actual_exit_code": 0,
+      "seconds": 13.554759950000516,
+      "summaries": [
+        "UNDERWORLD R3 BOSS LIFECYCLE: 54 checks, 0 failures"
+      ]
+    },
+    {
+      "log": "build/forest_revision04/ci-next/identity-population-fixed.log",
+      "log_sha256": "75fe1a57de624c31ea1a958067c9fbd88b96809e8a03c6936a384c7af28dd02a",
+      "actual_exit_code": 0,
+      "seconds": 32.33021617800114,
+      "summaries": [
+        "Underworld identity population: 20 cases, 21167 checks, 0 failures"
+      ]
+    },
+    {
+      "log": "build/forest_revision04/ci-next/continuous-boss-current-campaign.log",
+      "log_sha256": "25b9ff5f7fec8857652333019190862319793f60cd4727c0a0e25c71f1e7ccc5",
+      "actual_exit_code": 0,
+      "seconds": 52.309090732000186,
+      "summaries": [
+        "UNDERWORLD R3 BOSS: 100 checks, 0 failures",
+        "UNDERWORLD R3 BOSS HIT DIRECTION: 16 checks, 0 failures",
+        "UNDERWORLD R3 BOSS LIFECYCLE: 54 checks, 0 failures",
+        "UNDERWORLD R3 FULL BOSS MAP1: 459 frames, 0 failures",
+        "UNDERWORLD R3 FULL BOSS MAP2: 801 frames, 0 failures",
+        "PASS: Underworld R3 Boss continuous damage, actual contact, lifecycle and two full actual-App battles"
+      ]
+    }
+  ],
+  "grove_targeted_controls": [
+    {
+      "seed": "forest-depth-hollow-01",
+      "map": 1,
+      "route": "growth",
+      "layout": "forest-interwoven-canopy-v13",
+      "capture": "build/forest_revision04/driver-fixes-W5-r3/seed01-v13/00-map1-growth/capture.json",
+      "capture_sha256": "7d103a16ef8f11ce346230bc962d956e4c7486b3f701ea9521b9269c8f7e2415",
+      "receipt_sha256": "8f8ebf6cd8c9adbfd0e4909f1ab98cabf8a2893d5e7590312da54aaf45a29a8a",
+      "source_stable": true,
+      "native_exit": 0,
+      "completed": 27,
+      "requested": 27
+    },
+    {
+      "seed": "forest-depth-hollow-01",
+      "map": 1,
+      "route": "growth",
+      "layout": "forest-fruit-routes-v14",
+      "capture": "build/forest_revision04/driver-fixes-W5-r3/seed01-v14/00-map1-growth/capture.json",
+      "capture_sha256": "6aaaaed3a893549ccfd4d11d47088c74c00c1326e85929882874ca7b27de90ab",
+      "receipt_sha256": "d7bf268b05acd2b3dba0919b9331987b4b5aeefef2053defbc5815fb599c9d1b",
+      "source_stable": true,
+      "native_exit": 0,
+      "completed": 27,
+      "requested": 27
+    },
+    {
+      "seed": "forest-depth-hollow-04",
+      "map": 1,
+      "route": "growth",
+      "layout": "forest-fruit-routes-v14",
+      "capture": "build/forest_revision04/driver-fixes-W5-r3/seed04-v14/00-map1-growth/capture.json",
+      "capture_sha256": "cd0afeca8fd762d056874e72f6757ae2d3ad2946a97e6bf809a0436ea1771632",
+      "receipt_sha256": "cdec79a17d2a615f07efba7d18ef310f01845d177870f6c6f8c73a84818fdf2f",
+      "source_stable": true,
+      "native_exit": 0,
+      "completed": 27,
+      "requested": 27
+    },
+    {
+      "seed": "forest-depth-hollow-07",
+      "map": 1,
+      "route": "growth",
+      "layout": "forest-fruit-routes-v14",
+      "capture": "build/forest_revision04/driver-fixes-W5-r3/seed07-v14/00-map1-growth/capture.json",
+      "capture_sha256": "6d032b9504fd9ddf75cc9661a4ecf5857c8a34d1c7a9ef0f65855a73d8c79413",
+      "receipt_sha256": "1591c69484728b9dd3715195bead327c8f919153d7583abc672ff6b968c5d5d9",
+      "source_stable": true,
+      "native_exit": 0,
+      "completed": 27,
+      "requested": 27
+    },
+    {
+      "seed": "forest-depth-hollow-08",
+      "map": 2,
+      "route": "change_mind",
+      "layout": "forest-fruit-routes-v14",
+      "capture": "build/forest_revision04/driver-fixes-W5-r3/seed08-v14/00-map2-change_mind/capture.json",
+      "capture_sha256": "68dab43ae45eafc558d66b09a4c42771b79421bb571228bf3acf63845d5175b9",
+      "receipt_sha256": "facfe00f31f0c741925ae498c7e7eddde6249228059a73dec464b28b9e9e7186",
+      "source_stable": true,
+      "native_exit": 0,
+      "completed": 27,
+      "requested": 27
+    }
+  ],
+  "restored_policy_controls": [
+    {
+      "name": "reward_original_return_conflict",
+      "raw": "build/forest_revision04/ci-next/reward-original-threat-schedule/reward_original_return_conflict.json",
+      "raw_sha256": "55ea27088fb3314b75e42780ce7f33229aa28d2da55d23eb3871eb4b1a081a17",
+      "log": "build/forest_revision04/ci-next/reward-original-threat-schedule/reward_original_return_conflict.log",
+      "log_sha256": "3ff7e4bfaa6cec3faf780e423ee9f11826e2d01170574ce1c2af1a8594ec83dd",
+      "native_exit": 1,
+      "source_before_equals_after": true,
+      "assertions": 9,
+      "failures": 1,
+      "claimed": true,
+      "trial": false,
+      "camp": false,
+      "diagnostics": [
+        {
+          "edge": "deep_high",
+          "message": "enemy bank unsafe/no damage progress within budget plains/enemy/lane/plains/passage/area_0_0/area_1_0_join",
+          "position": [
+            1840.666015625,
+            -700.074890136719
+          ],
+          "tick": 1717
+        }
+      ]
+    },
+    {
+      "name": "reward_kill0",
+      "raw": "build/forest_revision04/ci-next/reward-original-threat-schedule/reward_kill0.json",
+      "raw_sha256": "b9798b88bb0db0bc343f2b723293035b38e9d0b6d6ad179302aeda0dd3bc6b75",
+      "log": "build/forest_revision04/ci-next/reward-original-threat-schedule/reward_kill0.log",
+      "log_sha256": "4d54baf3049309accedeb2ce0c0da4c5eb541adc39ff33bc420386abb647c36d",
+      "native_exit": 0,
+      "source_before_equals_after": true,
+      "assertions": 9,
+      "failures": 0,
+      "claimed": true,
+      "trial": true,
+      "camp": true,
+      "diagnostics": []
+    },
+    {
+      "name": "reward_kill100",
+      "raw": "build/forest_revision04/ci-next/reward-original-threat-schedule/reward_kill100.json",
+      "raw_sha256": "8bc74c18d4985a98c4a88d5e6140392d78d8444c9f4c3a5ae08072df3c67d141",
+      "log": "build/forest_revision04/ci-next/reward-original-threat-schedule/reward_kill100.log",
+      "log_sha256": "599581a4dfa7ddcc1a1237aeda9547b42cd15a121cbaa648e0724ce63ff66efa",
+      "native_exit": 0,
+      "source_before_equals_after": true,
+      "assertions": 9,
+      "failures": 0,
+      "claimed": true,
+      "trial": true,
+      "camp": true,
+      "diagnostics": []
+    }
+  ],
+  "intermediate_rejections_retained": [
+    {
+      "verdict": "REJECT",
+      "scope": "Initial causal validator accepted missing entry/start, zero entry/start and trial_end_tick999999 on actual raw. All now reject after positive-integer, actual endpoint and interval checks.",
+      "initial_tool_sha256": "a1d5caee2620fb21f5f4c5871b0f8e4acf81fd90dfdec7bebaba4916888580fc"
+    },
+    {
+      "verdict": "REJECT",
+      "scope": "Intermediate validator accepted coherent entry/start783 plus actual position/guard from airborne jump frame on original unsafe-entry raw. Final grounded authored-bank check now rejects the identical counterexample while real782 entry remains accepted."
+    },
+    {
+      "verdict": "REWORK",
+      "scope": "Temporary critical_traversal mask and immediate opened exit changed threat scheduling and allowed original return counterexample to succeed. Original600 run actually failed at162.028s/exit1; raw/log preserved. Final helper removes mask and retains three-tick observation; original return now honestly fails with original unsafe-bank diagnostic, while kill0/phase100 pass."
+    }
+  ],
+  "original_failures_not_relabelled": {
+    "corpus80_W4": "18 actually executed:17 passed/1 failed,62 unexecuted.",
+    "diagnostic62_W4": "62 diagnostic runs:59 passed/3 failed. This is not original80 PASS.",
+    "forest_original_four": "Three map1 growth thread contacts and seed08 map2 change_mind patrol/flank collision are genuine original failures, not empty or fabricated artifacts. Five targeted controls resolve these cases only.",
+    "full600": "Original temporary-mask whole-policy run remains failed; revalidation of fourteen archived raw cases is format/causality checking, not a fresh final-driver whole-policy PASS."
+  },
+  "proof_manifest": {
+    "build/forest_revision04/ci-next/final-owned.patch": "66ee4369ef4643ea2c58be939e6fd963cc35c33e4781aa6555159217d5cd7209",
+    "build/forest_revision04/ci-next/final-owned-source-sha256.json": "549fcbb8b651b271d7546111bab87c5ae7f52ea47277f006664b4de4360e55b8",
+    "build/forest_revision04/ci-next/original-boundary-AST-preserved-final.json": "66f71287ea5b5e5a972f00de9787f82e78572cc33dd25f61d4a5f6e5ab4ed8ef",
+    "build/forest_revision04/ci-next/policy-boundary-final.log": "c685832b7bfd4e4b3d2ee77e69277a2088c4254a9606b0367452731226df72fb",
+    "build/forest_revision04/ci-next/entry-actual-raw-final-revalidation.json": "5510a598bc8623cdb2fb6beed1cb3591929341844129e9d32e28d98250de9ed7",
+    "build/forest_revision04/ci-next/policy-full-original-entry-receipt.json": "2a62d1e7346a9b0d7e8f4ad8c5a43b0164f48002e108a4f949c7842c6dee4078",
+    "build/forest_revision04/ci-next/policy-full-original-entry.log": "9972c03ad36a56ea1493f192ed99fe3a86d5d89797514237ee8538682f7c2dc0",
+    "build/forest_revision04/ci-next/reward-original-threat-schedule/report.json": "10b49403b33734a5e42c02ed4a9f75cd99e6885b8c98da41747716871ad1014c",
+    "build/forest_revision04/driver-fixes-W5-r3/summary.json": "47f31c3b24f2c1beedfa1a74d218aac4b4a72b57dd2fbb7967ad0ae7e4c4e498",
+    "build/forest_revision04/corpus80-W4/receipt.json": "7081f108e447a982b1d5866958e3b4082858b553b1f8b6cef6af72acadaa143d",
+    "build/forest_revision04/diagnostic62-W4/receipt.json": "469507b0f9586b8a3cdd0d79fc81369310f1dbb1dd4b34cb0c0f140f52af70f3"
+  },
+  "limits": [
+    "Earlier short CI-native runs lack complete contemporaneous whole-source inventory; they remain affected local development proof. Final joint frozen CI must provide whole-source binding.",
+    "Five forest controls bind their exact driver/source receipts but are not the original full80 matrix.",
+    "Full original600 including immutable historical comparisons, final original80, fresh aggregate CI and physical device/user approval are pending.",
+    "User-authorized obsolete eight-room retirement is separate future code and evidence; no acceptance is extended to that candidate by this W5 review."
+  ]
+}

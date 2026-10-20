@@ -50,3 +50,15 @@ W2当前森林合同20seed/map4215/0，版本schema6实际24case完整历史22+�
 ## W3/W4 最终默认入口与严格菜单退出
 
 最终验证源 `7a58c819de52bba68594b406c07b2a940b2c5a8f`。W3兼容/截钩对照与失败保留见[compat-W3](compat-W3/README.md)，七入口旧版精确选项保留、默认指向v14；map2高返原失败430帧与旧v13完全一致，原预算内合法等待后两版各29/29。默认debug52/0、aim6leg/3hold通过。W4只更新正式App拥有的触屏菜单fixture，原43业务+释放1，原完整wrapper严格73/0、56/0、44/0，负例45/1真实拒绝，见[compat-W4](compat-W4/README.md)和[独审](review/W4_menu_fixture_review.json)。生产/资源与W1相同，W2/W3/W4改变各自明确checker/driver/fixture，不能把旧电影重绑为新driver摄录。原固定80当前执行，最终fresh docs、完整CI、main合并与准确Web仍待实际终态。
+
+
+## W5 与旧八房间退休进行中
+
+W5 测试/工具源码 `54eacfd811fe538d79d374393f10754f1efdc94b`，原CI三job、固定80实际失败和后续有限修复见[compat-W5](compat-W5/README.md)。原80执行18/失败1、后续62诊断失败3，不能拼成整轮通过；五项局部27-leg控制通过，最终整源80仍待。完整policy旧mask候选162秒失败保留为REWORK，最终恢复真实威胁调度的三项对照不代完整600入口。
+
+用户追加授权删除不需要的旧特性（如8房间），[原话](user_cleanup_request.txt)。W6正在移除菜单旧入口、旧专用生成链与专属回归，保留现行两图、历史版本pin、quick3、Random Stage、Foundry和混合套件里的物理/战斗/镜头断言。退休前后60地图/10随机流、46真实App case已完成限定等值比较；旧world入口原有typed-empty数组崩溃独立修复并重新建立退休前基线，失败原件保留。完整保留消费者、独立审查和精确源码以W6后续收据为准。本节不是最终完成或新Web已发布声明。
+
+
+## W6退休完成，最终整源入口待执行
+
+源`c77f920bd8c31ce7640b6db44fb049efc863370b`，111路径=55清理+56来源更新。原八房专用链与两个旧房间CLI已退休，[清理清单、原数量回归与前后等值原件](cleanup-W6/README.md)，[独立审查](review/W6_legacy_retirement_review.json)。原core5681/0、完整退休后26套、UI243/0、style20/16/3CLI及world0/1实际严格通过；不把26签成旧33。最终600策略、80固定森林、fresh docs/CI、main及准确Web尚待实际执行。
