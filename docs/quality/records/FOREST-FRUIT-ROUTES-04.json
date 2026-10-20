@@ -4,7 +4,7 @@
   "task_type": "region",
   "workflow": "review",
   "baseline_commit": "dbc6ba081321637a3eef71979ecf2cf564eb6064",
-  "reviewed_commit": "2cd7fa05356c1b8e537b624329cbb4ee0b65ef66",
+  "reviewed_commit": "2dd657f13b57a15ea14e9f6caed8cf45eafbfd71",
   "content_version": "forest-fruit-routes-v14",
   "owner": "/root+forest_design_review",
   "purpose": "Resolve forest hook target clutter and replace supported targets with rooted fruits, classify real vs proposed paths and remove verified redundancy",
@@ -146,9 +146,9 @@
     },
     "independent_review": {
       "status": "passed",
-      "reason": "Independent frozen-code and sensitive test-change review accepted; excludes unexecuted whole CI, movie, player/device and whole-region taste",
+      "reason": "Independent read-only W3 current-default consumers and grounded passing-NPC wait review; links unchanged W1/W2 reviews. Limited code and two29-leg controls, not full80, whole CI, user or device acceptance.",
       "evidence": [
-        "W1-independent-code-review"
+        "W3-independent-compat-and-lane-review"
       ]
     },
     "device": {
@@ -182,6 +182,26 @@
       ],
       "independent": true,
       "independence_basis": "Separate read-only review agent; no production scripts, tests, tools, resources, author records or original evidence were edited. Only new review files were written.",
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "W3-independent-compat-and-lane-review",
+      "path": "docs/evidence/main_pr96_repair01/review/W3_compat_and_lane_review.json",
+      "sha256": "bf4dd5c8a895fd511760f53f1c1f90d16d75bfb6b29613981a4cb0e17b667cc1",
+      "kind": "review",
+      "producer": "/root/independent_review",
+      "source_commit": "2dd657f13b57a15ea14e9f6caed8cf45eafbfd71",
+      "content_version": "forest-fruit-routes-v14",
+      "method": "Independent read-only exact source diff, actual four pinned/default controls and exact430-frame failure equality; original strict validator run on both repaired29-leg captures",
+      "observed": "W3 seven default compatibility updates and grounded passing-NPC wait only; full80/fullCI/user/device are not accepted by this report",
+      "reviewer": "/root/independent_review",
+      "implementers": [
+        "/root",
+        "/root/ci_diagnosis",
+        "/root/forest_design_review"
+      ],
+      "independent": true,
+      "independence_basis": "Separate read-only agent; production/test/tool and original evidence files not modified, only new review reports written.",
       "verdict": "ACCEPT"
     }
   ],

@@ -1,0 +1,28 @@
+{
+  "id": "parallel-region-presentation",
+  "base_head": "2dd657f13b57a15ea14e9f6caed8cf45eafbfd71",
+  "argv": [
+    "python3",
+    "tools/run_parallel_region_presentation_tests.py"
+  ],
+  "timeout_seconds": 300,
+  "actual_exit_code": 1,
+  "error": null,
+  "status": "failed",
+  "seconds": 30.45508264399996,
+  "log": "build/forest_revision04/compat-W3/parallel-region-presentation.log",
+  "log_sha256": "bad89a9f194372f31bef6fa7223c084941aadf0c0a67a039885e98464d585712",
+  "success_pattern": "^PASS: parallel region presentation lifecycle and existing campaign UI fixture$",
+  "forbidden_diagnostics": [
+    "ObjectDB instances were leaked",
+    "resources still in use at exit"
+  ],
+  "summaries": [
+    "PARALLEL REGION PRESENTATION: 73 assertions / 0 failures",
+    "FOREST CAMPAIGN: 56 assertions / 0 failures",
+    "MENU SCROLL TOUCH: 43 checks / 0 failures; native GUI lifecycle only, Web scrolling separate"
+  ],
+  "source_before": {},
+  "source_after": {},
+  "source_stable": true
+}

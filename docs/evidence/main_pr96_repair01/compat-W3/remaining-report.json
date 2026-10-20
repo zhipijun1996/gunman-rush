@@ -1,0 +1,99 @@
+{
+  "checks": [
+    {
+      "id": "forest-debug",
+      "execution_start_head": "2dd657f13b57a15ea14e9f6caed8cf45eafbfd71",
+      "snapshot_commit": "2dd657f13b57a15ea14e9f6caed8cf45eafbfd71",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_progression_debug_runner.gd"
+      ],
+      "timeout_seconds": 180,
+      "actual_exit_code": 0,
+      "error": null,
+      "status": "passed",
+      "seconds": 8.41309269500016,
+      "log": "build/forest_revision04/compat-W3/forest-debug.log",
+      "log_sha256": "c8582b8141375b0ebbe5b47f00e7afd807b343d61250c1f6755262831d1e9765",
+      "success_pattern": "^FOREST DEBUG: [1-9]\\d* assertions / 0 failures$",
+      "forbidden_diagnostics": [],
+      "source_before": {
+        "tests/forest_campaign_runner.gd": "48bdbf54ee9c63d66e6caa9385db39e58213842ff6ee47ad9737a9560a3272dd",
+        "tests/forest_depth_region_trace.gd": "c73e5ef0ee7c487e512d5f2fe396bc3bbed34831952aa002324f7f2bdc0bc156",
+        "tests/forest_player_aim_runner.gd": "092612c391e1f29e7ed258f43de2578ac58cd5cd6af1947af2a2e58094d3e9ef",
+        "tests/forest_progression_debug_runner.gd": "d677c0fc3a4f3ee81a54e6d0896c65598591044fdb808af7535a3712e8aa81c4",
+        "tests/parallel_region_presentation_tests.gd": "4cb90c1e242b6336460b085a090445222cf3f1895d1d3d1eed3874c6a73cdd13",
+        "tools/run_forest_depth_campaign_boss.py": "4e5e6d1746ef2a08fef8bff7aa3260ecb1166a912a220ca8e41f2d77e029d75e",
+        "tools/run_forest_player_aim.py": "a3d4acbee09f387beb5942f17b86c428a8c316b2d01a7020da412294496e71c5",
+        "tools/verify_forest_browser.py": "856a095cd8fb9754596a6e7cc84a3b275d9a0a7cae7e5c1c9d9f1b7860baab44"
+      },
+      "source_after": {
+        "tests/forest_campaign_runner.gd": "48bdbf54ee9c63d66e6caa9385db39e58213842ff6ee47ad9737a9560a3272dd",
+        "tests/forest_depth_region_trace.gd": "c73e5ef0ee7c487e512d5f2fe396bc3bbed34831952aa002324f7f2bdc0bc156",
+        "tests/forest_player_aim_runner.gd": "092612c391e1f29e7ed258f43de2578ac58cd5cd6af1947af2a2e58094d3e9ef",
+        "tests/forest_progression_debug_runner.gd": "d677c0fc3a4f3ee81a54e6d0896c65598591044fdb808af7535a3712e8aa81c4",
+        "tests/parallel_region_presentation_tests.gd": "4cb90c1e242b6336460b085a090445222cf3f1895d1d3d1eed3874c6a73cdd13",
+        "tools/run_forest_depth_campaign_boss.py": "4e5e6d1746ef2a08fef8bff7aa3260ecb1166a912a220ca8e41f2d77e029d75e",
+        "tools/run_forest_player_aim.py": "a3d4acbee09f387beb5942f17b86c428a8c316b2d01a7020da412294496e71c5",
+        "tools/verify_forest_browser.py": "856a095cd8fb9754596a6e7cc84a3b275d9a0a7cae7e5c1c9d9f1b7860baab44"
+      },
+      "source_stable": true,
+      "summaries": [
+        "FOREST DEBUG: 52 assertions / 0 failures"
+      ]
+    },
+    {
+      "id": "forest-player-aim",
+      "execution_start_head": "2dd657f13b57a15ea14e9f6caed8cf45eafbfd71",
+      "snapshot_commit": "2dd657f13b57a15ea14e9f6caed8cf45eafbfd71",
+      "argv": [
+        "python3",
+        "tools/run_forest_player_aim.py",
+        "--output",
+        "build/forest_revision04/compat-W3/aim-default-v14"
+      ],
+      "timeout_seconds": 240,
+      "actual_exit_code": 0,
+      "error": null,
+      "status": "passed",
+      "seconds": 21.425637768999877,
+      "log": "build/forest_revision04/compat-W3/forest-player-aim.log",
+      "log_sha256": "9fcfb2216b57b4fac294410de475c04953157334969139f703e0f28be6e1492b",
+      "success_pattern": "^PASS: real-adapter forest prefix and observed grounded focus recovery$",
+      "forbidden_diagnostics": [],
+      "source_before": {
+        "tests/forest_campaign_runner.gd": "48bdbf54ee9c63d66e6caa9385db39e58213842ff6ee47ad9737a9560a3272dd",
+        "tests/forest_depth_region_trace.gd": "c73e5ef0ee7c487e512d5f2fe396bc3bbed34831952aa002324f7f2bdc0bc156",
+        "tests/forest_player_aim_runner.gd": "092612c391e1f29e7ed258f43de2578ac58cd5cd6af1947af2a2e58094d3e9ef",
+        "tests/forest_progression_debug_runner.gd": "d677c0fc3a4f3ee81a54e6d0896c65598591044fdb808af7535a3712e8aa81c4",
+        "tests/parallel_region_presentation_tests.gd": "4cb90c1e242b6336460b085a090445222cf3f1895d1d3d1eed3874c6a73cdd13",
+        "tools/run_forest_depth_campaign_boss.py": "4e5e6d1746ef2a08fef8bff7aa3260ecb1166a912a220ca8e41f2d77e029d75e",
+        "tools/run_forest_player_aim.py": "a3d4acbee09f387beb5942f17b86c428a8c316b2d01a7020da412294496e71c5",
+        "tools/verify_forest_browser.py": "856a095cd8fb9754596a6e7cc84a3b275d9a0a7cae7e5c1c9d9f1b7860baab44"
+      },
+      "source_after": {
+        "tests/forest_campaign_runner.gd": "48bdbf54ee9c63d66e6caa9385db39e58213842ff6ee47ad9737a9560a3272dd",
+        "tests/forest_depth_region_trace.gd": "c73e5ef0ee7c487e512d5f2fe396bc3bbed34831952aa002324f7f2bdc0bc156",
+        "tests/forest_player_aim_runner.gd": "092612c391e1f29e7ed258f43de2578ac58cd5cd6af1947af2a2e58094d3e9ef",
+        "tests/forest_progression_debug_runner.gd": "d677c0fc3a4f3ee81a54e6d0896c65598591044fdb808af7535a3712e8aa81c4",
+        "tests/parallel_region_presentation_tests.gd": "4cb90c1e242b6336460b085a090445222cf3f1895d1d3d1eed3874c6a73cdd13",
+        "tools/run_forest_depth_campaign_boss.py": "4e5e6d1746ef2a08fef8bff7aa3260ecb1166a912a220ca8e41f2d77e029d75e",
+        "tools/run_forest_player_aim.py": "a3d4acbee09f387beb5942f17b86c428a8c316b2d01a7020da412294496e71c5",
+        "tools/verify_forest_browser.py": "856a095cd8fb9754596a6e7cc84a3b275d9a0a7cae7e5c1c9d9f1b7860baab44"
+      },
+      "source_stable": true,
+      "summaries": [
+        "FOREST PLAYER AIM: PASS / 6 legs / 3 aim holds / 0 failures",
+        "PASS: real-adapter forest prefix and observed grounded focus recovery"
+      ]
+    }
+  ],
+  "all_requested_passed": true
+}

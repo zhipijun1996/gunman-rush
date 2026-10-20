@@ -46,3 +46,7 @@ PR96 首次整合的森林入口暴露静态危险矩形与元数据不同步：
 W1正式全generated 33/33/native exit0和core5680/0原件已精选至[runtime-W1](runtime-W1/README.md)，其中原HEAD-only外层metadata guard的exit1原样保留，另以逐runtime Git tree相等核实docs-only变化，未篡改原driver退出码。W2不冒称与W1所有工具同源。
 
 W2当前森林合同20seed/map4215/0，版本schema6实际24case完整历史22+新2；实际默认v14高返路线电影24leg/0、2241帧60fps=37.35秒、186.21秒<原240cap、source stable与严格exit0，见[完整局部原件与影片](../forest_fruit_routes04/final-W2/README.md)。独审实际看17帧接受限定起跳/落地纵向连续性和长链跟随，未完整播放/听音/验用户设备，也不称所有目标始终完整入镜或全森林美感完成。完整新HEAD原80、fresh全CI和准确Web发布仍由后续实际收据决定。
+
+## W3/W4 最终默认入口与严格菜单退出
+
+最终验证源 `7a58c819de52bba68594b406c07b2a940b2c5a8f`。W3兼容/截钩对照与失败保留见[compat-W3](compat-W3/README.md)，七入口旧版精确选项保留、默认指向v14；map2高返原失败430帧与旧v13完全一致，原预算内合法等待后两版各29/29。默认debug52/0、aim6leg/3hold通过。W4只更新正式App拥有的触屏菜单fixture，原43业务+释放1，原完整wrapper严格73/0、56/0、44/0，负例45/1真实拒绝，见[compat-W4](compat-W4/README.md)和[独审](review/W4_menu_fixture_review.json)。生产/资源与W1相同，W2/W3/W4改变各自明确checker/driver/fixture，不能把旧电影重绑为新driver摄录。原固定80当前执行，最终fresh docs、完整CI、main合并与准确Web仍待实际终态。
