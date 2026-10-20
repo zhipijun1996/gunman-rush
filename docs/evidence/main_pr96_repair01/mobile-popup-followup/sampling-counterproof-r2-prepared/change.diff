@@ -1,0 +1,34 @@
+--- r1-preserved
++++ r2-ordinary-jump
+@@ -102,21 +102,22 @@
+         require(equip["weapon"] == "remote_boomerang", "Actual choose6 weapon identity mismatch")
+         await page.mouse.click(330, await weapon_row_y(page))
+         await page.wait_for_timeout(300)
+-        await page.mouse.click(500, 100)
+-        await page.wait_for_timeout(350)
++        # This additional clock check needs real air time, independently of H.
++        # The original three consumers retain their unmodified hook sequence.
+         n = len(events)
+-        await page.keyboard.press(" ")
+-        await page.mouse.click(432, 230, button="right")
+-        require(await wait(lambda: any(e["action"] == "hook_kick" for e in events[n:])), "Real upward hook did not launch")
+-        cast = next(e for e in events[n:] if e["action"] == "hook_cast")
+-        kick = next(e for e in events[n:] if e["action"] == "hook_kick")
+-        require(abs(cast["aim"][0]) <= deadzone and kick["kick_side"] == 0 and kick["recoil"] == [0, hook_y], "Original actual vertical hook contract failed")
+-        require(await wait(lambda: any(e["action"] == "free" for e in events[n:])), "Real hook recovery never returned free")
++        mark("ordinary_jump_setup")
++        await page.keyboard.down(" ")
++        await page.wait_for_timeout(160)
++        await page.keyboard.up(" ")
++        require(await wait(lambda: any(e["action"] == "jump" for e in events[n:])), "No actual ordinary setup jump")
++        jump = next(e for e in events[n:] if e["action"] == "jump")
++        require(jump["detail"]["used"] == 1, "Setup was not the first actual jump")
+         start = len(events)
+         mark("before_original_fire650670")
+         await fire()
+         require(await wait(lambda: any(e["action"] == "weapon_entities" and e["detail"]["entities"] for e in events[start:])), "No actual released entity")
+         born = next(e for e in events[start:] if e["action"] == "weapon_entities" and e["detail"]["entities"])
++        require(born["position"][1] < jump["position"][1] - 20, "Actual entity release did not occur in the air")
+         packet = born["packet"]
+         require(type(packet) is int and packet > 0 and born["weapon"] == "remote_boomerang", "Actual entity packet identity missing")
+         require(len(born["detail"]["entities"]) == 1 and born["detail"]["entities"][0]["kind"] == "boomerang", "Expected one real same-packet boomerang")

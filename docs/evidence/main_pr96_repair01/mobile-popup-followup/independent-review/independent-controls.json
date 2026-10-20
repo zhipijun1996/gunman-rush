@@ -1,0 +1,299 @@
+{
+  "scope": "Independent in-memory pixel controls only; no browser/native/gameplay claim",
+  "helper_sha256": "a30654826fcfe669d189ec545c29b8f99f048140c78add8effe79abcbe936156",
+  "raw_sha256": "32e1dc9db62ff06c9d2e0afdd85fe8fc334da59d3c16aedfd5408fc44abf6cf3",
+  "base": {
+    "marker_x": 108.0,
+    "rows": [
+      118.0,
+      133.5,
+      149.5,
+      165.5,
+      181.0,
+      196.5,
+      212.5,
+      228.0,
+      243.5,
+      259.5,
+      275.0,
+      291.0,
+      306.5,
+      322.5,
+      338.0
+    ],
+    "marker_boxes": [
+      [
+        104,
+        114,
+        113,
+        123
+      ],
+      [
+        104,
+        129,
+        113,
+        139
+      ],
+      [
+        104,
+        145,
+        113,
+        155
+      ],
+      [
+        104,
+        161,
+        113,
+        171
+      ],
+      [
+        104,
+        177,
+        113,
+        186
+      ],
+      [
+        104,
+        192,
+        113,
+        202
+      ],
+      [
+        104,
+        208,
+        113,
+        218
+      ],
+      [
+        104,
+        224,
+        113,
+        233
+      ],
+      [
+        104,
+        239,
+        113,
+        249
+      ],
+      [
+        104,
+        255,
+        113,
+        265
+      ],
+      [
+        104,
+        271,
+        113,
+        280
+      ],
+      [
+        104,
+        287,
+        113,
+        296
+      ],
+      [
+        104,
+        302,
+        113,
+        312
+      ],
+      [
+        104,
+        318,
+        113,
+        328
+      ],
+      [
+        104,
+        334,
+        113,
+        343
+      ]
+    ],
+    "bounds": [
+      96,
+      104,
+      230,
+      354
+    ],
+    "background_rgb": [
+      27,
+      38,
+      37
+    ]
+  },
+  "selected_ring": {
+    "width": 9,
+    "height": 9,
+    "actual_foreground": 77,
+    "area": 81,
+    "density": 0.9506172839506173,
+    "ceil_95percent_area": 77,
+    "center_rgb_sum": 78,
+    "cardinal_edge_rgb_sums": [
+      261,
+      272,
+      282,
+      244
+    ]
+  },
+  "cases": [
+    {
+      "case": "complete_actual_panel_translation_dx160_dy10",
+      "expected_accept": true,
+      "accepted": true,
+      "passed": true,
+      "detail": {
+        "marker_x": 268.0,
+        "rows": [
+          128.0,
+          143.5,
+          159.5,
+          175.5,
+          191.0,
+          206.5,
+          222.5,
+          238.0,
+          253.5,
+          269.5,
+          285.0,
+          301.0,
+          316.5,
+          332.5,
+          348.0
+        ],
+        "marker_boxes": [
+          [
+            264,
+            124,
+            273,
+            133
+          ],
+          [
+            264,
+            139,
+            273,
+            149
+          ],
+          [
+            264,
+            155,
+            273,
+            165
+          ],
+          [
+            264,
+            171,
+            273,
+            181
+          ],
+          [
+            264,
+            187,
+            273,
+            196
+          ],
+          [
+            264,
+            202,
+            273,
+            212
+          ],
+          [
+            264,
+            218,
+            273,
+            228
+          ],
+          [
+            264,
+            234,
+            273,
+            243
+          ],
+          [
+            264,
+            249,
+            273,
+            259
+          ],
+          [
+            264,
+            265,
+            273,
+            275
+          ],
+          [
+            264,
+            281,
+            273,
+            290
+          ],
+          [
+            264,
+            297,
+            273,
+            306
+          ],
+          [
+            264,
+            312,
+            273,
+            322
+          ],
+          [
+            264,
+            328,
+            273,
+            338
+          ],
+          [
+            264,
+            344,
+            273,
+            353
+          ]
+        ],
+        "bounds": [
+          256,
+          114,
+          390,
+          364
+        ],
+        "background_rgb": [
+          27,
+          38,
+          37
+        ]
+      },
+      "seconds": 0.21193088900326984
+    },
+    {
+      "case": "selected_77pixel_shape_flat",
+      "expected_accept": false,
+      "accepted": false,
+      "passed": true,
+      "detail": "actual fifteen evenly spaced item markers not uniquely observed: 0 complete popup/column candidates",
+      "seconds": 0.15801228399504907
+    },
+    {
+      "case": "selected_cardinal_edges_darker_than_center",
+      "expected_accept": false,
+      "accepted": false,
+      "passed": true,
+      "detail": "actual fifteen evenly spaced item markers not uniquely observed: 0 complete popup/column candidates",
+      "seconds": 0.16571131899399916
+    },
+    {
+      "case": "actual_middle_circle_shift4px_nonuniform_gaps",
+      "expected_accept": false,
+      "accepted": false,
+      "passed": true,
+      "detail": "actual fifteen evenly spaced item markers not uniquely observed: 0 complete popup/column candidates",
+      "seconds": 0.16110375699645374
+    }
+  ]
+}

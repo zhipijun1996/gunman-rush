@@ -1,0 +1,172 @@
+{
+  "baseline": "f18f23255822eef6b1ecf7fffd3d55a214e17ffd",
+  "execution_head": "f18f23255822eef6b1ecf7fffd3d55a214e17ffd",
+  "helper_sha256": "a30654826fcfe669d189ec545c29b8f99f048140c78add8effe79abcbe936156",
+  "tests_sha256": "4f95c8ac3dd89c806b1b4afdf47783a8cc4933bc747765f67b59f11d5c567f21",
+  "provenance_sha256": "c200bd460cf5d4829337329eb789db6bfd573974ac1fd88bff61e2c9238bfe35",
+  "changed_helper_functions": [
+    "_weapon_popup_from_pixels"
+  ],
+  "added_helper_functions": [],
+  "original_test_count": 25,
+  "candidate_test_count": 30,
+  "original_tests_ast_unchanged": true,
+  "original_test_names": [
+    "ScreenshotButtonTests.test_fixture_raw_bytes_match_original_provenance",
+    "ScreenshotButtonTests.test_real_U_rare_border_complete_label_and_narrow_glyph_bounds",
+    "ScreenshotButtonTests.test_real_M_clipped_actions_stays_rejected",
+    "ScreenshotButtonTests.test_two_complete_real_buttons_are_ambiguous",
+    "ScreenshotButtonTests.test_each_missing_border_edge_rejects_rectangle",
+    "ScreenshotButtonTests.test_long_runs_without_closed_border_rejected",
+    "ExactLabelTests.test_complete_plain_and_bilingual_labels",
+    "ExactLabelTests.test_clipped_suffix_substring_and_duplicate_labels_rejected",
+    "WeaponPopupTests.test_actual_green_popup_fifteen_observed_rows_and_selected_variants",
+    "WeaponPopupTests.test_fourteen_markers_rejected_even_with_all_fifteen_text_rows",
+    "WeaponPopupTests.test_sixteen_markers_rejected_without_truncating_to_fifteen",
+    "WeaponPopupTests.test_duplicate_complete_popups_rejected",
+    "WeaponPopupTests.test_partially_visible_popup_rejected",
+    "WeaponPopupTests.test_periodic_text_glyph_columns_do_not_substitute_for_radio_markers",
+    "WeaponPopupTests.test_nonuniform_actual_marker_gaps_rejected",
+    "MobileTitleTests.test_actual_mobile_wholeframe_missing_same_frame_roi_full_title",
+    "MobileTitleTests.test_fullframe_ambiguity_rejects_before_any_roi_inspection",
+    "MobileTitleTests.test_each_missing_fill_boundary_rejected_with_all_title_glyphs_retained",
+    "MobileTitleTests.test_image_clipped_through_title_button_rejected",
+    "MobileTitleTests.test_two_complete_real_mobile_title_buttons_rejected",
+    "MobileTitleTests.test_partial_phrase_and_full_phrase_with_real_glyph_suffix_rejected",
+    "MobileActionsTests.test_actual_mobile_closed_border_and_inner_full_english_clause",
+    "MobileActionsTests.test_missing_actual_mobile_colored_edges_do_not_get_inner_fallback",
+    "MobileActionsTests.test_two_actual_mobile_actions_buttons_remain_ambiguous",
+    "MobileActionsTests.test_partial_and_suffixed_mobile_english_words_rejected"
+  ],
+  "cli_superset": [
+    {
+      "path": "tools/verify_action_budget_browser.py",
+      "sha256": "6892d970f6272915cf99b2897d140299d41b744ce76379c7d9f286d5284f48ca",
+      "equal_S_bytes": true
+    },
+    {
+      "path": "tools/verify_actor_actions_browser.py",
+      "sha256": "e36e48417783742c80e074c56b54cd19664d0853530aa77facc80612e030243a",
+      "equal_S_bytes": true
+    },
+    {
+      "path": "tools/verify_all_weapon_browser.py",
+      "sha256": "c4f069fb1c5775145dde9b1be2564bd08959ff7c773c108f7ce41e3cc27f7272",
+      "equal_S_bytes": true
+    },
+    {
+      "path": "tools/verify_ci_artifact_browser.py",
+      "sha256": "503ce5c698e21f9dfd23415fd64cb829944317096d718d4d043d6dcd82271f57",
+      "equal_S_bytes": true
+    },
+    {
+      "path": "tools/verify_demo_browser.py",
+      "sha256": "5a8024c91eff94440f99f71ae98c95c18eb43cebe3c06427829dfe58dfcf57c2",
+      "equal_S_bytes": true
+    },
+    {
+      "path": "tools/verify_floating_touch_browser.py",
+      "sha256": "c70ff8ba4cf0e1a780f942e1215501378d3b5a025a0d9ef4b22d796eb18e3eaf",
+      "equal_S_bytes": true
+    },
+    {
+      "path": "tools/verify_forest_browser.py",
+      "sha256": "856a095cd8fb9754596a6e7cc84a3b275d9a0a7cae7e5c1c9d9f1b7860baab44",
+      "equal_S_bytes": true
+    },
+    {
+      "path": "tools/verify_foundry_browser.py",
+      "sha256": "c890f2182a3eefb8dafaaf186e40bdbfd815b2f795316dbdba6a7e4e80b268ca",
+      "equal_S_bytes": true
+    },
+    {
+      "path": "tools/verify_foundry_touch_browser.py",
+      "sha256": "ae799adcd76848dc72df5fef91427f0e54ecdfe7bd3d26d8672fbef33bec1a27",
+      "equal_S_bytes": true
+    },
+    {
+      "path": "tools/verify_living_plains_browser.py",
+      "sha256": "ba374f81c74393d7b52b97af59599c4856500eb7dae724f669c50b3a60591657",
+      "equal_S_bytes": true
+    },
+    {
+      "path": "tools/verify_module_lab_browser.py",
+      "sha256": "32671d4dc7cd1b9a9c08f30e207b8ae682206e9876a6a9c4b3f2d48d70f1dfba",
+      "equal_S_bytes": true
+    },
+    {
+      "path": "tools/verify_plains_capability_browser.py",
+      "sha256": "4f697a982961e55953d548d765a71d7bed4ed1fbaeaadae5a040556180a467e6",
+      "equal_S_bytes": true
+    },
+    {
+      "path": "tools/verify_plains_cohesion_browser.py",
+      "sha256": "a0c7d24992bc004deda9f0b06375cdff013146877d32558757da6e7b818bd0c3",
+      "equal_S_bytes": true
+    },
+    {
+      "path": "tools/verify_plains_energy_browser.py",
+      "sha256": "0285a1eb642c8e020fb7e6db1024c78cc8b47551e7b014ad19fe3cd64b86f79e",
+      "equal_S_bytes": true
+    },
+    {
+      "path": "tools/verify_plains_interactive_browser.py",
+      "sha256": "884250b7e6b4db415648a627924b94bc28b246284a1745365135091fe1285a0d",
+      "equal_S_bytes": true
+    },
+    {
+      "path": "tools/verify_plains_polish_browser.py",
+      "sha256": "b3286233e16fb44f7b13eb7b2c2fc23e860082ef3b66773c27c492645d294b98",
+      "equal_S_bytes": true
+    },
+    {
+      "path": "tools/verify_plains_pressure_boss_browser.py",
+      "sha256": "c1e60473d2abc60d6a8c3825925fea34545e9db29f6c4a2f127db4a49e3ef0b5",
+      "equal_S_bytes": true
+    },
+    {
+      "path": "tools/verify_plains_region_browser.py",
+      "sha256": "4e3174a2c63f3fe93fd49c41272d7f7dc36c6e8870218f73ac89504655dd9f93",
+      "equal_S_bytes": true
+    },
+    {
+      "path": "tools/verify_plains_review_browser.py",
+      "sha256": "a7b2c4896a1ee62861b091e8c68730b42957d8960dc86ee0703d004e748f8fbf",
+      "equal_S_bytes": true
+    },
+    {
+      "path": "tools/verify_plains_v3_browser.py",
+      "sha256": "6137573c658c532bac523962f16d2c91d67c5368d0b4a85ce6fd8e9cdf63f354",
+      "equal_S_bytes": true
+    },
+    {
+      "path": "tools/verify_random_stage_browser.py",
+      "sha256": "5b88eea06559a5c6305845c8946df8fc955587581a012db0680983426887f24c",
+      "equal_S_bytes": true
+    },
+    {
+      "path": "tools/verify_studio_click_browser.py",
+      "sha256": "8b1b17a7e29d1b01b45db4dc58726dfe901dc049bf12ab1bac488edf890f4825",
+      "equal_S_bytes": true
+    },
+    {
+      "path": "tools/verify_terrain_production_browser.py",
+      "sha256": "7deba1ee91c4399a70224b11e7f7139f77ccf5aa4d3c36d181606c18506cfcbf",
+      "equal_S_bytes": true
+    },
+    {
+      "path": "tools/verify_terrain_tiles_browser.py",
+      "sha256": "e42e275e5267a24532a1c715d2f62f832c21c648900cc97b5543545220a10425",
+      "equal_S_bytes": true
+    },
+    {
+      "path": "tools/verify_weapon_feel_browser.py",
+      "sha256": "748716fc7f22ffc6461641f8cf0d7fdf88c2f3e0971699435218e537c437da58",
+      "equal_S_bytes": true
+    }
+  ],
+  "original_popup_bytes": 348979,
+  "original_popup_sha256": "32e1dc9db62ff06c9d2e0afdd85fe8fc334da59d3c16aedfd5408fc44abf6cf3",
+  "fixture_bytes_equal_original": true,
+  "seconds": 0.12766874399676453
+}

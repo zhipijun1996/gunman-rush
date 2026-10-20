@@ -1,3 +1,7 @@
+## 2026-10-20：手机弹窗实际标记续修
+
+S原三首158.797s/exit1（outer160.257），双端source/bundle稳，desktop/mobile真实菜单导航已PASS，手机weapon11前popup0候选；0mobile业务，桌面无final ledger不签通过。新纯像素定位候选30/30、41.039s，保原25方法及6CLI，仍须实见完整唯一15项。附加clock r1仅正例2.7906s/True；两负例H准备失败未进判据，不算False/PASS。r2将用真实普通jump隔离观测目标，原三消费者H序列不动。原件见[手机弹窗续修](evidence/main_pr96_repair01/mobile-popup-followup/README.md)，最终新mainCI/原3/公开完整包仍待实际结果。
+
 ## 2026-10-20：移动动作标签与真实时间观测续修
 
 Q4aec原三首118.239s/1（outer119.478）在向上钩锁原5秒等待无kick，双端source/bundle稳，mobile/后2未执行。单次observer165.775s/1未复现该钩锁失败、真实mobileTITLE已点击通过，但ACTIONS完整边界内OCRmissing；finally桌面23项22true/slowtime连续项false，final追加样本不能覆早判定。原件见[续修证据](evidence/main_pr96_repair01/mobile-actions-clock-followup/README.md)。正在修mobile完整字形识别与仅Web motion观测时钟，玩法/两秒断言不改；最终原3/mainCI/公开包仍待实际结果。

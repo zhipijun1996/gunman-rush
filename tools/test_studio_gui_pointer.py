@@ -350,5 +350,113 @@ class MobileActionsTests(unittest.TestCase):
                     self.locate(control)
 
 
+class MobilePopupTests(unittest.TestCase):
+    # Actual component rectangles observed in the raw S screenshot, not rows
+    # generated from a presumed pitch or target coordinates used by the helper.
+    BOXES = [(104, 114, 113, 123), (104, 129, 113, 139),
+             (104, 145, 113, 155), (104, 161, 113, 171),
+             (104, 177, 113, 186), (104, 192, 113, 202),
+             (104, 208, 113, 218), (104, 224, 113, 233),
+             (104, 239, 113, 249), (104, 255, 113, 265),
+             (104, 271, 113, 280), (104, 287, 113, 296),
+             (104, 302, 113, 312), (104, 318, 113, 328),
+             (104, 334, 113, 343)]
+
+    def image(self):
+        return Image.open(FIXTURES / 'popup_S_mobile.png').convert('RGB')
+
+    def parse(self, image):
+        return helper._weapon_popup_from_pixels(image, 390 / 720, 106)
+
+    def erase(self, image, box):
+        left, top, right, bottom = box
+        for y in range(top, bottom):
+            ImageDraw.Draw(image).line((left, y, right - 1, y),
+                                      fill=image.getpixel((right, y)))
+
+    def test_actual_fractional_popup_hover_selected_fifteen_real_markers(self):
+        popup = self.parse(self.image())
+        self.assertEqual(popup['marker_boxes'], self.BOXES)
+        self.assertEqual(popup['marker_x'], 108.0)
+        self.assertEqual(popup['rows'], [118.0, 133.5, 149.5, 165.5, 181.0,
+                         196.5, 212.5, 228.0, 243.5, 259.5, 275.0,
+                         291.0, 306.5, 322.5, 338.0])
+        # Exercise the original async HUD/pointer helper against exact raw
+        # screenshot I/O only; this is not a browser or accepted item-ID claim.
+        class ScreenshotPage:
+            viewport_size = {'width': 844, 'height': 390}
+
+            def __init__(self):
+                self.touchscreen = self
+
+            async def screenshot(self):
+                return (FIXTURES / 'popup_S_mobile.png').read_bytes()
+
+            async def tap(self, _x, _y):
+                pass
+
+            async def wait_for_timeout(self, _milliseconds):
+                pass
+
+        page = ScreenshotPage()
+        self.assertEqual(asyncio.run(helper.open_weapon_picker(page, True)),
+                         (popup['marker_x'], popup['rows']))
+
+    def test_missing_selected_middle_or_all_radios_never_inferred_from_text(self):
+        for name, boxes in [('selected', self.BOXES[:1]),
+                            ('middle', self.BOXES[7:8]),
+                            ('all', self.BOXES)]:
+            with self.subTest(control=name):
+                image = self.image()
+                for box in boxes:
+                    self.erase(image, box)
+                with self.assertRaisesRegex(AssertionError, '0 complete popup/column'):
+                    self.parse(image)
+
+    def test_duplicate_mobile_popup_remains_ambiguous(self):
+        image = self.image()
+        image.paste(image.crop((94, 102, 231, 355)), (340, 102))
+        with self.assertRaisesRegex(AssertionError, '2 complete popup/column'):
+            self.parse(image)
+
+    def test_clipped_panel_and_each_missing_fill_boundary_rejected(self):
+        image = self.image()
+        for name, control in [('bottom_crop', image.crop((0, 0, 844, 340))),
+                              ('right_crop', image.crop((0, 0, 225, 390)))]:
+            with self.subTest(control=name):
+                with self.assertRaises(AssertionError):
+                    self.parse(control)
+        for edge, notch in {
+                'top': (145, 105, 190, 107),
+                'bottom': (145, 350, 190, 352),
+                'left': (97, 210, 100, 250),
+                'right': (226, 210, 228, 250)}.items():
+            with self.subTest(edge=edge):
+                control = image.copy()
+                # Keep all15 marker boxes intact while opening this fill edge.
+                ImageDraw.Draw(control).rectangle(notch, fill=(1, 2, 3))
+                with self.assertRaises(AssertionError):
+                    self.parse(control)
+
+    def test_solid_and_flat_chamfered_squares_cannot_use_rounding_exception(self):
+        for chamfered in (False, True):
+            with self.subTest(chamfered=chamfered):
+                image = self.image()
+                draw = ImageDraw.Draw(image)
+                for box in self.BOXES:
+                    self.erase(image, box)
+                    left, top, right, bottom = box
+                    size = min(right - left, bottom - top)
+                    draw.rectangle((left, top, left + size - 1, top + size - 1),
+                                   fill=(100, 100, 100))
+                    if chamfered:
+                        for x, y in [(left, top), (left + size - 1, top),
+                                     (left, top + size - 1),
+                                     (left + size - 1, top + size - 1)]:
+                            draw.point((x, y), fill=image.getpixel((right, y)))
+                with self.assertRaises(AssertionError):
+                    self.parse(image)
+
+
 if __name__ == '__main__':
     unittest.main(verbosity=2)

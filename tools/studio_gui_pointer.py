@@ -353,6 +353,25 @@ def _weapon_popup_from_pixels(image,scale,start_y):
      if point in pixels:pixels.remove(point);pending.append(point)
    xs,ys=zip(*points)
    yield (min(xs),min(ys),max(xs)+1,max(ys)+1),points
+ def round_boxes(mask,origin):
+  for (l,t,r,b),part in components(mask):
+   mw,mh=r-l,b-t
+   if not(6*scale<=min(mw,mh) and max(mw,mh)<=24*scale and .85<=mw/mh<=1.18):continue
+   silhouette=np.zeros((mh,mw),dtype=bool)
+   for x,y in part:silhouette[y-t,x-l]=True
+   density=silhouette.mean()
+   if density>=.95:
+    # At a fractional scale a true9x9 checked ring occupies77/81 pixels,
+    # one pixel beyond .95. Permit only the rounded-up pixel, with an actual
+    # dark center and brighter cardinal ring edges; flat squares fail closed.
+    if len(part)>int(np.ceil(.95*mw*mh)):continue
+    cx,cy=origin[0]+l+mw//2,origin[1]+t+mh//2
+    center=int(np.sum(rgb[cy,cx]))
+    if not all(int(np.sum(rgb[origin[1]+t+y,origin[0]+l+x]))>center for x,y in ((mw//2,0),(mw//2,mh-1),(0,mh//2),(mw-1,mh//2))):continue
+   if not(.65<=density and np.mean(silhouette==silhouette[:,::-1])>=.9 and np.mean(silhouette==silhouette[::-1,:])>=.9):continue
+   if any(silhouette[y,x]for x,y in ((0,0),(mw-1,0),(0,mh-1),(mw-1,mh-1))):continue
+   if not(silhouette[mh//2,:].all() and silhouette[:,mw//2].all()):continue
+   yield (origin[0]+l,origin[1]+t,origin[0]+r,origin[1]+b)
  # A long, exact fill run proposes a panel background; neither gray color nor
  # a preselected screen column is a popup identity or an item-coordinate fallback.
  colors=set()
@@ -371,29 +390,37 @@ def _weapon_popup_from_pixels(image,scale,start_y):
    xs=slice(left+w//4,right-w//4);ys=slice(top+h//4,bottom-h//4)
    edges=[packed[top-1,xs],packed[bottom,xs],packed[ys,left-1],packed[ys,right]]
    border=Counter(int(value)for edge in edges for value in edge).most_common(1)[0][0]
-   if border==color or not all(np.mean(edge==border)>=.8 for edge in edges):continue
-   crop=packed[top:bottom,left:right];markers=[]
-   for (l,t,r,b),part in components(crop!=color):
-    mw,mh=r-l,b-t
-    if not(6*scale<=min(mw,mh) and max(mw,mh)<=24*scale and .85<=mw/mh<=1.18):continue
-    silhouette=np.zeros((mh,mw),dtype=bool)
-    for x,y in part:silhouette[y-t,x-l]=True
-    # Real selected/unselected radios share a filled, round silhouette even
-    # when their low-contrast RGB values differ from each other/background.
-    if not(.65<=silhouette.mean()<.95 and np.mean(silhouette==silhouette[:,::-1])>=.9 and np.mean(silhouette==silhouette[::-1,:])>=.9):continue
-    if any(silhouette[y,x]for x,y in ((0,0),(mw-1,0),(0,mh-1),(mw-1,mh-1))):continue
-    if not(silhouette[mh//2,:].all() and silhouette[:,mw//2].all()):continue
-    markers.append((left+l,top+t,left+r,top+b))
+   if border==color or not all(np.mean(edge==border)>=.8 for edge in edges):
+    # Fractional rasterization need not give every outline the same RGB.
+    # Still require FOUR complete visible fill boundaries, never a frame edge.
+    inside=[packed[top,xs],packed[bottom-1,xs],packed[ys,left],packed[ys,right-1]]
+    if not(all(np.mean(edge==color)>=.8 for edge in inside) and all(np.mean(edge!=color)>=.8 for edge in edges)):continue
+   crop=packed[top:bottom,left:right]
+   markers=list(round_boxes(crop!=color,(left,top)))
    columns={}
    for box in markers:
     # Exact observed component centers; no estimates for absent radio rows.
     columns.setdefault((box[0]+box[2]-1)/2,[]).append(box)
-   for x,boxes in columns.items():
-    if len(boxes)!=15:continue
-    boxes.sort(key=lambda b:b[1]);rows=[(b[1]+b[3]-1)/2 for b in boxes]
+   observed=set()
+   for _seed_x,seeds in columns.items():
+    # Only an actually seen round component proposes a marker column. A hover
+    # row has a different background; measure the real adjacent gap at EACH
+    # row and rediscover complete circles through the entire panel height.
+    # No pitch/phase is used to infer, insert or truncate a missing marker.
+    marker_left=min(box[0]for box in seeds);marker_right=max(box[2]for box in seeds)
+    if marker_right>=right:continue
+    strip=packed[top:bottom,marker_left:marker_right]
+    gap=packed[top:bottom,marker_right]
+    boxes=list(round_boxes(strip!=gap[:,None],(marker_left,top)))
+    if not set(seeds).issubset(boxes) or len(boxes)!=15:continue
+    if len({(box[0]+box[2]-1)/2 for box in boxes})!=1:continue
+    boxes.sort(key=lambda b:b[1]);signature=tuple(boxes)
+    if signature in observed:continue
+    observed.add(signature)
+    rows=[(box[1]+box[3]-1)/2 for box in boxes]
     gaps=[b-a for a,b in zip(rows,rows[1:])]
     if min(gaps)>20*scale and max(gaps)-min(gaps)<4*scale:
-     candidates.append({'marker_x':x,'rows':rows,'marker_boxes':boxes,'bounds':(left-1,top-1,right+1,bottom+1),'background_rgb':tuple((color>>shift)&255 for shift in (16,8,0))})
+     candidates.append({'marker_x':(boxes[0][0]+boxes[0][2]-1)/2,'rows':rows,'marker_boxes':boxes,'bounds':(left-1,top-1,right+1,bottom+1),'background_rgb':tuple((color>>shift)&255 for shift in (16,8,0))})
  assert len(candidates)==1,f'actual fifteen evenly spaced item markers not uniquely observed: {len(candidates)} complete popup/column candidates'
  return candidates[0]
 
