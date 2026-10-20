@@ -9,3 +9,5 @@ U干净HEAD本地原build.py web真实exit0，build442163f49217、PCK141171348B�
 新增8个纯测试使用两张原M/U完整截图及明确的控制数据：新算法8/8通过13.159s；旧helper同8项真实7过1败16.578s，原U完整标签仍拒绝。裁字、重复真实按钮、缺任一四边/L形及近似/重复文字继续拒绝。原9个其它helper函数AST、原6相关CLI字节不变。性能时间仅该样本，非普遍提速结论。详见strict-border-parser-pure-proof.zip及tests/fixtures/studio_gui_pointer/provenance.json。
 
 本检查点不签新helper真实Web三消费者、准确新CI/main/公开完整PCK或设备。代码与像素独审各自保限定范围；全区森林美感、局部HUD/裁切、真人FUN/设备/用户仍待。
+
+V=bcec19d4e9b6dedc5095af2315adfee87929dd1d闭合了5个候选文件，但导出会把纯Python PNG fixtures自动生成为两个未追踪.import。原sourcefreeze正确拒绝，未创建server/Chromium、0浏览器消费者执行，不把此当Web动作失败或通过。原sidecar及status收据保在fixture-import-guard-refusal。新.gdignore只排除此纯Python截图目录的Godot导入；fixtures原字节和Python测试保持，游戏本已exclude tests/*；不隐藏Godot测试runner或放宽sourceguard。需新干净版本重新导出/原三浏览器。

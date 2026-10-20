@@ -1,3 +1,9 @@
+## 2026-10-20：纯Python截图与游戏导入隔离
+
+V严格边框候选及独审已提交，但本地导出产生2个纯测试PNG.import，sourcefreeze正确拒绝且0浏览器执行。原sidecars/status已保留；仅给该Python fixture目录添加.gdignore，截图原字节与测试保持，不改游戏导入/检查阈值。详见[续修](evidence/main_pr96_repair01/menu-width-followup/README.md)。新干净导出和原三浏览器待验；M线上/CI历史不改签。
+
+---
+
 ## 2026-10-20：菜单完整文字已显现，稀有边框识别续修
 
 U=`e4b2132dd30bf8ca176a28eb79d1b32a65bb59e3`本地build442163f49217已实际看到完整“ACTIONS”，但原三浏览器首项仍120.353s/exit1、后两未执行：真实高亮边框频次第84，被前16色候选漏掉。续修按实际横/纵精确色直线提案完整框，保原四边、完整文字、唯一匹配、点击/事件、5观察和300s预算；新增8纯测试通过，旧helper同8项7过1败。详见[续修原件](evidence/main_pr96_repair01/menu-width-followup/README.md)。新源码完整三浏览器及新main/准确公开包仍待实际结果，M CI全绿只属M。下面原检查点来源不变。
