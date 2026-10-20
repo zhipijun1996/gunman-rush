@@ -231,9 +231,10 @@
     },
     "independent_review": {
       "status": "passed",
-      "reason": "Scoped actual M technical CI audit only; does not sign new width candidate, browser/public/fullforest/device or user acceptance.",
+      "reason": "Scoped exact candidate code/FS/sparse-checkout and movie-thread static review against N only; no finalmainCI/public/native/movie/fullforest/device/player acceptance.",
       "evidence": [
-        "M-actual-technical-CI-review"
+        "CI-efficiency-code-review-N",
+        "CI-efficiency-movie-static-review-N"
       ]
     },
     "device": {
@@ -686,6 +687,44 @@
       "command": "python3 tools/harness.py --profile docs (actual N CI)",
       "exit_code": 1,
       "environment": "GitHub Actions Ubuntu Python3.12, N attempt1; original budgets unchanged."
+    },
+    {
+      "id": "CI-efficiency-code-review-N",
+      "path": "docs/evidence/main_pr96_repair01/ci-efficiency-followup/ci-efficiency-independent-review.json",
+      "sha256": "314eb2f24177af84b798aa4dcccd5da91918ce3915885eee327ac642791debd2",
+      "kind": "review",
+      "producer": "/root/ci_efficiency_review",
+      "source_commit": "14472bd9888d93161790d7c245d0cf5f9b77d48a",
+      "content_version": "forest-fruit-routes-v14",
+      "method": "Read-only independent review of candidate bytes relative to exact N baseline; actual dirty content/proof identities retained inside original report.",
+      "observed": "Scoped review of exact dirty candidate source hashes against N: full fresh SHA semantics, original107methods/60/180/8min preserved,5realFScontrols and real sparse remote script retrieval. Not newmainCI/public/forest/device/player acceptance.",
+      "reviewer": "/root/ci_efficiency_review",
+      "implementers": [
+        "/root",
+        "/root/snapshot_perf_repair"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer did not edit tracked source/tests/workflow/docs or author implementation; wrote separate ignored audit/proof outputs.",
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "CI-efficiency-movie-static-review-N",
+      "path": "docs/evidence/main_pr96_repair01/ci-efficiency-followup/ci-efficiency-independent-movie-thread-static-addendum.json",
+      "sha256": "69b1d4ef027a0c8d1fcb265b85d6dd95a7a3e1e0aec88a9b3268c52cc87c23af",
+      "kind": "review",
+      "producer": "/root/ci_efficiency_review",
+      "source_commit": "14472bd9888d93161790d7c245d0cf5f9b77d48a",
+      "content_version": "forest-fruit-routes-v14",
+      "method": "Read-only independent review of candidate bytes relative to exact N baseline; actual dirty content/proof identities retained inside original report.",
+      "observed": "Static movie-only renderer thread environment change; all other native runner bytes equalN. Original native240/import90/headless80/60fps/cases/driver/assertions retained. Actual new movies not yet run.",
+      "reviewer": "/root/ci_efficiency_review",
+      "implementers": [
+        "/root",
+        "/root/snapshot_perf_repair"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer did not edit tracked source/tests/workflow/docs or author implementation; wrote separate ignored audit/proof outputs.",
+      "verdict": "ACCEPT"
     }
   ],
   "consumer_coverage": null,
