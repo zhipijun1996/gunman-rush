@@ -1,3 +1,11 @@
+## 2026-10-20：PR96整合与CI修复完成精确P技术交付
+
+精确运行源码P `66e8b912854d6d4cccadb45b9c348a618689f5a1`，PR96、99、100均已普通合入main。Godot39452164092与Documentation39452164153均完整成功；120核心/艺术、41Web、26Docs全部fresh，当前森林原80/80在原600秒内通过（442.548s），Windows、实际GPU/audio、Pages及公开验证通过。实际唯一CI artifact ID 12279384244、ZIP完整SHA `ac7cea379890973959abbdb8dad1bbb4fc2c42d604a3de4642aee07d4008afa6`；原三浏览器25/40/8全部通过。公网build `3eaeaccb67dd`的完整PCK 141171460B/SHA `3eaeaccb67dd8810b5c84a53dd9b1c8b4533903426e88d8a4206968290702d74` 与该实际CI包一致；原20项/8上下文GUI及选择器CJK三图已独审。
+
+同源P双图正常60fps连续影片24/29段、32张直接AVI原帧限定独审通过。仅抽查起跳/长链、落地与可见宿主，不代表整图艺术、完整音画体验、HUD遮挡修复、真人设备或FUN最终认可。旧八房间专属30文件退休、55路径净减149325源码字节；正式双图、quick3、Lab/Foundry和旧存档保留。推荐/可选技巧/恢复点职责区分，两个已消融证明冗余的rest删除，恢复点保留。
+
+分支实查时共106个远端head，88个被P包含，18个旧美术/UI候选或部署快照仍未盲合/批删。历史M/N失败保持原来源；P完整结果不改签为后续文档提交的运行验证。后续最终R只更新普通Git证据和文档，公开运行仍为P。 [完整原件](evidence/main_pr96_repair01/main-P66e8/README.md)。
+
 ## 2026-10-20：CI效率修复完整本地预验通过
 
 冻结K=4306b753d9ab66e39dc2298974da83f10f93f938，原harness --profile docs --release完整26项全fresh通过，208.030秒，源K两端clean；原112生产测试与31契约在原180/60预算通过。K第二图原high_return电影完整29段，240原native预算下通过；outer153.971秒、原row143.517秒（含录制/ffprobe，不独称native纯耗时），实际LP4、2772物理帧、AVI2788帧/60fps/mjpeg/167943348B，完整SHA409722dcd35929b07a6e155556b9a7075fa1e45f44cfde8180c5c995e6c826d5。原N单线程240timeout不改签。

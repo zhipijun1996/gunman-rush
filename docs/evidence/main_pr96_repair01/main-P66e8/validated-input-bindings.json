@@ -1,0 +1,98 @@
+{
+  "ci": {
+    "run_api": "build/forest_revision04/ci-main-P-66e8b912/Godot-run-39452164092.final.json",
+    "docs_run_api": "build/forest_revision04/ci-main-P-66e8b912/docs-run-39452164153.final.json",
+    "jobs_api": "build/forest_revision04/ci-main-P-66e8b912/whole-Godot-jobs.final.json",
+    "artifact_api": "build/forest_revision04/ci-main-P-66e8b912/actual-web-artifact-API.json",
+    "artifacts_api": "build/forest_revision04/ci-main-P-66e8b912/whole-Godot-artifacts.final.json",
+    "merged_report": "build/forest_revision04/ci-main-P-66e8b912/artifact-harness-gameplay-merged/20261020T165419.867402Z/report.json",
+    "serial_report": "build/forest_revision04/ci-main-P-66e8b912/artifact-harness-phase-proof-serial/report.json",
+    "parallel_report": "build/forest_revision04/ci-main-P-66e8b912/artifact-harness-phase-proof-parallel/report.json",
+    "web_report": "build/forest_revision04/ci-main-P-66e8b912/artifact-harness-web/20261020T160341.416812Z/report.json",
+    "docs_report": "build/forest_revision04/ci-main-P-66e8b912/docs-selected/20261020T155341.995086Z/report.json",
+    "forest_receipt": "build/forest_revision04/ci-main-P-66e8b912/artifact-harness-gameplay-parallel/verification/harness/20261020T160415.007105Z/artifacts/forest-depth-region/build/forest_depth/region/harness-matrix/harness-94573db1805c4629b8b59442b7ae5433/receipt.json",
+    "archive_root": "build/forest_revision04/ci-main-P-66e8b912"
+  },
+  "browser": "build/forest_revision04/main-CI-browser-P66e8",
+  "public": "build/forest_revision04/main-public-P66e8-official",
+  "movies": "build/forest_revision04/main-movies-P66e8",
+  "derivatives": "build/forest_revision04/main-movie-derivatives-P66e8",
+  "branches": "build/forest_revision04/main-P-merge/branch-audit-final-P66e8.json",
+  "merge_source": "build/forest_revision04/main-P-merge",
+  "raw_avi_dedup_audit": "build/forest_revision04/raw-AVI-exact-byte-dedup-P",
+  "prepared_sources": [
+    "build/forest_revision04/final-P-evidence-prepared/archive_and_closeout.py",
+    "build/forest_revision04/main-delivery-prepared/run_main_ci_browser.py",
+    "build/forest_revision04/main-delivery-prepared/run_main_public.py",
+    "build/forest_revision04/main-delivery-prepared/common.py",
+    "build/forest_revision04/main-delivery-efficiency-prepared/run_main_movies.py",
+    "build/forest_revision04/main-delivery-efficiency-prepared/derive_main_movies.py",
+    "build/forest_revision04/main-delivery-efficiency-prepared/common.py",
+    "build/forest_revision04/selector-popup-M-prepared/capture_selector_popup.py",
+    "build/forest_revision04/official-CI-public-prepared/run_main_public.py",
+    "build/forest_revision04/official-CI-public-prepared/verify_official_public_bytes.py",
+    "build/forest_revision04/official-CI-public-prepared/common.py",
+    "build/forest_revision04/main-delivery-prepared/audit_main_branches.py"
+  ],
+  "reviews": {
+    "ci": {
+      "path": "build/forest_revision04/P-CI-independent/review.json",
+      "sha256": "35de5b43f8f395e69faa9fc2efa2aeb652804acf2e97bb20a7dc93be24a747f2",
+      "source_pointer": "/source_commit",
+      "verdict_pointer": "/verdict",
+      "reviewer_pointer": "/reviewer",
+      "scope": "精确P官方wholeGodot+Documentation完整成功；原120/41/26全fresh，原current80在600秒内，GPU7205/translation15/audio4、Windows/deploy/原公网前缀核验限定技术范围通过。未签后续原三浏览器、完整publicPCK独立SHA、全区美术/设备/FUN。",
+      "assertions": [
+        {
+          "pointer": "/source_commit",
+          "equals": "66e8b912854d6d4cccadb45b9c348a618689f5a1"
+        }
+      ],
+      "claims": {
+        "gpu7205": "/verified_claims/gpu7205",
+        "translation15": "/verified_claims/translation15",
+        "audio4": "/verified_claims/audio4",
+        "fresh120_web41_docs26": "/verified_claims/fresh120_web41_docs26",
+        "forest80": "/verified_claims/forest80",
+        "windows_deploy": "/verified_claims/windows_deploy"
+      }
+    },
+    "movies": {
+      "path": "build/forest_revision04/P-movie-independent/review.json",
+      "sha256": "668817d7984592a2fca40248f7b35284bf495e45e66b05eabdc734a1f28302e7",
+      "source_pointer": "/source_commit",
+      "verdict_pointer": "/verdict",
+      "reviewer_pointer": "/reviewer",
+      "scope": "实际32张P原尺寸PNG逐张查看；完整AVI/MP4/PNG哈希与AVI选择解码RGB一致，有限起跳/长攀升/落地及局部枝果宿主ACCEPT_SCOPED。未签完整播放、音频、全森林美术/HUD、设备或FUN。",
+      "assertions": [
+        {
+          "pointer": "/source_commit",
+          "equals": "66e8b912854d6d4cccadb45b9c348a618689f5a1"
+        }
+      ],
+      "viewed_pngs_pointer": "/viewed_pngs"
+    },
+    "public": {
+      "path": "build/forest_revision04/P-public-independent/review.json",
+      "sha256": "6d092c2615fa60a89c6f3adaedba3d6d5c4ad04897757eb0b6bee7d6fe3703ce",
+      "source_pointer": "/source_commit",
+      "verdict_pointer": "/verdict",
+      "reviewer_pointer": "/reviewer",
+      "scope": "实际CI ZIP原25/40/8、正式公网完整PCK+6许可/来源文件、原20/8GUI、selector三原图功能与中文完整字形限定通过。保留selectorconsole一条generic404未知URL/原因、旧style consumer整体FAIL及Q旧H原因未知；不签全区美术/HUD/完整音画/设备/FUN或新Bible成果。",
+      "assertions": [
+        {
+          "pointer": "/source_commit",
+          "equals": "66e8b912854d6d4cccadb45b9c348a618689f5a1"
+        }
+      ],
+      "claims": {
+        "original3_25_40_8": "/verified_claims/original3_25_40_8",
+        "public_full_sha": "/verified_claims/public_full_sha",
+        "forest20_context8": "/verified_claims/forest20_context8",
+        "selector_cjk3": "/verified_claims/selector_cjk3"
+      }
+    }
+  },
+  "public_contract_failure": "build/forest_revision04/main-public-P66e8",
+  "public_contract_diagnosis": "build/forest_revision04/public-contract-diagnosis-P"
+}

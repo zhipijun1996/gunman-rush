@@ -1,0 +1,505 @@
+{
+  "reviewer": "/root/p_movie_review",
+  "source_commit": "66e8b912854d6d4cccadb45b9c348a618689f5a1",
+  "verdict": "ACCEPT_SCOPED",
+  "verified_claims": {
+    "original3_25_40_8": true,
+    "public_full_sha": true,
+    "forest20_context8": true,
+    "selector_cjk3": true
+  },
+  "scope": "Exact P actual API-selected CI ZIP/original73 plus official-CI six-sidecar public-byte contract and unchanged original20/8 GUI and actual CJK selector3. Pre-redesign technical baseline only; no new Bible art/gameplay acceptance.",
+  "independence": "Read-only reviewer; no tracked changes, tests, game/browser executions, downloads or unpack. Full payload reads only after heavy CLIs ended. Original movie and static admission artifacts untouched.",
+  "evidence": [
+    {
+      "path": "build/forest_revision04/main-CI-browser-P66e8/outer.json",
+      "sha256": "7f9e2ae7ccb4b0cc1a81a645a05039d766a3ad96d8966ad0ecc1424c15690064",
+      "bytes": 807390
+    },
+    {
+      "path": "build/forest_revision04/main-CI-browser-P66e8/original/receipt.json",
+      "sha256": "d1295ca842d82018e4e32f3c3e841e06bf1913aec7356f485b78d458f62c0a53",
+      "bytes": 111870
+    },
+    {
+      "path": "build/forest_revision04/main-public-P66e8-official/outer.json",
+      "sha256": "49e952c20d215ccde4aa23c2905b67a5c4da3f230edb4339b08e30af40a2678a",
+      "bytes": 2057576
+    },
+    {
+      "path": "build/forest_revision04/main-public-P66e8-official/public-bytes.json",
+      "sha256": "36ba4b1bef8beb8b2fa1ad3bbf82dcf3e826ea33069199356caab2ddba542460",
+      "bytes": 894775
+    },
+    {
+      "path": "build/forest_revision04/main-public-P66e8-official/forest-GUI/report.json",
+      "sha256": "275f5cc47c8a477c541fea0fd24e0aaa2b1cdf2182ce615b53b9db2cd20b1d7e",
+      "bytes": 12056
+    },
+    {
+      "path": "build/forest_revision04/main-public-P66e8-official/selector/report.json",
+      "sha256": "d77a51b035b4c7fb1377c9e2ee5533e032d0c5adb55a6bf5763f02ad981aedf2",
+      "bytes": 800915
+    },
+    {
+      "path": "build/forest_revision04/main-public-P66e8/outer.json",
+      "sha256": "63e9c1fdfd160e48fc816fd13cfec8da2faf32e6547c08b4a750b371ce978c2c",
+      "bytes": 405081
+    },
+    {
+      "path": "build/forest_revision04/main-public-P66e8/full-public-bytes.log",
+      "sha256": "90d4d652695797961b46d69227706a890e1c1f3b1571c9942ff8298972b5bc06",
+      "bytes": 1409
+    },
+    {
+      "path": "build/forest_revision04/ci-main-P-66e8b912/final-handoff.json",
+      "sha256": "52a19ad71b2a20503982581dda05bbc3da2576538d65cb834b9d18e986e6c766",
+      "bytes": 4151
+    },
+    {
+      "path": "build/forest_revision04/ci-main-P-66e8b912/actual-web-artifact-API.json",
+      "sha256": "14afe64d9567da263a226451ae0a261e98b6ee1f459d68c9c0b5bd1ddee022d4",
+      "bytes": 786
+    },
+    {
+      "path": "build/forest_revision04/ci-main-P-66e8b912/Godot-run-39452164092.final.json",
+      "sha256": "29d3400e4f3110c4d5b46f8fc00162d07937e89ed79d6897e9508e56e22d4c78",
+      "bytes": 14388
+    },
+    {
+      "path": "build/forest_revision04/P-public-independent/static-admission.json",
+      "sha256": "2f37162a9da8423be8e810739734f8a838fbdeed1794adaad0beb18f8f912839",
+      "bytes": 1943
+    }
+  ],
+  "original_three": [
+    {
+      "script": "/workspace/gunman-rush/tools/verify_action_budget_browser.py",
+      "script_sha256": "6892d970f6272915cf99b2897d140299d41b744ce76379c7d9f286d5284f48ca",
+      "checks": 25,
+      "all_checks_true": true,
+      "exit_code": 0,
+      "seconds": 169.223,
+      "cap_seconds": 300,
+      "raw_log": {
+        "path": "/workspace/gunman-rush/build/forest_revision04/main-CI-browser-P66e8/original/verify_action_budget_browser.log",
+        "sha256": "622ef9f934305dfcedf7c36695a2d60cc3b2e699297c432e5979dbf58ad9228c",
+        "bytes": 1267
+      },
+      "raw_report": {
+        "url": "http://127.0.0.1:40907/",
+        "checks": {
+          "mouse_instant_blade_once": true,
+          "mouse_instant_blade_distance": true,
+          "mouse_blink_clears_all_speed_and_pauses": true,
+          "mouse_bomb_release_tick": true,
+          "mouse_two_blade_flashes": true,
+          "mouse_second_flash_has_delay": true,
+          "mouse_second_stage_half_budget": true,
+          "mouse_second_flash_reaim": true,
+          "mouse_boomerang_first_is_shared_blink": true,
+          "mouse_slow_outbound": true,
+          "mouse_instant_recall_same_tick": true,
+          "mouse_accelerating_laser_stays_on_muzzle": true,
+          "mouse_air_laser_accumulates": true,
+          "mouse_laser_starts_at_zero": true,
+          "mouse_laser_auto_closes_within_limit": true,
+          "mouse_held_laser_no_auto_repeat": true,
+          "mouse_laser_release": true,
+          "mouse_hook_fixed_45": true,
+          "mouse_hook_near_vertical_no_side_kick": true,
+          "mouse_jump_does_not_reset_practice": true,
+          "mouse_air_controlled_blade_slowtime": true,
+          "mouse_controlled_blade_continues_slowtime": true,
+          "mouse_controlled_blade_turns_up": true,
+          "touch_skill_trigger_retains_main_rod_aim": true,
+          "touch_skill_aim_release_has_no_primary": true
+        },
+        "failed": [],
+        "browser_errors": [],
+        "scope": "actual desktop canvas + CDP multitouch; touch skill insufficient-resource request uses shared rod; accepted skill boundary separately native; not physical devices"
+      }
+    },
+    {
+      "script": "/workspace/gunman-rush/tools/verify_studio_click_browser.py",
+      "script_sha256": "8b1b17a7e29d1b01b45db4dc58726dfe901dc049bf12ab1bac488edf890f4825",
+      "checks": 40,
+      "all_checks_true": true,
+      "exit_code": 0,
+      "seconds": 254.56,
+      "cap_seconds": 300,
+      "raw_log": {
+        "path": "/workspace/gunman-rush/build/forest_revision04/main-CI-browser-P66e8/original/verify_studio_click_browser.log",
+        "sha256": "05de5a9d719c3032af46254fbcbbdb959aec233b4c6af4d57697351733ecfae4",
+        "bytes": 2050
+      },
+      "raw_report": {
+        "checks": {
+          "desktop_click_shadow_shuriken": true,
+          "desktop_click_recoil_bomb": true,
+          "desktop_click_triple_machine_gun": true,
+          "desktop_click_sustained_laser": true,
+          "desktop_click_fan_shuriken": true,
+          "desktop_click_remote_boomerang": true,
+          "desktop_click_magnetic_mine": true,
+          "desktop_click_collapse_singularity": true,
+          "desktop_click_machine_storm": true,
+          "desktop_click_laser_cannon": true,
+          "desktop_click_blade_bloom": true,
+          "desktop_click_moon_boomerang": true,
+          "desktop_click_magnetic_storm": true,
+          "desktop_click_star_collapse": true,
+          "desktop_click_pulse_gun": true,
+          "desktop_default_enemies_move": true,
+          "desktop_static_mode_accepted": true,
+          "desktop_static_enemies_stop": true,
+          "desktop_patrol_restored": true,
+          "desktop_cancel_no_equip_or_shot": true,
+          "touch_click_shadow_shuriken": true,
+          "touch_click_recoil_bomb": true,
+          "touch_click_triple_machine_gun": true,
+          "touch_click_sustained_laser": true,
+          "touch_click_fan_shuriken": true,
+          "touch_click_remote_boomerang": true,
+          "touch_click_magnetic_mine": true,
+          "touch_click_collapse_singularity": true,
+          "touch_click_machine_storm": true,
+          "touch_click_laser_cannon": true,
+          "touch_click_blade_bloom": true,
+          "touch_click_moon_boomerang": true,
+          "touch_click_magnetic_storm": true,
+          "touch_click_star_collapse": true,
+          "touch_click_pulse_gun": true,
+          "touch_default_enemies_move": true,
+          "touch_static_mode_accepted": true,
+          "touch_static_enemies_stop": true,
+          "touch_patrol_restored": true,
+          "touch_cancel_no_equip_or_shot": true
+        },
+        "errors": [],
+        "failed": 0,
+        "scope": "all15 items each by real mouse/touch click, no keyboard item selection; actual read-only enemy position samples and native Motor tests; no engine state injection or physical-device acceptance"
+      }
+    },
+    {
+      "script": "/workspace/gunman-rush/tools/verify_all_weapon_browser.py",
+      "script_sha256": "c4f069fb1c5775145dde9b1be2564bd08959ff7c773c108f7ce41e3cc27f7272",
+      "checks": 8,
+      "all_checks_true": true,
+      "exit_code": 0,
+      "seconds": 146.897,
+      "cap_seconds": 300,
+      "raw_log": {
+        "path": "/workspace/gunman-rush/build/forest_revision04/main-CI-browser-P66e8/original/verify_all_weapon_browser.log",
+        "sha256": "8ccad57287730656cd3d20071ae3559bd24d932bc46aa4088936ece3e39279d0",
+        "bytes": 487
+      },
+      "raw_report": {
+        "checks": {
+          "desktop_laser_hold_release": true,
+          "desktop_blade_recall_catch": true,
+          "desktop_mine_attach_trigger": true,
+          "desktop_singularity_cycle": true,
+          "insufficient_skill_does_not_start": true,
+          "touch_360_upward_hook": true,
+          "touch_lv3_selected": true,
+          "touch_insufficient_skill_does_not_shoot": true
+        },
+        "errors": [],
+        "failed": 0,
+        "scope": "actual GUI/keyboard/CDP touchscreen; accepted-event logs are read-only; no engine-state injection, physical device or subjective acceptance"
+      }
+    }
+  ],
+  "source_bindings_original_six": [
+    {
+      "path": "tools/verify_ci_artifact_browser.py",
+      "sha256": "503ce5c698e21f9dfd23415fd64cb829944317096d718d4d043d6dcd82271f57",
+      "equals_P_blob": true
+    },
+    {
+      "path": "tools/verify_action_budget_browser.py",
+      "sha256": "6892d970f6272915cf99b2897d140299d41b744ce76379c7d9f286d5284f48ca",
+      "equals_P_blob": true
+    },
+    {
+      "path": "tools/verify_studio_click_browser.py",
+      "sha256": "8b1b17a7e29d1b01b45db4dc58726dfe901dc049bf12ab1bac488edf890f4825",
+      "equals_P_blob": true
+    },
+    {
+      "path": "tools/verify_all_weapon_browser.py",
+      "sha256": "c4f069fb1c5775145dde9b1be2564bd08959ff7c773c108f7ce41e3cc27f7272",
+      "equals_P_blob": true
+    },
+    {
+      "path": "tools/underworld_delivery.py",
+      "sha256": "748773e87a8616eebeb04adfdc12ffb06fa1f170c64d62993f00786626541b04",
+      "equals_P_blob": true
+    },
+    {
+      "path": "tools/verify_forest_browser.py",
+      "sha256": "856a095cd8fb9754596a6e7cc84a3b275d9a0a7cae7e5c1c9d9f1b7860baab44",
+      "equals_P_blob": true
+    }
+  ],
+  "payload_full_SHA_rereads": [
+    {
+      "path": "/workspace/gunman-rush/build/forest_revision04/ci-main-P-66e8b912/gunman-rush-web-playtest.zip",
+      "sha256": "ac7cea379890973959abbdb8dad1bbb4fc2c42d604a3de4642aee07d4008afa6",
+      "bytes": 297581811
+    },
+    {
+      "path": "/workspace/gunman-rush/build/forest_revision04/main-CI-browser-P66e8/original/web/index.3eaeaccb67dd.pck",
+      "sha256": "3eaeaccb67dd8810b5c84a53dd9b1c8b4533903426e88d8a4206968290702d74",
+      "bytes": 141171460
+    },
+    {
+      "path": "build/forest_revision04/main-public-P66e8-official/public_bytes/index.3eaeaccb67dd.pck",
+      "sha256": "3eaeaccb67dd8810b5c84a53dd9b1c8b4533903426e88d8a4206968290702d74",
+      "bytes": 141171460
+    }
+  ],
+  "official_six_sidecars_independently_verified": [
+    {
+      "downloaded": {
+        "path": "build/forest_revision04/main-public-P66e8-official/public_bytes/NotoSansSC-OFL.txt",
+        "sha256": "babcfe66c8a098b2fa279bc724a3a342f8124f77ce18941fbcc1bbb39823cded",
+        "bytes": 4387
+      },
+      "actual_CI": {
+        "path": "/workspace/gunman-rush/build/forest_revision04/main-CI-browser-P66e8/original/web/NotoSansSC-OFL.txt",
+        "sha256": "babcfe66c8a098b2fa279bc724a3a342f8124f77ce18941fbcc1bbb39823cded",
+        "bytes": 4387
+      },
+      "P_source": "assets/fonts/OFL.txt",
+      "source_blob_sha256": "babcfe66c8a098b2fa279bc724a3a342f8124f77ce18941fbcc1bbb39823cded"
+    },
+    {
+      "downloaded": {
+        "path": "build/forest_revision04/main-public-P66e8-official/public_bytes/Kenney-audio-sources.json",
+        "sha256": "99be61642a6c29056e089c8ba58517461b0a53cbecca3feeed88f6795b63f307",
+        "bytes": 6201
+      },
+      "actual_CI": {
+        "path": "/workspace/gunman-rush/build/forest_revision04/main-CI-browser-P66e8/original/web/Kenney-audio-sources.json",
+        "sha256": "99be61642a6c29056e089c8ba58517461b0a53cbecca3feeed88f6795b63f307",
+        "bytes": 6201
+      },
+      "P_source": "assets/audio/kenney/sources.json",
+      "source_blob_sha256": "99be61642a6c29056e089c8ba58517461b0a53cbecca3feeed88f6795b63f307"
+    },
+    {
+      "downloaded": {
+        "path": "build/forest_revision04/main-public-P66e8-official/public_bytes/Kenney-digital-audio-LICENSE.txt",
+        "sha256": "654d24e000d1c3b2a1d2264151f49e273e8a26d24e26e9bffc2aeb48cea93815",
+        "bytes": 482
+      },
+      "actual_CI": {
+        "path": "/workspace/gunman-rush/build/forest_revision04/main-CI-browser-P66e8/original/web/Kenney-digital-audio-LICENSE.txt",
+        "sha256": "654d24e000d1c3b2a1d2264151f49e273e8a26d24e26e9bffc2aeb48cea93815",
+        "bytes": 482
+      },
+      "P_source": "assets/audio/kenney/digital-audio-LICENSE.txt",
+      "source_blob_sha256": "654d24e000d1c3b2a1d2264151f49e273e8a26d24e26e9bffc2aeb48cea93815"
+    },
+    {
+      "downloaded": {
+        "path": "build/forest_revision04/main-public-P66e8-official/public_bytes/Kenney-impact-sounds-LICENSE.txt",
+        "sha256": "b49aa9c56b04528b95913de13e506a0f7c5e807b9925db9bfef86af1f91120db",
+        "bytes": 608
+      },
+      "actual_CI": {
+        "path": "/workspace/gunman-rush/build/forest_revision04/main-CI-browser-P66e8/original/web/Kenney-impact-sounds-LICENSE.txt",
+        "sha256": "b49aa9c56b04528b95913de13e506a0f7c5e807b9925db9bfef86af1f91120db",
+        "bytes": 608
+      },
+      "P_source": "assets/audio/kenney/impact-sounds-LICENSE.txt",
+      "source_blob_sha256": "b49aa9c56b04528b95913de13e506a0f7c5e807b9925db9bfef86af1f91120db"
+    },
+    {
+      "downloaded": {
+        "path": "build/forest_revision04/main-public-P66e8-official/public_bytes/Kenney-interface-sounds-LICENSE.txt",
+        "sha256": "f7966c773bbed0eca6a9c75081c44a178b38eae112724dbb5fdfbd4192d118a9",
+        "bytes": 574
+      },
+      "actual_CI": {
+        "path": "/workspace/gunman-rush/build/forest_revision04/main-CI-browser-P66e8/original/web/Kenney-interface-sounds-LICENSE.txt",
+        "sha256": "f7966c773bbed0eca6a9c75081c44a178b38eae112724dbb5fdfbd4192d118a9",
+        "bytes": 574
+      },
+      "P_source": "assets/audio/kenney/interface-sounds-LICENSE.txt",
+      "source_blob_sha256": "f7966c773bbed0eca6a9c75081c44a178b38eae112724dbb5fdfbd4192d118a9"
+    },
+    {
+      "downloaded": {
+        "path": "build/forest_revision04/main-public-P66e8-official/public_bytes/Kenney-rpg-audio-LICENSE.txt",
+        "sha256": "5735dfd72cb64cbbceda4ebc00c380c41ca680edb82ff153aa7c9ab97614c539",
+        "bytes": 478
+      },
+      "actual_CI": {
+        "path": "/workspace/gunman-rush/build/forest_revision04/main-CI-browser-P66e8/original/web/Kenney-rpg-audio-LICENSE.txt",
+        "sha256": "5735dfd72cb64cbbceda4ebc00c380c41ca680edb82ff153aa7c9ab97614c539",
+        "bytes": 478
+      },
+      "P_source": "assets/audio/kenney/rpg-audio-LICENSE.txt",
+      "source_blob_sha256": "5735dfd72cb64cbbceda4ebc00c380c41ca680edb82ff153aa7c9ab97614c539"
+    }
+  ],
+  "official_public_contract": {
+    "name": "official-tools-build-web-six-sidecars-v1",
+    "helper_sha256": "a73024b8ff0dc49ace98174b8d786e5c3847495809a74e06ee42d6ca193c23f8",
+    "build_report_artifacts": 359,
+    "public_download_command_count": 9,
+    "original_request_limits": {
+      "curl_max_time_seconds": 240,
+      "subprocess_timeout_seconds": 260,
+      "combined_timeout": null
+    },
+    "style_contract": {
+      "present_in_actual_CI": false,
+      "reason": "Official tools/build.py exports the six checked sidecars; style_exploration_delivery.copy_licenses belongs to isolated style export."
+    },
+    "metadata_and_build_report_bytes_equal_CI": true,
+    "index_png": "Extra ZIP icon only bound to original complete CI inventory; not a promised build-report sidecar.",
+    "old_failure": "Original unchanged underworld style-index consumer failed and remains failed. New official tools/build.py contract success does not retrospectively pass it."
+  },
+  "api_binding": {
+    "run_id": 39452164092,
+    "run_attempt": 1,
+    "whole_run_conclusion": "success",
+    "unique_actual_Web_artifact_count": 1,
+    "artifact_id": 12279384244,
+    "full_API_digest_matches_ZIP": true
+  },
+  "public_commands": [
+    {
+      "name": "full-public-bytes",
+      "exit_code": 0,
+      "seconds": 9.623463635994995,
+      "log_sha256": "16a86f86adbbae59083b567b0cd4f47c65f6a7432028bcb630374a3636efd717"
+    },
+    {
+      "name": "original-forest-GUI",
+      "exit_code": 0,
+      "seconds": 451.53331792599784,
+      "log_sha256": "388c00643301efa0b11aadc3fabe5e48b0f6ef13b84cae661f66e4c3a92600f2"
+    },
+    {
+      "name": "finite-selector-supplement",
+      "exit_code": 0,
+      "seconds": 56.159636074000446,
+      "log_sha256": "879391357220c8207e40455e3ada09e2942124ed03949520a7fe56b6909269f6"
+    }
+  ],
+  "forest_GUI": {
+    "checks": 20,
+    "contexts": 8,
+    "case_names": [
+      "touch-plains-map1",
+      "touch-plains-map2",
+      "touch-thorn_forest-map1",
+      "touch-thorn_forest-map2",
+      "mouse-plains-map1",
+      "mouse-plains-map2",
+      "mouse-thorn_forest-map1",
+      "mouse-thorn_forest-map2"
+    ],
+    "identical_full_identity_all8": true,
+    "classified_engine_errors": [],
+    "version": "thorn-forest-region-v2",
+    "layout": "forest-fruit-routes-v14",
+    "scope": "Actual mouse/CDP-touch debug entries, pause/resume and forest assembled version/layout/Boss resources/H-only; no natural campaign or Boss battle proof."
+  },
+  "viewed_pngs": [
+    "build/forest_revision04/main-public-P66e8-official/selector/mouse-thorn_forest-map1-selector-closed.png",
+    "build/forest_revision04/main-public-P66e8-official/selector/mouse-thorn_forest-map1-selector-popup.png",
+    "build/forest_revision04/main-public-P66e8-official/selector/mouse-thorn_forest-map1-selector-escape-closed.png"
+  ],
+  "selector_original_pngs": [
+    {
+      "path": "build/forest_revision04/main-public-P66e8-official/selector/mouse-thorn_forest-map1-selector-closed.png",
+      "sha256": "7aa49b408d7f716f82231b1881b9b8ad6c13bc2a0c3ff1f282832aa567327aba",
+      "bytes": 65304,
+      "viewed": true,
+      "view_method": "view_image(detail=original)",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/forest_revision04/main-public-P66e8-official/selector/mouse-thorn_forest-map1-selector-popup.png",
+      "sha256": "1fbb315f8e763a20d8319cd593350d7708da47284009aeeacda128ec19414624",
+      "bytes": 72785,
+      "viewed": true,
+      "view_method": "view_image(detail=original)",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "path": "build/forest_revision04/main-public-P66e8-official/selector/mouse-thorn_forest-map1-selector-escape-closed.png",
+      "sha256": "4365897c20af2294d9c9e1a9f9a55bf83ebeaa9582f0ffc5e4dca684ecf095e2",
+      "bytes": 65154,
+      "viewed": true,
+      "view_method": "view_image(detail=original)",
+      "dimensions": [
+        1280,
+        720
+      ]
+    }
+  ],
+  "selector_functional_review": {
+    "closed_before": true,
+    "popup_open_after_mouse_click": true,
+    "escape_closed_popup": true,
+    "original_courier_stays_selected": true,
+    "locked_options_not_selected": true,
+    "identity_guards": "passed"
+  },
+  "selector_CJK_pixel_review": {
+    "all_three_originals_actually_viewed": true,
+    "visible_full_glyphs": [
+      "外观 · 原版信使",
+      "外观 · 围巾旅人",
+      "外观 · 修钟少女"
+    ],
+    "observation": "The selected Chinese label is complete in closed/Escape-closed images. Open popup shows original courier selected plus two complete disabled grey labels. No missing-glyph box or clipped character visible in these three labels. Low disabled contrast does not certify overall UI accessibility.",
+    "font_cmap_used_as_pixel_proof": false
+  },
+  "source_and_bundle_closure": {
+    "CI_source_two_ends_equal_clean_P": true,
+    "CI_served_inventory_before_after_equal": true,
+    "official_source_and_command_postguards_equal_P": true,
+    "selector_source_two_ends_equal_P": true,
+    "current_head": "66e8b912854d6d4cccadb45b9c348a618689f5a1",
+    "current_git_status": ""
+  },
+  "retained_raw_console_caveat": {
+    "selector_classified_engine_errors": [],
+    "selector_failed_requests": [],
+    "raw_console_errors": [
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 ()"
+      }
+    ],
+    "interpretation": "One generic failed-resource 404 has no URL. Source/root cause unverified; no favicon guess, no filter change, no all-browser-errors-zero claim. Original functional/classified-engine criteria pass within their scope."
+  },
+  "historical_failure_not_rebound": {
+    "old_style_contract_status": "failed",
+    "old_Q_intermittent_H_failure_root_cause": "unknown; P success does not retrospectively diagnose or repair Q",
+    "M_N_U_results": "not used to sign P execution"
+  },
+  "not_accepted": [
+    "Whole forest/HUD art or full spatial redesign",
+    "New forest/plains Bible implementation",
+    "Full normal-speed audiovisual playback/listening",
+    "Full Boss battle/framing or natural browser campaign",
+    "Physical device, player FUN, final user aesthetic approval",
+    "Universal console/HTTP-error-free claim"
+  ],
+  "acceptance_does_not_close_content_done": true
+}

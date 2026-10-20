@@ -1,3 +1,11 @@
+## P最终技术交付检查点
+
+精确运行源码P `66e8b912854d6d4cccadb45b9c348a618689f5a1`，PR96、99、100均已普通合入main。Godot39452164092与Documentation39452164153均完整成功；120核心/艺术、41Web、26Docs全部fresh，当前森林原80/80在原600秒内通过（442.548s），Windows、实际GPU/audio、Pages及公开验证通过。实际唯一CI artifact ID 12279384244、ZIP完整SHA `ac7cea379890973959abbdb8dad1bbb4fc2c42d604a3de4642aee07d4008afa6`；原三浏览器25/40/8全部通过。公网build `3eaeaccb67dd`的完整PCK 141171460B/SHA `3eaeaccb67dd8810b5c84a53dd9b1c8b4533903426e88d8a4206968290702d74` 与该实际CI包一致；原20项/8上下文GUI及选择器CJK三图已独审。
+
+同源P双图正常60fps连续影片24/29段、32张直接AVI原帧限定独审通过。仅抽查起跳/长链、落地与可见宿主，不代表整图艺术、完整音画体验、HUD遮挡修复、真人设备或FUN最终认可。旧八房间专属30文件退休、55路径净减149325源码字节；正式双图、quick3、Lab/Foundry和旧存档保留。推荐/可选技巧/恢复点职责区分，两个已消融证明冗余的rest删除，恢复点保留。
+
+分支实查时共106个远端head，88个被P包含，18个旧美术/UI候选或部署快照仍未盲合/批删。历史M/N失败保持原来源；P完整结果不改签为后续文档提交的运行验证。后续最终R只更新普通Git证据和文档，公开运行仍为P。 [本轮原件](main-P66e8/README.md)。
+
 ## Q追加检查点（尚未合main/发布）
 
 最新代码源 `4be8eeb932d24866a49379f0d33f16f00125711d`（Q），生产与56份Foundry资源逐字节等于C2 `3affbc89011bce1ef206ce377f9ebdfc724880d4`。main仍为`dbc6ba081321637a3eef71979ecf2cf564eb6064`，PR96尚未合并，新Web尚未发布。[本轮追加原件](followup-H2-C2/README.md)保留实际HEAD/dirty源，不把旧K网页或H影片改签Q。

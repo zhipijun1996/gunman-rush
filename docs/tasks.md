@@ -38,8 +38,8 @@ FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试�
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
 | UNDERWORLD-FEEDBACK-03 | 平原受伤、环境交互、连续Boss与家园反馈 | UNDERWORLD-PLAINS-01 | review | [PR96实现与原失败](underworld_feedback_r3.md)、[质量记录](quality/records/UNDERWORLD-FEEDBACK-03.json)；本轮按新用户授权整合，完整主线验收见MAIN-PR96-REPAIR-01 |
-| MAIN-PR96-REPAIR-01 | main CI修复／PR96整合／稳定镜头／旧八房瘦身 | PARALLEL-INTEGRATION-01 | review | [根因与冲突依据](evidence/main_pr96_repair01/README.md)、[质量记录](quality/records/MAIN-PR96-REPAIR-01.json)；严格退出与主线原门保留；PR96已合main M；120核心/41Web/80森林实际通过；原三浏览器首项真实裁字失败，单按钮宽度续修及新公开完整交付待验 |
-| FOREST-FRUIT-ROUTES-04 | 森林果实目标与推荐／可选／恢复点位梳理 | FOREST-FOCUS-ROUTES-03 | review | [新版设计](design/forest_fruit_routes_v14.md)、[质量记录](quality/records/FOREST-FRUIT-ROUTES-04.json)；v14试玩默认候选，旧存档保留v13；两点单删、20实际App和剩余宿主限定独审通过；两图24/29段及可见果实提示通过，main M新80/80及两图24/29段影片限定独审通过；原三浏览器裁字失败保留，新宽度续修/公开GUI及用户设备另验 |
+| MAIN-PR96-REPAIR-01 | main CI修复／PR96整合／稳定镜头／旧八房瘦身 | PARALLEL-INTEGRATION-01 | review | [P精确技术交付](evidence/main_pr96_repair01/main-P66e8/README.md)、[质量记录](quality/records/MAIN-PR96-REPAIR-01.json)；P完整freshCI、原三浏览器、公网完整SHA与同源影片通过；全区审美/设备/FUN另验 |
+| FOREST-FRUIT-ROUTES-04 | 森林果实目标与推荐／可选／恢复点位梳理 | FOREST-FOCUS-ROUTES-03 | review | [新版设计](design/forest_fruit_routes_v14.md)、[P精确交付](evidence/main_pr96_repair01/main-P66e8/README.md)；v14候选及v13旧存档保留，P当前80/80、双图24/29段与32原帧限定独审通过；整体构图/HUD、设备/FUN和用户认可仍review |
 | FOREST-FOCUS-ROUTES-03 | 钩索独立focus反馈与森林v13交织探索 | FOREST-GRAPPLE-02 | in_progress | [质量记录](quality/records/FOREST-FOCUS-ROUTES-03.json)；camera-only前原80/13native/共享4/docs25技术通过，保原三FAIL；体验REVISE：早HH可无H、推荐bit非世界随机，当前camera/设备/FUN/完整覆盖未验 |
 | PARALLEL-INTEGRATION-01 | 最新并行分支整合与Web重部署 | FOREST-GRAPPLE-02 | in_progress | [输入、冲突与验证边界](integration_20261019.md)；最新用户授权合main并快速试玩；PR94正式Underworld+森林v12/15%，实验独立；完整CI失败/菜单退出泄漏如实保留，预览非全验收 |
 | FOREST-GRAPPLE-CONSUMERS-02 | 本轮动作／版本与严格因果验收消费者迁移 | FOREST-GRAPPLE-02 | in_progress | [限定记录](quality/records/FOREST-GRAPPLE-CONSUMERS-02.json)；仅工具和测试迁移，不代签森林玩法；原断言、预算、历史原件与失败保留 |
