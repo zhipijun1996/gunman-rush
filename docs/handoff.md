@@ -1,3 +1,7 @@
+## 2026-10-20：新菜单原三浏览器完整通过，待合主线
+
+U=19f9ab4a88fb2a96513232dd94bd3b9e70065bac原三消费者完整通过：25/40/8项，161.781/255.717/145.299秒，各原300秒预算；outer564.030，无合并总外限。完整source/Web包两端稳定；PCK完整SHA6b7ca2f8fa95c6992ae4df2a702c7d64f36ba7643959438dbe66cd6cade078dd。附加clock r3整体failed：三份冻结采样判据True/False/False符合预期，但normal飞刃先自然结束，判定后的F回收清理无caught而失败；不改签整报告，不代替原三检查。独立代码/实际结果审核分别限定范围。main仍M9757，后续普通合并、新main完整CI/实际artifact原三/公开完整SHA和同源影片尚待完成。历史失败均保留原SHA，不改签。 [本地原件](evidence/main_pr96_repair01/local-U19f9/README.md)。
+
 ## 2026-10-20：动作25项通过，手机菜单像素相位续修
 
 T真实复测首原消费者25/25通过163.120s；第二项desktop15与touch1..9各真实count1，touch10选择前popup解析失败229.859s，第三项未运行；全包与源码两端稳定。首次加载超时和环境probe截图失败同样保留。真实9×10圈的对称轴偏半像素，最小像素测量续修35/35通过、原30方法与6CLI保持，新live待验。[完整证据](evidence/main_pr96_repair01/popup-phase-followup/README.md)。附加clock r2因普通短跳已落地而无实体，三判据未运行，不能算负例通过；r3只修该附加准备。最终新main CI/原三/公网完整SHA仍待实际结果。
