@@ -1,0 +1,231 @@
+{
+  "verdict": "ACCEPT_SCOPED_FIXED_ANCHOR_JUMP_IMPLEMENTATION_AND_RECORDED_NATIVE_EVIDENCE",
+  "reviewer": "/root/forest_route_design_review",
+  "independence": "Read-only source and original evidence review; did not author production or run engine.",
+  "scope": "Fixed held GrappleAnchor departure with second-jump ascent, input cancellation, resource/capacity preservation, and regression runner integration. Does not approve v16 world routes, GPU rope, feel, user/device acceptance.",
+  "sources": {
+    "scripts/player/jump_ability.gd": {
+      "sha256": "705ac8fac267b0b71270bbde832725b0f53ef95589b23ebf1de2376afd9762eb",
+      "native02_before": "705ac8fac267b0b71270bbde832725b0f53ef95589b23ebf1de2376afd9762eb",
+      "native02_after": "705ac8fac267b0b71270bbde832725b0f53ef95589b23ebf1de2376afd9762eb",
+      "matches_both": true
+    },
+    "scripts/player/traversal_ability.gd": {
+      "sha256": "f933547c0e51fdf3986bc1abebc49593fda55a7c594d73d6f489dae002228ff3",
+      "native02_before": "f933547c0e51fdf3986bc1abebc49593fda55a7c594d73d6f489dae002228ff3",
+      "native02_after": "f933547c0e51fdf3986bc1abebc49593fda55a7c594d73d6f489dae002228ff3",
+      "matches_both": true
+    },
+    "scripts/player/player_controller.gd": {
+      "sha256": "23357098918d1abb0b3b592d380a263d579d56a9934d48be86715a6595395dce",
+      "native02_before": "23357098918d1abb0b3b592d380a263d579d56a9934d48be86715a6595395dce",
+      "native02_after": "23357098918d1abb0b3b592d380a263d579d56a9934d48be86715a6595395dce",
+      "matches_both": true
+    },
+    "scripts/player/player_motor.gd": {
+      "sha256": "9192a3b031cce875cfac47373e00f0a57a755ce2dfc481e6d4d0667df1410a56",
+      "native02_before": "9192a3b031cce875cfac47373e00f0a57a755ce2dfc481e6d4d0667df1410a56",
+      "native02_after": "9192a3b031cce875cfac47373e00f0a57a755ce2dfc481e6d4d0667df1410a56",
+      "matches_both": true
+    },
+    "config/player_tuning.json": {
+      "sha256": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c",
+      "native02_before": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c",
+      "native02_after": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c",
+      "matches_both": true
+    },
+    "tests/fixed_hook_jump_height_runner.gd": {
+      "sha256": "5a740ba90e042c16c305daeb6f267f1204c4cd7b8c397f6189d5c863c91e97b8",
+      "native02_before": "5a740ba90e042c16c305daeb6f267f1204c4cd7b8c397f6189d5c863c91e97b8",
+      "native02_after": "5a740ba90e042c16c305daeb6f267f1204c4cd7b8c397f6189d5c863c91e97b8",
+      "matches_both": true
+    },
+    "tools/run_grapple_feel_tests.py": {
+      "sha256": "9ce63361527950de8f6b8af572080d6d3898e7e26b13c81c7ac0298e0bdfb2a6",
+      "native02_before": "a2c8ffc3bac45df3ac184be7ef2ff731b787fb13d14fdbff97bc4029fc821e36",
+      "native02_after": "a2c8ffc3bac45df3ac184be7ef2ff731b787fb13d14fdbff97bc4029fc821e36",
+      "matches_both": false
+    }
+  },
+  "evidence_sha256": {
+    "build/region_bible_v2/forest-feedback-native-02/receipt.json": "eab12de8e1b44eea6f453f24f99889aa786f099f58a32361048ce7025145c142",
+    "build/region_bible_v2/forest-feedback-native-02/fixed-hook-height.json": "0d8d4a49d01331ea8868f095d429e2f76b04ceeda128c98691bfb50c3bfb3151",
+    "build/region_bible_v2/forest-feedback-native-02/fixed-hook-height.log": "ea7db8cb1b535fc6bef988e50fc22e2de98a87b961d195148f564e75202d60da",
+    "build/region_bible_v2/forest-feedback-native-02/grapple-feel.log": "6fd991357efe103ac8aa4d28fefd734d38e9b2821cc11769ac91c5e2580205de",
+    "build/region_bible_v2/forest-feedback-native-02/variable-jump.log": "5144c8799c094888953c52f137ae52d6e7793bcbc5d22bdedabedad46012aff9",
+    "build/region_bible_v2/forest-feedback-mechanics-01/fixed-hook-height.json": "3168c799293e56f168f088f7b2a878c24334fbf5137838fd3f213363dd98d63a",
+    "build/region_bible_v2/forest-feedback-mechanics-01/fixed-hook-height.log": "4a1d7ef8e24e394d9172058adaf1a2c89f4aac0d14bcd66b7fa6bcb2935848c2"
+  },
+  "actual_native02": {
+    "fixed_jump": {
+      "checks": 43,
+      "failures": 0,
+      "trace_rows": 365,
+      "all_motor_step_delta_one": true,
+      "peaks": [
+        {
+          "case": "reference_second_jump_0",
+          "height": 55.6066589355469,
+          "held_ticks": 0,
+          "speed_source": "config/player_tuning.json jump_speeds[1]"
+        },
+        {
+          "case": "anchor_0",
+          "height": 55.6066589355469,
+          "held_ticks": 0,
+          "speed_source": "config/player_tuning.json jump_speeds[1]"
+        },
+        {
+          "case": "reference_second_jump_30",
+          "height": 127.14444732666,
+          "held_ticks": 30,
+          "speed_source": "config/player_tuning.json jump_speeds[1]"
+        },
+        {
+          "case": "anchor_30",
+          "height": 127.14444732666,
+          "held_ticks": 30,
+          "speed_source": "config/player_tuning.json jump_speeds[1]"
+        }
+      ],
+      "case_summary": {
+        "reference_second_jump_0": {
+          "ticks": 34,
+          "states": {
+            "free": 34
+          },
+          "shots": [
+            2
+          ],
+          "event_max": 2
+        },
+        "anchor_0": {
+          "ticks": 31,
+          "states": {
+            "free": 3,
+            "hook_cast": 4,
+            "hook_fly": 7,
+            "hook_pull": 9,
+            "hook_hang": 1,
+            "hook_kick": 7
+          },
+          "shots": [
+            2
+          ],
+          "event_max": 1
+        },
+        "reference_second_jump_30": {
+          "ticks": 48,
+          "states": {
+            "free": 48
+          },
+          "shots": [
+            2
+          ],
+          "event_max": 2
+        },
+        "anchor_30": {
+          "ticks": 45,
+          "states": {
+            "free": 17,
+            "hook_cast": 4,
+            "hook_fly": 7,
+            "hook_pull": 9,
+            "hook_hang": 1,
+            "hook_kick": 7
+          },
+          "shots": [
+            2
+          ],
+          "event_max": 1
+        },
+        "no_free_repeat_and_landing": {
+          "ticks": 75,
+          "states": {
+            "free": 47,
+            "hook_cast": 4,
+            "hook_fly": 7,
+            "hook_pull": 9,
+            "hook_hang": 1,
+            "hook_kick": 7
+          },
+          "shots": [
+            2
+          ],
+          "event_max": 2
+        },
+        "release_and_rehook": {
+          "ticks": 43,
+          "states": {
+            "free": 4,
+            "hook_cast": 8,
+            "hook_fly": 11,
+            "hook_pull": 14,
+            "hook_hang": 2,
+            "hook_kick": 4
+          },
+          "shots": [
+            2
+          ],
+          "event_max": 2
+        },
+        "existing_D_qualification": {
+          "ticks": 28,
+          "states": {
+            "free": 5,
+            "hook_cast": 4,
+            "hook_fly": 7,
+            "hook_pull": 9,
+            "hook_hang": 1,
+            "hook_kick": 2
+          },
+          "shots": [
+            2
+          ],
+          "event_max": 2
+        },
+        "disabled_jump": {
+          "ticks": 25,
+          "states": {
+            "free": 3,
+            "hook_cast": 4,
+            "hook_fly": 7,
+            "hook_pull": 9,
+            "hook_hang": 2
+          },
+          "shots": [
+            2
+          ],
+          "event_max": 0
+        },
+        "legacy_automatic_contact": {
+          "ticks": 36,
+          "states": {
+            "free": 3,
+            "hook_cast": 4,
+            "hook_fly": 7,
+            "hook_pull": 9,
+            "hook_contact_kick": 7,
+            "hook_kick": 6
+          },
+          "shots": [
+            2
+          ],
+          "event_max": 0
+        }
+      }
+    },
+    "original_grapple_feel": "38 checks, 0 failures; exit 0",
+    "original_variable_jump": "28 assertions, 0 failures; exit 0",
+    "source_stable": true
+  },
+  "old_mechanics01": "38 checks / 1 actual failure retained: new H after release failed to reach next real target. Not retrospectively passed.",
+  "integration": "tools/run_grapple_feel_tests.py appends fixed_jump as sixth case; original five scripts, success patterns, run_engine options and 90-second per-case timeout unchanged. Integration source itself not yet run as full six-case suite.",
+  "risks": [
+    "Reference and anchor fixtures use actual Router→Controller→JumpAbility→Motor, not formal forest assembly or mobile input.",
+    "Only tap/release and long hold apex pairs directly compared; shared _begin_ascent/update_hold/release_jump preserve intermediate semantics by source review.",
+    "Four malformed envelopes are direct request_hook negative checks; positive immediate rehook uses real Router.",
+    "Native02 overall receipt includes unrelated module/world/GPU/fast failures; this scoped verdict does not turn overall receipt green."
+  ],
+  "findings": []
+}

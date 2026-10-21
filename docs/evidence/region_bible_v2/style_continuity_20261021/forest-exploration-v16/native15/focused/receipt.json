@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "scope": "focused_modules_world_corridor_borrow_pod_and_actual_menu_contracts",
+  "limits": "Not complete map traversal, formal reward transactions, visual/FUN/device or release acceptance.",
+  "fixed_fps": 60,
+  "timeout_seconds_each": 90,
+  "checks": [
+    {
+      "id": "import",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--path",
+        ".",
+        "--editor",
+        "--quit"
+      ],
+      "timeout_seconds": 90,
+      "passed": true,
+      "log": "import.log",
+      "exit_code": 0,
+      "seconds": 7.027,
+      "log_sha256": "401b37fc5223bf108aa68163de7feae8073a148bdf29dd418816660bfac8a66b"
+    },
+    {
+      "id": "modules",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_exploration_modules_runner.gd",
+        "--",
+        "--output=res://build/region_bible_v2/forest-feedback-native-15/focused/modules/report.json"
+      ],
+      "timeout_seconds": 90,
+      "passed": true,
+      "log": "modules.log",
+      "report": "modules/report.json",
+      "report_sha256": "04500f0a38c22750285f0b7ceb3c43e0b057138a655a5195453b177dbf613305",
+      "exit_code": 0,
+      "seconds": 0.772,
+      "log_sha256": "74fdadb74085d6d5ce1adc807c8a2bba2cc5e4013eb9849033d541af7b497527"
+    },
+    {
+      "id": "world",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_exploration_world_runner.gd"
+      ],
+      "timeout_seconds": 90,
+      "passed": true,
+      "log": "world.log",
+      "exit_code": 0,
+      "seconds": 11.285,
+      "log_sha256": "f0b4bdac8c6de1d3ed9df0b3ccb3cb4bcc2dabd6f486b834a0b385ab7d588c19"
+    },
+    {
+      "id": "corridor",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_thorn_corridor_modules_runner.gd",
+        "--",
+        "--output-dir=res://build/region_bible_v2/forest-feedback-native-15/focused/corridor"
+      ],
+      "timeout_seconds": 90,
+      "passed": true,
+      "log": "corridor.log",
+      "report": "corridor/report.json",
+      "report_sha256": "2d7be424198a419f71ed05809e7d08f4d1699502af9ba73bae014a595f695a39",
+      "exit_code": 0,
+      "seconds": 2.463,
+      "log_sha256": "bafebf8887ebfcd606c441c4c464c8a2272342d642d8380b34898f213be56e0d"
+    },
+    {
+      "id": "borrow-pod",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_exploration_ecology_runner.gd",
+        "--",
+        "--borrow-pod-only",
+        "--output-dir=res://build/region_bible_v2/forest-feedback-native-15/focused/borrow-pod"
+      ],
+      "timeout_seconds": 90,
+      "passed": true,
+      "log": "borrow-pod.log",
+      "report": "borrow-pod/report.json",
+      "report_sha256": "ca79826b3f49db38b44f88aad6b14b555edc31864fef7fb6962c860f357f9f38",
+      "exit_code": 0,
+      "seconds": 7.575,
+      "log_sha256": "96bbdc4fba355f4f2a34a920835038ab1a06bf48de4662f04f559101ff18b654"
+    },
+    {
+      "id": "menu",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_exploration_menu_runner.gd"
+      ],
+      "timeout_seconds": 90,
+      "passed": true,
+      "log": "menu.log",
+      "exit_code": 0,
+      "seconds": 6.728,
+      "log_sha256": "c656cc7f5d667037e04dcd700db23ac884c9faec038e3763953ec627233c01b3"
+    }
+  ],
+  "exit_code": 0,
+  "baseline_head": "78b6441b81e30983367acc2b7825e1c9fa2f6350",
+  "head_after": "78b6441b81e30983367acc2b7825e1c9fa2f6350",
+  "source_stable": true,
+  "seconds": 37.336
+}

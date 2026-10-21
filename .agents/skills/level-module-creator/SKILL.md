@@ -15,6 +15,12 @@ description: 制作或修改平台模块、连续挑战的物理实现、入口�
 
 当前平原模块/生成任务先读[实际参数与消费者范例](../../../docs/evidence/plains_art_language/recipe.md)。使用现有 route 的 `pre_embedding_art_language` 写集：真实 Definition → 有限构造家族/画件尺寸与肩部/恢复预算 → 区域嵌入 → 同源实例验证。不可表达须拒绝候选，不伸缩救场；完整挑战占地规格与画件尺寸分别记录。真实源节点是校验依据，表达式不能自带假源自证。当前只有有限后山体实际按新轮廓绘制，前景仍旧材质，画件、支承和复杂连接待实现；不能把参数通过写成美术准入。仅扩展已独审允许的接口，不默认推进全部画源生产。旧实验按需读取。
 
+## 单模块先于整区扩展：森林 v16 迭代经验
+
+先把选定地区圣经与玩家的新要求落实为一个可玩的独立模块，再嵌入大地图。Z/7/L 荆棘通道等轮廓须带来换向、观察、恢复或奖励选择，不能只换名字和坐标。用实际 Router→Controller→唯一 Motor 验证完整身体的起手、穿越、接收与同体回返；静态净空与模块目录通过不代表整区可通行。[native08](../../../build/region_bible_v2/forest-feedback-native-08/receipt.json)、[native09](../../../build/region_bible_v2/forest-feedback-native-09/receipt.json)的结构检查通过而两图 fast 仍失败，[native10](../../../build/region_bible_v2/forest-feedback-native-10/receipt.json)推进到中途仍未完成，均保留原失败。
+
+每轮保留实际改变的完整源文件字节、来源与 SHA，并绑定该轮轨迹和收据；只有 hash 清单不能恢复后来已修改的实现。独立审查读取匹配原 SHA 的源码，不拿当前扩展版解释旧轨迹。[独立 L 审查](../../../build/region_bible_v2/forest-feedback-route-design/l-native-first-review/REVIEW.md)限定接受原源的普通主路与奖励位置往返，并保留最初混用后续 7/Z 源码的无效审查。普通便宜通路可以合法；高收益奖励应由实际绕行、取得和回返证明，不能让原地直跳拿到同等奖励，也不为固定连招封死所有替代解。单模块的原始危险几何扫掠、正式世界碰撞/伤害实体、真实领奖交易及保存分别验证：L 样板到达奖励位置不等于已结算金币，HP 未变也不能单独证明正式伤害策略安全。技术接受不签趣味、美术、用户或设备。
+
 ## 触发与边界
 
 新增平台跳跃挑战、模块端口/时序/连接改动及模块准入。 从仓库根目录调用 `$level-module-creator`。使用 [总门槛](../../../docs/development_quality.md)；重要内容由 game-quality-gate 建立一次任务，专业技能补充同一记录，不重复执行共用阶段。
@@ -100,3 +106,5 @@ G5：玩家实操可读性、手感、公平性和设备控制；有证据才允
 ## Underworld第三轮实证回流
 
 先区分实体surface伤害与无实体附着的历史fall_plane；跨层下方实际有可落地支持时后者不能误扣血，表面危险仍有效。机关先追正式actuator，不能遗留W打开攻击门的旁路。 来源、真实失败、适用版本与待验见[第三轮经验](../../../docs/underworld_feedback_r3.md)；本条不代签最终用户手感或实体设备。
+
+本轮实机反例补充：两块相差30wu的单向面会在角色尚未完全离开上一块时接住身体，使真实drop例外不能结束；不能在测试中reset例外，应重设计真实走出/落下口。组装器的奖励覆盖须核对实际领取实体的位置、支撑和OR选项；Dictionary.merge默认不覆盖曾令L新奖仍留旧枝，不能只验证route命名。见[完整冻结源与原失败](../../../docs/evidence/region_bible_v2/style_continuity_20261021/forest-exploration-v16/README.md)。

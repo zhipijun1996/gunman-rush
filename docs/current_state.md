@@ -1,12 +1,14 @@
 # 当前状态
 
+最新开发续轮：新增v16探索候选已接17种模块、回望高枝、活摆荚/固定果实双解、L下探与Z/7内外回环、领奖短返。低顶短跳已淘汰。fresh native15九条正式输入路线全部通过31952帧/780腿并获限定独审，三摆荚策略及奖励返程均HP5，主路最低HP为4/1；原80/fullCI及闭门对抗/保存仍分开未验。共享像素家族保留，整体艺术仍REWORK（长矩形根体/规则浮梯），不签用户趣味或设备。当前默认/历史保存仍v15；新内容从 `FOREST EXPLORATION / MAP 1/2` 独立关卡测试入口进入。原始失败、完整源闭包与实际23GPU图见[本轮证据](evidence/region_bible_v2/style_continuity_20261021/forest-exploration-v16/README.md)。下一步仅Web构建与快速部署，不默认合main。
+
 最新试玩（2026-10-21）：[公开网页](https://zhipijun1996.github.io/gunman-rush/?v=12ac19e2ec02)现为森林开发构建12ac19e2ec02，运行源bbf5b24dc6a27374119f67f11fc2eed92a57ba00，prepared Pages39593999600已成功。公网完整PCK与原已验CI包一致，真实森林map1进入/暂停恢复冒烟通过；正式原CI39578229334/full141及当前80路线也已通过。本文后面的旧“待CI/公开旧main”是历史时点，以本段和交接最新段落为准；未合main，森林整体美术和Plains优化仍未完成。用户要求今后试玩默认快速发布：复用已验同源Web或只重建Web及必要影响检查，不为每次试玩重跑整套CI。
 
 2026-10-21。分支 `feature/region-bible-v2-forest`；最近已推送检查点 `124815766d1c9fb93224bca05fa2c9f7fe265ac5`、草稿[PR101](https://github.com/zhipijun1996/gunman-rush/pull/101)，后继修正兼容字体和共享表现类型依赖；准确HEAD以Git为准。原起点R `7be8c340372d1e20db6685cbd6a559191821eb0e`。先完整荆棘森林含美术，再优化风铃平原；SFX/风叶背景动画可做，BGM由用户后引入。当前开发中，未发布新Bible区域，不能把旧main通过代签新内容。
 
 ## 权威与当前默认
 
-[两Bible注册表](creative_direction/bibles/registry.json)绑定用户原文；[实际共享风格16参考](creative_direction/bibles/style-continuity-20261021-v2.json)要求所有后续地区沿正式平原Underworld像素家族发展地域材料与生态。原始PNG、玩家动画metadata、许可及历史v13/v14保存/算法保留。森林creative-v7另绑定[用户自然缠绕荆棘平台要求与参考](creative_direction/bibles/thorn-covered-platforms-20261021.json)，只借生长关系，不移用参考游戏画风。
+[两Bible注册表](creative_direction/bibles/registry.json)绑定用户原文；[实际共享风格16参考](creative_direction/bibles/style-continuity-20261021-v3.json)要求所有后续地区沿正式平原Underworld像素家族发展地域材料与生态。原始PNG、玩家动画metadata、许可及历史v13/v14保存/算法保留。森林creative-v7另绑定[用户自然缠绕荆棘平台要求与参考](creative_direction/bibles/thorn-covered-platforms-20261021.json)，只借生长关系，不移用参考游戏画风。
 
 工作分支普通默认现为 `forest-bible-world-v15`；debug、自然campaign、post-Boss、跨区表现及独立版本期望同批更新。旧PlayerMotor唯一移动、合法能力、物理、资源、伤害、RNG和保存合同保持。任务见[任务表](tasks.md)；Forest/Bible仍in_progress，Plains仍planned。用户选择方向不代表视觉、手感或设备签收。
 

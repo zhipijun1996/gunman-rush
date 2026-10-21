@@ -1,0 +1,9 @@
+# Native04 mechanics addendum — scoped acceptance
+
+**ACCEPT_SCOPED** for the actual shared-body rope GPU regression and the complete six-case grapple wrapper. The native04 source-before/after inventories are identical. The actual wrapper exits0 in43.682s, with original five results38/119/174/25/51 all zero failures and fixed-anchor jump43/0, followed by the wrapper completion marker. This closes the previously pending full-wrapper check without altering its older five cases.
+
+Read the current20 GPU source/log/report and actually opened its three original PNGs. The visible hand-to-head rope is present in `actual-flight.png`; the hidden-body render-only control removes both body and rope/head while preserving target/background. The cancelled frame has body/target without an extended rope. Original report records115 changed rope pixels outside the38px body exclusion, hidden legacy feedback and cosmetic effects disabled; actual valid179.287wu target versus production231wu range completes pull/hang, while original294.374wu target misses/retracts. Range, Router, gravity and Motor are not changed to pass the fixture. The hidden control suspends only Controller physics processing; it does not invoke pause cancellation or edit gameplay positions/state.
+
+The intentionally named `grapple-gpu-original` folder retains the previous15/3 over-range fixture failure, and is not relabeled as current20/0. Current20 raw images/report are copied into this review folder with SHA identities in `review.json`. The first pause-control failure and the later over-range failure remain historical failures.
+
+These actual pixels support only isolated shared-body visibility. No continuous video/audio, formal forest terrain/background contrast, full-region gameplay, user feel or device signature is claimed. Native04 still contains real world/ecology/golden/fast failures; this addendum does not sign that round green.

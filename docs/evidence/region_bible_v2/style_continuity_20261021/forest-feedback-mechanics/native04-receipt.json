@@ -1,0 +1,60 @@
+{
+  "scope": "Actual targeted v16 producer, ecology, main routes and GPU; not full-suite or device",
+  "checks": [
+    {
+      "id": "import",
+      "passed": true,
+      "seconds": 7.675,
+      "error": ""
+    },
+    {
+      "id": "ecology",
+      "passed": false,
+      "seconds": 5.615,
+      "error": "Godot returned 1"
+    },
+    {
+      "id": "world-dump",
+      "passed": true,
+      "seconds": 6.914,
+      "error": ""
+    },
+    {
+      "id": "world-structure",
+      "passed": false,
+      "seconds": 9.971,
+      "error": "Godot returned 1"
+    },
+    {
+      "id": "grapple-gpu",
+      "passed": true,
+      "seconds": 1.732,
+      "error": ""
+    },
+    {
+      "id": "golden",
+      "passed": false,
+      "seconds": 5.952,
+      "error": "Godot returned 1"
+    },
+    {
+      "id": "grapple-feel-suite",
+      "exit_code": 0,
+      "passed": true,
+      "seconds": 43.682
+    },
+    {
+      "id": "fast-map1",
+      "exit_code": 1,
+      "passed": false,
+      "seconds": 15.002
+    },
+    {
+      "id": "fast-map2",
+      "exit_code": 1,
+      "passed": false,
+      "seconds": 14.86
+    }
+  ],
+  "source_stable": true
+}

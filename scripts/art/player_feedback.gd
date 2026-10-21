@@ -131,33 +131,41 @@ func _process(delta: float) -> void:
 	_hook_was_visible = hook_visible
 	_guide_was_visible=_controller.traversal.guide_active
 
-func _draw() -> void:
-	if _controller!=null and _controller.traversal.guide_active:
-		var origin := to_local(_controller.motor.global_position+Vector2(0,-6))
-		var finish := to_local(_controller.traversal.guide_point)
+## Essential traversal feedback belongs to the active body renderer. Formal
+## pixel regions hide the old particle layer, so the current body calls this
+## same read-only draw path instead of revealing the entire legacy layer.
+static func draw_grapple(canvas: Node2D, controller: PlayerController, hand_world: Vector2) -> void:
+	if controller == null or not controller.active: return
+	if controller.traversal.guide_active:
+		var origin := canvas.to_local(controller.motor.global_position+Vector2(0,-6))
+		var finish := canvas.to_local(controller.traversal.guide_point)
 		var offset := finish-origin
 		var segments := maxi(1,ceili(offset.length()/16))
-		var color := Color(.55,.95,.85,.65) if _controller.traversal.guide_target_valid else Color(.9,.75,.45,.4)
+		var color := Color(.55,.95,.85,.65) if controller.traversal.guide_target_valid else Color(.9,.75,.45,.4)
 		for i: int in segments:
 			var t := float(i)/segments
-			draw_line(origin+offset*t,origin+offset*minf(1,t+.5/segments),color,1.2,true)
-		draw_arc(finish,8,0,TAU,24,color,1.5,true)
-	if _controller != null and _controller.traversal.state in [&"hook_cast",&"hook_fly",&"hook_pull",&"hook_kick",&"hook_contact_kick",&"hook_hang",&"hook_miss",&"hook_retract"]:
-		var traversal := _controller.traversal
-		var tip := to_local(traversal.hook_tip)
-		var visual := _controller.motor.get_node("CourierVisual") as CourierVisual
-		var start := to_local(visual.grapple_hand_position())
+			canvas.draw_line(origin+offset*t,origin+offset*minf(1,t+.5/segments),color,1.2,true)
+		canvas.draw_arc(finish,8,0,TAU,24,color,1.5,true)
+	if controller != null and controller.traversal.state in [&"hook_cast",&"hook_fly",&"hook_pull",&"hook_kick",&"hook_contact_kick",&"hook_hang",&"hook_miss",&"hook_retract"]:
+		var traversal := controller.traversal
+		var tip := canvas.to_local(traversal.hook_tip)
+		var start := canvas.to_local(hand_world)
 		if traversal.state == &"hook_cast": tip = start
 		var sag := 0.0 if traversal.state in [&"hook_pull",&"hook_contact_kick",&"hook_hang"] else 8.0
 		var previous := start
 		for i: int in range(1,13):
 			var t := float(i)/12
 			var point := start.lerp(tip,t)+Vector2(0,sin(t*PI)*sag)
-			draw_line(previous,point,Color("ddc089"),1.6,true)
+			canvas.draw_line(previous,point,Color("ddc089"),1.6,true)
 			previous = point
 		var angle := traversal.hook_direction.angle()
-		draw_arc(tip,5,angle-PI*.6,angle+PI*.6,12,Color("ffecc0"),2,true)
-		draw_line(tip-traversal.hook_direction*7,tip,Color("a78855"),2,true)
+		canvas.draw_arc(tip,5,angle-PI*.6,angle+PI*.6,12,Color("ffecc0"),2,true)
+		canvas.draw_line(tip-traversal.hook_direction*7,tip,Color("a78855"),2,true)
+
+func _draw() -> void:
+	if _controller != null:
+		var visual := _controller.motor.get_node("CourierVisual") as CourierVisual
+		draw_grapple(self, _controller, visual.grapple_hand_position())
 	for particle: Dictionary in _particles:
 		var color: Color = particle.color
 		color.a = (1.0 - particle.age / particle.life) * 0.7

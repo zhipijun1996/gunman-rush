@@ -28,6 +28,7 @@ var _pull_step_requested := false
 var _pull_distance_before := 0.0
 var _hang_offset := Vector2.ZERO
 var _released_hang_target: Node2D
+var _anchor_jump_departure := false
 var _contact_target: Node2D
 var _contact_remaining := 0.0
 var kick_side := -1.0
@@ -57,7 +58,7 @@ func busy() -> bool:
 func request_hook(direction: Vector2, intent: Dictionary = {}) -> bool:
 	# A real contact has restored H before the short kick pose finishes. Keep
 	# one release for that tail only; accepting input does not interrupt motion.
-	if state == &"hook_kick" and hook_enabled and not hook_used and controller.active and direction.is_finite():
+	if state == &"hook_kick" and not _anchor_jump_departure and hook_enabled and not hook_used and controller.active and direction.is_finite():
 		if not _pending_hook.is_empty(): return false
 		# Carry the original Router envelope across the pose, not a fresh TTL.
 		# Direct ability callers have no queued envelope and begin their bound now.
@@ -68,10 +69,18 @@ func request_hook(direction: Vector2, intent: Dictionary = {}) -> bool:
 		if not is_finite(issued_at) or issued_at > now or now-issued_at > InputRouter.MAX_AGE_SECONDS or epoch != controller.router.epoch or sequence != controller.router.sequence: return false
 		_pending_hook = {"direction":direction,"epoch":epoch,"sequence":sequence,"device":controller.router.current_device,"session":controller.session_id,"deadline":int((issued_at+InputRouter.MAX_AGE_SECONDS)*1000000.0)}
 		return true
-	if not hook_enabled or state not in [&"free", &"hook_hang"] or not controller.active or not direction.is_finite(): return false
+	# A manual held-anchor jump follows normal gravity, so there is no burst
+	# to finish before another cast. Sample the new direction at its real input
+	# time; only automatic contact kicks retain the bounded tail queue above.
+	var jumping_from_anchor := state == &"hook_kick" and _anchor_jump_departure
+	if not hook_enabled or (state not in [&"free", &"hook_hang"] and not jumping_from_anchor) or not controller.active or not direction.is_finite(): return false
 	if hook_used and not controller.motor.is_on_floor(): return false
+	if jumping_from_anchor and not intent.is_empty():
+		var jump_now := Time.get_ticks_usec()/1000000.0
+		var jump_issued_at := float(intent.get("timestamp",jump_now))
+		if not is_finite(jump_issued_at) or jump_issued_at>jump_now or jump_now-jump_issued_at>InputRouter.MAX_AGE_SECONDS or int(intent.get("epoch",controller.router.epoch))!=controller.router.epoch or int(intent.get("sequence",controller.router.sequence))!=controller.router.sequence: return false
 	_pending_hook.clear()
-	_released_hang_target=hook_target if state == &"hook_hang" else null
+	_released_hang_target=hook_target if state == &"hook_hang" or jumping_from_anchor else null
 	if state == &"hook_hang":
 		controller.motor.cancel_ability_motion()
 		_set_state(&"free")
@@ -247,10 +256,15 @@ func motor_hang_blocked() -> bool:
 
 func release_hang_for_jump() -> bool:
 	if state != &"hook_hang": return false
+	if not controller.active or not hook_enabled or not is_instance_valid(hook_target) or not hook_target is GrappleAnchor: return false
+	if not controller.jump_ability.enabled or controller.jump_ability.maximum_jumps()<=0: return false
 	controller.motor.cancel_ability_motion()
-	var kick := Vector2(kick_side*definition.hook_kick.x,definition.hook_kick.y)
-	controller.motor.start_weapon_burst(kick,kick.length(),definition.hook_launch_seconds)
+	if not controller.jump_ability.jump_from_anchor(controller.motor): return false
+	controller.motor.lock_horizontal(kick_side*definition.hook_kick.x,definition.hook_launch_seconds)
+	# Retain the short release pose/rope tail, interruptible by a new H input.
+	# Vertical motion follows the real jump instead of a 24wu burst.
 	_set_state(&"hook_kick")
+	_anchor_jump_departure = true
 	return true
 
 func cancel() -> void:
@@ -273,6 +287,7 @@ func cancel() -> void:
 func _set_state(next: StringName) -> void:
 	if state == next: return
 	state = next
+	if next != &"hook_kick": _anchor_jump_departure = false
 	if next == &"hook_kick": _contact_remaining = definition.hook_launch_seconds + definition.hook_contact_grace
 	elif next in [&"hook_miss",&"hook_retract"]:
 		_contact_target = null

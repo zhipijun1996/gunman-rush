@@ -142,3 +142,9 @@ S3实际CI／公网包通过后，GUI01因可见MENU未被识别而在3/20退出
 新增森林正式路线检查覆盖两图的连接/背枝取奖返营及图二F08真实Reader木芯路线；初始出生fixture只作开发诊断。每次记录完整runtime/test/tool输入前后SHA，新增/删文件同样令源漂移失败。素材小改不重签旧路线或旧画面；原失败、限定接受与最终完整发布证据分开保留。
 
 区域Bible的新reader与采证逻辑通过现有`forest-bible-reader-tests`、`forest-bible-av-reader-tests`进入gameplay/art/full；原检查与预算不替换。它们检查有限正反例和源闭包，不能签路线、审美或声音听感。新覆生材质先跑目标实际合屏，例如`python3 tools/run_forest_bible_golden.py --thorn-only --compare-plains --output build/region_bible_v2/<fresh>`，查看两区正式角色与平台、上/下/侧/真实转角，再作独立审查；实际静图不冒充连续动作。连续采证使用`tools/capture_forest_bible_route.py`复用已存在的全出生点路线，保留原AVI与真实引擎draw/physics时钟；其验收器的单元反例通过也不等于已运行电影。
+
+## 森林探索候选短反馈
+
+`python3 tools/harness.py --profile forest-exploration-feedback` 运行文档、严格reader反例、wrapper守门与实际模块/世界/生态/菜单专项。原151检查字典与各旧profile顺序保持，新profile用于当前v16开发，不代替旧80、full CI、画面或设备验收。专项只导入一次，保留原90秒子检查与完整源清单、changed源码字节和原Git基线；失败继续留日志，最终非零退出。
+
+关卡先用真实Router/Motor验证单模块普通解、奖励位置与同体返程，再进入正式世界验证异物干扰、真实奖励OR选择、活体/击杀后替代和返回。字母轮廓、模块数量或Hash不签趣味；允许普通便宜解，但高奖必须绑定实际深入路线。当前原始失败及九路线通过范围见[本轮原件](evidence/region_bible_v2/style_continuity_20261021/forest-exploration-v16/README.md)。

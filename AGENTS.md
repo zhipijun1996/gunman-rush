@@ -10,7 +10,7 @@
 
 [注册表](docs/creative_direction/bibles/registry.json)绑定原文字节、id/version/region、选择证据；新/优化生产与手写mission均须完整绑定，漂移前后及恢复时拒绝。缺Bible自主做document-only proposed/G0预制作，不要求先问用户；注册和独审前不给生产写集。发生漂移须版本化影响分析、独审与重绑，不以刷新SHA恢复旧通过。旧提案或失败实现不自动约束新区域，但不能抛弃正式平原仍在使用的Underworld tileset家族/整体像素风格；原始素材、许可、冻结版本、旧保存重建及所有旧检查保留。核心玩法、物理、资源、能力授予、RNG和保存合同继续有效。
 
-最新用户补充原话：“森林的tile set得和风铃平原的整体风格一致，只是体现不同的区域特色。你这个都直接扔掉了”“同时后续区域不要出类似的问题”。[完整补充与实际共享参考](docs/creative_direction/bibles/style-continuity-20261021-v2.json)绑定当前正式平原16px/32wu、47邻接核心+精确边界适配、PNG/atlas/TileSet/shader与许可完整SHA。所有后续region create/optimize及缺Bible的proposed输入先读该共用母版；区域差异来自材料、生态、结构与色域，森林用树皮苔藓荆棘有机结构，不能独立换画风。正式跨区黄金实际对照与独审后才扩产；仅用户明确选新global style时版本化替代并重验。SHA/metadata不签视觉认可，无关物理、global动作或普通文档不新增美术门槛。
+最新用户补充原话：“森林的tile set得和风铃平原的整体风格一致，只是体现不同的区域特色。你这个都直接扔掉了”“同时后续区域不要出类似的问题”。[完整补充与实际共享参考](docs/creative_direction/bibles/style-continuity-20261021-v3.json)绑定当前正式平原16px/32wu、47邻接核心+精确边界适配、PNG/atlas/TileSet/shader与许可完整SHA。所有后续region create/optimize及缺Bible的proposed输入先读该共用母版；区域差异来自材料、生态、结构与色域，森林用树皮苔藓荆棘有机结构，不能独立换画风。正式跨区黄金实际对照与独审后才扩产；仅用户明确选新global style时版本化替代并重验。SHA/metadata不签视觉认可，无关物理、global动作或普通文档不新增美术门槛。
 
 ## 开始与权威来源
 

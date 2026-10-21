@@ -22,7 +22,7 @@ const DISCOVERY_KINDS := {
 }
 
 static func enabled(m: Dictionary) -> bool:
-	return m.get("layout_version") == LAYOUT
+	return m.get("layout_version") in [LAYOUT, "forest-branching-expedition-v16"]
 
 static func draw_background(canvas: Node2D, m: Dictionary, camera_center: Vector2, view_size: Vector2, _clock: float) -> void:
 	# Existing Underworld forest source, rather than an independent new style.
@@ -35,6 +35,8 @@ static func draw_background(canvas: Node2D, m: Dictionary, camera_center: Vector
 	var travel := (size-view_size)*0.45
 	var offset := Vector2(clampf(camera_center.x*0.035, -travel.x, travel.x), clampf(camera_center.y*0.015, -travel.y, travel.y))
 	canvas.draw_texture_rect(FAR, Rect2(camera_center-size*0.5-offset, size), false, Color(0.40, 0.48, 0.46, 1.0))
+	if m.get("layout_version") == "forest-branching-expedition-v16":
+		_draw_exploration_landmarks(canvas, m, camera_center, view)
 	var landmark := _landmark_bounds(m)
 	if landmark.has_area():
 		var height := 740.0
@@ -124,6 +126,22 @@ static func draw_gate(canvas: Node2D, rect: Rect2) -> void:
 	# blocking rectangle remains visible without adding a false grapple target.
 	UnderworldTerrain.draw_mechanism_beam(canvas, rect)
 	UnderworldObjects.sequence_plate(canvas, rect.get_center(), 1, false)
+
+static func _draw_exploration_landmarks(canvas: Node2D, m: Dictionary, camera_center: Vector2, view: Rect2) -> void:
+	# Reuse the established low-contrast background tree at two authored hubs.
+	# This remains a background identity, never a new wall or standing edge.
+	for row: Dictionary in m.get("forest_landmarks", []):
+		var host := _support_rect(m, str(row.get("support_id", "")))
+		var point: Variant = row.get("position")
+		if not host.has_area() or not point is Array or point.size() != 2: continue
+		var foot := Vector2(float(point[0]), host.position.y)
+		if foot.x < host.position.x or foot.x > host.end.x: continue
+		var height := 740.0
+		var tree_size := Vector2(height*TREE.size.x/TREE.size.y, height)
+		var parallax := (camera_center-foot)*0.12
+		var target := Rect2(foot+parallax-Vector2(tree_size.x*0.5,tree_size.y),tree_size)
+		if not view.grow(48.0).intersects(target): continue
+		canvas.draw_texture_rect_region(FOREST_PROPS,target,TREE,Color(0.32,0.39,0.35,0.58))
 
 static func _landmark_bounds(m: Dictionary) -> Rect2:
 	var result := Rect2()

@@ -1,0 +1,18 @@
+import os,sys,json,time,contextlib,argparse,hashlib
+from pathlib import Path
+root=Path('/workspace/gunman-rush');os.chdir(root);sys.path.insert(0,str(root/'tools'))
+import foundry
+from run_tests import run_engine
+from forest_bible_world_sources import inventory
+out=root/'build/region_bible_v2/forest-feedback-foundry-prepare';out.mkdir(exist_ok=False)
+before=inventory();(out/'source-before.json').write_text(json.dumps(before));start=time.monotonic();ok=False;error=''
+def bounded(args,cap):return run_engine(args,min(cap,90 if '--editor' in args else 240))
+try:
+ with (out/'prepare.log').open('w') as log,contextlib.redirect_stdout(log),contextlib.redirect_stderr(log):
+  foundry.run_engine=bounded
+  foundry.build(argparse.Namespace(count=24,profiles=['base','double_jump','air_chain'],promote=True))
+  run_engine(['--headless','--path','.','--script','tools/foundry_export_stamp.gd'],30)
+ ok=True
+except Exception as exc:error=repr(exc)
+after=inventory();changed=sorted(p for p in set(before)|set(after) if before.get(p)!=after.get(p));(out/'source-after.json').write_text(json.dumps(after));allowed=all(p.startswith('resources/foundry/') for p in changed)
+receipt={'scope':'Intentional existing Foundry build preparation for new runtime basis, not a frozen-source forest traversal round','previous_byte_archive':'/tmp/gunman-foundry-before-v16.zip','previous_archive_sha256':hashlib.sha256(Path('/tmp/gunman-foundry-before-v16.zip').read_bytes()).hexdigest(),'original_count':24,'profiles':['base','double_jump','air_chain'],'import_cap_seconds':90,'native_cap_seconds':240,'passed':ok and allowed,'error':error,'only_expected_generated_resources_changed':allowed,'changed_paths':changed,'seconds':time.monotonic()-start};(out/'receipt.json').write_text(json.dumps(receipt,indent=2));print(json.dumps(receipt),flush=True);sys.exit(0 if receipt['passed'] else 1)

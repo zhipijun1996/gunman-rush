@@ -1,0 +1,403 @@
+[
+  {
+    "route": "borrow_pod_fixed_trial",
+    "events": [
+      {
+        "actual_pod": {},
+        "edge_id": "district_1_main_b__fixed_fruit_exchange",
+        "kind": "v16_exchange_departure",
+        "leg": 45,
+        "live": false,
+        "position": [
+          5243.9833984375,
+          1081.92529296875
+        ],
+        "supports": [
+          "district_1_main_b__exit",
+          "district_1_main_b__observation_root"
+        ],
+        "target_instance": 264811581372,
+        "tick": 1916
+      },
+      {
+        "actual_pod": {},
+        "actual_range": 231.0,
+        "edge_id": "district_1_main_b__fixed_fruit_exchange",
+        "encounter_id": "",
+        "kind": "v16_exchange_intent",
+        "leg": 45,
+        "live": false,
+        "origin": [
+          5243.9892578125,
+          1065.54626464844
+        ],
+        "position": [
+          5243.9892578125,
+          1071.54626464844
+        ],
+        "target_instance": 264811581372,
+        "target_position": [
+          5260.0,
+          860.0
+        ],
+        "tick": 1917
+      },
+      {
+        "hook_tip": [
+          5259.068359375,
+          871.963806152344
+        ],
+        "kind": "v16_fixed_hang_observed",
+        "leg": 45,
+        "position": [
+          5246.1396484375,
+          899.034973144531
+        ],
+        "target": "district_1_main_b__fallback_fruit",
+        "target_instance": 264811581372,
+        "tick": 1936
+      },
+      {
+        "kind": "v16_fixed_hang_jump_intent",
+        "leg": 45,
+        "position": [
+          5246.1396484375,
+          899.034973144531
+        ],
+        "target": "district_1_main_b__fallback_fruit",
+        "target_instance": 264811581372,
+        "tick": 1937
+      }
+    ],
+    "projectiles": 0,
+    "phase_declined_count": 0
+  },
+  {
+    "route": "borrow_pod_live_trial",
+    "events": [
+      {
+        "actual_pod": {
+          "behavior_id": "forest_swing_pod",
+          "body_size": [
+            26.0,
+            30.0
+          ],
+          "collision_layer": 4,
+          "damageable_active": true,
+          "depth_state": {
+            "blocked": false,
+            "clock": 0.866666666666587,
+            "version": 1
+          },
+          "health": 2.0,
+          "motor_instance": 286420635671,
+          "position": [
+            4902.630859375,
+            882.50244140625
+          ],
+          "terminal": false,
+          "velocity": [
+            56.6015586853027,
+            -71.455078125
+          ]
+        },
+        "edge_id": "district_1_main_b__borrow_live_pod",
+        "kind": "v16_exchange_departure",
+        "leg": 45,
+        "live": true,
+        "position": [
+          5019.9873046875,
+          1081.92529296875
+        ],
+        "supports": [
+          "district_1_main_b__exit",
+          "district_1_main_b__observation_root"
+        ],
+        "target_instance": 286420635671,
+        "tick": 2062
+      },
+      {
+        "actual_pod": {
+          "behavior_id": "forest_swing_pod",
+          "body_size": [
+            26.0,
+            30.0
+          ],
+          "collision_layer": 4,
+          "damageable_active": true,
+          "depth_state": {
+            "blocked": false,
+            "clock": 0.883333333333253,
+            "version": 1
+          },
+          "health": 2.0,
+          "motor_instance": 286420635671,
+          "position": [
+            4903.53125,
+            881.354370117188
+          ],
+          "terminal": false,
+          "velocity": [
+            54.0234336853027,
+            -68.88427734375
+          ]
+        },
+        "actual_range": 231.0,
+        "edge_id": "district_1_main_b__borrow_live_pod",
+        "encounter_id": "exploration__district_1_main_b__forest_swing_pod",
+        "kind": "v16_exchange_intent",
+        "leg": 45,
+        "live": true,
+        "origin": [
+          5019.99169921875,
+          1065.54626464844
+        ],
+        "position": [
+          5019.99169921875,
+          1071.54626464844
+        ],
+        "target_instance": 286420635671,
+        "target_position": [
+          4903.53125,
+          881.354370117188
+        ],
+        "tick": 2063
+      },
+      {
+        "actual_pod": {
+          "behavior_id": "forest_swing_pod",
+          "body_size": [
+            26.0,
+            30.0
+          ],
+          "collision_layer": 4,
+          "damageable_active": true,
+          "depth_state": {
+            "blocked": false,
+            "clock": 1.23333333333325,
+            "version": 1
+          },
+          "health": 2.0,
+          "motor_instance": 286420635671,
+          "position": [
+            4911.90478515625,
+            870.133178710938
+          ],
+          "terminal": false,
+          "velocity": [
+            -4.27734375,
+            5.99121046066284
+          ]
+        },
+        "hook_tip": [
+          4915.45947265625,
+          885.133178710938
+        ],
+        "hook_used_at_event": true,
+        "kick_side": 1.0,
+        "kind": "hook_contact_kick",
+        "leg": 45,
+        "position": [
+          4939.4697265625,
+          903.119567871094
+        ],
+        "target": "forest_swing_pod",
+        "target_actor_id": "exploration__district_1_main_b__forest_swing_pod",
+        "target_instance": 286420635671,
+        "tick": 2084,
+        "velocity": [
+          -587.258178710938,
+          -439.922882080078
+        ]
+      },
+      {
+        "amount": 1.0,
+        "damage_kind": 0,
+        "event_id": "hook/231743687639/2/2",
+        "health_after": 1.0,
+        "kind": "committed_damage",
+        "leg": 45,
+        "lethal": false,
+        "position": [
+          4939.4697265625,
+          903.119567871094
+        ],
+        "source": "player_projectile:231743687639",
+        "target": "exploration__district_1_main_b__forest_swing_pod",
+        "tick": 2084
+      }
+    ],
+    "projectiles": 0,
+    "phase_declined_count": 17
+  },
+  {
+    "route": "borrow_pod_kill_trial",
+    "events": [
+      {
+        "amount": 1.0,
+        "damage_kind": 0,
+        "event_id": "231743687639:2:1",
+        "health_after": 1.0,
+        "kind": "committed_damage",
+        "leg": 45,
+        "lethal": false,
+        "position": [
+          5067.78662109375,
+          1081.92529296875
+        ],
+        "source": "player_projectile:231743687639",
+        "target": "exploration__district_1_main_b__forest_swing_pod",
+        "tick": 1877
+      },
+      {
+        "amount": 1.0,
+        "damage_kind": 0,
+        "event_id": "231743687639:2:2",
+        "health_after": 0.0,
+        "kind": "committed_damage",
+        "leg": 45,
+        "lethal": true,
+        "position": [
+          5057.41162109375,
+          1081.92529296875
+        ],
+        "source": "player_projectile:231743687639",
+        "target": "exploration__district_1_main_b__forest_swing_pod",
+        "tick": 1915
+      },
+      {
+        "actual_pod": {
+          "behavior_id": "forest_swing_pod",
+          "body_size": [
+            26.0,
+            30.0
+          ],
+          "collision_layer": 0,
+          "damageable_active": false,
+          "depth_state": {
+            "blocked": false,
+            "clock": 3.09999999999992,
+            "version": 1
+          },
+          "health": 0.0,
+          "motor_instance": 286420635671,
+          "position": [
+            4732.66455078125,
+            895.941345214844
+          ],
+          "terminal": true,
+          "velocity": [
+            0.0,
+            0.0
+          ]
+        },
+        "encounter_id": "exploration__district_1_main_b__forest_swing_pod",
+        "hook_unavailable": true,
+        "kind": "v16_live_pod_actual_defeat_settlement",
+        "leg": 45,
+        "manifest_drop": {
+          "amount": 1,
+          "config_version": 1.0,
+          "content_version": "plains-enemy-drops-v1",
+          "enemy_id": "exploration__district_1_main_b__forest_swing_pod",
+          "kind": "coin",
+          "roll": 6,
+          "stream_namespace": "enemy_drops",
+          "stream_position": 1
+        },
+        "position": [
+          5020.03369140625,
+          1081.92529296875
+        ],
+        "settled_drop": {
+          "amount": 1,
+          "born_at": 32.0333333333328,
+          "config_version": 1.0,
+          "content_version": "plains-enemy-drops-v1",
+          "enemy_id": "exploration__district_1_main_b__forest_swing_pod",
+          "kind": "coin",
+          "position": [
+            5020.0,
+            1074.0
+          ],
+          "roll": 6,
+          "spawn_origin": [
+            4732.66455078125,
+            895.941345214844
+          ],
+          "stream_namespace": "enemy_drops",
+          "stream_position": 1
+        },
+        "tick": 1935
+      },
+      {
+        "actual_pod": {},
+        "edge_id": "district_1_main_b__fixed_fruit_exchange",
+        "kind": "v16_exchange_departure",
+        "leg": 49,
+        "live": false,
+        "position": [
+          5243.98486328125,
+          1081.92529296875
+        ],
+        "supports": [
+          "district_1_main_b__exit",
+          "district_1_main_b__observation_root"
+        ],
+        "target_instance": 264811581372,
+        "tick": 2033
+      },
+      {
+        "actual_pod": {},
+        "actual_range": 231.0,
+        "edge_id": "district_1_main_b__fixed_fruit_exchange",
+        "encounter_id": "",
+        "kind": "v16_exchange_intent",
+        "leg": 49,
+        "live": false,
+        "origin": [
+          5243.990234375,
+          1065.54626464844
+        ],
+        "position": [
+          5243.990234375,
+          1071.54626464844
+        ],
+        "target_instance": 264811581372,
+        "target_position": [
+          5260.0,
+          860.0
+        ],
+        "tick": 2034
+      },
+      {
+        "hook_tip": [
+          5259.0673828125,
+          871.963684082031
+        ],
+        "kind": "v16_fixed_hang_observed",
+        "leg": 49,
+        "position": [
+          5246.138671875,
+          899.034790039062
+        ],
+        "target": "district_1_main_b__fallback_fruit",
+        "target_instance": 264811581372,
+        "tick": 2053
+      },
+      {
+        "kind": "v16_fixed_hang_jump_intent",
+        "leg": 49,
+        "position": [
+          5246.138671875,
+          899.034790039062
+        ],
+        "target": "district_1_main_b__fallback_fruit",
+        "target_instance": 264811581372,
+        "tick": 2054
+      }
+    ],
+    "projectiles": 2,
+    "phase_declined_count": 0
+  }
+]

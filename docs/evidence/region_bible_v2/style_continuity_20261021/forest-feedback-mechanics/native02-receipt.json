@@ -1,0 +1,69 @@
+{
+  "checks": [
+    {
+      "id": "fixed-hook-height",
+      "exit_code": 0,
+      "seconds": 0.967,
+      "errors": []
+    },
+    {
+      "id": "grapple-feel",
+      "exit_code": 0,
+      "seconds": 0.97,
+      "errors": []
+    },
+    {
+      "id": "variable-jump",
+      "exit_code": 0,
+      "seconds": 1.067,
+      "errors": []
+    },
+    {
+      "id": "module-structure",
+      "exit_code": 1,
+      "seconds": 0.816,
+      "errors": []
+    },
+    {
+      "id": "world-structure",
+      "exit_code": 1,
+      "seconds": 1.524,
+      "errors": [
+        "SCRIPT ERROR: Trying to assign an array of type \"Array\" to a variable of type \"Array[float]\".",
+        "ERROR: real new producer accepts S2-H map1 seed0",
+        "SCRIPT ERROR: Trying to assign an array of type \"Array\" to a variable of type \"Array[float]\".",
+        "ERROR: real new producer accepts S2-H map2 seed0",
+        "SCRIPT ERROR: Trying to assign an array of type \"Array\" to a variable of type \"Array[float]\".",
+        "ERROR: real new producer accepts S2-H map1 seed1",
+        "SCRIPT ERROR: Trying to assign an array of type \"Array\" to a variable of type \"Array[float]\".",
+        "ERROR: real new producer accepts S2-H map2 seed1",
+        "SCRIPT ERROR: Trying to assign an array of type \"Array\" to a variable of type \"Array[float]\".",
+        "ERROR: real new producer accepts S2-H map1 seed2",
+        "SCRIPT ERROR: Trying to assign an array of type \"Array\" to a variable of type \"Array[float]\".",
+        "ERROR: real new producer accepts S2-H map2 seed2",
+        "SCRIPT ERROR: Trying to assign an array of type \"Array\" to a variable of type \"Array[float]\".",
+        "ERROR: real new producer accepts S2-H map1 seed3",
+        "SCRIPT ERROR: Trying to assign an array of type \"Array\" to a variable of type \"Array[float]\".",
+        "ERROR: real new producer accepts S2-H map2 seed3",
+        "ERROR: seeds change real module allocations and branch heights, beyond names/hash alone"
+      ]
+    },
+    {
+      "id": "grapple-gpu",
+      "exit_code": 1,
+      "seconds": 2.075,
+      "errors": [
+        "ERROR: Real body reaches the hanging target without fixture teleport",
+        "ERROR: Actual traversal lifecycle observed hook_pull",
+        "ERROR: Actual traversal lifecycle observed hook_hang"
+      ]
+    },
+    {
+      "id": "v16-first-fast",
+      "exit_code": 1,
+      "seconds": 14.905
+    }
+  ],
+  "source_stable": true,
+  "scope": "Fixed jump, GPU grapple, structural contracts and first explicit v16 fast route; not whole-region acceptance"
+}

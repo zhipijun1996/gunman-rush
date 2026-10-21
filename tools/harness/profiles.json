@@ -2953,6 +2953,71 @@
       "timeout_seconds": 60,
       "success_pattern": "^OK$",
       "weight_seconds": 2.5
+    },
+    "forest-exploration-contract": {
+      "argv": [
+        "python3",
+        "tools/run_forest_exploration_contract.py",
+        "--output-dir",
+        "build/region_bible_v2/exploration-contract/{check_token}"
+      ],
+      "timeout_seconds": 600,
+      "success_pattern": "^PASS: forest exploration contracts$",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/exploration-contract"
+      ],
+      "weight_seconds": 25
+    },
+    "forest-exploration-body-reader": {
+      "argv": [
+        "python3",
+        "tests/test_forest_exploration_body_reader.py"
+      ],
+      "timeout_seconds": 30,
+      "success_pattern": "^OK$",
+      "inputs": [
+        "tools/run_forest_exploration_motor.py",
+        "tests/test_forest_exploration_body_reader.py"
+      ],
+      "artifact_paths": []
+    },
+    "forest-exploration-exchange-reader": {
+      "argv": [
+        "python3",
+        "tests/test_forest_exploration_exchange_reader.py"
+      ],
+      "timeout_seconds": 30,
+      "success_pattern": "^OK$",
+      "inputs": [
+        "tools/run_forest_exploration_motor.py",
+        "tests/test_forest_exploration_exchange_reader.py"
+      ],
+      "artifact_paths": []
+    },
+    "forest-exploration-wrapper-tests": {
+      "argv": [
+        "python3",
+        "tests/test_forest_exploration_contract_wrapper.py"
+      ],
+      "timeout_seconds": 30,
+      "success_pattern": "^OK$",
+      "inputs": [
+        "tools/run_forest_exploration_contract.py",
+        "tests/test_forest_exploration_contract_wrapper.py"
+      ],
+      "artifact_paths": []
     }
   },
   "profiles": {
@@ -3459,6 +3524,13 @@
       "region-bible-tests",
       "forest-bible-sfx-source",
       "generated-consumers"
+    ],
+    "forest-exploration-feedback": [
+      "docs",
+      "forest-exploration-body-reader",
+      "forest-exploration-exchange-reader",
+      "forest-exploration-wrapper-tests",
+      "forest-exploration-contract"
     ]
   }
 }

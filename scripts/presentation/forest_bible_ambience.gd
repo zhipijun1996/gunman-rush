@@ -23,7 +23,7 @@ func _init() -> void:
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 
 func configure(manifest: Dictionary, actor: Node2D, reduced_effects: bool = false) -> void:
-	_enabled = manifest.get("layout_version") == LAYOUT
+	_enabled = ForestBiblePresentation.enabled(manifest)
 	_actor = weakref(actor) if is_instance_valid(actor) else null
 	_reduced = reduced_effects
 	_patches.clear()

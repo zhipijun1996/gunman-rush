@@ -1,4 +1,26 @@
+最新覆盖（2026-10-21）：v16本轮实现与focused验证已通过，生产源码目前冻结，待提交与仅Web快速部署。九条实际路线全部严格reader通过，31952帧/780腿/176.832秒；两主路最低HP4/1，其余七奖励/回程案例HP5。三摆荚策略含自然相位H/固定hang_jump/实际击杀drop后的固定fallback；Z/7真实回环、领奖short shape disabled与long恢复窗均实走。完整112 changed源码字节+基线78b/3637路径前后清单、原轨迹、23实际GPU、独审及旧14死亡/门阻入口失败，普通Git见[原件](evidence/region_bible_v2/style_continuity_20261021/forest-exploration-v16/README.md)。G0/模块数/技术通过都不签FUN；规整浮梯/矩形根体仍ART_REWORK，Plains尚未动，BGM保留用户后引入。
+
+新界面入口 `DEBUG / SELECT REGION + MAP` → `FOREST EXPLORATION / MAP 1/2`，明确pin16；原普通入口/default/历史v15重建保留。永久短反馈 `python3 tools/harness.py --profile forest-exploration-feedback`；新optional profile追加四check，原151字典/旧profile顺序不改。新Foundrybasis原36phrases/18itineraries在正式原生验证后刷新，旧resources完整ZIP保留，native15已包含新资源且源稳定。
+
+文档profile首轮在旧DELIVERY-EFFICIENCY-01的spec SHA失败：HEAD78b新增快部署章节却沿用旧SHA；已从915da8的精确249745字节归档原spec并仅迁移记录path，旧SHA/结论不刷新。修后freshdocs29/29已通过，报告20261021T183025.129761Z；原失败保留，完整baseR质量diff已通过。下一步：提交→仅Web build/bundle→实际新探索GUI→prepared Pages和公网完整PCK/source/build核验。发布不合main、不签整区art/device。
+
+最新续轮（覆盖下方历史待执行；2026-10-21）：分支 `feature/region-bible-v2-forest`，基线HEAD `78b6441b81e30983367acc2b7825e1c9fa2f6350`，新v16源码尚未提交/部署，默认v15/公网12ac19e2ec02保持。用户要求更多有趣模块及整体拓扑；低顶短跳明确DISCARD，不能换名重启；L/7/Z是宽阔实体根道，刺有真实宿主。库17候选，地图接入回望取奖、真实摆荚/固定果实替代与L下探返回营地，新的整体拓扑方案见[实际与提案分界](design/forest_playful_topology_v16.md)。
+
+实际检查：固定钩点按跳43/0、完整六钩索回归及共享人物绳索GPU20/0限定独审通过；portable原件见 `docs/evidence/region_bible_v2/style_continuity_20261021/forest-feedback-mechanics/`。L真实Router/Motor从spawn到出口、同体到奖励位置返回44/0，独审重放1366帧/37腿/9真跳全部通过，但不签正式伤害/领奖/世界/艺术/FUN。native11新17库静态通过、世界20静态与实际manifest dump通过；7/Z真实首轮118/4因同根过早松跳失败；正式7条路线均在mushroom_fork同高one-way覆盖solid出口处失败，未到新黄金。另独审发现L奖励Dictionary.merge默认不覆盖导致原奖坐标仍在高枝，需显式修复并真实领奖。不降低断言或改物理解决。原失败、完整源SHA、changed字节ZIP与baseline闭包在 `build/region_bible_v2/forest-feedback-native-11/` 和 `/tmp/gunman-v16-eleventh/`，后继必须fresh目录。
+
+当前优先：修复单体7/Z真实跨刺及cheap快绕路对照 → 实际新world回望/L/摆荚固定、活体、击杀fallback和两图主路 → 7/Z真实世界不同出口/奖励路径 → 必要Web构建与快速试玩。不要每轮重跑已稳定rope/jump或完整CI/Windows/长影片；发布须准确新source/build且实际GUI进入。原v15/更早算法和保存、原80顺序与预算、audit保护不改；所有引擎操作root单租约，源码和Git冻结。
+
 # 当前交接
+
+最新续轮（覆盖下方旧WIP数字）：用户明确要求更多不同且有趣模块，并否定低顶短跳无聊/不好看；该候选已DISCARD，完整源SHA/原话保build/region_bible_v2/discarded-low-ceiling/round-01。库现原12+backlook候选，后者普通原地直跳领奖反例已使cache升至192wu，保合法R多解；catch下净空4wu失败修至160，待复验。第二黄金选择实际摆荚借H+击杀后固定fruit/根路保底，不能写成挂荚载人、停驻或固定127起跳。
+
+native04实际GPU20/0、六case grapple全38/119/174/25/51/43零失败，43.682秒；相关两次独审ACCEPT_SCOPED，普通Git精选原件见forest-feedback-mechanics，非整个native04通过。native05真实world956035/0、ecology391/0、实际12静态图成功，但fast1/2仅89/38帧被上方normal one-way截落（不是Motor通行）；native06 world静态再过但入口升柱贴spawn头致App返回home0帧，world作者正修首64wu/薄16与含oneway出生身体回归。所有round源前后稳定。公开仍bbf5b24/12ac19e2、默认15；不得称v16已发布。下轮先原生2fast基本通路，再有限同体backlook/摆荚黄金，消除每个支路500wu通用梯子税，真实消费raw.risk_reward和choice ports。
+
+最新实机反馈续轮 FOREST-EXPLORATION-02（2026-10-21）：用户否定公开12ac19e2两图相似/小/少岔路/首段连升，要求多难度库、高难高收益，并授权固定停留钩点按跳对齐二段跳。当前HEAD仍78b6441b，以下新源为未提交WIP，公开仍bbf5b24d/12ac19e2。根因v15继承同一7段上升；新独立v16已显式注册，默认暂仍v15，未晋升/发布。12模块库与新world/trace/reader、共用绳索绘制和fixed-anchor jump已写；style-v3只版本化UnderworldPlayer必需绳索调用（15项其他参考及旧v2/Bible字节均不变），只读G0影响分析限定接受，不签画质。
+
+真实原生：新固定起跳43/0、原grapple-feel38/0、variable-jump28/0通过；第一38/1的换钩延迟及假正保留。GPU原两轮15/3失败均保，先pause取消、后fixture目标294wu>231射程；现已修合法目标并保超距负例，待重跑，不能签GPU完成。模块新版343/3暴露三处身体撞岸，已修并加反例，待新验。world首结构11/9及首fast0帧失败因条件Array不能赋Array[float]，world作者正修；独审另REJECT hard返程穿下方实体、跨桥直落白拿奖励、normal底部侵入easy主路，必须按全世界真实body净空修复。新16无完整Motor通过。
+
+root统筹唯一engine/import/native/GPU/browser租约；所有子代理源码/Git静止后才跑。当前lease空闲，各worker在限定文件改代码，root仅integration/资料；下次freeze需world作者及trace作者READY。原件build/region_bible_v2/forest-feedback-{preflight-01,preflight-02,mechanics-01,independent-mechanics-01,native-02}/，首fast完整/tmp/gunman-forest-v16-first-fast，独审build/region_bible_v2/forest-feedback-route-design/。不得覆盖失败/降断言/加能力/抬原90/240/600预算。后续先实际fast/growth/reward-return及shared风格合屏，再更多Seed/默认入口/相关旧回归；按用户最新要求最后快速Web部署，不重复整套CI。新能力只fixed挂点手动跳释放，自动contactkick保留；未完成whole Forest art/Plains/device/player/FUN继续明示。
 
 最新用户要求（2026-10-21）：之后快速部署试玩网页。同一运行源已有已验Web时复用原包+现有prepared Pages流程，不重复完整CI；缺包/运行源变化只重建Web及影响范围必要检查。bbf5b24d实际正式CI39578229334已success、full141及当前v15原80通过，原实际Web包/三浏览器/8地区GUI亦已过；原文后续历史“待CI”不再代表当前状态。此次重复手动全CI39593614698已主动取消，不追认为通过；快速发布39593999600承载bbf5b24d/build12ac19e2ec02，prepared commit ce35ab50b093f003cf8c3ddd86b514e92c711b4b。快速Pages39593999600已success，公网build-info及完整PCK SHA/长度匹配12ac19e2ec02，真实鼠标进入森林map1与暂停/恢复冒烟通过（93.369秒、0引擎错误、23007源前后相等）；试玩https://zhipijun1996.github.io/gunman-rush/?v=12ac19e2ec02。原API/原包身份/实图/日志在build/region_bible_v2/deploy-bbf5b24-user-request。未合main，整区艺术/Plains优化仍未完成。
 

@@ -46,9 +46,31 @@ func request_jump() -> void:
 func try_jump(motor: PlayerMotor) -> bool:
 	if not enabled or (not _immediate_request and _buffer_remaining <= 0.0) or used_jumps >= mini(maximum_jumps(), _air_max):
 		return false
+	_begin_ascent(motor, used_jumps)
+	used_jumps += 1
+	_coyote_remaining = 0.0
+	_buffer_remaining = 0.0
+	_immediate_request = false
+	jumped.emit()
+	return true
+
+func jump_from_anchor(motor: PlayerMotor) -> bool:
+	# A held fixed anchor supplies the departure, not another air-jump charge.
+	# Use the real second-jump ascent and its normal hold/release behaviour.
+	if not enabled or tuning == null or tuning.jump_speeds.is_empty() or maximum_jumps()<=0: return false
+	cancel_requests()
+	_pressed = true
+	motor.clear_recoil()
+	_begin_ascent(motor, 1)
+	used_jumps = maxi(used_jumps, 1)
+	_coyote_remaining = 0.0
+	jumped.emit()
+	return true
+
+func _begin_ascent(motor: PlayerMotor, speed_index: int) -> void:
 	if motor.recoil_burst_remaining > 0.0:
 		motor.clear_recoil()
-	_hold_speed = tuning.jump_speeds[mini(used_jumps, tuning.jump_speeds.size() - 1)]
+	_hold_speed = tuning.jump_speeds[mini(speed_index, tuning.jump_speeds.size() - 1)]
 	motor.normal_velocity.y = _hold_speed
 	_hold_elapsed = 0.0
 	_owns_ascent = true
@@ -57,13 +79,7 @@ func try_jump(motor: PlayerMotor) -> bool:
 	if tuning.variable_jump_enabled and _release_pending and tuning.jump_min_hold_duration <= 0.0:
 		motor.normal_velocity.y = maxf(motor.normal_velocity.y, tuning.jump_release_speed)
 		_hold_remaining = 0.0
-	used_jumps += 1
-	_coyote_remaining = 0.0
-	_buffer_remaining = 0.0
-	_immediate_request = false
 	motor.cancel_weapon_apex()
-	jumped.emit()
-	return true
 
 func on_landed() -> void:
 	_owns_ascent = false

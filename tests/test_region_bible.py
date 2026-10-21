@@ -232,9 +232,22 @@ class BibleTests(unittest.TestCase):
 
     def test_actual_player_body_closure_is_required_and_superseded_binding_refused(self):
         style = creative.supplemental_authority(self.bible,'thorn_forest',self.root)
-        self.assertEqual(style['content']['version'],'2')
+        self.assertEqual(style['content']['version'],'3')
         refs = style['content']['runtime_reference']['references']
         self.assertEqual(len(refs),16)
+        # V3 changes the shared body consumer only to restore the actual rope.
+        # Frozen V2 remains a replay source, never a valid current binding.
+        previous_path = 'docs/creative_direction/bibles/style-continuity-20261021-v2.json'
+        previous_bytes = (ROOT/previous_path).read_bytes()
+        previous = json.loads(previous_bytes)
+        for row in previous['runtime_reference']['references']:
+            if row['path'] != 'scripts/underworld_plains/underworld_player.gd':
+                self.assertIn(row, refs)
+        superseded = copy.deepcopy(self.ref)
+        superseded['supplemental_authority_path'] = previous_path
+        superseded['supplemental_authority_sha256'] = hashlib.sha256(previous_bytes).hexdigest()
+        with self.assertRaisesRegex(ValueError,'binding changed'):
+            creative.validate_bible_binding(superseded,root=self.root)
         for role,path in creative.PLAYER_STYLE_DEPENDENCIES.items():
             self.assertIn({'role':role,'path':path,'sha256':hashlib.sha256((self.root/path).read_bytes()).hexdigest()},refs)
         old = json.loads((ROOT/'docs/creative_direction/archive/creative-v5/thorn_forest.json').read_bytes())['region_bible']

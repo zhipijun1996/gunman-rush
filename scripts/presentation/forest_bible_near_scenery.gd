@@ -38,7 +38,7 @@ func configure(manifest: Dictionary, player: Node2D, reduced: bool = false) -> b
 	_actor = weakref(player) if is_instance_valid(player) else null
 	_reduced = reduced
 	_audit = {"scope":"one quiet support candidate, not accepted three-layer art", "layout":str(manifest.get("layout_version", "")), "manifest_hash":str(manifest.get("manifest_hash", "")), "source":SOURCE_PATH, "metadata":SOURCE_METADATA, "current_placement_limit":FIRST_GOLDEN_LIMIT, "maximum_requested_instances":2, "world_fixed":true, "screen_motion_per_camera_delta":[-1.0,-1.0], "root_motion_wu":0.0, "dynamic_motion":"none; existing ForestBibleAmbience owns local leaf tips", "collision":false, "standing_edge":false}
-	if manifest.get("layout_version") != LAYOUT or not is_instance_valid(player):
+	if not ForestBiblePresentation.enabled(manifest) or not is_instance_valid(player):
 		_audit.rejected = "wrong_layout_or_missing_actor"
 		queue_redraw()
 		return false

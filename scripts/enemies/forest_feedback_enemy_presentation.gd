@@ -34,7 +34,12 @@ func _draw() -> void:
 	else:
 		if bible_body: ForestBibleActors.draw_tether_attachment(self, actor)
 		if behavior!=null:
-			var root:=to_local(behavior.home+Vector2(0,-(actor.definition as ForestEnemyDefinition).swing_rise-30))
+			var root_world: Vector2 = behavior.home+Vector2(0,-(actor.definition as ForestEnemyDefinition).swing_rise-30)
+			if bible_body:
+				var attachment: Variant = get_meta(ForestBibleActors.TETHER_ATTACHMENT_METADATA,null)
+				if attachment is Dictionary and attachment.get("actor_id") == actor.get_instance_id():
+					root_world = attachment.tether_root
+			var root := to_local(root_world)
 			draw_line(root,Vector2(0,-13),Color("718c4d"),3)
 			draw_circle(root,5,Color("9cae68"))
 		if not bible_body:

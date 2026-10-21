@@ -11,6 +11,7 @@ def main():
         ('tests/grapple_laser_input_runner.gd', r'^GRAPPLE LASER INPUT: [1-9]\d* assertions, 0 failures$'),
         ('tests/grapple_focus_hud_runner.gd', r'^GRAPPLE FOCUS HUD: [1-9]\d* checks / 0 failures$'),
         ('tests/grapple_chain_input_runner.gd', r'^GRAPPLE CHAIN INPUT: [1-9]\d* checks / 0 failures$'),
+        ('tests/fixed_hook_jump_height_runner.gd', r'^FIXED HOOK JUMP RESULT: [1-9]\d* checks, 0 failures$'),
     )
     for script, pattern in cases:
         output = run_engine(['--headless', '--path', '.', '--script', script], 90)
