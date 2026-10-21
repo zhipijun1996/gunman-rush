@@ -1,0 +1,19 @@
+# F08 actual AV independent review
+
+**SCOPED ACCEPT:** complete actual source/trace/timeline audit, original audio custody and five exact original-frame visual samples. This fresh map2 / `forest-depth-hollow-00` journey binds to clean HEAD `0483399b4cf0621d9dd9f8892661868f76799964`.
+
+All 3600 source-inventory entries match before/after and the current files; all receipt artifact hashes were independently checked. Native recording completes in 204 seconds under the unchanged 240-second cap. The wrapper total of 290.723 seconds includes separate encoding and extraction.
+
+The formal journey completes 31 legs with 3362 contiguous ordinary Motor samples, health 5 throughout, no committed player damage and unchanged actor/stage epochs. It traverses the actual deep ascent and other exit and returns to camp. The real Reader sequence has four visible-button press/release records, six paused process observations with frozen Motor/position, then an actual queued claim: `forest_spiral_core` count **0→1**, projectile damage **1→2.5**, a matching actual reward receipt and final claimed state. No direct grant or fixture injection is accepted.
+
+The full timeline passes for 414 actual events, 110 input requests, four pointer rows and six Reader-modal rows. Thirty preincrement observations remain bound to unique actual Engine physics samples without rewriting their raw ticks. All 73 process observations satisfy their actual bounded windows. The actual paused Reader's Engine physics counter advances while the courier's Motor state stays frozen, confirming why process observations cannot be forced to equal the previous Motor sample's engine counter.
+
+AVI and MP4 each contain 3380 video frames/packets at 1280×720/60fps, lasting **56.333 seconds**; independent ffprobe packet counts and stream metadata agree with the actual wrapper's decoded-frame counts. AVI parsing independently confirms 3380 video and 3380 PCM chunks. The original AVI PCM and WAV PCM are byte-identical: **2,704,000 stereo 48kHz/16-bit sample frames**, exactly matching the movie. Actual peak is 21267 and RMS is 1396.88. These are actual signal/custody checks; **perceptual listening and physical audio playback were not performed**.
+
+The five original selected frames are **8, 2155, 2356, 2367 and 3374**. Each exact JPEG packet was sought directly from the AVI, decoded using one thread and compared with its selected PNG: every RGB pixel matches. All five actual images were individually viewed. They show formal departure, airborne H beside the fruit and its leafy stem, the discovery bank with its real interaction button, the accepted-effect location, and return to the merchant/camp. The courier, forest tile edges, fruit and relevant interaction areas remain readable; no blank or missing-texture capture was seen.
+
+This is **a full timeline audit and five-frame visual sample**, not a claim of full continuous visual watching. The opened Reader page is not among these five images: its actual paused UI interaction is established by the complete pointer/timeline evidence, while its rendered modal layout was not visually sampled. Continuous camera smoothness, wind animation, whole-route beauty and full natural-grounding/art polish are not closed by these samples. No new comparison with Plains art was performed.
+
+The original AVI again has a RIFF extent field 70 bytes shorter than the file, while every video/audio chunk and the original PCM is complete. The source evidence was preserved without container repair. No engine or full-movie transcode was executed by the reviewer; only the five selected MJPEG packets were independently decoded to keep CPU use light during the root harness.
+
+Evidence: `review.json`, independent AVI/MP4 ffprobe outputs and `../audit_actual.py`. Original AV, raw trace and source receipt remain untouched in `../../f08-map2-actualmovie-first/`.

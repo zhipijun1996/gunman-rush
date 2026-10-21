@@ -1,0 +1,42 @@
+{
+  "verdict": "REJECT_SCOPED_INITIAL_E772_CACHE_PROVENANCE_REWORK_REQUIRED",
+  "scope": "Artifact lossless storage/cache proof only; no engine, no original harness outcome rewritten",
+  "reviewer": "/root/bible_test_workflow_independent_review",
+  "independent_from_author": "/root/ci_v15_admission_continue",
+  "skill": ".agents/skills/gameplay-reviewer/SKILL.md",
+  "source_sha256": {
+    "tools/harness.py": "e772e134b99d3e16c84d645f0cf8e8febd34179be0c73cc6c5652ac6ba070a70",
+    "tests/test_harness_artifact_archive.py": "d711e10e1f20718105f1a7c893d2676e1d91cc52477956a2af83f61cfe6d34c1"
+  },
+  "independent_original_units": {
+    "tests_run": 77,
+    "failures": 0,
+    "seconds": 7.876,
+    "log": "original77-unit.log"
+  },
+  "independent_new_units": {
+    "tests_run": 9,
+    "failures": 0,
+    "seconds": 1.482,
+    "log": "new9-unit.log"
+  },
+  "source_review": "initial-source-review.json",
+  "finding": {
+    "id": "HARNESS-ARCHIVE-CACHE-COHERENT-01",
+    "severity": "required repair before acceptance",
+    "trigger": "Equal-size valid JSON replaces full ZIP member; rebind member SHA/archive SHA and cache artifact outer fingerprint while preserving original live output expectation. Also tested isolated/no-live case.",
+    "actual": "Both return reused=True after a valid >8MiB positive",
+    "expected": "Both cache miss against independently retained original archived output ledger",
+    "production_cause": "Archive/member hashes are currently checked only against the mutable archive index; no independent original expected member ledger is stored/bound at cache creation.",
+    "repro": "coherent_false_reuse.py uses immutable copied e772 production source",
+    "evidence": "initial-coherent-false-reuse.json",
+    "fix_scope": "Author mirror-only minimal independent archive member path/hash/size ledger for live and isolated; retain old small-cache compatibility; root must separately authorize live change"
+  },
+  "limitations": [
+    "Existing original77 and new9 pass is necessary but does not refute this stronger coherent false-reuse case",
+    "Archive recovery/full bytes/source preservation/path/ENOSPC behavior passed current unit controls, but the initial revision is not accepted due to cache provenance",
+    "ENOSPC controls inject real OSError paths; reviewer did not fill disk again",
+    "No engine, native80 rerun, art/device/user signoff",
+    "Existing prepared evidence bundles left unchanged"
+  ]
+}

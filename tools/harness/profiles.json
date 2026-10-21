@@ -2944,6 +2944,15 @@
         "tools"
       ],
       "weight_seconds": 3
+    },
+    "harness-artifact-archive-tests": {
+      "argv": [
+        "python3",
+        "tests/test_harness_artifact_archive.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 2.5
     }
   },
   "profiles": {
@@ -2975,7 +2984,8 @@
       "underworld-pipeline",
       "underworld-home-guard-tests",
       "region-bible-contract",
-      "region-bible-tests"
+      "region-bible-tests",
+      "harness-artifact-archive-tests"
     ],
     "core": [
       "docs",
@@ -3002,7 +3012,8 @@
       "level-formal-receipts",
       "creative-direction",
       "creative-direction-tests",
-      "forest-region-scheduler-tests"
+      "forest-region-scheduler-tests",
+      "harness-artifact-archive-tests"
     ],
     "gameplay": [
       "docs",
@@ -3129,7 +3140,8 @@
       "forest-bible-world-spiral",
       "forest-bible-versions",
       "forest-bible-reader-tests",
-      "forest-bible-av-reader-tests"
+      "forest-bible-av-reader-tests",
+      "harness-artifact-archive-tests"
     ],
     "art": [
       "docs",
@@ -3223,7 +3235,8 @@
       "forest-bible-app-discoveries",
       "forest-practice-bell-restore",
       "forest-bible-reader-tests",
-      "forest-bible-av-reader-tests"
+      "forest-bible-av-reader-tests",
+      "harness-artifact-archive-tests"
     ],
     "web": [
       "docs",
@@ -3266,7 +3279,8 @@
       "underworld-home-guard-tests",
       "forest-camera-stability",
       "forest-hazard-records",
-      "forest-fruit-contract"
+      "forest-fruit-contract",
+      "harness-artifact-archive-tests"
     ],
     "full": [
       "docs",
@@ -3408,7 +3422,8 @@
       "forest-bible-world-spiral",
       "forest-bible-versions",
       "forest-bible-reader-tests",
-      "forest-bible-av-reader-tests"
+      "forest-bible-av-reader-tests",
+      "harness-artifact-archive-tests"
     ],
     "creative-feedback": [
       "docs",

@@ -1,0 +1,535 @@
+{
+  "verdict": "SCOPED_ACCEPT_legal_consumer_aim_sampling_and_actual_seed01_growth",
+  "engine_executed_by_reviewer": false,
+  "production_source_modified_by_reviewer": false,
+  "patched_source": "tests/forest_bible_trace_support.gd",
+  "patched_sha256": "039c94affdfc07cfa96be5540340494601ac2cffb80acf9b115fbb1e72840e27",
+  "source_inventory_count": 3600,
+  "actual_new_case_source_before_after_current_equal": true,
+  "only_source_difference_from_original_failed_case": [
+    "tests/forest_bible_trace_support.gd"
+  ],
+  "gameplay_runtime_geometry_resources_unchanged": true,
+  "old_manifest_exactly_equals_new": true,
+  "old_initial_snapshot_exactly_equals_new": true,
+  "physical_prefix_fields_compared": [
+    "tick",
+    "leg",
+    "position",
+    "velocity",
+    "health",
+    "energy",
+    "shots",
+    "grounded",
+    "supports",
+    "motor_steps",
+    "actor_epoch",
+    "stage_epoch",
+    "enemies"
+  ],
+  "physical_prefix_identical_through_tick": 1366,
+  "first_actual_difference": {
+    "tick": 1367,
+    "fields": [
+      "position",
+      "velocity",
+      "energy"
+    ]
+  },
+  "narrow_patch_assessment": {
+    "original_offsets_prefix_preserved": true,
+    "new_offsets": "±max(0, half_height - actual_projectile_radius -1)",
+    "actual_spider_half_height": 14,
+    "actual_projectile_radius": 3,
+    "appended_offsets": [
+      -10,
+      10
+    ],
+    "margin_inside_shrunken_body": 1,
+    "same_body_hit_predicate": true,
+    "same_two_actual_radius_circle_casts": true,
+    "same_ground_recoil_envelope": true,
+    "same_600tick_encounter_and_12request_limits": true,
+    "new_seed_specific_branch": false,
+    "producer_layout_or_actor_tweak": false
+  },
+  "failed_case": {
+    "path": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/17-map1-growth/capture.json",
+    "sha256": "2f8ca4142fad4f7a2aa2f173fc97d088f6e5b799116e891989552a2ee6adaab4",
+    "frames": 1941,
+    "completed_legs": 18,
+    "itinerary_legs": 27,
+    "failures": [
+      "forest_encounter_bounded_return/hollow_route__borer_entry_thread"
+    ],
+    "actual_subject_damage_events": [
+      {
+        "amount": 1.0,
+        "damage_kind": 0,
+        "event_id": "226643413976:2:9",
+        "health_after": 1.0,
+        "kind": "committed_damage",
+        "leg": 18,
+        "lethal": false,
+        "position": [
+          532.7802734375,
+          599.925231933594
+        ],
+        "source": "player_projectile:226643413976",
+        "target": "hollow_route__borer_entry_thread",
+        "tick": 1348
+      }
+    ]
+  },
+  "fixed_actual_case": {
+    "path": "build/forest_depth/region/v15-seed01-growth-second/00-map1-growth/capture.json",
+    "sha256": "81cc4e3d5c63b99c4dcdcab52b4348d02f15e2cdb39c9d0a9c99714eb8a412e9",
+    "native_seconds": 12.547194315000525,
+    "original_validator_errors": [],
+    "frames": 1999,
+    "completed_legs": 27,
+    "itinerary_legs": 27,
+    "all_physical_health5": true,
+    "ordinary_Motor_per_frame": 1,
+    "actor_epoch": 3,
+    "stage_epoch": 3,
+    "player_damage_events": [],
+    "tick_budget": 18000,
+    "edge_tick_budget": 1800,
+    "subject_actual_encounter": [
+      {
+        "action_requests": 0,
+        "enemy_hp": 2.0,
+        "enemy_id": "hollow_route__borer_entry_thread",
+        "enemy_position": [
+          310.0,
+          554.0
+        ],
+        "kind": "forest_encounter_start",
+        "leg": 18,
+        "origin": [
+          456.967742919922,
+          599.925231933594
+        ],
+        "pilot_state": "raised_firing_bank",
+        "position": [
+          456.967742919922,
+          599.925231933594
+        ],
+        "saved_leg": 18,
+        "saved_phase": "align",
+        "shot_requests": 0,
+        "snapshot": {
+          "config": {
+            "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+            "tuning": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c"
+          },
+          "double_enabled": false,
+          "energy": 100.0,
+          "health": 5.0,
+          "hook_enabled": true,
+          "position": [
+            456.967742919922,
+            599.925231933594
+          ],
+          "shots": 2,
+          "tier": 1,
+          "wall_enabled": false,
+          "weapon": "pulse_gun"
+        },
+        "tick": 1341
+      },
+      {
+        "action_requests": 0,
+        "aim": [
+          -0.939825177192688,
+          -0.341655731201172
+        ],
+        "enemy_hp": 2.0,
+        "enemy_id": "hollow_route__borer_entry_thread",
+        "enemy_position": [
+          310.0,
+          554.0
+        ],
+        "grounded": true,
+        "kind": "forest_encounter_shot",
+        "leg": 18,
+        "origin": [
+          456.967742919922,
+          599.925231933594
+        ],
+        "pilot_state": "raised_firing_bank",
+        "position": [
+          456.967742919922,
+          599.925231933594
+        ],
+        "request_index": 1,
+        "saved_leg": 18,
+        "saved_phase": "align",
+        "shot_requests": 1,
+        "shots_remaining": 2,
+        "snapshot": {
+          "config": {
+            "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+            "tuning": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c"
+          },
+          "double_enabled": false,
+          "energy": 100.0,
+          "health": 5.0,
+          "hook_enabled": true,
+          "position": [
+            456.967742919922,
+            599.925231933594
+          ],
+          "shots": 2,
+          "tier": 1,
+          "wall_enabled": false,
+          "weapon": "pulse_gun"
+        },
+        "tick": 1341
+      },
+      {
+        "action_requests": 1,
+        "aim": [
+          -0.946587443351746,
+          -0.322447299957275
+        ],
+        "enemy_hp": 1.0,
+        "enemy_id": "hollow_route__borer_entry_thread",
+        "enemy_position": [
+          293.799987792969,
+          554.0
+        ],
+        "grounded": true,
+        "kind": "forest_encounter_shot",
+        "leg": 18,
+        "origin": [
+          456.967742919922,
+          599.925231933594
+        ],
+        "pilot_state": "raised_firing_bank",
+        "position": [
+          463.529022216797,
+          599.925231933594
+        ],
+        "request_index": 2,
+        "saved_leg": 18,
+        "saved_phase": "align",
+        "shot_requests": 2,
+        "shots_remaining": 2,
+        "snapshot": {
+          "config": {
+            "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+            "tuning": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c"
+          },
+          "double_enabled": false,
+          "energy": 100.0,
+          "health": 5.0,
+          "hook_enabled": true,
+          "position": [
+            463.529022216797,
+            599.925231933594
+          ],
+          "shots": 2,
+          "tier": 1,
+          "wall_enabled": false,
+          "weapon": "pulse_gun"
+        },
+        "tick": 1367
+      },
+      {
+        "action_requests": 2,
+        "enemy_hp": 0.0,
+        "enemy_id": "hollow_route__borer_entry_thread",
+        "enemy_position": [
+          293.799987792969,
+          554.0
+        ],
+        "kind": "forest_encounter_terminal",
+        "leg": 18,
+        "origin": [
+          456.967742919922,
+          599.925231933594
+        ],
+        "pilot_state": "return",
+        "position": [
+          543.705017089844,
+          599.925170898438
+        ],
+        "saved_leg": 18,
+        "saved_phase": "align",
+        "shot_requests": 2,
+        "snapshot": {
+          "config": {
+            "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+            "tuning": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c"
+          },
+          "double_enabled": false,
+          "energy": 100.0,
+          "health": 5.0,
+          "hook_enabled": true,
+          "position": [
+            543.705017089844,
+            599.925170898438
+          ],
+          "shots": 2,
+          "tier": 1,
+          "wall_enabled": false,
+          "weapon": "pulse_gun"
+        },
+        "tick": 1376
+      },
+      {
+        "action_requests": 2,
+        "enemy_hp": 0.0,
+        "enemy_id": "hollow_route__borer_entry_thread",
+        "enemy_position": [
+          293.799987792969,
+          554.0
+        ],
+        "full_foot_frames": 12,
+        "kind": "forest_encounter_return",
+        "leg": 18,
+        "origin": [
+          456.967742919922,
+          599.925231933594
+        ],
+        "pilot_state": "return",
+        "position": [
+          457.008148193359,
+          599.925170898438
+        ],
+        "saved_leg": 18,
+        "saved_phase": "align",
+        "shot_requests": 2,
+        "snapshot": {
+          "config": {
+            "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+            "tuning": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c"
+          },
+          "double_enabled": false,
+          "energy": 100.0,
+          "health": 5.0,
+          "hook_enabled": true,
+          "position": [
+            457.008148193359,
+            599.925170898438
+          ],
+          "shots": 2,
+          "tier": 1,
+          "wall_enabled": false,
+          "weapon": "pulse_gun"
+        },
+        "support": "hollow__belly_entry",
+        "tick": 1406
+      }
+    ],
+    "subject_actual_damage": [
+      {
+        "amount": 1.0,
+        "damage_kind": 0,
+        "event_id": "226643413976:2:9",
+        "health_after": 1.0,
+        "kind": "committed_damage",
+        "leg": 18,
+        "lethal": false,
+        "position": [
+          532.7802734375,
+          599.925231933594
+        ],
+        "source": "player_projectile:226643413976",
+        "target": "hollow_route__borer_entry_thread",
+        "tick": 1348
+      },
+      {
+        "amount": 1.0,
+        "damage_kind": 0,
+        "event_id": "226643413976:2:10",
+        "health_after": 0.0,
+        "kind": "committed_damage",
+        "leg": 18,
+        "lethal": true,
+        "position": [
+          543.705017089844,
+          599.925170898438
+        ],
+        "source": "player_projectile:226643413976",
+        "target": "hollow_route__borer_entry_thread",
+        "tick": 1375
+      }
+    ],
+    "actual_shot_custody": [
+      {
+        "serial": 9,
+        "shot_tick": 1341,
+        "queued_actual_router_request": {
+          "aim": [
+            -0.939825177192688,
+            -0.341655731201172
+          ],
+          "input_aim": [
+            -0.939825177192688,
+            -0.341655731201172
+          ],
+          "kind": "shoot_release",
+          "leg": 18,
+          "phase": "align",
+          "queued": true,
+          "router_epoch": 3,
+          "router_sequence": 44,
+          "router_type": "shoot_release",
+          "tick": 1341
+        },
+        "actual_projectile_spawn": {
+          "direction": [
+            -0.939825177192688,
+            -0.341655731201172
+          ],
+          "fired_airborne": false,
+          "kind": "actual_projectile_spawned",
+          "leg": 18,
+          "lifetime": 2.0,
+          "owner_id": 226643413976,
+          "packet": 9,
+          "position": [
+            456.967742919922,
+            599.925231933594
+          ],
+          "projectile_position": [
+            456.967742919922,
+            599.925231933594
+          ],
+          "serial": 9,
+          "session_id": 2,
+          "tick": 1341,
+          "weapon_epoch": 0
+        },
+        "actual_muzzle": {
+          "body_origin": [
+            456.967742919922,
+            599.925231933594
+          ],
+          "kind": "v15_actual_projectile_muzzle",
+          "leg": 18,
+          "muzzle": [
+            442.055297851562,
+            596.40625
+          ],
+          "position": [
+            456.967742919922,
+            599.925231933594
+          ],
+          "serial": 9,
+          "tick": 1341
+        },
+        "muzzle_ray_y_at_perch_right_x350": 562.941281342357,
+        "perch_top568_minus_ray_y_minus_actual_radius3": 2.0587186576429986,
+        "projection_scope": "Straight actual-muzzle ray corner cross-section only; native projectile impacts and damage establish actual collision success."
+      },
+      {
+        "serial": 10,
+        "shot_tick": 1367,
+        "queued_actual_router_request": {
+          "aim": [
+            -0.946587443351746,
+            -0.322447299957275
+          ],
+          "input_aim": [
+            -0.946587443351746,
+            -0.322447299957275
+          ],
+          "kind": "shoot_release",
+          "leg": 18,
+          "phase": "align",
+          "queued": true,
+          "router_epoch": 3,
+          "router_sequence": 45,
+          "router_type": "shoot_release",
+          "tick": 1367
+        },
+        "actual_projectile_spawn": {
+          "direction": [
+            -0.946587443351746,
+            -0.322447299957275
+          ],
+          "fired_airborne": false,
+          "kind": "actual_projectile_spawned",
+          "leg": 18,
+          "lifetime": 2.0,
+          "owner_id": 226643413976,
+          "packet": 10,
+          "position": [
+            463.529022216797,
+            599.925231933594
+          ],
+          "projectile_position": [
+            463.529022216797,
+            599.925231933594
+          ],
+          "serial": 10,
+          "session_id": 2,
+          "tick": 1367,
+          "weapon_epoch": 0
+        },
+        "actual_muzzle": {
+          "body_origin": [
+            463.529022216797,
+            599.925231933594
+          ],
+          "kind": "v15_actual_projectile_muzzle",
+          "leg": 18,
+          "muzzle": [
+            448.475006103516,
+            596.688781738281
+          ],
+          "position": [
+            463.529022216797,
+            599.925231933594
+          ],
+          "serial": 10,
+          "tick": 1367
+        },
+        "muzzle_ray_y_at_perch_right_x350": 563.1440732653674,
+        "perch_top568_minus_ray_y_minus_actual_radius3": 1.8559267346325896,
+        "projection_scope": "Straight actual-muzzle ray corner cross-section only; native projectile impacts and damage establish actual collision success."
+      }
+    ],
+    "returned_to_actual_original_shore_with_12_full_foot_frames": true,
+    "body_data": {
+      "body_size": [
+        26.0,
+        28.0
+      ],
+      "cooldown": 0.466666666666666,
+      "depth_state": {
+        "configured": true,
+        "end": [
+          368.0,
+          540.0
+        ],
+        "hit_this_cycle": false,
+        "start": [
+          320.0,
+          540.0
+        ],
+        "version": 1
+      },
+      "health": 2.0,
+      "id": "hollow_route__borer_entry_thread",
+      "patrol_radius": 0.0,
+      "position": [
+        310.0,
+        554.0
+      ],
+      "stable_id": "forest_thread_spider",
+      "state": "idle",
+      "state_time": 0.133333333333333,
+      "terminal": false
+    }
+  },
+  "scope_limits": [
+    "One actual seed01/map1/growth case is now established; original80 fresh corpus remains pending.",
+    "This is a v15 test consumer-input sampling repair, not a runtime/producer fix or a replacement for physical validation.",
+    "The existing F05/F08 movies and independent AV reports remain bound to their original048 source inventory; they are not rewritten or claimed to include this later helper patch."
+  ]
+}

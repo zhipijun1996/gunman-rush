@@ -1,0 +1,54 @@
+{
+  "verdict": "ACCEPT_SCOPED_ACTUAL_JOBS1_JOBS2_ARCHIVE_PROVENANCE",
+  "source_sha256": "29f1503f037ccac6ca624547ca62d1c89bfde21ac4a543338d94fd73105b4c29",
+  "results": [
+    {
+      "jobs": 1,
+      "real_python_subprocess": true,
+      "large_valid_json_bytes": 8388802,
+      "fresh_pass": true,
+      "positive_actual_cache_reused": true,
+      "original_native_ledger_observed_from_execute_checks": true,
+      "live_output_ledger_present": true,
+      "full_restored_original_bytes_and_JSON_equal": true,
+      "small_raw_path_and_check_log_preserved": true,
+      "untouched_large_excluded": true,
+      "large_raw_duplicate_absent": true,
+      "old_small_cache_without_new_ledger_accepted": true,
+      "actual_negative_controls_rejected": [
+        "coherent_zip_index_and_outer_fp_rebind_original_native_ledger_preserved",
+        "index_cannot_substitute_for_missing_zip",
+        "zip_requires_original_index",
+        "both_bundle_files_missing_cannot_use_hash_only_cache",
+        "large_archive_requires_original_native_ledger",
+        "exact_original_member_size_required",
+        "exact_original_member_set_required"
+      ]
+    },
+    {
+      "jobs": 2,
+      "real_python_subprocess": true,
+      "large_valid_json_bytes": 8388802,
+      "fresh_pass": true,
+      "positive_actual_cache_reused": true,
+      "original_native_ledger_observed_from_execute_checks": true,
+      "live_output_ledger_present": false,
+      "full_restored_original_bytes_and_JSON_equal": true,
+      "small_raw_path_and_check_log_preserved": true,
+      "untouched_large_excluded": true,
+      "large_raw_duplicate_absent": true,
+      "old_small_cache_without_new_ledger_accepted": true,
+      "actual_negative_controls_rejected": [
+        "coherent_zip_index_and_outer_fp_rebind_original_native_ledger_preserved",
+        "index_cannot_substitute_for_missing_zip",
+        "zip_requires_original_index",
+        "both_bundle_files_missing_cannot_use_hash_only_cache",
+        "large_archive_requires_original_native_ledger",
+        "exact_original_member_size_required",
+        "exact_original_member_set_required"
+      ]
+    }
+  ],
+  "engine_executed": false,
+  "production_edits": false
+}

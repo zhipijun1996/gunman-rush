@@ -48,6 +48,21 @@ python3 tools/harness.py --profile full
 
 敏感测试修改需覆盖该路径的质量记录、test_change_justification 和实际独立审查证据；不能用假 reviewer 名字绕过。此保护是保守文本/集合差异，不证明任意代码语义等价；例如保留断言但改变辅助函数仍需人工 diff 审查。代码和 CI 不是不可篡改安全边界。
 
+收集证据只处理本轮变化的输出。为避免大型轨迹再复制一份耗尽磁盘，新增的至少8MiB JSON流式进入每检查的`artifacts-large-json.zip`，完整索引、每成员大小/SHA及CRC校验后才发布；小文件和`check.log`仍保留原路径，原生输出不删除。缓存同时核对ZIP、索引、独立记录的原始输出摘要，以及普通工作区的live输出；隔离lane也保留原始摘要。缺件、篡改、源在读取中变化或写入失败均拒绝，不使用硬链接或仅保存哈希替代数据。`harness-artifact-archive-tests`在六个原标准profile末尾执行12个真实正反例，旧150检查字典及原profile前缀保持。
+
+离线分析可显式恢复一个完整成员到已存在安全目录中的**新文件**；不覆盖原件，不自动修改live输出。示例中的成员名取自该检查的索引：
+
+```python
+from pathlib import Path
+import sys
+sys.path.insert(0, "tools")
+from harness import restore_archived_artifact
+restore_archived_artifact(Path("build/verification/harness/RUN/artifacts/CHECK"),
+                          "build/example/capture.json", Path("build/restored-capture.json"))
+```
+
+原生检查通过而收集器中断时，外层仍是失败或`interrupted`；不能补改旧收据为通过。实际80路线已通过但外层ENOSPC，以及归档初版的缓存误接受与独立修复链，随源版本分别保存；新的完整fresh执行另立收据。
+
 ## 多包任务执行
 
 `--mission` 模式见 [生产循环](quality/production_loop.md)，默认只计划，`--execute` 才真实调用 Codex Skills。原有 `--profile` 验证模式不变。

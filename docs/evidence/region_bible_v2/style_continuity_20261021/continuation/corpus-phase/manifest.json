@@ -1,0 +1,673 @@
+{
+  "status": "PREPARATION_ONLY_INDEPENDENT_NARROW_REVIEW_INCLUDED",
+  "scope": "Original partial failed80 and one repaired actual case only; no final current80 or art claim",
+  "original_partial": {
+    "requested": 80,
+    "executed": 19,
+    "passed": 18,
+    "failed": 1,
+    "not_executed": 61,
+    "status": "failed",
+    "source_inventory_count": 3600,
+    "source_stable": true
+  },
+  "single_actual_second": {
+    "executed": 1,
+    "passed": 1,
+    "source_inventory_count": 3600,
+    "source_stable": true
+  },
+  "actual_capture_facts": {
+    "failed17": {
+      "physics_frames": 1941,
+      "completed_legs": 18,
+      "itinerary_legs": 27,
+      "failures": [
+        "forest_encounter_bounded_return/hollow_route__borer_entry_thread"
+      ],
+      "min_health": 5.0
+    },
+    "single_actual_second": {
+      "physics_frames": 1999,
+      "completed_legs": 27,
+      "itinerary_legs": 27,
+      "failures": [],
+      "min_health": 5.0
+    }
+  },
+  "source_inventory_only_changed_path": [
+    "tests/forest_bible_trace_support.gd"
+  ],
+  "current_new80_result": "RUNNING_NOT_INCLUDED_NO_COMPLETION_CLAIM",
+  "independent_narrow_review_included": true,
+  "files": [
+    {
+      "path": "payload/failed-original19/00-map1-fast/native.log",
+      "origin": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/00-map1-fast/native.log",
+      "bytes": 1237,
+      "sha256": "ccbeb538fbd5dee3b9761efa18412d7936d686be99e18bf7d16745210c48ab02"
+    },
+    {
+      "path": "payload/failed-original19/01-map1-growth/native.log",
+      "origin": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/01-map1-growth/native.log",
+      "bytes": 1237,
+      "sha256": "269d8e4a5e807c3473ebaef1bf85692fd153ade11784592e0d7db424e07bae8e"
+    },
+    {
+      "path": "payload/failed-original19/02-map1-high_return/native.log",
+      "origin": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/02-map1-high_return/native.log",
+      "bytes": 1156,
+      "sha256": "69be6d629872bf774eee60934bf5c8c411b95558afdc4ca9dc47bbf98fe005fd"
+    },
+    {
+      "path": "payload/failed-original19/03-map1-change_mind/native.log",
+      "origin": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/03-map1-change_mind/native.log",
+      "bytes": 1138,
+      "sha256": "dee9c40952c5c4b517b535e36ad9e38124ee13fc2a8d34d0153e01badf3aaebc"
+    },
+    {
+      "path": "payload/failed-original19/04-map1-fast/native.log",
+      "origin": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/04-map1-fast/native.log",
+      "bytes": 1229,
+      "sha256": "ae8bfa21750af250dd438821df7c345a95fe2b150f6ad6acbf50e67dc516b74c"
+    },
+    {
+      "path": "payload/failed-original19/05-map1-growth/native.log",
+      "origin": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/05-map1-growth/native.log",
+      "bytes": 1292,
+      "sha256": "a34f4eba5ae5e091e5816ec5bcc616f90765855b30530d80ac8482bda78255f0"
+    },
+    {
+      "path": "payload/failed-original19/06-map1-high_return/native.log",
+      "origin": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/06-map1-high_return/native.log",
+      "bytes": 1171,
+      "sha256": "8fe276abf82eec6f1f5aff55d536eff1c39f9b176063d7dc80197e01fc5cc804"
+    },
+    {
+      "path": "payload/failed-original19/07-map1-change_mind/native.log",
+      "origin": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/07-map1-change_mind/native.log",
+      "bytes": 1131,
+      "sha256": "2301ca2a867b16ea2ebe503be753a876c22881f9e883865124d0ccfc4b313caa"
+    },
+    {
+      "path": "payload/failed-original19/08-map2-fast/native.log",
+      "origin": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/08-map2-fast/native.log",
+      "bytes": 1220,
+      "sha256": "398153d6ca597f22341da41b08dc450fed437c43269b88a7d482f3e069b1c387"
+    },
+    {
+      "path": "payload/failed-original19/09-map2-growth/native.log",
+      "origin": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/09-map2-growth/native.log",
+      "bytes": 1253,
+      "sha256": "3f43f6ebe10ee511f19d9c5b346bf29b0a1c2c737d14c4c58ccd5a8d5f00823d"
+    },
+    {
+      "path": "payload/failed-original19/10-map2-high_return/native.log",
+      "origin": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/10-map2-high_return/native.log",
+      "bytes": 1126,
+      "sha256": "617f66800aeb0ca4cb78a05dddc9b135b93ca5b919e75774113b4f16d9235d12"
+    },
+    {
+      "path": "payload/failed-original19/11-map2-change_mind/native.log",
+      "origin": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/11-map2-change_mind/native.log",
+      "bytes": 1135,
+      "sha256": "eba78e709360eda627ecdeee66d2ec4c5e7927a5c1b2c41941fc01f48fc0e654"
+    },
+    {
+      "path": "payload/failed-original19/12-map2-fast/native.log",
+      "origin": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/12-map2-fast/native.log",
+      "bytes": 1218,
+      "sha256": "34c2d796115a91ac7ace4298660232276f629935b4f68fcda8c16587e282041b"
+    },
+    {
+      "path": "payload/failed-original19/13-map2-growth/native.log",
+      "origin": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/13-map2-growth/native.log",
+      "bytes": 1256,
+      "sha256": "0f8c971e4537257b61e782a1ba3d30cdabbf53deb4e75cf0cc79b984821ce05b"
+    },
+    {
+      "path": "payload/failed-original19/14-map2-high_return/native.log",
+      "origin": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/14-map2-high_return/native.log",
+      "bytes": 1140,
+      "sha256": "6d8f443f7b78a22b4cc4c9fba02e1e6a3ff85cd299dece46adc38e8eaf09fcf8"
+    },
+    {
+      "path": "payload/failed-original19/15-map2-change_mind/native.log",
+      "origin": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/15-map2-change_mind/native.log",
+      "bytes": 1105,
+      "sha256": "ba9b27018fc63ca18daafe42e852c6793d651bd0b13c07e8085e3fbdf91ff00c"
+    },
+    {
+      "path": "payload/failed-original19/16-map1-fast/native.log",
+      "origin": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/16-map1-fast/native.log",
+      "bytes": 1238,
+      "sha256": "db3c75f925b2d627a9345e3df74c73ed43ff56635864ac527f9812a975ec98aa"
+    },
+    {
+      "path": "payload/failed-original19/17-map1-growth/native.log",
+      "origin": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/17-map1-growth/native.log",
+      "bytes": 1135,
+      "sha256": "415f75498e0167568affa4d19590be9a76f60e49bc587440081760ea97d3da9c"
+    },
+    {
+      "path": "payload/failed-original19/18-map1-high_return/native.log",
+      "origin": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/18-map1-high_return/native.log",
+      "bytes": 1157,
+      "sha256": "3a9d240f09c02b18b2491df15a287368a139c1a5ded08269f0fb1d84a104f4c2"
+    },
+    {
+      "path": "payload/failed-original19/full-original19-captures.zip",
+      "bytes": 9093764,
+      "sha256": "23409500bfa59e347ecbc72c8ebace787cd9ae239f51294137155a896acae74d",
+      "members": [
+        {
+          "path": "00-map1-fast/capture.json",
+          "original": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/00-map1-fast/capture.json",
+          "crc32": "417025ce",
+          "bytes": 11760395,
+          "sha256": "6438ca006716b68f7921ff9e65f688e80bfe15b77e5850351f64dd0f14361f86"
+        },
+        {
+          "path": "01-map1-growth/capture.json",
+          "original": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/01-map1-growth/capture.json",
+          "crc32": "23dbf2aa",
+          "bytes": 9311802,
+          "sha256": "a4a3535dad87f2583609ffe231f7f7bd6a3254c42edfc896bfccd9188f9df57f"
+        },
+        {
+          "path": "02-map1-high_return/capture.json",
+          "original": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/02-map1-high_return/capture.json",
+          "crc32": "ce9ff376",
+          "bytes": 11698465,
+          "sha256": "625c82d12a91eb1dd5b9378b5ccefc2fba62dea4be81e5a869a971335c562cab"
+        },
+        {
+          "path": "03-map1-change_mind/capture.json",
+          "original": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/03-map1-change_mind/capture.json",
+          "crc32": "70a1123d",
+          "bytes": 11410633,
+          "sha256": "42148bf17c4eab8065353e8a51350a06d046a795874268d1ff3ab2323a359fce"
+        },
+        {
+          "path": "04-map1-fast/capture.json",
+          "original": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/04-map1-fast/capture.json",
+          "crc32": "0b733479",
+          "bytes": 12789557,
+          "sha256": "e04c44a81d79a8adcb2073bad7ba3a83a727177fc2a359dc00fdcff50b413a30"
+        },
+        {
+          "path": "05-map1-growth/capture.json",
+          "original": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/05-map1-growth/capture.json",
+          "crc32": "cb6acdad",
+          "bytes": 14637509,
+          "sha256": "091fe3a67118e9d858f4565acefc694166ce910471212bf68538656e6575a2d1"
+        },
+        {
+          "path": "06-map1-high_return/capture.json",
+          "original": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/06-map1-high_return/capture.json",
+          "crc32": "45a636a1",
+          "bytes": 11714286,
+          "sha256": "177f46e50f19cadf2445e58d70b1ff861d6eeb62b2566e271c94cfc81b6e0474"
+        },
+        {
+          "path": "07-map1-change_mind/capture.json",
+          "original": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/07-map1-change_mind/capture.json",
+          "crc32": "fd649abc",
+          "bytes": 12105726,
+          "sha256": "d238d271e76c3724353cdde68771af3ef5c9f52d829d078a8b450fcdc2bb9fe8"
+        },
+        {
+          "path": "08-map2-fast/capture.json",
+          "original": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/08-map2-fast/capture.json",
+          "crc32": "a2c0b13e",
+          "bytes": 13246033,
+          "sha256": "70aa2deb3ac84c0876be20ac23b28d2fa33966e47a5667a5cde6da52e23ef196"
+        },
+        {
+          "path": "09-map2-growth/capture.json",
+          "original": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/09-map2-growth/capture.json",
+          "crc32": "6e94d066",
+          "bytes": 23877857,
+          "sha256": "e1442e5f048eb0e372bc860754ebbdb5b0d74f9228fbbc754da08cb1a22da2d2"
+        },
+        {
+          "path": "10-map2-high_return/capture.json",
+          "original": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/10-map2-high_return/capture.json",
+          "crc32": "21696766",
+          "bytes": 17339455,
+          "sha256": "ffe1e6077203f4c42752b2f4874511e0ed29fdfe05490504c634ee88824a6b39"
+        },
+        {
+          "path": "11-map2-change_mind/capture.json",
+          "original": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/11-map2-change_mind/capture.json",
+          "crc32": "06fd1745",
+          "bytes": 11940058,
+          "sha256": "5b282afa3aff9cef0aa7a7b83b2f1bb152903bfda2a13804acd7acdfb6a9da08"
+        },
+        {
+          "path": "12-map2-fast/capture.json",
+          "original": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/12-map2-fast/capture.json",
+          "crc32": "8020c211",
+          "bytes": 9278546,
+          "sha256": "d804a54677f86ea8328616a604c21731fcce2e5cd57df833a29ae800151fe575"
+        },
+        {
+          "path": "13-map2-growth/capture.json",
+          "original": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/13-map2-growth/capture.json",
+          "crc32": "ca8c706a",
+          "bytes": 14696667,
+          "sha256": "e095dfa12bbbbb01bed4ab7bbcc785d8cafb970ba24a4f12a857b91464fbf30e"
+        },
+        {
+          "path": "14-map2-high_return/capture.json",
+          "original": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/14-map2-high_return/capture.json",
+          "crc32": "49065558",
+          "bytes": 10730632,
+          "sha256": "3a4124088e2b76a65d07a0211b6f3bf585bde2879ef67ebd926c54d2aa0274a2"
+        },
+        {
+          "path": "15-map2-change_mind/capture.json",
+          "original": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/15-map2-change_mind/capture.json",
+          "crc32": "bb837953",
+          "bytes": 8457013,
+          "sha256": "d8a7b802e437cb6fb63e65df8356470bf8cf0902bdd7cbd957fd7079d92ce088"
+        },
+        {
+          "path": "16-map1-fast/capture.json",
+          "original": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/16-map1-fast/capture.json",
+          "crc32": "cb5a0f32",
+          "bytes": 11759508,
+          "sha256": "2ca1aa1789c2ea1a2c777a84f1c7f2d3420a71f0410b3a94e3dec2911d2ce4f9"
+        },
+        {
+          "path": "17-map1-growth/capture.json",
+          "original": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/17-map1-growth/capture.json",
+          "crc32": "982d7b92",
+          "bytes": 10471232,
+          "sha256": "2f8ca4142fad4f7a2aa2f173fc97d088f6e5b799116e891989552a2ee6adaab4"
+        },
+        {
+          "path": "18-map1-high_return/capture.json",
+          "original": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/18-map1-high_return/capture.json",
+          "crc32": "7f2a79bb",
+          "bytes": 11539948,
+          "sha256": "9282cc2d6f0a3d48499745e7cb88392eebdcd64c511a9eba70717daea9cafae0"
+        }
+      ],
+      "full_sha_crc_and_size_verified": true
+    },
+    {
+      "path": "payload/failed-original19/receipt.json",
+      "origin": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/receipt.json",
+      "bytes": 1347596,
+      "sha256": "434d6970d843c148aa367ceafe5d402eb0ae75218fa17ea30c0c059bbe63ae2f"
+    },
+    {
+      "path": "payload/failed-original19/import.log",
+      "origin": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/import.log",
+      "bytes": 1017,
+      "sha256": "f15ffd4c558b01611d562c8c257508942bdc2dc542124f423ae2a592a46edfa6"
+    },
+    {
+      "path": "payload/original-failed-harness/report.json",
+      "origin": "build/verification/harness/20261021T061113.236582Z/report.json",
+      "bytes": 1733,
+      "sha256": "63ce7e5b5e1ed5553fa64b5b3a93ea5f45a5c1ddd5d858fc9ee8287234f149af"
+    },
+    {
+      "path": "payload/original-failed-harness/forest-depth-region.log",
+      "origin": "build/verification/harness/20261021T061113.236582Z/forest-depth-region.log",
+      "bytes": 13430,
+      "sha256": "10a1d2b3ba1eedf1bc9fb8be1301b4dfcff423ff6a3093a3f8e29f0a6f12087c"
+    },
+    {
+      "path": "payload/single-repair-actual-second/capture.json.zip",
+      "bytes": 436574,
+      "sha256": "a84575090a5d443a577d4cdfafea60e191ab13f1831cdffa9e3be60d091501c2",
+      "members": [
+        {
+          "path": "capture.json",
+          "original": "build/forest_depth/region/v15-seed01-growth-second/00-map1-growth/capture.json",
+          "crc32": "1b267b5a",
+          "bytes": 10820592,
+          "sha256": "81cc4e3d5c63b99c4dcdcab52b4348d02f15e2cdb39c9d0a9c99714eb8a412e9"
+        }
+      ],
+      "full_sha_crc_and_size_verified": true
+    },
+    {
+      "path": "payload/single-repair-actual-second/receipt.json",
+      "origin": "build/forest_depth/region/v15-seed01-growth-second/receipt.json",
+      "bytes": 1322833,
+      "sha256": "d5cc8e4c6779ec272b05988cb06548ba8d294306d9c9b3c4e0fd697038dfcab6"
+    },
+    {
+      "path": "payload/single-repair-actual-second/import.log",
+      "origin": "build/forest_depth/region/v15-seed01-growth-second/import.log",
+      "bytes": 1017,
+      "sha256": "f15ffd4c558b01611d562c8c257508942bdc2dc542124f423ae2a592a46edfa6"
+    },
+    {
+      "path": "payload/single-repair-actual-second/native.log",
+      "origin": "build/forest_depth/region/v15-seed01-growth-second/00-map1-growth/native.log",
+      "bytes": 1271,
+      "sha256": "1d371f1460086b58abb7a045d2f32d460c759ea010433f3e78a15f9c527b3a3f"
+    },
+    {
+      "path": "payload/diagnostic/analysis.json",
+      "origin": "build/region_bible_v2/v15-seed01-growth-diagnostic-first/analysis.json",
+      "bytes": 22225,
+      "sha256": "fb927a2a4be656877b61a916714326bad466a7b28f0a65bb108a1da009b465d5"
+    },
+    {
+      "path": "payload/diagnostic/patch-freeze.json",
+      "origin": "build/region_bible_v2/v15-seed01-growth-diagnostic-first/patch-freeze.json",
+      "bytes": 414,
+      "sha256": "9870bdefa9334e2dbeeae25e1ae58b6d25b1e9781b2df67a6f4e94544457b097"
+    },
+    {
+      "path": "payload/diagnostic/original-source-inventory.json",
+      "origin": "build/region_bible_v2/v15-seed01-growth-diagnostic-first/original-source-inventory.json",
+      "bytes": 433123,
+      "sha256": "dcd8b379a271af0dd4bec1d6b4b7a6926d7c2b8479413df41b9856251acbbc1e"
+    },
+    {
+      "path": "payload/diagnostic/prefile/tests/forest_bible_trace_support.gd",
+      "origin": "build/region_bible_v2/v15-seed01-growth-diagnostic-first/failed-source/tests/forest_bible_trace_support.gd",
+      "bytes": 7272,
+      "sha256": "a85e5d6e0353bd0f5f362072764db705d4293e9283fc0cbf22dfb7a9a2c43616"
+    },
+    {
+      "path": "payload/diagnostic/postfile/tests/forest_bible_trace_support.gd",
+      "origin": "tests/forest_bible_trace_support.gd",
+      "bytes": 7517,
+      "sha256": "039c94affdfc07cfa96be5540340494601ac2cffb80acf9b115fbb1e72840e27"
+    },
+    {
+      "path": "payload/diagnostic/support-probe.patch",
+      "bytes": 894,
+      "sha256": "91a2666533813aafaf2d862c321d9299d4e2ffc48122fdb36f2203d3ef7abef6",
+      "derived_from": [
+        "build/region_bible_v2/v15-seed01-growth-diagnostic-first/failed-source/tests/forest_bible_trace_support.gd",
+        "tests/forest_bible_trace_support.gd"
+      ],
+      "kind": "derived exact source diff; original files retained"
+    },
+    {
+      "path": "payload/independent-review/review.json",
+      "origin": "build/region_bible_v2/seed01-aim-edge-independent-first/review.json",
+      "bytes": 15319,
+      "sha256": "cf70eaffca9dd1e3b028fc2777b7769263c6d65f81411d2c3f7f347e7ec49ca6"
+    },
+    {
+      "path": "payload/independent-review/review.md",
+      "origin": "build/region_bible_v2/seed01-aim-edge-independent-first/review.md",
+      "bytes": 3593,
+      "sha256": "6f575197c2ff6f3c7891d48ebda75803a8765df20bae6a68d6c5b1ef30c3e787"
+    }
+  ],
+  "original_input_custody": {
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/00-map1-fast/native.log": {
+      "bytes": 1237,
+      "sha256": "ccbeb538fbd5dee3b9761efa18412d7936d686be99e18bf7d16745210c48ab02"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/01-map1-growth/native.log": {
+      "bytes": 1237,
+      "sha256": "269d8e4a5e807c3473ebaef1bf85692fd153ade11784592e0d7db424e07bae8e"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/02-map1-high_return/native.log": {
+      "bytes": 1156,
+      "sha256": "69be6d629872bf774eee60934bf5c8c411b95558afdc4ca9dc47bbf98fe005fd"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/03-map1-change_mind/native.log": {
+      "bytes": 1138,
+      "sha256": "dee9c40952c5c4b517b535e36ad9e38124ee13fc2a8d34d0153e01badf3aaebc"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/04-map1-fast/native.log": {
+      "bytes": 1229,
+      "sha256": "ae8bfa21750af250dd438821df7c345a95fe2b150f6ad6acbf50e67dc516b74c"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/05-map1-growth/native.log": {
+      "bytes": 1292,
+      "sha256": "a34f4eba5ae5e091e5816ec5bcc616f90765855b30530d80ac8482bda78255f0"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/06-map1-high_return/native.log": {
+      "bytes": 1171,
+      "sha256": "8fe276abf82eec6f1f5aff55d536eff1c39f9b176063d7dc80197e01fc5cc804"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/07-map1-change_mind/native.log": {
+      "bytes": 1131,
+      "sha256": "2301ca2a867b16ea2ebe503be753a876c22881f9e883865124d0ccfc4b313caa"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/08-map2-fast/native.log": {
+      "bytes": 1220,
+      "sha256": "398153d6ca597f22341da41b08dc450fed437c43269b88a7d482f3e069b1c387"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/09-map2-growth/native.log": {
+      "bytes": 1253,
+      "sha256": "3f43f6ebe10ee511f19d9c5b346bf29b0a1c2c737d14c4c58ccd5a8d5f00823d"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/10-map2-high_return/native.log": {
+      "bytes": 1126,
+      "sha256": "617f66800aeb0ca4cb78a05dddc9b135b93ca5b919e75774113b4f16d9235d12"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/11-map2-change_mind/native.log": {
+      "bytes": 1135,
+      "sha256": "eba78e709360eda627ecdeee66d2ec4c5e7927a5c1b2c41941fc01f48fc0e654"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/12-map2-fast/native.log": {
+      "bytes": 1218,
+      "sha256": "34c2d796115a91ac7ace4298660232276f629935b4f68fcda8c16587e282041b"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/13-map2-growth/native.log": {
+      "bytes": 1256,
+      "sha256": "0f8c971e4537257b61e782a1ba3d30cdabbf53deb4e75cf0cc79b984821ce05b"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/14-map2-high_return/native.log": {
+      "bytes": 1140,
+      "sha256": "6d8f443f7b78a22b4cc4c9fba02e1e6a3ff85cd299dece46adc38e8eaf09fcf8"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/15-map2-change_mind/native.log": {
+      "bytes": 1105,
+      "sha256": "ba9b27018fc63ca18daafe42e852c6793d651bd0b13c07e8085e3fbdf91ff00c"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/16-map1-fast/native.log": {
+      "bytes": 1238,
+      "sha256": "db3c75f925b2d627a9345e3df74c73ed43ff56635864ac527f9812a975ec98aa"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/17-map1-growth/native.log": {
+      "bytes": 1135,
+      "sha256": "415f75498e0167568affa4d19590be9a76f60e49bc587440081760ea97d3da9c"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/18-map1-high_return/native.log": {
+      "bytes": 1157,
+      "sha256": "3a9d240f09c02b18b2491df15a287368a139c1a5ded08269f0fb1d84a104f4c2"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/00-map1-fast/capture.json": {
+      "bytes": 11760395,
+      "sha256": "6438ca006716b68f7921ff9e65f688e80bfe15b77e5850351f64dd0f14361f86"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/01-map1-growth/capture.json": {
+      "bytes": 9311802,
+      "sha256": "a4a3535dad87f2583609ffe231f7f7bd6a3254c42edfc896bfccd9188f9df57f"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/02-map1-high_return/capture.json": {
+      "bytes": 11698465,
+      "sha256": "625c82d12a91eb1dd5b9378b5ccefc2fba62dea4be81e5a869a971335c562cab"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/03-map1-change_mind/capture.json": {
+      "bytes": 11410633,
+      "sha256": "42148bf17c4eab8065353e8a51350a06d046a795874268d1ff3ab2323a359fce"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/04-map1-fast/capture.json": {
+      "bytes": 12789557,
+      "sha256": "e04c44a81d79a8adcb2073bad7ba3a83a727177fc2a359dc00fdcff50b413a30"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/05-map1-growth/capture.json": {
+      "bytes": 14637509,
+      "sha256": "091fe3a67118e9d858f4565acefc694166ce910471212bf68538656e6575a2d1"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/06-map1-high_return/capture.json": {
+      "bytes": 11714286,
+      "sha256": "177f46e50f19cadf2445e58d70b1ff861d6eeb62b2566e271c94cfc81b6e0474"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/07-map1-change_mind/capture.json": {
+      "bytes": 12105726,
+      "sha256": "d238d271e76c3724353cdde68771af3ef5c9f52d829d078a8b450fcdc2bb9fe8"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/08-map2-fast/capture.json": {
+      "bytes": 13246033,
+      "sha256": "70aa2deb3ac84c0876be20ac23b28d2fa33966e47a5667a5cde6da52e23ef196"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/09-map2-growth/capture.json": {
+      "bytes": 23877857,
+      "sha256": "e1442e5f048eb0e372bc860754ebbdb5b0d74f9228fbbc754da08cb1a22da2d2"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/10-map2-high_return/capture.json": {
+      "bytes": 17339455,
+      "sha256": "ffe1e6077203f4c42752b2f4874511e0ed29fdfe05490504c634ee88824a6b39"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/11-map2-change_mind/capture.json": {
+      "bytes": 11940058,
+      "sha256": "5b282afa3aff9cef0aa7a7b83b2f1bb152903bfda2a13804acd7acdfb6a9da08"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/12-map2-fast/capture.json": {
+      "bytes": 9278546,
+      "sha256": "d804a54677f86ea8328616a604c21731fcce2e5cd57df833a29ae800151fe575"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/13-map2-growth/capture.json": {
+      "bytes": 14696667,
+      "sha256": "e095dfa12bbbbb01bed4ab7bbcc785d8cafb970ba24a4f12a857b91464fbf30e"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/14-map2-high_return/capture.json": {
+      "bytes": 10730632,
+      "sha256": "3a4124088e2b76a65d07a0211b6f3bf585bde2879ef67ebd926c54d2aa0274a2"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/15-map2-change_mind/capture.json": {
+      "bytes": 8457013,
+      "sha256": "d8a7b802e437cb6fb63e65df8356470bf8cf0902bdd7cbd957fd7079d92ce088"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/16-map1-fast/capture.json": {
+      "bytes": 11759508,
+      "sha256": "2ca1aa1789c2ea1a2c777a84f1c7f2d3420a71f0410b3a94e3dec2911d2ce4f9"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/17-map1-growth/capture.json": {
+      "bytes": 10471232,
+      "sha256": "2f8ca4142fad4f7a2aa2f173fc97d088f6e5b799116e891989552a2ee6adaab4"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/18-map1-high_return/capture.json": {
+      "bytes": 11539948,
+      "sha256": "9282cc2d6f0a3d48499745e7cb88392eebdcd64c511a9eba70717daea9cafae0"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/receipt.json": {
+      "bytes": 1347596,
+      "sha256": "434d6970d843c148aa367ceafe5d402eb0ae75218fa17ea30c0c059bbe63ae2f"
+    },
+    "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/import.log": {
+      "bytes": 1017,
+      "sha256": "f15ffd4c558b01611d562c8c257508942bdc2dc542124f423ae2a592a46edfa6"
+    },
+    "build/verification/harness/20261021T061113.236582Z/report.json": {
+      "bytes": 1733,
+      "sha256": "63ce7e5b5e1ed5553fa64b5b3a93ea5f45a5c1ddd5d858fc9ee8287234f149af"
+    },
+    "build/verification/harness/20261021T061113.236582Z/forest-depth-region.log": {
+      "bytes": 13430,
+      "sha256": "10a1d2b3ba1eedf1bc9fb8be1301b4dfcff423ff6a3093a3f8e29f0a6f12087c"
+    },
+    "build/forest_depth/region/v15-seed01-growth-second/00-map1-growth/capture.json": {
+      "bytes": 10820592,
+      "sha256": "81cc4e3d5c63b99c4dcdcab52b4348d02f15e2cdb39c9d0a9c99714eb8a412e9"
+    },
+    "build/forest_depth/region/v15-seed01-growth-second/receipt.json": {
+      "bytes": 1322833,
+      "sha256": "d5cc8e4c6779ec272b05988cb06548ba8d294306d9c9b3c4e0fd697038dfcab6"
+    },
+    "build/forest_depth/region/v15-seed01-growth-second/import.log": {
+      "bytes": 1017,
+      "sha256": "f15ffd4c558b01611d562c8c257508942bdc2dc542124f423ae2a592a46edfa6"
+    },
+    "build/forest_depth/region/v15-seed01-growth-second/00-map1-growth/native.log": {
+      "bytes": 1271,
+      "sha256": "1d371f1460086b58abb7a045d2f32d460c759ea010433f3e78a15f9c527b3a3f"
+    },
+    "build/region_bible_v2/v15-seed01-growth-diagnostic-first/analysis.json": {
+      "bytes": 22225,
+      "sha256": "fb927a2a4be656877b61a916714326bad466a7b28f0a65bb108a1da009b465d5"
+    },
+    "build/region_bible_v2/v15-seed01-growth-diagnostic-first/patch-freeze.json": {
+      "bytes": 414,
+      "sha256": "9870bdefa9334e2dbeeae25e1ae58b6d25b1e9781b2df67a6f4e94544457b097"
+    },
+    "build/region_bible_v2/v15-seed01-growth-diagnostic-first/original-source-inventory.json": {
+      "bytes": 433123,
+      "sha256": "dcd8b379a271af0dd4bec1d6b4b7a6926d7c2b8479413df41b9856251acbbc1e"
+    },
+    "build/region_bible_v2/v15-seed01-growth-diagnostic-first/failed-source/tests/forest_bible_trace_support.gd": {
+      "bytes": 7272,
+      "sha256": "a85e5d6e0353bd0f5f362072764db705d4293e9283fc0cbf22dfb7a9a2c43616"
+    },
+    "tests/forest_bible_trace_support.gd": {
+      "bytes": 7517,
+      "sha256": "039c94affdfc07cfa96be5540340494601ac2cffb80acf9b115fbb1e72840e27"
+    },
+    "build/region_bible_v2/seed01-aim-edge-independent-first/review.json": {
+      "bytes": 15319,
+      "sha256": "cf70eaffca9dd1e3b028fc2777b7769263c6d65f81411d2c3f7f347e7ec49ca6"
+    },
+    "build/region_bible_v2/seed01-aim-edge-independent-first/review.md": {
+      "bytes": 3593,
+      "sha256": "6f575197c2ff6f3c7891d48ebda75803a8765df20bae6a68d6c5b1ef30c3e787"
+    }
+  },
+  "engine_executed": false,
+  "production_docs_or_git_writes": false,
+  "limitations": [
+    "Original first80 failure and its19 full native capture originals stay immutable",
+    "Single actual second pass does not establish new80 outcome",
+    "Only TEST support helper changed; earlier AV evidence remains clean048 and is not rebound",
+    "Other diagnostic source-copy bulk excluded; exact relevant support prefile/postfile/patch and original full source inventory included"
+  ],
+  "control_files": [
+    {
+      "path": "README.md",
+      "bytes": 4403,
+      "sha256": "11bfd285ef97bf5ddd83b3d3ff6ad02b903846d12ece2b991c467caecdfbf86f"
+    },
+    {
+      "path": "prepare.py",
+      "bytes": 7403,
+      "sha256": "9f7a242752b12fbce6e98c9eb1b0223670680a1a0162565a17793e29fff4e8f9"
+    },
+    {
+      "path": "verify.py",
+      "bytes": 3435,
+      "sha256": "9a0b7651ed0ee6d14c2928cec92510a09c84d53cfe1215a4054170f765fda6ae"
+    },
+    {
+      "path": "storage-relief/restore.py",
+      "bytes": 1860,
+      "sha256": "af6ab4c00c06a8e39b1f10c35617444f96955172468725033e84819d1583da58"
+    },
+    {
+      "path": "storage-relief/restore-index.json",
+      "bytes": 9394,
+      "sha256": "a5db2cd670ce5f075062cc75b7563cee54a25642779eacbb64398d745670f686"
+    },
+    {
+      "path": "storage-relief/report.json",
+      "bytes": 6755,
+      "sha256": "b051eda5be7867fdaee4c4fa5c5d384e9ae58a84166ffa65476d530e84c41f43"
+    }
+  ],
+  "original_original_bytes_changed": false,
+  "authorized_lossless_storage": {
+    "restore_index": "storage-relief/restore-index.json",
+    "proof_report": "storage-relief/report.json",
+    "terminal_pass_raw_json_removed": 18,
+    "failed17_raw_retained": true,
+    "original_json_bytes_archived": 228294090,
+    "existing_single_archive_reused": true,
+    "receipts_logs_active_current80_unchanged": true
+  }
+}

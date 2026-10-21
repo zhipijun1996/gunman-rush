@@ -1,0 +1,35 @@
+{
+  "verdict": "REJECT_INITIAL_E772_COHERENT_CACHE_PROVENANCE_GAP",
+  "reviewed_source": "/workspace/gunman-rush/build/region_bible_v2/harness-artifact-storage-independent-first/initial-e772-reviewed-source/tools/harness.py",
+  "reviewed_source_sha256": "e772e134b99d3e16c84d645f0cf8e8febd34179be0c73cc6c5652ac6ba070a70",
+  "results": [
+    {
+      "mode": "nonisolated_live_ledger_preserved",
+      "positive_real_8MiB_source_collected_and_reused": true,
+      "forged_archive_and_index_self_consistent": true,
+      "cache_outer_artifact_fingerprint_rebound": true,
+      "original_independent_live_ledger_preserved": true,
+      "original_expected_sha256": "38927e71aceb994d6c31c4131265a3bdc4ed4807c8c4d53a5f3ce69af06cd5d9",
+      "actual_live_sha256": "38927e71aceb994d6c31c4131265a3bdc4ed4807c8c4d53a5f3ce69af06cd5d9",
+      "forged_member_sha256": "f5cd66a62bb796bd12e36c36ac0f598604096513a0b2bfb8aca6369ca598bc16",
+      "forged_cache_result_reused": true,
+      "expected_result": "cache miss",
+      "finding": "False reuse: no independent original archive member ledger"
+    },
+    {
+      "mode": "isolated_no_live_ledger",
+      "positive_real_8MiB_source_collected_and_reused": true,
+      "forged_archive_and_index_self_consistent": true,
+      "cache_outer_artifact_fingerprint_rebound": true,
+      "original_independent_live_ledger_preserved": false,
+      "original_expected_sha256": "38927e71aceb994d6c31c4131265a3bdc4ed4807c8c4d53a5f3ce69af06cd5d9",
+      "actual_live_sha256": "38927e71aceb994d6c31c4131265a3bdc4ed4807c8c4d53a5f3ce69af06cd5d9",
+      "forged_member_sha256": "f5cd66a62bb796bd12e36c36ac0f598604096513a0b2bfb8aca6369ca598bc16",
+      "forged_cache_result_reused": true,
+      "expected_result": "cache miss",
+      "finding": "False reuse: no independent original archive member ledger"
+    }
+  ],
+  "engine_executed": false,
+  "production_edited": false
+}

@@ -1,0 +1,19 @@
+# Independent original80 native-corpus review
+
+**SCOPED ACCEPT — inner native80 only.** Every actual capture in the canonical ZIP was independently parsed and replayed through the unchanged original route validator. No engine was run, no raw captures were restored, and no original receipt, archive or production source was modified.
+
+The exact canonical corpus is complete: ten roots `forest-depth-hollow-00`…`09`, both maps and the four original `fast`, `growth`, `high_return`, `change_mind` routes. All 80 requested-case, run and archive-member identities/orders match independently constructed expectations, including the original 16-case prefix. No case is missing or duplicated. All native argv omit an explicit layout, enter the actual original region runner, and their actual captures identify `forest-bible-world-v15`, schema 1 and the correct seed/map. Thus these are real current-default15 consumers rather than explicit-layout substitutes.
+
+All 80 native exit codes are zero, errors lists are empty and their exact route completion markers and native-log hashes match. Each case's real capture SHA matches both the producer receipt and restore index; ZIP CRCs also match. All original validator results are empty. The corpus contains **169,767 actual ordinary Motor samples and 2,294 completed legs**. Every actor/stage epoch remains 3/3. Native cases took 10.994–21.548 seconds each; the original 90-second import and 240-second per-native budgets remain. Producer concurrency is two workers.
+
+**This is not an all-routes zero-damage result.** Twenty-three cases contain **29 actual committed player-damage events**. Observed health values are 3, 4, 5, 6 and 6.5. The original validator admits these completed routes; its contract does not require health 5 throughout. The separate F05/F08 zero-damage AV results must not be generalized to this corpus. The per-case damage index and all individual results are preserved in `review.json`.
+
+The producer's complete 3600-entry source inventory matches before import, after import and after all native runs. It also matches the current source at the independent audit's start and finish. The later helper patch is SHA `039c94affdfc07cfa96be5540340494601ac2cffb80acf9b115fbb1e72840e27`; there were no source changes during this audit. The original validator's byte identity is included in that inventory.
+
+The canonical archive is `../continuation-evidence-next/native80-phase/full-native80-captures.zip`, SHA256 **`a184fb642fb8738f00b177b26fdb42b197b2890858135a048a227d8a958b1802`**, containing all 80 complete original captures: **930,821,844 original bytes**, compressed to **59,248,181 bytes**. This review read each actual ZIP member directly and does not assume that the original raw paths remain present. The authorized unlink report, restore index, original producer receipt, original logs, archive-verification record and incomplete-collector duplicate-relief metadata were retained and hashed. Partial outer artifact copies were excluded as native-case proof.
+
+The outer harness `20261021T061859.284733Z` remains **`interrupted` with `checks: []`**. Its native producer completed 80/80, but artifact collection encountered ENOSPC while copying duplicate payloads. The preserved outer report/duplicate-relief evidence supports this separation. **Do not label this a complete harness PASS or a native/600-second timeout failure.** A genuine repaired-collector harness completion is a separate requirement; this independent native audit does not rewrite the interrupted report.
+
+This result adds no movie, visual/FUN, perceptual-audio or physical-device acceptance. Existing F05/F08 movies keep their original clean048 source attribution, separate from the later helper patch used by native80.
+
+Evidence: `review.json` and reproducible no-engine `audit.py` in this directory. All preserved canonical source/producer/archive/relief metadata paths and hashes are in the JSON report.

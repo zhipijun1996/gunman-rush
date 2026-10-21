@@ -1,0 +1,201 @@
+{
+  "scope": "Independent offline re-execution of unchanged existing readers and inspection of actual native capture; no engine, no new gameplay/provenance claim",
+  "reports": {
+    "guardian": {
+      "original_capture": "build/forest_depth/campaign/v15-guardian-first/capture.json",
+      "capture_sha256": "a1c83a2cd51123fc5d8da9f7a33ceaa5edef336f5ff77c48a81c172c607d2b2d",
+      "receipt_sha256": "d67e7cbf85a25ebc03b72ef7c8362f2e9992154e76b0976fffeb2512fa7a8b22",
+      "actual_existing_reader_passed": true,
+      "reader_seconds": 0.026398510002763942,
+      "source_guards": {
+        "passed": true,
+        "source_guard_declared": true,
+        "source_actual_equal": true,
+        "verifier_actual_equal": true
+      },
+      "original_receipt_file_hashes_verified": {
+        "capture.json": true,
+        "import.log": true,
+        "native.log": true
+      },
+      "base_commit": "0483399b4cf0621d9dd9f8892661868f76799964",
+      "native_elapsed_seconds": 24.3609679350011,
+      "current_pass_claim": false,
+      "actual_route": {
+        "layout": "forest-bible-world-v15",
+        "map": 1,
+        "legs": 28,
+        "frames": 2154,
+        "requests": 337,
+        "all_motor_steps_one": true,
+        "actor_epochs": [
+          3
+        ],
+        "stage_epochs": [
+          3
+        ]
+      },
+      "actual_full_fight": {
+        "initial_boss_hp": 32.0,
+        "final_boss_hp": 0.0,
+        "final_player_hp": 5.0,
+        "frames": 836,
+        "defeats": 1,
+        "manual_motor_step": false,
+        "injection": false
+      },
+      "actual_map2": {
+        "layout": "forest-bible-world-v15",
+        "pointer_events": 2,
+        "coast_frames": 30,
+        "run_manifest_compatible": true
+      },
+      "provenance_limit": "Passed under exact original receipt inventory with root-shoulder18 candidate installed; do not relabel as clean048/current final whole-source acceptance.",
+      "source_differences_vs_canopy048": [
+        "assets/forest_bible_v2/manifest.json",
+        "assets/forest_bible_v2/native/root_shoulder_v1.json",
+        "assets/forest_bible_v2/source/native_root_shoulder_v1/contract.authored.json",
+        "assets/forest_bible_v2/source/native_root_shoulder_v1/host-alpha-footprint-proof.original.json",
+        "assets/forest_bible_v2/source/native_root_shoulder_v1/palette.json",
+        "assets/forest_bible_v2/source/native_root_shoulder_v1/provenance.json",
+        "assets/forest_bible_v2/source/native_root_shoulder_v1/root_shoulder_v1.contract.original.json",
+        "assets/forest_bible_v2/source/native_root_shoulder_v1/source-refinement-proof.original.json",
+        "assets/manifest.json",
+        "resources/forest_bible_v2/root_shoulder_v1_integration.json",
+        "scripts/generation/thorn_forest_region_assembler.gd",
+        "scripts/presentation/forest_bible_root_shoulder.gd"
+      ],
+      "complete_native_checks": 25
+    },
+    "canopy": {
+      "original_capture": "build/forest_depth/campaign/v15-canopy-first/capture.json",
+      "capture_sha256": "25183d6ee20ddfbd507cb9e6c355bb0948792fe32f38e5d7ea2eb1fd00e72065",
+      "receipt_sha256": "dae7c76d76ac78b41b251369e32af3e4d225ad55c28d3caaefacacef43aa8a44",
+      "actual_existing_reader_passed": true,
+      "reader_seconds": 0.04040815699772793,
+      "source_guards": {
+        "passed": true,
+        "source_guard_declared": true,
+        "source_actual_equal": true,
+        "verifier_actual_equal": true
+      },
+      "original_receipt_file_hashes_verified": {
+        "capture.json": true,
+        "import.log": true,
+        "native.log": true,
+        "canopy-partial.json": true
+      },
+      "base_commit": "0483399b4cf0621d9dd9f8892661868f76799964",
+      "native_elapsed_seconds": 26.516829216001497,
+      "current_pass_claim": false,
+      "actual_route": {
+        "layout": "forest-bible-world-v15",
+        "map": 2,
+        "legs": 30,
+        "frames": 2111,
+        "requests": 343,
+        "all_motor_steps_one": true,
+        "actor_epochs": [
+          3
+        ],
+        "stage_epochs": [
+          3
+        ]
+      },
+      "actual_full_fight": {
+        "initial_boss_hp": 24.0,
+        "final_boss_hp": 0.0,
+        "final_player_hp": 5.0,
+        "frames": 799,
+        "defeats": 1,
+        "manual_motor_step": false,
+        "injection": false
+      },
+      "earned_reload": {
+        "saved_health": 16.0,
+        "saved_phase": 2,
+        "aged_living_field": {
+          "health": 2.0,
+          "spawned": true,
+          "weave": {
+            "age": 0.183333333333333,
+            "growth": 0.0,
+            "initial_angle": 0.0,
+            "next_damage_in": 0.0,
+            "pulse": 0,
+            "severed": false,
+            "suspended": false
+          }
+        },
+        "old_token_rejected": true,
+        "resumed": true
+      },
+      "provenance_limit": "Original receipt is clean048; current final source may differ. Whole Boss fun/device/audio admission not established.",
+      "source_differences_vs_canopy048": [],
+      "complete_native_checks": 46
+    },
+    "restore": {
+      "original_capture": "build/forest_depth/restore/v15-current-first/capture.json",
+      "capture_sha256": "b3d177e2fb987b52bf74e5691e539e0ca116561687df4720d4e2e10a66f12a9b",
+      "receipt_sha256": "e13f0dd64721e925a8bc5ca54a2345755f7b6a4b6a8a0da5154e7e135a70a77f",
+      "actual_existing_reader_passed": true,
+      "reader_seconds": 0.0454983199997514,
+      "source_guards": {
+        "passed": true,
+        "source_guard_declared": true,
+        "source_actual_equal": true,
+        "verifier_actual_equal": true
+      },
+      "original_receipt_file_hashes_verified": {
+        "capture.json": true,
+        "import.log": true,
+        "native.log": true
+      },
+      "base_commit": "0483399b4cf0621d9dd9f8892661868f76799964",
+      "native_elapsed_seconds": 22.75219713399929,
+      "current_pass_claim": false,
+      "actual_route": {
+        "frames": 2154,
+        "first_supports": [
+          "root_spiral__entry"
+        ],
+        "contains_v15_weaver_actual_actor": true,
+        "all_motor_steps_one": true
+      },
+      "earned_reload": {
+        "initial_boss_hp": 32.0,
+        "saved_health": 12.0,
+        "saved_cycles": 1,
+        "saved_phase": 2,
+        "saved_mode": "bell_stagger",
+        "before_actor_epoch": 3,
+        "after_actor_epoch": 4,
+        "after_bound_health": 12.0,
+        "after_activation_health": 12.0,
+        "malformed_cases": 6,
+        "invalid_contract_cases": 11
+      },
+      "provenance_limit": "Restore capture does not export route manifest/layout argument/itinerary. Current15 provenance is source-bound empty selector plus actual v15 support/enemy samples, not an invented exported identity. Earned state reload, not full Boss defeat.",
+      "source_differences_vs_canopy048": [],
+      "complete_native_checks": 69,
+      "capture_schema_limit": "Original restore combat rows omit combat input timestamps and Boss HP per-frame; unchanged reader checks available ordering, cross-ledger IDs, actual saved HP and body/epoch persistence. Not a frame-exact combat input-to-Policy audit."
+    }
+  },
+  "source_bound_selection": {
+    "tests/forest_depth_trace_strategy.gd": {
+      "checkpoint048_sha256": "990e09754441c95f0162011e3b199d22b70ff872192136e508f70476131009f9",
+      "matches_all_original_inventory": true,
+      "selection": "create(recorded_layout=\"\") resolves blank to actual CURRENT and selects forest_bible_region_auto_trace.gd iff effective equals literal forest-bible-world-v15; actual recorded argument remains blank"
+    },
+    "scripts/generation/thorn_forest_region_generator.gd": {
+      "checkpoint048_sha256": "a30bdae449a3262314dd4983cd06239309576b9a434dde45ceac36045c27b4a7",
+      "matches_all_original_inventory": true,
+      "actual_current_definition": [
+        "const CURRENT_DEPTH_LAYOUT := DEPTH_LAYOUT_BIBLE"
+      ]
+    }
+  },
+  "all_existing_readers_passed": true,
+  "production_writes": false,
+  "engine_executed": false
+}

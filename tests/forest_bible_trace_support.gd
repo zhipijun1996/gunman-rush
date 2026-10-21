@@ -22,7 +22,10 @@ class GrovePilot extends "res://tests/forest_depth_grove_combat_case.gd":
 		var adapter := trace.player.get_node("KeyboardMouseAdapter") as KeyboardMouseAdapter
 		var visual := trace.player.get_node("CourierVisual") as CourierVisual
 		var half: Vector2=target.definition.collision_size*.5
-		for offset: float in [0.0,-half.y*.4,half.y*.4]:
+		# Seed01 growth's hurt recoil puts the spider behind its perch corner;
+		# sample the remaining inner body edge with the same real muzzle casts.
+		var inner_edge := maxf(0,half.y-trace.player.tuning.projectile_radius-1)
+		for offset: float in [0.0,-half.y*.4,half.y*.4,-inner_edge,inner_edge]:
 			var body_point: Vector2=target.motor.global_position+Vector2(0,offset)
 			var screen_point: Vector2=trace.player.get_canvas_transform()*body_point
 			var unit: Vector2=adapter.world_direction(screen_point)

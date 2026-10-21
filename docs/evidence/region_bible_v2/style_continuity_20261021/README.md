@@ -41,3 +41,5 @@ v3四例已完整执行并独审：正式图1连接24/24、背枝32/32，LOCAL�
 `specialized-consumers-second/`保留entry第三次真实roof阻挡、第四次原生无伤成功/浮点reader失败、第五次空pin完整CLI通过，以及crossbranch正式live_H无伤和原327/schema6/24两native来源，原收据不改。`consumer-independent-second/`含默认晋升32实际反例、独立原45单测、entry数值绑定21实际反例及有限prefix源码复核（103/176/15）。新prefix明确改变中途输入恢复，不声称旧中途wrong-support/ceiling断言逐字沿用；只签实际entry_wait，不代其他策略、完整80或当前JSON修复后所有默认消费者。
 
 最新`json-and-default-fresh-third/`含两处真实JSON缺陷原失败、UID首次import漂移整轮失败及第三轮七项fresh全源稳定通过原报告；附36 JSON原生正反例/原campaign56和集成56+36独立产物无损ZIP。它不是完整profile/80/连续AV或最终发布。
+
+后继检查点的音画、80原生/外层中断、缓存存储修复及G0淘汰范围见[后继证据说明](continuation-note.md)；原包与失败逐字保留，不签整区完成。
