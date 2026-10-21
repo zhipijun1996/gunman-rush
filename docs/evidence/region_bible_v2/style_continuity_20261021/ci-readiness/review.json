@@ -1,0 +1,83 @@
+{
+  "scope": "Read-only exact-head release/CI preparation audit; no fetch/push/engine/source or Git writes",
+  "head": "dec23450fb8e4ce6bca5643f1893c4bf91d14386",
+  "source_clean": true,
+  "release_evidence": {
+    "original_report": "build/verification/release-evidence/20261021T072507.094594Z_59c808f5edf840ac9b53bda0279cd78d.json",
+    "sha256": "4e73e792d93c69251d922d06483c9b4d56608d66218f50dc5eae5eee1c989025",
+    "status": "passed",
+    "cards": 111,
+    "evidence_paths": 1164,
+    "missing": 0,
+    "limit": "Commit path closure only, schema/SHA/quality not tested here"
+  },
+  "workflow_coverage": {
+    "registered_checks": 151,
+    "core_gameplay_art": 138,
+    "lanes": {
+      "parallel": 86,
+      "serial": 52
+    },
+    "disjoint": true,
+    "complete_core_union": true,
+    "full_workflow_union": 141,
+    "equals_original_full_profile": true,
+    "registered_not_workflow": {
+      "forest-bible-sfx-source": [
+        "region-bible-feedback"
+      ],
+      "forest-current-slice": [
+        "creative-prototype"
+      ],
+      "plains-art-language-contract": [],
+      "plains-landform-contract": [],
+      "plains-places-capture-tests": [],
+      "plains-places-contract": [],
+      "plains-regional-art-contract": [
+        "regional-art-feedback"
+      ],
+      "plains-regional-art-counterexamples": [
+        "regional-art-feedback"
+      ],
+      "plains-regional-art-graph-counterexamples": [
+        "regional-art-feedback"
+      ],
+      "plains-world-rebuild-contract": []
+    },
+    "archive_reader_check_lane": "parallel",
+    "Bible_versions_JSON36_native56_and_routes": "serial",
+    "gate_limit": "Original full141, not all151registry; feedback/prototype/oldunprofiled extras separate"
+  },
+  "remote_observed": {
+    "main": "7be8c340372d1e20db6685cbd6a559191821eb0e",
+    "feature_branch_exists": false,
+    "matching_PRs_all_states": [],
+    "PR96": {
+      "merged": true,
+      "merged_at": "2026-10-20T10:07:21Z",
+      "merge_commit": "9757ddf2ee20b5620c4a34ecc5d51186f018513b"
+    },
+    "network": "Read-only GitHub API successful; Git receive-pack/push not attempted"
+  },
+  "push_objects": {
+    "commits_ahead_of_origin_main": 3,
+    "new_blobs": 1018,
+    "uncompressed_blob_bytes": 184035478,
+    "existing_disk_bytes_of_reachable_new_objects": 156642806,
+    "largest_blob_bytes": 59248181,
+    "largest_blob_path": "docs/evidence/region_bible_v2/style_continuity_20261021/continuation/native80-phase/full-native80-captures.zip",
+    "missing_objects": 0,
+    "limit": "Not actual transfer size. Largest >50MiBsoftwarning, <100MiBGitHub hard per-file threshold."
+  },
+  "disk_observation": {
+    "overlay_free_bytes_approx": 828375040,
+    "tmp_independent_free_GiB": 8.8,
+    "git_disk_GiB": 6.9,
+    "risk": "Native80 raw peak still consumes workspace; root computed remaining329MB+collector60MB below observed790MiB and monitors. Do not delete active outputs. Use task TMPDIR under independent/tmp for any needed push pack staging."
+  },
+  "ci_efficiency": {
+    "actual_duplicate_events": "push and pull_request both trigger; concurrency key includes event_name so draftPR creation after newbranchpush starts two independent pipelines",
+    "action": "After exact PR workflow starts, root may cancel redundant push run; retain complete PR fresh technical CI. No workflow change necessary."
+  },
+  "production_writes": false
+}

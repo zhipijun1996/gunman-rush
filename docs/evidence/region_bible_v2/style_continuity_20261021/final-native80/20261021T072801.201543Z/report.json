@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "started_at": "20261021T072801.201543Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "forest-current-slice",
+      "argv": [
+        "python3",
+        "tools/run_forest_current_slice_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "b28781583df6655e6f140dd2f821f9ba78cb1d473175998cbf69a0a36260e9c9",
+      "log": "forest-current-slice.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792567691.1116965,
+      "ended_at_unix": 1792567704.0040743,
+      "duration_seconds": 12.892,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_forest_current_slice_tests.py"
+      ],
+      "check_token": "5f321a437c784ff398a18c2c74b3cc58",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261021T072801.201543Z/artifacts/forest-current-slice",
+      "reused": false
+    },
+    {
+      "id": "forest-bible-sfx-source",
+      "argv": [
+        "python3",
+        "tools/generate_forest_bible_sfx.py",
+        "--check"
+      ],
+      "timeout_seconds": 30,
+      "input_digest": "ec6c2946d62931c801572e22d994dcd01d9a89d4b53f57ea903e502931439ebd",
+      "log": "forest-bible-sfx-source.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792567690.1294715,
+      "ended_at_unix": 1792567690.3328223,
+      "duration_seconds": 0.203,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/generate_forest_bible_sfx.py",
+        "--check"
+      ],
+      "check_token": "9aae5b7007664d5ea5a7e91eaf709fc5",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261021T072801.201543Z/artifacts/forest-bible-sfx-source",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "5e0748f7765132745145085fb5166ef988618d1d5a83685c8b0878dd444d83af",
+  "working_files": {},
+  "commit": "dec23450fb8e4ce6bca5643f1893c4bf91d14386",
+  "git_status": "",
+  "diff": "",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 31.247,
+  "jobs": 1,
+  "release": true
+}

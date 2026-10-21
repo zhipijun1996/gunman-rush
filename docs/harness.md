@@ -63,6 +63,8 @@ restore_archived_artifact(Path("build/verification/harness/RUN/artifacts/CHECK")
 
 原生检查通过而收集器中断时，外层仍是失败或`interrupted`；不能补改旧收据为通过。实际80路线已通过但外层ENOSPC，以及归档初版的缓存误接受与独立修复链，随源版本分别保存；新的完整fresh执行另立收据。
 
+修复后的[完整fresh原80与归档](evidence/region_bible_v2/style_continuity_20261021/final-native80/README.md)已在clean dec23450实跑通过；原600秒内551.426秒，含准备/收集总582.322秒。78份大JSON完整压缩、2份小JSON保原路径，独审逐字节核80轨迹。阈值决定存储形式，不能把ZIP成员数误当路线总数；压缩不放宽原预算，也不代完整profiles或艺术验收。
+
 ## 多包任务执行
 
 `--mission` 模式见 [生产循环](quality/production_loop.md)，默认只计划，`--execute` 才真实调用 Codex Skills。原有 `--profile` 验证模式不变。

@@ -1,6 +1,6 @@
 # 当前交接
 
-2026-10-21，`feature/region-bible-v2-forest`。本轮基于本地检查点0483399b4cf0621d9dd9f8892661868f76799964，准确HEAD查Git，尚未推送。原起点R7be8c340372d1e20db6685cbd6a559191821eb0e。先完整Forest含美术，再Plains；BGM由用户后引入；不默认合main。先读[当前状态](current_state.md)、[Bible注册表](creative_direction/bibles/registry.json)。
+2026-10-21，`feature/region-bible-v2-forest`。本轮最终运行冻结检查点dec23450fb8e4ce6bca5643f1893c4bf91d14386，准确HEAD查Git，后继收据/状态准备推送草稿PR。原起点R7be8c340372d1e20db6685cbd6a559191821eb0e。先完整Forest含美术，再Plains；BGM由用户后引入；不默认合main。先读[当前状态](current_state.md)、[Bible注册表](creative_direction/bibles/registry.json)。
 
 ## 已完成及边界
 
@@ -10,13 +10,13 @@
 - 默认Guardian/Canopy完整战斗、实际App恢复、历史瞄准保存兼容、Underworld两场完整战斗及战后进入Forest均有实际收据。Guardian属于木肩冻结源，不能重绑clean048；其余亦按各自收据。新Underworld外层harness `20261021T064433.364236Z`通过。三组显式历史v10专用生态检查 `20261021T064558.793410Z`完整通过，不是当前v15策略证据。
 - 原80首轮seed01/map1/growth在蜘蛛击退后找不到合法第二枪。仅v15驾驶追加两个身体内缘瞄点，保实际枪口/圆碰撞/资源/600帧/12发；同一完整路线27/27、1999样本HP5通过，独审物理状态完全一致至新增第二枪前。
 - 第二轮原生80全部通过/3600源稳定/双worker，独审169767样本、2294腿；23例共29次玩家受伤，不能称80无伤。外层 `20261021T061859.284733Z`在再复制约931MB新JSON时ENOSPC，原`interrupted/checks=[]`仍失败，绝不能补签通过。
-- Harness大JSON现在完整流式ZIP+索引/成员校验/独立原输出账本，支持安全显式恢复。初版e772缓存误接受保留；29f150修复版原77/新12及独审14完整反例通过。新151st归档检查追加六标准profile，原150字典/原132/10profile前缀未改；真实fresh12检查 `20261021T065433.554535Z`已通过。最终新源完整profile与原80外层仍待执行。
+- Harness大JSON现在完整流式ZIP+索引/成员校验/独立原输出账本，支持安全显式恢复。初版e772缓存误接受保留；29f150修复版原77/新12及独审14完整反例通过。新151st归档检查追加六标准profile，原150字典/原132/10profile前缀未改；真实fresh12检查 `20261021T065433.554535Z`已通过。第三次clean dec23450原80外层已passed，551.426/600秒、总582.322秒，完整归档已完成；完整profile仍待正式CI。
 
 ## 下一执行
 
-1. 完成当前源码/文档/质量记录检查点，保持冻结后运行fresh原80/600秒/2workers；新收据必须包含真正完成的压缩归档，不能拿上一轮原生通过补外层。随后完整适用profile及正式CI；generated-consumers、air-chain18、current-slice3等按原registry执行，不能以相关单case代整组。
+1. 第三次fresh原80及真正外层归档已完整通过，原600秒/2workers保持；完整原始产物见final-native80。额外fresh forest-current-slice三案例与SFX复现通过。保存检查点并推送草稿PR，正式CI按原workflow执行完整full141（gameplay/art138+web/docs另3），generated-consumers/air-chain18仍按原registry，不能拿手动样本代整组。独立注册current-slice不在full141，已单独执行；剩余9项feedback/prototype不称已由标准CI执行。PR启动后取消同SHA冗余push流水线，保留PR完整fresh CI。
 2. 实际CI ZIP原三浏览器/完整PCK与新build_id仍待；公开仍旧main P66e8。本轮Forest宏观艺术不合格，不发布成整区完成；按交付门提供准确本地开发构建与未验项。G0设计片不是正式v16或可通行证据。
-3. Plains仍只有只读接入方案：`build/region_bible_v2/plains-reader-integration-next/`。Forest内部功能/艺术样板后再做真实v12西井→铃船→岛Reader/原箱→东井返回；独立catalog/namespace与新版本保存重建，不能只改名冒充完整Bible石桥。不加入BGM，不重写已有Boss。
+3. 森林下一方向仅有[实体弓背枝提案](evidence/region_bible_v2/style_continuity_20261021/thorn-structure-next/REPORT.md)，明确未实现/HOLD，需有限同族原生结构画与真实polygon接触/绘画适配可行性；不继续已STOP零几何棕藤覆材，不先注册v16。Plains仍只有只读接入方案：`build/region_bible_v2/plains-reader-integration-next/`。Forest内部功能/艺术样板后再做真实v12西井→铃船→岛Reader/原箱→东井返回；独立catalog/namespace与新版本保存重建，不能只改名冒充完整Bible石桥。不加入BGM，不重写已有Boss。
 4. 最终任务仍in_progress/planned，用户/设备/FUN分开，不能因技术通过标整区done。
 
 ## 证据与空间
