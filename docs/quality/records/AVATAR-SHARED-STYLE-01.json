@@ -1,0 +1,222 @@
+{
+  "schema_version": 1,
+  "task_id": "AVATAR-SHARED-STYLE-01",
+  "task_type": "process",
+  "workflow": "in_progress",
+  "baseline_commit": "6dba342dcf557c89957e31b7faec489574d46abd",
+  "reviewed_commit": "6dba342dcf557c89957e31b7faec489574d46abd",
+  "content_version": "avatar-default-versioned-guards-v1",
+  "owner": "/root",
+  "purpose": "Preserve historical avatar guards while explicitly testing the current shared-style Forest default and early consumer coverage",
+  "player_experience": "Shared pixel bodies remain coherent across Home/Forest without duplicate visible appearance owners; no production runtime change",
+  "constraints": [
+    "Preserve original25 literal guards via actualv14 and add currentv15 checks",
+    "Keep all26 suites/caps,151 check dictionaries,oldprofile prefixes andfull141",
+    "Do not derive no-pin proof solely from consumed-empty request or turn a legitimate same-version pin probe into a negative PASS"
+  ],
+  "affected_paths": [
+    "tests/avatar_presentation_ownership_runner.gd",
+    "tools/harness/profiles.json",
+    ".agents/skills/art-director/SKILL.md",
+    "docs/harness.md",
+    "docs/current_state.md",
+    "docs/handoff.md",
+    "docs/tasks.md"
+  ],
+  "deliverables": [
+    "Versioned actual old/current avatar checks",
+    "Complete original26 execution and independent real ownership negatives",
+    "Original generated-consumers added to the optional region-bible feedback profile"
+  ],
+  "creative_decisions": [
+    {
+      "status": "not_required",
+      "decision": "Retain the user-selected shared style; migrate tests without reverting runtime",
+      "basis": "ActualCI25/2 reproduced and actualv14/currentv15 share-source distinction"
+    }
+  ],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Actual style migration and original failing assertion scope explicitly separated",
+      "evidence": [
+        "avatar-scope"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Actual style migration and original failing assertion scope explicitly separated",
+      "evidence": [
+        "avatar-scope"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Complete26 actual originalCLI plus independent native body negatives; final officialCI separate",
+      "evidence": [
+        "original26-pass"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Different author only accepts this versioned static/native ownership-test scope, not whole region art",
+      "evidence": [
+        "avatar-default-independent"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "versioned-scope",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "Actual old/current contracts specified",
+      "scenario": "Old v14 and currentv15 body identity",
+      "method": "Scope and exact source/receipt binding",
+      "expected": "Preserve oldguard while testing actual current style",
+      "failure": "Revert production style or replace oldassertions without actualconsumer",
+      "evidence": [
+        "avatar-scope"
+      ]
+    },
+    {
+      "id": "full26-actual",
+      "gate": "G4",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "All original26 actually executed successfully on their frozen source",
+      "scenario": "Complete original generated-consumers CLI",
+      "method": "Actual2100 parent/unchanged individualcaps",
+      "expected": "All26success marker,cleanexit andsource/Gitstable",
+      "failure": "Any missing suite/failedassert/leak/source drift",
+      "evidence": [
+        "original26-pass"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "avatar-default-independent",
+      "path": "docs/evidence/region_bible_v2/style_continuity_20261021/avatar-default-migration/independent/report.json",
+      "sha256": "97c4fa5f73ce6bd3657c548747b51bf35a558ec8c78243b35476560a5192f86a",
+      "kind": "review",
+      "producer": "/root/bible_test_workflow_independent_review",
+      "reviewer": "/root/bible_test_workflow_independent_review",
+      "implementers": [
+        "/root",
+        "/root/ci_v15_admission_continue"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer did not author the runner or production avatars; independent literal-source reconstruction, exact receipts and actual test-only native ownership negatives.",
+      "verdict": "ACCEPT",
+      "accepted": true,
+      "source_commit": "6dba342dcf557c89957e31b7faec489574d46abd",
+      "content_version": "avatar-default-versioned-guards-v1",
+      "method": "45 source checks,10 final receipt observations and actual two bad-body rejects; legitimate explicit-pin probe retained with original expectation mismatch",
+      "observed": "Old25 on actualv14 retained; current37/0 actualv15; full26 actual167.457/2100; no runtime/body/physics change. Unpinned proof source+manifest, consumed field cleanup only. Not regional art/device/FUN acceptance.",
+      "covers": [
+        "versioned_avatar_test_migration_only"
+      ]
+    },
+    {
+      "id": "avatar-scope",
+      "path": "docs/evidence/region_bible_v2/style_continuity_20261021/avatar-default-migration/README.md",
+      "sha256": "24dbbaf84b9fe18561bae1e9b670f44a61728fc2d0993e4b0fb4e75e62f0a897",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "6dba342dcf557c89957e31b7faec489574d46abd",
+      "content_version": "avatar-default-versioned-guards-v1",
+      "method": "Actual original source-specific native execution or finite recorded scope",
+      "observed": "Finite historical/current source and actual failed/passing receipt boundaries"
+    },
+    {
+      "id": "original26-pass",
+      "path": "docs/evidence/region_bible_v2/style_continuity_20261021/avatar-default-migration/implementation/generated26-receipt.json",
+      "sha256": "ce1d502ec2a2c157d8056ee567af371af6b0ff60ce99abf82ef10b7e47a2a206",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "6dba342dcf557c89957e31b7faec489574d46abd",
+      "content_version": "avatar-default-versioned-guards-v1",
+      "method": "Actual original source-specific native execution or finite recorded scope",
+      "observed": "Actual complete original26 suites passed167.457/2100 seconds with22984fullsource/Gitstable at6dba+test7a WIP",
+      "command": "python3 tools/run_generated_consumer_tests.py",
+      "exit_code": 0,
+      "environment": "Linux Python3.12; Godot4.7.2.stable.official.ed1daf0bf via tools/godot.sh;6dba+test7aWIP frozen full22984 sources"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Final fresh official CI/artifact/browser pending; whole Forest art/Plains/device/user/FUN outside this process scope"
+  ],
+  "test_change_justification": "Actual old25/2 reproduced at6dba. Original25 assertions retain their real historicalv14 consumer and two extra version-specific current appearance chains add12 for37 total. Current default invocation is visibly unpinned in frozen testsource and actualManifest isv15; consumed-empty request is cleanup only. Native37/0 and complete original26 passed; two genuinely wrongbody cases rejected. Third valid same-v15 pin probe remains a passing coverage observation with its original expectation mismatch, not a claimed ownership negative. No runtime/physics or original151check dictionaries/oldprofile prefixes/full141 changed.",
+  "production_snapshot": "193a3deab9ebef1a61a380e858798f67383cefbf14f61bbf8aa7f6487625eb41"
+}

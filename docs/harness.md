@@ -65,6 +65,8 @@ restore_archived_artifact(Path("build/verification/harness/RUN/artifacts/CHECK")
 
 修复后的[完整fresh原80与归档](evidence/region_bible_v2/style_continuity_20261021/final-native80/README.md)已在clean dec23450实跑通过；原600秒内551.426秒，含准备/收集总582.322秒。78份大JSON完整压缩、2份小JSON保原路径，独审逐字节核80轨迹。阈值决定存储形式，不能把ZIP成员数误当路线总数；压缩不放宽原预算，也不代完整profiles或艺术验收。
 
+`region-bible-feedback`另包含原`generated-consumers`完整26组，提前覆盖真实Home/地区换装与默认身体所有权，不只验证Bible元数据。原151检查字典、所有profile旧前缀、full141与26组原CLI/各预算不变。历史v14皮肤与当前默认v15分别实测，不能把更换项目画风当修测试；无pin由实际冻结调用与Manifest绑定，已消费请求字段不能单独作动态证明。
+
 ## 多包任务执行
 
 `--mission` 模式见 [生产循环](quality/production_loop.md)，默认只计划，`--execute` 才真实调用 Codex Skills。原有 `--profile` 验证模式不变。

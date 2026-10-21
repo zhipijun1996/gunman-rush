@@ -1,0 +1,46 @@
+{
+  "phase": "native-original",
+  "scope": "Real original CLI with exact full prepared tracked/untracked SHA inventory including docs, no engine parallelism",
+  "head_before": "6dba342dcf557c89957e31b7faec489574d46abd",
+  "head_after": "6dba342dcf557c89957e31b7faec489574d46abd",
+  "git_status_before": "",
+  "git_status_after": "",
+  "source_count": 22984,
+  "source_stable": true,
+  "source_differences": [],
+  "check": {
+    "status": "failed",
+    "exit_code": 1,
+    "failure_reason": "nonzero_exit",
+    "started_at_unix": 1792570988.4214635,
+    "ended_at_unix": 1792570994.1976438,
+    "duration_seconds": 5.776,
+    "expanded_argv": [
+      "bash",
+      "tools/godot.sh",
+      "--headless",
+      "--fixed-fps",
+      "60",
+      "--path",
+      ".",
+      "--script",
+      "tests/avatar_presentation_ownership_runner.gd"
+    ],
+    "check_token": "bc1222059855437ca264d8557a26aea9"
+  },
+  "argv": [
+    "bash",
+    "tools/godot.sh",
+    "--headless",
+    "--fixed-fps",
+    "60",
+    "--path",
+    ".",
+    "--script",
+    "tests/avatar_presentation_ownership_runner.gd"
+  ],
+  "timeout_seconds": 90,
+  "log_sha256": "d066db4418beb5104c87593376c31a14a9b6c51523034026bc646237a3fce880",
+  "total_seconds_with_after_SHA": 14.42354959899967,
+  "git_stable": true
+}

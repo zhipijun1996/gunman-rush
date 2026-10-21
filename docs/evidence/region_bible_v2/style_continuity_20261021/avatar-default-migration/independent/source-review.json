@@ -1,0 +1,247 @@
+{
+  "verdict": "ACCEPT_SOURCE_ONLY_PENDING_INDEPENDENT_NATIVE_NEGATIVES",
+  "scope": "Only avatar test migration. No engine executed by reviewer yet.",
+  "source_sha256": "7a865cda9d8b7bee216acceae8137beaa5bd421bb254ac06aaf29374f2c26ff8",
+  "checks": [
+    {
+      "name": "source_frozen_exact_sha",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "old_source_exact_git_HEAD",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_guard_preserved:check(visible_bodies(player) == 1 and generated.visible and not original.visible, \"Default Home shows only generated body after real avatar bind\")",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_guard_preserved:check(avatar.select_avatar(id), \"Actual catalog selection accepts \" + id)",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_guard_preserved:check(visible_bodies(player) == 1 and not original.visible, \"Home selection has exactly one body and keeps anchor hidden \" + id)",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_guard_preserved:check(generated.visible == (id == \"courier\"), \"Home default body visibility follows appearance ownership \" + id)",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_guard_preserved:check(not avatar.select_avatar(\"missing_avatar\") and visible_bodies(player) == 1 and generated.visible, \"Rejected selection leaves default Home body intact\")",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_guard_preserved:check(visible_bodies(player) == 1 and generated.visible and not original.visible, \"Repeated Home binding is idempotent\")",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_guard_preserved:check(app.start_debug_region(&\"thorn_forest\", 1, \"avatar-ownership\"), \"Real Forest consumer starts\")",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_guard_preserved:check(visible_bodies(player) == 1 and original.visible, \"Forest restores its original default body\")",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_guard_preserved:check(avatar.select_avatar(\"p1_girl\") and visible_bodies(player) == 1 and not original.visible, \"Forest selected body replaces original\")",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_guard_preserved:check(avatar.select_avatar(\"courier\") and visible_bodies(player) == 1 and original.visible, \"Forest selection returns to its original body\")",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_guard_preserved:check(visible_bodies(player) == 1 and player.get_node(\"UnderworldPlayer\").visible and not player.get_node(\"CourierVisual\").visible, \"Actual Forest return rebinds the sole generated Home body\")",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_guard_preserved:check(await load(\"res://tests/audio_teardown.gd\").drain_world(app), \"Actual audio playback releases\")",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_guard_preserved:check(app_ref.get_ref() == null, \"Actual App owner releases before exit\")",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "12_new_literal_guards",
+      "passed": true,
+      "actual": {
+        "original_literal": 13,
+        "current_literal": 25,
+        "old_actual": 25,
+        "new_actual": 37
+      }
+    },
+    {
+      "name": "reverse_only_explicit_historical_args_and_additions_restores_old_bytes",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "current_call_omits_both_version_pins",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "current_checks_actual_v15_and_empty_request",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "actual_body_type_Underworld",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "no_production_injection_or_generation_calls",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-original:actual_status",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-original:actual_summary",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-original:log_hash",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-original:full22984_inventory_equal",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-original:git_before_after_equal",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-original:original90_cap",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-original:actual_native_call",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-original:fixture_source_binding",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-original:audio_and_owner_release_completed",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-fixed:actual_status",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-fixed:actual_summary",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-fixed:log_hash",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-fixed:full22984_inventory_equal",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-fixed:git_before_after_equal",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-fixed:original90_cap",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-fixed:actual_native_call",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-fixed:fixture_source_binding",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-fixed:audio_and_owner_release_completed",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "only_source_delta_runner",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original26wrapper_unchanged",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original26_90_2100_caps",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "mutant_has_one_bounded_injection:legacy_body_only",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "mutant_has_one_bounded_injection:double_visible_body",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "mutant_has_one_bounded_injection:explicit_current_pin",
+      "passed": true,
+      "actual": null
+    }
+  ],
+  "actual_producer_evidence": {
+    "old": "25/2 actualFAILED retained",
+    "new": "37/0 actualPASS, full22984source stable"
+  },
+  "prepared_mutants": [
+    "legacy_body_only",
+    "double_visible_body",
+    "explicit_current_pin"
+  ],
+  "reviewer": "/root/bible_test_workflow_independent_review"
+}

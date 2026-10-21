@@ -41,3 +41,5 @@ PR96/99/100已合main；运行P `66e8b912854d6d4cccadb45b9c348a618689f5a1`及档
 文档/流程28项fresh profile已通过，报告`build/verification/harness/20261021T053927.330071Z/report.json`。旧creative-v6期望已显式改为用户荆棘方向creative-v7；可选jobs2因20GB隔离空间预检中断且未启动lane，最终jobs1原预算执行通过。仅流程/文档，不代剩余内容或发布。
 
 最新PR门槛修复：原PRdocs29项全通过，但对main完整范围检查因资产机器登记/一条测试预期独审不足而失败。已补真实28卡/175文件/21runtime来源（许可unknown、视觉unverified），单独静态消费者独审不代签整区；完整baseR检查已实际通过，且以python3 -S证明可前移到依赖安装前。core精确head与自动去重/手动及publish保护修复另独审，新完整CI仍待。详见[原失败与修复](evidence/region_bible_v2/style_continuity_20261021/ci-admission-repair/README.md)。
+
+最新角色消费者迁移：6dba的新版PRdocs、Windows/Web通过，但parallel原generated26在头像旧25/2失败，整轮cancelled/serial未完成。默认v15实际Underworld符合共享风格，仅测试用显式真实v14保原25，再追加当前37/0；原26完整167.457秒通过，独审限定接受并保同版本pin探针边界。快反馈新增原26，不改151字典/full141/旧前缀。一次整枝新图源级STOP，无引擎/生产接入；整体森林大形未完成。详见[本轮原件](evidence/region_bible_v2/style_continuity_20261021/avatar-default-migration/README.md)。后继新CI仍待，原dec80不重绑。

@@ -1,0 +1,13 @@
+# 当前默认角色与历史皮肤测试迁移
+
+6dba342的实际CI39566270670：PRdocs通过，Windows/Web任务通过；parallel在第10项generated-consumers失败，原头像25断言中两条仍要求旧Courier身体。随后整轮cancelled，serial未完整，不能签完整CI/全141。保留API digest逐字节核验的原failed parallel ZIP（2,941,537B，SHA3c022b673daae2f0b5929533c396f8b8cb13dee12f9c168867bfc5a4dc0e817a）。
+
+本地原生90秒内5.776秒复现原25/2。只改原runner：历史v14用App已有明确版本入口保原25实际断言；当前无pin v15另加12，真实37/0用6.326秒。原26 CLI/tuple/各caps未改，整组167.457/2100秒全部通过。每轮完整22,984份源码及Git前后稳定。生产角色、画风、物理与其他运行文件均未修改。原测试SHA7a865cda9d8b7bee216acceae8137beaa5bd421bb254ac06aaf29374f2c26ff8。
+
+独审限定接受历史/当前实际消费者与两个真实错误身体反例（各37/3拒绝）。第三显式同v15参数探针实际37/0，是合法入口；原expected-exit1不匹配的收据不改写为负例PASS。已消费后为空的请求字段只证明清理，无pin由冻结三参调用源与实际v15 Manifest共同绑定，不能独立靠该字段动态证明。全部三个探针、原日志/收据和完整前后源码清单均在无损tar.xz内。
+
+另保一次未接入的弓背枝imagegen原图/完整工具回包及源级STOP：绘画与轮廓不适合当前同族native体量，无引擎/生产v16/路线/美术通过。该失败不回退已接受的有限native2覆生平台。
+
+区域快反馈profile追加原generated-consumers全26项；所有151检查字典、所有旧profile前缀及full141不改。该profile计划不冒充已执行的新完整profile；正式CI仍须新冻结提交实际执行。Forest/Workflow仍in_progress，Plains仍planned，整体艺术/设备/用户/FUN未签。
+
+`complete-original-proofs.tar.xz`包含56个完整原件、53,209,189原始字节，整体流式压缩约3.37MB；索引记录每成员完整大小/SHA及archiveSHA，避免重复保存同一大源码清单。所有成员是相对普通文件，可用标准tarfile提取单个成员验证，不需活build原件；收据原路径保持历史实际值。
