@@ -1,5 +1,11 @@
 # 当前状态
 
+本轮已发布（2026-10-21）：[新版森林探索试玩](https://zhipijun1996.github.io/gunman-rush/?v=a443c2ec6642)，build `a443c2ec6642`，运行源 `11eb4046b2eabdc7c0ee7e7625bd7ef0985515df`。入口：`DEVELOPMENT DEMOS` → `DEBUG / SELECT REGION + MAP` → **`FOREST EXPLORATION / MAP 1` 或 `MAP 2`**；普通森林入口/default与历史保存仍为v15，不代表这轮新探索地图。prepared Pages [39654646862](https://github.com/zhipijun1996/gunman-rush/actions/runs/39654646862)成功；公网完整PCK SHA `a443c2ec6642976f296686c95e357c631299657bd928743c588cbc65057bde60` /141671756字节一致，真实鼠标两地图进入及暂停恢复通过（133.272秒、0引擎错误）。[公开验证原件](evidence/region_bible_v2/style_continuity_20261021/forest-exploration-v16/web/public/report.json)与[运行源码逐字节桥接](evidence/region_bible_v2/style_continuity_20261021/forest-exploration-v16/web/native15-to-runtime-commit.json)已归档。
+
+新增回望取奖、活摆荚/固定果实及击杀后替代、L下探、Z/7回环与领奖短返；低顶短跳淘汰。九条实际输入路线31,952帧/780腿通过，主路最低HP4/1；技术验证不签用户趣味。整体艺术仍REWORK（长矩形根体、规则浮梯），Plains尚未实施，BGM由用户后引入。草稿[PR101](https://github.com/zhipijun1996/gunman-rush/pull/101)未合main。
+
+CI说明：11eb的Documentation [39654167820](https://github.com/zhipijun1996/gunman-rush/actions/runs/39654167820)因skill四条链接指向本机ignored build失败；已复现并改为普通Git证据路径，不改变运行代码、原始失败或历史结论。本轮仅文档和交付证据修复；本地原docs29/29与本次无临时build证据镜像检查分开记录，原core run39654167708的Web job也已失败、其余仍在执行，暂未取得该job原日志，不将失败原因预判为已解决；新完整CI以实际run状态为准。以下旧“未提交/待Web/公网12ac”等均为历史时点，不覆盖本段。
+
 最新开发续轮：新增v16探索候选已接17种模块、回望高枝、活摆荚/固定果实双解、L下探与Z/7内外回环、领奖短返。低顶短跳已淘汰。fresh native15九条正式输入路线全部通过31952帧/780腿并获限定独审，三摆荚策略及奖励返程均HP5，主路最低HP为4/1；原80/fullCI及闭门对抗/保存仍分开未验。共享像素家族保留，整体艺术仍REWORK（长矩形根体/规则浮梯），不签用户趣味或设备。当前默认/历史保存仍v15；新内容从 `FOREST EXPLORATION / MAP 1/2` 独立关卡测试入口进入。原始失败、完整源闭包与实际23GPU图见[本轮证据](evidence/region_bible_v2/style_continuity_20261021/forest-exploration-v16/README.md)。下一步仅Web构建与快速部署，不默认合main。
 
 最新试玩（2026-10-21）：[公开网页](https://zhipijun1996.github.io/gunman-rush/?v=12ac19e2ec02)现为森林开发构建12ac19e2ec02，运行源bbf5b24dc6a27374119f67f11fc2eed92a57ba00，prepared Pages39593999600已成功。公网完整PCK与原已验CI包一致，真实森林map1进入/暂停恢复冒烟通过；正式原CI39578229334/full141及当前80路线也已通过。本文后面的旧“待CI/公开旧main”是历史时点，以本段和交接最新段落为准；未合main，森林整体美术和Plains优化仍未完成。用户要求今后试玩默认快速发布：复用已验同源Web或只重建Web及必要影响检查，不为每次试玩重跑整套CI。

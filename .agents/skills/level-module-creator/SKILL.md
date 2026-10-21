@@ -17,9 +17,9 @@ description: 制作或修改平台模块、连续挑战的物理实现、入口�
 
 ## 单模块先于整区扩展：森林 v16 迭代经验
 
-先把选定地区圣经与玩家的新要求落实为一个可玩的独立模块，再嵌入大地图。Z/7/L 荆棘通道等轮廓须带来换向、观察、恢复或奖励选择，不能只换名字和坐标。用实际 Router→Controller→唯一 Motor 验证完整身体的起手、穿越、接收与同体回返；静态净空与模块目录通过不代表整区可通行。[native08](../../../build/region_bible_v2/forest-feedback-native-08/receipt.json)、[native09](../../../build/region_bible_v2/forest-feedback-native-09/receipt.json)的结构检查通过而两图 fast 仍失败，[native10](../../../build/region_bible_v2/forest-feedback-native-10/receipt.json)推进到中途仍未完成，均保留原失败。
+先把选定地区圣经与玩家的新要求落实为一个可玩的独立模块，再嵌入大地图。Z/7/L 荆棘通道等轮廓须带来换向、观察、恢复或奖励选择，不能只换名字和坐标。用实际 Router→Controller→唯一 Motor 验证完整身体的起手、穿越、接收与同体回返；静态净空与模块目录通过不代表整区可通行。[native08](../../../docs/evidence/region_bible_v2/style_continuity_20261021/forest-exploration-v16/early-failed/native08-receipt.json)、[native09](../../../docs/evidence/region_bible_v2/style_continuity_20261021/forest-exploration-v16/early-failed/native09-receipt.json)的结构检查通过而两图 fast 仍失败，[native10](../../../docs/evidence/region_bible_v2/style_continuity_20261021/forest-exploration-v16/early-failed/native10-receipt.json)推进到中途仍未完成，均保留原失败。
 
-每轮保留实际改变的完整源文件字节、来源与 SHA，并绑定该轮轨迹和收据；只有 hash 清单不能恢复后来已修改的实现。独立审查读取匹配原 SHA 的源码，不拿当前扩展版解释旧轨迹。[独立 L 审查](../../../build/region_bible_v2/forest-feedback-route-design/l-native-first-review/REVIEW.md)限定接受原源的普通主路与奖励位置往返，并保留最初混用后续 7/Z 源码的无效审查。普通便宜通路可以合法；高收益奖励应由实际绕行、取得和回返证明，不能让原地直跳拿到同等奖励，也不为固定连招封死所有替代解。单模块的原始危险几何扫掠、正式世界碰撞/伤害实体、真实领奖交易及保存分别验证：L 样板到达奖励位置不等于已结算金币，HP 未变也不能单独证明正式伤害策略安全。技术接受不签趣味、美术、用户或设备。
+每轮保留实际改变的完整源文件字节、来源与 SHA，并绑定该轮轨迹和收据；只有 hash 清单不能恢复后来已修改的实现。独立审查读取匹配原 SHA 的源码，不拿当前扩展版解释旧轨迹。[独立 L 审查](../../../docs/evidence/region_bible_v2/style_continuity_20261021/forest-exploration-v16/early-failed/l-scoped/REVIEW.md)限定接受原源的普通主路与奖励位置往返，并保留最初混用后续 7/Z 源码的无效审查。普通便宜通路可以合法；高收益奖励应由实际绕行、取得和回返证明，不能让原地直跳拿到同等奖励，也不为固定连招封死所有替代解。单模块的原始危险几何扫掠、正式世界碰撞/伤害实体、真实领奖交易及保存分别验证：L 样板到达奖励位置不等于已结算金币，HP 未变也不能单独证明正式伤害策略安全。技术接受不签趣味、美术、用户或设备。
 
 ## 触发与边界
 

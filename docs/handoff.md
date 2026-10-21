@@ -1,3 +1,13 @@
+# 最新交接：探索试玩已发布
+
+本轮已发布（2026-10-21）：[新版森林探索试玩](https://zhipijun1996.github.io/gunman-rush/?v=a443c2ec6642)，build `a443c2ec6642`，运行源 `11eb4046b2eabdc7c0ee7e7625bd7ef0985515df`。入口：`DEVELOPMENT DEMOS` → `DEBUG / SELECT REGION + MAP` → **`FOREST EXPLORATION / MAP 1` 或 `MAP 2`**；普通森林入口/default与历史保存仍为v15，不代表这轮新探索地图。prepared Pages [39654646862](https://github.com/zhipijun1996/gunman-rush/actions/runs/39654646862)成功；公网完整PCK SHA `a443c2ec6642976f296686c95e357c631299657bd928743c588cbc65057bde60` /141671756字节一致，真实鼠标两地图进入及暂停恢复通过（133.272秒、0引擎错误）。[公开验证原件](evidence/region_bible_v2/style_continuity_20261021/forest-exploration-v16/web/public/report.json)与[运行源码逐字节桥接](evidence/region_bible_v2/style_continuity_20261021/forest-exploration-v16/web/native15-to-runtime-commit.json)已归档。
+
+新增回望取奖、活摆荚/固定果实及击杀后替代、L下探、Z/7回环与领奖短返；低顶短跳淘汰。九条实际输入路线31,952帧/780腿通过，主路最低HP4/1；技术验证不签用户趣味。整体艺术仍REWORK（长矩形根体、规则浮梯），Plains尚未实施，BGM由用户后引入。草稿[PR101](https://github.com/zhipijun1996/gunman-rush/pull/101)未合main。
+
+CI说明：11eb的Documentation [39654167820](https://github.com/zhipijun1996/gunman-rush/actions/runs/39654167820)因skill四条链接指向本机ignored build失败；已复现并改为普通Git证据路径，不改变运行代码、原始失败或历史结论。本轮仅文档和交付证据修复；本地原docs29/29与本次无临时build证据镜像检查分开记录，原core run39654167708的Web job也已失败、其余仍在执行，暂未取得该job原日志，不将失败原因预判为已解决；新完整CI以实际run状态为准。以下旧“未提交/待Web/公网12ac”等均为历史时点，不覆盖本段。
+
+后续优先：根据试玩反馈改模块节奏与森林自然大形；对闭门绕行、保存及更多种子另作受影响验证，再评估默认入口晋升。不因文档提交重建同源Web或重跑已完成路线。原预算、原80顺序、保护audit和唯一证据保持。
+
 最新覆盖（2026-10-21）：v16本轮实现与focused验证已通过，生产源码目前冻结，待提交与仅Web快速部署。九条实际路线全部严格reader通过，31952帧/780腿/176.832秒；两主路最低HP4/1，其余七奖励/回程案例HP5。三摆荚策略含自然相位H/固定hang_jump/实际击杀drop后的固定fallback；Z/7真实回环、领奖short shape disabled与long恢复窗均实走。完整112 changed源码字节+基线78b/3637路径前后清单、原轨迹、23实际GPU、独审及旧14死亡/门阻入口失败，普通Git见[原件](evidence/region_bible_v2/style_continuity_20261021/forest-exploration-v16/README.md)。G0/模块数/技术通过都不签FUN；规整浮梯/矩形根体仍ART_REWORK，Plains尚未动，BGM保留用户后引入。
 
 新界面入口 `DEBUG / SELECT REGION + MAP` → `FOREST EXPLORATION / MAP 1/2`，明确pin16；原普通入口/default/历史v15重建保留。永久短反馈 `python3 tools/harness.py --profile forest-exploration-feedback`；新optional profile追加四check，原151字典/旧profile顺序不改。新Foundrybasis原36phrases/18itineraries在正式原生验证后刷新，旧resources完整ZIP保留，native15已包含新资源且源稳定。
