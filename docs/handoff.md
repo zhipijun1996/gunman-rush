@@ -1,5 +1,7 @@
 # 当前交接
 
+最新用户要求（2026-10-21）：之后快速部署试玩网页。同一运行源已有已验Web时复用原包+现有prepared Pages流程，不重复完整CI；缺包/运行源变化只重建Web及影响范围必要检查。bbf5b24d实际正式CI39578229334已success、full141及当前v15原80通过，原实际Web包/三浏览器/8地区GUI亦已过；原文后续历史“待CI”不再代表当前状态。此次重复手动全CI39593614698已主动取消，不追认为通过；快速发布39593999600承载bbf5b24d/build12ac19e2ec02，prepared commit ce35ab50b093f003cf8c3ddd86b514e92c711b4b。快速Pages39593999600已success，公网build-info及完整PCK SHA/长度匹配12ac19e2ec02，真实鼠标进入森林map1与暂停/恢复冒烟通过（93.369秒、0引擎错误、23007源前后相等）；试玩https://zhipijun1996.github.io/gunman-rush/?v=12ac19e2ec02。原API/原包身份/实图/日志在build/region_bible_v2/deploy-bbf5b24-user-request。未合main，整区艺术/Plains优化仍未完成。
+
 2026-10-21，`feature/region-bible-v2-forest`。最近已推送检查点124815766d1c9fb93224bca05fa2c9f7fe265ac5，准确HEAD查Git，草稿[PR101](https://github.com/zhipijun1996/gunman-rush/pull/101)后继修兼容字体和共享表现循环依赖。原起点R7be8c340372d1e20db6685cbd6a559191821eb0e。先完整Forest含美术，再Plains；BGM由用户后引入；不默认合main。先读[当前状态](current_state.md)、[Bible注册表](creative_direction/bibles/registry.json)。
 
 ## 已完成及边界

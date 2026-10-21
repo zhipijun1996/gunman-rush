@@ -1,5 +1,9 @@
 # 项目工作规则
 
+## 2026-10-21 最新选择：快速部署试玩网页
+
+用户明确要求“这个流程是否太复杂，之后快速部署试玩网页即可”。单纯更新试玩默认走轻流程：同一运行源已有已验证Web包时，复用原包，通过现有`deploy-prepared-playtest.yml`发布，核对公开版本/完整PCK并做基本入口冒烟；不重复完整CI、Windows导出、全路线或长录像。缺包或运行源变化时只重建Web并执行受影响的必要检查；完整CI仍用于开发回归/合入/正式交付，不和每次试玩部署捆绑。复用须记录实际source commit/build id；试玩、整区完成、用户和设备认可分开。不得为提效伪造通过、忽略实际加载错误或默认合main。操作入口见[project-integration](.agents/skills/project-integration/SKILL.md)。
+
 ## 2026-10-20 最新选择：区域圣经 V2
 
 后续制作或优化地区先有该区完整圣经，按原文生成和优化；当前用户已提供并选择[风铃平原](docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md)和[荆棘森林](docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md)，先完整森林含美术，再优化平原。[原始指令](docs/creative_direction/bibles/user-request.json)保留原quote与附件完整SHA。音效与背景动画/VFX可做，BGM由用户后续引入；Bible音乐章节保留设计意图，不生成/替换BGM。用户选择方向不签新内容的艺术、玩法或设备验收。

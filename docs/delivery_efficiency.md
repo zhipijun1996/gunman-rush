@@ -2,6 +2,10 @@
 
 2026-10-14用户授权按提效建议落实，并删除旧八小关。不是降低当前内容的验收标准。
 
+## 最新试玩部署选择（2026-10-21）
+
+用户要求后续快速部署试玩网页。仅试玩部署时优先复用同一运行源已验证的Web包，调用已有`deploy-prepared-playtest.yml`，核对公网完整PCK/source/build与基本区域入口；不重复整套CI/Windows/全路线/长录像。缺包或运行源变化才重建Web并验证受影响部分。下文完整deliver/release流程用于正式交付和开发回归，不要求每次试玩重跑；已有技术、视觉、设备和玩家边界分别保留，参见[当前交付技能](../.agents/skills/project-integration/SKILL.md)。
+
 ## 删除边界
 
 移除 DemoApp.start_plains_regression、RunProfile.formal8 与运行资源 formal_eight.tres。正式两张连通地区地图和三关开发样板保持独立。旧八关/十关存档明确拒绝，不能静默转换。14个依赖旧入口的测试源与旧资源移至 docs/archive/retired_eight，供历史证据追溯，Godot不导入、不在当前harness执行。
