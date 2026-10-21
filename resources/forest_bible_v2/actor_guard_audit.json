@@ -1,0 +1,103 @@
+{
+  "scope": "read-only source guard audit; not Godot/state/pixel acceptance",
+  "all_non_draw_prefixes_unchanged": true,
+  "all_selected_cues_preserved": true,
+  "files": [
+    {
+      "path": "scripts/enemies/forest_depth_enemy_presentation.gd",
+      "non_draw_prefix_unchanged": true,
+      "current_sha256": "3b1ab70038b435ae91412ef88a4490b5269f465d14086e4de488969bf9ed049c",
+      "markers": [
+        {
+          "start": "\tif behavior is ForestThreadSpiderBehavior and alive:",
+          "original_suffix_or_cue_line_preserved": true
+        }
+      ]
+    },
+    {
+      "path": "scripts/enemies/forest_crossbranch_presentation.gd",
+      "non_draw_prefix_unchanged": true,
+      "current_sha256": "f6c96e10548283eccb0f262a3152f520aa59f4bab0aab30924da0879f08634c2",
+      "markers": [
+        {
+          "start": "\tif behavior!=null and behavior.state==&\"telegraph\" and behavior.committed_shore>=0:",
+          "original_suffix_or_cue_line_preserved": true
+        }
+      ]
+    },
+    {
+      "path": "scripts/bosses/forest_boss_duel_presentation_v2.gd",
+      "non_draw_prefix_unchanged": true,
+      "current_sha256": "76e439a6d82e4f6db25404c03b0f524f76a72b085982db178fa22dff53ebc2df",
+      "markers": [
+        {
+          "start": "\tif not encounter is RootbellGuardianV2: return",
+          "original_suffix_or_cue_line_preserved": true
+        }
+      ]
+    },
+    {
+      "path": "scripts/bosses/thorn_queen_canopy_presentation.gd",
+      "non_draw_prefix_unchanged": true,
+      "current_sha256": "bbdde03aef04aa92709a166a28158f3da569b93254abfd3e3d24e77c33e4a687",
+      "markers": [
+        {
+          "start": "\tif not encounter.active: return",
+          "original_suffix_or_cue_line_preserved": true
+        }
+      ]
+    },
+    {
+      "path": "scripts/bosses/guardian_root_bell_v2.gd",
+      "non_draw_prefix_unchanged": true,
+      "current_sha256": "58b484ca6987b33a053a1cf9fe146bd17c30ff437eb54a132c7cc65eaf6df44d",
+      "markers": [
+        {
+          "start": "\tif state != &\"held\":",
+          "original_suffix_or_cue_line_preserved": true
+        }
+      ]
+    },
+    {
+      "path": "scripts/enemies/forest_enemy_presentation.gd",
+      "non_draw_prefix_unchanged": true,
+      "current_sha256": "cff58737f897c3c62807ff21b109861a029170739d47c6d4b3e6d149a03c302e",
+      "markers": [
+        {
+          "start": "\t\tif state == &\"telegraph\": draw_line",
+          "original_suffix_or_cue_line_preserved": true
+        },
+        {
+          "start": "\t\tif state == &\"telegraph\":\n",
+          "original_suffix_or_cue_line_preserved": true
+        }
+      ]
+    },
+    {
+      "path": "scripts/enemies/forest_feedback_enemy_presentation.gd",
+      "non_draw_prefix_unchanged": true,
+      "current_sha256": "80ad184e21388ad6c13821b03eb26c05a95ac7f91a0709bfb26fdec675b1edb1",
+      "markers": [
+        {
+          "start": "\t\tif warning and behavior!=null:",
+          "original_suffix_or_cue_line_preserved": true
+        },
+        {
+          "start": "\t\tif phase==&\"turn\":",
+          "original_suffix_or_cue_line_preserved": true
+        }
+      ]
+    },
+    {
+      "path": "scripts/enemies/enemy_presentation.gd",
+      "non_draw_prefix_unchanged": true,
+      "current_sha256": "29a48b375b97755e809eea1cf905bc429b2937647ccae4995cfae76cf4981df5",
+      "markers": [
+        {
+          "start": "\tif not actor.health.terminal:\n\t\tif state == &\"telegraph\":",
+          "original_suffix_or_cue_line_preserved": true
+        }
+      ]
+    }
+  ]
+}

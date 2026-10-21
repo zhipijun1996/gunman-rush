@@ -1,16 +1,16 @@
 # 项目工作规则
 
-## 2026-10-19 最新选择：Underworld正式平原
+## 2026-10-20 最新选择：区域圣经 V2
 
-用户从五套实机中选择Underworld，授权整理Harness/Skills并整体改造正式风铃平原。当前生产方法见[Underworld Tile流程](docs/underworld_tile_production.md)：原生Tile参考/许可与接口、生成材料母版、真实TileMap核心+非整格精确边界、三张独立不同速率景层、有根装饰、融合平台表面的四向伤害材质。16区统一画法/语义，色域与主材料分区；不把全游戏固定成同色暗洞。此选择覆盖旧晨光/卡通的当前生产方向，旧fixture和失败证据保留。核心玩法、碰撞、伤害、随机流与保存不为美术改变；用户偏好不等于本轮最终视觉/实体设备验收。
+后续制作或优化地区先有该区完整圣经，按原文生成和优化；当前用户已提供并选择[风铃平原](docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md)和[荆棘森林](docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md)，先完整森林含美术，再优化平原。[原始指令](docs/creative_direction/bibles/user-request.json)保留原quote与附件完整SHA。音效与背景动画/VFX可做，BGM由用户后续引入；Bible音乐章节保留设计意图，不生成/替换BGM。用户选择方向不签新内容的艺术、玩法或设备验收。
 
-## 2026-10-19 最新覆盖：完全重置美术
+[注册表](docs/creative_direction/bibles/registry.json)绑定原文字节、id/version/region、选择证据；新/优化生产与手写mission均须完整绑定，漂移前后及恢复时拒绝。缺Bible自主做document-only proposed/G0预制作，不要求先问用户；注册和独审前不给生产写集。发生漂移须版本化影响分析、独审与重绑，不以刷新SHA恢复旧通过。旧提案或失败实现不自动约束新区域，但不能抛弃正式平原仍在使用的Underworld tileset家族/整体像素风格；原始素材、许可、冻结版本、旧保存重建及所有旧检查保留。核心玩法、物理、资源、能力授予、RNG和保存合同继续有效。
 
-美术最高入口改为 [美术地基 V1](docs/art_foundation_v1.md)。用户明确要求完全忘记过去所有美术：旧画风、旧母版、旧概念图及旧失败方向不得作为新创意输入；取消空洞骑士/奥里画面目标。下文和其他文件里冲突的历史美术规则只供溯源，不恢复其权威。玩法、物理、资源、能力授予、RNG 和保存合同继续有效。
-
-最新用户允许 dual-grid 作为47-tile替代。正式两图已授权按新像素小样感觉重制、三张独立视差远景、简洁纹理；现有非整格几何可精确边界适配而不得冒称dual-grid。所有新地形以 47-tile blob autotiling 或经验证的dual-grid为地基，背景/玩家 tile/装饰灯光分层；模块设计与随机装配必须先明确 tile 家族、碰撞语义、接缝及净空可实现性。solid、one-way、moving 分开；装饰无碰撞、独立 seed，遵守 keepout、密疏与灯光预算。最新用户已授权按认可的像素小样感觉重制正式平原两图、三个独立视差远景与简洁纹理。不用旧素材改色冒充重做，不以技术检查代签用户审美或全区终审。
+最新用户补充原话：“森林的tile set得和风铃平原的整体风格一致，只是体现不同的区域特色。你这个都直接扔掉了”“同时后续区域不要出类似的问题”。[完整补充与实际共享参考](docs/creative_direction/bibles/style-continuity-20261021-v2.json)绑定当前正式平原16px/32wu、47邻接核心+精确边界适配、PNG/atlas/TileSet/shader与许可完整SHA。所有后续region create/optimize及缺Bible的proposed输入先读该共用母版；区域差异来自材料、生态、结构与色域，森林用树皮苔藓荆棘有机结构，不能独立换画风。正式跨区黄金实际对照与独审后才扩产；仅用户明确选新global style时版本化替代并重验。SHA/metadata不签视觉认可，无关物理、global动作或普通文档不新增美术门槛。
 
 ## 开始与权威来源
+
+森林荆棘按[用户最新平台覆生要求与原参考图](docs/creative_direction/bibles/thorn-covered-platforms-20261021.json)制作：真实根枝/平台承载缠绕藤体与刺面，不能用独立刺砖、矩形框或跨空假根代替。新区域同样按真实宿主/危险方向审查装饰与伤害关系；最近平台的字符串标注不等于已贴附。原区域Bible与共享画风继续有效，参考图仅借生长关系，不移用其项目画风或素材。
 
 先读 [当前状态](docs/current_state.md)、[交接](docs/handoff.md)，检查 Git 工作区，再选择 [任务](docs/tasks.md)。用户最新指令优先；当前状态列出的最新修订覆盖同主题旧段落。历史记录和开发 fixture 不代表正式规则。
 
@@ -43,13 +43,13 @@
 - [.agents/skills/story-writer/SKILL.md](.agents/skills/story-writer/SKILL.md)：剧情、NPC、区域碎片和多轮结局；统一循环规则、角色知识与简明写法。
 - [.agents/skills/project-integration/SKILL.md](.agents/skills/project-integration/SKILL.md)：Git、结构与交付辅助。
 
-当前创作统一从 [区域创作总谱](docs/creative_direction/README.md) 开始，前置 [.agents/skills/region-creative-director/SKILL.md](.agents/skills/region-creative-director/SKILL.md) 负责方向比较/取舍与RETHINK；[.agents/skills/visual-director/SKILL.md](.agents/skills/visual-director/SKILL.md) 负责完整游戏画面，不取代区域创作决策。
+当前创作统一从 [区域创作总谱](docs/creative_direction/README.md) 开始，前置 [.agents/skills/region-creative-director/SKILL.md](.agents/skills/region-creative-director/SKILL.md) 负责Bible缺口、未选方向的比较/取舍与RETHINK；[.agents/skills/visual-director/SKILL.md](.agents/skills/visual-director/SKILL.md) 负责完整游戏画面，不取代区域创作决策。
 
 - [.agents/skills/challenge-choreographer/SKILL.md](.agents/skills/challenge-choreographer/SKILL.md)：连续动作与入口/出口/资源/恢复。
 - [.agents/skills/encounter-director/SKILL.md](.agents/skills/encounter-director/SKILL.md)：敌人/地形/机关/奖励/返回的共同节奏。
 - [.agents/skills/scene-composer/SKILL.md](.agents/skills/scene-composer/SKILL.md)：围合/层深/焦点/根基和实际合屏。
 
-`python3 tools/level_design.py route --request "制作荆棘森林" --output build/creative_system/start.json` 先预制作；选定总谱后以同指令加`--direction`绑定推进。route是计划，实际宿主按原harness租约执行。未来地区按S1–S6/16区/H/W/D/U1/U2最新权威和实际授予分开，不照搬平原，不用G0/G1技术片称整区。每专业交付贡献/协作/新体验/主题冲突/实机验证，不能最后拼贴。
+`python3 tools/level_design.py route --request "制作荆棘森林" --output build/creative_system/start.json` 自动绑定已选Bible与总谱；无Bible只写proposed预制作。`--direction`仅绑定同一Bible的明确版本，不重新选方向。route是计划，实际宿主按原harness租约执行。未来地区按S1–S6/16区/H/W/D/U1/U2最新权威和实际授予分开，不照搬平原，不用G0/G1技术片称整区。每专业交付贡献/协作/新体验/主题冲突/实机验证，不能最后拼贴。
 
 流程权威：[development_quality](docs/development_quality.md)、[policy](docs/quality/policy.json)、[使用说明](docs/quality/README.md)。当前状态兼任 project_status；[generation_current](docs/generation_current.md) 解释当前生成实现，[visual_bible](docs/visual_bible.md) / [动画规范](docs/animation_vfx_standards.md) 统一表现要求。旧规则冲突以最新明确修订为准，不能复制同义规范。
 

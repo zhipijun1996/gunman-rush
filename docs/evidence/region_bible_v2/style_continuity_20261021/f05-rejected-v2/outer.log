@@ -1,0 +1,35 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+Unable to open Android 'build-tools' directory.
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+[   0% ] [90m[1mfirst_scan_filesystem[22m | Scanning file structure...[39m[0m
+[  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+[  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | Started Registering global classes... (2 steps)[39m[0m
+[   0% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+[  33% ] [90m[1mupdate_scripts_classes[22m | ForestBibleActors[39m[0m
+[92m[ DONE ][39m [1mupdate_scripts_classes[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Loading editor (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Loading editor layout...[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Loading docks...[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FOREST_UI_EVENT {"event":"debug_entry","map_index":2,"natural_progression":false,"region":"thorn_forest","seed":"forest-depth-hollow-00"}
+PLAINS REGION: family=clearing_shared_node areas=41 fallback=
+FOREST_UI_EVENT {"abilities":["grapple"],"boss_definition":"res://resources/bosses/thorn_queen_canopy.tres","boss_scene":"res://scenes/bosses/thorn_queen_canopy.tscn","content_version":"thorn-forest-region-v2","debug_entry":true,"event":"region_assembled","layout_version":"forest-bible-world-v15","manifest_hash":"96a99fef4a9a8aa57d89a066af1d1407efbcde1ec68cc2e7e9189cb30d013c95","map_index":2,"region":"thorn_forest","seed":"forest-depth-hollow-00/thorn_forest/map_2"}
+TEST AUDIO TEARDOWN: {"owners":[{"node":"/root/@Node@2/@Node2D@3/@Node@4","played":{"confirm":2,"enemy_defeat":1,"forest_wind":4,"hurt":1,"impact":4,"jump":2,"land":4,"shot":4,"step":13,"warning":28},"service":"GameAudio"}],"released":true,"seconds":0.0}
+FOREST BIBLE LOCAL FIXTURE: FAIL
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/tools/run_forest_bible_world_fixture.py", line 63, in <module>
+    main()
+  File "/workspace/gunman-rush/tools/run_forest_bible_world_fixture.py", line 60, in main
+    raise RuntimeError(receipt.get('error', 'Failed native run or source closure'))
+RuntimeError: Godot returned 1

@@ -1,0 +1,1475 @@
+{
+  "accepted_contact_scope": "local callback setup only, not real player H evidence",
+  "assertions": 69,
+  "cases": [
+    {
+      "accepted_kicks": 2,
+      "frames": 80,
+      "id": "phase_continuity",
+      "identical": true,
+      "saved_clock": 0.883333333333334
+    },
+    {
+      "frozen_clock": 2.21666666666666,
+      "id": "pause_resume",
+      "identical": true,
+      "resumed_clock": 2.25
+    },
+    {
+      "accepted_kicks": 2,
+      "id": "ledger_unload",
+      "identical": true,
+      "key": "practice_bell/bible_guardian_practice_bell",
+      "schema_version": 2
+    },
+    {
+      "id": "atomic_rejections",
+      "inconsistencies": 9,
+      "missing_fields": 6,
+      "scalar_shapes": 14,
+      "state_unchanged": true
+    },
+    {
+      "id": "row_guards",
+      "rejected": 8
+    },
+    {
+      "before": {
+        "accepted_kicks": 0,
+        "authored_row": {
+          "host_support_id": "boss_approach",
+          "id": "bible_guardian_practice_bell",
+          "motion": {
+            "center": [
+              1290.0,
+              408.0
+            ],
+            "kind": "pendulum",
+            "period": 3.2,
+            "radius": [
+              30.0,
+              12.0
+            ]
+          },
+          "position": [
+            1290.0,
+            408.0
+          ],
+          "route_id": "crown_prep",
+          "tether_root": [
+            1290.0,
+            360.0
+          ]
+        },
+        "clock": 0.3,
+        "phase": 0.589048622548086,
+        "position": [
+          1306.66711425781,
+          419.086547851562
+        ],
+        "version": 1
+      },
+      "id": "actual_app_reload",
+      "key": "practice_bell/bible_guardian_practice_bell",
+      "manifest_hash": "ac1ad386850ad534a313d202611b845287e492f19e43d9eaba7aaafc4bc4c1f8",
+      "player_hook_execution": false,
+      "position_or_resource_injection": false,
+      "resumed": {
+        "accepted_kicks": 0,
+        "authored_row": {
+          "host_support_id": "boss_approach",
+          "id": "bible_guardian_practice_bell",
+          "motion": {
+            "center": [
+              1290.0,
+              408.0
+            ],
+            "kind": "pendulum",
+            "period": 3.2,
+            "radius": [
+              30.0,
+              12.0
+            ]
+          },
+          "position": [
+            1290.0,
+            408.0
+          ],
+          "route_id": "crown_prep",
+          "tether_root": [
+            1290.0,
+            360.0
+          ]
+        },
+        "clock": 0.35,
+        "phase": 0.687223392972767,
+        "position": [
+          1309.03173828125,
+          419.769409179688
+        ],
+        "version": 1
+      },
+      "retained": true
+    }
+  ],
+  "checks": [
+    {
+      "label": "fixture consumes actual v15 authored practice row",
+      "passed": true
+    },
+    {
+      "label": "new practice target accepts finite authored row",
+      "passed": true
+    },
+    {
+      "label": "real Area2D remains a harmless shared grapple target",
+      "passed": true
+    },
+    {
+      "label": "reconfigure cannot silently reset an existing bell phase or kick count",
+      "passed": true
+    },
+    {
+      "label": "native physics advances the actual authored moving target",
+      "passed": true
+    },
+    {
+      "label": "snapshot contains actual callback count and nonzero motion debt",
+      "passed": true
+    },
+    {
+      "label": "new practice target accepts finite authored row",
+      "passed": true
+    },
+    {
+      "label": "fresh target restores exact phase pose clock and counter",
+      "passed": true
+    },
+    {
+      "label": "restored target follows uninterrupted native physics for eighty frames",
+      "passed": true
+    },
+    {
+      "label": "real SceneTree pause freezes both target phase pose and counter",
+      "passed": true
+    },
+    {
+      "label": "resume continues both native targets from the retained phase",
+      "passed": true
+    },
+    {
+      "label": "existing ledger binds the actual manifest",
+      "passed": true
+    },
+    {
+      "label": "existing RegionState version2 survives actual JSON serialization",
+      "passed": true
+    },
+    {
+      "label": "new practice target accepts finite authored row",
+      "passed": true
+    },
+    {
+      "label": "unloaded target rebuild consumes the existing mechanism ledger",
+      "passed": true
+    },
+    {
+      "label": "JSON mechanism reload retains exact current target phase and callback count",
+      "passed": true
+    },
+    {
+      "label": "rebuilt target keeps moving in phase after actual unload",
+      "passed": true
+    },
+    {
+      "label": "missing version rejected without changing live state",
+      "passed": true
+    },
+    {
+      "label": "missing authored_row rejected without changing live state",
+      "passed": true
+    },
+    {
+      "label": "missing clock rejected without changing live state",
+      "passed": true
+    },
+    {
+      "label": "missing phase rejected without changing live state",
+      "passed": true
+    },
+    {
+      "label": "missing position rejected without changing live state",
+      "passed": true
+    },
+    {
+      "label": "missing accepted_kicks rejected without changing live state",
+      "passed": true
+    },
+    {
+      "label": "invalid version scalar/shape rejected atomically",
+      "passed": true
+    },
+    {
+      "label": "invalid version scalar/shape rejected atomically",
+      "passed": true
+    },
+    {
+      "label": "invalid clock scalar/shape rejected atomically",
+      "passed": true
+    },
+    {
+      "label": "invalid clock scalar/shape rejected atomically",
+      "passed": true
+    },
+    {
+      "label": "invalid clock scalar/shape rejected atomically",
+      "passed": true
+    },
+    {
+      "label": "invalid clock scalar/shape rejected atomically",
+      "passed": true
+    },
+    {
+      "label": "invalid phase scalar/shape rejected atomically",
+      "passed": true
+    },
+    {
+      "label": "invalid phase scalar/shape rejected atomically",
+      "passed": true
+    },
+    {
+      "label": "invalid position scalar/shape rejected atomically",
+      "passed": true
+    },
+    {
+      "label": "invalid position scalar/shape rejected atomically",
+      "passed": true
+    },
+    {
+      "label": "invalid accepted_kicks scalar/shape rejected atomically",
+      "passed": true
+    },
+    {
+      "label": "invalid accepted_kicks scalar/shape rejected atomically",
+      "passed": true
+    },
+    {
+      "label": "invalid accepted_kicks scalar/shape rejected atomically",
+      "passed": true
+    },
+    {
+      "label": "invalid accepted_kicks scalar/shape rejected atomically",
+      "passed": true
+    },
+    {
+      "label": "inconsistent identity rejected with clock phase pose and counter untouched",
+      "passed": true
+    },
+    {
+      "label": "inconsistent period rejected with clock phase pose and counter untouched",
+      "passed": true
+    },
+    {
+      "label": "inconsistent radius rejected with clock phase pose and counter untouched",
+      "passed": true
+    },
+    {
+      "label": "inconsistent tether rejected with clock phase pose and counter untouched",
+      "passed": true
+    },
+    {
+      "label": "inconsistent route rejected with clock phase pose and counter untouched",
+      "passed": true
+    },
+    {
+      "label": "inconsistent clock_phase rejected with clock phase pose and counter untouched",
+      "passed": true
+    },
+    {
+      "label": "inconsistent phase rejected with clock phase pose and counter untouched",
+      "passed": true
+    },
+    {
+      "label": "inconsistent pose rejected with clock phase pose and counter untouched",
+      "passed": true
+    },
+    {
+      "label": "inconsistent extra rejected with clock phase pose and counter untouched",
+      "passed": true
+    },
+    {
+      "label": "exported snapshot does not alias the configured motion row",
+      "passed": true
+    },
+    {
+      "label": "invalid delta cannot poison moving target state",
+      "passed": true
+    },
+    {
+      "label": "invalid authored missing_id leaves target unconfigured",
+      "passed": true
+    },
+    {
+      "label": "invalid authored kind leaves target unconfigured",
+      "passed": true
+    },
+    {
+      "label": "invalid authored center leaves target unconfigured",
+      "passed": true
+    },
+    {
+      "label": "invalid authored radius leaves target unconfigured",
+      "passed": true
+    },
+    {
+      "label": "invalid authored period leaves target unconfigured",
+      "passed": true
+    },
+    {
+      "label": "invalid authored tether leaves target unconfigured",
+      "passed": true
+    },
+    {
+      "label": "invalid authored damage leaves target unconfigured",
+      "passed": true
+    },
+    {
+      "label": "invalid authored reward leaves target unconfigured",
+      "passed": true
+    },
+    {
+      "label": "practice callback audio actually drains",
+      "passed": true
+    },
+    {
+      "label": "actual App explicitly enters the authored practice map",
+      "passed": true
+    },
+    {
+      "label": "actual App stage and assembler finish practice target setup",
+      "passed": true
+    },
+    {
+      "label": "actual runtime row has the real motion kind and center used by configure",
+      "passed": true
+    },
+    {
+      "label": "actual assembler registers the configured practice bell in hook_targets",
+      "passed": true
+    },
+    {
+      "label": "actual Stage.capture_state records the nonzero bell mechanism state",
+      "passed": true
+    },
+    {
+      "label": "actual App unload and rebuild creates a new admitted stage",
+      "passed": true
+    },
+    {
+      "label": "actual rebuilt assembler restores the saved practice target",
+      "passed": true
+    },
+    {
+      "label": "actual App retains authored identity clock phase pose and kick count across reload",
+      "passed": true
+    },
+    {
+      "label": "rebuilt bell retains the same phase while actual App remains paused",
+      "passed": true
+    },
+    {
+      "label": "actual App resume advances the restored clock without resetting accepted kicks",
+      "passed": true
+    },
+    {
+      "label": "actual App practice test returns HOME",
+      "passed": true
+    },
+    {
+      "label": "actual App practice audio drains",
+      "passed": true
+    }
+  ],
+  "failures": 0,
+  "manifest_hash": "ac1ad386850ad534a313d202611b845287e492f19e43d9eaba7aaafc4bc4c1f8",
+  "motion_frames": [
+    {
+      "clock": 0.900000000000001,
+      "restored": [
+        1319.42358398438,
+        403.407806396484
+      ],
+      "restored_clock": 0.900000000000001,
+      "source": [
+        1319.42358398438,
+        403.407806396484
+      ],
+      "tick": 55
+    },
+    {
+      "clock": 0.916666666666668,
+      "restored": [
+        1319.21630859375,
+        402.692535400391
+      ],
+      "restored_clock": 0.916666666666668,
+      "source": [
+        1319.21630859375,
+        402.692535400391
+      ],
+      "tick": 56
+    },
+    {
+      "clock": 0.933333333333335,
+      "restored": [
+        1318.97778320312,
+        402.0
+      ],
+      "restored_clock": 0.933333333333335,
+      "source": [
+        1318.97778320312,
+        402.0
+      ],
+      "tick": 57
+    },
+    {
+      "clock": 0.950000000000001,
+      "restored": [
+        1318.70825195312,
+        401.333160400391
+      ],
+      "restored_clock": 0.950000000000001,
+      "source": [
+        1318.70825195312,
+        401.333160400391
+      ],
+      "tick": 58
+    },
+    {
+      "clock": 0.966666666666668,
+      "restored": [
+        1318.40795898438,
+        400.694854736328
+      ],
+      "restored_clock": 0.966666666666668,
+      "source": [
+        1318.40795898438,
+        400.694854736328
+      ],
+      "tick": 59
+    },
+    {
+      "clock": 0.983333333333335,
+      "restored": [
+        1318.0771484375,
+        400.087860107422
+      ],
+      "restored_clock": 0.983333333333335,
+      "source": [
+        1318.0771484375,
+        400.087860107422
+      ],
+      "tick": 60
+    },
+    {
+      "clock": 1.0,
+      "restored": [
+        1317.71643066406,
+        399.514709472656
+      ],
+      "restored_clock": 1.0,
+      "source": [
+        1317.71643066406,
+        399.514709472656
+      ],
+      "tick": 61
+    },
+    {
+      "clock": 1.01666666666667,
+      "restored": [
+        1317.32592773438,
+        398.977935791016
+      ],
+      "restored_clock": 1.01666666666667,
+      "source": [
+        1317.32592773438,
+        398.977935791016
+      ],
+      "tick": 62
+    },
+    {
+      "clock": 1.03333333333333,
+      "restored": [
+        1316.90612792969,
+        398.479766845703
+      ],
+      "restored_clock": 1.03333333333333,
+      "source": [
+        1316.90612792969,
+        398.479766845703
+      ],
+      "tick": 63
+    },
+    {
+      "clock": 1.05,
+      "restored": [
+        1316.45764160156,
+        398.022369384766
+      ],
+      "restored_clock": 1.05,
+      "source": [
+        1316.45764160156,
+        398.022369384766
+      ],
+      "tick": 64
+    },
+    {
+      "clock": 1.06666666666667,
+      "restored": [
+        1315.98071289062,
+        397.607696533203
+      ],
+      "restored_clock": 1.06666666666667,
+      "source": [
+        1315.98071289062,
+        397.607696533203
+      ],
+      "tick": 65
+    },
+    {
+      "clock": 1.08333333333333,
+      "restored": [
+        1315.47607421875,
+        397.237518310547
+      ],
+      "restored_clock": 1.08333333333333,
+      "source": [
+        1315.47607421875,
+        397.237518310547
+      ],
+      "tick": 66
+    },
+    {
+      "clock": 1.1,
+      "restored": [
+        1314.94409179688,
+        396.913452148438
+      ],
+      "restored_clock": 1.1,
+      "source": [
+        1314.94409179688,
+        396.913452148438
+      ],
+      "tick": 67
+    },
+    {
+      "clock": 1.11666666666667,
+      "restored": [
+        1314.38537597656,
+        396.636840820312
+      ],
+      "restored_clock": 1.11666666666667,
+      "source": [
+        1314.38537597656,
+        396.636840820312
+      ],
+      "tick": 68
+    },
+    {
+      "clock": 1.13333333333333,
+      "restored": [
+        1313.80065917969,
+        396.408874511719
+      ],
+      "restored_clock": 1.13333333333333,
+      "source": [
+        1313.80065917969,
+        396.408874511719
+      ],
+      "tick": 69
+    },
+    {
+      "clock": 1.15,
+      "restored": [
+        1313.19030761719,
+        396.230590820312
+      ],
+      "restored_clock": 1.15,
+      "source": [
+        1313.19030761719,
+        396.230590820312
+      ],
+      "tick": 70
+    },
+    {
+      "clock": 1.16666666666667,
+      "restored": [
+        1312.55517578125,
+        396.102661132812
+      ],
+      "restored_clock": 1.16666666666667,
+      "source": [
+        1312.55517578125,
+        396.102661132812
+      ],
+      "tick": 71
+    },
+    {
+      "clock": 1.18333333333333,
+      "restored": [
+        1311.89587402344,
+        396.025695800781
+      ],
+      "restored_clock": 1.18333333333333,
+      "source": [
+        1311.89587402344,
+        396.025695800781
+      ],
+      "tick": 72
+    },
+    {
+      "clock": 1.2,
+      "restored": [
+        1311.21325683594,
+        396.0
+      ],
+      "restored_clock": 1.2,
+      "source": [
+        1311.21325683594,
+        396.0
+      ],
+      "tick": 73
+    },
+    {
+      "clock": 1.21666666666667,
+      "restored": [
+        1310.5078125,
+        396.025695800781
+      ],
+      "restored_clock": 1.21666666666667,
+      "source": [
+        1310.5078125,
+        396.025695800781
+      ],
+      "tick": 74
+    },
+    {
+      "clock": 1.23333333333333,
+      "restored": [
+        1309.78039550781,
+        396.102661132812
+      ],
+      "restored_clock": 1.23333333333333,
+      "source": [
+        1309.78039550781,
+        396.102661132812
+      ],
+      "tick": 75
+    },
+    {
+      "clock": 1.25,
+      "restored": [
+        1309.03173828125,
+        396.230590820312
+      ],
+      "restored_clock": 1.25,
+      "source": [
+        1309.03173828125,
+        396.230590820312
+      ],
+      "tick": 76
+    },
+    {
+      "clock": 1.26666666666667,
+      "restored": [
+        1308.26281738281,
+        396.408874511719
+      ],
+      "restored_clock": 1.26666666666667,
+      "source": [
+        1308.26281738281,
+        396.408874511719
+      ],
+      "tick": 77
+    },
+    {
+      "clock": 1.28333333333333,
+      "restored": [
+        1307.47436523438,
+        396.636840820312
+      ],
+      "restored_clock": 1.28333333333333,
+      "source": [
+        1307.47436523438,
+        396.636840820312
+      ],
+      "tick": 78
+    },
+    {
+      "clock": 1.3,
+      "restored": [
+        1306.66711425781,
+        396.913452148438
+      ],
+      "restored_clock": 1.3,
+      "source": [
+        1306.66711425781,
+        396.913452148438
+      ],
+      "tick": 79
+    },
+    {
+      "clock": 1.31666666666667,
+      "restored": [
+        1305.84204101562,
+        397.237518310547
+      ],
+      "restored_clock": 1.31666666666667,
+      "source": [
+        1305.84204101562,
+        397.237518310547
+      ],
+      "tick": 80
+    },
+    {
+      "clock": 1.33333333333333,
+      "restored": [
+        1305.0,
+        397.607696533203
+      ],
+      "restored_clock": 1.33333333333333,
+      "source": [
+        1305.0,
+        397.607696533203
+      ],
+      "tick": 81
+    },
+    {
+      "clock": 1.35,
+      "restored": [
+        1304.14184570312,
+        398.022369384766
+      ],
+      "restored_clock": 1.35,
+      "source": [
+        1304.14184570312,
+        398.022369384766
+      ],
+      "tick": 82
+    },
+    {
+      "clock": 1.36666666666667,
+      "restored": [
+        1303.26867675781,
+        398.479766845703
+      ],
+      "restored_clock": 1.36666666666667,
+      "source": [
+        1303.26867675781,
+        398.479766845703
+      ],
+      "tick": 83
+    },
+    {
+      "clock": 1.38333333333333,
+      "restored": [
+        1302.38122558594,
+        398.977935791016
+      ],
+      "restored_clock": 1.38333333333333,
+      "source": [
+        1302.38122558594,
+        398.977935791016
+      ],
+      "tick": 84
+    },
+    {
+      "clock": 1.4,
+      "restored": [
+        1301.48046875,
+        399.514709472656
+      ],
+      "restored_clock": 1.4,
+      "source": [
+        1301.48046875,
+        399.514709472656
+      ],
+      "tick": 85
+    },
+    {
+      "clock": 1.41666666666667,
+      "restored": [
+        1300.56750488281,
+        400.087860107422
+      ],
+      "restored_clock": 1.41666666666667,
+      "source": [
+        1300.56750488281,
+        400.087860107422
+      ],
+      "tick": 86
+    },
+    {
+      "clock": 1.43333333333333,
+      "restored": [
+        1299.64318847656,
+        400.694854736328
+      ],
+      "restored_clock": 1.43333333333333,
+      "source": [
+        1299.64318847656,
+        400.694854736328
+      ],
+      "tick": 87
+    },
+    {
+      "clock": 1.45,
+      "restored": [
+        1298.70849609375,
+        401.333160400391
+      ],
+      "restored_clock": 1.45,
+      "source": [
+        1298.70849609375,
+        401.333160400391
+      ],
+      "tick": 88
+    },
+    {
+      "clock": 1.46666666666667,
+      "restored": [
+        1297.76452636719,
+        402.0
+      ],
+      "restored_clock": 1.46666666666667,
+      "source": [
+        1297.76452636719,
+        402.0
+      ],
+      "tick": 89
+    },
+    {
+      "clock": 1.48333333333333,
+      "restored": [
+        1296.81225585938,
+        402.692535400391
+      ],
+      "restored_clock": 1.48333333333333,
+      "source": [
+        1296.81225585938,
+        402.692535400391
+      ],
+      "tick": 90
+    },
+    {
+      "clock": 1.5,
+      "restored": [
+        1295.85266113281,
+        403.407806396484
+      ],
+      "restored_clock": 1.5,
+      "source": [
+        1295.85266113281,
+        403.407806396484
+      ],
+      "tick": 91
+    },
+    {
+      "clock": 1.51666666666667,
+      "restored": [
+        1294.88684082031,
+        404.142730712891
+      ],
+      "restored_clock": 1.51666666666667,
+      "source": [
+        1294.88684082031,
+        404.142730712891
+      ],
+      "tick": 92
+    },
+    {
+      "clock": 1.53333333333333,
+      "restored": [
+        1293.91577148438,
+        404.894165039062
+      ],
+      "restored_clock": 1.53333333333333,
+      "source": [
+        1293.91577148438,
+        404.894165039062
+      ],
+      "tick": 93
+    },
+    {
+      "clock": 1.55,
+      "restored": [
+        1292.94055175781,
+        405.658905029297
+      ],
+      "restored_clock": 1.55,
+      "source": [
+        1292.94055175781,
+        405.658905029297
+      ],
+      "tick": 94
+    },
+    {
+      "clock": 1.56666666666667,
+      "restored": [
+        1291.96203613281,
+        406.433685302734
+      ],
+      "restored_clock": 1.56666666666667,
+      "source": [
+        1291.96203613281,
+        406.433685302734
+      ],
+      "tick": 95
+    },
+    {
+      "clock": 1.58333333333333,
+      "restored": [
+        1290.98156738281,
+        407.215148925781
+      ],
+      "restored_clock": 1.58333333333333,
+      "source": [
+        1290.98156738281,
+        407.215148925781
+      ],
+      "tick": 96
+    },
+    {
+      "clock": 1.6,
+      "restored": [
+        1290.0,
+        408.0
+      ],
+      "restored_clock": 1.6,
+      "source": [
+        1290.0,
+        408.0
+      ],
+      "tick": 97
+    },
+    {
+      "clock": 1.61666666666667,
+      "restored": [
+        1289.01843261719,
+        408.784851074219
+      ],
+      "restored_clock": 1.61666666666667,
+      "source": [
+        1289.01843261719,
+        408.784851074219
+      ],
+      "tick": 98
+    },
+    {
+      "clock": 1.63333333333333,
+      "restored": [
+        1288.03796386719,
+        409.566314697266
+      ],
+      "restored_clock": 1.63333333333333,
+      "source": [
+        1288.03796386719,
+        409.566314697266
+      ],
+      "tick": 99
+    },
+    {
+      "clock": 1.65,
+      "restored": [
+        1287.05944824219,
+        410.341094970703
+      ],
+      "restored_clock": 1.65,
+      "source": [
+        1287.05944824219,
+        410.341094970703
+      ],
+      "tick": 100
+    },
+    {
+      "clock": 1.66666666666667,
+      "restored": [
+        1286.08422851562,
+        411.105834960938
+      ],
+      "restored_clock": 1.66666666666667,
+      "source": [
+        1286.08422851562,
+        411.105834960938
+      ],
+      "tick": 101
+    },
+    {
+      "clock": 1.68333333333333,
+      "restored": [
+        1285.11315917969,
+        411.857269287109
+      ],
+      "restored_clock": 1.68333333333333,
+      "source": [
+        1285.11315917969,
+        411.857269287109
+      ],
+      "tick": 102
+    },
+    {
+      "clock": 1.7,
+      "restored": [
+        1284.14733886719,
+        412.592193603516
+      ],
+      "restored_clock": 1.7,
+      "source": [
+        1284.14733886719,
+        412.592193603516
+      ],
+      "tick": 103
+    },
+    {
+      "clock": 1.71666666666667,
+      "restored": [
+        1283.18774414062,
+        413.307464599609
+      ],
+      "restored_clock": 1.71666666666667,
+      "source": [
+        1283.18774414062,
+        413.307464599609
+      ],
+      "tick": 104
+    },
+    {
+      "clock": 1.73333333333333,
+      "restored": [
+        1282.23547363281,
+        414.0
+      ],
+      "restored_clock": 1.73333333333333,
+      "source": [
+        1282.23547363281,
+        414.0
+      ],
+      "tick": 105
+    },
+    {
+      "clock": 1.75,
+      "restored": [
+        1281.29150390625,
+        414.666839599609
+      ],
+      "restored_clock": 1.75,
+      "source": [
+        1281.29150390625,
+        414.666839599609
+      ],
+      "tick": 106
+    },
+    {
+      "clock": 1.76666666666667,
+      "restored": [
+        1280.35681152344,
+        415.305145263672
+      ],
+      "restored_clock": 1.76666666666667,
+      "source": [
+        1280.35681152344,
+        415.305145263672
+      ],
+      "tick": 107
+    },
+    {
+      "clock": 1.78333333333333,
+      "restored": [
+        1279.43249511719,
+        415.912139892578
+      ],
+      "restored_clock": 1.78333333333333,
+      "source": [
+        1279.43249511719,
+        415.912139892578
+      ],
+      "tick": 108
+    },
+    {
+      "clock": 1.8,
+      "restored": [
+        1278.51953125,
+        416.485290527344
+      ],
+      "restored_clock": 1.8,
+      "source": [
+        1278.51953125,
+        416.485290527344
+      ],
+      "tick": 109
+    },
+    {
+      "clock": 1.81666666666667,
+      "restored": [
+        1277.61877441406,
+        417.022064208984
+      ],
+      "restored_clock": 1.81666666666667,
+      "source": [
+        1277.61877441406,
+        417.022064208984
+      ],
+      "tick": 110
+    },
+    {
+      "clock": 1.83333333333333,
+      "restored": [
+        1276.73132324219,
+        417.520233154297
+      ],
+      "restored_clock": 1.83333333333333,
+      "source": [
+        1276.73132324219,
+        417.520233154297
+      ],
+      "tick": 111
+    },
+    {
+      "clock": 1.85,
+      "restored": [
+        1275.85815429688,
+        417.977630615234
+      ],
+      "restored_clock": 1.85,
+      "source": [
+        1275.85815429688,
+        417.977630615234
+      ],
+      "tick": 112
+    },
+    {
+      "clock": 1.86666666666666,
+      "restored": [
+        1275.0,
+        418.392303466797
+      ],
+      "restored_clock": 1.86666666666666,
+      "source": [
+        1275.0,
+        418.392303466797
+      ],
+      "tick": 113
+    },
+    {
+      "clock": 1.88333333333333,
+      "restored": [
+        1274.15795898438,
+        418.762481689453
+      ],
+      "restored_clock": 1.88333333333333,
+      "source": [
+        1274.15795898438,
+        418.762481689453
+      ],
+      "tick": 114
+    },
+    {
+      "clock": 1.9,
+      "restored": [
+        1273.33288574219,
+        419.086547851562
+      ],
+      "restored_clock": 1.9,
+      "source": [
+        1273.33288574219,
+        419.086547851562
+      ],
+      "tick": 115
+    },
+    {
+      "clock": 1.91666666666666,
+      "restored": [
+        1272.52563476562,
+        419.363159179688
+      ],
+      "restored_clock": 1.91666666666666,
+      "source": [
+        1272.52563476562,
+        419.363159179688
+      ],
+      "tick": 116
+    },
+    {
+      "clock": 1.93333333333333,
+      "restored": [
+        1271.73718261719,
+        419.591125488281
+      ],
+      "restored_clock": 1.93333333333333,
+      "source": [
+        1271.73718261719,
+        419.591125488281
+      ],
+      "tick": 117
+    },
+    {
+      "clock": 1.95,
+      "restored": [
+        1270.96826171875,
+        419.769409179688
+      ],
+      "restored_clock": 1.95,
+      "source": [
+        1270.96826171875,
+        419.769409179688
+      ],
+      "tick": 118
+    },
+    {
+      "clock": 1.96666666666666,
+      "restored": [
+        1270.21960449219,
+        419.897338867188
+      ],
+      "restored_clock": 1.96666666666666,
+      "source": [
+        1270.21960449219,
+        419.897338867188
+      ],
+      "tick": 119
+    },
+    {
+      "clock": 1.98333333333333,
+      "restored": [
+        1269.4921875,
+        419.974304199219
+      ],
+      "restored_clock": 1.98333333333333,
+      "source": [
+        1269.4921875,
+        419.974304199219
+      ],
+      "tick": 120
+    },
+    {
+      "clock": 2.0,
+      "restored": [
+        1268.78674316406,
+        420.0
+      ],
+      "restored_clock": 2.0,
+      "source": [
+        1268.78674316406,
+        420.0
+      ],
+      "tick": 121
+    },
+    {
+      "clock": 2.01666666666666,
+      "restored": [
+        1268.10412597656,
+        419.974304199219
+      ],
+      "restored_clock": 2.01666666666666,
+      "source": [
+        1268.10412597656,
+        419.974304199219
+      ],
+      "tick": 122
+    },
+    {
+      "clock": 2.03333333333333,
+      "restored": [
+        1267.44482421875,
+        419.897338867188
+      ],
+      "restored_clock": 2.03333333333333,
+      "source": [
+        1267.44482421875,
+        419.897338867188
+      ],
+      "tick": 123
+    },
+    {
+      "clock": 2.05,
+      "restored": [
+        1266.80969238281,
+        419.769409179688
+      ],
+      "restored_clock": 2.05,
+      "source": [
+        1266.80969238281,
+        419.769409179688
+      ],
+      "tick": 124
+    },
+    {
+      "clock": 2.06666666666666,
+      "restored": [
+        1266.19934082031,
+        419.591125488281
+      ],
+      "restored_clock": 2.06666666666666,
+      "source": [
+        1266.19934082031,
+        419.591125488281
+      ],
+      "tick": 125
+    },
+    {
+      "clock": 2.08333333333333,
+      "restored": [
+        1265.61462402344,
+        419.363159179688
+      ],
+      "restored_clock": 2.08333333333333,
+      "source": [
+        1265.61462402344,
+        419.363159179688
+      ],
+      "tick": 126
+    },
+    {
+      "clock": 2.1,
+      "restored": [
+        1265.05590820312,
+        419.086547851562
+      ],
+      "restored_clock": 2.1,
+      "source": [
+        1265.05590820312,
+        419.086547851562
+      ],
+      "tick": 127
+    },
+    {
+      "clock": 2.11666666666666,
+      "restored": [
+        1264.52392578125,
+        418.762481689453
+      ],
+      "restored_clock": 2.11666666666666,
+      "source": [
+        1264.52392578125,
+        418.762481689453
+      ],
+      "tick": 128
+    },
+    {
+      "clock": 2.13333333333333,
+      "restored": [
+        1264.01928710938,
+        418.392303466797
+      ],
+      "restored_clock": 2.13333333333333,
+      "source": [
+        1264.01928710938,
+        418.392303466797
+      ],
+      "tick": 129
+    },
+    {
+      "clock": 2.15,
+      "restored": [
+        1263.54235839844,
+        417.977630615234
+      ],
+      "restored_clock": 2.15,
+      "source": [
+        1263.54235839844,
+        417.977630615234
+      ],
+      "tick": 130
+    },
+    {
+      "clock": 2.16666666666666,
+      "restored": [
+        1263.09387207031,
+        417.520233154297
+      ],
+      "restored_clock": 2.16666666666666,
+      "source": [
+        1263.09387207031,
+        417.520233154297
+      ],
+      "tick": 131
+    },
+    {
+      "clock": 2.18333333333333,
+      "restored": [
+        1262.67407226562,
+        417.022064208984
+      ],
+      "restored_clock": 2.18333333333333,
+      "source": [
+        1262.67407226562,
+        417.022064208984
+      ],
+      "tick": 132
+    },
+    {
+      "clock": 2.2,
+      "restored": [
+        1262.28356933594,
+        416.485290527344
+      ],
+      "restored_clock": 2.2,
+      "source": [
+        1262.28356933594,
+        416.485290527344
+      ],
+      "tick": 133
+    },
+    {
+      "clock": 2.21666666666666,
+      "restored": [
+        1261.9228515625,
+        415.912139892578
+      ],
+      "restored_clock": 2.21666666666666,
+      "source": [
+        1261.9228515625,
+        415.912139892578
+      ],
+      "tick": 134
+    }
+  ],
+  "row": {
+    "damage": false,
+    "enemy_clear_required_for_unpressured_practice": true,
+    "host_support_id": "boss_approach",
+    "id": "bible_guardian_practice_bell",
+    "motion": {
+      "center": [
+        1290.0,
+        408.0
+      ],
+      "kind": "pendulum",
+      "period": 3.2,
+      "radius": [
+        30.0,
+        12.0
+      ]
+    },
+    "observation_position": [
+      1300.0,
+      558.0
+    ],
+    "position": [
+      1290.0,
+      408.0
+    ],
+    "return_position": [
+      1300.0,
+      558.0
+    ],
+    "reward": false,
+    "route_id": "crown_prep",
+    "structure_id": "hollow",
+    "tether_root": [
+      1290.0,
+      360.0
+    ]
+  },
+  "scope": "real moving practice Area2D, ledger JSON and actual App unload/rebuild; no traversal admission"
+}

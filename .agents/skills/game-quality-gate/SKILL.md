@@ -5,7 +5,20 @@ description: 统筹重要游戏内容与关卡生产的 G0–G5、十一维记�
 
 # game-quality-gate
 
+## 当前生产入口：区域圣经先于制作
+
+先读[区域创作入口](../../../docs/creative_direction/README.md)、[Bible注册表](../../../docs/creative_direction/bibles/registry.json)及目标地区完整原文。当前两份Bible由用户直接提供并选择，先完整荆棘森林（含美术），再优化风铃平原；不重新提出2–3个方向。缺Bible时自主编写proposed圣经，只写文档/G0，不制作地图/几何/资产/敌人/Boss；注册并独立审查前production拒绝。
+
+所有地区任务绑定registry与原文的完整SHA、id/version/region、选择依据，原始全文随worker输入；本次BGM由用户后续提供，音效与事件驱动环境动画/VFX可做。发生漂移先停止相关后继，保留旧失败，列旧/新绑定、受影响设计/地形/生态/Boss/美术/动画/音频/消费者及需重验的证据，由独审确认后重绑；不得仅刷新下游SHA。原G0–G5、十一维、全量source snapshot与所有原适用检查继续有效。
+
+
+所有后续region create/optimize及缺Bible的proposed先读[最新两条用户原话和实际共享母版](../../../docs/creative_direction/bibles/style-continuity-20261021-v2.json)。保留正式平原现用Underworld tileset家族的16px/32wu、47邻接/精确边界、光照/描边/材质语言；地区差异来自材料、结构、生态和色域，森林用树皮苔藓荆棘有机轮廓，不独立换项目画风。旧提案/失败实现不自动约束新区域，不等于整体抛弃正在使用的共享家族。worker绑定原话及实际参考完整SHA，漂移阻断并重验；新地区实际跨区黄金像素对照独审后扩产，hash不签视觉。仅用户明确选择新global style时版本化替代，无关物理/global动作/普通文档不新增美术门。
+
 ## 实际失败后的生产与证据边界
+
+新GDScript依[Harness短反馈顺序](../../../docs/harness.md#从需求到游戏品质)，在同一root引擎租约先窄parse、再局部真实消费者、最后原完整检查；局部初始定位fixture须显式标记，不能升级为正式路线证据或增加原测试/CI预算。
+
+合屏采证前冻结完整源集，包括geometry、render及source metadata，直到采集结束与source_guard核对完成；发生任一漂移，整轮FAIL并保留原媒体/回执，另以新目录重采。实际 `build/region_bible_v2/golden-third/receipt.json` 为 `exit_code=1 / source_stable=false / error=source changed`，即使已有画面也不改签通过；后续同源通过另记，不补填该轮来源。
 
 沿[原生产循环](../../../docs/quality/production_loop.md)按实际消费者选短专项，再做集成和最终fresh回归；一个包的失败前缀只阻断其后继，不阻断无依赖家族。完整交付预检须选择实际完整profiles，不能把单个docs检查的依赖清单称为全流程已物化。单方向额度用task.max_calls约束，失败/重试/中断计数保留；换task名不是预算退款。
 
@@ -92,7 +105,7 @@ G0 统一地区、挑战、能力、遭遇、构图意图与失败条件；G1 �
 
 ## 自主生产闭环与 Q1–Q8
 
-把Q1–Q8作为同一任务的质量目标和审查发现索引，按统一映射回现有十一维。地区标准源自动加载后才路由；本轮实际平原切片归region/相关内容类型，工具扩展归process，不用process通过代签内容。森林仅按原S2-H权威做dry-run。
+把Q1–Q8作为同一任务的质量目标和审查发现索引，按统一映射回现有十一维。地区标准源自动加载后才路由；本轮实际平原切片归region/相关内容类型，工具扩展归process，不用process通过代签内容。森林按本次完整Bible授权从S2-H与基础动作出发；旧dry-run保留原范围。
 
 组织真实有界循环：冻结基线与授权/路径→专业设计备选→真实实现→适用测试→新只读审查→结构化返工→复验。把实际worker prompt/事件/退出码、修改快照、Godot/GUI证据、审查身份和修复版本放同一记录；假worker/mission计划仅测执行器，不能签自主制作。本轮至少一正式优化切片、≥10不同root Seed覆盖两图/不同路线和正式敌人画面，缺项明确未验。
 
@@ -135,3 +148,5 @@ G0 统一地区、挑战、能力、遭遇、构图意图与失败条件；G1 �
 [预制作→制作→验收及版本总谱](../../../docs/creative_direction/README.md)是共同执行依据。总谱SHA变更须RETHINK并复验；交付写贡献、协作、新行为/视觉、主题冲突和实机验证。REWORK局部修复，DISCARD隔离候选；ACCEPT只限真实已验范围，审美不绕过工程红灯。
 
 历史复现按需读取[原始Skill与迁移索引](../../../docs/archive/skill_history/README.md)，不默认加载旧轮授权、PR实录或失败数字。
+
+历史本轮入口原字节与SHA见[迁移索引](../../../docs/archive/skill_history/bible-v2-input/manifest.json)；旧recipe、历史预算和失败只在复现相关来源时读取，不覆盖已选Bible。

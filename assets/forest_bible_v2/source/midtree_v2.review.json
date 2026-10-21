@@ -1,0 +1,15 @@
+{
+  "status": "REWORK",
+  "scope": "source only; freeze source margin failure, no GPU judgment",
+  "prior_v1_failure_preserved": "source/midtree_v1.review.json",
+  "viewed": "actual image_gen return",
+  "facts": [
+    "v2 same coherent full giant tree, S hollow, root arch and two bells",
+    "visible crown and roots more inset than v1",
+    "texture clusters visibly broader than v1 (AI visual judgment)",
+    "nonzero alpha bbox touches canvas top/bottom; frozen strict transparent margin fails",
+    "max alpha254 in all transparent generated sources; no alpha threshold changed and no alpha cleanup applied"
+  ],
+  "golden_runtime": "unverified; parent owns lease",
+  "further_tree_generations": "stopped pending actual formal golden; no third blind redraw"
+}

@@ -1,0 +1,59 @@
+{
+  "schema_version": 1,
+  "task": "FOREST-BIBLE-V2-01",
+  "bible_id": "thorn_forest_v2",
+  "bible_version": "2.0",
+  "bible_path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+  "bible_sha256": "a7bad8323af64a7be0577132e5d988a6e1b781d9e1ac1639d37f9d65935194e3",
+  "method": "original offline procedural noise/modal synthesis; no external samples, music, image generation or human recording",
+  "creator": "OpenAI Codex session, 2026-10-21",
+  "external_sources": [],
+  "rights_note": "Generated from this repository script; no third-party sample/license claim is made.",
+  "generator": "tools/generate_forest_bible_sfx.py",
+  "generator_sha256": "e0211e9dfbbd496fc1389bc0f471f824ca7a631efe851320ab7a92a59c38d5ff",
+  "reproducibility": "Fixed LCG seeds, Python stdlib; PCM byte verification is authoritative on this host.",
+  "consumer": "GameAudio bounded 12-voice service; non-looping regional cues",
+  "audio_listening_status": "unverified",
+  "normal_speed_av_status": "unverified",
+  "files": [
+    {
+      "path": "assets/forest_bible_v2/audio/forest_wind.wav",
+      "sha256": "5a0174eaa84ad8ccc639ca700b825089bd86db629dfe38c24ed25a8974195b9a",
+      "seed": 151103,
+      "frames": 35280,
+      "sample_rate": 22050,
+      "channels": 1,
+      "bits_per_sample": 16,
+      "duration_seconds": 1.6,
+      "peak_dbfs": -15.9174,
+      "rms_dbfs": -29.7898,
+      "loop": false
+    },
+    {
+      "path": "assets/forest_bible_v2/audio/forest_fruit.wav",
+      "sha256": "3f4de8d8f8ee68cc17cebea6e62650a2588924091eb09983b1175128c46dcbfd",
+      "seed": 151107,
+      "frames": 7056,
+      "sample_rate": 22050,
+      "channels": 1,
+      "bits_per_sample": 16,
+      "duration_seconds": 0.32,
+      "peak_dbfs": -6.745,
+      "rms_dbfs": -22.7173,
+      "loop": false
+    },
+    {
+      "path": "assets/forest_bible_v2/audio/forest_web.wav",
+      "sha256": "664e4c147e9e80f5c12137d107a727e94d9ae9fd9d307d9811ac6a8c32e0c452",
+      "seed": 151109,
+      "frames": 10584,
+      "sample_rate": 22050,
+      "channels": 1,
+      "bits_per_sample": 16,
+      "duration_seconds": 0.48,
+      "peak_dbfs": -11.0569,
+      "rms_dbfs": -27.7513,
+      "loop": false
+    }
+  ]
+}

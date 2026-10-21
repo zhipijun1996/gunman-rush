@@ -3,6 +3,11 @@ extends PlainsRegionStage
 ## Forest formal consumer, retaining shared reward/ledger/map/respawn contracts.
 var _forest_draw_clock := 0.0
 var _gate_hint: Label
+var discoveries: ForestBibleDiscoveries
+var ambience: ForestBibleAmbience
+var forest_terrain: UnderworldTerrain
+var near_scenery: ForestBibleNearScenery
+var _web_phase_seen: Dictionary = {}
 
 func _has_canopy_boss() -> bool:
 	var content: Variant=generated.manifest.get("boss_content")
@@ -33,6 +38,23 @@ func _ready() -> void:
 	if not built.ok:
 		push_error(str(built.error))
 		return
+	if ForestBiblePresentation.enabled(generated.manifest):
+		var solids: Array[Rect2] = []
+		for row: Dictionary in generated.manifest.platforms:
+			if not bool(row.one_way): solids.append(ThornForestRegionGenerator._rect(row.rect))
+		forest_terrain = UnderworldTerrain.build(solids)
+		if forest_terrain == null:
+			push_error("Shared forest terrain boundary build rejected")
+			return
+		if not ForestBibleTerrainMaterial.install_on(forest_terrain):
+			forest_terrain.free()
+			forest_terrain = null
+			push_error("Forest shared-family material installation rejected")
+			return
+		# Same tile topology and exact-boundary adapter as formal Plains. Draw
+		# behind the assembler's real signals and actors, after our background.
+		add_child(forest_terrain)
+		move_child(forest_terrain,0)
 	assembly_ok = true
 	bounds = assembler.bounds
 	spawn = assembler.world_entry()
@@ -45,7 +67,7 @@ func _ready() -> void:
 	supply_position = merchant_position
 	encounter_plan = generated.encounter_plan
 	for row: Dictionary in encounter_plan.enemies:
-		var sources := {"forest_bark_beetle":"res://scenes/enemies/forest_bark_beetle.tscn","forest_swing_pod":"res://scenes/enemies/forest_swing_pod.tscn","forest_crossbranch":"res://scenes/enemies/forest_crossbranch.tscn","forest_lantern":"res://scenes/enemies/forest_lantern.tscn","forest_seed_sentry":"res://scenes/enemies/forest_seed_sentry.tscn","forest_thread_spider":"res://scenes/enemies/forest_thread_spider.tscn","charger":"res://scenes/enemies/patrol_drone.tscn"}
+		var sources := {"forest_bark_beetle":"res://scenes/enemies/forest_bark_beetle.tscn","forest_swing_pod":"res://scenes/enemies/forest_swing_pod.tscn","forest_crossbranch":"res://scenes/enemies/forest_crossbranch.tscn","forest_lantern":"res://scenes/enemies/forest_lantern.tscn","forest_seed_sentry":"res://scenes/enemies/forest_seed_sentry.tscn","forest_thread_spider":"res://scenes/enemies/forest_thread_spider.tscn","forest_bible_weaver":"res://scenes/enemies/forest_bible_weaver.tscn","charger":"res://scenes/enemies/patrol_drone.tscn"}
 		if not sources.has(row.behavior_id):
 			assembly_ok = false
 			push_error("Unknown recorded forest enemy behavior")
@@ -62,14 +84,14 @@ func _ready() -> void:
 		actor.definition.patrol_half_width = float(row.patrol_radius)
 		add_child(creature)
 		if region_state.actors.has(row.id):
-			if row.behavior_id in ["forest_crossbranch","forest_bark_beetle","forest_swing_pod"]:
+			if row.behavior_id in ["forest_crossbranch","forest_bark_beetle","forest_swing_pod","forest_bible_weaver"]:
 				var record: Variant=region_state.actors[row.id]
 				if not record is Dictionary or not record.get("depth_state") is Dictionary or not record.get("position") is Array or record.position.size()!=2:
 					assembly_ok=false;push_error("Recorded migration actor shape rejected");return
 				for value: Variant in [record.get("health")]+record.position:
 					if not (value is int or value is float) or not is_finite(float(value)):
 						assembly_ok=false;push_error("Recorded migration actor number rejected");return
-			if row.behavior_id in ["forest_bark_beetle","forest_swing_pod"]:
+			if row.behavior_id in ["forest_bark_beetle","forest_swing_pod","forest_bible_weaver"]:
 				var record: Dictionary=region_state.actors[row.id]
 				if not record.get("state") is String or not record.get("home") is Array or record.home.size()!=2 or record.get("direction") not in [-1,1] or not record.get("serial") is int or record.serial<0:
 					assembly_ok=false;push_error("Recorded rooted actor phase rejected");return
@@ -154,17 +176,33 @@ func _ready() -> void:
 func _accepted_forest_action(action: StringName) -> void:
 	var app := get_parent() as DemoApp
 	if action != &"hook_kick" or app == null or not is_instance_valid(app.controller) or not app.controller.active or app.controller.actor_resources.health.terminal: return
+	if app.controller.traversal.hook_target is ForestPracticeBell:
+		(app.controller.traversal.hook_target as ForestPracticeBell).accepted_contact()
+	if is_instance_valid(ambience) and app.controller.traversal.hook_target is ForestFruitAnchor:
+		ambience.notify_fruit(app.controller.traversal.hook_target.global_position)
 	(assembler as ThornForestRegionAssembler).resolve_hook_action(app.controller.traversal)
 
 func _physics_process(delta: float) -> void:
 	clock += delta
 	_forest_draw_clock += delta
+	if is_instance_valid(ambience):
+		for body: EnemyMotor in enemies:
+			var actor := body.get_node("Actor") as EnemyActor
+			if not actor.attack_behavior is ForestThreadSpiderBehavior: continue
+			var phase := str(actor.attack_behavior.state)
+			if _web_phase_seen.get(body.get_instance_id(), "") != phase:
+				_web_phase_seen[body.get_instance_id()] = phase
+				if phase == "extend": ambience.notify_web(body.global_position)
 	capture_state()
 	_update_context_signs()
 	queue_redraw()
 
 func capture_state() -> void:
 	if not assembly_ok: return
+	var forest_assembler := assembler as ThornForestRegionAssembler
+	for target: Node2D in forest_assembler.hook_targets.values():
+		if target is ForestPracticeBell:
+			region_state.mechanisms["practice_bell/"+str(target.name)] = target.snapshot_state()
 	var point := global_player_position()
 	PlainsMapExploration.reveal(region_state,point)
 	for area: Dictionary in generated.manifest.areas:
@@ -245,24 +283,35 @@ func show_boss_reward_portal() -> void:
 
 func _draw() -> void:
 	if not assembly_ok: return
-	# Low-cost coherent silhouettes: gameplay supports are drawn by the assembler in front.
-	draw_rect(bounds.grow(600),Color("142e2b"))
-	for i: int in 14:
-		var x := bounds.position.x+float(i)*bounds.size.x/13.0
-		var sway := sin(_forest_draw_clock*0.35+float(i))*3
-		draw_line(Vector2(x,bounds.end.y),Vector2(x+sway,bounds.position.y),Color("1c3930"),48+float(i%3)*20,true)
-		for tier: int in 3:
-			draw_circle(Vector2(x+sway,bounds.position.y+120+tier*380),100+float(i%3)*25,Color("1b3730"))
+	if ForestBiblePresentation.enabled(generated.manifest):
+		var camera := get_viewport().get_camera_2d()
+		var center := camera.get_screen_center_position() if camera != null else bounds.get_center()
+		var view_size := get_viewport_rect().size / camera.zoom if camera != null else get_viewport_rect().size
+		ForestBiblePresentation.draw_background(self, generated.manifest, center, view_size, _forest_draw_clock)
+	else:
+		# Low-cost coherent silhouettes: gameplay supports are drawn by the assembler in front.
+		draw_rect(bounds.grow(600),Color("142e2b"))
+		for i: int in 14:
+			var x := bounds.position.x+float(i)*bounds.size.x/13.0
+			var sway := sin(_forest_draw_clock*0.35+float(i))*3
+			draw_line(Vector2(x,bounds.end.y),Vector2(x+sway,bounds.position.y),Color("1c3930"),48+float(i%3)*20,true)
+			for tier: int in 3:
+				draw_circle(Vector2(x+sway,bounds.position.y+120+tier*380),100+float(i%3)*25,Color("1b3730"))
 	for area: Dictionary in generated.manifest.areas:
 		if area.role == "boss": continue
 		var at := Vector2(area.position[0],area.position[1])
 		if not generated.manifest.has("scene_language_version"):
 			draw_arc(at+Vector2(0,70),160,PI,TAU,30,Color("254c3b"),25,true)
-		if area.role == "merchant":
+		if area.role == "merchant" and not ForestBiblePresentation.enabled(generated.manifest):
 			draw_circle(at+Vector2(20,-42),38,Color("638063"))
 			draw_circle(at+Vector2(20,-42),28,Color("203c2c"))
 			draw_circle(at+Vector2(20,-35),6,Color("e8c97a"))
+	if ForestBiblePresentation.enabled(generated.manifest):
+		ForestBiblePresentation.draw_discoveries(self, generated.manifest, region_state, _forest_draw_clock)
+	if ForestBiblePresentation.enabled(generated.manifest):
+		ForestBiblePresentation.draw_chests(self, chests)
 	for chest: Dictionary in chests:
+		if ForestBiblePresentation.enabled(generated.manifest): continue
 		var color := Color("67745a") if chest.claimed else Color("e5c778")
 		draw_rect(Rect2(chest.position+Vector2(-19,-6),Vector2(38,24)),color)
 		draw_rect(Rect2(chest.position+Vector2(-19,-6),Vector2(38,8)),color.lightened(0.18))

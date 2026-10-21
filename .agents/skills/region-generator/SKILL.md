@@ -5,31 +5,24 @@ description: 规划新地区或优化已有地区；统一拓扑、空间身份�
 
 # region-generator
 
+## 当前生产入口：区域圣经先于制作
+
+先读[区域创作入口](../../../docs/creative_direction/README.md)、[Bible注册表](../../../docs/creative_direction/bibles/registry.json)及目标地区完整原文。当前两份Bible由用户直接提供并选择，先完整荆棘森林（含美术），再优化风铃平原；不重新提出2–3个方向。缺Bible时自主编写proposed圣经，只写文档/G0，不制作地图/几何/资产/敌人/Boss；注册并独立审查前production拒绝。
+
+所有地区任务绑定registry与原文的完整SHA、id/version/region、选择依据，原始全文随worker输入；本次BGM由用户后续提供，音效与事件驱动环境动画/VFX可做。发生漂移先停止相关后继，保留旧失败，列旧/新绑定、受影响设计/地形/生态/Boss/美术/动画/音频/消费者及需重验的证据，由独审确认后重绑；不得仅刷新下游SHA。原G0–G5、十一维、全量source snapshot与所有原适用检查继续有效。
+
+
 重新编排已有空间时，核对连接是在旧推荐路线之前还是之后加入、由哪个正式消费者实际验证。图中存在的实验关系不能因一次新的最短路搜索自动升级为默认路线；逐条保留、验证或退休推荐关系，同时保留旧版本重建与原失败。不要按 `pending` 文本批量删除：同一旧标签下可能已有完整实测。先检查所选路线的动作类型、几何实例和对象绑定，再投入整区 Motor 回归；详见[森林反馈续轮](../../../docs/design/forest_feedback_expedition.md)。
 
-## 当前生产入口：Tile 先于随机装配
-
-[Tile 生产流程](../../../docs/underworld_tile_production.md) 为本轮接口。先明确每区材料/轮廓/色域、tile 家族、solid/one-way/moving 与危险边界，再按玩法生成占用和端口；静态拼接合并世界占用、读取至少一格 halo 后统一求规范 47 邻接，不能每模块先封边再拼。装饰与地形/遭遇 RNG 分流；背景跟真实镜头，不改变生成结果。
-
-16 区共享像素尺度、轮廓/亮边、接口和读图规则，各自生产真实材料及地标；换色不是新材料家族。现有非整格正式几何保留并标记精确边界适配，网格样板的 47 覆盖不能代签正式几何。随机种子检查包含接缝、薄台、孔洞、危险与安全材质过渡以及真实 Motor 出返程。仅修改美术时不得重排路线/改碰撞救画面。
-
-## 生成阶段美术语言：有限候选接口
-
-当前平原模块/生成任务先读[实际参数与消费者范例](../../../docs/evidence/plains_art_language/recipe.md)。使用现有 route 的 `pre_embedding_art_language` 写集：真实 Definition → 有限构造家族/画件尺寸与肩部/恢复预算 → 区域嵌入 → 同源实例验证。不可表达须拒绝候选，不伸缩救场；完整挑战占地规格与画件尺寸分别记录。真实源节点是校验依据，表达式不能自带假源自证。当前只有有限后山体实际按新轮廓绘制，前景仍旧材质，画件、支承和复杂连接待实现；不能把参数通过写成美术准入。仅扩展已独审允许的接口，不默认推进全部画源生产。旧实验按需读取。
-
-## V3实际生产依赖
-
-短地区任务继续通过现有 `tools/level_design.py route` 读取权威阶段、单武器/能力与有来源经验，再由现有 `harness --mission --execute` 和真实活跃宿主执行。当前平原先读[环境构造先行的实际入口与失败](../../../docs/evidence/plains_landform/recipe.md)：配方与共同环境语句先于跨度/坐标/Definition，物理和表现消费同一实体/空腔/接口。局部环境只是完整区域中的语义，不生成独立美术房间链。当前美术未准入，旧端肩带、孤立岸体与通用岩纹裁孔都不作为成功模板。先核正式消费者及已有失败，不重画已有效资产、不把未来能力当已授予。地区设计必须同时派生态/Boss差距审查与视觉家族审查；未发现实质缺口不强制增加敌人或重做Boss，失败空间不阻塞无依赖的合格家族。
-
-实施租约前运行原预检并核真实检查argv、sparse证据和冷import潜在写路径；不可把缺证据当内容失败浪费模型。普通feature整合遵循逐文件basis/child/target SHA、冲突停止、独立scope与原失败并存。当前原生/过程入口包括 `harness --check terrain-family-tests --check root-bell-tests --check forest-h-slice --release --jobs 1`；真实完整遭遇可调用 `python3 tools/run_root_bell_formal.py --default`（仅已准入的当前平原类，不是跨地区通用能力）。原样板/副本的通过不能代签修改后源码；最终另做正式镜头与Web预览。
-
-先读最新正式消费者再判开放范围。森林早期仅有S2-H隔离切片，但PR76已实现v1两图／成长和地区选择／调试入口；旧切片通过仍不能代签该整区或新版内容。短请求按真实可执行依赖选择首包，完整制作受门槛阻塞时保留实际切片与下一依赖，不能只生成计划却称全自动地区完成。
+所有后续region create/optimize及缺Bible的proposed先读[最新两条用户原话和实际共享母版](../../../docs/creative_direction/bibles/style-continuity-20261021-v2.json)。保留正式平原现用Underworld tileset家族的16px/32wu、47邻接/精确边界、光照/描边/材质语言；地区差异来自材料、结构、生态和色域，森林用树皮苔藓荆棘有机轮廓，不独立换项目画风。旧提案/失败实现不自动约束新区域，不等于整体抛弃正在使用的共享家族。worker绑定原话及实际参考完整SHA，漂移阻断并重验；新地区实际跨区黄金像素对照独审后扩产，hash不签视觉。仅用户明确选择新global style时版本化替代，无关物理/global动作/普通文档不新增美术门。
 
 ## 空间美术任务的协作入口
 
+新连接局部反馈现有CLI为 `python3 tools/run_forest_bible_world_fixture.py --output build/<fresh> --fixture connection`；侧枝以 `--fixture backbranch --return short` 与 `--fixture backbranch --return long`分别留证。它只在首次Motor步前明确初始定位，保持资源/能力/physics，不签正式fullspawn。正式对照仍用 `run_forest_bible_world_motor.py`，`--route` 分别选择 `bible_connection_journey` 或 `bible_backbranch_journey`，保留完整旧预算；这些CLI的完整runtime/assets/tests/tools源清单由 `forest_bible_world_sources.inventory()`统一前后校验，任何增删改令本轮失败。
+
 主要诉求为画面品质、景深或空间身份时，交 [visual-director](../visual-director/SKILL.md) 统筹像素闭环，本技能仍提供真实区域身份/Manifest/连接语义/支持面及正式消费者。若任务冻结玩法生成，仅开放表现分支，不重新抽Seed、移动平台、重排敌人或改能力资源迁就构图；大结构视觉可跨多个模块，但不能制造新的碰撞承诺。
 
-先与scene-composer、art-director联合设计围合、大轮廓、负空间、路线和观看顺序。当前隔离平原实验由 `scripts/generation/plains_place_plan.gd` 消费同一 `places_v1.json` 的共享源轮廓和语义关系，联合推导实际碰撞、完整体块、路线/端口、根脚/焦点和景层；不分别填写重复世界坐标。有限等轴变体、声明路点避树和四脚支撑已真实实施，旧坐标按需归档，不作失败回退；这不是任意地形/自动构图能力。超出源尺度、端口或连接适用范围须拒绝并有界重选，不改变核心或正式随机流救候选。首样板独审未准入不启动后续原型扩产/Seed验证；预列原型与代码不是通过证据。区域图节点不自动代表固定矩形美术房间；禁止每格套同一背景/拱门，用种子/Hash差异冒充空间身份。读取真实运行分支，单幅全景的默认消费者不能因为源码还有未启用多层而宣称已有景深。
+先与scene-composer、art-director联合设计围合、大轮廓、负空间、路线和观看顺序，由同一真实源派生碰撞、体块、接口、根脚和景层。先核当前正式消费者；超出源尺度、端口或连接适用范围须拒绝并有界返工，不改变核心或正式随机流救候选。首样板独审未准入不启动扩产；区域节点不自动代表固定矩形美术房间，Seed/Hash差异不等于空间身份。森林DemoApp→实际生成器/Stage/Assembler已经存在，静态source_present不推断新Bible通过或production_pool准入。
 
 提供跨纵横移动、回程、镜像、长通道及不同尺度节点的覆盖清单，保持玩法层/敌预告/船/奖励/HUD优先，根基/连接/植生挂点有来源。使用 `python3 tools/visual_director.py route --help` 生成共用原production_loop的任务，再按 `run --help` 真正执行；计划文件不算专业worker已执行。`capture --help`、`inspect --help`、`compare --help` 关联同Seed/路线/能力/相位的实机前后证据，详见 [视觉合同](../../../docs/quality/visual_director_contract.md)。
 
@@ -63,6 +56,8 @@ G5 验 G探索趣味：真实路线①尽快找 Boss ②正常探索成长 ③�
 使用 [专用模板](../../../docs/templates/region_generation_design.md) 写场景/前置、方法、可观察结果和失败条件。复用真实配置/Definition/架构，禁止重复数值默认值、无消费者框架或为通过测试改基础物理。占位仅限明确标注的原型，不能冒充最终内容。
 
 ## 自动验收
+
+新GDScript先在同一root引擎租约用 `bash tools/godot.sh --headless --path . --check-only --script <实际脚本.gd>` 做窄parse，再跑局部实际消费者，避免长fullspawn末端才暴露Variant/类型错误；parse通过只证明解析。新连接可先用 `python3 tools/run_forest_bible_world_fixture.py --fixture connection --output <fresh-build-dir>`（另一路用 `--fixture backbranch`） 做真实Motor局部反馈，必须记录 `initial_fixture_spawn_override=true`、`resource_or_health_override=false` 和首次Motor步前定位；资源、能力及physics不改，不做中途搬运。该结果只签局部连接，绝不冒充正式出发路线；随后仍跑原fullspawn、原案例与原预算的完整验证，失败保留，不以局部PASS冲销。
 
 运行 harness gameplay；直接定位 [15 套地区](../../../tools/run_plains_region_tests.py) 与 [共享生成消费者](../../../tools/run_generated_consumer_tests.py)，保留适用回归。结构统计、Motor 专项、完整体验三类证据不能混为一条 PASS。 记录实际命令、环境、退出码、日志和版本；计划命令不算执行。执行 [质量检查](../../../tools/quality.py)；静态检查、运行测试、实际宿主调用分别记证据。
 
@@ -111,7 +106,7 @@ gameplay-reviewer 检查三种路线实际决策、学习与恢复节奏、地�
 
 本技能统筹 Q1/Q4/Q7，并合并其余维度证据。输入先列阶段/地区条款、合法单武器构筑、已学机制与实际开放范围，再决定局部拓扑、路线和身份；每个挑战只要求其必要子集，不能为展示全能力破坏 S2 或主路合同。森林制作和原型均从S2-H+基础动作出发，不重新征询已确认阶段框架；是否采用正式整区范围由最新用户授权及实际消费者决定。
 
-本技能统筹 Q1/Q4/Q7，并合并其余维度证据。输入先列阶段/地区条款、合法单武器构筑、已学机制与实际开放范围，再决定局部拓扑、路线和身份；每个挑战只要求其必要子集，不能为展示全能力破坏 S2 或主路合同。森林 dry-run 必须从 S2-H+基础动作出发，不重新征询已确认阶段框架。
+本技能统筹 Q1/Q4/Q7，并合并其余维度证据。输入先列阶段/地区条款、合法单武器构筑、已学机制与实际开放范围，再决定局部拓扑、路线和身份；每个挑战只要求其必要子集，不能为展示全能力破坏 S2 或主路合同。森林按本次完整区域授权从S2-H与基础动作出发，原dry-run仅留历史。
 
 优化先选一个有正式消费者证据的 Q 问题，提出最小修改与不改方案，写真实玩家行为差异和反例。将改动分成设计→实现→真实检查→独立审查→返工的依赖包；发现不成立可保留原设计，但不得只回传 TODO。新任务若授权正式切片，完成准许路径实现和回归后再报告主观待验。
 
@@ -135,12 +130,6 @@ gameplay-reviewer 检查三种路线实际决策、学习与恢复节奏、地�
 
 叶节点并非错误：有独特发现、恢复、景观或叙事也可以成立。但不能把700高度原路爬回、只有普通守卫掉落的尾枝，仅凭地图有环/后台打了探索tag就认作有意义。比较真实返程连接、现预算奖励与明确场景目的，避免每个角落塞币。参见[实际中期设计审视](../../../docs/evidence/plains_redesign/design_midreview/report.md)，其中候选设计与实跑证据分开，不能自动扩成所有地区的度数硬规则。
 
-## 短请求自动选择首个可执行阶段
-
-`python3 tools/level_design.py route --request "制作荆棘森林" --output build/forest_mission.json` 默认 `--phase auto`。路由先加载最新权威、地区上下文与经验账本；已登记但尚无正式消费者的地区自动选择一个 G0/G1 开发原型包，并在 `production_plan` 保留完整九包及生态、Boss、美术、动画和正式验证依赖。用户不需了解 prototype 参数。显式 `--phase production` 仍返回完整九包，逐包原生地区 proof 门槛保持严格；不以共享 Plains/Foundry PASS 代证。
-
-荆棘森林早期首包只取S2/H，`forest-h-slice`保留为开发物理回归：真实PlayerMotor/Controller/InputRouter、单PulseLv1、锚点牵引踢跳、全身落地与连续返回；共享engine lock下运行正例、删锚和未授H反例。原Harness消费实际当前源、日志与region_proof，删除事件／返程或混入W/D/U1/U2仍拒绝。现有v1正式H成长与森林入口须另验其真实DemoApp消费者；新版不能靠旧slice通关。技术轮廓不代表成品美术，G2–G5、生态／Boss／完整动画、用户与设备分别验收。
-
 ## V3真实缺陷修复：先审计生态的物理门，再设计空间家族
 
 V3的20图RootBell为0，而原40图资格审计仅1例，不说明应增怪或提概率。新审计应保留正式Seed、每连接的原始拒绝原因、已有guard、邻接机关和真实资源；`tools/root_bell_geometry_audit.gd`与`tests/root_bell_spaces_runner.gd`从正式生成器取数，不重抽消反例。先区分宽度/双侧退路、教学保护、营地、动态危险与尚未驾驶的class。恢复桥紧岸与双齿轮宽岸来自现成空间，敌人数和非生态Manifest保持，新增class先用显式v3 pilot实跑，未准入不得修改v11。
@@ -163,10 +152,5 @@ V3的20图RootBell为0，而原40图资格审计仅1例，不说明应增怪或�
 
 历史复现按需读取[原始Skill与迁移索引](../../../docs/archive/skill_history/README.md)，不默认加载旧轮授权、PR实录或失败数字。
 
-整区任务优先读取[实际整区范例与失败](../../../docs/evidence/plains_regional/recipe.md)：正式平原探索图与原Assembler可复用，场所链只验证局部，不是大地图。显式regional profile在嵌入前预算空间，联合计划实际消费完整拓扑、碰撞支撑、站面、保护空腔与景层；193项原生合同含6个默认Manifest对PR85原件完全一致。两种整区艺术方法均被实际像素否定：合并矩形不产生地貌，向下填土也不能纠正行列布局。当前只保留技术候选，后续要验证地貌场与路线共同嵌入，不继续扩大立柱或以拓扑多样性签美术。
 
-## 源画构造的有限重建入口
-
-显式短请求“从源画重建风铃平原连续地貌与美术”沿现有 `level_design.py route` / production_loop，读取[实际制作范例与失败](../../../docs/evidence/plains_world_rebuild/recipe.md)。`plains-world-rebuild-v3` 首构造已取得限定艺术/操作准入，非用户审美定稿或整区黄金。先设计完整可延伸源形体及可信接触线，等比frame同时派生实际Sprite、碰撞与路线；不能先定任意平台再拉伸源画，不能恢复已被RETHINK的反投影补缝方法。
-
-使用现有 `plains-world-rebuild-contract` 短反馈；真实预览和 main/lower 输入录像均由范例中的新wrapper启动，不能借旧profile电影。新布局先验证实际接触/往返/战斗再独审；未消费接口、Seed结构随机、整区连接和设备验证均不得从首构造成功推导。保留失败，源图、比例与消费者变化复验相关合同，不重写核心契约。
+历史本轮入口原字节与SHA见[迁移索引](../../../docs/archive/skill_history/bible-v2-input/manifest.json)；旧recipe、历史预算和失败只在复现相关来源时读取，不覆盖已选Bible。

@@ -14,8 +14,7 @@ func _initialize() -> void:
 		elif arg.begins_with("--output="): output=arg.trim_prefix("--output=")
 	run.call_deferred()
 func run() -> void:
-	var trace:=TRACE.new()
-	trace.recorded_layout_version=layout_version
+	var trace: Node=preload("res://tests/forest_depth_trace_strategy.gd").create(layout_version)
 	trace.seed_value=seed_value;trace.map_index=map_index;trace.route_name=route_name
 	root.add_child(trace)
 	while not trace.finished or not trace.setup_done: await process_frame
@@ -31,6 +30,8 @@ func run() -> void:
 		data["gate_shape_disabled"]=trace.stage.assembler.vine_shape.disabled
 		data["actual_stage_map"]=trace.stage.map_index
 		data["actual_stage_version"]=trace.stage.generated.stage_generator_version
+	var admission: Dictionary=trace.admission_evidence()
+	if not admission.is_empty(): data["bible_admission"]=admission
 	var audio_ok:=true
 	if is_instance_valid(trace.app):
 		# Payload already detached. Quiesce ordinary gameplay only during teardown.

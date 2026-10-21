@@ -848,7 +848,7 @@ class CompletedReviewCollectionTests(unittest.TestCase):
         self.git('config', 'user.name', 'SIMULATED contract fixture')
         self.git('config', 'user.email', 'fixture@example.invalid')
         (self.main / 'tools').mkdir()
-        for name in ('production_loop.py', 'harness.py', 'quality.py', 'region_creative_direction.py', 'level_design.py'):
+        for name in ('production_loop.py', 'harness.py', 'quality.py', 'region_creative_direction.py', 'level_design.py', 'level_region_context.py'):
             (self.main / 'tools' / name).write_bytes((self.repo / 'tools' / name).read_bytes())
         (self.main / '.gitignore').write_text('build/\n__pycache__/\n')
         skill = self.main / '.agents/skills/gameplay-reviewer/SKILL.md'
@@ -877,6 +877,7 @@ class CompletedReviewCollectionTests(unittest.TestCase):
         task = m['tasks'][0]
         if creative:
             _, task['creative_direction'] = CreativeLoopTests().direction(self.target)
+            task['region_bible'] = fixture_bible(task['creative_direction'], self.target)
         evidence = self.target / 'build/verification' / name
         impl = evidence / 'DRILL/1/implement'
         review = evidence / 'DRILL/1/review'
@@ -924,7 +925,8 @@ class CompletedReviewCollectionTests(unittest.TestCase):
                    'skills': skills, 'prompt': 'SIMULATED fixture only',
                    'feedback': json.dumps({'dependencies': {}, 'previous_rounds': [], 'implementation': result, 'checks': checks})}
         if creative:
-            request['source_inputs'] = [{k: task['creative_direction'][k] for k in ('path', 'sha256')}]
+            with patch.object(loop, 'ROOT', self.target):
+                request['source_inputs'] = loop.bound_source_inputs(task)
             with patch.object(loop, 'ROOT', self.main), loop._collection_worktree(self.target):
                 request['resolved_checks'] = loop.resolved_check_contracts(task)
         request['request_hash'] = loop.digest(request)
@@ -1617,7 +1619,7 @@ class SpatialLeaseBoundaryTests(unittest.TestCase):
                 (root/'experiment.json').write_text(json.dumps(experiment))
                 _, binding=level_design.load_spatial_experiment('experiment.json',direction['region_id'],root)
                 task={**copy.deepcopy(MISSION['tasks'][0]), 'read_only':False, 'completion':'stage', 'required_gates':['G0'],
-                    'creative_direction':direction, 'spatial_experiment':binding, 'quality_record':'docs/quality/records/DRILL.json'}
+                    'creative_direction':direction, 'region_bible':fixture_bible(direction, root), 'spatial_experiment':binding, 'quality_record':'docs/quality/records/DRILL.json'}
                 if case=='core_quality_record':task['quality_record']='scripts/player/player_motor.gd'
                 task['allowed_paths']=binding['allowed_paths']+[task['quality_record'],'docs/tasks.md']
                 if case=='valid':
@@ -1837,6 +1839,11 @@ class NativeImportPreflightTests(unittest.TestCase):
             self.assertTrue((folder/'native_import_preflight.log').is_file())
 
 
+def fixture_bible(ref, root=None):
+    from region_creative_direction import bind_region_bible
+    return bind_region_bible(ref["region_id"], root or loop.ROOT)[1]
+
+
 class CreativeLoopTests(unittest.TestCase):
     """Controller contracts only; these workers do not certify creative quality."""
     def direction(self, root):
@@ -1852,6 +1859,24 @@ class CreativeLoopTests(unittest.TestCase):
                                for candidate in ("chosen", "alternative")],
                 "authority_sources": [{"path": authority.name, "sha256": loop.hashlib.sha256(authority.read_bytes()).hexdigest()}],
                 **{key: {"theme": "A unified playable theme, not user approval"} for key in creative.COVERAGE}}
+        bible_path = root / "docs/creative_direction/bibles/test_region_region_bible_v1.md"
+        bible_path.parent.mkdir(parents=True, exist_ok=True)
+        bible_path.write_text("# SIMULATED region Bible\nFull fixture original, not creative acceptance\n")
+        bible_sha = loop.hashlib.sha256(bible_path.read_bytes()).hexdigest()
+        evidence_path = root / "docs/creative_direction/bibles/user-request.json"
+        evidence_path.write_text(json.dumps({"source":"SIMULATED unit fixture", "quote":"Use this fixture Bible", "authorization_scope":"fixture only", "attachments":[{"original_attachment_path":"/tmp/fixture/"+bible_path.name,"staged_path":"build/fixture/"+bible_path.name,"sha256":bible_sha,"bytes":bible_path.stat().st_size,"copied_verbatim":True}]}))
+        (root / "docs/world_regions.json").write_text(json.dumps({"regions":[{"id":"test_region", "working_name":"Fixture", "layer":1}]}))
+        (root / creative.BIBLE_REGISTRY).write_text(json.dumps({"schema_version":1,"kind":"region_bible_registry_direction_only","regions":[{"region_id":"test_region","current_bible":{"path":bible_path.relative_to(root).as_posix(), "sha256":bible_sha,"bible_id":"test_region_v1","version":"1.0","status":"user_selected_direction_only","direction_path":"direction.json","operations":["create","optimize"],"music_status":"deferred_user_supplied","selection_evidence":{"path":evidence_path.relative_to(root).as_posix(),"sha256":loop.hashlib.sha256(evidence_path.read_bytes()).hexdigest()}}}]}))
+        real_root = Path(__file__).resolve().parents[1]
+        real_registry = json.loads((real_root/creative.BIBLE_REGISTRY).read_bytes())
+        registry = json.loads((root/creative.BIBLE_REGISTRY).read_bytes())
+        registry['shared_style_authority'] = real_registry['shared_style_authority']
+        shared_path = registry['shared_style_authority']['path']
+        shared = json.loads((real_root/shared_path).read_bytes())
+        for name in [shared_path,*[row['path'] for row in shared['runtime_reference']['references']]]:
+            target=root/name; target.parent.mkdir(parents=True,exist_ok=True); target.write_bytes((real_root/name).read_bytes())
+        (root/creative.BIBLE_REGISTRY).write_text(json.dumps(registry))
+        data["region_bible"] = creative.bind_region_bible("test_region", root)[1]
         path = root / "direction.json"
         path.write_text(json.dumps(data))
         ref = {"path": path.name, "sha256": loop.hashlib.sha256(path.read_bytes()).hexdigest(),
@@ -1862,7 +1887,7 @@ class CreativeLoopTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp, patch.object(loop, "ROOT", Path(tmp)):
             root = Path(tmp)
             data, ref = self.direction(root)
-            task = {"creative_direction": ref}
+            task = {"creative_direction": ref, "region_bible": fixture_bible(ref)}
             self.assertEqual(loop.creative_direction_input(task)["content"], data)
             for field, value in (("decision", "candidate"), ("version", "other"),
                                  ("region_id", "other"), ("acceptance", "ai_approved"), ("acceptance", []),
@@ -1882,7 +1907,8 @@ class CreativeLoopTests(unittest.TestCase):
     def test_invalid_direction_stops_before_allocating_calls(self):
         mission = copy.deepcopy(MISSION)
         mission["tasks"][0]["creative_direction"] = {"path": "missing-direction.json", "sha256": "0" * 64,
-                                                    "region_id": "test", "version": "v1"}
+                                                    "region_id": "thorn_forest", "version": "v1"}
+        mission["tasks"][0]["region_bible"] = fixture_bible({"region_id":"thorn_forest"})
         with tempfile.TemporaryDirectory() as tmp, patch.object(loop, "snapshot", return_value={}):
             state = loop.run(mission, Path(tmp), lambda *args: self.fail("Must preflight before worker"))
             self.assertEqual(state["calls"], 0)
@@ -1899,7 +1925,7 @@ class CreativeLoopTests(unittest.TestCase):
                 data, ref = self.direction(root)
                 skill = root/'.agents/skills/gameplay-reviewer/SKILL.md'
                 skill.parent.mkdir(parents=True); skill.write_text('Reviewer')
-                task = {**copy.deepcopy(MISSION['tasks'][0]), 'creative_direction': ref}
+                task = {**copy.deepcopy(MISSION['tasks'][0]), 'creative_direction': ref, 'region_bible': fixture_bible(ref)}
                 self.assertEqual(loop.creative_direction_input(task)['content'], data)
                 path = root/ref['path']
                 if failure == 'authority_changed':
@@ -1931,7 +1957,7 @@ class CreativeLoopTests(unittest.TestCase):
             skill = root / ".agents/skills/gameplay-reviewer/SKILL.md"
             skill.parent.mkdir(parents=True)
             skill.write_text("Independent review")
-            task = {**MISSION["tasks"][0], "creative_direction": ref}
+            task = {**MISSION["tasks"][0], "creative_direction": ref, "region_bible": fixture_bible(ref)}
             folder = root / "call"; folder.mkdir()
             prompt, *_ = loop.prepare_call(task, MISSION, "review", folder, "{}", check_contracts={"checks": []})
             self.assertIn(data["intent"]["theme"], prompt)
@@ -1990,6 +2016,7 @@ class CreativeLoopTests(unittest.TestCase):
             skill = root/'.agents/skills/gameplay-reviewer/SKILL.md'
             skill.parent.mkdir(parents=True); skill.write_text('Reviewer')
             mission = copy.deepcopy(MISSION); mission['tasks'][0]['creative_direction'] = ref
+            mission['tasks'][0]['region_bible'] = fixture_bible(ref)
             def worker(*args):
                 (root/ref['path']).write_text('{}')
                 return {'status': 'ready_for_review', 'summary': 'SIMULATED unauthorized authority change', 'findings': []}
@@ -2007,6 +2034,7 @@ class CreativeLoopTests(unittest.TestCase):
             skill.parent.mkdir(parents=True); skill.write_text('Reviewer')
             mission = copy.deepcopy(MISSION)
             mission['tasks'][0]['creative_direction'] = ref
+            mission['tasks'][0]['region_bible'] = fixture_bible(ref)
             mission['tasks'].append({**copy.deepcopy(mission['tasks'][0]), 'id': 'NEXT', 'depends_on': ['DRILL']})
             contexts = []
             def worker(task, mission, role, folder, feedback):
@@ -2031,7 +2059,7 @@ class CreativeLoopTests(unittest.TestCase):
             skill = root / '.agents/skills/gameplay-reviewer/SKILL.md'
             skill.parent.mkdir(parents=True); skill.write_text('Independent reviewer')
             folder = root/'1/review'; folder.mkdir(parents=True)
-            task = {**MISSION['tasks'][0], 'creative_direction': ref}
+            task = {**MISSION['tasks'][0], 'creative_direction': ref, 'region_bible': fixture_bible(ref)}
             def reply(*unused):
                 request = json.loads((folder/'host_request.json').read_text())
                 loop.save(folder/'host_response.json', {**{k: request[k] for k in ('schema_version', 'request_hash', 'task_id', 'attempt', 'role')},
@@ -2041,7 +2069,8 @@ class CreativeLoopTests(unittest.TestCase):
                 result = loop.invoke_host(task, MISSION, 'review', folder, '{}')
             self.assertEqual(result['status'], 'rethink')
             request = json.loads((folder/'host_request.json').read_text())
-            self.assertEqual(request['source_inputs'], [{k: ref[k] for k in ('path', 'sha256')}])
+            self.assertEqual(request['source_inputs'][0], {k: ref[k] for k in ('path', 'sha256')})
+            self.assertEqual(request['source_inputs'], loop.bound_source_inputs(task))
             self.assertEqual(len(request['skills']), 1)
             loop._verify_invocation(folder, 'review', 'invoke_host')
             meta = json.loads((folder/'invocation.json').read_text())
@@ -2057,7 +2086,7 @@ class CreativeLoopTests(unittest.TestCase):
                 skill = root/'.agents/skills/gameplay-reviewer/SKILL.md'
                 skill.parent.mkdir(parents=True); skill.write_text('Reviewer')
                 mission = copy.deepcopy(MISSION); mission.update(max_calls=6, max_rounds=3)
-                mission['tasks'][0].update(creative_direction=ref, read_only=False, allowed_paths=['unrelated_patch'], quality_record='quality.json')
+                mission['tasks'][0].update(creative_direction=ref, region_bible=fixture_bible(ref), read_only=False, allowed_paths=['unrelated_patch'], quality_record='quality.json')
                 source = {}; roles = []
                 def worker(task, mission, role, folder, feedback):
                     roles.append(role)

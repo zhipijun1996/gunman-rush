@@ -3,9 +3,13 @@ extends GrappleAnchor
 ## V14-only authored visual candidate. GrappleAnchor owns all target physics.
 var fruit_role := "recommended"
 var stem_root := Vector2.ZERO
+var bible_presentation := false
 
 func _draw() -> void:
 	_draw_rooted_stem()
+	if bible_presentation:
+		ForestBiblePresentation.draw_fruit(self, fruit_role, hang_enabled)
+		return
 	# Crisp stepped silhouette at the existing target's scale. No moving
 	# collision, enlarged halo, screen-space glow, or decorative false ring.
 	var body := Color("d5a75c")

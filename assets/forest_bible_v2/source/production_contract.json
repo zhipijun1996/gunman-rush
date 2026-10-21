@@ -1,0 +1,31 @@
+{
+  "task_id": "FOREST-BIBLE2-ART",
+  "source_revision": "7be8c340372d1e20db6685cbd6a559191821eb0e",
+  "families": {
+    "midtree": {
+      "purpose": "noncollision giant-tree middle parallax",
+      "preserve_original_failure": true,
+      "repair": "transparent margin >=40px top/bottom; quieter pixel clusters"
+    },
+    "far_forest": {
+      "purpose": "independent far parallax canopy/old remote tower; no implied playable edges",
+      "source_frame": "1536x1024 preferred, opaque"
+    },
+    "near_branches": {
+      "purpose": "independent near parallax with large honest alpha void",
+      "source_frame": "1536x1024 preferred transparent",
+      "safe_area": "middle 60% width and middle 70% height genuinely empty alpha"
+    },
+    "surface_materials": {
+      "purpose": "root/bark exact-rectangle boundary adapter; material atlas, not completed 47tile",
+      "source_frame": "1536x1024 preferred transparent; 2x2 cells",
+      "collision": "unchanged"
+    }
+  },
+  "gate": "one formal golden scene internal review before expansion to both maps/multiseed",
+  "license": "unknown",
+  "model": "not_exposed",
+  "cost": "not_exposed",
+  "token_usage": "not_exposed",
+  "created_utc": "2026-10-20T23:49:21.668981+00:00"
+}

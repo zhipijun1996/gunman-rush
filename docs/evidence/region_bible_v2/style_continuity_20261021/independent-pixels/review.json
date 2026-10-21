@@ -1,0 +1,468 @@
+{
+  "verdict": "ACCEPT_SCOPED",
+  "reviewer": "/root/forest_discoveries_impl",
+  "reviewer_did_not_implement_renderer": true,
+  "scope": "Independent actual-pixel review of all eight second-capture static PNGs; shared terrain/player style correction only.",
+  "technical_judgment": "ACCEPT_SCOPED existing same-source static capture evidence: native 8 images/0 failures, all image hashes match, receipt before/after source maps agree. No engine rerun performed by reviewer.",
+  "art_judgment": "ACCEPT_SCOPED for restoring the shared formal Plains terrain/player baseline in the viewed Forest compositions. Forest whole-region art remains REWORK/PENDING for roots/material identity, ecology body art and third layer; not user aesthetic acceptance.",
+  "shared_style_correction_visible": true,
+  "whole_region_pass": false,
+  "user_aesthetic_acceptance": false,
+  "receipt": {
+    "path": "build/region_bible_v2/style-continuity-golden-second/receipt.json",
+    "sha256": "72156ef23bd8723687fb9b989021b460eb83579f2db222e6809d5a8e204b32f7",
+    "exit_code": 0,
+    "native_exit_code": 0,
+    "source_stable": true,
+    "source_maps_equal": true,
+    "source_file_count": 3414,
+    "elapsed_seconds": 19.26906426200003,
+    "all_images_match": true
+  },
+  "capture_path": "build/region_bible_v2/style-continuity-golden-second/capture.json",
+  "capture_sha256": "cd5163e22f721c55fc2adbc0c1f59f85fb0b974273196a52dcd8b9870b7169ca",
+  "viewed_images": [
+    {
+      "image": "plains_map1_reference.png",
+      "sha256": "23878c63d918de88d5aa83ef788814d48067ef43244f2eb2c7a63b5f9fab7fff",
+      "size": [
+        1280,
+        720
+      ],
+      "receipt_hash_matches": true,
+      "actually_viewed": true,
+      "view_method": "tools.view_image native PNG at 1280x720, inspected individually without image transformation",
+      "capture": {
+        "content_version": "plains-region-v12-root-bell-spaces",
+        "image": "plains_map1_reference.png",
+        "layout": "",
+        "manifest_hash": "8db68bee70d9b18d5586235b11350bc101108965e291a3b96daa496dec27721e",
+        "map_index": 1,
+        "purpose": "same-source actual formal Plains style reference; explicitly staged static composition",
+        "region": "windchime_plains"
+      },
+      "judgment": "reference_only",
+      "observed": "Dark blue-black pixel-filled solids, thin green moss edge at y≈516 and orange courier at (540,490) establish the current actual family. Sky/landmark read as Plains.",
+      "limits": "Staged spawn view; no traversal, broader map composition or complete Plains art judgment."
+    },
+    {
+      "image": "plains_map2_reference.png",
+      "sha256": "7f654a8e612bcbfc0cd0afbb1f4b574cac08775124e3fe7eef2acd4a963ef648",
+      "size": [
+        1280,
+        720
+      ],
+      "receipt_hash_matches": true,
+      "actually_viewed": true,
+      "view_method": "tools.view_image native PNG at 1280x720, inspected individually without image transformation",
+      "capture": {
+        "content_version": "plains-region-v12-root-bell-spaces",
+        "image": "plains_map2_reference.png",
+        "layout": "",
+        "manifest_hash": "2e59906b25c751b20eba9a37f19efd76af9f92dbc90091f03a902e5a277f2a53",
+        "map_index": 2,
+        "purpose": "same-source actual formal Plains style reference; explicitly staged static composition",
+        "region": "windchime_plains"
+      },
+      "judgment": "reference_only",
+      "observed": "Same pixel-filled terrain, fine green edge and courier scale as map1 reference.",
+      "limits": "Composition is almost the same spawn view as map1, with a different player pose; two files are not two independent regional composition exemplars."
+    },
+    {
+      "image": "map1_camp.png",
+      "sha256": "25a8d50306933ff64d1c712d4a9356a1fd7ba347a951dfc0240fbbd04852ab17",
+      "size": [
+        1280,
+        720
+      ],
+      "receipt_hash_matches": true,
+      "actually_viewed": true,
+      "view_method": "tools.view_image native PNG at 1280x720, inspected individually without image transformation",
+      "capture": {
+        "area": "camp",
+        "camera": [
+          360.0,
+          722.0
+        ],
+        "image": "map1_camp.png",
+        "layout": "forest-bible-world-v15",
+        "manifest_hash": "ac1ad386850ad534a313d202611b845287e492f19e43d9eaba7aaafc4bc4c1f8",
+        "map_index": 1,
+        "purpose": "static full game art review; explicit pose assignment, no Motor/GUI/device proof",
+        "region": "thorn_forest",
+        "shared_family": {
+          "body": "UnderworldPlayer",
+          "terrain": "UnderworldTerrain",
+          "tile_px": 16.0,
+          "world_tile_wu": 32.0
+        },
+        "size": [
+          1280,
+          720
+        ],
+        "staged_pose": [
+          360.0,
+          802.0
+        ]
+      },
+      "judgment": "shared_family_visible_regional_art_pending",
+      "observed": "Courier at (635,455), lower support and upper solids share Plains terrain/player language. Dark forest trunks/foliage and warm hanging lights distinguish the mood. Camp props sit on the visible top edge.",
+      "residual": "Tall solid at x≈250 and overhead/side platforms remain straight rectangular dark material, without convincing bark/root structure; simple spider at (578,162) remains a different body finish."
+    },
+    {
+      "image": "map1_R.png",
+      "sha256": "ecdecba54fb12c7a1fbaac5b408873e8c3bd79fa476b7f01171df3ab429056f3",
+      "size": [
+        1280,
+        720
+      ],
+      "receipt_hash_matches": true,
+      "actually_viewed": true,
+      "view_method": "tools.view_image native PNG at 1280x720, inspected individually without image transformation",
+      "capture": {
+        "area": "R",
+        "camera": [
+          1020.0,
+          802.0
+        ],
+        "image": "map1_R.png",
+        "layout": "forest-bible-world-v15",
+        "manifest_hash": "ac1ad386850ad534a313d202611b845287e492f19e43d9eaba7aaafc4bc4c1f8",
+        "map_index": 1,
+        "purpose": "static full game art review; explicit pose assignment, no Motor/GUI/device proof",
+        "region": "thorn_forest",
+        "shared_family": {
+          "body": "UnderworldPlayer",
+          "terrain": "UnderworldTerrain",
+          "tile_px": 16.0,
+          "world_tile_wu": 32.0
+        },
+        "size": [
+          1280,
+          720
+        ],
+        "staged_pose": [
+          1020.0,
+          882.0
+        ]
+      },
+      "judgment": "shared_family_visible_regional_art_pending",
+      "observed": "Fine green platform edges and dark fills around the center player match the Plains reference. Chest at (976,200) and hanging bulbs sit within the same restrained pixel scene.",
+      "residual": "Large center/right hanging terrain reads as rectilinear islands rather than coherent roots/cavities. The magenta chevron near (800,62) is a separate readable game signal; it does not prove the enemy body family is complete."
+    },
+    {
+      "image": "map1_bible_web_lower.png",
+      "sha256": "79aa45a811dd2a889e6023f89ad01240f2bb8a1da31a22739d19a0a2c9ce8cfe",
+      "size": [
+        1280,
+        720
+      ],
+      "receipt_hash_matches": true,
+      "actually_viewed": true,
+      "view_method": "tools.view_image native PNG at 1280x720, inspected individually without image transformation",
+      "capture": {
+        "area": "bible_web_lower",
+        "camera": [
+          1630.0,
+          1102.0
+        ],
+        "image": "map1_bible_web_lower.png",
+        "layout": "forest-bible-world-v15",
+        "manifest_hash": "ac1ad386850ad534a313d202611b845287e492f19e43d9eaba7aaafc4bc4c1f8",
+        "map_index": 1,
+        "purpose": "static full game art review; explicit pose assignment, no Motor/GUI/device proof",
+        "region": "thorn_forest",
+        "shared_family": {
+          "body": "UnderworldPlayer",
+          "terrain": "UnderworldTerrain",
+          "tile_px": 16.0,
+          "world_tile_wu": 32.0
+        },
+        "size": [
+          1280,
+          720
+        ],
+        "staged_pose": [
+          1630.0,
+          1182.0
+        ]
+      },
+      "judgment": "shared_family_visible_regional_art_pending",
+      "observed": "Player at (635,458), copper vertical mechanism, chest and core terrain share readable scale and edges. Forest background is visible through actual open spaces.",
+      "residual": "The cross-shaped solid at (800,370) reads as black rock/block topology. Flat outlined spider at (545,365) contrasts with the detailed pixel courier/chest; ecology body art remains pending."
+    },
+    {
+      "image": "map1_bible_backbranch_reward.png",
+      "sha256": "1ebe54bab32ca75e4331815acde8328e0bf22bd7d2d198ca816bb2fc25e49b69",
+      "size": [
+        1280,
+        720
+      ],
+      "receipt_hash_matches": true,
+      "actually_viewed": true,
+      "view_method": "tools.view_image native PNG at 1280x720, inspected individually without image transformation",
+      "capture": {
+        "area": "bible_backbranch_reward",
+        "camera": [
+          1740.0,
+          942.0
+        ],
+        "image": "map1_bible_backbranch_reward.png",
+        "layout": "forest-bible-world-v15",
+        "manifest_hash": "ac1ad386850ad534a313d202611b845287e492f19e43d9eaba7aaafc4bc4c1f8",
+        "map_index": 1,
+        "purpose": "static full game art review; explicit pose assignment, no Motor/GUI/device proof",
+        "region": "thorn_forest",
+        "shared_family": {
+          "body": "UnderworldPlayer",
+          "terrain": "UnderworldTerrain",
+          "tile_px": 16.0,
+          "world_tile_wu": 32.0
+        },
+        "size": [
+          1280,
+          720
+        ],
+        "staged_pose": [
+          1740.0,
+          1022.0
+        ]
+      },
+      "judgment": "shared_family_visible_regional_art_pending",
+      "observed": "Same terrain family persists at a second staged view of the mechanism/reward geometry. Background remains darker than the bright courier and chest.",
+      "residual": "Player/chest overlap around (640,455) prevents separate chest-silhouette acceptance in this frame. Vertical columns and cross-piece are still rectangular; root/bark joints and support identity remain pending."
+    },
+    {
+      "image": "map1_prep.png",
+      "sha256": "04d01636f4ce5dc69f9c05c40782130236629c8a2cda11e23c8f0b6f83ca88e2",
+      "size": [
+        1280,
+        720
+      ],
+      "receipt_hash_matches": true,
+      "actually_viewed": true,
+      "view_method": "tools.view_image native PNG at 1280x720, inspected individually without image transformation",
+      "capture": {
+        "area": "prep",
+        "camera": [
+          1300.0,
+          478.0
+        ],
+        "image": "map1_prep.png",
+        "layout": "forest-bible-world-v15",
+        "manifest_hash": "ac1ad386850ad534a313d202611b845287e492f19e43d9eaba7aaafc4bc4c1f8",
+        "map_index": 1,
+        "purpose": "static full game art review; explicit pose assignment, no Motor/GUI/device proof",
+        "region": "thorn_forest",
+        "shared_family": {
+          "body": "UnderworldPlayer",
+          "terrain": "UnderworldTerrain",
+          "tile_px": 16.0,
+          "world_tile_wu": 32.0
+        },
+        "size": [
+          1280,
+          720
+        ],
+        "staged_pose": [
+          1300.0,
+          558.0
+        ]
+      },
+      "judgment": "shared_family_visible_regional_art_pending",
+      "observed": "Same courier, fine green edges, copper vertical carrier, native-size ivory thorns at upper-left and chest below show the shared world family is actually rendered.",
+      "residual": "The main horizontal route near y≈480 and long vertical carrier are visually straight; the thin stalk and floating target circles are readable interaction signals, not proof of completed organic root materials/whole ecology."
+    },
+    {
+      "image": "map2_boss.png",
+      "sha256": "c8bc2a99e3beb1a037fa3b1c1ef63e7fe57deb380d08c2041ae7a25abdcc5c22",
+      "size": [
+        1280,
+        720
+      ],
+      "receipt_hash_matches": true,
+      "actually_viewed": true,
+      "view_method": "tools.view_image native PNG at 1280x720, inspected individually without image transformation",
+      "capture": {
+        "area": "boss",
+        "camera": [
+          1558.0,
+          292.0
+        ],
+        "image": "map2_boss.png",
+        "layout": "forest-bible-world-v15",
+        "manifest_hash": "5a21e0ac9eba8c6a3e92dbc248a0ab0b8e3b17599e9fa24636788ccae882bed3",
+        "map_index": 2,
+        "purpose": "static full game art review; explicit pose assignment, no Motor/GUI/device proof",
+        "region": "thorn_forest",
+        "shared_family": {
+          "body": "UnderworldPlayer",
+          "terrain": "UnderworldTerrain",
+          "tile_px": 16.0,
+          "world_tile_wu": 32.0
+        },
+        "size": [
+          1280,
+          720
+        ],
+        "staged_pose": [
+          1558.0,
+          372.0
+        ]
+      },
+      "judgment": "shared_family_visible_ecology_pending",
+      "observed": "Map2 retains the shared courier/terrain family; warm hanging lights and deep green silhouettes preserve Forest mood without replacing the platform pixels.",
+      "residual": "The large purple geometric body around (760,570), outlined spider at lower-left and rectangular overhead/vertical masses show unfinished ecology/boss bodies and root identity. This static pre-fight staged view does not validate boss action art or all boss states."
+    }
+  ],
+  "selected_source_checks": [
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "current_sha256": "30281a2b8ec61fa151eb95bab4b723168e65c835856656622bf8d0398d69ef66",
+      "capture_sha256": "30281a2b8ec61fa151eb95bab4b723168e65c835856656622bf8d0398d69ef66",
+      "matches_capture": true
+    },
+    {
+      "path": "scripts/demo/thorn_forest_region_stage.gd",
+      "current_sha256": "8d82985873e49c03b850d85273de21fbc7a1f6dc73246f3f11f0372cd86ab855",
+      "capture_sha256": "8d82985873e49c03b850d85273de21fbc7a1f6dc73246f3f11f0372cd86ab855",
+      "matches_capture": true
+    },
+    {
+      "path": "scripts/presentation/forest_bible_presentation.gd",
+      "current_sha256": "bf24f8497b4a310f5ee4ecd0c64808fe36ff1d0dc5dcc3d46cfca97e02ef7384",
+      "capture_sha256": "bf24f8497b4a310f5ee4ecd0c64808fe36ff1d0dc5dcc3d46cfca97e02ef7384",
+      "matches_capture": true
+    },
+    {
+      "path": "scripts/presentation/forest_bible_actor_presentation.gd",
+      "current_sha256": "5290a94b72e778cc06778b620ae5135e0978d99108af1c6d52d878cc14cbc3a3",
+      "capture_sha256": "5290a94b72e778cc06778b620ae5135e0978d99108af1c6d52d878cc14cbc3a3",
+      "matches_capture": true
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_terrain.gd",
+      "current_sha256": "a330045721df6d82589bfdc0208ed9d1de2930f6c50c1c30ea93d86ce12d5427",
+      "capture_sha256": "a330045721df6d82589bfdc0208ed9d1de2930f6c50c1c30ea93d86ce12d5427",
+      "matches_capture": true
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_terrain.gdshader",
+      "current_sha256": "a175d071cda5b8d95a25ce327f7abc77eec9d779b9a5abc374b02ced640cb0ae",
+      "capture_sha256": "a175d071cda5b8d95a25ce327f7abc77eec9d779b9a5abc374b02ced640cb0ae",
+      "matches_capture": true
+    },
+    {
+      "path": "scripts/underworld_plains/underworld_player.gd",
+      "current_sha256": "f4243c83fb51ce85e34a95e736676a971339708537755683214f9b47cbc1bfb6",
+      "capture_sha256": "f4243c83fb51ce85e34a95e736676a971339708537755683214f9b47cbc1bfb6",
+      "matches_capture": true
+    },
+    {
+      "path": "assets/underworld_plains/terrain/terrain_build.json",
+      "current_sha256": "64f0c0fb88271e0e25684c8a4e4099af7135e5001c6604126485c9bb6c511c5d",
+      "capture_sha256": "64f0c0fb88271e0e25684c8a4e4099af7135e5001c6604126485c9bb6c511c5d",
+      "matches_capture": true
+    },
+    {
+      "path": "assets/underworld_plains/terrain/terrain.tres",
+      "current_sha256": "02fa0bf8a764fd6307d47b9bf802066c6374d7a7c2d93060ec099289cbde3770",
+      "capture_sha256": "02fa0bf8a764fd6307d47b9bf802066c6374d7a7c2d93060ec099289cbde3770",
+      "matches_capture": true
+    },
+    {
+      "path": "assets/underworld_plains/terrain/terrain.png",
+      "current_sha256": "908a3541feccc0e7abdd629c3a0bb8ce22693e22e89ea153cc7d80a411cbfba9",
+      "capture_sha256": "908a3541feccc0e7abdd629c3a0bb8ce22693e22e89ea153cc7d80a411cbfba9",
+      "matches_capture": true
+    },
+    {
+      "path": "assets/underworld_plains/terrain/source.png",
+      "current_sha256": "a369175ccef5fca5ab363f140252d1f0f38b5eafb5d541605c601ea4ac56f88c",
+      "capture_sha256": "a369175ccef5fca5ab363f140252d1f0f38b5eafb5d541605c601ea4ac56f88c",
+      "matches_capture": true
+    },
+    {
+      "path": "assets/style_exploration/underworld/forest/background_sky.png",
+      "current_sha256": "9628cbc8c1916c5daab87fcbcec3a64f2faa0ec52ecb3801957db20659b8f80c",
+      "capture_sha256": "9628cbc8c1916c5daab87fcbcec3a64f2faa0ec52ecb3801957db20659b8f80c",
+      "matches_capture": true
+    },
+    {
+      "path": "assets/style_exploration/underworld/forest/chime_props.png",
+      "current_sha256": "16c5f1b840d48ff7410d9b378fd4224773e52ae29daadbfc5d0c1078546878b2",
+      "capture_sha256": "16c5f1b840d48ff7410d9b378fd4224773e52ae29daadbfc5d0c1078546878b2",
+      "matches_capture": true
+    },
+    {
+      "path": "tests/forest_bible_golden_runner.gd",
+      "current_sha256": "91b94c40a0bd988fa3a10fc4938952a5997a1e714f94c00af08508e03eb16a08",
+      "capture_sha256": "91b94c40a0bd988fa3a10fc4938952a5997a1e714f94c00af08508e03eb16a08",
+      "matches_capture": true
+    },
+    {
+      "path": "tools/run_forest_bible_golden.py",
+      "current_sha256": "eca30d4971df0571ef3b52e5e32a1814d68d61e6013dc4d5c52249ea490a6f6c",
+      "capture_sha256": "eca30d4971df0571ef3b52e5e32a1814d68d61e6013dc4d5c52249ea490a6f6c",
+      "matches_capture": true
+    }
+  ],
+  "residuals": [
+    {
+      "id": "VIS-ROOTS",
+      "status": "REWORK",
+      "priority": "next regional material/structure slice",
+      "evidence": [
+        "map1_camp.png",
+        "map1_R.png",
+        "map1_bible_web_lower.png",
+        "map1_bible_backbranch_reward.png",
+        "map2_boss.png"
+      ],
+      "finding": "Shared baseline is restored, but actual solid silhouettes/surfaces still read chiefly as rectilinear moss-edged dark blocks/crosses. Organic roots, cavities and bark identity mostly come from the background rather than coherent load-bearing material.",
+      "needed": "Within the shared pixel scale/light/material family, complete one true root/cavity support and its junctions, then review real matching collision/game view before expanding. Do not restore independent high-resolution overpaint or change physics to fit art."
+    },
+    {
+      "id": "VIS-ECOLOGY",
+      "status": "REWORK",
+      "priority": "body presentation",
+      "evidence": [
+        "map1_camp.png",
+        "map1_bible_web_lower.png",
+        "map2_boss.png"
+      ],
+      "finding": "Outlined spider and large simple purple boss/body shape remain visibly unfinished beside detailed pixel courier/chest; source explicitly retains existing bodies pending art.",
+      "needed": "Complete species/boss body art and accepted-state motion within the shared family, retaining real telegraphs and state semantics. No technical 8/0 upgrade to whole-ecology approval."
+    },
+    {
+      "id": "VIS-LAYERS",
+      "status": "PENDING",
+      "priority": "third independent layer and movement review",
+      "evidence": [
+        "scripts/presentation/forest_bible_presentation.gd:28",
+        "all six Forest PNGs"
+      ],
+      "finding": "Current source has one real panorama and one separate alpha tree; it explicitly disclaims a completed third layer. Static screenshots show tonal depth but cannot prove three independent layers or coherent moving parallax.",
+      "needed": "Finish the third actual layer, inspect normal-speed camera movement, occlusion, repeating silhouettes and protected player/route contrast."
+    },
+    {
+      "id": "VIS-COVERAGE",
+      "status": "UNVERIFIED",
+      "priority": "scope boundary",
+      "evidence": [
+        "capture.json"
+      ],
+      "finding": "Explicitly assigned poses cover five map1 views and one map2 view; Plains references are near-identical spawn compositions. No traversal, battle sequence, read/claim GUI, audible output, performance or device test was reviewed.",
+      "needed": "Retain existing formal play/GUI/audio/device checks and affected same-source moving captures; no broader completion claim from this static set."
+    }
+  ],
+  "first_capture": "First failed capture is preserved and was not used as correct visual evidence. Root reports reader access to absent Plains layout_version caused old App overlap; second runner uses get plus version and fully recaptured all eight images.",
+  "earlier_workflow_scope": "Previous style-inheritance-review ACCEPT_SCOPED is left unchanged; this is a separate actual-pixel record and does not independently accept reviewer-authored N discovery reward implementation.",
+  "reviewer_actions": {
+    "production_edits": false,
+    "engine_or_capture_rerun": false,
+    "full_source_snapshot": false,
+    "image_edits": false,
+    "new_ignored_review_artifacts_only": true
+  }
+}

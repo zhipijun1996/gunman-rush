@@ -29,7 +29,7 @@ func run() -> void:
 	print("FOREST DEPTH RESTORE: %s assertions, %s failures" % [assertions,failures])
 	quit(1 if failures else 0)
 func guardian_case() -> void:
-	var trace: Node=load("res://tests/forest_depth_region_trace.gd").new()
+	var trace: Node=preload("res://tests/forest_depth_trace_strategy.gd").create()
 	trace.seed_value="forest-depth-hollow-00";trace.map_index=1;trace.route_name="fast"
 	root.add_child(trace)
 	for unused: int in 3000:

@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "revision": "shared-style-continuity-v1",
+  "basis": "docs/creative_direction/bibles/style-continuity-20261021.json",
+  "meaning": "User corrects the prior workflow exclusion. Original Bibles stay exact; all later regions preserve the project style and vary regional materials/structure.",
+  "bindings": [
+    {
+      "region_id": "windchime_plains",
+      "old_direction": {
+        "path": "docs/creative_direction/archive/creative-v4/windchime_plains.json",
+        "sha256": "c50b59f1d6ac6e0648f71e9f07153aa1d7d4e9a9761a621026e5d304e2538ef8",
+        "version": "creative-v4",
+        "region_bible": {
+          "path": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+          "sha256": "02c9dd3299d12c91a426cf40b2a5885e526b51f467b955539b4b5ff99e1aca35",
+          "bible_id": "windchime_plains_v2",
+          "version": "2.0",
+          "status": "user_selected_direction_only",
+          "region_id": "windchime_plains",
+          "registry_path": "docs/creative_direction/bibles/registry.json",
+          "registry_sha256": "7be0622a7386320177bb382c7aede6665c5e3a3bb08e1b6701624f32f6905f30",
+          "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
+          "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
+        }
+      },
+      "new_direction": {
+        "path": "docs/creative_direction/windchime_plains.json",
+        "sha256": "525cee94ff81204608b3f5ae7fdc150b4a4f8eaaef877d087936744c62a5e23a",
+        "version": "creative-v5",
+        "region_bible": {
+          "path": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+          "sha256": "02c9dd3299d12c91a426cf40b2a5885e526b51f467b955539b4b5ff99e1aca35",
+          "bible_id": "windchime_plains_v2",
+          "version": "2.0",
+          "status": "user_selected_direction_only",
+          "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261021.json",
+          "supplemental_authority_sha256": "01cab21e345926f95d969cd25f0e3634ce30c89620a5f4987da612ffec6e290a",
+          "region_id": "windchime_plains",
+          "registry_path": "docs/creative_direction/bibles/registry.json",
+          "registry_sha256": "9dedeffc18759d46e9f7095a2bf4d88fd294f4c40ee70e0f7e7aac9042432e8b",
+          "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
+          "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
+        }
+      }
+    },
+    {
+      "region_id": "thorn_forest",
+      "old_direction": {
+        "path": "docs/creative_direction/archive/creative-v4/thorn_forest.json",
+        "sha256": "55d6fa9e052108d750836a450a7a31b2131341136019d55cbc91ee11bb6f471a",
+        "version": "creative-v4",
+        "region_bible": {
+          "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+          "sha256": "a7bad8323af64a7be0577132e5d988a6e1b781d9e1ac1639d37f9d65935194e3",
+          "bible_id": "thorn_forest_v2",
+          "version": "2.0",
+          "status": "user_selected_direction_only",
+          "region_id": "thorn_forest",
+          "registry_path": "docs/creative_direction/bibles/registry.json",
+          "registry_sha256": "7be0622a7386320177bb382c7aede6665c5e3a3bb08e1b6701624f32f6905f30",
+          "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
+          "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
+        }
+      },
+      "new_direction": {
+        "path": "docs/creative_direction/thorn_forest.json",
+        "sha256": "68198de74692d5900cafb4ca2214880b5d68657578edad4a7f9bdbfdc357f0ba",
+        "version": "creative-v5",
+        "region_bible": {
+          "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+          "sha256": "a7bad8323af64a7be0577132e5d988a6e1b781d9e1ac1639d37f9d65935194e3",
+          "bible_id": "thorn_forest_v2",
+          "version": "2.0",
+          "status": "user_selected_direction_only",
+          "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261021.json",
+          "supplemental_authority_sha256": "01cab21e345926f95d969cd25f0e3634ce30c89620a5f4987da612ffec6e290a",
+          "region_id": "thorn_forest",
+          "registry_path": "docs/creative_direction/bibles/registry.json",
+          "registry_sha256": "9dedeffc18759d46e9f7095a2bf4d88fd294f4c40ee70e0f7e7aac9042432e8b",
+          "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
+          "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
+        }
+      }
+    }
+  ],
+  "affected": [
+    "region create/optimize worker authority, source_inputs, before/after and resume guards",
+    "all missing-Bible proposed G0 inputs",
+    "terrain scale, adjacency/exact boundary, light/outline/material contracts",
+    "Forest and future regional art assets/renderers and actual cross-region golden review",
+    "six creative/region/art/visual/quality/animation Skills and AGENTS entrance"
+  ],
+  "evidence_to_rerun": [
+    "Bible/style source and routing positive/negative checks",
+    "full original production-loop112 and contracts31 on the new exact source",
+    "affected formal/runtime/art regressions and frozen same-source cross-region captures",
+    "independent actual-pixel review before regional asset expansion"
+  ],
+  "unaffected_claims": [
+    {
+      "scope": "original Bible bytes",
+      "proof": "Both SHA256 values remain identical to original user attachment rows; no normalization."
+    },
+    {
+      "scope": "core gameplay source",
+      "proof": "This workflow correction changes no PlayerMotor, abilities, resource policy, physics, RNG or save implementation; existing runtime receipts retain their original source only."
+    }
+  ],
+  "status": "implementation_and_narrow_tests_only; actual cross-region visual/content/device acceptance unverified"
+}

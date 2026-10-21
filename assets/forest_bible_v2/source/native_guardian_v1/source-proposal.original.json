@@ -1,0 +1,63 @@
+{
+  "task_id": "FOREST-BIBLE2-ART",
+  "status": "SCOPED_SOURCE_PROPOSAL_ONLY_RUNTIME_UNVERIFIED",
+  "source_method": "Original AI-authored literal palette-index36x48 pixels; decoder assembles explicit rows. No source-image crop/resize/repaint, no imagegen calls, no reuse of withdrawn highres art. Larger display PNGs are direct rows→repeated-display samples, not runtime sources.",
+  "bible_refs": [
+    "2-thorn_forest_region_bible_v2.md §2.1 shared pixel vocabulary",
+    "§8.1 old wooden puppet in bark/bronze armor with warm chest heart",
+    "§8.2 moving giant bell remains its own real entity"
+  ],
+  "planned_consumer": {
+    "boss_definition": "resources/bosses/rootbell_guardian_v2.tres",
+    "unchanged_collision_size_wu": [
+      72,
+      96
+    ],
+    "native_grid_px": [
+      36,
+      48
+    ],
+    "proposed_render_rect_wu": [
+      -36,
+      -48,
+      72,
+      96
+    ],
+    "chosen_source_pixel_world_scale": 2,
+    "qualification": "This is one native-source proposal tied to Guardian dimensions, not a requirement that every project actor must always use2wu pixels."
+  },
+  "actual_views": [
+    "native36x48 via view_image",
+    "direct authored-rows source display12x via view_image"
+  ],
+  "self_review": {
+    "first": "REWORK: stiff straight narrow limbs and chest/shoulder made generic mechanical robot; firstPNG/recipe retained.",
+    "second": "Candidate only: wider sloped bark shoulder and asymmetrical moss, detached empty arms, bronze slit-face, small amber heart cavity, bending root ankles with spreading toes. Wood-puppet identity clearer than first. Source is sparse/quiet and body remains fairly stiff; does not prove detailed boss animation, painterly richness, formal scene or user visual acceptance.",
+    "possible_gaps": [
+      "Static arms and head cannot establish attack/exposure/terminal state readability.",
+      "Native source is materially less detailed than shared Bellstrider128px source; it may read too toy-like in the actual forest scene. Root must judge one fullHUD scene before adding frames or other bodies.",
+      "Actual alpha bbox x3..31/y1..46 is narrower than the unchanged collision rectangle; in-game attack/landing/body warning footprint must remain independently readable.",
+      "No held bell is baked into either hand. Existing actual moving bell must be rendered separately.",
+      "No Queen candidate expanded before this body is assessed."
+    ]
+  },
+  "shared_refs": {
+    "assets/underworld_plains/actors/root_bell.png": "4033401fc4c452ed5548fc7bb6fc15e3a0bdbaf53e94fc75799d69f9ecc8ab1e",
+    "assets/underworld_plains/actors/bellstrider.png": "8202472e8b2d829d1be88b6019e0a72475421bae4eae0d6e82b54289696d8af5",
+    "assets/underworld_plains/actors/patrol.png": "5944593f501abc6a5972fc28cae1ba9fd0099bc8362b0aac7a9bcc47feee802e",
+    "assets/underworld_plains/actors/charger.png": "a2eb21f7a61385bc2c7e1b5c3f7816342c8f22abdb8f5684715045764d98d7bb"
+  },
+  "files": {
+    "author_bitmap.py": "65be564db7e0cf2c383bf389e15339067c92328991cd9299938b06734af26a41",
+    "guardian-authored.rows": "b3ee6889a640444d54c5fd0e85c4b1d65d9fddb82a61d50a1555932d1ead80a9",
+    "guardian.palette.json": "398e29a1586aca51c386a68ff20ac1c3842c6fde7cf4eebc6e71379ac1bda99e",
+    "guardian.native.png": "eaa19f7639019e9abc7aff668eb9f57394c000f5c1498088079b798e5bf8602c",
+    "guardian-source-display-4x.png": "be5349bdb5059993b9d0299690986071fa3f05c4ad4123648aa5420461153ad8",
+    "guardian-source-display-12x.png": "a3e5019b3b73cb419c5e4d447121d056ab32fb554cb9e272e696b1dd38dca88a",
+    "guardian-first-rejected.native.png": "80e91a2931db752482aa69bbcdc71f5c308594020f37f36846eb0e66764a3dcc",
+    "first-review.json": "153e7b1317182fb68f9a5f483e9509fdcc9abdbf528badb3915df3363d496916"
+  },
+  "production_changes": [],
+  "engine_calls": 0,
+  "new_image_tool_calls": 0
+}

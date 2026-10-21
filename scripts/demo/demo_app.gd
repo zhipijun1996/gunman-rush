@@ -624,7 +624,16 @@ func _load_stage() -> void:
 				var transfers: Array[Vector2] = []
 				for point: Array in placement.get("transfer_points",[]): transfers.append(Vector2(point[0],point[1]))
 				actor.attack_behavior.call("configure_transfer_points",transfers)
-			if actor.attack_behavior != null and actor.attack_behavior.has_method("configure_line"):
+			if actor.attack_behavior is ForestBibleWeaverBehavior:
+				if not (actor.attack_behavior as ForestBibleWeaverBehavior).configure_strands(placement.get("web_strands", [])):
+					push_error("Recorded forest alternating web geometry rejected")
+					abandon_run()
+					return
+				if connected_region and region_state.actors.has(String(id)) and not region_state.actors[String(id)].get("depth_state") is Dictionary:
+					push_error("Recorded forest alternating web state missing")
+					abandon_run()
+					return
+			elif actor.attack_behavior != null and actor.attack_behavior.has_method("configure_line"):
 				var first: Array = placement.get("line_start",[])
 				var last: Array = placement.get("line_end",[])
 				if first.size()!=2 or last.size()!=2 or not actor.attack_behavior.call("configure_line",Vector2(first[0],first[1]),Vector2(last[0],last[1])):
@@ -753,6 +762,9 @@ func _load_stage() -> void:
 	if connected_region and (not _explicit_plains_candidate() or plains_regional_art_candidate_requested):
 		var boss_definition: BossDefinition=(stage.boss.get_node("Encounter") as BossEncounter).definition
 		director.manifest.record_output(director.stage_index,&"boss_layout",{"id":String(boss_definition.stable_id),"version":boss_definition.definition_version,"health":boss_definition.health_definition.max_health})
+	if not _bind_forest_discoveries():
+		abandon_run()
+		return
 	_status = ("Explore forest branches / fixed rings stay after enemies die / gold flags lead to the guardian" if active_region_id == &"thorn_forest" else "Explore freely / gold flags lead to Windkeeper / no enemy-clear requirement") if connected_region else "Room %s: %s. Reach markers and use Interact." % [director.stage_index, director.stage_type_id]
 	_shown_actions = ""
 	_stage_pending = false
@@ -1020,6 +1032,7 @@ func close_region_map() -> void:
 	if director.state==DemoRunDirector.State.IN_STAGE: get_tree().paused=false
 
 func toggle_pause() -> void:
+	if _forest_reader_open(): return
 	if is_instance_valid(shop_modal) and shop_modal.opened: return
 	if is_instance_valid(map_modal) and map_modal.opened: return
 	if director.state != DemoRunDirector.State.IN_STAGE or (is_instance_valid(reward_modal) and reward_modal.opened) or (is_instance_valid(exit_modal) and exit_modal.opened):
@@ -1075,6 +1088,12 @@ func _build_description() -> String:
 	return "Items: %s\nJumps: %s  •  Air shots: %s\nShot damage: %.1f  •  Recoil burst: %.0f" % [", ".join(names) if not items.is_empty() else "None", controller.motor.tuning.max_jumps, controller.motor.tuning.max_air_shots, controller.motor.tuning.projectile_damage, controller.motor.tuning.shot_burst_speed]
 
 func _input(event: InputEvent) -> void:
+	if _forest_reader_open():
+		if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_ESCAPE:
+			(stage as ThornForestRegionStage).discoveries.close()
+			get_viewport().set_input_as_handled()
+		# The reader owns its buttons, scrolling and navigation until it closes.
+		return
 	if event is InputEventKey and event.pressed and not event.echo:
 		if is_instance_valid(shop_modal) and shop_modal.opened:
 			if event.physical_keycode==KEY_ESCAPE: _close_region_shop()
@@ -1450,7 +1469,11 @@ func _update_actions() -> void:
 		return
 	elif connected_region:
 		var rs := stage as PlainsRegionStage
-		if rs.nearby_chest(player.global_position) >= 0: key = "region_chest"
+		var has_discovery := rs is ThornForestRegionStage and is_instance_valid((rs as ThornForestRegionStage).discoveries) and not (rs as ThornForestRegionStage).discoveries.nearby(player.global_position).is_empty()
+		var has_cache := rs.nearby_chest(player.global_position) >= 0
+		if has_discovery and has_cache: key = "forest_discovery_and_cache"
+		elif has_discovery: key = "forest_discovery"
+		elif has_cache: key = "region_chest"
 		elif not rs.nearby_shortcut(player.global_position).is_empty(): key = "region_shortcut"
 		elif player.global_position.distance_to(rs.merchant_position) < 90: key = "region_shop"
 	elif not generated_plains and current_reward != null and not rewards.get_offer(current_reward.offer_id).claimed and player.global_position.distance_to(stage.reward_position) < 130:
@@ -1467,7 +1490,12 @@ func _update_actions() -> void:
 		return
 	_shown_actions = key
 	_clear_actions()
-	if key == "region_chest":
+	if key == "forest_discovery_and_cache":
+		_button(_actions, "OPEN CACHE / CHOOSE REWARD", interact)
+		_button(_actions, "查看发现物", _request_forest_discovery)
+	elif key == "forest_discovery":
+		_button(_actions, "查看发现物", _request_forest_discovery)
+	elif key == "region_chest":
 		_button(_actions,"OPEN CACHE / CHOOSE REWARD",interact)
 	elif key == "region_shortcut":
 		_button(_actions,"OPEN RETURN SHORTCUT",interact)
@@ -1580,6 +1608,10 @@ func _make_ui() -> void:
 	menu.settings_changed.connect(apply_input_settings)
 	menu.presentation_changed.connect(func(reduced: bool, muted: bool) -> void:
 		_reduced_effects = reduced
+		if stage is ThornForestRegionStage and is_instance_valid((stage as ThornForestRegionStage).ambience):
+			(stage as ThornForestRegionStage).ambience.set_reduced_effects(reduced)
+		if stage is ThornForestRegionStage and is_instance_valid((stage as ThornForestRegionStage).near_scenery):
+			(stage as ThornForestRegionStage).near_scenery.set_reduced_effects(reduced)
 		AudioServer.set_bus_mute(AudioServer.get_bus_index("Master"),muted))
 	menu.menu_opened.connect(_pause_for_menu)
 	UnderworldUI.style_canvas(_canvas)
@@ -1872,6 +1904,7 @@ func _cancel_exit_ui(reason: String) -> void:
 		exit_modal.close()
 	if is_instance_valid(reward_modal):
 		reward_modal.close()
+	if _forest_reader_open(): (stage as ThornForestRegionStage).discoveries.close()
 	if is_instance_valid(controller):
 		controller.router.clear(reason)
 		controller.air_focus_ability.stop()
@@ -2017,6 +2050,7 @@ func _region_interact() -> void:
 		get_tree().paused = true
 		reward_modal.show_offer(_region_offer,"Continue exploring / " + str(chest.tier))
 		return
+	if _open_forest_discovery(): return
 	if player.global_position.distance_to(rs.merchant_position) < 90:
 		_open_region_shop()
 
@@ -2081,6 +2115,8 @@ func _claim_region_chest(option_id: StringName) -> bool:
 	_status="CACHE CLAIMED / "+selected.display_name.split(" / ")[-1]
 	chest.claimed = true
 	region_state.claimed[chest.id] = true
+	if rs is ThornForestRegionStage:
+		(rs.assembler as ThornForestRegionAssembler).resolve_reward_shortcuts()
 	director.manifest.record_output(director.stage_index,StringName("cache/"+chest.id),{"choice": String(option_id),"resource":resource.resource_kind if resource!=null else "item","amount":resource.amount if resource!=null else int(chest.coins)})
 	_region_chest = -1
 	_region_offer = null
@@ -2219,14 +2255,18 @@ func _open_foundation() -> void:
 func _uses_pixel_plains_presentation() -> bool:
 	return connected_region and active_region_id == &"plains" and stage is PlainsRegionStage and not stage is ThornForestRegionStage and not _explicit_plains_candidate() and not p1_random_plains_requested and not "--p1-random-plains" in OS.get_cmdline_user_args()
 
+func _uses_shared_region_pixel_presentation() -> bool:
+	return _uses_pixel_plains_presentation() or (stage is ThornForestRegionStage and ForestBiblePresentation.enabled(stage.generated.manifest))
+
 func _sync_region_presentation(home := false) -> void:
 	# Select presentation from the assembled consumer, including a reused player
 	# crossing from Plains to Forest. This owns no movement or ability state.
-	var pixel := not home and _uses_pixel_plains_presentation()
+	var plains := not home and _uses_pixel_plains_presentation()
+	var pixel := not home and _uses_shared_region_pixel_presentation()
 	var parallax := get_node("PixelPlainsParallax") as PixelPlainsParallax
-	parallax.visible = pixel or home
+	parallax.visible = plains or home
 	(get_node("PlainsBackground") as PlainsBackground).visible = not pixel and not home
-	if pixel: parallax.origin = stage.spawn
+	if plains: parallax.origin = stage.spawn
 	var avatar := get_meta("avatar_presentation",null) as Node
 	if is_instance_valid(avatar):
 		var selector_layer := avatar.get_node_or_null("AvatarSelectorLayer") as CanvasLayer
@@ -2254,3 +2294,64 @@ func _sync_region_presentation(home := false) -> void:
 	# The source-art selector is session-only; rebind after pixel disposal so a
 	# deliberate alternate avatar can be restored on non-pixel consumers.
 	if not pixel and is_instance_valid(avatar): avatar.call("bind_player",player)
+
+# Local discoveries use the shared post-damage action queue, just like caches.
+func _forest_reader_open() -> bool:
+	return stage is ThornForestRegionStage and is_instance_valid((stage as ThornForestRegionStage).discoveries) and (stage as ThornForestRegionStage).discoveries.is_open()
+
+func _bind_forest_discoveries() -> bool:
+	if not stage is ThornForestRegionStage: return true
+	var forest := stage as ThornForestRegionStage
+	if ForestBiblePresentation.enabled(forest.generated.manifest):
+		ForestBibleActors.install(forest)
+		forest.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		forest.assembler.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		forest.ambience = ForestBibleAmbience.new()
+		forest.add_child(forest.ambience)
+		forest.ambience.configure(forest.generated.manifest, player, _reduced_effects)
+		forest.near_scenery = ForestBibleNearScenery.new()
+		forest.add_child(forest.near_scenery)
+		forest.move_child(forest.near_scenery, forest.assembler.get_index()+1)
+		if not forest.near_scenery.configure(forest.generated.manifest, player, _reduced_effects):
+			return false
+	var rows: Array = forest.generated.manifest.get("forest_discoveries", [])
+	if rows.is_empty(): return true
+	var reader := ForestBibleDiscoveries.new()
+	forest.add_child(reader)
+	if not reader.configure(rows, region_state, lifetime, controller.actor_resources.health, wallet, rewards):
+		push_error("Recorded forest discoveries rejected")
+		return false
+	forest.discoveries = reader
+	reader.opened.connect(func() -> void:
+		if is_instance_valid(stage) and stage == forest and lifetime.active: _pause_for_menu())
+	reader.closed.connect(func() -> void:
+		if not is_instance_valid(stage) or stage != forest or not lifetime.active or _stage_pending: return
+		if is_instance_valid(controller): controller.router.clear("forest_reader_close")
+		_resume_exit_input()
+		if director.state == DemoRunDirector.State.IN_STAGE: get_tree().paused = false)
+	reader.confirm_requested.connect(func() -> void:
+		if not is_instance_valid(stage) or stage != forest or not lifetime.active: return
+		controller.router.clear("forest_reader_confirm")
+		get_tree().paused = false
+		if not _queue_action(_commit_forest_discovery.bind(reader)) and reader.is_open(): _pause_for_menu())
+	reader.acquired.connect(func(receipt: Dictionary) -> void:
+		if not is_instance_valid(stage) or stage != forest or not lifetime.active: return
+		director.manifest.record_output(director.stage_index, StringName("forest_discovery/" + str(receipt.id)), receipt)
+		(forest.assembler as ThornForestRegionAssembler).resolve_reward_shortcuts()
+		GameAudio.cue(self, &"confirm")
+		_shown_actions = ""
+		forest.queue_redraw())
+	return true
+
+func _commit_forest_discovery(reader: ForestBibleDiscoveries) -> bool:
+	if not is_instance_valid(reader) or not stage is ThornForestRegionStage or (stage as ThornForestRegionStage).discoveries != reader: return false
+	return reader.commit_pending(player.global_position)
+
+# An optional readable find must never monopolize a co-located cache action.
+func _request_forest_discovery() -> void:
+	_queue_action(_open_forest_discovery)
+
+func _open_forest_discovery() -> bool:
+	if not _can_interact() or not stage is ThornForestRegionStage: return false
+	var reader := (stage as ThornForestRegionStage).discoveries
+	return is_instance_valid(reader) and reader.interact(player.global_position, lifetime.token())

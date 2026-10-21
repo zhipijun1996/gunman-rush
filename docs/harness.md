@@ -28,6 +28,14 @@ python3 tools/harness.py --profile full
 
 ## 从需求到游戏品质
 
+地区开发先取短反馈：新GDScript在同一root引擎租约执行 `bash tools/godot.sh --headless --path . --check-only --script <实际脚本.gd>`，随后跑局部真实消费者，最后按原案例和预算做完整验证。新连接的局部Motor记录必须写 `initial_fixture_spawn_override=true`，只允许首次Motor步前的初始fixture定位，不改资源/能力/physics或中途位置；通过也不签正式fullspawn路线。parse、局部反馈与正式完整验收分别留证，均不扩原测试/CI上限。
+
+合屏在geometry、render与source metadata完整源集冻结后才开始；source_guard漂移令整轮失败，保留 `build/region_bible_v2/golden-third/receipt.json` 的source-changed原件，不借已生成画面或后续通过改签。离线fixed-fps与音频backend墙钟须分开，手动释放fixture只隔离自主调度，保留真实弱引用释放与12voice断言；实际native-third→fourth的局部边界见[animation-vfx](../.agents/skills/animation-vfx/SKILL.md#自动验收)。
+
+`forest-bible-ambience` 已追加gameplay/art/full，实际CLI含90秒import及90秒native，外层210秒；每轮以 `{check_token}` 新目录保留原失败。它验证本地Node/GameAudio生命周期，听音、正常速度合屏、正式campaign和设备仍单列，注册不冒充本次已执行。
+
+`forest-practice-bell-restore` 追加gameplay/art/full，复用实际90秒native及完整源清单，外层120秒，新token目录保留旧结果；只验机关相位/原子恢复和实际App卸载重建，不签完整路线。新增实际App发现检查和G世界检查的缓存输入也涵盖scripts/scenes/resources/config/shaders/assets/tests/tools及project.godot，避免同屏body PNG或共享helper变化沿用旧缓存；原132检查的命令、断言与预算保持原值。局部Motor用 `run_forest_bible_world_fixture.py`，正式路线用 `run_forest_bible_world_motor.py`；双区静态合屏用 `run_forest_bible_golden.py --compare-plains`，均读取同一完整源inventory，局部或静态结果不能代正式路线/影片/设备。
+
 每个切片先写“玩家在什么场景遇到什么问题、改变后可观察什么”，定义一个可玩的体验和禁止回归项。明确 Seed、入口、能力、配置与目标设备。实现后依次检查：真实动作可达/资源与生命周期 → 正式入口 GUI（标题、家园、出发、探索、伤害、奖励、返回）→ 目标设备 → 用户对操作、节奏、视觉的评价。卡住时保留失败轨迹，缩小切片修复。
 
 浏览器入口例如 python3 tools/verify_plains_region_browser.py URL；现有验证按实际任务选用。Web 弱网 suite 使用 tools/verify_web_resilience.py 的 before/after 部署目录；不能把缓存预算单测说成弱网实测。手机/大陆网络/用户趣味性没有自动通过字段，始终单独记未验或实际证据。
@@ -102,3 +110,12 @@ S3实际CI／公网包通过后，GUI01因可见MENU未被识别而在3/20退出
 发布游戏仍为S3原PCK；后续采证工具以自己的源码SHA绑定，不把工具修复后的GUI误称新游戏HEAD构建。CI ZIP代理403与公开GUI是不同证据：前者原包72未执行，后者只按实际结果记录，不相互替代。详见[原始失败／REJECT／复验](evidence/forest_grapple02/release03/README.md)。
 
 整区平原候选的短反馈入口为 `python3 tools/harness.py --profile regional-art-feedback`，复用docs与原检查调度，运行实际整区生成/默认Manifest对PR85原件比较、无标签图同构及伪造覆盖反例。真实电影仍走原`visual_director.py capture`和新增regional适配器；完整源码、正常输入、伤害/HP、清理退出门槛保留。长电影临时AVI允许保存在明确唯一的系统临时目录，经原始SHA验证后成功清理，失败保留；MP4/日志/回执仍在build。当前仅技术候选，艺术失败见[实录](evidence/plains_regional/recipe.md)。
+
+
+## 区域圣经与共享画风准入（2026-10-21）
+
+区域创建和优化先绑定[注册表](creative_direction/bibles/registry.json)中的完整Bible及[当前共享参考](creative_direction/bibles/style-continuity-20261021-v2.json)，不能只传摘要、只继承脚本而漏掉实际纹理依赖。缺Bible只做文档提案。`region-bible-feedback`用于窄反馈，`region-bible-contract`与`region-bible-tests`追加到原profile；原132检查和10个profile前缀不变。风格绑定/缓存防漂移是技术守门，仍须实际跨区合屏和独立视觉审查后扩产。
+
+新版路线按实际输入、枪口、互斥UI和当前Manifest消费；保留旧版本driver与保存重建，不把新版Manifest改标签交旧校验器。诊断先复验真实失败场景，再跑原16代表；完整原80案例和600秒预算留到候选源码冻结的正式准入，不以窄反馈代全量。暂停中的新UI须有process-frame故障边界，不能仅依赖已停止的physics tick；真实关闭仍走Viewport输入，并保持奖励幂等及冻结资源断言。
+
+新增森林正式路线检查覆盖两图的连接/背枝取奖返营及图二F08真实Reader木芯路线；初始出生fixture只作开发诊断。每次记录完整runtime/test/tool输入前后SHA，新增/删文件同样令源漂移失败。素材小改不重签旧路线或旧画面；原失败、限定接受与最终完整发布证据分开保留。

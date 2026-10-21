@@ -1,0 +1,74 @@
+{
+  "scope": "isolated copies only; no production mutations, engine, full snapshots or claim of complete worker/resume acceptance",
+  "source_sha256": {
+    "tools/region_creative_direction.py": "3dbdc3e14dd21d0c5dfb4d58c92625e2ab9da6cbb6e012947849d8b9ad102e3e",
+    "tools/production_loop.py": "7ec853807903339cbff52df05e7addff3380d35fa0d22ca4755fb7ce2633d0b8",
+    "docs/creative_direction/bibles/style-continuity-20261021.json": "01cab21e345926f95d969cd25f0e3634ce30c89620a5f4987da612ffec6e290a",
+    "scripts/underworld_plains/underworld_player.gd": "f4243c83fb51ce85e34a95e736676a971339708537755683214f9b47cbc1bfb6",
+    "assets/underworld_plains/player_animation/animation_build.json": "65bb572735f8aead4a6b1e5ead2174b1dc784eb9d0ee8aeeafff6ac8d7eb49b3",
+    "assets/underworld_plains/player_animation/run_sheet.png": "64fe86b6de951bd671f511509104b2639f528527741774dd2561547f7ec5dd27",
+    "assets/underworld_plains/player_animation/states_sheet.png": "01f6645fcedd24e14e06d56b6789ad0aa987ac0c75a63b39b0f16b40fe256744"
+  },
+  "declared_refs": 13,
+  "cases": [
+    {
+      "path": "assets/underworld_plains/player_animation/animation_build.json",
+      "mutation": "actual animation anchor +1",
+      "old_sha256": "65bb572735f8aead4a6b1e5ead2174b1dc784eb9d0ee8aeeafff6ac8d7eb49b3",
+      "new_sha256": "987c0bfc923bb39d71e51fbb500a58e84f748c71a7d2d0f47fcd7f757c2f7dea",
+      "production": {
+        "reference_validation_rejected": false,
+        "bound_source_inputs_include_body_path": false,
+        "bound_source_inputs_still_same_as_canonical": true
+      },
+      "proposed": {
+        "reference_validation_rejected": false,
+        "bound_source_inputs_include_body_path": false,
+        "bound_source_inputs_still_same_as_canonical": true
+      },
+      "bible_binding_accepted": true,
+      "resume_preflight_reached_unrelated_history_guard": true,
+      "resume_next_error": "Restored complete task has incomplete round history"
+    },
+    {
+      "path": "assets/underworld_plains/player_animation/run_sheet.png",
+      "mutation": "one opaque RGBA pixel changed, valid PNG",
+      "old_sha256": "64fe86b6de951bd671f511509104b2639f528527741774dd2561547f7ec5dd27",
+      "new_sha256": "ca456181269cbfbd6ac0cba5bc034abb8f8e8fff31c7a180cc37be8cb4be8726",
+      "production": {
+        "reference_validation_rejected": false,
+        "bound_source_inputs_include_body_path": false,
+        "bound_source_inputs_still_same_as_canonical": true
+      },
+      "proposed": {
+        "reference_validation_rejected": false,
+        "bound_source_inputs_include_body_path": false,
+        "bound_source_inputs_still_same_as_canonical": true
+      },
+      "bible_binding_accepted": true,
+      "resume_preflight_reached_unrelated_history_guard": true,
+      "resume_next_error": "Restored complete task has incomplete round history"
+    },
+    {
+      "path": "assets/underworld_plains/player_animation/states_sheet.png",
+      "mutation": "one opaque RGBA pixel changed, valid PNG",
+      "old_sha256": "01f6645fcedd24e14e06d56b6789ad0aa987ac0c75a63b39b0f16b40fe256744",
+      "new_sha256": "5328331f60dc223b322a6bc3bd4eaa52460a418cf396c480480191ac46f65591",
+      "production": {
+        "reference_validation_rejected": false,
+        "bound_source_inputs_include_body_path": false,
+        "bound_source_inputs_still_same_as_canonical": true
+      },
+      "proposed": {
+        "reference_validation_rejected": false,
+        "bound_source_inputs_include_body_path": false,
+        "bound_source_inputs_still_same_as_canonical": true
+      },
+      "bible_binding_accepted": true,
+      "resume_preflight_reached_unrelated_history_guard": true,
+      "resume_next_error": "Restored complete task has incomplete round history"
+    }
+  ],
+  "conclusion": "GAP_CONFIRMED: actual three UnderworldPlayer body dependencies absent from shared authority/input binding; only script SHA is bound. Existing whole-source snapshot remains separate and was not tested or weakened.",
+  "production_sources_unchanged": true
+}

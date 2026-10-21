@@ -1,0 +1,220 @@
+{
+  "task_id": "FOREST-BIBLE2-ART",
+  "scope": "One source-reviewed native spider body installed into owned v15 helper, pending one actual Godot composition",
+  "asset": {
+    "id": "forest_bible_v2.native.weaver_silk_bell_v4",
+    "path": "assets/forest_bible_v2/native/weaver_silk_bell_v4.png",
+    "source_original": "assets/forest_bible_v2/source/native_weaver_v4/spider.native.png",
+    "source_sha256": "f6571253a612f13abafe3452fbdb1709cb8004cb978c052bad3709ab473e2d32",
+    "runtime_sha256": "f6571253a612f13abafe3452fbdb1709cb8004cb978c052bad3709ab473e2d32",
+    "size": [
+      32,
+      32
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "alpha_bbox_nonzero": [
+      2,
+      4,
+      30,
+      30
+    ],
+    "collision": false,
+    "generation": "AI-authored original literal32x32 palette-index bitmap; code decodes pixels only; not imagegen output",
+    "processing": "byte-identical native PNG copy; no crop, resize, threshold, tracing or failed-image reuse",
+    "palette": "4 exact shared-actor RGB swatches plus3 explicitly authored regional silver/ivory silk colors; source coordinates and provenance retained",
+    "runtime_direct_sampling": true,
+    "runtime_scope": "Only v15 forest_thread_spider / forest_bible_weaver body, Rect2(-16,-16,32,32), nearest; existing warnings and line logic remain outside helper",
+    "source_files": [
+      {
+        "path": "assets/forest_bible_v2/source/native_weaver_v4/spider.native.png",
+        "sha256": "f6571253a612f13abafe3452fbdb1709cb8004cb978c052bad3709ab473e2d32"
+      },
+      {
+        "path": "assets/forest_bible_v2/source/native_weaver_v4/spider-authored.rows",
+        "sha256": "7205712cb4b339a2cb31053c05690c01058e5aa1a0fd761405093aa67b3f98df"
+      },
+      {
+        "path": "assets/forest_bible_v2/source/native_weaver_v4/spider.palette.json",
+        "sha256": "ef7c4f8195b47da4d740b092a8803f3a6555147901889c18841dc1c2379a5440"
+      },
+      {
+        "path": "assets/forest_bible_v2/source/native_weaver_v4/provenance.json",
+        "sha256": "f1b0cfed41f0aab9beaa28387e9c97df42c8e7b5f43e801e5c52a79050e2a3a4"
+      },
+      {
+        "path": "assets/forest_bible_v2/source/native_weaver_v4/decode_bitmap.py",
+        "sha256": "0e05d7c6a62d8f2789343d5b914c26a44f3243cb39f1225a1df79d4bca82dd68"
+      },
+      {
+        "path": "assets/forest_bible_v2/source/native_weaver_v4/measurement.json",
+        "sha256": "2efea67e18452289c219aeb870c920c4dc60a79fa9f633776d3a478fd8381213"
+      }
+    ],
+    "license": "Project-authored new pixel arrangement; actual shared-source RGB references retain existing source provenance; no new external generated-image license claimed",
+    "image_tool_calls_for_this_bitmap": 0,
+    "status": "independent_source_ACCEPT_SCOPED_for_one_Godot_composition; runtime_body_anchor_and_leg_readability_UNVERIFIED",
+    "independent_source_review": {
+      "path": "build/region_bible_v2/forest-art/manual-native-spider-independent-review-v4/review.json",
+      "sha256": "ea24cb2b48ddb55dd38575ea905ee68176c6de13f6425255bb717a4fe5d26351",
+      "reviewer": "/root/forest_discoveries_impl",
+      "verdict": "ACCEPT_SCOPED",
+      "scope": "Only the frozen v4 original native spider body candidate may advance to one actual Godot composition test; not final body style, animation, combat, whole-region, device or user acceptance."
+    }
+  },
+  "actor_helper": {
+    "path": "scripts/presentation/forest_bible_actor_presentation.gd",
+    "sha256": "423af518be880dadfedfaceb25363be54a879a86613fcb928a939bec1a7d0f89",
+    "install_guard": "Actual ThornForestRegionStage and ForestBiblePresentation.enabled(manifest), hence v15 only",
+    "allowed_behavior_ids": [
+      "forest_thread_spider",
+      "forest_bible_weaver"
+    ],
+    "draw_rect_wu": [
+      -16,
+      -16,
+      32,
+      32
+    ],
+    "terminal_tint_rgba": [
+      0.42,
+      0.46,
+      0.43,
+      1.0
+    ],
+    "other_enemy_ids": "return false",
+    "boss_body": "return false",
+    "phase_warning_thread_damage_behavior": "no writes; original presentation continues after body guard"
+  },
+  "unmodified_presentation_behavior_before_after_match": {
+    "scripts/enemies/forest_depth_enemy_presentation.gd": true,
+    "scripts/enemies/forest_bible_weaver_behavior.gd": true,
+    "scripts/presentation/forest_bible_presentation.gd": true
+  },
+  "unmodified_source_sha256": {
+    "scripts/enemies/forest_depth_enemy_presentation.gd": "3b1ab70038b435ae91412ef88a4490b5269f465d14086e4de488969bf9ed049c",
+    "scripts/enemies/forest_bible_weaver_behavior.gd": "f5414fed8e9814db74b74266317606d803e8cd97428ca71098f865ccd5a9bfde",
+    "scripts/presentation/forest_bible_presentation.gd": "bf24f8497b4a310f5ee4ecd0c64808fe36ff1d0dc5dcc3d46cfca97e02ef7384"
+  },
+  "source_provenance_snapshot": "Copied ignored v4 provenance/measurement byte-identically as source-authoring history. Current runtime status is this integration record; original snapshot retains pre-install state intentionally.",
+  "independent_review_exact_json_sha256": "ea24cb2b48ddb55dd38575ea905ee68176c6de13f6425255bb717a4fe5d26351",
+  "independent_source_review": {
+    "verdict": "ACCEPT_SCOPED",
+    "reviewer": "/root/forest_discoveries_impl",
+    "scope": "Only the frozen v4 original native spider body candidate may advance to one actual Godot composition test; not final body style, animation, combat, whole-region, device or user acceptance.",
+    "candidate_asset_id": "forest_weaver_native_authored_v4_silk_bell",
+    "candidate_sha256": "f6571253a612f13abafe3452fbdb1709cb8004cb978c052bad3709ab473e2d32",
+    "Bible": {
+      "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+      "line": 216,
+      "quote": "黑褐细足、银白丝囊、悬铃形腹部"
+    },
+    "actual_views": [
+      {
+        "path": "build/region_bible_v2/forest-art/manual-native-spider/spider.native.png",
+        "sha256": "f6571253a612f13abafe3452fbdb1709cb8004cb978c052bad3709ab473e2d32",
+        "viewed": true,
+        "method": "tools.view_image detail original; individually viewed native32x32,16x enlarged, shared source comparison"
+      },
+      {
+        "path": "build/region_bible_v2/forest-art/manual-native-spider/spider.native.16x.png",
+        "sha256": "8be0492d443a1b5f13ff640f3a3eca896f51a659727f250c8aea1b995de42007",
+        "viewed": true,
+        "method": "tools.view_image detail original; individually viewed native32x32,16x enlarged, shared source comparison"
+      },
+      {
+        "path": "build/region_bible_v2/forest-art/manual-native-spider/native-shared-comparison.png",
+        "sha256": "08e73ba30ee0324cdcabda98c4c6798f63620b6145bf3d9c7a0bd99a583e46bd",
+        "viewed": true,
+        "method": "tools.view_image detail original; individually viewed native32x32,16x enlarged, shared source comparison"
+      }
+    ],
+    "visual_findings": [
+      {
+        "criterion": "spider and Bible sac semantics",
+        "judgment": "adequate to test in scene",
+        "observation": "Silver/ivory abdomen narrows at the top and widens/flairs at its lower edge; small dark head with two warm eyes is separate below. Bent limbs radiate on both sides. The body reads as a silk-bell spider rather than the previously reported brown oval/beetle/pod. Silver regional color is allowed by the Bible and is not rejected merely for differing from shared bronze."
+      },
+      {
+        "criterion": "eight leg intent, independence and attachment",
+        "judgment": "enlarged source readable; native contrast remains pending",
+        "observation": "Four mirrored limb pairs can be traced through separated distal branches in the enlarged view: upper side arches, middle outward/down legs, lower diagonals and long inner downward pair. Approximate left/right tips lie near(2,14)/(29,14), (2,21)/(29,21), (4,26)/(27,26), (11,29)/(20,29) in the32px grid. They attach into the body/head; no separate floating limb parts were seen. At native size on a dark field, the darkest1px segments are weak and eight individually countable legs are not yet a scene-approved result."
+      },
+      {
+        "criterion": "native silhouette and clusters",
+        "judgment": "candidate compatible, refinement/scene judgment pending",
+        "observation": "Native contours and stepped bends are deliberate, with no soft resampling halo visible. The bright upper-left/left sac edge and darker central/right/lower facets provide some common light direction and dark underside. The sac has much broader, flatter facets than the finely lit shared patrol/charger/merchant; this contact board does not establish full material/style equality."
+      },
+      {
+        "criterion": "shared comparison",
+        "judgment": "enough to test, not full style acceptance",
+        "observation": "Body and limb proportions occupy a similar small-actor scale beside40px shared sprites, with dark outline, brown limbs and warm eye accents. New silver/ivory sac separates its species. The white mass draws more attention and the limbs are weaker against the dark green board; actual scene exposure and draw size must be assessed."
+      }
+    ],
+    "mechanical_support": {
+      "rows": 32,
+      "widths": [
+        32
+      ],
+      "png_size": [
+        32,
+        32
+      ],
+      "literal_rgba_exact": true,
+      "alpha_8neighbor_components": 1,
+      "limits": "Literal decode and connectivity support source integrity only; neither proves eight readable legs, material quality or artistic acceptance. Provenance declares original authored pixels, no failed-image crop/downscale/tracing; reviewer did not forensically reconstruct creative authorship."
+    },
+    "required_actual_scene_checks": [
+      "Test only this body on the existing forest_thread_spider/forest_bible_weaver consumer under the current freeze/engine lease rules; retain web lines, telegraphs, timings, collision and all other actors.",
+      "Inspect native game-scale body in both dark tree/cavity and brighter silhouette backgrounds: all leg branches/attachment should remain readable without turning the black-brown legs into bright decoration.",
+      "Check abdomen silver/ivory remains a silk sac with bell silhouette, not a bright metal triangle; compare its contrast/facets with actual shared courier/terrain.",
+      "Check drawing scale, body/eye anchoring and visible body-to-existing strand attachment; no source candidate approval implies animation/state, danger clarity or Motor proof.",
+      "If legs disappear or the body reads as a seed/pod in the real game, stop this candidate at REWORK; do not expand across ecology or imply a universal manual-bitmap production rule."
+    ],
+    "source_files": {
+      "spider.native.png": "f6571253a612f13abafe3452fbdb1709cb8004cb978c052bad3709ab473e2d32",
+      "spider.native.16x.png": "8be0492d443a1b5f13ff640f3a3eca896f51a659727f250c8aea1b995de42007",
+      "native-shared-comparison.png": "08e73ba30ee0324cdcabda98c4c6798f63620b6145bf3d9c7a0bd99a583e46bd",
+      "spider-authored.rows": "7205712cb4b339a2cb31053c05690c01058e5aa1a0fd761405093aa67b3f98df",
+      "spider.palette.json": "ef7c4f8195b47da4d740b092a8803f3a6555147901889c18841dc1c2379a5440",
+      "provenance.json": "f1b0cfed41f0aab9beaa28387e9c97df42c8e7b5f43e801e5c52a79050e2a3a4"
+    },
+    "renderer_modified_by_reviewer": false,
+    "production_edits": false,
+    "engine_run": false,
+    "candidate_png_edits": false,
+    "whole_region_pass": false,
+    "user_aesthetic_acceptance": false,
+    "limits": [
+      "Contact board is a composition, not a Godot capture.",
+      "No actual scene, animation, silk timing, danger, physics, GUI, audio, performance or device acceptance.",
+      "Old v3 failure and old workflow review remain unchanged."
+    ]
+  },
+  "actual_runtime_validation": "UNVERIFIED; root owns parsing and native capture; no engine launched by art task",
+  "main_assets_manifest_registration_by_root": {
+    "id": "forest_bible_v2.native.weaver_silk_bell_v4",
+    "path": "assets/forest_bible_v2/native/weaver_silk_bell_v4.png",
+    "width": 32,
+    "height": 32,
+    "sha256": "f6571253a612f13abafe3452fbdb1709cb8004cb978c052bad3709ab473e2d32",
+    "generation": "ai_authored_literal_native_palette_bitmap",
+    "scope": "v15 ThreadSpider/Weaver body candidate only; one Godot composition pending",
+    "source_record": "assets/forest_bible_v2/manifest.json"
+  },
+  "not_changed": [
+    "assets/manifest.json",
+    "scripts/presentation/forest_bible_presentation.gd",
+    "scripts/enemies/forest_depth_enemy_presentation.gd",
+    "scripts/enemies/forest_bible_weaver_behavior.gd",
+    "all physics, collision, damage, RNG and save code"
+  ],
+  "historical_image_tool_call_totals": {
+    "calls": 10,
+    "seconds": 484.925,
+    "new_calls_this_integration": 0
+  }
+}

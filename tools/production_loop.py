@@ -100,8 +100,64 @@ def validate(m):
         done.add(t["id"])
 
 
+def shared_style_input(task):
+    if not task.get("region_bible") and not task.get("preproduction_only"):
+        return None  # Unrelated physics, global actions and ordinary docs stay outside this art workflow.
+    from region_creative_direction import supplemental_authority
+    authority = supplemental_authority({}, task.get("region_id"), ROOT)
+    bible = task.get("region_bible", {})
+    expected = ({"path":bible.get("supplemental_authority_path"),"sha256":bible.get("supplemental_authority_sha256")}
+                if bible else task.get("shared_style_authority"))
+    if expected != {"path":authority["path"],"sha256":authority["sha256"]}:
+        raise ValueError("Shared style authority binding changed or missing; impact analysis/rebind and cross-region golden revalidation required")
+    return authority
+
+
+def region_bible_input(task):
+    """The same upstream contract applies to routed and hand-written region work."""
+    from region_creative_direction import validate_bible_binding, supplemental_authority
+    direction = task.get("creative_direction", {})
+    proof = task.get("region_proof", {})
+    ref = task.get("region_bible")
+    identities = (task.get("region_id"),
+                direction.get("region_id") if isinstance(direction, dict) else None,
+                proof.get("region_id") if isinstance(proof, dict) else None,
+                ref.get("region_id") if isinstance(ref, dict) else None)
+    if any(value is not None and (not isinstance(value, str) or not value.strip()) for value in identities):
+        raise ValueError("Region identities must be nonempty strings")
+    declared = {value for value in identities if value is not None}
+    if task.get("preproduction_only") is True:
+        paths = task.get("allowed_paths", [])
+        if (task.get("creative_direction") or ref
+                or task.get("required_gates") != ["G0"] or task.get("completion") != "stage"
+                or not paths or any(not path.startswith("docs/") for path in paths)):
+            raise ValueError("Proposed Bible preproduction grants document-only G0 scope; no production lease")
+        shared_style_input(task)
+        return None
+    from level_region_context import region_write_scope, resolve_region_id
+    scope = region_write_scope(task.get("allowed_paths", []), root=ROOT)
+    if (ROOT / "docs/world_regions.json").is_file():
+        named = resolve_region_id(task.get("goal", ""), root=ROOT)
+        if named:
+            declared.add(named)
+    regions = declared | set(scope["region_ids"])
+    if len(regions) > 1:
+        raise ValueError("Ambiguous/cross-region task write scope; split tasks and bind each region Bible: " + ", ".join(sorted(regions)))
+    region = next(iter(regions), None)
+    if region is None and scope["unresolved_production_paths"]:
+        raise ValueError("Regional production write scope requires explicit region identity and complete region_bible binding: "
+                         + ", ".join(scope["unresolved_production_paths"]))
+    if region is None and ref is None:
+        return None  # Unrelated process/small-fix work retains its existing contract.
+    bible, binding = validate_bible_binding(ref, region, root=ROOT)
+    return {"binding": binding, "content": (ROOT / binding["path"]).read_bytes().decode("utf-8"),
+            "music_status": bible["music_status"], "supplemental_authority": supplemental_authority(bible, binding["region_id"], ROOT),
+            "applicable_sections": "Full original Bible; each requirement must map section -> actual consumer/source/version -> evidence IDs -> technical/visual/audio/device status separately"}
+
+
 def creative_direction_input(task):
     """Load the selected, version-bound creative authority; never imply user approval."""
+    region_bible_input(task)
     if "creative_direction" not in task:
         return None
     ref = task["creative_direction"]
@@ -127,6 +183,8 @@ def creative_direction_input(task):
     # Recheck authority bytes on every preflight and on both sides of worker calls.
     from region_creative_direction import load_direction
     loaded, bound = load_direction(ref["path"], ref["region_id"], root=ROOT)
+    if task.get("region_bible") and loaded.get("region_bible") != task["region_bible"]:
+        raise ValueError("Creative direction and task must bind the same current Bible")
     if bound != {**ref, "path": Path(ref["path"]).as_posix()} or loaded != data:
         raise ValueError("Creative direction changed during complete authority validation")
     return {"path": ref["path"], "sha256": ref["sha256"], "content": loaded}
@@ -162,7 +220,19 @@ def spatial_experiment_input(task):
 
 def bound_source_inputs(task):
     sources = [value for value in (creative_direction_input(task), spatial_experiment_input(task)) if value]
-    return [{key: source[key] for key in ("path", "sha256")} for source in sources]
+    result = [{key: source[key] for key in ("path", "sha256")} for source in sources]
+    bible = region_bible_input(task)
+    if bible:
+        ref = bible["binding"]
+        result.extend([{"path": ref["registry_path"], "sha256": ref["registry_sha256"]},
+                       {"path": ref["path"], "sha256": ref["sha256"]},
+                       {"path": ref["selection_evidence_path"], "sha256": ref["selection_evidence_sha256"]}])
+    supplement = bible.get("supplemental_authority") if bible else shared_style_input(task)
+    if supplement:
+        result.append({"path":supplement["path"],"sha256":supplement["sha256"]})
+        result.extend({"path":row["path"],"sha256":row["sha256"]}
+                      for row in supplement["content"]["runtime_reference"]["references"])
+    return result
 
 
 def feedback_context(task, dependencies, history):
@@ -457,8 +527,17 @@ def prepare_call(task, mission, role, folder, feedback, *, check_contracts=None)
     skill_files = [quality.local_file(ROOT, f".agents/skills/{s}/SKILL.md") for s in skill_names]
     direction = creative_direction_input(task)
     experiment = spatial_experiment_input(task)
+    bible = region_bible_input(task)
     direction_text = ("\nVersioned selected creative authority (all specialties must explain contribution, collaboration, conflicts and live validation): "
                       + json.dumps(direction, ensure_ascii=False) + "\n") if direction else ""
+    if bible:
+        direction_text += ("\nFull original selected region Bible (read in full, preserve section requirements):\n"
+                           + bible["content"] + "\n" + bible["applicable_sections"]
+                           + "\nBGM deferred_user_supplied: do not generate or replace BGM. SFX and event-bound ambient animation/VFX are authorized.\n")
+    style = bible.get("supplemental_authority") if bible else shared_style_input(task)
+    if style:
+        direction_text += ("\nLatest user style-continuity authority and actual shared Plains runtime reference files (full SHA; read the listed consumers and view the source PNG/atlas at native scale):\n"
+                           + json.dumps(style, ensure_ascii=False) + "\n")
     if experiment:
         direction_text += "\nFrozen playable spatial experiment and exact file lease: " + json.dumps(experiment, ensure_ascii=False) + "\n"
     skills = "\n\n".join(f"Skill source: {p.relative_to(ROOT)}\n{p.read_text()}" for p in skill_files)
@@ -497,7 +576,7 @@ def invoke_host(task, mission, role, folder, feedback):
                "resolved_checks": contracts,
                "skills": [{"path": str(p.relative_to(ROOT)), "sha256": hashlib.sha256(p.read_bytes()).hexdigest()} for p in skill_files],
                "expires_at": time.time() + mission["call_timeout_seconds"]}
-    if task.get("creative_direction"):
+    if task.get("creative_direction") or task.get("region_bible") or task.get("shared_style_authority"):
         direction = creative_direction_input(task)
         request["source_inputs"] = bound_source_inputs(task)
     request["request_hash"] = digest(request)
@@ -589,7 +668,7 @@ def invoke(task, mission, role, folder, feedback):
                                           "seconds": time.monotonic()-start, "kind": "actual_codex_exec",
                                           "role": role, "timed_out": timed_out, "launch_error": launch_error,
                                           "skills": [{"path": str(p.relative_to(ROOT)), "sha256": hashlib.sha256(p.read_bytes()).hexdigest()} for p in skill_files]}
-        if task.get("creative_direction"):
+        if task.get("creative_direction") or task.get("region_bible") or task.get("shared_style_authority"):
             metadata["source_inputs"] = bound_source_inputs(task)
         events = []
         if (folder / "events.jsonl").exists():
@@ -733,7 +812,7 @@ def collect_completed_review(mission_path, folder, worktree, controller_pid):
             if "resolved_checks" in request and request["resolved_checks"] != resolved_check_contracts(task):
                 raise ValueError("Current review selected check command contract changed")
             direction = creative_direction_input(task)
-            expected_inputs = bound_source_inputs(task) if direction else None
+            expected_inputs = bound_source_inputs(task) if direction or task.get("region_bible") or task.get("shared_style_authority") else None
             for source in expected_inputs or []:
                 source_path = target / source["path"]
                 frozen[source_path] = source_path.read_bytes()
@@ -1438,11 +1517,45 @@ def native_import_preflight(folder):
     return record
 
 
+def mission_bible_preflight(m):
+    """Bind region intent even when a handwritten task omits the region name."""
+    from region_creative_direction import validate_bible_binding
+    region = m.get("preparation", {}).get("region_context", {}).get("region_id")
+    intent_error = None
+    if region is None and (ROOT / "docs/world_regions.json").is_file():
+        from level_region_context import resolve_region_id
+        try:
+            region = resolve_region_id(m.get("objective", ""), root=ROOT)
+        except ValueError as error:
+            intent_error = str(error)
+    errors = {}
+    for task in m["tasks"]:
+        try:
+            if intent_error:
+                raise ValueError(intent_error + "; split ambiguous region missions before production")
+            region_bible_input(task)
+            if region and task.get("preproduction_only") is not True:
+                validate_bible_binding(task.get("region_bible"), region, root=ROOT)
+        except (ValueError, OSError, TypeError) as error:
+            errors[task["id"]] = {"status": "blocked", "rounds": 0, "history": [],
+                "input_preflight": {"status": "blocked", "uncertain_inputs": [{"reason": "region_bible_invalid", "error": str(error)}]}}
+    return errors
+
+
 def _run_locked(m, folder, worker, *, recover_interrupted=False, stop_after_phase=None):
     if stop_after_phase not in {None, "implement", "checks"}:
         raise ValueError("stop_after_phase must be implement or checks")
     state_path = folder / "state.json"
     imported = None
+    bible_errors = mission_bible_preflight(m)
+    if bible_errors:
+        if state_path.exists():
+            raise ValueError("Restored Bible source/binding changed; preserve checkpoint, perform impact analysis and independent review/rebind: " + json.dumps(bible_errors))
+        state = {"schema_version": 1, "mission_hash": digest(m), "source_hash": None,
+                 "calls": 0, "tasks": bible_errors, "status": "blocked", "worker_mode": worker.__name__,
+                 "content_complete": False, "region_bible_blocked": True}
+        save(state_path, state)
+        return state
     if m.get("native_import_preflight") and not state_path.exists():
         imported = native_import_preflight(folder)
         if imported["status"] != "passed":
@@ -1569,6 +1682,9 @@ def _run_locked(m, folder, worker, *, recover_interrupted=False, stop_after_phas
                     changed = [p for p in set(before) | set(after) if before.get(p) != after.get(p)]
                     if not task.get("read_only") and any(not any(p == a or (a.endswith("/") and p.startswith(a)) for a in allowed) for p in changed):
                         raise RuntimeError("Worker modified paths outside task contract; no automatic rollback")
+                    if changed and not task.get("read_only"):
+                        changed_scope = {**task, "allowed_paths": changed}
+                        region_bible_input(changed_scope)
                     validate_result(result, "implement")
                     state["source_hash"] = digest(after)
                     round_record["roles"]["implement"] = result

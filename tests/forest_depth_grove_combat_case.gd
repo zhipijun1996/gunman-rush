@@ -23,8 +23,11 @@ var firing_support := ""
 var flank_side := 0.0
 var flank_crossed := false
 
+func supports_layout(layout: String) -> bool:
+	return layout in ["forest-expedition-airborne-v11","forest-woven-trunk-v12","forest-interwoven-canopy-v13","forest-fruit-routes-v14"]
+
 func drive(trace: Node,leg: Dictionary) -> bool:
-	if trace.manifest.get("layout_version","") not in ["forest-expedition-airborne-v11","forest-woven-trunk-v12","forest-interwoven-canopy-v13","forest-fruit-routes-v14"]:return false
+	if not supports_layout(str(trace.manifest.get("layout_version",""))):return false
 	if state.is_empty():
 		if not _ordinary_ground(trace,leg):return false
 		var destination: Vector2=_destination(trace,leg)

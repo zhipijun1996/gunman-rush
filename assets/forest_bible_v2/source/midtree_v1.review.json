@@ -1,0 +1,26 @@
+{
+  "status": "REWORK",
+  "scope": "production-source candidate, no Godot acceptance",
+  "actual_viewed": [
+    "image_gen return original",
+    "view_image original local file"
+  ],
+  "facts": [
+    "1536x1024 RGBA original",
+    "true empty alpha central hollow at bbox742,362,193,359",
+    "complete root feet visible",
+    "nontrivial-alpha bbox touches top canvas at y0, fails frozen transparent margin requirement",
+    "all solid pixels alpha<=254; semitransparent diagnostic is not alone a GPU defect"
+  ],
+  "AI_visual_judgment": [
+    "strong asymmetric hollow-trunk organic anatomy, correct huge midground use",
+    "tree texture and foliage finer/noisier than requested quiet pixel clusters; simplify during repair",
+    "large lower root arch is open to baseline; does not count as sealed transparent hole, but main trunk has other real apertures"
+  ],
+  "reason_for_edit": "repair top crop/margin and reduce fine texture; do not expand family until golden view",
+  "runtime": "unverified",
+  "independent_review": "unverified",
+  "user_acceptance": "unverified",
+  "device": "unverified",
+  "created_utc": "2026-10-20T17:37:32.109682+00:00"
+}

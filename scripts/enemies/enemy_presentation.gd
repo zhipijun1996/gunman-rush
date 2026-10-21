@@ -63,6 +63,7 @@ func _draw() -> void:
 			var angle := TAU * float(mote) / 6.0
 			draw_circle(Vector2(cos(angle), sin(angle)) * minf(_death_time * 35, 25), 2, Color(0.95, 0.80, 0.48, maxf(0, 1.0 - _death_time * 1.6)))
 
+	if ForestBibleActors.draw_enemy_body(self, actor, _clock): return
 	if actor.definition.aerial:
 		var atlas := preload("res://assets/plains_v4/spatial/actors.png")
 		var tilt := _lean + sin(_clock*2)*.035

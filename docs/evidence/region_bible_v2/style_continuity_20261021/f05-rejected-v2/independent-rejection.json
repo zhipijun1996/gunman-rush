@@ -1,0 +1,94 @@
+{
+  "scope": "Independent actual LOCAL fixture rejection of F05 grounded-v2; not formal-spawn traversal or return-time comparison",
+  "reviewer": "/root/forest_grounded_route_validation",
+  "verdict": "REJECT",
+  "production_source_modified": false,
+  "native_command": "python3 tools/run_forest_bible_world_fixture.py --output build/region_bible_v2/grounded-backbranch-long-counterexample-first --fixture backbranch --return long --seed forest-depth-hollow-00 --map 2",
+  "exit_code": 1,
+  "seconds": 48.63509545099987,
+  "source_stable": true,
+  "source_file_count": 3512,
+  "source_before_equal_after": true,
+  "manifest_hash": "96a99fef4a9a8aa57d89a066af1d1407efbcde1ec68cc2e7e9189cb30d013c95",
+  "backbranch_geometry_version": "forest-bible-backbranch-v2",
+  "completed_legs": 3,
+  "itinerary_legs": 30,
+  "physical_frames": 2077,
+  "failures": [
+    "edge_tick_budget/3/drop_path",
+    "incomplete_fixture_itinerary",
+    "complete_reward_receiver_to_camp_observation_missing",
+    "actual_return_camp_missing"
+  ],
+  "initial_spawn": {
+    "actual_fixture_spawn": [
+      1240.0,
+      1182.0
+    ],
+    "initial_fixture_spawn_override": true,
+    "lifecycle": "actual_App_after_synchronous_stage_assembly_before_first_Motor_step",
+    "motion_steps_before_override": 0,
+    "original_formal_spawn": [
+      -2200.0,
+      1882.0
+    ],
+    "resource_or_health_override": false
+  },
+  "health_values": [
+    5.0
+  ],
+  "motor_step_values": [
+    1
+  ],
+  "actor_epochs": [
+    3
+  ],
+  "stage_epochs": [
+    3
+  ],
+  "player_damage": [],
+  "blocked_edge": "bible_web_to_backbranch",
+  "blocked_leg": 3,
+  "final_center": [
+    1777.99084472656,
+    1301.99829101562
+  ],
+  "final_axis": 1.0,
+  "final_velocity": [
+    0.0,
+    0.0
+  ],
+  "new_actual_solid": [
+    1790,
+    1220,
+    80,
+    100
+  ],
+  "player_half_width": 12,
+  "expected_center_stop_x": 1778,
+  "observed_center_stop_x": 1777.99084472656,
+  "reason": "The actual approach drop cannot continue east through the new grounded root extension. It stalls before reaching F05 entry or reward; this is not a long-return completion.",
+  "reward_receiver_reached": false,
+  "actual_claimed": false,
+  "actual_opened": false,
+  "return_comparison": "UNVERIFIED; receiver_tick=-1 and camp_tick=-1. Raw physical_frame_difference=0 is an invalid/incomplete observation, not zero elapsed return time.",
+  "subsequent_tests_executed": [],
+  "engine_lease": "explicitly released after this failure",
+  "raw_files": [
+    {
+      "path": "build/region_bible_v2/grounded-backbranch-long-counterexample-first/receipt.json",
+      "bytes": 856687,
+      "sha256": "21f570dd1adc3e47a24501994cc7af51886e90658a9865e3a1c3c41578de94ca"
+    },
+    {
+      "path": "build/region_bible_v2/grounded-backbranch-long-counterexample-first/trace.json",
+      "bytes": 12582421,
+      "sha256": "12a731c9c7c2c385cabbf99295b6aefa2c903fab535514f5985c0a6ba4a04625"
+    },
+    {
+      "path": "build/region_bible_v2/grounded-backbranch-long-counterexample-first-outer.log",
+      "bytes": 2736,
+      "sha256": "7360d5e2b2bf86a3971da780552305b5aed9b795452f5be67032e6e9b7589cf1"
+    }
+  ]
+}

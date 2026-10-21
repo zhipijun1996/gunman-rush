@@ -239,10 +239,11 @@ func _emit(kind: String, data: Dictionary) -> void:
 	bell_event.emit(row)
 func _draw() -> void:
 	if config == null: return
-	draw_circle(Vector2.ZERO,config.bell_radius,Color("e4a05e") if _counter_active else Color("8f865f"))
-	draw_arc(Vector2.ZERO,config.bell_radius-4,0,TAU,24,Color("f4dfa0"),3)
-	draw_line(Vector2(-config.bell_radius*.6,7),Vector2(config.bell_radius*.6,7),Color("332f28"),4)
-	draw_circle(Vector2(0,-config.bell_radius+3),5,Color("f4dfa0"))
+	if not ForestBibleActors.draw_mobile_bell(self, config.bell_radius, _counter_active):
+		draw_circle(Vector2.ZERO,config.bell_radius,Color("e4a05e") if _counter_active else Color("8f865f"))
+		draw_arc(Vector2.ZERO,config.bell_radius-4,0,TAU,24,Color("f4dfa0"),3)
+		draw_line(Vector2(-config.bell_radius*.6,7),Vector2(config.bell_radius*.6,7),Color("332f28"),4)
+		draw_circle(Vector2(0,-config.bell_radius+3),5,Color("f4dfa0"))
 	if state != &"held": draw_line(Vector2.ZERO,-velocity.normalized()*40,Color("db9f60"),3)
 	if _escape_active: draw_line(Vector2.ZERO,to_local(_escape_goal),Color("ffc276"),2)
 

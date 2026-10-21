@@ -47,7 +47,7 @@ class RegionContextTests(unittest.TestCase):
         self.assertEqual(context["region_id"], "thorn_forest")
         self.assertEqual(context["design"]["gate"]["alternatives"], [["H"]])
         self.assertIn("不得出现 W/D/U1/U2", context["design"]["optional_gate"]["text"])
-        self.assertEqual(context["implementation"]["formal_region"], "no_formal_consumer_observed")
+        self.assertEqual(context["implementation"]["formal_region"], "consumer_present_in_source")
         self.assertIsNone(context["implementation"]["runtime_available"])
         hook = context["implementation"]["abilities"]["H"]
         self.assertEqual(hook["status"], "grant_handler_present")
@@ -97,6 +97,10 @@ class RegionContextTests(unittest.TestCase):
             target = root / source["path"]
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(ROOT / source["path"], target)
+        style_path = json.loads((ROOT/'docs/creative_direction/bibles/registry.json').read_bytes())['shared_style_authority']['path']
+        supplement = json.loads((ROOT/style_path).read_bytes())
+        for name in [style_path, *[row['path'] for row in supplement['runtime_reference']['references']]]:
+            target = root/name; target.parent.mkdir(parents=True,exist_ok=True); shutil.copyfile(ROOT/name,target)
         return root
 
     def test_document_edits_flow_through_instead_of_a_copied_table(self):

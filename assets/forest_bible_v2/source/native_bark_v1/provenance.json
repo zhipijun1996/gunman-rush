@@ -1,0 +1,50 @@
+{
+  "task_id": "FOREST-BIBLE2-ART",
+  "status": "CANDIDATE_one_formal_sample_pending",
+  "method": "original16x16 I indexed interior; unchanged actual source_regions47 quarter-crop recipe; untouched shared UnderworldTerrain/shader",
+  "original_source": "assets/underworld_plains/terrain/source.png",
+  "original_source_sha256": "a369175ccef5fca5ab363f140252d1f0f38b5eafb5d541605c601ea4ac56f88c",
+  "original_atlas": "assets/underworld_plains/terrain/terrain.png",
+  "original_atlas_sha256": "908a3541feccc0e7abdd629c3a0bb8ce22693e22e89ea153cc7d80a411cbfba9",
+  "original_build": "assets/underworld_plains/terrain/terrain_build.json",
+  "original_build_sha256": "64f0c0fb88271e0e25684c8a4e4099af7135e5001c6604126485c9bb6c511c5d",
+  "authored_I_region_px": [
+    32,
+    16,
+    16,
+    16
+  ],
+  "changed_pixels": 116,
+  "change_bbox": [
+    33,
+    17,
+    47,
+    31
+  ],
+  "full_source_alpha_identical": true,
+  "one_pixel_I_border_and_all_outside_I_unchanged": true,
+  "full_atlas_alpha_identical": true,
+  "original_atlas_recipe_reconstructed_exact": true,
+  "helper": "scripts/presentation/forest_bible_terrain_material.gd",
+  "helper_sha256": "558580be97021269068adfe84843003269b025ef6829babb2eb21286c4315234",
+  "helper_operations": [
+    "validate same dimensions/grid/source0/shared shader before changing consumers",
+    "deep duplicate core TileSet and replace only source0 texture",
+    "duplicate each existing boundary material and replace only source_pixels",
+    "no geometry neighbor corner alpha cell collider or shared-shader change"
+  ],
+  "limits": [
+    "I only; top/side/convex/concave material mothers remain original",
+    "Does not produce organic large roots, branch shoulders, cave silhouettes or solve floating pillars",
+    "Native source view is not formal Godot or independent approval"
+  ],
+  "files": {
+    "source-recheck.original.json": "35f8a37cdde1c5faf33e0a5b628e06ce8d4fda0c7669ad5bee81ca323ca097d8",
+    "bark-atlas47.native.png": "76b94831c662cb0acb13b4c22745f60713809592a96bde1c07cd4995b83d8254",
+    "source-proposal.original.json": "f89ac042f0dd66b1f8c28adf937f8c14ce7217888251bb1ffda8f23302d65c38",
+    "bark-source.native.png": "ba18f6c58da90d68f53fab085238b2ff8e098bb209d28d07abda47a5c60bc279",
+    "build_native.py": "5fc3ecb2dc1c0651f881c1404ebefb41ee44a0088708d5cd472ea1709dde1c20",
+    "interior-bark.rows": "d7e9f53cbbbe989462f171e133095664dbe84599d52128994ce1114ed900ea52"
+  },
+  "new_image_tool_calls": 0
+}

@@ -5,7 +5,18 @@ description: 角色敌人 Boss 机关动作、动画过渡、射击反馈或游�
 
 # animation-vfx
 
+## 当前生产入口：区域圣经先于制作
+
+先读[区域创作入口](../../../docs/creative_direction/README.md)、[Bible注册表](../../../docs/creative_direction/bibles/registry.json)及目标地区完整原文。当前两份Bible由用户直接提供并选择，先完整荆棘森林（含美术），再优化风铃平原；不重新提出2–3个方向。缺Bible时自主编写proposed圣经，只写文档/G0，不制作地图/几何/资产/敌人/Boss；注册并独立审查前production拒绝。
+
+所有地区任务绑定registry与原文的完整SHA、id/version/region、选择依据，原始全文随worker输入；本次BGM由用户后续提供，音效与事件驱动环境动画/VFX可做。发生漂移先停止相关后继，保留旧失败，列旧/新绑定、受影响设计/地形/生态/Boss/美术/动画/音频/消费者及需重验的证据，由独审确认后重绑；不得仅刷新下游SHA。原G0–G5、十一维、全量source snapshot与所有原适用检查继续有效。
+
+
+所有后续region create/optimize及缺Bible的proposed先读[最新两条用户原话和实际共享母版](../../../docs/creative_direction/bibles/style-continuity-20261021-v2.json)。保留正式平原现用Underworld tileset家族的16px/32wu、47邻接/精确边界、光照/描边/材质语言；地区差异来自材料、结构、生态和色域，森林用树皮苔藓荆棘有机轮廓，不独立换项目画风。旧提案/失败实现不自动约束新区域，不等于整体抛弃正在使用的共享家族。worker绑定原话及实际参考完整SHA，漂移阻断并重验；新地区实际跨区黄金像素对照独审后扩产，hash不签视觉。仅用户明确选择新global style时版本化替代，无关物理/global动作/普通文档不新增美术门。
+
 ## 触发与边界
+
+共用角色参考须同时读取 `UnderworldPlayer.gd` 和它直接消费的 `assets/underworld_plains/player_animation/{animation_build.json,run_sheet.png,states_sheet.png}`。当前补充v2把三条实际body依赖一并绑定完整SHA；只冻结脚本会漏掉真实像素/帧锚漂移。沿既有调用前后/恢复守门重验，不扩成递归扫描框架，也不由静态绑定签动作观感。
 
 角色敌人 Boss 机关动作、动画过渡、射击反馈或游戏视听特效工作。 从仓库根目录调用 `$animation-vfx`。使用 [总门槛](../../../docs/development_quality.md)；重要内容由 game-quality-gate 建立一次任务，专业技能补充同一记录，不重复执行共用阶段。
 
@@ -28,6 +39,10 @@ G5：用户评价动作连续性、反馈准确、操作流畅和视听可读性
 使用 [专用模板](../../../docs/templates/animation_vfx_specification.md) 写场景/前置、方法、可观察结果和失败条件。复用真实配置/Definition/架构，禁止重复数值默认值、无消费者框架或为通过测试改基础物理。占位仅限明确标注的原型，不能冒充最终内容。
 
 ## 自动验收
+
+离线 `--fixed-fps` 推进游戏帧，音频backend释放仍按墙钟；等待真实playback弱引用释放时，很多离线帧可能使自主风声反复调度。仅在专门的手动stop/unload fixture隔离自主音源调度，保留独立pause/resume活时钟案例、真实weakref有界释放等待和原12voice门槛；不能停掉生产音频、缩短等待或放宽声音池换通过。
+
+本轮 `build/region_bible_v2/ambience/native-third` 是71断言/5失败，原件保留；隔离手动释放fixture调度后的 `native-fourth` 为73/0、cleanup released=true及listed-source稳定。该Dummy音频局部消费者实证不签听音、正常速度合屏、正式campaign或设备，也不替代root全源守门。
 
 运行 harness art 与相关 gameplay；记录正式输入至视觉/声音事件的实际序列、暂停/慢时/重入反例，对象释放与帧时测量。没有音轨的录像不能证明声音，构建成功不能证明延迟预算。 记录实际命令、环境、退出码、日志和版本；计划命令不算执行。执行 [质量检查](../../../tools/quality.py)；静态检查、运行测试、实际宿主调用分别记证据。
 
@@ -94,3 +109,5 @@ Underworld机关复用同一功能铃图及accepted事件反馈；平台材质�
 正式录制须有界等待真实异步Stage ready与assembly，启动API返回true不代表场景已加载；未实际发射敌弹的窗口必须失败，不能拿目录或摆拍代签远程效果。
 
 连续采证须等待真实异步Stage就绪，初始fixture满足实际AI激活/LOS/支撑；用原Input或Router驱动并标明，反冲补偿不能改位置/AI/TTL。受伤进入、命中点残影、安全点淡入、身体hurt退出及闪烁退出分别采实际连续像素。有声轨与音量测量不代替听音，软件MovieMaker耗时不代替设备FPS。实例与失败见[本轮实证](../../../docs/underworld_feedback_r3.md)。
+
+历史本轮入口原字节与SHA见[迁移索引](../../../docs/archive/skill_history/bible-v2-input/manifest.json)；旧recipe、历史预算和失败只在复现相关来源时读取，不覆盖已选Bible。

@@ -9,10 +9,11 @@ func _draw() -> void:
 	var color:=Color("b3ca74")
 	if behavior!=null and behavior.state==&"telegraph":color=Color("f3c365")
 	if behavior!=null and behavior.state==&"blocked":color=Color("aa7272")
-	draw_rect(Rect2(-14,-16,28,32),color)
-	draw_line(Vector2(-20,-10),Vector2(-7,-1),Color("536f58"),4)
-	draw_line(Vector2(20,-10),Vector2(7,-1),Color("536f58"),4)
-	draw_circle(Vector2(-5,-5),2,Color("243a32"));draw_circle(Vector2(5,-5),2,Color("243a32"))
+	if not ForestBibleActors.draw_enemy_body(self, actor):
+		draw_rect(Rect2(-14,-16,28,32),color)
+		draw_line(Vector2(-20,-10),Vector2(-7,-1),Color("536f58"),4)
+		draw_line(Vector2(20,-10),Vector2(7,-1),Color("536f58"),4)
+		draw_circle(Vector2(-5,-5),2,Color("243a32"));draw_circle(Vector2(5,-5),2,Color("243a32"))
 	if behavior!=null and behavior.state==&"telegraph" and behavior.committed_shore>=0:
 		var goal: Vector2=to_local(behavior.shores[behavior.committed_shore].position)
 		draw_line(Vector2.ZERO,goal,Color(1,.75,.3,.5),2,true)

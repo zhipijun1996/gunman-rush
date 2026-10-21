@@ -396,82 +396,31 @@ def route_request(request, mode=None, phase="auto", direction=None, spatial_expe
     from level_region_context import resolve_region_id
     from region_creative_direction import load_direction
     region_id = resolve_region_id(request)
-    # Surface treatments retain their frozen geometry lease. Explicit joint
-    # landform work uses this same production loop with a finite source lease.
-    visual_words = re.search(r"美术|画面|视觉|调色|纹理|\bart\b|visual|palette|texture", request, re.I)
-    surface_only = re.search(r"调色|换纹理|更换纹理|贴图|palette|retexture", request, re.I)
-    protected_change = re.search(r"解锁|新机制|武器规则|能力规则|物理参数", request, re.I)
-    joint_art = joint_landform_request(request, region_id)
-    art_improvement = (region_id == "windchime_plains" and not protected_change
-        and re.search(r"优化|改善|改进|制作|重做|绘制|设计|improve|optimi[sz]e|create|design|retexture", request, re.I)
-        and visual_words
-        and (not re.search(r"玩法|碰撞|物理", request) or surface_only))
-    if (art_improvement or joint_art) and mode is None and phase == "auto" and direction is None and spatial_experiment is None:
-        from visual_director import route as art_route
-        task_id = "visual-windchime-plains-" + hashlib.sha256(request.encode()).hexdigest()[:8]
-        quality_record = "docs/quality/records/" + task_id + "-golden.json"
-        allowed_paths = ["scripts/art/", "assets/visual_development/", "resources/visual_development/",
-             "tools/visual_director.py", "tools/level_formal_capture.gd",
-             "tools/plains_environment_preview.gd", "tools/plains_environment_capture.gd",
-             "tests/plains_environment_trace.gd", "docs/quality/records/",
-             "tools/plains_places_preview.gd", "tools/plains_places_capture.gd",
-             "tests/plains_places_trace.gd", "tests/plains_places_plan_runner.gd",
-             "tools/plains_regional_art_preview.gd", "tools/plains_regional_art_capture.gd",
-             "tools/plains_regional_art_overview.gd", "tools/plains_regional_art_map.py",
-             "tests/plains_regional_art_trace.gd", "tests/plains_regional_art_plan_runner.gd",
-             "docs/evidence/plains_regional/", "docs/evidence/plains_places/", "docs/tasks.md"]
-        if joint_art:
-            allowed_paths = [
-                "scripts/generation/plains_joint_recoil_plan.gd",
-                "scripts/generation/plains_region_generator.gd",
-                "scripts/generation/plains_region_art_plan.gd",
-                "scripts/art/plains_joint_recoil_composer.gd",
-                "shaders/plains_landform_material.gdshader",
-                "resources/visual_development/p1_landform_assets.json",
-                "resources/visual_development/p1_joint_recoil_assets.json",
-                "assets/visual_development/p1_landform/",
-                "tools/plains_joint_recoil_preview.gd", "tools/plains_joint_recoil_capture.gd",
-                "tools/plains_joint_recoil_overview.gd", "tools/run_plains_joint_recoil_tests.py",
-                "tests/plains_joint_recoil_trace.gd", "tests/plains_joint_recoil_runner.gd",
-                "tests/plains_joint_recoil_scan.gd",
-                "docs/evidence/plains_landform/", "docs/quality/records/", "docs/tasks.md"]
-        if art_language_request(request, region_id):
-            allowed_paths = ["scripts/generation/plains_art_language.gd",
-                "resources/generation/plains_art_language.json",
-                "scripts/generation/plains_region_generator.gd", "scripts/generation/plains_region_art_plan.gd",
-                "scripts/art/plains_regional_composer.gd", "resources/visual_development/p1_regional_assets.json",
-                "tools/plains_art_language_preview.gd", "tools/run_plains_art_language_tests.py",
-                "tests/plains_art_language_runner.gd", "docs/evidence/plains_art_language/",
-                "docs/quality/records/", "docs/tasks.md"]
-        if world_rebuild_request(request, region_id):
-            task_id = "plains-world-rebuild"
-            quality_record = "docs/quality/records/PLAINS-WORLD-REBUILD-01.json"
-            allowed_paths = ["scripts/generation/plains_world_rebuild.gd",
-                "resources/generation/plains_world_rebuild.json",
-                "scripts/art/plains_world_rebuild_composer.gd", "scripts/demo/plains_world_rebuild_stage.gd",
-                "tools/plains_world_rebuild_preview.gd", "tools/run_plains_world_rebuild_tests.py",
-                "tests/plains_world_rebuild_runner.gd", "assets/visual_development/plains_world_rebuild/",
-                "docs/evidence/plains_world_rebuild/", quality_record, "docs/tasks.md"]
-        plan = art_route(request, task_id, quality_record, allowed_paths)
-        plan["preparation"]["art_scope"] = "source_paint_world_rebuild" if world_rebuild_request(request, region_id) else "pre_embedding_art_language" if art_language_request(request, region_id) else "joint_landform" if joint_art else "surface_only_frozen_geometry"
-        _, binding = load_direction("docs/creative_direction/windchime_plains.json", region_id)
-        plan["native_import_preflight"] = True
-        plan["context_mode"] = "compact"
-        # This is the existing art subtask loop, not a newly bound region
-        # production golden. Carry its authority in the shared preparation;
-        # explicit full-region requests retain all joint G2 requirements below.
-        plan["preparation"]["creative_direction"] = binding
-        for task in plan["tasks"]:
-            task["feedback_context"] = "compact"
-        return plan
+    from region_creative_direction import bind_region_bible, MissingBible
+    bible = bible_binding = None
+    try:
+        bible, bible_binding = bind_region_bible(region_id)
+    except MissingBible:
+        if direction is not None or phase in {"production", "prototype"}:
+            raise ValueError("Region production requires a registered current Bible; author proposed Bible first")
+    if bible is not None and direction is None:
+        direction = bible["direction_path"]
+    # Current creation never calls retired Plains art recipes. Their named
+    # reproduction tools retain their pinned historical inputs independently.
+    if mode is None and bible is not None and not re.search(r"制作|新地区|新区域|创建|create|new biome|new region|优化|改善|改进|审计|无聊|重复|不好看|不流畅|optimi[sz]e|audit|improve", request, re.I):
+        mode = "optimize"
     plan = content_plan(request, mode, "production" if phase in {"auto", "preproduction"} else phase)
     plan["native_import_preflight"] = True
     if spatial_experiment is not None and (direction is None or plan["phase"] != "production"):
         raise ValueError("Spatial experiment requires selected direction and full production plan")
     if direction is not None:
+        if bible_binding is None:
+            raise ValueError("Region production requires a current Bible")
         if region_id is None:
             raise ValueError("Register the region before binding a creative direction")
         data, binding = load_direction(direction, region_id)
+        if data.get("region_bible") != bible_binding:
+            raise ValueError("Selected direction must bind the same current Bible; historical profiles cannot override it")
         if phase == "prototype" and region_id == "thorn_forest":
             for task in plan["tasks"]:
                 task["checks"] = ["forest-current-slice" if c == "forest-h-slice" else c for c in task["checks"]]
@@ -479,6 +428,8 @@ def route_request(request, mode=None, phase="auto", direction=None, spatial_expe
                 task["goal"] += "；使用当前默认短钩索与真实反冲/落地恢复/返回，原历史长钩索仅用于复现；严格退出未过必须blocked。"
                 task["allowed_paths"] += ["scripts/demo/thorn_forest_current_slice.gd", "scripts/demo/thorn_forest_current_slice.gd.uid", "tests/forest_current_slice_runner.gd", "tests/forest_current_slice_runner.gd.uid", "tools/run_forest_current_slice_tests.py"]
         for task in plan["tasks"]:
+            task["region_id"] = region_id
+            task["region_bible"] = bible_binding.copy()
             task["creative_direction"] = binding.copy()
             task["feedback_context"] = "compact"
             task["goal"] += "；逐项交付总谱贡献、协作依赖、新行为/视觉、主题冲突和真实游戏验证；方向不成立RETHINK，不适合候选DISCARD，局部失败REWORK。"
@@ -487,7 +438,7 @@ def route_request(request, mode=None, phase="auto", direction=None, spatial_expe
             golden["skills"] = list(dict.fromkeys(golden["skills"] + ["visual-director", "scene-composer", "encounter-director", "animation-vfx"]))
             golden["required_gates"] = ["G0", "G1", "G2"]
             golden["requires_visual_admission"] = True
-            golden["goal"] += "；只制作第一个统一可玩黄金空间，空间/挑战/遭遇/视觉/动画共同设计。G2截图与正常速度视频必须由独立视觉审查ACCEPT；复用质量卡independent_review证据，并以reviewed_evidence引用本卡G2全部媒体ID。未准入不得第二空间、多Seed或扩产。"
+            golden["goal"] += "；先读取绑定的实际共享母版，在正式平原与目标地区正常比例实际合屏做像素尺度/邻接边界/光照描边材质对照，独立视觉准入前不扩产；hash/metadata不算视觉认可。只制作第一个统一可玩黄金空间，空间/挑战/遭遇/视觉/动画共同设计。G2截图与正常速度视频必须由独立视觉审查ACCEPT；复用质量卡independent_review证据，并以reviewed_evidence引用本卡G2全部媒体ID。未准入不得第二空间、多Seed或扩产。"
             integration = next(task for task in plan["tasks"] if task["id"].endswith("-integration"))
             integration["goal"] += "；仅在首黄金G2与独立视觉实机审查均ACCEPT后才允许第二空间和多Seed推广，不扩产失败母版。"
             if spatial_experiment is not None:
@@ -502,22 +453,27 @@ def route_request(request, mode=None, phase="auto", direction=None, spatial_expe
                         task["allowed_paths"] = list(dict.fromkeys(experiment["allowed_paths"] + [task["quality_record"], "docs/tasks.md"]))
                         task["goal"] += "；按已冻结spatial_experiment真实消费设计并产出golden_manifest，仅改精确写集中的几何/镜头/表现；保留PlayerMotor/武器能力/资源/RNG/保存。"
         plan.update(creative_direction=binding, creative_phase="production", context_mode="compact")
+        plan["region_bible"] = bible_binding.copy()
+        plan["preparation"]["region_bible"] = bible_binding.copy()
+        plan["constraints"].append("BGM deferred_user_supplied; SFX and event-bound ambient animation/VFX authorized")
         plan["preparation"]["creative_selection"] = {"direction_id": data["direction_id"], "acceptance": data["acceptance"]}
         return plan
-    if phase == "prototype":
-        plan["creative_phase"] = "engineering_prototype_only"
-        return plan
+    from region_creative_direction import supplemental_authority
+    style = supplemental_authority({}, region_id)
+    style_ref = {"path":style["path"],"sha256":style["sha256"]}
     identifier = "creative-" + (region_id or "unregistered")
-    target = "docs/creative_direction/" + (region_id or "unregistered") + ".json"
-    task = {"id": identifier, "goal": request + "：先注册本任务/质量记录；读取最新地区设计与实际消费者；提出2–3个在体验、空间、生态/Boss、艺术情绪上实质不同的完整方向，比较原创性、可行性、玩家吸引力及商业展示假设，推荐一个。把版本总谱写入" + target + "，涵盖全屏大形/负空间/层深/动态音画、明确排除、真实可玩切片与跨专业接口。推荐不是用户最终认可；不生成正式地图/资产，不开放地区。",
-            "skills": ["region-creative-director"], "checks": ["creative-direction"],
-            "depends_on": [], "read_only": False, "allowed_paths": ["docs/creative_direction/", "docs/tasks.md", "docs/quality/records/"],
+    target = "docs/creative_direction/bibles/" + (region_id or "unregistered") + "_proposed.md"
+    task = {"id": identifier, "region_id": region_id, "preproduction_only": True, "shared_style_authority": style_ref,
+            "goal": request + "：仅编写该地区proposed区域圣经并注册任务/质量记录；读取世界、能力和实际消费者，明确体验/空间/生态/Boss/视觉/动作音效与排除项；无须先问用户。已有用户选择不得重新提方向。提案经独立G0审查与版本注册后才能绑定production；本任务不制作地图、几何、敌人、Boss、资产或运行代码。目标：" + target,
+            "skills": ["region-creative-director"], "checks": ["docs"],
+            "depends_on": [], "read_only": False, "allowed_paths": ["docs/creative_direction/bibles/", "docs/tasks.md", "docs/quality/records/"],
             "quality_record": "docs/quality/records/" + identifier + ".json", "completion": "stage", "required_gates": ["G0"], "max_calls": 4}
-    plan.update(phase="preproduction", creative_phase="preproduction", tasks=[task],
+    plan["preparation"]["shared_style_authority"] = style_ref
+    plan.update(phase="preproduction", creative_phase="proposed_bible_only", tasks=[task],
                 max_calls=4, max_rounds=2, context_mode="compact", production_plan=plan["tasks"],
-                continuation={"condition": "selected direction passes independent G0 scope review; preserve user approval as unverified",
-                              "command": ["python3", "tools/level_design.py", "route", "--request", request, "--direction", target, "--output", "build/creative_system/production.json"],
-                              "execution": "active host advances this checkpoint using the existing harness; no unattended model service"})
+                continuation={"condition": "proposed Bible independently reviewed and registered with exact source/version/selection scope before production",
+                              "command": ["python3", "tools/level_design.py", "route", "--request", request, "--output", "build/creative_system/production.json"],
+                              "execution": "active host advances this checkpoint using existing harness"})
     return plan
 
 

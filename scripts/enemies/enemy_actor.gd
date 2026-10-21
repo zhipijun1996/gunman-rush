@@ -87,6 +87,7 @@ func bind_encounter(target: PlayerController, policy: FrameDamagePolicy, scope: 
 		&"forest_lantern": attack_behavior = ForestLanternBehavior.new()
 		&"forest_seed_sentry": attack_behavior = ForestSeedSentryBehavior.new()
 		&"forest_thread_spider": attack_behavior = ForestThreadSpiderBehavior.new()
+		&"forest_bible_weaver": attack_behavior = ForestBibleWeaverBehavior.new()
 		&"forest_crossbranch": attack_behavior = ForestCrossbranchBehavior.new()
 		&"forest_bark_beetle": attack_behavior = ForestBarkBeetleBehavior.new()
 		&"forest_swing_pod": attack_behavior = ForestSwingPodBehavior.new()

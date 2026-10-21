@@ -1,0 +1,58 @@
+{
+  "task_id": "FOREST-BIBLE2-ART",
+  "status": "CANDIDATE_source_only_actual_runtime_UNVERIFIED",
+  "source_method": "Original AI-authored literal palette-index rows→native PNG; larger displays sample authored rows only, no edited/resized failed highres image",
+  "native_grid_px": [
+    24,
+    16
+  ],
+  "proposed_source_pixel_wu": 1.5,
+  "proposed_render_rect_wu": [
+    -18,
+    -10.5,
+    36,
+    24
+  ],
+  "source_foot_anchor": [
+    12,
+    15
+  ],
+  "bible_sections": [
+    "§2.1 shared pixel style",
+    "§7 wood armor/moss/short horns/root feet, nativebody only",
+    "Existing ForestBarkDamageable frontal shield and weak rear unchanged"
+  ],
+  "actual_views": [
+    "beetle.native.png",
+    "beetle-source-display-16x.png via view_image"
+  ],
+  "self_review": "First native view self-REWORK: evenly spaced dark bars and gold front plate resembled a crate/helmet; source/recipe/display retained. Second actual16x source view: round moss hump, offset short grain, carved short nose, three brighter root feet and smaller head palette distinguish from silver bell spider. Still one static low-resolution profile; actual facing/shield/grounded foot readability pending.",
+  "limits": [
+    "Collision stays36x24; planned1.5wu native pixels/foot(12,15) maps(0,12)",
+    "Source faces right; runtime must mirror from real brain.direction, never independently predict facing.",
+    "Do not lose existing shield_flash and attack_goal warning consumers; front plated silhouette must agree with actual guarded side.",
+    "Source alpha width28.5wu is slightly narrower than36collision; actual body-contact width must be assessed, no collision shrink allowed to fit art.",
+    "No behavior/drop/health/phase/core change; no new damage affordance invented."
+  ],
+  "shared_RGB_reference_files": {
+    "assets/underworld_plains/actors/root_bell.png": "4033401fc4c452ed5548fc7bb6fc15e3a0bdbaf53e94fc75799d69f9ecc8ab1e",
+    "assets/underworld_plains/actors/bellstrider.png": "8202472e8b2d829d1be88b6019e0a72475421bae4eae0d6e82b54289696d8af5",
+    "assets/underworld_plains/actors/patrol.png": "5944593f501abc6a5972fc28cae1ba9fd0099bc8362b0aac7a9bcc47feee802e",
+    "assets/underworld_plains/actors/charger.png": "a2eb21f7a61385bc2c7e1b5c3f7816342c8f22abdb8f5684715045764d98d7bb"
+  },
+  "production_changes": [],
+  "engine_calls": 0,
+  "image_tool_calls": 0,
+  "files": {
+    "beetle.native.png": "30eaae8869edbc6e4f44d4e4bd1f14008e4e15e60ebcf48438d3999610333c2c",
+    "beetle-source-display-16x.png": "950ed0efbe530d9947117a9f1e35c7cac72cc92f2980cc21ff2c19dc5d5d46e5",
+    "author_bitmap.py": "291734052466c13c1eadd710d3a334d2fdf7c63839f503492ec7b7d63e712676",
+    "beetle-authored.rows": "243060a5036f8674f677e82f2e6d3da32a82dcb20247a07d7c68128a0e280146",
+    "beetle-source-display-4x.png": "8c4635b5c10744534c0e78b4e19f02eb28012d9949e96736482e8e871f199641",
+    "beetle.palette.json": "25c44264aed7201b14676af724f7f5acef5ea52aefcbe27a3afb2af48b9f19f0",
+    "beetle-first-rejected.native.png": "0f4eb681dbbe857ad85013985e83f3eefa4bc8dbbc113cd3286eff33bf7f69a5",
+    "beetle-first-rejected-display16x.png": "3c3b9f635b9f15427e6a70ee44fc0b6bd770a6d5d75631509b3c7190e3345c53",
+    "first-review.json": "fc6d02f15a75e285997037083491759517da64d0f0e56d03b633ff788d09c70c",
+    "author_bitmap.first.py.source.txt": "a9dbd1bbc5691a3adcc5366ad05871aca939b25d9dc3fdbee201ca26351ceac8"
+  }
+}
