@@ -2303,7 +2303,7 @@ func _bind_forest_discoveries() -> bool:
 	if not stage is ThornForestRegionStage: return true
 	var forest := stage as ThornForestRegionStage
 	if ForestBiblePresentation.enabled(forest.generated.manifest):
-		ForestBibleActors.install(forest)
+		ForestBibleActors.install(forest, forest.generated.manifest, forest.enemies, forest.enemy_manifest)
 		forest.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		forest.assembler.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 		forest.ambience = ForestBibleAmbience.new()

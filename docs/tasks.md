@@ -523,6 +523,7 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 
 | ID | 工作 | 依赖 | 状态 | 证据与范围 |
 | --- | --- | --- | --- | --- |
+| FOREST-CI-COMPAT-01 | 森林兼容字体闭包及共享表现类型依赖修复 | CI-BIBLE-ADMISSION-01 | in_progress | 原537与地形正反例通过；等待新冻结完整CI；[质量记录](quality/records/FOREST-CI-COMPAT-01.json) |
 | AVATAR-SHARED-STYLE-01 | 历史及当前共享角色外观消费者守门与快反馈 | CI-BIBLE-ADMISSION-01 | in_progress | 原25/当前37及原26完整；限定独审不代签整区；[质量记录](quality/records/AVATAR-SHARED-STYLE-01.json) |
 | CI-BIBLE-ADMISSION-01 | PR全范围素材登记、精确源码CI与重复事件修复 | REGION-BIBLE-WORKFLOW-01 | in_progress | 保留真实失败；只签流程/专项测试，不代签整区美术；[质量记录](quality/records/CI-BIBLE-ADMISSION-01.json) |
 | REGION-BIBLE-WORKFLOW-01 | 地区圣经前置、版本绑定与harness/skills流程 | MAIN-PR96-REPAIR-01 | in_progress | 用户所给两Bible为当前方向；缺Bible先文档预制作，生产版本/源码漂移守门；[质量记录](quality/records/REGION-BIBLE-WORKFLOW-01.json) |

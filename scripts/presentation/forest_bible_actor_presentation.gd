@@ -26,19 +26,19 @@ const ECOLOGY_BODIES := {
 }
 const WEAVER_TERMINAL_TINT: Color = Color(0.42, 0.46, 0.43, 1.0)
 
-static func install(stage: Node2D) -> void:
-	if not stage is ThornForestRegionStage: return
-	var forest_stage: ThornForestRegionStage = stage as ThornForestRegionStage
-	if not ForestBiblePresentation.enabled(forest_stage.generated.manifest): return
+static func install(stage: Node2D, manifest: Dictionary, enemies: Array[EnemyMotor], enemy_manifest: Array[Dictionary]) -> void:
+	# The owning App checks the concrete region. Shared enemy presentation is
+	# loaded by DemoStage, so it must not depend back on a derived region class.
+	if not ForestBiblePresentation.enabled(manifest): return
 	stage.set_meta(METADATA, true)
 	stage.set_meta(SHARED_OBJECT_METADATA, true)
 	stage.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 	# Reuse the complete formal renderer only for the already assembled charger.
-	for index: int in forest_stage.enemies.size():
-		var body: EnemyMotor = forest_stage.enemies[index]
+	for index: int in enemies.size():
+		var body: EnemyMotor = enemies[index]
 		var actor := body.get_node_or_null("Actor") as EnemyActor
 		if actor != null and actor.definition != null and actor.definition.behavior_id == &"forest_swing_pod":
-			_install_tether_attachment(forest_stage, index, actor)
+			_install_tether_attachment(stage, manifest, enemy_manifest, index, actor)
 		if actor == null or actor.definition == null or actor.definition.behavior_id != &"charger": continue
 		var old := body.get_node_or_null("Presentation")
 		if old is UnderworldEnemy: continue
@@ -50,12 +50,11 @@ static func install(stage: Node2D) -> void:
 		art.name = "Presentation"
 		body.add_child(art)
 
-static func _install_tether_attachment(stage: ThornForestRegionStage, index: int, actor: EnemyActor) -> void:
+static func _install_tether_attachment(stage: Node2D, manifest: Dictionary, enemy_manifest: Array[Dictionary], index: int, actor: EnemyActor) -> void:
 	# Exact serialized placement/host binding; never search the nearest branch.
-	var manifest: Dictionary = stage.generated.manifest
 	var rows: Array = manifest.get("enemies", [])
-	if index >= stage.enemy_manifest.size() or index >= rows.size(): return
-	var row: Dictionary = stage.enemy_manifest[index]
+	if index >= enemy_manifest.size() or index >= rows.size(): return
+	var row: Dictionary = enemy_manifest[index]
 	if rows[index] != row or row.get("stable_id") != String(actor.definition.stable_id): return
 	var origin_row: Variant = row.get("tether_origin")
 	if not origin_row is Array or origin_row.size() != 2: return

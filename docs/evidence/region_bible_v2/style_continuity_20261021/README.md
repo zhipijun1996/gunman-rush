@@ -43,3 +43,5 @@ v3四例已完整执行并独审：正式图1连接24/24、背枝32/32，LOCAL�
 最新`json-and-default-fresh-third/`含两处真实JSON缺陷原失败、UID首次import漂移整轮失败及第三轮七项fresh全源稳定通过原报告；附36 JSON原生正反例/原campaign56和集成56+36独立产物无损ZIP。它不是完整profile/80/连续AV或最终发布。
 
 后继检查点的音画、80原生/外层中断、缓存存储修复及G0淘汰范围见[后继证据说明](continuation-note.md)；原包与失败逐字保留，不签整区完成。
+
+1248157正式CI的原兼容字体537/2及terrain首parse/240秒超时、同源Web42/docs29/Windows与旧包原三浏览器25/40/8、后继原字体537/0和terrain508/0正例/55/1故意破坏反例，以及字体/去环独审见[专用修复包](ci-runtime-font-repair/README.md)。各原件完整无损整体归档，避免重复大源码清单；124完整CI仍为FAIL，新修复完整CI/新包GUI待，不能用该包签整区艺术、设备、FUN或两个区域完成。

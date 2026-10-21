@@ -1,6 +1,6 @@
 # 当前状态
 
-2026-10-21。分支 `feature/region-bible-v2-forest`；最近已推送检查点 `c305b28904214d574f6f76eb39619583e88702e3`、草稿[PR101](https://github.com/zhipijun1996/gunman-rush/pull/101)，后继修正实际PR门槛与CI身份/去重；准确HEAD以Git为准。原起点R `7be8c340372d1e20db6685cbd6a559191821eb0e`。先完整荆棘森林含美术，再优化风铃平原；SFX/风叶背景动画可做，BGM由用户后引入。当前开发中，未发布新Bible区域，不能把旧main通过代签新内容。
+2026-10-21。分支 `feature/region-bible-v2-forest`；最近已推送检查点 `124815766d1c9fb93224bca05fa2c9f7fe265ac5`、草稿[PR101](https://github.com/zhipijun1996/gunman-rush/pull/101)，后继修正兼容字体和共享表现类型依赖；准确HEAD以Git为准。原起点R `7be8c340372d1e20db6685cbd6a559191821eb0e`。先完整荆棘森林含美术，再优化风铃平原；SFX/风叶背景动画可做，BGM由用户后引入。当前开发中，未发布新Bible区域，不能把旧main通过代签新内容。
 
 ## 权威与当前默认
 
@@ -43,3 +43,7 @@ PR96/99/100已合main；运行P `66e8b912854d6d4cccadb45b9c348a618689f5a1`及档
 最新PR门槛修复：原PRdocs29项全通过，但对main完整范围检查因资产机器登记/一条测试预期独审不足而失败。已补真实28卡/175文件/21runtime来源（许可unknown、视觉unverified），单独静态消费者独审不代签整区；完整baseR检查已实际通过，且以python3 -S证明可前移到依赖安装前。core精确head与自动去重/手动及publish保护修复另独审，新完整CI仍待。详见[原失败与修复](evidence/region_bible_v2/style_continuity_20261021/ci-admission-repair/README.md)。
 
 最新角色消费者迁移：6dba的新版PRdocs、Windows/Web通过，但parallel原generated26在头像旧25/2失败，整轮cancelled/serial未完成。默认v15实际Underworld符合共享风格，仅测试用显式真实v14保原25，再追加当前37/0；原26完整167.457秒通过，独审限定接受并保同版本pin探针边界。快反馈新增原26，不改151字典/full141/旧前缀。一次整枝新图源级STOP，无引擎/生产接入；整体森林大形未完成。详见[本轮原件](evidence/region_bible_v2/style_continuity_20261021/avatar-default-migration/README.md)。后继新CI仍待，原dec80不重绑。
+
+1248157的区域快反馈实际四项fresh全部通过194.624秒；正式CI39571747310整体失败，不能签full141：Web42/Windows通过、docs39571747315实际29/29通过；parallel原generated26通过后region在兼容字体覆盖537/2失败，serial仅9pass后terrain类型依赖解析失败并240秒超时，其余42未执行，软件GPU/四音频未执行。原80不曾在该serial执行。实际CI Web原包指纹c814c267208b，三个原浏览器25/40/8全通过547.026秒及完整22998源/Git稳定，只属于124旧包，不重签后继。
+
+最小修复仅两类：原Noto工具重建兼容windkeeper子集463→499/+36，保旧463度量/轮廓（独审677项）；两新卡触发缺8unique字，当前正式Underworld字体本来已覆盖，不冒称当前UI缺字。公共敌人helper移除具体ForestStage反向类型依赖，由原App已验证入口传manifest/enemies/rows，原宿主/actor绑定校验保留。新WIP原537/0 11.197/90秒、原terrain全地图508/0及故意破坏55/1均通过，整组50.509秒/完整源Git稳定。独审只签字体/去环范围；新完整CI/准确新包GUI仍待。所有实际失败与新收据见[专用证据](evidence/region_bible_v2/style_continuity_20261021/ci-runtime-font-repair/README.md)。Forest整区艺术与Plains仍未完成。

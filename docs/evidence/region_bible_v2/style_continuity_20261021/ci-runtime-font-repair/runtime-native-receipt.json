@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "base_commit": "124815766d1c9fb93224bca05fa2c9f7fe265ac5",
+  "runs": [
+    {
+      "id": "original-font537",
+      "status": "passed",
+      "exit_code": 0,
+      "seconds": 11.19655156135559,
+      "timeout_seconds": 90
+    },
+    {
+      "id": "terrain-family-tests",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792574477.452006,
+      "ended_at_unix": 1792574527.9608955,
+      "duration_seconds": 50.509,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_plains_terrain_family_tests.py",
+        "--all-maps"
+      ],
+      "check_token": "de46a9ccce4240fba59c4f086abb91d5"
+    }
+  ],
+  "scope": "font original537 and original terrain positive/allmaps/negative with unchanged caps; not complete release",
+  "source_stable": true,
+  "seconds": 79.05471324920654
+}

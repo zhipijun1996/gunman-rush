@@ -1,6 +1,6 @@
 # 当前交接
 
-2026-10-21，`feature/region-bible-v2-forest`。最近已推送检查点c305b28904214d574f6f76eb39619583e88702e3，准确HEAD查Git，草稿[PR101](https://github.com/zhipijun1996/gunman-rush/pull/101)后继修实际PR门槛。原起点R7be8c340372d1e20db6685cbd6a559191821eb0e。先完整Forest含美术，再Plains；BGM由用户后引入；不默认合main。先读[当前状态](current_state.md)、[Bible注册表](creative_direction/bibles/registry.json)。
+2026-10-21，`feature/region-bible-v2-forest`。最近已推送检查点124815766d1c9fb93224bca05fa2c9f7fe265ac5，准确HEAD查Git，草稿[PR101](https://github.com/zhipijun1996/gunman-rush/pull/101)后继修兼容字体和共享表现循环依赖。原起点R7be8c340372d1e20db6685cbd6a559191821eb0e。先完整Forest含美术，再Plains；BGM由用户后引入；不默认合main。先读[当前状态](current_state.md)、[Bible注册表](creative_direction/bibles/registry.json)。
 
 ## 已完成及边界
 
@@ -34,3 +34,9 @@ Godot只用`bash tools/godot.sh`的4.7.2.stable.official.ed1daf0bf；engine/impo
 最新CI接续：旧PRdocs39563261916实际29PASS但整轮qualitydiff FAIL；旧core push39563234264 attempt1/2及PR39563261886均cancelled，不签完整。28资产卡与静态guard专项独审补齐后，完整PRbaseR/stdlib-only检查已通过；本轮workflow精确head/并发用途隔离、docs前移门槛须按新冻结SHA正式CI。后续不再仅用--base HEAD冒充完整PR检查。第三80本地raw已从完整committed78ZIP+2raw迁移，80份/tmp恢复件仍在；restore.py见build/region_bible_v2/final-native80-storage-migration-first/，实际释放约888MiB，原收据/日志/失败/媒体全保。
 
 最新接续：6dba CI39566270670已终态cancelled（Windows/Web成功，parallel头像25/2失败，serial未完整）。唯一本轮GDScript测试SHA7a865cda…，实际37/0与原26全167.457秒PASS；旧v14和当前v15分别绑定，不回退运行画风。独审2坏身体反例通过，同v15合法pin探针37/0只作覆盖边界。实际原件/所有22984清单与一次弓背枝源级STOP完整无损tar.xz在avatar-default-migration，按索引可单文件提取。快反馈追加原26；下一步新冻结提交完整CI/实际CI ZIP原三浏览器。当前engine租约空闲，无其他writer；默认v15/当前runtime无修改。
+
+最新覆盖以上待执行状态：1248157区域快反馈四项fresh194.624秒PASS；其正式CI39571747310整体FAIL（parallel兼容字体537/2；serial地形类型依赖先parse失败后240秒超时，9pass/42未执行，没跑到原80，GPU/4音频亦未执行）。Web42/Windows和独立docs29均通过；原包c814c267208b三个原浏览器25/40/8、547.026秒及22998完整源/Git稳定通过，只签旧124 scope。原ZIP仍/tmp保存/API digest绑定，不把旧包当新修复预览。
+
+后继兼容字体用原Noto工具463→499，原463metrics/outlines0diff/+36完整输入（两卡缺8unique）；正式Underworld字体已有字。公共enemy helper与具体ForestStage去环，仅改App实际单call传数据，保原绑定/物理/预算。新WIP原537/0及原terrain508/0正例、55/1负例全部通过50.509秒，完整source/Git相等。原件及独审见ci-runtime-font-repair。下一步更新五记录快照、完整baseR和普通Git证据预检后提交推送；以新SHA跑原完整CI，并验证该新CI唯一实际ZIP原三浏览器及森林8case GUI。当前源写只由root整合文档/证据，engine空闲；不存在其他生产writer。不要以局部复验改签整区艺术或原124完整CI。
+
+旧124浏览器提取物361文件/333,854,434字节已在全部浏览器结束后逐SHA复制到`/tmp/gunman-bible-delivery/served-web-1248157-preserved`，再删除root内可重建的旧提取目录，释放334,749,696字节。原297,996,606字节CI ZIP仍在`/tmp/gunman-bible-delivery/final-1248157/gunman-rush-web.zip`，SHA4fe0514ef1e2f8d4b42d175266b4a9bafe670fd9f6afdd0b2efa724f6e668765；原coordinator receipt不改，实际迁移回执`/tmp/gunman-bible-delivery/web-extraction-relocation-1248157.json`。原浏览器截图/日志仍在build，未删除唯一媒体或证据；需要旧server时从保留目录启动或安全恢复空旧路径。

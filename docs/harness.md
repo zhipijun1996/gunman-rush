@@ -67,6 +67,8 @@ restore_archived_artifact(Path("build/verification/harness/RUN/artifacts/CHECK")
 
 `region-bible-feedback`另包含原`generated-consumers`完整26组，提前覆盖真实Home/地区换装与默认身体所有权，不只验证Bible元数据。原151检查字典、所有profile旧前缀、full141与26组原CLI/各预算不变。历史v14皮肤与当前默认v15分别实测，不能把更换项目画风当修测试；无pin由实际冻结调用与Manifest绑定，已消费请求字段不能单独作动态证明。
 
+修改共享表现的类依赖时，另先运行原`python3 tools/harness.py --check terrain-family-tests --release --jobs 1`：editor import通过仍可能在独立脚本入口遇到循环类型依赖。中文物品/Boss文案变化用原SHA核准母版执行`tools/subset_plains_ui_font.py`，保旧cmap并按工具全部输入记录真实新增数；原`tests/plains_experience_energy_runner.gd`检查兼容子集，不据此推断当前Underworld实际UI缺字。1248157的真实537/2与地形parse后240秒超时分开保留；修复后原537/0、地形508/0正例及55/1故意破坏反例通过，不删断言、不扩大预算，也不代签完整CI。
+
 ## 多包任务执行
 
 `--mission` 模式见 [生产循环](quality/production_loop.md)，默认只计划，`--execute` 才真实调用 Codex Skills。原有 `--profile` 验证模式不变。

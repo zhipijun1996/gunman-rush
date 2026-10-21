@@ -1,0 +1,310 @@
+{
+  "reviewer": "/root/forest_visual_independent_continue",
+  "created_at_utc": "2026-10-21T09:26:28.083185+00:00",
+  "verdict": "ACCEPT_SCOPED_CONCRETE_STAGE_DEPENDENCY_CUT_AND_ORIGINAL_NATIVE_RECHECK",
+  "scope": "2-file concreteStage helper dependency cut and supplied unchanged originalfont537/terrain allmaps positive+negative native evidence. Not fullCIremote/art/route acceptance.",
+  "five_source_bindings": {
+    "scripts/presentation/forest_bible_actor_presentation.gd": {
+      "run_before_sha256": "8ebf32c9a36507175c0f7dd3aba76c5b5888ee11f8f482431f9f6e029d7fb285",
+      "run_after_sha256": "8ebf32c9a36507175c0f7dd3aba76c5b5888ee11f8f482431f9f6e029d7fb285",
+      "native_before_after_same_sha256": "8ebf32c9a36507175c0f7dd3aba76c5b5888ee11f8f482431f9f6e029d7fb285",
+      "current_sha256_at_review": "8ebf32c9a36507175c0f7dd3aba76c5b5888ee11f8f482431f9f6e029d7fb285",
+      "current_matches_reviewed_run": true
+    },
+    "scripts/demo/demo_app.gd": {
+      "run_before_sha256": "455e0c4f651300864dbc4bfa9bec3b43915bbfa2550dcd5f16a836ed9918be62",
+      "run_after_sha256": "455e0c4f651300864dbc4bfa9bec3b43915bbfa2550dcd5f16a836ed9918be62",
+      "native_before_after_same_sha256": "455e0c4f651300864dbc4bfa9bec3b43915bbfa2550dcd5f16a836ed9918be62",
+      "current_sha256_at_review": "455e0c4f651300864dbc4bfa9bec3b43915bbfa2550dcd5f16a836ed9918be62",
+      "current_matches_reviewed_run": true
+    },
+    "assets/fonts/windkeeper_ui.ttf": {
+      "run_before_sha256": "3bf7b6feba4846ffab733aa19650b9be26c4ea469b59e2f8b22a0fa3542034ab",
+      "run_after_sha256": "3bf7b6feba4846ffab733aa19650b9be26c4ea469b59e2f8b22a0fa3542034ab",
+      "native_before_after_same_sha256": "3bf7b6feba4846ffab733aa19650b9be26c4ea469b59e2f8b22a0fa3542034ab",
+      "current_sha256_at_review": "3bf7b6feba4846ffab733aa19650b9be26c4ea469b59e2f8b22a0fa3542034ab",
+      "current_matches_reviewed_run": true
+    },
+    "assets/fonts/README.md": {
+      "run_before_sha256": "0202d2be2f6b0b34f3e223dab00341d80eab32dc9ae48a45488b41a08ea7bc70",
+      "run_after_sha256": "0202d2be2f6b0b34f3e223dab00341d80eab32dc9ae48a45488b41a08ea7bc70",
+      "native_before_after_same_sha256": "0202d2be2f6b0b34f3e223dab00341d80eab32dc9ae48a45488b41a08ea7bc70",
+      "current_sha256_at_review": "0202d2be2f6b0b34f3e223dab00341d80eab32dc9ae48a45488b41a08ea7bc70",
+      "current_matches_reviewed_run": true
+    },
+    "docs/quality/asset_records/forest-reward-ui-font.json": {
+      "run_before_sha256": "7d7d5c1a1b596f7e15f3dec2a94547743d7b5523adbab5d6b6a412960b2570a8",
+      "run_after_sha256": "7d7d5c1a1b596f7e15f3dec2a94547743d7b5523adbab5d6b6a412960b2570a8",
+      "native_before_after_same_sha256": "7d7d5c1a1b596f7e15f3dec2a94547743d7b5523adbab5d6b6a412960b2570a8",
+      "current_sha256_at_review": "7d7d5c1a1b596f7e15f3dec2a94547743d7b5523adbab5d6b6a412960b2570a8",
+      "current_matches_reviewed_run": true
+    }
+  },
+  "binding_note": "All5 exactsource SHAs match both rootcomplete before/after snapshots and actualterrain innerbefore/after inventory. Laterdocs/skills/evidence metadata changes do not retroactively change this tested closure.",
+  "diff_checks": {
+    "helper_exactly_original_after_reversing_only_declared_signature_dataflow_and2comments": true,
+    "demoapp_exactly_original_except_one_installcall_arguments": true,
+    "helper_concreteThornStage_references_removed": true,
+    "caller_original_is_as_guard_preserved": true,
+    "only_install_caller": "DemoApp._bind_forest_discoveries existingForestBiblePresentation.enabled branch",
+    "data_from_actual_guarded_stage": "forest.generated.manifest/forest.enemies/forest.enemy_manifest",
+    "all_tether_row_index_stableid_host_rect_origin_metadata_checks_preserved": true,
+    "all_nativebody_draw_code_and_bossbranches_byte_preserved": true,
+    "no_Variantduck_DTO_warming_preload_cache_or_budget_change": true,
+    "diff": "reviewed-two-file.diff",
+    "diff_sha256": "27510e6eaa58ed659cc51df92695c757605d7023562e09d9305dd3121817c499"
+  },
+  "native_evidence": {
+    "root_receipt": "build/region_bible_v2/ci-runtime-font-repair-first/receipt.json",
+    "root_receipt_sha256": "342a8f6459a7e2e622dde7a4ee831f5c463dfd5796423a46f3eadc81410d75e1",
+    "root_status": "passed",
+    "root_complete_snapshot_count": 22998,
+    "root_before_after_entire_source_andGit_metadata_equal": true,
+    "root_before_sha256": "b13efd3a2acc15f7bd3831c324ddc01290b06f91c9921a202e82d9dbf8dc23b1",
+    "root_after_sha256": "b13efd3a2acc15f7bd3831c324ddc01290b06f91c9921a202e82d9dbf8dc23b1",
+    "terrain_outer_seconds": 50.509,
+    "inner_report": "build/terrain-family-cm_ymbwd/report.json",
+    "inner_report_sha256": "e9d0c79727b7fe7ee55ea7e7c498643a2e89d279a69c83096299756936c24caa",
+    "inner_seconds": 50.29275950699957,
+    "inner_complete_source_count": 22998,
+    "inner_before_after_equal": true,
+    "phases": [
+      {
+        "phase": "cold_import",
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--verbose",
+          "--headless",
+          "--editor",
+          "--path",
+          ".",
+          "--import"
+        ],
+        "timeout_seconds": 180,
+        "exit_code": 0,
+        "status": "exited",
+        "seconds": 6.7416960330010625,
+        "log": "build/terrain-family-cm_ymbwd/cold_import.log"
+      },
+      {
+        "phase": "positive",
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--verbose",
+          "--headless",
+          "--max-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_terrain_family_runner.gd",
+          "--",
+          "--legacy-presentation-fixture=terrain_family",
+          "--output=/workspace/gunman-rush/build/terrain-family-cm_ymbwd/positive.json",
+          "--all-maps"
+        ],
+        "timeout_seconds": 240,
+        "exit_code": 0,
+        "status": "exited",
+        "seconds": 26.68339643100626,
+        "log": "build/terrain-family-cm_ymbwd/positive.log"
+      },
+      {
+        "phase": "negative",
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--verbose",
+          "--headless",
+          "--max-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_terrain_family_runner.gd",
+          "--",
+          "--legacy-presentation-fixture=terrain_family",
+          "--output=/workspace/gunman-rush/build/terrain-family-cm_ymbwd/negative.json",
+          "--prove-failure"
+        ],
+        "timeout_seconds": 240,
+        "exit_code": 1,
+        "status": "exited",
+        "seconds": 6.082441085993196,
+        "log": "build/terrain-family-cm_ymbwd/negative.log"
+      }
+    ],
+    "runs": [
+      {
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--verbose",
+          "--headless",
+          "--max-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_terrain_family_runner.gd",
+          "--",
+          "--legacy-presentation-fixture=terrain_family",
+          "--output=/workspace/gunman-rush/build/terrain-family-cm_ymbwd/positive.json",
+          "--all-maps"
+        ],
+        "exit_code": 0,
+        "negative": false,
+        "passed": true,
+        "assertions": 508,
+        "failures": 0,
+        "capture": "build/terrain-family-cm_ymbwd/positive.json",
+        "log": "build/terrain-family-cm_ymbwd/positive.log",
+        "log_sha256": "51a446ad1560bf51834cd32d8762e4ee89aa4e9ccdbabdc22d0a6f86e667f621"
+      },
+      {
+        "command": [
+          "bash",
+          "tools/godot.sh",
+          "--verbose",
+          "--headless",
+          "--max-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "tests/plains_terrain_family_runner.gd",
+          "--",
+          "--legacy-presentation-fixture=terrain_family",
+          "--output=/workspace/gunman-rush/build/terrain-family-cm_ymbwd/negative.json",
+          "--prove-failure"
+        ],
+        "exit_code": 1,
+        "negative": true,
+        "passed": true,
+        "assertions": 55,
+        "failures": 1,
+        "capture": "build/terrain-family-cm_ymbwd/negative.json",
+        "log": "build/terrain-family-cm_ymbwd/negative.log",
+        "log_sha256": "40231aa6e9a82cdd1af9e8e8c4e04004faaf124f95b4dc2530d3a347cac28cfd"
+      }
+    ],
+    "logs": {
+      "cold_import.log": {
+        "path": "build/terrain-family-cm_ymbwd/cold_import.log",
+        "sha256": "0bf77e72aef0256f493a065acdc592e350f0a6c104c82116b0be46ae781fe7ac",
+        "no_engine_parse_shader_leak_errors": true
+      },
+      "positive.log": {
+        "path": "build/terrain-family-cm_ymbwd/positive.log",
+        "sha256": "51a446ad1560bf51834cd32d8762e4ee89aa4e9ccdbabdc22d0a6f86e667f621",
+        "no_engine_parse_shader_leak_errors": true
+      },
+      "negative.log": {
+        "path": "build/terrain-family-cm_ymbwd/negative.log",
+        "sha256": "40231aa6e9a82cdd1af9e8e8c4e04004faaf124f95b4dc2530d3a347cac28cfd",
+        "no_engine_parse_shader_leak_errors": true
+      }
+    },
+    "positive": {
+      "assertions": 508,
+      "failures": 0,
+      "actual_map_rows": 20,
+      "seed_count": 10,
+      "both_actualmaps_per_seed_verified": true,
+      "capture_sha256": "3e7e5d4bc0f9433428e56392e50428a15b14bdd6b872a2f3f6c2d7668ac8d42f"
+    },
+    "negative": {
+      "assertions": 55,
+      "failures": 1,
+      "intentional_failure": "--prove-failure originalharnessguard",
+      "exit_code": 1,
+      "passed_as_negative": true,
+      "capture_sha256": "5db8c340d8fc6cc5f148d5dba2c1bcf7209fb8124800f9c6336902fd206c7dc0"
+    },
+    "font537": {
+      "log": "build/region_bible_v2/ci-runtime-font-repair-first/font-native.log",
+      "sha256": "982bfea4a0cfb63ca53e8711cc3ce2e01539cc0a76ee7bded95db37075661ac0",
+      "assertions": 537,
+      "failures": 0,
+      "no_parse_shader_engine_leak_errors": true,
+      "owner_run": {
+        "id": "original-font537",
+        "status": "passed",
+        "exit_code": 0,
+        "seconds": 11.19655156135559,
+        "timeout_seconds": 90
+      },
+      "scope": "Observedunchangedoriginaltest result; not fontglyphvisualuserapproval or separatefontsourceprovenanceauthoringreview."
+    }
+  },
+  "protected_original_tests_and_caps": {
+    "tools/run_plains_terrain_family_tests.py": {
+      "sha256": "00d7df3ef026ecf241fe015ec8dda2b7bd2818623dd4301e1cfee4cf214c5c52",
+      "unchanged_from_original_CI_commit": true
+    },
+    "tests/plains_terrain_family_runner.gd": {
+      "sha256": "cd627a62b38af1f5e12c02c7989c31ac7e998db086f18863035340f4b4032619",
+      "unchanged_from_original_CI_commit": true
+    },
+    "tools/harness.py": {
+      "sha256": "29f1503f037ccac6ca624547ca62d1c89bfde21ac4a543338d94fd73105b4c29",
+      "unchanged_from_original_CI_commit": true
+    },
+    "tools/harness/profiles.json": {
+      "sha256": "ae3914ebc6ecb68d1f2dd38309578fa7e6b63105d27bfb66125d4d753621be98",
+      "unchanged_from_original_CI_commit": true
+    },
+    "terrain_registry_contract": {
+      "argv": [
+        "python3",
+        "tools/run_plains_terrain_family_tests.py",
+        "--all-maps"
+      ],
+      "timeout_seconds": 720,
+      "success_pattern": "^TERRAIN FAMILY SUITE: passed",
+      "weight_seconds": 35,
+      "serial": true,
+      "inputs": [
+        "project.godot",
+        "tools/run_plains_terrain_family_tests.py",
+        "tools/production_loop.py",
+        "tests/plains_terrain_family*",
+        "scripts/**",
+        "scenes/**",
+        "resources/**",
+        "config/**",
+        "assets/**",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "assets",
+        "tests"
+      ]
+    }
+  },
+  "first_failure_preserved": {
+    "report": "build/region_bible_v2/ci-124-cycle-independent-first/review.json",
+    "sha256": "db4a7e639d89170c539d29dcd681ae1269c65f1ee24f96b78dd36b0033c67b8e",
+    "original_CI_commit": "124815766d1c9fb93224bca05fa2c9f7fe265ac5",
+    "first_actual_parse": "positive.log525ThornStagecannotresolvePlains; BibleActors/Enemycompilechain; runner128newinvalid; then240stimeout",
+    "interpretation": "Given exactoriginalconsumer now passes after removal ofconcreteStage edge, evidence supports theload-dependency explanation and localfix sufficiency for this originalentry. Do not recast old timeout as capacity/performance success or preemptiveforest80budgetfailure."
+  },
+  "secondary_boss_cycle": {
+    "static_edges": "helperisRootbellGuardianV2 -> guardian._bellGuardianRootBellV2 -> bell._drawhelper",
+    "status": "Unchanged; did not block this actualoriginalterrain import/positive/negative recheck. No proof it causedoriginal124failure or anyotherentryfailure.",
+    "decision": "No preemptivebossedit; retainstaticobservation withoutclaiming allglobalclassentryorders are verified."
+  },
+  "not_claimed": [
+    "NewremoteCIcompletegreen",
+    "Forest80 matrix/fullsoftwareGPU/audio/fullrelease",
+    "AllpossibleGodotglobalclassloadorders",
+    "Changedforestvisualstyling/animation/movie/device/userapproval"
+  ],
+  "production_modified_by_reviewer": false,
+  "Git_mutated_by_reviewer": false,
+  "engine_run_by_reviewer": false,
+  "writes_scope": "build/region_bible_v2/ci-124-cycle-independent-second"
+}
