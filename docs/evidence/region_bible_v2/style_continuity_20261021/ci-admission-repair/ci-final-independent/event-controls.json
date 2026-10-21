@@ -1,0 +1,187 @@
+{
+  "scope": "Independent actual-YAML finite GitHub-expression evaluation; no GitHub run or scheduler execution",
+  "workflow": "build/region_bible_v2/ci-exact-source-independent-second/reviewed-environment.yml",
+  "workflow_sha256": "ced5273889385763b818813c79b4e4ab858801df064825bde7ed3df14a86f1f8",
+  "expression_subset": "Missing context empty; truthy &&/||; case-insensitive string== and concurrency key; contains/format; no network or production-test imports",
+  "checkout_jobs": [
+    "prepare",
+    "core_checks",
+    "core",
+    "windows",
+    "web",
+    "android",
+    "verify_public"
+  ],
+  "cases": [
+    {
+      "case": "push_topic",
+      "group": "godot-godot core-checks-owner/game-refs/heads/topic",
+      "baseline_group": "godot-godot core-push-refs/heads/topic",
+      "checkout_expected": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "publish_eligible": false
+    },
+    {
+      "case": "PR_topic",
+      "group": "godot-godot core-checks-owner/game-refs/heads/topic",
+      "baseline_group": "godot-godot core-pull_request-refs/pull/96/merge",
+      "checkout_expected": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "publish_eligible": false
+    },
+    {
+      "case": "fork_PR_topic",
+      "group": "godot-godot core-checks-fork/game-refs/heads/topic",
+      "baseline_group": "godot-godot core-pull_request-refs/pull/97/merge",
+      "checkout_expected": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "publish_eligible": false
+    },
+    {
+      "case": "manual_topic",
+      "group": "godot-godot core-manual-owner/game-refs/heads/topic",
+      "baseline_group": "godot-godot core-workflow_dispatch-refs/heads/topic",
+      "checkout_expected": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "publish_eligible": true
+    },
+    {
+      "case": "push_other",
+      "group": "godot-godot core-checks-owner/game-refs/heads/other",
+      "baseline_group": "godot-godot core-push-refs/heads/other",
+      "checkout_expected": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "publish_eligible": false
+    },
+    {
+      "case": "push_main",
+      "group": "godot-godot core-publish-push-owner/game-refs/heads/main",
+      "baseline_group": "godot-godot core-push-refs/heads/main",
+      "checkout_expected": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "publish_eligible": true
+    },
+    {
+      "case": "tag_main",
+      "group": "godot-godot core-checks-owner/game-refs/tags/main",
+      "baseline_group": "godot-godot core-push-refs/tags/main",
+      "checkout_expected": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "publish_eligible": false
+    },
+    {
+      "case": "publish_feature_push",
+      "group": "godot-godot core-publish-push-owner/game-refs/heads/feature/complete-actor-actions",
+      "baseline_group": "godot-godot core-push-refs/heads/feature/complete-actor-actions",
+      "checkout_expected": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "publish_eligible": true
+    },
+    {
+      "case": "publish_feature_PR",
+      "group": "godot-godot core-checks-owner/game-refs/heads/feature/complete-actor-actions",
+      "baseline_group": "godot-godot core-pull_request-refs/pull/98/merge",
+      "checkout_expected": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "publish_eligible": false
+    },
+    {
+      "case": "manual_main",
+      "group": "godot-godot core-manual-owner/game-refs/heads/main",
+      "baseline_group": "godot-godot core-workflow_dispatch-refs/heads/main",
+      "checkout_expected": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "publish_eligible": true
+    }
+  ],
+  "checks": {
+    "ordinary_push_PR_dedup": true,
+    "fork_isolated": true,
+    "manual_publish_isolated": true,
+    "other_branch_isolated": true,
+    "tag_main_must_not_cancel_branch_main": true,
+    "auto_publish_feature_must_not_be_cancelled_by_ineligible_PR": true,
+    "all_seven_checkouts_exact_head_or_event_sha": true,
+    "evidence_checks_actual_git_HEAD": true,
+    "all_other_workflow_guards_budgets_lanes_publish_permissions_unchanged": true
+  },
+  "failed_required_controls": [],
+  "additional_independent_pairs": [
+    {
+      "case": "main_publish_push_vs_same_repo_PR_from_main",
+      "a_group": "godot-godot core-publish-push-owner/game-refs/heads/main",
+      "b_group": "godot-godot core-checks-owner/game-refs/heads/main",
+      "expected_same_group": false,
+      "observed_same_group": false,
+      "pass": true,
+      "a_publish_eligible": true,
+      "b_publish_eligible": false
+    },
+    {
+      "case": "manual_main_publish_vs_auto_main_publish",
+      "a_group": "godot-godot core-manual-owner/game-refs/heads/main",
+      "b_group": "godot-godot core-publish-push-owner/game-refs/heads/main",
+      "expected_same_group": false,
+      "observed_same_group": false,
+      "pass": true,
+      "a_publish_eligible": true,
+      "b_publish_eligible": true
+    },
+    {
+      "case": "manual_tag_main_vs_manual_branch_main",
+      "a_group": "godot-godot core-manual-owner/game-refs/tags/main",
+      "b_group": "godot-godot core-manual-owner/game-refs/heads/main",
+      "expected_same_group": false,
+      "observed_same_group": false,
+      "pass": true,
+      "a_publish_eligible": true,
+      "b_publish_eligible": true
+    },
+    {
+      "case": "ordinary_actor_push_vs_actor_PR",
+      "a_group": "godot-godot core-checks-owner/game-refs/heads/feature/complete-actor-actions",
+      "b_group": "godot-godot core-checks-owner/game-refs/heads/feature/complete-actor-actions",
+      "expected_same_group": true,
+      "observed_same_group": true,
+      "pass": true,
+      "a_publish_eligible": false,
+      "b_publish_eligible": false
+    },
+    {
+      "case": "tag_topic_vs_ordinary_topic_branch",
+      "a_group": "godot-godot core-checks-owner/game-refs/tags/topic",
+      "b_group": "godot-godot core-checks-owner/game-refs/heads/topic",
+      "expected_same_group": false,
+      "observed_same_group": false,
+      "pass": true,
+      "a_publish_eligible": false,
+      "b_publish_eligible": false
+    },
+    {
+      "case": "fork_PR_topic_vs_base_PR_topic",
+      "a_group": "godot-godot core-checks-fork/game-refs/heads/topic",
+      "b_group": "godot-godot core-checks-owner/game-refs/heads/topic",
+      "expected_same_group": false,
+      "observed_same_group": false,
+      "pass": true,
+      "a_publish_eligible": false,
+      "b_publish_eligible": false
+    },
+    {
+      "case": "two_fork_PRs_same_branch_different_owner",
+      "a_group": "godot-godot core-checks-fork/game-refs/heads/topic",
+      "b_group": "godot-godot core-checks-another/game-refs/heads/topic",
+      "expected_same_group": false,
+      "observed_same_group": false,
+      "pass": true,
+      "a_publish_eligible": false,
+      "b_publish_eligible": false
+    },
+    {
+      "case": "same_ref_new_sha_still_cancels_prior_check",
+      "a_group": "godot-godot core-checks-owner/game-refs/heads/topic",
+      "b_group": "godot-godot core-checks-owner/game-refs/heads/topic",
+      "expected_same_group": true,
+      "observed_same_group": true,
+      "pass": true,
+      "a_publish_eligible": false,
+      "b_publish_eligible": false
+    }
+  ],
+  "scope_limits": {
+    "case_only_branches": "GitHub group keys are case-insensitive; Topic/topic collide. Existing policy also collided; this patch does not guarantee case-only-branch isolation.",
+    "manual_same_ref_dispatches": "Same-ref manual dispatches still share manual group and can cancel each other, unchanged policy. Manualpublish isolation here is fromautomaticruns and otherfullrefs.",
+    "event_delivery_order": "No real GitHub scheduling/arrival-order/latestSHArun guarantee tested.",
+    "publish_preservation": "Publish-purpose classes intentionally preserve eligiblepushfromPR/checksonlycancellation; no remote deployment claim."
+  }
+}

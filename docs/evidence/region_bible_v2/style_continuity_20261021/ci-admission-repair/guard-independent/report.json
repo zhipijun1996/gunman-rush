@@ -1,0 +1,198 @@
+{
+  "verdict": "ACCEPT_SCOPED",
+  "scope": "Source-observation expectation and existing fixture closure only; no formal admission or art approval.",
+  "reviewer": "/root/bible_test_workflow_independent_review",
+  "baseline": "7be8c34",
+  "head": "c305b28904214d574f6f76eb39619583e88702e3",
+  "unit_suite": {
+    "tests": 10,
+    "passed": true,
+    "log": "unit.log"
+  },
+  "checks": [
+    {
+      "name": "actual_current_consumer_present",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "runtime_not_inferred",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "validation_not_claimed",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "formal_grants_not_inferred",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "candidate_gate_stays_proposed",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "static_context_kind",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "old_expectation_actually_fails",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "missing_consumer_token_rejected:func _select_next_region(",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "missing_consumer_still_no_runtime_admission:func _select_next_region(",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "missing_consumer_token_rejected:func start_debug_region(",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "missing_consumer_still_no_runtime_admission:func start_debug_region(",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "missing_consumer_token_rejected:ThornForestRegionGenerator.new().generate(",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "missing_consumer_still_no_runtime_admission:ThornForestRegionGenerator.new().generate(",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "missing_consumer_token_rejected:ThornForestRegionStage.new()",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "missing_consumer_still_no_runtime_admission:ThornForestRegionStage.new()",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "missing_consumer_token_rejected:ThornForestRegionAssembler",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "missing_consumer_still_no_runtime_admission:ThornForestRegionAssembler",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "all_original_test_names_retained",
+      "passed": true,
+      "actual": [
+        "fixture",
+        "test_all_catalog_regions_resolve_with_cited_inputs",
+        "test_alternative_locks_are_parsed_without_asserting_reachability",
+        "test_conflicting_or_unknown_authorities_fail_closed",
+        "test_document_edits_flow_through_instead_of_a_copied_table",
+        "test_forest_has_only_hook_gate_and_separate_runtime_scope",
+        "test_latest_overrides_and_candidate_status_are_preserved",
+        "test_old_world_runtime_flag_does_not_disable_formal_plains",
+        "test_real_single_weapon_inventory_and_lv3_candidates",
+        "test_request_resolution_is_derived_and_never_defaults_unknown_to_plains",
+        "test_unrecognized_gate_does_not_silently_fall_back_to_plains"
+      ]
+    },
+    {
+      "name": "only_one_assertion_and_actual_style_fixture_closure_delta_vs_R",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_method_AST_unchanged:test_all_catalog_regions_resolve_with_cited_inputs",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_method_AST_unchanged:test_alternative_locks_are_parsed_without_asserting_reachability",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_method_AST_unchanged:test_conflicting_or_unknown_authorities_fail_closed",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_method_AST_unchanged:test_document_edits_flow_through_instead_of_a_copied_table",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_method_AST_unchanged:test_latest_overrides_and_candidate_status_are_preserved",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_method_AST_unchanged:test_old_world_runtime_flag_does_not_disable_formal_plains",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_method_AST_unchanged:test_real_single_weapon_inventory_and_lv3_candidates",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_method_AST_unchanged:test_request_resolution_is_derived_and_never_defaults_unknown_to_plains",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_method_AST_unchanged:test_unrecognized_gate_does_not_silently_fall_back_to_plains",
+      "passed": true,
+      "actual": null
+    }
+  ],
+  "reviewed_files": {
+    "tools/level_region_context.py": {
+      "sha256": "29c95d2dd471f6b82eb1d8b0fa967ee14160314e8d8be133a76743e50a71ddc1",
+      "bytes": 21247
+    },
+    "tests/test_level_region_context.py": {
+      "sha256": "69d46ae0f5ab48bdea4cac243613edac6d225da1e2059efc073d140316223e53",
+      "bytes": 7849
+    },
+    "scripts/demo/demo_app.gd": {
+      "sha256": "2f11f3a3f9ead849f07e3dedf1029c71fae4008ace8d78370a318fe8dd252ef3",
+      "bytes": 124565
+    },
+    "scripts/demo/thorn_forest_region_stage.gd": {
+      "sha256": "b8ad2476a17dd5eba104e6f85698950db9cb5f9a2724f322554ee7fad6c0fb85",
+      "bytes": 18878
+    },
+    "scripts/generation/thorn_forest_region_generator.gd": {
+      "sha256": "a30bdae449a3262314dd4983cd06239309576b9a434dde45ceac36045c27b4a7",
+      "bytes": 7142
+    },
+    "scripts/generation/thorn_forest_region_assembler.gd": {
+      "sha256": "6b8106026ece88d75f869ad164b12d416eb6b5f212b507ad044e20a18bc01146",
+      "bytes": 14476
+    }
+  },
+  "limitations": [
+    "No engine or runtime execution.",
+    "Substring source inventory is not reachability/admission proof.",
+    "No technical_sample, whole art, device, player, or formal-grant approval.",
+    "Region source consumers may exist while whole region remains unverified."
+  ]
+}

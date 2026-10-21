@@ -1,0 +1,533 @@
+name: Godot core
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      deploy_playtest:
+        description: Publish the selected tested ref to the existing public playtest (no PR merge)
+        type: boolean
+        default: false
+      build_android:
+        description: Also export a signed debug APK (web is the normal playtest route)
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: godot-${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select absolute external toolchain path
+        run: echo "GUNMAN_TOOLCHAIN_ROOT=$RUNNER_TEMP/gunman-toolchains" >> "$GITHUB_ENV"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check committed quality evidence before toolchain work
+        run: python3 tools/check_release_evidence.py --commit "$GITHUB_SHA"
+      - name: Check exact portable frozen assets before toolchain work
+        run: python3 tools/test_frozen_assets.py
+      - uses: actions/cache/restore@v4
+        id: installed-toolchain-cache
+        with:
+          path: |
+            ${{ runner.temp }}/gunman-toolchains/godot
+            ${{ runner.temp }}/gunman-toolchains/user-data/godot/export_templates
+          key: godot-standard-4.7.2-v2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'tools/setup_environment.py') }}
+      - uses: actions/cache/restore@v4
+        with:
+          path: ${{ runner.temp }}/gunman-toolchains/downloads
+          key: toolchain-download-${{ runner.os }}-${{ hashFiles('config/toolchain.json') }}-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.job }}
+          restore-keys: toolchain-download-${{ runner.os }}-${{ hashFiles('config/toolchain.json') }}-
+      - name: Exercise real downloader recovery and terminal failures
+        run: python3 tools/test_toolchain_download.py
+      - name: Install verified toolchain (resumable bounded downloads)
+        run: bash tools/cloud_setup.sh --godot-only
+      - uses: actions/cache/save@v4
+        if: success() && steps.installed-toolchain-cache.outputs.cache-hit != 'true'
+        with:
+          path: |
+            ${{ runner.temp }}/gunman-toolchains/godot
+            ${{ runner.temp }}/gunman-toolchains/user-data/godot/export_templates
+          key: godot-standard-4.7.2-v2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'tools/setup_environment.py') }}
+      - uses: actions/cache/save@v4
+        if: failure()
+        with:
+          path: ${{ runner.temp }}/gunman-toolchains/downloads
+          key: toolchain-download-${{ runner.os }}-${{ hashFiles('config/toolchain.json') }}-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.job }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: toolchain-diagnostics-${{ github.job }}-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/gunman-toolchains/downloads/*.attempts.jsonl
+            build/verification/environment/setup-report.json
+            build/verification/release-evidence/*.json
+          if-no-files-found: warn
+          retention-days: 7
+      - run: python3 tools/foundry.py build --count 24 --promote
+      - run: bash tools/godot.sh --headless --path . --script tools/foundry_export_stamp.gd
+      - uses: actions/upload-artifact@v4
+        with:
+          name: validated-foundry
+          path: resources/foundry/
+          if-no-files-found: error
+          retention-days: 7
+  core_checks:
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        lane: [parallel, serial]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select absolute external toolchain path
+        run: echo "GUNMAN_TOOLCHAIN_ROOT=$RUNNER_TEMP/gunman-toolchains" >> "$GITHUB_ENV"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/cache/restore@v4
+        id: installed-toolchain-cache
+        with:
+          path: |
+            ${{ runner.temp }}/gunman-toolchains/godot
+            ${{ runner.temp }}/gunman-toolchains/user-data/godot/export_templates
+          key: godot-standard-4.7.2-v2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'tools/setup_environment.py') }}
+      - uses: actions/cache/restore@v4
+        with:
+          path: ${{ runner.temp }}/gunman-toolchains/downloads
+          key: toolchain-download-${{ runner.os }}-${{ hashFiles('config/toolchain.json') }}-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.job }}-${{ matrix.lane }}
+          restore-keys: toolchain-download-${{ runner.os }}-${{ hashFiles('config/toolchain.json') }}-
+      - name: Install verified toolchain (resumable bounded downloads)
+        run: bash tools/cloud_setup.sh --godot-only
+      - uses: actions/cache/save@v4
+        if: success() && steps.installed-toolchain-cache.outputs.cache-hit != 'true'
+        with:
+          path: |
+            ${{ runner.temp }}/gunman-toolchains/godot
+            ${{ runner.temp }}/gunman-toolchains/user-data/godot/export_templates
+          key: godot-standard-4.7.2-v2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'tools/setup_environment.py') }}
+      - uses: actions/cache/save@v4
+        if: failure()
+        with:
+          path: ${{ runner.temp }}/gunman-toolchains/downloads
+          key: toolchain-download-${{ runner.os }}-${{ hashFiles('config/toolchain.json') }}-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.job }}-${{ matrix.lane }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: toolchain-diagnostics-${{ github.job }}-${{ matrix.lane }}-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/gunman-toolchains/downloads/*.attempts.jsonl
+            build/verification/environment/setup-report.json
+          if-no-files-found: warn
+          retention-days: 7
+      - uses: actions/download-artifact@v4
+        with:
+          name: validated-foundry
+          path: resources/foundry/
+      - name: Install media verification dependencies
+        timeout-minutes: 5
+        run: |
+          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
+            sudo apt-get -o Acquire::Retries=1 update
+            sudo apt-get -o Acquire::Retries=1 install -y --no-install-recommends ffmpeg
+          fi
+          ffmpeg -version
+          ffprobe -version
+      - run: python3 -m pip install --disable-pip-version-check --retries 1 --timeout 20 -r tools/requirements_art.txt
+        timeout-minutes: 2
+      # Each machine runs its exact disjoint lane, with original per-check caps.
+      - run: python3 tools/harness.py --profile gameplay --profile art --jobs 1 --release --lane ${{ matrix.lane }}
+      - name: Collect the unique original phase report and check stdout logs
+        if: always()
+        env:
+          HARNESS_LANE: ${{ matrix.lane }}
+        run: |
+          python3 - <<'PYCODE'
+          import json
+          import os
+          from pathlib import Path
+          import shutil
+          import stat
+          ROOT = Path.cwd().resolve()
+          def no_links(path):
+              path = path if path.is_absolute() else ROOT / path
+              if not path.is_relative_to(ROOT) or '..' in path.relative_to(ROOT).parts:
+                  raise SystemExit('Proof path is outside repository root')
+              current = ROOT
+              for component in path.relative_to(ROOT).parts:
+                  current = current / component
+                  if current.is_symlink():
+                      raise SystemExit('Proof path or repository ancestor is a symlink')
+              return path
+          def regular(path):
+              path = no_links(path)
+              if not stat.S_ISREG(path.lstat().st_mode):
+                  raise SystemExit('Original proof input must be a regular file')
+              return path
+          no_links(Path('build/verification/harness'))
+          reports = list(Path('build/verification/harness').glob('*/report.json'))
+          if len(reports) != 1:
+              raise SystemExit('Expected exactly one original Harness phase report')
+          report = regular(reports[0])
+          proof = no_links(Path('build/verification/ci-lane-proof') / os.environ['HARNESS_LANE'])
+          proof.mkdir(parents=True, exist_ok=False)
+          shutil.copy2(report, proof / 'report.json')
+          seen = set()
+          for check in json.loads(report.read_text())['checks']:
+              relative = Path(check['log'])
+              if relative.is_absolute() or '..' in relative.parts or relative in seen or relative == Path('report.json'):
+                  raise SystemExit('Invalid or repeated original check log path')
+              seen.add(relative)
+              source = regular(report.parent / relative)
+              target = no_links(proof / relative)
+              target.parent.mkdir(parents=True, exist_ok=True)
+              shutil.copy2(source, target)
+          PYCODE
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: harness-phase-proof-${{ matrix.lane }}
+          path: build/verification/ci-lane-proof/${{ matrix.lane }}/
+          if-no-files-found: error
+          retention-days: 7
+      - name: Show failed Harness checks without requiring artifact download
+        if: failure()
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          reports = sorted(Path('build/verification/harness').glob('*/report.json'))
+          if reports:
+              report = reports[-1]
+              for check in json.loads(report.read_text()).get('checks', []):
+                  if check.get('status') not in {'failed', 'timeout'}:
+                      continue
+                  log = (report.parent / check['log']).resolve()
+                  tail = ''
+                  if log.is_relative_to(report.parent.resolve()) and log.is_file():
+                      tail = '\n'.join(log.read_text(errors='replace').splitlines()[-100:])
+                  print('Failed check:', check['id'], check['status'])
+                  print(tail)
+                  detail = check['status'] + ': ' + str(check.get('failure_reason', '')) + '\n' + tail[-5000:]
+                  detail = detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+                  print('::error title=Harness ' + check['id'] + '::' + detail)
+          PY
+      - name: Check actual platform pixels (software GPU, not device approval)
+        if: matrix.lane == 'serial'
+        run: xvfb-run -a python3 tools/run_wood_platform_tests.py --capture
+        env:
+          LIBGL_ALWAYS_SOFTWARE: "1"
+      - if: matrix.lane == 'serial'
+        run: >-
+          python3 tools/run_audio_lifecycle_tests.py
+          --script tests/audio_lifecycle_runner.gd
+          --marker "^AUDIO LIFECYCLE: [1-9][0-9]* assertions, 0 failures$"
+          --output build/verification/audio-lifecycle/service
+      - if: matrix.lane == 'serial'
+        run: >-
+          python3 tools/run_audio_lifecycle_tests.py
+          --script tests/foundry_lab_runner.gd
+          --marker "^FOUNDRY LAB: [1-9][0-9]* assertions, 0 failures$"
+          --output build/verification/audio-lifecycle/lab
+      - if: matrix.lane == 'serial'
+        run: >-
+          python3 tools/run_audio_lifecycle_tests.py
+          --script tests/foundry_touch_runner.gd
+          --marker "^FOUNDRY TOUCH: [1-9][0-9]* assertions, 0 failures$"
+          --output build/verification/audio-lifecycle/touch
+      - if: matrix.lane == 'serial'
+        run: >-
+          python3 tools/run_audio_lifecycle_tests.py
+          --script tests/foundry_feedback_runner.gd
+          --marker "^LAB FEEDBACK: [1-9][0-9]* assertions, 0 failures$"
+          --output build/verification/audio-lifecycle/feedback
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: harness-gameplay-${{ matrix.lane }}
+          path: |
+            build/verification/harness/
+            build/verification/wood-platforms/
+            build/terrain-family-*/
+            build/verification/audio-lifecycle/
+          if-no-files-found: warn
+          retention-days: 7
+  core:
+    needs: [prepare, core_checks]
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Require both matrix lanes to have succeeded
+        env:
+          LANES_RESULT: ${{ needs.core_checks.result }}
+          PREPARE_RESULT: ${{ needs.prepare.result }}
+        run: test "$LANES_RESULT" = success && test "$PREPARE_RESULT" = success
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/download-artifact@v4
+        with:
+          name: validated-foundry
+          path: resources/foundry/
+      - uses: actions/download-artifact@v4
+        with:
+          name: harness-phase-proof-parallel
+          path: build/verification/ci-lane-proof/parallel/
+      - uses: actions/download-artifact@v4
+        with:
+          name: harness-phase-proof-serial
+          path: build/verification/ci-lane-proof/serial/
+      - name: Verify exact same-source complete fresh check coverage and original logs
+        run: |
+          python3 tools/harness.py --verify-lanes build/verification/ci-lane-proof/parallel/report.json build/verification/ci-lane-proof/serial/report.json --profile gameplay --profile art
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          reports = list(Path('build/verification/harness').glob('*/report.json'))
+          if len(reports) != 1:
+              raise SystemExit('Expected exactly one merged Harness report')
+          report = json.loads(reports[0].read_text())
+          if report.get('status') != 'passed' or report.get('partial') is not False or report.get('approval_scope') != 'selected_profiles_technical':
+              raise SystemExit('Merged report did not verify complete technical coverage')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: harness-gameplay-merged
+          path: build/verification/harness/
+          if-no-files-found: warn
+          retention-days: 7
+  windows:
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select absolute external toolchain path
+        run: echo "GUNMAN_TOOLCHAIN_ROOT=$RUNNER_TEMP/gunman-toolchains" >> "$GITHUB_ENV"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/cache/restore@v4
+        id: installed-toolchain-cache
+        with:
+          path: |
+            ${{ runner.temp }}/gunman-toolchains/godot
+            ${{ runner.temp }}/gunman-toolchains/user-data/godot/export_templates
+          key: godot-standard-4.7.2-v2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'tools/setup_environment.py') }}
+      - uses: actions/cache/restore@v4
+        with:
+          path: ${{ runner.temp }}/gunman-toolchains/downloads
+          key: toolchain-download-${{ runner.os }}-${{ hashFiles('config/toolchain.json') }}-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.job }}
+          restore-keys: toolchain-download-${{ runner.os }}-${{ hashFiles('config/toolchain.json') }}-
+      - name: Install verified toolchain (resumable bounded downloads)
+        run: bash tools/cloud_setup.sh --godot-only
+      - uses: actions/cache/save@v4
+        if: success() && steps.installed-toolchain-cache.outputs.cache-hit != 'true'
+        with:
+          path: |
+            ${{ runner.temp }}/gunman-toolchains/godot
+            ${{ runner.temp }}/gunman-toolchains/user-data/godot/export_templates
+          key: godot-standard-4.7.2-v2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'tools/setup_environment.py') }}
+      - uses: actions/cache/save@v4
+        if: failure()
+        with:
+          path: ${{ runner.temp }}/gunman-toolchains/downloads
+          key: toolchain-download-${{ runner.os }}-${{ hashFiles('config/toolchain.json') }}-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.job }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: toolchain-diagnostics-${{ github.job }}-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/gunman-toolchains/downloads/*.attempts.jsonl
+            build/verification/environment/setup-report.json
+          if-no-files-found: warn
+          retention-days: 7
+      - uses: actions/download-artifact@v4
+        with:
+          name: validated-foundry
+          path: resources/foundry/
+      - run: python3 tools/build.py windows
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gunman-rush-windows-debug
+          path: build/windows/
+          if-no-files-found: error
+          retention-days: 7
+  web:
+    outputs:
+      build_id: ${{ steps.fingerprint.outputs.build_id }}
+      source_commit: ${{ steps.fingerprint.outputs.source_commit }}
+    needs: prepare
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select absolute external toolchain path
+        run: echo "GUNMAN_TOOLCHAIN_ROOT=$RUNNER_TEMP/gunman-toolchains" >> "$GITHUB_ENV"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/cache/restore@v4
+        id: installed-toolchain-cache
+        with:
+          path: |
+            ${{ runner.temp }}/gunman-toolchains/godot
+            ${{ runner.temp }}/gunman-toolchains/user-data/godot/export_templates
+          key: godot-standard-4.7.2-v2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'tools/setup_environment.py') }}
+      - uses: actions/cache/restore@v4
+        with:
+          path: ${{ runner.temp }}/gunman-toolchains/downloads
+          key: toolchain-download-${{ runner.os }}-${{ hashFiles('config/toolchain.json') }}-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.job }}
+          restore-keys: toolchain-download-${{ runner.os }}-${{ hashFiles('config/toolchain.json') }}-
+      - name: Install verified toolchain (resumable bounded downloads)
+        run: bash tools/cloud_setup.sh --godot-only
+      - uses: actions/cache/save@v4
+        if: success() && steps.installed-toolchain-cache.outputs.cache-hit != 'true'
+        with:
+          path: |
+            ${{ runner.temp }}/gunman-toolchains/godot
+            ${{ runner.temp }}/gunman-toolchains/user-data/godot/export_templates
+          key: godot-standard-4.7.2-v2-${{ runner.os }}-${{ hashFiles('config/toolchain.json', 'tools/setup_environment.py') }}
+      - uses: actions/cache/save@v4
+        if: failure()
+        with:
+          path: ${{ runner.temp }}/gunman-toolchains/downloads
+          key: toolchain-download-${{ runner.os }}-${{ hashFiles('config/toolchain.json') }}-${{ github.run_id }}-${{ github.run_attempt }}-${{ github.job }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: toolchain-diagnostics-${{ github.job }}-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/gunman-toolchains/downloads/*.attempts.jsonl
+            build/verification/environment/setup-report.json
+          if-no-files-found: warn
+          retention-days: 7
+      - uses: actions/download-artifact@v4
+        with:
+          name: validated-foundry
+          path: resources/foundry/
+      - name: Install media verification dependencies
+        timeout-minutes: 5
+        run: |
+          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null; then
+            sudo apt-get -o Acquire::Retries=1 update
+            sudo apt-get -o Acquire::Retries=1 install -y --no-install-recommends ffmpeg
+          fi
+          ffmpeg -version
+          ffprobe -version
+      - run: python3 -m pip install --disable-pip-version-check --retries 1 --timeout 20 -r tools/requirements_art.txt
+        timeout-minutes: 2
+      - run: python3 tools/harness.py --profile web --release
+      - name: Show failed Harness checks without requiring artifact download
+        if: failure()
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          reports = sorted(Path('build/verification/harness').glob('*/report.json'))
+          if reports:
+              report = reports[-1]
+              for check in json.loads(report.read_text()).get('checks', []):
+                  if check.get('status') not in {'failed', 'timeout'}:
+                      continue
+                  log = (report.parent / check['log']).resolve()
+                  tail = ''
+                  if log.is_relative_to(report.parent.resolve()) and log.is_file():
+                      tail = '\n'.join(log.read_text(errors='replace').splitlines()[-100:])
+                  print('Failed check:', check['id'], check['status'])
+                  print(tail)
+                  detail = check['status'] + ': ' + str(check.get('failure_reason', '')) + '\n' + tail[-5000:]
+                  detail = detail.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+                  print('::error title=Harness ' + check['id'] + '::' + detail)
+          PY
+      - id: fingerprint
+        run: python3 -c "import json, os; d=json.load(open('build/web/build-info.json')); f=open(os.environ['GITHUB_OUTPUT'], 'a'); f.write('build_id='+d['build_id']+'\nsource_commit='+d['source_commit']+'\n')"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: harness-web
+          path: build/verification/harness/
+          if-no-files-found: warn
+          retention-days: 7
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gunman-rush-web-playtest
+          path: build/web/
+          if-no-files-found: error
+          retention-days: 7
+      - uses: actions/upload-pages-artifact@v3
+        if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.deploy_playtest) || (github.event_name == 'push' && github.ref == 'refs/heads/feature/complete-actor-actions' && contains(github.event.head_commit.message, '[publish-playtest]'))
+        with:
+          path: build/web/
+  deploy_web:
+    outputs:
+      page_url: ${{ steps.deployment.outputs.page_url }}
+    needs: [core, windows, web]
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_dispatch' && inputs.deploy_playtest) || (github.event_name == 'push' && github.ref == 'refs/heads/feature/complete-actor-actions' && contains(github.event.head_commit.message, '[publish-playtest]'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: pages-playtest
+      cancel-in-progress: false
+    steps:
+      - name: Deploy the verified playtest branch
+        id: deployment
+        uses: actions/deploy-pages@v4
+  android:
+    needs: [core, windows, web]
+    if: github.event_name == 'workflow_dispatch' && inputs.build_android
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Select absolute external toolchain path
+        run: echo "GUNMAN_TOOLCHAIN_ROOT=$RUNNER_TEMP/gunman-toolchains" >> "$GITHUB_ENV"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: bash tools/cloud_setup.sh --accept-android-licenses
+      - run: python3 tools/build.py android
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gunman-rush-android-debug
+          path: build/android/
+          if-no-files-found: error
+          retention-days: 7
+  verify_public:
+    needs: [deploy_web, web]
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # The public verifier uses only the standard library; skip game/evidence blobs.
+          sparse-checkout: /tools/verify_published_build.py
+          sparse-checkout-cone-mode: false
+      - name: Select absolute external toolchain path
+        run: echo "GUNMAN_TOOLCHAIN_ROOT=$RUNNER_TEMP/gunman-toolchains" >> "$GITHUB_ENV"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify public metadata and pack against the tested export
+        run: python3 tools/verify_published_build.py --url "$PUBLIC_URL" --build-id "$EXPECTED_BUILD" --commit "$EXPECTED_COMMIT"
+        env:
+          PUBLIC_URL: ${{ needs.deploy_web.outputs.page_url }}
+          EXPECTED_BUILD: ${{ needs.web.outputs.build_id }}
+          EXPECTED_COMMIT: ${{ needs.web.outputs.source_commit }}

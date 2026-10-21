@@ -29,6 +29,8 @@ description: 项目归整、冗余清理、分支合并和 Web 交付验证。
 
 发布前运行 `python3 tools/check_release_evidence.py --commit HEAD`：证据路径必须存在于该精确Git提交的普通文件树，不能因本机build尚存而放行。原quality schema/SHA检查继续执行；必要时在无旧build的干净checkout实际复核。实际A3缺9件的失败及无损迁移用于此守门正反例，不改签旧来源或以最终trace覆盖失败原件。
 
+提交PR前还须按该PR实际base完整执行`python3 tools/check_quality_diff.py --base <base-sha>`，不能只用上一笔本地HEAD。family manifest不自动提供`docs/quality/asset_records`的机器登记；真实runtime资产必须有runtime来源，不以offline关联文件覆盖。测试预期随真实消费者变化时，专项独审只签该守门变化，不为通过检查把整区独审维度改成passed。PR默认临时merge提交与分支head不同；选择精确head检出并保持run API、Git、build-info/PCK一致，手动publish的并发租约与自动push/PR分开。
+
 ## 共同创作契约
 
 [预制作→制作→验收及版本总谱](../../../docs/creative_direction/README.md)是共同执行依据。总谱SHA变更须RETHINK并复验；交付写贡献、协作、新行为/视觉、主题冲突和实机验证。REWORK局部修复，DISCARD隔离候选；ACCEPT只限真实已验范围，审美不绕过工程红灯。

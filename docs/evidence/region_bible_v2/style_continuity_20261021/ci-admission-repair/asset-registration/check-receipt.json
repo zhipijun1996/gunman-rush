@@ -1,0 +1,23 @@
+{
+  "scope": "Static asset provenance metadata repair only; no engine or visual acceptance.",
+  "checks": [
+    {
+      "name": "check_quality",
+      "command": "python3 tools/check_quality.py",
+      "chunk_id": "e45988",
+      "wall_time_seconds": 1.902839378,
+      "exit_code": 0,
+      "original_token_count": 25,
+      "output": "PASS: 14 core skills, references, 17 templates, quality records and asset metadata; STATIC ONLY.\n"
+    },
+    {
+      "name": "check_quality_diff",
+      "command": "python3 tools/check_quality_diff.py --base 7be8c340",
+      "chunk_id": "a7ac25",
+      "wall_time_seconds": 3.427081179,
+      "exit_code": 1,
+      "original_token_count": 60,
+      "output": "Test/check deletion or changed guard needs independent review and test_change_justification: tests/test_level_region_context.py; removed guards=['self.assertEqual(context[\"implementation\"][\"formal_region\"], \"no_formal_consumer_observed\")']\n"
+    }
+  ]
+}

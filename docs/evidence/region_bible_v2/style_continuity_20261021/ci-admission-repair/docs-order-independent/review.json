@@ -1,0 +1,46 @@
+{
+  "reviewer": "/root/forest_visual_independent_continue",
+  "created_at_utc": "2026-10-21T07:56:33.177898+00:00",
+  "verdict": "ACCEPT_SCOPED_DOCS_QUALITY_GUARD_EARLY_ORDER_ONLY",
+  "scope": "One unchangedPR-onlyqualitydiff step moved earlier. Not art/fullCIremote approval.",
+  "source_sha256": "13fadcb8baaf8a9562b14b32143c22ecc096c3686d8d01a1ed47d478d670036d",
+  "actual_checks": {
+    "all_step_dicts_exactly_preserved": true,
+    "all_non_order_fields_preserved": true,
+    "quality_immediately_after_setup": true,
+    "quality_before_media_pip_docs_profile": true,
+    "checkout_still_default_PR_merge_fetchdepth0": true,
+    "PR_only_quality_and_actual_PRbase_exact": true
+  },
+  "quality_step": {
+    "name": "Check changed scope and quality declarations",
+    "if": "github.event_name == 'pull_request'",
+    "env": {
+      "QUALITY_BASE": "${{ github.event.pull_request.base.sha }}"
+    },
+    "run": "python3 tools/check_quality_diff.py --base \"$QUALITY_BASE\""
+  },
+  "step_count": 7,
+  "old_quality_position0": 5,
+  "new_quality_position0": 2,
+  "stdlib_import_actual_command": "python3 -B -S tools/check_quality_diff.py --help",
+  "stdlib_import_actual_result": "exit0 argparsehelp; no sitepackages/Pillow/media installed or used by this command. Local quality/check_web_bundle imports inspected and stdlib only.",
+  "reason": "Known provenance/scope failures now stop before costly media install and docs29. Same checks and intended failures remain; no validation bypass.",
+  "unchanged": [
+    "PR merge checkout behavior",
+    "PR-onlyguardif and QUALITY_BASE",
+    "guardargv/stepdict and docsprofile",
+    "concurrency/permissions/upload/timeout/caps",
+    "qualitychecker production code"
+  ],
+  "root_full_base_run": {
+    "reported_command": "python3 -S tools/check_quality_diff.py --base 7be8c340",
+    "log_source": "build/region_bible_v2/root-shoulder-import-first/pr-base-final-stdlib-check-second.log",
+    "log_sha256": "bdda2f140350000997211c2785c63bbc913d1e8ce0d73c224c16ebdf58f9fa62",
+    "log_copy": "root-full-base-stdlib.log",
+    "observed_log_result": "PASS1519files; semantic review still required. Root invocation; reviewer inspected original log, did not rerun completebase."
+  },
+  "production_modified": false,
+  "Git_mutated": false,
+  "engine_or_remoteCI_started": false
+}

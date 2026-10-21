@@ -2,7 +2,7 @@
 
 冻结提交dec23450fb8e4ce6bca5643f1893c4bf91d14386，clean工作树。`20261021T071751.419853Z/report.json`是真正fresh targeted外层passed、exit0、551.426/600秒，整体582.322秒。保原80、双worker、90秒import与固定60；完整source inventory在producer receipt内，不使用报告缺省字段作稳定证明。
 
-该目录逐字节复制原harness产物：78份>=8MiB JSON在`artifacts/forest-depth-region/large-json.zip`，索引保完整原路径/大小/SHA；另外2份小capture仍在原artifact子路径。所有80轨迹完整，不是仅哈希。`portable-index.json`记录目录内原文件完整SHA与字节数，复制不改写原收据中的绝对build路径。原native输出仍在本地；portable验证使用本目录下完整artifact字节。
+该目录逐字节复制原harness产物：78份>=8MiB JSON在`artifacts/forest-depth-region/large-json.zip`，索引保完整原路径/大小/SHA；另外2份小capture仍在原artifact子路径。所有80轨迹完整，不是仅哈希。`portable-index.json`记录目录内原文件完整SHA与字节数，复制不改写原收据中的绝对build路径。原native raw随后按明确授权、完整归档及逐份真实恢复验证作可逆迁移；收据/日志仍在原路径，完整raw恢复件暂存独立/tmp，恢复工具与执行收据见同级ci-admission-repair/storage-migration。portable验证默认使用本目录下完整artifact字节，无需活producer。
 
 `20261021T072801.201543Z`额外通过当前H技术样板三案例和3个SFX字节复现；它不是正式全区域路线/声音感知试听。
 

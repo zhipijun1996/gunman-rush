@@ -1,0 +1,42 @@
+{
+  "scope": "Read-only proposal; no workflow/tool/source/runs changed; no cancel/rerun/dispatch",
+  "head": "c305b28904214d574f6f76eb39619583e88702e3",
+  "source_hashes": {
+    ".github/workflows/environment.yml": "4f75a67906778f4bb1f76b0bde62c5489597bc04a7a6296e744e1a74d155992a",
+    ".github/workflows/docs.yml": "3634f8e5371b48ea33a9b7c8561ef0c3ebe4cf9825f7e753db28c66f5f4ea8d5",
+    "tools/build.py": "b16831b0fa00d329248b73b81e35a78a0b248f78a220e17418f44b25683d9f58",
+    "tools/verify_ci_artifact_browser.py": "503ce5c698e21f9dfd23415fd64cb829944317096d718d4d043d6dcd82271f57",
+    "tools/publish_playtest.py": "e8db8cad6b07a8e92c293906bdfe973d67d8699ea84f48fef823d443a5666bdd",
+    "tests/test_harness.py": "50e34a111c858b4ac79c7f85bd8d958431747300e0748663529dc302b77be7e2",
+    "tools/test_publish_playtest.py": "680e65b76a880d84c4eb869a24518b49dff414594e5e990930a7d84d48ae14bb"
+  },
+  "preferred_scope": {
+    "production_files": 1,
+    "workflow": ".github/workflows/environment.yml",
+    "checkout_steps": 7,
+    "new_exact_head_ref_lines": 7,
+    "preflight_GITHUB_SHA_replacements": 1,
+    "concurrency_group_replacements": 1,
+    "docs_modified": false,
+    "runtime_tools_modified": false,
+    "native_case_or_budget_or_lane_changes": false
+  },
+  "original_guards_to_keep": [
+    "Browser local git HEAD == requested commit == run API head_sha == artifact API workflow_run.head_sha == ZIP build-info.source_commit; run_attempt and unique artifact digest/pack proof",
+    "publish_playtest explicit workflow_dispatch/head_branch/head_sha/runid/attempt and deployed receipt, API SHA, artifact digest/pack guards",
+    "original harness disjoint lanes, source byte inventory, exact report counts and original check budgets",
+    "pages-playtest separate cancel-in-progress:false and actual deploy if predicates, sparse checkout options"
+  ],
+  "docs_decision": "Keep PR synthetic-merge checkout and existing event-isolated concurrency so PR-only qualitydiff cannot be canceled by push docs; all docs29 already covered in core138, not part of the three extra web checks. Optional later push restriction to main can remove duplicate docs without dropping PR qualitydiff.",
+  "independent_measured_clone_load": {
+    "source": "Root read-only git ls-tree -rl HEAD aggregate and actual current prepare checkout observation",
+    "tracked_file_count": 22891,
+    "tracked_tree_bytes": 9104076797,
+    "docs_bytes": 8585548837,
+    "assets_approx_MB": 484,
+    "local_git_approx_GB": 6.9,
+    "actual_prepare_checkout_started_UTC": "2026-10-21 07:38:51",
+    "observed_still_checkout_after_UTC": "2026-10-21 07:41",
+    "interpretation": "Actual checkout bottleneck, not proven terminal failure; tree bytes are not exact compressed network transfer. New local delta pack estimate does not describe clean CI checkout cost. Do not delete/relabel archived evidence."
+  }
+}

@@ -523,6 +523,7 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 
 | ID | 工作 | 依赖 | 状态 | 证据与范围 |
 | --- | --- | --- | --- | --- |
+| CI-BIBLE-ADMISSION-01 | PR全范围素材登记、精确源码CI与重复事件修复 | REGION-BIBLE-WORKFLOW-01 | in_progress | 保留真实失败；只签流程/专项测试，不代签整区美术；[质量记录](quality/records/CI-BIBLE-ADMISSION-01.json) |
 | REGION-BIBLE-WORKFLOW-01 | 地区圣经前置、版本绑定与harness/skills流程 | MAIN-PR96-REPAIR-01 | in_progress | 用户所给两Bible为当前方向；缺Bible先文档预制作，生产版本/源码漂移守门；[质量记录](quality/records/REGION-BIBLE-WORKFLOW-01.json) |
 | FOREST-BIBLE-V2-01 | 按圣经完成荆棘森林空间、完整美术与环境演出 | REGION-BIBLE-WORKFLOW-01 | in_progress | 复用已验生态/Boss/动作，新增真实回路、奖励及森林合屏；[质量记录](quality/records/FOREST-BIBLE-V2-01.json) |
 | PLAINS-BIBLE-V2-01 | 森林后按圣经优化风铃平原 | FOREST-BIBLE-V2-01 | planned | 晨光草石/风车枢纽/反冲探索，BGM待用户后引入；[质量记录](quality/records/PLAINS-BIBLE-V2-01.json) |

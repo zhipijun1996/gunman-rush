@@ -1,0 +1,37 @@
+{
+  "scope": "Pre-unlink exact80 readiness; no deletion authorized or executed",
+  "utc": "2026-10-21T07:43:40.506319+00:00",
+  "restore_index_sha256": "62e6bbcbacc625415d36251bc8d678c5472da183487585a1be684dc5e907236b",
+  "verification_sha256": "0e65925fb4564694125a09171bf2126ee736815a1fd6112487b02ae1e0aeb288",
+  "restore_tool_sha256": "b9c1d5d93e419dc21e5a73ed2baa05e5e03acabb47bc3388dc75d150c8f58db0",
+  "all80_raw_still_present": true,
+  "visible_matching_FDs": [],
+  "inaccessible_non_zombie_processes": [
+    {
+      "pid": 118,
+      "Name": "dockerd",
+      "State": "S (sleeping)",
+      "Uid": "0\t0\t0\t0"
+    },
+    {
+      "pid": 170,
+      "Name": "containerd",
+      "State": "S (sleeping)",
+      "Uid": "0\t0\t0\t0"
+    }
+  ],
+  "FD_scope": "Available snapshot only; recheck after root GO before any unlink; root-owned infrastructure access is limited",
+  "free_bytes": {
+    ".": 283471872,
+    "/tmp": 8490889216
+  },
+  "selected80_raw_allocated_reclaim_budget_bytes": 930996224,
+  "all80_nlink1": true,
+  "new_archive_created": false,
+  "unlink_executed": false,
+  "producer_receipt_SHA256": "3294957b609177b051684c2b1113f9d070b5d33eb37696e443ecf3006bd77f8f",
+  "committed_portable_archive_SHA256": "a7fa2d5161878ad5bbfc2821b03ceedc69aa68f0da07665ce3d1355f0c279fb5",
+  "native_source_head": "dec23450fb8e4ce6bca5643f1893c4bf91d14386",
+  "native_source_inventory_canonical_JSON_SHA256": "4ad57642dce5b5d23e7cb42b311a9342b76c3c82eff6e39df636a4d05475cceb",
+  "requires_explicit_exact_root_GO": true
+}

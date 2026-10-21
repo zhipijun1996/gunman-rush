@@ -1,0 +1,9 @@
+# Exact80 authorized storage migration complete
+
+Only the80 original capture paths in frozen index `62e6bbcbacc625415d36251bc8d678c5472da183487585a1be684dc5e907236b` were unlinked, after root's exact GO and fresh full verification. Logical bytes relocated: **930,821,844**; allocated raw bytes: **930,996,224**, all nlink1. Observed free space increased **930,934,784 bytes** (887.81 MiB), from 277,786,624 to 1,208,721,408 bytes at the execution snapshot. Proof/metadata growth accounts for small differences from raw allocation; later closeout files consume additional small space.
+
+No second archive was created. Retained committed78-member ZIP remains SHA256 `a7fa2d5161878ad5bbfc2821b03ceedc69aa68f0da07665ce3d1355f0c279fb5`; the two committed raw captures remain unchanged. Before unlink, the full archive SHA/all78 CRC, all80 retained-source bytes against originals, each original raw stat/full SHA, all original receipts/logs, and every restored /tmp full SHA/metadata were rechecked. Available selected-FD hits were zero; inaccessible live root dockerd/containerd remain an explicitly recorded visibility limitation.
+
+All80 original raw names are now absent and may be explicitly restored with `restore.py --one <exact-root-relative-path>` or `--all`. All80 /tmp restored files remain for inspection at `/tmp/gunman-final80-restore-probe-6km4zzpt`. Original receipts/logs/cache proof/media/FAILED17/.godot/.git/ci-H and all siblings were left unchanged; no source/Git/engine action occurred. The original plan and REPORT remain unchanged. This operation adds no gameplay, regional-art, release or device pass.
+
+`unlink-execution.json` contains each deleted path, original full SHA, inode/nlink/allocated-byte identity, fresh source/readback checks and actual free snapshots; `completed.json` records final artifact hashes.

@@ -1,0 +1,229 @@
+{
+  "task": "CI-BIBLE-ADMISSION-01",
+  "reviewer": "/root/forest_visual_independent_continue",
+  "independent_from_author": true,
+  "created_at_utc": "2026-10-21T07:59:53.950283+00:00",
+  "verdict": "ACCEPT_SCOPED_CI_EXACT_HEAD_EVENT_IDENTITY_AND_DOCS_EARLY_GUARD",
+  "source": {
+    "environment": ".github/workflows/environment.yml",
+    "environment_sha256": "ced5273889385763b818813c79b4e4ab858801df064825bde7ed3df14a86f1f8",
+    "docs": ".github/workflows/docs.yml",
+    "docs_sha256": "13fadcb8baaf8a9562b14b32143c22ecc096c3686d8d01a1ed47d478d670036d"
+  },
+  "scope": "Only checkout/evidence identity and event/ref/purpose concurrency inenvironment; unchanged docsPRqualityguard moved earlier. Not art/fullremoteCI/artifact/browser/publish acceptance.",
+  "independent_methods": [
+    "Read actualdiff and realbuild/publisher/browser/release/quality strict contracts",
+    "Evaluate actualYAML expressions using own finiteparser/contextmatrix; no author-controls imports or productiontest mirrors",
+    "Normalize only7checkoutrefs+preparecommitarg+concurrencygroup, then comparecomplete remainingenvironment AST toHEAD",
+    "Comparefull docsstepdict multiset and all nonstep-order YAML, inspectPRmergeandguardbase",
+    "Actual -B -S qualitychecker --help import withoutsitepackages",
+    "Real existingpublisher.check_run positive/wrongSHA/wrongevent/wrongattempt controls in retainedfirstreview"
+  ],
+  "event_evidence": {
+    "script": "check_event_dataflow.py",
+    "script_sha256": "c792932a66f0d8d238c5746157d00f5e339c7f17f808d7b69f81226c92c913f9",
+    "data": "event-controls.json",
+    "data_sha256": "ced28a84c4233271f98d7b6f359ea2edd2caffd4d40a129b358977bce899b6d6",
+    "required_controls": {
+      "ordinary_push_PR_dedup": true,
+      "fork_isolated": true,
+      "manual_publish_isolated": true,
+      "other_branch_isolated": true,
+      "tag_main_must_not_cancel_branch_main": true,
+      "auto_publish_feature_must_not_be_cancelled_by_ineligible_PR": true,
+      "all_seven_checkouts_exact_head_or_event_sha": true,
+      "evidence_checks_actual_git_HEAD": true,
+      "all_other_workflow_guards_budgets_lanes_publish_permissions_unchanged": true
+    },
+    "additional_independent_pairs": [
+      {
+        "case": "main_publish_push_vs_same_repo_PR_from_main",
+        "a_group": "godot-godot core-publish-push-owner/game-refs/heads/main",
+        "b_group": "godot-godot core-checks-owner/game-refs/heads/main",
+        "expected_same_group": false,
+        "observed_same_group": false,
+        "pass": true,
+        "a_publish_eligible": true,
+        "b_publish_eligible": false
+      },
+      {
+        "case": "manual_main_publish_vs_auto_main_publish",
+        "a_group": "godot-godot core-manual-owner/game-refs/heads/main",
+        "b_group": "godot-godot core-publish-push-owner/game-refs/heads/main",
+        "expected_same_group": false,
+        "observed_same_group": false,
+        "pass": true,
+        "a_publish_eligible": true,
+        "b_publish_eligible": true
+      },
+      {
+        "case": "manual_tag_main_vs_manual_branch_main",
+        "a_group": "godot-godot core-manual-owner/game-refs/tags/main",
+        "b_group": "godot-godot core-manual-owner/game-refs/heads/main",
+        "expected_same_group": false,
+        "observed_same_group": false,
+        "pass": true,
+        "a_publish_eligible": true,
+        "b_publish_eligible": true
+      },
+      {
+        "case": "ordinary_actor_push_vs_actor_PR",
+        "a_group": "godot-godot core-checks-owner/game-refs/heads/feature/complete-actor-actions",
+        "b_group": "godot-godot core-checks-owner/game-refs/heads/feature/complete-actor-actions",
+        "expected_same_group": true,
+        "observed_same_group": true,
+        "pass": true,
+        "a_publish_eligible": false,
+        "b_publish_eligible": false
+      },
+      {
+        "case": "tag_topic_vs_ordinary_topic_branch",
+        "a_group": "godot-godot core-checks-owner/game-refs/tags/topic",
+        "b_group": "godot-godot core-checks-owner/game-refs/heads/topic",
+        "expected_same_group": false,
+        "observed_same_group": false,
+        "pass": true,
+        "a_publish_eligible": false,
+        "b_publish_eligible": false
+      },
+      {
+        "case": "fork_PR_topic_vs_base_PR_topic",
+        "a_group": "godot-godot core-checks-fork/game-refs/heads/topic",
+        "b_group": "godot-godot core-checks-owner/game-refs/heads/topic",
+        "expected_same_group": false,
+        "observed_same_group": false,
+        "pass": true,
+        "a_publish_eligible": false,
+        "b_publish_eligible": false
+      },
+      {
+        "case": "two_fork_PRs_same_branch_different_owner",
+        "a_group": "godot-godot core-checks-fork/game-refs/heads/topic",
+        "b_group": "godot-godot core-checks-another/game-refs/heads/topic",
+        "expected_same_group": false,
+        "observed_same_group": false,
+        "pass": true,
+        "a_publish_eligible": false,
+        "b_publish_eligible": false
+      },
+      {
+        "case": "same_ref_new_sha_still_cancels_prior_check",
+        "a_group": "godot-godot core-checks-owner/game-refs/heads/topic",
+        "b_group": "godot-godot core-checks-owner/game-refs/heads/topic",
+        "expected_same_group": true,
+        "observed_same_group": true,
+        "pass": true,
+        "a_publish_eligible": false,
+        "b_publish_eligible": false
+      }
+    ],
+    "finite_simulation_limit": {
+      "case_only_branches": "GitHub group keys are case-insensitive; Topic/topic collide. Existing policy also collided; this patch does not guarantee case-only-branch isolation.",
+      "manual_same_ref_dispatches": "Same-ref manual dispatches still share manual group and can cancel each other, unchanged policy. Manualpublish isolation here is fromautomaticruns and otherfullrefs.",
+      "event_delivery_order": "No real GitHub scheduling/arrival-order/latestSHArun guarantee tested.",
+      "publish_preservation": "Publish-purpose classes intentionally preserve eligiblepushfromPR/checksonlycancellation; no remote deployment claim."
+    }
+  },
+  "dataflow": {
+    "PR": "event.pull_request.head.sha selects eachcheckout; gitHEAD qualityevidence andbuild-info.source_commit nowrefer realPRhead, alignedwithrunAPIhead_sha/artifactworkflow_run.head_sha. Synthetic github.sha merge no longer substituted for PRhead.",
+    "push_and_manual": "MissingPRhead fallsback to exactevent github.sha; manualpublisherstate still requires workflow_dispatch/runid/attempt/branch/commit and exactartifactbytes.",
+    "concurrency": "Normalautomaticchecks share headrepo+refs/heads/headref acrosspush/PR. Fullrefs retainbranch/tagdistinction. Existingeligiblemain/explicitactor publishpushes usepublish-push class; workflow_dispatch usesmanual. Forkrepo/name separate. DeployifandPagesgroup remainunchanged.",
+    "docs": "DefaultPRmergecheckout+fetchdepth0 retained. ExactsamePR-onlyqualitystep/base/argv nowimmediately followsPythonsetup beforemedia/pip/docsprofile."
+  },
+  "all_other_workflow_contracts_preserved": true,
+  "docs_independent_review": {
+    "path": "build/region_bible_v2/ci-docs-early-diff-independent-first/review.json",
+    "sha256": "04c8c0f9ebd95a13d60390e353ace22f798fbaecc1bdd1dfc341bc9fd3985112",
+    "source_sha256": "13fadcb8baaf8a9562b14b32143c22ecc096c3686d8d01a1ed47d478d670036d",
+    "checks": {
+      "all_step_dicts_exactly_preserved": true,
+      "all_non_order_fields_preserved": true,
+      "quality_immediately_after_setup": true,
+      "quality_before_media_pip_docs_profile": true,
+      "checkout_still_default_PR_merge_fetchdepth0": true,
+      "PR_only_quality_and_actual_PRbase_exact": true
+    },
+    "root_full_base": {
+      "reported_command": "python3 -S tools/check_quality_diff.py --base 7be8c340",
+      "log_source": "build/region_bible_v2/root-shoulder-import-first/pr-base-final-stdlib-check-second.log",
+      "log_sha256": "bdda2f140350000997211c2785c63bbc913d1e8ce0d73c224c16ebdf58f9fa62",
+      "log_copy": "root-full-base-stdlib.log",
+      "observed_log_result": "PASS1519files; semantic review still required. Root invocation; reviewer inspected original log, did not rerun completebase."
+    }
+  },
+  "strict_protected_sources": {
+    "tools/build.py": {
+      "sha256": "b16831b0fa00d329248b73b81e35a78a0b248f78a220e17418f44b25683d9f58",
+      "same_as_gitHEAD": true
+    },
+    "tools/publish_playtest.py": {
+      "sha256": "e8db8cad6b07a8e92c293906bdfe973d67d8699ea84f48fef823d443a5666bdd",
+      "same_as_gitHEAD": true
+    },
+    "tools/verify_ci_artifact_browser.py": {
+      "sha256": "503ce5c698e21f9dfd23415fd64cb829944317096d718d4d043d6dcd82271f57",
+      "same_as_gitHEAD": true
+    },
+    "tools/check_release_evidence.py": {
+      "sha256": "bf40a7592c3b3129df9a03e2d8055d09045b82e915ab19bf024413674ac7dfbe",
+      "same_as_gitHEAD": true
+    },
+    "tools/check_quality_diff.py": {
+      "sha256": "53d6846ff52607acf3672532ba62aadcda0532c062fa91d4b92e5b6006ec2dcc",
+      "same_as_gitHEAD": true
+    },
+    "tools/quality.py": {
+      "sha256": "6aceb16c81eae58810063bb5c86c1291dabda663402a01651255af11a5c2cc16",
+      "same_as_gitHEAD": true
+    },
+    "tools/check_web_bundle.py": {
+      "sha256": "b19475c9ada2e756cefa79a56134c91844f8c9c36cd3e33555642f0ac79edfbb",
+      "same_as_gitHEAD": true
+    },
+    "tests/test_harness.py": {
+      "sha256": "50e34a111c858b4ac79c7f85bd8d958431747300e0748663529dc302b77be7e2",
+      "same_as_gitHEAD": true
+    },
+    "tools/test_publish_playtest.py": {
+      "sha256": "680e65b76a880d84c4eb869a24518b49dff414594e5e990930a7d84d48ae14bb",
+      "same_as_gitHEAD": true
+    }
+  },
+  "actual_existing_test_logs": {
+    "actual-harness-tests-v2.log": {
+      "source": "build/region_bible_v2/ci-exact-source-event-proposal-first/actual-harness-tests-v2.log",
+      "sha256": "82e757860431bf6930691cb3ab405ea22c8d5e4793708b2fef36cbf387e84ceb",
+      "observed": "Ran 77 tests in 8.010s / OK; author execution log independently inspected, not rerun by reviewer."
+    },
+    "actual-archive-tests-v2.log": {
+      "source": "build/region_bible_v2/ci-exact-source-event-proposal-first/actual-archive-tests-v2.log",
+      "sha256": "cf72141f4bdf09a1092d5552c6b39077b34b923522cc63d62fc11b71fee32475",
+      "observed": "Ran 12 tests in 2.373s / OK; author execution log independently inspected, not rerun by reviewer."
+    }
+  },
+  "first_rejection_preserved": {
+    "review": "build/region_bible_v2/ci-exact-source-independent-first/review.json",
+    "sha256": "94381043826277141e480a840c84ae14b1fa0ca53b9c597520c960095173613f",
+    "old_environment_sha256": "a343fff94bacf40861503d12d7436af0ec3a61793b4a858033006e48d9fd5642",
+    "two_old_counterexamples": "Tagmain/branchmain collision and eligibleactorpublishpush cancelled by ineligiblePR; both now pass independentcontrols."
+  },
+  "not_claimed": [
+    "GitHubconcurrency scheduler execution or arrival-order/latestSHApromise",
+    "NewremoteCIrun or artifactbrowser/native movie or device review",
+    "Deployment execution/public latestsource/liveURL verification",
+    "WholeForestart/organicmacroacceptance"
+  ],
+  "remaining_policy_limits": [
+    "Concurrency keys are case-insensitive, so case-onlydistinctbranch names can collide as before.",
+    "Manualsame-fullrefdispatches still cancel eachother as existing policy; manualisolation means separatefromautomaticclasses andotherrefs.",
+    "Cancel-in-progress does not enforce remoteeventarrival order. Existingpublishpurposeisolation deliberately preserveseligiblepushfromchecksonlyPRcancellation."
+  ],
+  "reviewer_actions": {
+    "production_modified": false,
+    "Git_mutated": false,
+    "engine_or_import_run": false,
+    "GitHub_runs_started": false,
+    "messages_to_external_people_sent": false,
+    "writes": "Onlyignoredbuild evidence directories."
+  }
+}

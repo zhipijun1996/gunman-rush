@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "asset_id": "forest-bible-v2-material-objects-v1-generated-source",
+  "content_version": "forest-bible-v15-source-registration-20261021",
+  "source_path": "assets/forest_bible_v2/source/material_objects_v1.original.png",
+  "source_sha256": "558550fab9e38a4a791877542cea868a02e51f864e6e177ba552a72d2b6acc65",
+  "runtime_paths": [
+    "assets/forest_bible_v2/native/fruit.png"
+  ],
+  "tool": "image_gen.imagegen; exact original receipt preserved",
+  "model": "not_exposed; no model/version or usage-cost claim inferred",
+  "prompt_or_reference": "assets/forest_bible_v2/source/material_objects_v1.prompt.txt; exact request also preserved in matching .receipt.json",
+  "processing": "Original generated PNG retained byte-for-byte. Full-resolution forest direction withdrawn. Only exact declared crops/nearest derivatives are current consumers; resources/forest_bible_v2/native_sprite_derivatives.json records each crop/output SHA.",
+  "usage_scope": "v15 fruit/discovery limited native derivatives via scripts/presentation/forest_bible_presentation.gd; no full-atlas runtime sampling and no whole-region acceptance",
+  "license_status": "unknown",
+  "license_source": "Original imagegen receipts declare license unknown. No publisher license or commercial clearance inferred.",
+  "visual_status": "unverified",
+  "user_acceptance_evidence": [],
+  "disposition": "runtime_candidate",
+  "associated_files": [
+    {
+      "path": "assets/forest_bible_v2/native/white_thorns.png",
+      "sha256": "a4abcda2e7c134b767b78fe194d120445094afa751c75cc3ab85251033eaf3ad",
+      "role": "reference"
+    },
+    {
+      "path": "assets/forest_bible_v2/source/material_objects_v1.prompt.txt",
+      "sha256": "dd141ec14c89d1e9977dd43be76a86e67424b5527ab95bb0cafe6bc8b3dee085",
+      "role": "generation_record"
+    },
+    {
+      "path": "assets/forest_bible_v2/source/material_objects_v1.receipt.json",
+      "sha256": "b5715b537370df6d9cf6734a441f554364015e56a034e4fe2ca0d309f7b87bc9",
+      "role": "generation_record"
+    }
+  ],
+  "derivatives": [
+    {
+      "id": "fruit",
+      "source": "assets/forest_bible_v2/source/material_objects_v1.original.png",
+      "source_sha256": "558550fab9e38a4a791877542cea868a02e51f864e6e177ba552a72d2b6acc65",
+      "crop_xyxy": [
+        942,
+        569,
+        1108,
+        805
+      ],
+      "native_size_px": [
+        10,
+        14
+      ],
+      "output": "assets/forest_bible_v2/native/fruit.png",
+      "output_sha256": "1d82b1367e769713744f644e249764b641f2513cd6e70926498ae2560dddd5b1",
+      "processing": "declared exact crop then nearest resize only; no painting, palette replacement, alpha threshold or new image generation",
+      "status": "style_continuity_candidate_awaiting_same_source_golden",
+      "former_source_path": "assets/forest_bible_v2/material_objects_v1.png"
+    },
+    {
+      "id": "white_thorns",
+      "source": "assets/forest_bible_v2/source/material_objects_v1.original.png",
+      "source_sha256": "558550fab9e38a4a791877542cea868a02e51f864e6e177ba552a72d2b6acc65",
+      "crop_xyxy": [
+        1134,
+        571,
+        1506,
+        791
+      ],
+      "native_size_px": [
+        32,
+        19
+      ],
+      "output": "assets/forest_bible_v2/native/white_thorns.png",
+      "output_sha256": "a4abcda2e7c134b767b78fe194d120445094afa751c75cc3ab85251033eaf3ad",
+      "processing": "declared exact crop then nearest resize only; no painting, palette replacement, alpha threshold or new image generation",
+      "status": "style_continuity_candidate_awaiting_same_source_golden",
+      "former_source_path": "assets/forest_bible_v2/material_objects_v1.png"
+    }
+  ],
+  "consumer_files": [
+    "scripts/presentation/forest_bible_presentation.gd"
+  ]
+}

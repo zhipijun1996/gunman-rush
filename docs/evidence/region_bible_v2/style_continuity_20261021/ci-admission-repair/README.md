@@ -1,0 +1,11 @@
+# PR101真实失败与流程修复
+
+原PR Documentation run39563261916/attempt1以临时merge57e36ae065054df6712ed467169e685791b2268b执行，29项实际全PASS/311.136秒，但之后完整PRbase质量差异检查FAIL。原失败日志和实际API digest核验ZIP在本目录，不将整个run改签通过。失败项是新森林资产未登记机器资产卡，以及一条源码消费者存在性测试预期缺专项独审；family manifest自身不等于asset_records登记。
+
+补28卡覆盖175文件：21真实runtime候选、76生产记录、78拒绝/历史来源；许可unknown、视觉unverified，不篡改实际资产。专项守门独审原10unit与28控制通过，静态consumer_present_in_source与runtime_available=None、formal_grant=not_inferred分别保留；未签整区。完整PRbase7be8c340的差异检查以python3 -S真实PASS，证明可在Pillow/media安装前执行。
+
+core workflow精确检出PRhead而非临时merge，预检绑定gitHEAD；自动push/PR去重，tag与branch、fork、手动和真实publish-push各按实际用途隔离。docs仍保临时merge/PR-onlybase与独立并发，只将相同步骤提前，无删除原29检查或超时。初版并发方案的tag/main及publish-push取消反例保留，修后须新独审；精确源码以原报告SHA为准。
+
+存储实测Git树9.104GB、evidence8.514GB，其中完全重复blob多路径633.6MB，不能称8GB全冗余。未删历史普通Git证据。仅本轮terminal80本地raw经完整committedZIP+2raw及逐份/tmp真实恢复后迁移，释放约888MiB；原收据/日志/失败17/媒体保留，按restore工具可恢复。此存储操作不新增玩法通过。
+
+Forest/Workflow仍in_progress，Plains仍planned。整区有机美术、用户/设备/FUN及最终发布未通过；正式CI新结果另记录，不用本次源不同的旧通过代签。

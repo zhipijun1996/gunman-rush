@@ -1,6 +1,6 @@
 # 当前状态
 
-2026-10-21。分支 `feature/region-bible-v2-forest`；最近运行冻结检查点 `dec23450fb8e4ce6bca5643f1893c4bf91d14386`，后继仅收据/状态准备推送草稿PR；准确HEAD以Git为准。原起点R `7be8c340372d1e20db6685cbd6a559191821eb0e`。先完整荆棘森林含美术，再优化风铃平原；SFX/风叶背景动画可做，BGM由用户后引入。当前开发中，未发布新Bible区域，不能把旧main通过代签新内容。
+2026-10-21。分支 `feature/region-bible-v2-forest`；最近已推送检查点 `c305b28904214d574f6f76eb39619583e88702e3`、草稿[PR101](https://github.com/zhipijun1996/gunman-rush/pull/101)，后继修正实际PR门槛与CI身份/去重；准确HEAD以Git为准。原起点R `7be8c340372d1e20db6685cbd6a559191821eb0e`。先完整荆棘森林含美术，再优化风铃平原；SFX/风叶背景动画可做，BGM由用户后引入。当前开发中，未发布新Bible区域，不能把旧main通过代签新内容。
 
 ## 权威与当前默认
 
@@ -39,3 +39,5 @@ PR96/99/100已合main；运行P `66e8b912854d6d4cccadb45b9c348a618689f5a1`及档
 旧142终态capture已无损归档并验证按需恢复；本轮另将79份终态JSON无损归档，保守恢复6份旧audit输入，实际空闲约2.65GB；原收据/日志/所有AVI、CI ZIP与ci-H用户工作树保留。当前磁盘与恢复命令见[交接](handoff.md)，不要删除唯一证据或全量git repack。
 
 文档/流程28项fresh profile已通过，报告`build/verification/harness/20261021T053927.330071Z/report.json`。旧creative-v6期望已显式改为用户荆棘方向creative-v7；可选jobs2因20GB隔离空间预检中断且未启动lane，最终jobs1原预算执行通过。仅流程/文档，不代剩余内容或发布。
+
+最新PR门槛修复：原PRdocs29项全通过，但对main完整范围检查因资产机器登记/一条测试预期独审不足而失败。已补真实28卡/175文件/21runtime来源（许可unknown、视觉unverified），单独静态消费者独审不代签整区；完整baseR检查已实际通过，且以python3 -S证明可前移到依赖安装前。core精确head与自动去重/手动及publish保护修复另独审，新完整CI仍待。详见[原失败与修复](evidence/region_bible_v2/style_continuity_20261021/ci-admission-repair/README.md)。

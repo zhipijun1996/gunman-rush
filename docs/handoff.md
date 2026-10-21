@@ -1,6 +1,6 @@
 # 当前交接
 
-2026-10-21，`feature/region-bible-v2-forest`。本轮最终运行冻结检查点dec23450fb8e4ce6bca5643f1893c4bf91d14386，准确HEAD查Git，后继收据/状态准备推送草稿PR。原起点R7be8c340372d1e20db6685cbd6a559191821eb0e。先完整Forest含美术，再Plains；BGM由用户后引入；不默认合main。先读[当前状态](current_state.md)、[Bible注册表](creative_direction/bibles/registry.json)。
+2026-10-21，`feature/region-bible-v2-forest`。最近已推送检查点c305b28904214d574f6f76eb39619583e88702e3，准确HEAD查Git，草稿[PR101](https://github.com/zhipijun1996/gunman-rush/pull/101)后继修实际PR门槛。原起点R7be8c340372d1e20db6685cbd6a559191821eb0e。先完整Forest含美术，再Plains；BGM由用户后引入；不默认合main。先读[当前状态](current_state.md)、[Bible注册表](creative_direction/bibles/registry.json)。
 
 ## 已完成及边界
 
@@ -30,3 +30,5 @@
 Godot只用`bash tools/godot.sh`的4.7.2.stable.official.ed1daf0bf；engine/import/native/movie/export/browser单租约。完整源码及Git元数据冻结；只读/预制作写ignored build。新GD/PNG先editor import纳入UID/import再fresh，不能豁免漂移。PlayerMotor唯一move_and_slide，合法能力/资源/伤害/RNG/save、旧13/14重建、原327/schema6/24与旧七fixtures保持。
 
 不可改 `docs/quality/level_design_v2_audit.md`，SHA c47e366e9fbc1e3584a7c7e3eb8b983422156e21eb420a34456a2d8eb7219791。targeted报告没有总源清单时不可用None==None证明稳定；原生完整inventory有才比较。实际scope、来源版本、native与outer结果、静态与连续、AI与用户/设备必须分别记录。
+
+最新CI接续：旧PRdocs39563261916实际29PASS但整轮qualitydiff FAIL；旧core push39563234264 attempt1/2及PR39563261886均cancelled，不签完整。28资产卡与静态guard专项独审补齐后，完整PRbaseR/stdlib-only检查已通过；本轮workflow精确head/并发用途隔离、docs前移门槛须按新冻结SHA正式CI。后续不再仅用--base HEAD冒充完整PR检查。第三80本地raw已从完整committed78ZIP+2raw迁移，80份/tmp恢复件仍在；restore.py见build/region_bible_v2/final-native80-storage-migration-first/，实际释放约888MiB，原收据/日志/失败/媒体全保。
