@@ -2,8 +2,10 @@ class_name ForestBibleTerrainMaterial
 extends RefCounted
 ## Forest material extension of the same 47-tile / exact-boundary family.
 ## Owns no geometry, collision, masks, neighbors, or shader implementation.
-const SOURCE: Texture2D = preload("res://assets/forest_bible_v2/native/bark_source_v3.png")
-const ATLAS: Texture2D = preload("res://assets/forest_bible_v2/native/bark_atlas47_v3.png")
+# The full13-mother brown v3 candidate was rejected in actual composition.
+# Keep the established moss/edge clusters while refining local bark separately.
+const SOURCE: Texture2D = preload("res://assets/forest_bible_v2/native/bark_source_v2.png")
+const ATLAS: Texture2D = preload("res://assets/forest_bible_v2/native/bark_atlas47_v2.png")
 
 static func install_on(terrain: UnderworldTerrain) -> bool:
 	if not is_instance_valid(terrain) or not is_instance_valid(terrain.core_layer): return false

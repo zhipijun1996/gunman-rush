@@ -12,7 +12,7 @@ const DEPTH_LAYOUT_VERTICAL := "forest-woven-trunk-v12"
 const DEPTH_LAYOUT_INTERWOVEN := "forest-interwoven-canopy-v13"
 const DEPTH_LAYOUT_FRUIT := "forest-fruit-routes-v14"
 const DEPTH_LAYOUT_BIBLE := "forest-bible-world-v15"
-const CURRENT_DEPTH_LAYOUT := DEPTH_LAYOUT_FRUIT
+const CURRENT_DEPTH_LAYOUT := DEPTH_LAYOUT_BIBLE
 const DEPTH_LAYOUT_SCRIPTS := {
 	DEPTH_LAYOUT_V7:"res://scripts/generation/thorn_forest_region_v2_v7.gd",
 	DEPTH_LAYOUT_V9:"res://scripts/generation/thorn_forest_region_v2_v9.gd",

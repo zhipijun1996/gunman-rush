@@ -36,6 +36,7 @@ func drive(trace: Node,leg: Dictionary) -> bool:
 		for index: int in trace.stage.enemy_manifest.size():
 			var row: Dictionary=trace.stage.enemy_manifest[index]
 			var actor: EnemyActor=trace.stage.enemies[index].get_node("Actor")
+			if not _eligible_target(trace,row,actor):continue
 			if actor.health.terminal or actor.definition.aerial or actor.definition.behavior_id not in GROUND_BEHAVIORS:continue
 			var delta: Vector2=actor.motor.global_position-trace.player.global_position
 			# A low spider above the departure shore can intercept the first
@@ -281,6 +282,10 @@ func _drive_flank(trace: Node) -> void:
 		trace.controller.router.set_move_axis(clampf((firing_bank.x-pos.x)/12,-1,1))
 		if trace.at_destination(firing_bank,firing_support) and _ready_shot(trace) and _clear(trace,target):
 			_ground_shot(trace,(enemy-pos).normalized())
+
+func _eligible_target(_trace: Node,_row: Dictionary,_actor: EnemyActor) -> bool:
+	# Historical/default combat keeps every existing acquisition eligible.
+	return true
 
 func _ordinary_ground(trace: Node,leg: Dictionary) -> bool:
 	var kind: String=str(leg.get("kind",""))

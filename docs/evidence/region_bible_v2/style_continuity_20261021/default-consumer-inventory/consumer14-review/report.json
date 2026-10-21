@@ -1,0 +1,398 @@
+{
+  "verdict": "ACCEPT_SCOPED",
+  "scope": "14 frozen consumer adaptation source integrity and Python boundaries only; no actual native route or promotion acceptance",
+  "reviewer": "/root/bible_test_workflow_independent_review",
+  "engine_run": false,
+  "production_edits": false,
+  "implementer_inventory_sha256": "a91a4961044cafe7f51d534eb9aec3ae1691ee5f43ceda1660623b74e4299d05",
+  "source_before": {
+    "tests/forest_bible_trace_support.gd": "2fcfca31a7f97125c885fd5fbc1275f242d1bdf734b508106dd0c096e55448e7",
+    "tests/forest_bible_region_auto_trace.gd": "8421e03a3e3d58952960bebaeaa851ddb3fa19334965819ac9d80015e9a0ae50",
+    "tests/forest_bible_ecology_trace.gd": "49d30d83d05760df75a1fdabcfd36cc73671726a7592af8ea2836d6ccccaa6f1",
+    "tests/forest_bible_lift_trace.gd": "f3350afdf50d3302cd177987bef7a48fd5446169803a5c26a6f1ab12d3c6a070",
+    "tests/forest_depth_trace_strategy.gd": "990e09754441c95f0162011e3b199d22b70ff872192136e508f70476131009f9",
+    "tests/forest_depth_ecology_runner.gd": "0b545816c0557474f7ecc23a8878694f10f792126488e0a747e3cea797c3ad88",
+    "tests/forest_depth_lift_runner.gd": "b8d63f63eaa27f04b8d35b1937fbd7cffc500eb925751c06e80050a7bb29d7db",
+    "tools/run_forest_depth_enemies.py": "244467980715472e65951a1ad6987cb335d305d21fab95045ab46764c2e68f9a",
+    "tests/test_forest_bible_trace_consumers.py": "445314a00f308a28c10c96e89dcc1d95f659cef7ef5a1e9349fb2a848d4edceb",
+    "tests/forest_depth_guardian_campaign_case.gd": "8e15144c3e4be5a96372a3ed3adefb057a877a0d8a0cfd5ae7c146e65a72df43",
+    "tests/forest_depth_canopy_campaign_case.gd": "4204017a1abdce66bd2d2fe273cbebbccef85dac585bbba874a7757e7bb87cb2",
+    "tests/forest_depth_campaign_boss_runner.gd": "c52808bddc2ec3c89d904c0d2e9066148a6f25f9780cb2a44ef66b2add7634a4",
+    "tools/run_forest_depth_campaign_boss.py": "0ea0cbd552f697bd00d9b9676a33bf173d42b9350cb23445084cef02a90cae09",
+    "tests/test_forest_bible_campaign_identity.py": "2ba49a99e414c75416dc05c9b93db2391ec69f173325606f5ab62f18e7eae4ef"
+  },
+  "source_after": {
+    "tests/forest_bible_trace_support.gd": "2fcfca31a7f97125c885fd5fbc1275f242d1bdf734b508106dd0c096e55448e7",
+    "tests/forest_bible_region_auto_trace.gd": "8421e03a3e3d58952960bebaeaa851ddb3fa19334965819ac9d80015e9a0ae50",
+    "tests/forest_bible_ecology_trace.gd": "49d30d83d05760df75a1fdabcfd36cc73671726a7592af8ea2836d6ccccaa6f1",
+    "tests/forest_bible_lift_trace.gd": "f3350afdf50d3302cd177987bef7a48fd5446169803a5c26a6f1ab12d3c6a070",
+    "tests/forest_depth_trace_strategy.gd": "990e09754441c95f0162011e3b199d22b70ff872192136e508f70476131009f9",
+    "tests/forest_depth_ecology_runner.gd": "0b545816c0557474f7ecc23a8878694f10f792126488e0a747e3cea797c3ad88",
+    "tests/forest_depth_lift_runner.gd": "b8d63f63eaa27f04b8d35b1937fbd7cffc500eb925751c06e80050a7bb29d7db",
+    "tools/run_forest_depth_enemies.py": "244467980715472e65951a1ad6987cb335d305d21fab95045ab46764c2e68f9a",
+    "tests/test_forest_bible_trace_consumers.py": "445314a00f308a28c10c96e89dcc1d95f659cef7ef5a1e9349fb2a848d4edceb",
+    "tests/forest_depth_guardian_campaign_case.gd": "8e15144c3e4be5a96372a3ed3adefb057a877a0d8a0cfd5ae7c146e65a72df43",
+    "tests/forest_depth_canopy_campaign_case.gd": "4204017a1abdce66bd2d2fe273cbebbccef85dac585bbba874a7757e7bb87cb2",
+    "tests/forest_depth_campaign_boss_runner.gd": "c52808bddc2ec3c89d904c0d2e9066148a6f25f9780cb2a44ef66b2add7634a4",
+    "tools/run_forest_depth_campaign_boss.py": "0ea0cbd552f697bd00d9b9676a33bf173d42b9350cb23445084cef02a90cae09",
+    "tests/test_forest_bible_campaign_identity.py": "2ba49a99e414c75416dc05c9b93db2391ec69f173325606f5ab62f18e7eae4ef"
+  },
+  "checks": [
+    {
+      "label": "implementer_exact_frozen_inventory",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "all14_reviewed_source_match_implementer_freeze",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "old_full_trace_byte_equal_checkpoint/tests/forest_depth_region_trace.gd",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "old_full_trace_byte_equal_checkpoint/tests/forest_depth_ecology_trace.gd",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "old_full_trace_byte_equal_checkpoint/tests/forest_depth_lift_trace.gd",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "both_old_pilot_classes_exact_body_extraction",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "real_Escape_and_before_after_neutral_and90process_frame_guard_retained",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "actual_adapter_muzzle_projectile_circle_sweep_not_center_ray",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "thin_real_inherited_trace_without_physics_override/region_auto",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "thin_real_inherited_trace_without_physics_override/ecology",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "thin_real_inherited_trace_without_physics_override/lift",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "old_strategy_prefix_exact_and_empty_argument_preserved",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "all_campaign_old_assertions_exact_after_constructor_only_reversal/tests/forest_depth_guardian_campaign_case.gd",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "all_campaign_old_assertions_exact_after_constructor_only_reversal/tests/forest_depth_canopy_campaign_case.gd",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "all_legacy_Queen_assertions_exact_and_explicit_v7_replay_preserved",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "all13_campaign_Python_function_AST_exact_only_finite_enum_added",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "canopy_finite_exact_enum_old5_plus15",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "enemies14of18_exact_AST_four_finite_deltas_new_strict_admission",
+      "passed": true,
+      "details": [
+        "validate_lift_choice",
+        "validate_crossbranch",
+        "run_formal_choices",
+        "main"
+      ]
+    },
+    {
+      "label": "strict_admission_before_old_domain/validate_lift_choice",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "all_old_validator_AST_exact_after_only_strict_prepend/validate_lift_choice",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "strict_admission_before_old_domain/validate_crossbranch",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "all_old_validator_AST_exact_after_only_strict_prepend/validate_crossbranch",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "runner_explicit_old_and_current_admission/tests/forest_depth_ecology_runner.gd",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "runner_explicit_old_and_current_admission/tests/forest_depth_lift_runner.gd",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "independent42_Python_source_and_negative_tests",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "intercept_before_engine/0",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "wrapper_preserves_actual_empty_or_explicit_argument/0",
+      "passed": true,
+      "details": [
+        {
+          "argv": [
+            "--headless",
+            "--fixed-fps",
+            "60",
+            "--path",
+            ".",
+            "--script",
+            "tests/forest_depth_ecology_runner.gd",
+            "--",
+            "--seed=forest-depth-hollow-00",
+            "--map=1",
+            "--route=fast",
+            "--strategy=wait_phase",
+            "--output=res://build/region_bible_v2/default-consumer-independent-inventory-first/consumer14-review/argv-0/00-wait_phase/capture.json"
+          ],
+          "timeout": 240
+        }
+      ]
+    },
+    {
+      "label": "intercept_before_engine/1",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "wrapper_preserves_actual_empty_or_explicit_argument/1",
+      "passed": true,
+      "details": [
+        {
+          "argv": [
+            "--headless",
+            "--fixed-fps",
+            "60",
+            "--path",
+            ".",
+            "--script",
+            "tests/forest_depth_ecology_runner.gd",
+            "--",
+            "--seed=forest-depth-hollow-00",
+            "--map=1",
+            "--route=fast",
+            "--strategy=wait_phase",
+            "--output=res://build/region_bible_v2/default-consumer-independent-inventory-first/consumer14-review/argv-1/00-wait_phase/capture.json",
+            "--layout=forest-fruit-routes-v14"
+          ],
+          "timeout": 240
+        }
+      ]
+    },
+    {
+      "label": "intercept_before_engine/2",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "wrapper_preserves_actual_empty_or_explicit_argument/2",
+      "passed": true,
+      "details": [
+        {
+          "argv": [
+            "--headless",
+            "--fixed-fps",
+            "60",
+            "--path",
+            ".",
+            "--script",
+            "tests/forest_depth_ecology_runner.gd",
+            "--",
+            "--seed=forest-depth-hollow-00",
+            "--map=1",
+            "--route=fast",
+            "--strategy=wait_phase",
+            "--output=res://build/region_bible_v2/default-consumer-independent-inventory-first/consumer14-review/argv-2/00-wait_phase/capture.json",
+            "--layout=forest-bible-world-v15"
+          ],
+          "timeout": 240
+        }
+      ]
+    },
+    {
+      "label": "strict_helper_accepts_actual_recorded_capture_without_rewrite/00-map2-fast",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "actual_recorded_mutant_rejected/00-map2-fast/bible_admission",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "actual_recorded_mutant_rejected/00-map2-fast/thorn_surface_contract",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "actual_recorded_mutant_rejected/00-map2-fast/thorn_surfaces",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "strict_helper_accepts_actual_recorded_capture_without_rewrite/01-map2-growth",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "actual_recorded_mutant_rejected/01-map2-growth/bible_admission",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "actual_recorded_mutant_rejected/01-map2-growth/thorn_surface_contract",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "actual_recorded_mutant_rejected/01-map2-growth/thorn_surfaces",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "original132_check_dicts_exact",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "original10_profile_prefixes_exact",
+      "passed": true,
+      "details": null
+    },
+    {
+      "label": "all14_inputs_before_after_frozen_stable",
+      "passed": true,
+      "details": null
+    }
+  ],
+  "python42": {
+    "argv": [
+      "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+      "-m",
+      "unittest",
+      "test_forest_bible_region_admission",
+      "test_forest_bible_trace_consumers",
+      "test_forest_bible_campaign_identity"
+    ],
+    "exit_code": 0,
+    "seconds": 1.4697129929991206,
+    "log_sha256": "7aad96572d198490ba9ba277d60fbfa587b974f8a18fc617e16b3a75cfaef2ff"
+  },
+  "intercepted_argv_no_engine": [
+    {
+      "argv": [
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_depth_ecology_runner.gd",
+        "--",
+        "--seed=forest-depth-hollow-00",
+        "--map=1",
+        "--route=fast",
+        "--strategy=wait_phase",
+        "--output=res://build/region_bible_v2/default-consumer-independent-inventory-first/consumer14-review/argv-0/00-wait_phase/capture.json"
+      ],
+      "timeout": 240
+    },
+    {
+      "argv": [
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_depth_ecology_runner.gd",
+        "--",
+        "--seed=forest-depth-hollow-00",
+        "--map=1",
+        "--route=fast",
+        "--strategy=wait_phase",
+        "--output=res://build/region_bible_v2/default-consumer-independent-inventory-first/consumer14-review/argv-1/00-wait_phase/capture.json",
+        "--layout=forest-fruit-routes-v14"
+      ],
+      "timeout": 240
+    },
+    {
+      "argv": [
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "tests/forest_depth_ecology_runner.gd",
+        "--",
+        "--seed=forest-depth-hollow-00",
+        "--map=1",
+        "--route=fast",
+        "--strategy=wait_phase",
+        "--output=res://build/region_bible_v2/default-consumer-independent-inventory-first/consumer14-review/argv-2/00-wait_phase/capture.json",
+        "--layout=forest-bible-world-v15"
+      ],
+      "timeout": 240
+    }
+  ],
+  "actual_recorded_capture_strict_helper_cases": [
+    "00-map2-fast",
+    "01-map2-growth"
+  ],
+  "actual_capture_extra_negatives": 6,
+  "limitations": [
+    "The specialized ecology/lift and Guardian/current-canopy paths were not run by this reviewer.",
+    "Campaign Python reader retains its existing route-summary and strict Boss-identity scope; unlike public region reader it does not consume a full bible_admission capture. Actual v15 support performs runtime registry.validate; this is source verification, not independent complete campaign route evidence.",
+    "Root promotion/default expectation/browser/presentation and active art files are outside this14-source freeze.",
+    "Original full327/80/112/31 native checks were not rerun."
+  ]
+}

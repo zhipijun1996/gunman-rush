@@ -8,6 +8,7 @@ const API := preload("res://scripts/generation/forest_expedition_layout.gd")
 const RECIPE := preload("res://scripts/generation/thorn_forest_region_v2_v10.gd")
 const BACK := preload("res://scripts/generation/forest_bible_backbranch_geometry.gd")
 const LANGUAGE := preload("res://scripts/generation/forest_scene_language.gd")
+const THORN_SURFACES := preload("res://scripts/generation/forest_bible_thorn_surfaces.gd")
 
 static func install(m: Dictionary) -> void:
 	var rng := RunRandomStream.new(str(m.seed),"forest_bible_world","map_%s" % m.map_index,VERSION)
@@ -27,6 +28,7 @@ static func install(m: Dictionary) -> void:
 	# the new passage's explicit void. No separate art coordinate layout.
 	m.scene_structure_kinds.merge({"bible_root_tunnel":"root_hollow","bible_backbranch":"fallen_trunk","bible_weaver_hollow":"hollow_tree"})
 	LANGUAGE.annotate(m)
+	if not THORN_SURFACES.install(m): return
 	for structure: Dictionary in m.scene_structures:
 		if structure.id == "bible_weaver_hollow": structure.open_voids = [[1330.0,1020.0,230.0,180.0]]
 	m.bible_world_contract = {"version":VERSION,"connection_variant":m.choices.bible_root_connection,
@@ -206,6 +208,7 @@ static func _anchor(m: Dictionary, id: String, at: Vector2, structure: String, s
 	m.hook_anchors.append({"id":id,"position":API.pair(at),"scene_kind":"copper_growth_ring","structure_id":structure,"fruit_role":"optional","fruit_role_basis":"Bible_backbranch_optional_skill","fruit_route_bindings":["available:bible_backbranch_flight:H"],"fruit_presentation":"rooted_fruit","fruit_host_support_id":support,"fruit_stem_root":API.pair(stem)})
 
 static func validate(m: Dictionary) -> bool:
+	if not THORN_SURFACES.validate(m): return false
 	if not LANGUAGE.validate(m) or m.get("bible_world_contract",{}).get("version") != VERSION: return false
 	if m.get("forest_discoveries",[]).size() != 3 or m.get("forest_shortcuts",[]).size() != 1: return false
 	var ids: Dictionary = {}
@@ -220,7 +223,7 @@ static func validate(m: Dictionary) -> bool:
 		if not settled is Dictionary or settled.is_empty(): return false
 		# Immutable historical no-drop enemies intentionally use this exact
 		# minimal consumer row; never rewrite their canonical old bytes.
-		if settled == {"kind":"none","amount":0} and str(enemy.id) != "bible_double_window_weaver": continue
+		if RandomStageGenerator.new()._same_data(settled,{"kind":"none","amount":0}) and str(enemy.id) != "bible_double_window_weaver": continue
 		if settled.get("enemy_id") != str(enemy.id) or settled.get("stream_namespace") != "enemy_drops" or settled.get("content_version") != EnemyDropService.CONTENT_VERSION: return false
 	for site: Dictionary in m.forest_discoveries:
 		if API._platform_by_id(m,str(site.support_id)).is_empty() or not m.routes.has(site.approach_route) or not m.routes.has(site.return_route) or site.approach_route == site.return_route: return false

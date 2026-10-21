@@ -92,7 +92,7 @@ static func active(canvas: Node) -> bool:
 		cursor = cursor.get_parent()
 	return false
 
-static func draw_enemy_body(canvas: Node2D, actor: EnemyActor, _age: float = 0.0) -> bool:
+static func draw_enemy_body(canvas: Node2D, actor: EnemyActor, age: float = 0.0) -> bool:
 	if not active(canvas) or not is_instance_valid(actor) or actor.definition == null: return false
 	var behavior_id: StringName = actor.definition.behavior_id
 	if ECOLOGY_BODIES.has(behavior_id):
@@ -103,8 +103,16 @@ static func draw_enemy_body(canvas: Node2D, actor: EnemyActor, _age: float = 0.0
 			if not is_instance_valid(actor.brain) or actor.brain.direction not in [-1, 1]: return false
 			facing = float(actor.brain.direction)
 		var tint: Color = WEAVER_TERMINAL_TINT if actor.health != null and actor.health.terminal else Color.WHITE
+		var state: StringName = actor.attack_behavior.state if actor.attack_behavior != null else &"idle"
+		if actor.health != null and not actor.health.terminal:
+			if behavior_id == &"forest_swing_pod" and state == &"blocked": tint = Color("a38e74")
+			elif behavior_id == &"forest_crossbranch" and state == &"telegraph": tint = Color(1.15,0.94,0.58)
+			elif behavior_id == &"forest_crossbranch" and state == &"blocked": tint = Color(0.74,0.43,0.43)
 		canvas.draw_set_transform(Vector2.ZERO, 0.0, Vector2(facing, 1.0))
-		canvas.draw_texture_rect(body.texture as Texture2D, body.bounds, false, tint)
+		if behavior_id == &"forest_lantern":
+			_draw_lantern(canvas, body.texture as Texture2D, age, actor.health.terminal, tint)
+		else:
+			canvas.draw_texture_rect(body.texture as Texture2D, body.bounds, false, tint)
 		canvas.draw_set_transform(Vector2.ZERO)
 		return true
 	if behavior_id == &"forest_bark_beetle":
@@ -121,6 +129,16 @@ static func draw_enemy_body(canvas: Node2D, actor: EnemyActor, _age: float = 0.0
 	canvas.draw_texture_rect(WEAVER_BODY, WEAVER_BOUNDS, false, body_tint)
 	return true
 
+static func _draw_lantern(canvas: Node2D, texture: Texture2D, age: float, terminal: bool, tint: Color) -> void:
+	# Same native pixels, with only the two real wing regions changing pose.
+	# The antenna and bell abdomen keep their original positions and scale.
+	canvas.draw_texture_rect_region(texture,Rect2(-18,-15,36,7.5),Rect2(0,0,24,5),tint)
+	canvas.draw_texture_rect_region(texture,Rect2(-7.5,-7.5,15,6),Rect2(7,5,10,4),tint)
+	canvas.draw_texture_rect_region(texture,Rect2(-18,-1.5,36,16.5),Rect2(0,9,24,11),tint)
+	var height := 3.0 if terminal else 6.0+roundf(sin(age*14.0))*3.0
+	canvas.draw_texture_rect_region(texture,Rect2(-18,-4.5-height*0.5,10.5,height),Rect2(0,5,7,4),tint)
+	canvas.draw_texture_rect_region(texture,Rect2(7.5,-4.5-height*0.5,10.5,height),Rect2(17,5,7,4),tint)
+
 static func draw_boss_body(canvas: Node2D, encounter: ThornForestEncounter) -> bool:
 	if not active(canvas) or not is_instance_valid(encounter) or encounter.definition == null: return false
 	if encounter is ThornQueenCanopyEncounter:
@@ -131,6 +149,9 @@ static func draw_boss_body(canvas: Node2D, encounter: ThornForestEncounter) -> b
 	if encounter.definition.stable_id != &"rootbell_guardian_v2": return false
 	if encounter.definition.collision_size != Vector2(72.0, 96.0): return false
 	canvas.draw_texture_rect(GUARDIAN_BODY, GUARDIAN_BOUNDS, false)
+	if not encounter.core_open:
+		# Dim only the authored heart pixels; armor/feet stay at their real anchors.
+		canvas.draw_texture_rect_region(GUARDIAN_BODY,Rect2(-6,-10,16,10),Rect2(15,18,8,5),Color(0.30,0.55,0.38))
 	return true
 
 static func draw_mobile_bell(canvas: Node2D, radius: float, counter_active: bool) -> bool:

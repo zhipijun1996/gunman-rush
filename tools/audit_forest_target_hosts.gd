@@ -1,5 +1,7 @@
 extends SceneTree
-## Twenty real default App assemblies; no route or aesthetic admission claim.
+## Twenty historical v14 App assemblies against the original v14 corpus.
+## Current-default identity and new-layout routes are checked separately.
+const RECORDED_LAYOUT := "forest-fruit-routes-v14"
 var output := "res://build/forest_revision04/hosts-W8-audit"
 var reference := "res://build/forest_revision04/corpus80-final-W6"
 var failures: Array[String] = []
@@ -38,8 +40,9 @@ func run() -> void:
 			var app := DemoApp.new()
 			app.meta_persistence_enabled=false
 			root.add_child(app)
-			# Omit layout: exercise the actual fresh default, not an explicit pin.
-			if not app.start_debug_region(&"thorn_forest",map_index,root_seed,ThornForestRegionGenerator.DEPTH_VERSION):
+			# Exact original-corpus comparison is explicitly historical, even when
+			# the new public default changes; never relabel it as current evidence.
+			if not app.start_debug_region(&"thorn_forest",map_index,root_seed,ThornForestRegionGenerator.DEPTH_VERSION,RECORDED_LAYOUT):
 				check(false,context+"/actual_entry");app.free();continue
 			await frames(10)
 			var stage := app.stage as ThornForestRegionStage
@@ -49,7 +52,7 @@ func run() -> void:
 			var original := JSON.stringify(m)
 			var assembler := stage.assembler as ThornForestRegionAssembler
 			var audit := assembler.presentation_host_audit()
-			check(m.layout_version==ForestTargetHosts.LAYOUT,context+"/fresh_default_v14")
+			check(m.layout_version==RECORDED_LAYOUT and RECORDED_LAYOUT==ForestTargetHosts.LAYOUT,context+"/historical_v14_exact_layout")
 			var expected: Dictionary = references.get(str(m.seed),{})
 			var canonical_equal: bool = not expected.is_empty() and canonicalizer._same_data(m,expected)
 			check(canonical_equal,context+"/exact_original_corpus_manifest")
@@ -93,6 +96,6 @@ func run() -> void:
 			app.free()
 			await process_frame;await process_frame
 	var file := FileAccess.open(output.path_join("report.json"),FileAccess.WRITE)
-	file.store_string(JSON.stringify({"scope":"twenty_actual_default_App_runtime_assemblies_not_routes_or_visual_admission","presentation_revision":ForestTargetHosts.PRESENTATION_REVISION,"cases":cases,"failures":failures}));file.close()
+	file.store_string(JSON.stringify({"scope":"twenty_actual_historical_v14_App_assemblies_against_original_v14_corpus_not_current_default_or_routes_or_visual_admission","presentation_revision":ForestTargetHosts.PRESENTATION_REVISION,"cases":cases,"failures":failures}));file.close()
 	print("FOREST TARGET HOST AUDIT: %s App cases / %s failures" % [cases.size(),failures.size()])
 	quit(0 if cases.size()==20 and failures.is_empty() else 1)

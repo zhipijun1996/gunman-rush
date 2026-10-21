@@ -1,0 +1,55 @@
+#!/usr/bin/env python3
+"""Restore exact authorized historical JSON bytes; refuse nonidentical existing files."""
+import argparse,hashlib,json,os,stat,tempfile,zipfile,zlib
+from pathlib import Path
+HERE=Path(__file__).resolve().parent
+REPO=HERE.parents[2]
+def digest(p):
+ h=hashlib.sha256()
+ with open(p,'rb') as f:
+  for b in iter(lambda:f.read(1024*1024),b''):h.update(b)
+ return h.hexdigest()
+def safe(root,p):
+ q=Path(p)
+ if q.is_absolute() or '..' in q.parts:raise ValueError('unsafe indexed path')
+ target=root/q
+ # Do not follow symlink parents or overwrite a symlink.
+ for part in [target,*target.parents]:
+  if part==root.parent:break
+  if part.is_symlink():raise ValueError('symlink in destination path')
+ return target
+
+def main():
+ ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--path',action='append');ap.add_argument('--all',action='store_true');ap.add_argument('--destination-root',type=Path);a=ap.parse_args()
+ if bool(a.path)==a.all:ap.error('choose --path ORIGINAL_RELATIVE_PATH (repeatable) or --all')
+ index=json.loads((HERE/'index.json').read_text());by={r['path']:r for r in index['files']}
+ wanted=list(by) if a.all else a.path
+ if any(p not in by for p in wanted):raise ValueError('path not in exact authorized archive index')
+ dest=(a.destination_root or REPO).absolute();checked={};results=[]
+ for p in wanted:
+  r=by[p];target=safe(dest,p)
+  if target.exists():
+   if not target.is_file() or target.stat().st_size!=r['bytes'] or digest(target)!=r['sha256']:raise FileExistsError('REFUSE_DIFFERENT_EXISTING_BYTES: '+str(target))
+   results.append({'path':p,'status':'ALREADY_EXACT','sha256':r['sha256']});continue
+  src=index['archives'][r['archive_id']];archive=safe(REPO,src['path'])
+  if src['path'] not in checked:
+   if archive.stat().st_size!=src['bytes'] or digest(archive)!=src['sha256']:raise ValueError('archive full SHA/bytes mismatch: '+str(archive))
+   checked[src['path']]=True
+  target.parent.mkdir(parents=True,exist_ok=True)
+  fd,tmp=tempfile.mkstemp(prefix='.'+target.name+'.restore-',dir=target.parent);h=hashlib.sha256();crc=0;count=0
+  try:
+   with os.fdopen(fd,'wb') as out,zipfile.ZipFile(archive) as z,z.open(r['member']) as stream:
+    zi=z.getinfo(r['member'])
+    for b in iter(lambda:stream.read(1024*1024),b''):out.write(b);h.update(b);crc=zlib.crc32(b,crc);count+=len(b)
+    out.flush();os.fsync(out.fileno())
+   if count!=r['bytes'] or h.hexdigest()!=r['sha256'] or crc&0xffffffff!=zi.CRC:raise ValueError('member bytes/SHA/CRC mismatch')
+   os.chmod(tmp,r['mode']);s=os.stat(tmp)
+   if (s.st_uid,s.st_gid)!=(r['uid'],r['gid']):os.chown(tmp,r['uid'],r['gid'])
+   os.utime(tmp,ns=(r['atime_ns'],r['mtime_ns']))
+   # link is an atomic no-overwrite publish; never replace unexpected destination bytes.
+   os.link(tmp,target);os.unlink(tmp)
+   results.append({'path':p,'status':'RESTORED_EXACT','sha256':r['sha256'],'bytes':count})
+  finally:
+   if os.path.exists(tmp):os.unlink(tmp)
+ print(json.dumps({'results':results},indent=2))
+if __name__=='__main__':main()

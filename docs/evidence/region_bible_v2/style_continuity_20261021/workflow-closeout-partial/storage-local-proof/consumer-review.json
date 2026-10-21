@@ -1,0 +1,126 @@
+{
+  "scope": "Read-only reference audit and exact restoration of six historical audit inputs; no source/test/docs change or invocation",
+  "full_relative_path_rg_matches_file": "current-path-reference-matches.txt",
+  "full_path_match_lines": 94,
+  "current_tools_tests_quality_records_direct_full_path_inputs": 0,
+  "normal_harness_outputs_review": [
+    {
+      "path": "tools/harness/profiles.json",
+      "lines": [
+        625,
+        693
+      ],
+      "finding": "base output artifact directories, not fixed old raw inputs"
+    },
+    {
+      "path": "tools/run_plains_redesign_scene_tests.py",
+      "line": 131,
+      "finding": "creates fresh unique run dir and produces its own positive/mutant JSON"
+    },
+    {
+      "path": "tools/run_root_bell_tests.py",
+      "line": 633,
+      "finding": "strict_formal_python creates new OUT and runs actual Python verifier to produce own negatives"
+    },
+    {
+      "path": "tools/test_root_bell_formal_verifier.py",
+      "line": 18,
+      "finding": "historical input is separately pinned movie02_native_and_frozen_sources.zip, not selected raw"
+    },
+    {
+      "path": "tools/quality.py",
+      "line": 108,
+      "finding": "checks quality-record evidence file path/hash; no recursive index source_path enforcement"
+    },
+    {
+      "path": "tools/check_docs.py",
+      "line": 26,
+      "finding": "checks markdown links, excludes build; no selected raw markdown links matched"
+    }
+  ],
+  "archived_scripts_retained_inputs": [
+    {
+      "path": "docs/evidence/region_bible_v2/style_continuity_20261021/consumer-independent-second/promotion/actual-replay/audit.py",
+      "inputs": [
+        "build/forest_depth/versions/v15-public-first/data.json",
+        "build/forest_depth/versions/v15-public-first/capture.json",
+        "build/forest_depth/ecology/v15-consumer-entry-fourth/00-entry_wait/capture.json"
+      ]
+    },
+    {
+      "path": "docs/evidence/region_bible_v2/style_continuity_20261021/specialized-consumers-first/ownership-independent/audit.py",
+      "inputs": [
+        "build/forest_depth/ecology/v15-consumer-formal-first/00-wait_phase/capture.json",
+        "build/forest_depth/ecology/v15-consumer-formal-second/00-wait_phase/capture.json",
+        "build/forest_depth/ecology/v15-consumer-lift-first/00-alive_lift/capture.json"
+      ]
+    },
+    {
+      "path": "docs/evidence/region_bible_v2/style_continuity_20261021/specialized-consumers-first/ownership-independent/audit-v2-attempt.py",
+      "inputs": [
+        "build/forest_depth/ecology/v15-consumer-formal-first/00-wait_phase/capture.json",
+        "build/forest_depth/ecology/v15-consumer-formal-second/00-wait_phase/capture.json",
+        "build/forest_depth/ecology/v15-consumer-lift-first/00-alive_lift/capture.json"
+      ]
+    }
+  ],
+  "restored_retained_inputs": [
+    {
+      "path": "build/forest_depth/versions/v15-public-first/data.json",
+      "sha256": "c279fa37afce311c1b0fe421bc539a9340459061974e805527c4b98bc1859f20",
+      "bytes": 4725283,
+      "allocated_bytes": 4726784,
+      "reason": "Conservative retention: historical docs audit.py directly/dynamically reads these raw inputs; no audit/test edit"
+    },
+    {
+      "path": "build/forest_depth/versions/v15-public-first/capture.json",
+      "sha256": "6566f09eb20146e644b59bfaa96b042a362e779dcb4da8ade28548218c65dc9d",
+      "bytes": 6349680,
+      "allocated_bytes": 6352896,
+      "reason": "Conservative retention: historical docs audit.py directly/dynamically reads these raw inputs; no audit/test edit"
+    },
+    {
+      "path": "build/forest_depth/ecology/v15-consumer-entry-fourth/00-entry_wait/capture.json",
+      "sha256": "e8fdb5106d9f4c7f518e184138c4ce4e9a28e61d4ae76088cf3871ea4bd0f5c3",
+      "bytes": 11302560,
+      "allocated_bytes": 11304960,
+      "reason": "Conservative retention: historical docs audit.py directly/dynamically reads these raw inputs; no audit/test edit"
+    },
+    {
+      "path": "build/forest_depth/ecology/v15-consumer-formal-first/00-wait_phase/capture.json",
+      "sha256": "03dde417e9d3b60f9c83c4ab56ed70d947d03365eb14f2da3a9837feb4e8f752",
+      "bytes": 20109518,
+      "allocated_bytes": 20111360,
+      "reason": "Conservative retention: historical docs audit.py directly/dynamically reads these raw inputs; no audit/test edit"
+    },
+    {
+      "path": "build/forest_depth/ecology/v15-consumer-formal-second/00-wait_phase/capture.json",
+      "sha256": "e69d306090d3430dd2a8f997670fcca6a5bf25e92622791f6acc994f37ac5081",
+      "bytes": 12505004,
+      "allocated_bytes": 12505088,
+      "reason": "Conservative retention: historical docs audit.py directly/dynamically reads these raw inputs; no audit/test edit"
+    },
+    {
+      "path": "build/forest_depth/ecology/v15-consumer-lift-first/00-alive_lift/capture.json",
+      "sha256": "3aab5b6772e598e43f3f9cb5b4bb9eea887b5dd7d019d4e9f1888b371612baaf",
+      "bytes": 18175372,
+      "allocated_bytes": 18178048,
+      "reason": "Conservative retention: historical docs audit.py directly/dynamically reads these raw inputs; no audit/test edit"
+    }
+  ],
+  "additional_unselected_external_member_verification": [
+    {
+      "path": "build/forest_depth/versions/v15-public-first/world.json",
+      "archive": "docs/evidence/region_bible_v2/style_continuity_20261021/specialized-consumers-second/versions-v15-public-first/full-original-reports.zip",
+      "member": "world.json",
+      "sha256": "4d4b082a9f8ce896047d471f0294052f3f17473d5aa59969e684bdf05e81dd60",
+      "bytes": 47920,
+      "complete_sha_crc_bytewise_equal": true,
+      "not_in_removal_selection": true
+    }
+  ],
+  "final_raw_absent": 79,
+  "final_raw_retained": 6,
+  "original_logs_receipts_indexes_unchanged": true,
+  "no_engine_or_gameplay_assertion": true
+}

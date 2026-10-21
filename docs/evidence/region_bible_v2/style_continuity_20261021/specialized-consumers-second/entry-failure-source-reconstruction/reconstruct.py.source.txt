@@ -1,0 +1,63 @@
+"""Read-only production source reconstruction; writes exclusively under build/."""
+from pathlib import Path
+import hashlib,json,re
+ROOT=Path.cwd()
+OUT=ROOT/'build/region_bible_v2/entry-failure-source-reconstruction-first'
+TRACE='tests/forest_bible_ecology_trace.gd'
+TEST='tests/test_forest_bible_trace_consumers.py'
+sha=lambda b:hashlib.sha256(b).hexdigest()
+current={p:(ROOT/p).read_bytes() for p in (TRACE,TEST)}
+records=[]
+def save(version,path,text,expected,basis):
+ raw=text.encode() if isinstance(text,str) else text
+ actual=sha(raw)
+ assert actual==expected,(version,path,actual,expected)
+ dest=OUT/version/path;dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(raw)
+ records.append({'version':version,'path':path,'sha256':actual,'expected_sha256':expected,'matches':True,'basis':basis,'bytes':len(raw),'lines':len(raw.splitlines())})
+for p,b in current.items():save('current-fourth',p,b,sha(b),'actual frozen workspace bytes before reconstruction')
+trace=current[TRACE].decode();test=current[TEST].decode()
+drop='''\tif not _entry_prefix_drop_requested and player.is_on_floor() and full_support("borer_access_low"):
+		# The real roof can catch this flight on its existing one-way branch.
+		# Use the ordinary drop action; keep the same jump/edge clocks.
+		jump(false);request(&"drop_through");_entry_prefix_drop_requested=true
+		event("v15_entry_prefix_actual_low_branch_drop",facts)
+		return
+'''
+assert trace.count(drop)==1
+third_trace=trace.replace('var _entry_prefix_drop_requested := false\n','').replace(';_entry_prefix_drop_requested=false','').replace(drop,'')
+assertions='''        self.assertIn('not _entry_prefix_drop_requested and player.is_on_floor() and full_support("borer_access_low")', drive)
+        self.assertIn('jump(false);request(&"drop_through");_entry_prefix_drop_requested=true', drive)
+        self.assertNotRegex(drive, r'\bage\s*=|leg_started\s*=')
+'''
+# Match raw regex characters in the test source rather than interpreting them.
+lines=test.splitlines(keepends=True)
+third_test=''.join(line for line in lines if not any(token in line for token in ["self.assertIn('not _entry_prefix_drop_requested", "self.assertIn('jump(false);request(&\"drop_through\")", "self.assertNotRegex(drive, r'\\bage\\s*=|leg_started"]))
+expected=json.loads((ROOT/'build/region_bible_v2/v15-entry-live-prefix-source-first/freeze-source-proof.json').read_text())['source_sha256']
+for p,t in [(TRACE,third_trace),(TEST,third_test)]:save('failed-third',p,t,expected[p],'reverse only actual low-branch drop patch; exact original freeze-source-proof SHA')
+second_trace=third_trace.split('\nvar _entry_prefix_leg := -1\n',1)[0]
+second_test=third_test.replace("{'owns_strategy_encounter', 'preserves_strategy_target', '_entry_prefix_owns_leg', 'drive_jump'}", "{'owns_strategy_encounter', 'preserves_strategy_target'}")
+second_test=second_test.replace(".split('\\nvar ', 1)[0]",'')
+start=second_test.index('    def test_entry_prefix_input_override_is_exact_and_uses_real_actions(self):')
+end=second_test.index('    def test_conflicting_historical_cli_override_refuses_before_engine(self):',start)
+second_test=second_test[:start]+second_test[end:]
+expected=json.loads((ROOT/'build/region_bible_v2/v15-entry-reserved-target-first/freeze-and-review.json').read_text())['source_sha256']
+for p,t in [(TRACE,second_trace),(TEST,second_test)]:save('failed-second',p,t,expected[p],'reverse prefix trajectory patch; exact reserved-target freeze SHA and native receipt source-before/after')
+reserved='''\nfunc preserves_strategy_target(enemy_id: String) -> bool:
+	return ecology_finished<0 and ecology_strategy in ["entry_clear","entry_wait","entry_hold"] and enemy_id=="hollow_route__borer_entry_thread"
+'''
+assert second_trace.count(reserved)==1
+first_trace=second_trace.replace(reserved,'')
+first_test=second_test.replace("{'owns_strategy_encounter', 'preserves_strategy_target'}", "{'owns_strategy_encounter'}")
+first_test=first_test.replace("body = source.split('func owns_strategy_encounter(leg: Dictionary) -> bool:\\n', 1)[1].split('\\nfunc ', 1)[0]", "body = source.split('func owns_strategy_encounter(leg: Dictionary) -> bool:\\n', 1)[1]")
+start=first_test.index('    def test_only_exact_entry_strategy_subject_is_reserved_across_prefix(self):')
+end=first_test.index('    def test_conflicting_historical_cli_override_refuses_before_engine(self):',start)
+first_test=first_test[:start]+first_test[end:]
+expected=json.loads((ROOT/'build/region_bible_v2/v15-specialized-encounter-ownership-first/fix-and-freeze-v2.json').read_text())['source_sha256']
+save('failed-first',TRACE,first_trace,expected[TRACE],'reverse exact target-reservation patch; original native entry-first source-before/after SHA')
+expected_test=json.loads((ROOT/'build/region_bible_v2/v15-formal-ecology-reader-v5-first/freeze-and-offline-replay.json').read_text())['source_sha256'][TEST]
+save('failed-first',TEST,first_test,expected_test,'reverse target-reservation test; original v5-reader freeze SHA (later than ownership freeze, same as entry-first)')
+unchanged={p:sha((ROOT/p).read_bytes())==sha(b) for p,b in current.items()}
+assert all(unchanged.values())
+report={'scope':'Reconstructed exact failed-source bytes by reversing owned patches; never rewritten native evidence or production source','records':records,'current_source_unchanged':unchanged,'engine_executed':False,'production_written':False,'all_expected_hashes_match':True}
+(OUT/'proof.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+print(json.dumps({'all_expected_hashes_match':True,'source_snapshots':len(records),'production_unchanged':all(unchanged.values()),'proof_sha256':sha((OUT/'proof.json').read_bytes())}))

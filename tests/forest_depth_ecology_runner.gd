@@ -1,7 +1,8 @@
 extends SceneTree
-const TRACE := preload("res://tests/forest_depth_ecology_trace.gd")
+const STRATEGY := preload("res://tests/forest_depth_trace_strategy.gd")
 var seed_value := "forest-depth-00"
 var map_index := 1
+var layout_version := ""
 var strategy_name := "wait_phase"
 var route_name := "fast"
 var output := "res://build/forest_depth/region/capture.json"
@@ -10,13 +11,16 @@ func _initialize() -> void:
 		if arg.begins_with("--seed="): seed_value=arg.trim_prefix("--seed=")
 		elif arg.begins_with("--strategy="): strategy_name=arg.trim_prefix("--strategy=")
 		elif arg.begins_with("--map="): map_index=int(arg.trim_prefix("--map="))
+		elif arg.begins_with("--layout="): layout_version=arg.trim_prefix("--layout=")
 		elif arg.begins_with("--route="): route_name=arg.trim_prefix("--route=")
 		elif arg.begins_with("--output="): output=arg.trim_prefix("--output=")
+	if (strategy_name=="crossbranch_lifecycle") and not layout_version.is_empty() and layout_version!=ThornForestRegionGenerator.DEPTH_LAYOUT_CANOPY:
+		push_error("Historical_coordinate_fixture_requires_explicit_v10");quit(1);return
 	run.call_deferred()
 func run() -> void:
-	var trace:=TRACE.new()
 	# The lifecycle fixture observes its frozen v10 two-leg approach and shores.
-	if strategy_name=="crossbranch_lifecycle": trace.recorded_layout_version=ThornForestRegionGenerator.DEPTH_LAYOUT_CANOPY
+	var recorded_layout: String=ThornForestRegionGenerator.DEPTH_LAYOUT_CANOPY if strategy_name=="crossbranch_lifecycle" else layout_version
+	var trace: Node=STRATEGY.create_ecology(recorded_layout)
 	trace.ecology_strategy=strategy_name
 	trace.seed_value=seed_value;trace.map_index=map_index;trace.route_name=route_name
 	root.add_child(trace)
@@ -50,6 +54,8 @@ func run() -> void:
 		data["gate_shape_disabled"]=trace.stage.assembler.vine_shape.disabled
 		data["actual_stage_map"]=trace.stage.map_index
 		data["actual_stage_version"]=trace.stage.generated.stage_generator_version
+	var admission: Dictionary=trace.admission_evidence()
+	if not admission.is_empty(): data["bible_admission"]=admission
 	var audio_ok:=true
 	if is_instance_valid(trace.app):
 		# Payload already detached. Quiesce ordinary gameplay only during teardown.

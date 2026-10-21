@@ -85,7 +85,8 @@ func _process(delta: float) -> void:
 	if not app.lifetime.active or int(app.lifetime.actor_epoch) != _core_actor_epoch or controller.actor_resources.health.terminal:
 		fail("spiral_reader_lifetime_changed"); return
 	if get_tree().paused:
-		core_modal_frames.append({"tick":tick,"motion_steps":player.motion_steps,"state":_core_state,"process_frame":Engine.get_process_frames()})
+		core_modal_frames.append({"tick":tick,"motion_steps":player.motion_steps,"state":_core_state,"process_frame":Engine.get_process_frames(),"paused":get_tree().paused,"position":pair(player.global_position),"actor_epoch":app.lifetime.actor_epoch,"stage_epoch":app.lifetime.stage_epoch})
+		movie_stamp(core_modal_frames[-1])
 	if _core_state == "open":
 		if _core_ui_age == 4:
 			var button: Button

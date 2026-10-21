@@ -1,7 +1,8 @@
 extends SceneTree
-const TRACE := preload("res://tests/forest_depth_lift_trace.gd")
+const STRATEGY := preload("res://tests/forest_depth_trace_strategy.gd")
 var seed_value := "forest-depth-00"
 var map_index := 1
+var layout_version := ""
 var strategy_name := "alive_lift"
 var route_name := "high_return"
 var root_entry_mode := false
@@ -16,13 +17,16 @@ func _initialize() -> void:
 		elif arg.begins_with("--return-strategy="): return_strategy=arg.trim_prefix("--return-strategy=")
 		elif arg.begins_with("--strategy="): strategy_name=arg.trim_prefix("--strategy=")
 		elif arg.begins_with("--map="): map_index=int(arg.trim_prefix("--map="))
+		elif arg.begins_with("--layout="): layout_version=arg.trim_prefix("--layout=")
 		elif arg.begins_with("--route="): route_name=arg.trim_prefix("--route=")
 		elif arg.begins_with("--output="): output=arg.trim_prefix("--output=")
+	if (root_entry_mode or expedition_mode) and not layout_version.is_empty() and layout_version!=ThornForestRegionGenerator.DEPTH_LAYOUT_CANOPY:
+		push_error("Historical_coordinate_fixture_requires_explicit_v10");quit(1);return
 	run.call_deferred()
 func run() -> void:
-	var trace:=TRACE.new()
 	# Exact historical coordinate regressions; current default has its own corpus.
-	if root_entry_mode or expedition_mode: trace.recorded_layout_version=ThornForestRegionGenerator.DEPTH_LAYOUT_CANOPY
+	var recorded_layout: String=ThornForestRegionGenerator.DEPTH_LAYOUT_CANOPY if root_entry_mode or expedition_mode else layout_version
+	var trace: Node=STRATEGY.create_lift(recorded_layout)
 	trace.root_entry_enabled=root_entry_mode
 	trace.expedition_enabled=expedition_mode
 	trace.lift_strategy=strategy_name
@@ -71,6 +75,8 @@ func run() -> void:
 		data["actual_stage_version"]=trace.stage.generated.stage_generator_version
 	if is_instance_valid(trace.controller):
 		data["lift_resource_config"]={"shot_cost":trace.controller.shot_energy.shot_energy_cost,"hit_energy_recovery":trace.controller.shot_energy.hit_energy_recovery,"ground_recovery":trace.controller.shot_energy.ground_energy_recovery,"combat_target_gain":trace.controller.combat_energy.definition.target_gain,"combat_packet_limit":trace.controller.combat_energy.definition.packet_gain_limit,"combat_capacity":trace.controller.combat_energy.definition.capacity,"hook_damage":trace.controller.traversal.definition.hook_damage,"hook_range":trace.controller.traversal.definition.hook_range,"hook_stop":trace.controller.traversal.definition.hook_stop_distance,"hook_kick":trace.pair(trace.controller.traversal.definition.hook_kick)}
+	var admission: Dictionary=trace.admission_evidence()
+	if not admission.is_empty(): data["bible_admission"]=admission
 	var audio_ok:=true
 	if is_instance_valid(trace.app):
 		# Payload already detached. Quiesce ordinary gameplay only during teardown.

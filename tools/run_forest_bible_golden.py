@@ -20,6 +20,8 @@ def main():
     parser.add_argument('--near-scene', action='store_true')
     parser.add_argument('--guardian-scene', action='store_true')
     parser.add_argument('--ecology-scenes', action='store_true')
+    parser.add_argument('--thorn-scenes', action='store_true')
+    parser.add_argument('--thorn-only', action='store_true')
     args = parser.parse_args()
     out = args.output.resolve()
     if not out.is_relative_to(ROOT / 'build') or out.exists():
@@ -45,13 +47,15 @@ def main():
             if args.near_scene: cmd.append('--near-scene')
             if args.guardian_scene: cmd.append('--guardian-scene')
             if args.ecology_scenes: cmd.append('--ecology-scenes')
+            if args.thorn_scenes: cmd.append('--thorn-scenes')
+            if args.thorn_only: cmd.append('--thorn-only')
             receipt['command'] = cmd
             with (out/'native.log').open('wb') as native:
                 result = subprocess.run(cmd,env=env,stdout=native,stderr=subprocess.STDOUT,timeout=120)
             receipt['native_exit_code'] = result.returncode
             text = (out/'native.log').read_text()
             if result.returncode or re.search(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:|^ERROR:',text,re.M): raise RuntimeError('native failure')
-            expected = (8 if args.compare_plains else 6) + int(args.near_scene) + int(args.guardian_scene) + (8 if args.ecology_scenes else 0)
+            expected = (2 if args.compare_plains else 0) + (0 if args.thorn_only else 6) + int(args.near_scene) + int(args.guardian_scene) + (8 if args.ecology_scenes else 0) + (4 if args.thorn_scenes or args.thorn_only else 0)
             receipt['expected_images'] = expected
             if f'FOREST BIBLE GOLDEN: {expected} images / 0 failures' not in text: raise RuntimeError('complete selected compositions required')
             data = json.loads((out/'capture.json').read_text())

@@ -1,0 +1,34 @@
+{
+  "scope": "Narrow actual entry_wait counterexample repair and CLI source eligibility audit; no engine",
+  "source_frozen": true,
+  "HEAD": "083fbdc4a29a9d26c99b89bd5f2d506b3a88fcdb",
+  "source_sha256": {
+    "tests/forest_depth_grove_combat_case.gd": "543040078498399c01e33ffa36ffa5dbda72afedf847e8075e6ada2b65fe639d",
+    "tests/forest_bible_trace_support.gd": "a85e5d6e0353bd0f5f362072764db705d4293e9283fc0cbf22dfb7a9a2c43616",
+    "tests/forest_bible_ecology_trace.gd": "47bdd755db47be5c6c0b7526d0d2bac28e77e69886e9d0a345219d1c3a20a5c5",
+    "tests/test_forest_bible_trace_consumers.py": "eabbf4e9e2d1164f6e535a87173888636be66d34a28af858529067b4efecaa5e"
+  },
+  "historical_grove_projection_matches_HEAD_except_constant_true_hook": true,
+  "actual_failure": {
+    "path": "build/forest_depth/ecology/v15-consumer-entry-first/00-entry_wait/capture.json",
+    "sha256": "6b95fd90d7f6e22559cf2c95c171e4f8d5fddd4d14d64a69ad9d79948ed0ee8e",
+    "frames": 3239,
+    "completed_legs": 21,
+    "failures": [
+      "edge_tick_budget/21/align"
+    ],
+    "chain": "west_to_belly leg19 tick1250 Grove acquisition -> actual projectile lethal1281 -> return1309 -> entry_wait begins1439 on dead target -> tick3239 edge21 timeout"
+  },
+  "new_filter": "Only entry_clear/entry_wait/entry_hold with ecology_finished<0 reserve exact hollow_route__borer_entry_thread from generic Grove acquisition across all earlier legs. Other enemies, normal modes, and finished comparisons remain eligible. Actors/clearance/physics/resources/budgets untouched.",
+  "consumer_tests": {
+    "passed": 11,
+    "seconds": 0.424,
+    "new_control": "resource-free actual predicate source: exact target/mode, finished scope and unrelated actors; generic default hook constant true; filters before origin/target state mutation"
+  },
+  "entry_actual_input": "--scenario formal --map 1 --seed forest-depth-hollow-00 --formal-route borer --formal-strategies entry_wait --layout forest-bible-world-v15",
+  "crossbranch_actual_input": "--scenario crossbranch --map 2 --seed forest-depth-hollow-00 --formal-route growth --crossbranch-strategies live_H --layout forest-bible-world-v15",
+  "crossbranch_basis": "Actual matrix08-map2-fast manifest has crossbranch_contract and existing growth route north_far_bough/far_cache/far_reward_return. Tool prefixes CLI live_H to inherited crossbranch_live_H without replacing geometry.",
+  "west_status": "No valid current formal west_wait target: exact west_seed_watch absent from all scripts producer source and actual map2 hollow00/hollow02 manifests. Only consumer/reader and synthetic-unit source references exist. No native west request or fabricated actor justified.",
+  "original_failed_receipts_retained": true,
+  "engine_executed": false
+}

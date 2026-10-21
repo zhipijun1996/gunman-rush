@@ -1,0 +1,269 @@
+"""Continuous MovieWriter AV of an existing formal F05 or F08 journey.
+
+No new pilot,
+fixture spawn, resources, physics stepping, BGM, or staged player pose.
+"""
+import argparse
+import contextlib
+from fractions import Fraction
+import hashlib
+import json
+import os
+from pathlib import Path
+import re
+import selectors
+import shutil
+import subprocess
+import time
+
+from forest_bible_world_sources import inventory
+from run_forest_depth_region import import_inventory_guard
+from run_tests import run_engine
+
+ROOT = Path(__file__).resolve().parents[1]
+ERRORS = re.compile(r'SCRIPT ERROR:|Parse Error:|SHADER ERROR:|^ERROR:|ObjectDB.*leaked|resources? still in use at exit', re.M)
+
+
+def write_json(path, value):
+    path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + '\n')
+
+
+def sha(path):
+    with path.open('rb') as source:
+        return hashlib.file_digest(source, 'sha256').hexdigest()
+
+
+def provenance():
+    def git(*args):
+        return subprocess.check_output(['git', *args], cwd=ROOT, text=True).strip()
+    return {'head': git('rev-parse', 'HEAD'), 'branch': git('branch', '--show-current'),
+            'porcelain': git('status', '--porcelain=v1', '--untracked-files=all'),
+            'tracked_diff_numstat': git('diff', '--numstat', 'HEAD'),
+            'scope': 'HEAD plus exact complete runtime/test/tool byte inventory; WIP is not committed-release proof'}
+
+
+@contextlib.contextmanager
+def native_environment(output):
+    """run_engine inherits this bounded software-GL environment; no engine fork."""
+    binary = shutil.which('Xvfb')
+    if binary is None:
+        fallback = ROOT / 'build/forest_revision04/display-final-W6/runtime/usr/bin/Xvfb'
+        if not fallback.is_file():
+            raise RuntimeError('Actual Xvfb required; no screenshot or headless substitute')
+        binary = str(fallback)
+    command = [binary, '-displayfd', '1', '-screen', '0', '1280x720x24', '-nolisten', 'tcp', '-ac']
+    with (output / 'display.log').open('wb') as log:
+        display = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=log)
+        patch = {'LIBGL_ALWAYS_SOFTWARE': '1', 'LP_NUM_THREADS': '1', 'OMP_NUM_THREADS': '1',
+                 'GUNMAN_DATA_HOME': str(output / 'user-data'),
+                 'XDG_CONFIG_HOME': str(output / 'config'), 'XDG_CACHE_HOME': str(output / 'cache')}
+        previous = {}
+        try:
+            with selectors.DefaultSelector() as ready:
+                ready.register(display.stdout, selectors.EVENT_READ)
+                if not ready.select(20):
+                    raise RuntimeError('Xvfb readiness exceeded20s')
+                number = display.stdout.readline().decode().strip()
+                if not number.isdigit():
+                    raise RuntimeError('Invalid actual Xvfb display number')
+            patch['DISPLAY'] = ':' + number
+            previous = {key: os.environ.get(key) for key in patch}
+            os.environ.update(patch)
+            yield {'display_argv': command, 'environment_patch': patch}
+        finally:
+            for key, value in previous.items():
+                if value is None:
+                    os.environ.pop(key, None)
+                else:
+                    os.environ[key] = value
+            if display.poll() is None:
+                display.terminate()
+                try:
+                    display.wait(timeout=5)
+                except subprocess.TimeoutExpired:
+                    display.kill(); display.wait(timeout=5)
+            display.stdout.close()
+
+
+def media_probe(path, output):
+    command = ['ffprobe', '-v', 'error', '-count_frames', '-show_streams', '-show_format', '-of', 'json', str(path)]
+    result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, timeout=60)
+    (output / (path.stem + '.ffprobe.stderr.log')).write_text(result.stderr)
+    if result.returncode:
+        raise RuntimeError('ffprobe failed for ' + path.name)
+    data = json.loads(result.stdout)
+    write_json(output / (path.stem + '.ffprobe.json'), data)
+    videos = [r for r in data.get('streams', []) if r.get('codec_type') == 'video']
+    audios = [r for r in data.get('streams', []) if r.get('codec_type') == 'audio']
+    if len(videos) != 1 or len(audios) != 1:
+        raise RuntimeError('Exactly one real video and one real MovieWriter audio stream required')
+    video, audio = videos[0], audios[0]
+    count = int(video.get('nb_read_frames', 0))
+    if ((video.get('width'), video.get('height')) != (1280, 720)
+            or Fraction(video.get('avg_frame_rate', '0/1')) != 60 or count <= 0
+            or int(audio.get('sample_rate', 0)) != 48000 or audio.get('channels') != 2):
+        raise RuntimeError('Actual movie must be1280x720/60fps/stereo48k; no resampling or silent-track repair')
+    return {'argv': command, 'exit_code': result.returncode, 'frames': count,
+            'seconds_from_frames': count / 60, 'bytes': path.stat().st_size, 'sha256': sha(path)}
+
+
+def verify_trace(data, challenge, map_index):
+    if data.get('failures') or not data.get('frames') or not data.get('completed'):
+        raise RuntimeError('Existing formal journey failed or has no actual Motor trace')
+    if data.get('manual_motor_step') is not False or data.get('map_index') != map_index:
+        raise RuntimeError('Wrong map or privileged manual Motor stepping')
+    if len(data['completed']) != data.get('itinerary_count'):
+        raise RuntimeError('Existing runner did not complete its entire formal itinerary')
+    if challenge == 'F05':
+        if (data.get('scope') != 'full_formal_spawn_Bible_world_Motor'
+                or data.get('route') != 'bible_backbranch_journey'
+                or data.get('position_or_resource_injection') is not False):
+            raise RuntimeError('F05 requires exact formal full-spawn existing runner')
+    elif (data.get('scope') != 'full_formal_spawn_F08_reader_and_other_exit'
+          or data.get('mode') != 'full' or data.get('initial_fixture_spawn_override') is not False
+          or data.get('resource_or_health_override') is not False or data.get('direct_claim_or_grant') is not False
+          or not data.get('core_evidence')):
+        raise RuntimeError('F08 requires full formal spawn and actual Reader claim, never LOCAL')
+    if any(r.get('motor_steps') != 1 for r in data['frames']):
+        raise RuntimeError('Actual ordinary Motor must step exactly once per physical sample')
+    return {'physics_samples': len(data['frames']), 'completed_legs': len(data['completed']),
+            'min_hp': min(r['health'] for r in data['frames']),
+            'actual_player_damage': [r for r in data.get('events', [])
+                                     if r.get('kind') == 'committed_damage' and r.get('target') == 'player'],
+            'actor_epochs': sorted({r['actor_epoch'] for r in data['frames']})}
+
+
+def keyframes(data, count, challenge):
+    """Use actual draw counters only. Physics tick/time-scale is never movie time."""
+    wanted = (['bible_F05_grounded_departure', 'bible_F05_actual_descending_side_cast', 'hook_contact_kick', 'shot_fired']
+              if challenge == 'F05' else ['hook_contact_kick', 'spiral_actual_reader_bank', 'spiral_actual_queued_item_accepted'])
+    picks = []
+    for kind in wanted:
+        rows = [r for r in data.get('events', []) if r.get('kind') == kind]
+        if challenge == 'F05' and kind in ('hook_contact_kick', 'shot_fired'):
+            side_cast = next((r['tick'] for r in data.get('events', [])
+                              if r.get('kind') == 'bible_F05_actual_descending_side_cast'), None)
+            rows = [r for r in rows if side_cast is not None and r['tick'] >= side_cast]
+        elif challenge == 'F08' and kind == 'hook_contact_kick':
+            ascent_legs = {r['leg'] for r in data['completed'] if r.get('edge_id') == 'interwoven_deep_ascent'}
+            rows = [r for r in rows if r.get('leg') in ascent_legs]
+        if rows:
+            picks.append({'kind': kind, 'tick': rows[0]['tick'], 'frame': rows[0].get('presentation_frame')})
+    for label, row in [('formal_route_first_observed_frame', data['frames'][0]),
+                       ('formal_route_final_observed_frame', data['frames'][-1])]:
+        picks.append({'kind': label, 'tick': row['tick'], 'frame': row.get('presentation_frame')})
+    if any(type(r['frame']) is not int or not 0 <= r['frame'] < count for r in picks):
+        raise RuntimeError('No valid actual draw counter; do not approximate keyframes from physics ticks')
+    # One native frame may carry multiple accepted events. Export it once.
+    unique = {r['frame']: r for r in picks}
+    return [unique[index] for index in sorted(unique)][:6]
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--challenge', choices=('F05', 'F08'), required=True)
+    parser.add_argument('--map', type=int, choices=(1, 2), default=2)
+    parser.add_argument('--seed', default='forest-depth-hollow-00')
+    parser.add_argument('--output', required=True, type=Path)
+    args = parser.parse_args()
+    if args.challenge == 'F08' and args.map != 2:
+        parser.error('Existing F08 formal runner is map2 only')
+    output = args.output.resolve()
+    if not output.is_relative_to(ROOT / 'build') or output.exists():
+        parser.error('Fresh output below repository build required')
+    output.mkdir(parents=True)
+    started = time.monotonic()
+    receipt = {'scope': 'Continuous existing formal full-spawn route AV; no new pilot or gameplay/device/FUN/audio-listening acceptance',
+               'challenge': args.challenge, 'seed': args.seed, 'map': args.map,
+               'source_before': inventory(), 'provenance_before': provenance(),
+               'import_cap_seconds': 90, 'native_cap_seconds': 240, 'exit_code': 1,
+               'free_bytes_before': shutil.disk_usage(output).free,
+               'audio_format_policy': 'Require original MovieWriter stereo48k in raw AVI, then encode same tracks; Dummy is backend, no physical device/listening claim',
+               'commands': [], 'checks': {}}
+    try:
+        import_args = ['--headless', '--path', '.', '--editor', '--quit']
+        receipt['commands'].append({'phase': 'import', 'argv': ['bash', str(ROOT / 'tools/godot.sh'), *import_args], 'timeout_seconds': 90})
+        with (output / 'import.log').open('w') as log, contextlib.redirect_stdout(log):
+            import_text = run_engine(import_args, 90)
+        if ERRORS.search(import_text):
+            raise RuntimeError('Unexpected import error or resource leak')
+        after_import = inventory()
+        receipt['source_after_import'] = after_import
+        receipt['import_guard'] = import_inventory_guard(receipt['source_before'], after_import)
+        if not receipt['import_guard']['passed']:
+            raise RuntimeError('Source changed during import beyond allowed UID/import metadata')
+        raw, trace = output / 'original.avi', output / 'trace.json'
+        runner = ('tests/forest_bible_world_motor_runner.gd' if args.challenge == 'F05'
+                  else 'tests/forest_bible_spiral_motor_runner.gd')
+        native_args = ['--path', '.', '--rendering-method', 'gl_compatibility', '--audio-driver', 'Dummy',
+                       '--resolution', '1280x720', '--fixed-fps', '60', '--write-movie', str(raw),
+                       '--script', runner, '--', '--output=res://' + trace.relative_to(ROOT).as_posix(),
+                       '--seed=' + args.seed, '--capture-movie']
+        native_args += (['--route=bible_backbranch_journey', '--map=' + str(args.map)]
+                        if args.challenge == 'F05' else ['--mode=full'])
+        with native_environment(output) as display:
+            receipt['native_environment'] = display
+            receipt['commands'].append({'phase': 'native', 'argv': ['bash', str(ROOT / 'tools/godot.sh'), *native_args], 'timeout_seconds': 240})
+            with (output / 'native.log').open('w') as log, contextlib.redirect_stdout(log):
+                native_text = run_engine(native_args, 240)
+        marker = 'FOREST BIBLE WORLD MOTOR: PASS' if args.challenge == 'F05' else 'FOREST BIBLE F08 MOTOR: PASS'
+        if (marker not in native_text or ERRORS.search(native_text) or 'OpenGL API' not in native_text
+                or 'Godot Engine v4.7.2.stable.official.ed1daf0bf' not in native_text):
+            raise RuntimeError('Exact engine, real GL, existing runner completion and clean resource teardown required')
+        data = json.loads(trace.read_text())
+        if data.get('seed') != args.seed:
+            raise RuntimeError('Actual formal root seed differs')
+        receipt['checks']['existing_route'] = verify_trace(data, args.challenge, args.map)
+        receipt['checks']['raw_media'] = media_probe(raw, output)
+        count = receipt['checks']['raw_media']['frames']
+        receipt['keyframes'] = keyframes(data, count, args.challenge)
+        # Godot and Xvfb have finished. Retain the original AVI; derivatives are
+        # encoded and extracted only now, never by polling active PNG frames.
+        mp4 = output / 'playback.mp4'
+        encode = ['ffmpeg', '-nostdin', '-v', 'error', '-i', str(raw), '-map', '0:v:0', '-map', '0:a:0',
+                  '-c:v', 'libx264', '-threads', '1', '-preset', 'veryfast', '-crf', '18', '-pix_fmt', 'yuv420p',
+                  '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart', str(mp4)]
+        receipt['commands'].append({'phase': 'encode', 'argv': encode, 'timeout_seconds': 180})
+        with (output / 'encode.log').open('wb') as log:
+            subprocess.run(encode, stdout=log, stderr=subprocess.STDOUT, timeout=180, check=True)
+        receipt['checks']['mp4_media'] = media_probe(mp4, output)
+        if receipt['checks']['mp4_media']['frames'] != count:
+            raise RuntimeError('MP4 derivative dropped or duplicated original video frames')
+        frames_dir = output / 'keyframes'; frames_dir.mkdir()
+        select = "select='" + '+'.join('eq(n,%s)' % r['frame'] for r in receipt['keyframes']) + "'"
+        extract = ['ffmpeg', '-nostdin', '-v', 'error', '-threads', '1', '-i', str(raw), '-vf', select,
+                   '-fps_mode', 'passthrough', str(frames_dir / '%02d.png')]
+        receipt['commands'].append({'phase': 'extract_selected_original_frames', 'argv': extract, 'timeout_seconds': 180})
+        with (output / 'extract.log').open('wb') as log:
+            subprocess.run(extract, stdout=log, stderr=subprocess.STDOUT, timeout=180, check=True)
+        images = sorted(frames_dir.glob('*.png'))
+        if len(images) != len(receipt['keyframes']):
+            raise RuntimeError('Not all selected original draw frames were extracted')
+        for row, path in zip(receipt['keyframes'], images):
+            row.update(path=path.relative_to(output).as_posix(), sha256=sha(path))
+        receipt['exit_code'] = 0
+    except (OSError, RuntimeError, ValueError, KeyError, subprocess.SubprocessError) as error:
+        receipt['error'] = type(error).__name__ + ': ' + str(error)
+    finally:
+        try:
+            receipt['source_after'] = inventory()
+            receipt['provenance_after'] = provenance()
+            receipt['source_stable'] = (receipt.get('import_guard', {}).get('passed') is True
+                                        and receipt['source_after_import'] == receipt['source_after']
+                                        and receipt['provenance_before']['head'] == receipt['provenance_after']['head'])
+            if not receipt['source_stable']:
+                receipt['exit_code'] = 1
+                receipt.setdefault('error', 'Source/HEAD closure changed or import guard absent')
+        except (OSError, subprocess.SubprocessError) as error:
+            receipt.update(exit_code=1, source_stable=False, source_guard_error=str(error))
+        receipt['elapsed_seconds'] = time.monotonic() - started
+        receipt['free_bytes_after'] = shutil.disk_usage(output).free
+        receipt['artifacts'] = {p.relative_to(output).as_posix(): {'bytes': p.stat().st_size, 'sha256': sha(p)}
+                                for p in output.rglob('*') if p.is_file() and p.name != 'receipt.json'}
+        write_json(output / 'receipt.json', receipt)
+    print(json.dumps({key: receipt.get(key) for key in ('challenge', 'seed', 'map', 'exit_code', 'source_stable', 'elapsed_seconds', 'error')}, ensure_ascii=False))
+    return receipt['exit_code']
+
+
+if __name__ == '__main__':
+    raise SystemExit(main())

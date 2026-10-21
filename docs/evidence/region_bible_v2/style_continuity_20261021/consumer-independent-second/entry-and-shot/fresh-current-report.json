@@ -1,0 +1,138 @@
+{
+  "verdict": "ACCEPT_SCOPED_NUMERIC_CONTRACT_AND_OFFLINE_ACTUAL_ENTRY",
+  "source_sha256": {
+    "tools/run_forest_depth_region.py": "d82cdfd9b4717e32f41c87fc6529b123b6c922587984ee5fb797a315c5f4d7a8"
+  },
+  "actual_capture": "build/forest_depth/ecology/v15-consumer-entry-fifth-unpinned/00-entry_wait/capture.json",
+  "actual_capture_sha256": "e8fdb5106d9f4c7f518e184138c4ce4e9a28e61d4ae76088cf3871ea4bd0f5c3",
+  "full_unmocked_formal_choice_passed": true,
+  "route": {
+    "completed_legs": 29,
+    "frames": 2096,
+    "min_hp": 5.0
+  },
+  "actual_roundoff": {
+    "tick": 1331,
+    "queued": [
+      -0.70710676908493,
+      0.70710676908493
+    ],
+    "fired": [
+      -0.707106828689575,
+      0.707106828689575
+    ],
+    "distance": 8.429369733580656e-08
+  },
+  "actual_negative_controls": [
+    {
+      "label": "request_direction_rotated_001",
+      "rejected": true,
+      "expected_label_present": true
+    },
+    {
+      "label": "shot_direction_opposite",
+      "rejected": true,
+      "expected_label_present": true
+    },
+    {
+      "label": "actual_tick_mismatch",
+      "rejected": true,
+      "expected_label_present": true
+    },
+    {
+      "label": "unqueued_request",
+      "rejected": true,
+      "expected_label_present": true
+    },
+    {
+      "label": "missing_actual_request",
+      "rejected": true,
+      "expected_label_present": true
+    },
+    {
+      "label": "request_missing",
+      "rejected": true,
+      "expected_label_present": true
+    },
+    {
+      "label": "shot_missing",
+      "rejected": true,
+      "expected_label_present": true
+    },
+    {
+      "label": "request_empty",
+      "rejected": true,
+      "expected_label_present": true
+    },
+    {
+      "label": "shot_empty",
+      "rejected": true,
+      "expected_label_present": true
+    },
+    {
+      "label": "request_zero",
+      "rejected": true,
+      "expected_label_present": true
+    },
+    {
+      "label": "shot_zero",
+      "rejected": true,
+      "expected_label_present": true
+    },
+    {
+      "label": "request_nonunit",
+      "rejected": true,
+      "expected_label_present": true
+    },
+    {
+      "label": "shot_nonunit",
+      "rejected": true,
+      "expected_label_present": true
+    },
+    {
+      "label": "request_bool",
+      "rejected": true,
+      "expected_label_present": true
+    },
+    {
+      "label": "shot_bool",
+      "rejected": true,
+      "expected_label_present": true
+    },
+    {
+      "label": "request_nan",
+      "rejected": true,
+      "expected_label_present": true
+    },
+    {
+      "label": "shot_nan",
+      "rejected": true,
+      "expected_label_present": true
+    },
+    {
+      "label": "request_inf",
+      "rejected": true,
+      "expected_label_present": true
+    },
+    {
+      "label": "shot_inf",
+      "rejected": true,
+      "expected_label_present": true
+    },
+    {
+      "label": "request_3d",
+      "rejected": true,
+      "expected_label_present": true
+    },
+    {
+      "label": "shot_3d",
+      "rejected": true,
+      "expected_label_present": true
+    }
+  ],
+  "limitations": [
+    "Fresh native wrapper passed with original source_guard true and actual empty layout selection",
+    "Scope restricted to actual entry_wait; no entry_clear/hold native evidence claimed",
+    "No runtime or production writes by reviewer"
+  ]
+}

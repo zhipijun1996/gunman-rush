@@ -1,0 +1,355 @@
+diff --git a/scripts/generation/thorn_forest_region_generator.gd b/scripts/generation/thorn_forest_region_generator.gd
+index 1dadf9e6..3ae58056 100644
+--- a/scripts/generation/thorn_forest_region_generator.gd
++++ b/scripts/generation/thorn_forest_region_generator.gd
+@@ -12,7 +12,7 @@ const DEPTH_LAYOUT_VERTICAL := "forest-woven-trunk-v12"
+ const DEPTH_LAYOUT_INTERWOVEN := "forest-interwoven-canopy-v13"
+ const DEPTH_LAYOUT_FRUIT := "forest-fruit-routes-v14"
+ const DEPTH_LAYOUT_BIBLE := "forest-bible-world-v15"
+-const CURRENT_DEPTH_LAYOUT := DEPTH_LAYOUT_FRUIT
++const CURRENT_DEPTH_LAYOUT := DEPTH_LAYOUT_BIBLE
+ const DEPTH_LAYOUT_SCRIPTS := {
+ 	DEPTH_LAYOUT_V7:"res://scripts/generation/thorn_forest_region_v2_v7.gd",
+ 	DEPTH_LAYOUT_V9:"res://scripts/generation/thorn_forest_region_v2_v9.gd",
+diff --git a/tests/forest_campaign_runner.gd b/tests/forest_campaign_runner.gd
+index 21d55c05..0fbef3bf 100644
+--- a/tests/forest_campaign_runner.gd
++++ b/tests/forest_campaign_runner.gd
+@@ -70,7 +70,7 @@ func check_default_forest_identity(map_index: int) -> void:
+ 	check(app.forest_content_version==EXPECTED_PUBLIC_FOREST and app.stage.generated.manifest.version==EXPECTED_PUBLIC_FOREST and app.stage.generated.manifest.map_index==map_index,"natural region selection retains independently expected public forest version map%s"%map_index)
+ 	check(encounter!=null and encounter.definition!=null and encounter.definition.resource_path==expected.definition,"natural default forest actual Boss Definition matches selected version map%s"%map_index)
+ 	check(app.stage.boss.scene_file_path==expected.scene,"natural default forest actual Boss scene matches selected version map%s"%map_index)
+-	check(app.stage.generated.manifest.layout_version=="forest-fruit-routes-v14","fresh default uses independently expected fruit-routes layout; historical replay is separately mandatory")
++	check(app.stage.generated.manifest.layout_version=="forest-bible-world-v15","fresh default uses independently expected Bible layout; historical replay is separately mandatory")
+ func check_region_presentation(region: StringName) -> void:
+ 	# Reuse actual consumers, not a second region transition implementation.
+ 	# Existing Boss/reward reset_at fixtures remain explicit settlement evidence.
+diff --git a/tests/forest_depth_version_runner.gd b/tests/forest_depth_version_runner.gd
+index 848300b9..b339be9c 100644
+--- a/tests/forest_depth_version_runner.gd
++++ b/tests/forest_depth_version_runner.gd
+@@ -4,7 +4,7 @@ const LEGACY := preload("res://scripts/generation/thorn_forest_region_v1.gd")
+ # Independently selected v2 playtest-default contract; not production admission.
+ const EXPECTED_PUBLIC_DEFAULT := ThornForestRegionGenerator.DEPTH_VERSION
+ # Deliberate independent expectation; updated only after the candidate golden.
+-const EXPECTED_PUBLIC_LAYOUT := "forest-fruit-routes-v14"
++const EXPECTED_PUBLIC_LAYOUT := "forest-bible-world-v15"
+ var assertions := 0
+ var failures := 0
+ var cases: Array[Dictionary] = []
+@@ -401,4 +401,4 @@ func check_fruit_contract(registry: ThornForestRegionGenerator,tuning: PlayerTun
+ 		if map_index==2:
+ 			edited=m.duplicate(true);edited.erase("boss_content");edited.manifest_hash=ThornForestRegionGenerator._hash(edited)
+ 			check(not registry.validate(edited,tuning) and ThornForestRegionGenerator.boss_scene_path(m.version,map_index,edited).is_empty(),"v14 missing Queen whitelist content cannot fall back")
+-		cases.append({"id":"fruit_candidate_and_public_layout","map":map_index,"candidate_manifest":m,"default_manifest":current.manifest,"expected_public_layout":EXPECTED_PUBLIC_LAYOUT,"dedicated_complete_equal":equality._same_data(explicit,dedicated)})
++		cases.append({"id":"fruit_candidate_and_public_layout","map":map_index,"candidate_manifest":m,"default_manifest":current.manifest,"expected_public_layout":EXPECTED_PUBLIC_LAYOUT,"expected_public_manifest":expected.manifest,"dedicated_complete_equal":equality._same_data(explicit,dedicated)})
+diff --git a/tests/forest_progression_debug_runner.gd b/tests/forest_progression_debug_runner.gd
+index 8aedb2c3..5e3dd9ef 100644
+--- a/tests/forest_progression_debug_runner.gd
++++ b/tests/forest_progression_debug_runner.gd
+@@ -26,7 +26,7 @@ func check_default_forest_identity(app: Node,map_index: int) -> void:
+ 	check(app.forest_content_version==EXPECTED_PUBLIC_FOREST and app.stage.generated.manifest.version==EXPECTED_PUBLIC_FOREST and app.stage.generated.manifest.map_index==map_index,"unversioned debug entry uses independently expected public forest version map%s"%map_index)
+ 	check(encounter!=null and encounter.definition!=null and encounter.definition.resource_path==expected.definition,"debug default forest actual Boss Definition matches selected version map%s"%map_index)
+ 	check(app.stage.boss.scene_file_path==expected.scene,"debug default forest actual Boss scene matches selected version map%s"%map_index)
+-	check(app.stage.generated.manifest.layout_version=="forest-fruit-routes-v14","fresh default uses independently expected fruit-routes layout; historical replay is separately mandatory")
++	check(app.stage.generated.manifest.layout_version=="forest-bible-world-v15","fresh default uses independently expected Bible layout; historical replay is separately mandatory")
+ func run() -> void:
+ 	for region: StringName in [&"plains",&"thorn_forest"]:
+ 		for map_index: int in [1,2]:
+diff --git a/tests/parallel_region_presentation_tests.gd b/tests/parallel_region_presentation_tests.gd
+index db13cd38..9002e2c4 100644
+--- a/tests/parallel_region_presentation_tests.gd
++++ b/tests/parallel_region_presentation_tests.gd
+@@ -1,6 +1,7 @@
+ extends SceneTree
+ ## Presentation/lifetime integration only. Real debug entry, damage policy and
+ ## Home transitions; no position writes, manual Motor steps or traversal claim.
++const EXPECTED_CURRENT_FOREST_LAYOUT := "forest-bible-world-v15"
+ var assertions := 0
+ var failures := 0
+ 
+@@ -17,16 +18,17 @@ func frames(count: int) -> void:
+ 	for index: int in count:
+ 		await physics_frame
+ 
+-static func presentation_errors(app: DemoApp, region: StringName) -> Array[String]:
++static func presentation_errors(app: DemoApp, region: StringName, expected_forest_layout: String = EXPECTED_CURRENT_FOREST_LAYOUT) -> Array[String]:
+ 	var errors: Array[String] = []
+ 	if not is_instance_valid(app.stage) or not app.stage.assembly_ok or not is_instance_valid(app.player):
+ 		return ["actual stage/player missing"]
+-	var pixel := region == &"plains"
++	var plains := region == &"plains"
++	var pixel: bool = plains or expected_forest_layout == "forest-bible-world-v15"
+ 	if app.active_region_id != region: errors.append("actual region differs")
+-	if pixel and (not app.stage is PlainsRegionStage or app.stage is ThornForestRegionStage): errors.append("actual Plains consumer differs")
+-	if not pixel:
++	if plains and (not app.stage is PlainsRegionStage or app.stage is ThornForestRegionStage): errors.append("actual Plains consumer differs")
++	if not plains:
+ 		if not app.stage is ThornForestRegionStage: errors.append("actual Forest consumer differs")
+-		elif app.stage.generated.manifest.get("layout_version", "") != "forest-fruit-routes-v14": errors.append("fresh Forest is not v14")
++		elif app.stage.generated.manifest.get("layout_version", "") != expected_forest_layout: errors.append("Forest layout differs from independently selected expectation")
+ 	var actors: Array[Node] = []
+ 	for child: Node in app.player.get_children():
+ 		if child is PixelPlainsActor: actors.append(child)
+@@ -36,9 +38,12 @@ static func presentation_errors(app: DemoApp, region: StringName) -> Array[Strin
+ 	if app.player.get_node("PlayerFeedback").visible == pixel: errors.append("feedback visibility stale")
+ 	var adapter := app.player.get_node("PlayerVisualAdapter")
+ 	if (adapter.process_mode == Node.PROCESS_MODE_DISABLED) != pixel: errors.append("original adapter ownership stale")
+-	if app.get_node("PixelPlainsParallax").visible != pixel: errors.append("pixel background leaks across region")
++	if app.get_node("PixelPlainsParallax").visible != plains: errors.append("pixel background leaks across region")
+ 	if app.get_node("PlainsBackground").visible == pixel: errors.append("original background ownership stale")
+-	if pixel:
++	if pixel and not plains:
++		if not is_instance_valid(app.stage.forest_terrain) or not app.stage.forest_terrain is UnderworldTerrain: errors.append("Forest does not share actual UnderworldTerrain")
++		if not ForestBiblePresentation.enabled(app.stage.generated.manifest): errors.append("Forest shared-pixel consumer is not enabled")
++	if plains:
+ 		if not app.stage.get_meta("pixel_formal_style", false): errors.append("formal pixel metadata missing")
+ 		if app.stage.get_node_or_null("PixelRegionScenery") == null: errors.append("actual pixel scenery missing")
+ 		if not app.stage.get_node_or_null("PixelRegionScenery") is UnderworldScenery: errors.append("formal scenery is not actual UnderworldScenery")
+@@ -133,6 +138,9 @@ func run() -> void:
+ 			if not await load("res://tests/audio_teardown.gd").drain_world(app): failures += 1
+ 			app.free()
+ 	await same_player_roundtrip()
++	# Preserve the historical disposal/recreation contract alongside the new
++	# default shared-family reuse; an explicit pin is never current evidence.
++	await same_player_roundtrip("forest-fruit-routes-v14")
+ 	print("PARALLEL REGION PRESENTATION: %s assertions / %s failures" % [assertions, failures])
+ 	quit(1 if failures else 0)
+ 
+@@ -158,7 +166,9 @@ func reload_presentation_region(app: DemoApp, region: StringName) -> void:
+ 	if is_instance_valid(app.stage) and app.stage is PlainsRegionStage:
+ 		check(destination_state.manifest_hash == (app.stage as PlainsRegionStage).generated.manifest.manifest_hash, "destination state hash equals actual assembled manifest")
+ 
+-func same_player_roundtrip() -> void:
++func same_player_roundtrip(recorded_forest_layout := "") -> void:
++	var expected_forest_layout: String = recorded_forest_layout if not recorded_forest_layout.is_empty() else EXPECTED_CURRENT_FOREST_LAYOUT
++	var shared_forest: bool = expected_forest_layout == "forest-bible-world-v15"
+ 	for map_index: int in [1, 2]:
+ 		var app := DemoApp.new()
+ 		app.meta_persistence_enabled = false
+@@ -176,6 +186,11 @@ func same_player_roundtrip() -> void:
+ 		check(app.campaign.claim(&"grapple", reward_token, not app.controller.actor_resources.health.terminal), "presentation fixture accepts actual campaign H reward")
+ 		check(app.controller.traversal.grant(&"grapple"), "explicit presentation fixture grants legal Forest debug ability")
+ 		check(app.campaign.abilities == [&"grapple"] and app.controller.traversal.hook_enabled, "Forest fixture has exact accepted H-only campaign and motor capability")
++		# Only the named historical fixture overrides the recorded choice.
++		# An unpinned App has already resolved its real current layout; an
++		# empty internal capability is invalid and must not replace that choice.
++		if not recorded_forest_layout.is_empty():
++			app._forest_layout_version = recorded_forest_layout
+ 		await reload_presentation_region(app, &"thorn_forest")
+ 		check(is_instance_valid(app.player) and app.player.get_instance_id() == player_id, "Plains to Forest retains same actual player")
+ 		if not is_instance_valid(app.player):
+@@ -183,7 +198,11 @@ func same_player_roundtrip() -> void:
+ 			if not await load("res://tests/audio_teardown.gd").drain_world(app): failures += 1
+ 			app.free()
+ 			return
+-		check(not is_instance_valid(first_visual) and presentation_errors(app, &"thorn_forest").is_empty(), "Forest disposes actual Underworld player presentation and retains Forest guards")
++		var forest_visual := app.player.get_node_or_null("PixelPlainsActor")
++		if shared_forest:
++			check(is_instance_valid(first_visual) and forest_visual == first_visual and forest_visual is UnderworldPlayer and presentation_errors(app, &"thorn_forest", expected_forest_layout).is_empty(), "current Forest reuses the single actual UnderworldPlayer and owns its regional background")
++		else:
++			check(not is_instance_valid(first_visual) and presentation_errors(app, &"thorn_forest", expected_forest_layout).is_empty(), "recorded v14 Forest disposes actual Underworld player presentation and retains historical Forest guards")
+ 		await reload_presentation_region(app, &"plains")
+ 		check(is_instance_valid(app.player), "return loader retains actual run player")
+ 		if not is_instance_valid(app.player):
+@@ -192,7 +211,10 @@ func same_player_roundtrip() -> void:
+ 			return
+ 		var returned_visual := app.player.get_node_or_null("PixelPlainsActor")
+ 		check(app.player.get_instance_id() == player_id, "Forest to Plains retains same actual player")
+-		check(returned_visual is UnderworldPlayer and returned_visual.get_instance_id() != first_id, "return factory creates fresh actual UnderworldPlayer, not legacy PixelPlainsActor")
++		if shared_forest:
++			check(returned_visual is UnderworldPlayer and returned_visual.get_instance_id() == first_id and returned_visual == forest_visual, "current shared-region roundtrip retains exactly the same actual UnderworldPlayer")
++		else:
++			check(returned_visual is UnderworldPlayer and returned_visual.get_instance_id() != first_id, "recorded v14 return factory creates fresh actual UnderworldPlayer, not legacy PixelPlainsActor")
+ 		check(presentation_errors(app, &"plains").is_empty(), "same-player return restores full Underworld terrain scenery actor and background")
+ 		# Preserve the actual run presentation as an explicit stale-owner negative.
+ 		# Disable presentation processing only; never mutate player gameplay state.
+diff --git a/tests/test_forest_bible_region_admission.py b/tests/test_forest_bible_region_admission.py
+index b7ef5dd4..5cb7f158 100644
+--- a/tests/test_forest_bible_region_admission.py
++++ b/tests/test_forest_bible_region_admission.py
+@@ -41,6 +41,32 @@ class BibleAdmissionTests(unittest.TestCase):
+         instance['geometry_version'] = 'forest-bible-backbranch-v3'
+         instance['local_geometry']['version'] = 'forest-bible-backbranch-v3'
+         next(r for r in instance['local_geometry']['platforms'] if r['id'] == 'broken_lower')['rect'] = [1790, 1080, 80, 140]
++        # One explicit current-v15 retirement. These finite segment coordinates
++        # come from the historical solids, independently of the reader builder.
++        retired_index = len(m['dangers']) - 1
++        self.assertEqual(m['dangers'][retired_index], [-903, 1296, 790, 18])
++        retired = dict(instance_id='broken_arch', reason='unhosted_prototype_strip_210wu_below_broken_arch',
++                       source_local_dangers=[[82, 100, 790, 18]], source_global_dangers=[[-903, 1296, 790, 18]],
++                       source_danger_indices=[retired_index])
++        m['dangers'].pop(); m['danger_presentations'].pop()
++        broken = next(r for r in m['geometry_instances'] if r['id'] == 'broken_arch')
++        broken['local_geometry']['dangers'] = []; broken['danger_indices'] = []
++        broken['thorn_surface_derivation'] = copy.deepcopy(retired)
++        m['thorn_surface_contract'] = dict(version='forest-bible-thorn-covered-platforms-v1',
++            retired_prototype=retired, physical_delta='remove_exact_unhosted_prototype_strip_only', existing_supports_unchanged=True)
++        plans = ([('down', [('hollow__belly_roof_upper', [380,170], [770,170])]),
++                  ('up', [('hollow__belly_roof', [380,324], [640,324])]),
++                  ('up', [('hollow__elbow_lower_lip', [770,414], [810,414]), ('hollow__trunk_above_window', [810,414], [930,414])]),
++                  ('down', [('hollow__elbow_upper_lip', [770,210], [810,210]), ('hollow__trunk_upper_cap', [810,210], [930,210])])]
++                 if index == 0 else
++                 [('down', [('hollow__belly_roof_upper', [380,170], [810,170]), ('hollow__trunk_upper_cap', [810,170], [930,170])]),
++                  ('up', [('hollow__belly_roof', [380,324], [640,324])]),
++                  ('up', [('hollow__belly_roof', [770,324], [810,324]), ('hollow__trunk_above_window', [810,324], [930,324])])])
++        plans += [('down', [('thorn_mouth__root_arch', [-1485,1170], [-1425,1170])]),
++                  ('left', [('thorn_mouth__crown', [-1445,1256], [-1445,1308])])]
++        m['thorn_surfaces'] = [dict(danger_index=i, face=face, hazard_rect=copy.deepcopy(m['dangers'][i]),
++             segments=[dict(support_id=identity, start=start, end=end) for identity, start, end in segments])
++             for i, (face, segments) in enumerate(plans)]
+         outside = row['name'] == 'outer'
+         m['platforms'] = [r for r in m['platforms'] if r['id'] != 'bible_spiral_return_catch']
+         mouth = 'bible_spiral_mouth' if outside else 'bible_inner_mouth'
+@@ -89,7 +115,9 @@ class BibleAdmissionTests(unittest.TestCase):
+         for index in (0, 1):
+             data = self.fixture(index)
+             data['manifest'] = self.recorded[index]['manifest']
+-            self.assertIn('bible_actual_added_platforms', admission.validate_bible_admission(data))
++            # Complete old snapshots also lack the new explicit thorn contract;
++            # reject them before their old F08/F05 geometry can be considered.
++            self.assertIn('bible_malformed_manifest_or_authority', admission.validate_bible_admission(data))
+ 
+     def test_missing_wrong_or_self_relabelled_reference_rejected(self):
+         for key in ('bible_admission',):
+@@ -184,6 +212,81 @@ class BibleAdmissionTests(unittest.TestCase):
+         self.reject(lambda d: d['manifest'].update(requires=['grapple', 'double_jump']), 'pending_H_only_admission')
+         self.reject(lambda d: d['manifest']['bible_world_contract'].update(native_verified=True), 'explicit_pending_world_contract')
+ 
++    def test_thorn_retirement_keeps_all_other_dangers_and_old_reference(self):
++        for index, count in ((0, 6), (1, 5)):
++            data = self.fixture(index)
++            m, old = data['manifest'], data['bible_admission']['reference_manifest']
++            self.assertEqual(len(m['dangers']), count)
++            self.assertEqual(m['dangers'], old['dangers'][:-1])
++            self.assertEqual(m['danger_presentations'], old['danger_presentations'][:-1])
++            self.assertEqual(old['dangers'][-1], [-903,1296,790,18])
++            self.assertEqual(next(r for r in old['geometry_instances'] if r['id']=='broken_arch')['danger_indices'], [count])
++
++    def test_thorn_retirement_contract_and_both_original_indices_are_required(self):
++        self.reject(lambda d: d['manifest'].pop('thorn_surface_contract'))
++        self.reject(lambda d: d['manifest']['thorn_surface_contract'].update(version='old'))
++        self.reject(lambda d: d['manifest']['thorn_surface_contract'].update(existing_supports_unchanged=1))
++        self.reject(lambda d: d['manifest']['thorn_surface_contract']['retired_prototype'].update(source_danger_indices=[]))
++        self.reject(lambda d: next(r for r in d['manifest']['geometry_instances'] if r['id']=='broken_arch')['thorn_surface_derivation'].update(source_danger_indices=[]))
++
++    def test_metadata_only_retirement_cannot_hide_the_actual_old_strip(self):
++        def restore_physical(d):
++            old = d['bible_admission']['reference_manifest']
++            d['manifest']['dangers'] = copy.deepcopy(old['dangers'])
++            d['manifest']['danger_presentations'] = copy.deepcopy(old['danger_presentations'])
++        self.reject(restore_physical)
++        self.reject(lambda d: next(r for r in d['manifest']['geometry_instances'] if r['id']=='broken_arch')['local_geometry'].update(dangers=[[82,100,790,18]]))
++        self.reject(lambda d: next(r for r in d['manifest']['geometry_instances'] if r['id']=='broken_arch').update(danger_indices=[6]))
++
++    def test_thorn_surface_metadata_cannot_create_a_fake_host(self):
++        def fake_host(d):
++            m = d['manifest']
++            host = copy.deepcopy(m['platforms'][0]);host['id']='fake_carrier';host['rect']=[380,170,550,20]
++            m['platforms'].append(host)
++            m['thorn_surfaces'][0]['segments'][0]['support_id']='fake_carrier'
++        self.reject(fake_host, 'actual_thorn_solid_union_faces')
++        self.reject(lambda d: d['manifest']['danger_presentations'][0].update(host_support_id='fake_carrier'),
++                    'exact_one_thorn_retirement')
++
++    def test_thorn_union_requires_both_real_solids_and_exact_face(self):
++        self.reject(lambda d: d['manifest']['thorn_surfaces'][2]['segments'].pop(0), 'actual_thorn_solid_union_faces')
++        self.reject(lambda d: d['manifest']['thorn_surfaces'][2]['segments'][0]['end'].__setitem__(0, 809), 'actual_thorn_solid_union_faces')
++        self.reject(lambda d: d['manifest']['thorn_surfaces'][-1].update(face='up'), 'actual_thorn_solid_union_faces')
++        self.reject(lambda d: d['manifest']['thorn_surfaces'][0].update(danger_index=False), 'actual_thorn_solid_union_faces')
++
++    def test_thorn_retirement_cannot_delete_or_move_a_second_danger(self):
++        self.reject(lambda d: d['manifest']['dangers'].pop(0))
++        self.reject(lambda d: d['manifest']['dangers'][0].__setitem__(2, 1), 'exact_one_thorn_retirement')
++        self.reject(lambda d: next(r for r in d['manifest']['geometry_instances'] if r['id']=='broken_arch')['local_geometry']['action_program'].pop(), 'inherited_geometry_instances')
++
++    def test_interwoven_ambient_gate_exempts_only_exact_v15_retirement(self):
++        m = self.fixture()['manifest']
++        leg = self.edge(m, 'root_bay_lesson_flight')
++        instance = next(r for r in m['geometry_instances'] if r['id']==leg['geometry_instance'])
++        self.assertEqual(region._validate_interwoven_binding(m, leg, instance), [])
++        wrong = copy.deepcopy(m);wrong['dangers'].pop(0)
++        for metadata in (wrong['thorn_surface_contract']['retired_prototype'],
++                         next(r for r in wrong['geometry_instances'] if r['id']=='broken_arch')['thorn_surface_derivation']):
++            metadata['source_danger_indices'] = [len(wrong['dangers'])]
++        # This particular missing hollow danger is independently denied by the
++        # full old-reference comparison even if not in ambient factory rows.
++        data = self.fixture();data['manifest']=wrong
++        self.assertTrue(admission.validate_bible_admission(data))
++        old_label = copy.deepcopy(m);old_label['layout_version']=region.FRUIT_LAYOUT
++        self.assertIn('interwoven_inherited_dangers', region._validate_interwoven_binding(old_label, leg, instance))
++        data = self.fixture();data['manifest']=old_label
++        self.assertIn('bible_distinct_actual_versions', admission.validate_bible_admission(data))
++
++    def test_interwoven_ambient_gate_still_requires_every_other_factory_danger(self):
++        m = self.fixture()['manifest']
++        leg = self.edge(m, 'root_bay_lesson_flight')
++        instance = next(r for r in m['geometry_instances'] if r['id']==leg['geometry_instance'])
++        m['dangers'].remove([-1485,1142,60,44])
++        for metadata in (m['thorn_surface_contract']['retired_prototype'],
++                         next(r for r in m['geometry_instances'] if r['id']=='broken_arch')['thorn_surface_derivation']):
++            metadata['source_danger_indices']=[len(m['dangers'])]
++        self.assertIn('interwoven_inherited_dangers', region._validate_interwoven_binding(m, leg, instance))
++
+     def test_reader_positive_cannot_substitute_for_physics(self):
+         data = self.fixture()
+         self.assertEqual(admission.validate_bible_admission(data), [])
+@@ -192,9 +295,9 @@ class BibleAdmissionTests(unittest.TestCase):
+         self.assertIn('continuous_single_motor_frames', errors)
+         self.assertIn('incomplete_actual_route', errors)
+ 
+-    def test_original_default_and_budget_protocol_unchanged(self):
++    def test_bible_default_preserves_original_unpinned_budget_protocol(self):
+         source = (ROOT / 'scripts/generation/thorn_forest_region_generator.gd').read_text()
+-        self.assertIn('const CURRENT_DEPTH_LAYOUT := DEPTH_LAYOUT_FRUIT', source)
++        self.assertIn('const CURRENT_DEPTH_LAYOUT := DEPTH_LAYOUT_BIBLE', source)
+         profile = json.loads((ROOT / 'tools/harness/profiles.json').read_text())['checks']['forest-depth-region']
+         self.assertEqual(profile['timeout_seconds'], 600)
+         self.assertNotIn('--layout', profile['argv'])
+diff --git a/tests/underworld_plains/capture_underworld_r3_boss_fight.gd b/tests/underworld_plains/capture_underworld_r3_boss_fight.gd
+index a46609af..e026f59a 100644
+--- a/tests/underworld_plains/capture_underworld_r3_boss_fight.gd
++++ b/tests/underworld_plains/capture_underworld_r3_boss_fight.gd
+@@ -151,7 +151,7 @@ func run()->void:
+ 		settlement["forest_layout"]=str(app.stage.generated.manifest.layout_version) if app.stage is ThornForestRegionStage else ""
+ 		settlement["same_player_with_grapple"]=app.player.get_instance_id()==continuing_player_id and app.controller.traversal.hook_enabled and app.campaign.abilities==[&"grapple"] and app.build.count_item(selected)==1
+ 		settlement["previous_region_token_rejected"]=not app.lifetime.accepts(previous_region_token) and app.lifetime.stage_epoch>previous_stage_epoch
+-		if not settlement.forest_entered or settlement.forest_version!="thorn-forest-region-v2" or settlement.forest_layout!="forest-fruit-routes-v14" or not settlement.same_player_with_grapple or not settlement.previous_region_token_rejected:failure.append("actual post-Boss region selection must assemble the default forest with retained Gold, one grapple and a fresh stage token")
++		if not settlement.forest_entered or settlement.forest_version!="thorn-forest-region-v2" or settlement.forest_layout!="forest-bible-world-v15" or not settlement.same_player_with_grapple or not settlement.previous_region_token_rejected:failure.append("actual post-Boss region selection must assemble the default forest with retained Gold, one grapple and a fresh stage token")
+ 	DirAccess.make_dir_recursive_absolute("res://build/underworld_r3/boss")
+ 	var file:=FileAccess.open("res://build/underworld_r3/boss/full_fight_map%d.json"%map_index,FileAccess.WRITE)
+ 	file.store_string(JSON.stringify({"map":map_index,"actual_map_index":actual_map_identity.map_index,"manifest_seed":actual_map_identity.manifest_seed,"manifest_hash":actual_map_identity.manifest_hash,"failures":failure,"initial_room_placement_fixture":true,"no_midfight_injection":true,"requested_shots":shots,"accepted_shots":accepted_shots,"damage_events":damage_events,"roll_crossings":crossed,"visited":visited.keys(),"boss_hp":hp,"player_hp":actor_hp,"settlement":settlement,"trace":trace},"\t"));file.close()
+diff --git a/tools/run_forest_depth_versions.py b/tools/run_forest_depth_versions.py
+index 0716dd50..4e2a3949 100644
+--- a/tools/run_forest_depth_versions.py
++++ b/tools/run_forest_depth_versions.py
+@@ -445,7 +445,7 @@ def validate_fruit_version(data):
+     from run_forest_depth_region import validate_fruit_presentation
+     source = (ROOT / 'tests/forest_depth_version_runner.gd').read_text()
+     expected_default = re.search(r'^const EXPECTED_PUBLIC_LAYOUT := "([^"]+)"$', source, re.M).group(1)
+-    if expected_default not in ('forest-interwoven-canopy-v13', 'forest-fruit-routes-v14'):
++    if expected_default not in ('forest-interwoven-canopy-v13', 'forest-fruit-routes-v14', 'forest-bible-world-v15'):
+         raise ValueError('Independently selected known public layout required')
+     for row in rows:
+         index = row['map']
+@@ -466,6 +466,20 @@ def validate_fruit_version(data):
+             raise ValueError('Complete registered v14 candidate, typed defaults and exact presentation required')
+         if expected_default == 'forest-fruit-routes-v14' and current != manifest:
+             raise ValueError('New public default must equal the complete explicit v14 output')
++        if expected_default == 'forest-bible-world-v15':
++            expected = row.get('expected_public_manifest', {})
++            if (type(current.get('map_index')) is not int
++                    or current.get('version') != 'thorn-forest-region-v2'
++                    or current.get('region') != 'thorn_forest'
++                    or current.get('requires') != ['grapple']
++                    or current.get('production_pool') is not False
++                    or expected.get('layout_version') != expected_default
++                    or expected.get('seed') != f'version-fruit-map-{index}'
++                    or type(expected.get('map_index')) is not int
++                    or expected.get('map_index') != index
++                    or json.dumps(current, sort_keys=True, allow_nan=False, separators=(',', ':'))
++                    != json.dumps(expected, sort_keys=True, allow_nan=False, separators=(',', ':'))):
++                raise ValueError('Bible public default must equal the whole independently explicit v15 manifest')
+ 
+ 
+ 

@@ -40,6 +40,10 @@ func run() -> void:
 		if row.kind == "committed_damage" and row.get("target") == "player": trace.failures.append("spiral_player_damage_cost"); break
 	var final_snapshot: Dictionary = trace.snapshot() if is_instance_valid(trace.player) and is_instance_valid(trace.controller) else {}
 	var data := {"scope":"LOCAL_initial_basin_fixture_F08_not_fullspawn" if mode == "local" else "full_formal_spawn_F08_reader_and_other_exit","mode":mode,"route":trace.route_name,"seed":root_seed,"map_index":2,"initial_fixture_spawn_override":mode == "local","resource_or_health_override":false,"manual_motor_step":false,"direct_claim_or_grant":false,"fixture":trace.fixture_data.duplicate(true),"core_evidence":trace.core_evidence.duplicate(true),"completed":trace.completed.duplicate(true),"itinerary_count":trace.itinerary.size(),"events":trace.events.duplicate(true),"frames":trace.frames.duplicate(true),"failures":trace.failures.duplicate(),"initial":trace.initial.duplicate(true),"final":final_snapshot,"manifest":trace.manifest.duplicate(true),"aim_samples":trace.aim_samples.duplicate(true),"pointer_events":trace.pointer_events.duplicate(true),"reader_modal_frames":trace.core_modal_frames.duplicate(true),"no_H_only_exclusivity_claim":true}
+	data["itinerary"] = trace.itinerary.duplicate(true)
+	data["requests"] = trace.requests.duplicate(true)
+	data["modal_frames"] = trace.modal_frames.duplicate(true)
+	data["claimed"] = trace.stage.region_state.claimed.duplicate(true) if is_instance_valid(trace.stage) else {}
 	var clean := true
 	if is_instance_valid(trace.app): clean = await preload("res://tests/audio_teardown.gd").drain_world(trace.app)
 	trace.queue_free()

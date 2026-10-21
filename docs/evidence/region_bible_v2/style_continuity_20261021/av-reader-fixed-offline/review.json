@@ -1,0 +1,261 @@
+{
+  "verdict": "PASS_offline_guard_repair_only",
+  "tool_sha256": "5e3f3c20399d2be00423b8e524ab6d66a8cbc92f92d7cf4666d551c0fa779b2c",
+  "engine_executed": false,
+  "source_before": {
+    "tools/capture_forest_bible_route.py": "5e3f3c20399d2be00423b8e524ab6d66a8cbc92f92d7cf4666d551c0fa779b2c",
+    "tests/test_capture_forest_bible_route.py": "5fde2d0fa8011631bf56ca9901cfa443faafcf89f5349f9841763d535fcb87ca",
+    "tests/forest_bible_world_trace.gd": "2c3f58d016394bf2742cce2d224a36a4a31df58c87e84194f314ae4c1d2a0c3d",
+    "tests/forest_bible_spiral_trace.gd": "494403605fcc3efef472dc2957a8bc0b3ffadbc09b310a45774d2f595f533e8d",
+    "tests/forest_bible_world_motor_runner.gd": "1158fe4d54a542eda4abe6b3de5c706c89038a70c1fb094ed5bcdd0ff3e1f056",
+    "tests/forest_bible_spiral_motor_runner.gd": "9803afb2544d70eb61eb3ccc42083b99012260aad5d32c43e9a60349c877133a"
+  },
+  "source_after": {
+    "tools/capture_forest_bible_route.py": "5e3f3c20399d2be00423b8e524ab6d66a8cbc92f92d7cf4666d551c0fa779b2c",
+    "tests/test_capture_forest_bible_route.py": "5fde2d0fa8011631bf56ca9901cfa443faafcf89f5349f9841763d535fcb87ca",
+    "tests/forest_bible_world_trace.gd": "2c3f58d016394bf2742cce2d224a36a4a31df58c87e84194f314ae4c1d2a0c3d",
+    "tests/forest_bible_spiral_trace.gd": "494403605fcc3efef472dc2957a8bc0b3ffadbc09b310a45774d2f595f533e8d",
+    "tests/forest_bible_world_motor_runner.gd": "1158fe4d54a542eda4abe6b3de5c706c89038a70c1fb094ed5bcdd0ff3e1f056",
+    "tests/forest_bible_spiral_motor_runner.gd": "9803afb2544d70eb61eb3ccc42083b99012260aad5d32c43e9a60349c877133a"
+  },
+  "source_frozen_matched": true,
+  "original_nine_negative_unexpected_acceptances": [],
+  "actual_short_silent_static_media_rejected": true,
+  "actual_historical_route_positives": [
+    {
+      "challenge": "F05",
+      "path": "build/region_bible_v2/grounded-v3-map1-backbranch-first/trace.json",
+      "sha256": "ac7ced6b43b658219750edfda9ee5fb637505f439726185628980fc755971eb0",
+      "result": {
+        "physics_samples": 3129,
+        "completed_legs": 32,
+        "min_hp": 5,
+        "actual_player_damage": [],
+        "actor_epoch": 3,
+        "stage_epoch": 3,
+        "actual_config": {
+          "tuning": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c",
+          "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390"
+        }
+      },
+      "scope": "Actual historical native report; route validation only, no added movie counters"
+    },
+    {
+      "challenge": "F08",
+      "path": "build/region_bible_v2/f08-full-01/trace.json",
+      "sha256": "f56e39c1a6b9813e924573f813f343ef525d39b91b80a429466ffcd1633e6770",
+      "result": {
+        "physics_samples": 3551,
+        "completed_legs": 31,
+        "min_hp": 5,
+        "actual_player_damage": [],
+        "actor_epoch": 3,
+        "stage_epoch": 3,
+        "actual_config": {
+          "tuning": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c",
+          "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390"
+        }
+      },
+      "scope": "Actual historical native report; route validation only, no added movie counters"
+    }
+  ],
+  "independent_timeline_controls": [
+    {
+      "name": "explicitly_synthetic_legal_process_modal_shape",
+      "expected_acceptance": true,
+      "accepted": true,
+      "expected_outcome": true,
+      "raw_preserved": true,
+      "result": {
+        "original_guard_reused": true,
+        "physics_sample_binding": "actual_engine_counter_draw_and_process_exact",
+        "raw_ticks_unchanged": true,
+        "preincrement_observations": [],
+        "bounded_process_observations": [
+          {
+            "group": "events",
+            "kind": "bible_actual_aim_release",
+            "tick": 2,
+            "frame": 5
+          },
+          {
+            "group": "events",
+            "kind": "actual_input_cancelled",
+            "tick": 4,
+            "frame": 13
+          },
+          {
+            "group": "events",
+            "kind": "spiral_actual_queued_item_accepted",
+            "tick": 5,
+            "frame": 16
+          },
+          {
+            "group": "requests",
+            "kind": "actual_mouse_button",
+            "tick": 2,
+            "frame": 5
+          }
+        ],
+        "video_frames": 20,
+        "modal_samples": 5,
+        "no_counter_reconstruction": true
+      },
+      "error": null
+    },
+    {
+      "name": "actual_engine_bound_preincrement_tick",
+      "expected_acceptance": true,
+      "accepted": true,
+      "expected_outcome": true,
+      "raw_preserved": true,
+      "result": {
+        "original_guard_reused": true,
+        "physics_sample_binding": "actual_engine_counter_draw_and_process_exact",
+        "raw_ticks_unchanged": true,
+        "preincrement_observations": [
+          {
+            "group": "events",
+            "kind": "hook_contact_kick",
+            "declared_tick": 0,
+            "observed_tick": 1,
+            "engine_physics_frame": 1002
+          }
+        ],
+        "bounded_process_observations": [
+          {
+            "group": "events",
+            "kind": "bible_actual_aim_release",
+            "tick": 2,
+            "frame": 5
+          },
+          {
+            "group": "events",
+            "kind": "actual_input_cancelled",
+            "tick": 4,
+            "frame": 13
+          },
+          {
+            "group": "events",
+            "kind": "spiral_actual_queued_item_accepted",
+            "tick": 5,
+            "frame": 16
+          },
+          {
+            "group": "requests",
+            "kind": "actual_mouse_button",
+            "tick": 2,
+            "frame": 5
+          }
+        ],
+        "video_frames": 20,
+        "modal_samples": 5,
+        "no_counter_reconstruction": true
+      },
+      "error": null
+    },
+    {
+      "name": "physics_engine_unknown",
+      "expected_acceptance": false,
+      "accepted": false,
+      "expected_outcome": true,
+      "raw_preserved": true,
+      "result": null,
+      "error": "RuntimeError('Physics record must match its unique real engine-frame sample/draw/process counter')"
+    },
+    {
+      "name": "physics_declared_two_ticks_behind",
+      "expected_acceptance": false,
+      "accepted": false,
+      "expected_outcome": true,
+      "raw_preserved": true,
+      "result": null,
+      "error": "RuntimeError('Physics record must match its unique real engine-frame sample/draw/process counter')"
+    },
+    {
+      "name": "physics_draw_mismatch",
+      "expected_acceptance": false,
+      "accepted": false,
+      "expected_outcome": true,
+      "raw_preserved": true,
+      "result": null,
+      "error": "RuntimeError('Physics record must match its unique real engine-frame sample/draw/process counter')"
+    },
+    {
+      "name": "physics_process_mismatch",
+      "expected_acceptance": false,
+      "accepted": false,
+      "expected_outcome": true,
+      "raw_preserved": true,
+      "result": null,
+      "error": "RuntimeError('Physics record must match its unique real engine-frame sample/draw/process counter')"
+    },
+    {
+      "name": "duplicate_frame_engine_identity",
+      "expected_acceptance": false,
+      "accepted": false,
+      "expected_outcome": true,
+      "raw_preserved": true,
+      "result": null,
+      "error": "RuntimeError('Actual physics samples need unique increasing engine counters')"
+    },
+    {
+      "name": "process_event_unknown",
+      "expected_acceptance": false,
+      "accepted": false,
+      "expected_outcome": true,
+      "raw_preserved": true,
+      "result": null,
+      "error": "RuntimeError('Unknown process event')"
+    },
+    {
+      "name": "process_at_next_physics_draw",
+      "expected_acceptance": false,
+      "accepted": false,
+      "expected_outcome": true,
+      "raw_preserved": true,
+      "result": null,
+      "error": "RuntimeError('Process record outside its actual half-open physics/draw interval')"
+    },
+    {
+      "name": "modal_tick_not_its_draw",
+      "expected_acceptance": false,
+      "accepted": false,
+      "expected_outcome": true,
+      "raw_preserved": true,
+      "result": null,
+      "error": "RuntimeError('Modal/pointer outside its actual half-open physics/draw interval')"
+    },
+    {
+      "name": "pointer_tick_not_its_draw",
+      "expected_acceptance": false,
+      "accepted": false,
+      "expected_outcome": true,
+      "raw_preserved": true,
+      "result": null,
+      "error": "RuntimeError('Modal/pointer outside its actual half-open physics/draw interval')"
+    },
+    {
+      "name": "missing_true_phase",
+      "expected_acceptance": false,
+      "accepted": false,
+      "expected_outcome": true,
+      "raw_preserved": true,
+      "result": null,
+      "error": "RuntimeError('Missing actual engine phase/process counter in requests')"
+    }
+  ],
+  "all_independent_controls_expected": true,
+  "existing_narrow_unit_suite": {
+    "passed": 8,
+    "seconds": 0.705,
+    "engine": false
+  },
+  "native_movie_timeline_acceptance": false,
+  "visual_audio_aesthetic_acceptance": false,
+  "limitations": [
+    "Historical positives contain no actual movie counters",
+    "Synthetic process/preincrement positives demonstrate guard semantics, not engine scheduling proof",
+    "Fresh original-budget native AV and continuous human visual/audio review remain necessary"
+  ]
+}

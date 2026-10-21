@@ -41,6 +41,32 @@ class BibleAdmissionTests(unittest.TestCase):
         instance['geometry_version'] = 'forest-bible-backbranch-v3'
         instance['local_geometry']['version'] = 'forest-bible-backbranch-v3'
         next(r for r in instance['local_geometry']['platforms'] if r['id'] == 'broken_lower')['rect'] = [1790, 1080, 80, 140]
+        # One explicit current-v15 retirement. These finite segment coordinates
+        # come from the historical solids, independently of the reader builder.
+        retired_index = len(m['dangers']) - 1
+        self.assertEqual(m['dangers'][retired_index], [-903, 1296, 790, 18])
+        retired = dict(instance_id='broken_arch', reason='unhosted_prototype_strip_210wu_below_broken_arch',
+                       source_local_dangers=[[82, 100, 790, 18]], source_global_dangers=[[-903, 1296, 790, 18]],
+                       source_danger_indices=[retired_index])
+        m['dangers'].pop(); m['danger_presentations'].pop()
+        broken = next(r for r in m['geometry_instances'] if r['id'] == 'broken_arch')
+        broken['local_geometry']['dangers'] = []; broken['danger_indices'] = []
+        broken['thorn_surface_derivation'] = copy.deepcopy(retired)
+        m['thorn_surface_contract'] = dict(version='forest-bible-thorn-covered-platforms-v1',
+            retired_prototype=retired, physical_delta='remove_exact_unhosted_prototype_strip_only', existing_supports_unchanged=True)
+        plans = ([('down', [('hollow__belly_roof_upper', [380,170], [770,170])]),
+                  ('up', [('hollow__belly_roof', [380,324], [640,324])]),
+                  ('up', [('hollow__elbow_lower_lip', [770,414], [810,414]), ('hollow__trunk_above_window', [810,414], [930,414])]),
+                  ('down', [('hollow__elbow_upper_lip', [770,210], [810,210]), ('hollow__trunk_upper_cap', [810,210], [930,210])])]
+                 if index == 0 else
+                 [('down', [('hollow__belly_roof_upper', [380,170], [810,170]), ('hollow__trunk_upper_cap', [810,170], [930,170])]),
+                  ('up', [('hollow__belly_roof', [380,324], [640,324])]),
+                  ('up', [('hollow__belly_roof', [770,324], [810,324]), ('hollow__trunk_above_window', [810,324], [930,324])])])
+        plans += [('down', [('thorn_mouth__root_arch', [-1485,1170], [-1425,1170])]),
+                  ('left', [('thorn_mouth__crown', [-1445,1256], [-1445,1308])])]
+        m['thorn_surfaces'] = [dict(danger_index=i, face=face, hazard_rect=copy.deepcopy(m['dangers'][i]),
+             segments=[dict(support_id=identity, start=start, end=end) for identity, start, end in segments])
+             for i, (face, segments) in enumerate(plans)]
         outside = row['name'] == 'outer'
         m['platforms'] = [r for r in m['platforms'] if r['id'] != 'bible_spiral_return_catch']
         mouth = 'bible_spiral_mouth' if outside else 'bible_inner_mouth'
@@ -89,7 +115,9 @@ class BibleAdmissionTests(unittest.TestCase):
         for index in (0, 1):
             data = self.fixture(index)
             data['manifest'] = self.recorded[index]['manifest']
-            self.assertIn('bible_actual_added_platforms', admission.validate_bible_admission(data))
+            # Complete old snapshots also lack the new explicit thorn contract;
+            # reject them before their old F08/F05 geometry can be considered.
+            self.assertIn('bible_malformed_manifest_or_authority', admission.validate_bible_admission(data))
 
     def test_missing_wrong_or_self_relabelled_reference_rejected(self):
         for key in ('bible_admission',):
@@ -184,6 +212,81 @@ class BibleAdmissionTests(unittest.TestCase):
         self.reject(lambda d: d['manifest'].update(requires=['grapple', 'double_jump']), 'pending_H_only_admission')
         self.reject(lambda d: d['manifest']['bible_world_contract'].update(native_verified=True), 'explicit_pending_world_contract')
 
+    def test_thorn_retirement_keeps_all_other_dangers_and_old_reference(self):
+        for index, count in ((0, 6), (1, 5)):
+            data = self.fixture(index)
+            m, old = data['manifest'], data['bible_admission']['reference_manifest']
+            self.assertEqual(len(m['dangers']), count)
+            self.assertEqual(m['dangers'], old['dangers'][:-1])
+            self.assertEqual(m['danger_presentations'], old['danger_presentations'][:-1])
+            self.assertEqual(old['dangers'][-1], [-903,1296,790,18])
+            self.assertEqual(next(r for r in old['geometry_instances'] if r['id']=='broken_arch')['danger_indices'], [count])
+
+    def test_thorn_retirement_contract_and_both_original_indices_are_required(self):
+        self.reject(lambda d: d['manifest'].pop('thorn_surface_contract'))
+        self.reject(lambda d: d['manifest']['thorn_surface_contract'].update(version='old'))
+        self.reject(lambda d: d['manifest']['thorn_surface_contract'].update(existing_supports_unchanged=1))
+        self.reject(lambda d: d['manifest']['thorn_surface_contract']['retired_prototype'].update(source_danger_indices=[]))
+        self.reject(lambda d: next(r for r in d['manifest']['geometry_instances'] if r['id']=='broken_arch')['thorn_surface_derivation'].update(source_danger_indices=[]))
+
+    def test_metadata_only_retirement_cannot_hide_the_actual_old_strip(self):
+        def restore_physical(d):
+            old = d['bible_admission']['reference_manifest']
+            d['manifest']['dangers'] = copy.deepcopy(old['dangers'])
+            d['manifest']['danger_presentations'] = copy.deepcopy(old['danger_presentations'])
+        self.reject(restore_physical)
+        self.reject(lambda d: next(r for r in d['manifest']['geometry_instances'] if r['id']=='broken_arch')['local_geometry'].update(dangers=[[82,100,790,18]]))
+        self.reject(lambda d: next(r for r in d['manifest']['geometry_instances'] if r['id']=='broken_arch').update(danger_indices=[6]))
+
+    def test_thorn_surface_metadata_cannot_create_a_fake_host(self):
+        def fake_host(d):
+            m = d['manifest']
+            host = copy.deepcopy(m['platforms'][0]);host['id']='fake_carrier';host['rect']=[380,170,550,20]
+            m['platforms'].append(host)
+            m['thorn_surfaces'][0]['segments'][0]['support_id']='fake_carrier'
+        self.reject(fake_host, 'actual_thorn_solid_union_faces')
+        self.reject(lambda d: d['manifest']['danger_presentations'][0].update(host_support_id='fake_carrier'),
+                    'exact_one_thorn_retirement')
+
+    def test_thorn_union_requires_both_real_solids_and_exact_face(self):
+        self.reject(lambda d: d['manifest']['thorn_surfaces'][2]['segments'].pop(0), 'actual_thorn_solid_union_faces')
+        self.reject(lambda d: d['manifest']['thorn_surfaces'][2]['segments'][0]['end'].__setitem__(0, 809), 'actual_thorn_solid_union_faces')
+        self.reject(lambda d: d['manifest']['thorn_surfaces'][-1].update(face='up'), 'actual_thorn_solid_union_faces')
+        self.reject(lambda d: d['manifest']['thorn_surfaces'][0].update(danger_index=False), 'actual_thorn_solid_union_faces')
+
+    def test_thorn_retirement_cannot_delete_or_move_a_second_danger(self):
+        self.reject(lambda d: d['manifest']['dangers'].pop(0))
+        self.reject(lambda d: d['manifest']['dangers'][0].__setitem__(2, 1), 'exact_one_thorn_retirement')
+        self.reject(lambda d: next(r for r in d['manifest']['geometry_instances'] if r['id']=='broken_arch')['local_geometry']['action_program'].pop(), 'inherited_geometry_instances')
+
+    def test_interwoven_ambient_gate_exempts_only_exact_v15_retirement(self):
+        m = self.fixture()['manifest']
+        leg = self.edge(m, 'root_bay_lesson_flight')
+        instance = next(r for r in m['geometry_instances'] if r['id']==leg['geometry_instance'])
+        self.assertEqual(region._validate_interwoven_binding(m, leg, instance), [])
+        wrong = copy.deepcopy(m);wrong['dangers'].pop(0)
+        for metadata in (wrong['thorn_surface_contract']['retired_prototype'],
+                         next(r for r in wrong['geometry_instances'] if r['id']=='broken_arch')['thorn_surface_derivation']):
+            metadata['source_danger_indices'] = [len(wrong['dangers'])]
+        # This particular missing hollow danger is independently denied by the
+        # full old-reference comparison even if not in ambient factory rows.
+        data = self.fixture();data['manifest']=wrong
+        self.assertTrue(admission.validate_bible_admission(data))
+        old_label = copy.deepcopy(m);old_label['layout_version']=region.FRUIT_LAYOUT
+        self.assertIn('interwoven_inherited_dangers', region._validate_interwoven_binding(old_label, leg, instance))
+        data = self.fixture();data['manifest']=old_label
+        self.assertIn('bible_distinct_actual_versions', admission.validate_bible_admission(data))
+
+    def test_interwoven_ambient_gate_still_requires_every_other_factory_danger(self):
+        m = self.fixture()['manifest']
+        leg = self.edge(m, 'root_bay_lesson_flight')
+        instance = next(r for r in m['geometry_instances'] if r['id']==leg['geometry_instance'])
+        m['dangers'].remove([-1485,1142,60,44])
+        for metadata in (m['thorn_surface_contract']['retired_prototype'],
+                         next(r for r in m['geometry_instances'] if r['id']=='broken_arch')['thorn_surface_derivation']):
+            metadata['source_danger_indices']=[len(m['dangers'])]
+        self.assertIn('interwoven_inherited_dangers', region._validate_interwoven_binding(m, leg, instance))
+
     def test_reader_positive_cannot_substitute_for_physics(self):
         data = self.fixture()
         self.assertEqual(admission.validate_bible_admission(data), [])
@@ -192,9 +295,9 @@ class BibleAdmissionTests(unittest.TestCase):
         self.assertIn('continuous_single_motor_frames', errors)
         self.assertIn('incomplete_actual_route', errors)
 
-    def test_original_default_and_budget_protocol_unchanged(self):
+    def test_bible_default_preserves_original_unpinned_budget_protocol(self):
         source = (ROOT / 'scripts/generation/thorn_forest_region_generator.gd').read_text()
-        self.assertIn('const CURRENT_DEPTH_LAYOUT := DEPTH_LAYOUT_FRUIT', source)
+        self.assertIn('const CURRENT_DEPTH_LAYOUT := DEPTH_LAYOUT_BIBLE', source)
         profile = json.loads((ROOT / 'tools/harness/profiles.json').read_text())['checks']['forest-depth-region']
         self.assertEqual(profile['timeout_seconds'], 600)
         self.assertNotIn('--layout', profile['argv'])

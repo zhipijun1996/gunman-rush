@@ -184,3 +184,27 @@ func drive_hollow(leg: Dictionary) -> void:
 	# instead of walking left during the hold and recoiling into the seed.
 	if str(leg.kind) == "hollow_outer_recovery" and phase == "hollow_lower_land" and _aim_kind == "shot":
 		controller.router.set_move_axis(clampf((860.0-player.global_position.x)/12.0,-1.0,1.0))
+
+# Movie-only observation of existing input. No new action or altered timing.
+func movie_stamp(row: Dictionary) -> void:
+	super.movie_stamp(row)
+	if movie_capture:
+		row.observation_phase = "physics" if Engine.is_in_physics_frame() else "process"
+		row.engine_physics_frame = Engine.get_physics_frames()
+		if not row.has("tick"): row.tick = tick
+
+func jump(held: bool) -> void:
+	var before: int = requests.size()
+	super.jump(held)
+	for index: int in range(before,requests.size()): movie_stamp(requests[index])
+
+func _mouse(down: bool) -> void:
+	if not movie_capture:
+		super._mouse(down)
+		return
+	var button: int = MOUSE_BUTTON_RIGHT if _aim_kind == "hook" else MOUSE_BUTTON_LEFT
+	var pixel: Vector2 = _aim_pixel()
+	var aim_kind: String = _aim_kind
+	super._mouse(down)
+	requests.append({"tick":tick,"leg":leg_index,"kind":"actual_mouse_button","button":button,"pressed":down,"position":pair(pixel),"aim_kind":aim_kind})
+	movie_stamp(requests[-1])

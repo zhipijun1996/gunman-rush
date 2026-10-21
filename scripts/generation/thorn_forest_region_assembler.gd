@@ -257,6 +257,9 @@ func _draw() -> void:
 			for i: int in range(1, int(rect.size.x/90)):
 				var x := rect.position.x+i*90
 				draw_line(Vector2(x,rect.position.y+12),Vector2(x-28,rect.end.y),Color("304532"),5,true)
+	if ForestBiblePresentation.enabled(manifest):
+		ForestBibleThorns.draw(self, manifest)
+		return
 	var dangers := world_static_dangers()
 	var presentations: Array = manifest.get("danger_presentations", [])
 	for danger_index: int in dangers.size():
@@ -272,9 +275,6 @@ func _draw() -> void:
 			draw_colored_polygon(PackedVector2Array([at+Vector2(0,18),at+Vector2(7,0),at+Vector2(14,18)]),Color("ba7767"))
 
 func _draw_oriented_thorns(hazard: Rect2, downward: bool) -> void:
-	if ForestBiblePresentation.enabled(manifest):
-		ForestBiblePresentation.draw_thorns(self, hazard, downward)
-		return
 	# The tinted envelope is harmful too, including the gaps between the teeth.
 	# Its extent comes from the same rectangle as the formal damage emitter.
 	draw_rect(hazard, Color(0.73, 0.36, 0.29, 0.25))

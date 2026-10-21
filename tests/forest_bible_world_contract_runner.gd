@@ -28,11 +28,23 @@ func run() -> void:
 			for category: String in ["platforms","hook_anchors","enemies","rewards","geometry_instances"]:
 				var retained := true
 				for original: Dictionary in old[category]:
+					var expected := original.duplicate(true)
+					if category == "geometry_instances" and original.id == "broken_arch":
+						expected.local_geometry.dangers = []
+						expected.danger_indices = []
+						expected.thorn_surface_derivation = retired_thorn_reference(old, original)
 					var found := false
 					for current: Dictionary in m[category]:
-						if current.id == original.id: found = current == original; break
+						if current.id == original.id: found = current == expected; break
 					retained = retained and found
-				check(retained,"every inherited "+category+" remains exact / "+seed_value)
+				check(retained,"inherited "+category+" exact except serialized broken_arch thorn retirement / "+seed_value)
+			var expected_dangers: Array = old.dangers.duplicate(true)
+			expected_dangers.pop_back()
+			var expected_displays: Array = old.danger_presentations.duplicate(true)
+			expected_displays.pop_back()
+			check(m.dangers == expected_dangers,"only last unsupported prototype danger removed / "+seed_value)
+			check(m.danger_presentations == expected_displays,"all retained legacy danger metadata exact / "+seed_value)
+			check(ForestBibleThornSurfaces.validate(m) and m.thorn_surfaces.size() == old.dangers.size()-1,"every retained damage surface has a real platform union / "+seed_value)
 			var all_drops := true
 			for enemy: Dictionary in m.enemies:
 				var settled: Variant = m.enemy_drops.get(str(enemy.id))
@@ -56,7 +68,7 @@ func run() -> void:
 			check(not ForestExpeditionLayout._platform_by_id(m,"bible_outer_step2").is_empty() if mode == "outer_root_east_mouth" else not ForestExpeditionLayout._platform_by_id(m,"bible_inner_step2").is_empty(),"exclusive physical mouth geometry / "+seed_value)
 			check(ForestExpeditionLayout._platform_by_id(m,"bible_inner_step2").is_empty() if mode == "outer_root_east_mouth" else ForestExpeditionLayout._platform_by_id(m,"bible_outer_step2").is_empty(),"other mouth not merely a recommendation / "+seed_value)
 			for row: Dictionary in m.forest_discoveries: definitions[row.definition_id] = true
-			for mutation: String in ["reward","return_support","strand","gate","action","enemy_drop"]:
+			for mutation: String in ["reward","return_support","strand","gate","action","enemy_drop","thorn_host","thorn_face","thorn_damage","thorn_resurrection","thorn_dangling_index"]:
 				var bad := m.duplicate(true)
 				match mutation:
 					"reward": bad.rewards.pop_back()
@@ -65,6 +77,13 @@ func run() -> void:
 					"gate": bad.forest_shortcuts[0].rect[3] = 0.0
 					"action": ThornForestRegionV2V10._edge_by_id(bad,"bible_backbranch_flight").action_program.pop_back()
 					"enemy_drop": bad.enemy_drops.erase("bible_double_window_weaver")
+					"thorn_host": bad.thorn_surfaces[0].segments[0].support_id = "broken_arch__root_arch"
+					"thorn_face": bad.thorn_surfaces[-1].face = "up" if bad.thorn_surfaces[-1].face == "left" else "left"
+					"thorn_damage": bad.dangers[0][2] -= 24.0
+					"thorn_resurrection": bad.dangers.append(old.dangers[-1].duplicate())
+					"thorn_dangling_index":
+						for instance: Dictionary in bad.geometry_instances:
+							if instance.id == "broken_arch": instance.danger_indices = [old.dangers.size()-1]
 				bad.manifest_hash = ThornForestRegionV2V15._hash(bad)
 				check(not registry.validate(bad,tuning),"rehashed "+mutation+" mutation rejected / "+seed_value)
 			cases.append({"seed":seed_value,"map_index":map_index,"manifest_hash":m.manifest_hash,"variant":mode,"actual_receiver":exit_edge.b,"new_routes":m.routes.bible_backbranch_journey})
@@ -77,3 +96,9 @@ func run() -> void:
 	file.store_string(JSON.stringify({"scope":"actual20_Bible_world_producers_not_Motor_or_art","checks":checks,"cases":cases,"failures":failures})); file.close()
 	print("FOREST BIBLE WORLD CONTRACT: %s checks / %s failures" % [checks.size(),failures])
 	quit(0 if failures == 0 else 1)
+
+func retired_thorn_reference(old: Dictionary, instance: Dictionary) -> Dictionary:
+	return {"instance_id":"broken_arch", "reason":"unhosted_prototype_strip_210wu_below_broken_arch",
+		"source_local_dangers":instance.local_geometry.dangers.duplicate(true),
+		"source_global_dangers":[old.dangers[-1].duplicate()],
+		"source_danger_indices":instance.danger_indices.duplicate()}

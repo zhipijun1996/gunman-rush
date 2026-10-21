@@ -1,0 +1,64 @@
+from pathlib import Path
+import ast,copy,difflib,hashlib,json,subprocess,sys
+ROOT=Path.cwd();sys.path[:0]=[str(ROOT/'tools')];import run_forest_bible_versions as wrapper
+base='083fbdc4a29a9d26c99b89bd5f2d506b3a88fcdb';OUT=ROOT/'build/region_bible_v2/json-replay-independent-review-first';D=ROOT/'build/region_bible_v2/v15-json-replay-diagnostic-first';sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest();old=lambda p:subprocess.check_output(['git','show',base+':'+p]);f=json.loads((D/'freeze-with-wrapper.json').read_text());before={p:sha(p)for p in f['files']};checks=[]
+def ck(ok,label,detail=None):
+ checks.append(dict(passed=bool(ok),label=label,detail=detail))
+ if not ok:raise AssertionError(label)
+ck(before==f['files'],'all_four_source_paths_match_explicit_freeze')
+for p,frm,to in [
+ ('scripts/generation/forest_bible_thorn_surfaces.gd','expected == surfaces','RandomStageGenerator.new()._same_data(expected,surfaces)'),
+ ('scripts/generation/forest_bible_v2_layout.gd','settled == {"kind":"none","amount":0}','RandomStageGenerator.new()._same_data(settled,{"kind":"none","amount":0})')]:
+ a=(D/'before'/p).read_text();b=Path(p).read_text();ck(a.count(frm)==1 and a.replace(frm,to)==b,'entire_source_restored_after_only_one_equality_reversal/'+p)
+ (OUT/(Path(p).name+'.diff')).write_text(''.join(difflib.unified_diff(a.splitlines(True),b.splitlines(True),fromfile='before/'+p,tofile=p)))
+for p in ['scripts/generation/random_stage_generator.gd','scripts/run/run_manifest.gd','scripts/generation/thorn_forest_region_v2_v13.gd','scripts/generation/thorn_forest_region_v2_v14.gd','scripts/generation/thorn_forest_region_v2_v15.gd','tests/forest_bible_versions_runner.gd']:
+ ck(Path(p).read_bytes()==old(p),'existing_canonical_protocol_RunManifest_pins_v15_complete_guard_and_old56_runner_unchanged/'+p)
+producer=Path('scripts/generation/thorn_forest_region_v2_v15.gd').read_text();ck('RandomStageGenerator.new()._same_data(manifest, _candidate(manifest.seed,int(index)))'in producer and 'manifest.get("manifest_hash") == BASE._hash(manifest)'in producer,'v15_rehashed_entire_independent_candidate_guard_retained')
+canonical=Path('scripts/generation/random_stage_generator.gd').read_text().split('func _canonical(value: Variant) -> Variant:\n',1)[1].split('\nfunc ',1)[0]
+ck('if value is int or value is float:'in canonical and 'return float(value)'in canonical and 'return value'in canonical,'only_existing_int_float_normalization_not_bool_or_fraction_truncation')
+source=Path('tests/forest_bible_json_replay_runner.gd').read_text();ck('JSON.parse_string(raw)'in source and 'producer.generate(seed_value,tuning,map_index' in source,'actual_native_producer_then_actual_JSON_parser')
+ck('bad.manifest_hash=producer._hash(bad)'in source and 'not producer.validate(bad,tuning)'in source,'six_native_negatives_rehashed_before_complete_producer_validation')
+ck('JSON.stringify(parsed)==JSON.stringify(JSON.parse_string(raw))'in source,'validation_explicitly_checks_parsed_data_unmodified')
+oldtree=ast.parse(old('tools/run_forest_bible_versions.py'));tree=ast.parse(Path('tools/run_forest_bible_versions.py').read_text());funcs=lambda tr:{n.name:n for n in tr.body if isinstance(n,ast.FunctionDef)};a=funcs(oldtree);b=funcs(tree)
+ck(set(b)==set(a)|{'validate_json_replay'},'exactly_one_new_wrapper_reader_function')
+for key in ['validate','negative_controls']:ck(ast.dump(a[key])==ast.dump(b[key]),'entire_old_wrapper_function_AST_unchanged/'+key)
+w=Path('tools/run_forest_bible_versions.py').read_text();ck(w.count('native_deadline = time.monotonic() + 90')==1 and w.count('max(0, native_deadline - time.monotonic())')==2,'both_native_consumers_share_single_original90_deadline')
+ck("run_engine(['--headless', '--path', '.', '--editor', '--quit'], 90)"in w,'original_single_import90_retained')
+ck("'native_cap_seconds': 90"in w and "'import_cap_seconds': 90"in w,'original_budget_receipt_fields_retained')
+ck(w.index('validate(data)')<w.index('tests/forest_bible_json_replay_runner.gd')<w.index("receipt['passed'] = True"),'old56_and_all_new36_required_before_any_wrapper_success')
+ck("receipt['source_before'] == receipt['source_after']"in w and "receipt['passed'] = receipt['passed'] and receipt['source_stable']"in w,'source_guard_required_for_combined_success')
+# Offline replay of actual native output: no native invocation or mock.
+actual=json.loads((D/'new-native-controls-second.json').read_text());wrapper.validate_json_replay(actual);ck(True,'actual_second36_complete_native_report_strict_reader_pass')
+first=json.loads((D/'new-native-controls-first.json').read_text());ck(first['failures']==1 and len(first['checks'])==36 and any(not x['passed']for x in first['checks']),'original_actual_first36_failure_retained')
+try:wrapper.validate_json_replay(first)
+except ValueError:ck(True,'strict_reader_rejects_original_failed36')
+else:raise AssertionError('accepted failed original')
+negative=[]
+changes={
+ 'missing_row':lambda d:d['checks'].pop(),
+ 'duplicate_label':lambda d:d['checks'][1].update(check=d['checks'][0]['check']),
+ 'wrong_map':lambda d:d['checks'][0].update(check=d['checks'][0]['check'].replace('map1','map3')),
+ 'reordered_labels':lambda d:d['checks'].reverse(),
+ 'false_passed':lambda d:d['checks'][0].update(passed=False),
+ 'numeric_passed':lambda d:d['checks'][0].update(passed=1),
+ 'missing_passed':lambda d:d['checks'][0].pop('passed'),
+ 'bool_failure':lambda d:d.update(failures=False),
+ 'float_failure':lambda d:d.update(failures=0.0),
+ 'nonzero_failure':lambda d:d.update(failures=1),
+ 'claims_original56':lambda d:d.update(scope=wrapper.SCOPE),
+ 'claims_original327':lambda d:d.update(scope='original327'),
+ }
+for name,fn in changes.items():
+ data=copy.deepcopy(actual);fn(data)
+ try:wrapper.validate_json_replay(data)
+ except (ValueError,KeyError,TypeError)as e:negative.append(dict(label=name,rejected=True,reason=str(e)))
+ else:raise AssertionError('accepted '+name)
+r=json.loads((D/'fixed-native-receipt.json').read_text());ck(r['source_before']==r['source_after'] and r['source_stable']is True and r['controls_passed']is True and r['campaign_passed']is True,'original_actual_fixed_native_receipt_source_stable_controls_and_campaign_success')
+ck(all(r['source_before'].get(p)==before[p]for p in before if p.endswith('.gd')),'three_reviewed_GD_hashes_match_actual_fixed_native_receipt')
+ck('FOREST BIBLE JSON REPLAY: 36 assertions / 0 failures'in (D/'new-native-controls-second.log').read_text(),'actual_second36_rawlog_completion')
+ck('FOREST CAMPAIGN: 56 assertions / 0 failures'in (D/'actual-campaign-after.log').read_text(),'actual_original_campaign56_rawlog_completion')
+for p in before:
+ ck(sha(p)==before[p],'source_stable_during_independent_review/'+p)
+ target=OUT/'reviewed-source'/p;target.parent.mkdir(parents=True,exist_ok=True);target.write_bytes(Path(p).read_bytes())
+result=dict(verdict='ACCEPT_SCOPED_FOUR_PATH_SOURCE_AND_EXISTING_ACTUAL36_PENDING_INTEGRATED_WRAPPER_NATIVE',checks=checks,actual_report_negatives=negative,source_sha256=before,evidence_sha256={p.name:sha(p)for p in [D/'freeze-with-wrapper.json',D/'fixed-native-receipt.json',D/'new-native-controls-first.json',D/'new-native-controls-second.json',D/'new-native-controls-second.log',D/'actual-campaign-after.log']},engine_run=False,production_edits=False,limitations=['Native36 and originalcampaign56 observed in original receipts; reviewer replayed Python strict reader only','New integrated wrapper56+36/native shared90 actual output pending parent run','JSON integrity compatibility only; no route/art/current80 admission claim','Existing canonical protocol unchanged; no general recursive coercion added'])
+(OUT/'report.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({'verdict':result['verdict'],'checks':len(checks),'actual_report_mutants_rejected':len(negative)}))

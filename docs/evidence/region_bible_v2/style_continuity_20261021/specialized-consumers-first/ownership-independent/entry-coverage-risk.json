@@ -1,0 +1,26 @@
+{
+  "status": "UNVERIFIED_SOURCE_RISK_NOT_NATIVE_FAILURE",
+  "scope": "Entry comparison modes only; wait_phase positive remains valid",
+  "actual_observation": {
+    "capture": "build/forest_depth/ecology/v15-consumer-formal-second/00-wait_phase/capture.json",
+    "route": "fast",
+    "edge": "west_to_belly",
+    "leg": 23,
+    "target": "hollow_route__borer_entry_thread",
+    "lethal_tick": 1656,
+    "common_encounter_tick": 1625
+  },
+  "source_conditions": {
+    "modes": [
+      "entry_clear",
+      "entry_wait",
+      "entry_hold"
+    ],
+    "ownership_on_west_to_belly": false,
+    "ownership_begins_on": "belly_borer_access",
+    "old_specialized_driver_target": "hollow_route__borer_entry_thread"
+  },
+  "actual_manifest_borer_route_contains_same_predecessor": true,
+  "limitation": "The captured route is fast, while the entry comparison uses borer. Earlier path and arrival clocks differ, so a failure of the entry modes is not established. A common pilot can acquire the same later-comparison target on the shared predecessor edge; actual entry controls are still needed.",
+  "recommended_next": "Run original explicit15 formal borer entry_clear/entry_wait/entry_hold with full current reader and preserved targets/causal events; if it fails, bound ownership to the exact threatened comparison target, preserving unrelated common combat. Reviewer did not run engine."
+}

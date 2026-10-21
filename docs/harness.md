@@ -119,3 +119,5 @@ S3实际CI／公网包通过后，GUI01因可见MENU未被识别而在3/20退出
 新版路线按实际输入、枪口、互斥UI和当前Manifest消费；保留旧版本driver与保存重建，不把新版Manifest改标签交旧校验器。诊断先复验真实失败场景，再跑原16代表；完整原80案例和600秒预算留到候选源码冻结的正式准入，不以窄反馈代全量。暂停中的新UI须有process-frame故障边界，不能仅依赖已停止的physics tick；真实关闭仍走Viewport输入，并保持奖励幂等及冻结资源断言。
 
 新增森林正式路线检查覆盖两图的连接/背枝取奖返营及图二F08真实Reader木芯路线；初始出生fixture只作开发诊断。每次记录完整runtime/test/tool输入前后SHA，新增/删文件同样令源漂移失败。素材小改不重签旧路线或旧画面；原失败、限定接受与最终完整发布证据分开保留。
+
+区域Bible的新reader与采证逻辑通过现有`forest-bible-reader-tests`、`forest-bible-av-reader-tests`进入gameplay/art/full；原检查与预算不替换。它们检查有限正反例和源闭包，不能签路线、审美或声音听感。新覆生材质先跑目标实际合屏，例如`python3 tools/run_forest_bible_golden.py --thorn-only --compare-plains --output build/region_bible_v2/<fresh>`，查看两区正式角色与平台、上/下/侧/真实转角，再作独立审查；实际静图不冒充连续动作。连续采证使用`tools/capture_forest_bible_route.py`复用已存在的全出生点路线，保留原AVI与真实引擎draw/physics时钟；其验收器的单元反例通过也不等于已运行电影。

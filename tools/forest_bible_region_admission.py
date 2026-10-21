@@ -3,6 +3,7 @@
 Supplements the original physical assertions without projecting/relabeling v15.
 """
 import hashlib
+import copy
 import json
 import math
 from pathlib import Path
@@ -11,6 +12,104 @@ import re
 ROOT = Path(__file__).resolve().parents[1]
 LAYOUT = 'forest-bible-world-v15'
 REFERENCE = 'forest-fruit-routes-v14'
+THORN_VERSION = 'forest-bible-thorn-covered-platforms-v1'
+
+
+def thorn_retirement(m, reference=None):
+    """One source-bound v15 retirement, never a generic danger exemption."""
+    source = (ROOT / 'scripts/generation/forest_bible_thorn_surfaces.gd').read_text()
+    local = _literal_after(source, 'const RETIRED_LOCAL := ')
+    version = _literal_after(source, 'const VERSION := ')
+    reason = _literal_after(source, 'const RETIRE_REASON := ')
+    if (m.get('layout_version') != LAYOUT or version != THORN_VERSION
+            or local != [82, 100, 790, 18]
+            or reason != 'unhosted_prototype_strip_210wu_below_broken_arch'):
+        raise ValueError('Only the explicit v15 thorn retirement is allowed')
+    vertical = (ROOT / 'scripts/generation/forest_vertical_expedition.gd').read_text()
+    placement = re.findall(r'\["broken_arch",Vector2\(([^)]+)\),"arch_four",', vertical)
+    if len(placement) != 1:
+        raise ValueError('Unique literal old broken-arch placement required')
+    offset = json.loads('[' + placement[0] + ']')
+    global_rect = [offset[0] + local[0], offset[1] + local[1], *local[2:]]
+    instance = _rows(m['geometry_instances'])['broken_arch']
+    index = len(m['dangers'])
+    if reference is not None:
+        old = _rows(reference['geometry_instances'])['broken_arch']
+        index = len(reference['dangers']) - 1
+        if (reference.get('layout_version') != REFERENCE or old['translation'] != offset
+                or old['local_geometry']['dangers'] != [local] or old['danger_indices'] != [index]
+                or reference['dangers'][index] != global_rect
+                or len(reference['danger_presentations']) != len(reference['dangers'])):
+            raise ValueError('The actual v14 reference must own precisely the retired last strip')
+    retired = dict(instance_id='broken_arch', reason=reason, source_local_dangers=[local],
+                   source_global_dangers=[global_rect], source_danger_indices=[index])
+    contract = dict(version=version, retired_prototype=retired,
+                    physical_delta='remove_exact_unhosted_prototype_strip_only', existing_supports_unchanged=True)
+    if (type(index) is not int or index != len(m['dangers'])
+            or instance.get('translation') != offset
+            or instance.get('factory') != 'res://scripts/generation/forest_air_chain_geometry.gd'
+            or instance.get('local_geometry', {}).get('id') != 'arch_four'
+            or instance.get('local_geometry', {}).get('dangers') != [] or instance.get('danger_indices') != []
+            or instance.get('thorn_surface_derivation') != retired or m.get('thorn_surface_contract') != contract
+            or m['thorn_surface_contract']['existing_supports_unchanged'] is not True
+            or global_rect in m['dangers']):
+        raise ValueError('Exact retired source/last index/global/local derivation required')
+    for metadata in (instance['thorn_surface_derivation'], m['thorn_surface_contract']['retired_prototype']):
+        if (len(metadata['source_danger_indices']) != 1
+                or type(metadata['source_danger_indices'][0]) is not int):
+            raise ValueError('Typed original danger index required')
+    return retired
+
+
+def _thorn_surfaces(platforms, dangers, presentations):
+    """Derive real faces from unchanged reference solids, not candidate labels."""
+    supports = _rows(platforms)
+    result = []
+    if len(dangers) != len(presentations):
+        raise ValueError('Every surviving physical danger needs its exact presentation')
+    for index, (rect, display) in enumerate(zip(dangers, presentations)):
+        x, y, w, h = rect
+        if any(type(n) not in (int, float) or not math.isfinite(n) for n in rect) or min(w, h) <= 0:
+            raise ValueError('Finite actual hazard rectangle required')
+        structure, face = display['host_structure_id'], display['facing']
+        segments = []
+        if structure == 'hollow' and face in ('up', 'down'):
+            seam = y if face == 'down' else y + h
+            for row in platforms:
+                if row.get('structure_id') != 'hollow' or row['one_way'] is not False:
+                    continue
+                sx, sy, sw, sh = row['rect']
+                if (sy + sh if face == 'down' else sy) != seam:
+                    continue
+                left, right = max(x, sx), min(x + w, sx + sw)
+                if right > left:
+                    segments.append(dict(support_id=row['id'], start=[left, seam], end=[right, seam]))
+            segments.sort(key=lambda r: r['start'][0])
+            cursor = x
+            for segment in segments:
+                if segment['start'][0] != cursor:
+                    raise ValueError('Solid union must cover every point without gaps or duplicate faces')
+                cursor = segment['end'][0]
+            if cursor != x + w:
+                raise ValueError('Incomplete actual solid union')
+        elif structure == 'thorn_mouth':
+            host_id = display['host_support_id']
+            host = supports[host_id]
+            if host['one_way'] is not False or host.get('structure_id') != structure:
+                raise ValueError('Actual solid thorn-mouth host required')
+            sx, sy, sw, sh = host['rect']
+            if host_id == 'thorn_mouth__root_arch' and sx <= x < x + w <= sx + sw and y <= sy + sh < y + h:
+                face = 'down'
+                segments = [dict(support_id=host_id, start=[x, sy + sh], end=[x + w, sy + sh])]
+            elif host_id == 'thorn_mouth__crown' and sy <= y < y + h <= sy + sh and x < sx <= x + w:
+                face = 'left'
+                segments = [dict(support_id=host_id, start=[sx, y], end=[sx, y + h])]
+            else:
+                raise ValueError('No genuine embedded thorn-mouth face')
+        if not segments:
+            raise ValueError('No supported actual thorn face')
+        result.append(dict(danger_index=index, face=face, hazard_rect=rect, segments=segments))
+    return result
 
 
 def _literal_after(source, token):
@@ -92,6 +191,18 @@ def validate_bible_admission(data):
              'same_reference_seed_map_tuning')
         need(type(m.get('map_index')) is int and m['map_index'] in (1, 2), 'typed_actual_map')
         need(not validate_fruit_presentation(old), 'separate_v14_fruit_reference')
+        retired = thorn_retirement(m, old)
+        inherited_geometry = copy.deepcopy(old['geometry_instances'])
+        retired_instance = _rows(inherited_geometry)['broken_arch']
+        retired_instance['local_geometry']['dangers'] = []
+        retired_instance['danger_indices'] = []
+        retired_instance['thorn_surface_derivation'] = retired
+        need(m.get('dangers') == old['dangers'][:-1]
+             and m.get('danger_presentations') == old['danger_presentations'][:-1], 'exact_one_thorn_retirement')
+        expected_surfaces = _thorn_surfaces(old['platforms'], old['dangers'][:-1], old['danger_presentations'][:-1])
+        need(m.get('thorn_surfaces') == expected_surfaces
+             and all(type(r.get('danger_index')) is int for r in m.get('thorn_surfaces', [])),
+             'actual_thorn_solid_union_faces')
         # Every dynamic check below the caller still consumes m with new bodies.
         append_categories = ('platforms', 'hook_anchors', 'areas', 'connections', 'enemies',
                              'rewards', 'geometry_instances', 'fruit_boughs', 'scene_structures')
@@ -101,15 +212,17 @@ def validate_bible_admission(data):
             original = _rows(old[category])
             actual[category] = _rows(m[category])
             retained = [row for row in m[category] if row['id'] in original]
-            need(retained == old[category], 'inherited_' + category)
+            need(retained == (inherited_geometry if category == 'geometry_instances' else old[category]), 'inherited_' + category)
             added[category] = {k: v for k, v in actual[category].items() if k not in original}
         for category in ('enemy_drops', 'streams', 'stream_positions', 'routes', 'choices', 'scene_structure_kinds'):
             need(isinstance(m[category], dict) and all(m[category].get(k) == v for k, v in old[category].items()),
                  'inherited_' + category)
         changed = set(append_categories) | {'layout_version', 'manifest_hash', 'world_bounds', 'topology_signature',
-                  'enemy_drops', 'streams', 'stream_positions', 'routes', 'choices', 'scene_structure_kinds'}
+                  'enemy_drops', 'streams', 'stream_positions', 'routes', 'choices', 'scene_structure_kinds',
+                  'dangers', 'danger_presentations'}
         need(all(m.get(k) == v for k, v in old.items() if k not in changed), 'inherited_other_fields')
-        need(set(m) - set(old) == ({'forest_discoveries', 'bible_world_contract', 'training_bells', 'forest_shortcuts'}
+        need(set(m) - set(old) == ({'forest_discoveries', 'bible_world_contract', 'training_bells', 'forest_shortcuts',
+                                  'thorn_surface_contract', 'thorn_surfaces'}
              | ({'practice_bell_contract'} if m['map_index'] == 1 else set())), 'finite_added_fields')
         need(m['production_pool'] is False and m['requires'] == ['grapple'], 'pending_H_only_admission')
         need(all(re.fullmatch(r'[0-9a-f]{64}', str(value)) for value in (m.get('manifest_hash'), old.get('manifest_hash')))

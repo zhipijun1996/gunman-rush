@@ -22,4 +22,22 @@ F05 接地 v2 的真实反例已精选保留：LOCAL long 仅3/30段、2077帧�
 
 v3四例已完整执行并独审：正式图1连接24/24、背枝32/32，LOCAL图2长返30/30、短返22/22；全HP5/Motor一次、无玩家伤害，四次3513源相同。精选原receipt、无损traceZIP和独立汇总见`grounded-v3/`。短返1155vs长返1374物理帧，仅描述该样本；奖励台入场1tick/1.5focus有差异，不能签严格同状态因果或FUN。后来新增材质/荆棘实现不重签这些旧来源。
 
-`golden-tether-tree/`仅精选2张实际图、完整capture/receipt/native日志；独审全18像素查看另存，不能称本目录全18图。木皮v3仅源级接受一次实际样本，见`bark-v3-source-review/`；尚未跑该材质实机合屏。
+`golden-tether-tree/`仅精选2张实际图、完整capture/receipt/native日志；独审全18像素查看另存，不能称本目录全18图。木皮v3源级仅允许一次实际样本，见`bark-v3-source-review/`；之后实际22图已拒绝该材质，见下方失败链。
+
+新荆棘覆生的两次实际样本均REWORK，保留在`rejected-thorn-first/`（全22收据、精选3图、平褐材质/菱花边失败）与`rejected-thorn-second/`（全6收据、精选3图、直角梯架/危险不醒目失败）；均有与083检查点绑定的完整source-delta ZIP及独审，不把第二轮的材质恢复签成荆棘通过。参数折线方向已停止，转原创native枝刺小家族。
+
+真实20 producer合同643/0及source稳定收据在`thorn-contract-native/`；新reader窄独审在`thorn-contract-independent/`，28单元/10额外合成反例，另两份实际map2完整capture重喂全部通过并拒绝8个变异反例。只覆盖有限退役/宿主联合面与旧断言保留，不代当前art或完整80。
+
+第一轮原生枝刺实际6张HUD在`native-thorn-first/`，18.634秒/0错/3574源稳定；含两平原、四森林全部原图及精确可重建source-delta。独审认可木质体积、白刺及共享风格的限定进步，仍REWORK长边鹿角重复与台阶直角托架，允许一次有界轮廓修整。最初两处Godot CanvasItem参数顺序错误的import失败也保留，不能当已出图的艺术轮。
+
+默认晋升盘点在`default-consumer-inventory/`：56路径分真实current、历史坐标/捕获与保存。consumer14-review保42独立谓词/42Python tests/6反例与实际审查14源码ZIP，仅签有限适配不签未跑的新版路线。`parallel-presentation-source-review/`保共享角色与旧v14双合同的源级窄审；曾发现空internal layout被覆盖，已修。该过渡源仍默认14，正式晋升与原生待验。
+
+新两reader的harness配置独审在`reader-harness-source-review/`：初始`-m`不满足现有文件入口契约的失败计划保留；10行真实入口后5种计划/原132与10前缀/双lane保留，独立47+8Python通过（无skip）。这是配置与Python执行，不是fresh源稳定harness或原生路线。`av-reader-rejected/`保原9类误接受与明确SYNTHETIC黑帧/1ms静音；`av-reader-fixed-offline/`保同反例拒绝、两旧真实路线正例、独立12timeline和8unit。仅验采证工具，真实AV尚未执行；synthetic AVI不作游戏画面。
+
+第二次/最后有界native实际6图在`native-thorn-second/`：18.346秒/3597源稳定、完整6图与精确source ZIP，独审ACCEPT_SCOPED_STATIC_NATIVE_THORN_COVERED_PLATFORM_SAMPLE。长边疏密、两真实台阶有机弯肘、木质/白针/共享pixel族限定通过，不签整区大形、所有生成域、碰撞、动画、用户/设备；不再做第三次参数轮。`reader-harness-fresh/`实际fresh两检查（47+8）已通过，targeted不等于full-profile发布。
+
+`specialized-consumers-first/`保留新版normal、生态、Lift、entry、crossbranch的8份实际完整捕获无损ZIP与原收据，均CRC/完整SHA回读。normal单例和正确Lift通过；Lift最低HP4。wait_phase修后原生通过、旧reader wrapper仍FAIL，后续完整离线重放通过分开记录。entry两次真失败、crossbranch原失败保留，不算最终当前默认或完整80准入。
+
+`specialized-consumers-second/`保留entry第三次真实roof阻挡、第四次原生无伤成功/浮点reader失败、第五次空pin完整CLI通过，以及crossbranch正式live_H无伤和原327/schema6/24两native来源，原收据不改。`consumer-independent-second/`含默认晋升32实际反例、独立原45单测、entry数值绑定21实际反例及有限prefix源码复核（103/176/15）。新prefix明确改变中途输入恢复，不声称旧中途wrong-support/ceiling断言逐字沿用；只签实际entry_wait，不代其他策略、完整80或当前JSON修复后所有默认消费者。
+
+最新`json-and-default-fresh-third/`含两处真实JSON缺陷原失败、UID首次import漂移整轮失败及第三轮七项fresh全源稳定通过原报告；附36 JSON原生正反例/原campaign56和集成56+36独立产物无损ZIP。它不是完整profile/80/连续AV或最终发布。

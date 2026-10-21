@@ -59,6 +59,8 @@ G5 验 G探索趣味：真实路线①尽快找 Boss ②正常探索成长 ③�
 
 新GDScript先在同一root引擎租约用 `bash tools/godot.sh --headless --path . --check-only --script <实际脚本.gd>` 做窄parse，再跑局部实际消费者，避免长fullspawn末端才暴露Variant/类型错误；parse通过只证明解析。新连接可先用 `python3 tools/run_forest_bible_world_fixture.py --fixture connection --output <fresh-build-dir>`（另一路用 `--fixture backbranch`） 做真实Motor局部反馈，必须记录 `initial_fixture_spawn_override=true`、`resource_or_health_override=false` 和首次Motor步前定位；资源、能力及physics不改，不做中途搬运。该结果只签局部连接，绝不冒充正式出发路线；随后仍跑原fullspawn、原案例与原预算的完整验证，失败保留，不以局部PASS冲销。
 
+默认布局晋升前先盘点所有省略版本的正式入口、独立期望、特殊路线driver与Python reader；显式历史坐标/保存重建保留原版本，不用旧pin掩盖当前失败。实际选择的Seed必须包含待验边，特殊策略的started/finished及实际事件必须证明已执行；“native零失败但从未激活策略”不算通过。普通战斗pilot只能处理自己负责的遭遇，不能抢先杀掉生态对照正在观测的目标；保留其他正常前缀。按[实际默认消费者盘点](../../../docs/evidence/region_bible_v2/style_continuity_20261021/default-consumer-inventory/inventory.md)先做小范围真实消费者，再完整原回归，编译和单元测试不替代这一步。
+
 运行 harness gameplay；直接定位 [15 套地区](../../../tools/run_plains_region_tests.py) 与 [共享生成消费者](../../../tools/run_generated_consumer_tests.py)，保留适用回归。结构统计、Motor 专项、完整体验三类证据不能混为一条 PASS。 记录实际命令、环境、退出码、日志和版本；计划命令不算执行。执行 [质量检查](../../../tools/quality.py)；静态检查、运行测试、实际宿主调用分别记证据。
 
 ## 人工审查
@@ -154,3 +156,9 @@ V3的20图RootBell为0，而原40图资格审计仅1例，不说明应增怪或�
 
 
 历史本轮入口原字节与SHA见[迁移索引](../../../docs/archive/skill_history/bible-v2-input/manifest.json)；旧recipe、历史预算和失败只在复现相关来源时读取，不覆盖已选Bible。
+
+专用生态驾驶器必须先核对当前真实manifest是否生成比较目标，再保留该目标到策略窗口；通用战斗不能提前消耗后续观察对象。保留活体后还须实际验证前置通行，身体接触与技能危险分别审查，等待技能冷却不等于移走敌人身体。测试输入路线可使用既有合法移动/跳跃/反冲，但不能写角色位置、重置敌人相位或伪造资源补偿；先复验已失败的小例，再扩矩阵。缺producer的旧候选命令明确历史/未准入，不编造内容凑通过。
+
+默认晋升必须覆盖真实RunManifest→canonical_json→JSON.parse→from_snapshot往返；只验证内存Dictionary快照不足。JSON数值解码的整数/浮点差异须按有限、整值的字段合同处理，不能接受分数身份、bool冒充数字或绕过全量Manifest校验。跨区UI流程现有的真实序列化断言继续作为发布门槛，不以版本枚举同步替代保存验证。
+
+新增Godot脚本/素材后，在冻结harness输入前先完成一次正式4.7.2 editor import，纳入真实新UID/import元数据再冻结。若检查内部首次import生成UID导致source drift，该轮仍失败并保留；明确核对唯一新增元数据后重新fresh，不把新文件排除守门或倒签原native通过为整轮通过。

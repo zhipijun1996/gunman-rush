@@ -97,6 +97,25 @@ def negative_controls(actual):
     return rejected
 
 
+def validate_json_replay(data):
+    labels = []
+    for seed in ('campaign-integration', 'forest-depth-hollow-00'):
+        for index in (1, 2):
+            prefix = f'{seed}/map{index} '
+            labels.extend(prefix + suffix for suffix in (
+                'exact actual producer', 'faithful JSON accepts integral numeric fields',
+                'validation leaves parsed data unchanged',
+                *[f'rehashed {kind} rejects' for kind in (
+                    'fractional_index', 'bool_index', 'fractional_geometry',
+                    'missing_face', 'extra_surface_field', 'foreign_face')]))
+    checks = data.get('checks', [])
+    if (data.get('scope') != 'actual producers and JSON parser, no movement or visual proof'
+            or type(data.get('failures')) is not int or data['failures'] != 0
+            or len(checks) != 36 or [r.get('check') for r in checks] != labels
+            or any(r.get('passed') is not True for r in checks)):
+        raise ValueError('Complete separate36 actual JSON replay ledger required')
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output-dir', required=True, type=Path)
@@ -111,15 +130,27 @@ def main():
     try:
         with (output / 'import.log').open('w') as stream, contextlib.redirect_stdout(stream):
             run_engine(['--headless', '--path', '.', '--editor', '--quit'], 90)
+        native_deadline = time.monotonic() + 90
         with (output / 'native.log').open('w') as stream, contextlib.redirect_stdout(stream):
             text = run_engine(['--headless', '--fixed-fps', '60', '--path', '.', '--script',
                                'tests/forest_bible_versions_runner.gd', '--',
-                               '--output=res://' + (output / 'capture.json').relative_to(ROOT).as_posix()], 90)
+                               '--output=res://' + (output / 'capture.json').relative_to(ROOT).as_posix()],
+                              max(0, native_deadline - time.monotonic()))
         if not re.search(r'^FOREST BIBLE VERSIONS: 56 assertions, 0 failures$', text, re.M):
             raise RuntimeError('Missing complete additional56 native completion')
         data = json.loads((output / 'capture.json').read_text())
         validate(data)
         receipt['synthetic_reader_negatives_rejected'] = negative_controls(data)
+        with (output / 'json-replay-native.log').open('w') as stream, contextlib.redirect_stdout(stream):
+            text = run_engine(['--headless', '--fixed-fps', '60', '--path', '.', '--script',
+                               'tests/forest_bible_json_replay_runner.gd', '--',
+                               '--output=res://' + (output / 'json-replay.json').relative_to(ROOT).as_posix()],
+                              max(0, native_deadline - time.monotonic()))
+        if not re.search(r'^FOREST BIBLE JSON REPLAY: 36 assertions / 0 failures$', text, re.M):
+            raise RuntimeError('Missing complete separate36 JSON replay completion')
+        validate_json_replay(json.loads((output / 'json-replay.json').read_text()))
+        receipt['json_replay'] = {'assertions': 36, 'failures': 0, 'strict_reader_passed': True,
+                                  'shared_native_cap_seconds': 90}
         receipt['passed'] = True
     except (OSError, ValueError, RuntimeError, subprocess.SubprocessError) as error:
         receipt['error'] = str(error)
@@ -132,6 +163,7 @@ def main():
     if not receipt['passed']:
         raise RuntimeError(receipt.get('error', 'Source changed during additional compatibility check'))
     print('FOREST BIBLE VERSIONS: 56 assertions, 0 failures; original327 remains separate')
+    print('FOREST BIBLE JSON REPLAY: 36 assertions / 0 failures; shared native90 budget')
 
 
 if __name__ == '__main__':

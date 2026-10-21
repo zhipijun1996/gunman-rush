@@ -647,7 +647,16 @@ def _validate_interwoven_binding(manifest,leg,instance,authority=None):
         for id in mapping.values():
             found=[row for row in manifest.get(category,[]) if row.get('id')==id]
             need(len(found)==1 and all(found[0].get(k,False if k=='hang_enabled' else None)==source_rows[id][k] for k in fields),'actual_'+category)
-    need(all(d in manifest.get('dangers',[]) for d in authority['ambient_dangers']),'inherited_dangers')
+    ambient=authority['ambient_dangers']
+    if manifest.get('layout_version')==BIBLE_LAYOUT:
+        try:
+            from forest_bible_region_admission import thorn_retirement
+            retired=thorn_retirement(manifest)['source_global_dangers'][0]
+            need(ambient.count(retired)==1,'exact_retired_ambient_source')
+            ambient=[d for d in ambient if d!=retired]
+        except (OSError,KeyError,IndexError,TypeError,ValueError,AttributeError):
+            need(False,'exact_thorn_surface_derivation')
+    need(all(d in manifest.get('dangers',[]) for d in ambient),'inherited_dangers')
     return list(dict.fromkeys(errors))
 
 def _air_chain_authoritative_factory(layout,regional=False):
@@ -798,6 +807,15 @@ def validate_airborne_chain_leg(data,leg,completion,frames,events,requests,platf
         need(descent.get('path',[None])[0]==[goal_x,354.0],'air_chain_exact_migrant_return_descent')
     else:
         need('receiver_derivation' not in instance,'air_chain_unexpected_receiver_derivation')
+    if manifest.get('layout_version')==BIBLE_LAYOUT and instance.get('id')=='broken_arch':
+        try:
+            from forest_bible_region_admission import thorn_retirement
+            retired=thorn_retirement(manifest)
+            need(factory.get('dangers')==retired['source_local_dangers'],'air_chain_exact_retired_factory_danger')
+            if factory.get('dangers')==retired['source_local_dangers']:factory['dangers']=[]
+        except (OSError,KeyError,IndexError,TypeError,ValueError,AttributeError):
+            need(False,'air_chain_exact_thorn_surface_derivation')
+    elif 'thorn_surface_derivation' in instance:need(False,'air_chain_unexpected_thorn_surface_derivation')
     need(raw==factory,'air_chain_local_geometry_not_current_factory')
     expected_factory={'hollow_spiral':'res://scripts/generation/forest_vertical_chain_geometry.gd','thorn_mouth':'res://scripts/generation/forest_thorn_mouth_geometry.gd'}.get(raw.get('id'),'res://scripts/generation/forest_air_chain_geometry.gd')
     if interwoven:expected_factory=INTERWOVEN_FACTORY
@@ -1119,6 +1137,20 @@ def completed_forest_encounter_jump_ticks(data):
     return result
 
 
+def same_shot_direction(queued, fired):
+    """Bind the real Router ray through float32 normalization in ShootAbility.
+
+    A unit diagonal oscillates by one float32 ULP on normalization. Only this
+    numerical direction comparison has tolerance; tick/queued binding stays exact.
+    """
+    for ray in (queued, fired):
+        if (not isinstance(ray, list) or len(ray) != 2
+                or any(type(v) not in (int, float) or not math.isfinite(v) for v in ray)
+                or abs(math.hypot(*ray) - 1.0) > 1e-6):
+            return False
+    return math.dist(queued, fired) <= 1e-6
+
+
 def validate(data):
     if data.get('route')=='upper_noH':return validate_upper_noH(data)
     errors=list(data.get('failures',[]));frames=data.get('frames',[]);manifest=data.get('manifest',{});events=data.get('events',[]);requests=data.get('requests',[])
@@ -1330,7 +1362,7 @@ def validate(data):
             if not candidates or min(math.dist(position,p) for p in candidates)>.2:fail('jump_release_position_not_body_frame')
             if not any(r.get('kind')=='jump_held' and r.get('held') is False and r.get('tick')==e['tick'] for r in requests):fail('jump_clearance_without_actual_release_input')
         if e.get('kind')=='jumped' and not any(r.get('kind')=='jump_held' and r.get('held') is True and r.get('tick')==e['tick'] for r in requests):fail('jump_not_actual_held_input')
-        if e.get('kind')=='shot_fired' and not any(r.get('kind')=='shoot_release' and r.get('tick')==e['tick'] and r.get('queued') is True and r.get('aim')==e.get('aim') for r in requests):fail('shot_not_actual_router_request')
+        if e.get('kind')=='shot_fired' and not any(r.get('kind')=='shoot_release' and r.get('tick')==e['tick'] and r.get('queued') is True and same_shot_direction(r.get('aim'),e.get('aim')) for r in requests):fail('shot_not_actual_router_request')
         if e.get('kind')=='hook_cast' and not any(r.get('kind')=='grapple' and r.get('tick')==e['tick'] and r.get('queued') is True for r in requests):fail('H_not_actual_router_request')
     if data.get('route') in ('fast','growth','borer'):
         if data.get('gate_saved_open') is not True or data.get('gate_shape_disabled') is not True:fail('gate_not_real_persistent_open')

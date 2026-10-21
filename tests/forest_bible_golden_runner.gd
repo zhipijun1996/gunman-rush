@@ -8,6 +8,8 @@ var compare_plains := false
 var near_scene := false
 var guardian_scene := false
 var ecology_scenes := false
+var thorn_scenes := false
+var thorn_only := false
 var ecology_seen: Dictionary = {}
 const ECOLOGY_TYPES := ["charger","forest_seed_sentry","forest_lantern","forest_thread_spider","forest_bark_beetle","forest_swing_pod","forest_crossbranch","forest_bible_weaver"]
 
@@ -18,6 +20,8 @@ func _initialize() -> void:
 		elif arg == "--near-scene": near_scene = true
 		elif arg == "--guardian-scene": guardian_scene = true
 		elif arg == "--ecology-scenes": ecology_scenes = true
+		elif arg == "--thorn-scenes": thorn_scenes = true
+		elif arg == "--thorn-only": thorn_scenes = true; thorn_only = true
 	run.call_deferred()
 
 func run() -> void:
@@ -38,6 +42,7 @@ func run() -> void:
 		if not is_instance_valid(stage.forest_terrain) or not stage.forest_terrain is UnderworldTerrain:
 			failures.append("shared_terrain_missing")
 		var shots: Array = ["camp","R","bible_web_lower","bible_backbranch_reward","prep"] if index == 1 else ["boss"]
+		if thorn_only: shots.clear()
 		if near_scene and index == 1: shots.append("near_tree")
 		if guardian_scene and index == 1: shots.append("boss")
 		if ecology_scenes:
@@ -45,6 +50,8 @@ func run() -> void:
 				var kind := str(enemy.behavior_id)
 				if kind in ECOLOGY_TYPES and not ecology_seen.has(kind):
 					shots.append("ecology_"+str(enemy.id)); ecology_seen[kind] = true
+		if thorn_scenes:
+			shots.append_array(["thorn_hollow","thorn_mouth","thorn_retired"] if index == 1 else ["thorn_elbow"])
 		if not app.player.get_node_or_null("PixelPlainsActor") is UnderworldPlayer:
 			failures.append("shared_courier_missing")
 		if app.player.get_node("CourierVisual").visible or app.player.get_node("PlayerFeedback").visible:
@@ -53,7 +60,20 @@ func run() -> void:
 			var point := stage.spawn
 			var found := id == "camp"
 			var ecology: Dictionary = {}
-			if id.begins_with("ecology_"):
+			if id.begins_with("thorn_"):
+				var m: Dictionary = stage.generated.manifest
+				if id == "thorn_retired":
+					var old: Array = m.thorn_surface_contract.retired_prototype.source_global_dangers[0]
+					point = Vector2(float(old[0])+float(old[2])*0.5,float(old[1])-80.0); found = true
+				elif id == "thorn_mouth":
+					for surface: Dictionary in m.thorn_surfaces:
+						if surface.face != "left": continue
+						var rect: Array = surface.hazard_rect
+						point = Vector2(float(rect[0])-30.0,float(rect[1])-35.0); found = true; break
+				else:
+					var first: Array = m.dangers[0]
+					point = Vector2(float(first[0])+float(first[2])*0.5+100.0,float(first[1])+90.0); found = true
+			elif id.begins_with("ecology_"):
 				for enemy_index: int in stage.enemy_manifest.size():
 					var enemy: Dictionary = stage.enemy_manifest[enemy_index]
 					if str(enemy.id) != id.trim_prefix("ecology_"): continue
@@ -89,7 +109,7 @@ func run() -> void:
 			var result := image.save_png(output+"/"+name)
 			if result != OK: failures.append("png_write_failed:"+name)
 			var near_audit: Dictionary = stage.near_scenery.position_audit() if is_instance_valid(stage.near_scenery) else {}
-			rows.append({"image":name,"region":"thorn_forest","area":id,"map_index":index,"manifest_hash":stage.generated.manifest.manifest_hash,"layout":stage.generated.manifest.layout_version,"staged_pose":[point.x,point.y],"camera":[app._run_camera.get_screen_center_position().x,app._run_camera.get_screen_center_position().y],"size":[image.get_width(),image.get_height()],"shared_family":{"terrain":"UnderworldTerrain","body":"UnderworldPlayer","tile_px":UnderworldTerrain.specification().tile_px,"world_tile_wu":UnderworldTerrain.specification().world_tile_wu},"near_scenery":near_audit,"ecology":ecology,"purpose":"static full game art review; explicit pose assignment, no Motor/GUI/device proof"})
+			rows.append({"image":name,"region":"thorn_forest","area":id,"map_index":index,"manifest_hash":stage.generated.manifest.manifest_hash,"layout":stage.generated.manifest.layout_version,"staged_pose":[point.x,point.y],"camera":[app._run_camera.get_screen_center_position().x,app._run_camera.get_screen_center_position().y],"size":[image.get_width(),image.get_height()],"shared_family":{"terrain":"UnderworldTerrain","body":"UnderworldPlayer","tile_px":UnderworldTerrain.specification().tile_px,"world_tile_wu":UnderworldTerrain.specification().world_tile_wu},"near_scenery":near_audit,"ecology":ecology,"thorn_surfaces":stage.generated.manifest.get("thorn_surfaces",[]).duplicate(true),"thorn_retirement":stage.generated.manifest.get("thorn_surface_contract",{}).duplicate(true),"purpose":"static full game art review; explicit pose assignment, no Motor/GUI/device proof"})
 		paused = false
 		app.lifetime.end()
 		if not await AUDIO.drain_world(app): failures.append("audio_release")
@@ -100,7 +120,7 @@ func run() -> void:
 			if not ecology_seen.has(kind): failures.append("missing_actual_ecology:"+kind)
 	FileAccess.open(output+"/capture.json",FileAccess.WRITE).store_string(JSON.stringify({"scope":"actual_v15_full_game_static_composition_staged_poses","rows":rows,"failures":failures},"\t"))
 	print("FOREST BIBLE GOLDEN: %s images / %s failures" % [rows.size(),failures.size()])
-	quit(0 if failures.is_empty() and rows.size()==(8 if compare_plains else 6)+(1 if near_scene else 0)+(1 if guardian_scene else 0)+(ECOLOGY_TYPES.size() if ecology_scenes else 0) else 1)
+	quit(0 if failures.is_empty() and rows.size()==(2 if compare_plains else 0)+(0 if thorn_only else 6)+(1 if near_scene else 0)+(1 if guardian_scene else 0)+(ECOLOGY_TYPES.size() if ecology_scenes else 0)+(4 if thorn_scenes else 0) else 1)
 
 func capture_plains_reference() -> void:
 	for index: int in [1,2]:

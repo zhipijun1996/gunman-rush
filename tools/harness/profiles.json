@@ -2904,6 +2904,46 @@
         "build/region_bible_v2/forest-bible-versions"
       ],
       "weight_seconds": 20
+    },
+    "forest-bible-reader-tests": {
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_reader_tests.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "inputs": [
+        "project.godot",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "shaders",
+        "assets",
+        "tests",
+        "tools"
+      ],
+      "weight_seconds": 2
+    },
+    "forest-bible-av-reader-tests": {
+      "argv": [
+        "python3",
+        "tests/test_capture_forest_bible_route.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "inputs": [
+        "project.godot",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "shaders",
+        "assets",
+        "tests",
+        "tools"
+      ],
+      "weight_seconds": 3
     }
   },
   "profiles": {
@@ -3087,7 +3127,9 @@
       "forest-bible-world-connection-map1",
       "forest-bible-world-backbranch-map1",
       "forest-bible-world-spiral",
-      "forest-bible-versions"
+      "forest-bible-versions",
+      "forest-bible-reader-tests",
+      "forest-bible-av-reader-tests"
     ],
     "art": [
       "docs",
@@ -3179,7 +3221,9 @@
       "forest-bible-world-backbranch",
       "forest-bible-ambience",
       "forest-bible-app-discoveries",
-      "forest-practice-bell-restore"
+      "forest-practice-bell-restore",
+      "forest-bible-reader-tests",
+      "forest-bible-av-reader-tests"
     ],
     "web": [
       "docs",
@@ -3362,7 +3406,9 @@
       "forest-bible-world-connection-map1",
       "forest-bible-world-backbranch-map1",
       "forest-bible-world-spiral",
-      "forest-bible-versions"
+      "forest-bible-versions",
+      "forest-bible-reader-tests",
+      "forest-bible-av-reader-tests"
     ],
     "creative-feedback": [
       "docs",

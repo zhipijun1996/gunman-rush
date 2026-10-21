@@ -1,0 +1,49 @@
+from pathlib import Path
+import copy,hashlib,json,subprocess,sys
+ROOT=Path.cwd();sys.path[:0]=[str(ROOT/'tools')];import run_forest_bible_versions as w
+OUT=ROOT/'build/region_bible_v2/json-replay-independent-review-first/integrated-actual';D=ROOT/'build/region_bible_v2/forest-bible-versions/913cb2851a3046029da7251a8796b5a8';H=ROOT/'build/verification/harness/20261021T052050.268603Z';F=ROOT/'build/region_bible_v2/v15-json-replay-diagnostic-first/freeze-with-wrapper.json';sha=lambda p:hashlib.sha256(Path(p).read_bytes()).hexdigest();freeze=json.loads(F.read_text());checks=[]
+def ck(ok,label,detail=None):
+ checks.append(dict(passed=bool(ok),label=label,detail=detail))
+ if not ok:raise AssertionError(label)
+r=json.loads((D/'receipt.json').read_text());v=json.loads((D/'capture.json').read_text());j=json.loads((D/'json-replay.json').read_text());h=json.loads((H/'report.json').read_text());before={p:sha(p)for p in freeze['files']}
+ck(before==freeze['files'],'four_current_paths_still_exact_frozen_hashes')
+ck(r['source_before']==r['source_after'] and len(r['source_before'])==3600 and r['source_stable']is True and r['passed']is True,'original_integrated_receipt3600_full_inputs_stable_and_pass')
+ck(all(r['source_before'].get(p)==digest for p,digest in before.items()),'actual_native_receipt_matches_four_reviewed_source_paths')
+ck(r['import_cap_seconds']==90 and r['native_cap_seconds']==90 and r['json_replay']['shared_native_cap_seconds']==90,'actual_original_import90_and_shared_native90_recorded')
+ck(0<r['elapsed_seconds']<90,'whole_successful_wrapper_elapsed30_under_native90_even_including_import',r['elapsed_seconds'])
+w.validate(v);ck(v['schema_version']==1 and v['assertions']==56 and len(v['checks'])==56 and len(v['cases'])==8 and v['failures']==0,'complete_original56_schema_and_eight_cases_offline_revalidated')
+oldneg=w.negative_controls(v);ck(len(oldneg)==10 and oldneg==r['synthetic_reader_negatives_rejected'],'ten_existing_actual56_reader_negatives_match_original_receipt')
+w.validate_json_replay(j);ck(len(j['checks'])==36 and j['failures']==0 and j['scope']!=v['scope'],'independent_strict36_ledger_not_merged_or_relabelled_as56')
+ck(r['json_replay']==dict(assertions=36,failures=0,strict_reader_passed=True,shared_native_cap_seconds=90),'separate36_success_metadata_exact')
+oldlog=(D/'native.log').read_text();newlog=(D/'json-replay-native.log').read_text();ck(oldlog.startswith('Godot Engine ')and newlog.startswith('Godot Engine ')and sha(D/'native.log')!=sha(D/'json-replay-native.log'),'distinct_original_native_engine_logs_for_two_consumers')
+ck('FOREST BIBLE VERSIONS: 56 assertions, 0 failures'in oldlog and 'FOREST BIBLE JSON REPLAY: 36 assertions / 0 failures'in newlog,'both_original_raw_native_completion_summaries')
+src=Path('tools/run_forest_bible_versions.py').read_text();ck(src.count("run_engine(['--headless', '--fixed-fps', '60'")==2 and src.count('native_deadline = time.monotonic() + 90')==1 and src.count('max(0, native_deadline - time.monotonic())')==2,'frozen_two_real_native_calls_share_one_deadline')
+ck('tests/forest_bible_versions_runner.gd'in src and 'tests/forest_bible_json_replay_runner.gd'in src,'distinct_native_command_script_targets_source_verified')
+neg=[]
+mutators={
+'missing_row':lambda d:d['checks'].pop(),'duplicate_label':lambda d:d['checks'][1].update(check=d['checks'][0]['check']),
+'wrong_map':lambda d:d['checks'][0].update(check=d['checks'][0]['check'].replace('map1','map3')),'reordered':lambda d:d['checks'].reverse(),
+'false_passed':lambda d:d['checks'][0].update(passed=False),'numeric_passed':lambda d:d['checks'][0].update(passed=1),
+'missing_passed':lambda d:d['checks'][0].pop('passed'),'bool_failure':lambda d:d.update(failures=False),
+'float_failure':lambda d:d.update(failures=0.0),'nonzero_failure':lambda d:d.update(failures=1),
+'claims56':lambda d:d.update(scope=w.SCOPE),'claims327':lambda d:d.update(scope='original327')}
+for label,mutate in mutators.items():
+ data=copy.deepcopy(j);mutate(data)
+ try:w.validate_json_replay(data)
+ except (ValueError,TypeError,KeyError)as e:neg.append(dict(label=label,rejected=True,reason=str(e)))
+ else:raise AssertionError(label)
+expected=['forest-debug','forest-campaign','parallel-region-presentation','forest-depth-versions','forest-bible-versions','forest-bible-reader-tests','forest-bible-av-reader-tests'];ck(h['status']=='passed' and [x['id']for x in h['checks']]==expected,'exact_fresh_seven_harness_checks_all_present')
+ck(all(x['status']=='passed'and x['exit_code']==0 and x['reused']is False for x in h['checks']),'all_seven_executed_fresh_no_reuse')
+check=next(x for x in h['checks']if x['id']=='forest-bible-versions');ck(check['expanded_argv'][-1]==str(D.relative_to(ROOT)) and check['duration_seconds']>=r['elapsed_seconds'],'harness_real_output_path_and_wall_time_bind_integrated_wrapper')
+ck('source_files'not in h and 'source_files_after'not in h,'targeted_harness_does_not_serialize_lane_only_inventory_fields')
+ck('FOREST DEPTH VERSIONS: 327 assertions, 0 failures across 2 native consumers'in (H/'forest-depth-versions.log').read_text(),'original327_remains_separate_successful_harness_log')
+oldh=ROOT/'build/verification/harness/20261021T051706.404118Z';oldreport=json.loads((oldh/'report.json').read_text());ck(oldreport['status']=='interrupted' and oldreport['checks']==[],'prior_global_source_guard_interruption_record_not_rewritten_as_pass')
+ck('FOREST DEPTH VERSIONS: 327 assertions, 0 failures across 2 native consumers'in (oldh/'forest-depth-versions.log').read_text(),'prior_native327_success_retained_despite_outer_interruption')
+diag=json.loads((ROOT/'build/region_bible_v2/json-import-metadata-drift-first/diagnosis.json').read_text());ck(diag['new_working_paths']==['tests/forest_bible_json_replay_runner.gd.uid']and diag['changed_existing_working_paths']==[],'original_failure_time_diagnosis_records_only_new_import_UID')
+ck(sha(ROOT/'tests/forest_bible_json_replay_runner.gd.uid')==diag['uid_sha256'],'stable_UID_present_for_fresh_harness')
+p='tests/test_region_creative_direction.py';b=Path(p).read_text();a=subprocess.check_output(['git','show','083fbdc4a29a9d26c99b89bd5f2d506b3a88fcdb:'+p]).decode();ck(b.replace("self.assertEqual(task['creative_direction']['version'], 'creative-v7')","self.assertEqual(task['creative_direction']['version'], 'creative-v6')")==a,'complete_workflow_test_file_restored_by_single_v7_expectation_reversal')
+direction=json.loads(Path('docs/creative_direction/thorn_forest.json').read_text());ck(direction['version']=='creative-v7','new_expectation_matches_current_user_thorn_creative_direction')
+ck('Ran 10 tests'in (OUT/'creative10-unit.log').read_text()and (OUT/'creative10-unit.log').read_text().rstrip().endswith('OK'),'independent_ten_workflow_units_pass')
+for p in before:ck(sha(p)==before[p],'source_stable_during_independent_integrated_replay/'+p)
+result=dict(verdict='ACCEPT_SCOPED_INTEGRATED_ACTUAL56_PLUS36_AND_SINGLE_WORKFLOW_EXPECTATION',checks=checks,actual_new36_reader_negatives=neg,actual_old56_reader_negatives=oldneg,source_sha256=before,workflow_test_sha256=sha(ROOT/'tests/test_region_creative_direction.py'),original_evidence_sha256={str(p.relative_to(ROOT)):sha(p)for p in [D/'receipt.json',D/'capture.json',D/'json-replay.json',D/'native.log',D/'json-replay-native.log',H/'report.json',oldh/'report.json',ROOT/'build/region_bible_v2/json-import-metadata-drift-first/diagnosis.json']},limitations=['No native engine or production edits by reviewer','Existing Bible wrapper has no serialized per-native PID/argv receipts; actual script command targets verified from frozen source and distinct native output files, no stronger PID identity claim','Targeted seven-check harness has complete-source digest guard but no lane source_files/source_files_after JSON fields; explicit3600 equality comes from integrated Bible wrapper receipt','Prior UID diagnosis is failure-time snapshot; later third-harness working_files also reflects a separate region-generator SKILL documentation edit','Compatibility/workflow-only acceptance; no current80/art/device/fun admission'])
+(OUT/'report.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({'checks':len(checks),'new_actual_reader_negatives':len(neg),'old_actual_reader_negatives':len(oldneg),'verdict':result['verdict']}))

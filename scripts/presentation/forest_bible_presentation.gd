@@ -7,7 +7,6 @@ const FAR: Texture2D = preload("res://assets/style_exploration/underworld/forest
 const FOREST_PROPS: Texture2D = preload("res://assets/style_exploration/underworld/forest/chime_props.png")
 const TREE := Rect2(16, 16, 968, 740)
 const FRUIT: Texture2D = preload("res://assets/forest_bible_v2/native/fruit.png")
-const THORNS: Texture2D = preload("res://assets/forest_bible_v2/native/white_thorns.png")
 const DISCOVERY_TEXTURES := {
 	"buried_bell_plate": preload("res://assets/forest_bible_v2/native/buried_bell_plate.png"),
 	"mushroom_hut_cache": preload("res://assets/forest_bible_v2/native/mushroom_hut_cache.png"),
@@ -74,23 +73,6 @@ static func draw_surfaces(canvas: Node2D, m: Dictionary) -> void:
 	# shader as Plains. Do not overpaint those pixels with forest log strips.
 	for row: Dictionary in m.get("platforms", []):
 		draw_surface(canvas, row)
-
-static func draw_thorns(canvas: Node2D, hazard: Rect2, downward: bool) -> void:
-	# Regional ivory thorns are a declared 32px derivative, not direct sampling
-	# of a high-resolution painting. Existing damage envelope stays authoritative.
-	var period := 64.0
-	var left := hazard.position.x
-	while left < hazard.end.x-0.01:
-		var width := minf(period, hazard.end.x-left)
-		var sample := Rect2(0, 0, THORNS.get_width()*width/period, THORNS.get_height())
-		if downward:
-			canvas.draw_set_transform(Vector2(left+width, hazard.end.y), PI)
-			canvas.draw_texture_rect_region(THORNS, Rect2(0, 0, width, hazard.size.y), sample)
-			canvas.draw_set_transform(Vector2.ZERO)
-		else:
-			canvas.draw_texture_rect_region(THORNS, Rect2(left, hazard.position.y, width, hazard.size.y), sample)
-		left += width
-	canvas.draw_rect(hazard, Color(0.64, 0.67, 0.55, 0.60), false, 1.0)
 
 static func draw_fruit(canvas: Node2D, role: String, hang_enabled: bool) -> void:
 	var tint := Color.WHITE

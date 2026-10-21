@@ -36,6 +36,10 @@ func run() -> void:
 	var data := {"scope":"full_formal_spawn_Bible_world_Motor","route":route,"seed":root_seed,"map_index":map_index,"completed":trace.completed.duplicate(true),"events":trace.events.duplicate(true),"frames":trace.frames.duplicate(true),"failures":trace.failures.duplicate(),"initial":trace.initial.duplicate(true),"final":trace.snapshot(),"manifest":trace.manifest.duplicate(true),"manual_motor_step":false,"position_or_resource_injection":false,"aim_samples":trace.aim_samples.duplicate(true),"itinerary_count":trace.itinerary.size(),"claimed":trace.stage.region_state.claimed.duplicate(true) if is_instance_valid(trace.stage) else {},"opened":trace.stage.region_state.opened.duplicate(true) if is_instance_valid(trace.stage) else {},"source_hashes":{}}
 	for path: String in [get_script().resource_path,"res://tests/forest_bible_world_trace.gd","res://tests/forest_bible_world_air_case.gd","res://scripts/generation/forest_bible_v2_layout.gd","res://scripts/generation/forest_bible_backbranch_geometry.gd","res://scripts/generation/thorn_forest_region_v2_v15.gd","res://scripts/player/player_motor.gd","res://config/player_tuning.json","res://resources/player/traversal.tres"]:
 		data.source_hashes[path] = FileAccess.get_sha256(path)
+	data["itinerary"] = trace.itinerary.duplicate(true)
+	data["requests"] = trace.requests.duplicate(true)
+	data["modal_frames"] = trace.modal_frames.duplicate(true)
+	data["pointer_events"] = trace.pointer_events.duplicate(true)
 	var clean := true
 	if is_instance_valid(trace.app): clean = await preload("res://tests/audio_teardown.gd").drain_world(trace.app)
 	trace.queue_free()

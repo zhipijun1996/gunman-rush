@@ -1,0 +1,11 @@
+{
+  "scope": "Actual second targeted harness failed despite native327 pass; no retroactive pass",
+  "failed_harness": "build/verification/harness/20261021T051706.404118Z/report.json",
+  "new_working_paths": [
+    "tests/forest_bible_json_replay_runner.gd.uid"
+  ],
+  "changed_existing_working_paths": [],
+  "uid_sha256": "08c3999a07d8b40978d8e6fc57d865ebdda2edbd5f22abd9870357089ea97dd0",
+  "cause": "First editor import inside originalversions wrapper generated new script UID after harness froze complete inputs",
+  "action": "Keep UID as source metadata and prepare import before next fresh harness; do not relax source guard"
+}
