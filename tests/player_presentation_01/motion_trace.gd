@@ -9,12 +9,14 @@ var rows: Array[Dictionary] = []
 var events: Array[Dictionary] = []
 var errors: Array[String] = []
 var checks := 0
+var trace_samples := 1080
 
 func _initialize() -> void:
 	for arg: String in OS.get_cmdline_user_args():
 		if arg == "--candidate=off": enabled_candidate = false
 		if arg == "--capture": capture = true
 		if arg.begins_with("--output="): output = arg.trim_prefix("--output=")
+		if arg.begins_with("--samples="): trace_samples = arg.trim_prefix("--samples=").to_int()
 	run.call_deferred()
 
 func check(value: bool, label: String) -> void:
@@ -28,7 +30,7 @@ func advance() -> void:
 
 func run() -> void:
 	root.size = Vector2i(1280,720)
-	if output.is_empty() or FileAccess.file_exists(output):
+	if output.is_empty() or FileAccess.file_exists(output) or trace_samples not in [600,1080]:
 		printerr("MOTION TRACE requires unique new --output path")
 		quit(1)
 		return
@@ -52,7 +54,7 @@ func run() -> void:
 	control.router.activate_device(&"gamepad")
 	control.jump_ability.jumped.connect(func() -> void: events.append({"sample":rows.size(),"event":"accepted_jump","tick":Engine.get_physics_frames()}))
 	control.landed.connect(func() -> void: events.append({"sample":rows.size(),"event":"accepted_land","tick":Engine.get_physics_frames()}))
-	for sample: int in 1080:
+	for sample: int in trace_samples:
 		if not is_instance_valid(actor) or not is_instance_valid(control):
 			errors.append("formal actor unloaded before end")
 			break
@@ -92,7 +94,7 @@ func run() -> void:
 			"camera":[app._run_camera.get_screen_center_position().x,app._run_camera.get_screen_center_position().y],
 			"manifest_hash":manifest_hash,"session":control.session_id,"weapon_epoch":control.shoot_ability.weapon_epoch})
 	control.router.clear("motion_sample_complete")
-	check(rows.size() == 1080,"full actual observation")
+	check(rows.size() == trace_samples,"full requested actual observation;600 includes both accepted jumps and landings,1080 additionally long fall and return")
 	check(events.filter(func(e: Dictionary) -> bool: return e.event == "accepted_jump").size() == 2,"two accepted jumps;airborne rejected intent adds none")
 	check(visual.accepted_lands >= 2,"two actual landings observed")
 	check((actor.get_node("CollisionShape2D").shape as RectangleShape2D).size == collision_before,"collision dimensions retained")

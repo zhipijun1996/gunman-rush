@@ -2,10 +2,10 @@
   "schema_version": 1,
   "task_id": "PLAYER-PRESENTATION-01",
   "task_type": "player",
-  "workflow": "planned",
+  "workflow": "in_progress",
   "baseline_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
-  "reviewed_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
-  "content_version": "motion-candidate-v1",
+  "reviewed_commit": "9c693787b201a655d9e8589d3bb1e1350ae64e29",
+  "content_version": "motion-candidate-v2",
   "owner": "/root",
   "purpose": "正式主角审计后，按用户反馈制作受隔离的idle/fall/gait/dust开发候选；共享正式替换仍待总控",
   "player_experience": "移动中转向/射击反冲→受伤中断→恢复/死亡；home复用三外观选择；本检查点尚未改进生产",
@@ -306,19 +306,22 @@
     }
   ],
   "unverified_items": [
-    "新候选只在任务dev正式消费者接入；主线共享body/样式未替换",
-    "两版run原图失败停产，步态像素返工未完成",
-    "所有武器动作、home三角色与受伤恢复死亡整链未完成",
-    "同条件GPU/Web/独审此时待执行；历史失败保留",
-    "用户审美/手感/真机未验；完整Integration由总控安排",
-    "docs稀疏缺历史依赖失败不改签"
+    "共享4件与正式场景未替换；总控整合现有M1与样式版本/显式重绑仍待办",
+    "新跑步原图连续两次被拒，旧run位移相位不签步态美术完成",
+    "新idle/fall手部与原固定枪线衔接REWORK；完整全武器/三外观及死亡链未完成",
+    "尘效v1实际可读性REWORK，v2局部调参待GPU对照复验",
+    "原18.2秒同条件每1080样本16字段零差异，不能替代全部动作/地区/设备覆盖",
+    "Web v1原包e6e862c1fd90本地Chromium真实键鼠开关/重启/Home已验证；共享Pages900MiB拒绝，临时tunnel API直连被网络拒绝，未上线新Preview",
+    "Development计划未知依赖保守升级full；用户要求专项且完整Integration由总控安排，此处不宣称已完成计划",
+    "docs稀疏缺历史依赖原失败保留；中心任务状态需总控同步",
+    "完整常速播放/听音/用户审美手感/实体设备未验"
   ],
   "checkpoint": {
-    "status": "coordinator_design_review_pending",
-    "implementation_status": "in_progress_task_dev_candidate",
+    "status": "development_candidate_shared_adoption_pending",
+    "implementation_status": "development_candidate_v2_vfx_readability_rework",
     "runtime_files_changed": true,
-    "central_index_owner": "coordinator;workflow remains planned until central task update",
-    "independent_scope": "audit/interface review only;not content completion",
+    "central_index_owner": "coordinator;main task index is still planned and requires coordinated status reconciliation;this record truthfully reports implementation in progress",
+    "independent_scope": "engineering acceptance for v1 candidate only;pixel review supports falling scarf trial,REWORK holding attachment and weak dust;v2 targeted dust revision pending capture",
     "skills": [
       "player-creator",
       "animation-vfx",
@@ -332,7 +335,7 @@
     "existing_workline_head": "b34511a7ee27f03b6d87d070ca20e9309e1e8a2e",
     "handoff": "docs/worklines/PLAYER-PRESENTATION-01/remote-handoff-01.md;补充审计，不覆盖已有M1同ID质量卡"
   },
-  "production_snapshot": "7f7e629402517271a95e09ba6d3c74550d389cfcca9dbc9a89ef0eee6375019a",
+  "production_snapshot": "9c693787b201a655d9e8589d3bb1e1350ae64e29",
   "baseline_consumer_coverage": {
     "scope": "Unmodified-main baseline;runtime home/plains trace plus explicitly source-only remaining consumers;no implementation coverage claim",
     "inventory_evidence": "inventory",

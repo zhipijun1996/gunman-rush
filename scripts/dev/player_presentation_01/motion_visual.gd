@@ -93,7 +93,7 @@ func _spawn_dust(landing: bool, speed: float) -> void:
 		if _dust.size() >= profile.particle_cap: break
 		var side := -1.0 if i % 2 == 0 else 1.0
 		var rank := float(i / 2)
-		_dust.append({"origin":origin,"velocity":Vector2(side * (15 + rank * 5) * (0.7 + intensity), -8 - fmod(rank * 7, 13)), "age":0.0, "duration":duration, "size":1.0 + fmod(rank, 2), "landing":landing})
+		_dust.append({"origin":origin,"velocity":Vector2(side * (profile.dust_spread_speed + rank * 6) * (0.7 + intensity), -profile.dust_lift_speed - fmod(rank * 9, 18)), "age":0.0, "duration":duration, "size":profile.dust_particle_size + fmod(rank, 2), "landing":landing})
 	dust_peak = maxi(dust_peak, _dust.size())
 
 func candidate_receipt() -> Dictionary:
@@ -152,6 +152,6 @@ func _draw() -> void:
 		var ratio := age / float(item.duration)
 		var point := to_local(item.origin + item.velocity * age + Vector2(0,18 * age * age)).snapped(Vector2(1,1))
 		var color := profile.dust_color
-		color.a = (1 - ratio) * 0.65
+		color.a = (1 - ratio) * 0.8
 		var size := float(item.size) * (1 + ratio)
 		draw_rect(Rect2(point - Vector2(size,size / 2),Vector2(size * 2,size)),color)

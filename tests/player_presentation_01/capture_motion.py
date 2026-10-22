@@ -21,7 +21,7 @@ def write(path, value):
     path.write_text(json.dumps(value, indent=2, ensure_ascii=False) + '\n')
 
 
-def capture(folder):
+def capture(folder, samples):
     if folder.exists() or not folder.is_relative_to(ROOT / 'build'):
         raise ValueError('Use a NEW build/ attempt directory')
     metadata = harness.git_metadata()
@@ -31,7 +31,7 @@ def capture(folder):
     folder.mkdir(parents=True)
     report = dict(task='PLAYER-PRESENTATION-01', status='running', source_metadata=metadata,
                   source_before=before, captures=[], errors=[],
-                  conditions=dict(seed='player-presentation-01/motion-01', fps=60, resolution=[1280, 720]),
+                  conditions=dict(seed='player-presentation-01/motion-01', fps=60, resolution=[1280, 720], requested_samples=samples),
                   baseline='Same task dev consumer with candidate disabled: inherited original renderer and formal gameplay',
                   scope='Actual DemoApp Plains player visual leaf substitution only. Original world/camera/AI/input/Motor/resources/muzzle. Synthetic Router schedule. Not Home/new weapons/full lifecycle/user/device acceptance.',
                   comparison_differences=['Only task candidate body drawing/gait phase and accepted jump/landing dust enabled after; new generated idle/fall trial, old run art retained.'],
@@ -54,10 +54,10 @@ def capture(folder):
             avi = folder / (variant + '.avi')
             trace = folder / (variant + '.json')
             movie = folder / (variant + '.mp4')
-            command = ['bash', 'tools/godot.sh', '--path', '.', '--audio-driver', 'Dummy', '--rendering-method', 'gl_compatibility', '--disable-vsync', '--fixed-fps', '60', '--write-movie', str(avi), '--script', 'tests/player_presentation_01/motion_trace.gd', '--', '--capture', flag, '--output=' + str(trace)]
+            command = ['bash', 'tools/godot.sh', '--path', '.', '--audio-driver', 'Dummy', '--rendering-method', 'gl_compatibility', '--disable-vsync', '--fixed-fps', '60', '--write-movie', str(avi), '--script', 'tests/player_presentation_01/motion_trace.gd', '--', '--capture', flag, '--samples=' + str(samples), '--output=' + str(trace)]
             record = dict(variant=variant, command=command)
             report['captures'].append(record)
-            record['execution'] = harness.run_check(dict(argv=command, timeout_seconds=300, success_pattern=r'^MOTION TRACE: samples=1080 checks=2168 errors=0$'), folder / (variant + '.log'), ROOT, env)
+            record['execution'] = harness.run_check(dict(argv=command, timeout_seconds=300, success_pattern=rf'^MOTION TRACE: samples={samples} checks={samples*2+8} errors=0$'), folder / (variant + '.log'), ROOT, env)
             write(receipt, report)
             if record['execution']['status'] != 'passed': raise RuntimeError(variant + ' engine execution failed')
             with (folder / (variant + '-encode.log')).open('w') as log:
@@ -69,7 +69,7 @@ def capture(folder):
         fields = ['sample', 'position', 'normal_velocity', 'velocity', 'recoil', 'motion_steps', 'hp', 'terminal', 'energy', 'muzzle', 'body_state', 'body_facing', 'camera', 'manifest_hash', 'session', 'weapon_epoch']
         differences = [{'sample':i, 'fields':[key for key in fields if left[key] != right[key]]} for i, (left, right) in enumerate(zip(a['rows'], b['rows'])) if any(left[key] != right[key] for key in fields)]
         report['gameplay_comparison'] = dict(fields=fields, differences=differences, samples=[len(a['rows']),len(b['rows'])], accepted_events_equal=a['events'] == b['events'])
-        if differences or len(a['rows']) != 1080 or len(b['rows']) != 1080 or a['events'] != b['events']:
+        if differences or len(a['rows']) != samples or len(b['rows']) != samples or a['events'] != b['events']:
             raise RuntimeError('On/off gameplay or accepted event mismatch')
         concat = folder / 'concat.txt'
         concat.write_text("file 'before.mp4'\nfile 'after.mp4'\n")
@@ -102,5 +102,6 @@ def capture(folder):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--samples', type=int, choices=(600,1080), default=1080, help='600 is targeted takeoff/landing,1080 retains complete long-fall observation')
     args = parser.parse_args()
-    raise SystemExit(capture(args.output.resolve()))
+    raise SystemExit(capture(args.output.resolve(),args.samples))
