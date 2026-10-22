@@ -4,6 +4,8 @@
 
 本轮生产／交付入口为[cloud_production](docs/cloud_production.md)，新工作线使用[简短模板](docs/templates/cloud_workline.md)。沿用原Harness、质量记录、生产租约和检查点，不另造验收体系。四模式按阶段选择并可切换：Fast Iteration、System Engineering、Long Production、Creative Exploration；不固定一个Codex只能做一个区域，不强制所有任务短周期拆分。
 
+当前排期以[商业Demo工作线优先级](docs/cloud_production.md#建议首批独立工作线与prompt)为准，覆盖旧“先森林再平原”的排期；两份既定Bible、共享画风和玩法合同继续有效。
+
 最新交付按实际评审需要选择：观察即可评价的局部变化优先真实Godot约10–30秒MP4；必须操作的交互／能力／AI／整区优先独立真实Godot Web Preview；细节与操作皆需时两者都有；纯工程交测试与指标。此规则覆盖此前把所有可视化原型一律要求网页的交付形式；用户明确要求操作时仍给真实试玩。录像尽可能同Seed／输入／镜头／分辨率／条件before-after；缺before或条件差异明示，禁止静图拼接和伪造动画。
 
 开发Preview与正式Pages隔离，绑定任务／PR／源码SHA／Seed／build，保留完整游戏入口与必要历史；未部署不得用旧URL冒充新成果。MP4必须有真实文件下载链接或明确包含MP4的artifact归档；注明登录／过期，公开分享优先稳定Release资产。技术、玩家、真机认可仍分开。

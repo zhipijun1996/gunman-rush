@@ -16,3 +16,5 @@
 复现：按[生产入口](../../cloud_production.md)安装固定工具链，执行原Harness三项新check、`build.py web`、`capture_slice.py`及`cloud_delivery.py stage-preview/stage-media`；网页驱动原文为[browser_driver.py](browser_driver.py)。工具与源码/导出身份分开，未执行项目不标通过。
 
 具体反馈点：开发标识与FULL GAME / MENU按钮是否足够清楚、是否干扰观察动作。用户尚未评价，不能据此签审美／手感／趣味。
+
+PR为[103](https://github.com/zhipijun1996/gunman-rush/pull/103)，public preview.json已绑定该PR。首轮[Integration CI39754436899](https://github.com/zhipijun1996/gunman-rush/actions/runs/39754436899)在14规划器通过后，因交付测试先于ffmpeg安装而失败（非游戏失败）；[原日志](failures/integration-ci01-ffmpeg-order.log)保留。已将30交付测试移至依赖安装后，原测试／断言／预算不改；新CI结果另记，不追认首轮通过。
