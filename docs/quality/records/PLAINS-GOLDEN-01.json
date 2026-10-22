@@ -2,12 +2,12 @@
   "schema_version": 1,
   "task_id": "PLAINS-GOLDEN-01",
   "task_type": "region",
-  "workflow": "in_progress",
+  "workflow": "review",
   "baseline_commit": "0ee0e79197f40e898283440d4af2d956f91f1c64",
-  "reviewed_commit": "0ee0e79197f40e898283440d4af2d956f91f1c64",
-  "content_version": "m0-audit-v1",
+  "reviewed_commit": "931211b4b25261e5a2871f2df8bada1cb222ac70",
+  "content_version": "m1-candidates-v1",
   "owner": "PLAINS-GOLDEN-01 workline",
-  "purpose": "Compare two reversible jump / shot / recoil compositions before any regional promotion",
+  "purpose": "Compare two real Motor recoil compositions before independent elimination or any regional promotion",
   "player_experience": "Read landing, shooting direction, recovery and optional return in one actual space",
   "constraints": [
     "Read-only formal consumers/shared style; existing PlayerMotor/abilities/resources/RNG/save unchanged",
@@ -16,10 +16,18 @@
   "affected_paths": [
     "docs/design/plains_golden_01_m0.md",
     "tests/drivers/plains_golden_01_m0_capture.gd",
-    "docs/evidence/plains_golden_01/m0"
+    "docs/evidence/plains_golden_01/m0",
+    "scenes/dev/plains_golden_01.tscn",
+    "scripts/dev/plains_golden_01.gd",
+    "tests/drivers/plains_golden_01_motor.gd",
+    "tests/drivers/plains_golden_01_lifecycle.gd",
+    "tests/drivers/plains_golden_01_capture.py",
+    "docs/evidence/plains_golden_01/m1"
   ],
   "deliverables": [
-    "M0 checkpoint and two proposed hypotheses; no playable candidate yet"
+    "Two isolated playable A/B candidates with real Router / Motor / resource / projectile bell / enemy consumers",
+    "Normal speed source-bound A/B MP4 and 14 actual generic-scene lifecycle checks",
+    "Public Web Preview pending root-managed export/hosting/GUI; no old URL reused"
   ],
   "creative_decisions": [],
   "formal_impact": false,
@@ -138,25 +146,70 @@
       "content_version": "m0-audit-v1",
       "method": "Actual Godot staged formal fixture screenshots; no Motor route claim",
       "observed": "three actual positioned windows; no traversal claim"
+    },
+    {
+      "id": "m1-capture-a",
+      "path": "docs/evidence/plains_golden_01/m1/movie-a-01/report.json",
+      "sha256": "97a7bcf227795c8634f319f7f5dc96ccf674116ffb1a90cc15dbc51a2db8c0dd",
+      "kind": "runtime_trace",
+      "producer": "PLAINS-GOLDEN-01 real Godot consumer",
+      "source_commit": "931211b4b25261e5a2871f2df8bada1cb222ac70",
+      "content_version": "m1-candidates-v1",
+      "method": "Actual Godot MovieWriter + real Router pilot + full source before/after guard",
+      "observed": "A complete cache and return; source stable; not art/fun acceptance"
+    },
+    {
+      "id": "m1-capture-b",
+      "path": "docs/evidence/plains_golden_01/m1/movie-b-01/report.json",
+      "sha256": "a0f569e056c3acf7ff1dc1a75c18cc1c986e94ca12303463332f1df2b4617f1a",
+      "kind": "runtime_trace",
+      "producer": "PLAINS-GOLDEN-01 real Godot consumer",
+      "source_commit": "931211b4b25261e5a2871f2df8bada1cb222ac70",
+      "content_version": "m1-candidates-v1",
+      "method": "Actual Godot MovieWriter + real Router pilot + full source before/after guard",
+      "observed": "B complete cache and return; source stable; not art/fun acceptance"
+    },
+    {
+      "id": "m1-video",
+      "path": "docs/evidence/plains_golden_01/m1/comparison.mp4",
+      "sha256": "ebb40476639b4e03132ec8a66873c03094ad62c745c335913e482f15dbec943e",
+      "kind": "video",
+      "producer": "PLAINS-GOLDEN-01 real Godot consumer",
+      "source_commit": "931211b4b25261e5a2871f2df8bada1cb222ac70",
+      "content_version": "m1-candidates-v1",
+      "method": "Lossless concatenation of two encoded actual normal-speed native movies",
+      "observed": "A then B, 1280x720 at60; audio encoded, complete listening not performed"
+    },
+    {
+      "id": "m1-lifecycle",
+      "path": "docs/evidence/plains_golden_01/m1/lifecycle.json",
+      "sha256": "546399acde03ebd394e15d638455bffdb68c260bd23b022e07d2d05b821a03b8",
+      "kind": "runtime_trace",
+      "producer": "PLAINS-GOLDEN-01 real Godot consumer",
+      "source_commit": "931211b4b25261e5a2871f2df8bada1cb222ac70",
+      "content_version": "m1-candidates-v1",
+      "method": "Actual generic-scene bootstrap and native checks",
+      "observed": "14 checks zero failures; browser and real devices unverified"
     }
   ],
   "consumer_coverage": {
-    "scope": "M0 original formal two-map integration only; candidate not implemented",
-    "inventory": "docs/evidence/plains_golden_01/m0/formal-integration.json",
-    "observed": "docs/evidence/plains_golden_01/m0/baseline-underworld-formal.log",
+    "scope": "M1 isolated candidate A/B; not campaign or regional pool admission",
+    "inventory": "docs/evidence/plains_golden_01/m1/strategy-summary.json",
+    "observed": "docs/evidence/plains_golden_01/m1/lifecycle.json",
     "missing": [
-      "candidate Motor trajectories",
-      "normal speed combat video",
-      "independent review",
-      "user and real device"
+      "independent actual review",
+      "Web export/GUI and public Preview",
+      "human/player/real-device",
+      "combat hits/death and full normal-speed audio review"
     ]
   },
   "unverified_items": [
-    "G0 candidate hypotheses require real A/B experiment",
-    "G1 Motor and accepted shot chain",
-    "G2 normal speed pixels/audio",
-    "G3 candidate lifecycle and preview",
-    "G4 independent review",
-    "G5 human visual/fun/device acceptance"
-  ]
+    "Independent expert candidate elimination, G0/G2 decision and subjective art/fun remain unverified",
+    "M1 runtime routes and14 lifecycle checks passed within stated isolated scope; no formal regional admission",
+    "Shared dusk palette / Bible morning mismatch, rectangular masses and long bridge HUD composition unresolved",
+    "Public playable Preview awaits root export and hosting; source scene exists",
+    "Full region/multiseed/full CI/Release not executed",
+    "Human fun, aesthetic and real device acceptance outstanding"
+  ],
+  "production_snapshot": "5c573e227f27a842f9b91068463039c193b915ba961ee69812c0bcfec33feb83"
 }

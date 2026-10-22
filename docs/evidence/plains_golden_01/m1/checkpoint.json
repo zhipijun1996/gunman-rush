@@ -1,0 +1,32 @@
+{
+  "task_id": "PLAINS-GOLDEN-01",
+  "phase": "M1 implemented / isolated native routes and movies ready / independent candidate review pending",
+  "source_commit": "931211b4b25261e5a2871f2df8bada1cb222ac70",
+  "source_sha_command": "git rev-parse HEAD",
+  "branch": "feature/plains-golden-01",
+  "entry": "res://scenes/dev/plains_golden_01.tscn",
+  "candidate_selection": "A/B buttons or --candidate=B; new attempt resets only isolated session",
+  "readme": "docs/evidence/plains_golden_01/m1/README.md",
+  "comparison_mp4": "docs/evidence/plains_golden_01/m1/comparison.mp4",
+  "movie_source_stable": true,
+  "independent_review": "unverified - root queued",
+  "web_preview": "not_exported_or_published - root handles hosting",
+  "shared_m0_runtime_sources_unchanged": true,
+  "files_changed_outside_task_scope_at_checkpoint": [],
+  "unintended_tool_execution": {
+    "tool": "python3 tools/export_plains_review.py --help",
+    "actual": "legacy tool ignored --help and exported old Boss8 fixture, temporarily changed own project.godot then finally restored original bytes",
+    "source_diff_after": false,
+    "published": false,
+    "artifacts_not_used": "build/verification/polish-review"
+  },
+  "nextcmd": "Root independent actual A/B mechanism/pixel review; then root-approved lightweight Web build with generic-scene entry and actual GUI verification",
+  "completion": {
+    "region": false,
+    "commercial_golden": false,
+    "art": false,
+    "fun": false,
+    "player": false,
+    "device": false
+  }
+}
