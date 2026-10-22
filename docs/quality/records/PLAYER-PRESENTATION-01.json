@@ -4,11 +4,11 @@
   "task_type": "player",
   "workflow": "in_progress",
   "baseline_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
-  "reviewed_commit": "4ed0de042db44902c6d8544d9217b617f7dc3271",
-  "content_version": "feel-candidate-v1",
+  "reviewed_commit": "3a8320327ba22683cd455c9c9a476cedceabaaf0",
+  "content_version": "weapon-feel-v1",
   "owner": "/root",
-  "purpose": "正式主角审计后隔离制作idle/fall/gait/dust，并按用户追加制作accepted起跳/落地音效、高落差屏幕震动和视觉缓冲；共享正式替换仍待总控",
-  "player_experience": "移动中转向/射击反冲→受伤中断→恢复/死亡；home复用三外观选择；本检查点尚未改进生产",
+  "purpose": "正式主角隔离动作/重落地候选之后，追加多武器accepted音效18WAV及有界弹体/接触细节；正式共享替换和完整Integration仍归总控",
+  "player_experience": "移动转向/反冲→受伤恢复死亡整体仍待完成；本轮先让实际Home/Plains消费者的九Mode/十五装备反馈更明确，可独立开关比较",
   "constraints": [
     "只消费accepted事件，不改Motor/input/physics/damage/resources/grants/save",
     "共享UnderworldPlayer及三件body变化先交总控独审及显式版本重绑，不自刷旧SHA",
@@ -38,7 +38,44 @@
     "assets/player_presentation_01/motion_v1/idle_fall.json",
     "assets/player_presentation_01/motion_v1/motion_source.png",
     "assets/player_presentation_01/motion_v1/motion_source.png.import",
+    "assets/player_presentation_01/weapon_audio_v1/beam_0.wav",
+    "assets/player_presentation_01/weapon_audio_v1/beam_0.wav.import",
+    "assets/player_presentation_01/weapon_audio_v1/beam_1.wav",
+    "assets/player_presentation_01/weapon_audio_v1/beam_1.wav.import",
+    "assets/player_presentation_01/weapon_audio_v1/beam_2.wav",
+    "assets/player_presentation_01/weapon_audio_v1/beam_2.wav.import",
+    "assets/player_presentation_01/weapon_audio_v1/blade_0.wav",
+    "assets/player_presentation_01/weapon_audio_v1/blade_0.wav.import",
+    "assets/player_presentation_01/weapon_audio_v1/blade_1.wav",
+    "assets/player_presentation_01/weapon_audio_v1/blade_1.wav.import",
+    "assets/player_presentation_01/weapon_audio_v1/blade_2.wav",
+    "assets/player_presentation_01/weapon_audio_v1/blade_2.wav.import",
+    "assets/player_presentation_01/weapon_audio_v1/blast_0.wav",
+    "assets/player_presentation_01/weapon_audio_v1/blast_0.wav.import",
+    "assets/player_presentation_01/weapon_audio_v1/blast_1.wav",
+    "assets/player_presentation_01/weapon_audio_v1/blast_1.wav.import",
+    "assets/player_presentation_01/weapon_audio_v1/blast_2.wav",
+    "assets/player_presentation_01/weapon_audio_v1/blast_2.wav.import",
+    "assets/player_presentation_01/weapon_audio_v1/contact_0.wav",
+    "assets/player_presentation_01/weapon_audio_v1/contact_0.wav.import",
+    "assets/player_presentation_01/weapon_audio_v1/contact_1.wav",
+    "assets/player_presentation_01/weapon_audio_v1/contact_1.wav.import",
+    "assets/player_presentation_01/weapon_audio_v1/contact_2.wav",
+    "assets/player_presentation_01/weapon_audio_v1/contact_2.wav.import",
+    "assets/player_presentation_01/weapon_audio_v1/machine_0.wav",
+    "assets/player_presentation_01/weapon_audio_v1/machine_0.wav.import",
+    "assets/player_presentation_01/weapon_audio_v1/machine_1.wav",
+    "assets/player_presentation_01/weapon_audio_v1/machine_1.wav.import",
+    "assets/player_presentation_01/weapon_audio_v1/machine_2.wav",
+    "assets/player_presentation_01/weapon_audio_v1/machine_2.wav.import",
+    "assets/player_presentation_01/weapon_audio_v1/pulse_0.wav",
+    "assets/player_presentation_01/weapon_audio_v1/pulse_0.wav.import",
+    "assets/player_presentation_01/weapon_audio_v1/pulse_1.wav",
+    "assets/player_presentation_01/weapon_audio_v1/pulse_1.wav.import",
+    "assets/player_presentation_01/weapon_audio_v1/pulse_2.wav",
+    "assets/player_presentation_01/weapon_audio_v1/pulse_2.wav.import",
     "docs/evidence/PLAYER-PRESENTATION-01/",
+    "docs/evidence/PLAYER-PRESENTATION-01/weapon-v1/engineering-review.json",
     "docs/quality/asset_records/PLAYER-PRESENTATION-01-FEEL-AUDIO-HEAVY-0.json",
     "docs/quality/asset_records/PLAYER-PRESENTATION-01-FEEL-AUDIO-HEAVY-1.json",
     "docs/quality/asset_records/PLAYER-PRESENTATION-01-FEEL-AUDIO-HEAVY-2.json",
@@ -48,15 +85,39 @@
     "docs/quality/asset_records/PLAYER-PRESENTATION-01-FEEL-AUDIO-LAND-1.json",
     "docs/quality/asset_records/PLAYER-PRESENTATION-01-FEEL-AUDIO-LAND-2.json",
     "docs/quality/asset_records/PLAYER-PRESENTATION-01-FEEL-AUDIO-V1.json",
+    "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-BEAM-0.json",
+    "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-BEAM-1.json",
+    "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-BEAM-2.json",
+    "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-BLADE-0.json",
+    "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-BLADE-1.json",
+    "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-BLADE-2.json",
+    "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-BLAST-0.json",
+    "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-BLAST-1.json",
+    "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-BLAST-2.json",
+    "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-CONTACT-0.json",
+    "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-CONTACT-1.json",
+    "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-CONTACT-2.json",
+    "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-MACHINE-0.json",
+    "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-MACHINE-1.json",
+    "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-MACHINE-2.json",
+    "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-PULSE-0.json",
+    "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-PULSE-1.json",
+    "docs/quality/asset_records/PLAYER-PRESENTATION-01-WEAPON-PULSE-2.json",
     "docs/quality/records/PLAYER-PRESENTATION-01.json",
     "docs/worklines/PLAYER-PRESENTATION-01/",
+    "docs/worklines/PLAYER-PRESENTATION-01/weapon-audio-provenance.json",
+    "docs/worklines/PLAYER-PRESENTATION-01/weapon-checkpoint-04.md",
     "resources/player_presentation_01/landing_screen.gdshader",
     "resources/player_presentation_01/landing_screen.gdshader.uid",
     "resources/player_presentation_01/motion_clip_data.gd",
     "resources/player_presentation_01/motion_clip_data.gd.uid",
     "resources/player_presentation_01/motion_v1.tres",
+    "resources/player_presentation_01/weapon_feel_v1.tres",
+    "resources/player_presentation_01/weapon_sound_data.gd",
+    "resources/player_presentation_01/weapon_sound_data.gd.uid",
     "scenes/dev/player_presentation_01/landing_feel.tscn",
     "scenes/dev/player_presentation_01/motion_candidate.tscn",
+    "scenes/dev/player_presentation_01/weapon_feel.tscn",
     "scripts/dev/player_presentation_01/motion_audio.gd",
     "scripts/dev/player_presentation_01/motion_audio.gd.uid",
     "scripts/dev/player_presentation_01/motion_feel.gd",
@@ -67,11 +128,23 @@
     "scripts/dev/player_presentation_01/motion_profile.gd.uid",
     "scripts/dev/player_presentation_01/motion_visual.gd",
     "scripts/dev/player_presentation_01/motion_visual.gd.uid",
+    "scripts/dev/player_presentation_01/weapon_audio.gd",
+    "scripts/dev/player_presentation_01/weapon_audio.gd.uid",
+    "scripts/dev/player_presentation_01/weapon_feel.gd",
+    "scripts/dev/player_presentation_01/weapon_feel.gd.uid",
+    "scripts/dev/player_presentation_01/weapon_preview.gd",
+    "scripts/dev/player_presentation_01/weapon_preview.gd.uid",
+    "scripts/dev/player_presentation_01/weapon_profile.gd",
+    "scripts/dev/player_presentation_01/weapon_profile.gd.uid",
+    "scripts/dev/player_presentation_01/weapon_projectile.gd",
+    "scripts/dev/player_presentation_01/weapon_projectile.gd.uid",
     "tests/player_presentation_01/baseline_audit.gd",
     "tests/player_presentation_01/baseline_audit.gd.uid",
     "tests/player_presentation_01/build_feel_audio.py",
+    "tests/player_presentation_01/build_weapon_audio.py",
     "tests/player_presentation_01/capture_feel.py",
     "tests/player_presentation_01/capture_motion.py",
+    "tests/player_presentation_01/capture_weapon.py",
     "tests/player_presentation_01/feel_lifecycle.gd",
     "tests/player_presentation_01/feel_lifecycle.gd.uid",
     "tests/player_presentation_01/feel_trace.gd",
@@ -79,7 +152,11 @@
     "tests/player_presentation_01/motion_lifecycle.gd",
     "tests/player_presentation_01/motion_lifecycle.gd.uid",
     "tests/player_presentation_01/motion_trace.gd",
-    "tests/player_presentation_01/motion_trace.gd.uid"
+    "tests/player_presentation_01/motion_trace.gd.uid",
+    "tests/player_presentation_01/weapon_lifecycle.gd",
+    "tests/player_presentation_01/weapon_lifecycle.gd.uid",
+    "tests/player_presentation_01/weapon_trace.gd",
+    "tests/player_presentation_01/weapon_trace.gd.uid"
   ],
   "deliverables": [
     "checkpoint-01消费者清单/拟改接口/可证伪样板",
@@ -87,7 +164,8 @@
     "两段各12.15秒真实正式基线电影及原始轨迹",
     "公开方法研究及受限实验映射；正式改进和独立Preview待后继",
     "motion-candidate-v1:实际正式平原视觉子类，六帧idle/fall循环、旧run位移相位、accepted跳落地尘效和可配置profile",
-    "feel-candidate-v1:实际Home192wu露台路线，accepted分层音效9WAV、3px/0.14s屏幕震动、0.24s可立即跳跃取消的视觉后摇；真实带声对照和已验证本地Web包"
+    "feel-candidate-v1:实际Home192wu露台路线，accepted分层音效9WAV、3px/0.14s屏幕震动、0.24s可立即跳跃取消的视觉后摇；真实带声对照和已验证本地Web包",
+    "weapon-feel-v1:六声音家族×三变体18短WAV；九Mode真实连续电影；十五装备+六实际攒资源技能28字段零差异；可配置独立Web包b01，公网容量阻塞"
   ],
   "creative_decisions": [
     {
@@ -102,42 +180,48 @@
       "status": "unverified",
       "reason": "Task dev candidate has limited tests/media/art evidence;full agreed milestone,shared adoption and all consumer integration/user/device incomplete",
       "evidence": [
-        "motion-v2"
+        "motion-v2",
+        "weapon-evidence"
       ]
     },
     "G1": {
       "status": "unverified",
       "reason": "Task dev candidate has limited tests/media/art evidence;full agreed milestone,shared adoption and all consumer integration/user/device incomplete",
       "evidence": [
-        "motion-v2"
+        "motion-v2",
+        "weapon-evidence"
       ]
     },
     "G2": {
       "status": "unverified",
       "reason": "Task dev candidate has limited tests/media/art evidence;full agreed milestone,shared adoption and all consumer integration/user/device incomplete",
       "evidence": [
-        "motion-v2"
+        "motion-v2",
+        "weapon-evidence"
       ]
     },
     "G3": {
       "status": "unverified",
       "reason": "Task dev candidate has limited tests/media/art evidence;full agreed milestone,shared adoption and all consumer integration/user/device incomplete",
       "evidence": [
-        "motion-v2"
+        "motion-v2",
+        "weapon-evidence"
       ]
     },
     "G4": {
       "status": "unverified",
       "reason": "Task dev candidate has limited tests/media/art evidence;full agreed milestone,shared adoption and all consumer integration/user/device incomplete",
       "evidence": [
-        "motion-v2"
+        "motion-v2",
+        "weapon-evidence"
       ]
     },
     "G5": {
       "status": "unverified",
       "reason": "Task dev candidate has limited tests/media/art evidence;full agreed milestone,shared adoption and all consumer integration/user/device incomplete",
       "evidence": [
-        "motion-v2"
+        "motion-v2",
+        "weapon-evidence"
       ]
     }
   },
@@ -150,29 +234,38 @@
         "motion-vfx-video",
         "motion-pixel-v2",
         "feel-evidence",
-        "feel-runtime"
+        "feel-runtime",
+        "weapon-evidence",
+        "weapon-video",
+        "weapon-runtime"
       ]
     },
     "technical": {
       "status": "unverified",
-      "reason": "最终真实Home每1583检查、780x2/14字段全同，Home lifecycle668、原Underworld607、本地ZIP逐字节和浏览器/AudioContext通过；docs稀疏历史失败与完整Integration待办保留",
+      "reason": "限域冻源：native998x2各3026检查，15normal+6earned skill4189x2各12679检查，28字段/accepted事件完全相等，生命周期3175，旧Underworld2450；UI-only源另复验3175及真实Web；docs稀疏历史失败与完整Integration保留",
       "evidence": [
         "motion-v2",
         "motion-vfx-video",
         "motion-pixel-v2",
         "feel-evidence",
-        "feel-runtime"
+        "feel-runtime",
+        "weapon-evidence",
+        "weapon-video",
+        "weapon-runtime"
       ]
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "真实正式平原任务子类已采；主线共享替换/全受影响消费者Integration未执行",
+      "reason": "实际正式Home/Plains宿主仅任务消费者；OFF恢复真实Plains原Pixel叶已测；共享生产未采用，全部受影响Integration待总控",
       "evidence": [
         "motion-v2",
         "motion-vfx-video",
         "motion-pixel-v2",
         "feel-evidence",
-        "feel-runtime"
+        "feel-runtime",
+        "weapon-evidence",
+        "weapon-video",
+        "weapon-runtime"
       ]
     },
     "visual": {
@@ -183,7 +276,10 @@
         "motion-vfx-video",
         "motion-pixel-v2",
         "feel-evidence",
-        "feel-runtime"
+        "feel-runtime",
+        "weapon-evidence",
+        "weapon-video",
+        "weapon-runtime"
       ]
     },
     "animation": {
@@ -194,18 +290,24 @@
         "motion-vfx-video",
         "motion-pixel-v2",
         "feel-evidence",
-        "feel-runtime"
+        "feel-runtime",
+        "weapon-evidence",
+        "weapon-video",
+        "weapon-runtime"
       ]
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "新增9条CC0短音源；真实MovieMaker音轨/浏览器用户手势解锁已验；屏幕轻震和视觉缓冲局部抽帧限域ACCEPT；实际听感/全速/用户设备未验",
+      "reason": "新增六家族18短WAV，原12voice池/同帧齐射合并；beam有限0.8s声段，原Runtime通用音层保留；真实电影音轨peak-4.3dB与浏览器AudioContext只是技术事实，未听音。枪弹明芯/薄断环局部可见，接触/beam/mine可读性未签",
       "evidence": [
         "motion-v2",
         "motion-vfx-video",
         "motion-pixel-v2",
         "feel-evidence",
-        "feel-runtime"
+        "feel-runtime",
+        "weapon-evidence",
+        "weapon-video",
+        "weapon-runtime"
       ]
     },
     "gameplay": {
@@ -227,18 +329,25 @@
         "motion-vfx-video",
         "motion-pixel-v2",
         "feel-evidence",
-        "feel-runtime"
+        "feel-runtime",
+        "weapon-evidence",
+        "weapon-video",
+        "weapon-runtime"
       ]
     },
     "independent_review": {
       "status": "unverified",
-      "reason": "独立工程和像素审查均有明确限定，当前整条线未获完整ACCEPT",
+      "reason": "本轮工程限域ACCEPT，36张实际视频抽帧+零差异数据独审overallUNVERIFIED；全速/声音/全套动作及全部消费者未验",
       "evidence": [
         "motion-v2",
         "motion-vfx-video",
         "motion-pixel-v2",
         "feel-evidence",
-        "feel-runtime"
+        "feel-runtime",
+        "weapon-evidence",
+        "weapon-video",
+        "weapon-runtime",
+        "weapon-ui"
       ]
     },
     "device": {
@@ -545,6 +654,104 @@
       "content_version": "feel-candidate-v1",
       "method": "Versioned source discovery retained from baseline;actual new task Home native/Web observation,formal unchanged",
       "observed": "Every existing discovered consumer retained;new Home candidate listed;not production integration"
+    },
+    {
+      "id": "weapon-evidence",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/weapon-v1/weapon-v1-evidence.zip",
+      "sha256": "8f49cf9b922c2e69835ca6ae7287c5411108fb941802769de32d2a9c79f64aa9",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "5a1c640bdfd8c5889ae88efd9bdb10596aab00d2",
+      "content_version": "weapon-feel-v1",
+      "method": "ZIP every member SHA/readback;frozen native/comprehensive traces plus original failure logs and explicitly newer UI-only build records",
+      "observed": "Native998x2/3026checks each and comprehensive4189x2/12679 each;28fields/events equal;lifecycle3175;oldprojectiles2450;not fullIntegration/audio/device"
+    },
+    {
+      "id": "weapon-video",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/weapon-v1/weapon-comparison.mp4",
+      "sha256": "3125af7a9895fefdeb62f2cd425e471145925bf2853487e27a7429f2a7d19c5f",
+      "kind": "video",
+      "producer": "/root",
+      "source_commit": "5a1c640bdfd8c5889ae88efd9bdb10596aab00d2",
+      "content_version": "weapon-feel-v1",
+      "method": "Real continuous MovieMaker ON/OFF with original full audio,concatenated before then after;anonymous HTTP full-byte SHA verified",
+      "observed": "33.53sec 1280x720/60;9Mode primary attacks;not15skill GPU coverage or listening"
+    },
+    {
+      "id": "weapon-engineering",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/weapon-v1/engineering-review.json",
+      "sha256": "4719b86275a5b6f8663fbf792e7c50c6a2feec9f51710cd3b03aa10a510a9af6",
+      "kind": "review",
+      "producer": "/root/audit_review",
+      "source_commit": "5a1c640bdfd8c5889ae88efd9bdb10596aab00d2",
+      "content_version": "weapon-feel-v1",
+      "method": "Independent source and scoped tests read;11 exact reviewed source hashes",
+      "observed": "Scoped engineering ACCEPT;three REWORK closed;whole workline/user/device not signed",
+      "reviewer": "/root/audit_review",
+      "implementers": [
+        "/root"
+      ],
+      "independent": true,
+      "independence_basis": "Separate read-only implementation reviewer;writes only own review artifacts",
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "weapon-runtime",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/weapon-v1/runtime-review.json",
+      "sha256": "a1a78db3f1b27daa5ae97e3f9c7589fbed96bbb958f761104531bba7c97670b1",
+      "kind": "review",
+      "producer": "/root/audit_review",
+      "source_commit": "5a1c640bdfd8c5889ae88efd9bdb10596aab00d2",
+      "content_version": "weapon-feel-v1",
+      "method": "Independent all36 original-size actual movie frames and both native/comprehensive traces recomputation",
+      "observed": "Local bright cores and sparse broken arcs visible;beam/mine/contact readability and overall remains UNVERIFIED",
+      "reviewer": "/root/audit_review",
+      "implementers": [
+        "/root"
+      ],
+      "independent": true,
+      "independence_basis": "Separate read-only implementation reviewer;writes only own review artifacts",
+      "verdict": "UNVERIFIED"
+    },
+    {
+      "id": "weapon-package",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/weapon-v1/package-final.json",
+      "sha256": "33e2f0494cd02ef1df11022b6218ec508b64213d1b9571e2fda9e654a15322dd",
+      "kind": "gui",
+      "producer": "/root",
+      "source_commit": "3a8320327ba22683cd455c9c9a476cedceabaaf0",
+      "content_version": "weapon-feel-v1",
+      "method": "Actual ZIP extracted/PCK reconstructed/all file SHA;actual exported Chromium canvas keyboard/pointer/DOM touch;full report in archive",
+      "observed": "Buildb01;15 actual pointer selections,DOM touch and actual virtual-stick movement;no physical device/listening/public deployment"
+    },
+    {
+      "id": "weapon-inventory",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/weapon-v1/consumer-inventory-weapon-v1.json",
+      "sha256": "9754ed3debc76ac7b7137f7b22029c1d8e6ba6b79372139dd02694ee7f257343",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "3a8320327ba22683cd455c9c9a476cedceabaaf0",
+      "content_version": "weapon-feel-v1",
+      "method": "Retained complete prior consumer inventory plus actual dev Home and originalPlains restoration",
+      "observed": "Originalproduction consumers not adopted;all remain unverified for full workline"
+    },
+    {
+      "id": "weapon-ui",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/weapon-v1/ui-review.json",
+      "sha256": "0ce110426f8fd15910c99d5505d57c8960c906933e199ec505cc16a655e18671",
+      "kind": "review",
+      "producer": "/root/audit_review",
+      "source_commit": "3a8320327ba22683cd455c9c9a476cedceabaaf0",
+      "content_version": "weapon-feel-v1",
+      "method": "Independent final six-line UI-only diff,actual1280x720 exportedWeb screenshots/report and exactpack/build byte receipt inspection",
+      "observed": "CJK menu and layout + recorded local DOM interactions scopedACCEPT;generic404 retained;nohearing/wholeWeb/networkclean/physicaldevice/user/fullworkline acceptance",
+      "reviewer": "/root/audit_review",
+      "implementers": [
+        "/root"
+      ],
+      "independent": true,
+      "independence_basis": "Separate read-only production reviewer;writes only own review artifacts",
+      "verdict": "ACCEPT"
     }
   ],
   "unverified_items": [
@@ -560,28 +767,35 @@
     "本轮正式Home仅任务子类候选，192wu安全落差不代表任意高处/受伤死亡完整链",
     "重落地复用原land两帧，后半接近站立，未制作专用新动作；旧idle身形/握持过渡仍待改进",
     "Web新build a814296a70c8再次900MiB拒绝；本地实际ZIP/浏览器通过；Release资产上传401失败且后续tag/id均404，无公网新可玩包",
-    "浏览器按真实Space后AudioContext running不等于已听音；用户听感/审美/手感和实体设备仍未验"
+    "浏览器按真实Space后AudioContext running不等于已听音；用户听感/审美/手感和实体设备仍未验",
+    "本轮weapon5a真实电影仅九Mode普攻；15normal+6skills只做headless玩法专项，不签全部GPU美术/听感",
+    "weapon3a / Web b01 为中文字体和选择器布局UI-only修正，旧native5a不重标新源；早期两次browser失败保留",
+    "最新b01共享站900MiB仍拒绝，无新公网可玩入口；本地ZIP不签公网交付",
+    "旧Runtime phase/catch/blast通用音层保留；新有限beam声段非任意时长loop，完整来源路由归总控；未量化本轮丢音/抢占",
+    "接触碎光/激光束端/地雷附着微光在暖色复杂背景偏弱，可读性提升未签；旧run/握持REWORK不关闭",
+    "最终浏览器UI/DOM专项通过，但console一条generic404未定位URL及autoplay提示保留，不宣称网络全0；Space后AudioContext running仍非听感验收"
   ],
   "checkpoint": {
     "status": "development_candidate_shared_adoption_pending",
-    "implementation_status": "task_candidate_feel_v1_limited_verified",
+    "implementation_status": "task_candidate_weapon_v1_limited_verified",
     "runtime_files_changed": true,
     "central_index_owner": "coordinator;main task index is still planned and requires coordinated status reconciliation;this record truthfully reports implementation in progress",
-    "independent_scope": "Engineering ACCEPT;final Home parity and16 sampled-frame shader/recovery limited acceptance;runtime overall UNVERIFIED;no listening/user/device acceptance",
+    "independent_scope": "Engineering scopedACCEPT;frozen parity verified and36 actual frames reviewed;overallruntime UNVERIFIED;no listening/user/device;final CJK/layout and local recorded DOM UI scopedACCEPT only",
     "skills": [
       "player-creator",
       "animation-vfx",
       "game-quality-gate",
       "project-integration",
       "gameplay-reviewer",
-      "art-director"
+      "art-director",
+      "weapon-creator"
     ],
-    "next_action": "Coordinator capacity and formal shared version/adoption+full affected Integration;continue dedicated heavy pose,grip/run/full weapons/three appearances",
+    "next_action": "Coordinator publicWeb capacity/formal shared version+explicit rebind/fullaffectedIntegration;continue grip/run/death/threeappearances and weapon contact/beam/mine contrast,source-awareaudio interface",
     "published_branch": "feature/player-presentation-01-motion-candidate",
     "existing_workline_head": "b34511a7ee27f03b6d87d070ca20e9309e1e8a2e",
-    "handoff": "docs/worklines/PLAYER-PRESENTATION-01/remote-handoff-01.md;补充审计，不覆盖已有M1同ID质量卡"
+    "handoff": "docs/worklines/PLAYER-PRESENTATION-01/weapon-handoff-05.md"
   },
-  "production_snapshot": "4ed0de042db44902c6d8544d9217b617f7dc3271",
+  "production_snapshot": "3a8320327ba22683cd455c9c9a476cedceabaaf0",
   "baseline_consumer_coverage": {
     "scope": "Unmodified-main baseline;runtime home/plains trace plus explicitly source-only remaining consumers;no implementation coverage claim",
     "inventory_evidence": "inventory",
@@ -679,7 +893,7 @@
   },
   "consumer_coverage": {
     "scope": "Task-only actual formal dev consumer;production consumers retained and not claimed newly integrated",
-    "inventory_evidence": "feel-inventory",
+    "inventory_evidence": "weapon-inventory",
     "observations": [
       {
         "consumer": "formal_plains_pixel",
@@ -778,6 +992,30 @@
           "feel-evidence",
           "feel-video",
           "feel-runtime"
+        ]
+      },
+      {
+        "consumer": "dev_home_weapon_feel",
+        "status": "unverified",
+        "reason": "Actual formal Home actor with stationary trainingfixture;frozen native and exported Web observed,not all appearances/production adoption/full acceptance",
+        "output": "visual",
+        "evidence": [
+          "weapon-evidence",
+          "weapon-video",
+          "weapon-runtime",
+          "weapon-package"
+        ]
+      },
+      {
+        "consumer": "dev_plains_weapon_feel",
+        "status": "unverified",
+        "reason": "Actual formalPlains actor original PixelPlainsProjectile restored during lifecycle;browser reentry observed,not full integration",
+        "output": "visual",
+        "evidence": [
+          "weapon-evidence",
+          "weapon-video",
+          "weapon-runtime",
+          "weapon-package"
         ]
       }
     ]
