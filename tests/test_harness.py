@@ -336,6 +336,268 @@ class HarnessTests(unittest.TestCase):
                 self.assertEqual(next(r['status'] for r in result if r['id']=='bad'), 'failed')
 
 
+class SparseIsolationTests(unittest.TestCase):
+    """Real sparse Git sources: cold blobs must never be checked out per lane."""
+    def setUp(self):
+        self.temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temporary.cleanup)
+        self.base = Path(self.temporary.name)
+        self.root = self.base / "source"
+        self.root.mkdir()
+        self.git("init", "-q")
+        self.git("config", "user.email", "sparse-isolation@example.invalid")
+        self.git("config", "user.name", "Sparse isolation test")
+        (self.root / "src").mkdir()
+        (self.root / "tools").mkdir()
+        (self.root / "docs/evidence").mkdir(parents=True)
+        (self.root / ".gitignore").write_text("build/\n.godot/\n")
+        (self.root / ".gitattributes").write_text("docs/evidence/cold.bin filter=isolation-tripwire\n")
+        for name in ("input.txt", "deleted.txt", "staged_deleted.txt"):
+            (self.root / "src" / name).write_text("baseline")
+        self.cold = self.root / "docs/evidence/cold.bin"
+        self.cold.write_bytes(os.urandom(4 * 1024 * 1024))
+        self.git("add", ".")
+        self.git("commit", "-qm", "Real source and unrelated cold evidence")
+        self.cold_blob = self.git("rev-parse", "HEAD:docs/evidence/cold.bin").strip()
+        self.toolchain = self.base / "toolchain"
+        (self.toolchain / "user-data/godot/export_templates").mkdir(parents=True)
+
+    def git(self, *args, root=None, data=None):
+        return subprocess.check_output(["git", "-C", str(root or self.root), *args], input=data, text=True)
+
+    def sparse(self, cone=False):
+        if cone:
+            self.git("sparse-checkout", "init", "--cone", "--sparse-index")
+            self.git("sparse-checkout", "set", "src", "tools")
+        else:
+            self.git("sparse-checkout", "init", "--no-cone")
+            self.git("sparse-checkout", "set", "--no-cone", "--stdin", data="/*\n!/docs/evidence/\n")
+        self.assertFalse(self.cold.exists())
+
+    def dirty_source(self):
+        (self.root / "src/input.txt").write_text("staged bytes")
+        self.git("add", "src/input.txt")
+        (self.root / "src/input.txt").write_text("working bytes")
+        (self.root / "src/deleted.txt").unlink()
+        self.git("rm", "-q", "src/staged_deleted.txt")
+        (self.root / "src/staged_new.txt").write_text("new staged bytes")
+        self.git("add", "src/staged_new.txt")
+        (self.root / "src/untracked.txt").write_text("new untracked bytes")
+        (self.root / "src/intent.txt").write_text("intent to add bytes")
+        self.git("add", "-N", "src/intent.txt")
+        (self.root / ".git/info/exclude").write_text("local-cache/\n")
+        external = self.base / "external-excludes"
+        external.write_text("external-cache/\n")
+        self.git("config", "core.excludesFile", str(external))
+        for name in ("local-cache", "external-cache"):
+            (self.root / name).mkdir()
+            (self.root / name / "ignored.txt").write_text("must not enter source")
+        (self.root / ".godot/imported").mkdir(parents=True)
+        (self.root / ".godot/imported/cache.txt").write_text("independent import seed")
+
+    def test_sparse_index_stage_flags_ignores_and_import_data_stay_independent(self):
+        self.sparse()
+        self.dirty_source()
+        original_index = self.git("ls-files", "--stage", "-z")
+        original_flags = self.git("ls-files", "-v", "-z")
+        with patch.object(h, "ROOT", self.root), patch.dict(os.environ, GUNMAN_TOOLCHAIN_ROOT=str(self.toolchain)):
+            files = h.source_files()
+            before = h.input_digest({"argv": []}, files, {})
+            one, two = self.base / "one", self.base / "two"
+            env1 = h.isolated_workspace(one, files)
+            env2 = h.isolated_workspace(two, files)
+            for lane in (one, two):
+                self.assertEqual(self.git("ls-files", "--stage", "-z", root=lane), original_index)
+                self.assertEqual(self.git("ls-files", "-v", "-z", root=lane), original_flags)
+                self.assertEqual(self.git("show", ":src/input.txt", root=lane), "staged bytes")
+                self.assertEqual((lane / "src/input.txt").read_text(), "working bytes")
+                self.assertFalse((lane / "src/deleted.txt").exists())
+                self.assertFalse((lane / "src/staged_deleted.txt").exists())
+                self.assertFalse((lane / "docs/evidence/cold.bin").exists())
+                self.assertFalse((lane / "local-cache/ignored.txt").exists())
+                self.assertFalse((lane / "external-cache/ignored.txt").exists())
+                self.assertEqual(self.git("check-ignore", "local-cache/new.txt", root=lane).strip(), "local-cache/new.txt")
+                self.assertEqual(self.git("check-ignore", "external-cache/new.txt", root=lane).strip(), "external-cache/new.txt")
+                self.assertEqual(self.git("config", "--get", "core.sparseCheckout", root=lane).strip(), "true")
+                self.assertEqual((lane / ".git/info/sparse-checkout").read_bytes(), (self.root / ".git/info/sparse-checkout").read_bytes())
+                self.assertEqual(h.input_digest({"argv": []}, h.source_files(lane), {}, root=lane), before)
+                self.assertEqual(self.git("status", "--porcelain=v1", "--untracked-files=all", "-z", root=lane),
+                                 self.git("status", "--porcelain=v1", "--untracked-files=all", "-z"))
+            self.assertNotEqual(env1["GUNMAN_DATA_HOME"], env2["GUNMAN_DATA_HOME"])
+            self.assertNotEqual(env1["XDG_CONFIG_HOME"], env2["XDG_CONFIG_HOME"])
+            self.assertNotEqual(env1["XDG_CACHE_HOME"], env2["XDG_CACHE_HOME"])
+            self.assertTrue((Path(env1["GUNMAN_DATA_HOME"]) / "godot/export_templates").is_symlink())
+            (one / ".godot/imported/cache.txt").write_text("lane one import")
+            (Path(env1["GUNMAN_DATA_HOME"]) / "session.txt").write_text("lane one save")
+            self.assertEqual((two / ".godot/imported/cache.txt").read_text(), "independent import seed")
+            self.assertEqual((self.root / ".godot/imported/cache.txt").read_text(), "independent import seed")
+            self.assertFalse((Path(env2["GUNMAN_DATA_HOME"]) / "session.txt").exists())
+            lane_excludes = Path(self.git("config", "--path", "--get", "core.excludesFile", root=one).strip())
+            lane_excludes.write_text("lane-one-only/\n")
+            self.assertEqual(self.git("check-ignore", "external-cache/new.txt", root=two).strip(), "external-cache/new.txt")
+            self.assertEqual((self.base / "external-excludes").read_text(), "external-cache/\n")
+            self.assertEqual(h.input_digest({"argv": []}, h.source_files(), {}), before)
+
+    def test_two_real_lanes_do_not_read_cold_evidence_and_keep_output_proof(self):
+        import shlex
+        self.sparse()
+        marker = self.base / "cold-smudge-was-run"
+        smudge = shlex.join([sys.executable, "-c", "import sys; from pathlib import Path; data=sys.stdin.buffer.read(); Path(" + repr(str(marker)) + ").write_text('cold checkout'); sys.stdout.buffer.write(data)"])
+        git_environment = {"GUNMAN_TOOLCHAIN_ROOT": str(self.toolchain), "GIT_CONFIG_COUNT": "2",
+                           "GIT_CONFIG_KEY_0": "filter.isolation-tripwire.smudge", "GIT_CONFIG_VALUE_0": smudge,
+                           "GIT_CONFIG_KEY_1": "filter.isolation-tripwire.required", "GIT_CONFIG_VALUE_1": "true"}
+        source = ("import os,json; from pathlib import Path; root=Path.cwd(); "
+                  "assert not (root/'docs/evidence/cold.bin').exists(); "
+                  "data=Path(os.environ['GUNMAN_DATA_HOME']); (data/'session.txt').write_text('actual lane data'); "
+                  "proof=root/'build/verification/lane.json'; proof.parent.mkdir(parents=True,exist_ok=True); "
+                  "proof.write_text(json.dumps({'root':str(root),'data':str(data),'cold_materialized':False})); print('COMPLETE')")
+        check = {"argv": ["python3", "-c", source], "timeout_seconds": 5, "success_pattern": "^COMPLETE$"}
+        folder = self.root / "build/report"
+        folder.mkdir(parents=True)
+        started = time.monotonic()
+        with patch.object(h, "ROOT", self.root), patch.object(h, "toolchain_identity", return_value={}), patch.dict(os.environ, git_environment):
+            results = h.execute_checks({"checks": {"a": check, "b": check}}, ["a", "b"], folder, jobs=2)
+            lane_seconds = time.monotonic() - started
+            self.assertEqual([item["status"] for item in results], ["passed", "passed"])
+            self.assertFalse(marker.exists(), "Even a transient cold checkout would invoke the real smudge tripwire")
+            proofs = [json.loads((Path(item["artifact_directory"]) / "build/verification/lane.json").read_text()) for item in results]
+            self.assertNotEqual(proofs[0]["root"], proofs[1]["root"])
+            self.assertNotEqual(proofs[0]["data"], proofs[1]["data"])
+            self.assertTrue(all(not proof["cold_materialized"] for proof in proofs))
+            self.assertFalse((self.root / "build/verification/lane.json").exists())
+            # Positive control: the previous eager clone really reads this cold
+            # object and trips the detector. No implementation-argument mock.
+            control = self.base / "eager-control"
+            control_started = time.monotonic()
+            subprocess.run(["git", "clone", "--quiet", "--shared", "--no-hardlinks", str(self.root), str(control)], check=True, capture_output=True)
+            control_seconds = time.monotonic() - control_started
+            self.assertTrue(marker.exists())
+            self.assertEqual((control / "docs/evidence/cold.bin").stat().st_size, 4 * 1024 * 1024)
+        print(f"SPARSE ISOLATION: actual two-lane checks {lane_seconds:.3f}s; cold evidence 0 bytes/lane; eager checkout control {control_seconds:.3f}s, 4194304 bytes")
+
+    def test_cone_sparse_index_works_with_an_unavailable_cold_blob(self):
+        self.sparse(cone=True)
+        # A normal checkout fails here; cloning the source must not ask for an
+        # unrelated absent object, as a partial clone would need a network fetch.
+        object_path = self.root / ".git/objects" / self.cold_blob[:2] / self.cold_blob[2:]
+        self.assertTrue(object_path.is_file())
+        object_path.unlink()
+        before_flags = self.git("ls-files", "--sparse", "-v", "-z")
+        with patch.object(h, "ROOT", self.root), patch.dict(os.environ, GUNMAN_TOOLCHAIN_ROOT=str(self.toolchain)):
+            files = h.source_files()
+            before = h.input_digest({"argv": []}, files, {})
+            lane = self.base / "missing-cold-object"
+            h.isolated_workspace(lane, files)
+            self.assertEqual(self.git("ls-files", "--sparse", "-v", "-z", root=lane), before_flags)
+            self.assertEqual(self.git("config", "--get", "index.sparse", root=lane).strip(), "true")
+            self.assertFalse((lane / "docs/evidence/cold.bin").exists())
+            self.assertEqual(h.input_digest({"argv": []}, h.source_files(lane), {}, root=lane), before)
+
+    def test_required_file_materialized_outside_sparse_patterns_is_copied(self):
+        self.sparse()
+        # Input hydration may read a selected evidence file directly without
+        # widening the parent sparse pattern or clearing its skip-worktree bit.
+        payload = subprocess.check_output(["git", "-C", str(self.root), "cat-file", "blob", self.cold_blob])
+        self.cold.parent.mkdir(parents=True, exist_ok=True)
+        self.cold.write_bytes(payload)
+        self.git("update-index", "--skip-worktree", "docs/evidence/cold.bin")
+        # Git normally clears skip-worktree in memory when it discovers a
+        # materialized out-of-pattern file. Inspect the retained index flag
+        # without that automatic sparse adjustment; do not change its rules.
+        self.assertTrue(self.git("-c", "core.sparseCheckout=false", "ls-files", "-v", "docs/evidence/cold.bin").startswith("S "))
+        with patch.object(h, "ROOT", self.root), patch.dict(os.environ, GUNMAN_TOOLCHAIN_ROOT=str(self.toolchain)):
+            files = h.source_files()
+            before = h.input_digest({"argv": []}, files, {})
+            lane = self.base / "hydrated-lane"
+            h.isolated_workspace(lane, files)
+            self.assertEqual((lane / "docs/evidence/cold.bin").read_bytes(), payload)
+            self.assertTrue(self.git("-c", "core.sparseCheckout=false", "ls-files", "-v", "docs/evidence/cold.bin", root=lane).startswith("S "))
+            self.assertEqual(h.input_digest({"argv": []}, h.source_files(lane), {}, root=lane), before)
+
+    def test_linked_worktree_split_index_preserves_its_own_stage(self):
+        worktree = self.base / "linked-workline"
+        self.git("worktree", "add", "-q", "-b", "workline", str(worktree))
+        (worktree / "src/input.txt").write_text("linked staged")
+        self.git("add", "src/input.txt", root=worktree)
+        (worktree / "src/input.txt").write_text("linked working")
+        self.git("update-index", "--split-index", root=worktree)
+        with patch.object(h, "ROOT", worktree), patch.dict(os.environ, GUNMAN_TOOLCHAIN_ROOT=str(self.toolchain)):
+            lane = self.base / "linked-lane"
+            h.isolated_workspace(lane, h.source_files())
+        self.assertEqual(self.git("show", ":src/input.txt", root=lane), "linked staged")
+        self.assertEqual((lane / "src/input.txt").read_text(), "linked working")
+        self.assertEqual(self.git("ls-files", "--stage", "-z", root=lane), self.git("ls-files", "--stage", "-z", root=worktree))
+        self.assertEqual((self.root / "src/input.txt").read_text(), "baseline")
+
+    def test_real_partial_promisor_with_unavailable_origin_never_runs_pack_transport(self):
+        server = self.root
+        self.git("config", "uploadpack.allowFilter", "true")
+        partial = self.base / "partial-source"
+        fixture_env = {**os.environ, "GIT_NO_LAZY_FETCH": "0"}
+        subprocess.run(["git", "clone", "--quiet", "--filter=blob:none", "--no-checkout", server.as_uri(), str(partial)],
+                       check=True, capture_output=True, env=fixture_env)
+        self.assertEqual(self.git("config", "--get", "remote.origin.promisor", root=partial).strip(), "true")
+        self.assertTrue(list((partial / ".git/objects/pack").glob("*.promisor")))
+        subprocess.run(["git", "-C", str(partial), "sparse-checkout", "init", "--no-cone"], check=True, capture_output=True, env=fixture_env)
+        subprocess.run(["git", "-C", str(partial), "sparse-checkout", "set", "--no-cone", "--stdin"],
+                       input="/*\n!/docs/evidence/\n", text=True, check=True, capture_output=True, env=fixture_env)
+        subprocess.run(["git", "-C", str(partial), "reset", "--hard", "HEAD"], check=True, capture_output=True, env=fixture_env)
+        self.assertFalse((partial / "docs/evidence/cold.bin").exists())
+        self.git("remote", "set-url", "origin", (self.base / "unavailable-origin").as_uri(), root=partial)
+        unavailable_env = {**os.environ, "GIT_NO_LAZY_FETCH": "1"}
+        probe = subprocess.run(["git", "-C", str(partial), "cat-file", "--batch-check"],
+                               input=self.cold_blob + "\n", text=True, check=True, capture_output=True, env=unavailable_env)
+        self.assertEqual(probe.stdout.strip(), self.cold_blob + " missing", "This must be a genuinely unfetched promised blob")
+        # Exercise the actual transport fallback: --no-checkout does not prevent
+        # upload-pack. Some Git versions allow local optimization for file://
+        # promisors, so explicitly choose the fallback observed in the real
+        # HTTPS-backed root rather than assuming every promisor disables local.
+        control = subprocess.run(["git", "clone", "--quiet", "--shared", "--no-hardlinks", "--no-checkout", "--no-local", str(partial), str(self.base / "old-partial-control")],
+                                 capture_output=True, env=unavailable_env)
+        self.assertNotEqual(control.returncode, 0)
+        self.assertIn(b"upload-pack", control.stderr)
+        self.assertIn(self.cold_blob.encode(), control.stderr)
+        (partial / "src/input.txt").write_text("partial staged bytes")
+        self.git("add", "src/input.txt", root=partial)
+        (partial / "src/input.txt").write_text("partial working bytes")
+        (partial / "src/deleted.txt").unlink()
+        original_stage = self.git("ls-files", "--stage", "-z", root=partial)
+        original_flags = self.git("ls-files", "-v", "-z", root=partial)
+        packs_before = {path.name: path.stat().st_size for path in (partial / ".git/objects/pack").iterdir()}
+        trace = self.base / "partial-setup.trace"
+        source = ("import json,os; from pathlib import Path; "
+                  "assert not Path('docs/evidence/cold.bin').exists(); "
+                  "assert Path('src/input.txt').read_text()=='partial working bytes'; "
+                  "assert not Path('src/deleted.txt').exists(); "
+                  "p=Path('build/verification/partial.json'); p.parent.mkdir(parents=True,exist_ok=True); "
+                  "p.write_text(json.dumps({'cwd':str(Path.cwd()),'data':os.environ['GUNMAN_DATA_HOME']})); print('COMPLETE')")
+        check = {"argv": ["python3", "-c", source], "timeout_seconds": 5, "success_pattern": "^COMPLETE$"}
+        folder = partial / "build/report"
+        folder.mkdir(parents=True)
+        with patch.object(h, "ROOT", partial), patch.object(h, "toolchain_identity", return_value={}), \
+                patch.dict(os.environ, {"GUNMAN_TOOLCHAIN_ROOT": str(self.toolchain), "GIT_NO_LAZY_FETCH": "1", "GIT_TRACE": str(trace)}):
+            files = h.source_files()
+            fingerprint = h.input_digest({"argv": []}, files, {})
+            lane = self.base / "partial-setup-lane"
+            h.isolated_workspace(lane, files)
+            self.assertEqual(self.git("rev-parse", "HEAD", root=lane), self.git("rev-parse", "HEAD", root=partial))
+            self.assertEqual(self.git("ls-files", "--stage", "-z", root=lane), original_stage)
+            self.assertEqual(self.git("ls-files", "-v", "-z", root=lane), original_flags)
+            self.assertEqual(self.git("show", ":src/input.txt", root=lane), "partial staged bytes")
+            self.assertEqual(self.git("config", "--get", "remote.origin.promisor", root=lane).strip(), "true")
+            self.assertEqual(h.input_digest({"argv": []}, h.source_files(lane), {}, root=lane), fingerprint)
+            results = h.execute_checks({"checks": {"a": check, "b": check}}, ["a", "b"], folder, jobs=2)
+            self.assertEqual([item["status"] for item in results], ["passed", "passed"])
+            self.assertEqual(h.input_digest({"argv": []}, h.source_files(), {}), fingerprint)
+        self.assertEqual({path.name: path.stat().st_size for path in (partial / ".git/objects/pack").iterdir()}, packs_before)
+        self.assertFalse(list((lane / ".git/objects/pack").iterdir()))
+        self.assertFalse((lane / "docs/evidence/cold.bin").exists())
+        events = trace.read_text()
+        for forbidden in ("upload-pack", "pack-objects", "index-pack", "built-in: git fetch", "built-in: git clone"):
+            self.assertNotIn(forbidden, events, "Isolation metadata setup must not perform object transport")
+        print("PROMISOR ISOLATION: genuine filtered source, origin unavailable, transport fallback fails, metadata setup and two real lanes pass without pack transport")
+
+
 class SourceHashCacheTests(unittest.TestCase):
     """Real file mutations must invalidate the execution-local source optimization."""
     def setUp(self):

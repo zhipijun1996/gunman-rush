@@ -1,0 +1,37 @@
+{
+  "reviewer": "independent_review (not author)",
+  "verdict": "ACCEPT",
+  "scope": "Only added portable frozen fixture check and its preflight dependency declaration; no test-result acceptance.",
+  "source_sha256": {
+    "tools/harness/profiles.json": "e4d0144a2937232d4bd29330426ab274ef19a4d447086590709ff070aaa722b4"
+  },
+  "observations": [
+    "tools/test_frozen_assets.py actually loads frozen_v9/manifest.json, reads all current manifest asset paths, and restores differing assets from frozen_v9/asset_blobs/<Git SHA1>. Missing or corrupt portable blobs are rejected; current source bytes are checked unchanged.",
+    "Its existing negative tests exercise missing portable blob, corrupt blob, wrong identity and real shallow restore. The new check executes the exact existing script with unchanged assertions.",
+    "New portable-frozen-assets check declares frozen_v9/ directory rather than just manifest, so original recursive input preflight can select portable asset blob bytes before the original pre-Foundry command.",
+    "All previous HEAD check definitions are unchanged; only portable-frozen-assets added. Every HEAD profile is exactly its prior sequence plus that single check. All161 baseline97c060f check definitions and existing profile prefixes remain unchanged (including original158 guards).",
+    "Original CI pre-Foundry tools/test_frozen_assets.py command remains present; new Harness execution adds coverage and does not replace it."
+  ],
+  "verified_contract": {
+    "argv": [
+      "python3",
+      "tools/test_frozen_assets.py"
+    ],
+    "timeout_seconds": 60,
+    "success_pattern": "^OK$",
+    "weight_seconds": 1,
+    "inputs": [
+      "docs/evidence/plains_redesign/frozen_v9/"
+    ]
+  },
+  "verified_invariants": {
+    "all_head_checks_unchanged": true,
+    "all_profiles_exact_append": true,
+    "baseline161_unchanged": true
+  },
+  "limits": [
+    "Did not rerun84 Harness tests,21 input tests or Godot.",
+    "New portable check runtime and complete docs materialization remain pending; prior7check local receipt predates this addition and cannot claim it passed.",
+    "Final CI/full Integration/Release and human/device acceptance remain unverified."
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "command": "python3 tests/test_harness.py -v",
+  "exit_code": 0,
+  "wall_seconds": 7.556,
+  "metrics": [
+    "Ran 83 tests in 7.473s",
+    "OK",
+    "SPARSE ISOLATION: actual two-lane checks 0.206s; cold evidence 0 bytes/lane; eager checkout control 0.026s, 4194304 bytes"
+  ],
+  "files": {
+    "tools/harness.py": "80695841a287c51a017ec59e440affd4cda27c334c2536e23bb877c78990f071",
+    "tests/test_harness.py": "2316c4776d76c11c8ee1a1c0b14f70f01a30b914d6da3fae9c1a93f1622e0de5"
+  },
+  "scope": "Real temporary Git repositories and Python checks; no Godot/game/device acceptance",
+  "changes": [
+    "No-checkout shared clone avoids reading unrelated tree-file blobs",
+    "Exact parent index including staged add/delete, intent-to-add, sparse/skip flags and split index",
+    "Effective cone/non-cone sparse patterns and private local/external excludes",
+    "Only actual parent source bytes overlaid; import cache and user/output remain isolated"
+  ],
+  "limitations": [
+    "Git object storage is borrowed, as before; source repository must remain available while lanes run",
+    "No repository evidence deleted and no test/profile budget altered",
+    "Synthetic 4MiB cold evidence metric is not a timing prediction for the full game repository"
+  ],
+  "diagnostic_iteration": "The first hydrated-file test assumed ordinary git ls-files would display raw S despite a present file; Git auto-adjusts it in memory. The final test inspects raw flags with core.sparseCheckout=false on that read only, while retaining actual sparse config."
+}

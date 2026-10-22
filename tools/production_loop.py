@@ -324,6 +324,7 @@ def required_input_preflight(task):
     tracked = {line[2:]: line[0] for line in entries if line}
     files = harness.source_files(ROOT)
     required = {}
+    directory_presence = {}
     warnings = []
     uncertain = ([{"path": task["creative_direction"].get("path", "") if isinstance(task.get("creative_direction"), dict) else "",
                    "reason": "creative_direction_invalid", "error": direction_error}] if direction_error else [])
@@ -361,7 +362,7 @@ def required_input_preflight(task):
         except OSError as error:
             return f"unreadable:{type(error).__name__}"
 
-    def require(name, source):
+    def require(name, source, *, directory_exists_only=False):
         if not isinstance(name, str) or not name:
             return
         # Preserve the Git index identity before touching the filesystem. resolve
@@ -378,6 +379,24 @@ def required_input_preflight(task):
         relative = relative_names[key]
         if relative in tracked:
             required.setdefault(relative, set()).add(source)
+        elif directory_exists_only and relative is not None:
+            # check_docs only calls exists() for a directory link. Establish
+            # that structure with a real tracked member, never an empty mkdir
+            # and never every media file below that link. Declared Harness
+            # directory inputs still require every member in the loop below.
+            prefix = "" if relative == "." else relative.rstrip("/") + "/"
+            entry = directory_presence.get(relative)
+            if entry is None:
+                members = sorted((item for item in tracked if item.startswith(prefix)),
+                                 key=lambda item: (0 if Path(item).suffix.lower() in {".md", ".txt", ".log"}
+                                                   else 1 if Path(item).suffix.lower() == ".json" else 2, item))
+                if not members:
+                    return
+                representative = next((item for item in members if file_state(item) == "readable"), members[0])
+                entry = {"path": relative, "representative": representative, "required_by": set()}
+                directory_presence[relative] = entry
+            entry["required_by"].add(source)
+            required.setdefault(entry["representative"], set()).add("directory existence only: " + relative + " linked by " + source)
 
     def json_index(name):
         require(name, "selected quality index")
@@ -406,7 +425,7 @@ def required_input_preflight(task):
                 return
             for link in re.findall(r"\[[^\]]*\]\(([^)]+)\)", content):
                 if not link.startswith(("https:", "http:", "#", "mailto:")):
-                    require(str(Path(name).parent / link.split("#")[0]), name)
+                    require(str(Path(name).parent / link.split("#")[0]), name, directory_exists_only=True)
 
     commands = {item["argv"][1] for item in contracts["checks"] if len(item["argv"]) > 1}
     # The existing Harness loader checks every registered runner before running
@@ -450,6 +469,11 @@ def required_input_preflight(task):
                 for key in ("runtime_paths", "user_acceptance_evidence"):
                     for path in data.get(key, []): require(path, name)
                 require(data.get("source_path"), name)
+                # validate_asset() also opens and hashes these exact nested
+                # production/source records. A prompt string alone is not a
+                # file dependency; associated_files is its real consumer edge.
+                for ref in data.get("associated_files", []) if isinstance(data.get("associated_files", []), list) else []:
+                    if isinstance(ref, dict): require(ref.get("path"), name + " associated_files")
                 coverage = data.get("consumer_coverage")
                 if isinstance(coverage, dict):
                     ref = coverage.get("inventory_evidence")
@@ -517,6 +541,8 @@ def required_input_preflight(task):
             "missing_tracked_inputs": missing, "explicit_deleted_repairs": repairs, "index_warnings": warnings,
             "import_metadata_risks": imports,
             "uncertain_inputs": uncertain,
+            "directory_presence_inputs": [{**entry, "required_by": sorted(entry["required_by"])}
+                                          for _, entry in sorted(directory_presence.items())],
             "resolved_checks": contracts,
             "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."}
 

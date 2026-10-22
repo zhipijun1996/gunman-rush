@@ -1,0 +1,84 @@
+{
+  "source_commit": "83bbb26ba93a674f8d3df9ca7fc9408d80067dcf",
+  "scope": "Read-only finite audit of all res://docs/evidence literals in current scripts/tests/tools GDScript, plus registered Python native producers consuming retained evidence. Does not prove arbitrary dynamic dependency reachability.",
+  "add_inputs": {
+    "aim-save-compat": [
+      "docs/evidence/forest_depth_v2/reviews/campaign-output-helper/cross_region_manifest.json"
+    ],
+    "root-bell-tests": [
+      "docs/evidence/region_production_v3/enemy_encounter_v2/legacy_manifest_strings.json"
+    ],
+    "plains-autonomy-golden": [
+      "docs/evidence/plains_redesign/frozen_v9"
+    ],
+    "plains-action-golden": [
+      "docs/evidence/plains_redesign/frozen_v9",
+      "docs/evidence/level_autonomy/action_baseline_capture.json"
+    ],
+    "plains-encounter-policy": [
+      "docs/evidence/plains_redesign/frozen_v9",
+      "docs/evidence/plains_redesign/encounter/frozen_50fb10c/manifest.json",
+      "docs/evidence/plains_redesign/encounter/frozen_50fb10c/delta.tar.gz"
+    ]
+  },
+  "consumer_edges": {
+    "aim-save-compat": [
+      "tools/run_aim_save_compat_tests.py -> tests/aim_save_compat_data.gd:33,37 -> cross_region_manifest.json"
+    ],
+    "root-bell-tests": [
+      "tools/run_root_bell_formal.py:sources():61 hashes legacy_manifest_strings.json before native execution",
+      "tools/run_root_bell_formal.py --g1 -> tests/root_bell_formal_runner.gd -> tests/root_bell_formal_tests.gd:5 reads same file"
+    ],
+    "plains-autonomy-golden": [
+      "tools/run_plains_autonomy_tests.py:22 -> run_plains_action_golden_tests.frozen_project() -> frozen_v9 manifest/source.tar.gz/asset_blobs"
+    ],
+    "plains-action-golden": [
+      "tools/run_plains_action_golden_tests.py:97 retained action_baseline_capture.json, clean CI cannot rely on build fallback",
+      "tools/run_plains_action_golden_tests.py:108 -> frozen_project()"
+    ],
+    "plains-encounter-policy": [
+      "tools/run_plains_encounter_policy_tests.py:212,213 -> frozen_project() twice",
+      "tools/run_plains_encounter_policy_tests.py:45,52,59 -> frozen_50fb10c manifest.json and delta.tar.gz"
+    ]
+  },
+  "no_addition_after_transitive_review": {
+    "root-bell-spaces": "Calls run_root_bell_ecology.source_files(), which uses legacy.visual_director.sources(), not legacy.sources(); executes tests/root_bell_spaces_runner.gd, not root_bell_formal_runner/tests; no legacy_manifest_strings consumer. It already passed CI83.",
+    "root-bell-ecology": "Imports legacy validators but own source_files uses legacy.visual_director.sources(); native root_bell_ecology_capture/trace does not load root_bell_formal_tests; no legacy_manifest_strings read.",
+    "plains-places-contract/plains-regional-art-contract/plains-landform-contract/plains-art-language-contract/plains-world-rebuild-contract": "Import only ecology lock helper or unrelated source inventories; no call to legacy.sources() or root_bell_formal_tests."
+  },
+  "already_declared": {
+    "portable-frozen-assets": [
+      "docs/evidence/plains_redesign/frozen_v9/"
+    ],
+    "forest-formal-combat": [
+      "docs/evidence/forest_depth_v2/legacy_v1"
+    ],
+    "forest-region-matrix": [
+      "docs/evidence/forest_depth_v2/legacy_v1"
+    ],
+    "root-bell-tests": [
+      "docs/evidence/region_production_v3/enemy_encounter_v2/movie02_native_and_frozen_sources.zip"
+    ]
+  },
+  "ci83_observation": {
+    "aim-save-compat": "failed after 5.568 seconds because current-HEAD file was not materialized; no git show needed",
+    "executed_checks": 65,
+    "passed": 64,
+    "failed": 1,
+    "all_native_res_evidence_literals": 2,
+    "missing_ci_materialized_paths": [
+      "docs/evidence/forest_depth_v2/reviews/campaign-output-helper/cross_region_manifest.json",
+      "docs/evidence/region_production_v3/enemy_encounter_v2/legacy_manifest_strings.json",
+      "docs/evidence/level_autonomy/action_baseline_capture.json",
+      "docs/evidence/plains_redesign/encounter/frozen_50fb10c/manifest.json",
+      "docs/evidence/plains_redesign/encounter/frozen_50fb10c/delta.tar.gz"
+    ],
+    "frozen_v9_files_already_materialized": 5
+  },
+  "implementation_notes": [
+    "Extend the original check.inputs only; do not change argv/assertions/success patterns/timeouts/case counts or rewrite fixtures.",
+    "For currently absent inputs arrays, declare runtime source roots alongside the required retained fixtures rather than claiming a complete dependency graph from only one artifact. Non-cacheable checks retain the full Harness global source guard.",
+    "Use existing directory input expansion for the finite frozen_v9 family; no second ownership/dependency table is needed.",
+    "Keep the failed run immutable and run selected native consumers plus relevant preflight missing-file counterexamples before a new exact-SHA CI run."
+  ]
+}

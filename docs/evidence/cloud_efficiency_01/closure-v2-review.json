@@ -1,0 +1,61 @@
+{
+  "reviewer": "independent_review (not author)",
+  "verdict": "ACCEPT",
+  "scope": "Incremental required-input preflight consumer closure and its real sparse Git tests only.",
+  "reviewed_at_utc": "2026-10-22T10:53:54.071225+00:00",
+  "observed_head": "0ca0474ccdf82ca62bf67c87c99af0aec5703725",
+  "source_sha256": {
+    "tools/production_loop.py": "a27811684a0866bc1a04023a232a2b4b0edc4af0ecb5e4916006746223461ba5",
+    "tests/test_production_loop.py": "385e134d89fb1a543ef629005565b9dc246184ba1e65bb88b92bff990c5a28fb"
+  },
+  "source_provenance": "Hash-bound code review; restoration receipt retains its own earlier commit918515e1. No relabeling of results as a later clean commit.",
+  "consumer_alignment": [
+    "quality.validate_asset opens and hashes associated_files[*].path; preflight now requires those exact tracked nested paths. Malformed schema, path identity and SHA validation remain in the original quality consumer.",
+    "check_docs only tests exists() for local Markdown links. Preflight requires a readable real tracked descendant to establish a linked directory, with text/log preferred to JSON/media when no member is materialized; empty mkdir alone cannot pass.",
+    "Explicit Harness directory inputs still require every tracked descendant. The Markdown presence shortcut cannot remove an independently declared full-directory requirement.",
+    "Symlink, unreadable, ordinary deletion, skip-worktree and exact allowed-repair handling retain original require/file_state semantics. Directory presence is not a full content quality judgment."
+  ],
+  "independent_execution": {
+    "command": "python tests/test_production_loop.py SelectedInputPreflightTests.test_asset_associated_source_records_are_required_and_original_hash_guard_remains SelectedInputPreflightTests.test_markdown_directory_presence_requires_real_member_not_empty_directory_or_all_media SelectedInputPreflightTests.test_directory_link_does_not_shrink_declared_directory_consumer_inputs -v",
+    "exit_code": 0,
+    "tests": 3,
+    "seconds_from_unittest": 0.223,
+    "log": "/workspace/scratch/cloud-efficiency-independent-review/closure-v2-targeted.log",
+    "log_sha256": "85822adc2b2c6fc11ffcf822a0c739f876900267fcbc4fe438fe3cbe478428df"
+  },
+  "old_test_preservation": {
+    "baseline": "918515e1105a5f0bf137776e37a9575773bfb0f0",
+    "original_test_method_asts": 107,
+    "unchanged": true,
+    "added_methods": 3
+  },
+  "actual_restoration": {
+    "receipt": "/workspace/gunman-rush/build/verification/efficiency-docs-inputs-closure-v2.json",
+    "receipt_sha256": "ae11bd7ef1ab419c8001561a5f5ab13c4c8060943cbe0b27e565f209d0f0cbb7",
+    "source_commit": "918515e1105a5f0bf137776e37a9575773bfb0f0",
+    "status": "ready",
+    "approval_scope": "input_availability_only",
+    "tests_executed": false,
+    "selected_checks": 33,
+    "materialized_count": 10,
+    "materialized_bytes": 106030,
+    "seconds": 3.713,
+    "restored_bytes_independently_rehashed": true,
+    "all10_match_recorded_git_blob_sha1": true,
+    "prefetched_unknown_objects": 9,
+    "sparse_patterns_changed": false,
+    "scope": "Input availability only. Nine unknown objects fetched and one already-available object restored; actual file bytes reproduce exact original Git blob identities."
+  },
+  "prior_failures_and_producer_reruns": {
+    "prior_failure_log": "build/verification/production-loop-preflight-followup.log",
+    "prior_failure": "115 executed,24 failures before missing original evidence was hydrated; retained as failure.",
+    "after_original_hydration": "build/verification/production-loop-preflight-after-hydration.log:115 tests OK.",
+    "cloud_inputs": "build/verification/cloud-inputs-preflight-followup.log:21 tests OK.",
+    "attribution": "These complete115/21 results are producer-run logs independently inspected, not independent reruns. Only the3 delta tests were rerun by this reviewer."
+  },
+  "limits": [
+    "No hydration or source edits performed by this reviewer. No Harness84 or Godot rerun.",
+    "Full docs33 execution and final GitHub CI are pending at this review. Input status ready does not claim selected checks passed.",
+    "Complete Integration/Release, player subjective quality and physical devices remain unverified."
+  ]
+}

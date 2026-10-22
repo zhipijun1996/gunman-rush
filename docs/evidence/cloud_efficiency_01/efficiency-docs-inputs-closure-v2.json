@@ -1,0 +1,1759 @@
+{
+  "status": "ready",
+  "approval_scope": "input_availability_only",
+  "tests_executed": false,
+  "commit": "918515e1105a5f0bf137776e37a9575773bfb0f0",
+  "checks": [
+    "docs",
+    "world",
+    "world-design-tests",
+    "structure",
+    "harness-tests",
+    "quality-drills",
+    "quality-tests",
+    "quality",
+    "production-loop-tests",
+    "terrain-tile-tests",
+    "consumer-coverage-tests",
+    "capture-tests",
+    "level-design-contracts",
+    "mechanism-comparisons",
+    "level-design-analysis",
+    "level-design-routing",
+    "level-design-golden-tests",
+    "level-region-context",
+    "level-experience",
+    "level-formal-receipts",
+    "visual-director-tests",
+    "asset-family-tests",
+    "creative-direction",
+    "creative-direction-tests",
+    "underworld-pipeline",
+    "underworld-home-guard-tests",
+    "region-bible-contract",
+    "region-bible-tests",
+    "harness-artifact-archive-tests",
+    "cloud-production-planner-tests",
+    "cloud-delivery-tests",
+    "cloud-inputs-tests",
+    "portable-frozen-assets"
+  ],
+  "inputs": [],
+  "known_bytes": 0,
+  "unknown_size_objects": [],
+  "blockers": [],
+  "preflight": {
+    "status": "passed",
+    "kind": "tracked_required_input_materialization",
+    "missing_tracked_inputs": [],
+    "explicit_deleted_repairs": [],
+    "index_warnings": [],
+    "import_metadata_risks": [],
+    "uncertain_inputs": [],
+    "directory_presence_inputs": [
+      {
+        "path": ".agents/skills",
+        "representative": ".agents/skills/ability-creator/SKILL.md",
+        "required_by": [
+          "README.md"
+        ]
+      },
+      {
+        "path": "assets/visual_development/p1_native",
+        "representative": "assets/visual_development/p1_native/device.prompt.txt",
+        "required_by": [
+          "docs/quality/p1_native.md"
+        ]
+      },
+      {
+        "path": "docs/evidence/forest_depth_v2",
+        "representative": "docs/evidence/forest_depth_v2/G_bounded_followup01/README.md",
+        "required_by": [
+          "docs/design/forest_depth_v2/README.md"
+        ]
+      },
+      {
+        "path": "docs/evidence/p1_environment/records/comparison_02",
+        "representative": "docs/evidence/p1_environment/records/comparison_02/actual_trajectory_02_03.json",
+        "required_by": [
+          "docs/quality/p1_environment.md"
+        ]
+      },
+      {
+        "path": "docs/evidence/region_production_v3/completed_lease_recovery",
+        "representative": "docs/evidence/region_production_v3/completed_lease_recovery/independent/review_report.md",
+        "required_by": [
+          "docs/quality/region_production_v3/completed_lease_recovery.md"
+        ]
+      },
+      {
+        "path": "docs/evidence/region_production_v3/terrain_family_01/final_static",
+        "representative": "docs/evidence/region_production_v3/terrain_family_01/final_static/rooted_union_baseline.png",
+        "required_by": [
+          "docs/quality/region_production_v3/terrain_family_01.md"
+        ]
+      },
+      {
+        "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original",
+        "representative": "docs/evidence/region_production_v3/terrain_family_01/movie_original/capture.json",
+        "required_by": [
+          "docs/quality/region_production_v3/terrain_family_01.md"
+        ]
+      },
+      {
+        "path": "docs/evidence/style_exploration/delivery",
+        "representative": "docs/evidence/style_exploration/delivery/README.md",
+        "required_by": [
+          "docs/evidence/style_exploration/README.md"
+        ]
+      },
+      {
+        "path": "docs/evidence/terrain_production",
+        "representative": "docs/evidence/terrain_production/existing-engine.log",
+        "required_by": [
+          "docs/quality/terrain_production.md"
+        ]
+      },
+      {
+        "path": "docs/evidence/underworld_feedback_03/independent_review",
+        "representative": "docs/evidence/underworld_feedback_03/independent_review/baseline_audit.md",
+        "required_by": [
+          "docs/evidence/underworld_feedback_03/README.md"
+        ]
+      },
+      {
+        "path": "docs/evidence/underworld_feedback_03/objects/provenance",
+        "representative": "docs/evidence/underworld_feedback_03/objects/provenance/experience_notes.md",
+        "required_by": [
+          "docs/evidence/underworld_feedback_03/README.md"
+        ]
+      },
+      {
+        "path": "docs/evidence/underworld_feedback_03/verification/history",
+        "representative": "docs/evidence/underworld_feedback_03/verification/history/20261019T164643.182365Z/core.log",
+        "required_by": [
+          "docs/evidence/underworld_feedback_03/README.md"
+        ]
+      }
+    ],
+    "resolved_checks": {
+      "manifest": "tools/harness/profiles.json",
+      "manifest_sha256": "e4d0144a2937232d4bd29330426ab274ef19a4d447086590709ff070aaa722b4",
+      "cwd": "/workspace/gunman-rush",
+      "checks": [
+        {
+          "id": "docs",
+          "argv": [
+            "python3",
+            "tools/check_docs.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^PASS:"
+        },
+        {
+          "id": "world",
+          "argv": [
+            "python3",
+            "tools/check_world_design.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^PASS:"
+        },
+        {
+          "id": "world-design-tests",
+          "argv": [
+            "python3",
+            "tests/test_world_design.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^OK$"
+        },
+        {
+          "id": "structure",
+          "argv": [
+            "python3",
+            "tools/check_project.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^PASS: project structure"
+        },
+        {
+          "id": "harness-tests",
+          "argv": [
+            "python3",
+            "tests/test_harness.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^OK$"
+        },
+        {
+          "id": "quality-drills",
+          "argv": [
+            "python3",
+            "tools/quality_drills.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^PASS: 3"
+        },
+        {
+          "id": "quality-tests",
+          "argv": [
+            "python3",
+            "tests/test_quality.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^OK$"
+        },
+        {
+          "id": "quality",
+          "argv": [
+            "python3",
+            "tools/check_quality.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^PASS:"
+        },
+        {
+          "id": "production-loop-tests",
+          "argv": [
+            "python3",
+            "tests/test_production_loop.py"
+          ],
+          "timeout_seconds": 180,
+          "success_pattern": "^OK$"
+        },
+        {
+          "id": "terrain-tile-tests",
+          "argv": [
+            "python3",
+            "tests/test_terrain_tiles.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^OK$"
+        },
+        {
+          "id": "consumer-coverage-tests",
+          "argv": [
+            "python3",
+            "tests/test_consumer_coverage.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^OK$"
+        },
+        {
+          "id": "capture-tests",
+          "argv": [
+            "python3",
+            "tests/test_capture_actions.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^OK$"
+        },
+        {
+          "id": "level-design-contracts",
+          "argv": [
+            "python3",
+            "tests/test_level_design_contracts.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^OK$",
+          "inputs": [
+            "tools/level_design_contracts.py",
+            "tests/test_level_design_contracts.py",
+            "tools/level_design.py",
+            "tools/production_loop.py",
+            "tools/harness.py",
+            "tools/quality.py",
+            "docs/quality/policy.json",
+            "docs/quality/region_production_v3/forest_h_slice.md",
+            "tests/fixtures/level_design_v2/",
+            "docs/evidence/region_production_v3/forest_h_slice/"
+          ]
+        },
+        {
+          "id": "mechanism-comparisons",
+          "argv": [
+            "python3",
+            "tests/test_mechanism_comparisons.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^OK$"
+        },
+        {
+          "id": "level-design-analysis",
+          "argv": [
+            "python3",
+            "tests/test_level_design_analysis.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^OK$"
+        },
+        {
+          "id": "level-design-routing",
+          "argv": [
+            "python3",
+            "tests/test_level_design_routing.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^OK$"
+        },
+        {
+          "id": "level-design-golden-tests",
+          "argv": [
+            "python3",
+            "tests/test_level_design_golden.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^OK$"
+        },
+        {
+          "id": "level-region-context",
+          "argv": [
+            "python3",
+            "tests/test_level_region_context.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^OK$"
+        },
+        {
+          "id": "level-experience",
+          "argv": [
+            "python3",
+            "tests/test_level_experience.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^OK$"
+        },
+        {
+          "id": "level-formal-receipts",
+          "argv": [
+            "python3",
+            "tests/test_level_formal_receipts.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^OK$"
+        },
+        {
+          "id": "visual-director-tests",
+          "argv": [
+            "python3",
+            "tests/test_visual_director.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^OK$",
+          "inputs": [
+            "tools/visual_director.py",
+            "tests/test_visual_director.py",
+            "tools/level_formal.py",
+            "tools/level_formal_capture.gd",
+            "tools/production_loop.py",
+            "tools/harness/profiles.json"
+          ]
+        },
+        {
+          "id": "asset-family-tests",
+          "argv": [
+            "python3",
+            "tests/test_asset_family.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^OK$",
+          "inputs": [
+            "tools/asset_family.py",
+            "tests/test_asset_family.py"
+          ]
+        },
+        {
+          "id": "creative-direction",
+          "argv": [
+            "python3",
+            "tools/region_creative_direction.py",
+            "--directory",
+            "docs/creative_direction"
+          ],
+          "timeout_seconds": 30,
+          "success_pattern": "^PASS:"
+        },
+        {
+          "id": "creative-direction-tests",
+          "argv": [
+            "python3",
+            "tests/test_region_creative_direction.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^OK$"
+        },
+        {
+          "id": "underworld-pipeline",
+          "argv": [
+            "python3",
+            "tests/test_underworld_pipeline.py"
+          ],
+          "timeout_seconds": 180,
+          "success_pattern": "^OK$",
+          "inputs": [
+            "tools/underworld_pipeline.py",
+            "tests/test_underworld_pipeline.py",
+            "assets/underworld_plains",
+            "assets/style_exploration/anchors.json",
+            "assets/style_exploration/underworld/source",
+            "scripts/underworld_plains",
+            "scripts/ui",
+            "scripts/demo",
+            "scripts/generation/module_moving_platform.gd",
+            "scripts/world/shot_latch.gd",
+            "assets/fonts",
+            "assets/manifest.json"
+          ]
+        },
+        {
+          "id": "underworld-home-guard-tests",
+          "argv": [
+            "python3",
+            "tests/test_underworld_home_terrace_wrapper.py"
+          ],
+          "timeout_seconds": 90,
+          "success_pattern": "^OK$",
+          "inputs": [
+            "tools/run_underworld_home_terrace_tests.py",
+            "tests/test_underworld_home_terrace_wrapper.py",
+            "tests/fixtures/underworld_home_r2",
+            "assets/underworld_plains/home"
+          ],
+          "artifact_paths": []
+        },
+        {
+          "id": "region-bible-contract",
+          "argv": [
+            "python3",
+            "tools/region_creative_direction.py",
+            "--check-bibles"
+          ],
+          "timeout_seconds": 30,
+          "success_pattern": "^PASS: Bible registry",
+          "inputs": [
+            "tools/region_creative_direction.py",
+            "docs/world_regions.json",
+            "docs/creative_direction/bibles/registry.json",
+            "docs/creative_direction/bibles/user-request.json",
+            "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+            "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+            "docs/creative_direction/bibles/style-continuity-20261021.json",
+            "scripts/demo/plains_region_stage.gd",
+            "scripts/art/plains_terrain_study.gd",
+            "scripts/underworld_plains/underworld_terrain.gd",
+            "scripts/underworld_plains/underworld_terrain.gdshader",
+            "assets/underworld_plains/terrain/terrain_build.json",
+            "assets/underworld_plains/terrain/terrain.tres",
+            "assets/underworld_plains/terrain/terrain.png",
+            "assets/underworld_plains/terrain/source.png",
+            "scripts/art_foundation/blob47_rules.gd",
+            "scripts/art_foundation/pixel_formal_terrain.gd",
+            "scripts/art/plains_terrain_borders.gd",
+            "assets/style_exploration/underworld/source/licenses/publisher_page.txt",
+            "scripts/underworld_plains/underworld_player.gd",
+            "docs/creative_direction/bibles/style-continuity-20261021-v2.json",
+            "assets/underworld_plains/player_animation/animation_build.json",
+            "assets/underworld_plains/player_animation/run_sheet.png",
+            "assets/underworld_plains/player_animation/states_sheet.png"
+          ]
+        },
+        {
+          "id": "region-bible-tests",
+          "argv": [
+            "python3",
+            "tests/test_region_bible.py"
+          ],
+          "timeout_seconds": 30,
+          "success_pattern": "^OK$",
+          "inputs": [
+            ".agents/skills/gameplay-reviewer/SKILL.md",
+            ".agents/skills/region-generator/SKILL.md",
+            "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+            "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+            "docs/creative_direction/bibles/registry.json",
+            "docs/creative_direction/bibles/user-request.json",
+            "docs/creative_direction/thorn_forest.json",
+            "docs/creative_direction/windchime_plains.json",
+            "docs/current_state.md",
+            "docs/design/player_actions/README.md",
+            "docs/design/player_actions/regions_v0.3.md",
+            "docs/design/player_actions/weapons_v0.8.md",
+            "docs/evidence/level_autonomy/action_control_comparison.json",
+            "docs/evidence/level_autonomy/baseline_summary.json",
+            "docs/evidence/level_autonomy/final_validation/review.json",
+            "docs/evidence/plains_redesign/design_midreview/report.md",
+            "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/asset_contract_calibration/metrics.json.gz",
+            "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/asset_contract_calibration/report.md.source",
+            "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/final_outer_movie/receipt.json.gz",
+            "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/final_regression_review/c4/outer_render_failure_review.md.source",
+            "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/outer_no_live_png_movie/receipt.json.gz",
+            "docs/evidence/plains_redesign/q6_cliff_asset/atlas_measurements.json.gz",
+            "docs/evidence/plains_redesign/q6_cliff_asset/rejected_asset_provenance.json",
+            "docs/evidence/plains_redesign/render_timing_diagnosis/report.md",
+            "docs/evidence/plains_redesign/reward_entry/README.md",
+            "docs/evidence/plains_redesign/scene/completion_r1/scene/run_16jp0xow/positive.json.gz",
+            "docs/evidence/plains_redesign/scene/completion_r1/scene/run_gayoppet/positive.json.gz",
+            "docs/evidence/plains_redesign/scene/completion_r1/scene/run_lo0a897t/positive.json.gz",
+            "docs/evidence/plains_redesign/scene/completion_r1/scene/run_us9izlj2/info_actor.json.gz",
+            "docs/evidence/plains_redesign/scene/completion_r1/scene/run_us9izlj2/positive.json.gz",
+            "docs/evidence/plains_redesign/scene/completion_r1/scene/run_us9izlj2/receipt.json.gz",
+            "docs/evidence/plains_redesign/scene/completion_r1/scene_completion/current2_extra_touch/capture.json.gz",
+            "docs/evidence/plains_redesign/scene/completion_r1/scene_completion/current3_extra_touch/receipt.json.gz",
+            "docs/evidence/plains_redesign/scene/completion_r1/ui_parent_coordinates.json",
+            "docs/evidence/plains_redesign/scene_q6_rework/asset_gap.md.source",
+            "docs/evidence/region_production_v3/art/clock_regulator_court_v1/independent/review.json",
+            "docs/evidence/region_production_v3/art/woodland_two_depth_ridges_v1/independent/review.json",
+            "docs/evidence/region_production_v3/capture_input_timing/independent/review.final.json",
+            "docs/evidence/region_production_v3/check_preflight/independent/review.final.json",
+            "docs/evidence/region_production_v3/enemy/movie_source_v1.json",
+            "docs/evidence/region_production_v3/enemy/producer_scope_bridge.json",
+            "docs/evidence/region_production_v3/enemy_parent_integration/strict_review/review_report.md",
+            "docs/evidence/region_production_v3/final_delivery_50fb10c/independent/terrain_logging_patch.final_review.json",
+            "docs/evidence/region_production_v3/forest_fixture_preflight_independent/review.json",
+            "docs/evidence/region_production_v3/ivy_attachment_independent/review.json",
+            "docs/evidence/region_production_v3/root_bell_run_replay_independent/review.json",
+            "docs/evidence/region_production_v3/scene/closure/portable_closure.json",
+            "docs/evidence/region_production_v3/scene/closure/raw/build/region_production_v3/independent/V3-SCENE-01_review.json",
+            "docs/evidence/region_production_v3/scene/closure/raw/build/region_production_v3/pilot_map2_growth_v1/capture.log",
+            "docs/evidence/region_production_v3/scene/closure/raw/build/region_production_v3/pilot_map2_growth_v1/visual_capture.json",
+            "docs/evidence/region_production_v3/shared_environment_parent_review/sky_optimization_addendum.json",
+            "docs/evidence/region_production_v3/supported_bank_failed_02/candidate_family/production/formal_manifest_solids_inventory.json",
+            "docs/evidence/region_production_v3/terrain_parent_integration/independent/review.json",
+            "docs/evidence/region_production_v3/v11_analysis_consumer_independent/fresh_current_r3_acceptance.json",
+            "docs/evidence/region_production_v3/web_raw_closure_independent/review.json",
+            "docs/evidence/visual_director/recovery_checkpoint/static_v4_fixed_review.json",
+            "docs/quality/action_budget_spec.md",
+            "docs/quality/all_weapons_spec.md",
+            "docs/quality/level_lessons.json",
+            "docs/quality/plains_redesign_experience.md",
+            "docs/quality/plains_redesign_spatial.md",
+            "docs/quality/policy.json",
+            "docs/quality/weapon_feel_spec.md",
+            "docs/world_regions.json",
+            "resources/player/combat_energy.tres",
+            "resources/player/plains_shot_energy.tres",
+            "resources/player/traversal.tres",
+            "resources/weapons/blade_bloom.tres",
+            "resources/weapons/collapse_singularity.tres",
+            "resources/weapons/fan_shuriken.tres",
+            "resources/weapons/laser_cannon.tres",
+            "resources/weapons/machine_storm.tres",
+            "resources/weapons/magnetic_mine.tres",
+            "resources/weapons/magnetic_storm.tres",
+            "resources/weapons/moon_boomerang.tres",
+            "resources/weapons/motion.tres",
+            "resources/weapons/pulse_gun.tres",
+            "resources/weapons/recoil_bomb.tres",
+            "resources/weapons/remote_boomerang.tres",
+            "resources/weapons/shadow_shuriken.tres",
+            "resources/weapons/star_collapse.tres",
+            "resources/weapons/sustained_laser.tres",
+            "resources/weapons/triple_machine_gun.tres",
+            "scripts/builds/build_state.gd",
+            "scripts/combat/shot_energy_policy.gd",
+            "scripts/combat/weapon_catalog.gd",
+            "scripts/combat/weapon_definition.gd",
+            "scripts/demo/action_studio.gd",
+            "scripts/demo/demo_app.gd",
+            "scripts/demo/thorn_forest_region_stage.gd",
+            "scripts/generation/thorn_forest_region_assembler.gd",
+            "scripts/generation/thorn_forest_region_generator.gd",
+            "scripts/player/jump_ability.gd",
+            "scripts/player/traversal_ability.gd",
+            "scripts/resources/definitions/combat_energy_definition.gd",
+            "scripts/resources/definitions/shot_energy_definition.gd",
+            "scripts/resources/state/combat_energy_state.gd",
+            "scripts/run/run_profile.gd",
+            "tests/test_region_bible.py",
+            "tools/harness.py",
+            "tools/harness/profiles.json",
+            "tools/level_design.py",
+            "tools/level_experience.py",
+            "tools/level_formal.py",
+            "tools/level_region_context.py",
+            "tools/production_loop.py",
+            "tools/quality.py",
+            "tools/region_creative_direction.py",
+            "tools/visual_director.py",
+            "docs/creative_direction/bibles/style-continuity-20261021.json",
+            "scripts/demo/plains_region_stage.gd",
+            "scripts/art/plains_terrain_study.gd",
+            "scripts/underworld_plains/underworld_terrain.gd",
+            "scripts/underworld_plains/underworld_terrain.gdshader",
+            "assets/underworld_plains/terrain/terrain_build.json",
+            "assets/underworld_plains/terrain/terrain.tres",
+            "assets/underworld_plains/terrain/terrain.png",
+            "assets/underworld_plains/terrain/source.png",
+            "scripts/art_foundation/blob47_rules.gd",
+            "scripts/art_foundation/pixel_formal_terrain.gd",
+            "scripts/art/plains_terrain_borders.gd",
+            "assets/style_exploration/underworld/source/licenses/publisher_page.txt",
+            "scripts/underworld_plains/underworld_player.gd",
+            "docs/creative_direction/bibles/style-continuity-20261021-v2.json",
+            "assets/underworld_plains/player_animation/animation_build.json",
+            "assets/underworld_plains/player_animation/run_sheet.png",
+            "assets/underworld_plains/player_animation/states_sheet.png",
+            "docs/creative_direction/archive/creative-v5/thorn_forest.json"
+          ]
+        },
+        {
+          "id": "harness-artifact-archive-tests",
+          "argv": [
+            "python3",
+            "tests/test_harness_artifact_archive.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^OK$"
+        },
+        {
+          "id": "cloud-production-planner-tests",
+          "argv": [
+            "python3",
+            "tests/test_production_plan.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^Ran [1-9]\\d* tests in ",
+          "inputs": [
+            "tools/production_plan.py",
+            "config/production_impact.json",
+            "tools/harness.py",
+            "tools/harness/profiles.json",
+            "tests/test_production_plan.py"
+          ]
+        },
+        {
+          "id": "cloud-delivery-tests",
+          "argv": [
+            "python3",
+            "tests/test_cloud_delivery.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^Ran [1-9]\\d* tests in ",
+          "inputs": [
+            "tools/cloud_delivery.py",
+            "tools/preview_host_workflow.yml",
+            "tools/style_exploration_delivery.py",
+            "tools/check_web_bundle.py",
+            "tools/harness/profiles.json",
+            "tests/test_cloud_delivery.py"
+          ]
+        },
+        {
+          "id": "cloud-inputs-tests",
+          "argv": [
+            "python3",
+            "tests/test_cloud_inputs.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^OK$"
+        },
+        {
+          "id": "portable-frozen-assets",
+          "argv": [
+            "python3",
+            "tools/test_frozen_assets.py"
+          ],
+          "timeout_seconds": 60,
+          "success_pattern": "^OK$",
+          "inputs": [
+            "docs/evidence/plains_redesign/frozen_v9/"
+          ]
+        }
+      ]
+    },
+    "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+  },
+  "limits": "Missing-input plan from the existing preflight, not a complete static dependency graph. No checks ran. Unknown object sizes stay explicit until --materialize obtains only those selected blobs.",
+  "materialized": [
+    {
+      "commit": "918515e1105a5f0bf137776e37a9575773bfb0f0",
+      "path": "docs/evidence/p1_environment/environment_master_v1.prompt.txt",
+      "blob": "eba4743ae90f706c6123b7babc9463a7e29e9911",
+      "mode": "100644",
+      "git_index_state": "S",
+      "required_by": [
+        "docs/quality/asset_records/p1-environment-whole-master-v1.json associated_files"
+      ],
+      "reason": "sparse_unmaterialized",
+      "materializable": true,
+      "size": 3314,
+      "object_available": false,
+      "status": "materialized"
+    },
+    {
+      "commit": "918515e1105a5f0bf137776e37a9575773bfb0f0",
+      "path": "docs/evidence/p1_environment/records/comparison_02/actual_trajectory_02_03.json",
+      "blob": "60894596f133ebbf8d6be49146240e256dbdd9bf",
+      "mode": "100644",
+      "git_index_state": "S",
+      "required_by": [
+        "directory existence only: docs/evidence/p1_environment/records/comparison_02 linked by docs/quality/p1_environment.md"
+      ],
+      "reason": "sparse_unmaterialized",
+      "materializable": true,
+      "size": 897,
+      "object_available": false,
+      "status": "materialized"
+    },
+    {
+      "commit": "918515e1105a5f0bf137776e37a9575773bfb0f0",
+      "path": "docs/evidence/parallel_integration_01/frozen/blob47_assets_manifest_v1.json",
+      "blob": "0e7ee76ffc9ecc4d2d25af313288d9742040580b",
+      "mode": "100644",
+      "git_index_state": "S",
+      "required_by": [
+        "docs/quality/asset_records/blob47_foundation_v1.json associated_files"
+      ],
+      "reason": "sparse_unmaterialized",
+      "materializable": true,
+      "size": 83757,
+      "object_available": false,
+      "status": "materialized"
+    },
+    {
+      "commit": "918515e1105a5f0bf137776e37a9575773bfb0f0",
+      "path": "docs/evidence/underworld_feedback_03/verification/history/20261019T164643.182365Z/core.log",
+      "blob": "7264cd0364af4e9e79267aaeee50d1d52018688d",
+      "mode": "100644",
+      "git_index_state": "S",
+      "required_by": [
+        "directory existence only: docs/evidence/underworld_feedback_03/verification/history linked by docs/evidence/underworld_feedback_03/README.md"
+      ],
+      "reason": "sparse_unmaterialized",
+      "materializable": true,
+      "size": 9452,
+      "object_available": true,
+      "status": "materialized"
+    },
+    {
+      "commit": "918515e1105a5f0bf137776e37a9575773bfb0f0",
+      "path": "docs/evidence/windchime_pixel_01/background_prompt.txt",
+      "blob": "5e4914af862e9e45cf262db90b6e8c66382cf9a6",
+      "mode": "100644",
+      "git_index_state": "S",
+      "required_by": [
+        "docs/quality/asset_records/windchime_pixel_dawn_distance.json associated_files"
+      ],
+      "reason": "sparse_unmaterialized",
+      "materializable": true,
+      "size": 1775,
+      "object_available": false,
+      "status": "materialized"
+    },
+    {
+      "commit": "918515e1105a5f0bf137776e37a9575773bfb0f0",
+      "path": "docs/evidence/windchime_pixel_01/parallax_far_prompt.txt",
+      "blob": "0444ae085f99258797912c934601b92e0a5c5877",
+      "mode": "100644",
+      "git_index_state": "S",
+      "required_by": [
+        "docs/quality/asset_records/windchime_pixel_parallax_far.json associated_files"
+      ],
+      "reason": "sparse_unmaterialized",
+      "materializable": true,
+      "size": 1166,
+      "object_available": false,
+      "status": "materialized"
+    },
+    {
+      "commit": "918515e1105a5f0bf137776e37a9575773bfb0f0",
+      "path": "docs/evidence/windchime_pixel_01/parallax_middle_prompt.txt",
+      "blob": "45d95eb3849632903ac64c6c7e2124ac1520650f",
+      "mode": "100644",
+      "git_index_state": "S",
+      "required_by": [
+        "docs/quality/asset_records/windchime_pixel_parallax_middle.json associated_files"
+      ],
+      "reason": "sparse_unmaterialized",
+      "materializable": true,
+      "size": 1359,
+      "object_available": false,
+      "status": "materialized"
+    },
+    {
+      "commit": "918515e1105a5f0bf137776e37a9575773bfb0f0",
+      "path": "docs/evidence/windchime_pixel_01/parallax_near_prompt.txt",
+      "blob": "52752c0b2cf4f96ae86aa9956a3f16464b859962",
+      "mode": "100644",
+      "git_index_state": "S",
+      "required_by": [
+        "docs/quality/asset_records/windchime_pixel_parallax_near.json associated_files"
+      ],
+      "reason": "sparse_unmaterialized",
+      "materializable": true,
+      "size": 1359,
+      "object_available": false,
+      "status": "materialized"
+    },
+    {
+      "commit": "918515e1105a5f0bf137776e37a9575773bfb0f0",
+      "path": "docs/evidence/windchime_style_01/background_meadow_prompt.txt",
+      "blob": "37d8e3f3cc1d9302d6a216ffafa7b84ea95ea34f",
+      "mode": "100644",
+      "git_index_state": "S",
+      "required_by": [
+        "docs/quality/asset_records/windchime_meadow_v2.json associated_files"
+      ],
+      "reason": "sparse_unmaterialized",
+      "materializable": true,
+      "size": 1641,
+      "object_available": false,
+      "status": "materialized"
+    },
+    {
+      "commit": "918515e1105a5f0bf137776e37a9575773bfb0f0",
+      "path": "docs/evidence/windchime_style_01/generation.json",
+      "blob": "6cfd304e1adbb3d68ea0549b7311a2fc66485eab",
+      "mode": "100644",
+      "git_index_state": "S",
+      "required_by": [
+        "docs/quality/asset_records/windchime_meadow_v2.json associated_files"
+      ],
+      "reason": "sparse_unmaterialized",
+      "materializable": true,
+      "size": 1310,
+      "object_available": false,
+      "status": "materialized"
+    }
+  ],
+  "rounds": [
+    {
+      "status": "needs_materialization",
+      "approval_scope": "input_availability_only",
+      "tests_executed": false,
+      "commit": "918515e1105a5f0bf137776e37a9575773bfb0f0",
+      "checks": [
+        "docs",
+        "world",
+        "world-design-tests",
+        "structure",
+        "harness-tests",
+        "quality-drills",
+        "quality-tests",
+        "quality",
+        "production-loop-tests",
+        "terrain-tile-tests",
+        "consumer-coverage-tests",
+        "capture-tests",
+        "level-design-contracts",
+        "mechanism-comparisons",
+        "level-design-analysis",
+        "level-design-routing",
+        "level-design-golden-tests",
+        "level-region-context",
+        "level-experience",
+        "level-formal-receipts",
+        "visual-director-tests",
+        "asset-family-tests",
+        "creative-direction",
+        "creative-direction-tests",
+        "underworld-pipeline",
+        "underworld-home-guard-tests",
+        "region-bible-contract",
+        "region-bible-tests",
+        "harness-artifact-archive-tests",
+        "cloud-production-planner-tests",
+        "cloud-delivery-tests",
+        "cloud-inputs-tests",
+        "portable-frozen-assets"
+      ],
+      "inputs": [
+        {
+          "commit": "918515e1105a5f0bf137776e37a9575773bfb0f0",
+          "path": "docs/evidence/p1_environment/environment_master_v1.prompt.txt",
+          "blob": "eba4743ae90f706c6123b7babc9463a7e29e9911",
+          "mode": "100644",
+          "git_index_state": "S",
+          "required_by": [
+            "docs/quality/asset_records/p1-environment-whole-master-v1.json associated_files"
+          ],
+          "reason": "sparse_unmaterialized",
+          "materializable": true,
+          "size": null,
+          "object_available": false
+        },
+        {
+          "commit": "918515e1105a5f0bf137776e37a9575773bfb0f0",
+          "path": "docs/evidence/p1_environment/records/comparison_02/actual_trajectory_02_03.json",
+          "blob": "60894596f133ebbf8d6be49146240e256dbdd9bf",
+          "mode": "100644",
+          "git_index_state": "S",
+          "required_by": [
+            "directory existence only: docs/evidence/p1_environment/records/comparison_02 linked by docs/quality/p1_environment.md"
+          ],
+          "reason": "sparse_unmaterialized",
+          "materializable": true,
+          "size": null,
+          "object_available": false
+        },
+        {
+          "commit": "918515e1105a5f0bf137776e37a9575773bfb0f0",
+          "path": "docs/evidence/parallel_integration_01/frozen/blob47_assets_manifest_v1.json",
+          "blob": "0e7ee76ffc9ecc4d2d25af313288d9742040580b",
+          "mode": "100644",
+          "git_index_state": "S",
+          "required_by": [
+            "docs/quality/asset_records/blob47_foundation_v1.json associated_files"
+          ],
+          "reason": "sparse_unmaterialized",
+          "materializable": true,
+          "size": null,
+          "object_available": false
+        },
+        {
+          "commit": "918515e1105a5f0bf137776e37a9575773bfb0f0",
+          "path": "docs/evidence/underworld_feedback_03/verification/history/20261019T164643.182365Z/core.log",
+          "blob": "7264cd0364af4e9e79267aaeee50d1d52018688d",
+          "mode": "100644",
+          "git_index_state": "S",
+          "required_by": [
+            "directory existence only: docs/evidence/underworld_feedback_03/verification/history linked by docs/evidence/underworld_feedback_03/README.md"
+          ],
+          "reason": "sparse_unmaterialized",
+          "materializable": true,
+          "size": 9452,
+          "object_available": true
+        },
+        {
+          "commit": "918515e1105a5f0bf137776e37a9575773bfb0f0",
+          "path": "docs/evidence/windchime_pixel_01/background_prompt.txt",
+          "blob": "5e4914af862e9e45cf262db90b6e8c66382cf9a6",
+          "mode": "100644",
+          "git_index_state": "S",
+          "required_by": [
+            "docs/quality/asset_records/windchime_pixel_dawn_distance.json associated_files"
+          ],
+          "reason": "sparse_unmaterialized",
+          "materializable": true,
+          "size": null,
+          "object_available": false
+        },
+        {
+          "commit": "918515e1105a5f0bf137776e37a9575773bfb0f0",
+          "path": "docs/evidence/windchime_pixel_01/parallax_far_prompt.txt",
+          "blob": "0444ae085f99258797912c934601b92e0a5c5877",
+          "mode": "100644",
+          "git_index_state": "S",
+          "required_by": [
+            "docs/quality/asset_records/windchime_pixel_parallax_far.json associated_files"
+          ],
+          "reason": "sparse_unmaterialized",
+          "materializable": true,
+          "size": null,
+          "object_available": false
+        },
+        {
+          "commit": "918515e1105a5f0bf137776e37a9575773bfb0f0",
+          "path": "docs/evidence/windchime_pixel_01/parallax_middle_prompt.txt",
+          "blob": "45d95eb3849632903ac64c6c7e2124ac1520650f",
+          "mode": "100644",
+          "git_index_state": "S",
+          "required_by": [
+            "docs/quality/asset_records/windchime_pixel_parallax_middle.json associated_files"
+          ],
+          "reason": "sparse_unmaterialized",
+          "materializable": true,
+          "size": null,
+          "object_available": false
+        },
+        {
+          "commit": "918515e1105a5f0bf137776e37a9575773bfb0f0",
+          "path": "docs/evidence/windchime_pixel_01/parallax_near_prompt.txt",
+          "blob": "52752c0b2cf4f96ae86aa9956a3f16464b859962",
+          "mode": "100644",
+          "git_index_state": "S",
+          "required_by": [
+            "docs/quality/asset_records/windchime_pixel_parallax_near.json associated_files"
+          ],
+          "reason": "sparse_unmaterialized",
+          "materializable": true,
+          "size": null,
+          "object_available": false
+        },
+        {
+          "commit": "918515e1105a5f0bf137776e37a9575773bfb0f0",
+          "path": "docs/evidence/windchime_style_01/background_meadow_prompt.txt",
+          "blob": "37d8e3f3cc1d9302d6a216ffafa7b84ea95ea34f",
+          "mode": "100644",
+          "git_index_state": "S",
+          "required_by": [
+            "docs/quality/asset_records/windchime_meadow_v2.json associated_files"
+          ],
+          "reason": "sparse_unmaterialized",
+          "materializable": true,
+          "size": null,
+          "object_available": false
+        },
+        {
+          "commit": "918515e1105a5f0bf137776e37a9575773bfb0f0",
+          "path": "docs/evidence/windchime_style_01/generation.json",
+          "blob": "6cfd304e1adbb3d68ea0549b7311a2fc66485eab",
+          "mode": "100644",
+          "git_index_state": "S",
+          "required_by": [
+            "docs/quality/asset_records/windchime_meadow_v2.json associated_files"
+          ],
+          "reason": "sparse_unmaterialized",
+          "materializable": true,
+          "size": null,
+          "object_available": false
+        }
+      ],
+      "known_bytes": 9452,
+      "unknown_size_objects": [
+        "0444ae085f99258797912c934601b92e0a5c5877",
+        "0e7ee76ffc9ecc4d2d25af313288d9742040580b",
+        "37d8e3f3cc1d9302d6a216ffafa7b84ea95ea34f",
+        "45d95eb3849632903ac64c6c7e2124ac1520650f",
+        "52752c0b2cf4f96ae86aa9956a3f16464b859962",
+        "5e4914af862e9e45cf262db90b6e8c66382cf9a6",
+        "60894596f133ebbf8d6be49146240e256dbdd9bf",
+        "6cfd304e1adbb3d68ea0549b7311a2fc66485eab",
+        "eba4743ae90f706c6123b7babc9463a7e29e9911"
+      ],
+      "blockers": [],
+      "preflight": {
+        "status": "blocked",
+        "kind": "tracked_required_input_materialization",
+        "missing_tracked_inputs": [
+          {
+            "path": "docs/evidence/p1_environment/environment_master_v1.prompt.txt",
+            "git_index_state": "S",
+            "required_by": [
+              "docs/quality/asset_records/p1-environment-whole-master-v1.json associated_files"
+            ],
+            "reason": "sparse_unmaterialized"
+          },
+          {
+            "path": "docs/evidence/p1_environment/records/comparison_02/actual_trajectory_02_03.json",
+            "git_index_state": "S",
+            "required_by": [
+              "directory existence only: docs/evidence/p1_environment/records/comparison_02 linked by docs/quality/p1_environment.md"
+            ],
+            "reason": "sparse_unmaterialized"
+          },
+          {
+            "path": "docs/evidence/parallel_integration_01/frozen/blob47_assets_manifest_v1.json",
+            "git_index_state": "S",
+            "required_by": [
+              "docs/quality/asset_records/blob47_foundation_v1.json associated_files"
+            ],
+            "reason": "sparse_unmaterialized"
+          },
+          {
+            "path": "docs/evidence/underworld_feedback_03/verification/history/20261019T164643.182365Z/core.log",
+            "git_index_state": "S",
+            "required_by": [
+              "directory existence only: docs/evidence/underworld_feedback_03/verification/history linked by docs/evidence/underworld_feedback_03/README.md"
+            ],
+            "reason": "sparse_unmaterialized"
+          },
+          {
+            "path": "docs/evidence/windchime_pixel_01/background_prompt.txt",
+            "git_index_state": "S",
+            "required_by": [
+              "docs/quality/asset_records/windchime_pixel_dawn_distance.json associated_files"
+            ],
+            "reason": "sparse_unmaterialized"
+          },
+          {
+            "path": "docs/evidence/windchime_pixel_01/parallax_far_prompt.txt",
+            "git_index_state": "S",
+            "required_by": [
+              "docs/quality/asset_records/windchime_pixel_parallax_far.json associated_files"
+            ],
+            "reason": "sparse_unmaterialized"
+          },
+          {
+            "path": "docs/evidence/windchime_pixel_01/parallax_middle_prompt.txt",
+            "git_index_state": "S",
+            "required_by": [
+              "docs/quality/asset_records/windchime_pixel_parallax_middle.json associated_files"
+            ],
+            "reason": "sparse_unmaterialized"
+          },
+          {
+            "path": "docs/evidence/windchime_pixel_01/parallax_near_prompt.txt",
+            "git_index_state": "S",
+            "required_by": [
+              "docs/quality/asset_records/windchime_pixel_parallax_near.json associated_files"
+            ],
+            "reason": "sparse_unmaterialized"
+          },
+          {
+            "path": "docs/evidence/windchime_style_01/background_meadow_prompt.txt",
+            "git_index_state": "S",
+            "required_by": [
+              "docs/quality/asset_records/windchime_meadow_v2.json associated_files"
+            ],
+            "reason": "sparse_unmaterialized"
+          },
+          {
+            "path": "docs/evidence/windchime_style_01/generation.json",
+            "git_index_state": "S",
+            "required_by": [
+              "docs/quality/asset_records/windchime_meadow_v2.json associated_files"
+            ],
+            "reason": "sparse_unmaterialized"
+          }
+        ],
+        "explicit_deleted_repairs": [],
+        "index_warnings": [],
+        "import_metadata_risks": [],
+        "uncertain_inputs": [],
+        "directory_presence_inputs": [
+          {
+            "path": ".agents/skills",
+            "representative": ".agents/skills/ability-creator/SKILL.md",
+            "required_by": [
+              "README.md"
+            ]
+          },
+          {
+            "path": "assets/visual_development/p1_native",
+            "representative": "assets/visual_development/p1_native/device.prompt.txt",
+            "required_by": [
+              "docs/quality/p1_native.md"
+            ]
+          },
+          {
+            "path": "docs/evidence/forest_depth_v2",
+            "representative": "docs/evidence/forest_depth_v2/G_bounded_followup01/README.md",
+            "required_by": [
+              "docs/design/forest_depth_v2/README.md"
+            ]
+          },
+          {
+            "path": "docs/evidence/p1_environment/records/comparison_02",
+            "representative": "docs/evidence/p1_environment/records/comparison_02/actual_trajectory_02_03.json",
+            "required_by": [
+              "docs/quality/p1_environment.md"
+            ]
+          },
+          {
+            "path": "docs/evidence/region_production_v3/completed_lease_recovery",
+            "representative": "docs/evidence/region_production_v3/completed_lease_recovery/independent/review_report.md",
+            "required_by": [
+              "docs/quality/region_production_v3/completed_lease_recovery.md"
+            ]
+          },
+          {
+            "path": "docs/evidence/region_production_v3/terrain_family_01/final_static",
+            "representative": "docs/evidence/region_production_v3/terrain_family_01/final_static/rooted_union_baseline.png",
+            "required_by": [
+              "docs/quality/region_production_v3/terrain_family_01.md"
+            ]
+          },
+          {
+            "path": "docs/evidence/region_production_v3/terrain_family_01/movie_original",
+            "representative": "docs/evidence/region_production_v3/terrain_family_01/movie_original/capture.json",
+            "required_by": [
+              "docs/quality/region_production_v3/terrain_family_01.md"
+            ]
+          },
+          {
+            "path": "docs/evidence/style_exploration/delivery",
+            "representative": "docs/evidence/style_exploration/delivery/README.md",
+            "required_by": [
+              "docs/evidence/style_exploration/README.md"
+            ]
+          },
+          {
+            "path": "docs/evidence/terrain_production",
+            "representative": "docs/evidence/terrain_production/existing-engine.log",
+            "required_by": [
+              "docs/quality/terrain_production.md"
+            ]
+          },
+          {
+            "path": "docs/evidence/underworld_feedback_03/independent_review",
+            "representative": "docs/evidence/underworld_feedback_03/independent_review/baseline_audit.md",
+            "required_by": [
+              "docs/evidence/underworld_feedback_03/README.md"
+            ]
+          },
+          {
+            "path": "docs/evidence/underworld_feedback_03/objects/provenance",
+            "representative": "docs/evidence/underworld_feedback_03/objects/provenance/experience_notes.md",
+            "required_by": [
+              "docs/evidence/underworld_feedback_03/README.md"
+            ]
+          },
+          {
+            "path": "docs/evidence/underworld_feedback_03/verification/history",
+            "representative": "docs/evidence/underworld_feedback_03/verification/history/20261019T164643.182365Z/core.log",
+            "required_by": [
+              "docs/evidence/underworld_feedback_03/README.md"
+            ]
+          }
+        ],
+        "resolved_checks": {
+          "manifest": "tools/harness/profiles.json",
+          "manifest_sha256": "e4d0144a2937232d4bd29330426ab274ef19a4d447086590709ff070aaa722b4",
+          "cwd": "/workspace/gunman-rush",
+          "checks": [
+            {
+              "id": "docs",
+              "argv": [
+                "python3",
+                "tools/check_docs.py"
+              ],
+              "timeout_seconds": 60,
+              "success_pattern": "^PASS:"
+            },
+            {
+              "id": "world",
+              "argv": [
+                "python3",
+                "tools/check_world_design.py"
+              ],
+              "timeout_seconds": 60,
+              "success_pattern": "^PASS:"
+            },
+            {
+              "id": "world-design-tests",
+              "argv": [
+                "python3",
+                "tests/test_world_design.py"
+              ],
+              "timeout_seconds": 60,
+              "success_pattern": "^OK$"
+            },
+            {
+              "id": "structure",
+              "argv": [
+                "python3",
+                "tools/check_project.py"
+              ],
+              "timeout_seconds": 60,
+              "success_pattern": "^PASS: project structure"
+            },
+            {
+              "id": "harness-tests",
+              "argv": [
+                "python3",
+                "tests/test_harness.py"
+              ],
+              "timeout_seconds": 60,
+              "success_pattern": "^OK$"
+            },
+            {
+              "id": "quality-drills",
+              "argv": [
+                "python3",
+                "tools/quality_drills.py"
+              ],
+              "timeout_seconds": 60,
+              "success_pattern": "^PASS: 3"
+            },
+            {
+              "id": "quality-tests",
+              "argv": [
+                "python3",
+                "tests/test_quality.py"
+              ],
+              "timeout_seconds": 60,
+              "success_pattern": "^OK$"
+            },
+            {
+              "id": "quality",
+              "argv": [
+                "python3",
+                "tools/check_quality.py"
+              ],
+              "timeout_seconds": 60,
+              "success_pattern": "^PASS:"
+            },
+            {
+              "id": "production-loop-tests",
+              "argv": [
+                "python3",
+                "tests/test_production_loop.py"
+              ],
+              "timeout_seconds": 180,
+              "success_pattern": "^OK$"
+            },
+            {
+              "id": "terrain-tile-tests",
+              "argv": [
+                "python3",
+                "tests/test_terrain_tiles.py"
+              ],
+              "timeout_seconds": 60,
+              "success_pattern": "^OK$"
+            },
+            {
+              "id": "consumer-coverage-tests",
+              "argv": [
+                "python3",
+                "tests/test_consumer_coverage.py"
+              ],
+              "timeout_seconds": 60,
+              "success_pattern": "^OK$"
+            },
+            {
+              "id": "capture-tests",
+              "argv": [
+                "python3",
+                "tests/test_capture_actions.py"
+              ],
+              "timeout_seconds": 60,
+              "success_pattern": "^OK$"
+            },
+            {
+              "id": "level-design-contracts",
+              "argv": [
+                "python3",
+                "tests/test_level_design_contracts.py"
+              ],
+              "timeout_seconds": 60,
+              "success_pattern": "^OK$",
+              "inputs": [
+                "tools/level_design_contracts.py",
+                "tests/test_level_design_contracts.py",
+                "tools/level_design.py",
+                "tools/production_loop.py",
+                "tools/harness.py",
+                "tools/quality.py",
+                "docs/quality/policy.json",
+                "docs/quality/region_production_v3/forest_h_slice.md",
+                "tests/fixtures/level_design_v2/",
+                "docs/evidence/region_production_v3/forest_h_slice/"
+              ]
+            },
+            {
+              "id": "mechanism-comparisons",
+              "argv": [
+                "python3",
+                "tests/test_mechanism_comparisons.py"
+              ],
+              "timeout_seconds": 60,
+              "success_pattern": "^OK$"
+            },
+            {
+              "id": "level-design-analysis",
+              "argv": [
+                "python3",
+                "tests/test_level_design_analysis.py"
+              ],
+              "timeout_seconds": 60,
+              "success_pattern": "^OK$"
+            },
+            {
+              "id": "level-design-routing",
+              "argv": [
+                "python3",
+                "tests/test_level_design_routing.py"
+              ],
+              "timeout_seconds": 60,
+              "success_pattern": "^OK$"
+            },
+            {
+              "id": "level-design-golden-tests",
+              "argv": [
+                "python3",
+                "tests/test_level_design_golden.py"
+              ],
+              "timeout_seconds": 60,
+              "success_pattern": "^OK$"
+            },
+            {
+              "id": "level-region-context",
+              "argv": [
+                "python3",
+                "tests/test_level_region_context.py"
+              ],
+              "timeout_seconds": 60,
+              "success_pattern": "^OK$"
+            },
+            {
+              "id": "level-experience",
+              "argv": [
+                "python3",
+                "tests/test_level_experience.py"
+              ],
+              "timeout_seconds": 60,
+              "success_pattern": "^OK$"
+            },
+            {
+              "id": "level-formal-receipts",
+              "argv": [
+                "python3",
+                "tests/test_level_formal_receipts.py"
+              ],
+              "timeout_seconds": 60,
+              "success_pattern": "^OK$"
+            },
+            {
+              "id": "visual-director-tests",
+              "argv": [
+                "python3",
+                "tests/test_visual_director.py"
+              ],
+              "timeout_seconds": 60,
+              "success_pattern": "^OK$",
+              "inputs": [
+                "tools/visual_director.py",
+                "tests/test_visual_director.py",
+                "tools/level_formal.py",
+                "tools/level_formal_capture.gd",
+                "tools/production_loop.py",
+                "tools/harness/profiles.json"
+              ]
+            },
+            {
+              "id": "asset-family-tests",
+              "argv": [
+                "python3",
+                "tests/test_asset_family.py"
+              ],
+              "timeout_seconds": 60,
+              "success_pattern": "^OK$",
+              "inputs": [
+                "tools/asset_family.py",
+                "tests/test_asset_family.py"
+              ]
+            },
+            {
+              "id": "creative-direction",
+              "argv": [
+                "python3",
+                "tools/region_creative_direction.py",
+                "--directory",
+                "docs/creative_direction"
+              ],
+              "timeout_seconds": 30,
+              "success_pattern": "^PASS:"
+            },
+            {
+              "id": "creative-direction-tests",
+              "argv": [
+                "python3",
+                "tests/test_region_creative_direction.py"
+              ],
+              "timeout_seconds": 60,
+              "success_pattern": "^OK$"
+            },
+            {
+              "id": "underworld-pipeline",
+              "argv": [
+                "python3",
+                "tests/test_underworld_pipeline.py"
+              ],
+              "timeout_seconds": 180,
+              "success_pattern": "^OK$",
+              "inputs": [
+                "tools/underworld_pipeline.py",
+                "tests/test_underworld_pipeline.py",
+                "assets/underworld_plains",
+                "assets/style_exploration/anchors.json",
+                "assets/style_exploration/underworld/source",
+                "scripts/underworld_plains",
+                "scripts/ui",
+                "scripts/demo",
+                "scripts/generation/module_moving_platform.gd",
+                "scripts/world/shot_latch.gd",
+                "assets/fonts",
+                "assets/manifest.json"
+              ]
+            },
+            {
+              "id": "underworld-home-guard-tests",
+              "argv": [
+                "python3",
+                "tests/test_underworld_home_terrace_wrapper.py"
+              ],
+              "timeout_seconds": 90,
+              "success_pattern": "^OK$",
+              "inputs": [
+                "tools/run_underworld_home_terrace_tests.py",
+                "tests/test_underworld_home_terrace_wrapper.py",
+                "tests/fixtures/underworld_home_r2",
+                "assets/underworld_plains/home"
+              ],
+              "artifact_paths": []
+            },
+            {
+              "id": "region-bible-contract",
+              "argv": [
+                "python3",
+                "tools/region_creative_direction.py",
+                "--check-bibles"
+              ],
+              "timeout_seconds": 30,
+              "success_pattern": "^PASS: Bible registry",
+              "inputs": [
+                "tools/region_creative_direction.py",
+                "docs/world_regions.json",
+                "docs/creative_direction/bibles/registry.json",
+                "docs/creative_direction/bibles/user-request.json",
+                "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+                "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+                "docs/creative_direction/bibles/style-continuity-20261021.json",
+                "scripts/demo/plains_region_stage.gd",
+                "scripts/art/plains_terrain_study.gd",
+                "scripts/underworld_plains/underworld_terrain.gd",
+                "scripts/underworld_plains/underworld_terrain.gdshader",
+                "assets/underworld_plains/terrain/terrain_build.json",
+                "assets/underworld_plains/terrain/terrain.tres",
+                "assets/underworld_plains/terrain/terrain.png",
+                "assets/underworld_plains/terrain/source.png",
+                "scripts/art_foundation/blob47_rules.gd",
+                "scripts/art_foundation/pixel_formal_terrain.gd",
+                "scripts/art/plains_terrain_borders.gd",
+                "assets/style_exploration/underworld/source/licenses/publisher_page.txt",
+                "scripts/underworld_plains/underworld_player.gd",
+                "docs/creative_direction/bibles/style-continuity-20261021-v2.json",
+                "assets/underworld_plains/player_animation/animation_build.json",
+                "assets/underworld_plains/player_animation/run_sheet.png",
+                "assets/underworld_plains/player_animation/states_sheet.png"
+              ]
+            },
+            {
+              "id": "region-bible-tests",
+              "argv": [
+                "python3",
+                "tests/test_region_bible.py"
+              ],
+              "timeout_seconds": 30,
+              "success_pattern": "^OK$",
+              "inputs": [
+                ".agents/skills/gameplay-reviewer/SKILL.md",
+                ".agents/skills/region-generator/SKILL.md",
+                "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+                "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+                "docs/creative_direction/bibles/registry.json",
+                "docs/creative_direction/bibles/user-request.json",
+                "docs/creative_direction/thorn_forest.json",
+                "docs/creative_direction/windchime_plains.json",
+                "docs/current_state.md",
+                "docs/design/player_actions/README.md",
+                "docs/design/player_actions/regions_v0.3.md",
+                "docs/design/player_actions/weapons_v0.8.md",
+                "docs/evidence/level_autonomy/action_control_comparison.json",
+                "docs/evidence/level_autonomy/baseline_summary.json",
+                "docs/evidence/level_autonomy/final_validation/review.json",
+                "docs/evidence/plains_redesign/design_midreview/report.md",
+                "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/asset_contract_calibration/metrics.json.gz",
+                "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/asset_contract_calibration/report.md.source",
+                "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/final_outer_movie/receipt.json.gz",
+                "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/final_regression_review/c4/outer_render_failure_review.md.source",
+                "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/outer_no_live_png_movie/receipt.json.gz",
+                "docs/evidence/plains_redesign/q6_cliff_asset/atlas_measurements.json.gz",
+                "docs/evidence/plains_redesign/q6_cliff_asset/rejected_asset_provenance.json",
+                "docs/evidence/plains_redesign/render_timing_diagnosis/report.md",
+                "docs/evidence/plains_redesign/reward_entry/README.md",
+                "docs/evidence/plains_redesign/scene/completion_r1/scene/run_16jp0xow/positive.json.gz",
+                "docs/evidence/plains_redesign/scene/completion_r1/scene/run_gayoppet/positive.json.gz",
+                "docs/evidence/plains_redesign/scene/completion_r1/scene/run_lo0a897t/positive.json.gz",
+                "docs/evidence/plains_redesign/scene/completion_r1/scene/run_us9izlj2/info_actor.json.gz",
+                "docs/evidence/plains_redesign/scene/completion_r1/scene/run_us9izlj2/positive.json.gz",
+                "docs/evidence/plains_redesign/scene/completion_r1/scene/run_us9izlj2/receipt.json.gz",
+                "docs/evidence/plains_redesign/scene/completion_r1/scene_completion/current2_extra_touch/capture.json.gz",
+                "docs/evidence/plains_redesign/scene/completion_r1/scene_completion/current3_extra_touch/receipt.json.gz",
+                "docs/evidence/plains_redesign/scene/completion_r1/ui_parent_coordinates.json",
+                "docs/evidence/plains_redesign/scene_q6_rework/asset_gap.md.source",
+                "docs/evidence/region_production_v3/art/clock_regulator_court_v1/independent/review.json",
+                "docs/evidence/region_production_v3/art/woodland_two_depth_ridges_v1/independent/review.json",
+                "docs/evidence/region_production_v3/capture_input_timing/independent/review.final.json",
+                "docs/evidence/region_production_v3/check_preflight/independent/review.final.json",
+                "docs/evidence/region_production_v3/enemy/movie_source_v1.json",
+                "docs/evidence/region_production_v3/enemy/producer_scope_bridge.json",
+                "docs/evidence/region_production_v3/enemy_parent_integration/strict_review/review_report.md",
+                "docs/evidence/region_production_v3/final_delivery_50fb10c/independent/terrain_logging_patch.final_review.json",
+                "docs/evidence/region_production_v3/forest_fixture_preflight_independent/review.json",
+                "docs/evidence/region_production_v3/ivy_attachment_independent/review.json",
+                "docs/evidence/region_production_v3/root_bell_run_replay_independent/review.json",
+                "docs/evidence/region_production_v3/scene/closure/portable_closure.json",
+                "docs/evidence/region_production_v3/scene/closure/raw/build/region_production_v3/independent/V3-SCENE-01_review.json",
+                "docs/evidence/region_production_v3/scene/closure/raw/build/region_production_v3/pilot_map2_growth_v1/capture.log",
+                "docs/evidence/region_production_v3/scene/closure/raw/build/region_production_v3/pilot_map2_growth_v1/visual_capture.json",
+                "docs/evidence/region_production_v3/shared_environment_parent_review/sky_optimization_addendum.json",
+                "docs/evidence/region_production_v3/supported_bank_failed_02/candidate_family/production/formal_manifest_solids_inventory.json",
+                "docs/evidence/region_production_v3/terrain_parent_integration/independent/review.json",
+                "docs/evidence/region_production_v3/v11_analysis_consumer_independent/fresh_current_r3_acceptance.json",
+                "docs/evidence/region_production_v3/web_raw_closure_independent/review.json",
+                "docs/evidence/visual_director/recovery_checkpoint/static_v4_fixed_review.json",
+                "docs/quality/action_budget_spec.md",
+                "docs/quality/all_weapons_spec.md",
+                "docs/quality/level_lessons.json",
+                "docs/quality/plains_redesign_experience.md",
+                "docs/quality/plains_redesign_spatial.md",
+                "docs/quality/policy.json",
+                "docs/quality/weapon_feel_spec.md",
+                "docs/world_regions.json",
+                "resources/player/combat_energy.tres",
+                "resources/player/plains_shot_energy.tres",
+                "resources/player/traversal.tres",
+                "resources/weapons/blade_bloom.tres",
+                "resources/weapons/collapse_singularity.tres",
+                "resources/weapons/fan_shuriken.tres",
+                "resources/weapons/laser_cannon.tres",
+                "resources/weapons/machine_storm.tres",
+                "resources/weapons/magnetic_mine.tres",
+                "resources/weapons/magnetic_storm.tres",
+                "resources/weapons/moon_boomerang.tres",
+                "resources/weapons/motion.tres",
+                "resources/weapons/pulse_gun.tres",
+                "resources/weapons/recoil_bomb.tres",
+                "resources/weapons/remote_boomerang.tres",
+                "resources/weapons/shadow_shuriken.tres",
+                "resources/weapons/star_collapse.tres",
+                "resources/weapons/sustained_laser.tres",
+                "resources/weapons/triple_machine_gun.tres",
+                "scripts/builds/build_state.gd",
+                "scripts/combat/shot_energy_policy.gd",
+                "scripts/combat/weapon_catalog.gd",
+                "scripts/combat/weapon_definition.gd",
+                "scripts/demo/action_studio.gd",
+                "scripts/demo/demo_app.gd",
+                "scripts/demo/thorn_forest_region_stage.gd",
+                "scripts/generation/thorn_forest_region_assembler.gd",
+                "scripts/generation/thorn_forest_region_generator.gd",
+                "scripts/player/jump_ability.gd",
+                "scripts/player/traversal_ability.gd",
+                "scripts/resources/definitions/combat_energy_definition.gd",
+                "scripts/resources/definitions/shot_energy_definition.gd",
+                "scripts/resources/state/combat_energy_state.gd",
+                "scripts/run/run_profile.gd",
+                "tests/test_region_bible.py",
+                "tools/harness.py",
+                "tools/harness/profiles.json",
+                "tools/level_design.py",
+                "tools/level_experience.py",
+                "tools/level_formal.py",
+                "tools/level_region_context.py",
+                "tools/production_loop.py",
+                "tools/quality.py",
+                "tools/region_creative_direction.py",
+                "tools/visual_director.py",
+                "docs/creative_direction/bibles/style-continuity-20261021.json",
+                "scripts/demo/plains_region_stage.gd",
+                "scripts/art/plains_terrain_study.gd",
+                "scripts/underworld_plains/underworld_terrain.gd",
+                "scripts/underworld_plains/underworld_terrain.gdshader",
+                "assets/underworld_plains/terrain/terrain_build.json",
+                "assets/underworld_plains/terrain/terrain.tres",
+                "assets/underworld_plains/terrain/terrain.png",
+                "assets/underworld_plains/terrain/source.png",
+                "scripts/art_foundation/blob47_rules.gd",
+                "scripts/art_foundation/pixel_formal_terrain.gd",
+                "scripts/art/plains_terrain_borders.gd",
+                "assets/style_exploration/underworld/source/licenses/publisher_page.txt",
+                "scripts/underworld_plains/underworld_player.gd",
+                "docs/creative_direction/bibles/style-continuity-20261021-v2.json",
+                "assets/underworld_plains/player_animation/animation_build.json",
+                "assets/underworld_plains/player_animation/run_sheet.png",
+                "assets/underworld_plains/player_animation/states_sheet.png",
+                "docs/creative_direction/archive/creative-v5/thorn_forest.json"
+              ]
+            },
+            {
+              "id": "harness-artifact-archive-tests",
+              "argv": [
+                "python3",
+                "tests/test_harness_artifact_archive.py"
+              ],
+              "timeout_seconds": 60,
+              "success_pattern": "^OK$"
+            },
+            {
+              "id": "cloud-production-planner-tests",
+              "argv": [
+                "python3",
+                "tests/test_production_plan.py"
+              ],
+              "timeout_seconds": 60,
+              "success_pattern": "^Ran [1-9]\\d* tests in ",
+              "inputs": [
+                "tools/production_plan.py",
+                "config/production_impact.json",
+                "tools/harness.py",
+                "tools/harness/profiles.json",
+                "tests/test_production_plan.py"
+              ]
+            },
+            {
+              "id": "cloud-delivery-tests",
+              "argv": [
+                "python3",
+                "tests/test_cloud_delivery.py"
+              ],
+              "timeout_seconds": 60,
+              "success_pattern": "^Ran [1-9]\\d* tests in ",
+              "inputs": [
+                "tools/cloud_delivery.py",
+                "tools/preview_host_workflow.yml",
+                "tools/style_exploration_delivery.py",
+                "tools/check_web_bundle.py",
+                "tools/harness/profiles.json",
+                "tests/test_cloud_delivery.py"
+              ]
+            },
+            {
+              "id": "cloud-inputs-tests",
+              "argv": [
+                "python3",
+                "tests/test_cloud_inputs.py"
+              ],
+              "timeout_seconds": 60,
+              "success_pattern": "^OK$"
+            },
+            {
+              "id": "portable-frozen-assets",
+              "argv": [
+                "python3",
+                "tools/test_frozen_assets.py"
+              ],
+              "timeout_seconds": 60,
+              "success_pattern": "^OK$",
+              "inputs": [
+                "docs/evidence/plains_redesign/frozen_v9/"
+              ]
+            }
+          ]
+        },
+        "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+      },
+      "limits": "Missing-input plan from the existing preflight, not a complete static dependency graph. No checks ran. Unknown object sizes stay explicit until --materialize obtains only those selected blobs."
+    }
+  ],
+  "prefetch": [
+    {
+      "remote": "origin",
+      "objects": [
+        "0444ae085f99258797912c934601b92e0a5c5877",
+        "0e7ee76ffc9ecc4d2d25af313288d9742040580b",
+        "37d8e3f3cc1d9302d6a216ffafa7b84ea95ea34f",
+        "45d95eb3849632903ac64c6c7e2124ac1520650f",
+        "52752c0b2cf4f96ae86aa9956a3f16464b859962",
+        "5e4914af862e9e45cf262db90b6e8c66382cf9a6",
+        "60894596f133ebbf8d6be49146240e256dbdd9bf",
+        "6cfd304e1adbb3d68ea0549b7311a2fc66485eab",
+        "eba4743ae90f706c6123b7babc9463a7e29e9911"
+      ],
+      "status": "fetched",
+      "argv": [
+        "git",
+        "-c",
+        "fetch.negotiationAlgorithm=noop",
+        "-c",
+        "fetch.bundleURI=",
+        "-C",
+        "/workspace/gunman-rush",
+        "fetch",
+        "--no-tags",
+        "--no-write-fetch-head",
+        "--recurse-submodules=no",
+        "--filter=blob:none",
+        "--stdin",
+        "origin"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "materialized_bytes": 106030,
+  "sparse_patterns_changed": false,
+  "seconds": 3.713
+}

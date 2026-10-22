@@ -19,7 +19,7 @@ description: 主角整体设计、动作与操作表现的新增或成套改造�
 - G1：实际 InputRouter→能力→唯一 PlayerMotor→真实弹体/碰撞/资源。走完整开始结束，测试成功/失败/边界、地面/空中/墙面/移动参照系及连招。注入输入允许作为测试驱动；改位置/直接结果调用只能是注明的初始化，不能作为可玩证明。
 - G2：art-director 统一角色/装备母版，animation-vfx 实现整套动作与声音。左右朝向、不同瞄准角、连射/升级切换、跳跃反冲、受伤/死亡和落地的正常速度连续录像；相机、HUD、枪口、脚底不漂移。
 - G3：正式装备/能力授予、保存/读档/重载/切换、资源/伤害/奖励、暂停和旧请求取消、对象性能；原型菜单通过不能代替正式消费者。升级撤销/重复加载/旧存档、能力不足的路径必须有反例。
-- G4：运行适用 harness gameplay/art；独立审查比对设计、状态覆盖、连续画面及通用 [审查方法](../../../docs/quality/review_method.md)。修复后复审相同版本。
+- G4：按下文分层运行Harness与正式消费者；独立审查比对设计、状态覆盖、连续画面及通用 [审查方法](../../../docs/quality/review_method.md)。修复后复审相同版本。
 - G5：真实设备与用户分别确认手感、角色形象、动作、玩法价值；没有反馈保持未验，不能自行签最终认可。
 
 阶段交付：角色形象/状态与动作矩阵、真实操作原型、区域黄金合屏、不同武器/能力组合、连续录像和交接。
@@ -30,7 +30,9 @@ description: 主角整体设计、动作与操作表现的新增或成套改造�
 
 ## 自动验收
 
-先填写质量记录，执行 `python3 tools/harness.py --profile gameplay --profile art` 和相关状态/输入/保存专项；新增客观不变量用参数化与正反测试验证，不删除旧断言。记录版本、环境、退出码、场景/能力/Seed、轨迹和性能；运行 `python3 tools/quality.py check`，内容宣称完成再 `--require-complete`。
+先填写质量记录。日常Development按 `tools/production_plan.py` 选择相关专项、状态/输入/保存与正式消费者，不每次强制完整gameplay＋art；Integration覆盖受影响完整系统，未知full。最终仍执行原完整适用profile（包括适用时的 `python3 tools/harness.py --profile gameplay --profile art`）及Release门槛，局部结果不能升签整套；新增客观不变量用参数化与正反测试验证，不删除旧断言。记录版本、环境、退出码、场景/能力/Seed、轨迹和性能；运行 `python3 tools/quality.py check`，内容宣称完成再 `--require-complete`。
+
+交付按[生产入口](../../../docs/cloud_production.md#按验证需要选择最轻交付)：只需观察用真实MP4，必须操作用Web，两者都需则两份。
 
 ## 人工审查
 

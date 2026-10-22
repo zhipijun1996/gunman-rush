@@ -158,3 +158,31 @@ v18新场所用 `--profile forest-places-feedback`（基础20项）或 `--profil
 `tools/run_forest_places_feedback.py --suite core|library|all --output-dir build/<fresh>` 显式记录所选case ID；all仍保33项与原600秒，地图增长后的一次实际超时保留于[v18证据](evidence/forest_variety_04/README.md)，不能以拆套回写原失败。汇总须核实际任务身份、非空完整itinerary、身体支撑、fixture权限及真实OR结算；两个空列表相等不能放行。
 
 实际原生通行已获限定独审，但当前随机guard仍失败：新增平台矩形布置每map只有1种。guard仅用排序去重的rect/one_way与目标坐标，排除ID/instance/program/order/重复描述；这是必要结构检查，不能把微移/拆矩形/hash差异称趣味。新候选美术仍REWORK，不发布。原通过、严格guard实际拒绝及源码闭包分别保存在[本轮原件](evidence/forest_variety_03/README.md)，不倒签失败或为试玩重复完整CI。
+
+## 多 Cloud 三层影响验证
+
+[商业Demo生产入口](cloud_production.md)和[工作线模板](templates/cloud_workline.md)管理任务／交付，原Harness继续作为唯一执行器。`tools/production_plan.py --stage development|integration|release --base origin/main`先输出真实改动路径、命中原因、所选检查与升级理由，默认不执行；加`--execute`才调用原检查。原`--profile`、`--check`、失败码、预算、断言、缓存和fresh含义不变。
+
+Development每轮只跑一次docs，并补确定影响的专项及必要导入／解析／Web构建；Integration覆盖受影响系统、共享接口和真实正式消费者；Release沿原完整交付／CI、Windows／Web、GPU／音频、浏览器与公开包验证。未知范围、共享物理／RNG／保存／公共配置按保守完整范围升级。映射不能由任务声明缩减，也不能把用于缓存失效的整树`inputs`当作精确测试依赖证明。
+
+局部成功只签已执行范围；计划、未执行、超时、失败、设备与玩家未验保持原状态。开发Preview发布不等于Release；不能为每次反馈重复昂贵完整流程，也不能用窄检查替代正式合入／发布质量。自动分流以实际workflow为准，Release最终仍需原完整证据。
+
+## 稀疏检出与选定输入预检
+
+按任务加载上下文和历史输入，避免每次拉取全部媒体；[体积审计与提效边界](cloud_efficiency_audit.md)记录本轮数字。选定check／profile先规划所需版本、路径、SHA与物化量，复用原 `required_input_preflight` 的缺件拒绝原则，显式取得原件后再执行。预检／物化不产生测试通过，动态消费者和精确commit证据要求不变。
+
+新空目录可使用以下启动方式；不能用它覆盖正在开发的已有工作树。平台已经完成的全量clone不会因事后sparse而减少此前传输。
+
+```sh
+git clone --filter=blob:none --no-checkout --single-branch --branch main https://github.com/zhipijun1996/gunman-rush.git gunman-rush-cloud
+git -C gunman-rush-cloud sparse-checkout init --no-cone
+git -C gunman-rush-cloud sparse-checkout set --no-cone --stdin <<'PATTERNS'
+/*
+!/docs/evidence/
+PATTERNS
+git -C gunman-rush-cloud checkout main
+```
+
+本轮 `isolated_workspace` 直接初始化本地Git元数据、以只读alternates借用已有对象，再复制精确refs／HEAD／shallow／index／sparse规则及实际已物化源；不调用clone传包。保留staged／普通删除、新增、忽略和用户数据隔离。真实partial／promisor反例和真实root初始化均无对象运输；两lane原生核心、历史森林及开发入口已实际验证，范围与原失败见[提效证据](evidence/cloud_efficiency_01/README.md)，不升签完整CI／Release。归档迁移也须先实际恢复原字节SHA并跑原消费者，未证明闭包不清理历史证据。
+
+选定输入工具入口为 `python3 tools/cloud_inputs.py --check ID` 或 `--profile NAME`，两者均可重复，支持 `--commit <当前HEAD精确SHA>`、`--output build/<新报告>.json`。默认仅输出缺件按需物化计划，不宣称完整静态依赖图；显式加 `--materialize` 才按原preflight迭代取得嵌套索引所需原件。只允许物化skip-worktree缺件；禁止覆盖本地已有文件，普通删除、目标index漂移或非当前HEAD版本硬拒。HEAD与index路径集合变化／冲突须先提交或解决；允许其他同路径开发修改和无关build输出。对象大小在partial clone中未知时明确列unknown，显式获取后核原Git blob SHA与大小。默认计划退出2表示待物化、0表示输入ready、1表示阻塞，均不代表测试通过；报告只能新建于本工作树build目录。具体运行结果以本轮交接／原始收据为准。

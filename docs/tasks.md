@@ -37,6 +37,12 @@ FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试�
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
+| CLOUD-EFFICIENCY-01 | 稀疏Harness隔离、必需输入物化与Skills提效 | — | review | 修复并验证后随PR103合main，不删除历史证据或降低守门 |
+| PLAYER-PRESENTATION-01 | 主角连续动作代表样板 | CLOUD-EFFICIENCY-01 | planned | [本批Prompt与写集](demo_wave_01.md)；main合入后独立分支启动 |
+| ENEMY-FEEDBACK-01 | 两类普通怪物共享受击／死亡样板 | CLOUD-EFFICIENCY-01 | planned | [本批Prompt与写集](demo_wave_01.md)；保留不同生命感与正式伤害链 |
+| PLAINS-GOLDEN-01 | 平原两候选与黄金切片 | CLOUD-EFFICIENCY-01 | planned | [本批Prompt与写集](demo_wave_01.md)；Bible／共享母版不变，先比较再推广 |
+| CLOUD-PRODUCTION-01 | Cloud生产与交付机制 | — | review | [入口](cloud_production.md)；真实交付与完整门槛分别留证 |
+| CLOUD-PREVIEW-01 | 显式开发入口与录屏样例 | CLOUD-PRODUCTION-01 | review | 仅开发bootstrap；不改变默认游戏，不签品质或真机 |
 | MAIN-CLOSEOUT-20261022 | 统一现状源码与历史到main，建立并行开发基线 | PARALLEL-INTEGRATION-01 | done | [范围与并行入口](main_closeout_20261022.md)、[质量记录](quality/records/MAIN-CLOSEOUT-20261022.json)；已合PR102至main 9c349f44，全部开发head祖先闭包成立；原树不变，docs29通过，基线全CI成功，新main CI执行中 |
 | FOREST-VARIETY-04 | 六类探索场所、两图真实网络与每图8–12/15–20分钟初步体验目标 | FOREST-VARIETY-03 | in_progress | [设计](design/forest_exploration_v18.md)、[质量记录](quality/records/FOREST-VARIETY-04.json)；已接五类场所原型／奖励返回与种子先后，精确边界提速，Web e361已公开／双图四GUI入口通过；网状、更多模块、美术和真人时长未完成 |
 | FOREST-VARIETY-03 | 保留旧森林设计、扩模块库与真实随机回环，纠正首段曲线 | FOREST-EXPLORATION-02 | in_progress | [用户纠正](design/forest_variety_feedback_20261022.json)、[质量记录](quality/records/FOREST-VARIETY-03.json)；v16堆叠方向被用户否定，新内容未验收 |

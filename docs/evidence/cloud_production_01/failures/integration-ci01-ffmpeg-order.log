@@ -1,0 +1,57 @@
+affected	Exercise selection positive and negative cases	﻿2026-10-22T09:22:06.1769799Z ##[group]Run mkdir -p build/verification/production-ci
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.1770285Z [36;1mmkdir -p build/verification/production-ci[0m
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.1770851Z [36;1mpython3 tests/test_production_plan.py 2>&1 | tee build/verification/production-ci/selector-tests.log[0m
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.1771595Z [36;1mpython3 tests/test_cloud_delivery.py 2>&1 | tee build/verification/production-ci/delivery-tests.log[0m
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.1819742Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.1820114Z env:
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.1820318Z   PRODUCTION_STAGE: integration
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.1820649Z   PRODUCTION_BASE: 74d8a06b42cb2bc2c5023f1bfe1a4fbc4b163074
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.1820992Z   LIBGL_ALWAYS_SOFTWARE: 1
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.1821292Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.1821729Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.1822156Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.1822577Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.1822968Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.1823356Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.1823774Z   GUNMAN_TOOLCHAIN_ROOT: /home/runner/work/_temp/gunman-toolchains
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.1824125Z ##[endgroup]
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.3120711Z test_actual_nonzero_process_stops_later_commands (__main__.ProductionPlanTests.test_actual_nonzero_process_stops_later_commands) ... ok
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.3154244Z test_deleted_or_renamed_old_path_remains_a_real_impact (__main__.ProductionPlanTests.test_deleted_or_renamed_old_path_remains_a_real_impact) ... ok
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.3160044Z test_dependency_cycle_and_missing_consumer_fail_before_execution (__main__.ProductionPlanTests.test_dependency_cycle_and_missing_consumer_fail_before_execution) ... ok
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.3162593Z test_docs_do_not_export_or_claim_test_execution (__main__.ProductionPlanTests.test_docs_do_not_export_or_claim_test_execution) ... ok
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.3165801Z test_new_harness_check_or_policy_typo_is_not_silently_skipped (__main__.ProductionPlanTests.test_new_harness_check_or_policy_typo_is_not_silently_skipped) ... ok
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.3168962Z test_overlapping_changes_run_each_check_once (__main__.ProductionPlanTests.test_overlapping_changes_run_each_check_once) ... ok
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.3173171Z test_paths_cannot_escape_worktree (__main__.ProductionPlanTests.test_paths_cannot_escape_worktree) ... ok
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.3187635Z test_physics_rng_save_config_and_scene_cannot_hide_in_docs_changes (__main__.ProductionPlanTests.test_physics_rng_save_config_and_scene_cannot_hide_in_docs_changes) ... ok
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.3190666Z test_planner_policy_requires_own_regression_without_weakening_config_fallback (__main__.ProductionPlanTests.test_planner_policy_requires_own_regression_without_weakening_config_fallback) ... ok
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.3193503Z test_release_names_original_delivery_and_does_not_certify_full_profile (__main__.ProductionPlanTests.test_release_names_original_delivery_and_does_not_certify_full_profile) ... ok
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.3196083Z test_same_extension_does_not_grant_unknown_source_narrow_scope (__main__.ProductionPlanTests.test_same_extension_does_not_grant_unknown_source_narrow_scope) ... ok
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.3198500Z test_shared_player_has_short_feedback_then_full_integration (__main__.ProductionPlanTests.test_shared_player_has_short_feedback_then_full_integration) ... ok
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.3441856Z test_source_guard_rejects_actual_source_mutation (__main__.ProductionPlanTests.test_source_guard_rejects_actual_source_mutation) ... ok
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.3445473Z test_web_dependency_closure_exports_only_at_integration (__main__.ProductionPlanTests.test_web_dependency_closure_exports_only_at_integration) ... ok
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.3446488Z 
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.3446877Z ----------------------------------------------------------------------
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.3447800Z Ran 14 tests in 0.048s
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.3448022Z 
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.3448152Z OK
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.5720251Z E
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.5720792Z ======================================================================
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.5721259Z ERROR: setUpClass (__main__.DeliveryTests)
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.5721723Z ----------------------------------------------------------------------
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.5722152Z Traceback (most recent call last):
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.5722836Z   File "/home/runner/work/gunman-rush/gunman-rush/tests/test_cloud_delivery.py", line 48, in setUpClass
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.5723689Z     subprocess.run(['ffmpeg', '-nostdin', '-v', 'error', '-f', 'lavfi', '-i', 'color=c=blue:s=64x64:r=' + fps + ':d=' + duration,
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.5724468Z   File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/subprocess.py", line 548, in run
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.5725015Z     with Popen(*popenargs, **kwargs) as process:
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.5725349Z          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.5725902Z   File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/subprocess.py", line 1026, in __init__
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.5726497Z     self._execute_child(args, executable, preexec_fn, close_fds,
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.5727163Z   File "/opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/subprocess.py", line 1955, in _execute_child
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.5727828Z     raise child_exception_type(errno_num, err_msg, err_filename)
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.5728357Z FileNotFoundError: [Errno 2] No such file or directory: 'ffmpeg'
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.5728640Z 
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.5728873Z ----------------------------------------------------------------------
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.5729755Z Ran 0 tests in 0.007s
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.5730026Z 
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.5730236Z FAILED (errors=1)
+affected	Exercise selection positive and negative cases	2026-10-22T09:22:06.5870663Z ##[error]Process completed with exit code 5.

@@ -1,0 +1,47 @@
+{
+  "reviewer": "/root/independent_review",
+  "implementers": [
+    "/root",
+    "/root/audit_ci",
+    "/root/audit_delivery",
+    "/root/production_docs"
+  ],
+  "source_commit": "6ca72efb1cbdb38cf83ae91c097d192a35403ccd",
+  "verdict": "ACCEPT",
+  "scope": "Technical code and original guard preservation; subjective and full Release acceptance excluded",
+  "independent_executions": [
+    "14 planner tests",
+    "30 delivery tests",
+    "four workflows actionlint"
+  ],
+  "verified_original_facts": [
+    "158 original check dictionaries unchanged",
+    "all original profile prefixes unchanged",
+    "exact-source clean fresh three-check Harness report",
+    "real 25-assertion native consumers and audio release"
+  ],
+  "prior_finding": {
+    "source_commit": "f3bd1c3f777a19b3ddc4aa68f24e6ca5d2f70322",
+    "verdict": "REWORK",
+    "issue": "Standalone DemoApp could redirect recursively with --cloud-preview",
+    "fix": "Before add_child disable persistence and set cloud_preview_host; actual DemoApp consumer added"
+  },
+  "limits": [
+    "Final public verification is recorded independently in public-bytes.json and public-gui.json",
+    "Full docs/Release not signed",
+    "No user, art or physical-device acceptance"
+  ],
+  "final_evidence_review": {
+    "verdict": "ACCEPT",
+    "reviewer": "/root/independent_review",
+    "observed": [
+      "Public full PCK and MP4 hashes/lengths match source",
+      "Capture source clean/stable and both 720-frame traces equal",
+      "Exact-source fresh Harness and record evidence hashes agree",
+      "Actual browser screenshots, jump/shot events and OCR menu callback",
+      "Main before/after metadata equal",
+      "Original failures preserved; full docs/Release not signed"
+    ],
+    "scope_note": "Console retains one unlocated 404; errors=[] means selected engine/page error filter, not zero network failures. No subjective audio/art/feel/device approval."
+  }
+}

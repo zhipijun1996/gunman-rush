@@ -1,0 +1,248 @@
+{
+  "schema_version": 1,
+  "task_id": "CLOUD-PREVIEW-01",
+  "task_type": "small_fix",
+  "workflow": "review",
+  "baseline_commit": "74d8a06b42cb2bc2c5023f1bfe1a4fbc4b163074",
+  "reviewed_commit": "6ca72efb1cbdb38cf83ae91c097d192a35403ccd",
+  "content_version": "cloud-production-v1",
+  "owner": "/root",
+  "purpose": "Add an opt-in real Godot preview bootstrap and banner to exercise delivery without altering ordinary gameplay",
+  "player_experience": "Review real development evidence with source identity, return-to-full-game affordance and no main save access",
+  "constraints": [
+    "No core gameplay, physics, RNG, save or content batch changes",
+    "Preview-only DemoApp persistence disabled before ready and after menu reconstruction",
+    "Original checks/assertions/budgets and main/manual release jobs retained",
+    "Only explicit --cloud-preview redirects official entry; bootstrap-owned Apps bypass redirect and keep real menu; ordinary launch unchanged"
+  ],
+  "affected_paths": [
+    "config/production_impact.json",
+    "scenes/dev/cloud_preview.tscn",
+    "scripts/demo/demo_app.gd",
+    "scripts/dev/cloud_preview.gd",
+    "scripts/dev/cloud_preview.gd.uid",
+    "tests/cloud_preview_runner.gd",
+    "tests/cloud_preview_runner.gd.uid"
+  ],
+  "deliverables": [
+    "docs/cloud_production.md",
+    "docs/templates/cloud_workline.md",
+    "Real engine MP4, immutable Web Preview and actual validation receipts"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Reviewed finite workline and delivery contract",
+      "evidence": [
+        "spec"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Targeted guards and public examples passed; complete docs and full integration/Release remain unverified",
+      "evidence": [
+        "checks",
+        "review"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Passed only the explicitly recorded production-tool and opt-in preview scope",
+      "evidence": [
+        "spec"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Passed only the explicitly recorded production-tool and opt-in preview scope",
+      "evidence": [
+        "checks",
+        "public",
+        "gui"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Passed only the explicitly recorded production-tool and opt-in preview scope",
+      "evidence": [
+        "review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "contract",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "A Cloud workline starts from a fixed base with owned files and explicit evidence needs",
+      "method": "Review template and routing rules",
+      "expected": "Reproducible finite task and delivery contract",
+      "failure": "Unknown ownership, false evidence or unbounded shared writes",
+      "status": "passed",
+      "reason": "Contract implemented and independently reviewed",
+      "evidence": [
+        "spec"
+      ]
+    },
+    {
+      "id": "targeted-delivery",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "Real native/Web/MP4 examples from one clean frozen source",
+      "method": "Fresh original Harness, engine capture and public byte/GUI verification",
+      "expected": "All selected checks and real public examples match source; original guards retained",
+      "failure": "Fake media, wrong source, missing marker, changed original guard, main overwrite",
+      "status": "passed",
+      "reason": "Limited engineering scope has actual evidence; full gate remains pending",
+      "evidence": [
+        "checks",
+        "public",
+        "gui"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "spec",
+      "path": "docs/templates/cloud_workline.md",
+      "sha256": "0ef2975ece4870551e7a0f98e8dcb5f7f7b1b6fecc1c0a372533d83adebccc9c",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "6ca72efb1cbdb38cf83ae91c097d192a35403ccd",
+      "content_version": "cloud-production-v1",
+      "method": "Use the reviewed contract template and four task modes",
+      "observed": "Finite source/ownership/checkpoint/evidence contract"
+    },
+    {
+      "id": "checks",
+      "path": "docs/evidence/cloud_production_01/harness/report.json",
+      "sha256": "532728a659d9149c5eda7448644d67b7531b107dc5f03b9e1dd7e80bb30d631a",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "6ca72efb1cbdb38cf83ae91c097d192a35403ccd",
+      "content_version": "cloud-production-v1",
+      "method": "Original Harness fresh checks at exact clean source",
+      "observed": "14 planner + 30 delivery + 25 native assertions passed",
+      "command": "python3 tools/harness.py --check cloud-production-planner-tests --check cloud-delivery-tests --check cloud-preview-runtime --release",
+      "exit_code": 0,
+      "environment": "Linux cloud, Godot 4.7.2 Standard; software GPU and Chromium"
+    },
+    {
+      "id": "public",
+      "path": "docs/evidence/cloud_production_01/public-bytes.json",
+      "sha256": "cc07e5e13eea3442a6922ffeae7bc91a2b478d2dbf133422c78ccae9883d5e75",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "6ca72efb1cbdb38cf83ae91c097d192a35403ccd",
+      "content_version": "cloud-production-v1",
+      "method": "Actual anonymous HTTP downloads and complete SHA256 comparison",
+      "observed": "Public PCK and MP4 match; main build-info unchanged",
+      "command": "Python urllib GET + streamed SHA256 of actual public PCK/MP4 and main metadata",
+      "exit_code": 0,
+      "environment": "Linux cloud, Godot 4.7.2 Standard; software GPU and Chromium"
+    },
+    {
+      "id": "gui",
+      "path": "docs/evidence/cloud_production_01/public-gui.json",
+      "sha256": "bf55b36a5e2b02dd5ddbd7c97375d4f936667251ae78de71ef65302a5efe73d4",
+      "kind": "gui",
+      "producer": "/root",
+      "source_commit": "6ca72efb1cbdb38cf83ae91c097d192a35403ccd",
+      "content_version": "cloud-production-v1",
+      "method": "Actual browser WASM/input/OCR-derived click",
+      "observed": "Real action scene and isolated full menu callback; errors empty"
+    },
+    {
+      "id": "review",
+      "path": "docs/evidence/cloud_production_01/review.json",
+      "sha256": "7d2e75fff44a43eb79c4d1b1974a65dda00f4f2b8f8b80d12e87d28f769049df",
+      "kind": "review",
+      "producer": "/root/independent_review",
+      "source_commit": "6ca72efb1cbdb38cf83ae91c097d192a35403ccd",
+      "content_version": "cloud-production-v1",
+      "method": "Independent technical review and independent tests/lint",
+      "observed": "Technical ACCEPT; full Release and subjective/device scope excluded",
+      "reviewer": "/root/independent_review",
+      "implementers": [
+        "/root",
+        "/root/audit_ci",
+        "/root/audit_delivery",
+        "/root/production_docs"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Distinct read-only /root/independent_review agent did not implement these files; independently ran tests/lint and reviewed exact source, failures and original guard preservation."
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Complete docs profile needs historical evidence materialization; actual sparse failure retained",
+    "Full Integration/Release on current PR not signed",
+    "Player aesthetics, feel, fun, physical mobile/controller and performance remain unverified"
+  ],
+  "test_change_justification": "Only append three real checks; all 158 original check definitions and every original profile prefix remain identical. PR quality-diff and affected checks move to Production impact; original main/manual full CI remains. Independent review explicitly accepted this limited change."
+}

@@ -44,7 +44,7 @@ G5：用户评价动作连续性、反馈准确、操作流畅和视听可读性
 
 本轮 `build/region_bible_v2/ambience/native-third` 是71断言/5失败，原件保留；隔离手动释放fixture调度后的 `native-fourth` 为73/0、cleanup released=true及listed-source稳定。该Dummy音频局部消费者实证不签听音、正常速度合屏、正式campaign或设备，也不替代root全源守门。
 
-运行 harness art 与相关 gameplay；记录正式输入至视觉/声音事件的实际序列、暂停/慢时/重入反例，对象释放与帧时测量。没有音轨的录像不能证明声音，构建成功不能证明延迟预算。 记录实际命令、环境、退出码、日志和版本；计划命令不算执行。执行 [质量检查](../../../tools/quality.py)；静态检查、运行测试、实际宿主调用分别记证据。
+日常Development按 `tools/production_plan.py` 执行相关专项与正式消费者，Integration覆盖受影响完整系统、未知full；最终保留原完整适用art／gameplay和Release，不以局部结果升签整套。交付按[生产入口](../../../docs/cloud_production.md#按验证需要选择最轻交付)选择真实MP4／可操作Web／两者；记录正式输入至视觉/声音事件的实际序列、暂停/慢时/重入反例，对象释放与帧时测量。没有音轨的录像不能证明声音，构建成功不能证明延迟预算。 记录实际命令、环境、退出码、日志和版本；计划命令不算执行。执行 [质量检查](../../../tools/quality.py)；静态检查、运行测试、实际宿主调用分别记证据。
 
 ## 人工审查
 

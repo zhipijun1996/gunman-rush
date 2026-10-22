@@ -1,0 +1,53 @@
+{
+  "reviewer": "/root/independent_review",
+  "baseline": "97c060f",
+  "verdict": "REWORK",
+  "status": "pre-freeze review; implementation still in progress",
+  "scope": "Sparse isolation, selected-input materialization, failure/source preservation and proposed CI sequencing; excludes full Release and subjective quality",
+  "source_sha256": {
+    "tools/harness.py": "80695841a287c51a017ec59e440affd4cda27c334c2536e23bb877c78990f071",
+    "tests/test_harness.py": "2316c4776d76c11c8ee1a1c0b14f70f01a30b914d6da3fae9c1a93f1622e0de5",
+    "tools/cloud_inputs.py": "9414a4bb6d23b41709d316488701f89658c9c1f6793c3abd236423408d4abb5b",
+    "tests/test_cloud_inputs.py": "c933ec96be112e55e7bcc1dc14571d9266e7d3db9138118a1a4a1349ff2c5d79"
+  },
+  "executions": [
+    {
+      "command": "python3 tests/test_harness.py",
+      "exit_code": 0,
+      "tests": 83,
+      "log": "/workspace/scratch/independent-harness-direct-review.log"
+    },
+    {
+      "command": "python3 -m unittest discover -s tests -p test_harness.py -v",
+      "exit_code": 0,
+      "tests": 83,
+      "log": "/workspace/scratch/independent-harness-review.log"
+    },
+    {
+      "command": "python3 tests/test_cloud_inputs.py",
+      "exit_code": 0,
+      "tests": 14,
+      "log": "/workspace/scratch/independent-cloud-inputs-review.log"
+    }
+  ],
+  "findings": [
+    {
+      "id": "INPUTS-STAGED-DELETE-01",
+      "severity": "blocking for exact selected-input readiness",
+      "observation": "A required HEAD fixture removed from the current index is absent from preflight tracked inventory; make_plan returns ready with empty inputs/blockers although the selected consumer cannot read it.",
+      "reproduction": "Real CloudInputsTests sparse Git fixture; git update-index --force-remove docs/evidence/historical/fixture.json; make_plan(...checks=[historical]) => ready, inputs=[], blockers=[]",
+      "required_fix": "Reject relevant HEAD/index structural drift, preserve the staged deletion, and add a real Git staged-delete counterexample."
+    }
+  ],
+  "accepted_observations": [
+    "no-checkout avoids eager cold evidence checkout; actual smudge tripwire positive/negative control exercised",
+    "staged/working bytes, ordinary/staged deletions, additions, intent-to-add, skip-worktree, excludes, split-index and per-lane data preserved in actual Git tests",
+    "No existing Harness assertion or timeout removed in reviewed diff"
+  ],
+  "pending": [
+    "Final frozen source and repaired cloud_inputs retest",
+    "Proposed workflow sparse/hydrate/quality ordering not yet implemented",
+    "Actual selected historical consumer in isolated real repository",
+    "Full CI/release, user and devices not approved"
+  ]
+}
