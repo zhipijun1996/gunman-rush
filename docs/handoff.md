@@ -1,5 +1,12 @@
 # 最新交接：探索场所原型 v18
 
+## 当前主线收口（最新覆盖）
+
+2026-10-22已按用户明确要求通过PR102合main，合并SHA `9c349f44caa7e230b7784a340a839906cac58d0e`，PR101已merged，本地当前分支main且与远端一致。原93个开发head和新integration全部已含；5旧art head原祖先保留、当前树未切旧画风；15playtest＋1deploy产物不入源码，未删除旧分支。[盘点／独审／真实合入／源等价／docs29原件](evidence/main_closeout_20261022/README.md)。后续从最新origin/main独立分支／worktree直接提PR到main，勿继续串旧实验分支。
+
+基线767627f8完整CI已成功，新main CI39741355698／docs39741355652自动执行中，不能混作同一次fresh。后续纯文档提交保存回执，运行文件与合并提交完全不变。公开仍e361原型source263afd；main自动发布另核实际PCK。森林ART_REWORK／拓扑／模块库／真人计时／设备及平原未完成，不因Git收口升通过。下列原“未合main”及分支名为历史交接。
+
+
 2026-10-22，分支 `feature/region-bible-v2-forest`，草稿 [PR101](https://github.com/zhipijun1996/gunman-rush/pull/101) 未合 main。准确提交以 Git 为准。公开已更新为[探索原型 e361](current_state.md#当前公开试玩)，入口FOREST PLACES MAP 1/2，普通THORN_FOREST保留旧v15。
 
 ## 已实现和边界

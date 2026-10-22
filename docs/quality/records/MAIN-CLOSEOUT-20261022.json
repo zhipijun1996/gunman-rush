@@ -2,9 +2,9 @@
   "schema_version": 1,
   "task_id": "MAIN-CLOSEOUT-20261022",
   "task_type": "process",
-  "workflow": "in_progress",
+  "workflow": "done",
   "baseline_commit": "d7469f50282dfb3e363ebd68f3549860abf9672d",
-  "reviewed_commit": "d7469f50282dfb3e363ebd68f3549860abf9672d",
+  "reviewed_commit": "9c349f44caa7e230b7784a340a839906cac58d0e",
   "content_version": "main-closeout-v1",
   "owner": "/root",
   "purpose": "Consolidate all source development branch histories and latest implementation into main as the next parallel baseline",
@@ -28,9 +28,11 @@
   "formal_impact": false,
   "gates": {
     "G0": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Only Git/process closeout scope; actual requested main ancestry and preserved source verified",
+      "evidence": [
+        "closeout-spec"
+      ]
     },
     "G1": {
       "status": "not_applicable",
@@ -48,9 +50,11 @@
       "evidence": []
     },
     "G4": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Only Git/process closeout scope; actual requested main ancestry and preserved source verified",
+      "evidence": [
+        "actual-main"
+      ]
     },
     "G5": {
       "status": "not_applicable",
@@ -60,14 +64,18 @@
   },
   "dimensions": {
     "design": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Process-only requested consolidation and actual main source closure; no game quality promotion",
+      "evidence": [
+        "closeout-spec"
+      ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Process-only requested consolidation and actual main source closure; no game quality promotion",
+      "evidence": [
+        "actual-main"
+      ]
     },
     "formal_integration": {
       "status": "not_applicable",
@@ -115,11 +123,67 @@
       "evidence": []
     }
   },
-  "criteria": [],
-  "evidence": [],
+  "criteria": [
+    {
+      "id": "explicit-main-scope",
+      "scenario": "Consolidate current development without reactivating obsolete art or merging Web output trees",
+      "method": "Current verbatim user authorization plus branch classification and independent old-art audit",
+      "expected": "Source development represented in main; artifacts kept separately",
+      "failure": "Undocumented exclusion of live source or replacement with deployment output",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "Explicit authorized main closeout and separate recoverable history plan executed",
+      "evidence": [
+        "closeout-spec"
+      ]
+    },
+    {
+      "id": "main-closure",
+      "scenario": "All development source heads consolidated into actual remote main",
+      "method": "Every remote source/local head ancestor check, exact whole-tree comparison to reviewed candidate and12 original runtime subtrees",
+      "expected": "Zero missing source heads and no runtime reversal",
+      "failure": "Any source head missing or unexpected runtime/tree delta",
+      "gate": "G4",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "Actual main9c349 fetched and independently compared by Git operations; exact receipt archived",
+      "evidence": [
+        "actual-main"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "closeout-spec",
+      "path": "docs/evidence/main_closeout_20261022/user-request.json",
+      "sha256": "c476dca399ffcf458d0bde9294e9a17ff959ed3f9d21a02df4ff84b154722975",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "9c349f44caa7e230b7784a340a839906cac58d0e",
+      "content_version": "main-closeout-v1",
+      "method": "Verbatim current user merge authorization and explicit source/deployment classification",
+      "observed": "User requests all current development consolidated to main, then new parallel topics from main"
+    },
+    {
+      "id": "actual-main",
+      "path": "docs/evidence/main_closeout_20261022/main-verification.json",
+      "sha256": "136a3649663e6d70ecd2eab19894a10982d3856278492918b964ce24754db3c1",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "9c349f44caa7e230b7784a340a839906cac58d0e",
+      "content_version": "main-closeout-v1",
+      "method": "Actual fetched remote main and local main, every source tip ancestry and exact whole-tree comparison",
+      "observed": "No missing source/local tip; main9c349 equals reviewed candidate2c31 entire tree; all runtime roots unchanged",
+      "command": "python3 /tmp/verify-gunman-main-closeout.py",
+      "exit_code": 0,
+      "environment": "Actual fetched origin/main9c349 on local main; ordinary Git merge, no engine/runtime mutation"
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
-    "Candidate has not yet been merged remotely; do not claim task completion",
-    "New main CI/deployment tracked separately from original successful767627f8 run"
-  ]
+    "New main CI39741355698 and automated deployment still running when task closed; baseline success is separately scoped",
+    "Region content/ART/FUN/human duration/device tasks remain unfinished and unchanged"
+  ],
+  "production_snapshot": "36056c9501ef79b5dbf7789ad52b65d955da17f33c32a83235486d36df22a0b4"
 }
