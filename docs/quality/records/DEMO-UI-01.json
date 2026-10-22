@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "task_id": "DEMO-UI-01",
+  "task_type": "ui_feedback",
+  "workflow": "in_progress",
+  "baseline_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+  "reviewed_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+  "content_version": "clockwork-ui-v1",
+  "owner": "/root",
+  "purpose": "Unify public Demo title, menus, maps and data-bound heart/resource HUD",
+  "player_experience": "Read health and shot resources at a glance; navigate real menus with mouse, touch and gamepad; preserve existing game lifecycle",
+  "constraints": [
+    "Read-only gameplay/character/enemy/environment contracts",
+    "No Motor, damage, resource, ability grant, RNG or save rule changes",
+    "Preserve all original assertions and budgets",
+    "Central task/status/handoff owned by controller",
+    "User aesthetics and physical-device acceptance remain unverified"
+  ],
+  "affected_paths": [
+    "scripts/demo/demo_app.gd",
+    "scripts/demo/home_scene.gd",
+    "scripts/ui/demo_menu.gd",
+    "scripts/ui/demo_ui_01/clockwork_theme.gd",
+    "scripts/ui/demo_ui_01/clockwork_theme.gd.uid",
+    "scripts/ui/demo_ui_01/game_hud.gd",
+    "scripts/ui/demo_ui_01/game_hud.gd.uid",
+    "scripts/ui/demo_ui_01/heart_strip.gd",
+    "scripts/ui/demo_ui_01/heart_strip.gd.uid",
+    "scripts/ui/demo_ui_01/menu_clock.gd",
+    "scripts/ui/demo_ui_01/menu_clock.gd.uid",
+    "scripts/ui/demo_ui_01/menu_input.gd",
+    "scripts/ui/demo_ui_01/menu_input.gd.uid",
+    "scripts/ui/demo_ui_01/modal_metrics.gd",
+    "scripts/ui/demo_ui_01/modal_metrics.gd.uid",
+    "scripts/ui/demo_ui_01/modal_shell.gd",
+    "scripts/ui/demo_ui_01/modal_shell.gd.uid",
+    "scripts/ui/demo_ui_01/resource_track.gd",
+    "scripts/ui/demo_ui_01/resource_track.gd.uid",
+    "scripts/ui/item_shop_modal.gd",
+    "scripts/ui/menu_theme.gd",
+    "scripts/ui/plains_region_map_modal.gd",
+    "scripts/ui/region_progression_modal.gd",
+    "scripts/ui/stage_exit_modal.gd",
+    "scripts/ui/stage_reward_modal.gd",
+    "tests/demo_ui_01/contract_runner.gd",
+    "tests/demo_ui_01/contract_runner.gd.uid",
+    "tests/demo_ui_01/legacy_runner.gd",
+    "tests/demo_ui_01/legacy_runner.gd.uid",
+    "tests/demo_ui_01/movie_runner.gd",
+    "tests/demo_ui_01/movie_runner.gd.uid",
+    "tests/demo_ui_01/smoke_capture.gd",
+    "tests/demo_ui_01/smoke_capture.gd.uid"
+  ],
+  "deliverables": [
+    "Independent real Godot Web Preview",
+    "Real Godot before/after movie",
+    "Task checkpoint and scoped quality evidence"
+  ],
+  "creative_decisions": [
+    {
+      "decision": "Old-brass/parchment/emerald clockwork UI within the current pixel family",
+      "status": "proposed",
+      "basis": "User explicitly authorized autonomous UI design; actual playable direction awaiting feedback"
+    }
+  ],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "User visual/information-density approval",
+    "Physical mobile/gamepad devices",
+    "Complete Integration/Release by controller",
+    "Final Web build/deploy/movie in progress"
+  ]
+}

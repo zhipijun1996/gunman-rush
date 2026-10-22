@@ -2,20 +2,43 @@ class_name ItemShopModal
 extends CanvasLayer
 signal purchase_requested
 signal closed
-var opened:=false
+var opened := false
 var _root: Control
+var _shell: DemoUiModalShell
+var _submitted := false
+
 func show_offer(offer: ShopOffer, coins: int, eligible: bool) -> void:
-	close();opened=true;layer=30;process_mode=Node.PROCESS_MODE_ALWAYS
-	_root=Control.new();_root.theme=UnderworldUI.create_theme();_root.texture_filter=CanvasItem.TEXTURE_FILTER_NEAREST;_root.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);add_child(_root)
-	var shade:=ColorRect.new();shade.color=Color(0.025,.035,.04,.82);shade.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);_root.add_child(shade)
-	var center:=CenterContainer.new();center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT);_root.add_child(center)
-	var frame:=PanelContainer.new();frame.custom_minimum_size=Vector2(410,0);center.add_child(frame)
-	var rows:=VBoxContainer.new();rows.theme=DemoMenu.create_theme();rows.add_theme_constant_override("separation",12);frame.add_child(rows)
-	var title:=Label.new();title.text="CAMP SHOP / COINS %s / STOCK %s" % [coins,offer.stock];title.horizontal_alignment=HORIZONTAL_ALIGNMENT_CENTER;rows.add_child(title)
-	var card:=ItemCard.new();card.item=offer.item;rows.add_child(card)
-	var buy:=Button.new();buy.text="BUY / %s COINS" % offer.price;buy.custom_minimum_size.y=46;buy.disabled=not eligible or coins<offer.price or offer.stock<1;buy.pressed.connect(func(): purchase_requested.emit());rows.add_child(buy)
-	var back:=Button.new();back.text="KEEP EXPLORING";back.custom_minimum_size.y=44;back.pressed.connect(func(): closed.emit());rows.add_child(back);(back if buy.disabled else buy).grab_focus()
+	close()
+	opened = true
+	_submitted = false
+	layer = 30
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	_shell = DemoUiModalShell.new()
+	_shell.preferred_width = 420
+	_shell.preferred_height = 540
+	_root = _shell
+	add_child(_root)
+	_shell.heading("CAMP SHOP / 营地商店", "本局金币用于交易；永久音符不会在这里消费。", "COINS %s  /  STOCK %s" % [coins, offer.stock])
+	var card := ItemCard.new()
+	card.item = offer.item
+	_shell.rows.add_child(card)
+	var buy := _shell.button("BUY / %s COINS" % offer.price, func() -> void:
+		if _submitted: return
+		_submitted = true
+		purchase_requested.emit())
+	buy.disabled = not eligible or coins < offer.price or offer.stock < 1
+	if buy.disabled:
+		var reason := "已售罄 / SOLD OUT" if offer.stock < 1 else "金币不足 / NOT ENOUGH COINS" if coins < offer.price else "当前构筑无法获取 / BUILD LIMIT"
+		_shell.text(reason, 15, DemoClockworkTheme.BRASS)
+	var back := _shell.button("KEEP EXPLORING / 继续探索", func() -> void: closed.emit())
+	_shell.cancel_requested.connect(func() -> void: closed.emit())
+	(back if buy.disabled else buy).grab_focus()
+
 func close() -> void:
-	opened=false
-	if is_instance_valid(_root): remove_child(_root);_root.queue_free()
-	_root=null
+	opened = false
+	if is_instance_valid(_root):
+		if is_instance_valid(_shell): _shell.restore_focus()
+		remove_child(_root)
+		_root.queue_free()
+	_root = null
+	_shell = null
