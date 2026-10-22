@@ -11,6 +11,10 @@ func _init() -> void:
 	material = flash_material
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 
+func configure_underworld_palette(aerial: bool) -> void:
+	flash_material.set_shader_parameter("readable_material", 1.0)
+	flash_material.set_shader_parameter("copper_wings", 1.0 if aerial else 0.0)
+
 func present(texture: Texture2D, bounds: Rect2, offset: Vector2, angle: float, pose: Vector2, tint: Color, flash: float) -> void:
 	source = texture
 	destination = bounds

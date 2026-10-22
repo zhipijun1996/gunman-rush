@@ -1,0 +1,92 @@
+{
+  "before_source": "bd8d130f3677ba80d569f16c05feee1977450c02",
+  "after_source": "8f0fd51",
+  "input": "unchanged real Godot MovieMaker films; footer-only factual version labels on all frames; no interpolation/time remapping",
+  "commands": [
+    [
+      "ffmpeg",
+      "-y",
+      "-v",
+      "error",
+      "-i",
+      "docs/evidence/enemy_feedback_01/v4/movies/before-raw.mp4",
+      "-vf",
+      "drawbox=x=38:y=630:w=1200:h=34:color=0x0d141c:t=fill,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text=ENEMY-FEEDBACK-01 | V3 BASELINE - source bd8d130:x=54:y=641:fontsize=19:fontcolor=white",
+      "-c:v",
+      "libx264",
+      "-crf",
+      "18",
+      "-pix_fmt",
+      "yuv420p",
+      "-c:a",
+      "copy",
+      "docs/evidence/enemy_feedback_01/v4/movies/before.mp4"
+    ],
+    [
+      "ffmpeg",
+      "-y",
+      "-v",
+      "error",
+      "-i",
+      "docs/evidence/enemy_feedback_01/v4/movies/after-raw.mp4",
+      "-vf",
+      "drawbox=x=38:y=630:w=1200:h=34:color=0x0d141c:t=fill,drawtext=fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf:text=ENEMY-FEEDBACK-01 | V4 CANDIDATE - source 8f0fd51:x=54:y=641:fontsize=19:fontcolor=white",
+      "-c:v",
+      "libx264",
+      "-crf",
+      "18",
+      "-pix_fmt",
+      "yuv420p",
+      "-c:a",
+      "copy",
+      "docs/evidence/enemy_feedback_01/v4/movies/after.mp4"
+    ],
+    [
+      "ffmpeg",
+      "-y",
+      "-v",
+      "error",
+      "-i",
+      "docs/evidence/enemy_feedback_01/v4/movies/before.mp4",
+      "-i",
+      "docs/evidence/enemy_feedback_01/v4/movies/after.mp4",
+      "-filter_complex",
+      "[0:v]split=2[b0][b1];[0:a]asplit=2[ba0][ba1];[1:v]split=2[a0][a1];[1:a]asplit=2[aa0][aa1];[b0]trim=start=0.5:end=6.5,setpts=PTS-STARTPTS[v0];[ba0]atrim=start=0.5:end=6.5,asetpts=PTS-STARTPTS[s0];[a0]trim=start=0.5:end=7.5,setpts=PTS-STARTPTS[v1];[aa0]atrim=start=0.5:end=7.5,asetpts=PTS-STARTPTS[s1];[b1]trim=start=13.5:end=19.5,setpts=PTS-STARTPTS[v2];[ba1]atrim=start=13.5:end=19.5,asetpts=PTS-STARTPTS[s2];[a1]trim=start=13.5:end=20.5,setpts=PTS-STARTPTS[v3];[aa1]atrim=start=13.5:end=20.5,asetpts=PTS-STARTPTS[s3];[v0][s0][v1][s1][v2][s2][v3][s3]concat=n=4:v=1:a=1[v][a]",
+      "-map",
+      "[v]",
+      "-map",
+      "[a]",
+      "-c:v",
+      "libx264",
+      "-crf",
+      "18",
+      "-pix_fmt",
+      "yuv420p",
+      "-c:a",
+      "aac",
+      "docs/evidence/enemy_feedback_01/v4/movies/comparison.mp4"
+    ]
+  ],
+  "files": {
+    "before-raw.mp4": {
+      "bytes": 1379165,
+      "sha256": "730d9f45bd2059d0538e02ddc6f5f5a932aa1d48c35a8ebece22c16d61dbc0ee"
+    },
+    "before.mp4": {
+      "bytes": 1425746,
+      "sha256": "5a01848041f27494306cfa6a272d9876a82d1755e6c6ad0dbe47bd0c4b10dd10"
+    },
+    "after.mp4": {
+      "bytes": 1470258,
+      "sha256": "45127eb612eb4ce90dafbb719d2fe1de83630cb1691b59c3703b3e30f1ffd32e"
+    },
+    "comparison.mp4": {
+      "bytes": 1908835,
+      "sha256": "433822ce34a4cb515a3b97e1e4b524e92b59d46ec381f798b28f66a4546c73f8"
+    },
+    "after-raw.mp4": {
+      "bytes": 1423011,
+      "sha256": "07e06e1bad39c3c8628bd4b0c522d3f00af0efcf76dc702a9dcab8d50ae5cb2d"
+    }
+  }
+}

@@ -13,6 +13,7 @@ func _ready() -> void:
 		# Do not install WindchimeEnemyVisual's legacy anonymous HP listener too.
 		feedback_sample = EnemyFeedback01.new(actor.health, actor.definition)
 		feedback_body = EnemyFeedback01Body.new()
+		feedback_body.configure_underworld_palette(actor.definition.aerial)
 		feedback_body.name = "AcceptedHitBody"
 		# Keep the actor's world layer; only put its own HP/telegraphs above it.
 		feedback_body.show_behind_parent = true
@@ -80,9 +81,9 @@ func _remains_view() -> Dictionary:
 		height = size.y + 14
 	var rest_size := Vector2(width, height) * global_scale.abs()
 	if feedback_body.source != null:
-		return {"texture": feedback_body.source, "bounds": feedback_body.destination, "transform": feedback_body.global_transform, "face": face, "angle": global_rotation + feedback_body.rotation, "rest_size": rest_size}
+		return {"texture": feedback_body.source, "bounds": feedback_body.destination, "transform": feedback_body.global_transform, "face": face, "angle": global_rotation + feedback_body.rotation, "rest_size": rest_size, "readable_material": true, "rest_angle": 1.65 if actor.definition.aerial else 2.65}
 	# A saved terminal instance has no live body frame to hand off.
-	return {"texture": texture, "bounds": Rect2(-width*.5, size.y*.5-height, width, height), "transform": global_transform * Transform2D(0, Vector2(face, 1), 0, Vector2.ZERO), "face": face, "angle": global_rotation}
+	return {"texture": texture, "bounds": Rect2(-width*.5, size.y*.5-height, width, height), "transform": global_transform * Transform2D(0, Vector2(face, 1), 0, Vector2.ZERO), "face": face, "angle": global_rotation, "readable_material": true, "rest_angle": 1.65 if actor.definition.aerial else 2.65}
 
 func _feedback_initialized(result: ActorResourceResult) -> void:
 	if result == null or result.operation != &"initialize" or result.snapshot.epoch != actor.health.epoch: return

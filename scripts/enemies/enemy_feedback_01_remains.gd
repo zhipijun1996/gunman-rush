@@ -80,7 +80,10 @@ func _capture() -> void:
 	global_position = pose * rect.get_center()
 	_face = float(data.face)
 	_start_angle = float(data.angle)
-	_rest_angle = (.96 if _aerial else .22) * _face
+	_rest_angle = float(data.get("rest_angle", .96 if _aerial else .22)) * _face
+	flash_material.set_shader_parameter("readable_material", 1.0 if data.get("readable_material", false) else 0.0)
+	flash_material.set_shader_parameter("copper_wings", 1.0 if _aerial else 0.0)
+	flash_material.set_shader_parameter("lifeless", 0.0)
 	rotation = _start_angle
 	scale = Vector2.ONE
 	_start_layers.clear()
@@ -213,6 +216,7 @@ func _restore_static() -> void:
 	# A void has no invented floating corpse. No new fall/flash/debris on restore.
 	visible = _has_floor
 	flash_material.set_shader_parameter("hit_flash", 0.0)
+	flash_material.set_shader_parameter("lifeless", 1.0)
 	queue_redraw()
 
 func _physics_process(delta: float) -> void:
@@ -284,14 +288,14 @@ func _process(_delta: float) -> void:
 	if _sample == null or not active or get_tree().paused: return
 	if settled: return
 	flash_material.set_shader_parameter("hit_flash", 0.0 if restored else _sample.flash_strength())
+	flash_material.set_shader_parameter("lifeless", smoothstep(.12, .38, age))
 	queue_redraw()
 
 func _draw() -> void:
 	if not active or source == null: return
-	# Authored pixels/material stay intact; only a restrained value settle marks
-	# lifelessness. This is not a claim of newly authored death-animation frames.
-	var quiet := smoothstep(.10, .32, age) if not restored else 1.0
-	var tint := Color.WHITE.lerp(Color(.87, .89, .85), quiet)
+	# The shader quiets material saturation; never hide a corpse in dark alpha.
+	# Source pixels remain unchanged. Rotation is not a new authored death frame.
+	var tint := Color.WHITE
 	var blend := smoothstep(0, .18, age) if not restored else 1.0
 	if not _start_layers.is_empty() and blend < 1:
 		# Retain all original blended frames and the exact shear/basis on handoff.
