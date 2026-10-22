@@ -1421,6 +1421,9 @@ func _layout_region_hud() -> void:
 	var best:=Vector2(12,8)
 	var score:=INF
 	for candidate:Vector2 in hud_candidates:
+		# Compact resource labels extend beyond the old fixed bottom slot.
+		# Score the real in-viewport panel position, including its full height.
+		candidate=candidate.clamp(viewport.position+Vector2(8,8),viewport.end-_hud_frame.size-Vector2(8,8))
 		var bounds:=Rect2(candidate,_hud_frame.size).grow(5)
 		if touch_regions.any(func(region: Rect2):return region.intersects(bounds)):continue
 		var overlap:=0.0
