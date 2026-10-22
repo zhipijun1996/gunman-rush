@@ -2,7 +2,7 @@
 
 ## 检查点 1：复用与代表对象
 
-基线 `origin/main e9ab0e0743466b8983e34cc7de17bab1abf9d53a`（PR103实际合并），独立分支 `feature/enemy-feedback-01-accepted-sample`，工作区 `/workspace/gunman-rush-work`。运行源 `82940b7f057d74bfadf5855b1d489c38619c4a00`；草稿[PR104](https://github.com/zhipijun1996/gunman-rush/pull/104)。任务类型 animation；采用 animation-vfx、game-quality-gate，未扩展行为，因此不触发 enemy-creator。
+基线 `origin/main e9ab0e0743466b8983e34cc7de17bab1abf9d53a`（PR103实际合并），独立分支 `feature/enemy-feedback-01-accepted-sample`，工作区 `/workspace/gunman-rush-work`。v1运行源 `82940b7f057d74bfadf5855b1d489c38619c4a00`；草稿[PR104](https://github.com/zhipijun1996/gunman-rush/pull/104)。任务类型 animation；采用 animation-vfx、game-quality-gate，未扩展行为，因此不触发 enemy-creator。
 
 选择 `resources/enemies/plains_charger.tres`（plains_charger，地面冲锋）与 `resources/enemies/plains_diver.tres`（plains_diver，空中俯冲）。两者现有碰撞均28×32；选择依据是不同支撑/运动方式和现有身体轮廓，不冒称尺寸差异，不改Definition。地面保持脚底锚与冲锋节拍，空中保留flutter/lean与俯冲预告；分别用较宽的压缩和较轻的纵向反应。
 
@@ -58,3 +58,22 @@
 最终docs实跑：docs/world/world-design-tests/structure/harness-tests/quality-drills/quality-tests七项通过；quality因中央任务planned与卡review不一致失败，其余fail-fast未执行。单卡quality.py check errors=[]、内容判定仍REJECT（当前音色被用户拒绝），记录格式一致不代表内容通过。PR自动Integration状态另以Actions实际结果为准，执行中不签通过。
 
 恢复命令：先核PR104当前head与运行源三生产文件SHA（review-v2.md），再运行 `python3 tools/production_plan.py --stage integration --base origin/main`。原生专项命令与正式App命令见证据入口。运行与音频试听产物、完整门槛及用户反馈分开，不以文档提交冒称新运行构建。
+
+
+## 2026-10-22 用户返工 · feedback-sample-v2
+
+音效按用户最新指令暂不处理；未来由人物按当前武器管理。本轮不改正式音频，也不继续音色试听选型。此前用户对音色的负面评价与离线候选保留在v1证据，不自动变成通过。
+
+用户看到击退但看不到Underworld变色。复核发现暗像素的乘法染色不能产生足够明亮的受击轮廓；正式Underworld链也没有消费样板的受击碎片。本轮只在既定charger/diver双样板中修复：共享接受事件状态提供0.12秒flash envelope，Underworld身体叶节点使用实例私有shader把RGB短暂混到奶油色，保留原alpha、原动作姿态与材质退出；血条和预告不被染色。身体仍处于原actor的世界绘制层，仅在自身血条/预告之后绘制；不写父类死亡时间、visible、modulate.a。
+
+两套继承链分别挂同一个任务专属像素碎片组件：普通接受命中14片，致死18片；奶油/旧铜共族、2wu像素步长、短寿命、小范围有方向散开，最多3组。世界接触点来自真实context，不跟着怪物漂走，不复用拒绝命中的碰撞火花冒充HP提交。不生成音频、碰撞、奖励或新伤害，不新增信号。
+
+独立审查指出暂停时restore可能留下已缓存的身体闪色。增加只消费现有HealthState.initialize的清屏监听，立即清除自有身体/碎片缓存；不依赖暂停中的_process推进。GPU专项用第二发真实弹体后暂停，再调用正式restore_instance_health(0)作为反例，直接读实际屏幕像素；不是直接调用反馈方法伪造命中。
+
+当前生产源固定为 `5de1eca1f3150289c2dc3bc72b206ac2efc326d9`。新录制仍为同驱动、同Seed/输入/镜头/分辨率的显式战斗fixture，并不是正式人物/正式地形的美术黄金。v2实际执行、像素原件、前后短片与独立审查见[v2入口](evidence/enemy_feedback_01/v2/README.md)，v1历史不覆盖或追签。
+
+用户同时明确拒绝现有整体美术，要求各种运动都有实际动画帧。本轮已完成[材质/轮廓建议与两对象逐状态动作卡](enemy_feedback_01_art_direction.md)，没有制作新PNG/图集或批量推广。当前每物种一张身体PNG，整图位移/缩放/翻转不算新帧；全套待机、移动、转向、预警、攻击、恢复、受伤、死亡及空中拍翼/拉起图集仍未完成。质量记录visual/animation保持failed，不以本次闪色/粒子修订代签。后续新资产优先使用任务专属atlas/manifest，正式绑定/共享资产路径须由总控分配。
+
+完整Integration、中央任务planned/review同步和两远端候选收敛仍未完成；不合main。此文件是本线写集内的版本化交接，中央handoff/tasks由总控持有。
+
+本轮最终独立专项240/0、默认正式App50/0、GPU50/0；原Harness四项受影响定向回归通过；最终短片12次真实HP提交/4次死亡，1200玩法帧与旧源完全一致。新docs profile前7项通过、quality仍因中央planned/review不一致失败；单卡格式和diff写集守门通过不代表整体任务完成。新生产文件及UID均已完整纳入质量写集，保留上轮CI漏记UID的真实失败。
