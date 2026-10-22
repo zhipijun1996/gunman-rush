@@ -2,9 +2,9 @@
   "schema_version": 1,
   "task_id": "ENEMY-FEEDBACK-01",
   "task_type": "animation",
-  "workflow": "in_progress",
+  "workflow": "review",
   "baseline_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
-  "reviewed_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+  "reviewed_commit": "82940b7f057d74bfadf5855b1d489c38619c4a00",
   "content_version": "feedback-sample-v1",
   "owner": "/root",
   "purpose": "Two existing ordinary enemies share accepted-hit feedback state across both original and formal Underworld rendering chains.",
@@ -21,113 +21,501 @@
     "scripts/enemies/enemy_feedback_01.gd",
     "tests/enemy_feedback_01_tests.gd",
     "tools/enemy_feedback_01_capture.gd",
-    "tools/capture_enemy_feedback_01.py"
+    "tools/capture_enemy_feedback_01.py",
+    "tools/enemy_feedback_01_audio_probe.gd",
+    "tools/enemy_feedback_01_audio_candidates.py"
   ],
   "deliverables": [
-    "docs/enemy_feedback_01.md",
-    "docs/evidence/enemy_feedback_01/README.md"
+    "docs/evidence/enemy_feedback_01/after.mp4",
+    "docs/evidence/enemy_feedback_01/comparison.mp4",
+    "docs/evidence/enemy_feedback_01/audio-comparison-25s.wav",
+    "docs/enemy_feedback_01.md"
   ],
-  "creative_decisions": [],
+  "creative_decisions": [
+    {
+      "status": "not_required",
+      "decision": "Preserve existing two ordinary enemies; no new AI/design or global art direction.",
+      "basis": "User scope limits presentation sample; behavior/definition assets unchanged."
+    },
+    {
+      "status": "proposed",
+      "decision": "Physical/mechanical gun and compact hit audio auditions.",
+      "basis": "User rejects current electronic timbre; no candidate selection or production audio allocation yet."
+    }
+  ],
   "formal_impact": true,
   "gates": {
     "G0": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Reuse audit, exact ownership and representative sample specification.",
+      "evidence": [
+        "spec"
+      ]
     },
     "G1": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "Actual projectile contracts passed; whole technical gate awaits controller/global checks.",
+      "evidence": [
+        "native",
+        "formal"
+      ]
     },
     "G2": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "Actual video/audio exists but full playback/listening and audio rework outstanding.",
+      "evidence": [
+        "video",
+        "comparison",
+        "audio_feedback"
+      ]
     },
     "G3": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "Default Plains formal sample observed; full affected consumer Integration unverified.",
+      "evidence": [
+        "formal_trace"
+      ]
     },
     "G4": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "Independent technical sample accepted; full original integration and central index must close before total G4.",
+      "evidence": [
+        "native",
+        "formal",
+        "review"
+      ]
     },
     "G5": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "User/physical device acceptance absent; original audio feedback negative.",
+      "evidence": [
+        "audio_feedback"
+      ]
     }
   },
   "dimensions": {
     "design": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Existing accepted-event system reused; two default species/chain-specific ownership and falsifiable sample agreed within user scope.",
+      "evidence": [
+        "spec"
+      ]
     },
     "technical": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "154/0 and44/0 independently passed plus original targeted consumers; global task-index/docs and full Integration still outstanding.",
+      "evidence": [
+        "native",
+        "formal",
+        "affected"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "Default Plains actual kills/drop/reload verified; complete affected consumers including retained forest feedback remain controller Integration obligations.",
+      "evidence": [
+        "formal_trace"
+      ]
     },
     "visual": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "Expert sampled actual neighboring pixels; no complete normal-speed playback/user visual acceptance.",
+      "evidence": [
+        "video",
+        "review"
+      ]
     },
     "animation": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "Real source-stable before/after provided; full continuous human/AI playback not claimed.",
+      "evidence": [
+        "video",
+        "comparison",
+        "review"
+      ]
     },
     "audio_vfx": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "failed",
+      "reason": "User explicitly rejects current electronic timbre. Actual three-cue cluster diagnosed; offline A/B is proposed, production audio unchanged.",
+      "evidence": [
+        "audio_feedback",
+        "audio_probe"
+      ]
     },
     "gameplay": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "No gameplay rules changed; player feel and readability not yet accepted.",
+      "evidence": [
+        "spec"
+      ]
     },
     "performance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "No new nodes/timers allocated by component and release tested; offline renderer is not target-device performance evidence.",
+      "evidence": [
+        "native"
+      ]
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Independent limited technical sample ACCEPT; does not sign full Integration or subjective content.",
+      "evidence": [
+        "review"
+      ]
     },
     "device": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "No physical device measurement. ",
       "evidence": []
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "Visual sample and audio candidates not yet accepted; original negative audio quote preserved.",
+      "evidence": [
+        "audio_feedback"
+      ]
     }
   },
-  "criteria": [],
-  "evidence": [],
-  "consumer_coverage": null,
+  "criteria": [
+    {
+      "id": "scope",
+      "scenario": "Two species across distinct chains",
+      "method": "Read real installer, ownership and formal contracts",
+      "expected": "Reuse current damage/health/death/drop; no duplicate gameplay service",
+      "failure": "Unowned writes or one-chain-only integration",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "Bounded spec and independent source inspection.",
+      "evidence": [
+        "spec"
+      ]
+    },
+    {
+      "id": "matrix",
+      "scenario": "Charger/diver original and formal installer",
+      "method": "Real Router/projectile accepted HP and lifecycle counterexamples",
+      "expected": "2 hurt and1 death, rejects unchanged, pause/slowtime/unload correct",
+      "failure": "Feedback without accepted HP, duplicate death, stale callback",
+      "gate": "G1",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "154 independently repeated assertions.",
+      "evidence": [
+        "native",
+        "native_trace"
+      ]
+    },
+    {
+      "id": "default_app",
+      "scenario": "Real generated ordinary enemies and same-map rebuild",
+      "method": "Initial safe player fixture then legal actual combat and App drop flow",
+      "expected": "One configured receipt/pickup or none; restored corpse silent",
+      "failure": "Duplicate settlement or fresh death on reload",
+      "gate": "G3",
+      "dimension": "formal_integration",
+      "status": "passed",
+      "reason": "44 independently repeated assertions limited to named default objects.",
+      "evidence": [
+        "formal",
+        "formal_trace"
+      ]
+    },
+    {
+      "id": "media",
+      "scenario": "Four real engine feedback cases",
+      "method": "Compare identical gameplay trace and sampled neighboring pixels",
+      "expected": "Materials/outline preserved, bounded recovery/fade",
+      "failure": "Fake hit or recurring terminal performance",
+      "gate": "G2",
+      "dimension": "animation",
+      "status": "unverified",
+      "reason": "Real media and sampled expert observations; full normal-speed playback/user feel still pending.",
+      "evidence": [
+        "video",
+        "review"
+      ]
+    },
+    {
+      "id": "review_scope",
+      "scenario": "Independent implementation audit",
+      "method": "Separate author reruns actual commands and pixels",
+      "expected": "Scoped judgment with raw failures retained",
+      "failure": "Self-review presented as independent total acceptance",
+      "gate": "G4",
+      "dimension": "independent_review",
+      "status": "passed",
+      "reason": "Separate agent limited ACCEPT.",
+      "evidence": [
+        "review"
+      ]
+    },
+    {
+      "id": "audio_rework",
+      "scenario": "Current gun/hit audio",
+      "method": "Original user feedback + actual App voice trace",
+      "expected": "Physical timbre with clear accepted-hit hierarchy",
+      "failure": "Electronic notification-like timbre or unrelated cues masking hit",
+      "gate": "G2",
+      "dimension": "audio_vfx",
+      "status": "failed",
+      "reason": "Current production audio is not accepted; offline candidates pending.",
+      "evidence": [
+        "audio_feedback",
+        "audio_probe"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "spec",
+      "path": "docs/enemy_feedback_01.md",
+      "sha256": "fbf990db4c2c2d512f6f5668232f65845348f2b06c0e937e8b57c517ac46304f",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "82940b7f057d74bfadf5855b1d489c38619c4a00",
+      "content_version": "feedback-sample-v1",
+      "method": "Inspect the named exact source-bound artifact; limits stated in task evidence README.",
+      "observed": "Two selected species, two chains, ownership, state/anchor/time and falsifiable scope."
+    },
+    {
+      "id": "native",
+      "path": "docs/evidence/enemy_feedback_01/review-v2-native.log",
+      "sha256": "8da029ece18e48db4bf6c9f4c18b4c98b4de9e494829a58b0775af74dbbe8747",
+      "kind": "command",
+      "producer": "/root/feedback_review",
+      "source_commit": "82940b7f057d74bfadf5855b1d489c38619c4a00",
+      "content_version": "feedback-sample-v1",
+      "method": "Inspect the named exact source-bound artifact; limits stated in task evidence README.",
+      "observed": "Independent 154 checks, zero failures and clean exit.",
+      "command": "timeout 120 bash tools/godot.sh --headless --path . --fixed-fps 60 --script res://tests/enemy_feedback_01_tests.gd",
+      "exit_code": 0,
+      "environment": "Linux x86_64 Godot 4.7.2 Standard, fixed60 headless; explicit arena fixture"
+    },
+    {
+      "id": "formal",
+      "path": "docs/evidence/enemy_feedback_01/review-v2-formal.log",
+      "sha256": "515c2ed3a09a6225b9f9926128d902e1e99533935ca884a17259c0a889a85bda",
+      "kind": "command",
+      "producer": "/root/feedback_review",
+      "source_commit": "82940b7f057d74bfadf5855b1d489c38619c4a00",
+      "content_version": "feedback-sample-v1",
+      "method": "Inspect the named exact source-bound artifact; limits stated in task evidence README.",
+      "observed": "Independent default DemoApp 44 checks, real projectiles/drop/rebuild; explicit initial player position fixture.",
+      "command": "timeout 120 bash tools/godot.sh --headless --path . --fixed-fps 60 --script res://tests/enemy_feedback_01_formal.gd",
+      "exit_code": 0,
+      "environment": "Linux x86_64 Godot 4.7.2 Standard, default generated Plains map"
+    },
+    {
+      "id": "native_trace",
+      "path": "docs/evidence/enemy_feedback_01/review-v2-runtime.json",
+      "sha256": "cee274ef210063949a1c071ce081ce3b6b3143d27af8dc5251c24095ec7f4bb9",
+      "kind": "runtime_trace",
+      "producer": "/root/feedback_review",
+      "source_commit": "82940b7f057d74bfadf5855b1d489c38619c4a00",
+      "content_version": "feedback-sample-v1",
+      "method": "Inspect the named exact source-bound artifact; limits stated in task evidence README.",
+      "observed": "Observed two species x two rendering chains actual accepted-projectile outcomes.",
+      "consumers": [
+        "original_charger",
+        "original_diver",
+        "underworld_installer_charger",
+        "underworld_installer_diver"
+      ]
+    },
+    {
+      "id": "formal_trace",
+      "path": "docs/evidence/enemy_feedback_01/review-v2-formal-runtime.json",
+      "sha256": "919831d44cf483fe510003267a00d63ad411fdd300d6902d2b15ce467abddc9e",
+      "kind": "runtime_trace",
+      "producer": "/root/feedback_review",
+      "source_commit": "82940b7f057d74bfadf5855b1d489c38619c4a00",
+      "content_version": "feedback-sample-v1",
+      "method": "Inspect the named exact source-bound artifact; limits stated in task evidence README.",
+      "observed": "Actual generated charger coin drop, diver none, one death each, reload preserves receipts without new audio/performance.",
+      "consumers": [
+        "default_plains_app"
+      ]
+    },
+    {
+      "id": "consumers",
+      "path": "docs/evidence/enemy_feedback_01/consumers.json",
+      "sha256": "7cbcb282bfd593f17ec1c1788e5c826e419472744575f0cc33ae6537acbb3125",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "82940b7f057d74bfadf5855b1d489c38619c4a00",
+      "content_version": "feedback-sample-v1",
+      "method": "Inspect the named exact source-bound artifact; limits stated in task evidence README.",
+      "observed": "Combines actual runtime inventory and explicitly labelled source-discovered integration gaps."
+    },
+    {
+      "id": "review",
+      "path": "docs/evidence/enemy_feedback_01/review-v2.md",
+      "sha256": "86e702c40defc83f030f8dbd3cc25fc573998cbb88669525a66134244d63a37e",
+      "kind": "review",
+      "producer": "/root/feedback_review",
+      "source_commit": "82940b7f057d74bfadf5855b1d489c38619c4a00",
+      "content_version": "feedback-sample-v1",
+      "method": "Inspect the named exact source-bound artifact; limits stated in task evidence README.",
+      "observed": "Independent technical sample ACCEPT; full playback/listening/forest feedback/full Integration/user/device unverified.",
+      "reviewer": "/root/feedback_review",
+      "implementers": [
+        "/root",
+        "/root/feedback_tests",
+        "/root/capture_driver",
+        "/root/audio_audit"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Separate read-only agent authored no production/test code, independently executed both native consumers and inspected decoded source-bound pixels."
+    },
+    {
+      "id": "video",
+      "path": "docs/evidence/enemy_feedback_01/after.mp4",
+      "sha256": "b7faf7a276ef310616ea0a77e32b9916edf18c3c53e1078a5b7614e92ea91bad",
+      "kind": "video",
+      "producer": "/root",
+      "source_commit": "82940b7f057d74bfadf5855b1d489c38619c4a00",
+      "content_version": "feedback-sample-v1",
+      "method": "Inspect the named exact source-bound artifact; limits stated in task evidence README.",
+      "observed": "Four actual engine cases, 12 accepted HP commits, 4 deaths. Existing formal sounds unchanged. 20.233s; sampled visual review only.",
+      "consumers": [
+        "original_charger",
+        "original_diver",
+        "underworld_installer_charger",
+        "underworld_installer_diver"
+      ]
+    },
+    {
+      "id": "comparison",
+      "path": "docs/evidence/enemy_feedback_01/comparison.mp4",
+      "sha256": "e8f3d7cc20213987fed9f7867e6749704b17e4fdfb48a280dd3eac2581971c7e",
+      "kind": "video",
+      "producer": "/root",
+      "source_commit": "82940b7f057d74bfadf5855b1d489c38619c4a00",
+      "content_version": "feedback-sample-v1",
+      "method": "Inspect the named exact source-bound artifact; limits stated in task evidence README.",
+      "observed": "Complete 20.233s baseline then 20.233s candidate; original capture reports and exact gameplay equality retained."
+    },
+    {
+      "id": "affected",
+      "path": "docs/evidence/enemy_feedback_01/affected-report.json",
+      "sha256": "6e65a763d16341b48598b0de1af46cc5e24ad3a4e3d8f23a198625963747f0d4",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "82940b7f057d74bfadf5855b1d489c38619c4a00",
+      "content_version": "feedback-sample-v1",
+      "method": "Inspect the named exact source-bound artifact; limits stated in task evidence README.",
+      "observed": "Original actor-actions, Underworld damage/formal and forest Bible integration targeted Harness checks all passed; not full Integration.",
+      "command": "python3 tools/harness.py --check underworld-damage-feedback --check underworld-formal --check actor-actions --check forest-bible-integration-tests --release --jobs 1",
+      "exit_code": 0,
+      "environment": "Independent clean source worktree @82940b7, Godot4.7.2, original Harness, serial engine"
+    },
+    {
+      "id": "audio_feedback",
+      "path": "docs/evidence/enemy_feedback_01/user-feedback.json",
+      "sha256": "33d58116ccfdd73843876a9043772f02f4c0b451d655876e888ec96fe57863c5",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "82940b7f057d74bfadf5855b1d489c38619c4a00",
+      "content_version": "feedback-sample-v1",
+      "method": "Inspect the named exact source-bound artifact; limits stated in task evidence README.",
+      "observed": "User rejects current electronic notification-like gun/hit timbre; no candidate acceptance.",
+      "source": "Current user conversation 2026-10-22",
+      "quote": "现在射枪的音效，击中怪物的音效都有点奇怪；太电子／像提示音，缺少实体感",
+      "accepted": false,
+      "covers": [
+        "audio_vfx"
+      ]
+    },
+    {
+      "id": "audio_probe",
+      "path": "docs/evidence/enemy_feedback_01/audio-probe-v1.json",
+      "sha256": "e1f9db7087f417386e4e00cd905c1d854b327cd2325ccfc1cdb2496dfe2997a0",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "82940b7f057d74bfadf5855b1d489c38619c4a00",
+      "content_version": "feedback-sample-v1",
+      "method": "Inspect the named exact source-bound artifact; limits stated in task evidence README.",
+      "observed": "Real default App tick13/63 launches impact+hurt+confirm; fixed-fps AudioServer wall-clock limitation retained."
+    }
+  ],
+  "consumer_coverage": {
+    "scope": "Two original/installer samples and default App runtime, plus explicit source-discovered affected integration gaps.",
+    "inventory_evidence": "consumers",
+    "observations": [
+      {
+        "consumer": "original_charger",
+        "status": "passed",
+        "reason": "Actual scene/installer arena accepted projectile result observed.",
+        "output": "behavior",
+        "evidence": [
+          "native_trace"
+        ]
+      },
+      {
+        "consumer": "original_diver",
+        "status": "passed",
+        "reason": "Actual scene/installer arena accepted projectile result observed.",
+        "output": "behavior",
+        "evidence": [
+          "native_trace"
+        ]
+      },
+      {
+        "consumer": "underworld_installer_charger",
+        "status": "passed",
+        "reason": "Actual scene/installer arena accepted projectile result observed.",
+        "output": "behavior",
+        "evidence": [
+          "native_trace"
+        ]
+      },
+      {
+        "consumer": "underworld_installer_diver",
+        "status": "passed",
+        "reason": "Actual scene/installer arena accepted projectile result observed.",
+        "output": "behavior",
+        "evidence": [
+          "native_trace"
+        ]
+      },
+      {
+        "consumer": "default_plains_app",
+        "status": "passed",
+        "reason": "Actual default App consumer, real accepted hits/drop/reload observed.",
+        "output": "behavior",
+        "evidence": [
+          "formal_trace"
+        ]
+      },
+      {
+        "consumer": "forest_retained_charger",
+        "status": "unverified",
+        "reason": "Original forest Bible integration54 passed, but selected charger feedback lifecycle not specifically observed on natural formal forest consumer.",
+        "output": "behavior",
+        "evidence": []
+      },
+      {
+        "consumer": "action_studio_selected",
+        "status": "unverified",
+        "reason": "Original actor-actions2872 passed; exact selected-consumer continuous visual inventory remains full Integration responsibility.",
+        "output": "behavior",
+        "evidence": []
+      }
+    ]
+  },
   "unverified_items": [
-    "Native专项执行中",
-    "Same-condition real projectile MP4 pending",
-    "Formal full Integration, independent review, user and device acceptance pending"
+    "Original planner conservatively requires full146 Integration; targeted results do not replace it",
+    "Controller must reconcile existing ce84d01 candidate and PR104 before merging; do not add duplicate components",
+    "Controller-owned docs/tasks index still planned while truthful card review; check_quality.py rejects mismatch",
+    "Current production audio rejected by user; offline auditions not integrated or accepted",
+    "Full normal-speed video/audio listening, user visual/feel and physical device absent",
+    "Parent same-instance dead-to-live reset remains unchanged and outside stage-rebuild scope"
   ],
   "skills": [
     "animation-vfx",
     "game-quality-gate"
-  ]
+  ],
+  "production_snapshot": "c1634f16ee55cb280007f14ecc57cfc8c2559480eac347e212a8a20e954aa464"
 }

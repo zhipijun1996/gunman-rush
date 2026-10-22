@@ -2,7 +2,7 @@
 
 ## 检查点 1：复用与代表对象
 
-基线 `origin/main e9ab0e0743466b8983e34cc7de17bab1abf9d53a`（PR103实际合并），独立分支 `feature/enemy-feedback-01`，工作区 `/workspace/gunman-rush-work`。任务类型 animation；采用 animation-vfx、game-quality-gate，未扩展行为，因此不触发 enemy-creator。
+基线 `origin/main e9ab0e0743466b8983e34cc7de17bab1abf9d53a`（PR103实际合并），独立分支 `feature/enemy-feedback-01-accepted-sample`，工作区 `/workspace/gunman-rush-work`。运行源 `82940b7f057d74bfadf5855b1d489c38619c4a00`；草稿[PR104](https://github.com/zhipijun1996/gunman-rush/pull/104)。任务类型 animation；采用 animation-vfx、game-quality-gate，未扩展行为，因此不触发 enemy-creator。
 
 选择 `resources/enemies/plains_charger.tres`（plains_charger，地面冲锋）与 `resources/enemies/plains_diver.tres`（plains_diver，空中俯冲）。两者现有碰撞均28×32；选择依据是不同支撑/运动方式和现有身体轮廓，不冒称尺寸差异，不改Definition。地面保持脚底锚与冲锋节拍，空中保留flutter/lean与俯冲预告；分别用较宽的压缩和较轻的纵向反应。
 
@@ -45,4 +45,16 @@
 
 ## 当前恢复点
 
-任务版本 candidate-v1；已完成复用盘点与选择。实现、原生验证、媒体和独审仍进行中。质量记录 `docs/quality/records/ENEMY-FEEDBACK-01.json`；原失败与证据放 `build/enemy-feedback-01/`，精选归档到任务证据目录。工具链初始系统Godot4.6.3不符，已用仓库setup安装锁定4.7.2，未放宽检查。
+任务版本 feedback-sample-v1，workflow=review；实现与有限原生/媒体独审已完成，完整Integration及用户/设备仍未验。两链两对象154断言、默认DemoApp真实弹体击杀/掉落/重载44断言均通过且由独立审查者重跑；额外原Harness actor-actions2872、Underworld正式两图96、森林Bible集成54及原伤害专项通过，不外推完整Integration。
+
+同驱动基线/候选各20.233秒真实MovieMaker带音轨短片，1200个gameplay帧严格相等；旧链死亡alpha硬截止候选已按独审修到有界归零，保留旧审查发现。精选原件与音效25秒离线A/B见[证据入口](evidence/enemy_feedback_01/README.md)。用户声音返工原话、网络方法与最小总控音频写集请求见[参考与返工](enemy_feedback_01_references.md)，不称当前正式音效已修。
+
+推送时发现远端已存在 `feature/enemy-feedback-01 @ ce84d01`（另一个root_bell/diver样板），因此本线更名并保留原分支，未强推/覆盖/合并其内容。PR104是从main建立的独立charger/diver候选；总控必须择一或收敛组件与消费者后集成，不能把两份共享反馈实现同时合入。
+
+本线中央文件只读：任务索引仍planned而卡为review，会被check_quality.py诚实拒绝；请求总控同步ENEMY-FEEDBACK-01索引及最终集成口径。新增路径原planner保守选择146项full；本线未删映射、改预算或自行合main。完整Integration必须在总控收敛两个远端候选后执行。
+
+质量记录 `docs/quality/records/ENEMY-FEEDBACK-01.json`；原失败与证据放 `build/enemy-feedback-01/`，精选归档到任务证据目录。工具链初始系统Godot4.6.3不符，已用仓库setup安装锁定4.7.2，未放宽检查。文档输入恢复第一次因并行提交改变HEAD被拒绝，原退出保留，固定新HEAD后重新按原工具恢复；不是玩法失败。docs首轮发现稀疏漏掉两个既有.gdignore，已恢复原字节；第二轮source snapshot在新证据写入期间被原守门拒绝，未追签通过；最终冻结后再执行原检查。
+
+最终docs实跑：docs/world/world-design-tests/structure/harness-tests/quality-drills/quality-tests七项通过；quality因中央任务planned与卡review不一致失败，其余fail-fast未执行。单卡quality.py check errors=[]、内容判定仍REJECT（当前音色被用户拒绝），记录格式一致不代表内容通过。PR自动Integration状态另以Actions实际结果为准，执行中不签通过。
+
+恢复命令：先核PR104当前head与运行源三生产文件SHA（review-v2.md），再运行 `python3 tools/production_plan.py --stage integration --base origin/main`。原生专项命令与正式App命令见证据入口。运行与音频试听产物、完整门槛及用户反馈分开，不以文档提交冒称新运行构建。
