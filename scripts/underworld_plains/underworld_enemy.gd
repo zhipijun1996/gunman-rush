@@ -21,6 +21,7 @@ func _ready() -> void:
 		feedback_particles.z_index = 1
 		add_child(feedback_particles)
 		feedback_particles.bind(feedback_sample, actor.damageable)
+		actor.health.changed.connect(_feedback_initialized)
 		_sync_feedback_body()
 	else:
 		super._ready()
@@ -38,7 +39,9 @@ func _process(delta: float) -> void:
 
 func _sync_feedback_body() -> void:
 	feedback_body.visible = not feedback_sample.restored_terminal
-	if not feedback_body.visible: return
+	if not feedback_body.visible:
+		feedback_body.flash_material.set_shader_parameter("hit_flash", 0.0)
+		return
 	var behavior := String(actor.definition.behavior_id)
 	var source: Texture2D = SPRITES["aerial" if actor.definition.aerial else behavior]
 	var size := actor.definition.collision_size
@@ -57,9 +60,19 @@ func _sync_feedback_body() -> void:
 	var origin := Vector2(0, dip + flutter + floor_y * (1 - pose.y))
 	feedback_body.present(source, Rect2(-width*.5, floor_y-height, width, height), origin, feedback_sample.tilt(), Vector2(float(actor.brain.direction)*pose.x, pose.y), feedback_sample.tint(), feedback_sample.flash_strength())
 
+func _feedback_initialized(result: ActorResourceResult) -> void:
+	if result == null or result.operation != &"initialize" or result.snapshot.epoch != actor.health.epoch: return
+	# Initialization can happen while paused. Clear cached drawing immediately;
+	# do not depend on the next pausable process tick or touch parent death clocks.
+	_hurt = 0
+	feedback_particles.clear_for_epoch()
+	_sync_feedback_body()
+	queue_redraw()
+
 func _exit_tree() -> void:
 	if feedback_sample != null: feedback_sample.dispose()
 	if is_instance_valid(actor) and actor.health.changed.is_connected(_accepted_damage): actor.health.changed.disconnect(_accepted_damage)
+	if is_instance_valid(actor) and actor.health.changed.is_connected(_feedback_initialized): actor.health.changed.disconnect(_feedback_initialized)
 
 func _accepted_damage(result: ActorResourceResult) -> void:
 	if result == null or result.operation != &"damage" or result.status != ActorResourceResult.Status.APPLIED or result.amount_applied >= 0 or result.snapshot.terminal: return

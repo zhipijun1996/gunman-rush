@@ -72,6 +72,11 @@ func _draw() -> void:
 func active_bursts() -> int:
 	return _bursts.size()
 
+func clear_for_epoch() -> void:
+	_epoch = sample.epoch()
+	_bursts.clear()
+	queue_redraw()
+
 func _exit_tree() -> void:
 	if is_instance_valid(receiver) and receiver.damaged.is_connected(_committed_impact): receiver.damaged.disconnect(_committed_impact)
 	_bursts.clear()

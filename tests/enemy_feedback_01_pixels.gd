@@ -36,6 +36,7 @@ func run() -> void:
 		await setup(path, true)
 		var name := String(actor.definition.stable_id)
 		var before := await capture_body(name + "-before")
+		check((art as UnderworldEnemy).feedback_body.z_index == 0 and (art as UnderworldEnemy).feedback_body.show_behind_parent, "body retains the actor world draw layer while its own HP and telegraphs stay above")
 		check(await shoot_until_health_changes("pixel_real_projectile"), "GPU sample receives actual accepted projectile")
 		await process_frame
 		var impact := await capture_body(name + "-impact")
@@ -46,6 +47,16 @@ func run() -> void:
 		var recovered := await capture_body(name + "-recovered")
 		check(float(recovered.flash) == 0 and float(recovered.mean_luma) < float(impact.mean_luma) - .3, "body returns to original material after bounded flash")
 		check((art as UnderworldEnemy).feedback_particles.emitted_bursts == 1, "GPU sample has one accepted-hit burst")
+		check(await shoot_until_health_changes("pixel_second_real_projectile"), "second real accepted projectile supplies live flash before pause restore")
+		await process_frame
+		paused = true
+		check(actor.restore_instance_health(0), "formal restore API accepts dead snapshot during paused hurt")
+		await process_frame
+		var corpse := await capture_body(name + "-paused-restored")
+		check(not (art as UnderworldEnemy).feedback_body.visible and float(corpse.flash) == 0 and (art as UnderworldEnemy).feedback_particles.active_bursts() == 0, "paused restore immediately clears body flash visibility and cached bursts before resume")
+		check(float(corpse.cream_fraction) < .10, "actual paused viewport no longer contains the old cream body silhouette")
+		check(not (art as UnderworldEnemy).feedback_sample.death_active and (art as UnderworldEnemy).feedback_sample.accepted_death_count == 0, "restored corpse never starts a new accepted death")
+		paused = false
 		await cleanup()
 	var file := FileAccess.open("res://build/enemy_feedback_01/v2-pixels/report.json", FileAccess.WRITE)
 	file.store_string(JSON.stringify({"checks": checks, "failures": failures, "pixels": pixels, "scope": "actual GPU sprite samples under real accepted projectiles, explicit arena; no art redesign/animation-frame or device acceptance"}, "\t"))

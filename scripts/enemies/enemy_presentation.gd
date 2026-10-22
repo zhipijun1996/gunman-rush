@@ -22,12 +22,20 @@ func _ready() -> void:
 		feedback_particles.z_index = 1
 		add_child(feedback_particles)
 		feedback_particles.bind(feedback_sample, actor.damageable)
+		actor.health.changed.connect(_feedback_initialized)
 	else:
 		actor.health.changed.connect(_health_changed)
 	queue_redraw()
 func _exit_tree() -> void:
 	if feedback_sample != null: feedback_sample.dispose()
 	if is_instance_valid(actor) and actor.health.changed.is_connected(_health_changed): actor.health.changed.disconnect(_health_changed)
+	if is_instance_valid(actor) and actor.health.changed.is_connected(_feedback_initialized): actor.health.changed.disconnect(_feedback_initialized)
+func _feedback_initialized(result: ActorResourceResult) -> void:
+	if result == null or result.operation != &"initialize" or result.snapshot.epoch != actor.health.epoch: return
+	_hurt_time = 0
+	_death_time = 0
+	feedback_particles.clear_for_epoch()
+	queue_redraw()
 func _process(delta: float) -> void:
 	if get_tree().paused: return
 	_clock += delta
