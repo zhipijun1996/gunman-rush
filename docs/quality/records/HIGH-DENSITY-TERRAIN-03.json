@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "task_id": "HIGH-DENSITY-TERRAIN-03",
+  "task_type": "art",
+  "workflow": "review",
+  "baseline_commit": "0c1d1e5f7641f6c8395f7acc39f658ffe9d82100",
+  "owner": "root",
+  "purpose": "快速反向像素密度与材质实验，不是整区成品",
+  "user_override": "用户明确不跑CI、快速实验、要求实机图；提升tile分辨率而非降背景分辨率",
+  "skills": [
+    "visual-director",
+    "art-director"
+  ],
+  "source_files": [
+    "scenes/dev/high_density_terrain_study.tscn",
+    "scripts/art/high_density_terrain_study.gd",
+    "tools/build_high_density_terrain.gd",
+    "shaders/dense_material.gdshaderinc",
+    "shaders/dense_tile_core.gdshader",
+    "shaders/dense_tile_boundary.gdshader",
+    "assets/high_density_terrain_study/edges_32.png",
+    "assets/high_density_terrain_study/provenance.json",
+    "assets/high_density_terrain_study/atlas_32.png",
+    "assets/high_density_terrain_study/terrain_32.tres",
+    "assets/high_density_terrain_study/standard.json",
+    "assets/high_density_terrain_study/master_original.png",
+    "assets/high_density_terrain_study/master_256.png"
+  ],
+  "source_sha256": {
+    "scenes/dev/high_density_terrain_study.tscn": "c9160600958dbe0f9848993f44d4953755546d9664572de31737172fb96724ee",
+    "scripts/art/high_density_terrain_study.gd": "770b99ea6b40b7383031099511fb01753947647d71e419ba50775da10f4e53db",
+    "tools/build_high_density_terrain.gd": "2db45f016718fd66c288579ed768b57ed3fdb9e546388cc165ea711ba68dd4d4",
+    "shaders/dense_material.gdshaderinc": "22990f28491ba763fcf911778cbcc2e595e2d8efed2f49928eac1ecd01923a6c",
+    "shaders/dense_tile_core.gdshader": "85cfe176550a999b3e063d975549bab451c0980412c8a22a8cee8de52104cece",
+    "shaders/dense_tile_boundary.gdshader": "e456831092f839bfdb625d7460239a993c380dfc72fb670496211ee2061e217f",
+    "assets/high_density_terrain_study/edges_32.png": "8c8555dc9e795b6674f6997f2b03894e69ebd3580e337ca5c8439fe6fa4b10d7",
+    "assets/high_density_terrain_study/provenance.json": "48e07979e7075c5c5b56e32523269421c3a811ede9b1d146cf49daeb52cae3ca",
+    "assets/high_density_terrain_study/atlas_32.png": "22d8e40cbecbd37724e2b3078bd703fe69a9840d77daa19d1b335b735676ecfb",
+    "assets/high_density_terrain_study/terrain_32.tres": "2d0cc503fc2805cfcbc269c12a3b4bda271c50206649ab5633100e45d80eee2a",
+    "assets/high_density_terrain_study/standard.json": "900dc3b1ac448f27e3279fdd975b53802404afbf3e8c9f42f1343fb3ad0b5825",
+    "assets/high_density_terrain_study/master_original.png": "b1b649a5cc809924f07df8f276b82683d8dad36f2ebc10d1739989b3ca551c8e",
+    "assets/high_density_terrain_study/master_256.png": "af6a60b909d79da820b126090c28ab9bbd06dafc3e894d73e421f3346604fb0d"
+  },
+  "verification": {
+    "engine": "Godot 4.7.2 Standard / GL Compatibility / llvmpipe",
+    "native_exit_code": 0,
+    "screenshots": 20,
+    "log": "docs/evidence/high_density_terrain_03/capture.log",
+    "receipt": "docs/evidence/high_density_terrain_03/capture.json",
+    "seed": "level-design-v2-baseline/08",
+    "manifest": "bf16916866572af8d7e96e9e80b11a840282e02b152c4bdfb62f4015176cc51f",
+    "density_measurements": {
+      "scope": "GPU still-image block equality; not aesthetic acceptance or continuous motion evidence",
+      "regions": {
+        "building": {
+          "roi": [
+            240,
+            360,
+            128,
+            120
+          ],
+          "same_color_2x2_fraction": {
+            "original": 0.01328125,
+            "low_grid": 1.0,
+            "dense": 0.012239583333333333,
+            "dense_lamps": 0.011458333333333333
+          }
+        },
+        "rock": {
+          "roi": [
+            1000,
+            540,
+            200,
+            160
+          ],
+          "same_color_2x2_fraction": {
+            "original": 1.0,
+            "low_grid": 1.0,
+            "dense": 0.0765,
+            "dense_lamps": 0.1305
+          }
+        }
+      },
+      "empty_sky_original_equals_dense": true
+    },
+    "gallery": "Chromium actual screenshot boards and20selector combinations; screenshot viewer, not a playable Web build",
+    "ci": "not run as explicitly requested"
+  },
+  "independent_review": {
+    "agent": "/root/density_art_review",
+    "final_viewed": [
+      "home_dense_lamps.png",
+      "plains_spawn_dense.png",
+      "plains_bell_dense_lamps.png"
+    ],
+    "finding": "收低对比度后克制改善，暖窗/人物/铜铃焦点更清楚；岩面斜纹重复、大块矩形岩墙和弱铜绿仍阻碍身份；少量嵌岩铜构件、侵蚀轮廓和局部受光更合适；不签定稿"
+  },
+  "failures_retained": [
+    "第一张AI通用碎石被用户否定，留在artifact rejected_generic_pebbles.png，不进入runtime",
+    "X11首轮失败日志保留failed-x11.log；重启display后重新完整捕获，不追认失败",
+    "captures_r2镜像纹重复及侧面绿框失败留build；改重叠接缝和仅顶部草沿",
+    "前轮.72岩面对比度仍重复；最终.32安静版重新完整采图；没有用继续加纹理宣称定稿"
+  ],
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "按用户最新要求反向提升地形像素密度，保留人物/建筑/背景细节；仅实验"
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "限定native32 TileSet/scale1断言、最终20张实际Godot截图、退出0无脚本错误；不代表CI"
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "显式开发Lab，正式默认未迁移；hazard/moving和其他区域未换"
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "主次更克制，但岩纹重复、嵌铜过弱，地区身份尚未定稿"
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "仅定位静态截图，没有连续运动和滚屏验证"
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "局部光照静态可见；未验完整动态/音轨"
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "不改Motor、物理、生成、RNG和保存；不声明通关"
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "软件GL捕获不代表真机性能"
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "density_art_review实际看前轮6图与最终3图，只签静态方向评审已执行"
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "未验实体设备"
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "等待用户看图；用户已否定第一轮通用碎石"
+    }
+  }
+}

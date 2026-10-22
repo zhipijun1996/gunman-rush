@@ -1,3 +1,9 @@
+## 2026-10-22 HIGH-DENSITY-TERRAIN-03 提升地形密度实验
+
+分支 `art/high-density-terrain-study`，基线0c1d1e5。按用户要求不跑CI、快速实机图，反向提高到原生32px/32wu、1wu采样，保留人物/建筑/背景细节；默认入口和全局设置未改。新增 `scenes/dev/high_density_terrain_study.tscn`。最终五窗口×四版本20张Godot静态图，退出0；首AI碎石遭用户否定，第二轮岩体主次改善但斜纹重复、地区身份仍未定稿，独审仅支持继续密度路线。不签全区/运动/真机/玩家认可。
+
+[证据、失败、恢复命令](evidence/high_density_terrain_03/README.md)，[十一维记录](quality/records/HIGH-DENSITY-TERRAIN-03.json)。运行 `bash tools/godot.sh --path . scenes/dev/high_density_terrain_study.tscn`；下一步看用户对高密度和材质结构的反馈，先单个结构性黄金样板，不批量替换。未运行CI/Harness、未合main、未发布或替换试玩站。最终本地checkpoint见Git。
+
 ## 2026-10-22 PIXEL-LIGHT-STUDY-02 像素／灯光续轮
 
 用户要求先像素对齐，保留Underworld像素风格，只学Animal Well打光；继续快速实验不跑CI。分支 `art/pixel-grid-lighting-study`，基线35a9cd8。新增独立 `scenes/dev/pixel_light_study.tscn`，默认游戏不动。已做物件固定2wu采样／纯表现snap／世界2px输出，HUD与标签清晰；保留原配色，真实局部点光／地形遮光／小bloom。最终5×4共20张Godot静态原图，原生退出0且无脚本错误；独审推荐暖灯继续，保留小物体细节损失／平原光池弱，未验运动或真机。
