@@ -3,10 +3,32 @@ extends PixelPlainsEnemy
 ## Genuine new body art. Original state-based telegraphs remain authoritative.
 var feedback: DamageFeedbackDefinition = preload("res://resources/damage/feedback.tres")
 var accepted_hurt_count := 0
+@export var rooted_hurt_pose := Vector2(.86,1.08)
+@export var aerial_hurt_pose := Vector2(.80,1.12)
+@export var rooted_death_pose := Vector2(1.12,.42)
+@export var aerial_death_pose := Vector2(.68,.62)
+var _feedback_sample: EnemyFeedback01State
 
 func _ready() -> void:
 	super._ready()
 	actor.health.changed.connect(_accepted_damage)
+	if actor.definition.behavior_id in [&"root_bell",&"diver"]:
+		_feedback_sample=EnemyFeedback01State.new()
+		_feedback_sample.bind(actor.health,feedback)
+
+func _process(delta: float) -> void:
+	if get_tree().paused: return
+	super._process(delta)
+	if _feedback_sample!=null:
+		_feedback_sample.advance(delta)
+		_hurt=_feedback_sample.hurt_remaining
+
+func _exit_tree() -> void:
+	if actor!=null and actor.health.changed.is_connected(_accepted_damage): actor.health.changed.disconnect(_accepted_damage)
+	if _feedback_sample!=null: _feedback_sample.dispose()
+
+func feedback_receipt() -> Dictionary:
+	return _feedback_sample.receipt() if _feedback_sample!=null else {}
 
 func _accepted_damage(result: ActorResourceResult) -> void:
 	if result == null or result.operation != &"damage" or result.status != ActorResourceResult.Status.APPLIED or result.amount_applied >= 0 or result.snapshot.terminal: return
@@ -45,6 +67,18 @@ func _draw() -> void:
 		pose = Vector2(.86,1.10) if age < .10 else Vector2(1.06,.96)
 		dip -= sin(age/feedback.hurt_seconds*PI)*3
 	var flutter := 2*roundf(sin(_clock*12)) if actor.definition.aerial else 0.0
+	if _feedback_sample!=null:
+		var response := _feedback_sample.pose(aerial_hurt_pose if actor.definition.aerial else rooted_hurt_pose,aerial_death_pose if actor.definition.aerial else rooted_death_pose)
+		if actor.health.terminal:
+			pose=response
+			flutter=0
+			dip=0 if not actor.definition.aerial else minf(_feedback_sample.death_age/feedback.hurt_seconds,1)*6
+		else:
+			# Keep each original telegraph/attack pose, adding only local hit recoil.
+			pose=(Vector2(1.06,.94) if state==&"telegraph" else Vector2(.96,1.04) if state==&"attack" else Vector2.ONE)*response
+			dip=3.0 if state==&"telegraph" else 1.0 if state==&"recovery" else 0.0
+		# Rooted shell compresses at its real foot; airborne body pivots at center.
+		if not actor.definition.aerial: dip+=floor_y*(1-pose.y)
 	draw_set_transform(Vector2(0,dip+flutter),0,Vector2(float(actor.brain.direction)*pose.x,pose.y))
 	draw_texture_rect(source,Rect2(-width*.5,floor_y-height,width,height),false,Color(1.4,.72,.48) if _hurt>0 and int(_hurt*feedback.flash_frequency)%2==0 else Color.WHITE)
 	draw_set_transform(Vector2.ZERO)

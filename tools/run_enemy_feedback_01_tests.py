@@ -16,6 +16,11 @@ def main():
                          '--', '--output=' + args.output, *extra], 120)
     if not re.search(r'^ENEMY_FEEDBACK_01 checks=[1-9]\d* cases=4 failures=0$', output, re.M):
         raise RuntimeError('Missing complete real-projectile enemy sample pass')
+    if not args.baseline:
+        boundary = run_engine(['--headless', '--path', '.', '--script',
+                               'tests/enemy_feedback_01/test_feedback_state.gd'], 30)
+        if not re.search(r'^ENEMY_FEEDBACK_STATE checks=[1-9]\d* failures=0$', boundary, re.M):
+            raise RuntimeError('Missing health lifecycle boundary pass')
     print('PASS: enemy feedback actual projectile fixture (not full formal-stage or visual acceptance)')
 
 if __name__ == '__main__':

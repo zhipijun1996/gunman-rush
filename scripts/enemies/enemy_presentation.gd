@@ -9,25 +9,44 @@ var _death_time := 0.0
 var _frame_weights: Dictionary = {}
 var _weight := Vector2.ONE
 var _lean := 0.0
+@export var hurt_pose := Vector2(.80,1.12)
+@export var death_pose := Vector2(1.12,.45)
+var _feedback_sample: EnemyFeedback01State
+var _feedback: DamageFeedbackDefinition = preload("res://resources/damage/feedback.tres")
 static var _action_manifest: Dictionary = {}
 static var _action_textures: Dictionary = {}
 func _ready() -> void:
 	_size = actor.definition.collision_size
 	actor.health.changed.connect(_health_changed)
+	if actor.definition.behavior_id in [&"patrol",&"diver"]:
+		_feedback_sample=EnemyFeedback01State.new()
+		_feedback_sample.bind(actor.health,_feedback)
 	queue_redraw()
 func _process(delta: float) -> void:
 	if get_tree().paused: return
 	_clock += delta
 	if actor.health.terminal: _death_time += delta
 	_hurt_time = maxf(0, _hurt_time - delta)
+	if _feedback_sample!=null:
+		_feedback_sample.advance(delta)
+		_hurt_time=_feedback_sample.hurt_remaining
 	var state: StringName = actor.attack_behavior.state if actor.attack_behavior != null else &"idle"
 	var desired := Vector2(1.12,.9) if state in [&"telegraph",&"attack"] else Vector2(.97,1.025) if state == &"recovery" else Vector2.ONE
 	if actor.health.terminal: desired = Vector2(1.12,.45)
+	if _feedback_sample!=null:
+		desired=_feedback_sample.pose(hurt_pose,death_pose) if actor.health.terminal else desired*_feedback_sample.pose(hurt_pose,death_pose)
 	_weight = _weight.lerp(desired,1-exp(-delta/.075))
 	_lean = lerpf(_lean,clampf(actor.motor.velocity.x/350,-1,1)*.09,1-exp(-delta/.07))
 	_update_frame_weights(state,delta)
 	queue_redraw()
+func _exit_tree() -> void:
+	if actor!=null and actor.health.changed.is_connected(_health_changed): actor.health.changed.disconnect(_health_changed)
+	if _feedback_sample!=null: _feedback_sample.dispose()
+func feedback_receipt() -> Dictionary:
+	return _feedback_sample.receipt() if _feedback_sample!=null else {}
 func _health_changed(result: ActorResourceResult) -> void:
+	if result!=null and result.operation==&"initialize":
+		_hurt_time=0;_death_time=0;return
 	if result.status == ActorResourceResult.Status.APPLIED and result.amount_applied < 0:
 		_hurt_time = 0.14
 	queue_redraw()
@@ -59,7 +78,7 @@ func _draw() -> void:
 	var tint := Color(1.0, 0.50, 0.43) if _hurt_time > 0 else Color.WHITE
 	if actor.health.terminal:
 		tint = Color(0.65, 0.62, 0.51, maxf(0.18, 0.8 - _death_time * 0.5))
-		for mote: int in 6:
+		for mote: int in (6 if _feedback_sample==null or _feedback_sample.death_started else 0):
 			var angle := TAU * float(mote) / 6.0
 			draw_circle(Vector2(cos(angle), sin(angle)) * minf(_death_time * 35, 25), 2, Color(0.95, 0.80, 0.48, maxf(0, 1.0 - _death_time * 1.6)))
 
