@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "task": "PLAYER-PRESENTATION-01",
+  "content_version": "motion-candidate-v1",
+  "tool": "image_gen.imagegen",
+  "model": "not disclosed by tool",
+  "transparent_background": true,
+  "call_count_this_iteration": 2,
+  "source_png_pixel_edits": false,
+  "references": [
+    {
+      "path": "assets/underworld_plains/player_animation/states_sheet.png",
+      "sha256": "01f6645fcedd24e14e06d56b6789ad0aa987ac0c75a63b39b0f16b40fe256744"
+    },
+    {
+      "path": "assets/underworld_plains/player_animation/run_sheet.png",
+      "sha256": "64fe86b6de951bd671f511509104b2639f528527741774dd2561547f7ec5dd27"
+    }
+  ],
+  "calls": [
+    {
+      "ordinal": 1,
+      "tool_output_path": "/workspace/generated_images/exec-f1e924f5-f305-422c-b944-2d103ec57f80.png",
+      "retained_path": "assets/player_presentation_01/motion_v1/motion_source.png",
+      "sha256": "d0a7d99429de680a0e3c19a55398bca836a43165e96f33712f00d4e5cf1d3280",
+      "prompt_summary_not_verbatim": "Transparent 6 columns x4 rows; same original masked cyan-lens mustard-scarf silhouette and dark pixel material;6 restrained idle breathing frames;6 falling frames scarf blown upwards/back;12 run frames complete opposing-leg cycle. Reference original states/run.",
+      "disposition": "rows0/1 limited engine trial only;rows2/3 rejected run unused"
+    },
+    {
+      "ordinal": 2,
+      "tool_output_path": "/workspace/generated_images/exec-4e5279dd-2265-4b1d-b633-eaaf0f3ef8cc.png",
+      "retained_path": "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/rejected-run-v2.png",
+      "sha256": "8ae4be0a88df29cba7290d138814e5c571e4f6a9d7d177aabf70bb53bc2c9673",
+      "prompt_summary_not_verbatim": "Transparent4x2;8 explicit contact/down/passing/up poses with opposite leg support in second half. Preserve original proportional masked silhouette/palette; reference original run and first generated page.",
+      "disposition": "rejected;second half repeats foreground-leg support;no runtime consumer;stop after2"
+    }
+  ],
+  "processing": "Byte-identical PNG copy. Metadata-only declared256px cells, measured alpha>=128 bounds/head-strip pivots;uniform44/182 scale;NEAREST. No pixel editing, antialias cleanup, alpha thresholding or repaint.",
+  "license_status": "unknown",
+  "user_acceptance": "unverified",
+  "timing_note": "Tool call timestamps/model not exposed in retained return;no inferred exact time/model."
+}
