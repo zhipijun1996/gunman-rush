@@ -37,6 +37,7 @@ FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试�
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
+| FOREST-VARIETY-03 | 保留旧森林设计、扩模块库与真实随机回环，纠正首段曲线 | FOREST-EXPLORATION-02 | in_progress | [用户纠正](design/forest_variety_feedback_20261022.json)、[质量记录](quality/records/FOREST-VARIETY-03.json)；v16堆叠方向被用户否定，新内容未验收 |
 | UNDERWORLD-FEEDBACK-03 | 平原受伤、环境交互、连续Boss与家园反馈 | UNDERWORLD-PLAINS-01 | review | [PR96实现与原失败](underworld_feedback_r3.md)、[质量记录](quality/records/UNDERWORLD-FEEDBACK-03.json)；本轮按新用户授权整合，完整主线验收见MAIN-PR96-REPAIR-01 |
 | MAIN-PR96-REPAIR-01 | main CI修复／PR96整合／稳定镜头／旧八房瘦身 | PARALLEL-INTEGRATION-01 | review | [P精确技术交付](evidence/main_pr96_repair01/main-P66e8/README.md)、[质量记录](quality/records/MAIN-PR96-REPAIR-01.json)；P完整freshCI、原三浏览器、公网完整SHA与同源影片通过；全区审美/设备/FUN另验 |
 | FOREST-FRUIT-ROUTES-04 | 森林果实目标与推荐／可选／恢复点位梳理 | FOREST-FOCUS-ROUTES-03 | review | [新版设计](design/forest_fruit_routes_v14.md)、[P精确交付](evidence/main_pr96_repair01/main-P66e8/README.md)；v14候选及v13旧存档保留，P当前80/80、双图24/29段与32原帧限定独审通过；整体构图/HUD、设备/FUN和用户认可仍review |

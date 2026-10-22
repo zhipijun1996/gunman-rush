@@ -13,6 +13,7 @@ const DEPTH_LAYOUT_INTERWOVEN := "forest-interwoven-canopy-v13"
 const DEPTH_LAYOUT_FRUIT := "forest-fruit-routes-v14"
 const DEPTH_LAYOUT_BIBLE := "forest-bible-world-v15"
 const DEPTH_LAYOUT_EXPLORATION := "forest-branching-expedition-v16"
+const DEPTH_LAYOUT_VARIED := "forest-varied-bible-v17"
 const CURRENT_DEPTH_LAYOUT := DEPTH_LAYOUT_BIBLE
 const DEPTH_LAYOUT_SCRIPTS := {
 	DEPTH_LAYOUT_V7:"res://scripts/generation/thorn_forest_region_v2_v7.gd",
@@ -23,7 +24,8 @@ const DEPTH_LAYOUT_SCRIPTS := {
 	DEPTH_LAYOUT_INTERWOVEN:"res://scripts/generation/thorn_forest_region_v2_v13.gd",
 	DEPTH_LAYOUT_FRUIT:"res://scripts/generation/thorn_forest_region_v2_v14.gd",
 	DEPTH_LAYOUT_BIBLE:"res://scripts/generation/thorn_forest_region_v2_v15.gd",
-	DEPTH_LAYOUT_EXPLORATION:"res://scripts/generation/thorn_forest_region_v2_v16.gd"}
+	DEPTH_LAYOUT_EXPLORATION:"res://scripts/generation/thorn_forest_region_v2_v16.gd",
+	DEPTH_LAYOUT_VARIED:"res://scripts/generation/thorn_forest_region_v2_v17.gd"}
 # Public candidate playtest default; explicit v1 replay remains supported.
 # This selection does not declare commercial or whole-region admission.
 const VERSION := DEPTH_VERSION
@@ -82,15 +84,15 @@ static func _boss_paths(version: String, map_index: int, manifest: Dictionary = 
 	if map_index not in [1,2] or not supported(version): return {}
 	if not manifest.is_empty() and (manifest.get("version") != version or manifest.get("map_index") != map_index): return {}
 	var content: Variant = manifest.get("boss_content")
-	var canopy := manifest.is_empty() and version == DEPTH_VERSION and map_index == 2 and CURRENT_DEPTH_LAYOUT in [DEPTH_LAYOUT_CANOPY,DEPTH_LAYOUT_EXPEDITION,DEPTH_LAYOUT_VERTICAL,DEPTH_LAYOUT_INTERWOVEN,DEPTH_LAYOUT_FRUIT,DEPTH_LAYOUT_BIBLE,DEPTH_LAYOUT_EXPLORATION]
+	var canopy := manifest.is_empty() and version == DEPTH_VERSION and map_index == 2 and CURRENT_DEPTH_LAYOUT in [DEPTH_LAYOUT_CANOPY,DEPTH_LAYOUT_EXPEDITION,DEPTH_LAYOUT_VERTICAL,DEPTH_LAYOUT_INTERWOVEN,DEPTH_LAYOUT_FRUIT,DEPTH_LAYOUT_BIBLE,DEPTH_LAYOUT_EXPLORATION,DEPTH_LAYOUT_VARIED]
 	if manifest.has("boss_content"):
-		if version != DEPTH_VERSION or map_index != 2 or manifest.get("layout_version") not in [DEPTH_LAYOUT_CANOPY,DEPTH_LAYOUT_EXPEDITION,DEPTH_LAYOUT_VERTICAL,DEPTH_LAYOUT_INTERWOVEN,DEPTH_LAYOUT_FRUIT,DEPTH_LAYOUT_BIBLE,DEPTH_LAYOUT_EXPLORATION]: return {}
+		if version != DEPTH_VERSION or map_index != 2 or manifest.get("layout_version") not in [DEPTH_LAYOUT_CANOPY,DEPTH_LAYOUT_EXPEDITION,DEPTH_LAYOUT_VERTICAL,DEPTH_LAYOUT_INTERWOVEN,DEPTH_LAYOUT_FRUIT,DEPTH_LAYOUT_BIBLE,DEPTH_LAYOUT_EXPLORATION,DEPTH_LAYOUT_VARIED]: return {}
 		if not content is Dictionary or content.size() != 3: return {}
 		var expected := {"contract":"forest-queen-canopy-v3","scene":"res://scenes/bosses/thorn_queen_canopy.tscn","resource":"res://resources/bosses/thorn_queen_canopy.tres"}
 		for key: String in expected:
 			if not content.get(key) is String or content[key] != expected[key]: return {}
 		canopy = true
-	elif not manifest.is_empty() and version == DEPTH_VERSION and map_index == 2 and manifest.get("layout_version") in [DEPTH_LAYOUT_CANOPY,DEPTH_LAYOUT_EXPEDITION,DEPTH_LAYOUT_VERTICAL,DEPTH_LAYOUT_INTERWOVEN,DEPTH_LAYOUT_FRUIT,DEPTH_LAYOUT_BIBLE,DEPTH_LAYOUT_EXPLORATION]:
+	elif not manifest.is_empty() and version == DEPTH_VERSION and map_index == 2 and manifest.get("layout_version") in [DEPTH_LAYOUT_CANOPY,DEPTH_LAYOUT_EXPEDITION,DEPTH_LAYOUT_VERTICAL,DEPTH_LAYOUT_INTERWOVEN,DEPTH_LAYOUT_FRUIT,DEPTH_LAYOUT_BIBLE,DEPTH_LAYOUT_EXPLORATION,DEPTH_LAYOUT_VARIED]:
 		return {}
 	if canopy: return {"resource":"res://resources/bosses/thorn_queen_canopy.tres","scene":"res://scenes/bosses/thorn_queen_canopy.tscn"}
 	if version == DEPTH_VERSION:

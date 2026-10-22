@@ -148,3 +148,9 @@ S3实际CI／公网包通过后，GUI01因可见MENU未被识别而在3/20退出
 `python3 tools/harness.py --profile forest-exploration-feedback` 运行文档、严格reader反例、wrapper守门与实际模块/世界/生态/菜单专项。原151检查字典与各旧profile顺序保持，新profile用于当前v16开发，不代替旧80、full CI、画面或设备验收。专项只导入一次，保留原90秒子检查与完整源清单、changed源码字节和原Git基线；失败继续留日志，最终非零退出。
 
 关卡先用真实Router/Motor验证单模块普通解、奖励位置与同体返程，再进入正式世界验证异物干扰、真实奖励OR选择、活体/击杀后替代和返回。字母轮廓、模块数量或Hash不签趣味；允许普通便宜解，但高奖必须绑定实际深入路线。当前原始失败及九路线通过范围见[本轮原件](evidence/region_bible_v2/style_continuity_20261021/forest-exploration-v16/README.md)。
+
+## 保留旧关卡后的扩容短反馈
+
+`python3 tools/harness.py --profile forest-varied-feedback --release --jobs 1` 为v17独立开发入口，不加入既有full/CI或改变旧前缀。检查实际20种子与JSON拒变、菜单App、旧HH/螺旋、新旧区正式spawn出返及L真实OR选择/远出口。保持90import/240native/600whole与fixed60；wrapper必须非零退出、完成标记和完整原生报告一致，缺帧/多次Motor/中途位置与资源注入均拒绝。
+
+实际原生通行已获限定独审，但当前随机guard仍失败：新增平台矩形布置每map只有1种。guard仅用排序去重的rect/one_way与目标坐标，排除ID/instance/program/order/重复描述；这是必要结构检查，不能把微移/拆矩形/hash差异称趣味。新候选美术仍REWORK，不发布。原通过、严格guard实际拒绝及源码闭包分别保存在[本轮原件](evidence/forest_variety_03/README.md)，不倒签失败或为试玩重复完整CI。

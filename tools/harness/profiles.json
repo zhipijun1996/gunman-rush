@@ -3018,6 +3018,32 @@
         "tests/test_forest_exploration_contract_wrapper.py"
       ],
       "artifact_paths": []
+    },
+    "forest-varied-feedback": {
+      "argv": [
+        "python3",
+        "tools/run_forest_varied_feedback.py",
+        "--output-dir",
+        "build/region_bible_v2/forest-varied-feedback/{check_token}"
+      ],
+      "timeout_seconds": 600,
+      "success_pattern": "^PASS: forest varied development feedback$",
+      "weight_seconds": 130,
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/forest-varied-feedback"
+      ]
     }
   },
   "profiles": {
@@ -3531,6 +3557,10 @@
       "forest-exploration-exchange-reader",
       "forest-exploration-wrapper-tests",
       "forest-exploration-contract"
+    ],
+    "forest-varied-feedback": [
+      "docs",
+      "forest-varied-feedback"
     ]
   }
 }

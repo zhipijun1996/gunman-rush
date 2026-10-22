@@ -13,7 +13,7 @@ func build(recorded: Dictionary, tuning: PlayerTuning) -> Dictionary:
 	if not is_inside_tree() or not forest_platforms.is_empty() or not ThornForestRegionGenerator.new().validate(recorded,tuning):
 		return {"ok":false,"error":"Invalid forest manifest or occupied assembler"}
 	manifest = recorded.duplicate(true)
-	if manifest.get("layout_version") in [ForestTargetHosts.LAYOUT,"forest-bible-world-v15","forest-branching-expedition-v16"]:
+	if manifest.get("layout_version") in [ForestTargetHosts.LAYOUT,"forest-bible-world-v15","forest-branching-expedition-v16","forest-varied-bible-v17"]:
 		_target_host_presentation=ForestTargetHosts.build(manifest)
 	bounds = ThornForestRegionGenerator._rect(manifest.world_bounds)
 	for row: Dictionary in manifest.platforms: forest_platforms.append(row.duplicate(true))
@@ -50,7 +50,7 @@ func build(recorded: Dictionary, tuning: PlayerTuning) -> Dictionary:
 		var target: GrappleAnchor
 		var mount := ForestTargetHosts.mount_for(_target_host_presentation,str(row.id))
 		var runtime_fruit: bool = bool(mount.get("resolved",false)) and mount.get("presentation")=="runtime_rooted_fruit"
-		var is_fruit: bool = manifest.get("layout_version") in ["forest-fruit-routes-v14","forest-bible-world-v15","forest-branching-expedition-v16"] and (row.get("fruit_presentation") == "rooted_fruit" or runtime_fruit)
+		var is_fruit: bool = manifest.get("layout_version") in ["forest-fruit-routes-v14","forest-bible-world-v15","forest-branching-expedition-v16","forest-varied-bible-v17"] and (row.get("fruit_presentation") == "rooted_fruit" or runtime_fruit)
 		if is_fruit:
 			var fruit := ForestFruitAnchor.new()
 			fruit.fruit_role = str(row.fruit_role)
@@ -63,7 +63,7 @@ func build(recorded: Dictionary, tuning: PlayerTuning) -> Dictionary:
 		target.name = row.id
 		target.position = Vector2(row.position[0],row.position[1])
 		target.hang_enabled = bool(row.get("hang_enabled",false))
-		if manifest.get("layout_version") in ["forest-fruit-routes-v14","forest-bible-world-v15","forest-branching-expedition-v16"] and row.get("fruit_role") == "optional" and not is_fruit:
+		if manifest.get("layout_version") in ["forest-fruit-routes-v14","forest-bible-world-v15","forest-branching-expedition-v16","forest-varied-bible-v17"] and row.get("fruit_role") == "optional" and not is_fruit:
 			target.modulate = Color(0.72,0.76,0.67,0.78)
 		add_child(target)
 		hook_targets[row.id] = target
@@ -213,13 +213,13 @@ func module_index_at(point: Vector2) -> int:
 func _draw() -> void:
 	for anchor: Dictionary in manifest.get("hook_anchors",[]):
 		var mount := ForestTargetHosts.mount_for(_target_host_presentation,str(anchor.id))
-		if bool(anchor.get("hang_enabled",false)) and anchor.has("tether_origin") and not (manifest.get("layout_version") in ["forest-fruit-routes-v14","forest-bible-world-v15","forest-branching-expedition-v16"] and (anchor.get("fruit_presentation") == "rooted_fruit" or bool(mount.get("resolved",false)))):
+		if bool(anchor.get("hang_enabled",false)) and anchor.has("tether_origin") and not (manifest.get("layout_version") in ["forest-fruit-routes-v14","forest-bible-world-v15","forest-branching-expedition-v16","forest-varied-bible-v17"] and (anchor.get("fruit_presentation") == "rooted_fruit" or bool(mount.get("resolved",false)))):
 			draw_line(Vector2(anchor.tether_origin[0],anchor.tether_origin[1]),Vector2(anchor.position[0],anchor.position[1]),Color("527e5a"),3.0,true)
 	if ForestBiblePresentation.enabled(manifest):
 		ForestBiblePresentation.draw_structure_backdrops(self, manifest)
 	elif manifest.get("scene_language_version", 0) == ForestSceneLanguage.VERSION:
 		ForestSceneLanguage.draw_structure_backdrops(self, manifest)
-	if manifest.get("layout_version") in ["forest-fruit-routes-v14","forest-bible-world-v15","forest-branching-expedition-v16"]:
+	if manifest.get("layout_version") in ["forest-fruit-routes-v14","forest-bible-world-v15","forest-branching-expedition-v16","forest-varied-bible-v17"]:
 		for bough: Dictionary in manifest.get("fruit_boughs", []):
 			if ForestBiblePresentation.enabled(manifest): ForestBiblePresentation.draw_bough(self, bough)
 			else: ForestFruitBough.draw(self,bough)

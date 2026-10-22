@@ -1,0 +1,804 @@
+{
+  "schema_version": 1,
+  "started_at": "20261022T020132.269392Z",
+  "profiles": [
+    "docs"
+  ],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "docs",
+      "argv": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "a27a9338248cc1f0ab69fee2a4a5a3dc9a4c7bbf3fae5ab8f0a7b425430de788",
+      "log": "docs.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792634503.9069967,
+      "ended_at_unix": 1792634504.2888324,
+      "duration_seconds": 0.382,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_docs.py"
+      ],
+      "check_token": "7b2a712c0e2649d1991410dc1f53bc09",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T020132.269392Z/artifacts/docs",
+      "reused": false
+    },
+    {
+      "id": "world",
+      "argv": [
+        "python3",
+        "tools/check_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "53654f2c80b22135013f13bb48a796e741a6faaa70cc38ed0de7764e30a0dd72",
+      "log": "world.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792634505.122445,
+      "ended_at_unix": 1792634505.3255582,
+      "duration_seconds": 0.203,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_world_design.py"
+      ],
+      "check_token": "d580360689744d1b8316f9b61de58a07",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T020132.269392Z/artifacts/world",
+      "reused": false
+    },
+    {
+      "id": "world-design-tests",
+      "argv": [
+        "python3",
+        "tests/test_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "77463890eb64c501ed3c33b76a9cf43bfa2405e6f4a766d7fd73555882bcac59",
+      "log": "world-design-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792634506.1764867,
+      "ended_at_unix": 1792634506.3814569,
+      "duration_seconds": 0.205,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_world_design.py"
+      ],
+      "check_token": "b9737cd428464eb892f3615cc0ce77b4",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T020132.269392Z/artifacts/world-design-tests",
+      "reused": false
+    },
+    {
+      "id": "structure",
+      "argv": [
+        "python3",
+        "tools/check_project.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "ecb5eece173fe4e58f3d2e5c371ae042d69bf66467d0b4dd33e18269c030a57d",
+      "log": "structure.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792634507.2063875,
+      "ended_at_unix": 1792634507.3945916,
+      "duration_seconds": 0.188,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_project.py"
+      ],
+      "check_token": "4a70b4fb599c4095ad7d99b703657958",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T020132.269392Z/artifacts/structure",
+      "reused": false
+    },
+    {
+      "id": "harness-tests",
+      "argv": [
+        "python3",
+        "tests/test_harness.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "f0320bf38f51caf730e698a359c0a147680f996f75b68f143562105c404a65fd",
+      "log": "harness-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792634508.231673,
+      "ended_at_unix": 1792634518.0023923,
+      "duration_seconds": 9.771,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_harness.py"
+      ],
+      "check_token": "497a5808ba0c482a85a16e5a9a1cfc6e",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T020132.269392Z/artifacts/harness-tests",
+      "reused": false
+    },
+    {
+      "id": "quality-drills",
+      "argv": [
+        "python3",
+        "tools/quality_drills.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "578ea410fba786d0da42a2a647804519088f1e7ed0867f8638fc606b44890d41",
+      "log": "quality-drills.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792634518.8294125,
+      "ended_at_unix": 1792634518.967861,
+      "duration_seconds": 0.138,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/quality_drills.py"
+      ],
+      "check_token": "7f5d1046316e4ab488a9e739b20b00c7",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T020132.269392Z/artifacts/quality-drills",
+      "reused": false
+    },
+    {
+      "id": "quality-tests",
+      "argv": [
+        "python3",
+        "tests/test_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "637063338cc33cb70675ed75b623996eb5c1f12dccb3e3311951aa6d6dd46985",
+      "log": "quality-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792634519.8088095,
+      "ended_at_unix": 1792634520.5547576,
+      "duration_seconds": 0.746,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_quality.py"
+      ],
+      "check_token": "0a77ba25687b4ca0b965b671edb09760",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T020132.269392Z/artifacts/quality-tests",
+      "reused": false
+    },
+    {
+      "id": "quality",
+      "argv": [
+        "python3",
+        "tools/check_quality.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "c43a84d57f4167a0923faad76be8271bfa7d1f6248b1d434d1e848b89f77790d",
+      "log": "quality.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792634521.391295,
+      "ended_at_unix": 1792634523.5590725,
+      "duration_seconds": 2.168,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_quality.py"
+      ],
+      "check_token": "a40ad95733f6411e91102c59a06fb8dc",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T020132.269392Z/artifacts/quality",
+      "reused": false
+    },
+    {
+      "id": "production-loop-tests",
+      "argv": [
+        "python3",
+        "tests/test_production_loop.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "d35d548ff1aa88e53ca3e62b3910fec862b07c189d4e6bad8262a9efd3ea644a",
+      "log": "production-loop-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792634524.393913,
+      "ended_at_unix": 1792634560.8059778,
+      "duration_seconds": 36.412,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_production_loop.py"
+      ],
+      "check_token": "efe2e3a7e6c5474abac2e781804d671d",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T020132.269392Z/artifacts/production-loop-tests",
+      "reused": false
+    },
+    {
+      "id": "terrain-tile-tests",
+      "argv": [
+        "python3",
+        "tests/test_terrain_tiles.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "f6c2acf9afaebbfc5d558c386bac3a60dfcc9ebf36750bccd362605caba27af8",
+      "log": "terrain-tile-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792634561.6327584,
+      "ended_at_unix": 1792634561.8241282,
+      "duration_seconds": 0.191,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_terrain_tiles.py"
+      ],
+      "check_token": "d4e4b390a8374a54a0953dca5629c5a1",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T020132.269392Z/artifacts/terrain-tile-tests",
+      "reused": false
+    },
+    {
+      "id": "consumer-coverage-tests",
+      "argv": [
+        "python3",
+        "tests/test_consumer_coverage.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "c04be7c03e1f4aea44b13b5ee804839f036a6dec810be3cbd636c84d09a2ebc3",
+      "log": "consumer-coverage-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792634562.6340656,
+      "ended_at_unix": 1792634562.822755,
+      "duration_seconds": 0.189,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_consumer_coverage.py"
+      ],
+      "check_token": "14143371405f47b69aad9f234fea3771",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T020132.269392Z/artifacts/consumer-coverage-tests",
+      "reused": false
+    },
+    {
+      "id": "capture-tests",
+      "argv": [
+        "python3",
+        "tests/test_capture_actions.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "89526d92cf21e79dfbf3f5f3f39d58b7db3f76eccd5b0e361e27a1aa12a0b81e",
+      "log": "capture-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792634563.6462445,
+      "ended_at_unix": 1792634563.8356097,
+      "duration_seconds": 0.189,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_capture_actions.py"
+      ],
+      "check_token": "9b5f2a2ad6f74c9ab0d8a3b657116130",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T020132.269392Z/artifacts/capture-tests",
+      "reused": false
+    },
+    {
+      "id": "level-design-contracts",
+      "argv": [
+        "python3",
+        "tests/test_level_design_contracts.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "22fcafa4036a8fb86657e993123b0083a7eefec6fcb820569c653795be7e6228",
+      "log": "level-design-contracts.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792634564.6893167,
+      "ended_at_unix": 1792634576.0310774,
+      "duration_seconds": 11.342,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_design_contracts.py"
+      ],
+      "check_token": "b3bb88d2d2dd496297b6c19758521be8",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T020132.269392Z/artifacts/level-design-contracts",
+      "reused": false
+    },
+    {
+      "id": "mechanism-comparisons",
+      "argv": [
+        "python3",
+        "tests/test_mechanism_comparisons.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "e78d883fc55fadd65b77892992eb70c9170bb3dad6179409eeaa856d4568d679",
+      "log": "mechanism-comparisons.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792634576.8623216,
+      "ended_at_unix": 1792634577.1014576,
+      "duration_seconds": 0.239,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_mechanism_comparisons.py"
+      ],
+      "check_token": "986ca1f53f7742a7afdaf3db7ff41b9f",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T020132.269392Z/artifacts/mechanism-comparisons",
+      "reused": false
+    },
+    {
+      "id": "level-design-analysis",
+      "argv": [
+        "python3",
+        "tests/test_level_design_analysis.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "7646232478e43c364c78627694916741c8c90817b371f33592ef0da6abe968b7",
+      "log": "level-design-analysis.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792634577.927165,
+      "ended_at_unix": 1792634578.4210303,
+      "duration_seconds": 0.494,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_design_analysis.py"
+      ],
+      "check_token": "a3b7617bc31e4492b80605425dad945e",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T020132.269392Z/artifacts/level-design-analysis",
+      "reused": false
+    },
+    {
+      "id": "level-design-routing",
+      "argv": [
+        "python3",
+        "tests/test_level_design_routing.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "0ee8bc63fd5833d29a9f1f5a78eceead90c7ae2fe34ef1504c76b2b40f62f1fb",
+      "log": "level-design-routing.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792634579.2575772,
+      "ended_at_unix": 1792634582.8594298,
+      "duration_seconds": 3.602,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_design_routing.py"
+      ],
+      "check_token": "5060fa86650544038bed3be14ef7c3aa",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T020132.269392Z/artifacts/level-design-routing",
+      "reused": false
+    },
+    {
+      "id": "level-design-golden-tests",
+      "argv": [
+        "python3",
+        "tests/test_level_design_golden.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "b3c3dd8ca2d127c197fd644367a84a08e738687a41185956414257c2261a9ad3",
+      "log": "level-design-golden-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792634583.7187197,
+      "ended_at_unix": 1792634584.376865,
+      "duration_seconds": 0.658,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_design_golden.py"
+      ],
+      "check_token": "f4cef99a7d2c454eb50f6cba16d4c846",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T020132.269392Z/artifacts/level-design-golden-tests",
+      "reused": false
+    },
+    {
+      "id": "level-region-context",
+      "argv": [
+        "python3",
+        "tests/test_level_region_context.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "c314bf9fb0c300171b2fae9137ed954eceecd7accc24f6127c30f1fa16ce4944",
+      "log": "level-region-context.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792634585.2212243,
+      "ended_at_unix": 1792634585.7152889,
+      "duration_seconds": 0.494,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_region_context.py"
+      ],
+      "check_token": "ed3216e1d6f04799b0c915cafe180e50",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T020132.269392Z/artifacts/level-region-context",
+      "reused": false
+    },
+    {
+      "id": "level-experience",
+      "argv": [
+        "python3",
+        "tests/test_level_experience.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "d72d5d3f86699b984e9b0209aeb200ba99597ff3a9eaaba9def4700adc72f60a",
+      "log": "level-experience.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792634586.5728974,
+      "ended_at_unix": 1792634589.8899348,
+      "duration_seconds": 3.317,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_experience.py"
+      ],
+      "check_token": "1f82b80939164b25aa69697d1b572f13",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T020132.269392Z/artifacts/level-experience",
+      "reused": false
+    },
+    {
+      "id": "level-formal-receipts",
+      "argv": [
+        "python3",
+        "tests/test_level_formal_receipts.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "7ee0c8fea95e079e7dc9cb88550302a6042ec467086c0e1ed4412177c567ae61",
+      "log": "level-formal-receipts.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792634590.7330883,
+      "ended_at_unix": 1792634592.7851791,
+      "duration_seconds": 2.052,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_level_formal_receipts.py"
+      ],
+      "check_token": "728f7cd7f653443b863632f8cc327a0f",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T020132.269392Z/artifacts/level-formal-receipts",
+      "reused": false
+    },
+    {
+      "id": "visual-director-tests",
+      "argv": [
+        "python3",
+        "tests/test_visual_director.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "2241f9fc307fc17484ff454ee7cc9b480a4485c8cdd74e56a10bf08cdd16cbfd",
+      "log": "visual-director-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792634593.6038175,
+      "ended_at_unix": 1792634605.5789194,
+      "duration_seconds": 11.975,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_visual_director.py"
+      ],
+      "check_token": "c2412c6a9c294d02bd81b7c199a55a3b",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T020132.269392Z/artifacts/visual-director-tests",
+      "reused": false
+    },
+    {
+      "id": "asset-family-tests",
+      "argv": [
+        "python3",
+        "tests/test_asset_family.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "e4aa2acffcb7a4408e92867324d8ab8a02e1c20c8ec1c9e4871b857d4fefcfeb",
+      "log": "asset-family-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792634606.3778076,
+      "ended_at_unix": 1792634606.5752602,
+      "duration_seconds": 0.197,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_asset_family.py"
+      ],
+      "check_token": "7224257b5d0a47d0a057b9aa19c7ce93",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T020132.269392Z/artifacts/asset-family-tests",
+      "reused": false
+    },
+    {
+      "id": "creative-direction",
+      "argv": [
+        "python3",
+        "tools/region_creative_direction.py",
+        "--directory",
+        "docs/creative_direction"
+      ],
+      "timeout_seconds": 30,
+      "input_digest": "995349fa06b9a60dcae2cf00532968a0f0410f67d1de10976f1397804ee72491",
+      "log": "creative-direction.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792634607.4118178,
+      "ended_at_unix": 1792634607.5547194,
+      "duration_seconds": 0.143,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/region_creative_direction.py",
+        "--directory",
+        "docs/creative_direction"
+      ],
+      "check_token": "3e8a232fed414a8ba775bd340ebfa098",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T020132.269392Z/artifacts/creative-direction",
+      "reused": false
+    },
+    {
+      "id": "creative-direction-tests",
+      "argv": [
+        "python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "42dda1839aba89025b6ed00f645957a8de09707d624b1c5f5c805b94a6500147",
+      "log": "creative-direction-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792634608.403955,
+      "ended_at_unix": 1792634609.5018656,
+      "duration_seconds": 1.098,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_region_creative_direction.py"
+      ],
+      "check_token": "7eba7daac769465d93144973ff2391b1",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T020132.269392Z/artifacts/creative-direction-tests",
+      "reused": false
+    },
+    {
+      "id": "underworld-pipeline",
+      "argv": [
+        "python3",
+        "tests/test_underworld_pipeline.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "247044f464a0feef4432b33b7e2837dd0976db81f29a9c43013d989608b10b57",
+      "log": "underworld-pipeline.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792634610.3686378,
+      "ended_at_unix": 1792634682.162026,
+      "duration_seconds": 71.793,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_underworld_pipeline.py"
+      ],
+      "check_token": "31c1f16ac1f04cae9c6ef3ed7aa2138d",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T020132.269392Z/artifacts/underworld-pipeline",
+      "reused": false
+    },
+    {
+      "id": "underworld-home-guard-tests",
+      "argv": [
+        "python3",
+        "tests/test_underworld_home_terrace_wrapper.py"
+      ],
+      "timeout_seconds": 90,
+      "input_digest": "dba9bfed62dca293999580f7c822cbd3924b2260a2a6332d9fc1d50067b659a9",
+      "log": "underworld-home-guard-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792634683.0520654,
+      "ended_at_unix": 1792634683.246457,
+      "duration_seconds": 0.194,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_underworld_home_terrace_wrapper.py"
+      ],
+      "check_token": "928de837ba0c487ab8e7ede71b31b7fd",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T020132.269392Z/artifacts/underworld-home-guard-tests",
+      "reused": false
+    },
+    {
+      "id": "region-bible-contract",
+      "argv": [
+        "python3",
+        "tools/region_creative_direction.py",
+        "--check-bibles"
+      ],
+      "timeout_seconds": 30,
+      "input_digest": "6c2f78414070f5e8395c319da54c9ed04f2c9f38c4b8d6244ae0309d4c4e5786",
+      "log": "region-bible-contract.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792634684.136301,
+      "ended_at_unix": 1792634684.279626,
+      "duration_seconds": 0.143,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/region_creative_direction.py",
+        "--check-bibles"
+      ],
+      "check_token": "cb9bb9334afa4a2c8d413ba3d747b6e9",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T020132.269392Z/artifacts/region-bible-contract",
+      "reused": false
+    },
+    {
+      "id": "region-bible-tests",
+      "argv": [
+        "python3",
+        "tests/test_region_bible.py"
+      ],
+      "timeout_seconds": 30,
+      "input_digest": "83c6bf4b937559c9e40e97f00ff7f10fcf7432f7a375bc69e5e098dc32a2983a",
+      "log": "region-bible-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792634685.4459047,
+      "ended_at_unix": 1792634687.6457984,
+      "duration_seconds": 2.2,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_region_bible.py"
+      ],
+      "check_token": "c0a9768589a34bb88d76cd340a0c1618",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T020132.269392Z/artifacts/region-bible-tests",
+      "reused": false
+    },
+    {
+      "id": "harness-artifact-archive-tests",
+      "argv": [
+        "python3",
+        "tests/test_harness_artifact_archive.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "e77e2db58529be76500e546f9b742fc14475b2ed2aa1a704416be9747ccedf16",
+      "log": "harness-artifact-archive-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792634688.4897149,
+      "ended_at_unix": 1792634691.2385135,
+      "duration_seconds": 2.749,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_harness_artifact_archive.py"
+      ],
+      "check_token": "a30af81b9dcd4ffd8b98c43fc1dfe58f",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T020132.269392Z/artifacts/harness-artifact-archive-tests",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": false,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "2a2ecccb3bd1f0d9706035629b25896662d62221b99002ef5ca47e8ef00a4dd1",
+  "working_files": {
+    ".agents/skills/level-module-creator/SKILL.md": "df61914f76f4d39adb7346ec0ffdf362506f7d0d1d90e6bd1e93e25215ad6be2",
+    ".agents/skills/region-generator/SKILL.md": "e33868ab5c41662caa556b0f78fb82eee820c6f778b766ad36a697046bba4324",
+    "docs/archive/status_snapshots_20261022/current_state.md.source": "224ac2caf991cbd29f2d655ff9b019251993b5baadf8822ee10a557e1aa267be",
+    "docs/archive/status_snapshots_20261022/handoff.md.source": "80c20abb20fdc49b0fcaf0e823e95a0ce2be2254a91d1170f41f372c098f42c4",
+    "docs/archive/status_snapshots_20261022/index.json": "7ba2f16919d2d65b8a1b4c558167620c8cad6f919613105f687b66cf238b0b88",
+    "docs/current_state.md": "9a7f0de3c410268fa1a2b8541d86120f3772e29d9358623f78b7be001b6834fc",
+    "docs/design/forest_v16_rethink.md": "2c77ab6dfebf375e8237d80d9acab60968946fa800215a6d4e0e6e376b71bfc0",
+    "docs/design/forest_varied_bible_v17.md": "0b14e5bb9ba1b42c8b774b8cf0c25ff3c1ea5444e079223c7e2ae4f9cf6067d6",
+    "docs/design/forest_variety_feedback_20261022.json": "359ea59c5efffd14e95f32fd829cbbd640a74111f61428e7b8ecbada51a6f698",
+    "docs/evidence/forest_variety_03/README.md": "9f29fdccbcdcd2bd0e65925655108ecbefddfcee96877ea3369d899b7d7e0f86",
+    "docs/evidence/forest_variety_03/archive-final-feedback.py": "6bee78631e4356f6f4f0e4b7b15077c897bc7db0d2453938a347a8554e4e14a7",
+    "docs/evidence/forest_variety_03/archive-iterations.py": "14885dbf76ca454b3983a723101668e4e720946369afc0d6441234271d1e7986",
+    "docs/evidence/forest_variety_03/feedback-index.json": "8cd4cca5fb3e0c16b113acdb0c3635615d19b404e00e40602edb153c46d4b614",
+    "docs/evidence/forest_variety_03/feedback.zip": "cdf90f934cdd5feddb154215e9b5286146081a7c74d312e954eaa0ef555c260f",
+    "docs/evidence/forest_variety_03/independent-reviews/REPORT.md": "2dc9f22e7d20fbd98d42d6a9d9994abbb72aae5775318e5383d1ebb31d5495e7",
+    "docs/evidence/forest_variety_03/independent-reviews/entry-rest-bay-static-first/REVIEW.md": "eb363f0424ffe2147cba04ad0ec3b70440d9a191144e71c088bf238f55b624db",
+    "docs/evidence/forest_variety_03/independent-reviews/entry-rest-bay-static-first/audit_round07.py": "aa9d70b0f1cc97e5ccae0f0bedd0b957cde546ea5244569ddd813bf54b8980fd",
+    "docs/evidence/forest_variety_03/independent-reviews/entry-rest-bay-static-first/narrowed-helper.gd.source": "6b114da9aa971ce03f37db209ed28446842489a83aec5b0b12275092e8aa4e53",
+    "docs/evidence/forest_variety_03/independent-reviews/entry-rest-bay-static-first/observed-helper.gd.source": "2a2b26fbf30b85a43d431d582f9bae4d633621bf50cfd51ba7667d9579faef23",
+    "docs/evidence/forest_variety_03/independent-reviews/entry-rest-bay-static-first/old-trajectory-source.json": "0b1895dd3cf786a83920d1e56df3a48b74b340a3d8a3de278883dfc9627eacef",
+    "docs/evidence/forest_variety_03/independent-reviews/entry-rest-bay-static-first/round07-actual/REVIEW.md": "75f91811fe1a8e55b36de4a1dce601030625267b6138f610a5fc6a4eda649a15",
+    "docs/evidence/forest_variety_03/independent-reviews/entry-rest-bay-static-first/round07-actual/destination-contract-from-round07.gd.txt": "97e9e8d10aaad358888279b9864ec5ec2334cf7153038009e52aa653e161ca05",
+    "docs/evidence/forest_variety_03/independent-reviews/entry-rest-bay-static-first/round07-actual/review.json": "f5898c316d3c4f8cbc5f7addcf216f71769a0d075b7755b72ee25808161d2943",
+    "docs/evidence/forest_variety_03/independent-reviews/entry-rest-bay-static-first/round07-reviewer-alignment-first.log": "c6e93dab84523f2e330100c2c921eae154da096c9c23f6069919b845ac3abf6c",
+    "docs/evidence/forest_variety_03/independent-reviews/entry-rest-bay-static-first/round07-verification.log": "0d19ebd57f859918a111e0e3a67136c467024e3a6e0035e72ccd066b2a5b9680",
+    "docs/evidence/forest_variety_03/independent-reviews/entry-rest-bay-static-first/source.json": "b45e663f1f2ab7867c750b69b16b56c038d2205f283033a98b4afb006b0f8696",
+    "docs/evidence/forest_variety_03/independent-reviews/g0-review.md": "5d2345d32d010f3ce33326400942a499f5bd50418b958456d2d5c90646a39e39",
+    "docs/evidence/forest_variety_03/independent-reviews/process-correction-first/REVIEW.md": "5871664a197d48dcb1cb9cd4b10f6eb1d3cac546258ec20972b7192d390bb70b",
+    "docs/evidence/forest_variety_03/independent-reviews/process-correction-first/review.json": "f665040cf800810158f5087549569ae6b08fe5fa75433958e31d13f32aae8a15",
+    "docs/evidence/forest_variety_03/independent-reviews/random-guard-independent-first/REVIEW.md": "76c47574aa37d2cc17b2b135a01669ef5ebd03388202c2949dc1941b9be438f4",
+    "docs/evidence/forest_variety_03/independent-reviews/random-guard-independent-first/review.json": "d557df4dc9bc8615d426cd573e25d7fd53f4d5d797de0051f17bb284058cffe9",
+    "docs/evidence/forest_variety_03/independent-reviews/random-guard-independent-first/runner-source-reviewed.gd.txt": "24db87474072a386a79bfa85aaf235d20a6c8c1070ed46ebe9ef50c2f86a4442",
+    "docs/evidence/forest_variety_03/independent-reviews/round02-independent-first/REVIEW.md": "3a9c3d187cf8539a39aa1d70a2b9056b199fb8d3d0d6bd4267447872150bee72",
+    "docs/evidence/forest_variety_03/independent-reviews/round02-independent-first/review.json": "36b0e302e5dbbc953952a9a25ff35f3ab887d34c5d64c6ce3d13839663de576f",
+    "docs/evidence/forest_variety_03/independent-reviews/round03-independent-first/REVIEW.md": "b063b125fc3703cd2e46a19fb1fd19d3db0532236805231de9d74a3402d15d4f",
+    "docs/evidence/forest_variety_03/independent-reviews/round03-independent-first/review.json": "b87e5194fbce3042d83080dc4623ad9876ab52f53efdea2f3a11d78548e6ae2b",
+    "docs/evidence/forest_variety_03/independent-reviews/round03-independent-first/verification.log": "6738c4273b7b4698791863698729ce4e6b67e2f4a54661183ab88eb2faf7acb8",
+    "docs/evidence/forest_variety_03/independent-reviews/round03-independent-first/verify.py": "3cb056f41f048d6e2bd04e417af360e2c0441b17e8dc3c479329d169c738cf5d",
+    "docs/evidence/forest_variety_03/independent-reviews/round09-art-first/REVIEW.md": "cc9028878c05ac58e9041cd1868cc21e1edc511a0e3994fc9e5ef5feab201880",
+    "docs/evidence/forest_variety_03/independent-reviews/round09-art-first/review.json": "9d1c7b31628192bda2c1f253a7d037acb80bc86254019c7b1af7a42b0db05c4d",
+    "docs/evidence/forest_variety_03/independent-reviews/round10-art-second/REVIEW.md": "85d1ea7a7f8b89cfe2206333057f47cd09226f88ae050995d104bc5038da5e16",
+    "docs/evidence/forest_variety_03/independent-reviews/round10-art-second/review.json": "59d173912e5ce13f2fa1fa5d0151cb844ba6a55c01a6de75da27f3d2e8690a90",
+    "docs/evidence/forest_variety_03/independent-reviews/round11-independent-first/REVIEW.md": "978ac1c88a4fb837d69086f78cb5468500fd82160c5f9140e36ae1936b3b8b7c",
+    "docs/evidence/forest_variety_03/independent-reviews/round11-independent-first/review.json": "b500e75f5fea6ba77668da28c6064fcabe57edf53283c64b3b84e97f97073165",
+    "docs/evidence/forest_variety_03/independent-reviews/round11-independent-first/verification.log": "a52719be182a3b828e11bbedd1872dd1ea15b112c92d243825d470f9709c1f61",
+    "docs/evidence/forest_variety_03/independent-reviews/round11-independent-first/verify.py": "20522e7d4d37b0bced751de19cb000d9389868f5ca16cee409a924c507b26708",
+    "docs/evidence/forest_variety_03/independent-reviews/round11-independent-first/world-review.json": "bd4be4905df8139b4d43b8f140cd8a5f0deff9137481c304988b50f291cc7f09",
+    "docs/evidence/forest_variety_03/independent-reviews/sources.json": "f9d02692c67c997c1ddea31164efabd24dcb872f6853cfb1d32fe77c6941d417",
+    "docs/evidence/forest_variety_03/iterations-index.json": "15d5307a0482fead65059d005cd88e5c232bf767724bb8fefa0eccda7dc9d88c",
+    "docs/evidence/forest_variety_03/iterations.zip": "07b77cefc60591121badd46e130a592571dab147aa29f84cb9094817977386f8",
+    "docs/evidence/forest_variety_03/native11-receipt.json": "cb2b3167b8455e18add0396f0fd99d6c90a4c80bccc39ed5d02f677ece91be8f",
+    "docs/evidence/forest_variety_03/permanent-before-strict-guard-receipt.json": "3fe7af0ff816854a716fb91304825285a3b950a36379c4c795748193a5a824b5",
+    "docs/evidence/forest_variety_03/public_restore/deployment-run.json": "76d503364a29eea599de8e273baeb0db4e643d37d1a65a09a56a1cfe4ce98360",
+    "docs/evidence/forest_variety_03/public_restore/forest-entry.png": "f2242e245468fb84451b6473c1d6cb4607dd6828d61d545e0c2ee3b232ddbc70",
+    "docs/evidence/forest_variety_03/public_restore/report.json": "81b334463def1c9279e06625671f36a24805fc2893b9d7803201537260b38285",
+    "docs/evidence/forest_variety_03/public_restore/resumed.png": "991310db8ec3d519ad72172dc6d85c5214d64dc0cfc985734773e9f215c48b09",
+    "docs/evidence/forest_variety_03/public_restore/verify-restored-public.py": "684c3ee584d3304f57efd5f7557306f85d5fe3040e97e7dd651f3f0cb807cb68",
+    "docs/evidence/forest_variety_03/review-source-snapshots-index.json": "e1e006cca2c3238a05634ce737df1e5e0a281f2ae949ada09b18352e50dc26d6",
+    "docs/evidence/forest_variety_03/review-source-snapshots.zip": "7785b767ea17d2109e679cc670de4e5819f7339381f44fa025cb14570c0b5636",
+    "docs/evidence/forest_variety_03/strict12-receipt.json": "36942225e4f5ffe566d3f3b77b58e1c8c1cd872628fe3a7aa3da090ea41a52f2",
+    "docs/evidence/forest_variety_03/twelfth-world-coordinator.py": "748dd215958770d5f4c7b24aee21dbacc99db49d51dd8c70c2f3ee41f14f0392",
+    "docs/handoff.md": "ab380e6d44cf7ab702031d9e8e84641c1070adf29cf289e2d6478be6c3550548",
+    "docs/harness.md": "df4beef2614ed166fbdc344478a16b43b6e9f5b31f68cc1492597504403021ac",
+    "docs/quality/records/FOREST-EXPLORATION-02.json": "5d265c2d941f22004c9d444b0cc020db92840c03e10934116c96d7fc497fdd01",
+    "docs/quality/records/FOREST-VARIETY-03.json": "38bcca7b29f2e4e6c22fb40fadd38c04ddfca8e07151fc8508060a036669fbfe",
+    "docs/tasks.md": "2b0134a538d6ff7797c3fbff4816564c614d36e77f9f584147d48dbdaa3c6f1a",
+    "scripts/demo/demo_app.gd": "907ac0fc37650a137dc446fd3c53f7d58f9bf14f409024533cbff32f120daac8",
+    "scripts/demo/forest_varied_module_golden.gd": "efeb73f42d6251540818c3bac7bbcea49bce4bddac79c8a58b4938c7c05d57ce",
+    "scripts/demo/forest_varied_module_golden.gd.uid": "4dc4b0ecdf2abc9f99e3eb9b49724c90d9e5e7145013d647e8a125c0f655f2b3",
+    "scripts/generation/forest_entry_rest_bay.gd": "e3511a60d7a2d1b85537768458424503abb2ba8fefa4e997daf914f87444f220",
+    "scripts/generation/forest_entry_rest_bay.gd.uid": "b316601116855db20a0aeb7faa530edde3f4dd24db743059116bfd3bc59ea905",
+    "scripts/generation/forest_playful_module_variants.gd": "c6f258e5bddad4fc8877b8a34753238d0f74a86f7a5120652b19bc062375cac2",
+    "scripts/generation/forest_playful_module_variants.gd.uid": "8d94befe871e37c0e5e69f1a0c98cd0f78941553b3eb8b5e01b2c1b6cdd92cc6",
+    "scripts/generation/forest_varied_bible_layout.gd": "65991bfdbc2d62ad82ef4be21f69974aa86d44743927972d867a41f606d35897",
+    "scripts/generation/forest_varied_bible_layout.gd.uid": "860d0fff7b9dd7cca593e21be9f56def39410f16e8e65161035c03c3ec182986",
+    "scripts/generation/thorn_forest_region_assembler.gd": "48b2b6e6376cd96bd32aa2f434432e20f800a627754da369c5a9ebee66ad4691",
+    "scripts/generation/thorn_forest_region_generator.gd": "2a3fbfebae3486f2bafb5416b3b684d5e8187ce209e904511775fb269fde69d3",
+    "scripts/generation/thorn_forest_region_v2_v17.gd": "51251a0f695c5e95898ec0d5d07d7686f044111426890c027a79cb28681d24a0",
+    "scripts/generation/thorn_forest_region_v2_v17.gd.uid": "cdd55fd02755a9fb65bca16320be19e6f30574a913a20370a20cbec165f7842c",
+    "scripts/presentation/forest_bible_presentation.gd": "9058038fc942dea6b2a3cab04df376d57fcf81468ada86053d6f594dd39f03b2",
+    "scripts/presentation/forest_bible_thorns.gd": "731bdfdb61c3ac8486d414f4850d70506868d25ac55ae33fab7b6c88b029be47",
+    "scripts/ui/demo_menu.gd": "2dbbfa365aac21d507d2d56740a65288d12bdcf8b3625a6afb6118c70a74267f",
+    "scripts/world/forest_target_hosts.gd": "1cfb01e97e1c11bc479df401eea0ca4a5a540948e871dd56e7155c27e55ac3d5",
+    "tests/forest_bible_world_crown_combat_case.gd": "2ae935cafec72e269acc31ae1a510f140a3dfed387d8a75a0f83d599e7c585c4",
+    "tests/forest_bible_world_grove_combat_case.gd": "7792d3cc61afe5eb421c0f40a007db31e08ec51420150e8653319889790a3e26",
+    "tests/forest_varied_fixture_app.gd": "f0e317359967b0dddd1046ef7d89fb3b8c6f8e252b730a4b6a5719752217350b",
+    "tests/forest_varied_fixture_app.gd.uid": "e64f631626cd6a0fdb31c894e5f5ce64ef7d8b527be3454dd22be1185ccad1c7",
+    "tests/forest_varied_fixture_runner.gd": "493a6e812a42b47212ab3e8af85c248d32feaa8498121a851300eb3dcb2d1915",
+    "tests/forest_varied_fixture_runner.gd.uid": "934753509080ff6d1f849fff61e698d96f72a45786e4b9d382fa0214b564ef7c",
+    "tests/forest_varied_fixture_trace.gd": "e94e61a60bcba3405c3eed0c147e019c41b5964f32d2376ae0bd45aeb0403c15",
+    "tests/forest_varied_fixture_trace.gd.uid": "50f49cce2275ae55bd2a2729bbaa3ea3a082b571494e73f827a11cff442132b7",
+    "tests/forest_varied_golden_runner.gd": "70f5b9d3bc875ae0b06969fc0be3b6be68562574aca8272993a66b4bb8c9a75d",
+    "tests/forest_varied_golden_runner.gd.uid": "78598ee16e35b7d815d06b65eba8c3fc8821613c3b2f28f88545777fa88ad0a4",
+    "tests/forest_varied_menu_runner.gd": "5e247de8bb80c62a35a54b2a0c2f7b38a84f5b06bd31a9074932238f2780a141",
+    "tests/forest_varied_menu_runner.gd.uid": "8465e66d9ff93cf6bc40f0257f3db8523885369c61100f88d06194957f65eb5d",
+    "tests/forest_varied_module_runner.gd": "6d8e07cfaa04b6fbd80f054c4f5c495b2efe3e13e0391a1ee0e0cb973650d5a0",
+    "tests/forest_varied_module_runner.gd.uid": "843867899d8058606bb44bfa98bea5d457773ca04875fde5a07c2a139872b894",
+    "tests/forest_varied_motor_runner.gd": "1bf5d6267b6f349ce631e999b83f6d96cbf196771c0976ca5e01f35cbf6484fe",
+    "tests/forest_varied_motor_runner.gd.uid": "5f2b50b4f160fd7a3eff3783940ba312f9e3b55537954c8b3f0ff9ee6b87f247",
+    "tests/forest_varied_region_trace.gd": "e0fa12b648c1b4fd625c27f7719b3bd929617b9715a137344cb5a0cc682cd8fd",
+    "tests/forest_varied_region_trace.gd.uid": "7ab7fa65421863f324647a9d52ed49b09bc868d4dd2e5b8e5fa6c1d7e670a411",
+    "tests/forest_varied_world_runner.gd": "24db87474072a386a79bfa85aaf235d20a6c8c1070ed46ebe9ef50c2f86a4442",
+    "tests/forest_varied_world_runner.gd.uid": "529951e876524bab51c96771103fb69a4bea96f6661a8d54c50c37712b0bfd34",
+    "tools/harness/profiles.json": "2a2ecccb3bd1f0d9706035629b25896662d62221b99002ef5ca47e8ef00a4dd1",
+    "tools/run_forest_varied_feedback.py": "ae1f3b7be85d0266be60b0c72209da1852c02a3fa215a0d4696a697d50c1454d",
+    "tools/verify_forest_browser.py": "dd1b03d1e38ac1cb374a8e2fcce23e25d1bb5bb0322909f5823b66b0888b1a73"
+  },
+  "commit": "ee0b646e779b4680319e9a377518b27c10bfbe87",
+  "git_status": "M .agents/skills/level-module-creator/SKILL.md\n M .agents/skills/region-generator/SKILL.md\n M docs/current_state.md\n M docs/handoff.md\n M docs/harness.md\n M docs/quality/records/FOREST-EXPLORATION-02.json\n M docs/tasks.md\n M scripts/demo/demo_app.gd\n M scripts/generation/thorn_forest_region_assembler.gd\n M scripts/generation/thorn_forest_region_generator.gd\n M scripts/presentation/forest_bible_presentation.gd\n M scripts/presentation/forest_bible_thorns.gd\n M scripts/ui/demo_menu.gd\n M scripts/world/forest_target_hosts.gd\n M tests/forest_bible_world_crown_combat_case.gd\n M tests/forest_bible_world_grove_combat_case.gd\n M tools/harness/profiles.json\n M tools/verify_forest_browser.py\n?? docs/archive/status_snapshots_20261022/\n?? docs/design/forest_v16_rethink.md\n?? docs/design/forest_varied_bible_v17.md\n?? docs/design/forest_variety_feedback_20261022.json\n?? docs/evidence/forest_variety_03/\n?? docs/quality/records/FOREST-VARIETY-03.json\n?? scripts/demo/forest_varied_module_golden.gd\n?? scripts/demo/forest_varied_module_golden.gd.uid\n?? scripts/generation/forest_entry_rest_bay.gd\n?? scripts/generation/forest_entry_rest_bay.gd.uid\n?? scripts/generation/forest_playful_module_variants.gd\n?? scripts/generation/forest_playful_module_variants.gd.uid\n?? scripts/generation/forest_varied_bible_layout.gd\n?? scripts/generation/forest_varied_bible_layout.gd.uid\n?? scripts/generation/thorn_forest_region_v2_v17.gd\n?? scripts/generation/thorn_forest_region_v2_v17.gd.uid\n?? tests/forest_varied_fixture_app.gd\n?? tests/forest_varied_fixture_app.gd.uid\n?? tests/forest_varied_fixture_runner.gd\n?? tests/forest_varied_fixture_runner.gd.uid\n?? tests/forest_varied_fixture_trace.gd\n?? tests/forest_varied_fixture_trace.gd.uid\n?? tests/forest_varied_golden_runner.gd\n?? tests/forest_varied_golden_runner.gd.uid\n?? tests/forest_varied_menu_runner.gd\n?? tests/forest_varied_menu_runner.gd.uid\n?? tests/forest_varied_module_runner.gd\n?? tests/forest_varied_module_runner.gd.uid\n?? tests/forest_varied_motor_runner.gd\n?? tests/forest_varied_motor_runner.gd.uid\n?? tests/forest_varied_region_trace.gd\n?? tests/forest_varied_region_trace.gd.uid\n?? tests/forest_varied_world_runner.gd\n?? tests/forest_varied_world_runner.gd.uid\n?? tools/run_forest_varied_feedback.py",
+  "diff": "diff --git a/.agents/skills/level-module-creator/SKILL.md b/.agents/skills/level-module-creator/SKILL.md\nindex d99b5dcb..6ca63245 100644\n--- a/.agents/skills/level-module-creator/SKILL.md\n+++ b/.agents/skills/level-module-creator/SKILL.md\n@@ -108,3 +108,7 @@ G5：玩家实操可读性、手感、公平性和设备控制；有证据才允\n 先区分实体surface伤害与无实体附着的历史fall_plane；跨层下方实际有可落地支持时后者不能误扣血，表面危险仍有效。机关先追正式actuator，不能遗留W打开攻击门的旁路。 来源、真实失败、适用版本与待验见[第三轮经验](../../../docs/underworld_feedback_r3.md)；本条不代签最终用户手感或实体设备。\n \n 本轮实机反例补充：两块相差30wu的单向面会在角色尚未完全离开上一块时接住身体，使真实drop例外不能结束；不能在测试中reset例外，应重设计真实走出/落下口。组装器的奖励覆盖须核对实际领取实体的位置、支撑和OR选项；Dictionary.merge默认不覆盖曾令L新奖仍留旧枝，不能只验证route命名。见[完整冻结源与原失败](../../../docs/evidence/region_bible_v2/style_continuity_20261021/forest-exploration-v16/README.md)。\n+\n+## 模块库数量的口径\n+\n+同一几何只换动作程序、抬接收岸或重命名，属于同族变体；新趣味需有不同的观察、承诺、修正、目的地或回报关系，并在真实消费者中成立。分开报告旧复用、连接变体和新机制，先目的打法与强替代的黄金，再接真实邻居与多种子。不要为了库数保留没有新决定的候选。实际失败来源：[森林v16返省](../../../docs/design/forest_v16_rethink.md)。\ndiff --git a/.agents/skills/region-generator/SKILL.md b/.agents/skills/region-generator/SKILL.md\nindex b11cd874..7db15918 100644\n--- a/.agents/skills/region-generator/SKILL.md\n+++ b/.agents/skills/region-generator/SKILL.md\n@@ -162,3 +162,7 @@ V3的20图RootBell为0，而原40图资格审计仅1例，不说明应增怪或\n 默认晋升必须覆盖真实RunManifest→canonical_json→JSON.parse→from_snapshot往返；只验证内存Dictionary快照不足。JSON数值解码的整数/浮点差异须按有限、整值的字段合同处理，不能接受分数身份、bool冒充数字或绕过全量Manifest校验。跨区UI流程现有的真实序列化断言继续作为发布门槛，不以版本枚举同步替代保存验证。\n \n 新增Godot脚本/素材后，在冻结harness输入前先完成一次正式4.7.2 editor import，纳入真实新UID/import元数据再冻结。若检查内部首次import生成UID导致source drift，该轮仍失败并保留；明确核对唯一新增元数据后重新fresh，不把新文件排除守门或倒签原native通过为整轮通过。\n+\n+## 保留用户肯定的设计再扩容\n+\n+用户肯定旧版设计而要求规模、曲线或随机变化时，先列应保留的真实模块与关系、需改问题及允许的变化范围，不能以新骨架替换已成立体验。推广前比较若干实际种子的实体连通、模块机制与奖励去向及正常镜头；推荐路线、ID、Hash变化分开计。任意高差自动填台会把接缝补丁变成关卡，应在整体样板审查时拒绝。来源：[v16实际淘汰与返省](../../../docs/design/forest_v16_rethink.md)，适用于本轮旧森林扩展，不把一次案例尺寸变成全局平台数硬限。\ndiff --git a/docs/current_state.md b/docs/current_state.md\nindex c09d119a..e8de89fd 100644\n--- a/docs/current_state.md\n+++ b/docs/current_state.md\n@@ -1,59 +1,23 @@\n # 当前状态\n \n-本轮已发布（2026-10-21）：[新版森林探索试玩](https://zhipijun1996.github.io/gunman-rush/?v=a443c2ec6642)，build `a443c2ec6642`，运行源 `11eb4046b2eabdc7c0ee7e7625bd7ef0985515df`。入口：`DEVELOPMENT DEMOS` → `DEBUG / SELECT REGION + MAP` → **`FOREST EXPLORATION / MAP 1` 或 `MAP 2`**；普通森林入口/default与历史保存仍为v15，不代表这轮新探索地图。prepared Pages [39654646862](https://github.com/zhipijun1996/gunman-rush/actions/runs/39654646862)成功；公网完整PCK SHA `a443c2ec6642976f296686c95e357c631299657bd928743c588cbc65057bde60` /141671756字节一致，真实鼠标两地图进入及暂停恢复通过（133.272秒、0引擎错误）。[公开验证原件](evidence/region_bible_v2/style_continuity_20261021/forest-exploration-v16/web/public/report.json)与[运行源码逐字节桥接](evidence/region_bible_v2/style_continuity_20261021/forest-exploration-v16/web/native15-to-runtime-commit.json)已归档。\n+2026-10-22。工作分支 `feature/region-bible-v2-forest`，草稿 [PR101](https://github.com/zhipijun1996/gunman-rush/pull/101)；main 未合新区域。任务 FOREST-VARIETY-03 开发中。旧重复交付段落已原字节保存到[状态快照索引](archive/status_snapshots_20261022/index.json)，不再覆盖本页。\n \n-新增回望取奖、活摆荚/固定果实及击杀后替代、L下探、Z/7回环与领奖短返；低顶短跳淘汰。九条实际输入路线31,952帧/780腿通过，主路最低HP4/1；技术验证不签用户趣味。整体艺术仍REWORK（长矩形根体、规则浮梯），Plains尚未实施，BGM由用户后引入。草稿[PR101](https://github.com/zhipijun1996/gunman-rush/pull/101)未合main。\n+## 当前公开试玩\n \n-CI说明：11eb的Documentation [39654167820](https://github.com/zhipijun1996/gunman-rush/actions/runs/39654167820)因skill四条链接指向本机ignored build失败；已复现并改为普通Git证据路径，不改变运行代码、原始失败或历史结论。本轮仅文档和交付证据修复；本地原docs29/29与本次无临时build证据镜像检查分开记录，原core run39654167708的Web job也已失败、其余仍在执行，暂未取得该job原日志，不将失败原因预判为已解决；新完整CI以实际run状态为准。以下旧“未提交/待Web/公网12ac”等均为历史时点，不覆盖本段。\n+[恢复的旧森林 v15](https://zhipijun1996.github.io/gunman-rush/?v=12ac19e2ec02)，build `12ac19e2ec02`，运行源 `bbf5b24dc6a27374119f67f11fc2eed92a57ba00`。入口：DEVELOPMENT DEMOS → SELECT REGION → THORN_FOREST MAP 1/2。prepared Pages [39704078082](https://github.com/zhipijun1996/gunman-rush/actions/runs/39704078082) 成功；公网完整PCK 141559396字节/SHA一致，真实鼠标map1进入与暂停恢复通过。[原始恢复收据](evidence/forest_variety_03/public_restore/report.json)。这是旧包恢复，不是新扩容发布。\n \n-最新开发续轮：新增v16探索候选已接17种模块、回望高枝、活摆荚/固定果实双解、L下探与Z/7内外回环、领奖短返。低顶短跳已淘汰。fresh native15九条正式输入路线全部通过31952帧/780腿并获限定独审，三摆荚策略及奖励返程均HP5，主路最低HP为4/1；原80/fullCI及闭门对抗/保存仍分开未验。共享像素家族保留，整体艺术仍REWORK（长矩形根体/规则浮梯），不签用户趣味或设备。当前默认/历史保存仍v15；新内容从 `FOREST EXPLORATION / MAP 1/2` 独立关卡测试入口进入。原始失败、完整源闭包与实际23GPU图见[本轮证据](evidence/region_bible_v2/style_continuity_20261021/forest-exploration-v16/README.md)。下一步仅Web构建与快速部署，不默认合main。\n+用户明确否定 v16 短平台堆叠，并肯定旧 v15 设计；v16 的玩家验收及G5已记 failed。旧技术结果保留原范围，不抵销体验失败。原因与取舍见[返省](design/forest_v16_rethink.md)。\n \n-最新试玩（2026-10-21）：[公开网页](https://zhipijun1996.github.io/gunman-rush/?v=12ac19e2ec02)现为森林开发构建12ac19e2ec02，运行源bbf5b24dc6a27374119f67f11fc2eed92a57ba00，prepared Pages39593999600已成功。公网完整PCK与原已验CI包一致，真实森林map1进入/暂停恢复冒烟通过；正式原CI39578229334/full141及当前80路线也已通过。本文后面的旧“待CI/公开旧main”是历史时点，以本段和交接最新段落为准；未合main，森林整体美术和Plains优化仍未完成。用户要求今后试玩默认快速发布：复用已验同源Web或只重建Web及必要影响检查，不为每次试玩重跑整套CI。\n+## 本轮实现与边界\n \n-2026-10-21。分支 `feature/region-bible-v2-forest`；最近已推送检查点 `124815766d1c9fb93224bca05fa2c9f7fe265ac5`、草稿[PR101](https://github.com/zhipijun1996/gunman-rush/pull/101)，后继修正兼容字体和共享表现类型依赖；准确HEAD以Git为准。原起点R `7be8c340372d1e20db6685cbd6a559191821eb0e`。先完整荆棘森林含美术，再优化风铃平原；SFX/风叶背景动画可做，BGM由用户后引入。当前开发中，未发布新Bible区域，不能把旧main通过代签新内容。\n+新 v17 独立候选保留旧实体、出生点和原探索模块；普通入口增加一片有实际净空的休整侧根，旧连续HH与螺旋技巧线保留。东侧附林从旧F05恢复根进入，上下双窗、外根环、L空腔奖励与固定果挂跳返程已接。没有任意高差自动补台，没有改核心物理、资源、S2-H能力或旧保存producer；当前普通默认仍v15。\n \n-## 权威与当前默认\n+八个候选仅八条孤立goal获限定独审，不是八种新趣味。20实际种子独审确认新增平台矩形布置每张图仍仅1种，只有HH/RH果实坐标、动作与箱口有限变化；未达随机地图目标，Z尚未进入世界。round11六条真实输入路线通过，含旧HH/螺旋、新旧区域往返、L金币/音符实际二选一、远出口与固定果跳返。全部源/失败与真实画面在[本轮证据](evidence/forest_variety_03/README.md)。新增可执行短反馈入口 `python3 tools/harness.py --profile forest-varied-feedback --release --jobs 1`；旧版world签名曾混入实例元数据，现改为真实矩形布置/目标坐标并加反例；严格guard实际两项失败，短反馈当前会如实拒绝该候选，未纳入full或CI。\n \n-[两Bible注册表](creative_direction/bibles/registry.json)绑定用户原文；[实际共享风格16参考](creative_direction/bibles/style-continuity-20261021-v3.json)要求所有后续地区沿正式平原Underworld像素家族发展地域材料与生态。原始PNG、玩家动画metadata、许可及历史v13/v14保存/算法保留。森林creative-v7另绑定[用户自然缠绕荆棘平台要求与参考](creative_direction/bibles/thorn-covered-platforms-20261021.json)，只借生长关系，不移用参考游戏画风。\n+两轮实际合屏仍 ART_REWORK：巨矩形背体已减掉，但平直梁/方柱/奖励台/长catch尚不自然，两地图的新增场所身份也相似。停止继续调色或尺寸救该母版；不发布附林，不签整区、趣味或真机。下一步先重想根枝/空腔整体轮廓与真实分流，再扩不同机制库；保留已成立的旧森林体验与本轮通行发现。\n \n-工作分支普通默认现为 `forest-bible-world-v15`；debug、自然campaign、post-Boss、跨区表现及独立版本期望同批更新。旧PlayerMotor唯一移动、合法能力、物理、资源、伤害、RNG和保存合同保持。任务见[任务表](tasks.md)；Forest/Bible仍in_progress，Plains仍planned。用户选择方向不代表视觉、手感或设备签收。\n+## 权威与未完成\n \n-## 已实现与最新限定验证\n+[用户两份完整Bible](creative_direction/bibles/registry.json)、[正式平原共享像素母版](creative_direction/bibles/style-continuity-20261021-v3.json)及[自然缠绕荆棘平台要求](creative_direction/bibles/thorn-covered-platforms-20261021.json)继续有效。森林先行，风铃平原优化仍 planned；BGM由用户后续引入，未生成/替换。\n \n-- Bible-first及恢复/缓存防漂移、缺Bible先文档预制作、未来地区共享风格检查、skills入口已接。最新经验补入真实宿主联合面、专用目标职责、真实JSON往返与freeze前UID导入。原132检查字典/10个profile前缀、80/600秒、90import/240native、固定60与双worker保持。\n-- Forest新连接、F05背枝真实奖励与异路捷径、F06交替蛛网、六发现物/Reader及一次性奖励、F08唯一木芯、练习铃、风叶与3个SFX已实现。F08正式31腿/3551帧无伤、真实Reader木芯0→1/弹伤1→2.5并返营已在其冻结源通过；后继源码不自动重签。\n-- 已接回同平原16px/32wu、47邻接核心/精确适配及UnderworldPlayer；8类生态/两Boss native主体候选齐备。实际18图独审仅接受主体、花荚接缝与单个共享TREE背景用途，整区大形、运动/音画仍未完成。\n-- 自然荆棘以真实solid union/危险面生成，v15仅退役距宿主210wu的旧悬空prototype带，旧13/14不动。原20producer643/0已过。数学藤线两轮失败停止，平褐v3退出运行；native第一轮6图REWORK，第二轮6图18.346秒/3597源稳定获限定静态ACCEPT。全部6实际HUD图、精确源码ZIP与独审保普通Git；不再第三轮修同家族参数。\n-- 新版普通fast28/2154无伤；正式crossbranch live_H46/3810无伤、策略2442→3204通过；正确Lift22/1836通过但最低HP4。entry_wait第五轮真正空pin29/2096无伤且活体策略执行通过；前四次失败保持。专用entry前缀新增合法jump/R/drop恢复，保原历史driver、120/1800预算及最终12帧落脚，不声称中途策略字节未变。west_wait无正式producer，属未准入历史消费者，不能编造目标凑验收。\n-- 实际45°二次float32归一化差8.43e-8曾被逐位射线比较误拒；现仅双边有限2D单位方向容差1e-6，保真实同tick/queued绑定，独审21个实际变异均拒。真实JSON重放另暴露两处v15局部深比较的int/float问题，已复用既有严格canonical比较，保全量候选匹配/RunManifest与分数、bool、几何篡改拒绝。新增36实际JSON检查永久接入已有Bible versions，原56不变，两native共用原90秒。\n-- 最新七项fresh检查全部通过，完整输入漂移守门通过（targeted报告不序列化总清单；Bible wrapper另有3600份前后完整SHA相等）：[原始收据与失败链](evidence/region_bible_v2/style_continuity_20261021/json-and-default-fresh-third/README.md)，源报告 `build/verification/harness/20261021T052050.268603Z/report.json`。涵盖debug/campaign、presentation109、原327/schema6/24、Bible56+JSON36、reader55与AVreader8。原45版本unit亦独立通过。此前campaign JSON两FAIL及新UID首次import漂移FAIL不追认。仅targeted，不是完整profile、原80或最终发布。\n-\n-## 尚未完成\n-\n-F05/F08真实连续AV已录并获限定独审：分别3018帧/50.3秒、3380帧/56.333秒；完整时间线、原PCM字节与6/5张实际关键帧通过。两条路线分别32/3001与31/3362段/物理样本，均HP5零伤；F08实际Reader物品0→1、弹伤1→2.5。仅属于clean048冻结源，未声称完整连续视觉观看、感知试听或设备认可。原AVI/WAV/MP4本地保留，普通Git包只有完整轨迹、收据、原关键帧及媒体哈希，不冒充可移植影片。\n-\n-Forest有机大形仍未完成。木根肩actual6获REWORK_STOP后已精确撤回，源板/源码差量及实图保留；放大背景TREE仅只读分析即NO-GO。另一G0将单个实体换成8片真实变截面实体，最终28检查通过，但实际粗阶梯形及裸根消失获RETHINK_STOP；无生产v16、无Motor/路线通过，不推广或继续调参数救轮。\n-\n-原80第一次在seed01/map1/growth真实失败：蜘蛛受击后移到栖台角后，旧v15测试驾驶仅三瞄点找不到第二枪。只追加两个身体内缘采样，保真实枪口/弹丸圆碰撞/资源/600帧与12发守门；同一完整路线27/27、1999样本无伤通过，独审确认物理轨迹一致至新增第二枪前。第二次原生80全部通过、3600源稳定，但外层harness复制约931MB新增JSON时ENOSPC中断，`checks=[]`，不能签harness通过。80独审包含23例/29次玩家伤害，不能外推两条影片的无伤结论。轨迹完整无损归档并实际验证恢复。\n-\n-Harness大JSON现有流式ZIP/完整索引、原生输出摘要交叉绑定与安全恢复；初版缓存反例误接受保留，新版原77/新12及独立14反例通过，新12已追加真实CI检查。旧150检查字典、原132及10profile前缀未改。最终fresh原80外层已在dec23450通过（下述新收据）；完整profiles仍待正式CI。根铃/棘冠完整战斗、恢复、历史瞄准保存兼容、实际平原战后Forest入口及三组历史v10专用策略均有各自新收据，不混称同一源或当前v15路线。\n-\n-第三次fresh原80于clean dec23450全部通过，原600秒内检查551.426秒、含准备/收集总582.322秒；外层passed/exit0/reused=false。78份大JSON在58,121,248字节ZIP，另2份小JSON原路径保存；完整80轨迹与原始报告/日志/收据普通Git见[最终定点证据](evidence/region_bible_v2/style_continuity_20261021/final-native80/README.md)。随后fresh当前H技术样板3案例及3音效字节复现亦通过，只限其实际scope。上一轮ENOSPC中断不追认。实际Boss、恢复与兼容结果按各自源保存；完整适用harness/正式CI、实际CI ZIP原三浏览器及公网完整PCK仍待。标准workflow覆盖full141，不含独立注册的10项feedback/prototype检查，不能称151全跑。SFX/动画/设备/用户/FUN分账，未执行写未验证。精选证据与失败来源见[阶段索引](evidence/region_bible_v2/style_continuity_20261021/README.md)。\n-\n-Plains只读差距与实施方案已完成，尚无新生产修改。复用真实v12下层回环：西井→铃控船→岛上Reader/原箱二选一→异侧东井返营；图1先一个读物，不新造几何。顶桥不能看见旧址，不能冒称已做整座Bible石桥。森林内部样板/功能完成后再晨光、风与平原探索；不重写已成立Boss、不引入跨循环世界例外。\n-\n-## main与存储\n-\n-PR96/99/100已合main；运行P `66e8b912854d6d4cccadb45b9c348a618689f5a1`及档案R已完成旧正式发布验证。已修起跳镜头突变、接有根果实、退役旧八房间30文件；当时106远端head中88已包含，18旧art/UI/部署未盲合。公开仍P，不能作新Bible/荆棘预览；[旧main完整证据](evidence/main_pr96_repair01/main-P66e8/README.md)。\n-\n-旧142终态capture已无损归档并验证按需恢复；本轮另将79份终态JSON无损归档，保守恢复6份旧audit输入，实际空闲约2.65GB；原收据/日志/所有AVI、CI ZIP与ci-H用户工作树保留。当前磁盘与恢复命令见[交接](handoff.md)，不要删除唯一证据或全量git repack。\n-\n-文档/流程28项fresh profile已通过，报告`build/verification/harness/20261021T053927.330071Z/report.json`。旧creative-v6期望已显式改为用户荆棘方向creative-v7；可选jobs2因20GB隔离空间预检中断且未启动lane，最终jobs1原预算执行通过。仅流程/文档，不代剩余内容或发布。\n-\n-最新PR门槛修复：原PRdocs29项全通过，但对main完整范围检查因资产机器登记/一条测试预期独审不足而失败。已补真实28卡/175文件/21runtime来源（许可unknown、视觉unverified），单独静态消费者独审不代签整区；完整baseR检查已实际通过，且以python3 -S证明可前移到依赖安装前。core精确head与自动去重/手动及publish保护修复另独审，新完整CI仍待。详见[原失败与修复](evidence/region_bible_v2/style_continuity_20261021/ci-admission-repair/README.md)。\n-\n-最新角色消费者迁移：6dba的新版PRdocs、Windows/Web通过，但parallel原generated26在头像旧25/2失败，整轮cancelled/serial未完成。默认v15实际Underworld符合共享风格，仅测试用显式真实v14保原25，再追加当前37/0；原26完整167.457秒通过，独审限定接受并保同版本pin探针边界。快反馈新增原26，不改151字典/full141/旧前缀。一次整枝新图源级STOP，无引擎/生产接入；整体森林大形未完成。详见[本轮原件](evidence/region_bible_v2/style_continuity_20261021/avatar-default-migration/README.md)。后继新CI仍待，原dec80不重绑。\n-\n-1248157的区域快反馈实际四项fresh全部通过194.624秒；正式CI39571747310整体失败，不能签full141：Web42/Windows通过、docs39571747315实际29/29通过；parallel原generated26通过后region在兼容字体覆盖537/2失败，serial仅9pass后terrain类型依赖解析失败并240秒超时，其余42未执行，软件GPU/四音频未执行。原80不曾在该serial执行。实际CI Web原包指纹c814c267208b，三个原浏览器25/40/8全通过547.026秒及完整22998源/Git稳定，只属于124旧包，不重签后继。\n-\n-最小修复仅两类：原Noto工具重建兼容windkeeper子集463→499/+36，保旧463度量/轮廓（独审677项）；两新卡触发缺8unique字，当前正式Underworld字体本来已覆盖，不冒称当前UI缺字。公共敌人helper移除具体ForestStage反向类型依赖，由原App已验证入口传manifest/enemies/rows，原宿主/actor绑定校验保留。新WIP原537/0 11.197/90秒、原terrain全地图508/0及故意破坏55/1均通过，整组50.509秒/完整源Git稳定。独审只签字体/去环范围；新完整CI/准确新包GUI仍待。所有实际失败与新收据见[专用证据](evidence/region_bible_v2/style_continuity_20261021/ci-runtime-font-repair/README.md)。Forest整区艺术与Plains仍未完成。\n+森林整区美术、更多真正不同且世界闭环的模块、明显种子拓扑、总体难度曲线及设备/用户认可均未完成。过去v15的原80/full141/Web证据仍只属于各冻结源；本轮未重跑完整CI，不重签。新试玩遵循已有快发布流程，功能/设计/艺术不因部署或CI成功自动通过。\ndiff --git a/docs/handoff.md b/docs/handoff.md\nindex d54feb2a..08c98240 100644\n--- a/docs/handoff.md\n+++ b/docs/handoff.md\n@@ -1,76 +1,23 @@\n-# 最新交接：探索试玩已发布\n+# 最新交接：保留旧森林，纠正扩容方向\n \n-本轮已发布（2026-10-21）：[新版森林探索试玩](https://zhipijun1996.github.io/gunman-rush/?v=a443c2ec6642)，build `a443c2ec6642`，运行源 `11eb4046b2eabdc7c0ee7e7625bd7ef0985515df`。入口：`DEVELOPMENT DEMOS` → `DEBUG / SELECT REGION + MAP` → **`FOREST EXPLORATION / MAP 1` 或 `MAP 2`**；普通森林入口/default与历史保存仍为v15，不代表这轮新探索地图。prepared Pages [39654646862](https://github.com/zhipijun1996/gunman-rush/actions/runs/39654646862)成功；公网完整PCK SHA `a443c2ec6642976f296686c95e357c631299657bd928743c588cbc65057bde60` /141671756字节一致，真实鼠标两地图进入及暂停恢复通过（133.272秒、0引擎错误）。[公开验证原件](evidence/region_bible_v2/style_continuity_20261021/forest-exploration-v16/web/public/report.json)与[运行源码逐字节桥接](evidence/region_bible_v2/style_continuity_20261021/forest-exploration-v16/web/native15-to-runtime-commit.json)已归档。\n+2026-10-22，分支 `feature/region-bible-v2-forest`，准确提交以Git为准；草稿 [PR101](https://github.com/zhipijun1996/gunman-rush/pull/101) 未合main。当前公开试玩、方向和未完成项见[当前状态](current_state.md)。旧交接原字节保存在[历史快照索引](archive/status_snapshots_20261022/index.json)，不再重复铺在入口。\n \n-新增回望取奖、活摆荚/固定果实及击杀后替代、L下探、Z/7回环与领奖短返；低顶短跳淘汰。九条实际输入路线31,952帧/780腿通过，主路最低HP4/1；技术验证不签用户趣味。整体艺术仍REWORK（长矩形根体、规则浮梯），Plains尚未实施，BGM由用户后引入。草稿[PR101](https://github.com/zhipijun1996/gunman-rush/pull/101)未合main。\n+## 已完成与证据\n \n-CI说明：11eb的Documentation [39654167820](https://github.com/zhipijun1996/gunman-rush/actions/runs/39654167820)因skill四条链接指向本机ignored build失败；已复现并改为普通Git证据路径，不改变运行代码、原始失败或历史结论。本轮仅文档和交付证据修复；本地原docs29/29与本次无临时build证据镜像检查分开记录，原core run39654167708的Web job也已失败、其余仍在执行，暂未取得该job原日志，不将失败原因预判为已解决；新完整CI以实际run状态为准。以下旧“未提交/待Web/公网12ac”等均为历史时点，不覆盖本段。\n+用户肯定旧关卡设计、否定v16堆台；v16 G5/player_acceptance实际记 failed。责任是误改范围、把ID/路线数当趣味、忽略既有ART_REWORK仍发布，不是用户未说清或CI失职。[返省与改法](design/forest_v16_rethink.md)。两skills只补短且可执行的取舍，没有新审批流程。\n \n-后续优先：根据试玩反馈改模块节奏与森林自然大形；对闭门绕行、保存及更多种子另作受影响验证，再评估默认入口晋升。不因文档提交重建同源Web或重跑已完成路线。原预算、原80顺序、保护audit和唯一证据保持。\n+公开已恢复旧v15 build12ac/sourcebbf；完整PCK与真实鼠标冒烟通过。[恢复收据](evidence/forest_variety_03/public_restore/report.json)。保留旧包，不能把它冒充当前扩容。\n \n-最新覆盖（2026-10-21）：v16本轮实现与focused验证已通过，生产源码目前冻结，待提交与仅Web快速部署。九条实际路线全部严格reader通过，31952帧/780腿/176.832秒；两主路最低HP4/1，其余七奖励/回程案例HP5。三摆荚策略含自然相位H/固定hang_jump/实际击杀drop后的固定fallback；Z/7真实回环、领奖short shape disabled与long恢复窗均实走。完整112 changed源码字节+基线78b/3637路径前后清单、原轨迹、23实际GPU、独审及旧14死亡/门阻入口失败，普通Git见[原件](evidence/region_bible_v2/style_continuity_20261021/forest-exploration-v16/README.md)。G0/模块数/技术通过都不签FUN；规整浮梯/矩形根体仍ART_REWORK，Plains尚未动，BGM保留用户后引入。\n+v17是独立开发候选：旧producer与普通default15不动；保留实际旧正常探索，新侧根拆早270wu连续HH，旧HH/螺旋仍可走。东侧附林有实际旧spawn进入、双窗内外根、L金币/音符二选一、远出口与挂果按跳返程。round11全源/Git稳定，原600秒内117.829秒通过当时检查及六条实际输入路线；各失败、原生收据、源码闭包和两轮14张合屏在[证据索引](evidence/forest_variety_03/README.md)。八local goal不等于八新趣味；新增平台矩形布置其实每map仅1种；旧world把instance/program纳入差异签名，已独审揭出并用真实rect/one_way的排序去重guard纠正。round12真实失败2项；不得拿旧通过或果实坐标变化称随机扩容完成。\n \n-新界面入口 `DEBUG / SELECT REGION + MAP` → `FOREST EXPLORATION / MAP 1/2`，明确pin16；原普通入口/default/历史v15重建保留。永久短反馈 `python3 tools/harness.py --profile forest-exploration-feedback`；新optional profile追加四check，原151字典/旧profile顺序不改。新Foundrybasis原36phrases/18itineraries在正式原生验证后刷新，旧resources完整ZIP保留，native15已包含新资源且源稳定。\n+## 下一任务与命令\n \n-文档profile首轮在旧DELIVERY-EFFICIENCY-01的spec SHA失败：HEAD78b新增快部署章节却沿用旧SHA；已从915da8的精确249745字节归档原spec并仅迁移记录path，旧SHA/结论不刷新。修后freshdocs29/29已通过，报告20261021T183025.129761Z；原失败保留，完整baseR质量diff已通过。下一步：提交→仅Web build/bundle→实际新探索GUI→prepared Pages和公网完整PCK/source/build核验。发布不合main、不签整区art/device。\n+两轮实际画面仍ART_REWORK，附林不发布；不要第三轮改色/加粒子/调梁宽救矩形母版。重想自然根枝/空腔整体结构，先一个实际组合黄金再扩库。新入口的H2外肩只有约3wu完整脚余量，技术通过不签手感。旧good内容优先保留；Z、下降肘等只有各自孤立goal，不得直接拼入量产。先森林含美术，再平原；BGM保留用户后引入。\n \n-最新续轮（覆盖下方历史待执行；2026-10-21）：分支 `feature/region-bible-v2-forest`，基线HEAD `78b6441b81e30983367acc2b7825e1c9fa2f6350`，新v16源码尚未提交/部署，默认v15/公网12ac19e2ec02保持。用户要求更多有趣模块及整体拓扑；低顶短跳明确DISCARD，不能换名重启；L/7/Z是宽阔实体根道，刺有真实宿主。库17候选，地图接入回望取奖、真实摆荚/固定果实替代与L下探返回营地，新的整体拓扑方案见[实际与提案分界](design/forest_playful_topology_v16.md)。\n+本轮永久短反馈：`python3 tools/harness.py --profile forest-varied-feedback --release --jobs 1`。包含真实20种子/JSON拒变、菜单App、旧HH/螺旋、两map正式旧spawn往返和L实际音符领奖/远口返回，原90import/240native/600whole、fixed60保留；当前因严格随机guard真实失败；未加入full或CI，不覆盖原80/full141、全部模块或FUN。新脚本先正式import纳入UID再冻结；单独fixture输出必须说明首次Motor前定位，不作正式fullspawn证据。\n \n-实际检查：固定钩点按跳43/0、完整六钩索回归及共享人物绳索GPU20/0限定独审通过；portable原件见 `docs/evidence/region_bible_v2/style_continuity_20261021/forest-feedback-mechanics/`。L真实Router/Motor从spawn到出口、同体到奖励位置返回44/0，独审重放1366帧/37腿/9真跳全部通过，但不签正式伤害/领奖/世界/艺术/FUN。native11新17库静态通过、世界20静态与实际manifest dump通过；7/Z真实首轮118/4因同根过早松跳失败；正式7条路线均在mushroom_fork同高one-way覆盖solid出口处失败，未到新黄金。另独审发现L奖励Dictionary.merge默认不覆盖导致原奖坐标仍在高枝，需显式修复并真实领奖。不降低断言或改物理解决。原失败、完整源SHA、changed字节ZIP与baseline闭包在 `build/region_bible_v2/forest-feedback-native-11/` 和 `/tmp/gunman-v16-eleventh/`，后继必须fresh目录。\n+结束前执行 `python3 tools/check_quality.py`、按PR实际base执行 `python3 tools/check_quality_diff.py --base 7be8c340372d1e20db6685cbd6a559191821eb0e`，提交后 `python3 tools/check_release_evidence.py --commit HEAD`。不默认合main。下一次试玩复用已验同源包/仅Web重建及必要影响验证，不绑定整套CI。\n \n-当前优先：修复单体7/Z真实跨刺及cheap快绕路对照 → 实际新world回望/L/摆荚固定、活体、击杀fallback和两图主路 → 7/Z真实世界不同出口/奖励路径 → 必要Web构建与快速试玩。不要每轮重跑已稳定rope/jump或完整CI/Windows/长影片；发布须准确新source/build且实际GUI进入。原v15/更早算法和保存、原80顺序与预算、audit保护不改；所有引擎操作root单租约，源码和Git冻结。\n+## 执行与存储边界\n \n-# 当前交接\n-\n-最新续轮（覆盖下方旧WIP数字）：用户明确要求更多不同且有趣模块，并否定低顶短跳无聊/不好看；该候选已DISCARD，完整源SHA/原话保build/region_bible_v2/discarded-low-ceiling/round-01。库现原12+backlook候选，后者普通原地直跳领奖反例已使cache升至192wu，保合法R多解；catch下净空4wu失败修至160，待复验。第二黄金选择实际摆荚借H+击杀后固定fruit/根路保底，不能写成挂荚载人、停驻或固定127起跳。\n-\n-native04实际GPU20/0、六case grapple全38/119/174/25/51/43零失败，43.682秒；相关两次独审ACCEPT_SCOPED，普通Git精选原件见forest-feedback-mechanics，非整个native04通过。native05真实world956035/0、ecology391/0、实际12静态图成功，但fast1/2仅89/38帧被上方normal one-way截落（不是Motor通行）；native06 world静态再过但入口升柱贴spawn头致App返回home0帧，world作者正修首64wu/薄16与含oneway出生身体回归。所有round源前后稳定。公开仍bbf5b24/12ac19e2、默认15；不得称v16已发布。下轮先原生2fast基本通路，再有限同体backlook/摆荚黄金，消除每个支路500wu通用梯子税，真实消费raw.risk_reward和choice ports。\n-\n-最新实机反馈续轮 FOREST-EXPLORATION-02（2026-10-21）：用户否定公开12ac19e2两图相似/小/少岔路/首段连升，要求多难度库、高难高收益，并授权固定停留钩点按跳对齐二段跳。当前HEAD仍78b6441b，以下新源为未提交WIP，公开仍bbf5b24d/12ac19e2。根因v15继承同一7段上升；新独立v16已显式注册，默认暂仍v15，未晋升/发布。12模块库与新world/trace/reader、共用绳索绘制和fixed-anchor jump已写；style-v3只版本化UnderworldPlayer必需绳索调用（15项其他参考及旧v2/Bible字节均不变），只读G0影响分析限定接受，不签画质。\n-\n-真实原生：新固定起跳43/0、原grapple-feel38/0、variable-jump28/0通过；第一38/1的换钩延迟及假正保留。GPU原两轮15/3失败均保，先pause取消、后fixture目标294wu>231射程；现已修合法目标并保超距负例，待重跑，不能签GPU完成。模块新版343/3暴露三处身体撞岸，已修并加反例，待新验。world首结构11/9及首fast0帧失败因条件Array不能赋Array[float]，world作者正修；独审另REJECT hard返程穿下方实体、跨桥直落白拿奖励、normal底部侵入easy主路，必须按全世界真实body净空修复。新16无完整Motor通过。\n-\n-root统筹唯一engine/import/native/GPU/browser租约；所有子代理源码/Git静止后才跑。当前lease空闲，各worker在限定文件改代码，root仅integration/资料；下次freeze需world作者及trace作者READY。原件build/region_bible_v2/forest-feedback-{preflight-01,preflight-02,mechanics-01,independent-mechanics-01,native-02}/，首fast完整/tmp/gunman-forest-v16-first-fast，独审build/region_bible_v2/forest-feedback-route-design/。不得覆盖失败/降断言/加能力/抬原90/240/600预算。后续先实际fast/growth/reward-return及shared风格合屏，再更多Seed/默认入口/相关旧回归；按用户最新要求最后快速Web部署，不重复整套CI。新能力只fixed挂点手动跳释放，自动contactkick保留；未完成whole Forest art/Plains/device/player/FUN继续明示。\n-\n-最新用户要求（2026-10-21）：之后快速部署试玩网页。同一运行源已有已验Web时复用原包+现有prepared Pages流程，不重复完整CI；缺包/运行源变化只重建Web及影响范围必要检查。bbf5b24d实际正式CI39578229334已success、full141及当前v15原80通过，原实际Web包/三浏览器/8地区GUI亦已过；原文后续历史“待CI”不再代表当前状态。此次重复手动全CI39593614698已主动取消，不追认为通过；快速发布39593999600承载bbf5b24d/build12ac19e2ec02，prepared commit ce35ab50b093f003cf8c3ddd86b514e92c711b4b。快速Pages39593999600已success，公网build-info及完整PCK SHA/长度匹配12ac19e2ec02，真实鼠标进入森林map1与暂停/恢复冒烟通过（93.369秒、0引擎错误、23007源前后相等）；试玩https://zhipijun1996.github.io/gunman-rush/?v=12ac19e2ec02。原API/原包身份/实图/日志在build/region_bible_v2/deploy-bbf5b24-user-request。未合main，整区艺术/Plains优化仍未完成。\n-\n-2026-10-21，`feature/region-bible-v2-forest`。最近已推送检查点124815766d1c9fb93224bca05fa2c9f7fe265ac5，准确HEAD查Git，草稿[PR101](https://github.com/zhipijun1996/gunman-rush/pull/101)后继修兼容字体和共享表现循环依赖。原起点R7be8c340372d1e20db6685cbd6a559191821eb0e。先完整Forest含美术，再Plains；BGM由用户后引入；不默认合main。先读[当前状态](current_state.md)、[Bible注册表](creative_direction/bibles/registry.json)。\n-\n-## 已完成及边界\n-\n-- Bible-first、未来地区共享Underworld像素家族与自然荆棘宿主规则已接。当前默认15；旧13/14保存及原132检查/预算保持。自然荆棘native2实际6图获限定静态ACCEPT，整区macro仍未完成。\n-- 最新两次美术方向淘汰：木根肩实际6图REWORK_STOP并精确撤回；8真实实体削体G0最终28检查通过、无新增Motor步，但粗剪阶/裸根消失获RETHINK_STOP。无生产v16，不再参数救轮；原图/源/首轮浮点期望失败与修正全部保留。\n-- clean048真实F05/F08连续AV已录：3018/3380帧，50.3/56.333秒；完整时间线、原PCM字节及6/5原帧独审通过，两条路线HP5零伤。F08真实Reader物品0→1/弹伤1→2.5。不冒充全片连续视觉观看、感知试听、设备或整区art。原AVI/WAV/MP4仍本地，普通Git包不含媒体字节。\n-- 默认Guardian/Canopy完整战斗、实际App恢复、历史瞄准保存兼容、Underworld两场完整战斗及战后进入Forest均有实际收据。Guardian属于木肩冻结源，不能重绑clean048；其余亦按各自收据。新Underworld外层harness `20261021T064433.364236Z`通过。三组显式历史v10专用生态检查 `20261021T064558.793410Z`完整通过，不是当前v15策略证据。\n-- 原80首轮seed01/map1/growth在蜘蛛击退后找不到合法第二枪。仅v15驾驶追加两个身体内缘瞄点，保实际枪口/圆碰撞/资源/600帧/12发；同一完整路线27/27、1999样本HP5通过，独审物理状态完全一致至新增第二枪前。\n-- 第二轮原生80全部通过/3600源稳定/双worker，独审169767样本、2294腿；23例共29次玩家受伤，不能称80无伤。外层 `20261021T061859.284733Z`在再复制约931MB新JSON时ENOSPC，原`interrupted/checks=[]`仍失败，绝不能补签通过。\n-- Harness大JSON现在完整流式ZIP+索引/成员校验/独立原输出账本，支持安全显式恢复。初版e772缓存误接受保留；29f150修复版原77/新12及独审14完整反例通过。新151st归档检查追加六标准profile，原150字典/原132/10profile前缀未改；真实fresh12检查 `20261021T065433.554535Z`已通过。第三次clean dec23450原80外层已passed，551.426/600秒、总582.322秒，完整归档已完成；完整profile仍待正式CI。\n-\n-## 下一执行\n-\n-1. 第三次fresh原80及真正外层归档已完整通过，原600秒/2workers保持；完整原始产物见final-native80。额外fresh forest-current-slice三案例与SFX复现通过。保存检查点并推送草稿PR，正式CI按原workflow执行完整full141（gameplay/art138+web/docs另3），generated-consumers/air-chain18仍按原registry，不能拿手动样本代整组。独立注册current-slice不在full141，已单独执行；剩余9项feedback/prototype不称已由标准CI执行。PR启动后取消同SHA冗余push流水线，保留PR完整fresh CI。\n-2. 实际CI ZIP原三浏览器/完整PCK与新build_id仍待；公开仍旧main P66e8。本轮Forest宏观艺术不合格，不发布成整区完成；按交付门提供准确本地开发构建与未验项。G0设计片不是正式v16或可通行证据。\n-3. 森林下一方向仅有[实体弓背枝提案](evidence/region_bible_v2/style_continuity_20261021/thorn-structure-next/REPORT.md)，明确未实现/HOLD，需有限同族原生结构画与真实polygon接触/绘画适配可行性；不继续已STOP零几何棕藤覆材，不先注册v16。Plains仍只有只读接入方案：`build/region_bible_v2/plains-reader-integration-next/`。Forest内部功能/艺术样板后再做真实v12西井→铃船→岛Reader/原箱→东井返回；独立catalog/namespace与新版本保存重建，不能只改名冒充完整Bible石桥。不加入BGM，不重写已有Boss。\n-4. 最终任务仍in_progress/planned，用户/设备/FUN分开，不能因技术通过标整区done。\n-\n-## 证据与空间\n-\n-普通Git精选索引：[本轮包](evidence/region_bible_v2/style_continuity_20261021/continuation/README.md)、[阶段索引](evidence/region_bible_v2/style_continuity_20261021/README.md)。内部PREPARATION标记描述原准备时刻，复制进Git不修改原manifest或冒称发布；全部原SHA保持。\n-\n-当前80原raw已在明确GO后无损归档，完整ZIP/索引/真实恢复证明保普通Git `continuation/native80-phase`；仅从ZIP读取或用该restore.py恢复，别假设旧raw仍存在。旧失败17raw/所有收据与日志/所有AVI和CI ZIP保留。另27旧artifact副本经逐字节/CRC/实际恢复验证迁移，约323MiB释放；本地索引 `build/region_bible_v2/harness-old-duplicate-storage-plan/storage-run/restore-index.json`，`restore_artifact.py --one <exact-path>`按索引恢复。其失败/不完整父矩阵不改签，旧cache缺raw时应miss或先恢复。此前142与79终态归档索引仍有效，不重复计算释放量；勿碰ci-H用户树、.git、.godot或唯一媒体。\n-\n-## 执行底线\n-\n-Godot只用`bash tools/godot.sh`的4.7.2.stable.official.ed1daf0bf；engine/import/native/movie/export/browser单租约。完整源码及Git元数据冻结；只读/预制作写ignored build。新GD/PNG先editor import纳入UID/import再fresh，不能豁免漂移。PlayerMotor唯一move_and_slide，合法能力/资源/伤害/RNG/save、旧13/14重建、原327/schema6/24与旧七fixtures保持。\n-\n-不可改 `docs/quality/level_design_v2_audit.md`，SHA c47e366e9fbc1e3584a7c7e3eb8b983422156e21eb420a34456a2d8eb7219791。targeted报告没有总源清单时不可用None==None证明稳定；原生完整inventory有才比较。实际scope、来源版本、native与outer结果、静态与连续、AI与用户/设备必须分别记录。\n-\n-最新CI接续：旧PRdocs39563261916实际29PASS但整轮qualitydiff FAIL；旧core push39563234264 attempt1/2及PR39563261886均cancelled，不签完整。28资产卡与静态guard专项独审补齐后，完整PRbaseR/stdlib-only检查已通过；本轮workflow精确head/并发用途隔离、docs前移门槛须按新冻结SHA正式CI。后续不再仅用--base HEAD冒充完整PR检查。第三80本地raw已从完整committed78ZIP+2raw迁移，80份/tmp恢复件仍在；restore.py见build/region_bible_v2/final-native80-storage-migration-first/，实际释放约888MiB，原收据/日志/失败/媒体全保。\n-\n-最新接续：6dba CI39566270670已终态cancelled（Windows/Web成功，parallel头像25/2失败，serial未完整）。唯一本轮GDScript测试SHA7a865cda…，实际37/0与原26全167.457秒PASS；旧v14和当前v15分别绑定，不回退运行画风。独审2坏身体反例通过，同v15合法pin探针37/0只作覆盖边界。实际原件/所有22984清单与一次弓背枝源级STOP完整无损tar.xz在avatar-default-migration，按索引可单文件提取。快反馈追加原26；下一步新冻结提交完整CI/实际CI ZIP原三浏览器。当前engine租约空闲，无其他writer；默认v15/当前runtime无修改。\n-\n-最新覆盖以上待执行状态：1248157区域快反馈四项fresh194.624秒PASS；其正式CI39571747310整体FAIL（parallel兼容字体537/2；serial地形类型依赖先parse失败后240秒超时，9pass/42未执行，没跑到原80，GPU/4音频亦未执行）。Web42/Windows和独立docs29均通过；原包c814c267208b三个原浏览器25/40/8、547.026秒及22998完整源/Git稳定通过，只签旧124 scope。原ZIP仍/tmp保存/API digest绑定，不把旧包当新修复预览。\n-\n-后继兼容字体用原Noto工具463→499，原463metrics/outlines0diff/+36完整输入（两卡缺8unique）；正式Underworld字体已有字。公共enemy helper与具体ForestStage去环，仅改App实际单call传数据，保原绑定/物理/预算。新WIP原537/0及原terrain508/0正例、55/1负例全部通过50.509秒，完整source/Git相等。原件及独审见ci-runtime-font-repair。下一步更新五记录快照、完整baseR和普通Git证据预检后提交推送；以新SHA跑原完整CI，并验证该新CI唯一实际ZIP原三浏览器及森林8case GUI。当前源写只由root整合文档/证据，engine空闲；不存在其他生产writer。不要以局部复验改签整区艺术或原124完整CI。\n-\n-旧124浏览器提取物361文件/333,854,434字节已在全部浏览器结束后逐SHA复制到`/tmp/gunman-bible-delivery/served-web-1248157-preserved`，再删除root内可重建的旧提取目录，释放334,749,696字节。原297,996,606字节CI ZIP仍在`/tmp/gunman-bible-delivery/final-1248157/gunman-rush-web.zip`，SHA4fe0514ef1e2f8d4b42d175266b4a9bafe670fd9f6afdd0b2efa724f6e668765；原coordinator receipt不改，实际迁移回执`/tmp/gunman-bible-delivery/web-extraction-relocation-1248157.json`。原浏览器截图/日志仍在build，未删除唯一媒体或证据；需要旧server时从保留目录启动或安全恢复空旧路径。\n+root唯一Godot/import/GPU/browser租约；源与Git冻结期间禁止并行生产写。只用 `bash tools/godot.sh` / Godot4.7.2。保护audit SHA `c47e366e9fbc1e3584a7c7e3eb8b983422156e21eb420a34456a2d8eb7219791`，保原80、预算和历史失败。不动 `/workspace/gunman-rush-ci-H`、唯一证据、`.git/.godot`。原生大JSON已可无损ZIP归档；本轮完整源码仅复制运行源，避免复制含海量历史证据的整个worktree再次ENOSPC。磁盘实际余量先 `df -h /workspace /tmp`，原失败与原件不删除。\ndiff --git a/docs/harness.md b/docs/harness.md\nindex 1b474dfb..e4f86000 100644\n--- a/docs/harness.md\n+++ b/docs/harness.md\n@@ -148,3 +148,9 @@ S3实际CI／公网包通过后，GUI01因可见MENU未被识别而在3/20退出\n `python3 tools/harness.py --profile forest-exploration-feedback` 运行文档、严格reader反例、wrapper守门与实际模块/世界/生态/菜单专项。原151检查字典与各旧profile顺序保持，新profile用于当前v16开发，不代替旧80、full CI、画面或设备验收。专项只导入一次，保留原90秒子检查与完整源清单、changed源码字节和原Git基线；失败继续留日志，最终非零退出。\n \n 关卡先用真实Router/Motor验证单模块普通解、奖励位置与同体返程，再进入正式世界验证异物干扰、真实奖励OR选择、活体/击杀后替代和返回。字母轮廓、模块数量或Hash不签趣味；允许普通便宜解，但高奖必须绑定实际深入路线。当前原始失败及九路线通过范围见[本轮原件](evidence/region_bible_v2/style_continuity_20261021/forest-exploration-v16/README.md)。\n+\n+## 保留旧关卡后的扩容短反馈\n+\n+`python3 tools/harness.py --profile forest-varied-feedback --release --jobs 1` 为v17独立开发入口，不加入既有full/CI或改变旧前缀。检查实际20种子与JSON拒变、菜单App、旧HH/螺旋、新旧区正式spawn出返及L真实OR选择/远出口。保持90import/240native/600whole与fixed60；wrapper必须非零退出、完成标记和完整原生报告一致，缺帧/多次Motor/中途位置与资源注入均拒绝。\n+\n+实际原生通行已获限定独审，但当前随机guard仍失败：新增平台矩形布置每map只有1种。guard仅用排序去重的rect/one_way与目标坐标，排除ID/instance/program/order/重复描述；这是必要结构检查，不能把微移/拆矩形/hash差异称趣味。新候选美术仍REWORK，不发布。原通过、严格guard实际拒绝及源码闭包分别保存在[本轮原件](evidence/forest_variety_03/README.md)，不倒签失败或为试玩重复完整CI。\ndiff --git a/docs/quality/records/FOREST-EXPLORATION-02.json b/docs/quality/records/FOREST-EXPLORATION-02.json\nindex c9e05015..b009520d 100644\n--- a/docs/quality/records/FOREST-EXPLORATION-02.json\n+++ b/docs/quality/records/FOREST-EXPLORATION-02.json\n@@ -135,9 +135,11 @@\n       \"evidence\": []\n     },\n     \"G5\": {\n-      \"status\": \"unverified\",\n-      \"reason\": \"Awaiting actual evidence\",\n-      \"evidence\": []\n+      \"status\": \"failed\",\n+      \"reason\": \"Actual user playtest rejected the new v16 direction; continue under FOREST-VARIETY-03 preserving old design\",\n+      \"evidence\": [\n+        \"actual-user-v16-rejection\"\n+      ]\n     }\n   },\n   \"dimensions\": {\n@@ -194,9 +196,11 @@\n       \"evidence\": []\n     },\n     \"player_acceptance\": {\n-      \"status\": \"unverified\",\n-      \"reason\": \"Awaiting actual evidence\",\n-      \"evidence\": []\n+      \"status\": \"failed\",\n+      \"reason\": \"User explicitly rejected v16; technical route passes do not override playtest rejection\",\n+      \"evidence\": [\n+        \"actual-user-v16-rejection\"\n+      ]\n     }\n   },\n   \"criteria\": [],\n@@ -285,6 +289,22 @@\n         \"/root/grapple_visible_fix\"\n       ],\n       \"verdict\": \"ACCEPT\"\n+    },\n+    {\n+      \"id\": \"actual-user-v16-rejection\",\n+      \"path\": \"docs/design/forest_variety_feedback_20261022.json\",\n+      \"sha256\": \"359ea59c5efffd14e95f32fd829cbbd640a74111f61428e7b8ecbada51a6f698\",\n+      \"kind\": \"user_feedback\",\n+      \"producer\": \"user\",\n+      \"source_commit\": \"ee0b646e779b4680319e9a377518b27c10bfbe87\",\n+      \"content_version\": \"forest-branching-expedition-v16\",\n+      \"method\": \"Latest direct user playtest and clarification, recorded after the earlier technical receipts\",\n+      \"observed\": \"User rejected v16 stacked platforms and dull progression; old v15 design should be preserved with expansion/difficulty/real randomness/module variety changes\",\n+      \"source\": \"Direct user messages in active conversation on 2026-10-22\",\n+      \"quote\": \"旧版森林只是不够大，难度曲线不对，关卡设计是挺好的。而且没有随机变化。新版则是完全不行\",\n+      \"covers\": [\n+        \"player_acceptance\"\n+      ]\n     }\n   ],\n   \"consumer_coverage\": null,\ndiff --git a/docs/tasks.md b/docs/tasks.md\nindex 0f9a93ea..4ea35a87 100644\n--- a/docs/tasks.md\n+++ b/docs/tasks.md\n@@ -37,6 +37,7 @@ FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试\n \n | ID | 阶段 | 依赖 | 状态 | 交付与验收 |\n | --- | --- | --- | --- | --- |\n+| FOREST-VARIETY-03 | 保留旧森林设计、扩模块库与真实随机回环，纠正首段曲线 | FOREST-EXPLORATION-02 | in_progress | [用户纠正](design/forest_variety_feedback_20261022.json)、[质量记录](quality/records/FOREST-VARIETY-03.json)；v16堆叠方向被用户否定，新内容未验收 |\n | UNDERWORLD-FEEDBACK-03 | 平原受伤、环境交互、连续Boss与家园反馈 | UNDERWORLD-PLAINS-01 | review | [PR96实现与原失败](underworld_feedback_r3.md)、[质量记录](quality/records/UNDERWORLD-FEEDBACK-03.json)；本轮按新用户授权整合，完整主线验收见MAIN-PR96-REPAIR-01 |\n | MAIN-PR96-REPAIR-01 | main CI修复／PR96整合／稳定镜头／旧八房瘦身 | PARALLEL-INTEGRATION-01 | review | [P精确技术交付](evidence/main_pr96_repair01/main-P66e8/README.md)、[质量记录](quality/records/MAIN-PR96-REPAIR-01.json)；P完整freshCI、原三浏览器、公网完整SHA与同源影片通过；全区审美/设备/FUN另验 |\n | FOREST-FRUIT-ROUTES-04 | 森林果实目标与推荐／可选／恢复点位梳理 | FOREST-FOCUS-ROUTES-03 | review | [新版设计](design/forest_fruit_routes_v14.md)、[P精确交付](evidence/main_pr96_repair01/main-P66e8/README.md)；v14候选及v13旧存档保留，P当前80/80、双图24/29段与32原帧限定独审通过；整体构图/HUD、设备/FUN和用户认可仍review |\ndiff --git a/scripts/demo/demo_app.gd b/scripts/demo/demo_app.gd\nindex 7f8788a3..ff5c6565 100644\n--- a/scripts/demo/demo_app.gd\n+++ b/scripts/demo/demo_app.gd\n@@ -1589,6 +1589,8 @@ func _make_ui() -> void:\n \tmenu.requested_start.connect(func(seed: String) -> void: start_demo(seed, false))\n \tmenu.requested_plains.connect(start_plains)\n \tmenu.requested_debug_region.connect(start_debug_region)\n+\tmenu.requested_forest_varied.connect(func(map_index: int,seed: String) -> void:\n+\t\tstart_debug_region(&\"thorn_forest\",map_index,seed,ThornForestRegionGenerator.DEPTH_VERSION,ThornForestRegionGenerator.DEPTH_LAYOUT_VARIED))\n \tmenu.requested_forest_exploration.connect(func(map_index: int,seed: String) -> void:\n \t\tstart_debug_region(&\"thorn_forest\",map_index,seed,ThornForestRegionGenerator.DEPTH_VERSION,ThornForestRegionGenerator.DEPTH_LAYOUT_EXPLORATION))\n \tprogression_modal = RegionProgressionModal.new()\ndiff --git a/scripts/generation/thorn_forest_region_assembler.gd b/scripts/generation/thorn_forest_region_assembler.gd\nindex a54f23c9..ddbaa349 100644\n--- a/scripts/generation/thorn_forest_region_assembler.gd\n+++ b/scripts/generation/thorn_forest_region_assembler.gd\n@@ -13,7 +13,7 @@ func build(recorded: Dictionary, tuning: PlayerTuning) -> Dictionary:\n \tif not is_inside_tree() or not forest_platforms.is_empty() or not ThornForestRegionGenerator.new().validate(recorded,tuning):\n \t\treturn {\"ok\":false,\"error\":\"Invalid forest manifest or occupied assembler\"}\n \tmanifest = recorded.duplicate(true)\n-\tif manifest.get(\"layout_version\") in [ForestTargetHosts.LAYOUT,\"forest-bible-world-v15\",\"forest-branching-expedition-v16\"]:\n+\tif manifest.get(\"layout_version\") in [ForestTargetHosts.LAYOUT,\"forest-bible-world-v15\",\"forest-branching-expedition-v16\",\"forest-varied-bible-v17\"]:\n \t\t_target_host_presentation=ForestTargetHosts.build(manifest)\n \tbounds = ThornForestRegionGenerator._rect(manifest.world_bounds)\n \tfor row: Dictionary in manifest.platforms: forest_platforms.append(row.duplicate(true))\n@@ -50,7 +50,7 @@ func build(recorded: Dictionary, tuning: PlayerTuning) -> Dictionary:\n \t\tvar target: GrappleAnchor\n \t\tvar mount := ForestTargetHosts.mount_for(_target_host_presentation,str(row.id))\n \t\tvar runtime_fruit: bool = bool(mount.get(\"resolved\",false)) and mount.get(\"presentation\")==\"runtime_rooted_fruit\"\n-\t\tvar is_fruit: bool = manifest.get(\"layout_version\") in [\"forest-fruit-routes-v14\",\"forest-bible-world-v15\",\"forest-branching-expedition-v16\"] and (row.get(\"fruit_presentation\") == \"rooted_fruit\" or runtime_fruit)\n+\t\tvar is_fruit: bool = manifest.get(\"layout_version\") in [\"forest-fruit-routes-v14\",\"forest-bible-world-v15\",\"forest-branching-expedition-v16\",\"forest-varied-bible-v17\"] and (row.get(\"fruit_presentation\") == \"rooted_fruit\" or runtime_fruit)\n \t\tif is_fruit:\n \t\t\tvar fruit := ForestFruitAnchor.new()\n \t\t\tfruit.fruit_role = str(row.fruit_role)\n@@ -63,7 +63,7 @@ func build(recorded: Dictionary, tuning: PlayerTuning) -> Dictionary:\n \t\ttarget.name = row.id\n \t\ttarget.position = Vector2(row.position[0],row.position[1])\n \t\ttarget.hang_enabled = bool(row.get(\"hang_enabled\",false))\n-\t\tif manifest.get(\"layout_version\") in [\"forest-fruit-routes-v14\",\"forest-bible-world-v15\",\"forest-branching-expedition-v16\"] and row.get(\"fruit_role\") == \"optional\" and not is_fruit:\n+\t\tif manifest.get(\"layout_version\") in [\"forest-fruit-routes-v14\",\"forest-bible-world-v15\",\"forest-branching-expedition-v16\",\"forest-varied-bible-v17\"] and row.get(\"fruit_role\") == \"optional\" and not is_fruit:\n \t\t\ttarget.modulate = Color(0.72,0.76,0.67,0.78)\n \t\tadd_child(target)\n \t\thook_targets[row.id] = target\n@@ -213,13 +213,13 @@ func module_index_at(point: Vector2) -> int:\n func _draw() -> void:\n \tfor anchor: Dictionary in manifest.get(\"hook_anchors\",[]):\n \t\tvar mount := ForestTargetHosts.mount_for(_target_host_presentation,str(anchor.id))\n-\t\tif bool(anchor.get(\"hang_enabled\",false)) and anchor.has(\"tether_origin\") and not (manifest.get(\"layout_version\") in [\"forest-fruit-routes-v14\",\"forest-bible-world-v15\",\"forest-branching-expedition-v16\"] and (anchor.get(\"fruit_presentation\") == \"rooted_fruit\" or bool(mount.get(\"resolved\",false)))):\n+\t\tif bool(anchor.get(\"hang_enabled\",false)) and anchor.has(\"tether_origin\") and not (manifest.get(\"layout_version\") in [\"forest-fruit-routes-v14\",\"forest-bible-world-v15\",\"forest-branching-expedition-v16\",\"forest-varied-bible-v17\"] and (anchor.get(\"fruit_presentation\") == \"rooted_fruit\" or bool(mount.get(\"resolved\",false)))):\n \t\t\tdraw_line(Vector2(anchor.tether_origin[0],anchor.tether_origin[1]),Vector2(anchor.position[0],anchor.position[1]),Color(\"527e5a\"),3.0,true)\n \tif ForestBiblePresentation.enabled(manifest):\n \t\tForestBiblePresentation.draw_structure_backdrops(self, manifest)\n \telif manifest.get(\"scene_language_version\", 0) == ForestSceneLanguage.VERSION:\n \t\tForestSceneLanguage.draw_structure_backdrops(self, manifest)\n-\tif manifest.get(\"layout_version\") in [\"forest-fruit-routes-v14\",\"forest-bible-world-v15\",\"forest-branching-expedition-v16\"]:\n+\tif manifest.get(\"layout_version\") in [\"forest-fruit-routes-v14\",\"forest-bible-world-v15\",\"forest-branching-expedition-v16\",\"forest-varied-bible-v17\"]:\n \t\tfor bough: Dictionary in manifest.get(\"fruit_boughs\", []):\n \t\t\tif ForestBiblePresentation.enabled(manifest): ForestBiblePresentation.draw_bough(self, bough)\n \t\t\telse: ForestFruitBough.draw(self,bough)\ndiff --git a/scripts/generation/thorn_forest_region_generator.gd b/scripts/generation/thorn_forest_region_generator.gd\nindex 90015518..09e57507 100644\n--- a/scripts/generation/thorn_forest_region_generator.gd\n+++ b/scripts/generation/thorn_forest_region_generator.gd\n@@ -13,6 +13,7 @@ const DEPTH_LAYOUT_INTERWOVEN := \"forest-interwoven-canopy-v13\"\n const DEPTH_LAYOUT_FRUIT := \"forest-fruit-routes-v14\"\n const DEPTH_LAYOUT_BIBLE := \"forest-bible-world-v15\"\n const DEPTH_LAYOUT_EXPLORATION := \"forest-branching-expedition-v16\"\n+const DEPTH_LAYOUT_VARIED := \"forest-varied-bible-v17\"\n const CURRENT_DEPTH_LAYOUT := DEPTH_LAYOUT_BIBLE\n const DEPTH_LAYOUT_SCRIPTS := {\n \tDEPTH_LAYOUT_V7:\"res://scripts/generation/thorn_forest_region_v2_v7.gd\",\n@@ -23,7 +24,8 @@ const DEPTH_LAYOUT_SCRIPTS := {\n \tDEPTH_LAYOUT_INTERWOVEN:\"res://scripts/generation/thorn_forest_region_v2_v13.gd\",\n \tDEPTH_LAYOUT_FRUIT:\"res://scripts/generation/thorn_forest_region_v2_v14.gd\",\n \tDEPTH_LAYOUT_BIBLE:\"res://scripts/generation/thorn_forest_region_v2_v15.gd\",\n-\tDEPTH_LAYOUT_EXPLORATION:\"res://scripts/generation/thorn_forest_region_v2_v16.gd\"}\n+\tDEPTH_LAYOUT_EXPLORATION:\"res://scripts/generation/thorn_forest_region_v2_v16.gd\",\n+\tDEPTH_LAYOUT_VARIED:\"res://scripts/generation/thorn_forest_region_v2_v17.gd\"}\n # Public candidate playtest default; explicit v1 replay remains supported.\n # This selection does not declare commercial or whole-region admission.\n const VERSION := DEPTH_VERSION\n@@ -82,15 +84,15 @@ static func _boss_paths(version: String, map_index: int, manifest: Dictionary =\n \tif map_index not in [1,2] or not supported(version): return {}\n \tif not manifest.is_empty() and (manifest.get(\"version\") != version or manifest.get(\"map_index\") != map_index): return {}\n \tvar content: Variant = manifest.get(\"boss_content\")\n-\tvar canopy := manifest.is_empty() and version == DEPTH_VERSION and map_index == 2 and CURRENT_DEPTH_LAYOUT in [DEPTH_LAYOUT_CANOPY,DEPTH_LAYOUT_EXPEDITION,DEPTH_LAYOUT_VERTICAL,DEPTH_LAYOUT_INTERWOVEN,DEPTH_LAYOUT_FRUIT,DEPTH_LAYOUT_BIBLE,DEPTH_LAYOUT_EXPLORATION]\n+\tvar canopy := manifest.is_empty() and version == DEPTH_VERSION and map_index == 2 and CURRENT_DEPTH_LAYOUT in [DEPTH_LAYOUT_CANOPY,DEPTH_LAYOUT_EXPEDITION,DEPTH_LAYOUT_VERTICAL,DEPTH_LAYOUT_INTERWOVEN,DEPTH_LAYOUT_FRUIT,DEPTH_LAYOUT_BIBLE,DEPTH_LAYOUT_EXPLORATION,DEPTH_LAYOUT_VARIED]\n \tif manifest.has(\"boss_content\"):\n-\t\tif version != DEPTH_VERSION or map_index != 2 or manifest.get(\"layout_version\") not in [DEPTH_LAYOUT_CANOPY,DEPTH_LAYOUT_EXPEDITION,DEPTH_LAYOUT_VERTICAL,DEPTH_LAYOUT_INTERWOVEN,DEPTH_LAYOUT_FRUIT,DEPTH_LAYOUT_BIBLE,DEPTH_LAYOUT_EXPLORATION]: return {}\n+\t\tif version != DEPTH_VERSION or map_index != 2 or manifest.get(\"layout_version\") not in [DEPTH_LAYOUT_CANOPY,DEPTH_LAYOUT_EXPEDITION,DEPTH_LAYOUT_VERTICAL,DEPTH_LAYOUT_INTERWOVEN,DEPTH_LAYOUT_FRUIT,DEPTH_LAYOUT_BIBLE,DEPTH_LAYOUT_EXPLORATION,DEPTH_LAYOUT_VARIED]: return {}\n \t\tif not content is Dictionary or content.size() != 3: return {}\n \t\tvar expected := {\"contract\":\"forest-queen-canopy-v3\",\"scene\":\"res://scenes/bosses/thorn_queen_canopy.tscn\",\"resource\":\"res://resources/bosses/thorn_queen_canopy.tres\"}\n \t\tfor key: String in expected:\n \t\t\tif not content.get(key) is String or content[key] != expected[key]: return {}\n \t\tcanopy = true\n-\telif not manifest.is_empty() and version == DEPTH_VERSION and map_index == 2 and manifest.get(\"layout_version\") in [DEPTH_LAYOUT_CANOPY,DEPTH_LAYOUT_EXPEDITION,DEPTH_LAYOUT_VERTICAL,DEPTH_LAYOUT_INTERWOVEN,DEPTH_LAYOUT_FRUIT,DEPTH_LAYOUT_BIBLE,DEPTH_LAYOUT_EXPLORATION]:\n+\telif not manifest.is_empty() and version == DEPTH_VERSION and map_index == 2 and manifest.get(\"layout_version\") in [DEPTH_LAYOUT_CANOPY,DEPTH_LAYOUT_EXPEDITION,DEPTH_LAYOUT_VERTICAL,DEPTH_LAYOUT_INTERWOVEN,DEPTH_LAYOUT_FRUIT,DEPTH_LAYOUT_BIBLE,DEPTH_LAYOUT_EXPLORATION,DEPTH_LAYOUT_VARIED]:\n \t\treturn {}\n \tif canopy: return {\"resource\":\"res://resources/bosses/thorn_queen_canopy.tres\",\"scene\":\"res://scenes/bosses/thorn_queen_canopy.tscn\"}\n \tif version == DEPTH_VERSION:\ndiff --git a/scripts/presentation/forest_bible_presentation.gd b/scripts/presentation/forest_bible_presentation.gd\nindex 57f8c41a..cd5ec317 100644\n--- a/scripts/presentation/forest_bible_presentation.gd\n+++ b/scripts/presentation/forest_bible_presentation.gd\n@@ -22,7 +22,7 @@ const DISCOVERY_KINDS := {\n }\n \n static func enabled(m: Dictionary) -> bool:\n-\treturn m.get(\"layout_version\") in [LAYOUT, \"forest-branching-expedition-v16\"]\n+\treturn m.get(\"layout_version\") in [LAYOUT, \"forest-branching-expedition-v16\", \"forest-varied-bible-v17\"]\n \n static func draw_background(canvas: Node2D, m: Dictionary, camera_center: Vector2, view_size: Vector2, _clock: float) -> void:\n \t# Existing Underworld forest source, rather than an independent new style.\ndiff --git a/scripts/presentation/forest_bible_thorns.gd b/scripts/presentation/forest_bible_thorns.gd\nindex 18037122..558bad04 100644\n--- a/scripts/presentation/forest_bible_thorns.gd\n+++ b/scripts/presentation/forest_bible_thorns.gd\n@@ -19,7 +19,7 @@ const PIXEL: float = 2.0\n const VARIANTS: Array[int] = [0,1,1,0,0,1,0,1]\n \n static func draw(canvas: Node2D, m: Dictionary) -> void:\n-\tif m.get(\"layout_version\") not in [\"forest-bible-world-v15\", \"forest-branching-expedition-v16\"]: return\n+\tif m.get(\"layout_version\") not in [\"forest-bible-world-v15\", \"forest-branching-expedition-v16\",\"forest-varied-bible-v17\"]: return\n \tvar hosts: Dictionary = {}\n \tvar hollow: Array[Rect2] = []\n \tvar hollow_ids: Dictionary = {}\ndiff --git a/scripts/ui/demo_menu.gd b/scripts/ui/demo_menu.gd\nindex cdc8e522..4d69f731 100644\n--- a/scripts/ui/demo_menu.gd\n+++ b/scripts/ui/demo_menu.gd\n@@ -9,6 +9,7 @@ signal requested_start(seed: String)\n signal requested_plains(seed: String)\n signal requested_debug_region(region: StringName, map_index: int, seed: String)\n signal requested_forest_exploration(map_index: int, seed: String)\n+signal requested_forest_varied(map_index: int, seed: String)\n signal requested_upgrade\n signal requested_lab\n signal requested_actions\n@@ -258,6 +259,11 @@ func show_debug_regions() -> void:\n \t\t\t_button(_content, \"%s / MAP %s\" % [String(region).to_upper(),map_index], func() -> void:\n \t\t\t\t_hide()\n \t\t\t\trequested_debug_region.emit(chosen_region,chosen_map,_plains_seed()))\n+\tfor map_index: int in [1,2]:\n+\t\tvar chosen_map := map_index\n+\t\t_button(_content,\"FOREST EXPANDED / MAP %s\" % map_index,func() -> void:\n+\t\t\t_hide()\n+\t\t\trequested_forest_varied.emit(chosen_map,_plains_seed()))\n \tfor map_index: int in [1,2]:\n \t\tvar chosen_map := map_index\n \t\t_button(_content,\"FOREST EXPLORATION / MAP %s\" % map_index,func() -> void:\ndiff --git a/scripts/world/forest_target_hosts.gd b/scripts/world/forest_target_hosts.gd\nindex 71957c5c..b3b41c8c 100644\n--- a/scripts/world/forest_target_hosts.gd\n+++ b/scripts/world/forest_target_hosts.gd\n@@ -7,7 +7,7 @@ const GOLDEN_GROUPS: Array[String] = [\"fallen_fork\",\"spiral_crown\",\"gate_pull\",\"\n \n static func build(m: Dictionary) -> Dictionary:\n \tvar audit := {\"presentation_revision\":PRESENTATION_REVISION,\"layout\":str(m.get(\"layout_version\",\"\")),\"manifest_hash\":str(m.get(\"manifest_hash\",\"\")),\"annotation_scope\":\"serialized_v14_pending_is_preserved_historical_design_annotation\",\"acceptance_scope\":\"runtime_candidate_host_resolution_is_not_visual_acceptance\",\"mounts\":[],\"host_boughs\":[],\"unresolved\":[]}\n-\tif m.get(\"layout_version\") not in [LAYOUT,\"forest-bible-world-v15\",\"forest-branching-expedition-v16\"]:return audit\n+\tif m.get(\"layout_version\") not in [LAYOUT,\"forest-bible-world-v15\",\"forest-branching-expedition-v16\",\"forest-varied-bible-v17\"]:return audit\n \tvar anchors: Dictionary = {}\n \tvar supports: Dictionary = {}\n \tfor row: Dictionary in m.get(\"hook_anchors\",[]):\ndiff --git a/tests/forest_bible_world_crown_combat_case.gd b/tests/forest_bible_world_crown_combat_case.gd\nindex 3c9a2eb6..f7d6e21f 100644\n--- a/tests/forest_bible_world_crown_combat_case.gd\n+++ b/tests/forest_bible_world_crown_combat_case.gd\n@@ -3,7 +3,7 @@ extends \"res://tests/forest_interwoven_crown_combat_case.gd\"\n ## Basis SHA256 2eb6d8256b26a1a8b6f807a85b5e7004d4f4a13ab09d29425cad04f9b58b4ec8.\n ## Only drive layout eligibility is extended; shared helpers/state stay inherited.\n func drive(trace: Node, leg: Dictionary) -> bool:\n-\tif trace.manifest.get(\"layout_version\") not in [\"forest-interwoven-canopy-v13\",\"forest-fruit-routes-v14\",\"forest-bible-world-v15\"]:return false\n+\tif trace.manifest.get(\"layout_version\") not in [\"forest-interwoven-canopy-v13\",\"forest-fruit-routes-v14\",\"forest-bible-world-v15\",\"forest-varied-bible-v17\"]:return false\n \tvar edge_id := str(leg.get(\"edge_id\",\"\"))\n \tvar enemy_id := \"root_spiral_bark_keeper\" if edge_id == \"lower_fork_approach\" else \"upper_spiral_bark_keeper\" if edge_id == \"canopy_fork_approach\" else \"\"\n \tif enemy_id.is_empty() or completed_encounters.has(enemy_id):return false\ndiff --git a/tests/forest_bible_world_grove_combat_case.gd b/tests/forest_bible_world_grove_combat_case.gd\nindex 08e401c3..093d063b 100644\n--- a/tests/forest_bible_world_grove_combat_case.gd\n+++ b/tests/forest_bible_world_grove_combat_case.gd\n@@ -23,7 +23,7 @@ func drive(trace: Node,leg: Dictionary) -> bool:\n \t\t\tif trace.player.is_on_floor(): trace.controller.router.set_move_axis(0)\n \t\t\treturn true\n \t\tpending_shot_intent = -1\n-\tif trace.manifest.get(\"layout_version\",\"\") not in [\"forest-expedition-airborne-v11\",\"forest-woven-trunk-v12\",\"forest-interwoven-canopy-v13\",\"forest-fruit-routes-v14\",\"forest-bible-world-v15\"]:return false\n+\tif trace.manifest.get(\"layout_version\",\"\") not in [\"forest-expedition-airborne-v11\",\"forest-woven-trunk-v12\",\"forest-interwoven-canopy-v13\",\"forest-fruit-routes-v14\",\"forest-bible-world-v15\",\"forest-varied-bible-v17\"]:return false\n \t# Preserve the 0.35s real aim hold and count only newly issued intents.\n \tif not state.is_empty() and not str(trace.get(\"_aim_kind\")).is_empty(): return true\n \tif state.is_empty():\ndiff --git a/tools/harness/profiles.json b/tools/harness/profiles.json\nindex abd7ac67..dbc1dd42 100644\n--- a/tools/harness/profiles.json\n+++ b/tools/harness/profiles.json\n@@ -3018,6 +3018,32 @@\n         \"tests/test_forest_exploration_contract_wrapper.py\"\n       ],\n       \"artifact_paths\": []\n+    },\n+    \"forest-varied-feedback\": {\n+      \"argv\": [\n+        \"python3\",\n+        \"tools/run_forest_varied_feedback.py\",\n+        \"--output-dir\",\n+        \"build/region_bible_v2/forest-varied-feedback/{check_token}\"\n+      ],\n+      \"timeout_seconds\": 600,\n+      \"success_pattern\": \"^PASS: forest varied development feedback$\",\n+      \"weight_seconds\": 130,\n+      \"serial\": true,\n+      \"inputs\": [\n+        \"scripts\",\n+        \"scenes\",\n+        \"resources\",\n+        \"config\",\n+        \"shaders\",\n+        \"assets\",\n+        \"tests\",\n+        \"tools\",\n+        \"project.godot\"\n+      ],\n+      \"artifact_paths\": [\n+        \"build/region_bible_v2/forest-varied-feedback\"\n+      ]\n     }\n   },\n   \"profiles\": {\n@@ -3531,6 +3557,10 @@\n       \"forest-exploration-exchange-reader\",\n       \"forest-exploration-wrapper-tests\",\n       \"forest-exploration-contract\"\n+    ],\n+    \"forest-varied-feedback\": [\n+      \"docs\",\n+      \"forest-varied-feedback\"\n     ]\n   }\n }\ndiff --git a/tools/verify_forest_browser.py b/tools/verify_forest_browser.py\nindex 7a44c055..c61306ce 100644\n--- a/tools/verify_forest_browser.py\n+++ b/tools/verify_forest_browser.py\n@@ -346,7 +346,7 @@ def main():\n     parser.add_argument(\"--expected-commit\",required=True)\n     parser.add_argument(\"--expected-build-id\",required=True)\n     parser.add_argument(\"--expected-forest-version\",choices=(\"thorn-forest-region-v1\",\"thorn-forest-region-v2\"),help=\"Explicitly verify the actually assembled default forest, beyond menu acceptance\")\n-    parser.add_argument(\"--expected-forest-layout\",choices=(\"shared-tree-directional-cavities-v7\",\"shared-tree-living-detour-v9\",\"shared-tree-canopy-hunt-v10\",\"forest-expedition-airborne-v11\",\"forest-woven-trunk-v12\",\"forest-interwoven-canopy-v13\",\"forest-fruit-routes-v14\",\"forest-bible-world-v15\",\"forest-branching-expedition-v16\"),help=\"Require the exact layout of the actually assembled forest; requires --expected-forest-version\")\n+    parser.add_argument(\"--expected-forest-layout\",choices=(\"shared-tree-directional-cavities-v7\",\"shared-tree-living-detour-v9\",\"shared-tree-canopy-hunt-v10\",\"forest-expedition-airborne-v11\",\"forest-woven-trunk-v12\",\"forest-interwoven-canopy-v13\",\"forest-fruit-routes-v14\",\"forest-bible-world-v15\",\"forest-branching-expedition-v16\",\"forest-varied-bible-v17\"),help=\"Require the exact layout of the actually assembled forest; requires --expected-forest-version\")\n     parser.add_argument(\"--proxy-from-environment\",action=\"store_true\",help=\"Explicitly route Chromium through urllib's HTTPS proxy environment setting\")\n     args = parser.parse_args()\n     if args.expected_forest_layout is not None and args.expected_forest_version != \"thorn-forest-region-v2\":",
+  "untracked": "docs/archive/status_snapshots_20261022/current_state.md.source\ndocs/archive/status_snapshots_20261022/handoff.md.source\ndocs/archive/status_snapshots_20261022/index.json\ndocs/design/forest_v16_rethink.md\ndocs/design/forest_varied_bible_v17.md\ndocs/design/forest_variety_feedback_20261022.json\ndocs/evidence/forest_variety_03/README.md\ndocs/evidence/forest_variety_03/archive-final-feedback.py\ndocs/evidence/forest_variety_03/archive-iterations.py\ndocs/evidence/forest_variety_03/feedback-index.json\ndocs/evidence/forest_variety_03/feedback.zip\ndocs/evidence/forest_variety_03/independent-reviews/REPORT.md\ndocs/evidence/forest_variety_03/independent-reviews/entry-rest-bay-static-first/REVIEW.md\ndocs/evidence/forest_variety_03/independent-reviews/entry-rest-bay-static-first/audit_round07.py\ndocs/evidence/forest_variety_03/independent-reviews/entry-rest-bay-static-first/narrowed-helper.gd.source\ndocs/evidence/forest_variety_03/independent-reviews/entry-rest-bay-static-first/observed-helper.gd.source\ndocs/evidence/forest_variety_03/independent-reviews/entry-rest-bay-static-first/old-trajectory-source.json\ndocs/evidence/forest_variety_03/independent-reviews/entry-rest-bay-static-first/round07-actual/REVIEW.md\ndocs/evidence/forest_variety_03/independent-reviews/entry-rest-bay-static-first/round07-actual/destination-contract-from-round07.gd.txt\ndocs/evidence/forest_variety_03/independent-reviews/entry-rest-bay-static-first/round07-actual/review.json\ndocs/evidence/forest_variety_03/independent-reviews/entry-rest-bay-static-first/round07-reviewer-alignment-first.log\ndocs/evidence/forest_variety_03/independent-reviews/entry-rest-bay-static-first/round07-verification.log\ndocs/evidence/forest_variety_03/independent-reviews/entry-rest-bay-static-first/source.json\ndocs/evidence/forest_variety_03/independent-reviews/g0-review.md\ndocs/evidence/forest_variety_03/independent-reviews/process-correction-first/REVIEW.md\ndocs/evidence/forest_variety_03/independent-reviews/process-correction-first/review.json\ndocs/evidence/forest_variety_03/independent-reviews/random-guard-independent-first/REVIEW.md\ndocs/evidence/forest_variety_03/independent-reviews/random-guard-independent-first/review.json\ndocs/evidence/forest_variety_03/independent-reviews/random-guard-independent-first/runner-source-reviewed.gd.txt\ndocs/evidence/forest_variety_03/independent-reviews/round02-independent-first/REVIEW.md\ndocs/evidence/forest_variety_03/independent-reviews/round02-independent-first/review.json\ndocs/evidence/forest_variety_03/independent-reviews/round03-independent-first/REVIEW.md\ndocs/evidence/forest_variety_03/independent-reviews/round03-independent-first/review.json\ndocs/evidence/forest_variety_03/independent-reviews/round03-independent-first/verification.log\ndocs/evidence/forest_variety_03/independent-reviews/round03-independent-first/verify.py\ndocs/evidence/forest_variety_03/independent-reviews/round09-art-first/REVIEW.md\ndocs/evidence/forest_variety_03/independent-reviews/round09-art-first/review.json\ndocs/evidence/forest_variety_03/independent-reviews/round10-art-second/REVIEW.md\ndocs/evidence/forest_variety_03/independent-reviews/round10-art-second/review.json\ndocs/evidence/forest_variety_03/independent-reviews/round11-independent-first/REVIEW.md\ndocs/evidence/forest_variety_03/independent-reviews/round11-independent-first/review.json\ndocs/evidence/forest_variety_03/independent-reviews/round11-independent-first/verification.log\ndocs/evidence/forest_variety_03/independent-reviews/round11-independent-first/verify.py\ndocs/evidence/forest_variety_03/independent-reviews/round11-independent-first/world-review.json\ndocs/evidence/forest_variety_03/independent-reviews/sources.json\ndocs/evidence/forest_variety_03/iterations-index.json\ndocs/evidence/forest_variety_03/iterations.zip\ndocs/evidence/forest_variety_03/native11-receipt.json\ndocs/evidence/forest_variety_03/permanent-before-strict-guard-receipt.json\ndocs/evidence/forest_variety_03/public_restore/deployment-run.json\ndocs/evidence/forest_variety_03/public_restore/forest-entry.png\ndocs/evidence/forest_variety_03/public_restore/report.json\ndocs/evidence/forest_variety_03/public_restore/resumed.png\ndocs/evidence/forest_variety_03/public_restore/verify-restored-public.py\ndocs/evidence/forest_variety_03/review-source-snapshots-index.json\ndocs/evidence/forest_variety_03/review-source-snapshots.zip\ndocs/evidence/forest_variety_03/strict12-receipt.json\ndocs/evidence/forest_variety_03/twelfth-world-coordinator.py\ndocs/quality/records/FOREST-VARIETY-03.json\nscripts/demo/forest_varied_module_golden.gd\nscripts/demo/forest_varied_module_golden.gd.uid\nscripts/generation/forest_entry_rest_bay.gd\nscripts/generation/forest_entry_rest_bay.gd.uid\nscripts/generation/forest_playful_module_variants.gd\nscripts/generation/forest_playful_module_variants.gd.uid\nscripts/generation/forest_varied_bible_layout.gd\nscripts/generation/forest_varied_bible_layout.gd.uid\nscripts/generation/thorn_forest_region_v2_v17.gd\nscripts/generation/thorn_forest_region_v2_v17.gd.uid\ntests/forest_varied_fixture_app.gd\ntests/forest_varied_fixture_app.gd.uid\ntests/forest_varied_fixture_runner.gd\ntests/forest_varied_fixture_runner.gd.uid\ntests/forest_varied_fixture_trace.gd\ntests/forest_varied_fixture_trace.gd.uid\ntests/forest_varied_golden_runner.gd\ntests/forest_varied_golden_runner.gd.uid\ntests/forest_varied_menu_runner.gd\ntests/forest_varied_menu_runner.gd.uid\ntests/forest_varied_module_runner.gd\ntests/forest_varied_module_runner.gd.uid\ntests/forest_varied_motor_runner.gd\ntests/forest_varied_motor_runner.gd.uid\ntests/forest_varied_region_trace.gd\ntests/forest_varied_region_trace.gd.uid\ntests/forest_varied_world_runner.gd\ntests/forest_varied_world_runner.gd.uid\ntools/run_forest_varied_feedback.py",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 207.83,
+  "jobs": 1,
+  "release": true
+}

@@ -135,9 +135,11 @@
       "evidence": []
     },
     "G5": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "failed",
+      "reason": "Actual user playtest rejected the new v16 direction; continue under FOREST-VARIETY-03 preserving old design",
+      "evidence": [
+        "actual-user-v16-rejection"
+      ]
     }
   },
   "dimensions": {
@@ -194,9 +196,11 @@
       "evidence": []
     },
     "player_acceptance": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "failed",
+      "reason": "User explicitly rejected v16; technical route passes do not override playtest rejection",
+      "evidence": [
+        "actual-user-v16-rejection"
+      ]
     }
   },
   "criteria": [],
@@ -285,6 +289,22 @@
         "/root/grapple_visible_fix"
       ],
       "verdict": "ACCEPT"
+    },
+    {
+      "id": "actual-user-v16-rejection",
+      "path": "docs/design/forest_variety_feedback_20261022.json",
+      "sha256": "359ea59c5efffd14e95f32fd829cbbd640a74111f61428e7b8ecbada51a6f698",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "ee0b646e779b4680319e9a377518b27c10bfbe87",
+      "content_version": "forest-branching-expedition-v16",
+      "method": "Latest direct user playtest and clarification, recorded after the earlier technical receipts",
+      "observed": "User rejected v16 stacked platforms and dull progression; old v15 design should be preserved with expansion/difficulty/real randomness/module variety changes",
+      "source": "Direct user messages in active conversation on 2026-10-22",
+      "quote": "旧版森林只是不够大，难度曲线不对，关卡设计是挺好的。而且没有随机变化。新版则是完全不行",
+      "covers": [
+        "player_acceptance"
+      ]
     }
   ],
   "consumer_coverage": null,
