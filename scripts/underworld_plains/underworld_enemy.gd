@@ -6,6 +6,7 @@ var accepted_hurt_count := 0
 var feedback_sample: EnemyFeedback01
 var feedback_body: EnemyFeedback01Body
 var feedback_particles: EnemyFeedback01Particles
+var feedback_remains: EnemyFeedback01Remains
 
 func _ready() -> void:
 	if EnemyFeedback01.supports(actor.definition):
@@ -23,6 +24,13 @@ func _ready() -> void:
 		feedback_particles.bind(feedback_sample, actor.damageable)
 		actor.health.changed.connect(_feedback_initialized)
 		_sync_feedback_body()
+		feedback_remains = EnemyFeedback01Remains.new()
+		feedback_remains.name = "AcceptedEnemyRemains"
+		# Stage sibling: the formal reload path may hide the entire dead Motor.
+		var stage := actor.motor.get_parent()
+		stage.add_child(feedback_remains)
+		stage.move_child(feedback_remains, 0)
+		feedback_remains.bind(feedback_sample, actor.damageable, actor.health, actor.motor, self, actor.definition.aerial, _remains_view)
 	else:
 		super._ready()
 		actor.health.changed.connect(_accepted_damage)
@@ -38,9 +46,10 @@ func _process(delta: float) -> void:
 		_sync_feedback_body()
 
 func _sync_feedback_body() -> void:
-	feedback_body.visible = not feedback_sample.restored_terminal
+	feedback_body.visible = not actor.health.terminal
 	if not feedback_body.visible:
-		feedback_body.flash_material.set_shader_parameter("hit_flash", 0.0)
+		# Keep the accepted flash receipt, while the sibling now owns the pixels.
+		feedback_body.flash_material.set_shader_parameter("hit_flash", 0.0 if feedback_sample.restored_terminal else feedback_sample.flash_strength())
 		return
 	var behavior := String(actor.definition.behavior_id)
 	var source: Texture2D = SPRITES["aerial" if actor.definition.aerial else behavior]
@@ -60,6 +69,21 @@ func _sync_feedback_body() -> void:
 	var origin := Vector2(0, dip + flutter + floor_y * (1 - pose.y))
 	feedback_body.present(source, Rect2(-width*.5, floor_y-height, width, height), origin, feedback_sample.tilt(), Vector2(float(actor.brain.direction)*pose.x, pose.y), feedback_sample.tint(), feedback_sample.flash_strength())
 
+func _remains_view() -> Dictionary:
+	var face := float(actor.brain.direction)
+	var texture: Texture2D = SPRITES["aerial" if actor.definition.aerial else String(actor.definition.behavior_id)]
+	var size := actor.definition.collision_size
+	var width := maxf(size.x + 8, 28)
+	var height := width * texture.get_height() / texture.get_width()
+	if height > size.y + 14:
+		width *= (size.y + 14) / height
+		height = size.y + 14
+	var rest_size := Vector2(width, height) * global_scale.abs()
+	if feedback_body.source != null:
+		return {"texture": feedback_body.source, "bounds": feedback_body.destination, "transform": feedback_body.global_transform, "face": face, "angle": global_rotation + feedback_body.rotation, "rest_size": rest_size}
+	# A saved terminal instance has no live body frame to hand off.
+	return {"texture": texture, "bounds": Rect2(-width*.5, size.y*.5-height, width, height), "transform": global_transform * Transform2D(0, Vector2(face, 1), 0, Vector2.ZERO), "face": face, "angle": global_rotation}
+
 func _feedback_initialized(result: ActorResourceResult) -> void:
 	if result == null or result.operation != &"initialize" or result.snapshot.epoch != actor.health.epoch: return
 	# Initialization can happen while paused. Clear cached drawing immediately;
@@ -70,6 +94,7 @@ func _feedback_initialized(result: ActorResourceResult) -> void:
 	queue_redraw()
 
 func _exit_tree() -> void:
+	if is_instance_valid(feedback_remains): feedback_remains.dispose()
 	if feedback_sample != null: feedback_sample.dispose()
 	if is_instance_valid(actor) and actor.health.changed.is_connected(_accepted_damage): actor.health.changed.disconnect(_accepted_damage)
 	if is_instance_valid(actor) and actor.health.changed.is_connected(_feedback_initialized): actor.health.changed.disconnect(_feedback_initialized)
@@ -89,7 +114,7 @@ const SPRITES := {
 
 func _draw() -> void:
 	if actor == null: return
-	if feedback_sample != null and feedback_sample.restored_terminal: return
+	if feedback_sample != null and actor.health.terminal: return
 	var behavior := String(actor.definition.behavior_id)
 	var state: StringName = actor.attack_behavior.state if actor.attack_behavior!=null else &"idle"
 	if not actor.health.terminal: _telegraph(state,StringName(behavior))

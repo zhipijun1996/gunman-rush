@@ -1,7 +1,7 @@
 class_name EnemyFeedback01Particles
 extends Node2D
 ## Existing committed Damageable event + shared receipt; no collision or audio.
-## A bounded, local 2-world-unit pixel burst, frozen by the host's pause mode.
+## Sparse small directional chips, frozen by the host's pause mode.
 const MAX_BURSTS := 3
 const CREAM := Color("fff2b3")
 const BRASS := Color("d7a85a")
@@ -29,7 +29,7 @@ func _committed_impact(context: Dictionary) -> void:
 	_last_serial = sample.impact_serial
 	var lethal := sample.death_active
 	if _bursts.size() >= MAX_BURSTS: _bursts.pop_front()
-	_bursts.append({"point": point, "direction": -(direction as Vector2).normalized(), "age": 0.0, "lethal": lethal})
+	_bursts.append({"point": point, "direction": -(direction as Vector2).normalized(), "age": 0.0, "lethal": lethal, "serial": sample.impact_serial})
 	emitted_bursts += 1
 	queue_redraw()
 
@@ -47,27 +47,27 @@ func _draw() -> void:
 	if sample == null or _epoch != sample.epoch(): return
 	for burst: Dictionary in _bursts:
 		var duration := .42 if burst.lethal else .26
-		var progress := float(burst.age) / duration
 		var center := to_local(burst.point)
 		var base: Vector2 = burst.direction
 		if base.is_zero_approx(): base = Vector2.LEFT
-		var count := 18 if burst.lethal else 14
-		var radius := 40.0 if burst.lethal else 28.0
+		var count := 9 if burst.lethal else 6
+		# No radial ring or cross-shaped secondary flash. Vary the small chips'
+		# speed/life deterministically without consuming the gameplay RNG stream.
 		for i: int in count:
-			var angle := TAU * float(i) / count
-			var unit := Vector2.from_angle(angle)
-			var travel := unit * radius * (1.0 - pow(1.0-progress, 2.0)) + base * progress * 12
-			travel.y += progress * progress * 12
-			var p := (center + travel).snapped(Vector2(2, 2))
-			var width := 4.0 if i % 3 == 0 else 2.0
-			var color := CREAM if i % 3 != 1 else BRASS
-			color.a = 1.0 - progress
-			draw_rect(Rect2(p, Vector2(width, 2)), color)
-		if progress < .35:
-			# Brief asymmetric contact star, never a full-screen glow or round cloud.
-			var reach := 8.0 * (1.0 - progress/.35)
-			draw_line(center-Vector2(reach, 0), center+Vector2(reach, 0), CREAM, 2)
-			draw_line(center-Vector2(0, reach), center+Vector2(0, reach), CREAM, 2)
+			var variant := (i * 5 + int(burst.serial)) % 11
+			var life := duration * (.58 + float(variant) * .038)
+			var progress := float(burst.age) / life
+			if progress >= 1: continue
+			var angle := -.95 + float((i * 7) % count) / maxf(1, count-1) * 1.9
+			var unit := base.rotated(angle)
+			var speed := 40.0 + float(variant) * 4.5
+			var travel := unit * speed * life * (progress - .32*progress*progress)
+			travel.y += 38 * float(burst.age) * float(burst.age)
+			var p := (center + travel).snapped(Vector2.ONE)
+			var color := CREAM if i % 3 == 0 and progress < .4 else BRASS
+			color.a = .85 * pow(1.0 - progress, 1.4)
+			var tail := (p - unit * (2.0 if progress < .3 else 1.0)).snapped(Vector2.ONE)
+			draw_line(tail, p, color, 1, false)
 
 func active_bursts() -> int:
 	return _bursts.size()

@@ -1,0 +1,47 @@
+{
+  "task": "ENEMY-FEEDBACK-01",
+  "source_commit": "bd8d130f3677ba80d569f16c05feee1977450c02",
+  "before_production_commit": "5de1eca1f3150289c2dc3bc72b206ac2efc326d9",
+  "baseline_overlay": "Only three task capture-driver files untracked; production bytes remain5de1eca. Exact metadata in before-report.json.",
+  "before_source": {
+    "working_files": {
+      "tools/capture_enemy_feedback_01_remains.py": "b4ef829c4f69ac6df4f3a010a92ec8013d52dfe2cda767551ab1ec59351738d6",
+      "tools/enemy_feedback_01_remains_capture.gd": "8efcbef8ba9a32323776ec1ad0b17320bcf70f5f2e9064050595d78758b13c06",
+      "tools/enemy_feedback_01_remains_capture.gd.uid": "01c7bcc35801feb0ec7ead305aeae22527d7454412ac30435d9a9931d4c39ef7"
+    },
+    "commit": "5de1eca1f3150289c2dc3bc72b206ac2efc326d9",
+    "git_status": "?? tools/capture_enemy_feedback_01_remains.py\n?? tools/enemy_feedback_01_remains_capture.gd\n?? tools/enemy_feedback_01_remains_capture.gd.uid",
+    "diff": "",
+    "untracked": "tools/capture_enemy_feedback_01_remains.py\ntools/enemy_feedback_01_remains_capture.gd\ntools/enemy_feedback_01_remains_capture.gd.uid"
+  },
+  "after_source": {
+    "working_files": {},
+    "commit": "bd8d130f3677ba80d569f16c05feee1977450c02",
+    "git_status": "",
+    "diff": "",
+    "untracked": ""
+  },
+  "source_stable": true,
+  "same_gameplay_frames": true,
+  "same_actual_inputs_and_events": true,
+  "actual_trace_frames": 1560,
+  "driver_sha256": "8efcbef8ba9a32323776ec1ad0b17320bcf70f5f2e9064050595d78758b13c06",
+  "scope": "Real current-room fixtures, not moving-support save recovery, natural route or new authored frame atlases",
+  "inputs": {
+    "before.mp4": "236bec9e41636ad8d72f72d6793a9c988acd3ade646594e4892febb2b34e6aef",
+    "after.mp4": "823206c1814d11077b4e836a9e205513234225d67afbeb4259e00b0895af00c5",
+    "before.json": "079dcf2c97a20bb86dee540205ba2a716941091ec08caf8a166e10d097c8ea27",
+    "after.json": "4f54a8c35fb30800ec8972c3938803c8a5f1a53ff77110d75dd67c2544039dc3",
+    "before-report.json": "7f021f7e0a775d6a3bbfddd33a438544a564cd84281c09c332d7cc83a5b95bca",
+    "after-report.json": "bc220fdd8fead3273a05676667be16a567704f916cb02bd1ed87d1eda78da919"
+  },
+  "event_comparison": "Compare causal frame/amount/HP/epoch/terminal fields plus inputs/shots; session-local event_id Actor prefixes are intentionally excluded. Both raw traces retain original IDs.",
+  "event_projection_fields": [
+    "frame",
+    "amount",
+    "HP",
+    "epoch",
+    "terminal"
+  ],
+  "raw_event_ids_byte_equal": false
+}

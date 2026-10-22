@@ -1,0 +1,121 @@
+{
+	"cases": [
+		{
+			"actual_accepted_hits": 3,
+			"bounded_fall_frames": 146,
+			"case": "actual_void_death_and_static_restore",
+			"chain": "original",
+			"static_snapshot": {
+				"active": true,
+				"age": 0.0,
+				"phase": "resting",
+				"position": "(412.0503, 357.95)",
+				"restored": true,
+				"rotation": -0.219999998807907,
+				"scale": "(1.0, 1.0)",
+				"settled": true,
+				"starts": 1,
+				"visible": false
+			},
+			"terminal_position": "(412.0, 364.0)"
+		},
+		{
+			"bounded_release_frames": 140,
+			"case": "weak_support_translation_and_release",
+			"chain": "original",
+			"final": {
+				"active": false,
+				"age": 2.76666666666666,
+				"phase": "void",
+				"position": "(426.5, 2399.689)",
+				"restored": false,
+				"rotation": -0.219999998807907,
+				"scale": "(1.0, 1.0)",
+				"settled": false,
+				"starts": 1,
+				"visible": false
+			},
+			"settled_position": "(383.5, 357.4893)",
+			"translation": "(43.0, -17.0)"
+		},
+		{
+			"case": "saved_transform_applied_after_health",
+			"chain": "original",
+			"saved_direction": -1,
+			"saved_motor": "(540.0, 364.0)",
+			"static_snapshot": {
+				"active": true,
+				"age": 0.0,
+				"phase": "resting",
+				"position": "(540.0, 357.4893)",
+				"restored": true,
+				"rotation": -0.219999998807907,
+				"scale": "(1.0, 1.0)",
+				"settled": true,
+				"starts": 0,
+				"visible": true
+			}
+		},
+		{
+			"actual_accepted_hits": 3,
+			"bounded_fall_frames": 146,
+			"case": "actual_void_death_and_static_restore",
+			"chain": "underworld",
+			"static_snapshot": {
+				"active": true,
+				"age": 0.0,
+				"phase": "resting",
+				"position": "(410.5, 366.5)",
+				"restored": true,
+				"rotation": -0.219999998807907,
+				"scale": "(1.0, 1.0)",
+				"settled": true,
+				"starts": 1,
+				"visible": false
+			},
+			"terminal_position": "(410.5, 364.0)"
+		},
+		{
+			"bounded_release_frames": 140,
+			"case": "weak_support_translation_and_release",
+			"chain": "underworld",
+			"final": {
+				"active": false,
+				"age": 2.76666666666666,
+				"phase": "void",
+				"position": "(423.5, 2405.097)",
+				"restored": false,
+				"rotation": -0.219999998807907,
+				"scale": "(1.0, 1.0)",
+				"settled": false,
+				"starts": 1,
+				"visible": false
+			},
+			"settled_position": "(380.5, 362.8972)",
+			"translation": "(43.0, -17.0)"
+		},
+		{
+			"case": "saved_transform_applied_after_health",
+			"chain": "underworld",
+			"saved_direction": -1,
+			"saved_motor": "(540.0, 364.0)",
+			"static_snapshot": {
+				"active": true,
+				"age": 0.0,
+				"phase": "resting",
+				"position": "(540.0, 362.8972)",
+				"restored": true,
+				"rotation": -0.219999998807907,
+				"scale": "(1.0, 1.0)",
+				"settled": true,
+				"starts": 0,
+				"visible": true
+			}
+		}
+	],
+	"checks": 133,
+	"failures": [],
+	"feedback_revision": "persistent_remains_v3",
+	"scope": "six explicit charger support/void/restore-order fixtures across both actual rendering chains; genuine Router projectile deaths for void and support cases; no natural-route/GPU/device or general physics certification",
+	"task": "ENEMY-FEEDBACK-01"
+}

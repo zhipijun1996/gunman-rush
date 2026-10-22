@@ -23,11 +23,58 @@ func capture_body(label: String) -> Dictionary:
 			light += luma
 			if color.r > .8 and color.g > .75 and color.b > .5: bright += 1
 			count += 1
-	DirAccess.make_dir_recursive_absolute("res://build/enemy_feedback_01/v2-pixels")
-	image.save_png("res://build/enemy_feedback_01/v2-pixels/" + label + ".png")
+	DirAccess.make_dir_recursive_absolute("res://build/enemy_feedback_01/v3-pixels")
+	image.save_png("res://build/enemy_feedback_01/v3-pixels/" + label + ".png")
 	var row := {"phase": label, "samples": count, "mean_luma": light/maxi(1,count), "cream_fraction": float(bright)/maxi(1,count), "flash": body.flash_material.get_shader_parameter("hit_flash"), "HP": actor.health.current, "body_bounds": body.get_global_transform_with_canvas()*body.destination}
 	pixels.append(row)
 	return row
+
+func capture_remains(label: String) -> Dictionary:
+	await RenderingServer.frame_post_draw
+	var image := root.get_texture().get_image()
+	var remains: EnemyFeedback01Remains = (art as UnderworldEnemy).feedback_remains
+	var center := remains.get_global_transform_with_canvas() * Vector2.ZERO
+	var crop := Rect2i(Vector2i((center - Vector2(64, 64)).floor()), Vector2i(128, 128)).intersection(Rect2i(Vector2i.ZERO, image.get_size()))
+	var body_pixels := 0
+	var bottom_pixel := -1
+	var background := Color("26362f")
+	for y: int in range(crop.position.y, crop.end.y):
+		for x: int in range(crop.position.x, crop.end.x):
+			var color := image.get_pixel(x, y)
+			if absf(color.r - background.r) + absf(color.g - background.g) + absf(color.b - background.b) > .06:
+				body_pixels += 1
+				bottom_pixel = maxi(bottom_pixel, y)
+	var context := HashingContext.new()
+	context.start(HashingContext.HASH_SHA256)
+	context.update(image.get_region(crop).get_data())
+	var digest := context.finish().hex_encode()
+	image.save_png("res://build/enemy_feedback_01/v3-pixels/" + label + ".png")
+	var terrain := PhysicsRayQueryParameters2D.create(remains.global_position, remains.global_position + Vector2(0, 2048), 1)
+	var hit := remains.get_world_2d().direct_space_state.intersect_ray(terrain)
+	var floor_y := (remains.get_canvas_transform() * (hit.position as Vector2)).y if not hit.is_empty() else INF
+	var row := {"phase": label, "remains": remains_snapshot(remains), "visible_pixels": body_pixels, "bottom_pixel": bottom_pixel, "floor_screen_y": floor_y, "body_floor_gap_pixels": floor_y - float(bottom_pixel+1), "crop": crop, "crop_rgba_sha256": digest, "HP": actor.health.current, "inherited_body_visible": art.is_visible_in_tree()}
+	pixels.append(row)
+	return row
+
+func actual_lethal_remains_pixels(path: String) -> void:
+	await setup(path, true)
+	var name := String(actor.definition.stable_id)
+	for _hit: int in 3:
+		check(await shoot_until_health_changes("pixel_actual_lethal_remains"), "persistent corpse GPU case receives real accepted projectile")
+	check(actor.health.terminal and (art as UnderworldEnemy).feedback_remains.accepted_starts == 1, "GPU corpse follows one genuine three-projectile accepted death")
+	await ticks(130, "pixel_corpse_persists_over_two_seconds")
+	var remains: EnemyFeedback01Remains = (art as UnderworldEnemy).feedback_remains
+	var corpse := await capture_remains(name + "-actual-persistent-corpse")
+	check(not art.is_visible_in_tree() and remains.active and remains.settled and remains.is_visible_in_tree(), "actual corpse is independently visible beyond inherited body fade")
+	check(int(corpse.visible_pixels) > 20, "actual GPU viewport still draws corpse pixels after more than two seconds")
+	check(absf(float(corpse.body_floor_gap_pixels)) <= 3, "actual rendered corpse silhouette touches the real floor, not a rotated transparent AABB corner")
+	paused = true
+	for _frame: int in 4:
+		await process_frame
+	var frozen := await capture_remains(name + "-actual-persistent-corpse-paused")
+	check(frozen.crop_rgba_sha256 == corpse.crop_rgba_sha256 and frozen.remains == corpse.remains, "settled paused corpse retains identical actual rendered pixels and visual transform")
+	paused = false
+	await cleanup()
 
 func run() -> void:
 	root.size = Vector2i(1280, 720)
@@ -56,10 +103,13 @@ func run() -> void:
 		check(not (art as UnderworldEnemy).feedback_body.visible and float(corpse.flash) == 0 and (art as UnderworldEnemy).feedback_particles.active_bursts() == 0, "paused restore immediately clears body flash visibility and cached bursts before resume")
 		check(float(corpse.cream_fraction) < .10, "actual paused viewport no longer contains the old cream body silhouette")
 		check(not (art as UnderworldEnemy).feedback_sample.death_active and (art as UnderworldEnemy).feedback_sample.accepted_death_count == 0, "restored corpse never starts a new accepted death")
+		var remains: EnemyFeedback01Remains = (art as UnderworldEnemy).feedback_remains
+		check(remains.active and remains.restored and remains.settled and remains.accepted_starts == 0 and remains.is_visible_in_tree(), "paused restored corpse reconstructs static visible remains without accepted death replay")
 		paused = false
 		await cleanup()
-	var file := FileAccess.open("res://build/enemy_feedback_01/v2-pixels/report.json", FileAccess.WRITE)
-	file.store_string(JSON.stringify({"checks": checks, "failures": failures, "pixels": pixels, "scope": "actual GPU sprite samples under real accepted projectiles, explicit arena; no art redesign/animation-frame or device acceptance"}, "\t"))
+		await actual_lethal_remains_pixels(path)
+	var file := FileAccess.open("res://build/enemy_feedback_01/v3-pixels/report.json", FileAccess.WRITE)
+	file.store_string(JSON.stringify({"feedback_revision": "persistent_remains_v3", "checks": checks, "failures": failures, "pixels": pixels, "scope": "actual GPU sprite samples under real accepted projectiles, explicit arena; no art redesign/animation-frame or device acceptance"}, "\t"))
 	file.close()
 	print("ENEMY_FEEDBACK_01_PIXELS checks=%d failures=%d" % [checks, failures.size()])
 	quit(0 if failures.is_empty() else 1)

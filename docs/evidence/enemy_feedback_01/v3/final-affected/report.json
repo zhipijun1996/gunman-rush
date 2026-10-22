@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "started_at": "20261022T164150.850488Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "underworld-damage-feedback",
+      "argv": [
+        "python3",
+        "tools/run_underworld_damage_r3_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "a89e14689dec83d0bb29d6cd64ce1216f1875074615826acfcd1b270d8082883",
+      "log": "underworld-damage-feedback.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792687356.2849054,
+      "ended_at_unix": 1792687361.4606712,
+      "duration_seconds": 5.176,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_underworld_damage_r3_tests.py"
+      ],
+      "check_token": "30635af912ee4af8a9a84b12deefffa1",
+      "artifact_directory": "/workspace/enemy-feedback-01-v2-after/build/verification/harness/20261022T164150.850488Z/artifacts/underworld-damage-feedback",
+      "reused": false
+    },
+    {
+      "id": "underworld-formal",
+      "argv": [
+        "python3",
+        "tools/run_underworld_formal_tests.py"
+      ],
+      "timeout_seconds": 150,
+      "input_digest": "c62bffe47e64d96540abfb6983c7530ab49c8f9041c09a23a2a999dd0b5edd8b",
+      "log": "underworld-formal.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792687362.0387537,
+      "ended_at_unix": 1792687366.7999008,
+      "duration_seconds": 4.761,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_underworld_formal_tests.py"
+      ],
+      "check_token": "d2497d2300ce4fffa4ad70ff5953039b",
+      "artifact_directory": "/workspace/enemy-feedback-01-v2-after/build/verification/harness/20261022T164150.850488Z/artifacts/underworld-formal",
+      "reused": false
+    },
+    {
+      "id": "actor-actions",
+      "argv": [
+        "python3",
+        "tools/run_actor_action_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "input_digest": "fe7b45430ab341b4754c6c01281e6c40d5f3ad5b1431a81ac2229e18efabfafe",
+      "log": "actor-actions.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792687313.3795185,
+      "ended_at_unix": 1792687355.385498,
+      "duration_seconds": 42.006,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_actor_action_tests.py"
+      ],
+      "check_token": "2e87c60a155242c6ba2f3361ab1634e3",
+      "artifact_directory": "/workspace/enemy-feedback-01-v2-after/build/verification/harness/20261022T164150.850488Z/artifacts/actor-actions",
+      "reused": false
+    },
+    {
+      "id": "forest-bible-integration-tests",
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_integration.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "97e0f97e0826b64814d0839b121d2674561230581e21e6250ab5c4c2f3f4dfa5",
+      "log": "forest-bible-integration-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792687367.4410226,
+      "ended_at_unix": 1792687376.0748582,
+      "duration_seconds": 8.634,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_forest_bible_integration.py"
+      ],
+      "check_token": "8758a27e09574d9d8856b81a5c8f45d3",
+      "artifact_directory": "/workspace/enemy-feedback-01-v2-after/build/verification/harness/20261022T164150.850488Z/artifacts/forest-bible-integration-tests",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "ed36c753c85eefb7741b724e5a62a37dec2774ce851d8e3d595bc933f2f3b434",
+  "working_files": {},
+  "commit": "bd8d130f3677ba80d569f16c05feee1977450c02",
+  "git_status": "",
+  "diff": "",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 66.161,
+  "jobs": 1,
+  "release": true
+}

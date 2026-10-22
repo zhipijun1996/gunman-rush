@@ -1,5 +1,7 @@
 # ENEMY-FEEDBACK-01 · System Engineering
 
+最新：feedback-sample-v3 当前房间尸体/细粒子检查点，源`bd8d130`；正式移动渡船尸体读档62/1失败，非可合入版本。见[v3规格、失败、总控接口请求与实际媒体](evidence/enemy_feedback_01/v3/README.md)。
+
 ## 检查点 1：复用与代表对象
 
 基线 `origin/main e9ab0e0743466b8983e34cc7de17bab1abf9d53a`（PR103实际合并），独立分支 `feature/enemy-feedback-01-accepted-sample`，工作区 `/workspace/gunman-rush-work`。v1运行源 `82940b7f057d74bfadf5855b1d489c38619c4a00`；草稿[PR104](https://github.com/zhipijun1996/gunman-rush/pull/104)。任务类型 animation；采用 animation-vfx、game-quality-gate，未扩展行为，因此不触发 enemy-creator。
@@ -77,3 +79,10 @@
 完整Integration、中央任务planned/review同步和两远端候选收敛仍未完成；不合main。此文件是本线写集内的版本化交接，中央handoff/tasks由总控持有。
 
 本轮最终独立专项240/0、默认正式App50/0、GPU50/0；原Harness四项受影响定向回归通过；最终短片12次真实HP提交/4次死亡，1200玩法帧与旧源完全一致。新docs profile前7项通过、quality仍因中央planned/review不一致失败；单卡格式和diff写集守门通过不代表整体任务完成。新生产文件及UID均已完整纳入质量写集，保留上轮CI漏记UID的真实失败。
+
+
+## feedback-sample-v3 恢复点
+
+用户保留v2受击变色，拒绝粗粒子和廉价消失死亡。两链现分别接stage sibling遗骸叶节点：只消费唯一已接受致死事件，沿实际身体packet交接、轻转身/落地/收势后当前房间持续保留；恢复静态死体不补演、不掉落。shared parent clock/visible/alpha、Actor、AI/Definition/碰撞/奖励/音频/正式Stage保存均保持原字节。粗圆环/十字改为更少的细向碎屑；没有制作新Underworld死亡/运动图集。
+
+最终独立native378/0、support133/0、GPU98/0；严格formal62/1真实失败保留：渡船已携尸体离开Actor保存x，旧存档没有support-local pose，重载无法精确保留该尸体。总控需分配stable support id/local rest pose/version和恢复完成后的只读resolver；本线不另造保存系统，不删失败断言换通过。具体原件、接口请求和局部交付边界见v3入口；整体仍REJECT/未完成，不合main。
