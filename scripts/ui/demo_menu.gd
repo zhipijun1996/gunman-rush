@@ -346,6 +346,7 @@ func show_settings(in_run: bool = false) -> void:
 	var popup_touch := preload("res://scripts/ui/popup_touch_adapter.gd").new()
 	popup_touch.popup = _movement_mode.get_popup()
 	_movement_mode.get_popup().add_child(popup_touch)
+	_movement_mode.get_popup().about_to_popup.connect(func() -> void: _scroll_touch.cancel(&"popup_open"))
 	_slider("left_sensitivity", "Movement sensitivity", 0.25, 2.0, 0.05)
 	_slider("right_sensitivity", "Aim sensitivity", 0.25, 2.0, 0.05)
 	_slider("touch_deadzone", "Touch deadzone", 0.0, 0.45, 0.01)

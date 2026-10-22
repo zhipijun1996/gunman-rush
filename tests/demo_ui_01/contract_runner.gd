@@ -61,6 +61,7 @@ func run() -> void:
 	check(mode_popup.get_child(0) is PopupTouchAdapter and mode_popup.get_child(0).get_viewport() == mode_popup, "popup touch adapter owns embedded popup Viewport, not root menu coordinates")
 	await touch(app.menu._movement_mode)
 	check(mode_popup.visible, "actual touch opens native movement popup")
+	check(app.menu._scroll_touch._finger == -1, "popup opening releases original scroll touch ownership before popup owns release")
 	var option_point := Vector2(mode_popup.position) + Vector2(mode_popup.size) * Vector2(0.5, 0.83)
 	for pressed: bool in [true, false]:
 		var event := InputEventScreenTouch.new(); event.index = 83; event.position = option_point; event.pressed = pressed; root.push_input(event, true); await frames(3)
