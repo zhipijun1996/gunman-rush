@@ -41,7 +41,7 @@ func joy(id: int) -> void:
 func touch(target: Control) -> void:
 	var point := target.get_global_rect().get_center()
 	for pressed: bool in [true, false]:
-		var event := InputEventScreenTouch.new(); event.index = 82; event.position = point; event.pressed = pressed; Input.parse_input_event(event); await frames(3)
+		var event := InputEventScreenTouch.new(); event.index = 82; event.position = point; event.pressed = pressed; root.push_input(event, true); await frames(3)
 func image(name: String) -> void:
 	if not capture: return
 	await frames(6); await RenderingServer.frame_post_draw
@@ -131,6 +131,16 @@ func run() -> void:
 	for viewport: Vector2i in [Vector2i(960,540), Vector2i(844,390), Vector2i(720,1280), Vector2i(1920,720)]:
 		root.size = viewport; await frames(8)
 		print("VIEWPORT requested=",viewport," window=",root.size," logical=",root.get_visible_rect().size," transform=",root.get_screen_transform())
+		var touch_enabled := app.overlay.enabled
+		app.overlay.set_enabled(true); await frames(4)
+		var touch_pixels := app.overlay._pause_rect.size * root.get_screen_transform().get_scale().abs()
+		check(touch_pixels.x >= 47.9 and touch_pixels.y >= 47.9, "actual TouchOverlay MENU hit bounds at least48 physical pixels at " + str(viewport))
+		check(app._demo_hud._touch_menu_text.get_theme_font_size("font_size") * root.get_screen_transform().get_scale().abs().y >= 13.9, "actual mobile MENU label at least14 physical pixels at " + str(viewport))
+		if viewport == Vector2i(844,390): await image("touch-hud-844x390")
+		await touch(app._demo_hud._touch_menu)
+		check(paused and app.menu.visible_panel == &"pause" and actor.shoot_ability._shot_serial == shots, "enlarged touch MENU invokes original pause without shot at " + str(viewport))
+		await joy(JOY_BUTTON_B)
+		app.overlay.set_enabled(touch_enabled); await frames(4)
 		app.menu.show_pause(); await frames(8)
 		for node: Node in app.menu._content.find_children("*","Button",true,false):
 			check(node.get_global_rect().size.y * root.get_screen_transform().get_scale().abs().y >= 47.9, "touch minimum actual rendered height at " + str(viewport))

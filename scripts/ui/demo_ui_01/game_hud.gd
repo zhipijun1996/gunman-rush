@@ -23,6 +23,8 @@ var _notice_time := 0.0
 var _focus_dial: Control
 var _reduced := false
 var _last_device: StringName = &""
+var _touch_menu: PanelContainer
+var _touch_menu_text: Label
 var _debug: Button
 
 func _ready() -> void:
@@ -78,6 +80,15 @@ func _ready() -> void:
 	_rows.add_child(_notice)
 	_location = COLORS.label("", 14, COLORS.PAPER)
 	add_child(_location)
+	_touch_menu = PanelContainer.new()
+	_touch_menu.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_touch_menu.add_theme_stylebox_override("panel", COLORS.plate(COLORS.INK, COLORS.EDGE, 0))
+	_touch_menu_text = COLORS.label("MENU", 16)
+	_touch_menu_text.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_touch_menu_text.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	_touch_menu.add_child(_touch_menu_text)
+	add_child(_touch_menu)
+	_touch_menu.hide()
 	_debug = Button.new()
 	_debug.text = "i"
 	_debug.tooltip_text = "调试信息 / F3"
@@ -154,6 +165,23 @@ func present_context(location_text: String, coins: int, notes: int, reduced: boo
 	_money.size.x = 320
 	_money.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
 	_refresh()
+
+func present_touch_menu(overlay: TouchOverlay) -> void:
+	# Only the existing navigation hit rectangle changes. Its original input/cancel
+	# handling and pause signal remain the sole touch consumer.
+	_touch_menu.visible = overlay.enabled
+	if not overlay.enabled: return
+	var scale := maxf(0.1, get_viewport().get_screen_transform().get_scale().abs().y)
+	var safe := preload("res://scripts/ui/demo_ui_01/modal_metrics.gd").safe_rect(get_viewport())
+	var target_size := Vector2(108, 48) / minf(1, scale)
+	var rect := Rect2(Vector2(safe.end.x - 24.0 / scale - target_size.x, safe.position.y + 18.0 / scale), target_size)
+	if overlay._pause_rect != rect:
+		overlay._pause_rect = rect
+		overlay.queue_redraw()
+	_touch_menu.position = rect.position
+	_touch_menu.size = rect.size
+	_touch_menu_text.add_theme_font_size_override("font_size", maxi(16, ceili(14.0 / scale)))
+	_touch_menu_text.text = "RESUME" if get_tree().paused else "MENU"
 
 func present_navigation(map_button: Control, pause_button: Button, touch_menu_rect: Rect2 = Rect2()) -> void:
 	# Retain the original map/pause consumers and callbacks; adapt their hit areas.

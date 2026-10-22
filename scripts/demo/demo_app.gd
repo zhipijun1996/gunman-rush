@@ -1396,6 +1396,7 @@ func _process(_delta: float) -> void:
 	# Retain legacy debug consumers; normal play uses the task-owned read-only HUD.
 	_demo_hud.visible = not debug_hud
 	_demo_hud.present_context("%s · %s/2 · %s" % [_region_name(), director.region_map_index, (stage as PlainsRegionStage).visited_area] if connected_region else "试玩 · 房间 %s/%s" % [director.stage_index, director.profile.stages_per_biome], wallet.balance, int(meta.snapshot().get("notes", 0)), _reduced_effects)
+	if not debug_hud: _demo_hud.present_touch_menu(overlay)
 	if not debug_hud: _demo_hud.present_navigation((stage as PlainsRegionStage).map_view if connected_region else null, _pause_button, overlay._pause_rect if overlay.enabled else Rect2())
 	_hud_frame.visible = debug_hud
 	_resources_hud.visible = debug_hud
