@@ -1,0 +1,39 @@
+{
+  "version": "player-presentation-01-impact-v1",
+  "before_source": "b9fe6b5a443ea911a34dc8fe7b0391b939f38331",
+  "before_script_sha256": "6ed4b00e1058a9d16808df58295f63bc8900e70653aeccc66a6752fb08412127",
+  "after_script_sha256": "fa3a60d430181b49466625883602a14b0de9c4022ef43ec1e63bef8781633576",
+  "implementation": "Recover hidden Courier hurt/recoil state to neutral only after accepted hurt and existing recoil window ends; retain original sole shot_pose recoil",
+  "write_set": [
+    "scripts/underworld_plains/underworld_player.gd"
+  ],
+  "unchanged": [
+    "16px/32wu family",
+    "animation_build.json",
+    "run_sheet.png",
+    "states_sheet.png",
+    "style-continuity-20261022-v4.json",
+    "Motor/input/physics/damage/resource/capability implementations"
+  ],
+  "observed": "Actual formal trace body idle while hidden Courier remains hurt at ticks130-599. Shoulder source-frame difference alters neutral weapon attachment by about3.4wu, not just a state label.",
+  "tradeoff": "Future projectile muzzle origin changes with corrected displayed anchor; preserve its displayed/source identity, not numerical equivalence to stale old pose. Exact Motor/resource/events comparison is required.",
+  "consumers": [
+    "formal Plains maps1/2",
+    "Home",
+    "ForestBible-enabled shared pixel Forest"
+  ],
+  "regression_plan": [
+    "same frozen 720frame formal input movie and trace",
+    "original underworld-player-animation",
+    "focused real lifecycle regression",
+    "coordinator explicit style rebind independent review and formal cross-region consumer revalidation"
+  ],
+  "coordination": {
+    "style_v4": "preserved; rebind pending coordinator",
+    "body_resources": "preserved",
+    "new_generic_signal": "none",
+    "enemy_feedback": "existing HealthState.changed/Controller.died/DamageFeedbackDefinition retained",
+    "independent_review": "pending",
+    "user_device": "unverified"
+  }
+}

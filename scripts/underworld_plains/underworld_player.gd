@@ -18,6 +18,11 @@ var _accepted_hurt_count := 0
 var _return_fade_remaining := 0.0
 var return_echo_count := 0
 var _frames_by_state: Dictionary = {}
+## Pixel consumers disable Adapter processing, but its accepted-event callbacks
+## still pose the hidden Courier used by the authoritative weapon muzzle.
+@export var recover_weapon_anchor := true
+var _anchor_recoil_remaining := 0.0
+var _anchor_session := -1
 
 func _ready() -> void:
 	super._ready()
@@ -28,12 +33,21 @@ func _ready() -> void:
 		_frames_by_state[state].append(frame)
 	controller.landed.connect(_accepted_landing)
 	controller.segment_returned.connect(_segment_returned)
+	controller.shoot_ability.shot_fired.connect(_accepted_weapon_shot)
+	_anchor_session = controller.session_id
 	texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+
+func _accepted_weapon_shot(_direction: Vector2, _shot_id: int) -> void:
+	if _dead or controller.actor_resources.health.terminal: return
+	# Courier's existing shot_pose owns the kick. Only its recovery was missing
+	# while the legacy Adapter's per-frame state selection was disabled.
+	_anchor_recoil_remaining = PlayerVisualAdapter.RECOIL_POSE_SECONDS
 
 func _accepted_landing() -> void:
 	if not _dead: _landing_remaining = .16
 
 func _segment_returned() -> void:
+	_anchor_recoil_remaining = 0.0
 	# HP commits before the synchronous segment relocation. Keep an actual old
 	# body silhouette in the old world while the safe-spawn body fades in.
 	if _hurt_remaining > 0 and not _frames_by_state.is_empty():
@@ -59,6 +73,7 @@ func _segment_returned() -> void:
 func _health_changed(result: ActorResourceResult) -> void:
 	super._health_changed(result)
 	if result == null or result.status != ActorResourceResult.Status.APPLIED or result.operation != &"damage" or result.amount_applied >= 0: return
+	_anchor_recoil_remaining = 0.0
 	if result.snapshot.terminal:
 		_damage_flash_remaining = 0.0
 		return
@@ -69,6 +84,10 @@ func _health_changed(result: ActorResourceResult) -> void:
 
 func _process(delta: float) -> void:
 	super._process(delta)
+	if controller.session_id != _anchor_session:
+		_anchor_session = controller.session_id
+		_anchor_recoil_remaining = 0.0
+	_anchor_recoil_remaining = maxf(0.0, _anchor_recoil_remaining-delta)
 	_damage_flash_remaining = maxf(0, _damage_flash_remaining-delta)
 	_return_fade_remaining = maxf(0, _return_fade_remaining-delta)
 	var flash_on := _damage_flash_remaining > 0 and int((feedback.flash_seconds-_damage_flash_remaining)*feedback.flash_frequency)%2 == 0
@@ -97,6 +116,13 @@ func _process(delta: float) -> void:
 		fps = clampf(absf(motor.normal_velocity.x) / 96.0 * count, 10.0, 24.0)
 	var wanted := int(_state_age*fps)
 	frame_index = posmod(wanted,count) if bool(clip.loop) else mini(wanted,count-1)
+	_recover_weapon_anchor()
+
+func _recover_weapon_anchor() -> void:
+	if not recover_weapon_anchor or _dead or _hurt_remaining > 0.0 or _anchor_recoil_remaining > 0.0: return
+	var anchor := motor.get_node("CourierVisual") as CourierVisual
+	if anchor.state in [&"hurt", &"recoil", &"machine_recoil", &"death"]:
+		anchor.set_state(&"idle")
 
 func _select_state() -> String:
 	if _dead: return "death"
@@ -119,6 +145,8 @@ func animation_receipt() -> Dictionary:
 		"hurt_remaining":_hurt_remaining,"flash_remaining":_damage_flash_remaining,"accepted_hurt_count":_accepted_hurt_count,
 		"return_fade_remaining":_return_fade_remaining,"return_echo_count":return_echo_count,
 		"damage_remaining":motor.damage_remaining,"damage_velocity":motor.damage_velocity,
+		"weapon_anchor_state":(motor.get_node("CourierVisual") as CourierVisual).state,
+		"weapon_anchor_recoil_remaining":_anchor_recoil_remaining,
 		"dead":_dead,"generated_body_keyframes":int(_build.get("generated_keyframes",0))}
 
 func _draw() -> void:
