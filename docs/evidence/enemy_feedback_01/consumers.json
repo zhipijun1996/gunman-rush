@@ -1,0 +1,42 @@
+{
+  "task": "ENEMY-FEEDBACK-01",
+  "source_commit": "82940b7f057d74bfadf5855b1d489c38619c4a00",
+  "consumers": [
+    {
+      "id": "original_charger",
+      "discovery": "actual arena scene/installer runtime, explicit fixture",
+      "output": "behavior"
+    },
+    {
+      "id": "original_diver",
+      "discovery": "actual arena scene/installer runtime, explicit fixture",
+      "output": "behavior"
+    },
+    {
+      "id": "underworld_installer_charger",
+      "discovery": "actual arena scene/installer runtime, explicit fixture",
+      "output": "behavior"
+    },
+    {
+      "id": "underworld_installer_diver",
+      "discovery": "actual arena scene/installer runtime, explicit fixture",
+      "output": "behavior"
+    },
+    {
+      "id": "default_plains_app",
+      "discovery": "actual start_plains runtime inventory, kills/drop/reload",
+      "output": "behavior"
+    },
+    {
+      "id": "forest_retained_charger",
+      "discovery": "source installer inventory; affected Integration required",
+      "output": "behavior"
+    },
+    {
+      "id": "action_studio_selected",
+      "discovery": "source ordinary actor consumer; existing actor-actions regression",
+      "output": "behavior"
+    }
+  ],
+  "runtime_inventory_source": "runtime.json and formal-runtime.json; source-only gaps are explicitly marked"
+}

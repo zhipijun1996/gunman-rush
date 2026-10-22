@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "started_at": "20261022T133049.487015Z",
+  "profiles": [
+    "docs"
+  ],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "docs",
+      "argv": [
+        "python3",
+        "tools/check_docs.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "3f2a1a1debea809b8e08e51ec1040df77aaedb324200abc749e700121ee20c10",
+      "log": "docs.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792675853.1932304,
+      "ended_at_unix": 1792675853.4217222,
+      "duration_seconds": 0.228,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_docs.py"
+      ],
+      "check_token": "a0b7f24808b34d688fa289a75580eaab",
+      "artifact_directory": "/workspace/gunman-rush-work/build/verification/harness/20261022T133049.487015Z/artifacts/docs",
+      "reused": false
+    },
+    {
+      "id": "world",
+      "argv": [
+        "python3",
+        "tools/check_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "ffb1e08a8af473fa3b29179ab77f63548c854f1fb0a89a61313ffc2f297c4cf5",
+      "log": "world.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792675854.1095448,
+      "ended_at_unix": 1792675854.1538494,
+      "duration_seconds": 0.044,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_world_design.py"
+      ],
+      "check_token": "a5977dc49d5f4cb7a7b6c1a5777a0e89",
+      "artifact_directory": "/workspace/gunman-rush-work/build/verification/harness/20261022T133049.487015Z/artifacts/world",
+      "reused": false
+    },
+    {
+      "id": "world-design-tests",
+      "argv": [
+        "python3",
+        "tests/test_world_design.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "d59d31ef59f095e4aab676e8e3424a8251a53cc47148c2e9d1c38b236bad41d8",
+      "log": "world-design-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792675854.821846,
+      "ended_at_unix": 1792675855.012327,
+      "duration_seconds": 0.19,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_world_design.py"
+      ],
+      "check_token": "ace76cc21a2c484d89d9aca517f867ba",
+      "artifact_directory": "/workspace/gunman-rush-work/build/verification/harness/20261022T133049.487015Z/artifacts/world-design-tests",
+      "reused": false
+    },
+    {
+      "id": "structure",
+      "argv": [
+        "python3",
+        "tools/check_project.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "6aabf5846fa4c2ccbb5c64de11a7556833109e1e14a72dcef1c3754ece2dbb74",
+      "log": "structure.log",
+      "status": "failed",
+      "exit_code": 1,
+      "failure_reason": "nonzero_exit",
+      "started_at_unix": 1792675855.7877598,
+      "ended_at_unix": 1792675855.918154,
+      "duration_seconds": 0.13,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/check_project.py"
+      ],
+      "check_token": "e8d466a269b843b69c8b69e1e44f998e",
+      "artifact_directory": "/workspace/gunman-rush-work/build/verification/harness/20261022T133049.487015Z/artifacts/structure",
+      "reused": false
+    }
+  ],
+  "status": "failed",
+  "targeted_checks": false,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "ed36c753c85eefb7741b724e5a62a37dec2774ce851d8e3d595bc933f2f3b434",
+  "working_files": {
+    "docs/evidence/enemy_feedback_01/review-v1.md": "671dfde8d3a50ccb0fb00967e783112d7da1de60538774247ae1f1a329ce7257"
+  },
+  "commit": "82940b7f057d74bfadf5855b1d489c38619c4a00",
+  "git_status": "?? docs/evidence/enemy_feedback_01/",
+  "diff": "",
+  "untracked": "docs/evidence/enemy_feedback_01/review-v1.md",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 9.407,
+  "jobs": 1,
+  "release": true
+}

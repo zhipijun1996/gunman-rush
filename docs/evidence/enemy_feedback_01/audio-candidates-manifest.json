@@ -1,0 +1,342 @@
+{
+  "task": "ENEMY-FEEDBACK-01",
+  "status": "audition_candidates_only",
+  "producer": "audio_audit",
+  "source_commit": "82940b7f057d74bfadf5855b1d489c38619c4a00",
+  "producer_script_sha256": "eb1ff758338f380658dd0df4b553136f206e0e607662e568e9b2fca77063c9b4",
+  "ffmpeg_version": "ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers",
+  "sample_rate": 48000,
+  "format": "mono PCM16 WAV",
+  "sources": {
+    "shot": {
+      "pack": "digital-audio",
+      "original": "laser2.ogg",
+      "source": "https://kenney.nl/assets/digital-audio",
+      "license": "CC0-1.0",
+      "sha256": "50470d64f9397855e5d9a334484da9c5232b3e0524c52f088b8a73822bd89f45",
+      "path": "assets/audio/kenney/shot.ogg"
+    },
+    "impact": {
+      "pack": "impact-sounds",
+      "original": "impactWood_light_000.ogg",
+      "source": "https://kenney.nl/assets/impact-sounds",
+      "license": "CC0-1.0",
+      "sha256": "eb45e35b4bed784d3f120de4afec4b0d6ac09d9e143cce8cfcb7d739e1b1f3c3",
+      "path": "assets/audio/kenney/impact.ogg"
+    },
+    "hurt": {
+      "pack": "impact-sounds",
+      "original": "impactPunch_medium_000.ogg",
+      "source": "https://kenney.nl/assets/impact-sounds",
+      "license": "CC0-1.0",
+      "sha256": "486988aa2d6440ffc4c62a0e8ccf3c23673ba84424bd4723378d451b7255eb5c",
+      "path": "assets/audio/kenney/hurt.ogg"
+    },
+    "armour": {
+      "pack": "impact-sounds",
+      "original": "impactMetal_light_000.ogg",
+      "source": "https://kenney.nl/assets/impact-sounds",
+      "license": "CC0-1.0",
+      "sha256": "33b5e6e37c6e9d54e07bf5a89b12c76e879f40c1ea83cdd82714df1d6f9fec6d",
+      "path": "assets/audio/kenney/armour.ogg"
+    },
+    "confirm": {
+      "pack": "interface-sounds",
+      "original": "confirmation_002.ogg",
+      "source": "https://kenney.nl/assets/interface-sounds",
+      "license": "CC0-1.0",
+      "sha256": "33b17a9a9a2397c62b285c52c33a907fdffb476909c99e42dde603f6a7a8b12c",
+      "path": "assets/audio/kenney/confirm.ogg"
+    }
+  },
+  "ffmpeg_commands": [
+    [
+      "ffmpeg",
+      "-v",
+      "error",
+      "-i",
+      "/workspace/gunman-rush-work/assets/audio/kenney/impact.ogg",
+      "-af",
+      "highpass=f=850,lowpass=f=6800,afade=t=in:d=0.0006,afade=t=out:st=0.03:d=0.035,atrim=duration=0.065",
+      "-ac",
+      "1",
+      "-ar",
+      "48000",
+      "-f",
+      "f32le",
+      "pipe:1"
+    ],
+    [
+      "ffmpeg",
+      "-v",
+      "error",
+      "-i",
+      "/workspace/gunman-rush-work/assets/audio/kenney/hurt.ogg",
+      "-af",
+      "asetrate=39690,aresample=48000,highpass=f=65,lowpass=f=1800,afade=t=in:d=0.0006,afade=t=out:st=0.05:d=0.11,atrim=duration=0.16",
+      "-ac",
+      "1",
+      "-ar",
+      "48000",
+      "-f",
+      "f32le",
+      "pipe:1"
+    ],
+    [
+      "ffmpeg",
+      "-v",
+      "error",
+      "-i",
+      "/workspace/gunman-rush-work/assets/audio/kenney/armour.ogg",
+      "-af",
+      "highpass=f=2700,lowpass=f=6200,afade=t=in:d=0.0006,afade=t=out:st=0.015000000000000003:d=0.02,atrim=duration=0.035",
+      "-ac",
+      "1",
+      "-ar",
+      "48000",
+      "-f",
+      "f32le",
+      "pipe:1"
+    ],
+    [
+      "ffmpeg",
+      "-v",
+      "error",
+      "-i",
+      "/workspace/gunman-rush-work/assets/audio/kenney/hurt.ogg",
+      "-af",
+      "asetrate=35280,aresample=48000,highpass=f=55,lowpass=f=1050,afade=t=in:d=0.0006,afade=t=out:st=0.06:d=0.15,atrim=duration=0.21",
+      "-ac",
+      "1",
+      "-ar",
+      "48000",
+      "-f",
+      "f32le",
+      "pipe:1"
+    ],
+    [
+      "ffmpeg",
+      "-v",
+      "error",
+      "-i",
+      "/workspace/gunman-rush-work/assets/audio/kenney/impact.ogg",
+      "-af",
+      "highpass=f=1250,lowpass=f=5900,afade=t=in:d=0.0006,afade=t=out:st=0.019999999999999997:d=0.025,atrim=duration=0.045",
+      "-ac",
+      "1",
+      "-ar",
+      "48000",
+      "-f",
+      "f32le",
+      "pipe:1"
+    ],
+    [
+      "ffmpeg",
+      "-v",
+      "error",
+      "-i",
+      "/workspace/gunman-rush-work/assets/audio/kenney/shot.ogg",
+      "-af",
+      "anull",
+      "-ac",
+      "1",
+      "-ar",
+      "48000",
+      "-f",
+      "f32le",
+      "pipe:1"
+    ],
+    [
+      "ffmpeg",
+      "-v",
+      "error",
+      "-i",
+      "/workspace/gunman-rush-work/assets/audio/kenney/impact.ogg",
+      "-af",
+      "anull",
+      "-ac",
+      "1",
+      "-ar",
+      "48000",
+      "-f",
+      "f32le",
+      "pipe:1"
+    ],
+    [
+      "ffmpeg",
+      "-v",
+      "error",
+      "-i",
+      "/workspace/gunman-rush-work/assets/audio/kenney/hurt.ogg",
+      "-af",
+      "anull",
+      "-ac",
+      "1",
+      "-ar",
+      "48000",
+      "-f",
+      "f32le",
+      "pipe:1"
+    ],
+    [
+      "ffmpeg",
+      "-v",
+      "error",
+      "-i",
+      "/workspace/gunman-rush-work/assets/audio/kenney/confirm.ogg",
+      "-af",
+      "anull",
+      "-ac",
+      "1",
+      "-ar",
+      "48000",
+      "-f",
+      "f32le",
+      "pipe:1"
+    ],
+    [
+      "ffmpeg",
+      "-v",
+      "error",
+      "-i",
+      "/workspace/gunman-rush-work/assets/audio/kenney/hurt.ogg",
+      "-af",
+      "highpass=f=75,lowpass=f=3200,afade=t=in:d=0.0006,afade=t=out:st=0.06:d=0.1,atrim=duration=0.16",
+      "-ac",
+      "1",
+      "-ar",
+      "48000",
+      "-f",
+      "f32le",
+      "pipe:1"
+    ],
+    [
+      "ffmpeg",
+      "-v",
+      "error",
+      "-i",
+      "/workspace/gunman-rush-work/assets/audio/kenney/impact.ogg",
+      "-af",
+      "highpass=f=950,lowpass=f=4700,afade=t=in:d=0.0006,afade=t=out:st=0.030000000000000006:d=0.04,atrim=duration=0.07",
+      "-ac",
+      "1",
+      "-ar",
+      "48000",
+      "-f",
+      "f32le",
+      "pipe:1"
+    ]
+  ],
+  "layers": {
+    "A": "wood transient .85 + lowpassed physical punch .72 + short metal .10",
+    "B": "short wood .65 + lower physical punch1.0 + short metal .055",
+    "proposed_hit": "compact punch1.0 + quiet contact .16; confirm omitted only in offline audition"
+  },
+  "normalization": {
+    "method": "first120ms RMS matched to -26dBFS, ceiling -2dBFS; not perceived LUFS/device equality",
+    "gains": {
+      "original": 0.82438576302876,
+      "A": 0.23407452647287386,
+      "B": 0.15887299283869177,
+      "current_hit_cluster": 0.31516427537758784,
+      "proposed_hit": 0.17582776968350813
+    }
+  },
+  "chapters": [
+    {
+      "from_seconds": 0,
+      "to_seconds": 5,
+      "name": "Current laser2 gun cue",
+      "events_at_seconds": [
+        0.5,
+        2,
+        3.5
+      ],
+      "effect_measurement": {
+        "seconds": 1.0909583333333333,
+        "peak_dbfs": -2.5805984806015125,
+        "first_120ms_rms_dbfs": -26.0
+      }
+    },
+    {
+      "from_seconds": 5,
+      "to_seconds": 10,
+      "name": "A compact mechanical candidate",
+      "events_at_seconds": [
+        5.5,
+        7,
+        8.5
+      ],
+      "effect_measurement": {
+        "seconds": 0.18,
+        "peak_dbfs": -15.460399121670182,
+        "first_120ms_rms_dbfs": -26.0
+      }
+    },
+    {
+      "from_seconds": 10,
+      "to_seconds": 15,
+      "name": "B weighted mechanical candidate",
+      "events_at_seconds": [
+        10.5,
+        12,
+        13.5
+      ],
+      "effect_measurement": {
+        "seconds": 0.23,
+        "peak_dbfs": -15.838854222981407,
+        "first_120ms_rms_dbfs": -26.0
+      }
+    },
+    {
+      "from_seconds": 15,
+      "to_seconds": 20,
+      "name": "Current impact+hurt+confirm cluster",
+      "events_at_seconds": [
+        15.5,
+        17,
+        18.5
+      ],
+      "effect_measurement": {
+        "seconds": 0.65,
+        "peak_dbfs": -13.421327800883436,
+        "first_120ms_rms_dbfs": -26.0
+      }
+    },
+    {
+      "from_seconds": 20,
+      "to_seconds": 25,
+      "name": "Proposed compact hit body+quiet contact, no confirm",
+      "events_at_seconds": [
+        20.5,
+        22,
+        23.5
+      ],
+      "effect_measurement": {
+        "seconds": 0.2,
+        "peak_dbfs": -15.05607358278721,
+        "first_120ms_rms_dbfs": -26.0
+      }
+    }
+  ],
+  "files": {
+    "shot-b-weighted-mechanical.wav": {
+      "sha256": "6c8a01c8f88f512da3378152d2e043992cabe5031df264397ca8dc0a1432ea91",
+      "bytes": 22124
+    },
+    "audio-comparison-25s.wav": {
+      "sha256": "3b466304721f4d4e02729c0f2c113d309fdd3384fa440424f0a4e7b0ea7deba9",
+      "bytes": 2400044
+    },
+    "shot-a-compact-mechanical.wav": {
+      "sha256": "4dbcd79f615d4371bdffb9e504d3b4673d2d8cc02d6b2293c2a90602535913db",
+      "bytes": 17324
+    }
+  },
+  "production_audio_changed": false,
+  "limits": [
+    "Offline sound-only audition, no fake gameplay footage or in-game acceptance",
+    "No claim these candidates are better until the user listens",
+    "No shared event/stream/volume/budget changes; integration requires controller-owned write allocation"
+  ]
+}
