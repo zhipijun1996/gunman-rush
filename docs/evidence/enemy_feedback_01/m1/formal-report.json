@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "started_at": "20261022T130649.186014Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "underworld-formal",
+      "argv": [
+        "python3",
+        "tools/run_underworld_formal_tests.py"
+      ],
+      "timeout_seconds": 150,
+      "input_digest": "e2e7b52b7e3aef97dcc112ae56665bec6ed815a9aaf933cdfe23c3acbb27c0f7",
+      "log": "underworld-formal.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792674410.3600898,
+      "ended_at_unix": 1792674413.8475032,
+      "duration_seconds": 3.487,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_underworld_formal_tests.py"
+      ],
+      "check_token": "c9bb9ca8bcc94ca4880d7d3c165f308c",
+      "artifact_directory": "/workspace/worklines/enemy-feedback-01/build/verification/harness/20261022T130649.186014Z/artifacts/underworld-formal",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "ed36c753c85eefb7741b724e5a62a37dec2774ce851d8e3d595bc933f2f3b434",
+  "working_files": {
+    "scripts/enemies/enemy_feedback_01_state.gd": "f5a927f5305cf221aa9c0ba10dc9d037d7ae46523423341acbb40230dd7bf0db",
+    "scripts/enemies/enemy_feedback_01_state.gd.uid": "8e02302c24045768eb5c9f41c0021e399896897f18a46a0a51768d090e31fbd3",
+    "scripts/enemies/enemy_presentation.gd": "32e7e909fb86683cf7ac0386e8b4b622b93be39245adf7602a88528e90eebec2",
+    "scripts/underworld_plains/underworld_enemy.gd": "c5593c56bdd98cc0a0806114e06b7bf78b93747928b364546541afd187817559",
+    "tests/enemy_feedback_01/test_feedback_state.gd": "b3f565bc095c65b636323bca97a2ebae2ace88579fcc532354d2478091ff1567",
+    "tools/run_enemy_feedback_01_tests.py": "1a5f57558a9d724c5376bb20e181d59625d989d6eb6a212fc90a5e978ff01094"
+  },
+  "commit": "7df37b16de37ec5197ba60ee80209fb943a9e552",
+  "git_status": "M scripts/enemies/enemy_presentation.gd\n M scripts/underworld_plains/underworld_enemy.gd\n M tools/run_enemy_feedback_01_tests.py\n?? scripts/enemies/enemy_feedback_01_state.gd\n?? scripts/enemies/enemy_feedback_01_state.gd.uid\n?? tests/enemy_feedback_01/test_feedback_state.gd",
+  "diff": "diff --git a/scripts/enemies/enemy_presentation.gd b/scripts/enemies/enemy_presentation.gd\nindex 2bcfdfa..88aa2b2 100644\n--- a/scripts/enemies/enemy_presentation.gd\n+++ b/scripts/enemies/enemy_presentation.gd\n@@ -9,25 +9,44 @@ var _death_time := 0.0\n var _frame_weights: Dictionary = {}\n var _weight := Vector2.ONE\n var _lean := 0.0\n+@export var hurt_pose := Vector2(.80,1.12)\n+@export var death_pose := Vector2(1.12,.45)\n+var _feedback_sample: EnemyFeedback01State\n+var _feedback: DamageFeedbackDefinition = preload(\"res://resources/damage/feedback.tres\")\n static var _action_manifest: Dictionary = {}\n static var _action_textures: Dictionary = {}\n func _ready() -> void:\n \t_size = actor.definition.collision_size\n \tactor.health.changed.connect(_health_changed)\n+\tif actor.definition.behavior_id in [&\"patrol\",&\"diver\"]:\n+\t\t_feedback_sample=EnemyFeedback01State.new()\n+\t\t_feedback_sample.bind(actor.health,_feedback)\n \tqueue_redraw()\n func _process(delta: float) -> void:\n \tif get_tree().paused: return\n \t_clock += delta\n \tif actor.health.terminal: _death_time += delta\n \t_hurt_time = maxf(0, _hurt_time - delta)\n+\tif _feedback_sample!=null:\n+\t\t_feedback_sample.advance(delta)\n+\t\t_hurt_time=_feedback_sample.hurt_remaining\n \tvar state: StringName = actor.attack_behavior.state if actor.attack_behavior != null else &\"idle\"\n \tvar desired := Vector2(1.12,.9) if state in [&\"telegraph\",&\"attack\"] else Vector2(.97,1.025) if state == &\"recovery\" else Vector2.ONE\n \tif actor.health.terminal: desired = Vector2(1.12,.45)\n+\tif _feedback_sample!=null:\n+\t\tdesired=_feedback_sample.pose(hurt_pose,death_pose) if actor.health.terminal else desired*_feedback_sample.pose(hurt_pose,death_pose)\n \t_weight = _weight.lerp(desired,1-exp(-delta/.075))\n \t_lean = lerpf(_lean,clampf(actor.motor.velocity.x/350,-1,1)*.09,1-exp(-delta/.07))\n \t_update_frame_weights(state,delta)\n \tqueue_redraw()\n+func _exit_tree() -> void:\n+\tif actor!=null and actor.health.changed.is_connected(_health_changed): actor.health.changed.disconnect(_health_changed)\n+\tif _feedback_sample!=null: _feedback_sample.dispose()\n+func feedback_receipt() -> Dictionary:\n+\treturn _feedback_sample.receipt() if _feedback_sample!=null else {}\n func _health_changed(result: ActorResourceResult) -> void:\n+\tif result!=null and result.operation==&\"initialize\":\n+\t\t_hurt_time=0;_death_time=0;return\n \tif result.status == ActorResourceResult.Status.APPLIED and result.amount_applied < 0:\n \t\t_hurt_time = 0.14\n \tqueue_redraw()\n@@ -59,7 +78,7 @@ func _draw() -> void:\n \tvar tint := Color(1.0, 0.50, 0.43) if _hurt_time > 0 else Color.WHITE\n \tif actor.health.terminal:\n \t\ttint = Color(0.65, 0.62, 0.51, maxf(0.18, 0.8 - _death_time * 0.5))\n-\t\tfor mote: int in 6:\n+\t\tfor mote: int in (6 if _feedback_sample==null or _feedback_sample.death_started else 0):\n \t\t\tvar angle := TAU * float(mote) / 6.0\n \t\t\tdraw_circle(Vector2(cos(angle), sin(angle)) * minf(_death_time * 35, 25), 2, Color(0.95, 0.80, 0.48, maxf(0, 1.0 - _death_time * 1.6)))\n \ndiff --git a/scripts/underworld_plains/underworld_enemy.gd b/scripts/underworld_plains/underworld_enemy.gd\nindex 1b604b7..4d4b038 100644\n--- a/scripts/underworld_plains/underworld_enemy.gd\n+++ b/scripts/underworld_plains/underworld_enemy.gd\n@@ -3,10 +3,32 @@ extends PixelPlainsEnemy\n ## Genuine new body art. Original state-based telegraphs remain authoritative.\n var feedback: DamageFeedbackDefinition = preload(\"res://resources/damage/feedback.tres\")\n var accepted_hurt_count := 0\n+@export var rooted_hurt_pose := Vector2(.86,1.08)\n+@export var aerial_hurt_pose := Vector2(.80,1.12)\n+@export var rooted_death_pose := Vector2(1.12,.42)\n+@export var aerial_death_pose := Vector2(.68,.62)\n+var _feedback_sample: EnemyFeedback01State\n \n func _ready() -> void:\n \tsuper._ready()\n \tactor.health.changed.connect(_accepted_damage)\n+\tif actor.definition.behavior_id in [&\"root_bell\",&\"diver\"]:\n+\t\t_feedback_sample=EnemyFeedback01State.new()\n+\t\t_feedback_sample.bind(actor.health,feedback)\n+\n+func _process(delta: float) -> void:\n+\tif get_tree().paused: return\n+\tsuper._process(delta)\n+\tif _feedback_sample!=null:\n+\t\t_feedback_sample.advance(delta)\n+\t\t_hurt=_feedback_sample.hurt_remaining\n+\n+func _exit_tree() -> void:\n+\tif actor!=null and actor.health.changed.is_connected(_accepted_damage): actor.health.changed.disconnect(_accepted_damage)\n+\tif _feedback_sample!=null: _feedback_sample.dispose()\n+\n+func feedback_receipt() -> Dictionary:\n+\treturn _feedback_sample.receipt() if _feedback_sample!=null else {}\n \n func _accepted_damage(result: ActorResourceResult) -> void:\n \tif result == null or result.operation != &\"damage\" or result.status != ActorResourceResult.Status.APPLIED or result.amount_applied >= 0 or result.snapshot.terminal: return\n@@ -45,6 +67,18 @@ func _draw() -> void:\n \t\tpose = Vector2(.86,1.10) if age < .10 else Vector2(1.06,.96)\n \t\tdip -= sin(age/feedback.hurt_seconds*PI)*3\n \tvar flutter := 2*roundf(sin(_clock*12)) if actor.definition.aerial else 0.0\n+\tif _feedback_sample!=null:\n+\t\tvar response := _feedback_sample.pose(aerial_hurt_pose if actor.definition.aerial else rooted_hurt_pose,aerial_death_pose if actor.definition.aerial else rooted_death_pose)\n+\t\tif actor.health.terminal:\n+\t\t\tpose=response\n+\t\t\tflutter=0\n+\t\t\tdip=0 if not actor.definition.aerial else minf(_feedback_sample.death_age/feedback.hurt_seconds,1)*6\n+\t\telse:\n+\t\t\t# Keep each original telegraph/attack pose, adding only local hit recoil.\n+\t\t\tpose=(Vector2(1.06,.94) if state==&\"telegraph\" else Vector2(.96,1.04) if state==&\"attack\" else Vector2.ONE)*response\n+\t\t\tdip=3.0 if state==&\"telegraph\" else 1.0 if state==&\"recovery\" else 0.0\n+\t\t# Rooted shell compresses at its real foot; airborne body pivots at center.\n+\t\tif not actor.definition.aerial: dip+=floor_y*(1-pose.y)\n \tdraw_set_transform(Vector2(0,dip+flutter),0,Vector2(float(actor.brain.direction)*pose.x,pose.y))\n \tdraw_texture_rect(source,Rect2(-width*.5,floor_y-height,width,height),false,Color(1.4,.72,.48) if _hurt>0 and int(_hurt*feedback.flash_frequency)%2==0 else Color.WHITE)\n \tdraw_set_transform(Vector2.ZERO)\ndiff --git a/tools/run_enemy_feedback_01_tests.py b/tools/run_enemy_feedback_01_tests.py\nindex 82e80ec..4f3e0b4 100644\n--- a/tools/run_enemy_feedback_01_tests.py\n+++ b/tools/run_enemy_feedback_01_tests.py\n@@ -16,6 +16,11 @@ def main():\n                          '--', '--output=' + args.output, *extra], 120)\n     if not re.search(r'^ENEMY_FEEDBACK_01 checks=[1-9]\\d* cases=4 failures=0$', output, re.M):\n         raise RuntimeError('Missing complete real-projectile enemy sample pass')\n+    if not args.baseline:\n+        boundary = run_engine(['--headless', '--path', '.', '--script',\n+                               'tests/enemy_feedback_01/test_feedback_state.gd'], 30)\n+        if not re.search(r'^ENEMY_FEEDBACK_STATE checks=[1-9]\\d* failures=0$', boundary, re.M):\n+            raise RuntimeError('Missing health lifecycle boundary pass')\n     print('PASS: enemy feedback actual projectile fixture (not full formal-stage or visual acceptance)')\n \n if __name__ == '__main__':",
+  "untracked": "scripts/enemies/enemy_feedback_01_state.gd\nscripts/enemies/enemy_feedback_01_state.gd.uid\ntests/enemy_feedback_01/test_feedback_state.gd",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 5.268,
+  "jobs": 1,
+  "release": true
+}

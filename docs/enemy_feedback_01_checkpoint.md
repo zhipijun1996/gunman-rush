@@ -1,6 +1,18 @@
 # ENEMY-FEEDBACK-01 · M0 可恢复检查点
 
-工作线 `feature/enemy-feedback-01`，System Engineering；生产基线为 PR103 merge `e9ab0e0743466b8983e34cc7de17bab1abf9d53a`，实际审计/运行源为公共纯调度提交 `0ee0e79197f40e898283440d4af2d956f91f1c64`。本检查点仅增加任务文档与证据，运行代码未改；当前提交用 `git rev-parse HEAD` 读取，避免把提交后文档版本冒称新的运行结果。
+## M1 最新恢复点（2026-10-22）
+
+已推送运行源 `d9c9e0e8546f10c4c3c5a4be04cd9c75418e4e37`；未创建PR/跑完整CI/合main/部署。新增 `EnemyFeedback01State` 只订阅既有HealthState.changed，按APPLIED damage/epoch/event_id区分hurt与death，initialize清瞬态，卸载断自有连接。Underworld只给root_bell/diver启用；旧EnemyPresentation只给diver/patrol启用。两renderer导出各自压缩/死亡姿态，时间仍来自原feedback.tres；root_bell脚底锚定、diver保留双翼/flutter，Pixel父类0.65秒淡出/隐藏原字节未改。
+
+真实改前/改后影片已完成：before源`7df37b16de37ec5197ba60ee80209fb943a9e552`，after源`d9c9e0e8546f10c4c3c5a4be04cd9c75418e4e37`。两次同一字节的驱动、1280×720/60FPS、1233绘制帧/20.55秒；四个明确初始定位fixture，之后AI持续工作，每个由三次真实Router→Shoot→弹体→HP命中进入一次death。1200动作帧中player/enemy位置、HP、AI state逐帧0差异。影片/trace/原件索引见 [M1](evidence/enemy_feedback_01/m1/README.md)；build本地文件不是公开交付。
+
+本线fresh范围：候选真实弹体46检查/0失败；health边界18/0；原伤害317/0；原正式Underworld两图96/0；原掉落/重载17/0。正式两图本Seed有diver、没有root_bell；root_bell由真实Installer在fixture安装，不称自然正式地图战斗。旧RootBell第三renderer、完整Integration/Release、独审连续像素、听音、设备与用户认可仍未验，所有内容门槛不升done。驱动初版两次解析/字段错误、第四对象Definition映射错误和缺xvfb-run启动失败均保留；只修任务驱动，不改玩法/断言/timeout。
+
+当前无引擎/GPU进程或租约。nextcmd：`git status --short` 后向总控交sourcebound影片/ZIP做独审与真实下载；收到具体观察反馈后在原线继续。完整原CI/部署由总控排队，不自行扩产。
+
+## 以下为 M0 当时记录，最新恢复状态见上
+
+工作线 `feature/enemy-feedback-01`，System Engineering；生产基线为 PR103 merge `e9ab0e0743466b8983e34cc7de17bab1abf9d53a`，实际审计/运行源为公共纯调度提交 `0ee0e79197f40e898283440d4af2d956f91f1c64`。M0检查点仅增加任务文档与证据，运行代码未改；当前提交用 `git rev-parse HEAD` 读取，避免把提交后文档版本冒称新的运行结果。
 
 采用 animation-vfx / game-quality-gate；没有新敌人或实质行为改动，不扩用 enemy-creator。任务仍 `in_progress`，本轮没有新反馈效果、录像、部署、独审、用户认可或真机结论。完整来源和原始回执见 [M0 原件](evidence/enemy_feedback_01/m0/README.md)。
 

@@ -4,11 +4,11 @@
   "task_type": "animation",
   "workflow": "in_progress",
   "baseline_commit": "0ee0e79197f40e898283440d4af2d956f91f1c64",
-  "reviewed_commit": "0ee0e79197f40e898283440d4af2d956f91f1c64",
-  "content_version": "m0-audit-v1",
+  "reviewed_commit": "d9c9e0e8546f10c4c3c5a4be04cd9c75418e4e37",
+  "content_version": "m1-two-consumers-v1",
   "owner": "enemy-feedback-01",
-  "purpose": "两种现有普通敌人的可配置accepted-hit/death样板；当前仅M0审计与原消费者baseline",
-  "player_experience": "保留扎根铜铃与空中俯冲轮廓/节奏，让真实命中、恢复、死亡可读且不重播",
+  "purpose": "两种现有普通敌人的可配置accepted-hit/death代表样板，未推广第三RootBell链",
+  "player_experience": "保留扎根铜壳与空中双翼轮廓、AI节奏；真实命中/死亡局部姿态反馈按epoch取消且不重播",
   "constraints": [
     "No AI/damage/collision/reward/Boss changes",
     "Keep existing feedback Resource and accepted health events",
@@ -17,184 +17,206 @@
   ],
   "affected_paths": [
     "scripts/enemies/enemy_presentation.gd",
-    "scripts/underworld_plains/underworld_enemy.gd"
+    "scripts/underworld_plains/underworld_enemy.gd",
+    "scripts/enemies/enemy_feedback_01_state.gd",
+    "tests/enemy_feedback_01",
+    "tools/run_enemy_feedback_01_tests.py",
+    "tools/capture_enemy_feedback_01.py"
   ],
   "deliverables": [
     "docs/enemy_feedback_01_checkpoint.md",
-    "docs/evidence/enemy_feedback_01/m0"
+    "docs/evidence/enemy_feedback_01/m0",
+    "docs/evidence/enemy_feedback_01/m1",
+    "build/enemy-feedback-01/enemy-feedback-01-m1-review.zip"
   ],
   "creative_decisions": [
     {
-      "decision": "Underworld root_bell+diver; legacy EnemyPresentation diver/patrol compatibility",
-      "status": "proposed",
-      "basis": "Different size/motion; source-audited scope agreed by controller, not user visual approval"
+      "decision": "Underworld root_bell+diver; legacy EnemyPresentation diver/patrol compatibility only",
+      "status": "not_required",
+      "basis": "Controller explicitly accepted bounded existing-enemy presentation scope; no new enemy/AI or global style choice, no player visual approval"
     }
   ],
   "formal_impact": true,
   "gates": {
     "G0": {
       "status": "unverified",
-      "reason": "Source audit and proposed sample documented; independent design/visual assessment pending",
+      "reason": "Independent/visual/user/device and full integration acceptance remain pending; see scoped M1 evidence",
       "evidence": [
-        "m0-plan"
+        "m1-scope"
       ]
     },
     "G1": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Independent/visual/user/device and full integration acceptance remain pending; see scoped M1 evidence",
       "evidence": []
     },
     "G2": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Independent/visual/user/device and full integration acceptance remain pending; see scoped M1 evidence",
       "evidence": []
     },
     "G3": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Independent/visual/user/device and full integration acceptance remain pending; see scoped M1 evidence",
       "evidence": []
     },
     "G4": {
       "status": "unverified",
-      "reason": "Original baseline check passed; no new implementation or independent review",
+      "reason": "Independent/visual/user/device and full integration acceptance remain pending; see scoped M1 evidence",
       "evidence": [
-        "m0-original-check"
+        "m1-clean-native"
       ]
     },
     "G5": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Independent/visual/user/device and full integration acceptance remain pending; see scoped M1 evidence",
       "evidence": []
     }
   },
   "dimensions": {
     "design": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Independent/visual/user/device and full integration acceptance remain pending; see scoped M1 evidence",
       "evidence": []
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Original baseline 317/0 only; candidate not implemented",
+      "status": "passed",
+      "reason": "Only frozen-source four-case real-projectile presentation fixture: 46/0, clean teardown/source guard; full integration remains pending",
       "evidence": [
-        "m0-original-check"
+        "m1-clean-native"
       ]
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Independent/visual/user/device and full integration acceptance remain pending; see scoped M1 evidence",
       "evidence": []
     },
     "visual": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Independent/visual/user/device and full integration acceptance remain pending; see scoped M1 evidence",
       "evidence": []
     },
     "animation": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Independent/visual/user/device and full integration acceptance remain pending; see scoped M1 evidence",
       "evidence": []
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Independent/visual/user/device and full integration acceptance remain pending; see scoped M1 evidence",
       "evidence": []
     },
     "gameplay": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Independent/visual/user/device and full integration acceptance remain pending; see scoped M1 evidence",
       "evidence": []
     },
     "performance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Independent/visual/user/device and full integration acceptance remain pending; see scoped M1 evidence",
       "evidence": []
     },
     "independent_review": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Independent/visual/user/device and full integration acceptance remain pending; see scoped M1 evidence",
       "evidence": []
     },
     "device": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Independent/visual/user/device and full integration acceptance remain pending; see scoped M1 evidence",
       "evidence": []
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Independent/visual/user/device and full integration acceptance remain pending; see scoped M1 evidence",
       "evidence": []
     }
   },
   "criteria": [
     {
       "id": "EF01",
-      "gate": "G3",
+      "gate": "G1",
       "dimension": "technical",
-      "scenario": "Nonlethal/lethal projectile, replay, reset and terminal restore",
-      "method": "Real projectile plus existing policy/health lifecycle boundaries",
-      "expected": "One accepted hurt or death; no restore/replay effects",
-      "failure": "Any duplicate, stale effect or reward mutation",
-      "status": "unverified",
-      "reason": "M0 only; implementation/capture pending",
-      "evidence": []
+      "scenario": "Underworld root_bell/diver and legacy diver/patrol real projectile, pause and terminal restore",
+      "method": "Immutable fixture driver, exact clean-source GPU native completion and trace",
+      "expected": "Three real projectile hits, two hurt and one death per consumer; pause and restored terminal never replay",
+      "failure": "No real projectile events, duplicate death, stale replay or failed source guard",
+      "status": "passed",
+      "reason": "Candidate exact clean runtime movie:46 checks, 4 cases, zero failures",
+      "evidence": [
+        "m1-clean-native",
+        "m1-trace"
+      ]
     },
     {
       "id": "EF02",
       "gate": "G2",
       "dimension": "animation",
-      "scenario": "RootBell grounded pulse vs flying diver and legacy consumer",
-      "method": "Same-source baseline/after continuous Godot capture",
-      "expected": "Preserve silhouette, foot anchor and authored AI cadence",
-      "failure": "No real projectile hit; hidden cues; drift or claimed full coverage",
+      "scenario": "Normal-speed comparison of root foot and aerial silhouette during hurt/death",
+      "method": "Different reviewer watches same-driver before/after movies",
+      "expected": "Body material and authored AI rhythm remain readable",
+      "failure": "Covered telegraphs, foot drift or silhouette loss",
       "status": "unverified",
-      "reason": "M0 only; implementation/capture pending",
+      "reason": "Sourcebound movies captured; independent continuous-pixel assessment pending",
       "evidence": []
     }
   ],
   "evidence": [
     {
-      "id": "m0-plan",
+      "id": "m1-scope",
       "path": "docs/enemy_feedback_01_checkpoint.md",
-      "sha256": "2c27a5d16cfd880172737f36da770f8ab511bb3069d1c5ae7955858c6c8fc13e",
+      "sha256": "c7bcc8a27f12b33309608e8a51885a91cd8b23d35ad7122ee6c767db057ef021",
       "kind": "spec",
       "producer": "enemy-feedback-01",
-      "source_commit": "0ee0e79197f40e898283440d4af2d956f91f1c64",
-      "content_version": "m0-audit-v1",
-      "method": "Read actual consumers/installers; proposed bounded sample",
-      "observed": "M0 inventory and scope only, no implemented change"
+      "source_commit": "d9c9e0e8546f10c4c3c5a4be04cd9c75418e4e37",
+      "content_version": "m1-two-consumers-v1",
+      "method": "Source inventory, same-driver fixture and limitations",
+      "observed": "Bounded two Underworld representatives and two legacy compatibility cases; independent review pending"
     },
     {
-      "id": "m0-original-check",
-      "path": "docs/evidence/enemy_feedback_01/m0/baseline-receipt.json",
-      "sha256": "6b22f238575faaf3dae35235b172433f431cca3ec6b5e3b013b7e1a2eecbdf59",
+      "id": "m1-clean-native",
+      "path": "docs/evidence/enemy_feedback_01/m1/after-receipt.json",
+      "sha256": "60f980b11cff803965b2a7d9ddfafbef0fdb928f0b50bdc5ac666e5aa8e725c2",
       "kind": "command",
       "producer": "enemy-feedback-01",
-      "source_commit": "0ee0e79197f40e898283440d4af2d956f91f1c64",
-      "content_version": "m0-audit-v1",
-      "method": "Original fresh Harness check at clean baseline",
-      "observed": "317 checks/0 failures; existing fixture only",
-      "command": "python3 tools/harness.py --check underworld-damage-feedback --release --jobs 1",
+      "source_commit": "d9c9e0e8546f10c4c3c5a4be04cd9c75418e4e37",
+      "content_version": "m1-two-consumers-v1",
+      "method": "Frozen-source Godot MovieMaker with real Router/projectiles",
+      "observed": "46 checks/4 cases/0 failures; source stable; no new gameplay change",
+      "command": "bash tools/godot.sh --path . --rendering-method gl_compatibility --audio-driver Dummy --fixed-fps 60 --write-movie /workspace/worklines/enemy-feedback-01/build/enemy-feedback-01/m1-after01/raw.avi --script tests/enemy_feedback_01/test_feedback.gd -- --output=res://build/enemy-feedback-01/m1-after01/trace.json --candidate",
       "exit_code": 0,
-      "environment": "Godot4.7.2 Standard; Linux; headless fixed60; Dummy audio; private worktree and env"
+      "environment": "Godot4.7.2 Standard; private worktree/env; dedicated Xvfb; OpenGL llvmpipe; fixed60; Dummy audio"
     },
     {
-      "id": "m0-original-runtime",
-      "path": "docs/evidence/enemy_feedback_01/m0/baseline-runtime.json",
-      "sha256": "9acac8d27ca25a7ec8ae05ec409f737fa156f3ff35b8672402f6542b48effed0",
+      "id": "m1-trace",
+      "path": "docs/evidence/enemy_feedback_01/m1/after-trace.json",
+      "sha256": "7212f4c98928a8e7d7d10bfe69329d499ec732c7b01dbd259af63c80fbd561b6",
       "kind": "runtime_trace",
       "producer": "enemy-feedback-01",
-      "source_commit": "0ee0e79197f40e898283440d4af2d956f91f1c64",
-      "content_version": "m0-audit-v1",
-      "method": "Unmodified original native fixture",
-      "observed": "Real Router/projectile hurt and edge consumers; not new representative death"
+      "source_commit": "d9c9e0e8546f10c4c3c5a4be04cd9c75418e4e37",
+      "content_version": "m1-two-consumers-v1",
+      "method": "Native real-projectile frames and accepted HP/death events",
+      "observed": "Two hurt/one death per case, pause frozen and restore no replay"
+    },
+    {
+      "id": "m1-trajectory",
+      "path": "docs/evidence/enemy_feedback_01/m1/gameplay-compare.json",
+      "sha256": "1eb70d295018a698c4397307e4eaeb0ffb4e355376e848d508a1a2e05b3da948",
+      "kind": "runtime_trace",
+      "producer": "enemy-feedback-01",
+      "source_commit": "d9c9e0e8546f10c4c3c5a4be04cd9c75418e4e37",
+      "content_version": "m1-two-consumers-v1",
+      "method": "Compare only actor positions, HP and AI state across same-driver movies",
+      "observed": "1200 frames each, zero differences; not pixel acceptance"
     }
   ],
   "consumer_coverage": null,
   "unverified_items": [
-    "New sample implementation, two representative hurt/death and drop idempotence",
-    "Formal whole-stage/GPU/movie/audio listening/performance",
-    "Independent review, player acceptance and physical devices"
+    "Independent continuous-video/pixel and audio listening review",
+    "Physical devices, player aesthetics/feel, target-device performance",
+    "Full Integration/Release and publication; no PR or deployment",
+    "Third RootBellPresentation and unselected species not promoted",
+    "Natural full-map root_bell combat not present in original formal seed; installer fixture only"
   ],
-  "production_snapshot": "ab5d92c0c9251f1d747fa6dcf913063c51bc3c627c461c5706fa47b98adb2d7b"
+  "production_snapshot": "37e994ddc5f2333abc5b12707c29235618639f262327e35e81f29ba360280e25"
 }
