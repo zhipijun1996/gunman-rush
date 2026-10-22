@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "started_at": "20261022T125006.798608Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "underworld-formal",
+      "argv": [
+        "python3",
+        "tools/run_underworld_formal_tests.py"
+      ],
+      "timeout_seconds": 150,
+      "input_digest": "7289c8f5decf7c551a80081238686087f18c8235983cb54a1cbb5ca42745c75b",
+      "log": "underworld-formal.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792673407.742719,
+      "ended_at_unix": 1792673411.3456318,
+      "duration_seconds": 3.603,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_underworld_formal_tests.py"
+      ],
+      "check_token": "518b71488e9c41c09916498b79ba5811",
+      "artifact_directory": "/workspace/worklines/player-presentation-01/build/verification/harness/20261022T125006.798608Z/artifacts/underworld-formal",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "ed36c753c85eefb7741b724e5a62a37dec2774ce851d8e3d595bc933f2f3b434",
+  "working_files": {
+    "docs/quality/records/PLAYER-PRESENTATION-01.json": "59a3dde67197b05066a3fc443734e7cdcef40cc0c985d4e60413ee62ec628733"
+  },
+  "commit": "0ee0e79197f40e898283440d4af2d956f91f1c64",
+  "git_status": "?? docs/quality/records/PLAYER-PRESENTATION-01.json",
+  "diff": "",
+  "untracked": "docs/quality/records/PLAYER-PRESENTATION-01.json",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 5.185,
+  "jobs": 1,
+  "release": true
+}
