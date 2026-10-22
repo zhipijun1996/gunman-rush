@@ -542,3 +542,5 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | FOREST-EXPLORATION-02 | 实机反馈：森林双图差异、多难度分支奖励、平缓教学及钩索可见/固定点起跳 | — | in_progress | [质量记录](quality/records/FOREST-EXPLORATION-02.json) |
 
 | HIGH-DENSITY-TERRAIN-03 | 高分辨率地形对齐与克制材质实验 | PIXEL-LIGHT-STUDY-02 | review | 原生32px/32wu、20实机静态图与独审；岩纹重复/地区特色未定稿，默认入口不改，无CI |
+
+| TERRAIN-DENSITY-04 | 完整母版转47格与固定暖光粗细对照 | HIGH-DENSITY-TERRAIN-03 | review | 20真实静态图、三草沿、仅粗地形控制及独审；颗粒待用户选，母版未定稿，无CI |

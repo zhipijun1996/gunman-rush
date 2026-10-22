@@ -1,3 +1,9 @@
+## 2026-10-22 TERRAIN-DENSITY-04 同母版47格粗细实验
+
+分支 `art/authored-terrain-density-study`，基线7f332ff。完整AI外框/洞口母版→切取四边/四内角→原47格配方×三草沿，细32px/32wu、同源降采样粗16px/32wu；默认游戏不变。暖光固定；最终五镜头×四模式20实机图，退出0无错误，包含“仅地形粗”以隔离角色细节损失。独审确认隔离正确，新母版较上一斜岩纹更适合继续，但草沿厚/重复、石包边与岩体层次弱，未签定稿。首母版布局错误和首GPU白边shader错误原件均保留，不追认。
+
+[证据、失败、来源与命令](evidence/terrain_density_04/README.md)，[十一维](quality/records/TERRAIN-DENSITY-04.json)。运行 `bash tools/godot.sh --path . scenes/dev/authored_terrain_study.tscn`。用户指定快速实验不跑CI；未做CI/Harness、Web发布、连续运动/真机/玩家验收，不合main。下一步等用户选颗粒方向，再修草沿和边缘，不扩产当前未定稿母版。最终local checkpoint见Git。
+
 ## 2026-10-22 HIGH-DENSITY-TERRAIN-03 提升地形密度实验
 
 分支 `art/high-density-terrain-study`，基线0c1d1e5。按用户要求不跑CI、快速实机图，反向提高到原生32px/32wu、1wu采样，保留人物/建筑/背景细节；默认入口和全局设置未改。新增 `scenes/dev/high_density_terrain_study.tscn`。最终五窗口×四版本20张Godot静态图，退出0；首AI碎石遭用户否定，第二轮岩体主次改善但斜纹重复、地区身份仍未定稿，独审仅支持继续密度路线。不签全区/运动/真机/玩家认可。
