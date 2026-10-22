@@ -1,3 +1,9 @@
+## 2026-10-22 PIXEL-LIGHT-STUDY-02 像素／灯光续轮
+
+用户要求先像素对齐，保留Underworld像素风格，只学Animal Well打光；继续快速实验不跑CI。分支 `art/pixel-grid-lighting-study`，基线35a9cd8。新增独立 `scenes/dev/pixel_light_study.tscn`，默认游戏不动。已做物件固定2wu采样／纯表现snap／世界2px输出，HUD与标签清晰；保留原配色，真实局部点光／地形遮光／小bloom。最终5×4共20张Godot静态原图，原生退出0且无脚本错误；独审推荐暖灯继续，保留小物体细节损失／平原光池弱，未验运动或真机。
+
+[证据与失败](evidence/pixel_light_study_02/README.md)，[记录](quality/records/PIXEL-LIGHT-STUDY-02.json)。运行 `bash tools/godot.sh --path . scenes/dev/pixel_light_study.tscn`；采图追加 `-- --capture --output=res://build/<fresh>`。下一步看用户对A颗粒与B灯光反馈，再决定细化；不签定稿，不合main，不替换试玩站，不以截图查看器冒充可玩Web。提交见本分支Git。
+
 ## 2026-10-22 LIGHT-STUDY-01 快速光感实验
 
 分支 `art/light-study`，基线 e9ab0e0743466b8983e34cc7de17bab1abf9d53a。用户本轮明确要求三方向实机图／快速迭代、不跑CI；仅新增显式 `scenes/dev/light_study.tscn`，默认美术、物理、生成、保存不动。已采四窗口×四版本16张真实Godot定位静态图，最终原生退出0；不同只读代理看五图，推荐晨光默认、青绿局部，保留草边／反光／标签问题。素材未重画，未签全区、玩家或设备认可，未跑CI/Harness或发布。
