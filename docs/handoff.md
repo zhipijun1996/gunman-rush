@@ -1,6 +1,6 @@
 # 最新交接：探索场所原型 v18
 
-2026-10-22，分支 `feature/region-bible-v2-forest`，草稿 [PR101](https://github.com/zhipijun1996/gunman-rush/pull/101) 未合 main。准确提交以 Git 为准。公开仍[旧 v15](current_state.md#当前公开试玩)，不能把旧 build12ac 说成本轮。
+2026-10-22，分支 `feature/region-bible-v2-forest`，草稿 [PR101](https://github.com/zhipijun1996/gunman-rush/pull/101) 未合 main。准确提交以 Git 为准。公开已更新为[探索原型 e361](current_state.md#当前公开试玩)，入口FOREST PLACES MAP 1/2，普通THORN_FOREST保留旧v15。
 
 ## 已实现和边界
 
@@ -32,4 +32,10 @@ root唯一Godot/import/GPU/browser租约；运行源与Git冻结期间禁止并�
 
 Web06导出与PCK检查通过，但实际候选点击后browser截图30秒超时，保留失败且未增timeout。已定位并实现精确边界邻居粗筛：两完整世界3000断言逐项几何相同，11对跨区App／GPU图逐像素相同；同一原生App初始化27.23秒降至5.527秒，仅限定该样本。旧style-v3保持原字节，新v4和creative-v8显式重绑；首次遗漏current方向绑定的Bible测试失败也保留，补齐后六项受影响harnessfresh通过。浏览器重试与最终本地包结果另记。
 
-最终本地Web原型已完成：运行源 `263afd4fbdd535df6b4e80b1f4b584a05b55c7ea`，build `e361af714d54`；两图×鼠标／模拟DOM触屏共4入口、12项实际组装／暂停恢复检查通过，errors为空，四次完整PCK身份一致。仅签这些GUI入口，未签浏览器全程、手机真机、趣味性或人类时长。完整本地包为 `build/gunman-rush-forest-v18-e361af714d54.zip`（298440075字节，SHA `e8312144a72e071b2e4162a1492e44c88d5b376b53b086597f1c22ef10c7a69a`），解压后运行 `python3 -m http.server 8000`，打开localhost:8000；DEVELOPMENT DEMOS → SELECT REGION → FOREST PLACES MAP 1/2。包内含许可与README，全部成员读回核对。原浏览器06失败保留，未增加超时；本次GUI通过不重签美术。没有发布新Pages、没有合main，公开仍旧v15。详见[最终原件索引](evidence/forest_variety_04/README.md)。
+最终本地Web原型已完成：运行源 `263afd4fbdd535df6b4e80b1f4b584a05b55c7ea`，build `e361af714d54`；两图×鼠标／模拟DOM触屏共4入口、12项实际组装／暂停恢复检查通过，errors为空，四次完整PCK身份一致。仅签这些GUI入口，未签浏览器全程、手机真机、趣味性或人类时长。完整本地包为 `build/gunman-rush-forest-v18-e361af714d54.zip`（298440075字节，SHA `e8312144a72e071b2e4162a1492e44c88d5b376b53b086597f1c22ef10c7a69a`），解压后运行 `python3 -m http.server 8000`，打开localhost:8000；DEVELOPMENT DEMOS → SELECT REGION → FOREST PLACES MAP 1/2。包内含许可与README，全部成员读回核对。原浏览器06失败保留，未增加超时；本次GUI通过不重签美术。当时尚未发布新Pages，后续实际上线以最新段落为准；仍未合main。详见[最终原件索引](evidence/forest_variety_04/README.md)。
+
+## 最新补齐：公开试玩交付
+
+用户明确“我都是通过试玩网站试玩的”；上一轮只推远端／本地ZIP未满足该方式，已纠正并补到AGENTS／project-integration。现已[公开e361原型](https://zhipijun1996.github.io/gunman-rush/?v=e361af714d54)，DEVELOPMENT DEMOS → SELECT REGION → FOREST PLACES MAP 1/2；旧默认THORN_FOREST不变。原Web07同源复用，Pages39733962550成功，公开完整PCK141811380字节／完整SHA一致，四实际GUI入口＋暂停恢复12项通过、errors[]。准确PCK source263afd；workflow helper81e4f0ab／prepared297bb91，最终文档提交不冒称运行源。[全部原件与边界](evidence/forest_variety_04/public_v18_01/README.md)。
+
+没有修改运行代码／重建／全CI／合main，也不抵销ART_REWORK和其他未完成项。后续仍先网状探索、多难度真正不同的模块与自然结构美术，再真人验证每图8–12／15–20分钟，最后平原。用户只通过网页体验，不能仅给本地包结项。

@@ -25,6 +25,8 @@ description: 项目归整、冗余清理、分支合并和 Web 交付验证。
 
 发布后核对公开`build-info.json`、完整PCK和目标source/build，再做标题→目标区域的基本GUI冒烟；回报可点击试玩链接、构建标识和实际未完成边界。无需每次重新生成计划/提案或征求已授权发布的确认。源码与包的身份必须准确，不把部署成功称整区艺术/真机认可；不默认合main。
 
+用户通过试玩站体验时，已验证的开发原型也按该路径发布并给可点击URL和准确菜单入口；分支已推送或本地ZIP不能代替网页交付。保留旧入口，新候选与最终质量分开标注；公开元数据与实际点击验证后才报上线，未做的真机／时长／整区品质保留未验。[实际纠正与原话](../../../docs/evidence/forest_variety_04/public_v18_01/README.md)。
+
 Web导出遇到 `Foundry source changed after validation`，先检查现有开发池basis。当前旧工坊保守绑定整个generation目录，新区域脚本也会令其失配；用原 `python3 tools/foundry.py build --count 24 --promote` 实际验证并重建开发池／回放，再走原export stamp。保留旧池和失败，不手改basis或跳过guard；这不要求重跑整套CI，也不把工坊通过签成森林品质。
 
 ## 实际指针与弹出菜单的交付检查

@@ -57,4 +57,8 @@ Web06实际导出和完整PCK检查通过，但实际点击后截图30秒超时�
 
 [Web07导出](web07-receipt.json)源263afd／build e361af714d54，exit0且源稳定；[实际浏览器](browser07-report.json)两图×mouse／模拟DOM touch共4case／12checks，原HTML、完整PCK、rendered入口、实际v2/v18组装、Boss和H-only及暂停恢复均通过，errors为空。[完整本地包成员及SHA](web07-package.json)对应298440075字节ZIP，独立交付复核见[报告](web07-independent.md)。源／日志／原始PNG与独审原件见`web07.zip`和[每成员完整索引](web07-index.json)，普通Git归档并完整读回。最后文档提交不是PCK来源。
 
-本地包不会覆盖旧公开v15；森林ART_REWORK仍在。未完成网状拓扑／大模块库／活果渡口／真人时长／真机／浏览器整条路线，整任务in_progress。原33项超时、Web05／browser06／合同首次失败均原样保留。没有新签fullCI，不把原型入口验证写成完整森林验收。
+当时仅本地交付，后续已依用户网页试玩要求补上公开原型，见最新发布段；森林ART_REWORK仍在。未完成网状拓扑／大模块库／活果渡口／真人时长／真机／浏览器整条路线，整任务in_progress。原33项超时、Web05／browser06／合同首次失败均原样保留。没有新签fullCI，不把原型入口验证写成完整森林验收。
+
+## 最新：补齐公开试玩
+
+用户只通过试玩网站体验；上一轮只推远端和本地ZIP确未部署。现复用准确Web07，在新FOREST PLACES独立开发入口公开e361，旧普通森林default15保留。[实际发布、公开完整PCK、两图四GUI入口原件](public_v18_01/README.md)全部归档，Pages39733962550成功。没有重建或全CI，也未签整区ART/FUN/人类时长／真机；旧失败维持。后续网页交付要求已写回原AGENTS和project-integration，不额外加审批流程。
