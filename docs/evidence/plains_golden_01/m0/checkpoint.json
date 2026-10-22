@@ -1,0 +1,65 @@
+{
+  "task_id": "PLAINS-GOLDEN-01",
+  "phase": "M0 checkpoint; M1 next",
+  "branch": "feature/plains-golden-01",
+  "base_main": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+  "source_commit": "0ee0e79197f40e898283440d4af2d956f91f1c64",
+  "current_sha_command": "git rev-parse HEAD",
+  "allowed_write_set": [
+    "scenes/dev/plains_golden_01.tscn",
+    "scripts/dev/plains_golden_01.gd",
+    "own UID",
+    "task-specific tests/drivers/docs/evidence/record"
+  ],
+  "baseline": {
+    "status": "passed",
+    "fresh": true,
+    "checks": 96,
+    "maps": 2,
+    "exit_code": 0,
+    "seconds": 3.394,
+    "scope": "formal consumers and lifecycle, not Motor route"
+  },
+  "capture": {
+    "exit_code": 0,
+    "samples": 3,
+    "fixture": true,
+    "traversal_claim": false
+  },
+  "failures": [
+    {
+      "command": "capture setup1",
+      "exit_code": 1,
+      "reason": "optional GUNMAN_GODOT_LOCK missing before engine launch; fallback retry complete"
+    },
+    {
+      "command": "harness docs",
+      "exit_code": 1,
+      "reason": "pre-existing sparse historical evidence links unavailable; no full restoration authorized/needed for M0"
+    },
+    {
+      "command": "check_quality.py",
+      "exit_code": 1,
+      "reason": "same sparse global historical evidence; no global quality claim"
+    },
+    {
+      "command": "quality.py check initial task card",
+      "exit_code": 1,
+      "reason": "missing evidence attribution fields; corrected, original receipt scope still unverified"
+    }
+  ],
+  "candidate_scene": "res://scenes/dev/plains_golden_01.tscn (M1 planned; not yet exists)",
+  "dependencies": [
+    "independent actual candidate comparison by root",
+    "root-managed playable Preview hosting",
+    "shared references remain read-only"
+  ],
+  "nextcmd": "Implement task-local candidate scene and script; run narrow parse then real Router/Motor A/B traces",
+  "claims": {
+    "art": "unverified",
+    "fun": "unverified",
+    "commercial_golden": "not_complete",
+    "player": "unverified",
+    "device": "unverified"
+  }
+}

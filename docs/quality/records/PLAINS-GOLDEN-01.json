@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAINS-GOLDEN-01",
+  "task_type": "region",
+  "workflow": "in_progress",
+  "baseline_commit": "0ee0e79197f40e898283440d4af2d956f91f1c64",
+  "reviewed_commit": "0ee0e79197f40e898283440d4af2d956f91f1c64",
+  "content_version": "m0-audit-v1",
+  "owner": "PLAINS-GOLDEN-01 workline",
+  "purpose": "Compare two reversible jump / shot / recoil compositions before any regional promotion",
+  "player_experience": "Read landing, shooting direction, recovery and optional return in one actual space",
+  "constraints": [
+    "Read-only formal consumers/shared style; existing PlayerMotor/abilities/resources/RNG/save unchanged",
+    "No BGM replacement; no regional/art/fun/device completion claim"
+  ],
+  "affected_paths": [
+    "docs/design/plains_golden_01_m0.md",
+    "tests/drivers/plains_golden_01_m0_capture.gd",
+    "docs/evidence/plains_golden_01/m0"
+  ],
+  "deliverables": [
+    "M0 checkpoint and two proposed hypotheses; no playable candidate yet"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "M0 only; two candidates and relevant acceptance not yet implemented or reviewed",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "M0 only; two candidates and relevant acceptance not yet implemented or reviewed",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "M0 only; two candidates and relevant acceptance not yet implemented or reviewed",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "M0 only; two candidates and relevant acceptance not yet implemented or reviewed",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "M0 only; two candidates and relevant acceptance not yet implemented or reviewed",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "M0 only; two candidates and relevant acceptance not yet implemented or reviewed",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "M0 only; two candidates and relevant acceptance not yet implemented or reviewed",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "M0 only; two candidates and relevant acceptance not yet implemented or reviewed",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "M0 only; two candidates and relevant acceptance not yet implemented or reviewed",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "M0 only; two candidates and relevant acceptance not yet implemented or reviewed",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "M0 only; two candidates and relevant acceptance not yet implemented or reviewed",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [
+    {
+      "id": "m0-baseline",
+      "path": "docs/evidence/plains_golden_01/m0/baseline-report.json",
+      "sha256": "36deaf6e1991d7343fab9faad45335e9cd352126514785507a89c81ef066a2cf",
+      "kind": "command",
+      "producer": "PLAINS-GOLDEN-01 actual Godot consumer",
+      "source_commit": "0ee0e79197f40e898283440d4af2d956f91f1c64",
+      "content_version": "m0-audit-v1",
+      "method": "Original Harness execution",
+      "observed": "96 original formal checks, not Motor traversal",
+      "command": "python3 tools/harness.py --check underworld-formal --jobs 1 --release",
+      "exit_code": 0,
+      "environment": "Godot 4.7.2 Standard / headless fixed60 Dummy"
+    },
+    {
+      "id": "m0-positioned-pixels",
+      "path": "docs/evidence/plains_golden_01/m0/pixels/receipt.json",
+      "sha256": "0820a4ed282509c3a45c2cc03ac3b046cd66e07efd121337d640240dcaaa4100",
+      "kind": "runtime_trace",
+      "producer": "PLAINS-GOLDEN-01 actual Godot consumer",
+      "source_commit": "0ee0e79197f40e898283440d4af2d956f91f1c64",
+      "content_version": "m0-audit-v1",
+      "method": "Actual Godot staged formal fixture screenshots; no Motor route claim",
+      "observed": "three actual positioned windows; no traversal claim"
+    }
+  ],
+  "consumer_coverage": {
+    "scope": "M0 original formal two-map integration only; candidate not implemented",
+    "inventory": "docs/evidence/plains_golden_01/m0/formal-integration.json",
+    "observed": "docs/evidence/plains_golden_01/m0/baseline-underworld-formal.log",
+    "missing": [
+      "candidate Motor trajectories",
+      "normal speed combat video",
+      "independent review",
+      "user and real device"
+    ]
+  },
+  "unverified_items": [
+    "G0 candidate hypotheses require real A/B experiment",
+    "G1 Motor and accepted shot chain",
+    "G2 normal speed pixels/audio",
+    "G3 candidate lifecycle and preview",
+    "G4 independent review",
+    "G5 human visual/fun/device acceptance"
+  ]
+}

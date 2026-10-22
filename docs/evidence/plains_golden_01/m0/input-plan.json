@@ -1,0 +1,53 @@
+{
+  "status": "ready",
+  "approval_scope": "input_availability_only",
+  "tests_executed": false,
+  "commit": "0ee0e79197f40e898283440d4af2d956f91f1c64",
+  "checks": [
+    "underworld-formal"
+  ],
+  "inputs": [],
+  "known_bytes": 0,
+  "unknown_size_objects": [],
+  "blockers": [],
+  "preflight": {
+    "status": "passed",
+    "kind": "tracked_required_input_materialization",
+    "missing_tracked_inputs": [],
+    "explicit_deleted_repairs": [],
+    "index_warnings": [],
+    "import_metadata_risks": [],
+    "uncertain_inputs": [],
+    "directory_presence_inputs": [],
+    "resolved_checks": {
+      "manifest": "tools/harness/profiles.json",
+      "manifest_sha256": "ed36c753c85eefb7741b724e5a62a37dec2774ce851d8e3d595bc933f2f3b434",
+      "cwd": "/workspace/worklines/plains-golden-01",
+      "checks": [
+        {
+          "id": "underworld-formal",
+          "argv": [
+            "python3",
+            "tools/run_underworld_formal_tests.py"
+          ],
+          "timeout_seconds": 150,
+          "success_pattern": "^PASS: Underworld default formal actor/UI consumers and lifecycle$",
+          "inputs": [
+            "assets/underworld_plains",
+            "scripts",
+            "scenes",
+            "resources",
+            "config",
+            "tests/underworld_plains",
+            "project.godot",
+            "tools/run_tests.py",
+            "tools/run_underworld_formal_tests.py"
+          ]
+        }
+      ]
+    },
+    "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+  },
+  "limits": "Missing-input plan from the existing preflight, not a complete static dependency graph. No checks ran. Unknown object sizes stay explicit until --materialize obtains only those selected blobs.",
+  "seconds": 0.177
+}
