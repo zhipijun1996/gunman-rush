@@ -30,5 +30,18 @@
     "Final public verification is recorded independently in public-bytes.json and public-gui.json",
     "Full docs/Release not signed",
     "No user, art or physical-device acceptance"
-  ]
+  ],
+  "final_evidence_review": {
+    "verdict": "ACCEPT",
+    "reviewer": "/root/independent_review",
+    "observed": [
+      "Public full PCK and MP4 hashes/lengths match source",
+      "Capture source clean/stable and both 720-frame traces equal",
+      "Exact-source fresh Harness and record evidence hashes agree",
+      "Actual browser screenshots, jump/shot events and OCR menu callback",
+      "Main before/after metadata equal",
+      "Original failures preserved; full docs/Release not signed"
+    ],
+    "scope_note": "Console retains one unlocated 404; errors=[] means selected engine/page error filter, not zero network failures. No subjective audio/art/feel/device approval."
+  }
 }
