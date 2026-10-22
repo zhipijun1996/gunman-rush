@@ -7,7 +7,7 @@ description: 统筹重要游戏内容与关卡生产的 G0–G5、十一维记�
 
 ## 当前生产入口：区域圣经先于制作
 
-先读[区域创作入口](../../../docs/creative_direction/README.md)、[Bible注册表](../../../docs/creative_direction/bibles/registry.json)及目标地区完整原文。当前两份Bible由用户直接提供并选择，先完整荆棘森林（含美术），再优化风铃平原；不重新提出2–3个方向。缺Bible时自主编写proposed圣经，只写文档/G0，不制作地图/几何/资产/敌人/Boss；注册并独立审查前production拒绝。
+先读[区域创作入口](../../../docs/creative_direction/README.md)、[Bible注册表](../../../docs/creative_direction/bibles/registry.json)及目标地区完整原文。当前两份Bible由用户直接提供并选择，排期以[AGENTS最新商业Demo优先级](../../../AGENTS.md#2026-10-22-商业-demo-多-cloud-生产)为准；两Bible与共享画风继续有效，不重新提出2–3个方向。缺Bible时自主编写proposed圣经，只写文档/G0，不制作地图/几何/资产/敌人/Boss；注册并独立审查前production拒绝。
 
 所有地区任务绑定registry与原文的完整SHA、id/version/region、选择依据，原始全文随worker输入；本次BGM由用户后续提供，音效与事件驱动环境动画/VFX可做。发生漂移先停止相关后继，保留旧失败，列旧/新绑定、受影响设计/地形/生态/Boss/美术/动画/音频/消费者及需重验的证据，由独审确认后重绑；不得仅刷新下游SHA。原G0–G5、十一维、全量source snapshot与所有原适用检查继续有效。
 
@@ -34,7 +34,7 @@ description: 统筹重要游戏内容与关卡生产的 G0–G5、十一维记�
 
 实际入口为 `python3 tools/visual_director.py route --help`、`run --help`、`capture --help`、`inspect --help`、`compare --help`，合同见 [视觉合同](../../../docs/quality/visual_director_contract.md)。route或未execute的run只是计划，真实宿主/CLI工作、修改、采集、独审和复验各存原件/退出码/耗时。全片录制不实时PNG读回，片终抽帧写video frame/time；保存原失败，不能更换输入、Seed、源码标签或降低阈值把旧失败冲成通过。
 
-预算分别记模型/图生编辑/实现/采集/审查/返工/Harness真实次数与时间；API未暴露价格/用量写not_exposed。连续两轮独审无实质画面改善、关键工具不可用或预算达到，保留失败并停止相应依赖，不靠新建包隐形重开。只跑受影响快查，交付仍执行完整适用profile。技术passed、AI审美判断、用户认可、手机缩小代理与真机性能分开；未达商业目标明确未完成，大任务结束按已授权要求部署试玩并报HTTPS/build_id/source，不以部署签品质完成。
+预算分别记模型/图生编辑/实现/采集/审查/返工/Harness真实次数与时间；API未暴露价格/用量写not_exposed。连续两轮独审无实质画面改善、关键工具不可用或预算达到，保留失败并停止相应依赖，不靠新建包隐形重开。只跑受影响快查，最终交付仍执行完整适用profile。技术passed、AI审美判断、用户认可、手机缩小代理与真机性能分开；未达商业目标明确未完成，交付按[商业Demo交付选择](../../../docs/cloud_production.md#按验证需要选择最轻交付)：观察用真实MP4、必须操作用Web、两者皆需则两份；实际Web报告HTTPS/build_id/source，不以部署签品质完成。
 
 可复用经验进入既有知识记录，附真实像素来源、修复/反例、源和母版版本、空间/消费者范围及待验，不把一次局部判断升全局规则。黄金先于泛化；第二空间是新的空间需求推导与真实Godot接入，不能旋转/复制首场景或以静态概念图证明自动生产成立。
 
@@ -72,6 +72,8 @@ description: 统筹重要游戏内容与关卡生产的 G0–G5、十一维记�
 执行 [审查方法的覆盖闭环](../../../docs/quality/review_method.md)：先从正式实例和分支盘点消费者，再逐项对应实际输出证据。未修改、不同物理语义和已有辅助测试都不是豁免依据。新任务的 consumer_coverage 将运行 inventory 与观察一一对应；缺项、错场景、仅 helper 通过不能宣称正式通过。最终声明不得超出记录的 scope；缺画面写 unverified，用户拒绝保留失败链。
 
 ## 自动验收
+
+日常Development按 `tools/production_plan.py` 选择相关专项与正式消费者，不每次强制完整gameplay＋art；Integration覆盖受影响完整系统，未知范围full；最终原完整适用profile与Release门槛不变，局部结果不能升签整套。交付按[生产入口](../../../docs/cloud_production.md#按验证需要选择最轻交付)选择观察MP4／操作Web／两者兼具，不重复完整流程。
 
 大任务按 [生产循环](../../../docs/quality/production_loop.md) 拆依赖包，先黄金样板后扩展；允许有界反复调用专业 Skills 与独立审查，遇创意/玩家验收或无进展必须保留现场。
 

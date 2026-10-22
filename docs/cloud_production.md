@@ -18,6 +18,8 @@
 4. 自主实现、做最小相关验证，并按本页选择录像／Preview／工程报告；提交、推送并创建面向main的PR。交付链接只能来自实际文件或真实部署。
 5. 用户直接评价画面、手感或趣味，原工作线针对反馈继续；总控核验接口和正式消费者后集成。生产线默认不合main。
 
+Cloud稀疏工作区先用 `python3 tools/cloud_inputs.py --profile docs` 或所选 `--check` 输出缺件计划，需要时显式 `--materialize`；未知对象大小保留unknown，输入ready不代表测试通过。Harness隔离不再先检出全树，按实际已物化源保留精确index／sparse语义；细节与退出码见[Harness](harness.md#稀疏检出与选定输入预检)。历史证据先证明可恢复和真实消费者，再提出清理，不直接删旧媒体。
+
 新工作线无需把简单反馈扩成冗长设计文档；影响方向、接口或生产阶段时才补足决策依据。已授权可逆工作继续执行，不为普通技术选择反复请求确认。
 
 ## 四种模式，按阶段切换
@@ -78,7 +80,7 @@ python3 tools/production_plan.py --stage release --base origin/main
 
 Release在该规划器中仅计划，`--stage release --execute`明确拒绝；实际执行原 `tools/deliver.py`／精确SHA正式CI。不得把局部 `--check` 或仅完整profile改称所有发布条件已满足。`--plan`不是执行；未执行、失败和超时保留原状态。缓存只复用同依赖证明并标原来源，fresh发布继续 `--release`。
 
-CI分流采用本地Development、PR自动Integration、手动Development／Integration；主题分支push不重复触发昂贵完整CI。main及手动原Godot core保留完整Release；实际运行状态以workflow和本轮证据为准。避免同一SHA由多个生产会话重复发起完整CI；总控记录已冻结源的唯一正式运行。不能因为一个大资产任务改文件多就全量，也不能因为一个小共享参数改动文件少就局部。
+CI分流采用本地Development、PR自动Integration、手动Development／Integration；主题分支push和已测draft转ready不重复触发昂贵完整CI。PR以sparse检出、原preflight按需补件和两隔离lane执行，Foundry准备后重plan并补齐可能升级的输入，serial仍按原顺序执行。main及手动原Godot core保留完整Release；实际运行状态以workflow和本轮证据为准。避免同一SHA由多个生产会话重复发起完整CI；总控记录已冻结源的唯一正式运行。不能因为一个大资产任务改文件多就全量，也不能因为一个小共享参数改动文件少就局部。
 
 ## 并行所有权与合入
 
@@ -97,6 +99,8 @@ CI分流采用本地Development、PR自动Integration、手动Development／Inte
 ## 建议首批独立工作线与Prompt
 
 本轮优先顺序为生产基础→主角表现→普通怪物反馈→平原黄金切片→森林→通用视听／UI／家园→后期区域→完整Demo打磨；有清楚依赖和写集边界即可并行。已选地区Bible、共享像素母版及BGM资源来源仍从AGENTS读取，新的明确用户选择优先。
+
+本次用户已指定当前会话为总控，并授权先提效合main后启动并行；可直接执行的首批三个Prompt、正式消费者与共享母版依赖、精确写集见[本批调度合同](demo_wave_01.md)。各线在实际merge SHA启动，旧建议表不代替本批所有权。
 
 | 工作线／模式 | 依赖与写集边界 | 可直接使用的简短Prompt |
 | --- | --- | --- |

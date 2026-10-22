@@ -33,7 +33,9 @@ F / G3–G5 集成：写正式场景/实例/生成池路径和许可证据；通
 
 ## 自动验收
 
-运行 harness gameplay；素材改变加 art。核对 EnemyDefinition 与实际实例一致，真实弹体、暂停/回退/死亡/重复回调、组合场景反例。相关回归见 [核心测试](../../../tests/run_tests.gd) 和 [地区测试入口](../../../tools/run_plains_region_tests.py)。检查资产记录及任务完成条件。 记录实际命令、环境、退出码、日志和版本；计划命令不算执行。执行 [质量检查](../../../tools/quality.py)；静态检查、运行测试、实际宿主调用分别记证据。
+日常Development按 `tools/production_plan.py` 选择相关专项与正式消费者，不每次强制完整gameplay＋art；Integration覆盖受影响完整系统，未知full。最终仍执行原完整适用profile（gameplay，素材改变加art）与Release门槛，局部结果不能升签整套。核对 EnemyDefinition 与实际实例一致，真实弹体、暂停/回退/死亡/重复回调、组合场景反例。相关回归见 [核心测试](../../../tests/run_tests.gd) 和 [地区测试入口](../../../tools/run_plains_region_tests.py)。检查资产记录及任务完成条件。 记录实际命令、环境、退出码、日志和版本；计划命令不算执行。执行 [质量检查](../../../tools/quality.py)；静态检查、运行测试、实际宿主调用分别记证据。
+
+交付按[生产入口](../../../docs/cloud_production.md#按验证需要选择最轻交付)：只需观察用真实MP4，必须操作用Web，两者都需则两份。
 
 ## 人工审查
 

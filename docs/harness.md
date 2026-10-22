@@ -166,3 +166,11 @@ v18新场所用 `--profile forest-places-feedback`（基础20项）或 `--profil
 Development每轮只跑一次docs，并补确定影响的专项及必要导入／解析／Web构建；Integration覆盖受影响系统、共享接口和真实正式消费者；Release沿原完整交付／CI、Windows／Web、GPU／音频、浏览器与公开包验证。未知范围、共享物理／RNG／保存／公共配置按保守完整范围升级。映射不能由任务声明缩减，也不能把用于缓存失效的整树`inputs`当作精确测试依赖证明。
 
 局部成功只签已执行范围；计划、未执行、超时、失败、设备与玩家未验保持原状态。开发Preview发布不等于Release；不能为每次反馈重复昂贵完整流程，也不能用窄检查替代正式合入／发布质量。自动分流以实际workflow为准，Release最终仍需原完整证据。
+
+## 稀疏检出与选定输入预检
+
+按任务加载上下文和历史输入，避免每次拉取全部媒体；[体积审计与提效边界](cloud_efficiency_audit.md)记录本轮数字。选定check／profile先规划所需版本、路径、SHA与物化量，复用原 `required_input_preflight` 的缺件拒绝原则，显式取得原件后再执行。预检／物化不产生测试通过，动态消费者和精确commit证据要求不变。
+
+本轮 `isolated_workspace` 改为no-checkout、复制精确index／sparse规则并只复制实际已物化源；保留staged／普通删除、新增、忽略和用户数据隔离。真实Git反例已验证无关冷blob不被读取；真实游戏与历史消费者结果另见本轮交接，不能把计划或单元测试代作历史消费者已运行。归档迁移也须先实际恢复原字节SHA并跑原消费者，未证明闭包不清理历史证据。
+
+选定输入工具入口为 `python3 tools/cloud_inputs.py --check ID` 或 `--profile NAME`，两者均可重复，支持 `--commit <当前HEAD精确SHA>`、`--output build/<新报告>.json`。默认仅输出缺件按需物化计划，不宣称完整静态依赖图；显式加 `--materialize` 才按原preflight迭代取得嵌套索引所需原件。只允许物化skip-worktree缺件；禁止覆盖本地已有文件，普通删除、目标index漂移或非当前HEAD版本硬拒。HEAD与index路径集合变化／冲突须先提交或解决；允许其他同路径开发修改和无关build输出。对象大小在partial clone中未知时明确列unknown，显式获取后核原Git blob SHA与大小。默认计划退出2表示待物化、0表示输入ready、1表示阻塞，均不代表测试通过；报告只能新建于本工作树build目录。具体运行结果以本轮交接／原始收据为准。

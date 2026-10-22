@@ -1,5 +1,15 @@
 # 最新交接：探索场所原型 v18
 
+## 2026-10-22 总控与提效生产基线（最新）
+
+当前主会话为总控。用户已授权先完成CLOUD-EFFICIENCY-01并通过普通PR合入main，再从PR103的实际merge SHA启动三条独立工作线；[本批Prompt、写集及共享依赖](demo_wave_01.md)为本批调度合同。合入与最终CI状态以[PR103](https://github.com/zhipijun1996/gunman-rush/pull/103)的精确head／merge及check为准，不把执行中签成通过。
+
+本轮提效修复Harness稀疏隔离、增加原preflight驱动的按需输入物化、统一五份相关Skills的短反馈规则。PR使用sparse＋选定输入恢复、两隔离lane与Foundry后重plan；原serial顺序、158项原定义／预算和main完整Release守门保留。历史证据／资源删除0项，冷归档须先恢复原字节与真实消费者。恢复命令与退出码见[Harness](harness.md#稀疏检出与选定输入预检)。
+
+下一批为PLAYER-PRESENTATION-01、ENEMY-FEEDBACK-01、PLAINS-GOLDEN-01。主角脚本本身被共享母版SHA绑定，由总控协调影响分析／独审／重绑；两种敌人表现继承链分别验证。各线独占分支／工作树，不改中央任务文件或自行合main。当前工具可启动本会话的隔离代理；真正独立Cloud会话通过同一Prompt、远端分支和PR恢复，不假定自动唤醒。
+
+以下为此前交付时点的原始状态，新的合入与生产约定以上段及实际Git为准；真实已发布样例仍绑定运行源6ca72ef，不能称作后续工具提交的新游戏构建。
+
 ## 2026-10-22 Cloud生产与交付（最新）
 
 草稿[PR103](https://github.com/zhipijun1996/gunman-rush/pull/103)，分支 `chore/cloud-production-system`，运行源 `6ca72efb1cbdb38cf83ae91c097d192a35403ccd`，未合main。四模式、交付选择、独立托管、影响选择和工作线模板见[生产入口](cloud_production.md)；[真实交付及失败](evidence/cloud_production_01/README.md)包含MP4／Preview和公开全字节／真实GUI。主站build-info前后同一703f9b040e5f/source9c349f44；新开发站独立，没有替换main。

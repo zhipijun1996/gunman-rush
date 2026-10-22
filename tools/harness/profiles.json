@@ -3153,6 +3153,15 @@
       "artifact_paths": [
         "build/cloud_preview"
       ]
+    },
+    "cloud-inputs-tests": {
+      "argv": [
+        "python3",
+        "tests/test_cloud_inputs.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 2
     }
   },
   "profiles": {
@@ -3187,7 +3196,8 @@
       "region-bible-tests",
       "harness-artifact-archive-tests",
       "cloud-production-planner-tests",
-      "cloud-delivery-tests"
+      "cloud-delivery-tests",
+      "cloud-inputs-tests"
     ],
     "core": [
       "docs",
@@ -3217,7 +3227,8 @@
       "forest-region-scheduler-tests",
       "harness-artifact-archive-tests",
       "cloud-production-planner-tests",
-      "cloud-delivery-tests"
+      "cloud-delivery-tests",
+      "cloud-inputs-tests"
     ],
     "gameplay": [
       "docs",
@@ -3348,7 +3359,8 @@
       "harness-artifact-archive-tests",
       "cloud-production-planner-tests",
       "cloud-delivery-tests",
-      "cloud-preview-runtime"
+      "cloud-preview-runtime",
+      "cloud-inputs-tests"
     ],
     "art": [
       "docs",
@@ -3446,7 +3458,8 @@
       "harness-artifact-archive-tests",
       "cloud-production-planner-tests",
       "cloud-delivery-tests",
-      "cloud-preview-runtime"
+      "cloud-preview-runtime",
+      "cloud-inputs-tests"
     ],
     "web": [
       "docs",
@@ -3492,7 +3505,8 @@
       "forest-fruit-contract",
       "harness-artifact-archive-tests",
       "cloud-production-planner-tests",
-      "cloud-delivery-tests"
+      "cloud-delivery-tests",
+      "cloud-inputs-tests"
     ],
     "full": [
       "docs",
@@ -3638,7 +3652,8 @@
       "harness-artifact-archive-tests",
       "cloud-production-planner-tests",
       "cloud-delivery-tests",
-      "cloud-preview-runtime"
+      "cloud-preview-runtime",
+      "cloud-inputs-tests"
     ],
     "creative-feedback": [
       "docs",
@@ -3649,7 +3664,8 @@
       "region-bible-contract",
       "region-bible-tests",
       "cloud-production-planner-tests",
-      "cloud-delivery-tests"
+      "cloud-delivery-tests",
+      "cloud-inputs-tests"
     ],
     "history": [
       "docs",
@@ -3657,7 +3673,8 @@
       "forest-h-slice",
       "visual-director-space",
       "cloud-production-planner-tests",
-      "cloud-delivery-tests"
+      "cloud-delivery-tests",
+      "cloud-inputs-tests"
     ],
     "creative-prototype": [
       "docs",
@@ -3667,7 +3684,8 @@
       "region-bible-contract",
       "region-bible-tests",
       "cloud-production-planner-tests",
-      "cloud-delivery-tests"
+      "cloud-delivery-tests",
+      "cloud-inputs-tests"
     ],
     "regional-art-feedback": [
       "docs",
@@ -3675,7 +3693,8 @@
       "plains-regional-art-graph-counterexamples",
       "plains-regional-art-contract",
       "cloud-production-planner-tests",
-      "cloud-delivery-tests"
+      "cloud-delivery-tests",
+      "cloud-inputs-tests"
     ],
     "region-bible-feedback": [
       "region-bible-contract",
@@ -3683,7 +3702,8 @@
       "forest-bible-sfx-source",
       "generated-consumers",
       "cloud-production-planner-tests",
-      "cloud-delivery-tests"
+      "cloud-delivery-tests",
+      "cloud-inputs-tests"
     ],
     "forest-exploration-feedback": [
       "docs",
@@ -3692,25 +3712,29 @@
       "forest-exploration-wrapper-tests",
       "forest-exploration-contract",
       "cloud-production-planner-tests",
-      "cloud-delivery-tests"
+      "cloud-delivery-tests",
+      "cloud-inputs-tests"
     ],
     "forest-varied-feedback": [
       "docs",
       "forest-varied-feedback",
       "cloud-production-planner-tests",
-      "cloud-delivery-tests"
+      "cloud-delivery-tests",
+      "cloud-inputs-tests"
     ],
     "forest-places-feedback": [
       "docs",
       "forest-places-feedback",
       "cloud-production-planner-tests",
-      "cloud-delivery-tests"
+      "cloud-delivery-tests",
+      "cloud-inputs-tests"
     ],
     "forest-library-feedback": [
       "docs",
       "forest-library-feedback",
       "cloud-production-planner-tests",
-      "cloud-delivery-tests"
+      "cloud-delivery-tests",
+      "cloud-inputs-tests"
     ]
   }
 }

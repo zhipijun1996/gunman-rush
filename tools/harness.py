@@ -511,16 +511,74 @@ def cached_result(check, cache_file, log, expected_digest=None):
 
 
 def isolated_workspace(destination, files, setup_log=None):
+    diagnostics = bytearray()
+
+    def git(root, *arguments, optional=False):
+        result = subprocess.run(["git", "-C", str(root), *arguments],
+                                capture_output=True, timeout=60)
+        diagnostics.extend(result.stdout + result.stderr)
+        if result.returncode and not (optional and result.returncode == 1):
+            raise subprocess.CalledProcessError(result.returncode, result.args,
+                                                output=result.stdout, stderr=result.stderr)
+        return result.stdout.decode().strip()
+
+    def git_path(root, name):
+        value = Path(git(root, "rev-parse", "--git-path", name))
+        return value if value.is_absolute() else root / value
+
     try:
-        result = subprocess.run(["git", "clone", "--quiet", "--shared", "--no-hardlinks", str(ROOT), str(destination)],
+        # Never checkout HEAD here: a sparse parent can intentionally lack GiB
+        # of historical blobs. A normal clone hydrates them before the overlay
+        # can remove them. Borrow objects without reading any tree-file bytes.
+        result = subprocess.run(["git", "clone", "--quiet", "--shared", "--no-hardlinks", "--no-checkout", str(ROOT), str(destination)],
                                 check=True, capture_output=True, timeout=60)
+        diagnostics.extend(result.stdout + result.stderr)
+        # The parent's real index retains staged additions/deletions/conflicts,
+        # intent-to-add and skip-worktree bits. Rebuilding it from HEAD would
+        # change Git semantics and resurrect a staged deletion in the lane.
+        source_index = git_path(ROOT, "index")
+        target_index = git_path(destination, "index")
+        if source_index.is_file():
+            shutil.copy2(source_index, target_index)
+            shared_index = git(ROOT, "rev-parse", "--shared-index-path")
+            if shared_index:
+                shared_index = Path(shared_index)
+                if not shared_index.is_absolute():
+                    shared_index = ROOT / shared_index
+                shutil.copy2(shared_index, target_index.parent / shared_index.name)
+        else:
+            git(destination, "read-tree", "--empty")
+        for key in ("core.sparseCheckout", "core.sparseCheckoutCone", "index.sparse"):
+            value = git(ROOT, "config", "--type=bool", "--get", key, optional=True)
+            if value:
+                git(destination, "config", key, value)
+        for name in ("info/sparse-checkout", "info/exclude", "info/attributes"):
+            source = git_path(ROOT, name)
+            if source.is_file():
+                target = git_path(destination, name)
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(source, target)
+        excludes = git(ROOT, "config", "--path", "--get", "core.excludesFile", optional=True)
+        if excludes:
+            exclude_path = Path(excludes)
+            if not exclude_path.is_absolute():
+                exclude_path = ROOT / exclude_path
+            # Preserve effective ignore bytes without pointing a lane at a
+            # mutable file in the parent checkout or another lane.
+            target = git_path(destination, "info/isolated-excludes")
+            target.parent.mkdir(parents=True, exist_ok=True)
+            if exclude_path.is_file():
+                shutil.copy2(exclude_path, target)
+            git(destination, "config", "core.excludesFile", str(target))
     except (subprocess.CalledProcessError, subprocess.TimeoutExpired) as error:
         output = (getattr(error, "stdout", None) or b"") + (getattr(error, "stderr", None) or b"")
+        if not diagnostics.endswith(output):
+            diagnostics.extend(output)
         if setup_log is not None:
-            Path(setup_log).write_bytes(output)
-        raise RuntimeError("Isolation clone failed: " + output.decode(errors="replace")[-4000:]) from error
+            Path(setup_log).write_bytes(diagnostics)
+        raise RuntimeError("Isolation clone failed: " + diagnostics.decode(errors="replace")[-4000:]) from error
     if setup_log is not None:
-        Path(setup_log).write_bytes(result.stdout + result.stderr)
+        Path(setup_log).write_bytes(diagnostics)
     # Overlay the exact working source, including deletions and new files.
     for path in files:
         source, target = ROOT / path, destination / path

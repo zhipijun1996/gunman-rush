@@ -35,7 +35,7 @@ Web导出遇到 `Foundry source changed after validation`，先检查现有开�
 
 ## 提效执行顺序（2026-10-14）
 
-先交付一个真实消费者的完整动作样板，提前验证移动中附件衔接、墙边碰撞、触屏多指、伸缩/过渡动画及正常速度连续音画，再批量扩展。开发使用harness --check定位与--jobs隔离并行；--reuse仅复用完全相同依赖的证明。最终使用tools/deliver.py与--release的新鲜完整检查；也可由同一冻结SHA的正式CI完成全部fresh core/art、GPU/audio、Windows/Web，再以tools/verify_ci_artifact_browser.py对该CI唯一API digest绑定的实际ZIP/PCK执行三个原浏览器消费者，并单列同源原生连续动作影片。两种方式都必须核对公开PCK完整SHA，不把失败的本地deliver追认为通过；任何缓存不能代替独立/设备/玩家认可。规则、命令与删除边界见[交付提效](../../../docs/delivery_efficiency.md)。
+先交付一个真实消费者的完整动作样板，提前验证移动中附件衔接、墙边碰撞、触屏多指、伸缩/过渡动画及正常速度连续音画，再批量扩展。开发使用harness --check定位；sparse工作区的并行按下节保护，隔离修复经本轮实测后再启用。--reuse仅复用完全相同依赖的证明。最终使用tools/deliver.py与--release的新鲜完整检查；也可由同一冻结SHA的正式CI完成全部fresh core/art、GPU/audio、Windows/Web，再以tools/verify_ci_artifact_browser.py对该CI唯一API digest绑定的实际ZIP/PCK执行三个原浏览器消费者，并单列同源原生连续动作影片。两种方式都必须核对公开PCK完整SHA，不把失败的本地deliver追认为通过；任何缓存不能代替独立/设备/玩家认可。规则、命令与删除边界见[交付提效](../../../docs/delivery_efficiency.md)。
 
 发布前运行 `python3 tools/check_release_evidence.py --commit HEAD`：证据路径必须存在于该精确Git提交的普通文件树，不能因本机build尚存而放行。原quality schema/SHA检查继续执行；必要时在无旧build的干净checkout实际复核。实际A3缺9件的失败及无损迁移用于此守门正反例，不改签旧来源或以最终trace覆盖失败原件。
 
@@ -55,6 +55,14 @@ Web导出遇到 `Foundry source changed after validation`，先检查现有开�
 
 按[生产入口](../../../docs/cloud_production.md)和[工作线模板](../../../docs/templates/cloud_workline.md)建立独立任务；不重复原质量框架。四模式可切换，按实际验证需求选择短片、独立Web、两者或工程报告。观察型局部变化可只交真实Godot短片；用户需操作时交独立Preview。短片需真实下载地址、来源SHA、复现条件及before缺失／差异说明，不能静图伪造。
 
-独立Preview托管仓库与正式Pages分开，任务／PR／SHA／Seed／build绑定，目标场景可直达并有完整游戏入口。旧`deploy-prepared-playtest.yml`仍是整站替换工具，不用它冒充工作线隔离；未完成部署不能复用旧站签新成果。公开后核真实metadata／完整PCK和实际入口，媒体artifact说明登录与有效期，稳定分享使用真实Release资产URL。
+独立Preview托管仓库与正式Pages分开，任务／PR／SHA／Seed／build绑定，目标场景可直达并有完整游戏入口。旧`deploy-prepared-playtest.yml`仍是整站替换工具，不用它冒充工作线隔离；未完成部署不能复用旧站签新成果。公开后核真实metadata／完整PCK和实际入口，媒体artifact说明登录与有效期。本轮Release资产上传已实际返回HTTP 401，不能假定有上传权限；当前稳定MP4下载使用已验证的独立Pages文件地址，未来其他渠道同样须核验真实下载。
 
 开发／集成计划用`tools/production_plan.py --stage development|integration --base <真实基线>`，执行加`--execute`，保持原Harness检查与预算。Release继续原完整正式门槛。每任务明确共享资源所有者，生产线不默认合main；总控合入检查Git、资源／UID／导入、接口／信号、参数／Definition、保存／Manifest和真实消费者，不能只看无冲突。检查点／人工反馈复用原生产协议，不假定Cloud会话实时互通或自动唤醒。
+
+## 按需上下文与稀疏工作区提效
+
+先读AGENTS、当前状态、交接及任务相关权威／Skill，再按真实消费者取需要的历史原件；不默认加载全部历史文档、媒体或旧失败全文。历史证据提效边界见[审计](../../../docs/cloud_efficiency_audit.md)。partial／sparse只减少下载，不能把缺文件视为无消费者，或为修链接而直接删除历史证据。
+
+选定输入入口见[Harness](../../../docs/harness.md#稀疏检出与选定输入预检)：`tools/cloud_inputs.py --check ID`／`--profile NAME`默认只计划，`--materialize`显式物化，结果以实际收据为准。执行选定check／profile前先预检所需输入、精确版本、SHA和预计物化量；缺件明确阻塞，显式物化后再验证，不把预检当测试通过。复用原 `required_input_preflight` 语义，不由检查名称猜测动态依赖。sparse工作区当前先用 `--jobs 1`；只有本轮隔离修复及相关消费者真实复验通过后，才在已验证scope启用 `--jobs > 1`，不能沿旧建议先全checkout放大历史下载。
+
+归档先在新目录恢复并核原路径／字节SHA，再跑原消费者与精确commit守门；闭包未证明则保留原件。禁止以远程URL直接替换旧quality依赖，不rewrite历史、不强推；本轮源码历史证据及资源实际删除0项。

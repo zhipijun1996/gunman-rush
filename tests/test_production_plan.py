@@ -45,6 +45,23 @@ class ProductionPlanTests(unittest.TestCase):
         self.assertEqual(plan["selection"], "full")
         self.assertEqual(plan["escalations"][0]["path"], "scripts/art/new_global_controller.gd")
 
+    def test_formal_player_body_retains_style_binding_and_full_integration(self):
+        for path in ("scripts/underworld_plains/underworld_player.gd",
+                     "assets/characters/courier/courier_visual.gd"):
+            with self.subTest(path=path):
+                development = self.plan([path])
+                self.assertEqual(development["selection"], "affected_checks")
+                self.assertIn("underworld-player-animation", development["checks"])
+                self.assertIn("region-bible-contract", development["checks"])
+                self.assertEqual(self.plan([path], "integration")["selection"], "full")
+
+    def test_formal_enemy_mapping_does_not_admit_unreviewed_components(self):
+        path = "scripts/underworld_plains/underworld_enemy.gd"
+        self.assertIn("underworld-damage-feedback", self.plan([path])["checks"])
+        self.assertEqual(self.plan([path])["selection"], "affected_checks")
+        self.assertEqual(self.plan([path], "integration")["selection"], "full")
+        self.assertEqual(self.plan(["scripts/underworld_plains/new_enemy.gd"])["selection"], "full")
+
     def test_physics_rng_save_config_and_scene_cannot_hide_in_docs_changes(self):
         for path in ("config/player_tuning.json", "config/input_profile.json", "scripts/player/player_motor.gd", "scripts/generation/new_rng.gd", "scripts/save/new_save.gd", "scenes/player.tscn", "resources/foo.tres", "project.godot", ".github/workflows/new.yml"):
             with self.subTest(path=path):

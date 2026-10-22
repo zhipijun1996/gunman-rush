@@ -5,7 +5,9 @@ name: Production impact
 # Main and explicit release keep the original environment.yml release gates.
 on:
   pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
+    # Drafts already run these same exact-SHA checks. Marking a tested draft
+    # ready changes no source and must not launch another expensive full run.
+    types: [opened, synchronize, reopened]
   workflow_dispatch:
     inputs:
       stage:
@@ -43,9 +45,12 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
           fetch-depth: 0
-          # Keep full ancestry for base...HEAD; hydrate historical blobs only
-          # when an existing historical fixture actually reads them.
-          filter: blob:none
+          # checkout enables blob filtering for sparse inputs. Keep ancestry for
+          # base...HEAD, then hydrate only the selected preflight's real inputs.
+          sparse-checkout: |
+            /*
+            !/docs/evidence/
+          sparse-checkout-cone-mode: false
           persist-credentials: false
       - uses: actions/setup-python@v5
         with:
@@ -61,13 +66,10 @@ jobs:
         run: |
           mkdir -p build/verification/production-ci
           python3 tests/test_production_plan.py 2>&1 | tee build/verification/production-ci/selector-tests.log
-      - name: Validate PR quality and guard changes against its actual base
-        if: github.event_name == 'pull_request'
-        run: python3 tools/check_quality_diff.py --base "$PRODUCTION_BASE" 2>&1 | tee build/verification/production-ci/quality-diff.log
       - name: Plan actual changed paths before installing an engine
         id: impact
         run: |
-          python3 tools/production_plan.py --base "$PRODUCTION_BASE" --stage "$PRODUCTION_STAGE" --plan --jobs 1 --output build/verification/production-ci/plan.json
+          python3 tools/production_plan.py --base "$PRODUCTION_BASE" --stage "$PRODUCTION_STAGE" --plan --jobs 2 --output build/verification/production-ci/plan.json
           python3 - <<'PY'
           import json
           import os
@@ -80,6 +82,27 @@ jobs:
               output.write('needs_engine=' + str(needs_engine).lower() + '\n')
               output.write('needs_web=' + str('web-build' in checks).lower() + '\n')
           PY
+      - name: Materialize selected original inputs without checking out all historical media
+        run: |
+          python3 - <<'PY'
+          import json
+          import subprocess
+          import sys
+          from pathlib import Path
+          plan = json.loads(Path('build/verification/production-ci/plan.json').read_text())
+          command = [sys.executable, 'tools/cloud_inputs.py', '--materialize', '--output',
+                     'build/verification/production-ci/inputs.json']
+          for check in plan['checks']:
+              command.extend(['--check', check])
+          with Path('build/verification/production-ci/inputs.log').open('w') as log:
+              result = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT)
+          if result.returncode:
+              print(Path('build/verification/production-ci/inputs.log').read_text())
+          raise SystemExit(result.returncode)
+          PY
+      - name: Validate PR quality and guard changes against its actual base
+        if: github.event_name == 'pull_request'
+        run: python3 tools/check_quality_diff.py --base "$PRODUCTION_BASE" 2>&1 | tee build/verification/production-ci/quality-diff.log
       - name: Install media dependencies required by existing docs and readers
         timeout-minutes: 5
         run: |
@@ -126,7 +149,24 @@ jobs:
         run: |
           # Re-plan after the original export preparation: its real resource
           # changes remain visible and may conservatively upgrade to full.
-          python3 tools/production_plan.py --base "$PRODUCTION_BASE" --stage "$PRODUCTION_STAGE" --execute --jobs 1 --output build/verification/production-ci/execution-plan.json 2>&1 | tee build/verification/production-ci/execute.log
+          python3 tools/production_plan.py --base "$PRODUCTION_BASE" --stage "$PRODUCTION_STAGE" --plan --jobs 2 --output build/verification/production-ci/pre-execution-plan.json
+          python3 - <<'PY'
+          import json
+          import subprocess
+          import sys
+          from pathlib import Path
+          plan = json.loads(Path('build/verification/production-ci/pre-execution-plan.json').read_text())
+          command = [sys.executable, 'tools/cloud_inputs.py', '--materialize', '--output',
+                     'build/verification/production-ci/pre-execution-inputs.json']
+          for check in plan['checks']:
+              command.extend(['--check', check])
+          with Path('build/verification/production-ci/pre-execution-inputs.log').open('w') as log:
+              result = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT)
+          if result.returncode:
+              print(Path('build/verification/production-ci/pre-execution-inputs.log').read_text())
+          raise SystemExit(result.returncode)
+          PY
+          python3 tools/production_plan.py --base "$PRODUCTION_BASE" --stage "$PRODUCTION_STAGE" --execute --jobs 2 --output build/verification/production-ci/execution-plan.json 2>&1 | tee build/verification/production-ci/execute.log
       - name: Preserve plans, actual failures, per-check logs and original receipts
         if: always()
         uses: actions/upload-artifact@v4

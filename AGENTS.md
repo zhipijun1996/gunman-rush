@@ -8,7 +8,7 @@
 
 最新交付按实际评审需要选择：观察即可评价的局部变化优先真实Godot约10–30秒MP4；必须操作的交互／能力／AI／整区优先独立真实Godot Web Preview；细节与操作皆需时两者都有；纯工程交测试与指标。此规则覆盖此前把所有可视化原型一律要求网页的交付形式；用户明确要求操作时仍给真实试玩。录像尽可能同Seed／输入／镜头／分辨率／条件before-after；缺before或条件差异明示，禁止静图拼接和伪造动画。
 
-开发Preview与正式Pages隔离，绑定任务／PR／源码SHA／Seed／build，保留完整游戏入口与必要历史；未部署不得用旧URL冒充新成果。MP4必须有真实文件下载链接或明确包含MP4的artifact归档；注明登录／过期，公开分享优先稳定Release资产。技术、玩家、真机认可仍分开。
+开发Preview与正式Pages隔离，绑定任务／PR／源码SHA／Seed／build，保留完整游戏入口与必要历史；未部署不得用旧URL冒充新成果。MP4必须有真实文件下载链接或明确包含MP4的artifact归档；注明登录／过期，公开分享使用实际验证可用的独立Pages、Release资产等稳定渠道。技术、玩家、真机认可仍分开。
 
 影响计划用 `python3 tools/production_plan.py --stage development|integration|release --base origin/main`，默认只计划，`--execute`调用原验证。Development只选相关检查，Integration补完整受影响系统和正式消费者，Release保原完整CI／导出／部署守门；未知依赖保守升级，不删断言、不放预算、不把未跑写通过。本地Development、PR自动Integration、手动Development／Integration分流，主题push不重复触发完整CI；main及手动原Godot core保完整Release，实际运行状态以workflow与证据为准。
 
@@ -37,7 +37,7 @@
 
 森林荆棘按[用户最新平台覆生要求与原参考图](docs/creative_direction/bibles/thorn-covered-platforms-20261021.json)制作：真实根枝/平台承载缠绕藤体与刺面，不能用独立刺砖、矩形框或跨空假根代替。新区域同样按真实宿主/危险方向审查装饰与伤害关系；最近平台的字符串标注不等于已贴附。原区域Bible与共享画风继续有效，参考图仅借生长关系，不移用其项目画风或素材。
 
-先读 [当前状态](docs/current_state.md)、[交接](docs/handoff.md)，检查 Git 工作区，再选择 [任务](docs/tasks.md)。用户最新指令优先；当前状态列出的最新修订覆盖同主题旧段落。历史记录和开发 fixture 不代表正式规则。
+先读 [当前状态](docs/current_state.md)、[交接](docs/handoff.md)的最新段落，检查 Git 工作区，再在 [任务](docs/tasks.md) 定位当前任务ID及其直接依赖；历史正文和旧证据按消费者需要读取，不默认全量加载。用户最新指令优先；当前状态列出的最新修订覆盖同主题旧段落。历史记录和开发 fixture 不代表正式规则。
 
 | 范围 | 权威来源 |
 | --- | --- |
