@@ -1,0 +1,149 @@
+{
+  "schema_version": 1,
+  "started_at": "20261022T112509.755656Z",
+  "profiles": [
+    "docs"
+  ],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "aim-save-compat",
+      "argv": [
+        "python3",
+        "tools/run_aim_save_compat_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "input_digest": "fea012bbddec2bc2e35030967ac96ffcd94c008f6dedaee92218949b7a8e1a44",
+      "log": "aim-save-compat.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792668323.6580253,
+      "ended_at_unix": 1792668359.9650912,
+      "duration_seconds": 36.307,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_aim_save_compat_tests.py"
+      ],
+      "check_token": "d63ead51201a4b1a98ef90d5dd3100dc",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T112509.755656Z/artifacts/aim-save-compat",
+      "reused": false
+    },
+    {
+      "id": "root-bell-tests",
+      "argv": [
+        "python3",
+        "tools/run_root_bell_formal.py",
+        "--g1"
+      ],
+      "timeout_seconds": 360,
+      "input_digest": "0911a7aaa4f7caee02b70e702fe9eb14f9813a84d2eda3e32b120e96626bf56d",
+      "log": "root-bell-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792668322.421733,
+      "ended_at_unix": 1792668401.5172741,
+      "duration_seconds": 79.096,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_root_bell_formal.py",
+        "--g1"
+      ],
+      "check_token": "54d341c2198945d3b63143711afc5057",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T112509.755656Z/artifacts/root-bell-tests",
+      "reused": false
+    },
+    {
+      "id": "plains-autonomy-golden",
+      "argv": [
+        "python3",
+        "tools/run_plains_autonomy_tests.py"
+      ],
+      "timeout_seconds": 480,
+      "input_digest": "6ac6386361079d475336896fe962439717858e2bb5cec8cfd039cc10721b1b8e",
+      "log": "plains-autonomy-golden.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792668402.8128657,
+      "ended_at_unix": 1792668412.079125,
+      "duration_seconds": 9.266,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_plains_autonomy_tests.py"
+      ],
+      "check_token": "787c58927411416b844d16158e777b6a",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T112509.755656Z/artifacts/plains-autonomy-golden",
+      "reused": false
+    },
+    {
+      "id": "plains-action-golden",
+      "argv": [
+        "python3",
+        "tools/run_plains_action_golden_tests.py"
+      ],
+      "timeout_seconds": 420,
+      "input_digest": "fb9111f4aadff8e30952b72894a5ae34f789cc97ee1d116d51461b42d923a696",
+      "log": "plains-action-golden.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792668360.4441814,
+      "ended_at_unix": 1792668371.4174783,
+      "duration_seconds": 10.973,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_plains_action_golden_tests.py"
+      ],
+      "check_token": "4f9ac4f797d34bd88848511e1882889a",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T112509.755656Z/artifacts/plains-action-golden",
+      "reused": false
+    },
+    {
+      "id": "plains-encounter-policy",
+      "argv": [
+        "python3",
+        "tools/run_plains_encounter_policy_tests.py"
+      ],
+      "timeout_seconds": 600,
+      "input_digest": "63d26bf86376a206b545bc598430be017c8a0b1a84041ff4b9a5727cab826b74",
+      "log": "plains-encounter-policy.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792668412.4887815,
+      "ended_at_unix": 1792668645.815547,
+      "duration_seconds": 233.327,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_plains_encounter_policy_tests.py"
+      ],
+      "check_token": "8c8e8938d9b444f29ce485e305bdb4f1",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T112509.755656Z/artifacts/plains-encounter-policy",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "0eaa8fce58e987e2ddc7b1d248988042ce4ae9dab8bed4de0ac3595b84732c91",
+  "working_files": {
+    "docs/evidence/cloud_efficiency_01/README.md": "03b15cf85b6eced47505457998e3249870525bbbbfa283719403f05971e6adac",
+    "docs/evidence/cloud_efficiency_01/failures/ci83-sparse-fixture/aim-save-compat.log.gz": "e5166e90b2e3d3523c68dafa6c9d2959b52e337757e9ac2b3cc070edb889aa1d",
+    "docs/evidence/cloud_efficiency_01/failures/ci83-sparse-fixture/data-receipt.json": "1f30d5b60f3cba4cbdedb4e66b5746c484f449aa10ffeaa8d3e99dfeb2385f74",
+    "docs/evidence/cloud_efficiency_01/failures/ci83-sparse-fixture/data.log": "bc2990233ebd13abbeec9baffb0ca6efb24fa81e79c9de43b594f3a3cb5a7975",
+    "docs/evidence/cloud_efficiency_01/failures/ci83-sparse-fixture/receipt.json": "e353640868f46edd6a809275165f8c514340f6b2e9b9c5aee1dfeaaf3e9a4ccd",
+    "docs/evidence/cloud_efficiency_01/failures/ci83-sparse-fixture/report.json.gz": "d291d7ef8d303395880f81986304e040e40dd5718f6696e5e09281b6a464747b",
+    "docs/quality/records/CLOUD-EFFICIENCY-01.json": "390fae62c7ba7f6745821c5198fe9d1e9f910da4bd56bffc54262982a95d77a2"
+  },
+  "commit": "4950311203b8a03d1e622122f196b1cdc6c5039d",
+  "git_status": "M docs/evidence/cloud_efficiency_01/README.md\n M docs/quality/records/CLOUD-EFFICIENCY-01.json\n?? docs/evidence/cloud_efficiency_01/failures/ci83-sparse-fixture/",
+  "diff": "diff --git a/docs/evidence/cloud_efficiency_01/README.md b/docs/evidence/cloud_efficiency_01/README.md\nindex f825468..4d80e1b 100644\n--- a/docs/evidence/cloud_efficiency_01/README.md\n+++ b/docs/evidence/cloud_efficiency_01/README.md\n@@ -23,4 +23,6 @@\n \n - [闭包修复后首次production_loop失败](failures/production-loop-closure-v1.log.gz)：真实115项中24项因新依赖未恢复失败；原日志保留。实际恢复之后的[115项新运行](production-loop-preflight-after-hydration.log)通过；后续完整docs在独立运行目录再次通过。\n \n+- [精确83bbb26远端Integration失败](failures/ci83-sparse-fixture/receipt.json)：64项通过，aim-save-compat因原inputs未声明其真实历史Manifest而失败，其余未执行。[原report](failures/ci83-sparse-fixture/report.json.gz)、[检查完整log](failures/ci83-sparse-fixture/aim-save-compat.log.gz)及data阶段收据保留。补充真实依赖后必须fresh复验，不改存档断言或原预算。\n+\n Gzip保存原JSON／日志完整字节，`gzip -dc <file>`可恢复；没有截去原失败段落。完整CI、Release、用户审美／手感／趣味、实体设备均不由上述局部工程收据代签。实际公开录像和Preview仍使用[原交付源6ca72ef](../cloud_production_01/README.md)，本轮工具提交没有伪造新游戏包。\ndiff --git a/docs/quality/records/CLOUD-EFFICIENCY-01.json b/docs/quality/records/CLOUD-EFFICIENCY-01.json\nindex f61779e..3cb8ffb 100644\n--- a/docs/quality/records/CLOUD-EFFICIENCY-01.json\n+++ b/docs/quality/records/CLOUD-EFFICIENCY-01.json\n@@ -10,7 +10,7 @@\n   \"purpose\": \"Reduce Cloud historical downloads and safely isolate exact prepared sources without lowering quality gates\",\n   \"player_experience\": \"Faster bounded engineering feedback preserves real game and human/device acceptance boundaries\",\n   \"constraints\": [\n-    \"All original check definitions, assertions, timeouts and profile prefixes retained\",\n+    \"All original check commands, assertions, timeouts and profile prefixes retained; add the actually read retained fixtures to original inputs\",\n     \"No core gameplay or historical evidence/resource deletion; no history rewrite\",\n     \"Missing, changed or corrupt required inputs fail; hydration is never test PASS\",\n     \"Existing policy classifies config/production_impact.json under production paths; use small_fix with formal_impact=false for this nonvisual routing metadata/tooling change instead of exempting it from the policy\"\n@@ -386,5 +386,5 @@\n     \"Exact final-SHA Integration CI pending at this checkpoint; use PR103 actual check status\",\n     \"Original main/manual complete Release and physical devices/player quality remain separate\"\n   ],\n-  \"test_change_justification\": \"Keep all 158 original check contracts and original profile prefixes. Append cloud-inputs-tests; preserve all existing test assertions. New real sparse/partial Git, deletion, corruption, transport and execution counterexamples. Finite formal-player/enemy Development paths retain full Integration and shared Bible guard. Exact-HEAD CI remains mandatory; original main/manual Release remains. Also append the unchanged existing portable frozen-asset test with its exact fixture directory so sparse CI restores the actual pre-export consumer dependency; its new registration has independent review and will run in complete docs/CI.\"\n+  \"test_change_justification\": \"Keep all 158 original check contracts and original profile prefixes. Append cloud-inputs-tests; preserve all existing test assertions. New real sparse/partial Git, deletion, corruption, transport and execution counterexamples. Finite formal-player/enemy Development paths retain full Integration and shared Bible guard. Exact-HEAD CI remains mandatory; original main/manual Release remains. Also append the unchanged existing portable frozen-asset test with its exact fixture directory so sparse CI restores the actual pre-export consumer dependency; its new registration has independent review and will run in complete docs/CI. CI83 exposed one undeclared historical fixture; finite read-only transitive audit identified five affected native checks. Extend their existing inputs (runtime roots when absent) only, retain all argv/assertions/success patterns/timeouts/serial flags and keep the actual failed run. Metadata is not a complete inferred graph.\"\n }",
+  "untracked": "docs/evidence/cloud_efficiency_01/failures/ci83-sparse-fixture/aim-save-compat.log.gz\ndocs/evidence/cloud_efficiency_01/failures/ci83-sparse-fixture/data-receipt.json\ndocs/evidence/cloud_efficiency_01/failures/ci83-sparse-fixture/data.log\ndocs/evidence/cloud_efficiency_01/failures/ci83-sparse-fixture/receipt.json\ndocs/evidence/cloud_efficiency_01/failures/ci83-sparse-fixture/report.json.gz",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 339.687,
+  "jobs": 2,
+  "release": true
+}

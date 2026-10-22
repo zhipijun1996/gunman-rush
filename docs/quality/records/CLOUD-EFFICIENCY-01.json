@@ -4,13 +4,13 @@
   "task_type": "small_fix",
   "workflow": "review",
   "baseline_commit": "97c060f33192ea560874da7348c907c80d780bd1",
-  "reviewed_commit": "0ca0474ccdf82ca62bf67c87c99af0aec5703725",
-  "content_version": "cloud-efficiency-v1",
+  "reviewed_commit": "1c0332e3960bc3582473d364a66aeb804bcabb76",
+  "content_version": "cloud-efficiency-v2",
   "owner": "/root",
   "purpose": "Reduce Cloud historical downloads and safely isolate exact prepared sources without lowering quality gates",
   "player_experience": "Faster bounded engineering feedback preserves real game and human/device acceptance boundaries",
   "constraints": [
-    "All original check definitions, assertions, timeouts and profile prefixes retained",
+    "All original check commands, assertions, timeouts and profile prefixes retained; add the actually read retained fixtures to original inputs",
     "No core gameplay or historical evidence/resource deletion; no history rewrite",
     "Missing, changed or corrupt required inputs fail; hydration is never test PASS",
     "Existing policy classifies config/production_impact.json under production paths; use small_fix with formal_impact=false for this nonvisual routing metadata/tooling change instead of exempting it from the policy"
@@ -70,7 +70,48 @@
     "docs/evidence/cloud_efficiency_01/docs-v2/visual-director-tests.log",
     "docs/evidence/cloud_efficiency_01/docs-v2/world-design-tests.log",
     "docs/evidence/cloud_efficiency_01/docs-v2/world.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/asset-family-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/capture-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/cloud-delivery-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/cloud-inputs-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/cloud-production-planner-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/consumer-coverage-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/creative-direction-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/creative-direction.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/docs.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/harness-artifact-archive-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/harness-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/lane-0-setup.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/lane-1-setup.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/level-design-analysis.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/level-design-contracts.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/level-design-golden-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/level-design-routing.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/level-experience.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/level-formal-receipts.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/level-region-context.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/mechanism-comparisons.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/portable-frozen-assets.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/production-loop-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/quality-drills.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/quality-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/quality.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/region-bible-contract.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/region-bible-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/report.json",
+    "docs/evidence/cloud_efficiency_01/docs-v3/structure.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/terrain-tile-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/underworld-home-guard-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/underworld-pipeline.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/visual-director-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/world-design-tests.log",
+    "docs/evidence/cloud_efficiency_01/docs-v3/world.log",
     "docs/evidence/cloud_efficiency_01/efficiency-docs-inputs-closure-v2.json",
+    "docs/evidence/cloud_efficiency_01/failures/ci83-sparse-fixture/aim-save-compat.log.gz",
+    "docs/evidence/cloud_efficiency_01/failures/ci83-sparse-fixture/data-receipt.json",
+    "docs/evidence/cloud_efficiency_01/failures/ci83-sparse-fixture/data.log",
+    "docs/evidence/cloud_efficiency_01/failures/ci83-sparse-fixture/receipt.json",
+    "docs/evidence/cloud_efficiency_01/failures/ci83-sparse-fixture/report.json.gz",
     "docs/evidence/cloud_efficiency_01/failures/docs-closure-v1/docs.log.gz",
     "docs/evidence/cloud_efficiency_01/failures/docs-closure-v1/lane-0-setup.log.gz",
     "docs/evidence/cloud_efficiency_01/failures/docs-closure-v1/lane-1-setup.log.gz",
@@ -92,6 +133,19 @@
     "docs/evidence/cloud_efficiency_01/isolated-history/receipt.json",
     "docs/evidence/cloud_efficiency_01/isolated-history/report.json",
     "docs/evidence/cloud_efficiency_01/isolated-history/setup.log",
+    "docs/evidence/cloud_efficiency_01/local-v2-review.json",
+    "docs/evidence/cloud_efficiency_01/metadata-v3-review.json",
+    "docs/evidence/cloud_efficiency_01/native-fixture-inputs.json",
+    "docs/evidence/cloud_efficiency_01/native-fixtures-v2/aim-save-compat.log",
+    "docs/evidence/cloud_efficiency_01/native-fixtures-v2/lane-0-setup.log",
+    "docs/evidence/cloud_efficiency_01/native-fixtures-v2/lane-1-setup.log",
+    "docs/evidence/cloud_efficiency_01/native-fixtures-v2/plains-action-golden.log",
+    "docs/evidence/cloud_efficiency_01/native-fixtures-v2/plains-autonomy-golden.log",
+    "docs/evidence/cloud_efficiency_01/native-fixtures-v2/plains-encounter-policy.log",
+    "docs/evidence/cloud_efficiency_01/native-fixtures-v2/report.json",
+    "docs/evidence/cloud_efficiency_01/native-fixtures-v2/root-bell-tests.log",
+    "docs/evidence/cloud_efficiency_01/native-input-audit.json",
+    "docs/evidence/cloud_efficiency_01/native-inputs-review.json",
     "docs/evidence/cloud_efficiency_01/native/cloud-delivery-tests.log",
     "docs/evidence/cloud_efficiency_01/native/cloud-inputs-tests.log",
     "docs/evidence/cloud_efficiency_01/native/cloud-preview-runtime.log",
@@ -104,6 +158,8 @@
     "docs/evidence/cloud_efficiency_01/native/report.json",
     "docs/evidence/cloud_efficiency_01/production-loop-preflight-after-hydration.log",
     "docs/evidence/cloud_efficiency_01/promisor-summary.json",
+    "docs/evidence/cloud_efficiency_01/python-input-audit.json",
+    "docs/evidence/cloud_efficiency_01/python-input-audit.txt",
     "docs/evidence/cloud_efficiency_01/real-root-summary.json",
     "docs/evidence/cloud_efficiency_01/review-final-local.json",
     "docs/evidence/cloud_efficiency_01/review-v1.json",
@@ -159,14 +215,10 @@
     },
     "G4": {
       "status": "unverified",
-      "reason": "Fresh local complete docs33 and recorded native/isolated consumers passed; final exact-SHA Integration and main Release remain separate",
+      "reason": "Current local docs33 passed; original-source native5 and previous transport/engine proofs remain separately labelled historical supports. Final exact-head full Integration and main Release pending",
       "evidence": [
-        "native",
-        "history",
-        "inputs",
-        "review",
         "docs",
-        "closure"
+        "review"
       ]
     },
     "G5": {
@@ -178,18 +230,16 @@
   "dimensions": {
     "design": {
       "status": "passed",
-      "reason": "Only the explicitly recorded local engineering scope; final exact-SHA CI and Release remain separate",
+      "reason": "Only current bounded local engineering scope; final full Integration, Release, player and device acceptance remain separate",
       "evidence": [
         "spec"
       ]
     },
     "technical": {
       "status": "passed",
-      "reason": "Only the explicitly recorded local engineering scope; final exact-SHA CI and Release remain separate",
+      "reason": "Only current bounded local engineering scope; final full Integration, Release, player and device acceptance remain separate",
       "evidence": [
-        "native",
-        "history",
-        "inputs"
+        "docs"
       ]
     },
     "formal_integration": {
@@ -224,7 +274,7 @@
     },
     "independent_review": {
       "status": "passed",
-      "reason": "Only the explicitly recorded local engineering scope; final exact-SHA CI and Release remain separate",
+      "reason": "Only current bounded local engineering scope; final full Integration, Release, player and device acceptance remain separate",
       "evidence": [
         "review"
       ]
@@ -260,15 +310,14 @@
       "gate": "G4",
       "dimension": "technical",
       "scenario": "Actual partial source and missing historical inputs",
-      "method": "Real Git/engine positive and negative consumers",
+      "method": "Fresh current Python/Git/docs contracts; old engine and transport receipts retain separate original source labels",
       "expected": "Exact source isolation and explicit input failure/recovery without weakened checks",
       "failure": "Hidden full checkout, source drift, corrupt input or fake PASS",
       "status": "passed",
-      "reason": "Limited local engineering validation passed; full gate remains pending",
+      "reason": "Current local scope passed; full gate pending",
       "evidence": [
-        "native",
-        "history",
-        "inputs"
+        "docs",
+        "review"
       ]
     }
   ],
@@ -279,63 +328,35 @@
       "sha256": "0d8bb0b45ec1cff95f451b1a4d0722a395bde4afd8b5800d6117d7e1877ac3a9",
       "kind": "spec",
       "producer": "/root",
-      "source_commit": "0ca0474ccdf82ca62bf67c87c99af0aec5703725",
-      "content_version": "cloud-efficiency-v1",
+      "source_commit": "1c0332e3960bc3582473d364a66aeb804bcabb76",
+      "content_version": "cloud-efficiency-v2",
       "method": "Review ownership and phase/delivery contracts with formal-consumer audit",
       "observed": "Three disjoint worklines with shared style rebind held by director"
     },
     {
-      "id": "native",
-      "path": "docs/evidence/cloud_efficiency_01/native/report.json",
-      "sha256": "0022108b58ba2f15e142dd36f18547a8d62dfd3f7f8c7a34c95d2725331cac43",
+      "id": "docs",
+      "path": "docs/evidence/cloud_efficiency_01/docs-v3/report.json",
+      "sha256": "5d3e58cc2cfd0133b5dc1ee0f62c575acc1ed0967702e1454b283297b96035e6",
       "kind": "command",
       "producer": "/root",
-      "source_commit": "0ca0474ccdf82ca62bf67c87c99af0aec5703725",
-      "content_version": "cloud-efficiency-v1",
-      "method": "Original fresh Harness jobs2; report retains HEAD1cfd and exact working overlay hashes, not a clean final-SHA claim",
-      "observed": "7/7 passed: 84 Harness,21 inputs,16 planner,30 delivery,core5681,historical forest,preview25/audio",
-      "command": "python3 tools/harness.py --check harness-tests --check cloud-inputs-tests --check cloud-production-planner-tests --check cloud-delivery-tests --check core --check forest-formal-combat --check cloud-preview-runtime --jobs 2 --release",
+      "source_commit": "1c0332e3960bc3582473d364a66aeb804bcabb76",
+      "content_version": "cloud-efficiency-v2",
+      "method": "Fresh complete original docs33 at actual 1c0332e with the exact report working overlay; original source guards retained",
+      "observed": "33/33 passed without reuse; 84 Harness,115 production-loop,21 input API,30 media,16 selector tests; does not approve final PR head full Integration",
+      "command": "python3 tools/harness.py --profile docs --jobs 2 --release",
       "exit_code": 0,
-      "environment": "Linux Cloud, repository locked Godot4.7.2 Standard; separate user/import/output lanes"
-    },
-    {
-      "id": "history",
-      "path": "docs/evidence/cloud_efficiency_01/isolated-history/receipt.json",
-      "sha256": "a50d32b894d8688556bab26099e4e35ebefd2abb4c7c80d114ccf00ed2eb67f9",
-      "kind": "command",
-      "producer": "/root",
-      "source_commit": "0ca0474ccdf82ca62bf67c87c99af0aec5703725",
-      "content_version": "cloud-efficiency-v1",
-      "method": "Original serial check inside real partial-source lane, no flag override",
-      "observed": "exit0,27.918s; original checker and source guards retained",
-      "command": "python3 tools/harness.py --check forest-formal-combat --release --jobs 1",
-      "exit_code": 0,
-      "environment": "Linux Cloud isolated lane"
-    },
-    {
-      "id": "inputs",
-      "path": "docs/evidence/cloud_efficiency_01/docs-inputs-summary.json",
-      "sha256": "9f92de268f5c595cfa3998e895f19dc6b6701eab153a28bd18750fdeb244c803",
-      "kind": "command",
-      "producer": "/root",
-      "source_commit": "0ca0474ccdf82ca62bf67c87c99af0aec5703725",
-      "content_version": "cloud-efficiency-v1",
-      "method": "Actual selected-input fixed point; raw report retained losslessly; postcommit availability separate",
-      "observed": "2712 files / 3011151589 bytes restored,28m20.562s; no test PASS or sparse pattern change",
-      "command": "python3 tools/cloud_inputs.py --profile docs --materialize",
-      "exit_code": 0,
-      "environment": "Actual GitHub promisor source and Cloud network; initial unknown blob sizes explicit"
+      "environment": "Linux Cloud partial-source repo, locked source metadata and private lanes"
     },
     {
       "id": "review",
-      "path": "docs/evidence/cloud_efficiency_01/review-final-local.json",
-      "sha256": "eeab473e670e41cacff1d5889936ff97e0f969681ad99c34c7a48110d0bac88d",
+      "path": "docs/evidence/cloud_efficiency_01/local-v2-review.json",
+      "sha256": "c5baedb98849e7bddfa7aa074be40ad9cec099037d6759dd2e29532210b4421f",
       "kind": "review",
       "producer": "/root/independent_review",
-      "source_commit": "0ca0474ccdf82ca62bf67c87c99af0aec5703725",
-      "content_version": "cloud-efficiency-v1",
-      "method": "Read-only different agent reviewed code, ran targeted counterexamples, and matched actual local receipts/code SHA",
-      "observed": "ACCEPT limited local engineering scope; full docs/CI/Release not signed",
+      "source_commit": "1c0332e3960bc3582473d364a66aeb804bcabb76",
+      "content_version": "cloud-efficiency-v2",
+      "method": "Distinct read-only agent reviewed unchanged infrastructure and input-only deltas, actual receipts and current source hashes",
+      "observed": "ACCEPT current bounded local engineering scope only; old native495 and transport receipts retain their original identities",
       "reviewer": "/root/independent_review",
       "implementers": [
         "/root",
@@ -345,46 +366,14 @@
       ],
       "verdict": "ACCEPT",
       "independent": true,
-      "independence_basis": "Distinct read-only agent did not implement the files; separate executed tests and byte/receipt review, preserved REWORK and actual failures"
-    },
-    {
-      "id": "docs",
-      "path": "docs/evidence/cloud_efficiency_01/docs-v2/report.json",
-      "sha256": "60f4b653e8f1284c74382774383b9955e41909f89025093e862af9d614b47f4b",
-      "kind": "command",
-      "producer": "/root",
-      "source_commit": "0ca0474ccdf82ca62bf67c87c99af0aec5703725",
-      "content_version": "cloud-efficiency-v1",
-      "method": "Fresh complete original docs profile, jobs2; exact execution HEAD and working overlay preserved",
-      "observed": "33/33 fresh passed, including portable-frozen-assets; original source guards retained",
-      "command": "python3 tools/harness.py --profile docs --jobs 2 --release",
-      "exit_code": 0,
-      "environment": "Linux Cloud partial-source workspace"
-    },
-    {
-      "id": "closure",
-      "path": "docs/evidence/cloud_efficiency_01/closure-v2-review.json",
-      "sha256": "3a372f0d2d6196c1337102c0c4803b502b1c457b3df56f6fc405898e85f63476",
-      "kind": "review",
-      "producer": "/root/independent_review",
-      "source_commit": "0ca0474ccdf82ca62bf67c87c99af0aec5703725",
-      "content_version": "cloud-efficiency-v1",
-      "method": "Independent read-only incremental code review and three real sparse tests; rehash ten restored Git blobs",
-      "observed": "ACCEPT bounded dependency closure; full docs and final CI were not signed by this earlier review",
-      "reviewer": "/root/independent_review",
-      "implementers": [
-        "/root",
-        "/root/audit_delivery"
-      ],
-      "verdict": "ACCEPT",
-      "independent": true,
-      "independence_basis": "Distinct read-only agent did not implement the reviewed source"
+      "independence_basis": "Reviewer did not implement code or hydrate fixtures; read-only byte/receipt checks and prior separately executed counterexamples"
     }
   ],
   "consumer_coverage": null,
   "unverified_items": [
-    "Exact final-SHA Integration CI pending at this checkpoint; use PR103 actual check status",
-    "Original main/manual complete Release and physical devices/player quality remain separate"
+    "Exact final pushed-head full Integration CI pending; PR103 actual check status is authoritative",
+    "Original main/manual complete Release and physical devices/player quality remain separate",
+    "Input inventories are finite audited contracts, not a complete static dependency graph; new dynamic consumers still fail closed"
   ],
-  "test_change_justification": "Keep all 158 original check contracts and original profile prefixes. Append cloud-inputs-tests; preserve all existing test assertions. New real sparse/partial Git, deletion, corruption, transport and execution counterexamples. Finite formal-player/enemy Development paths retain full Integration and shared Bible guard. Exact-HEAD CI remains mandatory; original main/manual Release remains. Also append the unchanged existing portable frozen-asset test with its exact fixture directory so sparse CI restores the actual pre-export consumer dependency; its new registration has independent review and will run in complete docs/CI."
+  "test_change_justification": "Keep all 158 original check commands, assertions, success patterns, timeouts, serial/cache flags and original profile prefixes. Append tooling/lifecycle checks only. After actual CI83 missing-fixture failure, extend eight original inputs inventories with audited real retained native/Python consumers; add runtime source roots for formerly absent noncacheable inventories without changing the full source guard. Preserve original failures/receipts and their actual source identities. Development finite routing retains full Integration for shared systems; original Release unchanged."
 }

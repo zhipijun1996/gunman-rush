@@ -15,6 +15,10 @@
 - [完整docs第二轮fresh通过](docs-v2/report.json)：33项全部通过，jobs2；source `0ca0474`及收据明确记录的quality/evidence overlay。包括115项production_loop、84项Harness、21项cloud_inputs和原portable frozen消费者。没有复用结果；不据此代签未来PR head完整Integration。
 - [依赖闭包修复独审](closure-v2-review.json)与[真实补充物化](efficiency-docs-inputs-closure-v2.json)：恢复10个真实受控文件、106030原字节、3.713秒；逐个Git blob SHA复核。先前input ready只对当时预检范围有效；此次把遗漏来源与目录存在依赖纳入真实消费者闭包。
 
+- [五个原生历史消费者fresh复验](native-fixtures-v2/report.json)：5/5通过，实际source `4950311`及明确working overlay，包含存档176断言、根铃原重放与三项平原Golden。显式`--check`覆盖profile，因此本收据只签5专项，不称docs或38项通过；docs另外运行。原未声明依赖仅补inputs，命令／断言／预算／serial／缓存属性不变。有限[原生审计](native-input-audit.json)、[Python审计](python-input-audit.txt)及[独审](native-inputs-review.json)分别保留原范围。
+
+- [最终代码docs33 fresh通过](docs-v3/report.json)：实际source `1c0332e`及收据所列overlay，33/33 passed，无复用；包含84项Harness、115项生产循环、21项输入API、30项媒体和16项选择器。三项Python消费者补充输入由[独审](metadata-v3-review.json)核实；原profile顺序和非input字段不变。当前v2质量卡只引用本源码的本地docs与独审；旧引擎／运输收据作为各自旧源码身份的支持材料，不重标为新head运行。最终精确head Integration／Release仍以实际工作流为准。
+
 ## 原始失败
 
 - [普通批量fetch失败](failures/provider-batch-before-noop.json.gz)：真实GitHub partial clone出现bad revision／必要对象缺失，exit非零、0件物化；不是通过。
@@ -22,5 +26,7 @@
 - [完整docs首次复验失败](failures/docs-closure-v1/report.json.gz)：原检查发现两个目录链接及八件资产卡嵌套来源缺失，另有本轮task／record状态不一致；[docs原日志](failures/docs-closure-v1/docs.log.gz)与[quality原日志](failures/docs-closure-v1/quality.log.gz)完整保留。补足真实预检闭包及状态后须新目录重跑，不由input ready代签。
 
 - [闭包修复后首次production_loop失败](failures/production-loop-closure-v1.log.gz)：真实115项中24项因新依赖未恢复失败；原日志保留。实际恢复之后的[115项新运行](production-loop-preflight-after-hydration.log)通过；后续完整docs在独立运行目录再次通过。
+
+- [精确83bbb26远端Integration失败](failures/ci83-sparse-fixture/receipt.json)：64项通过，aim-save-compat因原inputs未声明其真实历史Manifest而失败，其余未执行。[原report](failures/ci83-sparse-fixture/report.json.gz)、[检查完整log](failures/ci83-sparse-fixture/aim-save-compat.log.gz)及data阶段收据保留。补充真实依赖后必须fresh复验，不改存档断言或原预算。
 
 Gzip保存原JSON／日志完整字节，`gzip -dc <file>`可恢复；没有截去原失败段落。完整CI、Release、用户审美／手感／趣味、实体设备均不由上述局部工程收据代签。实际公开录像和Preview仍使用[原交付源6ca72ef](../cloud_production_01/README.md)，本轮工具提交没有伪造新游戏包。

@@ -1,0 +1,548 @@
+{
+  "status": "ready",
+  "approval_scope": "input_availability_only",
+  "tests_executed": false,
+  "commit": "4950311203b8a03d1e622122f196b1cdc6c5039d",
+  "checks": [
+    "aim-save-compat",
+    "root-bell-tests",
+    "plains-autonomy-golden",
+    "plains-action-golden",
+    "plains-encounter-policy"
+  ],
+  "inputs": [],
+  "known_bytes": 0,
+  "unknown_size_objects": [],
+  "blockers": [],
+  "preflight": {
+    "status": "passed",
+    "kind": "tracked_required_input_materialization",
+    "missing_tracked_inputs": [],
+    "explicit_deleted_repairs": [],
+    "index_warnings": [],
+    "import_metadata_risks": [],
+    "uncertain_inputs": [],
+    "directory_presence_inputs": [],
+    "resolved_checks": {
+      "manifest": "tools/harness/profiles.json",
+      "manifest_sha256": "0eaa8fce58e987e2ddc7b1d248988042ce4ae9dab8bed4de0ac3595b84732c91",
+      "cwd": "/workspace/gunman-rush",
+      "checks": [
+        {
+          "id": "aim-save-compat",
+          "argv": [
+            "python3",
+            "tools/run_aim_save_compat_tests.py"
+          ],
+          "timeout_seconds": 240,
+          "success_pattern": "^PASS: historical aim tuning and actual saved-map compatibility$",
+          "inputs": [
+            "scripts",
+            "scenes",
+            "resources",
+            "assets",
+            "config",
+            "tools",
+            "tests",
+            "project.godot",
+            "export_presets.cfg",
+            "docs/evidence/forest_depth_v2/reviews/campaign-output-helper/cross_region_manifest.json"
+          ],
+          "artifact_paths": [
+            "build/verification/aim_save_compat.json"
+          ]
+        },
+        {
+          "id": "root-bell-tests",
+          "argv": [
+            "python3",
+            "tools/run_root_bell_formal.py",
+            "--g1"
+          ],
+          "timeout_seconds": 360,
+          "success_pattern": "^ROOT BELL FORMAL VERIFIED:",
+          "inputs": [
+            "project.godot",
+            "tools/run_root_bell_tests.py",
+            "tests/root_bell*",
+            "scripts/**",
+            "scenes/**",
+            "resources/**",
+            "config/**",
+            "assets/**",
+            "tools/run_root_bell_formal.py",
+            "tools/test_root_bell_formal_verifier.py",
+            "docs/evidence/region_production_v3/enemy_encounter_v2/movie02_native_and_frozen_sources.zip",
+            "scripts",
+            "scenes",
+            "resources",
+            "config",
+            "assets",
+            "tests",
+            "docs/evidence/region_production_v3/enemy_encounter_v2/legacy_manifest_strings.json"
+          ],
+          "artifact_paths": [
+            "build/root_bell/formal_v2"
+          ]
+        },
+        {
+          "id": "plains-autonomy-golden",
+          "argv": [
+            "python3",
+            "tools/run_plains_autonomy_tests.py"
+          ],
+          "timeout_seconds": 480,
+          "success_pattern": "^PLAINS AUTONOMY GOLDEN:",
+          "inputs": [
+            "scripts",
+            "scenes",
+            "resources",
+            "assets",
+            "config",
+            "tools",
+            "tests",
+            "project.godot",
+            "export_presets.cfg",
+            "docs/evidence/plains_redesign/frozen_v9"
+          ]
+        },
+        {
+          "id": "plains-action-golden",
+          "argv": [
+            "python3",
+            "tools/run_plains_action_golden_tests.py"
+          ],
+          "timeout_seconds": 420,
+          "success_pattern": "^PLAINS ACTION deleted_bank_negative: validated, exit=1$",
+          "inputs": [
+            "scripts",
+            "scenes",
+            "resources",
+            "assets",
+            "config",
+            "tools",
+            "tests",
+            "project.godot",
+            "export_presets.cfg",
+            "docs/evidence/plains_redesign/frozen_v9",
+            "docs/evidence/level_autonomy/action_baseline_capture.json"
+          ]
+        },
+        {
+          "id": "plains-encounter-policy",
+          "argv": [
+            "python3",
+            "tools/run_plains_encounter_policy_tests.py"
+          ],
+          "timeout_seconds": 600,
+          "success_pattern": "^PLAINS ENCOUNTER POLICY: actual live input and causal counterexamples validated$",
+          "inputs": [
+            "scripts",
+            "scenes",
+            "resources",
+            "assets",
+            "config",
+            "tools",
+            "tests",
+            "project.godot",
+            "export_presets.cfg",
+            "docs/evidence/plains_redesign/frozen_v9",
+            "docs/evidence/plains_redesign/encounter/frozen_50fb10c/manifest.json",
+            "docs/evidence/plains_redesign/encounter/frozen_50fb10c/delta.tar.gz"
+          ]
+        }
+      ]
+    },
+    "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+  },
+  "limits": "Missing-input plan from the existing preflight, not a complete static dependency graph. No checks ran. Unknown object sizes stay explicit until --materialize obtains only those selected blobs.",
+  "materialized": [
+    {
+      "commit": "4950311203b8a03d1e622122f196b1cdc6c5039d",
+      "path": "docs/evidence/forest_depth_v2/reviews/campaign-output-helper/cross_region_manifest.json",
+      "blob": "8d8c889e182638fe2a0f266d322edb01251959f3",
+      "mode": "100644",
+      "git_index_state": "S",
+      "required_by": [
+        "selected check aim-save-compat literal input"
+      ],
+      "reason": "sparse_unmaterialized",
+      "materializable": true,
+      "size": 198451,
+      "object_available": false,
+      "status": "materialized"
+    },
+    {
+      "commit": "4950311203b8a03d1e622122f196b1cdc6c5039d",
+      "path": "docs/evidence/level_autonomy/action_baseline_capture.json",
+      "blob": "ffff9cd15702ce2ab30f795561ecd1f75c0e5fd3",
+      "mode": "100644",
+      "git_index_state": "S",
+      "required_by": [
+        "selected check plains-action-golden literal input"
+      ],
+      "reason": "sparse_unmaterialized",
+      "materializable": true,
+      "size": 4487981,
+      "object_available": false,
+      "status": "materialized"
+    },
+    {
+      "commit": "4950311203b8a03d1e622122f196b1cdc6c5039d",
+      "path": "docs/evidence/plains_redesign/encounter/frozen_50fb10c/delta.tar.gz",
+      "blob": "38122fec4f757687a2d5b26848e403524ab0bc2b",
+      "mode": "100644",
+      "git_index_state": "S",
+      "required_by": [
+        "selected check plains-encounter-policy literal input"
+      ],
+      "reason": "sparse_unmaterialized",
+      "materializable": true,
+      "size": 743960,
+      "object_available": false,
+      "status": "materialized"
+    },
+    {
+      "commit": "4950311203b8a03d1e622122f196b1cdc6c5039d",
+      "path": "docs/evidence/plains_redesign/encounter/frozen_50fb10c/manifest.json",
+      "blob": "2fdcf254093518db8678e682be551a2fc8e51868",
+      "mode": "100644",
+      "git_index_state": "S",
+      "required_by": [
+        "selected check plains-encounter-policy literal input"
+      ],
+      "reason": "sparse_unmaterialized",
+      "materializable": true,
+      "size": 233289,
+      "object_available": false,
+      "status": "materialized"
+    },
+    {
+      "commit": "4950311203b8a03d1e622122f196b1cdc6c5039d",
+      "path": "docs/evidence/region_production_v3/enemy_encounter_v2/legacy_manifest_strings.json",
+      "blob": "cedd868e25dbe4827a960cc2fc32f1e0e07b4afe",
+      "mode": "100644",
+      "git_index_state": "S",
+      "required_by": [
+        "selected check root-bell-tests literal input"
+      ],
+      "reason": "sparse_unmaterialized",
+      "materializable": true,
+      "size": 2953880,
+      "object_available": false,
+      "status": "materialized"
+    }
+  ],
+  "rounds": [
+    {
+      "status": "needs_materialization",
+      "approval_scope": "input_availability_only",
+      "tests_executed": false,
+      "commit": "4950311203b8a03d1e622122f196b1cdc6c5039d",
+      "checks": [
+        "aim-save-compat",
+        "root-bell-tests",
+        "plains-autonomy-golden",
+        "plains-action-golden",
+        "plains-encounter-policy"
+      ],
+      "inputs": [
+        {
+          "commit": "4950311203b8a03d1e622122f196b1cdc6c5039d",
+          "path": "docs/evidence/forest_depth_v2/reviews/campaign-output-helper/cross_region_manifest.json",
+          "blob": "8d8c889e182638fe2a0f266d322edb01251959f3",
+          "mode": "100644",
+          "git_index_state": "S",
+          "required_by": [
+            "selected check aim-save-compat literal input"
+          ],
+          "reason": "sparse_unmaterialized",
+          "materializable": true,
+          "size": null,
+          "object_available": false
+        },
+        {
+          "commit": "4950311203b8a03d1e622122f196b1cdc6c5039d",
+          "path": "docs/evidence/level_autonomy/action_baseline_capture.json",
+          "blob": "ffff9cd15702ce2ab30f795561ecd1f75c0e5fd3",
+          "mode": "100644",
+          "git_index_state": "S",
+          "required_by": [
+            "selected check plains-action-golden literal input"
+          ],
+          "reason": "sparse_unmaterialized",
+          "materializable": true,
+          "size": null,
+          "object_available": false
+        },
+        {
+          "commit": "4950311203b8a03d1e622122f196b1cdc6c5039d",
+          "path": "docs/evidence/plains_redesign/encounter/frozen_50fb10c/delta.tar.gz",
+          "blob": "38122fec4f757687a2d5b26848e403524ab0bc2b",
+          "mode": "100644",
+          "git_index_state": "S",
+          "required_by": [
+            "selected check plains-encounter-policy literal input"
+          ],
+          "reason": "sparse_unmaterialized",
+          "materializable": true,
+          "size": null,
+          "object_available": false
+        },
+        {
+          "commit": "4950311203b8a03d1e622122f196b1cdc6c5039d",
+          "path": "docs/evidence/plains_redesign/encounter/frozen_50fb10c/manifest.json",
+          "blob": "2fdcf254093518db8678e682be551a2fc8e51868",
+          "mode": "100644",
+          "git_index_state": "S",
+          "required_by": [
+            "selected check plains-encounter-policy literal input"
+          ],
+          "reason": "sparse_unmaterialized",
+          "materializable": true,
+          "size": null,
+          "object_available": false
+        },
+        {
+          "commit": "4950311203b8a03d1e622122f196b1cdc6c5039d",
+          "path": "docs/evidence/region_production_v3/enemy_encounter_v2/legacy_manifest_strings.json",
+          "blob": "cedd868e25dbe4827a960cc2fc32f1e0e07b4afe",
+          "mode": "100644",
+          "git_index_state": "S",
+          "required_by": [
+            "selected check root-bell-tests literal input"
+          ],
+          "reason": "sparse_unmaterialized",
+          "materializable": true,
+          "size": null,
+          "object_available": false
+        }
+      ],
+      "known_bytes": 0,
+      "unknown_size_objects": [
+        "2fdcf254093518db8678e682be551a2fc8e51868",
+        "38122fec4f757687a2d5b26848e403524ab0bc2b",
+        "8d8c889e182638fe2a0f266d322edb01251959f3",
+        "cedd868e25dbe4827a960cc2fc32f1e0e07b4afe",
+        "ffff9cd15702ce2ab30f795561ecd1f75c0e5fd3"
+      ],
+      "blockers": [],
+      "preflight": {
+        "status": "blocked",
+        "kind": "tracked_required_input_materialization",
+        "missing_tracked_inputs": [
+          {
+            "path": "docs/evidence/forest_depth_v2/reviews/campaign-output-helper/cross_region_manifest.json",
+            "git_index_state": "S",
+            "required_by": [
+              "selected check aim-save-compat literal input"
+            ],
+            "reason": "sparse_unmaterialized"
+          },
+          {
+            "path": "docs/evidence/level_autonomy/action_baseline_capture.json",
+            "git_index_state": "S",
+            "required_by": [
+              "selected check plains-action-golden literal input"
+            ],
+            "reason": "sparse_unmaterialized"
+          },
+          {
+            "path": "docs/evidence/plains_redesign/encounter/frozen_50fb10c/delta.tar.gz",
+            "git_index_state": "S",
+            "required_by": [
+              "selected check plains-encounter-policy literal input"
+            ],
+            "reason": "sparse_unmaterialized"
+          },
+          {
+            "path": "docs/evidence/plains_redesign/encounter/frozen_50fb10c/manifest.json",
+            "git_index_state": "S",
+            "required_by": [
+              "selected check plains-encounter-policy literal input"
+            ],
+            "reason": "sparse_unmaterialized"
+          },
+          {
+            "path": "docs/evidence/region_production_v3/enemy_encounter_v2/legacy_manifest_strings.json",
+            "git_index_state": "S",
+            "required_by": [
+              "selected check root-bell-tests literal input"
+            ],
+            "reason": "sparse_unmaterialized"
+          }
+        ],
+        "explicit_deleted_repairs": [],
+        "index_warnings": [],
+        "import_metadata_risks": [],
+        "uncertain_inputs": [],
+        "directory_presence_inputs": [],
+        "resolved_checks": {
+          "manifest": "tools/harness/profiles.json",
+          "manifest_sha256": "0eaa8fce58e987e2ddc7b1d248988042ce4ae9dab8bed4de0ac3595b84732c91",
+          "cwd": "/workspace/gunman-rush",
+          "checks": [
+            {
+              "id": "aim-save-compat",
+              "argv": [
+                "python3",
+                "tools/run_aim_save_compat_tests.py"
+              ],
+              "timeout_seconds": 240,
+              "success_pattern": "^PASS: historical aim tuning and actual saved-map compatibility$",
+              "inputs": [
+                "scripts",
+                "scenes",
+                "resources",
+                "assets",
+                "config",
+                "tools",
+                "tests",
+                "project.godot",
+                "export_presets.cfg",
+                "docs/evidence/forest_depth_v2/reviews/campaign-output-helper/cross_region_manifest.json"
+              ],
+              "artifact_paths": [
+                "build/verification/aim_save_compat.json"
+              ]
+            },
+            {
+              "id": "root-bell-tests",
+              "argv": [
+                "python3",
+                "tools/run_root_bell_formal.py",
+                "--g1"
+              ],
+              "timeout_seconds": 360,
+              "success_pattern": "^ROOT BELL FORMAL VERIFIED:",
+              "inputs": [
+                "project.godot",
+                "tools/run_root_bell_tests.py",
+                "tests/root_bell*",
+                "scripts/**",
+                "scenes/**",
+                "resources/**",
+                "config/**",
+                "assets/**",
+                "tools/run_root_bell_formal.py",
+                "tools/test_root_bell_formal_verifier.py",
+                "docs/evidence/region_production_v3/enemy_encounter_v2/movie02_native_and_frozen_sources.zip",
+                "scripts",
+                "scenes",
+                "resources",
+                "config",
+                "assets",
+                "tests",
+                "docs/evidence/region_production_v3/enemy_encounter_v2/legacy_manifest_strings.json"
+              ],
+              "artifact_paths": [
+                "build/root_bell/formal_v2"
+              ]
+            },
+            {
+              "id": "plains-autonomy-golden",
+              "argv": [
+                "python3",
+                "tools/run_plains_autonomy_tests.py"
+              ],
+              "timeout_seconds": 480,
+              "success_pattern": "^PLAINS AUTONOMY GOLDEN:",
+              "inputs": [
+                "scripts",
+                "scenes",
+                "resources",
+                "assets",
+                "config",
+                "tools",
+                "tests",
+                "project.godot",
+                "export_presets.cfg",
+                "docs/evidence/plains_redesign/frozen_v9"
+              ]
+            },
+            {
+              "id": "plains-action-golden",
+              "argv": [
+                "python3",
+                "tools/run_plains_action_golden_tests.py"
+              ],
+              "timeout_seconds": 420,
+              "success_pattern": "^PLAINS ACTION deleted_bank_negative: validated, exit=1$",
+              "inputs": [
+                "scripts",
+                "scenes",
+                "resources",
+                "assets",
+                "config",
+                "tools",
+                "tests",
+                "project.godot",
+                "export_presets.cfg",
+                "docs/evidence/plains_redesign/frozen_v9",
+                "docs/evidence/level_autonomy/action_baseline_capture.json"
+              ]
+            },
+            {
+              "id": "plains-encounter-policy",
+              "argv": [
+                "python3",
+                "tools/run_plains_encounter_policy_tests.py"
+              ],
+              "timeout_seconds": 600,
+              "success_pattern": "^PLAINS ENCOUNTER POLICY: actual live input and causal counterexamples validated$",
+              "inputs": [
+                "scripts",
+                "scenes",
+                "resources",
+                "assets",
+                "config",
+                "tools",
+                "tests",
+                "project.godot",
+                "export_presets.cfg",
+                "docs/evidence/plains_redesign/frozen_v9",
+                "docs/evidence/plains_redesign/encounter/frozen_50fb10c/manifest.json",
+                "docs/evidence/plains_redesign/encounter/frozen_50fb10c/delta.tar.gz"
+              ]
+            }
+          ]
+        },
+        "limits": "Existence preflight only; no quality PASS, hydration or inference that untracked future outputs already exist."
+      },
+      "limits": "Missing-input plan from the existing preflight, not a complete static dependency graph. No checks ran. Unknown object sizes stay explicit until --materialize obtains only those selected blobs."
+    }
+  ],
+  "prefetch": [
+    {
+      "remote": "origin",
+      "objects": [
+        "2fdcf254093518db8678e682be551a2fc8e51868",
+        "38122fec4f757687a2d5b26848e403524ab0bc2b",
+        "8d8c889e182638fe2a0f266d322edb01251959f3",
+        "cedd868e25dbe4827a960cc2fc32f1e0e07b4afe",
+        "ffff9cd15702ce2ab30f795561ecd1f75c0e5fd3"
+      ],
+      "status": "fetched",
+      "argv": [
+        "git",
+        "-c",
+        "fetch.negotiationAlgorithm=noop",
+        "-c",
+        "fetch.bundleURI=",
+        "-C",
+        "/workspace/gunman-rush",
+        "fetch",
+        "--no-tags",
+        "--no-write-fetch-head",
+        "--recurse-submodules=no",
+        "--filter=blob:none",
+        "--stdin",
+        "origin"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "materialized_bytes": 8617561,
+  "sparse_patterns_changed": false,
+  "seconds": 3.94
+}

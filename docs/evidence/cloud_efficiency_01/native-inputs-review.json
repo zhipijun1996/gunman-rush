@@ -1,0 +1,106 @@
+{
+  "reviewer": "independent_review (not author)",
+  "verdict": "ACCEPT",
+  "scope": "Necessary input-metadata delta and original restored fixture identity only, not final execution or CI acceptance.",
+  "reviewed_at_utc": "2026-10-22T11:26:11.239156+00:00",
+  "reviewed_commit": "4950311203b8a03d1e622122f196b1cdc6c5039d",
+  "source_sha256": {
+    "tools/harness/profiles.json": "0eaa8fce58e987e2ddc7b1d248988042ce4ae9dab8bed4de0ac3595b84732c91",
+    "docs/cloud_production.md": "920b26c1dafe43ddbd84a36da1bcc1176faae2c52cbc9e46ab2316e7aaef810a"
+  },
+  "consumer_edges": {
+    "aim-save-compat": "tests/aim_save_compat_data.gd:33 opens cross_region_manifest.json and pins SHA256; wrapper actually executes that runner.",
+    "root-bell-tests": "run_root_bell_formal.sources() hashes legacy_manifest_strings.json; native root_bell_formal_tests.gd also opens it.",
+    "plains-autonomy-golden": "Current v10 branch invokes frozen_project(), which needs full frozen_v9 manifest/source archive and portable asset blobs.",
+    "plains-action-golden": "Reads retained action_baseline_capture.json without relying on pre-existing build fallback, then restores immutable frozen_v9.",
+    "plains-encounter-policy": "Creates two frozen_v9 projects, loads pinned frozen_50fb10c manifest and delta archive, and verifies their SHA identities."
+  },
+  "preservation": {
+    "check_count_before": 163,
+    "check_count_after": 163,
+    "changed_check_ids": [
+      "plains-autonomy-golden",
+      "plains-action-golden",
+      "plains-encounter-policy",
+      "root-bell-tests",
+      "aim-save-compat"
+    ],
+    "only_inputs_changed": true,
+    "baseline161_including_original158_noninput_fields_equal": true,
+    "profile_sequences_identical": true,
+    "new_input_arrays_noncacheable": {
+      "plains-autonomy-golden": true,
+      "plains-action-golden": true,
+      "plains-encounter-policy": true
+    },
+    "global_guard": "Per-check input_digest may use declared inputs; source-before/lane checks/final complete-source guard all call input_digest with an empty check, so full prepared source is still guarded. Non-cacheable status of all3 formerly implicit-input checks is unchanged. aim-save-compat already cacheable and its key now includes the exact retained manifest."
+  },
+  "actual_restoration": {
+    "receipt": "/workspace/gunman-rush/build/verification/efficiency-native-fixture-inputs.json",
+    "receipt_sha256": "c2bf7961cfdc70513ccfcebdb315a3f0e3f50217aba48708f1aba4be5bdebd7b",
+    "status": "ready",
+    "approval_scope": "input_availability_only",
+    "tests_executed": false,
+    "count": 5,
+    "bytes": 8617561,
+    "seconds": 3.94,
+    "files_independently_rehashed": [
+      {
+        "path": "docs/evidence/forest_depth_v2/reviews/campaign-output-helper/cross_region_manifest.json",
+        "blob": "8d8c889e182638fe2a0f266d322edb01251959f3",
+        "bytes": 198451,
+        "sha256": "82d6ef43b5f8bbd0f14cdff9468cdc7dae17c5c986d78a447935982c46475efa",
+        "matches_receipt_and_commit": true
+      },
+      {
+        "path": "docs/evidence/level_autonomy/action_baseline_capture.json",
+        "blob": "ffff9cd15702ce2ab30f795561ecd1f75c0e5fd3",
+        "bytes": 4487981,
+        "sha256": "76d0fa83428b58ae4130cd17186965c0134257ee6f7643709b7cba263deaa1ce",
+        "matches_receipt_and_commit": true
+      },
+      {
+        "path": "docs/evidence/plains_redesign/encounter/frozen_50fb10c/delta.tar.gz",
+        "blob": "38122fec4f757687a2d5b26848e403524ab0bc2b",
+        "bytes": 743960,
+        "sha256": "fcd2a891ec4bdace56c2c2422773bf45d3afc50b28bacba4613006bf0dfe40f1",
+        "matches_receipt_and_commit": true
+      },
+      {
+        "path": "docs/evidence/plains_redesign/encounter/frozen_50fb10c/manifest.json",
+        "blob": "2fdcf254093518db8678e682be551a2fc8e51868",
+        "bytes": 233289,
+        "sha256": "955f6713bdcdb9ec298add02321923a6d5007b9f773f5f42fe0d2e611c7150bb",
+        "matches_receipt_and_commit": true
+      },
+      {
+        "path": "docs/evidence/region_production_v3/enemy_encounter_v2/legacy_manifest_strings.json",
+        "blob": "cedd868e25dbe4827a960cc2fc32f1e0e07b4afe",
+        "bytes": 2953880,
+        "sha256": "b7030e635a7e940fc1eabb6a2c88f9a1ab0578f80be115d41e618f1b4e016419",
+        "matches_receipt_and_commit": true
+      }
+    ]
+  },
+  "previous_ci_failure": {
+    "receipt": "/workspace/gunman-rush/docs/evidence/cloud_efficiency_01/failures/ci83-sparse-fixture/receipt.json",
+    "run": 39766822966,
+    "source_commit": "83bbb26ba93a674f8d3df9ca7fc9408d80067dcf",
+    "status": "failed",
+    "executed": 65,
+    "passed": 64,
+    "failed": [
+      "aim-save-compat"
+    ],
+    "serial_checks_not_executed": true,
+    "preserved_original_report_gzip": true,
+    "note": "Actual remote65checks/64pass/aim-save-compat failure remains failed; new input availability is not a retroactive CI pass."
+  },
+  "review_method": "Read5 actual consumer paths, compared all163 prior check definitions and profile sequences, verified baseline161 non-input fields, independently recomputed all5 restored Git blob identities and source commit tree identity. No hydration, engine or source mutation.",
+  "limits": [
+    "Finite literal and actual wrapper audit is not a proof of arbitrary dynamic dependency closure.",
+    "New38check producer run is pending at this review. Input status ready only proves observed selected input availability.",
+    "Final exact-head GitHub CI/full Integration/Release, subjective player quality and real devices remain unverified.",
+    "Earlier native and docs receipts retain original HEAD/overlay identities and are not relabeled as this clean commit."
+  ]
+}
