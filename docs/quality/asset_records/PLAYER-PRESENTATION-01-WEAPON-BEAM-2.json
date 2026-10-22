@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "asset_id": "PLAYER-PRESENTATION-01-WEAPON-BEAM-2",
+  "content_version": "weapon-feel-v1",
+  "source_path": "assets/player_presentation_01/weapon_audio_v1/beam_2.wav",
+  "source_sha256": "1184df86d62539d0d505a512ff1dcca316ee8909022caeff5a8a9be8e8045f4b",
+  "tool": "tests/player_presentation_01/build_weapon_audio.py;Python deterministic mix/synthesis",
+  "model": "not applicable",
+  "prompt_or_reference": "docs/worklines/PLAYER-PRESENTATION-01/weapon-audio-provenance.json",
+  "processing": "Bounded short mono48k WAV;offline variants;see exact recipe",
+  "usage_scope": "Task-only accepted weapon feedback;original runtime phase cues retained;no production adoption",
+  "license_source": "Original authored mathematical sine synthesis;no third-party source",
+  "license_status": "verified",
+  "runtime_paths": [
+    "scripts/dev/player_presentation_01/weapon_audio.gd"
+  ],
+  "user_acceptance_evidence": [],
+  "visual_status": "unverified",
+  "disposition": "limited_preview",
+  "associated_files": [
+    {
+      "path": "docs/worklines/PLAYER-PRESENTATION-01/weapon-audio-provenance.json",
+      "sha256": "a4982879476cb4a87b70a6cc6a5454a7e8b57911a97076ddfaf3523c5b0e5474",
+      "role": "processing_record"
+    }
+  ]
+}

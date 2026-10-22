@@ -1,0 +1,284 @@
+{
+  "task": "PLAYER-PRESENTATION-01",
+  "version": "weapon-audio-v1",
+  "sources": [
+    {
+      "path": "assets/audio/kenney/shot.ogg",
+      "pack": "digital-audio",
+      "original": "laser2.ogg",
+      "source": "https://kenney.nl/assets/digital-audio",
+      "license": "CC0-1.0",
+      "sha256": "50470d64f9397855e5d9a334484da9c5232b3e0524c52f088b8a73822bd89f45",
+      "trimmed_leading_samples": 5172
+    },
+    {
+      "path": "assets/audio/kenney/armour.ogg",
+      "pack": "impact-sounds",
+      "original": "impactMetal_light_000.ogg",
+      "source": "https://kenney.nl/assets/impact-sounds",
+      "license": "CC0-1.0",
+      "sha256": "33b5e6e37c6e9d54e07bf5a89b12c76e879f40c1ea83cdd82714df1d6f9fec6d",
+      "trimmed_leading_samples": 0
+    },
+    {
+      "path": "assets/audio/kenney/enemy_shot.ogg",
+      "pack": "rpg-audio",
+      "original": "knifeSlice.ogg",
+      "source": "https://kenney.nl/assets/rpg-audio",
+      "license": "CC0-1.0",
+      "sha256": "4cd96dc630bed9840c15f1dd2306da2cc56a4da26a5d3f1a03c5a7265ac5e54f",
+      "trimmed_leading_samples": 3874
+    },
+    {
+      "path": "assets/audio/kenney/impact.ogg",
+      "pack": "impact-sounds",
+      "original": "impactWood_light_000.ogg",
+      "source": "https://kenney.nl/assets/impact-sounds",
+      "license": "CC0-1.0",
+      "sha256": "eb45e35b4bed784d3f120de4afec4b0d6ac09d9e143cce8cfcb7d739e1b1f3c3",
+      "trimmed_leading_samples": 0
+    },
+    {
+      "path": "assets/audio/kenney/roar.ogg",
+      "pack": "impact-sounds",
+      "original": "impactSoft_heavy_000.ogg",
+      "source": "https://kenney.nl/assets/impact-sounds",
+      "license": "CC0-1.0",
+      "sha256": "49e7ca88743fca974bb8676ea138b751cfd8f9033b5e7af8736c2a215d6edbc1",
+      "trimmed_leading_samples": 6
+    },
+    {
+      "path": "assets/audio/kenney/enemy_defeat.ogg",
+      "pack": "impact-sounds",
+      "original": "impactSoft_medium_000.ogg",
+      "source": "https://kenney.nl/assets/impact-sounds",
+      "license": "CC0-1.0",
+      "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+      "trimmed_leading_samples": 0
+    }
+  ],
+  "recipes": {
+    "pulse": [
+      0.18,
+      [
+        [
+          "shot",
+          0.75
+        ],
+        [
+          "armour",
+          0.13
+        ]
+      ]
+    ],
+    "machine": [
+      0.115,
+      [
+        [
+          "shot",
+          0.45
+        ],
+        [
+          "armour",
+          0.32
+        ]
+      ]
+    ],
+    "blade": [
+      0.19,
+      [
+        [
+          "enemy_shot",
+          0.8
+        ],
+        [
+          "armour",
+          0.12
+        ]
+      ]
+    ],
+    "contact": [
+      0.14,
+      [
+        [
+          "impact",
+          0.55
+        ],
+        [
+          "armour",
+          0.32
+        ]
+      ]
+    ],
+    "blast": [
+      0.32,
+      [
+        [
+          "roar",
+          0.65
+        ],
+        [
+          "enemy_defeat",
+          0.6
+        ],
+        [
+          "impact",
+          0.25
+        ]
+      ]
+    ],
+    "beam": [
+      0.8,
+      []
+    ]
+  },
+  "files": [
+    {
+      "path": "assets/player_presentation_01/weapon_audio_v1/pulse_0.wav",
+      "sha256": "5c57df25a170a89f7fdc3d36b38614157ceec0466fa6aebd54b99902b7b02a93",
+      "cue": "pulse",
+      "variant": 0,
+      "duration": 0.18,
+      "peak": 0.7199926755577257
+    },
+    {
+      "path": "assets/player_presentation_01/weapon_audio_v1/pulse_1.wav",
+      "sha256": "d00b2a52fd532acafd4845504fea7d380dd88a18f0df6f8be0eaae13f7ae4984",
+      "cue": "pulse",
+      "variant": 1,
+      "duration": 0.18,
+      "peak": 0.6840113528855251
+    },
+    {
+      "path": "assets/player_presentation_01/weapon_audio_v1/pulse_2.wav",
+      "sha256": "b972b554ae21d8623c7aa007b0716cae5678d524ca256650bf50cfb56b0a5b3e",
+      "cue": "pulse",
+      "variant": 2,
+      "duration": 0.18,
+      "peak": 0.7343974120303964
+    },
+    {
+      "path": "assets/player_presentation_01/weapon_audio_v1/machine_0.wav",
+      "sha256": "e16cb9595689a6ba6d064402191746802e07a201b38a76dc8866cded2ca223a5",
+      "cue": "machine",
+      "variant": 0,
+      "duration": 0.115,
+      "peak": 0.7199926755577257
+    },
+    {
+      "path": "assets/player_presentation_01/weapon_audio_v1/machine_1.wav",
+      "sha256": "ba4636806eafa2a0fca10a2fa813828810e3bed63e969a23d1a5f491b3d46870",
+      "cue": "machine",
+      "variant": 1,
+      "duration": 0.115,
+      "peak": 0.6840113528855251
+    },
+    {
+      "path": "assets/player_presentation_01/weapon_audio_v1/machine_2.wav",
+      "sha256": "80a058ac4e8663ceaaea94b914ae70855dc14eaa1b54de952bdd92975d2d16a3",
+      "cue": "machine",
+      "variant": 2,
+      "duration": 0.115,
+      "peak": 0.7343974120303964
+    },
+    {
+      "path": "assets/player_presentation_01/weapon_audio_v1/blade_0.wav",
+      "sha256": "57faba77d35aee8f922f776bbc97ad934871d8192d0552798ced7cbbdce0f42f",
+      "cue": "blade",
+      "variant": 0,
+      "duration": 0.19,
+      "peak": 0.7199926755577257
+    },
+    {
+      "path": "assets/player_presentation_01/weapon_audio_v1/blade_1.wav",
+      "sha256": "7c35d33becd499396f4200b48e74ffba47957da8397de649af7e82b523da899c",
+      "cue": "blade",
+      "variant": 1,
+      "duration": 0.19,
+      "peak": 0.6840113528855251
+    },
+    {
+      "path": "assets/player_presentation_01/weapon_audio_v1/blade_2.wav",
+      "sha256": "30f8695e1757c2a870c4015dd187af7b04c976c1ee5e021cf2a95e50af9aa5f9",
+      "cue": "blade",
+      "variant": 2,
+      "duration": 0.19,
+      "peak": 0.7343974120303964
+    },
+    {
+      "path": "assets/player_presentation_01/weapon_audio_v1/contact_0.wav",
+      "sha256": "5f4541813f078d57a2a0d111988dc1a3aef9e390f3bf16779deb5946eb46193f",
+      "cue": "contact",
+      "variant": 0,
+      "duration": 0.14,
+      "peak": 0.7199926755577257
+    },
+    {
+      "path": "assets/player_presentation_01/weapon_audio_v1/contact_1.wav",
+      "sha256": "ce10f32f0cb91644929b7f5b5c5d51743296cbc224fb9fbdfc4371dbecb71493",
+      "cue": "contact",
+      "variant": 1,
+      "duration": 0.14,
+      "peak": 0.6840113528855251
+    },
+    {
+      "path": "assets/player_presentation_01/weapon_audio_v1/contact_2.wav",
+      "sha256": "677048a3ff65695116301e864e84c690667adcbbbf58081cd4598698264ca26c",
+      "cue": "contact",
+      "variant": 2,
+      "duration": 0.14,
+      "peak": 0.7343974120303964
+    },
+    {
+      "path": "assets/player_presentation_01/weapon_audio_v1/blast_0.wav",
+      "sha256": "fb94229fdad183323163b8b32ee8d86a8c614728762c5f4a9cfc6449e0d17334",
+      "cue": "blast",
+      "variant": 0,
+      "duration": 0.32,
+      "peak": 0.7199926755577257
+    },
+    {
+      "path": "assets/player_presentation_01/weapon_audio_v1/blast_1.wav",
+      "sha256": "6c0936cc3fc0df0ead1aef308ca8b6f0b355247cb1e1bf8d0bc40bed6ab93e15",
+      "cue": "blast",
+      "variant": 1,
+      "duration": 0.32,
+      "peak": 0.6840113528855251
+    },
+    {
+      "path": "assets/player_presentation_01/weapon_audio_v1/blast_2.wav",
+      "sha256": "98f0a636dafdf8adc82d415a43766a7f601e19bac3d92b56fd7c257da414c32a",
+      "cue": "blast",
+      "variant": 2,
+      "duration": 0.32,
+      "peak": 0.7343974120303964
+    },
+    {
+      "path": "assets/player_presentation_01/weapon_audio_v1/beam_0.wav",
+      "sha256": "dc70b3e4b88728d2311d496f541d251d8933606180d53a02b35ca5146b2fd3bb",
+      "cue": "beam",
+      "variant": 0,
+      "duration": 0.8,
+      "peak": 0.47999511703848385
+    },
+    {
+      "path": "assets/player_presentation_01/weapon_audio_v1/beam_1.wav",
+      "sha256": "fe6c14ad035857c5fb4946690f22990e50150de5af79f9a736bd3714c4d054b7",
+      "cue": "beam",
+      "variant": 1,
+      "duration": 0.8,
+      "peak": 0.45600756859035
+    },
+    {
+      "path": "assets/player_presentation_01/weapon_audio_v1/beam_2.wav",
+      "sha256": "1184df86d62539d0d505a512ff1dcca316ee8909022caeff5a8a9be8e8045f4b",
+      "cue": "beam",
+      "variant": 2,
+      "duration": 0.8,
+      "peak": 0.489608447523423
+    }
+  ],
+  "processing": "Deterministic48k mono16;offline micro pitch/gain;1.5ms attack35ms tail,beam20ms/80ms;six familiesxthree variants;beam additive135/270/540Hz short0.8s state-gated cue,not music",
+  "license": "Kenney CC0-1.0 originals retained;beam waveform authored mathematical sine synthesis;no third-party musical source",
+  "listening": "unverified"
+}
