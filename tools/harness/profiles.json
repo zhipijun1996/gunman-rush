@@ -561,7 +561,19 @@
       "timeout_seconds": 480,
       "success_pattern": "^PLAINS AUTONOMY GOLDEN:",
       "weight_seconds": 30,
-      "serial": true
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/evidence/plains_redesign/frozen_v9"
+      ]
     },
     "plains-action-golden": {
       "argv": [
@@ -570,7 +582,20 @@
       ],
       "timeout_seconds": 420,
       "success_pattern": "^PLAINS ACTION deleted_bank_negative: validated, exit=1$",
-      "weight_seconds": 15.0
+      "weight_seconds": 15.0,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/evidence/plains_redesign/frozen_v9",
+        "docs/evidence/level_autonomy/action_baseline_capture.json"
+      ]
     },
     "plains-redesign-golden": {
       "argv": [
@@ -611,7 +636,21 @@
       ],
       "timeout_seconds": 600,
       "success_pattern": "^PLAINS ENCOUNTER POLICY: actual live input and causal counterexamples validated$",
-      "serial": true
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg",
+        "docs/evidence/plains_redesign/frozen_v9",
+        "docs/evidence/plains_redesign/encounter/frozen_50fb10c/manifest.json",
+        "docs/evidence/plains_redesign/encounter/frozen_50fb10c/delta.tar.gz"
+      ]
     },
     "plains-redesign-scene": {
       "argv": [
@@ -709,7 +748,8 @@
         "resources",
         "config",
         "assets",
-        "tests"
+        "tests",
+        "docs/evidence/region_production_v3/enemy_encounter_v2/legacy_manifest_strings.json"
       ]
     },
     "forest-h-slice": {
@@ -1385,7 +1425,8 @@
         "tools",
         "tests",
         "project.godot",
-        "export_presets.cfg"
+        "export_presets.cfg",
+        "docs/evidence/forest_depth_v2/reviews/campaign-output-helper/cross_region_manifest.json"
       ],
       "artifact_paths": [
         "build/verification/aim_save_compat.json"

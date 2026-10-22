@@ -138,4 +138,4 @@ python3 tools/cloud_delivery.py stage-media --capture-dir build/verification/clo
 
 两种stage命令只暂存；在独立host提交推送后，唯一Pages工作流核PCK／媒体inventory及900MiB上限，再部署。实际访问／下载核验后才报成功。`stage-media`提供稳定静态下载作为Release上传受限时的正式可用路径。初次建立host需仓库创建及Pages启用权限；已建立后不重复请求。
 
-本轮新增两项Python检查接入原profile，真实preview生命周期接入gameplay/art/full；原158检查定义及原profile前缀不变。当前稀疏工作区与新CI用jobs1，避免现有隔离clone偷偷物化全树；Release原分机lane不变。完整数据与下一批三个工程Prompt见[提效审计](cloud_efficiency_audit.md)。
+生产工具检查追加到原profile，真实preview生命周期接入gameplay/art/full；原158项检查的命令、断言、预算与原profile前缀保留，发现的真实历史fixture依赖只补充到原inputs。稀疏隔离已完成实际partial-source修复与两lane专项验证，新PR CI用jobs2；serial标记及Release原分机lane不变。完整数据与首批工作线Prompt见[提效审计](cloud_efficiency_audit.md)与[并行批次](demo_wave_01.md)。
