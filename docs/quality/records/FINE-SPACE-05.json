@@ -4,7 +4,7 @@
   "task_type": "art",
   "workflow": "review",
   "baseline_commit": "73c9add5c5f6b1099a94254932280238a6290178",
-  "reviewed_commit": "73c9add5c5f6b1099a94254932280238a6290178",
+  "reviewed_commit": "efd784349efa31502cb428b14bde10ea517bdd9a",
   "content_version": "fine-space-05-candidate",
   "owner": "root",
   "purpose": "将用户已选细粒度接入正式家园与区域，修根基、暖光、分层背景与稀疏前景",
@@ -15,6 +15,7 @@
     "Do not sign human/device acceptance from metadata or automated checks"
   ],
   "affected_paths": [
+    "AGENTS.md",
     "assets/forest_bible_v2/native/fine_32/bark_atlas47.png",
     "assets/forest_bible_v2/native/fine_32/bark_atlas47.png.import",
     "assets/forest_bible_v2/native/fine_32/bark_deck.png",
@@ -104,12 +105,64 @@
     "assets/underworld_plains/windmill_fine_05/rotor.png",
     "assets/underworld_plains/windmill_fine_05/rotor.png.import",
     "assets/underworld_plains/windmill_fine_05/windmill_build.json",
+    "docs/art_foundation_v1.md",
     "docs/creative_direction/bibles/registry.json",
     "docs/creative_direction/bibles/style-continuity-20261022-v5.json",
     "docs/creative_direction/thorn_forest.json",
     "docs/creative_direction/windchime_plains.json",
+    "docs/current_state.md",
     "docs/evidence/fine_space_05/README.md",
+    "docs/evidence/fine_space_05/before_forest.png",
+    "docs/evidence/fine_space_05/before_home.png",
+    "docs/evidence/fine_space_05/before_plains.png",
+    "docs/evidence/fine_space_05/browser.json",
+    "docs/evidence/fine_space_05/browser_driver.py",
+    "docs/evidence/fine_space_05/capture.json",
+    "docs/evidence/fine_space_05/capture.log",
+    "docs/evidence/fine_space_05/development-plan.json",
+    "docs/evidence/fine_space_05/failures/space05-formal-diagnose.log",
+    "docs/evidence/fine_space_05/failures/space05-hud-bounds-r2.log",
+    "docs/evidence/fine_space_05/failures/space05-hud-bounds.log",
+    "docs/evidence/fine_space_05/failures/space05-movie-final.log",
+    "docs/evidence/fine_space_05/failures/space05-new-host.log",
+    "docs/evidence/fine_space_05/failures/space05-quick-r1.log",
+    "docs/evidence/fine_space_05/failures/space05-quick-r3.log",
+    "docs/evidence/fine_space_05/failures/space05-scenery-r1.log",
+    "docs/evidence/fine_space_05/failures/space05-web-build.log",
+    "docs/evidence/fine_space_05/failures/stage-preview.log",
+    "docs/evidence/fine_space_05/fine-web-closure.json",
+    "docs/evidence/fine_space_05/foreground-audit.json",
+    "docs/evidence/fine_space_05/forest.png",
+    "docs/evidence/fine_space_05/formal.log",
+    "docs/evidence/fine_space_05/gallery_browser_driver.py",
+    "docs/evidence/fine_space_05/grounding.log",
+    "docs/evidence/fine_space_05/home.png",
+    "docs/evidence/fine_space_05/hud-bounds.log",
+    "docs/evidence/fine_space_05/hud_bounds.json",
     "docs/evidence/fine_space_05/independent_review.md",
+    "docs/evidence/fine_space_05/media-probe.json",
+    "docs/evidence/fine_space_05/movie.log",
+    "docs/evidence/fine_space_05/movie_final_24.png",
+    "docs/evidence/fine_space_05/movie_trace.json",
+    "docs/evidence/fine_space_05/public-gallery.json",
+    "docs/evidence/fine_space_05/public-gallery.png",
+    "docs/evidence/fine_space_05/public-review.json",
+    "docs/evidence/fine_space_05/quality-diff.log",
+    "docs/evidence/fine_space_05/s0_m1_spawn.png",
+    "docs/evidence/fine_space_05/s0_m2_high.png",
+    "docs/evidence/fine_space_05/scenery.log",
+    "docs/evidence/fine_space_05/source-binding.json",
+    "docs/evidence/fine_space_05/style-bind.log",
+    "docs/evidence/fine_space_05/terrain-gpu.log",
+    "docs/evidence/fine_space_05/user-request.json",
+    "docs/evidence/fine_space_05/web-build-info.json",
+    "docs/evidence/fine_space_05/web-closure.log",
+    "docs/evidence/fine_space_05/web-export.log",
+    "docs/evidence/fine_space_05/web-forest1-entered.png",
+    "docs/evidence/fine_space_05/web-home-entered.png",
+    "docs/evidence/fine_space_05/web-plains1-entered.png",
+    "docs/evidence/fine_space_05/web-plains2-entered.png",
+    "docs/evidence/fine_space_05/web-touch_plains2-entered.png",
     "docs/evidence/high_density_terrain_03/README.md",
     "docs/evidence/high_density_terrain_03/builder.log",
     "docs/evidence/high_density_terrain_03/capture.json",
@@ -166,6 +219,7 @@
     "docs/evidence/terrain_density_04/plains_bell_terrain_coarse.png",
     "docs/evidence/terrain_density_04/source_binding.json",
     "docs/evidence/terrain_density_04/verification.json",
+    "docs/handoff.md",
     "docs/quality/asset_records/fine-space-05-asset-registry.json",
     "docs/quality/asset_records/fine-space-05-carrier.json",
     "docs/quality/asset_records/fine-space-05-foreground.json",
@@ -181,6 +235,9 @@
     "docs/quality/asset_records/fine-space-05-terrain.json",
     "docs/quality/asset_records/fine-space-05-windmill.json",
     "docs/quality/records/FINE-SPACE-05.json",
+    "docs/tasks.md",
+    "docs/underworld_tile_production.md",
+    "docs/visual_bible.md",
     "project.godot",
     "scripts/demo/demo_app.gd",
     "scripts/demo/home_scene.gd",
@@ -216,6 +273,7 @@
     "shaders/underworld_foreground.gdshader",
     "shaders/underworld_foreground.gdshader.uid",
     "tests/underworld_plains/test_fine_hud_bounds.gd",
+    "tests/underworld_plains/test_fine_hud_bounds.gd.uid",
     "tests/underworld_plains/test_underworld_formal.gd",
     "tests/underworld_plains/test_underworld_identity_population.gd",
     "tests/underworld_plains/test_underworld_scenery.gd",
@@ -239,19 +297,20 @@
   ],
   "creative_decisions": [
     {
-      "status": "proposed",
-      "decision": "Native32px/32wu terrain and1wu world sampling replace old16px shared-scale authority by explicit user choice",
-      "basis": "Explicit user fine-grid selection and root actual composition comparison; final art unverified"
+      "status": "user_confirmed",
+      "decision": "共享细粒度32px/32wu方向；旧原16px资源保留作历史",
+      "basis": "细粒度好看。确定使用细粒度，之后所有都统一，不统一的都修改。然后我发现家园的房子或者树和地面不贴合，需要修复",
+      "evidence_id": "request"
     },
     {
       "status": "proposed",
       "decision": "Warm windows and sparse local emitters, cooler distant silhouettes and bounded vertical drift",
-      "basis": "Explicit user fine-grid selection and root actual composition comparison; final art unverified"
+      "basis": "Within authorized implementation scope; new composed outcome awaiting user review"
     },
     {
       "status": "proposed",
       "decision": "Sparse offscreen-attached foreground; actual function/UI overlap hides the whole candidate",
-      "basis": "Explicit user fine-grid selection and root actual composition comparison; final art unverified"
+      "basis": "Within authorized implementation scope; new composed outcome awaiting user review"
     }
   ],
   "formal_impact": true,
@@ -289,63 +348,195 @@
   },
   "dimensions": {
     "design": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "实现用户明确细粒度/接地/景深/暖光方向；不把参数方向认可升级成新画面认可",
+      "evidence": [
+        "spec",
+        "request"
+      ]
     },
     "technical": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "限定实际HUD边界42/0、Web导出与PCK闭包、5个本地浏览器入口；原native GPU/支撑证据单列，不签完整CI",
+      "evidence": [
+        "hud",
+        "web",
+        "fine_pack",
+        "gui"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "正式HomeScene/DemoApp已接入，2图×3Seeds实机与浏览器入口已观察；全正式消费者库存/全程/全部共享旧入口未验，不签整区",
+      "evidence": [
+        "gui"
+      ]
     },
     "visual": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "用户选细粒度方向；新合屏仍待用户。独审指出森林细木台与根台语言、弱前景、标签对比仍需改善",
+      "evidence": [
+        "review"
+      ]
     },
     "animation": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "真24秒电影和抽帧已出，未完整人工播放检查全部动态/风动/遮挡，不能以静帧代签",
+      "evidence": [
+        "public",
+        "review"
+      ]
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "暖光已实机；MP4含48k stereo实际混音，音轨未完整听审，BGM未改",
+      "evidence": [
+        "public"
+      ]
     },
     "gameplay": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "status": "not_applicable",
+      "reason": "本任务不改Motor/碰撞/参数/能力/资源/RNG/存档，不作全路线或趣味验收",
       "evidence": []
     },
     "performance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "软件渲染与MovieWriter耗时不可外推实体设备FPS",
       "evidence": []
     },
     "independent_review": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "不同作者实际看图/抽帧，有限批准共享方向绑定、保留测试守卫及局部HUD修复；未签全区美术",
+      "evidence": [
+        "review"
+      ]
     },
     "device": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "触屏仅浏览器模拟，未验实体设备",
       "evidence": []
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "仅细粒度选择已确认，新合屏与运动仍待用户评价",
+      "evidence": [
+        "request"
+      ]
     }
   },
   "criteria": [],
-  "evidence": [],
+  "evidence": [
+    {
+      "id": "request",
+      "path": "docs/evidence/fine_space_05/user-request.json",
+      "sha256": "b3053f5bc18a758c35a86b3813367e2c45edaf7fbadc6f25c28474f2ca56945c",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "efd784349efa31502cb428b14bde10ea517bdd9a",
+      "content_version": "fine-space-05-candidate",
+      "method": "User selected fine grain only; further visual outcome unaccepted",
+      "observed": "User selected fine grain only; further visual outcome unaccepted",
+      "source": "current conversation",
+      "quote": "细粒度好看。确定使用细粒度，之后所有都统一，不统一的都修改。然后我发现家园的房子或者树和地面不贴合，需要修复",
+      "covers": [
+        "design"
+      ],
+      "accepted": true
+    },
+    {
+      "id": "spec",
+      "path": "docs/evidence/fine_space_05/README.md",
+      "sha256": "7801132382bbe5c9519026eb08292b5447b1328034680cba81cc80b0425dee30",
+      "kind": "spec",
+      "producer": "root",
+      "source_commit": "efd784349efa31502cb428b14bde10ea517bdd9a",
+      "content_version": "fine-space-05-candidate",
+      "method": "Actual scope/implementation/retained failures, final art and devices unverified",
+      "observed": "Actual scope/implementation/retained failures, final art and devices unverified"
+    },
+    {
+      "id": "hud",
+      "path": "docs/evidence/fine_space_05/hud-bounds.log",
+      "sha256": "3349ddf3d6670fababa09e5db299c92f996232ecf9b5a2035a664560dbd45842",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "efd784349efa31502cb428b14bde10ea517bdd9a",
+      "content_version": "fine-space-05-candidate",
+      "method": "Actual formal map2 42 checks0 failures, bottom layout exercised",
+      "observed": "Actual formal map2 42 checks0 failures, bottom layout exercised",
+      "command": "bash tools/godot.sh --headless --path . --script tests/underworld_plains/test_fine_hud_bounds.gd",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Standard Linux headless"
+    },
+    {
+      "id": "web",
+      "path": "docs/evidence/fine_space_05/web-closure.log",
+      "sha256": "7bdeff124ce6334b324f0350ad69a15aa5527ef3557732e56045490606b25aea",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "efd784349efa31502cb428b14bde10ea517bdd9a",
+      "content_version": "fine-space-05-candidate",
+      "method": "Actual exported PCK/cache closure passed, not aesthetics",
+      "observed": "Actual exported PCK/cache closure passed, not aesthetics",
+      "command": "python3 tools/check_web_bundle.py",
+      "exit_code": 0,
+      "environment": "Python3.12 Linux actual Web export"
+    },
+    {
+      "id": "fine_pack",
+      "path": "docs/evidence/fine_space_05/fine-web-closure.json",
+      "sha256": "6b426951ba8d54a95fd67a7992362cd23cdc22190f9efad36177d8bad262d4c5",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "efd784349efa31502cb428b14bde10ea517bdd9a",
+      "content_version": "fine-space-05-candidate",
+      "method": "Exact five FileAccess JSON bodies and23 selected fine texture import targets read from actual PCK",
+      "observed": "Exact five FileAccess JSON bodies and23 selected fine texture import targets read from actual PCK"
+    },
+    {
+      "id": "gui",
+      "path": "docs/evidence/fine_space_05/browser.json",
+      "sha256": "af8493549b1be2d1b8e6c54e77f996b33624dfd49743a6995360f62766882c89",
+      "kind": "gui",
+      "producer": "root",
+      "source_commit": "efd784349efa31502cb428b14bde10ea517bdd9a",
+      "content_version": "fine-space-05-candidate",
+      "method": "Local Chromium5 cases actual Home keyboard/map entries/mouse and DOM touch pause; errors=[]",
+      "observed": "Local Chromium5 cases actual Home keyboard/map entries/mouse and DOM touch pause; errors=[]"
+    },
+    {
+      "id": "review",
+      "path": "docs/evidence/fine_space_05/independent_review.md",
+      "sha256": "3d091ffc5eda20aaa4b8ea16dafd59d31000b63433feac6b11d407c2cc6eb6e3",
+      "kind": "review",
+      "producer": "density_art_review",
+      "source_commit": "efd784349efa31502cb428b14bde10ea517bdd9a",
+      "content_version": "fine-space-05-candidate",
+      "method": "ACCEPT only scoped style rebind, test guard preservation and HUD bounds repair; whole visual remains REWORK/UNVERIFIED",
+      "observed": "ACCEPT only scoped style rebind, test guard preservation and HUD bounds repair; whole visual remains REWORK/UNVERIFIED",
+      "reviewer": "density_art_review",
+      "implementers": [
+        "root",
+        "formal_grounding",
+        "formal_parallax",
+        "formal_fine_terrain"
+      ],
+      "independent": true,
+      "independence_basis": "Separate agent only read production and images, modified only this report",
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "public",
+      "path": "docs/evidence/fine_space_05/public-review.json",
+      "sha256": "97ee8fb78024f2d9d9629990f053f3e24fac690fca67551fa21e41782203d9f8",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "efd784349efa31502cb428b14bde10ea517bdd9a",
+      "content_version": "fine-space-05-candidate",
+      "method": "Public HTTPS complete MP4 and selected PNG byte hashes match exact source-bound local files; review page only",
+      "observed": "Public HTTPS complete MP4 and selected PNG byte hashes match exact source-bound local files; review page only"
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
     "Full CI/Harness intentionally not run per user",
@@ -362,5 +553,13 @@
     "animation-vfx",
     "project-integration"
   ],
-  "test_change_justification": "Scenery far-plane assertion now tests explicitly selected same-orientation cloud wrap, retaining coverage/no-gap guards. Root checks now measure actual Sprite transform/sourcefoot and ray from above embedded root; support endpoints and protected regions retained. Independent review pending."
+  "test_change_justification": "Independent report explicitly reviewed same-orientation cloud assertion, actual source-foot/above-root/endpoints grounding tests and unchanged strict merchant condition. NewHUD test exercises bottom branch with actual zoom and visible control bounds; original failure preserved.",
+  "delivery": {
+    "review_url": "https://zhipijun1996.github.io/gunman-rush-previews/reviews/FINE-SPACE-05/efd7843/",
+    "web_build": "524396d0cd10",
+    "web_publication": "blocked 900MiB site cap; createRepository denied",
+    "web_zip": "/workspace/artifacts/gunman-fine-space-05-web-524396d0cd10.zip",
+    "game_ci": "not_run_per_user",
+    "main_merge": "not_performed"
+  }
 }

@@ -24,6 +24,11 @@
 
 # 最新交接：探索场所原型 v18
 
+## 2026-10-22 FINE-SPACE-05 最新交付
+
+FINE-SPACE-05，art/formal-fine-depth，运行源efd784349efa31502cb428b14bde10ea517bdd9a（后续提交只文档/UID）。30张正式定位图含2maps×3Seeds；GPU239910/0、scenery450/0、支撑21572/0、formal96/0、HUD42/0；本地Web5入口实际正常，非全程/CI。公开[24秒影片与对照](https://zhipijun1996.github.io/gunman-rush-previews/reviews/FINE-SPACE-05/efd7843/)部署39837638359成功；Web build524396d0cd10 ZIP在/workspace/artifacts，公开Web被cap/新repo权限挡住。未合main，勿默认删历史或提高cap。当前技能/素材来源/失败/恢复命令见[evidence](evidence/fine_space_05/README.md)及[quality](quality/records/FINE-SPACE-05.json)。下一步围绕森林承载造型与真实前景功能遮挡做局部视觉复核，不重复生成已选细粒度母版。
+
+
 ## 2026-10-22 总控与提效生产基线（最新）
 
 当前主会话为总控。用户已授权先完成CLOUD-EFFICIENCY-01并通过普通PR合入main，再从PR103的实际merge SHA启动三条独立工作线；[本批Prompt、写集及共享依赖](demo_wave_01.md)为本批调度合同。合入与最终CI状态以[PR103](https://github.com/zhipijun1996/gunman-rush/pull/103)的精确head／merge及check为准，不把执行中签成通过。

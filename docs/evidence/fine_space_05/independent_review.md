@@ -76,3 +76,92 @@ capture记录的三张parallax纹理也与实际字节匹配：morning_sky `4af6
 | 基线 space_before/forest.png | `38f990b59a64044e32e025a754500f3b4de82894f7d9fff79308b3c08ef0a85f` |
 
 本报告仅接受“指定局部静图有上述改善、方向重绑与当前源字节一致”的有限结论。森林落点可读性、前景可见贡献需继续返工；连续运动、视差接缝、风动/遮挡保护、正常路线、全Seed全区、Web实际渲染、用户审美与真机性能均未由本代理验收。
+
+
+## final_r2 有界补充复核（2026-10-22）
+
+生产checkpoint：`5ce3cd3d8771d6e44d00cc600b0a73ddb1e6b0a8`。本节补充并更新当前字节绑定；上文final图、旧v5哈希与问题记录作为原轮证据保留，不冒称仍是最新版本。
+
+实际再次view_image打开 `build/fine_space_05/final_r2/{home.png,s0_m1_spawn.png,forest.png}` 三图；未重审其余27图。读取final_r2/capture.json，含30条capture及空failures；未凭此代签30图。Home/Plains画面主体、根接触、细密度和背景地标分离未见新增明显退化。forest单向木条现在有更明亮的树皮暖斑，比final暗条更容易辨认，但仍是独立裸细矩形，未建立与苔草实体根台一致的承载结构。结论更新为“可读性局部改善，森林空间语言仍REWORK”；不要求盲目扩产第三轮，也不签整区。Home label仍偏小灰、天空叙事偏明亮、前景贡献不足等原问题保留。
+
+独立读取当前fine_sprite shader：vertex计算MODEL_MATRIX原点到round(origin)的位移，再经矩阵逆变换加至VERTEX，仅改变绘制顶点。它没有设置Node位置、修改交互anchor或物理状态。project.godot及UnderworldPresentation中未查到全局snap_2d配置；据此确认本次实现采用绘制层吸附，而非全项目transform吸附。源码审查不能替代运动抖动与所有变换组合的GPU验证。
+
+### 测试改动独审
+
+实际读取checkpoint相对其父提交的三份测试diff，并查看相关保留断言：
+
+- `test_underworld_scenery.gd`：唯一条件替换是远层从相邻mirror交替改为两条均不mirrored，符合当前同向云重复。横向覆盖、邻条无gap、其他层原向重叠、root span支撑、真实solid top、whole-object keepout、空地拒绝漂浮、分块/顺序不变性等断言仍在。此修改确认语义迁移，不单独证明云接缝像素自然。
+- `test_underworld_identity_population.gd`：从AABB底中心射线改为实际Sprite.to_global(source.foot)，在渲染根上方12wu到下方3wu寻找真实表面，适配埋根而非漂浮。较长射线受到新增0–8wu inset、碰撞surface与原逻辑foot差<.01、记录render_root等于实际变换、两端真实StaticBody支持共同约束；原keepout断言保留。没有把metadata本身当接触通过，也没有删除支撑要求。0–8wu只属本次嵌根规格，不外推全游戏。
+- `test_underworld_formal.gd`：`foot.is_equal_approx(stage.merchant_position+Vector2(0,18))`完全保留，只在失败label追加actual/expected数值。后续实际StaticBody支撑射线也保留。故本次未用放宽merchant锚点阈值掩盖全局snap造成的偏移。
+
+本代理未重跑这些测试。scenery450/0、identity21572/0及formal96/0属于生产者已记录的执行结果，本节独立签的是修改内容及原约束保留，不冒称重新执行通过。
+
+### 当前方向/源绑定
+
+新版v5的20条runtime_reference全部与当前字节匹配；细粒度用户原话、candidate状态和不签视觉/设备的范围仍在。fine_sprite引用已绑定新vertex实现，旧v5字节由上节原值留痕。只批准当前方向与字节重绑这一有限结论；森林、动态、前景效果和用户审美不因此获得认可。
+
+- 当前v5 SHA256：`5c5585a275cf009ea6860371c920657e8d875955d5ddaaedb3c1cdc38527160c`。
+- 当前fine_sprite SHA256：`8132707bd3baf841ceda85d1c728890f813f19c4fccfd3cb07c9fcbecc185188`。
+- final_r2/capture.json SHA256：`839d1cac5863b6c34ca946aa3011fa7ee72ecc4d86e367f501561e6733587c9e`。
+
+| 此次实际补看图 | SHA256 |
+| --- | --- |
+| final_r2/home.png | `638bd3f62effe970ea30e3a5dc76192e696698b7467c951fbde34de6244a254e` |
+| final_r2/s0_m1_spawn.png | `85d10d29f91c2c58921dcf0282336c818672515ac9ed199528bd1a8574d80d39` |
+| final_r2/forest.png | `0cf231fc055a639e3178022e9ddedf473a060b06c15c643e4ae905f326a09518` |
+
+前景Plains.opacity≈0.0045不能验证可见效果的原结论保留；未看新版连续影片，尚未验证风动、动态遮挡、整段路线、音轨、用户及真机。
+
+
+## 真Godot影片抽帧补充与报告冻结（2026-10-22）
+
+实际以view_image的original尺寸打开 `movie_frame_06/12/14/16/20/22/24.png` 七张原图，未观看其余17张抽帧，也未直接连续播放MP4或听音轨。ffprobe确认影片为1280×720、60fps、约24.3667秒；元数据不等于已经观看全片。
+
+读取movie_trace_r2.json，144条周期记录。scope明确前12秒是Home真实InputRouter/Motor输入，后面两个约6秒为正式map1/map2的live-world相机诊断；角色留在spawn、镜头独立移动，不是可通行路线。trace保留loading帧，且没有同输入基线电影。本代理只核读记录与上述七张实际图，不把相机诊断视为真实玩家横纵通关。
+
+抽帧观察：
+
+- 06与12：Home角色处于真实输入段，所看帧轮廓清楚，未被前景草遮住；房屋、树根与草沿接触保持，没有新的明显白块/裂缝。
+- 14与20：镜头只有天空/远近景，没有角色与玩法平台；符合独立镜头诊断的范围，不能据此宣称角色消失Bug或路线可读性通过。背景在这些帧未见露底、白边或明显断接。
+- 16、22、24：正式两图高低镜头下，所看实体边、底面及背景连续覆盖，未见明显白条、缺图或露底；接缝可能发生在两采样时刻之间，不能签全段无缝。重复草沿、整块暗矩形与包边的原艺术问题仍在。
+- **新增采证/UI异常保留**：16帧的MENU出现在右下，24帧左侧HUD落至左下且被底边裁切；它们位于diagnostic camera段，说明当前影片不能用来签HUD在镜头运动时始终固定、完整。根因与正常相机是否同样受影响未在本次审查确定，不将诊断行为推断成真实路线故障，也不忽略可见裁切。
+
+所看Home样本未发现关键遮挡；两个正式图诊断段角色不随镜头，缺少移动主角/枪口/敌预告与前景相交的有效反例，**动态关键遮挡、风动节奏、连续接缝、完整播放和音轨均UNVERIFIED**。不能把七张静态抽帧称完整运动验收。森林未出现在本片抽帧范围，其REWORK结论不变。
+
+- 实际MP4 SHA256：`60a2246a496ebb679ebbf8e77c8d31364879afaf62129e30dc516d8298ba2ed1`。
+- movie_trace_r2.json SHA256：`3ba45999d3608604c2c639dd9b5bc615b85d46b625a2a2c5771966c644e4e88d`。
+
+| 实际观看原图 | SHA256 |
+| --- | --- |
+| movie_frame_06.png | `cef872a739a0f9493d275b08da83bcc09caf089cd1c179f49116b821a05523b3` |
+| movie_frame_12.png | `a153535d0b6d556373799dbb8c28e8f2c7d5fb6be6d03c0ec250eb0a91e63766` |
+| movie_frame_14.png | `1769d290e164ccba7b4c54a1ab5cdfaa535160ca330562d8914b11e8fe2b7b70` |
+| movie_frame_16.png | `7227abf88f75c590673acb753ff3d7c075dc1bdb6e7d081744006adc6aa7a7ad` |
+| movie_frame_20.png | `892d43933a6de24deabcd2b158c6a5d5e29d9f6a6a9415a4d6c3ec673fbe91cf` |
+| movie_frame_22.png | `3dbf060932a33721b60408e08a4594684856970f424f18a87860e351bc41d70b` |
+| movie_frame_24.png | `72a303d8657d2b239d963d2f51f9fecaa9d9335d7a769404628cfb6c7af07712` |
+
+本轮报告至此冻结：限定静图/抽帧改善及字节重绑结论成立，森林材质承载语言与前景效果尚待完善，诊断HUD裁切保留为未解决采证问题；全区、连续视听、正常路线、用户审美与设备均未获本代理签字。
+
+
+## HUD边界单点修复复核与最终冻结（2026-10-22）
+
+生产source：`efd784349efa31502cb428b14bde10ea517bdd9a`。此前fine_space_05.mp4中HUD裁切失败原件与上节观察继续保留，不能追认为旧片通过。
+
+本次实际以original尺寸打开新片23秒抽帧 `build/fine_space_05/movie_final_24.png`：左上资源HUD完整，右下MENU与MAP按钮也完整处于画面内，未见此前底边裁掉资源文字的问题。当前画面并未实际触发HUD底部位置，因此单帧只证明该时刻完整，不能单独证明原底部槽已修。
+
+独立读DemoApp修复diff：仅在每个候选评分前，按viewport起止、真实_hud_frame.size及8px边距clamp候选位置，随后仍用原blocker/touch_regions评分。1280×720、140px高面板的底部候选由590收至572，数学边界与旧失败相符；未通过修改物理、相机或玩家坐标修HUD。现存候选、关键物体权重及保护区域判断保留。
+
+独立读新增test_fine_hud_bounds.gd：使用实际DemoApp正式map2、实际Camera2D.zoom把5个屏幕目标换算为相机偏移，然后检查真实panel及可见的title/金币/HP/精力/射击/战斗/focus Label矩形被viewport包住；bottom_seen断言要求至少一次实际选到底部候选，避免只查默认左上。读取hud_bounds.json回执为42检查、failures=[]、bottom_seen=true。本代理没有重跑engine，确认的是源码、回执与新帧相互支持这一限定结论；该测试不覆盖全部UI控件、触屏、异形视口、所有动态转场或设备。
+
+结论：**本次实际1280×720正式map2诊断的HUD边界修复具备针对性源码、实际底部布局回执及新帧支持，可关闭原已观察裁切这一局部缺陷。** 保留旧失败，不升级为整套HUD/全动态通过。未直接播放新24秒MP4，也未听音轨；完整动态、前景遮挡、正常路线、森林REWORK及用户/真机限制均维持原结论。
+
+| 本次复核对象 | SHA256 |
+| --- | --- |
+| scripts/demo/demo_app.gd | `d1295039ba8f6e3582002844638e195f0d9c31c2bf4972009559204946f6bb43` |
+| tests/underworld_plains/test_fine_hud_bounds.gd | `732a2da6a290659e028cae3b0e825d51044b393be43596d26b555ed54d4fa4dc` |
+| build/fine_space_05/hud_bounds.json | `295683274efb34d8fbaa257be1e92abe8bd704783ee95144bffd92130faa041c` |
+| build/fine_space_05/movie_final_24.png | `5d47f5c520e62cc00dd44c9c12c2c78843db7bec46f674075c92a2bde9236eb2` |
+| build/fine_space_05/fine_space_final.mp4 | `80301f729eb1e8b33d8fb3e928fc9f7501ef11fde98945c5e8b909ec3f003b33` |
+
+报告最终冻结；本代理仍只修改本报告，不改生产代码，不代签用户审美与设备。

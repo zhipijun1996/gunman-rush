@@ -1,5 +1,10 @@
 # 当前状态
 
+## 2026-10-22 FINE-SPACE-05 最新交付
+
+FINE-SPACE-05：用户明确选择细粒度。正式Home/Plains及森林共享消费者接入32px/32wu与1wu表现、根接触/暖光/景深/稀疏前景，原Bible/v4保留，现用style-v5。运行源efd7843，Web524396d0cd10已本地5例GUI验证；公开可玩发布被900MiB cap及新仓库权限阻挡，公开[视频/实机评审页](https://zhipijun1996.github.io/gunman-rush-previews/reviews/FINE-SPACE-05/efd7843/)已核实际字节/播放。无完整CI，未合main；森林木台造型/前景贡献/用户和真机仍review。[证据与恢复](evidence/fine_space_05/README.md)。
+
+
 ## 2026-10-22 总控与提效生产基线（最新）
 
 当前主会话为总控。用户已授权先完成CLOUD-EFFICIENCY-01并通过普通PR合入main，再从PR103的实际merge SHA启动三条独立工作线；[本批Prompt、写集及共享依赖](demo_wave_01.md)为本批调度合同。合入与最终CI状态以[PR103](https://github.com/zhipijun1996/gunman-rush/pull/103)的精确head／merge及check为准，不把执行中签成通过。

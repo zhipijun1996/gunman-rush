@@ -1,5 +1,10 @@
 # 开发任务
 
+## 2026-10-22 FINE-SPACE-05 最新交付
+
+FINE-SPACE-05：review，art/formal-fine-depth。细粒度已按用户选择接入正式家园/平原及共享森林表现；房屋树根接地、暖光/三层景深/稀疏前景已实机，技术范围与公开影片见[evidence](evidence/fine_space_05/README.md)。源码efd7843，Web524396d0cd10本地入口通过，公开可玩站容量/权限blocked；森林根台造型、前景贡献及用户/真机仍未签，不标done、不跑全CI或默认合main。
+
+
 2026-10-18最新交付：[H技术发布原件与边界](evidence/forest_depth_v2/H_release01/README.md)。H `367b7c1a`／CI39105617804实际SUCCESS：85=67+18及serial5附加，Web／Windows／两docs22／deploy／verify_public通过；准确原包72/72、errors0、359.125秒。publisher verified，试玩[build ab99155b1b88](https://zhipijun1996.github.io/gunman-rush/?v=ab99155b1b88)。额外公开森林GUI因IPv6网络不可达0/20执行，属blocked_network，既非20通过也非玩法失败。独审仅技术ACCEPT，整体REVISE／in_progress及QueenH、探索密度、真人设备缺口保持。旧pending段为当时快照，最新段只覆盖对应已实证技术结果；bare1481=0cf不等于prepared56Foundry同旧版。
 
 
