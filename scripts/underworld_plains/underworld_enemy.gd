@@ -13,7 +13,8 @@ func _ready() -> void:
 		feedback_sample = EnemyFeedback01.new(actor.health, actor.definition)
 		feedback_body = EnemyFeedback01Body.new()
 		feedback_body.name = "AcceptedHitBody"
-		feedback_body.z_index = -1
+		# Keep the actor's world layer; only put its own HP/telegraphs above it.
+		feedback_body.show_behind_parent = true
 		add_child(feedback_body)
 		feedback_particles = EnemyFeedback01Particles.new()
 		feedback_particles.name = "AcceptedHitChips"
