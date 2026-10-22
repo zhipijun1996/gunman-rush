@@ -529,6 +529,74 @@ class SparseIsolationTests(unittest.TestCase):
         self.assertEqual(self.git("ls-files", "--stage", "-z", root=lane), self.git("ls-files", "--stage", "-z", root=worktree))
         self.assertEqual((self.root / "src/input.txt").read_text(), "baseline")
 
+    def test_real_partial_promisor_with_unavailable_origin_never_runs_pack_transport(self):
+        server = self.root
+        self.git("config", "uploadpack.allowFilter", "true")
+        partial = self.base / "partial-source"
+        fixture_env = {**os.environ, "GIT_NO_LAZY_FETCH": "0"}
+        subprocess.run(["git", "clone", "--quiet", "--filter=blob:none", "--no-checkout", server.as_uri(), str(partial)],
+                       check=True, capture_output=True, env=fixture_env)
+        self.assertEqual(self.git("config", "--get", "remote.origin.promisor", root=partial).strip(), "true")
+        self.assertTrue(list((partial / ".git/objects/pack").glob("*.promisor")))
+        subprocess.run(["git", "-C", str(partial), "sparse-checkout", "init", "--no-cone"], check=True, capture_output=True, env=fixture_env)
+        subprocess.run(["git", "-C", str(partial), "sparse-checkout", "set", "--no-cone", "--stdin"],
+                       input="/*\n!/docs/evidence/\n", text=True, check=True, capture_output=True, env=fixture_env)
+        subprocess.run(["git", "-C", str(partial), "reset", "--hard", "HEAD"], check=True, capture_output=True, env=fixture_env)
+        self.assertFalse((partial / "docs/evidence/cold.bin").exists())
+        self.git("remote", "set-url", "origin", (self.base / "unavailable-origin").as_uri(), root=partial)
+        unavailable_env = {**os.environ, "GIT_NO_LAZY_FETCH": "1"}
+        probe = subprocess.run(["git", "-C", str(partial), "cat-file", "--batch-check"],
+                               input=self.cold_blob + "\n", text=True, check=True, capture_output=True, env=unavailable_env)
+        self.assertEqual(probe.stdout.strip(), self.cold_blob + " missing", "This must be a genuinely unfetched promised blob")
+        # Exercise the actual transport fallback: --no-checkout does not prevent
+        # upload-pack. Some Git versions allow local optimization for file://
+        # promisors, so explicitly choose the fallback observed in the real
+        # HTTPS-backed root rather than assuming every promisor disables local.
+        control = subprocess.run(["git", "clone", "--quiet", "--shared", "--no-hardlinks", "--no-checkout", "--no-local", str(partial), str(self.base / "old-partial-control")],
+                                 capture_output=True, env=unavailable_env)
+        self.assertNotEqual(control.returncode, 0)
+        self.assertIn(b"upload-pack", control.stderr)
+        self.assertIn(self.cold_blob.encode(), control.stderr)
+        (partial / "src/input.txt").write_text("partial staged bytes")
+        self.git("add", "src/input.txt", root=partial)
+        (partial / "src/input.txt").write_text("partial working bytes")
+        (partial / "src/deleted.txt").unlink()
+        original_stage = self.git("ls-files", "--stage", "-z", root=partial)
+        original_flags = self.git("ls-files", "-v", "-z", root=partial)
+        packs_before = {path.name: path.stat().st_size for path in (partial / ".git/objects/pack").iterdir()}
+        trace = self.base / "partial-setup.trace"
+        source = ("import json,os; from pathlib import Path; "
+                  "assert not Path('docs/evidence/cold.bin').exists(); "
+                  "assert Path('src/input.txt').read_text()=='partial working bytes'; "
+                  "assert not Path('src/deleted.txt').exists(); "
+                  "p=Path('build/verification/partial.json'); p.parent.mkdir(parents=True,exist_ok=True); "
+                  "p.write_text(json.dumps({'cwd':str(Path.cwd()),'data':os.environ['GUNMAN_DATA_HOME']})); print('COMPLETE')")
+        check = {"argv": ["python3", "-c", source], "timeout_seconds": 5, "success_pattern": "^COMPLETE$"}
+        folder = partial / "build/report"
+        folder.mkdir(parents=True)
+        with patch.object(h, "ROOT", partial), patch.object(h, "toolchain_identity", return_value={}), \
+                patch.dict(os.environ, {"GUNMAN_TOOLCHAIN_ROOT": str(self.toolchain), "GIT_NO_LAZY_FETCH": "1", "GIT_TRACE": str(trace)}):
+            files = h.source_files()
+            fingerprint = h.input_digest({"argv": []}, files, {})
+            lane = self.base / "partial-setup-lane"
+            h.isolated_workspace(lane, files)
+            self.assertEqual(self.git("rev-parse", "HEAD", root=lane), self.git("rev-parse", "HEAD", root=partial))
+            self.assertEqual(self.git("ls-files", "--stage", "-z", root=lane), original_stage)
+            self.assertEqual(self.git("ls-files", "-v", "-z", root=lane), original_flags)
+            self.assertEqual(self.git("show", ":src/input.txt", root=lane), "partial staged bytes")
+            self.assertEqual(self.git("config", "--get", "remote.origin.promisor", root=lane).strip(), "true")
+            self.assertEqual(h.input_digest({"argv": []}, h.source_files(lane), {}, root=lane), fingerprint)
+            results = h.execute_checks({"checks": {"a": check, "b": check}}, ["a", "b"], folder, jobs=2)
+            self.assertEqual([item["status"] for item in results], ["passed", "passed"])
+            self.assertEqual(h.input_digest({"argv": []}, h.source_files(), {}), fingerprint)
+        self.assertEqual({path.name: path.stat().st_size for path in (partial / ".git/objects/pack").iterdir()}, packs_before)
+        self.assertFalse(list((lane / ".git/objects/pack").iterdir()))
+        self.assertFalse((lane / "docs/evidence/cold.bin").exists())
+        events = trace.read_text()
+        for forbidden in ("upload-pack", "pack-objects", "index-pack", "built-in: git fetch", "built-in: git clone"):
+            self.assertNotIn(forbidden, events, "Isolation metadata setup must not perform object transport")
+        print("PROMISOR ISOLATION: genuine filtered source, origin unavailable, transport fallback fails, metadata setup and two real lanes pass without pack transport")
+
 
 class SourceHashCacheTests(unittest.TestCase):
     """Real file mutations must invalidate the execution-local source optimization."""

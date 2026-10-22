@@ -3162,6 +3162,18 @@
       "timeout_seconds": 60,
       "success_pattern": "^OK$",
       "weight_seconds": 2
+    },
+    "portable-frozen-assets": {
+      "argv": [
+        "python3",
+        "tools/test_frozen_assets.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 1,
+      "inputs": [
+        "docs/evidence/plains_redesign/frozen_v9/"
+      ]
     }
   },
   "profiles": {
@@ -3197,7 +3209,8 @@
       "harness-artifact-archive-tests",
       "cloud-production-planner-tests",
       "cloud-delivery-tests",
-      "cloud-inputs-tests"
+      "cloud-inputs-tests",
+      "portable-frozen-assets"
     ],
     "core": [
       "docs",
@@ -3228,7 +3241,8 @@
       "harness-artifact-archive-tests",
       "cloud-production-planner-tests",
       "cloud-delivery-tests",
-      "cloud-inputs-tests"
+      "cloud-inputs-tests",
+      "portable-frozen-assets"
     ],
     "gameplay": [
       "docs",
@@ -3360,7 +3374,8 @@
       "cloud-production-planner-tests",
       "cloud-delivery-tests",
       "cloud-preview-runtime",
-      "cloud-inputs-tests"
+      "cloud-inputs-tests",
+      "portable-frozen-assets"
     ],
     "art": [
       "docs",
@@ -3459,7 +3474,8 @@
       "cloud-production-planner-tests",
       "cloud-delivery-tests",
       "cloud-preview-runtime",
-      "cloud-inputs-tests"
+      "cloud-inputs-tests",
+      "portable-frozen-assets"
     ],
     "web": [
       "docs",
@@ -3506,7 +3522,8 @@
       "harness-artifact-archive-tests",
       "cloud-production-planner-tests",
       "cloud-delivery-tests",
-      "cloud-inputs-tests"
+      "cloud-inputs-tests",
+      "portable-frozen-assets"
     ],
     "full": [
       "docs",
@@ -3653,7 +3670,8 @@
       "cloud-production-planner-tests",
       "cloud-delivery-tests",
       "cloud-preview-runtime",
-      "cloud-inputs-tests"
+      "cloud-inputs-tests",
+      "portable-frozen-assets"
     ],
     "creative-feedback": [
       "docs",
@@ -3665,7 +3683,8 @@
       "region-bible-tests",
       "cloud-production-planner-tests",
       "cloud-delivery-tests",
-      "cloud-inputs-tests"
+      "cloud-inputs-tests",
+      "portable-frozen-assets"
     ],
     "history": [
       "docs",
@@ -3674,7 +3693,8 @@
       "visual-director-space",
       "cloud-production-planner-tests",
       "cloud-delivery-tests",
-      "cloud-inputs-tests"
+      "cloud-inputs-tests",
+      "portable-frozen-assets"
     ],
     "creative-prototype": [
       "docs",
@@ -3685,7 +3705,8 @@
       "region-bible-tests",
       "cloud-production-planner-tests",
       "cloud-delivery-tests",
-      "cloud-inputs-tests"
+      "cloud-inputs-tests",
+      "portable-frozen-assets"
     ],
     "regional-art-feedback": [
       "docs",
@@ -3694,7 +3715,8 @@
       "plains-regional-art-contract",
       "cloud-production-planner-tests",
       "cloud-delivery-tests",
-      "cloud-inputs-tests"
+      "cloud-inputs-tests",
+      "portable-frozen-assets"
     ],
     "region-bible-feedback": [
       "region-bible-contract",
@@ -3703,7 +3725,8 @@
       "generated-consumers",
       "cloud-production-planner-tests",
       "cloud-delivery-tests",
-      "cloud-inputs-tests"
+      "cloud-inputs-tests",
+      "portable-frozen-assets"
     ],
     "forest-exploration-feedback": [
       "docs",
@@ -3713,28 +3736,32 @@
       "forest-exploration-contract",
       "cloud-production-planner-tests",
       "cloud-delivery-tests",
-      "cloud-inputs-tests"
+      "cloud-inputs-tests",
+      "portable-frozen-assets"
     ],
     "forest-varied-feedback": [
       "docs",
       "forest-varied-feedback",
       "cloud-production-planner-tests",
       "cloud-delivery-tests",
-      "cloud-inputs-tests"
+      "cloud-inputs-tests",
+      "portable-frozen-assets"
     ],
     "forest-places-feedback": [
       "docs",
       "forest-places-feedback",
       "cloud-production-planner-tests",
       "cloud-delivery-tests",
-      "cloud-inputs-tests"
+      "cloud-inputs-tests",
+      "portable-frozen-assets"
     ],
     "forest-library-feedback": [
       "docs",
       "forest-library-feedback",
       "cloud-production-planner-tests",
       "cloud-delivery-tests",
-      "cloud-inputs-tests"
+      "cloud-inputs-tests",
+      "portable-frozen-assets"
     ]
   }
 }

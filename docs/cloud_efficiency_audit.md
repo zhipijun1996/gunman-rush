@@ -20,7 +20,7 @@
 
 先按任务读取当前权威、相关Skill和消费者，不默认把全部历史文档／媒体加载为上下文。优先复用现有 `required_input_preflight`，补充必要物化清单与字节预估入口：执行检查前列明真实读取的历史文件／目录、精确版本与SHA，只物化必要输入；缺件、下载失败或SHA不符须明确失败。新任务不应每次下载8GiB历史媒体，但检查实际需要的原件必须可读取。`tools/cloud_inputs.py --check ID`／`--profile NAME`提供选定输入计划，`--materialize`才显式取得skip-worktree缺件；只接受当前HEAD，拒绝普通删除、覆盖本地已有目标和目标index漂移；index路径集合变化／冲突先提交或解决。它不是完整静态依赖图，具体实测见交接；清单先覆盖现有消费者，再逐步缩小，不能靠漏依赖获得提速。
 
-原Harness `isolated_workspace` 在 `--jobs > 1` 时先完整checkout，不继承父工作树sparse设置，可能再次下载历史大树。本轮改为 `--no-checkout` 后复制精确index／规则和实际已物化源，保留资源、配置、fixture与输出隔离。83项Harness测试已通过；真实两lane的无关冷证据0字节，旧eager对照检出4MiB（合成文件实验，不推算整库加速比例）。实际游戏消费者与CI结果另记；只有对应scope验证后才开启并行。并发更快与否必须包含准备／下载时间实测，不能只比较测试墙钟。
+原Harness `isolated_workspace` 在 `--jobs > 1` 时先完整checkout，不继承父工作树sparse设置，可能再次下载历史大树。真实仓库进一步发现Git对promisor源不走local clone优化，单加 `--no-checkout` 仍触发传包失败。最终改为本地元数据初始化＋只读alternates，复制精确refs／HEAD／shallow／index／规则和实际已物化源，保留资源、配置、fixture与输出隔离。84项Harness测试已通过；真实两lane的无关冷证据0字节，旧eager对照检出4MiB（合成文件实验，不推算整库加速比例）。真实root初始化2.448秒、无传输／新pack；原生核心5681断言、历史森林和开发入口均通过，历史原消费者另在隔离lane实际通过。完整CI结果另记；只有对应scope验证后才开启并行。并发更快与否必须包含准备／下载时间实测，不能只比较测试墙钟。
 
 新CI已按requirements缓存pip；缓存仍须由固定依赖和实际安装验证，不能把缓存命中当检查通过。优先消除重复完整CI、无关历史下载与重复依赖安装，再优化实际瓶颈。
 
@@ -39,5 +39,5 @@
 | 任务 | 可直接使用的短Prompt |
 | --- | --- |
 | CLOUD-BOOTSTRAP-EFFICIENCY | 从最新main审计Cloud启动真实下载／检出／依赖安装耗时，建立partial+sparse启动命令与required_input_preflight必要物化清单。先覆盖一个正式检查及一个历史fixture，验证缺件和SHA错误明确失败；交付前后下载量／耗时、原检查结果与恢复命令，不删除证据或改质量门槛。 |
-| HARNESS-SPARSE-ISOLATION | 独立修复Harness isolated_workspace在jobs>1时全checkout的问题：采用no-checkout和经过验证的精确scope，保留Godot／配置／user数据／输出隔离。实测两个隔离lane及历史消费者，构造漏依赖／源漂移／失败退出反例，报告含准备阶段的前后指标；不改原检查、预算和断言。 |
+| HARNESS-SPARSE-ISOLATION | 本轮已实现并完成有限真实消费者验证，勿重复开同一修复；精确SHA完整CI仍以PR103为准。下一步基于实际最长检查／准备阶段指标选择瓶颈，不改原检查、预算和断言。 |
 | EVIDENCE-COLD-ARCHIVE-PILOT | 只选一个历史媒体目录试做无损冷归档，先盘点直接与动态消费者、质量卡和精确commit要求。实际恢复原路径与字节SHA，运行原消费者及损坏／缺件反例，再提交可逆迁移PR；未满足旧quality和release守门就保留原件，不rewrite历史、不强推、不批量清理。 |

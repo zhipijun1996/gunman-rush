@@ -515,7 +515,8 @@ def isolated_workspace(destination, files, setup_log=None):
 
     def git(root, *arguments, optional=False):
         result = subprocess.run(["git", "-C", str(root), *arguments],
-                                capture_output=True, timeout=60)
+                                capture_output=True, timeout=60,
+                                env={**os.environ, "GIT_NO_LAZY_FETCH": "1"})
         diagnostics.extend(result.stdout + result.stderr)
         if result.returncode and not (optional and result.returncode == 1):
             raise subprocess.CalledProcessError(result.returncode, result.args,
@@ -527,12 +528,36 @@ def isolated_workspace(destination, files, setup_log=None):
         return value if value.is_absolute() else root / value
 
     try:
-        # Never checkout HEAD here: a sparse parent can intentionally lack GiB
-        # of historical blobs. A normal clone hydrates them before the overlay
-        # can remove them. Borrow objects without reading any tree-file bytes.
-        result = subprocess.run(["git", "clone", "--quiet", "--shared", "--no-hardlinks", "--no-checkout", str(ROOT), str(destination)],
-                                check=True, capture_output=True, timeout=60)
-        diagnostics.extend(result.stdout + result.stderr)
+        # Git may disable local clone optimization for a promisor source even
+        # with --shared --no-checkout, then upload-pack tries to fetch missing
+        # historical blobs. Build only local metadata: no clone/pack transport
+        # and no checkout is needed to borrow the parent's available objects.
+        object_format = git(ROOT, "rev-parse", "--show-object-format")
+        destination.mkdir(parents=True, exist_ok=False)
+        git(destination, "init", "--quiet", "--object-format=" + object_format)
+        objects = git_path(ROOT, "objects").resolve()
+        if "\n" in str(objects) or "\r" in str(objects):
+            raise ValueError("Isolation object directory cannot contain newlines")
+        alternates = git_path(destination, "objects/info/alternates")
+        alternates.parent.mkdir(parents=True, exist_ok=True)
+        alternates.write_text(str(objects) + "\n")
+        for line in git(ROOT, "for-each-ref", "--format=%(refname) %(objectname) %(symref)").splitlines():
+            name, oid, *symbolic = line.split()
+            reference = git_path(destination, name)
+            reference.parent.mkdir(parents=True, exist_ok=True)
+            reference.write_text(("ref: " + symbolic[0] if symbolic else oid) + "\n")
+        for name in ("HEAD", "shallow"):
+            source = git_path(ROOT, name)
+            if source.is_file():
+                shutil.copy2(source, git_path(destination, name))
+        # Keep Git's missing-promised-object semantics without copying any
+        # credential-bearing remote URL or contacting the original service.
+        git(destination, "config", "remote.origin.url", str(ROOT))
+        git(destination, "config", "remote.origin.fetch", "+refs/heads/*:refs/remotes/origin/*")
+        promisors = git(ROOT, "config", "--type=bool", "--get-regexp", r"^remote\..*\.promisor$", optional=True)
+        if any(line.endswith(" true") for line in promisors.splitlines()):
+            git(destination, "config", "remote.origin.promisor", "true")
+            git(destination, "config", "remote.origin.partialclonefilter", "blob:none")
         # The parent's real index retains staged additions/deletions/conflicts,
         # intent-to-add and skip-worktree bits. Rebuilding it from HEAD would
         # change Git semantics and resurrect a staged deletion in the lane.
