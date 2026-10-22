@@ -1,8 +1,26 @@
 {
   "task_id": "DEMO-UI-01",
   "new_raster_assets": [],
-  "native_ui": {"method": "Godot Control/Container/Theme/StyleBoxFlat and native CanvasItem heart/clock primitives", "author": "DEMO-UI-01 implementation", "usage": "UI only; no environment or character artwork generated"},
-  "font": {"path": "assets/fonts/foundry_notes.otf", "license": "assets/fonts/OFL.txt", "source": "Existing repository Noto Sans SC subset", "glyph_count": 7543, "new_chinese_glyphs_initial_check": "covered; final consumer cmap check required"},
-  "title_backdrop": {"path": "assets/underworld_plains/backgrounds/far.png", "source": "Existing repository Underworld family; reused without modification", "license": "Inherited repository asset manifest; no new claim"},
-  "cost": {"image_generation_calls": 0, "model_token_cost": "not_exposed"}
+  "native_ui": {
+    "method": "Godot Control/Container/Theme/StyleBoxFlat and native CanvasItem heart/clock primitives",
+    "author": "DEMO-UI-01 implementation",
+    "usage": "UI only; no environment or character artwork generated"
+  },
+  "font": {
+    "path": "assets/fonts/foundry_notes.otf",
+    "license": "assets/fonts/OFL.txt",
+    "source": "Existing repository Noto Sans SC subset",
+    "glyph_count": 7543,
+    "new_chinese_glyphs_initial_check": "Observed final actual UI CJK literal check:313 characters,0missing; original raw report archive blocked by environment unavailability. See delivery.md."
+  },
+  "title_backdrop": {
+    "path": "assets/underworld_plains/backgrounds/far.png",
+    "source": "Existing repository Underworld family; reused without modification",
+    "license": "Existing image_gen original; source reference has Asouris broad publisher use permission, not CC0. See assets/underworld_plains/backgrounds/generation_record.json and assets/style_exploration/underworld/source/licenses.",
+    "generation_record": "assets/underworld_plains/backgrounds/far_generation.json"
+  },
+  "cost": {
+    "image_generation_calls": 0,
+    "model_token_cost": "not_exposed"
+  }
 }

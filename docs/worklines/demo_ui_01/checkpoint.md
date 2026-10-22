@@ -32,3 +32,9 @@ Development 用原 planner 保存实际选择（未知共享接入会保守升�
 设置页先聚焦再等布局完成后定位滚动，初次打开保留页首；输入字段使用稳定focus_key。真实Web浏览器暴露原提前滚动问题，保留首失败而不放宽检查。
 
 scripts/dev/cloud_preview.gd 仅在 task_id == DEMO-UI-01 时挂接任务专属 preview_affordance.gd：完整游戏/菜单内隐藏遮挡文案的原开发条；访问开发实验室时保留原返回完整游戏按钮。其他任务默认不变，持久化禁用与生命周期归原bootstrap。此共享接入由总控合入时复核。
+
+## 最终可操作检查点与证据阻塞
+
+运行源码 `df5207ccc920f5d48813412a27d9d72dc79510ab`，Web `5ae16004975a`，后续恢复文档不改变运行包。[试玩](https://zhipijun1996.github.io/gunman-rush-previews/previews/DEMO-UI-01/df5207ccc920f5d48813412a27d9d72dc79510ab/5ae16004975a/) · [真实视频](https://zhipijun1996.github.io/gunman-rush-previews/deliveries/DEMO-UI-01/df5207ccc920f5d48813412a27d9d72dc79510ab/93b03ef086fc/comparison.mp4)。完整范围、33行DemoApp接入、108×48触屏MENU几何、550+44+21实际观察、环境断连造成的未提交回执和恢复办法见[delivery.md](delivery.md)。
+
+当前Draft评审候选；用户美术、实体设备、完整Integration／Release未签。原始550项／浏览器／失败归档受环境unavailable阻塞，不把会话摘要冒充原件。电影原始report／trace已从独立托管仓精确恢复。main不合并、不覆盖正式试玩。

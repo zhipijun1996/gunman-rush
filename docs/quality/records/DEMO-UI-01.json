@@ -2,10 +2,10 @@
   "schema_version": 1,
   "task_id": "DEMO-UI-01",
   "task_type": "ui_feedback",
-  "workflow": "in_progress",
+  "workflow": "review",
   "baseline_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
-  "reviewed_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
-  "content_version": "clockwork-ui-v1",
+  "reviewed_commit": "df5207ccc920f5d48813412a27d9d72dc79510ab",
+  "content_version": "clockwork-ui-v5-recovery",
   "owner": "/root",
   "purpose": "Unify public Demo title, menus, maps and data-bound heart/resource HUD",
   "player_experience": "Read health and shot resources at a glance; navigate real menus with mouse, touch and gamepad; preserve existing game lifecycle",
@@ -69,100 +69,196 @@
   "formal_impact": true,
   "gates": {
     "G0": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Concrete implementation and scoped delivery spec preserved",
+      "evidence": [
+        "design"
+      ]
     },
     "G1": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "Runtime checks were observed passing, but the original native/browser receipt archive is blocked by unavailable execution environment; see delivery.md. No final certification.",
+      "evidence": [
+        "movie-original",
+        "session-notes"
+      ]
     },
     "G2": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Runtime checks were observed passing, but the original native/browser receipt archive is blocked by unavailable execution environment; see delivery.md. No final certification.",
       "evidence": []
     },
     "G3": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Runtime checks were observed passing, but the original native/browser receipt archive is blocked by unavailable execution environment; see delivery.md. No final certification.",
       "evidence": []
     },
     "G4": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Runtime checks were observed passing, but the original native/browser receipt archive is blocked by unavailable execution environment; see delivery.md. No final certification.",
       "evidence": []
     },
     "G5": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Runtime checks were observed passing, but the original native/browser receipt archive is blocked by unavailable execution environment; see delivery.md. No final certification.",
       "evidence": []
     }
   },
   "dimensions": {
     "design": {
-      "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "status": "passed",
+      "reason": "Concrete implemented native UI direction and audited consumer/data scope; user aesthetics pending",
+      "evidence": [
+        "design"
+      ]
     },
     "technical": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "Runtime checks were observed passing, but the original native/browser receipt archive is blocked by unavailable execution environment; see delivery.md. No final certification.",
+      "evidence": [
+        "movie-original",
+        "movie-trace",
+        "session-notes"
+      ]
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Runtime checks were observed passing, but the original native/browser receipt archive is blocked by unavailable execution environment; see delivery.md. No final certification.",
       "evidence": []
     },
     "visual": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Runtime checks were observed passing, but the original native/browser receipt archive is blocked by unavailable execution environment; see delivery.md. No final certification.",
       "evidence": []
     },
     "animation": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Runtime checks were observed passing, but the original native/browser receipt archive is blocked by unavailable execution environment; see delivery.md. No final certification.",
       "evidence": []
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Runtime checks were observed passing, but the original native/browser receipt archive is blocked by unavailable execution environment; see delivery.md. No final certification.",
       "evidence": []
     },
     "gameplay": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Runtime checks were observed passing, but the original native/browser receipt archive is blocked by unavailable execution environment; see delivery.md. No final certification.",
       "evidence": []
     },
     "performance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Runtime checks were observed passing, but the original native/browser receipt archive is blocked by unavailable execution environment; see delivery.md. No final certification.",
       "evidence": []
     },
     "independent_review": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
-      "evidence": []
+      "reason": "Limited ACCEPT original message preserved, full local report archive unavailable; no reconstructed report",
+      "evidence": [
+        "review-message"
+      ]
     },
     "device": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Runtime checks were observed passing, but the original native/browser receipt archive is blocked by unavailable execution environment; see delivery.md. No final certification.",
       "evidence": []
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "Awaiting actual evidence",
+      "reason": "Runtime checks were observed passing, but the original native/browser receipt archive is blocked by unavailable execution environment; see delivery.md. No final certification.",
       "evidence": []
     }
   },
-  "criteria": [],
-  "evidence": [],
+  "criteria": [
+    {
+      "id": "playable-native-direction",
+      "scenario": "Formal title, menus, resource HUD and map consumers",
+      "method": "Native implementation, published real Godot preview, audited source boundaries",
+      "expected": "Real interactive UI and formal data without gameplay changes",
+      "failure": "Fake screenshot UI or fabricated attributes/routes",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "Concrete source and playable build delivered; subjective acceptance unverified",
+      "evidence": [
+        "design"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "design",
+      "path": "docs/worklines/demo_ui_01/delivery.md",
+      "kind": "spec",
+      "sha256": "920569ea748eb43c0f93bebf0a63e7bb1b10bfc0178d377a32dfbd21a78bf60e",
+      "producer": "/root",
+      "source_commit": "df5207ccc920f5d48813412a27d9d72dc79510ab",
+      "content_version": "clockwork-ui-v5-recovery",
+      "method": "Implemented native UI and audited actual consumers; final delivery and scope spec",
+      "observed": "Concrete playable title/menu/HUD and truthful remaining limits"
+    },
+    {
+      "id": "movie-original",
+      "path": "docs/evidence/demo_ui_01/recovered_movie_report.json",
+      "kind": "runtime_trace",
+      "sha256": "c19ab0f080472a6a64861931f5dcf52f4f0b99d66a5be66b4e4dcf8511c1adcf",
+      "producer": "/root",
+      "source_commit": "df5207ccc920f5d48813412a27d9d72dc79510ab",
+      "content_version": "clockwork-ui-v5-recovery",
+      "method": "Recovered byte-for-byte original published report from immutable hosting commit c676d70",
+      "observed": "Actual df520 clean MovieWriter capture passed, source_stable=true; baseline reuse explicit"
+    },
+    {
+      "id": "movie-trace",
+      "path": "docs/evidence/demo_ui_01/recovered_movie_trace.json",
+      "kind": "runtime_trace",
+      "sha256": "a61f32f9fbc573066081703c01b250bc083fcbf6f0b3516c5811a13dfde693a0",
+      "producer": "/root",
+      "source_commit": "df5207ccc920f5d48813412a27d9d72dc79510ab",
+      "content_version": "clockwork-ui-v5-recovery",
+      "method": "Recovered byte-for-byte original after.json; SHA matches original report",
+      "observed": "Original sampled injury/heal/shot/UI trace, not fabricated combat route"
+    },
+    {
+      "id": "session-notes",
+      "path": "docs/evidence/demo_ui_01/session_observations.json",
+      "kind": "runtime_trace",
+      "sha256": "a6c2a8fceb275d54fecb57b90986cf6fd8b57fe48a1d4252057ba281c0711ba7",
+      "producer": "/root",
+      "source_commit": "df5207ccc920f5d48813412a27d9d72dc79510ab",
+      "content_version": "clockwork-ui-v5-recovery",
+      "method": "Explicit transcription summary of pre-disconnection tool outputs, not original receipts",
+      "observed": "550+44+21 observed passes; original archive unavailable, no final technical PASS"
+    },
+    {
+      "id": "review-message",
+      "path": "docs/evidence/demo_ui_01/independent_review_message.md",
+      "kind": "review",
+      "sha256": "4bdf76a5d3e67d11a498a388519a8487b08e064254b921b353630c68d3ab4c38",
+      "producer": "/root/independent_review",
+      "source_commit": "df5207ccc920f5d48813412a27d9d72dc79510ab",
+      "content_version": "clockwork-ui-v5-recovery",
+      "method": "Verbatim independent agent FINAL_ANSWER message; full report unavailable",
+      "observed": "Limited exact-source ACCEPT message, not full art/device/Release sign-off",
+      "reviewer": "/root/independent_review",
+      "implementers": [
+        "/root",
+        "/root/menus"
+      ],
+      "verdict": "ACCEPT",
+      "independent": true,
+      "independence_basis": "Separate read-only reviewer; source/actual evidence observation only, no production implementation."
+    }
+  ],
   "consumer_coverage": null,
   "unverified_items": [
-    "User visual/information-density approval",
-    "Physical mobile/gamepad devices",
-    "Complete Integration/Release by controller",
-    "Final Web build/deploy/movie in progress"
+    "Original native/browser/failure archives not committed because environment became unavailable",
+    "User and physical-device acceptance unverified",
+    "Full Integration/Release unverified",
+    "Final local quality-diff and commit-tree check interrupted before process launch",
+    "Physical mobile/gamepad and notched safety",
+    "Hardware performance and continuous audio/animation acceptance",
+    "All remaining lab GUI consumers",
+    "Original docs check failed on historical sparse inputs; do not restore history for UI-only iteration"
   ]
 }
