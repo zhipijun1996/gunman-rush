@@ -120,7 +120,8 @@
   "deliverables": [
     "One real seven-fold place golden before expansion",
     "Distinct physical map and branch decisions, with real rewards and returns",
-    "Actual source-bound input and image evidence, without claiming human duration from native ticks"
+    "Actual source-bound input and image evidence, without claiming human duration from native ticks",
+    "Local source263afd/build e361af714d54 Web prototype with 4 actual GUI entry cases passed; not final region or public deployment"
   ],
   "creative_decisions": [
     {
@@ -585,6 +586,65 @@
       "independent": true,
       "independence_basis": "No edits to production border optimization, oracle, native/GPU driver; no engine by reviewer",
       "verdict": "ACCEPT"
+    },
+    {
+      "id": "web07",
+      "path": "docs/evidence/forest_variety_04/web07-receipt.json",
+      "sha256": "376981528616d634e22daf3e8aa503715905cd7a180e7436d1d7a6e1650754fe",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "263afd4fbdd535df6b4e80b1f4b584a05b55c7ea",
+      "content_version": "forest-exploration-places-v18",
+      "method": "Actual local Web07 prototype source263afd; original failed browser06 retained. Current final docs-only commit is not pack source. No art, full region, full CI, physical device or human timing approval.",
+      "observed": "Web export/licenses/bundle closure exit0, source stable; local prototype only",
+      "command": "python3 /tmp/gunman-forest-v18/build-web07.py",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Standard; sole engine; original build caps"
+    },
+    {
+      "id": "browser07",
+      "path": "docs/evidence/forest_variety_04/browser07-report.json",
+      "sha256": "12437f9d9a20e713fd73074606d75b6fd04dd523ca6dc8ef7732e2bc10edf3a0",
+      "kind": "gui",
+      "producer": "/root",
+      "source_commit": "263afd4fbdd535df6b4e80b1f4b584a05b55c7ea",
+      "content_version": "forest-exploration-places-v18",
+      "method": "Actual local Web07 prototype source263afd; original failed browser06 retained. Current final docs-only commit is not pack source. No art, full region, full CI, physical device or human timing approval.",
+      "observed": "4 actual mouse/emulated DOM touch forest entry cases /12 checks, pause/resume; errors empty, exact full PCK identity"
+    },
+    {
+      "id": "package07",
+      "path": "docs/evidence/forest_variety_04/web07-package.json",
+      "sha256": "b1f2d77578aea1507f2be2fac5290ff62ec2d76d4d3d65660fb6bde3106fcdbf",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "263afd4fbdd535df6b4e80b1f4b584a05b55c7ea",
+      "content_version": "forest-exploration-places-v18",
+      "method": "Actual local Web07 prototype source263afd; original failed browser06 retained. Current final docs-only commit is not pack source. No art, full region, full CI, physical device or human timing approval.",
+      "observed": "375 Web files plus README losslessly packed and full member readback; exact ZIP and PCK SHA recorded"
+    },
+    {
+      "id": "web07-independent",
+      "path": "docs/evidence/forest_variety_04/web07-independent.md",
+      "sha256": "1cc115e4a35b8691f43204d37b2268a132b1555749c45e2cbf76831c1581be6e",
+      "kind": "review",
+      "producer": "/root/forest_v18_review",
+      "source_commit": "263afd4fbdd535df6b4e80b1f4b584a05b55c7ea",
+      "content_version": "forest-exploration-places-v18",
+      "method": "Actual local Web07 prototype source263afd; original failed browser06 retained. Current final docs-only commit is not pack source. No art, full region, full CI, physical device or human timing approval.",
+      "observed": "Independent committed runtime closure/full ZIP readback and actual completed4case report/selected original pixels; scoped GUI only",
+      "reviewer": "/root/forest_v18_review",
+      "implementers": [
+        "/root",
+        "/root/forest_v18_material",
+        "/root/forest_v18_modules",
+        "/root/forest_v18_topology",
+        "/root/forest_v18_fallen",
+        "/root/forest_v18_fruit"
+      ],
+      "independent": true,
+      "independence_basis": "Read-only no production or browser-driver author edits; independently reconstructed committed source and ZIP, reviewed completed actual browser evidence; did not run engine/browser",
+      "verdict": "ACCEPT"
     }
   ],
   "consumer_coverage": null,
@@ -605,5 +665,5 @@
     "art-director",
     "project-integration"
   ],
-  "production_snapshot": "d88d20c5bfbaf7821aa4ed1af5c772a43596f4ae39b11a3768d9f98d0fab2901"
+  "production_snapshot": "a3d3d64ea47b52c09308d1a050c5d347a645547321b8c91313f3dd37173dabfb"
 }

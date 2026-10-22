@@ -1,0 +1,69 @@
+{
+  "scope": "local_Web_prototype_only_not_published_or_full_region",
+  "source_commit": "263afd4fbdd535df6b4e80b1f4b584a05b55c7ea",
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "tools/build.py",
+        "web"
+      ],
+      "exit_code": 0,
+      "seconds": 29.933918310998706,
+      "log": "build.log"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/style_exploration_delivery.py",
+        "licenses",
+        "--commit",
+        "263afd4fbdd535df6b4e80b1f4b584a05b55c7ea"
+      ],
+      "exit_code": 0,
+      "seconds": 0.11757307300285902,
+      "log": "licenses.log"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/style_exploration_delivery.py",
+        "check-bundle",
+        "--commit",
+        "263afd4fbdd535df6b4e80b1f4b584a05b55c7ea"
+      ],
+      "exit_code": 0,
+      "seconds": 0.744158964997041,
+      "log": "bundle.log"
+    },
+    {
+      "argv": [
+        "python3",
+        "tools/check_web_bundle.py",
+        "build/web"
+      ],
+      "exit_code": 0,
+      "seconds": 2.8175588450103533,
+      "log": "web-closure.log"
+    }
+  ],
+  "exit_code": 0,
+  "build_info": {
+    "build_id": "e361af714d54",
+    "pack": "index.e361af714d54.pck",
+    "engine_id": "d20938d2db49",
+    "cache_schema": 2,
+    "loader_id": "52de3d59742b",
+    "pack_bytes": 141811380,
+    "download_bytes": 144094758,
+    "chunk_bytes": 524288,
+    "wasm_bytes": 37902138,
+    "wasm_gzip_bytes": 10027646,
+    "jump": "tap/hold",
+    "playtest": "web",
+    "source_commit": "263afd4fbdd535df6b4e80b1f4b584a05b55c7ea"
+  },
+  "pack_sha256": "e361af714d54c94edef2e6035eca0724392a9a08da6acb175f106f5ad3a5fe70",
+  "source_stable": true,
+  "seconds": 34.79979526399984
+}

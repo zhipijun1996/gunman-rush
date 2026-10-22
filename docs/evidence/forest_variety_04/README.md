@@ -50,3 +50,11 @@ Web06实际导出和完整PCK检查通过，但实际点击后截图30秒超时�
 闭AABB邻居粗筛保留原所有cuts、顺序、重复和精确one-sided占用，异常矩形保守全扫描。[native08](border08-receipt.json)3000断言含两完整世界逐项ordered faces/corners/edges/pieces等价；首native07两失败是fixture缺合法H条件，原失败保留。新增小矩阵接现有underworld-terrain入口，原120+新20在原150外层上限内，未增CI预算。
 
 [实际GPU09](gpu-border09-receipt.json)两正式平原、四森林荆棘App静图和五原矩阵，11对逐RGBA及PNG全同；[数学独审](border08-independent.md)和[实际像素独审](gpu-border09-independent.md)只接受该等价提速。原style v3实际先拒绝漂移，完整新证据后才版本化重绑v4，不修改旧文档／原Bible／素材。原生／GPU／错误探针／源闭包和失败在performance06.zip（155成员完整读回）；失败包核心保存在本地build/region_bible_v2/preserved-web06，没有把它交作已过GUI的包。
+
+## 最终本地 Web 原型与合同修正
+
+`contracts07.zip` / [成员索引](contracts07-index.json)原样保留第一次current方向漏重绑的真实失败、随后六项fresh通过、独审最初错误判断及[明确纠正](binding07-independent.md)。没有删除旧失败或放宽loader；两current方向仅四个绑定字段显式升级，其余创作意图不变，旧版本仍拒绝。
+
+[Web07导出](web07-receipt.json)源263afd／build e361af714d54，exit0且源稳定；[实际浏览器](browser07-report.json)两图×mouse／模拟DOM touch共4case／12checks，原HTML、完整PCK、rendered入口、实际v2/v18组装、Boss和H-only及暂停恢复均通过，errors为空。[完整本地包成员及SHA](web07-package.json)对应298440075字节ZIP，独立交付复核见[报告](web07-independent.md)。源／日志／原始PNG与独审原件见`web07.zip`和[每成员完整索引](web07-index.json)，普通Git归档并完整读回。最后文档提交不是PCK来源。
+
+本地包不会覆盖旧公开v15；森林ART_REWORK仍在。未完成网状拓扑／大模块库／活果渡口／真人时长／真机／浏览器整条路线，整任务in_progress。原33项超时、Web05／browser06／合同首次失败均原样保留。没有新签fullCI，不把原型入口验证写成完整森林验收。
