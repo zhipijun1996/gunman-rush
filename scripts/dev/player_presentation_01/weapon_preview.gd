@@ -28,14 +28,14 @@ func _ready() -> void:
 	layer.layer=115
 	add_child(layer)
 	_weapon_panel=PanelContainer.new()
-	_weapon_panel.position=Vector2(16,612)
+	_weapon_panel.position=Vector2(350,90)
 	_weapon_panel.theme=DemoMenu.create_theme()
 	_weapon_panel.theme.default_font=preload("res://assets/fonts/foundry_notes.otf")
 	layer.add_child(_weapon_panel)
 	var box := VBoxContainer.new()
 	_weapon_panel.add_child(box)
 	var title := Label.new()
-	title.text="WEAPON SAMPLE · stationary training targets · Space / mouse / F / Q"
+	title.text="WEAPON SAMPLE · stationary targets · mouse / F / Q"
 	box.add_child(title)
 	weapon_picker=OptionButton.new()
 	weapon_picker.focus_mode=Control.FOCUS_NONE
