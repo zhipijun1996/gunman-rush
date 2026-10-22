@@ -2,13 +2,14 @@ class_name PlayerWeaponFeelAudio
 extends PlayerMotionAudio
 ## Same twelve voices as movement, UI and original weapon phase sounds.
 const WEAPONS := preload("res://resources/player_presentation_01/weapon_sound_data.gd").CLIPS
+var weapon_clips: Dictionary = WEAPONS
 var weapon_events: Array[Dictionary] = []
 var weapon_dropped := 0
 var weapon_preemptions := 0
 var _weapon_serial := 0
 
 func weapon_cue(id: StringName, owner: int, event: String, attenuation := 12.0, sustained := false) -> bool:
-	if _shutting_down or get_tree().paused or volume<=0 or not WEAPONS.has(id): return false
+	if _shutting_down or get_tree().paused or volume<=0 or not weapon_clips.has(id): return false
 	var selected: AudioStreamPlayer
 	for voice: AudioStreamPlayer in _voices:
 		if not voice.playing:
@@ -29,7 +30,7 @@ func weapon_cue(id: StringName, owner: int, event: String, attenuation := 12.0, 
 		return false
 	var variant := _weapon_serial%3
 	_weapon_serial+=1
-	selected.stream=WEAPONS[id][variant]
+	selected.stream=weapon_clips[id][variant]
 	selected.process_mode=Node.PROCESS_MODE_PAUSABLE
 	selected.set_meta("cue_id",&"weapon_"+id)
 	selected.set_meta("weapon_owner",owner)

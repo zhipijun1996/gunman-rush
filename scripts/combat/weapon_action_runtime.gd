@@ -22,6 +22,9 @@ var _center := Vector2.ZERO
 var _fx: Array[Dictionary] = []
 var _art: Dictionary = {}
 var _beam_require_release := false
+## Optional per-owner presentation leaves. Old consumers retain original cues/draw.
+var presentation: CanvasItem
+var audio_override: Callable
 var _fire_grounded := false
 var _beam_elapsed := 0.0
 var skill_cooldown := 0.0
@@ -35,14 +38,18 @@ func steering_focus() -> bool:
 func fx_duration(fx: Dictionary) -> float:
 	return .55 if fx.kind=="blast" else .22 if fx.kind=="blink" else .3
 func return_flash(start: Vector2, finish: Vector2) -> void:
-	_fx.append({"kind":"beam","start":start,"end":finish,"age":0.0,"skill":false})
+	_fx.append({"kind":"return_blade","start":start,"end":finish,"age":0.0,"skill":false})
+func _cue(id: StringName) -> void:
+	# Producer keeps its source identity; never suppress global cue IDs or counts.
+	if audio_override.is_valid() and audio_override.call(id)==true: return
+	GameAudio.cue(actor().motor,id)
 func _blink_fx(start: Vector2, finish: Vector2) -> void:
 	var visual := actor().motor.get_node("CourierVisual") as CourierVisual
 	var transform := visual.body.global_transform
 	transform.origin+=start-finish
 	_fx.append({"kind":"blink","start":start,"end":finish,"age":0.0,"texture":visual.body.texture,"transform":transform,"skill":false})
 	_pose(&"blade_throw",.16)
-	GameAudio.cue(actor().motor,&"focus_start")
+	_cue(&"focus_start")
 func actor() -> PlayerController:return ability.controller
 func definition() -> WeaponDefinition:return ability.weapon
 func art_catalog() -> Dictionary:
@@ -107,7 +114,7 @@ func _start(grounded: bool) -> void:
 	_fire_grounded=grounded
 	var def := definition()
 	actor().traversal.on_weapon_fired();actor().jump_ability.cancel_ascent()
-	GameAudio.cue(actor().motor,&"focus_start" if _skill or def.mode in [WeaponDefinition.Mode.LASER,WeaponDefinition.Mode.SINGULARITY] else &"jump" if def.mode in [WeaponDefinition.Mode.SHURIKEN,WeaponDefinition.Mode.FAN,WeaponDefinition.Mode.BOOMERANG] else &"confirm")
+	_cue(&"focus_start" if _skill or def.mode in [WeaponDefinition.Mode.LASER,WeaponDefinition.Mode.SINGULARITY] else &"jump" if def.mode in [WeaponDefinition.Mode.SHURIKEN,WeaponDefinition.Mode.FAN,WeaponDefinition.Mode.BOOMERANG] else &"confirm")
 	if def.mode in [WeaponDefinition.Mode.SHURIKEN,WeaponDefinition.Mode.FAN,WeaponDefinition.Mode.BOOMERANG]:
 		_phase(&"throw_windup");return
 	_release(grounded)
@@ -218,7 +225,7 @@ func advance(delta: float) -> void:
 					actor().motor.request_weapon_drive(-direction*distance/delta,-direction*acceleration*_beam_elapsed)
 					_timer-=step
 					beam_damage(direction,_packet_damage,false,false,_timer<=0)
-					if _timer<=0:GameAudio.cue(actor().motor,&"focus_start");_timer+=def.beam_tick
+					if _timer<=0:_cue(&"focus_start");_timer+=def.beam_tick
 					if _beam_elapsed>=def.beam_duration-1e-9:_end_beam(true)
 		&"singularity":
 			actor().motor.request_ability_velocity(Vector2.ZERO)
@@ -316,19 +323,19 @@ func explode(item: WeaponEntity) -> void:
 		if item.kind==&"bomb":base_recoil()
 		else:flash(offset.normalized() if not offset.is_zero_approx() else Vector2.UP,base_displacement()*(def.skill_multiplier if item.skill else 1)/actor().motor.tuning.shot_burst_duration,actor().motor.tuning.shot_burst_duration)
 	_pose(&"weapon_skill" if item.skill else &"bomb_place")
-	item.dispose();_phase(&"idle");GameAudio.cue(actor().motor,&"impact")
+	item.dispose();_phase(&"idle");_cue(&"impact")
 func caught(item: WeaponEntity, unit: Vector2) -> void:
 	if not item.valid_owner() or item.phase not in [&"returning",&"auto_return"]:return
 	if item.manual_recall and not unit.is_zero_approx():
 		var distance: float = base_displacement()*actor().motor.weapon_motion.secondary_ratio*(definition().skill_multiplier if item.skill else 1)
 		flash(unit,distance/actor().motor.tuning.shot_burst_duration,actor().motor.tuning.shot_burst_duration)
 	entity_transition.emit(item,&"caught")
-	_pose(&"blade_catch");item.dispose();GameAudio.cue(actor().motor,&"confirm")
+	_pose(&"blade_catch");item.dispose();_cue(&"confirm")
 func entity_failed(item: WeaponEntity) -> void:
 	_fx.append({"kind":"fizzle","start":item.global_position,"radius":12.0,"age":0.0,"skill":false})
-	GameAudio.cue(actor().motor,&"denied")
+	_cue(&"denied")
 func entity_attached(item: WeaponEntity) -> void:
-	entity_transition.emit(item,&"attached");GameAudio.cue(actor().motor,&"confirm")
+	entity_transition.emit(item,&"attached");_cue(&"confirm")
 func attract(_delta: float) -> void:
 	var def := definition();var count := 0
 	for value: Dictionary in receivers(_center,def.attract_radius*(def.skill_multiplier if _skill else 1)):
@@ -346,8 +353,9 @@ func beam_visual_segment() -> PackedVector2Array:
 	return PackedVector2Array([start,start+offset.limit_length(definition().range_limit)])
 func _draw() -> void:
 	var underworld := UnderworldProjectileVisual.enabled(self)
+	var custom := is_instance_valid(presentation) and presentation.is_visible_in_tree()
 	var beam := beam_visual_segment()
-	if beam.size()==2:
+	if beam.size()==2 and not custom:
 		draw_line(to_local(beam[0]),to_local(beam[1]),Color(.67,.52,.29,.4) if underworld else Color(.15,.55,.8,.4),8,not underworld)
 		draw_line(to_local(beam[0]),to_local(beam[1]),Color("f3dda0") if underworld else Color(.65,.95,1),2,not underworld)
 	for fx: Dictionary in _fx:
@@ -367,15 +375,16 @@ func _draw() -> void:
 				var offset := Vector2.from_angle(angle)*(8+float(fx.age)*100)
 				draw_line(end+offset,end+offset+Vector2.from_angle(angle)*7,Color(.95,.86,.63,alpha) if underworld else Color(.7,.85,1,alpha),1.5,not underworld)
 		elif fx.kind=="blast":
-			_draw_blast(fx,alpha)
-		elif fx.kind in ["beam","arc"]:
+			if not custom: _draw_blast(fx,alpha)
+		elif fx.kind in ["beam","return_blade","arc"]:
+			if custom and fx.kind!="arc": continue
 			var color := Color(.95,.86,.63,alpha) if underworld else Color(.35,.86,1,alpha)
 			draw_line(to_local(fx.start),to_local(fx.end),Color(.67,.52,.29,alpha*.4) if underworld else Color(.2,.5,.8,alpha*.4),14 if fx.skill else 6,true)
 			draw_line(to_local(fx.start),to_local(fx.end),color,5 if fx.skill else 2,true)
 		else:
 			var progress := float(fx.age)/duration
 			draw_arc(to_local(fx.start),float(fx.radius)*(.2+.8*progress),0,TAU,64,(Color(.57,.58,.43,alpha) if underworld else Color(.45,.65,.8,alpha)) if fx.kind=="fizzle" else Color(1,.65,.25,alpha),4,true)
-	if phase==&"singularity":
+	if phase==&"singularity" and not custom:
 		var center := to_local(_center);var progress := clampf(age/definition().hold_seconds,0,1)
 		draw_circle(center,24,Color(.22,.35,.27,.4) if underworld else Color(.3,.1,.5,.4))
 		for i: int in 4:draw_arc(center,12+i*10,age*7+i,age*7+i+PI*1.3,24,Color(.62,.71,.49,.7) if underworld else Color(.6,.5,1,.7),2,not underworld)

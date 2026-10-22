@@ -13,7 +13,7 @@ func _ready() -> void:
 	start_home_sample=true
 	super._ready()
 	var old := motion_audio
-	weapon_audio=PlayerWeaponFeelAudio.new()
+	weapon_audio=_new_weapon_audio()
 	weapon_audio.volume=old.volume
 	remove_child(old)
 	old.free()
@@ -55,6 +55,12 @@ func _ready() -> void:
 	weapon_picker.item_selected.connect(select_weapon)
 	set_weapon_enabled(weapon_enabled)
 
+func _new_weapon_audio() -> PlayerWeaponFeelAudio:
+	return PlayerWeaponFeelAudio.new()
+
+func _new_weapon_feel() -> PlayerWeaponFeel:
+	return PlayerWeaponFeel.new()
+
 func set_weapon_enabled(value: bool) -> void:
 	weapon_enabled=value
 	if is_instance_valid(_switch): _switch.text="WEAPON FX ON" if value else "ORIGINAL WEAPON FX"
@@ -73,7 +79,7 @@ func _attach_feel() -> void:
 	var actor := motion_visual.motor
 	var old := actor.get_node_or_null("WeaponFeel")
 	if old!=null: old.free()
-	weapon_feel=PlayerWeaponFeel.new()
+	weapon_feel=_new_weapon_feel()
 	weapon_feel.name="WeaponFeel"
 	weapon_feel.controller=motion_visual.controller
 	weapon_feel.audio=weapon_audio

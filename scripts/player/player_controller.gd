@@ -6,6 +6,8 @@ signal died
 signal interact_requested
 signal segment_returned
 signal energy_recovered(amount: float, airborne: bool)
+## Presentation receipt: emitted only by the existing successful damage callback.
+signal weapon_damage_committed(packet: int, shot: int, receiver: Damageable, source_session: int, source_weapon_epoch: int)
 @export var air_focus_ability: AirFocusAbility
 @export var motor: PlayerMotor
 @export var router: InputRouter
@@ -180,6 +182,7 @@ func on_weapon_damage(expected_session: int, packet: int, shot: int, airborne: b
 		if enemy!=null:
 			var def := shoot_ability.weapon
 			enemy.apply_skill_impact((enemy.motor.global_position-motor.global_position).normalized(),def.skill_stagger_seconds,def.skill_stagger_cooldown,def.skill_knockback_speed if def.mode==WeaponDefinition.Mode.FAN else 0,def.skill_knockback_seconds)
+	if target!=0 and is_instance_valid(receiver): weapon_damage_committed.emit(packet,shot,receiver,expected_session,weapon_epoch)
 
 func die() -> void:
 	combat_energy.reset()
