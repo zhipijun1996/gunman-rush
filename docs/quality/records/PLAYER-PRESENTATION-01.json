@@ -4,7 +4,7 @@
   "task_type": "player",
   "workflow": "in_progress",
   "baseline_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
-  "reviewed_commit": "9c693787b201a655d9e8589d3bb1e1350ae64e29",
+  "reviewed_commit": "5ff0c7aea4fcfb51713363b0b8ec4d4b5f56a22a",
   "content_version": "motion-candidate-v2",
   "owner": "/root",
   "purpose": "正式主角审计后，按用户反馈制作受隔离的idle/fall/gait/dust开发候选；共享正式替换仍待总控",
@@ -59,109 +59,146 @@
   "gates": {
     "G0": {
       "status": "unverified",
-      "reason": "检查点仅完成基线/提案；生产改善与完整门槛尚未执行",
-      "evidence": []
+      "reason": "Task dev candidate has limited tests/media/art evidence;full agreed milestone,shared adoption and all consumer integration/user/device incomplete",
+      "evidence": [
+        "motion-v2"
+      ]
     },
     "G1": {
       "status": "unverified",
-      "reason": "检查点仅完成基线/提案；生产改善与完整门槛尚未执行",
-      "evidence": []
+      "reason": "Task dev candidate has limited tests/media/art evidence;full agreed milestone,shared adoption and all consumer integration/user/device incomplete",
+      "evidence": [
+        "motion-v2"
+      ]
     },
     "G2": {
       "status": "unverified",
-      "reason": "检查点仅完成基线/提案；生产改善与完整门槛尚未执行",
-      "evidence": []
+      "reason": "Task dev candidate has limited tests/media/art evidence;full agreed milestone,shared adoption and all consumer integration/user/device incomplete",
+      "evidence": [
+        "motion-v2"
+      ]
     },
     "G3": {
       "status": "unverified",
-      "reason": "检查点仅完成基线/提案；生产改善与完整门槛尚未执行",
-      "evidence": []
+      "reason": "Task dev candidate has limited tests/media/art evidence;full agreed milestone,shared adoption and all consumer integration/user/device incomplete",
+      "evidence": [
+        "motion-v2"
+      ]
     },
     "G4": {
       "status": "unverified",
-      "reason": "检查点仅完成基线/提案；生产改善与完整门槛尚未执行",
-      "evidence": []
+      "reason": "Task dev candidate has limited tests/media/art evidence;full agreed milestone,shared adoption and all consumer integration/user/device incomplete",
+      "evidence": [
+        "motion-v2"
+      ]
     },
     "G5": {
       "status": "unverified",
-      "reason": "检查点仅完成基线/提案；生产改善与完整门槛尚未执行",
-      "evidence": []
+      "reason": "Task dev candidate has limited tests/media/art evidence;full agreed milestone,shared adoption and all consumer integration/user/device incomplete",
+      "evidence": [
+        "motion-v2"
+      ]
     }
   },
   "dimensions": {
     "design": {
       "status": "unverified",
-      "reason": "检查点设计待总控评审；未签最终全套动作设计",
+      "reason": "实际消费者/共享影响已审计；正式接口与完整M1/全武器仍待总控协调",
       "evidence": [
-        "spec",
-        "impact",
-        "methods"
+        "motion-v2",
+        "motion-vfx-video",
+        "motion-pixel-v2"
       ]
     },
     "technical": {
       "status": "unverified",
-      "reason": "旧基线专项passed；新表现未实现，docs真实失败，full未跑",
+      "reason": "607原专项、1208新trace、19lifecycle及ZIP实际浏览器通过；未知Development完整计划未执行",
       "evidence": [
-        "body-check",
-        "docs-failure",
-        "baseline"
+        "motion-v2",
+        "motion-vfx-video",
+        "motion-pixel-v2"
       ]
     },
     "formal_integration": {
       "status": "unverified",
-      "reason": "真实家园/正式平原仅基线观察；新接口接入/完整受影响系统未验",
+      "reason": "真实正式平原任务子类已采；主线共享替换/全受影响消费者Integration未执行",
       "evidence": [
-        "baseline"
+        "motion-v2",
+        "motion-vfx-video",
+        "motion-pixel-v2"
       ]
     },
     "visual": {
-      "status": "unverified",
-      "reason": "尚无本任务新生产表现的完成证据",
-      "evidence": []
+      "status": "failed",
+      "reason": "fall围巾与局部落地尘效有实际改善；握持衔接仍REWORK，run两版拒绝；用户审美未验",
+      "evidence": [
+        "motion-v2",
+        "motion-vfx-video",
+        "motion-pixel-v2"
+      ]
     },
     "animation": {
-      "status": "unverified",
-      "reason": "已有家园卡recoil的实际失败，未做改后验证；抽帧不签连续动画",
+      "status": "failed",
+      "reason": "idle/fall六帧实际绘制，旧run位移相位试验；握持/全套武器/角色/死亡链未完成",
       "evidence": [
-        "home-video",
-        "plains-video",
-        "baseline"
+        "motion-v2",
+        "motion-vfx-video",
+        "motion-pixel-v2"
       ]
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "真实MovieMaker音轨已保存，未听音；未改通用音频",
+      "reason": "落地尘效抽帧局部ACCEPT；起跳仍轻，实际音轨未听音，完整同期体验未验",
       "evidence": [
-        "home-video",
-        "plains-video"
+        "motion-v2",
+        "motion-vfx-video",
+        "motion-pixel-v2"
       ]
     },
     "gameplay": {
       "status": "unverified",
-      "reason": "尚无本任务新生产表现的完成证据",
-      "evidence": []
+      "reason": "两组各16字段零差异及accepted事件一致；不代替全武器/三角色/地区完整回归",
+      "evidence": [
+        "motion-v2",
+        "motion-vfx-video",
+        "motion-pixel-v2"
+      ]
     },
     "performance": {
       "status": "unverified",
-      "reason": "软件GPU离线采片不证明实体设备性能",
-      "evidence": []
+      "reason": "默认dust峰值10/配置默认cap32、绝对配置上限48；llvmpipe MovieMaker耗时不签设备FPS",
+      "evidence": [
+        "motion-v2",
+        "motion-vfx-video",
+        "motion-pixel-v2"
+      ]
     },
     "independent_review": {
       "status": "unverified",
-      "reason": "checkpoint设计范围独审接受，正式生产改进/完整内容仍未验",
+      "reason": "独立工程和像素审查均有明确限定，当前整条线未获完整ACCEPT",
       "evidence": [
-        "review-v2"
+        "motion-v2",
+        "motion-vfx-video",
+        "motion-pixel-v2"
       ]
     },
     "device": {
       "status": "unverified",
-      "reason": "无实体设备验收",
-      "evidence": []
+      "reason": "仅本机软件GPU和桌面Chromium，不是用户实体设备",
+      "evidence": [
+        "motion-v2",
+        "motion-vfx-video",
+        "motion-pixel-v2"
+      ]
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "用户允许参考方法论，不等于认可动作/审美/手感",
-      "evidence": []
+      "reason": "用户尚未体验/认可本次新内容",
+      "evidence": [
+        "motion-v2",
+        "motion-vfx-video",
+        "motion-pixel-v2"
+      ]
     }
   },
   "criteria": [
@@ -303,25 +340,98 @@
       "content_version": "checkpoint-01",
       "method": "actual baseline DemoApp home/plains raw rows with selected avatar ids;other paths source-only explicitly not runtime observed",
       "observed": "2 actual production entries/3home appearances;remaining consumers source-discovered and new presentation unverified"
+    },
+    {
+      "id": "motion-v1",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/motion-v1-evidence.zip",
+      "sha256": "94f58e6a3d1d3553d6cc93c2bbc650a58598751ef45e962db711b52e57d4a1b1",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "9c693787b201a655d9e8589d3bb1e1350ae64e29",
+      "content_version": "motion-candidate-v1",
+      "method": "Unmodified v1 raw engine/movie/GUI/failed logs and60 source frames;each archived member read back SHA",
+      "observed": "1080x2,16 fields equal;6idle/fall actual frames;limited art review with grip/dust REWORK"
+    },
+    {
+      "id": "motion-v2",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/motion-v2-evidence.zip",
+      "sha256": "46b2e64071061242ab2148af177d4cc0447f5648467d135363f81bca4af11594",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "5ff0c7aea4fcfb51713363b0b8ec4d4b5f56a22a",
+      "content_version": "motion-candidate-v2",
+      "method": "Frozen same-source targeted native on/off;actual ZIP extracted/PCK rebuilt and actual browser keyboard/pointer",
+      "observed": "600x2,16 fields equal,1208 checks each;19 lifecycle;package GUI pass;Web public blocked"
+    },
+    {
+      "id": "motion-body-video",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/body-candidate-v1.mp4",
+      "sha256": "22b500c2cbd033f39aad75edbc145cfb0e0906fbd2d7d9be2c63f8dc1bc3440d",
+      "kind": "video",
+      "producer": "/root",
+      "source_commit": "9c693787b201a655d9e8589d3bb1e1350ae64e29",
+      "content_version": "motion-candidate-v1",
+      "method": "Original real Godot MovieMaker+ffmpeg full video;no static montage",
+      "observed": "18.2sec actual candidate with long falling scarf;original v1 dust not v2"
+    },
+    {
+      "id": "motion-vfx-video",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/foot-dust-comparison-v2.mp4",
+      "sha256": "04c0b5c79427b4679b9a6193ae083ea296f0271635f39fa2bd5919c08f42ae52",
+      "kind": "video",
+      "producer": "/root",
+      "source_commit": "5ff0c7aea4fcfb51713363b0b8ec4d4b5f56a22a",
+      "content_version": "motion-candidate-v2",
+      "method": "Complete original before then after concatenation;both real continuous engine movies",
+      "observed": "20.5sec total,10.25each;real48k stereo;not listened"
+    },
+    {
+      "id": "motion-inventory",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/consumer-inventory-v2.json",
+      "sha256": "40b6f0b9a2e8a926ed9c002c5f34bc0c3cb5a5091ec04a0ddc09668bc5dbc427",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "5ff0c7aea4fcfb51713363b0b8ec4d4b5f56a22a",
+      "content_version": "motion-candidate-v2",
+      "method": "Baseline complete source discovery retained;only task dev consumer observed newly",
+      "observed": "No formal adoption/old consumer exemption"
+    },
+    {
+      "id": "motion-pixel-v2",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/vfx-pixel-review.json",
+      "sha256": "4f01671673164a85982b4b3cbf73e14d7381bb8c691fad7d049513b33de2c9fa",
+      "kind": "review",
+      "producer": "/root/audit_review",
+      "source_commit": "5ff0c7aea4fcfb51713363b0b8ec4d4b5f56a22a",
+      "content_version": "motion-candidate-v2",
+      "method": "Independent agent inspected26 actual original-size frames and exact trace fields",
+      "observed": "Local landing dust readability ACCEPT only;other REWORK/user/device not signed",
+      "reviewer": "/root/audit_review",
+      "implementers": [
+        "/root"
+      ],
+      "independent": true,
+      "independence_basis": "Separate read-only reviewer,only writes its review artifact and never the production implementation",
+      "verdict": "ACCEPT"
     }
   ],
   "unverified_items": [
     "共享4件与正式场景未替换；总控整合现有M1与样式版本/显式重绑仍待办",
     "新跑步原图连续两次被拒，旧run位移相位不签步态美术完成",
     "新idle/fall手部与原固定枪线衔接REWORK；完整全武器/三外观及死亡链未完成",
-    "尘效v1实际可读性REWORK，v2局部调参待GPU对照复验",
     "原18.2秒同条件每1080样本16字段零差异，不能替代全部动作/地区/设备覆盖",
-    "Web v1原包e6e862c1fd90本地Chromium真实键鼠开关/重启/Home已验证；共享Pages900MiB拒绝，临时tunnel API直连被网络拒绝，未上线新Preview",
     "Development计划未知依赖保守升级full；用户要求专项且完整Integration由总控安排，此处不宣称已完成计划",
     "docs稀疏缺历史依赖原失败保留；中心任务状态需总控同步",
-    "完整常速播放/听音/用户审美手感/实体设备未验"
+    "完整常速播放/听音/用户审美手感/实体设备未验",
+    "v2实际落地尘效抽帧局部接受，起跳仍轻；全速/用户/设备未签",
+    "最终ZIP c7a2529b3958实际解压/PCK/Chromium键鼠已验；公网Web两次900MiB拒绝和tunnel网络拒绝，未上线"
   ],
   "checkpoint": {
     "status": "development_candidate_shared_adoption_pending",
-    "implementation_status": "development_candidate_v2_vfx_readability_rework",
+    "implementation_status": "task_candidate_v2_verified_limited",
     "runtime_files_changed": true,
     "central_index_owner": "coordinator;main task index is still planned and requires coordinated status reconciliation;this record truthfully reports implementation in progress",
-    "independent_scope": "engineering acceptance for v1 candidate only;pixel review supports falling scarf trial,REWORK holding attachment and weak dust;v2 targeted dust revision pending capture",
+    "independent_scope": "Engineering accepted for capture;fall scarf and landing dust local pixel acceptance only;grip/run/full lifecycle REWORK or unverified",
     "skills": [
       "player-creator",
       "animation-vfx",
@@ -330,12 +440,12 @@
       "gameplay-reviewer",
       "art-director"
     ],
-    "next_action": "真实同条件GPU样板/独立像素审查/Web预览；整线仍待M1协调/共享重绑/全武器与三外观扩产",
+    "next_action": "Coordinator reviews originalM1/new visual-only candidate,shared version/rebind and staging capacity;full affected Integration before adoption;continue grip/run/full weapons/three appearances",
     "published_branch": "feature/player-presentation-01-motion-candidate",
     "existing_workline_head": "b34511a7ee27f03b6d87d070ca20e9309e1e8a2e",
     "handoff": "docs/worklines/PLAYER-PRESENTATION-01/remote-handoff-01.md;补充审计，不覆盖已有M1同ID质量卡"
   },
-  "production_snapshot": "9c693787b201a655d9e8589d3bb1e1350ae64e29",
+  "production_snapshot": "5ff0c7aea4fcfb51713363b0b8ec4d4b5f56a22a",
   "baseline_consumer_coverage": {
     "scope": "Unmodified-main baseline;runtime home/plains trace plus explicitly source-only remaining consumers;no implementation coverage claim",
     "inventory_evidence": "inventory",
@@ -431,5 +541,98 @@
       }
     ]
   },
-  "consumer_coverage": null
+  "consumer_coverage": {
+    "scope": "Task-only actual formal dev consumer;production consumers retained and not claimed newly integrated",
+    "inventory_evidence": "motion-inventory",
+    "observations": [
+      {
+        "consumer": "formal_plains_pixel",
+        "status": "unverified",
+        "reason": "Baseline source inventory retained;new presentation not adopted here;not full workline acceptance",
+        "output": "visual",
+        "evidence": []
+      },
+      {
+        "consumer": "home_courier",
+        "status": "unverified",
+        "reason": "Baseline source inventory retained;new presentation not adopted here;not full workline acceptance",
+        "output": "visual",
+        "evidence": []
+      },
+      {
+        "consumer": "home_p1_traveller",
+        "status": "unverified",
+        "reason": "Baseline source inventory retained;new presentation not adopted here;not full workline acceptance",
+        "output": "visual",
+        "evidence": []
+      },
+      {
+        "consumer": "home_p1_girl",
+        "status": "unverified",
+        "reason": "Baseline source inventory retained;new presentation not adopted here;not full workline acceptance",
+        "output": "visual",
+        "evidence": []
+      },
+      {
+        "consumer": "formal_bible_forest_pixel",
+        "status": "unverified",
+        "reason": "Baseline source inventory retained;new presentation not adopted here;not full workline acceptance",
+        "output": "visual",
+        "evidence": []
+      },
+      {
+        "consumer": "forest_exploration_lab",
+        "status": "unverified",
+        "reason": "Baseline source inventory retained;new presentation not adopted here;not full workline acceptance",
+        "output": "visual",
+        "evidence": []
+      },
+      {
+        "consumer": "nonpixel_courier_and_painted",
+        "status": "unverified",
+        "reason": "Baseline source inventory retained;new presentation not adopted here;not full workline acceptance",
+        "output": "visual",
+        "evidence": []
+      },
+      {
+        "consumer": "old_labs_and_actionstudio",
+        "status": "unverified",
+        "reason": "Baseline source inventory retained;new presentation not adopted here;not full workline acceptance",
+        "output": "visual",
+        "evidence": []
+      },
+      {
+        "consumer": "legacy_parent_pixel_windchime",
+        "status": "unverified",
+        "reason": "Baseline source inventory retained;new presentation not adopted here;not full workline acceptance",
+        "output": "visual",
+        "evidence": []
+      },
+      {
+        "consumer": "courier_svg_fallback",
+        "status": "unverified",
+        "reason": "Baseline source inventory retained;new presentation not adopted here;not full workline acceptance",
+        "output": "visual",
+        "evidence": []
+      },
+      {
+        "consumer": "weapon_blink_echo",
+        "status": "unverified",
+        "reason": "Baseline source inventory retained;new presentation not adopted here;not full workline acceptance",
+        "output": "visual",
+        "evidence": []
+      },
+      {
+        "consumer": "dev_formal_plains_motion",
+        "status": "unverified",
+        "reason": "Actual normal DemoApp formal Plains player with only inherited visual leaf substituted;movies/traces and actual exported package GUI;not full workline acceptance",
+        "output": "visual",
+        "evidence": [
+          "motion-v2",
+          "motion-vfx-video",
+          "motion-pixel-v2"
+        ]
+      }
+    ]
+  }
 }
