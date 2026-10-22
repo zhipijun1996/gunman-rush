@@ -336,6 +336,7 @@ func show_settings(in_run: bool = false) -> void:
 	_sliders.clear()
 	_label(_content, "Touch movement", 16, TEXT)
 	_movement_mode = OptionButton.new()
+	_movement_mode.set_meta(&"focus_key", "touch_move_mode")
 	_movement_mode.custom_minimum_size.y = 48
 	_movement_mode.clip_text = true
 	for title: String in ["Walk / Run", "Fixed run speed", "Analog speed"]:
@@ -370,6 +371,7 @@ func show_settings(in_run: bool = false) -> void:
 	_content.add_child(muted)
 	_label(_content, "Sound volume / 音量（当前会话）", 14, GOLD)
 	var volume_slider := HSlider.new()
+	volume_slider.set_meta(&"focus_key", "audio_volume")
 	volume_slider.min_value = 0.0
 	volume_slider.max_value = 1.0
 	volume_slider.step = 0.05
@@ -691,6 +693,7 @@ func _slider(key: String, title: String, minimum: float, maximum: float, step: f
 	readout.custom_minimum_size.x = 56
 	readout.set_meta(&"ui_scale_min_width", true)
 	var slider := HSlider.new()
+	slider.set_meta(&"focus_key", key)
 	slider.min_value = minimum
 	slider.max_value = maximum
 	slider.step = step
@@ -779,7 +782,12 @@ func _restore_focus(generation: int) -> void:
 		control.focus_neighbor_right = control.get_path_to(control) if control is Range or control is OptionButton else control.focus_neighbor_bottom
 		if str(control.get_meta(&"focus_key", control.name)) == wanted: target = control
 	target.grab_focus()
-	_scroll.ensure_control_visible(target)
+	# Containers settle after this deferred callback. Scrolling against the
+	# pre-layout rectangle can open a long page at its bottom with focus offscreen.
+	await get_tree().process_frame
+	if generation == _page_generation and is_instance_valid(target) and is_instance_valid(_scroll):
+		if wanted.is_empty(): _scroll.scroll_vertical = 0
+		else: _scroll.ensure_control_visible(target)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if visible_panel.is_empty():

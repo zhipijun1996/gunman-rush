@@ -26,3 +26,9 @@ ActorResourcesHud 被 Graybox/ModuleLab/FoundryLab/RandomStagePreview 与历史�
 沿原 cloud_delivery 独立 Preview，先核 gunman-rush-previews 容量，再写任务/SHA路径；不改正式主站。真实 Godot 4.7.2 Standard（仓库校验安装），Web + 10–30秒真实电影；所有源码冻结与 SHA 区分记录。
 
 Development 用原 planner 保存实际选择（未知共享接入会保守升级 full），本线按用户要求只运行相关专项；完整 Integration/Release由总控统一。模拟DOM触控/手柄与实体设备分别写。G5尚未取得，不宣称商业品质最终完成。
+
+## 浏览器发现后的最小追加接入
+
+设置页先聚焦再等布局完成后定位滚动，初次打开保留页首；输入字段使用稳定focus_key。真实Web浏览器暴露原提前滚动问题，保留首失败而不放宽检查。
+
+scripts/dev/cloud_preview.gd 仅在 task_id == DEMO-UI-01 时挂接任务专属 preview_affordance.gd：完整游戏/菜单内隐藏遮挡文案的原开发条；访问开发实验室时保留原返回完整游戏按钮。其他任务默认不变，持久化禁用与生命周期归原bootstrap。此共享接入由总控合入时复核。

@@ -56,6 +56,7 @@ func run() -> void:
 	check(primary != null and root.get_visible_rect().encloses(primary.get_global_rect()), "primary title action entirely visible")
 	await click(button(app.menu._root,"SETTINGS"))
 	check(app.menu.visible_panel == &"settings", "actual pointer opens settings")
+	check(app.menu._scroll.scroll_vertical == 0 and root.get_visible_rect().encloses(app.menu._movement_mode.get_global_rect()), "first settings entry shows heading and focused field after layout settles")
 	app.menu._sliders.right_enter_deadzone.value = 0.2
 	app.menu._sliders.right_exit_deadzone.value = 0.3
 	var before := app._session_input.duplicate(true)
@@ -160,6 +161,17 @@ func run() -> void:
 	check(map_text.contains("THORN FOREST") and not map_text.contains("WINDCHIME PLAINS"), "forest map shows real region identity")
 	app.close_region_map(); await frames()
 	app.free(); await frames(8)
+	var preview := preload("res://scenes/dev/cloud_preview.tscn").instantiate() as CloudPreviewBootstrap
+	preview.task_id = "DEMO-UI-01"
+	preview.entry = "menu"
+	root.add_child(preview); await frames(8)
+	check(not preview.banner.visible and not preview.app.meta_persistence_enabled, "UI preview keeps clean real title and save isolation")
+	preview.app._open_action_studio(); await frames(8)
+	check(preview.banner.visible, "developer laboratory retains original full-game return affordance")
+	preview.return_to_menu(); await frames(8)
+	check(not preview.banner.visible and not preview.app.meta_persistence_enabled, "return to full game restores clean title and save isolation")
+	if not await preload("res://tests/audio_teardown.gd").drain_world(preview): check(false, "preview audio teardown")
+	preview.free(); await frames(8)
 	var file := FileAccess.open(out + "/assertions.json", FileAccess.WRITE)
 	file.store_string(JSON.stringify({"checks":checks,"failures":failures,"scope":"native actual consumer; simulated gamepad/touch, explicit resource edge fixtures, physical device unverified","observations":observations},"  ")); file.close()
 	print("DEMO UI CONTRACT: %s checks, %s failures" % [checks,failures])
