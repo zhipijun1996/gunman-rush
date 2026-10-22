@@ -12,10 +12,16 @@ var _lean := 0.0
 static var _action_manifest: Dictionary = {}
 static var _action_textures: Dictionary = {}
 var feedback_sample: EnemyFeedback01
+var feedback_particles: EnemyFeedback01Particles
 func _ready() -> void:
 	_size = actor.definition.collision_size
 	if EnemyFeedback01.supports(actor.definition):
 		feedback_sample = EnemyFeedback01.new(actor.health, actor.definition)
+		feedback_particles = EnemyFeedback01Particles.new()
+		feedback_particles.name = "AcceptedHitChips"
+		feedback_particles.z_index = 1
+		add_child(feedback_particles)
+		feedback_particles.bind(feedback_sample, actor.damageable)
 	else:
 		actor.health.changed.connect(_health_changed)
 	queue_redraw()

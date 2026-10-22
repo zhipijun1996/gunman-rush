@@ -7,6 +7,7 @@ const PROFILES := {
 	&"plains_diver": {"impact_pose": Vector2(.94, 1.06), "death_pose": Vector2(.86, .72), "tilt": .16},
 }
 const DEATH_SECONDS := .5 # Bounded inside PixelPlainsEnemy's read-only .65s fade.
+const FLASH_SECONDS := .12
 var tuning: DamageFeedbackDefinition = preload("res://resources/damage/feedback.tres")
 var hurt_remaining := 0.0
 var death_elapsed := 0.0
@@ -14,6 +15,9 @@ var death_active := false
 var restored_terminal := false
 var accepted_hit_count := 0
 var accepted_death_count := 0
+var impact_remaining := 0.0
+var impact_serial := 0
+var last_event_id: StringName = &""
 var _health: HealthState
 var _profile: Dictionary
 var _epoch := -1
@@ -37,6 +41,8 @@ func _synchronize() -> void:
 	hurt_remaining = 0
 	death_elapsed = 0
 	death_active = false
+	impact_remaining = 0
+	last_event_id = &""
 
 func _changed(result: ActorResourceResult) -> void:
 	if result == null or result.snapshot == null: return
@@ -47,6 +53,9 @@ func _changed(result: ActorResourceResult) -> void:
 	if _epoch != _health.epoch: _synchronize()
 	if result.operation != &"damage" or result.status != ActorResourceResult.Status.APPLIED or result.amount_applied >= 0 or result.event_id.is_empty() or _terminal or _seen.has(result.event_id): return
 	_seen[result.event_id] = true
+	last_event_id = result.event_id
+	impact_remaining = FLASH_SECONDS
+	impact_serial += 1
 	if result.snapshot.terminal:
 		_terminal = true
 		restored_terminal = false
@@ -60,6 +69,7 @@ func _changed(result: ActorResourceResult) -> void:
 
 func advance(delta: float) -> void:
 	hurt_remaining = maxf(0, hurt_remaining - delta)
+	impact_remaining = maxf(0, impact_remaining - delta)
 	if death_active:
 		death_elapsed = minf(DEATH_SECONDS, death_elapsed + delta)
 		if death_elapsed >= DEATH_SECONDS: death_active = false
@@ -76,9 +86,17 @@ func tilt() -> float:
 func tint() -> Color:
 	return Color.WHITE.lerp(Color(1.25, .86, .66), hurt_remaining / tuning.hurt_seconds)
 
+func flash_strength() -> float:
+	return clampf(impact_remaining / (FLASH_SECONDS * .6), 0, 1)
+
+func epoch() -> int:
+	return _epoch
+
 func dispose() -> void:
 	if _health != null and _health.changed.is_connected(_changed): _health.changed.disconnect(_changed)
 	_health = null
 	_seen.clear()
 	hurt_remaining = 0
+	impact_remaining = 0
+	last_event_id = &""
 	death_active = false

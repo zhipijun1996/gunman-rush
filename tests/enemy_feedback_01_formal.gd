@@ -145,6 +145,7 @@ func verify_target(stable_id: StringName) -> void:
 		results.append({"stable_id": str(stable_id), "id": enemy_id, "status": "UNVERIFIED", "fixture": fixture, "reason": "Bounded actual shooting did not kill target", "remaining_HP": actor.health.current})
 		return
 	check(art.feedback_sample.accepted_hit_count == ceili(initial_hp) - 1 and art.feedback_sample.accepted_death_count == 1, "actual formal consumer performs one death and each nonlethal hurt")
+	check(art.feedback_particles.emitted_bursts == ceili(initial_hp) and art.feedback_sample.impact_serial == ceili(initial_hp), "actual default formal projectiles emit exactly one pixel burst per accepted HP receipt including death")
 	await ticks(3, "formal_drop_settlement")
 	check(app.region_state.drops.has(enemy_id), "DemoApp itself settles actual generated terminal identity")
 	if not app.region_state.drops.has(enemy_id):
@@ -158,6 +159,7 @@ func verify_target(stable_id: StringName) -> void:
 	await ticks(45, "formal_duplicate_ticks")
 	check(JSON.stringify(app.region_state.drops) == drops_before, "repeated official damage settlement ticks preserve exact drop receipt")
 	check(stage.pickups.filter(func(row: Dictionary) -> bool: return str(row.id) == "drop_" + enemy_id).size() == duplicate_count, "repeated ticks and replay never add another pickup")
+	check(art.feedback_sample.flash_strength() == 0 and art.feedback_particles.active_bursts() == 0 and art.feedback_particles.emitted_bursts == ceili(initial_hp), "actual formal terminal replay adds no pixel burst and all impact effects expire")
 	results.append({"stable_id": str(stable_id), "id": enemy_id, "status": "verified", "fixture": fixture, "initial_HP": initial_hp, "projectile_contexts": events.size() - before_events, "shots": shots.size() - before_shots, "drop": drop, "pickup_instances": duplicate_count, "hurt_count": art.feedback_sample.accepted_hit_count, "death_count": art.feedback_sample.accepted_death_count})
 
 func verify_actual_reload() -> void:
@@ -193,6 +195,7 @@ func verify_actual_reload() -> void:
 			var art := motor.get_node("Presentation") as UnderworldEnemy
 			check(actor.health.terminal and not motor.visible, "official saved terminal actor stays dead and hidden after reload")
 			check(art != null and art.feedback_sample != null and art.feedback_sample.restored_terminal and not art.feedback_sample.death_active and art.feedback_sample.accepted_death_count == 0 and art.feedback_sample.accepted_hit_count == 0, "actual restored corpse never starts new hurt or death performance")
+			check(art.feedback_particles.emitted_bursts == 0 and art.feedback_particles.active_bursts() == 0 and art.feedback_sample.flash_strength() == 0, "official reload of dead actor emits no pixel particles or body flash")
 			var expected := 0 if result.drop.kind == "none" else 1
 			check(stage.pickups.filter(func(row: Dictionary) -> bool: return str(row.id) == "drop_" + str(result.id)).size() == expected, "official rebuild restores one existing drop instance")
 		check(found, "same generated enemy identity restored for " + str(result.stable_id))
@@ -223,7 +226,7 @@ func run() -> void:
 	for _frame: int in 4:
 		await process_frame
 	DirAccess.make_dir_recursive_absolute("res://build/enemy_feedback_01")
-	var output := {"task": "ENEMY-FEEDBACK-01", "checks": checks, "failures": failures, "ready": ready_receipts, "inventory": inventory, "targets": results, "shots": shots, "accepted_events": events, "trace": trace, "scope": "real default DemoApp/start_plains generated actors, Router/projectile damage, official drop ledger and same-map rebuild; explicitly positioned player fixtures, not natural traversal", "not_verified": ["full natural traversal", "GPU visual quality", "user acceptance", "physical device"]}
+	var output := {"feedback_revision": "body_flash_and_pixel_bursts", "task": "ENEMY-FEEDBACK-01", "checks": checks, "failures": failures, "ready": ready_receipts, "inventory": inventory, "targets": results, "shots": shots, "accepted_events": events, "trace": trace, "scope": "real default DemoApp/start_plains generated actors, Router/projectile damage, official drop ledger and same-map rebuild; explicitly positioned player fixtures, not natural traversal", "not_verified": ["full natural traversal", "GPU visual quality", "user acceptance", "physical device"]}
 	var file := FileAccess.open("res://build/enemy_feedback_01/formal_runtime.json", FileAccess.WRITE)
 	file.store_string(JSON.stringify(output, "\t"))
 	file.close()

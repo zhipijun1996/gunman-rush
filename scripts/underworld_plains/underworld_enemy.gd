@@ -4,11 +4,23 @@ extends PixelPlainsEnemy
 var feedback: DamageFeedbackDefinition = preload("res://resources/damage/feedback.tres")
 var accepted_hurt_count := 0
 var feedback_sample: EnemyFeedback01
+var feedback_body: EnemyFeedback01Body
+var feedback_particles: EnemyFeedback01Particles
 
 func _ready() -> void:
 	if EnemyFeedback01.supports(actor.definition):
 		# Do not install WindchimeEnemyVisual's legacy anonymous HP listener too.
 		feedback_sample = EnemyFeedback01.new(actor.health, actor.definition)
+		feedback_body = EnemyFeedback01Body.new()
+		feedback_body.name = "AcceptedHitBody"
+		feedback_body.z_index = -1
+		add_child(feedback_body)
+		feedback_particles = EnemyFeedback01Particles.new()
+		feedback_particles.name = "AcceptedHitChips"
+		feedback_particles.z_index = 1
+		add_child(feedback_particles)
+		feedback_particles.bind(feedback_sample, actor.damageable)
+		_sync_feedback_body()
 	else:
 		super._ready()
 		actor.health.changed.connect(_accepted_damage)
@@ -21,6 +33,28 @@ func _process(delta: float) -> void:
 		feedback_sample.advance(delta)
 		_hurt = feedback_sample.hurt_remaining
 		accepted_hurt_count = feedback_sample.accepted_hit_count
+		_sync_feedback_body()
+
+func _sync_feedback_body() -> void:
+	feedback_body.visible = not feedback_sample.restored_terminal
+	if not feedback_body.visible: return
+	var behavior := String(actor.definition.behavior_id)
+	var source: Texture2D = SPRITES["aerial" if actor.definition.aerial else behavior]
+	var size := actor.definition.collision_size
+	var width := maxf(size.x + 8, 28)
+	var height := width * source.get_height() / source.get_width()
+	if height > size.y + 14:
+		width *= (size.y + 14) / height
+		height = size.y + 14
+	var state: StringName = actor.attack_behavior.state if actor.attack_behavior != null else &"idle"
+	var floor_y := size.y * .5
+	var dip := 3.0 if state == &"telegraph" else 1.0 if state == &"recovery" else 0.0
+	if actor.health.terminal: dip += _death * 18
+	var pose := Vector2(1.06, .94) if state == &"telegraph" else Vector2(.96, 1.04) if state == &"attack" else Vector2.ONE
+	pose *= feedback_sample.pose()
+	var flutter := 2 * roundf(sin(_clock * 12)) if actor.definition.aerial else 0.0
+	var origin := Vector2(0, dip + flutter + floor_y * (1 - pose.y))
+	feedback_body.present(source, Rect2(-width*.5, floor_y-height, width, height), origin, feedback_sample.tilt(), Vector2(float(actor.brain.direction)*pose.x, pose.y), feedback_sample.tint(), feedback_sample.flash_strength())
 
 func _exit_tree() -> void:
 	if feedback_sample != null: feedback_sample.dispose()
@@ -71,7 +105,7 @@ func _draw() -> void:
 	var origin := Vector2(0,dip+flutter+(floor_y*(1-pose.y) if feedback_sample != null else 0.0))
 	draw_set_transform(origin,tilt,Vector2(float(actor.brain.direction)*pose.x,pose.y))
 	var tint := feedback_sample.tint() if feedback_sample != null else Color(1.4,.72,.48) if _hurt>0 and int(_hurt*feedback.flash_frequency)%2==0 else Color.WHITE
-	draw_texture_rect(source,Rect2(-width*.5,floor_y-height,width,height),false,tint)
+	if feedback_body == null: draw_texture_rect(source,Rect2(-width*.5,floor_y-height,width,height),false,tint)
 	draw_set_transform(Vector2.ZERO)
 	if actor.health.terminal: return
 	var top := -size.y*.5
