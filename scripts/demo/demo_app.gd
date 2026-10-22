@@ -1589,6 +1589,8 @@ func _make_ui() -> void:
 	menu.requested_start.connect(func(seed: String) -> void: start_demo(seed, false))
 	menu.requested_plains.connect(start_plains)
 	menu.requested_debug_region.connect(start_debug_region)
+	menu.requested_forest_places.connect(func(map_index: int,seed: String) -> void:
+		start_debug_region(&"thorn_forest",map_index,seed,ThornForestRegionGenerator.DEPTH_VERSION,ThornForestRegionGenerator.DEPTH_LAYOUT_PLACES))
 	menu.requested_forest_varied.connect(func(map_index: int,seed: String) -> void:
 		start_debug_region(&"thorn_forest",map_index,seed,ThornForestRegionGenerator.DEPTH_VERSION,ThornForestRegionGenerator.DEPTH_LAYOUT_VARIED))
 	menu.requested_forest_exploration.connect(func(map_index: int,seed: String) -> void:

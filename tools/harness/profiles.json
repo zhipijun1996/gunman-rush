@@ -3044,6 +3044,62 @@
       "artifact_paths": [
         "build/region_bible_v2/forest-varied-feedback"
       ]
+    },
+    "forest-places-feedback": {
+      "argv": [
+        "python3",
+        "tools/run_forest_places_feedback.py",
+        "--output-dir",
+        "build/region_bible_v2/forest-places-feedback/{check_token}",
+        "--suite",
+        "core"
+      ],
+      "timeout_seconds": 600,
+      "success_pattern": "^PASS: forest places development feedback / core$",
+      "weight_seconds": 525,
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/forest-places-feedback"
+      ]
+    },
+    "forest-library-feedback": {
+      "argv": [
+        "python3",
+        "tools/run_forest_places_feedback.py",
+        "--output-dir",
+        "build/region_bible_v2/forest-library-feedback/{check_token}",
+        "--suite",
+        "library"
+      ],
+      "timeout_seconds": 600,
+      "success_pattern": "^PASS: forest places development feedback / library$",
+      "weight_seconds": 300,
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/forest-library-feedback"
+      ]
     }
   },
   "profiles": {
@@ -3561,6 +3617,14 @@
     "forest-varied-feedback": [
       "docs",
       "forest-varied-feedback"
+    ],
+    "forest-places-feedback": [
+      "docs",
+      "forest-places-feedback"
+    ],
+    "forest-library-feedback": [
+      "docs",
+      "forest-library-feedback"
     ]
   }
 }

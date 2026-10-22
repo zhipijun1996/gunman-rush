@@ -19,7 +19,7 @@ const PIXEL: float = 2.0
 const VARIANTS: Array[int] = [0,1,1,0,0,1,0,1]
 
 static func draw(canvas: Node2D, m: Dictionary) -> void:
-	if m.get("layout_version") not in ["forest-bible-world-v15", "forest-branching-expedition-v16","forest-varied-bible-v17"]: return
+	if m.get("layout_version") not in ["forest-bible-world-v15", "forest-branching-expedition-v16","forest-varied-bible-v17","forest-exploration-places-v18"]: return
 	var hosts: Dictionary = {}
 	var hollow: Array[Rect2] = []
 	var hollow_ids: Dictionary = {}

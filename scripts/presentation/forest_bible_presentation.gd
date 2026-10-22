@@ -22,7 +22,7 @@ const DISCOVERY_KINDS := {
 }
 
 static func enabled(m: Dictionary) -> bool:
-	return m.get("layout_version") in [LAYOUT, "forest-branching-expedition-v16", "forest-varied-bible-v17"]
+	return m.get("layout_version") in [LAYOUT, "forest-branching-expedition-v16", "forest-varied-bible-v17","forest-exploration-places-v18"]
 
 static func draw_background(canvas: Node2D, m: Dictionary, camera_center: Vector2, view_size: Vector2, _clock: float) -> void:
 	# Existing Underworld forest source, rather than an independent new style.

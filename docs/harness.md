@@ -153,4 +153,8 @@ S3实际CI／公网包通过后，GUI01因可见MENU未被识别而在3/20退出
 
 `python3 tools/harness.py --profile forest-varied-feedback --release --jobs 1` 为v17独立开发入口，不加入既有full/CI或改变旧前缀。检查实际20种子与JSON拒变、菜单App、旧HH/螺旋、新旧区正式spawn出返及L真实OR选择/远出口。保持90import/240native/600whole与fixed60；wrapper必须非零退出、完成标记和完整原生报告一致，缺帧/多次Motor/中途位置与资源注入均拒绝。
 
+v18新场所用 `--profile forest-places-feedback`（基础20项）或 `--profile forest-library-feedback`（新库16项），均配 `--release --jobs 1`。按改动选择；不要每次部署重复整套。二者各保90import／240native／600whole、fixed60与串行引擎；新库含真实20种子、八种实际轮廓、Z／倒木／背枝局部路线、真实OR交易和固定果挂跳恢复。基础组另验实际菜单和两图完整出生点旅程。原80/full/CI不变，两套均不是整区趣味或发布门槛的替代。
+
+`tools/run_forest_places_feedback.py --suite core|library|all --output-dir build/<fresh>` 显式记录所选case ID；all仍保33项与原600秒，地图增长后的一次实际超时保留于[v18证据](evidence/forest_variety_04/README.md)，不能以拆套回写原失败。汇总须核实际任务身份、非空完整itinerary、身体支撑、fixture权限及真实OR结算；两个空列表相等不能放行。
+
 实际原生通行已获限定独审，但当前随机guard仍失败：新增平台矩形布置每map只有1种。guard仅用排序去重的rect/one_way与目标坐标，排除ID/instance/program/order/重复描述；这是必要结构检查，不能把微移/拆矩形/hash差异称趣味。新候选美术仍REWORK，不发布。原通过、严格guard实际拒绝及源码闭包分别保存在[本轮原件](evidence/forest_variety_03/README.md)，不倒签失败或为试玩重复完整CI。

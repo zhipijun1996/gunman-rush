@@ -1,23 +1,25 @@
 # 当前状态
 
-2026-10-22。工作分支 `feature/region-bible-v2-forest`，草稿 [PR101](https://github.com/zhipijun1996/gunman-rush/pull/101)；main 未合新区域。任务 FOREST-VARIETY-03 开发中。旧重复交付段落已原字节保存到[状态快照索引](archive/status_snapshots_20261022/index.json)，不再覆盖本页。
+2026-10-22，分支 `feature/region-bible-v2-forest`，草稿 [PR101](https://github.com/zhipijun1996/gunman-rush/pull/101)，未合 main。任务 FOREST-VARIETY-04 开发中；本轮是第一批探索场所原型，整森林未完成。
 
 ## 当前公开试玩
 
-[恢复的旧森林 v15](https://zhipijun1996.github.io/gunman-rush/?v=12ac19e2ec02)，build `12ac19e2ec02`，运行源 `bbf5b24dc6a27374119f67f11fc2eed92a57ba00`。入口：DEVELOPMENT DEMOS → SELECT REGION → THORN_FOREST MAP 1/2。prepared Pages [39704078082](https://github.com/zhipijun1996/gunman-rush/actions/runs/39704078082) 成功；公网完整PCK 141559396字节/SHA一致，真实鼠标map1进入与暂停恢复通过。[原始恢复收据](evidence/forest_variety_03/public_restore/report.json)。这是旧包恢复，不是新扩容发布。
+[恢复的旧森林 v15](https://zhipijun1996.github.io/gunman-rush/?v=12ac19e2ec02)，build `12ac19e2ec02`，运行源 `bbf5b24dc6a27374119f67f11fc2eed92a57ba00`。入口 DEVELOPMENT DEMOS → SELECT REGION → THORN_FOREST MAP 1/2。prepared Pages [39704078082](https://github.com/zhipijun1996/gunman-rush/actions/runs/39704078082) 已验证成功；[恢复原件](evidence/forest_variety_03/public_restore/report.json)。不能把这个旧包说成本轮扩容。
 
-用户明确否定 v16 短平台堆叠，并肯定旧 v15 设计；v16 的玩家验收及G5已记 failed。旧技术结果保留原范围，不抵销体验失败。原因与取舍见[返省](design/forest_v16_rethink.md)。
+## 新候选 v18
 
-## 本轮实现与边界
+保留用户肯定的 v15 核心、早段休整侧根、旧 HH／螺旋技巧线；默认入口仍 v15。新显式 FOREST PLACES MAP 1/2 接入双窗树腹、7型高枝回落、Z折根内外路、倒木上下路；图二另有固定果 H 后反向射击到背枝高奖励。Z／倒木次序由真正的 root seed 决定，两图取相反顺序，另有结构变体。Boss 完整 factory 随最终出口后移，无需清空宝箱才能开门。
 
-新 v17 独立候选保留旧实体、出生点和原探索模块；普通入口增加一片有实际净空的休整侧根，旧连续HH与螺旋技巧线保留。东侧附林从旧F05恢复根进入，上下双窗、外根环、L空腔奖励与固定果挂跳返程已接。没有任意高差自动补台，没有改核心物理、资源、S2-H能力或旧保存producer；当前普通默认仍v15。
+奖励是实际金币或音符二选一：七型／倒木4或1、Z6或2、背枝5或2。不是更多短平台梯，不改物理／Motor／资源／能力／保存；活果渡口仍未实现。当前是多个分流汇流场所的链，尚非充分网状地图；没有把顺序／几何签名当作趣味性证明。
 
-八个候选仅八条孤立goal获限定独审，不是八种新趣味。20实际种子独审确认新增平台矩形布置每张图仍仅1种，只有HH/RH果实坐标、动作与箱口有限变化；未达随机地图目标，Z尚未进入世界。round11六条真实输入路线通过，含旧HH/螺旋、新旧区域往返、L金币/音符实际二选一、远出口与固定果跳返。全部源/失败与真实画面在[本轮证据](evidence/forest_variety_03/README.md)。新增可执行短反馈入口 `python3 tools/harness.py --profile forest-varied-feedback --release --jobs 1`；旧版world签名曾混入实例元数据，现改为真实矩形布置/目标坐标并加反例；严格guard实际两项失败，短反馈当前会如实拒绝该候选，未纳入full或CI。
+用户每图正常8–12分钟、充分探索15–20分钟为初步真人目标，未计时验证。实际路线证据只证明所列出生点／fixture旅程到 Boss 门前，不能换算真人游玩时长或 Boss 战验收。
 
-两轮实际合屏仍 ART_REWORK：巨矩形背体已减掉，但平直梁/方柱/奖励台/长catch尚不自然，两地图的新增场所身份也相似。停止继续调色或尺寸救该母版；不发布附林，不签整区、趣味或真机。下一步先重想根枝/空腔整体轮廓与真实分流，再扩不同机制库；保留已成立的旧森林体验与本轮通行发现。
+## 质量与待办
 
-## 权威与未完成
+[设计与范围](design/forest_exploration_v18.md)、[原件及失败索引](evidence/forest_variety_04/README.md)、[十一维记录](quality/records/FOREST-VARIETY-04.json)。33项原轮在600秒超时，保留原 FAIL；基础路线和新模块库已拆成可选开发检查，预算／守卫不变，原80/full/CI不变。
 
-[用户两份完整Bible](creative_direction/bibles/registry.json)、[正式平原共享像素母版](creative_direction/bibles/style-continuity-20261021-v3.json)及[自然缠绕荆棘平台要求](creative_direction/bibles/thorn-covered-platforms-20261021.json)继续有效。森林先行，风铃平原优化仍 planned；BGM由用户后续引入，未生成/替换。
+实际App04独审拒绝倒木直角L框；18.3已改真实外弯根腹，App05独审确认有实质轮廓改善，仅允许继续玩法验证，没有 ART 通过。Z细悬臂／倒L、背枝浮空平梁／通屏恢复层及森林材质仍需定稿。两条树皮材质尝试失败均保留、未接入。不能把原型当整区美术或用户认可再次覆盖旧公开包。
 
-森林整区美术、更多真正不同且世界闭环的模块、明显种子拓扑、总体难度曲线及设备/用户认可均未完成。过去v15的原80/full141/Web证据仍只属于各冻结源；本轮未重跑完整CI，不重签。新试玩遵循已有快发布流程，功能/设计/艺术不因部署或CI成功自动通过。
+继续先完成森林含美术，再优化风铃平原。两份完整Bible、共享 Underworld16px/32wu 家族与自然覆生荆棘平台要求有效；BGM由用户后续引入，未生成或替换。整体难度曲线、更多有趣模块、充分网状探索、人类时长和实体设备／玩家认可仍未完成。
+
+最新限定技术结果：新库16项fresh inner／outer通过（334.075秒）；倒木18.3之后两图正式出生点主路线fresh通过（135.791秒），全源稳定。不追认原33超时，不签全量回归、真人时长或ART。

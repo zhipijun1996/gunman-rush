@@ -222,11 +222,16 @@ def validate_assembled_layout(actual, expected_forest_layout):
         raise AssertionError("Actual assembled forest layout differs from selected default")
 
 
-async def verify(url: str, folder: Path, expected_commit: str, expected_build_id: str, expected_forest_version=None, expected_forest_layout=None, proxy_from_environment=False):
+async def verify(url: str, folder: Path, expected_commit: str, expected_build_id: str, expected_forest_version=None, expected_forest_layout=None, proxy_from_environment=False, forest_places=False):
+    if forest_places and (expected_forest_version != "thorn-forest-region-v2" or expected_forest_layout != "forest-exploration-places-v18"):
+        raise ValueError("Candidate entry requires exact v2/v18 assembly expectations")
     folder.mkdir(parents=True, exist_ok=False)
     report = {"scope":"all_four_region_map_entries_with_actual_mouse_and_emulated_DOM_touch; GUI_only", "url":url, "checks":[], "events":[], "errors":[], "gestures":[], "identities":[], "expected_commit":expected_commit, "expected_build_id":expected_build_id, "physical_devices":"unverified", "natural_reward_and_next_region_gui":"unverified; native actual progression evidence is separate", "whole_browser_route":"unverified"}
     report["expected_forest_version"] = expected_forest_version
     report["expected_forest_layout"] = expected_forest_layout
+    report["forest_places_candidate"] = forest_places
+    if forest_places:
+        report["scope"] = "explicit_v18_candidate_two_forest_maps_mouse_and_emulated_DOM_touch; GUI_only_not_default_entries"
     report["proxy"] = {"enabled": False, "hostname": None}
     launch_options = {"executable_path": shutil.which("chromium") or shutil.which("chromium-browser"), "headless": True, "args": ["--no-sandbox","--use-angle=swiftshader","--enable-unsafe-swiftshader"]}
     if proxy_from_environment:
@@ -236,7 +241,8 @@ async def verify(url: str, folder: Path, expected_commit: str, expected_build_id
         try:
             for touch in (True,False):
                 device = "touch" if touch else "mouse"
-                for region, map_index in (("plains",1),("plains",2),("thorn_forest",1),("thorn_forest",2)):
+                cases = (("thorn_forest",1),("thorn_forest",2)) if forest_places else (("plains",1),("plains",2),("thorn_forest",1),("thorn_forest",2))
+                for region, map_index in cases:
                     prefix = f"{device}-{region}-map{map_index}"
                     context = await browser.new_context(viewport={"width":1280,"height":720},has_touch=touch,is_mobile=touch)
                     page = await context.new_page()
@@ -293,7 +299,7 @@ async def verify(url: str, folder: Path, expected_commit: str, expected_build_id
                         raise failure
                     await click_text("DEVELOPMENT DEMOS","title",scroll=True)
                     await click_text("SELECT REGION","home",scroll=True)
-                    await click_text(f"{region.upper()} MAP {map_index}","region")
+                    await click_text(f"FOREST PLACES MAP {map_index}" if forest_places else f"{region.upper()} MAP {map_index}","region",scroll=forest_places)
                     await page.wait_for_timeout(900)
                     entry = await capture("entry")
                     expected = [e for e in report["events"] if e.get("device")==device and e.get("event")=="debug_entry" and e.get("region")==region and e.get("map_index")==map_index and e.get("natural_progression") is False]
@@ -346,18 +352,21 @@ def main():
     parser.add_argument("--expected-commit",required=True)
     parser.add_argument("--expected-build-id",required=True)
     parser.add_argument("--expected-forest-version",choices=("thorn-forest-region-v1","thorn-forest-region-v2"),help="Explicitly verify the actually assembled default forest, beyond menu acceptance")
-    parser.add_argument("--expected-forest-layout",choices=("shared-tree-directional-cavities-v7","shared-tree-living-detour-v9","shared-tree-canopy-hunt-v10","forest-expedition-airborne-v11","forest-woven-trunk-v12","forest-interwoven-canopy-v13","forest-fruit-routes-v14","forest-bible-world-v15","forest-branching-expedition-v16","forest-varied-bible-v17"),help="Require the exact layout of the actually assembled forest; requires --expected-forest-version")
+    parser.add_argument("--expected-forest-layout",choices=("shared-tree-directional-cavities-v7","shared-tree-living-detour-v9","shared-tree-canopy-hunt-v10","forest-expedition-airborne-v11","forest-woven-trunk-v12","forest-interwoven-canopy-v13","forest-fruit-routes-v14","forest-bible-world-v15","forest-branching-expedition-v16","forest-varied-bible-v17","forest-exploration-places-v18"),help="Require the exact layout of the actually assembled forest; requires --expected-forest-version")
     parser.add_argument("--proxy-from-environment",action="store_true",help="Explicitly route Chromium through urllib's HTTPS proxy environment setting")
+    parser.add_argument("--forest-places",action="store_true",help="Click explicit v18 candidate buttons; test its two maps instead of four default entries")
     args = parser.parse_args()
     if args.expected_forest_layout is not None and args.expected_forest_version != "thorn-forest-region-v2":
         parser.error("expected forest layout requires --expected-forest-version thorn-forest-region-v2")
+    if args.forest_places and args.expected_forest_layout != "forest-exploration-places-v18":
+        parser.error("forest places requires explicit forest-exploration-places-v18 expected layout")
     if not re.fullmatch(r"[0-9a-f]{40}",args.expected_commit):
         parser.error("expected commit must be a complete lowercase Git SHA")
     if not re.fullmatch(r"[0-9a-f]{12}",args.expected_build_id):
         parser.error("expected build ID must be a complete 12-character PCK content ID")
     if urlparse(args.url).scheme not in ("http","https"):
         parser.error("URL must use HTTP or HTTPS")
-    asyncio.run(asyncio.wait_for(verify(args.url,args.output_dir,args.expected_commit,args.expected_build_id,args.expected_forest_version,args.expected_forest_layout,args.proxy_from_environment),timeout=480))
+    asyncio.run(asyncio.wait_for(verify(args.url,args.output_dir,args.expected_commit,args.expected_build_id,args.expected_forest_version,args.expected_forest_layout,args.proxy_from_environment,args.forest_places),timeout=480))
 
 
 if __name__ == "__main__": main()

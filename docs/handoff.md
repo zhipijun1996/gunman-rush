@@ -1,25 +1,29 @@
-# 最新交接：保留旧森林，纠正扩容方向
+# 最新交接：探索场所原型 v18
 
-2026-10-22，分支 `feature/region-bible-v2-forest`，准确提交以Git为准；草稿 [PR101](https://github.com/zhipijun1996/gunman-rush/pull/101) 未合main。当前公开试玩、方向和未完成项见[当前状态](current_state.md)。旧交接原字节保存在[历史快照索引](archive/status_snapshots_20261022/index.json)，不再重复铺在入口。
+2026-10-22，分支 `feature/region-bible-v2-forest`，草稿 [PR101](https://github.com/zhipijun1996/gunman-rush/pull/101) 未合 main。准确提交以 Git 为准。公开仍[旧 v15](current_state.md#当前公开试玩)，不能把旧 build12ac 说成本轮。
 
-## 已完成与证据
+## 已实现和边界
 
-用户肯定旧关卡设计、否定v16堆台；v16 G5/player_acceptance实际记 failed。责任是误改范围、把ID/路线数当趣味、忽略既有ART_REWORK仍发布，不是用户未说清或CI失职。[返省与改法](design/forest_v16_rethink.md)。两skills只补短且可执行的取舍，没有新审批流程。
+用户已选每图正常8–12分钟、充分探索15–20分钟作为初步真人目标；没有真人计时，不能用原生帧数换算。v18 新显式 FOREST PLACES 入口保留 v15 核心／早段休整根／HH和螺旋技巧线，加入双窗、7型高枝回落、Z内外折返、倒木上下路，图二另有固定果 H＋反向射击背枝。真正root Seed改变Z／倒木顺序，两图反排；Boss完整factory后移到最终出口。真实奖励为金币或音符二选一且幂等，没有清空支线开门锁。
 
-公开已恢复旧v15 build12ac/sourcebbf；完整PCK与真实鼠标冒烟通过。[恢复收据](evidence/forest_variety_03/public_restore/report.json)。保留旧包，不能把它冒充当前扩容。
+当前仍是带多处分流汇流的场所链，非充分网状森林，也不是完整模块库。活果渡口未实现；固定果不冒称活目标。森林含美术优先，平原仍planned；BGM未生成或替换。普通森林 default15 与历史producer保留，没有修改Motor／物理／资源／能力／保存。
 
-v17是独立开发候选：旧producer与普通default15不动；保留实际旧正常探索，新侧根拆早270wu连续HH，旧HH/螺旋仍可走。东侧附林有实际旧spawn进入、双窗内外根、L金币/音符二选一、远出口与挂果按跳返程。round11全源/Git稳定，原600秒内117.829秒通过当时检查及六条实际输入路线；各失败、原生收据、源码闭包和两轮14张合屏在[证据索引](evidence/forest_variety_03/README.md)。八local goal不等于八新趣味；新增平台矩形布置其实每map仅1种；旧world把instance/program纳入差异签名，已独审揭出并用真实rect/one_way的排序去重guard纠正。round12真实失败2项；不得拿旧通过或果实坐标变化称随机扩容完成。
+## 实际失败与继续点
 
-## 下一任务与命令
+原33项在600秒超时，29项完成不能追认为整轮通过。App04独审拒绝Fallen巨L；18.3真实西根外弯、东根凹窝及心木底面已改，App05八张源稳定且独审确认有实质改善，只允许继续候选通行验证，未签ART。Z的细悬臂／倒L、Back浮空平楔／通屏夹层、倒木长地板和木质识别仍待定稿。两条失败材质方向完整归档，未进入runtime。不能再用纹理、更多变体或测试计数覆盖构图失败，不能把原型覆盖旧公开包。
 
-两轮实际画面仍ART_REWORK，附林不发布；不要第三轮改色/加粒子/调梁宽救矩形母版。重想自然根枝/空腔整体结构，先一个实际组合黄金再扩库。新入口的H2外肩只有约3wu完整脚余量，技术通过不签手感。旧good内容优先保留；Z、下降肘等只有各自孤立goal，不得直接拼入量产。先森林含美术，再平原；BGM保留用户后引入。
+新开发反馈分成 `python3 tools/harness.py --profile forest-places-feedback --release --jobs 1`（core20）和 `--profile forest-library-feedback`（library16）。根据改动选，不每次部署整套；保90import/240native/600whole、fixed60、串行引擎和严格非空／完整输入／完整脚／OR结算守卫。旧80/full/CI未改，本轮没有重签完整CI。
 
-最终执行结果：文档/流程29项fresh通过；严格扩容feedback的harness真实失败2项、源稳定。原件见[最终收据](evidence/forest_variety_03/README.md#最终执行入口复核)。
+精选原始源码、全轨迹、失败、静图、独审和每成员完整SHA在[证据索引](evidence/forest_variety_04/README.md)；当前质量状态见[记录](quality/records/FOREST-VARIETY-04.json)。新浏览器 `--forest-places` 只实际OCR点击候选入口并校验组装18，默认四入口不变；只验GUI，不签奖励／手感。
 
-本轮永久短反馈：`python3 tools/harness.py --profile forest-varied-feedback --release --jobs 1`。包含真实20种子/JSON拒变、菜单App、旧HH/螺旋、两map正式旧spawn往返和L实际音符领奖/远口返回，原90import/240native/600whole、fixed60保留；当前因严格随机guard真实失败；未加入full或CI，不覆盖原80/full141、全部模块或FUN。新脚本先正式import纳入UID再冻结；单独fixture输出必须说明首次Motor前定位，不作正式fullspawn证据。
+## 操作与存储
 
-结束前执行 `python3 tools/check_quality.py`、按PR实际base执行 `python3 tools/check_quality_diff.py --base 7be8c340372d1e20db6685cbd6a559191821eb0e`，提交后 `python3 tools/check_release_evidence.py --commit HEAD`。不默认合main。下一次试玩复用已验同源包/仅Web重建及必要影响验证，不绑定整套CI。
+root唯一Godot/import/GPU/browser租约；运行源与Git冻结期间禁止并行写生产。只用 `bash tools/godot.sh` / Godot4.7.2 Standard。不动 `/workspace/gunman-rush-ci-H`、原始附件、`.git/.godot` 或历史失败。audit SHA保持 `c47e366e9fbc1e3584a7c7e3eb8b983422156e21eb420a34456a2d8eb7219791`。
 
-## 执行与存储边界
+先 `df -h /workspace /tmp`。旧564份大JSON以完整字节/SHA读回验证后可逆存于 `build/storage-preservation-20261022/large-json-lossless.zip`，旁有RESTORE-INDEX.json；旧平原run_vs12o4rc原件同目录lossless.zip和RESTORE-INDEX.json。不是删除不可恢复证据。运行时快照仅复制实际源与必要资产，不复制海量历史build。
 
-root唯一Godot/import/GPU/browser租约；源与Git冻结期间禁止并行生产写。只用 `bash tools/godot.sh` / Godot4.7.2。保护audit SHA `c47e366e9fbc1e3584a7c7e3eb8b983422156e21eb420a34456a2d8eb7219791`，保原80、预算和历史失败。不动 `/workspace/gunman-rush-ci-H`、唯一证据、`.git/.godot`。原生大JSON已可无损ZIP归档；本轮完整源码仅复制运行源，避免复制含海量历史证据的整个worktree再次ENOSPC。磁盘实际余量先 `df -h /workspace /tmp`，原失败与原件不删除。
+合入/完整交付另跑适用原profile。新试玩按已有快速流程复用同源已验包或仅Web重建和必要检查；当前艺术未过，不以新原型替换旧公开包。完成更多有趣机制与网状拓扑后再验人类时长、手感、手机性能和玩家认可。
+
+本轮最终新库16项inner／outer均exit0，334.075秒；新倒木之后两图正式主路线分别55.099／79.963秒通过，整轮135.791秒，源稳定。不是fresh完整core20、原80或fullCI。静图是明确摆位fixture，不作自然游玩／动态证据。
+
+文档／流程29项fresh通过；具体证据路径已普通Git归档。PR实际base仍7be8c340372d1e20db6685cbd6a559191821eb0e，需保持差异与commit-tree证据闭包检查。

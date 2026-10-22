@@ -23,7 +23,7 @@ func drive(trace: Node,leg: Dictionary) -> bool:
 			if trace.player.is_on_floor(): trace.controller.router.set_move_axis(0)
 			return true
 		pending_shot_intent = -1
-	if trace.manifest.get("layout_version","") not in ["forest-expedition-airborne-v11","forest-woven-trunk-v12","forest-interwoven-canopy-v13","forest-fruit-routes-v14","forest-bible-world-v15","forest-varied-bible-v17"]:return false
+	if trace.manifest.get("layout_version","") not in ["forest-expedition-airborne-v11","forest-woven-trunk-v12","forest-interwoven-canopy-v13","forest-fruit-routes-v14","forest-bible-world-v15","forest-varied-bible-v17","forest-exploration-places-v18"]:return false
 	# Preserve the 0.35s real aim hold and count only newly issued intents.
 	if not state.is_empty() and not str(trace.get("_aim_kind")).is_empty(): return true
 	if state.is_empty():

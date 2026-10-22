@@ -1,0 +1,58 @@
+{
+  "scope": "affected_fresh_formal_spawn_routes_only_not_full_core_or_CI",
+  "baseline_head": "e594d3ff54daaf9d8f5e30f3190890737ce39a1e",
+  "exit_code": 0,
+  "checks": [
+    {
+      "id": "map1_normal",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--path",
+        ".",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/forest_places_motor_runner.gd",
+        "--",
+        "--map=1",
+        "--seed=forest-places-00",
+        "--route=places_normal_journey",
+        "--output=/workspace/gunman-rush/build/region_bible_v2/journey05/map1_normal.json"
+      ],
+      "passed": true,
+      "exit_code": 0,
+      "seconds": 55.09857327200007,
+      "report_sha256": "1feea2b3015b4f0c45a44188e0e339f2989ec00dbfa5dc60af07a94043ee22e4"
+    },
+    {
+      "id": "map2_normal",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--path",
+        ".",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/forest_places_motor_runner.gd",
+        "--",
+        "--map=2",
+        "--seed=forest-places-01",
+        "--route=places_normal_journey",
+        "--output=/workspace/gunman-rush/build/region_bible_v2/journey05/map2_normal.json"
+      ],
+      "passed": true,
+      "exit_code": 0,
+      "seconds": 79.96339828100463,
+      "report_sha256": "914cc4dd3e9a2f7219a87019cfe08b80ceffebb09dbde3846595a839a8fd4703"
+    }
+  ],
+  "native_cap_seconds": 240,
+  "whole_cap_seconds": 600,
+  "fixed_fps": 60,
+  "source_stable": true,
+  "seconds": 135.7914111239952
+}
