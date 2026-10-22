@@ -1,5 +1,13 @@
 # 最新交接：探索场所原型 v18
 
+## 2026-10-22 提效已合入与第一批工作线启动（最新）
+
+PR103已于12:45UTC普通合入main，merge `e9ab0e0743466b8983e34cc7de17bab1abf9d53a`，树与验证head `a1a1b8aa03f2a2f8f5dfeb6b2fed26f546b03de7`完全一致。精确A1 Integration146/146 fresh通过，下载原ZIP匹配API digest，另作者独审ACCEPT；[永久小报告及原件定位](evidence/cloud_efficiency_01/final-a1/independent-ci-review.json)。原Artifact需登录、2026-11-05到期；未把main Release或玩家／真机签通过。
+
+总控从该merge创建三条独立分支：feature/player-presentation-01、feature/enemy-feedback-01、feature/plains-golden-01，合同见[本批Prompt与所有权](demo_wave_01.md)。此共同调度提交只更新状态与真实工程收据，不修改游戏源或重复触发主线Release；各线先完成正式消费者盘点、一个相关baseline及任务专属可恢复检查点，再进入代表样板，不争写中央状态。
+
+历史资源／证据删除0项，按需物化及稀疏隔离已落地；全Integration实际仍需约3GB原消费者输入，不把局部启动收益套用到完整CI。独立托管约715MiB/900MiB，扩多Preview前由总控落实真实容量方案，不删除活跃URL。当前工具启动的是本会话隔离代理；独立Codex Cloud会话可用同Prompt和远端分支恢复，不假设自动唤醒。
+
 ## 2026-10-22 总控与提效生产基线（最新）
 
 当前主会话为总控。用户已授权先完成CLOUD-EFFICIENCY-01并通过普通PR合入main，再从PR103的实际merge SHA启动三条独立工作线；[本批Prompt、写集及共享依赖](demo_wave_01.md)为本批调度合同。合入与最终CI状态以[PR103](https://github.com/zhipijun1996/gunman-rush/pull/103)的精确head／merge及check为准，不把执行中签成通过。

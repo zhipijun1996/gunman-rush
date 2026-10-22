@@ -1,0 +1,78 @@
+{
+  "reviewer": "independent_review (not implementation author; independently read raw artifact rather than adopting producer summary)",
+  "verdict": "ACCEPT",
+  "approval_scope": "Actual complete selected engineering Integration at exactA1; not main Release or player acceptance.",
+  "reviewed_at_utc": "2026-10-22T12:44:45.083864+00:00",
+  "source_commit": "a1a1b8aa03f2a2f8f5dfeb6b2fed26f546b03de7",
+  "github": {
+    "run": 39771696574,
+    "url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/39771696574",
+    "workflow": "Production impact",
+    "event": "pull_request",
+    "status": "completed",
+    "conclusion": "success",
+    "api_head_matches": true,
+    "jobs": [
+      {
+        "id": 119800548038,
+        "head_sha": "a1a1b8aa03f2a2f8f5dfeb6b2fed26f546b03de7",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "artifact": {
+    "id": 12426861148,
+    "name": "production-impact-39771696574-1",
+    "bytes": 109047334,
+    "sha256": "433db99588b6263276e98375c7afc903fbbce6d9682d301d9e8d11e5630b57ac",
+    "api_digest_matches_independent_full_file_hash": true,
+    "api_size_matches": true,
+    "download_url": "https://github.com/zhipijun1996/gunman-rush/actions/runs/39771696574/artifacts/12426861148",
+    "access": "GitHub login required; retention expires2026-11-05T12:39:19Z",
+    "local_archive": "/workspace/scratch/ci-a1-final/production-impact-a1-final.zip"
+  },
+  "raw_receipts": {
+    "report_member": "gunman-rush/gunman-rush/build/verification/harness/20261022T114531.060890Z/report.json",
+    "report_sha256": "bd7d5e599846dff954825ff96ca11ef3c187f25b60447466d03afdca6dc5cfbe",
+    "execution_plan_sha256": "990fe58769793413c8087c93c1c67a7d6e285bb20a01ef200fab8d3f08a225a9",
+    "expected_selection_sha256": "91394779f90c251b463a3289ea953633ad64959b31f375de77ffde0dc1aee6e9"
+  },
+  "actual_execution": {
+    "status": "passed",
+    "selected_checks": 146,
+    "unique_ids": 146,
+    "passed": 146,
+    "all_exit_zero": true,
+    "all_reused_false": true,
+    "unique_check_tokens": 146,
+    "exact_id_order_matches_execution_plan_and_predeclared_expected": true,
+    "full_profile_set_exact": true,
+    "full_profile_order_note": "Planner prepends docs once; actual order matches its exact expected plan. Set is the complete146check full profile with no extra or missing checks.",
+    "all146_raw_logs_present_and_success_patterns_match": true,
+    "all146_argv_and_timeouts_match_current_manifest": true,
+    "manifest_sha256": "ed36c753c85eefb7741b724e5a62a37dec2774ce851d8e3d595bc933f2f3b434",
+    "jobs": 2,
+    "parallel_checks": 91,
+    "serial_checks": 55,
+    "serial_starts_after_parallel_complete": true,
+    "serial_checks_do_not_overlap": true,
+    "wall_seconds": 3227.131,
+    "working_files": {},
+    "git_status": "",
+    "planner_stage": "integration",
+    "planner_selection": "full",
+    "execution_status": "selected_commands_succeeded",
+    "all_execution_steps_exit_zero": true,
+    "web_build_and_bundle": "Both actually fresh passed; native5 consumers previously blocked by missing fixtures also included and fresh passed."
+  },
+  "input_hydration": "Both real input receipts preserve input_availability_only/tests_executed=false. Initial hydration restored3028389414 bytes in339.614s,second pass0 bytes. These availability receipts are not test approvals; actual146check Harness receipts establish execution.",
+  "source_guard": "ExactA1, clean working_files/status and matching manifest in report and plan. Original unchanged full-source guards surround lane/check/final execution; no guard failure. Prior source-only review final-a1-source.json separately confirms original158 guard fields and main/manual Release workflow preservation.",
+  "previous_failures": "Original failed83bbb26 CI and earlier provider/partial/source-closure failures stay archived with original source/status. This newA1 run independently passed; no failure was rewritten.",
+  "review_method": "Independently hashed full109MB archive against rawAPI digest/size; read raw146report/plan/execution from ZIP; matched ID sequences,all argv/timeouts and every raw success marker; checked exact SHA/manifest,unique tokens,55serial chronology. No repository writes,no CI/test/Godot rerun.",
+  "limits": [
+    "Accepts actual full selected engineering Integration only. Does not claim main push/manual complete Release,Windows release export,public redeployment or post-merge CI outcome.",
+    "Does not sign human aesthetic,control feel,fun,physical mobile/controller/device or commercial quality.",
+    "A future merge commit and any newly committed changes retain their own CI/source identity."
+  ]
+}

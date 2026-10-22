@@ -30,3 +30,7 @@
 - [精确83bbb26远端Integration失败](failures/ci83-sparse-fixture/receipt.json)：64项通过，aim-save-compat因原inputs未声明其真实历史Manifest而失败，其余未执行。[原report](failures/ci83-sparse-fixture/report.json.gz)、[检查完整log](failures/ci83-sparse-fixture/aim-save-compat.log.gz)及data阶段收据保留。补充真实依赖后必须fresh复验，不改存档断言或原预算。
 
 Gzip保存原JSON／日志完整字节，`gzip -dc <file>`可恢复；没有截去原失败段落。完整CI、Release、用户审美／手感／趣味、实体设备均不由上述局部工程收据代签。实际公开录像和Preview仍使用[原交付源6ca72ef](../cloud_production_01/README.md)，本轮工具提交没有伪造新游戏包。
+
+## 最终A1真实Integration与合入
+
+精确A1在run39771696574实际146/146 fresh通过；[原报告](final-a1/report.json)、[执行计划](final-a1/execution-plan.json)、[API与完整ZIP核验](final-a1/verification-summary.json)、[独立CI审查](final-a1/independent-ci-review.json)及[源审](final-a1/independent-source-review.json)保存原身份。PR103已合main e9ab0e0，源树完全相同。原109MB归档[下载](https://github.com/zhipijun1996/gunman-rush/actions/runs/39771696574/artifacts/12426861148)需GitHub登录，2026-11-05到期；小报告在Git永久保留。前述失败与旧source证据不改签；main正式Release与玩家／设备另验。
