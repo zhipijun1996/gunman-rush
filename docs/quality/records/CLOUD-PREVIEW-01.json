@@ -12,14 +12,18 @@
   "constraints": [
     "No core gameplay, physics, RNG, save or content batch changes",
     "Preview-only DemoApp persistence disabled before ready and after menu reconstruction",
-    "Original checks/assertions/budgets and main/manual release jobs retained"
+    "Original checks/assertions/budgets and main/manual release jobs retained",
+    "Only explicit --cloud-preview redirects official entry; bootstrap-owned Apps bypass redirect and keep real menu; ordinary launch unchanged"
   ],
   "affected_paths": [
     "scripts/dev",
     "scenes/dev",
     "tools/cloud_slice_capture.gd",
     "tools/cloud_slice_capture.gd.uid",
-    "config/production_impact.json"
+    "config/production_impact.json",
+    "scripts/demo/demo_app.gd",
+    "tests/cloud_preview_runner.gd",
+    "tests/cloud_preview_runner.gd.uid"
   ],
   "deliverables": [
     "docs/cloud_production.md",
@@ -27,7 +31,7 @@
     "Real engine MP4, immutable Web Preview and actual validation receipts"
   ],
   "creative_decisions": [],
-  "formal_impact": false,
+  "formal_impact": true,
   "gates": {
     "G0": {
       "status": "unverified",

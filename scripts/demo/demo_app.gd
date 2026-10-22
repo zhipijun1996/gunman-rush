@@ -86,6 +86,14 @@ var _pending_exit: StringName = &""
 var _reward_token: DemoToken
 
 func _ready() -> void:
+	# Official Web templates forbid command-line scene overrides. Only an explicit
+	# development launch redirects; bootstrap-owned Apps keep the real menu/loop.
+	if "--cloud-preview" in OS.get_cmdline_user_args() and not has_meta("cloud_preview_host"):
+		set_process(false)
+		set_physics_process(false)
+		set_process_input(false)
+		get_tree().call_deferred("change_scene_to_file", "res://scenes/dev/cloud_preview.tscn")
+		return
 	plains_environment_candidate_requested = plains_environment_candidate_requested or "--plains-environment-candidate" in OS.get_cmdline_user_args()
 	plains_places_candidate_requested = plains_places_candidate_requested or "--plains-places-candidate" in OS.get_cmdline_user_args()
 	plains_joint_recoil_candidate_requested = plains_joint_recoil_candidate_requested or "--plains-joint-recoil-candidate" in OS.get_cmdline_user_args()

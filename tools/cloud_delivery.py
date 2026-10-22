@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import html
 import json
+import math
 from pathlib import Path
 import re
 import shutil
@@ -152,7 +153,9 @@ def inject_entry(page, task, seed, entry, scene=None):
     marker = 'engine.startGame({'
     if page.count(marker) != 1 or 'cloud-preview-entry' in page:
         raise ValueError('Expected a fresh official Godot startGame call')
-    args = ['res://' + BOOTSTRAP, '--', '--task=' + task, '--seed=' + seed, '--entry=' + entry]
+    # Official Web exports disable positional scene path overrides. The normal
+    # main scene dispatches this explicit application flag to the bootstrap.
+    args = ['--', '--cloud-preview', '--task=' + task, '--seed=' + seed, '--entry=' + entry]
     if scene is not None:
         args.append('--scene=' + scene)
     page = page.replace(marker, marker + '\n/* cloud-preview-entry */ args: ' + json.dumps(args).replace('<', '\\u003c') + ',')
@@ -177,7 +180,139 @@ def index_page(site):
     for path, data in list_previews(site):
         relative = path.relative_to(site).as_posix() + '/'
         links.append('<li><a href="' + relative + '">' + html.escape(data['task'] + ' / ' + data['source_commit'][:12] + ' / ' + data['build_id']) + '</a> · Seed ' + html.escape(data['seed']) + '</li>')
-    (site / 'index.html').write_text('<!doctype html><meta charset="utf-8"><title>失序之钟 · 开发预览</title><h1>开发 Preview</h1><p>以下为独立开发版本；审美、手感和设备体验以真人反馈为准。</p><ul>' + ''.join(links) + '</ul><p><a href="https://zhipijun1996.github.io/gunman-rush/">正式试玩</a></p>')
+    media_links = ['<li><a href="' + p.parent.relative_to(site).as_posix() + '/comparison.mp4">' + html.escape(d['task'] + ' / ' + d['source_commit'][:12]) + '</a> · <a href="' + p.parent.relative_to(site).as_posix() + '/download.json">下载与来源</a></li>' for p, d in list_media(site)]
+    (site / 'index.html').write_text('<!doctype html><meta charset="utf-8"><title>失序之钟 · 开发预览</title><h1>开发 Preview</h1><p>以下为独立开发版本；审美、手感和设备体验以真人反馈为准。</p><ul>' + ''.join(links) + '</ul><h2>真实引擎录像交付</h2><ul>' + ''.join(media_links) + '</ul><p><a href="https://zhipijun1996.github.io/gunman-rush/">正式试玩</a></p>')
+
+
+def list_media(site):
+    result = []
+    for path in sorted((site / 'deliveries').rglob('download.json')):
+        data = json.loads(path.read_text())
+        validate_task(data['task'])
+        expected = Path('deliveries') / data['task'] / data['source_commit'] / data['comparison_sha256'][:12]
+        if not re.fullmatch(r'[0-9a-f]{40}', data['source_commit']) or not re.fullmatch(r'[0-9a-f]{64}', data['comparison_sha256']) or path.parent.relative_to(site) != expected:
+            raise ValueError('Media identity/path mismatch: ' + str(path))
+        result.append((path, data))
+    return result
+
+
+def probe_media(path):
+    media = json.loads(subprocess.check_output(['ffprobe', '-v', 'error', '-show_streams', '-show_format', '-of', 'json', str(path)], timeout=30))
+    videos = [s for s in media['streams'] if s['codec_type'] == 'video']
+    audio = [s for s in media['streams'] if s['codec_type'] == 'audio']
+    duration = float(media['format']['duration'])
+    if (len(videos) != 1 or not audio or videos[0]['avg_frame_rate'] != '60/1'
+            or not math.isfinite(duration) or not 0 < duration <= 600
+            or int(audio[0]['sample_rate']) != 48000 or int(audio[0]['channels']) != 2):
+        raise ValueError('Capture media must contain 60fps video, real 48kHz stereo audio and a bounded positive duration')
+    return {'duration_seconds': duration, 'fps': '60/1', 'resolution': [videos[0]['width'], videos[0]['height']], 'audio_sample_rate': 48000, 'audio_channels': 2}
+
+
+def validate_capture(folder, task, probe=True):
+    folder = Path(folder).resolve()
+    no_links(folder)
+    report = json.loads((folder / 'report.json').read_text())
+    source = report.get('source_metadata', report.get('source', {}))
+    if (report.get('status') != 'passed' or report.get('source_stable') is not True
+            or report.get('task') != task or not re.fullmatch(r'[0-9a-f]{40}', source.get('commit', ''))
+            or source.get('working_files') != {} or source.get('git_status') != ''
+            or source.get('diff', '') != '' or source.get('untracked', '') != ''):
+        raise ValueError('Capture must be passed, source-stable and bound to clean committed source metadata and the task')
+    captures = report.get('captures', [])
+    if len(captures) != 2 or {c.get('variant') for c in captures} != {'before', 'after'}:
+        raise ValueError('Capture requires distinct before and after records')
+    media = {}
+    files = ['report.json', 'comparison.mp4']
+    for record in captures:
+        variant = record['variant']
+        execution = record.get('execution', {})
+        if execution.get('status') != 'passed' or execution.get('exit_code') != 0:
+            raise ValueError('Capture engine execution did not pass')
+        for suffix, key in (('.mp4', 'mp4_sha256'), ('.json', 'trace_sha256')):
+            path = folder / (variant + suffix)
+            expected = record.get(key, '')
+            if not re.fullmatch(r'[0-9a-f]{64}', expected) or sha(path) != expected:
+                raise ValueError('Capture video/trace SHA256 mismatch: ' + path.name)
+            files.append(path.name)
+        if probe:
+            media[variant] = probe_media(folder / (variant + '.mp4'))
+            conditions = report.get('conditions', {})
+            if conditions.get('fps', 60) != 60 or conditions.get('resolution', media[variant]['resolution']) != media[variant]['resolution']:
+                raise ValueError('Actual media differs from reported capture conditions')
+    comparison_sha = report.get('comparison_sha256', '')
+    if not re.fullmatch(r'[0-9a-f]{64}', comparison_sha) or sha(folder / 'comparison.mp4') != comparison_sha:
+        raise ValueError('Comparison MP4 SHA256 mismatch')
+    if probe:
+        media['comparison'] = probe_media(folder / 'comparison.mp4')
+        if abs(media['comparison']['duration_seconds'] - media['before']['duration_seconds'] - media['after']['duration_seconds']) > .15:
+            raise ValueError('Comparison duration does not contain the complete before/after clips')
+        if len({tuple(m['resolution']) for m in media.values()}) != 1:
+            raise ValueError('Before, after and comparison resolutions differ')
+    return report, source['commit'], comparison_sha, files, media
+
+
+def projected_site_bytes(site):
+    amount = sum(p.stat().st_size for p in site.rglob('*') if p.is_file())
+    return amount + sum(d['pack_verification']['pack_bytes'] for p, d in list_previews(site) if not (p / d['pack_verification']['pack']).exists())
+
+
+def install_host_tools(source_root, host_root):
+    helper = host_root / '_tools'
+    helper.mkdir(exist_ok=True)
+    for name in ('style_exploration_delivery.py', 'cloud_delivery.py'):
+        shutil.copyfile(source_root / 'tools' / name, helper / name)
+    workflows = host_root / '.github/workflows'
+    workflows.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(source_root / 'tools/preview_host_workflow.yml', workflows / 'preview.yml')
+
+
+def stage_media(capture_dir, host_root, task, source_root=ROOT):
+    validate_task(task)
+    host_root = validate_host(host_root)
+    no_links(host_root)
+    folder = Path(capture_dir).resolve()
+    report, commit, comparison, files, media = validate_capture(folder, task)
+    identity = Path('deliveries') / task / commit / comparison[:12]
+    site, destination = host_root / 'site', host_root / 'site' / identity
+    if destination.exists():
+        raise ValueError('Immutable media delivery already exists; refusing overwrite')
+    site.mkdir(exist_ok=True)
+    temporary = Path(tempfile.mkdtemp(prefix='.cloud-media-', dir=host_root))
+    published = False
+    try:
+        for name in files:
+            source = folder / name
+            if source.stat().st_size >= 100 * 1024 * 1024:
+                raise ValueError('Media exceeds Git transport 100MiB limit: ' + name)
+            shutil.copyfile(source, temporary / name)
+        # Recheck copied files against the original capture; source movement fails.
+        validate_capture(temporary, task, probe=False)
+        url = HOST_URL + identity.as_posix() + '/'
+        data = {'schema_version': 1, 'status': 'staged', 'publication': 'unverified: push and successful Pages deployment plus public byte verification required',
+                'task': task, 'source_commit': commit, 'comparison_sha256': comparison,
+                'source_url': 'https://github.com/zhipijun1996/gunman-rush/tree/' + commit,
+                'url': url, 'urls': {name: url + name for name in files},
+                'files': {name: sha(temporary / name) for name in files}, 'media_probe': media,
+                'scope': report.get('scope', ''), 'baseline': report.get('baseline', ''),
+                'comparison_differences': report.get('comparison_differences', []),
+                'user_acceptance': 'unverified', 'device_acceptance': 'unverified'}
+        write_json(temporary / 'download.json', data)
+        if projected_site_bytes(site) + sum(p.stat().st_size for p in temporary.iterdir()) > LIMIT:
+            raise ValueError('Media delivery would exceed shared 900MiB site budget; no history was deleted')
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        temporary.rename(destination)
+        published = True
+        install_host_tools(Path(source_root).resolve(), host_root)
+        index_page(site)
+        (site / '.nojekyll').touch()
+        return data
+    except BaseException as error:
+        if published:
+            raise ValueError('Partial media staging retained at ' + str(destination) + '; do not overwrite this immutable identity. Complete host tools, workflow and index before committing. Not a successful deployment. Cause: ' + str(error)) from error
+        raise
+    finally:
+        if temporary.exists():
+            shutil.rmtree(temporary, ignore_errors=True)
 
 
 def validate_site(site, reconstruct=True):
@@ -195,12 +330,21 @@ def validate_site(site, reconstruct=True):
         if receipt['source_commit'] != data['source_commit'] or receipt['build_id'] != data['build_id'] or receipt['pack_sha256'] != data['pack_verification']['pack_sha256']:
             raise ValueError('Reconstructed preview identity differs')
         results.append(receipt)
-    if not results:
+    media_results = []
+    for path, data in list_media(site):
+        for name, expected in data['files'].items():
+            if Path(name).name != name or name in ('', '.', '..') or '\\' in name or sha(path.parent / name) != expected:
+                raise ValueError('Staged media inventory changed: ' + name)
+        _, commit, comparison, _, _ = validate_capture(path.parent, data['task'], probe=False)
+        if commit != data['source_commit'] or comparison != data['comparison_sha256']:
+            raise ValueError('Staged media capture identity differs')
+        media_results.append({'source_commit': commit, 'comparison_sha256': comparison, 'task': data['task']})
+    if not results and not media_results:
         raise ValueError('Refusing an empty preview site')
     amount = sum(p.stat().st_size for p in site.rglob('*') if p.is_file())
     if amount > LIMIT:
         raise ValueError('Preview site exceeds 900MiB; explicitly retire history or change hosting, never silently delete it')
-    return {'status': 'verified', 'scope': 'Export bytes and immutable hosting; GUI, feel and devices unverified', 'bytes': amount, 'previews': results}
+    return {'status': 'verified', 'scope': 'Export/media bytes and immutable hosting; GUI, feel and devices unverified', 'bytes': amount, 'previews': results, 'media': media_results}
 
 
 def stage_preview(bundle, host_root, task, seed, entry='actions', pr=None, source_root=ROOT, scene=None):
@@ -258,13 +402,7 @@ def stage_preview(bundle, host_root, task, seed, entry='actions', pr=None, sourc
         (latest / 'index.html').write_text('<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=' + target + '"><a href="' + target + '">打开最新开发预览</a>')
         index_page(site)
         (site / '.nojekyll').touch()
-        helper = host_root / '_tools'
-        helper.mkdir(exist_ok=True)
-        for name in ('style_exploration_delivery.py', 'cloud_delivery.py'):
-            shutil.copyfile(source_root / 'tools' / name, helper / name)
-        workflows = host_root / '.github/workflows'
-        workflows.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(source_root / 'tools/preview_host_workflow.yml', workflows / 'preview.yml')
+        install_host_tools(source_root, host_root)
         return metadata
     except BaseException as error:
         # Before publishing, failure leaves no playable identity behind.
@@ -297,6 +435,10 @@ def main():
     stage.add_argument('--seed', required=True)
     stage.add_argument('--entry', choices=('actions', 'menu', 'scene'), default='actions')
     stage.add_argument('--scene', help='Self-contained res://scenes/*.tscn test scene; requires --entry scene and actual consumer validation')
+    stage_video = commands.add_parser('stage-media')
+    stage_video.add_argument('--capture-dir', type=Path, required=True)
+    stage_video.add_argument('--host-root', type=Path, required=True)
+    stage_video.add_argument('--task', required=True)
     verify = commands.add_parser('verify-host')
     verify.add_argument('--host-root', type=Path, required=True)
     args = parser.parse_args()
@@ -304,6 +446,8 @@ def main():
         result = select_delivery(args.observe, args.interact, args.engineering, args.long_task, args.kind)
     elif args.command == 'stage-preview':
         result = stage_preview(args.bundle, args.host_root, args.task, args.seed, args.entry, args.pr, scene=args.scene)
+    elif args.command == 'stage-media':
+        result = stage_media(args.capture_dir, args.host_root, args.task)
     else:
         host = validate_host(args.host_root)
         result = validate_site(host / 'site')

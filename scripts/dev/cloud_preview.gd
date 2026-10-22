@@ -20,13 +20,14 @@ func _ready() -> void:
 	app = preload("res://scenes/demo/demo.tscn").instantiate()
 	# Set before DemoApp._ready: same-origin preview must not read/write main meta.
 	app.meta_persistence_enabled = false
+	app.set_meta("cloud_preview_host", true)
 	add_child(app)
 	var layer := CanvasLayer.new()
 	layer.layer = 120
 	layer.process_mode = Node.PROCESS_MODE_ALWAYS
 	add_child(layer)
 	banner = PanelContainer.new()
-	banner.position = Vector2(16, 72)
+	banner.position = Vector2(16, 220)
 	layer.add_child(banner)
 	var row := HBoxContainer.new()
 	banner.add_child(row)
@@ -74,6 +75,7 @@ func return_to_menu() -> void:
 		app.queue_free()
 	app = preload("res://scenes/demo/demo.tscn").instantiate()
 	app.meta_persistence_enabled = false
+	app.set_meta("cloud_preview_host", true)
 	add_child(app)
 	entry = "menu"
 	print("CLOUD PREVIEW: returned to full game menu; persistence=false")

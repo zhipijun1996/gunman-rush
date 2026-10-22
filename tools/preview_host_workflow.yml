@@ -24,7 +24,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Verify all immutable previews, reconstruct original PCKs and enforce site cap
+      - name: Verify immutable preview and media bytes, reconstruct PCKs and enforce shared site cap
         run: python3 _tools/cloud_delivery.py verify-host --host-root .
       - uses: actions/upload-pages-artifact@v3
         with:

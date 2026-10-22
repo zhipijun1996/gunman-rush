@@ -3100,6 +3100,59 @@
       "artifact_paths": [
         "build/region_bible_v2/forest-library-feedback"
       ]
+    },
+    "cloud-production-planner-tests": {
+      "argv": [
+        "python3",
+        "tests/test_production_plan.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^Ran [1-9]\\d* tests in ",
+      "cacheable": true,
+      "inputs": [
+        "tools/production_plan.py",
+        "config/production_impact.json",
+        "tools/harness.py",
+        "tools/harness/profiles.json",
+        "tests/test_production_plan.py"
+      ]
+    },
+    "cloud-delivery-tests": {
+      "argv": [
+        "python3",
+        "tests/test_cloud_delivery.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^Ran [1-9]\\d* tests in ",
+      "cacheable": true,
+      "inputs": [
+        "tools/cloud_delivery.py",
+        "tools/preview_host_workflow.yml",
+        "tools/style_exploration_delivery.py",
+        "tools/check_web_bundle.py",
+        "tools/harness/profiles.json",
+        "tests/test_cloud_delivery.py"
+      ]
+    },
+    "cloud-preview-runtime": {
+      "argv": [
+        "python3",
+        "tools/run_audio_lifecycle_tests.py",
+        "--script",
+        "tests/cloud_preview_runner.gd",
+        "--marker",
+        "^CLOUD PREVIEW TESTS: [1-9][0-9]* assertions, 0 failures$",
+        "--timeout",
+        "90",
+        "--output",
+        "build/cloud_preview/{check_token}"
+      ],
+      "timeout_seconds": 120,
+      "success_pattern": "\"status\": \"passed\"",
+      "serial": true,
+      "artifact_paths": [
+        "build/cloud_preview"
+      ]
     }
   },
   "profiles": {
@@ -3132,7 +3185,9 @@
       "underworld-home-guard-tests",
       "region-bible-contract",
       "region-bible-tests",
-      "harness-artifact-archive-tests"
+      "harness-artifact-archive-tests",
+      "cloud-production-planner-tests",
+      "cloud-delivery-tests"
     ],
     "core": [
       "docs",
@@ -3160,7 +3215,9 @@
       "creative-direction",
       "creative-direction-tests",
       "forest-region-scheduler-tests",
-      "harness-artifact-archive-tests"
+      "harness-artifact-archive-tests",
+      "cloud-production-planner-tests",
+      "cloud-delivery-tests"
     ],
     "gameplay": [
       "docs",
@@ -3288,7 +3345,10 @@
       "forest-bible-versions",
       "forest-bible-reader-tests",
       "forest-bible-av-reader-tests",
-      "harness-artifact-archive-tests"
+      "harness-artifact-archive-tests",
+      "cloud-production-planner-tests",
+      "cloud-delivery-tests",
+      "cloud-preview-runtime"
     ],
     "art": [
       "docs",
@@ -3383,7 +3443,10 @@
       "forest-practice-bell-restore",
       "forest-bible-reader-tests",
       "forest-bible-av-reader-tests",
-      "harness-artifact-archive-tests"
+      "harness-artifact-archive-tests",
+      "cloud-production-planner-tests",
+      "cloud-delivery-tests",
+      "cloud-preview-runtime"
     ],
     "web": [
       "docs",
@@ -3427,7 +3490,9 @@
       "forest-camera-stability",
       "forest-hazard-records",
       "forest-fruit-contract",
-      "harness-artifact-archive-tests"
+      "harness-artifact-archive-tests",
+      "cloud-production-planner-tests",
+      "cloud-delivery-tests"
     ],
     "full": [
       "docs",
@@ -3570,7 +3635,10 @@
       "forest-bible-versions",
       "forest-bible-reader-tests",
       "forest-bible-av-reader-tests",
-      "harness-artifact-archive-tests"
+      "harness-artifact-archive-tests",
+      "cloud-production-planner-tests",
+      "cloud-delivery-tests",
+      "cloud-preview-runtime"
     ],
     "creative-feedback": [
       "docs",
@@ -3579,13 +3647,17 @@
       "level-design-routing",
       "production-loop-tests",
       "region-bible-contract",
-      "region-bible-tests"
+      "region-bible-tests",
+      "cloud-production-planner-tests",
+      "cloud-delivery-tests"
     ],
     "history": [
       "docs",
       "generated-consumers",
       "forest-h-slice",
-      "visual-director-space"
+      "visual-director-space",
+      "cloud-production-planner-tests",
+      "cloud-delivery-tests"
     ],
     "creative-prototype": [
       "docs",
@@ -3593,38 +3665,52 @@
       "creative-direction-tests",
       "forest-current-slice",
       "region-bible-contract",
-      "region-bible-tests"
+      "region-bible-tests",
+      "cloud-production-planner-tests",
+      "cloud-delivery-tests"
     ],
     "regional-art-feedback": [
       "docs",
       "plains-regional-art-counterexamples",
       "plains-regional-art-graph-counterexamples",
-      "plains-regional-art-contract"
+      "plains-regional-art-contract",
+      "cloud-production-planner-tests",
+      "cloud-delivery-tests"
     ],
     "region-bible-feedback": [
       "region-bible-contract",
       "region-bible-tests",
       "forest-bible-sfx-source",
-      "generated-consumers"
+      "generated-consumers",
+      "cloud-production-planner-tests",
+      "cloud-delivery-tests"
     ],
     "forest-exploration-feedback": [
       "docs",
       "forest-exploration-body-reader",
       "forest-exploration-exchange-reader",
       "forest-exploration-wrapper-tests",
-      "forest-exploration-contract"
+      "forest-exploration-contract",
+      "cloud-production-planner-tests",
+      "cloud-delivery-tests"
     ],
     "forest-varied-feedback": [
       "docs",
-      "forest-varied-feedback"
+      "forest-varied-feedback",
+      "cloud-production-planner-tests",
+      "cloud-delivery-tests"
     ],
     "forest-places-feedback": [
       "docs",
-      "forest-places-feedback"
+      "forest-places-feedback",
+      "cloud-production-planner-tests",
+      "cloud-delivery-tests"
     ],
     "forest-library-feedback": [
       "docs",
-      "forest-library-feedback"
+      "forest-library-feedback",
+      "cloud-production-planner-tests",
+      "cloud-delivery-tests"
     ]
   }
 }

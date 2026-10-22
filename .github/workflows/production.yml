@@ -59,6 +59,7 @@ jobs:
         run: |
           mkdir -p build/verification/production-ci
           python3 tests/test_production_plan.py 2>&1 | tee build/verification/production-ci/selector-tests.log
+          python3 tests/test_cloud_delivery.py 2>&1 | tee build/verification/production-ci/delivery-tests.log
       - name: Validate PR quality and guard changes against its actual base
         if: github.event_name == 'pull_request'
         run: python3 tools/check_quality_diff.py --base "$PRODUCTION_BASE" 2>&1 | tee build/verification/production-ci/quality-diff.log

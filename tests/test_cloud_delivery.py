@@ -38,6 +38,21 @@ def minimal_pack(name, data, extra=None):
 
 
 class DeliveryTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        # Synthetic tiny AV fixtures test real ffprobe behavior; these are never
+        # presented as Godot gameplay evidence or published by this test suite.
+        cls.media_temp = tempfile.TemporaryDirectory()
+        cls.media_root = Path(cls.media_temp.name)
+        for name, duration, fps in (('clip.mp4', '0.2', '60'), ('comparison.mp4', '0.4', '60'), ('wrong-fps.mp4', '0.2', '30')):
+            subprocess.run(['ffmpeg', '-nostdin', '-v', 'error', '-f', 'lavfi', '-i', 'color=c=blue:s=64x64:r=' + fps + ':d=' + duration,
+                            '-f', 'lavfi', '-i', 'sine=frequency=440:sample_rate=48000:duration=' + duration,
+                            '-ac', '2', '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-c:a', 'aac', '-shortest', str(cls.media_root / name)], check=True, timeout=30)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.media_temp.cleanup()
+
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
@@ -83,6 +98,27 @@ class DeliveryTests(unittest.TestCase):
     def stage(self, task='CLOUD-TEST-01', **kwargs):
         return delivery.stage_preview(self.bundle, self.host, task, 'fixed-seed', source_root=self.root, **kwargs)
 
+    def make_capture(self):
+        capture = self.root / 'build/capture'
+        capture.mkdir()
+        records = []
+        for variant in ('before', 'after'):
+            shutil.copyfile(self.media_root / 'clip.mp4', capture / (variant + '.mp4'))
+            (capture / (variant + '.json')).write_text(json.dumps({'frames': [{'frame': 1}], 'test_fixture': True}))
+            records.append({'variant': variant, 'execution': {'status': 'passed', 'exit_code': 0},
+                            'mp4_sha256': delivery.sha(capture / (variant + '.mp4')),
+                            'trace_sha256': delivery.sha(capture / (variant + '.json'))})
+        shutil.copyfile(self.media_root / 'comparison.mp4', capture / 'comparison.mp4')
+        report = {'status': 'passed', 'source_stable': True, 'source': {'commit': self.head, 'working_files': {}, 'git_status': ''},
+                  'task': 'CLOUD-TEST-01', 'captures': records, 'comparison_sha256': delivery.sha(capture / 'comparison.mp4'),
+                  'scope': 'Synthetic test fixture only; not actual Godot capture evidence',
+                  'conditions': {'fps': 60, 'resolution': [64, 64]}}
+        (capture / 'report.json').write_text(json.dumps(report))
+        return capture
+
+    def stage_media(self, capture):
+        return delivery.stage_media(capture, self.host, 'CLOUD-TEST-01', source_root=self.root)
+
     def test_review_need_controls_delivery_not_task_length(self):
         self.assertEqual(delivery.select_delivery(observe=True)['delivery'], 'video')
         self.assertEqual(delivery.select_delivery(interact=True)['delivery'], 'web')
@@ -125,7 +161,8 @@ class DeliveryTests(unittest.TestCase):
         destination = self.host / 'site/previews/CLOUD-TEST-01' / self.head / result['build_id']
         self.assertTrue((destination / 'preview.json').is_file())
         page = (destination / 'index.html').read_text()
-        self.assertIn('res://scenes/dev/cloud_preview.tscn', page)
+        self.assertIn('--cloud-preview', page)
+        self.assertNotIn('"res://scenes/dev/cloud_preview.tscn"', page)
         self.assertIn('--seed=fixed-seed', page)
         self.assertIn('--entry=actions', page)
         self.assertFalse((destination / self.pack_name).exists())
@@ -133,6 +170,19 @@ class DeliveryTests(unittest.TestCase):
         self.assertEqual(verified['status'], 'verified')
         self.assertEqual(delivery.sha(destination / self.pack_name), delivery.sha(self.bundle / self.pack_name))
         self.assertEqual(result['pr'], 23)
+
+    def test_web_arguments_never_request_disabled_positional_scene_override(self):
+        for entry, scene in (('actions', None), ('menu', None), ('scene', 'res://' + self.consumer)):
+            with self.subTest(entry=entry):
+                page = delivery.inject_entry('<body><script>engine.startGame({});</script></body>', 'TASK', 'seed', entry, scene)
+                argument_text = page.split('/* cloud-preview-entry */ args: ', 1)[1].split('],', 1)[0] + ']'
+                args = json.loads(argument_text)
+                self.assertEqual(args[0], '--')
+                self.assertEqual(args[1], '--cloud-preview')
+                self.assertTrue(all(arg.startswith('--') for arg in args))
+                self.assertFalse(any(arg.startswith('res://') for arg in args))
+                if scene:
+                    self.assertIn('--scene=' + scene, args)
 
     def test_self_contained_scene_entry_is_pack_verified_and_forwarded(self):
         scene = 'res://' + self.consumer
@@ -275,6 +325,82 @@ class DeliveryTests(unittest.TestCase):
         chunk.write_bytes(b'broken')
         with self.assertRaisesRegex(ValueError, 'Staged preview bytes changed'):
             delivery.validate_site(self.host / 'site')
+
+    def test_real_media_probe_and_stable_download_inventory(self):
+        capture = self.make_capture()
+        result = self.stage_media(capture)
+        self.assertEqual(result['status'], 'staged')
+        self.assertIn('unverified', result['publication'])
+        self.assertIn('/deliveries/CLOUD-TEST-01/' + self.head + '/', result['urls']['comparison.mp4'])
+        verified = delivery.validate_site(self.host / 'site')
+        self.assertEqual(len(verified['media']), 1)
+        self.assertEqual(verified['previews'], [])
+        self.assertEqual(result['media_probe']['comparison']['fps'], '60/1')
+        self.assertIn('deliveries/', (self.host / 'site/index.html').read_text())
+
+    def test_media_host_rejects_main_and_never_overwrites_identity(self):
+        capture = self.make_capture()
+        self.stage_media(capture)
+        with self.assertRaisesRegex(ValueError, 'refusing overwrite'):
+            self.stage_media(capture)
+        run(self.host, 'remote', 'set-url', 'origin', 'https://github.com/zhipijun1996/gunman-rush.git')
+        with self.assertRaisesRegex(ValueError, 'main hosting is forbidden'):
+            self.stage_media(capture)
+
+    def test_dirty_or_unstable_capture_source_is_refused(self):
+        capture = self.make_capture()
+        original = json.loads((capture / 'report.json').read_text())
+        mutations = ({'source_stable': False}, {'status': 'failed'}, {'source': {'commit': 'bad', 'working_files': {}, 'git_status': ''}},
+                     {'source': {'commit': self.head, 'working_files': {'x': 'dirty'}, 'git_status': ''}},
+                     {'source': {'commit': self.head, 'working_files': {}, 'git_status': ' M tools/capture.py'}})
+        for mutation in mutations:
+            with self.subTest(mutation=mutation):
+                (capture / 'report.json').write_text(json.dumps(original | mutation))
+                with self.assertRaisesRegex(ValueError, 'clean committed source metadata'):
+                    self.stage_media(capture)
+        self.assertFalse((self.host / 'site').exists())
+
+    def test_media_or_trace_tampering_blocks_staging(self):
+        capture = self.make_capture()
+        for name in ('comparison.mp4', 'before.mp4', 'after.mp4', 'before.json', 'after.json'):
+            with self.subTest(name=name):
+                target = capture / name
+                original = target.read_bytes()
+                target.write_bytes(original + b'poison')
+                with self.assertRaisesRegex(ValueError, 'SHA256 mismatch'):
+                    self.stage_media(capture)
+                target.write_bytes(original)
+
+    def test_wrong_actual_fps_rejected_even_if_report_hashes_match(self):
+        capture = self.make_capture()
+        shutil.copyfile(self.media_root / 'wrong-fps.mp4', capture / 'before.mp4')
+        report = json.loads((capture / 'report.json').read_text())
+        report['captures'][0]['mp4_sha256'] = delivery.sha(capture / 'before.mp4')
+        (capture / 'report.json').write_text(json.dumps(report))
+        with self.assertRaisesRegex(ValueError, '60fps video'):
+            self.stage_media(capture)
+
+    def test_media_inventory_verified_alongside_existing_preview(self):
+        self.stage()
+        capture = self.make_capture()
+        result = self.stage_media(capture)
+        verified = delivery.validate_site(self.host / 'site')
+        self.assertEqual(len(verified['media']), 1)
+        self.assertEqual(len(verified['previews']), 1)
+        path = self.host / 'site/deliveries/CLOUD-TEST-01' / self.head / result['comparison_sha256'][:12] / 'comparison.mp4'
+        path.write_bytes(b'tampered')
+        with self.assertRaisesRegex(ValueError, 'Staged media inventory changed'):
+            delivery.validate_site(self.host / 'site')
+
+    def test_media_budget_is_shared_with_previews(self):
+        self.stage()
+        capture = self.make_capture()
+        before = delivery.projected_site_bytes(self.host / 'site')
+        with patch.object(delivery, 'LIMIT', before + 1):
+            with self.assertRaisesRegex(ValueError, 'shared 900MiB'):
+                self.stage_media(capture)
+        self.assertEqual(len(delivery.list_previews(self.host / 'site')), 1)
+        self.assertFalse((self.host / 'site/deliveries').exists())
 
 
 if __name__ == '__main__':
