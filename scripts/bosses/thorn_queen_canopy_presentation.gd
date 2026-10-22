@@ -7,9 +7,10 @@ func _draw() -> void:
 	if encounter==null or encounter.definition==null: return
 	var color := Color("dbbfa4")
 	var half := encounter.definition.collision_size*.5
-	draw_colored_polygon(PackedVector2Array([Vector2(-half.x,5),Vector2(-18,-15),Vector2(-12,-half.y),Vector2(0,-19),Vector2(12,-half.y),Vector2(18,-15),Vector2(half.x,5),Vector2(10,half.y),Vector2(-10,half.y)]),Color("704c64"))
-	draw_circle(Vector2.ZERO,9,color)
-	for index: int in 3: draw_line(Vector2(-14+14*index,-18),Vector2(-22+22*index,-36),color,3,true)
+	if not ForestBibleActors.draw_boss_body(self, encounter):
+		draw_colored_polygon(PackedVector2Array([Vector2(-half.x,5),Vector2(-18,-15),Vector2(-12,-half.y),Vector2(0,-19),Vector2(12,-half.y),Vector2(18,-15),Vector2(half.x,5),Vector2(10,half.y),Vector2(-10,half.y)]),Color("704c64"))
+		draw_circle(Vector2.ZERO,9,color)
+		for index: int in 3: draw_line(Vector2(-14+14*index,-18),Vector2(-22+22*index,-36),color,3,true)
 	if not encounter.active: return
 	# Living knots retain their original collisions/health; expose the remaining
 	# cut decision at gameplay scale rather than relying on two-pixel dots.

@@ -1,0 +1,168 @@
+{
+  "verdict": "ACCEPT_SCOPED_RECORDED_ISOLATED_L_ORDINARY_MAIN_AND_RETURN",
+  "reviewer": "/root/forest_route_design_review",
+  "independence": "Read-only source/evidence review and independent Python replay of every recorded segment/support tail; no engine or production edits.",
+  "scope": "L standalone actual player input/Controller/Motor main and reward-location same-body return, raw hazard geometry screening. Not formal DamagePolicy, reward payout/world, visual or FUN.",
+  "native_result": "44 assertions/0 failures, receipt passed true1.747s.",
+  "before_after_equal": true,
+  "source_bindings": {
+    "scripts/generation/forest_thorn_corridor_modules.gd": {
+      "original_file": "build/region_bible_v2/forest-feedback-l-motor-01/source-snapshot/forest_thorn_corridor_modules.gd",
+      "sha256": "6abb493a374a7aada1b92e068870b68626facb812bedaac4530701999fec7b3e",
+      "matches_before_after": true
+    },
+    "tests/forest_thorn_corridor_modules_runner.gd": {
+      "original_file": "build/region_bible_v2/forest-feedback-l-motor-01/source-snapshot/forest_thorn_corridor_modules_runner.gd",
+      "sha256": "6d67c8e7ed93f8fe7b50e051052f3e6c1c8d3fa1ef7cd8833708465a8c998b22",
+      "matches_before_after": true
+    },
+    "scripts/player/player_motor.gd": {
+      "original_file": "scripts/player/player_motor.gd",
+      "sha256": "9192a3b031cce875cfac47373e00f0a57a755ce2dfc481e6d4d0667df1410a56",
+      "matches_before_after": true
+    },
+    "scripts/player/player_controller.gd": {
+      "original_file": "scripts/player/player_controller.gd",
+      "sha256": "23357098918d1abb0b3b592d380a263d579d56a9934d48be86715a6595395dce",
+      "matches_before_after": true
+    },
+    "scripts/player/jump_ability.gd": {
+      "original_file": "scripts/player/jump_ability.gd",
+      "sha256": "705ac8fac267b0b71270bbde832725b0f53ef95589b23ebf1de2376afd9762eb",
+      "matches_before_after": true
+    },
+    "scripts/input/input_router.gd": {
+      "original_file": "scripts/input/input_router.gd",
+      "sha256": "386d6cee6aad24598ffbbca96efac590d475a3072502ceac3812c60b5c8aa429",
+      "matches_before_after": true
+    },
+    "config/player_tuning.json": {
+      "original_file": "config/player_tuning.json",
+      "sha256": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c",
+      "matches_before_after": true
+    },
+    "resources/player/traversal.tres": {
+      "original_file": "resources/player/traversal.tres",
+      "sha256": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+      "matches_before_after": true
+    }
+  },
+  "trace": {
+    "frames": 1366,
+    "case_frames": {
+      "whole_main_from_spawn": 465,
+      "reward_and_return_same_body": 901
+    },
+    "motor_step_counts": {
+      "1": 1366
+    },
+    "consecutive_ticks": true,
+    "same_case_position_continuity_errors": [],
+    "health_values": [
+      5.0
+    ],
+    "shot_values": [
+      2
+    ],
+    "jump_used_values": [
+      0,
+      1
+    ],
+    "hook_states": [
+      "free"
+    ],
+    "real_jump_true_requests": 9,
+    "real_jump_events": 9,
+    "request_event_matches": [
+      {
+        "case": "whole_main_from_spawn",
+        "request_tick": 219,
+        "matched": true
+      },
+      {
+        "case": "whole_main_from_spawn",
+        "request_tick": 353,
+        "matched": true
+      },
+      {
+        "case": "reward_and_return_same_body",
+        "request_tick": 684,
+        "matched": true
+      },
+      {
+        "case": "reward_and_return_same_body",
+        "request_tick": 847,
+        "matched": true
+      },
+      {
+        "case": "reward_and_return_same_body",
+        "request_tick": 1142,
+        "matched": true
+      },
+      {
+        "case": "reward_and_return_same_body",
+        "request_tick": 1177,
+        "matched": true
+      },
+      {
+        "case": "reward_and_return_same_body",
+        "request_tick": 1212,
+        "matched": true
+      },
+      {
+        "case": "reward_and_return_same_body",
+        "request_tick": 1247,
+        "matched": true
+      },
+      {
+        "case": "reward_and_return_same_body",
+        "request_tick": 1303,
+        "matched": true
+      }
+    ],
+    "legs": 37,
+    "all_leg_last12_full_geometry_support_errors": [],
+    "independent_exact_hazard_segment_intersections": []
+  },
+  "guard_counterexample": {
+    "raw_dangers": [
+      [
+        464.0,
+        32.0,
+        64.0,
+        16.0
+      ],
+      [
+        560.0,
+        136.0,
+        48.0,
+        24.0
+      ]
+    ],
+    "bad544_first_frame_center": [
+      548.3333333333334,
+      131.62222222222223
+    ],
+    "bad544_minkowski_segment_rejected": true,
+    "good528_first_segment_clear": true,
+    "note": "Independent offline guard replay; not a deliberately damaged native fixture. Source retains bad host/detached thorn/catch/drop/partial support negatives."
+  },
+  "boundaries": [
+    "Only body position assignment is initial spawn. No velocity/tuning/health/shot/max-jump writes; initial H grant only.",
+    "Router.set_jump_held emits real request_action edges; actual Controller.physics_tick calls sole Motor.step. Runner never calls motor.step/move_and_slide.",
+    "native_supported checks actual slide collider support_ids/floor normal and full feet. Report lacks per-frame collider IDs: that component is source-reviewed, not independently reconstructible from trace.",
+    "Raw hazards are not instantiated as formal DamagePolicy actors. Zero raw swept-body intersections is meaningful; HP5 equality alone is not damage-policy no-hit proof.",
+    "Reward case reaches800,142 before returning40,-18; does not claim4coins or test payout/persistence.",
+    "No H/R shortcut actually executed; ordinary main and return only.",
+    "No formal world/default/visual/FUN/user/device signature."
+  ],
+  "evidence_sha256": {
+    "/tmp/gunman-thorn-l-first/report.json": "3cc3162dab063e57e989e18e6b24cf7d902f491cf64a2f2298472c26034a0607",
+    "build/region_bible_v2/forest-feedback-l-motor-01/receipt.json": "b6c56f5cb1f63793f54b56cd7865d1d6228c1d910542d4bb7b591e1c206fe1d3",
+    "build/region_bible_v2/forest-feedback-l-motor-01/native.log": "1613fd52e4c5b5b720c94204a7f4f03606e248a922c21b7344a4bc47b61aad3f",
+    "build/region_bible_v2/forest-feedback-l-motor-01/source-before.json": "cce6f31053598ffa22bed539c496486115add3bb7b69834167e37149356d1373",
+    "build/region_bible_v2/forest-feedback-l-motor-01/source-after.json": "cce6f31053598ffa22bed539c496486115add3bb7b69834167e37149356d1373"
+  },
+  "retained_rejections": "Old backlook128 direct-jump REWORK and user low-ceiling-short-hop DISCARD remain unchanged in module-golden-g0.",
+  "source_recovery_provenance": "L helper original draft preserved6abb; L runner exact previous bytes reconstructed by reversing subsequent7/Z generalisation, accepted only after full SHA matches recorded native01 report and before/after inventories6d67. Snapshot provenance is in native receipt. Earlier independent runs against changing current source are preserved as INVALID/unbound and are not L collision evidence or acceptance."
+}

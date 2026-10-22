@@ -349,7 +349,8 @@ def validate_cavity_elbow_leg(data,leg,completion,frames,events,requests,platfor
 INTERWOVEN_LAYOUT='forest-interwoven-canopy-v13'
 INTERWOVEN_FACTORY='res://scripts/generation/forest_interwoven_expedition.gd'
 FRUIT_LAYOUT='forest-fruit-routes-v14'
-WOVEN_LAYOUTS=('forest-woven-trunk-v12',INTERWOVEN_LAYOUT,FRUIT_LAYOUT)
+BIBLE_LAYOUT='forest-bible-world-v15'
+WOVEN_LAYOUTS=('forest-woven-trunk-v12',INTERWOVEN_LAYOUT,FRUIT_LAYOUT,BIBLE_LAYOUT)
 CANOPY_LAYOUTS=('forest-expedition-airborne-v11',)+WOVEN_LAYOUTS
 
 def fruit_route_bindings(manifest):
@@ -619,7 +620,7 @@ def _validate_interwoven_binding(manifest,leg,instance,authority=None):
     raw=instance.get('local_geometry',{});phrase=raw.get('id')
     if phrase not in authority['specs']:return ['interwoven_unknown_phrase']
     spec=authority['specs'][phrase];factory=authority['factories'][phrase]
-    need(manifest.get('layout_version') in (INTERWOVEN_LAYOUT,FRUIT_LAYOUT),'layout_identity')
+    need(manifest.get('layout_version') in (INTERWOVEN_LAYOUT,FRUIT_LAYOUT,BIBLE_LAYOUT),'layout_identity')
     root_nodes=[row for row in manifest.get('areas',[]) if row.get('id')=='interwoven_root_landing']
     need(len(root_nodes)==1 and root_nodes[0].get('position')==[400,802],'root_landing_node')
     root_walks={'interwoven_root_to_D':{'a':'interwoven_root_landing','b':'D','kind':'walk','path':[[400.0,802.0],[720.0,802.0]]},
@@ -646,7 +647,16 @@ def _validate_interwoven_binding(manifest,leg,instance,authority=None):
         for id in mapping.values():
             found=[row for row in manifest.get(category,[]) if row.get('id')==id]
             need(len(found)==1 and all(found[0].get(k,False if k=='hang_enabled' else None)==source_rows[id][k] for k in fields),'actual_'+category)
-    need(all(d in manifest.get('dangers',[]) for d in authority['ambient_dangers']),'inherited_dangers')
+    ambient=authority['ambient_dangers']
+    if manifest.get('layout_version')==BIBLE_LAYOUT:
+        try:
+            from forest_bible_region_admission import thorn_retirement
+            retired=thorn_retirement(manifest)['source_global_dangers'][0]
+            need(ambient.count(retired)==1,'exact_retired_ambient_source')
+            ambient=[d for d in ambient if d!=retired]
+        except (OSError,KeyError,IndexError,TypeError,ValueError,AttributeError):
+            need(False,'exact_thorn_surface_derivation')
+    need(all(d in manifest.get('dangers',[]) for d in ambient),'inherited_dangers')
     return list(dict.fromkeys(errors))
 
 def _air_chain_authoritative_factory(layout,regional=False):
@@ -797,6 +807,15 @@ def validate_airborne_chain_leg(data,leg,completion,frames,events,requests,platf
         need(descent.get('path',[None])[0]==[goal_x,354.0],'air_chain_exact_migrant_return_descent')
     else:
         need('receiver_derivation' not in instance,'air_chain_unexpected_receiver_derivation')
+    if manifest.get('layout_version')==BIBLE_LAYOUT and instance.get('id')=='broken_arch':
+        try:
+            from forest_bible_region_admission import thorn_retirement
+            retired=thorn_retirement(manifest)
+            need(factory.get('dangers')==retired['source_local_dangers'],'air_chain_exact_retired_factory_danger')
+            if factory.get('dangers')==retired['source_local_dangers']:factory['dangers']=[]
+        except (OSError,KeyError,IndexError,TypeError,ValueError,AttributeError):
+            need(False,'air_chain_exact_thorn_surface_derivation')
+    elif 'thorn_surface_derivation' in instance:need(False,'air_chain_unexpected_thorn_surface_derivation')
     need(raw==factory,'air_chain_local_geometry_not_current_factory')
     expected_factory={'hollow_spiral':'res://scripts/generation/forest_vertical_chain_geometry.gd','thorn_mouth':'res://scripts/generation/forest_thorn_mouth_geometry.gd'}.get(raw.get('id'),'res://scripts/generation/forest_air_chain_geometry.gd')
     if interwoven:expected_factory=INTERWOVEN_FACTORY
@@ -1118,10 +1137,27 @@ def completed_forest_encounter_jump_ticks(data):
     return result
 
 
+def same_shot_direction(queued, fired):
+    """Bind the real Router ray through float32 normalization in ShootAbility.
+
+    A unit diagonal oscillates by one float32 ULP on normalization. Only this
+    numerical direction comparison has tolerance; tick/queued binding stays exact.
+    """
+    for ray in (queued, fired):
+        if (not isinstance(ray, list) or len(ray) != 2
+                or any(type(v) not in (int, float) or not math.isfinite(v) for v in ray)
+                or abs(math.hypot(*ray) - 1.0) > 1e-6):
+            return False
+    return math.dist(queued, fired) <= 1e-6
+
+
 def validate(data):
     if data.get('route')=='upper_noH':return validate_upper_noH(data)
     errors=list(data.get('failures',[]));frames=data.get('frames',[]);manifest=data.get('manifest',{});events=data.get('events',[]);requests=data.get('requests',[])
     if manifest.get('layout_version')==FRUIT_LAYOUT:errors.extend(validate_fruit_presentation(manifest))
+    if manifest.get('layout_version')==BIBLE_LAYOUT:
+        from forest_bible_region_admission import validate_bible_admission
+        errors.extend(validate_bible_admission(data))
     def fail(reason):
         if reason not in errors:errors.append(reason)
     if data.get('scope')!='formal_DemoApp_forest_v2_continuous_route_not_boss_fight' or data.get('boss_fight_covered') is not False:fail('scope_or_boss_claim')
@@ -1326,7 +1362,7 @@ def validate(data):
             if not candidates or min(math.dist(position,p) for p in candidates)>.2:fail('jump_release_position_not_body_frame')
             if not any(r.get('kind')=='jump_held' and r.get('held') is False and r.get('tick')==e['tick'] for r in requests):fail('jump_clearance_without_actual_release_input')
         if e.get('kind')=='jumped' and not any(r.get('kind')=='jump_held' and r.get('held') is True and r.get('tick')==e['tick'] for r in requests):fail('jump_not_actual_held_input')
-        if e.get('kind')=='shot_fired' and not any(r.get('kind')=='shoot_release' and r.get('tick')==e['tick'] and r.get('queued') is True and r.get('aim')==e.get('aim') for r in requests):fail('shot_not_actual_router_request')
+        if e.get('kind')=='shot_fired' and not any(r.get('kind')=='shoot_release' and r.get('tick')==e['tick'] and r.get('queued') is True and same_shot_direction(r.get('aim'),e.get('aim')) for r in requests):fail('shot_not_actual_router_request')
         if e.get('kind')=='hook_cast' and not any(r.get('kind')=='grapple' and r.get('tick')==e['tick'] and r.get('queued') is True for r in requests):fail('H_not_actual_router_request')
     if data.get('route') in ('fast','growth','borer'):
         if data.get('gate_saved_open') is not True or data.get('gate_shape_disabled') is not True:fail('gate_not_real_persistent_open')
@@ -1428,7 +1464,7 @@ def schedule_cases(cases, run_case, on_result, workers=1):
 
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,required=True);parser.add_argument('--seed',default='forest-depth-00');parser.add_argument('--map',type=int,choices=(1,2),default=1);parser.add_argument('--route',choices=ROUTES+('all',),default='all');parser.add_argument('--routes',nargs='+',choices=ROUTES[:4]+('borer',),help='Finite explicit unique route group, sharing one import');parser.add_argument('--matrix',action='store_true',help='Explicit finite4representatives (two seeds x two maps) x4routes; requires actual map2 entry contract');parser.add_argument('--corpus',action='store_true',help='Fixed10roots00..09 x2maps x4originalroutes; original matrix16 first; one import90/native240 each, stop on first failure');parser.add_argument('--validate-only',type=Path);parser.add_argument('--movie',action='store_true',help='One explicit original route, real GL 60fps AVI; same import90/native240 and validation');parser.add_argument("--layout",choices=("shared-tree-directional-cavities-v7","shared-tree-living-detour-v9","shared-tree-canopy-hunt-v10","forest-expedition-airborne-v11","forest-woven-trunk-v12","forest-interwoven-canopy-v13","forest-fruit-routes-v14"),default="",help="Explicit registered layout for exact historical replay or new candidate validation");args=parser.parse_args()
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,required=True);parser.add_argument('--seed',default='forest-depth-00');parser.add_argument('--map',type=int,choices=(1,2),default=1);parser.add_argument('--route',choices=ROUTES+('all',),default='all');parser.add_argument('--routes',nargs='+',choices=ROUTES[:4]+('borer',),help='Finite explicit unique route group, sharing one import');parser.add_argument('--matrix',action='store_true',help='Explicit finite4representatives (two seeds x two maps) x4routes; requires actual map2 entry contract');parser.add_argument('--corpus',action='store_true',help='Fixed10roots00..09 x2maps x4originalroutes; original matrix16 first; one import90/native240 each, stop on first failure');parser.add_argument('--validate-only',type=Path);parser.add_argument('--movie',action='store_true',help='One explicit original route, real GL 60fps AVI; same import90/native240 and validation');parser.add_argument("--layout",choices=("shared-tree-directional-cavities-v7","shared-tree-living-detour-v9","shared-tree-canopy-hunt-v10","forest-expedition-airborne-v11","forest-woven-trunk-v12","forest-interwoven-canopy-v13","forest-fruit-routes-v14","forest-bible-world-v15"),default="",help="Explicit registered layout for exact historical replay or new candidate validation");args=parser.parse_args()
     if args.validate_only:
         errors=validate(json.loads(args.validate_only.read_text()));print(json.dumps({'errors':errors}));return int(bool(errors))
     if args.corpus and (args.matrix or args.routes or args.route!='all'):parser.error('--corpus is the fixed80 requests and cannot combine with --matrix/--routes/a specific --route')

@@ -8,6 +8,9 @@ signal home_panel_closed
 signal requested_start(seed: String)
 signal requested_plains(seed: String)
 signal requested_debug_region(region: StringName, map_index: int, seed: String)
+signal requested_forest_exploration(map_index: int, seed: String)
+signal requested_forest_varied(map_index: int, seed: String)
+signal requested_forest_places(map_index: int, seed: String)
 signal requested_upgrade
 signal requested_lab
 signal requested_actions
@@ -257,6 +260,21 @@ func show_debug_regions() -> void:
 			_button(_content, "%s / MAP %s" % [String(region).to_upper(),map_index], func() -> void:
 				_hide()
 				requested_debug_region.emit(chosen_region,chosen_map,_plains_seed()))
+	for map_index: int in [1,2]:
+		var chosen_map := map_index
+		_button(_content,"FOREST PLACES / MAP %s" % map_index,func() -> void:
+			_hide()
+			requested_forest_places.emit(chosen_map,_plains_seed()))
+	for map_index: int in [1,2]:
+		var chosen_map := map_index
+		_button(_content,"FOREST EXPANDED / MAP %s" % map_index,func() -> void:
+			_hide()
+			requested_forest_varied.emit(chosen_map,_plains_seed()))
+	for map_index: int in [1,2]:
+		var chosen_map := map_index
+		_button(_content,"FOREST EXPLORATION / MAP %s" % map_index,func() -> void:
+			_hide()
+			requested_forest_exploration.emit(chosen_map,_plains_seed()))
 	_button(_content,"BACK",func() -> void: show_home(_summary))
 	_focus_first()
 

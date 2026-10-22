@@ -1195,7 +1195,7 @@ def compare_captures(before_path,after_path):
             'subjective_acceptance':'unverified','limits':'Same actual driver/core/entry/manifest conditions, not byte-identical trajectory, pixel registration, performance, full route success or beauty proof.'}
 
 
-def route(request,task_id,quality_record,allowed_paths,max_calls=10,max_rounds=2,call_timeout=1800,phase='full'):
+def historical_recipe_plan(request,task_id,quality_record,allowed_paths,max_calls=10,max_rounds=2,call_timeout=1800,phase='full'):
     """Build actual existing production_loop input, no separate AI scheduling or gate system."""
     import production_loop
     from level_region_context import build_region_context,resolve_region_id
@@ -1372,6 +1372,42 @@ def route(request,task_id,quality_record,allowed_paths,max_calls=10,max_rounds=2
                 task['goal'] += (' Read the current whole-volume place recipe and preserved PR82 REWORK evidence before choosing a method. Design the continuous multi-screen terrain, rooted construction, actor path and negative space jointly; never map independent images one-to-one onto collision rectangles. Use the explicit candidate consumer and capture adapter, preserving original core contracts. STOP the rejected PR82 shoulder-band/turned-end method. Inspect whole source volumes at equal axis scale, measured source ports and actual place transitions. Run bounded interface rejection and seeded structure checks; these checks cannot admit art. Retain source/prompt/reference and native before/after records. Independently judge the whole actual screen before local polish or expansion. A plan is not execution, a strict route pass is not art admission, and changing Seed phase is not structural variation.')
     production_loop.validate(m)
     return m
+
+
+def route(request,task_id,quality_record,allowed_paths,max_calls=10,max_rounds=2,call_timeout=1800,phase='full'):
+    """Current visual work shares the Bible-bound region pipeline and caller lease."""
+    if not request.strip() or not re.fullmatch(r'[A-Za-z0-9_-]+', task_id):
+        raise ValueError('Concrete request and safe task id required')
+    if phase not in ('full', 'audit', 'golden', 'review'):
+        raise ValueError('Unknown visual production phase')
+    from level_design import route_request
+    import production_loop
+    mission = route_request(request, mode='new_region' if re.search(r'制作|create|new region', request, re.I) else 'optimize')
+    if mission['phase'] == 'preproduction':
+        return mission
+    desired = ('audit', 'golden', 'review') if phase == 'full' else (phase,)
+    tasks = [t for t in mission['tasks'] if t['id'].rsplit('-', 1)[-1] in desired]
+    previous = []
+    for task in tasks:
+        name = task['id'].rsplit('-', 1)[-1]
+        task['id'] = task_id + '-' + name if phase == 'full' else task_id
+        task['depends_on'] = previous
+        task['allowed_paths'] = list(allowed_paths)
+        task['quality_record'] = quality_record
+        task.pop('quality_task_id', None)
+        if task.get('read_only'):
+            task['completion'] = 'scope'
+            task.pop('required_gates', None)
+        else:
+            task['completion'] = 'stage'
+            task['required_gates'] = ['G0', 'G1', 'G2']
+        previous = [task['id']]
+    mission.update(tasks=tasks, workflow='visual_golden', max_calls=max_calls,
+                   max_rounds=max_rounds, call_timeout_seconds=call_timeout)
+    mission.pop('production_plan', None)
+    mission['preparation']['visual_scope'] = 'current_region_bible_and_real_consumer; historical_recipe_plan is read-only recipe regression metadata, never a current production authorization'
+    production_loop.validate(mission)
+    return mission
 
 
 def main(argv=None):

@@ -1,0 +1,676 @@
+{
+  "scope": "Read-only default promotion consumer inventory, no engine or production mutation",
+  "reviewer": "/root/bible_test_workflow_independent_review",
+  "at_utc": "2026-10-21T03:59:37.933104+00:00",
+  "checkpoint": "083fbdc4a29a9d26c99b89bd5f2d506b3a88fcdb",
+  "original_baseline": "7be8c340372d1e20db6685cbd6a559191821eb0e",
+  "verdict": "INVENTORY_ONLY_NOT_PROMOTION_ACCEPTANCE",
+  "source_freeze": false,
+  "engine_run": false,
+  "production_edits": false,
+  "consumers": [
+    {
+      "category": "formal-current-promotion",
+      "path": "scripts/generation/thorn_forest_region_generator.gd",
+      "action": "Select v15 explicitly in production and independent public expectation; append v15 accepted public branch without changing explicit v14 full output/old327/schema6/24 cases.",
+      "applicable_checks": [
+        "forest-depth-versions",
+        "forest-bible-versions",
+        "forest-depth-region"
+      ]
+    },
+    {
+      "category": "formal-current-promotion",
+      "path": "tests/forest_depth_version_runner.gd",
+      "action": "Select v15 explicitly in production and independent public expectation; append v15 accepted public branch without changing explicit v14 full output/old327/schema6/24 cases.",
+      "applicable_checks": [
+        "forest-depth-versions",
+        "forest-bible-versions",
+        "forest-depth-region"
+      ]
+    },
+    {
+      "category": "formal-current-promotion",
+      "path": "tools/run_forest_depth_versions.py",
+      "action": "Select v15 explicitly in production and independent public expectation; append v15 accepted public branch without changing explicit v14 full output/old327/schema6/24 cases.",
+      "applicable_checks": [
+        "forest-depth-versions",
+        "forest-bible-versions",
+        "forest-depth-region"
+      ]
+    },
+    {
+      "category": "formal-current-hardcoded-expectation",
+      "path": "tests/forest_progression_debug_runner.gd",
+      "action": "Fresh unpinned output needs independently selected v15 expectation. Parallel presentation needs actual shared native body/terrain ownership expectations plus additional historical v14 disposal/fresh test, preserving old stale-owner/cleanup assertions.",
+      "applicable_checks": [
+        "forest-debug",
+        "forest-campaign",
+        "parallel-region-presentation",
+        "underworld-continuous-bosses"
+      ]
+    },
+    {
+      "category": "formal-current-hardcoded-expectation",
+      "path": "tests/forest_campaign_runner.gd",
+      "action": "Fresh unpinned output needs independently selected v15 expectation. Parallel presentation needs actual shared native body/terrain ownership expectations plus additional historical v14 disposal/fresh test, preserving old stale-owner/cleanup assertions.",
+      "applicable_checks": [
+        "forest-debug",
+        "forest-campaign",
+        "parallel-region-presentation",
+        "underworld-continuous-bosses"
+      ]
+    },
+    {
+      "category": "formal-current-hardcoded-expectation",
+      "path": "tests/parallel_region_presentation_tests.gd",
+      "action": "Fresh unpinned output needs independently selected v15 expectation. Parallel presentation needs actual shared native body/terrain ownership expectations plus additional historical v14 disposal/fresh test, preserving old stale-owner/cleanup assertions.",
+      "applicable_checks": [
+        "forest-debug",
+        "forest-campaign",
+        "parallel-region-presentation",
+        "underworld-continuous-bosses"
+      ]
+    },
+    {
+      "category": "formal-current-hardcoded-expectation",
+      "path": "tests/underworld_plains/capture_underworld_r3_boss_fight.gd",
+      "action": "Fresh unpinned output needs independently selected v15 expectation. Parallel presentation needs actual shared native body/terrain ownership expectations plus additional historical v14 disposal/fresh test, preserving old stale-owner/cleanup assertions.",
+      "applicable_checks": [
+        "forest-debug",
+        "forest-campaign",
+        "parallel-region-presentation",
+        "underworld-continuous-bosses"
+      ]
+    },
+    {
+      "category": "formal-current-browser",
+      "path": "tools/verify_forest_browser.py",
+      "action": "Add v15 exact-layout CLI choice; retain all historical choices and actual assembled event checks. Parent has already added it during this moving-source inventory.",
+      "applicable_checks": [
+        "web browser actual region-assembled checks"
+      ]
+    },
+    {
+      "category": "formal-current-implicit",
+      "path": "scripts/demo/demo_app.gd",
+      "action": "No extra hardcoded default14 found: App follows CURRENT, loader retries exact recorded variants by saved hash, RunManifest validates recorded manifest. Re-run genuine runtime consumers; never rewrite old save hashes.",
+      "applicable_checks": [
+        "forest-debug",
+        "forest-campaign",
+        "forest-depth-restore",
+        "aim-save-compat",
+        "generated-consumers",
+        "parallel-region-presentation"
+      ]
+    },
+    {
+      "category": "formal-current-implicit",
+      "path": "scripts/run/run_manifest.gd",
+      "action": "No extra hardcoded default14 found: App follows CURRENT, loader retries exact recorded variants by saved hash, RunManifest validates recorded manifest. Re-run genuine runtime consumers; never rewrite old save hashes.",
+      "applicable_checks": [
+        "forest-debug",
+        "forest-campaign",
+        "forest-depth-restore",
+        "aim-save-compat",
+        "generated-consumers",
+        "parallel-region-presentation"
+      ]
+    },
+    {
+      "category": "formal-current-implicit",
+      "path": "scripts/demo/thorn_forest_region_stage.gd",
+      "action": "No extra hardcoded default14 found: App follows CURRENT, loader retries exact recorded variants by saved hash, RunManifest validates recorded manifest. Re-run genuine runtime consumers; never rewrite old save hashes.",
+      "applicable_checks": [
+        "forest-debug",
+        "forest-campaign",
+        "forest-depth-restore",
+        "aim-save-compat",
+        "generated-consumers",
+        "parallel-region-presentation"
+      ]
+    },
+    {
+      "category": "formal-current-implicit",
+      "path": "scripts/generation/thorn_forest_region_assembler.gd",
+      "action": "No extra hardcoded default14 found: App follows CURRENT, loader retries exact recorded variants by saved hash, RunManifest validates recorded manifest. Re-run genuine runtime consumers; never rewrite old save hashes.",
+      "applicable_checks": [
+        "forest-debug",
+        "forest-campaign",
+        "forest-depth-restore",
+        "aim-save-compat",
+        "generated-consumers",
+        "parallel-region-presentation"
+      ]
+    },
+    {
+      "category": "formal-current-dynamic-selector",
+      "path": "tests/forest_depth_trace_strategy.gd",
+      "action": "Dynamic effective layout chooses new trace, while actual recorded_layout argument remains empty for current App. Do not fill with15. These are actual current consumers, not historical-only checks.",
+      "applicable_checks": [
+        "forest-depth-region",
+        "forest-depth-restore",
+        "forest-depth-campaign-guardian",
+        "forest-depth-campaign-canopy"
+      ]
+    },
+    {
+      "category": "formal-current-dynamic-selector",
+      "path": "tests/forest_depth_region_runner.gd",
+      "action": "Dynamic effective layout chooses new trace, while actual recorded_layout argument remains empty for current App. Do not fill with15. These are actual current consumers, not historical-only checks.",
+      "applicable_checks": [
+        "forest-depth-region",
+        "forest-depth-restore",
+        "forest-depth-campaign-guardian",
+        "forest-depth-campaign-canopy"
+      ]
+    },
+    {
+      "category": "formal-current-dynamic-selector",
+      "path": "tests/forest_depth_restore_runner.gd",
+      "action": "Dynamic effective layout chooses new trace, while actual recorded_layout argument remains empty for current App. Do not fill with15. These are actual current consumers, not historical-only checks.",
+      "applicable_checks": [
+        "forest-depth-region",
+        "forest-depth-restore",
+        "forest-depth-campaign-guardian",
+        "forest-depth-campaign-canopy"
+      ]
+    },
+    {
+      "category": "formal-current-dynamic-selector",
+      "path": "tests/forest_depth_guardian_campaign_case.gd",
+      "action": "Dynamic effective layout chooses new trace, while actual recorded_layout argument remains empty for current App. Do not fill with15. These are actual current consumers, not historical-only checks.",
+      "applicable_checks": [
+        "forest-depth-region",
+        "forest-depth-restore",
+        "forest-depth-campaign-guardian",
+        "forest-depth-campaign-canopy"
+      ]
+    },
+    {
+      "category": "formal-current-dynamic-selector",
+      "path": "tests/forest_depth_canopy_campaign_case.gd",
+      "action": "Dynamic effective layout chooses new trace, while actual recorded_layout argument remains empty for current App. Do not fill with15. These are actual current consumers, not historical-only checks.",
+      "applicable_checks": [
+        "forest-depth-region",
+        "forest-depth-restore",
+        "forest-depth-campaign-guardian",
+        "forest-depth-campaign-canopy"
+      ]
+    },
+    {
+      "category": "formal-current-specialist",
+      "path": "tests/forest_depth_ecology_runner.gd",
+      "action": "Use current selector for actual formal/ecology/lift and exact v15 strict admission. Add15 to finite canopy identity enum. Existing golden and v10 specialist harness checks do not execute new current specialized traces.",
+      "applicable_checks": [
+        "additional actual ecology wait_phase map1",
+        "additional actual lift alive_lift map2",
+        "additional actual formal crossbranch physics map2"
+      ]
+    },
+    {
+      "category": "formal-current-specialist",
+      "path": "tests/forest_depth_lift_runner.gd",
+      "action": "Use current selector for actual formal/ecology/lift and exact v15 strict admission. Add15 to finite canopy identity enum. Existing golden and v10 specialist harness checks do not execute new current specialized traces.",
+      "applicable_checks": [
+        "additional actual ecology wait_phase map1",
+        "additional actual lift alive_lift map2",
+        "additional actual formal crossbranch physics map2"
+      ]
+    },
+    {
+      "category": "formal-current-specialist",
+      "path": "tools/run_forest_depth_enemies.py",
+      "action": "Use current selector for actual formal/ecology/lift and exact v15 strict admission. Add15 to finite canopy identity enum. Existing golden and v10 specialist harness checks do not execute new current specialized traces.",
+      "applicable_checks": [
+        "additional actual ecology wait_phase map1",
+        "additional actual lift alive_lift map2",
+        "additional actual formal crossbranch physics map2"
+      ]
+    },
+    {
+      "category": "formal-current-specialist",
+      "path": "tools/run_forest_depth_campaign_boss.py",
+      "action": "Use current selector for actual formal/ecology/lift and exact v15 strict admission. Add15 to finite canopy identity enum. Existing golden and v10 specialist harness checks do not execute new current specialized traces.",
+      "applicable_checks": [
+        "additional actual ecology wait_phase map1",
+        "additional actual lift alive_lift map2",
+        "additional actual formal crossbranch physics map2"
+      ]
+    },
+    {
+      "category": "formal-current-implicit-ownership",
+      "path": "tests/avatar_presentation_ownership_runner.gd",
+      "action": "Empty debug pin assembles current Forest. No hardcoded layout found; actual native player ownership must be retested after shared body change.",
+      "applicable_checks": [
+        "generated-consumers"
+      ]
+    },
+    {
+      "category": "historical-saved-layout-loader",
+      "path": "tests/aim_save_compat_case.gd",
+      "action": "Empty App request deliberately loads recorded saved state hash for old v1/v11/v13/v14. Preserve complete equal output, historical health/items/claims and failed-hash refusal; do not reinterpret as new-current route evidence.",
+      "applicable_checks": [
+        "aim-save-compat",
+        "forest-depth-versions",
+        "forest-bible-versions"
+      ]
+    },
+    {
+      "category": "historical-saved-layout-loader",
+      "path": "tests/forest_depth_version_app_case.gd",
+      "action": "Empty App request deliberately loads recorded saved state hash for old v1/v11/v13/v14. Preserve complete equal output, historical health/items/claims and failed-hash refusal; do not reinterpret as new-current route evidence.",
+      "applicable_checks": [
+        "aim-save-compat",
+        "forest-depth-versions",
+        "forest-bible-versions"
+      ]
+    },
+    {
+      "category": "historical-saved-layout-loader",
+      "path": "tests/forest_bible_versions_runner.gd",
+      "action": "Empty App request deliberately loads recorded saved state hash for old v1/v11/v13/v14. Preserve complete equal output, historical health/items/claims and failed-hash refusal; do not reinterpret as new-current route evidence.",
+      "applicable_checks": [
+        "aim-save-compat",
+        "forest-depth-versions",
+        "forest-bible-versions"
+      ]
+    },
+    {
+      "category": "historical-coordinate-fixture",
+      "path": "tests/forest_depth_campaign_boss_runner.gd",
+      "action": "Legacy Queen explicitly v7; preserve original Queen assertions/phase/assets and schema13 route. Current canopy separate.",
+      "applicable_checks": [
+        "forest-depth-campaign-queen"
+      ]
+    },
+    {
+      "category": "historical-coordinate-fixture",
+      "path": "tests/forest_depth_ecology_trace.gd",
+      "action": "Old strategies byte retained. Crossbranch lifecycle and root_entry/expedition use explicit v10; reject conflicting layout overrides. Candidate-only overlay seed hollow01 must explicitly replay old layout, not masquerade as validatedv15.",
+      "applicable_checks": [
+        "forest-depth-crossbranch-lifecycle",
+        "forest-depth-root-entry",
+        "forest-depth-ecology-expedition"
+      ]
+    },
+    {
+      "category": "historical-coordinate-fixture",
+      "path": "tests/forest_depth_lift_trace.gd",
+      "action": "Old strategies byte retained. Crossbranch lifecycle and root_entry/expedition use explicit v10; reject conflicting layout overrides. Candidate-only overlay seed hollow01 must explicitly replay old layout, not masquerade as validatedv15.",
+      "applicable_checks": [
+        "forest-depth-crossbranch-lifecycle",
+        "forest-depth-root-entry",
+        "forest-depth-ecology-expedition"
+      ]
+    },
+    {
+      "category": "historical-coordinate-fixture",
+      "path": "tests/forest_root_retry_runner.gd",
+      "action": "Existing explicit12/13 pins remain; do not update coordinates/manifests with promotion.",
+      "applicable_checks": [
+        "forest-vertical-shortcut",
+        "explicit historical route regression CLIs"
+      ]
+    },
+    {
+      "category": "historical-coordinate-fixture",
+      "path": "tests/forest_vertical_shortcut_runner.gd",
+      "action": "Existing explicit12/13 pins remain; do not update coordinates/manifests with promotion.",
+      "applicable_checks": [
+        "forest-vertical-shortcut",
+        "explicit historical route regression CLIs"
+      ]
+    },
+    {
+      "category": "historical-coordinate-fixture",
+      "path": "tests/forest_fruit_ablation_runner.gd",
+      "action": "Existing explicit12/13 pins remain; do not update coordinates/manifests with promotion.",
+      "applicable_checks": [
+        "forest-vertical-shortcut",
+        "explicit historical route regression CLIs"
+      ]
+    },
+    {
+      "category": "historical-coordinate-fixture",
+      "path": "tests/forest_interwoven_midloop_runner.gd",
+      "action": "Existing explicit12/13 pins remain; do not update coordinates/manifests with promotion.",
+      "applicable_checks": [
+        "forest-vertical-shortcut",
+        "explicit historical route regression CLIs"
+      ]
+    },
+    {
+      "category": "historical-coordinate-fixture",
+      "path": "tests/forest_interwoven_alternative_runner.gd",
+      "action": "Existing explicit12/13 pins remain; do not update coordinates/manifests with promotion.",
+      "applicable_checks": [
+        "forest-vertical-shortcut",
+        "explicit historical route regression CLIs"
+      ]
+    },
+    {
+      "category": "historical-coordinate-fixture",
+      "path": "tests/forest_interwoven_deep_alternative_runner.gd",
+      "action": "Existing explicit12/13 pins remain; do not update coordinates/manifests with promotion.",
+      "applicable_checks": [
+        "forest-vertical-shortcut",
+        "explicit historical route regression CLIs"
+      ]
+    },
+    {
+      "category": "historical-capturer",
+      "path": "tools/audit_forest_target_hosts.gd",
+      "action": "Exact old corpus comparison must pin14, label historical, retain exact20 captured manifest equality/unchanged target identities; parent has added historical pin during inventory.",
+      "applicable_checks": [
+        "historical target-host audit"
+      ]
+    },
+    {
+      "category": "historical-capturer",
+      "path": "tools/audit_forest_target_hosts.py",
+      "action": "Exact old corpus comparison must pin14, label historical, retain exact20 captured manifest equality/unchanged target identities; parent has added historical pin during inventory.",
+      "applicable_checks": [
+        "historical target-host audit"
+      ]
+    },
+    {
+      "category": "historical-capturer",
+      "path": "tools/capture_forest_target_hosts.gd",
+      "action": "Exact old corpus comparison must pin14, label historical, retain exact20 captured manifest equality/unchanged target identities; parent has added historical pin during inventory.",
+      "applicable_checks": [
+        "historical target-host audit"
+      ]
+    },
+    {
+      "category": "historical-capturer",
+      "path": "tools/capture_forest_target_hosts.py",
+      "action": "Exact old corpus comparison must pin14, label historical, retain exact20 captured manifest equality/unchanged target identities; parent has added historical pin during inventory.",
+      "applicable_checks": [
+        "historical target-host audit"
+      ]
+    },
+    {
+      "category": "historical-capturer",
+      "path": "scripts/world/forest_target_hosts.gd",
+      "action": "Exact old corpus comparison must pin14, label historical, retain exact20 captured manifest equality/unchanged target identities; parent has added historical pin during inventory.",
+      "applicable_checks": [
+        "historical target-host audit"
+      ]
+    },
+    {
+      "category": "historical-capturer",
+      "path": "tools/run_forest_player_aim.py",
+      "action": "Explicit default pin14 remains an honest old prefix/composition probe. It does not follow current15, and player aim CLI excludes15. Keep old tests; introduce separate actual15 adapter trace if current aim evidence is required.",
+      "applicable_checks": [
+        "forest-player-aim",
+        "historical fruit composition"
+      ]
+    },
+    {
+      "category": "historical-capturer",
+      "path": "tests/forest_player_aim_runner.gd",
+      "action": "Explicit default pin14 remains an honest old prefix/composition probe. It does not follow current15, and player aim CLI excludes15. Keep old tests; introduce separate actual15 adapter trace if current aim evidence is required.",
+      "applicable_checks": [
+        "forest-player-aim",
+        "historical fruit composition"
+      ]
+    },
+    {
+      "category": "historical-capturer",
+      "path": "tests/forest_player_aim_trace.gd",
+      "action": "Explicit default pin14 remains an honest old prefix/composition probe. It does not follow current15, and player aim CLI excludes15. Keep old tests; introduce separate actual15 adapter trace if current aim evidence is required.",
+      "applicable_checks": [
+        "forest-player-aim",
+        "historical fruit composition"
+      ]
+    },
+    {
+      "category": "historical-capturer",
+      "path": "tools/capture_forest_fruit_composition.py",
+      "action": "Explicit default pin14 remains an honest old prefix/composition probe. It does not follow current15, and player aim CLI excludes15. Keep old tests; introduce separate actual15 adapter trace if current aim evidence is required.",
+      "applicable_checks": [
+        "forest-player-aim",
+        "historical fruit composition"
+      ]
+    },
+    {
+      "category": "historical-capturer",
+      "path": "tools/capture_forest_fruit_composition.gd",
+      "action": "Explicit default pin14 remains an honest old prefix/composition probe. It does not follow current15, and player aim CLI excludes15. Keep old tests; introduce separate actual15 adapter trace if current aim evidence is required.",
+      "applicable_checks": [
+        "forest-player-aim",
+        "historical fruit composition"
+      ]
+    },
+    {
+      "category": "historical-source-fixture",
+      "path": "tests/forest_region_trace.gd",
+      "action": "Old unpinned region methods remain in source, but mandatory formal-combat/matrix checks execute immutable original v1 project via wrapper; normal forest-traversal runs only local short-H golden. Do not invoke unwrapped region-matrix path and call it current15.",
+      "applicable_checks": [
+        "forest-formal-combat historical fixture",
+        "forest-region-matrix historical fixture",
+        "forest-traversal local golden"
+      ]
+    },
+    {
+      "category": "historical-source-fixture",
+      "path": "tests/forest_region_runner.gd",
+      "action": "Old unpinned region methods remain in source, but mandatory formal-combat/matrix checks execute immutable original v1 project via wrapper; normal forest-traversal runs only local short-H golden. Do not invoke unwrapped region-matrix path and call it current15.",
+      "applicable_checks": [
+        "forest-formal-combat historical fixture",
+        "forest-region-matrix historical fixture",
+        "forest-traversal local golden"
+      ]
+    },
+    {
+      "category": "historical-source-fixture",
+      "path": "tests/forest_campaign_combat_runner.gd",
+      "action": "Old unpinned region methods remain in source, but mandatory formal-combat/matrix checks execute immutable original v1 project via wrapper; normal forest-traversal runs only local short-H golden. Do not invoke unwrapped region-matrix path and call it current15.",
+      "applicable_checks": [
+        "forest-formal-combat historical fixture",
+        "forest-region-matrix historical fixture",
+        "forest-traversal local golden"
+      ]
+    },
+    {
+      "category": "historical-source-fixture",
+      "path": "tools/run_forest_campaign_combat_tests.py",
+      "action": "Old unpinned region methods remain in source, but mandatory formal-combat/matrix checks execute immutable original v1 project via wrapper; normal forest-traversal runs only local short-H golden. Do not invoke unwrapped region-matrix path and call it current15.",
+      "applicable_checks": [
+        "forest-formal-combat historical fixture",
+        "forest-region-matrix historical fixture",
+        "forest-traversal local golden"
+      ]
+    },
+    {
+      "category": "historical-source-fixture",
+      "path": "tools/run_forest_region_tests.py",
+      "action": "Old unpinned region methods remain in source, but mandatory formal-combat/matrix checks execute immutable original v1 project via wrapper; normal forest-traversal runs only local short-H golden. Do not invoke unwrapped region-matrix path and call it current15.",
+      "applicable_checks": [
+        "forest-formal-combat historical fixture",
+        "forest-region-matrix historical fixture",
+        "forest-traversal local golden"
+      ]
+    },
+    {
+      "category": "historical-source-fixture",
+      "path": "tools/run_forest_v1_regressions.py",
+      "action": "Old unpinned region methods remain in source, but mandatory formal-combat/matrix checks execute immutable original v1 project via wrapper; normal forest-traversal runs only local short-H golden. Do not invoke unwrapped region-matrix path and call it current15.",
+      "applicable_checks": [
+        "forest-formal-combat historical fixture",
+        "forest-region-matrix historical fixture",
+        "forest-traversal local golden"
+      ]
+    },
+    {
+      "category": "explicit-versioned-data-tests",
+      "path": "tests/forest_hazard_records_runner.gd",
+      "action": "Explicit historical factory/reference layout strings are part of compatibility/strict comparison. Preserve v14 reference, old no-Bible behavior and old route eligibility; do not mass-replace literals.",
+      "applicable_checks": [
+        "forest-hazard-records",
+        "forest-fruit-contract",
+        "forest-interwoven-contract",
+        "forest-depth-versions",
+        "strict reader negatives"
+      ]
+    },
+    {
+      "category": "explicit-versioned-data-tests",
+      "path": "tests/forest_fruit_contract_runner.gd",
+      "action": "Explicit historical factory/reference layout strings are part of compatibility/strict comparison. Preserve v14 reference, old no-Bible behavior and old route eligibility; do not mass-replace literals.",
+      "applicable_checks": [
+        "forest-hazard-records",
+        "forest-fruit-contract",
+        "forest-interwoven-contract",
+        "forest-depth-versions",
+        "strict reader negatives"
+      ]
+    },
+    {
+      "category": "explicit-versioned-data-tests",
+      "path": "tests/forest_interwoven_contract_runner.gd",
+      "action": "Explicit historical factory/reference layout strings are part of compatibility/strict comparison. Preserve v14 reference, old no-Bible behavior and old route eligibility; do not mass-replace literals.",
+      "applicable_checks": [
+        "forest-hazard-records",
+        "forest-fruit-contract",
+        "forest-interwoven-contract",
+        "forest-depth-versions",
+        "strict reader negatives"
+      ]
+    },
+    {
+      "category": "explicit-versioned-data-tests",
+      "path": "tests/forest_expedition_contract_runner.gd",
+      "action": "Explicit historical factory/reference layout strings are part of compatibility/strict comparison. Preserve v14 reference, old no-Bible behavior and old route eligibility; do not mass-replace literals.",
+      "applicable_checks": [
+        "forest-hazard-records",
+        "forest-fruit-contract",
+        "forest-interwoven-contract",
+        "forest-depth-versions",
+        "strict reader negatives"
+      ]
+    },
+    {
+      "category": "explicit-versioned-data-tests",
+      "path": "tools/forest_bible_region_admission.py",
+      "action": "Explicit historical factory/reference layout strings are part of compatibility/strict comparison. Preserve v14 reference, old no-Bible behavior and old route eligibility; do not mass-replace literals.",
+      "applicable_checks": [
+        "forest-hazard-records",
+        "forest-fruit-contract",
+        "forest-interwoven-contract",
+        "forest-depth-versions",
+        "strict reader negatives"
+      ]
+    },
+    {
+      "category": "explicit-versioned-data-tests",
+      "path": "tests/forest_bible_trace_support.gd",
+      "action": "Explicit historical factory/reference layout strings are part of compatibility/strict comparison. Preserve v14 reference, old no-Bible behavior and old route eligibility; do not mass-replace literals.",
+      "applicable_checks": [
+        "forest-hazard-records",
+        "forest-fruit-contract",
+        "forest-interwoven-contract",
+        "forest-depth-versions",
+        "strict reader negatives"
+      ]
+    }
+  ],
+  "source_sha256_observed": {
+    "scripts/demo/demo_app.gd": "2f11f3a3f9ead849f07e3dedf1029c71fae4008ace8d78370a318fe8dd252ef3",
+    "scripts/demo/thorn_forest_region_stage.gd": "b8ad2476a17dd5eba104e6f85698950db9cb5f9a2724f322554ee7fad6c0fb85",
+    "scripts/generation/thorn_forest_region_assembler.gd": "6b8106026ece88d75f869ad164b12d416eb6b5f212b507ad044e20a18bc01146",
+    "scripts/generation/thorn_forest_region_generator.gd": "9ba72ddba458950696b3ffd1a21e215ac414a0006034912dc832f99142488622",
+    "scripts/run/run_manifest.gd": "87b5ca518f6441ca168ed42bfe516c00eccb8b5c2ee5568a459145795d087618",
+    "scripts/world/forest_target_hosts.gd": "a3b2bbd5994b1463b71b6711de1c1669b74502660ec79c416d44ce603dc81464",
+    "tests/aim_save_compat_case.gd": "5ee85eb63687af1fbf6f1d672212a41be1085de1a6cf8c3d875de774ab00b600",
+    "tests/avatar_presentation_ownership_runner.gd": "9d0a6b8fb188fb170913ae8de1f28970f057d2124d0fe81402b731ebbfaf5d83",
+    "tests/forest_bible_trace_support.gd": "2fcfca31a7f97125c885fd5fbc1275f242d1bdf734b508106dd0c096e55448e7",
+    "tests/forest_bible_versions_runner.gd": "2cfade31c614eb1672bbf711cd1ed10de4cfe27f6a7e7cc07b5affab52d7fe13",
+    "tests/forest_campaign_combat_runner.gd": "1b7cd87154793aa1c398fe71d64f32e151e00f5ad3448a62e02c02d82d884ad2",
+    "tests/forest_campaign_runner.gd": "48bdbf54ee9c63d66e6caa9385db39e58213842ff6ee47ad9737a9560a3272dd",
+    "tests/forest_depth_campaign_boss_runner.gd": "c52808bddc2ec3c89d904c0d2e9066148a6f25f9780cb2a44ef66b2add7634a4",
+    "tests/forest_depth_canopy_campaign_case.gd": "4204017a1abdce66bd2d2fe273cbebbccef85dac585bbba874a7757e7bb87cb2",
+    "tests/forest_depth_ecology_runner.gd": "0b545816c0557474f7ecc23a8878694f10f792126488e0a747e3cea797c3ad88",
+    "tests/forest_depth_ecology_trace.gd": "ba4e4a24c43c9eaadbf1d48730200c205bf575267fe7ca0608064519183a4016",
+    "tests/forest_depth_guardian_campaign_case.gd": "8e15144c3e4be5a96372a3ed3adefb057a877a0d8a0cfd5ae7c146e65a72df43",
+    "tests/forest_depth_lift_runner.gd": "b8d63f63eaa27f04b8d35b1937fbd7cffc500eb925751c06e80050a7bb29d7db",
+    "tests/forest_depth_lift_trace.gd": "d973cb63ddf29838dd168e9f39584ce290b3ef805805264309b05685337a5762",
+    "tests/forest_depth_region_runner.gd": "42e9225ea843df1fa509aa7f5408d0c94b6a64b2524e8875fd87f70254a247ec",
+    "tests/forest_depth_restore_runner.gd": "6d26987abc7e5a6f5d3dab571b852eda25e141191e29df3840ca941f1a86788a",
+    "tests/forest_depth_trace_strategy.gd": "990e09754441c95f0162011e3b199d22b70ff872192136e508f70476131009f9",
+    "tests/forest_depth_version_app_case.gd": "2632f7744906afc1929225d5731b6ee2d02f95001a40c8a727fa70f97c3e8274",
+    "tests/forest_depth_version_runner.gd": "c42c56684276870548603acc8e566682642281effebaab1f96c23536df2958a3",
+    "tests/forest_expedition_contract_runner.gd": "d1c55eb1ff4f7ab3afdd89c3b32a4d3e180914482173ef1a7d558a048aa8d94d",
+    "tests/forest_fruit_ablation_runner.gd": "1ba75b76f2a074275aa64fa522e957dc620aa2e18aff1350001abcd62c0d0709",
+    "tests/forest_fruit_contract_runner.gd": "a7b3922b763f015602c91d7645930acfb11d01c8b1320650a98d8c7ae9b95fb7",
+    "tests/forest_hazard_records_runner.gd": "ae8adcaed36ef276d05d9b6b3c70dc68654a10c7dad677592582a4aba391acc6",
+    "tests/forest_interwoven_alternative_runner.gd": "fc0724f730ba333412026362c2d101208a086d01ee44bc4b02d48c22c8af6787",
+    "tests/forest_interwoven_contract_runner.gd": "44d9dc829fb56d368663c306dad7479361e698b806b6090d7dab711cc59097a1",
+    "tests/forest_interwoven_deep_alternative_runner.gd": "d88d78e250d0d1abe7b88685815359a3be509e5036b748a0e476d60dd2b82624",
+    "tests/forest_interwoven_midloop_runner.gd": "97e71477f6601262e721352b1624b75b0a0d0f018ce690462a4fddbac448c200",
+    "tests/forest_player_aim_runner.gd": "092612c391e1f29e7ed258f43de2578ac58cd5cd6af1947af2a2e58094d3e9ef",
+    "tests/forest_player_aim_trace.gd": "989c6359f47f69c60efb6f6d2ef12e8b359417b3d64c3b4f6f20c4987d72171e",
+    "tests/forest_progression_debug_runner.gd": "d677c0fc3a4f3ee81a54e6d0896c65598591044fdb808af7535a3712e8aa81c4",
+    "tests/forest_region_runner.gd": "82fd8f157f5ca1d5c28a4f98c67e1ecfaa21de0a62200cee86306a22ab6937bf",
+    "tests/forest_region_trace.gd": "b458295816177025e83c6bf805f575b5ca9a01dfc40476d7e883ed460b096048",
+    "tests/forest_root_retry_runner.gd": "dc4b0e62def9083a587cd516aa957959df1e649e7bce215d5e7881cbfbc226bd",
+    "tests/forest_vertical_shortcut_runner.gd": "c14b378998fa1b9f529944dbf3ff4aaddb58978a22e6f8d7c293d5fcbe4c1613",
+    "tests/parallel_region_presentation_tests.gd": "4cb90c1e242b6336460b085a090445222cf3f1895d1d3d1eed3874c6a73cdd13",
+    "tests/underworld_plains/capture_underworld_r3_boss_fight.gd": "6b85dfb7159684f3a878fa3886c35d6a1b37dc78a53bd5807569a8d54792861d",
+    "tools/audit_forest_target_hosts.gd": "81581de84145827c6a38cfaabb94359d1a75a2406bcec2c143619c7bc41b1099",
+    "tools/audit_forest_target_hosts.py": "62bac1a182a0b0a45dfcfbe0e6a8a515b139d59e12546b43914e4bdf21bd4f8f",
+    "tools/capture_forest_fruit_composition.gd": "582bf81095fa60b43555a79d64ec93768982e3e270ac4ddbe06f93265f7d5692",
+    "tools/capture_forest_fruit_composition.py": "5eca0849f081ab05df62206169cacb61045ce5e4184719840617aff488658cd5",
+    "tools/capture_forest_target_hosts.gd": "16ec0eeee8c99dd4dbedf6ad0a5a4206e1a5e0d5ae3077543130e68bf5f9cdf9",
+    "tools/capture_forest_target_hosts.py": "c74a075b28645de715f164e2c8a373f5c0a4efb3b7285980824c4ac36f59eb1d",
+    "tools/forest_bible_region_admission.py": "de9500513252dc678644d7f704dd2d270e715bf007f78745b65fcb6f5642f495",
+    "tools/run_forest_campaign_combat_tests.py": "2c7a5bb09d5dba3ad1b452a9804b4ea9356c623030a81d59c93a507c73a54ee1",
+    "tools/run_forest_depth_campaign_boss.py": "0ea0cbd552f697bd00d9b9676a33bf173d42b9350cb23445084cef02a90cae09",
+    "tools/run_forest_depth_enemies.py": "244467980715472e65951a1ad6987cb335d305d21fab95045ab46764c2e68f9a",
+    "tools/run_forest_depth_versions.py": "32821ec570cf3c4e5a9790fb15deb1ea29069b2b97c7dc7aa12d90cfb41d03db",
+    "tools/run_forest_player_aim.py": "a3d4acbee09f387beb5942f17b86c428a8c316b2d01a7020da412294496e71c5",
+    "tools/run_forest_region_tests.py": "e618bb067529645c0958deb922e37e11d9c489bd52687938a100ccf71c5baea3",
+    "tools/run_forest_v1_regressions.py": "ad9647563c222a16b505ad0e781696f20f8610d97b8f2cc6cdc1d54fc713f985",
+    "tools/verify_forest_browser.py": "5bce6dec2fff1aa4b042a8ce60023dff04161c23b934d16c83447fc6d15ca0ef"
+  },
+  "minimum_promotion_paths": [
+    "scripts/generation/thorn_forest_region_generator.gd",
+    "tests/forest_depth_version_runner.gd",
+    "tools/run_forest_depth_versions.py",
+    "tests/forest_progression_debug_runner.gd",
+    "tests/forest_campaign_runner.gd",
+    "tests/parallel_region_presentation_tests.gd",
+    "tests/underworld_plains/capture_underworld_r3_boss_fight.gd",
+    "tools/verify_forest_browser.py"
+  ],
+  "additional_omission_found": "Browser exact-layout CLI lackedv15 at first read; parent added while inventory ran.",
+  "required_runtime_checks": [
+    "forest-debug",
+    "forest-campaign",
+    "parallel-region-presentation including added exact historical v14 roundtrip",
+    "underworld-continuous-bosses --full-fights",
+    "generated-consumers",
+    "aim-save-compat",
+    "forest-depth-versions original327/schema6/24",
+    "forest-bible-versions supplemental56",
+    "forest-depth-region original unpinned80 at90/240/600/2workers",
+    "forest-depth-restore",
+    "forest-depth-campaign-guardian",
+    "forest-depth-campaign-canopy",
+    "forest-depth-campaign-queen explicitv7",
+    "forest-depth-enemies golden",
+    "forest-depth-ecology-expedition explicitv10",
+    "forest-depth-root-entry explicitv10",
+    "forest-depth-crossbranch-lifecycle explicitv10",
+    "new actual current ecology wait_phase/lift alive_lift/crossbranch physics probes"
+  ],
+  "do_not_change": [
+    "old producer/version/save hashes",
+    "old fixtures and archived evidence",
+    "original132 checkdicts/10prefixes",
+    "old budgets, assertion counts, scopes and pointer/shot/frame guards"
+  ],
+  "documentation_only": "README/design/current_state/handoff/creative documents and immutable docs/evidence snapshots do not select runtime defaults; update current prose after actual promotion and retain old records.",
+  "unresolved_native": "Nothing in this inventory independently executes actual current specialized route, art or ownership behavior."
+}

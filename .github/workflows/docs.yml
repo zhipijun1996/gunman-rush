@@ -17,6 +17,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Check changed scope and quality declarations
+        if: github.event_name == 'pull_request'
+        env:
+          QUALITY_BASE: ${{ github.event.pull_request.base.sha }}
+        run: python3 tools/check_quality_diff.py --base "$QUALITY_BASE"
       - name: Install media verification dependencies
         timeout-minutes: 5
         run: |
@@ -29,11 +34,6 @@ jobs:
       - run: python3 -m pip install --disable-pip-version-check --retries 1 --timeout 20 -r tools/requirements_art.txt
         timeout-minutes: 2
       - run: python3 tools/harness.py --profile docs
-      - name: Check changed scope and quality declarations
-        if: github.event_name == 'pull_request'
-        env:
-          QUALITY_BASE: ${{ github.event.pull_request.base.sha }}
-        run: python3 tools/check_quality_diff.py --base "$QUALITY_BASE"
       - uses: actions/upload-artifact@v4
         if: always()
         with:

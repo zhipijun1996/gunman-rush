@@ -15,6 +15,8 @@ import time
 import shutil
 import tempfile
 import uuid
+import zipfile
+import zlib
 from concurrent.futures import ThreadPoolExecutor
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -248,16 +250,192 @@ def toolchain_identity():
     return versions
 
 
+ARTIFACT_JSON_THRESHOLD = 8 * 1024 * 1024
+ARTIFACT_ARCHIVE = 'large-json.zip'
+ARTIFACT_INDEX = 'large-json.index.json'
+ARTIFACT_CHUNK = 1024 * 1024
+
+
+def _file_sha(path):
+    with path.open('rb') as stream:
+        return hashlib.file_digest(stream, 'sha256').hexdigest()
+
+
+def _safe_member(name):
+    if not isinstance(name, str):
+        raise ValueError('Unsafe archived artifact path')
+    p = Path(name)
+    if (not name or '\\' in name or p.is_absolute()
+            or '..' in p.parts or p.as_posix() != name or p.parts[0] != 'build'):
+        raise ValueError('Unsafe archived artifact path')
+    return name
+
+
+def _unlinked_path(path):
+    path = path.absolute()
+    if any(p.is_symlink() for p in (path, *path.parents)):
+        raise ValueError('Linked artifact path')
+    return path
+
+
+def _verify_artifact_archive(archive, index):
+    _unlinked_path(archive)
+    if (not isinstance(index, dict)
+            or set(index) != {'schema_version', 'format', 'threshold_bytes', 'archive_sha256', 'members'}
+            or index.get('schema_version') != 1 or index.get('format') != 'zip-deflate-level1'
+            or index.get('threshold_bytes') != ARTIFACT_JSON_THRESHOLD
+            or not isinstance(index.get('members'), list) or not index['members']
+            or _file_sha(archive) != index.get('archive_sha256')):
+        raise ValueError('Invalid archived artifact index or ZIP hash')
+    expected = {}
+    for row in index['members']:
+        if (not isinstance(row, dict) or set(row) != {'path', 'sha256', 'size'}
+                or type(row.get('size')) is not int or row['size'] < ARTIFACT_JSON_THRESHOLD
+                or not isinstance(row.get('sha256'), str)
+                or not re.fullmatch('[0-9a-f]{64}', row['sha256'])):
+            raise ValueError('Invalid archived artifact member metadata')
+        name = _safe_member(row['path'])
+        if name in expected or not name.endswith('.json'):
+            raise ValueError('Duplicate or non-JSON archived artifact member')
+        expected[name] = row
+    with zipfile.ZipFile(archive) as bundle:
+        infos = bundle.infolist()
+        if len(infos) != len(expected) or {i.filename for i in infos} != set(expected):
+            raise ValueError('Incomplete or extra archived artifact members')
+        for info in infos:
+            row = expected[info.filename]
+            mode = info.external_attr >> 16
+            if (info.is_dir() or stat.S_ISLNK(mode) or info.file_size != row['size']
+                    or info.compress_type != zipfile.ZIP_DEFLATED):
+                raise ValueError('Invalid archived artifact member type/size')
+            digest, size = hashlib.sha256(), 0
+            with bundle.open(info) as source:
+                while chunk := source.read(ARTIFACT_CHUNK):
+                    digest.update(chunk); size += len(chunk)
+            if size != row['size'] or digest.hexdigest() != row['sha256']:
+                raise ValueError('Archived artifact member bytes differ')
+    return expected
+
+
+def _artifact_archive_index(directory):
+    archive, index_path = directory / ARTIFACT_ARCHIVE, directory / ARTIFACT_INDEX
+    if any(directory.glob('large-json*.partial')):
+        raise ValueError('Partial artifact archive cannot be reused')
+    if not archive.exists() and not index_path.exists() and not archive.is_symlink() and not index_path.is_symlink():
+        return None
+    _unlinked_path(index_path)
+    index = json.loads(index_path.read_text())
+    _verify_artifact_archive(archive, index)
+    return index
+
+
+def _open_artifact_source(root, name):
+    # Walk actual directory descriptors so an ancestor/link swap cannot redirect
+    # the stream outside the producer, even between pathname checks and open.
+    _unlinked_path(root)
+    descriptor = os.open(root, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW)
+    try:
+        parts = Path(_safe_member(name)).parts
+        for part in parts[:-1]:
+            child = os.open(part, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW, dir_fd=descriptor)
+            os.close(descriptor); descriptor = child
+        source = os.open(parts[-1], os.O_RDONLY | os.O_NOFOLLOW, dir_fd=descriptor)
+    finally:
+        os.close(descriptor)
+    return os.fdopen(source, 'rb')
+
+
+def collect_artifacts(root, artifacts, changed_outputs):
+    """Preserve small paths; losslessly archive only newly changed large JSON."""
+    large = []
+    for name, expected in sorted(changed_outputs.items()):
+        _safe_member(name)
+        if expected == 'deleted':
+            continue
+        source = _unlinked_path(root / name)
+        if source.suffix == '.json' and source.stat().st_size >= ARTIFACT_JSON_THRESHOLD:
+            large.append((name, expected))
+        else:
+            destination = artifacts / name
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source, destination)
+    if not large:
+        return
+    archive, index_path = artifacts / ARTIFACT_ARCHIVE, artifacts / ARTIFACT_INDEX
+    temporary, index_temporary = archive.with_suffix('.zip.partial'), index_path.with_suffix('.json.partial')
+    if any(p.exists() or p.is_symlink() for p in (archive, index_path, temporary, index_temporary)):
+        raise ValueError('Fresh artifact archive required')
+    members = []
+    try:
+        with zipfile.ZipFile(temporary, 'x', compression=zipfile.ZIP_DEFLATED,
+                             compresslevel=1, allowZip64=True) as bundle:
+            for name, expected in large:
+                source = _unlinked_path(root / name)
+                with _open_artifact_source(root, name) as stream:
+                    before = os.fstat(stream.fileno())
+                    key = SourceHashCache._key(before)
+                    if not stat.S_ISREG(before.st_mode) or SourceHashCache._key(source.stat()) != key:
+                        raise ValueError('Artifact changed before collection')
+                    digest, size = hashlib.sha256(), 0
+                    with bundle.open(name, 'w', force_zip64=True) as target:
+                        while chunk := stream.read(ARTIFACT_CHUNK):
+                            target.write(chunk); digest.update(chunk); size += len(chunk)
+                    _unlinked_path(source)
+                    if (SourceHashCache._key(os.fstat(stream.fileno())) != key
+                            or SourceHashCache._key(source.stat()) != key
+                            or size != before.st_size or digest.hexdigest() != expected):
+                        raise ValueError('Artifact changed during collection')
+                members.append({'path': name, 'sha256': expected, 'size': size})
+        index = {'schema_version': 1, 'format': 'zip-deflate-level1',
+                 'threshold_bytes': ARTIFACT_JSON_THRESHOLD,
+                 'archive_sha256': _file_sha(temporary), 'members': members}
+        _verify_artifact_archive(temporary, index)
+        index_temporary.write_text(json.dumps(index, indent=2) + '\n')
+        temporary.replace(archive)
+        index_temporary.replace(index_path)
+    except BaseException:
+        for p in (temporary, index_temporary, archive, index_path):
+            p.unlink(missing_ok=True)
+        raise
+
+
+def restore_archived_artifact(artifacts, member, destination):
+    """Explicitly recover exact recorded bytes to a fresh file, never live output."""
+    _unlinked_path(artifacts)
+    member = _safe_member(member)
+    index = _artifact_archive_index(artifacts)
+    if index is None:
+        raise ValueError('No archived artifact bundle')
+    rows = {row['path']: row for row in index['members']}
+    if member not in rows:
+        raise ValueError('Unknown archived artifact member')
+    destination = _unlinked_path(Path(destination))
+    with zipfile.ZipFile(artifacts / ARTIFACT_ARCHIVE) as bundle:
+        with destination.open('xb') as target:
+            try:
+                digest, size = hashlib.sha256(), 0
+                with bundle.open(member) as source:
+                    while chunk := source.read(ARTIFACT_CHUNK):
+                        target.write(chunk); digest.update(chunk); size += len(chunk)
+                if size != rows[member]['size'] or digest.hexdigest() != rows[member]['sha256']:
+                    raise ValueError('Restored artifact bytes differ')
+            except BaseException:
+                destination.unlink(missing_ok=True)
+                raise
+    return destination
+
+
 def artifact_fingerprint(directory):
     """Bind reusable proofs to their actual output bytes, including an empty set."""
     if not directory.is_dir() or directory.is_symlink():
         raise ValueError("Missing/linked artifact directory")
+    _artifact_archive_index(directory)
     entries = {}
     for path in sorted(directory.rglob("*")):
         if path.is_symlink():
             raise ValueError("Linked artifact cannot be reused")
         if path.is_file():
-            entries[path.relative_to(directory).as_posix()] = hashlib.sha256(path.read_bytes()).hexdigest()
+            entries[path.relative_to(directory).as_posix()] = _file_sha(path)
     return entries
 
 
@@ -279,7 +457,7 @@ def verification_outputs(root, control_directory, directories=("build/verificati
             if path.is_symlink():
                 raise ValueError("Linked verification output cannot support cache reuse")
             if path.is_file():
-                outputs[path.relative_to(root).as_posix()] = {"sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
+                outputs[path.relative_to(root).as_posix()] = {"sha256": _file_sha(path),
                                                              "mtime_ns": path.stat().st_mtime_ns, "size": path.stat().st_size}
     return outputs
 
@@ -302,9 +480,24 @@ def cached_result(check, cache_file, log, expected_digest=None):
         artifacts = Path(item["artifact_directory"])
         if artifact_fingerprint(artifacts) != item.get("artifact_fingerprint"):
             return None
+        archive_index = _artifact_archive_index(artifacts)
+        recorded_archive = item.get("archived_output_fingerprint")
+        if archive_index is not None:
+            members = {row['path']: {'sha256': row['sha256'], 'size': row['size']}
+                       for row in archive_index['members']}
+            # This ledger comes from the native changed-output observation,
+            # independently of ZIP/index metadata, including isolated lanes.
+            if recorded_archive != members:
+                return None
+            live = item.get("live_output_fingerprint") or {}
+            if live and any(live.get(str(ROOT / name)) != row['sha256']
+                            for name, row in members.items()):
+                return None
+        elif recorded_archive:
+            return None
         for name, expected in (item.get("live_output_fingerprint") or {}).items():
             path = Path(name)
-            actual = (hashlib.sha256(path.read_bytes()).hexdigest() if path.is_file() and not path.is_symlink()
+            actual = (_file_sha(path) if path.is_file() and not path.is_symlink()
                       else "non_regular" if path.exists() or path.is_symlink() else "deleted")
             if actual != expected:
                 return None
@@ -313,7 +506,7 @@ def cached_result(check, cache_file, log, expected_digest=None):
                 "started_at_unix": time.time(), "ended_at_unix": time.time(),
                 "original_duration_seconds": item["result"].get("duration_seconds"),
                 "verified_commit": item["commit"], "artifact_directory": item["artifact_directory"]}
-    except (OSError, KeyError, ValueError, TypeError):
+    except (OSError, KeyError, ValueError, TypeError, zipfile.BadZipFile, zlib.error, EOFError, RuntimeError):
         return None
 
 
@@ -394,18 +587,20 @@ def execute_checks(data, ids, folder, jobs=1, reuse=False, commit="", hash_cache
                 # Keep the real log even for runners whose entire proof is stdout.
                 shutil.copy2(log, artifacts / "check.log")
                 live_outputs = {}
+                archived_outputs = {}
                 if collect_outputs:
                     after_outputs = verification_outputs(root, folder, artifact_paths)
                     changed_outputs = {path: after_outputs[path]["sha256"] if path in after_outputs else "deleted"
                                        for path in set(before_outputs) | set(after_outputs)
                                        if before_outputs.get(path) != after_outputs.get(path)}
-                    for path, fingerprint in changed_outputs.items():
-                        if fingerprint != "deleted":
-                            destination = artifacts / path
-                            destination.parent.mkdir(parents=True, exist_ok=True)
-                            shutil.copy2(root / path, destination)
-                        if root == ROOT:
-                            live_outputs[str(root / path)] = fingerprint
+                    archived_outputs = {
+                        path: {'sha256': fingerprint, 'size': after_outputs[path]['size']}
+                        for path, fingerprint in changed_outputs.items()
+                        if fingerprint != 'deleted' and Path(path).suffix == '.json'
+                        and after_outputs[path]['size'] >= ARTIFACT_JSON_THRESHOLD}
+                    collect_artifacts(root, artifacts, changed_outputs)
+                    if root == ROOT:
+                        live_outputs = {str(root / path): value for path, value in changed_outputs.items()}
                 result["artifact_directory"] = str(artifacts)
                 result["reused"] = False
                 if result["status"] == "passed" and check.get("cacheable", False):
@@ -414,6 +609,7 @@ def execute_checks(data, ids, folder, jobs=1, reuse=False, commit="", hash_cache
                               "log_sha256": hashlib.sha256(text.encode()).hexdigest(),
                               "artifact_directory": str(artifacts),
                               "live_output_fingerprint": live_outputs,
+                              "archived_output_fingerprint": archived_outputs,
                               "artifact_fingerprint": artifact_fingerprint(artifacts)}
                     temporary = cache_file.with_suffix(".tmp")
                     temporary.write_text(json.dumps(cached))

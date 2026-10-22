@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "started_at": "20261021T061859.284733Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [],
+  "status": "interrupted",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "d4d4a961a911d78c694dcaea7d66b8f430e85d5d8f4203f611a7936a7737692e",
+  "working_files": {
+    "tests/forest_bible_trace_support.gd": "039c94affdfc07cfa96be5540340494601ac2cffb80acf9b115fbb1e72840e27"
+  },
+  "commit": "0483399b4cf0621d9dd9f8892661868f76799964",
+  "git_status": "M tests/forest_bible_trace_support.gd",
+  "diff": "diff --git a/tests/forest_bible_trace_support.gd b/tests/forest_bible_trace_support.gd\nindex 3997c411..7a005972 100644\n--- a/tests/forest_bible_trace_support.gd\n+++ b/tests/forest_bible_trace_support.gd\n@@ -22,7 +22,10 @@ class GrovePilot extends \"res://tests/forest_depth_grove_combat_case.gd\":\n \t\tvar adapter := trace.player.get_node(\"KeyboardMouseAdapter\") as KeyboardMouseAdapter\n \t\tvar visual := trace.player.get_node(\"CourierVisual\") as CourierVisual\n \t\tvar half: Vector2=target.definition.collision_size*.5\n-\t\tfor offset: float in [0.0,-half.y*.4,half.y*.4]:\n+\t\t# Seed01 growth's hurt recoil puts the spider behind its perch corner;\n+\t\t# sample the remaining inner body edge with the same real muzzle casts.\n+\t\tvar inner_edge := maxf(0,half.y-trace.player.tuning.projectile_radius-1)\n+\t\tfor offset: float in [0.0,-half.y*.4,half.y*.4,-inner_edge,inner_edge]:\n \t\t\tvar body_point: Vector2=target.motor.global_position+Vector2(0,offset)\n \t\t\tvar screen_point: Vector2=trace.player.get_canvas_transform()*body_point\n \t\t\tvar unit: Vector2=adapter.world_direction(screen_point)",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]"
+}

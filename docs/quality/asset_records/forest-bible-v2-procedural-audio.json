@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "asset_id": "forest-bible-v2-procedural-audio",
+  "content_version": "forest-bible-v15-source-registration-20261021",
+  "source_path": "tools/generate_forest_bible_sfx.py",
+  "source_sha256": "e0211e9dfbbd496fc1389bc0f471f824ca7a631efe851320ab7a92a59c38d5ff",
+  "runtime_paths": [
+    "assets/forest_bible_v2/audio/forest_fruit.wav",
+    "assets/forest_bible_v2/audio/forest_web.wav",
+    "assets/forest_bible_v2/audio/forest_wind.wav"
+  ],
+  "tool": "Python stdlib original offline modal/noise synthesis; fixed seeds; no external samples",
+  "model": "not_applicable; this procedural/metadata operation invokes no model",
+  "prompt_or_reference": "assets/forest_bible_v2/audio/provenance.json; Bible sound design; tools/generate_forest_bible_sfx.py fixed parameters/seeds",
+  "processing": "Generator emits mono22050Hz16-bit PCM; provenance lists exact WAV hashes/seeds/frame counts. No music/BGM generated.",
+  "usage_scope": "GameAudio cue map via scripts/audio/game_audio.gd; forest wind/fruit/web bounded nonlooping cues. Listening/device acceptance not claimed.",
+  "license_status": "unknown",
+  "license_source": "Provenance reports original code synthesis with no external samples. No separate license grant or rights verification inferred.",
+  "visual_status": "unverified",
+  "user_acceptance_evidence": [],
+  "disposition": "runtime_candidate",
+  "associated_files": [
+    {
+      "path": "assets/forest_bible_v2/audio/provenance.json",
+      "sha256": "f1da94cc1ec1a57082549e69dd9fff07eb4b2516b075ae410ea1968f2a87c499",
+      "role": "generation_record"
+    }
+  ],
+  "consumer_files": [
+    "scripts/audio/game_audio.gd"
+  ],
+  "audio_listening_status": "unverified"
+}

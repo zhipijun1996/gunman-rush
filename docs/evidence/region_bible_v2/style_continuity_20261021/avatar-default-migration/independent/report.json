@@ -1,0 +1,480 @@
+{
+  "verdict": "ACCEPT_SCOPED",
+  "reviewer": "/root/bible_test_workflow_independent_review",
+  "scope": "Only test migration for historical v14 and actual unpinned v15 avatar ownership; no production fixes, whole-region art/formal/device/player acceptance.",
+  "source_sha256": "7a865cda9d8b7bee216acceae8137beaa5bd421bb254ac06aaf29374f2c26ff8",
+  "source_checks": [
+    {
+      "name": "source_frozen_exact_sha",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "old_source_exact_git_HEAD",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_guard_preserved:check(visible_bodies(player) == 1 and generated.visible and not original.visible, \"Default Home shows only generated body after real avatar bind\")",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_guard_preserved:check(avatar.select_avatar(id), \"Actual catalog selection accepts \" + id)",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_guard_preserved:check(visible_bodies(player) == 1 and not original.visible, \"Home selection has exactly one body and keeps anchor hidden \" + id)",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_guard_preserved:check(generated.visible == (id == \"courier\"), \"Home default body visibility follows appearance ownership \" + id)",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_guard_preserved:check(not avatar.select_avatar(\"missing_avatar\") and visible_bodies(player) == 1 and generated.visible, \"Rejected selection leaves default Home body intact\")",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_guard_preserved:check(visible_bodies(player) == 1 and generated.visible and not original.visible, \"Repeated Home binding is idempotent\")",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_guard_preserved:check(app.start_debug_region(&\"thorn_forest\", 1, \"avatar-ownership\"), \"Real Forest consumer starts\")",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_guard_preserved:check(visible_bodies(player) == 1 and original.visible, \"Forest restores its original default body\")",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_guard_preserved:check(avatar.select_avatar(\"p1_girl\") and visible_bodies(player) == 1 and not original.visible, \"Forest selected body replaces original\")",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_guard_preserved:check(avatar.select_avatar(\"courier\") and visible_bodies(player) == 1 and original.visible, \"Forest selection returns to its original body\")",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_guard_preserved:check(visible_bodies(player) == 1 and player.get_node(\"UnderworldPlayer\").visible and not player.get_node(\"CourierVisual\").visible, \"Actual Forest return rebinds the sole generated Home body\")",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_guard_preserved:check(await load(\"res://tests/audio_teardown.gd\").drain_world(app), \"Actual audio playback releases\")",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original_guard_preserved:check(app_ref.get_ref() == null, \"Actual App owner releases before exit\")",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "12_new_literal_guards",
+      "passed": true,
+      "actual": {
+        "original_literal": 13,
+        "current_literal": 25,
+        "old_actual": 25,
+        "new_actual": 37
+      }
+    },
+    {
+      "name": "reverse_only_explicit_historical_args_and_additions_restores_old_bytes",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "current_call_omits_both_version_pins",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "current_checks_actual_v15_and_empty_request",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "actual_body_type_Underworld",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "no_production_injection_or_generation_calls",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-original:actual_status",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-original:actual_summary",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-original:log_hash",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-original:full22984_inventory_equal",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-original:git_before_after_equal",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-original:original90_cap",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-original:actual_native_call",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-original:fixture_source_binding",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-original:audio_and_owner_release_completed",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-fixed:actual_status",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-fixed:actual_summary",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-fixed:log_hash",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-fixed:full22984_inventory_equal",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-fixed:git_before_after_equal",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-fixed:original90_cap",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-fixed:actual_native_call",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-fixed:fixture_source_binding",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "native-fixed:audio_and_owner_release_completed",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "only_source_delta_runner",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original26wrapper_unchanged",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "original26_90_2100_caps",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "mutant_has_one_bounded_injection:legacy_body_only",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "mutant_has_one_bounded_injection:double_visible_body",
+      "passed": true,
+      "actual": null
+    },
+    {
+      "name": "mutant_has_one_bounded_injection:explicit_current_pin",
+      "passed": true,
+      "actual": null
+    }
+  ],
+  "final_checks": [
+    {
+      "name": "actual26full_original_cli_passed",
+      "passed": true
+    },
+    {
+      "name": "actual26full_source_git_stable",
+      "passed": true
+    },
+    {
+      "name": "actual26full_log_sha",
+      "passed": true
+    },
+    {
+      "name": "actual26full26suites_and_avatar37_completed",
+      "passed": true
+    },
+    {
+      "name": "independent_actual_observation:legacy_body_only",
+      "passed": true
+    },
+    {
+      "name": "independent_negative_same_production_as_positive:legacy_body_only",
+      "passed": true
+    },
+    {
+      "name": "independent_actual_observation:double_visible_body",
+      "passed": true
+    },
+    {
+      "name": "independent_negative_same_production_as_positive:double_visible_body",
+      "passed": true
+    },
+    {
+      "name": "independent_actual_observation:explicit_current_pin",
+      "passed": true
+    },
+    {
+      "name": "independent_negative_same_production_as_positive:explicit_current_pin",
+      "passed": true
+    }
+  ],
+  "original_failure": {
+    "summary": "25 assertions, 2 failures",
+    "retained": true
+  },
+  "actual_positive_evidence": {
+    "repaired_runner": "37 assertions, 0 failures",
+    "full_generated_cli": "26 suites passed",
+    "full_generated_cli_duration_seconds": 167.457,
+    "cap_seconds": 2100,
+    "source_count": 22984,
+    "source_and_git_stable": true,
+    "log_sha256": "35db02d03b037b51913767b8c94857fc341395a384a5dbd740ca5c39238e8d27"
+  },
+  "independent_native_controls": [
+    {
+      "name": "legacy_body_only",
+      "scope": "Independent real ignored test-world perturbation only; no production mutations",
+      "script_sha256": "04740b2ffe6c56220bfe1d886d4259d5b05e8a4c213c6399ebf916a549452c09",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "build/region_bible_v2/avatar-ownership-independent-first/legacy_body_only.gd"
+      ],
+      "timeout_seconds": 90,
+      "result": {
+        "status": "failed",
+        "exit_code": 1,
+        "failure_reason": "nonzero_exit",
+        "started_at_unix": 1792571455.873892,
+        "ended_at_unix": 1792571462.4039793,
+        "duration_seconds": 6.53,
+        "expanded_argv": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "build/region_bible_v2/avatar-ownership-independent-first/legacy_body_only.gd"
+        ],
+        "check_token": "29ab9aee234f4f0eae393e2746c2b029"
+      },
+      "expected_exit": 1,
+      "actual_summary": "AVATAR OWNERSHIP: 37 assertions, 3 failures",
+      "actual_errors": [
+        "Current Forest default is the sole shared Underworld body with hidden Courier anchor",
+        "Repeated current default binding preserves the same sole Underworld body",
+        "Rejected current default selection preserves Underworld ownership"
+      ],
+      "expected_errors": [
+        "Current Forest default is the sole shared Underworld body with hidden Courier anchor",
+        "Repeated current default binding preserves the same sole Underworld body",
+        "Rejected current default selection preserves Underworld ownership"
+      ],
+      "all_failures_expected": true,
+      "completed_original37_checks_and_audio_cleanup": true,
+      "source_count": 22984,
+      "source_stable": true,
+      "source_differences": [],
+      "git_stable": true,
+      "head": "6dba342dcf557c89957e31b7faec489574d46abd",
+      "git_status": " M tests/avatar_presentation_ownership_runner.gd\n",
+      "log_sha256": "cca82a644dc8aa9a9aef3fa464e02e94ef941e46561aa2c90b559e207282f30b",
+      "duration_with_source_guard": 15.196937562002859,
+      "independent_negative_passed": true
+    },
+    {
+      "name": "double_visible_body",
+      "scope": "Independent real ignored test-world perturbation only; no production mutations",
+      "script_sha256": "227c5e6f6cf7e84a1e440e80605ad6f3f9f6e574355f896a9c6f48a6bf8dadb4",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "build/region_bible_v2/avatar-ownership-independent-first/double_visible_body.gd"
+      ],
+      "timeout_seconds": 90,
+      "result": {
+        "status": "failed",
+        "exit_code": 1,
+        "failure_reason": "nonzero_exit",
+        "started_at_unix": 1792571484.6699755,
+        "ended_at_unix": 1792571490.896332,
+        "duration_seconds": 6.226,
+        "expanded_argv": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "build/region_bible_v2/avatar-ownership-independent-first/double_visible_body.gd"
+        ],
+        "check_token": "97511e8e5b684e03b01a0348008d323c"
+      },
+      "expected_exit": 1,
+      "actual_summary": "AVATAR OWNERSHIP: 37 assertions, 3 failures",
+      "actual_errors": [
+        "Current Forest default is the sole shared Underworld body with hidden Courier anchor",
+        "Repeated current default binding preserves the same sole Underworld body",
+        "Rejected current default selection preserves Underworld ownership"
+      ],
+      "expected_errors": [
+        "Current Forest default is the sole shared Underworld body with hidden Courier anchor",
+        "Repeated current default binding preserves the same sole Underworld body",
+        "Rejected current default selection preserves Underworld ownership"
+      ],
+      "all_failures_expected": true,
+      "completed_original37_checks_and_audio_cleanup": true,
+      "source_count": 22984,
+      "source_stable": true,
+      "source_differences": [],
+      "git_stable": true,
+      "head": "6dba342dcf557c89957e31b7faec489574d46abd",
+      "git_status": " M tests/avatar_presentation_ownership_runner.gd\n",
+      "log_sha256": "088d3fa4c8214c723d90f499ff094046e70081e9ae5faaf455f995eda2bc0700",
+      "duration_with_source_guard": 14.834931890000007,
+      "independent_negative_passed": true
+    },
+    {
+      "name": "explicit_current_pin",
+      "scope": "Independent real ignored test-world perturbation only; no production mutations",
+      "script_sha256": "1cc299b46ac2656ba36e3b470aec968acb94ece002324386a2f151930cc02c47",
+      "argv": [
+        "bash",
+        "tools/godot.sh",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--path",
+        ".",
+        "--script",
+        "build/region_bible_v2/avatar-ownership-independent-first/explicit_current_pin.gd"
+      ],
+      "timeout_seconds": 90,
+      "result": {
+        "status": "failed",
+        "exit_code": 0,
+        "failure_reason": "missing_completion",
+        "started_at_unix": 1792571508.0658596,
+        "ended_at_unix": 1792571514.3965049,
+        "duration_seconds": 6.331,
+        "expanded_argv": [
+          "bash",
+          "tools/godot.sh",
+          "--headless",
+          "--fixed-fps",
+          "60",
+          "--path",
+          ".",
+          "--script",
+          "build/region_bible_v2/avatar-ownership-independent-first/explicit_current_pin.gd"
+        ],
+        "check_token": "d2d8fb734a324f2f96df836542ba3f8b"
+      },
+      "expected_exit": 1,
+      "actual_summary": "AVATAR OWNERSHIP: 37 assertions, 0 failures",
+      "actual_errors": [],
+      "expected_errors": [
+        "Unpinned current Forest actually assembles v15"
+      ],
+      "all_failures_expected": false,
+      "completed_original37_checks_and_audio_cleanup": true,
+      "source_count": 22984,
+      "source_stable": true,
+      "source_differences": [],
+      "git_stable": true,
+      "head": "6dba342dcf557c89957e31b7faec489574d46abd",
+      "git_status": " M tests/avatar_presentation_ownership_runner.gd\n",
+      "log_sha256": "9d1d24150a910a60ba462a565be51b25f8aacd0d47239ad0338ba1d3fe3adaca",
+      "duration_with_source_guard": 15.212527024999872,
+      "independent_negative_passed": false
+    }
+  ],
+  "control_classification": {
+    "legacy_body_only": "actual guard-negative rejects37/3",
+    "double_visible_body": "actual guard-negative rejects37/3",
+    "explicit_current_pin": "actual37/0 accepted; attempted negative expectation failed and preserved. Same valid v15 pin is not an ownership defect. Post-entry request field is always cleared; absence of pin proved by exact checked-in call source, not this runtime field."
+  },
+  "engine_lease": "Only three authorized negatives executed sequentially, terminal; released to root.",
+  "limitations": [
+    "Historical v14 explicit pin is not current default validation; separate source-inspected actual current call omits pins and checks exact v15. Its post-entry empty request proves cleanup, not entry-argument provenance. The actual explicitly pinned same-v15 control passes and is not counted as a successful negative.",
+    "Body ownership/visible-node checks are technical assertions, not whole visual quality or display-render review.",
+    "Actual original CI failure is preserved; this does not sign a fresh remote CI run."
+  ]
+}

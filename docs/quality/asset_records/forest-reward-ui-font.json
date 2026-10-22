@@ -1,14 +1,14 @@
 {
   "schema_version": 1,
   "asset_id": "forest-reward-ui-font",
-  "content_version": "forest-depth-v2-readable-greybox",
+  "content_version": "forest-bible-v15-compatibility-font-499",
   "source_path": "assets/fonts/windkeeper_ui.ttf",
-  "source_sha256": "10f1b70436e051bca13db2ded17f40771b72beeb96a5cb7e3347711eef0b6e12",
+  "source_sha256": "3bf7b6feba4846ffab733aa19650b9be26c4ea469b59e2f8b22a0fa3542034ab",
   "tool": "fontTools subset_plains_ui_font.py, static weight600",
   "model": "not applicable; licensed font",
   "prompt_or_reference": "Original Google Fonts Noto Sans SC source SHA256 a3041811a78c361b1de50f953c805e0244951c21c5bd412f7232ef0d899af0da; existing OFL source from assets/fonts/README.md",
-  "processing": "Same fontTools static weight600 subset tool, same SHA-verified original OFL source. Preserve all457 previous codepoints, extend to462 including actual current Boss scripts/resources (added 丝剪新旋网). Previous462 build coverage is literal availability, not typography/player/device approval. Canopy follow-up preserves all462 prior codepoints, exact metrics and decomposed outlines, adds only 岸 (463 total) for actual phase3 objective; previous subset remains frozen in source e10e83f4. Same source/tool/license.",
-  "usage_scope": "Existing Boss HUD/item/reward/build cards and current forest Boss objectives/names. No final art or typography claim.",
+  "processing": "Same fontTools static weight600 subset tool, same SHA-verified original OFL source. Preserve all457 previous codepoints, extend to462 including actual current Boss scripts/resources (added 丝剪新旋网). Previous462 build coverage is literal availability, not typography/player/device approval. Canopy follow-up preserves all462 prior codepoints, exact metrics and decomposed outlines, adds only 岸 (463 total) for actual phase3 objective; previous subset remains frozen in source e10e83f4. Same source/tool/license. FONT-499 compatibility follow-up uses the unchanged tool and same SHA-verified mother font, preserves all463 old codepoints with exact metrics/decomposed outlines, and expands to499 (+36) from all declared current UI/Boss/item inputs. Eight unique glyphs in the two new forest cards triggered the existing coverage guard; the original tool also requests28 other codepoints. This is compatibility literal coverage, not native rendering or visual acceptance.",
+  "usage_scope": "Retained compatibility font and existing actual-resource glyph coverage guards. Current formal UnderworldUI item cards, acquisition feedback and Windkeeper HUD use foundry_notes.otf, which already covers the new literals. No final art, typography or device approval.",
   "license_source": "assets/fonts/OFL.txt; https://github.com/google/fonts/tree/main/ofl/notosanssc",
   "license_status": "verified",
   "visual_status": "unverified",
@@ -19,7 +19,7 @@
   "associated_files": [
     {
       "path": "assets/fonts/README.md",
-      "sha256": "251d49861a19fe959560e3e5337e9b6cc514a2f301997495efa8fbfa679e9c11",
+      "sha256": "0202d2be2f6b0b34f3e223dab00341d80eab32dc9ae48a45488b41a08ea7bc70",
       "role": "documentation"
     }
   ]

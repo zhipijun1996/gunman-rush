@@ -1,0 +1,12 @@
+# unchanged baseline file, SHA matches round07 source-before.json
+func full_support(id: String) -> bool:
+	var row:=platform(id)
+	if row.is_empty() or not player.is_on_floor() or id not in supports(): return false
+	var r:=Rect2(row.rect[0],row.rect[1],row.rect[2],row.rect[3]);var p:=player.global_position
+	return p.x-12>=r.position.x-.1 and p.x+12<=r.end.x+.1 and absf(p.y+18-r.position.y)<1
+func at_destination(destination: Vector2, id := "") -> bool:
+	if not player.is_on_floor() or absf(player.global_position.x-destination.x)>7 or absf(player.global_position.y-destination.y)>2: return false
+	if not id.is_empty(): return full_support(id)
+	for support: String in supports():
+		if full_support(support): return true
+	return false

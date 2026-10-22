@@ -1,0 +1,47 @@
+{
+  "scope": "Same single workflow fix after independent reject; preserve main/explicit-actor publish push and full refs",
+  "source": ".github/workflows/environment.yml",
+  "sha256": "ced5273889385763b818813c79b4e4ab858801df064825bde7ed3df14a86f1f8",
+  "checks": {
+    "scope": "Actual YAML parse/finite expression and guard controls; not a GitHub execution or artifact pass",
+    "workflow_sha256": "ced5273889385763b818813c79b4e4ab858801df064825bde7ed3df14a86f1f8",
+    "checkout_jobs": [
+      "prepare",
+      "core_checks",
+      "core",
+      "windows",
+      "web",
+      "android",
+      "verify_public"
+    ],
+    "identity_controls": {
+      "normal_push_PR_same_repo_fullbranch_share_group": true,
+      "PR_checkout_is_actual_head_not_synthetic_merge": true,
+      "push_checkout_preserves_event_SHA": true,
+      "manual_checkout_preserves_event_SHA": true,
+      "manual_does_not_cancel_automatic": true,
+      "different_branch_does_not_cancel": true,
+      "fork_same_branch_does_not_cancel_target_main": true,
+      "fork_same_branch_checks_does_not_cancel_target_PRchecks": true,
+      "tag_main_does_not_cancel_branch_main_publish": true,
+      "main_publish_push_is_not_canceled_by_PR_checks": true,
+      "explicit_actor_publish_push_is_not_canceled_by_PR_checks": true,
+      "ordinary_actor_push_and_PR_still_deduplicate": true,
+      "manual_main_deploy_remains_separate_from_main_push": true,
+      "only_ordinary_branch_same_source_deduplicates_not_tag": true,
+      "publish_predicates_unchanged": true
+    },
+    "docs_PR_merge_quality_semantics_preserved": true,
+    "docs_modified_by_this_patch": false,
+    "docs_observed_SHA256": "13fadcb8baaf8a9562b14b32143c22ecc096c3686d8d01a1ed47d478d670036d",
+    "docs_external_quality_step_reordered": true,
+    "source": ".github/workflows/environment.yml"
+  },
+  "actual_original_harness_suite": 77,
+  "actual_archive_suite": 12,
+  "old_rejected_workflow_sha256": "a343fff94bacf40861503d12d7436af0ec3a61793b4a858033006e48d9fd5642",
+  "other_source_changes_made_by_this_agent": false,
+  "engine_or_git_or_CI_actions": false,
+  "actual_original_harness_seconds": 8.01,
+  "actual_archive_seconds": 2.373
+}

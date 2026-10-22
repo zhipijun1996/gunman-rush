@@ -151,3 +151,8 @@ func _draw() -> void:
 	draw_line(hand,muzzle,Color("101816"),4.0,false)
 	draw_line(hand+aim*8-Vector2(0,2),muzzle-Vector2(0,2),Color("9b7740"),2.0,false)
 	if _flash>0: draw_rect(Rect2(muzzle+aim*4-Vector2(2,2),Vector2(6,6)),Color("ead8a3"))
+
+	# Formal regions deliberately hide PlayerFeedback's legacy particle canvas.
+	# Keep the accepted grapple/guide on this actual visible body, with the
+	# same world-space hand used by its weapon arm. No traversal state writes.
+	PlayerFeedback.draw_grapple(self, controller, to_global(hand))

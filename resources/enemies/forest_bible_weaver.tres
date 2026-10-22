@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="ForestBibleWeaverDefinition" load_steps=4 format=3]
+[ext_resource type="Script" path="res://scripts/enemies/forest_bible_weaver_definition.gd" id="1"]
+[ext_resource type="Script" path="res://scripts/resources/definitions/health_definition.gd" id="2"]
+[sub_resource type="Resource" id="health"]
+script = ExtResource("2")
+resource_id = &"forest_bible_weaver_health"
+max_health = 2.0
+initial_current = 2.0
+[resource]
+script = ExtResource("1")
+stable_id = &"forest_bible_weaver"
+definition_version = 1
+health_definition = SubResource("health")
+behavior_id = &"forest_bible_weaver"
+collision_size = Vector2(26, 28)
+patrol_speed = 0.0
+patrol_half_width = 0.0
+telegraph_duration = 0.9
+attack_speed = 240.0
+return_speed = 100.0
+recovery_duration = 1.6
+activation_range = 300.0
+protected_radius = 45.0

@@ -1,0 +1,194 @@
+diff --git a/scripts/bosses/forest_boss_duel_presentation_v2.gd b/scripts/bosses/forest_boss_duel_presentation_v2.gd
+index 7cf887a9..48079ab6 100644
+--- a/scripts/bosses/forest_boss_duel_presentation_v2.gd
++++ b/scripts/bosses/forest_boss_duel_presentation_v2.gd
+@@ -24,10 +24,11 @@ func _draw() -> void:
+ 	if encounter == null: return
+ 	var color := Color("d5d273") if encounter.core_open else Color("365347")
+ 	var size := encounter.definition.collision_size
+-	draw_rect(Rect2(-size*.5,size),Color("3b4838"))
+-	draw_circle(Vector2(0,-8),19,color)
+-	draw_line(Vector2(-28,-35),Vector2(-62,-60),Color("7c6d43"),9)
+-	draw_line(Vector2(28,-35),Vector2(62,-60),Color("7c6d43"),9)
++	if not ForestBibleActors.draw_boss_body(self, encounter):
++		draw_rect(Rect2(-size*.5,size),Color("3b4838"))
++		draw_circle(Vector2(0,-8),19,color)
++		draw_line(Vector2(-28,-35),Vector2(-62,-60),Color("7c6d43"),9)
++		draw_line(Vector2(28,-35),Vector2(62,-60),Color("7c6d43"),9)
+ 	if not encounter is RootbellGuardianV2: return
+ 	var duel := encounter as RootbellGuardianV2
+ 	var config := duel.definition as BossDuelDefinition
+diff --git a/scripts/bosses/guardian_root_bell_v2.gd b/scripts/bosses/guardian_root_bell_v2.gd
+index 30314a4b..8691b355 100644
+--- a/scripts/bosses/guardian_root_bell_v2.gd
++++ b/scripts/bosses/guardian_root_bell_v2.gd
+@@ -239,10 +239,11 @@ func _emit(kind: String, data: Dictionary) -> void:
+ 	bell_event.emit(row)
+ func _draw() -> void:
+ 	if config == null: return
+-	draw_circle(Vector2.ZERO,config.bell_radius,Color("e4a05e") if _counter_active else Color("8f865f"))
+-	draw_arc(Vector2.ZERO,config.bell_radius-4,0,TAU,24,Color("f4dfa0"),3)
+-	draw_line(Vector2(-config.bell_radius*.6,7),Vector2(config.bell_radius*.6,7),Color("332f28"),4)
+-	draw_circle(Vector2(0,-config.bell_radius+3),5,Color("f4dfa0"))
++	if not ForestBibleActors.draw_mobile_bell(self, config.bell_radius, _counter_active):
++		draw_circle(Vector2.ZERO,config.bell_radius,Color("e4a05e") if _counter_active else Color("8f865f"))
++		draw_arc(Vector2.ZERO,config.bell_radius-4,0,TAU,24,Color("f4dfa0"),3)
++		draw_line(Vector2(-config.bell_radius*.6,7),Vector2(config.bell_radius*.6,7),Color("332f28"),4)
++		draw_circle(Vector2(0,-config.bell_radius+3),5,Color("f4dfa0"))
+ 	if state != &"held": draw_line(Vector2.ZERO,-velocity.normalized()*40,Color("db9f60"),3)
+ 	if _escape_active: draw_line(Vector2.ZERO,to_local(_escape_goal),Color("ffc276"),2)
+ 
+diff --git a/scripts/bosses/thorn_queen_canopy_presentation.gd b/scripts/bosses/thorn_queen_canopy_presentation.gd
+index bfb8cf67..e937f6ca 100644
+--- a/scripts/bosses/thorn_queen_canopy_presentation.gd
++++ b/scripts/bosses/thorn_queen_canopy_presentation.gd
+@@ -7,9 +7,10 @@ func _draw() -> void:
+ 	if encounter==null or encounter.definition==null: return
+ 	var color := Color("dbbfa4")
+ 	var half := encounter.definition.collision_size*.5
+-	draw_colored_polygon(PackedVector2Array([Vector2(-half.x,5),Vector2(-18,-15),Vector2(-12,-half.y),Vector2(0,-19),Vector2(12,-half.y),Vector2(18,-15),Vector2(half.x,5),Vector2(10,half.y),Vector2(-10,half.y)]),Color("704c64"))
+-	draw_circle(Vector2.ZERO,9,color)
+-	for index: int in 3: draw_line(Vector2(-14+14*index,-18),Vector2(-22+22*index,-36),color,3,true)
++	if not ForestBibleActors.draw_boss_body(self, encounter):
++		draw_colored_polygon(PackedVector2Array([Vector2(-half.x,5),Vector2(-18,-15),Vector2(-12,-half.y),Vector2(0,-19),Vector2(12,-half.y),Vector2(18,-15),Vector2(half.x,5),Vector2(10,half.y),Vector2(-10,half.y)]),Color("704c64"))
++		draw_circle(Vector2.ZERO,9,color)
++		for index: int in 3: draw_line(Vector2(-14+14*index,-18),Vector2(-22+22*index,-36),color,3,true)
+ 	if not encounter.active: return
+ 	# Living knots retain their original collisions/health; expose the remaining
+ 	# cut decision at gameplay scale rather than relying on two-pixel dots.
+diff --git a/scripts/enemies/enemy_presentation.gd b/scripts/enemies/enemy_presentation.gd
+index 2e0a1dd7..2bcfdfa5 100644
+--- a/scripts/enemies/enemy_presentation.gd
++++ b/scripts/enemies/enemy_presentation.gd
+@@ -63,6 +63,7 @@ func _draw() -> void:
+ 			var angle := TAU * float(mote) / 6.0
+ 			draw_circle(Vector2(cos(angle), sin(angle)) * minf(_death_time * 35, 25), 2, Color(0.95, 0.80, 0.48, maxf(0, 1.0 - _death_time * 1.6)))
+ 
++	if ForestBibleActors.draw_enemy_body(self, actor, _clock): return
+ 	if actor.definition.aerial:
+ 		var atlas := preload("res://assets/plains_v4/spatial/actors.png")
+ 		var tilt := _lean + sin(_clock*2)*.035
+diff --git a/scripts/enemies/forest_crossbranch_presentation.gd b/scripts/enemies/forest_crossbranch_presentation.gd
+index c7d43fb8..7ff77743 100644
+--- a/scripts/enemies/forest_crossbranch_presentation.gd
++++ b/scripts/enemies/forest_crossbranch_presentation.gd
+@@ -9,10 +9,11 @@ func _draw() -> void:
+ 	var color:=Color("b3ca74")
+ 	if behavior!=null and behavior.state==&"telegraph":color=Color("f3c365")
+ 	if behavior!=null and behavior.state==&"blocked":color=Color("aa7272")
+-	draw_rect(Rect2(-14,-16,28,32),color)
+-	draw_line(Vector2(-20,-10),Vector2(-7,-1),Color("536f58"),4)
+-	draw_line(Vector2(20,-10),Vector2(7,-1),Color("536f58"),4)
+-	draw_circle(Vector2(-5,-5),2,Color("243a32"));draw_circle(Vector2(5,-5),2,Color("243a32"))
++	if not ForestBibleActors.draw_enemy_body(self, actor):
++		draw_rect(Rect2(-14,-16,28,32),color)
++		draw_line(Vector2(-20,-10),Vector2(-7,-1),Color("536f58"),4)
++		draw_line(Vector2(20,-10),Vector2(7,-1),Color("536f58"),4)
++		draw_circle(Vector2(-5,-5),2,Color("243a32"));draw_circle(Vector2(5,-5),2,Color("243a32"))
+ 	if behavior!=null and behavior.state==&"telegraph" and behavior.committed_shore>=0:
+ 		var goal: Vector2=to_local(behavior.shores[behavior.committed_shore].position)
+ 		draw_line(Vector2.ZERO,goal,Color(1,.75,.3,.5),2,true)
+diff --git a/scripts/enemies/forest_depth_enemy_presentation.gd b/scripts/enemies/forest_depth_enemy_presentation.gd
+index 2bd693bd..411d0bbb 100644
+--- a/scripts/enemies/forest_depth_enemy_presentation.gd
++++ b/scripts/enemies/forest_depth_enemy_presentation.gd
+@@ -11,14 +11,15 @@ func _draw() -> void:
+ 	var behavior := actor.attack_behavior
+ 	var state: StringName = behavior.state if behavior else &"idle"
+ 	var body_color := Color("756248") if alive else Color("393f38")
+-	draw_circle(Vector2.ZERO,12,body_color)
+-	for side: int in [-1,1]:
+-		for i: int in 3:
+-			var elbow := Vector2(side*(16+i*3),-9+i*8)
+-			draw_line(Vector2(side*6,-4+i*3),elbow,Color("9aaa6a"),3)
+-			draw_line(elbow,elbow+Vector2(side*5,8),Color("9aaa6a"),2)
+-	draw_circle(Vector2(-4,-4),2,Color("ffdf94"))
+-	draw_circle(Vector2(4,-4),2,Color("ffdf94"))
++	if not ForestBibleActors.draw_enemy_body(self, actor, age):
++		draw_circle(Vector2.ZERO,12,body_color)
++		for side: int in [-1,1]:
++			for i: int in 3:
++				var elbow := Vector2(side*(16+i*3),-9+i*8)
++				draw_line(Vector2(side*6,-4+i*3),elbow,Color("9aaa6a"),3)
++				draw_line(elbow,elbow+Vector2(side*5,8),Color("9aaa6a"),2)
++		draw_circle(Vector2(-4,-4),2,Color("ffdf94"))
++		draw_circle(Vector2(4,-4),2,Color("ffdf94"))
+ 	if behavior is ForestThreadSpiderBehavior and alive:
+ 		var spider := behavior as ForestThreadSpiderBehavior
+ 		if state in [&"telegraph",&"extend",&"hold",&"retract"]:
+diff --git a/scripts/enemies/forest_enemy_presentation.gd b/scripts/enemies/forest_enemy_presentation.gd
+index eae32e4d..54740e95 100644
+--- a/scripts/enemies/forest_enemy_presentation.gd
++++ b/scripts/enemies/forest_enemy_presentation.gd
+@@ -9,17 +9,20 @@ func _draw() -> void:
+ 	if actor == null: return
+ 	var alive := not actor.health.terminal
+ 	var state: StringName = actor.attack_behavior.state if actor.attack_behavior != null else &"idle"
++	var bible_body := ForestBibleActors.draw_enemy_body(self, actor, age)
+ 	if actor.definition.behavior_id == &"forest_lantern":
+-		var wing := 8 + sin(age * 14) * 3 if alive else 6.0
+-		_paint_ellipse(Vector2(-12, -6), Vector2(wing, 4), Color(.65, .88, .67, .65))
+-		_paint_ellipse(Vector2(12, -6), Vector2(wing, 4), Color(.65, .88, .67, .65))
+-		draw_circle(Vector2.ZERO, 11, Color(.21, .4, .29) if alive else Color(.2, .2, .2))
+-		draw_arc(Vector2(0, 2), 7, 0, TAU, 20, Color(.96, .82, .35) if alive else Color(.4,.4,.4), 3)
++		if not bible_body:
++			var wing := 8 + sin(age * 14) * 3 if alive else 6.0
++			_paint_ellipse(Vector2(-12, -6), Vector2(wing, 4), Color(.65, .88, .67, .65))
++			_paint_ellipse(Vector2(12, -6), Vector2(wing, 4), Color(.65, .88, .67, .65))
++			draw_circle(Vector2.ZERO, 11, Color(.21, .4, .29) if alive else Color(.2, .2, .2))
++			draw_arc(Vector2(0, 2), 7, 0, TAU, 20, Color(.96, .82, .35) if alive else Color(.4,.4,.4), 3)
+ 		if state == &"telegraph": draw_line(Vector2.ZERO, Vector2(actor.brain.direction * 22, 0), Color.WHITE, 2)
+ 	else:
+-		draw_line(Vector2(0, 17), Vector2(0,-10), Color(.25,.46,.26), 8)
+-		draw_circle(Vector2(0,-5), 14, Color(.45,.2,.35) if alive else Color(.2,.2,.2))
+-		for side: int in [-1,1]: draw_line(Vector2(side*20, 10), Vector2(0,-8), Color(.5,.65,.34), 5)
++		if not bible_body:
++			draw_line(Vector2(0, 17), Vector2(0,-10), Color(.25,.46,.26), 8)
++			draw_circle(Vector2(0,-5), 14, Color(.45,.2,.35) if alive else Color(.2,.2,.2))
++			for side: int in [-1,1]: draw_line(Vector2(side*20, 10), Vector2(0,-8), Color(.5,.65,.34), 5)
+ 		if state == &"telegraph":
+ 			draw_arc(Vector2(0,-5), 18, 0, TAU, 24, Color(1,.65,.3), 3)
+ 			var goal := to_local(actor.attack_behavior.attack_goal)
+diff --git a/scripts/enemies/forest_feedback_enemy_presentation.gd b/scripts/enemies/forest_feedback_enemy_presentation.gd
+index 9d2cc203..46d4cc8f 100644
+--- a/scripts/enemies/forest_feedback_enemy_presentation.gd
++++ b/scripts/enemies/forest_feedback_enemy_presentation.gd
+@@ -13,16 +13,20 @@ func _draw() -> void:
+ 	var behavior:=actor.attack_behavior
+ 	var phase: StringName=behavior.state if behavior else &"idle"
+ 	var warning:=phase==&"telegraph"
++	var bible_body := ForestBibleActors.draw_enemy_body(self, actor)
+ 	if actor.definition.behavior_id==&"forest_bark_beetle":
+ 		var facing:=float(actor.brain.direction)
+-		draw_rect(Rect2(-18,-12,36,24),Color("7a9c58"))
+-		# Vertical segmented bark plate identifies exactly the guarded side.
+-		for index: int in 3:
+-			draw_line(Vector2(facing*(14+index),-11+index*2),Vector2(facing*(14+index),11-index*2),Color("ffdd99") if shield_flash>0 else Color("694c39"),3)
+-		# Unplated back/top keep their ordinary damage affordance visible.
+-		draw_circle(Vector2(-facing*9,-5),4,Color("d3d68a"))
+-		for side: int in [-1,1]:
+-			for foot: int in 3:draw_line(Vector2(-12+foot*11,side*8),Vector2(-15+foot*11,side*14),Color("4c613d"),2)
++		if not bible_body:
++			draw_rect(Rect2(-18,-12,36,24),Color("7a9c58"))
++			# Vertical segmented bark plate identifies exactly the guarded side.
++			for index: int in 3:
++				draw_line(Vector2(facing*(14+index),-11+index*2),Vector2(facing*(14+index),11-index*2),Color("ffdd99") if shield_flash>0 else Color("694c39"),3)
++			# Unplated back/top keep their ordinary damage affordance visible.
++			draw_circle(Vector2(-facing*9,-5),4,Color("d3d68a"))
++			for side: int in [-1,1]:
++				for foot: int in 3:draw_line(Vector2(-12+foot*11,side*8),Vector2(-15+foot*11,side*14),Color("4c613d"),2)
++		elif shield_flash > 0:
++			draw_line(Vector2(facing*17,-11),Vector2(facing*17,11),Color("ffdd99"),2)
+ 		if warning and behavior!=null:
+ 			var goal:=to_local(behavior.attack_goal)
+ 			draw_line(Vector2(0,13),goal+Vector2(0,13),Color("ffc36b"),3)
+@@ -32,6 +36,7 @@ func _draw() -> void:
+ 			var root:=to_local(behavior.home+Vector2(0,-(actor.definition as ForestEnemyDefinition).swing_rise-30))
+ 			draw_line(root,Vector2(0,-13),Color("718c4d"),3)
+ 			draw_circle(root,5,Color("9cae68"))
+-		draw_colored_polygon(PackedVector2Array([Vector2(0,-15),Vector2(13,-5),Vector2(10,11),Vector2(0,15),Vector2(-10,11),Vector2(-13,-5)]),Color("b6bc65") if phase!=&"blocked" else Color("8b7863"))
+-		draw_arc(Vector2.ZERO,8,-PI*.8,PI*.8,18,Color("ece9ac"),2)
++		if not bible_body:
++			draw_colored_polygon(PackedVector2Array([Vector2(0,-15),Vector2(13,-5),Vector2(10,11),Vector2(0,15),Vector2(-10,11),Vector2(-13,-5)]),Color("b6bc65") if phase!=&"blocked" else Color("8b7863"))
++			draw_arc(Vector2.ZERO,8,-PI*.8,PI*.8,18,Color("ece9ac"),2)
+ 		if phase==&"turn":draw_arc(Vector2.ZERO,20,0,TAU,24,Color("bde0a4"),2)

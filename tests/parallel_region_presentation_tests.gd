@@ -1,6 +1,7 @@
 extends SceneTree
 ## Presentation/lifetime integration only. Real debug entry, damage policy and
 ## Home transitions; no position writes, manual Motor steps or traversal claim.
+const EXPECTED_CURRENT_FOREST_LAYOUT := "forest-bible-world-v15"
 var assertions := 0
 var failures := 0
 
@@ -17,16 +18,17 @@ func frames(count: int) -> void:
 	for index: int in count:
 		await physics_frame
 
-static func presentation_errors(app: DemoApp, region: StringName) -> Array[String]:
+static func presentation_errors(app: DemoApp, region: StringName, expected_forest_layout: String = EXPECTED_CURRENT_FOREST_LAYOUT) -> Array[String]:
 	var errors: Array[String] = []
 	if not is_instance_valid(app.stage) or not app.stage.assembly_ok or not is_instance_valid(app.player):
 		return ["actual stage/player missing"]
-	var pixel := region == &"plains"
+	var plains := region == &"plains"
+	var pixel: bool = plains or expected_forest_layout == "forest-bible-world-v15"
 	if app.active_region_id != region: errors.append("actual region differs")
-	if pixel and (not app.stage is PlainsRegionStage or app.stage is ThornForestRegionStage): errors.append("actual Plains consumer differs")
-	if not pixel:
+	if plains and (not app.stage is PlainsRegionStage or app.stage is ThornForestRegionStage): errors.append("actual Plains consumer differs")
+	if not plains:
 		if not app.stage is ThornForestRegionStage: errors.append("actual Forest consumer differs")
-		elif app.stage.generated.manifest.get("layout_version", "") != "forest-fruit-routes-v14": errors.append("fresh Forest is not v14")
+		elif app.stage.generated.manifest.get("layout_version", "") != expected_forest_layout: errors.append("Forest layout differs from independently selected expectation")
 	var actors: Array[Node] = []
 	for child: Node in app.player.get_children():
 		if child is PixelPlainsActor: actors.append(child)
@@ -36,9 +38,12 @@ static func presentation_errors(app: DemoApp, region: StringName) -> Array[Strin
 	if app.player.get_node("PlayerFeedback").visible == pixel: errors.append("feedback visibility stale")
 	var adapter := app.player.get_node("PlayerVisualAdapter")
 	if (adapter.process_mode == Node.PROCESS_MODE_DISABLED) != pixel: errors.append("original adapter ownership stale")
-	if app.get_node("PixelPlainsParallax").visible != pixel: errors.append("pixel background leaks across region")
+	if app.get_node("PixelPlainsParallax").visible != plains: errors.append("pixel background leaks across region")
 	if app.get_node("PlainsBackground").visible == pixel: errors.append("original background ownership stale")
-	if pixel:
+	if pixel and not plains:
+		if not is_instance_valid(app.stage.forest_terrain) or not app.stage.forest_terrain is UnderworldTerrain: errors.append("Forest does not share actual UnderworldTerrain")
+		if not ForestBiblePresentation.enabled(app.stage.generated.manifest): errors.append("Forest shared-pixel consumer is not enabled")
+	if plains:
 		if not app.stage.get_meta("pixel_formal_style", false): errors.append("formal pixel metadata missing")
 		if app.stage.get_node_or_null("PixelRegionScenery") == null: errors.append("actual pixel scenery missing")
 		if not app.stage.get_node_or_null("PixelRegionScenery") is UnderworldScenery: errors.append("formal scenery is not actual UnderworldScenery")
@@ -133,6 +138,9 @@ func run() -> void:
 			if not await load("res://tests/audio_teardown.gd").drain_world(app): failures += 1
 			app.free()
 	await same_player_roundtrip()
+	# Preserve the historical disposal/recreation contract alongside the new
+	# default shared-family reuse; an explicit pin is never current evidence.
+	await same_player_roundtrip("forest-fruit-routes-v14")
 	print("PARALLEL REGION PRESENTATION: %s assertions / %s failures" % [assertions, failures])
 	quit(1 if failures else 0)
 
@@ -158,7 +166,9 @@ func reload_presentation_region(app: DemoApp, region: StringName) -> void:
 	if is_instance_valid(app.stage) and app.stage is PlainsRegionStage:
 		check(destination_state.manifest_hash == (app.stage as PlainsRegionStage).generated.manifest.manifest_hash, "destination state hash equals actual assembled manifest")
 
-func same_player_roundtrip() -> void:
+func same_player_roundtrip(recorded_forest_layout := "") -> void:
+	var expected_forest_layout: String = recorded_forest_layout if not recorded_forest_layout.is_empty() else EXPECTED_CURRENT_FOREST_LAYOUT
+	var shared_forest: bool = expected_forest_layout == "forest-bible-world-v15"
 	for map_index: int in [1, 2]:
 		var app := DemoApp.new()
 		app.meta_persistence_enabled = false
@@ -176,6 +186,11 @@ func same_player_roundtrip() -> void:
 		check(app.campaign.claim(&"grapple", reward_token, not app.controller.actor_resources.health.terminal), "presentation fixture accepts actual campaign H reward")
 		check(app.controller.traversal.grant(&"grapple"), "explicit presentation fixture grants legal Forest debug ability")
 		check(app.campaign.abilities == [&"grapple"] and app.controller.traversal.hook_enabled, "Forest fixture has exact accepted H-only campaign and motor capability")
+		# Only the named historical fixture overrides the recorded choice.
+		# An unpinned App has already resolved its real current layout; an
+		# empty internal capability is invalid and must not replace that choice.
+		if not recorded_forest_layout.is_empty():
+			app._forest_layout_version = recorded_forest_layout
 		await reload_presentation_region(app, &"thorn_forest")
 		check(is_instance_valid(app.player) and app.player.get_instance_id() == player_id, "Plains to Forest retains same actual player")
 		if not is_instance_valid(app.player):
@@ -183,7 +198,11 @@ func same_player_roundtrip() -> void:
 			if not await load("res://tests/audio_teardown.gd").drain_world(app): failures += 1
 			app.free()
 			return
-		check(not is_instance_valid(first_visual) and presentation_errors(app, &"thorn_forest").is_empty(), "Forest disposes actual Underworld player presentation and retains Forest guards")
+		var forest_visual := app.player.get_node_or_null("PixelPlainsActor")
+		if shared_forest:
+			check(is_instance_valid(first_visual) and forest_visual == first_visual and forest_visual is UnderworldPlayer and presentation_errors(app, &"thorn_forest", expected_forest_layout).is_empty(), "current Forest reuses the single actual UnderworldPlayer and owns its regional background")
+		else:
+			check(not is_instance_valid(first_visual) and presentation_errors(app, &"thorn_forest", expected_forest_layout).is_empty(), "recorded v14 Forest disposes actual Underworld player presentation and retains historical Forest guards")
 		await reload_presentation_region(app, &"plains")
 		check(is_instance_valid(app.player), "return loader retains actual run player")
 		if not is_instance_valid(app.player):
@@ -192,7 +211,10 @@ func same_player_roundtrip() -> void:
 			return
 		var returned_visual := app.player.get_node_or_null("PixelPlainsActor")
 		check(app.player.get_instance_id() == player_id, "Forest to Plains retains same actual player")
-		check(returned_visual is UnderworldPlayer and returned_visual.get_instance_id() != first_id, "return factory creates fresh actual UnderworldPlayer, not legacy PixelPlainsActor")
+		if shared_forest:
+			check(returned_visual is UnderworldPlayer and returned_visual.get_instance_id() == first_id and returned_visual == forest_visual, "current shared-region roundtrip retains exactly the same actual UnderworldPlayer")
+		else:
+			check(returned_visual is UnderworldPlayer and returned_visual.get_instance_id() != first_id, "recorded v14 return factory creates fresh actual UnderworldPlayer, not legacy PixelPlainsActor")
 		check(presentation_errors(app, &"plains").is_empty(), "same-player return restores full Underworld terrain scenery actor and background")
 		# Preserve the actual run presentation as an explicit stale-owner negative.
 		# Disable presentation processing only; never mutate player gameplay state.

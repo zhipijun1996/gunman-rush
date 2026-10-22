@@ -1,0 +1,46 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+FIXED HOOK JUMP: PASS reference consumes one real grounded jump before second launch
+FIXED HOOK JUMP: PASS one accepted input launches one actual ascent
+FIXED HOOK JUMP: PASS departure does not refill or spend shooting resources
+FIXED HOOK JUMP: PASS actual hook reaches hook_hang
+FIXED HOOK JUMP: PASS anchor departure does not grant D or increase jump capacity
+FIXED HOOK JUMP: PASS one accepted input launches one actual ascent
+FIXED HOOK JUMP: PASS departure does not refill or spend shooting resources
+FIXED HOOK JUMP: PASS fixed-anchor 0-tick hold matches real second-jump apex (actual 55.607 reference 55.607)
+FIXED HOOK JUMP: PASS reference consumes one real grounded jump before second launch
+FIXED HOOK JUMP: PASS one accepted input launches one actual ascent
+FIXED HOOK JUMP: PASS departure does not refill or spend shooting resources
+FIXED HOOK JUMP: PASS actual hook reaches hook_hang
+FIXED HOOK JUMP: PASS anchor departure does not grant D or increase jump capacity
+FIXED HOOK JUMP: PASS one accepted input launches one actual ascent
+FIXED HOOK JUMP: PASS departure does not refill or spend shooting resources
+FIXED HOOK JUMP: PASS fixed-anchor 30-tick hold matches real second-jump apex (actual 127.144 reference 127.144)
+FIXED HOOK JUMP: PASS hold and release retain useful variable-jump height difference
+FIXED HOOK JUMP: PASS actual hook reaches hook_hang
+FIXED HOOK JUMP: PASS release pose uses real gravity ascent, not short weapon burst
+FIXED HOOK JUMP: PASS repeat jump without a new fixed contact cannot grant another ascent
+FIXED HOOK JUMP: PASS released anchor cannot launch a second time
+FIXED HOOK JUMP: PASS repeat input does not refill shots
+FIXED HOOK JUMP: PASS ordinary landing restores ordinary jump and H qualification
+FIXED HOOK JUMP: PASS fresh grounded jump works after anchor departure and landing
+FIXED HOOK JUMP: PASS actual hook reaches hook_hang
+FIXED HOOK JUMP: PASS manual anchor departure rejects stale/future/other-epoch/other-sequence H envelope { "timestamp": 0.609658 }
+FIXED HOOK JUMP: PASS manual anchor departure rejects stale/future/other-epoch/other-sequence H envelope { "timestamp": 1.809658 }
+FIXED HOOK JUMP: PASS manual anchor departure rejects stale/future/other-epoch/other-sequence H envelope { "timestamp": 0.809658, "epoch": 1 }
+FIXED HOOK JUMP: PASS manual anchor departure rejects stale/future/other-epoch/other-sequence H envelope { "timestamp": 0.809658, "sequence": 3 }
+FIXED HOOK JUMP: PASS H after manual anchor jump begins immediately without the automatic-kick tail delay
+FIXED HOOK JUMP: PASS new H input after release reaches next actual fixed target
+FIXED HOOK JUMP: PASS the second fixed target supplies its own airborne jump departure; grounded jumps cannot substitute
+FIXED HOOK JUMP: PASS pause cancellation clears held ascent without reviving old jump
+FIXED HOOK JUMP: PASS actual hook reaches hook_hang
+FIXED HOOK JUMP: PASS anchor departure preserves previously granted D instead of increasing capacity
+FIXED HOOK JUMP: PASS previously granted D remains usable once after anchor departure
+FIXED HOOK JUMP: PASS anchor departure does not grant a third jump
+FIXED HOOK JUMP: PASS actual hook reaches hook_hang
+FIXED HOOK JUMP: PASS disabled jump cannot use anchor departure as a bypass
+FIXED HOOK JUMP: PASS actual hook reaches hook_contact_kick
+FIXED HOOK JUMP: PASS ordinary non-held target retains automatic short contact burst
+FIXED HOOK JUMP: PASS automatic contact never invokes the new anchor jump
+FIXED HOOK JUMP: PASS automatic target keeps its small kick rather than double-jump height
+FIXED HOOK JUMP RESULT: 43 checks, 0 failures

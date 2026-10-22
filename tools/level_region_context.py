@@ -158,6 +158,57 @@ def resolve_region_id(request, root=ROOT):
     return matches[0] if matches else None
 
 
+def region_write_scope(paths, root=ROOT):
+    """Classify repository write leases, independently of natural-language intent.
+
+    Canonical catalog IDs cover future regions. Plains/Forest aliases correspond
+    to the actual generator/stage/assembler and regional asset consumer families;
+    shared directories/consumers require an explicit scope rather than a guess.
+    This inventories declared paths only, never walks or hashes the source tree.
+    """
+    root = Path(root).resolve()
+    catalog_path = root / WORLD
+    catalog = json.loads(catalog_path.read_bytes()) if catalog_path.is_file() else {"regions": []}
+    ids = {row["id"] for row in catalog["regions"]}
+    families = {region: {region} for region in ids}
+    # These are actual consumer naming families, not request-word aliases.
+    for region, names in {"windchime_plains": {"plains", "pixel_plains", "underworld_plains"},
+                          "thorn_forest": {"thorn_forest", "forest"}}.items():
+        families.setdefault(region, set()).update(names)
+    production = ("scripts/generation/", "scripts/demo/", "scripts/art/", "scripts/enemies/",
+                  "scripts/bosses/", "scripts/world/", "scenes/", "resources/generation/",
+                  "resources/art/", "resources/enemies/", "resources/bosses/", "assets/", "shaders/")
+    regions, unresolved = set(), []
+    for raw in paths:
+        relative = Path(raw)
+        if relative.is_absolute() or '..' in relative.parts:
+            raise ContextError("Region write scope must be repository relative")
+        name = relative.as_posix() + ("/" if raw.endswith("/") else "")
+        # Ownership is checked across *all* runtime domains before the
+        # shared/unknown production-prefix fallback. Regional presentation,
+        # item Definitions or a new consumer directory cannot escape this map.
+        runtime = name.startswith(("scripts/", "resources/", "scenes/", "assets/", "shaders/", "config/"))
+        parts = [*relative.parts[:-1], relative.stem]
+        owners = ({region for region, aliases in families.items()
+                   if any(part == alias or part.startswith(alias + "_") for part in parts for alias in aliases)}
+                  if runtime else set())
+        relevant = [prefix for prefix in production if name.startswith(prefix) or prefix.startswith(name)]
+        if not owners and not relevant:
+            continue  # Exact shared Player/physics files are not region content.
+        # Controller-only asset fixtures without a world catalog have no game
+        # consumer identity. Known regional families and generation still bind.
+        if not owners and not catalog_path.is_file() and "scripts/generation/" not in relevant:
+            continue
+        target = root / relative
+        if any(p.is_symlink() for p in [target, *target.parents] if p == root or p.is_relative_to(root)):
+            raise ContextError("Regional production write path/ancestor cannot be a symlink")
+        if owners:
+            regions.update(owners)
+        else:
+            unresolved.append(name)  # Shared leases never guess one region.
+    return {"region_ids": sorted(regions), "unresolved_production_paths": unresolved}
+
+
 def build_region_context(region_id, root=ROOT):
     """Consumer API for route/mission prepare; region ID or exact catalog name."""
     root = Path(root)
@@ -239,10 +290,28 @@ def build_region_context(region_id, root=ROOT):
         source = Source(root, path)
         resources.append({"status": "source_present_not_actor_snapshot", "source": source.ref()})
         sources.append(source.ref())
+    consumer_sources = [app.ref(), profile.ref()]
     formal_observed = (region_id == "windchime_plains" and "func start_plains(" in app.text
                        and 'profile_id == &"formal_plains_region"' in profile.text)
+    if region_id == "thorn_forest":
+        chain = [Source(root, path) for path in (
+            "scripts/generation/thorn_forest_region_generator.gd",
+            "scripts/demo/thorn_forest_region_stage.gd",
+            "scripts/generation/thorn_forest_region_assembler.gd")]
+        consumer_sources.extend(source.ref() for source in chain)
+        sources.extend(source.ref() for source in chain)
+        formal_observed = ("func _select_next_region(" in app.text and "func start_debug_region(" in app.text and "ThornForestRegionGenerator.new().generate(" in app.text
+                           and "ThornForestRegionStage.new()" in app.text
+                           and "ThornForestRegionAssembler" in chain[1].text)
+    from region_creative_direction import bind_region_bible, MissingBible
+    try:
+        _, bible_binding = bind_region_bible(region_id, root)
+        for name in (bible_binding["registry_path"], bible_binding["path"], bible_binding["selection_evidence_path"]):
+            sources.append(Source(root, name).ref())
+    except MissingBible:
+        bible_binding = None
     return {"schema_version": 1, "kind": "extracted_design_input_not_runtime_configuration",
-        "region_id": region_id, "name": row["name"],
+        "region_id": region_id, "name": row["name"], "region_bible": bible_binding,
         "authority_precedence": ["latest_user_instruction", ENTRY, "latest_revised_contracts", REGIONS, WEAPONS, WORLD],
         "design": {
             "stage": {"value": row["stage"], "status": "LOCKED_STAGE_PRINCIPLE", "source": row["source"]},
@@ -272,7 +341,7 @@ def build_region_context(region_id, root=ROOT):
         "implementation": {"formal_region": "consumer_present_in_source" if formal_observed else "no_formal_consumer_observed",
             "runtime_available": None, "runtime_available_reason": "static_extraction_does_not_run_or_grant_anything",
             "catalog_runtime_available": item.get("runtime_available"), "catalog_flag_is_authoritative": False,
-            "formal_consumer_sources": [app.ref(), profile.ref()], "current_state_source": current.ref(),
+            "formal_consumer_sources": consumer_sources, "current_state_source": current.ref(),
             "abilities": ability_observations, "resource_and_state_sources": resources,
             "validation_status": "unverified", "equipment_capacity": "one_current_weapon_inventory_capacity_not_inferred"},
         "sources": sorted({(ref["path"], ref["sha256"]): ref for ref in sources}.values(), key=lambda ref: ref["path"]),

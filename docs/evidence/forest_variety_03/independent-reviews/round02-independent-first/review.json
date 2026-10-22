@@ -1,0 +1,195 @@
+{
+  "reviewer": "/root/forest_repeat_diagnosis",
+  "reviewed_root": "/tmp/gunman-forest-variety-03/round02",
+  "source_closure": {
+    "baseline_commit": "ee0b646e779b4680319e9a377518b27c10bfbe87",
+    "all_3649_paths_independently_reconstructed_equal": true,
+    "changed_zip_paths": 19,
+    "baseline_blob_paths": 3630,
+    "before_after_equal": true,
+    "zip_sha256": "a58d5559f7781f7d227ad93abbca197cbda3052091d74f857ad8bfcc9142fdcb",
+    "inventory_sha256": "08f3faf92a4d830fb65c756522e590c624c704f9fcb4e78732886962b2decdcc"
+  },
+  "caps": {
+    "import": 90,
+    "native": 240
+  },
+  "cases": [
+    {
+      "file": "descending_borer_elbow-intended.json",
+      "sha256": "30a8e6e5ce459998611de87412495a4435dcfba978c300b4c0fa0815bb3cfb92",
+      "frames": 1100,
+      "native_passed": false,
+      "reached": false,
+      "failure": "bounded_route_timeout/catch",
+      "motor_tick_anomalies": [],
+      "final12_full_crown": false,
+      "raw_danger_contacts": [
+        {
+          "body": [
+            6.6371955871582,
+            -92.178581237793,
+            24,
+            36
+          ],
+          "danger": [
+            25.0,
+            -112.0,
+            390.0,
+            20.0
+          ],
+          "position": [
+            18.6371955871582,
+            -74.178581237793
+          ],
+          "tick": 25
+        }
+      ],
+      "independent_continuous_body_danger_segments": [
+        {
+          "tick_from": 24,
+          "tick_to": 25,
+          "danger_index": 0
+        },
+        {
+          "tick_from": 25,
+          "tick_to": 26,
+          "danger_index": 0
+        }
+      ],
+      "total_swept_segments": 2,
+      "actual_contact_targets": [
+        "cavity_ring_a"
+      ],
+      "actual_shots": [
+        {
+          "direction": [
+            -1.0,
+            0.0
+          ],
+          "kind": "shot_fired",
+          "serial": 1,
+          "tick": 49
+        }
+      ],
+      "min_shots": 1,
+      "min_health": 5.0,
+      "min_energy": 80.0,
+      "formal_damage_policy": false,
+      "midroute_injection": false,
+      "recovered": false
+    },
+    {
+      "file": "forked_bough_hh-jump_single_H.json",
+      "sha256": "92f53caf4253a5e722aa9cb7831decbe1d36d7b2912961d066309230488baecd",
+      "frames": 93,
+      "native_passed": true,
+      "reached": true,
+      "failure": "",
+      "motor_tick_anomalies": [],
+      "final12_full_crown": true,
+      "raw_danger_contacts": [],
+      "independent_continuous_body_danger_segments": [],
+      "total_swept_segments": 0,
+      "actual_contact_targets": [
+        "relay_b"
+      ],
+      "actual_shots": [],
+      "min_shots": 2,
+      "min_health": 5.0,
+      "min_energy": 100.0,
+      "formal_damage_policy": false,
+      "midroute_injection": false,
+      "recovered": false
+    },
+    {
+      "file": "rooted_double_window-intended.json",
+      "sha256": "d0b45036dab082b03a5152aa99423e65fd5486bb1527a5831f9fb6d5f98468ed",
+      "frames": 81,
+      "native_passed": true,
+      "reached": true,
+      "failure": "",
+      "motor_tick_anomalies": [],
+      "final12_full_crown": true,
+      "raw_danger_contacts": [],
+      "independent_continuous_body_danger_segments": [],
+      "total_swept_segments": 0,
+      "actual_contact_targets": [
+        "upper_window_ring"
+      ],
+      "actual_shots": [
+        {
+          "direction": [
+            -1.0,
+            0.0
+          ],
+          "kind": "shot_fired",
+          "serial": 1,
+          "tick": 48
+        }
+      ],
+      "min_shots": 1,
+      "min_health": 5.0,
+      "min_energy": 80.0,
+      "formal_damage_policy": false,
+      "midroute_injection": false,
+      "recovered": false
+    },
+    {
+      "file": "side_root_rh-jump_single_H.json",
+      "sha256": "2ce279a93270b3126f20c393f540741855511a3375bbe43849c7d98540725028",
+      "frames": 88,
+      "native_passed": true,
+      "reached": true,
+      "failure": "",
+      "motor_tick_anomalies": [],
+      "final12_full_crown": true,
+      "raw_danger_contacts": [],
+      "independent_continuous_body_danger_segments": [],
+      "total_swept_segments": 0,
+      "actual_contact_targets": [
+        "relay_a"
+      ],
+      "actual_shots": [],
+      "min_shots": 2,
+      "min_health": 5.0,
+      "min_energy": 100.0,
+      "formal_damage_policy": false,
+      "midroute_injection": false,
+      "recovered": false
+    },
+    {
+      "file": "side_root_rh-onlyR.json",
+      "sha256": "de65f4ec0065e7508fa8ee69852a65d4be844e6f27e465656117859c60f6c703",
+      "frames": 61,
+      "native_passed": true,
+      "reached": true,
+      "failure": "",
+      "motor_tick_anomalies": [],
+      "final12_full_crown": true,
+      "raw_danger_contacts": [],
+      "independent_continuous_body_danger_segments": [],
+      "total_swept_segments": 0,
+      "actual_contact_targets": [],
+      "actual_shots": [
+        {
+          "direction": [
+            -1.0,
+            0.0
+          ],
+          "kind": "shot_fired",
+          "serial": 1,
+          "tick": 34
+        }
+      ],
+      "min_shots": 1,
+      "min_health": 5.0,
+      "min_energy": 80.0,
+      "formal_damage_policy": false,
+      "midroute_injection": false,
+      "recovered": false
+    }
+  ],
+  "verdict": "ACCEPT_SCOPED four isolated alternative/upper-window arrivals; REJECT descending intended; UNVERIFIED whole world, returns, art, FUN, device",
+  "design_decision": "First2 HH/RH are ordinary same-family connectors; do not expand as 4of6 mandatory challenges or count accepted combo letters as novel mechanisms"
+}

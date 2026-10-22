@@ -1,0 +1,331 @@
+{
+  "schema_version": 1,
+  "task_id": "FOREST-EXPLORATION-02",
+  "task_type": "region",
+  "workflow": "in_progress",
+  "baseline_commit": "78b6441b81e30983367acc2b7825e1c9fa2f6350",
+  "reviewed_commit": "78b6441b81e30983367acc2b7825e1c9fa2f6350",
+  "content_version": "forest-branching-expedition-v16",
+  "owner": "/root",
+  "purpose": "Address real player feedback: distinct larger forest maps, multi-difficulty branching routes and risk/reward, gentle first-map learning, visible grapple and fixed-anchor jump release",
+  "player_experience": "Choose safe progression or harder richer reward loops, recognize map1 root maze versus map2 fractured canopy, see the actual hook/rope, jump from a fixed hanging anchor with existing second-jump ascent",
+  "constraints": [
+    "Retain full user Bible SHA a7bad8323af64a7be0577132e5d988a6e1b781d9e1ac1639d37f9d65935194e3 and shared Underworld visual family",
+    "Keep recorded v15 and earlier generation exact and replayable; new geometry has explicit v16 identity",
+    "Do not change global gravity/PlayerMotor, S2 H-only grants, weapon or resource limits; latest user explicitly permits fixed-anchor jump release ascent",
+    "Do not count topology/hash/module labels as physical traversal or player acceptance",
+    "Prefer fast Web build/deploy with relevant checks, not full suite for every preview"
+  ],
+  "affected_paths": [
+    "resources/foundry/batch.json",
+    "resources/foundry/export_basis.json",
+    "resources/foundry/replays/climb_change_height-air_chain-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v0-p1.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p0.json",
+    "resources/foundry/replays/climb_change_height-base-v1-p1.json",
+    "resources/foundry/replays/climb_change_height-double_jump-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-air_chain-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v0-p1.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p0.json",
+    "resources/foundry/replays/height_then_precision-base-v1-p1.json",
+    "resources/foundry/replays/height_then_precision-double_jump-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-air_chain-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v0-p1.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p0.json",
+    "resources/foundry/replays/precision_to_transfer-base-v1-p1.json",
+    "resources/foundry/replays/precision_to_transfer-double_jump-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-air_chain-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v0-p1.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p0.json",
+    "resources/foundry/replays/read_ride_release-base-v1-p1.json",
+    "resources/foundry/replays/read_ride_release-double_jump-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-air_chain-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v0-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p0.json",
+    "resources/foundry/replays/resource_then_rhythm-base-v1-p1.json",
+    "resources/foundry/replays/resource_then_rhythm-double_jump-v0-p0.json",
+    "resources/foundry/replays/route-0e61faed40.json",
+    "resources/foundry/replays/route-0efaee5828.json",
+    "resources/foundry/replays/route-122d7f6e2a.json",
+    "resources/foundry/replays/route-1521b6b7c3.json",
+    "resources/foundry/replays/route-2860deda61.json",
+    "resources/foundry/replays/route-2d706b6f11.json",
+    "resources/foundry/replays/route-2d7d2e4612.json",
+    "resources/foundry/replays/route-2f6354523f.json",
+    "resources/foundry/replays/route-3aa2ad4cba.json",
+    "resources/foundry/replays/route-4bec60578b.json",
+    "resources/foundry/replays/route-5798c84cea.json",
+    "resources/foundry/replays/route-7da5a6c16f.json",
+    "resources/foundry/replays/route-908c475df3.json",
+    "resources/foundry/replays/route-93acd6603f.json",
+    "resources/foundry/replays/route-ad7b9db895.json",
+    "resources/foundry/replays/route-b4df2effd8.json",
+    "resources/foundry/replays/route-cf73f3c620.json",
+    "resources/foundry/replays/route-f91361b454.json",
+    "resources/foundry/replays/short_long_rise-air_chain-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v0-p1.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p0.json",
+    "resources/foundry/replays/short_long_rise-base-v1-p1.json",
+    "resources/foundry/replays/short_long_rise-double_jump-v0-p0.json",
+    "scripts/art/player_feedback.gd",
+    "scripts/demo/demo_app.gd",
+    "scripts/enemies/forest_feedback_enemy_presentation.gd",
+    "scripts/generation/forest_exploration_ecology.gd",
+    "scripts/generation/forest_exploration_ecology.gd.uid",
+    "scripts/generation/forest_exploration_modules.gd",
+    "scripts/generation/forest_exploration_modules.gd.uid",
+    "scripts/generation/forest_exploration_world.gd",
+    "scripts/generation/forest_exploration_world.gd.uid",
+    "scripts/generation/forest_thorn_corridor_modules.gd",
+    "scripts/generation/forest_thorn_corridor_modules.gd.uid",
+    "scripts/generation/thorn_forest_region_assembler.gd",
+    "scripts/generation/thorn_forest_region_generator.gd",
+    "scripts/generation/thorn_forest_region_v2_v16.gd",
+    "scripts/generation/thorn_forest_region_v2_v16.gd.uid",
+    "scripts/player/jump_ability.gd",
+    "scripts/player/traversal_ability.gd",
+    "scripts/presentation/forest_bible_ambience.gd",
+    "scripts/presentation/forest_bible_near_scenery.gd",
+    "scripts/presentation/forest_bible_presentation.gd",
+    "scripts/presentation/forest_bible_thorns.gd",
+    "scripts/ui/demo_menu.gd",
+    "scripts/underworld_plains/underworld_player.gd",
+    "scripts/world/forest_target_hosts.gd"
+  ],
+  "deliverables": [
+    "Seventeen concrete candidate module geometries with low-ceiling prototype discarded and legacy easy tunnel retired from new world pool",
+    "Two distinct extended branching worlds with actual returning reward routes",
+    "Real shared-pixel grapple rendering and fixed-anchor jump release",
+    "Relevant native and public Web checks plus independent review; explicit remaining art/device/player scope"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Latest real player feedback and unchanged full Bible specify the new map/route/module/rope/fixed-jump scope; independent G0 concept review accepted only continued implementation",
+      "evidence": [
+        "feedback-revision-design"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "failed",
+      "reason": "Actual user playtest rejected the new v16 direction; continue under FOREST-VARIETY-03 preserving old design",
+      "evidence": [
+        "actual-user-v16-rejection"
+      ]
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Latest real player feedback and unchanged full Bible specify the new map/route/module/rope/fixed-jump scope; independent G0 concept review accepted only continued implementation",
+      "evidence": [
+        "feedback-revision-design"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "failed",
+      "reason": "User explicitly rejected v16; technical route passes do not override playtest rejection",
+      "evidence": [
+        "actual-user-v16-rejection"
+      ]
+    }
+  },
+  "criteria": [],
+  "evidence": [
+    {
+      "id": "user-playtest-feedback",
+      "path": "docs/design/forest_playtest_feedback_v16.json",
+      "sha256": "b676dd9f39b204aa0d2463efd4f849fe302610db9f12c34a157566987f3c20a5",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "bbf5b24dc6a27374119f67f11fc2eed92a57ba00",
+      "content_version": "forest-branching-expedition-v16",
+      "method": "Verbatim latest user message bound to actually published build",
+      "observed": "Old forest experience rejected; new candidate authorized, not accepted",
+      "source": "Direct user playtest feedback in current root conversation on 2026-10-21; quoted verbatim, not API export",
+      "quote": "我试玩了一下，森林2个地图关卡几乎一致，没有什么变化，关卡模块还是太少了。整个地图也太小了，也没有什么分支岔路，应该做成很多条路，有简单有难，难的奖励更丰富，很快就到boss。关卡模块需要多难度都增加库。\n关卡模块难度曲线不对，第一个关卡连续上升偏难。\n人物发钩索时看不见钩索。\n还有，从固定钩锁按跳时，给一个二段跳的高度",
+      "covers": [
+        "design"
+      ]
+    },
+    {
+      "id": "feedback-revision-design",
+      "path": "docs/design/forest_exploration_v16.md",
+      "sha256": "29420e22ce9d97fe697b5889f5218933b021ca1146924f461fef85e1c2ddbf01",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "78b6441b81e30983367acc2b7825e1c9fa2f6350",
+      "content_version": "forest-branching-expedition-v16",
+      "method": "Concrete G0 design from actual old route/code audit and user Bible; candidate scope and failure examples explicit",
+      "observed": "Distinct graph/geometry/module/reward/ability requirements specified; actual new implementation acceptance pending"
+    },
+    {
+      "id": "module-variety-priority",
+      "path": "docs/design/forest_module_variety_feedback.json",
+      "sha256": "e5eb6ba0650428fe77bf479f325e100227f91044b5baaa48bc02818e7b3f4af1",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "bbf5b24dc6a27374119f67f11fc2eed92a57ba00",
+      "content_version": "forest-branching-expedition-v16",
+      "method": "Verbatim latest steering in active conversation",
+      "observed": "User prioritizes more meaningful and varied modules; no acceptance of new implementation",
+      "source": "Direct user message in active root conversation, 2026-10-21; transcribed, not API export",
+      "quote": "花更多时间和关注度在更多不同的关卡模块上，增加趣味性",
+      "covers": [
+        "design"
+      ]
+    },
+    {
+      "id": "native15-focused",
+      "path": "docs/evidence/region_bible_v2/style_continuity_20261021/forest-exploration-v16/native15/receipt.json",
+      "sha256": "746f8195576fadfc97fb4df1abf74c73930f554462f4c84484ee653343e1a716",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "78b6441b81e30983367acc2b7825e1c9fa2f6350",
+      "content_version": "forest-branching-expedition-v16",
+      "method": "Actual frozen worktree: complete before/after inventory, exact baseline plus112 changed source byte ZIP, real App Router/Motor strict readers; no source rebind to later commit",
+      "observed": "Nine focused formal routes passed31952frames/780legs; mainminimumHP4/1, reward trialsHP5. All6focused checks,8world ecology configs,20actual manifests,23staged GPU images passed. Original80/fullCI/closed-state hostile strategies/whole art/device/FUN not certified.",
+      "command": "python3 /tmp/gunman-feedback-native-fifteen.py (exact source and native argv archived)",
+      "exit_code": 0,
+      "environment": "Godot4.7.2, Linux softwareGPU, fixed60, original90/240/600caps and2nativeworkers",
+      "covers": [
+        "technical",
+        "gameplay"
+      ]
+    },
+    {
+      "id": "native15-independent",
+      "path": "docs/evidence/region_bible_v2/style_continuity_20261021/forest-exploration-v16/native15/independent/review.json",
+      "sha256": "14461bd00825bf725086696757c3479df1286aef38c7cc3da2945f5bc7dfbe30",
+      "kind": "review",
+      "producer": "/root/forest_route_design_review",
+      "source_commit": "78b6441b81e30983367acc2b7825e1c9fa2f6350",
+      "content_version": "forest-branching-expedition-v16",
+      "method": "Independent archived-source/actual raw JSON replay and original staged GPU review; no production writes or engine by reviewer Evidence ACCEPT is restricted to enumerated actual traversal/reward loops; unchanged original review separately retains ART_REWORK and unverified hostile/device/FUN scopes.",
+      "observed": "ACCEPT_SCOPED9formal routes/real claims/threepod causal strategies/claimedshortreturn andlongrecovery. ART_REWORK; hostileclosedgate/save/actualnotechoice/FUN/device unverified.",
+      "covers": [
+        "independent_review"
+      ],
+      "reviewer": "/root/forest_route_design_review",
+      "implementers": [
+        "/root",
+        "/root/forest_v16_world_impl",
+        "/root/forest_difficulty_module_library",
+        "/root/forest_thorn_bend_modules",
+        "/root/fixed_hook_jump_height",
+        "/root/grapple_visible_fix"
+      ],
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "actual-user-v16-rejection",
+      "path": "docs/design/forest_variety_feedback_20261022.json",
+      "sha256": "359ea59c5efffd14e95f32fd829cbbd640a74111f61428e7b8ecbada51a6f698",
+      "kind": "user_feedback",
+      "producer": "user",
+      "source_commit": "ee0b646e779b4680319e9a377518b27c10bfbe87",
+      "content_version": "forest-branching-expedition-v16",
+      "method": "Latest direct user playtest and clarification, recorded after the earlier technical receipts",
+      "observed": "User rejected v16 stacked platforms and dull progression; old v15 design should be preserved with expansion/difficulty/real randomness/module variety changes",
+      "source": "Direct user messages in active conversation on 2026-10-22",
+      "quote": "旧版森林只是不够大，难度曲线不对，关卡设计是挺好的。而且没有随机变化。新版则是完全不行",
+      "covers": [
+        "player_acceptance"
+      ]
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "New v16 nine selected formal routes all passed fresh at native15; original80, full CI, hard-route corpus and hostile closed-gate/save scenarios remain unverified. Default/old saves stayv15; explicit preview UI consumesv16.",
+    "Fixed-anchor jump43/0, original variable jump28/0, complete six-case grapple suite and isolated GPU20/0 passed with scoped independent review; not a complete forest gameplay claim",
+    "Whole forest macro art, physical devices and new player/fun approval remain unverified",
+    "Native23 static originalscreens retain shared family and fixed podtether attachment; regular floating recovery stairs/long rectangular roots remain art REWORK. New modules are finite candidates, not user FUN acceptance."
+  ],
+  "region_bible": {
+    "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+    "sha256": "a7bad8323af64a7be0577132e5d988a6e1b781d9e1ac1639d37f9d65935194e3",
+    "bible_id": "thorn_forest_v2",
+    "version": "2.0",
+    "status": "user_selected_direction_only",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261021-v3.json",
+    "supplemental_authority_sha256": "95549bd9844de117b011edf4fd98a0ef8945ad7cbc33c113f3b4762faad7626f",
+    "region_id": "thorn_forest",
+    "registry_path": "docs/creative_direction/bibles/registry.json",
+    "registry_sha256": "6ebc830f8f90f5409790b931bf8e1725c022d4113ecf1e82fd10f84da5039010",
+    "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
+    "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
+  }
+}

@@ -7,7 +7,7 @@ const GOLDEN_GROUPS: Array[String] = ["fallen_fork","spiral_crown","gate_pull","
 
 static func build(m: Dictionary) -> Dictionary:
 	var audit := {"presentation_revision":PRESENTATION_REVISION,"layout":str(m.get("layout_version","")),"manifest_hash":str(m.get("manifest_hash","")),"annotation_scope":"serialized_v14_pending_is_preserved_historical_design_annotation","acceptance_scope":"runtime_candidate_host_resolution_is_not_visual_acceptance","mounts":[],"host_boughs":[],"unresolved":[]}
-	if m.get("layout_version")!=LAYOUT:return audit
+	if m.get("layout_version") not in [LAYOUT,"forest-bible-world-v15","forest-branching-expedition-v16","forest-varied-bible-v17","forest-exploration-places-v18"]:return audit
 	var anchors: Dictionary = {}
 	var supports: Dictionary = {}
 	for row: Dictionary in m.get("hook_anchors",[]):

@@ -1,0 +1,250 @@
+{
+  "schema_version": 1,
+  "task_id": "FOREST-CI-COMPAT-01",
+  "task_type": "small_fix",
+  "workflow": "in_progress",
+  "baseline_commit": "124815766d1c9fb93224bca05fa2c9f7fe265ac5",
+  "reviewed_commit": "124815766d1c9fb93224bca05fa2c9f7fe265ac5",
+  "content_version": "ci-runtime-font-compat-v1",
+  "owner": "/root",
+  "purpose": "Repair the actual retained font coverage and concrete-stage presentation dependency failures without weakening original tests or budgets",
+  "player_experience": "Preserve shared pixel presentation, valid tether hosts and compatible Chinese glyphs; whole region art remains unfinished",
+  "constraints": [
+    "Original subset source SHA/OFL/tool and all463 old metrics/outlines retained; actual full input adds36 codepoints",
+    "No tests/check dictionaries/profiles/timeouts/physics/abilities/resources/RNG/save changes",
+    "OriginalCI124 failures and prior-source browser proof remain source-specific; no whole release approval"
+  ],
+  "affected_paths": [
+    "assets/fonts/windkeeper_ui.ttf",
+    "assets/fonts/README.md",
+    "docs/quality/asset_records/forest-reward-ui-font.json",
+    "scripts/presentation/forest_bible_actor_presentation.gd",
+    "scripts/demo/demo_app.gd",
+    ".agents/skills/art-director/SKILL.md",
+    "docs/harness.md",
+    "docs/current_state.md",
+    "docs/handoff.md",
+    "docs/tasks.md"
+  ],
+  "deliverables": [
+    "Same-source font499 with original463 metrics/outlines retained",
+    "Shared presentation installer receives typed existing manifest/enemies/rows from the already guarded App consumer",
+    "Original537/0 and full terrain508/0 positive plus55/1 intended negative with full source/Git stability",
+    "Source-specific original CI/browser/native evidence and independent scoped reviews"
+  ],
+  "creative_decisions": [
+    {
+      "status": "not_required",
+      "decision": "Preserve existing shared style and runtime semantics",
+      "basis": "Actual124CI errors concern compatibility glyph closure and a loading-order dependency cycle"
+    }
+  ],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Original actual font and terrain failures distinguished from unrelated route budgets and current Underworld font",
+      "evidence": [
+        "compat-scope"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Scoped original native and independent reviews are recorded separately; new exact-source official CI and browser remain pending",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Keep same font mother/source/style and explicit upper-layer ownership",
+      "evidence": [
+        "compat-scope"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Original537/0 within90s and complete unchanged terrain positive508/0 and intended negative55/1 passed with fullsource/Git stable; bounded scope only",
+      "evidence": [
+        "compat-native"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Two different authors explicitly accept only the font and dependency-cut/native scopes; whole region art remains unverified",
+      "evidence": [
+        "font-compat-independent",
+        "stage-dependency-independent"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "same-source-minimum-fix",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "reason": "Original contracts and exact consumer ownership retained",
+      "scenario": "Compatibility glyph closure and a script-first enemy loading entry",
+      "method": "Same motherfont/tool plus explicit typed installer inputs from the sole guarded caller",
+      "expected": "No old glyph loss or concrete derived-stage backedge in shared enemy presentation",
+      "failure": "Change old metrics/style/physics or warm cache to conceal parser errors",
+      "evidence": [
+        "compat-scope"
+      ]
+    },
+    {
+      "id": "original-failing-consumers",
+      "gate": "G4",
+      "dimension": "technical",
+      "status": "passed",
+      "reason": "Actual unmodified original consumers completed with expected exits",
+      "scenario": "Original font537 and terrain all-maps positive/intentional negative",
+      "method": "Original native90 and terrain720/240 caps; complete source/Git byte guard",
+      "expected": "537/0,508/0 exit0 and55/1 exit1; no engine errors/leaks",
+      "failure": "Missing marker, parse error, timeout, weakened negative or source drift",
+      "evidence": [
+        "compat-native"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "compat-scope",
+      "path": "docs/evidence/region_bible_v2/style_continuity_20261021/ci-runtime-font-repair/README.md",
+      "sha256": "cbbac1439180edc9f0fae485fa73dcf4326ebda594ce8608cad6597e3b70d936",
+      "kind": "spec",
+      "producer": "/root/forest_root_composition_proposal",
+      "source_commit": "124815766d1c9fb93224bca05fa2c9f7fe265ac5",
+      "content_version": "ci-runtime-font-compat-v1",
+      "method": "Full original failures and exact source-specific acceptance boundaries",
+      "observed": "Original124CI failed; revised5file WIP native scope only; current UnderworldUI already had the8 triggered glyphs"
+    },
+    {
+      "id": "compat-native",
+      "path": "docs/evidence/region_bible_v2/style_continuity_20261021/ci-runtime-font-repair/runtime-native-receipt.json",
+      "sha256": "342a8f6459a7e2e622dde7a4ee831f5c463dfd5796423a46f3eadc81410d75e1",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "124815766d1c9fb93224bca05fa2c9f7fe265ac5",
+      "content_version": "ci-runtime-font-compat-v1",
+      "command": "Original tests/plains_experience_energy_runner.gd via run_engine90 followed by unchanged registry terrain-family-tests --all-maps",
+      "exit_code": 0,
+      "environment": "Linux/Python3.12; repository Godot4.7.2.stable.official.ed1daf0bf; exact124+fivefile WIP frozen before/after source and Git inventories",
+      "method": "Actual original native consumers with original caps",
+      "observed": "537/0 11.197s, terrain508/0 positive and55/1 intendednegative, complete50.509s; fullsource/Git stable"
+    },
+    {
+      "id": "font-compat-independent",
+      "path": "docs/evidence/region_bible_v2/style_continuity_20261021/ci-runtime-font-repair/font-independent-review.json",
+      "sha256": "46b7b155e7efb255397ae0b458bdaa2fc403b4223c4d446f07187e6b54f51de2",
+      "kind": "review",
+      "producer": "/root/bible_test_workflow_independent_review",
+      "reviewer": "/root/bible_test_workflow_independent_review",
+      "implementers": [
+        "/root",
+        "/root/ci_v15_admission_continue"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer did not author the reviewed production change; own static reconstruction and original source/receipt verification",
+      "verdict": "ACCEPT",
+      "accepted": true,
+      "source_commit": "124815766d1c9fb93224bca05fa2c9f7fe265ac5",
+      "content_version": "ci-runtime-font-compat-v1",
+      "method": "677 independent static checks, exact mother/tool/license/85 inputs, old463 metrics/outlines and candidate/production binding",
+      "observed": "ACCEPT_SCOPED_STATIC;463 retained unchanged,+36 exact499,8 triggered glyphs; not native/visual approval",
+      "covers": [
+        "compatibility_font_subset_only"
+      ]
+    },
+    {
+      "id": "stage-dependency-independent",
+      "path": "docs/evidence/region_bible_v2/style_continuity_20261021/ci-runtime-font-repair/runtime-independent-review.json",
+      "sha256": "7d8a0939a5b31c21a20b3c84738cc53913f055587185f6fbc4e356d229e2fe08",
+      "kind": "review",
+      "producer": "/root/forest_visual_independent_continue",
+      "reviewer": "/root/forest_visual_independent_continue",
+      "implementers": [
+        "/root",
+        "/root/ci_v15_admission_continue"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer did not author the reviewed production change; own static reconstruction and original source/receipt verification",
+      "verdict": "ACCEPT",
+      "accepted": true,
+      "source_commit": "124815766d1c9fb93224bca05fa2c9f7fe265ac5",
+      "content_version": "ci-runtime-font-compat-v1",
+      "method": "Exact two-file inverse to124, complete root/native source/Git maps and original complete positive/negative stdout/capture recheck",
+      "observed": "ACCEPT_SCOPED_CONCRETE_STAGE_DEPENDENCY_CUT_AND_ORIGINAL_NATIVE_RECHECK;508/0 and55/1, font537/0; no fullCI/art/device claim",
+      "covers": [
+        "concrete_stage_dependency_cut_only"
+      ]
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "New exact-head complete official CI, actual new artifact three browsers and eight-case region GUI pending",
+    "Whole Forest macro art/Plains/normal continuous perception/player/FUN/physical devices outside this repair"
+  ],
+  "production_snapshot": "1004b2ea314e6fcb4f70bda4b52b841bb6da478373feb1d40e71f43cd7d731ad"
+}

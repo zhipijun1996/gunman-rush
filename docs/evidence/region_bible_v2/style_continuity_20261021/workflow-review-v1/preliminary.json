@@ -1,0 +1,58 @@
+{
+  "scope": "read-only source interpretation and counterexample plan; not production implementation or visual acceptance",
+  "latest_user_correction": [
+    "森林的tile set得和风铃平原的整体风格一致，只是体现不同的区域特色。你这个都直接扔掉了",
+    "同时后续区域不要出类似的问题"
+  ],
+  "original_bibles_consistent": true,
+  "textual_evidence": [
+    {
+      "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+      "section": "2.1",
+      "quote": "画面保持精简、可组合的像素地形语言，但森林以**扭曲的有机轮廓**而非平原的水平草甸构图为主",
+      "meaning": "same pixel terrain language, different regional geometry/composition; no authorization to replace global art style"
+    },
+    {
+      "path": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+      "section": "2.1",
+      "quote": "简洁像素形体、清晰材质轮廓、克制纹理、柔和体积光、低密度自然装饰、舒展的场景纵深。",
+      "meaning": "compatible concise pixel/contour/material vocabulary"
+    }
+  ],
+  "actual_formal_terrain": {
+    "mode": "blob47_core_with_exact_boundary_adapter",
+    "tile_px": 16,
+    "world_tile_wu": 32,
+    "tileset": "res://assets/underworld_plains/terrain/terrain.tres",
+    "source_texture": "res://assets/underworld_plains/terrain/source.png",
+    "atlas": "res://assets/underworld_plains/terrain/terrain.png"
+  },
+  "minimum_constraints": [
+    "Inherit the active formal Plains tile/style family and actual UnderworldPlayer as the project baseline; distinguish rejected historical proposals from currently used shared production assets",
+    "Keep the current 16px/32wu ratio, pixel clusters, edge/light language and nearest filtering coherent; preserve 47 core and exact non-grid edge adapter without changing proven collision",
+    "Allow Forest bark/moss/thorns/root/cavity materials, topology, ecology and colors as region-specific extensions; same style does not mean identical palettes or grass textures",
+    "Every region create/optimize and document-only missing-Bible proposal receives the same version/SHA-bound supplemental user instruction and actual baseline references; same upstream drift/resume rules apply",
+    "Use the existing G2 whole-game normal-scale cross-region comparison and independent review; metadata/SHA/47 masks do not certify consistent pixels or user aesthetic approval"
+  ],
+  "planned_counterexamples": [
+    "omit or partially forge style supplement in handwritten region mission",
+    "keep supplement hash but change actual baseline PNG/atlas/TileSet/shader bytes",
+    "change supplement or baseline reference before call, during worker or before resume; preserve failure/counters/checkpoint",
+    "remove shared reference from a missing-Bible proposed task or any later region input",
+    "correct baseline metadata but visible high-resolution overpaint hides it: must fail actual consumer/pixel review, not pass from hashes alone",
+    "organic Forest root silhouettes at the existing pixel scale with legitimate regional materials: positive case, must not be rejected solely because shapes/colors differ",
+    "unrelated precise Player/global action/document changes: no new style/image gate",
+    "two original Bibles normalized/rewritten to insert correction: reject; use additive supplemental authority instead"
+  ],
+  "prior_audit_invalidation": "The earlier Plains gap report repeated the now-corrected rule excluding active Underworld from creative input; that specific inference is superseded, while its static gameplay consumer inventory remains scoped. Original report is retained, not silently rewritten.",
+  "source_sha256": {
+    "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md": "02c9dd3299d12c91a426cf40b2a5885e526b51f467b955539b4b5ff99e1aca35",
+    "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md": "a7bad8323af64a7be0577132e5d988a6e1b781d9e1ac1639d37f9d65935194e3",
+    "assets/underworld_plains/terrain/terrain_build.json": "64f0c0fb88271e0e25684c8a4e4099af7135e5001c6604126485c9bb6c511c5d",
+    "scripts/underworld_plains/underworld_terrain.gd": "a330045721df6d82589bfdc0208ed9d1de2930f6c50c1c30ea93d86ce12d5427",
+    "scripts/underworld_plains/underworld_player.gd": "f4243c83fb51ce85e34a95e736676a971339708537755683214f9b47cbc1bfb6",
+    "scripts/art/plains_terrain_study.gd": "af14698e84358e031b91a51c4df6558ce1be07df2093b165a8e651d229d108d3"
+  },
+  "visual_acceptance": "unverified",
+  "engine_executed": false
+}

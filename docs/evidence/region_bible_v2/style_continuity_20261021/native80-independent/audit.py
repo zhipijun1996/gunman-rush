@@ -1,0 +1,50 @@
+import sys,json,hashlib,zipfile,zlib,re,time,copy
+from pathlib import Path
+from collections import Counter
+root=Path.cwd();sys.path.insert(0,str(root/'tools'));import run_forest_depth_region as region
+out=root/'build/region_bible_v2/native80-independent-second';src=root/'build/region_bible_v2/continuation-evidence-next/native80-phase';archive=src/'full-native80-captures.zip'
+sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest();expected_zip='a184fb642fb8738f00b177b26fdb42b197b2890858135a048a227d8a958b1802';assert sha(archive)==expected_zip
+r=json.loads((src/'producer-receipt.json').read_text());idx=json.loads((src/'restore-index.json').read_text());outer=json.loads((src/'outer-harness/report.json').read_text());unlink=json.loads((src/'unlink-report.json').read_text())
+routes=('fast','growth','high_return','change_mind');first=[(s,m,t) for s,m in [('forest-depth-hollow-00',1),('forest-depth-hollow-02',1),('forest-depth-hollow-00',2),('forest-depth-hollow-02',2)] for t in routes];rest=[(f'forest-depth-hollow-{n:02d}',m,t) for n in range(10) if n not in (0,2) for m in (1,2) for t in routes];cases=first+rest
+assert len(cases)==80 and len(set(cases))==80 and region.corpus_cases()==cases
+canonical=[{'seed':s,'map':m,'route':t} for s,m,t in cases];assert r['requested_cases']==canonical and [(x['seed'],x['map'],x['route']) for x in r['runs']]==cases
+assert r['finite_fixed_root_corpus'] is True and r['requested_root_seeds']==[f'forest-depth-hollow-{n:02d}' for n in range(10)] and not r['finite_representative_matrix']
+assert r['status']=='passed' and r['case_workers']==2 and r['completed_case_indices']==list(range(80)) and r['not_executed_case_indices']==[]
+assert r['source_stable'] is True and len(r['source_before'])==3600 and r['source_before']==r['source_after_import']==r['source_after'];current=region.inventory();assert current==r['source_after']
+assert current['tests/forest_bible_trace_support.gd']=='039c94affdfc07cfa96be5540340494601ac2cffb80acf9b115fbb1e72840e27'
+assert region.import_inventory_guard(r['source_before'],r['source_after_import'])==r['import_source_guard'] and r['import_source_guard']['passed']
+assert r['import']['exit_code']==0 and r['import']['timeout_seconds']==90 and r['import']['errors']==[] and sha(src/'import.log')==r['import']['log_sha256']
+assert idx['archive_sha256']==expected_zip and idx['original_receipt_sha256']==sha(src/'producer-receipt.json')
+assert outer['status']=='interrupted' and outer['checks']==[] and sha(src/'outer-harness/report.json')==sha(root/'build/verification/harness/20261021T061859.284733Z/report.json')
+assert unlink['raw_capture_json_unlinked']==80 and unlink['exact_archived_original_bytes']==930821844 and unlink['archive_sha256']==expected_zip
+entries={x['member']:x for x in idx['entries']};assert len(entries)==80
+rows=[];totalframes=0;totalraw=0;started=time.monotonic()
+with zipfile.ZipFile(archive) as z:
+ infos=z.infolist();assert len(infos)==80 and len({x.filename for x in infos})==80
+ assert z.namelist()==[f'{i:02d}-map{m}-{route}/capture.json' for i,(seed,m,route) in enumerate(cases)]
+ for i,(seed,m,route) in enumerate(cases):
+  run=r['runs'][i];member=infos[i].filename;entry=entries[member];blob=z.read(member);digest=hashlib.sha256(blob).hexdigest();assert digest==run['capture_sha256']==entry['sha256'];assert len(blob)==entry['bytes']==infos[i].file_size and f'{zlib.crc32(blob):08x}'==entry['crc32'];totalraw+=len(blob)
+  d=json.loads(blob);errors=region.validate(d);assert not errors,(i,errors)
+  assert type(d['schema_version']) is int and d['schema_version']==1 and d['engine']=='4.7.2-stable (official)' and d['scope']=='formal_DemoApp_forest_v2_continuous_route_not_boss_fight'
+  assert (d['seed'],d['map_index'],d['route'])==(seed,m,route) and type(d['map_index']) is int
+  assert d['manifest']['layout_version']=='forest-bible-world-v15' and d['manifest']['version']==d['actual_stage_version']=='thorn-forest-region-v2' and d['actual_stage_map']==m and d['manifest']['map_index']==m
+  assert d['manifest']['seed']==f'{seed}/thorn_forest/map_{m}' and d['bible_admission']['actual_validated'] is True and d['bible_admission']['reference_validated'] is True and d['bible_admission']['strategy']=='original_fixed_fps_Router_no_human_hold'
+  assert d['manual_motor_step'] is False and d['position_or_resource_injection'] is False and d['audio_released'] is True and d['boss_fight_covered'] is False and d['failures']==[]
+  assert d['tick_budget']==18000 and d['edge_tick_budget']==1800
+  argv=run['argv'];assert argv[:11]==['bash','tools/godot.sh','--headless','--fixed-fps','60','--path','.','--script','tests/forest_depth_region_runner.gd','--','--seed='+seed]
+  assert not any(x=='--layout' or x.startswith('--layout=') for x in argv) and '--map='+str(m) in argv and '--route='+route in argv and '--output='+str(root/entry['original_relative_path']) in argv
+  assert run['status']=='passed' and run['exit_code']==0 and run['errors']==[] and 0<run['seconds']<240
+  folder=Path(member).parent;log=src/'native-logs'/folder/'native.log';text=log.read_text();assert sha(log)==run['log_sha256'] and not region.ERRORS.search(text)
+  assert 'Godot Engine v4.7.2.stable.official.ed1daf0bf' in text
+  marker=f"FOREST DEPTH ROUTE: {seed} map{m} {route} / {len(d['completed_legs'])} legs / {len(d['frames'])} frames / 0 failures";assert marker in text
+  frames=d['frames'];damage=[e for e in d['events'] if e.get('kind')=='committed_damage' and e.get('target')=='player'];epochs={k:sorted({f[k] for f in frames}) for k in ('actor_epoch','stage_epoch')}
+  totalframes+=len(frames);healths=sorted({f['health'] for f in frames});assert [f['tick'] for f in frames]==list(range(1,len(frames)+1)) and all(f['motor_steps']==1 for f in frames)
+  rows.append({'index':i,'seed':seed,'map':m,'route':route,'zip_member':member,'capture_sha256':digest,'capture_bytes':len(blob),'zip_crc32':entry['crc32'],'original_validator_errors':errors,'native_exit_code':0,'native_seconds':run['seconds'],'native_marker_exact':True,'native_log_sha256':run['log_sha256'],'layout_argv_absent':True,'actual_layout':'forest-bible-world-v15','actual_schema':1,'frames':len(frames),'completed_legs':len(d['completed_legs']),'itinerary_legs':len(d['itinerary']),'health_values':healths,'player_damage_events':len(damage),**epochs})
+  if (i+1)%20==0:print(json.dumps({'independently_validated_actual_ZIP_cases':i+1,'seconds':round(time.monotonic()-started,2)}),flush=True)
+assert totalraw==930821844 and sha(archive)==expected_zip
+source_after_audit=region.inventory();changed_during_audit=[p for p in set(current)|set(source_after_audit) if current.get(p)!=source_after_audit.get(p)]
+metadata={}
+for p in [src/'producer-receipt.json',src/'restore-index.json',src/'archive-verification.json',src/'unlink-report.json',src/'outer-harness/report.json',src/'outer-harness/duplicate-relief.json']:
+ metadata[p.relative_to(root).as_posix()]={'sha256':sha(p),'bytes':p.stat().st_size}
+report={'verdict':'SCOPED_ACCEPT_inner_native80_ONLY','engine_executed_by_reviewer':False,'production_source_modified_by_reviewer':False,'raw_original_paths_required_or_recreated':False,'archive':{'path':archive.relative_to(root).as_posix(),'sha256':expected_zip,'bytes':archive.stat().st_size,'full_original_capture_bytes_verified':totalraw,'actual_unique_members_read_CRC_SHA_validated':80},'producer':{'status':'passed','source_head':r['source_head'],'source_inventory_count':3600,'source_before_after_import_after_exactly_equal':True,'source_matches_current_at_audit_start':True,'source_changes_during_audit':changed_during_audit,'patched_helper_sha256':current['tests/forest_bible_trace_support.gd'],'case_workers':2,'original_import_cap':90,'original_per_native_cap':240,'no_pending_cases':True},'canonical_corpus':{'roots':10,'maps':[1,2],'routes':list(routes),'unique_actual_cases':80,'original16_prefix_exact':True,'requested_run_ZIP_case_identity_and_order_exact':True,'explicit_layout_argument_absent_all80':True,'actual_generated_layout_all80':'forest-bible-world-v15','actual_schema_all80':1,'source_bound_unchanged_original_validator_errors_total':0},'aggregate':{'actual_physics_frames':totalframes,'actual_completed_legs':sum(x['completed_legs'] for x in rows),'health_values':sorted({h for x in rows for h in x['health_values']}),'player_damage_events':sum(x['player_damage_events'] for x in rows),'native_seconds_min':min(x['native_seconds'] for x in rows),'native_seconds_max':max(x['native_seconds'] for x in rows)},'outer_harness':{'path':'build/verification/harness/20261021T061859.284733Z/report.json','status':outer['status'],'checks':outer['checks'],'full_harness_PASS_claim':False,'cause_scope':'Parent and preserved duplicate-relief evidence attribute interruption to ENOSPC during duplicate artifact collection after inner native80 completed; not a native failure or600-second timeout.','device_acceptance':outer['device_acceptance'],'fun_acceptance':outer['fun_acceptance']},'storage_relief':{'original_native_capture_paths_may_be_unlinked':True,'audit_reads_canonical_verified_ZIP':True,'verified_unlink_count':unlink['raw_capture_json_unlinked'],'restoration_index_and_metadata_preserved':True,'partial_outer_duplicate_artifacts_not_used_as_native_case_proof':True,'files_modified_by_reviewer':[],'metadata_hashes':metadata},'cases':rows,'limitations':['Inner native80 only; outer harness remains interrupted/checks empty until a separate genuine repaired-collector harness run.','No new movie, visual/FUN, perceptual audio or physical device acceptance is established by this headless corpus.','F05/F08 actual movies retain their original048 inventory scope, separate from the later helper patch used in this corpus.']}
+(out/'review.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n');print(json.dumps({'verdict':report['verdict'],'cases':80,'frames':totalframes,'healths':report['aggregate']['health_values'],'player_damage_events':report['aggregate']['player_damage_events'],'validator_errors':0,'source_changes_during_audit':changed_during_audit,'seconds':round(time.monotonic()-started,2)},indent=2),flush=True)

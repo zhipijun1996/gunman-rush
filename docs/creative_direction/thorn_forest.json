@@ -1,122 +1,117 @@
 {
+  "schema_version": 1,
   "region_id": "thorn_forest",
-  "direction_id": "woven_trunk_chains",
-  "title": "荆棘森林：树洞与枝冠的连续换向",
-  "selection_rationale": "RETHINK：旧仅技术片/等待开合方向不再描述现行森林。依据最新用户授权选择纵向树洞、横向棘口、枝冠接收与青色停留环，围绕真实H/反冲连续换向；可玩v12仍有普通替代、尾路省句与Boss价值缺口，不以技术通过签设计成功。",
+  "version": "creative-v8",
+  "direction_id": "thorn_forest_v2",
+  "title": "荆棘森林｜用户区域圣经 V2",
+  "decision": "selected",
+  "acceptance": "user_confirmed",
+  "user_acceptance": "direction_only_not_art_gameplay_or_device",
+  "selection_basis": "user_supplied_bible",
+  "selection_rationale": "用户已提供并选择完整区域圣经；按原文制作，先完整森林含美术，再优化平原；不重新选方向。 最新两条用户纠正要求森林和所有后续区域沿用项目共用整体画风，继承当前正式平原tileset家族。",
+  "region_bible": {
+    "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+    "sha256": "a7bad8323af64a7be0577132e5d988a6e1b781d9e1ac1639d37f9d65935194e3",
+    "bible_id": "thorn_forest_v2",
+    "version": "2.0",
+    "status": "user_selected_direction_only",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261022-v4.json",
+    "supplemental_authority_sha256": "a6f817bb762a53d99e45185444f11889246866a8baa5d29e5efaee994e7f3ae9",
+    "region_id": "thorn_forest",
+    "registry_path": "docs/creative_direction/bibles/registry.json",
+    "registry_sha256": "6840ac76c8b45d9e14d92ed1542066ae9a8750870c70212f12db00d3e18b32de",
+    "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
+    "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
+  },
+  "candidates": [],
+  "user_evidence": {
+    "source": "docs/creative_direction/bibles/user-request.json",
+    "quote": "更新harness和skills流程，后续开发或者优化新区域，先有该区域的圣经，然后根据该文档去生成和优化。这是我给出的风铃平原和森林的区域圣经。\n可以使用subagent现在开始实现好这两个区域。先做好荆棘森林（包括美术），之后再优化风铃平原。音效，背景动画特效（比如风之类的）可以做，bgm后续我再引入。\n然后将过程中的好流程融合到harness和skills中。过程中发现无用的历史包袱可以优化效率提效。",
+    "scope": "方向选择及授权内实现；新内容的视觉、玩法、音频与实体设备尚未验收。"
+  },
   "intent": {
-    "journey": "S2以H+基础跳跃/当前武器反冲为核心，穿树洞、棘口和枝冠连续换位；不要求未授予W/D/U1/U2。",
-    "meaning": "不是战胜自然的DPS区，而是读出呼吸节拍后穿过生长缝隙。"
+    "bible_sections": "1",
+    "source": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。",
+    "identity": "缠绕、生长、借力与回返；活着的立体迷宫。"
   },
   "emotion": {
-    "arc": "被包裹的好奇→聆听→短促承诺→树节内安心",
-    "mood": "青绿阴翳与琥珀树节，潮湿而有生命，不复制平原金色钟塔。"
+    "bible_sections": "1",
+    "source": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。"
   },
   "player_behavior": {
-    "core": "观察身体路径/锚点/落点，空中H→H、H→R或多动作改变方向；青色环可停留观察后合法脱离。",
-    "capability": "S2仅H；任何高级/隐藏也不可偷要求W/D/U1/U2",
-    "first_30_seconds": "看见枝节发光与清楚钩点、一次安全示范",
-    "first_10_minutes": "现行两图可玩；七段推荐主线与探索/奖励/返程、两Boss需分别判断动作价值，不能把动作计数签成乐趣。"
+    "bible_sections": "4",
+    "source": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。",
+    "identity": "看见目的地后绕树、换向、借物体和改变高度；H与反冲组合，出发/取得/异路回返。"
   },
   "space": {
-    "macro": "v12纵向树洞与枝冠交替，增量累计纵升1528px；根地恢复、实体树皮洞口、横向荆棘窄口、断枝拱各有场景语言。",
-    "exploration": "两图共享巨木、多分支/奖励/营地/回程；七段是推荐路径，尾路可省上层两句、冠叉反冲可省，随机发现顺序与上层收益仍需重构。",
-    "slice": "正式ThornForestRegionStage -> ThornForestRegionGenerator/current v2 -> forest-woven-trunk-v12；旧current_slice/历史H slice只为显式技术/历史回归，不代正式两图。"
+    "bible_sections": "3–6",
+    "source": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。"
   },
   "ecology": {
-    "theme": "慢生长的驻留枝与会收缩的空隙；敌人服务钩点取舍与安全返回",
-    "planned_roles": "现行七种行为、每图约14–16只，含铃囊萤/棘籽哨、方向盾甲虫/摆荚等；活锚、占位与换层价值逐消费者评审，不假称每种已达趣味目标。",
-    "implementation": "已有真实区域敌人和生命周期/伤害消费者；历史测试与新整合分源。摆荚路线收益、组合密度与非击杀策略价值仍未最终通过。"
+    "bible_sections": "7",
+    "source": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。"
   },
   "boss": {
-    "direction": "根铃守卫以实体铃H夺取返撞与跨场，棘冠女王以巡视/活结/持续网；两场独立实际消费者已实现。",
-    "status": "现行Boss可玩不等于核心H体验成立；QueenH、普通最便宜打法、完整战斗趣味/真人设备仍REVISE，不再标未制作也不重签旧电影。"
+    "bible_sections": "8–9",
+    "source": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。"
   },
   "visual": {
-    "shape": "包裹弧线、窄缝、厚树节，宽根系有重量；非矩形石灰岩",
-    "material": "纤维状树皮、半透嫩叶、哑光甲壳",
-    "color_light": "深青绿中景，琥珀安全树节，稀疏冷亮孢光",
-    "depth": "远密冠→中景树干围合→清楚玩法树节→少量近景叶缘",
-    "negative_space": "钩线与落点通道保持清楚，装饰枝条不冒充钩点"
+    "bible_sections": "2",
+    "source": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。",
+    "shared_project_style": "继承已绑定的正式平原实际像素尺度、tileset邻接/边界、光照/描边/材质语言；区域特色不等于另换项目画风。森林以树皮、苔藓、荆棘、有机结构及区域色域变化，其他后续区域同样沿共用母版。",
+    "cross_region_golden": "先阅读实际共享source PNG/atlas、TileSet及消费者，在正式平原/目标地区的正常比例游戏黄金做实际像素对照；独立视觉准入后才扩产，hash/metadata不签画面。",
+    "shared_player_body": "实际同屏UnderworldPlayer脚本及其直接animation_build.json、run_sheet.png、states_sheet.png完整SHA一并绑定；只保脚本SHA不能证明角色像素未漂移。",
+    "actual_shared_consumer": "ForestBiblePresentation.enabled时ThornForestRegionStage挂载同一UnderworldTerrain，DemoApp复用UnderworldPlayer；区域景层/摆件由ForestBiblePresentation组织。当前实际源码存在，不代同源截图/影片独审或设备验收。",
+    "thorn_covered_platforms": {
+      "quote": "森林的荆棘地块tile有点丑，我希望是那种自然的缠绕荆棘感觉。希望不是独立地块，而是有一种地块是“带荆棘的平台”",
+      "contract": [
+        "荆棘是长在真实根枝/平台上的覆盖层：藤体沿实体表面交错、绕角、扎根，尖刺从藤体长出；不呈独立刺砖或矩形边框。",
+        "延续实际平原16px/32wu像素簇、材质光向和危险辨识；通过森林木皮、苔藓与苍白刺尖体现区域特色。",
+        "可站平台、藤体和伤害表面分别保持清楚；真实伤害轮廓不可被漂亮贴图隐藏。",
+        "按实际host支持关系检查，不用nearest metadata冒充贴附；漂浮历史危险条须显式淘汰或版本化物理修正，不能画跨空假根掩盖。",
+        "先正常比例上/下/侧三种真实平台合屏和运动复审，再扩区域。"
+      ],
+      "source": "docs/creative_direction/bibles/thorn-covered-platforms-20261021.json",
+      "reference_path": "docs/creative_direction/references/thorn-covered-platforms-user-20261021.jpg",
+      "reference_sha256": "6dff0da376a516516a7cf290b9351a3c20326e18d29636e900ac648c2caaa00e"
+    }
   },
   "motion_audio": {
-    "motion": "呼吸式伸展/静止/回缩，真实事件驱动，触碰与伤害窗口必须可读",
-    "audio": "枝条摩擦提示开合，安全树节短回声，音频完整实现未验",
-    "ui": "枪/钩空中有效瞄准共用15%世界速度，精力仍按真实秒；PC右键/E和LB按住瞄准松手发钩。青色双环表示可停留，铜环保持接触小踢；取消/失焦无额外枪钩。"
+    "bible_sections": "12",
+    "source": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。"
   },
   "memory": {
-    "scene": "一次从棘廊暗缝钩入琥珀树节，回望生长闭合的路",
-    "status": "可玩内容已制作，记忆点、熟练爽感与人类认可仍未证明。"
-  },
-  "exclusions": {
-    "elements": [
-      "平原钟塔/石灰岩换绿",
-      "强制W/D/U1/U2",
-      "敌人死后唯一H路断裂",
-      "装饰钩点",
-      "用旧原型的禁止开放声明覆盖最新用户授权，或反向把可玩等同production_pool准入"
-    ],
-    "scope": "本轮整合保留现行可玩第二地区/选择能力/选区/调试直入，不新增能力授予或签完整商业地区。"
+    "bible_sections": "13",
+    "source": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。"
   },
   "commercial": {
-    "hypothesis": "钩索与反冲衔接形成地区差异，慢生长音画是识别点；未经市场/玩家证实",
-    "test": "同一build/能力/输入记录首次钩点判断、落空恢复、非击杀返回；真实玩家另验",
-    "device": "手机独立HOOK瞄准操作负担需实机；桌面自动脚本不能代签"
+    "bible_sections": "13",
+    "source": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。",
+    "status": "宣传记忆点与吸引力为待真实玩家验证假设；不自签市场结论。"
   },
   "slice": {
-    "consumer": "DemoApp normal campaign/region selection/debug entry -> ThornForestRegionStage -> ThornForestRegionGenerator -> forest-woven-trunk-v12 (thorn-forest-region-v2); production_pool=false remains explicit metadata",
-    "required": [
-      "真实24x36身体/唯一Motor",
-      "231px钩索/现有重力与反冲",
-      "15%双瞄准与真实秒资源",
-      "斜下真实碰撞拉动/近垂直稳定小踢",
-      "停留环生命周期与合法离环",
-      "两图Seed/保存/跨区/奖励流程",
-      "正常速度完整动作/战斗和独审",
-      "原失败与便宜替代打法保留"
-    ],
-    "scope": "当前可玩v12，整体REVISE。旧S3 source93c202568d154e37b1d57de1e08ba0c42820e828的CI89/80路线与GUI20/8仅归该源；新整合必须重新执行适用验证。不重新声明旧technical_slice退出失败为现行整区失败或通过。",
-    "next": "先修复最便宜策略、上层收益/随机探索与BossH价值，按黄金对照淘汰；不以测试通过/连招数量代体验。通用规划器仍保守保留formal_opening_authorized=false，任务必须带最新明确用户授权，不通过本总谱自动解锁。"
+    "bible_sections": "3–9",
+    "source": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+    "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。",
+    "consumer": "DemoApp._select_next_region / start_debug_region -> ThornForestRegionGenerator CURRENT_DEPTH_LAYOUT (read actual versioned producer) -> ThornForestRegionStage -> ThornForestRegionAssembler",
+    "status": "source_present_not_bible_v2_execution_proof",
+    "requirements": "先正式比例完整可玩艺术黄金，独立G2准入后第二空间、多Seed与整区推广；旧实证保留原源。"
   },
-  "candidates": [
-    {
-      "id": "woven_trunk_chains",
-      "experience": "连续空中换向与可停留的观察，H/反冲组成空间动作",
-      "space": "纵向树洞+横向棘口+枝冠/异路回程",
-      "ecology_boss": "活锚/占位/方向压力及两场真实Boss消费者",
-      "art_emotion": "纤维树皮与青绿枝冠，明确地块身份",
-      "originality": "动作路径与森林宿主关联，非把平原换绿",
-      "feasibility": "v12可玩已实现，当前真实身体/231px射程不改",
-      "player_appeal": "符合最新用户连续操作目标，但乐趣未获玩家认可",
-      "risk": "普通替代、尾路跳句、上层收益与QueenH尚未解决"
-    },
-    {
-      "id": "listening_thorns",
-      "experience": "等待枝条开合后单次H穿隙",
-      "space": "短棘廊和安全树节",
-      "ecology_boss": "原提案守节生物与开合棘冠",
-      "art_emotion": "青绿/琥珀的紧张后安心",
-      "originality": "等待/放手对应钩索承诺",
-      "feasibility": "只曾有限技术样板，不能等同已实现动态生长",
-      "player_appeal": "缺连续动作密度，非当前首选",
-      "risk": "等待重复且旧技术片不证明区域体验"
-    },
-    {
-      "id": "all_thorn_fixed_combo",
-      "experience": "固定高密度刺道强制长连招",
-      "space": "线性窄缝与缩小接收台",
-      "ecology_boss": "敌人只能增加执行压力",
-      "art_emotion": "全屏危险易盖住安全落点",
-      "originality": "仅操作负担增加，无额外决策",
-      "feasibility": "不为成立改射程/无敌/身体，禁止盲跳",
-      "player_appeal": "不满足观察决策恢复，淘汰",
-      "risk": "难度冒充乐趣；DISCARD，不扩产"
-    }
-  ],
-  "schema_version": 1,
-  "version": "creative-v3",
-  "decision": "selected",
-  "acceptance": "professional_recommendation",
-  "user_acceptance": "unverified",
+  "exclusions": {
+    "core": "保留PlayerMotor、合法能力、资源、RNG与保存合同；旧提案或失败实现不自动约束新地区，但正式平原仍用的Underworld tileset及共用像素家族是当前继承依据，不得整体抛弃。",
+    "music": "deferred_user_supplied：原文BGM保留为设计意图，本轮不生成或替换BGM；SFX与环境动画/VFX在授权范围。",
+    "acceptance": "方向选择不签新视觉、完整地区、真人FUN或实体设备；无证据保持unverified/awaiting-device。"
+  },
   "authority_sources": [
     {
       "path": "docs/design/player_actions/regions_v0.3.md",
@@ -143,18 +138,29 @@
       "sha256": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390"
     },
     {
-      "path": "docs/design/forest_grapple_vertical.md",
-      "sha256": "c1130318fc04c4af3d887778959b8c6c8a4f8c46f40c40c9ea8628a103b34404"
+      "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+      "sha256": "a7bad8323af64a7be0577132e5d988a6e1b781d9e1ac1639d37f9d65935194e3"
     },
     {
-      "path": "scripts/generation/thorn_forest_region_v2.gd",
-      "sha256": "c449be2883d8590d2db01483889522f5f9b0a1e62e8421733ff71aeeac6185f8"
+      "path": "docs/creative_direction/bibles/user-request.json",
+      "sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261022-v4.json",
+      "sha256": "a6f817bb762a53d99e45185444f11889246866a8baa5d29e5efaee994e7f3ae9"
+    },
+    {
+      "path": "docs/creative_direction/bibles/thorn-covered-platforms-20261021.json",
+      "sha256": "63dd0759036b28f3f2460003d7fc3178df934a07bfbbc95cb9792897594d5aba"
+    },
+    {
+      "path": "docs/creative_direction/references/thorn-covered-platforms-user-20261021.jpg",
+      "sha256": "6dff0da376a516516a7cf290b9351a3c20326e18d29636e900ac648c2caaa00e"
     }
   ],
-  "revision_reason": "Integration 2026-10-19 updates the actual playable v12 consumer and authorized 15% focus/holding rings; prior creative-v2 prototype status, physics evidence and art direction are archived unchanged, never relabeled.",
   "historical_direction": {
-    "path": "docs/creative_direction/archive/creative-v2/thorn_forest.json",
-    "sha256": "c79445e94ed41217ec326b0a928f1b6e723a754d66a8cc3eabcfd08e6c01b150",
-    "status": "historical_only_not_current_validation"
+    "path": "docs/creative_direction/archive/creative-v7/thorn_forest.json",
+    "sha256": "ba717b942c1847fb8e71df3eba38e088f36da08229fed52633a1220ebfa467ed",
+    "status": "superseded_before_equivalent_boundary_performance_v4_rebind"
   }
 }

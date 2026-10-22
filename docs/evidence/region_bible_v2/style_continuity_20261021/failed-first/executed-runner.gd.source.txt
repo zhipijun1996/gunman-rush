@@ -1,0 +1,94 @@
+extends SceneTree
+## Actual full game composition only. Explicit staged poses are NOT traversal evidence.
+const AUDIO := preload("res://tests/audio_teardown.gd")
+var output := "res://build/region_bible_v2/golden-first"
+var rows: Array[Dictionary] = []
+var failures: Array[String] = []
+var compare_plains := false
+
+func _initialize() -> void:
+	for arg: String in OS.get_cmdline_user_args():
+		if arg.begins_with("--output="): output = arg.trim_prefix("--output=")
+		elif arg == "--compare-plains": compare_plains = true
+	run.call_deferred()
+
+func run() -> void:
+	root.size = Vector2i(1280,720)
+	root.content_scale_size = Vector2i(1280,720)
+	DirAccess.make_dir_recursive_absolute(output)
+	if compare_plains: await capture_plains_reference()
+	for index: int in [1,2]:
+		var app := DemoApp.new()
+		app.meta_persistence_enabled = false
+		root.add_child(app)
+		if not app.start_debug_region(&"thorn_forest",index,"forest-depth-hollow-00",ThornForestRegionGenerator.DEPTH_VERSION,"forest-bible-world-v15"):
+			failures.append("debug_entry_rejected"); app.free(); continue
+		for unused: int in 12: await physics_frame
+		if not app.stage is ThornForestRegionStage or not app.stage.assembly_ok:
+			failures.append("actual_stage_missing"); await AUDIO.drain_world(app); app.free(); continue
+		var stage := app.stage as ThornForestRegionStage
+		if not is_instance_valid(stage.forest_terrain) or not stage.forest_terrain is UnderworldTerrain:
+			failures.append("shared_terrain_missing")
+		var shots: Array = ["camp","R","bible_web_lower","bible_backbranch_reward","prep"] if index == 1 else ["boss"]
+		if not app.player.get_node_or_null("PixelPlainsActor") is UnderworldPlayer:
+			failures.append("shared_courier_missing")
+		if app.player.get_node("CourierVisual").visible or app.player.get_node("PlayerFeedback").visible:
+			failures.append("duplicate_legacy_courier")
+		for id: String in shots:
+			var point := stage.spawn
+			var found := id == "camp"
+			for area: Dictionary in stage.generated.manifest.areas:
+				if str(area.id) == id:
+					point = Vector2(area.position[0],area.position[1]); found = true; break
+			if not found:
+				failures.append("missing_golden_area:"+id); continue
+			paused = true
+			app.controller.router.clear("explicit_composition_fixture")
+			app.player.global_position = point
+			app._run_camera.snap_to_target()
+			app._run_camera.force_update_scroll()
+			stage.queue_redraw()
+			app._process(0.0)
+			for unused: int in 3: await process_frame
+			await RenderingServer.frame_post_draw
+			var image := root.get_texture().get_image()
+			var name := "map%s_%s.png" % [index,id]
+			var result := image.save_png(output+"/"+name)
+			if result != OK: failures.append("png_write_failed:"+name)
+			rows.append({"image":name,"region":"thorn_forest","area":id,"map_index":index,"manifest_hash":stage.generated.manifest.manifest_hash,"layout":stage.generated.manifest.layout_version,"staged_pose":[point.x,point.y],"camera":[app._run_camera.get_screen_center_position().x,app._run_camera.get_screen_center_position().y],"size":[image.get_width(),image.get_height()],"shared_family":{"terrain":"UnderworldTerrain","body":"UnderworldPlayer","tile_px":UnderworldTerrain.specification().tile_px,"world_tile_wu":UnderworldTerrain.specification().world_tile_wu},"purpose":"static full game art review; explicit pose assignment, no Motor/GUI/device proof"})
+		paused = false
+		app.lifetime.end()
+		if not await AUDIO.drain_world(app): failures.append("audio_release")
+		app.free()
+		for unused: int in 3: await process_frame
+	FileAccess.open(output+"/capture.json",FileAccess.WRITE).store_string(JSON.stringify({"scope":"actual_v15_full_game_static_composition_staged_poses","rows":rows,"failures":failures},"\t"))
+	print("FOREST BIBLE GOLDEN: %s images / %s failures" % [rows.size(),failures.size()])
+	quit(0 if failures.is_empty() and rows.size()==(8 if compare_plains else 6) else 1)
+
+func capture_plains_reference() -> void:
+	for index: int in [1,2]:
+		var app := DemoApp.new()
+		app.meta_persistence_enabled = false
+		root.add_child(app)
+		if not app.start_debug_region(&"plains",index,"forest-style-continuity-reference"):
+			failures.append("plains_reference_entry_rejected"); app.free(); continue
+		for unused: int in 12: await physics_frame
+		if not app.stage is PlainsRegionStage or not app.stage.assembly_ok:
+			failures.append("plains_reference_stage_missing"); await AUDIO.drain_world(app); app.free(); continue
+		paused = true
+		app.controller.router.clear("explicit_composition_fixture")
+		app.player.global_position = app.stage.spawn
+		app._run_camera.snap_to_target()
+		app._run_camera.force_update_scroll()
+		app._process(0.0)
+		for unused: int in 3: await process_frame
+		await RenderingServer.frame_post_draw
+		var shot := root.get_texture().get_image()
+		var file := "plains_map%s_reference.png" % index
+		if shot.save_png(output+"/"+file) != OK: failures.append("png_write_failed:"+file)
+		rows.append({"image":file,"region":"windchime_plains","map_index":index,"manifest_hash":app.stage.generated.manifest.manifest_hash,"layout":app.stage.generated.manifest.layout_version,"purpose":"same-source actual formal Plains style reference; explicitly staged static composition"})
+		paused = false
+		app.lifetime.end()
+		if not await AUDIO.drain_world(app): failures.append("audio_release")
+		app.free()
+		for unused: int in 3: await process_frame

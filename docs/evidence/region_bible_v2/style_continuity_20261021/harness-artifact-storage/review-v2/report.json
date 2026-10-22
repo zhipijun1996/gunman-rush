@@ -1,0 +1,88 @@
+{
+  "verdict": "ACCEPT_SCOPED_HARNESS_ARTIFACT_STORAGE_CACHE_REPAIR_AND_REGISTERED_TEST_ENTRY",
+  "reviewer": "/root/bible_test_workflow_independent_review",
+  "production_author": "/root/ci_v15_admission_continue",
+  "profile_registration_author": "/root",
+  "skill": ".agents/skills/gameplay-reviewer/SKILL.md",
+  "source_sha256": {
+    "tools/harness.py": "29f1503f037ccac6ca624547ca62d1c89bfde21ac4a543338d94fd73105b4c29",
+    "tests/test_harness_artifact_archive.py": "2ed6724e18a84e34d4c219987697ec7aaa4905a37a8789ebfc2d940deb91ebee",
+    "tests/test_harness.py": "50e34a111c858b4ac79c7f85bd8d958431747300e0748663529dc302b77be7e2",
+    "tools/harness/profiles.json": "5e0748f7765132745145085fb5166ef988618d1d5a83685c8b0878dd444d83af"
+  },
+  "source_checks_passed": 33,
+  "independent_original77": {
+    "tests_run": 77,
+    "failures": 0,
+    "seconds": 7.96,
+    "log": "original77-unit.log"
+  },
+  "independent_new12": {
+    "tests_run": 12,
+    "failures": 0,
+    "seconds": 2.507,
+    "log": "new12-unit.log"
+  },
+  "independent_actual_large_JSON_cache_modes": [
+    {
+      "jobs": 1,
+      "real_python_subprocess": true,
+      "large_valid_json_bytes": 8388802,
+      "fresh_pass": true,
+      "positive_actual_cache_reused": true,
+      "original_native_ledger_observed_from_execute_checks": true,
+      "live_output_ledger_present": true,
+      "full_restored_original_bytes_and_JSON_equal": true,
+      "small_raw_path_and_check_log_preserved": true,
+      "untouched_large_excluded": true,
+      "large_raw_duplicate_absent": true,
+      "old_small_cache_without_new_ledger_accepted": true,
+      "actual_negative_controls_rejected": [
+        "coherent_zip_index_and_outer_fp_rebind_original_native_ledger_preserved",
+        "index_cannot_substitute_for_missing_zip",
+        "zip_requires_original_index",
+        "both_bundle_files_missing_cannot_use_hash_only_cache",
+        "large_archive_requires_original_native_ledger",
+        "exact_original_member_size_required",
+        "exact_original_member_set_required"
+      ]
+    },
+    {
+      "jobs": 2,
+      "real_python_subprocess": true,
+      "large_valid_json_bytes": 8388802,
+      "fresh_pass": true,
+      "positive_actual_cache_reused": true,
+      "original_native_ledger_observed_from_execute_checks": true,
+      "live_output_ledger_present": false,
+      "full_restored_original_bytes_and_JSON_equal": true,
+      "small_raw_path_and_check_log_preserved": true,
+      "untouched_large_excluded": true,
+      "large_raw_duplicate_absent": true,
+      "old_small_cache_without_new_ledger_accepted": true,
+      "actual_negative_controls_rejected": [
+        "coherent_zip_index_and_outer_fp_rebind_original_native_ledger_preserved",
+        "index_cannot_substitute_for_missing_zip",
+        "zip_requires_original_index",
+        "both_bundle_files_missing_cannot_use_hash_only_cache",
+        "large_archive_requires_original_native_ledger",
+        "exact_original_member_size_required",
+        "exact_original_member_set_required"
+      ]
+    }
+  ],
+  "actual_cache_negative_controls_rejected": 14,
+  "registered_check_actual_harness": "build/verification/harness/20261021T065433.554535Z",
+  "registered_check_actual_harness_sha256": "1bdf2c835a93b6525353aa310eeab7cfb0616ef487ae54348c7fe9aa5ea269a5",
+  "original_rejection_preserved": "../initial-review.json",
+  "original_coherent_false_accept_reproduction": "../coherent_false_reuse.py",
+  "repair": "Original archived_output_fingerprint path/hash/size observed from after_outputs before collection, stored for both normal/isolated checks; reuse binds exact ZIP/index members to it and nonisolated original live output. Missing archives cannot fall back to hashes or current raw output.",
+  "limitations": [
+    "Byte integrity/cache technical scope only; no engine run or production edits by reviewer",
+    "No original failed/interrupted harness report is retroactively passed; forthcoming real whole80 harness remains separate",
+    "ENOSPC tests use controlled OSError injection; reviewer did not exhaust disk again",
+    "Finite symlink/path/writer cases are covered; not a claim of authentication against an attacker who rewrites all independent original cache ledgers",
+    "Old prepared evidence bundles remained unchanged",
+    "No gameplay/art/audio listening/device/user/FUN/release acceptance"
+  ]
+}

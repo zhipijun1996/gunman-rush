@@ -1,0 +1,15 @@
+# Forest exploration v16 focused development proof
+
+Task FOREST-EXPLORATION-02. New candidate layout is available through explicit FOREST EXPLORATION / MAP 1/2 entries; normal default and old save reconstruction stay v15. No main merge or complete region/art/FUN/device claim.
+
+Native15 original source before/after equal, exact baseline78b plus all112 changed/untracked source bytes in changed-source.zip; full inventory binds unchanged files to baselineGit. Actual36 Foundry phrases/18 itineraries refreshed before this frozen round; original bytes retained. All nine strict real-App Router/Motor cases passed (31952frames/780legs) under original90/240/600/2worker/fixed60 caps, whole176.832s. Main1minimumHP4, main2minimumHP1; allseven focused reward/return cases minimumHP5. Passing one driving policy is not difficulty/FUN proof. Native14 actual death and gate-blocked entrance failures kept separately, never re-signed.
+
+Actual23 App staged GPU screenshots are composition fixtures, not traversal. Newworld L/Z/7/chest/pod and real claimed-open shortcut are connected. Fixed/live/killed-pod strategies all use real target identities/health/drops/input/reward OR selection; no midroute position, phase, health, energy or shot override. Old versions and original80 corpus remain separate; this round did not run full80/fullCI or physical devices.
+
+Long rectangular roots and regular floating recovery ladders still need artistic improvement. Shared Underworld pixel family retained; tether functional attachment fixed.
+
+Large JSON bytes are losslessly gzip-compressed; index records original and stored SHA256. Before/after and failed receipts preserve their original contents. Focused-wrapper source-snapshot files resolve in native15/changed-source.zip; original local paths in receipts describe their execution location.
+
+Web delivery is now public at https://zhipijun1996.github.io/gunman-rush/?v=a443c2ec6642 . Runtime commit 11eb4046b2eabdc7c0ee7e7625bd7ef0985515df has exact equality to all 3637 native15 runtime/assets/config/tests/tools paths; see [Git/native bridge](web/native15-to-runtime-commit.json). Prepared Pages run39654646862 succeeded. [Public two-map GUI report](web/public/report.json) binds the full141671756-byte PCK SHA, source/build, actual mouse entry/pause/resume on both maps, source/Git freeze and zero engine errors; this is a basic delivery smoke, not full route or device acceptance. The failed first navigation attempt is retained under web/public-first-failed; local Web export and GUI reports are separate.
+
+The documentation CI run39654167820 failed because four skill links pointed at ignored local build evidence. [Original portable reproduction](ci-docs-link-first-failed.log) is retained. The links now resolve to ordinary Git proof files, including early failed receipts and the scoped L review. Native15 has two different original source-closure documents: the outer runner copy is [runner-source-closure](native15/runner-source-closure.json), while the raw coordinator original stays [source-closure](native15/source-closure.json); both original byte hashes are preserved.

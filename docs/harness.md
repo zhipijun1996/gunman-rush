@@ -28,6 +28,14 @@ python3 tools/harness.py --profile full
 
 ## 从需求到游戏品质
 
+地区开发先取短反馈：新GDScript在同一root引擎租约执行 `bash tools/godot.sh --headless --path . --check-only --script <实际脚本.gd>`，随后跑局部真实消费者，最后按原案例和预算做完整验证。新连接的局部Motor记录必须写 `initial_fixture_spawn_override=true`，只允许首次Motor步前的初始fixture定位，不改资源/能力/physics或中途位置；通过也不签正式fullspawn路线。parse、局部反馈与正式完整验收分别留证，均不扩原测试/CI上限。
+
+合屏在geometry、render与source metadata完整源集冻结后才开始；source_guard漂移令整轮失败，保留 `build/region_bible_v2/golden-third/receipt.json` 的source-changed原件，不借已生成画面或后续通过改签。离线fixed-fps与音频backend墙钟须分开，手动释放fixture只隔离自主调度，保留真实弱引用释放与12voice断言；实际native-third→fourth的局部边界见[animation-vfx](../.agents/skills/animation-vfx/SKILL.md#自动验收)。
+
+`forest-bible-ambience` 已追加gameplay/art/full，实际CLI含90秒import及90秒native，外层210秒；每轮以 `{check_token}` 新目录保留原失败。它验证本地Node/GameAudio生命周期，听音、正常速度合屏、正式campaign和设备仍单列，注册不冒充本次已执行。
+
+`forest-practice-bell-restore` 追加gameplay/art/full，复用实际90秒native及完整源清单，外层120秒，新token目录保留旧结果；只验机关相位/原子恢复和实际App卸载重建，不签完整路线。新增实际App发现检查和G世界检查的缓存输入也涵盖scripts/scenes/resources/config/shaders/assets/tests/tools及project.godot，避免同屏body PNG或共享helper变化沿用旧缓存；原132检查的命令、断言与预算保持原值。局部Motor用 `run_forest_bible_world_fixture.py`，正式路线用 `run_forest_bible_world_motor.py`；双区静态合屏用 `run_forest_bible_golden.py --compare-plains`，均读取同一完整源inventory，局部或静态结果不能代正式路线/影片/设备。
+
 每个切片先写“玩家在什么场景遇到什么问题、改变后可观察什么”，定义一个可玩的体验和禁止回归项。明确 Seed、入口、能力、配置与目标设备。实现后依次检查：真实动作可达/资源与生命周期 → 正式入口 GUI（标题、家园、出发、探索、伤害、奖励、返回）→ 目标设备 → 用户对操作、节奏、视觉的评价。卡住时保留失败轨迹，缩小切片修复。
 
 浏览器入口例如 python3 tools/verify_plains_region_browser.py URL；现有验证按实际任务选用。Web 弱网 suite 使用 tools/verify_web_resilience.py 的 before/after 部署目录；不能把缓存预算单测说成弱网实测。手机/大陆网络/用户趣味性没有自动通过字段，始终单独记未验或实际证据。
@@ -39,6 +47,27 @@ python3 tools/harness.py --profile full
 [总门槛](development_quality.md) 负责 G0–G5，[质量工具](quality/README.md) 校验十一维、证据和 done。docs profile 在所有 profile 内复用 quality / quality-tests / quality-drills，不替换旧检查。PR CI 另外运行 `python3 tools/check_quality_diff.py --base <PR-base-sha>`，检查新 done、生产修改的任务归属、资产来源和已有测试/检查删除或敏感断言变化。日常 push 仍执行全部 docs 检查，跨基线保护在 PR 检查。
 
 敏感测试修改需覆盖该路径的质量记录、test_change_justification 和实际独立审查证据；不能用假 reviewer 名字绕过。此保护是保守文本/集合差异，不证明任意代码语义等价；例如保留断言但改变辅助函数仍需人工 diff 审查。代码和 CI 不是不可篡改安全边界。
+
+收集证据只处理本轮变化的输出。为避免大型轨迹再复制一份耗尽磁盘，新增的至少8MiB JSON流式进入每检查的`artifacts-large-json.zip`，完整索引、每成员大小/SHA及CRC校验后才发布；小文件和`check.log`仍保留原路径，原生输出不删除。缓存同时核对ZIP、索引、独立记录的原始输出摘要，以及普通工作区的live输出；隔离lane也保留原始摘要。缺件、篡改、源在读取中变化或写入失败均拒绝，不使用硬链接或仅保存哈希替代数据。`harness-artifact-archive-tests`在六个原标准profile末尾执行12个真实正反例，旧150检查字典及原profile前缀保持。
+
+离线分析可显式恢复一个完整成员到已存在安全目录中的**新文件**；不覆盖原件，不自动修改live输出。示例中的成员名取自该检查的索引：
+
+```python
+from pathlib import Path
+import sys
+sys.path.insert(0, "tools")
+from harness import restore_archived_artifact
+restore_archived_artifact(Path("build/verification/harness/RUN/artifacts/CHECK"),
+                          "build/example/capture.json", Path("build/restored-capture.json"))
+```
+
+原生检查通过而收集器中断时，外层仍是失败或`interrupted`；不能补改旧收据为通过。实际80路线已通过但外层ENOSPC，以及归档初版的缓存误接受与独立修复链，随源版本分别保存；新的完整fresh执行另立收据。
+
+修复后的[完整fresh原80与归档](evidence/region_bible_v2/style_continuity_20261021/final-native80/README.md)已在clean dec23450实跑通过；原600秒内551.426秒，含准备/收集总582.322秒。78份大JSON完整压缩、2份小JSON保原路径，独审逐字节核80轨迹。阈值决定存储形式，不能把ZIP成员数误当路线总数；压缩不放宽原预算，也不代完整profiles或艺术验收。
+
+`region-bible-feedback`另包含原`generated-consumers`完整26组，提前覆盖真实Home/地区换装与默认身体所有权，不只验证Bible元数据。原151检查字典、所有profile旧前缀、full141与26组原CLI/各预算不变。历史v14皮肤与当前默认v15分别实测，不能把更换项目画风当修测试；无pin由实际冻结调用与Manifest绑定，已消费请求字段不能单独作动态证明。
+
+修改共享表现的类依赖时，另先运行原`python3 tools/harness.py --check terrain-family-tests --release --jobs 1`：editor import通过仍可能在独立脚本入口遇到循环类型依赖。中文物品/Boss文案变化用原SHA核准母版执行`tools/subset_plains_ui_font.py`，保旧cmap并按工具全部输入记录真实新增数；原`tests/plains_experience_energy_runner.gd`检查兼容子集，不据此推断当前Underworld实际UI缺字。1248157的真实537/2与地形parse后240秒超时分开保留；修复后原537/0、地形508/0正例及55/1故意破坏反例通过，不删断言、不扩大预算，也不代签完整CI。
 
 ## 多包任务执行
 
@@ -102,3 +131,30 @@ S3实际CI／公网包通过后，GUI01因可见MENU未被识别而在3/20退出
 发布游戏仍为S3原PCK；后续采证工具以自己的源码SHA绑定，不把工具修复后的GUI误称新游戏HEAD构建。CI ZIP代理403与公开GUI是不同证据：前者原包72未执行，后者只按实际结果记录，不相互替代。详见[原始失败／REJECT／复验](evidence/forest_grapple02/release03/README.md)。
 
 整区平原候选的短反馈入口为 `python3 tools/harness.py --profile regional-art-feedback`，复用docs与原检查调度，运行实际整区生成/默认Manifest对PR85原件比较、无标签图同构及伪造覆盖反例。真实电影仍走原`visual_director.py capture`和新增regional适配器；完整源码、正常输入、伤害/HP、清理退出门槛保留。长电影临时AVI允许保存在明确唯一的系统临时目录，经原始SHA验证后成功清理，失败保留；MP4/日志/回执仍在build。当前仅技术候选，艺术失败见[实录](evidence/plains_regional/recipe.md)。
+
+
+## 区域圣经与共享画风准入（2026-10-21）
+
+区域创建和优化先绑定[注册表](creative_direction/bibles/registry.json)中的完整Bible及[当前共享参考](creative_direction/bibles/style-continuity-20261022-v4.json)，不能只传摘要、只继承脚本而漏掉实际纹理依赖。缺Bible只做文档提案。`region-bible-feedback`用于窄反馈，`region-bible-contract`与`region-bible-tests`追加到原profile；原132检查和10个profile前缀不变。风格绑定/缓存防漂移是技术守门，仍须实际跨区合屏和独立视觉审查后扩产。
+
+新版路线按实际输入、枪口、互斥UI和当前Manifest消费；保留旧版本driver与保存重建，不把新版Manifest改标签交旧校验器。诊断先复验真实失败场景，再跑原16代表；完整原80案例和600秒预算留到候选源码冻结的正式准入，不以窄反馈代全量。暂停中的新UI须有process-frame故障边界，不能仅依赖已停止的physics tick；真实关闭仍走Viewport输入，并保持奖励幂等及冻结资源断言。
+
+新增森林正式路线检查覆盖两图的连接/背枝取奖返营及图二F08真实Reader木芯路线；初始出生fixture只作开发诊断。每次记录完整runtime/test/tool输入前后SHA，新增/删文件同样令源漂移失败。素材小改不重签旧路线或旧画面；原失败、限定接受与最终完整发布证据分开保留。
+
+区域Bible的新reader与采证逻辑通过现有`forest-bible-reader-tests`、`forest-bible-av-reader-tests`进入gameplay/art/full；原检查与预算不替换。它们检查有限正反例和源闭包，不能签路线、审美或声音听感。新覆生材质先跑目标实际合屏，例如`python3 tools/run_forest_bible_golden.py --thorn-only --compare-plains --output build/region_bible_v2/<fresh>`，查看两区正式角色与平台、上/下/侧/真实转角，再作独立审查；实际静图不冒充连续动作。连续采证使用`tools/capture_forest_bible_route.py`复用已存在的全出生点路线，保留原AVI与真实引擎draw/physics时钟；其验收器的单元反例通过也不等于已运行电影。
+
+## 森林探索候选短反馈
+
+`python3 tools/harness.py --profile forest-exploration-feedback` 运行文档、严格reader反例、wrapper守门与实际模块/世界/生态/菜单专项。原151检查字典与各旧profile顺序保持，新profile用于当前v16开发，不代替旧80、full CI、画面或设备验收。专项只导入一次，保留原90秒子检查与完整源清单、changed源码字节和原Git基线；失败继续留日志，最终非零退出。
+
+关卡先用真实Router/Motor验证单模块普通解、奖励位置与同体返程，再进入正式世界验证异物干扰、真实奖励OR选择、活体/击杀后替代和返回。字母轮廓、模块数量或Hash不签趣味；允许普通便宜解，但高奖必须绑定实际深入路线。当前原始失败及九路线通过范围见[本轮原件](evidence/region_bible_v2/style_continuity_20261021/forest-exploration-v16/README.md)。
+
+## 保留旧关卡后的扩容短反馈
+
+`python3 tools/harness.py --profile forest-varied-feedback --release --jobs 1` 为v17独立开发入口，不加入既有full/CI或改变旧前缀。检查实际20种子与JSON拒变、菜单App、旧HH/螺旋、新旧区正式spawn出返及L真实OR选择/远出口。保持90import/240native/600whole与fixed60；wrapper必须非零退出、完成标记和完整原生报告一致，缺帧/多次Motor/中途位置与资源注入均拒绝。
+
+v18新场所用 `--profile forest-places-feedback`（基础20项）或 `--profile forest-library-feedback`（新库16项），均配 `--release --jobs 1`。按改动选择；不要每次部署重复整套。二者各保90import／240native／600whole、fixed60与串行引擎；新库含真实20种子、八种实际轮廓、Z／倒木／背枝局部路线、真实OR交易和固定果挂跳恢复。基础组另验实际菜单和两图完整出生点旅程。原80/full/CI不变，两套均不是整区趣味或发布门槛的替代。
+
+`tools/run_forest_places_feedback.py --suite core|library|all --output-dir build/<fresh>` 显式记录所选case ID；all仍保33项与原600秒，地图增长后的一次实际超时保留于[v18证据](evidence/forest_variety_04/README.md)，不能以拆套回写原失败。汇总须核实际任务身份、非空完整itinerary、身体支撑、fixture权限及真实OR结算；两个空列表相等不能放行。
+
+实际原生通行已获限定独审，但当前随机guard仍失败：新增平台矩形布置每map只有1种。guard仅用排序去重的rect/one_way与目标坐标，排除ID/instance/program/order/重复描述；这是必要结构检查，不能把微移/拆矩形/hash差异称趣味。新候选美术仍REWORK，不发布。原通过、严格guard实际拒绝及源码闭包分别保存在[本轮原件](evidence/forest_variety_03/README.md)，不倒签失败或为试玩重复完整CI。

@@ -1,0 +1,77 @@
+import asyncio,hashlib,json,re,shutil,sys,time
+from pathlib import Path
+sys.path.insert(0,'/workspace/gunman-rush/tools')
+import verify_forest_browser as checks
+from playwright.async_api import async_playwright
+ROOT=Path('/workspace/gunman-rush')
+OUT=Path(sys.argv[2])
+OUT.mkdir(exist_ok=False)
+URL=sys.argv[1]
+HEAD=sys.argv[3]
+BUILD=sys.argv[4]
+report={'status':'failed','scope':'Public deployment smoke: real mouse both explicit v16 forest map entries and pause/resume; not full browser suite or physical device approval','url':URL,'source_commit':HEAD,'build_id':BUILD,'events':[],'errors':[],'started_unix':time.time()}
+def snapshot():
+ import subprocess
+ files=checks.subprocess.check_output(['git','ls-files','-z'],cwd=ROOT).decode().split('\0')
+ return {'head':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'status':subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True),'files':{n:hashlib.sha256((ROOT/n).read_bytes()).hexdigest() for n in files if n and (ROOT/n).is_file()}}
+async def run():
+ before=snapshot()
+ (OUT/'source-before.json').write_text(json.dumps(before))
+ options={'executable_path':shutil.which('chromium') or shutil.which('chromium-browser'),'headless':True,'args':['--no-sandbox','--use-angle=swiftshader','--enable-unsafe-swiftshader']}
+ if URL.startswith('https://'):
+  options['proxy'],report['proxy']=checks.environment_proxy()
+ async with async_playwright() as p:
+  browser=await p.chromium.launch(**options)
+  try:
+   context=await browser.new_context(viewport={'width':1280,'height':720})
+   page=await context.new_page()
+   def console(msg):
+    text=msg.text
+    if 'FOREST_UI_EVENT ' in text: report['events'].append(json.loads(text.split('FOREST_UI_EVENT ',1)[1]))
+    if any(s in text for s in ['SCRIPT ERROR:','Parse Error:','SHADER ERROR:','Shader compilation failed','PAGE ERROR:']): report['errors'].append(text)
+   page.on('console',console)
+   page.on('pageerror',lambda error:report['errors'].append(str(error)))
+   report['identity']=await checks.fetch_identity(context.request,URL,HEAD,BUILD)
+   response=await page.goto(URL,wait_until='networkidle',timeout=60000)
+   assert response and response.ok
+   await page.wait_for_function('window.PLAYTEST_LOADING_DONE===true',timeout=60000)
+   assert await page.locator('#playtest-version').get_attribute('data-build-id')==BUILD
+   await page.wait_for_timeout(700)
+   async def click(phrase,name,scroll=False):
+    for i in range(9 if scroll else 1):
+     shot=OUT/f'{name}-{i}.png';await page.screenshot(path=str(shot))
+     try: point=checks.locate(shot,phrase)
+     except ValueError:
+      if not scroll or i==8: raise
+      await page.mouse.move(900,580);await page.mouse.wheel(0,230);await page.wait_for_timeout(150);continue
+     await page.mouse.click(*point);await page.wait_for_timeout(350);return
+   await click('DEVELOPMENT DEMOS','title',True)
+   await click('SELECT REGION','home',True)
+   for map_index in [1,2]:
+    await click(f'FOREST EXPLORATION MAP {map_index}',f'region-map{map_index}',True)
+    await page.wait_for_timeout(1000)
+    entry=OUT/f'forest-map{map_index}-entry.png';await page.screenshot(path=str(entry))
+    checks.validate_region_heading(entry,'thorn_forest',map_index)
+    accepted=[x for x in report['events'] if x.get('event')=='debug_entry' and x.get('region')=='thorn_forest' and x.get('map_index')==map_index and x.get('natural_progression') is False]
+    assembled=[x for x in report['events'] if x.get('event')=='region_assembled' and x.get('region')=='thorn_forest' and x.get('map_index')==map_index]
+    assert len(accepted)==len(assembled)==1
+    checks.validate_assembled_layout(assembled[0],'forest-branching-expedition-v16')
+    assert assembled[0]['content_version']=='thorn-forest-region-v2' and assembled[0]['abilities']==['grapple']
+    await click('MENU',f'map{map_index}-menu')
+    await click('RESUME',f'map{map_index}-resume')
+    await page.screenshot(path=str(OUT/f'forest-map{map_index}-resumed.png'))
+    if map_index==1:
+     await page.reload(wait_until='networkidle',timeout=60000)
+     await page.wait_for_function('window.PLAYTEST_LOADING_DONE===true',timeout=60000)
+     await page.wait_for_timeout(700)
+     await click('DEVELOPMENT DEMOS','title-second',True)
+     await click('SELECT REGION','home-second',True)
+   assert not report['errors']
+   after=snapshot();(OUT/'source-after.json').write_text(json.dumps(after))
+   assert before==after
+   report.update(status='passed',source_files_unchanged=len(before['files']),git_unchanged=True,seconds=time.time()-report['started_unix'])
+  finally:
+   (OUT/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+   await browser.close()
+ print(json.dumps({k:report[k] for k in ['status','scope','source_commit','build_id','seconds','errors']},ensure_ascii=False))
+asyncio.run(asyncio.wait_for(run(),timeout=180))

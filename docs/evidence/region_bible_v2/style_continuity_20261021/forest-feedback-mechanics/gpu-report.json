@@ -1,0 +1,72 @@
+{
+	"checks": 20,
+	"failures": [],
+	"gpu_samples": [
+		{
+			"changed_rope_pixels": 115,
+			"cosmetic_effects_enabled": false,
+			"hook_tip": [
+				365.895629882812,
+				407.283569335938
+			],
+			"legacy_feedback_visible": false,
+			"motor_position": [
+				280.0,
+				482.0
+			],
+			"state": "hook_fly"
+		}
+	],
+	"range_cases": [
+		{
+			"actual_range": 231.0,
+			"case": "inside_actual_range",
+			"distance": 179.287475585938,
+			"observed_states": [
+				"free",
+				"hook_cast",
+				"hook_fly",
+				"hook_pull",
+				"hook_hang"
+			],
+			"origin": [
+				280.0,
+				476.0
+			],
+			"target": [
+				420.0,
+				364.0
+			]
+		},
+		{
+			"actual_range": 231.0,
+			"case": "original_outside_actual_range",
+			"distance": 294.373901367188,
+			"observed_states": [
+				"free",
+				"hook_cast",
+				"hook_fly",
+				"hook_miss",
+				"hook_retract"
+			],
+			"origin": [
+				280.0,
+				476.0
+			],
+			"target": [
+				480.0,
+				260.0
+			]
+		}
+	],
+	"scope": "Real Router/Controller/Motor isolated shared-body GPU visibility with formal hidden-feedback ownership and reduced cosmetic effects. Hidden-body counterexample suspends only the actual Controller physics callback; real pause/cancel semantics remain unchanged. Not a full Forest route, campaign, physical-device or user art acceptance.",
+	"states": [
+		"free",
+		"hook_cast",
+		"hook_fly",
+		"hook_pull",
+		"hook_hang",
+		"hook_miss",
+		"hook_retract"
+	]
+}

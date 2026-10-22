@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "asset_id": "forest-bible-v2-production-records",
+  "content_version": "forest-bible-v15-source-registration-20261021",
+  "source_path": "assets/forest_bible_v2/manifest.json",
+  "source_sha256": "41c29a45055817e32d67b91d344587cbbc56c12bd4ce32749d9c21aa3113cf34",
+  "runtime_paths": [],
+  "tool": "Repository metadata assembly; not an image generation call",
+  "model": "not_applicable; this procedural/metadata operation invokes no model",
+  "prompt_or_reference": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md; source/production_contract.json and exact generation receipts",
+  "processing": "Family/source inventory and offline generation path hints retained with exact bytes; this record is documentation, not a runtime loader or visual pass.",
+  "usage_scope": "Offline provenance registry, source-directory exclusion marker, original production contract and historical tool-output receipts",
+  "license_status": "unknown",
+  "license_source": "Mixed generated/shared/project-authored lineage; per-file rights preserved, no blanket license assertion.",
+  "visual_status": "unverified",
+  "user_acceptance_evidence": [],
+  "disposition": "production_record_only",
+  "non_runtime_reason": "Current GDScript consumers load concrete PNG/WAV files; they do not read this family manifest, source contracts or tool hints.",
+  "associated_files": [
+    {
+      "path": "assets/forest_bible_v2/source/.gdignore",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "role": "source_contract"
+    },
+    {
+      "path": "assets/forest_bible_v2/source/ecology_exact_tool_output_hints.json",
+      "sha256": "aa18c00254a2425ed542e56cd2f8dc3ebdae1447f20e1fa5a103cec58a1c8cf2",
+      "role": "documentation"
+    },
+    {
+      "path": "assets/forest_bible_v2/source/exact_tool_output_hints.json",
+      "sha256": "8cd689af22ff7e98c458e811381e56adabb4b8eb5792fb8f26c23a33a875099e",
+      "role": "documentation"
+    },
+    {
+      "path": "assets/forest_bible_v2/source/production_contract.json",
+      "sha256": "1d794defd791d69d462dffb315719be6a64cbca031154353f5e6434dca14e4b5",
+      "role": "source_contract"
+    }
+  ]
+}

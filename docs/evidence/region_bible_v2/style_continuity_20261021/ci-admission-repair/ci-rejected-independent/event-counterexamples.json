@@ -1,0 +1,102 @@
+{
+  "scope": "Independent actual-YAML finite GitHub-expression evaluation; no GitHub run or scheduler execution",
+  "workflow": "/workspace/gunman-rush/build/region_bible_v2/ci-exact-source-independent-first/reviewed-environment.yml",
+  "workflow_sha256": "a343fff94bacf40861503d12d7436af0ec3a61793b4a858033006e48d9fd5642",
+  "expression_subset": "Missing context empty; truthy &&/||; case-insensitive string== and concurrency key; contains/format; no network or production-test imports",
+  "checkout_jobs": [
+    "prepare",
+    "core_checks",
+    "core",
+    "windows",
+    "web",
+    "android",
+    "verify_public"
+  ],
+  "cases": [
+    {
+      "case": "push_topic",
+      "group": "godot-godot core-checks-owner/game-topic",
+      "baseline_group": "godot-godot core-push-refs/heads/topic",
+      "checkout_expected": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "publish_eligible": false
+    },
+    {
+      "case": "PR_topic",
+      "group": "godot-godot core-checks-owner/game-topic",
+      "baseline_group": "godot-godot core-pull_request-refs/pull/96/merge",
+      "checkout_expected": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "publish_eligible": false
+    },
+    {
+      "case": "fork_PR_topic",
+      "group": "godot-godot core-checks-fork/game-topic",
+      "baseline_group": "godot-godot core-pull_request-refs/pull/97/merge",
+      "checkout_expected": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "publish_eligible": false
+    },
+    {
+      "case": "manual_topic",
+      "group": "godot-godot core-manual-owner/game-topic",
+      "baseline_group": "godot-godot core-workflow_dispatch-refs/heads/topic",
+      "checkout_expected": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "publish_eligible": true
+    },
+    {
+      "case": "push_other",
+      "group": "godot-godot core-checks-owner/game-other",
+      "baseline_group": "godot-godot core-push-refs/heads/other",
+      "checkout_expected": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "publish_eligible": false
+    },
+    {
+      "case": "push_main",
+      "group": "godot-godot core-checks-owner/game-main",
+      "baseline_group": "godot-godot core-push-refs/heads/main",
+      "checkout_expected": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "publish_eligible": true
+    },
+    {
+      "case": "tag_main",
+      "group": "godot-godot core-checks-owner/game-main",
+      "baseline_group": "godot-godot core-push-refs/tags/main",
+      "checkout_expected": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "publish_eligible": false
+    },
+    {
+      "case": "publish_feature_push",
+      "group": "godot-godot core-checks-owner/game-feature/complete-actor-actions",
+      "baseline_group": "godot-godot core-push-refs/heads/feature/complete-actor-actions",
+      "checkout_expected": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "publish_eligible": true
+    },
+    {
+      "case": "publish_feature_PR",
+      "group": "godot-godot core-checks-owner/game-feature/complete-actor-actions",
+      "baseline_group": "godot-godot core-pull_request-refs/pull/98/merge",
+      "checkout_expected": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "publish_eligible": false
+    },
+    {
+      "case": "manual_main",
+      "group": "godot-godot core-manual-owner/game-main",
+      "baseline_group": "godot-godot core-workflow_dispatch-refs/heads/main",
+      "checkout_expected": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "publish_eligible": true
+    }
+  ],
+  "checks": {
+    "ordinary_push_PR_dedup": true,
+    "fork_isolated": true,
+    "manual_publish_isolated": true,
+    "other_branch_isolated": true,
+    "tag_main_must_not_cancel_branch_main": false,
+    "auto_publish_feature_must_not_be_cancelled_by_ineligible_PR": false,
+    "all_seven_checkouts_exact_head_or_event_sha": true,
+    "evidence_checks_actual_git_HEAD": true,
+    "all_other_workflow_guards_budgets_lanes_publish_permissions_unchanged": true
+  },
+  "failed_required_controls": [
+    "tag_main_must_not_cancel_branch_main",
+    "auto_publish_feature_must_not_be_cancelled_by_ineligible_PR"
+  ]
+}

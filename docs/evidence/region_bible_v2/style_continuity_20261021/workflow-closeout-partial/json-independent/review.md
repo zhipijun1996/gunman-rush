@@ -1,0 +1,13 @@
+# JSON replay correction: independent narrow review
+
+**ACCEPT_SCOPED_FOUR_PATH_SOURCE_AND_EXISTING_ACTUAL36_PENDING_INTEGRATED_WRAPPER_NATIVE.** Four frozen source paths,33 predicates and12 actual-report mutation refusals pass. No production edits or native engine executed by reviewer.
+
+Two production equality lines change. Removing each existing `_same_data` call restores the complete corresponding pre-fix file. The existing canonical protocol normalizes int/float representations recursively, preserves Boolean values, and applies no coordinate truncation or tolerance. The v15 producer still requires its original complete independently reconstructed candidate equality and integrity hash. RunManifest, v13/v14 historical producers, v15 producer, canonical helper and original additional56 native runner remain byte-identical to checkpoint083.
+
+The new native control runner uses four actual producer/JSON parser combinations (two roots by two maps), nine checks each. Each malformed Manifest is rehashed before actual producer validation; fractional index, Boolean index, fractional geometry, missing face, extra surface field and foreign face must reject. The real first36 result remains its original one-failure record. The real second36 has no failed rows and its original log confirms completion. The frozen three GDScript hashes match the stable actual receipt, which also records the unmodified campaign56/0 result. These are observed original native results, not native execution by this reviewer.
+
+The strict new Python reader accepts the actual second36 and rejects the original failed first36. Twelve actual-report counterexamples reject: missing/duplicate/reordered/wrong-map labels; failed, numeric or missing pass values; Boolean/float/nonzero failures; and attempts to claim original56 or original327 scope. The existing original additional56 `validate` and `negative_controls` functions are AST-identical to083. The new36 result remains separate from its unchanged schema/ledger.
+
+The wrapper keeps a single import90 budget and shares one native90 deadline across old56 plus new36, including the existing reader work between consumers. It requires both exact completion summaries, both complete readers and the existing source stability guard before marking success. It does not enlarge the original budget or replace an existing test.
+
+Pending: parent is executing the new combined wrapper as part of the fresh seven-check harness. Integrated native56+36 acceptance awaits that original combined receipt. This review covers JSON integrity/compatibility; it does not assert route,80-corpus or art acceptance.

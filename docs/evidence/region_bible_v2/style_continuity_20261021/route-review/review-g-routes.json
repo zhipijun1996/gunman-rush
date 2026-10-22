@@ -1,0 +1,662 @@
+{
+  "review": "G formal-spawn route/control independent read-only review",
+  "recorded_at": "2026-10-21T01:11:15.422960+00:00",
+  "decision": "REWORK_SAFETY_WITH_ACCEPT_SCOPED_ROUTE_FACTS",
+  "independence": "Reviewer did not implement G geometry or route drivers. Reviewer authored E weaver and practice-bell restore; those mechanics, E App acceptance, overall FUN and device acceptance are expressly excluded. No engine run or production/test/tool modification performed for this review.",
+  "scope": {
+    "actual": "Two archived headless actual DemoApp debug-region formal spawn runs, map 2, seed forest-depth-hollow-00; assisted legal input controller and shared PlayerMotor.",
+    "excluded": [
+      "Natural map1→map2 progression or boss completion",
+      "all seeds/maps/routes",
+      "manual player timing or device/GUI usability",
+      "safe or zero-damage return",
+      "starting below full HP",
+      "independent E ecology or own bell acceptance",
+      "arts, FUN, user acceptance"
+    ]
+  },
+  "source_review_sha256": {
+    "AGENTS.md": "210934f04500ed90d60e53e0df507aef916cb8d228614e09a1a40a0783198584",
+    "tests/forest_bible_world_motor_runner.gd": "1e86c39483d99b934e746168f5fd2b829dbf05bd817992f731566e796d9b1121",
+    "tests/forest_bible_world_trace.gd": "e8307b65d4e3dff40ce50f1778256cdb66e1c99483b69739e0f0de8779e43ffa",
+    "tests/forest_bible_world_air_case.gd": "8697759846b46cf0865d684174764d01da3fdabc5c80bc6bb16390af8d690c95",
+    "tests/forest_player_aim_trace.gd": "989c6359f47f69c60efb6f6d2ef12e8b359417b3d64c3b4f6f20c4987d72171e",
+    "tests/forest_depth_region_trace.gd": "c73e5ef0ee7c487e512d5f2fe396bc3bbed34831952aa002324f7f2bdc0bc156",
+    "tests/forest_depth_grove_combat_case.gd": "9b587cc131f31c4abc6cf31042868ba5620570b3eccce2a81c79fd93d5917994",
+    "tests/forest_depth_air_chain_case.gd": "e692029b05fc41c0366db556c8c7fcdeb70f035f84a62a911b9ff225990b9429",
+    "scripts/generation/forest_bible_v2_layout.gd": "39b3ec67d1d6570b8b20721322a13f83040e3449bb1642fcdac92e98ed7f6734",
+    "scripts/generation/forest_bible_backbranch_geometry.gd": "dd1c53dec6488ebe15ac81893b30b3208c06873ddab0761e7e77c11cf47d7ed9",
+    "scripts/generation/thorn_forest_region_v2_v15.gd": "8fbe2f3684dc66c27422819cec873588f82853ecaaa4f9a6bdf2024b39fa01f7",
+    "scripts/generation/thorn_forest_region_assembler.gd": "83010bef2653ecbe77f406eb8249c5ab4f3807c513555dc799cb0bbc0687ebd6",
+    "scripts/demo/demo_app.gd": "30281a2b8ec61fa151eb95bab4b723168e65c835856656622bf8d0398d69ef66",
+    "scripts/player/player_motor.gd": "9192a3b031cce875cfac47373e00f0a57a755ce2dfc481e6d4d0667df1410a56",
+    "resources/player/traversal.tres": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+    "config/player_tuning.json": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c",
+    "tools/run_forest_bible_world_motor.py": "cd1c4812645fd4eb8d5ebb552752d91e738d800a6c501af35d03a2d80935c46f",
+    "tools/forest_bible_world_sources.py": "876c1510e13390cbf8db3e05470bc2ab56ffc7c2a17f99ac8ba0660ee7a02638"
+  },
+  "artifacts": {
+    "build/region_bible_v2/g-full-inner-01/trace.json": "d69750bc3ee22f978bb774f7889ecdb55173c48a0fcd059e93bbb6b2014702b4",
+    "build/region_bible_v2/g-full-inner-01/receipt.json": "2f1a51e0c2c8d9f9578a40cd552f67d2d602d69a6ace33f7fe4e7e07d189434e",
+    "build/region_bible_v2/g-full-inner-01-outer.log": "869c7b5495fa092c89ce76bc9329d6a383d339fadcb587515a6c4e70c8c3f9d4",
+    "build/region_bible_v2/g-full-backbranch-01/trace.json": "04fe1d39cda2ee761ab1b5e0e1c883916f69a649b94343d0b1fe08540eb160da",
+    "build/region_bible_v2/g-full-backbranch-01/receipt.json": "6d167e4e7d0a473b34fe3ee184ee0e312c56ecc1450d830f821580fef6675348",
+    "build/region_bible_v2/g-full-backbranch-01-outer.log": "78de282e6f8e449fa9b9891243947f28712e726adefb83a0ebe0d5a2afaacb99",
+    "build/region_bible_v2/old-full01-grove-pilot.gd": "b6239735cf9e4ad76d0b7fc58a08bea7aa93a831965b3640cd2b5614806ace46",
+    "build/region_bible_v2/layout-contract-first/report.json": "bb701a2abd949078556f95ee6bb882899a10018632894998d00ea40132291508",
+    "build/region_bible_v2/workflow/independent-review/check-contract-diff-third.json": "b053b97781add612deee736807f2514fa0408c8564dff3fd23e1d451d69fba37",
+    "build/region_bible_v2/workflow/independent-review/protected-contracts.json": "b6f5c6b8e2375cde27655335bfaf82d8c0772bdf7ead258d07d65e4168f771fd",
+    "build/region_bible_v2/g-lease-backbranch-first-outer.log": "7be15544eef58de1265829a56e955d10b67252c24700c6cb19c9f75d30124953",
+    "build/region_bible_v2/g-lease-backbranch-third-outer.log": "0a61f1dc9dfb8304898d0ed347975404e7515b61d8e862af2fd9c44d5b84037c",
+    "build/region_bible_v2/g-lease-connection-sixth-outer.log": "b64ee980b73921248ae1792f2b94cfb5802e52c478b20d6c068b3d38e6904191",
+    "build/region_bible_v2/g-lease-backbranch-fourth-outer.log": "2371c182bfefa36ef11ca667a185cc59f264e7c5f22a4f73d62640885fcce811",
+    "build/region_bible_v2/g-lease-backbranch-second-outer.log": "3955c37809a3087a0b163402bb192822823c2a9c4c9ca6f63975c0d71dec9b22"
+  },
+  "runs": {
+    "g-full-inner-01": {
+      "receipt": {
+        "scope": "full_formal_spawn_Bible_world_Motor",
+        "import_cap_seconds": 90,
+        "native_cap_seconds": 240,
+        "exit_code": 0,
+        "source_stable": true,
+        "elapsed_seconds": 70.65237069900013
+      },
+      "inventory_count": 3414,
+      "independently_compared_before_after_equal": true,
+      "completed": 35,
+      "itinerary": 35,
+      "frames": 3349,
+      "consecutive_ticks": true,
+      "motor_step_counts": {
+        "1": 3349
+      },
+      "actor_epochs": [
+        3
+      ],
+      "stage_epochs": [
+        3
+      ],
+      "maximum_adjacent_displacement": 19.198887691961506,
+      "initial": {
+        "config": {
+          "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+          "tuning": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c"
+        },
+        "double_enabled": false,
+        "energy": 100.0,
+        "health": 5.0,
+        "hook_enabled": true,
+        "position": [
+          -2200.0,
+          1882.0
+        ],
+        "shots": 2,
+        "tier": 1,
+        "wall_enabled": false,
+        "weapon": "pulse_gun"
+      },
+      "final": {
+        "config": {
+          "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+          "tuning": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c"
+        },
+        "double_enabled": false,
+        "energy": 100.0,
+        "health": 4.0,
+        "hook_enabled": true,
+        "position": [
+          200.015335083008,
+          449.925231933594
+        ],
+        "shots": 2,
+        "tier": 1,
+        "wall_enabled": false,
+        "weapon": "pulse_gun"
+      },
+      "resource_ranges": {
+        "energy": [
+          80.0,
+          100.0
+        ],
+        "shots": [
+          1,
+          2
+        ],
+        "health": [
+          3.0,
+          5.0
+        ]
+      },
+      "actual_hook_contact_count": 13,
+      "actual_projectiles": 9,
+      "energy_credit_count": 3,
+      "credit_owner_session_has_prior_real_projectile": true,
+      "health_changes": [
+        {
+          "tick": 2830,
+          "leg": 27,
+          "phase": "hollow_inner_walk",
+          "position": [
+            646.349548339844,
+            801.925231933594
+          ],
+          "before": 5.0,
+          "after": 4.0
+        },
+        {
+          "tick": 2879,
+          "leg": 27,
+          "phase": "hollow_inner_walk",
+          "position": [
+            522.217834472656,
+            801.925231933594
+          ],
+          "before": 4.0,
+          "after": 3.0
+        },
+        {
+          "tick": 3257,
+          "leg": 33,
+          "phase": "relay_launch",
+          "position": [
+            180.015762329102,
+            483.334899902344
+          ],
+          "before": 3.0,
+          "after": 4.0
+        }
+      ],
+      "damage_to_player": [
+        {
+          "amount": 1.0,
+          "damage_kind": 0,
+          "event_id": "hollow_route__root_seed_watch_contact:3:1:1",
+          "health_after": 4.0,
+          "kind": "committed_damage",
+          "leg": 27,
+          "lethal": false,
+          "position": [
+            646.349548339844,
+            801.925231933594
+          ],
+          "source": "hollow_route__root_seed_watch_contact",
+          "target": "player",
+          "tick": 2830
+        },
+        {
+          "amount": 1.0,
+          "damage_kind": 0,
+          "event_id": "hollow_route__inner_thread_contact:3:1:1",
+          "health_after": 3.0,
+          "kind": "committed_damage",
+          "leg": 27,
+          "lethal": false,
+          "position": [
+            522.217834472656,
+            801.925231933594
+          ],
+          "source": "hollow_route__inner_thread_contact",
+          "target": "player",
+          "tick": 2879
+        }
+      ],
+      "claimed": {
+        "camp_heart": true,
+        "drop_root_spiral_bark_keeper": true
+      },
+      "opened": {},
+      "aim_hold_seconds": [
+        0.351696,
+        0.356293333333334
+      ]
+    },
+    "g-full-backbranch-01": {
+      "receipt": {
+        "scope": "full_formal_spawn_Bible_world_Motor",
+        "import_cap_seconds": 90,
+        "native_cap_seconds": 240,
+        "exit_code": 0,
+        "source_stable": true,
+        "elapsed_seconds": 83.01081510899985
+      },
+      "inventory_count": 3414,
+      "independently_compared_before_after_equal": true,
+      "completed": 43,
+      "itinerary": 43,
+      "frames": 4050,
+      "consecutive_ticks": true,
+      "motor_step_counts": {
+        "1": 4050
+      },
+      "actor_epochs": [
+        3
+      ],
+      "stage_epochs": [
+        3
+      ],
+      "maximum_adjacent_displacement": 19.192296741419995,
+      "initial": {
+        "config": {
+          "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+          "tuning": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c"
+        },
+        "double_enabled": false,
+        "energy": 100.0,
+        "health": 5.0,
+        "hook_enabled": true,
+        "position": [
+          -2200.0,
+          1882.0
+        ],
+        "shots": 2,
+        "tier": 1,
+        "wall_enabled": false,
+        "weapon": "pulse_gun"
+      },
+      "final": {
+        "config": {
+          "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+          "tuning": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c"
+        },
+        "double_enabled": false,
+        "energy": 100.0,
+        "health": 3.0,
+        "hook_enabled": true,
+        "position": [
+          200.015335083008,
+          449.925231933594
+        ],
+        "shots": 2,
+        "tier": 1,
+        "wall_enabled": false,
+        "weapon": "pulse_gun"
+      },
+      "resource_ranges": {
+        "energy": [
+          80.0,
+          100.0
+        ],
+        "shots": [
+          1,
+          2
+        ],
+        "health": [
+          2.0,
+          5.0
+        ]
+      },
+      "actual_hook_contact_count": 15,
+      "actual_projectiles": 13,
+      "energy_credit_count": 5,
+      "credit_owner_session_has_prior_real_projectile": true,
+      "health_changes": [
+        {
+          "tick": 3471,
+          "leg": 34,
+          "phase": "hollow_lower_land",
+          "position": [
+            639.064086914062,
+            765.69287109375
+          ],
+          "before": 5.0,
+          "after": 4.0
+        },
+        {
+          "tick": 3531,
+          "leg": 35,
+          "phase": "hollow_inner_walk",
+          "position": [
+            646.317932128906,
+            801.925231933594
+          ],
+          "before": 4.0,
+          "after": 3.0
+        },
+        {
+          "tick": 3580,
+          "leg": 35,
+          "phase": "hollow_inner_walk",
+          "position": [
+            522.186218261719,
+            801.925231933594
+          ],
+          "before": 3.0,
+          "after": 2.0
+        },
+        {
+          "tick": 3958,
+          "leg": 41,
+          "phase": "relay_launch",
+          "position": [
+            180.015762329102,
+            483.334899902344
+          ],
+          "before": 2.0,
+          "after": 3.0
+        }
+      ],
+      "damage_to_player": [
+        {
+          "amount": 1.0,
+          "damage_kind": 0,
+          "event_id": "hollow_route__root_seed_watch_contact:3:1:1",
+          "health_after": 4.0,
+          "kind": "committed_damage",
+          "leg": 34,
+          "lethal": false,
+          "position": [
+            639.064086914062,
+            765.69287109375
+          ],
+          "source": "hollow_route__root_seed_watch_contact",
+          "target": "player",
+          "tick": 3471
+        },
+        {
+          "amount": 1.0,
+          "damage_kind": 0,
+          "event_id": "hollow_route__root_seed_watch_contact:3:2:1",
+          "health_after": 3.0,
+          "kind": "committed_damage",
+          "leg": 35,
+          "lethal": false,
+          "position": [
+            646.317932128906,
+            801.925231933594
+          ],
+          "source": "hollow_route__root_seed_watch_contact",
+          "target": "player",
+          "tick": 3531
+        },
+        {
+          "amount": 1.0,
+          "damage_kind": 0,
+          "event_id": "hollow_route__inner_thread_contact:3:1:1",
+          "health_after": 2.0,
+          "kind": "committed_damage",
+          "leg": 35,
+          "lethal": false,
+          "position": [
+            522.186218261719,
+            801.925231933594
+          ],
+          "source": "hollow_route__inner_thread_contact",
+          "target": "player",
+          "tick": 3580
+        }
+      ],
+      "claimed": {
+        "camp_heart": true,
+        "drop_bible_double_window_weaver": true,
+        "drop_root_spiral_bark_keeper": true,
+        "thorn_forest/map_2/bible_backbranch_cache": true
+      },
+      "opened": {
+        "bible_backbranch_return": true
+      },
+      "aim_hold_seconds": [
+        0.351537809523808,
+        0.916751111111111
+      ]
+    }
+  },
+  "F05": {
+    "decision": "ACCEPT_SCOPED",
+    "east_window": {
+      "rect": [
+        1790,
+        1000,
+        80,
+        80
+      ],
+      "body_size": [
+        24,
+        36
+      ],
+      "overlapping_frame_count": 11,
+      "ticks": [
+        3088,
+        3098
+      ],
+      "minimum_body_top": 1000.07476806641,
+      "maximum_body_bottom": 1050.54345703125,
+      "all_vertical_body_clear": true,
+      "grounded_ticks": [
+        3096,
+        3097,
+        3098
+      ]
+    },
+    "west_gate": {
+      "rect": [
+        1660,
+        1000,
+        40,
+        80
+      ],
+      "overlapping_frame_count": 15,
+      "ticks": [
+        3138,
+        3152
+      ],
+      "minimum_body_top": 1003.92523193359,
+      "maximum_body_bottom": 1072.42517089844
+    },
+    "descent_hook_shot_events": [
+      {
+        "entry_support": "bible_backbranch__entry",
+        "kind": "bible_F05_grounded_departure",
+        "leg": 29,
+        "method": "ordinary_walk_off_outside_edge",
+        "position": [
+          2020.01867675781,
+          981.925170898438
+        ],
+        "tick": 2989
+      },
+      {
+        "grounded": false,
+        "kind": "bible_F05_actual_descending_side_cast",
+        "leg": 29,
+        "outside_body": true,
+        "position": [
+          2079.99389648438,
+          1080.1474609375
+        ],
+        "tick": 3018,
+        "velocity": [
+          0.206298828125,
+          693.333312988281
+        ]
+      },
+      {
+        "hook_tip": [
+          2079.99389648438,
+          1139.42541503906
+        ],
+        "hook_used_at_event": true,
+        "kind": "hook_cast",
+        "leg": 29,
+        "position": [
+          2079.99389648438,
+          1145.42541503906
+        ],
+        "target": "interwoven_deep_descent_ring",
+        "tick": 3023
+      },
+      {
+        "hook_tip": [
+          1897.10534667969,
+          1064.54663085938
+        ],
+        "hook_used_at_event": true,
+        "kind": "hook_contact_kick",
+        "leg": 29,
+        "position": [
+          1915.60168457031,
+          1088.16613769531
+        ],
+        "target": "bible_backbranch__side_fruit",
+        "tick": 3050
+      },
+      {
+        "aim": [
+          0.909493386745453,
+          0.415718346834183
+        ],
+        "kind": "shot_fired",
+        "leg": 29,
+        "position": [
+          1939.60168457031,
+          1064.17248535156
+        ],
+        "serial": 12,
+        "tick": 3084
+      }
+    ],
+    "aim_samples": [
+      {
+        "focus_air_seconds_used": 0.461111111111111,
+        "focus_remaining": 79.25,
+        "held_real_seconds": 0.916751111111111,
+        "hook_state": "free",
+        "kind": "hook",
+        "leg": 29,
+        "position": [
+          2079.99389648438,
+          1145.42541503906
+        ],
+        "tick": 3022,
+        "world_scale_at_release": 0.15
+      },
+      {
+        "focus_air_seconds_used": 0.777777777777779,
+        "focus_remaining": 65.0,
+        "held_real_seconds": 0.351537809523808,
+        "hook_state": "free",
+        "kind": "shot",
+        "leg": 29,
+        "position": [
+          1939.60168457031,
+          1064.17248535156
+        ],
+        "tick": 3083,
+        "world_scale_at_release": 0.15
+      }
+    ],
+    "claim_observations": [
+      {
+        "kind": "actual_input_cancelled",
+        "leg": 30,
+        "position": [
+          1740.41564941406,
+          1021.92523193359
+        ],
+        "reason": "region_cache",
+        "tick": 3121
+      },
+      {
+        "kind": "actual_input_cancelled",
+        "leg": 30,
+        "position": [
+          1740.41564941406,
+          1021.92523193359
+        ],
+        "reason": "pause",
+        "tick": 3121
+      },
+      {
+        "kind": "actual_input_cancelled",
+        "leg": 30,
+        "position": [
+          1740.41564941406,
+          1021.92523193359
+        ],
+        "reason": "region_cache_complete",
+        "tick": 3122
+      },
+      {
+        "kind": "actual_duplicate_interact_probe",
+        "leg": 30,
+        "position": [
+          1740.41564941406,
+          1021.92523193359
+        ],
+        "tick": 3123
+      }
+    ],
+    "claim_production_chain": "Actual viewport button press/release in trace _process → DemoApp _claim_region_chest accepted wallet/reward receipt → claimed ledger → resolve_reward_shortcuts only accepts exact claimed reward → native reward_shortcut_opened source accepted_reward_claim → actual west-gate body crossing. No direct claim/gate mutation in driver.",
+    "limits": [
+      "hook_cast target label is inherited previous hook_target until contact; tick3023 says interwoven_deep_descent_ring, actual tick3050 contact resolves bible_backbranch__side_fruit. Use contact/tip evidence, not cast label, for target identity.",
+      "Last 3 east-overlap frames are grounded on crown. Body crossing succeeded; full uninterrupted airborne transit to crown center is not established.",
+      "Trace export omits raw pointer_events, modal_frames, duplicate before/after and reward transaction output although driver executes/checks those. Exact selected amount and modal freeze duration are not independently reconstructible from this trace."
+    ]
+  },
+  "pilot_source_boundary": {
+    "executed_grove_pilot_sha256": "b6239735cf9e4ad76d0b7fc58a08bea7aa93a831965b3640cd2b5614806ace46",
+    "restored_exact_old_body": "build/region_bible_v2/old-full01-grove-pilot.gd",
+    "old_body_matches_receipts": true,
+    "current_pilot_is_later_work": "Current file has subsequent hollow handling changes and is not covered by either archived PASS. No revalidation inferred."
+  },
+  "findings": [
+    {
+      "id": "G-SAFETY-RETURN-01",
+      "status": "REWORK",
+      "severity": "P1",
+      "fact": "Inner route survives 2 contacts before camp heal (HP5→3→4); backbranch survives 3 contacts (HP5→2→3). Damage on return is real accepted enemy body contact, not F05 crossing.",
+      "minimal_location": "inner tick2830 and2879 inner_recovery/hollow_inner_walk; backbranch tick3471 outer_to_inner/hollow_lower_land then3531 and3580 inner_recovery/hollow_inner_walk. Seed sentry body [620,802] size30x36 HP3; spider [500,806] size26x28 HP2 remain alive.",
+      "root_cause": "Exact old grove pilot inherits _ordinary_ground; historical whitelist accepts walk/drop/jump variants only, not hollow_lower/hollow_recovery. It offers no safe threat clearance while inherited hollow driver walks through bodies.",
+      "acceptability": "Valid full-health completion evidence. Fails any claim this pilot proves safe return or low-HP robustness. Does not establish forced damage is geometrically unavoidable; enemies are killable. Request legal preclear/avoid/wait strategy with real inputs and new evidence, preserving old cost and failures."
+    },
+    {
+      "id": "G-RESOURCE-ACCOUNT-02",
+      "status": "ACCEPT_SCOPED",
+      "fact": "No position, HP, energy or shot assignment found in full reader/inheritance path. Snapshot flags alone were not trusted. HP increases exactly once near authored camp_heart [165,445], amount1, claimed=true; center distance41.17084 satisfies actual pickup radius<46. Actual drops are marked claimed. Shot energy credits owner/session tie to prior real projectiles and hit ledger; genuine grounding/focus rest supplies remaining recovery.",
+      "limit": "Export omits wallet amount/output receipts and pickup frame events. No claim all resource changes have a standalone transaction ledger in this trace. Camp pickup occurs after return damage and cannot justify entering return on low HP."
+    },
+    {
+      "id": "G-INPUT-03",
+      "status": "ACCEPT_SCOPED",
+      "fact": "Automated aim selection feeds actual KeyboardMouseAdapter mouse/SPACE events; movement uses actual InputRouter axis, requests feed controller; each observed tick has one normal Motor update. Aim holds are at least0.3515s; F05 hook hold0.91675s, shot0.35154s with actual focus consumption.",
+      "limit": "Assisted targets and synthetic adapter calls are not OS-level manual play or proof human timing is easy. Cache selection alone uses actual Viewport push_input."
+    }
+  ],
+  "preserved_contracts": {
+    "selected_files_byte_identical_to_HEAD": {
+      "scripts/player/player_motor.gd": true,
+      "resources/player/traversal.tres": true,
+      "config/player_tuning.json": true,
+      "tools/harness.py": true,
+      "tools/quality.py": true,
+      "tools/level_design_contracts.py": true,
+      "tools/level_formal_capture.gd": true,
+      "tests/forest_depth_region_trace.gd": true,
+      "tests/forest_depth_grove_combat_case.gd": true,
+      "tests/forest_depth_air_chain_case.gd": true,
+      "tests/forest_player_aim_trace.gd": true
+    },
+    "new_route_caps": {
+      "import_seconds": 90,
+      "native_seconds": 240,
+      "route_ticks": 18000,
+      "edge_ticks": 1800,
+      "F05_phase_ticks": 400,
+      "focus_rest_ticks": 400
+    },
+    "old_contract_report": {
+      "path": "build/region_bible_v2/layout-contract-first/report.json",
+      "checks": 403,
+      "failures": 0,
+      "cases": 20,
+      "scope": "Actual20 Bible world producers; inherited rows/routes exact and rehashed reward/return_support/strand/gate/action mutation rejection. Static generated-world contract only, not Motor."
+    },
+    "workflow_old_contract_diff": {
+      "old_count": 132,
+      "new_count": 141,
+      "changed_or_missing_old_checks": [],
+      "removed_old_memberships": {}
+    },
+    "limits": "No old engine or full snapshot test rerun by reviewer. Static source preservation does not resubmit old acceptance or sign later changed pilot."
+  }
+}

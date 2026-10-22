@@ -1,0 +1,33 @@
+from pathlib import Path
+import argparse,copy,hashlib,importlib.util,json,subprocess,tempfile,zipfile
+from unittest.mock import patch
+OUT=Path(__file__).resolve().parent;REPO=Path.cwd();spec=importlib.util.spec_from_file_location('independent_harness',REPO/'tools/harness.py');h=importlib.util.module_from_spec(spec);spec.loader.exec_module(h);source_sha=h._file_sha(REPO/'tools/harness.py');assert source_sha=='29f1503f037ccac6ca624547ca62d1c89bfde21ac4a543338d94fd73105b4c29';results=[]
+for jobs in (1,2):
+ with tempfile.TemporaryDirectory(dir=OUT)as t:
+  root=Path(t).resolve()
+  def git(*args):subprocess.run(['git',*args],cwd=root,check=True,capture_output=True)
+  git('init','-q');git('config','user.email','review@example.invalid');git('config','user.name','Independent Review');(root/'.gitignore').write_text('build/\n');(root/'contract.txt').write_text('actual independent subprocess contract');git('add','.');git('commit','-qm','fixture')
+  body=h.ARTIFACT_JSON_THRESHOLD+131;payload={'record':'independent','body':'Q'*body,'state':[1,True,None]};expected=json.dumps(payload).encode();member='build/out/large.json';old=root/'build/out/unchanged.json';old.parent.mkdir(parents=True);old.write_text(json.dumps({'untouched':'u'*body}));program="from pathlib import Path;import json;p=Path('build/out/large.json');p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps({'record':'independent','body':'Q'*(8*1024*1024+131),'state':[1,True,None]}));Path('build/out/small.json').write_text('{}');print('INDEPENDENT_COMPLETE')";check={'argv':['python3','-c',program],'timeout_seconds':5,'success_pattern':'^INDEPENDENT_COMPLETE$','cacheable':True,'inputs':['contract.txt'],'artifact_paths':['build/out']}
+  with patch.object(h,'ROOT',root),patch.object(h,'toolchain_identity',return_value={}):
+   def execute(name):
+    folder=root/'build/verification/harness'/name;folder.mkdir(parents=True);return h.execute_checks({'checks':{'proof':check}},['proof'],folder,jobs=jobs,reuse=True,commit='b'*40)[0]
+   first=execute('fresh');assert first['status']=='passed'and first['reused']is False;second=execute('reused');assert second['reused']is True;cache=next((root/'build/verification/check-cache').glob('proof-*.json'));original=json.loads(cache.read_text());art=Path(first['artifact_directory']);archive=art/h.ARTIFACT_ARCHIVE;ip=art/h.ARTIFACT_INDEX;index=json.loads(ip.read_text());archivebytes=archive.read_bytes();indexbytes=ip.read_bytes();assert [x['path']for x in index['members']]==[member];assert original['archived_output_fingerprint']=={member:{'sha256':hashlib.sha256(expected).hexdigest(),'size':len(expected)}};assert bool(original['live_output_fingerprint'])==(jobs==1);assert(art/'build/out/small.json').read_bytes()==b'{}'and(art/'check.log').is_file()and not(art/member).exists()and not(art/'build/out/unchanged.json').exists();restored=root/'build/restored.json';h.restore_archived_artifact(art,member,restored);assert restored.read_bytes()==expected and json.loads(restored.read_text())==payload
+   if jobs==1:assert(root/'build/out/small.json').stat().st_ino!=(art/'build/out/small.json').stat().st_ino
+   negatives=[]
+   def reset():archive.write_bytes(archivebytes);ip.write_bytes(indexbytes);cache.write_text(json.dumps(original))
+   def rebound(item):item['artifact_fingerprint']={p.relative_to(art).as_posix():h._file_sha(p)for p in art.rglob('*')if p.is_file()};cache.write_text(json.dumps(item))
+   def miss(label):assert h.cached_result(check,cache,root/'negative.log',original['input_digest'])is None,label;negatives.append(label)
+   # Original independent native ledger remains unchanged while all bundle-owned hashes are rebound.
+   reset();forged=json.dumps({'record':'independent','body':'Z'*body,'state':[1,True,None]}).encode();assert len(forged)==len(expected)
+   with zipfile.ZipFile(archive,'w',compression=zipfile.ZIP_DEFLATED)as z:z.writestr(member,forged)
+   changed=copy.deepcopy(index);changed['archive_sha256']=h._file_sha(archive);changed['members'][0]['sha256']=hashlib.sha256(forged).hexdigest();ip.write_text(json.dumps(changed));rebound(copy.deepcopy(original));miss('coherent_zip_index_and_outer_fp_rebind_original_native_ledger_preserved')
+   reset();archive.unlink();rebound(copy.deepcopy(original));miss('index_cannot_substitute_for_missing_zip')
+   reset();ip.unlink();rebound(copy.deepcopy(original));miss('zip_requires_original_index')
+   reset();archive.unlink();ip.unlink();rebound(copy.deepcopy(original));miss('both_bundle_files_missing_cannot_use_hash_only_cache')
+   reset();item=copy.deepcopy(original);item.pop('archived_output_fingerprint');cache.write_text(json.dumps(item));miss('large_archive_requires_original_native_ledger')
+   reset();item=copy.deepcopy(original);item['archived_output_fingerprint'][member]['size']+=1;cache.write_text(json.dumps(item));miss('exact_original_member_size_required')
+   reset();item=copy.deepcopy(original);item['archived_output_fingerprint']['build/out/extra.json']=item['archived_output_fingerprint'][member];cache.write_text(json.dumps(item));miss('exact_original_member_set_required')
+   reset();smallart=root/'build/legacy-small-artifacts';smallart.mkdir();(smallart/'receipt.json').write_text('{}');legacy={'log':'INDEPENDENT_COMPLETE\n','log_sha256':hashlib.sha256(b'INDEPENDENT_COMPLETE\n').hexdigest(),'result':{'status':'passed','exit_code':0},'commit':'c'*40,'artifact_directory':str(smallart),'artifact_fingerprint':h.artifact_fingerprint(smallart),'live_output_fingerprint':{}};legacycache=root/'build/legacy-small-cache.json';legacycache.write_text(json.dumps(legacy));assert h.cached_result(check,legacycache,root/'build/legacy.log')['reused']is True
+   results.append(dict(jobs=jobs,real_python_subprocess=True,large_valid_json_bytes=len(expected),fresh_pass=True,positive_actual_cache_reused=True,original_native_ledger_observed_from_execute_checks=True,live_output_ledger_present=bool(original['live_output_fingerprint']),full_restored_original_bytes_and_JSON_equal=True,small_raw_path_and_check_log_preserved=True,untouched_large_excluded=True,large_raw_duplicate_absent=True,old_small_cache_without_new_ledger_accepted=True,actual_negative_controls_rejected=negatives))
+assert h._file_sha(REPO/'tools/harness.py')==source_sha
+(OUT/'adversarial-real-cache.json').write_text(json.dumps(dict(verdict='ACCEPT_SCOPED_ACTUAL_JOBS1_JOBS2_ARCHIVE_PROVENANCE',source_sha256=source_sha,results=results,engine_executed=False,production_edits=False),indent=2)+'\n');print(json.dumps({'modes':len(results),'negatives_rejected':sum(len(r['actual_negative_controls_rejected'])for r in results),'source_sha256':source_sha}))

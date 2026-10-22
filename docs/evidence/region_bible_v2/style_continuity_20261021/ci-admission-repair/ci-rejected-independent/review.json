@@ -1,0 +1,102 @@
+{
+  "reviewer": "/root/forest_visual_independent_continue",
+  "created_at_utc": "2026-10-21T07:55:36.255113+00:00",
+  "verdict": "REJECT_CONCURRENCY_REF_KIND_AND_AUTOMATIC_PUBLISH_CANCELLATION",
+  "source_sha256": "a343fff94bacf40861503d12d7436af0ec3a61793b4a858033006e48d9fd5642",
+  "source_snapshot": "reviewed-environment.yml",
+  "scope": "CI exact source checkout/evidence/concurrency only. No art, GitHub run, production write or engine.",
+  "accepted_parts": [
+    "All7checkouts choose actualPRheadSHA or eventSHA",
+    "Prepare checks actual gitHEAD matching build.py source_commit",
+    "Strict artifact/browser/publisher contracts remain unchanged",
+    "Manual-vs-automatic and fork-head-repository grouping pass finite controls"
+  ],
+  "findings": [
+    {
+      "id": "CI-REF-KIND",
+      "severity": "blocking",
+      "actual": "Unfiltered push supports both branch and tag. github.ref_name drops refs/heads versus refs/tags: tagmain and branchmain get identical checks/repo/main group, whereas oldfullgithub.ref differed.",
+      "counterexample": [
+        "push_main",
+        "tag_main"
+      ],
+      "risk": "Tagpush may cancel mainchecks/publish workflow while its own tagrun is ineligible for existing mainpublish gate.",
+      "minimum_fix": "Preserve fullrefkind in group, with PRhead branch explicitly mapped to refs/heads/<headref> for ordinary push/PR dedup."
+    },
+    {
+      "id": "CI-AUTOPUBLISH",
+      "severity": "blocking",
+      "actual": "feature/complete-actor-actions push with [publish-playtest] is publish eligible; same-headrepo/ref PR is ineligible. New checks group equal, so laterPR can cancel the sole eligiblepush.",
+      "counterexample": [
+        "publish_feature_push",
+        "publish_feature_PR"
+      ],
+      "risk": "The deploymentif is byte-unchanged yet liveness of the existing publish route is regressed by cancellation.",
+      "minimum_fix": "Isolate existing publish-eligible automaticpush class from automaticchecksonlyPR runs; retain all existing deployif and explicit manualpublish isolation."
+    }
+  ],
+  "independent_event_evidence": "event-counterexamples.json",
+  "expression_script": "check_event_dataflow.py",
+  "protected_sources": {
+    "tools/build.py": {
+      "sha256": "b16831b0fa00d329248b73b81e35a78a0b248f78a220e17418f44b25683d9f58",
+      "same_as_HEAD": true
+    },
+    "tools/publish_playtest.py": {
+      "sha256": "e8db8cad6b07a8e92c293906bdfe973d67d8699ea84f48fef823d443a5666bdd",
+      "same_as_HEAD": true
+    },
+    "tools/verify_ci_artifact_browser.py": {
+      "sha256": "503ce5c698e21f9dfd23415fd64cb829944317096d718d4d043d6dcd82271f57",
+      "same_as_HEAD": true
+    },
+    "tests/test_harness.py": {
+      "sha256": "50e34a111c858b4ac79c7f85bd8d958431747300e0748663529dc302b77be7e2",
+      "same_as_HEAD": true
+    },
+    "tools/test_publish_playtest.py": {
+      "sha256": "680e65b76a880d84c4eb869a24518b49dff414594e5e990930a7d84d48ae14bb",
+      "same_as_HEAD": true
+    }
+  },
+  "actual_existing_publisher_check_run_controls": [
+    {
+      "case": "exact",
+      "accepted": true
+    },
+    {
+      "case": "synthetic_merge_commit",
+      "accepted": false
+    },
+    {
+      "case": "PR_not_manual",
+      "accepted": false
+    },
+    {
+      "case": "wrong_attempt",
+      "accepted": false
+    }
+  ],
+  "author_actual_logs": {
+    "harness": {
+      "path": "build/region_bible_v2/ci-exact-source-event-proposal-first/actual-harness-tests.log",
+      "sha256": "da4ae58e47d40cbf7cf234bfd12e189259aafc7efb07fd5aafc104b92d0db6cc",
+      "observed": "77tests/7.795s/OK; author-run, log inspected, not rerun by reviewer"
+    },
+    "archive": {
+      "path": "build/region_bible_v2/ci-exact-source-event-proposal-first/actual-archive-tests.log",
+      "sha256": "2ea63e8c2b039d02605fc1b6a31aca4f6973b177701e11d6a240a7e92ff8c374",
+      "observed": "12tests/2.235s/OK; author-run, log inspected"
+    }
+  },
+  "scope_limits": [
+    "Finite expression evaluation is not real GitHub scheduling/remoteartifact proof",
+    "Case-insensitive concurrency can collapse case-only distinct branches; inheritedplatform/preexisting policy, separately note in final revision",
+    "Manualsame-ref dispatches still cancel each other as existingpolicy; isolation presently means fromautomatic",
+    "WholeForest artistic acceptance remains unverified"
+  ],
+  "next": "Author/root have been notified and are preparing a distinct corrected workflowSHA. This rejection remains bound to a343fff...snapshot.",
+  "production_modified": false,
+  "git_mutated": false,
+  "engine_or_GitHub_runs_started": false
+}

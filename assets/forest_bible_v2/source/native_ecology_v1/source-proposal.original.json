@@ -1,0 +1,253 @@
+{
+  "task_id": "FOREST-BIBLE2-ART",
+  "status": "4_scoped_original_native_body_SOURCE_PROPOSALS_ONLY",
+  "production_modified": false,
+  "engine_calls": 0,
+  "image_tool_calls": 0,
+  "new_mechanics": 0,
+  "source_method": "AI-authored literal palette-index pixels, native exact output; no editing/resampling/tracing failed source imagery. Source displays sample original rows, not runtime resampling.",
+  "source_palette": "Same wood/moss/bronze family as current Queen/beetle; exact shared actor K/D/B/E RGB plus explicitly authored wing/seed semantic swatches. Not all regional RGB must be bronze.",
+  "shared_references": {
+    "assets/underworld_plains/actors/root_bell.png": "4033401fc4c452ed5548fc7bb6fc15e3a0bdbaf53e94fc75799d69f9ecc8ab1e",
+    "assets/underworld_plains/actors/patrol.png": "5944593f501abc6a5972fc28cae1ba9fd0099bc8362b0aac7a9bcc47feee802e",
+    "assets/underworld_plains/actors/charger.png": "a2eb21f7a61385bc2c7e1b5c3f7816342c8f22abdb8f5684715045764d98d7bb",
+    "assets/forest_bible_v2/source/native_beetle_v1/beetle.palette.json": "25c44264aed7201b14676af724f7f5acef5ea52aefcbe27a3afb2af48b9f19f0",
+    "assets/forest_bible_v2/source/native_queen_v1/queen.palette.json": "b64a7654966d80e38e884ca065e62ee39e7a907bcee763ea2f69217380419091"
+  },
+  "records": [
+    {
+      "name": "lantern",
+      "status": "CANDIDATE_source_only_no_runtime_install",
+      "native_grid_px": [
+        24,
+        20
+      ],
+      "collision_wu": [
+        24,
+        24
+      ],
+      "proposed_render_rect_wu": [
+        -18,
+        -15,
+        36,
+        30
+      ],
+      "native_pixel_world_scale": 1.5,
+      "anchor_kind": "center",
+      "source_anchor": [
+        12,
+        10
+      ],
+      "expected_local_anchor_wu": [
+        0,
+        0
+      ],
+      "actual_alpha_bbox": [
+        1,
+        1,
+        23,
+        19
+      ],
+      "behavior_id": "forest_lantern",
+      "stable_id": "forest_lantern",
+      "bible_and_actual_consumer": [
+        "Bible§7 bell-shaped warm translucent abdomen, thin short wings, flying living anchor",
+        "Existing forest_lantern24x24 motor/ForestLanternBehavior dwell/telegraph/travel"
+      ],
+      "actual_views": [
+        "lantern.native.png",
+        "lantern-source-display12x.png via view_image"
+      ],
+      "self_review": "Source-only candidate: warm bell abdomen, slim antenna/head and two short translucent sage wings distinguish from silver silk spider and wood/bronze Boss masks. Translucent warm pixels must be inspected on actual bright/dark backgrounds; single image is not locomotion/terminal feedback approval.",
+      "limits": [
+        "Thin wing pixels extend horizontally to ±16.5wu outside24x24 collision by4.5wu as nonhurt decoration",
+        "Air actor center anchor, no fabricated planted feet",
+        "Existing actual telegraph direction line must remain; image does not commit heading",
+        "Static source wings are not yet accepted flapping animation; warm translucent abdomen palette is material rather than emitted light."
+      ],
+      "files": {
+        "lantern.native.png": "363ba3cab7edc0bf6bbc9525e46639b208f85112b53d055bc64204bce416fadc",
+        "lantern-authored.rows": "41f50b2cf7da02876d9fb5c359985c7537ba6f2ea1f82c9b5288dbd8b2ce0f6e",
+        "lantern-source-display12x.png": "342f8ca82638c5d7854672c7c11a3595fe2382662e1da80a4aeb6d2e0dd6325f",
+        "ecology.palette.json": "6ab6c746ea6a91947f47d411097ecfc058874df37684896ca38c34489fc72cec",
+        "author_bitmaps.py": "ecdfd2d5db7bffb01dd1d3fcfed20cc41368b76359f34ee7b8ceafd7775387b7"
+      }
+    },
+    {
+      "name": "swing_pod",
+      "status": "CANDIDATE_source_only_no_runtime_install",
+      "native_grid_px": [
+        18,
+        22
+      ],
+      "collision_wu": [
+        26,
+        30
+      ],
+      "proposed_render_rect_wu": [
+        -13.5,
+        -16.5,
+        27,
+        33
+      ],
+      "native_pixel_world_scale": 1.5,
+      "anchor_kind": "suspension",
+      "source_anchor": [
+        9,
+        2
+      ],
+      "expected_local_anchor_wu": [
+        0,
+        -13.5
+      ],
+      "actual_alpha_bbox": [
+        2,
+        1,
+        15,
+        20
+      ],
+      "behavior_id": "forest_swing_pod",
+      "stable_id": "forest_swing_pod",
+      "bible_and_actual_consumer": [
+        "Existing authored suspended forest_swing_pod living anchor preserved",
+        "Bible§2.3 hanging seed pods/§7 biological shape language; not a newly invented ecology mechanic"
+      ],
+      "actual_views": [
+        "swing_pod.native.png",
+        "swing_pod-source-display12x.png via view_image"
+      ],
+      "self_review": "Source-only candidate: broad green calyx, rust pod skin and warm vertical seed heart form a tapered hanging seed rather than silver silk bell or rigid Boss mask. Current source is calm/static; true line attachment and blocked/turn readability require continuous host views.",
+      "limits": [
+        "Actual existing tether ends at motor-local(0,-13); source top suspension(9,2) maps(0,-13.5), only0.5wu overlap",
+        "Existing root/tether line and accepted turn circle remain external",
+        "Warm seed heart is always ambient plant material, no independent state/grant/damage signal",
+        "No change to real pendulum, blocked state, anchor eligibility, HP or collision."
+      ],
+      "files": {
+        "swing_pod.native.png": "929132739bc22e87864b9723c5cae076cfb52bf329ece69c93f8046ee8c769ea",
+        "swing_pod-authored.rows": "42afac60340d4030cc7e5b46d81499c481b869037f0c9e76f001cd73ff4dfd0b",
+        "swing_pod-source-display12x.png": "8fee19b5894d5f7558a9c8f30f4c8c26cf735ff73e9200a443456cac9fbd6d92",
+        "ecology.palette.json": "6ab6c746ea6a91947f47d411097ecfc058874df37684896ca38c34489fc72cec",
+        "author_bitmaps.py": "ecdfd2d5db7bffb01dd1d3fcfed20cc41368b76359f34ee7b8ceafd7775387b7"
+      }
+    },
+    {
+      "name": "seed_sentry",
+      "status": "CANDIDATE_source_only_no_runtime_install",
+      "native_grid_px": [
+        22,
+        26
+      ],
+      "collision_wu": [
+        30,
+        36
+      ],
+      "proposed_render_rect_wu": [
+        -16.5,
+        -19.5,
+        33,
+        39
+      ],
+      "native_pixel_world_scale": 1.5,
+      "anchor_kind": "foot",
+      "source_anchor": [
+        11,
+        25
+      ],
+      "expected_local_anchor_wu": [
+        0,
+        18
+      ],
+      "actual_alpha_bbox": [
+        2,
+        1,
+        20,
+        25
+      ],
+      "behavior_id": "forest_seed_sentry",
+      "stable_id": "forest_seed_sentry",
+      "bible_and_actual_consumer": [
+        "Bible§7 thorn-seed sentry needle fruit/eye-like bell stamen/root-stem support",
+        "Existing forest_seed_sentry30x36 ground actor/actual support-locked lobbed seed goal"
+      ],
+      "actual_views": [
+        "seed_sentry.native.png",
+        "seed_sentry-source-display12x.png via view_image"
+      ],
+      "self_review": "Source-only candidate: pointed upright pod surrounds a small eye-like pale stamen, then a narrow stalk splits into three rooted supports. Vertical silhouette and open lower leaf arms differ from broad beetle and aerial pod. Root/terrain contact and actual attack telegraph legibility remain unverified.",
+      "limits": [
+        "Source foot(11,25)*1.5+origin(-16.5,-19.5) maps collision bottom(0,18)",
+        "Pointed fruit and eye-like stamen are body features, no static projectile/ground hazard baked",
+        "Existing actual telegraph arc and attack_goal landing region remain external and highest priority",
+        "No new shield, knot, front/back modifier or active light source."
+      ],
+      "files": {
+        "seed_sentry.native.png": "29624d4f49d0b09e41c7e4be38be1c6e3e4ec52800244efc4fbef886114ab361",
+        "seed_sentry-authored.rows": "98f4e1ff965280d02a66553e355af7bd4c8409ce2e6a81bff2580cf82aa3fa41",
+        "seed_sentry-source-display12x.png": "f2c8d382706cbe80d827beb9894e8b8c7777cd72eec0a6c8b854b295c9adb0e3",
+        "ecology.palette.json": "6ab6c746ea6a91947f47d411097ecfc058874df37684896ca38c34489fc72cec",
+        "author_bitmaps.py": "ecdfd2d5db7bffb01dd1d3fcfed20cc41368b76359f34ee7b8ceafd7775387b7"
+      }
+    },
+    {
+      "name": "crossbranch",
+      "status": "CANDIDATE_source_only_no_runtime_install",
+      "native_grid_px": [
+        24,
+        24
+      ],
+      "collision_wu": [
+        28,
+        32
+      ],
+      "proposed_render_rect_wu": [
+        -18,
+        -18.5,
+        36,
+        36
+      ],
+      "native_pixel_world_scale": 1.5,
+      "anchor_kind": "foot",
+      "source_anchor": [
+        12,
+        23
+      ],
+      "expected_local_anchor_wu": [
+        0,
+        16
+      ],
+      "actual_alpha_bbox": [
+        0,
+        1,
+        22,
+        23
+      ],
+      "behavior_id": "forest_crossbranch",
+      "stable_id": "forest_crossbranch",
+      "bible_and_actual_consumer": [
+        "Bible§7 long segmented hindlegs/moss armor/curled tail; branch-crossing living actor",
+        "Existing forest_crossbranch28x32 ground/flight body and accepted shore commitment"
+      ],
+      "actual_views": [
+        "crossbranch.native.png",
+        "crossbranch-source-display12x.png via view_image"
+      ],
+      "self_review": "Source-only candidate: moss-green segmented mantis body with very long bent hindlegs, curled rear and raised curved forelimb clearly differs from round beetle and silk spider. Tail versus forelimb may still be ambiguous in a static pose; actual jump and small-scale host review required.",
+      "limits": [
+        "Source foot(12,23)*1.5+origin(-18,-18.5) maps collision bottom(0,16)",
+        "Long splayed hind feet/curled left rear/sickle-shaped right forelimb are nonmechanical biological silhouette",
+        "Decorative limbs extend up to4wu beyond collision sides, no expanded hurt or weapon area",
+        "Real committed_shore line/landing arc, blocked and telegraph states remain external; no fake midair foothold",
+        "Profile is source-right-facing; any future mirror must use true movement/brain.direction only."
+      ],
+      "files": {
+        "crossbranch.native.png": "768fb230af5095c2fe402898866ed2586684fe42ec3345917756ed2c28dd7616",
+        "crossbranch-authored.rows": "7d1c0aa7ec027a05cf953c602fa86ff1fb0bfff0aeda448855ae6a639d2b3bbf",
+        "crossbranch-source-display12x.png": "4feb81f6f980882c490f9700b95fc8b7e7e59787e2bca7eedb8848af96d5cbea",
+        "ecology.palette.json": "6ab6c746ea6a91947f47d411097ecfc058874df37684896ca38c34489fc72cec",
+        "author_bitmaps.py": "ecdfd2d5db7bffb01dd1d3fcfed20cc41368b76359f34ee7b8ceafd7775387b7"
+      }
+    }
+  ],
+  "overall_limit": "Source quality and silhouettes only. FullHUD bright/dark, actual facing, life/death/exposure, accepted attacks, grounded/suspension anchors, motion and independent/user/device review unverified. No expansion or runtime install before root GO."
+}

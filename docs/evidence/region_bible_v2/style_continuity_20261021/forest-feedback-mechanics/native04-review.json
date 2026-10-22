@@ -1,0 +1,185 @@
+{
+  "verdict": "ACCEPT_SCOPED_RECORDED_SHARED_BODY_GPU_VISIBILITY_AND_SIX_CASE_GRAPPLE_REGRESSION",
+  "reviewer": "/root/forest_route_design_review",
+  "independence": "Read source and original logs/JSON, actually viewed all three current20 original PNGs and hidden-control pair; no engine launched or production edits.",
+  "scope": "Actual shared body rope flight visibility in isolated fixture with hidden legacy FX and reduced cosmetics, valid/miss lifecycle, full six-case wrapper. Does not approve formal forest route/camera/other backgrounds, motion video, player/device or regional art.",
+  "native04_source_stable": true,
+  "source_bindings": {
+    "scripts/player/jump_ability.gd": {
+      "sha256_before": "705ac8fac267b0b71270bbde832725b0f53ef95589b23ebf1de2376afd9762eb",
+      "sha256_after": "705ac8fac267b0b71270bbde832725b0f53ef95589b23ebf1de2376afd9762eb",
+      "stable": true,
+      "current_matches": true
+    },
+    "scripts/player/traversal_ability.gd": {
+      "sha256_before": "f933547c0e51fdf3986bc1abebc49593fda55a7c594d73d6f489dae002228ff3",
+      "sha256_after": "f933547c0e51fdf3986bc1abebc49593fda55a7c594d73d6f489dae002228ff3",
+      "stable": true,
+      "current_matches": true
+    },
+    "scripts/player/player_controller.gd": {
+      "sha256_before": "23357098918d1abb0b3b592d380a263d579d56a9934d48be86715a6595395dce",
+      "sha256_after": "23357098918d1abb0b3b592d380a263d579d56a9934d48be86715a6595395dce",
+      "stable": true,
+      "current_matches": true
+    },
+    "scripts/player/player_motor.gd": {
+      "sha256_before": "9192a3b031cce875cfac47373e00f0a57a755ce2dfc481e6d4d0667df1410a56",
+      "sha256_after": "9192a3b031cce875cfac47373e00f0a57a755ce2dfc481e6d4d0667df1410a56",
+      "stable": true,
+      "current_matches": true
+    },
+    "scripts/underworld_plains/underworld_player.gd": {
+      "sha256_before": "6ed4b00e1058a9d16808df58295f63bc8900e70653aeccc66a6752fb08412127",
+      "sha256_after": "6ed4b00e1058a9d16808df58295f63bc8900e70653aeccc66a6752fb08412127",
+      "stable": true,
+      "current_matches": true
+    },
+    "tests/underworld_plains/test_underworld_grapple_visibility.gd": {
+      "sha256_before": "89559cb5807ea33fd40bc5d019226b7345f06f68fac39f6d0915c5e2807df91e",
+      "sha256_after": "89559cb5807ea33fd40bc5d019226b7345f06f68fac39f6d0915c5e2807df91e",
+      "stable": true,
+      "current_matches": true
+    },
+    "tests/fixed_hook_jump_height_runner.gd": {
+      "sha256_before": "5a740ba90e042c16c305daeb6f267f1204c4cd7b8c397f6189d5c863c91e97b8",
+      "sha256_after": "5a740ba90e042c16c305daeb6f267f1204c4cd7b8c397f6189d5c863c91e97b8",
+      "stable": true,
+      "current_matches": true
+    },
+    "tools/run_grapple_feel_tests.py": {
+      "sha256_before": "9ce63361527950de8f6b8af572080d6d3898e7e26b13c81c7ac0298e0bdfb2a6",
+      "sha256_after": "9ce63361527950de8f6b8af572080d6d3898e7e26b13c81c7ac0298e0bdfb2a6",
+      "stable": true,
+      "current_matches": true
+    }
+  },
+  "evidence_sha256": {
+    "build/underworld_grapple_visibility/report.json": "e71c8013056fd5fbe4d17017d68f66711a9f7f16a38af90796de96176453a440",
+    "build/underworld_grapple_visibility/render-only-hidden-control.png": "5499b9914942c30d89f9c70113f8af4d8b9bff9951ae8a9c918fd3930989c94d",
+    "build/underworld_grapple_visibility/actual-cancelled.png": "bc675a84e34190b2a7fe056fccc23984e740f567ebe64843593049fec018fdbb",
+    "build/underworld_grapple_visibility/actual-flight.png": "e9b4eb94fbd9bc253befdf21d53afbf7e718de75b1a63b79ea8f49bb742d6cad",
+    "build/region_bible_v2/forest-feedback-native-04/receipt.json": "99da9183f4481b56c4f151bb1032940c2e94f66b69e16d7bf62420c4f8d3302e",
+    "build/region_bible_v2/forest-feedback-native-04/grapple-gpu.log": "e45e2fea11ed92c9a6989300b2338630c77416d1802df111a5b9408ad1be3827",
+    "build/region_bible_v2/forest-feedback-native-04/grapple-feel-suite.log": "95a4bfc98bd6985c6214f8cb7f7ac41c1b31397c64ec6532f116b19b7030303f",
+    "build/region_bible_v2/forest-feedback-native-04/source-before.json": "a00776186dce6c361940d5c2c203513965c6d6f4e7228497099fee7b316fdac7",
+    "build/region_bible_v2/forest-feedback-native-04/source-after.json": "a00776186dce6c361940d5c2c203513965c6d6f4e7228497099fee7b316fdac7"
+  },
+  "gpu": {
+    "checks": 20,
+    "failures": [],
+    "gpu_samples": [
+      {
+        "changed_rope_pixels": 115,
+        "cosmetic_effects_enabled": false,
+        "hook_tip": [
+          365.895629882812,
+          407.283569335938
+        ],
+        "legacy_feedback_visible": false,
+        "motor_position": [
+          280.0,
+          482.0
+        ],
+        "state": "hook_fly"
+      }
+    ],
+    "range_cases": [
+      {
+        "actual_range": 231.0,
+        "case": "inside_actual_range",
+        "distance": 179.287475585938,
+        "observed_states": [
+          "free",
+          "hook_cast",
+          "hook_fly",
+          "hook_pull",
+          "hook_hang"
+        ],
+        "origin": [
+          280.0,
+          476.0
+        ],
+        "target": [
+          420.0,
+          364.0
+        ]
+      },
+      {
+        "actual_range": 231.0,
+        "case": "original_outside_actual_range",
+        "distance": 294.373901367188,
+        "observed_states": [
+          "free",
+          "hook_cast",
+          "hook_fly",
+          "hook_miss",
+          "hook_retract"
+        ],
+        "origin": [
+          280.0,
+          476.0
+        ],
+        "target": [
+          480.0,
+          260.0
+        ]
+      }
+    ],
+    "scope": "Real Router/Controller/Motor isolated shared-body GPU visibility with formal hidden-feedback ownership and reduced cosmetic effects. Hidden-body counterexample suspends only the actual Controller physics callback; real pause/cancel semantics remain unchanged. Not a full Forest route, campaign, physical-device or user art acceptance.",
+    "states": [
+      "free",
+      "hook_cast",
+      "hook_fly",
+      "hook_pull",
+      "hook_hang",
+      "hook_miss",
+      "hook_retract"
+    ]
+  },
+  "suite": {
+    "exit_code": 0,
+    "seconds": 43.682,
+    "cases": [
+      {
+        "id": "grapple-feel",
+        "checks": 38,
+        "failures": 0
+      },
+      {
+        "id": "grapple-aim-input",
+        "checks": 119,
+        "failures": 0
+      },
+      {
+        "id": "grapple-laser-input",
+        "assertions": 174,
+        "failures": 0
+      },
+      {
+        "id": "grapple-focus-hud",
+        "checks": 25,
+        "failures": 0
+      },
+      {
+        "id": "grapple-chain-input",
+        "checks": 51,
+        "failures": 0
+      },
+      {
+        "id": "fixed-hook-jump",
+        "checks": 43,
+        "failures": 0
+      }
+    ],
+    "complete_wrapper_marker": "PASS: grapple feel, hanging lifecycle and dual aim input"
+  },
+  "viewed_observations": [
+    "Current actual-flight.png visibly contains warm rope continuously from the character hand to a curved hook head directed toward the nearer ring; target ring remains distinct.",
+    "The matching render-only-hidden-control removes the character and rope/head while leaving the target and background unchanged.",
+    "Current actual-cancelled.png retains body/target and contains no extended rope.",
+    "This is a deliberately flat fixture, so contrast against actual forest terrain and moving layered background remains unverified."
+  ],
+  "retained_failure": "native04/grapple-gpu-original intentionally archives the previous 15/3 over-range fixture output. It is not the 20/0 source; current20 copied separately. Both historical GPU failures remain failed.",
+  "overall_native04": "ecology/world-structure/golden/fast-map1/fast-map2 failed; scoped acceptance does not upgrade the overall round."
+}

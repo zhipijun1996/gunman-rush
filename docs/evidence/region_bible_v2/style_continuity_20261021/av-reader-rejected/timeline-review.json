@@ -1,0 +1,402 @@
+{
+  "scope": "Read-only actual prior native traces; no movie native execution. Synthetic timestamps below illustrate semantics only.",
+  "actual": {
+    "F05": {
+      "path": "build/region_bible_v2/grounded-v3-map1-backbranch-first/trace.json",
+      "sha256": "ac7ced6b43b658219750edfda9ee5fb637505f439726185628980fc755971eb0",
+      "frames": 3129,
+      "required_selection": {
+        "bible_F05_grounded_departure": {
+          "count": 1,
+          "first": {
+            "entry_support": "bible_backbranch__entry",
+            "kind": "bible_F05_grounded_departure",
+            "leg": 25,
+            "method": "ordinary_walk_off_outside_edge",
+            "position": [
+              2020.01867675781,
+              981.925170898438
+            ],
+            "tick": 2354
+          }
+        },
+        "bible_F05_actual_descending_side_cast": {
+          "count": 1,
+          "first": {
+            "grounded": false,
+            "kind": "bible_F05_actual_descending_side_cast",
+            "leg": 25,
+            "outside_body": true,
+            "position": [
+              2079.99389648438,
+              1080.1474609375
+            ],
+            "tick": 2383,
+            "velocity": [
+              0.206298828125,
+              693.333312988281
+            ]
+          }
+        },
+        "hook_contact_kick": {
+          "count": 2,
+          "first": {
+            "hook_tip": [
+              1897.40063476562,
+              1063.74523925781
+            ],
+            "hook_used_at_event": true,
+            "kind": "hook_contact_kick",
+            "leg": 25,
+            "position": [
+              1916.83862304688,
+              1086.59619140625
+            ],
+            "target": "bible_backbranch__side_fruit",
+            "tick": 2428
+          }
+        },
+        "shot_fired": {
+          "count": 5,
+          "first": {
+            "aim": [
+              0.909493327140808,
+              0.415718644857407
+            ],
+            "kind": "shot_fired",
+            "leg": 25,
+            "position": [
+              1940.83862304688,
+              1062.60595703125
+            ],
+            "serial": 9,
+            "tick": 2463
+          }
+        }
+      },
+      "cancel_events": [
+        {
+          "kind": "actual_input_cancelled",
+          "leg": 26,
+          "position": [
+            1740.44763183594,
+            1021.92523193359
+          ],
+          "reason": "region_cache",
+          "tick": 2500
+        },
+        {
+          "kind": "actual_input_cancelled",
+          "leg": 26,
+          "position": [
+            1740.44763183594,
+            1021.92523193359
+          ],
+          "reason": "pause",
+          "tick": 2500
+        },
+        {
+          "kind": "actual_input_cancelled",
+          "leg": 26,
+          "position": [
+            1740.44763183594,
+            1021.92523193359
+          ],
+          "reason": "region_cache_complete",
+          "tick": 2501
+        },
+        {
+          "kind": "actual_input_cancelled",
+          "leg": 32,
+          "position": [
+            360.041595458984,
+            801.925170898438
+          ],
+          "reason": "Bible_world_trace_sealed",
+          "tick": 3129
+        }
+      ],
+      "process_event_counts": {
+        "bible_actual_aim_release": 25
+      },
+      "pointer_events": "NOT_EXPORTED",
+      "reader_modal_frames": "NOT_EXPORTED",
+      "modal_frames": "NOT_EXPORTED",
+      "requests_exported": false
+    },
+    "F08": {
+      "path": "build/region_bible_v2/f08-full-01/trace.json",
+      "sha256": "f56e39c1a6b9813e924573f813f343ef525d39b91b80a429466ffcd1633e6770",
+      "frames": 3551,
+      "required_selection": {
+        "hook_contact_kick": {
+          "count": 3,
+          "first": {
+            "hook_tip": [
+              89.7729797363281,
+              1246.96337890625
+            ],
+            "hook_used_at_event": true,
+            "kind": "hook_contact_kick",
+            "leg": 17,
+            "position": [
+              119.404113769531,
+              1251.6533203125
+            ],
+            "target": "interwoven_deep_a",
+            "tick": 2317
+          }
+        },
+        "spiral_actual_reader_bank": {
+          "count": 1,
+          "first": {
+            "core_distance": 30.0405597686768,
+            "kind": "spiral_actual_reader_bank",
+            "leg": 18,
+            "position": [
+              429.959533691406,
+              801.925170898438
+            ],
+            "supports": [
+              "hollow__inner_root"
+            ],
+            "tick": 2531
+          }
+        },
+        "spiral_actual_queued_item_accepted": {
+          "count": 1,
+          "first": {
+            "actual_receipt": {
+              "amount": 0.0,
+              "approach_route": "bible_spiral_approach",
+              "definition_id": "spiral_core",
+              "id": "forest_spiral_core",
+              "item": "forest_spiral_core",
+              "kind": "item",
+              "return_route": "bible_spiral_return",
+              "source_id": "forest_discovery:3:3:51da667ce7739135693740cbae6069865c887be2434da1a897e207856aa6b717:forest_spiral_core",
+              "story_read": true
+            },
+            "claim_via_real_Reader_buttons_and_App_postdamage_queue": true,
+            "direct_claim_or_grant": false,
+            "id": "forest_spiral_core",
+            "item_count_after": 1,
+            "item_count_before": 0,
+            "kind": "spiral_actual_queued_item_accepted",
+            "leg": 18,
+            "position": [
+              429.959533691406,
+              801.925170898438
+            ],
+            "projectile_damage_after": 2.5,
+            "projectile_damage_before": 1.0,
+            "tick": 2535
+          }
+        }
+      },
+      "cancel_events": [
+        {
+          "kind": "actual_input_cancelled",
+          "leg": 18,
+          "position": [
+            429.959533691406,
+            801.925170898438
+          ],
+          "reason": "menu",
+          "tick": 2534
+        },
+        {
+          "kind": "actual_input_cancelled",
+          "leg": 18,
+          "position": [
+            429.959533691406,
+            801.925170898438
+          ],
+          "reason": "pause",
+          "tick": 2534
+        },
+        {
+          "kind": "actual_input_cancelled",
+          "leg": 18,
+          "position": [
+            429.959533691406,
+            801.925170898438
+          ],
+          "reason": "forest_reader_confirm",
+          "tick": 2534
+        },
+        {
+          "kind": "actual_input_cancelled",
+          "leg": 18,
+          "position": [
+            429.959533691406,
+            801.925170898438
+          ],
+          "reason": "forest_reader_close",
+          "tick": 2535
+        },
+        {
+          "kind": "actual_input_cancelled",
+          "leg": 31,
+          "position": [
+            200.015335083008,
+            449.925231933594
+          ],
+          "reason": "Bible_spiral_trace_sealed",
+          "tick": 3551
+        }
+      ],
+      "process_event_counts": {
+        "bible_actual_aim_release": 35,
+        "spiral_actual_queued_item_accepted": 1
+      },
+      "pointer_events": [
+        {
+          "button_text": "查看发现物",
+          "kind": "mouse_button_press",
+          "position": [
+            450.0,
+            204.0
+          ],
+          "rect": [
+            360.0,
+            178.0,
+            180.0,
+            52.0
+          ]
+        },
+        {
+          "button_text": "查看发现物",
+          "kind": "mouse_button_release",
+          "position": [
+            450.0,
+            204.0
+          ],
+          "rect": [
+            360.0,
+            178.0,
+            180.0,
+            52.0
+          ]
+        },
+        {
+          "button_text": "取用物资并记下线索",
+          "kind": "mouse_button_press",
+          "position": [
+            640.0,
+            483.5
+          ],
+          "rect": [
+            350.0,
+            459.0,
+            580.0,
+            49.0
+          ]
+        },
+        {
+          "button_text": "取用物资并记下线索",
+          "kind": "mouse_button_release",
+          "position": [
+            640.0,
+            483.5
+          ],
+          "rect": [
+            350.0,
+            459.0,
+            580.0,
+            49.0
+          ]
+        }
+      ],
+      "reader_modal_frames": [
+        {
+          "motion_steps": 2541,
+          "process_frame": 6101,
+          "state": "open",
+          "tick": 2534
+        },
+        {
+          "motion_steps": 2541,
+          "process_frame": 6102,
+          "state": "confirm",
+          "tick": 2534
+        },
+        {
+          "motion_steps": 2541,
+          "process_frame": 6103,
+          "state": "confirm",
+          "tick": 2534
+        },
+        {
+          "motion_steps": 2541,
+          "process_frame": 6104,
+          "state": "confirm",
+          "tick": 2534
+        },
+        {
+          "motion_steps": 2541,
+          "process_frame": 6105,
+          "state": "confirm",
+          "tick": 2534
+        },
+        {
+          "motion_steps": 2541,
+          "process_frame": 6106,
+          "state": "confirm",
+          "tick": 2534
+        }
+      ],
+      "modal_frames": "NOT_EXPORTED",
+      "requests_exported": false
+    }
+  },
+  "synthetic_timeline_demonstration": {
+    "scope": "Explicit synthetic draw indices; actual old F08 has tick2534 paused Reader and confirm cancellation but no movie counters",
+    "data": {
+      "frames": [
+        {
+          "tick": 2534,
+          "presentation_frame": 10
+        },
+        {
+          "tick": 2535,
+          "presentation_frame": 17
+        }
+      ],
+      "events": [
+        {
+          "tick": 2534,
+          "presentation_frame": 16,
+          "kind": "actual_input_cancelled",
+          "reason": "forest_reader_confirm"
+        }
+      ]
+    },
+    "old_validator_errors": [
+      "movie_events_not_aligned_to_actual_physics_draw"
+    ]
+  },
+  "synthetic_audio_decoded": {
+    "command": [
+      "ffmpeg",
+      "-nostdin",
+      "-v",
+      "error",
+      "-i",
+      "/workspace/gunman-rush/build/region_bible_v2/av-adapter-independent-review-first/SYNTHETIC-NOT-GAME-static-short-silent-audio.avi",
+      "-map",
+      "0:a:0",
+      "-f",
+      "s16le",
+      "-c:a",
+      "copy",
+      "-"
+    ],
+    "exit_code": 0,
+    "pcm_bytes": 192,
+    "stereo_16bit_sample_frames": 48,
+    "all_bytes_zero": true,
+    "required_sample_frames_for_12_video_frames": 9600,
+    "stderr": ""
+  }
+}

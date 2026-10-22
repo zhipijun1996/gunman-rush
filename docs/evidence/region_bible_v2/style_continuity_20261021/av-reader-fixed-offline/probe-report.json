@@ -1,0 +1,143 @@
+{
+  "reviewed_source": "tools/capture_forest_bible_route.py",
+  "reviewed_sha256": "5e3f3c20399d2be00423b8e524ab6d66a8cbc92f92d7cf4666d551c0fa779b2c",
+  "source_still_identical_after_probe": true,
+  "engine_executed": false,
+  "production_source_modified": false,
+  "actual_function_probes": [
+    {
+      "name": "actual_existing_safe_report",
+      "scope": "actual reviewed function on explicitly synthetic mutated report; not native gameplay",
+      "expected_acceptance": true,
+      "accepted": true,
+      "unexpected_acceptance": false,
+      "result": {
+        "physics_samples": 3129,
+        "completed_legs": 32,
+        "min_hp": 5,
+        "actual_player_damage": [],
+        "actor_epoch": 3,
+        "stage_epoch": 3,
+        "actual_config": {
+          "tuning": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c",
+          "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390"
+        }
+      },
+      "error": null
+    },
+    {
+      "name": "zero_health_sample",
+      "scope": "actual reviewed function on explicitly synthetic mutated report; not native gameplay",
+      "expected_acceptance": false,
+      "accepted": false,
+      "unexpected_acceptance": false,
+      "result": null,
+      "error": "RuntimeError: Every actual route sample must retain full5HP"
+    },
+    {
+      "name": "committed_player_damage_present",
+      "scope": "actual reviewed function on explicitly synthetic mutated report; not native gameplay",
+      "expected_acceptance": false,
+      "accepted": false,
+      "unexpected_acceptance": false,
+      "result": null,
+      "error": "RuntimeError: Committed player damage is forbidden for this route capture"
+    },
+    {
+      "name": "actor_respawn_epoch_changed",
+      "scope": "actual reviewed function on explicitly synthetic mutated report; not native gameplay",
+      "expected_acceptance": false,
+      "accepted": false,
+      "unexpected_acceptance": false,
+      "result": null,
+      "error": "RuntimeError: Actual actor_epoch changed or missing"
+    },
+    {
+      "name": "stage_epoch_changed",
+      "scope": "actual reviewed function on explicitly synthetic mutated report; not native gameplay",
+      "expected_acceptance": false,
+      "accepted": false,
+      "unexpected_acceptance": false,
+      "result": null,
+      "error": "RuntimeError: Actual stage_epoch changed or missing"
+    },
+    {
+      "name": "truncated_to_one_physical_sample_with_complete_header",
+      "scope": "actual reviewed function on explicitly synthetic mutated report; not native gameplay",
+      "expected_acceptance": false,
+      "accepted": false,
+      "unexpected_acceptance": false,
+      "result": null,
+      "error": "RuntimeError: Completed legs do not match the continuous generated route"
+    },
+    {
+      "name": "missing_actual_camp_claim_and_shortcut",
+      "scope": "actual reviewed function on explicitly synthetic mutated report; not native gameplay",
+      "expected_acceptance": false,
+      "accepted": false,
+      "unexpected_acceptance": false,
+      "result": null,
+      "error": "RuntimeError: Actual F05 cache and shortcut claim required"
+    },
+    {
+      "name": "constant_draw_counter_all_events_kept",
+      "scope": "actual reviewed function on explicitly synthetic mutated report; not native gameplay",
+      "expected_acceptance": false,
+      "accepted": false,
+      "unexpected_acceptance": false,
+      "result": null,
+      "error": "RuntimeError: Required events collapsed to a static/constant draw counter"
+    },
+    {
+      "name": "constant_counter_all_accepted_events_deleted",
+      "scope": "actual reviewed function on explicitly synthetic mutated report; not native gameplay",
+      "expected_acceptance": false,
+      "accepted": false,
+      "unexpected_acceptance": false,
+      "result": null,
+      "error": "RuntimeError: Required actual event missing or duplicated: bible_F05_grounded_departure"
+    },
+    {
+      "name": "F08_core_receipt_replaced_with_nonempty_garbage",
+      "scope": "actual reviewed function on explicitly synthetic mutated report; not native gameplay",
+      "expected_acceptance": false,
+      "accepted": false,
+      "unexpected_acceptance": false,
+      "result": null,
+      "error": "RuntimeError: Exact real core item/count/damage effect required"
+    }
+  ],
+  "real_synthetic_media_probe": {
+    "scope": "Explicit synthetic non-game constant-black video with only1ms all-zero audio; never production AV",
+    "argv": [
+      "ffmpeg",
+      "-nostdin",
+      "-v",
+      "error",
+      "-f",
+      "lavfi",
+      "-i",
+      "color=c=black:s=1280x720:r=60:d=0.2",
+      "-f",
+      "lavfi",
+      "-i",
+      "anullsrc=r=48000:cl=stereo:d=0.001",
+      "-map",
+      "0:v:0",
+      "-map",
+      "1:a:0",
+      "-c:v",
+      "mjpeg",
+      "-q:v",
+      "10",
+      "-threads",
+      "1",
+      "-c:a",
+      "pcm_s16le",
+      "/workspace/gunman-rush/build/region_bible_v2/av-adapter-fixed-independent-second/SYNTHETIC-NOT-GAME-static-short-silent-audio.avi"
+    ],
+    "exit_code": 0,
+    "unexpected_acceptance": false,
+    "error": "RuntimeError('Original PCM duration must cover the complete60fps movie within one writer frame')"
+  }
+}

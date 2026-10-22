@@ -1,0 +1,25 @@
+# Main closeout independent branch review
+
+Snapshot: origin/main7be8c340372d1e20db6685cbd6a559191821eb0e; forest767627f87e7f2b79a1cd79b7bd507e6df76b170d. Main is an ancestor of forest; forest adds16 commits. Reviewed109 remote heads excluding main/HEAD:87 already in main,1 current forest source head,5 old art development heads, and16 delivery/artifact heads. Thus all other current gameplay/CI/PR96-related source work is already represented by forest ancestry; branch names alone must not trigger replay of older code.
+
+Recommendation: normally integrate the current forest source. Retain the remaining five art commits through three explicit ordinary history-only `-s ours` merges (demo, biome, v3), keeping each resulting tree exactly equal to the latest forest tree. The biome head already contains painterly-v2 and title-home-ui. Clearly state these merge commits preserve superseded history; they do not apply old art/UI/workflows or signify art acceptance. Do not blanket cherry-pick their `git cherry +` patches: patch-ID difference does not mean the present runtime lacks their contents.
+
+| Legacy head | Unique commit ancestry to retain | Existing forest path comparison |
+| --- | --- | --- |
+| demo-plains-art949d884063b3 |949d884063b3 |122 exact,13 newer/divergent,2 absent |
+| painterly-plains-v2 3bacc326c419 |3bacc326c419 |26 exact,8 newer/divergent,4 absent |
+| title-home-ui aa7efffbce76 |aa7efffbce76 +3bacc326c419 |35 exact,12 newer/divergent,8 absent |
+| biome-style-review89dbadb16760 |89dbadb16760 +aa7efffbce76 +3bacc326c419 |36 exact,12 newer/divergent,31 absent |
+| plains-art-v3 17edc86dc9e0 |17edc86dc9e0 |44 exact,11 newer/divergent,0 absent |
+
+No omitted runtime fix found in these five original commits. Inspected their exact changed runtime-resource paths: only949 adds courier_visual.gd/.tscn and a tool visual check;3b adds painterly_courier_visual.gd/.tscn and a tool visual check. Those files already exist in forest. Existing courier visual has subsequent drawing/read-only, grapple/weapon and touch changes; painterly visual has subsequent generated-run integration changes. The other three commits add no .gd/.tscn/.tres runtime path. Remaining divergent paths are newer provenance/manifests/docs, current art-check tools and .gitignore. Do not revert these to older branch bytes. This is source/history analysis, not engine validation or a semantic proof of every old asset.
+
+The33 distinct absent paths are genuinely unintegrated legacy proposal/review artifacts: other-region style plates, old preview pages/images/reports, old painterly preview helper, .github/workflows/art.yml and sync_art_branch.py. None is a currently missing gameplay repair. Old art CI would reintroduce a separate outdated workflow; old painterly/title assets must not silently regain runtime authority. Preserve them through reachable old commit objects, without copying dozens of MB into the current tree.
+
+Important correction to earlier quick wording:33 absent paths have **zero path-history entries in existing origin/main**. They were not deleted by main and are not already recoverable from old-main history. e0490f29 introduced the selected windchime sample/v3 previews, not the whole16-region proposal collection. The planned ancestry merges will make the original old heads/blobs reachable from new main. Every missing path's exact old head, blob OID and byte length is recorded in the JSON; git cat-file verified the objects exist now. For example, `git show 89dbadb16760cdad9bb8a6bb2b8cdeec336092db:assets/biome_style_review/thorn_forest.png` retrieves the original bytes. After integration, verify `git merge-base --is-ancestor 89dbadb16760cdad9bb8a6bb2b8cdeec336092db origin/main` and equivalent demo/v3 heads. The initial conversational count “6 old art branches” was also a typo:5 branches/5 unique commits is correct.
+
+Exclude all15 orphan playtest/* heads: their trees are generated HTML/PCK/chunks/engine/licenses, with no common source ancestor. Also exclude deploy/pr-67-web-20261015: its only commit is a delivery workflow tree that changes7708 paths, including7707 deletions (~3.47 million deleted lines); it is not development source to merge. No separately named remote backup heads appeared in this snapshot. Full excluded-head identities are in the JSON.
+
+GitHub read-only PR snapshot confirms legacy art PR24/30/33/37/38 still open and current forest PR101 open. Closing/merging status is parent-owned; no branch/PR/working-tree mutation was performed here. No engine/browser, no protected ci-H access. This recommendation carries forward existing ART_REWORK and timing/device/FUN limits; merging a shared development baseline is not finishing forest content.
+
+Raw classifications, all109 branch SHAs, patch-ID results,33 recovery entries and five original-commit runtime-path audits: `/tmp/gunman-main-closeout-branch-review.json`. Reproduction script `/tmp/gunman-main-closeout-branch-review.py`; read-only PR snapshot `/tmp/gunman-main-closeout-prs.json`.

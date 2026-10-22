@@ -1,7 +1,7 @@
 extends "res://tests/support/forest_queen_gameplay_fixture.gd"
 ## Independent actual-App scenarios; inherited fixture world construction is never called.
 ## Guardian default preserves05; Queen branch is prepared, not yet native-verified.
-const TRACE := preload("res://tests/forest_depth_region_trace.gd")
+const STRATEGY := preload("res://tests/forest_depth_trace_strategy.gd")
 var output := "res://build/forest_depth/campaign/capture.json"
 var seed_value := "forest-depth-hollow-00"
 var checks: Array[Dictionary] = []
@@ -282,7 +282,7 @@ func run_queen() -> void:
 	data={"scope":"actual_DemoApp_v2_map2_Queen_route_reload_fullfight_pointer_rewards_boundary","seed":seed_value,"initial_debug_entry_only":true,"expected_version":ThornForestRegionGenerator.DEPTH_VERSION,"manual_motor_step":false,"position_health_phase_resource_injection":false,"queen_whole_boss_admission":false,"pointer_scope":"actual Godot Viewport Button events; no OS/browser claim","input_scope":"shared Queen aim/fire/hook helpers bound to actual App; no fixture world or efficiency comparison","world_constructor_called":false}
 	# This schema13 regression owns its recorded v7 content. The current canopy
 	# Boss has a separate mandatory actual-App consumer, not a relaxed old test.
-	var trace:=TRACE.new();trace.seed_value=seed_value;trace.map_index=2;trace.route_name="fast";trace.recorded_layout_version=ThornForestRegionGenerator.DEPTH_LAYOUT_V7;root.add_child(trace)
+	var trace: Node=STRATEGY.create(ThornForestRegionGenerator.DEPTH_LAYOUT_V7);trace.seed_value=seed_value;trace.map_index=2;trace.route_name="fast";root.add_child(trace)
 	while not trace.finished or not trace.setup_done: await process_frame
 	trace.set_physics_process(false)
 	data.route={"manifest":trace.manifest.duplicate(true),"frames":trace.frames.duplicate(true),"events":trace.events.duplicate(true),"requests":trace.requests.duplicate(true),"completed":trace.completed.duplicate(true),"itinerary":trace.itinerary.duplicate(true),"failures":trace.failures.duplicate(),"initial":trace.initial.duplicate(true),"final":trace.snapshot()}

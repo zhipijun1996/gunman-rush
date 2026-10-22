@@ -1,0 +1,279 @@
+{
+  "reviewer": "/root/forest_discoveries_impl",
+  "scope": "Source-bound workflow/input-controller validation only; no engine, repository snapshot or actual pixels",
+  "checks": [
+    {
+      "command": [
+        "python3",
+        "tests/test_region_bible.py"
+      ],
+      "exit_code": 0,
+      "seconds": 3.7917382180003187,
+      "test_count": 32,
+      "log": "01.log",
+      "sha256": "38bb80be63541070c46bab7c97bbaadc4f3bf33a3b62cc64d75a62bdc48314fe"
+    },
+    {
+      "command": [
+        "python3",
+        "tests/test_level_design_routing.py"
+      ],
+      "exit_code": 0,
+      "seconds": 3.696451225999226,
+      "test_count": 24,
+      "log": "02.log",
+      "sha256": "8647aa2e0bfca99babaa33356c7c4f6fcc1a39dd65f179711ccb4f1f44a731e1"
+    },
+    {
+      "command": [
+        "python3",
+        "tests/test_level_region_context.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.7704256120005084,
+      "test_count": 10,
+      "log": "03.log",
+      "sha256": "1f76b02f43e20f533270798283d955f992f2e14f30fddcf7d6b3ff1624a2ac73"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "test_production_loop.CreativeLoopTests.test_host_lease_binds_direction_hash_separately_from_skills",
+        "test_production_loop.CreativeLoopTests.test_direction_change_inside_worker_cannot_receive_acceptance"
+      ],
+      "exit_code": 0,
+      "seconds": 0.4933766160002051,
+      "test_count": 2,
+      "log": "04.log",
+      "sha256": "9f92752dadedfc623f0115a346add0ecde5000d8f6f5f22e505b409565110cfe"
+    },
+    {
+      "command": [
+        "python3",
+        "/workspace/gunman-rush/build/region_bible_v2/workflow/style-inheritance-review/probe_style_guards.py",
+        "--output",
+        "/workspace/gunman-rush/build/region_bible_v2/workflow/body-closure-review/validation-first/independent-probes.json"
+      ],
+      "exit_code": 0,
+      "seconds": 3.477217509000184,
+      "test_count": null,
+      "log": "05.log",
+      "sha256": "fe90014cb43a1a5e64446e385484ebfa1f628e1d25df0fa98e549ad0ff870cf4"
+    },
+    {
+      "command": [
+        "python3",
+        "/workspace/gunman-rush/build/region_bible_v2/workflow/independent-review/probe_workflow_gates_expanded.py",
+        "--output",
+        "/workspace/gunman-rush/build/region_bible_v2/workflow/body-closure-review/validation-first/prior-rework-probes.json"
+      ],
+      "exit_code": 0,
+      "seconds": 0.26726630499979365,
+      "test_count": null,
+      "log": "06.log",
+      "sha256": "5858dd6b04eeb6c0110a70b6226944c3955ab6762d66c4407476651dc325ac6e"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "test_region_creative_direction.CreativeTests.test_actual_recommendations_are_valid_but_never_player_or_runtime_acceptance",
+        "test_region_creative_direction.CreativeTests.test_historical_v2_bytes_keep_identity_and_reject_current_authority",
+        "test_region_creative_direction.CreativeTests.test_missing_theme_or_whole_screen_coverage_is_refused",
+        "test_region_creative_direction.CreativeTests.test_candidate_comparison_cannot_be_empty_or_single_color_variant",
+        "test_region_creative_direction.CreativeTests.test_authority_changes_and_region_mismatch_fail_closed",
+        "test_region_creative_direction.CreativeTests.test_short_prompt_starts_creative_work_before_assets_or_terrain",
+        "test_region_creative_direction.CreativeTests.test_selected_direction_binds_every_specialist_and_retains_stage_gates",
+        "test_region_creative_direction.CreativeTests.test_engineering_prototype_stays_explicit_and_does_not_claim_region",
+        "test_region_creative_direction.CreativeTests.test_direction_cannot_bind_another_region_or_unregistered_request"
+      ],
+      "exit_code": 0,
+      "seconds": 1.0729125360003309,
+      "test_count": 9,
+      "log": "07.log",
+      "sha256": "667b41900c6d0aeccfd1821986467ea4a1f71761cc49a3ca8589a947f74a9c5c"
+    },
+    {
+      "command": [
+        "python3",
+        "/workspace/gunman-rush/build/region_bible_v2/workflow/body-closure-review/probe_body_closure.py",
+        "--output",
+        "/workspace/gunman-rush/build/region_bible_v2/workflow/body-closure-review/validation-first/body-probes.json"
+      ],
+      "exit_code": 0,
+      "seconds": 1.4725915740000346,
+      "test_count": null,
+      "log": "08.log",
+      "sha256": "ceea293424708870327f63fab0c13012c76779d5cbf7df5ade4a800d634c9b9d"
+    }
+  ],
+  "source_before": {
+    "tools/production_loop.py": "7ec853807903339cbff52df05e7addff3380d35fa0d22ca4755fb7ce2633d0b8",
+    "tools/region_creative_direction.py": "18b483f173a3cd5ac0537335b6106be7bb65dfa032d42668d297221e083318d7",
+    "tools/level_region_context.py": "29c95d2dd471f6b82eb1d8b0fa967ee14160314e8d8be133a76743e50a71ddc1",
+    "tools/level_design.py": "6766e401bb989e5e905133ee24fbe3cf1fff247aa2715f14fe0d95b3131d2e56",
+    "tools/visual_director.py": "1f389e9c7023363d8639325737466deba68f9a52bd3cfcb7a3f2f3ee73fd033b",
+    "tools/harness/profiles.json": "fc90181366653c4e8c83d817e0664d6d367439f3e5a1fe9ecd0503b36ac67b52",
+    "tests/test_region_bible.py": "4aeba0aaf3c7220c6faddc349dfcc9104cd528c6fefb2cf753cbae00e62b824e",
+    "tests/test_level_design_routing.py": "8ba31e47e61cc1769957eff65ae3cb1b7bca325a998c567b7c2b815e5168c129",
+    "tests/test_level_region_context.py": "69d46ae0f5ab48bdea4cac243613edac6d225da1e2059efc073d140316223e53",
+    "tests/test_production_loop.py": "857d89e0cc87ae762e2a566a4c7a40000d6da64f5cf1bd6e276a0547d80e09a8",
+    "tests/test_region_creative_direction.py": "fdaa39b4f013394815d520819bb89f7cb5d33ea17162eaf7c2a0a0c6810d5cd6",
+    "tools/harness.py": "c66f84af0fe5300a171f6377872e8e4e166a9d64e114e5b416f0de1bf5526fa3",
+    "docs/creative_direction/bibles/registry.json": "c7d4757ecfc1b9251cb4b88e380fc99b82dc43036f16b756c3834417f0b7162f",
+    "docs/creative_direction/bibles/user-request.json": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc",
+    "docs/creative_direction/bibles/style-continuity-20261021-v2.json": "d1b797ff48525b1b315a61e6bb944dd4f10b16fedbb7d7f425b103941c5ddcb9",
+    "docs/creative_direction/bibles/style-continuity-rebind-v2.json": "5a92fee9c9b643de26d66971f4040de97333040db3d89ff6faa5943ab0812214",
+    "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md": "02c9dd3299d12c91a426cf40b2a5885e526b51f467b955539b4b5ff99e1aca35",
+    "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md": "a7bad8323af64a7be0577132e5d988a6e1b781d9e1ac1639d37f9d65935194e3",
+    "docs/creative_direction/windchime_plains.json": "ad187b868ea432edb750f24d481ef985d5ac6b5ed476fec8ff1ce38dd4361553",
+    "docs/creative_direction/thorn_forest.json": "3543bfa0fbfb4b246a2399b44ebf893b8bd3da62a959b9b56f4a02875c8977fa",
+    "docs/creative_direction/archive/creative-v5/windchime_plains.json": "525cee94ff81204608b3f5ae7fdc150b4a4f8eaaef877d087936744c62a5e23a",
+    "docs/creative_direction/archive/creative-v5/thorn_forest.json": "68198de74692d5900cafb4ca2214880b5d68657578edad4a7f9bdbfdc357f0ba",
+    "AGENTS.md": "eafb55ecda4a24e660d82386a709222d5713251a44f1167afe5063182959557e",
+    "docs/creative_direction/README.md": "0c1b0671b4d31e700faa2f747564ea40b64871899fd82bb18736a72298df98f3",
+    ".agents/skills/region-creative-director/SKILL.md": "9d2989d0e300d90bbec21c837437d0c119238c6ff363af9e55e312e01737958d",
+    ".agents/skills/region-generator/SKILL.md": "e3f9a919722ee5435fd696528ce3c964ae014413d712eb89a85731d167e3c5c8",
+    ".agents/skills/art-director/SKILL.md": "e0e4cc9fa6ada2599612214a69a21c7f3a79e2afe275e5fb1f767eb0279c93f2",
+    ".agents/skills/visual-director/SKILL.md": "fdc8f3b51b5c3a448cb90b26eb42f86a16d3618a1ecc8fe631cb8ba4b62e0990",
+    ".agents/skills/game-quality-gate/SKILL.md": "bf61477d1397ede4952526dce502e6388425a0a3b8c3f72e7b47d909fd6702b8",
+    ".agents/skills/animation-vfx/SKILL.md": "cdf6112fde0c67bcbf9ef39733cfe666ca64bf990f573a87670c45cc77e4a755",
+    "scripts/demo/plains_region_stage.gd": "5348f573850079dd68b5e5a0ac1050c0038d72fba590982bbaef90e9f04f52c5",
+    "scripts/art/plains_terrain_study.gd": "af14698e84358e031b91a51c4df6558ce1be07df2093b165a8e651d229d108d3",
+    "scripts/underworld_plains/underworld_terrain.gd": "a330045721df6d82589bfdc0208ed9d1de2930f6c50c1c30ea93d86ce12d5427",
+    "scripts/underworld_plains/underworld_terrain.gdshader": "a175d071cda5b8d95a25ce327f7abc77eec9d779b9a5abc374b02ced640cb0ae",
+    "assets/underworld_plains/terrain/terrain_build.json": "64f0c0fb88271e0e25684c8a4e4099af7135e5001c6604126485c9bb6c511c5d",
+    "assets/underworld_plains/terrain/terrain.tres": "02fa0bf8a764fd6307d47b9bf802066c6374d7a7c2d93060ec099289cbde3770",
+    "assets/underworld_plains/terrain/terrain.png": "908a3541feccc0e7abdd629c3a0bb8ce22693e22e89ea153cc7d80a411cbfba9",
+    "assets/underworld_plains/terrain/source.png": "a369175ccef5fca5ab363f140252d1f0f38b5eafb5d541605c601ea4ac56f88c",
+    "scripts/art_foundation/blob47_rules.gd": "6bfc86b02211056068781c94b20f7514750efe03fc7f948fa091ff2256fb1cd6",
+    "scripts/art_foundation/pixel_formal_terrain.gd": "66944d59146ec8fc344a3763e276cd060e6cc783749b6ee11045edb2d4a1f225",
+    "scripts/art/plains_terrain_borders.gd": "240098cce12d435c902cb85c114dd302415f0d639f848fa89769c90581f8391d",
+    "assets/style_exploration/underworld/source/licenses/publisher_page.txt": "9dcb86357ece8650bcb8be5798b02167b8d8735a475e3ec4e31518e1b744b270",
+    "scripts/underworld_plains/underworld_player.gd": "f4243c83fb51ce85e34a95e736676a971339708537755683214f9b47cbc1bfb6",
+    "assets/underworld_plains/player_animation/animation_build.json": "65bb572735f8aead4a6b1e5ead2174b1dc784eb9d0ee8aeeafff6ac8d7eb49b3",
+    "assets/underworld_plains/player_animation/run_sheet.png": "64fe86b6de951bd671f511509104b2639f528527741774dd2561547f7ec5dd27",
+    "assets/underworld_plains/player_animation/states_sheet.png": "01f6645fcedd24e14e06d56b6789ad0aa987ac0c75a63b39b0f16b40fe256744",
+    "docs/creative_direction/bibles/style-continuity-20261021.json": "01cab21e345926f95d969cd25f0e3634ce30c89620a5f4987da612ffec6e290a",
+    "docs/creative_direction/bibles/style-continuity-rebind-v1.json": "c0df236502535f0b76338024ccdadc51f7cc534ef8fbe7ff2163406b320954f5"
+  },
+  "source_after": {
+    "tools/production_loop.py": "7ec853807903339cbff52df05e7addff3380d35fa0d22ca4755fb7ce2633d0b8",
+    "tools/region_creative_direction.py": "18b483f173a3cd5ac0537335b6106be7bb65dfa032d42668d297221e083318d7",
+    "tools/level_region_context.py": "29c95d2dd471f6b82eb1d8b0fa967ee14160314e8d8be133a76743e50a71ddc1",
+    "tools/level_design.py": "6766e401bb989e5e905133ee24fbe3cf1fff247aa2715f14fe0d95b3131d2e56",
+    "tools/visual_director.py": "1f389e9c7023363d8639325737466deba68f9a52bd3cfcb7a3f2f3ee73fd033b",
+    "tools/harness/profiles.json": "fc90181366653c4e8c83d817e0664d6d367439f3e5a1fe9ecd0503b36ac67b52",
+    "tests/test_region_bible.py": "4aeba0aaf3c7220c6faddc349dfcc9104cd528c6fefb2cf753cbae00e62b824e",
+    "tests/test_level_design_routing.py": "8ba31e47e61cc1769957eff65ae3cb1b7bca325a998c567b7c2b815e5168c129",
+    "tests/test_level_region_context.py": "69d46ae0f5ab48bdea4cac243613edac6d225da1e2059efc073d140316223e53",
+    "tests/test_production_loop.py": "857d89e0cc87ae762e2a566a4c7a40000d6da64f5cf1bd6e276a0547d80e09a8",
+    "tests/test_region_creative_direction.py": "fdaa39b4f013394815d520819bb89f7cb5d33ea17162eaf7c2a0a0c6810d5cd6",
+    "tools/harness.py": "c66f84af0fe5300a171f6377872e8e4e166a9d64e114e5b416f0de1bf5526fa3",
+    "docs/creative_direction/bibles/registry.json": "c7d4757ecfc1b9251cb4b88e380fc99b82dc43036f16b756c3834417f0b7162f",
+    "docs/creative_direction/bibles/user-request.json": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc",
+    "docs/creative_direction/bibles/style-continuity-20261021-v2.json": "d1b797ff48525b1b315a61e6bb944dd4f10b16fedbb7d7f425b103941c5ddcb9",
+    "docs/creative_direction/bibles/style-continuity-rebind-v2.json": "5a92fee9c9b643de26d66971f4040de97333040db3d89ff6faa5943ab0812214",
+    "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md": "02c9dd3299d12c91a426cf40b2a5885e526b51f467b955539b4b5ff99e1aca35",
+    "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md": "a7bad8323af64a7be0577132e5d988a6e1b781d9e1ac1639d37f9d65935194e3",
+    "docs/creative_direction/windchime_plains.json": "ad187b868ea432edb750f24d481ef985d5ac6b5ed476fec8ff1ce38dd4361553",
+    "docs/creative_direction/thorn_forest.json": "3543bfa0fbfb4b246a2399b44ebf893b8bd3da62a959b9b56f4a02875c8977fa",
+    "docs/creative_direction/archive/creative-v5/windchime_plains.json": "525cee94ff81204608b3f5ae7fdc150b4a4f8eaaef877d087936744c62a5e23a",
+    "docs/creative_direction/archive/creative-v5/thorn_forest.json": "68198de74692d5900cafb4ca2214880b5d68657578edad4a7f9bdbfdc357f0ba",
+    "AGENTS.md": "eafb55ecda4a24e660d82386a709222d5713251a44f1167afe5063182959557e",
+    "docs/creative_direction/README.md": "0c1b0671b4d31e700faa2f747564ea40b64871899fd82bb18736a72298df98f3",
+    ".agents/skills/region-creative-director/SKILL.md": "9d2989d0e300d90bbec21c837437d0c119238c6ff363af9e55e312e01737958d",
+    ".agents/skills/region-generator/SKILL.md": "e3f9a919722ee5435fd696528ce3c964ae014413d712eb89a85731d167e3c5c8",
+    ".agents/skills/art-director/SKILL.md": "e0e4cc9fa6ada2599612214a69a21c7f3a79e2afe275e5fb1f767eb0279c93f2",
+    ".agents/skills/visual-director/SKILL.md": "fdc8f3b51b5c3a448cb90b26eb42f86a16d3618a1ecc8fe631cb8ba4b62e0990",
+    ".agents/skills/game-quality-gate/SKILL.md": "bf61477d1397ede4952526dce502e6388425a0a3b8c3f72e7b47d909fd6702b8",
+    ".agents/skills/animation-vfx/SKILL.md": "cdf6112fde0c67bcbf9ef39733cfe666ca64bf990f573a87670c45cc77e4a755",
+    "scripts/demo/plains_region_stage.gd": "5348f573850079dd68b5e5a0ac1050c0038d72fba590982bbaef90e9f04f52c5",
+    "scripts/art/plains_terrain_study.gd": "af14698e84358e031b91a51c4df6558ce1be07df2093b165a8e651d229d108d3",
+    "scripts/underworld_plains/underworld_terrain.gd": "a330045721df6d82589bfdc0208ed9d1de2930f6c50c1c30ea93d86ce12d5427",
+    "scripts/underworld_plains/underworld_terrain.gdshader": "a175d071cda5b8d95a25ce327f7abc77eec9d779b9a5abc374b02ced640cb0ae",
+    "assets/underworld_plains/terrain/terrain_build.json": "64f0c0fb88271e0e25684c8a4e4099af7135e5001c6604126485c9bb6c511c5d",
+    "assets/underworld_plains/terrain/terrain.tres": "02fa0bf8a764fd6307d47b9bf802066c6374d7a7c2d93060ec099289cbde3770",
+    "assets/underworld_plains/terrain/terrain.png": "908a3541feccc0e7abdd629c3a0bb8ce22693e22e89ea153cc7d80a411cbfba9",
+    "assets/underworld_plains/terrain/source.png": "a369175ccef5fca5ab363f140252d1f0f38b5eafb5d541605c601ea4ac56f88c",
+    "scripts/art_foundation/blob47_rules.gd": "6bfc86b02211056068781c94b20f7514750efe03fc7f948fa091ff2256fb1cd6",
+    "scripts/art_foundation/pixel_formal_terrain.gd": "66944d59146ec8fc344a3763e276cd060e6cc783749b6ee11045edb2d4a1f225",
+    "scripts/art/plains_terrain_borders.gd": "240098cce12d435c902cb85c114dd302415f0d639f848fa89769c90581f8391d",
+    "assets/style_exploration/underworld/source/licenses/publisher_page.txt": "9dcb86357ece8650bcb8be5798b02167b8d8735a475e3ec4e31518e1b744b270",
+    "scripts/underworld_plains/underworld_player.gd": "f4243c83fb51ce85e34a95e736676a971339708537755683214f9b47cbc1bfb6",
+    "assets/underworld_plains/player_animation/animation_build.json": "65bb572735f8aead4a6b1e5ead2174b1dc784eb9d0ee8aeeafff6ac8d7eb49b3",
+    "assets/underworld_plains/player_animation/run_sheet.png": "64fe86b6de951bd671f511509104b2639f528527741774dd2561547f7ec5dd27",
+    "assets/underworld_plains/player_animation/states_sheet.png": "01f6645fcedd24e14e06d56b6789ad0aa987ac0c75a63b39b0f16b40fe256744",
+    "docs/creative_direction/bibles/style-continuity-20261021.json": "01cab21e345926f95d969cd25f0e3634ce30c89620a5f4987da612ffec6e290a",
+    "docs/creative_direction/bibles/style-continuity-rebind-v1.json": "c0df236502535f0b76338024ccdadc51f7cc534ef8fbe7ff2163406b320954f5"
+  },
+  "changed_sources": [],
+  "original_bible_bytes": [
+    {
+      "path": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+      "sha256": "02c9dd3299d12c91a426cf40b2a5885e526b51f467b955539b4b5ff99e1aca35",
+      "canonical_matches_original_evidence": true,
+      "staged_bytes_equal": true,
+      "attachment_available": false,
+      "attachment_bytes_equal": null
+    },
+    {
+      "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+      "sha256": "a7bad8323af64a7be0577132e5d988a6e1b781d9e1ac1639d37f9d65935194e3",
+      "canonical_matches_original_evidence": true,
+      "staged_bytes_equal": true,
+      "attachment_available": false,
+      "attachment_bytes_equal": null
+    }
+  ],
+  "impact_bindings": [
+    {
+      "region_id": "windchime_plains",
+      "old_direction": true,
+      "new_direction": true
+    },
+    {
+      "region_id": "thorn_forest",
+      "old_direction": true,
+      "new_direction": true
+    }
+  ],
+  "old_harness_contracts": {
+    "old_count": 132,
+    "new_count": 144,
+    "changed_or_missing_old_checks": [],
+    "removed_old_memberships": {},
+    "original_profile_prefixes": {
+      "docs": true,
+      "core": true,
+      "gameplay": true,
+      "art": true,
+      "web": true,
+      "full": true,
+      "creative-feedback": true,
+      "history": true,
+      "creative-prototype": true,
+      "regional-art-feedback": true
+    }
+  },
+  "protected_original_loop_functions": {
+    "snapshot": true,
+    "check_task_quality": true,
+    "validate_restored_budget": true,
+    "validate_restored_completion": true,
+    "_verify_invocation": true,
+    "visual_capture_admission": true,
+    "resolved_check_contracts": true
+  },
+  "preserved_v1_and_v5": {
+    "docs/creative_direction/bibles/style-continuity-20261021.json": true,
+    "docs/creative_direction/bibles/style-continuity-rebind-v1.json": true,
+    "thorn_forest_v5": true,
+    "windchime_plains_v5": true
+  },
+  "passed": true,
+  "runner_sha256": "5091157631c08ea9d133f3d523f2200ea7b6c6093df106948a3acc54ea9aafac"
+}

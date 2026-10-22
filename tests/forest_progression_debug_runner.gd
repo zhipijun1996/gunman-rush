@@ -26,7 +26,7 @@ func check_default_forest_identity(app: Node,map_index: int) -> void:
 	check(app.forest_content_version==EXPECTED_PUBLIC_FOREST and app.stage.generated.manifest.version==EXPECTED_PUBLIC_FOREST and app.stage.generated.manifest.map_index==map_index,"unversioned debug entry uses independently expected public forest version map%s"%map_index)
 	check(encounter!=null and encounter.definition!=null and encounter.definition.resource_path==expected.definition,"debug default forest actual Boss Definition matches selected version map%s"%map_index)
 	check(app.stage.boss.scene_file_path==expected.scene,"debug default forest actual Boss scene matches selected version map%s"%map_index)
-	check(app.stage.generated.manifest.layout_version=="forest-fruit-routes-v14","fresh default uses independently expected fruit-routes layout; historical replay is separately mandatory")
+	check(app.stage.generated.manifest.layout_version=="forest-bible-world-v15","fresh default uses independently expected Bible layout; historical replay is separately mandatory")
 func run() -> void:
 	for region: StringName in [&"plains",&"thorn_forest"]:
 		for map_index: int in [1,2]:

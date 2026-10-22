@@ -1,6 +1,6 @@
 extends Node
 ## Mechanical Guardian consumer extraction; dynamic Node execution boundary only.
-const TRACE := preload("res://tests/forest_depth_region_trace.gd")
+const STRATEGY := preload("res://tests/forest_depth_trace_strategy.gd")
 const PILOT := preload("res://tests/forest_depth_guardian_pilot.gd")
 const AUDIO := preload("res://tests/audio_teardown.gd")
 var output := "res://build/forest_depth/campaign/capture.json"
@@ -16,7 +16,7 @@ func frames(count: int) -> void:
 	for unused: int in count: await get_tree().physics_frame
 func run() -> void:
 	data={"scope":"actual_DemoApp_v2_map1_route_Guardian_fullfight_pointer_reward_map2_entry","seed":seed_value,"expected_version":ThornForestRegionGenerator.DEPTH_VERSION,"initial_debug_entry_only":true,"manual_motor_step":false,"position_health_phase_resource_injection":false,"pointer_scope":"real Godot Viewport InputEventMouseButton, not OS or browser pointer","queen_whole_boss_admission":false}
-	var trace:=TRACE.new();trace.seed_value=seed_value;trace.map_index=1;trace.route_name="fast";get_tree().root.add_child(trace)
+	var trace: Node=STRATEGY.create();trace.seed_value=seed_value;trace.map_index=1;trace.route_name="fast";get_tree().root.add_child(trace)
 	while not trace.finished or not trace.setup_done: await get_tree().process_frame
 	trace.set_physics_process(false)
 	data.route={"manifest":trace.manifest.duplicate(true),"frames":trace.frames.duplicate(true),"events":trace.events.duplicate(true),"requests":trace.requests.duplicate(true),"completed":trace.completed.duplicate(true),"itinerary":trace.itinerary.duplicate(true),"failures":trace.failures.duplicate(),"initial":trace.initial.duplicate(true),"final":trace.snapshot()}

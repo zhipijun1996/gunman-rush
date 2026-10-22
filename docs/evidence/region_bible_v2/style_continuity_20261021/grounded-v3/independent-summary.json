@@ -1,0 +1,496 @@
+{
+  "scope": "Four actual v3 Motor journeys independently audited; formal map1 pair plus explicit LOCAL map2 long/short pair",
+  "reviewer": "/root/forest_grounded_route_validation",
+  "verdict": "ACCEPT_SCOPED",
+  "no_production_or_test_source_mutation": true,
+  "geometry_version": "forest-bible-backbranch-v3",
+  "rejected_v2_kept": "build/region_bible_v2/grounded-backbranch-long-counterexample-first/independent-rejection.json",
+  "engine_lease_released": true,
+  "all_four_complete_source_maps_identical": true,
+  "source_closure_digest_recipe": "sha256(UTF8(json.dumps(sources_before,sort_keys=True,separators=(comma,colon))))",
+  "source_closure_digest": "6eb6acd75f0ae4228be8d344cc3a74bd5bd803119b197f25788d5c6ef3e64588",
+  "cases": [
+    {
+      "case": "grounded-v3-map1-connection-first",
+      "actual_scope": "full_formal_spawn_Bible_world_Motor",
+      "elapsed_seconds": 55.40994963999947,
+      "source_stable": true,
+      "source_file_count": 3513,
+      "completed": 24,
+      "itinerary": 24,
+      "frames": 2428,
+      "manifest_hash": "b39e70469cf5dfc6e1b1bccc5435e0beb82237ee993d1bcdd9a4179400b354ce",
+      "health_values": [
+        5.0
+      ],
+      "motor_step_values": [
+        1
+      ],
+      "actor_epochs": [
+        3
+      ],
+      "stage_epochs": [
+        3
+      ],
+      "player_committed_damage": []
+    },
+    {
+      "case": "grounded-v3-map1-backbranch-first",
+      "actual_scope": "full_formal_spawn_Bible_world_Motor",
+      "elapsed_seconds": 66.90475866499946,
+      "source_stable": true,
+      "source_file_count": 3513,
+      "completed": 32,
+      "itinerary": 32,
+      "frames": 3129,
+      "manifest_hash": "b39e70469cf5dfc6e1b1bccc5435e0beb82237ee993d1bcdd9a4179400b354ce",
+      "health_values": [
+        5.0
+      ],
+      "motor_step_values": [
+        1
+      ],
+      "actor_epochs": [
+        3
+      ],
+      "stage_epochs": [
+        3
+      ],
+      "player_committed_damage": []
+    },
+    {
+      "case": "grounded-v3-map2-long-first",
+      "actual_scope": "LOCAL_initial_spawn_fixture_not_fullspawn_or_formal_admission",
+      "elapsed_seconds": 47.1157878970007,
+      "source_stable": true,
+      "source_file_count": 3513,
+      "completed": 30,
+      "itinerary": 30,
+      "frames": 1986,
+      "manifest_hash": "40b12e7eb57287a129f7f5e08c8e57998efc2b7b706b8a5e90eb650a4eba5958",
+      "health_values": [
+        5.0
+      ],
+      "motor_step_values": [
+        1
+      ],
+      "actor_epochs": [
+        3
+      ],
+      "stage_epochs": [
+        3
+      ],
+      "player_committed_damage": []
+    },
+    {
+      "case": "grounded-v3-map2-short-first",
+      "actual_scope": "LOCAL_initial_spawn_fixture_not_fullspawn_or_formal_admission",
+      "elapsed_seconds": 43.435555271998965,
+      "source_stable": true,
+      "source_file_count": 3513,
+      "completed": 22,
+      "itinerary": 22,
+      "frames": 1768,
+      "manifest_hash": "40b12e7eb57287a129f7f5e08c8e57998efc2b7b706b8a5e90eb650a4eba5958",
+      "health_values": [
+        5.0
+      ],
+      "motor_step_values": [
+        1
+      ],
+      "actor_epochs": [
+        3
+      ],
+      "stage_epochs": [
+        3
+      ],
+      "player_committed_damage": []
+    }
+  ],
+  "return_comparison": {
+    "scope": "Descriptive paired LOCAL actual-controller runs; not formal fullspawn or a strict identical-receiver-state causal timing experiment",
+    "same_source_closure": true,
+    "same_manifest": true,
+    "same_seed_and_map": true,
+    "same_actual_initial_player_state": true,
+    "same_initial_fixture": true,
+    "same_observed_initial_enemy_states": true,
+    "identical_final_player_state": true,
+    "receiver_platform": "bible_backbranch__crown",
+    "final_camp": [
+      200.0,
+      450.0
+    ],
+    "long": {
+      "camp_tick": 1986,
+      "claimed": false,
+      "frame_measure_excludes_paused_modal_physics": true,
+      "measurement_is_not_a_comparison_without_both_complete_runs": true,
+      "modal_process_frames": 0,
+      "opened": false,
+      "physical_frame_difference": 1374,
+      "receiver_tick": 612,
+      "return_aim_holds": [
+        {
+          "focus_air_seconds_used": 0.0,
+          "focus_remaining": 100.0,
+          "held_real_seconds": 0.351696,
+          "hook_state": "free",
+          "kind": "shot",
+          "leg": 22,
+          "position": [
+            675.097717285156,
+            801.925231933594
+          ],
+          "tick": 1237,
+          "world_scale_at_release": 1.0
+        },
+        {
+          "focus_air_seconds_used": 0.0,
+          "focus_remaining": 100.0,
+          "held_real_seconds": 0.351696,
+          "hook_state": "free",
+          "kind": "shot",
+          "leg": 22,
+          "position": [
+            682.934387207031,
+            801.925231933594
+          ],
+          "tick": 1285,
+          "world_scale_at_release": 1.0
+        },
+        {
+          "focus_air_seconds_used": 0.0,
+          "focus_remaining": 100.0,
+          "held_real_seconds": 0.351696,
+          "hook_state": "free",
+          "kind": "shot",
+          "leg": 22,
+          "position": [
+            682.404113769531,
+            801.925231933594
+          ],
+          "tick": 1335,
+          "world_scale_at_release": 1.0
+        },
+        {
+          "focus_air_seconds_used": 0.0,
+          "focus_remaining": 100.0,
+          "held_real_seconds": 0.351696,
+          "hook_state": "free",
+          "kind": "shot",
+          "leg": 22,
+          "position": [
+            646.353393554688,
+            801.925231933594
+          ],
+          "tick": 1417,
+          "world_scale_at_release": 1.0
+        },
+        {
+          "focus_air_seconds_used": 0.0,
+          "focus_remaining": 100.0,
+          "held_real_seconds": 0.351696,
+          "hook_state": "free",
+          "kind": "shot",
+          "leg": 22,
+          "position": [
+            650.825866699219,
+            801.925231933594
+          ],
+          "tick": 1467,
+          "world_scale_at_release": 1.0
+        },
+        {
+          "focus_air_seconds_used": 0.316666666666667,
+          "focus_remaining": 85.75,
+          "held_real_seconds": 0.356293333333334,
+          "hook_state": "free",
+          "kind": "hook",
+          "leg": 28,
+          "position": [
+            180.015762329102,
+            445.48876953125
+          ],
+          "tick": 1918,
+          "world_scale_at_release": 0.15
+        }
+      ],
+      "return_edges": [
+        "bible_backbranch_other_exit",
+        "bible_web_lower_cross",
+        "bible_root_mouth_exit",
+        "inner_recovery",
+        "belly_to_west",
+        "west_north",
+        "camp_north_out"
+      ]
+    },
+    "short": {
+      "camp_tick": 1768,
+      "claimed": true,
+      "frame_measure_excludes_paused_modal_physics": true,
+      "measurement_is_not_a_comparison_without_both_complete_runs": true,
+      "modal_process_frames": 5,
+      "opened": true,
+      "physical_frame_difference": 1155,
+      "receiver_tick": 613,
+      "return_aim_holds": [
+        {
+          "focus_air_seconds_used": 0.316666666666667,
+          "focus_remaining": 85.75,
+          "held_real_seconds": 0.356293333333334,
+          "hook_state": "free",
+          "kind": "hook",
+          "leg": 13,
+          "position": [
+            939.831481933594,
+            794.985900878906
+          ],
+          "tick": 891,
+          "world_scale_at_release": 0.15
+        },
+        {
+          "focus_air_seconds_used": 0.633333333333334,
+          "focus_remaining": 71.5,
+          "held_real_seconds": 0.356293333333334,
+          "hook_state": "free",
+          "kind": "shot",
+          "leg": 13,
+          "position": [
+            797.598266601562,
+            748.306762695312
+          ],
+          "tick": 949,
+          "world_scale_at_release": 0.15
+        },
+        {
+          "focus_air_seconds_used": 0.0,
+          "focus_remaining": 97.0,
+          "held_real_seconds": 0.351696,
+          "hook_state": "free",
+          "kind": "shot",
+          "leg": 14,
+          "position": [
+            675.068237304688,
+            801.925231933594
+          ],
+          "tick": 1020,
+          "world_scale_at_release": 1.0
+        },
+        {
+          "focus_air_seconds_used": 0.0,
+          "focus_remaining": 100.0,
+          "held_real_seconds": 0.351696,
+          "hook_state": "free",
+          "kind": "shot",
+          "leg": 14,
+          "position": [
+            682.89892578125,
+            801.925231933594
+          ],
+          "tick": 1068,
+          "world_scale_at_release": 1.0
+        },
+        {
+          "focus_air_seconds_used": 0.0,
+          "focus_remaining": 100.0,
+          "held_real_seconds": 0.351696,
+          "hook_state": "free",
+          "kind": "shot",
+          "leg": 14,
+          "position": [
+            682.364929199219,
+            801.925231933594
+          ],
+          "tick": 1119,
+          "world_scale_at_release": 1.0
+        },
+        {
+          "focus_air_seconds_used": 0.0,
+          "focus_remaining": 100.0,
+          "held_real_seconds": 0.351696,
+          "hook_state": "free",
+          "kind": "shot",
+          "leg": 14,
+          "position": [
+            646.33740234375,
+            801.925231933594
+          ],
+          "tick": 1200,
+          "world_scale_at_release": 1.0
+        },
+        {
+          "focus_air_seconds_used": 0.0,
+          "focus_remaining": 100.0,
+          "held_real_seconds": 0.351696,
+          "hook_state": "free",
+          "kind": "shot",
+          "leg": 14,
+          "position": [
+            650.809875488281,
+            801.925231933594
+          ],
+          "tick": 1249,
+          "world_scale_at_release": 1.0
+        },
+        {
+          "focus_air_seconds_used": 0.316666666666667,
+          "focus_remaining": 85.75,
+          "held_real_seconds": 0.356293333333334,
+          "hook_state": "free",
+          "kind": "hook",
+          "leg": 20,
+          "position": [
+            180.015762329102,
+            445.48876953125
+          ],
+          "tick": 1700,
+          "world_scale_at_release": 0.15
+        }
+      ],
+      "return_edges": [
+        "bible_backbranch_shortcut",
+        "outer_to_inner",
+        "inner_recovery",
+        "belly_to_west",
+        "west_north",
+        "camp_north_out"
+      ]
+    },
+    "short_pointer_events": [
+      {
+        "button_text": "选择 / PICK 金币袋 / Coin Pouch",
+        "kind": "mouse_button_press",
+        "position": [
+          468.5,
+          500.5
+        ],
+        "rect": [
+          334.0,
+          476.0,
+          269.0,
+          49.0
+        ]
+      },
+      {
+        "button_text": "选择 / PICK 金币袋 / Coin Pouch",
+        "kind": "mouse_button_release",
+        "position": [
+          468.5,
+          500.5
+        ],
+        "rect": [
+          334.0,
+          476.0,
+          269.0,
+          49.0
+        ]
+      }
+    ],
+    "observed_shorter_return_physical_frames": 219,
+    "nominal_real_seconds_or_FUN_claim": false,
+    "receiver_state_is_not_exactly_equal": {
+      "long_tick": 612,
+      "short_tick": 613,
+      "long_position": [
+        1740.45092773438,
+        1021.92523193359
+      ],
+      "short_position": [
+        1740.44763183594,
+        1021.92523193359
+      ],
+      "long_focus": 84.0,
+      "short_focus": 82.5,
+      "same_health_energy_shots_velocity_grounded_supports": true
+    },
+    "limitations": [
+      "Actual human-hold wall-clock quantization makes receiver tick differ by1 and focus differ by1.5; report the observed219-frame difference, not a fully controlled causal performance estimate.",
+      "Short return has5 reported paused modal process frames and a real Viewport press/release reward selection; these are separate from physical frames. The individual paused frame rows are not exported by this runner.",
+      "Not low-initial-HP, other seed/topology, full map2 spawn, normal-speed AV, device or subjective FUN acceptance."
+    ]
+  },
+  "evidence": [
+    {
+      "path": "build/region_bible_v2/grounded-v3-map1-connection-first/independent-audit.json",
+      "bytes": 2478,
+      "sha256": "bee496b9fad4d258913f377e4f9537ddf4b879147f50bdd3db31a22d9c068531"
+    },
+    {
+      "path": "build/region_bible_v2/grounded-v3-map1-connection-first/receipt.json",
+      "bytes": 856870,
+      "sha256": "3109afb454c06f009e41f5083d9869e5aa660766de9fa01515e927513e5e5b2a"
+    },
+    {
+      "path": "build/region_bible_v2/grounded-v3-map1-connection-first/trace.json",
+      "bytes": 13062321,
+      "sha256": "29b91900d5e67337acc860208654cb1c90f58241ee84801da39892665f18cf5c"
+    },
+    {
+      "path": "build/region_bible_v2/grounded-v3-map1-connection-first-outer.log",
+      "bytes": 2244,
+      "sha256": "fa991db3e84dfe0eeaa14cafd96b29b3901dd71a649d42a6126fcd3b74349c69"
+    },
+    {
+      "path": "build/region_bible_v2/grounded-v3-map1-backbranch-first/independent-audit.json",
+      "bytes": 2619,
+      "sha256": "fa6ba184436e04716aff879d8924e65d8acf5e4785659eff32134b3783bf82b9"
+    },
+    {
+      "path": "build/region_bible_v2/grounded-v3-map1-backbranch-first/receipt.json",
+      "bytes": 856870,
+      "sha256": "2c9503a3180994243b44faade571fec66e1d486cdc7b2dcc866e83eebeb8e791"
+    },
+    {
+      "path": "build/region_bible_v2/grounded-v3-map1-backbranch-first/trace.json",
+      "bytes": 16750146,
+      "sha256": "ac7ced6b43b658219750edfda9ee5fb637505f439726185628980fc755971eb0"
+    },
+    {
+      "path": "build/region_bible_v2/grounded-v3-map1-backbranch-first-outer.log",
+      "bytes": 2389,
+      "sha256": "8fe40b75315b19ade7d7995b52a2c651f724d033f4371d4996a0f385fb14ec0f"
+    },
+    {
+      "path": "build/region_bible_v2/grounded-v3-map2-long-first/independent-audit.json",
+      "bytes": 5146,
+      "sha256": "a25c8cf86c5c9c01a790a4718241ef32c0e0a4d47e5b72b03b605cd89c411e5d"
+    },
+    {
+      "path": "build/region_bible_v2/grounded-v3-map2-long-first/receipt.json",
+      "bytes": 856919,
+      "sha256": "cdf5a2e08b5636ad551dc4ed0341a958f14c1da2e31cd47f944fab2a886d833c"
+    },
+    {
+      "path": "build/region_bible_v2/grounded-v3-map2-long-first/trace.json",
+      "bytes": 12243738,
+      "sha256": "307d062bdd23cd7130b3468d0d4a3574081aa48df7b112853270ab87c2b2f1de"
+    },
+    {
+      "path": "build/region_bible_v2/grounded-v3-map2-long-first-outer.log",
+      "bytes": 2272,
+      "sha256": "53027591ff0f3cbc27b6d8d0e0deb3efb526c889a0247cf810e08ea911dbebec"
+    },
+    {
+      "path": "build/region_bible_v2/grounded-v3-map2-short-first/independent-audit.json",
+      "bytes": 5852,
+      "sha256": "3869f56109879bbe386636111985d621477a0c35bc4c82869fddc5d1a0eb70d6"
+    },
+    {
+      "path": "build/region_bible_v2/grounded-v3-map2-short-first/receipt.json",
+      "bytes": 856922,
+      "sha256": "5bfcfb9d59c503d7e1d7f464cc16e88e65971067258e07d15b8652a29a1d950f"
+    },
+    {
+      "path": "build/region_bible_v2/grounded-v3-map2-short-first/trace.json",
+      "bytes": 10921113,
+      "sha256": "0e0b5cf8c8efdc1b7bbbecd14044ba9153d0ccf9db1dea04c9ba7d6c2966230f"
+    },
+    {
+      "path": "build/region_bible_v2/grounded-v3-map2-short-first-outer.log",
+      "bytes": 2401,
+      "sha256": "1771800ece9d8d36e4135f761cbe27e5eade8ecaf35f69a3f29a33b115e048cd"
+    }
+  ]
+}

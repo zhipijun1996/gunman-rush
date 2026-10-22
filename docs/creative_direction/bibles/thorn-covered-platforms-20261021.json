@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "authority_id": "thorn_forest_thorn_covered_platforms",
+  "version": "1",
+  "region_id": "thorn_forest",
+  "source": {
+    "kind": "direct_user_message",
+    "date": "2026-10-21",
+    "quote": "森林的荆棘地块tile有点丑，我希望是那种自然的缠绕荆棘感觉。希望不是独立地块，而是有一种地块是“带荆棘的平台”",
+    "acceptance": "direction_only_not_implementation_approval"
+  },
+  "reference": {
+    "path": "docs/creative_direction/references/thorn-covered-platforms-user-20261021.jpg",
+    "sha256": "6dff0da376a516516a7cf290b9351a3c20326e18d29636e900ac648c2caaa00e",
+    "bytes": 2019081,
+    "origin": "User supplied screenshot, 1-1000057421.jpg; preserve original bytes",
+    "scope": "Reference for natural growth following a platform surface and winding around corners. Retain the project shared pixel art; do not copy Hollow Knight assets, UI, palette or rendering style. Not licensed for runtime inclusion."
+  },
+  "requirements": [
+    "荆棘是长在真实根枝/平台上的覆盖层：藤体沿实体表面交错、绕角、扎根，尖刺从藤体长出；不呈独立刺砖或矩形边框。",
+    "延续实际平原16px/32wu像素簇、材质光向和危险辨识；通过森林木皮、苔藓与苍白刺尖体现区域特色。",
+    "可站平台、藤体和伤害表面分别保持清楚；真实伤害轮廓不可被漂亮贴图隐藏。",
+    "按实际host支持关系检查，不用nearest metadata冒充贴附；漂浮历史危险条须显式淘汰或版本化物理修正，不能画跨空假根掩盖。",
+    "先正常比例上/下/侧三种真实平台合屏和运动复审，再扩区域。"
+  ],
+  "unchanged_authorities": {
+    "original_bible_sha256": "a7bad8323af64a7be0577132e5d988a6e1b781d9e1ac1639d37f9d65935194e3",
+    "shared_style_path": "docs/creative_direction/bibles/style-continuity-20261021-v2.json",
+    "shared_style_sha256": "d1b797ff48525b1b315a61e6bb944dd4f10b16fedbb7d7f425b103941c5ddcb9"
+  },
+  "status": "selected_requirement_runtime_rework_in_progress"
+}

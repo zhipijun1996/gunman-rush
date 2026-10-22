@@ -1,0 +1,15 @@
+# Integrated actual56+36 and workflow expectation: independent replay
+
+**ACCEPT_SCOPED_INTEGRATED_ACTUAL56_PLUS36_AND_SINGLE_WORKFLOW_EXPECTATION.** Twenty-nine predicates pass; all twelve new36 report mutations and all ten existing56 mutations reject. No engine or production edits by reviewer.
+
+Actual output is build/region_bible_v2/forest-bible-versions/913cb2851a3046029da7251a8796b5a8. The original wrapper receipt passes with3600 source paths exactly equal before/after; all four reviewed source hashes match that receipt and the announced freeze. Total wrapper time is30.11115407699981 seconds including import. Its recorded caps remain import90 and native90. The frozen source uses one shared deadline for the two distinct native script calls. Each consumer has a distinct original raw log with its own engine banner and matching completion summary. This existing wrapper does not serialize individual PID/argv receipts, so this review makes no stronger cross-channel process identity claim.
+
+The complete original56 capture independently passes its unchanged strict reader with schema1/eight cases/fifty-six checks, and its ten existing actual-report tamper controls reproduce the original receipt. The separate36 JSON report independently passes its new exact ordered ledger. All twelve mutations of that actual36 report reject. The ledgers remain separate and are not promoted to original327 or gameplay evidence.
+
+The seven-check targeted --release harness at build/verification/harness/20261021T052050.268603Z/report.json records precisely the seven requested checks, all passed/exit0/reusedfalse. Its Bible check expanded output path points to the actual directory above and its wall time contains the wrapper receipt duration. Original327 remains a separate successful raw log. This targeted harness format has a complete-source digest guard but does not serialize lane-only source_files/source_files_after fields; explicit3600-list equality is specifically from the Bible wrapper receipt.
+
+The prior harness report remains status interrupted/checks empty, while its actual original327 raw log retains its successful native completion. The separate failure-time diagnosis records a single newly generated script UID and no changed existing paths. The UID is now present with that exact hash. A later SKILL documentation change visible when comparing the two harness working_files maps must not be conflated with that earlier failure-time snapshot. No original failed/interrupted report was rewritten.
+
+The workflow unit file changes only its creative-v6 expectation to creative-v7; reversing that literal restores its complete checkpoint083 file, including all other stage gates and assertions. The actual direction document is creative-v7. Independent direct execution passes all10 tests in0.943 seconds.
+
+Scope: actual JSON compatibility and this one workflow expectation. This does not sign the complete current80-route corpus, regional art, device acceptance or player-experience acceptance.

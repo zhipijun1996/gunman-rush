@@ -1,0 +1,17 @@
+from pathlib import Path
+import sys,os,json,time,subprocess,hashlib
+root=Path('/workspace/gunman-rush');os.chdir(root);sys.path.insert(0,str(root/'tools'))
+from forest_bible_world_sources import inventory
+out=root/'build/region_bible_v2/forest-v16-web-export';out.mkdir(exist_ok=False)
+def meta():
+ d=root/'.git';return {str(p.relative_to(d)):hashlib.sha256(p.read_bytes()).hexdigest() for p in d.rglob('*') if p.is_file() and not any(x in p.relative_to(d).parts for x in ['objects','hooks'])}
+before=inventory();gitbefore=meta();head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip();start=time.monotonic();rows=[]
+for name,cmd,cap in [('web-export',[sys.executable,'tools/build.py','web'],400),('bundle',[sys.executable,'tools/check_web_bundle.py'],90),('style-closure',[sys.executable,'tools/style_exploration_delivery.py','check-bundle','--bundle','build/web'],90)]:
+ print('START',name,flush=True)
+ with (out/(name+'.log')).open('w') as log:
+  try:r=subprocess.run(cmd,stdout=log,stderr=subprocess.STDOUT,timeout=cap);rows.append({'id':name,'exit_code':r.returncode,'passed':r.returncode==0})
+  except Exception as e:rows.append({'id':name,'passed':False,'error':repr(e)})
+ print(rows[-1],flush=True)
+ if not rows[-1]['passed']:break
+after=inventory();(out/'source-before.json').write_text(json.dumps(before));(out/'source-after.json').write_text(json.dumps(after));info=json.loads((root/'build/web/build-info.json').read_text()) if (root/'build/web/build-info.json').exists() else None
+receipt={'scope':'Web only export and actual bundle source/resource closure; browser/public separate','source_commit':head,'runs':rows,'source_stable':before==after,'git_metadata_stable':gitbefore==meta(),'identity':info,'seconds':time.monotonic()-start};receipt['passed']=len(rows)==3 and all(x['passed'] for x in rows) and receipt['source_stable'] and receipt['git_metadata_stable'] and info['source_commit']==head;(out/'receipt.json').write_text(json.dumps(receipt,indent=2));print(json.dumps(receipt),flush=True);sys.exit(0 if receipt['passed'] else 1)

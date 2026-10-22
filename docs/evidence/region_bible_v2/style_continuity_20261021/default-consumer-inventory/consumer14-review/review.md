@@ -1,0 +1,17 @@
+# Frozen14 consumer adaptation independent review
+
+**ACCEPT_SCOPED.** No blocker found in the finite code/Python consumer changes. No engine was started and no production file was changed by this reviewer.
+
+The implementer inventory SHA is `a91a4961044cafe7f51d534eb9aec3ae1691ee5f43ceda1660623b74e4299d05`; all 14 recorded input hashes match and remained stable before/after the review. Exact reviewed source copies are under `reviewed-source/`.
+
+- 42 independent audit predicates pass, including all 42 Python/source unit tests, three intercepted wrapper-argv observations (empty, explicit14 and explicit15; no engine), and six additional negative mutations of two actual recorded capture manifests.
+- The original ecology/lift/base trace files remain byte-identical to checkpoint083. The three new thin traces inherit those real strategies and only delegate seven qualification/setup/observation/process/admission hooks to one support. Neither Motor/physics nor strategy/resource behavior is replaced.
+- Both Grove/Crown pilot class bodies are exact extractions from checkpoint083's old v15 trace. Real adapter directions, actual visible muzzle, projectile-radius circle cast, real Escape press/release, before/after neutrality and the 90 process-frame guard remain. The old base trace's eight-tick duplicate check and landing/pointer/shot guards are unchanged.
+- Generic region/ecology/lift consumers follow the effective current layout while passing their original empty argument to App. The CLI forwards an explicit layout only when supplied. Original v10 root-entry/expedition/lifecycle coordinates require their historical layout and reject conflicting15 before any engine invocation; legacy Queen remains explicitv7. No historical candidate overlay is admitted as current15.
+- Fourteen of 18 original enemies Python functions retain identical AST. Only lift and crossbranch validation, formal wrapper argument handling and CLI entry change; the new strict admission helper is the sole added function. Removing its single prepend from each of the first two functions restores the whole preceding function AST. Formal ecology already calls the public full route reader.
+- All 13 campaign Python function ASTs remain exact; the finite canopy identity set adds15 to the original five entries. Guardian/canopy/legacy Queen GDScript source becomes exactly checkpoint083 after reversing constructor changes only, preserving every prior assertion and timeout.
+- Original132 harness check dictionaries and all10 profile prefixes remain exact to baselineR. No check removal, fixture rewrite or budget increase occurs in these14 files.
+
+This signoff verifies source and Python boundaries, not actual new native execution. The ecology/lift specialization and Guardian/current-canopy scenarios remain unexecuted by this reviewer. Campaign's existing Python reader consumes its route summary plus strict Boss identity; it does not consume the full public region capture/admission schema. The new shared support still calls real registry validation in the native trace, but that is source evidence, not an independently played campaign.
+
+Root's default15 promotion, public-expectation changes, browser choice, shared-presentation ownership and active art sources lie outside this14-source freeze. They require a separate final source audit and actual checks. The original327/schema6/24,80-case corpus, complete112/31, art and device acceptance are not claimed here.

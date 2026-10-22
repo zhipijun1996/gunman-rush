@@ -1,0 +1,7 @@
+# JSON and current-default targeted checks
+
+The first harness stopped on two real campaign JSON replay failures, despite presentation109/0. The second report retains status interrupted with no aggregated check rows after the new script UID was first generated; its raw native327 log passed but that did not approve the round. No old receipt was changed. The third seven-check fresh/release run passed its full input-digest stability guard. The targeted harness report does not serialize aggregate source_files/source_files_after inventories; the integrated Bible wrapper independently retains3600 matching before/after source entries. This is targeted evidence, not full-profile or whole-region release approval.
+
+Two v15-only comparisons now use the existing canonical numeric representation, preserving strict full-candidate validation. Native36 JSON controls and originalcampaign56 passed. The existing Bible versions wrapper preserves its original56 cases and separately requires36 JSON checks; the two distinct run_engine invocations/scripts, each with its own raw engine log, share the original90-second native budget after one original90-second import. The integrated raw files are losslessly retained in the ZIP with CRC and complete member SHA readback. No physics, resources, RunManifest, recorded v13/v14 or original327/24/schema6/45-unit bytes changed for this JSON fix.
+
+Audio/movie-reader unit results do not certify any actual movie or listening. Whole Forest art, complete80, devices, public build and Plains implementation remain separate unfinished work.

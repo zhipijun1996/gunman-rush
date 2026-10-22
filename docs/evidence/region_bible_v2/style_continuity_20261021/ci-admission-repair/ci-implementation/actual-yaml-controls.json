@@ -1,0 +1,24 @@
+{
+  "scope": "Actual YAML parse/finite expression and guard controls; not a GitHub execution or artifact pass",
+  "workflow_sha256": "a343fff94bacf40861503d12d7436af0ec3a61793b4a858033006e48d9fd5642",
+  "checkout_jobs": [
+    "prepare",
+    "core_checks",
+    "core",
+    "windows",
+    "web",
+    "android",
+    "verify_public"
+  ],
+  "identity_controls": {
+    "push_PR_same_repo_branch_share_group": true,
+    "PR_checkout_is_actual_head_not_synthetic_merge": true,
+    "push_checkout_preserves_event_SHA": true,
+    "manual_checkout_preserves_event_SHA": true,
+    "manual_does_not_cancel_automatic": true,
+    "different_branch_does_not_cancel": true,
+    "fork_same_branch_does_not_cancel_target_main": true
+  },
+  "docs_workflow_unchanged": true,
+  "source": ".github/workflows/environment.yml"
+}

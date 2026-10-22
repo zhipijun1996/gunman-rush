@@ -2165,6 +2165,941 @@
       "artifact_paths": [
         "build/forest_fruit_routes04"
       ]
+    },
+    "region-bible-contract": {
+      "argv": [
+        "python3",
+        "tools/region_creative_direction.py",
+        "--check-bibles"
+      ],
+      "timeout_seconds": 30,
+      "success_pattern": "^PASS: Bible registry",
+      "inputs": [
+        "tools/region_creative_direction.py",
+        "docs/world_regions.json",
+        "docs/creative_direction/bibles/registry.json",
+        "docs/creative_direction/bibles/user-request.json",
+        "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+        "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+        "docs/creative_direction/bibles/style-continuity-20261021.json",
+        "scripts/demo/plains_region_stage.gd",
+        "scripts/art/plains_terrain_study.gd",
+        "scripts/underworld_plains/underworld_terrain.gd",
+        "scripts/underworld_plains/underworld_terrain.gdshader",
+        "assets/underworld_plains/terrain/terrain_build.json",
+        "assets/underworld_plains/terrain/terrain.tres",
+        "assets/underworld_plains/terrain/terrain.png",
+        "assets/underworld_plains/terrain/source.png",
+        "scripts/art_foundation/blob47_rules.gd",
+        "scripts/art_foundation/pixel_formal_terrain.gd",
+        "scripts/art/plains_terrain_borders.gd",
+        "assets/style_exploration/underworld/source/licenses/publisher_page.txt",
+        "scripts/underworld_plains/underworld_player.gd",
+        "docs/creative_direction/bibles/style-continuity-20261021-v2.json",
+        "assets/underworld_plains/player_animation/animation_build.json",
+        "assets/underworld_plains/player_animation/run_sheet.png",
+        "assets/underworld_plains/player_animation/states_sheet.png"
+      ],
+      "weight_seconds": 0.1
+    },
+    "region-bible-tests": {
+      "argv": [
+        "python3",
+        "tests/test_region_bible.py"
+      ],
+      "timeout_seconds": 30,
+      "success_pattern": "^OK$",
+      "inputs": [
+        ".agents/skills/gameplay-reviewer/SKILL.md",
+        ".agents/skills/region-generator/SKILL.md",
+        "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+        "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+        "docs/creative_direction/bibles/registry.json",
+        "docs/creative_direction/bibles/user-request.json",
+        "docs/creative_direction/thorn_forest.json",
+        "docs/creative_direction/windchime_plains.json",
+        "docs/current_state.md",
+        "docs/design/player_actions/README.md",
+        "docs/design/player_actions/regions_v0.3.md",
+        "docs/design/player_actions/weapons_v0.8.md",
+        "docs/evidence/level_autonomy/action_control_comparison.json",
+        "docs/evidence/level_autonomy/baseline_summary.json",
+        "docs/evidence/level_autonomy/final_validation/review.json",
+        "docs/evidence/plains_redesign/design_midreview/report.md",
+        "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/asset_contract_calibration/metrics.json.gz",
+        "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/asset_contract_calibration/report.md.source",
+        "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/final_outer_movie/receipt.json.gz",
+        "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/final_regression_review/c4/outer_render_failure_review.md.source",
+        "docs/evidence/plains_redesign/final_current/raw/build/plains_redesign/outer_no_live_png_movie/receipt.json.gz",
+        "docs/evidence/plains_redesign/q6_cliff_asset/atlas_measurements.json.gz",
+        "docs/evidence/plains_redesign/q6_cliff_asset/rejected_asset_provenance.json",
+        "docs/evidence/plains_redesign/render_timing_diagnosis/report.md",
+        "docs/evidence/plains_redesign/reward_entry/README.md",
+        "docs/evidence/plains_redesign/scene/completion_r1/scene/run_16jp0xow/positive.json.gz",
+        "docs/evidence/plains_redesign/scene/completion_r1/scene/run_gayoppet/positive.json.gz",
+        "docs/evidence/plains_redesign/scene/completion_r1/scene/run_lo0a897t/positive.json.gz",
+        "docs/evidence/plains_redesign/scene/completion_r1/scene/run_us9izlj2/info_actor.json.gz",
+        "docs/evidence/plains_redesign/scene/completion_r1/scene/run_us9izlj2/positive.json.gz",
+        "docs/evidence/plains_redesign/scene/completion_r1/scene/run_us9izlj2/receipt.json.gz",
+        "docs/evidence/plains_redesign/scene/completion_r1/scene_completion/current2_extra_touch/capture.json.gz",
+        "docs/evidence/plains_redesign/scene/completion_r1/scene_completion/current3_extra_touch/receipt.json.gz",
+        "docs/evidence/plains_redesign/scene/completion_r1/ui_parent_coordinates.json",
+        "docs/evidence/plains_redesign/scene_q6_rework/asset_gap.md.source",
+        "docs/evidence/region_production_v3/art/clock_regulator_court_v1/independent/review.json",
+        "docs/evidence/region_production_v3/art/woodland_two_depth_ridges_v1/independent/review.json",
+        "docs/evidence/region_production_v3/capture_input_timing/independent/review.final.json",
+        "docs/evidence/region_production_v3/check_preflight/independent/review.final.json",
+        "docs/evidence/region_production_v3/enemy/movie_source_v1.json",
+        "docs/evidence/region_production_v3/enemy/producer_scope_bridge.json",
+        "docs/evidence/region_production_v3/enemy_parent_integration/strict_review/review_report.md",
+        "docs/evidence/region_production_v3/final_delivery_50fb10c/independent/terrain_logging_patch.final_review.json",
+        "docs/evidence/region_production_v3/forest_fixture_preflight_independent/review.json",
+        "docs/evidence/region_production_v3/ivy_attachment_independent/review.json",
+        "docs/evidence/region_production_v3/root_bell_run_replay_independent/review.json",
+        "docs/evidence/region_production_v3/scene/closure/portable_closure.json",
+        "docs/evidence/region_production_v3/scene/closure/raw/build/region_production_v3/independent/V3-SCENE-01_review.json",
+        "docs/evidence/region_production_v3/scene/closure/raw/build/region_production_v3/pilot_map2_growth_v1/capture.log",
+        "docs/evidence/region_production_v3/scene/closure/raw/build/region_production_v3/pilot_map2_growth_v1/visual_capture.json",
+        "docs/evidence/region_production_v3/shared_environment_parent_review/sky_optimization_addendum.json",
+        "docs/evidence/region_production_v3/supported_bank_failed_02/candidate_family/production/formal_manifest_solids_inventory.json",
+        "docs/evidence/region_production_v3/terrain_parent_integration/independent/review.json",
+        "docs/evidence/region_production_v3/v11_analysis_consumer_independent/fresh_current_r3_acceptance.json",
+        "docs/evidence/region_production_v3/web_raw_closure_independent/review.json",
+        "docs/evidence/visual_director/recovery_checkpoint/static_v4_fixed_review.json",
+        "docs/quality/action_budget_spec.md",
+        "docs/quality/all_weapons_spec.md",
+        "docs/quality/level_lessons.json",
+        "docs/quality/plains_redesign_experience.md",
+        "docs/quality/plains_redesign_spatial.md",
+        "docs/quality/policy.json",
+        "docs/quality/weapon_feel_spec.md",
+        "docs/world_regions.json",
+        "resources/player/combat_energy.tres",
+        "resources/player/plains_shot_energy.tres",
+        "resources/player/traversal.tres",
+        "resources/weapons/blade_bloom.tres",
+        "resources/weapons/collapse_singularity.tres",
+        "resources/weapons/fan_shuriken.tres",
+        "resources/weapons/laser_cannon.tres",
+        "resources/weapons/machine_storm.tres",
+        "resources/weapons/magnetic_mine.tres",
+        "resources/weapons/magnetic_storm.tres",
+        "resources/weapons/moon_boomerang.tres",
+        "resources/weapons/motion.tres",
+        "resources/weapons/pulse_gun.tres",
+        "resources/weapons/recoil_bomb.tres",
+        "resources/weapons/remote_boomerang.tres",
+        "resources/weapons/shadow_shuriken.tres",
+        "resources/weapons/star_collapse.tres",
+        "resources/weapons/sustained_laser.tres",
+        "resources/weapons/triple_machine_gun.tres",
+        "scripts/builds/build_state.gd",
+        "scripts/combat/shot_energy_policy.gd",
+        "scripts/combat/weapon_catalog.gd",
+        "scripts/combat/weapon_definition.gd",
+        "scripts/demo/action_studio.gd",
+        "scripts/demo/demo_app.gd",
+        "scripts/demo/thorn_forest_region_stage.gd",
+        "scripts/generation/thorn_forest_region_assembler.gd",
+        "scripts/generation/thorn_forest_region_generator.gd",
+        "scripts/player/jump_ability.gd",
+        "scripts/player/traversal_ability.gd",
+        "scripts/resources/definitions/combat_energy_definition.gd",
+        "scripts/resources/definitions/shot_energy_definition.gd",
+        "scripts/resources/state/combat_energy_state.gd",
+        "scripts/run/run_profile.gd",
+        "tests/test_region_bible.py",
+        "tools/harness.py",
+        "tools/harness/profiles.json",
+        "tools/level_design.py",
+        "tools/level_experience.py",
+        "tools/level_formal.py",
+        "tools/level_region_context.py",
+        "tools/production_loop.py",
+        "tools/quality.py",
+        "tools/region_creative_direction.py",
+        "tools/visual_director.py",
+        "docs/creative_direction/bibles/style-continuity-20261021.json",
+        "scripts/demo/plains_region_stage.gd",
+        "scripts/art/plains_terrain_study.gd",
+        "scripts/underworld_plains/underworld_terrain.gd",
+        "scripts/underworld_plains/underworld_terrain.gdshader",
+        "assets/underworld_plains/terrain/terrain_build.json",
+        "assets/underworld_plains/terrain/terrain.tres",
+        "assets/underworld_plains/terrain/terrain.png",
+        "assets/underworld_plains/terrain/source.png",
+        "scripts/art_foundation/blob47_rules.gd",
+        "scripts/art_foundation/pixel_formal_terrain.gd",
+        "scripts/art/plains_terrain_borders.gd",
+        "assets/style_exploration/underworld/source/licenses/publisher_page.txt",
+        "scripts/underworld_plains/underworld_player.gd",
+        "docs/creative_direction/bibles/style-continuity-20261021-v2.json",
+        "assets/underworld_plains/player_animation/animation_build.json",
+        "assets/underworld_plains/player_animation/run_sheet.png",
+        "assets/underworld_plains/player_animation/states_sheet.png",
+        "docs/creative_direction/archive/creative-v5/thorn_forest.json"
+      ],
+      "weight_seconds": 0.5
+    },
+    "forest-bible-weaver-tests": {
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_weaver.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "\"status\": \"passed\".*\"exit_code\": 0",
+      "serial": true,
+      "inputs": [
+        "scripts/enemies/forest_bible_weaver_behavior.gd",
+        "scripts/enemies/forest_bible_weaver_definition.gd",
+        "resources/enemies/forest_bible_weaver.tres",
+        "scenes/enemies/forest_bible_weaver.tscn",
+        "tests/forest_bible_weaver_runner.gd",
+        "tools/run_forest_bible_weaver.py",
+        "scripts/enemies/forest_thread_spider_behavior.gd",
+        "scripts/enemies/forest_enemy_definition.gd",
+        "resources/enemies/forest_thread_spider.tres",
+        "scenes/enemies/forest_thread_spider.tscn",
+        "scripts/enemies/enemy_attack_behavior.gd",
+        "scripts/enemies/enemy_actor.gd",
+        "scripts/enemies/enemy_motor.gd",
+        "scripts/demo/demo_app.gd",
+        "scripts/demo/thorn_forest_region_stage.gd",
+        "scripts/damage/frame_damage_policy.gd",
+        "tests/forest_depth_enemy_runner.gd",
+        "tests/audio_teardown.gd",
+        "tools/run_tests.py",
+        "tools/godot.sh"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/ecology/native"
+      ],
+      "weight_seconds": 15
+    },
+    "forest-bible-discoveries-tests": {
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_discoveries.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: Forest Bible optional reader",
+      "serial": true,
+      "inputs": [
+        "tools/run_forest_bible_discoveries.py",
+        "tests/forest_bible_discoveries_tests.gd",
+        "scripts/world/forest_bible_discoveries.gd",
+        "scripts/world/forest_bible_discovery_catalog.gd",
+        "resources/items/forest_old_badge.tres",
+        "resources/items/forest_spiral_core.tres",
+        "scripts/demo/thorn_forest_region_stage.gd",
+        "scripts/demo/demo_app.gd",
+        "tools/run_tests.py",
+        "tools/godot.sh",
+        "scripts/run/plains_region_state.gd",
+        "scripts/run/demo_lifetime.gd",
+        "scripts/run/demo_token.gd",
+        "scripts/resources/state/health_state.gd",
+        "scripts/shops/run_wallet.gd",
+        "scripts/rewards/reward_service.gd",
+        "scripts/builds/build_state.gd"
+      ],
+      "weight_seconds": 10
+    },
+    "forest-bible-integration-tests": {
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_integration.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "\"status\": \"passed\".*\"exit_code\": 0.*\"source_stable\": true",
+      "serial": true,
+      "inputs": [
+        "scripts/enemies/forest_bible_weaver_behavior.gd",
+        "scripts/enemies/forest_bible_weaver_definition.gd",
+        "resources/enemies/forest_bible_weaver.tres",
+        "scenes/enemies/forest_bible_weaver.tscn",
+        "tests/forest_bible_weaver_runner.gd",
+        "tools/run_forest_bible_weaver.py",
+        "scripts/enemies/forest_thread_spider_behavior.gd",
+        "scripts/enemies/forest_enemy_definition.gd",
+        "resources/enemies/forest_thread_spider.tres",
+        "scenes/enemies/forest_thread_spider.tscn",
+        "scripts/enemies/enemy_attack_behavior.gd",
+        "scripts/enemies/enemy_actor.gd",
+        "scripts/enemies/enemy_motor.gd",
+        "scripts/demo/demo_app.gd",
+        "scripts/demo/thorn_forest_region_stage.gd",
+        "scripts/damage/frame_damage_policy.gd",
+        "tests/forest_depth_enemy_runner.gd",
+        "tests/audio_teardown.gd",
+        "tools/run_tests.py",
+        "tools/godot.sh",
+        "tests/forest_bible_integration_runner.gd",
+        "tools/run_forest_bible_integration.py",
+        "scripts/generation/thorn_forest_region_generator.gd",
+        "scripts/generation/thorn_forest_region_v2_v15.gd",
+        "scripts/generation/forest_bible_v2_layout.gd",
+        "scripts/generation/thorn_forest_region_assembler.gd",
+        "scripts/run/plains_region_state.gd",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "tools/forest_bible_world_sources.py"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/ecology/integration"
+      ],
+      "weight_seconds": 15
+    },
+    "forest-bible-world-contract": {
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_world_contract.py",
+        "--output",
+        "build/region_bible_v2/world-contract/{check_token}"
+      ],
+      "timeout_seconds": 210,
+      "success_pattern": "^PASS: actual20 v15 producer/replay contracts",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/godot.sh",
+        "tools/run_forest_bible_world_contract.py",
+        "tests/forest_bible_world_contract_runner.gd",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "tools/forest_bible_world_sources.py"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/world-contract"
+      ],
+      "weight_seconds": 20
+    },
+    "forest-bible-world-connection": {
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_world_motor.py",
+        "--output",
+        "build/region_bible_v2/forest-bible-world-connection/{check_token}",
+        "--route",
+        "bible_connection_journey",
+        "--seed",
+        "forest-depth-hollow-00",
+        "--map",
+        "2"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PASS: exact formal v15 journey",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/godot.sh",
+        "tools/run_forest_bible_world_motor.py",
+        "tests/forest_bible_world_motor_runner.gd",
+        "tests/forest_bible_world_trace.gd",
+        "tests/forest_bible_world_air_case.gd",
+        "tests/audio_teardown.gd",
+        "tests/forest_depth_air_chain_case.gd",
+        "tests/forest_player_aim_trace.gd",
+        "tests/forest_depth_region_trace.gd",
+        "tests/forest_depth_grove_combat_case.gd",
+        "tests/forest_interwoven_crown_combat_case.gd",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "tools/forest_bible_world_sources.py"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/forest-bible-world-connection"
+      ],
+      "weight_seconds": 60
+    },
+    "forest-bible-world-backbranch": {
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_world_motor.py",
+        "--output",
+        "build/region_bible_v2/forest-bible-world-backbranch/{check_token}",
+        "--route",
+        "bible_backbranch_journey",
+        "--seed",
+        "forest-depth-hollow-00",
+        "--map",
+        "2"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PASS: exact formal v15 journey",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/godot.sh",
+        "tools/run_forest_bible_world_motor.py",
+        "tests/forest_bible_world_motor_runner.gd",
+        "tests/forest_bible_world_trace.gd",
+        "tests/forest_bible_world_air_case.gd",
+        "tests/audio_teardown.gd",
+        "tests/forest_depth_air_chain_case.gd",
+        "tests/forest_player_aim_trace.gd",
+        "tests/forest_depth_region_trace.gd",
+        "tests/forest_depth_grove_combat_case.gd",
+        "tests/forest_interwoven_crown_combat_case.gd",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "tools/forest_bible_world_sources.py"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/forest-bible-world-backbranch"
+      ],
+      "weight_seconds": 60
+    },
+    "forest-bible-sfx-source": {
+      "argv": [
+        "python3",
+        "tools/generate_forest_bible_sfx.py",
+        "--check"
+      ],
+      "timeout_seconds": 30,
+      "success_pattern": "\"check\": \"forest_bible_sfx_reproducibility\", \"passed\": true, \"failures\": \\[\\]",
+      "inputs": [
+        "tools/generate_forest_bible_sfx.py",
+        "assets/forest_bible_v2/audio/forest_wind.wav",
+        "assets/forest_bible_v2/audio/forest_fruit.wav",
+        "assets/forest_bible_v2/audio/forest_web.wav",
+        "assets/forest_bible_v2/audio/provenance.json",
+        "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md"
+      ],
+      "weight_seconds": 0.3
+    },
+    "forest-bible-ambience": {
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_ambience.py",
+        "--output-dir",
+        "build/region_bible_v2/ambience/harness/{check_token}"
+      ],
+      "timeout_seconds": 210,
+      "success_pattern": "\"status\": \"passed\".*\"exit_code\": 0.*\"source_stable\": true",
+      "serial": true,
+      "inputs": [
+        "tests/forest_bible_ambience_runner.gd",
+        "tools/run_forest_bible_ambience.py",
+        "scripts/presentation/forest_bible_ambience.gd",
+        "scripts/audio/game_audio.gd",
+        "tools/generate_forest_bible_sfx.py",
+        "assets/forest_bible_v2/audio/provenance.json",
+        "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+        "tools/run_tests.py",
+        "tools/godot.sh",
+        "assets/forest_bible_v2/audio/forest_fruit.wav",
+        "assets/forest_bible_v2/audio/forest_web.wav",
+        "assets/forest_bible_v2/audio/forest_wind.wav",
+        "assets/audio/kenney/armour.ogg",
+        "assets/audio/kenney/bell.ogg",
+        "assets/audio/kenney/boss_impact.ogg",
+        "assets/audio/kenney/click.ogg",
+        "assets/audio/kenney/coin.ogg",
+        "assets/audio/kenney/confirm.ogg",
+        "assets/audio/kenney/core.ogg",
+        "assets/audio/kenney/death.ogg",
+        "assets/audio/kenney/denied.ogg",
+        "assets/audio/kenney/door.ogg",
+        "assets/audio/kenney/enemy_defeat.ogg",
+        "assets/audio/kenney/enemy_shot.ogg",
+        "assets/audio/kenney/focus_end.ogg",
+        "assets/audio/kenney/focus_start.ogg",
+        "assets/audio/kenney/heal.ogg",
+        "assets/audio/kenney/hurt.ogg",
+        "assets/audio/kenney/impact.ogg",
+        "assets/audio/kenney/jump.ogg",
+        "assets/audio/kenney/land.ogg",
+        "assets/audio/kenney/note.ogg",
+        "assets/audio/kenney/roar.ogg",
+        "assets/audio/kenney/shot.ogg",
+        "assets/audio/kenney/step.ogg",
+        "assets/audio/kenney/victory.ogg",
+        "assets/audio/kenney/warning.ogg"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/ambience/harness"
+      ],
+      "weight_seconds": 5
+    },
+    "forest-bible-app-discoveries": {
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_app_discoveries.py"
+      ],
+      "timeout_seconds": 180,
+      "success_pattern": "\"status\": \"passed\".*\"exit_code\": 0.*\"source_stable\": true",
+      "serial": true,
+      "inputs": [
+        "scripts/enemies/forest_bible_weaver_behavior.gd",
+        "scripts/enemies/forest_bible_weaver_definition.gd",
+        "resources/enemies/forest_bible_weaver.tres",
+        "scenes/enemies/forest_bible_weaver.tscn",
+        "tests/forest_bible_weaver_runner.gd",
+        "tools/run_forest_bible_weaver.py",
+        "scripts/enemies/forest_thread_spider_behavior.gd",
+        "scripts/enemies/forest_enemy_definition.gd",
+        "resources/enemies/forest_thread_spider.tres",
+        "scenes/enemies/forest_thread_spider.tscn",
+        "scripts/enemies/enemy_attack_behavior.gd",
+        "scripts/enemies/enemy_actor.gd",
+        "scripts/enemies/enemy_motor.gd",
+        "scripts/demo/demo_app.gd",
+        "scripts/demo/thorn_forest_region_stage.gd",
+        "scripts/damage/frame_damage_policy.gd",
+        "tests/forest_depth_enemy_runner.gd",
+        "tests/audio_teardown.gd",
+        "tools/run_tests.py",
+        "tools/godot.sh",
+        "tests/forest_bible_integration_runner.gd",
+        "tools/run_forest_bible_integration.py",
+        "scripts/generation/thorn_forest_region_generator.gd",
+        "scripts/generation/thorn_forest_region_v2_v15.gd",
+        "scripts/generation/forest_bible_v2_layout.gd",
+        "scripts/generation/thorn_forest_region_assembler.gd",
+        "scripts/run/plains_region_state.gd",
+        "tests/forest_bible_app_discoveries_runner.gd",
+        "tools/run_forest_bible_app_discoveries.py",
+        "scripts/world/forest_bible_discoveries.gd",
+        "scripts/world/forest_bible_discovery_catalog.gd",
+        "resources/items/forest_old_badge.tres",
+        "scripts/ui/stage_reward_modal.gd",
+        "scripts/ui/item_card.gd",
+        "scripts/rewards/reward_service.gd",
+        "scripts/shops/run_wallet.gd",
+        "scripts/input/keyboard_mouse_adapter.gd",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "tools/forest_bible_world_sources.py"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/discoveries/app"
+      ],
+      "weight_seconds": 15
+    },
+    "forest-practice-bell-restore": {
+      "argv": [
+        "python3",
+        "tools/run_forest_practice_bell_restore.py",
+        "--output-dir",
+        "build/region_bible_v2/practice-bell/harness/{check_token}"
+      ],
+      "timeout_seconds": 120,
+      "success_pattern": "\"status\": \"passed\".*\"exit_code\": 0.*\"source_stable\": true",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "tools/forest_bible_world_sources.py"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/practice-bell/harness"
+      ],
+      "weight_seconds": 15
+    },
+    "forest-bible-world-connection-map1": {
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_world_motor.py",
+        "--output",
+        "build/region_bible_v2/forest-bible-world-connection-map1/{check_token}",
+        "--route",
+        "bible_connection_journey",
+        "--seed",
+        "forest-depth-hollow-00",
+        "--map",
+        "1"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PASS: exact formal v15 journey",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/godot.sh",
+        "tools/run_forest_bible_world_motor.py",
+        "tests/forest_bible_world_motor_runner.gd",
+        "tests/forest_bible_world_trace.gd",
+        "tests/forest_bible_world_air_case.gd",
+        "tests/audio_teardown.gd",
+        "tests/forest_depth_air_chain_case.gd",
+        "tests/forest_player_aim_trace.gd",
+        "tests/forest_depth_region_trace.gd",
+        "tests/forest_depth_grove_combat_case.gd",
+        "tests/forest_interwoven_crown_combat_case.gd",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "tools/forest_bible_world_sources.py"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/forest-bible-world-connection-map1"
+      ],
+      "weight_seconds": 60
+    },
+    "forest-bible-world-backbranch-map1": {
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_world_motor.py",
+        "--output",
+        "build/region_bible_v2/forest-bible-world-backbranch-map1/{check_token}",
+        "--route",
+        "bible_backbranch_journey",
+        "--seed",
+        "forest-depth-hollow-00",
+        "--map",
+        "1"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PASS: exact formal v15 journey",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/godot.sh",
+        "tools/run_forest_bible_world_motor.py",
+        "tests/forest_bible_world_motor_runner.gd",
+        "tests/forest_bible_world_trace.gd",
+        "tests/forest_bible_world_air_case.gd",
+        "tests/audio_teardown.gd",
+        "tests/forest_depth_air_chain_case.gd",
+        "tests/forest_player_aim_trace.gd",
+        "tests/forest_depth_region_trace.gd",
+        "tests/forest_depth_grove_combat_case.gd",
+        "tests/forest_interwoven_crown_combat_case.gd",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "tools/forest_bible_world_sources.py"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/forest-bible-world-backbranch-map1"
+      ],
+      "weight_seconds": 60
+    },
+    "forest-bible-world-spiral": {
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_spiral_motor.py",
+        "--output",
+        "build/region_bible_v2/forest-bible-world-spiral/{check_token}",
+        "--mode",
+        "full",
+        "--seed",
+        "forest-depth-hollow-00"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^PASS: full_formal_spawn_F08_reader_and_other_exit",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "project.godot",
+        "tools/run_tests.py",
+        "tools/godot.sh",
+        "tools/run_forest_bible_world_motor.py",
+        "tests/forest_bible_world_motor_runner.gd",
+        "tests/forest_bible_world_trace.gd",
+        "tests/forest_bible_world_air_case.gd",
+        "tests/audio_teardown.gd",
+        "tests/forest_depth_air_chain_case.gd",
+        "tests/forest_player_aim_trace.gd",
+        "tests/forest_depth_region_trace.gd",
+        "tests/forest_depth_grove_combat_case.gd",
+        "tests/forest_interwoven_crown_combat_case.gd",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "tools/forest_bible_world_sources.py",
+        "tools/run_forest_bible_spiral_motor.py",
+        "tests/forest_bible_spiral_motor_runner.gd",
+        "tests/forest_bible_spiral_trace.gd"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/forest-bible-world-spiral"
+      ],
+      "weight_seconds": 60
+    },
+    "forest-bible-versions": {
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_versions.py",
+        "--output-dir",
+        "build/region_bible_v2/forest-bible-versions/{check_token}"
+      ],
+      "timeout_seconds": 210,
+      "success_pattern": "^FOREST BIBLE VERSIONS: 56 assertions, 0 failures",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot",
+        "tools/forest_bible_world_sources.py",
+        "tests/forest_depth_trace_strategy.gd",
+        "tests/forest_bible_versions_runner.gd",
+        "tools/run_forest_bible_versions.py"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/forest-bible-versions"
+      ],
+      "weight_seconds": 20
+    },
+    "forest-bible-reader-tests": {
+      "argv": [
+        "python3",
+        "tools/run_forest_bible_reader_tests.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "inputs": [
+        "project.godot",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "shaders",
+        "assets",
+        "tests",
+        "tools"
+      ],
+      "weight_seconds": 2
+    },
+    "forest-bible-av-reader-tests": {
+      "argv": [
+        "python3",
+        "tests/test_capture_forest_bible_route.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "inputs": [
+        "project.godot",
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "shaders",
+        "assets",
+        "tests",
+        "tools"
+      ],
+      "weight_seconds": 3
+    },
+    "harness-artifact-archive-tests": {
+      "argv": [
+        "python3",
+        "tests/test_harness_artifact_archive.py"
+      ],
+      "timeout_seconds": 60,
+      "success_pattern": "^OK$",
+      "weight_seconds": 2.5
+    },
+    "forest-exploration-contract": {
+      "argv": [
+        "python3",
+        "tools/run_forest_exploration_contract.py",
+        "--output-dir",
+        "build/region_bible_v2/exploration-contract/{check_token}"
+      ],
+      "timeout_seconds": 600,
+      "success_pattern": "^PASS: forest exploration contracts$",
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/exploration-contract"
+      ],
+      "weight_seconds": 25
+    },
+    "forest-exploration-body-reader": {
+      "argv": [
+        "python3",
+        "tests/test_forest_exploration_body_reader.py"
+      ],
+      "timeout_seconds": 30,
+      "success_pattern": "^OK$",
+      "inputs": [
+        "tools/run_forest_exploration_motor.py",
+        "tests/test_forest_exploration_body_reader.py"
+      ],
+      "artifact_paths": []
+    },
+    "forest-exploration-exchange-reader": {
+      "argv": [
+        "python3",
+        "tests/test_forest_exploration_exchange_reader.py"
+      ],
+      "timeout_seconds": 30,
+      "success_pattern": "^OK$",
+      "inputs": [
+        "tools/run_forest_exploration_motor.py",
+        "tests/test_forest_exploration_exchange_reader.py"
+      ],
+      "artifact_paths": []
+    },
+    "forest-exploration-wrapper-tests": {
+      "argv": [
+        "python3",
+        "tests/test_forest_exploration_contract_wrapper.py"
+      ],
+      "timeout_seconds": 30,
+      "success_pattern": "^OK$",
+      "inputs": [
+        "tools/run_forest_exploration_contract.py",
+        "tests/test_forest_exploration_contract_wrapper.py"
+      ],
+      "artifact_paths": []
+    },
+    "forest-varied-feedback": {
+      "argv": [
+        "python3",
+        "tools/run_forest_varied_feedback.py",
+        "--output-dir",
+        "build/region_bible_v2/forest-varied-feedback/{check_token}"
+      ],
+      "timeout_seconds": 600,
+      "success_pattern": "^PASS: forest varied development feedback$",
+      "weight_seconds": 130,
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/forest-varied-feedback"
+      ]
+    },
+    "forest-places-feedback": {
+      "argv": [
+        "python3",
+        "tools/run_forest_places_feedback.py",
+        "--output-dir",
+        "build/region_bible_v2/forest-places-feedback/{check_token}",
+        "--suite",
+        "core"
+      ],
+      "timeout_seconds": 600,
+      "success_pattern": "^PASS: forest places development feedback / core$",
+      "weight_seconds": 525,
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/forest-places-feedback"
+      ]
+    },
+    "forest-library-feedback": {
+      "argv": [
+        "python3",
+        "tools/run_forest_places_feedback.py",
+        "--output-dir",
+        "build/region_bible_v2/forest-library-feedback/{check_token}",
+        "--suite",
+        "library"
+      ],
+      "timeout_seconds": 600,
+      "success_pattern": "^PASS: forest places development feedback / library$",
+      "weight_seconds": 300,
+      "serial": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "config",
+        "shaders",
+        "assets",
+        "tests",
+        "tools",
+        "project.godot"
+      ],
+      "artifact_paths": [
+        "build/region_bible_v2/forest-library-feedback"
+      ]
     }
   },
   "profiles": {
@@ -2194,7 +3129,10 @@
       "creative-direction",
       "creative-direction-tests",
       "underworld-pipeline",
-      "underworld-home-guard-tests"
+      "underworld-home-guard-tests",
+      "region-bible-contract",
+      "region-bible-tests",
+      "harness-artifact-archive-tests"
     ],
     "core": [
       "docs",
@@ -2221,7 +3159,8 @@
       "level-formal-receipts",
       "creative-direction",
       "creative-direction-tests",
-      "forest-region-scheduler-tests"
+      "forest-region-scheduler-tests",
+      "harness-artifact-archive-tests"
     ],
     "gameplay": [
       "docs",
@@ -2331,7 +3270,25 @@
       "underworld-home-guard-tests",
       "forest-camera-stability",
       "forest-hazard-records",
-      "forest-fruit-contract"
+      "forest-fruit-contract",
+      "region-bible-contract",
+      "region-bible-tests",
+      "forest-bible-weaver-tests",
+      "forest-bible-discoveries-tests",
+      "forest-bible-integration-tests",
+      "forest-bible-world-contract",
+      "forest-bible-world-connection",
+      "forest-bible-world-backbranch",
+      "forest-bible-ambience",
+      "forest-bible-app-discoveries",
+      "forest-practice-bell-restore",
+      "forest-bible-world-connection-map1",
+      "forest-bible-world-backbranch-map1",
+      "forest-bible-world-spiral",
+      "forest-bible-versions",
+      "forest-bible-reader-tests",
+      "forest-bible-av-reader-tests",
+      "harness-artifact-archive-tests"
     ],
     "art": [
       "docs",
@@ -2412,7 +3369,21 @@
       "underworld-home-guard-tests",
       "forest-camera-stability",
       "forest-hazard-records",
-      "forest-fruit-contract"
+      "forest-fruit-contract",
+      "region-bible-contract",
+      "region-bible-tests",
+      "forest-bible-weaver-tests",
+      "forest-bible-discoveries-tests",
+      "forest-bible-integration-tests",
+      "forest-bible-world-contract",
+      "forest-bible-world-connection",
+      "forest-bible-world-backbranch",
+      "forest-bible-ambience",
+      "forest-bible-app-discoveries",
+      "forest-practice-bell-restore",
+      "forest-bible-reader-tests",
+      "forest-bible-av-reader-tests",
+      "harness-artifact-archive-tests"
     ],
     "web": [
       "docs",
@@ -2455,7 +3426,8 @@
       "underworld-home-guard-tests",
       "forest-camera-stability",
       "forest-hazard-records",
-      "forest-fruit-contract"
+      "forest-fruit-contract",
+      "harness-artifact-archive-tests"
     ],
     "full": [
       "docs",
@@ -2580,14 +3552,34 @@
       "underworld-home-guard-tests",
       "forest-camera-stability",
       "forest-hazard-records",
-      "forest-fruit-contract"
+      "forest-fruit-contract",
+      "region-bible-contract",
+      "region-bible-tests",
+      "forest-bible-weaver-tests",
+      "forest-bible-discoveries-tests",
+      "forest-bible-integration-tests",
+      "forest-bible-world-contract",
+      "forest-bible-world-connection",
+      "forest-bible-world-backbranch",
+      "forest-bible-ambience",
+      "forest-bible-app-discoveries",
+      "forest-practice-bell-restore",
+      "forest-bible-world-connection-map1",
+      "forest-bible-world-backbranch-map1",
+      "forest-bible-world-spiral",
+      "forest-bible-versions",
+      "forest-bible-reader-tests",
+      "forest-bible-av-reader-tests",
+      "harness-artifact-archive-tests"
     ],
     "creative-feedback": [
       "docs",
       "creative-direction",
       "creative-direction-tests",
       "level-design-routing",
-      "production-loop-tests"
+      "production-loop-tests",
+      "region-bible-contract",
+      "region-bible-tests"
     ],
     "history": [
       "docs",
@@ -2599,13 +3591,40 @@
       "docs",
       "creative-direction",
       "creative-direction-tests",
-      "forest-current-slice"
+      "forest-current-slice",
+      "region-bible-contract",
+      "region-bible-tests"
     ],
     "regional-art-feedback": [
       "docs",
       "plains-regional-art-counterexamples",
       "plains-regional-art-graph-counterexamples",
       "plains-regional-art-contract"
+    ],
+    "region-bible-feedback": [
+      "region-bible-contract",
+      "region-bible-tests",
+      "forest-bible-sfx-source",
+      "generated-consumers"
+    ],
+    "forest-exploration-feedback": [
+      "docs",
+      "forest-exploration-body-reader",
+      "forest-exploration-exchange-reader",
+      "forest-exploration-wrapper-tests",
+      "forest-exploration-contract"
+    ],
+    "forest-varied-feedback": [
+      "docs",
+      "forest-varied-feedback"
+    ],
+    "forest-places-feedback": [
+      "docs",
+      "forest-places-feedback"
+    ],
+    "forest-library-feedback": [
+      "docs",
+      "forest-library-feedback"
     ]
   }
 }

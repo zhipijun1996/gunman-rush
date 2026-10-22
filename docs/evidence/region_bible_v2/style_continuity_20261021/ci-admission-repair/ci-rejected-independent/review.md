@@ -1,0 +1,7 @@
+# CI第一次独审：REJECT
+
+源a343fff94bacf40861503d12d7436af0ec3a61793b4a858033006e48d9fd5642，快照已保留。7处真实head/eventSHA checkout和prepare实际gitHEAD绑定正确，严格publisher/browser/build工具未改，原77+12单测日志成功。独立表达式数据流确认其余workflow步骤、lanes、预算、权限与publishif完整保持。
+
+两个实际新反例阻断当前并发key：无过滤push允许tagmain和branchmain，而ref_name丢refkind，两者会互取消；既有feature/complete-actor-actions的[publish-playtest]push与同分支PR也互取消，PR不满足发布门，可能取消唯一可发布run。发布if未删不等于发布路径未回归。保完整refkind，并隔离原有publish-eligiblepush，不能放宽publisher身份合同。
+
+独立脚本/实际YAML事件矩阵见event-counterexamples.json；现有publisher.check_run真实调用验证exact通过、wrongSHA/PR-event/wrongattempt均拒绝。无engine/remoteCI启动/生产或Git修改。已通知作者修复；本拒绝按原SHA保留。不是森林美术或全CI远端通过。

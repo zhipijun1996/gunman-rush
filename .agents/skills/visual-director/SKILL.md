@@ -5,15 +5,18 @@ description: 统筹真实游戏像素驱动的空间美术生产，路由资产�
 
 # visual-director
 
-## 当前生产入口：Underworld 正式平原
+## 当前生产入口：区域圣经先于制作
 
-用户已选择 Underworld；本轮依 [Tile 生产流程](../../../docs/underworld_tile_production.md) 组织开源锚点→材料/物件图生→可重建切片→正式精确几何或真网格拼接→三张独立变速景深→有根装饰→融合平台危险→实际镜头。不要继续叠加旧画风清单或用一张概念图替代正式消费者。
+先读[区域创作入口](../../../docs/creative_direction/README.md)、[Bible注册表](../../../docs/creative_direction/bibles/registry.json)及目标地区完整原文。当前两份Bible由用户直接提供并选择，先完整荆棘森林（含美术），再优化风铃平原；不重新提出2–3个方向。缺Bible时自主编写proposed圣经，只写文档/G0，不制作地图/几何/资产/敌人/Boss；注册并独立审查前production拒绝。
 
-先一个正式黄金镜头的静态/动态可读性，再推广两图；三层元数据或 47 索引通过只能证明接口，不证明层深或商业品质。注册 `underworld-pipeline` 检查实际生产清单和故意坏例，另跑真实运行/Motor/GPU与镜头回程。把物理危险轮廓、材质融合、落点/敌预告遮挡、横纵覆盖和支撑消失列为独审重点；缺实体设备/用户审美仍留未验。
+所有地区任务绑定registry与原文的完整SHA、id/version/region、选择依据，原始全文随worker输入；本次BGM由用户后续提供，音效与事件驱动环境动画/VFX可做。发生漂移先停止相关后继，保留旧失败，列旧/新绑定、受影响设计/地形/生态/Boss/美术/动画/音频/消费者及需重验的证据，由独审确认后重绑；不得仅刷新下游SHA。原G0–G5、十一维、全量source snapshot与所有原适用检查继续有效。
+
+
+所有后续region create/optimize及缺Bible的proposed先读[最新两条用户原话和实际共享母版](../../../docs/creative_direction/bibles/style-continuity-20261022-v4.json)。保留正式平原现用Underworld tileset家族的16px/32wu、47邻接/精确边界、光照/描边/材质语言；地区差异来自材料、结构、生态和色域，森林用树皮苔藓荆棘有机轮廓，不独立换项目画风。旧提案/失败实现不自动约束新区域，不等于整体抛弃正在使用的共享家族。worker绑定原话及实际参考完整SHA，漂移阻断并重验；新地区实际跨区黄金像素对照独审后扩产，hash不签视觉。仅用户明确选择新global style时版本化替代，无关物理/global动作/普通文档不新增美术门。
 
 ## 触发与边界
 
-用户要求提升正式场景美术、建立美术生产能力，或反馈空间空、贴片感、缺景深/身份时自动使用。当前平原从[当前场所制作范例](../../../docs/evidence/plains_joint/recipe.md)与 `PLAINS-JOINT-01` 进入完整场所实验，未准入；停止把失败的薄肩带接法派给下一轮。不接管art-director的风格与资产责任、scene-composer的空间实现、animation-vfx的动态制作；本Skill负责从实机证据定位责任、组织顺序和决定下一次实际返工。复用[原生产循环](../../../docs/quality/production_loop.md)、原G0–G5/十一维，不能用新总分代签美感。
+用户要求提升正式场景美术、建立美术生产能力，或反馈空间空、贴片感、缺景深/身份时自动使用。从当前Bible和正式消费者进入；旧提案/失败recipe按需溯源，正式平原实际在用的tileset与整体画风须先读取并继承。不接管art-director的风格与资产责任、scene-composer的空间实现、animation-vfx的动态制作；本Skill负责从实机证据定位责任、组织顺序和决定下一次实际返工。复用[原生产循环](../../../docs/quality/production_loop.md)、原G0–G5/十一维，不能用新总分代签美感。
 
 ## 输入与依赖
 
@@ -64,20 +67,13 @@ V3实战检查点：开始昂贵worker前，原production_loop会物化核对所
 
 用原production_timing记录生成、实施、集成、独审、返工、验证、等待和发布实际区间，未知token/价格写not_exposed；宿主包络不称纯模型compute。廉价接口先于昂贵回归；只复用source/argv/consumer/artifact一致回执。恢复核真实lease/checkpoint/controller，发布绑定repo/ref/SHA/run/attempt及公开PCK指纹；保留原红，不另dispatch掩盖。
 
-## 当前候选首整屏先于扩产
-
-简短平原任务核route的 `preparation.visual_recipe` 是否经稳定入口解析到[当前场所制作范例](../../../docs/evidence/plains_joint/recipe.md)和 `PLAINS-JOINT-01`；若仍推荐旧thin shoulder/端alpha，纠正当期任务方法，不能让旧路由覆盖真实失败。顺序是整体场所意图与可表达源家族 → 同一支持面/依附关系联合推导几何、体块、路线和景层 → 核初末实际消费者完整 → 真实动作语义窗独审 → 只在对应范围接受后复现第二结构。设计视点和保护矩形不自动代表镜头或构图已成立。预列三个原型不是放行扩产。实际路径为 `plains_place_plan.gd` / `places_v1.json` 与 `plains_place_composer.gd`，当前均为隔离候选，不是正式生成器升级完成。独审要看完整屏幕、连续穿越/回望及对象动作；局部图、相位Seed差异、工程绿灯或旧B/P1接受不能证明这条方法成功。
-
 ## 共同创作契约
 
 [预制作→制作→验收及版本总谱](../../../docs/creative_direction/README.md)是共同执行依据。总谱SHA变更须RETHINK并复验；交付写贡献、协作、新行为/视觉、主题冲突和实机验证。REWORK局部修复，DISCARD隔离候选；ACCEPT只限真实已验范围，审美不绕过工程红灯。
 
 历史复现按需读取[原始Skill与迁移索引](../../../docs/archive/skill_history/README.md)，不默认加载旧轮授权、PR实录或失败数字。
 
-当前“制作风铃平原美术”等区域短任务默认绑定[完整区域候选](../../../docs/evidence/plains_regional/recipe.md)及真实RETHINK，明确局部/场所请求保留旧入口。检查actual full-region Manifest、非同构Seed、全域地貌/路线/景层诊断、完整正常速度路线与实际消费者；诊断缩放图不冒充正常相机。当前两个制作方法均艺术REJECT，不因193项合同和完整Motor路线通过而扩产。原地质/空腔技术可复用，下一实验需要改宏观地貌与路线生成顺序。route只出计划，艺术任务不自动授权碰撞改动，用户审美/设备认可独立。
-
 整区实录暴露了廉价预检缺口：headless路线和另行GUI启动并不验证电影适配器的准入路径。昂贵长片前先用**同一真实MovieWriter入口**做60tick有界采集，核源码/原生退出/实际目录与素材/人物/影音封装；`frame_budget_exhausted`只签采集完整性，不冒充路线通过。区域入口不支持旧visual_sample/layout，非空请求要拒绝；使用实际regional catalog和初末素材/人物SHA，而非伪造旧样板标签。原生已通过而后处理失败时沿原finalize-existing在新目录恢复并保留旧失败，禁止重标源码；首片e450与观察器修复版本之间的实际差异见本轮范例。
 
-## 连续地貌重建的当前执行范例
 
-显式源画重建请求沿原route/production_loop，使用[两布局实际范例](../../../docs/evidence/plains_world_rebuild/recipe.md)和 `plains-world-rebuild-contract`，由其wrapper拍正常main/lower输入路线；不能调用旧实验电影冒签当前消费者。完整源画frame同时约束物理与画面，先看整体，再定位源构造/映射/层级/镜头：本例两种UV方案失败后换直接源构造，不继续加纹理救场。首准入后同四源改变高差/溪宽/主路，第二独审限定接受；后续只能按已实际消费的接口扩，不把Seed身份当随机结构。
+历史本轮入口原字节与SHA见[迁移索引](../../../docs/archive/skill_history/bible-v2-input/manifest.json)；旧recipe、历史预算和失败只在复现相关来源时读取，不覆盖已选Bible。

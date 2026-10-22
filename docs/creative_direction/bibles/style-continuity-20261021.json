@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "authority_id": "project_shared_regional_style",
+  "version": "1",
+  "source": {
+    "source": "Direct user message in current root conversation, 2026-10-21; quoted by /root, not an API export",
+    "quote": "森林的tile set得和风铃平原的整体风格一致，只是体现不同的区域特色。你这个都直接扔掉了",
+    "scope": "Both direct user corrections apply to all later region creation, optimization and proposed Bibles. Preserve the active project style; regional identity varies within that family. Not acceptance of future visual output/devices.",
+    "additional_quote": "同时后续区域不要出类似的问题"
+  },
+  "mode": "shared_project_style_with_regional_variation",
+  "shared_dimensions": {
+    "pixel_scale": "继承正式平原actual terrain_build的16px source tile /32 world units和nearest采样；通用Blob47Rules.SOURCE_SIZE不冒称当前素材像素尺寸。",
+    "adjacency_and_boundary": "继承同一47-mask邻接语义、核心TileMap与非整格exact-boundary adapter，保留solid/one-way/moving和危险语义；不为图改变碰撞，也不把精确边界冒称全网格。",
+    "lighting_outline_material": "以当前source PNG/atlas和shader为同族参考，继承像素簇/亮边宽度、暗实体/断面/凹角阴影、光向、材质分面及克制纹理。所有后续区域均不得独立换项目画风。只有用户明确选定新global style后，才通过版本化补充、影响分析和重验替代共享母版。 同屏角色以正式平原实际UnderworldPlayer表现为共用参考，保持角色与地形尺度/材质协调。",
+    "regional_variation": "森林差异来自树皮、苔藓、荆棘、有机根枝结构与区域色域；制作与正式平原同族的新材料/边界矩阵，不把平原岩石换色冒称森林。"
+  },
+  "historical_boundary": "旧提案或失败实现不自动约束新区域；这不等于抛弃正式平原仍在实际使用的Underworld tileset家族。保留原许可/来源、正式消费者和已有效的公共接口。",
+  "runtime_reference": {
+    "region_id": "windchime_plains",
+    "status": "actual_consumer_source_and_assets_present_not_new_capture_or_user_acceptance",
+    "tile_px": 16,
+    "world_tile_wu": 32,
+    "terrain_mode": "blob47_core_with_exact_boundary_adapter",
+    "references": [
+      {
+        "role": "formal_entry",
+        "path": "scripts/demo/plains_region_stage.gd",
+        "sha256": "5348f573850079dd68b5e5a0ac1050c0038d72fba590982bbaef90e9f04f52c5"
+      },
+      {
+        "role": "terrain_consumer",
+        "path": "scripts/art/plains_terrain_study.gd",
+        "sha256": "af14698e84358e031b91a51c4df6558ce1be07df2093b165a8e651d229d108d3"
+      },
+      {
+        "role": "terrain_renderer",
+        "path": "scripts/underworld_plains/underworld_terrain.gd",
+        "sha256": "a330045721df6d82589bfdc0208ed9d1de2930f6c50c1c30ea93d86ce12d5427"
+      },
+      {
+        "role": "material_shader",
+        "path": "scripts/underworld_plains/underworld_terrain.gdshader",
+        "sha256": "a175d071cda5b8d95a25ce327f7abc77eec9d779b9a5abc374b02ced640cb0ae"
+      },
+      {
+        "role": "tile_build",
+        "path": "assets/underworld_plains/terrain/terrain_build.json",
+        "sha256": "64f0c0fb88271e0e25684c8a4e4099af7135e5001c6604126485c9bb6c511c5d"
+      },
+      {
+        "role": "tileset",
+        "path": "assets/underworld_plains/terrain/terrain.tres",
+        "sha256": "02fa0bf8a764fd6307d47b9bf802066c6374d7a7c2d93060ec099289cbde3770"
+      },
+      {
+        "role": "atlas",
+        "path": "assets/underworld_plains/terrain/terrain.png",
+        "sha256": "908a3541feccc0e7abdd629c3a0bb8ce22693e22e89ea153cc7d80a411cbfba9"
+      },
+      {
+        "role": "source_pixels",
+        "path": "assets/underworld_plains/terrain/source.png",
+        "sha256": "a369175ccef5fca5ab363f140252d1f0f38b5eafb5d541605c601ea4ac56f88c"
+      },
+      {
+        "role": "adjacency",
+        "path": "scripts/art_foundation/blob47_rules.gd",
+        "sha256": "6bfc86b02211056068781c94b20f7514750efe03fc7f948fa091ff2256fb1cd6"
+      },
+      {
+        "role": "boundary",
+        "path": "scripts/art_foundation/pixel_formal_terrain.gd",
+        "sha256": "66944d59146ec8fc344a3763e276cd060e6cc783749b6ee11045edb2d4a1f225"
+      },
+      {
+        "role": "boundary_sides",
+        "path": "scripts/art/plains_terrain_borders.gd",
+        "sha256": "240098cce12d435c902cb85c114dd302415f0d639f848fa89769c90581f8391d"
+      },
+      {
+        "role": "license",
+        "path": "assets/style_exploration/underworld/source/licenses/publisher_page.txt",
+        "sha256": "9dcb86357ece8650bcb8be5798b02167b8d8735a475e3ec4e31518e1b744b270"
+      },
+      {
+        "role": "player_style_reference",
+        "path": "scripts/underworld_plains/underworld_player.gd",
+        "sha256": "f4243c83fb51ce85e34a95e736676a971339708537755683214f9b47cbc1bfb6"
+      }
+    ]
+  },
+  "validation": "Supplement or any shared reference SHA drift blocks new calls and resumes; versioned impact analysis/rebind and fresh affected technical/visual evidence required. Original Bible bytes and old receipts remain unchanged. Cross-region actual golden comparison is required before expanding new regional materials; metadata and hashes never sign visual acceptance.",
+  "applies_to": "all_region_create_optimize_and_proposed_bibles",
+  "original_bible_regions": [
+    "windchime_plains",
+    "thorn_forest"
+  ],
+  "region_scope": "Every current catalog region and later new region; the two original Bible documents are unchanged."
+}

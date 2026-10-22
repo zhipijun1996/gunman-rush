@@ -1,0 +1,26 @@
+Traceback (most recent call last):
+  File "/tmp/gunman-public-exploration-both-smoke.py", line 76, in <module>
+    asyncio.run(asyncio.wait_for(run(),timeout=180))
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 195, in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/base_events.py", line 691, in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/tasks.py", line 520, in wait_for
+    return await fut
+           ^^^^^^^^^
+  File "/tmp/gunman-public-exploration-both-smoke.py", line 67, in run
+    await click('SELECT REGION','home-second',True)
+  File "/tmp/gunman-public-exploration-both-smoke.py", line 43, in click
+    try: point=checks.locate(shot,phrase)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/tools/verify_forest_browser.py", line 49, in locate
+    return locate_original(path,phrase)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/gunman-rush/tools/verify_forest_browser.py", line 44, in locate_original
+    raise ValueError("Rendered UI text missing: " + phrase + "; OCR=" + " ".join(w["text"] for w in words))
+ValueError: Rendered UI text missing: SELECT REGION; OCR=ee a HP 5/5 332% WINDCHIME HOME NOTESO GN ENERGY 100/100 JUMP 1/1 SHOTS 2/2 #18 0/100 EEE \|IM READY 2.05 H2ER yy, 2) iy: HEL R =u. ea ee RATPE me eek eee s cohimarhanin a A tie on a Sm Ey STH Space MEK /S FEEEG ml AR AE LESS PLES RR ‘OR aasaczec

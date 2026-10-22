@@ -192,7 +192,14 @@ def validate_formal_choice(data):
         raise ValueError('Actual crown encounter entry/exit required')
     manifest = data['manifest']
     contract = manifest.get('encounter_plan_contract', {})
-    if contract.get('version') != 'compact-authored-ecology-v3' or contract.get('mix_consumed') is not True or contract.get('selected_mix') != manifest['choices']['enemy_mix']:
+    expected_ecology = 'compact-authored-ecology-v3'
+    if manifest.get('layout_version') == 'forest-bible-world-v15':
+        # The full route/Bible reader above validates the independent v14
+        # reference and exact inherited_other_fields, including this recipe.
+        expected_ecology = 'compact-authored-ecology-v5'
+        if contract != data['bible_admission']['reference_manifest'].get('encounter_plan_contract'):
+            raise ValueError('Actual Bible ecology recipe differs from its independently validated v14 reference')
+    if contract.get('version') != expected_ecology or contract.get('mix_consumed') is not True or contract.get('selected_mix') != manifest['choices']['enemy_mix']:
         raise ValueError('Actual recorded seed ecology recipe must be consumed')
     events = data['events']
     begin, end = data['ecology_started'], data['ecology_finished']
@@ -298,7 +305,18 @@ def validate_formal_choice(data):
         raise ValueError('Counterexample requires actual configured line/seed Policy damage, not body contact')
 
 
+def strict_manifest_admission(data):
+    """Only current Bible captures need the separately generated v14 proof."""
+    if data.get('manifest', {}).get('layout_version') != 'forest-bible-world-v15':
+        return
+    from forest_bible_region_admission import validate_bible_admission
+    errors = validate_bible_admission(data)
+    if errors:
+        raise ValueError('Actual Bible manifest admission rejected: ' + ', '.join(errors))
+
+
 def validate_lift_choice(data):
+    strict_manifest_admission(data)
     from run_forest_depth_region import VERSION, expected_itinerary
     if data.get('failures') or data.get('scope') != 'actual_DemoApp_R_E_lift_candidate_not_admitted_route':
         raise ValueError('Actual bounded R-to-E candidate must finish without native route failures')
@@ -639,6 +657,7 @@ def validate_crown_return(data, index):
 
 def validate_crossbranch(data):
     """Candidate injection is explicit. This first gate proves NPC motion, not reward admission."""
+    strict_manifest_admission(data)
     if data.get('failures') or data.get('position_or_resource_injection') is not False or data.get('audio_released') is not True:
         raise ValueError('Crossbranch actual driver/native/cleanup failure')
     c=data.get('candidate_overlay',{})
@@ -872,6 +891,8 @@ def run_formal_choices(out, args, receipt):
                 'tests/forest_depth_lift_runner.gd' if is_lift else 'tests/forest_depth_ecology_runner.gd', '--', f'--seed={args.seed}',
                 f'--map={args.map}', ('--route=crown_entry' if is_root_entry else '--route=ecology_expedition' if is_expedition else '--route=high_return') if is_lift else f'--route={args.formal_route}', f'--strategy={strategy}',
                 f'--output=res://{folder.relative_to(ROOT)}/capture.json'] + (['--root-entry'] if is_root_entry else ['--expedition'] if is_expedition else [])
+        if getattr(args, 'layout', ''):
+            argv.append('--layout='+args.layout)
         if is_root_entry or (is_expedition and args.map==2):
             argv.append('--return-strategy='+return_strategy)
         movie = bool(getattr(args, 'formal_movie', False))
@@ -1010,12 +1031,21 @@ def main():
     parser.add_argument('--formal-movie', action='store_true', help='Record one complete actual formal trace at normal 60fps with the existing region movie guards')
     parser.add_argument('--seed', default=None)
     parser.add_argument('--map', type=int, choices=(1, 2), default=1)
+    parser.add_argument('--layout', choices=('shared-tree-directional-cavities-v7', 'shared-tree-living-detour-v9',
+                        'shared-tree-canopy-hunt-v10', 'forest-expedition-airborne-v11', 'forest-woven-trunk-v12',
+                        'forest-interwoven-canopy-v13', 'forest-fruit-routes-v14', 'forest-bible-world-v15'),
+                        default='', help='Explicit recorded replay; blank follows CURRENT, without historical fallback')
     parser.add_argument('--formal-route', choices=('fast', 'growth', 'borer'), default='fast')
     parser.add_argument('--formal-strategies', nargs='+', choices=FORMAL_STRATEGIES, default=['wait_phase', 'stand_danger'])
     parser.add_argument('--lift-strategies', nargs='+', choices=LIFT_STRATEGIES, default=list(LIFT_BASE_STRATEGIES))
     parser.add_argument('--expedition-strategies', nargs='+', choices=('alive_lift', 'jump_two_R', 'left_phase_lift', 'low_air_recover_lift'), default=['alive_lift'])
     parser.add_argument('--expedition-return-strategies', nargs='+', choices=('direct_two_R','direct_one_R'), default=['direct_one_R'])
     args = parser.parse_args()
+    if args.layout and args.scenario == 'golden':
+        parser.error('--layout applies to actual formal/lift/crossbranch routes')
+    frozen = args.scenario in ('root_entry', 'expedition') or (args.scenario == 'crossbranch' and 'lifecycle' in args.crossbranch_strategies)
+    if frozen and args.layout not in ('', 'shared-tree-canopy-hunt-v10'):
+        parser.error('Historical coordinate fixtures require their original explicit v10 layout')
     if args.scenario == 'root_entry' and args.map != 2:
         parser.error('--scenario root_entry requires --map 2 and an actual generated R-entry seed')
     if args.include_map2_expedition and (args.scenario != 'expedition' or args.map != 1):
@@ -1032,7 +1062,7 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
     before = level_formal.source_files()
     verifier = {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest()
-                for p in (Path(__file__).resolve(), ROOT / 'tests/forest_depth_enemy_runner.gd', ROOT / 'tests/forest_depth_ecology_trace.gd', ROOT / 'tests/forest_depth_ecology_runner.gd', ROOT / 'tests/forest_depth_lift_trace.gd', ROOT / 'tests/forest_depth_lift_runner.gd', ROOT / 'tests/forest_depth_region_trace.gd', ROOT / 'tools/run_forest_depth_region.py', ROOT / 'tests/forest_feedback_enemy_runner.gd')}
+                for p in (Path(__file__).resolve(), ROOT / 'tests/forest_depth_enemy_runner.gd', ROOT / 'tests/forest_depth_ecology_trace.gd', ROOT / 'tests/forest_depth_ecology_runner.gd', ROOT / 'tests/forest_depth_lift_trace.gd', ROOT / 'tests/forest_depth_lift_runner.gd', ROOT / 'tests/forest_depth_region_trace.gd', ROOT / 'tools/run_forest_depth_region.py', ROOT / 'tools/forest_bible_region_admission.py', ROOT / 'tests/forest_feedback_enemy_runner.gd')}
     receipt = {'scope': 'Local actors, four spider actor cases, seven spatial controls and twenty causal/phase/dead/low-resource controls; rejected badger prototype retired. Mechanics value remains subject to actual comparison; not formal forest admission',
                'source_before': before, 'verifier_before': verifier, 'passed': False}
     if args.scenario in ('formal', 'lift', 'expedition', 'crossbranch', 'root_entry'):
@@ -1060,6 +1090,7 @@ def main():
             'layout_version': 'shared-tree-canopy-hunt-v10', 'modes': historical_modes,
             'current_default_admission': False,
             'current_default_evidence': 'separate actual current routes, formal encounters and restore'}
+    receipt['recorded_layout_argument'] = args.layout
     receipt['scenario'] = args.scenario
     started = time.monotonic()
     try:

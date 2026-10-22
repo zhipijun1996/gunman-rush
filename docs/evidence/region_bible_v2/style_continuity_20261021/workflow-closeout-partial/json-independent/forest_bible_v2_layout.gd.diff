@@ -1,0 +1,11 @@
+--- before/scripts/generation/forest_bible_v2_layout.gd
++++ scripts/generation/forest_bible_v2_layout.gd
+@@ -223,7 +223,7 @@
+ 		if not settled is Dictionary or settled.is_empty(): return false
+ 		# Immutable historical no-drop enemies intentionally use this exact
+ 		# minimal consumer row; never rewrite their canonical old bytes.
+-		if settled == {"kind":"none","amount":0} and str(enemy.id) != "bible_double_window_weaver": continue
++		if RandomStageGenerator.new()._same_data(settled,{"kind":"none","amount":0}) and str(enemy.id) != "bible_double_window_weaver": continue
+ 		if settled.get("enemy_id") != str(enemy.id) or settled.get("stream_namespace") != "enemy_drops" or settled.get("content_version") != EnemyDropService.CONTENT_VERSION: return false
+ 	for site: Dictionary in m.forest_discoveries:
+ 		if API._platform_by_id(m,str(site.support_id)).is_empty() or not m.routes.has(site.approach_route) or not m.routes.has(site.return_route) or site.approach_route == site.return_route: return false

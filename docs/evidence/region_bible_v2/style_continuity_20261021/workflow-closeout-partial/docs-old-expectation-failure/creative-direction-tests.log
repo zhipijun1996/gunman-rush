@@ -1,0 +1,18 @@
+.......F..
+======================================================================
+FAIL: test_selected_direction_binds_every_specialist_and_retains_stage_gates (__main__.CreativeTests.test_selected_direction_binds_every_specialist_and_retains_stage_gates)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/workspace/gunman-rush/tests/test_region_creative_direction.py", line 94, in test_selected_direction_binds_every_specialist_and_retains_stage_gates
+    self.assertEqual(task['creative_direction']['version'], 'creative-v6')
+AssertionError: 'creative-v7' != 'creative-v6'
+- creative-v7
+?           ^
++ creative-v6
+?           ^
+
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.878s
+
+FAILED (failures=1)

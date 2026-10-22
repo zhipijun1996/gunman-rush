@@ -1,0 +1,213 @@
+{
+  "reviewer": "/root/forest_discoveries_impl",
+  "scope": "Source-bound workflow/input-controller validation only; no engine, repository snapshot or actual pixels",
+  "checks": [
+    {
+      "command": [
+        "python3",
+        "tests/test_region_bible.py"
+      ],
+      "exit_code": 0,
+      "seconds": 1.6148198030005005,
+      "test_count": 29,
+      "log": "01.log",
+      "sha256": "b81d391bce8eae5fad3c806889e9617ac738491f22f31c9e200d252d49fb3bd2"
+    },
+    {
+      "command": [
+        "python3",
+        "tests/test_level_design_routing.py"
+      ],
+      "exit_code": 0,
+      "seconds": 4.224767964000421,
+      "test_count": 24,
+      "log": "02.log",
+      "sha256": "27514b796f33573ebdc08ed17a55e1db0cb427bbe0cde8403f42ab1b12d8edfd"
+    },
+    {
+      "command": [
+        "python3",
+        "tests/test_level_region_context.py"
+      ],
+      "exit_code": 0,
+      "seconds": 0.6385398330003227,
+      "test_count": 10,
+      "log": "03.log",
+      "sha256": "3b50b1de0a02c2bf8727f07ec76fcd54dc21b4574ccde85a41ff0a05fb13b446"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "test_production_loop.CreativeLoopTests.test_host_lease_binds_direction_hash_separately_from_skills",
+        "test_production_loop.CreativeLoopTests.test_direction_change_inside_worker_cannot_receive_acceptance"
+      ],
+      "exit_code": 0,
+      "seconds": 0.27145142300014413,
+      "test_count": 2,
+      "log": "04.log",
+      "sha256": "14f3eb472f1dbc4091858b9749c8e955c67ace908a12ab68a60d6a5879494575"
+    },
+    {
+      "command": [
+        "python3",
+        "/workspace/gunman-rush/build/region_bible_v2/workflow/style-inheritance-review/probe_style_guards.py",
+        "--output",
+        "/workspace/gunman-rush/build/region_bible_v2/workflow/style-inheritance-review/validation-second/independent-probes.json"
+      ],
+      "exit_code": 0,
+      "seconds": 2.2993562689998726,
+      "test_count": null,
+      "log": "05.log",
+      "sha256": "fe90014cb43a1a5e64446e385484ebfa1f628e1d25df0fa98e549ad0ff870cf4"
+    },
+    {
+      "command": [
+        "python3",
+        "/workspace/gunman-rush/build/region_bible_v2/workflow/independent-review/probe_workflow_gates_expanded.py",
+        "--output",
+        "/workspace/gunman-rush/build/region_bible_v2/workflow/style-inheritance-review/validation-second/prior-rework-probes.json"
+      ],
+      "exit_code": 0,
+      "seconds": 0.14687081099964416,
+      "test_count": null,
+      "log": "06.log",
+      "sha256": "5858dd6b04eeb6c0110a70b6226944c3955ab6762d66c4407476651dc325ac6e"
+    }
+  ],
+  "source_before": {
+    "tools/production_loop.py": "7ec853807903339cbff52df05e7addff3380d35fa0d22ca4755fb7ce2633d0b8",
+    "tools/region_creative_direction.py": "3dbdc3e14dd21d0c5dfb4d58c92625e2ab9da6cbb6e012947849d8b9ad102e3e",
+    "tools/level_region_context.py": "29c95d2dd471f6b82eb1d8b0fa967ee14160314e8d8be133a76743e50a71ddc1",
+    "tools/level_design.py": "6766e401bb989e5e905133ee24fbe3cf1fff247aa2715f14fe0d95b3131d2e56",
+    "tools/visual_director.py": "1f389e9c7023363d8639325737466deba68f9a52bd3cfcb7a3f2f3ee73fd033b",
+    "tools/harness/profiles.json": "bf70220e057ef9c1e6ea3ba1a087c799b5b03dc2810689fa6e67abac17826a67",
+    "tests/test_region_bible.py": "dac2fc1607000b77f6f05a489c1fccccc41db4d174d3c972237a31e940f8ec19",
+    "tests/test_level_design_routing.py": "8ba31e47e61cc1769957eff65ae3cb1b7bca325a998c567b7c2b815e5168c129",
+    "tests/test_level_region_context.py": "2ad3e018e9e1495af4bdc8f9cf4dc91ebb3bbc6501949884f052aa5907eca8dc",
+    "tests/test_production_loop.py": "857d89e0cc87ae762e2a566a4c7a40000d6da64f5cf1bd6e276a0547d80e09a8",
+    "docs/creative_direction/bibles/registry.json": "9dedeffc18759d46e9f7095a2bf4d88fd294f4c40ee70e0f7e7aac9042432e8b",
+    "docs/creative_direction/bibles/user-request.json": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc",
+    "docs/creative_direction/bibles/style-continuity-20261021.json": "01cab21e345926f95d969cd25f0e3634ce30c89620a5f4987da612ffec6e290a",
+    "docs/creative_direction/bibles/style-continuity-rebind-v1.json": "c0df236502535f0b76338024ccdadc51f7cc534ef8fbe7ff2163406b320954f5",
+    "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md": "02c9dd3299d12c91a426cf40b2a5885e526b51f467b955539b4b5ff99e1aca35",
+    "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md": "a7bad8323af64a7be0577132e5d988a6e1b781d9e1ac1639d37f9d65935194e3",
+    "docs/creative_direction/windchime_plains.json": "525cee94ff81204608b3f5ae7fdc150b4a4f8eaaef877d087936744c62a5e23a",
+    "docs/creative_direction/thorn_forest.json": "68198de74692d5900cafb4ca2214880b5d68657578edad4a7f9bdbfdc357f0ba",
+    "docs/creative_direction/archive/creative-v4/windchime_plains.json": "c50b59f1d6ac6e0648f71e9f07153aa1d7d4e9a9761a621026e5d304e2538ef8",
+    "docs/creative_direction/archive/creative-v4/thorn_forest.json": "55d6fa9e052108d750836a450a7a31b2131341136019d55cbc91ee11bb6f471a",
+    "AGENTS.md": "210934f04500ed90d60e53e0df507aef916cb8d228614e09a1a40a0783198584",
+    "docs/creative_direction/README.md": "29090570f4915cf7e856c42ee0e9d7c8e98837f7e09f00ff29226ce3f355b70d",
+    ".agents/skills/region-creative-director/SKILL.md": "0799acac95b1a4ac668ece7f94b5dc473f52c682fa949fb66a265b837b490775",
+    ".agents/skills/region-generator/SKILL.md": "a9e828807289cad38a652853e6bc6a0fe6beef2f7d867e7d9ad1aad821a20373",
+    ".agents/skills/art-director/SKILL.md": "ff0aa89128ee9f81e372f9dff40c5d83c1a83c373201d1c8403b651bf71c3191",
+    ".agents/skills/visual-director/SKILL.md": "b253bbd0552dcafa1d5bea6d6cbccdc4c04da37975316e7d83933f0550721f38",
+    ".agents/skills/game-quality-gate/SKILL.md": "be6853c3c63450dbbd1557d4fe979ef20f8d1e0ddbd9f07a4cddf389cedf61a5",
+    ".agents/skills/animation-vfx/SKILL.md": "8fa76bfd343794bc35074ab0babf822fd3d72dcdf1d11746f0d3d032b5e39b6f",
+    "scripts/demo/plains_region_stage.gd": "5348f573850079dd68b5e5a0ac1050c0038d72fba590982bbaef90e9f04f52c5",
+    "scripts/art/plains_terrain_study.gd": "af14698e84358e031b91a51c4df6558ce1be07df2093b165a8e651d229d108d3",
+    "scripts/underworld_plains/underworld_terrain.gd": "a330045721df6d82589bfdc0208ed9d1de2930f6c50c1c30ea93d86ce12d5427",
+    "scripts/underworld_plains/underworld_terrain.gdshader": "a175d071cda5b8d95a25ce327f7abc77eec9d779b9a5abc374b02ced640cb0ae",
+    "assets/underworld_plains/terrain/terrain_build.json": "64f0c0fb88271e0e25684c8a4e4099af7135e5001c6604126485c9bb6c511c5d",
+    "assets/underworld_plains/terrain/terrain.tres": "02fa0bf8a764fd6307d47b9bf802066c6374d7a7c2d93060ec099289cbde3770",
+    "assets/underworld_plains/terrain/terrain.png": "908a3541feccc0e7abdd629c3a0bb8ce22693e22e89ea153cc7d80a411cbfba9",
+    "assets/underworld_plains/terrain/source.png": "a369175ccef5fca5ab363f140252d1f0f38b5eafb5d541605c601ea4ac56f88c",
+    "scripts/art_foundation/blob47_rules.gd": "6bfc86b02211056068781c94b20f7514750efe03fc7f948fa091ff2256fb1cd6",
+    "scripts/art_foundation/pixel_formal_terrain.gd": "66944d59146ec8fc344a3763e276cd060e6cc783749b6ee11045edb2d4a1f225",
+    "scripts/art/plains_terrain_borders.gd": "240098cce12d435c902cb85c114dd302415f0d639f848fa89769c90581f8391d",
+    "assets/style_exploration/underworld/source/licenses/publisher_page.txt": "9dcb86357ece8650bcb8be5798b02167b8d8735a475e3ec4e31518e1b744b270",
+    "scripts/underworld_plains/underworld_player.gd": "f4243c83fb51ce85e34a95e736676a971339708537755683214f9b47cbc1bfb6"
+  },
+  "source_after": {
+    "tools/production_loop.py": "7ec853807903339cbff52df05e7addff3380d35fa0d22ca4755fb7ce2633d0b8",
+    "tools/region_creative_direction.py": "3dbdc3e14dd21d0c5dfb4d58c92625e2ab9da6cbb6e012947849d8b9ad102e3e",
+    "tools/level_region_context.py": "29c95d2dd471f6b82eb1d8b0fa967ee14160314e8d8be133a76743e50a71ddc1",
+    "tools/level_design.py": "6766e401bb989e5e905133ee24fbe3cf1fff247aa2715f14fe0d95b3131d2e56",
+    "tools/visual_director.py": "1f389e9c7023363d8639325737466deba68f9a52bd3cfcb7a3f2f3ee73fd033b",
+    "tools/harness/profiles.json": "bf70220e057ef9c1e6ea3ba1a087c799b5b03dc2810689fa6e67abac17826a67",
+    "tests/test_region_bible.py": "dac2fc1607000b77f6f05a489c1fccccc41db4d174d3c972237a31e940f8ec19",
+    "tests/test_level_design_routing.py": "8ba31e47e61cc1769957eff65ae3cb1b7bca325a998c567b7c2b815e5168c129",
+    "tests/test_level_region_context.py": "2ad3e018e9e1495af4bdc8f9cf4dc91ebb3bbc6501949884f052aa5907eca8dc",
+    "tests/test_production_loop.py": "857d89e0cc87ae762e2a566a4c7a40000d6da64f5cf1bd6e276a0547d80e09a8",
+    "docs/creative_direction/bibles/registry.json": "9dedeffc18759d46e9f7095a2bf4d88fd294f4c40ee70e0f7e7aac9042432e8b",
+    "docs/creative_direction/bibles/user-request.json": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc",
+    "docs/creative_direction/bibles/style-continuity-20261021.json": "01cab21e345926f95d969cd25f0e3634ce30c89620a5f4987da612ffec6e290a",
+    "docs/creative_direction/bibles/style-continuity-rebind-v1.json": "c0df236502535f0b76338024ccdadc51f7cc534ef8fbe7ff2163406b320954f5",
+    "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md": "02c9dd3299d12c91a426cf40b2a5885e526b51f467b955539b4b5ff99e1aca35",
+    "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md": "a7bad8323af64a7be0577132e5d988a6e1b781d9e1ac1639d37f9d65935194e3",
+    "docs/creative_direction/windchime_plains.json": "525cee94ff81204608b3f5ae7fdc150b4a4f8eaaef877d087936744c62a5e23a",
+    "docs/creative_direction/thorn_forest.json": "68198de74692d5900cafb4ca2214880b5d68657578edad4a7f9bdbfdc357f0ba",
+    "docs/creative_direction/archive/creative-v4/windchime_plains.json": "c50b59f1d6ac6e0648f71e9f07153aa1d7d4e9a9761a621026e5d304e2538ef8",
+    "docs/creative_direction/archive/creative-v4/thorn_forest.json": "55d6fa9e052108d750836a450a7a31b2131341136019d55cbc91ee11bb6f471a",
+    "AGENTS.md": "210934f04500ed90d60e53e0df507aef916cb8d228614e09a1a40a0783198584",
+    "docs/creative_direction/README.md": "29090570f4915cf7e856c42ee0e9d7c8e98837f7e09f00ff29226ce3f355b70d",
+    ".agents/skills/region-creative-director/SKILL.md": "0799acac95b1a4ac668ece7f94b5dc473f52c682fa949fb66a265b837b490775",
+    ".agents/skills/region-generator/SKILL.md": "a9e828807289cad38a652853e6bc6a0fe6beef2f7d867e7d9ad1aad821a20373",
+    ".agents/skills/art-director/SKILL.md": "ff0aa89128ee9f81e372f9dff40c5d83c1a83c373201d1c8403b651bf71c3191",
+    ".agents/skills/visual-director/SKILL.md": "b253bbd0552dcafa1d5bea6d6cbccdc4c04da37975316e7d83933f0550721f38",
+    ".agents/skills/game-quality-gate/SKILL.md": "be6853c3c63450dbbd1557d4fe979ef20f8d1e0ddbd9f07a4cddf389cedf61a5",
+    ".agents/skills/animation-vfx/SKILL.md": "8fa76bfd343794bc35074ab0babf822fd3d72dcdf1d11746f0d3d032b5e39b6f",
+    "scripts/demo/plains_region_stage.gd": "5348f573850079dd68b5e5a0ac1050c0038d72fba590982bbaef90e9f04f52c5",
+    "scripts/art/plains_terrain_study.gd": "af14698e84358e031b91a51c4df6558ce1be07df2093b165a8e651d229d108d3",
+    "scripts/underworld_plains/underworld_terrain.gd": "a330045721df6d82589bfdc0208ed9d1de2930f6c50c1c30ea93d86ce12d5427",
+    "scripts/underworld_plains/underworld_terrain.gdshader": "a175d071cda5b8d95a25ce327f7abc77eec9d779b9a5abc374b02ced640cb0ae",
+    "assets/underworld_plains/terrain/terrain_build.json": "64f0c0fb88271e0e25684c8a4e4099af7135e5001c6604126485c9bb6c511c5d",
+    "assets/underworld_plains/terrain/terrain.tres": "02fa0bf8a764fd6307d47b9bf802066c6374d7a7c2d93060ec099289cbde3770",
+    "assets/underworld_plains/terrain/terrain.png": "908a3541feccc0e7abdd629c3a0bb8ce22693e22e89ea153cc7d80a411cbfba9",
+    "assets/underworld_plains/terrain/source.png": "a369175ccef5fca5ab363f140252d1f0f38b5eafb5d541605c601ea4ac56f88c",
+    "scripts/art_foundation/blob47_rules.gd": "6bfc86b02211056068781c94b20f7514750efe03fc7f948fa091ff2256fb1cd6",
+    "scripts/art_foundation/pixel_formal_terrain.gd": "66944d59146ec8fc344a3763e276cd060e6cc783749b6ee11045edb2d4a1f225",
+    "scripts/art/plains_terrain_borders.gd": "240098cce12d435c902cb85c114dd302415f0d639f848fa89769c90581f8391d",
+    "assets/style_exploration/underworld/source/licenses/publisher_page.txt": "9dcb86357ece8650bcb8be5798b02167b8d8735a475e3ec4e31518e1b744b270",
+    "scripts/underworld_plains/underworld_player.gd": "f4243c83fb51ce85e34a95e736676a971339708537755683214f9b47cbc1bfb6"
+  },
+  "changed_sources": [],
+  "original_bible_bytes": [
+    {
+      "path": "docs/creative_direction/bibles/1-windchime_plains_region_bible_v2.md",
+      "sha256": "02c9dd3299d12c91a426cf40b2a5885e526b51f467b955539b4b5ff99e1aca35",
+      "canonical_matches_original_evidence": true,
+      "staged_bytes_equal": true,
+      "attachment_available": false,
+      "attachment_bytes_equal": null
+    },
+    {
+      "path": "docs/creative_direction/bibles/2-thorn_forest_region_bible_v2.md",
+      "sha256": "a7bad8323af64a7be0577132e5d988a6e1b781d9e1ac1639d37f9d65935194e3",
+      "canonical_matches_original_evidence": true,
+      "staged_bytes_equal": true,
+      "attachment_available": false,
+      "attachment_bytes_equal": null
+    }
+  ],
+  "impact_bindings": [
+    {
+      "region_id": "windchime_plains",
+      "old_direction": true,
+      "new_direction": true
+    },
+    {
+      "region_id": "thorn_forest",
+      "old_direction": true,
+      "new_direction": true
+    }
+  ],
+  "old_harness_contracts": {
+    "old_count": 132,
+    "new_count": 143,
+    "changed_or_missing_old_checks": [],
+    "removed_old_memberships": {}
+  },
+  "protected_original_loop_functions": {
+    "snapshot": true,
+    "check_task_quality": true,
+    "validate_restored_budget": true,
+    "validate_restored_completion": true,
+    "_verify_invocation": true,
+    "visual_capture_admission": true,
+    "resolved_check_contracts": true
+  },
+  "passed": true,
+  "runner_sha256": "c6f5b4d7213a2287f0cb29aae46f3aba4b1805c56862623bad89e26113691007"
+}

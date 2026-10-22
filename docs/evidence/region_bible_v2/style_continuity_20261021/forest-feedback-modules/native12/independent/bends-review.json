@@ -1,0 +1,182 @@
+{
+  "verdict": "ACCEPT_SCOPED_ISOLATED_THREE_BENDS_AND_TWO_ORDINARY_NO_CACHE_BYPASSES",
+  "scope": "Independent Python replay of native12 original5650frame trace against archived module geometry, actual held-input edges, complete12-frame support tails. No engine by reviewer, no formal DamagePolicy/reward payout/world/FUN claim.",
+  "result": [
+    124,
+    0
+  ],
+  "frames": 5650,
+  "legs": 121,
+  "jump_requests": 27,
+  "jump_events": 27,
+  "findings": [],
+  "cache_point_swept_by_body_plus16": {
+    "whole_main_from_spawn": true,
+    "reward_and_return_same_body": true,
+    "thorn_7_root_fold/whole_main_from_spawn": true,
+    "thorn_7_root_fold/reward_and_return_same_body": true,
+    "thorn_7_root_fold/cheap_ordinary_onward": false,
+    "thorn_z_root_switchback/whole_main_from_spawn": true,
+    "thorn_z_root_switchback/reward_and_return_same_body": true,
+    "thorn_z_root_switchback/cheap_ordinary_onward": false
+  },
+  "cases": [
+    {
+      "id": "whole_main_from_spawn",
+      "module_id": "thorn_l_root_turn",
+      "passed": true,
+      "cheap_ordinary_onward": false,
+      "reward_checkpoint_verified": false,
+      "reward_position": [
+        800.0,
+        142.0
+      ],
+      "reward_support_id": "receiver"
+    },
+    {
+      "id": "reward_and_return_same_body",
+      "module_id": "thorn_l_root_turn",
+      "passed": true,
+      "cheap_ordinary_onward": false,
+      "reward_checkpoint_verified": true,
+      "reward_position": [
+        800.0,
+        142.0
+      ],
+      "reward_support_id": "receiver"
+    },
+    {
+      "id": "thorn_7_root_fold/whole_main_from_spawn",
+      "module_id": "thorn_7_root_fold",
+      "passed": true,
+      "cheap_ordinary_onward": false,
+      "reward_checkpoint_verified": false,
+      "reward_position": [
+        1008.0,
+        270.0
+      ],
+      "reward_support_id": "lower_root"
+    },
+    {
+      "id": "thorn_7_root_fold/reward_and_return_same_body",
+      "module_id": "thorn_7_root_fold",
+      "passed": true,
+      "cheap_ordinary_onward": false,
+      "reward_checkpoint_verified": true,
+      "reward_position": [
+        1008.0,
+        270.0
+      ],
+      "reward_support_id": "lower_root"
+    },
+    {
+      "id": "thorn_7_root_fold/cheap_ordinary_onward",
+      "module_id": "thorn_7_root_fold",
+      "passed": true,
+      "cheap_ordinary_onward": true,
+      "reward_checkpoint_verified": false,
+      "reward_position": [
+        1008.0,
+        270.0
+      ],
+      "reward_support_id": "lower_root"
+    },
+    {
+      "id": "thorn_z_root_switchback/whole_main_from_spawn",
+      "module_id": "thorn_z_root_switchback",
+      "passed": true,
+      "cheap_ordinary_onward": false,
+      "reward_checkpoint_verified": false,
+      "reward_position": [
+        288.0,
+        270.0
+      ],
+      "reward_support_id": "middle_root"
+    },
+    {
+      "id": "thorn_z_root_switchback/reward_and_return_same_body",
+      "module_id": "thorn_z_root_switchback",
+      "passed": true,
+      "cheap_ordinary_onward": false,
+      "reward_checkpoint_verified": true,
+      "reward_position": [
+        288.0,
+        270.0
+      ],
+      "reward_support_id": "middle_root"
+    },
+    {
+      "id": "thorn_z_root_switchback/cheap_ordinary_onward",
+      "module_id": "thorn_z_root_switchback",
+      "passed": true,
+      "cheap_ordinary_onward": true,
+      "reward_checkpoint_verified": false,
+      "reward_position": [
+        288.0,
+        270.0
+      ],
+      "reward_support_id": "middle_root"
+    }
+  ],
+  "actual_cache_arrivals": [
+    {
+      "case": "reward_and_return_same_body",
+      "expected_position": [
+        800.0,
+        142.0
+      ],
+      "kind": "actual_cache_arrival",
+      "position": [
+        799.982421875,
+        141.925216674805
+      ],
+      "reward_support_id": "receiver",
+      "stable_frames": 12,
+      "tick": 790
+    },
+    {
+      "case": "thorn_7_root_fold/reward_and_return_same_body",
+      "expected_position": [
+        1008.0,
+        270.0
+      ],
+      "kind": "actual_cache_arrival",
+      "position": [
+        1008.01446533203,
+        269.925231933594
+      ],
+      "reward_support_id": "lower_root",
+      "stable_frames": 12,
+      "tick": 2454
+    },
+    {
+      "case": "thorn_z_root_switchback/reward_and_return_same_body",
+      "expected_position": [
+        288.0,
+        270.0
+      ],
+      "kind": "actual_cache_arrival",
+      "position": [
+        287.985565185547,
+        269.925231933594
+      ],
+      "reward_support_id": "middle_root",
+      "stable_frames": 12,
+      "tick": 4761
+    }
+  ],
+  "health_values": [
+    5.0
+  ],
+  "shot_values": [
+    2
+  ],
+  "source_sha256": {
+    "geometry": "4f3e95f5303853b179473399ed3e48727fe4aeb482689a717dbf5267a42bcad4",
+    "runner": "26ff158f576c59a9c846859b5bf3cb1a84fc7831511dba1751667f0e14e48fea"
+  },
+  "reported_source_matches": true,
+  "report_sha256": "2d7be424198a419f71ed05809e7d08f4d1699502af9ba73bae014a595f695a39",
+  "retained_failure": "Native11 118/4 actual hazard collisions remain failed; same-support pilot now waits for designated landingx before releasing, instead of accepting any position on the same wide root. L different-support release contract is unchanged.",
+  "acceptance_limit": "7 west fast drop and Z right fast drop are intentionally legal progress-only choices. They do not enter the new far7/middle-leftZ cache even by continuous body+16 sweep. Positive reward routes visit their exact support/point and return, but formal transactions, living alternatives, actual world packing, art and FUN remain unverified."
+}

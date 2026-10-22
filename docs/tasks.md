@@ -37,6 +37,9 @@ FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试�
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
+| MAIN-CLOSEOUT-20261022 | 统一现状源码与历史到main，建立并行开发基线 | PARALLEL-INTEGRATION-01 | in_progress | [范围与并行入口](main_closeout_20261022.md)、[质量记录](quality/records/MAIN-CLOSEOUT-20261022.json)；候选已含全部开发head，纯部署分支排除，待远端合并回执 |
+| FOREST-VARIETY-04 | 六类探索场所、两图真实网络与每图8–12/15–20分钟初步体验目标 | FOREST-VARIETY-03 | in_progress | [设计](design/forest_exploration_v18.md)、[质量记录](quality/records/FOREST-VARIETY-04.json)；已接五类场所原型／奖励返回与种子先后，精确边界提速，Web e361已公开／双图四GUI入口通过；网状、更多模块、美术和真人时长未完成 |
+| FOREST-VARIETY-03 | 保留旧森林设计、扩模块库与真实随机回环，纠正首段曲线 | FOREST-EXPLORATION-02 | in_progress | [用户纠正](design/forest_variety_feedback_20261022.json)、[质量记录](quality/records/FOREST-VARIETY-03.json)；v16堆叠方向被用户否定，新内容未验收 |
 | UNDERWORLD-FEEDBACK-03 | 平原受伤、环境交互、连续Boss与家园反馈 | UNDERWORLD-PLAINS-01 | review | [PR96实现与原失败](underworld_feedback_r3.md)、[质量记录](quality/records/UNDERWORLD-FEEDBACK-03.json)；本轮按新用户授权整合，完整主线验收见MAIN-PR96-REPAIR-01 |
 | MAIN-PR96-REPAIR-01 | main CI修复／PR96整合／稳定镜头／旧八房瘦身 | PARALLEL-INTEGRATION-01 | review | [P精确技术交付](evidence/main_pr96_repair01/main-P66e8/README.md)、[质量记录](quality/records/MAIN-PR96-REPAIR-01.json)；P完整freshCI、原三浏览器、公网完整SHA与同源影片通过；全区审美/设备/FUN另验 |
 | FOREST-FRUIT-ROUTES-04 | 森林果实目标与推荐／可选／恢复点位梳理 | FOREST-FOCUS-ROUTES-03 | review | [新版设计](design/forest_fruit_routes_v14.md)、[P精确交付](evidence/main_pr96_repair01/main-P66e8/README.md)；v14候选及v13旧存档保留，P当前80/80、双图24/29段与32原帧限定独审通过；整体构图/HUD、设备/FUN和用户认可仍review |
@@ -518,3 +521,16 @@ D060技术源679660e：实际八关App127/0、批次回归54/0、出口37/0；�
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
 | P1-RANDOM-01 | P1正式随机平原接入与可选少女外观 | P1-NATIVE-01 | review | 两真实Seed/角色功能有证据，但整体艺术REWORK；用户否定后停第三Seed、组件补丁和包；完整区域联合创作未完成 |
+
+## 2026-10-20 地区圣经 V2 制作
+
+| ID | 工作 | 依赖 | 状态 | 证据与范围 |
+| --- | --- | --- | --- | --- |
+| FOREST-CI-COMPAT-01 | 森林兼容字体闭包及共享表现类型依赖修复 | CI-BIBLE-ADMISSION-01 | in_progress | 原537与地形正反例通过；等待新冻结完整CI；[质量记录](quality/records/FOREST-CI-COMPAT-01.json) |
+| AVATAR-SHARED-STYLE-01 | 历史及当前共享角色外观消费者守门与快反馈 | CI-BIBLE-ADMISSION-01 | in_progress | 原25/当前37及原26完整；限定独审不代签整区；[质量记录](quality/records/AVATAR-SHARED-STYLE-01.json) |
+| CI-BIBLE-ADMISSION-01 | PR全范围素材登记、精确源码CI与重复事件修复 | REGION-BIBLE-WORKFLOW-01 | in_progress | 保留真实失败；只签流程/专项测试，不代签整区美术；[质量记录](quality/records/CI-BIBLE-ADMISSION-01.json) |
+| REGION-BIBLE-WORKFLOW-01 | 地区圣经前置、版本绑定与harness/skills流程 | MAIN-PR96-REPAIR-01 | in_progress | 用户所给两Bible为当前方向；缺Bible先文档预制作，生产版本/源码漂移守门；[质量记录](quality/records/REGION-BIBLE-WORKFLOW-01.json) |
+| FOREST-BIBLE-V2-01 | 按圣经完成荆棘森林空间、完整美术与环境演出 | REGION-BIBLE-WORKFLOW-01 | in_progress | 复用已验生态/Boss/动作，新增真实回路、奖励及森林合屏；[质量记录](quality/records/FOREST-BIBLE-V2-01.json) |
+| PLAINS-BIBLE-V2-01 | 森林后按圣经优化风铃平原 | FOREST-BIBLE-V2-01 | planned | 晨光草石/风车枢纽/反冲探索，BGM待用户后引入；[质量记录](quality/records/PLAINS-BIBLE-V2-01.json) |
+
+| FOREST-EXPLORATION-02 | 实机反馈：森林双图差异、多难度分支奖励、平缓教学及钩索可见/固定点起跳 | — | in_progress | [质量记录](quality/records/FOREST-EXPLORATION-02.json) |

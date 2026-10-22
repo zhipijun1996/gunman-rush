@@ -1,0 +1,15 @@
+# Parallel presentation source review
+
+**ACCEPT_SCOPED_SOURCE_ONLY_NATIVE_UNVERIFIED**, after one resolved blocker. No production edit or engine run by this reviewer. The seven reviewed source inputs and checkpoint diff are recorded in `report.json` and `reviewed-source/`.
+
+The initial patch unconditionally set `app._forest_layout_version` to the public fixture's empty optional argument. That would invalidate both today's14 and future15 roundtrip: actual App load serializes the internal field even when empty, while registry's default only applies to an absent key. Root fixed the test to override this resolved internal selection only for a nonempty historical request. The revised source contains that exact guard; native execution remains pending.
+
+All 29 source predicates pass. Five of the original eight functions are byte-identical to checkpoint083, including Home ownership, real destination-state reload, frame wait and assertion/report helpers. The old run body becomes byte-identical after removing only the added explicit14 roundtrip call. The full old roundtrip becomes byte-identical after reversing just the declared version selection and two presentation identity branches.
+
+The explicit historical14 case still requires the original Underworld actor to be disposed in Forest, requires zero live pixel actors, visible legacy Forest body, correct old background ownership and a fresh actual UnderworldPlayer ID on return. Reducing the helper for explicit14 gives the entire original helper exactly, including all original predicates. The historical case is appended rather than replacing the current one.
+
+For prospective current15, the helper requires the actual assembled layout to equal the independent expectation, exactly one real UnderworldPlayer, hidden legacy Courier/feedback, disabled original visual adapter and real UnderworldTerrain on the forest stage. Plains parallax is visible only in Plains; original PlainsBackground is hidden in both shared pixel regions. The actual forest source renders its own background only for exact15. Both cross-region directions require the same native presentation ID and the same actual Player ID. An old14 stage or legacy actor cannot pass the15 branch as fallback.
+
+Original Lab refusal, both maps, real lethal Policy request on map1, abandon on map2, reopen, independent destination state, actual H campaign ledger, stale-owner/Home negative and cleanup checks remain. No position, Motor step or direct health write was introduced. The original wrapper's three120-second native caps and the harness check dictionary/budget are unchanged.
+
+`EXPECTED_CURRENT_FOREST_LAYOUT` is still14. Both current and explicit historical invocations presently exercise14, so this source audit does not establish new15 behavior. After promotion to15, the original `parallel-region-presentation` wrapper must actually run both maps/current15 and historical14, plus its unchanged campaign/menu cases, with clean native completion. This review signs neither native parse/execution nor art, route or device approval.

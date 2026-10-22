@@ -440,7 +440,7 @@ class VisualDirectorTests(unittest.TestCase):
 
     def test_route_is_real_original_production_loop_input_not_worker_success(self):
         # Registration and policy are real; this test does not dispatch workers.
-        mission=vd.route('优化风铃平原钟庭美术','unit-visual','docs/quality/records/unit-visual-golden.json',['docs/','scripts/art/','assets/'])
+        mission=vd.historical_recipe_plan('优化风铃平原钟庭美术','unit-visual','docs/quality/records/unit-visual-golden.json',['docs/','scripts/art/','assets/'])
         self.assertEqual(mission['scope'],'offline_production_plan_not_executed')
         self.assertTrue(any('rejected unrelated mother does not block' in item for item in mission['constraints']))
         self.assertEqual(mission['tasks'][1]['required_gates'],['G0','G1'])
@@ -464,12 +464,12 @@ class VisualDirectorTests(unittest.TestCase):
         self.assertIn('plains-places-capture-tests',mission['tasks'][1]['checks'])
         self.assertNotIn('finite arc-length',mission['tasks'][1]['goal'])
         self.assertTrue(any('actual collision geometry/route' in item for item in mission['constraints']))
-        forest=vd.route('制作荆棘森林黄金场景美术','forest-visual','docs/quality/records/forest-visual.json',['scripts/art/'],phase='golden')
+        forest=vd.historical_recipe_plan('制作荆棘森林黄金场景美术','forest-visual','docs/quality/records/forest-visual.json',['scripts/art/'],phase='golden')
         self.assertNotIn('visual-director-space',forest['tasks'][0]['checks'])
         self.assertNotIn('visual_recipe',forest['preparation'])
-        focused=vd.route('优化风铃平原黄金场景','existing-task-id','docs/quality/records/existing-task-id.json',['scripts/art/'],phase='golden')
+        focused=vd.historical_recipe_plan('优化风铃平原黄金场景','existing-task-id','docs/quality/records/existing-task-id.json',['scripts/art/'],phase='golden')
         self.assertEqual(len(focused['tasks']),1);self.assertEqual(focused['tasks'][0]['id'],'existing-task-id')
-        with self.assertRaises(ValueError):vd.route('request','../bad','record.json',['assets/'])
+        with self.assertRaises(ValueError):vd.historical_recipe_plan('request','../bad','record.json',['assets/'])
 
     def test_alpha_noise_is_not_proven_visible_halo_and_old_contract_stays_frozen(self):
         from PIL import Image

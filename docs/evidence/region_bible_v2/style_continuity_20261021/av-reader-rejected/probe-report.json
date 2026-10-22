@@ -1,0 +1,255 @@
+{
+  "reviewed_source": "tools/capture_forest_bible_route.py",
+  "reviewed_sha256": "c1d9d6599d1050b05f15f83d3038b02be1cbfb686433fa564dfad76d8a8c78ed",
+  "source_still_identical_after_probe": true,
+  "engine_executed": false,
+  "production_source_modified": false,
+  "actual_function_probes": [
+    {
+      "name": "actual_existing_safe_report",
+      "scope": "actual reviewed function on explicitly synthetic mutated report; not native gameplay",
+      "expected_acceptance": true,
+      "accepted": true,
+      "unexpected_acceptance": false,
+      "result": {
+        "physics_samples": 3129,
+        "completed_legs": 32,
+        "min_hp": 5.0,
+        "actual_player_damage": [],
+        "actor_epochs": [
+          3
+        ]
+      },
+      "error": null
+    },
+    {
+      "name": "zero_health_sample",
+      "scope": "actual reviewed function on explicitly synthetic mutated report; not native gameplay",
+      "expected_acceptance": false,
+      "accepted": true,
+      "unexpected_acceptance": true,
+      "result": {
+        "physics_samples": 3129,
+        "completed_legs": 32,
+        "min_hp": 0,
+        "actual_player_damage": [],
+        "actor_epochs": [
+          3
+        ]
+      },
+      "error": null
+    },
+    {
+      "name": "committed_player_damage_present",
+      "scope": "actual reviewed function on explicitly synthetic mutated report; not native gameplay",
+      "expected_acceptance": false,
+      "accepted": true,
+      "unexpected_acceptance": true,
+      "result": {
+        "physics_samples": 3129,
+        "completed_legs": 32,
+        "min_hp": 5.0,
+        "actual_player_damage": [
+          {
+            "kind": "committed_damage",
+            "target": "player",
+            "amount": 2,
+            "tick": 1
+          }
+        ],
+        "actor_epochs": [
+          3
+        ]
+      },
+      "error": null
+    },
+    {
+      "name": "actor_respawn_epoch_changed",
+      "scope": "actual reviewed function on explicitly synthetic mutated report; not native gameplay",
+      "expected_acceptance": false,
+      "accepted": true,
+      "unexpected_acceptance": true,
+      "result": {
+        "physics_samples": 3129,
+        "completed_legs": 32,
+        "min_hp": 5.0,
+        "actual_player_damage": [],
+        "actor_epochs": [
+          3,
+          999
+        ]
+      },
+      "error": null
+    },
+    {
+      "name": "stage_epoch_changed",
+      "scope": "actual reviewed function on explicitly synthetic mutated report; not native gameplay",
+      "expected_acceptance": false,
+      "accepted": true,
+      "unexpected_acceptance": true,
+      "result": {
+        "physics_samples": 3129,
+        "completed_legs": 32,
+        "min_hp": 5.0,
+        "actual_player_damage": [],
+        "actor_epochs": [
+          3
+        ]
+      },
+      "error": null
+    },
+    {
+      "name": "truncated_to_one_physical_sample_with_complete_header",
+      "scope": "actual reviewed function on explicitly synthetic mutated report; not native gameplay",
+      "expected_acceptance": false,
+      "accepted": true,
+      "unexpected_acceptance": true,
+      "result": {
+        "physics_samples": 1,
+        "completed_legs": 32,
+        "min_hp": 5.0,
+        "actual_player_damage": [],
+        "actor_epochs": [
+          3
+        ]
+      },
+      "error": null
+    },
+    {
+      "name": "missing_actual_camp_claim_and_shortcut",
+      "scope": "actual reviewed function on explicitly synthetic mutated report; not native gameplay",
+      "expected_acceptance": false,
+      "accepted": true,
+      "unexpected_acceptance": true,
+      "result": {
+        "physics_samples": 3129,
+        "completed_legs": 32,
+        "min_hp": 5.0,
+        "actual_player_damage": [],
+        "actor_epochs": [
+          3
+        ]
+      },
+      "error": null
+    },
+    {
+      "name": "constant_draw_counter_all_events_kept",
+      "scope": "actual reviewed function on explicitly synthetic mutated report; not native gameplay",
+      "expected_acceptance": false,
+      "accepted": true,
+      "unexpected_acceptance": true,
+      "result": {
+        "trace": {
+          "physics_samples": 3129,
+          "completed_legs": 32,
+          "min_hp": 5.0,
+          "actual_player_damage": [],
+          "actor_epochs": [
+            3
+          ]
+        },
+        "keyframes": [
+          {
+            "kind": "formal_route_final_observed_frame",
+            "tick": 3129,
+            "frame": 0
+          }
+        ]
+      },
+      "error": null
+    },
+    {
+      "name": "constant_counter_all_accepted_events_deleted",
+      "scope": "actual reviewed function on explicitly synthetic mutated report; not native gameplay",
+      "expected_acceptance": false,
+      "accepted": true,
+      "unexpected_acceptance": true,
+      "result": {
+        "trace": {
+          "physics_samples": 3129,
+          "completed_legs": 32,
+          "min_hp": 5.0,
+          "actual_player_damage": [],
+          "actor_epochs": [
+            3
+          ]
+        },
+        "keyframes": [
+          {
+            "kind": "formal_route_final_observed_frame",
+            "tick": 3129,
+            "frame": 0
+          }
+        ]
+      },
+      "error": null
+    },
+    {
+      "name": "F08_core_receipt_replaced_with_nonempty_garbage",
+      "scope": "actual reviewed function on explicitly synthetic mutated report; not native gameplay",
+      "expected_acceptance": false,
+      "accepted": true,
+      "unexpected_acceptance": true,
+      "result": {
+        "physics_samples": 3551,
+        "completed_legs": 31,
+        "min_hp": 5.0,
+        "actual_player_damage": [],
+        "actor_epochs": [
+          3
+        ]
+      },
+      "error": null
+    }
+  ],
+  "real_synthetic_media_probe": {
+    "scope": "Explicit synthetic non-game constant-black video with only1ms all-zero audio; never production AV",
+    "argv": [
+      "ffmpeg",
+      "-nostdin",
+      "-v",
+      "error",
+      "-f",
+      "lavfi",
+      "-i",
+      "color=c=black:s=1280x720:r=60:d=0.2",
+      "-f",
+      "lavfi",
+      "-i",
+      "anullsrc=r=48000:cl=stereo:d=0.001",
+      "-map",
+      "0:v:0",
+      "-map",
+      "1:a:0",
+      "-c:v",
+      "mjpeg",
+      "-q:v",
+      "10",
+      "-threads",
+      "1",
+      "-c:a",
+      "pcm_s16le",
+      "/workspace/gunman-rush/build/region_bible_v2/av-adapter-independent-review-first/SYNTHETIC-NOT-GAME-static-short-silent-audio.avi"
+    ],
+    "exit_code": 0,
+    "adapter_result": {
+      "argv": [
+        "ffprobe",
+        "-v",
+        "error",
+        "-count_frames",
+        "-show_streams",
+        "-show_format",
+        "-of",
+        "json",
+        "/workspace/gunman-rush/build/region_bible_v2/av-adapter-independent-review-first/SYNTHETIC-NOT-GAME-static-short-silent-audio.avi"
+      ],
+      "exit_code": 0,
+      "frames": 12,
+      "seconds_from_frames": 0.2,
+      "bytes": 77958,
+      "sha256": "95cc82ce7877eb33c7d0ecf94e558cf9e47bac872a6a5992dfcf5576c5737b1d"
+    },
+    "unexpected_acceptance": true
+  }
+}

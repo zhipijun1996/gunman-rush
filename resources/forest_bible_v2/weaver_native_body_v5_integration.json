@@ -1,0 +1,91 @@
+{
+  "task_id": "FOREST-BIBLE2-ART",
+  "scope": "One v5 native leg-facet REWORK fix only; source-level actual view complete, runtime and independent review pending",
+  "asset": {
+    "id": "forest_bible_v2.native.weaver_silk_bell_v5",
+    "path": "assets/forest_bible_v2/native/weaver_silk_bell_v5.png",
+    "source_original": "assets/forest_bible_v2/source/native_weaver_v5/spider.native.png",
+    "source_sha256": "b83a3975f22516569b56ab3ebe7119d4cb03f3058764c6b6955e62671b1e5dec",
+    "runtime_sha256": "b83a3975f22516569b56ab3ebe7119d4cb03f3058764c6b6955e62671b1e5dec",
+    "size": [
+      32,
+      32
+    ],
+    "mode": "RGBA",
+    "alpha_extrema": [
+      0,
+      255
+    ],
+    "alpha_bbox_nonzero": [
+      2,
+      4,
+      30,
+      30
+    ],
+    "collision": false,
+    "generation": "AI-authored literal native32x32 palette-index bitmap; explicit24existing-leg-pixel facet refinement; not imagegen",
+    "processing": "Byte-identical native copy, no resize/threshold/halo/footprint expansion. V4 silver sac/head/eyes and complete alpha channel remain exact.",
+    "runtime_direct_sampling": true,
+    "runtime_scope": "v15 forest_thread_spider/forest_bible_weaver body only; unchanged32wu rectangle and terminal tint",
+    "source_files": [
+      {
+        "path": "assets/forest_bible_v2/source/native_weaver_v5/spider-authored.rows",
+        "sha256": "7dd42d712af6d2290eb6803c822a19ddc3341b9cf2784682de3172573242aac7"
+      },
+      {
+        "path": "assets/forest_bible_v2/source/native_weaver_v5/spider.palette.json",
+        "sha256": "c6d0103c3c69c017d2c9fb060d524e32730a4d6054ad17910dc0b7ffdcab8de8"
+      },
+      {
+        "path": "assets/forest_bible_v2/source/native_weaver_v5/spider.native.png",
+        "sha256": "b83a3975f22516569b56ab3ebe7119d4cb03f3058764c6b6955e62671b1e5dec"
+      },
+      {
+        "path": "assets/forest_bible_v2/source/native_weaver_v5/provenance.json",
+        "sha256": "6d18215c057937f7bee647f293562c88f867cb447a41427f20f5d8b0eab4c3c5"
+      },
+      {
+        "path": "assets/forest_bible_v2/source/native_weaver_v5/measurement.json",
+        "sha256": "629025a626eefd58082999f9bbf9ebcdd079ff35bb22d68e5703fecf55c1252e"
+      },
+      {
+        "path": "assets/forest_bible_v2/source/native_weaver_v5/decode_bitmap.py",
+        "sha256": "0e05d7c6a62d8f2789343d5b914c26a44f3243cb39f1225a1df79d4bca82dd68"
+      }
+    ],
+    "prior_v4_runtime_source_sha256": "f6571253a612f13abafe3452fbdb1709cb8004cb978c052bad3709ab473e2d32",
+    "prior_v4_actual_scene_failure": "build/region_bible_v2/forest-art/native-spider-near-self-review-first/review.json",
+    "author_native_view": "build/region_bible_v2/forest-art/manual-native-spider-v5/native-shared-comparison.png; actual1x/4x/16x view, not Godot proof",
+    "status": "one_dark_leg_REWORK_refinement_candidate; actual_Godot_and_independent_review_pending; not_finally_accepted",
+    "image_tool_calls_for_this_bitmap": 0,
+    "license": "Project-authored explicit pixel arrangement; inherited actual source RGB swatch provenance retained, no new external generated-image source"
+  },
+  "source_review": "Artist saw actual native16x and native1x/4x shared comparison;24small warm-grey joints/upper edges improve dark-field source readability. No final native-game scene claim.",
+  "helper": {
+    "path": "scripts/presentation/forest_bible_actor_presentation.gd",
+    "sha256": "54d93bad51d88a4af59da6f8e9e71a20463dc5e4fef4712fcb05ad6489c127a8",
+    "delta": "One preload path v4→v5 only; all behavior guards, rectangle, terminal tint, and other presentation helpers byte-identical after that substitution"
+  },
+  "unchanged_shared_phase_behavior_and_main_presentation": {
+    "scripts/enemies/forest_depth_enemy_presentation.gd": true,
+    "scripts/enemies/forest_bible_weaver_behavior.gd": true,
+    "scripts/presentation/forest_bible_presentation.gd": true
+  },
+  "fixed_footprint_silver_and_head": "Alpha channel and every silver-sac/head/eye pixel exact v4; no new opaque pixels or baked silk/halo",
+  "root_main_asset_registration_entry": {
+    "id": "forest_bible_v2.native.weaver_silk_bell_v5",
+    "path": "assets/forest_bible_v2/native/weaver_silk_bell_v5.png",
+    "width": 32,
+    "height": 32,
+    "sha256": "b83a3975f22516569b56ab3ebe7119d4cb03f3058764c6b6955e62671b1e5dec",
+    "generation": "ai_authored_literal_native_palette_bitmap",
+    "scope": "v15 ThreadSpider/Weaver24leg-facet refinement candidate; one actual composition pending",
+    "source_record": "assets/forest_bible_v2/manifest.json"
+  },
+  "main_assets_manifest_modified_by_artist": false,
+  "v4_and_all_old_failures_retained": true,
+  "actual_runtime_status": "UNVERIFIED; root owns next parser/capture lease",
+  "new_image_tool_calls": 0,
+  "cumulative_real_image_tool_calls": 10,
+  "cumulative_real_image_tool_seconds": 484.925
+}

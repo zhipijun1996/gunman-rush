@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "task_id": "MAIN-CLOSEOUT-20261022",
+  "task_type": "process",
+  "workflow": "in_progress",
+  "baseline_commit": "d7469f50282dfb3e363ebd68f3549860abf9672d",
+  "reviewed_commit": "d7469f50282dfb3e363ebd68f3549860abf9672d",
+  "content_version": "main-closeout-v1",
+  "owner": "/root",
+  "purpose": "Consolidate all source development branch histories and latest implementation into main as the next parallel baseline",
+  "player_experience": "Existing public prototype and unfinished region quality remain explicit; new development branches start at origin/main",
+  "constraints": [
+    "No gameplay/assets/config/runtime changes relative to forest767627f8",
+    "Keep old style branches as recoverable Git history, not reactivated runtime",
+    "Never merge deployment-only outputs into source; do not force push or delete branches"
+  ],
+  "affected_paths": [
+    "AGENTS.md",
+    ".agents/skills/project-integration/SKILL.md",
+    "docs"
+  ],
+  "deliverables": [
+    "Source branch inventory, old-art ancestry retention and exact unchanged whole-tree proof",
+    "Explicit user-authorized main integration and direct-to-main parallel workflow",
+    "Actual main merge receipt and pending CI/public boundaries"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "not_applicable",
+      "reason": "Git/process-only closeout; no new game content",
+      "evidence": []
+    },
+    "G2": {
+      "status": "not_applicable",
+      "reason": "Git/process-only closeout; no new game content",
+      "evidence": []
+    },
+    "G3": {
+      "status": "not_applicable",
+      "reason": "Git/process-only closeout; no new game content",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "not_applicable",
+      "reason": "Git/process-only closeout; no new game content",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "No new gameplay or assets; current region quality records unchanged",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "No new gameplay or assets; current region quality records unchanged",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "No new gameplay or assets; current region quality records unchanged",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "No new gameplay or assets; current region quality records unchanged",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "No new gameplay or assets; current region quality records unchanged",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "No new gameplay or assets; current region quality records unchanged",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "not_applicable",
+      "reason": "No new gameplay or assets; current region quality records unchanged",
+      "evidence": []
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "No new gameplay or assets; current region quality records unchanged",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "not_applicable",
+      "reason": "No new gameplay or assets; current region quality records unchanged",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Candidate has not yet been merged remotely; do not claim task completion",
+    "New main CI/deployment tracked separately from original successful767627f8 run"
+  ]
+}

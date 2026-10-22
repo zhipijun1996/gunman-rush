@@ -445,7 +445,7 @@ def validate_fruit_version(data):
     from run_forest_depth_region import validate_fruit_presentation
     source = (ROOT / 'tests/forest_depth_version_runner.gd').read_text()
     expected_default = re.search(r'^const EXPECTED_PUBLIC_LAYOUT := "([^"]+)"$', source, re.M).group(1)
-    if expected_default not in ('forest-interwoven-canopy-v13', 'forest-fruit-routes-v14'):
+    if expected_default not in ('forest-interwoven-canopy-v13', 'forest-fruit-routes-v14', 'forest-bible-world-v15'):
         raise ValueError('Independently selected known public layout required')
     for row in rows:
         index = row['map']
@@ -466,6 +466,20 @@ def validate_fruit_version(data):
             raise ValueError('Complete registered v14 candidate, typed defaults and exact presentation required')
         if expected_default == 'forest-fruit-routes-v14' and current != manifest:
             raise ValueError('New public default must equal the complete explicit v14 output')
+        if expected_default == 'forest-bible-world-v15':
+            expected = row.get('expected_public_manifest', {})
+            if (type(current.get('map_index')) is not int
+                    or current.get('version') != 'thorn-forest-region-v2'
+                    or current.get('region') != 'thorn_forest'
+                    or current.get('requires') != ['grapple']
+                    or current.get('production_pool') is not False
+                    or expected.get('layout_version') != expected_default
+                    or expected.get('seed') != f'version-fruit-map-{index}'
+                    or type(expected.get('map_index')) is not int
+                    or expected.get('map_index') != index
+                    or json.dumps(current, sort_keys=True, allow_nan=False, separators=(',', ':'))
+                    != json.dumps(expected, sort_keys=True, allow_nan=False, separators=(',', ':'))):
+                raise ValueError('Bible public default must equal the whole independently explicit v15 manifest')
 
 
 

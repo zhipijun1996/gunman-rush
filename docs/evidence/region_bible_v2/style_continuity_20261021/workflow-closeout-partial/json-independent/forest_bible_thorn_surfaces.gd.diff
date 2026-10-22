@@ -1,0 +1,11 @@
+--- before/scripts/generation/forest_bible_thorn_surfaces.gd
++++ scripts/generation/forest_bible_thorn_surfaces.gd
+@@ -40,7 +40,7 @@
+ 	var surfaces: Variant = m.get("thorn_surfaces")
+ 	if not surfaces is Array or surfaces.size() != m.get("dangers", []).size() or surfaces.is_empty(): return false
+ 	var expected := _surfaces(m)
+-	return expected.size() == surfaces.size() and expected == surfaces
++	return expected.size() == surfaces.size() and RandomStageGenerator.new()._same_data(expected,surfaces)
+ 
+ static func _surfaces(m: Dictionary) -> Array[Dictionary]:
+ 	var output: Array[Dictionary] = []

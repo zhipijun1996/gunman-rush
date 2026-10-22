@@ -1,0 +1,67 @@
+{
+  "scope": "ordinary merge commits preserve original old branch ancestry and blobs while keeping exact current runtime and entire tree; excludes deployment-only branches",
+  "baseline_commit": "767627f87e7f2b79a1cd79b7bd507e6df76b170d",
+  "baseline_tree": "16d8ac198fddcf86b4a09191655aa7f8cc341d51",
+  "steps": [
+    {
+      "argv": [
+        "git",
+        "merge",
+        "--no-ff",
+        "-s",
+        "ours",
+        "origin/feature/demo-plains-art",
+        "-m",
+        "Merge historical feature/demo-plains-art; retain current shared style and runtime"
+      ],
+      "before": "767627f87e7f2b79a1cd79b7bd507e6df76b170d",
+      "commit": "7db34c0db1d7e61d2df2c01c0a115187e30da560",
+      "tree": "16d8ac198fddcf86b4a09191655aa7f8cc341d51",
+      "tree_equals_validated_forest": true,
+      "exit_code": 0,
+      "stdout": "Merge made by the 'ours' strategy.\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "merge",
+        "--no-ff",
+        "-s",
+        "ours",
+        "origin/feature/biome-style-review",
+        "-m",
+        "Merge historical feature/biome-style-review; retain current shared style and runtime"
+      ],
+      "before": "7db34c0db1d7e61d2df2c01c0a115187e30da560",
+      "commit": "b9564361f24a5cfd28962ef6c9a93461b054d9be",
+      "tree": "16d8ac198fddcf86b4a09191655aa7f8cc341d51",
+      "tree_equals_validated_forest": true,
+      "exit_code": 0,
+      "stdout": "Merge made by the 'ours' strategy.\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "merge",
+        "--no-ff",
+        "-s",
+        "ours",
+        "origin/feature/plains-art-v3",
+        "-m",
+        "Merge historical feature/plains-art-v3; retain current shared style and runtime"
+      ],
+      "before": "b9564361f24a5cfd28962ef6c9a93461b054d9be",
+      "commit": "d7469f50282dfb3e363ebd68f3549860abf9672d",
+      "tree": "16d8ac198fddcf86b4a09191655aa7f8cc341d51",
+      "tree_equals_validated_forest": true,
+      "exit_code": 0,
+      "stdout": "Merge made by the 'ours' strategy.\n",
+      "stderr": ""
+    }
+  ],
+  "source_tips_in_candidate": 94,
+  "missing_source_tips": [],
+  "local_source_tips_all_in_candidate": true
+}

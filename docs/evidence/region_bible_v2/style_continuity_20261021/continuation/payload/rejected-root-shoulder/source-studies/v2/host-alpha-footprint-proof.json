@@ -1,0 +1,91 @@
+{
+  "status": "TECHNICAL_FOOTPRINT_ONLY_NOT_ART_ACCEPTANCE",
+  "source_world_origin": [
+    700,
+    350
+  ],
+  "source_native_size": [
+    80,
+    64
+  ],
+  "source_world_bounds": [
+    700,
+    350,
+    160,
+    128
+  ],
+  "world_units_per_native_pixel": 2,
+  "current_golden_capture": "build/region_bible_v2/native-thorn-platforms-golden-second/capture.json",
+  "current_golden_manifest_hash": "359f58f70316a9d37afe704c7cb8b9fb1ec6ff5c421a28cea9113d282a4f285e",
+  "current_golden_actual_bound_support_ids": [
+    "hollow__belly_roof",
+    "hollow__elbow_lower_lip",
+    "hollow__trunk_above_window"
+  ],
+  "geometry_manifest_trace": "build/region_bible_v2/grounded-v3-map2-long-first/trace.json",
+  "geometry_trace_sha256": "307d062bdd23cd7130b3468d0d4a3574081aa48df7b112853270ab87c2b2f1de",
+  "trace_scope": "Earlier actual V15 map2 Manifest supplies exactrects; current thorn2 actual capture directly confirms same support IDs/edge seams. Not claiming full Manifest hash identity.",
+  "actual_host_rows": [
+    {
+      "id": "hollow__belly_roof",
+      "one_way": false,
+      "rect": [
+        380.0,
+        324.0,
+        390.0,
+        166.0
+      ],
+      "scene_kind": "hollow_bark",
+      "structure_id": "hollow",
+      "surface_role": "inner_bark"
+    },
+    {
+      "id": "hollow__elbow_lower_lip",
+      "one_way": false,
+      "rect": [
+        770.0,
+        414.0,
+        40.0,
+        76.0
+      ],
+      "scene_kind": "root_earth",
+      "structure_id": "hollow",
+      "surface_role": "root_top"
+    },
+    {
+      "id": "hollow__trunk_above_window",
+      "one_way": false,
+      "rect": [
+        810.0,
+        414.0,
+        120.0,
+        92.0
+      ],
+      "scene_kind": "hollow_bark",
+      "structure_id": "hollow",
+      "surface_role": "inner_bark"
+    }
+  ],
+  "opaque_native_pixel_count": 1270,
+  "alpha_values": [
+    0,
+    255
+  ],
+  "opaque_native_pixels_per_actual_host": {
+    "hollow__belly_roof": 967,
+    "hollow__elbow_lower_lip": 161,
+    "hollow__trunk_above_window": 142
+  },
+  "opaque_cells_outside_real_union": [],
+  "opaque_cells_violating_original8wu_exposed_rim": [],
+  "source_native_overlap_with_existing_accepted_thorn2_bare_elbow": 145,
+  "collision_or_outer_contour_changes": false,
+  "original_terrain_alpha_excavated": false,
+  "runtime_draw_order_proposal": "Original shared terrain -> this one additive opaque/native core shoulder -> unchanged thorn2 covering; clipping to exact3 hostunion only.",
+  "source_bgr_risks": [
+    "Dark broad warm bands may still read as an inset sticker",
+    "Original rectangular collision silhouette deliberately remains",
+    "Source material does not make whole region organic",
+    "Actual single golden pending parent decision"
+  ]
+}

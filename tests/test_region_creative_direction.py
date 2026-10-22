@@ -48,6 +48,7 @@ class CreativeTests(unittest.TestCase):
             self.assertTrue(creative.validate_direction(bad), key)
 
     def test_candidate_comparison_cannot_be_empty_or_single_color_variant(self):
+        self.data = json.loads((creative.ROOT/'docs/creative_direction/archive/creative-v3/thorn_forest.json').read_text())
         for mutate in ('single', 'duplicate', 'missing_comparison', 'unselected'):
             bad = copy.deepcopy(self.data)
             if mutate == 'single': bad['candidates'] = bad['candidates'][:1]
@@ -60,7 +61,7 @@ class CreativeTests(unittest.TestCase):
     def test_authority_changes_and_region_mismatch_fail_closed(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder); (root/'authority.txt').write_text('old')
-            data = copy.deepcopy(self.data)
+            data = json.loads((creative.ROOT/'docs/creative_direction/archive/creative-v3/thorn_forest.json').read_text())
             data['authority_sources'] = [{'path':'authority.txt','sha256':hashlib.sha256(b'old').hexdigest()}]
             (root/'direction.json').write_text(json.dumps(data))
             creative.load_direction('direction.json', 'thorn_forest', root)
@@ -73,12 +74,16 @@ class CreativeTests(unittest.TestCase):
     def test_short_prompt_starts_creative_work_before_assets_or_terrain(self):
         mission = level_design.route_request('制作荆棘森林')
         production_loop.validate(mission)
-        self.assertEqual(mission['phase'], 'preproduction')
-        self.assertEqual(mission['tasks'][0]['skills'], ['region-creative-director'])
-        self.assertNotIn('scripts/', mission['tasks'][0]['allowed_paths'])
-        self.assertEqual(len(mission['production_plan']), 9)
-        self.assertIn('--direction', mission['continuation']['command'])
+        self.assertEqual(mission['phase'], 'production')
+        self.assertEqual(len(mission['tasks']), 9)
+        self.assertEqual(mission['region_bible']['bible_id'], 'thorn_forest_v2')
+        self.assertNotIn('continuation', mission)
         self.assertEqual(mission['human_acceptance'], 'unverified')
+        proposed = level_design.route_request('制作萤雾沼泽')
+        self.assertEqual(proposed['phase'], 'preproduction')
+        self.assertEqual(proposed['tasks'][0]['skills'], ['region-creative-director'])
+        self.assertNotIn('scripts/', proposed['tasks'][0]['allowed_paths'])
+        self.assertEqual(len(proposed['production_plan']), 9)
 
     def test_selected_direction_binds_every_specialist_and_retains_stage_gates(self):
         mission = level_design.route_request('制作荆棘森林', direction=self.path)
@@ -86,7 +91,7 @@ class CreativeTests(unittest.TestCase):
         self.assertEqual(mission['phase'], 'production')
         for task in mission['tasks']:
             self.assertEqual(task['creative_direction']['region_id'], 'thorn_forest')
-            self.assertEqual(task['creative_direction']['version'], 'creative-v3')
+            self.assertEqual(task['creative_direction']['version'], 'creative-v8')
             self.assertEqual(task['feedback_context'], 'compact')
         self.assertEqual(mission['tasks'][-1]['completion'], 'content')
         self.assertIn('G2', mission['tasks'][-2]['required_gates'])

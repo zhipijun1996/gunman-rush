@@ -19,6 +19,16 @@ description: 项目归整、冗余清理、分支合并和 Web 交付验证。
 
 质量状态统一使用 [game-quality-gate](../game-quality-gate/SKILL.md) 与 [总流程](../../../docs/development_quality.md)。纯整理用 process 类型，不能用它隐藏运行文件修改；Git 交付不代表内容/设备验收。
 
+## 快速试玩发布默认路径（2026-10-21 用户最新要求）
+
+用户只要求“部署试玩网页”时，先找目标运行源已验证的Web包；存在就复用包，不重新跑完整CI、Windows、全路线和长录像。使用现有`deploy-prepared-playtest.yml`，prepared分支仅承载该原导出；超100MiB PCK由原内容寻址chunks重建并核对完整SHA/长度。缺包或运行源改变时仅Web重建及影响范围验证，不为部署先跑整套项目交付。完整回归与正式交付继续独立执行，复用证据不冒称本轮fresh。
+
+发布后核对公开`build-info.json`、完整PCK和目标source/build，再做标题→目标区域的基本GUI冒烟；回报可点击试玩链接、构建标识和实际未完成边界。无需每次重新生成计划/提案或征求已授权发布的确认。源码与包的身份必须准确，不把部署成功称整区艺术/真机认可；不默认合main。
+
+用户通过试玩站体验时，已验证的开发原型也按该路径发布并给可点击URL和准确菜单入口；分支已推送或本地ZIP不能代替网页交付。保留旧入口，新候选与最终质量分开标注；公开元数据与实际点击验证后才报上线，未做的真机／时长／整区品质保留未验。[实际纠正与原话](../../../docs/evidence/forest_variety_04/public_v18_01/README.md)。
+
+Web导出遇到 `Foundry source changed after validation`，先检查现有开发池basis。当前旧工坊保守绑定整个generation目录，新区域脚本也会令其失配；用原 `python3 tools/foundry.py build --count 24 --promote` 实际验证并重建开发池／回放，再走原export stamp。保留旧池和失败，不手改basis或跳过guard；这不要求重跑整套CI，也不把工坊通过签成森林品质。
+
 ## 实际指针与弹出菜单的交付检查
 
 新增菜单不可以键盘选项通过代替鼠标/触屏菜单项点击。画面存在、按钮能打开弹出层、键盘能选中，都不证明触屏能提交选项；必须逐项检查已接受ID、回调次数、菜单关闭和关闭后首个真实操作。对嵌入Window按当前引擎提交核查事件通路，不能把子Viewport push_input或window_input信号视为原生菜单调用链。取消/点击外部不得泄漏为角色攻击；Web真实DOM touchcancel与原生canceled字段要分开验证，监听退出时移除。默认静止训练目标必须明确标注，不应作为所有敌人运动/战斗验收；保留移动默认与静止样板消费者。
@@ -29,8 +39,14 @@ description: 项目归整、冗余清理、分支合并和 Web 交付验证。
 
 发布前运行 `python3 tools/check_release_evidence.py --commit HEAD`：证据路径必须存在于该精确Git提交的普通文件树，不能因本机build尚存而放行。原quality schema/SHA检查继续执行；必要时在无旧build的干净checkout实际复核。实际A3缺9件的失败及无损迁移用于此守门正反例，不改签旧来源或以最终trace覆盖失败原件。
 
+提交PR前还须按该PR实际base完整执行`python3 tools/check_quality_diff.py --base <base-sha>`，不能只用上一笔本地HEAD。family manifest不自动提供`docs/quality/asset_records`的机器登记；真实runtime资产必须有runtime来源，不以offline关联文件覆盖。测试预期随真实消费者变化时，专项独审只签该守门变化，不为通过检查把整区独审维度改成passed。PR默认临时merge提交与分支head不同；选择精确head检出并保持run API、Git、build-info/PCK一致，手动publish的并发租约与自动push/PR分开。
+
 ## 共同创作契约
 
 [预制作→制作→验收及版本总谱](../../../docs/creative_direction/README.md)是共同执行依据。总谱SHA变更须RETHINK并复验；交付写贡献、协作、新行为/视觉、主题冲突和实机验证。REWORK局部修复，DISCARD隔离候选；ACCEPT只限真实已验范围，审美不绕过工程红灯。
 
 历史复现按需读取[原始Skill与迁移索引](../../../docs/archive/skill_history/README.md)，不默认加载旧轮授权、PR实录或失败数字。
+
+## 从统一 main 并行开发
+
+用户2026-10-22选择先合并全部现状，再从最新origin/main分主题开发。每任务独立分支／worktree并将PR直接指向main；避免把旧实验分支作为新功能基底。收口须盘点实际祖先而非PR状态，已吸收/替代的旧分支可经逐文件独审、准确blob恢复记录和工作树不变证明保留合并历史，不能借此丢失独有修复或重启旧画风。纯部署产物分支排除；不批量删分支。实例见[收口原件](../../../docs/evidence/main_closeout_20261022/README.md)。

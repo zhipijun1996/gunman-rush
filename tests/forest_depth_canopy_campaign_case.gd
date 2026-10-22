@@ -1,6 +1,6 @@
 extends Node
 ## Actual current-layout App transaction. No fixture constructor or actor injection.
-const TRACE := preload("res://tests/forest_depth_region_trace.gd")
+const STRATEGY := preload("res://tests/forest_depth_trace_strategy.gd")
 const PILOT := preload("res://tests/forest_depth_canopy_campaign_pilot.gd")
 const AUDIO := preload("res://tests/audio_teardown.gd")
 var output := "res://build/forest_depth/campaign/canopy.json"
@@ -16,7 +16,7 @@ func check(ok: bool,why: String) -> void:
 func run() -> void:
 	process_mode=Node.PROCESS_MODE_ALWAYS
 	data={"scope":"actual_current_default_canopy_App_route_pause_freshload_fullfight_pointer_boundary","seed":seed_value,"manual_motor_step":false,"position_health_phase_resource_injection":false,"world_constructor_called":false,"whole_boss_fun_admission":false}
-	var trace:=TRACE.new();trace.seed_value=seed_value;trace.map_index=2;trace.route_name="fast";get_tree().root.add_child(trace)
+	var trace: Node=STRATEGY.create();trace.seed_value=seed_value;trace.map_index=2;trace.route_name="fast";get_tree().root.add_child(trace)
 	while not trace.finished or not trace.setup_done: await get_tree().process_frame
 	trace.set_physics_process(false)
 	data.route={"manifest":trace.manifest.duplicate(true),"frames":trace.frames.duplicate(true),"events":trace.events.duplicate(true),"requests":trace.requests.duplicate(true),"completed":trace.completed.duplicate(true),"itinerary":trace.itinerary.duplicate(true),"failures":trace.failures.duplicate(),"initial":trace.initial.duplicate(true),"final":trace.snapshot()}

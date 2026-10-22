@@ -24,10 +24,11 @@ func _draw() -> void:
 	if encounter == null: return
 	var color := Color("d5d273") if encounter.core_open else Color("365347")
 	var size := encounter.definition.collision_size
-	draw_rect(Rect2(-size*.5,size),Color("3b4838"))
-	draw_circle(Vector2(0,-8),19,color)
-	draw_line(Vector2(-28,-35),Vector2(-62,-60),Color("7c6d43"),9)
-	draw_line(Vector2(28,-35),Vector2(62,-60),Color("7c6d43"),9)
+	if not ForestBibleActors.draw_boss_body(self, encounter):
+		draw_rect(Rect2(-size*.5,size),Color("3b4838"))
+		draw_circle(Vector2(0,-8),19,color)
+		draw_line(Vector2(-28,-35),Vector2(-62,-60),Color("7c6d43"),9)
+		draw_line(Vector2(28,-35),Vector2(62,-60),Color("7c6d43"),9)
 	if not encounter is RootbellGuardianV2: return
 	var duel := encounter as RootbellGuardianV2
 	var config := duel.definition as BossDuelDefinition

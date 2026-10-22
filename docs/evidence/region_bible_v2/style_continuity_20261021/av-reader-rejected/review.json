@@ -1,0 +1,43 @@
+{
+  "verdict": "REWORK_adapter_acceptance_only",
+  "reviewed_sha256": "c1d9d6599d1050b05f15f83d3038b02be1cbfb686433fa564dfad76d8a8c78ed",
+  "engine_executed": false,
+  "production_source_modified": false,
+  "native_cli_injection_bypass_claimed": false,
+  "negative_controls_unexpectedly_accepted": [
+    "zero_health_sample",
+    "committed_player_damage_present",
+    "actor_respawn_epoch_changed",
+    "stage_epoch_changed",
+    "truncated_to_one_physical_sample_with_complete_header",
+    "missing_actual_camp_claim_and_shortcut",
+    "constant_draw_counter_all_events_kept",
+    "constant_counter_all_accepted_events_deleted",
+    "F08_core_receipt_replaced_with_nonempty_garbage"
+  ],
+  "synthetic_media_accepted": true,
+  "source_snapshot": "adapter-reviewed.py.source.txt",
+  "evidence": [
+    "probe.py",
+    "probe-report.json",
+    "timeline-review.py",
+    "timeline-review.json",
+    "review.md"
+  ],
+  "actual_nonmovie_positive_traces": {
+    "F05": {
+      "path": "build/region_bible_v2/grounded-v3-map1-backbranch-first/trace.json",
+      "sha256": "ac7ced6b43b658219750edfda9ee5fb637505f439726185628980fc755971eb0"
+    },
+    "F08": {
+      "path": "build/region_bible_v2/f08-full-01/trace.json",
+      "sha256": "f56e39c1a6b9813e924573f813f343ef525d39b91b80a429466ffcd1633e6770"
+    }
+  },
+  "fixed_source_rechecked": false,
+  "remaining": [
+    "fixed acceptance negative and positive controls",
+    "exclusive-lease fresh source-bound real AV",
+    "continuous visual/audio review"
+  ]
+}

@@ -4,7 +4,7 @@ const LEGACY := preload("res://scripts/generation/thorn_forest_region_v1.gd")
 # Independently selected v2 playtest-default contract; not production admission.
 const EXPECTED_PUBLIC_DEFAULT := ThornForestRegionGenerator.DEPTH_VERSION
 # Deliberate independent expectation; updated only after the candidate golden.
-const EXPECTED_PUBLIC_LAYOUT := "forest-fruit-routes-v14"
+const EXPECTED_PUBLIC_LAYOUT := "forest-bible-world-v15"
 var assertions := 0
 var failures := 0
 var cases: Array[Dictionary] = []
@@ -401,4 +401,4 @@ func check_fruit_contract(registry: ThornForestRegionGenerator,tuning: PlayerTun
 		if map_index==2:
 			edited=m.duplicate(true);edited.erase("boss_content");edited.manifest_hash=ThornForestRegionGenerator._hash(edited)
 			check(not registry.validate(edited,tuning) and ThornForestRegionGenerator.boss_scene_path(m.version,map_index,edited).is_empty(),"v14 missing Queen whitelist content cannot fall back")
-		cases.append({"id":"fruit_candidate_and_public_layout","map":map_index,"candidate_manifest":m,"default_manifest":current.manifest,"expected_public_layout":EXPECTED_PUBLIC_LAYOUT,"dedicated_complete_equal":equality._same_data(explicit,dedicated)})
+		cases.append({"id":"fruit_candidate_and_public_layout","map":map_index,"candidate_manifest":m,"default_manifest":current.manifest,"expected_public_layout":EXPECTED_PUBLIC_LAYOUT,"expected_public_manifest":expected.manifest,"dedicated_complete_equal":equality._same_data(explicit,dedicated)})

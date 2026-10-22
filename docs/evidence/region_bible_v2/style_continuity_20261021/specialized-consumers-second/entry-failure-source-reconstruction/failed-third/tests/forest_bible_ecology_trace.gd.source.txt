@@ -1,0 +1,96 @@
+extends "res://tests/forest_depth_ecology_trace.gd"
+## v15 hooks preserve the original trace's complete route/strategy behavior.
+const BIBLE_SUPPORT := preload("res://tests/forest_bible_trace_support.gd")
+
+func canopy_layout() -> bool:
+	return BIBLE_SUPPORT.qualifies(self) or super.canopy_layout()
+func interwoven_layout() -> bool:
+	return BIBLE_SUPPORT.qualifies(self) or super.interwoven_layout()
+func woven_layout() -> bool:
+	return BIBLE_SUPPORT.qualifies(self) or super.woven_layout()
+
+func begin() -> void:
+	BIBLE_SUPPORT.install(self)
+	await super.begin()
+	BIBLE_SUPPORT.bind(self)
+
+func observe_actual_projectile(serial: int) -> void:
+	super.observe_actual_projectile(serial)
+	BIBLE_SUPPORT.observe_actual_projectile(self,serial)
+
+func _process(delta: float) -> void:
+	BIBLE_SUPPORT.process_reader(self)
+	super._process(delta)
+
+func admission_evidence() -> Dictionary:
+	return BIBLE_SUPPORT.admission_evidence(self)
+
+func owns_strategy_encounter(leg: Dictionary) -> bool:
+	var edge: String = str(leg.get("edge_id",""))
+	if crossbranch_formal and edge=="cavity_prep": return true
+	if ecology_finished>=0: return false
+	# Entry ownership lasts until the final cavity-observe step; west ownership
+	# lasts until its final M arrival. Preserve the actual live/kill/wait choice.
+	if ecology_strategy in ["entry_clear","entry_wait","entry_hold"] and edge=="belly_borer_access": return true
+	if ecology_strategy in ["west_clear","west_wait","west_jump"] and edge=="west_to_belly": return true
+	return ecology_enabled and edge=="crown_prep"
+
+func preserves_strategy_target(enemy_id: String) -> bool:
+	return ecology_finished<0 and ecology_strategy in ["entry_clear","entry_wait","entry_hold"] and enemy_id=="hollow_route__borer_entry_thread"
+
+var _entry_prefix_leg := -1
+var _entry_prefix_state := ""
+var _entry_prefix_subject_hp := -1.0
+
+func _entry_prefix_owns_leg(leg: Dictionary) -> bool:
+	return map_index==1 and ecology_finished<0 and ecology_strategy in ["entry_clear","entry_wait","entry_hold"] and leg.get("edge_id")=="west_to_belly" and leg.get("kind")=="jump_gap" and leg.get("from_support_id")=="west_court" and leg.get("support_id")=="hollow__belly_entry"
+
+func drive_jump(leg: Dictionary) -> void:
+	if not _entry_prefix_owns_leg(leg):
+		super.drive_jump(leg);return
+	if _entry_prefix_leg!=leg_index:
+		_entry_prefix_leg=leg_index;_entry_prefix_state="bank"
+	if _entry_prefix_state!="bank" and age>120:
+		fail("bounded_jump_clearance_timeout/"+str(leg.support_id));return
+	if _entry_prefix_state=="inherited":
+		super.drive_jump(leg);return
+	var subject: EnemyActor
+	for index: int in stage.enemy_manifest.size():
+		if str(stage.enemy_manifest[index].id)=="hollow_route__borer_entry_thread":subject=stage.enemies[index].get_node("Actor") as EnemyActor
+	if not is_instance_valid(subject) or subject.health.terminal:
+		fail("v15_entry_prefix_live_subject_missing");return
+	if _entry_prefix_state!="bank" and subject.health.current!=_entry_prefix_subject_hp:
+		fail("v15_entry_prefix_reserved_subject_damaged");return
+	var half: Vector2=(player.get_node("CollisionShape2D") as CollisionShape2D).shape.get_rect().size*.5
+	var enemy_half: Vector2=subject.definition.collision_size*.5
+	var low: Dictionary=platform("borer_access_low")
+	if low.is_empty():fail("v15_entry_prefix_actual_low_branch_missing");return
+	var bank:=Vector2(minf(float(leg.takeoff[0]),subject.motor.global_position.x-enemy_half.x-half.x-5.0),float(leg.takeoff[1]))
+	var safe_x: float=maxf(float(leg.landing[0]),float(low.rect[0])+float(low.rect[2])+half.x+2.0)
+	var facts: Dictionary={"enemy_id":"hollow_route__borer_entry_thread","enemy_position":pair(subject.motor.global_position),"enemy_body":pair(subject.definition.collision_size),"enemy_hp":subject.health.current,"enemy_state":String(subject.attack_behavior.state),"enemy_state_time":subject.attack_behavior.state_time,"health":controller.actor_resources.health.current,"position":pair(player.global_position),"foot":pair(player.global_position+Vector2(0,half.y)),"bank":pair(bank),"safe_receiver_x":safe_x,"supports":supports(),"snapshot":snapshot()}
+	if _entry_prefix_state=="bank":
+		controller.router.set_move_axis(clampf((bank.x-player.global_position.x)/12,-1,1));jump(false)
+		if not at_destination(bank,"west_court") or absf(player.global_position.x-bank.x)>.5 or player.recoil_burst_remaining>0:return
+		var d:=subject.definition as ForestEnemyDefinition
+		var flight_bound: float=player.tuning.jump_hold_duration+2.0*absf(player.tuning.jump_speeds[0])/player.tuning.gravity+.1
+		if subject.attack_behavior.state!=&"recovery" or d.recovery_duration-subject.attack_behavior.state_time<flight_bound:return
+		_entry_prefix_subject_hp=subject.health.current
+		controller.router.set_move_axis(0);jump(true);set_phase("jumping");_entry_prefix_state="rise"
+		event("v15_entry_prefix_actual_live_bank_jump",facts)
+		return
+	if _entry_prefix_state=="rise":
+		controller.router.set_move_axis(0)
+		if player.global_position.y+half.y<=subject.motor.global_position.y-enemy_half.y-2.0 and player.normal_velocity.y<0:
+			if controller.shoot_ability.cooldown_remaining>0 or controller.shoot_ability.rounds_remaining>0 or controller.action_resources.shot_charges<1 or controller.actor_resources.stamina.current<controller.shot_energy.shot_energy_cost:
+				fail("v15_entry_prefix_actual_R_unavailable");return
+			event("v15_entry_prefix_actual_body_clear_R",facts.merged({"requested_direction":[-1,1],"reason":"ordinary_held_jump_clears_live_body_then_one_real_diagonal_recoil_clears_low_receiving_branch"}))
+			request(&"shoot_release",Vector2(-1,1));_entry_prefix_state="cross"
+		elif age>3 and (player.is_on_floor() or player.normal_velocity.y>=0):fail("v15_entry_prefix_actual_body_clearance_failed")
+		return
+	controller.router.set_move_axis(clampf((safe_x-player.global_position.x)/12,-1,1))
+	# Stay beyond the real one-way branch until the entire body is below it.
+	# Then reuse all original foot-clearance, twelve-frame landing and budgets.
+	if player.global_position.x-half.x>float(low.rect[0])+float(low.rect[2])+.5 and player.global_position.y-half.y>float(low.rect[1])+float(low.rect[3])+1:
+		_entry_prefix_state="inherited"
+		event("v15_entry_prefix_actual_live_subject_handoff",facts)
+		super.drive_jump(leg)

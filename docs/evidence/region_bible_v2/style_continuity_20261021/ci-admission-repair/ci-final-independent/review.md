@@ -1,0 +1,11 @@
+# CI专项最终独审
+
+**限定ACCEPT：真实head身份、并发隔离与docs早期qualityguard。** EnvironmentSHA`ced5273889385763b818813c79b4e4ab858801df064825bde7ed3df14a86f1f8`；docsSHA`13fadcb8baaf8a9562b14b32143c22ecc096c3686d8d01a1ed47d478d670036d`。首轮a343fff的两个并发反例及REJECT保留。
+
+7处checkout在PR取真实headSHA，其余取eventSHA。prepare读实际gitHEAD，与build-info的source_commit和严格runAPI/artifact身份链保持同一来源；publisher/browser原严格检查未放宽。独立直接求值实际YAML：原9控制+额外8事件对全部通过。branch/tag保完整refkind；普通同repo同branchpush/PR合组，fork分开，manual和原eligiblepublishpush各自隔离。旧main/actor发布门和Pages并发未改。
+
+只归一化7个checkoutrefs、preparecommit参数、group后，完整其余environment YAML与HEAD相同，lanes、预算、权限、发布门、上传、消费者没有删改。docs的7个完整stepdict集合完全相同、其余YAML相同；PRmergecheckout、PR-onlyif/base/argv保留，原qualityguard仅提前到setup-python后。独立-B -S --help成功，无site/Pillow/media依赖；root完整stdlibPRbase日志实际PASS1519files，已检查并保副本。
+
+作者原77单测8.010秒、archive12单测2.373秒日志均OK，本审查未重复跑；另已真实调用原publisher.check_run确认exact通过而wrongSHA/PR-event/wrongattempt拒绝。未启动engine、remoteCI、浏览器或发布，也未改生产/Git。
+
+限定边界：这不是GitHub真实调度/远端CIartifact/publicURL验收。平台并发key大小写不敏感、同refmanual仍可互取消、事件抵达顺序不保证最新SHA优先，都是保留策略/平台边界；未伪称已消除。森林整区艺术/大形仍未通过。

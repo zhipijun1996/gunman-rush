@@ -1,0 +1,303 @@
+{
+  "schema_version": 1,
+  "task_id": "CI-BIBLE-ADMISSION-01",
+  "task_type": "process",
+  "workflow": "in_progress",
+  "baseline_commit": "c305b28904214d574f6f76eb39619583e88702e3",
+  "reviewed_commit": "c305b28904214d574f6f76eb39619583e88702e3",
+  "content_version": "ci-bible-admission-v1",
+  "owner": "/root",
+  "purpose": "Repair actual PR-base provenance registration and source-identity/duplicate-event CI failures without lowering existing gates",
+  "player_experience": "A reviewable Forest candidate with reliable version-bound CI; no new runtime or art approval from metadata repair",
+  "constraints": [
+    "Preserve all original checks, timeout budgets, lanes and strict publish/artifact source identities",
+    "Do not declare whole-region art or user/device acceptance from scoped test/metadata review",
+    "Keep original failed docs run and cancelled incomplete core attempts unchanged"
+  ],
+  "affected_paths": [
+    ".github/workflows/environment.yml",
+    "tests/test_level_region_context.py",
+    ".agents/skills/project-integration/SKILL.md",
+    "docs/harness.md",
+    "docs/current_state.md",
+    "docs/handoff.md",
+    "docs/tasks.md",
+    ".github/workflows/docs.yml",
+    "docs/quality/asset_records/forest-bible-v2-bark-atlas47-v1.json",
+    "docs/quality/asset_records/forest-bible-v2-bark-atlas47-v2.json",
+    "docs/quality/asset_records/forest-bible-v2-bark-atlas47-v3.json",
+    "docs/quality/asset_records/forest-bible-v2-bark-beetle-v1.json",
+    "docs/quality/asset_records/forest-bible-v2-bark-source-v1.json",
+    "docs/quality/asset_records/forest-bible-v2-bark-source-v2.json",
+    "docs/quality/asset_records/forest-bible-v2-bark-source-v3.json",
+    "docs/quality/asset_records/forest-bible-v2-discoveries-v1-generated-source.json",
+    "docs/quality/asset_records/forest-bible-v2-ecology-v1-generated-source.json",
+    "docs/quality/asset_records/forest-bible-v2-ecology-v2-generated-source.json",
+    "docs/quality/asset_records/forest-bible-v2-far-forest-v1-generated-source.json",
+    "docs/quality/asset_records/forest-bible-v2-forest-crossbranch-v1.json",
+    "docs/quality/asset_records/forest-bible-v2-forest-lantern-v1.json",
+    "docs/quality/asset_records/forest-bible-v2-forest-seed-sentry-v1.json",
+    "docs/quality/asset_records/forest-bible-v2-forest-swing-pod-v1.json",
+    "docs/quality/asset_records/forest-bible-v2-material-objects-v1-generated-source.json",
+    "docs/quality/asset_records/forest-bible-v2-midtree-v1-generated-source.json",
+    "docs/quality/asset_records/forest-bible-v2-midtree-v2-generated-source.json",
+    "docs/quality/asset_records/forest-bible-v2-near-branches-v1-generated-source.json",
+    "docs/quality/asset_records/forest-bible-v2-procedural-audio.json",
+    "docs/quality/asset_records/forest-bible-v2-production-records.json",
+    "docs/quality/asset_records/forest-bible-v2-rootbell-guardian-v1.json",
+    "docs/quality/asset_records/forest-bible-v2-thorn-briar-v1.json",
+    "docs/quality/asset_records/forest-bible-v2-thorn-briar-v2.json",
+    "docs/quality/asset_records/forest-bible-v2-thorn-form-study.json",
+    "docs/quality/asset_records/forest-bible-v2-thorn-queen-v1.json",
+    "docs/quality/asset_records/forest-bible-v2-weaver-silk-bell-v4.json",
+    "docs/quality/asset_records/forest-bible-v2-weaver-silk-bell-v5.json"
+  ],
+  "deliverables": [
+    "Explicit machine-readable truthful Forest provenance records",
+    "Exact PR-head checkout and push/PR concurrency without cancelling manual publish",
+    "Independent scoped review of changed formal-consumer expectation and asset registration",
+    "Fresh check_quality_diff against the complete PR base, not only the preceding local commit"
+  ],
+  "creative_decisions": [
+    {
+      "status": "not_required",
+      "decision": "Metadata/CI correction only; retained actual art direction and physics unchanged",
+      "basis": "Actual PR101 docs run39563261916 failure and exact artifact identity contract"
+    }
+  ],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "passed",
+      "reason": "Actual CI failure isolated and finite correction boundaries specified; no regional art or physics redesign",
+      "evidence": [
+        "process-spec"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "Actual CI failure isolated and finite correction boundaries specified; no regional art or physics redesign",
+      "evidence": [
+        "process-spec"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Actual complete PR-base stdlib validation and independent guard/card checks passed; final workflow execution still pending separately",
+      "evidence": [
+        "full-pr-base-stdlib-pass"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "Scoped static consumer-guard review only, original10 tests and28 independent controls. Separate from whole-region artistic/user/device review.",
+      "evidence": [
+        "context-guard-independent",
+        "asset-registration-independent",
+        "ci-source-concurrency-independent"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "ci-scope-spec",
+      "gate": "G0",
+      "dimension": "design",
+      "status": "passed",
+      "scenario": "Original PRdocs29pass then fullbasefail",
+      "method": "Read actual run/ZIP and specify finite metadata/source-identity scope",
+      "expected": "Preserve real failures and existing runtime/acceptance boundaries",
+      "observed": "Finite scoped correction recorded",
+      "evidence": [
+        "process-spec"
+      ],
+      "reason": "Finite scoped correction recorded",
+      "failure": "Any invalid source/runtime registration, widened testguard or missing original failing receipt"
+    },
+    {
+      "id": "ci-fullbase-before-deps",
+      "dimension": "technical",
+      "status": "passed",
+      "scenario": "FullPRbase preflight before external media packages",
+      "method": "Actual python3 -S completebase command",
+      "expected": "Validate all changed assets and static testguard without pip dependencies",
+      "observed": "PASS1519 paths",
+      "evidence": [
+        "full-pr-base-stdlib-pass"
+      ],
+      "gate": "G4",
+      "reason": "PASS1519 paths",
+      "failure": "Any invalid source/runtime registration, widened testguard or missing original failing receipt"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "context-guard-independent",
+      "path": "docs/evidence/region_bible_v2/style_continuity_20261021/ci-admission-repair/guard-independent/report.json",
+      "sha256": "ec4f92ddd412fb14a1862a86f6bb5d16c8f6e11323a5dd7ba6e762bdd0321ab0",
+      "kind": "review",
+      "producer": "/root/bible_test_workflow_independent_review",
+      "reviewer": "/root/bible_test_workflow_independent_review",
+      "implementers": [
+        "/root",
+        "/root/bible_workflow_impl"
+      ],
+      "verdict": "ACCEPT",
+      "accepted": true,
+      "source_commit": "c305b28904214d574f6f76eb39619583e88702e3",
+      "content_version": "ci-bible-admission-v1",
+      "method": "Actual original10unit and28 independent source/negative fixture checks, no production modification or engine",
+      "observed": "Consumer-present source expectation matches actual App/generator/stage/assembler source; delete each5 predicate returns absent, retaining runtime_available=None/validation unverified/formal grant not_inferred. No regional art/runtime/device acceptance.",
+      "covers": [
+        "static_consumer_expectation_only"
+      ],
+      "independent": true,
+      "independence_basis": "Reviewer did not author the production context/test or this CI/registration implementation; it independently ran original tests and destructive temporary source-chain negatives, writing only ignored audit evidence."
+    },
+    {
+      "id": "asset-registration-independent",
+      "path": "docs/evidence/region_bible_v2/style_continuity_20261021/ci-admission-repair/asset-independent/report.json",
+      "sha256": "5e130547568d299a0bda0d74a5f93a9c408b4e953fe26a125eb451411272e802",
+      "kind": "review",
+      "producer": "/root/bible_test_workflow_independent_review",
+      "reviewer": "/root/bible_test_workflow_independent_review",
+      "implementers": [
+        "/root",
+        "/root/forest_shared_art_continue"
+      ],
+      "verdict": "ACCEPT",
+      "accepted": true,
+      "independent": true,
+      "independence_basis": "Reviewer did not author the cards or runtime asset producers; independent complete hashes/literal consumer and real source/crop/WAV verification with validator counterexamples.",
+      "source_commit": "c305b28904214d574f6f76eb39619583e88702e3",
+      "content_version": "ci-bible-admission-v1",
+      "method": "662 independent checks including70 actual invalid-card controls; no production source modification or engine",
+      "observed": "28 cards,175 actual content files excluding34import sidecars,21 exact runtime resource paths, actual native/8crop reconstruction/3WAV provenance; all licenseunknown/visualunverified. No wholeart/formal/licensing/listening acceptance.",
+      "covers": [
+        "machine_asset_registration_only"
+      ]
+    },
+    {
+      "id": "process-spec",
+      "path": "docs/evidence/region_bible_v2/style_continuity_20261021/ci-admission-repair/README.md",
+      "sha256": "c861772aa5b9c1a6c97d796aed3a615a316410f0ec94ee4dd0a481a44885fbaf",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "c305b28904214d574f6f76eb39619583e88702e3",
+      "content_version": "ci-bible-admission-v1",
+      "method": "Finite scope and original failure/evidence provenance",
+      "observed": "Defines metadata/CI corrections and retained original runtime/art/acceptance boundaries"
+    },
+    {
+      "id": "full-pr-base-stdlib-pass",
+      "path": "docs/evidence/region_bible_v2/style_continuity_20261021/ci-admission-repair/complete-pr-base-stdlib-pass.log",
+      "sha256": "bdda2f140350000997211c2785c63bbc913d1e8ce0d73c224c16ebdf58f9fa62",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "c305b28904214d574f6f76eb39619583e88702e3",
+      "content_version": "ci-bible-admission-v1",
+      "method": "Actual standard-library-only complete PR-base qualitydiff",
+      "observed": "CompletePR-base7be8c340 validation passed1519 paths; earlier source/runtime untouched",
+      "command": "python3 -S tools/check_quality_diff.py --base 7be8c340372d1e20db6685cbd6a559191821eb0e",
+      "exit_code": 0,
+      "environment": "Linux Python3.12.14 with site packages disabled; c305+explicit registration/workflow/doc WIP, source hashes retained in component reports"
+    },
+    {
+      "id": "ci-source-concurrency-independent",
+      "path": "docs/evidence/region_bible_v2/style_continuity_20261021/ci-admission-repair/ci-final-independent/review.json",
+      "sha256": "c6ecef9b4f2c35e4aec8bea619ef3aa85b366d806e94d892940ea5145e7d98fb",
+      "kind": "review",
+      "producer": "/root/forest_visual_independent_continue",
+      "reviewer": "/root/forest_visual_independent_continue",
+      "implementers": [
+        "/root",
+        "/root/ci_v15_admission_continue"
+      ],
+      "verdict": "ACCEPT",
+      "accepted": true,
+      "independent": true,
+      "independence_basis": "Reviewer did not author the workflows or author controls; independent actual-YAML evaluator found initial tag/publish failures then retested corrected actual expressions/step dictionaries and strict source contracts.",
+      "source_commit": "c305b28904214d574f6f76eb39619583e88702e3",
+      "content_version": "ci-bible-admission-v1",
+      "method": "Independent9 actual expression controls plus8 event pairs, untouched field/step equivalence and strict tool byte identity; source SHA bindings preserve exact WIP",
+      "observed": "environmentced527/docs13fad scoped ACCEPT after retained initialREJECT.7exacthead checkouts, tag/branch/fork/manual/publish isolation, docs original7steps preserved with early guard. No actual new remote CI/artifact/public/art acceptance.",
+      "covers": [
+        "ci_source_identity_concurrency_and_early_guard_only"
+      ]
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "New exact-source official CI/artifact/browser execution remains pending; this process record stays in_progress/G4unverified until actual final validation",
+    "Forest whole macro art and Plains implementation remain unfinished; no user/device/FUN/license/listening acceptance from this process task"
+  ],
+  "test_change_justification": "The existing no_formal_consumer_observed expectation was updated only after the App/generator/stage/assembler source chain became observable. Source presence remains separate from runtime_available=None and formal_H_grant=not_inferred. A dedicated independent review must confirm current assertions and source-chain-negative failures; this process record does not grant whole-region art or runtime admission.",
+  "production_snapshot": "1004b2ea314e6fcb4f70bda4b52b841bb6da478373feb1d40e71f43cd7d731ad"
+}

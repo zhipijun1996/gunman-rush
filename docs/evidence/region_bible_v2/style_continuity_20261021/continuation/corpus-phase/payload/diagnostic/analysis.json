@@ -1,0 +1,951 @@
+{
+  "scope": "Read-only diagnosis of real corpus failure; no engine or production edits",
+  "original_capture": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/17-map1-growth/capture.json",
+  "capture_sha256": "2f8ca4142fad4f7a2aa2f173fc97d088f6e5b799116e891989552a2ee6adaab4",
+  "original_receipt": "build/forest_depth/region/harness-matrix/harness-4c5c04ba9bcf4f61a945eddda0a13130/receipt.json",
+  "original_receipt_sha256": "434d6970d843c148aa367ceafe5d402eb0ae75218fa17ea30c0c059bbe63ae2f",
+  "corpus_actual": {
+    "status": "failed",
+    "runs": 19,
+    "passed": 18,
+    "failed": 1,
+    "unexecuted_indices": [
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79
+    ],
+    "source_stable": true
+  },
+  "failure": [
+    "forest_encounter_bounded_return/hollow_route__borer_entry_thread"
+  ],
+  "completed_legs": 18,
+  "itinerary_legs": 27,
+  "relevant_actual_events": [
+    {
+      "from": "align",
+      "kind": "phase",
+      "leg": 18,
+      "position": [
+        599.967468261719,
+        599.925170898438
+      ],
+      "tick": 1307,
+      "to": "align"
+    },
+    {
+      "action_requests": 0,
+      "enemy_hp": 2.0,
+      "enemy_id": "hollow_route__borer_entry_thread",
+      "enemy_position": [
+        310.0,
+        554.0
+      ],
+      "kind": "forest_encounter_start",
+      "leg": 18,
+      "origin": [
+        456.967742919922,
+        599.925231933594
+      ],
+      "pilot_state": "raised_firing_bank",
+      "position": [
+        456.967742919922,
+        599.925231933594
+      ],
+      "saved_leg": 18,
+      "saved_phase": "align",
+      "shot_requests": 0,
+      "snapshot": {
+        "config": {
+          "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+          "tuning": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c"
+        },
+        "double_enabled": false,
+        "energy": 100.0,
+        "health": 5.0,
+        "hook_enabled": true,
+        "position": [
+          456.967742919922,
+          599.925231933594
+        ],
+        "shots": 2,
+        "tier": 1,
+        "wall_enabled": false,
+        "weapon": "pulse_gun"
+      },
+      "tick": 1341
+    },
+    {
+      "action_requests": 0,
+      "aim": [
+        -0.939825177192688,
+        -0.341655731201172
+      ],
+      "enemy_hp": 2.0,
+      "enemy_id": "hollow_route__borer_entry_thread",
+      "enemy_position": [
+        310.0,
+        554.0
+      ],
+      "grounded": true,
+      "kind": "forest_encounter_shot",
+      "leg": 18,
+      "origin": [
+        456.967742919922,
+        599.925231933594
+      ],
+      "pilot_state": "raised_firing_bank",
+      "position": [
+        456.967742919922,
+        599.925231933594
+      ],
+      "request_index": 1,
+      "saved_leg": 18,
+      "saved_phase": "align",
+      "shot_requests": 1,
+      "shots_remaining": 2,
+      "snapshot": {
+        "config": {
+          "traversal": "c2ea9c7584668f1332eea60b14cdcfd36b0759c0813a5078db2b91b02af18390",
+          "tuning": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c"
+        },
+        "double_enabled": false,
+        "energy": 100.0,
+        "health": 5.0,
+        "hook_enabled": true,
+        "position": [
+          456.967742919922,
+          599.925231933594
+        ],
+        "shots": 2,
+        "tier": 1,
+        "wall_enabled": false,
+        "weapon": "pulse_gun"
+      },
+      "tick": 1341
+    },
+    {
+      "aim": [
+        -0.939825177192688,
+        -0.341655731201172
+      ],
+      "kind": "shot_fired",
+      "leg": 18,
+      "position": [
+        456.967742919922,
+        599.925231933594
+      ],
+      "serial": 9,
+      "tick": 1341
+    },
+    {
+      "direction": [
+        -0.939825177192688,
+        -0.341655731201172
+      ],
+      "fired_airborne": false,
+      "kind": "actual_projectile_spawned",
+      "leg": 18,
+      "lifetime": 2.0,
+      "owner_id": 226643413976,
+      "packet": 9,
+      "position": [
+        456.967742919922,
+        599.925231933594
+      ],
+      "projectile_position": [
+        456.967742919922,
+        599.925231933594
+      ],
+      "serial": 9,
+      "session_id": 2,
+      "tick": 1341,
+      "weapon_epoch": 0
+    },
+    {
+      "body_origin": [
+        456.967742919922,
+        599.925231933594
+      ],
+      "kind": "v15_actual_projectile_muzzle",
+      "leg": 18,
+      "muzzle": [
+        442.055297851562,
+        596.40625
+      ],
+      "position": [
+        456.967742919922,
+        599.925231933594
+      ],
+      "serial": 9,
+      "tick": 1341
+    },
+    {
+      "direction": [
+        -0.939825177192688,
+        -0.341655731201172
+      ],
+      "impact_position": [
+        325.896881103516,
+        554.178955078125
+      ],
+      "kind": "v15_actual_projectile_impact",
+      "leg": 18,
+      "position": [
+        532.7802734375,
+        599.925231933594
+      ],
+      "tick": 1348
+    },
+    {
+      "amount": 20.0,
+      "energy": 100.0,
+      "fired_airborne": false,
+      "hits": {
+        "2/5": true,
+        "2/9": true
+      },
+      "kind": "actual_shot_energy_credit",
+      "leg": 18,
+      "owner_id": 226643413976,
+      "position": [
+        532.7802734375,
+        599.925231933594
+      ],
+      "session_id": 2,
+      "tick": 1348
+    },
+    {
+      "amount": 1.0,
+      "damage_kind": 0,
+      "event_id": "226643413976:2:9",
+      "health_after": 1.0,
+      "kind": "committed_damage",
+      "leg": 18,
+      "lethal": false,
+      "position": [
+        532.7802734375,
+        599.925231933594
+      ],
+      "source": "player_projectile:226643413976",
+      "target": "hollow_route__borer_entry_thread",
+      "tick": 1348
+    }
+  ],
+  "actual_samples": [
+    {
+      "tick": 1341,
+      "player": {
+        "position": [
+          466.444305419922,
+          599.925231933594
+        ],
+        "grounded": true,
+        "velocity": [
+          568.594299316406,
+          0.0
+        ],
+        "health": 5.0,
+        "shots": 2,
+        "supports": [
+          "hollow__belly_entry"
+        ]
+      },
+      "actual_target": {
+        "body_size": [
+          26.0,
+          28.0
+        ],
+        "cooldown": 0.0,
+        "depth_state": {
+          "configured": true,
+          "end": [
+            368.0,
+            540.0
+          ],
+          "hit_this_cycle": false,
+          "start": [
+            320.0,
+            540.0
+          ],
+          "version": 1
+        },
+        "health": 2.0,
+        "id": "hollow_route__borer_entry_thread",
+        "patrol_radius": 0.0,
+        "position": [
+          310.0,
+          554.0
+        ],
+        "stable_id": "forest_thread_spider",
+        "state": "hold",
+        "state_time": 0.15,
+        "terminal": false
+      }
+    },
+    {
+      "tick": 1348,
+      "player": {
+        "position": [
+          532.7802734375,
+          599.925231933594
+        ],
+        "grounded": true,
+        "velocity": [
+          568.594299316406,
+          0.0
+        ],
+        "health": 5.0,
+        "shots": 2,
+        "supports": [
+          "hollow__belly_entry"
+        ]
+      },
+      "actual_target": {
+        "body_size": [
+          26.0,
+          28.0
+        ],
+        "cooldown": 0.0,
+        "depth_state": {
+          "configured": true,
+          "end": [
+            368.0,
+            540.0
+          ],
+          "hit_this_cycle": false,
+          "start": [
+            320.0,
+            540.0
+          ],
+          "version": 1
+        },
+        "health": 1.0,
+        "id": "hollow_route__borer_entry_thread",
+        "patrol_radius": 0.0,
+        "position": [
+          310.0,
+          554.0
+        ],
+        "stable_id": "forest_thread_spider",
+        "state": "hold",
+        "state_time": 0.266666666666667,
+        "terminal": false
+      }
+    },
+    {
+      "tick": 1355,
+      "player": {
+        "position": [
+          510.571014404297,
+          599.925231933594
+        ],
+        "grounded": true,
+        "velocity": [
+          -260.0,
+          0.0
+        ],
+        "health": 5.0,
+        "shots": 2,
+        "supports": [
+          "hollow__belly_entry"
+        ]
+      },
+      "actual_target": {
+        "body_size": [
+          26.0,
+          28.0
+        ],
+        "cooldown": 0.0,
+        "depth_state": {
+          "configured": true,
+          "end": [
+            368.0,
+            540.0
+          ],
+          "hit_this_cycle": false,
+          "start": [
+            320.0,
+            540.0
+          ],
+          "version": 1
+        },
+        "health": 1.0,
+        "id": "hollow_route__borer_entry_thread",
+        "patrol_radius": 0.0,
+        "position": [
+          294.25,
+          554.0
+        ],
+        "stable_id": "forest_thread_spider",
+        "state": "hold",
+        "state_time": 0.266666666666667,
+        "terminal": false
+      }
+    },
+    {
+      "tick": 1365,
+      "player": {
+        "position": [
+          467.237579345703,
+          599.925231933594
+        ],
+        "grounded": true,
+        "velocity": [
+          -260.0,
+          0.0
+        ],
+        "health": 5.0,
+        "shots": 2,
+        "supports": [
+          "hollow__belly_entry"
+        ]
+      },
+      "actual_target": {
+        "body_size": [
+          26.0,
+          28.0
+        ],
+        "cooldown": 0.0,
+        "depth_state": {
+          "configured": true,
+          "end": [
+            368.0,
+            540.0
+          ],
+          "hit_this_cycle": false,
+          "start": [
+            320.0,
+            540.0
+          ],
+          "version": 1
+        },
+        "health": 1.0,
+        "id": "hollow_route__borer_entry_thread",
+        "patrol_radius": 0.0,
+        "position": [
+          293.799987792969,
+          554.0
+        ],
+        "stable_id": "forest_thread_spider",
+        "state": "hold",
+        "state_time": 0.416666666666667,
+        "terminal": false
+      }
+    },
+    {
+      "tick": 1380,
+      "player": {
+        "position": [
+          456.987152099609,
+          599.925170898438
+        ],
+        "grounded": true,
+        "velocity": [
+          0.0,
+          0.0
+        ],
+        "health": 5.0,
+        "shots": 2,
+        "supports": [
+          "hollow__belly_entry"
+        ]
+      },
+      "actual_target": {
+        "body_size": [
+          26.0,
+          28.0
+        ],
+        "cooldown": 0.0,
+        "depth_state": {
+          "configured": true,
+          "end": [
+            368.0,
+            540.0
+          ],
+          "hit_this_cycle": false,
+          "start": [
+            320.0,
+            540.0
+          ],
+          "version": 1
+        },
+        "health": 1.0,
+        "id": "hollow_route__borer_entry_thread",
+        "patrol_radius": 0.0,
+        "position": [
+          293.799987792969,
+          554.0
+        ],
+        "stable_id": "forest_thread_spider",
+        "state": "retract",
+        "state_time": 0.0166666666666667,
+        "terminal": false
+      }
+    },
+    {
+      "tick": 1400,
+      "player": {
+        "position": [
+          456.987152099609,
+          599.925170898438
+        ],
+        "grounded": true,
+        "velocity": [
+          0.0,
+          0.0
+        ],
+        "health": 5.0,
+        "shots": 2,
+        "supports": [
+          "hollow__belly_entry"
+        ]
+      },
+      "actual_target": {
+        "body_size": [
+          26.0,
+          28.0
+        ],
+        "cooldown": 0.0,
+        "depth_state": {
+          "configured": true,
+          "end": [
+            368.0,
+            540.0
+          ],
+          "hit_this_cycle": false,
+          "start": [
+            320.0,
+            540.0
+          ],
+          "version": 1
+        },
+        "health": 1.0,
+        "id": "hollow_route__borer_entry_thread",
+        "patrol_radius": 0.0,
+        "position": [
+          293.799987792969,
+          554.0
+        ],
+        "stable_id": "forest_thread_spider",
+        "state": "recovery",
+        "state_time": 0.0833333333333333,
+        "terminal": false
+      }
+    },
+    {
+      "tick": 1450,
+      "player": {
+        "position": [
+          456.987152099609,
+          599.925170898438
+        ],
+        "grounded": true,
+        "velocity": [
+          0.0,
+          0.0
+        ],
+        "health": 5.0,
+        "shots": 2,
+        "supports": [
+          "hollow__belly_entry"
+        ]
+      },
+      "actual_target": {
+        "body_size": [
+          26.0,
+          28.0
+        ],
+        "cooldown": 0.0,
+        "depth_state": {
+          "configured": true,
+          "end": [
+            368.0,
+            540.0
+          ],
+          "hit_this_cycle": false,
+          "start": [
+            320.0,
+            540.0
+          ],
+          "version": 1
+        },
+        "health": 1.0,
+        "id": "hollow_route__borer_entry_thread",
+        "patrol_radius": 0.0,
+        "position": [
+          293.799987792969,
+          554.0
+        ],
+        "stable_id": "forest_thread_spider",
+        "state": "recovery",
+        "state_time": 0.916666666666668,
+        "terminal": false
+      }
+    },
+    {
+      "tick": 1550,
+      "player": {
+        "position": [
+          456.987152099609,
+          599.925170898438
+        ],
+        "grounded": true,
+        "velocity": [
+          0.0,
+          0.0
+        ],
+        "health": 5.0,
+        "shots": 2,
+        "supports": [
+          "hollow__belly_entry"
+        ]
+      },
+      "actual_target": {
+        "body_size": [
+          26.0,
+          28.0
+        ],
+        "cooldown": 0.0,
+        "depth_state": {
+          "configured": true,
+          "end": [
+            368.0,
+            540.0
+          ],
+          "hit_this_cycle": false,
+          "start": [
+            320.0,
+            540.0
+          ],
+          "version": 1
+        },
+        "health": 1.0,
+        "id": "hollow_route__borer_entry_thread",
+        "patrol_radius": 0.0,
+        "position": [
+          293.799987792969,
+          554.0
+        ],
+        "stable_id": "forest_thread_spider",
+        "state": "idle",
+        "state_time": 0.966666666666668,
+        "terminal": false
+      }
+    },
+    {
+      "tick": 1750,
+      "player": {
+        "position": [
+          456.987152099609,
+          599.925170898438
+        ],
+        "grounded": true,
+        "velocity": [
+          0.0,
+          0.0
+        ],
+        "health": 5.0,
+        "shots": 2,
+        "supports": [
+          "hollow__belly_entry"
+        ]
+      },
+      "actual_target": {
+        "body_size": [
+          26.0,
+          28.0
+        ],
+        "cooldown": 0.0,
+        "depth_state": {
+          "configured": true,
+          "end": [
+            368.0,
+            540.0
+          ],
+          "hit_this_cycle": false,
+          "start": [
+            320.0,
+            540.0
+          ],
+          "version": 1
+        },
+        "health": 1.0,
+        "id": "hollow_route__borer_entry_thread",
+        "patrol_radius": 0.0,
+        "position": [
+          293.799987792969,
+          554.0
+        ],
+        "stable_id": "forest_thread_spider",
+        "state": "idle",
+        "state_time": 4.29999999999999,
+        "terminal": false
+      }
+    },
+    {
+      "tick": 1941,
+      "player": {
+        "position": [
+          456.987152099609,
+          599.925170898438
+        ],
+        "grounded": true,
+        "velocity": [
+          0.0,
+          0.0
+        ],
+        "health": 5.0,
+        "shots": 2,
+        "supports": [
+          "hollow__belly_entry"
+        ]
+      },
+      "actual_target": {
+        "body_size": [
+          26.0,
+          28.0
+        ],
+        "cooldown": 0.0,
+        "depth_state": {
+          "configured": true,
+          "end": [
+            368.0,
+            540.0
+          ],
+          "hit_this_cycle": false,
+          "start": [
+            320.0,
+            540.0
+          ],
+          "version": 1
+        },
+        "health": 1.0,
+        "id": "hollow_route__borer_entry_thread",
+        "patrol_radius": 0.0,
+        "position": [
+          293.799987792969,
+          554.0
+        ],
+        "stable_id": "forest_thread_spider",
+        "state": "idle",
+        "state_time": 7.48333333333331,
+        "terminal": false
+      }
+    }
+  ],
+  "actual_platforms": [
+    {
+      "id": "hollow__belly_entry",
+      "one_way": false,
+      "rect": [
+        380.0,
+        618.0,
+        300.0,
+        60.0
+      ],
+      "scene_kind": "root_earth",
+      "structure_id": "hollow",
+      "surface_role": "root_top"
+    },
+    {
+      "id": "borer_access_low",
+      "one_way": true,
+      "rect": [
+        250.0,
+        500.0,
+        130.0,
+        20.0
+      ],
+      "scene_kind": "living_bough",
+      "structure_id": "forest_boughs",
+      "surface_role": "bough_top"
+    },
+    {
+      "id": "borer_entry_perch",
+      "one_way": true,
+      "rect": [
+        270.0,
+        568.0,
+        80.0,
+        18.0
+      ],
+      "scene_kind": "living_bough",
+      "structure_id": "forest_boughs",
+      "surface_role": "bough_top"
+    }
+  ],
+  "source_copies": [
+    {
+      "path": "tests/forest_bible_trace_support.gd",
+      "sha256": "a85e5d6e0353bd0f5f362072764db705d4293e9283fc0cbf22dfb7a9a2c43616",
+      "matches_original_source_before": true,
+      "included_in_original_inventory": true
+    },
+    {
+      "path": "tests/forest_bible_region_auto_trace.gd",
+      "sha256": "8421e03a3e3d58952960bebaeaa851ddb3fa19334965819ac9d80015e9a0ae50",
+      "matches_original_source_before": true,
+      "included_in_original_inventory": true
+    },
+    {
+      "path": "tests/forest_depth_grove_combat_case.gd",
+      "sha256": "543040078498399c01e33ffa36ffa5dbda72afedf847e8075e6ada2b65fe639d",
+      "matches_original_source_before": true,
+      "included_in_original_inventory": true
+    },
+    {
+      "path": "tests/forest_depth_region_trace.gd",
+      "sha256": "5d1c6428625d7f1dbeb81398f7d710a085e6a7894a648f33c216f4653a5ac9c1",
+      "matches_original_source_before": true,
+      "included_in_original_inventory": true
+    },
+    {
+      "path": "tests/forest_depth_trace_strategy.gd",
+      "sha256": "990e09754441c95f0162011e3b199d22b70ff872192136e508f70476131009f9",
+      "matches_original_source_before": true,
+      "included_in_original_inventory": true
+    },
+    {
+      "path": "scripts/input/keyboard_mouse_adapter.gd",
+      "sha256": "870b7a5e8f9324308a807c271a05b357baa79f0539b1962b4a4e7a31fd19657b",
+      "matches_original_source_before": true,
+      "included_in_original_inventory": true
+    },
+    {
+      "path": "assets/characters/courier/courier_visual.gd",
+      "sha256": "fd07fc967903aeda0c952192ecd4d37adffa944fa3fcaae9a1092e0f58919378",
+      "matches_original_source_before": true,
+      "included_in_original_inventory": true
+    },
+    {
+      "path": "scenes/player/player.tscn",
+      "sha256": "75ea76ff43b9b8cb3410096d01bfde92c678c56bd31ea3cf6a0bfd438fd9acd8",
+      "matches_original_source_before": true,
+      "included_in_original_inventory": true
+    },
+    {
+      "path": "config/player_tuning.json",
+      "sha256": "3a1fb6a4963fad3d12ce903f5ae5d66507c342ecca1c91c934cd2606461d977c",
+      "matches_original_source_before": true,
+      "included_in_original_inventory": true
+    },
+    {
+      "path": "tools/run_forest_depth_region.py",
+      "sha256": "d82cdfd9b4717e32f41c87fc6529b123b6c922587984ee5fb797a315c5f4d7a8",
+      "matches_original_source_before": true,
+      "included_in_original_inventory": true
+    }
+  ],
+  "body_origin_geometry_only": [
+    {
+      "body_point_offset": 0,
+      "body_point": [
+        293.799987792969,
+        554.0
+      ],
+      "center_ray_y_at_perch_right_x350": 569.8161652974883,
+      "perch_top568_minus_y_minus_projectile_radius": -4.816165297488283,
+      "scope": "Only straight body-origin segment geometry. Not actual adapter muzzle prediction or native clearance result."
+    },
+    {
+      "body_point_offset": -5.6,
+      "body_point": [
+        293.799987792969,
+        548.4
+      ],
+      "center_ray_y_at_perch_right_x350": 566.1447487721541,
+      "perch_top568_minus_y_minus_projectile_radius": -1.1447487721541165,
+      "scope": "Only straight body-origin segment geometry. Not actual adapter muzzle prediction or native clearance result."
+    },
+    {
+      "body_point_offset": 5.6,
+      "body_point": [
+        293.799987792969,
+        559.6
+      ],
+      "center_ray_y_at_perch_right_x350": 573.4875818228224,
+      "perch_top568_minus_y_minus_projectile_radius": -8.487581822822449,
+      "scope": "Only straight body-origin segment geometry. Not actual adapter muzzle prediction or native clearance result."
+    },
+    {
+      "body_point_offset": -10.0,
+      "body_point": [
+        293.799987792969,
+        544.0
+      ],
+      "center_ray_y_at_perch_right_x350": 563.2600643593917,
+      "perch_top568_minus_y_minus_projectile_radius": 1.739935640608337,
+      "scope": "Only straight body-origin segment geometry. Not actual adapter muzzle prediction or native clearance result."
+    },
+    {
+      "body_point_offset": 10.0,
+      "body_point": [
+        293.799987792969,
+        564.0
+      ],
+      "center_ray_y_at_perch_right_x350": 576.3722662355849,
+      "perch_top568_minus_y_minus_projectile_radius": -11.372266235584902,
+      "scope": "Only straight body-origin segment geometry. Not actual adapter muzzle prediction or native clearance result."
+    }
+  ],
+  "minimal_proposal": "Append ±(half.y - actual projectile_radius - 1.0) offsets to only v15 GrovePilot._raised_body_aim after existing three probes. Retain actual adapter muzzle, existing _direction_hits_body, radius circle casts, all original resources/caps/return assertions; native must establish precise acceptance. Do not change body or authored platforms."
+}

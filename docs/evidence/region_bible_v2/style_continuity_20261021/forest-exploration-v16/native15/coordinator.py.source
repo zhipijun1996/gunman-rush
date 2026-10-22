@@ -1,0 +1,49 @@
+import sys,os,time,json,contextlib,concurrent.futures,re,subprocess,hashlib,zipfile
+from pathlib import Path
+root=Path('/workspace/gunman-rush');os.chdir(root);sys.path.insert(0,str(root/'tools'))
+from run_tests import run_engine
+from forest_bible_world_sources import inventory
+import run_forest_exploration_motor as motor
+out=root/'build/region_bible_v2/forest-feedback-native-15';out.mkdir(parents=True,exist_ok=False)
+raw=Path('/tmp/gunman-v16-fifteenth');raw.mkdir(exist_ok=False)
+before=inventory();(out/'source-before.json').write_text(json.dumps(before,sort_keys=True));rows=[];start=time.monotonic();deadline=start+600;xvfb=None
+head=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
+changed=subprocess.check_output(['git','ls-files','-m','-o','--exclude-standard','-z']).decode().split('\0');selected=[p for p in changed if p in before]
+with zipfile.ZipFile(raw/'changed-source.zip','w',zipfile.ZIP_DEFLATED) as z:
+ for p in selected:z.write(root/p,p)
+closure={'baseline_commit':head,'unchanged_byte_origin':'exact tracked path at baseline_commit; full SHA256 inventory source-before.json','changed_or_untracked_bytes':'changed-source.zip','files':{p:before[p] for p in selected}}
+(raw/'source-closure.json').write_text(json.dumps(closure,indent=2));(out/'source-closure.json').write_text(json.dumps({**closure,'archive_path':str(raw/'changed-source.zip'),'archive_sha256':hashlib.sha256((raw/'changed-source.zip').read_bytes()).hexdigest()},indent=2))
+def run(name,args,marker,cap=90):
+ s=time.monotonic();print('START',name,flush=True);ok=False;error=''
+ with (out/(name+'.log')).open('w') as log:
+  try:
+   with contextlib.redirect_stdout(log),contextlib.redirect_stderr(log):output=run_engine(args,cap)
+   if not re.search(marker,output,re.M):raise RuntimeError('missing complete marker')
+   ok=True
+  except Exception as exc:error=repr(exc);log.write('\nFAILED '+error+'\n')
+ rows.append({'id':name,'passed':ok,'seconds':round(time.monotonic()-s,3),'error':error});print('END',name,rows[-1],flush=True)
+ return ok
+try:
+ print('START permanent-focused-contract',flush=True);s=time.monotonic()
+ with (out/'focused-contract.log').open('w') as log:r=subprocess.run([sys.executable,'tools/run_forest_exploration_contract.py','--output-dir',str(out/'focused')],stdout=log,stderr=subprocess.STDOUT,timeout=600)
+ rows.append({'id':'focused-contract','passed':r.returncode==0,'exit_code':r.returncode,'seconds':time.monotonic()-s});print('END contract',rows[-1],flush=True)
+ run('full-ecology',['--headless','--path','.','--fixed-fps','60','--script','tests/forest_exploration_ecology_runner.gd','--','--output-dir='+str(raw/'full-ecology')],r'^FOREST EXPLORATION ECOLOGY: [1-9]\d* assertions, 0 failures$')
+ run('actual-manifests',['--headless','--path','.','--fixed-fps','60','--script','tests/forest_exploration_manifest_dump.gd','--','--output='+str(raw/'manifests')],r'^FOREST EXPLORATION MANIFEST DUMP: 20 actual world cases$')
+ displaybin=root/'build/forest_revision04/display-final-W6/runtime/usr/bin/Xvfb'
+ xvfb=subprocess.Popen([str(displaybin),'-displayfd','1','-screen','0','1280x720x24','-nolisten','tcp','-ac'],stdout=subprocess.PIPE,stderr=(out/'xvfb.log').open('w'))
+ display=xvfb.stdout.readline().decode().strip();os.environ.update(DISPLAY=':'+display,LIBGL_ALWAYS_SOFTWARE='1',OMP_NUM_THREADS='1',LP_NUM_THREADS='1')
+ run('actual-golden',['--path','.','--rendering-method','gl_compatibility','--audio-driver','Dummy','--script','tests/forest_exploration_golden_runner.gd','--','--output='+str(raw/'golden')],r'^FOREST EXPLORATION GOLDEN: 23 images / 0 failures$')
+ xvfb.terminate();xvfb.wait(timeout=10);xvfb=None
+ cases=[(1,'l_hollow_trial'),(2,'borrow_pod_fixed_trial'),(2,'borrow_pod_live_trial'),(2,'borrow_pod_kill_trial'),(1,'fast'),(2,'fast')]
+ for name in ('crown_z_trial','crown_7_trial','crown_7_long_trial'):
+  # Only real routes authored by this exact producer may be added.
+  m=json.loads((raw/'manifests/seed00-map2.json').read_text())
+  if name in m.get('routes',{}):cases.append((2,name))
+ with concurrent.futures.ThreadPoolExecutor(max_workers=2) as workers:
+  futures={workers.submit(motor.run_case,i,('forest-depth-hollow-00',m,r),raw,motor.LAYOUT,False,deadline):(m,r) for i,(m,r) in enumerate(cases)}
+  for future in concurrent.futures.as_completed(futures):
+   row=future.result();rows.append(row);print('ROUTE',row['map'],row['route'],row['status'],'frames',row.get('frames'),'legs',row.get('legs'),'errors',row.get('errors',[])[:7],flush=True)
+except Exception as exc:rows.append({'passed':False,'error':repr(exc)});print('FAIL',repr(exc),flush=True)
+finally:
+ if xvfb is not None:xvfb.terminate();xvfb.wait(timeout=10)
+ after=inventory();(out/'source-after.json').write_text(json.dumps(after,sort_keys=True));receipt={'scope':'New candidate focused permanent contracts, explicit menu, actual23staticApp screenshots and selected actual routes; not full original80/device/FUN','baseline_commit':head,'source_stable':before==after,'case_workers':2,'import_cap_seconds':90,'native_cap_seconds':240,'whole_cap_seconds':600,'runs':rows,'seconds':round(time.monotonic()-start,3)};(out/'receipt.json').write_text(json.dumps(receipt,indent=2));print('SOURCE_STABLE',before==after,flush=True)
