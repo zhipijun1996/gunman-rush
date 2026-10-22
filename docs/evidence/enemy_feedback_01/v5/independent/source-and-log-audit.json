@@ -1,0 +1,94 @@
+{
+  "reviewed_commit": "3c5338552b2f7ac275203c4bbf1003e29520a312",
+  "head_after": "3c5338552b2f7ac275203c4bbf1003e29520a312",
+  "hashed_source_paths": 848,
+  "changed_hashed_paths": [],
+  "logs": {
+    "native": {
+      "exit": 0,
+      "errors": [],
+      "warnings": []
+    },
+    "support": {
+      "exit": 0,
+      "errors": [],
+      "warnings": []
+    },
+    "pixels": {
+      "exit": 0,
+      "errors": [],
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ]
+    },
+    "formal": {
+      "exit": 0,
+      "errors": [],
+      "warnings": []
+    },
+    "old-atlas": {
+      "exit": 0,
+      "errors": [],
+      "warnings": [
+        "WARNING: Could not set V-Sync mode, as changing V-Sync mode is not supported by the graphics driver."
+      ]
+    }
+  },
+  "harness": {
+    "exit": 0,
+    "report": "build/verification/harness/20261022T191336.037344Z/report.json",
+    "status": "passed",
+    "wall_seconds": 68.865,
+    "checks": [
+      {
+        "id": "actor-actions",
+        "exit": 0,
+        "status": "passed",
+        "reused": false,
+        "errors": [],
+        "tail": [
+          "Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org",
+          "",
+          "ACTOR ACTIONS: 2872 assertions, 0 failures",
+          "PASS: actor actions runtime and input"
+        ]
+      },
+      {
+        "id": "underworld-damage-feedback",
+        "exit": 0,
+        "status": "passed",
+        "reused": false,
+        "errors": [],
+        "tail": [
+          "",
+          "PASS GROUP: frame damage ordering, selective safe segment return and lifetime",
+          "UNDERWORLD_DAMAGE_R3 checks=317 failures=0",
+          "PASS: accepted R3 hurt/feedback, environment exit-entry, actual force and boundary regressions"
+        ]
+      },
+      {
+        "id": "underworld-formal",
+        "exit": 0,
+        "status": "passed",
+        "reused": false,
+        "errors": [],
+        "tail": [
+          "FOREST_UI_EVENT {\"abilities\":[],\"boss_definition\":\"res://resources/bosses/windkeeper_storm.tres\",\"boss_scene\":\"res://scenes/bosses/windkeeper.tscn\",\"content_version\":\"plains-region-v12-root-bell-spaces\",\"debug_entry\":false,\"event\":\"region_assembled\",\"layout_version\":\"\",\"manifest_hash\":\"fe31fdf3a71087e20f689e389e7d5ae23b2fe0150e95d9d3e7f4aebadbfaa269\",\"map_index\":2,\"region\":\"plains\",\"seed\":\"underworld-formal-integrated/plains/map_2\"}",
+          "TEST AUDIO TEARDOWN: {\"owners\":[{\"node\":\"/root/@Node2D@2/@Node@3\",\"played\":{\"death\":1,\"land\":2},\"service\":\"GameAudio\"}],\"released\":true,\"seconds\":0.121}",
+          "UNDERWORLD_FORMAL checks=96 failures=0 maps=2",
+          "PASS: Underworld default formal actor/UI consumers and lifecycle"
+        ]
+      },
+      {
+        "id": "forest-bible-integration-tests",
+        "exit": 0,
+        "status": "passed",
+        "reused": false,
+        "errors": [],
+        "tail": [
+          "{\"status\": \"passed\", \"exit_code\": 0, \"source_stable\": true, \"assertions\": 54}"
+        ]
+      }
+    ]
+  }
+}

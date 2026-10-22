@@ -4,17 +4,17 @@
   "task_type": "animation",
   "workflow": "review",
   "baseline_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
-  "reviewed_commit": "0d5b72cc3a01f37d78c8e9d300d36fbba39a458e",
-  "content_version": "feedback-sample-v4",
+  "reviewed_commit": "3c5338552b2f7ac275203c4bbf1003e29520a312",
+  "content_version": "feedback-sample-v5",
   "owner": "/root",
   "purpose": "Two existing ordinary enemies share accepted-hit feedback state across both original and formal Underworld rendering chains.",
-  "player_experience": "Brighter opt-in material planes and distinct lifeless resting poses; larger fine-particle envelope measured from real accepted hits. Overall feel and complete authored art remain unaccepted; strict moving-support reload still fails.",
+  "player_experience": "User-requested death burst replaces rejected flipped corpse: accepted flash, tapered textured shards and short trails, fully absent by0.55 simulated seconds; restored dead actors stay silently spent. Not a newly drawn motion atlas or complete art/feel acceptance.",
   "constraints": [
     "Only plains_charger and plains_diver; no AI/damage/collision/reward/Boss/config/audio/shared-parent or source-PNG changes",
     "EnemyActor, Definitions, ForestBibleActors and official scenes remain controller-owned",
     "Observe accepted HealthState damage; no new signal; separate both inheritance chains",
     "No main merge; full Integration remains required before controller integration",
-    "Retained corpses are pure presentation. No Actor/Stage/save-schema edits; precise moving-support restoration needs controller allocation."
+    "Latest user direction supersedes persistent corpses for the two samples; do not claim the old moving-support save defect was repaired. No Actor/Stage/save-schema or shared clock/camera/audio edits."
   ],
   "affected_paths": [
     "scripts/enemies/enemy_feedback_01.gd",
@@ -50,10 +50,11 @@
     "tests/enemy_feedback_01_particle_extent.gd.uid"
   ],
   "deliverables": [
-    "docs/evidence/enemy_feedback_01/v4/README.md",
-    "docs/evidence/enemy_feedback_01/v4/movies/after.mp4",
-    "docs/evidence/enemy_feedback_01/v4/movies/comparison.mp4",
-    "docs/evidence/enemy_feedback_01/v4/runtime-source.bundle"
+    "docs/evidence/enemy_feedback_01/v5/README.md",
+    "docs/evidence/enemy_feedback_01/v5/movies/after.mp4",
+    "docs/evidence/enemy_feedback_01/v5/movies/comparison.mp4",
+    "docs/evidence/enemy_feedback_01/v5/runtime-source.bundle",
+    "docs/evidence/enemy_feedback_01/v5/review.md"
   ],
   "creative_decisions": [
     {
@@ -69,55 +70,66 @@
     },
     {
       "status": "proposed",
-      "decision": "Opt-in local material-plane mapping and procedural upside/side corpse poses; authored locomotion/folded-wing/death atlases still pending.",
-      "basis": "Existing art/frame rejection has not been closed."
+      "decision": "Adopt requested burst-and-disappear direction; candidate quality still awaits the user. Full locomotion frames remain pending.",
+      "basis": "Latest user explicitly offered disappearance instead of the rejected rotated corpse; it is authorization, not acceptance of the produced candidate.",
+      "evidence_id": "user_feedback"
+    },
+    {
+      "status": "not_required",
+      "decision": "Persistent corpse support/local pose restoration is superseded for this candidate.",
+      "basis": "No persistent body is reconstructed by the new user-requested policy; original62/1 failure is archived, not relabeled fixed."
     }
   ],
   "formal_impact": true,
   "gates": {
     "G0": {
       "status": "passed",
-      "reason": "Exact scope, source and failed integration/interface boundary specified.",
+      "reason": "Latest user direction, two-chain reuse, original source ownership and superseded save requirement documented.",
       "evidence": [
         "spec"
       ]
     },
     "G1": {
-      "status": "failed",
-      "reason": "Independent native378/0, support133/0, GPU112/0; strict default App62/1 mandatory moving-support recovery failure retained.",
+      "status": "passed",
+      "reason": "Independent370/0 native,141/0 support-edge,162/0 PNG GPU,32/0 Atlas GPU,62/0 default App under new spent contract.",
       "evidence": [
         "native",
         "support",
         "pixels",
-        "formal"
+        "legacy_pixels",
+        "formal",
+        "native_trace",
+        "pixel_trace"
       ]
     },
     "G2": {
       "status": "failed",
-      "reason": "Material/pose readability improved in the explicit fixture; authored motion/death frames absent, whole hit intensity/HK feel not accepted.",
+      "reason": "Current death burst candidate can be evaluated; rejected source art/full locomotion frames remain unfinished, no user aesthetic acceptance.",
       "evidence": [
         "prior_art_feedback",
-        "video"
+        "video",
+        "review"
       ]
     },
     "G3": {
-      "status": "failed",
-      "reason": "Moving ferry corpse cannot be precisely recovered by existing save data.",
+      "status": "unverified",
+      "reason": "Default App spent/drop/reload62/0 and four original targeted regressions pass; full146 Integration and exact forest/ActionStudio visual consumers remain unverified.",
       "evidence": [
         "formal",
-        "formal_trace"
+        "formal_trace",
+        "affected"
       ]
     },
     "G4": {
-      "status": "failed",
-      "reason": "Independent overall REJECT retains mandatory recovery failure.",
+      "status": "unverified",
+      "reason": "Separate reviewer accepts the exercised technical/death sample scope; full task/Integration and final art acceptance are not complete.",
       "evidence": [
         "review"
       ]
     },
     "G5": {
       "status": "unverified",
-      "reason": "Prior body flash approved; v4 subjective intensity/art/feel/device unverified. New shared reference video is input, not acceptance.",
+      "reason": "Latest quote authorizes the alternate direction; new candidate has not been accepted by user/device.",
       "evidence": [
         "user_feedback",
         "flash_direction"
@@ -133,34 +145,37 @@
       ]
     },
     "technical": {
-      "status": "failed",
-      "reason": "Independent native378/0, support133/0, GPU112/0; strict default App62/1 mandatory moving-support recovery failure retained.",
+      "status": "passed",
+      "reason": "Real accepted hits, rejected/replay/epoch, pause/slowtime, finite burst, spent restore/drop/unload validated on both chains and actual default App.",
       "evidence": [
         "native",
         "support",
         "pixels",
+        "legacy_pixels",
         "formal"
       ]
     },
     "formal_integration": {
-      "status": "failed",
-      "reason": "Actual default App hits/drop/rebuild tested; moving-support visual state is not saved, full affected integration incomplete.",
+      "status": "unverified",
+      "reason": "Default App spent/drop/reload62/0 and four original targeted regressions pass; full146 Integration and exact forest/ActionStudio visual consumers remain unverified.",
       "evidence": [
+        "formal",
         "formal_trace",
-        "formal"
+        "affected"
       ]
     },
     "visual": {
       "status": "failed",
-      "reason": "Local palette and corpse distinction visibly improve in reviewer sampled pixels; source art/full animation still user-rejected, no formal art golden.",
+      "reason": "Death rectangle candidate rejected and refined; full source art still not accepted or newly authored.",
       "evidence": [
         "prior_art_feedback",
-        "art_advice"
+        "review",
+        "video"
       ]
     },
     "animation": {
       "status": "failed",
-      "reason": "New procedural settle prototype is not full authored movement/death frames; current movie/user assessment still bounded.",
+      "reason": "Death now intentionally uses burst/disappearance; actual full locomotion/turn/telegraph/attack/recovery/hurt frame atlases remain absent.",
       "evidence": [
         "prior_art_feedback",
         "art_advice",
@@ -169,10 +184,11 @@
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "Measured larger fine-particle envelope; preexisting cyan contact still dominates composite impact. No final feel/user acceptance; audio deferred.",
+      "reason": "Refined death candidate awaits user judgment; audio explicitly deferred.",
       "evidence": [
         "video",
-        "user_feedback"
+        "user_feedback",
+        "review"
       ]
     },
     "gameplay": {
@@ -191,8 +207,8 @@
       ]
     },
     "independent_review": {
-      "status": "failed",
-      "reason": "Separate reviewer overall REJECT due actual formal restoration failure; local evidence not total acceptance.",
+      "status": "passed",
+      "reason": "Separate reviewer actually reran both render chains including Atlas UV, default App and four original regressions; ACCEPT limited to exercised technical scope.",
       "evidence": [
         "review"
       ]
@@ -204,7 +220,7 @@
     },
     "player_acceptance": {
       "status": "unverified",
-      "reason": "User supplied a concrete combat-reference video after v4 freeze, not approval of this candidate.",
+      "reason": "New requested direction is not acceptance of rendered v5.",
       "evidence": [
         "user_feedback"
       ]
@@ -220,7 +236,7 @@
       "gate": "G0",
       "dimension": "design",
       "status": "passed",
-      "reason": "Bounded spec and independent source inspection.",
+      "reason": "Reuses the one task death leaf on both chains, with explicit new direction and unchanged shared gameplay ownership.",
       "evidence": [
         "spec"
       ]
@@ -234,7 +250,7 @@
       "gate": "G1",
       "dimension": "technical",
       "status": "passed",
-      "reason": "378 independent real-projectile/lifecycle assertions across both species and chains.",
+      "reason": "370 independent real-projectile/lifecycle assertions across both definitions and chains.",
       "evidence": [
         "native",
         "native_trace"
@@ -244,12 +260,12 @@
       "id": "default_app",
       "scenario": "Real generated ordinary enemies and same-map rebuild",
       "method": "Initial safe player fixture then legal actual combat and App drop flow",
-      "expected": "One configured receipt/pickup or none; restored corpse silent",
+      "expected": "One original drop receipt; spent dead actors stay absent and silent across reload",
       "failure": "Duplicate settlement or fresh death on reload",
       "gate": "G3",
       "dimension": "formal_integration",
-      "status": "failed",
-      "reason": "62 checks/1 mandatory moving-support corpse recovery failure; unchanged drop/reload guards retained.",
+      "status": "passed",
+      "reason": "62/0 under explicitly changed disappearance contract; old support-pose defect not claimed repaired.",
       "evidence": [
         "formal",
         "formal_trace"
@@ -257,14 +273,14 @@
     },
     {
       "id": "media",
-      "scenario": "Four real engine feedback cases",
+      "scenario": "Two real engine burst-and-disappear cases",
       "method": "Compare identical gameplay trace and sampled neighboring pixels",
-      "expected": "Approved flash, readable local materials, bounded accepted contact and opaque resting corpse; full authored art remains pending",
+      "expected": "Accepted short flash, original-material shards and bounded disappearance",
       "failure": "Fake hit or recurring terminal performance",
       "gate": "G2",
       "dimension": "animation",
       "status": "unverified",
-      "reason": "Real long current-room films/source guard; no user acceptance or full restore coverage.",
+      "reason": "Real clean3c footage and semantic trace equality; no complete normal-speed/user acceptance.",
       "evidence": [
         "video",
         "comparison",
@@ -280,8 +296,8 @@
       "failure": "Self-review presented as independent total acceptance",
       "gate": "G4",
       "dimension": "independent_review",
-      "status": "failed",
-      "reason": "Independent overall REJECT; local current-room prototype evidence only.",
+      "status": "unverified",
+      "reason": "Independent scoped technical ACCEPT and improved candidate; complete Integration/art/user task acceptance not signed.",
       "evidence": [
         "review"
       ]
@@ -304,12 +320,12 @@
       "id": "actual_pixels",
       "scenario": "Underworld accepted hit then paused terminal restoration",
       "method": "Real second projectile, pause, official restore API; inspect actual viewport source-mask pixels",
-      "expected": "Cream body flash then original material; immediately absent stale body/chips on restore",
+      "expected": "Approved ordinary flash; actual early/fragment death pixels and owned-channel zero after cancellation/expiry",
       "failure": "No visible accepted flash or stale paused flash/bursts",
       "gate": "G1",
       "dimension": "technical",
       "status": "passed",
-      "reason": "112 independent GPU assertions retain original thresholds; actual palette/alpha and accepted-particle ablations, corpse floor gap0, pause stable.",
+      "reason": "162 independent actual PNG GPU assertions;32 more old-Atlas assertions with real bullet deaths and no stray atlas/white blocks.",
       "evidence": [
         "pixels",
         "pixel_trace"
@@ -319,27 +335,27 @@
       "id": "authored_motion_frames",
       "scenario": "Each actual monster motion state",
       "method": "Compare loaded body frames and current user feedback",
-      "expected": "Distinct actual pixels for locomotion/turn/telegraph/attack/recovery/hurt/death",
+      "expected": "Distinct actual locomotion/turn/telegraph/attack/recovery/hurt pixels; death uses latest requested burst alternative",
       "failure": "Single-PNG transforms counted as authored frames",
       "gate": "G2",
       "dimension": "animation",
       "status": "failed",
-      "reason": "No new image atlases: task-local palette and procedural roll are not authored motion/death frames.",
+      "reason": "No new locomotion/body atlas; death alternative does not satisfy earlier motion-frame requirement.",
       "evidence": [
         "user_feedback",
         "art_advice"
       ]
     },
     {
-      "id": "bounded_corpse_support",
-      "scenario": "Actual bullet deaths over void, translated/released support and saved transform ordering",
+      "id": "bounded_death_lifetime",
+      "scenario": "Both chains real bullet deaths over void, airborne and moving hosts",
       "method": "Six explicit fixtures using original Router/projectiles or official restore API",
-      "expected": "Finite void exit, read-only support following and silent static reconcile",
-      "failure": "Invented floor, infinite floating body, duplicate death or stale sibling",
+      "expected": "Finite spent/hidden receipt without invented support, corpse or repeated death",
+      "failure": "Unbounded active burst, phantom floor/body or replay",
       "gate": "G1",
       "dimension": "technical",
       "status": "passed",
-      "reason": "133 independent support assertions.",
+      "reason": "141 independent edge assertions under burst contract; no persistent-support-save claim.",
       "evidence": [
         "support",
         "support_trace"
@@ -353,8 +369,8 @@
       "failure": "Age/contact mismatch, no actual pixels, replay or clipped ROI",
       "gate": "G1",
       "dimension": "technical",
-      "status": "passed",
-      "reason": "Author80/0 each; reviewer independently recomputed8 PNG pairs. At0.1sec actual radius ~2.1x; not subjective quality approval.",
+      "status": "not_applicable",
+      "reason": "Historical v4 ordinary-hit envelope comparison retained; v5 does not change that leaf or claim a new size comparison.",
       "evidence": [
         "extent"
       ]
@@ -364,13 +380,13 @@
     {
       "id": "spec",
       "path": "docs/enemy_feedback_01.md",
-      "sha256": "f733d83ef45d6be9eedc502ad0e245880e21876598a79bb0db3ebe1c6bb1a016",
+      "sha256": "9fad7a974ce573f70d1b8bfea857d91c5e7fe50b0a287be4fcb972be8f9752b9",
       "kind": "spec",
       "producer": "/root",
-      "source_commit": "0d5b72cc3a01f37d78c8e9d300d36fbba39a458e",
-      "content_version": "feedback-sample-v4",
-      "method": "Current v4 bounded spec/art advice or inventory reconstructed from actual fresh independent native/formal traces; static visual gaps retained.",
-      "observed": "Ownership, dual-chain corpse handoff and explicit failed moving-support save interface."
+      "source_commit": "3c5338552b2f7ac275203c4bbf1003e29520a312",
+      "content_version": "feedback-sample-v5",
+      "method": "Actual final3c v5 artifact; exact scope, producer, original failures and execution boundaries in README/review.",
+      "observed": "Two-chain ownership and user-authorized finite burst policy; persistent corpse contract explicitly superseded."
     },
     {
       "id": "art_advice",
@@ -385,69 +401,69 @@
     },
     {
       "id": "native",
-      "path": "docs/evidence/enemy_feedback_01/v4/independent-tests/native.log",
-      "sha256": "7bb2b1174c5bf6a1516255be9c70df6448890e34fc59778635cde1169ff10afb",
+      "path": "docs/evidence/enemy_feedback_01/v5/independent/native.log",
+      "sha256": "1bf3561dbb42fa93a2b95f7c99c00a20788198e5f4fd7591e4d02215e244f052",
       "kind": "command",
       "producer": "/root/feedback_review",
-      "source_commit": "0d5b72cc3a01f37d78c8e9d300d36fbba39a458e",
-      "content_version": "feedback-sample-v4",
-      "method": "Actual v4 artifact; see v4 README and independent review for exact producer, executed source, limits and failures.",
-      "observed": "Independent 378 assertions; zero failures; bounded scope in review.",
+      "source_commit": "3c5338552b2f7ac275203c4bbf1003e29520a312",
+      "content_version": "feedback-sample-v5",
+      "method": "Actual final3c v5 artifact; exact scope, producer, original failures and execution boundaries in README/review.",
+      "observed": "Independent370 assertions,0 failures; both actual scene/installer chains.",
       "command": "bash tools/godot.sh --headless --path . --fixed-fps 60 --script res://tests/enemy_feedback_01_tests.gd",
       "exit_code": 0,
       "environment": "Linux x86_64 lockedGodot4.7.2 Standard; fixed60; actual Xvfb llvmpipe for GPU"
     },
     {
       "id": "formal",
-      "path": "docs/evidence/enemy_feedback_01/v4/independent-tests/formal.log",
-      "sha256": "32eb77d470eb9edb7d9e7bcd8edcbdf6d230c85d9a9cf11b698ae58c4e0be9ac",
+      "path": "docs/evidence/enemy_feedback_01/v5/independent/formal.log",
+      "sha256": "b1c879c82b74d6d83f68661f6332145e04c5b1232dd24014c49f42ddde39f9bb",
       "kind": "command",
       "producer": "/root/feedback_review",
-      "source_commit": "0d5b72cc3a01f37d78c8e9d300d36fbba39a458e",
-      "content_version": "feedback-sample-v4",
-      "method": "Actual v4 artifact; see v4 README and independent review for exact producer, executed source, limits and failures.",
-      "observed": "Independent 62 assertions; one strict formal moving-support reload failure retained.",
+      "source_commit": "3c5338552b2f7ac275203c4bbf1003e29520a312",
+      "content_version": "feedback-sample-v5",
+      "method": "Actual final3c v5 artifact; exact scope, producer, original failures and execution boundaries in README/review.",
+      "observed": "Independent62/0 new spent/drop/reload contract; old corpse-save failure superseded, not repaired.",
       "command": "bash tools/godot.sh --headless --path . --fixed-fps 60 --script res://tests/enemy_feedback_01_formal.gd",
-      "exit_code": 1,
+      "exit_code": 0,
       "environment": "Linux x86_64 lockedGodot4.7.2 Standard; fixed60; actual Xvfb llvmpipe for GPU"
     },
     {
       "id": "pixels",
-      "path": "docs/evidence/enemy_feedback_01/v4/independent-tests/pixels.log",
-      "sha256": "0a7b35506c63dd3dec98479f0b1275be5e025b8ce314fed6b3279cd131072cb8",
+      "path": "docs/evidence/enemy_feedback_01/v5/independent/pixels.log",
+      "sha256": "07cb64e12616ffc9ca831265006363ac0a5230ec04479bb460abec41cc04fc1d",
       "kind": "command",
       "producer": "/root/feedback_review",
-      "source_commit": "0d5b72cc3a01f37d78c8e9d300d36fbba39a458e",
-      "content_version": "feedback-sample-v4",
-      "method": "Actual v4 artifact; see v4 README and independent review for exact producer, executed source, limits and failures.",
-      "observed": "Independent112 GPU assertions/0 failures; actual palette alpha0 changed, floor gap0, accepted hit and pause guards retained.",
+      "source_commit": "3c5338552b2f7ac275203c4bbf1003e29520a312",
+      "content_version": "feedback-sample-v5",
+      "method": "Actual final3c v5 artifact; exact scope, producer, original failures and execution boundaries in README/review.",
+      "observed": "Independent162/0: ordinary flash/palette alpha retained; real death onset/fragment pixels, paused identical and owned-layer cancel/expiry zero.",
       "command": "bash tools/godot.sh --path . --rendering-method gl_compatibility --audio-driver Dummy --fixed-fps 60 --script res://tests/enemy_feedback_01_pixels.gd",
       "exit_code": 0,
       "environment": "Linux x86_64 lockedGodot4.7.2 Standard; fixed60; actual Xvfb llvmpipe for GPU"
     },
     {
       "id": "support",
-      "path": "docs/evidence/enemy_feedback_01/v4/independent-tests/support.log",
-      "sha256": "ae88b4735b6cb229b3061eea3879399867cbf3323ab4ba135ad2bce66ecafda1",
+      "path": "docs/evidence/enemy_feedback_01/v5/independent/support.log",
+      "sha256": "1454cbd0d5e8f9314831bcea7bef04d5c763bde0691fee68250f93efd8cedd8c",
       "kind": "command",
       "producer": "/root/feedback_review",
-      "source_commit": "0d5b72cc3a01f37d78c8e9d300d36fbba39a458e",
-      "content_version": "feedback-sample-v4",
-      "method": "Actual v4 artifact; see v4 README and independent review for exact producer, executed source, limits and failures.",
-      "observed": "Independent 133 assertions; zero failures; bounded scope in review.",
+      "source_commit": "3c5338552b2f7ac275203c4bbf1003e29520a312",
+      "content_version": "feedback-sample-v5",
+      "method": "Actual final3c v5 artifact; exact scope, producer, original failures and execution boundaries in README/review.",
+      "observed": "Independent141/0 void/airborne/moving-host lifecycle cases; no corpse-support persistence.",
       "command": "bash tools/godot.sh --headless --path . --fixed-fps 60 --script res://tests/enemy_feedback_01_support.gd",
       "exit_code": 0,
       "environment": "Linux x86_64 lockedGodot4.7.2 Standard; fixed60; actual Xvfb llvmpipe for GPU"
     },
     {
       "id": "native_trace",
-      "path": "docs/evidence/enemy_feedback_01/v4/independent-tests/native-runtime.json",
-      "sha256": "e489ab553c1218c99bf4f97cb170bc9c633590acd0e5826018999c041cf312e2",
+      "path": "docs/evidence/enemy_feedback_01/v5/independent/native-runtime.json",
+      "sha256": "e3f64d8c576045d81364c31eb52e4139006b3a068fb76965bd260536b95dc9a4",
       "kind": "runtime_trace",
       "producer": "/root/feedback_review",
-      "source_commit": "0d5b72cc3a01f37d78c8e9d300d36fbba39a458e",
-      "content_version": "feedback-sample-v4",
-      "method": "Actual v4 artifact; see v4 README and independent review for exact producer, executed source, limits and failures.",
+      "source_commit": "3c5338552b2f7ac275203c4bbf1003e29520a312",
+      "content_version": "feedback-sample-v5",
+      "method": "Actual final3c v5 artifact; exact scope, producer, original failures and execution boundaries in README/review.",
       "observed": "Two species/both chains, actual HP/death/restore/unload transactions.",
       "consumers": [
         "original_charger",
@@ -458,28 +474,28 @@
     },
     {
       "id": "formal_trace",
-      "path": "docs/evidence/enemy_feedback_01/v4/independent-tests/formal-runtime.json",
-      "sha256": "7422699cd3a541f9f65a8545dd5df039d451fe64191e0f3bd966b410ed9b12e2",
+      "path": "docs/evidence/enemy_feedback_01/v5/independent/formal-runtime.json",
+      "sha256": "192ebcab63f21993faf93d9f5a3b441714307db6555aa365148b29f9b2a75274",
       "kind": "runtime_trace",
       "producer": "/root/feedback_review",
-      "source_commit": "0d5b72cc3a01f37d78c8e9d300d36fbba39a458e",
-      "content_version": "feedback-sample-v4",
-      "method": "Actual v4 artifact; see v4 README and independent review for exact producer, executed source, limits and failures.",
-      "observed": "Actual default App real kills/drop/reload; strict moving-support corpse recovery failed.",
+      "source_commit": "3c5338552b2f7ac275203c4bbf1003e29520a312",
+      "content_version": "feedback-sample-v5",
+      "method": "Actual final3c v5 artifact; exact scope, producer, original failures and execution boundaries in README/review.",
+      "observed": "Actual default App real kills/drop/reload62/0 under spent policy; no old corpse support-save repair claim.",
       "consumers": [
         "default_plains_app"
       ]
     },
     {
       "id": "support_trace",
-      "path": "docs/evidence/enemy_feedback_01/v4/independent-tests/support-runtime.json",
-      "sha256": "59f6bcade24339da90ca5d33d6294659bcc439a9eb010f76a1ac9e474fb65531",
+      "path": "docs/evidence/enemy_feedback_01/v5/independent/support-runtime.json",
+      "sha256": "3b1020e007e77cf2816a5008dc98bccf5850858d2b5d52a9bac00abfc85115df",
       "kind": "runtime_trace",
       "producer": "/root/feedback_review",
-      "source_commit": "0d5b72cc3a01f37d78c8e9d300d36fbba39a458e",
-      "content_version": "feedback-sample-v4",
-      "method": "Actual v4 artifact; see v4 README and independent review for exact producer, executed source, limits and failures.",
-      "observed": "Void, support translation/release and late saved position fixtures.",
+      "source_commit": "3c5338552b2f7ac275203c4bbf1003e29520a312",
+      "content_version": "feedback-sample-v5",
+      "method": "Actual final3c v5 artifact; exact scope, producer, original failures and execution boundaries in README/review.",
+      "observed": "Both chains void/airborne/moving-host finite death and silent restore; no persistent support pose.",
       "consumers": [
         "original_charger",
         "underworld_installer_charger"
@@ -487,105 +503,105 @@
     },
     {
       "id": "pixel_trace",
-      "path": "docs/evidence/enemy_feedback_01/v4/independent-tests/pixels/report.json",
-      "sha256": "169a91636777265be33828af1bed420846073e882cf135d3b65582a8b3e47f61",
+      "path": "docs/evidence/enemy_feedback_01/v5/independent/pixels/report.json",
+      "sha256": "e04027f7d18d0f3441940da816841a73d5988800bc0e1fd0eaf63217d5adfaa9",
       "kind": "runtime_trace",
       "producer": "/root/feedback_review",
-      "source_commit": "0d5b72cc3a01f37d78c8e9d300d36fbba39a458e",
-      "content_version": "feedback-sample-v4",
-      "method": "Actual v4 artifact; see v4 README and independent review for exact producer, executed source, limits and failures.",
-      "observed": "Actual body flash, persistent corpse pixels and paused stable crop."
+      "source_commit": "3c5338552b2f7ac275203c4bbf1003e29520a312",
+      "content_version": "feedback-sample-v5",
+      "method": "Actual final3c v5 artifact; exact scope, producer, original failures and execution boundaries in README/review.",
+      "observed": "Actual ordinary flash and death onset/fragment GPU pixels; pause stable, owned layer zero at expiry/epoch cancellation."
     },
     {
       "id": "consumers",
-      "path": "docs/evidence/enemy_feedback_01/v4/consumers.json",
-      "sha256": "caffc6529651bf0c98a1636fb6560740ae221d7729ec0927b78147173be312ec",
+      "path": "docs/evidence/enemy_feedback_01/v5/consumers.json",
+      "sha256": "6ca5d2bf7b94b69ceac460c99bb7f4ebd0b56c298559c6ac82db88bef1998af7",
       "kind": "runtime_trace",
       "producer": "/root",
-      "source_commit": "0d5b72cc3a01f37d78c8e9d300d36fbba39a458e",
-      "content_version": "feedback-sample-v4",
-      "method": "Current v4 bounded spec/art advice or inventory reconstructed from actual fresh independent native/formal traces; static visual gaps retained.",
-      "observed": "Five real consumers re-observed; formal strict failure and forest/action-studio gaps explicit."
+      "source_commit": "3c5338552b2f7ac275203c4bbf1003e29520a312",
+      "content_version": "feedback-sample-v5",
+      "method": "Actual final3c v5 artifact; exact scope, producer, original failures and execution boundaries in README/review.",
+      "observed": "Five real consumers re-observed under v5 policy; forest/ActionStudio visual gaps retained."
     },
     {
       "id": "review",
-      "path": "docs/evidence/enemy_feedback_01/v4/review.md",
-      "sha256": "319ab3a9ac30ef626ccf31fe1d6d89509680fe2ca490f87c1b7daf3d5594438e",
+      "path": "docs/evidence/enemy_feedback_01/v5/review.md",
+      "sha256": "5ba84b800eeed67a1bb3e48520a045f84e645fe1d85d4a6bcd3eacdcbb61867e",
       "kind": "review",
       "producer": "/root/feedback_review",
-      "source_commit": "0d5b72cc3a01f37d78c8e9d300d36fbba39a458e",
-      "content_version": "feedback-sample-v4",
-      "method": "Actual v4 artifact; see v4 README and independent review for exact producer, executed source, limits and failures.",
-      "observed": "Independent scoped readability improvement; overall REJECT due strict moving-support recovery and unfinished art/feel.",
+      "source_commit": "3c5338552b2f7ac275203c4bbf1003e29520a312",
+      "content_version": "feedback-sample-v5",
+      "method": "Actual final3c v5 artifact; exact scope, producer, original failures and execution boundaries in README/review.",
+      "observed": "Latest3c exercised technical scope ACCEPT, burst candidate has real improvement; original167 visual REJECT preserved; complete art/feel/Integration not signed.",
       "reviewer": "/root/feedback_review",
       "implementers": [
         "/root",
         "/root/feedback_tests",
         "/root/capture_driver"
       ],
-      "verdict": "REJECT",
+      "verdict": "ACCEPT",
       "independent": true,
       "independence_basis": "Separate reviewer authored no production/test code, independently reran all four checks and inspected actual GPU/movie pixels."
     },
     {
       "id": "video",
-      "path": "docs/evidence/enemy_feedback_01/v4/movies/after.mp4",
-      "sha256": "45127eb612eb4ce90dafbb719d2fe1de83630cb1691b59c3703b3e30f1ffd32e",
+      "path": "docs/evidence/enemy_feedback_01/v5/movies/after.mp4",
+      "sha256": "156e2e4884cd6e9a7cb0ada10a477695c495ad912357f290f1356308b6e0a99f",
       "kind": "video",
       "producer": "/root",
-      "source_commit": "0d5b72cc3a01f37d78c8e9d300d36fbba39a458e",
-      "content_version": "feedback-sample-v4",
-      "method": "Actual v4 artifact; see v4 README and independent review for exact producer, executed source, limits and failures.",
-      "observed": "Real8f0 26s MovieMaker frames; factual version footer replacement only, original raw film retained. Not a new0d5 simulation."
+      "source_commit": "3c5338552b2f7ac275203c4bbf1003e29520a312",
+      "content_version": "feedback-sample-v5",
+      "method": "Actual final3c v5 artifact; exact scope, producer, original failures and execution boundaries in README/review.",
+      "observed": "14sec at normal speed: two continuous7sec excerpts from actual3c 26sec MovieMaker, source/audio unchanged except factual footer."
     },
     {
       "id": "comparison",
-      "path": "docs/evidence/enemy_feedback_01/v4/movies/comparison.mp4",
-      "sha256": "433822ce34a4cb515a3b97e1e4b524e92b59d46ec381f798b28f66a4546c73f8",
+      "path": "docs/evidence/enemy_feedback_01/v5/movies/comparison.mp4",
+      "sha256": "7ee328282997c9852f1a45aadbb256b94e52632168053e4ccda1ba1514a477f0",
       "kind": "video",
       "producer": "/root",
-      "source_commit": "0d5b72cc3a01f37d78c8e9d300d36fbba39a458e",
-      "content_version": "feedback-sample-v4",
-      "method": "Actual v4 artifact; see v4 README and independent review for exact producer, executed source, limits and failures.",
-      "observed": "Actual continuous source segments of v2 and v3 movies; explicit fixture, recipe retained."
+      "source_commit": "3c5338552b2f7ac275203c4bbf1003e29520a312",
+      "content_version": "feedback-sample-v5",
+      "method": "Actual final3c v5 artifact; exact scope, producer, original failures and execution boundaries in README/review.",
+      "observed": "20sec v4/v5: same source-time5sec excerpts per species, actual gameplay projections equal; no interpolated animation."
     },
     {
       "id": "capture",
-      "path": "docs/evidence/enemy_feedback_01/v4/movies/after-report.json",
-      "sha256": "da747e8f4d35c3aa880e864e41602d0bad78d71d9b4db826b6e840d7e190856d",
+      "path": "docs/evidence/enemy_feedback_01/v5/movies/after-report.json",
+      "sha256": "e58fa66f1e11c6a500e61396190ea888cf3a463f042adbdb0071211c848c73bc",
       "kind": "runtime_trace",
       "producer": "/root",
-      "source_commit": "0d5b72cc3a01f37d78c8e9d300d36fbba39a458e",
-      "content_version": "feedback-sample-v4",
-      "method": "Actual v4 artifact; see v4 README and independent review for exact producer, executed source, limits and failures.",
-      "observed": "Clean8f0 production movie and bd8 baseline: source stable;1560 gameplay projections and causal inputs/events match. Metadata source differs from0d5 only tests; production subtrees equal."
+      "source_commit": "3c5338552b2f7ac275203c4bbf1003e29520a312",
+      "content_version": "feedback-sample-v5",
+      "method": "Actual final3c v5 artifact; exact scope, producer, original failures and execution boundaries in README/review.",
+      "observed": "Clean3c source stable,6HP commits/2 deaths, accepted visual seen and210 invisible tail frames each;1560 gameplay projections and causal inputs/events equal v4."
     },
     {
       "id": "affected",
-      "path": "docs/evidence/enemy_feedback_01/v4/affected/report.json",
-      "sha256": "4fd9404cd9f249955acadbd30ba00acbc105925be0d322c44b51b05a11525c77",
+      "path": "docs/evidence/enemy_feedback_01/v5/affected/report.json",
+      "sha256": "fc0faa36472b6f07067dc083761ead8c1e5f32414626f4e2d46b61d40b73152f",
       "kind": "command",
-      "producer": "/root",
-      "source_commit": "0d5b72cc3a01f37d78c8e9d300d36fbba39a458e",
-      "content_version": "feedback-sample-v4",
-      "method": "Actual v4 artifact; see v4 README and independent review for exact producer, executed source, limits and failures.",
-      "observed": "Original fresh targeted Harness results; not full Integration and does not override new strict formal failure.",
+      "producer": "/root/feedback_review",
+      "source_commit": "3c5338552b2f7ac275203c4bbf1003e29520a312",
+      "content_version": "feedback-sample-v5",
+      "method": "Actual final3c v5 artifact; exact scope, producer, original failures and execution boundaries in README/review.",
+      "observed": "Fresh original four targeted Harness checks pass on3c; not full Integration.",
       "command": "python3 tools/harness.py --check underworld-damage-feedback --check underworld-formal --check actor-actions --check forest-bible-integration-tests --release --jobs 1",
       "exit_code": 0,
-      "environment": "Isolated cleanbd8 worktree, original Harness, lockedGodot4.7.2"
+      "environment": "Isolated clean3c53385 worktree, original Harness, lockedGodot4.7.2"
     },
     {
       "id": "user_feedback",
-      "path": "docs/evidence/enemy_feedback_01/v4/user-feedback.json",
-      "sha256": "232db34a6ca84d191740038a0827cf6353efb031ea3f6385fcc43c71546e6532",
+      "path": "docs/evidence/enemy_feedback_01/v5/user-feedback.json",
+      "sha256": "51fcbd81d2c0ca4e0bf3d02d71cc31f2cc6747daf84777bb72cab457dee52a24",
       "kind": "user_feedback",
       "producer": "user",
-      "source_commit": "0d5b72cc3a01f37d78c8e9d300d36fbba39a458e",
-      "content_version": "feedback-sample-v4",
-      "method": "Actual v4 artifact; see v4 README and independent review for exact producer, executed source, limits and failures.",
-      "observed": "Latest four-point rejection/rework and subsequently supplied reference video; no acceptance of v4.",
+      "source_commit": "3c5338552b2f7ac275203c4bbf1003e29520a312",
+      "content_version": "feedback-sample-v5",
+      "method": "Actual final3c v5 artifact; exact scope, producer, original failures and execution boundaries in README/review.",
+      "observed": "User rejects rotated old body and requests explosion/disappearance option; not approval of v5 output.",
       "source": "Current user conversation",
-      "quote": "1，怪物受击的特效可以再大一点\n2，现在怪物和尸体的辨识度不够\n3，参考空洞骑士的实现方式。怎么得到攻击打中的快感手感\n4，现在怪物色调太暗沉，没有辨识度",
+      "quote": "死亡只是反过来，没有重新绘制。或者增加爆炸效果消失吧。",
       "accepted": false,
       "covers": [
         "audio_vfx",
@@ -638,6 +654,20 @@
       "content_version": "feedback-sample-v4",
       "method": "Same public driver at equivalent real-hit fixture contacts/actual ages; original reports and PNGs; global physics ticks during paused waits not claimed equal.",
       "observed": "v3/v4 author80/0 each; at0.1s radius6.305->13.673 and6.811->14.283wu, alpha unchanged; not total hit intensity/HK quality approval."
+    },
+    {
+      "id": "legacy_pixels",
+      "path": "docs/evidence/enemy_feedback_01/v5/independent/old-atlas.log",
+      "sha256": "b1a605d1d67c723112112a318c4286816836a3c59cc092e508a2dc9776aac886",
+      "kind": "command",
+      "producer": "/root/feedback_review",
+      "source_commit": "3c5338552b2f7ac275203c4bbf1003e29520a312",
+      "content_version": "feedback-sample-v5",
+      "method": "Independent ignored-build observation driver actual Router3-projectile deaths for both original Atlas consumers, no direct feedback calls.",
+      "observed": "32/0, actual old atlas early/fragment pixels, ended0; actual sampled originals inspected, no whole-atlas bleed or large white block.",
+      "command": "bash tools/godot.sh --path . --rendering-method gl_compatibility --audio-driver Dummy --fixed-fps 60 --script res://build/enemy-feedback-01/v5-refine-review/old-atlas-pixels.gd",
+      "exit_code": 0,
+      "environment": "Linux x86_64 Godot4.7.2 Standard, Xvfb1280x720 Mesa llvmpipe; not device performance"
     }
   ],
   "consumer_coverage": {
@@ -682,8 +712,8 @@
       },
       {
         "consumer": "default_plains_app",
-        "status": "failed",
-        "reason": "Strict formal persistent corpse recovery on bell_ferry fails62/1.",
+        "status": "passed",
+        "reason": "New user-requested spent/drop/reload contract actual62/0; persistent corpse recovery requirement superseded.",
         "output": "behavior",
         "evidence": [
           "formal_trace",
@@ -707,29 +737,17 @@
     ]
   },
   "unverified_items": [
-    "Mandatory moving-support corpse reload fails: controller must allocate stable support id/local rest pose/version/resolver after restoration; no Actor/Stage/save-schema writes here",
-    "No full affected Integration or merge readiness; central task index remains planned vs review",
-    "V4 local palette/poses and larger fine-particle envelope await user judgment; approved flash retained",
-    "Underlying static art and actual full motion/death frame atlases remain unfinished",
-    "Forest retained charger/ActionStudio exact feedback visual consumers not fully verified; remote alternate ce84d01 still requires controller reconciliation",
-    "Sound redesign deferred; no physical-device measurement",
-    "Sloped/narrow/one-way/rotating support visual-contact quality outside inspected flat sample remains unverified",
-    "Preexisting cyan projectile contact still dominates the composite; coordinated camera/hitstop/contact ownership needed from controller before broader feel changes",
-    "User-supplied video identified as Challacade short; distinguish searchable description from actual full viewing; no internal Hollow Knight timing copied",
-    "Nonblocking measured charger lifeless terminal value .99238 vs restored1; no claim of byte-identical corpse material paths"
+    "Complete affected146-check Integration and exact forest/ActionStudio visual consumers remain unverified; draft only, no main merge",
+    "Original body art/full locomotion frame atlases remain unfinished; v5 death is procedural burst rather than newly drawn death art",
+    "Current v5 burst candidate/user feel/Hollow Knight fidelity and formal art-golden scene not accepted",
+    "Physical device performance/real GUI experience not measured; software MovieMaker is not device FPS",
+    "Audio remains deferred to character/equipped weapon; shared camera/time interfaces untouched",
+    "Same-instance inherited parent resurrection visibility remains outside this readonly-parent slice; actual official stage reload is separately covered"
   ],
   "skills": [
     "animation-vfx",
     "game-quality-gate",
     "art-director"
   ],
-  "production_snapshot": "e66ee682131621919a610bf2dbcb71510e698891a22120a9f2a26f583eaa1eed",
-  "production_contract_validation": {
-    "method": "production_loop.check_task_quality actual content contract; build/enemy-feedback-01/v4/production-contract-final.json",
-    "errors": [],
-    "verdict": "REJECT",
-    "scope_complete": false,
-    "content_complete": false,
-    "completion": "content"
-  }
+  "production_snapshot": "5060d8eed3de0d0069809267c24d12dfcf0352bd02e2d41fefef86515a77ef82"
 }

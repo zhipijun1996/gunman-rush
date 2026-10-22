@@ -10,6 +10,7 @@ var trace_path := ""
 var variant := "after"
 var seed_label := "enemy-feedback-01-remains"
 var expect_remains := false
+var expect_disappear := false
 var world: Node2D
 var fixture: Node2D
 var controller: PlayerController
@@ -30,6 +31,7 @@ func _initialize() -> void:
 		if argument.begins_with("--variant="): variant = argument.trim_prefix("--variant=")
 		if argument.begins_with("--seed="): seed_label = argument.trim_prefix("--seed=")
 		if argument == "--expect-remains": expect_remains = true
+		if argument == "--expect-disappear": expect_disappear = true
 	start.call_deferred()
 
 func label_at(text_value: String, point: Vector2, size: int) -> Label:
@@ -55,7 +57,7 @@ func start() -> void:
 	overlay.add_child(heading)
 	detail = label_at("", Vector2(54, 96), 20)
 	overlay.add_child(detail)
-	overlay.add_child(label_at("ENEMY-FEEDBACK-01 v3 | " + variant.to_upper() + " | real projectile HP -> death -> long hold", Vector2(54, 636), 20))
+	overlay.add_child(label_at("ENEMY-FEEDBACK-01 | " + variant.to_upper() + " | real projectile HP -> accepted death", Vector2(54, 636), 20))
 	overlay.add_child(label_at("Explicit fixture. Original AI / definitions / physics / HP / weapon. Normal-speed Godot movie; not a campaign route.", Vector2(54, 670), 16))
 	await make_case(0)
 	process_frame.connect(drive)
@@ -162,7 +164,7 @@ func drive() -> void:
 		cases[index].inputs.append({"frame": frame, "local_frame": local_frame, "type": "shoot_release", "direction": [direction.x, direction.y], "router_submitted": submitted})
 	var remains := remains_receipts()
 	var death_frame := int(cases[index].events.back().frame) if actor.health.terminal and not cases[index].events.is_empty() else -1
-	detail.text = "HP %s / %s   |   %s" % [actor.health.current, actor.health.capacity, "PAUSED: accepted pose held" if paused else "death + %.1fs: observing landing and long hold" % (float(frame-death_frame)/60) if death_frame >= 0 else "original movement; real nonlethal / lethal shots"]
+	detail.text = "HP %s / %s   |   %s" % [actor.health.current, actor.health.capacity, "PAUSED: accepted pose held" if paused else "death + %.1fs: observing terminal feedback" % (float(frame-death_frame)/60) if death_frame >= 0 else "original movement; real nonlethal / lethal shots"]
 	var presentation := enemy.get_node("Presentation") as Node2D
 	rows.append({"frame": frame, "case": index, "local_frame": local_frame, "paused": paused,
 		"player_position": [controller.motor.position.x, controller.motor.position.y], "player_velocity": [controller.motor.velocity.x, controller.motor.velocity.y],
@@ -196,6 +198,19 @@ func end_case(index: int) -> void:
 	cases[index].stable_visible_tail_frames = 210 if stable_visible else 0
 	cases[index].tail_observation = "3.5s stable visible world transform, component settled when exposed" if stable_visible else "No stable visible remains tail: baseline may intentionally have none"
 	if expect_remains and not stable_visible: failures.append("case %s lacks >3s visible, settled, stationary remains" % index)
+	var gone := tail.size() == 210
+	for row: Dictionary in tail:
+		for body: Dictionary in row.remains:
+			if body.visible_in_tree and float(body.effective_alpha) > .05: gone = false
+	var death_frame := int(cases[index].events.back().frame) if not cases[index].events.is_empty() else -1
+	var onset := rows.filter(func(row: Dictionary) -> bool: return int(row.case) == index and int(row.frame) >= death_frame and int(row.frame) < death_frame + 20)
+	var burst_seen := false
+	for row: Dictionary in onset:
+		for body: Dictionary in row.remains:
+			if body.visible_in_tree and float(body.effective_alpha) > .05: burst_seen = true
+	cases[index].invisible_tail_frames = 210 if gone else 0
+	cases[index].accepted_death_visual_seen = burst_seen
+	if expect_disappear and (not gone or not burst_seen): failures.append("case %s needs a real accepted death visual followed by an invisible tail" % index)
 	cases[index].terminal = actor.health.terminal
 	cases[index].final_health = actor.health.current
 	controller.shoot_ability.clear_projectiles()
@@ -220,7 +235,7 @@ func finish() -> void:
 		return
 	file.store_string(JSON.stringify({"task": "ENEMY-FEEDBACK-01", "version": "v3-remains-review", "variant": variant, "seed": seed_label,
 		"scope": "two explicit Underworld spawn fixtures; actual Router/Shoot/projectile/policy/HP; long settled-remains observation; no campaign/device claim",
-		"expect_remains": expect_remains, "frames": rows, "cases": cases, "audio_counts": audio_counts, "failures": failures, "audio_released": released}))
+		"expect_remains": expect_remains, "expect_disappear": expect_disappear, "frames": rows, "cases": cases, "audio_counts": audio_counts, "failures": failures, "audio_released": released}))
 	file.close()
 	world.free()
 	await process_frame

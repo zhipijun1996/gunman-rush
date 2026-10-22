@@ -1,14 +1,13 @@
 class_name EnemyFeedback01Remains
 extends Node2D
-## Cosmetic body handoff. No Actor/Motor writes, collision objects or rewards.
-## Tree-owned by the stage, lifetime-owned by its one presentation/health epoch.
-const FLOOR_REACH := 2048.0
-const GRAVITY := 720.0
-const TURN_SECONDS := .38
-const SETTLE_SECONDS := .20
-static var _outline_cache: Dictionary = {}
+## The task's one death leaf, reused for v5 burst-and-disappear.
+## Stage-owned, host/health-epoch lifetime; never writes gameplay or parent clocks.
+const FLASH_HOLD := .045
+const DURATION := .55
+const CREAM := Color("fff2b3")
+const BRASS := Color("d7a85a")
 var active := false
-var settled := false
+var settled := false # Completed visual receipt, not a physical resting body.
 var restored := false
 var age := 0.0
 var accepted_starts := 0
@@ -19,32 +18,17 @@ var flash_material := ShaderMaterial.new()
 var _sample: EnemyFeedback01
 var _receiver: Damageable
 var _health: HealthState
-var _motor: Node2D
 var _host: Node2D
 var _view: Callable
 var _aerial := false
 var _epoch := -1
 var _last_serial := -1
 var _begun := false
-var _velocity_y := 0.0
-var _settle_age := 0.0
-var _start_angle := 0.0
-var _rest_angle := 0.0
-var _face := 1.0
-var _start_y := 0.0
-var _start_x := 0.0
-var _anchor_x := 0.0
-var _outline_uv := PackedVector2Array()
-var _start_size := Vector2.ZERO
-var _rest_size := Vector2.ZERO
-var _rest_foot := 0.0
-var _start_layers: Array[Dictionary] = []
-var _restore_pending := false
-var _support: WeakRef
-var _support_center := Vector2.ZERO
-var _floor_center := Vector2.ZERO
-var _has_floor := false
 var _disposed := false
+var _layers: Array[Dictionary] = []
+var _pieces: Array[Dictionary] = []
+var _fragment_texture: Texture2D
+var _uv_origin := Vector2.ZERO
 
 func _init() -> void:
 	flash_material.shader = preload("res://scripts/enemies/enemy_feedback_01_flash.gdshader")
@@ -53,11 +37,10 @@ func _init() -> void:
 	visible = false
 	process_mode = Node.PROCESS_MODE_PAUSABLE
 
-func bind(state: EnemyFeedback01, receiver: Damageable, health: HealthState, motor: Node2D, host: Node2D, aerial: bool, view: Callable) -> void:
+func bind(state: EnemyFeedback01, receiver: Damageable, health: HealthState, _motor: Node2D, host: Node2D, aerial: bool, view: Callable) -> void:
 	_sample = state
 	_receiver = receiver
 	_health = health
-	_motor = motor
 	_host = host
 	_aerial = aerial
 	_view = view
@@ -65,107 +48,52 @@ func bind(state: EnemyFeedback01, receiver: Damageable, health: HealthState, mot
 	_receiver.damaged.connect(_committed)
 	_health.changed.connect(_initialized)
 	_host.tree_exiting.connect(dispose)
-	if health.terminal:
-		_restore_static()
-		_restore_pending = true
+	if health.terminal: _restore_spent()
 
 func _capture() -> void:
 	var data: Dictionary = _view.call()
-	source = data.get("rest_texture", data.texture)
-	var rect: Rect2 = data.bounds
-	var pose: Transform2D = data.transform
-	var size := rect.size * Vector2(pose.x.length(), pose.y.length())
-	_start_size = size
-	_rest_size = data.get("rest_size", size)
-	global_position = pose * rect.get_center()
-	_face = float(data.face)
-	_start_angle = float(data.angle)
-	_rest_angle = float(data.get("rest_angle", .96 if _aerial else .22)) * _face
+	# Capture the current body, never the old canonical corpse/death frame.
+	source = data.texture
+	_fragment_texture = source
+	_uv_origin = Vector2.ZERO
+	if source is AtlasTexture:
+		var atlas := source as AtlasTexture
+		_fragment_texture = atlas.atlas
+		_uv_origin = atlas.region.position
+	bounds = data.bounds
+	global_transform = data.transform
 	flash_material.set_shader_parameter("readable_material", 1.0 if data.get("readable_material", false) else 0.0)
 	flash_material.set_shader_parameter("copper_wings", 1.0 if _aerial else 0.0)
 	flash_material.set_shader_parameter("lifeless", 0.0)
-	rotation = _start_angle
-	scale = Vector2.ONE
-	_start_layers.clear()
+	_layers.clear()
 	for layer: Dictionary in data.get("layers", []):
-		_start_layers.append({"texture": layer.texture, "bounds": layer.bounds, "pose": global_transform.affine_inverse() * (layer.transform as Transform2D), "alpha": layer.alpha})
-	_start_y = global_position.y
-	_start_x = global_position.x
-	_anchor_x = _motor.global_position.x
+		_layers.append({"texture": layer.texture, "bounds": layer.bounds, "pose": global_transform.affine_inverse() * (layer.transform as Transform2D), "alpha": layer.alpha})
+	_pieces.clear()
 	var image := source.get_image()
-	_outline_uv = _solid_outline(source, image)
-	_set_size(_rest_size)
-	_rest_foot = _foot(_rest_angle)
-	_find_support()
-	_set_size(_start_size)
-
-func _set_size(size: Vector2) -> void:
-	bounds = Rect2(-size * .5, size)
-
-static func _solid_outline(texture: Texture2D, image: Image) -> PackedVector2Array:
-	var key := texture.resource_path
-	if texture is AtlasTexture:
-		var atlas := texture as AtlasTexture
-		key = atlas.atlas.resource_path + ":" + str(atlas.region)
-	if key.is_empty(): key = str(texture.get_rid())
-	if _outline_cache.has(key): return _outline_cache[key]
-	var points := PackedVector2Array()
-	# Row extrema preserve the actual alpha silhouette, including rotated wings.
-	# Cache a small convex contour, not thousands of pixels per process frame.
-	for y: int in image.get_height():
-		var left := -1
-		var right := -1
-		for x: int in image.get_width():
-			if image.get_pixel(x, y).a >= .5:
-				left = x
-				break
-		if left < 0: continue
-		for x: int in range(image.get_width()-1, left-1, -1):
-			if image.get_pixel(x, y).a >= .5:
-				right = x
-				break
-		for point: Vector2 in [Vector2(left, y), Vector2(right+1, y), Vector2(left, y+1), Vector2(right+1, y+1)]:
-			points.append(point / texture.get_size() - Vector2(.5, .5))
-	var outline := Geometry2D.convex_hull(points)
-	_outline_cache[key] = outline
-	return outline
-
-func _find_support() -> void:
-	# A corpse ends beneath the saved Actor x, never at an unsaved random toss x.
-	# Probe only downward from the actual body centre, so an overhead platform
-	# cannot become its floor. No body is moved and no collision layer is changed.
-	var anchor_x := _anchor_x
-	var half := 1.0
-	for uv: Vector2 in _outline_uv:
-		var corner := uv * bounds.size
-		half = maxf(half, absf(Vector2(corner.x*_face, corner.y).rotated(_rest_angle).x))
-	var best: Dictionary = {}
-	var center_supported := false
-	for dx: float in [0.0, -half, half]:
-		var from := Vector2(anchor_x + dx, global_position.y)
-		var query := PhysicsRayQueryParameters2D.create(from, from + Vector2(0, FLOOR_REACH), 1)
-		query.collide_with_areas = false
-		if _motor is CollisionObject2D: query.exclude = [(_motor as CollisionObject2D).get_rid()]
-		var hit := get_world_2d().direct_space_state.intersect_ray(query)
-		if hit.is_empty() or (hit.normal as Vector2).dot(Vector2.UP) < .65: continue
-		if dx == 0: center_supported = true
-		if best.is_empty() or (hit.position as Vector2).y < (best.position as Vector2).y: best = hit
-	# A ledge beside an unsupported centre is not an invented floor in midair.
-	_has_floor = center_supported and not best.is_empty()
-	_support = null
-	if not _has_floor: return
-	_floor_center = Vector2(anchor_x, (best.position as Vector2).y - _rest_foot)
-	if best.collider is Node2D:
-		var support := best.collider as Node2D
-		_support = weakref(support)
-		_support_center = support.to_local(_floor_center)
-
-func _foot(angle: float) -> float:
-	var bottom := -INF
-	for uv: Vector2 in _outline_uv:
-		var corner := uv * bounds.size
-		bottom = maxf(bottom, Vector2(corner.x * _face * scale.x, corner.y * scale.y).rotated(angle).y)
-	return bottom
+	var size := source.get_size()
+	var cell := Vector2(maxf(2, ceilf(size.x / 10)), maxf(2, ceilf(size.y / 8)))
+	var index := 0
+	for y: int in ceili(size.y / cell.y):
+		for x: int in ceili(size.x / cell.x):
+			var region := Rect2(Vector2(x, y) * cell, cell).intersection(Rect2(Vector2.ZERO, size))
+			var opaque := false
+			for iy: int in range(int(region.position.y), int(region.end.y)):
+				for ix: int in range(int(region.position.x), int(region.end.x)):
+					if image.get_pixel(ix, iy).a > .5:
+						opaque = true
+						break
+				if opaque: break
+			if not opaque: continue
+			var piece := Rect2(bounds.position + region.position / size * bounds.size, region.size / size * bounds.size)
+			var axis := (piece.get_center() - bounds.get_center()).normalized()
+			if axis.is_zero_approx(): axis = Vector2.UP
+			axis = axis.rotated((float((index * 7) % 11) / 10 - .5) * .6)
+			var speed := 62.0 + float((index * 13) % 49)
+			if _aerial: speed *= 1.12
+			var cut := .08 * float(index % 3)
+			var shape := PackedVector2Array([Vector2(-.5, -.22), Vector2(-.15+cut, -.5), Vector2(.5, -.12+cut), Vector2(.28-cut, .5), Vector2(-.34, .30)])
+			_pieces.append({"region": region, "bounds": piece, "shape": shape, "velocity": axis * speed + Vector2(0, -16), "life": .20 + float((index * 5) % 7) * .024, "spin": (float(index % 5) - 2) * 2.4})
+			index += 1
 
 func _committed(context: Dictionary) -> void:
 	if _disposed or _begun or not _health.terminal or not _sample.death_active: return
@@ -178,9 +106,7 @@ func _committed(context: Dictionary) -> void:
 	restored = false
 	settled = false
 	age = 0
-	_settle_age = 0
-	_velocity_y = -18.0 if _aerial else -32.0
-	phase = &"falling"
+	phase = &"flash"
 	accepted_starts += 1
 	flash_material.set_shader_parameter("hit_flash", _sample.flash_strength())
 	queue_redraw()
@@ -195,116 +121,89 @@ func _initialized(result: ActorResourceResult) -> void:
 	restored = false
 	age = 0
 	phase = &"inactive"
-	_support = null
+	_layers.clear()
+	_pieces.clear()
 	flash_material.set_shader_parameter("hit_flash", 0.0)
-	if _health.terminal:
-		_restore_static()
-		_restore_pending = true
+	if _health.terminal: _restore_spent()
 	queue_redraw()
 
-func _restore_static() -> void:
-	_capture()
-	_set_size(_rest_size)
+func _restore_spent() -> void:
+	# The latest user request replaces persistent bodies with disappearance.
+	# Reconstruct only the spent receipt: never recapture, burst, flash or drop.
 	_begun = true
-	active = true
 	restored = true
 	settled = true
+	active = false
+	visible = false
 	age = 0
-	phase = &"resting"
-	rotation = _rest_angle
-	global_position = _floor_center if _has_floor else global_position
-	# A void has no invented floating corpse. No new fall/flash/debris on restore.
-	visible = _has_floor
+	phase = &"spent"
 	flash_material.set_shader_parameter("hit_flash", 0.0)
-	flash_material.set_shader_parameter("lifeless", 1.0)
-	queue_redraw()
 
-func _physics_process(delta: float) -> void:
+func _process(delta: float) -> void:
 	if _disposed or not active or get_tree().paused: return
 	if _epoch != _health.epoch: return
-	if restored and _restore_pending:
-		# Existing stages assign saved position/direction after Health.initialize.
-		# Reconcile once after assembly, directly to static rest, without replay.
-		_restore_pending = false
-		_restore_static()
-		return
-	if _support != null:
-		var support: Node2D = _support.get_ref() as Node2D
-		if is_instance_valid(support):
-			_floor_center = support.to_global(_support_center)
-		elif _has_floor:
-			_support = null
-			_has_floor = false
-			settled = false
-			_velocity_y = 0
-			_anchor_x = global_position.x
-			_start_x = global_position.x
-			_start_y = global_position.y
-			phase = &"falling"
-	if settled:
-		if _has_floor: global_position = _floor_center
-		return
-	age += delta
-	if phase == &"falling":
-		# Attach only after contact. An airborne body must not home sideways
-		# toward a ferry that has already moved out from underneath it.
-		_set_size(_rest_size)
-		_find_support()
-	var turn := smoothstep(0, TURN_SECONDS, age)
-	rotation = lerp_angle(_start_angle, _rest_angle, turn)
-	_set_size(_start_size.lerp(_rest_size, turn))
-	if _has_floor: global_position.x = lerpf(_start_x, _floor_center.x, turn)
-	if phase == &"falling":
-		_velocity_y += GRAVITY * delta
-		global_position.y += _velocity_y * delta
-		if _has_floor:
-			var surface_y := _floor_center.y + _rest_foot
-			var contact_y := surface_y - _foot(rotation)
-			if _velocity_y >= 0 and global_position.y >= contact_y:
-				global_position.y = contact_y
-				phase = &"settling"
-				_settle_age = 0
-				_velocity_y = 0
-		elif global_position.y > _start_y + FLOOR_REACH:
-			visible = false
-			active = false
-			phase = &"void"
-	elif phase == &"settling":
-		_settle_age += delta
-		# One small compression at contact, with a zero-slope stop. No flattening,
-		# looping bob, repeated bounce, dissolve or death-particle fireworks.
-		var press := sin(PI * clampf(_settle_age / SETTLE_SECONDS, 0, 1))
-		scale = Vector2(1 + press * .02, 1 - press * .035)
-		global_position.y = _floor_center.y + _rest_foot - _foot(rotation)
-		if _settle_age >= SETTLE_SECONDS and age >= TURN_SECONDS:
-			rotation = _rest_angle
-			scale = Vector2.ONE
-			global_position = _floor_center
-			settled = true
-			phase = &"resting"
-	queue_redraw()
-
-func _process(_delta: float) -> void:
-	if _sample == null or not active or get_tree().paused: return
-	if settled: return
-	flash_material.set_shader_parameter("hit_flash", 0.0 if restored else _sample.flash_strength())
-	flash_material.set_shader_parameter("lifeless", smoothstep(.12, .38, age))
+	age = minf(DURATION, age + delta)
+	if age >= DURATION:
+		active = false
+		visible = false
+		settled = true
+		phase = &"spent"
+		_pieces.clear()
+		_layers.clear()
+		flash_material.set_shader_parameter("hit_flash", 0.0)
+	else:
+		phase = &"flash" if age < FLASH_HOLD else &"burst" if age < .25 else &"tail"
+		# Ordinary hit flash stays unchanged. Only this lethal handoff returns
+		# quickly to its own material, avoiding a white checkerboard of fragments.
+		var death_flash := clampf((.08 - age) / (.08-FLASH_HOLD), 0, 1)
+		flash_material.set_shader_parameter("hit_flash", _sample.flash_strength() * death_flash)
 	queue_redraw()
 
 func _draw() -> void:
 	if not active or source == null: return
-	# The shader quiets material saturation; never hide a corpse in dark alpha.
-	# Source pixels remain unchanged. Rotation is not a new authored death frame.
-	var tint := Color.WHITE
-	var blend := smoothstep(0, .18, age) if not restored else 1.0
-	if not _start_layers.is_empty() and blend < 1:
-		# Retain all original blended frames and the exact shear/basis on handoff.
-		for layer: Dictionary in _start_layers:
-			draw_set_transform_matrix(layer.pose)
-			draw_texture_rect(layer.texture, layer.bounds, false, Color(tint, float(layer.alpha) * (1-blend)))
-	if _start_layers.is_empty(): blend = 1
-	draw_set_transform(Vector2.ZERO, 0, Vector2(_face, 1))
-	draw_texture_rect(source, bounds, false, Color(tint, blend))
+	if age < FLASH_HOLD:
+		if _layers.is_empty(): draw_texture_rect(source, bounds, false)
+		else:
+			for layer: Dictionary in _layers:
+				draw_set_transform_matrix(layer.pose)
+				draw_texture_rect(layer.texture, layer.bounds, false, Color(1, 1, 1, float(layer.alpha)))
+			draw_set_transform_matrix(Transform2D.IDENTITY)
+		return
+	var t := age - FLASH_HOLD
+	# Texture-bearing chips preserve each skin, with a single outward impulse.
+	# No flipped whole sprite, floor probing, full-screen flash or fireball art.
+	for piece: Dictionary in _pieces:
+		var progress := t / float(piece.life)
+		if progress >= 1: continue
+		var rect: Rect2 = piece.bounds
+		var center := rect.get_center() + (piece.velocity as Vector2) * t * (1-.35*progress) + Vector2(0, 95*t*t)
+		draw_set_transform(center, float(piece.spin) * t)
+		var shrink := lerpf(.72, .20, progress * progress)
+		var points := PackedVector2Array()
+		var uvs := PackedVector2Array()
+		var region: Rect2 = piece.region
+		for corner: Vector2 in piece.shape:
+			points.append(corner * rect.size * shrink)
+			uvs.append((_uv_origin + region.position + (corner+Vector2(.5,.5))*region.size) / _fragment_texture.get_size())
+		draw_polygon(points, PackedColorArray([Color(1, 1, 1, pow(1-progress, .65))]), uvs, _fragment_texture)
+	draw_set_transform_matrix(Transform2D.IDENTITY)
+	var center := bounds.get_center()
+	var pressure := 1-clampf(t/.13, 0, 1)
+	if pressure > 0:
+		var radius := lerpf(4, 25 if _aerial else 22, 1-pressure)
+		for arc: int in 3:
+			var start := float(arc) * TAU/3 + .18
+			draw_arc(center, radius, start, start+.75, 7, Color(CREAM, pressure * .8), 1, false)
+	for i: int in 16:
+		var life := .26 + float(i%5)*.035
+		var progress := t/life
+		if progress >= 1: continue
+		var axis := Vector2.RIGHT.rotated(float(i)*2.399963 + .17)
+		var speed := 75 + float((i*11)%61)
+		var point := center + axis*speed*t*(1-.25*progress) + Vector2(0, 55*t*t)
+		var color := CREAM if progress < .25 and i%3 == 0 else BRASS
+		color.a = pow(1-progress, 1.4)
+		draw_line(point-axis*(3 if progress < .4 else 1), point, color, 1, false)
 
 func dispose() -> void:
 	if _disposed: return
@@ -315,11 +214,14 @@ func dispose() -> void:
 	_sample = null
 	_receiver = null
 	_health = null
-	_motor = null
 	_host = null
 	_view = Callable()
-	visible = false
+	_layers.clear()
+	_pieces.clear()
+	source = null
+	_fragment_texture = null
 	active = false
+	visible = false
 	queue_free()
 
 func _exit_tree() -> void:

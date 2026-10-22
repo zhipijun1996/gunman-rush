@@ -42,6 +42,7 @@ def main():
     parser.add_argument("--expect-remains", action="store_true",
                         help="Require a visible, settled, stationary final 3.5s per case; validation only.")
     parser.add_argument("--compare-trace", type=Path)
+    parser.add_argument("--expect-disappear", action="store_true", help="Require an accepted death visual, then a fully invisible final tail (v5 user direction).")
     args = parser.parse_args()
     folder = args.output.resolve()
     folder.mkdir(parents=True, exist_ok=False)
@@ -55,7 +56,7 @@ def main():
                              "player_spawn": [480, 482], "enemy_spawn": [[640, 484], [640, 430]], "floor_top": 500,
                              "shots_at_case_frames": [50, 110, 170, 230], "pause_at": [70, 85], "stable_visible_tail_frames": 210,
                              "renderer": "gl_compatibility/software GPU", "input": "real Router aim/release; no HP, movement or feedback injection"},
-              "expect_remains": args.expect_remains, "user_acceptance": "unverified", "device_acceptance": "unverified"}
+              "expect_remains": args.expect_remains, "expect_disappear": args.expect_disappear, "user_acceptance": "unverified", "device_acceptance": "unverified"}
     env = os.environ.copy()
     env["LIBGL_ALWAYS_SOFTWARE"] = "1"
     display = None
@@ -84,6 +85,8 @@ def main():
                    "--", "--variant=" + args.variant, "--seed=" + args.seed, "--trace=" + str(trace_path)]
         if args.expect_remains:
             command.append("--expect-remains")
+        if args.expect_disappear:
+            command.append("--expect-disappear")
         report["command"] = command
         result = harness.run_check({"argv": command, "timeout_seconds": 300,
                                     "success_pattern": r"^ENEMY REMAINS CAPTURE: 1560 frames; two cases; 6 projectile HP commits; 2 deaths$"},
@@ -103,6 +106,8 @@ def main():
             case["post_death_observation_frames"] = observation_frames
             if args.expect_remains and case["stable_visible_tail_frames"] != 210:
                 raise RuntimeError("No visible settled corpse held stationary for the final 3.5 seconds")
+            if args.expect_disappear and (case.get("invisible_tail_frames") != 210 or not case.get("accepted_death_visual_seen")):
+                raise RuntimeError("No accepted death visual followed by a fully invisible final 3.5 seconds")
         report["case_observations"] = [{key: case[key] for key in ("definition", "post_death_observation_frames", "stable_visible_tail_frames", "tail_observation")} for case in trace["cases"]]
         subprocess.run(["ffmpeg", "-y", "-i", str(avi), "-c:v", "libx264", "-crf", "20", "-pix_fmt", "yuv420p", "-c:a", "aac", str(movie)],
                        check=True, stdout=subprocess.DEVNULL, stderr=(folder / "encode.log").open("wb"), timeout=90)

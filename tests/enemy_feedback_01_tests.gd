@@ -251,30 +251,29 @@ func active_remains_in(stage_node: Node) -> int:
 			count += 1
 	return count
 
-func persistent_real_death_case(remains: Variant, lethal_position: Vector2) -> void:
-	check(remains.active and not remains.restored and int(remains.accepted_starts) == 1, "real accepted lethal projectile starts exactly one animated remains consumer")
-	check(remains.get_parent() == world and remains.get_parent() != art and remains.get_parent() != enemy, "remains belongs to stage independently from actor and parent presentation visibility")
-	check(active_remains_in(world) == 1, "one actual dead enemy produces one active stage remains")
+func bounded_real_death_case(remains: Variant, _lethal_position: Vector2) -> void:
+	# v5 explicitly replaces the rejected persistent-corpse contract. The real
+	# lethal event was observed active above; after normal recovery it is spent.
+	check(not remains.active and not remains.visible and remains.settled and remains.phase == &"spent" and int(remains.accepted_starts) == 1, "one real accepted explosion finishes inside the normal recovery window")
+	check(remains.get_parent() == world and remains.get_parent() != art, "short death effect remains independent from inherited presentation visibility")
+	check(active_remains_in(world) == 0, "spent explosion leaves no persistent corpse or active stage effect")
+	check(remains.find_children("*", "CollisionObject2D", true, false).is_empty(), "short death explosion creates no gameplay collision object")
 	var clock := ClockProbe.new()
 	world.add_child(clock)
-	await ticks(130, "persistent_real_corpse_over_two_seconds")
-	check(clock.elapsed > 2, "persistent corpse observed after more than two actual scaled process seconds")
-	check(remains.active and remains.visible and remains.is_visible_in_tree() and remains.settled, "accepted corpse settles and stays visible beyond parent death fade")
-	check(is_equal_approx(float(remains.global_position.x), lethal_position.x) and float(remains.global_position.y) <= 380.01, "remains retains actual lethal x and never settles below the real arena floor")
-	check(remains.find_children("*", "CollisionObject2D", true, false).is_empty(), "persistent corpse creates no gameplay collision object")
+	await ticks(75, "spent_explosion_stays_absent_over_one_second")
+	check(clock.elapsed > 1 and not remains.active and not remains.visible and remains.phase == &"spent", "accepted explosion stays absent after more than one real scaled process second")
 	if art is UnderworldEnemy:
 		check(float(art.get("_death")) >= .65 and not art.visible, "inherited parent death clock and .65 second visibility remain authoritative")
 	var frozen := remains_snapshot(remains)
 	paused = true
-	for _frame: int in 8:
-		await process_frame
-	check(remains_snapshot(remains) == frozen and remains.is_visible_in_tree(), "settled persistent corpse remains visible and freezes during pause")
+	for _frame: int in 8: await process_frame
+	check(remains_snapshot(remains) == frozen and not remains.visible, "spent death effect stays absent during pause")
 	paused = false
 	var starts := int(remains.accepted_starts)
 	if not accepted.is_empty():
-		check(not actor.damageable.receive_damage(accepted.back()), "persistent corpse rejects actual lethal context replay")
-	check(active_remains_in(world) == 1 and int(remains.accepted_starts) == starts, "terminal replay adds no second persistent corpse")
-	trace.append({"phase": "persistent_actual_corpse", "observed_seconds": clock.elapsed, "remains": remains_snapshot(remains), "physics_tick": Engine.get_physics_frames()})
+		check(not actor.damageable.receive_damage(accepted.back()), "spent explosion rejects actual lethal context replay")
+	check(active_remains_in(world) == 0 and int(remains.accepted_starts) == starts, "terminal replay cannot restart explosion or create persistent remains")
+	trace.append({"phase": "bounded_actual_death_explosion", "observed_seconds": clock.elapsed, "effect": remains_snapshot(remains), "physics_tick": Engine.get_physics_frames()})
 	clock.queue_free()
 
 func installer_dead_remains_case() -> void:
@@ -292,13 +291,13 @@ func installer_dead_remains_case() -> void:
 	var previous := body.get_node("Presentation") as EnemyPresentation
 	var old_host: WeakRef = weakref(previous)
 	var old_remains: WeakRef = weakref(previous.feedback_remains)
-	check(previous.feedback_remains.active and previous.feedback_remains.restored and active_remains_in(fixture) == 1, "original dead presentation creates one static saved remains")
+	check(not previous.feedback_remains.active and not previous.feedback_remains.visible and previous.feedback_remains.restored and active_remains_in(fixture) == 0, "original dead snapshot creates no replay or persistent corpse")
 	var installed: Dictionary = INSTALLER.install(fixture)
 	check(installed.enemies == 1, "actual installer replaces one dead original presentation")
 	await ticks(3, "installer_saved_dead_replacement")
 	var replacement := body.get_node("Presentation") as UnderworldEnemy
 	check(old_host.get_ref() == null and old_remains.get_ref() == null, "dead installer replacement releases old host and its stage sibling remains")
-	check(replacement.feedback_remains.active and replacement.feedback_remains.restored and replacement.feedback_remains.settled and replacement.feedback_remains.accepted_starts == 0 and active_remains_in(fixture) == 1, "replacement reconstructs exactly one static corpse without a second accepted death")
+	check(not replacement.feedback_remains.active and not replacement.feedback_remains.visible and replacement.feedback_remains.restored and replacement.feedback_remains.settled and replacement.feedback_remains.accepted_starts == 0 and active_remains_in(fixture) == 0, "dead installer replacement stays spent without explosion replay or corpse")
 	check(replacement.feedback_particles.emitted_bursts == 0 and replacement.feedback_sample.flash_strength() == 0, "installer dead reconstruction does not replay flash or particles")
 	var new_remains: WeakRef = weakref(replacement.feedback_remains)
 	fixture.queue_free()
@@ -323,12 +322,12 @@ func restored_corpse_case(underworld: bool) -> void:
 	if sample != null:
 		check(int(sample.accepted_hit_count) == 0 and int(sample.accepted_death_count) == 0 and not sample.death_active, "saved corpse does not start accepted hurt or death performance")
 		check(sample.impact_serial == 0 and sample.flash_strength() == 0 and particles.emitted_bursts == 0 and particles.active_bursts() == 0, "restored corpse creates neither accepted flash nor pixel burst")
-		check(remains.active and remains.restored and remains.settled and remains.accepted_starts == 0, "saved terminal snapshot directly reconstructs a static corpse without accepted death motion")
+		check(not remains.active and not remains.visible and remains.restored and remains.settled and remains.accepted_starts == 0, "saved terminal snapshot stays absent without replaying accepted explosion")
 	await ticks(3, "restored_corpse")
 	if sample != null:
 		check(not sample.death_active and float(sample.hurt_remaining) == 0, "restored corpse remains silent after normal frame progression")
 		check(particles.emitted_bursts == 0 and particles.active_bursts() == 0 and sample.flash_strength() == 0, "saved dead snapshot stays particle-free and flash-free after frame progression")
-		check(remains.visible and remains.is_visible_in_tree() and remains.get_parent() == world, "saved corpse is visible independently from restored actor body")
+		check(not remains.visible and not remains.active and remains.get_parent() == world, "saved dead snapshot leaves no visible corpse or active death effect")
 	check(restored_actor.restore_instance_health(restored_actor.health.capacity), "official health initialization accepts restored live snapshot")
 	await process_frame
 	check(not remains.active and not remains.visible and particles.active_bursts() == 0, "restoring actor alive clears its persistent corpse without an extra performance")
@@ -382,7 +381,7 @@ func one_case(path: String, underworld: bool) -> void:
 	await ticks(45, "death_recovery")
 	check(int(sample.accepted_death_count) == 1 and accepted.size() == before_count, "terminal actor never repeats death or accepted damage")
 	check(sample.flash_strength() == 0 and sample.impact_remaining == 0 and particles.active_bursts() == 0 and particles.emitted_bursts == 3, "lethal flash and all pixel bursts end without replay after terminal event rejection")
-	await persistent_real_death_case(remains, lethal_position)
+	await bounded_real_death_case(remains, lethal_position)
 	var drops := EnemyDropService.new()
 	check(drops.configure("enemy-feedback-01", "supported_arena"), "existing formal drop service uses unchanged production config")
 	var settled := drops.settle(&"feedback_01_enemy")
@@ -390,15 +389,15 @@ func one_case(path: String, underworld: bool) -> void:
 	await restored_corpse_case(underworld)
 	await installer_dead_remains_case()
 	var remains_final := remains_snapshot(remains)
-	var starts_before := int(remains.accepted_starts)
 	var stale_context: Dictionary = accepted.back().duplicate() if not accepted.is_empty() else {}
 	check(actor.restore_instance_health(actor.health.capacity), "actual dead actor can receive official restored-live snapshot")
 	await process_frame
-	check(not remains.active and not remains.visible, "same-instance restored-live snapshot clears actual accepted corpse")
+	var starts_after_restore := int(remains.accepted_starts)
+	check(not remains.active and not remains.visible, "same-instance restored-live snapshot clears accepted death effect")
 	if not stale_context.is_empty():
 		check(not actor.damageable.receive_damage(stale_context), "previous lethal health epoch is rejected after restore-live")
-	check(int(remains.accepted_starts) == starts_before and not remains.active, "old-epoch lethal receipt cannot resurrect or duplicate cleared corpse")
-	cases.append({"definition": path, "chain": "UnderworldEnemy/PixelPlainsEnemy/WindchimeEnemyVisual" if underworld else "EnemyPresentation", "shots": shots.duplicate(true), "accepted_contexts": accepted.duplicate(true), "trace": trace.duplicate(true), "hurt_count": sample.accepted_hit_count, "death_count": sample.accepted_death_count, "impact_serial": sample.impact_serial, "emitted_bursts": particles.emitted_bursts, "active_bursts_at_end": particles.active_bursts(), "persistent_remains": remains_final, "drop": settled, "scope": "actual scene and installer consumers in explicit arena; drop ledger only, not DemoApp settlement integration"})
+	check(int(remains.accepted_starts) == starts_after_restore and not remains.active, "old-epoch lethal receipt cannot resurrect or duplicate cleared corpse")
+	cases.append({"definition": path, "chain": "UnderworldEnemy/PixelPlainsEnemy/WindchimeEnemyVisual" if underworld else "EnemyPresentation", "shots": shots.duplicate(true), "accepted_contexts": accepted.duplicate(true), "trace": trace.duplicate(true), "hurt_count": sample.accepted_hit_count, "death_count": sample.accepted_death_count, "impact_serial": sample.impact_serial, "emitted_bursts": particles.emitted_bursts, "active_bursts_at_end": particles.active_bursts(), "spent_death_effect": remains_final, "drop": settled, "scope": "actual scene and installer consumers in explicit arena; drop ledger only, not DemoApp settlement integration"})
 	var component_weak: WeakRef = weakref(sample)
 	var remains_weak: WeakRef = weakref(remains)
 	sample = null
@@ -425,9 +424,9 @@ func run() -> void:
 			await one_case(path, underworld)
 	for path: String in SHARED_SOURCE_PATHS:
 		check(not str(shared_source_hashes[path]).is_empty() and FileAccess.get_sha256(path) == shared_source_hashes[path], "accepted flash and particles leave existing shared source bytes unchanged: " + path)
-	var output := {"feedback_revision": "persistent_remains_v3", "shared_source_sha256": shared_source_hashes, "task": "ENEMY-FEEDBACK-01", "checks": checks, "failures": failures, "cases": cases, "scope": "real Router/projectiles and original scenes/formal installer; explicit supported arena, not campaign/GPU/device", "not_verified": ["full DemoApp drop persistence and restart", "natural campaign traversal", "same-instance parent death-clock reset", "visual readability", "device performance"]}
-	DirAccess.make_dir_recursive_absolute("res://build/enemy_feedback_01")
-	var file := FileAccess.open("res://build/enemy_feedback_01/runtime.json", FileAccess.WRITE)
+	var output := {"feedback_revision": "accepted_explosion_v5", "shared_source_sha256": shared_source_hashes, "task": "ENEMY-FEEDBACK-01", "checks": checks, "failures": failures, "cases": cases, "scope": "real Router/projectiles and original scenes/formal installer; explicit supported arena, not campaign/GPU/device", "not_verified": ["full DemoApp drop persistence and restart", "natural campaign traversal", "same-instance parent death-clock reset", "visual readability", "device performance"]}
+	DirAccess.make_dir_recursive_absolute("res://build/enemy_feedback_01/v5")
+	var file := FileAccess.open("res://build/enemy_feedback_01/v5/runtime.json", FileAccess.WRITE)
 	file.store_string(JSON.stringify(output, "\t"))
 	file.close()
 	print("ENEMY_FEEDBACK_01 checks=%d failures=%d" % [checks, failures.size()])

@@ -147,7 +147,7 @@ func verify_target(stable_id: StringName) -> void:
 		return
 	check(art.feedback_sample.accepted_hit_count == ceili(initial_hp) - 1 and art.feedback_sample.accepted_death_count == 1, "actual formal consumer performs one death and each nonlethal hurt")
 	check(art.feedback_particles.emitted_bursts == ceili(initial_hp) and art.feedback_sample.impact_serial == ceili(initial_hp), "actual default formal projectiles emit exactly one pixel burst per accepted HP receipt including death")
-	check(art.feedback_remains.active and not art.feedback_remains.restored and art.feedback_remains.accepted_starts == 1 and art.feedback_remains.get_parent() == stage, "actual generated enemy has one accepted corpse owned by its real stage")
+	check(art.feedback_remains.accepted_starts == 1 and not art.feedback_remains.restored and art.feedback_remains.get_parent() == stage, "actual generated enemy has exactly one accepted stage-owned death explosion")
 	await ticks(3, "formal_drop_settlement")
 	check(app.region_state.drops.has(enemy_id), "DemoApp itself settles actual generated terminal identity")
 	if not app.region_state.drops.has(enemy_id):
@@ -162,9 +162,9 @@ func verify_target(stable_id: StringName) -> void:
 	check(JSON.stringify(app.region_state.drops) == drops_before, "repeated official damage settlement ticks preserve exact drop receipt")
 	check(stage.pickups.filter(func(row: Dictionary) -> bool: return str(row.id) == "drop_" + enemy_id).size() == duplicate_count, "repeated ticks and replay never add another pickup")
 	check(art.feedback_sample.flash_strength() == 0 and art.feedback_particles.active_bursts() == 0 and art.feedback_particles.emitted_bursts == ceili(initial_hp), "actual formal terminal replay adds no pixel burst and all impact effects expire")
-	await ticks(130, "formal_persistent_corpse_over_two_seconds")
-	check(art._death >= .65 and not art.visible and art.feedback_remains.active and art.feedback_remains.visible and art.feedback_remains.is_visible_in_tree(), "actual generated corpse remains visible for over two seconds after inherited parent fade")
-	check(art.feedback_remains.accepted_starts == 1 and JSON.stringify(app.region_state.drops) == drops_before, "persistent corpse and repeated formal settlement preserve one death and exact drop receipt")
+	await ticks(75, "formal_spent_explosion_over_one_second")
+	check(art._death >= .65 and not art.visible and not art.feedback_remains.active and not art.feedback_remains.visible and art.feedback_remains.settled and art.feedback_remains.phase == &"spent", "actual generated death explosion ends without a visible corpse after inherited parent fade")
+	check(art.feedback_remains.accepted_starts == 1 and JSON.stringify(app.region_state.drops) == drops_before, "spent explosion and repeated formal settlement preserve one death and exact drop receipt")
 	results.append({"stable_id": str(stable_id), "id": enemy_id, "status": "verified", "fixture": fixture, "initial_HP": initial_hp, "projectile_contexts": events.size() - before_events, "shots": shots.size() - before_shots, "drop": drop, "pickup_instances": duplicate_count, "hurt_count": art.feedback_sample.accepted_hit_count, "death_count": art.feedback_sample.accepted_death_count, "remains_age": art.feedback_remains.age, "remains_phase": str(art.feedback_remains.phase), "remains_accepted_starts": art.feedback_remains.accepted_starts})
 
 func verify_actual_reload() -> void:
@@ -206,8 +206,8 @@ func verify_actual_reload() -> void:
 			check(actor.health.terminal and not motor.visible, "official saved terminal actor stays dead and hidden after reload")
 			check(art != null and art.feedback_sample != null and art.feedback_sample.restored_terminal and not art.feedback_sample.death_active and art.feedback_sample.accepted_death_count == 0 and art.feedback_sample.accepted_hit_count == 0, "actual restored corpse never starts new hurt or death performance")
 			check(art.feedback_particles.emitted_bursts == 0 and art.feedback_particles.active_bursts() == 0 and art.feedback_sample.flash_strength() == 0, "official reload of dead actor emits no pixel particles or body flash")
-			check(art.feedback_remains.active and art.feedback_remains.restored and art.feedback_remains.settled and art.feedback_remains.accepted_starts == 0, "official dead snapshot reconstructs static remains without replaying death motion")
-			check(art.feedback_remains.get_parent() == stage and art.feedback_remains.visible and art.feedback_remains.is_visible_in_tree(), "official restored corpse stays visible despite hidden saved EnemyMotor")
+			check(not art.feedback_remains.active and not art.feedback_remains.visible and art.feedback_remains.restored and art.feedback_remains.settled and art.feedback_remains.accepted_starts == 0, "official dead snapshot remains absent without replaying explosion")
+			check(art.feedback_remains.get_parent() == stage and not art.feedback_remains.visible, "official restored dead Motor has no persistent visual corpse")
 			var expected := 0 if result.drop.kind == "none" else 1
 			check(stage.pickups.filter(func(row: Dictionary) -> bool: return str(row.id) == "drop_" + str(result.id)).size() == expected, "official rebuild restores one existing drop instance")
 		check(found, "same generated enemy identity restored for " + str(result.stable_id))
@@ -242,9 +242,9 @@ func run() -> void:
 	for _frame: int in 4:
 		await process_frame
 	check(remains_teardown.all(func(reference: WeakRef) -> bool: return reference.get_ref() == null), "abandon and full DemoApp unload release all remaining corpse siblings")
-	DirAccess.make_dir_recursive_absolute("res://build/enemy_feedback_01")
-	var output := {"feedback_revision": "persistent_remains_v3", "task": "ENEMY-FEEDBACK-01", "checks": checks, "failures": failures, "ready": ready_receipts, "inventory": inventory, "targets": results, "shots": shots, "accepted_events": events, "trace": trace, "scope": "real default DemoApp/start_plains generated actors, Router/projectile damage, official drop ledger and same-map rebuild; explicitly positioned player fixtures, not natural traversal", "not_verified": ["full natural traversal", "GPU visual quality", "user acceptance", "physical device"]}
-	var file := FileAccess.open("res://build/enemy_feedback_01/formal_runtime.json", FileAccess.WRITE)
+	DirAccess.make_dir_recursive_absolute("res://build/enemy_feedback_01/v5")
+	var output := {"feedback_revision": "accepted_explosion_v5", "task": "ENEMY-FEEDBACK-01", "checks": checks, "failures": failures, "ready": ready_receipts, "inventory": inventory, "targets": results, "shots": shots, "accepted_events": events, "trace": trace, "scope": "real default DemoApp/start_plains generated actors, Router/projectile damage, official drop ledger and same-map rebuild; explicitly positioned player fixtures, not natural traversal", "not_verified": ["full natural traversal", "GPU visual quality", "user acceptance", "physical device"]}
+	var file := FileAccess.open("res://build/enemy_feedback_01/v5/formal_runtime.json", FileAccess.WRITE)
 	file.store_string(JSON.stringify(output, "\t"))
 	file.close()
 	print("ENEMY_FEEDBACK_01_FORMAL checks=%d failures=%d" % [checks, failures.size()])
