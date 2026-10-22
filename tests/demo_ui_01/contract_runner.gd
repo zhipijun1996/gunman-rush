@@ -57,6 +57,14 @@ func run() -> void:
 	await click(button(app.menu._root,"SETTINGS"))
 	check(app.menu.visible_panel == &"settings", "actual pointer opens settings")
 	check(app.menu._scroll.scroll_vertical == 0 and root.get_visible_rect().encloses(app.menu._movement_mode.get_global_rect()), "first settings entry shows heading and focused field after layout settles")
+	var mode_popup := app.menu._movement_mode.get_popup()
+	check(mode_popup.get_child(0) is PopupTouchAdapter and mode_popup.get_child(0).get_viewport() == mode_popup, "popup touch adapter owns embedded popup Viewport, not root menu coordinates")
+	await touch(app.menu._movement_mode)
+	check(mode_popup.visible, "actual touch opens native movement popup")
+	var option_point := Vector2(mode_popup.position) + Vector2(mode_popup.size) * Vector2(0.5, 0.83)
+	for pressed: bool in [true, false]:
+		var event := InputEventScreenTouch.new(); event.index = 83; event.position = option_point; event.pressed = pressed; root.push_input(event, true); await frames(3)
+	check(not mode_popup.visible and app.menu._movement_mode.selected == 2, "actual embedded popup touch submits Analog speed and closes")
 	app.menu._sliders.right_enter_deadzone.value = 0.2
 	app.menu._sliders.right_exit_deadzone.value = 0.3
 	var before := app._session_input.duplicate(true)
