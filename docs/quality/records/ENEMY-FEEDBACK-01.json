@@ -1,0 +1,200 @@
+{
+  "schema_version": 1,
+  "task_id": "ENEMY-FEEDBACK-01",
+  "task_type": "animation",
+  "workflow": "in_progress",
+  "baseline_commit": "0ee0e79197f40e898283440d4af2d956f91f1c64",
+  "reviewed_commit": "0ee0e79197f40e898283440d4af2d956f91f1c64",
+  "content_version": "m0-audit-v1",
+  "owner": "enemy-feedback-01",
+  "purpose": "两种现有普通敌人的可配置accepted-hit/death样板；当前仅M0审计与原消费者baseline",
+  "player_experience": "保留扎根铜铃与空中俯冲轮廓/节奏，让真实命中、恢复、死亡可读且不重播",
+  "constraints": [
+    "No AI/damage/collision/reward/Boss changes",
+    "Keep existing feedback Resource and accepted health events",
+    "RootBellPresentation and PixelPlainsEnemy remain read-only",
+    "No PR/full CI/merge/deploy in M0"
+  ],
+  "affected_paths": [
+    "scripts/enemies/enemy_presentation.gd",
+    "scripts/underworld_plains/underworld_enemy.gd"
+  ],
+  "deliverables": [
+    "docs/enemy_feedback_01_checkpoint.md",
+    "docs/evidence/enemy_feedback_01/m0"
+  ],
+  "creative_decisions": [
+    {
+      "decision": "Underworld root_bell+diver; legacy EnemyPresentation diver/patrol compatibility",
+      "status": "proposed",
+      "basis": "Different size/motion; source-audited scope agreed by controller, not user visual approval"
+    }
+  ],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Source audit and proposed sample documented; independent design/visual assessment pending",
+      "evidence": [
+        "m0-plan"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Original baseline check passed; no new implementation or independent review",
+      "evidence": [
+        "m0-original-check"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Original baseline 317/0 only; candidate not implemented",
+      "evidence": [
+        "m0-original-check"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "EF01",
+      "gate": "G3",
+      "dimension": "technical",
+      "scenario": "Nonlethal/lethal projectile, replay, reset and terminal restore",
+      "method": "Real projectile plus existing policy/health lifecycle boundaries",
+      "expected": "One accepted hurt or death; no restore/replay effects",
+      "failure": "Any duplicate, stale effect or reward mutation",
+      "status": "unverified",
+      "reason": "M0 only; implementation/capture pending",
+      "evidence": []
+    },
+    {
+      "id": "EF02",
+      "gate": "G2",
+      "dimension": "animation",
+      "scenario": "RootBell grounded pulse vs flying diver and legacy consumer",
+      "method": "Same-source baseline/after continuous Godot capture",
+      "expected": "Preserve silhouette, foot anchor and authored AI cadence",
+      "failure": "No real projectile hit; hidden cues; drift or claimed full coverage",
+      "status": "unverified",
+      "reason": "M0 only; implementation/capture pending",
+      "evidence": []
+    }
+  ],
+  "evidence": [
+    {
+      "id": "m0-plan",
+      "path": "docs/enemy_feedback_01_checkpoint.md",
+      "sha256": "2c27a5d16cfd880172737f36da770f8ab511bb3069d1c5ae7955858c6c8fc13e",
+      "kind": "spec",
+      "producer": "enemy-feedback-01",
+      "source_commit": "0ee0e79197f40e898283440d4af2d956f91f1c64",
+      "content_version": "m0-audit-v1",
+      "method": "Read actual consumers/installers; proposed bounded sample",
+      "observed": "M0 inventory and scope only, no implemented change"
+    },
+    {
+      "id": "m0-original-check",
+      "path": "docs/evidence/enemy_feedback_01/m0/baseline-receipt.json",
+      "sha256": "6b22f238575faaf3dae35235b172433f431cca3ec6b5e3b013b7e1a2eecbdf59",
+      "kind": "command",
+      "producer": "enemy-feedback-01",
+      "source_commit": "0ee0e79197f40e898283440d4af2d956f91f1c64",
+      "content_version": "m0-audit-v1",
+      "method": "Original fresh Harness check at clean baseline",
+      "observed": "317 checks/0 failures; existing fixture only",
+      "command": "python3 tools/harness.py --check underworld-damage-feedback --release --jobs 1",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Standard; Linux; headless fixed60; Dummy audio; private worktree and env"
+    },
+    {
+      "id": "m0-original-runtime",
+      "path": "docs/evidence/enemy_feedback_01/m0/baseline-runtime.json",
+      "sha256": "9acac8d27ca25a7ec8ae05ec409f737fa156f3ff35b8672402f6542b48effed0",
+      "kind": "runtime_trace",
+      "producer": "enemy-feedback-01",
+      "source_commit": "0ee0e79197f40e898283440d4af2d956f91f1c64",
+      "content_version": "m0-audit-v1",
+      "method": "Unmodified original native fixture",
+      "observed": "Real Router/projectile hurt and edge consumers; not new representative death"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "New sample implementation, two representative hurt/death and drop idempotence",
+    "Formal whole-stage/GPU/movie/audio listening/performance",
+    "Independent review, player acceptance and physical devices"
+  ],
+  "production_snapshot": "ab5d92c0c9251f1d747fa6dcf913063c51bc3c627c461c5706fa47b98adb2d7b"
+}
