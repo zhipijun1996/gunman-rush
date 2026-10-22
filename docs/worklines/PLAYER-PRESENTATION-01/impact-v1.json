@@ -1,0 +1,99 @@
+{
+  "task_id": "PLAYER-PRESENTATION-01",
+  "version": "impact-v1",
+  "status": "proposed_awaiting_coordinator_review_and_explicit_rebind",
+  "baseline_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+  "binding": {
+    "path": "docs/creative_direction/bibles/style-continuity-20261022-v4.json",
+    "sha256": "a6f817bb762a53d99e45185444f11889246866a8baa5d29e5efaee994e7f3ae9"
+  },
+  "protected_references": [
+    {
+      "path": "scripts/underworld_plains/underworld_player.gd",
+      "before_sha256": "6ed4b00e1058a9d16808df58295f63bc8900e70653aeccc66a6752fb08412127",
+      "current_sha256": "6ed4b00e1058a9d16808df58295f63bc8900e70653aeccc66a6752fb08412127",
+      "proposed_change": "read-only configurable layered presentation consumer; no pixel replacement",
+      "after_sha256": null,
+      "after_status": "not_implemented_no_rebind_authorization"
+    },
+    {
+      "path": "assets/underworld_plains/player_animation/animation_build.json",
+      "before_sha256": "65bb572735f8aead4a6b1e5ead2174b1dc784eb9d0ee8aeeafff6ac8d7eb49b3",
+      "current_sha256": "65bb572735f8aead4a6b1e5ead2174b1dc784eb9d0ee8aeeafff6ac8d7eb49b3",
+      "proposed_change": "unchanged",
+      "after_sha256": null,
+      "after_status": "not_implemented_no_rebind_authorization"
+    },
+    {
+      "path": "assets/underworld_plains/player_animation/run_sheet.png",
+      "before_sha256": "64fe86b6de951bd671f511509104b2639f528527741774dd2561547f7ec5dd27",
+      "current_sha256": "64fe86b6de951bd671f511509104b2639f528527741774dd2561547f7ec5dd27",
+      "proposed_change": "unchanged",
+      "after_sha256": null,
+      "after_status": "not_implemented_no_rebind_authorization"
+    },
+    {
+      "path": "assets/underworld_plains/player_animation/states_sheet.png",
+      "before_sha256": "01f6645fcedd24e14e06d56b6789ad0aa987ac0c75a63b39b0f16b40fe256744",
+      "current_sha256": "01f6645fcedd24e14e06d56b6789ad0aa987ac0c75a63b39b0f16b40fe256744",
+      "proposed_change": "unchanged",
+      "after_sha256": null,
+      "after_status": "not_implemented_no_rebind_authorization"
+    }
+  ],
+  "requested_write_paths": [
+    "scripts/underworld_plains/underworld_player.gd",
+    "scripts/art/player_visual_adapter.gd",
+    "assets/characters/courier/courier_visual.gd",
+    "task-owned new resources/tests/drivers/docs/quality record"
+  ],
+  "additional_ownership_requests": [
+    {
+      "path": "scripts/art/avatar_presentation.gd",
+      "reason": "reuse home selector, bind selected-body read-only presentation snapshot; ownership coordination before editing"
+    },
+    {
+      "path": "scripts/art/visual_language_sample.gd",
+      "reason": "PaintedHero currently reads stale Courier.state and overrides weapon art; keep original body resources; coordinate actual consumer change"
+    },
+    {
+      "path": "scripts/combat/weapon_action_runtime.gd",
+      "reason": "blink echo reads hidden Courier texture; request cosmetic source interface only if golden requires; never change accepted phase or movement"
+    },
+    {
+      "path": "scripts/demo/demo_app.gd",
+      "reason": "decision/owner only: selected alternate bodies deliberately hidden in pixel regions; preserve formal scene and input ownership"
+    },
+    {
+      "path": "config/production_impact.json",
+      "reason": "coordinator registers task-specific driver mapping after consumer review; current unknown full escalation retained"
+    }
+  ],
+  "affected_consumers": [
+    "actual formal PlainsRegionStage pixel player",
+    "actual HomeScene and its 3 existing session appearances",
+    "formal Bible Forest shared pixel player",
+    "ForestExplorationPlaceLab",
+    "non-pixel Courier/Adapter",
+    "ActionStudio and old labs/previews",
+    "SVG Courier fallback",
+    "weapon blink echo source"
+  ],
+  "prohibited_changes": [
+    "Motor/input/physics/damage/resources/grants/save",
+    "shared PNG replacement",
+    "old style/Bible SHA refresh",
+    "DemoApp/formal scenes/shared config/Harness/general audio without coordinator allocation"
+  ],
+  "required_revalidation": [
+    "same-condition actual formal pixel and home before-after normal-speed movies with traces",
+    "per-tick identical Motor/HP/resource/accepted-event/projectile-origin gameplay data",
+    "all15 weapon Definitions,9 modes,6 skills;3 appearances;old Courier and SVG fallback",
+    "hurt/terminal/pause/session/weapon_epoch/unload counterexamples",
+    "independent different-author interface/source/pixel review before explicit style/Bible version rebind",
+    "coordinator-scheduled affected full Integration before merge;Plains line remains baseline read-only until unified revalidation"
+  ],
+  "player_acceptance": "unverified",
+  "device_acceptance": "unverified",
+  "old_receipts_unchanged": true
+}

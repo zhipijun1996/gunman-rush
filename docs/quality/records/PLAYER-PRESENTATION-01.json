@@ -1,0 +1,413 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAYER-PRESENTATION-01",
+  "task_type": "player",
+  "workflow": "planned",
+  "baseline_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+  "reviewed_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+  "content_version": "checkpoint-01",
+  "owner": "/root",
+  "purpose": "审计正式主角表现，提交只读分层接口与共享style影响分析；先黄金样板后全武器三外观扩展",
+  "player_experience": "移动中转向/射击反冲→受伤中断→恢复/死亡；home复用三外观选择；本检查点尚未改进生产",
+  "constraints": [
+    "只消费accepted事件，不改Motor/input/physics/damage/resources/grants/save",
+    "共享UnderworldPlayer及三件body变化先交总控独审及显式版本重绑，不自刷旧SHA",
+    "不改DemoApp/正式场景/共享配置/Harness/通用音频",
+    "保留Courier/三外观/父类旧消费者；十五装备九mode六技能逐项覆盖",
+    "无用户/真机反馈，不宣称最终动作/审美/手感完成"
+  ],
+  "affected_paths": [
+    "tests/player_presentation_01/baseline_audit.gd",
+    "tests/player_presentation_01/baseline_audit.gd.uid",
+    "docs/worklines/PLAYER-PRESENTATION-01/",
+    "docs/evidence/PLAYER-PRESENTATION-01/",
+    "docs/quality/records/PLAYER-PRESENTATION-01.json"
+  ],
+  "deliverables": [
+    "checkpoint-01消费者清单/拟改接口/可证伪样板",
+    "impact-v1版本化共享影响分析待总控",
+    "两段各12.15秒真实正式基线电影及原始轨迹",
+    "公开方法研究及受限实验映射；正式改进和独立Preview待后继"
+  ],
+  "creative_decisions": [
+    {
+      "status": "proposed",
+      "decision": "分层身体与上身，快速响应/受控回稳曲线同条件比选",
+      "basis": "用户2026-10-22同线程要求参考网络方法论；methodology-01.md列原文与推论"
+    }
+  ],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "检查点仅完成基线/提案；生产改善与完整门槛尚未执行",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "检查点仅完成基线/提案；生产改善与完整门槛尚未执行",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "检查点仅完成基线/提案；生产改善与完整门槛尚未执行",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "检查点仅完成基线/提案；生产改善与完整门槛尚未执行",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "检查点仅完成基线/提案；生产改善与完整门槛尚未执行",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "检查点仅完成基线/提案；生产改善与完整门槛尚未执行",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "检查点设计待总控评审；未签最终全套动作设计",
+      "evidence": [
+        "spec",
+        "impact",
+        "methods"
+      ]
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "旧基线专项passed；新表现未实现，docs真实失败，full未跑",
+      "evidence": [
+        "body-check",
+        "docs-failure",
+        "baseline"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "真实家园/正式平原仅基线观察；新接口接入/完整受影响系统未验",
+      "evidence": [
+        "baseline"
+      ]
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "尚无本任务新生产表现的完成证据",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "已有家园卡recoil的实际失败，未做改后验证；抽帧不签连续动画",
+      "evidence": [
+        "home-video",
+        "plains-video",
+        "baseline"
+      ]
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "真实MovieMaker音轨已保存，未听音；未改通用音频",
+      "evidence": [
+        "home-video",
+        "plains-video"
+      ]
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "尚无本任务新生产表现的完成证据",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "软件GPU离线采片不证明实体设备性能",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "checkpoint设计范围独审接受，正式生产改进/完整内容仍未验",
+      "evidence": [
+        "review-v2"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "无实体设备验收",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "用户允许参考方法论，不等于认可动作/审美/手感",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "PP01-GOLDEN",
+      "scenario": "真实正式pixel主角左移右上射击→accepted受伤→恢复→accepted死亡",
+      "method": "同Seed/输入/镜头/源的before-after影片和逐tickMotor/HP/资源/弹体出生/acceptedID一致性",
+      "expected": "身体按locomotion、武器分层，hurt中断旧视觉recoil，terminal清upper；新合法射击不受影响",
+      "failure": "玩法差异/拒绝请求触发表现/旧事件补播/死亡上身复活/枪口误差>0.5wu",
+      "status": "unverified",
+      "gate": "G2",
+      "dimension": "animation",
+      "reason": "样板提案；尚未修改生产或采改后链",
+      "evidence": [
+        "spec"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "spec",
+      "path": "docs/worklines/PLAYER-PRESENTATION-01/checkpoint-01.md",
+      "sha256": "4dfbfe5b2c20dc5aee3b53df48525973ae77bf78cb507d37bf01c2bd6876e4a9",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+      "content_version": "checkpoint-01",
+      "method": "消费者盘点、纯读接口与可证伪目标；只作设计提案",
+      "observed": "首检查点；未修改正式表现"
+    },
+    {
+      "id": "impact",
+      "path": "docs/worklines/PLAYER-PRESENTATION-01/impact-v1.json",
+      "sha256": "3611a79621b81a28aa3908b539ace328a11b44c3810758464eecf779e1d7c159",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+      "content_version": "checkpoint-01",
+      "method": "核style-v4四件完整SHA；列需协调文件/消费者/重验",
+      "observed": "四件原字节保持；after未实现；等待总控独审/新版本重绑"
+    },
+    {
+      "id": "methods",
+      "path": "docs/worklines/PLAYER-PRESENTATION-01/methodology-01.md",
+      "sha256": "0250089934bf8b5a05d82d7f8c1eeea5b57b030ea3d3e142d3a7544e27004578",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+      "content_version": "checkpoint-01",
+      "method": "阅读Riot/Blizzard/Autodesk开发者公开原文，区别来源和本项目推论",
+      "observed": "反馈层次/节拍/收势/常用动作优先映射；未冒称观看GDC演讲或完成手感改进"
+    },
+    {
+      "id": "baseline",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/checkpoint-01/summary.json",
+      "sha256": "87bb136c760fd07df66e46e63253c8f6989019d085decadc043c8b05e9cadc34",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+      "content_version": "checkpoint-01",
+      "method": "实际DemoApp home/plains Router驱动；完整原轨迹在SHA/CRC读回归档",
+      "observed": "各720样本；home12shots，plains8shots/HP自然5→2；捕获源码稳定；没有after"
+    },
+    {
+      "id": "home-video",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/checkpoint-01/home.mp4",
+      "sha256": "3a8c150165b93d8e96f61c58d627fc75f9c30640f230f4a00c3aab57d67c1d18",
+      "kind": "video",
+      "producer": "/root",
+      "source_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+      "content_version": "checkpoint-01",
+      "method": "真实Godot MovieMaker；软件GPU/Xvfb；原生立体声导出，未听音",
+      "observed": "729帧12.15秒；基线原件；只看抽帧，不签完整连续性"
+    },
+    {
+      "id": "plains-video",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/checkpoint-01/plains.mp4",
+      "sha256": "9d61ef2b75ab4b50b5f2af619fdfc0ed9d0bb0b623eea9ff96ec4bed2be4a2c6",
+      "kind": "video",
+      "producer": "/root",
+      "source_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+      "content_version": "checkpoint-01",
+      "method": "真实Godot MovieMaker；软件GPU/Xvfb；原生立体声导出，未听音",
+      "observed": "729帧12.15秒；基线原件；只看抽帧，不签完整连续性"
+    },
+    {
+      "id": "body-check",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/checkpoint-01/body-check.json",
+      "sha256": "2328024a028176391efeff7177f6706c6e052d3ad65686dcefb1de9222f96a33",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+      "content_version": "checkpoint-01",
+      "method": "既有Harness专项，不改预算/断言",
+      "observed": "baseline607断言/583Motor帧/7态通过；不能签新表现",
+      "command": "python3 tools/harness.py --check underworld-player-animation --jobs 1",
+      "exit_code": 0,
+      "environment": "Linux x86_64 cloud;Godot4.7.2Standard;headless"
+    },
+    {
+      "id": "docs-failure",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/checkpoint-01/docs-failure.json",
+      "sha256": "dbe4c141a69fe32a73ba186c1e41a88ed0129efba2a9c732b113cca8967bf8a2",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+      "content_version": "checkpoint-01",
+      "method": "原docs专项，保留失败原件",
+      "observed": "稀疏历史evidence/archive引用缺件；FAIL未追认为通过",
+      "command": "python3 tools/harness.py --check docs --jobs 1",
+      "exit_code": 1,
+      "environment": "Linux x86_64 cloud;partial+sparse checkout"
+    },
+    {
+      "id": "review-v2",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/checkpoint-01/independent-review-v2.md",
+      "sha256": "9b3e39924ad3776902b113c58d0bf2ba274468358924624de883e0eac2d16763",
+      "kind": "review",
+      "producer": "/root/audit_review",
+      "source_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+      "content_version": "checkpoint-01",
+      "method": "独立代理只读源码/轨迹复算/四件SHA/归档CRC/实际原尺寸帧与抽帧检查；未跑引擎/完整播放/听音",
+      "observed": "ACCEPT FOR COORDINATOR DESIGN REVIEW；仅检查点审计/接口提案，非生产或style重绑批准；R1R2关闭",
+      "reviewer": "/root/audit_review",
+      "implementers": [
+        "/root"
+      ],
+      "independent": true,
+      "independence_basis": "单独spawn的只读代理，不实现或修改被审代码/证据",
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "inventory",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/checkpoint-01/consumer-inventory.json",
+      "sha256": "468bed4e6ed9f8829e925eb319293c76fbc19b92eeea35e583d2ebce8aaedbc7",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+      "content_version": "checkpoint-01",
+      "method": "actual baseline DemoApp home/plains raw rows with selected avatar ids;other paths source-only explicitly not runtime observed",
+      "observed": "2 actual production entries/3home appearances;remaining consumers source-discovered and new presentation unverified"
+    }
+  ],
+  "consumer_coverage": {
+    "scope": "Unmodified-main baseline;runtime home/plains trace plus explicitly source-only remaining consumers;no implementation coverage claim",
+    "inventory_evidence": "inventory",
+    "observations": [
+      {
+        "consumer": "formal_plains_pixel",
+        "status": "unverified",
+        "reason": "真实基线已观察，未实现/验证新表现",
+        "output": "visual",
+        "evidence": [
+          "baseline",
+          "plains-video"
+        ]
+      },
+      {
+        "consumer": "home_courier",
+        "status": "failed",
+        "reason": "旧基线移动后recoil未恢复；未实现新表现",
+        "output": "visual",
+        "evidence": [
+          "baseline",
+          "home-video"
+        ]
+      },
+      {
+        "consumer": "home_p1_traveller",
+        "status": "failed",
+        "reason": "旧基线移动后recoil未恢复；未实现新表现",
+        "output": "visual",
+        "evidence": [
+          "baseline",
+          "home-video"
+        ]
+      },
+      {
+        "consumer": "home_p1_girl",
+        "status": "failed",
+        "reason": "旧基线移动后recoil未恢复；未实现新表现",
+        "output": "visual",
+        "evidence": [
+          "baseline",
+          "home-video"
+        ]
+      },
+      {
+        "consumer": "formal_bible_forest_pixel",
+        "status": "unverified",
+        "reason": "源码发现，当前未运行；不豁免完整受影响集成",
+        "output": "visual",
+        "evidence": []
+      },
+      {
+        "consumer": "forest_exploration_lab",
+        "status": "unverified",
+        "reason": "源码发现，当前未运行；不豁免完整受影响集成",
+        "output": "visual",
+        "evidence": []
+      },
+      {
+        "consumer": "nonpixel_courier_and_painted",
+        "status": "unverified",
+        "reason": "源码发现，当前未运行；不豁免完整受影响集成",
+        "output": "visual",
+        "evidence": []
+      },
+      {
+        "consumer": "old_labs_and_actionstudio",
+        "status": "unverified",
+        "reason": "源码发现，当前未运行；不豁免完整受影响集成",
+        "output": "visual",
+        "evidence": []
+      },
+      {
+        "consumer": "legacy_parent_pixel_windchime",
+        "status": "unverified",
+        "reason": "源码发现，当前未运行；不豁免完整受影响集成",
+        "output": "visual",
+        "evidence": []
+      },
+      {
+        "consumer": "courier_svg_fallback",
+        "status": "unverified",
+        "reason": "源码发现，当前未运行；不豁免完整受影响集成",
+        "output": "visual",
+        "evidence": []
+      },
+      {
+        "consumer": "weapon_blink_echo",
+        "status": "unverified",
+        "reason": "源码发现，当前未运行；不豁免完整受影响集成",
+        "output": "visual",
+        "evidence": []
+      }
+    ]
+  },
+  "unverified_items": [
+    "共享style接口尚待总控独审/显式重绑，未改受保护生产脚本",
+    "全十五装备/九mode/六技能和三外观新动作未制作/未验",
+    "完整受伤→恢复→死亡链尚待同条件改后证据",
+    "home鼠标/DOM触屏选择及正式区域保留所选外观未验",
+    "独立改进Preview未构建/未部署",
+    "新增driver的Development计划升级full未执行；完整Integration由总控安排",
+    "docs专项稀疏缺历史证据链接失败，未改签通过",
+    "完整播放/听音/用户审美手感/实体设备未验"
+  ],
+  "checkpoint": {
+    "status": "coordinator_design_review_pending",
+    "implementation_status": "planned",
+    "runtime_files_changed": false,
+    "central_index_owner": "coordinator;workflow remains planned until central task update",
+    "independent_scope": "audit/interface review only;not content completion",
+    "skills": [
+      "player-creator",
+      "animation-vfx",
+      "game-quality-gate",
+      "project-integration",
+      "gameplay-reviewer"
+    ],
+    "next_action": "coordinator reviews impact-v1 and assigns style/version/selected-body interfaces before production changes",
+    "published_branch": "review/player-presentation-01-baseline-methods",
+    "existing_workline_head": "b34511a7ee27f03b6d87d070ca20e9309e1e8a2e",
+    "handoff": "docs/worklines/PLAYER-PRESENTATION-01/remote-handoff-01.md;补充审计，不覆盖已有M1同ID质量卡"
+  },
+  "production_snapshot": "7f7e629402517271a95e09ba6d3c74550d389cfcca9dbc9a89ef0eee6375019a"
+}
