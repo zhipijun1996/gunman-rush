@@ -37,6 +37,8 @@ FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试�
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
+| CLOUD-PRODUCTION-01 | Cloud生产与交付机制 | — | in_progress | [入口](cloud_production.md)；真实交付与完整门槛分别留证 |
+| CLOUD-PREVIEW-01 | 显式开发入口与录屏样例 | CLOUD-PRODUCTION-01 | in_progress | 仅开发bootstrap；不改变默认游戏，不签品质或真机 |
 | MAIN-CLOSEOUT-20261022 | 统一现状源码与历史到main，建立并行开发基线 | PARALLEL-INTEGRATION-01 | done | [范围与并行入口](main_closeout_20261022.md)、[质量记录](quality/records/MAIN-CLOSEOUT-20261022.json)；已合PR102至main 9c349f44，全部开发head祖先闭包成立；原树不变，docs29通过，基线全CI成功，新main CI执行中 |
 | FOREST-VARIETY-04 | 六类探索场所、两图真实网络与每图8–12/15–20分钟初步体验目标 | FOREST-VARIETY-03 | in_progress | [设计](design/forest_exploration_v18.md)、[质量记录](quality/records/FOREST-VARIETY-04.json)；已接五类场所原型／奖励返回与种子先后，精确边界提速，Web e361已公开／双图四GUI入口通过；网状、更多模块、美术和真人时长未完成 |
 | FOREST-VARIETY-03 | 保留旧森林设计、扩模块库与真实随机回环，纠正首段曲线 | FOREST-EXPLORATION-02 | in_progress | [用户纠正](design/forest_variety_feedback_20261022.json)、[质量记录](quality/records/FOREST-VARIETY-03.json)；v16堆叠方向被用户否定，新内容未验收 |

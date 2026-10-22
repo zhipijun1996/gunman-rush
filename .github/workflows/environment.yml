@@ -1,7 +1,7 @@
 name: Godot core
 on:
   push:
-  pull_request:
+    branches: [main]
   workflow_dispatch:
     inputs:
       deploy_playtest:

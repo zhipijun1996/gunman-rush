@@ -158,3 +158,11 @@ v18新场所用 `--profile forest-places-feedback`（基础20项）或 `--profil
 `tools/run_forest_places_feedback.py --suite core|library|all --output-dir build/<fresh>` 显式记录所选case ID；all仍保33项与原600秒，地图增长后的一次实际超时保留于[v18证据](evidence/forest_variety_04/README.md)，不能以拆套回写原失败。汇总须核实际任务身份、非空完整itinerary、身体支撑、fixture权限及真实OR结算；两个空列表相等不能放行。
 
 实际原生通行已获限定独审，但当前随机guard仍失败：新增平台矩形布置每map只有1种。guard仅用排序去重的rect/one_way与目标坐标，排除ID/instance/program/order/重复描述；这是必要结构检查，不能把微移/拆矩形/hash差异称趣味。新候选美术仍REWORK，不发布。原通过、严格guard实际拒绝及源码闭包分别保存在[本轮原件](evidence/forest_variety_03/README.md)，不倒签失败或为试玩重复完整CI。
+
+## 多 Cloud 三层影响验证
+
+[商业Demo生产入口](cloud_production.md)和[工作线模板](templates/cloud_workline.md)管理任务／交付，原Harness继续作为唯一执行器。`tools/production_plan.py --stage development|integration|release --base origin/main`先输出真实改动路径、命中原因、所选检查与升级理由，默认不执行；加`--execute`才调用原检查。原`--profile`、`--check`、失败码、预算、断言、缓存和fresh含义不变。
+
+Development每轮只跑一次docs，并补确定影响的专项及必要导入／解析／Web构建；Integration覆盖受影响系统、共享接口和真实正式消费者；Release沿原完整交付／CI、Windows／Web、GPU／音频、浏览器与公开包验证。未知范围、共享物理／RNG／保存／公共配置按保守完整范围升级。映射不能由任务声明缩减，也不能把用于缓存失效的整树`inputs`当作精确测试依赖证明。
+
+局部成功只签已执行范围；计划、未执行、超时、失败、设备与玩家未验保持原状态。开发Preview发布不等于Release；不能为每次反馈重复昂贵完整流程，也不能用窄检查替代正式合入／发布质量。自动分流以实际workflow为准，Release最终仍需原完整证据。

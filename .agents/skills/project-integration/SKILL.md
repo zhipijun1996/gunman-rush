@@ -50,3 +50,11 @@ Web导出遇到 `Foundry source changed after validation`，先检查现有开�
 ## 从统一 main 并行开发
 
 用户2026-10-22选择先合并全部现状，再从最新origin/main分主题开发。每任务独立分支／worktree并将PR直接指向main；避免把旧实验分支作为新功能基底。收口须盘点实际祖先而非PR状态，已吸收/替代的旧分支可经逐文件独审、准确blob恢复记录和工作树不变证明保留合并历史，不能借此丢失独有修复或重启旧画风。纯部署产物分支排除；不批量删分支。实例见[收口原件](../../../docs/evidence/main_closeout_20261022/README.md)。
+
+## 商业 Demo 多 Cloud 生产与独立交付
+
+按[生产入口](../../../docs/cloud_production.md)和[工作线模板](../../../docs/templates/cloud_workline.md)建立独立任务；不重复原质量框架。四模式可切换，按实际验证需求选择短片、独立Web、两者或工程报告。观察型局部变化可只交真实Godot短片；用户需操作时交独立Preview。短片需真实下载地址、来源SHA、复现条件及before缺失／差异说明，不能静图伪造。
+
+独立Preview托管仓库与正式Pages分开，任务／PR／SHA／Seed／build绑定，目标场景可直达并有完整游戏入口。旧`deploy-prepared-playtest.yml`仍是整站替换工具，不用它冒充工作线隔离；未完成部署不能复用旧站签新成果。公开后核真实metadata／完整PCK和实际入口，媒体artifact说明登录与有效期，稳定分享使用真实Release资产URL。
+
+开发／集成计划用`tools/production_plan.py --stage development|integration --base <真实基线>`，执行加`--execute`，保持原Harness检查与预算。Release继续原完整正式门槛。每任务明确共享资源所有者，生产线不默认合main；总控合入检查Git、资源／UID／导入、接口／信号、参数／Definition、保存／Manifest和真实消费者，不能只看无冲突。检查点／人工反馈复用原生产协议，不假定Cloud会话实时互通或自动唤醒。

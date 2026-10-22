@@ -28,3 +28,11 @@ host每次在`<evidence>/<task>/<round>/<role>/host_request.json`写原nonce、t
 检查点绑定规格、实际源和阶段；实施/检查可暂停恢复。外部源或任务规格改变使用新evidence目录并重新验证依赖，不能修改旧失败或把旧绿挪签新源。目录必须位于ignored `build/verification`。生产loop同一工作树仍顺序写任务，跨专业并行需隔离工作树+单消费者整合者；原Harness检查继续支持隔离lane，并非将多个独立测试合成串行巨测。
 
 阶段实际计时沿`tools/production_timing.py`：实施/图生/集成/验证/独审/返工/网络等待/发布分列；只有实际日志时间可导入。重叠包络求和与并集分开，纯模型compute/tokens/价格不暴露就未知。开发选相关check，局部验收原正反例，冻结/发布完整适用profile并`--release`强制fresh；缓存还验证输入和实际产物SHA，旧结果不能冒充新源码。
+
+## 独立 Codex Cloud 工作线交接
+
+跨Cloud组织与四种开发模式见[生产入口](../cloud_production.md)，任务使用[工作线模板](../templates/cloud_workline.md)。本页的nonce／lease／身份、源漂移拒绝、有界返工和检查点仍为执行权威；不把独立Cloud会话当作能实时通信或自动唤醒的host worker。独立会话以任务文件、分支／精确SHA、PR、原始证据与恢复命令交接，不能伪造`host_response`替代真实worker。
+
+Long Production允许阶段内长期自主工作，在方向／共享接口／体验质量或下一阶段前提交里程碑；复用原检查点绑定规格、源码、阶段、证据及下一命令。用户直接反馈进入原线下一轮，保留原话和新版本，无需先写长设计文档。审美／手感／趣味由用户认可，技术ACCEPT不代签；连续无改善沿原RETHINK，不无期限修补。
+
+同一工作树仍由单消费者整合者持有引擎／导入／构建租约。并行线先登记共享文件、Definition、UID与配置所有者，接口变化由总控协调或前置PR；每个PR的开发交付和最小验证可独立更新，正式集成仍验真实消费者及存档／Manifest兼容。

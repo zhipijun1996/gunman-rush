@@ -1,0 +1,33 @@
+# Template copied only into the isolated gunman-rush-previews hosting repository.
+name: Isolated Godot previews
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: isolated-previews-pages
+  cancel-in-progress: false
+jobs:
+  deploy:
+    if: github.repository == 'zhipijun1996/gunman-rush-previews'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify all immutable previews, reconstruct original PCKs and enforce site cap
+        run: python3 _tools/cloud_delivery.py verify-host --host-root .
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - uses: actions/deploy-pages@v4
+        id: deployment

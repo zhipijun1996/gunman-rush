@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "task_id": "CLOUD-PREVIEW-01",
+  "task_type": "small_fix",
+  "workflow": "in_progress",
+  "baseline_commit": "74d8a06b42cb2bc2c5023f1bfe1a4fbc4b163074",
+  "reviewed_commit": "74d8a06b42cb2bc2c5023f1bfe1a4fbc4b163074",
+  "content_version": "candidate-v1",
+  "owner": "/root",
+  "purpose": "Add an opt-in real Godot preview bootstrap and banner to exercise delivery without altering ordinary gameplay",
+  "player_experience": "Review real development evidence with source identity, return-to-full-game affordance and no main save access",
+  "constraints": [
+    "No core gameplay, physics, RNG, save or content batch changes",
+    "Preview-only DemoApp persistence disabled before ready and after menu reconstruction",
+    "Original checks/assertions/budgets and main/manual release jobs retained"
+  ],
+  "affected_paths": [
+    "scripts/dev",
+    "scenes/dev",
+    "tools/cloud_slice_capture.gd",
+    "tools/cloud_slice_capture.gd.uid",
+    "config/production_impact.json"
+  ],
+  "deliverables": [
+    "docs/cloud_production.md",
+    "docs/templates/cloud_workline.md",
+    "Real engine MP4, immutable Web Preview and actual validation receipts"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Engine/GUI/deployment evidence is being collected",
+    "Original full Release and entity devices/player acceptance are not claimed"
+  ]
+}

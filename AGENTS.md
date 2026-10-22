@@ -1,5 +1,18 @@
 # 项目工作规则
 
+## 2026-10-22 商业 Demo 多 Cloud 生产
+
+本轮生产／交付入口为[cloud_production](docs/cloud_production.md)，新工作线使用[简短模板](docs/templates/cloud_workline.md)。沿用原Harness、质量记录、生产租约和检查点，不另造验收体系。四模式按阶段选择并可切换：Fast Iteration、System Engineering、Long Production、Creative Exploration；不固定一个Codex只能做一个区域，不强制所有任务短周期拆分。
+
+最新交付按实际评审需要选择：观察即可评价的局部变化优先真实Godot约10–30秒MP4；必须操作的交互／能力／AI／整区优先独立真实Godot Web Preview；细节与操作皆需时两者都有；纯工程交测试与指标。此规则覆盖此前把所有可视化原型一律要求网页的交付形式；用户明确要求操作时仍给真实试玩。录像尽可能同Seed／输入／镜头／分辨率／条件before-after；缺before或条件差异明示，禁止静图拼接和伪造动画。
+
+开发Preview与正式Pages隔离，绑定任务／PR／源码SHA／Seed／build，保留完整游戏入口与必要历史；未部署不得用旧URL冒充新成果。MP4必须有真实文件下载链接或明确包含MP4的artifact归档；注明登录／过期，公开分享优先稳定Release资产。技术、玩家、真机认可仍分开。
+
+影响计划用 `python3 tools/production_plan.py --stage development|integration|release --base origin/main`，默认只计划，`--execute`调用原验证。Development只选相关检查，Integration补完整受影响系统和正式消费者，Release保原完整CI／导出／部署守门；未知依赖保守升级，不删断言、不放预算、不把未跑写通过。本地Development、PR自动Integration、手动Development／Integration分流，主题push不重复触发完整CI；main及手动原Godot core保完整Release，实际运行状态以workflow与证据为准。
+
+每线从最新main独立分支／工作树，先声明文件、运行场景、Definition、UID、公共配置和生成产物所有者；共享接口先由总控协调，必要时前置PR。无Git冲突不代表可合入，须复核引用／导入／信号／参数／存档／Manifest与真实正式消费者。原线直接接收用户简短反馈，审美／手感／趣味不能AI代签；长线在方向、接口和阶段升级前提供里程碑与可恢复检查点。独立Cloud会话通过任务文件／PR交接，不假设实时互通或自动唤醒。默认生产线不合main。
+
+
 ## 2026-10-22 主线收口与后续并行
 
 用户本轮明确授权所有开发分支收口到main。后续新开发从最新 `origin/main` 创建短期主题分支，分别使用独立worktree／工作目录，PR直接面向main，不再长期串接旧开发分支。每个任务先明确共享文件的负责者；合入前更新main并解决冲突，保留质量未完成项。纯playtest／deploy导出分支不并入源码。见[本次收口](docs/main_closeout_20261022.md)。

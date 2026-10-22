@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "task_id": "CLOUD-PRODUCTION-01",
+  "task_type": "process",
+  "workflow": "in_progress",
+  "baseline_commit": "74d8a06b42cb2bc2c5023f1bfe1a4fbc4b163074",
+  "reviewed_commit": "74d8a06b42cb2bc2c5023f1bfe1a4fbc4b163074",
+  "content_version": "candidate-v1",
+  "owner": "/root",
+  "purpose": "Establish Cloud task contracts, finite impact routing, isolated delivery and CI tiers",
+  "player_experience": "Review real development evidence with source identity, return-to-full-game affordance and no main save access",
+  "constraints": [
+    "No core gameplay, physics, RNG, save or content batch changes",
+    "Preview-only DemoApp persistence disabled before ready and after menu reconstruction",
+    "Original checks/assertions/budgets and main/manual release jobs retained"
+  ],
+  "affected_paths": [
+    "AGENTS.md",
+    "docs",
+    ".agents/skills/project-integration/SKILL.md",
+    ".github/workflows",
+    "tools",
+    "tests/test_production_plan.py",
+    "tests/test_cloud_delivery.py"
+  ],
+  "deliverables": [
+    "docs/cloud_production.md",
+    "docs/templates/cloud_workline.md",
+    "Real engine MP4, immutable Web Preview and actual validation receipts"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "not_applicable",
+      "reason": "Production tooling scope; does not certify game content or player/device quality",
+      "evidence": []
+    },
+    "visual": {
+      "status": "not_applicable",
+      "reason": "Production tooling scope; does not certify game content or player/device quality",
+      "evidence": []
+    },
+    "animation": {
+      "status": "not_applicable",
+      "reason": "Production tooling scope; does not certify game content or player/device quality",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "Production tooling scope; does not certify game content or player/device quality",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "Production tooling scope; does not certify game content or player/device quality",
+      "evidence": []
+    },
+    "performance": {
+      "status": "not_applicable",
+      "reason": "Production tooling scope; does not certify game content or player/device quality",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "not_applicable",
+      "reason": "Production tooling scope; does not certify game content or player/device quality",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "not_applicable",
+      "reason": "Production tooling scope; does not certify game content or player/device quality",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Engine/GUI/deployment evidence is being collected",
+    "Original full Release and entity devices/player acceptance are not claimed"
+  ]
+}
