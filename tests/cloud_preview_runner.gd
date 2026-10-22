@@ -13,10 +13,10 @@ func expect(value: bool, message: String) -> void:
 		push_error(message)
 
 func run() -> void:
-	for entry_id: String in ["actions", "scene"]:
+	for entry_id: String in ["actions", "scene", "demo"]:
 		var preview := preload("res://scenes/dev/cloud_preview.tscn").instantiate() as CloudPreviewBootstrap
-		preview.entry = entry_id
-		preview.entry_scene = "res://scenes/demo/action_studio.tscn" if entry_id == "scene" else ""
+		preview.entry = "actions" if entry_id == "actions" else "scene"
+		preview.entry_scene = "res://scenes/demo/demo.tscn" if entry_id == "demo" else "res://scenes/demo/action_studio.tscn"
 		root.add_child(preview)
 		await process_frame
 		await process_frame
@@ -24,9 +24,13 @@ func run() -> void:
 		if entry_id == "actions":
 			expect(is_instance_valid(preview.app._action_studio), "Actual App must enter ActionStudio")
 			expect(not preview.app.meta_persistence_enabled, "Preview must never configure main save")
-		else:
+		elif entry_id == "scene":
 			expect(preview.app == null, "Standalone consumer must not leave default App running")
 			expect(preview.custom_scene is ActionStudio, "Standalone entry must instantiate actual packed consumer")
+		else:
+			expect(preview.custom_scene is DemoApp, "Standalone full App must remain the real consumer")
+			expect(preview.custom_scene.has_meta("cloud_preview_host"), "Standalone full App must not redirect recursively")
+			expect(not (preview.custom_scene as DemoApp).meta_persistence_enabled, "Standalone full App must not access main save")
 		preview.return_to_menu()
 		await process_frame
 		await process_frame

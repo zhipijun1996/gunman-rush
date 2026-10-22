@@ -50,6 +50,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+          cache: pip
+          cache-dependency-path: tools/requirements_art.txt
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -66,7 +68,7 @@ jobs:
       - name: Plan actual changed paths before installing an engine
         id: impact
         run: |
-          python3 tools/production_plan.py --base "$PRODUCTION_BASE" --stage "$PRODUCTION_STAGE" --plan --jobs 2 --output build/verification/production-ci/plan.json
+          python3 tools/production_plan.py --base "$PRODUCTION_BASE" --stage "$PRODUCTION_STAGE" --plan --jobs 1 --output build/verification/production-ci/plan.json
           python3 - <<'PY'
           import json
           import os
@@ -123,7 +125,7 @@ jobs:
         run: |
           # Re-plan after the original export preparation: its real resource
           # changes remain visible and may conservatively upgrade to full.
-          python3 tools/production_plan.py --base "$PRODUCTION_BASE" --stage "$PRODUCTION_STAGE" --execute --jobs 2 --output build/verification/production-ci/execution-plan.json 2>&1 | tee build/verification/production-ci/execute.log
+          python3 tools/production_plan.py --base "$PRODUCTION_BASE" --stage "$PRODUCTION_STAGE" --execute --jobs 1 --output build/verification/production-ci/execution-plan.json 2>&1 | tee build/verification/production-ci/execute.log
       - name: Preserve plans, actual failures, per-check logs and original receipts
         if: always()
         uses: actions/upload-artifact@v4

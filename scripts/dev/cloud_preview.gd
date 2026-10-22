@@ -58,6 +58,9 @@ func open_test_scene() -> void:
 	custom_audio = GameAudio.new()
 	add_child(custom_audio)
 	custom_scene = packed.instantiate()
+	if custom_scene is DemoApp:
+		(custom_scene as DemoApp).meta_persistence_enabled = false
+		custom_scene.set_meta("cloud_preview_host", true)
 	add_child(custom_scene)
 	print("CLOUD PREVIEW: standalone scene=", entry_scene)
 
