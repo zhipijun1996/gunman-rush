@@ -1391,6 +1391,95 @@ class SelectedInputPreflightTests(unittest.TestCase):
             result=loop.required_input_preflight({**task,'checks':['docs']})
         self.assertIn('docs/development_quality.md',[x['path'] for x in result['missing_tracked_inputs']])
 
+    def _commit_sparse_inputs(self, files):
+        for name, content in files.items():
+            path = self.main / name
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(content)
+        self.git('add', '.')
+        self.git('commit', '-qm', 'Actual sparse consumer input fixture')
+        subprocess.check_call(['git', '-C', str(self.target), 'reset', '--hard', '-q', self.git('rev-parse', 'HEAD').decode().strip()])
+        subprocess.check_call(['git', '-C', str(self.target), 'read-tree', '-mu', 'HEAD'])
+
+    def test_asset_associated_source_records_are_required_and_original_hash_guard_remains(self):
+        task = self.configure()
+        generation = 'docs/evidence/asset-source/generation.json'
+        prompt = 'docs/evidence/asset-source/source.prompt.txt'
+        source = (self.main / self.proof).read_bytes()
+        record = {'schema_version': 1, 'asset_id': 'fixture-associated-source', 'content_version': 'v1',
+                  'source_path': self.proof, 'source_sha256': loop.hashlib.sha256(source).hexdigest(),
+                  'tool': 'fixture', 'model': 'fixture', 'prompt_or_reference': 'actual associated prompt',
+                  'processing': 'fixture processing', 'usage_scope': 'fixture offline record',
+                  'license_source': 'fixture original', 'license_status': 'verified', 'visual_status': 'unverified',
+                  'runtime_paths': [], 'disposition': 'production_record_only', 'non_runtime_reason': 'fixture only',
+                  'associated_files': [{'path': generation, 'sha256': loop.hashlib.sha256(b'{"fixture":true}\n').hexdigest(), 'role': 'generation_record'},
+                                       {'path': prompt, 'sha256': loop.hashlib.sha256(b'original fixture prompt\n').hexdigest(), 'role': 'source_contract'}]}
+        self._commit_sparse_inputs({generation: '{"fixture":true}\n', prompt: 'original fixture prompt\n',
+                                    'docs/quality/asset_records/SOURCE.json': json.dumps(record),
+                                    'docs/quality/policy.json': json.dumps({'templates': [], 'schema_version': 1, 'states': ['unverified', 'passed']})})
+        with patch.object(loop, 'ROOT', self.main), loop._collection_worktree(self.target):
+            before = loop.required_input_preflight(task)
+            self.assertEqual({x['path'] for x in before['missing_tracked_inputs']}, {self.proof, generation, prompt})
+            self.assertTrue(any('associated_files' in reason for item in before['missing_tracked_inputs'] if item['path'] == prompt for reason in item['required_by']))
+            for name in (self.proof, generation, prompt):
+                path = self.target / name
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(self.git('show', 'HEAD:' + name))
+            self.assertEqual(loop.required_input_preflight(task)['status'], 'passed')
+            self.assertEqual(loop.quality.validate_asset(record, self.target), [])
+            (self.target / prompt).write_text('corrupted fixture prompt')
+            self.assertIn('Associated file hash mismatch', loop.quality.validate_asset(record, self.target))
+            subprocess.check_call(['git', '-C', str(self.target), 'update-index', '--no-skip-worktree', prompt])
+            (self.target / prompt).unlink()
+            deleted = loop.required_input_preflight(task)
+            self.assertEqual(deleted['status'], 'blocked')
+            self.assertEqual(next(item for item in deleted['missing_tracked_inputs'] if item['path'] == prompt)['reason'], 'tracked_missing')
+            index = self.target / 'docs/quality/asset_records/SOURCE.json'
+            index.write_text('{ damaged metadata')
+            self.assertTrue(any(item['reason'] == 'index_dependencies_unknown' for item in loop.required_input_preflight(task)['uncertain_inputs']))
+
+    def test_markdown_directory_presence_requires_real_member_not_empty_directory_or_all_media(self):
+        task = self.configure()
+        directory = 'docs/evidence/directory-only/history'
+        representative, unrelated = directory + '/a-record.txt', directory + '/z-large-media.bin'
+        trace = directory + '/0-large-trace.json'
+        self._commit_sparse_inputs({'docs/directory-link.md': '[original history](evidence/directory-only/history/)\n',
+                                    representative: 'original committed directory record\n', unrelated: 'unrelated media fixture\n' * 100,
+                                    trace: '{"fixture":"prefer an existing text record before a possible large JSON trace"}\n'})
+        with patch.object(loop, 'ROOT', self.main), loop._collection_worktree(self.target):
+            task = {**task, 'checks': ['docs']}
+            before = loop.required_input_preflight(task)
+            self.assertEqual([item['path'] for item in before['missing_tracked_inputs']], [representative])
+            self.assertEqual(before['directory_presence_inputs'][0]['path'], directory)
+            self.assertEqual(before['directory_presence_inputs'][0]['representative'], representative)
+            self.assertFalse((self.target / directory).exists())
+            # An empty manually-created directory is not a genuine restored input.
+            (self.target / directory).mkdir(parents=True)
+            self.assertEqual(loop.required_input_preflight(task)['status'], 'blocked')
+            (self.target / representative).write_bytes(self.git('show', 'HEAD:' + representative))
+            self.assertEqual(loop.required_input_preflight(task)['status'], 'passed')
+            self.assertTrue((self.target / directory).exists())
+            self.assertFalse((self.target / unrelated).exists())
+            self.assertFalse((self.target / trace).exists())
+            subprocess.check_call(['git', '-C', str(self.target), 'update-index', '--no-skip-worktree', representative])
+            (self.target / representative).unlink()
+            deleted = loop.required_input_preflight(task)
+            self.assertEqual(deleted['status'], 'blocked')
+            self.assertEqual(deleted['missing_tracked_inputs'][0]['reason'], 'tracked_missing')
+
+    def test_directory_link_does_not_shrink_declared_directory_consumer_inputs(self):
+        task = self.configure()
+        directory = 'docs/evidence/explicit-directory'
+        first, second = directory + '/a.txt', directory + '/b.bin'
+        manifest = json.loads((self.main / 'tools/harness/profiles.json').read_text())
+        manifest['checks']['docs']['inputs'] = [directory]
+        self._commit_sparse_inputs({'docs/directory-link.md': '[records](evidence/explicit-directory/)\n',
+                                    first: 'first tracked input\n', second: 'second tracked input\n',
+                                    'tools/harness/profiles.json': json.dumps(manifest)})
+        with patch.object(loop, 'ROOT', self.main), loop._collection_worktree(self.target):
+            before = loop.required_input_preflight({**task, 'checks': ['docs']})
+        self.assertEqual({item['path'] for item in before['missing_tracked_inputs']}, {first, second})
+
     def materialize_proof(self):
         subprocess.run(['git','-C',str(self.target),'sparse-checkout','add','--stdin'],
             input='/'+self.proof+'\n',text=True,check=True)

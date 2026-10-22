@@ -37,7 +37,7 @@ FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试�
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
-| CLOUD-EFFICIENCY-01 | 稀疏Harness隔离、必需输入物化与Skills提效 | — | in_progress | 修复并验证后随PR103合main，不删除历史证据或降低守门 |
+| CLOUD-EFFICIENCY-01 | 稀疏Harness隔离、必需输入物化与Skills提效 | — | review | 修复并验证后随PR103合main，不删除历史证据或降低守门 |
 | PLAYER-PRESENTATION-01 | 主角连续动作代表样板 | CLOUD-EFFICIENCY-01 | planned | [本批Prompt与写集](demo_wave_01.md)；main合入后独立分支启动 |
 | ENEMY-FEEDBACK-01 | 两类普通怪物共享受击／死亡样板 | CLOUD-EFFICIENCY-01 | planned | [本批Prompt与写集](demo_wave_01.md)；保留不同生命感与正式伤害链 |
 | PLAINS-GOLDEN-01 | 平原两候选与黄金切片 | CLOUD-EFFICIENCY-01 | planned | [本批Prompt与写集](demo_wave_01.md)；Bible／共享母版不变，先比较再推广 |
