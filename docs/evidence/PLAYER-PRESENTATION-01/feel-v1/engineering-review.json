@@ -1,0 +1,147 @@
+{
+  "task": "PLAYER-PRESENTATION-01",
+  "review": "feel-v1 independent engineering review",
+  "reviewer": {
+    "identity": "/root/audit_review",
+    "role": "independent reviewer child agent; not implementation author",
+    "skill": ".agents/skills/gameplay-reviewer/SKILL.md"
+  },
+  "reviewed_at_utc": "2026-10-22T16:26:30.847089+00:00",
+  "checkout_HEAD": "f7d7e796c3ae3ab3989e8c2f40e4cc7f14d5b8c6",
+  "source_state": "Uncommitted implementation reviewed by exact file SHA below; HEAD alone does not identify these source bytes. Freeze commit pending.",
+  "verdict": "ACCEPT",
+  "scope": "Static engineering boundaries and specific author-produced test evidence only; suitable to freeze this task-only candidate for genuine GPU/audio capture. This is not production integration or complete PLAYER-PRESENTATION-01 acceptance.",
+  "method": {
+    "independently_read_source": [
+      "scripts/dev/player_presentation_01/motion_audio.gd",
+      "scripts/dev/player_presentation_01/motion_feel.gd",
+      "scripts/dev/player_presentation_01/motion_visual.gd",
+      "scripts/dev/player_presentation_01/motion_profile.gd",
+      "scripts/dev/player_presentation_01/motion_preview.gd",
+      "resources/player_presentation_01/landing_screen.gdshader",
+      "scenes/dev/player_presentation_01/landing_feel.tscn",
+      "tests/player_presentation_01/build_feel_audio.py",
+      "tests/player_presentation_01/feel_trace.gd",
+      "tests/player_presentation_01/feel_lifecycle.gd",
+      "docs/worklines/PLAYER-PRESENTATION-01/feel-audio-provenance.json"
+    ],
+    "independently_executed": "Read-only Python hashes, WAV headers and recorded row/event comparisons; no Godot execution by reviewer.",
+    "godot_execution": "Author logs inspected; not independently rerun.",
+    "media": "No new feel-v1 footage or audio reviewed or played."
+  },
+  "source_sha256": {
+    "scripts/dev/player_presentation_01/motion_audio.gd": "23d8951006271208fc4bc85bd66da4bc976f7a9207d10bf2c223169dc22d30cc",
+    "scripts/dev/player_presentation_01/motion_feel.gd": "99bf5be55afff1c1f28685c4bc36068c020983de574dbfb25c3ea387026a9327",
+    "scripts/dev/player_presentation_01/motion_visual.gd": "8a52bedafc2fd083d40a4f56b4e34e05a3e90b45db1680b403f67be1a442cb1f",
+    "scripts/dev/player_presentation_01/motion_profile.gd": "63ec2cb7be1666ec01bbe696d02ef594632e8e71f1190867f35fc8928a05fd77",
+    "scripts/dev/player_presentation_01/motion_preview.gd": "954c63fdfa31dd92818ab52b60b30876babdc9ea89b622a51fc24387e0c2e987",
+    "resources/player_presentation_01/landing_screen.gdshader": "10dc1a646f7e0af5cfe1d7b9dbfc71524d97a963cb3933645242d74f6db1888c",
+    "scenes/dev/player_presentation_01/landing_feel.tscn": "7f5b813da707041558df30fbacc15801a4873a54bb907a6572121e86a42f9da8",
+    "tests/player_presentation_01/build_feel_audio.py": "287f9b516d7e1b1e8065e9aac600c8a6334594f74f83c108491daebbb9bb1305",
+    "tests/player_presentation_01/feel_trace.gd": "6edad4c0ec863f22527cde11b83ef4c2bcd6de11cf4cd08ce88bf3d303940dd1",
+    "tests/player_presentation_01/feel_lifecycle.gd": "a88e6cfb1bc3f4d9d34e5f21c936b37a38f7edce8a60fb1408a3d2d2b44642ca",
+    "docs/worklines/PLAYER-PRESENTATION-01/feel-audio-provenance.json": "0bcc25d3d0b261fa98fc58fb8980ff75a15f30b8840e1ddd761ff371cc5eceaf"
+  },
+  "protected_unchanged_sha256": {
+    "scripts/underworld_plains/underworld_player.gd": "6ed4b00e1058a9d16808df58295f63bc8900e70653aeccc66a6752fb08412127",
+    "assets/underworld_plains/player_animation/animation_build.json": "65bb572735f8aead4a6b1e5ead2174b1dc784eb9d0ee8aeeafff6ac8d7eb49b3",
+    "assets/underworld_plains/player_animation/run_sheet.png": "64fe86b6de951bd671f511509104b2639f528527741774dd2561547f7ec5dd27",
+    "assets/underworld_plains/player_animation/states_sheet.png": "01f6645fcedd24e14e06d56b6789ad0aa987ac0c75a63b39b0f16b40fe256744"
+  },
+  "evidence_sha256": {
+    "build/player_presentation_01/feel-v1/trace-third.log": "370a3299b501b51591980ed5cedc912f0803f00d4b3cea94a357e9183cd58e28",
+    "build/player_presentation_01/feel-v1/trace-third.json": "05ec792eeb58517f3535d1b03e3f8922c74c66d6177f3cd349c4da0add5e7de0",
+    "build/player_presentation_01/feel-v1/trace-off-first.log": "c1f3a56ff4d8b6f6c127cc16e4cf28558257c2a1ceb0497b64791c07caed996d",
+    "build/player_presentation_01/feel-v1/trace-off-first.json": "d62a1b99baf3b54abee8b00a18a8e7b46a90d1ba1fcd9120a494f14bd78053dc",
+    "build/player_presentation_01/feel-v1/headless-parity.json": "8fef430e6d3bd61dc40e0b54e34abe63709909beb1f0c0aef1ab973238d24dfe",
+    "build/player_presentation_01/feel-v1/lifecycle-home-second.log": "5f332f6e60623d4a81a667574eb23fc5fa929def5a4a77bb59299047ef2ad7b2",
+    "build/player_presentation_01/feel-v1/lifecycle-home-second.json": "218ea6fd15f465321af87ebcf6bd553470272f9469f4b9c9259aec82c437b5c6",
+    "build/player_presentation_01/feel-v1/lifecycle-first.log": "1184c85f86dba53369214dac5797dbe275e47694be159be3a9f6e5eb45a73868"
+  },
+  "prior_findings": [
+    {
+      "id": "FEEL-ENG-01",
+      "prior_verdict": "REWORK",
+      "finding": "Home return nulled the candidate handle while abandon_run was a no-op in Home, leaving live candidate and feel consumer.",
+      "resolution": "CLOSED for current source: motion_preview.gd:144-164 disables candidate; frees MotionFeel while visual/controller still valid to restore legacy hooks; restores original UnderworldPlayer; then clears handle. lifecycle-home-second checks weak-reference release and original hooks."
+    },
+    {
+      "id": "FEEL-ENG-02",
+      "prior_verdict": "REWORK",
+      "finding": "Hidden legacy _fall_speed accumulated during ON and could affect later OFF landing particles.",
+      "resolution": "CLOSED for current source: motion_feel.gd:50-52 resets only the legacy presentation accumulator at each accepted ON landing. lifecycle-home-second checks zero after actual high landing."
+    }
+  ],
+  "engineering_observations": [
+    {
+      "area": "Event authority and gameplay",
+      "finding": "Task code reads accepted jump/land events, actual apex-to-ground distance and previous post-move airborne velocity. It adds no Motor/Router/physics/damage/health/stamina/grant writes. The only new legacy state assignment is the cosmetic _fall_speed reset."
+    },
+    {
+      "area": "Audio ownership",
+      "finding": "Task app replaces its original GameAudio with one subclass inheriting the twelve-voice pool, volume handling, pause modes, generic cues and shutdown. motion_cue reuses that pool and no runtime pitch/RNG writes were found. stop_motion requires both owning actor id and motion cue prefix. Legacy step/shot/hurt subscriptions are retained; OFF delegates old jump/land methods."
+    },
+    {
+      "area": "Audio source closure",
+      "finding": "Four original Kenney sources and nine derivative WAV hashes match the new provenance record. WAVs independently read as mono 48kHz, duration .17/.21/.25 seconds. Source bytes were not edited. Audio timbre, balance and transient quality remain unheard."
+    },
+    {
+      "area": "Screen displacement",
+      "finding": "CanvasLayer1 nearest screen sampling shifts world pixels only and ColorRect ignores input; current source search found no other screen_texture consumer. HUD layer2/Home HUD10 are ordered above it. Camera2D.offset and input canvas transforms are not assigned. GPU rendering, edge behavior and perceived aiming remain unverified."
+    },
+    {
+      "area": "Visual recovery",
+      "finding": "Bounded recovery reuses existing two land frames in the task renderer; it does not delay motor or actions. Current source cancels on accepted jump, airborne movement, horizontal locomotion threshold, hurt/death, reset and return. Author trace demonstrates immediate legal next jump; full-speed readability remains unverified."
+    }
+  ],
+  "tests_read": [
+    {
+      "path": "build/player_presentation_01/feel-v1/trace-third.log",
+      "author_result": {
+        "samples": 780,
+        "checks": 1583,
+        "errors": 0
+      },
+      "scope": "Real unchanged Home spawn/terraces, genuine Router route, two 192.0556wu safe drops at prior speed800; first recovery expires naturally, second jump accepted at sample589 after landing586. No placement/HP/grant injection in driver. This full trace predates the final two local repair edits; not represented as a fresh final-source run."
+    },
+    {
+      "path": "build/player_presentation_01/feel-v1/trace-off-first.log",
+      "author_result": {
+        "samples": 780,
+        "checks": 1583,
+        "errors": 0
+      },
+      "scope": "Recorded OFF comparison, also predates final repair edits."
+    },
+    {
+      "path": "build/player_presentation_01/feel-v1/headless-parity.json",
+      "independent_check": "Reviewer independently compared all780 rows of trace-third.json and trace-off-first.json over the14 listed fields: zero differing rows. Accepted six jump sample indices match; event count14 and land/jump timings match. Heavy classification differs by candidate enablement as intended. This is recorded headless parity, not GPU proof."
+    },
+    {
+      "path": "build/player_presentation_01/feel-v1/lifecycle-home-second.log",
+      "author_result": {
+        "samples": 315,
+        "checks": 668,
+        "errors": 0
+      },
+      "scope": "Current repair review: invalid heavy profile values; real terrace route; live heavy pause freeze; immediate OFF clear and ON no replay; muted cue admission; Home return component release and restored old hooks/body; repeated HOME DROP; standalone component removal; teardown playback release. Does not prove all death, low-FPS, weapon or production consumers."
+    },
+    {
+      "path": "build/player_presentation_01/feel-v1/lifecycle-first.log",
+      "author_result": {
+        "checks": 19,
+        "errors": 0
+      },
+      "scope": "Retained previous plains motion lifecycle regression; not a substitute for Home/audio-specific coverage."
+    }
+  ],
+  "unverified": [
+    "New GPU shader result, full-speed body recovery and audiovisual synchronization",
+    "Actual listening, loudness balance, layering and speaker/headphone/device behavior",
+    "Final frozen-source before/after capture and browser delivery",
+    "New feel death/low-render-rate full chain and complete affected production integration",
+    "All weapons, all character consumers, old shared M1 grip coordination and existing hand/weapon pixel REWORK",
+    "Player taste, handling approval and physical-device validation"
+  ],
+  "production_boundary": "No shared DemoApp, general GameAudio, Motor, input contract, formal scenes or four protected style-bound assets were modified by this reviewed candidate. Current work is task-only dev consumer; production promotion requires coordinator review/integration."
+}

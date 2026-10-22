@@ -1,5 +1,8 @@
 class_name PlayerMotionCandidateVisual
 extends UnderworldPlayer
+signal motion_jump
+signal motion_land(drop: float, speed: float, heavy: bool, airborne: bool)
+signal motion_reset
 ## Opt-in development consumer of the actual actor. Protected Underworld/body
 ## resources remain unchanged. Inherited accepted state/aim/muzzle are read only.
 const CANDIDATE_TEXTURE := preload("res://assets/player_presentation_01/motion_v1/motion_source.png")
@@ -18,6 +21,11 @@ var dust_peak := 0
 var displayed_frame := 0
 var displayed_state := "idle"
 var _session_id := -1
+var _air_top_y := 0.0
+var _last_down_speed := 0.0
+var _heavy_recovery := 0.0
+var heavy_land_count := 0
+var last_landing: Dictionary = {}
 
 func _ready() -> void:
 	super._ready()
@@ -28,11 +36,16 @@ func _ready() -> void:
 	_session_id = controller.session_id
 	if profile == null or not profile.valid(): candidate_enabled = false
 	controller.jump_ability.jumped.connect(_accepted_jump)
-	controller.died.connect(func() -> void: _dust.clear())
+	controller.died.connect(func() -> void:
+		_dust.clear()
+		_heavy_recovery = 0
+		motion_reset.emit())
 
 func set_candidate_enabled(value: bool) -> void:
 	candidate_enabled = value and profile != null and profile.valid()
 	_dust.clear()
+	_heavy_recovery = 0
+	motion_reset.emit()
 	queue_redraw()
 
 func _accepted_jump() -> void:
@@ -40,15 +53,27 @@ func _accepted_jump() -> void:
 	accepted_jumps += 1
 	_airborne_observed = true
 	_fall_peak = 0.0
+	_air_top_y = motor.global_position.y
+	_last_down_speed = 0
+	_heavy_recovery = 0
+	motion_jump.emit()
 	_spawn_dust(false, 0.0)
 
 func _accepted_landing() -> void:
 	super._accepted_landing()
+	var drop := maxf(0,motor.global_position.y - _air_top_y) if _airborne_observed else 0.0
+	var heavy := candidate_enabled and _airborne_observed and not _dead and _hurt_remaining<=0 and drop>=profile.heavy_min_drop and _last_down_speed>=motor.tuning.max_normal_fall_speed*profile.heavy_min_speed_ratio
+	if heavy:
+		heavy_land_count += 1
+		_heavy_recovery = profile.heavy_recovery_seconds
+	last_landing = {"drop":drop,"speed":_last_down_speed,"heavy":heavy,"tick":Engine.get_physics_frames()}
+	motion_land.emit(drop,_last_down_speed,heavy,_airborne_observed)
 	if _dead or not _airborne_observed: return
 	accepted_lands += 1
 	_spawn_dust(true, _fall_peak)
 	_airborne_observed = false
 	_fall_peak = 0.0
+	_last_down_speed = 0
 
 func _segment_returned() -> void:
 	super._segment_returned()
@@ -56,6 +81,9 @@ func _segment_returned() -> void:
 	_previous_position = motor.global_position
 	_airborne_observed = false
 	_fall_peak = 0.0
+	_heavy_recovery = 0
+	_last_down_speed = 0
+	motion_reset.emit()
 
 func _physics_process(delta: float) -> void:
 	if controller.session_id != _session_id:
@@ -65,8 +93,14 @@ func _physics_process(delta: float) -> void:
 		_airborne_observed = false
 		_fall_peak = 0.0
 		_previous_position = motor.global_position
+		_heavy_recovery = 0
+		_last_down_speed = 0
+		motion_reset.emit()
 	if not motor.is_on_floor():
+		if not _airborne_observed: _air_top_y = _previous_position.y
 		_airborne_observed = true
+		_air_top_y = minf(_air_top_y,motor.global_position.y)
+		_last_down_speed = maxf(0,motor.velocity.y)
 		_fall_peak = maxf(_fall_peak, motor.velocity.y)
 	# Integrate actual accepted locomotion distance; old renderer multiplies the
 	# entire elapsed state by the *current* velocity, which jumps phase on ramps.
@@ -77,6 +111,8 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	super._process(delta)
+	_heavy_recovery = maxf(0,_heavy_recovery-delta)
+	if _dead or _hurt_remaining>0 or not motor.is_on_floor() or absf(motor.normal_velocity.x)>50: _heavy_recovery = 0
 	if _dead: _dust.clear()
 	for i: int in range(_dust.size() - 1, -1, -1):
 		_dust[i].age += delta
@@ -104,10 +140,11 @@ func _draw() -> void:
 		super._draw()
 		return
 	if _build.is_empty() or _clips.is_empty(): return
-	displayed_state = animation_state
-	if animation_state in ["idle", "fall"] and not _dead:
-		var frames: Array = _clips.frames[animation_state]
-		var fps := profile.idle_fps if animation_state == "idle" else profile.fall_fps
+	var render_state := "land" if _heavy_recovery>0 and animation_state in ["idle","land"] else animation_state
+	displayed_state = render_state
+	if render_state in ["idle", "fall"] and not _dead:
+		var frames: Array = _clips.frames[render_state]
+		var fps := profile.idle_fps if render_state == "idle" else profile.fall_fps
 		displayed_frame = posmod(int(_state_age * fps), frames.size())
 		var entry: Dictionary = frames[displayed_frame]
 		var r: Array = entry.rect
@@ -119,8 +156,8 @@ func _draw() -> void:
 		draw_set_transform(Vector2.ZERO)
 	else:
 		# Existing run pixels remain the fallback after two source-art rejections.
-		var frames: Array = _frames_by_state[animation_state]
-		displayed_frame = posmod(int(_gait_distance / profile.gait_cycle_distance * frames.size()), frames.size()) if animation_state == "run" else frame_index
+		var frames: Array = _frames_by_state[render_state]
+		displayed_frame = posmod(int(_gait_distance / profile.gait_cycle_distance * frames.size()), frames.size()) if render_state == "run" else (0 if _heavy_recovery>profile.heavy_recovery_seconds*.5 else 1) if _heavy_recovery>0 and render_state=="land" else frame_index
 		var entry: Dictionary = frames[displayed_frame]
 		var r: Array = entry.rect
 		var factor := UnderworldActors.HUMANOID_HEIGHT / float(_build.standing_body_source_height)
