@@ -18,9 +18,24 @@ static func occupied_side(point:Vector2,direction:Vector2,solids:Array[Rect2])->
 		if x_inside and y_inside:return true
 	return false
 
+static func _closed_neighbours(rect:Rect2,solids:Array[Rect2])->Array[Rect2]:
+	# Every plan query lies on rect's closed boundary. A solid excluded here
+	# cannot contain that point under any exact one-sided occupancy predicate.
+	# Keep touching edges/corners and the original input order, without epsilon.
+	if not rect.has_area() or not rect.position.is_finite() or not rect.size.is_finite() or not rect.end.is_finite():return solids
+	var nearby:Array[Rect2]=[]
+	for other:Rect2 in solids:
+		# Preserve historical behaviour for exceptional inputs rather than
+		# assuming a normalized finite rectangle in the broad phase.
+		if not other.has_area() or not other.position.is_finite() or not other.size.is_finite() or not other.end.is_finite():return solids
+		if other.position.x>rect.end.x or other.end.x<rect.position.x or other.position.y>rect.end.y or other.end.y<rect.position.y:continue
+		nearby.append(other)
+	return nearby
+
 static func plan(rect:Rect2,solids:Array[Rect2])->Dictionary:
 	var faces:Array[Dictionary]=[]
 	var points:Array[Vector2]=[]
+	var nearby:=_closed_neighbours(rect,solids)
 	for side:String in DIRECTIONS:
 		var vertical:=side in ["left","right"]
 		var axis:=rect.position.x if side=="left" else rect.end.x if side=="right" else rect.position.y if side=="top" else rect.end.y
@@ -37,7 +52,7 @@ static func plan(rect:Rect2,solids:Array[Rect2])->Dictionary:
 		for i:int in cuts.size()-1:
 			if cuts[i+1]<=cuts[i]:continue
 			var middle:=Vector2(axis,(cuts[i]+cuts[i+1])/2) if vertical else Vector2((cuts[i]+cuts[i+1])/2,axis)
-			if occupied_side(middle,normal,solids):continue
+			if occupied_side(middle,normal,nearby):continue
 			var start:=Vector2(axis,cuts[i]) if vertical else Vector2(cuts[i],axis)
 			var finish:=Vector2(axis,cuts[i+1]) if vertical else Vector2(cuts[i+1],axis)
 			faces.append({"side":side,"start":start,"finish":finish})
@@ -47,7 +62,7 @@ static func plan(rect:Rect2,solids:Array[Rect2])->Dictionary:
 	for point:Vector2 in points:
 		var filled:Array[int]=[]
 		for q:int in 4:
-			if occupied_side(point,QUADRANTS[q],solids):filled.append(q)
+			if occupied_side(point,QUADRANTS[q],nearby):filled.append(q)
 		if filled.size()==1:
 			# Solid lower-right gives an exposed upper-left convex corner.
 			corners.append({"kind":"outer", "direction":CORNERS[3-filled[0]], "point":point})

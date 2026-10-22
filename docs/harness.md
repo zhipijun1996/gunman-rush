@@ -135,7 +135,7 @@ S3实际CI／公网包通过后，GUI01因可见MENU未被识别而在3/20退出
 
 ## 区域圣经与共享画风准入（2026-10-21）
 
-区域创建和优化先绑定[注册表](creative_direction/bibles/registry.json)中的完整Bible及[当前共享参考](creative_direction/bibles/style-continuity-20261021-v2.json)，不能只传摘要、只继承脚本而漏掉实际纹理依赖。缺Bible只做文档提案。`region-bible-feedback`用于窄反馈，`region-bible-contract`与`region-bible-tests`追加到原profile；原132检查和10个profile前缀不变。风格绑定/缓存防漂移是技术守门，仍须实际跨区合屏和独立视觉审查后扩产。
+区域创建和优化先绑定[注册表](creative_direction/bibles/registry.json)中的完整Bible及[当前共享参考](creative_direction/bibles/style-continuity-20261022-v4.json)，不能只传摘要、只继承脚本而漏掉实际纹理依赖。缺Bible只做文档提案。`region-bible-feedback`用于窄反馈，`region-bible-contract`与`region-bible-tests`追加到原profile；原132检查和10个profile前缀不变。风格绑定/缓存防漂移是技术守门，仍须实际跨区合屏和独立视觉审查后扩产。
 
 新版路线按实际输入、枪口、互斥UI和当前Manifest消费；保留旧版本driver与保存重建，不把新版Manifest改标签交旧校验器。诊断先复验真实失败场景，再跑原16代表；完整原80案例和600秒预算留到候选源码冻结的正式准入，不以窄反馈代全量。暂停中的新UI须有process-frame故障边界，不能仅依赖已停止的physics tick；真实关闭仍走Viewport输入，并保持奖励幂等及冻结资源断言。
 

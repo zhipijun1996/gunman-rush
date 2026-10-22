@@ -14,7 +14,7 @@ description: 地区生产的前置创作决策；比较完整主题方案，冻�
 
 新地区、地区创作方向重构或整体主题失配时自动使用；小修沿现有方向轻量执行。本技能拥有前置创作意图、跨专业取舍及回到预制作的决策责任；visual-director继续负责选定方向的实景美术生产，不代替本技能选地区主题。
 
-所有后续region create/optimize及缺Bible的proposed先读[最新两条用户原话和实际共享母版](../../../docs/creative_direction/bibles/style-continuity-20261021-v3.json)。保留正式平原现用Underworld tileset家族的16px/32wu、47邻接/精确边界、光照/描边/材质语言；地区差异来自材料、结构、生态和色域，森林用树皮苔藓荆棘有机轮廓，不独立换项目画风。旧提案/失败实现不自动约束新区域，不等于整体抛弃正在使用的共享家族。worker绑定原话及实际参考完整SHA，漂移阻断并重验；新地区实际跨区黄金像素对照独审后扩产，hash不签视觉。仅用户明确选择新global style时版本化替代，无关物理/global动作/普通文档不新增美术门。
+所有后续region create/optimize及缺Bible的proposed先读[最新两条用户原话和实际共享母版](../../../docs/creative_direction/bibles/style-continuity-20261022-v4.json)。保留正式平原现用Underworld tileset家族的16px/32wu、47邻接/精确边界、光照/描边/材质语言；地区差异来自材料、结构、生态和色域，森林用树皮苔藓荆棘有机轮廓，不独立换项目画风。旧提案/失败实现不自动约束新区域，不等于整体抛弃正在使用的共享家族。worker绑定原话及实际参考完整SHA，漂移阻断并重验；新地区实际跨区黄金像素对照独审后扩产，hash不签视觉。仅用户明确选择新global style时版本化替代，无关物理/global动作/普通文档不新增美术门。
 
 ## Pre-production
 
@@ -39,3 +39,5 @@ ACCEPT限定真实证据范围；REWORK方向成立但局部实现失败，给�
 记录实际阶段时间、调用与未知成本；测试按开发/局部/冻结/发布风险层级执行，源绑定证据才可复用。保存可恢复检查点；未来地区演练区分计划、技术样板、完整生产和用户认可，遵守正式开放与能力授予边界。商业判断通过真实玩家试玩、反馈归因和可重复改善验证，不自签市场竞争力。
 
 历史本轮入口原字节与SHA见[迁移索引](../../../docs/archive/skill_history/bible-v2-input/manifest.json)；旧recipe、历史预算和失败只在复现相关来源时读取，不覆盖已选Bible。
+
+共享参考版本化重绑时，当前方向文件的完整region_bible与authority_sources也须同步；旧方向按原version逐字节归档。实际验证两区load_direction／公开route入口，并保留旧绑定与恢复拒绝反例；只registry校验通过不等于新方向能路由。来源：[本轮等价提速与绑定失败](../../../docs/evidence/forest_variety_04/README.md)。

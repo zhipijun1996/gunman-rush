@@ -4,11 +4,11 @@
 
 [注册表](bibles/registry.json)列全部16区，每区最多一个current Bible，保存原文完整SHA、id/version/region、选择状态与原始授权证据。原文不改写；两份当前总谱为[森林creative-v6](thorn_forest.json)、[平原creative-v6](windchime_plains.json)，负责专业接口与消费者索引，不能取代Bible全文或运行时配置。
 
-[最新两条用户补充](bibles/style-continuity-20261021-v2.json)要求森林与所有后续区域继承当前正式平原的整体像素风格，仅体现地区特色。共享参考绑定实际 `PlainsRegionStage→PlainsTerrainStudy→UnderworldTerrain`、16px/32wu、47邻接与非整格exact-boundary adapter、原PNG/atlas/TileSet/shader和许可SHA。旧提案或失败实现不自动约束新区域，不等于把正式平原使用中的家族也丢弃。新地区从共享尺度、亮边/光照、材质与接口出发，树皮苔藓荆棘等构成森林差异。
+[最新两条用户补充](bibles/style-continuity-20261022-v4.json)要求森林与所有后续区域继承当前正式平原的整体像素风格，仅体现地区特色。共享参考绑定实际 `PlainsRegionStage→PlainsTerrainStudy→UnderworldTerrain`、16px/32wu、47邻接与非整格exact-boundary adapter、原PNG/atlas/TileSet/shader和许可SHA。旧提案或失败实现不自动约束新区域，不等于把正式平原使用中的家族也丢弃。新地区从共享尺度、亮边/光照、材质与接口出发，树皮苔藓荆棘等构成森林差异。
 
 该共享补充进入所有region worker与missing-Bible proposed输入；任一共享源漂移均阻断调用/恢复并重验。生产先实际看共享PNG及正式平原/目标地区正常比例游戏黄金对照，独立像素准入后扩产；metadata/hash只绑定来源。用户明确另选global style时才版本化替代。普通物理、global动作和无关文档不因此新增图像门槛。
 
-当前补充v2绑定16项明确参考，其中同屏角色绑定 `UnderworldPlayer.gd` 及其直接读取的 `animation_build.json`、`run_sheet.png`、`states_sheet.png`；脚本SHA不变不能代表body像素不变。[v1与v2影响分析](bibles/style-continuity-rebind-v2.json)保留原漏绑定反例和旧验收来源，不递归猜测任意资产依赖。当前Forest Stage已挂载同一 `UnderworldTerrain`，DemoApp同用 `UnderworldPlayer`，`ForestBiblePresentation`负责地区景层/摆件；这些实际消费者存在不等于画面验收。
+当前补充v4绑定同一16项明确参考，其中同屏角色绑定 `UnderworldPlayer.gd` 及其直接读取的 `animation_build.json`、`run_sheet.png`、`states_sheet.png`；脚本SHA不变不能代表body像素不变。[v1与v2影响分析](bibles/style-continuity-rebind-v2.json)保留原漏绑定反例和旧验收来源，不递归猜测任意资产依赖。当前Forest Stage已挂载同一 `UnderworldTerrain`，DemoApp同用 `UnderworldPlayer`，`ForestBiblePresentation`负责地区景层/摆件；这些实际消费者存在不等于画面验收。
 
 ## 预制作与生产
 
@@ -46,6 +46,8 @@ route只是计划。活跃宿主实际执行源码/设计产出、Godot采证、
 
 ## 历史与交付边界
 
-当前creative-v6在v5共享风格纠正上补齐实际角色body资源闭包；[v5原件](archive/creative-v5/thorn_forest.json)及[版本化影响分析](bibles/style-continuity-rebind-v2.json)保留旧绑定。v5已纠正v4中整体排除现用家族的错误；[v4原件](archive/creative-v4/thorn_forest.json)保留旧来源和错误边界，[旧v3原件](archive/creative-v3/thorn_forest.json)与[旧v2迁移](revision_creative_v3.md)保留原字节、冻结测试和失败。旧提案/失败recipe不再由普通新建/优化入口默认发出；这不排除当前正式平原仍用的Underworld tileset/整体像素家族；`visual_director.historical_recipe_plan`只保留历史配方回归元数据，无当前生产授权，运行仍受Bible守门。既有明确原生复现工具、历史Manifest/存档的原版本与hash继续保留，不增加通用historic bypass。
+当前creative-v8按[显式重绑记录](bibles/style-continuity-rebind-v4.json)继承v6／v7的完整Bible和共享母版，仅更新已验证的边界提速绑定；v6已在v5共享风格纠正上补齐实际角色body资源闭包；[v5原件](archive/creative-v5/thorn_forest.json)及[版本化影响分析](bibles/style-continuity-rebind-v2.json)保留旧绑定。v5已纠正v4中整体排除现用家族的错误；[v4原件](archive/creative-v4/thorn_forest.json)保留旧来源和错误边界，[旧v3原件](archive/creative-v3/thorn_forest.json)与[旧v2迁移](revision_creative_v3.md)保留原字节、冻结测试和失败。旧提案/失败recipe不再由普通新建/优化入口默认发出；这不排除当前正式平原仍用的Underworld tileset/整体像素家族；`visual_director.historical_recipe_plan`只保留历史配方回归元数据，无当前生产授权，运行仍受Bible守门。既有明确原生复现工具、历史Manifest/存档的原版本与hash继续保留，不增加通用historic bypass。
 
 旧Skill入口原件和SHA见[迁移索引](../archive/skill_history/bible-v2-input/manifest.json)，历史窗口/预算按需读取。原素材、许可、冻结fixture和所有旧检查仍在。开发只跑窄反馈；冻结与发布仍fresh完整适用docs/gameplay/art/web及原CI、实际包/浏览器/公开指纹和同源正式影片。技术passed、独立专业判断、用户认可与实体设备分列，旧绿不冲销新红。时间/调用与未知成本沿原production_timing；连续两轮无实质改善停止该依赖并保留现场，不能换任务名退款。
+
+v4仅将边界占用计算改为精确谓词前的闭AABB粗筛。原v3不动；新旧全序几何／跨区实际App与GPU矩阵等价、独审后才重绑，[影响与原件](bibles/style-continuity-20261022-v4.json)不签森林新模块美术或浏览器通过。

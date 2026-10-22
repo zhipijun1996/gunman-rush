@@ -42,3 +42,11 @@ local01的24项有20项通过，倒木返跳离刺不足与背枝恢复支撑实
 [首次Web构建](web-failed05-receipt.json) exit1／源稳定：旧Foundry库因保守绑定所有generation文件而失配，未生成新包、旧包不冒充。用原 `foundry.py build --count24 --promote` 实际完成36短语／18连续路线及重放，随后原stamp通过；[回执](foundry-refresh05-receipt.json)明确只56个resources/foundry开发JSON改变，其他运行源逐字节不变。不是只换basis，也未修改guard／物理。完整旧池、原失败、新报告／回放、前后3708源与新JSON在`dependency05.zip`，成员索引保完整SHA／读回核对。森林原生输入证明仍只属于原始冻结源，可限定复用不变的森林／动作消费者，不追签整个新库存fresh。
 
 [Foundry只读独审](foundry-review05.md)独立重算225项basis、核对旧ZIP和54份56113帧：实际回放payload全与旧版一致，只身份头改变。仅支持不变森林输入消费者的限定复用，不签新Web或整区。
+
+## 浏览器真实失败后的小范围提速
+
+Web06实际导出和完整PCK检查通过，但实际点击后截图30秒超时，[原browser FAIL](browser-failed06-report.json)保留。未改超时。perf07定位1155实体的原外边界计算11.94秒／App延迟组装27.23秒；perf08同场景为1.09／5.527秒。perf06最初探针没等待deferred组装，明确不足作时间证明，不补签。
+
+闭AABB邻居粗筛保留原所有cuts、顺序、重复和精确one-sided占用，异常矩形保守全扫描。[native08](border08-receipt.json)3000断言含两完整世界逐项ordered faces/corners/edges/pieces等价；首native07两失败是fixture缺合法H条件，原失败保留。新增小矩阵接现有underworld-terrain入口，原120+新20在原150外层上限内，未增CI预算。
+
+[实际GPU09](gpu-border09-receipt.json)两正式平原、四森林荆棘App静图和五原矩阵，11对逐RGBA及PNG全同；[数学独审](border08-independent.md)和[实际像素独审](gpu-border09-independent.md)只接受该等价提速。原style v3实际先拒绝漂移，完整新证据后才版本化重绑v4，不修改旧文档／原Bible／素材。原生／GPU／错误探针／源闭包和失败在performance06.zip（155成员完整读回）；失败包核心保存在本地build/region_bible_v2/preserved-web06，没有把它交作已过GUI的包。

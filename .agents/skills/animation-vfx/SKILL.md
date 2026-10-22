@@ -12,7 +12,7 @@ description: 角色敌人 Boss 机关动作、动画过渡、射击反馈或游�
 所有地区任务绑定registry与原文的完整SHA、id/version/region、选择依据，原始全文随worker输入；本次BGM由用户后续提供，音效与事件驱动环境动画/VFX可做。发生漂移先停止相关后继，保留旧失败，列旧/新绑定、受影响设计/地形/生态/Boss/美术/动画/音频/消费者及需重验的证据，由独审确认后重绑；不得仅刷新下游SHA。原G0–G5、十一维、全量source snapshot与所有原适用检查继续有效。
 
 
-所有后续region create/optimize及缺Bible的proposed先读[最新两条用户原话和实际共享母版](../../../docs/creative_direction/bibles/style-continuity-20261021-v3.json)。保留正式平原现用Underworld tileset家族的16px/32wu、47邻接/精确边界、光照/描边/材质语言；地区差异来自材料、结构、生态和色域，森林用树皮苔藓荆棘有机轮廓，不独立换项目画风。旧提案/失败实现不自动约束新区域，不等于整体抛弃正在使用的共享家族。worker绑定原话及实际参考完整SHA，漂移阻断并重验；新地区实际跨区黄金像素对照独审后扩产，hash不签视觉。仅用户明确选择新global style时版本化替代，无关物理/global动作/普通文档不新增美术门。
+所有后续region create/optimize及缺Bible的proposed先读[最新两条用户原话和实际共享母版](../../../docs/creative_direction/bibles/style-continuity-20261022-v4.json)。保留正式平原现用Underworld tileset家族的16px/32wu、47邻接/精确边界、光照/描边/材质语言；地区差异来自材料、结构、生态和色域，森林用树皮苔藓荆棘有机轮廓，不独立换项目画风。旧提案/失败实现不自动约束新区域，不等于整体抛弃正在使用的共享家族。worker绑定原话及实际参考完整SHA，漂移阻断并重验；新地区实际跨区黄金像素对照独审后扩产，hash不签视觉。仅用户明确选择新global style时版本化替代，无关物理/global动作/普通文档不新增美术门。
 
 ## 触发与边界
 
