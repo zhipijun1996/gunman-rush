@@ -1,3 +1,9 @@
+## 2026-10-22 LIGHT-STUDY-01 快速光感实验
+
+分支 `art/light-study`，基线 e9ab0e0743466b8983e34cc7de17bab1abf9d53a。用户本轮明确要求三方向实机图／快速迭代、不跑CI；仅新增显式 `scenes/dev/light_study.tscn`，默认美术、物理、生成、保存不动。已采四窗口×四版本16张真实Godot定位静态图，最终原生退出0；不同只读代理看五图，推荐晨光默认、青绿局部，保留草边／反光／标签问题。素材未重画，未签全区、玩家或设备认可，未跑CI/Harness或发布。
+
+[源绑定、失败与精选截图](evidence/light_study_01/README.md)，[质量记录](quality/records/LIGHT-STUDY-01.json)。运行 `bash tools/godot.sh --path . scenes/dev/light_study.tscn`，底部切三方向与原版／家园和平原。下一步先看用户方向反馈，再细化光源／邻近反光与草边疏密。最终提交见本分支实际Git；没有合main或替换试玩站。
+
 # 最新交接：探索场所原型 v18
 
 ## 2026-10-22 总控与提效生产基线（最新）
