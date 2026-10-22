@@ -27,3 +27,5 @@ root唯一Godot/import/GPU/browser租约；运行源与Git冻结期间禁止并�
 本轮最终新库16项inner／outer均exit0，334.075秒；新倒木之后两图正式主路线分别55.099／79.963秒通过，整轮135.791秒，源稳定。不是fresh完整core20、原80或fullCI。静图是明确摆位fixture，不作自然游玩／动态证据。
 
 文档／流程29项fresh通过；具体证据路径已普通Git归档。PR实际base仍7be8c340372d1e20db6685cbd6a559191821eb0e，需保持差异与commit-tree证据闭包检查。
+
+首次Web构建真实失败：旧Foundry池的basis包含整个generation目录，新增区域脚本使其失配。已用原工具实际重新验证36短语／18连续路线与回放，只更新开发池JSON／export stamp；没有直接换SHA或改guard，森林几何／动作／参数字节未动。第一次失败保留，Web重试结果另记。

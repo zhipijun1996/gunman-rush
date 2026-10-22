@@ -36,3 +36,9 @@ local01的24项有20项通过，倒木返跳离刺不足与背枝恢复支撑实
 [最新原生独审](native-review05.md)独立恢复两个run各3708路径：53份changed bytes与3655份基线blob，库存完全一致。新库五条App共10098帧235段，两正式出生点共11815帧188段，完整路径、单Motor、真实24×36和每终点12帧全脚均核对；不为独审者本人编写的wrapper自签，不签整体FUN／美术／时长。
 
 文档／流程profile29项fresh通过，见[原harness report](docs-profile05-report.json)，完整logs／fingerprint在`docs-profile05.zip`和每成员索引；原80/fullCI未跑。首次质量差异检查发现新脚本只登记目录而非具体路径，已补齐真实affected_paths并在实际PR base上重验，不修改生产或放宽守卫。
+
+## Web依赖的真实失败与修复
+
+[首次Web构建](web-failed05-receipt.json) exit1／源稳定：旧Foundry库因保守绑定所有generation文件而失配，未生成新包、旧包不冒充。用原 `foundry.py build --count24 --promote` 实际完成36短语／18连续路线及重放，随后原stamp通过；[回执](foundry-refresh05-receipt.json)明确只56个resources/foundry开发JSON改变，其他运行源逐字节不变。不是只换basis，也未修改guard／物理。完整旧池、原失败、新报告／回放、前后3708源与新JSON在`dependency05.zip`，成员索引保完整SHA／读回核对。森林原生输入证明仍只属于原始冻结源，可限定复用不变的森林／动作消费者，不追签整个新库存fresh。
+
+[Foundry只读独审](foundry-review05.md)独立重算225项basis、核对旧ZIP和54份56113帧：实际回放payload全与旧版一致，只身份头改变。仅支持不变森林输入消费者的限定复用，不签新Web或整区。
