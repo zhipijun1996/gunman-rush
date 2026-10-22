@@ -1,0 +1,176 @@
+{
+  "schema_version": 1,
+  "task_id": "PLAYER-PRESENTATION-01",
+  "task_type": "player",
+  "workflow": "in_progress",
+  "baseline_commit": "0ee0e79197f40e898283440d4af2d956f91f1c64",
+  "reviewed_commit": "0ee0e79197f40e898283440d4af2d956f91f1c64",
+  "content_version": "m0-audit-v1",
+  "owner": "player-presentation-01 implementer",
+  "purpose": "Audit real player consumers and freeze one actual original-consumer baseline before a continuous action sample",
+  "player_experience": "Moving turn and accepted shooting recoil interrupted by applied hurt, then recovery or death; real visible attachment continuity remains unverified",
+  "constraints": [
+    "No Motor/input/physics/damage/resource/capability changes",
+    "No central state/Harness/config/scene writes",
+    "Style-v4 and body resources unchanged; any script change requires coordinated explicit versioned rebind"
+  ],
+  "affected_paths": [
+    "docs/evidence/player-presentation-01/m0/",
+    "docs/quality/records/PLAYER-PRESENTATION-01.json"
+  ],
+  "deliverables": [
+    "Recoverable M0 consumer audit and original baseline receipts",
+    "M1 continuous actual Godot sample and playable Preview remain pending"
+  ],
+  "creative_decisions": [
+    {
+      "status": "not_required",
+      "decision": "Reuse Underworld body resources, accepted shot and health events; do not create a second feedback system",
+      "basis": "Task contract preserves current art/gameplay; no new creative direction selected"
+    },
+    {
+      "status": "not_required",
+      "decision": "Test hidden Courier signal-driven anchor recovery before choosing an implementation",
+      "basis": "Task contract preserves current art/gameplay; no new creative direction selected"
+    }
+  ],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "M0 preserves original baseline only; new continuous representative sample and acceptance remain unverified",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "M0 preserves original baseline only; new continuous representative sample and acceptance remain unverified",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "M0 preserves original baseline only; new continuous representative sample and acceptance remain unverified",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "M0 preserves original baseline only; new continuous representative sample and acceptance remain unverified",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "M0 preserves original baseline only; new continuous representative sample and acceptance remain unverified",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "M0 preserves original baseline only; new continuous representative sample and acceptance remain unverified",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "M0 preserves original baseline only; new continuous representative sample and acceptance remain unverified",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "M0 preserves original baseline only; new continuous representative sample and acceptance remain unverified",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "M0 preserves original baseline only; new continuous representative sample and acceptance remain unverified",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "M0 preserves original baseline only; new continuous representative sample and acceptance remain unverified",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "M0 preserves original baseline only; new continuous representative sample and acceptance remain unverified",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "M0 preserves original baseline only; new continuous representative sample and acceptance remain unverified",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "M0 preserves original baseline only; new continuous representative sample and acceptance remain unverified",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "M0 preserves original baseline only; new continuous representative sample and acceptance remain unverified",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "M0 preserves original baseline only; new continuous representative sample and acceptance remain unverified",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "M0 preserves original baseline only; new continuous representative sample and acceptance remain unverified",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "M0 preserves original baseline only; new continuous representative sample and acceptance remain unverified",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "anchor-recovery",
+      "gate": "G2",
+      "dimension": "animation",
+      "scenario": "Formal moving reversal, accepted shot, applied hurt, recovery and terminal lifecycle",
+      "method": "Same-source/input/Seed/camera 1280x720 real Godot trace and normal-speed film before and after",
+      "expected": "Preserve actual muzzle/feet/Motor/resources; no stale hidden attachment pose or replay after interrupt",
+      "failure": "Hypothesis unproven, residual anchor offset, changed gameplay, missing accepted event, or mismatched comparison conditions",
+      "status": "unverified",
+      "reason": "M1 continuous evidence pending",
+      "evidence": []
+    }
+  ],
+  "evidence": [
+    {
+      "id": "m0-audit",
+      "path": "docs/evidence/player-presentation-01/m0/README.md",
+      "sha256": "9fd8aa3ce5f71b5d44c16d5f2e40aca41485d434915bf1746c1018b9f6cb1b7d",
+      "kind": "spec",
+      "producer": "player-presentation-01 implementer",
+      "source_commit": "0ee0e79197f40e898283440d4af2d956f91f1c64",
+      "content_version": "m0-audit-v1",
+      "method": "Actual source audit and original Harness execution",
+      "observed": "Actual consumer chain, corrected recoil hypothesis, ownership and next commands"
+    },
+    {
+      "id": "m0-original-baseline",
+      "path": "docs/evidence/player-presentation-01/m0/harness-report.json",
+      "sha256": "10e2a4f48d0e79465c946235986f73295c21935ea6d3c48174fb150c2237eb45",
+      "kind": "command",
+      "producer": "player-presentation-01 implementer",
+      "source_commit": "0ee0e79197f40e898283440d4af2d956f91f1c64",
+      "content_version": "m0-audit-v1",
+      "method": "Actual source audit and original Harness execution",
+      "observed": "Fresh underworld-formal 96 checks/0 failures/maps=2; no new animation claim",
+      "command": "python3 tools/harness.py --check underworld-formal --jobs 1 --release",
+      "exit_code": 0,
+      "environment": "Godot 4.7.2 Standard; headless fixed60 Dummy; dedicated worktree/env"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "All new presentation gates remain unverified",
+    "M0 actual baseline is 96 original formal checks only",
+    "Home/Forest runtime, continuous film, GUI, independent review, user and device acceptance pending",
+    "Full docs, Integration and Release were not run"
+  ],
+  "production_snapshot": "334215f3d50c5eae684db792374bbf3cecaa79dcf1a50c05e63c8530a1e2a376"
+}
