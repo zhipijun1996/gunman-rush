@@ -4,10 +4,10 @@
   "task_type": "player",
   "workflow": "in_progress",
   "baseline_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
-  "reviewed_commit": "5ff0c7aea4fcfb51713363b0b8ec4d4b5f56a22a",
-  "content_version": "motion-candidate-v2",
+  "reviewed_commit": "4ed0de042db44902c6d8544d9217b617f7dc3271",
+  "content_version": "feel-candidate-v1",
   "owner": "/root",
-  "purpose": "正式主角审计后，按用户反馈制作受隔离的idle/fall/gait/dust开发候选；共享正式替换仍待总控",
+  "purpose": "正式主角审计后隔离制作idle/fall/gait/dust，并按用户追加制作accepted起跳/落地音效、高落差屏幕震动和视觉缓冲；共享正式替换仍待总控",
   "player_experience": "移动中转向/射击反冲→受伤中断→恢复/死亡；home复用三外观选择；本检查点尚未改进生产",
   "constraints": [
     "只消费accepted事件，不改Motor/input/physics/damage/resources/grants/save",
@@ -17,16 +17,42 @@
     "无用户/真机反馈，不宣称最终动作/审美/手感完成"
   ],
   "affected_paths": [
+    "assets/player_presentation_01/feel_audio_v1/heavy_0.wav",
+    "assets/player_presentation_01/feel_audio_v1/heavy_0.wav.import",
+    "assets/player_presentation_01/feel_audio_v1/heavy_1.wav",
+    "assets/player_presentation_01/feel_audio_v1/heavy_1.wav.import",
+    "assets/player_presentation_01/feel_audio_v1/heavy_2.wav",
+    "assets/player_presentation_01/feel_audio_v1/heavy_2.wav.import",
+    "assets/player_presentation_01/feel_audio_v1/jump_0.wav",
+    "assets/player_presentation_01/feel_audio_v1/jump_0.wav.import",
+    "assets/player_presentation_01/feel_audio_v1/jump_1.wav",
+    "assets/player_presentation_01/feel_audio_v1/jump_1.wav.import",
+    "assets/player_presentation_01/feel_audio_v1/jump_2.wav",
+    "assets/player_presentation_01/feel_audio_v1/jump_2.wav.import",
+    "assets/player_presentation_01/feel_audio_v1/land_0.wav",
+    "assets/player_presentation_01/feel_audio_v1/land_0.wav.import",
+    "assets/player_presentation_01/feel_audio_v1/land_1.wav",
+    "assets/player_presentation_01/feel_audio_v1/land_1.wav.import",
+    "assets/player_presentation_01/feel_audio_v1/land_2.wav",
+    "assets/player_presentation_01/feel_audio_v1/land_2.wav.import",
     "assets/player_presentation_01/motion_v1/idle_fall.json",
     "assets/player_presentation_01/motion_v1/motion_source.png",
     "assets/player_presentation_01/motion_v1/motion_source.png.import",
     "docs/evidence/PLAYER-PRESENTATION-01/",
+    "docs/quality/asset_records/PLAYER-PRESENTATION-01-FEEL-AUDIO-V1.json",
     "docs/quality/records/PLAYER-PRESENTATION-01.json",
     "docs/worklines/PLAYER-PRESENTATION-01/",
+    "resources/player_presentation_01/landing_screen.gdshader",
+    "resources/player_presentation_01/landing_screen.gdshader.uid",
     "resources/player_presentation_01/motion_clip_data.gd",
     "resources/player_presentation_01/motion_clip_data.gd.uid",
     "resources/player_presentation_01/motion_v1.tres",
+    "scenes/dev/player_presentation_01/landing_feel.tscn",
     "scenes/dev/player_presentation_01/motion_candidate.tscn",
+    "scripts/dev/player_presentation_01/motion_audio.gd",
+    "scripts/dev/player_presentation_01/motion_audio.gd.uid",
+    "scripts/dev/player_presentation_01/motion_feel.gd",
+    "scripts/dev/player_presentation_01/motion_feel.gd.uid",
     "scripts/dev/player_presentation_01/motion_preview.gd",
     "scripts/dev/player_presentation_01/motion_preview.gd.uid",
     "scripts/dev/player_presentation_01/motion_profile.gd",
@@ -35,7 +61,13 @@
     "scripts/dev/player_presentation_01/motion_visual.gd.uid",
     "tests/player_presentation_01/baseline_audit.gd",
     "tests/player_presentation_01/baseline_audit.gd.uid",
+    "tests/player_presentation_01/build_feel_audio.py",
+    "tests/player_presentation_01/capture_feel.py",
     "tests/player_presentation_01/capture_motion.py",
+    "tests/player_presentation_01/feel_lifecycle.gd",
+    "tests/player_presentation_01/feel_lifecycle.gd.uid",
+    "tests/player_presentation_01/feel_trace.gd",
+    "tests/player_presentation_01/feel_trace.gd.uid",
     "tests/player_presentation_01/motion_lifecycle.gd",
     "tests/player_presentation_01/motion_lifecycle.gd.uid",
     "tests/player_presentation_01/motion_trace.gd",
@@ -46,7 +78,8 @@
     "impact-v1版本化共享影响分析待总控",
     "两段各12.15秒真实正式基线电影及原始轨迹",
     "公开方法研究及受限实验映射；正式改进和独立Preview待后继",
-    "motion-candidate-v1:实际正式平原视觉子类，六帧idle/fall循环、旧run位移相位、accepted跳落地尘效和可配置profile"
+    "motion-candidate-v1:实际正式平原视觉子类，六帧idle/fall循环、旧run位移相位、accepted跳落地尘效和可配置profile",
+    "feel-candidate-v1:实际Home192wu露台路线，accepted分层音效9WAV、3px/0.14s屏幕震动、0.24s可立即跳跃取消的视觉后摇；真实带声对照和已验证本地Web包"
   ],
   "creative_decisions": [
     {
@@ -107,16 +140,20 @@
       "evidence": [
         "motion-v2",
         "motion-vfx-video",
-        "motion-pixel-v2"
+        "motion-pixel-v2",
+        "feel-evidence",
+        "feel-runtime"
       ]
     },
     "technical": {
       "status": "unverified",
-      "reason": "607原专项、1208新trace、19lifecycle及ZIP实际浏览器通过；未知Development完整计划未执行",
+      "reason": "最终真实Home每1583检查、780x2/14字段全同，Home lifecycle668、原Underworld607、本地ZIP逐字节和浏览器/AudioContext通过；docs稀疏历史失败与完整Integration待办保留",
       "evidence": [
         "motion-v2",
         "motion-vfx-video",
-        "motion-pixel-v2"
+        "motion-pixel-v2",
+        "feel-evidence",
+        "feel-runtime"
       ]
     },
     "formal_integration": {
@@ -125,7 +162,9 @@
       "evidence": [
         "motion-v2",
         "motion-vfx-video",
-        "motion-pixel-v2"
+        "motion-pixel-v2",
+        "feel-evidence",
+        "feel-runtime"
       ]
     },
     "visual": {
@@ -134,7 +173,9 @@
       "evidence": [
         "motion-v2",
         "motion-vfx-video",
-        "motion-pixel-v2"
+        "motion-pixel-v2",
+        "feel-evidence",
+        "feel-runtime"
       ]
     },
     "animation": {
@@ -143,16 +184,20 @@
       "evidence": [
         "motion-v2",
         "motion-vfx-video",
-        "motion-pixel-v2"
+        "motion-pixel-v2",
+        "feel-evidence",
+        "feel-runtime"
       ]
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "落地尘效抽帧局部ACCEPT；起跳仍轻，实际音轨未听音，完整同期体验未验",
+      "reason": "新增9条CC0短音源；真实MovieMaker音轨/浏览器用户手势解锁已验；屏幕轻震和视觉缓冲局部抽帧限域ACCEPT；实际听感/全速/用户设备未验",
       "evidence": [
         "motion-v2",
         "motion-vfx-video",
-        "motion-pixel-v2"
+        "motion-pixel-v2",
+        "feel-evidence",
+        "feel-runtime"
       ]
     },
     "gameplay": {
@@ -161,7 +206,9 @@
       "evidence": [
         "motion-v2",
         "motion-vfx-video",
-        "motion-pixel-v2"
+        "motion-pixel-v2",
+        "feel-evidence",
+        "feel-runtime"
       ]
     },
     "performance": {
@@ -170,7 +217,9 @@
       "evidence": [
         "motion-v2",
         "motion-vfx-video",
-        "motion-pixel-v2"
+        "motion-pixel-v2",
+        "feel-evidence",
+        "feel-runtime"
       ]
     },
     "independent_review": {
@@ -179,7 +228,9 @@
       "evidence": [
         "motion-v2",
         "motion-vfx-video",
-        "motion-pixel-v2"
+        "motion-pixel-v2",
+        "feel-evidence",
+        "feel-runtime"
       ]
     },
     "device": {
@@ -188,7 +239,9 @@
       "evidence": [
         "motion-v2",
         "motion-vfx-video",
-        "motion-pixel-v2"
+        "motion-pixel-v2",
+        "feel-evidence",
+        "feel-runtime"
       ]
     },
     "player_acceptance": {
@@ -197,7 +250,9 @@
       "evidence": [
         "motion-v2",
         "motion-vfx-video",
-        "motion-pixel-v2"
+        "motion-pixel-v2",
+        "feel-evidence",
+        "feel-runtime"
       ]
     }
   },
@@ -413,6 +468,75 @@
       "independent": true,
       "independence_basis": "Separate read-only reviewer,only writes its review artifact and never the production implementation",
       "verdict": "ACCEPT"
+    },
+    {
+      "id": "feel-evidence",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/feel-v1/feel-v1-evidence.zip",
+      "sha256": "ae18652e937a8cf5e32f56bb13f1d58cd88665e1a876e0e2df9eb85f66cb3e26",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4ed0de042db44902c6d8544d9217b617f7dc3271",
+      "content_version": "feel-candidate-v1",
+      "method": "Every ZIP member reread/SHA;final source-stable real Home ON/OFF and extracted actual exported ZIP Chromium",
+      "observed": "780x2/14 fields identical;1583 each;Home lifecycle668;original607;Web GUI and AudioContext running;public Web cap failed"
+    },
+    {
+      "id": "feel-video",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/feel-v1/landing-feel-comparison.mp4",
+      "sha256": "21175e861ba04ff868d62ae77c200c6f15e84827cc074e1421382dbb00528bd4",
+      "kind": "video",
+      "producer": "/root",
+      "source_commit": "4ed0de042db44902c6d8544d9217b617f7dc3271",
+      "content_version": "feel-candidate-v1",
+      "method": "Complete actual Godot MovieMaker before then after;60fps1280x720 with48k stereo;anonymous full bytes SHA verified",
+      "observed": "26.29sec real route;heavy192.0556wu twice;not listened"
+    },
+    {
+      "id": "feel-engineering",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/feel-v1/engineering-review.json",
+      "sha256": "f7808635d005ae6e03947eb9d84a1d851e3773d3a3cc8388859ec48682dd5f45",
+      "kind": "review",
+      "producer": "/root/audit_review",
+      "source_commit": "4ed0de042db44902c6d8544d9217b617f7dc3271",
+      "content_version": "feel-candidate-v1",
+      "method": "Independent source/author-test read;11 exact source SHAs match frozen commit",
+      "observed": "Scoped engineering ACCEPT;full workline/user/device not signed",
+      "reviewer": "/root/audit_review",
+      "implementers": [
+        "/root"
+      ],
+      "independent": true,
+      "independence_basis": "Separate agent read-only production source;writes only its own review artifact",
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "feel-runtime",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/feel-v1/runtime-review.json",
+      "sha256": "1545a43387f8df83548f06315ddc8175d483855aac641a67d4a66a64b6bf96aa",
+      "kind": "review",
+      "producer": "/root/audit_review",
+      "source_commit": "4ed0de042db44902c6d8544d9217b617f7dc3271",
+      "content_version": "feel-candidate-v1",
+      "method": "Independent read of final trace/report and16 actual original-size movie frames",
+      "observed": "Scoped parity/bounded recovery/no obvious sampled shader seams ACCEPT;overall UNVERIFIED;not listened/full-speed",
+      "reviewer": "/root/audit_review",
+      "implementers": [
+        "/root"
+      ],
+      "independent": true,
+      "independence_basis": "Separate agent read-only production source;writes only its own review artifact",
+      "verdict": "UNVERIFIED"
+    },
+    {
+      "id": "feel-inventory",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/feel-v1/consumer-inventory-feel-v1.json",
+      "sha256": "fd26ba8875b8af3cad42b33011c597e9a3650b3435dcc78a731312121647a743",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4ed0de042db44902c6d8544d9217b617f7dc3271",
+      "content_version": "feel-candidate-v1",
+      "method": "Versioned source discovery retained from baseline;actual new task Home native/Web observation,formal unchanged",
+      "observed": "Every existing discovered consumer retained;new Home candidate listed;not production integration"
     }
   ],
   "unverified_items": [
@@ -424,14 +548,18 @@
     "docs稀疏缺历史依赖原失败保留；中心任务状态需总控同步",
     "完整常速播放/听音/用户审美手感/实体设备未验",
     "v2实际落地尘效抽帧局部接受，起跳仍轻；全速/用户/设备未签",
-    "最终ZIP c7a2529b3958实际解压/PCK/Chromium键鼠已验；公网Web两次900MiB拒绝和tunnel网络拒绝，未上线"
+    "最终ZIP c7a2529b3958实际解压/PCK/Chromium键鼠已验；公网Web两次900MiB拒绝和tunnel网络拒绝，未上线",
+    "本轮正式Home仅任务子类候选，192wu安全落差不代表任意高处/受伤死亡完整链",
+    "重落地复用原land两帧，后半接近站立，未制作专用新动作；旧idle身形/握持过渡仍待改进",
+    "Web新build a814296a70c8再次900MiB拒绝；本地实际ZIP/浏览器通过；Release资产上传401失败且后续tag/id均404，无公网新可玩包",
+    "浏览器按真实Space后AudioContext running不等于已听音；用户听感/审美/手感和实体设备仍未验"
   ],
   "checkpoint": {
     "status": "development_candidate_shared_adoption_pending",
-    "implementation_status": "task_candidate_v2_verified_limited",
+    "implementation_status": "task_candidate_feel_v1_limited_verified",
     "runtime_files_changed": true,
     "central_index_owner": "coordinator;main task index is still planned and requires coordinated status reconciliation;this record truthfully reports implementation in progress",
-    "independent_scope": "Engineering accepted for capture;fall scarf and landing dust local pixel acceptance only;grip/run/full lifecycle REWORK or unverified",
+    "independent_scope": "Engineering ACCEPT;final Home parity and16 sampled-frame shader/recovery limited acceptance;runtime overall UNVERIFIED;no listening/user/device acceptance",
     "skills": [
       "player-creator",
       "animation-vfx",
@@ -440,12 +568,12 @@
       "gameplay-reviewer",
       "art-director"
     ],
-    "next_action": "Coordinator reviews originalM1/new visual-only candidate,shared version/rebind and staging capacity;full affected Integration before adoption;continue grip/run/full weapons/three appearances",
+    "next_action": "Coordinator capacity and formal shared version/adoption+full affected Integration;continue dedicated heavy pose,grip/run/full weapons/three appearances",
     "published_branch": "feature/player-presentation-01-motion-candidate",
     "existing_workline_head": "b34511a7ee27f03b6d87d070ca20e9309e1e8a2e",
     "handoff": "docs/worklines/PLAYER-PRESENTATION-01/remote-handoff-01.md;补充审计，不覆盖已有M1同ID质量卡"
   },
-  "production_snapshot": "5ff0c7aea4fcfb51713363b0b8ec4d4b5f56a22a",
+  "production_snapshot": "4ed0de042db44902c6d8544d9217b617f7dc3271",
   "baseline_consumer_coverage": {
     "scope": "Unmodified-main baseline;runtime home/plains trace plus explicitly source-only remaining consumers;no implementation coverage claim",
     "inventory_evidence": "inventory",
@@ -543,7 +671,7 @@
   },
   "consumer_coverage": {
     "scope": "Task-only actual formal dev consumer;production consumers retained and not claimed newly integrated",
-    "inventory_evidence": "motion-inventory",
+    "inventory_evidence": "feel-inventory",
     "observations": [
       {
         "consumer": "formal_plains_pixel",
@@ -631,6 +759,17 @@
           "motion-v2",
           "motion-vfx-video",
           "motion-pixel-v2"
+        ]
+      },
+      {
+        "consumer": "dev_formal_home_landing_feel",
+        "status": "unverified",
+        "reason": "Actual unchanged formal Home/Motor route observed via task visual/audio subclass only;not production adoption/all appearances/full workline acceptance",
+        "output": "visual",
+        "evidence": [
+          "feel-evidence",
+          "feel-video",
+          "feel-runtime"
         ]
       }
     ]
