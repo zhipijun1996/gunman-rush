@@ -1,0 +1,85 @@
+{
+  "gameplay_change": false,
+  "guardian_closed_heart_source": [
+    30,
+    36,
+    16,
+    10
+  ],
+  "guardian_foot_native": [
+    36,
+    94
+  ],
+  "guardian_foot_world": [
+    0,
+    48
+  ],
+  "master": "boss_beetle_master_original.png",
+  "master_sha256": "1c0efeb918030efe9b5b3f72cfd6a4a5f66c4eb36dc74d1ec57d08977c92efd5",
+  "outputs": [
+    {
+      "id": "guardian",
+      "raw_crop": [
+        231,
+        62,
+        455,
+        647
+      ],
+      "sha256": "c87c170060610a1626715379cfd9293e8085a45d4bb1fef66da20640de0427d8",
+      "source_size": [
+        72,
+        96
+      ],
+      "target_alpha_bounds": [
+        6,
+        2,
+        58,
+        92
+      ]
+    },
+    {
+      "id": "queen",
+      "raw_crop": [
+        845,
+        159,
+        514,
+        546
+      ],
+      "sha256": "944a90afd06aa7c837596ad3ff6b8442685c5366ad54b5929c43aa6114bffb12",
+      "source_size": [
+        72,
+        68
+      ],
+      "target_alpha_bounds": [
+        2,
+        2,
+        68,
+        64
+      ]
+    },
+    {
+      "id": "beetle",
+      "raw_crop": [
+        1551,
+        505,
+        319,
+        200
+      ],
+      "sha256": "5b4916917b3519b4e935939001e5ee252e3046b5aea97b05130a02682fa00e5a",
+      "source_size": [
+        48,
+        32
+      ],
+      "target_alpha_bounds": [
+        4,
+        2,
+        38,
+        28
+      ]
+    }
+  ],
+  "process": "Actual fine image_gen sheet, measured alpha128 crop, nearest sample, normalized old opaque bounds and foot/core regions retained. Guardian and Queen render1wu/pixel; Beetle.75wu/pixel before common1wu world sampling.",
+  "queen_collision_changed": false,
+  "task": "FINE-SPACE-05",
+  "weaver32_source_unchanged": true
+}

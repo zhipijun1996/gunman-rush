@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "asset_id": "fine-space-05-forest-bark",
+  "task_id": "FINE-SPACE-05",
+  "content_version": "fine-space-05-candidate-20261022",
+  "source_path": "assets/forest_bible_v2/native/fine_32/bark_master_original.png",
+  "source_sha256": "56f5ebabcef8ef22dbaad0a0f9aec1c5882639c94df58fe498273cecb53a58da",
+  "runtime_paths": [
+    "assets/forest_bible_v2/native/fine_32/bark_source.png",
+    "assets/forest_bible_v2/native/fine_32/bark_atlas47.png",
+    "assets/forest_bible_v2/native/fine_32/bark_deck.png"
+  ],
+  "runtime_file_sha256": {
+    "assets/forest_bible_v2/native/fine_32/bark_source.png": "a796d6f86ec408de1ab3fbfaa4f4e2426558c58ac91673e9f4f4538423b04b82",
+    "assets/forest_bible_v2/native/fine_32/bark_atlas47.png": "2b89256b33712e27dc3c2489035c1aa9ecef4008ece935dd60f813eafb75083d",
+    "assets/forest_bible_v2/native/fine_32/bark_deck.png": "5063559c24b15cc2c6d4323b05639f0cd2f10a390d928858eaaa027da9bb3f90"
+  },
+  "tool": "image_gen.imagegen",
+  "model": "not exposed by tool; unknown",
+  "cost": "unknown; image generation tool does not expose billed price",
+  "generation_calls": 1,
+  "prompt_or_reference": "assets/forest_bible_v2/native/fine_32/generation.json",
+  "processing": "Measured outer/true-hole inner corners from new living-bark/moss mother; nearest canonical source organization to1056x288 with47-mask atlas768x192 and3top banks. Separate192x16 bark deck; renderer samples real6–8wu cap/body cross section. No recolored Plains stone, no old16px source upscale.",
+  "usage_scope": "Formal Forest shared terrain material and one-way branch support. Fine1wu art sampling; root/collision/recipe preserved. Not a claim of whole-region visual acceptance.",
+  "consumer_scripts": [
+    "scripts/presentation/forest_bible_terrain_material.gd",
+    "scripts/presentation/forest_bible_presentation.gd"
+  ],
+  "license_status": "unknown",
+  "license_source": "Generated edits/reference lineage from repository sources; existing source rights retained. No separate output license certificate exposed; no blanket CC0 or third-party permission claim.",
+  "visual_status": "unverified",
+  "user_acceptance_evidence": [],
+  "disposition": "runtime_candidate",
+  "associated_files": [
+    {
+      "path": "assets/forest_bible_v2/native/fine_32/generation.json",
+      "sha256": "d0895d7ce643141270158571aa42f099cafbffe57c73d9683c4ef75822c0638a",
+      "role": "generation_record"
+    },
+    {
+      "path": "assets/forest_bible_v2/native/bark_source_v2.png",
+      "sha256": "e02006c506d5b2e4533beb6a40009e7a5c2d818839c37b18e2dd73fc35dfdbc2",
+      "role": "reference"
+    },
+    {
+      "path": "assets/forest_bible_v2/native/fine_32/build.json",
+      "sha256": "15f8e647438e8152eaad8d122bcd13904016eac62af36459aa27be0e152c6669",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/forest_bible_v2/native/fine_32/bark_deck_build.json",
+      "sha256": "3266b0e40ee1c37caffed2b3af49fd5ab79f51c86b1132a0e702eba926272be7",
+      "role": "processing_record"
+    },
+    {
+      "path": "assets/forest_bible_v2/native/fine_32/fine_asset_audit.json",
+      "sha256": "01651af5e3d4e5dc26d390075847e863961583fa9f49ad7a51ca67c12d5683ab",
+      "role": "processing_record"
+    },
+    {
+      "path": "tools/build_formal_fine.gd",
+      "sha256": "2c09d44843ddabc7e4c47929398ba78b8292926d5b1964be6d6dbad4503e5ead",
+      "role": "processing_record"
+    },
+    {
+      "path": "tools/build_formal_forest_detail.gd",
+      "sha256": "b2594f842e2e25e35aa71f04d0e80737699c18c49d31762de779aa4e7d28c60b",
+      "role": "processing_record"
+    }
+  ]
+}

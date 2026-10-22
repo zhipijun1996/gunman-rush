@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "asset_id": "fine-space-05-windmill",
+  "task_id": "FINE-SPACE-05",
+  "content_version": "fine-space-05-candidate-20261022",
+  "source_path": "assets/underworld_plains/windmill_fine_05/master_original.png",
+  "source_sha256": "34b46ab48beb957ce5b55f42bbd9ed0105c32873f87aa968ebb105ebc4c8ab07",
+  "runtime_paths": [
+    "assets/underworld_plains/windmill_fine_05/body.png",
+    "assets/underworld_plains/windmill_fine_05/rotor.png",
+    "assets/underworld_plains/windmill_fine_05/flag.png",
+    "assets/underworld_plains/windmill_fine_05/windmill_build.json"
+  ],
+  "runtime_file_sha256": {
+    "assets/underworld_plains/windmill_fine_05/body.png": "52d7ec4158f686a5af3c922080cf66d0487d8d16cffa77931b0899d7b3d971dc",
+    "assets/underworld_plains/windmill_fine_05/rotor.png": "d3b4124c80d16c90743c51298315d60fa9e62c0459f24bb017de26d3e9b32b4c",
+    "assets/underworld_plains/windmill_fine_05/flag.png": "b42ca21a2613e1277013035685850c90ac2338d29eea08cd60390dd544bfb864",
+    "assets/underworld_plains/windmill_fine_05/windmill_build.json": "b2cf022bd4cf0f2ecc4a34c85cf1d454f1a15e8b4e89c928235a1ed3599365ca"
+  },
+  "tool": "image_gen.imagegen",
+  "model": "not exposed by tool; unknown",
+  "cost": "unknown; image generation tool does not expose billed price",
+  "generation_calls": 1,
+  "prompt_or_reference": "assets/underworld_plains/windmill_fine_05/provenance.json; assets/underworld_plains/windmill_fine_05/prompt.txt",
+  "processing": "Byte-identical AI mother retained. Measured separate islands nearest-resized; flag has1native transparent border. Independent static grounded body, rotating rotor and cloth-only1px wind; whole tower does not rotate.",
+  "usage_scope": "Formal region windmill cosmetic overlay within old display/root span. No geometry/gameplay changes; actual pose/composition/motion review unverified.",
+  "consumer_scripts": [
+    "scripts/underworld_plains/underworld_windmill.gd"
+  ],
+  "license_status": "unknown",
+  "license_source": "Generated edits/reference lineage from repository sources; existing source rights retained. No separate output license certificate exposed; no blanket CC0 or third-party permission claim.",
+  "visual_status": "unverified",
+  "user_acceptance_evidence": [],
+  "disposition": "runtime_candidate",
+  "associated_files": [
+    {
+      "path": "assets/underworld_plains/windmill_fine_05/provenance.json",
+      "sha256": "1cbdcd95ddd5578c494f57b4df38ab1b78b510919f756e8aef546fdc9b4544ef",
+      "role": "generation_record"
+    },
+    {
+      "path": "assets/underworld_plains/windmill_fine_05/prompt.txt",
+      "sha256": "193626c4951f2770a5973c67997441edf1892ede68e8a20237620e7db1dbd037",
+      "role": "generation_record"
+    },
+    {
+      "path": "assets/underworld_plains/decor/chime_props.png",
+      "sha256": "a956c984f4a839f08dc7a9e6dbd5e145a348efa36221e308d964b5cb0fb8cf06",
+      "role": "reference"
+    },
+    {
+      "path": "tools/build_windmill_fine_05.gd",
+      "sha256": "2d382a6ec038f0feb52b60d9dde372be2404587c94539538b8b59628890a205b",
+      "role": "processing_record"
+    }
+  ]
+}

@@ -51,7 +51,7 @@ func run() -> void:
 			check(is_equal_approx(merchant.scale.x,merchant.scale.y),"merchant source aspect ratio is preserved")
 			var merchant_bounds := merchant.global_transform*merchant.get_rect()
 			var foot := Vector2(merchant_bounds.get_center().x,merchant_bounds.end.y)
-			check(foot.is_equal_approx(stage.merchant_position+Vector2(0,18)),"actual merchant feet remain at the unchanged interaction ground anchor")
+			check(foot.is_equal_approx(stage.merchant_position+Vector2(0,18)),"actual merchant feet remain at the unchanged interaction ground anchor actual=%s expected=%s"%[foot,stage.merchant_position+Vector2(0,18)])
 			var hit := stage.get_world_2d().direct_space_state.intersect_ray(PhysicsRayQueryParameters2D.create(foot-Vector2(0,1),foot+Vector2(0,3),1))
 			check(not hit.is_empty() and hit.collider is StaticBody2D,"merchant foot is supported by real formal terrain")
 		var bg:=app.get_node("PixelPlainsParallax") as UnderworldParallax

@@ -8,21 +8,21 @@ const SHARED_OBJECT_METADATA := &"forest_bible_shared_objects"
 const TETHER_ATTACHMENT_METADATA := &"forest_bible_tether_attachment"
 const WEAVER_BODY: Texture2D = preload("res://assets/forest_bible_v2/native/weaver_silk_bell_v5.png")
 const WEAVER_BOUNDS: Rect2 = Rect2(-16.0, -16.0, 32.0, 32.0)
-const GUARDIAN_BODY: Texture2D = preload("res://assets/forest_bible_v2/native/rootbell_guardian_v1.png")
-# Native foot anchor(18,47)*2 aligns with the centered collision foot y=48.
+const GUARDIAN_BODY: Texture2D = preload("res://assets/forest_bible_v2/native/fine_32/guardian.png")
+# Fine source foot(36,94) at1wu aligns with unchanged collision foot y=48.
 const GUARDIAN_BOUNDS: Rect2 = Rect2(-36.0, -46.0, 72.0, 96.0)
-const QUEEN_BODY: Texture2D = preload("res://assets/forest_bible_v2/native/thorn_queen_v1.png")
+const QUEEN_BODY: Texture2D = preload("res://assets/forest_bible_v2/native/fine_32/queen.png")
 # Crown is non-hurt decoration. Body collision and living knot Nodes stay external.
 const QUEEN_BOUNDS: Rect2 = Rect2(-36.0, -39.0, 72.0, 68.0)
-const BEETLE_BODY: Texture2D = preload("res://assets/forest_bible_v2/native/bark_beetle_v1.png")
-# Source foot(12,15)*1.5 maps to the unchanged centered collision foot y=12.
+const BEETLE_BODY: Texture2D = preload("res://assets/forest_bible_v2/native/fine_32/beetle.png")
+# Fine source foot(24,30)*.75 maps to unchanged collision foot y=12.
 const BEETLE_BOUNDS: Rect2 = Rect2(-18.0, -10.5, 36.0, 24.0)
 # Four concrete biological body consumers, retaining their real physics/cues.
 const ECOLOGY_BODIES := {
-	&"forest_lantern": {"texture": preload("res://assets/forest_bible_v2/native/forest_lantern_v1.png"), "bounds": Rect2(-18.0, -15.0, 36.0, 30.0), "collision": Vector2(24.0, 24.0), "mirror": true},
-	&"forest_swing_pod": {"texture": preload("res://assets/forest_bible_v2/native/forest_swing_pod_v1.png"), "bounds": Rect2(-13.5, -16.5, 27.0, 33.0), "collision": Vector2(26.0, 30.0), "mirror": false},
-	&"forest_seed_sentry": {"texture": preload("res://assets/forest_bible_v2/native/forest_seed_sentry_v1.png"), "bounds": Rect2(-16.5, -19.5, 33.0, 39.0), "collision": Vector2(30.0, 36.0), "mirror": false},
-	&"forest_crossbranch": {"texture": preload("res://assets/forest_bible_v2/native/forest_crossbranch_v1.png"), "bounds": Rect2(-18.0, -18.5, 36.0, 36.0), "collision": Vector2(28.0, 32.0), "mirror": true}
+	&"forest_lantern": {"texture": preload("res://assets/forest_bible_v2/native/fine_32/lantern.png"), "bounds": Rect2(-18.0, -15.0, 36.0, 30.0), "collision": Vector2(24.0, 24.0), "mirror": true},
+	&"forest_swing_pod": {"texture": preload("res://assets/forest_bible_v2/native/fine_32/swing_pod.png"), "bounds": Rect2(-13.5, -16.5, 27.0, 33.0), "collision": Vector2(26.0, 30.0), "mirror": false},
+	&"forest_seed_sentry": {"texture": preload("res://assets/forest_bible_v2/native/fine_32/seed_sentry.png"), "bounds": Rect2(-16.5, -19.5, 33.0, 39.0), "collision": Vector2(30.0, 36.0), "mirror": false},
+	&"forest_crossbranch": {"texture": preload("res://assets/forest_bible_v2/native/fine_32/crossbranch.png"), "bounds": Rect2(-18.0, -18.5, 36.0, 36.0), "collision": Vector2(28.0, 32.0), "mirror": true}
 }
 const WEAVER_TERMINAL_TINT: Color = Color(0.42, 0.46, 0.43, 1.0)
 
@@ -129,14 +129,14 @@ static func draw_enemy_body(canvas: Node2D, actor: EnemyActor, age: float = 0.0)
 	return true
 
 static func _draw_lantern(canvas: Node2D, texture: Texture2D, age: float, terminal: bool, tint: Color) -> void:
-	# Same native pixels, with only the two real wing regions changing pose.
-	# The antenna and bell abdomen keep their original positions and scale.
-	canvas.draw_texture_rect_region(texture,Rect2(-18,-15,36,7.5),Rect2(0,0,24,5),tint)
-	canvas.draw_texture_rect_region(texture,Rect2(-7.5,-7.5,15,6),Rect2(7,5,10,4),tint)
-	canvas.draw_texture_rect_region(texture,Rect2(-18,-1.5,36,16.5),Rect2(0,9,24,11),tint)
+	# Fine48x40 body, mapped to unchanged36x30 world bounds. Only remapped
+	# real wing regions move; age14 frequency and 3/6/9wu poses remain unchanged.
+	canvas.draw_texture_rect_region(texture,Rect2(-18,-15,36,9),Rect2(0,0,48,12),tint)
+	canvas.draw_texture_rect_region(texture,Rect2(-6,-6,12,9),Rect2(16,12,16,12),tint)
+	canvas.draw_texture_rect_region(texture,Rect2(-18,3,36,12),Rect2(0,24,48,16),tint)
 	var height := 3.0 if terminal else 6.0+roundf(sin(age*14.0))*3.0
-	canvas.draw_texture_rect_region(texture,Rect2(-18,-4.5-height*0.5,10.5,height),Rect2(0,5,7,4),tint)
-	canvas.draw_texture_rect_region(texture,Rect2(7.5,-4.5-height*0.5,10.5,height),Rect2(17,5,7,4),tint)
+	canvas.draw_texture_rect_region(texture,Rect2(-18,-1.5-height*0.5,12,height),Rect2(0,12,16,12),tint)
+	canvas.draw_texture_rect_region(texture,Rect2(6,-1.5-height*0.5,12,height),Rect2(32,12,16,12),tint)
 
 static func draw_boss_body(canvas: Node2D, encounter: ThornForestEncounter) -> bool:
 	if not active(canvas) or not is_instance_valid(encounter) or encounter.definition == null: return false
@@ -150,7 +150,7 @@ static func draw_boss_body(canvas: Node2D, encounter: ThornForestEncounter) -> b
 	canvas.draw_texture_rect(GUARDIAN_BODY, GUARDIAN_BOUNDS, false)
 	if not encounter.core_open:
 		# Dim only the authored heart pixels; armor/feet stay at their real anchors.
-		canvas.draw_texture_rect_region(GUARDIAN_BODY,Rect2(-6,-10,16,10),Rect2(15,18,8,5),Color(0.30,0.55,0.38))
+		canvas.draw_texture_rect_region(GUARDIAN_BODY,Rect2(-6,-10,16,10),Rect2(30,36,16,10),Color(0.30,0.55,0.38))
 	return true
 
 static func draw_mobile_bell(canvas: Node2D, radius: float, counter_active: bool) -> bool:

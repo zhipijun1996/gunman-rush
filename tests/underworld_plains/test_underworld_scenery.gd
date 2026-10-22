@@ -52,7 +52,7 @@ func run() -> void:
 				for n: int in 2:
 					check(float(strips[n].right)>=float(strips[n+1].x)-.01, "adjacent strips have no geometric sampling gap")
 					if i==0:
-						check(bool(strips[n].mirrored)!=bool(strips[n+1].mirrored), "opaque far source edge meets its mirrored copy")
+						check(not bool(strips[n].mirrored) and not bool(strips[n+1].mirrored), "selected fine sky repeats same orientation without mirrored clouds")
 					else:
 						check(not bool(strips[n].mirrored) and not bool(strips[n+1].mirrored) and float(strips[n].right)>float(strips[n+1].x), "transparent planes overlap original orientation without paired mirror landmarks")
 				if i==0:

@@ -2,7 +2,7 @@ class_name UnderworldHazardTiles
 extends RefCounted
 ## Integrated hazardous platform material; the existing damage rectangles remain
 ## authoritative. This class owns rendering only, never colliders or emitters.
-const SPEC_PATH := "res://assets/underworld_plains/hazards/hazard_build.json"
+const SPEC_PATH := "res://assets/underworld_plains/hazards/hazard_fine_build.json"
 const ROOT_DEPTH_EPSILON := 0.001
 static var _spec: Dictionary = {}
 static var _atlas: Texture2D

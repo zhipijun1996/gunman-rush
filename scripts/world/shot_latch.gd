@@ -431,7 +431,9 @@ func _underworld_bell_swing() -> float:
 	# the moving carrier's phase and the accepted projectile transaction stay owned
 	# by the original mechanism. Paused SceneTree freezes this clock naturally.
 	var elapsed := _clock-_opened_at
-	return sin(elapsed*28.0)*0.16*maxf(0,1-elapsed/.5) if _opened_at>=0 and elapsed<.5 else 0.0
+	var accepted_ring:=sin(elapsed*28.0)*0.16*maxf(0,1-elapsed/.5) if _opened_at>=0 and elapsed<.5 else 0.0
+	var breeze:=sin(_clock*.82+bell_position.x*.005)*.018 if bool(get_meta("fine_space_presentation",false)) else 0.0
+	return accepted_ring+breeze
 
 func _underworld_feedback_origins() -> PackedVector2Array:
 	# Every actual linked receiver shares the accepted state, so a return-side

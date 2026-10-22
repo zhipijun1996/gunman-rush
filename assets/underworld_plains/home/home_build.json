@@ -344,5 +344,12 @@
     "direction": "east",
     "ground_y": 432,
     "collision": "existing safe floor only; arch is non-colliding; W opens original departure panel"
+  },
+  "grounding": {
+    "task": "FINE-SPACE-05",
+    "source_contact_measurement": "Existing source foot is the lower edge of the last alpha>=128 row. Most foundation/root width ends several source pixels earlier; fine terrain grass becomes continuous below the physical top.",
+    "layering": "Non-colliding building and tree bases remain behind actual terrain, whose grass/soil naturally covers the shallow buried source base.",
+    "logical_support": "Slot roots, interaction anchors and all physical rectangles unchanged. Render origins snap to the shared1wu grid; actual render roots/bounds are recorded separately.",
+    "runtime_policy": "scripts/underworld_plains/grounded_contact.gd: structure/tree7wu, small flora3wu; single shared home/scenery contact policy"
   }
 }

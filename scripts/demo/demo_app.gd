@@ -525,6 +525,11 @@ func _load_stage() -> void:
 			_run_camera.response_time.y = float(random_stage.generated.golden_manifest.camera.response_y)
 		_run_camera.configure(player, random_stage.bounds)
 	controller.return_to_segment(stage.spawn)
+	if _uses_shared_region_pixel_presentation():
+		var presentation:=load("res://scripts/underworld_plains/underworld_presentation.gd") as Script
+		presentation.attach(stage,stage,player)
+		if _uses_pixel_plains_presentation():
+			(get_node("PixelPlainsParallax") as UnderworldParallax).configure(_run_camera,stage.bounds,(stage as PlainsRegionStage).generated.manifest)
 	policy = FrameDamagePolicy.new()
 	policy.lifetime = lifetime
 	add_child(policy)
@@ -2278,7 +2283,8 @@ func _sync_region_presentation(home := false) -> void:
 	var plains := not home and _uses_pixel_plains_presentation()
 	var pixel := not home and _uses_shared_region_pixel_presentation()
 	var parallax := get_node("PixelPlainsParallax") as PixelPlainsParallax
-	parallax.visible = plains or home
+	# Home owns its own configured instance; avoid drawing six duplicate planes.
+	parallax.visible = plains
 	(get_node("PlainsBackground") as PlainsBackground).visible = not pixel and not home
 	if plains: parallax.origin = stage.spawn
 	var avatar := get_meta("avatar_presentation",null) as Node
