@@ -46,3 +46,7 @@ Web导出遇到 `Foundry source changed after validation`，先检查现有开�
 [预制作→制作→验收及版本总谱](../../../docs/creative_direction/README.md)是共同执行依据。总谱SHA变更须RETHINK并复验；交付写贡献、协作、新行为/视觉、主题冲突和实机验证。REWORK局部修复，DISCARD隔离候选；ACCEPT只限真实已验范围，审美不绕过工程红灯。
 
 历史复现按需读取[原始Skill与迁移索引](../../../docs/archive/skill_history/README.md)，不默认加载旧轮授权、PR实录或失败数字。
+
+## 从统一 main 并行开发
+
+用户2026-10-22选择先合并全部现状，再从最新origin/main分主题开发。每任务独立分支／worktree并将PR直接指向main；避免把旧实验分支作为新功能基底。收口须盘点实际祖先而非PR状态，已吸收/替代的旧分支可经逐文件独审、准确blob恢复记录和工作树不变证明保留合并历史，不能借此丢失独有修复或重启旧画风。纯部署产物分支排除；不批量删分支。实例见[收口原件](../../../docs/evidence/main_closeout_20261022/README.md)。

@@ -1,5 +1,9 @@
 # 项目工作规则
 
+## 2026-10-22 主线收口与后续并行
+
+用户本轮明确授权所有开发分支收口到main。后续新开发从最新 `origin/main` 创建短期主题分支，分别使用独立worktree／工作目录，PR直接面向main，不再长期串接旧开发分支。每个任务先明确共享文件的负责者；合入前更新main并解决冲突，保留质量未完成项。纯playtest／deploy导出分支不并入源码。见[本次收口](docs/main_closeout_20261022.md)。
+
 ## 2026-10-21 最新选择：快速部署试玩网页
 
 用户明确要求“这个流程是否太复杂，之后快速部署试玩网页即可”。单纯更新试玩默认走轻流程：同一运行源已有已验证Web包时，复用原包，通过现有`deploy-prepared-playtest.yml`发布，核对公开版本/完整PCK并做基本入口冒烟；不重复完整CI、Windows导出、全路线或长录像。缺包或运行源变化时只重建Web并执行受影响的必要检查；完整CI仍用于开发回归/合入/正式交付，不和每次试玩部署捆绑。复用须记录实际source commit/build id；试玩、整区完成、用户和设备认可分开。不得为提效伪造通过、忽略实际加载错误或默认合main。操作入口见[project-integration](.agents/skills/project-integration/SKILL.md)。
