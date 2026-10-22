@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "started_at": "20261022T090135.969897Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "cloud-production-planner-tests",
+      "argv": [
+        "python3",
+        "tests/test_production_plan.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "eea264c89a2b5a38b47e9e5227b5d890076f4499300f6de20f8a05e955d5ce7c",
+      "log": "cloud-production-planner-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792659696.7186651,
+      "ended_at_unix": 1792659696.8568714,
+      "duration_seconds": 0.138,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_production_plan.py"
+      ],
+      "check_token": "c9dd62f4ba91436886fc65d8e4a71663",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T090135.969897Z/artifacts/cloud-production-planner-tests",
+      "reused": false
+    },
+    {
+      "id": "cloud-delivery-tests",
+      "argv": [
+        "python3",
+        "tests/test_cloud_delivery.py"
+      ],
+      "timeout_seconds": 60,
+      "input_digest": "4ad7e05a792c0f71440f0edee6c8a528cd08583f8e405085c5f10dd76f7b5474",
+      "log": "cloud-delivery-tests.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792659697.179723,
+      "ended_at_unix": 1792659698.820814,
+      "duration_seconds": 1.641,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tests/test_cloud_delivery.py"
+      ],
+      "check_token": "1c0cf3c619984ac08343a55f1cf36b2c",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T090135.969897Z/artifacts/cloud-delivery-tests",
+      "reused": false
+    },
+    {
+      "id": "cloud-preview-runtime",
+      "argv": [
+        "python3",
+        "tools/run_audio_lifecycle_tests.py",
+        "--script",
+        "tests/cloud_preview_runner.gd",
+        "--marker",
+        "^CLOUD PREVIEW TESTS: [1-9][0-9]* assertions, 0 failures$",
+        "--timeout",
+        "90",
+        "--output",
+        "build/cloud_preview/{check_token}"
+      ],
+      "timeout_seconds": 120,
+      "input_digest": "fcdee88d1a7c90a3200e5518255df0fe82c235659392331e321bfa30f8685f64",
+      "log": "cloud-preview-runtime.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792659699.1488752,
+      "ended_at_unix": 1792659702.091342,
+      "duration_seconds": 2.942,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_audio_lifecycle_tests.py",
+        "--script",
+        "tests/cloud_preview_runner.gd",
+        "--marker",
+        "^CLOUD PREVIEW TESTS: [1-9][0-9]* assertions, 0 failures$",
+        "--timeout",
+        "90",
+        "--output",
+        "build/cloud_preview/c54bdc15e8484472a26adb8fafa34ef5"
+      ],
+      "check_token": "c54bdc15e8484472a26adb8fafa34ef5",
+      "artifact_directory": "/workspace/gunman-rush/build/verification/harness/20261022T090135.969897Z/artifacts/cloud-preview-runtime",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "faa1c8e8c3af7bd801af7eeae1d5c5828b3f4185e8fa641d42d4308b4c8ba2ae",
+  "working_files": {},
+  "commit": "6ca72efb1cbdb38cf83ae91c097d192a35403ccd",
+  "git_status": "",
+  "diff": "",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 6.733,
+  "jobs": 1,
+  "release": true
+}

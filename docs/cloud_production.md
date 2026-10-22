@@ -112,10 +112,26 @@ CI分流采用本地Development、PR自动Integration、手动Development／Inte
 
 ## 本轮验证证据
 
-本页描述机制，不声明部署已成功。真实录屏、独立Preview、版本与失败／阻塞由本轮任务证据和[交接](handoff.md)登记；只有验证后的可访问URL才能替换待实测状态。本轮 `tools/capture_slice.py` 是一个固定样例：同源、同动作的开发banner关闭／开启各12秒，检验真实Godot短片对照和文件交付；它不是通用输入录制器、两个历史commit的前后对照或玩法改善证据。其他内容任务按范围复用原 `capture_actions.py`／`visual_director.py capture` 等真实消费者，另写符合任务的driver，不能把本样例的运行签给其他动作。
+本轮两条路径已按[实际交付原件](evidence/cloud_production_01/README.md)验证：真实MP4、独立Godot Web、完整公开字节与GUI、main并存均有精确来源；完整docs／Release及玩家／真机仍单列。本轮 `tools/capture_slice.py` 是一个固定样例：同源、同动作的开发banner关闭／开启各12秒，检验真实Godot短片对照和文件交付；它不是通用输入录制器、两个历史commit的前后对照或玩法改善证据。其他内容任务按范围复用原 `capture_actions.py`／`visual_director.py capture` 等真实消费者，另写符合任务的driver，不能把本样例的运行签给其他动作。
 
 ```sh
 python3 tools/capture_slice.py --output build/verification/cloud-slice-<fresh-id> --task CLOUD-PRODUCTION-01 --seed cloud-review-01
 ```
 
 输出目录须为新目录；生成本地文件后仍需上传实际MP4并核验下载URL，不能把本地路径当作交付完成。
+
+## 实际工具与后续提效
+
+```sh
+python3 tools/cloud_delivery.py select --kind local_animation
+python3 tools/cloud_delivery.py select --kind ui --long-task
+python3 tools/cloud_delivery.py stage-preview --bundle build/web --host-root ../gunman-rush-previews --task TASK-ID --seed review-01 --entry actions
+python3 tools/cloud_delivery.py stage-preview --bundle build/web --host-root ../gunman-rush-previews --task TASK-ID --seed review-01 --entry scene --scene res://scenes/dev/consumer_test.tscn
+python3 tools/cloud_delivery.py stage-media --capture-dir build/verification/cloud-slice-FRESH --host-root ../gunman-rush-previews --task TASK-ID
+```
+
+`--kind`自动选择验证形式，显式观察／操作需求只追加，不降低默认要求；长线只追加里程碑。`--entry scene`要求已导出的自包含测试场景，工具核真实PCK，调用者仍须运行实际消费者。默认menu/actions和直接DemoApp均在入树前禁main meta；自定义场景的其他持久化由其合同约束，不能当成任意脚本的文件系统沙箱。
+
+两种stage命令只暂存；在独立host提交推送后，唯一Pages工作流核PCK／媒体inventory及900MiB上限，再部署。实际访问／下载核验后才报成功。`stage-media`提供稳定静态下载作为Release上传受限时的正式可用路径。初次建立host需仓库创建及Pages启用权限；已建立后不重复请求。
+
+本轮新增两项Python检查接入原profile，真实preview生命周期接入gameplay/art/full；原158检查定义及原profile前缀不变。当前稀疏工作区与新CI用jobs1，避免现有隔离clone偷偷物化全树；Release原分机lane不变。完整数据与下一批三个工程Prompt见[提效审计](cloud_efficiency_audit.md)。
