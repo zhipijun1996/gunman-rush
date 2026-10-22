@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "started_at": "20261022T125012.811711Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "underworld-damage-feedback",
+      "argv": [
+        "python3",
+        "tools/run_underworld_damage_r3_tests.py"
+      ],
+      "timeout_seconds": 180,
+      "input_digest": "bae8fb50c843a0371fd81a31635c93676aa3578a032e72b0a1c28ed3b334a365",
+      "log": "underworld-damage-feedback.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792673413.6895626,
+      "ended_at_unix": 1792673418.2400882,
+      "duration_seconds": 4.551,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_underworld_damage_r3_tests.py"
+      ],
+      "check_token": "de49d8c1573a4820a53946b8a2b06901",
+      "artifact_directory": "/workspace/worklines/enemy-feedback-01/build/verification/harness/20261022T125012.811711Z/artifacts/underworld-damage-feedback",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "ed36c753c85eefb7741b724e5a62a37dec2774ce851d8e3d595bc933f2f3b434",
+  "working_files": {},
+  "commit": "0ee0e79197f40e898283440d4af2d956f91f1c64",
+  "git_status": "",
+  "diff": "",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 6.048,
+  "jobs": 1,
+  "release": true
+}
