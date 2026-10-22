@@ -3,10 +3,28 @@ extends PixelPlainsEnemy
 ## Genuine new body art. Original state-based telegraphs remain authoritative.
 var feedback: DamageFeedbackDefinition = preload("res://resources/damage/feedback.tres")
 var accepted_hurt_count := 0
+var feedback_sample: EnemyFeedback01
 
 func _ready() -> void:
-	super._ready()
-	actor.health.changed.connect(_accepted_damage)
+	if EnemyFeedback01.supports(actor.definition):
+		# Do not install WindchimeEnemyVisual's legacy anonymous HP listener too.
+		feedback_sample = EnemyFeedback01.new(actor.health, actor.definition)
+	else:
+		super._ready()
+		actor.health.changed.connect(_accepted_damage)
+
+func _process(delta: float) -> void:
+	if get_tree().paused: return
+	# Parent retains exclusive ownership of death timing, alpha and visibility.
+	super._process(delta)
+	if feedback_sample != null:
+		feedback_sample.advance(delta)
+		_hurt = feedback_sample.hurt_remaining
+		accepted_hurt_count = feedback_sample.accepted_hit_count
+
+func _exit_tree() -> void:
+	if feedback_sample != null: feedback_sample.dispose()
+	if is_instance_valid(actor) and actor.health.changed.is_connected(_accepted_damage): actor.health.changed.disconnect(_accepted_damage)
 
 func _accepted_damage(result: ActorResourceResult) -> void:
 	if result == null or result.operation != &"damage" or result.status != ActorResourceResult.Status.APPLIED or result.amount_applied >= 0 or result.snapshot.terminal: return
@@ -23,6 +41,7 @@ const SPRITES := {
 
 func _draw() -> void:
 	if actor == null: return
+	if feedback_sample != null and feedback_sample.restored_terminal: return
 	var behavior := String(actor.definition.behavior_id)
 	var state: StringName = actor.attack_behavior.state if actor.attack_behavior!=null else &"idle"
 	if not actor.health.terminal: _telegraph(state,StringName(behavior))
@@ -40,13 +59,19 @@ func _draw() -> void:
 	var pose := Vector2.ONE
 	if state==&"telegraph": pose=Vector2(1.06,.94)
 	elif state==&"attack": pose=Vector2(.96,1.04)
-	if _hurt > 0 and not actor.health.terminal:
+	if feedback_sample != null:
+		pose *= feedback_sample.pose()
+	elif _hurt > 0 and not actor.health.terminal:
 		var age := feedback.hurt_seconds-_hurt
 		pose = Vector2(.86,1.10) if age < .10 else Vector2(1.06,.96)
 		dip -= sin(age/feedback.hurt_seconds*PI)*3
 	var flutter := 2*roundf(sin(_clock*12)) if actor.definition.aerial else 0.0
-	draw_set_transform(Vector2(0,dip+flutter),0,Vector2(float(actor.brain.direction)*pose.x,pose.y))
-	draw_texture_rect(source,Rect2(-width*.5,floor_y-height,width,height),false,Color(1.4,.72,.48) if _hurt>0 and int(_hurt*feedback.flash_frequency)%2==0 else Color.WHITE)
+	var tilt := feedback_sample.tilt() if feedback_sample != null else 0.0
+	# Keep the ground contact anchor while squashing; the flyer retains flutter.
+	var origin := Vector2(0,dip+flutter+(floor_y*(1-pose.y) if feedback_sample != null else 0.0))
+	draw_set_transform(origin,tilt,Vector2(float(actor.brain.direction)*pose.x,pose.y))
+	var tint := feedback_sample.tint() if feedback_sample != null else Color(1.4,.72,.48) if _hurt>0 and int(_hurt*feedback.flash_frequency)%2==0 else Color.WHITE
+	draw_texture_rect(source,Rect2(-width*.5,floor_y-height,width,height),false,tint)
 	draw_set_transform(Vector2.ZERO)
 	if actor.health.terminal: return
 	var top := -size.y*.5

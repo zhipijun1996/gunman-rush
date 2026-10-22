@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "task_id": "ENEMY-FEEDBACK-01",
+  "task_type": "animation",
+  "workflow": "in_progress",
+  "baseline_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+  "reviewed_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+  "content_version": "feedback-sample-v1",
+  "owner": "/root",
+  "purpose": "Two existing ordinary enemies share accepted-hit feedback state across both original and formal Underworld rendering chains.",
+  "player_experience": "Grounded patrol and aerial diver react distinctly to committed damage while retaining their authored silhouettes, locomotion and material.",
+  "constraints": [
+    "Only graybox_patrol_drone and plains_diver; no AI/damage/collision/reward/Boss/config/audio/shared-parent changes",
+    "EnemyActor, Definitions, ForestBibleActors and official scenes remain controller-owned",
+    "Observe accepted HealthState damage; no new signal; separate both inheritance chains",
+    "No main merge; full Integration remains required before controller integration"
+  ],
+  "affected_paths": [
+    "scripts/enemies/enemy_presentation.gd",
+    "scripts/underworld_plains/underworld_enemy.gd",
+    "scripts/enemies/enemy_feedback_01.gd",
+    "tests/enemy_feedback_01_tests.gd",
+    "tools/enemy_feedback_01_capture.gd",
+    "tools/capture_enemy_feedback_01.py"
+  ],
+  "deliverables": [
+    "docs/enemy_feedback_01.md",
+    "docs/evidence/enemy_feedback_01/README.md"
+  ],
+  "creative_decisions": [],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "technical": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Native专项执行中",
+    "Same-condition real projectile MP4 pending",
+    "Formal full Integration, independent review, user and device acceptance pending"
+  ],
+  "skills": [
+    "animation-vfx",
+    "game-quality-gate"
+  ]
+}

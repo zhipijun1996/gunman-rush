@@ -11,18 +11,32 @@ var _weight := Vector2.ONE
 var _lean := 0.0
 static var _action_manifest: Dictionary = {}
 static var _action_textures: Dictionary = {}
+var feedback_sample: EnemyFeedback01
 func _ready() -> void:
 	_size = actor.definition.collision_size
-	actor.health.changed.connect(_health_changed)
+	if EnemyFeedback01.supports(actor.definition):
+		feedback_sample = EnemyFeedback01.new(actor.health, actor.definition)
+	else:
+		actor.health.changed.connect(_health_changed)
 	queue_redraw()
+func _exit_tree() -> void:
+	if feedback_sample != null: feedback_sample.dispose()
+	if is_instance_valid(actor) and actor.health.changed.is_connected(_health_changed): actor.health.changed.disconnect(_health_changed)
 func _process(delta: float) -> void:
 	if get_tree().paused: return
 	_clock += delta
-	if actor.health.terminal: _death_time += delta
-	_hurt_time = maxf(0, _hurt_time - delta)
+	if feedback_sample != null:
+		feedback_sample.advance(delta)
+		_hurt_time = feedback_sample.hurt_remaining
+		_death_time = feedback_sample.death_elapsed
+	else:
+		if actor.health.terminal: _death_time += delta
+		_hurt_time = maxf(0, _hurt_time - delta)
 	var state: StringName = actor.attack_behavior.state if actor.attack_behavior != null else &"idle"
 	var desired := Vector2(1.12,.9) if state in [&"telegraph",&"attack"] else Vector2(.97,1.025) if state == &"recovery" else Vector2.ONE
 	if actor.health.terminal: desired = Vector2(1.12,.45)
+	if feedback_sample != null:
+		desired = feedback_sample.pose() if actor.health.terminal else desired * feedback_sample.pose()
 	_weight = _weight.lerp(desired,1-exp(-delta/.075))
 	_lean = lerpf(_lean,clampf(actor.motor.velocity.x/350,-1,1)*.09,1-exp(-delta/.07))
 	_update_frame_weights(state,delta)
@@ -34,6 +48,7 @@ func _health_changed(result: ActorResourceResult) -> void:
 func _draw() -> void:
 	if actor == null:
 		return
+	if feedback_sample != null and (feedback_sample.restored_terminal or (actor.health.terminal and not feedback_sample.death_active)): return
 	var texture := PlainsRefreshAssets.object_texture(&"enemy_left" if actor.brain.direction < 0 else &"enemy_right")
 	var state: StringName = actor.attack_behavior.state if actor.attack_behavior != null else &"idle"
 	var facing := float(actor.brain.direction)
@@ -57,16 +72,19 @@ func _draw() -> void:
 	var bob := sin(_clock * 7) * 1.2 if not actor.health.terminal else 0.0
 	size *= _weight
 	var tint := Color(1.0, 0.50, 0.43) if _hurt_time > 0 else Color.WHITE
+	if feedback_sample != null: tint = feedback_sample.tint()
 	if actor.health.terminal:
 		tint = Color(0.65, 0.62, 0.51, maxf(0.18, 0.8 - _death_time * 0.5))
+		if feedback_sample != null: tint.a = .8 * maxf(0, 1 - _death_time / EnemyFeedback01.DEATH_SECONDS)
 		for mote: int in 6:
 			var angle := TAU * float(mote) / 6.0
-			draw_circle(Vector2(cos(angle), sin(angle)) * minf(_death_time * 35, 25), 2, Color(0.95, 0.80, 0.48, maxf(0, 1.0 - _death_time * 1.6)))
+			var alpha := maxf(0, 1.0 - _death_time / EnemyFeedback01.DEATH_SECONDS) if feedback_sample != null else maxf(0, 1.0 - _death_time * 1.6)
+			draw_circle(Vector2(cos(angle), sin(angle)) * minf(_death_time * 35, 25), 2, Color(0.95, 0.80, 0.48, alpha))
 
 	if ForestBibleActors.draw_enemy_body(self, actor, _clock): return
 	if actor.definition.aerial:
 		var atlas := preload("res://assets/plains_v4/spatial/actors.png")
-		var tilt := _lean + sin(_clock*2)*.035
+		var tilt := _lean + sin(_clock*2)*.035 + (feedback_sample.tilt() if feedback_sample != null else 0.0)
 		draw_set_transform(Vector2(0,bob),tilt,Vector2(-facing,1))
 		draw_texture_rect_region(atlas,Rect2(-size.x*.6,-size.y*.65,size.x*1.2,size.y*1.3),Rect2(935,570,580,445),tint)
 		draw_set_transform(Vector2.ZERO)
