@@ -1,0 +1,47 @@
+{
+  "reviewer": "/root/independent_review",
+  "verdict": "ACCEPT",
+  "scope": "Incremental Harness lane metadata initialization after real partial-source transport failure; actual root native consumers and full CI remain separate",
+  "baseline_commit": "1cfd8aa1bd0dcab480466f9a8519f52dacc211a4",
+  "source_state": "frozen working-tree delta",
+  "source_sha256": {
+    "tools/harness.py": "588f0079f01713caa55a84ad3ad44c1bd667d8535678620460a9b31fb2c46c7e",
+    "tests/test_harness.py": "6346c6d7e616e83ccd9a52cbf74bafd99482cf0dc5bc08f38c855a43adb8fd1f"
+  },
+  "prior_actual_failure": {
+    "report": "build/verification/harness/20261022T100947.288359Z/report.json",
+    "sha256": "7100f516d5e02e9150635905352eb18c9762c2b26d9b89f9fe044599905127c1",
+    "status": "interrupted",
+    "checks_started": 0,
+    "setup_log": "build/verification/harness/20261022T100947.288359Z/lane-0-setup.log",
+    "cause": "Old clone fell back to upload-pack for a real partial promisor source and failed on an unavailable cold blob. This report stays failed."
+  },
+  "reviewed_change": [
+    "Replace clone with git init, object-format-aware repository metadata, alternates pointing to the existing source object directory, exact refs including symbolic refs, HEAD, shallow boundary and the existing exact index/split-index overlay.",
+    "Source Git metadata commands disable lazy fetch; lane remote points to the local source and preserves promisor meaning without copying service credentials.",
+    "Existing staged/working/deletion overlay, import/user/config/cache isolation and source guards remain."
+  ],
+  "independent_execution": {
+    "command": "python3 tests/test_harness.py SparseIsolationTests.test_real_partial_promisor_with_unavailable_origin_never_runs_pack_transport SparseIsolationTests.test_linked_worktree_split_index_preserves_its_own_stage SparseIsolationTests.test_cone_sparse_index_works_with_an_unavailable_cold_blob",
+    "tests": 3,
+    "exit_code": 0,
+    "log": "/workspace/scratch/cloud-efficiency-independent-review/partial-isolation-delta.log"
+  },
+  "additional_real_git_smoke": {
+    "report": "/workspace/scratch/cloud-efficiency-independent-review/shallow-refs-extra.json",
+    "status": "passed",
+    "facts": [
+      "real shallow/filter/promisor source with inaccessible origin",
+      "detached HEAD bytes retained",
+      "packed and symbolic refs retained",
+      "shallow file and index retained",
+      "cold path absent and lane object pack directory empty"
+    ]
+  },
+  "controls": "The added real partial fixture has .promisor packs and a genuinely unavailable cold blob. The forced old transport control fails; the new metadata setup and two real lanes pass and trace rejects clone/fetch/upload-pack/index-pack/pack-objects.",
+  "limits": [
+    "Independent tests do not replace actual root Godot consumers or complete CI/Release.",
+    "Previously accepted local non-promisor missing-object tests were insufficient to establish this actual partial-source case; the original failure remains retained.",
+    "No subjective, player or physical-device quality signed."
+  ]
+}

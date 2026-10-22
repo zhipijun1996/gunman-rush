@@ -1,0 +1,37 @@
+{
+  "reviewer": "/root/independent_review",
+  "reviewed_commit": "1cfd8aa1bd0dcab480466f9a8519f52dacc211a4",
+  "verdict": "ACCEPT",
+  "scope": "Provider transport delta only; successful real first batch, not all selected inputs, docs, CI or Release",
+  "source_sha256": {
+    "tools/cloud_inputs.py": "f8ff9edb12d0f54338b29ee935f6d7f84d2fbd1b06bfa09ea6ad19b34a03308a",
+    "tests/test_cloud_inputs.py": "45b2065621334978f8e3879c004da7dcd653ff52857316b2f38d0340249fe4af"
+  },
+  "reviewed_change": "Each bounded explicit-OID fetch now overrides fetch.negotiationAlgorithm=noop and clears fetch.bundleURI, matching promisor lazy-fetch transport; exact argv is recorded. No object-completeness, blob-SHA, size, HEAD/index, no-overwrite or failure checks were removed.",
+  "independent_execution": {
+    "command": "python3 tests/test_cloud_inputs.py CloudInputsTests.test_bounded_prefetch_restores_selected_blob_without_unrelated_missing_blob CloudInputsTests.test_prefetch_failure_has_nonzero_cli_and_retained_failure_record CloudInputsTests.test_planned_wrong_blob_or_size_is_refused CloudInputsTests.test_existing_local_edit_is_never_overwritten_by_stale_plan",
+    "tests": 4,
+    "exit_code": 0,
+    "log": "/workspace/scratch/cloud-efficiency-independent-review/transport-delta.log"
+  },
+  "real_provider_observation": {
+    "event": "/workspace/scratch/blob-prefetch-debug/first32-noop.json",
+    "event_sha256": "b247f9dd183af55175699cd07ee63c0653eed37e3b64ad5c49159be650fd7fcc",
+    "trace": "/workspace/scratch/blob-prefetch-debug/first32-noop.trace2.jsonl",
+    "trace_sha256": "150ec3e97d113c005dbd9122c89b9828753133970658a33f8f4dfe9c9b4f4c9a",
+    "before_missing": 32,
+    "after_readable": 32,
+    "independently_recomputed_git_blob_sha1_count": 32,
+    "raw_bytes": 50319209,
+    "recorded_seconds": 28.164,
+    "returncode": 0,
+    "trace_pack_header": "2,32",
+    "interpretation": "The exact initial 32 selected objects were successfully received; this does not assert filesystem materialization or availability of the remaining docs inputs."
+  },
+  "failure_preservation": "Original failed GitHub attempt remains build/verification/efficiency-docs-inputs.json and is not reclassified.",
+  "limits": [
+    "Do not extrapolate first-batch success to complete docs preflight, actual full Integration or Release.",
+    "Unchanged Harness83 was not rerun for this transport-only change.",
+    "No user/aesthetic/device acceptance."
+  ]
+}

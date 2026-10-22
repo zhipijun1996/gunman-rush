@@ -1,0 +1,104 @@
+{
+  "reviewer": "/root/independent_review",
+  "implementers": [
+    "/root",
+    "/root/audit_ci",
+    "/root/audit_delivery",
+    "/root/production_docs"
+  ],
+  "baseline_commit": "97c060f33192ea560874da7348c907c80d780bd1",
+  "reviewed_source_state": "post-97c060f frozen working-tree bytes, not a fresh commit approval",
+  "source_sha256": {
+    "tools/harness.py": "80695841a287c51a017ec59e440affd4cda27c334c2536e23bb877c78990f071",
+    "tests/test_harness.py": "2316c4776d76c11c8ee1a1c0b14f70f01a30b914d6da3fae9c1a93f1622e0de5",
+    "tools/cloud_inputs.py": "969547dcde0253ed1216cf35383a6371857a25adcadac771f79656f939ae433c",
+    "tests/test_cloud_inputs.py": "bbc2ea335ecebb88ad2035464a533fd969da8c4eefdb8cc09014fecf568a20f2",
+    "tools/harness/profiles.json": "09f5158ed17e568972560827a39c94148596d134fe472e381a82d083a9491d70",
+    ".github/workflows/production.yml": "55c6846fcadf6defc66dacf48b1e5387abea457a0034e93f8a24fc7df45a3479",
+    "AGENTS.md": "295574c126b656b0f57f79e3f5399d9269fa45085af8e587b418f140487bf92e",
+    ".agents/skills/enemy-creator/SKILL.md": "e2a9eca21fccfd895dbfab2247e0986117f63b24b2dc3abf4f0302b4999623d5",
+    ".agents/skills/game-quality-gate/SKILL.md": "8f1ad5cb97dd136a3097ca0533358d71126e7ae306fff63d48efb7b4de91bc79",
+    ".agents/skills/player-creator/SKILL.md": "9b4d8c3994b9579b85e050ad83096ce0e6dae9746259283bff80c77b754eaf9d",
+    ".agents/skills/project-integration/SKILL.md": "dfdb5fd5a8300712b15395a68c9932385fc46df1c3450af5775c16702f30e534",
+    "docs/harness.md": "0840b99ed7f875985d8625fc5ad0df6a6086ff6ecd96c3fe9a8207e5056caded",
+    "docs/cloud_efficiency_audit.md": "05ffdda43375b189d545f4081d8e7ee154bc4784a44a1feae34afd19a2fa9271",
+    "docs/demo_wave_01.md": "21ce62394a6ec655b1eb5fd5410422540cd6527870acdba03002148b9b035733"
+  },
+  "verdict": "ACCEPT",
+  "scope": "Technical review of no-checkout sparse Harness isolation, selected exact-HEAD input hydration, safe reports, CI dependency order and aligned production skills; permits actual integration verification, not a full Release sign-off",
+  "independent_executions": [
+    {
+      "command": [
+        "python3",
+        "tests/test_harness.py"
+      ],
+      "exit_code": 0,
+      "log": "/workspace/scratch/cloud-efficiency-independent-review/harness-frozen.log",
+      "seconds": 8.241
+    },
+    {
+      "command": [
+        "python3",
+        "tests/test_cloud_inputs.py"
+      ],
+      "exit_code": 0,
+      "log": "/workspace/scratch/cloud-efficiency-independent-review/cloud-inputs-frozen.log",
+      "seconds": 1.062
+    },
+    {
+      "command": [
+        "/workspace/scratch/actionlint/actionlint",
+        ".github/workflows/production.yml"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "source_stable_during_tests": true,
+  "guard_preservation": {
+    "existing_check_count": 161,
+    "existing_definitions_identical": true,
+    "original_profile_prefixes_identical": true,
+    "added_checks": [
+      "cloud-inputs-tests"
+    ],
+    "original_test_function_bodies_identical": true,
+    "original_test_function_count": 58
+  },
+  "prior_findings": [
+    {
+      "id": "INPUTS-STAGED-DELETE-01",
+      "prior_verdict": "REWORK",
+      "prior_report": "review-v1.json",
+      "observation": "A HEAD input staged-deleted from the index disappeared from the reused preflight and could be reported ready.",
+      "resolution": "make_plan now rejects HEAD/index path-structure drift and unmerged entries before preflight. Real fixture and runner staged-deletion counterexamples pass; no deletion is restored."
+    }
+  ],
+  "verified_behaviors": [
+    "Actual two-lane execution does not smudge or materialize the unrelated 4MiB cold blob; eager control does, and original source guard/output proof is retained.",
+    "Real Git tests preserve separate staged/working bytes, ordinary and staged deletion, additions, intent-to-add, skip-worktree, sparse index, excludes and linked split-index semantics.",
+    "Independent additional real unmerged-index smoke retained all three conflict stages and identical working bytes.",
+    "Selected exact-HEAD hydration retains unknown object sizes without implicit plan fetch; actual file:// promisor fetch requests only selected absent objects and leaves unrelated missing blob absent.",
+    "Ordinary deletions, stale index/blob/size, wrong commit, corruption, unsafe paths and report overwrites fail rather than manufacturing availability or test success.",
+    "CI hydrates the initial selected preflight before quality-diff, then replans and hydrates again after Foundry preparation before execution. media dependencies precede media tests; Bash pipefail and always-upload remain.",
+    "Original 161 baseline check definitions, all original profile prefixes and 58 original test function bodies are unchanged. One real cloud-inputs-tests check is appended.",
+    "Skills distinguish Development, Integration and Release and keep subjective/device decisions separate; selected history is read on demand without deleting original evidence."
+  ],
+  "limitations": [
+    "No actual Godot or complete project Integration/Release run was executed by this reviewer for the efficiency change.",
+    "Pure temporary historical fixture consumers and promisor transport tests do not prove all old-commit runtime fixtures; the actual selected consumers and CI must still run.",
+    "Input readiness is availability of the existing preflight closure, not a complete dynamic dependency graph or successful tests.",
+    "4MiB fixture demonstrates avoided materialization bytes, not a measured end-to-end production speedup.",
+    "No art, player feel/fun or physical-device acceptance is signed.",
+    "Real GitHub transport success covers only the first exact 32-object batch; all subsequent selected inputs and full CI still require actual execution.",
+    "The original real root isolation setup failure is retained; its 0 checks are not replaced or reclassified by fixture success."
+  ],
+  "remote_transport_status": "Verified real GitHub initial selected 32-object batch only; complete selected-input materialization/docs/CI/Release remain unverified",
+  "supplements": [
+    "supplement-routing-ci.json",
+    "supplement-provider-transport.json",
+    "supplement-partial-source-isolation.json"
+  ],
+  "reviewed_commit_after_incremental_fixes": "1cfd8aa1bd0dcab480466f9a8519f52dacc211a4",
+  "source_hash_provenance_note": "Primary frozen-test source hashes identify the earlier 83/21 direct test run. Each incremental supplement binds its own changed bytes and executions; do not relabel earlier runs as current-commit fresh.",
+  "partial_source_initialization_status": "Incremental code and actual partial/promisor plus shallow/refs/linked-index fixtures accepted; root real native consumers and full CI still require execution"
+}

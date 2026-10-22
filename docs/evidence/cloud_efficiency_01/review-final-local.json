@@ -1,0 +1,123 @@
+{
+  "reviewer": "independent_review (not implementation author)",
+  "reviewed_at_utc": "2026-10-22T10:27:29.641284+00:00",
+  "verdict": "ACCEPT",
+  "scope": "Final local technical evidence and provenance only; supplements retain their independently tested code-review scope.",
+  "baseline_commit": "97c060f33192ea560874da7348c907c80d780bd1",
+  "tested_source": {
+    "head": "1cfd8aa1bd0dcab480466f9a8519f52dacc211a4",
+    "state": "HEAD plus recorded working-files overlay; not a future clean commit",
+    "current_source_sha256": {
+      "tools/harness.py": "588f0079f01713caa55a84ad3ad44c1bd667d8535678620460a9b31fb2c46c7e",
+      "tests/test_harness.py": "6346c6d7e616e83ccd9a52cbf74bafd99482cf0dc5bc08f38c855a43adb8fd1f",
+      "tools/cloud_inputs.py": "f8ff9edb12d0f54338b29ee935f6d7f84d2fbd1b06bfa09ea6ad19b34a03308a",
+      "tests/test_cloud_inputs.py": "45b2065621334978f8e3879c004da7dcd653ff52857316b2f38d0340249fe4af"
+    },
+    "harness_overlay_matches_current_files": true,
+    "history_overlay_matches_current_files": true
+  },
+  "fresh_targeted_harness": {
+    "report": "docs/evidence/cloud_efficiency_01/native/report.json",
+    "sha256": "0022108b58ba2f15e142dd36f18547a8d62dfd3f7f8c7a34c95d2725331cac43",
+    "copied_report_exact": true,
+    "jobs": 2,
+    "status": "passed",
+    "checks": [
+      {
+        "id": "harness-tests",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "duration_seconds": 11.485
+      },
+      {
+        "id": "cloud-inputs-tests",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "duration_seconds": 1.424
+      },
+      {
+        "id": "cloud-production-planner-tests",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "duration_seconds": 0.205
+      },
+      {
+        "id": "cloud-delivery-tests",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "duration_seconds": 1.81
+      },
+      {
+        "id": "core",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "duration_seconds": 22.149
+      },
+      {
+        "id": "forest-formal-combat",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "duration_seconds": 22.363
+      },
+      {
+        "id": "cloud-preview-runtime",
+        "status": "passed",
+        "exit_code": 0,
+        "reused": false,
+        "duration_seconds": 3.024
+      }
+    ],
+    "observed_markers": {
+      "harness_tests": 84,
+      "cloud_inputs_tests": 21,
+      "production_planner_tests": 16,
+      "cloud_delivery_tests": 30,
+      "core_assertions": 5681,
+      "core_failures": 0,
+      "preview_assertions": 25,
+      "preview_failures": 0,
+      "audio_teardown_released": true
+    },
+    "forest_scope": "Original historical forest v1 selected formal checks; current forest v2 not covered.",
+    "release_flag_interpretation": "release=true requests fresh selected checks in this Harness invocation; it does not establish a full Release profile pass."
+  },
+  "isolated_original_historical_consumer": {
+    "receipt": "docs/evidence/cloud_efficiency_01/isolated-history/receipt.json",
+    "receipt_sha256": "a50d32b894d8688556bab26099e4e35ebefd2abb4c7c80d114ccf00ed2eb67f9",
+    "exit_code": 0,
+    "seconds": 27.91834006299996,
+    "nested_report_status": "passed",
+    "nested_jobs": 1,
+    "original_check_id": "forest-formal-combat",
+    "serial_flag_unchanged": true,
+    "scope": "Original serial checker and source guards actually ran inside a real partial-source isolated lane."
+  },
+  "failure_preservation": {
+    "partial_clone_report": "Original interrupted report, zero checks, retained byte-for-byte in gzip.",
+    "provider_fetch_report": "Original failed provider report retained byte-for-byte in gzip; no retrospective pass.",
+    "partial_clone_log": "Archived gzip is the complete parent command log; it contains the original lane-0 failure bytes verbatim, not a byte-identical copy of only lane-0-setup.log.",
+    "original_failure_still_present": true
+  },
+  "review_method": "Read final reports, logs, native/audio teardown evidence, current source hashes and archived failures; did not rerun Godot or unchanged unit suites in this final pass.",
+  "prior_independent_review_evidence": [
+    "review.json",
+    "supplement-routing-ci.json",
+    "supplement-provider-transport.json",
+    "supplement-partial-source-isolation.json",
+    "partial-isolation-delta.log",
+    "shallow-refs-extra.json"
+  ],
+  "limitations": [
+    "Full selected docs input materialization remains pending at this review; successful GitHub transport evidence is limited to the independently verified first32 batch.",
+    "Final clean-commit GitHub CI and full Integration/Release remain unverified.",
+    "Earlier83/21 independent frozen-test results apply to the source hashes recorded there; the final84/21/etc results here are producer-run raw Harness evidence independently inspected, not relabeled independent reruns.",
+    "No user aesthetic, control feel, fun, physical device, release deployment or broad performance acceptance is granted.",
+    "Public game package and recording remain the separately verified source6ca72ef; this tooling delta does not establish a newly built game delivery."
+  ]
+}

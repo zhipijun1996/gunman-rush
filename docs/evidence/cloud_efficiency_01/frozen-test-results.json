@@ -1,0 +1,50 @@
+{
+  "status": "observed",
+  "reviewer": "/root/independent_review",
+  "baseline_commit": "97c060f",
+  "before_sha256": {
+    "tools/harness.py": "80695841a287c51a017ec59e440affd4cda27c334c2536e23bb877c78990f071",
+    "tests/test_harness.py": "2316c4776d76c11c8ee1a1c0b14f70f01a30b914d6da3fae9c1a93f1622e0de5",
+    "tools/cloud_inputs.py": "969547dcde0253ed1216cf35383a6371857a25adcadac771f79656f939ae433c",
+    "tests/test_cloud_inputs.py": "bbc2ea335ecebb88ad2035464a533fd969da8c4eefdb8cc09014fecf568a20f2",
+    "tools/harness/profiles.json": "09f5158ed17e568972560827a39c94148596d134fe472e381a82d083a9491d70"
+  },
+  "after_sha256": {
+    "tools/harness.py": "80695841a287c51a017ec59e440affd4cda27c334c2536e23bb877c78990f071",
+    "tests/test_harness.py": "2316c4776d76c11c8ee1a1c0b14f70f01a30b914d6da3fae9c1a93f1622e0de5",
+    "tools/cloud_inputs.py": "969547dcde0253ed1216cf35383a6371857a25adcadac771f79656f939ae433c",
+    "tests/test_cloud_inputs.py": "bbc2ea335ecebb88ad2035464a533fd969da8c4eefdb8cc09014fecf568a20f2",
+    "tools/harness/profiles.json": "09f5158ed17e568972560827a39c94148596d134fe472e381a82d083a9491d70"
+  },
+  "source_stable": true,
+  "executions": [
+    {
+      "command": [
+        "python3",
+        "tests/test_harness.py"
+      ],
+      "exit_code": 0,
+      "log": "/workspace/scratch/cloud-efficiency-independent-review/harness-frozen.log",
+      "seconds": 8.241
+    },
+    {
+      "command": [
+        "python3",
+        "tests/test_cloud_inputs.py"
+      ],
+      "exit_code": 0,
+      "log": "/workspace/scratch/cloud-efficiency-independent-review/cloud-inputs-frozen.log",
+      "seconds": 1.062
+    }
+  ],
+  "guard_preservation": {
+    "existing_check_count": 161,
+    "existing_definitions_identical": true,
+    "original_profile_prefixes_identical": true,
+    "added_checks": [
+      "cloud-inputs-tests"
+    ],
+    "original_test_function_bodies_identical": true,
+    "original_test_function_count": 58
+  }
+}
