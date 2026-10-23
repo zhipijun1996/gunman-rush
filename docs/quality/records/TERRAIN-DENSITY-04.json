@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "task_id": "TERRAIN-DENSITY-04",
+  "task_type": "art",
+  "workflow": "review",
+  "owner": "root",
+  "baseline_commit": "7f332fff1a51fb7439688f1cfb79252d2f6e498f",
+  "branch": "art/authored-terrain-density-study",
+  "purpose": "完整地形母版转译47格，同母版粗/细粒度实际合屏，暖光固定",
+  "user_override": "用户明确快速实验/实机图/不用跑CI，并同意完整母版→47格与同形体粗细对照；不作整区发布",
+  "skills": [
+    "art-director",
+    "visual-director"
+  ],
+  "source_sha256": {
+    "scripts/art/authored_terrain_study.gd": "8c3bb8c7a18748015e2f8bc1a8bd8a2ca38490bccb872eb0efe1aef8ceed0b5c",
+    "scenes/dev/authored_terrain_study.tscn": "7849b7990967b944fb306b9ed96de1abf53e4ebeee97cf00d57dac18b53b827d",
+    "shaders/authored_boundary.gdshader": "b1317bb864eb11a4249b2b8a57434d48a48feffbf4299c9497db390080904d24",
+    "tools/build_authored_terrain.gd": "f3b7c8837bd11010b145f91823dcf50fd14fa3a747198b809bb92142a99488ff",
+    "assets/authored_terrain_study/provenance.json": "f33c9590a6fe3b3997722752ab10cf2f72896dcb4e49749f3ab6c57ab4d4ac0a",
+    "assets/authored_terrain_study/fine.tres": "6084d6457cf24ef800d2d1cc991d762a4d59b36383c7be7dba3f06d5271b80dd",
+    "assets/authored_terrain_study/build.json": "534146ae30cd2577f7cdb7691cd6ef451140e93c08cfd342c9c0966c9601151c",
+    "assets/authored_terrain_study/fine_atlas.png": "267ba0fa45ec8c909d245d3d7a7b74aa98f464e9e6ac8bc1d671d180e35dd5de",
+    "assets/authored_terrain_study/coarse.tres": "0d5c958c8b4337dec3eef1f0490062b03f997a6d9ef0cf86a4134d5e291e604f",
+    "assets/authored_terrain_study/coarse_atlas.png": "78b486c33ca98e96e2e927bc12dc40bd00be1c95a5400d6243af681e64df2d5b",
+    "assets/authored_terrain_study/source_fine.png": "d08218cddd5b463a0ff033e3e5b1a260ed1280691d0b93d4565421c2f0f71431",
+    "assets/authored_terrain_study/master_original.png": "51333d751d910966bee1cc23184206f075b79fa7c6634bbe0cea51f8f4c31ad9",
+    "assets/authored_terrain_study/source_coarse.png": "4003d8f451abe36e791c9bc5713f00906909cc712e8fb7cd850e5199c913aebd"
+  },
+  "verification": {
+    "engine": "Godot4.7.2 Standard / GL Compatibility / llvmpipe",
+    "native_exit_code": 0,
+    "screenshot_count": 20,
+    "log": "docs/evidence/terrain_density_04/capture.log",
+    "capture": "docs/evidence/terrain_density_04/capture.json",
+    "measurements": {
+      "scope": "Actual GPU still-image checks, not artistic or motion acceptance",
+      "same_master_coarse_equals_fine_odd_pixel_decimation": true,
+      "rois": {
+        "building": {
+          "roi": [
+            260,
+            405,
+            80,
+            72
+          ],
+          "terrain_only_control_equals_fine_outside_terrain": true
+        },
+        "hero": {
+          "roi": [
+            406,
+            434,
+            48,
+            46
+          ],
+          "terrain_only_control_equals_fine_outside_terrain": true
+        }
+      },
+      "all_five_windows_have_identical_emitter_records_across_four_modes": true,
+      "native_tiles_per_atlas": 141
+    },
+    "gallery": "Chromium actual4report boards and20selector combinations; screenshot viewer only",
+    "seed": "level-design-v2-baseline/08",
+    "manifest": "bf16916866572af8d7e96e9e80b11a840282e02b152c4bdfb62f4015176cc51f",
+    "ci_harness": "not_run_per_user"
+  },
+  "implementation": {
+    "pipeline": "AI whole outer-block/hole master -> measured semantic crops -> original source_regions recipe ->47 actual cells×3grass banks -> coarse16 and fine32 nativeTileSet -> realApp exact-boundary material uses same source family",
+    "coarse": "native16/32wu; item-local2wu sampling + world2px output",
+    "terrain_coarse": "native16/32wu; rest1wu, no global2px downsample",
+    "fine": "native32/32wu; rest1wu",
+    "lighting": "all modes .85 warm point emitters, same .98 ambient, original ground shadow geometry and small bloom; coarse output quantizes final light at2px",
+    "limits": "solid and open-deck top only; existing hazard/moving/other regions unchanged; selected corner/edge semantics remain limited prototype, not approved full set"
+  },
+  "generation": {
+    "calls": 2,
+    "tool": "image_gen.imagegen",
+    "model": "not_exposed",
+    "price": "not_exposed",
+    "wall_seconds_calls": [
+      82.4,
+      51.2
+    ]
+  },
+  "failures_retained": [
+    "first generated sheet shifted source layout and wrapped green down sides; raw archived, not consumed",
+    "captures_r1 completed with shader global non-constant error and white boundaries; failed log+shader retained, not signed passed; changed to local function argument, captures_r2 and final deliver error-free",
+    "coarse whole-world experiment was initially easy to mistake for tile-only; added separately labeled terrain_coarse control; reviewer confirmed isolation"
+  ],
+  "independent_review": "docs/evidence/terrain_density_04/independent_review.md",
+  "dimensions": {
+    "design": {
+      "status": "passed",
+      "reason": "执行用户已同意的完整母版→47格组织，固定暖光，明确区分全世界粗细和只改地形"
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "限定最终Godot退出0、20图、无shader/script错误、灯记录一致、同源降采样与141格资源计数；不是CI"
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "仅显式开发Lab，正式默认和其他区域未迁移"
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "独审认为更适合继续，但草沿厚/重复、侧壁包边、岩体层次不足"
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "定位冻结截图，未验连续移动/滚屏"
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "局部暖光静态可见且参数固定；未听完整音轨/看动态"
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "不改Motor、物理、生成、资源、RNG和保存；不签通关"
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "llvmpipe静态图不代表真机性能"
+    },
+    "independent_review": {
+      "status": "passed",
+      "reason": "不同代理实际查看7图+最终2图，指出对照混淆并复核新控制；只签审查发生"
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "未验实体设备"
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "粗细尚未由用户选择，材质未定稿"
+    }
+  }
+}

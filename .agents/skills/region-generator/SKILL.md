@@ -14,7 +14,7 @@ description: 规划新地区或优化已有地区；统一拓扑、空间身份�
 
 重新编排已有空间时，核对连接是在旧推荐路线之前还是之后加入、由哪个正式消费者实际验证。图中存在的实验关系不能因一次新的最短路搜索自动升级为默认路线；逐条保留、验证或退休推荐关系，同时保留旧版本重建与原失败。不要按 `pending` 文本批量删除：同一旧标签下可能已有完整实测。先检查所选路线的动作类型、几何实例和对象绑定，再投入整区 Motor 回归；详见[森林反馈续轮](../../../docs/design/forest_feedback_expedition.md)。
 
-所有后续region create/optimize及缺Bible的proposed先读[最新两条用户原话和实际共享母版](../../../docs/creative_direction/bibles/style-continuity-20261022-v4.json)。保留正式平原现用Underworld tileset家族的16px/32wu、47邻接/精确边界、光照/描边/材质语言；地区差异来自材料、结构、生态和色域，森林用树皮苔藓荆棘有机轮廓，不独立换项目画风。旧提案/失败实现不自动约束新区域，不等于整体抛弃正在使用的共享家族。worker绑定原话及实际参考完整SHA，漂移阻断并重验；新地区实际跨区黄金像素对照独审后扩产，hash不签视觉。仅用户明确选择新global style时版本化替代，无关物理/global动作/普通文档不新增美术门。
+所有后续region create/optimize及缺Bible的proposed先读[当前共享画风与用户细粒度选择：style-v5](../../../docs/creative_direction/bibles/style-continuity-20261022-v5.json)：地形原生32px/32wu、世界表现1wu采样/nearest，保留Underworld家族、47邻接/精确边界与光照材质语言；区域特色来自形体、材料、生态、色光与构图。旧v4/16px只用于原版本复现，不能覆盖当前入口。worker绑定当前参考与实际消费者SHA；漂移按已有影响分析/重绑规则处理，不能只刷新hash。新地区先做跨区实际黄金对照再扩产；hash不签视觉。不同项目或用户明确另选全局画风时重新声明规格，不把本项目32px当通用数值。普通物理、global动作和无关文档不新增美术门。
 
 ## 空间美术任务的协作入口
 

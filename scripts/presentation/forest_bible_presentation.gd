@@ -68,7 +68,7 @@ static func draw_structure_backdrops(canvas: Node2D, m: Dictionary) -> void:
 
 static func draw_surface(canvas: Node2D, row: Dictionary) -> void:
 	if bool(row.get("one_way", false)):
-		UnderworldTerrain.draw_one_way(canvas, _rect(row.rect))
+		ForestBibleTerrainMaterial.draw_one_way(canvas, _rect(row.rect))
 
 static func draw_surfaces(canvas: Node2D, m: Dictionary) -> void:
 	# Solids have a real consumer of the SAME TileSet and exact-boundary

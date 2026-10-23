@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "asset_id": "fine-space-05-carrier",
+  "task_id": "FINE-SPACE-05",
+  "content_version": "fine-space-05-candidate-20261022",
+  "source_path": "assets/underworld_plains/mechanisms/source_carrier.png",
+  "source_sha256": "b65c4ad5d4cdd30e2b5beae19ad081891badc84806a29560e68ba99ca54beacf",
+  "runtime_paths": [
+    "assets/underworld_plains/mechanisms/carrier_fine.png",
+    "assets/underworld_plains/mechanisms/mechanisms_fine_build.json"
+  ],
+  "runtime_file_sha256": {
+    "assets/underworld_plains/mechanisms/carrier_fine.png": "3176c1d319c216b418e695368dccaad74210563275ee77e7d58725805923be39",
+    "assets/underworld_plains/mechanisms/mechanisms_fine_build.json": "9147449fe1a2a4605b1aa4a90d4b60116941954384704b35e99851a6a3379bfb"
+  },
+  "tool": "image_gen.imagegen",
+  "model": "not exposed by tool; unknown",
+  "cost": "unknown; image generation tool does not expose billed price",
+  "generation_calls": "not_exposed",
+  "prompt_or_reference": "assets/underworld_plains/mechanisms/generation_call.json",
+  "processing": "Direct nearest sampling of original2172x724 AI mother crop[70,272,2105,504] to192x22; not an enlargement of old96x11. Independent native1wu cap/body patches preserve actual supported world rectangles. Existing bell reference retained.",
+  "usage_scope": "Formal moving-carrier paint and6–8wu Plains one-way cross sections; geometry and collision unchanged.",
+  "consumer_scripts": [
+    "scripts/underworld_plains/underworld_terrain.gd"
+  ],
+  "license_status": "unknown",
+  "license_source": "Generated edits/reference lineage from repository sources; existing source rights retained. No separate output license certificate exposed; no blanket CC0 or third-party permission claim.",
+  "visual_status": "unverified",
+  "user_acceptance_evidence": [],
+  "disposition": "runtime_candidate",
+  "associated_files": [
+    {
+      "path": "assets/underworld_plains/mechanisms/generation_call.json",
+      "sha256": "77a7d4b0d192cde68a73d63de5998b1a40ccb5a65751b94438e46a3158ca9208",
+      "role": "generation_record"
+    },
+    {
+      "path": "tools/build_formal_fine.gd",
+      "sha256": "2c09d44843ddabc7e4c47929398ba78b8292926d5b1964be6d6dbad4503e5ead",
+      "role": "processing_record"
+    }
+  ]
+}

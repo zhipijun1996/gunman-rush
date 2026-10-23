@@ -1,0 +1,93 @@
+{
+  "alpha_cutoff": 128,
+  "gameplay_change": false,
+  "lantern_parts": "Fine48x40 source remapped to top12, wing band12..24, lower16px; same age14 frequency and 3/6/9wu wing timing",
+  "master": "ecology_master_original.png",
+  "master_sha256": "8cdccb76ca6ba3df90f783a20b57f50c0803b7c797fb2ed2957e7809f6c205e7",
+  "outputs": [
+    {
+      "id": "lantern",
+      "raw_crop": [
+        144,
+        91,
+        469,
+        406
+      ],
+      "sha256": "9e07b6364e693bfb60a48e4bf994b9bd041aa7c5efa75648df586c8621d42e33",
+      "source_size": [
+        48,
+        40
+      ],
+      "target_alpha_bounds": [
+        2,
+        2,
+        44,
+        36
+      ]
+    },
+    {
+      "id": "swing_pod",
+      "raw_crop": [
+        833,
+        72,
+        291,
+        429
+      ],
+      "sha256": "203e9899c30ce2020831a8b1bce70e59860757f54ad74ff75b21197168d1c5d8",
+      "source_size": [
+        36,
+        44
+      ],
+      "target_alpha_bounds": [
+        4,
+        2,
+        26,
+        38
+      ]
+    },
+    {
+      "id": "seed_sentry",
+      "raw_crop": [
+        218,
+        624,
+        308,
+        497
+      ],
+      "sha256": "af931307394854be2d51da5efa05d574b4dacd6bf0c5a58d710ad1abf989534a",
+      "source_size": [
+        44,
+        52
+      ],
+      "target_alpha_bounds": [
+        4,
+        2,
+        36,
+        48
+      ]
+    },
+    {
+      "id": "crossbranch",
+      "raw_crop": [
+        771,
+        629,
+        427,
+        486
+      ],
+      "sha256": "61572653091d2452c61c4d343b22f41c69fa31ab3bd362cdbb3a616efe733b0c",
+      "source_size": [
+        48,
+        48
+      ],
+      "target_alpha_bounds": [
+        0,
+        2,
+        44,
+        44
+      ]
+    }
+  ],
+  "process": "Actual fine image_gen sheet, measured alpha128 crops, nearest sample to2x old native dimensions; old normalized body bounds and anchors retained; no enlarged old sprite RGB",
+  "runtime_scale_world": 0.75,
+  "task": "FINE-SPACE-05",
+  "world_sampling": 1
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "asset_id": "fine-space-05-hazard",
+  "task_id": "FINE-SPACE-05",
+  "content_version": "fine-space-05-candidate-20261022",
+  "source_path": "assets/underworld_plains/hazards/generated_reference.png",
+  "source_sha256": "a12fa0e2524fc7f7b5ff7febce23bbd4c5203f8599b0b92f281695dfcf99eb0a",
+  "runtime_paths": [
+    "assets/underworld_plains/hazards/hazard_surface_fine.png",
+    "assets/underworld_plains/hazards/hazard_fine_tileset.tres",
+    "assets/underworld_plains/hazards/hazard_fine_build.json"
+  ],
+  "runtime_file_sha256": {
+    "assets/underworld_plains/hazards/hazard_surface_fine.png": "37bc77717fa0eea0bf4cb760af9a7f17c9d9454e2790a04d5c09b9e3e610dd2b",
+    "assets/underworld_plains/hazards/hazard_fine_tileset.tres": "d6b81ae52fd77c187644a29f1b5b9c367156389eb7775e4738d71d59f39da42d",
+    "assets/underworld_plains/hazards/hazard_fine_build.json": "715ada54667b8eb8be709a0aa0f0c61f849f586fb1a5693759a52e168b613d1e"
+  },
+  "tool": "image_gen.imagegen",
+  "model": "not exposed by tool; unknown",
+  "cost": "unknown; image generation tool does not expose billed price",
+  "generation_calls": "not_exposed",
+  "prompt_or_reference": "assets/underworld_plains/hazards/generation_call.json",
+  "processing": "Resample original high-resolution AI danger master into native32px tiles;4 start/middle/end/single variants,24wu external depth and8wu embedded root. Existing danger palette/alpha semantics retained; fine terrain supplies substrate.",
+  "usage_scope": "Formal Plains hazard visual overlay only; physical hazard contract and orientation unchanged.",
+  "consumer_scripts": [
+    "scripts/underworld_plains/underworld_hazard_tiles.gd"
+  ],
+  "license_status": "unknown",
+  "license_source": "Generated edits/reference lineage from repository sources; existing source rights retained. No separate output license certificate exposed; no blanket CC0 or third-party permission claim.",
+  "visual_status": "unverified",
+  "user_acceptance_evidence": [],
+  "disposition": "runtime_candidate",
+  "associated_files": [
+    {
+      "path": "assets/underworld_plains/hazards/generation_call.json",
+      "sha256": "ba18c64acf6b1cafe3becbdf3be6278b5ecb0ed71ad251c0b0b3a6780512db6d",
+      "role": "generation_record"
+    },
+    {
+      "path": "tools/build_formal_fine.gd",
+      "sha256": "2c09d44843ddabc7e4c47929398ba78b8292926d5b1964be6d6dbad4503e5ead",
+      "role": "processing_record"
+    }
+  ]
+}

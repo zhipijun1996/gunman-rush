@@ -1,0 +1,50 @@
+{
+  "task": "TERRAIN-DENSITY-04",
+  "status": "experimental_proposed",
+  "tool": "image_gen.imagegen",
+  "model": "not_exposed",
+  "price": "not_exposed",
+  "generation_calls": 2,
+  "started_at": "2026-10-22T17:56:00.291Z",
+  "prompt1": "Create a refined HIGHER-RESOLUTION EDIT of reference 1, the ORIGINAL game terrain SOURCE TILESET. Reference 2 is the actual game screenshot that the art must match. This is a functional pixel-art terrain construction kit, NOT concept art and NOT a screenshot.\n\nRetain the EXACT layout, alignment, relative occupied regions and transparency of reference 1. The full canvas aspect ratio is 176:144 (11:9). Think of the target as 352x288 native logical pixels (twice the source resolution), shown enlarged with crisp nearest-neighbor pixels. Each original 16x16 tile becomes32x32. Do not move or enlarge the terrain block on the canvas. The grass-topped main block occupies original-coordinate x16..64,y0..48 (target x32..128,y0..96). Its four outer edges and four rounded corners need carefully authored material and readable contours. The small concave/inset corner pieces occupy original x72..88,y8..24 (target x144..176,y16..48). Preserve these construction positions. The other small grass trim/terrain bits can remain in the same original positions. Clear unused space is TRANSPARENT RGBA, never a checkerboard painted into the artwork. Entire interior of solid terrain is OPAQUE including almost-black dark areas.\n\nArt direction: INHERIT the original Underworld game's restrained dark grass-and-earth language, matching the vivid moss/olive-gold grass in the buildings of reference2. Keep the body mostly QUIET midnight navy and charcoal blue. Upgrade shape precision and grass growth to a finer consistent pixel grid, with deliberate 2-to-5-pixel clusters and sparse one-pixel accents. Large calm dark material areas with only a few subtle broad weathered limestone planes close to edges, tiny dark roots under grass. Grass on UPWARD-FACING edges only; sidewalls and undersides have distinct quiet stone/earth material. Outer rim has small wind-eroded notches; bottom hangs in a few uneven worn teeth, no green moss outline wrapping all edges. Concave corners must bend the material naturally, not look like separate pasted squares. Natural restrained top-left ambient edge highlights, with no painted lamps or glows; warm illumination will come from the game.\n\nCrucially NO GENERIC COBBLESTONE, no outlined individual pebbles, no fields of rocks, no regular bricks, NO diagonal reptile scale pattern, no busy noise or repeated zigzag scratches. Original near-black mass and green-gold rim are the identity. More precision, NOT more detail coverage. Preserve negative space and the delicate original tone. No gold veins, no metal patterns, no icons, text, grid lines, borders, decorative frame, sky, buildings, objects, characters or background. Do not make a beautifully rendered rock slab or rearrange the atlas. It is an exact-layout functional remaster of the small pixel source sheet, ready for slicing the same source rectangles at 2x.",
+  "prompt2": "Edit reference1 into a usable COHERENT GAME TERRAIN CONSTRUCTION MASTER, retaining its crisp pixel cluster drawing style. Reference2 is the original live game look. The previous source attempt has too much bright moss on the vertical edges and lacks actual concave corners; fix those issues, simplify, and remove the entire orange terrain family.\n\nOutput one transparent RGBA sprite construction sheet, square canvas. Exactly TWO big sample forms side by side with transparent separation; no other objects and no text:\nLEFT TWO-THIRDS: a large side-on dark solid rectangular terrain block with flat grassy top, a flat left side, flat right side and worn almost-flat bottom. Its upper two outer corners round inward only slightly. The main body is 80 percent quiet very dark blue charcoal and 20 percent a few low-contrast blue-slate patches. Uppermost strip has short OLIVE green/gold grass clumps with gaps, NOT bright neon lime or dense leafy vines. Thin dark earth/roots below the grass. Side and bottom edges consist of exposed dark stone with a few tiny chips, NO green wrapping down the side or around the bottom. NO hanging roots across the entire bottom. All four edges include quiet straight stretches that can repeat. Wide dark inside, NOT a field of outlined stones. No repeated diagonal slash pattern. Top and bottom both visible.\nRIGHT ONE-THIRD: a smaller solid dark rectangular block of the SAME material with a single clear rectangular HOLE fully cut out of its middle (transparent interior), producing FOUR square concave/reentrant corners. The outer top of this block has the same grass. The hole's LOWER horizontal ledge has a thin grass band growing upward from the stone beneath it; the hole's upper ceiling and vertical sides are bare stone. This is a terrain cross section, absolutely no perspective, no masonry arch. The purpose of this right sample is to extract all four concave corners for a 47-mask autotile system, so the hole needs straight vertical and horizontal sides and small well-defined corner shading, no glowing green rim, no objects in the hole. Square-ish hole large enough to read. Keep a visible thick band of opaque dark terrain around the hole.\n\nBoth samples must use the SAME specific limited original dark navy/charcoal body palette with muted moss/olive-gold grass. Warm highlights belong to the grass tips, do not turn stone yellow. The body must be fully opaque dark material; only air outside the forms and the hole should be transparent. Clear crisp native pixel art clusters; think 256x256 logical art pixels displayed enlarged 4x without blur, with deliberate 2-5-pixel clusters and rare single-pixel accents. No antialiased soft painting.\nNo lights, bloom, lamps, sky, characters, buildings, coins, gears, decorative copper seams, separate pebbles, orange version, tiny extra terrain islands, labels, separators or rendered grid. Restrained material, precise edge/corner design, calm dark masses. This is asset art, not a screenshot.",
+  "references1": [
+    "assets/underworld_plains/terrain/source.png",
+    "docs/evidence/high_density_terrain_03/home_original.png"
+  ],
+  "references2": [
+    "build/authored_terrain_study/rejected/unaligned_sheet.png",
+    "docs/evidence/high_density_terrain_03/home_original.png"
+  ],
+  "raw_first": "/workspace/generated_images/exec-284713db-e75e-4025-a569-05893b927b38.png",
+  "raw_selected": "/workspace/generated_images/exec-a90942ed-ef55-44c6-9cbc-9bcb596041f9.png",
+  "first_attempt_status": "rejected for direct slicing: layout drift and green side rims; preserved, not consumed",
+  "selected_master": "master_original.png",
+  "master_dimensions": [
+    1254,
+    1254
+  ],
+  "processing": "Godot tools/build_authored_terrain.gd crops authored outer block and four real hole corner solid quadrants, nearest-resizes into original canonical source regions. Three grass banks. Original source_regions recipes compose47 masks per bank. Fine source -> nearest downsample coarse source, same art. No AI screenshot; actual Godot captures separate.",
+  "rights": "Generated edits referencing repository source art; original license/provenance retained. New third-party license not asserted; image model not exposed.",
+  "scope": "solid terrain and open-deck top only, fixed warm sources; no full-game migration or final aesthetic approval.",
+  "source_sha256": {
+    "scripts/art/authored_terrain_study.gd": "8c3bb8c7a18748015e2f8bc1a8bd8a2ca38490bccb872eb0efe1aef8ceed0b5c",
+    "scenes/dev/authored_terrain_study.tscn": "7849b7990967b944fb306b9ed96de1abf53e4ebeee97cf00d57dac18b53b827d",
+    "shaders/authored_boundary.gdshader": "b1317bb864eb11a4249b2b8a57434d48a48feffbf4299c9497db390080904d24",
+    "tools/build_authored_terrain.gd": "f3b7c8837bd11010b145f91823dcf50fd14fa3a747198b809bb92142a99488ff",
+    "assets/authored_terrain_study/provenance.json": "f33c9590a6fe3b3997722752ab10cf2f72896dcb4e49749f3ab6c57ab4d4ac0a",
+    "assets/authored_terrain_study/fine.tres": "6084d6457cf24ef800d2d1cc991d762a4d59b36383c7be7dba3f06d5271b80dd",
+    "assets/authored_terrain_study/build.json": "534146ae30cd2577f7cdb7691cd6ef451140e93c08cfd342c9c0966c9601151c",
+    "assets/authored_terrain_study/fine_atlas.png": "267ba0fa45ec8c909d245d3d7a7b74aa98f464e9e6ac8bc1d671d180e35dd5de",
+    "assets/authored_terrain_study/coarse.tres": "0d5c958c8b4337dec3eef1f0490062b03f997a6d9ef0cf86a4134d5e291e604f",
+    "assets/authored_terrain_study/coarse_atlas.png": "78b486c33ca98e96e2e927bc12dc40bd00be1c95a5400d6243af681e64df2d5b",
+    "assets/authored_terrain_study/source_fine.png": "d08218cddd5b463a0ff033e3e5b1a260ed1280691d0b93d4565421c2f0f71431",
+    "assets/authored_terrain_study/master_original.png": "51333d751d910966bee1cc23184206f075b79fa7c6634bbe0cea51f8f4c31ad9",
+    "assets/authored_terrain_study/source_coarse.png": "4003d8f451abe36e791c9bc5713f00906909cc712e8fb7cd850e5199c913aebd"
+  },
+  "reference_sha256": {
+    "assets/underworld_plains/terrain/source.png": "a369175ccef5fca5ab363f140252d1f0f38b5eafb5d541605c601ea4ac56f88c",
+    "docs/evidence/high_density_terrain_03/home_original.png": "0d9b5c63fbdeb1894bf296df1c29f5b8ec79c257b3a6798fc0acac4572f5dab4",
+    "build/authored_terrain_study/rejected/unaligned_sheet.png": "fe2793e7477d3308146029ab7969c96fc3b5902477fab2a353a52669d707c8e8"
+  }
+}

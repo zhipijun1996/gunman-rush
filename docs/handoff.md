@@ -1,4 +1,52 @@
+## 2026-10-23 SPATIAL-RHYTHM-07 沿途疏密与留白
+
+## 2026-10-23 ART-SESSION-CLOSEOUT-09 会话归整与skills回流
+
+本会话01–08轮17笔提交已完整累积在`art/formal-fine-depth`，最后运行源6befe56、上轮交付head42f673c。[归整索引](art_session_20261023.md)记录各轮采用/替代关系、正式消费者、历史证据/视频、未验与恢复；本轮仅文档/skills，不合main、不新开触发Integration的PR。修正六份skills当前入口的旧v4/16px指向，增加[共享执行说明](quality/art_consistency_workflow.md)和现有Asset Specification像素字段，区分全局规格/区域身份/资产接口；不修改原Bible/style-v4/v5、运行参数或素材。仅定向文档/记录核对，不跑完整CI或重导出/发布。Git最新head与远端一致性以收口证据为准；跨区品质、用户与真机仍不代签。其他工作区须先取得本分支提交，不假定main已含。
+
+
+## 2026-10-23 FOREGROUND-CONTINUITY-08 固定前景与稳定恢复
+
+用户明确选择固定前景物件＋离屏回收＋提前淡化＋稳定后恢复。`art/formal-fine-depth`运行源6befe56：固定世界身份/尺寸/风相位，完整框+4wu离屏才回收；动态危险64wu提前淡化，安全0.3秒后渐入；常驻HUD/边缘使用即时局部strict mask，保留全部保护。实际Home506采样/23身份失败0、GPU387080保护像素差0及非零前景贡献、六正式定位窗（Home/两图×两Seed）失败0。原首版常驻HUD全抹草叶失败另存。完整CI未跑，不合main；用户/真机/完整战斗仍review。[证据与命令](evidence/foreground_continuity_08/README.md)。[24秒实机视频/截图](https://zhipijun1996.github.io/gunman-rush-previews/reviews/FOREGROUND-CONTINUITY-08/6befe56/)已公开验证播放与完整字节，Pages39887917620 success；观察页，不是可玩Web更新。
+
+
+用户否定06中景均匀满铺，要求有的地方多、有的地方空旷，前进不断变化。运行源f554e6b、art/formal-fine-depth：低草坡连续底景与独立世界锚定风车/钟塔组分离，缩小地标并留无建筑窗口；Home焦点归还人物/功能屋，06前景完整保护不变。正式30张（29个Underworld窗口：25组景/4无建筑；Forest独立背景不冒充空段），旧景层450/0。真实24.283秒电影：4s家园输入+20s图一8400wu连续镜头诊断，不代表正常行走/通关。独立看11图确认局部改善，草坡密度、侧肩雾化与正常节奏/设备/用户仍review。完整CI未跑，不合main。[证据/恢复](evidence/spatial_rhythm_07/README.md)；[公开连续视频/对照页](https://zhipijun1996.github.io/gunman-rush-previews/reviews/SPATIAL-RHYTHM-07/f554e6b/)已验证完整字节、实际浏览器播放及全图加载，Pages39882280474 success；仅观察评审，不是可玩Web。
+
+## 2026-10-22 TERRAIN-DENSITY-04 同母版47格粗细实验
+
+## 2026-10-23 DEPTH-FRAME-06 中景与前景迭代
+
+用户要求更大、更丰富的风车钟塔中景，以及人物前方可见的氛围层。`art/formal-fine-depth`，运行源4a41fd7：新细源三风车/两塔/层叠石村，移开主角背后的主塔并把假路石桥改为远谷断桥；原高细母版Atlas前景、较大侧枝/草与稀疏世界候选，整框+3wu功能/HUD避让保持。正式两图×三Seed、Home/Forest30图通过，21镜头有可见前景，采样保护重叠0，原景层450/0；实际24.3667秒MovieWriter，前12秒真实Home输入、后2×6秒平原镜头诊断。详情与恢复见[evidence](evidence/depth_frame_06/README.md)。review而非done；大钟塔重复、低处偏满和显隐跳变仍需审美/运动复核，未签用户/设备，不跑完整CI、不合main。[公开视频/前后对照](https://zhipijun1996.github.io/gunman-rush-previews/reviews/DEPTH-FRAME-06/4a41fd7/)已验证完整字节与Chromium实际播放；Pages39877020268 success，未声称更新可玩Web。
+
+
+分支 `art/authored-terrain-density-study`，基线7f332ff。完整AI外框/洞口母版→切取四边/四内角→原47格配方×三草沿，细32px/32wu、同源降采样粗16px/32wu；默认游戏不变。暖光固定；最终五镜头×四模式20实机图，退出0无错误，包含“仅地形粗”以隔离角色细节损失。独审确认隔离正确，新母版较上一斜岩纹更适合继续，但草沿厚/重复、石包边与岩体层次弱，未签定稿。首母版布局错误和首GPU白边shader错误原件均保留，不追认。
+
+[证据、失败、来源与命令](evidence/terrain_density_04/README.md)，[十一维](quality/records/TERRAIN-DENSITY-04.json)。运行 `bash tools/godot.sh --path . scenes/dev/authored_terrain_study.tscn`。用户指定快速实验不跑CI；未做CI/Harness、Web发布、连续运动/真机/玩家验收，不合main。下一步等用户选颗粒方向，再修草沿和边缘，不扩产当前未定稿母版。最终local checkpoint见Git。
+
+## 2026-10-22 HIGH-DENSITY-TERRAIN-03 提升地形密度实验
+
+分支 `art/high-density-terrain-study`，基线0c1d1e5。按用户要求不跑CI、快速实机图，反向提高到原生32px/32wu、1wu采样，保留人物/建筑/背景细节；默认入口和全局设置未改。新增 `scenes/dev/high_density_terrain_study.tscn`。最终五窗口×四版本20张Godot静态图，退出0；首AI碎石遭用户否定，第二轮岩体主次改善但斜纹重复、地区身份仍未定稿，独审仅支持继续密度路线。不签全区/运动/真机/玩家认可。
+
+[证据、失败、恢复命令](evidence/high_density_terrain_03/README.md)，[十一维记录](quality/records/HIGH-DENSITY-TERRAIN-03.json)。运行 `bash tools/godot.sh --path . scenes/dev/high_density_terrain_study.tscn`；下一步看用户对高密度和材质结构的反馈，先单个结构性黄金样板，不批量替换。未运行CI/Harness、未合main、未发布或替换试玩站。最终本地checkpoint见Git。
+
+## 2026-10-22 PIXEL-LIGHT-STUDY-02 像素／灯光续轮
+
+用户要求先像素对齐，保留Underworld像素风格，只学Animal Well打光；继续快速实验不跑CI。分支 `art/pixel-grid-lighting-study`，基线35a9cd8。新增独立 `scenes/dev/pixel_light_study.tscn`，默认游戏不动。已做物件固定2wu采样／纯表现snap／世界2px输出，HUD与标签清晰；保留原配色，真实局部点光／地形遮光／小bloom。最终5×4共20张Godot静态原图，原生退出0且无脚本错误；独审推荐暖灯继续，保留小物体细节损失／平原光池弱，未验运动或真机。
+
+[证据与失败](evidence/pixel_light_study_02/README.md)，[记录](quality/records/PIXEL-LIGHT-STUDY-02.json)。运行 `bash tools/godot.sh --path . scenes/dev/pixel_light_study.tscn`；采图追加 `-- --capture --output=res://build/<fresh>`。下一步看用户对A颗粒与B灯光反馈，再决定细化；不签定稿，不合main，不替换试玩站，不以截图查看器冒充可玩Web。提交见本分支Git。
+
+## 2026-10-22 LIGHT-STUDY-01 快速光感实验
+
+分支 `art/light-study`，基线 e9ab0e0743466b8983e34cc7de17bab1abf9d53a。用户本轮明确要求三方向实机图／快速迭代、不跑CI；仅新增显式 `scenes/dev/light_study.tscn`，默认美术、物理、生成、保存不动。已采四窗口×四版本16张真实Godot定位静态图，最终原生退出0；不同只读代理看五图，推荐晨光默认、青绿局部，保留草边／反光／标签问题。素材未重画，未签全区、玩家或设备认可，未跑CI/Harness或发布。
+
+[源绑定、失败与精选截图](evidence/light_study_01/README.md)，[质量记录](quality/records/LIGHT-STUDY-01.json)。运行 `bash tools/godot.sh --path . scenes/dev/light_study.tscn`，底部切三方向与原版／家园和平原。下一步先看用户方向反馈，再细化光源／邻近反光与草边疏密。最终提交见本分支实际Git；没有合main或替换试玩站。
+
 # 最新交接：探索场所原型 v18
+
+## 2026-10-22 FINE-SPACE-05 最新交付
+
+FINE-SPACE-05，art/formal-fine-depth，运行源efd784349efa31502cb428b14bde10ea517bdd9a（后续提交只文档/UID）。30张正式定位图含2maps×3Seeds；GPU239910/0、scenery450/0、支撑21572/0、formal96/0、HUD42/0；本地Web5入口实际正常，非全程/CI。公开[24秒影片与对照](https://zhipijun1996.github.io/gunman-rush-previews/reviews/FINE-SPACE-05/efd7843/)部署39837638359成功；Web build524396d0cd10 ZIP在/workspace/artifacts，公开Web被cap/新repo权限挡住。未合main，勿默认删历史或提高cap。当前技能/素材来源/失败/恢复命令见[evidence](evidence/fine_space_05/README.md)及[quality](quality/records/FINE-SPACE-05.json)。下一步围绕森林承载造型与真实前景功能遮挡做局部视觉复核，不重复生成已选细粒度母版。
+
 
 ## 2026-10-22 总控与提效生产基线（最新）
 

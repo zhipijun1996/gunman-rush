@@ -1,0 +1,22 @@
+{
+  "task": "FINE-SPACE-05",
+  "tool": "image_gen.imagegen",
+  "model": "not_exposed",
+  "price": "not_exposed",
+  "call_count": 1,
+  "generation_wall_seconds": 35.9,
+  "prompt": "Remaster the THREE attached actual game body sprites into a faithful finer-pixel sprite sheet. Keep their established silhouettes, current calm poses, scale relationships, materials and functional core positions. This is a resolution upgrade only, not a new character design.\n\nOne wide transparent RGBA sheet, three isolated sprites in one row, generous separation. No labels, backgrounds, floor, cast shadows, frames, extra props or additional poses. Native logical targets: first72x96, second72x68, third48x32, shown enlarged nearest-neighbor with crisp small1pixel highlights, deliberate2-to5-pixel clusters, calm dark interiors and no painted blur. Place their feet/root ends on a common visual baseline; the beetle is physically much smaller.\nLEFT follows reference1 exactly: the ROOTBELL GUARDIAN, a hunched round-shouldered ancient dark BARK/WOOD puppet with muted bronze-edged mask head, two gnarled arm loops, stocky branching woody legs and broad root feet. There is a small warm gold tree-heart inset in the upper center of its trunk, about43percent of the full sprite height from top, slightly right of exact center as in reference1. Preserve that heart location and compact mask/head position; the heart is gameplay-state-tinted by code, so do not spread warm glow elsewhere. No extra bells, hammers or weapons. The body is predominantly deep umber/charcoal bark with restrained moss and small tarnished brass highlights, not a shiny robot or stone golem. Neutral front-facing posture matching reference1.\nMIDDLE follows reference2 exactly: THORN QUEEN body, a slender dark wood/bronze insectoid forest queen, long diagonal raised woody crown/antler branches forming the existing open X/V silhouette above its small mask/seed head, narrow vertical trunk with a small warm center, long thin splayed root legs below. Keep all crown tips inside the72x68 silhouette. No cape, wings, glowing aura, leaf skirt or extra dramatic spikes. The crown is nonhurt decoration; do not enlarge the torso or move the central target. Same neutral frontal pose.\nRIGHT follows reference3 exactly: a small BARK BEETLE facing RIGHT in side/three-quarter view, rounded olive-and-brown layered bark shell, tiny short dark legs, compact head with short antennae, one sparse warm highlight in the shell. Not a turtle, armored boss or flying insect. Feet remain at the bottom baseline and the head faces right exactly as reference3.\n\nAll three stay in the same original dark restrained wood/moss family: almost-black contours, muted brown fiber, olive moss, tiny warm ochre accents. Add fine local precision without covering them in noise or glossy texture. No neon, white glow, fake emitted light, background particles, outlines around cells, text, icons, new equipment or motion effects. Do not copy giant nearest-neighbor blocks; redraw the same bodies with finer native source pixels while keeping their anatomy, core/foot anchors, poses and actual compact appearance.",
+  "references": [
+    "assets/forest_bible_v2/native/rootbell_guardian_v1.png",
+    "assets/forest_bible_v2/native/thorn_queen_v1.png",
+    "assets/forest_bible_v2/native/bark_beetle_v1.png"
+  ],
+  "raw_master": "boss_beetle_master_original.png",
+  "actual_size": [
+    2056,
+    765
+  ],
+  "processing": "Measured alpha128 source crops ->same normalized old bounds/foot anchors, fine72x96 guardian,72x68 queen,48x32 beetle. No collider/states/ability/timing changed. Guardian closed-heart region source doubled, same world rectangle.",
+  "status": "candidate_actual_runtime_review_pending",
+  "rights": "Generated remaster referencing repository original authored native sprites; no external third-party license asserted."
+}

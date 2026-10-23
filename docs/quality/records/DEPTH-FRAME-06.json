@@ -1,0 +1,258 @@
+{
+  "schema_version": 1,
+  "task_id": "DEPTH-FRAME-06",
+  "task_type": "art",
+  "workflow": "review",
+  "baseline_commit": "059618d41f43814e431cb8a7632d06083336e12e",
+  "reviewed_commit": "4a41fd729ed06e6806826bf97ded3be5c9c817ed",
+  "content_version": "depth-frame-06",
+  "owner": "root",
+  "purpose": "响应用户中景稀少/偏小和前方氛围不可见的反馈，扩大成组地标与真正前景",
+  "player_experience": "正常游戏比例能看见风车钟塔台地的中景细节，以及人物前方边缘枝草框景",
+  "constraints": [
+    "Fine32px/32wu shared style-v5 unchanged",
+    "No physics, gameplay RNG, route, resource or save edits",
+    "Preserve full foreground bounds+wind functional/UI keepout",
+    "Rapid iteration: no full CI per user"
+  ],
+  "affected_paths": [
+    "assets/underworld_plains/scenery_build.json",
+    "assets/underworld_plains/backgrounds/depth_frame_06/landmark_ridge.png",
+    "scripts/underworld_plains/underworld_parallax.gd",
+    "scripts/underworld_plains/underworld_parallax_edge.gdshader",
+    "scripts/underworld_plains/underworld_foreground.gd",
+    "shaders/underworld_foreground.gdshader"
+  ],
+  "deliverables": [
+    "Actual Home/Plains before-after positioned PNGs",
+    "Real Godot motion clip and public observational review page"
+  ],
+  "creative_decisions": [
+    {
+      "status": "proposed",
+      "decision": "扩大成组风车、钟塔、石桥与台地的中景，保留材质；以可见前方枝草框景替代几乎透明的假存在",
+      "basis": "Direct user request: 中景画面太少不够精美/要更多风车钟塔大一点；近景比人物近的氛围层还没有加"
+    }
+  ],
+  "formal_impact": true,
+  "gates": {
+    "G0": {
+      "status": "unverified",
+      "reason": "Scoped implementation and captures recorded; whole design/integration/performance/user acceptance not established",
+      "evidence": [
+        "spec"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Scoped implementation and captures recorded; whole design/integration/performance/user acceptance not established",
+      "evidence": [
+        "capture"
+      ]
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Independent scoped review complete, remaining visual/player/device acceptance",
+      "evidence": [
+        "review"
+      ]
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Awaiting actual evidence",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "unverified",
+      "reason": "Candidate requires user/visual motion/device judgement; static technical coverage is not acceptance",
+      "evidence": []
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "450 existing scenery checks, 30 actual formal captures, runtime foreground full-bounds audit zero overlaps; only scoped development checks",
+      "evidence": [
+        "capture",
+        "scenery",
+        "audit"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Actual Home/two Plains/three Seeds and shared Forest GPU capture coverage passed, full interactive integration not repeated",
+      "evidence": [
+        "capture"
+      ]
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Candidate requires user/visual motion/device judgement; static technical coverage is not acceptance",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Candidate requires user/visual motion/device judgement; static technical coverage is not acceptance",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "not_applicable",
+      "reason": "No audio, collision, abilities, RNG, route or resource implementation changes; full playthrough not claimed",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "not_applicable",
+      "reason": "No audio, collision, abilities, RNG, route or resource implementation changes; full playthrough not claimed",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Candidate requires user/visual motion/device judgement; static technical coverage is not acceptance",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Independent review confirms scoped improvements, retains repetition/density/dynamic gaps; no whole-content ACCEPT",
+      "evidence": [
+        "review"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Candidate requires user/visual motion/device judgement; static technical coverage is not acceptance",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Candidate requires user/visual motion/device judgement; static technical coverage is not acceptance",
+      "evidence": []
+    }
+  },
+  "criteria": [],
+  "evidence": [
+    {
+      "id": "capture",
+      "path": "docs/evidence/depth_frame_06/capture.json",
+      "sha256": "aff1abf39c9a7ea98cac4f59d83e650f41dee35d68f6cc8236427c93b21ccd42",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "4a41fd729ed06e6806826bf97ded3be5c9c817ed",
+      "content_version": "depth-frame-06",
+      "method": "Actual 30 formal positioned PNGs and receipts, not traversal",
+      "observed": "30 saved, zero capture failures"
+    },
+    {
+      "id": "spec",
+      "path": "docs/evidence/depth_frame_06/README.md",
+      "sha256": "bcd106c818c9ae4d525d094df141ea847e418227f399219b7c9e09ab79793b1c",
+      "kind": "spec",
+      "producer": "root",
+      "source_commit": "4a41fd729ed06e6806826bf97ded3be5c9c817ed",
+      "content_version": "depth-frame-06",
+      "method": "Explicit user scope, baseline and candidate design",
+      "observed": "Explicit user scope, baseline and candidate design"
+    },
+    {
+      "id": "scenery",
+      "path": "docs/evidence/depth_frame_06/scenery-check.log",
+      "sha256": "144630835718448797de275f6304b4ed65942a130fc01eafc2bf47c897f16015",
+      "kind": "command",
+      "producer": "root",
+      "source_commit": "4a41fd729ed06e6806826bf97ded3be5c9c817ed",
+      "content_version": "depth-frame-06",
+      "method": "450 checks zero failures",
+      "observed": "450 checks zero failures",
+      "command": "bash tools/godot.sh --headless --path . --script tests/underworld_plains/test_underworld_scenery.gd",
+      "exit_code": 0,
+      "environment": "Godot4.7.2 Linux headless; scoped scene coverage"
+    },
+    {
+      "id": "audit",
+      "path": "docs/evidence/depth_frame_06/foreground_capture_audit.json",
+      "sha256": "2c690988280d8d6e7c21c0e6ffb426657616c56da92fe4e0523634f14605408d",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "4a41fd729ed06e6806826bf97ded3be5c9c817ed",
+      "content_version": "depth-frame-06",
+      "method": "Actual 30 foreground runtime receipts audit; zero recorded full-bounds overlaps",
+      "observed": "Actual 30 foreground runtime receipts audit; zero recorded full-bounds overlaps"
+    },
+    {
+      "id": "review",
+      "path": "docs/evidence/depth_frame_06/independent_review.md",
+      "sha256": "cc36293a1dbb5dbf0d4ab45e74d1498a13649a2721e3c2038a81f7bda2476467",
+      "kind": "review",
+      "producer": "root",
+      "source_commit": "4a41fd729ed06e6806826bf97ded3be5c9c817ed",
+      "content_version": "depth-frame-06",
+      "method": "12 actual final images plus production code, scoped candidate improvement; whole dynamic/user/device unverified",
+      "observed": "12 actual final images plus production code, scoped candidate improvement; whole dynamic/user/device unverified",
+      "reviewer": "density_art_review",
+      "implementers": [
+        "root",
+        "formal_grounding"
+      ],
+      "independent": true,
+      "independence_basis": "Separate agent read production and images, wrote only report",
+      "verdict": "UNVERIFIED"
+    },
+    {
+      "id": "public",
+      "path": "docs/evidence/depth_frame_06/public-review.json",
+      "sha256": "f981732c6155107d581ebb8997995abdb5117a6edb1c3ab5409d04eb6fd7ca10",
+      "kind": "runtime_trace",
+      "producer": "root",
+      "source_commit": "4a41fd729ed06e6806826bf97ded3be5c9c817ed",
+      "content_version": "depth-frame-06",
+      "method": "Five complete public files match local source-bound media",
+      "observed": "Five complete public files match local source-bound media"
+    },
+    {
+      "id": "browser",
+      "path": "docs/evidence/depth_frame_06/public-browser.json",
+      "sha256": "484857f228acdc99790440ff9766181a855c3059fad4bdcf1aa646b18313580c",
+      "kind": "gui",
+      "producer": "root",
+      "source_commit": "4a41fd729ed06e6806826bf97ded3be5c9c817ed",
+      "content_version": "depth-frame-06",
+      "method": "Public observational page video actually plays >1s, all images loaded, errors=[]",
+      "observed": "Public observational page video actually plays >1s, all images loaded, errors=[]"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Human composition/material/near-layer acceptance",
+    "Full motion occlusion and transition popping",
+    "Full movie/audio review and physical device FPS",
+    "Full CI/Harness deliberately not run per user",
+    "Complete traversal and interaction regression not run"
+  ],
+  "branch": "art/formal-fine-depth",
+  "user_override": "用户继续局部视觉实验，原快速迭代/不跑各种CI指令保持；仅受影响实机、景层/遮挡与来源验证",
+  "skills": [
+    "art-director",
+    "scene-composer",
+    "visual-director",
+    "animation-vfx"
+  ],
+  "delivery": {
+    "review_url": "https://zhipijun1996.github.io/gunman-rush-previews/reviews/DEPTH-FRAME-06/4a41fd7/",
+    "video_url": "https://zhipijun1996.github.io/gunman-rush-previews/reviews/DEPTH-FRAME-06/4a41fd7/depth_frame_06.mp4",
+    "host_commit": "f3a7a89f1abd6a41249c848e121182dffbfa8a6e",
+    "pages_run": 39877020268,
+    "scope": "observational video and stills; no updated playable Web",
+    "game_ci": "not_run_per_user",
+    "main_merge": "not_performed",
+    "publication": "Pages success; five complete public files match, Chromium actual video >1s, errors=[]"
+  }
+}

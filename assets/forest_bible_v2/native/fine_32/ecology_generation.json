@@ -1,0 +1,23 @@
+{
+  "task": "FINE-SPACE-05",
+  "tool": "image_gen.imagegen",
+  "call_count": 1,
+  "model": "not_exposed",
+  "price": "not_exposed",
+  "generation_wall_seconds": 63.7,
+  "prompt": "Remaster the FOUR attached tiny original forest enemy sprites into a coherent finer-resolution PIXEL ART sprite sheet for the SAME game. Preserve their identities, proportions, calm poses, functional palette and transparent silhouettes. This is a resolution upgrade, not new enemy design and not an illustration.\n\nOne transparent square RGBA sheet with FOUR isolated sprites in a roomy 2x2 arrangement, one in each quarter, absolutely no labels, grids, background, floor/shadow or extra objects. All four are the same approximate in-game size, roughly32-40 logical pixels tall, drawn with crisp deliberate pixel clusters, 1pixel edge precision and sparse tiny highlights. Show enlarged for delivery, no blur or soft painterly detail. Do NOT turn them into large ornate bosses, don't add limbs or change their facing.\nTOP LEFT follows reference1: a tiny flying lantern organism, muted dark olive head/antennae, two short sage-gray translucent wings extended horizontally, a small warm amber bell-shaped abdomen, narrow neck, head and body centered vertically. Wings start about one quarter of the way down, abdomen occupies the lower half. No flare or glow outside body. Match the original narrow hanging bell silhouette.\nTOP RIGHT follows reference2: a suspended pointed rust/ochre SEED POD with green calyx, very short central suspension nub, olive leaf shoulders, thin warm vertical seed heart. Hanging straight down. No long string in the image, no feet, no head or face invented.\nBOTTOM LEFT follows reference3: a rooted vertical SEED SENTRY plant, thin woody tapering stem with small olive leaves at bottom, two tall brown/olive leaf-shell halves forming a pointed oval seed crown, pale warm seed center; a small natural root foot. It remains slender like the reference, not a humanoid.\nBOTTOM RIGHT follows reference4: a small walking CROSSBRANCH twig creature, bent long twig arms and legs in the original splayed stance, pointed tiny green leaf head, dark brown fibrous wooden body with a subtle warm seed knot. Thin branch limbs remain legible; do not thicken into stone armor or change to beetle.\n\nUse the original almost-black brown/charcoal, muted moss/olive greens, tarnished ochre and very sparse pale seed accents. Keep natural quiet pixel shapes, consistent1world-unit fine art grid at final gameplay scale, and limited texture. No neon green, orange fire, magical aura, shiny metal machinery, writing, icons, weapons, action effects, drop shadows or ground. No additional animation frames or pose variations. Separate transparent margins must make each quarter easy to crop. The goal is to faithfully redraw the same four originals with finer native pixels so they no longer need their old1.5x coarse source upscaling.",
+  "references": [
+    "assets/forest_bible_v2/native/forest_lantern_v1.png",
+    "assets/forest_bible_v2/native/forest_swing_pod_v1.png",
+    "assets/forest_bible_v2/native/forest_seed_sentry_v1.png",
+    "assets/forest_bible_v2/native/forest_crossbranch_v1.png"
+  ],
+  "raw_master": "ecology_master_original.png",
+  "actual_size": [
+    1312,
+    1199
+  ],
+  "processing": "Measured alpha128 crops, nearest to2x old native dimensions, normalized old opaque bounds preserved. Same world bounds and behavior/timing; source density0.75wu/texel, rendered on1wu grid.",
+  "status": "candidate_real_consumer_pending",
+  "rights": "Generated remaster of repository original authored native sprites; no external license asserted."
+}

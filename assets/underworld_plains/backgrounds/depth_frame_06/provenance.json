@@ -1,0 +1,46 @@
+{
+  "task_id": "DEPTH-FRAME-06",
+  "tool": "image_gen.imagegen",
+  "calls": 2,
+  "model": "not_exposed",
+  "price": "not_exposed",
+  "generation_wall_seconds": 28.5,
+  "original_tool_output": "/workspace/generated_images/exec-532b0276-1b1e-420b-9dbf-db065669dc23.png",
+  "processing": "byte-identical copy; no code painting/resampling; atmospheric material mix at runtime",
+  "source_sha256": "11b31bcccae1aa830f8760948f6646d8912443c71e51951a574f2fc3640dd548",
+  "size": [
+    1672,
+    941
+  ],
+  "alpha_zero_fraction": 0.5099500938124463,
+  "bottom_row_alpha_min": 249,
+  "actual_content": "three differently sized windmills, two bell/clock towers, connected masonry shoulders and viaduct; the prompt requested4 windmills but returned3, actual content retained",
+  "rights": "AI edit referencing repository sources and game screen; original Underworld publisher provenance retained; no new third-party license instrument supplied",
+  "references": [
+    {
+      "path": "assets/underworld_plains/backgrounds/parallax_fine_space_05/ridge_landmarks.png",
+      "sha256": "3d0723275b127b360c74ac749ff89aa9a69179f9bfaaef5e0b0594603b9af041"
+    },
+    {
+      "path": "docs/evidence/fine_space_05/home.png",
+      "sha256": "638bd3f62effe970ea30e3a5dc76192e696698b7467c951fbde34de6244a254e"
+    }
+  ],
+  "prompt_file": "prompt.txt",
+  "scope": "larger formal Home/Plains midground candidate, not concept-art-as-gameplay or art acceptance",
+  "round_1_rejected_reason": "actual game bridge deck aligned with playable platform tops; preserved original candidate",
+  "adopted_image": "landmark_ridge_r2.png",
+  "adopted_sha256": "29c0812af64de5cf1299cecb7e8810d93bfd435b099a1434bca0cd12e475fc29",
+  "round_2": {
+    "original_tool_output": "/workspace/generated_images/exec-3036542a-6cde-44f8-a413-dbfb77bdba36.png",
+    "size": [
+      1672,
+      941
+    ],
+    "model": "not_exposed",
+    "price": "not_exposed",
+    "reference": "landmark_ridge.png",
+    "actual_result": "lower ruined viaduct with missing span; hilltops and major architectural shapes preserved; brighter raw source moderated by runtime atmosphere",
+    "prompt_file": "prompt_r2.txt"
+  }
+}

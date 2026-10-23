@@ -107,6 +107,10 @@ func _ready() -> void:
 	controller.router.touch_enabled = OS.has_feature("android") or OS.has_feature("ios") or DisplayServer.is_touchscreen_available()
 	set_meta_state({"notes": 0})
 	UnderworldUI.style_canvas(_hud)
+	# Load the optional presentation at the composition root; avoid a static
+	# HomeScene -> presentation -> scenery -> stage -> DemoApp class cycle.
+	var presentation:=load("res://scripts/underworld_plains/underworld_presentation.gd") as Script
+	presentation.attach(self,world,player)
 
 func _ground(rect: Rect2,one_way: bool=false,id: String="") -> void:
 	var body := StaticBody2D.new()

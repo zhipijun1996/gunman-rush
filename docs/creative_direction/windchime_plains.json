@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "windchime_plains",
-  "version": "creative-v8",
+  "version": "creative-v9",
   "direction_id": "windchime_plains_v2",
   "title": "风铃平原｜用户区域圣经 V2",
   "decision": "selected",
@@ -15,11 +15,11 @@
     "bible_id": "windchime_plains_v2",
     "version": "2.0",
     "status": "user_selected_direction_only",
-    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261022-v4.json",
-    "supplemental_authority_sha256": "a6f817bb762a53d99e45185444f11889246866a8baa5d29e5efaee994e7f3ae9",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261022-v5.json",
+    "supplemental_authority_sha256": "5c5585a275cf009ea6860371c920657e8d875955d5ddaaedb3c1cdc38527160c",
     "region_id": "windchime_plains",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "6840ac76c8b45d9e14d92ed1542066ae9a8750870c70212f12db00d3e18b32de",
+    "registry_sha256": "eb34928f473941db24618cd95663ac13ba0b60b99f09ea807fa9321f253d4b49",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -67,7 +67,8 @@
     "contract": "完整原文随生产任务载入；逐项对应正式消费者和同源证据，不以摘要替代原文。",
     "shared_project_style": "继承已绑定的正式平原实际像素尺度、tileset邻接/边界、光照/描边/材质语言；区域特色不等于另换项目画风。森林以树皮、苔藓、荆棘、有机结构及区域色域变化，其他后续区域同样沿共用母版。",
     "cross_region_golden": "先阅读实际共享source PNG/atlas、TileSet及消费者，在正式平原/目标地区的正常比例游戏黄金做实际像素对照；独立视觉准入后才扩产，hash/metadata不签画面。",
-    "shared_player_body": "实际同屏UnderworldPlayer脚本及其直接animation_build.json、run_sheet.png、states_sheet.png完整SHA一并绑定；只保脚本SHA不能证明角色像素未漂移。"
+    "shared_player_body": "实际同屏UnderworldPlayer脚本及其直接animation_build.json、run_sheet.png、states_sheet.png完整SHA一并绑定；只保脚本SHA不能证明角色像素未漂移。",
+    "selected_fine_grid": "Fine1wu shared grid per style-v5; region identity comes from materials/ecology, not a different pixel scale. Human/devices remain unverified."
   },
   "motion_audio": {
     "bible_sections": "9",
@@ -134,6 +135,10 @@
     {
       "path": "docs/creative_direction/bibles/style-continuity-20261022-v4.json",
       "sha256": "a6f817bb762a53d99e45185444f11889246866a8baa5d29e5efaee994e7f3ae9"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261022-v5.json",
+      "sha256": "5c5585a275cf009ea6860371c920657e8d875955d5ddaaedb3c1cdc38527160c"
     }
   ],
   "historical_direction": {

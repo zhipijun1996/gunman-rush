@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "asset_id": "fine-space-05-foreground",
+  "task_id": "FINE-SPACE-05",
+  "content_version": "fine-space-05-candidate-20261022",
+  "source_path": "assets/underworld_plains/foreground_fine_05/master_original.png",
+  "source_sha256": "e3218e05c4a6e6386bd546beaf0310184adaf94c5087b20af2267e1763c18a99",
+  "runtime_paths": [
+    "assets/underworld_plains/foreground_fine_05/grass_a.png",
+    "assets/underworld_plains/foreground_fine_05/grass_b.png",
+    "assets/underworld_plains/foreground_fine_05/grass_c.png",
+    "assets/underworld_plains/foreground_fine_05/branch_left.png",
+    "assets/underworld_plains/foreground_fine_05/branch_right.png",
+    "assets/underworld_plains/foreground_fine_05/foreground_build.json"
+  ],
+  "runtime_file_sha256": {
+    "assets/underworld_plains/foreground_fine_05/grass_a.png": "ab1c4ce2896c66b8b0dc4e5198aecb0c76b9099a4b15f321e96f1dfb954559ad",
+    "assets/underworld_plains/foreground_fine_05/grass_b.png": "9d74f622e1c3b19cb18cf0194d3e39006e0455233434394b1260efe11e709bfd",
+    "assets/underworld_plains/foreground_fine_05/grass_c.png": "6db0cc9ee7c1169ac285647ee367faf4c60d2ce17ee1066d114bedea912b8fc0",
+    "assets/underworld_plains/foreground_fine_05/branch_left.png": "c0e532554bffe46a01adfe26def6e26a5a05df2e4c8d52ce139888dd08ee1d58",
+    "assets/underworld_plains/foreground_fine_05/branch_right.png": "7a484302838222008900fd3c7b60e933a83e806fa4d787dc2078cd7c37d406c3",
+    "assets/underworld_plains/foreground_fine_05/foreground_build.json": "e4dd9755ff6d5b62550311e5261d3be0513bd108d977e42f485a788891f60c41"
+  },
+  "tool": "image_gen.imagegen",
+  "model": "not exposed by tool; unknown",
+  "cost": "unknown; image generation tool does not expose billed price",
+  "generation_calls": 1,
+  "prompt_or_reference": "assets/underworld_plains/foreground_fine_05/provenance.json",
+  "processing": "Retained AI mother; disjoint measured source cells cropped alpha>=2 keeping RGBA, nearest resampled to1wu. No repaint/recolor/alpha replacement. At most2grass and1branch, full-bounds plus wind safety margin hides on functional/HUD overlap; roots attach offscreen.",
+  "usage_scope": "Sparse shared formal Home/Plains framing; cosmetic/no collision/no standing edge. Generation provenance retained; verbatim prompt not recovered from compacted history, billed cost/model unknown. Actual composite/motion acceptance unverified.",
+  "consumer_scripts": [
+    "scripts/underworld_plains/underworld_foreground.gd"
+  ],
+  "license_status": "unknown",
+  "license_source": "Generated edits/reference lineage from repository sources; existing source rights retained. No separate output license certificate exposed; no blanket CC0 or third-party permission claim.",
+  "visual_status": "unverified",
+  "user_acceptance_evidence": [],
+  "disposition": "runtime_candidate",
+  "associated_files": [
+    {
+      "path": "assets/underworld_plains/foreground_fine_05/provenance.json",
+      "sha256": "d1d078b6ed3620238ecea493cd65e346a378190b6b3d4fee55e542c382185a1e",
+      "role": "generation_record"
+    },
+    {
+      "path": "tools/build_underworld_foreground.gd",
+      "sha256": "fdd589316b583ae86fef40dde5661a295ce5b09676561f6bb327638473e1b44b",
+      "role": "processing_record"
+    }
+  ]
+}

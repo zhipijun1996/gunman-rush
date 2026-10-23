@@ -1,0 +1,34 @@
+{
+  "scope": "GPU still-image block equality; not aesthetic acceptance or continuous motion evidence",
+  "regions": {
+    "building": {
+      "roi": [
+        240,
+        360,
+        128,
+        120
+      ],
+      "same_color_2x2_fraction": {
+        "original": 0.01328125,
+        "low_grid": 1.0,
+        "dense": 0.012239583333333333,
+        "dense_lamps": 0.011458333333333333
+      }
+    },
+    "rock": {
+      "roi": [
+        1000,
+        540,
+        200,
+        160
+      ],
+      "same_color_2x2_fraction": {
+        "original": 1.0,
+        "low_grid": 1.0,
+        "dense": 0.0765,
+        "dense_lamps": 0.1305
+      }
+    }
+  },
+  "empty_sky_original_equals_dense": true
+}

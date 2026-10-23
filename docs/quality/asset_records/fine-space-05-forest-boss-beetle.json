@@ -1,0 +1,65 @@
+{
+  "schema_version": 1,
+  "asset_id": "fine-space-05-forest-boss-beetle",
+  "task_id": "FINE-SPACE-05",
+  "content_version": "fine-space-05-candidate-20261022",
+  "source_path": "assets/forest_bible_v2/native/fine_32/boss_beetle_master_original.png",
+  "source_sha256": "1c0efeb918030efe9b5b3f72cfd6a4a5f66c4eb36dc74d1ec57d08977c92efd5",
+  "runtime_paths": [
+    "assets/forest_bible_v2/native/fine_32/guardian.png",
+    "assets/forest_bible_v2/native/fine_32/queen.png",
+    "assets/forest_bible_v2/native/fine_32/beetle.png"
+  ],
+  "runtime_file_sha256": {
+    "assets/forest_bible_v2/native/fine_32/guardian.png": "c87c170060610a1626715379cfd9293e8085a45d4bb1fef66da20640de0427d8",
+    "assets/forest_bible_v2/native/fine_32/queen.png": "944a90afd06aa7c837596ad3ff6b8442685c5366ad54b5929c43aa6114bffb12",
+    "assets/forest_bible_v2/native/fine_32/beetle.png": "5b4916917b3519b4e935939001e5ee252e3046b5aea97b05130a02682fa00e5a"
+  },
+  "tool": "image_gen.imagegen",
+  "model": "not exposed by tool; unknown",
+  "cost": "unknown; image generation tool does not expose billed price",
+  "generation_calls": 1,
+  "prompt_or_reference": "assets/forest_bible_v2/native/fine_32/boss_beetle_generation.json",
+  "processing": "Same-family three-body fine remaster: guardian72x96, queen72x68, beetle48x32. Measured alpha128 crops preserve normalized old silhouette bounds/foot anchors/core target rectangle; actor body draw dimensions and existing timing unchanged. Guardian/queen native1wu; beetle0.75wu texels.",
+  "usage_scope": "Formal Forest guardian, queen and beetle pure visual bodies. Does not change collision, state machine, ability signals or attack timing. Existing32px Weaver already uses1wu and remains unchanged.",
+  "consumer_scripts": [
+    "scripts/presentation/forest_bible_actor_presentation.gd"
+  ],
+  "license_status": "unknown",
+  "license_source": "Generated edits/reference lineage from repository sources; existing source rights retained. No separate output license certificate exposed; no blanket CC0 or third-party permission claim.",
+  "visual_status": "unverified",
+  "user_acceptance_evidence": [],
+  "disposition": "runtime_candidate",
+  "associated_files": [
+    {
+      "path": "assets/forest_bible_v2/native/fine_32/boss_beetle_generation.json",
+      "sha256": "a4cf9c1d9944b8c9188646d583fa59e65fb1ef30962ee959069e67ddc1b080b7",
+      "role": "generation_record"
+    },
+    {
+      "path": "assets/forest_bible_v2/native/rootbell_guardian_v1.png",
+      "sha256": "eaa19f7639019e9abc7aff668eb9f57394c000f5c1498088079b798e5bf8602c",
+      "role": "reference"
+    },
+    {
+      "path": "assets/forest_bible_v2/native/thorn_queen_v1.png",
+      "sha256": "38b02f6931302f78a7a621492aacdf1d3c8e7ac372d140ba4b26112849a386af",
+      "role": "reference"
+    },
+    {
+      "path": "assets/forest_bible_v2/native/bark_beetle_v1.png",
+      "sha256": "30eaae8869edbc6e4f44d4e4bd1f14008e4e15e60ebcf48438d3999610333c2c",
+      "role": "reference"
+    },
+    {
+      "path": "assets/forest_bible_v2/native/fine_32/boss_beetle_build.json",
+      "sha256": "2459205d0a988ee34766428003f2fb2cb4ef55d0a173128f03f8245f33e467d1",
+      "role": "processing_record"
+    },
+    {
+      "path": "tools/build_formal_forest_detail.gd",
+      "sha256": "b2594f842e2e25e35aa71f04d0e80737699c18c49d31762de779aa4e7d28c60b",
+      "role": "processing_record"
+    }
+  ]
+}
