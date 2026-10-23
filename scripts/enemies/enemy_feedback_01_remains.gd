@@ -1,7 +1,7 @@
 class_name EnemyFeedback01Remains
 extends Node2D
 ## Stage-owned authored D1-D4 handoff. Cosmetic support queries never move Actor.
-## Current-stage weak support is reused; no new save schema or nearest-floor snap.
+## Optional stage-ledger pose restores actual settled pixels, never a guessed floor.
 const DEATH_SECONDS := EnemyFeedback01Frames.DEATH_SECONDS
 const FRAME_SECONDS := DEATH_SECONDS / 4.0
 const FLOOR_REACH := 2048.0
@@ -47,6 +47,56 @@ var _has_floor := false
 var _frame_foot := 0.0
 var _saved_collision_foot := Vector2.ZERO
 var _feet: Dictionary = {}
+var _saved_presentation: Dictionary = {}
+var _saved_support: WeakRef
+
+func support_node() -> Node2D:
+	return _support.get_ref() as Node2D if _support != null else null
+
+func presentation_snapshot(support_identity: Dictionary) -> Dictionary:
+	# Only an actually landed final frame is a persistent corpse pose. An actor's
+	# collision feet are deliberately not substituted for its fallen pixels.
+	var support := support_node()
+	if _disposed or not active or not settled or not _landed or frame_index != 7 or not visible or support_identity.is_empty(): return {}
+	if not is_instance_valid(support) or support.is_queued_for_deletion(): return {}
+	var stage := get_parent() as Node2D
+	var location := stage.to_local(global_position)
+	return {"version":1,"frame":7,"position":[location.x,location.y],"face":_face,"support":support_identity.duplicate(true),"support_anchor":[_support_anchor.x,_support_anchor.y]}
+
+static func _finite_pair(value: Variant) -> bool:
+	if not value is Array or value.size() != 2: return false
+	for coordinate: Variant in value:
+		if not (coordinate is int or coordinate is float) or not is_finite(float(coordinate)): return false
+	return Vector2(value[0],value[1]).is_finite()
+
+static func valid_presentation_snapshot(value: Variant) -> bool:
+	if not value is Dictionary: return false
+	# Godot JSON roundtrips integer-looking numbers as floats too.
+	if not (value.get("version") is int or value.get("version") is float) or value.version != 1: return false
+	if not (value.get("frame") is int or value.get("frame") is float) or value.frame != 7: return false
+	if not _finite_pair(value.get("position")) or not _finite_pair(value.get("support_anchor")): return false
+	if not (value.get("face") is int or value.get("face") is float) or (value.face != -1 and value.face != 1): return false
+	var identity: Variant = value.get("support")
+	if not identity is Dictionary: return false
+	match identity.get("kind"):
+		"module":
+			for key: String in ["module","body"]:
+				if not identity.get(key) is String or identity[key].is_empty() or identity[key].contains("@") or identity[key].validate_node_name() != identity[key]: return false
+		"ground":
+			var rect: Variant = identity.get("rect")
+			if not rect is Array or rect.size() != 4 or not _finite_pair(rect.slice(0,2)) or not _finite_pair(rect.slice(2,4)) or rect[2] <= 0 or rect[3] <= 0: return false
+		"shortcut":
+			if not identity.get("id") is String or identity.id.is_empty(): return false
+		_: return false
+	return true
+
+func restore_presentation(value: Variant, support: Node2D) -> bool:
+	if _disposed or _health == null or not _health.terminal: return false
+	_saved_presentation = value.duplicate(true) if valid_presentation_snapshot(value) else {}
+	_saved_support = weakref(support) if is_instance_valid(support) and not support.is_queued_for_deletion() else null
+	_restore_static()
+	_restore_pending = true # Recheck only this contact after physics assembly sync.
+	return not _saved_presentation.is_empty()
 
 func _init() -> void:
 	flash_material.shader = preload("res://scripts/enemies/enemy_feedback_01_flash.gdshader")
@@ -213,6 +263,8 @@ func _initialized(result: ActorResourceResult) -> void:
 	age = 0.0
 	phase = &"inactive"
 	_support = null
+	_saved_presentation.clear()
+	_saved_support = null
 	_frames = null
 	_feet.clear()
 	source = null
@@ -238,6 +290,35 @@ func _restore_static() -> void:
 	settled = true
 	age = 0.0
 	phase = &"resting"
+	if not _saved_presentation.is_empty():
+		var location: Array = _saved_presentation.position
+		global_position = (get_parent() as Node2D).to_global(Vector2(location[0],location[1]))
+		_face = float(_saved_presentation.face)
+		var support := _saved_support.get_ref() as Node2D if _saved_support != null else null
+		var hit: Dictionary = {}
+		if is_instance_valid(support) and not support.is_queued_for_deletion():
+			var anchor: Array = _saved_presentation.support_anchor
+			var foot := support.to_global(Vector2(anchor[0],anchor[1]))
+			var query := PhysicsRayQueryParameters2D.create(foot-Vector2(0,CONTACT_SLOP),foot+Vector2(0,CONTACT_SLOP),1)
+			query.collide_with_areas = false
+			hit = get_world_2d().direct_space_state.intersect_ray(query)
+			if hit.get("collider") != support or (not hit.is_empty() and (hit.normal as Vector2).dot(Vector2.UP) < .65): hit = {}
+		if not hit.is_empty():
+			_attach_support(hit)
+			restore_support_verified = true
+			restore_support_status = &"saved_support_contact"
+		else:
+			# The saved support is gone/changed. Keep the recorded world pose and
+			# original D4, then use the existing bounded fall, with no death replay.
+			settled = false
+			_fall_start_y = global_position.y
+			phase = &"falling"
+			restore_support_verified = false
+			restore_support_status = &"saved_support_missing"
+		visible = true
+		flash_material.set_shader_parameter("hit_flash",0.0)
+		queue_redraw()
+		return
 	# A dead save has no death trajectory/support-local pose. Only an existing
 	# contact at its saved foot is defensible; a distant downward ray is not a
 	# license to teleport D4 to a guessed floor. Missing support remains explicit.
@@ -335,6 +416,8 @@ func dispose() -> void:
 	_frames = null
 	_feet.clear()
 	_support = null
+	_saved_support = null
+	_saved_presentation.clear()
 	source = null
 	active = false
 	visible = false

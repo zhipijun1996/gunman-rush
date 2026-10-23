@@ -149,7 +149,52 @@ func _ready() -> void:
 			scenery.queue_redraw())
 		PixelFormalActors.install(self)
 		UnderworldActors.install(self)
+	# Health restoration intentionally leaves terminal Motors hidden. Their
+	# stage-owned pixels restore only after the real presentation installer exists.
+	for index: int in enemies.size():
+		var saved: Dictionary = region_state.actors.get(enemy_manifest[index].id,{})
+		var remains := _enemy_remains(enemies[index])
+		if is_instance_valid(remains) and saved.has("presentation_remains"):
+			var pose: Variant = saved.presentation_remains
+			var support: Node2D = _resolve_remains_support(pose.support) if EnemyFeedback01Remains.valid_presentation_snapshot(pose) else null
+			remains.restore_presentation(pose,support)
 	queue_redraw()
+
+func _enemy_remains(motor: EnemyMotor) -> EnemyFeedback01Remains:
+	var presentation := motor.get_node_or_null("Presentation")
+	if presentation is UnderworldEnemy: return presentation.feedback_remains
+	if presentation is EnemyPresentation: return presentation.feedback_remains
+	return null
+
+func _remains_support_identity(support: Node2D) -> Dictionary:
+	if not is_instance_valid(support) or support.is_queued_for_deletion(): return {}
+	for module: PlatformingModule in assembler.modules:
+		if support.get_parent() == module and not String(support.name).contains("@"):
+			return {"kind":"module","module":String(module.name),"body":String(support.name)}
+	if is_instance_valid(assembler.ground_supports) and support.get_parent() == assembler.ground_supports:
+		for column: Rect2 in assembler.ground_supports.columns:
+			if support.position.is_equal_approx(column.get_center()):
+				return {"kind":"ground","rect":[column.position.x,column.position.y,column.size.x,column.size.y]}
+	if assembler is PlainsRegionAssembler:
+		for id: String in (assembler as PlainsRegionAssembler).shortcut_bodies:
+			if (assembler as PlainsRegionAssembler).shortcut_bodies[id] == support: return {"kind":"shortcut","id":id}
+	return {}
+
+func _resolve_remains_support(identity: Dictionary) -> Node2D:
+	match identity.kind:
+		"module":
+			for module: PlatformingModule in assembler.modules:
+				if String(module.name) == identity.module: return module.get_node_or_null(NodePath(identity.body)) as PhysicsBody2D
+		"ground":
+			if not is_instance_valid(assembler.ground_supports): return null
+			var r: Array = identity.rect
+			var column := Rect2(r[0],r[1],r[2],r[3])
+			if column not in assembler.ground_supports.columns: return null
+			for body: Node in assembler.ground_supports.get_children():
+				if body is StaticBody2D and body.position.is_equal_approx(column.get_center()): return body
+		"shortcut":
+			if assembler is PlainsRegionAssembler: return (assembler as PlainsRegionAssembler).shortcut_bodies.get(identity.id) as Node2D
+	return null
 
 func get_regional_art_snapshot() -> Dictionary:
 	var art: Dictionary = {}
@@ -248,6 +293,10 @@ func capture_state() -> void:
 		var attack := actor.attack_behavior
 		var pos := enemies[index].position
 		region_state.actors[enemy_manifest[index].id] = {"health":actor.health.current,"position":[pos.x,pos.y],"state":String(attack.state) if attack!=null else "idle","state_time":attack.state_time if attack!=null else 0.0,"cooldown":attack.cooldown if attack!=null else 0.0,"serial":attack._serial if attack!=null else 0,"locked_direction":[attack.locked_direction.x,attack.locked_direction.y] if attack!=null else [1,0],"attack_goal":[attack.attack_goal.x,attack.attack_goal.y] if attack!=null else [pos.x,pos.y],"attack_origin":[attack.attack_origin.x,attack.attack_origin.y] if attack!=null else [pos.x,pos.y],"home":[attack.home.x,attack.home.y] if attack!=null else [pos.x,pos.y],"direction":actor.brain.direction}
+		var remains := _enemy_remains(enemies[index])
+		if actor.health.terminal and is_instance_valid(remains):
+			var pose := remains.presentation_snapshot(_remains_support_identity(remains.support_node()))
+			if not pose.is_empty(): region_state.actors[enemy_manifest[index].id].presentation_remains = pose
 	var encounter := boss.get_node("Encounter") as WindkeeperEncounter
 	region_state.boss_state={"health":encounter.health.current,"phase":encounter.stage_phase,"chase_segment":encounter.chase_segment,"mode":String(encounter.mode),"clock":encounter.clock,"position":[boss.position.x,boss.position.y],"active":encounter.active,"serial":encounter._attack_serial,"direction":encounter.direction,"pattern_index":encounter.pattern_index if encounter is BellstriderEncounter else 0}
 	region_state.boss_state.merge(encounter.combat_snapshot(),true)
