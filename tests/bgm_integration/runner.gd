@@ -4,6 +4,7 @@ extends SceneTree
 var checks := 0
 var failures := 0
 var observations: Array[Dictionary] = []
+var loop_observations: Array[Dictionary] = []
 var app: DemoApp
 
 func _initialize() -> void:
@@ -39,6 +40,19 @@ func observe(label: String) -> void:
 	var boss: BossEncounter
 	if is_instance_valid(app.stage) and is_instance_valid(app.stage.boss): boss = app.stage.boss.get_node("Encounter") as BossEncounter
 	observations.append({"label": label, "track": String(app._music.requested_track), "region": String(app.active_region_id), "map": app.director.region_map_index, "director_state": app.director.state, "boss_active": boss.active if boss != null else false, "boss_terminal": boss.health.terminal if boss != null else false, "boss_scene": app.stage.boss.scene_file_path if boss != null else "", "paused": paused, "voices": voices, "starts": app._music.starts.duplicate()})
+
+func wait_audio_wall(seconds: float) -> void:
+	# Audio mixing follows real time. SceneTreeTimer can consume a long frame's
+	# delta from before timer creation and expire before this wall interval.
+	var deadline := Time.get_ticks_usec() + int(seconds * 1000000.0)
+	while Time.get_ticks_usec() < deadline:
+		await process_frame
+
+func audio_clock(voice: AudioStreamPlayer) -> Dictionary:
+	# Keep the real playback reference inside this synchronous stack only;
+	# never retain a backend across await or the original one-second teardown.
+	var playback: AudioStreamPlayback = voice.get_stream_playback() if voice.has_stream_playback() else null
+	return {"monotonic_usec":Time.get_ticks_usec(),"playing":voice.playing,"position":voice.get_playback_position(),"backend_position":playback.get_playback_position() if playback else -1.0,"loop_count":playback.get_loop_count() if playback else -1,"since_mix":AudioServer.get_time_since_last_mix(),"to_next_mix":AudioServer.get_time_to_next_mix(),"mix_rate":AudioServer.get_mix_rate(),"process_frame":Engine.get_process_frames()}
 
 func gate_and_loop_checks() -> void:
 	# Native fixture for the deferred Web policy; actual browser activation is
@@ -78,8 +92,16 @@ func gate_and_loop_checks() -> void:
 		await frames()
 		var voice := music._voices[music._ids.find(id)]
 		check(voice.stream is AudioStreamMP3 and voice.stream.loop and voice.stream.get_length() > 150.0, "real imported long MP3 loops: " + String(id))
-		voice.seek(voice.stream.get_length() - 0.05)
-		await create_timer(0.2, true, false, true).timeout
+		# Hash files before seeking, so evidence I/O cannot extend the wrap deadline.
+		var source_sha := FileAccess.get_sha256(voice.stream.resource_path)
+		var import_sha := FileAccess.get_sha256(voice.stream.resource_path+".import")
+		var before := audio_clock(voice)
+		var length := voice.stream.get_length()
+		voice.seek(length - 0.05)
+		var queued := audio_clock(voice)
+		await wait_audio_wall(0.2)
+		var after := audio_clock(voice)
+		loop_observations.append({"track":String(id),"length":length,"seek_target":length-0.05,"stream":voice.stream.resource_path,"source_sha256":source_sha,"import_sha256":import_sha,"configured_loop":voice.stream.loop,"before":before,"queued":queued,"after":after,"actual_wall_usec":after.monotonic_usec-queued.monotonic_usec})
 		check(voice.playing and voice.get_stream_playback().get_loop_count() > 0, "actual MP3 playback wraps at original track end: " + String(id))
 	check(await music.shutdown(), "standalone music backend releases within original one-second bound")
 	music.free()
@@ -248,7 +270,7 @@ func run() -> void:
 	var directory := "res://build/verification/bgm-integration"
 	DirAccess.make_dir_recursive_absolute(directory)
 	var file := FileAccess.open(directory + "/report.json", FileAccess.WRITE)
-	file.store_string(JSON.stringify({"checks": checks, "failures": failures, "observations": observations, "scope": "Actual native App/MP3 playback and two generated regions/four Boss instances; explicit position/lethal damage fixtures, native deferred-input fixture; not natural play, listening, browser activation, GPU or physical device acceptance."}, "  "))
+	file.store_string(JSON.stringify({"checks": checks, "failures": failures, "observations": observations,"loop_observations":loop_observations,"runner_sha256":FileAccess.get_sha256(get_script().resource_path),"music_sha256":FileAccess.get_sha256("res://scripts/audio/game_music.gd"),"audio_driver":AudioServer.get_driver_name(), "scope": "Actual native App/MP3 playback and two generated regions/four Boss instances; explicit position/lethal damage fixtures, native deferred-input fixture; not natural play, listening, browser activation, GPU or physical device acceptance."}, "  "))
 	file.close()
 	print("BGM INTEGRATION: %s checks, %s failures" % [checks, failures])
 	quit(1 if failures else 0)

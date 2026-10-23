@@ -128,7 +128,7 @@ def main():
         preflight()
         after = {p: digest(ROOT / p) for p in OWNED}
         binding['source_after'] = after
-        expected = 189 if args.capture else 180
+        expected = 190 if args.capture else 181
         verify(output, receipt, before, after, expected, 0)
         saved = run / 'receipt.json'; shutil.copy2(receipt_path, saved)
         binding.update(status='passed', checks=expected, failures=0, receipt=str(saved.relative_to(ROOT)), receipt_sha256=digest(saved))
