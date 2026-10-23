@@ -1,0 +1,306 @@
+{
+  "schema_version": 1,
+  "task": "PLAYER-PRESENTATION-01",
+  "content_version": "mine-beep-v3",
+  "reviewed_commit": "4e5102af9abd16d322656375e94886a95deae38a",
+  "reviewed_at_utc": "2026-10-23T02:10:36.991862+00:00",
+  "reviewer": {
+    "agent": "/root/audit_review",
+    "role": "Independent delegated read-only implementation reviewer",
+    "skill": ".agents/skills/gameplay-reviewer/SKILL.md",
+    "independence": "No implementation edits,Godot runs or audio listening by reviewer. Read source/raw author logs/traces;independently recomputed parity/hashes and rebuilt audio bytes in memory. Only this authorized review file written."
+  },
+  "verdict": "ACCEPT",
+  "scope": "Limited engineering acceptance of timer sample replacement,source/license record,reproducible edit,unchanged cadence/gameplay and recorded consumer binding/lifecycle. Audible result remainsUNVERIFIED;does not sign entireworkline,fullintegration,user or physicaldevice.",
+  "reviewed_file_sha256": {
+    "scripts/dev/player_presentation_01/weapon_audio_v2.gd": "3e82c050ae3e15ca5fad29589fc310e6c8cab66041519d45fa728601460fa742",
+    "scripts/dev/player_presentation_01/weapon_feel_v2.gd": "ab0d1fd2e7a95beec4dfc46d6bb9c7a4c2ec1b8f8dde5aa727f63a396bb6e138",
+    "scripts/dev/player_presentation_01/weapon_audio.gd": "2da56ff839e2693b9cb1cb5e9981547689405af7d4a3777c55673114fda58618",
+    "scripts/combat/weapon_entity.gd": "92100532822257979e5d8d24533d36a6e59dc559395164838418eb9e5508442b",
+    "resources/player_presentation_01/weapon_sound_data_v2.gd": "6536780acd274303a0c5c1b213356f94d4930be7f783df53fd595de81dbc51cb",
+    "tests/player_presentation_01/build_mine_beep_v3.py": "be6ec5c5432e6c29d348769bbfcad832e85a7c6035dc7fb2d6a29d14d127d5ad",
+    "tests/player_presentation_01/mine_beep_binding_v3.gd": "225fea29bb2faaaae55707a0c2c9b372fc1e450378649d9bfda737b859d859ed",
+    "assets/player_presentation_01/mine_beep_v3/provenance.json": "edb33b384adffc99d366297bc87f1b0e54aba7055b9f90b78de2c6f825deda9d",
+    "assets/player_presentation_01/mine_beep_v3/timer_beep.wav": "7b3945c565c4f669b0649f54417067e85ce9ccc48185242fcad825b7b3c42cf1",
+    "assets/player_presentation_01/mine_beep_v3/sources/electronic-timer-536420-hq.mp3": "f86391668ac41cf57423131f73545a90635dc259b9c1bca8a5ce44dc59bb45a3",
+    "assets/player_presentation_01/mine_beep_v3/sources/source-page.html": "c2de401ac12deb070e6cf1594c56503094b608518fde8550732c2ef5602312f6",
+    "assets/player_presentation_01/mine_beep_v3/sources/CC0-1.0-legalcode.html": "36047b77caa40b62b4df2d659e68fe0f44a10dd0017dc745ca8bc6510478d514",
+    "assets/player_presentation_01/mine_beep_v3/sources/ATTRIBUTION.txt": "3aa026e32b696ef35e5cf2c8ea9e487941e00bedf4f1e1ff864c81c87e4cd264"
+  },
+  "findings": [
+    {
+      "id": "BEEP-V3-SLOT",
+      "status": "ACCEPT",
+      "location": "scripts/dev/player_presentation_01/weapon_audio_v2.gd:6",
+      "observation": "Ready duplicates original dictionary,then assigns one newly created three-element mine_beep Array containing identical TIMER_BEEP resource. Shallow dictionary copy is sufficient because no old nested Array/AudioStream is mutated. Parent serial selection and all other cue entries remain original;oldmine WAVs/staticbank retained."
+    },
+    {
+      "id": "BEEP-V3-PROVENANCE",
+      "status": "ACCEPT_LOCAL_SOURCE_RECORD",
+      "locations": [
+        "assets/player_presentation_01/mine_beep_v3/sources/source-page.html:487",
+        "assets/player_presentation_01/mine_beep_v3/sources/source-page.html:664",
+        "assets/player_presentation_01/mine_beep_v3/sources/source-page.html:676",
+        "assets/player_presentation_01/mine_beep_v3/sources/source-page.html:715"
+      ],
+      "observation": "Saved sourcepage identifies Electronic Timer Beeping4X,Rudmer_Rotteveel,536420 and CC0;explicitly permits copying/modifying/commercialuse. PublicHQ MP3 URL appears in page share data;original WAV is Login to download. Provenance/ATTRIBUTION explicitly identify retained material as publicHQ MP3preview rather than originalWAV. Complete CC0 statement and sections1–4 locally read,author/source retained although CC0 does not require credit. Reviewer did not independently refetch network sources or claim legal advice."
+    },
+    {
+      "id": "BEEP-V3-REBUILD",
+      "status": "ACCEPT",
+      "location": "tests/player_presentation_01/build_mine_beep_v3.py:16",
+      "observation": "Reviewer decoded retainedMP3 viaffmpeg to48kmono float32,independently applied2160..6240crop,144sample raisedcosine edgefade,peak.6 PCM16 normalization and builtWAV in memory. Bytes equal committed8204-byte output,4080frames/.085sec,peak.5999938962981048;SHA7b3945c565c4f669b0649f54417067e85ce9ccc48185242fcad825b7b3c42cf1. Sourcehash and assetrecord associated hashes match. No oscillator,pitchshift or baked countdown added. No repository asset rewritten by reviewer."
+    },
+    {
+      "id": "BEEP-V3-SCHEDULER",
+      "status": "ACCEPT_RECORDED_SCOPE",
+      "location": "scripts/dev/player_presentation_01/weapon_feel_v2.gd:120",
+      "observation": "Only changed runtime script is AudioV2slotbinding;age-based mine cadence,beep attenuation,clear/pause/OFF/exit and minefuse/explosion logic unchanged. Old325/new4e ON raw28fields+events equal;all11mine_beep dispatch ticks equal. This proves recorded dispatch schedule,not11heard audiblebeeps or arbitrary voicebudget behavior."
+    },
+    {
+      "id": "BEEP-V3-CONSUMER",
+      "status": "ACCEPT_RECORDED_SCOPE",
+      "location": "tests/player_presentation_01/mine_beep_binding_v3.gd:18",
+      "observation": "Frozen actual postready service has3newWAVslots,all same resource,.085sec/nonloop,originalCLIPS threeoldpaths and12voices. Immediate node_added observation checks three realHome/reentry/Plains leaf instances use samepersistentservice. Repeated identicalHomepath reflects replacementinstances;not threeuniqueaudio services."
+    }
+  ],
+  "native_capture": {
+    "path": "build/player_presentation_01/mine-beep-v3/native-final/report.json",
+    "sha256": "18d6abcb25ee526ceb6f6cd8675b4fa0b08f4272e7f31d52e84654e5a22ccf14",
+    "status": "passed",
+    "source_commit": "4e5102af9abd16d322656375e94886a95deae38a",
+    "source_git_status": "",
+    "source_stable": true,
+    "reviewer_source_inventories_equal": true,
+    "media": [
+      {
+        "path": "build/player_presentation_01/mine-beep-v3/native-final/before.mp4",
+        "sha256": "4e3910730c2ea4296a44b68bfe868a7c78414e8b5a6c7d5f3b3a00229dce94ed",
+        "matches_report": true,
+        "seconds": 21.7,
+        "reviewer_played_or_listened": false
+      },
+      {
+        "path": "build/player_presentation_01/mine-beep-v3/native-final/after.mp4",
+        "sha256": "dc5861085f4c5718776ff18992da55da7c7a0a867134a09f0e85bb20b73dd924",
+        "matches_report": true,
+        "seconds": 21.7,
+        "reviewer_played_or_listened": false
+      }
+    ]
+  },
+  "independent_raw_parity": [
+    {
+      "label": "current ON versus OFF",
+      "files": [
+        "build/player_presentation_01/mine-beep-v3/native-final/after.json",
+        "build/player_presentation_01/mine-beep-v3/native-final/before.json"
+      ],
+      "sha256": [
+        "8973ebc061b5ddab0921feae96021d2cb085e6e9a386e59166f54369d8350779",
+        "c06a552a8204a41954bd470e6358925221aef27f9a322f9f2a177e9ab376f4bf"
+      ],
+      "samples": [
+        1294,
+        1294
+      ],
+      "checks": [
+        3914,
+        3914
+      ],
+      "errors": [
+        [],
+        []
+      ],
+      "compared_fields": [
+        "sample",
+        "tick",
+        "position",
+        "velocity",
+        "normal",
+        "recoil",
+        "motion_steps",
+        "hp",
+        "stamina",
+        "combat",
+        "charges",
+        "used_jumps",
+        "muzzle",
+        "aim",
+        "camera",
+        "camera_offset",
+        "body",
+        "weapon",
+        "epoch",
+        "packet",
+        "rounds",
+        "cooldown",
+        "phase",
+        "runtime_age",
+        "beam",
+        "projectiles",
+        "entities",
+        "targets"
+      ],
+      "differences": [],
+      "all_accepted_events_equal": true,
+      "method": "Reviewer independently compared all recorded row fields and entire accepted events arrays;Godot executions are author evidence,not reviewer runs."
+    },
+    {
+      "label": "old325 ON versus new4e ON",
+      "files": [
+        "build/player_presentation_01/weapon-v2/native-hand-final/after.json",
+        "build/player_presentation_01/mine-beep-v3/native-final/after.json"
+      ],
+      "sha256": [
+        "5206a3d0aad3c1377cbcda66eca5956299a2fd354a920a3113094f7c324de613",
+        "8973ebc061b5ddab0921feae96021d2cb085e6e9a386e59166f54369d8350779"
+      ],
+      "samples": [
+        1294,
+        1294
+      ],
+      "checks": [
+        3914,
+        3914
+      ],
+      "errors": [
+        [],
+        []
+      ],
+      "compared_fields": [
+        "sample",
+        "tick",
+        "position",
+        "velocity",
+        "normal",
+        "recoil",
+        "motion_steps",
+        "hp",
+        "stamina",
+        "combat",
+        "charges",
+        "used_jumps",
+        "muzzle",
+        "aim",
+        "camera",
+        "camera_offset",
+        "body",
+        "weapon",
+        "epoch",
+        "packet",
+        "rounds",
+        "cooldown",
+        "phase",
+        "runtime_age",
+        "beam",
+        "projectiles",
+        "entities",
+        "targets"
+      ],
+      "differences": [],
+      "all_accepted_events_equal": true,
+      "method": "Reviewer independently compared all recorded row fields and entire accepted events arrays;Godot executions are author evidence,not reviewer runs."
+    }
+  ],
+  "beep_dispatch_evidence": {
+    "old_and_new_ticks": [
+      823,
+      880,
+      936,
+      987,
+      1032,
+      1071,
+      1102,
+      1127,
+      1146,
+      1160,
+      1170
+    ],
+    "event_count_each": 11,
+    "interval_seconds_at_recorded60Hz": [
+      0.95,
+      0.9333333333333333,
+      0.85,
+      0.75,
+      0.65,
+      0.5166666666666667,
+      0.4166666666666667,
+      0.31666666666666665,
+      0.23333333333333334,
+      0.16666666666666666
+    ],
+    "observed_interval_range": ".95sec to .1666667sec in thiscapture;code asymptote.12sec is not reached by these observed intervals",
+    "new_audio_dropped": 0,
+    "new_audio_preemptions": 0,
+    "scope": "Audioevent records prove attempted dispatch. Actualsample binding testedseparately;audibility/mix not inferred."
+  },
+  "frozen_binding_test": {
+    "path": "build/player_presentation_01/mine-beep-v3/binding-feedback-frozen.json",
+    "sha256": "2bc00e182bd538692a4c6bb43052a143273e8758a8001157e4307ea6373e7cbe",
+    "log_path": "build/player_presentation_01/mine-beep-v3/binding-feedback-frozen.log",
+    "log_sha256": "55539f101f27ed1aa25bf24e3119e5fde2ef059763d187e591a0684f6a08c936",
+    "samples": 271,
+    "checks": 859,
+    "errors": [],
+    "bindings_path": "build/player_presentation_01/mine-beep-v3/binding-feedback-frozen.json.bindings.json",
+    "bindings_sha256": "7f0993f252842bf2a0e879c90a53a4aeefb8708e05a9902b0e1954266e54f68e",
+    "bindings": [
+      {
+        "duration": 0.085,
+        "loop_mode": 0,
+        "owner": "/root/PlayerWeaponFeelV2/@Node@106",
+        "paths": [
+          "res://assets/player_presentation_01/mine_beep_v3/timer_beep.wav",
+          "res://assets/player_presentation_01/mine_beep_v3/timer_beep.wav",
+          "res://assets/player_presentation_01/mine_beep_v3/timer_beep.wav"
+        ],
+        "scope": "Actual post-ready V2 consumer;does not prove hearing/naturalness"
+      }
+    ],
+    "consumers": [
+      "/root/PlayerWeaponFeelV2/@Node2D@135/Player/WeaponFeel",
+      "/root/PlayerWeaponFeelV2/@Node2D@135/Player/WeaponFeel",
+      "/root/PlayerWeaponFeelV2/Player/WeaponFeel"
+    ],
+    "bindings_checks": 858,
+    "counter_boundary": "Bindings858 then parent finish finalcheck gives859;do not present third844 as frozen result.",
+    "runtime_errors_found_in_log": false,
+    "execution": "Author-run test read by reviewer,not reviewer independent Godotexecution."
+  },
+  "retained_test_failures": [
+    {
+      "path": "build/player_presentation_01/mine-beep-v3/binding-feedback-first.json",
+      "sha256": "5b34d106269a81ef231c76acf72ad3b492714a1af72d52e046d79ea8192aa154",
+      "samples": 271,
+      "checks": 853,
+      "errors": 1,
+      "cause": "Test incorrectly expected>=3audio service instances;actualPreview intentionally reuses one persistent service. Production samplebinding already correct.Originalfailedreportkept."
+    },
+    {
+      "path": "build/player_presentation_01/mine-beep-v3/binding-feedback-second.json",
+      "sha256": "096ff3d298be6068ce38710c579bd0ec8231442167a06977dc075a12d4960967",
+      "log_sha256": "c53492300ddeff9c1731925a71079255ca81c4385d2e8df1e9eef25bb8096b27",
+      "samples": 271,
+      "checks": 857,
+      "errors": 1,
+      "additional_runtime_error": "Deferred _audit_consumer receivedfreed/replaced same-tickleaf;actual log Cannot convert argument1fromObjecttoObject retained.",
+      "resolution": "Read actual_attach_feel assignsaudio beforeadd_child;test now observesfeel immediately atnode_added.Productionimplementation unchanged."
+    },
+    {
+      "path": "build/player_presentation_01/mine-beep-v3/binding-feedback-third.json",
+      "sha256": "8f0e894926dd372ddd9a3068c02e0fcc901563d4f5307a14c36d134413450648",
+      "samples": 266,
+      "checks": 844,
+      "errors": 0,
+      "scope": "Correctedpre-freeze test success;frozen rerun has own271/859/0 result,not relabeled."
+    }
+  ],
+  "unverified": [
+    "Reviewer has not listened to sourceMP3,newWAV,normal-speed native movies or comparison clip. No claim new sound is perceptually better,recognizable or satisfying.",
+    "No user approval,physicaldevice speakers/headphones or actualtouchdevice test.",
+    "No new publicWebbuild or completeaffectedIntegration result assessed in thisreview.",
+    "No whole PLAYER-PRESENTATION-01 completion;prior engineering/pixel/audio/player gaps keep their own status."
+  ],
+  "conclusion": "Limited engineeringACCEPT for new recordedtimer sample and its unchanged accepted-entity cadence. Overallheardexperience/user/device remainsUNVERIFIED."
+}

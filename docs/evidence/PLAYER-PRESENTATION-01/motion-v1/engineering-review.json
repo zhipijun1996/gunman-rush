@@ -1,0 +1,148 @@
+{
+  "task_id": "PLAYER-PRESENTATION-01",
+  "content_version": "motion-v1-engineering-review-v2",
+  "reviewer": "/root/audit_review",
+  "implementers": [
+    "/root"
+  ],
+  "independent": true,
+  "reviewed_base_commit": "aed2786870b4a37ae2123eca40fbe6ac83ab072f",
+  "reviewed_working_sources": {
+    "scripts/dev/player_presentation_01/motion_visual.gd": "9eaa9ebc7fe40e8a49a4e58bb942763631449b20b0e32ce8464ce4ea0b1ac0ce",
+    "scripts/dev/player_presentation_01/motion_profile.gd": "2c931828ebd65317c69a39127fdee65968fd66d107f32ceee33c45ded31b1403",
+    "scripts/dev/player_presentation_01/motion_preview.gd": "3bc3931b4c59481a220e4e2db3e4a0c1142ab29cecd93084f13171c2e4fdfbf1",
+    "tests/player_presentation_01/motion_trace.gd": "dae02a65fbc7ea673d888d4314a38ef441316bd93cb57c62e8a55f1c789ce930",
+    "tests/player_presentation_01/motion_lifecycle.gd": "954225b55851fef100229c27f92175470130ecdcf7b68f18c76d1bb8c59227a6",
+    "assets/player_presentation_01/motion_v1/idle_fall.json": "e14d3871f58a8cdfc34969cd2f667a94b4cb8741befcb7c1b4057f5e57c55074",
+    "resources/player_presentation_01/motion_v1.tres": "12893c8ff722a4a98f3a047ecdc00d9b6be2c809c0632e762c7df28cb86fb688",
+    "scenes/dev/player_presentation_01/motion_candidate.tscn": "91ef2242eb9133f7557ee13673961a7c9f5c01fb41a64650a3fb4b205d398e18"
+  },
+  "verdict": "ACCEPT",
+  "scope": "Task-only source engineering review of fixed motion candidate inputs; permitted to freeze this exact candidate and collect real GPU evidence. Not production adoption, visual approval or full-line completion.",
+  "method": "Independent read-only source review, recomputation of protected reference hashes, and inspection of author-produced native logs and JSON. Reviewer did not execute Godot or modify implementation.",
+  "prior_verdict": {
+    "verdict": "REWORK",
+    "preserved": true,
+    "summary": "Async restart races, incomplete profile validity, stale air peak across session, render-count-dependent airborne eligibility. Prior critique is not overwritten by this re-review."
+  },
+  "resolved_findings": [
+    {
+      "id": "ENG-1",
+      "status": "closed_in_reviewed_source",
+      "observation": "restart_sample ignores duplicate pending requests; generation invalidation checked after each wait; active run and epoch checked during asynchronous stage readiness. return_full_game invalidates pending work. No await occurs between final readiness guard and leaf substitution. Native lifecycle exercises duplicate restart and Home cancellation."
+    },
+    {
+      "id": "ENG-2",
+      "status": "closed_in_reviewed_source",
+      "observation": "Profile validates finite fps/distance/durations and all declared numeric ranges, particle counts/cap, and bounded color. Lifecycle rejects INF/NAN/negative/zero/over-budget durations and excess emission, then checks invalid-profile fallback clears particles."
+    },
+    {
+      "id": "ENG-3",
+      "status": "closed_in_reviewed_source",
+      "observation": "Session changes and segment return clear airborne observation and fall peak. New-run lifecycle observes empty particles and zero accepted-jump counter. Direct same-actor session/segment dynamic cancellation remains unverified."
+    },
+    {
+      "id": "ENG-4",
+      "status": "closed_in_reviewed_source",
+      "observation": "Airborne fact and travelled-distance observation now run in a read-only _physics_process after Controller priority; accepted jump also establishes airborne fact. Landing no longer requires two render samples. Low-frame-rate GPU behavior has not been measured."
+    }
+  ],
+  "boundary_findings": [
+    "No new move_and_slide, transform/position write, gameplay force, HP/resource payment, grant, equipment change or input-rule change found in candidate visual/profile.",
+    "Drawing reads existing authoritative visible_muzzle_position; inherited production behavior is preserved, including its pre-existing anchor updates. Candidate receipt does not introduce anchor setters.",
+    "Preview uses actual DemoApp start/abandon methods and substitutes only its task-scene visual leaf after real assembly; protected production files remain byte-identical.",
+    "No generic signal bus or arbitrary per-consumer state tick was added; each task visual owns its bounded cosmetic data."
+  ],
+  "inspected_author_execution": [
+    {
+      "path": "build/player_presentation_01/motion-v1/lifecycle-second.log",
+      "sha256": "8af6d5b1650c5baf1552f18c8445c0208c4163c6cd75388940e2e8b2bc48e5a5",
+      "observed": "MOTION LIFECYCLE: checks=18 errors=0; actual audio owners released=true; two actual formal ready messages. Not reviewer execution."
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/runtime-fixed-fourth.log",
+      "sha256": "2b97f128a1f3760c0947ed3bc27f2355a9195b31445c3112eab674cfb0dc2ef8",
+      "observed": "MOTION TRACE: samples=1080 checks=2168 errors=0; actual audio release=true. Not reviewer execution."
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/trace-fixed-fourth.json",
+      "sha256": "a20cc11e560f5aa76ab1655884ff7ea07b246bed2c8095d060a34f4f477072b4",
+      "observed": "1080 rows; accepted jumps at samples360/520 only; sample363 pause window has six live particles. Errors empty."
+    }
+  ],
+  "retained_failures": [
+    {
+      "path": "build/player_presentation_01/motion-v1/trace-first.json",
+      "observed": "Third accepted jump at landing tick470 retained; absence of original intent timing prevents exact request-time attribution from this trace alone."
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/lifecycle-first.log",
+      "observed": "Actual Variant-inference parse failure at lifecycle.gd:35 retained; corrected WeakRef annotation is present in reviewed source."
+    }
+  ],
+  "protected_references": [
+    {
+      "path": "scripts/underworld_plains/underworld_player.gd",
+      "sha256": "6ed4b00e1058a9d16808df58295f63bc8900e70653aeccc66a6752fb08412127",
+      "unchanged": true
+    },
+    {
+      "path": "assets/underworld_plains/player_animation/animation_build.json",
+      "sha256": "65bb572735f8aead4a6b1e5ead2174b1dc784eb9d0ee8aeeafff6ac8d7eb49b3",
+      "unchanged": true
+    },
+    {
+      "path": "assets/underworld_plains/player_animation/run_sheet.png",
+      "sha256": "64fe86b6de951bd671f511509104b2639f528527741774dd2561547f7ec5dd27",
+      "unchanged": true
+    },
+    {
+      "path": "assets/underworld_plains/player_animation/states_sheet.png",
+      "sha256": "01f6645fcedd24e14e06d56b6789ad0aa987ac0c75a63b39b0f16b40fe256744",
+      "unchanged": true
+    }
+  ],
+  "unverified_items": [
+    "Full death/hurt/terminal priority and complete motion-to-death-to-Home chain.",
+    "Direct same-actor session/segment reset with active effects.",
+    "Low-render-frame-rate GPU behavior and actual continuous idle/fall/run transition quality.",
+    "Frozen same-condition on/off gameplay equality and captured media provenance; upcoming recording not reviewed here.",
+    "Candidate JSON is a fixed task-owned input, not a validated arbitrary clip-import API; malformed/empty/out-of-bounds clip rejection is not established.",
+    "All15 weapons, three appearances, old consumers, cross-region integration and shared style rebind.",
+    "Web pointer/touch GUI, independent public Preview, user feel/aesthetics/audio approval and physical devices."
+  ],
+  "non_acceptance": "Original run-art sources remain rejected. Keeping original run pixels and changing phase does not resolve or sign the user walking-quality complaint.",
+  "publication_boundary": "This review permits exact-source candidate capture only. Subsequent source changes require renewed relevant review and fresh evidence; shared production adoption and integration remain coordinator-owned.",
+  "addenda": [
+    {
+      "id": "export-closure-01",
+      "reviewer": "/root/audit_review",
+      "verdict": "ACCEPT",
+      "scope": "Exact task-source export dependency closure repair; permitted to freeze and capture. Not an executed Web export or packaged-browser acceptance.",
+      "method": "Independent source inspection and Python JSON structural equivalence check; author native logs inspected, Godot not executed by reviewer.",
+      "reviewed_working_sources": {
+        "resources/player_presentation_01/motion_clip_data.gd": "177fb57c104e24f81a9f5744d00737863b7d536c0304f45d2ad4562add557154",
+        "scripts/dev/player_presentation_01/motion_visual.gd": "5330da8a320c815c8b8be32c9b9f28003b6216ecc95677680f72eb7f0dae1bd1",
+        "tests/player_presentation_01/motion_lifecycle.gd": "b2f7e60e3f85a21cc7280748d730cb5a41a0a4590358f11ff531655d8c941595",
+        "assets/player_presentation_01/motion_v1/idle_fall.json": "e14d3871f58a8cdfc34969cd2f667a94b4cb8741befcb7c1b4057f5e57c55074"
+      },
+      "observations": [
+        "motion_visual preloads motion_clip_data.gd and duplicates its DATA constant; runtime FileAccess dependency on the new-directory JSON removed.",
+        "Literal DATA parsed independently as JSON and compared structurally equal to original measurement JSON; no crop, pivot or numeric value differences found.",
+        "Lifecycle normalizes compiled constants through JSON stringify/parse before equality, preserving the original content assertion while reconciling JSON float and GDScript int representation.",
+        "Shared export_presets.cfg unchanged relative to HEAD. Script preload provides an explicit static export dependency; actual exporter/PCK/browser inclusion still requires packaging verification."
+      ],
+      "author_execution": {
+        "path": "build/player_presentation_01/motion-v1/lifecycle-fourth.log",
+        "sha256": "916b7ccc0bf033a08e163a6f7efef9dc0a2f5c3eac27c5be9d872276d8f6df04",
+        "observed": "MOTION LIFECYCLE checks=19 errors=0; two formal candidate ready messages and audio released=true. Author execution only."
+      },
+      "retained_failure": {
+        "path": "build/player_presentation_01/motion-v1/lifecycle-third.log",
+        "sha256": "b9f9df7278cf25a6f9b03c9af95f547298a863fd142633b4af9e117d05aa402d",
+        "observed": "9 checks,1 error at direct Dictionary equality before number-type normalization; old failure remains retained."
+      },
+      "limitations": "Previous unverified scope remains: death/full-chain, same-actor session/segment dynamic cancellation, low-frame GPU, visual/user/device approval, full weapon/appearance integration. Upcoming on/off media is not covered by this review."
+    }
+  ]
+}

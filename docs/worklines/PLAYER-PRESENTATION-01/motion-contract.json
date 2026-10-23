@@ -1,0 +1,30 @@
+{
+  "id": "PLAYER-PRESENTATION-01",
+  "content_version": "motion-candidate-v1",
+  "goal": "Isolated actual-formal-player dev candidate for current idle/fall/gait/dust feedback;not global production replacement",
+  "read_only": false,
+  "protected_paths": [
+    "scripts/underworld_plains/underworld_player.gd",
+    "assets/underworld_plains/player_animation/animation_build.json",
+    "assets/underworld_plains/player_animation/run_sheet.png",
+    "assets/underworld_plains/player_animation/states_sheet.png",
+    "scripts/demo/demo_app.gd"
+  ],
+  "allowed_paths": [
+    "scripts/dev/player_presentation_01/",
+    "scenes/dev/player_presentation_01/",
+    "assets/player_presentation_01/",
+    "resources/player_presentation_01/",
+    "tests/player_presentation_01/",
+    "docs/worklines/PLAYER-PRESENTATION-01/",
+    "docs/evidence/PLAYER-PRESENTATION-01/",
+    "docs/quality/records/PLAYER-PRESENTATION-01.json",
+    "docs/quality/asset_records/PLAYER-PRESENTATION-01-MOTION-V1.json"
+  ],
+  "checks": [
+    "underworld-player-animation",
+    "task motion_trace",
+    "task motion_lifecycle"
+  ],
+  "gate": "development-only;unknown production plan escalation retained;coordinator owns complete affected Integration and shared version/rebind"
+}

@@ -1,0 +1,253 @@
+{
+  "task": "PLAYER-PRESENTATION-01",
+  "review": "weapon-v1 independent engineering review",
+  "reviewer": {
+    "identity": "/root/audit_review",
+    "role": "independent reviewer child agent;not implementation author",
+    "skill": ".agents/skills/gameplay-reviewer/SKILL.md"
+  },
+  "reviewed_at_utc": "2026-10-22T18:19:31.117005+00:00",
+  "checkout_HEAD": "616fe0bbf07da2b14c65d9c86ff50e0570e1087b",
+  "source_state": "Weapon implementation is uncommitted at review;exact source SHA below is authoritative,HEAD alone is insufficient. Freeze and actual GPU capture pending.",
+  "verdict": "ACCEPT",
+  "scope": "Task-only consumer engineering/source boundaries and inspected author-produced development evidence. Suitable to freeze candidate for genuine recording. This does not accept production integration,weapon artistry,audible quality or complete workline.",
+  "method": {
+    "source_review": "Read the eleven listed source/resource/driver/provenance files and relevant original WeaponActionRuntime,ShootAbility,PlayerProjectile,PlayerFeedback,GameAudio,DemoApp consumers.",
+    "reviewer_execution": "Read-only Python SHA/WAV headers/raw row/event comparisons;no Godot execution by reviewer.",
+    "audio_listening": false,
+    "visual_footage_review": false
+  },
+  "source_sha256": {
+    "scripts/dev/player_presentation_01/weapon_audio.gd": "4f9b449adfdd2b738a9bbd4dada1dfcdf4d7531e64e1c0d72f479ae3eddc1193",
+    "scripts/dev/player_presentation_01/weapon_feel.gd": "c1440bc0ad03ea79dd1ed657d923d13972be70ffb0cd4d41ef88ac450fe8904e",
+    "scripts/dev/player_presentation_01/weapon_profile.gd": "c1255b45547950efc9c746e19b136b119b4b963134ecfe3ca3c6cb69f65b4f50",
+    "scripts/dev/player_presentation_01/weapon_projectile.gd": "26b753006072bfabf3650728259d4af86dc92dfbc911a11ebda1449a24be0180",
+    "scripts/dev/player_presentation_01/weapon_preview.gd": "5f257d6b320551acdcb27cd0a696c8e9bea26080850d234f18446e4246e8a7cc",
+    "resources/player_presentation_01/weapon_sound_data.gd": "11a5874335fe2572d955b8c47d7c70fc93fad1fe525917ecfbc42299aaf925e7",
+    "scenes/dev/player_presentation_01/weapon_feel.tscn": "408ca4159985780f08f84f8c7c0ad81e3cdbafcd74862e7fe386687fef2dbe2b",
+    "tests/player_presentation_01/weapon_trace.gd": "485e5a21f765f711dc6ba67f30044a9435cb0a259151c714dffd29a4529fd2e7",
+    "tests/player_presentation_01/weapon_lifecycle.gd": "26e45be0c2c84d485ab188b58abf36bd64e070e479c6f29a4c95d7fdcc288e21",
+    "tests/player_presentation_01/build_weapon_audio.py": "5a455c61479ebfde0a8a6c381d142877d8b76b42fc073d2c203d4edf680209e5",
+    "docs/worklines/PLAYER-PRESENTATION-01/weapon-audio-provenance.json": "a4982879476cb4a87b70a6cc6a5454a7e8b57911a97076ddfaf3523c5b0e5474"
+  },
+  "evidence_sha256": {
+    "build/player_presentation_01/weapon-v1/trace-first.log": "dbb7288ddc46c635647c68b3ef3e4986e703c33bc784055d36dd3ee83c015b24",
+    "build/player_presentation_01/weapon-v1/trace-first.json": "e593044cb822c10c856899b724fc8762cba6344d32e2897e3394c301b1bd6ece",
+    "build/player_presentation_01/weapon-v1/trace-off-first.log": "2a20a3600e71999cce22b7f4c9074dfb2c29f0345c644758c74465af6da7478d",
+    "build/player_presentation_01/weapon-v1/trace-off-first.json": "844fe26df0dd2c72073fdbe29bd1237b91533de2b9aee486fcd6867f5019408d",
+    "build/player_presentation_01/weapon-v1/comprehensive-first.log": "ad8a1ccbd3c800af7081439f9a9d8fd8387b992ec007648fa89d36b092680b7e",
+    "build/player_presentation_01/weapon-v1/comprehensive-first.json": "8328bac545d1e8ac9a85cd09e8cb2e93cf0c2a75539d0afb8c91acb2c76941fe",
+    "build/player_presentation_01/weapon-v1/comprehensive-second.log": "c952e0813811f1afb8eee1d1a660f04812b7d187116eff0207d3e382c1151366",
+    "build/player_presentation_01/weapon-v1/comprehensive-second.json": "953ac3fc87c3ea3870c769eff4a41e4c7dc487d2863243fbf773897173e5d0cb",
+    "build/player_presentation_01/weapon-v1/lifecycle-first.log": "235fa96dd6586844cbd96849ed431b02859bf12affe9c890389d4af74c99f58c",
+    "build/player_presentation_01/weapon-v1/lifecycle-second.log": "e4ceaf5daf28bcb9d647eb15ccef82f80605c43d5a079b5216109ab2bbc21d8d",
+    "build/player_presentation_01/weapon-v1/lifecycle-third.log": "d42b4341778a95afce48bbe30e95ca66b125ba7b0b9216ece65b545c02b6ff7f",
+    "build/player_presentation_01/weapon-v1/lifecycle-third.json": "7a90f8349e34e60652d6c178364fd3a2dd75b74f10121cb98756920d2f3b841e",
+    "build/player_presentation_01/weapon-v1/lifecycle-fourth.log": "160bcd30d1c2af7f26031901e11e2a77aded751b155bf120ab7adb10b7a8b42d",
+    "build/player_presentation_01/weapon-v1/lifecycle-fourth.json": "aa1fe6af6372b74640d932b7d32efb05e6bc3bd8d0c0d42dd4385763cb8c0c56"
+  },
+  "protected_unchanged_sha256": {
+    "scripts/underworld_plains/underworld_player.gd": "6ed4b00e1058a9d16808df58295f63bc8900e70653aeccc66a6752fb08412127",
+    "assets/underworld_plains/player_animation/animation_build.json": "65bb572735f8aead4a6b1e5ead2174b1dc784eb9d0ee8aeeafff6ac8d7eb49b3",
+    "assets/underworld_plains/player_animation/run_sheet.png": "64fe86b6de951bd671f511509104b2639f528527741774dd2561547f7ec5dd27",
+    "assets/underworld_plains/player_animation/states_sheet.png": "01f6645fcedd24e14e06d56b6789ad0aa987ac0c75a63b39b0f16b40fe256744"
+  },
+  "findings_history": [
+    {
+      "id": "WEAPON-ENG-01",
+      "original_verdict": "REWORK",
+      "finding": "_seen_entities accumulated retired entity instance ids until next equipment/session.",
+      "resolution": "CLOSED:current _physics_process builds live_ids from unmodified runtime.entities and prunes retired ids before observations. comprehensive-second checks seen_count<=actual live entities each sample."
+    },
+    {
+      "id": "WEAPON-ENG-02",
+      "original_verdict": "REWORK",
+      "finding": "Presentation _ready called behavior(),a lazy-creating gameplay getter.",
+      "resolution": "CLOSED:reads existing ability.runtime directly;no presentation Runtime creation. Null path disables processing without stealing legacy signal hooks."
+    },
+    {
+      "id": "WEAPON-ENG-03",
+      "original_verdict": "REWORK",
+      "finding": "Null Runtime fail-closed could be bypassed by later public ON toggle,then _draw dereferenced null.",
+      "resolution": "CLOSED:setter requires valid Runtime,Controller and Audio in addition to valid Profile;_draw also guards Runtime. Lifecycle includes unbound ON rejection."
+    }
+  ],
+  "architecture_findings": [
+    {
+      "area": "Gameplay ownership",
+      "observation": "No Runtime subclass,algorithm copy,global cue masking,Motor/Router/combat resource/damage override was introduced. Task consumer subscribes accepted shot/contact/phase/blast/entity events and reads original arrays/history. Dev equipment selection intentionally calls original equip;explicit training fixture initializes its own target health."
+    },
+    {
+      "area": "Consumer scope",
+      "observation": "Actual original Home hero/geometry plus two added stationary collision/damageable training targets initialized1000HP. This fixture changes the world targets and enables explicit dev equip;it is not an untouched formal encounter or formal progression/grant proof. Lifecycle additionally enters actual DemoApp Plains to verify retained PixelPlainsProjectile consumer."
+    },
+    {
+      "area": "Audio granularity",
+      "observation": "Release key contains weapon epoch,packet,tick and cue:simultaneous FAN projectiles share one cue while later machine storm salvos keep rhythm. Independent comprehensive-first audio inspection found150 records with150 unique keys and six machine-skill salvos at distinct ticks1674/1677/1681/1685/1689/1693."
+    },
+    {
+      "area": "Shared voice pool",
+      "observation": "One inherited twelve-voice service for task motion,UI,legacy and weapon cues;bounded event history. At saturation,new weapon cue may preempt declared low-priority step/motion_jump/motion_land/weapon_contact voices;other voices remain protected and drops/preemptions counted. This is local candidate voice-priority behavior,not proof of good listening balance."
+    },
+    {
+      "area": "Original sound boundary",
+      "observation": "Only this player original PlayerFeedback._shot/_impact subscriptions are replaced;OFF delegates them and exit restores them. Runtime generic phase/blast/catch/denied sounds are intentionally retained. There is no claim that all fifteen equipment have wholly independent sound routing."
+    },
+    {
+      "area": "Visual leaf and contacts",
+      "observation": "Candidate retains previous presentation pointer and visibility;OFF/exit restores it. Reads actual projectile trail/direction/age and accepted Runtime beam/history;does not change collision radius,speed,lifetime,damage or trajectory. Boss branch intentionally emits no generic PlayerProjectile.impacted signal and candidate does not synthesize one. Original Underworld muzzle/impact VFX still execute outside leaf replacement."
+    },
+    {
+      "area": "Cannon cancellation",
+      "observation": "New cannon cue requires charge->idle plus fresh skill beam fx in original Runtime;mere charge cancellation is insufficient. Fourth lifecycle exercises real earned charge then Router clear and verifies no new cannon release."
+    },
+    {
+      "area": "Bounds",
+      "observation": "Profile finite/range validation,transient cap,sound-key cap,event histories,live entity observation pruning and twelve-voice pool are explicit. Beam sound imports are nonlooping0.8second authored phase accents,not an indefinite loop."
+    }
+  ],
+  "audio_provenance": {
+    "path": "docs/worklines/PLAYER-PRESENTATION-01/weapon-audio-provenance.json",
+    "original_source_sha_all_match": true,
+    "derivative_count": 18,
+    "derivative_sha_all_match": true,
+    "wav_headers_independently_read": "18 mono48kHz WAVs;six families x three offline variants. Kenney originals retained;beam mathematically synthesized135/270/540Hz. No playback/listening by reviewer."
+  },
+  "tests_read": [
+    {
+      "name": "trace-first",
+      "author_result": {
+        "samples": 998,
+        "checks": 2028,
+        "errors": 0
+      },
+      "scope": "Nine mode normal-action Home fixture;before final pruning/fail-closed repair."
+    },
+    {
+      "name": "trace-off-first",
+      "author_result": {
+        "samples": 998,
+        "checks": 3026,
+        "errors": 0
+      },
+      "scope": "OFF sample;new per-sample retired-identity assertion accounts for check count difference."
+    },
+    {
+      "name": "comprehensive-first",
+      "author_result": {
+        "samples": 4189,
+        "checks": 8490,
+        "errors": 0
+      },
+      "scope": "15 normal equipment plus six skills earned from actual committed target hits;before final engineering repair."
+    },
+    {
+      "name": "comprehensive-second",
+      "author_result": {
+        "samples": 4189,
+        "checks": 12679,
+        "errors": 0
+      },
+      "scope": "Current repaired source full equipment/earned-skill development regression plus every-sample seen identity bound. Reviewer independently confirmed all15 ids appear in raw rows."
+    },
+    {
+      "name": "lifecycle-first",
+      "author_result": "FAILED SCRIPT ERROR:attempted to reuse naturally freed FAN projectile for synthetic PixelPlains leaf fixture.",
+      "scope": "Failure retained;no acceptance inferred."
+    },
+    {
+      "name": "lifecycle-second",
+      "author_result": "FAILED PARSE ERROR:Variant type inference treated as error in driver.",
+      "scope": "Failure retained;no acceptance inferred."
+    },
+    {
+      "name": "lifecycle-third",
+      "author_result": {
+        "samples": 1039,
+        "checks": 3175,
+        "errors": 1
+      },
+      "scope": "Rejected-skill assertion incorrectly counted a legitimate existing projectile contact as a new release. Raw first window shows blade at tick17 and actual contact at30. Failure retained."
+    },
+    {
+      "name": "lifecycle-fourth",
+      "author_result": {
+        "samples": 1039,
+        "checks": 3175,
+        "errors": 0
+      },
+      "scope": "Revised assertion permits only actual contact in rejected-skill window while rejecting any new release/phase sound. Exercises FAN volley dedupe,real projectile pause,OFF/ON no replay,Home legacy handler restoration,target cleanup/reentry,real earned laser charge cancellation,and actual formal Plains retained PixelPlains leaf OFF/ON. This is author execution,not reviewer Godot run."
+    }
+  ],
+  "independent_recorded_comparison": {
+    "before": "trace-off-first.json",
+    "after": "trace-first.json",
+    "samples": [
+      998,
+      998
+    ],
+    "fields": [
+      "aim",
+      "beam",
+      "body",
+      "camera",
+      "camera_offset",
+      "charges",
+      "combat",
+      "cooldown",
+      "entities",
+      "epoch",
+      "hp",
+      "motion_steps",
+      "muzzle",
+      "normal",
+      "packet",
+      "phase",
+      "position",
+      "projectiles",
+      "recoil",
+      "rounds",
+      "runtime_age",
+      "sample",
+      "stamina",
+      "targets",
+      "tick",
+      "used_jumps",
+      "velocity",
+      "voice_count",
+      "weapon"
+    ],
+    "field_count": 29,
+    "differences": [],
+    "accepted_events_exactly_equal": true,
+    "important_limit": "ON first trace predates latest repaired code. This recorded headless comparison supports the development route only;it is not final frozen-source or GPU parity. Camera/input canvas cross-device behavior is not fully covered by these gamepad-driven rows."
+  },
+  "covered_weapon_ids": [
+    "blade_bloom",
+    "collapse_singularity",
+    "fan_shuriken",
+    "laser_cannon",
+    "machine_storm",
+    "magnetic_mine",
+    "magnetic_storm",
+    "moon_boomerang",
+    "pulse_gun",
+    "recoil_bomb",
+    "remote_boomerang",
+    "shadow_shuriken",
+    "star_collapse",
+    "sustained_laser",
+    "triple_machine_gun"
+  ],
+  "still_unverified": [
+    "Frozen-source real GPU before/after trace and pixels",
+    "Actual listening,loudness/variation/priority budget and audiovisual timing",
+    "Visual clarity,contact timing,beam accent,blade appearance and small-screen readability",
+    "New weapon-specific death,segment-return/low-FPS/full production lifecycle beyond tested paths",
+    "All character consumers,formal integrated encounters,boss-specific impacts and progression/grants",
+    "Generic Runtime cue source identity requires coordinator-owned shared interface work if replacement is pursued",
+    "Original run-art and hand/weapon body REWORK remain unresolved",
+    "Player taste/feel and physical-device acceptance"
+  ],
+  "freeze_guidance": "No remaining blocking engineering issue found in reviewed task source. Freeze exact files,run genuine same-condition GPU/audio evidence,and review pixels/listening separately before any wider completion claim."
+}

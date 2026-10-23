@@ -1,0 +1,119 @@
+{
+  "task_id": "PLAYER-PRESENTATION-01",
+  "content_version": "motion-v1-vfx-engineering-review-01",
+  "reviewer": "/root/audit_review",
+  "implementers": [
+    "/root"
+  ],
+  "independent": true,
+  "verdict": "ACCEPT",
+  "scope": "Only exact-source cosmetic dust adjustment and explicit600-sample targeted capture option; engineering acceptance to freeze and gather new matched local footage. Does not accept visual readability, hand/weapon attachment, full1080 current-source validation, or complete player presentation.",
+  "reviewed_base_commit": "9c693787b201a655d9e8589d3bb1e1350ae64e29",
+  "reviewed_working_sources": {
+    "scripts/dev/player_presentation_01/motion_profile.gd": "4ac9fa05d599206a21b2e36940752f51cd70396fa0734ed29aac9d0b424168c1",
+    "scripts/dev/player_presentation_01/motion_visual.gd": "85d3d5334e5199cf8fce141f5c814a0155d61c6063fbfa67b19d532dc18b2851",
+    "tests/player_presentation_01/motion_trace.gd": "4a9d392a77d54ecbd672217924fd3c43cff1d4a9b6a74c029b53e45e6478f3d6",
+    "tests/player_presentation_01/capture_motion.py": "43963f3af92f01b81b2eb70ebd2a06dfd561d7350fb338dcc827ea6de9665104",
+    "tests/player_presentation_01/motion_lifecycle.gd": "b2f7e60e3f85a21cc7280748d730cb5a41a0a4590358f11ff531655d8c941595"
+  },
+  "method": "Read-only source/diff review and original author-log/raw600-row evidence inspection. Reviewer did not execute Godot or upcoming wrapper capture. Only this review record written.",
+  "engineering_observations": [
+    "Changes limited to task profile, cosmetic particle velocity/size/color/alpha and task trace/capture selection. Dust still originates from accepted jump/landing callbacks at actual world foot; no new input, Motor, force, time scale, damage/resource or gameplay anchor writes.",
+    "New spread20..60/lift20..70/size1..3 parameters have finite/range checks in profile.valid(). Defaults28/32/1.5,color dccb9e and alpha0.8 are bounded candidate choices, not proven optimal values.",
+    "Default32 particle cap,6/10 emissions and0.22/0.32 lifetimes unchanged; prior pause/toggle/session/restart handling remains. Existing profile upper cap48 unchanged.",
+    "trace defaults to1080, only600 or1080 accepted before scene startup. Same input schedule and original per-sample muzzle-purity/particle bound plus pause/accepted-jump/landing/collision/tuning checks retained.600 excludes later walkoff,long-fall,natural-return window by explicit scope rather than claiming full coverage.",
+    "Capture CLI choices are600/1080 with1080 default. Selected count passed to real driver and enforced in exact completion marker(samples*2+8 assertions), both trace lengths, original16 gameplay fields and accepted-event equality. Source-stability/clean-commit/media validation guards remain.",
+    "No shared Harness/preset/production binding edits found in reviewed diff; original1080 results remain exact historical evidence, not relabeled as new-source fresh validation."
+  ],
+  "author_execution": [
+    {
+      "path": "build/player_presentation_01/motion-v1/trace-vfx600-first.log",
+      "sha256": "0d4a7a571813b7dfa46786a7cf3aad32bfa86e63f1771bcd6026db723bd03400",
+      "observed": "MOTION TRACE samples=600 checks=1208 errors=0; audio owners released=true. Author execution, not reviewer run."
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/trace-vfx600-first.json",
+      "sha256": "c0cc3446a56f42a8caf0659c733dbc9c0135af1f14938739cf594b895f48bb68",
+      "observed": {
+        "rows": 600,
+        "errors": [],
+        "accepted_events": [
+          {
+            "event": "accepted_jump",
+            "sample": 360,
+            "tick": 366
+          },
+          {
+            "event": "accepted_land",
+            "sample": 393,
+            "tick": 403
+          },
+          {
+            "event": "accepted_jump",
+            "sample": 520,
+            "tick": 530
+          },
+          {
+            "event": "accepted_land",
+            "sample": 562,
+            "tick": 572
+          }
+        ],
+        "scope": "600-sample accepted jump/landing slice; not long fall or natural-return coverage"
+      }
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/lifecycle-vfx-first.log",
+      "sha256": "b14b4c12ac955e0668ecb5c144a0d5ad23eb903ff4a8d365d201af98c8b31000",
+      "observed": "MOTION LIFECYCLE checks=19 errors=0; audio released=true. Existing adversarial profile/lifecycle suite on revised source; new dust numeric fields individually exercised only by static validity review, not additional parameterized runtime cases."
+    }
+  ],
+  "retained_full_capture": [
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/before.mp4",
+      "sha256": "3d0949697f09fde52bc7766583f7ff6cde0af385e4b7c123fc7760a3e83a8834",
+      "source_commit": "9c693787b201a655d9e8589d3bb1e1350ae64e29"
+    },
+    {
+      "path": "build/player_presentation_01/motion-v1/capture-first/after.mp4",
+      "sha256": "22b500c2cbd033f39aad75edbc145cfb0e0906fbd2d7d9be2c63f8dc1bc3440d",
+      "source_commit": "9c693787b201a655d9e8589d3bb1e1350ae64e29"
+    }
+  ],
+  "protected_references": [
+    {
+      "path": "scripts/underworld_plains/underworld_player.gd",
+      "sha256": "6ed4b00e1058a9d16808df58295f63bc8900e70653aeccc66a6752fb08412127",
+      "unchanged": true
+    },
+    {
+      "path": "assets/underworld_plains/player_animation/animation_build.json",
+      "sha256": "65bb572735f8aead4a6b1e5ead2174b1dc784eb9d0ee8aeeafff6ac8d7eb49b3",
+      "unchanged": true
+    },
+    {
+      "path": "assets/underworld_plains/player_animation/run_sheet.png",
+      "sha256": "64fe86b6de951bd671f511509104b2639f528527741774dd2561547f7ec5dd27",
+      "unchanged": true
+    },
+    {
+      "path": "assets/underworld_plains/player_animation/states_sheet.png",
+      "sha256": "01f6645fcedd24e14e06d56b6789ad0aa987ac0c75a63b39b0f16b40fe256744",
+      "unchanged": true
+    }
+  ],
+  "prior_pixel_review": {
+    "path": "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/pixel-review.json",
+    "sha256": "1ac36da471640a45a3162b81f0a4532a0a3bf46aaf2e8045a3bb9dd16b503037",
+    "status": "Original UNVERIFIED and PIX-3/PIX-4 REWORK retained. No new VFX pixels reviewed yet; tuning change alone does not close PIX-4. PIX-3 hand/weapon attachment remains unresolved and is not concealed by particles."
+  },
+  "unverified_items": [
+    "New-source matched600-sample GPU OFF/ON recording and actual foot-contact readability",
+    "Exact on/off gameplay equality on upcoming recorded source",
+    "Current revised-source1080 full trace and long-fall evidence",
+    "Hand/weapon attachment and full milestone hurt/death chain",
+    "All weapons/appearances/cross-region/shared-style integration",
+    "User aesthetics/feel/audio,full-speed video listening,physical device and Web pointer/touch"
+  ],
+  "next_step": "Freeze exact reviewed working sources, then collect600-sample matched OFF/ON local VFX evidence in a new attempt directory. Preserve old18.2s complete motion films and re-review actual dust peak at native scale before any readability claim."
+}

@@ -39,13 +39,19 @@ func recall() -> bool:
 	return true
 func _physics_process(delta: float) -> void:
 	if not valid_owner(): dispose();return
+	# Losing an attachment cancels the entity even on its final fuse step.
+	if phase==&"attached" and (not is_instance_valid(attached) or not attached.is_inside_tree()):dispose();return
 	age+=delta
 	var def := runtime.definition()
+	# Accepted mines have a maximum fuse even while attached. Resolve this before
+	# lifetime expiry, so the shared deadline explodes rather than silently fizzles.
+	if kind==&"mine" and age>=def.mine_fuse_seconds:
+		if phase==&"attached":global_position=attached.to_global(attachment)
+		runtime.explode(self);return
 	if age >= def.entity_lifetime:runtime.entity_failed(self);dispose();return
 	trail.append(global_position)
 	if trail.size()>12:trail.pop_front()
 	if phase == &"attached":
-		if not is_instance_valid(attached) or not attached.is_inside_tree():dispose();return
 		global_position=attached.to_global(attachment)
 	elif kind == &"bomb":
 		if age>=def.fuse_seconds:runtime.explode(self)

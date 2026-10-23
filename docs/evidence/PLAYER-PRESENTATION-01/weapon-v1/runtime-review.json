@@ -1,0 +1,733 @@
+{
+  "task": "PLAYER-PRESENTATION-01",
+  "review": "weapon-v1 frozen runtime and native sampled-pixel review",
+  "reviewer": {
+    "identity": "/root/audit_review",
+    "role": "independent child agent;not implementation author",
+    "skill": ".agents/skills/gameplay-reviewer/SKILL.md"
+  },
+  "reviewed_at_utc": "2026-10-22T18:33:23.577174+00:00",
+  "source_commit": "5a1c640bdfd8c5889ae88efd9bdb10596aab00d2",
+  "verdict": "UNVERIFIED",
+  "verdict_reason": "Final-source development gameplay parity and selected pixel facts accepted below. Several new accents are too subtle to sign a readability improvement from these frames;full-speed playback and audio listening were not performed. This is not production/player/device approval.",
+  "method": {
+    "actual_images": "All36 PNGs in the supplied index independently viewed using view_image(detail=original),each1280x720. No sheet or generated reconstruction substituted.",
+    "timing": "Index video_frame/video_seconds identifies movie extraction;near_trace_sample is approximate. No claim these frames equal exact gameplay ticks.",
+    "reviewer_engine_run": false,
+    "reviewer_full_speed_playback": false,
+    "reviewer_audio_listening": false,
+    "independent_read_only_checks": "Compared every listed field and entire accepted-event array for both final native and frozen comprehensive traces;verified actual media/trace hashes,source inventory stability and unchanged engineering-reviewed source hashes.",
+    "write_scope": "Only this review JSON written."
+  },
+  "source_and_engineering": {
+    "capture_report_commit": "5a1c640bdfd8c5889ae88efd9bdb10596aab00d2",
+    "capture_report_status": "passed",
+    "capture_report_errors": [],
+    "capture_source_stable": true,
+    "source_before_after_inventories_equal": true,
+    "source_inventory_entry_count": 23852,
+    "engineering_review_path": "docs/evidence/PLAYER-PRESENTATION-01/weapon-v1/engineering-review.json",
+    "engineering_review_sha256": "4719b86275a5b6f8663fbf792e7c50c6a2feec9f51710cd3b03aa10a510a9af6",
+    "all_eleven_engineering_review_source_sha_still_match": true,
+    "previous_three_engineering_REWORK_findings": "Remain closed;frozen lifecycle/comprehensive runs now supplement pre-freeze evidence. Prior failures retained."
+  },
+  "evidence_sha256": {
+    "build/player_presentation_01/weapon-v1/native-final/report.json": "03e2f8ae6ba9711c3010affd3d6cf05b7fc6cd69ff6fb3163732a018acf4b29d",
+    "build/player_presentation_01/weapon-v1/native-final/frames/index.json": "de990a84df3f457b720579e2527d3813cc13ae2cb19d92bd64209405c27fced1",
+    "build/player_presentation_01/weapon-v1/native-final/before.json": "ac776a73f1b9e1d521fe543af6fd7e4b91db17c68f0ff4c10b3b0ce1d3b641ec",
+    "build/player_presentation_01/weapon-v1/native-final/after.json": "f499bc6302c3e925dc0966c7b6f5c374e6386dfc0e464b875222f52008de22b5",
+    "build/player_presentation_01/weapon-v1/native-final/before.log": "6a767a7f3c67ad71ba0a4251afbbdef3ffd851eab7667cb6ac04da6ae31b614b",
+    "build/player_presentation_01/weapon-v1/native-final/after.log": "c8827cc8a6d71d6ba6286cf30dcc979ba039c4fe8aa787c47c154e60d0dad3c6",
+    "build/player_presentation_01/weapon-v1/frozen-all-on.json": "ab861cfe1e4b0265e9f15949758d9133d02441db10c85bae0122bf73dbd87d90",
+    "build/player_presentation_01/weapon-v1/frozen-all-on.log": "c84e2ef7c3df0dac5eabe35e46cc1e218670bc448bbfc23a5c30b590641905f0",
+    "build/player_presentation_01/weapon-v1/frozen-all-off.json": "53f6c83c0ece7ea1f115f80125b151ef29671837ffba9c07ad0f16e8037aa7e1",
+    "build/player_presentation_01/weapon-v1/frozen-all-off.log": "8f81d1274a7816f0454fc035d3269b6171e002c9b93d07b5c13c96769759907e",
+    "build/player_presentation_01/weapon-v1/frozen-all-parity.json": "c175477b194cda994f8f5a385f5e34334c82c38e2c9f77f35aa22f2a21d4062c",
+    "build/player_presentation_01/weapon-v1/frozen-lifecycle.json": "c0676baa853fed27f592d5a3dc67614d71d1bebf12c5f54bced376f69a15340d",
+    "build/player_presentation_01/weapon-v1/frozen-lifecycle.log": "079509ea925f915a0fbbc7b31ea47ff7ac65a98cf3a84b0160c31a533432cfb9"
+  },
+  "movies": [
+    {
+      "path": "build/player_presentation_01/weapon-v1/native-final/before.mp4",
+      "sha256": "aad9439e643654397c859b0402febbcef0cdd19a099b4469d80b97e2ed5d0c07",
+      "matches_report": true,
+      "trace_matches_report": true,
+      "metadata": "1280x720,60fps,1006frames,16.766667s;48kHz stereo audio stream present;not listened to"
+    },
+    {
+      "path": "build/player_presentation_01/weapon-v1/native-final/after.mp4",
+      "sha256": "b4834163a2acf8938341589cedd7efaaf96d1552d5e01e7c43bc2041be4a9435",
+      "matches_report": true,
+      "trace_matches_report": true,
+      "metadata": "1280x720,60fps,1006frames,16.766667s;48kHz stereo audio stream present;not listened to"
+    }
+  ],
+  "comparison_fields": [
+    "sample",
+    "tick",
+    "position",
+    "velocity",
+    "normal",
+    "recoil",
+    "motion_steps",
+    "hp",
+    "stamina",
+    "combat",
+    "charges",
+    "used_jumps",
+    "muzzle",
+    "aim",
+    "camera",
+    "camera_offset",
+    "body",
+    "weapon",
+    "epoch",
+    "packet",
+    "rounds",
+    "cooldown",
+    "phase",
+    "runtime_age",
+    "beam",
+    "projectiles",
+    "entities",
+    "targets"
+  ],
+  "native_comparison": {
+    "samples": [
+      998,
+      998
+    ],
+    "field_count": 28,
+    "differences": [],
+    "accepted_events_exactly_equal": true,
+    "author_checks_errors": [
+      {
+        "checks": 3026,
+        "errors": []
+      },
+      {
+        "checks": 3026,
+        "errors": []
+      }
+    ]
+  },
+  "native_scope": "9Mode representative primary actions in actual Home hero plus explicit stationary training targets. Movement candidate enabled identically ON/OFF. Not all15 equipment/6skills GPU visual proof.",
+  "comprehensive_headless_comparison": {
+    "samples": [
+      4189,
+      4189
+    ],
+    "field_count": 28,
+    "differences": [],
+    "accepted_events_exactly_equal": true,
+    "author_checks_errors": [
+      {
+        "checks": 12679,
+        "errors": []
+      },
+      {
+        "checks": 12679,
+        "errors": []
+      }
+    ]
+  },
+  "comprehensive_scope": "15 normal equipment and6 skills earned via real committed target damage using original mechanics;4189samples each,12679checks each,errors0. Does not extend GPU pixels to unrecorded skill variants.",
+  "frozen_lifecycle": {
+    "samples": 1039,
+    "checks": 3175,
+    "errors": 0,
+    "scope": "Author execution read from frozen-lifecycle log/json;Home consumer cleanup/reentry,legacy subscriptions,real earned charge cancellation,and actual original Plains retained PixelPlains leaf OFF/ON restoration. Reviewer did not rerun Godot."
+  },
+  "frames_actually_viewed": [
+    {
+      "file": "before-pulse_gun-62.png",
+      "video": "before.mp4",
+      "video_frame": 62,
+      "video_seconds": 1.0333333333333334,
+      "near_trace_sample": 56,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/before-pulse_gun-62.png",
+      "sha256": "eb4b3f3b63a8de91835206e4dd5571fc75934f64113e890e71bc9bb7f3ad8c9e",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "before-pulse_gun-65.png",
+      "video": "before.mp4",
+      "video_frame": 65,
+      "video_seconds": 1.0833333333333333,
+      "near_trace_sample": 56,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/before-pulse_gun-65.png",
+      "sha256": "ca049f538f99f995e13618e485072ba956f3052f442178cfc973aa26879dc764",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "after-pulse_gun-62.png",
+      "video": "after.mp4",
+      "video_frame": 62,
+      "video_seconds": 1.0333333333333334,
+      "near_trace_sample": 56,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/after-pulse_gun-62.png",
+      "sha256": "8ef6f2a394d065ff0f37bd79ae17ba0b66e3ffa5a4d6fa6377c9aede89c27721",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "after-pulse_gun-65.png",
+      "video": "after.mp4",
+      "video_frame": 65,
+      "video_seconds": 1.0833333333333333,
+      "near_trace_sample": 56,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/after-pulse_gun-65.png",
+      "sha256": "ae64886c95328e7083550330bba061faddb1eebcc9e46ff1f3f5a2cba5819600",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "before-triple_machine_gun-163.png",
+      "video": "before.mp4",
+      "video_frame": 163,
+      "video_seconds": 2.716666666666667,
+      "near_trace_sample": 157,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/before-triple_machine_gun-163.png",
+      "sha256": "0ea0eeea72d1c1720f051232eb510316d3dbb66e076e439d94a7f4f4e2a3f17d",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "before-triple_machine_gun-166.png",
+      "video": "before.mp4",
+      "video_frame": 166,
+      "video_seconds": 2.7666666666666666,
+      "near_trace_sample": 157,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/before-triple_machine_gun-166.png",
+      "sha256": "110eac13f138471ccde299d31819cb45c7b360c9d7881765d84f861fd9c79945",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "after-triple_machine_gun-163.png",
+      "video": "after.mp4",
+      "video_frame": 163,
+      "video_seconds": 2.716666666666667,
+      "near_trace_sample": 157,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/after-triple_machine_gun-163.png",
+      "sha256": "c0bf4958aec10106063166a371c527ac8f3088628bfa377e8bd889cc844de4f9",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "after-triple_machine_gun-166.png",
+      "video": "after.mp4",
+      "video_frame": 166,
+      "video_seconds": 2.7666666666666666,
+      "near_trace_sample": 157,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/after-triple_machine_gun-166.png",
+      "sha256": "7b9f8e81bfb26b99670cbfb397c7d480c3458df30261c6d894eb57601d336b54",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "before-sustained_laser-274.png",
+      "video": "before.mp4",
+      "video_frame": 274,
+      "video_seconds": 4.566666666666666,
+      "near_trace_sample": 268,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/before-sustained_laser-274.png",
+      "sha256": "ef09babf4489ba9fda7668fde26be12a188a511de412661480bc7c30d97520ae",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "before-sustained_laser-277.png",
+      "video": "before.mp4",
+      "video_frame": 277,
+      "video_seconds": 4.616666666666666,
+      "near_trace_sample": 268,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/before-sustained_laser-277.png",
+      "sha256": "9ac86591d4253b8e63f2d844ffdba8d411f52c8cb4d1f50471776e907909666c",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "after-sustained_laser-274.png",
+      "video": "after.mp4",
+      "video_frame": 274,
+      "video_seconds": 4.566666666666666,
+      "near_trace_sample": 268,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/after-sustained_laser-274.png",
+      "sha256": "59c04eb6dc6d9aa954b1617f08ff04eea128ecf73cf6a77290e4387e03ca3b65",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "after-sustained_laser-277.png",
+      "video": "after.mp4",
+      "video_frame": 277,
+      "video_seconds": 4.616666666666666,
+      "near_trace_sample": 268,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/after-sustained_laser-277.png",
+      "sha256": "442ccf2b6322da938cb85fbd02d6af8884e3e4f6910adb1ecbbcc55674ffa3e6",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "before-shadow_shuriken-390.png",
+      "video": "before.mp4",
+      "video_frame": 390,
+      "video_seconds": 6.5,
+      "near_trace_sample": 384,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/before-shadow_shuriken-390.png",
+      "sha256": "e8784d624fca0b19ec5a351a140933773c142cf4dc0fd5109112d19d8f1786e4",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "before-shadow_shuriken-393.png",
+      "video": "before.mp4",
+      "video_frame": 393,
+      "video_seconds": 6.55,
+      "near_trace_sample": 384,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/before-shadow_shuriken-393.png",
+      "sha256": "e336884eb108e714bd1e42e32cc6f351096cbc1d7f5a95d1030fac862f0ac366",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "after-shadow_shuriken-390.png",
+      "video": "after.mp4",
+      "video_frame": 390,
+      "video_seconds": 6.5,
+      "near_trace_sample": 384,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/after-shadow_shuriken-390.png",
+      "sha256": "e460c841dc7d82bb19a288c0f0c6669d2865332ea4ca0fa8ac25a5475896c58f",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "after-shadow_shuriken-393.png",
+      "video": "after.mp4",
+      "video_frame": 393,
+      "video_seconds": 6.55,
+      "near_trace_sample": 384,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/after-shadow_shuriken-393.png",
+      "sha256": "0eee74e0263436e9831c1dce5ee7b090e94943d5cf358248f34eb8487fc0d3d4",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "before-fan_shuriken-491.png",
+      "video": "before.mp4",
+      "video_frame": 491,
+      "video_seconds": 8.183333333333334,
+      "near_trace_sample": 485,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/before-fan_shuriken-491.png",
+      "sha256": "874ad266ef1cac498606095b11513cb282f8b303e67052e9078183d6d44c702f",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "before-fan_shuriken-494.png",
+      "video": "before.mp4",
+      "video_frame": 494,
+      "video_seconds": 8.233333333333333,
+      "near_trace_sample": 485,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/before-fan_shuriken-494.png",
+      "sha256": "f9ba6257b327e83a140a00ba47953d2590994012f9be986d4b2d504ffbc9b923",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "after-fan_shuriken-491.png",
+      "video": "after.mp4",
+      "video_frame": 491,
+      "video_seconds": 8.183333333333334,
+      "near_trace_sample": 485,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/after-fan_shuriken-491.png",
+      "sha256": "786f312274ec8e1202825b6b3303a4a506fd18265594212c608e52525c722dd3",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "after-fan_shuriken-494.png",
+      "video": "after.mp4",
+      "video_frame": 494,
+      "video_seconds": 8.233333333333333,
+      "near_trace_sample": 485,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/after-fan_shuriken-494.png",
+      "sha256": "8fc94686759410dcafa1fc5c31dda414db8689ecb42e99087ee2f78327272266",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "before-remote_boomerang-603.png",
+      "video": "before.mp4",
+      "video_frame": 603,
+      "video_seconds": 10.05,
+      "near_trace_sample": 597,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/before-remote_boomerang-603.png",
+      "sha256": "7342cfd44cbff906a44bd9e28ecfaed0a42974974006b22c261f290d1c65ebf4",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "before-remote_boomerang-606.png",
+      "video": "before.mp4",
+      "video_frame": 606,
+      "video_seconds": 10.1,
+      "near_trace_sample": 597,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/before-remote_boomerang-606.png",
+      "sha256": "7c95d8e6effbed9b3ee7f0d2e121ca7a2cf314171c35820da17b0f0f4a6d3b7f",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "after-remote_boomerang-603.png",
+      "video": "after.mp4",
+      "video_frame": 603,
+      "video_seconds": 10.05,
+      "near_trace_sample": 597,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/after-remote_boomerang-603.png",
+      "sha256": "aee1fcff2fa409564f43fc71aefb58ad2e0d0a7dec4ce87b18a55773a885185b",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "after-remote_boomerang-606.png",
+      "video": "after.mp4",
+      "video_frame": 606,
+      "video_seconds": 10.1,
+      "near_trace_sample": 597,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/after-remote_boomerang-606.png",
+      "sha256": "9093cf03ae7414fd328c780a3c88dcae5b97771a8dff41ee8443ea76eb073387",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "before-recoil_bomb-710.png",
+      "video": "before.mp4",
+      "video_frame": 710,
+      "video_seconds": 11.833333333333334,
+      "near_trace_sample": 704,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/before-recoil_bomb-710.png",
+      "sha256": "6210c7adb9b51432443f47b3f77a430d911ef5fa69be21bdd7a53cfe16f7e049",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "before-recoil_bomb-713.png",
+      "video": "before.mp4",
+      "video_frame": 713,
+      "video_seconds": 11.883333333333333,
+      "near_trace_sample": 704,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/before-recoil_bomb-713.png",
+      "sha256": "ed3b943fe09aaf189edcfe9f41b757937c127e267f34f17594160c75131f8f58",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "after-recoil_bomb-710.png",
+      "video": "after.mp4",
+      "video_frame": 710,
+      "video_seconds": 11.833333333333334,
+      "near_trace_sample": 704,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/after-recoil_bomb-710.png",
+      "sha256": "0a0192c0d48adc851d7c91e818b05198f5788615d17d3f63fea473d21095c4f2",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "after-recoil_bomb-713.png",
+      "video": "after.mp4",
+      "video_frame": 713,
+      "video_seconds": 11.883333333333333,
+      "near_trace_sample": 704,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/after-recoil_bomb-713.png",
+      "sha256": "cc10f237e7d7cb284dd259d6b447623b82ae953c91e14a3dbb1d6a2650eb6aae",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "before-magnetic_mine-818.png",
+      "video": "before.mp4",
+      "video_frame": 818,
+      "video_seconds": 13.633333333333333,
+      "near_trace_sample": 812,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/before-magnetic_mine-818.png",
+      "sha256": "4ed2d1e5ba9b6227e4de068b410ad92499f86092562459903226e653396257c3",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "before-magnetic_mine-821.png",
+      "video": "before.mp4",
+      "video_frame": 821,
+      "video_seconds": 13.683333333333334,
+      "near_trace_sample": 812,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/before-magnetic_mine-821.png",
+      "sha256": "23c592da037e660fdc7f42141fc2580c18d8ab3ce1d8f11dcc31d8c86c83a6a4",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "after-magnetic_mine-818.png",
+      "video": "after.mp4",
+      "video_frame": 818,
+      "video_seconds": 13.633333333333333,
+      "near_trace_sample": 812,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/after-magnetic_mine-818.png",
+      "sha256": "e268c7e083e053c10b22dde3fc8b462818b3b5829fb74ed92e9e86b3784a563f",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "after-magnetic_mine-821.png",
+      "video": "after.mp4",
+      "video_frame": 821,
+      "video_seconds": 13.683333333333334,
+      "near_trace_sample": 812,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/after-magnetic_mine-821.png",
+      "sha256": "f000b491892a20332c7a8b9b734bd6ed92afa9501b522a605bd0a9fa62f58836",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "before-collapse_singularity-939.png",
+      "video": "before.mp4",
+      "video_frame": 939,
+      "video_seconds": 15.65,
+      "near_trace_sample": 933,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/before-collapse_singularity-939.png",
+      "sha256": "e9540363a4acb6cd11c373492f0d8b3b2a8cd920a34858111ad66bcfd2fba01c",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "before-collapse_singularity-942.png",
+      "video": "before.mp4",
+      "video_frame": 942,
+      "video_seconds": 15.7,
+      "near_trace_sample": 933,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/before-collapse_singularity-942.png",
+      "sha256": "9dae9544bd2e661fc7ff0fb37506eebb47f9f0d9a8c04f706d77add41b81cf32",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "after-collapse_singularity-939.png",
+      "video": "after.mp4",
+      "video_frame": 939,
+      "video_seconds": 15.65,
+      "near_trace_sample": 933,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/after-collapse_singularity-939.png",
+      "sha256": "8be6138927f3ca4233aec9e18c5e40d93a2498d2998a42d59200958f8a767464",
+      "dimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "file": "after-collapse_singularity-942.png",
+      "video": "after.mp4",
+      "video_frame": 942,
+      "video_seconds": 15.7,
+      "near_trace_sample": 933,
+      "scope": "Actual original-size video extraction;nearby draw counter,not fabricated exact gameplay tick",
+      "path": "build/player_presentation_01/weapon-v1/native-final/frames/after-collapse_singularity-942.png",
+      "sha256": "b4094592c7fe3e2f9ce29326faa5ecc278804e07d1714ca1ca5f58bbd7af3596",
+      "dimensions": [
+        1280,
+        720
+      ]
+    }
+  ],
+  "pixel_findings": [
+    {
+      "id": "WEAPON-PIX-01",
+      "verdict": "ACCEPT",
+      "scope": "Local visible pulse/machine projectile head revision",
+      "observed_frames": [
+        "before/after-pulse_gun-62",
+        "before/after-triple_machine_gun-163"
+      ],
+      "observation": "The new head has a slimmer bright horizontal core and dark edge compared with the original more rounded gold flash. It is distinguishable at original resolution in these frame pairs and follows the same recorded projectile location.",
+      "limits": "Small detail change;not a whole-weapon makeover or proof of fast-action/small-screen readability."
+    },
+    {
+      "id": "WEAPON-PIX-02",
+      "verdict": "UNVERIFIED",
+      "scope": "Trajectory trail readability gain and contact accents",
+      "observed_frames": [
+        "before/after-pulse_gun-65",
+        "before/after-shadow_shuriken-390/393",
+        "before/after-fan_shuriken-491/494"
+      ],
+      "observation": "Blade artwork remains present and trail changes are restrained. New warm thin strokes merge with the already gold/cream architecture and horizon;I cannot consistently separate a new contact accent at the training-target edge in this selection.",
+      "limits": "No new gross screen-sized obstruction seen,but absence of obstruction is not proof of improved readable feedback. Need actual full-speed observation or a deliberate contrast/readability pass before claiming improvement."
+    },
+    {
+      "id": "WEAPON-PIX-03",
+      "verdict": "UNVERIFIED",
+      "scope": "Beam endpoint improvement",
+      "observed_frames": [
+        "before/after-sustained_laser-274/277"
+      ],
+      "observation": "Original beam line is already visible to the target. New endpoint ticks/core accent are too subtle against existing bright line and warm facade to establish an independently readable gain from these pairs.",
+      "limits": "Do not describe this as a completed laser redesign or improved endpoint communication;technical segment parity is separately established."
+    },
+    {
+      "id": "WEAPON-PIX-04",
+      "verdict": "ACCEPT",
+      "scope": "Preservation of baseline boomerang silhouette only",
+      "observed_frames": [
+        "before/after-remote_boomerang-603/606"
+      ],
+      "observation": "The existing rotating gold blade silhouette and its position remain visually consistent;no large replacement glow obscures the actor.",
+      "limits": "New boomerang impact/return visual improvements were not clearly demonstrated here;the original shared entity drawing remains dominant."
+    },
+    {
+      "id": "WEAPON-PIX-05",
+      "verdict": "UNVERIFIED",
+      "scope": "Mine attachment accent readability",
+      "observed_frames": [
+        "before/after-magnetic_mine-818/821"
+      ],
+      "observation": "The original mine silhouette at the first training target remains visible. Additional attached-state short rays are difficult to distinguish reliably from the existing gold edge and nearby building details at native scale.",
+      "limits": "Cannot sign a clearer attached-state indicator merely because current code draws one. Training fixture is not an enemy-art acceptance case."
+    },
+    {
+      "id": "WEAPON-PIX-06",
+      "verdict": "ACCEPT",
+      "scope": "Presence of restrained broken blast arcs without additional opaque fill",
+      "observed_frames": [
+        "before/after-recoil_bomb-713",
+        "before/after-collapse_singularity-942"
+      ],
+      "observation": "Faint sparse gray/cream broken arc segments are visible inside the large original gold expansion ring,especially over the dark ground below it. Candidate does not introduce an additional filled flash or screen-wide glow.",
+      "limits": "Original large gold ring/center flash remains overwhelmingly dominant and already covers local scene details in both versions. This does not establish better blast timing,range comprehension or reduced baseline obstruction."
+    },
+    {
+      "id": "WEAPON-PIX-07",
+      "verdict": "UNVERIFIED",
+      "scope": "Full-speed experience,identity and shared-body issues",
+      "observation": "All sampled pairs retain the actual Home hero and unchanged movement candidate. Nine modes remain largely the existing palette/forms with small accents;the earlier hand/weapon body connection and run-art REWORK are unresolved.",
+      "limits": "Do not claim fifteen unique polished weapon presentations or complete action coverage. Full-speed animation,timing and user preferences not observed."
+    }
+  ],
+  "fixture_boundary": "Brown TRAINING columns are intentionally added stationary collision/damage targets. Their placeholder art is not reviewed or approved. This actual-player test fixture is distinct from untouched formal encounters,enemy art,grant progression or full affected integration.",
+  "still_unverified": [
+    "Audio sound identity,loudness,layer interactions,prioritization and device output;audio stream metadata is not listening",
+    "Full-speed play,visual timing and motion/trail persistence",
+    "Improved readability of contact,beam endpoint and mine attachment accents",
+    "15 equipment/6skill visual and audible variants beyond9mode primary GPU sample",
+    "All selectable character consumers,boss-specific contacts and complete affected production integration",
+    "Death/segment-return/low-FPS weapon chain beyond scoped tests",
+    "Prior body grip and run art REWORK",
+    "New Web/browser delivery and public distribution availability",
+    "Player taste/feel and physical-device acceptance"
+  ],
+  "completion_boundary": "Frozen candidate engineering/parity evidence is strong for the scoped routes. Pixel acceptance is limited to specific observed facts. This report remains overall UNVERIFIED and does not promote the workline or replace prior failed/pending review records."
+}

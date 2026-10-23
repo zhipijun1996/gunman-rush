@@ -1,0 +1,183 @@
+{
+  "task": "PLAYER-PRESENTATION-01",
+  "content_version": "feel-audio-v1",
+  "tool": "ffmpeg decode + Python stdlib deterministic interpolation/mix/envelopes",
+  "sources": [
+    {
+      "path": "assets/audio/kenney/jump.ogg",
+      "pack": "rpg-audio",
+      "original": "cloth1.ogg",
+      "source": "https://kenney.nl/assets/rpg-audio",
+      "license": "CC0-1.0",
+      "sha256": "ddb93a3671233f95da0e0b10367f082f7eb42fa6caaddcf776410aa8833c747d",
+      "trimmed_leading_samples": 1485
+    },
+    {
+      "path": "assets/audio/kenney/land.ogg",
+      "pack": "impact-sounds",
+      "original": "footstep_grass_000.ogg",
+      "source": "https://kenney.nl/assets/impact-sounds",
+      "license": "CC0-1.0",
+      "sha256": "9d49497777405d78d7cf7f2888e28277f3a23192300cfd1d79d54876b20f479f",
+      "trimmed_leading_samples": 0
+    },
+    {
+      "path": "assets/audio/kenney/step.ogg",
+      "pack": "impact-sounds",
+      "original": "footstep_grass_001.ogg",
+      "source": "https://kenney.nl/assets/impact-sounds",
+      "license": "CC0-1.0",
+      "sha256": "fb28781bd22b2eefdc14077f1adf5c94d7fe9c3a130194633b55f3e0d39d9f04",
+      "trimmed_leading_samples": 0
+    },
+    {
+      "path": "assets/audio/kenney/enemy_defeat.ogg",
+      "pack": "impact-sounds",
+      "original": "impactSoft_medium_000.ogg",
+      "source": "https://kenney.nl/assets/impact-sounds",
+      "license": "CC0-1.0",
+      "sha256": "7d3ba0bb5e60a11b5d3e558c141303dcf494256675fbf753c0d252d2cf0481e3",
+      "trimmed_leading_samples": 0
+    }
+  ],
+  "recipes": {
+    "jump": [
+      0.17,
+      [
+        [
+          "step",
+          0.25
+        ],
+        [
+          "jump",
+          0.65
+        ]
+      ]
+    ],
+    "land": [
+      0.21,
+      [
+        [
+          "land",
+          0.8
+        ],
+        [
+          "jump",
+          0.12
+        ]
+      ]
+    ],
+    "heavy": [
+      0.25,
+      [
+        [
+          "land",
+          0.72
+        ],
+        [
+          "enemy_defeat",
+          0.45
+        ],
+        [
+          "jump",
+          0.1
+        ]
+      ]
+    ]
+  },
+  "processing": "48k mono16;leading threshold-45dB;2ms attack,45ms tail;three offline +/-1.5% pitch variants,no runtime RNG,no original edits",
+  "license": "Existing Kenney source CC0-1.0, retained source manifest/licenses;derivatives",
+  "user_listening": "unverified",
+  "files": [
+    {
+      "path": "assets/player_presentation_01/feel_audio_v1/jump_0.wav",
+      "sha256": "9f890223caf614f032a9358290adaf56d5cfa06bdad33980dbf3cc01e6f0ea3b",
+      "cue": "jump",
+      "variant": 0,
+      "source_rate": 0.985,
+      "duration_seconds": 0.17,
+      "peak_linear": 0.7199926755577257,
+      "frames": 8160
+    },
+    {
+      "path": "assets/player_presentation_01/feel_audio_v1/jump_1.wav",
+      "sha256": "73890209b89458cd1a15982f3e0cef926d72984eedf4554469d182dfbd084865",
+      "cue": "jump",
+      "variant": 1,
+      "source_rate": 1.0,
+      "duration_seconds": 0.17,
+      "peak_linear": 0.6840113528855251,
+      "frames": 8160
+    },
+    {
+      "path": "assets/player_presentation_01/feel_audio_v1/jump_2.wav",
+      "sha256": "7a2a35d9fbf81f0e759d6a4cbcfcbbb916616942bfdf393e2359b19d604c0d32",
+      "cue": "jump",
+      "variant": 2,
+      "source_rate": 1.015,
+      "duration_seconds": 0.17,
+      "peak_linear": 0.7415997802667318,
+      "frames": 8160
+    },
+    {
+      "path": "assets/player_presentation_01/feel_audio_v1/land_0.wav",
+      "sha256": "e77a4e3fecf1b1476ca13b9a2a434d58a3ff19591d6d1682207d20abab5e5069",
+      "cue": "land",
+      "variant": 0,
+      "source_rate": 0.985,
+      "duration_seconds": 0.21,
+      "peak_linear": 0.7199926755577257,
+      "frames": 10080
+    },
+    {
+      "path": "assets/player_presentation_01/feel_audio_v1/land_1.wav",
+      "sha256": "0d2467d0030eb83e8cc6dcad96dcbd1379fac5f21ef92e617968e5b336f00b35",
+      "cue": "land",
+      "variant": 1,
+      "source_rate": 1.0,
+      "duration_seconds": 0.21,
+      "peak_linear": 0.6840113528855251,
+      "frames": 10080
+    },
+    {
+      "path": "assets/player_presentation_01/feel_audio_v1/land_2.wav",
+      "sha256": "32200f1d015719f72cd92e44b5742a2f252b00da0c831bec1239b99857983b2b",
+      "cue": "land",
+      "variant": 2,
+      "source_rate": 1.015,
+      "duration_seconds": 0.21,
+      "peak_linear": 0.7415997802667318,
+      "frames": 10080
+    },
+    {
+      "path": "assets/player_presentation_01/feel_audio_v1/heavy_0.wav",
+      "sha256": "03ffc708153cc1806883a94b7be51aa0ab52f713d2540eafbc6a05eea45b7b30",
+      "cue": "heavy",
+      "variant": 0,
+      "source_rate": 0.985,
+      "duration_seconds": 0.25,
+      "peak_linear": 0.8200018311105686,
+      "frames": 12000
+    },
+    {
+      "path": "assets/player_presentation_01/feel_audio_v1/heavy_1.wav",
+      "sha256": "91564321205cd3c1acbdd1ccf59786be3922cebc11d1d0ec7741176def74a42a",
+      "cue": "heavy",
+      "variant": 1,
+      "source_rate": 1.0,
+      "duration_seconds": 0.25,
+      "peak_linear": 0.7789849543748283,
+      "frames": 12000
+    },
+    {
+      "path": "assets/player_presentation_01/feel_audio_v1/heavy_2.wav",
+      "sha256": "1ae84393547073be9e1a4537c4ce133c4a7dee411f5f7dc7c1ee31660b0a7e67",
+      "cue": "heavy",
+      "variant": 2,
+      "source_rate": 1.015,
+      "duration_seconds": 0.25,
+      "peak_linear": 0.8445997497482223,
+      "frames": 12000
+    }
+  ]
+}

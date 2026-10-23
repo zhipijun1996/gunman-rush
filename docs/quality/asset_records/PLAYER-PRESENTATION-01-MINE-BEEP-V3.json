@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "asset_id": "PLAYER-PRESENTATION-01-MINE-BEEP-V3",
+  "content_version": "mine-beep-v3",
+  "source_path": "assets/player_presentation_01/mine_beep_v3/timer_beep.wav",
+  "source_sha256": "7b3945c565c4f669b0649f54417067e85ce9ccc48185242fcad825b7b3c42cf1",
+  "tool": "tests/player_presentation_01/build_mine_beep_v3.py;ffmpeg7.1.5 sampled timer PCM edit",
+  "model": "not applicable",
+  "prompt_or_reference": "assets/player_presentation_01/mine_beep_v3/provenance.json",
+  "processing": "Actual CC0 electronic timer public HQMP3;extract85ms first beep;48k mono PCM16,3ms edgefade,peak0.6;original pitch,one shared tone;not generated oscillator",
+  "usage_scope": "V2 task-only magnetic mine age/fuse feedback;not user hearing or formal adoption acceptance",
+  "license_source": "https://freesound.org/people/Rudmer_Rotteveel/sounds/536420/;CC0-1.0 by Rudmer_Rotteveel;retained source-page/CC0 legalcode/ATTRIBUTION",
+  "license_status": "verified",
+  "runtime_paths": [
+    "scripts/dev/player_presentation_01/weapon_audio_v2.gd",
+    "scripts/dev/player_presentation_01/weapon_feel_v2.gd"
+  ],
+  "user_acceptance_evidence": [],
+  "visual_status": "unverified",
+  "disposition": "limited_preview",
+  "associated_files": [
+    {
+      "path": "assets/player_presentation_01/mine_beep_v3/provenance.json",
+      "sha256": "edb33b384adffc99d366297bc87f1b0e54aba7055b9f90b78de2c6f825deda9d",
+      "role": "documentation"
+    },
+    {
+      "path": "assets/player_presentation_01/mine_beep_v3/sources/ATTRIBUTION.txt",
+      "sha256": "3aa026e32b696ef35e5cf2c8ea9e487941e00bedf4f1e1ff864c81c87e4cd264",
+      "role": "documentation"
+    },
+    {
+      "path": "assets/player_presentation_01/mine_beep_v3/sources/CC0-1.0-legalcode.html",
+      "sha256": "36047b77caa40b62b4df2d659e68fe0f44a10dd0017dc745ca8bc6510478d514",
+      "role": "documentation"
+    },
+    {
+      "path": "assets/player_presentation_01/mine_beep_v3/sources/electronic-timer-536420-hq.mp3",
+      "sha256": "f86391668ac41cf57423131f73545a90635dc259b9c1bca8a5ce44dc59bb45a3",
+      "role": "reference"
+    },
+    {
+      "path": "assets/player_presentation_01/mine_beep_v3/sources/source-page.html",
+      "sha256": "c2de401ac12deb070e6cf1594c56503094b608518fde8550732c2ef5602312f6",
+      "role": "documentation"
+    }
+  ]
+}

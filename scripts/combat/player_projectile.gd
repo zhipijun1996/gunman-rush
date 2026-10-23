@@ -2,6 +2,8 @@ class_name PlayerProjectile
 extends Node2D
 
 signal impacted(point: Vector2, direction: Vector2)
+## A wall/solid contact, distinct from an enemy damage receipt.
+signal terrain_impacted(point: Vector2, direction: Vector2)
 
 var weapon_epoch := -1
 var energy_receipt_id := 0
@@ -132,6 +134,7 @@ func advance(delta: float) -> void:
 		if receiver == null or receiver.impact_style() != &"boss":
 			UnderworldProjectileVisual.emit(self,query.transform.origin,direction,true,true)
 			impacted.emit(query.transform.origin, direction)
+		if receiver == null: terrain_impacted.emit(query.transform.origin,direction)
 		dispose()
 		return
 	# Pathological overlapping geometry fails closed rather than tunnelling.
