@@ -712,8 +712,9 @@ def audit_home(a: Audit, home: dict):
         grounded = ('constCONTACT:=preload("res://scripts/underworld_plains/grounded_contact.gd")' in compact(world) and
                     'return(foot+Vector2(0,inset)-source_foot*scale_value).round()' in compact(gd_function(contact, 'origin')))
     building_call = '_place(str(entry.id)+"_building",str(building.image),building.region,building.foot,root,float(entry.building_height),-7,float(building.get("opaque_height",building.foot[1])),_grounding_depth("structure"))'
+    actual_building_call = re.search(r'(?<![A-Za-z0-9_.])' + re.escape(building_call), slot) is not None
     slot_root = 'varx:=float(entry.x)' in slot and 'varroot:=Vector2(x,float(entry.get("y",floor_y)))' in slot
-    a.check('forentry:Dictionaryinspecification.slots:_build_slot(entry)' in configure and 'specification.assets' in slot and building_call in slot and slot_root and (direct or grounded),'home.actual_asset_slots','Actual slot entry root/image/region/foot/height reach _place and the shared source-foot positioning adapter')
+    a.check('forentry:Dictionaryinspecification.slots:_build_slot(entry)' in configure and 'specification.assets' in slot and actual_building_call and slot_root and (direct or grounded),'home.actual_asset_slots','Actual slot entry root/image/region/foot/height reach _place and the shared source-foot positioning adapter')
     a.measurements['home']={'slots':len(slots),'active_services':sorted(active),'world_width':width,'generated_objects':len(records)}
 
 
