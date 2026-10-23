@@ -859,6 +859,7 @@ func observe() -> void:
 		cavity_sample=str(itinerary[int(completed[-1].leg)].kind)=="hollow_cavity"
 	if cavity_sample:
 		frames[-1].merge({"body":[player.global_position.x-12,player.global_position.y-18,24,36],"hook_start":pair(controller.traversal.hook_start),"hook_tip":pair(controller.traversal.hook_tip),"shot_energy_delay":controller.shot_energy._delay,"burst_remaining":player.recoil_burst_remaining,"burst_velocity":pair(player.recoil_velocity)})
+		frames[-1].pending_air_grants=controller.received_resource_grants.map(func(grant: Dictionary) -> Dictionary: return {"amount":int(grant.amount),"session_id":int(grant.session_id)})
 	var air_chain_sample: bool=leg_index<itinerary.size() and str(itinerary[leg_index].kind) in ["airborne_chain","hanging_chain"]
 	if not air_chain_sample and not completed.is_empty() and int(completed[-1].tick)==tick:
 		air_chain_sample=str(itinerary[int(completed[-1].leg)].kind) in ["airborne_chain","hanging_chain"]

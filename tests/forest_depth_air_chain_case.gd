@@ -124,7 +124,7 @@ func _submit(trace: Node) -> void:
 	if str(action.action)=="R" and trace.controller.action_resources.shot_charges==0 and free_base:
 		var anchor_jump: bool=trace.controller.traversal.state==&"hook_hang" and trace.controller.traversal.hook_target is GrappleAnchor and trace.controller.jump_ability.enabled and trace.controller.jump_ability.maximum_jumps()>0
 		var air_jump: bool=trace.controller.jump_ability.can_air_jump()
-		var receiver_rehook: bool=step_index>0 and step_index==program.size()-1 and absf(float(action.direction[0]))>.9 and str(program[step_index-1].action)=="H" and trace.controller.traversal.hook_target is GrappleAnchor and not trace.controller.traversal.hook_used
+		var receiver_rehook: bool=step_index>0 and step_index==program.size()-1 and str(program[step_index-1].action)=="H" and trace.controller.traversal.hook_target is GrappleAnchor and not trace.controller.traversal.hook_used
 		var replacement: String="J" if anchor_jump or air_jump else "H" if receiver_rehook else ""
 		if not replacement.is_empty():
 			program[step_index]={"action":replacement}

@@ -209,7 +209,7 @@ def current_executed_air_chain_program(data,source_program,actual,by,actual_anch
             valid=(anchor_jump or air_jump) and event.get('anchor_jump') is anchor_jump and event.get('can_air_jump') is air_jump
             program[step]={'action':'J'}
         elif valid and replacement=='H':
-            valid=step==len(program)-1 and step>0 and program[step-1].get('action')=='H' and old.get('hook_used') is False and abs(source_program[step].get('direction',[0,0])[0])>.9
+            valid=step==len(program)-1 and step>0 and program[step-1].get('action')=='H' and old.get('hook_used') is False
             anchor=program[step-1].get('anchor');target=actual_anchors.get(anchors.get(anchor),{}).get('position')
             if target:
                 side=1 if goal[0]>target[0] else -1 if goal[0]<target[0] else 0
@@ -254,7 +254,8 @@ def validate_current_air_chain_resources(data,leg,completion,frames,events,tunin
             if event.get('kind')=='hook_cast':hook_used=True
             elif event.get('kind') in ('hook_kick','hook_hang'):hook_used=False
             elif any(proof['damage_event'] is event and proof['fired_airborne'] and not f['grounded'] for proof in rounds):hook_used=False
-        if f['grounded']:charges=tuning['max_air_shots'];hook_used=False
+        if f['grounded']:charges=tuning['max_air_shots']
+        if f['grounded'] and not old.get('grounded'):hook_used=False
         need(f.get('hook_used') is hook_used,'current_air_chain_H_token_requires_real_cause')
         need(0<=f['energy']<=capacity and abs(f['energy']-energy)<.001 and f.get('shot_energy_delay')==0,'current_air_chain_free_shot_and_ground_focus_energy')
         need(0<=charges<=tuning['max_air_shots'] and f['shots']==charges,'current_air_chain_one_round_and_landing_ledger')
@@ -370,6 +371,8 @@ def validate_cavity_leg(data,leg,completion,frames,events,requests,platforms,ful
         need(isinstance(f.get('body'),list) and len(f['body'])==4 and all(abs(a-b)<.001 for a,b in zip(f['body'],body)),'cavity_actual_full_body_missing')
         for px,py,w,h in dangers:
             need(min(x+12,px+w)-max(x-12,px)<=.01 or min(y+18,py+h)-max(y-18,py)<=.01,'cavity_body_inside_real_danger')
+    if current_free_policy(data):
+        return errors+validate_current_air_chain_resources(data,leg,completion,frames,events,tuning,ss,full)
     # Replay actual shot economy from the preceding real frame, never assume E100.
     previous=by.get(start-1)
     if not previous or 'shot_energy_delay' not in previous:return errors+['cavity_actual_initial_resource_phase_missing']
