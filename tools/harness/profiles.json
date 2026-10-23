@@ -3270,6 +3270,190 @@
       "artifact_paths": [
         "build/verification/demo-ui-r3/energy.json"
       ]
+    },
+    "enemy-feedback-native": {
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-feedback-native"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^ENEMY_FEEDBACK_01 checks=[1-9]\\d* failures=0$",
+      "weight_seconds": 40,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "shaders",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/enemy_feedback_01/v8"
+      ]
+    },
+    "enemy-feedback-formal": {
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-feedback-formal"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^ENEMY_FEEDBACK_01_FORMAL checks=[1-9]\\d* failures=0$",
+      "weight_seconds": 45,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "shaders",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/enemy_feedback_01/v8"
+      ]
+    },
+    "enemy-feedback-support": {
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-feedback-support"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^ENEMY_FEEDBACK_01_SUPPORT checks=[1-9]\\d* failures=0$",
+      "weight_seconds": 35,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "shaders",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/enemy_feedback_01/v8"
+      ]
+    },
+    "enemy-corpse-save": {
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-corpse-save"
+      ],
+      "timeout_seconds": 360,
+      "success_pattern": "^ENEMY_FEEDBACK_01_FORMAL checks=[1-9]\\d* failures=0$",
+      "weight_seconds": 45,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "shaders",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/enemy_feedback_01/v8"
+      ]
+    },
+    "enemy-corpse-snapshot": {
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "enemy-corpse-snapshot"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^ENEMY_CORPSE_SNAPSHOT checks=[1-9]\\d* failures=0$",
+      "weight_seconds": 35,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "shaders",
+        "project.godot",
+        "export_presets.cfg"
+      ]
+    },
+    "bgm-integration": {
+      "argv": [
+        "python3",
+        "tools/run_integration_four_tests.py",
+        "--case",
+        "bgm-integration"
+      ],
+      "timeout_seconds": 480,
+      "success_pattern": "^BGM INTEGRATION: [1-9]\\d* checks, 0 failures$",
+      "weight_seconds": 60,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "shaders",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/verification/bgm-integration"
+      ]
+    },
+    "player-default-integration": {
+      "argv": [
+        "python3",
+        "tools/run_player_default_integration_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "success_pattern": "^PASS: Formal default player, Timeweaver selection and feedback lifecycle$",
+      "weight_seconds": 45,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "shaders",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/player-default-integration"
+      ]
     }
   },
   "profiles": {
@@ -3472,7 +3656,14 @@
       "cloud-preview-runtime",
       "cloud-inputs-tests",
       "portable-frozen-assets",
-      "demo-ui-time-energy"
+      "demo-ui-time-energy",
+      "enemy-feedback-native",
+      "enemy-feedback-formal",
+      "enemy-feedback-support",
+      "enemy-corpse-save",
+      "enemy-corpse-snapshot",
+      "bgm-integration",
+      "player-default-integration"
     ],
     "art": [
       "docs",
@@ -3769,7 +3960,14 @@
       "cloud-preview-runtime",
       "cloud-inputs-tests",
       "portable-frozen-assets",
-      "demo-ui-time-energy"
+      "demo-ui-time-energy",
+      "enemy-feedback-native",
+      "enemy-feedback-formal",
+      "enemy-feedback-support",
+      "enemy-corpse-save",
+      "enemy-corpse-snapshot",
+      "bgm-integration",
+      "player-default-integration"
     ],
     "creative-feedback": [
       "docs",

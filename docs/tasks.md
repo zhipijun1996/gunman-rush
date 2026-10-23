@@ -1,5 +1,9 @@
 # 开发任务
 
+## 2026-10-23 四线集成调度（最新）
+
+`FOUR-LINE-INTEGRATION-01`进行中：四线已在集成分支普通合并，用户授权最终合main，尚未完成组合验证或发布。[当前来源与待办](integration/four_lines_20261023.md)。5首原MP3已接入／独立89项通过；新人物默认与“织时匠”换装适配仍在进行。黄金68bd037暂停不入；原内容卡review／in_progress及玩家／设备边界不提升，以下旧“不合main”段为历史时点。
+
 ## 2026-10-23 ART-SESSION-CLOSEOUT-09 会话归整与skills回流
 
 本会话01–08轮17笔提交已完整累积在`art/formal-fine-depth`，最后运行源6befe56、上轮交付head42f673c。[归整索引](art_session_20261023.md)记录各轮采用/替代关系、正式消费者、历史证据/视频、未验与恢复；本轮仅文档/skills，不合main、不新开触发Integration的PR。修正六份skills当前入口的旧v4/16px指向，增加[共享执行说明](quality/art_consistency_workflow.md)和现有Asset Specification像素字段，区分全局规格/区域身份/资产接口；不修改原Bible/style-v4/v5、运行参数或素材。仅定向文档/记录核对，不跑完整CI或重导出/发布。Git最新head与远端一致性以收口证据为准；跨区品质、用户与真机仍不代签。其他工作区须先取得本分支提交，不假定main已含。
@@ -62,10 +66,19 @@ FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试�
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
-| CLOUD-EFFICIENCY-01 | 稀疏Harness隔离、必需输入物化与Skills提效 | — | review | 修复并验证后随PR103合main，不删除历史证据或降低守门 |
-| PLAYER-PRESENTATION-01 | 主角连续动作代表样板 | CLOUD-EFFICIENCY-01 | planned | [本批Prompt与写集](demo_wave_01.md)；main合入后独立分支启动 |
-| ENEMY-FEEDBACK-01 | 两类普通怪物共享受击／死亡样板 | CLOUD-EFFICIENCY-01 | planned | [本批Prompt与写集](demo_wave_01.md)；保留不同生命感与正式伤害链 |
-| PLAINS-GOLDEN-01 | 平原两候选与黄金切片 | CLOUD-EFFICIENCY-01 | planned | [本批Prompt与写集](demo_wave_01.md)；Bible／共享母版不变，先比较再推广 |
+| FOUR-LINE-INTEGRATION-01 | 四线正式集成、默认人物与5首原MP3 | PLAYER-PRESENTATION-01, ENEMY-FEEDBACK-01, DEMO-UI-01, FINE-SPACE-05 | in_progress | [范围](integration/four_lines_20261023.md)、[主体记录](quality/records/FOUR-LINE-INTEGRATION-01.json)；BGM为本主体子项，默认／织时匠适配与组合验收待完成 |
+| ART-SESSION-CLOSEOUT-09 | 美术会话文档／Skills归整 | — | done | [原记录](quality/records/ART-SESSION-CLOSEOUT-09.json)；只签process归整，不签美术完成 |
+| DEMO-UI-01 | Demo UI／HUD／家园交互 | — | review | [原记录](quality/records/DEMO-UI-01.json)；原限定证据保留；组合验证、审美与设备状态不升签 |
+| DEPTH-FRAME-06 | 中景地标与前景 | — | review | [原记录](quality/records/DEPTH-FRAME-06.json)；原限定证据保留；组合验证、审美与设备状态不升签 |
+| FINE-SPACE-05 | 正式细粒度与共享空间表现 | — | review | [原记录](quality/records/FINE-SPACE-05.json)；原限定证据保留；组合验证、审美与设备状态不升签 |
+| FOREGROUND-CONTINUITY-08 | 固定前景与稳定恢复 | — | review | [原记录](quality/records/FOREGROUND-CONTINUITY-08.json)；原限定证据保留；组合验证、审美与设备状态不升签 |
+| LIGHT-STUDY-01 | 光色实验 | — | review | [原记录](quality/records/LIGHT-STUDY-01.json)；原限定证据保留；组合验证、审美与设备状态不升签 |
+| PIXEL-LIGHT-STUDY-02 | 像素对齐与局部灯光实验 | — | review | [原记录](quality/records/PIXEL-LIGHT-STUDY-02.json)；原限定证据保留；组合验证、审美与设备状态不升签 |
+| SPATIAL-RHYTHM-07 | 沿途疏密与留白 | — | review | [原记录](quality/records/SPATIAL-RHYTHM-07.json)；原限定证据保留；组合验证、审美与设备状态不升签 |
+| CLOUD-EFFICIENCY-01 | 稀疏Harness隔离、必需输入物化与Skills提效 | — | done | v3 done；A1完整146项证据已保到Git树；此前提效基线，不代签四线组合 |
+| PLAYER-PRESENTATION-01 | 主角连续动作代表样板 | CLOUD-EFFICIENCY-01 | in_progress | [原记录](quality/records/PLAYER-PRESENTATION-01.json)；动作候选已汇入集成树，新默认／织时匠换装正在适配，用户／设备未验 |
+| ENEMY-FEEDBACK-01 | 两类普通怪物共享受击／死亡样板 | CLOUD-EFFICIENCY-01 | review | [原记录](quality/records/ENEMY-FEEDBACK-01.json)；两表现链已汇入集成树，保存修复另验，视觉／完整集成未完成 |
+| PLAINS-GOLDEN-01 | 平原两候选与黄金切片 | CLOUD-EFFICIENCY-01 | planned | 用户已暂停；本次不合入68bd037，保持未启动／未验 |
 | CLOUD-PRODUCTION-01 | Cloud生产与交付机制 | — | review | [入口](cloud_production.md)；真实交付与完整门槛分别留证 |
 | CLOUD-PREVIEW-01 | 显式开发入口与录屏样例 | CLOUD-PRODUCTION-01 | review | 仅开发bootstrap；不改变默认游戏，不签品质或真机 |
 | MAIN-CLOSEOUT-20261022 | 统一现状源码与历史到main，建立并行开发基线 | PARALLEL-INTEGRATION-01 | done | [范围与并行入口](main_closeout_20261022.md)、[质量记录](quality/records/MAIN-CLOSEOUT-20261022.json)；已合PR102至main 9c349f44，全部开发head祖先闭包成立；原树不变，docs29通过，基线全CI成功，新main CI执行中 |

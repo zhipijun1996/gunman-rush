@@ -902,7 +902,12 @@ func _restore_focus(generation: int) -> void:
 	target.grab_focus()
 	# Containers settle after this deferred callback. Scrolling against the
 	# pre-layout rectangle can open a long page at its bottom with focus offscreen.
-	await get_tree().process_frame
+	get_tree().process_frame.connect(_finish_focus_scroll.bind(generation, weakref(target), wanted), CONNECT_ONE_SHOT)
+
+func _finish_focus_scroll(generation: int, target_ref: WeakRef, wanted: String) -> void:
+	# The bound method is disconnected when this menu is freed. A suspended
+	# coroutine would still resume after owner teardown during scene changes.
+	var target := target_ref.get_ref() as Control
 	if generation == _page_generation and is_instance_valid(target) and is_instance_valid(_scroll):
 		if wanted.is_empty() or (visible_panel == &"title" and target.name == "BeginAdventure"): _scroll.scroll_vertical = 0
 		else: _scroll.ensure_control_visible(target)
