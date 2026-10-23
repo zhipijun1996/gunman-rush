@@ -585,7 +585,7 @@ func legacy_compatibility() -> void:
 	legacy.free();await process_frame
 
 func positive_case(index: int, map_index: int, strategy: String, custom: String="", seed_value: String="level-design-v2-baseline") -> void:
-	if positive_shard>=0 and ((index<4)!=(positive_shard==0)):return
+	if positive_shard>=0 and (positive_shard>3 or index not in [[0,1],[2,7],[3,6],[4,5]][positive_shard]):return
 	current_case_index=index
 	scene_case_indices.append(index)
 	await run_case(map_index,strategy,custom,seed_value)
@@ -595,7 +595,7 @@ func run() -> void:
 	root.size=Vector2i(1280,720)
 	if not mutation.is_empty():await run_case(1,"growth" if mutation=="foreground_ferry" else "fast")
 	else:
-		if positive_shard!=1:await legacy_compatibility()
+		if positive_shard<0 or positive_shard==0:await legacy_compatibility()
 		await positive_case(0,1,"fast")
 		await positive_case(1,2,"growth")
 		await positive_case(2,2,"return","main_then_high")
@@ -603,7 +603,7 @@ func run() -> void:
 		await positive_case(4,2,"fast","outer_upper_alternative")
 		await positive_case(5,1,"fast","extra_upward_recoil")
 		await positive_case(6,1,"fast","touch_geometry")
-		if positive_shard!=0:
+		if positive_shard<0 or positive_shard==1:
 			var selected := ""
 			var corpus: Array = []
 			for index: int in 10:

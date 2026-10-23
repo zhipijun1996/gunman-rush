@@ -159,38 +159,50 @@ def run_positive(folder, env):
     """The same eight independent App cases, inside one shared 180s deadline.
 
     The unchanged sequential producer needed 175.72s for its first five cases.
-    Two native workers partition the ordered case list; neither receives a new
-    180s allowance after the parent deadline. Legacy and corpus run once.
+    Four bounded native groups partition the ordered case list; none receives a
+    new180s allowance after the parent deadline. Legacy and corpus run once.
     """
     started=time.monotonic();deadline=started+180
+    groups=([0,1],[2,7],[3,6],[4,5])
     def one(shard):
         output=folder/f'positive-shard-{shard}.json';log=folder/f'positive-shard-{shard}.log'
         argv=['bash','tools/godot.sh','--headless','--fixed-fps','60','--path','.','--script','tests/plains_redesign_scene_runner.gd','--','--output='+str(output),'--positive-shard='+str(shard)]
         process=harness.run_check({'argv':argv,'timeout_seconds':max(.001,deadline-time.monotonic()),'success_pattern':r'^PLAINS REDESIGN SCENE NATIVE: [1-9]\d* assertions, 0 failures$'},log,REPO,env)
         return {'shard':shard,'command':argv,'process':process,'output':str(output.relative_to(REPO)),'output_sha256':level_formal.file_hash(output) if output.exists() else None,'log_sha256':level_formal.file_hash(log),'data':json.loads(output.read_text()) if output.exists() else {}}
-    with ThreadPoolExecutor(max_workers=2) as workers:
-        parts=list(workers.map(one,(0,1)))
+    with ThreadPoolExecutor(max_workers=4) as workers:
+        parts=list(workers.map(one,range(4)))
     within=time.monotonic()<=deadline
-    for part,indices in zip(parts,([0,1,2,3],[4,5,6,7])):
+    for part,indices in zip(parts,groups):
         data=part['data']
         if part['process']['status']!='passed' or data.get('positive_shard')!=part['shard'] or data.get('scene_case_indices')!=indices:
             within=False
+        routes=[c for c in data.get('cases',[]) if 'frames' in c]
+        cleanups=data.get('post_capture_cleanup',[])
+        if ([c.get('scene_case_index') for c in routes]!=indices
+                or [c.get('scene_case_index') for c in cleanups]!=indices
+                or bool(data.get('legacy_ui'))!=(part['shard']==0)):
+            within=False
+        extras=[c for c in data.get('cases',[]) if 'frames' not in c]
+        if part['shard']==1:
+            if len(extras)!=1 or len(extras[0].get('generation_corpus',[]))!=10:within=False
+        elif extras:within=False
     data=dict(parts[0]['data']);routes=[];extras=[];cleanups=[]
     for part in parts:
         for case in part['data'].get('cases',[]):
             (routes if 'frames' in case else extras).append(case)
         cleanups.extend(part['data'].get('post_capture_cleanup',[]))
-    if sorted(c.get('scene_case_index',-1) for c in routes)!=list(range(8)) or len(extras)!=1:within=False
+    if (sorted(c.get('scene_case_index',-1) for c in routes)!=list(range(8))
+            or sorted(c.get('scene_case_index',-1) for c in cleanups)!=list(range(8)) or len(extras)!=1):within=False
     data['cases']=sorted(routes,key=lambda c:c['scene_case_index'])+extras
     data['post_capture_cleanup']=sorted(cleanups,key=lambda c:c['scene_case_index'])
     data['assertions']=sum(p['data'].get('assertions',0) for p in parts)
     data['failures']=sum(p['data'].get('failures',1) for p in parts)
     data['positive_shard']='merged_actual_independent_native_cases'
     (folder/'positive.json').write_text(json.dumps(data,separators=(',',':'))+'\n')
-    (folder/'positive.log').write_text('\n'.join((folder/f'positive-shard-{i}.log').read_text() for i in (0,1)))
+    (folder/'positive.log').write_text('\n'.join((folder/f'positive-shard-{i}.log').read_text() for i in range(4)))
     elapsed=time.monotonic()-started
     within=within and elapsed<=180
-    proof={'scope':'two actual native partitions; one parent aggregate 180s; original eight ordered cases, legacy UI and rolled-zero corpus retained','aggregate_budget_seconds':180,'aggregate_seconds':elapsed,'within_aggregate_deadline':within,'native_runs':[{k:v for k,v in p.items() if k!='data'} for p in parts]}
+    proof={'scope':'four actual native partitions; one parent aggregate180s; original eight ordered cases, legacy UI and rolled-zero corpus retained','aggregate_budget_seconds':180,'aggregate_seconds':elapsed,'within_aggregate_deadline':within,'native_runs':[{k:v for k,v in p.items() if k!='data'} for p in parts]}
     (folder/'positive-partitions.json').write_text(json.dumps(proof,indent=2)+'\n')
     return {'status':'passed' if within else 'failed','exit_code':0 if within else 1,'actual_native_partitions':proof}
 
