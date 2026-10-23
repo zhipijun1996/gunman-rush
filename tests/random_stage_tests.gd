@@ -40,6 +40,8 @@ func run(p_tree: SceneTree, p_check: Callable) -> void:
 	if not action_route.is_empty():
 		await route(action_route, tuning, "one jump/shot generated route")
 	var advanced := PlayerTuning.load_default()
+	# Historical advanced mixed corpus explicitly requires two shots.
+	advanced.max_air_shots = 2
 	var advanced_route: Dictionary = find_route(generator, advanced, true, true, -1)
 	check.call(not advanced_route.is_empty(), "bounded seed search finds complete mixed advanced stage with high recoil climb, long gap and alternating ferries")
 	if not advanced_route.is_empty():
@@ -71,6 +73,8 @@ func find_route(generator: RefCounted, tuning: PlayerTuning, require_actions: bo
 
 func contracts(generator: RefCounted) -> void:
 	var tuning := PlayerTuning.load_default()
+	# Preserve all original advanced corpus assertions under their two-shot fixture.
+	tuning.max_air_shots = 2
 	var zero := PlayerTuning.load_default()
 	zero.max_jumps = 0
 	zero.max_air_shots = 0
