@@ -1,5 +1,7 @@
 # ENEMY-FEEDBACK-01 · System Engineering
 
+2026-10-23会话收口：[全部累计修改、去留与阻塞](enemy_feedback_01_session_summary.md)；[Skills改进提案与后续怪物制作卡](enemy_feedback_01_production_lessons.md)。本次仅整理交付，当前内容仍为下述v8-r2的REJECT／draft，未合main。历史各轮“最新”仅指当时检查点，以本页首当前状态为准。
+
 ## 2026-10-23 当前返工：专属受伤／死亡帧与留尸体（v8）
 
 当前实际运行源3003bd0f10ed9c7fe51e0cdc5952aa579a87f130，两链实弹片与独审见[v8检查点](evidence/enemy_feedback_01/v8/README.md)。材质回接明显改善，结构回接仍REWORK；独立458/0、199/0、278/0、258/0与4原Harness通过，正式存档strict66/1仍失败，任务保持draft／REJECT。首候选5ffd的66/2与旧片完整保留，未以新片覆写旧失败。

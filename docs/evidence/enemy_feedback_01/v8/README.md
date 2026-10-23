@@ -37,7 +37,7 @@
 
 ## 可恢复源码与媒体
 
-[runtime-source.bundle](runtime-source.bundle)包含真实拍摄5ffd运行源，前置公开提交`12d7e41abe62dfdfd33d5c15c1142b3ff84d14fd`；在已有前置提交的仓库执行`git bundle verify`后可fetch该bundle的HEAD。API发布提交元数据可能不同，以最终交付树和bundle实际运行源分别标识。
+[runtime-source.bundle](runtime-source.bundle)的HEAD为真实拍摄运行源`3003bd0f10ed9c7fe51e0cdc5952aa579a87f130`，前置公开提交`12d7e41abe62dfdfd33d5c15c1142b3ff84d14fd`；在已有前置提交的仓库执行`git bundle verify`后可fetch该bundle的HEAD。首候选5ffd的原件位于v8-first-review，不能混称当前拍摄源。API发布提交元数据可能不同，以最终交付树和bundle实际运行源分别标识。
 
 原始影片、无损trace、source guard、ffprobe与每段原始时间区间／封装命令分别在movies/{after-report,legacy-report,recipe,legacy-recipe}.json。两份14秒成片各840帧，对照20秒1200帧，全部60/1；只裁连续原帧及对应原音频并加事实footer。封装脚本在tools/，未用静图拼接、AI补帧、变速或后配音替代正式命中证据。
 
