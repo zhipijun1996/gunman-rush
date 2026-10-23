@@ -1,0 +1,1047 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:disordered-clock:level-content:1",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "artifact_kind": {
+      "const": "level_content_bundle"
+    },
+    "capability_catalog": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0
+    },
+    "contents": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "version": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "layer": {
+            "enum": [
+              "cell",
+              "module",
+              "macro_module",
+              "map"
+            ]
+          },
+          "region": {
+            "type": "string",
+            "minLength": 1
+          },
+          "identity": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "player_experience": {
+                "type": "string",
+                "minLength": 1
+              },
+              "gameplay_genes": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "composition_status": {
+                "enum": [
+                  "decomposed",
+                  "legacy_atomic"
+                ]
+              },
+              "elements": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "kind": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "parameters": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "kind",
+                    "parameters"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0
+              }
+            },
+            "required": [
+              "name",
+              "player_experience",
+              "gameplay_genes",
+              "composition_status",
+              "elements"
+            ],
+            "additionalProperties": false
+          },
+          "parts": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "content_id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "layer": {
+                  "enum": [
+                    "cell",
+                    "module",
+                    "macro_module",
+                    "map"
+                  ]
+                },
+                "version": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "offset": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "source": {
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "sha256": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    }
+                  },
+                  "required": [
+                    "path",
+                    "sha256"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "id",
+                "content_id",
+                "layer",
+                "version",
+                "offset"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 0
+          },
+          "ports": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "direction": {
+                  "enum": [
+                    "entry",
+                    "exit",
+                    "both"
+                  ]
+                },
+                "position": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "velocity_x": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "velocity_y": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "states": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "minItems": 1
+                },
+                "resources": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    },
+                    "minItems": 2,
+                    "maxItems": 2
+                  }
+                },
+                "capabilities": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "minItems": 0
+                },
+                "phase": {
+                  "type": "string"
+                },
+                "coordinate_frame": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "id",
+                "direction",
+                "position",
+                "velocity_x",
+                "velocity_y",
+                "states",
+                "resources",
+                "capabilities",
+                "phase",
+                "coordinate_frame"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 0
+          },
+          "requirements": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "enum": [
+                  "unspecified",
+                  "partial",
+                  "defined"
+                ]
+              },
+              "all_of": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "any_of_groups": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "minItems": 1
+                },
+                "minItems": 0
+              },
+              "resources": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2,
+                  "maxItems": 2
+                }
+              },
+              "note": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "status",
+              "all_of",
+              "any_of_groups",
+              "resources",
+              "note"
+            ],
+            "additionalProperties": false
+          },
+          "design": {
+            "type": "object",
+            "properties": {
+              "goals": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "actions": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "verb": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "target": {
+                      "type": "string"
+                    },
+                    "depends_on": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "minItems": 0
+                    },
+                    "decision": {
+                      "type": "string"
+                    },
+                    "success": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "failure": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "verb",
+                    "target",
+                    "depends_on",
+                    "decision",
+                    "success",
+                    "failure"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0
+              },
+              "interactions": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "from": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "to": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "relation": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "from",
+                    "to",
+                    "relation"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0
+              },
+              "difficulty": {
+                "type": "object",
+                "properties": {
+                  "scale": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "score": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ],
+                    "minimum": 1,
+                    "maximum": 10
+                  },
+                  "basis": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "scale",
+                  "score",
+                  "basis"
+                ],
+                "additionalProperties": false
+              },
+              "tolerance": {
+                "type": "string"
+              },
+              "rhythm": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "recovery": {
+                "type": "string"
+              },
+              "alternative_solutions": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              }
+            },
+            "required": [
+              "goals",
+              "actions",
+              "interactions",
+              "difficulty",
+              "tolerance",
+              "rhythm",
+              "recovery",
+              "alternative_solutions"
+            ],
+            "additionalProperties": false
+          },
+          "topology": {
+            "type": "object",
+            "properties": {
+              "nodes": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "edges": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "from": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "to": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "role": {
+                      "enum": [
+                        "main",
+                        "branch",
+                        "reward",
+                        "return",
+                        "loop"
+                      ]
+                    },
+                    "requirements": {
+                      "type": "object",
+                      "properties": {
+                        "status": {
+                          "enum": [
+                            "unspecified",
+                            "partial",
+                            "defined"
+                          ]
+                        },
+                        "all_of": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "minItems": 0
+                        },
+                        "any_of_groups": {
+                          "type": "array",
+                          "items": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "minLength": 1
+                            },
+                            "minItems": 1
+                          },
+                          "minItems": 0
+                        },
+                        "resources": {
+                          "type": "object",
+                          "additionalProperties": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            },
+                            "minItems": 2,
+                            "maxItems": 2
+                          }
+                        },
+                        "note": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "status",
+                        "all_of",
+                        "any_of_groups",
+                        "resources",
+                        "note"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "grants": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "minItems": 0
+                    },
+                    "risk_reward": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "from",
+                    "to",
+                    "role",
+                    "requirements",
+                    "grants",
+                    "risk_reward"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0
+              },
+              "entry": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "goals": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "return_policy": {
+                "type": "string"
+              },
+              "available_capabilities": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              }
+            },
+            "required": [
+              "nodes",
+              "edges",
+              "entry",
+              "goals",
+              "return_policy",
+              "available_capabilities"
+            ],
+            "additionalProperties": false
+          },
+          "provenance": {
+            "type": "object",
+            "properties": {
+              "repository": {
+                "type": "string",
+                "minLength": 1
+              },
+              "commit": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{40}$"
+              },
+              "artifacts": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "sha256": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    }
+                  },
+                  "required": [
+                    "path",
+                    "sha256"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 1
+              },
+              "license_note": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "repository",
+              "commit",
+              "artifacts",
+              "license_note"
+            ],
+            "additionalProperties": false
+          },
+          "runtime": {
+            "type": "object",
+            "properties": {
+              "consumer": {
+                "type": "string",
+                "minLength": 1
+              },
+              "format": {
+                "type": "string",
+                "minLength": 1
+              },
+              "binding": {
+                "type": "string",
+                "minLength": 1
+              },
+              "integration": {
+                "enum": [
+                  "formal_source",
+                  "development_source",
+                  "unverified"
+                ]
+              },
+              "note": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "consumer",
+              "format",
+              "binding",
+              "integration",
+              "note"
+            ],
+            "additionalProperties": false
+          },
+          "evidence": {
+            "type": "object",
+            "properties": {
+              "technical": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "unverified",
+                      "passed",
+                      "failed"
+                    ]
+                  },
+                  "method": {
+                    "enum": [
+                      "unverified",
+                      "structural",
+                      "real_motor"
+                    ]
+                  },
+                  "scope": {
+                    "type": "string"
+                  },
+                  "artifacts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "path": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "sha256": {
+                          "type": "string",
+                          "pattern": "^[0-9a-f]{64}$"
+                        }
+                      },
+                      "required": [
+                        "path",
+                        "sha256"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "status",
+                  "method",
+                  "scope",
+                  "artifacts"
+                ],
+                "additionalProperties": false
+              },
+              "ai": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "unreviewed",
+                      "reviewed"
+                    ]
+                  },
+                  "reviewer": {
+                    "type": "string"
+                  },
+                  "findings": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "minItems": 0
+                  },
+                  "artifacts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "path": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "sha256": {
+                          "type": "string",
+                          "pattern": "^[0-9a-f]{64}$"
+                        }
+                      },
+                      "required": [
+                        "path",
+                        "sha256"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "status",
+                  "reviewer",
+                  "findings",
+                  "artifacts"
+                ],
+                "additionalProperties": false
+              },
+              "human": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "enum": [
+                      "unverified",
+                      "accepted",
+                      "rejected"
+                    ]
+                  },
+                  "scope": {
+                    "type": "string"
+                  },
+                  "artifacts": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "path": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "sha256": {
+                          "type": "string",
+                          "pattern": "^[0-9a-f]{64}$"
+                        }
+                      },
+                      "required": [
+                        "path",
+                        "sha256"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "minItems": 0
+                  }
+                },
+                "required": [
+                  "status",
+                  "scope",
+                  "artifacts"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "technical",
+              "ai",
+              "human"
+            ],
+            "additionalProperties": false
+          },
+          "quality": {
+            "type": "object",
+            "properties": {
+              "admission": {
+                "enum": [
+                  "candidate",
+                  "review",
+                  "rework",
+                  "discard"
+                ]
+              },
+              "reason": {
+                "type": "string",
+                "minLength": 1
+              },
+              "quality_record": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "path": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "sha256": {
+                        "type": "string",
+                        "pattern": "^[0-9a-f]{64}$"
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "sha256"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "admission",
+              "reason",
+              "quality_record"
+            ],
+            "additionalProperties": false
+          },
+          "lineage": {
+            "type": "object",
+            "properties": {
+              "parents": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "variant_family": {
+                "type": "string"
+              },
+              "changes": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "minItems": 0
+              },
+              "failure_refs": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "sha256": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{64}$"
+                    }
+                  },
+                  "required": [
+                    "path",
+                    "sha256"
+                  ],
+                  "additionalProperties": false
+                },
+                "minItems": 0
+              }
+            },
+            "required": [
+              "parents",
+              "variant_family",
+              "changes",
+              "failure_refs"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "layer",
+          "region",
+          "identity",
+          "parts",
+          "ports",
+          "requirements",
+          "design",
+          "topology",
+          "provenance",
+          "runtime",
+          "evidence",
+          "quality",
+          "lineage"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 1
+    },
+    "connections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "from": {
+            "type": "object",
+            "properties": {
+              "content": {
+                "type": "string",
+                "minLength": 1
+              },
+              "port": {
+                "type": "string",
+                "minLength": 1
+              },
+              "offset": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 2,
+                "maxItems": 2
+              }
+            },
+            "required": [
+              "content",
+              "port",
+              "offset"
+            ],
+            "additionalProperties": false
+          },
+          "to": {
+            "type": "object",
+            "properties": {
+              "content": {
+                "type": "string",
+                "minLength": 1
+              },
+              "port": {
+                "type": "string",
+                "minLength": 1
+              },
+              "offset": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 2,
+                "maxItems": 2
+              }
+            },
+            "required": [
+              "content",
+              "port",
+              "offset"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "from",
+          "to"
+        ],
+        "additionalProperties": false
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "schema_version",
+    "artifact_kind",
+    "capability_catalog",
+    "contents",
+    "connections"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,288 @@
+{
+  "schema_version": 1,
+  "task_id": "AI-LEVEL-DESIGN-01",
+  "reviewer": "/root/independent_review",
+  "independence": "New review agent; did not implement any reviewed code; read-only except these two review artifacts.",
+  "review_revision": 2,
+  "reviewed_at": "2026-10-23T11:21:49.996323+00:00",
+  "initial_verdict": "REJECT_TOOLING_PENDING_REWORK",
+  "current_verdict": "ACCEPT_LIMITED_TECHNICAL_METHOD_CONTENT_REVISE",
+  "scope": "Offline contracts/analysis/bounded native experiment, not formal runtime integration or player/visual/device acceptance.",
+  "source_hashes_at_initial_review": {
+    "tools/level_content.py": "615bb274593ee771d0ab4ea714db773b286ea0b3dd43da8cc1110b94f23906ad",
+    "tools/level_content_pilot.py": "9bb822e9f0434408d8e3e72cf23a06df1910efde955caa3d0740739ed279fd98",
+    "tools/level_content_search.py": "40885efac373a9469fde41e5871a235bd7542c3b1a0e4993cbf7e127cd5a4c5d",
+    "tools/level_content_contract.py": "e73963b954a0b4ead0e4fb51666de9d46281530c8b751070bec742b9f15cc7e6",
+    "tools/level_pilot_validate.gd": "5200de1f9f83c4f0660ce0e5e9ef5a4904093b8248e3cfc33ffc53dc48cb8d3d",
+    "tools/production_plan.py": "b72f88a2cee69c4c499d6950aeb9abd57f8504feda048192d4b5bcccf147d846",
+    "config/production_impact.json": "fca9e5183a8181b7c40cecf8aff58d5f53ec42ac7aa461d3177c8375c0fd5841",
+    "tools/harness/profiles.json": "9d3f445a37d0b057b443e01bdcbbe65c3da5f3531c46d99c9a9fb3d1f81423d9"
+  },
+  "findings": [
+    {
+      "id": "IR-01",
+      "severity": "high",
+      "status": "fixed_verified",
+      "owner": "root",
+      "location": "tools/level_content.py:archive",
+      "observation": "A nonempty fabricated frames list with ok=true enters positive archive.cells and technical_ok=true without bound native receipt/log/source verification.",
+      "expected": "Unbound telemetry can be described only as unverified; positive technical archive cells need exact native evidence.",
+      "reproduction": "archive({results:[{id:fake,ok:true,frames:[{position:[0,0]}]}]})",
+      "observed": true,
+      "initial_status": "rejected",
+      "resolution": "Nonempty fabricated telemetry cannot enter positive cells; actual current main/latest positives accepted; complete runtime inventory omissions plus wrapper fingerprint refresh are rejected."
+    },
+    {
+      "id": "IR-02",
+      "severity": "medium",
+      "status": "fixed_verified",
+      "owner": "root",
+      "location": "tools/level_content_pilot.py:snapshot/cached_valid",
+      "observation": "Standalone native-cache key does not bind strict runner tools/run_tests.py, tools/godot.sh or actual engine identity. Harness outer cache is stronger, but standalone --reuse may retain old proof after runner/toolchain changes.",
+      "expected": "Cache binds strict producer/runner source and actual engine binary/version.",
+      "observed": true,
+      "initial_status": "rejected",
+      "resolution": "Actual official Godot version and binary SHA, strict run_tests.py/godot.sh, full current source snapshot and custom catalogue are bound. Forty pure counterexamples and new native receipts checked."
+    },
+    {
+      "id": "IR-03",
+      "severity": "medium",
+      "status": "fixed_verified",
+      "owner": "root",
+      "location": "tools/level_content.py:features",
+      "observation": "Actual bell_ferry_control geometry signature changes when only object IDs and trackId/targetId references are consistently renamed, or when editorTranslation and track points are consistently translated.",
+      "expected": "Shape normalization ignores identity references and recursively normalizes actual point coordinates; interaction identity is recorded separately.",
+      "observed": true,
+      "initial_status": "rejected",
+      "resolution": "Real bell_ferry consistent ID renaming and full editor translation preserve geometry and intent; changing actual bell target changes intent but keeps geometry."
+    },
+    {
+      "id": "IR-04",
+      "severity": "high",
+      "status": "fixed_verified",
+      "owner": "root",
+      "location": "tools/level_content_contract.py:validate_bundle technical passed",
+      "observation": "Standalone sidecar accepts current technical passed with only native-format evidence; a real r6 native PASS remains accepted in an isolated root whose PlayerController is deliberately replaced and whose complete original runtime inventory is absent.",
+      "expected": "Current technical passed requires corresponding outer native ledger with exact current source closure and toolchain; raw format checks alone can only express historical observations.",
+      "reproduction": "Copy actual r6 raw + producer/catalog/tuning to temporary root, replace PlayerController bytes; validate_bundle on same-candidate content with technical raw artifact returns errors=[].",
+      "observed": true,
+      "initial_status": "rejected",
+      "resolution": "Standalone current technical passed now requires matching outer receipt in artifacts and exact complete runtime source closure. True raw+ledger positive passes; raw-only positive is rejected."
+    }
+  ],
+  "checks": [
+    {
+      "command": "python3 tools/run_level_content_tests.py",
+      "exit_code": 0,
+      "tests": 32,
+      "scope": "reader/contract tests, not new physics"
+    },
+    {
+      "command": "python3 tests/test_production_plan.py",
+      "exit_code": 0,
+      "tests": 22,
+      "scope": "planner, no engine"
+    },
+    {
+      "command": "verify_pilot_summary(main-final exact selected 9)",
+      "exit_code": 0,
+      "conditions": 9,
+      "scope": "actual raw/log/source read, not rerun"
+    },
+    {
+      "command": "python3 tools/run_level_content_tests.py",
+      "exit_code": 0,
+      "tests": 40,
+      "scope": "Final reader/contract counterexamples independently run, no physics engine."
+    },
+    {
+      "command": "python3 tests/test_production_plan.py",
+      "exit_code": 0,
+      "tests": 22,
+      "scope": "Final planner independently run."
+    },
+    {
+      "command": "verify_pilot_summary(main-final7 selected 9)",
+      "exit_code": 0,
+      "conditions": 9,
+      "scope": "Final actual source/raw/log/ledger independently read; no engine rerun."
+    },
+    {
+      "command": "verify_pilot_summary(latest-final7 selected 9)",
+      "exit_code": 0,
+      "conditions": 9,
+      "scope": "Final actual source/raw/log/ledger independently read; no engine rerun."
+    },
+    {
+      "command": "verified_result(search-final7 each actual result)",
+      "exit_code": 0,
+      "conditions": 12,
+      "scope": "Complete custom-catalog source, native, log and ledger read."
+    },
+    {
+      "command": "validate_bundle(model-final7/bundle.json, repository root)",
+      "exit_code": 0,
+      "records": 201,
+      "scope": "Bound sidecar declaration only."
+    },
+    {
+      "command": "compare actual main-r6 versus main-final7 raw frames/events",
+      "exit_code": 0,
+      "conditions": 27,
+      "exact_matches": 27,
+      "scope": "Repeated policy execution with identical physical inputs; not a recorded-input replay consumer."
+    },
+    {
+      "command": "python3 tools/run_level_content_tests.py (final export guard)",
+      "exit_code": 0,
+      "tests": 41,
+      "scope": "Independently executed final pure suite; includes each-positive proof and missing/fake counterpart rejection. No engine run."
+    },
+    {
+      "command": "capture.json six native SHA / frames / events versus latest-final7 and search-final7",
+      "exit_code": 0,
+      "clips": 6,
+      "exact_matches": 6,
+      "scope": "Independent raw-data equality and media-container metadata inspection only; not full visual/audio playback."
+    }
+  ],
+  "runtime_evidence": {
+    "main_base": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+    "latest_base": "a074a709ffa64c1382d73d2dab6dcff673222728",
+    "conditions_each": 27,
+    "actual_resource_counterexample": {
+      "candidate": "plains_overlook_choice",
+      "strategy": "direct",
+      "frame": 25,
+      "main": {
+        "shots_before": 2,
+        "shots_after": 1,
+        "stamina_before": 100,
+        "stamina_after": 80
+      },
+      "latest": {
+        "shots_before": 1,
+        "shots_after": 0,
+        "stamina_before": 100,
+        "stamina_after": 100
+      }
+    },
+    "final_physical_passes_each": 13,
+    "retained_failures_each": 14,
+    "rough_measured_families_each": 7,
+    "families_are_not_novelty_count": true
+  },
+  "design_judgments": [
+    {
+      "candidate": "plains_overlook_choice",
+      "decision": "rethink_reward_choreography",
+      "reason": "Near-prize legal approach reaches reward in167 ticks with one actual jump; authored reward route takes270 ticks and three jumps. Keep a familiar fork prototype, reject a claim that its staged climb is necessary or proven high-value."
+    },
+    {
+      "candidate": "forest_crown_root_choice",
+      "decision": "same_family_rework",
+      "reason": "Near-prize approach170 ticks and one jump versus authored reward257 ticks and three jumps; ordinary fork with real alternatives, no demonstrated new mechanic."
+    },
+    {
+      "candidate": "forest_basin_homecoming",
+      "decision": "rework_or_remove_cycle_after_comparison",
+      "reason": "Default reward route455 ticks and six actual jumps; same-geometry shortcut still visits reward/return marker in319 ticks with three jumps. Added homecoming lacks demonstrated state/information/payoff consequence."
+    },
+    {
+      "candidate": "plains_backlook_cache",
+      "decision": "stop_and_reconstruct",
+      "reason": "Main and reward remain failed at real first support after bounded repairs; failure is policy evidence, not proof geometry is impossible."
+    },
+    {
+      "candidate": "plains_low_arch",
+      "decision": "do_not_claim_jump_required",
+      "reason": "Actual no_jump reaches same terminal in 154 ticks with no jump_executed; intended short-jump main is a strategy, not necessary ability."
+    },
+    {
+      "candidate": "plains_long_meadow",
+      "decision": "retain_as_rest_role",
+      "reason": "No-action passage is appropriate for a rest Cell/connector; without map rhythm it cannot be called good or bad by density."
+    }
+  ],
+  "limitations": [
+    "This reviewer did not launch a new physics-engine run; native observations were independently read and checked.",
+    "Final video metadata and six corresponding native clips were independently checked; full visual/audio playback, ZIP and hosting delivery were not reviewed; no visual acceptance.",
+    "Formal Map/adjacency/reward transaction/dynamic phase/device/player enjoyment remain unverified.",
+    "Search is a finite factory/control experiment, not a general runtime novelty algorithm.",
+    "Early v1/v2 producer source bytes were not preserved; they remain diagnostic artifacts rather than fully reproducible historical source snapshots."
+  ],
+  "human_acceptance": "unverified",
+  "device": "unverified",
+  "formal_admission": "unverified",
+  "final_reviewed_at": "2026-10-23T11:50:30.468605+00:00",
+  "technical_verdict": "ACCEPT",
+  "content_verdict": "REVISE",
+  "review_history": [
+    {
+      "revision": 1,
+      "verdict": "REJECT_TOOLING_PENDING_REWORK",
+      "finding_ids": [
+        "IR-01",
+        "IR-02",
+        "IR-03",
+        "IR-04"
+      ],
+      "retained": true
+    },
+    {
+      "revision": 2,
+      "verdict": "ACCEPT_LIMITED_TECHNICAL_METHOD_CONTENT_REVISE",
+      "notes": "Technical acceptance only for bounded evidence-driven offline method. No formal gameplay, quality-of-fun, device or art completion."
+    }
+  ],
+  "source_hashes_at_final_review": {
+    "tools/level_content.py": "748a4f8b7ff9ad1df6d3ea406877e5db7550ce24e3d217989ddd5022459d05cd",
+    "tools/level_content_pilot.py": "aef196f17114a652bd1a1431b614e5b2f7f93d42c6070eec1bbccbc50215d407",
+    "tools/level_content_search.py": "40885efac373a9469fde41e5871a235bd7542c3b1a0e4993cbf7e127cd5a4c5d",
+    "tools/level_content_contract.py": "04fc661e609279a12e0d44add73060a68afc3ad3c1d3296e895b2d726e4cf882",
+    "tools/level_content_export.py": "3424fc7361bab2a9773496ad7120d2fc7920164d1f81f9278d1adc0a7a6af249",
+    "tools/level_content_report.py": "2354f1992f6f987b937ab9793127811d985c9554135feb4bc9dd5c2d22c887dc",
+    "tools/level_pilot_validate.gd": "f3a4de289eb1f0f16ecff424bda0f56bea32d2ac379c4c21752f6c747f210c18",
+    "tools/level_pilot_movie.gd": "c1aeac2e4274f7e4f75f23dcd0040538669c6eb9c8229ccfa2313ff9bf0c4dc5",
+    "tools/run_level_content_tests.py": "b8bc330ec971b66508fc0e02954b2d9d1c38ff34f114647c6895b5dcf4e21171",
+    "tests/test_level_content_contract.py": "9320e8403723951386348b31ad0d63c97e6388630397daba93225f7049ca25f2",
+    "tests/test_level_content_pipeline.py": "4aa17b0585cf04085fc31a6ef65d6def5720375a11e0aa4c3cb504a12f000022",
+    "tools/production_plan.py": "b72f88a2cee69c4c499d6950aeb9abd57f8504feda048192d4b5bcccf147d846",
+    "tests/test_production_plan.py": "ceb86617dddb7bf5fdfb2132963a00d93c903f67c34bbde19c731f08290dc465",
+    "config/production_impact.json": "06c0c4202ad178b1180784d82f9da5803640ba00ded9f0d0b9a9c77656240471",
+    "config/level_pilot_candidates.json": "59afa7db619e271e84b531ccd916cb2d1eb3057e975a5e937ceaa6161264e3cb",
+    "tools/harness/profiles.json": "be194f973a0f018b310c7193e542c9abadab8b3ff82ed8fea5278050f0560122"
+  },
+  "final_native_paths": {
+    "main": "build/ai_level_design_v1/pilot-main-final7/experiment.json",
+    "latest": "/workspace/gunman-rush-latest/build/ai_level_design_v1/pilot-latest-final7/experiment.json",
+    "search": "/workspace/gunman-rush-latest/build/ai_level_design_v1/search-final7/physics/experiment.json"
+  },
+  "search_evidence": {
+    "conditions": 12,
+    "verified_native_passes": 12,
+    "same_geometry_relation_change": "basin reward then progress consumes route_order; actual319 ticks/3 jumps versus455 ticks/6 jumps.",
+    "geometry_controls": "8wu variants preserve measured family per strategy; not counted as new mechanic.",
+    "history_control": "Same seed and eligible parent set: no feedback yields4 parents; real failed-main/reward history yields3, excludes backlook. Expected no_jump refusals do not eliminate healthy parents."
+  },
+  "source_preservation": {
+    "early_v1_v2": "source_bytes_unavailable; raw/hash/diagnostic explanations only, not claimed fully reproducible.",
+    "final": "Final source/inputs/ledgers locally available and bound; final ZIP/hosting delivery must be checked by root separately."
+  },
+  "delivery_review": "Observed MP4 metadata: H264 1280x720, 1656 video frames, AAC audio, 27.6 seconds, 1605174 bytes. All six capture native hashes and frames/events match final latest/search references. No full video/audio viewing, ZIP or hosting acceptance.",
+  "initial_limitations": [
+    "No new engine run by this reviewer.",
+    "No full movie/audio/visual acceptance observed yet.",
+    "No formal map, adjacency, reward transaction, dynamic phase, physical device or human enjoyment acceptance.",
+    "Search is a finite factory/control experiment, not a general runtime novelty algorithm.",
+    "Hard-coded eligible parents already exclude backlook, so this actual run does not prove historical feedback caused that exclusion."
+  ],
+  "outer_harness_status_at_review_freeze": {
+    "source": "author report; outer rejection not independently reread",
+    "ai_level_content": "fresh pass reported",
+    "ai_level_pilot": "inner nine conditions passed; outer source_changed rejection reported while evidence/quality docs were updated; retained failure, not accepted",
+    "final_retry": "pending root after documentation freeze; root must attach final outer receipt separately",
+    "technical_acceptance_basis": "independently verified native/direct CLI proofs and pure tests only; no retrospective outer Harness pass"
+  },
+  "export_guard_review": "Final exporter independently reviewed: every claimed successful sample invokes verified_result; complete requires both main and reward in verified strategies; 41-test suite and regenerated 201-record bundle pass."
+}

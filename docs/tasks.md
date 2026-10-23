@@ -37,6 +37,8 @@ FOREST-PLAYABLE-01：review／发布blocked。两图和能力／地区／调试�
 
 | ID | 阶段 | 依赖 | 状态 | 交付与验收 |
 | --- | --- | --- | --- | --- |
+| AI-LEVEL-DESIGN-01 | 四层契约、来源审计、离线AI评价与有界生成验证闭环 | CLOUD-EFFICIENCY-01 | review | [设计体系v1](ai_level_design_v1/README.md)；Macro可选，复用原Godot/Harness，技术证据与真人认可分轨 |
+| AI-LEVEL-PILOT-01 | 平原/森林小样、强替代、几何对照及失败回流 | AI-LEVEL-DESIGN-01 | review | [小样与失败](ai_level_design_v1/pilot_design.md)；无正式准入，高路编舞被直取奖励反证，真人/设备未验 |
 | CLOUD-EFFICIENCY-01 | 稀疏Harness隔离、必需输入物化与Skills提效 | — | review | 修复并验证后随PR103合main，不删除历史证据或降低守门 |
 | PLAYER-PRESENTATION-01 | 主角连续动作代表样板 | CLOUD-EFFICIENCY-01 | planned | [本批Prompt与写集](demo_wave_01.md)；main合入后独立分支启动 |
 | ENEMY-FEEDBACK-01 | 两类普通怪物共享受击／死亡样板 | CLOUD-EFFICIENCY-01 | planned | [本批Prompt与写集](demo_wave_01.md)；保留不同生命感与正式伤害链 |

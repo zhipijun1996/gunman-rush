@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "task_id": "AI-LEVEL-PILOT-01",
+  "task_type": "level_module",
+  "workflow": "review",
+  "baseline_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+  "reviewed_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+  "content_version": "ai-level-v1",
+  "owner": "/root",
+  "purpose": "Four isolated composition candidates with strong alternatives and retained failures",
+  "player_experience": "Explain decisions and expose degenerate solutions before scaling; human enjoyment remains unverified",
+  "constraints": [
+    "No formal entry, old content pool, Motor, weapon, save or RNG change",
+    "Macro optional; no runtime consumer duplication",
+    "Technical, AI and human evidence separate",
+    "No formal reward-claim, dynamic mechanism or human fun certification"
+  ],
+  "affected_paths": [
+    "config/production_impact.json",
+    "config/level_pilot_candidates.json",
+    "tools/level_pilot_validate.gd",
+    "tools/level_pilot_validate.gd.uid",
+    "tools/level_pilot_movie.gd"
+  ],
+  "deliverables": [
+    "docs/ai_level_design_v1/README.md",
+    "docs/evidence/ai_level_design_v1/index.html"
+  ],
+  "creative_decisions": [],
+  "formal_impact": false,
+  "gates": {
+    "G0": {
+      "status": "failed",
+      "reason": "Intended multi-jump value refuted by strong legal near-reward strategies; candidate designs need rethink",
+      "evidence": [
+        "spec"
+      ]
+    },
+    "G1": {
+      "status": "unverified",
+      "reason": "Not accepted for this limited technical experiment; full integration, visuals, human and devices remain unverified",
+      "evidence": []
+    },
+    "G2": {
+      "status": "unverified",
+      "reason": "Not accepted for this limited technical experiment; full integration, visuals, human and devices remain unverified",
+      "evidence": []
+    },
+    "G3": {
+      "status": "unverified",
+      "reason": "Not accepted for this limited technical experiment; full integration, visuals, human and devices remain unverified",
+      "evidence": []
+    },
+    "G4": {
+      "status": "unverified",
+      "reason": "Not accepted for this limited technical experiment; full integration, visuals, human and devices remain unverified",
+      "evidence": []
+    },
+    "G5": {
+      "status": "unverified",
+      "reason": "Not accepted for this limited technical experiment; full integration, visuals, human and devices remain unverified",
+      "evidence": []
+    }
+  },
+  "dimensions": {
+    "design": {
+      "status": "failed",
+      "reason": "Strong near-reward alternatives defeat intended multi-jump necessity; basin cycle lacks demonstrated value; backlook stopped",
+      "evidence": [
+        "spec"
+      ]
+    },
+    "technical": {
+      "status": "passed",
+      "reason": "Limited contract/pipeline guard tests only; native subset and content failures are recorded separately",
+      "evidence": [
+        "tests"
+      ]
+    },
+    "formal_integration": {
+      "status": "unverified",
+      "reason": "Not accepted for this limited technical experiment; full integration, visuals, human and devices remain unverified",
+      "evidence": []
+    },
+    "visual": {
+      "status": "unverified",
+      "reason": "Not accepted for this limited technical experiment; full integration, visuals, human and devices remain unverified",
+      "evidence": []
+    },
+    "animation": {
+      "status": "unverified",
+      "reason": "Not accepted for this limited technical experiment; full integration, visuals, human and devices remain unverified",
+      "evidence": []
+    },
+    "audio_vfx": {
+      "status": "unverified",
+      "reason": "Not accepted for this limited technical experiment; full integration, visuals, human and devices remain unverified",
+      "evidence": []
+    },
+    "gameplay": {
+      "status": "unverified",
+      "reason": "Not accepted for this limited technical experiment; full integration, visuals, human and devices remain unverified",
+      "evidence": []
+    },
+    "performance": {
+      "status": "unverified",
+      "reason": "Not accepted for this limited technical experiment; full integration, visuals, human and devices remain unverified",
+      "evidence": []
+    },
+    "independent_review": {
+      "status": "unverified",
+      "reason": "Limited technical ACCEPT, content REVISE; no complete level-module acceptance",
+      "evidence": [
+        "independent"
+      ]
+    },
+    "device": {
+      "status": "unverified",
+      "reason": "Not accepted for this limited technical experiment; full integration, visuals, human and devices remain unverified",
+      "evidence": []
+    },
+    "player_acceptance": {
+      "status": "unverified",
+      "reason": "Not accepted for this limited technical experiment; full integration, visuals, human and devices remain unverified",
+      "evidence": []
+    }
+  },
+  "criteria": [
+    {
+      "id": "explicit-boundary",
+      "gate": "G0",
+      "dimension": "design",
+      "scenario": "Cell/Module/optional Macro/Map map to existing consumers",
+      "method": "Versioned schema and representative source review",
+      "expected": "No invented runtime admission or fake physics/human status",
+      "failure": "Unsupported consumer, missing source or mixed evidence",
+      "status": "passed",
+      "reason": "Scope stated and negative cases executed",
+      "evidence": [
+        "spec"
+      ]
+    },
+    {
+      "id": "evidence-guards",
+      "gate": "G4",
+      "dimension": "technical",
+      "scenario": "Fake green, truncated source, stale input, renamed tracks and engine changes",
+      "method": "Run original CLI tests including counterexamples",
+      "expected": "Reject fake or stale evidence and retain independent evidence tracks",
+      "failure": "A label or incomplete inventory grants technical/human pass",
+      "status": "passed",
+      "reason": "41 actual pure tests passed; full Release remains pending",
+      "evidence": [
+        "tests"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "spec",
+      "path": "docs/ai_level_design_v1/contract.md",
+      "sha256": "60ebf2e192971ea3a3a3237080f493fd47769fb8d1fef43642c5dadc136ecd26",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+      "content_version": "ai-level-v1",
+      "method": "Actual local commands and pinned base plus byte-bound runtime overlays",
+      "observed": "Versioned sidecar, optional Macro, original Godot consumers and original quality gates"
+    },
+    {
+      "id": "tests",
+      "path": "docs/evidence/ai_level_design_v1/content-tests.log",
+      "sha256": "fd6ae92ac84eaea4d6287353cc76aacb4a41345d847f7b6c211e579b3842081d",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+      "content_version": "ai-level-v1",
+      "method": "Actual local commands and pinned base plus byte-bound runtime overlays",
+      "observed": "41 contract/pipeline positive and negative controls; not human acceptance",
+      "command": "python3 tools/run_level_content_tests.py",
+      "exit_code": 0,
+      "environment": "Linux Python3.12; native Godot evidence recorded separately"
+    },
+    {
+      "id": "independent",
+      "path": "docs/ai_level_design_v1/independent_review.md",
+      "sha256": "4f8a23882978a9118fd6050b4fba1a9cb5c0fc210a37426b49f8f398f3c7ffc1",
+      "kind": "review",
+      "producer": "/root/independent_review",
+      "source_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
+      "content_version": "ai-level-v1",
+      "method": "Independent read-only source, original native/ledger/media comparison and CLI counterexamples",
+      "observed": "Limited technical ACCEPT; candidate content REVISE; human, whole-map and full release unverified",
+      "reviewer": "/root/independent_review",
+      "implementers": [
+        "/root",
+        "/root/contract",
+        "/root/runtime_audit",
+        "/root/pilot_design",
+        "/root/content_export",
+        "/root/reference_audit"
+      ],
+      "independent": true,
+      "independence_basis": "New review-only agent did not implement reviewed production files",
+      "verdict": "UNVERIFIED"
+    }
+  ],
+  "consumer_coverage": null,
+  "unverified_items": [
+    "Full historical docs/quality checks blocked by sparse missing evidence; original guards retained",
+    "Content remains review/rework; no formal pool promotion",
+    "Human fun/readability/fairness and physical devices unverified",
+    "Whole-map adjacency, dynamic phase and real reward transactions not covered",
+    "Early v1/v2 full producer bytes unavailable; final source/inputs restored separately"
+  ]
+}

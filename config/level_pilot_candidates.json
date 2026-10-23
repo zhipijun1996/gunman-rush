@@ -1,0 +1,174 @@
+{
+  "schema_version": 1,
+  "scope": "isolated_design_hypotheses_not_formal_admission",
+  "factory": "tools/level_pilot_validate.gd",
+  "capability_source": "config/player_tuning.json",
+  "candidates": [
+    {
+      "id": "plains_overlook_choice",
+      "region": "windchime_plains",
+      "parent": "plains_split_terrace",
+      "gene": {
+        "decision": "choose_low_safe_progress_or_two_height_changes_to_optional_overlook",
+        "relations": [
+          "upper_reward_over_lower_bypass",
+          "drop_rejoins_onward_bank"
+        ],
+        "new_primitives": [],
+        "route_order": "reward_then_progress"
+      },
+      "claim": "New explicit choice/rejoin composition; familiar authored primitives. Reward-location reachability only.",
+      "strategies": [
+        "main",
+        "reward",
+        "direct",
+        "no_jump",
+        "near_reward"
+      ],
+      "blueprint": "plains_overlook_choice"
+    },
+    {
+      "id": "plains_backlook_cache",
+      "region": "windchime_plains",
+      "parent": "plains_fork_paths",
+      "gene": {
+        "decision": "progress_right_then_reverse_from_a_high_perch_for_rear_cache",
+        "relations": [
+          "onward_receiver_enables_backlook",
+          "reward_return_rejoins_previous_root"
+        ],
+        "new_primitives": [],
+        "route_order": "reward_then_progress"
+      },
+      "claim": "Backlook changes movement purpose and route direction; not a new movement ability.",
+      "strategies": [
+        "main",
+        "reward",
+        "direct",
+        "no_jump"
+      ],
+      "blueprint": "plains_backlook_cache"
+    },
+    {
+      "id": "forest_crown_root_choice",
+      "region": "thorn_forest",
+      "parent": "forest_exploration_modules__mushroom_fork",
+      "gene": {
+        "decision": "choose_high_crown_hops_or_descend_to_broad_root",
+        "relations": [
+          "two_heights_share_exit",
+          "upper_reward_skipped_by_lower_progress"
+        ],
+        "new_primitives": [],
+        "route_order": "reward_then_progress"
+      },
+      "claim": "New coarse fork/rejoin geometry with existing solid/one-way Cell primitives; no new H mechanism and no forest art acceptance.",
+      "strategies": [
+        "main",
+        "reward",
+        "direct",
+        "no_jump",
+        "near_reward"
+      ],
+      "blueprint": "forest_crown_root_choice"
+    },
+    {
+      "id": "forest_basin_homecoming",
+      "region": "thorn_forest",
+      "parent": "forest_exploration_modules__root_basin_return",
+      "gene": {
+        "decision": "descend_to_basin_then_return_to_known_departure_before_onward_ascent",
+        "relations": [
+          "basin_to_home_cycle",
+          "return_and_onward_share_observation_root"
+        ],
+        "new_primitives": [],
+        "route_order": "reward_then_return_then_progress"
+      },
+      "claim": "Return cycle is a route relation, not a renamed linear height variant. Reward location is a reachability marker, not a reward transaction.",
+      "strategies": [
+        "main",
+        "reward",
+        "direct",
+        "no_jump"
+      ],
+      "blueprint": "forest_basin_homecoming"
+    },
+    {
+      "id": "plains_low_arch",
+      "blueprint": "plains_low_arch",
+      "region": "windchime_plains",
+      "parent": "plains_low_arch",
+      "gene": {
+        "route_order": "existing_main",
+        "relations": [
+          "existing_content_baseline"
+        ],
+        "new_primitives": []
+      },
+      "claim": "AI hypothesis: variable jump timing teaches a decision; verify actual short release and contrast full-held direct strategy.",
+      "strategies": [
+        "main",
+        "direct",
+        "no_jump"
+      ],
+      "kind": "existing_representative"
+    },
+    {
+      "id": "plains_long_meadow",
+      "blueprint": "plains_long_meadow",
+      "region": "windchime_plains",
+      "parent": "plains_long_meadow",
+      "gene": {
+        "route_order": "existing_main",
+        "relations": [
+          "existing_content_baseline"
+        ],
+        "new_primitives": []
+      },
+      "claim": "AI hypothesis: useful rest cell but weak standalone action challenge. Do not punish safe pacing because actions are absent.",
+      "strategies": [
+        "main",
+        "direct",
+        "no_jump"
+      ],
+      "kind": "existing_representative"
+    },
+    {
+      "id": "forest_root_meadow",
+      "blueprint": "forest_root_meadow",
+      "region": "thorn_forest",
+      "parent": "forest_exploration_modules__root_meadow",
+      "gene": {
+        "route_order": "existing_main",
+        "relations": [
+          "existing_content_baseline"
+        ],
+        "new_primitives": []
+      },
+      "claim": "AI hypothesis: ordinary gentle crossing. Generic grapple declaration is not evidence of minimum ability.",
+      "strategies": [
+        "main",
+        "direct",
+        "no_jump"
+      ],
+      "kind": "existing_representative"
+    }
+  ],
+  "experiment": {
+    "seed_prefix": "level-pilot-v1/",
+    "physics_hz": 60,
+    "initial_spawn_fixture": true,
+    "midroute_injection": false,
+    "resource_override": false,
+    "formal_pool": false,
+    "limits": [
+      "No dynamic hazard or H mechanism claim",
+      "No formal reward entity or claim transaction",
+      "No player enjoyment or hardware acceptance",
+      "Direct recoil is a bounded strong sample, not exhaustive minimum-capability proof"
+    ]
+  },
+  "pilot_revision": 3,
+  "revision_reason": "r2 retained: full-held generic driver selected upper alternatives instead of intended low route; v3 uses legal short-release and walk-off policies. Basin return mushroom now y236 height8 with standing centre y218, leaving complete-body clearance both below the y176 departure and above the y288 basin. No guard or physics rule changes."
+}
