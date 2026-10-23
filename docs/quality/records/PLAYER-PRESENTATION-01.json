@@ -4,11 +4,11 @@
   "task_type": "player",
   "workflow": "in_progress",
   "baseline_commit": "e9ab0e0743466b8983e34cc7de17bab1abf9d53a",
-  "reviewed_commit": "3254984dcc4f0fc2c3c69b463fe5515f81d69010",
-  "content_version": "weapon-feel-v2",
+  "reviewed_commit": "4e5102af9abd16d322656375e94886a95deae38a",
+  "content_version": "mine-beep-v3",
   "owner": "/root",
-  "purpose": "继续正式主角隔离候选，落实用户七项武器反馈：实际开源游戏PCM、成功敌伤叠层、回旋可见飞回、爆炸/离子/黑洞分家；唯一玩法变更为明确授权磁雷6秒时限",
-  "player_experience": "实际Home/Plains可切15装备、独立开关；枪声与真实命中分层，磁雷滴声加速，真实阶段驱动loop及局部VFX。旧run/握持/完整动作M1仍待返工",
+  "purpose": "保留七项武器V2候选，本轮仅按用户质疑把磁雷电台提示替换为网上CC0电子定时器短滴声；不改调度、6秒上限或其他武器",
+  "player_experience": "同一85ms电子滴声按原真实age/fuse从慢到快；可直接听原素材及真实Godot旧/新13.5秒对照。全动作M1/旧握持run/正式采用不因此完成",
   "constraints": [
     "表现只消费accepted事件，不改Motor/input/physics/damage/resources/grants/save；本次用户明确例外：磁雷Definition6秒引信及实体到期沿原explode自爆",
     "共享UnderworldPlayer及三件body变化先交总控独审及显式版本重绑，不自刷旧SHA",
@@ -201,6 +201,16 @@
     "docs/evidence/PLAYER-PRESENTATION-01/feel-v1/runtime-review.json",
     "docs/evidence/PLAYER-PRESENTATION-01/feel-v1/validation-summary.json",
     "docs/evidence/PLAYER-PRESENTATION-01/mine-beep-v3/",
+    "docs/evidence/PLAYER-PRESENTATION-01/mine-beep-v3/Freedoom-CREDITS.txt",
+    "docs/evidence/PLAYER-PRESENTATION-01/mine-beep-v3/Freedoom-LICENSE.txt",
+    "docs/evidence/PLAYER-PRESENTATION-01/mine-beep-v3/TIMER-ATTRIBUTION.txt",
+    "docs/evidence/PLAYER-PRESENTATION-01/mine-beep-v3/clip-receipt.json",
+    "docs/evidence/PLAYER-PRESENTATION-01/mine-beep-v3/consumer-inventory.json",
+    "docs/evidence/PLAYER-PRESENTATION-01/mine-beep-v3/engineering-review.json",
+    "docs/evidence/PLAYER-PRESENTATION-01/mine-beep-v3/evidence-index.json",
+    "docs/evidence/PLAYER-PRESENTATION-01/mine-beep-v3/mine-beep-v3-evidence.zip",
+    "docs/evidence/PLAYER-PRESENTATION-01/mine-beep-v3/timer-comparison.mp4",
+    "docs/evidence/PLAYER-PRESENTATION-01/mine-beep-v3/timer-countdown.mp4",
     "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/README.md",
     "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/body-candidate-v1.mp4",
     "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/consumer-inventory-v2.json",
@@ -471,7 +481,8 @@
     "motion-candidate-v1:实际正式平原视觉子类，六帧idle/fall循环、旧run位移相位、accepted跳落地尘效和可配置profile",
     "feel-candidate-v1:实际Home192wu露台路线，accepted分层音效9WAV、3px/0.14s屏幕震动、0.24s可立即跳跃取消的视觉后摇；真实带声对照和已验证本地Web包",
     "weapon-feel-v1:六声音家族×三变体18短WAV；九Mode真实连续电影；十五装备+六实际攒资源技能28字段零差异；可配置独立Web包b01，公网容量阻塞",
-    "weapon-feel-v2:Freedoom BSD14家族×3=42WAV，真实成功敌伤/墙/落空分离、phase循环，6秒磁雷；同源325 Native21.7秒/双片与15+6专项，Web6952实际ZIP及DOM通过，公开新Web容量阻塞"
+    "weapon-feel-v2:Freedoom BSD14家族×3=42WAV，真实成功敌伤/墙/落空分离、phase循环，6秒磁雷；同源325 Native21.7秒/双片与15+6专项，Web6952实际ZIP及DOM通过，公开新Web容量阻塞",
+    "mine-beep-v3:Freesound536420 CC0公共HQMP3首声85ms；同音高/同音色三槽，真实11声逐步加快；实际旧325vs新4e28字段/events相同；真实游戏音画旧/新对照13.5秒"
   ],
   "creative_decisions": [
     {
@@ -557,7 +568,7 @@
     },
     "technical": {
       "status": "unverified",
-      "reason": "最终冻结325：native1294x2各3914检查，全15normal+6earned skills4781x2各14455检查，28字段/events相同；feedback868/bank458/mine123/legacy3175零错。原Harness2381/1224/7305/2450绑定fc55不能追标325。Foundry36短语/18itinerary实过后才更新开发池；docs历史缺件及完整Integration未签",
+      "reason": "本轮4e实际native1294x2各3914checks/28fields/events同等，旧325ON与新4eON跨源也同等；真实binding/lifecycle新postfreeze日志详证据包，前两次fixture错误保留。既往15+6与原Harness保持各自来源，完整Integration未签。",
       "evidence": [
         "motion-v2",
         "motion-vfx-video",
@@ -569,7 +580,10 @@
         "weapon-runtime",
         "weapon-v2-evidence",
         "weapon-v2-video",
-        "weapon-v2-runtime"
+        "weapon-v2-runtime",
+        "mine-v3-evidence",
+        "mine-v3-video",
+        "mine-v3-engineering"
       ]
     },
     "formal_integration": {
@@ -625,7 +639,7 @@
     },
     "audio_vfx": {
       "status": "unverified",
-      "reason": "实际Freedoom BSD42WAV、6个真实导入loop；成功敌伤叠层/墙/落空分离、owner限定hook和phase停声。原12voice最多8新声；最终native0drop0preempt，最终all0drop61preempt；旧压力4drop保留。32帧局部hand/core/flame事实独审，不签全速/听感/审美/实体设备",
+      "reason": "旧V2电台提示被用户质疑；本轮实际Freesound536420/CC0电子timer公共HQMP3首声85ms，原pitch且三槽同一个资源；不靠随机变调。实际11声间隔由.95逐渐至.167秒，新/旧玩法28fields/events一致；原12voice和暂停/退出保留。未听音/用户/真机，故不签听感符合。",
       "evidence": [
         "motion-v2",
         "motion-vfx-video",
@@ -637,7 +651,10 @@
         "weapon-runtime",
         "weapon-v2-evidence",
         "weapon-v2-video",
-        "weapon-v2-runtime"
+        "weapon-v2-runtime",
+        "mine-v3-evidence",
+        "mine-v3-video",
+        "mine-v3-engineering"
       ]
     },
     "gameplay": {
@@ -670,7 +687,7 @@
     },
     "independent_review": {
       "status": "unverified",
-      "reason": "独立工程限域ACCEPT；最终32原尺寸native与9Web截图/两对28字段events实审；runtime总体UNVERIFIED。未听音/全速/全部技能GPU/用户/真机/完整Integration",
+      "reason": "新增CC0来源/字节重建/livebinding及生命周期限域独审；没有听音或用户/实体设备认可，整体runtime仍UNVERIFIED。",
       "evidence": [
         "motion-v2",
         "motion-vfx-video",
@@ -683,7 +700,10 @@
         "weapon-ui",
         "weapon-v2-evidence",
         "weapon-v2-video",
-        "weapon-v2-runtime"
+        "weapon-v2-runtime",
+        "mine-v3-evidence",
+        "mine-v3-video",
+        "mine-v3-engineering"
       ]
     },
     "device": {
@@ -1174,6 +1194,57 @@
       "content_version": "weapon-feel-v2",
       "method": "Retained15 prior IDs plus actual V2 Home/Plains consumers;shared mine/interface impact explicitly listed",
       "observed": "17consumer IDs;task-only visuals,new6s shared contract needs coordinator fullIntegration"
+    },
+    {
+      "id": "mine-v3-evidence",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/mine-beep-v3/mine-beep-v3-evidence.zip",
+      "sha256": "c265d584d0c245b7da52e022d8423586bbd9e63b0e6f10bd69cb91f185ba6f06",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e5102af9abd16d322656375e94886a95deae38a",
+      "content_version": "mine-beep-v3",
+      "method": "Actual full nativeON/OFF raw captures and prior325/new4e cross-source parity;postfreeze livebinding/lifecycle test;CRC and everyZIPmemberSHA reread",
+      "observed": "Actual1audio/3feel consumers,new85ms nonloop/12voices/oldbank untouched;native1294x2/3914each28fields/events equal;old/new11beeps,cadence unchanged;initial fixture failures retained"
+    },
+    {
+      "id": "mine-v3-video",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/mine-beep-v3/timer-comparison.mp4",
+      "sha256": "0b81cb308c2ac40237efd32de5753077779ccf8118ccf843cfadbab214665ec4",
+      "kind": "video",
+      "producer": "/root",
+      "source_commit": "4e5102af9abd16d322656375e94886a95deae38a",
+      "content_version": "mine-beep-v3",
+      "method": "Continuous nativeGodot movie excerpts13.2-19.95s;old325 V2 ON then new4e V2 ON;original respective game audio,no substituted soundtrack",
+      "observed": "~13.5sec direct old/new mine countdown→explosion;new source1short4100Hz timer clip,11actual beeps;not listening/user/device acceptance"
+    },
+    {
+      "id": "mine-v3-engineering",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/mine-beep-v3/engineering-review.json",
+      "sha256": "fb7de23948325cf2b28bcb2c5275b2f929c06fd2e56ec3830cde5516e60c8e36",
+      "kind": "review",
+      "producer": "/root/audit_review",
+      "source_commit": "4e5102af9abd16d322656375e94886a95deae38a",
+      "content_version": "mine-beep-v3",
+      "method": "Independent source/license/readiness/actual binding and deterministic source-to-WAV rebuild plus runtime logs inspection",
+      "observed": "Scoped engineering/source provenanceACCEPT;hearing/fullspeed/user/device/fullformalIntegration unverified",
+      "reviewer": "/root/audit_review",
+      "implementers": [
+        "/root"
+      ],
+      "independent": true,
+      "independence_basis": "Separate read-only reviewer;independent source-byte/WAV rebuild;writes own review only;no implementation edits",
+      "verdict": "ACCEPT"
+    },
+    {
+      "id": "mine-v3-inventory",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/mine-beep-v3/consumer-inventory.json",
+      "sha256": "01d3b7d917b363c94032b854e1eaa7083f8c4e12889c61bbac62d4fccab95b1d",
+      "kind": "runtime_trace",
+      "producer": "/root",
+      "source_commit": "4e5102af9abd16d322656375e94886a95deae38a",
+      "content_version": "mine-beep-v3",
+      "method": "All17 prior IDs retained;actual Home/reentry/Plains audio consumers audited",
+      "observed": "Only new taskV2 beep binding;production/fullIntegration not adopted"
     }
   ],
   "unverified_items": [
@@ -1205,14 +1276,17 @@
     "本轮唯一玩法更改磁雷实际Definition6秒含飞行/附着，上限到期原explode；原4秒无声退役已改变，需总控受影响正式Integration",
     "Foundry首次continuous失败/相同条件仅隔离重试一次成功与旧池均保留，不能签根因已修/长期稳定/正式地区池",
     "媒体站合并并发发布后仅本轮未交付fc55中间版归档；CRC/成员SHA/原不可变下载地址保留；已交付旧入口和其他线不删",
-    "用户质疑旧V2磁雷电台提示不是清晰滴滴：新mine-beep-v3用Freesound536420实际电子timer CC0公共HQMP3首声85ms，原pitch/固定音色；初步接入，正在专项/采片，不重标旧325电影为新版。"
+    "用户质疑旧V2磁雷电台提示不是清晰滴滴：新mine-beep-v3用Freesound536420实际电子timer CC0公共HQMP3首声85ms，原pitch/固定音色；初步接入，正在专项/采片，不重标旧325电影为新版。",
+    "本轮mine-beep-v3响应用户对旧radio提示质疑；网上CC0 timer滴声实际接入开发分支，只有音色变更，未听音/用户/真机，不以来源标题/频谱签听感",
+    "旧public325电影及build6952试玩包仍旧radio滴声；新版4e真实电影和源码单独标识，本次没有重建/上线新Web，不冒充旧包已更新",
+    "新增binding反例first错误期望3个audio service、second延迟持有同tick替换叶产生freed错误均保留；third立即观察预赋audio服务纠正测试，未改生产生命周期逻辑"
   ],
   "checkpoint": {
     "status": "development_candidate_shared_adoption_pending",
-    "implementation_status": "task_candidate_weapon_v2_limited_verified",
+    "implementation_status": "mine_beep_v3_source_candidate_limited_verified",
     "runtime_files_changed": true,
     "central_index_owner": "coordinator;main task index is still planned and requires coordinated status reconciliation;this record truthfully reports implementation in progress",
-    "independent_scope": "Independent scoped engineeringACCEPT;final32 native+9Web facts and two28field/event pairs reviewed;runtime overallUNVERIFIED;no listening/fullspeed/user/device/fullIntegration",
+    "independent_scope": "Independent source/provenance/rebuild/livebinding/lifecycle limitedACCEPT;hearing/fullspeed/user/device/fullIntegrationUNVERIFIED",
     "skills": [
       "player-creator",
       "animation-vfx",
@@ -1222,15 +1296,19 @@
       "art-director",
       "weapon-creator"
     ],
-    "next_action": "Coordinator capacity/public playable Web and additive shared interfaces+6s mine contract adoption/full affected Integration;complete old run/grip/M1/all appearances/death;user hearing/feel and physicaldevice",
+    "next_action": "User listen to direct13.5sec real old/new movie;coordinator publicWeb capacity/shared adoption/fullIntegration;old grip/run/M1 remain",
     "published_branch": "feature/player-presentation-01-motion-candidate",
     "existing_workline_head": "b34511a7ee27f03b6d87d070ca20e9309e1e8a2e",
-    "handoff": "docs/worklines/PLAYER-PRESENTATION-01/weapon-handoff-07.md",
-    "runtime_source_commit": "3254984dcc4f0fc2c3c69b463fe5515f81d69010",
+    "handoff": "docs/worklines/PLAYER-PRESENTATION-01/mine-beep-handoff-08.md",
+    "runtime_source_commit": "4e5102af9abd16d322656375e94886a95deae38a",
     "web_build_id": "6952e7d0d356",
-    "public_movie_host_commit": "b543242d28bb9c10aa375b002b081970d3929210"
+    "public_movie_host_commit": "b543242d28bb9c10aa375b002b081970d3929210",
+    "previous_public_movie_host_commit": "b543242d28bb9c10aa375b002b081970d3929210",
+    "latest_media": "docs/evidence/PLAYER-PRESENTATION-01/mine-beep-v3/timer-comparison.mp4",
+    "web_source_commit": "3254984dcc4f0fc2c3c69b463fe5515f81d69010",
+    "web_delivery_status": "Previous6952 package contains old beep;not rebuilt/deployed for this narrow audio correction"
   },
-  "production_snapshot": "3254984dcc4f0fc2c3c69b463fe5515f81d69010",
+  "production_snapshot": "4e5102af9abd16d322656375e94886a95deae38a",
   "baseline_consumer_coverage": {
     "scope": "Unmodified-main baseline;runtime home/plains trace plus explicitly source-only remaining consumers;no implementation coverage claim",
     "inventory_evidence": "inventory",
@@ -1328,7 +1406,7 @@
   },
   "consumer_coverage": {
     "scope": "All prior consumer IDs retained plus2 actual V2 dev consumers;shared mine6s and additive interfaces require coordinator fullIntegration;not wholeworkline adoption",
-    "inventory_evidence": "weapon-v2-inventory",
+    "inventory_evidence": "mine-v3-inventory",
     "observations": [
       {
         "consumer": "formal_plains_pixel",
@@ -1462,7 +1540,9 @@
           "weapon-v2-evidence",
           "weapon-v2-video",
           "weapon-v2-runtime",
-          "weapon-v2-package"
+          "weapon-v2-package",
+          "mine-v3-evidence",
+          "mine-v3-video"
         ]
       },
       {
@@ -1474,7 +1554,9 @@
           "weapon-v2-evidence",
           "weapon-v2-video",
           "weapon-v2-runtime",
-          "weapon-v2-package"
+          "weapon-v2-package",
+          "mine-v3-evidence",
+          "mine-v3-video"
         ]
       }
     ]
