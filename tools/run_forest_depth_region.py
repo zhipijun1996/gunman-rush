@@ -1575,7 +1575,7 @@ def schedule_cases(cases, run_case, on_result, workers=1):
     original processes finish under their own unchanged timeout and teardown.
     No future cancellation can leave an unobserved native process behind.
     """
-    if workers not in (1,2):raise ValueError('case workers must be1or2')
+    if workers not in (1,2,4):raise ValueError('case workers must be1,2or4')
     completed={}
     def record(i,row):
         completed[i]=row
@@ -1585,13 +1585,13 @@ def schedule_cases(cases, run_case, on_result, workers=1):
             row=run_case(i,case);record(i,row)
             if row['status']!='passed':break
         return completed
-    with ThreadPoolExecutor(max_workers=2) as pool:
+    with ThreadPoolExecutor(max_workers=workers) as pool:
         active={};next_index=0;failed=False
         def submit():
             nonlocal next_index
             i=next_index;next_index+=1
             active[pool.submit(run_case,i,cases[i])]=i
-        while next_index<len(cases) and len(active)<2:submit()
+        while next_index<len(cases) and len(active)<workers:submit()
         while active:
             done,_=wait(active,return_when=FIRST_COMPLETED)
             # Observe the entire completed batch before deciding to launch more.
@@ -1604,12 +1604,12 @@ def schedule_cases(cases, run_case, on_result, workers=1):
                          'errors':['case_worker_exception/'+type(error).__name__+': '+str(error)]}
                 failed=failed or row['status']!='passed'
                 record(i,row)
-            while not failed and next_index<len(cases) and len(active)<2:submit()
+            while not failed and next_index<len(cases) and len(active)<workers:submit()
     return completed
 
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,required=True);parser.add_argument('--seed',default='forest-depth-00');parser.add_argument('--map',type=int,choices=(1,2),default=1);parser.add_argument('--route',choices=ROUTES+('all',),default='all');parser.add_argument('--routes',nargs='+',choices=ROUTES[:4]+('borer',),help='Finite explicit unique route group, sharing one import');parser.add_argument('--matrix',action='store_true',help='Explicit finite4representatives (two seeds x two maps) x4routes; requires actual map2 entry contract');parser.add_argument('--corpus',action='store_true',help='Fixed10roots00..09 x2maps x4originalroutes; original matrix16 first; one import90/native240 each, stop on first failure');parser.add_argument('--validate-only',type=Path);parser.add_argument('--movie',action='store_true',help='One explicit original route, real GL 60fps AVI; same import90/native240 and validation');parser.add_argument("--layout",choices=("shared-tree-directional-cavities-v7","shared-tree-living-detour-v9","shared-tree-canopy-hunt-v10","forest-expedition-airborne-v11","forest-woven-trunk-v12","forest-interwoven-canopy-v13","forest-fruit-routes-v14","forest-bible-world-v15"),default="",help="Explicit registered layout for exact historical replay or new candidate validation");args=parser.parse_args()
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',type=Path,required=True);parser.add_argument('--seed',default='forest-depth-00');parser.add_argument('--map',type=int,choices=(1,2),default=1);parser.add_argument('--route',choices=ROUTES+('all',),default='all');parser.add_argument('--routes',nargs='+',choices=ROUTES[:4]+('borer',),help='Finite explicit unique route group, sharing one import');parser.add_argument('--matrix',action='store_true',help='Explicit finite4representatives (two seeds x two maps) x4routes; requires actual map2 entry contract');parser.add_argument('--corpus',action='store_true',help='Fixed10roots00..09 x2maps x4originalroutes; original matrix16 first; one import90/native240 each, stop on first failure');parser.add_argument('--case-workers',type=int,choices=(1,2,4),default=4,help='Corpus only: bounded native workers; use2 on lower-core hosts. Non-corpus modes remain serial');parser.add_argument('--validate-only',type=Path);parser.add_argument('--movie',action='store_true',help='One explicit original route, real GL 60fps AVI; same import90/native240 and validation');parser.add_argument("--layout",choices=("shared-tree-directional-cavities-v7","shared-tree-living-detour-v9","shared-tree-canopy-hunt-v10","forest-expedition-airborne-v11","forest-woven-trunk-v12","forest-interwoven-canopy-v13","forest-fruit-routes-v14","forest-bible-world-v15"),default="",help="Explicit registered layout for exact historical replay or new candidate validation");args=parser.parse_args()
     if args.validate_only:
         errors=validate(json.loads(args.validate_only.read_text()));print(json.dumps({'errors':errors}));return int(bool(errors))
     if args.corpus and (args.matrix or args.routes or args.route!='all'):parser.error('--corpus is the fixed80 requests and cannot combine with --matrix/--routes/a specific --route')
@@ -1643,7 +1643,7 @@ def main():
         report['source_after_import']=inventory();report['import_source_guard']=import_inventory_guard(report['source_before'],report['source_after_import']);report['import']=import_row;save()
         if import_row['errors'] or not report['import_source_guard']['passed']:
             report['source_after']=report['source_after_import'];report['source_stable']=report['import_source_guard']['passed'];report['status']='failed';save();print('FOREST DEPTH REGION: failed import',output);return 1
-        workers=2 if args.corpus else 1
+        workers=args.case_workers if args.corpus else 1
         report['case_workers']=workers
         report['completed_case_indices']=[]
         def record_case(i,row,ordered):
