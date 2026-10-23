@@ -188,7 +188,9 @@ def run_positive(folder, env):
     data['positive_shard']='merged_actual_independent_native_cases'
     (folder/'positive.json').write_text(json.dumps(data,separators=(',',':'))+'\n')
     (folder/'positive.log').write_text('\n'.join((folder/f'positive-shard-{i}.log').read_text() for i in (0,1)))
-    proof={'scope':'two actual native partitions; one parent aggregate 180s; original eight ordered cases, legacy UI and rolled-zero corpus retained','aggregate_budget_seconds':180,'aggregate_seconds':time.monotonic()-started,'within_aggregate_deadline':within,'native_runs':[{k:v for k,v in p.items() if k!='data'} for p in parts]}
+    elapsed=time.monotonic()-started
+    within=within and elapsed<=180
+    proof={'scope':'two actual native partitions; one parent aggregate 180s; original eight ordered cases, legacy UI and rolled-zero corpus retained','aggregate_budget_seconds':180,'aggregate_seconds':elapsed,'within_aggregate_deadline':within,'native_runs':[{k:v for k,v in p.items() if k!='data'} for p in parts]}
     (folder/'positive-partitions.json').write_text(json.dumps(proof,indent=2)+'\n')
     return {'status':'passed' if within else 'failed','exit_code':0 if within else 1,'actual_native_partitions':proof}
 
