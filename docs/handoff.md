@@ -1,5 +1,10 @@
 ## 2026-10-22 TERRAIN-DENSITY-04 同母版47格粗细实验
 
+## 2026-10-23 DEPTH-FRAME-06 中景与前景迭代
+
+用户要求更大、更丰富的风车钟塔中景，以及人物前方可见的氛围层。`art/formal-fine-depth`，运行源4a41fd7：新细源三风车/两塔/层叠石村，移开主角背后的主塔并把假路石桥改为远谷断桥；原高细母版Atlas前景、较大侧枝/草与稀疏世界候选，整框+3wu功能/HUD避让保持。正式两图×三Seed、Home/Forest30图通过，21镜头有可见前景，采样保护重叠0，原景层450/0；实际24.3667秒MovieWriter，前12秒真实Home输入、后2×6秒平原镜头诊断。详情与恢复见[evidence](evidence/depth_frame_06/README.md)。review而非done；大钟塔重复、低处偏满和显隐跳变仍需审美/运动复核，未签用户/设备，不跑完整CI、不合main。[公开视频/前后对照](https://zhipijun1996.github.io/gunman-rush-previews/reviews/DEPTH-FRAME-06/4a41fd7/)已验证完整字节与Chromium实际播放；Pages39877020268 success，未声称更新可玩Web。
+
+
 分支 `art/authored-terrain-density-study`，基线7f332ff。完整AI外框/洞口母版→切取四边/四内角→原47格配方×三草沿，细32px/32wu、同源降采样粗16px/32wu；默认游戏不变。暖光固定；最终五镜头×四模式20实机图，退出0无错误，包含“仅地形粗”以隔离角色细节损失。独审确认隔离正确，新母版较上一斜岩纹更适合继续，但草沿厚/重复、石包边与岩体层次弱，未签定稿。首母版布局错误和首GPU白边shader错误原件均保留，不追认。
 
 [证据、失败、来源与命令](evidence/terrain_density_04/README.md)，[十一维](quality/records/TERRAIN-DENSITY-04.json)。运行 `bash tools/godot.sh --path . scenes/dev/authored_terrain_study.tscn`。用户指定快速实验不跑CI；未做CI/Harness、Web发布、连续运动/真机/玩家验收，不合main。下一步等用户选颗粒方向，再修草沿和边缘，不扩产当前未定稿母版。最终local checkpoint见Git。

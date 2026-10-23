@@ -1,5 +1,10 @@
 # 开发任务
 
+## 2026-10-23 DEPTH-FRAME-06 中景与前景迭代
+
+用户要求更大、更丰富的风车钟塔中景，以及人物前方可见的氛围层。`art/formal-fine-depth`，运行源4a41fd7：新细源三风车/两塔/层叠石村，移开主角背后的主塔并把假路石桥改为远谷断桥；原高细母版Atlas前景、较大侧枝/草与稀疏世界候选，整框+3wu功能/HUD避让保持。正式两图×三Seed、Home/Forest30图通过，21镜头有可见前景，采样保护重叠0，原景层450/0；实际24.3667秒MovieWriter，前12秒真实Home输入、后2×6秒平原镜头诊断。详情与恢复见[evidence](evidence/depth_frame_06/README.md)。review而非done；大钟塔重复、低处偏满和显隐跳变仍需审美/运动复核，未签用户/设备，不跑完整CI、不合main。[公开视频/前后对照](https://zhipijun1996.github.io/gunman-rush-previews/reviews/DEPTH-FRAME-06/4a41fd7/)已验证完整字节与Chromium实际播放；Pages39877020268 success，未声称更新可玩Web。
+
+
 ## 2026-10-22 FINE-SPACE-05 最新交付
 
 FINE-SPACE-05：review，art/formal-fine-depth。细粒度已按用户选择接入正式家园/平原及共享森林表现；房屋树根接地、暖光/三层景深/稀疏前景已实机，技术范围与公开影片见[evidence](evidence/fine_space_05/README.md)。源码efd7843，Web524396d0cd10本地入口通过，公开可玩站容量/权限blocked；森林根台造型、前景贡献及用户/真机仍未签，不标done、不跑全CI或默认合main。
