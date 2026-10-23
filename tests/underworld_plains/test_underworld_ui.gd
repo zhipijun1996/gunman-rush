@@ -100,7 +100,9 @@ func run() -> void:
 	await click(button(app.menu._content,"风铃平原"));await frames(8)
 	check(app.connected_region and app.stage is PlainsRegionStage and app.stage.map_index==1,"native primary title click creates actual formal map1")
 	await observe("actual_formal_hud",app._resources_hud)
-	check(app._pause_button.theme.get_stylebox("normal","Button").bg_color==UnderworldUI.INK,"actual App MENU button consumes shared theme")
+	# The requested rounded material replaces the old black palette snapshot;
+	# keep the original consumer assertion against its effective shared style.
+	check(app._pause_button.theme==app._demo_hud._chrome_theme and app._pause_button.get_theme_stylebox("normal").bg_color==DemoClockworkTheme.create_theme().get_stylebox("normal","CompactButton").bg_color,"actual App MENU button consumes shared theme")
 	var actual_player := app.player
 	var shots: int=app.controller.shoot_ability._shot_serial
 	app.controller.router.set_source_axis(&"keyboard_mouse",1.0)
