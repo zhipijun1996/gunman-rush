@@ -1,5 +1,7 @@
 # 项目工作规则
 
+当前共享画风技术绑定为 [style-v10](docs/creative_direction/bibles/style-continuity-20261023-v10-foreground-cpu.json)，两区方向creative-v13；仅重绑前景CPU修复的Presentation，其他35引用、像素规格及旧v9/v12原件保留。原自动早刷新取消，前景原晚刷新负责每帧更新；显式refresh仍即时，不能把此优化宣称居民逐帧等价或用户视觉认可。见[实际前后验证](docs/evidence/four_line_integration_20261023/foreground-cpu/README.md)。下文v9/v12为此前HUD修订的历史来源。
+
 ## 2026-10-23 当前 Demo 优先与兼容延期（最新）
 
 用户明确：“暂时可以不考虑旧存档旧特性兼容。”本轮只为当前 Demo 的真实运行与交付守门；旧存档迁移、冻结历史版本回放暂不作为合入／发布前提。原断言与检查保留，`legacy-compat` 为显式手动 profile；未执行记延期／未验证，不能记通过。`root-bell-current` 保留当前正式40图、物理及准入拒绝验证；Golden 默认验证当前64图，历史使用 `--with-legacy`。此范围选择覆盖下文同主题旧兼容要求，不豁免当前保存、玩法、资源、导出及实际试玩回归。

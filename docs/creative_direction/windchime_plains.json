@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "region_id": "windchime_plains",
-  "version": "creative-v12",
+  "version": "creative-v13",
   "direction_id": "windchime_plains_v2",
   "title": "风铃平原｜用户区域圣经 V2",
   "decision": "selected",
@@ -15,11 +15,11 @@
     "bible_id": "windchime_plains_v2",
     "version": "2.0",
     "status": "user_selected_direction_only",
-    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261023-v9-hud-layout.json",
-    "supplemental_authority_sha256": "3a798b771584f846109c2ef8d69ff0c72f64a5b51aa81d4e4464c95d18e665ba",
+    "supplemental_authority_path": "docs/creative_direction/bibles/style-continuity-20261023-v10-foreground-cpu.json",
+    "supplemental_authority_sha256": "a744eef374b438bc580d93c6c0044a2618ca5a46ffbcc188c9e0525d60e38243",
     "region_id": "windchime_plains",
     "registry_path": "docs/creative_direction/bibles/registry.json",
-    "registry_sha256": "058fb50a2d0348a2428a393b785aae39994b96837a80c217133c9baa820b05f4",
+    "registry_sha256": "c28c665d4a3f73ced10f865ed6b62140c0d209bef528f10e624442b0825cea74",
     "selection_evidence_path": "docs/creative_direction/bibles/user-request.json",
     "selection_evidence_sha256": "a81bdb95ad7e60c604161cec32b87b53901c7acefb616f25f636de3e5ab0ebfc"
   },
@@ -147,6 +147,10 @@
     {
       "path": "docs/creative_direction/bibles/style-continuity-20261023-v9-hud-layout.json",
       "sha256": "3a798b771584f846109c2ef8d69ff0c72f64a5b51aa81d4e4464c95d18e665ba"
+    },
+    {
+      "path": "docs/creative_direction/bibles/style-continuity-20261023-v10-foreground-cpu.json",
+      "sha256": "a744eef374b438bc580d93c6c0044a2618ca5a46ffbcc188c9e0525d60e38243"
     }
   ],
   "historical_direction": {
@@ -156,31 +160,30 @@
   },
   "revision_impact": {
     "task_id": "FOUR-LINE-INTEGRATION-01",
-    "revision": "Actual HUD layout technical-consumer rebind only",
+    "revision": "Foreground CPU technical-consumer rebind only",
     "previous_direction": {
-      "path": "docs/evidence/four_line_integration_20261023/direction-history/windchime_plains-v10-before-hud-layout.json",
-      "sha256": "0ec669fcff9748b003008e700bf793e5174394e4626a6d6763d46b4953d36663",
-      "version": "creative-v10"
+      "path": "docs/evidence/four_line_integration_20261023/direction-history/windchime_plains-v12-before-foreground-cpu.json",
+      "sha256": "88b0b6fff129087952d4215d0a3e554171a8fd482234cacfb2e54a4359764ad3",
+      "version": "creative-v12"
     },
     "changed_authorities": [
       {
         "path": "docs/creative_direction/bibles/registry.json",
-        "old_sha256": "7202662d27e242338d7e2e4129432001eb8a4baf1bd1506a651de6aa30b5ef3d",
-        "new_sha256": "058fb50a2d0348a2428a393b785aae39994b96837a80c217133c9baa820b05f4"
+        "old_sha256": "058fb50a2d0348a2428a393b785aae39994b96837a80c217133c9baa820b05f4",
+        "new_sha256": "c28c665d4a3f73ced10f865ed6b62140c0d209bef528f10e624442b0825cea74"
       },
       {
-        "previous_path": "docs/creative_direction/bibles/style-continuity-20261023-v7.json",
-        "path": "docs/creative_direction/bibles/style-continuity-20261023-v9-hud-layout.json",
-        "old_sha256": "a3541cc5a0d3c66755cb8fd438a8d3240ac6b9302e6ed2459040c9704a0ea5ad",
-        "new_sha256": "3a798b771584f846109c2ef8d69ff0c72f64a5b51aa81d4e4464c95d18e665ba"
+        "previous_path": "docs/creative_direction/bibles/style-continuity-20261023-v9-hud-layout.json",
+        "path": "docs/creative_direction/bibles/style-continuity-20261023-v10-foreground-cpu.json",
+        "old_sha256": "3a798b771584f846109c2ef8d69ff0c72f64a5b51aa81d4e4464c95d18e665ba",
+        "new_sha256": "a744eef374b438bc580d93c6c0044a2618ca5a46ffbcc188c9e0525d60e38243"
       }
     ],
     "preserved": [
-      "Complete previous direction snapshot, original Bible, selected direction, quotes and action-policy authority retained",
-      "Other35 actual style references, all pixels and visual specifications unchanged",
-      "Historical old-save compatibility proposal is not restored"
+      "Complete previous direction snapshot, source quotes, original Bible and all visual specifications unchanged",
+      "Other35 runtime references unchanged; prior historical snapshots retained"
     ],
-    "impact": "Only the actual HUD layout fix and exact current binding; no visual/G5/device acceptance",
-    "validation_status": "Pending actual targeted checks and review"
+    "impact": "Automatic early refresh removed; sticky admission/entered-view/retirement timing is not claimed equivalent. Per-protection geometry snapshot and disjoint-mask skip retain mask semantics. No aesthetic/device/G5 acceptance.",
+    "validation_status": "Pending exact current authority checks; runtime evidence recorded separately, no art/player/device acceptance."
   }
 }

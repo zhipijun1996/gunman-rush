@@ -1,4 +1,10 @@
-## 2026-10-23 实际Ubuntu镜像入口补齐（最新）
+## 2026-10-23 前景CPU重复计算修复（最新）
+
+实际a380 CI为106通过、森林600秒超时、35未执行；main未合并。代码a5c5只改两前景表现脚本：保显式即时刷新，取消重复自动早刷新，保护pass内复用viewport/canvas，跳过不相交遮挡。原前景GPU before/after各506samples/23identities通过、独立helper718/0；同case09两核29.329→18.705秒，仅单例测量，非完整CI/品质认可。style-v10/creative-v13仅版本化技术重绑，保历史。下一步冻结后原`python3 tools/harness.py --check forest-depth-region --jobs 1 --release`（原80/600），核最终精确CI142合流，再依已有授权普通合PR106/main。旧a074Preview仍是其原版本，不包含本CPU改动。详见[证据与边界](evidence/four_line_integration_20261023/foreground-cpu/README.md)。
+
+以下为历史检查点。
+
+## 2026-10-23 实际Ubuntu镜像入口补齐
 
 ## 2026-10-23 原场景预算内调度修复（最新）
 

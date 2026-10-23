@@ -1,5 +1,9 @@
 # 当前状态
 
+## 2026-10-23 前景CPU修复检查点
+
+PR106仍未合main；上一精确a380 CI106通过、森林80中45完成后600秒超时、35检查未执行。已定位并修复每帧重复前景保护；原GPU连续性前后均通过，helper718/0，同case09两核耗时29.329→18.705秒。style-v10/creative-v13保35其他引用与旧原件；完整80、最终CI及main待原门槛实际验证。代码与证据见[foreground-cpu](evidence/four_line_integration_20261023/foreground-cpu/README.md)。此段覆盖下文旧运行状态；开发Preview仍准确绑定a074，不含本次CPU修复。
+
 ## 2026-10-23 原场景预算内调度修复（最新）
 
 四线／新版默认人物／织时匠／5原BGM已接。f50实际CI98通过、1场景失败、43未执行，main尚未合并；官方HTTPS获取已实核、遭遇专项500.292秒通过。1dab6仅将原8场景分四组共享180秒，原断言与900预算不变；精确原Harness两核本地229.189秒通过，native129.262秒、10真实反例及15篡改拒绝；独审限定ACCEPT。冻结后核下一精确head的142完整合流再普通合PR106，不重导出同源游戏包、不加入可选提效候选。实际来源与未验见[修复记录](evidence/four_line_integration_20261023/scene-scheduling/README.md)。
