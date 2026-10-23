@@ -17,7 +17,7 @@ var _status: Label
 var _prompt: Label
 var _controls: HBoxContainer
 var overlay: TouchOverlay
-var _resource_hud: ActorResourcesHud
+var _resource_hud: DemoGameHud
 var _hud: CanvasLayer
 
 func _ready() -> void:
@@ -61,13 +61,12 @@ func _ready() -> void:
 	_hud = CanvasLayer.new()
 	_hud.layer = 10
 	add_child(_hud)
-	var backing:=ColorRect.new();backing.position=Vector2(12,8);backing.size=Vector2(340,132);backing.color=Color(.055,.10,.095,.84);backing.mouse_filter=Control.MOUSE_FILTER_IGNORE;_hud.add_child(backing)
 	var top := HBoxContainer.new()
 	top.theme = preload("res://scripts/ui/menu_theme.gd").create_theme()
 	top.position = Vector2(370, 16)
 	top.size = Vector2(886, 52)
 	_hud.add_child(top)
-	_resource_hud=ActorResourcesHud.new();_resource_hud.position=Vector2(2,0);_hud.add_child(_resource_hud);_resource_hud.bind(controller.actor_resources,controller.air_focus_ability,controller);_resource_hud.set_region_compact(true)
+	_resource_hud=DemoGameHud.new();_hud.add_child(_resource_hud);_resource_hud.bind(controller)
 	_status = Label.new()
 	_status.add_theme_font_size_override("font_size", 18)
 	_status.add_theme_color_override("font_shadow_color", Color(0.08, 0.05, 0.06, 0.95))
@@ -124,6 +123,7 @@ func _ground(rect: Rect2,one_way: bool=false,id: String="") -> void:
 	add_child(body)
 
 func set_meta_state(snapshot: Dictionary) -> void:
+	if _resource_hud != null: _resource_hud.present_context("风铃聚落 / HOME", 0, int(snapshot.get("notes", 0)))
 	if _status != null:
 		_status.text = "风铃聚落 / WINDCHIME HOME    ·    NOTES %s" % snapshot.get("notes", 0)
 

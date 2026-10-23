@@ -3,16 +3,17 @@
 [ext_resource type="Script" path="res://scripts/builds/build_modifier.gd" id="2"]
 [sub_resource type="Resource" id="Effect"]
 script = ExtResource("2")
-stat_id = &"hit_energy_recovery"
+stat_id = &"focus_stamina_recovery"
 operation = 1
 value = 10
 [resource]
 script = ExtResource("1")
 stable_id = &"echo_gold"
+definition_version = 2
 display_name = "金色回响 / Golden Echo"
 rarity = 2
 modifiers = Array[ExtResource("2")]([SubResource("Effect")])
 duplicate_policy = 1
 stack_limit = 2
 icon_key = &"echo"
-description = "顶级探索奖励，进一步强化命中续航。"
+description = "接地时每真实秒额外恢复10点时间能量。"

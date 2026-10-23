@@ -7,7 +7,7 @@ var _base: Dictionary = {}
 var _sources: Dictionary = {}
 var _revision := 0
 var _applying := false
-const STATS: Array[StringName] = [&"max_jumps", &"max_air_shots", &"projectile_damage", &"shot_burst_speed", &"recoil_impulse", &"max_health", &"ground_recoil_multiplier", &"ground_deceleration", &"shot_cooldown"]
+const STATS: Array[StringName] = [&"max_jumps", &"max_air_shots", &"projectile_damage", &"shot_burst_speed", &"recoil_impulse", &"max_health", &"ground_recoil_multiplier", &"ground_deceleration", &"shot_cooldown", &"focus_stamina_drain", &"focus_stamina_recovery", &"focus_rearm_stamina"]
 const ENERGY_STATS: Array[StringName] = [&"shot_energy_cost",&"hit_energy_recovery", &"ground_energy_recovery", &"shot_energy_delay"]
 
 func configure(player: PlayerController) -> void:
@@ -16,7 +16,7 @@ func configure(player: PlayerController) -> void:
 	_base.clear()
 	for stat: StringName in STATS:
 		_base[stat] = controller.actor_resources.health.capacity if stat == &"max_health" else controller.motor.tuning.get(stat)
-	if controller.shot_energy!=null:
+	if controller.shot_energy!=null and controller.shot_energy.definition.shooting_consumes_energy:
 		for stat: StringName in ENERGY_STATS: _base[stat]=controller.shot_energy.get(stat)
 
 func owned_items() -> Array[ItemDefinition]:
@@ -113,11 +113,12 @@ func _valid_values(values: Dictionary) -> bool:
 	for stat: StringName in _base:
 		var value: float = values[stat]
 		if stat==&"shot_energy_cost" and value>controller.actor_resources.stamina.capacity: return false
+		if stat==&"focus_rearm_stamina" and value>controller.motor.tuning.focus_stamina_capacity: return false
 		if not is_finite(value) or value < 0.0:
 			return false
 		if stat in [&"max_jumps", &"max_air_shots"] and value != floor(value):
 			return false
-		if stat not in [&"max_jumps", &"max_air_shots"] and value <= 0.0:
+		if stat not in [&"max_jumps", &"max_air_shots", &"focus_stamina_recovery", &"focus_rearm_stamina"] and value <= 0.0:
 			return false
 	return true
 

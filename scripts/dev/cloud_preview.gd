@@ -39,6 +39,10 @@ func _ready() -> void:
 	menu_button.text = "FULL GAME / MENU"
 	menu_button.pressed.connect(return_to_menu)
 	row.add_child(menu_button)
+	if task_id == "DEMO-UI-01":
+		var ui_affordance := preload("res://scripts/ui/demo_ui_01/preview_affordance.gd").new()
+		ui_affordance.host = self
+		add_child(ui_affordance)
 	if entry == "actions": app.call_deferred("_open_action_studio")
 	elif entry == "scene": call_deferred("open_test_scene")
 	elif entry != "menu": push_error("Unsupported cloud preview entry: " + entry)

@@ -214,9 +214,10 @@ func advance(delta: float) -> void:
 				var step := minf(delta,maxf(0,def.beam_duration-_beam_elapsed))
 				var cost := (def.beam_drain+_beam_elapsed*def.beam_growth)*step
 				var stamina := actor().actor_resources.stamina
-				if stamina.current+1e-9<cost:_end_beam(false)
+				var legacy_drain := actor().shot_energy != null and actor().shot_energy.definition.shooting_consumes_energy
+				if legacy_drain and stamina.current+1e-9<cost:_end_beam(false)
 				else:
-					stamina.consume_continuous(cost,stamina.epoch)
+					if legacy_drain: stamina.consume_continuous(cost,stamina.epoch)
 					actor().traversal.on_weapon_fired()
 					var budget := base_displacement()*actor().motor.weapon_motion.lv2_total_ratio
 					var acceleration := 2*budget/(def.beam_duration*def.beam_duration)

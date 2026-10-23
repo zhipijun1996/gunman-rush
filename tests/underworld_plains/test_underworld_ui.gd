@@ -14,13 +14,16 @@ func frames(count := 3) -> void:
 	for i: int in count: await process_frame
 func button(parent: Node, prefix: String) -> Button:
 	for node: Node in parent.find_children("*","Button",true,false):
-		if (node as Button).text.begins_with(prefix): return node
+		if (node as Button).text.begins_with(prefix) or str(node.get_meta(&"ui_legacy_prefix", "")).begins_with(prefix): return node
 	return null
 func click(target: Control) -> void:
 	check(target != null,"actual requested button exists")
 	if target == null: return
 	check(target.is_visible_in_tree(),"actual pointer target is visible, not an old hidden control")
 	if not target.is_visible_in_tree(): return
+	# Let deferred initial focus settle before scrolling a later button into
+	# view; otherwise its pending restore can undo this helper's scroll.
+	await frames(4)
 	var parent := target.get_parent()
 	while parent != null:
 		if parent is ScrollContainer: parent.ensure_control_visible(target)
@@ -100,7 +103,9 @@ func run() -> void:
 	await click(button(app.menu._content,"风铃平原"));await frames(8)
 	check(app.connected_region and app.stage is PlainsRegionStage and app.stage.map_index==1,"native primary title click creates actual formal map1")
 	await observe("actual_formal_hud",app._resources_hud)
-	check(app._pause_button.theme.get_stylebox("normal","Button").bg_color==UnderworldUI.INK,"actual App MENU button consumes shared theme")
+	# The requested rounded material replaces the old black palette snapshot;
+	# keep the original consumer assertion against its effective shared style.
+	check(app._pause_button.theme==app._demo_hud._chrome_theme and app._pause_button.get_theme_stylebox("normal").bg_color==DemoClockworkTheme.create_theme().get_stylebox("normal","CompactButton").bg_color,"actual App MENU button consumes shared theme")
 	var actual_player := app.player
 	var shots: int=app.controller.shoot_ability._shot_serial
 	app.controller.router.set_source_axis(&"keyboard_mouse",1.0)

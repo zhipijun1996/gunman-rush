@@ -154,6 +154,13 @@ func maximum_jumps() -> int:
 	# tuning and revocation cannot erase another item's additional jumps.
 	return 0 if tuning.max_jumps == 0 else maxi(tuning.max_jumps,capacity_floor)
 
+func can_air_jump() -> bool:
+	# Read-only projection of the same flight cap used by try_jump. In-flight
+	# capacity growth must not make the HUD promise an ungranted extra jump.
+	var maximum := maximum_jumps()
+	var flight_cap := maximum if _air_max < 0 else mini(maximum, _air_max)
+	return enabled and flight_cap > 1 and used_jumps < flight_cap
+
 func restore_air_jump() -> void:
 	# A successful traversal/hit restores the extra air jump, not a ground jump
 	# or a new coyote window. Preserve the current ascent and input requests.

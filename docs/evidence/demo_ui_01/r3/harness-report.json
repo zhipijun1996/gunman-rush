@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "started_at": "20261023T022139.746804Z",
+  "profiles": [],
+  "changed_paths": [],
+  "checks": [
+    {
+      "id": "core",
+      "argv": [
+        "python3",
+        "tools/run_tests.py"
+      ],
+      "timeout_seconds": 720,
+      "input_digest": "05ea60f110b05ef79e776920740ef51b35c7e31e1ea31e0cd83567fc2d819fc1",
+      "log": "core.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792722102.268719,
+      "ended_at_unix": 1792722133.4323003,
+      "duration_seconds": 31.164,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_tests.py"
+      ],
+      "check_token": "d26260a57197419ea56b8764ee298384",
+      "artifact_directory": "/workspace/ui-workline/build/verification/harness/20261023T022139.746804Z/artifacts/core",
+      "reused": false
+    },
+    {
+      "id": "actor-actions",
+      "argv": [
+        "python3",
+        "tools/run_actor_action_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "input_digest": "aad97043e0a29be7364edccbd8cb7e8d5cdbd15f57a4bf95cf87e42fc70d0240",
+      "log": "actor-actions.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792722136.3695946,
+      "ended_at_unix": 1792722177.30495,
+      "duration_seconds": 40.935,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_actor_action_tests.py"
+      ],
+      "check_token": "53192c0fd6a542e3b07888934cf8511f",
+      "artifact_directory": "/workspace/ui-workline/build/verification/harness/20261023T022139.746804Z/artifacts/actor-actions",
+      "reused": false
+    },
+    {
+      "id": "all-weapons",
+      "argv": [
+        "python3",
+        "tools/run_all_weapon_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "input_digest": "fca03ed2f93df131ba59a7524f273fc8d97b6391641a18d5bfa3444e7c2fd3c0",
+      "log": "all-weapons.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792722180.2953768,
+      "ended_at_unix": 1792722226.33849,
+      "duration_seconds": 46.043,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_all_weapon_tests.py"
+      ],
+      "check_token": "08498cf273b3400fbec0ddb45390322f",
+      "artifact_directory": "/workspace/ui-workline/build/verification/harness/20261023T022139.746804Z/artifacts/all-weapons",
+      "reused": false
+    },
+    {
+      "id": "action-budget",
+      "argv": [
+        "python3",
+        "tools/run_action_budget_tests.py"
+      ],
+      "timeout_seconds": 300,
+      "input_digest": "8417f695cfc7c6ec2d9b7b2cf85a597ac384246154f9f0846523c49cd6c6ef4f",
+      "log": "action-budget.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792722229.5110998,
+      "ended_at_unix": 1792722341.1453846,
+      "duration_seconds": 111.634,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_action_budget_tests.py"
+      ],
+      "check_token": "f06004c11e124b3f9db1fb39ceb32598",
+      "artifact_directory": "/workspace/ui-workline/build/verification/harness/20261023T022139.746804Z/artifacts/action-budget",
+      "reused": false
+    },
+    {
+      "id": "grapple-feel",
+      "argv": [
+        "python3",
+        "tools/run_grapple_feel_tests.py"
+      ],
+      "timeout_seconds": 240,
+      "input_digest": "e8406d879f72dd519621ccf8b47c8f463f06145be0829d28b6d7eacd21c416f3",
+      "log": "grapple-feel.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792722344.3925312,
+      "ended_at_unix": 1792722386.2119017,
+      "duration_seconds": 41.819,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/run_grapple_feel_tests.py"
+      ],
+      "check_token": "a0b93c95bd924ef7bc88cbde7243b9f5",
+      "artifact_directory": "/workspace/ui-workline/build/verification/harness/20261023T022139.746804Z/artifacts/grapple-feel",
+      "reused": false
+    },
+    {
+      "id": "demo-ui-time-energy",
+      "argv": [
+        "python3",
+        "tools/demo_ui_01/run_time_energy.py"
+      ],
+      "timeout_seconds": 300,
+      "input_digest": "d740b18f2ad57340186d9045cd9470a3e47348f116914d2c6c2f44f9e917914d",
+      "log": "demo-ui-time-energy.log",
+      "status": "passed",
+      "exit_code": 0,
+      "failure_reason": null,
+      "started_at_unix": 1792722389.536242,
+      "ended_at_unix": 1792722398.5872366,
+      "duration_seconds": 9.051,
+      "expanded_argv": [
+        "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3",
+        "tools/demo_ui_01/run_time_energy.py"
+      ],
+      "check_token": "96428d838b8c40799e8273ae23d41e46",
+      "artifact_directory": "/workspace/ui-workline/build/verification/harness/20261023T022139.746804Z/artifacts/demo-ui-time-energy",
+      "reused": false
+    }
+  ],
+  "status": "passed",
+  "targeted_checks": true,
+  "device_acceptance": "unverified",
+  "fun_acceptance": "unverified",
+  "manifest_sha256": "2e6a43ca68bc8ec39b06e99d09245c5f78cca69dffa0f68b9212180f1755f81a",
+  "working_files": {},
+  "commit": "8dc2f4e6a2c6f511c22004784cb71b5f3d0d7a96",
+  "git_status": "",
+  "diff": "",
+  "untracked": "",
+  "python_version": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "wall_seconds": 301.254,
+  "jobs": 1,
+  "release": false
+}

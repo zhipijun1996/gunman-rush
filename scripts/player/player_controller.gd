@@ -153,13 +153,15 @@ func queue_grant(amount: int, expected_session: int = -1, on_resolved: Callable 
 	elif on_resolved.is_valid():
 		on_resolved.call(0)
 
-func enable_shot_energy() -> bool:
+func enable_shot_energy(config: ShotEnergyDefinition = null) -> bool:
 	if shot_energy!=null: return true
 	var value:=ShotEnergyPolicy.new()
-	# Focus retains its own existing air-time prototype; aiming does not silently
-	# drain the new shooting energy, and focus reset cannot refill that energy.
-	air_focus_ability.configure(motor.tuning,StaminaState.new())
-	if not value.configure(self,preload("res://resources/player/plains_shot_energy.tres")): return false
+	var definition := config if config != null else preload("res://resources/player/demo_ui_01/time_energy_v2.tres")
+	if not definition.is_valid(): return false
+	# Only an explicit historical fixture retains the old split shot economy.
+	if definition.shooting_consumes_energy:
+		air_focus_ability.configure(motor.tuning,StaminaState.new())
+	if not value.configure(self,definition): return false
 	shot_energy=value
 	shot_energy.recovered.connect(func(amount: float,airborne: bool): energy_recovered.emit(amount,airborne))
 	return true

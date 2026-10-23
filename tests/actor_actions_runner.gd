@@ -27,7 +27,11 @@ func fixture(at: Vector2 = Vector2(100,500)) -> void:
 	world.add_child(motor)
 	controller = motor.get_node("Controller")
 	controller.set_physics_process(false)
-	controller.enable_shot_energy()
+	# Original action/weapon budgets bind D079 explicitly; current time-only
+	# energy is separately exercised by demo-ui-time-energy in this Harness.
+	motor.tuning.max_air_shots = 2
+	controller.action_resources.reset()
+	controller.enable_shot_energy(preload("res://resources/player/plains_shot_energy.tres"))
 	controller.air_focus_ability.enabled = false
 	events.clear()
 	controller.shoot_ability.shot_fired.connect(func(direction: Vector2, serial: int) -> void: events.append({"direction":direction,"serial":serial,"position":motor.position}))

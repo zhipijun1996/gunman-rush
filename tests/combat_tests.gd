@@ -23,6 +23,11 @@ func fixture(location := Vector2(80, 150)) -> void:
 	controller.set_physics_process(false)
 	shoot = controller.shoot_ability
 	resources = controller.action_resources
+	# Original combat/resource assertions bind their historical two-round
+	# fixture explicitly; current R3 production and its own fixture stay at one.
+	motor.tuning.max_air_shots = 2
+	resources.advance(true)
+	resources.reset()
 	await tree.physics_frame
 
 func body(rect: Rect2, faction: StringName = &"") -> StaticBody2D:

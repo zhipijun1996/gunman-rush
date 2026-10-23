@@ -3246,6 +3246,30 @@
       "inputs": [
         "docs/evidence/plains_redesign/frozen_v9/"
       ]
+    },
+    "demo-ui-time-energy": {
+      "argv": [
+        "python3",
+        "tools/demo_ui_01/run_time_energy.py"
+      ],
+      "timeout_seconds": 300,
+      "success_pattern": "^PASS: current time energy, one-round baseline and actor-following HUD$",
+      "weight_seconds": 20,
+      "cacheable": true,
+      "inputs": [
+        "scripts",
+        "scenes",
+        "resources",
+        "assets",
+        "config",
+        "tools",
+        "tests",
+        "project.godot",
+        "export_presets.cfg"
+      ],
+      "artifact_paths": [
+        "build/verification/demo-ui-r3/energy.json"
+      ]
     }
   },
   "profiles": {
@@ -3447,7 +3471,8 @@
       "cloud-delivery-tests",
       "cloud-preview-runtime",
       "cloud-inputs-tests",
-      "portable-frozen-assets"
+      "portable-frozen-assets",
+      "demo-ui-time-energy"
     ],
     "art": [
       "docs",
@@ -3743,7 +3768,8 @@
       "cloud-delivery-tests",
       "cloud-preview-runtime",
       "cloud-inputs-tests",
-      "portable-frozen-assets"
+      "portable-frozen-assets",
+      "demo-ui-time-energy"
     ],
     "creative-feedback": [
       "docs",

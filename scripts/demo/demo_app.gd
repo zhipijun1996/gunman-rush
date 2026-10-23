@@ -72,6 +72,8 @@ var _status_label: Label
 var _hud: Label
 var _hint: Label
 var _resources_hud: ActorResourcesHud
+var _demo_hud: DemoGameHud
+var _ui_run_report: Dictionary = {}
 var _actions: HBoxContainer
 var _pause_button: Button
 var _boss_status: Label
@@ -302,6 +304,7 @@ func start_demo(seed_value: String = "gunman-demo-1", region_map: bool = false) 
 	shop = ShopService.new()
 	shop.configure(lifetime, build, wallet)
 	_resources_hud.bind(controller.actor_resources, controller.air_focus_ability, controller)
+	_demo_hud.bind(controller)
 	_resources_hud.set_region_compact(connected_region)
 	_gold_claimed = false
 	_sequence = 0
@@ -1035,11 +1038,13 @@ func open_region_map() -> bool:
 func close_region_map() -> void:
 	if not is_instance_valid(map_modal) or not map_modal.opened: return
 	map_modal.close()
+	get_viewport().gui_release_focus()
 	if is_instance_valid(controller): controller.router.clear("map_close")
 	_resume_exit_input()
 	if director.state==DemoRunDirector.State.IN_STAGE: get_tree().paused=false
 
 func toggle_pause() -> void:
+	if is_instance_valid(progression_modal) and progression_modal.opened: return
 	if _forest_reader_open(): return
 	if is_instance_valid(shop_modal) and shop_modal.opened: return
 	if is_instance_valid(map_modal) and map_modal.opened: return
@@ -1067,6 +1072,7 @@ func _resume_from_menu() -> void:
 	if director.state != DemoRunDirector.State.IN_STAGE or not is_instance_valid(controller):
 		return
 	controller.router.clear("menu_resume")
+	get_viewport().gui_release_focus()
 	get_tree().paused = false
 	_shown_actions = ""
 
@@ -1096,6 +1102,11 @@ func _build_description() -> String:
 	return "Items: %s\nJumps: %s  •  Air shots: %s\nShot damage: %.1f  •  Recoil burst: %.0f" % [", ".join(names) if not items.is_empty() else "None", controller.motor.tuning.max_jumps, controller.motor.tuning.max_air_shots, controller.motor.tuning.projectile_damage, controller.motor.tuning.shot_burst_speed]
 
 func _input(event: InputEvent) -> void:
+	# Presentation entry only; reuse the existing pause/cancellation boundary.
+	if event is InputEventJoypadButton and event.pressed and event.button_index == JOY_BUTTON_START and menu.visible_panel.is_empty():
+		toggle_pause()
+		get_viewport().set_input_as_handled()
+		return
 	if _forest_reader_open():
 		if event is InputEventKey and event.pressed and not event.echo and event.physical_keycode == KEY_ESCAPE:
 			(stage as ThornForestRegionStage).discoveries.close()
@@ -1221,6 +1232,8 @@ func _run_ended(result: DemoRunResult) -> void:
 		_status += " / " + generation_failure
 	if not settled:
 		_status += " / HOME SUMMARY SAVE FAILED (banked notes unchanged)"
+	_ui_run_report = {"success": result.reason in [&"biome_complete", &"success"], "can_retry": true, "summary": "本次旅途 · %s\n金币 %s · 本局物品 %s 件\n永久音符 %s · 已返回家园\n再次出发将从风铃平原开始新的冒险。" % [_region_name(), wallet.balance, build.item_ids().size(), meta.snapshot().get("notes", 0)]}
+	if not settled: _ui_run_report.summary += "\n保存摘要失败 · 已存入音符保持原值"
 	controller.router.clear("run_end")
 	controller.air_focus_ability.stop()
 	controller.active = false
@@ -1229,6 +1242,7 @@ func _run_ended(result: DemoRunResult) -> void:
 func _cleanup_run() -> void:
 	get_tree().paused = false
 	_resources_hud.unbind()
+	_demo_hud.unbind()
 	build.clear()
 	wallet.balance = 0
 	for object: Node in [stage, policy, player, _run_camera]:
@@ -1245,8 +1259,13 @@ func _cleanup_run() -> void:
 	director.return_home()
 	campaign = RunCampaignProgression.new()
 	_show_home()
+	if not _ui_run_report.is_empty():
+		home_scene.set_input_blocked(true)
+		menu.show_run_end(_ui_run_report)
+		_ui_run_report = {}
 
 func _hide_run_hud() -> void:
+	_demo_hud.hide()
 	_hud_frame.hide()
 	_boss_status.hide()
 	_resources_hud.hide()
@@ -1313,6 +1332,12 @@ func _close_home_panel() -> void:
 		home_scene.set_input_blocked(false)
 
 func _process(_delta: float) -> void:
+	# UI-only visibility: the appearance selector belongs to playable consumers,
+	# and must not float above full-screen menus or the title illustration.
+	var avatar := get_meta("avatar_presentation", null) as Node
+	if is_instance_valid(avatar):
+		var selector := avatar.get_node_or_null("AvatarSelectorLayer") as CanvasLayer
+		if selector != null: selector.visible = menu.visible_panel.is_empty() and not _uses_shared_region_pixel_presentation()
 	_boss_status.hide()
 	var shown_boss: WindkeeperEncounter = null
 	if director.state == DemoRunDirector.State.IN_STAGE and is_instance_valid(stage) and is_instance_valid(stage.boss):
@@ -1374,6 +1399,15 @@ func _process(_delta: float) -> void:
 	_actions.position.y = 268 if debug_hud else 178
 	_pause_button.visible = not overlay.enabled
 	_update_actions()
+	# Retain legacy debug consumers; normal play uses the task-owned read-only HUD.
+	_demo_hud.visible = not debug_hud
+	_demo_hud.present_context("%s · %s/2 · %s" % [_region_name(), director.region_map_index, (stage as PlainsRegionStage).visited_area] if connected_region else "试玩 · 房间 %s/%s" % [director.stage_index, director.profile.stages_per_biome], wallet.balance, int(meta.snapshot().get("notes", 0)), _reduced_effects)
+	if not debug_hud: _demo_hud.present_touch_menu(overlay)
+	if not debug_hud: _demo_hud.present_navigation((stage as PlainsRegionStage).map_view if connected_region else null, _pause_button, overlay._pause_rect if overlay.enabled else Rect2())
+	_hud_frame.visible = debug_hud
+	_resources_hud.visible = debug_hud
+	_title.visible = debug_hud
+	_hud.visible = debug_hud
 
 func _layout_region_hud() -> void:
 	# Only two stable edge layouts. Read visible actors and projectiles, never
@@ -1569,6 +1603,9 @@ func _make_ui() -> void:
 	_boss_status.add_theme_constant_override("shadow_offset_y", 2)
 	_resources_hud = ActorResourcesHud.new()
 	_canvas.add_child(_resources_hud)
+	_demo_hud = DemoGameHud.new()
+	_canvas.add_child(_demo_hud)
+	_demo_hud.debug_requested.connect(func() -> void: debug_hud = not debug_hud)
 	_pause_button = Button.new()
 	_pause_button.text = "MENU"
 	_pause_button.focus_mode = Control.FOCUS_NONE
@@ -1619,6 +1656,7 @@ func _make_ui() -> void:
 	menu.requested_random.connect(_open_random_preview)
 	menu.requested_resume.connect(_resume_from_menu)
 	menu.requested_home.connect(abandon_run)
+	menu.requested_retry.connect(func() -> void: start_plains(menu._plains_seed()))
 	menu.settings_changed.connect(apply_input_settings)
 	menu.presentation_changed.connect(func(reduced: bool, muted: bool) -> void:
 		_reduced_effects = reduced
@@ -1900,6 +1938,7 @@ func _confirm_generated_exit() -> bool:
 	return _enter_generated_exit(chosen)
 
 func _resume_exit_input() -> void:
+	get_viewport().gui_release_focus()
 	if is_instance_valid(player):
 		var keyboard := player.get_node("KeyboardMouseAdapter") as KeyboardMouseAdapter
 		keyboard.observe_current_key_neutral()

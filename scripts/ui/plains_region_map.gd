@@ -93,7 +93,8 @@ func _draw() -> void:
 	draw_style_box(panel(),Rect2(Vector2.ZERO,size))
 	var font:=UnderworldUI.FONT
 	if region_chip and not expanded:
-		draw_string(font,Vector2(12,21),"MAP %s/2  ·  EXPLORE" % stage.map_index,HORIZONTAL_ALIGNMENT_LEFT,-1,12,UnderworldUI.TEXT)
+		var baseline := floorf((size.y + font.get_ascent(12) - font.get_descent(12)) * 0.5)
+		draw_string(font,Vector2(12,baseline),"MAP %s/2  ·  EXPLORE" % stage.map_index,HORIZONTAL_ALIGNMENT_LEFT,-1,12,UnderworldUI.TEXT)
 		return
 	if not expanded:
 		draw_string(font,Vector2(10,18),"MAP %s/2 / CLICK TO EXPLORE" % stage.map_index,HORIZONTAL_ALIGNMENT_LEFT,-1,12,UnderworldUI.TEXT)
@@ -128,4 +129,6 @@ func _draw() -> void:
 	var player:=stage.global_player_position()
 	if player.is_finite(): draw_circle(project_point(player),5 if expanded else 3,Color("fff5ca"))
 func panel() -> StyleBoxFlat:
-	return UnderworldUI.box(Color(0.035,0.06,0.055,0.97),UnderworldUI.BORDER,4)
+	var material := preload("res://scripts/ui/demo_ui_01/clockwork_theme.gd")
+	var highlighted := not expanded and (has_focus() or Rect2(Vector2.ZERO, size).has_point(get_local_mouse_position()))
+	return material.plate(material.RAISED if highlighted else material.PANEL, material.BRASS if highlighted else material.EDGE, 4)
