@@ -1,0 +1,52 @@
+{
+  "decision": "ACCEPT bounded four-worker scheduler efficiency delta; nativeGodot80corpus result pending",
+  "source_base": "c9344d7f4143b764fa0904ba986dac0183e682bb",
+  "candidate_files_sha256": {
+    "tools/run_forest_depth_region.py": "da28fa29e68f18411c6354fe91e392223e3b48011ad95787d1f21c39ec2482e5",
+    "tests/test_forest_region_scheduler.py": "90a7193b426f17fb940de3b3852984fe827b8651eccffb1c761b5665213f2ba2"
+  },
+  "independent_static_checks": [
+    "Onlyschedule_cases andmain function AST change. Corpus_cases andrun_region_case AST exactly matchoriginalroot; original80uniqueorderedcases, originalfirst16matrix, nativecommands/per-casefiles/env/import/strictsourceguards andfailureverification unchanged.",
+    "Workerchoices1/2/4 only; corpus default4 with explicit1/2 options; allnoncorpus modesstillserial1. ThreadPool max_workers andinflightcap use sameboundedworkers.",
+    "Scheduler observes entiredonebatch beforelaunchingmore, recordsindexedorderedreceipts, stopsnewdispatch onobservedfailure/workerexception and waitsremainingactive throughExecutorcontext. No futurecancel/unobservedprocess shortcut.",
+    "Original11testmethods:10sourcebytes unchanged; onlyboundarytest updated toreject3and5. New3tests useactual4children with boundedbarrier/peak4 andactualPIDexitchecks, coverfailure/exception stoppingafterinitial4 andallactivefinished/reaped.",
+    "No changed gameassertions, native240/import90/profile600 budget, casecount80, samplingduration orqualitythreshold. Parallelism isexecutionefficiency, nottestscope deletion."
+  ],
+  "independent_execution": {
+    "command": "PYTHONDONTWRITEBYTECODE=1 python3 /workspace/scratch/forest-scheduler-four/candidate/tests/test_forest_region_scheduler.py",
+    "cwd": "/workspace/scratch/forest-scheduler-four/candidate",
+    "exit_code": 0,
+    "actual_output": "..............\n----------------------------------------------------------------------\nRan 14 tests in 1.435s\n\nOK\n",
+    "scope": "Real shortPythonchildprocess tests; no Godot orhistoricalsuite invocation."
+  },
+  "existing_run_status": "Parentreports old2worker corpus proactivelycancelled at45/80passed basedon projected717s exceedingexisting600s. Thisreview doesnot call45/80complete or signcancelledrunpassed.",
+  "limits": [
+    "Root4CPU/16GB capacityreported byparent; actual4workerGodotmemory/performance/full80 stillmustbeobserved.",
+    "Candidateadoptedcommit/currentnative80/parallelCI/Integration/Release pending; nofuturepass prefill.",
+    "No sharedsourcewrites byreviewer; scratchreportonly."
+  ],
+  "reviewed_commit": "4ef092e889f187da4ce1030b1c87146456d5d30f",
+  "actual_files_sha256": {
+    "tools/run_forest_depth_region.py": "da28fa29e68f18411c6354fe91e392223e3b48011ad95787d1f21c39ec2482e5",
+    "tests/test_forest_region_scheduler.py": "90a7193b426f17fb940de3b3852984fe827b8651eccffb1c761b5665213f2ba2"
+  },
+  "frozen_source_confirmation": "Exact adopted implementationHEAD4ef092e and both actualrootfiles SHA match independently reviewed candidates. Currentworkingoverlay contains documentation/qualitycard/evidence only; no new source/testfile changes were reviewed as clean-nativepasses.",
+  "prior_source_reviews": [
+    {
+      "commit": "cbce53f145a128bd8ecd328e4c60a7b1f449b27d",
+      "report": "frozen-combined-current-review.json"
+    },
+    {
+      "commit": "c9344d7f4143b764fa0904ba986dac0183e682bb",
+      "report": "forest-map2-increment-review.json"
+    }
+  ],
+  "metadata_review": {
+    "quality_card_reviewed_commit": "4ef092e889f187da4ce1030b1c87146456d5d30f",
+    "independent_dimension": "passed onlybounded independent source review, evidenceindependent-current-frozen points4ef and explicitlyexcludesnative80/CI",
+    "technical": "unverified; explicitlystates old45/80cancelled,newfourworker14smalltests pass and full80/Actions pending",
+    "formal_integration_and_G1_through_G5": "unverified",
+    "reference_update": "Root must copy this amendedscratchreport and updatecard evidenceSHA from previous6806920...; do not reusesameoldreportbytes with newSHA/source claim.",
+    "not_run": "No fullGodot/current80/CI result endorsed. Metadata not relabeling oldnative521/cbce/c934 observations."
+  }
+}
