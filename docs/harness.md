@@ -1,5 +1,17 @@
 # 游戏开发 harness
 
+## CI前置检查与完整双通道
+
+2026-10-23 修复的门禁顺序为：实际选定输入恢复 → 明确选中的便携 Python 子守门 → 引擎／Foundry → 相关原检查。当前有限映射仅将 `plains-encounter-policy` 的原24项 boundary 单测前置，不按 Python 文件名推断成本。输入还须包含它实际读取的两个便携工具 fixture；原 wrapper 内的24项及全部原生验证继续保留。
+
+`python3 tools/production_plan.py --base origin/main --stage integration --precheck-only` 只执行被选中的前置守门，收据明确为 `precheck_only`，不签完整 Harness。默认控制台只给摘要，完整计划照常保存；需要全文时加 `--verbose-plan`。
+
+只有选中集合与现有 `full` profile 精确相等时，PR CI 才复用原 `--profile full --release --jobs 1 --lane parallel|serial` 协议，由两台独立 runner 读取同一 prepare 的 Foundry 产物，最终原 `--verify-lanes ... --profile full` 核源码、工具链、输入、执行 token、日志和完整覆盖。局部任务保留原精准 `--check` 路径。原 Harness／profile 定义、断言、预算和正式 Release 工作流不改。
+
+最终 `affected` job 仅在所选路径完整成功后放行；prepare 失败、通道失败／取消／缺失及合流失败均不能提前绿。重跑仅失败 job 时，同 run 的准备验收指针保持稳定，失败日志按 run／attempt 留存；原源码和覆盖守门仍拒绝混源。
+
+本地前置检查和门禁演练分别记录，远端新流程以实际 Actions 结果为准。两通道使用原 jobs1，准备／重复输入物化仍有成本；不预先承诺减半。历史版本范围的剩余整理另见本轮只读审计，未执行与局部通过不记为整轮通过。
+
 harness 将现有检查组成可执行的验收入口，不替换实际测试，也不把技术通过当成高质量游戏已经获用户认可。技能负责需求到交付的工作步骤，harness 负责执行、失败码和证据。
 
 ```sh
