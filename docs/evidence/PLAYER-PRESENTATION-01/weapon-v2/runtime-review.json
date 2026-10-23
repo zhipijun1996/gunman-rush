@@ -1,0 +1,791 @@
+{
+  "schema_version": 1,
+  "task": "PLAYER-PRESENTATION-01",
+  "content_version": "weapon-v2",
+  "review_kind": "independent original-pixel and recorded-runtime evidence review",
+  "reviewed_commit": "3254984dcc4f0fc2c3c69b463fe5515f81d69010",
+  "reviewed_at_utc": "2026-10-23T01:05:34.816490+00:00",
+  "reviewer": {
+    "agent": "/root/audit_review",
+    "role": "Independent delegated reviewer; implementation authored by root and other agents",
+    "skill": ".agents/skills/gameplay-reviewer/SKILL.md",
+    "independence": "Did not modify reviewed implementation or execute Godot/browser drivers. Read source/logs/raw traces; independently recomputed hashes/parity and actually opened listed original-size images. Only these two review artifacts written."
+  },
+  "verdict": "UNVERIFIED",
+  "scoped_verdicts": {
+    "selected_native_original_frames": "ACCEPT_LIMITED_FACTS",
+    "final_local_web_ui": "ACCEPT_LIMITED_RECORDED_GUI_FACTS",
+    "gameplay_trace_parity": "ACCEPT_RECORDED_FIELDS_ONLY",
+    "audio_listening": "UNVERIFIED",
+    "full_speed_animation": "UNVERIFIED",
+    "user_acceptance": "UNVERIFIED",
+    "physical_device": "UNVERIFIED",
+    "complete_affected_integration": "UNVERIFIED"
+  },
+  "conditions": {
+    "scene": "res://scenes/dev/player_presentation_01/weapon_feel_v2.tscn",
+    "seed": "player-presentation-01/motion-01",
+    "consumer": "Actual DemoApp-assembled Home Underworld player,original Router/Motor/geometry;two clearly labeled stationary brown TRAINING fixtures,not formal enemy art.",
+    "comparison": "Same-source candidateOFF/ON,bothinclude user-authorized6s mine behavior.1280x720,MovieMaker fixed60fps;21.7s/1302video frames each.",
+    "audio_stream": "MP4probe has48kHz stereo; reviewer has not listened. Audio driver Dummy recording is not physical speaker/device evidence.",
+    "sample_boundary": "1294 trace rows are not1302mediaframes; index uses real video frame/time and explicitly approximate nearest trace sample,not invented exact physics tick."
+  },
+  "evidence_bindings": {
+    "report": {
+      "path": "build/player_presentation_01/weapon-v2/native-hand-final/report.json",
+      "sha256": "181f612507165f2f0f6aba661e8210a45d5c073c3d90e02fbd330f67df1681ab",
+      "source_stable": true,
+      "independently_compared_source_inventory_equal": true
+    },
+    "frame_index": {
+      "path": "build/player_presentation_01/weapon-v2/native-hand-final/frames/index.json",
+      "sha256": "9bc40b7d92128142ce4de9e626845dffb09c7a84ea567428b6ad6e4db316b8a9",
+      "source_commit": "3254984dcc4f0fc2c3c69b463fe5515f81d69010",
+      "all32frame_hashes_independently_match": true
+    },
+    "movies": [
+      {
+        "path": "build/player_presentation_01/weapon-v2/native-hand-final/before.mp4",
+        "sha256": "4e3910730c2ea4296a44b68bfe868a7c78414e8b5a6c7d5f3b3a00229dce94ed",
+        "author_report_hash_matches": true,
+        "frames": 1302,
+        "seconds": 21.7,
+        "reviewer_played_full_speed": false,
+        "reviewer_listened": false
+      },
+      {
+        "path": "build/player_presentation_01/weapon-v2/native-hand-final/after.mp4",
+        "sha256": "59267a9ad8b8717baf9823e55d5f7039b43fe5f584a03c6ef7117066c123715f",
+        "author_report_hash_matches": true,
+        "frames": 1302,
+        "seconds": 21.7,
+        "reviewer_played_full_speed": false,
+        "reviewer_listened": false
+      }
+    ]
+  },
+  "actually_viewed_native_frames": [
+    {
+      "file": "before-pistol-62.png",
+      "video": "before.mp4",
+      "video_frame": 62,
+      "video_seconds": 1.0333333333333334,
+      "near_trace_sample": 57,
+      "near_trace_draw_counter": 62,
+      "sha256": "cb0dc2dd7b826b83d9f6476fb4809fed8973a74ad3c1d2e44ae0506b4568460c",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/before-pistol-62.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    },
+    {
+      "file": "before-machine-163.png",
+      "video": "before.mp4",
+      "video_frame": 163,
+      "video_seconds": 2.716666666666667,
+      "near_trace_sample": 158,
+      "near_trace_draw_counter": 163,
+      "sha256": "e0407824d298d5c1127084b4b164a2b1322133965513c75ca1dfc1c909c7bddd",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/before-machine-163.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    },
+    {
+      "file": "before-ion-276.png",
+      "video": "before.mp4",
+      "video_frame": 276,
+      "video_seconds": 4.6,
+      "near_trace_sample": 271,
+      "near_trace_draw_counter": 276,
+      "sha256": "521b661c6731f775304e43c2b71851a849a46926c650348bc8502d7d00931b6b",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/before-ion-276.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    },
+    {
+      "file": "before-ion-290.png",
+      "video": "before.mp4",
+      "video_frame": 290,
+      "video_seconds": 4.833333333333333,
+      "near_trace_sample": 285,
+      "near_trace_draw_counter": 290,
+      "sha256": "2f5874d28fce57d152d3664002e68c189fac96b6146043604b0d4f511fb16b1c",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/before-ion-290.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    },
+    {
+      "file": "before-return_blade-642.png",
+      "video": "before.mp4",
+      "video_frame": 642,
+      "video_seconds": 10.7,
+      "near_trace_sample": 637,
+      "near_trace_draw_counter": 642,
+      "sha256": "ad8c6e78b634ad3b25c64d0d0ec795403dd1ea8d3094f7137d449e68c086bd2a",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/before-return_blade-642.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    },
+    {
+      "file": "before-return_blade-644.png",
+      "video": "before.mp4",
+      "video_frame": 644,
+      "video_seconds": 10.733333333333333,
+      "near_trace_sample": 639,
+      "near_trace_draw_counter": 644,
+      "sha256": "a4fe1558b14b1f655962042b2cad386711c91cfba55f4434d39102eb0820994f",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/before-return_blade-644.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    },
+    {
+      "file": "before-return_blade-646.png",
+      "video": "before.mp4",
+      "video_frame": 646,
+      "video_seconds": 10.766666666666667,
+      "near_trace_sample": 641,
+      "near_trace_draw_counter": 646,
+      "sha256": "b1cf182a4c25c26a2dfaec721ea124190c5c1640c4d18147a06b245a5c9b5e99",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/before-return_blade-646.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    },
+    {
+      "file": "before-return_blade-648.png",
+      "video": "before.mp4",
+      "video_frame": 648,
+      "video_seconds": 10.8,
+      "near_trace_sample": 643,
+      "near_trace_draw_counter": 648,
+      "sha256": "e4ac456c639562cf7970eb4f04682732ded85b8750a2ca168a9d82c5797b3e8c",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/before-return_blade-648.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    },
+    {
+      "file": "before-bomb-711.png",
+      "video": "before.mp4",
+      "video_frame": 711,
+      "video_seconds": 11.85,
+      "near_trace_sample": 706,
+      "near_trace_draw_counter": 711,
+      "sha256": "cb9d8146772347af4e36b5a04e09734ba2a95daf88b09757eb04c665ae42cbde",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/before-bomb-711.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    },
+    {
+      "file": "before-bomb-715.png",
+      "video": "before.mp4",
+      "video_frame": 715,
+      "video_seconds": 11.916666666666666,
+      "near_trace_sample": 710,
+      "near_trace_draw_counter": 715,
+      "sha256": "0da893ac8966b632d5e6b403a66d4a0ac243482bc996ab3dd772f2a82ea7ea9b",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/before-bomb-715.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    },
+    {
+      "file": "before-mine_countdown-1149.png",
+      "video": "before.mp4",
+      "video_frame": 1149,
+      "video_seconds": 19.15,
+      "near_trace_sample": 1144,
+      "near_trace_draw_counter": 1149,
+      "sha256": "a5a91c7c6015ced0c6fcc93249dc551282262976e4ecc60c5d76de98aad7f060",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/before-mine_countdown-1149.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    },
+    {
+      "file": "before-mine_auto_blast-1174.png",
+      "video": "before.mp4",
+      "video_frame": 1174,
+      "video_seconds": 19.566666666666666,
+      "near_trace_sample": 1169,
+      "near_trace_draw_counter": 1174,
+      "sha256": "3aaf6b8d80255260cbf6f3c1182ff6d79b91ed5d6ab0bb61a08582176e5fb520",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/before-mine_auto_blast-1174.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    },
+    {
+      "file": "before-blackhole_hold-1215.png",
+      "video": "before.mp4",
+      "video_frame": 1215,
+      "video_seconds": 20.25,
+      "near_trace_sample": 1210,
+      "near_trace_draw_counter": 1215,
+      "sha256": "14994704e88010482c071881fb01d48179dab630013268d061732e487640e92b",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/before-blackhole_hold-1215.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    },
+    {
+      "file": "before-blackhole_hold-1223.png",
+      "video": "before.mp4",
+      "video_frame": 1223,
+      "video_seconds": 20.383333333333333,
+      "near_trace_sample": 1218,
+      "near_trace_draw_counter": 1223,
+      "sha256": "e2867697f4523ea0a6ec10e7055e7c410f54268187827344de49159a7980ba94",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/before-blackhole_hold-1223.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    },
+    {
+      "file": "before-blackhole_collapse-1237.png",
+      "video": "before.mp4",
+      "video_frame": 1237,
+      "video_seconds": 20.616666666666667,
+      "near_trace_sample": 1232,
+      "near_trace_draw_counter": 1237,
+      "sha256": "bf5159bee7be068a873855ba19135cdd71c4802d8ec442b98ebdba31c25d4037",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/before-blackhole_collapse-1237.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    },
+    {
+      "file": "before-blackhole_collapse-1240.png",
+      "video": "before.mp4",
+      "video_frame": 1240,
+      "video_seconds": 20.666666666666668,
+      "near_trace_sample": 1235,
+      "near_trace_draw_counter": 1240,
+      "sha256": "52dd17135dc0fcc82812c3f866696fda72c9f800bee3b3233a4197b0f5c8ef28",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/before-blackhole_collapse-1240.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    },
+    {
+      "file": "after-pistol-62.png",
+      "video": "after.mp4",
+      "video_frame": 62,
+      "video_seconds": 1.0333333333333334,
+      "near_trace_sample": 57,
+      "near_trace_draw_counter": 62,
+      "sha256": "a54ab58756c1ea77758cf2f9eb6e4d6af973ca908a06f0acc9bdbdd1b4388714",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/after-pistol-62.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    },
+    {
+      "file": "after-machine-163.png",
+      "video": "after.mp4",
+      "video_frame": 163,
+      "video_seconds": 2.716666666666667,
+      "near_trace_sample": 158,
+      "near_trace_draw_counter": 163,
+      "sha256": "9184a8c57e182b5b60a1167ba68c68b29c0acfaa76a8d1eafa4402339003f666",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/after-machine-163.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    },
+    {
+      "file": "after-ion-276.png",
+      "video": "after.mp4",
+      "video_frame": 276,
+      "video_seconds": 4.6,
+      "near_trace_sample": 271,
+      "near_trace_draw_counter": 276,
+      "sha256": "b3b3324ea15d805f730b7b221097c23067977e602cf597f552e664320d956e8c",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/after-ion-276.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    },
+    {
+      "file": "after-ion-290.png",
+      "video": "after.mp4",
+      "video_frame": 290,
+      "video_seconds": 4.833333333333333,
+      "near_trace_sample": 285,
+      "near_trace_draw_counter": 290,
+      "sha256": "c68353d1b9e2b8dc758cdb050c34c1c9499438dcbdd61f54839e06641e733b27",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/after-ion-290.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    },
+    {
+      "file": "after-return_blade-642.png",
+      "video": "after.mp4",
+      "video_frame": 642,
+      "video_seconds": 10.7,
+      "near_trace_sample": 637,
+      "near_trace_draw_counter": 642,
+      "sha256": "c8809a34f53c6335e08928aff133127a6da0673f31f9b3e1f3c07741a98316b4",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/after-return_blade-642.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    },
+    {
+      "file": "after-return_blade-644.png",
+      "video": "after.mp4",
+      "video_frame": 644,
+      "video_seconds": 10.733333333333333,
+      "near_trace_sample": 639,
+      "near_trace_draw_counter": 644,
+      "sha256": "c49f7a7d65dea060704e9ce3d23e4112c2547881fe72cee08a24f73ad134cae3",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/after-return_blade-644.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    },
+    {
+      "file": "after-return_blade-646.png",
+      "video": "after.mp4",
+      "video_frame": 646,
+      "video_seconds": 10.766666666666667,
+      "near_trace_sample": 641,
+      "near_trace_draw_counter": 646,
+      "sha256": "517d929d2c2f74a962d9b902ab4e19c297845176a997d06b8ad5bb912664292e",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/after-return_blade-646.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    },
+    {
+      "file": "after-return_blade-648.png",
+      "video": "after.mp4",
+      "video_frame": 648,
+      "video_seconds": 10.8,
+      "near_trace_sample": 643,
+      "near_trace_draw_counter": 648,
+      "sha256": "3174c3d48c47361f6eccee7cf13fdef809ff7653f0b469285163076623a52252",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/after-return_blade-648.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    },
+    {
+      "file": "after-bomb-711.png",
+      "video": "after.mp4",
+      "video_frame": 711,
+      "video_seconds": 11.85,
+      "near_trace_sample": 706,
+      "near_trace_draw_counter": 711,
+      "sha256": "74c74170a6776b54af5ed105b29feedf26786c05798b167a0b7bc32f35b4049a",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/after-bomb-711.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    },
+    {
+      "file": "after-bomb-715.png",
+      "video": "after.mp4",
+      "video_frame": 715,
+      "video_seconds": 11.916666666666666,
+      "near_trace_sample": 710,
+      "near_trace_draw_counter": 715,
+      "sha256": "fd4f2b14c894352efdf1d154a359e669bc02ac344440a21d6eb02fe2490e2b2f",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/after-bomb-715.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    },
+    {
+      "file": "after-mine_countdown-1149.png",
+      "video": "after.mp4",
+      "video_frame": 1149,
+      "video_seconds": 19.15,
+      "near_trace_sample": 1144,
+      "near_trace_draw_counter": 1149,
+      "sha256": "016798606ccc5ac7f0012e4eef16c68700304323807c9c4c427f5b966db66616",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/after-mine_countdown-1149.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    },
+    {
+      "file": "after-mine_auto_blast-1174.png",
+      "video": "after.mp4",
+      "video_frame": 1174,
+      "video_seconds": 19.566666666666666,
+      "near_trace_sample": 1169,
+      "near_trace_draw_counter": 1174,
+      "sha256": "e47a6b6e3952299a4397bb196c336ba2656b2e19337c8541bf5cc0b231036d50",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/after-mine_auto_blast-1174.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    },
+    {
+      "file": "after-blackhole_hold-1215.png",
+      "video": "after.mp4",
+      "video_frame": 1215,
+      "video_seconds": 20.25,
+      "near_trace_sample": 1210,
+      "near_trace_draw_counter": 1215,
+      "sha256": "07360ecbc93167dbbcd3fd1223825d1c28debd9d1ed5d429cd4067afa0516ed8",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/after-blackhole_hold-1215.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    },
+    {
+      "file": "after-blackhole_hold-1223.png",
+      "video": "after.mp4",
+      "video_frame": 1223,
+      "video_seconds": 20.383333333333333,
+      "near_trace_sample": 1218,
+      "near_trace_draw_counter": 1223,
+      "sha256": "e9a8b96dc3c948a3276857f28a777926c34ce85860a2e718f9943e0c63bc5425",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/after-blackhole_hold-1223.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    },
+    {
+      "file": "after-blackhole_collapse-1237.png",
+      "video": "after.mp4",
+      "video_frame": 1237,
+      "video_seconds": 20.616666666666667,
+      "near_trace_sample": 1232,
+      "near_trace_draw_counter": 1237,
+      "sha256": "78190d17f06da34af6b9f4cf023485cc9ed0391925cb9ea4e79f5fb72c079e1d",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/after-blackhole_collapse-1237.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    },
+    {
+      "file": "after-blackhole_collapse-1240.png",
+      "video": "after.mp4",
+      "video_frame": 1240,
+      "video_seconds": 20.666666666666668,
+      "near_trace_sample": 1235,
+      "near_trace_draw_counter": 1240,
+      "sha256": "8b15af5b0f8b6f04335027e0a8783734b3b22a20b6e1db4de67dfa148cd6fd7f",
+      "scope": "Exactoriginal1280x720 movieframe;trace-nearest approximate,not fabricated exactphysics tick",
+      "absolute_path": "/workspace/player-presentation/build/player_presentation_01/weapon-v2/native-hand-final/frames/after-blackhole_collapse-1240.png",
+      "review_method": "view_image detail=original;1280x720 actual movie extraction,not generated concept or contact sheet"
+    }
+  ],
+  "pixel_observations": [
+    {
+      "id": "V2-PIX-ION",
+      "frames": [
+        276,
+        290
+      ],
+      "scope": "before/after both",
+      "status": "ACCEPT_LIMITED_FACT",
+      "observation": "Candidate beam has bright inner core and distinct dark outline instead of old thin blue line; local direction/endpoint can be read in these samples. Does not establish full-speed cue clarity or final laser aesthetics."
+    },
+    {
+      "id": "V2-PIX-RETURN",
+      "frames": [
+        642,
+        644,
+        646,
+        648
+      ],
+      "scope": "before/after both;final325 compared with previously viewedfc55 set",
+      "status": "LOCAL_REWORK_CLOSED_WITH_LIMIT",
+      "observation": "Final fading blade reaches current body holding region at646 and vanishes by648; oldfc55 endpoint drift away from recoil-moving body is reduced. It remains a short visual echo after physical instantaneous swept catch,not a physical traveling return or explicit body hand-catch animation. Grip perfection,continuous timing and player expectation remain unverified."
+    },
+    {
+      "id": "V2-PIX-CORE",
+      "frames": [
+        1215,
+        1223
+      ],
+      "scope": "before/after both",
+      "status": "LOCAL_REWORK_CLOSED_WITH_LIMIT",
+      "observation": "Final larger dark29..33wu hold core/outer purple rim is discernible behind hero; hero stays in front. Compared with viewedfc55 smaller core it reads more clearly against busy Home. No claim of dramatic black-hole weight or full-speed readability."
+    },
+    {
+      "id": "V2-PIX-BLAST",
+      "frames": [
+        711,
+        715,
+        1174
+      ],
+      "scope": "before/after both",
+      "status": "ACCEPT_LIMITED_FACT",
+      "observation": "Candidate warm orange fire/smoke,small pointed inner tips and fragmented thin ring visible; bright opaque central flash occupies less area than baseline. These are stylized sparks/tips,not proof of natural fire or user-approved explosion weight."
+    },
+    {
+      "id": "V2-PIX-COLLAPSE",
+      "frames": [
+        1237,
+        1240
+      ],
+      "scope": "before/after both",
+      "status": "ACCEPT_LIMITED_FACT",
+      "observation": "Candidate collapse uses thin purple/gray ellipses and inward strokes,visibly distinct from baseline orange explosion ring; selected frame does not certify whole collapse motion."
+    },
+    {
+      "id": "V2-PIX-MINE",
+      "frames": [
+        1149,
+        1174
+      ],
+      "scope": "before/after both",
+      "status": "ACCEPT_LIMITED_FACT",
+      "observation": "Candidate red lamp/partial radial fuse mark visible at1149 and burst at1174. These selected images alone do not prove countdown rhythm,intuitive remaining time or audible accelerating beeps."
+    },
+    {
+      "id": "V2-PIX-SMALLPROJECTILE",
+      "frames": [
+        62,
+        163
+      ],
+      "scope": "before/after both",
+      "status": "ACCEPT_LIMITED_FACT",
+      "observation": "Small slimmer bright head/trail remains distinguishable in pistol/machine samples; change is modest. No claim all fifteen weapons received large visible improvement."
+    }
+  ],
+  "raw_pair_recomputation": [
+    {
+      "files": [
+        "build/player_presentation_01/weapon-v2/native-hand-final/after.json",
+        "build/player_presentation_01/weapon-v2/native-hand-final/before.json"
+      ],
+      "sha256": [
+        "5206a3d0aad3c1377cbcda66eca5956299a2fd354a920a3113094f7c324de613",
+        "c06a552a8204a41954bd470e6358925221aef27f9a322f9f2a177e9ab376f4bf"
+      ],
+      "rows": [
+        1294,
+        1294
+      ],
+      "checks": [
+        3914,
+        3914
+      ],
+      "errors": [
+        [],
+        []
+      ],
+      "fields": [
+        "sample",
+        "tick",
+        "position",
+        "velocity",
+        "normal",
+        "recoil",
+        "motion_steps",
+        "hp",
+        "stamina",
+        "combat",
+        "charges",
+        "used_jumps",
+        "muzzle",
+        "aim",
+        "camera",
+        "camera_offset",
+        "body",
+        "weapon",
+        "epoch",
+        "packet",
+        "rounds",
+        "cooldown",
+        "phase",
+        "runtime_age",
+        "beam",
+        "projectiles",
+        "entities",
+        "targets"
+      ],
+      "differences": [],
+      "all_accepted_event_fields_equal": true,
+      "comparison_exclusions": [],
+      "audio_dropped": [
+        0,
+        0
+      ],
+      "audio_preemptions": [
+        0,
+        0
+      ],
+      "method": "Reviewer compared every recorded row/field and complete events arrays, not report status alone. Author ran Godot."
+    },
+    {
+      "files": [
+        "build/player_presentation_01/weapon-v2/final-all-on.json",
+        "build/player_presentation_01/weapon-v2/final-all-off.json"
+      ],
+      "sha256": [
+        "110e8353cc681707a3a22429e81d12dd28d74af26a2e9ad60ff7988b2e72a901",
+        "d5db7487bb6acc70c7a7a97a3031c6c5ddcc6f0535a5f98d570ff56a381cfe32"
+      ],
+      "rows": [
+        4781,
+        4781
+      ],
+      "checks": [
+        14455,
+        14455
+      ],
+      "errors": [
+        [],
+        []
+      ],
+      "fields": [
+        "sample",
+        "tick",
+        "position",
+        "velocity",
+        "normal",
+        "recoil",
+        "motion_steps",
+        "hp",
+        "stamina",
+        "combat",
+        "charges",
+        "used_jumps",
+        "muzzle",
+        "aim",
+        "camera",
+        "camera_offset",
+        "body",
+        "weapon",
+        "epoch",
+        "packet",
+        "rounds",
+        "cooldown",
+        "phase",
+        "runtime_age",
+        "beam",
+        "projectiles",
+        "entities",
+        "targets"
+      ],
+      "differences": [],
+      "all_accepted_event_fields_equal": true,
+      "comparison_exclusions": [],
+      "audio_dropped": [
+        0,
+        0
+      ],
+      "audio_preemptions": [
+        61,
+        0
+      ],
+      "method": "Reviewer compared every recorded row/field and complete events arrays, not report status alone. Author ran Godot."
+    }
+  ],
+  "previous_source_preserved": {
+    "commit": "fc55deee38fd6530bd14586d8fb5ecbf0af59026",
+    "path": "build/player_presentation_01/weapon-v2/native-final",
+    "reviewer_viewed": "All32old source original frames were viewed previously;old return drift/faintcore/geometricfire observations retained.",
+    "status": "Old frame/source bindings remainold;final325doesnot relabel oldmovieor retroactively sign oldpixel scope.",
+    "audio_budget_boundary": "Old frozenfc55 comprehensive reported4drops/66preemptions;final325headless0drops/61preemptions;finalnative0/0. Later results do not erase old raw counts."
+  },
+  "local_web": {
+    "verdict": "ACCEPT_LIMITED_RECORDED_GUI_FACTS",
+    "report_path": "build/player_presentation_01/weapon-v2/browser-final/report.json",
+    "report_sha256": "a0daeb5cad654291305a3135aef67a10375b8882a512002c4e1154b0a6044cab",
+    "author_driver_result": "passed",
+    "reported_acceptance_errors": [],
+    "source_commit": "3254984dcc4f0fc2c3c69b463fe5515f81d69010",
+    "build_id": "6952e7d0d356",
+    "driver_sha256": "46dd6b8ce0bd3ea622f5807dfdb7b393c3fd01967f3dc15f2508c6125804498a",
+    "actual_selected_logs": [
+      "WEAPON SAMPLE: selected triple_machine_gun",
+      "WEAPON SAMPLE: selected sustained_laser",
+      "WEAPON SAMPLE: selected shadow_shuriken",
+      "WEAPON SAMPLE: selected fan_shuriken",
+      "WEAPON SAMPLE: selected remote_boomerang",
+      "WEAPON SAMPLE: selected recoil_bomb",
+      "WEAPON SAMPLE: selected magnetic_mine",
+      "WEAPON SAMPLE: selected collapse_singularity",
+      "WEAPON SAMPLE: selected machine_storm",
+      "WEAPON SAMPLE: selected laser_cannon",
+      "WEAPON SAMPLE: selected blade_bloom",
+      "WEAPON SAMPLE: selected moon_boomerang",
+      "WEAPON SAMPLE: selected magnetic_storm",
+      "WEAPON SAMPLE: selected star_collapse",
+      "WEAPON SAMPLE: selected pulse_gun",
+      "WEAPON SAMPLE: selected remote_boomerang"
+    ],
+    "reviewer_hashes": "All30screenshots in report independently hash-matched;only nine listed below actually opened for this review.",
+    "actually_viewed_screenshots": [
+      {
+        "path": "build/player_presentation_01/weapon-v2/browser-final/popup-3.png",
+        "sha256": "f99536bdc5b2ab493cf02a40087752108b0615c4b6ed3e417d965aab7441d435",
+        "method": "view_image original1280x720"
+      },
+      {
+        "path": "build/player_presentation_01/weapon-v2/browser-final/touch-popup-selection.png",
+        "sha256": "6309c05edc3a3fce49d5789bfcefa984c3b99ad48894c545e8508fceac85092b",
+        "method": "view_image original1280x720"
+      },
+      {
+        "path": "build/player_presentation_01/weapon-v2/browser-final/touch-move-before.png",
+        "sha256": "b7b6334b8741365af4c8764b24d6bd2c3cbfb4e793c4a1002b1d9130ff287926",
+        "method": "view_image original1280x720"
+      },
+      {
+        "path": "build/player_presentation_01/weapon-v2/browser-final/touch-move-after.png",
+        "sha256": "acc51b67527dc24a952ee51299b702b797625dce2f76cd2f2a8e0e4e8ee0e49f",
+        "method": "view_image original1280x720"
+      },
+      {
+        "path": "build/player_presentation_01/weapon-v2/browser-final/04b-real-pointer-fire-target.png",
+        "sha256": "1676f201c2e9a01edc2379304acfb0d0613c1869c51c037cc8526ad41a5aaa44",
+        "method": "view_image original1280x720"
+      },
+      {
+        "path": "build/player_presentation_01/weapon-v2/browser-final/04c-real-pointer-fire-air.png",
+        "sha256": "13e7a9a974e70e40c43d3bd466878224c259e712149d9c309c84ef3d93e416e3",
+        "method": "view_image original1280x720"
+      },
+      {
+        "path": "build/player_presentation_01/weapon-v2/browser-final/06-pointer-restart.png",
+        "sha256": "2078b8371b112c07db115fdcd2bac3df6ec2c1c864a7399dd01998ffc5b102bb",
+        "method": "view_image original1280x720"
+      },
+      {
+        "path": "build/player_presentation_01/weapon-v2/browser-final/07-home-full-game.png",
+        "sha256": "b7b26b858dabeedff916b38541a53a67984a07c8880009b851038455eb645d0f",
+        "method": "view_image original1280x720"
+      },
+      {
+        "path": "build/player_presentation_01/weapon-v2/browser-final/08-home-drop-reentry.png",
+        "sha256": "c47724d45906c4e2efc2e7395f5f74670eb0d372b176a73dd364ac78314e3113",
+        "method": "view_image original1280x720"
+      }
+    ],
+    "observations": [
+      "Chinese picker rows are rendered without tofu and popup fully fits uppercentral screen; left virtual stick remains uncovered.",
+      "Actual DOMtouch remote_boomerang selection label visible;before/after virtual-stick pictures show real player farther left. These are automated DOMtouch on localChromium,not physical touch-device testing.",
+      "Actual Plains screenshot afterrestart,Home/fullgame screenshot andHomeDrop reentry screenshot match reported route;still screenshots plus author driver trace,not reviewer interactive play.",
+      "Pointer target/air screenshot pair shows actual aim reticle/line and changedjumpcounter/heroairborne;no accepted-shotIDs are present in console. Do not infer acceptedshotidentity or damage from pointer screenshot alone."
+    ],
+    "raw_console_not_clean": [
+      {
+        "type": "error",
+        "text": "Failed to load resource: the server responded with a status of 404 (File not found)"
+      },
+      {
+        "type": "warning",
+        "text": "The AudioContext was not allowed to start. It must be resumed (or created) after a user gesture on the page. https://developer.chrome.com/blog/autoplay/#web_audio"
+      }
+    ],
+    "audio_context_states_after_real_space_key": [
+      "running"
+    ],
+    "boundary": "UnknownURL generic404 retained,not guessed asfavicon. Initialautoplaywarning retained. AudioContextrunning only proves browsercontext resumed,not heardaudio or fullnetworkcleanliness. No publicdeploy inferred from localbrowser."
+  },
+  "package": {
+    "receipt_path": "build/player_presentation_01/weapon-v2/package-final-receipt.json",
+    "receipt_sha256": "25b051f1d91f646e9edc00ec066173aa1a835b8f7c25cfcfc814a8d1906d8af7",
+    "status": "passed",
+    "source_commit": "3254984dcc4f0fc2c3c69b463fe5515f81d69010",
+    "build_id": "6952e7d0d356",
+    "archive": "player-weapon-v2-preview-6952e7d0d356.zip",
+    "archive_bytes": 167358133,
+    "archive_sha256": "62996c3eddd1fc6a00d204ae8a64e68da904a798be7c52f14e0fb667e6a2aad6",
+    "reconstructed": {
+      "scope": "exact PCK reconstruction for static Pages transport",
+      "source_commit": "3254984dcc4f0fc2c3c69b463fe5515f81d69010",
+      "build_id": "6952e7d0d356",
+      "pack": "index.6952e7d0d356.pck",
+      "pack_bytes": 143866340,
+      "pack_sha256": "6952e7d0d35693cf61f68381a27328f948634235f6c2099f0446ac8e8985508e",
+      "reconstructed": true,
+      "failed": 0
+    },
+    "boundary": "Reviewer read author receipt;did not rerun extraction/package reconstruction. Localpackage/browser do not establish publichosting availability. Metadata explicitly retains publicPagescapacity rejection."
+  },
+  "unverified": [
+    "No complete normal-speed video playback by reviewer;selected neighboringframes only.",
+    "No listening to either audio track or actual browseroutput;relative volume,naturalness,seams,mix,hit/wall distinctions,beep clarity remainunverified.",
+    "No user taste/feel endorsement and no physicaldevice tests.",
+    "Not full15weaponsGPU/completeearnedskill presentation coverage,completeformal encounters or formal enemyart.",
+    "No bodygrip/handanimation completion claim;visualecho still differs fromphysicalinstantcatch.",
+    "No finalfullaffectedIntegration/Release and no entirePLAYER-PRESENTATION-01 completion signature."
+  ],
+  "conclusion": "Engineering and limited sampled pixel/localUI facts support coordinator review and clearly labeleddevelopmentcandidate. Overallruntime/content remainsUNVERIFIED pending named gaps;preserve all failures and original sourcebindings."
+}

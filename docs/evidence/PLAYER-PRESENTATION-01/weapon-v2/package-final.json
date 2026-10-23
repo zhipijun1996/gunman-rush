@@ -1,0 +1,60 @@
+{
+  "task": "PLAYER-PRESENTATION-01",
+  "source_commit": "3254984dcc4f0fc2c3c69b463fe5515f81d69010",
+  "content_version": "weapon-feel-v2",
+  "build_id": "6952e7d0d356",
+  "status": "passed",
+  "scope": "Actual ZIP extracted, complete canonical PCK SHA, real exported Chromium keyboard/pointer/DOMtouch;not public playable Web, hearing/user/physical-device acceptance",
+  "archive": "player-weapon-v2-preview-6952e7d0d356.zip",
+  "archive_sha256": "62996c3eddd1fc6a00d204ae8a64e68da904a798be7c52f14e0fb667e6a2aad6",
+  "archive_bytes": 167358133,
+  "canonical_pack_sha256": "6952e7d0d35693cf61f68381a27328f948634235f6c2099f0446ac8e8985508e",
+  "package_receipt_sha256": "25b051f1d91f646e9edc00ec066173aa1a835b8f7c25cfcfc814a8d1906d8af7",
+  "browser_report_sha256": "a0daeb5cad654291305a3135aef67a10375b8882a512002c4e1154b0a6044cab",
+  "browser_driver_sha256": "46dd6b8ce0bd3ea622f5807dfdb7b393c3fd01967f3dc15f2508c6125804498a",
+  "audio_context_states_after_real_space_key": [
+    "running"
+  ],
+  "pointer_ids": [
+    "WEAPON SAMPLE: selected triple_machine_gun",
+    "WEAPON SAMPLE: selected sustained_laser",
+    "WEAPON SAMPLE: selected shadow_shuriken",
+    "WEAPON SAMPLE: selected fan_shuriken",
+    "WEAPON SAMPLE: selected remote_boomerang",
+    "WEAPON SAMPLE: selected recoil_bomb",
+    "WEAPON SAMPLE: selected magnetic_mine",
+    "WEAPON SAMPLE: selected collapse_singularity",
+    "WEAPON SAMPLE: selected machine_storm",
+    "WEAPON SAMPLE: selected laser_cannon",
+    "WEAPON SAMPLE: selected blade_bloom",
+    "WEAPON SAMPLE: selected moon_boomerang",
+    "WEAPON SAMPLE: selected magnetic_storm",
+    "WEAPON SAMPLE: selected star_collapse",
+    "WEAPON SAMPLE: selected pulse_gun",
+    "WEAPON SAMPLE: selected remote_boomerang"
+  ],
+  "real_touch_movement_pixel_measurement": {
+    "before": {
+      "pixels": 602,
+      "mean_x": 177.54651162790697
+    },
+    "after": {
+      "pixels": 535,
+      "mean_x": 120.05607476635514
+    }
+  },
+  "retained_browser_limits": [
+    "Generic404 response lacks URL;not network-all-zero",
+    "Autoplay warning before real user gesture;AudioContext running afterwards does not prove hearing"
+  ],
+  "licenses": {
+    "Freedoom-LICENSE.txt": "ed60abcf1ff64bf61bf8b4c585ab63643d655a21f8997ba284c01f94ed681fc5",
+    "Freedoom-CREDITS.txt": "47333ff87236f69af6d5ac7e306e102913e944f91e199f7bde1dbb1074b5c67a"
+  },
+  "deployment": {
+    "status": "blocked",
+    "reason": "Cloud delivery failed: Preview site would exceed 900MiB after PCK reconstruction",
+    "log_sha256": "f31aef5c58ef92062209976cee93fdec2a2dd314a66e817a51f047ad051eceac"
+  },
+  "native_source_commit": "3254984dcc4f0fc2c3c69b463fe5515f81d69010"
+}
