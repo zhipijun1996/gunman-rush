@@ -1,6 +1,7 @@
 extends "res://tests/player_presentation_01/weapon_feedback_v2.gd"
 ## Actual Home/Plains/reentry consumers,not only the unmodified old bank constant.
 var bindings: Array[Dictionary] = []
+var consumers: Array[String] = []
 
 func run() -> void:
 	node_added.connect(_observe_audio)
@@ -8,6 +9,13 @@ func run() -> void:
 
 func _observe_audio(node: Node) -> void:
 	if node is PlayerWeaponFeelAudioV2: _audit_audio.call_deferred(node)
+	if node is PlayerWeaponFeelV2: _audit_consumer.call_deferred(node)
+
+func _audit_consumer(feel: PlayerWeaponFeelV2) -> void:
+	check(is_instance_valid(feel) and feel.audio==app.weapon_audio,"real presentation leaf shares persistent preview audio")
+	if is_instance_valid(feel):
+		check(feel.audio.weapon_clips[&"mine_beep"][0].resource_path=="res://assets/player_presentation_01/mine_beep_v3/timer_beep.wav","real Home/reentry/Plains leaf consumes new timer")
+		consumers.append(str(feel.get_path()))
 
 func _audit_audio(audio: PlayerWeaponFeelAudioV2) -> void:
 	if not is_instance_valid(audio):
@@ -28,6 +36,6 @@ func _audit_audio(audio: PlayerWeaponFeelAudioV2) -> void:
 	bindings.append({"owner":str(audio.get_path()),"paths":paths,"duration":clips[0].get_length(),"loop_mode":clips[0].loop_mode,"scope":"Actual post-ready V2 consumer;does not prove hearing/naturalness"})
 
 func finish() -> void:
-	check(bindings.size()>=3,"real Home,reentry and Plains consumers audited")
-	FileAccess.open(output+".bindings.json",FileAccess.WRITE).store_string(JSON.stringify({"checks":checks,"errors":errors,"bindings":bindings},"\t"))
+	check(bindings.size()==1 and consumers.size()>=3,"one persistent audio service across actual Home,reentry and Plains leaves")
+	FileAccess.open(output+".bindings.json",FileAccess.WRITE).store_string(JSON.stringify({"checks":checks,"errors":errors,"bindings":bindings,"consumers":consumers},"\t"))
 	await super.finish()
