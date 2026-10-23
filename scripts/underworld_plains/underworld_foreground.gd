@@ -5,6 +5,9 @@ const BUILD := "res://assets/underworld_plains/foreground_fine_05/foreground_bui
 const ART_SHADER := preload("res://shaders/underworld_foreground.gdshader")
 const MAX_PROTECTION := 64
 const WIND_MARGIN := 3.0
+const PARALLAX := Vector2(1.15,1.12)
+const MIN_OPACITY := .65
+const MASTER := "res://assets/underworld_plains/foreground_fine_05/master_original.png"
 var _world: Node
 var _actor: PlayerMotor
 var _seed := "home-fine-05"
@@ -40,9 +43,22 @@ func _ready() -> void:
 		set_process(false)
 		return
 	_build=JSON.parse_string(FileAccess.get_file_as_string(BUILD))
-	for asset: Dictionary in _build.assets:
+	# Sample the original high-detail crops, never magnify the small 05 PNGs.
+	# The shader resolves each crop onto the shared 1wu grid at its display size.
+	var master:=load(MASTER) as Texture2D
+	for source: Dictionary in _build.assets:
+		var asset: Dictionary=source.duplicate(true)
+		var raw: Array=asset.raw_crop
+		var source_size:=Vector2(float(raw[2]),float(raw[3]))
+		var native_size:=Vector2(float(asset.size[0]),float(asset.size[1]))
+		asset["sample_size"]=source_size
+		asset["sample_attachment"]=Vector2(float(asset.attachment[0]),float(asset.attachment[1]))/native_size*source_size
+		var atlas:=AtlasTexture.new()
+		atlas.atlas=master
+		atlas.region=Rect2(Vector2(float(raw[0]),float(raw[1])),source_size)
+		atlas.filter_clip=true
 		_assets.append(asset)
-		_textures[str(asset.id)]=load(str(asset.image)) as Texture2D
+		_textures[str(asset.id)]=atlas
 	if _world is PlainsRegionStage: _seed=str((_world as PlainsRegionStage).generated.manifest.manifest_hash)
 	_inventory(get_tree().root)
 	get_tree().node_added.connect(_observe)
@@ -229,45 +245,60 @@ func _protection() -> void:
 			_world_rect(Rect2(point-Vector2(45,45),Vector2(90,90)),"actual_unclaimed_reward")
 
 func _roll(category: String,x: int,y: int) -> int:
-	return posmod((_seed+":"+category+":"+str(x)+":"+str(y)).hash(),1000000)
+	# Avalanche the string hash: neighboring world cells must not become a
+	# repeated diagonal sequence after the small placement moduli below.
+	var value: int=(_seed+":"+category+":"+str(x)+":"+str(y)).hash()
+	value=((value^(value>>16))*0x45d9f3b)&0xffffffff
+	value=((value^(value>>16))*0x45d9f3b)&0xffffffff
+	return posmod(value^(value>>16),1000000)
+
+func _grass_candidate(found: Array[Dictionary],id: String,at: Vector2,roll: int,center: Vector2,size: Vector2) -> void:
+	var screen: Vector2=(at-center)*PARALLAX+size*.5
+	# A tall near reed is readable above the frame while its complete root
+	# remains outside. The narrow visibility band prevents a fake standing edge.
+	if screen.y<size.y+13 or screen.y>size.y+98:return
+	var distance:=screen.y-size.y
+	for height: float in [170.0+float((roll/97)%15),148.0+float(roll%9)]:
+		found.append({"id":"%s/%d"%[id,int(height)],"asset":_assets[roll%3],"anchor_world":at,"screen":screen,"height":height,"fade":smoothstep(13,34,distance),"rank":absf(screen.x-size.x*.5)+(184.0-height)})
 
 func _candidates(center: Vector2,size: Vector2) -> Array[Dictionary]:
 	var found: Array[Dictionary]=[]
-	var rate:=Vector2(1.13,1.08)
 	var home_floor: Variant=null
 	if _world.get_script()!=null and str(_world.get_script().resource_path).ends_with("underworld_home_world.gd"):
 		home_floor=_world.get("floor_y")
-	for x: int in range(floori((center.x-size.x*.5/rate.x-260)/720),ceili((center.x+size.x*.5/rate.x+260)/720)+1):
+	for x: int in range(floori((center.x-size.x*.5/PARALLAX.x-360)/520),ceili((center.x+size.x*.5/PARALLAX.x+360)/520)+1):
 		if home_floor!=null:
-			# The fixed settlement has a real floor but no vertical room rows.
-			# Seeded banks sit beyond that floor, then use the same continuous
-			# world/camera projection and offscreen attachment safety checks.
 			var roll:=_roll("home_grass",x,0)
-			if roll%100<58:
-				var at:=Vector2(x*720+120+roll%480,float(home_floor)+230+(roll/480)%19)
-				var screen: Vector2=(at-center)*rate+size*.5
-				if screen.y>=size.y+13 and screen.y<=size.y+120:
-					found.append({"id":"home_grass/%d"%x,"asset":_assets[roll%3],"anchor_world":at,"screen":screen,"fade":smoothstep(13,36,screen.y-size.y),"rank":absf(screen.x-size.x*.5)})
+			if roll%100<72:
+				var at:=Vector2(x*520+70+roll%380,float(home_floor)+236+(roll/480)%19)
+				_grass_candidate(found,"home_grass/%d"%x,at,roll,center,size)
 			continue
-		for y: int in range(floori((center.y+size.y*.5/rate.y-200)/480),ceili((center.y+size.y*.5/rate.y+200)/480)+1):
+		for y: int in range(floori((center.y+size.y*.5/PARALLAX.y-120)/144),ceili((center.y+size.y*.5/PARALLAX.y+120)/144)+1):
 			var roll:=_roll("grass",x,y)
-			if roll%100>=58:continue
-			var at:=Vector2(x*720+120+roll%480,y*480+120+(roll/480)%240)
-			var screen: Vector2=(at-center)*rate+size*.5
-			if screen.y<size.y+13 or screen.y>size.y+120:continue
-			found.append({"id":"grass/%d/%d"%[x,y],"asset":_assets[roll%3],"anchor_world":at,"screen":screen,"fade":smoothstep(13,36,screen.y-size.y),"rank":absf(screen.x-size.x*.5)})
-	for x: int in range(floori((center.x-size.x*.5/rate.x-280)/1400),ceili((center.x+size.x*.5/rate.x+280)/1400)+1):
-		for y: int in range(floori((center.y-size.y*.5/rate.y)/600),ceili((center.y+size.y*.5/rate.y)/600)+1):
+			if roll%100>=62:continue
+			var at:=Vector2(x*520+70+roll%380,y*144+24+(roll/480)%96)
+			_grass_candidate(found,"grass/%d/%d"%[x,y],at,roll,center,size)
+	# Several seeded attachment opportunities let actual HUD/route protection
+	# select a different branch, rather than reducing the protection footprint.
+	# These are world cells: walking/panning reveals gaps and different sides.
+	# A 320wu horizontal lattice supplies side-entry opportunities even when
+	# a whole wider cell falls between both screen edges. Lower occupancy keeps
+	# quiet gaps; each opportunity is still a fixed world point, never a corner lock.
+	for x: int in range(floori((center.x-size.x*.5/PARALLAX.x-340)/320),ceili((center.x+size.x*.5/PARALLAX.x+340)/320)+1):
+		for y: int in range(floori((center.y-size.y*.5/PARALLAX.y)/112),ceili((center.y+size.y*.5/PARALLAX.y)/112)+1):
 			var roll:=_roll("branch",x,y)
-			if roll%100>=65:continue
-			var at:=Vector2(x*1400+100+roll%1200,y*600+80+(roll/1200)%440)
-			var screen: Vector2=(at-center)*rate+size*.5
-			if screen.y<size.y*.18 or screen.y>size.y*.64:continue
+			if roll%100>=48:continue
+			var at:=Vector2(x*320+40+roll%240,y*112+18+(roll/1200)%76)
+			var screen: Vector2=(at-center)*PARALLAX+size*.5
+			if screen.y<size.y*.15 or screen.y>size.y*.70:continue
 			var left:=screen.x<=-13 and screen.x>=-260
 			var right:=screen.x>=size.x+13 and screen.x<=size.x+260
 			if not left and not right:continue
 			var distance: float=-screen.x if left else screen.x-size.x
-			found.append({"id":"branch/%d/%d"%[x,y],"asset":_assets[3 if left else 4],"anchor_world":at,"screen":screen,"fade":smoothstep(13,42,distance),"rank":size.x+distance})
+			# Alternatives share the same real hanging point. Each is tested
+			# using its complete original image rectangle and 3wu wind margin.
+			for width: float in [352.0,288.0,224.0]:
+				found.append({"id":"branch/%d/%d/%d"%[x,y,int(width)],"asset":_assets[3 if left else 4],"anchor_world":at,"screen":screen,"width":width,"fade":smoothstep(13,38,distance),"rank":size.x+distance+absf(screen.y-size.y*.35)+(352.0-width)})
 	found.sort_custom(func(a:Dictionary,b:Dictionary)->bool:return float(a.rank)<float(b.rank))
 	return found
 
@@ -287,33 +318,44 @@ func refresh() -> void:
 			var asset: Dictionary=candidate.asset
 			var branch: bool=str(asset.kind)=="branch"
 			if (branch and branch_count>=1) or (not branch and grass_count>=2):continue
-			var attachment:=Vector2(asset.attachment[0],asset.attachment[1])
+			var source_size: Vector2=asset.sample_size
+			var source_attachment: Vector2=asset.sample_attachment
+			var display_scale: float=float(candidate.width)/source_size.x if branch else float(candidate.height)/source_size.y
+			var attachment:=source_attachment*display_scale
+			var display_size:=source_size*display_scale
 			var position: Vector2=(candidate.screen-attachment).round()
 			var actual_anchor:=position+attachment
-			var bounds:=Rect2(position,Vector2(asset.size[0],asset.size[1]))
+			var bounds:=Rect2(position,display_size)
+			var clipped:=bounds.intersection(Rect2(Vector2.ZERO,size))
+			var opacity:=float(candidate.fade)*.9
 			if not bounds.intersects(Rect2(Vector2.ZERO,size)):continue
 			var attachment_safe: bool=(actual_anchor.x<=-12 or actual_anchor.x>=size.x+12) if branch else actual_anchor.y>=size.y+12
 			var reason:=""
 			if not attachment_safe:reason="attachment_in_frame"
+			elif opacity<MIN_OPACITY:reason="below_readable_opacity"
+			elif clipped.get_area()<4800 or (branch and clipped.size.x<72) or (not branch and clipped.size.y<72):reason="insufficient_visible_extent"
 			elif _protect.any(func(rect:Rect2)->bool:return bounds.grow(WIND_MARGIN).intersects(rect)):reason="actual_function_or_ui_overlap"
+			elif visible_items.any(func(item:Dictionary)->bool:return bounds.grow(24).intersects(Rect2(Vector2(item.bounds[0],item.bounds[1]),Vector2(item.bounds[2],item.bounds[3])))):reason="foreground_spacing"
 			if not reason.is_empty():rejected.append({"id":candidate.id,"reason":reason});continue
 			var sprite:=_sprites[visible_items.size()]
 			sprite.texture=_textures[str(asset.id)]
 			sprite.position=position
-			sprite.modulate=Color(1,1,1,float(candidate.fade)*.82)
+			sprite.scale=Vector2.ONE*display_scale
+			sprite.modulate=Color(1,1,1,opacity)
 			var material:=sprite.material as ShaderMaterial
-			material.set_shader_parameter("attachment",attachment)
-			material.set_shader_parameter("art_size",Vector2(asset.size[0],asset.size[1]))
+			material.set_shader_parameter("attachment",source_attachment)
+			material.set_shader_parameter("art_size",source_size)
+			material.set_shader_parameter("source_to_world",display_scale)
 			material.set_shader_parameter("branch",branch)
 			material.set_shader_parameter("wind_time",_wind_time)
 			material.set_shader_parameter("wind_phase",float(_roll(str(candidate.id),0,0)%1000)*.01)
 			sprite.show()
 			if branch:branch_count+=1
 			else:grass_count+=1
-			visible_items.append({"id":candidate.id,"asset":asset.id,"bounds":[bounds.position.x,bounds.position.y,bounds.size.x,bounds.size.y],"attachment":[actual_anchor.x,actual_anchor.y],"world_anchor":[candidate.anchor_world.x,candidate.anchor_world.y],"opacity":sprite.modulate.a,"collision":false})
+			visible_items.append({"id":candidate.id,"asset":asset.id,"bounds":[bounds.position.x,bounds.position.y,bounds.size.x,bounds.size.y],"attachment":[actual_anchor.x,actual_anchor.y],"world_anchor":[candidate.anchor_world.x,candidate.anchor_world.y],"opacity":sprite.modulate.a,"display_scale":display_scale,"raw_crop":asset.raw_crop,"source":MASTER,"collision":false})
 	var rectangles: Array=[]
 	for rect: Rect2 in _protect:rectangles.append([rect.position.x,rect.position.y,rect.size.x,rect.size.y])
-	_last={"schema":"underworld-foreground-runtime-v1","layer":layer,"grid_wu":1,"seed":_seed,"camera":[center.x,center.y],"viewport":[size.x,size.y],"grass_count":grass_count,"branch_count":branch_count,"visible":visible_items,"rejected":rejected,"protection_count":_protect.size(),"protection_sources":_source_counts.duplicate(),"protection_rectangles":rectangles,"overflow_hidden":_overflow,"live_warning_hidden":_danger_active,"master_sha256":_build.master_sha256,"physics_mutation":false,"wind_time":_wind_time}
+	_last={"schema":"underworld-foreground-runtime-v1","revision":"DEPTH-FRAME-06","parallax":[PARALLAX.x,PARALLAX.y],"minimum_visible_opacity":MIN_OPACITY,"layer":layer,"grid_wu":1,"seed":_seed,"camera":[center.x,center.y],"viewport":[size.x,size.y],"grass_count":grass_count,"branch_count":branch_count,"visible":visible_items,"rejected":rejected,"protection_count":_protect.size(),"protection_sources":_source_counts.duplicate(),"protection_rectangles":rectangles,"overflow_hidden":_overflow,"live_warning_hidden":_danger_active,"master_sha256":_build.master_sha256,"physics_mutation":false,"wind_time":_wind_time}
 
 func receipt() -> Dictionary:
 	return _last.duplicate(true)

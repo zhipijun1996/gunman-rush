@@ -56,6 +56,7 @@ func _ready() -> void:
 				material.shader = preload("res://scripts/underworld_plains/underworld_parallax_edge.gdshader")
 				material.set_shader_parameter("edge_fraction", float(spec.edge_fraction))
 				material.set_shader_parameter("plane_opacity", float(spec.opacity))
+				material.set_shader_parameter("source_detail_retention", float(spec.get("source_detail_retention",0.0)))
 				material.set_shader_parameter("fog_shadow", Color(str(spec.fog_shadow)))
 				material.set_shader_parameter("fog_highlight", Color(str(spec.fog_highlight)))
 				panel.material = material
