@@ -1,0 +1,116 @@
+{
+  "task_id": "PLAYER-PRESENTATION-01",
+  "source_commit": "9db03e80707380dc1728577870f9893e1becfc6b",
+  "content_version": "session-closeout-09",
+  "scope": "Docs/skills only;no game runtime changes since631. Source identifies actual reviewed3skills/template+new session documents;historical game evidence retains its own runtime commit.",
+  "checks": [
+    {
+      "command": "python3 tools/quality.py check docs/quality/records/PLAYER-PRESENTATION-01.json",
+      "exit_code": 0,
+      "result": "Record consistent/errors[];task/content incomplete,overallREJECT retained",
+      "log": "quality-record-pre-freeze.log"
+    },
+    {
+      "command": "python3 tools/check_quality_diff.py --base origin/main",
+      "exit_code": 0,
+      "result": "PASS465files;semantic review separately required",
+      "log": "quality-diff-pre-freeze.log"
+    },
+    {
+      "command": "python3 tools/check_docs.py",
+      "exit_code": 1,
+      "result": "FAILED:pre-existing sparse historical references;not relabelled as pass",
+      "log": "docs-final.log"
+    },
+    {
+      "command": "python3 tools/check_quality.py",
+      "exit_code": 1,
+      "result": "FAILED:pre-existing sparse evidence and central planned/in_progress mismatch;central index not changed",
+      "log": "quality-index-final.log"
+    },
+    {
+      "command": "Selected5Markdown local links first check",
+      "exit_code": 1,
+      "result": "FAILED3pre-existing missing historical references;no references deleted",
+      "log": "changed-doc-link-first.json"
+    },
+    {
+      "command": "Added29local links/frontmatter and zero runtime diff since631",
+      "exit_code": 0,
+      "result": "PASS limited to newly added links/existing YAML and empty runtime diff;not whole docs or skills-host invocation",
+      "log": "local-checks.json"
+    },
+    {
+      "command": "git diff --cached --check",
+      "exit_code": 0,
+      "result": "passed before freezing9db03e8"
+    }
+  ],
+  "archive": {
+    "path": "docs/evidence/PLAYER-PRESENTATION-01/session-closeout-09/check-logs.zip",
+    "sha256": "f56d0785c08bdd4536c741144d2176a1d4e5b63cd07c5205c14d53a4450c1c7f",
+    "bytes": 28526,
+    "members": {
+      "quality-diff-final.log": {
+        "bytes": 22456,
+        "sha256": "be041acebc620da928282c94c16be5363fe09c430c21ca2e8dc2c83ad1358e27"
+      },
+      "quality-record-final.log": {
+        "bytes": 2439,
+        "sha256": "d98243d6a5072c04fd19189a5724e1768f3b59339a92902954854acb6e09db76"
+      },
+      "quality-diff-pre-freeze.log": {
+        "bytes": 106,
+        "sha256": "dadf53ba3bd503299de393cc58156e8d93ed768db40a126c65530471afdf5549"
+      },
+      "changed-doc-link-first.json": {
+        "bytes": 669,
+        "sha256": "57566175c20ec5b57dfabee8635173468888f123f1ece6f82d0f42caee6af765"
+      },
+      "docs-final.log": {
+        "bytes": 65342,
+        "sha256": "6a9730f9cde6ea993fb24a8a0ab574e6633ca4d5417a22568470fb5544576c25"
+      },
+      "quality-record-pre-freeze.log": {
+        "bytes": 2428,
+        "sha256": "7d69dbc87f6fcb5861a38ae7f31b1ae579512b00d6c2831375f32229f398e7eb"
+      },
+      "quality-record-corrected.log": {
+        "bytes": 2428,
+        "sha256": "7d69dbc87f6fcb5861a38ae7f31b1ae579512b00d6c2831375f32229f398e7eb"
+      },
+      "local-checks.json": {
+        "bytes": 5709,
+        "sha256": "a3c259cc64c192ae32a3cc0f1eadafdb919bc776773e90de69ae40efa82fc166"
+      },
+      "quality-index-final.log": {
+        "bytes": 160293,
+        "sha256": "95b19da7c551eb5d1257c3a265aa1d780a5c11d7d7d7811bb0ff5bd1aefb6926"
+      },
+      "quality-diff-corrected.log": {
+        "bytes": 106,
+        "sha256": "36ab263c3537fdeadcc1db38da73f8e1cbaafa74c019519423b30c157f5588b9"
+      }
+    },
+    "verification": "ZIP CRC/every member SHA reread matched"
+  },
+  "unverified": [
+    "No new appearance delivered/second full skin/automatic batch consistency validation",
+    "No new Godot/GUI/audio/art/user/device/fullIntegration run for docs-only closeout",
+    "Actual skill-host execution not claimed;metadata/local file inspection only"
+  ],
+  "metadata_followup": {
+    "scope": "After frozen9db docs,quality evidence metadata only;reviewed docs and runtime unchanged",
+    "initial_failure": "New command evidence omitted required environment;quality-record-final errors and quality-diff cascade retained",
+    "initial_logs": [
+      "quality-record-final.log",
+      "quality-diff-final.log"
+    ],
+    "fix": "Added actual environment to command record;no test/threshold/policy or runtime edit",
+    "corrected_logs": [
+      "quality-record-corrected.log",
+      "quality-diff-corrected.log"
+    ],
+    "result": "Record errors[] and diffPASS468files;whole content remainsREJECT/incomplete"
+  }
+}

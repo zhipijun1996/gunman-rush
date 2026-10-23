@@ -230,6 +230,7 @@
     "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/rejected-run-v2.png",
     "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/vfx-pixel-review.json",
     "docs/evidence/PLAYER-PRESENTATION-01/motion-v1/vfx-review.json",
+    "docs/evidence/PLAYER-PRESENTATION-01/session-closeout-09/check-logs.zip",
     "docs/evidence/PLAYER-PRESENTATION-01/session-closeout-09/checks.json",
     "docs/evidence/PLAYER-PRESENTATION-01/session-closeout-09/review.json",
     "docs/evidence/PLAYER-PRESENTATION-01/weapon-v1/README.md",
@@ -1253,6 +1254,60 @@
       "content_version": "mine-beep-v3",
       "method": "All17 prior IDs retained;actual Home/reentry/Plains audio consumers audited",
       "observed": "Only new taskV2 beep binding;production/fullIntegration not adopted"
+    },
+    {
+      "id": "session-summary-09",
+      "path": "docs/worklines/PLAYER-PRESENTATION-01/session-summary-09.md",
+      "sha256": "0365767025819c2de142ac2986bd992dec4875aa5547b2909d00b5098597f0cc",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "9db03e80707380dc1728577870f9893e1becfc6b",
+      "content_version": "session-closeout-09",
+      "method": "Versioned cumulative23commit/459file631 snapshot and separate runtime/source/Web identity",
+      "observed": "All modifications categorized;7sharedruntime deltas,protectedfiles/history retained;worklineM1/visual/animation and newappearance stability incomplete"
+    },
+    {
+      "id": "reuse-notes-09",
+      "path": "docs/worklines/PLAYER-PRESENTATION-01/reuse-notes-09.md",
+      "sha256": "26139eca0d9eb4632e60fedaaaa5107e816f355ff4bf310b422f062e1962dd42",
+      "kind": "spec",
+      "producer": "/root",
+      "source_commit": "9db03e80707380dc1728577870f9893e1becfc6b",
+      "content_version": "session-closeout-09",
+      "method": "Map actual failure/evidence to existing2skills and original player_design template;no new runtime framework",
+      "observed": "Explicit cosmetic versus mechanic routing,appearance deliverables/golden/anchors/audio semantics;secondfullappearance not validated"
+    },
+    {
+      "id": "closeout-checks-09",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/session-closeout-09/checks.json",
+      "sha256": "40eb6ede2808349860a29b8999b22e7c0f1fe539b4c04dd3f9dc31b150064a57",
+      "kind": "command",
+      "producer": "/root",
+      "source_commit": "9db03e80707380dc1728577870f9893e1becfc6b",
+      "content_version": "session-closeout-09",
+      "method": "Actual changed-doc link/frontmatter/runtime diff checks plus unmodified full docs/index checks;raw logs ZIPCRC/memberSHA reread",
+      "observed": "29added targets exist and runtime delta empty;full repo docs/quality-index and first selected-link checkFAILED due retained old sparse references;not game content acceptance",
+      "command": "Documented scoped closeout checks plus original tools/check_docs.py and tools/check_quality.py;see per-command exit codes in checks.json",
+      "exit_code": 1,
+      "environment": "Managed Linux cloud /workspace/player-presentation;Python3;docs-only checks,no Godot/browser/audio/device execution"
+    },
+    {
+      "id": "closeout-review-09",
+      "path": "docs/evidence/PLAYER-PRESENTATION-01/session-closeout-09/review.json",
+      "sha256": "ea23cf86cbb1786168007951e65974300e9921539e9517f52eff9e3a2c6f59ed",
+      "kind": "review",
+      "producer": "/root/audit_review",
+      "source_commit": "9db03e80707380dc1728577870f9893e1becfc6b",
+      "content_version": "session-closeout-09",
+      "method": "Independent23commits/459Gitblobs full bytes/SHA reconstruction and skill/template semantic review",
+      "observed": "Limited documentation/inventoryACCEPT;no secondskin,batchgeneration,newruntime/listening/user/device/fullIntegration accepted",
+      "reviewer": "/root/audit_review",
+      "implementers": [
+        "/root"
+      ],
+      "independent": true,
+      "independence_basis": "Separate read-only reviewer reconstructed snapshot blobs and inspected actual docs;writes only its own review artifact",
+      "verdict": "ACCEPT"
     }
   ],
   "unverified_items": [
@@ -1308,7 +1363,7 @@
     "next_action": "User listen to direct13.5sec real old/new movie;coordinator publicWeb capacity/shared adoption/fullIntegration;old grip/run/M1 remain",
     "published_branch": "feature/player-presentation-01-motion-candidate",
     "existing_workline_head": "b34511a7ee27f03b6d87d070ca20e9309e1e8a2e",
-    "handoff": "docs/worklines/PLAYER-PRESENTATION-01/mine-beep-handoff-08.md",
+    "handoff": "docs/worklines/PLAYER-PRESENTATION-01/session-summary-09.md",
     "runtime_source_commit": "4e5102af9abd16d322656375e94886a95deae38a",
     "web_build_id": "6952e7d0d356",
     "public_movie_host_commit": "b543242d28bb9c10aa375b002b081970d3929210",
@@ -1320,7 +1375,12 @@
     "session_inventory": "docs/worklines/PLAYER-PRESENTATION-01/session-inventory-09.json",
     "reuse_notes": "docs/worklines/PLAYER-PRESENTATION-01/reuse-notes-09.md",
     "skills_update_scope": "Three docs only:player-creator appearance/mechanics routing,animation-vfx anchor/audio semantics,existing player_design appearance contract;new full appearance pipeline not yet validated",
-    "session_implementation_handoff": "631f437a3404e98cdf017d6a2709ed6399533a7a"
+    "session_implementation_handoff": "631f437a3404e98cdf017d6a2709ed6399533a7a",
+    "previous_runtime_handoff": "docs/worklines/PLAYER-PRESENTATION-01/mine-beep-handoff-08.md",
+    "docs_skills_reviewed_commit": "9db03e80707380dc1728577870f9893e1becfc6b",
+    "docs_skills_review": "docs/evidence/PLAYER-PRESENTATION-01/session-closeout-09/review.json",
+    "session_runtime_delta": "empty versus631;latest gameplay/audio runtime remains4e",
+    "session_closeout_status": "documentation_scoped_accept_branch_handoff;not_player_task_done"
   },
   "production_snapshot": "4e5102af9abd16d322656375e94886a95deae38a",
   "baseline_consumer_coverage": {
